@@ -20,67 +20,28 @@
 #include "katearbitraryhighlight.moc"
 
 #include "katesupercursor.h"
+#include "katesuperrange.h"
 #include "katedocument.h"
+#include "katerangelist.h"
 
 #include <kdebug.h>
-
-#include <qfont.h>
-
-KateArbitraryHighlightRange::KateArbitraryHighlightRange(KateSuperCursor* start,
-KateSuperCursor* end, QObject* parent, const char* name)   :
-KateSuperRange(start, end, parent, name) {
-}
-
-KateArbitraryHighlightRange::KateArbitraryHighlightRange(KateDocument* doc, const KateRange& range, QObject* parent, const char* name)
-  : KateSuperRange(doc, range, parent, name)
-{
-}
-
-KateArbitraryHighlightRange::KateArbitraryHighlightRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent, const char* name)
-  : KateSuperRange(doc, start, end, parent, name)
-{
-}
-
-KateArbitraryHighlightRange::~KateArbitraryHighlightRange()
-{
-}
 
 KateArbitraryHighlight::KateArbitraryHighlight(KateDocument* parent, const char* name)
   : QObject(parent, name)
 {
 }
 
-KateAttribute KateArbitraryHighlightRange::merge(QPtrList<KateSuperRange> ranges)
-{
-  ranges.sort();
-
-  KateAttribute ret;
-
-  if (ranges.first() && ranges.current()->inherits("KateArbitraryHighlightRange"))
-    ret = *(static_cast<KateArbitraryHighlightRange*>(ranges.current()));
-
-  KateSuperRange* r;
-  while ((r = ranges.next())) {
-    if (r->inherits("KateArbitraryHighlightRange")) {
-      KateArbitraryHighlightRange* hl = static_cast<KateArbitraryHighlightRange*>(r);
-      ret += *hl;
-    }
-  }
-
-  return ret;
-}
-
-void KateArbitraryHighlight::addHighlightToDocument(KateSuperRangeList* list)
+void KateArbitraryHighlight::addHighlightToDocument(KateRangeList* list)
 {
   m_docHLs.append(list);
   connect(list, SIGNAL(rangeEliminated(KateSuperRange*)), SLOT(slotRangeEliminated(KateSuperRange*)));
   connect(list, SIGNAL(destroyed(QObject*)),SLOT(slotRangeListDeleted(QObject*)));
 }
 
-void KateArbitraryHighlight::addHighlightToView(KateSuperRangeList* list, KateView* view)
+void KateArbitraryHighlight::addHighlightToView(KateRangeList* list, KateView* view)
 {
   if (!m_viewHLs[view])
-    m_viewHLs.insert(view, new QPtrList<KateSuperRangeList>());
+    m_viewHLs.insert(view, new QList<KateRangeList*>());
 
   m_viewHLs[view]->append(list);
 
@@ -157,6 +118,22 @@ KateView* KateArbitraryHighlight::viewForRange(KateSuperRange* range)
 
   // This must belong to a document-global highlight
   return 0L;
+}
+
+QList< KateSuperRange * > KateArbitraryHighlight::startingRanges( const KTextEditor::Cursor & pos, KateView * view ) const
+{
+  QList<KateSuperRange*> ret;
+
+  foreach (KateRangeList* list, m_docHLs)
+    if (KateSuperRange* r = list->deepestRangeIncluding(pos))
+      ret.append(r);
+
+  if (view && m_viewHLs.contains(view))
+    for (QList<KateRangeList*>::ConstIterator it = m_viewHLs[view]->constBegin(); it != m_viewHLs[view]->constEnd(); ++it)
+      if (KateSuperRange* r = (*it)->deepestRangeIncluding(pos))
+        ret.append(r);
+
+  return ret;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

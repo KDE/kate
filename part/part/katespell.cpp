@@ -67,31 +67,31 @@ void KateSpell::updateActions ()
 
 void KateSpell::spellcheckFromCursor()
 {
-  spellcheck( KateTextCursor(m_view->cursorLine(), m_view->cursorColumnReal()) );
+  spellcheck( m_view->cursorPosition() );
 }
 
 void KateSpell::spellcheckSelection()
 {
-  KateTextCursor from( m_view->selStartLine(), m_view->selStartCol() );
-  KateTextCursor to( m_view->selEndLine(), m_view->selEndCol() );
+  KTextEditor::Cursor from ( m_view->selectionStart() );
+  KTextEditor::Cursor to( m_view->selectionEnd() );
   spellcheck( from, to );
 }
 
 void KateSpell::spellcheck()
 {
-  spellcheck( KateTextCursor( 0, 0 ) );
+  spellcheck( KTextEditor::Cursor( 0, 0 ) );
 }
 
-void KateSpell::spellcheck( const KateTextCursor &from, const KateTextCursor &to )
+void KateSpell::spellcheck( const KTextEditor::Cursor &from, const KTextEditor::Cursor &to )
 {
   m_spellStart = from;
   m_spellEnd = to;
 
-  if ( to.line() == 0 && to.col() == 0 )
+  if ( to.line() == 0 && to.column() == 0 )
   {
     int lln = m_view->doc()->lastLine();
     m_spellEnd.setLine( lln );
-    m_spellEnd.setCol( m_view->doc()->lineLength( lln ) );
+    m_spellEnd.setColumn( m_view->doc()->lineLength( lln ) );
   }
 
   m_spellPosCursor = from;
@@ -123,7 +123,7 @@ void KateSpell::ready(KSpell *)
 {
   m_kspell->setProgressResolution( 1 );
 
-  m_kspell->check( m_view->doc()->text( m_spellStart.line(), m_spellStart.col(), m_spellEnd.line(), m_spellEnd.col() ) );
+  m_kspell->check( m_view->doc()->text( m_spellStart.line(), m_spellStart.column(), m_spellEnd.line(), m_spellEnd.column() ) );
 
   kdDebug (13020) << "SPELLING READY STATUS: " << m_kspell->status () << endl;
 }
@@ -135,22 +135,22 @@ void KateSpell::locatePosition( uint pos, uint& line, uint& col )
   while ( m_spellLastPos < pos )
   {
     remains = pos - m_spellLastPos;
-    uint l = m_view->doc()->lineLength( m_spellPosCursor.line() ) - m_spellPosCursor.col();
+    uint l = m_view->doc()->lineLength( m_spellPosCursor.line() ) - m_spellPosCursor.column();
     if ( l > remains )
     {
-      m_spellPosCursor.setCol( m_spellPosCursor.col() + remains );
+      m_spellPosCursor.setColumn( m_spellPosCursor.column() + remains );
       m_spellLastPos = pos;
     }
     else
     {
       m_spellPosCursor.setLine( m_spellPosCursor.line() + 1 );
-      m_spellPosCursor.setCol(0);
+      m_spellPosCursor.setColumn(0);
       m_spellLastPos += l + 1;
     }
   }
 
   line = m_spellPosCursor.line();
-  col = m_spellPosCursor.col();
+  col = m_spellPosCursor.column();
 }
 
 void KateSpell::misspelling( const QString& origword, const QStringList&, unsigned int pos )
@@ -160,7 +160,7 @@ void KateSpell::misspelling( const QString& origword, const QStringList&, unsign
   locatePosition( pos, line, col );
 
   m_view->setCursorPositionInternal (line, col, 1);
-  m_view->setSelection( line, col, line, col + origword.length() );
+  m_view->setSelection( KTextEditor::Cursor (line, col), origword.length() );
 }
 
 void KateSpell::corrected( const QString& originalword, const QString& newword, unsigned int pos )

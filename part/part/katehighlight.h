@@ -24,43 +24,54 @@
 #include "katetextline.h"
 #include "kateattribute.h"
 
-#include "../interfaces/document.h"
-
 #include <kconfig.h>
+#include <kaction.h>
 
-#include <qptrlist.h>
-#include <qvaluelist.h>
-#include <qvaluevector.h>
+#include <QVector>
+#include <QList>
+#include <QHash>
+#include <QMap>
+
+#include <q3ptrlist.h>
+#include <q3valuelist.h>
+#include <q3valuevector.h>
 #include <qregexp.h>
-#include <qdict.h>
-#include <qintdict.h>
-#include <qmap.h>
+#include <q3dict.h>
+#include <q3intdict.h>
 #include <qobject.h>
 #include <qstringlist.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
 #include <qdatetime.h>
 
 class KateHlContext;
 class KateHlItem;
 class KateHlItemData;
 class KateHlData;
-class KateEmbeddedHlInfo;
 class KateHlIncludeRule;
 class KateSyntaxDocument;
 class KateTextLine;
 class KateSyntaxModeListItem;
 class KateSyntaxContextData;
 
-class QPopupMenu;
+class Q3PopupMenu;
+
+class KateEmbeddedHlInfo
+{
+  public:
+    KateEmbeddedHlInfo() {loaded=false;context0=-1;}
+    KateEmbeddedHlInfo(bool l, int ctx0) {loaded=l;context0=ctx0;}
+
+  public:
+    bool loaded;
+    int context0;
+};
 
 // some typedefs
-typedef QPtrList<KateAttribute> KateAttributeList;
-typedef QValueList<KateHlIncludeRule*> KateHlIncludeRules;
-typedef QPtrList<KateHlItemData> KateHlItemDataList;
-typedef QPtrList<KateHlData> KateHlDataList;
+typedef Q3PtrList<KateAttribute> KateAttributeList;
+typedef Q3ValueList<KateHlIncludeRule*> KateHlIncludeRules;
+typedef Q3PtrList<KateHlItemData> KateHlItemDataList;
 typedef QMap<QString,KateEmbeddedHlInfo> KateEmbeddedHlInfos;
 typedef QMap<int*,QString> KateHlUnresolvedCtxRefs;
-typedef QValueList<int> IntList;
 
 //Item Properties: name, Item Style, Item Font
 class KateHlItemData : public KateAttribute
@@ -106,15 +117,24 @@ class KateHighlighting
   public:
     KateHighlighting(const KateSyntaxModeListItem *def);
     ~KateHighlighting();
+    
+  private:
+    /**
+     * this method frees mem ;)
+     * used by the destructor and done(), therefor
+     * not only delete elements but also reset the array
+     * sizes, as we will reuse this object later and refill ;)
+     */
+    void cleanup ();
 
   public:
     void doHighlight ( KateTextLine *prevLine,
                        KateTextLine *textLine,
-                       QMemArray<uint> *foldingList,
+                       QVector<int> *foldingList,
                        bool *ctxChanged );
 
     void loadWildcards();
-    QValueList<QRegExp>& getRegexpExtensions();
+    QList<QRegExp>& getRegexpExtensions();
     QStringList& getPlainExtensions();
 
     QString getMimetypes();
@@ -203,7 +223,7 @@ class KateHighlighting
 
     void clearAttributeArrays ();
 
-    QMemArray<KateAttribute> *attributes (uint schema);
+    QVector<KateAttribute> *attributes (uint schema);
 
     inline bool noHighlighting () const { return noHl; };
 
@@ -232,7 +252,7 @@ class KateHighlighting
     void readFoldingConfig ();
 
     // manipulates the ctxs array directly ;)
-    void generateContextStack(int *ctxNum, int ctx, QMemArray<short> *ctxs, int *posPrevLine);
+    void generateContextStack(int *ctxNum, int ctx, QVector<short> *ctxs, int *posPrevLine);
 
     KateHlItem *createKateHlItem(KateSyntaxContextData *data, KateHlItemDataList &iDl, QStringList *RegionList, QStringList *ContextList);
     int lookupAttrName(const QString& name, KateHlItemDataList &iDl);
@@ -247,8 +267,8 @@ class KateHighlighting
 
     KateHlItemDataList internalIDList;
 
-    QValueVector<KateHlContext*> m_contexts;
-    inline KateHlContext *contextNum (uint n) { if (n < m_contexts.size()) return m_contexts[n]; return 0; }
+    QVector<KateHlContext*> m_contexts;
+    inline KateHlContext *contextNum (int n) { if (n >= 0 && n < m_contexts.size()) return m_contexts[n]; return 0; }
 
     QMap< QPair<KateHlContext *, QString>, short> dynamicCtxs;
 
@@ -288,7 +308,7 @@ class KateHighlighting
     KateHlIncludeRules includeRules;
     bool m_foldingIndentationSensitive;
 
-    QIntDict< QMemArray<KateAttribute> > m_attributeArrays;
+    QHash< int, QVector<KateAttribute> * > m_attributeArrays;
 
 
     /**
@@ -318,7 +338,7 @@ class KateHighlighting
      * Highlight properties for each included highlight definition.
      * The key is the identifier
      */
-    QDict<HighlightPropertyBag> m_additionalData;
+    Q3Dict<HighlightPropertyBag> m_additionalData;
 
     /**
      * Fast lookup of hl properties, based on attribute index
@@ -327,9 +347,8 @@ class KateHighlighting
      */
     QMap<int, QString> m_hlIndex;
 
-
     QString extensionSource;
-    QValueList<QRegExp> regexpExtensions;
+    QList<QRegExp> regexpExtensions;
     QStringList plainExtensions;
 
   public:
@@ -341,10 +360,8 @@ class KateHlManager : public QObject
 {
   Q_OBJECT
 
-  private:
-    KateHlManager();
-
   public:
+    KateHlManager();
     ~KateHlManager();
 
     static KateHlManager *self();
@@ -390,10 +407,8 @@ class KateHlManager : public QObject
   private:
     friend class KateHighlighting;
 
-    QPtrList<KateHighlighting> hlList;
-    QDict<KateHighlighting> hlDict;
-
-    static KateHlManager *s_self;
+    Q3PtrList<KateHighlighting> hlList;
+    Q3Dict<KateHighlighting> hlDict;
 
     KConfig m_config;
     QStringList commonSuffixes;
@@ -405,25 +420,25 @@ class KateHlManager : public QObject
     bool forceNoDCReset;
 };
 
-class KateViewHighlightAction: public Kate::ActionMenu
+class KateViewHighlightAction: public KActionMenu
 {
   Q_OBJECT
 
   public:
     KateViewHighlightAction(const QString& text, QObject* parent = 0, const char* name = 0)
-       : Kate::ActionMenu(text, parent, name) { init(); };
+       : KActionMenu(text, parent, name) { init(); };
 
     ~KateViewHighlightAction(){;};
 
-    void updateMenu (Kate::Document *doc);
+    void updateMenu (KateDocument *doc);
 
   private:
     void init();
 
-    QGuardedPtr<Kate::Document> m_doc;
+    QPointer<KateDocument> m_doc;
     QStringList subMenusName;
     QStringList names;
-    QPtrList<QPopupMenu> subMenus;
+    Q3PtrList<Q3PopupMenu> subMenus;
 
   public  slots:
     void slotAboutToShow();

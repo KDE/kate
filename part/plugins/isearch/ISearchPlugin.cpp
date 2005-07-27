@@ -19,13 +19,14 @@
 #include <qlabel.h>
 #include <qregexp.h>
 #include <qstyle.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <kgenericfactory.h>
 #include <klocale.h>
 #include <kaction.h>
 #include <kcombobox.h>
 #include <kconfig.h>
 #include <kdebug.h>
+#include <QFocusEvent>
 
 #include "ISearchPlugin.h"
 #include "ISearchPlugin.moc"
@@ -37,8 +38,6 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	, m_view( 0L )
 	, m_doc( 0L )
 	, m_searchIF( 0L )
-	, m_cursorIF( 0L )
-	, m_selectIF( 0L )
 //	, m_toolBarAction( 0L )
 	, m_searchForwardAction( 0L )
 	, m_searchBackwardAction( 0L )
@@ -65,11 +64,11 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	setInstance( KGenericFactory<ISearchPlugin>::instance() );
 
 	m_searchForwardAction = new KAction(
-		i18n("Search Incrementally"), CTRL+ALT+Key_F,
+		i18n("Search Incrementally"), Qt::CTRL+Qt::ALT+Qt::Key_F,
 		this, SLOT(slotSearchForwardAction()),
 		actionCollection(), "edit_isearch" );
 	m_searchBackwardAction = new KAction(
-		i18n("Search Incrementally Backwards"), CTRL+ALT+SHIFT+Key_F,
+		i18n("Search Incrementally Backwards"), Qt::CTRL+Qt::ALT+Qt::SHIFT+Qt::Key_F,
 		this, SLOT(slotSearchBackwardAction()),
 		actionCollection(), "edit_isearch_reverse" );
 
@@ -88,8 +87,8 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	         this, SLOT(slotTextChanged(const QString&)) );
 	connect( m_combo, SIGNAL(returnPressed(const QString&)),
 	         this, SLOT(slotReturnPressed(const QString&)) );
-	connect( m_combo, SIGNAL(aboutToShowContextMenu(QPopupMenu*)),
-		 this, SLOT(slotAddContextMenuItems(QPopupMenu*)) );
+	connect( m_combo, SIGNAL(aboutToShowContextMenu(Q3PopupMenu*)),
+		 this, SLOT(slotAddContextMenuItems(Q3PopupMenu*)) );
 	m_comboAction = new KWidgetAction(
 		m_combo,
 		i18n("Search"), 0, 0, 0,
@@ -154,15 +153,11 @@ void ISearchPluginView::setView( KTextEditor::View* view )
 {
 	m_view = view;
 	m_doc  = m_view->document();
-	m_searchIF = KTextEditor::searchInterface ( m_doc );
-	m_cursorIF = KTextEditor::viewCursorInterface ( m_view );
-	m_selectIF = KTextEditor::selectionInterface ( m_doc );
-	if( !m_doc || !m_cursorIF || !m_selectIF ) {
+	m_searchIF = qobject_cast<KTextEditor::SearchInterface *>( m_doc );
+	if( !m_doc ) {
 		m_view = 0L;
 		m_doc = 0L;
 		m_searchIF = 0L;
-		m_cursorIF = 0L;
-		m_selectIF = 0L;
 	}
 
 	readConfig();
@@ -209,16 +204,16 @@ bool ISearchPluginView::eventFilter( QObject* o, QEvent* e )
 
 	if( e->type() == QEvent::FocusIn ) {
 		QFocusEvent* focusEvent = (QFocusEvent*)e;
-		if( focusEvent->reason() == QFocusEvent::ActiveWindow ||
-		    focusEvent->reason() == QFocusEvent::Popup )
+		if( focusEvent->reason() == Qt::ActiveWindowFocusReason ||
+		    focusEvent->reason() == Qt::PopupFocusReason )
 			return false;
 		startSearch();
 	}
 
 	if( e->type() == QEvent::FocusOut ) {
 		QFocusEvent* focusEvent = (QFocusEvent*)e;
-		if( focusEvent->reason() == QFocusEvent::ActiveWindow ||
-		    focusEvent->reason() == QFocusEvent::Popup )
+		if( focusEvent->reason() == Qt::ActiveWindowFocusReason ||
+		    focusEvent->reason() == Qt::PopupFocusReason )
 			return false;
 		endSearch();
 	}
@@ -323,7 +318,7 @@ void ISearchPluginView::nextMatch( bool reverse )
 		}
 		state = MatchSearch;
 	}
-        
+
 	bool found = iSearch( m_searchLine, m_searchCol, text, reverse, m_autoWrap );
 	if( found ) {
 		m_searchLine = m_foundLine;
@@ -346,7 +341,8 @@ void ISearchPluginView::startSearch()
 	if( m_fromBeginning ) {
 		m_startLine = m_startCol = 0;
 	} else {
-		m_cursorIF->cursorPositionReal( &m_startLine, &m_startCol );
+		m_startLine = m_view->cursorPosition().line();
+		m_startCol = m_view->cursorPosition().column();
 	}
 	m_searchLine = m_startLine;
 	m_searchCol = m_startCol;
@@ -355,7 +351,7 @@ void ISearchPluginView::startSearch()
 
 	m_combo->blockSignals( true );
 
-	QString text = m_selectIF->selection();
+	QString text = m_view->selectionText();
 	if( text.isEmpty() )
 		text = m_lastString;
 	m_combo->setCurrentText( text );
@@ -410,7 +406,7 @@ void ISearchPluginView::slotReturnPressed( const QString& text )
 	quitToView( text );
 }
 
-void ISearchPluginView::slotAddContextMenuItems( QPopupMenu *menu )
+void ISearchPluginView::slotAddContextMenuItems( Q3PopupMenu *menu )
 {
 	if( menu ) {
 		menu->insertSeparator();
@@ -426,7 +422,7 @@ void ISearchPluginView::slotAddContextMenuItems( QPopupMenu *menu )
 }
 
 bool ISearchPluginView::iSearch(
-	uint startLine, uint startCol,
+	int startLine, int startCol,
 	const QString& text, bool reverse,
 	bool autoWrap )
 {
@@ -455,8 +451,8 @@ bool ISearchPluginView::iSearch(
 	if( found ) {
 //		kdDebug() << "Found '" << text << "' at " << m_foundLine << ", " << m_foundCol << endl;
 //		v->gotoLineNumber( m_foundLine );
-		m_cursorIF->setCursorPositionReal( m_foundLine, m_foundCol + m_matchLen );
-		m_selectIF->setSelection( m_foundLine, m_foundCol, m_foundLine, m_foundCol + m_matchLen );
+		m_view->setCursorPosition( KTextEditor::Cursor (m_foundLine, m_foundCol + m_matchLen) );
+		m_view->setSelection( KTextEditor::Cursor (m_foundLine, m_foundCol), KTextEditor::Cursor (m_foundLine, m_foundCol + m_matchLen) );
 	} else if ( autoWrap ) {
 		m_wrapped = true;
 		found = iSearch( 0, 0, text, reverse, false );
@@ -471,7 +467,7 @@ bool ISearchPluginView::iSearch(
 }
 
 ISearchPlugin::ISearchPlugin( QObject *parent, const char* name, const QStringList& )
-	: KTextEditor::Plugin ( (KTextEditor::Document*) parent, name )
+	: KTextEditor::Plugin ( parent )
 {
 }
 

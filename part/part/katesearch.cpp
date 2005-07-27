@@ -26,12 +26,11 @@
 
 #include "kateview.h"
 #include "katedocument.h"
-#include "katesupercursor.h"
-#include "katearbitraryhighlight.h"
 #include "kateconfig.h"
 
 #include <klocale.h>
 #include <kstdaction.h>
+#include <kaction.h>
 #include <kmessagebox.h>
 #include <kstringhandler.h>
 #include <kdebug.h>
@@ -45,7 +44,6 @@
 QStringList KateSearch::s_searchList  = QStringList();
 QStringList KateSearch::s_replaceList = QStringList();
 QString KateSearch::s_pattern = QString();
-static const bool arbitraryHLExample = false;
 
 KateSearch::KateSearch( KateView* view )
   : QObject( view, "kate search" )
@@ -53,15 +51,11 @@ KateSearch::KateSearch( KateView* view )
   , m_doc( view->doc() )
   , replacePrompt( new KateReplacePrompt( view ) )
 {
-  m_arbitraryHLList = new KateSuperRangeList();
-  if (arbitraryHLExample) m_doc->arbitraryHL()->addHighlightToView(m_arbitraryHLList, m_view);
-
   connect(replacePrompt,SIGNAL(clicked()),this,SLOT(replaceSlot()));
 }
 
 KateSearch::~KateSearch()
 {
-  delete m_arbitraryHLList;
 }
 
 void KateSearch::createActions( KActionCollection* ac )
@@ -78,13 +72,11 @@ void KateSearch::createActions( KActionCollection* ac )
 
 void KateSearch::addToList( QStringList& list, const QString& s )
 {
-  if( list.count() > 0 ) {
-    QStringList::Iterator it = list.find( s );
-    if( *it != 0L )
-      list.remove( it );
-    if( list.count() >= 16 )
-      list.remove( list.fromLast() );
-  }
+  list.removeAll (s);
+
+  if( list.count() >= 16 )
+    list.removeLast();
+
   list.prepend( s );
 }
 
@@ -92,11 +84,11 @@ void KateSearch::find()
 {
   // if multiline selection around, search in it
   long searchf = KateViewConfig::global()->searchFlags();
-  if (m_view->hasSelection() && m_view->selStartLine() != m_view->selEndLine())
+  if (m_view->selection() && m_view->selectionStart().line() != m_view->selectionEnd().line())
     searchf |= KFindDialog::SelectedText;
 
   KFindDialog *findDialog = new KFindDialog (  m_view, "", searchf,
-                                               s_searchList, m_view->hasSelection() );
+                                               s_searchList, m_view->selection() );
 
   findDialog->setPattern (getSearchText());
 
@@ -135,8 +127,8 @@ void KateSearch::find( const QString &pattern, long flags, bool add, bool showno
 
   if ( searchFlags.selected )
   {
-    s.selBegin = KateTextCursor( m_view->selStartLine(), m_view->selStartCol() );
-    s.selEnd   = KateTextCursor( m_view->selEndLine(),   m_view->selEndCol()   );
+    s.selBegin = m_view->selectionStart();
+    s.selEnd   = m_view->selectionEnd ();
     s.cursor   = s.flags.backward ? s.selEnd : s.selBegin;
   } else {
     s.cursor = getCursor();
@@ -155,11 +147,11 @@ void KateSearch::replace()
 
   // if multiline selection around, search in it
   long searchf = KateViewConfig::global()->searchFlags();
-  if (m_view->hasSelection() && m_view->selStartLine() != m_view->selEndLine())
+  if (m_view->selection() && m_view->selectionStart().line() != m_view->selectionEnd().line())
     searchf |= KFindDialog::SelectedText;
 
   KReplaceDialog *replaceDialog = new KReplaceDialog (  m_view, "", searchf,
-                                               s_searchList, s_replaceList, m_view->hasSelection() );
+                                               s_searchList, s_replaceList, m_view->selection() );
 
   replaceDialog->setPattern (getSearchText());
 
@@ -201,8 +193,8 @@ void KateSearch::replace( const QString& pattern, const QString &replacement, lo
   searchFlags.useBackRefs = KateViewConfig::global()->searchFlags() & KReplaceDialog::BackReference;
   if ( searchFlags.selected )
   {
-    s.selBegin = KateTextCursor( m_view->selStartLine(), m_view->selStartCol() );
-    s.selEnd   = KateTextCursor( m_view->selEndLine(), m_view->selEndCol()   );
+    s.selBegin = m_view->selectionStart ();
+    s.selEnd   = m_view->selectionEnd ();
     s.cursor   = s.flags.backward ? s.selEnd : s.selBegin;
   } else {
     s.cursor = getCursor();
@@ -243,19 +235,19 @@ void KateSearch::search( SearchFlags flags )
 
   if( s.flags.fromBeginning ) {
     if( !s.flags.backward ) {
-      s.cursor.setPos(0, 0);
+      s.cursor.setPosition(0, 0);
     } else {
-      s.cursor.setLine(doc()->numLines() - 1);
-      s.cursor.setCol(doc()->lineLength( s.cursor.line() ));
+      s.cursor.setLine(doc()->lines() - 1);
+      s.cursor.setColumn(doc()->lineLength( s.cursor.line() ));
     }
   }
 
   if((!s.flags.backward &&
-       s.cursor.col() == 0 &&
+       s.cursor.column() == 0 &&
        s.cursor.line() == 0 ) ||
      ( s.flags.backward &&
-       s.cursor.col() == doc()->lineLength( s.cursor.line() ) &&
-       s.cursor.line() == (((int)doc()->numLines()) - 1) ) ) {
+       s.cursor.column() == doc()->lineLength( s.cursor.line() ) &&
+       s.cursor.line() == (((int)doc()->lines()) - 1) ) ) {
     s.flags.finished = true;
   }
 
@@ -279,10 +271,10 @@ void KateSearch::wrapSearch()
   else
   {
     if( !s.flags.backward ) {
-      s.cursor.setPos(0, 0);
+      s.cursor.setPosition(0, 0);
     } else {
-      s.cursor.setLine(doc()->numLines() - 1);
-      s.cursor.setCol(doc()->lineLength( s.cursor.line() ) );
+      s.cursor.setLine(doc()->lines() - 1);
+      s.cursor.setColumn(doc()->lineLength( s.cursor.line() ) );
     }
   }
 
@@ -307,11 +299,8 @@ void KateSearch::findAgain()
     if( askContinue() ) {
       wrapSearch();
       findAgain();
-    } else {
-      if (arbitraryHLExample) m_arbitraryHLList->clear();
     }
   } else {
-    if (arbitraryHLExample) m_arbitraryHLList->clear();
     if ( s.showNotFound )
       KMessageBox::sorry( view(),
         i18n("Search string '%1' not found!")
@@ -351,7 +340,6 @@ void KateSearch::promptReplace()
     wrapSearch();
     promptReplace();
   } else {
-    if (arbitraryHLExample) m_arbitraryHLList->clear();
     replacePrompt->hide();
     KMessageBox::information( view(),
         i18n("%n replacement made.","%n replacements made.",replaces),
@@ -384,21 +372,21 @@ void KateSearch::replaceOne()
   }
 
   doc()->editStart();
-  doc()->removeText( s.cursor.line(), s.cursor.col(),
-      s.cursor.line(), s.cursor.col() + s.matchedLength );
-  doc()->insertText( s.cursor.line(), s.cursor.col(), replaceWith );
+
+  doc()->removeText( s.cursor, KTextEditor::Cursor (s.cursor.line(), s.cursor.column() + s.matchedLength) );
+  doc()->insertText( s.cursor, replaceWith );
   doc()->editEnd(),
 
   replaces++;
 
   // if we inserted newlines, we better adjust.
-  uint newlines = replaceWith.contains('\n');
-  if ( newlines )
+  int newlines = replaceWith.count(QChar::fromLatin1('\n'));
+  if ( newlines > 0 )
   {
     if ( ! s.flags.backward )
     {
       s.cursor.setLine( s.cursor.line() + newlines );
-      s.cursor.setCol( replaceWith.length() - replaceWith.findRev('\n') );
+      s.cursor.setColumn( replaceWith.length() - replaceWith.findRev('\n') );
     }
     // selection?
     if ( s.flags.selected )
@@ -409,23 +397,23 @@ void KateSearch::replaceOne()
   // adjust selection endcursor if needed
   if( s.flags.selected && s.cursor.line() == s.selEnd.line() )
   {
-    s.selEnd.setCol(s.selEnd.col() + replaceWith.length() - s.matchedLength );
+    s.selEnd.setColumn(s.selEnd.column() + replaceWith.length() - s.matchedLength );
   }
 
   // adjust wrap cursor if needed
-  if( s.cursor.line() == s.wrappedEnd.line() && s.cursor.col() <= s.wrappedEnd.col())
+  if( s.cursor.line() == s.wrappedEnd.line() && s.cursor.column() <= s.wrappedEnd.column())
   {
-    s.wrappedEnd.setCol(s.wrappedEnd.col() + replaceWith.length() - s.matchedLength );
+    s.wrappedEnd.setColumn(s.wrappedEnd.column() + replaceWith.length() - s.matchedLength );
   }
 
   if( !s.flags.backward ) {
-    s.cursor.setCol(s.cursor.col() + replaceWith.length());
-  } else if( s.cursor.col() > 0 ) {
-    s.cursor.setCol(s.cursor.col() - 1);
+    s.cursor.setColumn(s.cursor.column() + replaceWith.length());
+  } else if( s.cursor.column() > 0 ) {
+    s.cursor.setColumn(s.cursor.column() - 1);
   } else {
     s.cursor.setLine(s.cursor.line() - 1);
     if( s.cursor.line() >= 0 ) {
-      s.cursor.setCol(doc()->lineLength( s.cursor.line() ));
+      s.cursor.setColumn(doc()->lineLength( s.cursor.line() ));
     }
   }
 }
@@ -433,13 +421,13 @@ void KateSearch::replaceOne()
 void KateSearch::skipOne()
 {
   if( !s.flags.backward ) {
-    s.cursor.setCol(s.cursor.col() + s.matchedLength);
-  } else if( s.cursor.col() > 0 ) {
-    s.cursor.setCol(s.cursor.col() - 1);
+    s.cursor.setColumn(s.cursor.column() + s.matchedLength);
+  } else if( s.cursor.column() > 0 ) {
+    s.cursor.setColumn(s.cursor.column() - 1);
   } else {
     s.cursor.setLine(s.cursor.line() - 1);
     if( s.cursor.line() >= 0 ) {
-      s.cursor.setCol(doc()->lineLength(s.cursor.line()));
+      s.cursor.setColumn(doc()->lineLength(s.cursor.line()));
     }
   }
 }
@@ -498,14 +486,14 @@ QString KateSearch::getSearchText()
   {
   case KateViewConfig::SelectionOnly: // (Windows)
     //kdDebug() << "getSearchText(): SelectionOnly" << endl;
-    if( m_view->hasSelection() )
-      str = m_view->selection();
+    if( m_view->selection() )
+      str = m_view->selectionText();
     break;
 
   case KateViewConfig::SelectionWord: // (classic Kate behavior)
     //kdDebug() << "getSearchText(): SelectionWord" << endl;
-    if( m_view->hasSelection() )
-      str = m_view->selection();
+    if( m_view->selection() )
+      str = m_view->selectionText();
     else
       str = view()->currentWord();
     break;
@@ -518,8 +506,8 @@ QString KateSearch::getSearchText()
   case KateViewConfig::WordSelection: // (persistent selection lover)
     //kdDebug() << "getSearchText(): WordSelection" << endl;
     str = view()->currentWord();
-    if (str.isEmpty() && m_view->hasSelection() )
-      str = m_view->selection();
+    if (str.isEmpty() && m_view->selection() )
+      str = m_view->selectionText();
     break;
 
   default: // (nowhere)
@@ -533,44 +521,22 @@ QString KateSearch::getSearchText()
   return str;
 }
 
-KateTextCursor KateSearch::getCursor()
+KTextEditor::Cursor KateSearch::getCursor()
 {
-  return KateTextCursor(view()->cursorLine(), view()->cursorColumnReal());
+  return view()->cursorPosition();
 }
 
 bool KateSearch::doSearch( const QString& text )
 {
-/*
-  rodda: Still Working on this... :)
-
-  bool result = false;
-
-  if (m_searchResults.count()) {
-    m_resultIndex++;
-    if (m_resultIndex < (int)m_searchResults.count()) {
-      s = m_searchResults[m_resultIndex];
-      result = true;
-    }
-
-  } else {
-    int temp = 0;
-    do {*/
-
-#if 0
-  static int oldLine = -1;
-  static int oldCol = -1;
-#endif
-
-  uint line = s.cursor.line();
-  uint col = s.cursor.col();// + (result ? s.matchedLength : 0);
+  int line = s.cursor.line();
+  int col = s.cursor.column();// + (result ? s.matchedLength : 0);
   bool backward = s.flags.backward;
   bool caseSensitive = s.flags.caseSensitive;
   bool regExp = s.flags.regExp;
   bool wholeWords = s.flags.wholeWords;
-  uint foundLine, foundCol, matchLen;
+  int foundLine, foundCol, matchLen;
   bool found = false;
   //kdDebug() << "Searching at " << line << ", " << col << endl;
-//   kdDebug()<<"KateSearch::doSearch: "<<line<<", "<<col<<", "<<backward<<endl;
 
   do {
       if( regExp ) {
@@ -591,12 +557,12 @@ bool KateSearch::doSearch( const QString& text )
 
     if ( found && s.flags.selected )
     {
-      if ( !s.flags.backward && KateTextCursor( foundLine, foundCol ) >= s.selEnd
-        ||  s.flags.backward && KateTextCursor( foundLine, foundCol ) < s.selBegin )
+      if ( !s.flags.backward && KTextEditor::Cursor( foundLine, foundCol ) >= s.selEnd
+        ||  s.flags.backward && KTextEditor::Cursor( foundLine, foundCol ) < s.selBegin )
         found = false;
-      else if (m_view->blockSelectionMode())
+      else if (m_view->blockSelection())
       {
-        if ((int)foundCol < s.selEnd.col() && (int)foundCol >= s.selBegin.col())
+        if ((int)foundCol < s.selEnd.column() && (int)foundCol >= s.selBegin.column())
           break;
       }
     }
@@ -604,12 +570,12 @@ bool KateSearch::doSearch( const QString& text )
     line = foundLine;
     col = foundCol+1;
   }
-  while (m_view->blockSelectionMode() && found);
+  while (m_view->blockSelection() && found);
 
   if( !found ) return false;
 
   // save the search result
-  s.cursor.setPos(foundLine, foundCol);
+  s.cursor.setPosition(foundLine, foundCol);
   s.matchedLength = matchLen;
 
   // we allready wrapped around one time
@@ -618,51 +584,26 @@ bool KateSearch::doSearch( const QString& text )
     if (s.flags.backward)
     {
       if ( (s.cursor.line() < s.wrappedEnd.line())
-           || ( (s.cursor.line() == s.wrappedEnd.line()) && ((s.cursor.col()+matchLen) <= uint(s.wrappedEnd.col())) ) )
+           || ( (s.cursor.line() == s.wrappedEnd.line()) && ((s.cursor.column()+matchLen) <= s.wrappedEnd.column()) ) )
         return false;
     }
     else
     {
       if ( (s.cursor.line() > s.wrappedEnd.line())
-           || ( (s.cursor.line() == s.wrappedEnd.line()) && (s.cursor.col() > s.wrappedEnd.col()) ) )
+           || ( (s.cursor.line() == s.wrappedEnd.line()) && (s.cursor.column() > s.wrappedEnd.column()) ) )
         return false;
     }
   }
 
-//   kdDebug() << "Found at " << s.cursor.line() << ", " << s.cursor.col() << endl;
-
-
-  //m_searchResults.append(s);
-
-  if (arbitraryHLExample)  {
-    KateArbitraryHighlightRange* hl = new KateArbitraryHighlightRange(new KateSuperCursor(m_doc, true, s.cursor), new KateSuperCursor(m_doc, true, s.cursor.line(), s.cursor.col() + s.matchedLength), this);
-    hl->setBold();
-    hl->setTextColor(Qt::white);
-    hl->setBGColor(Qt::black);
-    // destroy the highlight upon change
-    connect(hl, SIGNAL(contentsChanged()), hl, SIGNAL(eliminated()));
-    m_arbitraryHLList->append(hl);
-  }
+//   kdDebug() << "Found at " << s.cursor.line() << ", " << s.cursor.column() << endl;
 
   return true;
-
-    /* rodda: more of my search highlighting work
-
-    } while (++temp < 100);
-
-    if (result) {
-      s = m_searchResults.first();
-      m_resultIndex = 0;
-    }
-  }
-
-  return result;*/
 }
 
-void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
+void KateSearch::exposeFound( KTextEditor::Cursor &cursor, int slen )
 {
-  view()->setCursorPositionInternal ( cursor.line(), cursor.col() + slen, 1 );
-  view()->setSelection( cursor.line(), cursor.col(), cursor.line(), cursor.col() + slen );
+  view()->setCursorPositionInternal ( cursor.line(), cursor.column() + slen, 1 );
+  view()->setSelection( cursor, slen );
 }
 //END KateSearch
 
@@ -716,7 +657,7 @@ void KateReplacePrompt::done (int result)
 //END KateReplacePrompt
 
 //BEGIN SearchCommand
-bool SearchCommand::exec(class Kate::View *view, const QString &cmd, QString &msg)
+bool SearchCommand::exec(class KTextEditor::View *view, const QString &cmd, QString &msg)
 {
   QString flags, pattern, replacement;
   if ( cmd.startsWith( "find" ) )
@@ -822,7 +763,7 @@ while ( (p = pattern.find( '\\' + delim, p )) > -1 )\
   return false;
 }
 
-bool SearchCommand::help(class Kate::View *, const QString &cmd, QString &msg)
+bool SearchCommand::help(class KTextEditor::View *, const QString &cmd, QString &msg)
 {
   if ( cmd == "find" )
     msg = i18n("<p>Usage: <code>find[:bcersw] PATTERN</code></p>");
@@ -861,10 +802,13 @@ bool SearchCommand::help(class Kate::View *, const QString &cmd, QString &msg)
   return true;
 }
 
-QStringList SearchCommand::cmds()
+const QStringList &SearchCommand::cmds()
 {
-  QStringList l;
-  l << "find" << "replace" << "ifind";
+  static QStringList l;
+
+  if (l.isEmpty())
+    l << "find" << "replace" << "ifind";
+
   return l;
 }
 
@@ -873,7 +817,7 @@ bool SearchCommand::wantsToProcessText( const QString &cmdname )
   return  cmdname == "ifind";
 }
 
-void SearchCommand::processText( Kate::View *view, const QString &cmd )
+void SearchCommand::processText( KTextEditor::View *view, const QString &cmd )
 {
   static QRegExp re_ifind("ifind(?::([bcrs]*))?\\s(.*)");
   if ( re_ifind.search( cmd ) > -1 )
@@ -898,9 +842,9 @@ void SearchCommand::processText( Kate::View *view, const QString &cmd )
       // at the beginning of the selection, so that the search continues.
       // ### check more carefully, like is  the cursor currently at the end
       // of the selection.
-      if ( pattern.startsWith( v->selection() ) &&
-           v->selection().length() + 1 == pattern.length() )
-        v->setCursorPositionInternal( v->selStartLine(), v->selStartCol() );
+      if ( pattern.startsWith( v->selectionText() ) &&
+           v->selectionText().length() + 1 == pattern.length() )
+        v->setCursorPositionInternal( v->selectionStart().line(), v->selectionStart().column() );
 
       v->find( pattern, m_ifindFlags, false );
     }

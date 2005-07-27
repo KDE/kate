@@ -24,7 +24,7 @@
 #include <ktexteditor/plugin.h>
 #include <qstringlist.h>
 #include <kxmlguiclient.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
 
 class KActionMenu;
 class KDataToolInfo;
@@ -34,7 +34,7 @@ namespace KTextEditor
 
 class View;
 
-class KDataToolPlugin : public KTextEditor::Plugin, public KTextEditor::PluginViewInterface
+class KDataToolPlugin : public KTextEditor::Plugin
 {
 	Q_OBJECT
 
@@ -45,7 +45,7 @@ public:
 	void removeView (KTextEditor::View *view);
 
   private:
-	QPtrList<class KDataToolPluginView> m_views;
+	Q3PtrList<class KDataToolPluginView> m_views;
 };
 
 
@@ -62,8 +62,8 @@ private:
 	bool m_singleWord;
 	int m_singleWord_line, m_singleWord_start, m_singleWord_end;
 	QString m_wordUnderCursor;
-	QPtrList<KAction> m_actionList;
-	QGuardedPtr<KActionMenu> m_menu;
+	Q3PtrList<KAction> m_actionList;
+	QPointer<KActionMenu> m_menu;
 	KAction *m_notAvailable;
 protected slots:
 	void aboutToShow();

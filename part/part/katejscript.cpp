@@ -21,7 +21,7 @@
 
 #include "katedocument.h"
 #include "kateview.h"
-#include "katefactory.h"
+#include "kateglobal.h"
 #include "kateconfig.h"
 #include "kateautoindent.h"
 #include "katehighlight.h"
@@ -45,7 +45,7 @@
 
 #include <qfile.h>
 #include <qfileinfo.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qregexp.h>
 #include <qtextstream.h>
 
@@ -318,7 +318,7 @@ bool KateJScript::execute (KateView *view, const QString &script, QString &error
 #
   textFull       KateJSDocument::FullText      DontDelete|Function 0
   textRange      KateJSDocument::Text          DontDelete|Function 4
-  textLine       KateJSDocument::TextLine      DontDelete|Function 1
+  line           KateJSDocument::TextLine      DontDelete|Function 1
   lines          KateJSDocument::Lines         DontDelete|Function 0
   length         KateJSDocument::Length        DontDelete|Function 0
   lineLength     KateJSDocument::LineLength    DontDelete|Function 1
@@ -378,10 +378,10 @@ Value KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, 
       return KJS::String (doc->text(args[0].toUInt32(exec), args[1].toUInt32(exec), args[2].toUInt32(exec), args[3].toUInt32(exec)));
 
     case KateJSDocument::TextLine:
-      return KJS::String (doc->textLine (args[0].toUInt32(exec)));
+      return KJS::String (doc->line (args[0].toUInt32(exec)));
 
     case KateJSDocument::Lines:
-      return KJS::Number (doc->numLines());
+      return KJS::Number (doc->lines());
 
     case KateJSDocument::Length:
       return KJS::Number (doc->length());
@@ -498,7 +498,6 @@ KateJSDocument::KateJSDocument (KJS::ExecState *exec, KateDocument *_doc)
   cursorColumn        KateJSView::CursorColumn          DontDelete|Function 0
   cursorColumnReal    KateJSView::CursorColumnReal      DontDelete|Function 0
   setCursorPosition   KateJSView::SetCursorPosition     DontDelete|Function 2
-  setCursorPositionReal KateJSView::SetCursorPositionReal DontDelete|Function 2
   selection           KateJSView::Selection             DontDelete|Function 0
   hasSelection        KateJSView::HasSelection          DontDelete|Function 0
   setSelection        KateJSView::SetSelection          DontDelete|Function 4
@@ -535,35 +534,30 @@ Value KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, cons
   switch (id)
   {
     case KateJSView::CursorLine:
-      return KJS::Number (view->cursorLine());
+      return KJS::Number (view->cursorPosition().line());
 
     case KateJSView::CursorColumn:
-      return KJS::Number (view->cursorColumn());
+      return KJS::Number (view->cursorPositionVirtual().column());
 
     case KateJSView::CursorColumnReal:
-      return KJS::Number (view->cursorColumnReal());
+      return KJS::Number (view->cursorPosition().column());
 
     case KateJSView::SetCursorPosition:
-      return KJS::Boolean( view->setCursorPosition( args[0].toUInt32(exec), args[1].toUInt32(exec) ) );
-
-    case KateJSView::SetCursorPositionReal:
-      return KJS::Boolean( view->setCursorPositionReal( args[0].toUInt32(exec), args[1].toUInt32(exec) ) );
+      return KJS::Boolean( view->setCursorPosition( KTextEditor::Cursor (args[0].toUInt32(exec), args[1].toUInt32(exec)) ) );
 
     // SelectionInterface goes in the view, in anticipation of the future
     case KateJSView::Selection:
-      return KJS::String( view->selection() );
+      return KJS::String( view->selectionText() );
 
     case KateJSView::HasSelection:
-      return KJS::Boolean( view->hasSelection() );
+      return KJS::Boolean( view->selection() );
 
     case KateJSView::SetSelection:
-      return KJS::Boolean( view->setSelection(args[0].toUInt32(exec),
-                                              args[1].toUInt32(exec),
-                                              args[2].toUInt32(exec),
-                                              args[3].toUInt32(exec)) );
+      return KJS::Boolean( view->setSelection(KTextEditor::Cursor (args[0].toInt32(exec), args[1].toInt32(exec)),
+                                              KTextEditor::Cursor (args[2].toUInt32(exec), args[3].toUInt32(exec))) );
 
     case KateJSView::RemoveSelectedText:
-      return KJS::Boolean( view->removeSelectedText() );
+      return KJS::Boolean( view->removeSelectionText() );
 
     case KateJSView::SelectAll:
       return KJS::Boolean( view->selectAll() );
@@ -593,16 +587,16 @@ KJS::Value KateJSView::getValueProperty(KJS::ExecState *exec, int token) const
 
   switch (token) {
     case KateJSView::SelStartLine:
-      return KJS::Number( view->selStartLine() );
+      return KJS::Number( view->selectionStart().line() );
 
     case KateJSView::SelStartCol:
-      return KJS::Number( view->selStartCol() );
+      return KJS::Number( view->selectionStart().column() );
 
     case KateJSView::SelEndLine:
-      return KJS::Number( view->selEndLine() );
+      return KJS::Number( view->selectionEnd().line() );
 
     case KateJSView::SelEndCol:
-      return KJS::Number( view->selEndCol() );
+      return KJS::Number( view->selectionEnd().column() );
     }
 
   return KJS::Undefined ();
@@ -731,7 +725,7 @@ void KateJScriptManager::collectScripts (bool force)
   config.sync();
 }
 
-bool KateJScriptManager::exec( Kate::View *view, const QString &_cmd, QString &errorMsg )
+bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QString &errorMsg )
 {
   // cast it hardcore, we know that it is really a kateview :)
   KateView *v = (KateView*) view;
@@ -757,7 +751,7 @@ bool KateJScriptManager::exec( Kate::View *view, const QString &_cmd, QString &e
 
   QFile file (m_scripts[cmd]->filename);
 
-  if ( !file.open( IO_ReadOnly ) )
+  if ( !file.open( QIODevice::ReadOnly ) )
     {
     errorMsg = i18n("JavaScript file not found");
     return false;
@@ -770,10 +764,10 @@ bool KateJScriptManager::exec( Kate::View *view, const QString &_cmd, QString &e
 
   file.close();
 
-  return KateFactory::self()->jscript()->execute(v, source, errorMsg);
+  return KateGlobal::self()->jscript()->execute(v, source, errorMsg);
 }
 
-bool KateJScriptManager::help( Kate::View *, const QString &cmd, QString &msg )
+bool KateJScriptManager::help( KTextEditor::View *, const QString &cmd, QString &msg )
 {
   if (!m_scripts[cmd] || !m_scripts[cmd]->desktopFileExists)
     return false;
@@ -789,11 +783,12 @@ bool KateJScriptManager::help( Kate::View *, const QString &cmd, QString &msg )
   return true;
 }
 
-QStringList KateJScriptManager::cmds()
+const QStringList &KateJScriptManager::cmds()
 {
-   QStringList l;
+   static QStringList l;
 
-   QDictIterator<KateJScriptManager::Script> it( m_scripts );
+  l.clear ();
+   Q3DictIterator<KateJScriptManager::Script> it( m_scripts );
    for( ; it.current(); ++it )
      l << it.current()->name;
 
@@ -847,7 +842,7 @@ Value KateJSIndenterProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, 
 KateIndentJScriptImpl::KateIndentJScriptImpl(const QString& internalName,
         const QString  &filePath, const QString &niceName,
         const QString &copyright, double version):
-          KateIndentScriptImplAbstract(internalName,filePath,niceName,copyright,version),m_interpreter(0),m_indenter(0)
+          KateIndentScriptImplAbstract(internalName,filePath,niceName,copyright,version),m_indenter(0),m_interpreter(0)
 {
 }
 
@@ -887,7 +882,7 @@ bool KateIndentJScriptImpl::setupInterpreter(QString &errorMsg)
     m_indenter=new KJS::Object(new KateJSIndenter(m_interpreter->globalExec()));
     m_interpreter->globalObject().put(m_interpreter->globalExec(),"document",KJS::Object(m_docWrapper),KJS::DontDelete | KJS::ReadOnly);
     m_interpreter->globalObject().put(m_interpreter->globalExec(),"view",KJS::Object(m_viewWrapper),KJS::DontDelete | KJS::ReadOnly);
-    m_interpreter->globalObject().put(m_interpreter->globalExec(),"debug", KJS::Object(new 
+    m_interpreter->globalObject().put(m_interpreter->globalExec(),"debug", KJS::Object(new
               KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1)));
     m_interpreter->globalObject().put(m_interpreter->globalExec(),"indenter",*m_indenter,KJS::DontDelete | KJS::ReadOnly);
     QFile file (filePath());
@@ -935,7 +930,7 @@ bool KateIndentJScriptImpl::setupInterpreter(QString &errorMsg)
 }
 
 
-inline static bool KateIndentJScriptCall(Kate::View *view, QString &errorMsg, KateJSDocument *docWrapper, KateJSView *viewWrapper,
+inline static bool KateIndentJScriptCall(KateView *view, QString &errorMsg, KateJSDocument *docWrapper, KateJSView *viewWrapper,
         KJS::Interpreter *interpreter, KJS::Object lookupobj,const KJS::Identifier& func,KJS::List params)
 {
  // no view, no fun
@@ -972,7 +967,7 @@ inline static bool KateIndentJScriptCall(Kate::View *view, QString &errorMsg, Ka
   return true;
 }
 
-bool KateIndentJScriptImpl::processChar(Kate::View *view, QChar c, QString &errorMsg )
+bool KateIndentJScriptImpl::processChar(KateView *view, QChar c, QString &errorMsg )
 {
 
   kdDebug(13050)<<"KateIndentJScriptImpl::processChar"<<endl;
@@ -982,14 +977,14 @@ bool KateIndentJScriptImpl::processChar(Kate::View *view, QChar c, QString &erro
   return KateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,*m_indenter,KJS::Identifier("onchar"),params);
 }
 
-bool KateIndentJScriptImpl::processLine(Kate::View *view, const KateDocCursor &line, QString &errorMsg )
+bool KateIndentJScriptImpl::processLine(KateView *view, const KateDocCursor &line, QString &errorMsg )
 {
   kdDebug(13050)<<"KateIndentJScriptImpl::processLine"<<endl;
   if (!setupInterpreter(errorMsg)) return false;
   return KateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,*m_indenter,KJS::Identifier("online"),KJS::List());
 }
 
-bool KateIndentJScriptImpl::processNewline( class Kate::View *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg )
+bool KateIndentJScriptImpl::processNewline( class KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg )
 {
   kdDebug(13050)<<"KateIndentJScriptImpl::processNewline"<<endl;
   if (!setupInterpreter(errorMsg)) return false;

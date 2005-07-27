@@ -18,13 +18,15 @@
 #ifndef _KATE_TEMPLATE_HANDLER_H_
 #define _KATE_TEMPLATE_HANDLER_H_
 
-#include "katesupercursor.h"
+#include "katesuperrange.h"
+#include "katerangelist.h"
 #include "katekeyinterceptorfunctor.h"
 #include <qobject.h>
 #include <qmap.h>
-#include <qdict.h>
-#include <qptrlist.h>
+#include <q3dict.h>
+#include <q3ptrlist.h>
 #include <qstring.h>
+#include <Q3ValueList>
 
 class KateDocument;
 
@@ -37,7 +39,8 @@ class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 		virtual bool operator()(KKey key);
 	private:
 		struct KateTemplatePlaceHolder {
-			KateSuperRangeList ranges;
+      KateTemplatePlaceHolder(KateDocument* doc) : ranges(doc) {}
+      KateRangeList ranges;
 			bool isCursor;
 			bool isInitialValue;
 		};
@@ -49,20 +52,20 @@ class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 				uint len;
 				QString placeholder;
 		};
-		class KateSuperRangeList *m_ranges;
+		class KateRangeList *m_ranges;
 		class KateDocument *m_doc;
-		QPtrList<KateTemplatePlaceHolder> m_tabOrder;
-		QDict<KateTemplatePlaceHolder> m_dict;
-		void generateRangeTable(uint insertLine,uint insertCol, const QString& insertString, const QValueList<KateTemplateHandlerPlaceHolderInfo> &buildList);
+		Q3PtrList<KateTemplatePlaceHolder> m_tabOrder;
+		Q3Dict<KateTemplatePlaceHolder> m_dict;
+		void generateRangeTable(uint insertLine,uint insertCol, const QString& insertString, const Q3ValueList<KateTemplateHandlerPlaceHolderInfo> &buildList);
 		int m_currentTabStop;
 		KateSuperRange *m_currentRange;
-		void locateRange(const KateTextCursor &cursor );
+		void locateRange(const KTextEditor::Cursor &cursor );
 		bool m_initOk;
 		bool m_recursion;
 	private slots:
 		void slotTextInserted(int,int);
 		void slotDocumentDestroyed();
-		void slotAboutToRemoveText(const KateTextRange &range);
+		void slotAboutToRemoveText(const KTextEditor::Range& range);
 		void slotTextRemoved();
 };
 #endif

@@ -21,8 +21,9 @@
 #ifndef __KATE_CMDS_H__
 #define __KATE_CMDS_H__
 
-#include "../interfaces/document.h"
-#include "../interfaces/view.h"
+#include <ktexteditor/commandinterface.h>
+
+#include <QStringList>
 
 class KateDocument;
 class KCompletion;
@@ -31,12 +32,12 @@ namespace KateCommands
 {
 
 /**
- * This Kate::Command provides access to a lot of the core functionality
+ * This KTextEditor::Command provides access to a lot of the core functionality
  * of kate part, settings, utilities, navigation etc.
  * it needs to get a kateview pointer, it will cast the kate::view pointer
  * hard to kateview
  */
-class CoreCommands : public Kate::Command, public Kate::CommandExtension
+class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExtension
 {
   public:
     /**
@@ -46,20 +47,24 @@ class CoreCommands : public Kate::Command, public Kate::CommandExtension
      * @param errorMsg error to return if no success
      * @return success
      */
-    bool exec( class Kate::View *view, const QString &cmd, QString &errorMsg );
+    bool exec( class KTextEditor::View *view, const QString &cmd, QString &errorMsg );
 
-    bool help( class Kate::View *, const QString &, QString & ) {return false;};
+    bool help( class KTextEditor::View *, const QString &, QString & ) {return false;};
 
     /**
      * supported commands as prefixes
      * @return prefix list
      */
-    QStringList cmds();
+    const QStringList &cmds();
 
     /**
     * override completionObject from interfaces/document.h .
     */
-    KCompletion *completionObject( const QString &cmd, Kate::View *view );
+    KCompletion *completionObject( const QString &, KTextEditor::View * );
+    
+    virtual void flagCompletions( QStringList& ) {}
+    virtual bool wantsToProcessText( const QString & ) { return false; }
+    virtual void processText( KTextEditor::View *, const QString & ) {}
 };
 
 /**
@@ -72,7 +77,7 @@ class CoreCommands : public Kate::Command, public Kate::CommandExtension
  *
  * $s/// is currently unsupported
  **/
-class SedReplace : public Kate::Command
+class SedReplace : public KTextEditor::Command
 {
   public:
     /**
@@ -82,15 +87,15 @@ class SedReplace : public Kate::Command
      * @param errorMsg error to return if no success
      * @return success
      */
-    bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
+    bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
-    bool help (class Kate::View *, const QString &, QString &) { return false; };
+    bool help (class KTextEditor::View *, const QString &, QString &) { return false; };
 
     /**
      * supported commands as prefixes
      * @return prefix list
      */
-    QStringList cmds () { QStringList l("s"); l << "%s" << "$s"; return l; };
+    const QStringList &cmds () { static QStringList l("s"); if (l.isEmpty()) l << "%s" << "$s"; return l; };
 
   private:
     /**
@@ -126,7 +131,7 @@ class SedReplace : public Kate::Command
  *
  * prefixed with "char:"
  **/
-class Character : public Kate::Command
+class Character : public KTextEditor::Command
 {
   public:
     /**
@@ -136,21 +141,21 @@ class Character : public Kate::Command
      * @param errorMsg error to return if no success
      * @return success
      */
-    bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
+    bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
-    bool help (class Kate::View *, const QString &, QString &) { return false; };
+    bool help (class KTextEditor::View *, const QString &, QString &) { return false; };
 
     /**
      * supported commands as prefixes
      * @return prefix list
      */
-    QStringList cmds () { return QStringList("char"); };
+    const QStringList &cmds () { static QStringList test("char"); return test; };
 };
 
 /**
  * insert the current date/time in the given format
  */
-class Date : public Kate::Command
+class Date : public KTextEditor::Command
 {
   public:
     /**
@@ -160,15 +165,15 @@ class Date : public Kate::Command
      * @param errorMsg error to return if no success
      * @return success
      */
-    bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
+    bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
-    bool help (class Kate::View *, const QString &, QString &) { return false; };
+    bool help (class KTextEditor::View *, const QString &, QString &) { return false; };
 
     /**
      * supported commands as prefixes
      * @return prefix list
      */
-    QStringList cmds () { return QStringList("date"); };
+    const QStringList &cmds () { static QStringList test("date"); return test; }
 };
 
 

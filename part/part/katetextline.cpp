@@ -24,6 +24,7 @@
 #include "katerenderer.h"
 
 #include <kglobal.h>
+#include <kdebug.h>
 
 #include <qregexp.h>
 
@@ -36,16 +37,16 @@ KateTextLine::~KateTextLine()
 {
 }
 
-void KateTextLine::insertText (uint pos, uint insLen, const QChar *insText, uchar *insAttribs)
+void KateTextLine::insertText (int pos, uint insLen, const QChar *insText, const uchar *insAttribs)
 {
   // nothing to do
   if (insLen == 0)
     return;
 
   // calc new textLen, store old
-  uint oldTextLen = m_text.length();
+  int oldTextLen = m_text.length();
   m_text.insert (pos, insText, insLen);
-  uint textLen = m_text.length();
+  int textLen = m_text.length();
 
   // resize the array
   m_attributes.resize (textLen);
@@ -53,7 +54,7 @@ void KateTextLine::insertText (uint pos, uint insLen, const QChar *insText, ucha
   // HA, insert behind text end, fill with spaces
   if (pos >= oldTextLen)
   {
-    for (uint z = oldTextLen; z < pos; z++)
+    for (int z = oldTextLen; z < pos; z++)
       m_attributes[z] = 0;
   }
   // HA, insert in text, move the old text behind pos
@@ -98,18 +99,21 @@ void KateTextLine::removeText (uint pos, uint delLen)
   m_attributes.resize (m_text.length ());
 }
 
-void KateTextLine::truncate(uint newLen)
+void KateTextLine::truncate(int newLen)
 {
+  if (newLen < 0)
+    newLen = 0;
+
   if (newLen < m_text.length())
   {
     m_text.truncate (newLen);
-    m_attributes.truncate (newLen);
+    m_attributes.resize (newLen);
   }
 }
 
 int KateTextLine::nextNonSpaceChar(uint pos) const
 {
-  for(int i = pos; i < (int)m_text.length(); i++)
+  for(int i = pos; i < m_text.length(); i++)
   {
     if(!m_text[i].isSpace())
       return i;
@@ -118,8 +122,11 @@ int KateTextLine::nextNonSpaceChar(uint pos) const
   return -1;
 }
 
-int KateTextLine::previousNonSpaceChar(uint pos) const
+int KateTextLine::previousNonSpaceChar(int pos) const
 {
+  if (pos < 0)
+    pos = 0;
+
   if (pos >= m_text.length())
     pos = m_text.length() - 1;
 
@@ -152,7 +159,7 @@ uint KateTextLine::indentDepth (uint tabwidth) const
 {
   uint d = 0;
 
-  for(uint i = 0; i < m_text.length(); i++)
+  for(int i = 0; i < m_text.length(); i++)
   {
     if(m_text[i].isSpace())
     {
@@ -168,12 +175,15 @@ uint KateTextLine::indentDepth (uint tabwidth) const
   return d;
 }
 
-bool KateTextLine::stringAtPos(uint pos, const QString& match) const
+bool KateTextLine::stringAtPos(int pos, const QString& match) const
 {
+  if (pos < 0)
+    return false;
+
   if ((pos+match.length()) > m_text.length())
     return false;
 
-  for (uint i=0; i < match.length(); i++)
+  for (int i=0; i < match.length(); i++)
     if (m_text[i+pos] != match[i])
       return false;
 
@@ -185,7 +195,7 @@ bool KateTextLine::startingWith(const QString& match) const
   if (match.length() > m_text.length())
     return false;
 
-  for (uint i=0; i < match.length(); i++)
+  for (int i=0; i < match.length(); i++)
     if (m_text[i] != match[i])
       return false;
 
@@ -198,18 +208,21 @@ bool KateTextLine::endingWith(const QString& match) const
     return false;
 
   uint start = m_text.length() - match.length();
-  for (uint i=0; i < match.length(); i++)
+  for (int i=0; i < match.length(); i++)
     if (m_text[start+i] != match[i])
       return false;
 
   return true;
 }
 
-int KateTextLine::cursorX(uint pos, uint tabChars) const
+int KateTextLine::cursorX(int pos, uint tabChars) const
 {
+  if (pos < 0)
+    pos = 0;
+
   uint x = 0;
 
-  for ( uint z = 0; z < kMin (pos, m_text.length()); z++)
+  for ( int z = 0; z < kMin (pos, m_text.length()); z++)
   {
     if (m_text[z] == QChar('\t'))
       x += tabChars - (x % tabChars);
@@ -225,7 +238,7 @@ uint KateTextLine::lengthWithTabs (uint tabChars) const
 {
   uint x = 0;
 
-  for ( uint z = 0; z < m_text.length(); z++)
+  for ( int z = 0; z < m_text.length(); z++)
   {
     if (m_text[z] == QChar('\t'))
       x += tabChars - (x % tabChars);
@@ -381,7 +394,8 @@ char *KateTextLine::restore (char *buf)
   else
     m_flags = f;
 
-  m_attributes.duplicate ((uchar *) buf, l);
+  m_attributes.resize (l);
+  memcpy((char *) m_attributes.data(), buf, sizeof(uchar) * l);
   buf += sizeof(uchar) * l;
 
   uint lctx = 0;
@@ -397,13 +411,16 @@ char *KateTextLine::restore (char *buf)
   memcpy((char *) &lind, buf, sizeof(uint));
   buf += sizeof(uint);
 
-  m_ctx.duplicate ((short *) buf, lctx);
+  m_ctx.resize (lctx);
+  memcpy((char *) m_ctx.data(), buf, sizeof(short) * lctx);
   buf += sizeof(short) * lctx;
 
-  m_foldingList.duplicate ((uint *) buf, lfold);
+  m_foldingList.resize (lfold);
+  memcpy((char *) m_foldingList.data(), buf, sizeof(uint)*lfold);
   buf += sizeof(uint)*lfold;
 
-  m_indentationDepth.duplicate ((unsigned short *) buf, lind);
+  m_indentationDepth.resize (lind);
+  memcpy((char *) m_indentationDepth.data(), buf, sizeof(unsigned short) * lind);
   buf += sizeof(unsigned short) * lind;
 
   bool nibf;
@@ -411,6 +428,25 @@ char *KateTextLine::restore (char *buf)
   m_noIndentationBasedFolding=nibf;
   buf += sizeof(bool);
   return buf;
+}
+
+void KateTextLine::addAttribute (int start, int length, int attribute)
+{
+//  kdDebug () << "addAttribute: " << start << " " << length << " " << attribute << endl;
+
+  // try to append to previous range
+  if ((m_attributesList.size() > 2) && (m_attributesList[m_attributesList.size()-1] == attribute)
+      && (m_attributesList[m_attributesList.size()-3]+m_attributesList[m_attributesList.size()-2]
+         == start))
+  {
+    m_attributesList[m_attributesList.size()-2] += length;
+    return;
+  }
+
+  m_attributesList.resize (m_attributesList.size()+3);
+  m_attributesList[m_attributesList.size()-3] = start;
+  m_attributesList[m_attributesList.size()-2] = length;
+  m_attributesList[m_attributesList.size()-1] = attribute;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

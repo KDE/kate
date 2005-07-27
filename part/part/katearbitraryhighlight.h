@@ -23,27 +23,15 @@
 #include "katesupercursor.h"
 
 #include <qobject.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qmap.h>
 
 class KateDocument;
 class KateView;
-
-class KateArbitraryHighlightRange : public KateSuperRange, public KateAttribute
-{
-  Q_OBJECT
-
-public:
-  KateArbitraryHighlightRange(KateSuperCursor* start, KateSuperCursor* end, QObject* parent = 0L, const char* name = 0L);
-  KateArbitraryHighlightRange(KateDocument* doc, const KateRange& range, QObject* parent = 0L, const char* name = 0L);
-  KateArbitraryHighlightRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent = 0L, const char* name = 0L);
-
-	virtual ~KateArbitraryHighlightRange();
-
-  virtual void changed() { slotTagRange(); };
-
-  static KateAttribute merge(QPtrList<KateSuperRange> ranges);
-};
+class KateAttribute;
+class KateRangeList;
+namespace KTextEditor { class Range; }
+class KateSuperRange;
 
 /**
  * An arbitrary highlighting interface for Kate.
@@ -64,22 +52,24 @@ class KateArbitraryHighlight : public QObject
 public:
   KateArbitraryHighlight(KateDocument* parent = 0L, const char* name = 0L);
 
-  void addHighlightToDocument(KateSuperRangeList* list);
-  void addHighlightToView(KateSuperRangeList* list, KateView* view);
+  void addHighlightToDocument(KateRangeList* list);
+  void addHighlightToView(KateRangeList* list, KateView* view);
 
-  KateSuperRangeList& rangesIncluding(uint line, KateView* view = 0L);
-
+  QList<KateSuperRange*> startingRanges(const KTextEditor::Cursor& pos, KateView* view = 0L) const;
+  
 signals:
-  void tagLines(KateView* view, KateSuperRange* range);
+  void tagLines(KateView* view, KTextEditor::Range* range);
 
 private slots:
   void slotTagRange(KateSuperRange* range);
-  void slotRangeListDeleted(QObject* obj);
+  // FIXME implement or redesign??
+  //void slotRangeListDeleted(QObject* obj);
+  
 private:
   KateView* viewForRange(KateSuperRange* range);
 
-  QMap<KateView*, QPtrList<KateSuperRangeList>* > m_viewHLs;
-  QPtrList<KateSuperRangeList> m_docHLs;
+  QMap<KateView*, QList<KateRangeList*>* > m_viewHLs;
+  QList<KateRangeList*> m_docHLs;
 };
 
 #endif

@@ -20,10 +20,14 @@
 #ifndef __kate_jscript_h__
 #define __kate_jscript_h__
 
-#include "../interfaces/document.h"
 #include "kateindentscriptabstracts.h"
-#include <qdict.h>
+
+#include <ktexteditor/commandinterface.h>
+
 #include <kdebug.h>
+
+#include <q3dict.h>
+
 /**
  * Some common stuff
  */
@@ -111,7 +115,7 @@ class KateJScript
     KJS::Object *m_view;
 };
 
-class KateJScriptManager : public Kate::Command
+class KateJScriptManager : public KTextEditor::Command
 {
   private:
     /**
@@ -155,7 +159,7 @@ class KateJScriptManager : public Kate::Command
     void collectScripts (bool force = false);
 
   //
-  // Here we deal with the Kate::Command stuff
+  // Here we deal with the KTextEditor::Command stuff
   //
   public:
     /**
@@ -165,7 +169,7 @@ class KateJScriptManager : public Kate::Command
      * @param errorMsg error to return if no success
      * @return success
      */
-    bool exec( class Kate::View *view, const QString &cmd, QString &errorMsg );
+    bool exec( KTextEditor::View *view, const QString &cmd, QString &errorMsg );
 
     /**
      * get help for a command
@@ -174,19 +178,19 @@ class KateJScriptManager : public Kate::Command
      * @param msg help message
      * @return help available or not
      */
-    bool help( class Kate::View *view, const QString &cmd, QString &msg );
+    bool help( KTextEditor::View *view, const QString &cmd, QString &msg );
 
     /**
      * supported commands as prefixes
      * @return prefix list
      */
-    QStringList cmds();
+    const QStringList &cmds();
 
   private:
     /**
      * we need to know somewhere which scripts are around
      */
-    QDict<KateJScriptManager::Script> m_scripts;
+    Q3Dict<KateJScriptManager::Script> m_scripts;
 };
 
 class KateIndentJScriptImpl: public KateIndentScriptImplAbstract {
@@ -196,9 +200,9 @@ class KateIndentJScriptImpl: public KateIndentScriptImplAbstract {
         const QString &copyright, double version);
     ~KateIndentJScriptImpl();
     
-    virtual bool processChar( class Kate::View *view, QChar c, QString &errorMsg );
-    virtual bool processLine( class Kate::View *view, const KateDocCursor &line, QString &errorMsg );
-    virtual bool processNewline( class Kate::View *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg );
+    virtual bool processChar( KateView *view, QChar c, QString &errorMsg );
+    virtual bool processLine( KateView *view, const KateDocCursor &line, QString &errorMsg );
+    virtual bool processNewline( KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg );
   protected:
     virtual void decRef();
   private:
@@ -225,7 +229,7 @@ class KateIndentJScriptManager: public KateIndentScriptManagerAbstract
     void collectScripts (bool force = false);
     void parseScriptHeader(const QString &filePath,
         QString *niceName,QString *copyright,double *version);
-    QDict<KateIndentJScriptImpl> m_scripts;
+    Q3Dict<KateIndentJScriptImpl> m_scripts;
 };
 
 #endif

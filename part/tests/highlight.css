@@ -31,7 +31,7 @@ p.intro:first-letter,
 p:lang(nl),
 img[align="right"]
 {
-	border: 1px solid red !important;
+	border: 1px solid Qt::red !important;
 	-moz-border-radius: 15px; /* unknown properties render italic */
 }
 

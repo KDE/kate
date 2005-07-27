@@ -28,13 +28,13 @@
 #include <qpixmap.h>
 #include <qcolor.h>
 #include <qscrollbar.h>
-#include <qintdict.h>
+#include <q3intdict.h>
 
 class KateDocument;
 class KateView;
 class KateViewInternal;
 
-namespace Kate {
+namespace KTextEditor {
   class Command;
 }
 
@@ -50,7 +50,7 @@ class KateScrollBar : public QScrollBar
   Q_OBJECT
 
   public:
-    KateScrollBar(Orientation orientation, class KateViewInternal *parent, const char* name = 0L);
+    KateScrollBar(Qt::Orientation orientation, class KateViewInternal *parent, const char* name = 0L);
 
     inline bool showMarks() { return m_showMarks; };
     inline void setShowMarks(bool b) { m_showMarks = b; update(); };
@@ -65,8 +65,7 @@ class KateScrollBar : public QScrollBar
     virtual void paintEvent(QPaintEvent *);
     virtual void resizeEvent(QResizeEvent *);
     virtual void styleChange(QStyle &oldStyle);
-    virtual void valueChange();
-    virtual void rangeChange();
+    virtual void sliderChange ( SliderChange change );
 
   protected slots:
     void sliderMaybeMoved(int value);
@@ -87,7 +86,7 @@ class KateScrollBar : public QScrollBar
     int m_bottomMargin;
     uint m_savVisibleLines;
 
-    QIntDict<QColor> m_lines;
+    Q3IntDict<QColor> m_lines;
 
     bool m_showMarks;
 };
@@ -98,7 +97,7 @@ class KateCmdLine : public KLineEdit
 
   public:
     KateCmdLine (KateView *view);
-
+    virtual bool event(QEvent *e);
   private slots:
     void slotReturnPressed ( const QString& cmd );
     void hideMe ();
@@ -109,12 +108,14 @@ class KateCmdLine : public KLineEdit
 
   private:
     void fromHistory( bool up );
+    QString helptext( const QPoint & ) const;
+
     KateView *m_view;
     bool m_msgMode;
     QString m_oldText;
     uint m_histpos; ///< position in the history
     uint m_cmdend; ///< the point where a command ends in the text, if we have a valid one.
-    Kate::Command *m_command; ///< For completing flags/args and interactiveness
+    KTextEditor::Command *m_command; ///< For completing flags/args and interactiveness
     class KCompletion *m_oldCompletionObject; ///< save while completing command args.
     class KateCmdLnWhatsThis *m_help;
 };
@@ -180,6 +181,9 @@ class KateIconBorder : public QWidget
 
     mutable QPixmap m_arrow;
     mutable QColor m_oldBackgroundColor;
+    
+    QPixmap minus_px;
+    QPixmap plus_px;
 };
 
 class KateViewEncodingAction : public KActionMenu

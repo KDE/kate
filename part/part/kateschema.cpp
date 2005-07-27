@@ -23,7 +23,7 @@
 
 #include "kateconfig.h"
 #include "katedocument.h"
-#include "katefactory.h"
+#include "kateglobal.h"
 #include "kateview.h"
 #include "katerenderer.h"
 
@@ -42,30 +42,29 @@
 #include <kaboutdata.h>
 #include <ktexteditor/markinterface.h>
 
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcheckbox.h>
-#include <qptrcollection.h>
+#include <q3ptrcollection.h>
 #include <qdialog.h>
-#include <qgrid.h>
-#include <qgroupbox.h>
+#include <q3grid.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qtextcodec.h>
 #include <qlayout.h>
 #include <qlineedit.h>
-#include <qheader.h>
-#include <qlistbox.h>
-#include <qhbox.h>
+#include <q3header.h>
+#include <q3listbox.h>
+#include <q3hbox.h>
 #include <qpainter.h>
-#include <qobjectlist.h>
+#include <qobject.h>
 #include <qpixmap.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qspinbox.h>
 #include <qstringlist.h>
 #include <qtabwidget.h>
-#include <qvbox.h>
-#include <qvgroupbox.h>
-#include <qwhatsthis.h>
+#include <q3vbox.h>
+#include <Q3PointArray>
 //END
 
 //BEGIN KateStyleListViewItem decl
@@ -80,24 +79,24 @@
     This widget is designed to work with the KateStyleListView class exclusively.
     Added by anders, jan 23 2002.
 */
-class KateStyleListItem : public QListViewItem
+class KateStyleListItem : public Q3ListViewItem
 {
   public:
-    KateStyleListItem( QListViewItem *parent=0, const QString & stylename=0,
+    KateStyleListItem( Q3ListViewItem *parent=0, const QString & stylename=0,
                    class KateAttribute* defaultstyle=0, class KateHlItemData *data=0 );
-    KateStyleListItem( QListView *parent, const QString & stylename=0,
+    KateStyleListItem( Q3ListView *parent, const QString & stylename=0,
                    class KateAttribute* defaultstyle=0, class KateHlItemData *data=0 );
     ~KateStyleListItem() { if (st) delete is; };
 
     /* mainly for readability */
-    enum Property { ContextName, Bold, Italic, Underline, Strikeout, Color, SelColor, BgColor, SelBgColor, UseDefStyle };
+    enum Property { ContextName, Bold, Italic, TextUnderline, Strikeout, Color, SelColor, BgColor, SelBgColor, UseDefStyle };
 
     /* initializes the style from the default and the hldata */
     void initStyle();
     /* updates the hldata's style */
     void updateStyle();
     /* reimp */
-    virtual int width ( const QFontMetrics & fm, const QListView * lv, int c ) const;
+    virtual int width ( const QFontMetrics & fm, const Q3ListView * lv, int c ) const;
     /* calls changeProperty() if it makes sense considering pos. */
     void activate( int column, const QPoint &localPos );
     /* For bool fields, toggles them, for color fields, display a color chooser */
@@ -141,10 +140,10 @@ class KateStyleListItem : public QListViewItem
     to use our own palette (that is set on the viewport rather than on the listview
     itself).
 */
-class KateStyleListCaption : public QListViewItem
+class KateStyleListCaption : public Q3ListViewItem
 {
   public:
-    KateStyleListCaption( QListView *parent, const QString & name );
+    KateStyleListCaption( Q3ListView *parent, const QString & name );
     ~KateStyleListCaption() {};
 
   protected:
@@ -196,7 +195,7 @@ void KateSchemaManager::update (bool readfromfile)
 //
 KConfig *KateSchemaManager::schema (uint number)
 {
-  if ((number>1) && (number < m_schemas.count()))
+  if ((number>1) && (number < (uint)m_schemas.count()))
     m_config.setGroup (m_schemas[number]);
   else if (number == 1)
     m_config.setGroup (printingSchema());
@@ -216,7 +215,7 @@ void KateSchemaManager::addSchema (const QString &t)
 
 void KateSchemaManager::removeSchema (uint number)
 {
-  if (number >= m_schemas.count())
+  if (number >= (uint)m_schemas.count())
     return;
 
   if (number < 2)
@@ -229,7 +228,7 @@ void KateSchemaManager::removeSchema (uint number)
 
 bool KateSchemaManager::validSchema (uint number)
 {
-  if (number < m_schemas.count())
+  if (number < (uint)m_schemas.count())
     return true;
 
   return false;
@@ -252,7 +251,7 @@ uint KateSchemaManager::number (const QString &name)
 
 QString KateSchemaManager::name (uint number)
 {
-  if ((number>1) && (number < m_schemas.count()))
+  if ((number>1) && (number < (uint)m_schemas.count()))
     return m_schemas[number];
   else if (number == 1)
     return printingSchema();
@@ -271,33 +270,33 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
 {
   m_schema = -1;
 
-  QHBox *b;
+  Q3HBox *b;
   QLabel *label;
 
   QVBoxLayout *blay=new QVBoxLayout(this, 0, KDialog::spacingHint());
 
-  QVGroupBox *gbTextArea = new QVGroupBox(i18n("Text Area Background"), this);
+  QGroupBox *gbTextArea = new Q3GroupBox(1, Qt::Horizontal, i18n("Text Area Background"), this);
 
-  b = new QHBox (gbTextArea);
+  b = new Q3HBox (gbTextArea);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Normal text:"), b);
-  label->setAlignment( AlignLeft|AlignVCenter);
+  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_back = new KColorButton(b);
 
-  b = new QHBox (gbTextArea);
+  b = new Q3HBox (gbTextArea);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Selected text:"), b);
-  label->setAlignment( AlignLeft|AlignVCenter);
+  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_selected = new KColorButton(b);
 
-  b = new QHBox (gbTextArea);
+  b = new Q3HBox (gbTextArea);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Current line:"), b);
-  label->setAlignment( AlignLeft|AlignVCenter);
+  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_current = new KColorButton(b);
 
   // Markers from kdelibs/interfaces/ktextinterface/markinterface.h
-  b = new QHBox (gbTextArea);
+  b = new Q3HBox (gbTextArea);
   b->setSpacing(KDialog::spacingHint());
   m_combobox = new KComboBox(b, "color_combo_box");
   // add the predefined mark types as defined in markinterface.h
@@ -314,36 +313,36 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
 
   blay->addWidget(gbTextArea);
 
-  QVGroupBox *gbBorder = new QVGroupBox(i18n("Additional Elements"), this);
+  QGroupBox *gbBorder = new Q3GroupBox(1, Qt::Horizontal, i18n("Additional Elements"), this);
 
-  b = new QHBox (gbBorder);
+  b = new Q3HBox (gbBorder);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Left border background:"), b);
-  label->setAlignment( AlignLeft|AlignVCenter);
+  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_iconborder = new KColorButton(b);
 
-  b = new QHBox (gbBorder);
+  b = new Q3HBox (gbBorder);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Line numbers:"), b);
-  label->setAlignment( AlignLeft|AlignVCenter);
+  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_linenumber = new KColorButton(b);
 
-  b = new QHBox (gbBorder);
+  b = new Q3HBox (gbBorder);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Bracket highlight:"), b);
-  label->setAlignment( AlignLeft|AlignVCenter);
+  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_bracket = new KColorButton(b);
 
-  b = new QHBox (gbBorder);
+  b = new Q3HBox (gbBorder);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Word wrap markers:"), b);
-  label->setAlignment( AlignLeft|AlignVCenter);
+  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_wwmarker = new KColorButton(b);
 
-  b = new QHBox (gbBorder);
+  b = new Q3HBox (gbBorder);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Tab markers:"), b);
-  label->setAlignment( AlignLeft|AlignVCenter);
+  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_tmarker = new KColorButton(b);
 
   blay->addWidget(gbBorder);
@@ -354,29 +353,29 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
   connect( this, SIGNAL( changed() ), parent->parentWidget(), SLOT( slotChanged() ) );
 
   // QWhatsThis help
-  QWhatsThis::add(m_back, i18n("<p>Sets the background color of the editing area.</p>"));
-  QWhatsThis::add(m_selected, i18n("<p>Sets the background color of the selection.</p>"
+  m_back->setWhatsThis(i18n("<p>Sets the background color of the editing area.</p>"));
+  m_selected->setWhatsThis(i18n("<p>Sets the background color of the selection.</p>"
         "<p>To set the text color for selected text, use the \"<b>Configure "
         "Highlighting</b>\" dialog.</p>"));
-  QWhatsThis::add(m_markers, i18n("<p>Sets the background color of the selected "
+  m_markers->setWhatsThis(i18n("<p>Sets the background color of the selected "
         "marker type.</p><p><b>Note</b>: The marker color is displayed lightly because "
         "of transparency.</p>"));
-  QWhatsThis::add(m_combobox, i18n("<p>Select the marker type you want to change.</p>"));
-  QWhatsThis::add(m_current, i18n("<p>Sets the background color of the currently "
+  m_combobox->setWhatsThis(i18n("<p>Select the marker type you want to change.</p>"));
+  m_current->setWhatsThis(i18n("<p>Sets the background color of the currently "
         "active line, which means the line where your cursor is positioned.</p>"));
-  QWhatsThis::add( m_linenumber, i18n(
+  m_linenumber->setWhatsThis(i18n(
         "<p>This color will be used to draw the line numbers (if enabled) and the "
         "lines in the code-folding pane.</p>" ) );
-  QWhatsThis::add(m_bracket, i18n("<p>Sets the bracket matching color. This means, "
+  m_bracket->setWhatsThis(i18n("<p>Sets the bracket matching color. This means, "
         "if you place the cursor e.g. at a <b>(</b>, the matching <b>)</b> will "
         "be highlighted with this color.</p>"));
-  QWhatsThis::add(m_wwmarker, i18n(
+  m_wwmarker->setWhatsThis(i18n(
         "<p>Sets the color of Word Wrap-related markers:</p>"
         "<dl><dt>Static Word Wrap</dt><dd>A vertical line which shows the column where "
         "text is going to be wrapped</dd>"
         "<dt>Dynamic Word Wrap</dt><dd>An arrow shown to the left of "
         "visually-wrapped lines</dd></dl>"));
-  QWhatsThis::add(m_tmarker, i18n(
+  m_tmarker->setWhatsThis(i18n(
         "<p>Sets the color of the tabulator marks:</p>"));
 }
 
@@ -429,7 +428,7 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
     QColor tmp7 ( "#000000" );
 
     // same std colors like in KateDocument::markColor
-    QValueVector <QColor> mark(KTextEditor::MarkInterface::reservedMarkersCount());
+    Q3ValueVector <QColor> mark(KTextEditor::MarkInterface::reservedMarkersCount());
     Q_ASSERT(mark.size() > 6);
     mark[0] = Qt::blue;
     mark[1] = Qt::red;
@@ -440,7 +439,7 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
     mark[6] = Qt::red;
 
     SchemaColors c;
-    KConfig *config = KateFactory::self()->schemaManager()->schema(newSchema);
+    KConfig *config = KateGlobal::self()->schemaManager()->schema(newSchema);
 
     c.back= config->readColorEntry("Color Background", &tmp0);
     c.selected = config->readColorEntry("Color Selection", &tmp1);
@@ -493,7 +492,7 @@ void KateSchemaConfigColorTab::apply ()
   for ( it =  m_schemas.begin(); it !=  m_schemas.end(); ++it )
   {
     kdDebug(13030)<<"APPLY scheme = "<<it.key()<<endl;
-    KConfig *config = KateFactory::self()->schemaManager()->schema( it.key() );
+    KConfig *config = KateGlobal::self()->schemaManager()->schema( it.key() );
     kdDebug(13030)<<"Using config group "<<config->group()<<endl;
     SchemaColors c = it.data();
 
@@ -567,7 +566,7 @@ void KateSchemaConfigFontTab::apply()
   FontMap::Iterator it;
   for ( it = m_fonts.begin(); it != m_fonts.end(); ++it )
   {
-    KateFactory::self()->schemaManager()->schema( it.key() )->writeEntry( "Font", it.data() );
+    KateGlobal::self()->schemaManager()->schema( it.key() )->writeEntry( "Font", it.data() );
   }
 }
 
@@ -581,7 +580,7 @@ void KateSchemaConfigFontTab::schemaChanged( int newSchema )
   QFont f (KGlobalSettings::fixedFont());
 
   m_fontchooser->disconnect ( this );
-  m_fontchooser->setFont ( KateFactory::self()->schemaManager()->schema( newSchema )->readFontEntry("Font", &f) );
+  m_fontchooser->setFont ( KateGlobal::self()->schemaManager()->schema( newSchema )->readFontEntry("Font", &f) );
   m_fonts[ newSchema ] = m_fontchooser->font();
   connect (m_fontchooser, SIGNAL (fontSelected( const QFont & )), this, SLOT (slotFontSelected( const QFont & )));
 }
@@ -601,7 +600,7 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab( QWidget *parent, con
 
   connect (m_defaultStyles, SIGNAL (changed()), parent->parentWidget(), SLOT (slotChanged()));
 
-  QWhatsThis::add( m_defaultStyles,  i18n(
+  m_defaultStyles->setWhatsThis(i18n(
       "This list displays the default styles for the current schema and "
       "offers the means to edit them. The style name reflects the current "
       "style settings."
@@ -637,11 +636,11 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
   QPalette p ( m_defaultStyles->palette() );
   QColor _c ( KGlobalSettings::baseColor() );
   p.setColor( QColorGroup::Base,
-    KateFactory::self()->schemaManager()->schema(schema)->
+    KateGlobal::self()->schemaManager()->schema(schema)->
       readColorEntry( "Color Background", &_c ) );
   _c = KGlobalSettings::highlightColor();
   p.setColor( QColorGroup::Highlight,
-    KateFactory::self()->schemaManager()->schema(schema)->
+    KateGlobal::self()->schemaManager()->schema(schema)->
       readColorEntry( "Color Selection", &_c ) );
   _c = l->at(0)->textColor(); // not quite as much of an assumption ;)
   p.setColor( QColorGroup::Text, _c );
@@ -662,7 +661,7 @@ void KateSchemaConfigFontColorTab::reload ()
 
 void KateSchemaConfigFontColorTab::apply ()
 {
-  for ( QIntDictIterator<KateAttributeList> it( m_defaultStyleLists ); it.current(); ++it )
+  for ( Q3IntDictIterator<KateAttributeList> it( m_defaultStyleLists ); it.current(); ++it )
     KateHlManager::self()->setDefaults(it.currentKey(), *(it.current()));
 }
 
@@ -682,7 +681,7 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
   // hl chooser
-  QHBox *hbHl = new QHBox( this );
+  Q3HBox *hbHl = new Q3HBox( this );
   layout->add (hbHl);
 
   hbHl->setSpacing( KDialog::spacingHint() );
@@ -707,7 +706,7 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
   hlCombo->setCurrentItem ( hl );
   hlChanged ( hl );
 
-  QWhatsThis::add( m_styles,  i18n(
+  m_styles->setWhatsThis(i18n(
     "This list displays the contexts of the current syntax highlight mode and "
     "offers the means to edit them. The context name reflects the current "
     "style settings.<p>To edit using the keyboard, press "
@@ -742,7 +741,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   {
     kdDebug(13030) << "NEW SCHEMA, create dict" << endl;
 
-    m_hlDict.insert (schema, new QIntDict<KateHlItemDataList>);
+    m_hlDict.insert (schema, new Q3IntDict<KateHlItemDataList>);
     m_hlDict[m_schema]->setAutoDelete (true);
   }
 
@@ -764,17 +763,17 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   QPalette p ( m_styles->palette() );
   QColor _c ( KGlobalSettings::baseColor() );
   p.setColor( QColorGroup::Base,
-    KateFactory::self()->schemaManager()->schema(m_schema)->
+    KateGlobal::self()->schemaManager()->schema(m_schema)->
       readColorEntry( "Color Background", &_c ) );
   _c = KGlobalSettings::highlightColor();
   p.setColor( QColorGroup::Highlight,
-    KateFactory::self()->schemaManager()->schema(m_schema)->
+    KateGlobal::self()->schemaManager()->schema(m_schema)->
       readColorEntry( "Color Selection", &_c ) );
   _c = l->at(0)->textColor(); // not quite as much of an assumption ;)
   p.setColor( QColorGroup::Text, _c );
   m_styles->viewport()->setPalette( p );
 
-  QDict<KateStyleListCaption> prefixes;
+  Q3Dict<KateStyleListCaption> prefixes;
   for ( KateHlItemData *itemData = m_hlDict[m_schema]->find(m_hl)->last();
         itemData != 0L;
         itemData = m_hlDict[m_schema]->find(m_hl)->prev())
@@ -812,8 +811,8 @@ void KateSchemaConfigHighlightTab::reload ()
 
 void KateSchemaConfigHighlightTab::apply ()
 {
-  for ( QIntDictIterator< QIntDict<KateHlItemDataList> > it( m_hlDict ); it.current(); ++it )
-    for ( QIntDictIterator< KateHlItemDataList > it2( *it.current() ); it2.current(); ++it2 )
+  for ( Q3IntDictIterator< Q3IntDict<KateHlItemDataList> > it( m_hlDict ); it.current(); ++it )
+    for ( Q3IntDictIterator< KateHlItemDataList > it2( *it.current() ); it2.current(); ++it2 )
        KateHlManager::self()->getHl( it2.currentKey() )->setKateHlItemDataList (it.currentKey(), *(it2.current()));
 }
 
@@ -826,7 +825,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
 {
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
-  QHBox *hbHl = new QHBox( this );
+  Q3HBox *hbHl = new Q3HBox( this );
   layout->add (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
   QLabel *lHl = new QLabel( i18n("&Schema:"), hbHl );
@@ -860,7 +859,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   m_highlightTab = new KateSchemaConfigHighlightTab (m_tabWidget, "", m_fontColorTab, hl );
   m_tabWidget->addTab (m_highlightTab, i18n("Highlighting Text Styles"));
 
-  hbHl = new QHBox( this );
+  hbHl = new Q3HBox( this );
   layout->add (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
   lHl = new QLabel( i18n("&Default schema for %1:").arg(KApplication::kApplication()->aboutData()->programName ()), hbHl );
@@ -879,7 +878,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
 KateSchemaConfigPage::~KateSchemaConfigPage ()
 {
   // just reload config from disc
-  KateFactory::self()->schemaManager()->update ();
+  KateGlobal::self()->schemaManager()->update ();
 }
 
 void KateSchemaConfigPage::apply()
@@ -890,9 +889,9 @@ void KateSchemaConfigPage::apply()
   m_highlightTab->apply ();
 
   // just sync the config
-  KateFactory::self()->schemaManager()->schema (0)->sync();
+  KateGlobal::self()->schemaManager()->schema (0)->sync();
 
-  KateFactory::self()->schemaManager()->update ();
+  KateGlobal::self()->schemaManager()->update ();
   KateRendererConfig::global()->setSchema (defaultSchemaCombo->currentItem());
   KateRendererConfig::global()->reloadSchema();
 
@@ -903,7 +902,7 @@ void KateSchemaConfigPage::apply()
 void KateSchemaConfigPage::reload()
 {
   // just reload the config from disc
-  KateFactory::self()->schemaManager()->update ();
+  KateGlobal::self()->schemaManager()->update ();
 
   // special for the highlighting stuff
   m_fontColorTab->reload ();
@@ -930,13 +929,13 @@ void KateSchemaConfigPage::defaults()
 void KateSchemaConfigPage::update ()
 {
   // soft update, no load from disk
-  KateFactory::self()->schemaManager()->update (false);
+  KateGlobal::self()->schemaManager()->update (false);
 
   schemaCombo->clear ();
-  schemaCombo->insertStringList (KateFactory::self()->schemaManager()->list ());
+  schemaCombo->insertStringList (KateGlobal::self()->schemaManager()->list ());
 
   defaultSchemaCombo->clear ();
-  defaultSchemaCombo->insertStringList (KateFactory::self()->schemaManager()->list ());
+  defaultSchemaCombo->insertStringList (KateGlobal::self()->schemaManager()->list ());
 
   schemaCombo->setCurrentItem (0);
   schemaChanged (0);
@@ -948,7 +947,7 @@ void KateSchemaConfigPage::deleteSchema ()
 {
   int t = schemaCombo->currentItem ();
 
-  KateFactory::self()->schemaManager()->removeSchema (t);
+  KateGlobal::self()->schemaManager()->removeSchema (t);
 
   update ();
 }
@@ -957,11 +956,11 @@ void KateSchemaConfigPage::newSchema ()
 {
   QString t = KInputDialog::getText (i18n("Name for New Schema"), i18n ("Name:"), i18n("New Schema"), 0, this);
 
-  KateFactory::self()->schemaManager()->addSchema (t);
+  KateGlobal::self()->schemaManager()->addSchema (t);
 
   // soft update, no load from disk
-  KateFactory::self()->schemaManager()->update (false);
-  int i = KateFactory::self()->schemaManager()->list ().findIndex (t);
+  KateGlobal::self()->schemaManager()->update (false);
+  int i = KateGlobal::self()->schemaManager()->list ().findIndex (t);
 
   update ();
   if (i > -1)
@@ -1007,13 +1006,13 @@ void KateViewSchemaAction::updateMenu (KateView *view)
 void KateViewSchemaAction::slotAboutToShow()
 {
   KateView *view=m_view;
-  int count = KateFactory::self()->schemaManager()->list().count();
+  int count = KateGlobal::self()->schemaManager()->list().count();
 
   for (int z=0; z<count; z++)
   {
-    QString hlName = KateFactory::self()->schemaManager()->list().operator[](z);
+    QString hlName = KateGlobal::self()->schemaManager()->list().operator[](z);
 
-    if (names.contains(hlName) < 1)
+    if (!names.contains(hlName))
     {
       names << hlName;
       popupMenu()->insertItem ( hlName, this, SLOT(setSchema(int)), 0,  z+1);
@@ -1039,7 +1038,7 @@ void KateViewSchemaAction::setSchema (int mode)
 
 //BEGIN KateStyleListView
 KateStyleListView::KateStyleListView( QWidget *parent, bool showUseDefaults )
-    : QListView( parent )
+    : Q3ListView( parent )
 {
   setSorting( -1 ); // disable sorting, let the styles appear in their defined order
   addColumn( i18n("Context") );
@@ -1053,10 +1052,10 @@ KateStyleListView::KateStyleListView( QWidget *parent, bool showUseDefaults )
   addColumn( i18n("Background Selected") );
   if ( showUseDefaults )
     addColumn( i18n("Use Default Style") );
-  connect( this, SIGNAL(mouseButtonPressed(int, QListViewItem*, const QPoint&, int)),
-           this, SLOT(slotMousePressed(int, QListViewItem*, const QPoint&, int)) );
-  connect( this, SIGNAL(contextMenuRequested(QListViewItem*,const QPoint&, int)),
-           this, SLOT(showPopupMenu(QListViewItem*, const QPoint&)) );
+  connect( this, SIGNAL(mouseButtonPressed(int, Q3ListViewItem*, const QPoint&, int)),
+           this, SLOT(slotMousePressed(int, Q3ListViewItem*, const QPoint&, int)) );
+  connect( this, SIGNAL(contextMenuRequested(Q3ListViewItem*,const QPoint&, int)),
+           this, SLOT(showPopupMenu(Q3ListViewItem*, const QPoint&)) );
   // grap the bg color, selected color and default font
   normalcol = KGlobalSettings::textColor();
   bgcol = KateRendererConfig::global()->backgroundColor();
@@ -1085,22 +1084,22 @@ void KateStyleListView::showPopupMenu( KateStyleListItem *i, const QPoint &globa
   sbgcl.fill( i->style()->itemSet(KateAttribute::SelectedBGColor) ? i->style()->selectedBGColor() : viewport()->colorGroup().base() );
 
   if ( showtitle )
-    m.insertTitle( i->contextName(), KateStyleListItem::ContextName );
+    m.addTitle( i->contextName() );
   id = m.insertItem( i18n("&Bold"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Bold );
   m.setItemChecked( id, is->bold() );
   id = m.insertItem( i18n("&Italic"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Italic );
   m.setItemChecked( id, is->italic() );
-  id = m.insertItem( i18n("&Underline"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Underline );
+  id = m.insertItem( i18n("&Underline"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::TextUnderline );
   m.setItemChecked( id, is->underline() );
   id = m.insertItem( i18n("S&trikeout"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Strikeout );
   m.setItemChecked( id, is->strikeOut() );
 
   m.insertSeparator();
 
-  m.insertItem( QIconSet(cl), i18n("Normal &Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Color );
-  m.insertItem( QIconSet(scl), i18n("&Selected Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::SelColor );
-  m.insertItem( QIconSet(bgcl), i18n("&Background Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::BgColor );
-  m.insertItem( QIconSet(sbgcl), i18n("S&elected Background Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::SelBgColor );
+  m.insertItem( QIcon(cl), i18n("Normal &Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Color );
+  m.insertItem( QIcon(scl), i18n("&Selected Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::SelColor );
+  m.insertItem( QIcon(bgcl), i18n("&Background Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::BgColor );
+  m.insertItem( QIcon(sbgcl), i18n("S&elected Background Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::SelBgColor );
 
   // Unset [some] colors. I could show one only if that button was clicked, but that
   // would disable setting this with the keyboard (how many aren't doing just
@@ -1124,7 +1123,7 @@ void KateStyleListView::showPopupMenu( KateStyleListItem *i, const QPoint &globa
   m.exec( globalPos );
 }
 
-void KateStyleListView::showPopupMenu( QListViewItem *i, const QPoint &pos )
+void KateStyleListView::showPopupMenu( Q3ListViewItem *i, const QPoint &pos )
 {
   if ( dynamic_cast<KateStyleListItem*>(i) )
     showPopupMenu( (KateStyleListItem*)i, pos, true );
@@ -1143,7 +1142,7 @@ void KateStyleListView::unsetColor( int c )
 
 // Because QListViewItem::activatePos() is going to become deprecated,
 // and also because this attempt offers more control, I connect mousePressed to this.
-void KateStyleListView::slotMousePressed(int btn, QListViewItem* i, const QPoint& pos, int c)
+void KateStyleListView::slotMousePressed(int btn, Q3ListViewItem* i, const QPoint& pos, int c)
 {
   if ( dynamic_cast<KateStyleListItem*>(i) ) {
      if ( btn == Qt::LeftButton && c > 0 ) {
@@ -1159,18 +1158,18 @@ void KateStyleListView::slotMousePressed(int btn, QListViewItem* i, const QPoint
 static const int BoxSize = 16;
 static const int ColorBtnWidth = 32;
 
-KateStyleListItem::KateStyleListItem( QListViewItem *parent, const QString & stylename,
+KateStyleListItem::KateStyleListItem( Q3ListViewItem *parent, const QString & stylename,
                               KateAttribute *style, KateHlItemData *data )
-        : QListViewItem( parent, stylename ),
+        : Q3ListViewItem( parent, stylename ),
           ds( style ),
           st( data )
 {
   initStyle();
 }
 
-KateStyleListItem::KateStyleListItem( QListView *parent, const QString & stylename,
+KateStyleListItem::KateStyleListItem( Q3ListView *parent, const QString & stylename,
                               KateAttribute *style, KateHlItemData *data )
-        : QListViewItem( parent, stylename ),
+        : Q3ListViewItem( parent, stylename ),
           ds( style ),
           st( data )
 {
@@ -1258,14 +1257,14 @@ bool KateStyleListItem::defStyle() { return st && st->itemsSet() != ds->itemsSet
 /* true for default styles */
 bool KateStyleListItem::isDefault() { return st ? false : true; }
 
-int KateStyleListItem::width( const QFontMetrics & /*fm*/, const QListView * lv, int col ) const
+int KateStyleListItem::width( const QFontMetrics & /*fm*/, const Q3ListView * lv, int col ) const
 {
   int m = lv->itemMargin() * 2;
   switch ( col ) {
     case ContextName:
       // FIXME: width for name column should reflect bold/italic
       // (relevant for non-fixed fonts only - nessecary?)
-      return QListViewItem::width( QFontMetrics( ((KateStyleListView*)lv)->docfont), lv, col);
+      return Q3ListViewItem::width( QFontMetrics( ((KateStyleListView*)lv)->docfont), lv, col);
     case Bold:
     case Italic:
     case UseDefStyle:
@@ -1282,7 +1281,7 @@ int KateStyleListItem::width( const QFontMetrics & /*fm*/, const QListView * lv,
 
 void KateStyleListItem::activate( int column, const QPoint &localPos )
 {
-  QListView *lv = listView();
+  Q3ListView *lv = listView();
   int x = 0;
   for( int c = 0; c < column-1; c++ )
     x += lv->columnWidth( c );
@@ -1290,7 +1289,7 @@ void KateStyleListItem::activate( int column, const QPoint &localPos )
   switch( column ) {
     case Bold:
     case Italic:
-    case Underline:
+    case TextUnderline:
     case Strikeout:
     case UseDefStyle:
       w = BoxSize;
@@ -1314,7 +1313,7 @@ void KateStyleListItem::changeProperty( Property p )
     is->setBold( ! is->bold() );
   else if ( p == Italic )
     is->setItalic( ! is->italic() );
-  else if ( p == Underline )
+  else if ( p == TextUnderline )
     is->setUnderline( ! is->underline() );
   else if ( p == Strikeout )
     is->setStrikeOut( ! is->strikeOut() );
@@ -1440,7 +1439,7 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
   if ( !p )
     return;
 
-  QListView *lv = listView();
+  Q3ListView *lv = listView();
   if ( !lv )
     return;
   Q_ASSERT( lv ); //###
@@ -1476,12 +1475,12 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
       // FIXME - repainting when text is cropped, and the column is enlarged is buggy.
       // Maybe I need painting the string myself :(
       // (wilbert) it depends on the font used
-      QListViewItem::paintCell( p, mcg, col, width, align );
+      Q3ListViewItem::paintCell( p, mcg, col, width, align );
     }
     break;
     case Bold:
     case Italic:
-    case Underline:
+    case TextUnderline:
     case Strikeout:
     case UseDefStyle:
     {
@@ -1500,11 +1499,11 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
       y++;
       if ( (col == Bold && is->bold()) ||
           (col == Italic && is->italic()) ||
-          (col == Underline && is->underline()) ||
+          (col == TextUnderline && is->underline()) ||
           (col == Strikeout && is->strikeOut()) ||
           (col == UseDefStyle && *is == *ds ) )
       {
-        QPointArray a( 7*2 );
+        Q3PointArray a( 7*2 );
         int i, xx, yy;
         xx = x+1+marg;
         yy = y+5;
@@ -1570,14 +1569,14 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
 //END
 
 //BEGIN KateStyleListCaption
-KateStyleListCaption::KateStyleListCaption( QListView *parent, const QString & name )
-      :  QListViewItem( parent, name )
+KateStyleListCaption::KateStyleListCaption( Q3ListView *parent, const QString & name )
+      :  Q3ListViewItem( parent, name )
 {
 }
 
 void KateStyleListCaption::paintCell( QPainter *p, const QColorGroup& /*cg*/, int col, int width, int align )
 {
-  QListView *lv = listView();
+  Q3ListView *lv = listView();
   if ( !lv )
     return;
   Q_ASSERT( lv ); //###
@@ -1585,7 +1584,7 @@ void KateStyleListCaption::paintCell( QPainter *p, const QColorGroup& /*cg*/, in
   // use the same colorgroup as the other items in the viewport
   QColorGroup mcg = lv->viewport()->colorGroup();
 
-  QListViewItem::paintCell( p, mcg, col, width, align );
+  Q3ListViewItem::paintCell( p, mcg, col, width, align );
 }
 //END
 

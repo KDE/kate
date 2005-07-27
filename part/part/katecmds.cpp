@@ -25,11 +25,10 @@
 #include "kateconfig.h"
 #include "kateautoindent.h"
 #include "katetextline.h"
-#include "katefactory.h"
+#include "kateglobal.h"
 #include "katejscript.h"
 #include "katerenderer.h"
-
-#include "../interfaces/katecmd.h"
+#include "katecmd.h"
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -69,9 +68,11 @@ static bool getBoolArg( QString s, bool *val  )
   return false;
 }
 
-QStringList KateCommands::CoreCommands::cmds()
+const QStringList &KateCommands::CoreCommands::cmds()
 {
-  QStringList l;
+  static QStringList l;
+
+  if (l.isEmpty())
   l << "indent" << "unindent" << "cleanindent"
     << "comment" << "uncomment" << "goto" << "kill-line"
     << "set-tab-width" << "set-replace-tabs" << "set-show-tabs"
@@ -82,10 +83,11 @@ QStringList KateCommands::CoreCommands::cmds()
     << "set-word-wrap" << "set-word-wrap-column"
     << "set-replace-tabs-save" << "set-remove-trailing-space-save"
     << "set-highlight" << "run-myself" << "set-show-indent";
+
   return l;
 }
 
-bool KateCommands::CoreCommands::exec(Kate::View *view,
+bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
                             const QString &_cmd,
                             QString &errorMsg)
 {
@@ -110,7 +112,7 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
   else if ( cmd == "run-myself" )
   {
 #ifndef Q_WS_WIN //todo
-    return KateFactory::self()->jscript()->execute(v, v->doc()->text(), errorMsg);
+    return KateGlobal::self()->jscript()->execute(v, v->doc()->text(), errorMsg);
 #else
     return 0;
 #endif
@@ -187,7 +189,7 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
     {
       if ( val < 1 )
         KCC_ERR( i18n("Width must be at least 1.") );
-      v->setTabWidth( val );
+      v->doc()->config()->setTabWidth( val );
     }
     else if ( cmd == "set-indent-width" )
     {
@@ -205,9 +207,9 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
     {
       if ( val < 1 )
         KCC_ERR( i18n("Line must be at least 1") );
-      if ( (uint)val > v->doc()->numLines() )
+      if ( val > v->doc()->lines() )
         KCC_ERR( i18n("There is not that many lines in this document") );
-      v->gotoLineNumber( val - 1 );
+      v->setCursorPositionReal( val - 1, 0 );
     }
     return true;
   }
@@ -228,7 +230,7 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
   {
     if ( ! args.count() )
       KCC_ERR( i18n("Usage: %1 on|off|1|0|true|false").arg( cmd ) );
-    bool enable;
+    bool enable = false;
     if ( getBoolArg( args.first(), &enable ) )
     {
       if ( cmd == "set-icon-border" )
@@ -256,7 +258,7 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
         {
           setDocFlag(  KateDocumentConfig::cfSpaceIndent, enable, v->doc() );
           if ( ! v->doc()->config()->indentationWidth() )
-            v->doc()->config()->setIndentationWidth( v->tabWidth()/2 );
+            v->doc()->config()->setIndentationWidth( v->doc()->config()->tabWidth()/2 );
         }
       }
       else if ( cmd == "set-word-wrap" )
@@ -275,7 +277,7 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
   KCC_ERR( i18n("Unknown command '%1'").arg(cmd) );
 }
 
-KCompletion *KateCommands::CoreCommands::completionObject( const QString &cmd, Kate::View *view )
+KCompletion *KateCommands::CoreCommands::completionObject( const QString &cmd, KTextEditor::View *view )
 {
   if ( cmd == "set-highlight" )
   {
@@ -344,7 +346,7 @@ static void exchangeAbbrevs(QString &str)
   {
     int index=0;
     char replace=magic[1];
-    while ((index=backslashString(str, QChar(*magic), index))!=-1)
+    while ((index=backslashString(str, QString (QChar::fromAscii(*magic)), index))!=-1)
     {
       str.replace(index, 2, QChar(replace));
       index++;
@@ -375,7 +377,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
   QStringList patterns = QStringList::split( QRegExp("(^\\\\n|(?![^\\\\])\\\\n)"), find, true );
   if ( patterns.count() > 1 )
   {
-    for ( uint i = 0; i < patterns.count(); i++ )
+    for ( int i = 0; i < patterns.count(); i++ )
     {
       if ( i < patterns.count() - 1 )
         patterns[i].append("$");
@@ -431,14 +433,14 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
     replace(rep, "\\\\", "\\");
     replace(rep, "\\" + delim, delim);
 
-    doc->removeText( line, startcol, line, startcol + len );
-    doc->insertText( line, startcol, rep );
+    doc->removeText( KTextEditor::Cursor (line, startcol), KTextEditor::Cursor (line, startcol + len) );
+    doc->insertText( KTextEditor::Cursor (line, startcol), rep );
 
     // TODO if replace contains \n,
     // change the line number and
     // check for text that needs be searched behind the last inserted newline.
-    int lns = rep.contains('\n');
-    if ( lns )
+    int lns = rep.count(QChar::fromLatin1('\n'));
+    if ( lns > 0 )
     {
       line += lns;
 
@@ -463,7 +465,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
   return matches;
 }
 
-bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QString &msg)
+bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd, QString &msg)
 {
    kdDebug(13025)<<"SedReplace::execCmd( "<<cmd<<" )"<<endl;
 
@@ -491,14 +493,16 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
   KateDocument *doc = ((KateView*)view)->doc();
   if ( ! doc ) return false;
 
+  KateView *kview = ((KateView*)view);
+
   doc->editStart();
 
   int res = 0;
 
   if (fullFile)
   {
-    uint numLines=doc->numLines();
-    for (int line=0; (uint)line < numLines; line++)
+    int numLines = doc->lines();
+    for (int line=0; line < numLines; ++line)
     {
       res += sedMagic( doc, line, find, replace, d, !noCase, repeat );
       if ( ! repeat && res ) break;
@@ -506,23 +510,23 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
   }
   else if (onlySelect)
   {
-    int startline = doc->selStartLine();
-    uint startcol = doc->selStartCol();
+    int startline = kview->selectionStart().line();
+    int startcol = kview->selectionStart().column();
     int endcol = -1;
     do {
-      if ( startline == doc->selEndLine() )
-        endcol = doc->selEndCol();
+      if ( startline == kview->selectionEnd().line() )
+        endcol = kview->selectionEnd().column();
 
       res += sedMagic( doc, startline, find, replace, d, !noCase, repeat, startcol, endcol );
 
       /*if ( startcol )*/ startcol = 0;
 
       startline++;
-    } while ( (int)startline <= doc->selEndLine() );
+    } while ( startline <= kview->selectionEnd().line() );
   }
   else // just this line
   {
-    int line=view->cursorLine();
+    int line= view->cursorPosition().line();
     res += sedMagic(doc, line, find, replace, d, !noCase, repeat);
   }
 
@@ -535,7 +539,7 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
 //END SedReplace
 
 //BEGIN Character
-bool KateCommands::Character::exec (Kate::View *view, const QString &_cmd, QString &)
+bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd, QString &)
 {
   QString cmd = _cmd;
 
@@ -564,12 +568,14 @@ bool KateCommands::Character::exec (Kate::View *view, const QString &_cmd, QStri
     char buf[2];
     buf[0]=(char)number;
     buf[1]=0;
-    view->insertText(QString(buf));
+
+    view->document()->insertText(view->cursorPosition(), QString(buf));
   }
   else
   { // do the unicode thing
     QChar c(number);
-    view->insertText(QString(&c, 1));
+
+    view->document()->insertText(view->cursorPosition(), QString(&c, 1));
   }
 
   return true;
@@ -577,15 +583,15 @@ bool KateCommands::Character::exec (Kate::View *view, const QString &_cmd, QStri
 //END Character
 
 //BEGIN Date
-bool KateCommands::Date::exec (Kate::View *view, const QString &cmd, QString &)
+bool KateCommands::Date::exec (KTextEditor::View *view, const QString &cmd, QString &)
 {
   if (cmd.left(4) != "date")
     return false;
 
   if (QDateTime::currentDateTime().toString(cmd.mid(5, cmd.length()-5)).length() > 0)
-    view->insertText(QDateTime::currentDateTime().toString(cmd.mid(5, cmd.length()-5)));
+    view->document()->insertText(view->cursorPosition(), QDateTime::currentDateTime().toString(cmd.mid(5, cmd.length()-5)));
   else
-    view->insertText(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+    view->document()->insertText(view->cursorPosition(), QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
 
   return true;
 }

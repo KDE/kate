@@ -65,7 +65,7 @@ KateCodeFoldingNode::~KateCodeFoldingNode()
   clearChildren ();
 }
 
-bool KateCodeFoldingNode::getBegin(KateCodeFoldingTree *tree, KateTextCursor* begin) {
+bool KateCodeFoldingNode::getBegin(KateCodeFoldingTree *tree, KTextEditor::Cursor* begin) {
   if (!startLineValid) return false;
   unsigned int line=startLineRel;
   for (KateCodeFoldingNode *n=parentNode;n;n=n->parentNode)
@@ -73,12 +73,12 @@ bool KateCodeFoldingNode::getBegin(KateCodeFoldingTree *tree, KateTextCursor* be
 
   tree->m_buffer->codeFoldingColumnUpdate(line);
   begin->setLine(line);
-  begin->setCol(startCol);
+  begin->setColumn(startCol);
 
   return true;
 }
 
-bool KateCodeFoldingNode::getEnd(KateCodeFoldingTree *tree, KateTextCursor *end) {
+bool KateCodeFoldingNode::getEnd(KateCodeFoldingTree *tree, KTextEditor::Cursor *end) {
   if (!endLineValid) return false;
   unsigned int line=startLineRel+endLineRel;
   for (KateCodeFoldingNode *n=parentNode;n;n=n->parentNode)
@@ -86,14 +86,14 @@ bool KateCodeFoldingNode::getEnd(KateCodeFoldingTree *tree, KateTextCursor *end)
 
   tree->m_buffer->codeFoldingColumnUpdate(line);
   end->setLine(line);
-  end->setCol(endCol);
+  end->setColumn(endCol);
 
   return true;
 }
 
 int KateCodeFoldingNode::cmpPos(KateCodeFoldingTree *tree, uint line,uint col) {
-    KateTextCursor cur(line,col);
-    KateTextCursor start,end;
+    KTextEditor::Cursor cur(line,col);
+    KTextEditor::Cursor start,end;
     kdDebug(13000)<<"KateCodeFoldingNode::cmpPos (1)"<<endl;
     bool startValid=getBegin(tree, &start);
     kdDebug(13000)<<"KateCodeFoldingNode::cmpPos (2)"<<endl;
@@ -380,7 +380,7 @@ void KateCodeFoldingTree::dumpNode(KateCodeFoldingNode *node, const QString &pre
  That's one of the most important functions ;)
 */
 void KateCodeFoldingTree::updateLine(unsigned int line,
-  QMemArray<uint> *regionChanges, bool *updated,bool changed,bool colsChanged)
+  QVector<int> *regionChanges, bool *updated,bool changed,bool colsChanged)
 {
   if ( (!changed) || colsChanged)
   {
@@ -778,7 +778,7 @@ void KateCodeFoldingTree::moveSubNodesUp(KateCodeFoldingNode *node)
 
 
 
-void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType, QMemArray<uint>* list,unsigned int line,unsigned int charPos)
+void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType, QVector<int>* list,unsigned int line,unsigned int charPos)
 {
   uint startLine = getStartLine(node);
   if ((startLine==line) && (node->type!=0))
@@ -936,7 +936,7 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 }
 
 
-void KateCodeFoldingTree::addOpening_further_iterations(KateCodeFoldingNode *node,signed char /* nType */, QMemArray<uint>*
+void KateCodeFoldingTree::addOpening_further_iterations(KateCodeFoldingNode *node,signed char /* nType */, QVector<int>*
     list,unsigned int line,int current, unsigned int startLine,unsigned int charPos)
 {
   while (!(list->isEmpty()))
@@ -1055,7 +1055,7 @@ void KateCodeFoldingTree::lineHasBeenRemoved(unsigned int line)
   if (node->parentNode)
     decrementBy1(node->parentNode, node);
 
-  for (QValueList<KateHiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
+  for (Q3ValueList<KateHiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
   {
     if ((*it).start > line)
       (*it).start--;
@@ -1115,7 +1115,7 @@ void KateCodeFoldingTree::lineHasBeenInserted(unsigned int line)
   if (node->parentNode)
     incrementBy1(node->parentNode, node);
 
-  for (QValueList<KateHiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
+  for (Q3ValueList<KateHiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
   {
     if ((*it).start > line)
       (*it).start++;
@@ -1340,7 +1340,7 @@ void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
     addHiddenLineBlock(nodesForLine.at(0),line);
   else
   {
-    for (QValueList<KateHiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end();++it)
+    for (Q3ValueList<KateHiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end();++it)
       if ((*it).start == line+1)
       {
         hiddenLines.remove(it);
@@ -1373,7 +1373,7 @@ void KateCodeFoldingTree::addHiddenLineBlock(KateCodeFoldingNode *node,unsigned 
   data.length = node->endLineRel-(existsOpeningAtLineAfter(line+node->endLineRel,node)?1:0); // without -1;
   bool inserted = false;
 
-  for (QValueList<KateHiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
+  for (Q3ValueList<KateHiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
   {
     if (((*it).start>=data.start) && ((*it).start<=data.start+data.length-1)) // another hidden block starting at the within this block already exits -> adapt new block
     {
@@ -1433,7 +1433,7 @@ unsigned int KateCodeFoldingTree::getRealLine(unsigned int virtualLine)
     return (*real);
 
   unsigned int tmp = virtualLine;
-  for (QValueList<KateHiddenLineBlock>::ConstIterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
+  for (Q3ValueList<KateHiddenLineBlock>::ConstIterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
   {
     if ((*it).start<=virtualLine)
       virtualLine += (*it).length;
@@ -1458,7 +1458,7 @@ unsigned int KateCodeFoldingTree::getVirtualLine(unsigned int realLine)
 
   // kdDebug(13000)<<QString("RealLine--> %1").arg(realLine)<<endl;
 
-  for (QValueList<KateHiddenLineBlock>::ConstIterator it=hiddenLines.fromLast(); it!=hiddenLines.end(); --it)
+  for (Q3ValueList<KateHiddenLineBlock>::ConstIterator it=hiddenLines.fromLast(); it!=hiddenLines.end(); --it)
   {
     if ((*it).start <= realLine)
       realLine -= (*it).length;
@@ -1486,7 +1486,7 @@ unsigned int KateCodeFoldingTree::getHiddenLinesCount(unsigned int doclen)
   hiddenLinesCountCacheValid = true;
   hiddenLinesCountCache = 0;
 
-  for (QValueList<KateHiddenLineBlock>::ConstIterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
+  for (Q3ValueList<KateHiddenLineBlock>::ConstIterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
   {
     if ((*it).start+(*it).length<=doclen)
       hiddenLinesCountCache += (*it).length;
@@ -1623,7 +1623,7 @@ void KateCodeFoldingTree::ensureVisible( uint line )
 {
   // first have a look, if the line is really hidden
   bool found=false;
-  for (QValueList<KateHiddenLineBlock>::ConstIterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
+  for (Q3ValueList<KateHiddenLineBlock>::ConstIterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
   {
     if ( ((*it).start<=line)  && ((*it).start+(*it).length>line) )
     {

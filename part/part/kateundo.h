@@ -21,8 +21,8 @@
 #ifndef kate_undo_h
 #define kate_undo_h
 
-#include <qptrlist.h>
-#include <qstring.h>
+#include <QList>
+#include <QString>
 
 class KateDocument;
 class KateUndo;
@@ -128,7 +128,7 @@ class KateUndoGroup
     /**
      * list of items contained
      */
-    QPtrList<KateUndo> m_items;
+    QList<KateUndo*> m_items;
 
     /**
      * prohibit merging with the next group

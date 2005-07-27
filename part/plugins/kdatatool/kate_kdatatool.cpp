@@ -1,6 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 Joseph Wenninger <jowenn@jowenn.at> and Daniel Naber <daniel.naber@t-online.de>
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
@@ -25,10 +25,7 @@
 #include <kdebug.h>
 #include <kdatatool.h>
 #include <ktexteditor/document.h>
-#include <ktexteditor/selectioninterface.h>
 #include <kpopupmenu.h>
-#include <ktexteditor/viewcursorinterface.h>
-#include <ktexteditor/editinterface.h>
 #include <kmessagebox.h>
 //END includes
 
@@ -38,7 +35,7 @@ K_EXPORT_COMPONENT_FACTORY( ktexteditor_kdatatool, KGenericFactory<KTextEditor::
 namespace KTextEditor {
 
 KDataToolPlugin::KDataToolPlugin( QObject *parent, const char* name, const QStringList& )
-	: KTextEditor::Plugin ( (KTextEditor::Document*) parent, name )
+	: KTextEditor::Plugin ( parent )
 {
 }
 
@@ -105,23 +102,20 @@ void KDataToolPluginView::aboutToShow()
 		delete m_notAvailable;
 		m_notAvailable=0;
 	}
-	if ( selectionInterface(m_view->document())->hasSelection() )
+	if ( m_view->selection() )
 	{
-		word = selectionInterface(m_view->document())->selection();
+		word = m_view->selectionText();
 		if ( word.find(' ') == -1 && word.find('\t') == -1 && word.find('\n') == -1 )
 			m_singleWord = true;
 		else
 			m_singleWord = false;
 	} else {
 		// No selection -> use word under cursor
-		KTextEditor::EditInterface *ei;
-		KTextEditor::ViewCursorInterface *ci;
-		KTextEditor::View *v = (KTextEditor::View*)m_view; 
-		ei = KTextEditor::editInterface(v->document());
-		ci = KTextEditor::viewCursorInterface(v);
-		uint line, col;
-		ci->cursorPositionReal(&line, &col);
-		QString tmp_line = ei->textLine(line);
+		KTextEditor::View *v = (KTextEditor::View*)m_view;
+		int line, col;
+		line = v->cursorPosition().line();
+		col = v->cursorPosition().column();
+		QString tmp_line = v->document()->line(line);
 		m_wordUnderCursor = "";
 		// find begin of word:
 		m_singleWord_start = 0;
@@ -136,7 +130,7 @@ void KDataToolPluginView::aboutToShow()
 		}
 		// find end of word:
 		m_singleWord_end = tmp_line.length();
-		for(uint i = col+1; i < tmp_line.length(); i++) {
+		for(int i = col+1; i < tmp_line.length(); i++) {
 			QChar ch = tmp_line.at(i);
 			if( ! (ch.isLetter() || ch == '-' || ch == '\'') )
 			{
@@ -150,7 +144,7 @@ void KDataToolPluginView::aboutToShow()
 			m_singleWord = true;
 			m_singleWord_line = line;
 		} else {
-			m_notAvailable = new KAction(i18n("(not available)"), QString::null, 0, this, 
+			m_notAvailable = new KAction(i18n("(not available)"), QString::null, 0, this,
 					SLOT(slotNotAvailable()), actionCollection(),"dt_n_av");
 			m_menu->insert(m_notAvailable);
 			return;
@@ -159,7 +153,7 @@ void KDataToolPluginView::aboutToShow()
 
 	KInstance *inst=instance();
 
-	QValueList<KDataToolInfo> tools;
+	Q3ValueList<KDataToolInfo> tools;
 	tools += KDataToolInfo::query( "QString", "text/plain", inst );
 	if( m_singleWord )
 		tools += KDataToolInfo::query( "QString", "application/x-singleword", inst );
@@ -197,8 +191,8 @@ void KDataToolPluginView::slotToolActivated( const KDataToolInfo &info, const QS
 	}
 
 	QString text;
-	if ( selectionInterface(m_view->document())->hasSelection() )
-		text = selectionInterface(m_view->document())->selection();
+	if ( m_view->selection() )
+		text = m_view->selectionText();
 	else
 		text = m_wordUnderCursor;
 
@@ -208,7 +202,7 @@ void KDataToolPluginView::slotToolActivated( const KDataToolInfo &info, const QS
 	// If unsupported (and if we have a single word indeed), try application/x-singleword
 	if ( !info.mimeTypes().contains( mimetype ) && m_singleWord )
 		mimetype = "application/x-singleword";
-	
+
 	kdDebug() << "Running tool with datatype=" << datatype << " mimetype=" << mimetype << endl;
 
 	QString origText = text;
@@ -218,19 +212,18 @@ void KDataToolPluginView::slotToolActivated( const KDataToolInfo &info, const QS
 		kdDebug() << "Tool ran. Text is now " << text << endl;
 		if ( origText != text )
 		{
-			uint line, col;
-			viewCursorInterface(m_view)->cursorPositionReal(&line, &col);
-			if ( ! selectionInterface(m_view->document())->hasSelection() )
+			int line, col;
+			line = m_view->cursorPosition().line();
+      col = m_view->cursorPosition().column();
+			if ( !m_view->selection() )
 			{
-				KTextEditor::SelectionInterface *si;
-				si = KTextEditor::selectionInterface(m_view->document());
-				si->setSelection(m_singleWord_line, m_singleWord_start, m_singleWord_line, m_singleWord_end);
+				m_view->setSelection(KTextEditor::Cursor (m_singleWord_line, m_singleWord_start),
+				       KTextEditor::Cursor (m_singleWord_line, m_singleWord_end));
 			}
-		
+
 			// replace selection with 'text'
-			selectionInterface(m_view->document())->removeSelectedText();
-			viewCursorInterface(m_view)->cursorPositionReal(&line, &col);
-			editInterface(m_view->document())->insertText(line, col, text);
+			m_view->removeSelectionText();
+			m_view->document()->insertText(m_view->cursorPosition(), text);
 			 // fixme: place cursor at the end:
 			 /* No idea yet (Joseph Wenninger)
 			 for ( uint i = 0; i < text.length(); i++ ) {

@@ -31,7 +31,7 @@
 #include "katerenderer.h"
 #include "katedocument.h"
 #include "katedocumenthelpers.h"
-#include "katefactory.h"
+#include "kateglobal.h"
 #include "katehighlight.h"
 #include "katedialogs.h"
 #include "katetextline.h"
@@ -44,6 +44,8 @@
 #include "kateconfig.h"
 #include "katefiletype.h"
 #include "kateautoindent.h"
+#include "katearbitraryhighlight.h"
+#include "katerangelist.h"
 #include "katespell.h"
 
 #include <ktexteditor/plugin.h>
@@ -75,63 +77,82 @@
 #include <qfileinfo.h>
 #include <qstyle.h>
 #include <qevent.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qlayout.h>
 #include <qclipboard.h>
-#include <qstylesheet.h>
+#include <q3stylesheet.h>
 //END includes
 
-KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
-    : Kate::View( doc, parent, name )
+KateView::KateView( KateDocument *doc, QWidget *parent )
+    : KTextEditor::View( parent )
+    , m_editActions (0)
     , m_doc( doc )
     , m_search( new KateSearch( this ) )
     , m_spell( new KateSpell( this ) )
     , m_bookmarks( new KateBookmarks( this ) )
     , m_cmdLine (0)
     , m_cmdLineOn (false)
-    , m_active( false )
     , m_hasWrap( false )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
+    , m_internalHighlights(new KateRangeList(doc, this))
     , selectStart (m_doc, true)
     , selectEnd (m_doc, true)
     , blockSelect (false)
-    , m_imStartLine( 0 )
-    , m_imStart( 0 )
-    , m_imEnd( 0 )
-    , m_imSelStart( 0 )
-    , m_imSelEnd( 0 )
     , m_imComposeEvent( false )
+    , m_destructing(false)
+    , m_customComplete(false)
+    , m_cc_cleanup(false)
+    , m_delayed_cc_type(KTextEditor::CompletionNone)
 {
-  KateFactory::self()->registerView( this );
+  KateGlobal::self()->registerView( this );
   m_config = new KateViewConfig (this);
 
   m_renderer = new KateRenderer(doc, this);
-
-  m_grid = new QGridLayout (this, 3, 3);
-
-  m_grid->setRowStretch ( 0, 10 );
-  m_grid->setRowStretch ( 1, 0 );
-  m_grid->setColStretch ( 0, 0 );
-  m_grid->setColStretch ( 1, 10 );
-  m_grid->setColStretch ( 2, 0 );
+  m_doc->arbitraryHL()->addHighlightToView(m_internalHighlights, this);
 
   m_viewInternal = new KateViewInternal( this, doc );
-  m_grid->addWidget (m_viewInternal, 0, 1);
 
-  setClipboardInterfaceDCOPSuffix (viewDCOPSuffix());
-  setCodeCompletionInterfaceDCOPSuffix (viewDCOPSuffix());
-  setDynWordWrapInterfaceDCOPSuffix (viewDCOPSuffix());
-  setPopupMenuInterfaceDCOPSuffix (viewDCOPSuffix());
-  setSessionConfigInterfaceDCOPSuffix (viewDCOPSuffix());
-  setViewCursorInterfaceDCOPSuffix (viewDCOPSuffix());
-  setViewStatusMsgInterfaceDCOPSuffix (viewDCOPSuffix());
+  // layouting ;)
 
-  setInstance( KateFactory::self()->instance() );
+  m_vBox = new QVBoxLayout (this);
+  m_vBox->setMargin (0);
+  m_vBox->setSpacing (0);
+
+  QHBoxLayout *hbox = new QHBoxLayout ();
+  m_vBox->addLayout (hbox);
+  hbox->setMargin (0);
+  hbox->setSpacing (0);
+
+  hbox->addWidget (m_viewInternal->m_leftBorder);
+
+  QVBoxLayout *vbox = new QVBoxLayout ();
+  hbox->addLayout (vbox);
+  vbox->setMargin (0);
+  vbox->setSpacing (0);
+
+  vbox->addWidget (m_viewInternal);
+  vbox->addWidget (m_viewInternal->m_columnScroll);
+
+  vbox = new QVBoxLayout ();
+  hbox->addLayout (vbox);
+  vbox->setMargin (0);
+  vbox->setSpacing (0);
+
+  vbox->addWidget (m_viewInternal->m_lineScroll);
+  vbox->addWidget (m_viewInternal->m_dummy);
+
+  // this really is needed :)
+  m_viewInternal->updateView ();
+
+  connect(&m_viewInternal->m_cursor, SIGNAL(positionChanged()), SLOT(slotCaretPositionChanged()));
+  connect(&m_viewInternal->m_mouse, SIGNAL(positionChanged()), SLOT(slotMousePositionChanged()));
+
+  setInstance( KateGlobal::self()->instance() );
   doc->addView( this );
 
   setFocusProxy( m_viewInternal );
-  setFocusPolicy( StrongFocus );
+  setFocusPolicy( Qt::StrongFocus );
 
   if (!doc->singleViewMode()) {
     setXMLFile( "katepartui.rc" );
@@ -167,6 +188,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
 KateView::~KateView()
 {
+  m_destructing=true;
   if (!m_doc->singleViewMode())
     m_doc->disableAllPluginsGUI (this);
 
@@ -178,7 +200,7 @@ KateView::~KateView()
   delete m_renderer;
 
   delete m_config;
-  KateFactory::self()->deregisterView (this);
+  KateGlobal::self()->deregisterView (this);
 }
 
 void KateView::setupConnections()
@@ -191,9 +213,6 @@ void KateView::setupConnections()
            this, SLOT(slotSaveCanceled(const QString&)) );
   connect( m_viewInternal, SIGNAL(dropEventPass(QDropEvent*)),
            this,           SIGNAL(dropEventPass(QDropEvent*)) );
-  connect(this,SIGNAL(cursorPositionChanged()),this,SLOT(slotStatusMsg()));
-  connect(this,SIGNAL(newStatus()),this,SLOT(slotStatusMsg()));
-  connect(m_doc, SIGNAL(undoChanged()), this, SLOT(slotStatusMsg()));
 
   if ( m_doc->browserView() )
   {
@@ -223,7 +242,7 @@ void KateView::setupActions()
 
   if (!m_doc->readOnly())
   {
-    a=KStdAction::save(this, SLOT(save()), ac);
+    a=KStdAction::save(m_doc, SLOT(documentSave()), ac);
     a->setWhatsThis(i18n("Save the current document"));
 
     a=m_editUndo = KStdAction::undo(m_doc, SLOT(undo()), ac);
@@ -251,12 +270,12 @@ void KateView::setupActions()
     a=new KAction(i18n("&Align"), 0, this, SLOT(align()), ac, "tools_align");
     a->setWhatsThis(i18n("Use this to align the current line or block of text to its proper indent level."));
 
-    a=new KAction(i18n("C&omment"), CTRL+Qt::Key_D, this, SLOT(comment()),
+    a=new KAction(i18n("C&omment"), Qt::CTRL+Qt::Key_D, this, SLOT(comment()),
         ac, "tools_comment");
     a->setWhatsThis(i18n("This command comments out the current line or a selected block of text.<BR><BR>"
         "The characters for single/multiple line comments are defined within the language's highlighting."));
 
-    a=new KAction(i18n("Unco&mment"), CTRL+SHIFT+Qt::Key_D, this, SLOT(uncomment()),
+    a=new KAction(i18n("Unco&mment"), Qt::CTRL+Qt::SHIFT+Qt::Key_D, this, SLOT(uncomment()),
                                  ac, "tools_uncomment");
     a->setWhatsThis(i18n("This command removes comments from the current line or a selected block of text.<BR><BR>"
     "The characters for single/multiple line comments are defined within the language's highlighting."));
@@ -266,22 +285,22 @@ void KateView::setupActions()
                 ac, "tools_toggle_write_lock" );
     a->setWhatsThis( i18n("Lock/unlock the document for writing") );
 
-    a = new KAction( i18n("Uppercase"), CTRL + Qt::Key_U, this,
+    a = new KAction( i18n("Uppercase"), Qt::CTRL + Qt::Key_U, this,
       SLOT(uppercase()), ac, "tools_uppercase" );
     a->setWhatsThis( i18n("Convert the selection to uppercase, or the character to the "
       "right of the cursor if no text is selected.") );
 
-    a = new KAction( i18n("Lowercase"), CTRL + SHIFT + Qt::Key_U, this,
+    a = new KAction( i18n("Lowercase"), Qt::CTRL + Qt::SHIFT + Qt::Key_U, this,
       SLOT(lowercase()), ac, "tools_lowercase" );
     a->setWhatsThis( i18n("Convert the selection to lowercase, or the character to the "
       "right of the cursor if no text is selected.") );
 
-    a = new KAction( i18n("Capitalize"), CTRL + ALT + Qt::Key_U, this,
+    a = new KAction( i18n("Capitalize"), Qt::CTRL + Qt::ALT + Qt::Key_U, this,
       SLOT(capitalize()), ac, "tools_capitalize" );
     a->setWhatsThis( i18n("Capitalize the selection, or the word under the "
       "cursor if no text is selected.") );
 
-    a = new KAction( i18n("Join Lines"), CTRL + Qt::Key_J, this,
+    a = new KAction( i18n("Join Lines"), Qt::CTRL + Qt::Key_J, this,
       SLOT( joinLines() ), ac, "tools_join_lines" );
   }
   else
@@ -298,13 +317,13 @@ void KateView::setupActions()
   a=new KAction(i18n("Reloa&d"), "reload", KStdAccel::reload(), this, SLOT(reloadFile()), ac, "file_reload");
   a->setWhatsThis(i18n("Reload the current document from disk."));
 
-  a=KStdAction::saveAs(this, SLOT(saveAs()), ac);
+  a=KStdAction::saveAs(m_doc, SLOT(documentSaveAs()), ac);
   a->setWhatsThis(i18n("Save the current document to disk, with a name of your choice."));
 
   a=KStdAction::gotoLine(this, SLOT(gotoLine()), ac);
   a->setWhatsThis(i18n("This command opens a dialog and lets you choose a line that you want the cursor to move to."));
 
-  a=new KAction(i18n("&Configure Editor..."), 0, m_doc, SLOT(configDialog()),ac, "set_confdlg");
+  a=new KAction(i18n("&Configure Editor..."), 0, this, SLOT(slotConfigDialog()),ac, "set_confdlg");
   a->setWhatsThis(i18n("Configure various aspects of this editor."));
 
   KateViewHighlightAction *menu = new KateViewHighlightAction (i18n("&Highlighting"), ac, "set_highlight");
@@ -338,20 +357,20 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("This decreases the display font size."));
 
   a= m_toggleBlockSelection = new KToggleAction(
-    i18n("Bl&ock Selection Mode"), CTRL + SHIFT + Key_B,
+    i18n("Bl&ock Selection Mode"), Qt::CTRL + Qt::SHIFT + Qt::Key_B,
     this, SLOT(toggleBlockSelectionMode()),
     ac, "set_verticalSelect");
   a->setWhatsThis(i18n("This command allows switching between the normal (line based) selection mode and the block selection mode."));
 
   a= m_toggleInsert = new KToggleAction(
-    i18n("Overwr&ite Mode"), Key_Insert,
+    i18n("Overwr&ite Mode"), Qt::Key_Insert,
     this, SLOT(toggleInsert()),
     ac, "set_insert" );
   a->setWhatsThis(i18n("Choose whether you want the text you type to be inserted or to overwrite existing text."));
 
   KToggleAction *toggleAction;
    a= m_toggleDynWrap = toggleAction = new KToggleAction(
-    i18n("&Dynamic Word Wrap"), Key_F10,
+    i18n("&Dynamic Word Wrap"), Qt::Key_F10,
     this, SLOT(toggleDynWordWrap()),
     ac, "view_dynamic_word_wrap" );
   a->setWhatsThis(i18n("If this option is checked, the text lines will be wrapped at the view border on the screen."));
@@ -367,14 +386,14 @@ void KateView::setupActions()
   m_setDynWrapIndicators->setItems(list2);
 
   a= toggleAction=m_toggleFoldingMarkers = new KToggleAction(
-    i18n("Show Folding &Markers"), Key_F9,
+    i18n("Show Folding &Markers"), Qt::Key_F9,
     this, SLOT(toggleFoldingMarkers()),
     ac, "view_folding_markers" );
   a->setWhatsThis(i18n("You can choose if the codefolding marks should be shown, if codefolding is possible."));
   toggleAction->setCheckedState(i18n("Hide Folding &Markers"));
 
    a= m_toggleIconBar = toggleAction = new KToggleAction(
-    i18n("Show &Icon Border"), Key_F6,
+    i18n("Show &Icon Border"), Qt::Key_F6,
     this, SLOT(toggleIconBorder()),
     ac, "view_border");
   a=toggleAction;
@@ -382,7 +401,7 @@ void KateView::setupActions()
   toggleAction->setCheckedState(i18n("Hide &Icon Border"));
 
   a= toggleAction=m_toggleLineNumbers = new KToggleAction(
-     i18n("Show &Line Numbers"), Key_F11,
+     i18n("Show &Line Numbers"), Qt::Key_F11,
      this, SLOT(toggleLineNumbersOn()),
      ac, "view_line_numbers" );
   a->setWhatsThis(i18n("Show/hide the line numbers on the left hand side of the view."));
@@ -405,7 +424,7 @@ void KateView::setupActions()
   toggleAction->setCheckedState(i18n("Hide Static &Word Wrap Marker"));
 
   a= m_switchCmdLine = new KAction(
-     i18n("Switch to Command Line"), Key_F7,
+     i18n("Switch to Command Line"), Qt::Key_F7,
      this, SLOT(switchToCmdLine()),
      ac, "switch_to_cmd_line" );
   a->setWhatsThis(i18n("Show/hide the command line on the bottom of the view."));
@@ -429,7 +448,12 @@ void KateView::setupActions()
 
   slotSelectionChanged ();
 
-  connect (this, SIGNAL(selectionChanged()), this, SLOT(slotSelectionChanged()));
+  connect (this, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(slotSelectionChanged()));
+}
+
+void KateView::slotConfigDialog ()
+{
+  KateGlobal::self ()->configDialog (this);
 }
 
 void KateView::setupEditActions()
@@ -438,33 +462,33 @@ void KateView::setupEditActions()
   KActionCollection* ac = m_editActions;
 
   new KAction(
-    i18n("Move Word Left"),                         CTRL + Key_Left,
+    i18n("Move Word Left"),                         Qt::CTRL + Qt::Key_Left,
     this,SLOT(wordLeft()),
     ac, "word_left" );
   new KAction(
-    i18n("Select Character Left"),          SHIFT +        Key_Left,
+    i18n("Select Character Left"),          Qt::SHIFT +        Qt::Key_Left,
     this,SLOT(shiftCursorLeft()),
     ac, "select_char_left" );
   new KAction(
-    i18n("Select Word Left"),               SHIFT + CTRL + Key_Left,
+    i18n("Select Word Left"),               Qt::SHIFT + Qt::CTRL + Qt::Key_Left,
     this, SLOT(shiftWordLeft()),
     ac, "select_word_left" );
 
   new KAction(
-    i18n("Move Word Right"),                        CTRL + Key_Right,
+    i18n("Move Word Right"),                        Qt::CTRL + Qt::Key_Right,
     this, SLOT(wordRight()),
     ac, "word_right" );
   new KAction(
-    i18n("Select Character Right"),         SHIFT        + Key_Right,
+    i18n("Select Character Right"),         Qt::SHIFT        + Qt::Key_Right,
     this, SLOT(shiftCursorRight()),
     ac, "select_char_right" );
   new KAction(
-    i18n("Select Word Right"),              SHIFT + CTRL + Key_Right,
+    i18n("Select Word Right"),              Qt::SHIFT + Qt::CTRL + Qt::Key_Right,
     this,SLOT(shiftWordRight()),
     ac, "select_word_right" );
 
   new KAction(
-    i18n("Move to Beginning of Line"),                      Key_Home,
+    i18n("Move to Beginning of Line"),                      Qt::Key_Home,
     this, SLOT(home()),
     ac, "beginning_of_line" );
   new KAction(
@@ -472,16 +496,16 @@ void KateView::setupEditActions()
     this, SLOT(top()),
     ac, "beginning_of_document" );
   new KAction(
-    i18n("Select to Beginning of Line"),     SHIFT +        Key_Home,
+    i18n("Select to Beginning of Line"),     Qt::SHIFT +        Qt::Key_Home,
     this, SLOT(shiftHome()),
     ac, "select_beginning_of_line" );
   new KAction(
-    i18n("Select to Beginning of Document"), SHIFT + CTRL + Key_Home,
+    i18n("Select to Beginning of Document"), Qt::SHIFT + Qt::CTRL + Qt::Key_Home,
     this, SLOT(shiftTop()),
     ac, "select_beginning_of_document" );
 
   new KAction(
-    i18n("Move to End of Line"),                            Key_End,
+    i18n("Move to End of Line"),                            Qt::Key_End,
     this, SLOT(end()),
     ac, "end_of_line" );
   new KAction(
@@ -489,41 +513,41 @@ void KateView::setupEditActions()
     this, SLOT(bottom()),
     ac, "end_of_document" );
   new KAction(
-    i18n("Select to End of Line"),           SHIFT +        Key_End,
+    i18n("Select to End of Line"),           Qt::SHIFT +        Qt::Key_End,
     this, SLOT(shiftEnd()),
     ac, "select_end_of_line" );
   new KAction(
-    i18n("Select to End of Document"),       SHIFT + CTRL + Key_End,
+    i18n("Select to End of Document"),       Qt::SHIFT + Qt::CTRL + Qt::Key_End,
     this, SLOT(shiftBottom()),
     ac, "select_end_of_document" );
 
   new KAction(
-    i18n("Select to Previous Line"),                SHIFT + Key_Up,
+    i18n("Select to Previous Line"),                Qt::SHIFT + Qt::Key_Up,
     this, SLOT(shiftUp()),
     ac, "select_line_up" );
   new KAction(
-    i18n("Scroll Line Up"),"",              CTRL +          Key_Up,
+    i18n("Scroll Line Up"),"",              Qt::CTRL +          Qt::Key_Up,
     this, SLOT(scrollUp()),
     ac, "scroll_line_up" );
 
-  new KAction(i18n("Move to Next Line"), Key_Down, this, SLOT(down()),
+  new KAction(i18n("Move to Next Line"), Qt::Key_Down, this, SLOT(down()),
 	      ac, "move_line_down");
 
-  new KAction(i18n("Move to Previous Line"), Key_Up, this, SLOT(up()),
+  new KAction(i18n("Move to Previous Line"), Qt::Key_Up, this, SLOT(up()),
 	      ac, "move_line_up");
 
-  new KAction(i18n("Move Character Right"), Key_Right, this,
+  new KAction(i18n("Move Character Right"), Qt::Key_Right, this,
 	      SLOT(cursorRight()), ac, "move_cursor_right");
 
-  new KAction(i18n("Move Character Left"), Key_Left, this, SLOT(cursorLeft()),
+  new KAction(i18n("Move Character Left"), Qt::Key_Left, this, SLOT(cursorLeft()),
 	      ac, "move_cusor_left");
 
   new KAction(
-    i18n("Select to Next Line"),                    SHIFT + Key_Down,
+    i18n("Select to Next Line"),                    Qt::SHIFT + Qt::Key_Down,
     this, SLOT(shiftDown()),
     ac, "select_line_down" );
   new KAction(
-    i18n("Scroll Line Down"),               CTRL +          Key_Down,
+    i18n("Scroll Line Down"),               Qt::CTRL +          Qt::Key_Down,
     this, SLOT(scrollDown()),
     ac, "scroll_line_down" );
 
@@ -532,15 +556,15 @@ void KateView::setupEditActions()
     this, SLOT(pageUp()),
     ac, "scroll_page_up" );
   new KAction(
-    i18n("Select Page Up"),                         SHIFT + Key_PageUp,
+    i18n("Select Page Up"),                         Qt::SHIFT + Qt::Key_PageUp,
     this, SLOT(shiftPageUp()),
     ac, "select_page_up" );
   new KAction(
-    i18n("Move to Top of View"),             CTRL +         Key_PageUp,
+    i18n("Move to Top of View"),             Qt::CTRL +         Qt::Key_PageUp,
     this, SLOT(topOfView()),
     ac, "move_top_of_view" );
   new KAction(
-    i18n("Select to Top of View"),             CTRL + SHIFT +  Key_PageUp,
+    i18n("Select to Top of View"),             Qt::CTRL + Qt::SHIFT +  Qt::Key_PageUp,
     this, SLOT(shiftTopOfView()),
     ac, "select_top_of_view" );
 
@@ -549,23 +573,23 @@ void KateView::setupEditActions()
     this, SLOT(pageDown()),
     ac, "scroll_page_down" );
   new KAction(
-    i18n("Select Page Down"),                       SHIFT + Key_PageDown,
+    i18n("Select Page Down"),                       Qt::SHIFT + Qt::Key_PageDown,
     this, SLOT(shiftPageDown()),
     ac, "select_page_down" );
   new KAction(
-    i18n("Move to Bottom of View"),          CTRL +         Key_PageDown,
+    i18n("Move to Bottom of View"),          Qt::CTRL +         Qt::Key_PageDown,
     this, SLOT(bottomOfView()),
     ac, "move_bottom_of_view" );
   new KAction(
-    i18n("Select to Bottom of View"),         CTRL + SHIFT + Key_PageDown,
+    i18n("Select to Bottom of View"),         Qt::CTRL + Qt::SHIFT + Qt::Key_PageDown,
     this, SLOT(shiftBottomOfView()),
     ac, "select_bottom_of_view" );
   new KAction(
-    i18n("Move to Matching Bracket"),               CTRL + Key_6,
+    i18n("Move to Matching Bracket"),               Qt::CTRL + Qt::Key_6,
     this, SLOT(toMatchingBracket()),
     ac, "to_matching_bracket" );
   new KAction(
-    i18n("Select to Matching Bracket"),      SHIFT + CTRL + Key_6,
+    i18n("Select to Matching Bracket"),      Qt::SHIFT + Qt::CTRL + Qt::Key_6,
     this, SLOT(shiftToMatchingBracket()),
     ac, "select_matching_bracket" );
 
@@ -573,12 +597,12 @@ void KateView::setupEditActions()
   if ( !m_doc->readOnly() )
   {
     new KAction(
-      i18n("Transpose Characters"),           CTRL + Key_T,
+      i18n("Transpose Characters"),           Qt::CTRL + Qt::Key_T,
       this, SLOT(transpose()),
       ac, "transpose_char" );
 
     new KAction(
-      i18n("Delete Line"),                    CTRL + Key_K,
+      i18n("Delete Line"),                    Qt::CTRL + Qt::Key_K,
       this, SLOT(killLine()),
       ac, "delete_line" );
 
@@ -592,19 +616,14 @@ void KateView::setupEditActions()
       this, SLOT(deleteWordRight()),
       ac, "delete_word_right" );
 
-    new KAction(i18n("Delete Next Character"), Key_Delete,
+    new KAction(i18n("Delete Next Character"), Qt::Key_Delete,
                 this, SLOT(keyDelete()),
                 ac, "delete_next_character");
 
-    new KAction(i18n("Backspace"), Key_Backspace,
+    new KAction(i18n("Backspace"), Qt::Key_Backspace,
                 this, SLOT(backspace()),
                 ac, "backspace");
   }
-
-  connect( this, SIGNAL(gotFocus(Kate::View*)),
-           this, SLOT(slotGotFocus()) );
-  connect( this, SIGNAL(lostFocus(Kate::View*)),
-           this, SLOT(slotLostFocus()) );
 
   m_editActions->readShortcutSettings( "Katepart Shortcuts" );
 
@@ -612,20 +631,18 @@ void KateView::setupEditActions()
     slotGotFocus();
   else
     slotLostFocus();
-
-
 }
 
 void KateView::setupCodeFolding()
 {
   KActionCollection *ac=this->actionCollection();
-  new KAction( i18n("Collapse Toplevel"), CTRL+SHIFT+Key_Minus,
+  new KAction( i18n("Collapse Toplevel"), Qt::CTRL+Qt::SHIFT+Qt::Key_Minus,
        m_doc->foldingTree(),SLOT(collapseToplevelNodes()),ac,"folding_toplevel");
-  new KAction( i18n("Expand Toplevel"), CTRL+SHIFT+Key_Plus,
+  new KAction( i18n("Expand Toplevel"), Qt::CTRL+Qt::SHIFT+Qt::Key_Plus,
        this,SLOT(slotExpandToplevel()),ac,"folding_expandtoplevel");
-  new KAction( i18n("Collapse One Local Level"), CTRL+Key_Minus,
+  new KAction( i18n("Collapse One Local Level"), Qt::CTRL+Qt::Key_Minus,
        this,SLOT(slotCollapseLocal()),ac,"folding_collapselocal");
-  new KAction( i18n("Expand One Local Level"), CTRL+Key_Plus,
+  new KAction( i18n("Expand One Local Level"), Qt::CTRL+Qt::Key_Plus,
        this,SLOT(slotExpandLocal()),ac,"folding_expandlocal");
 
 #ifdef DEBUGACCELS
@@ -638,21 +655,21 @@ void KateView::setupCodeFolding()
 
 void KateView::slotExpandToplevel()
 {
-  m_doc->foldingTree()->expandToplevelNodes(m_doc->numLines());
+  m_doc->foldingTree()->expandToplevelNodes(m_doc->lines());
 }
 
 void KateView::slotCollapseLocal()
 {
-  int realLine = m_doc->foldingTree()->collapseOne(cursorLine());
+  int realLine = m_doc->foldingTree()->collapseOne(cursorPosition().line());
   if (realLine != -1)
     // TODO rodda: fix this to only set line and allow internal view to chose column
     // Explicitly call internal because we want this to be registered as an internal call
-    setCursorPositionInternal(realLine, cursorColumn(), tabWidth(), false);
+    setCursorPositionInternal(realLine, cursorColumn(), m_doc->config()->tabWidth(), false);
 }
 
 void KateView::slotExpandLocal()
 {
-  m_doc->foldingTree()->expandOne(cursorLine(), m_doc->numLines());
+  m_doc->foldingTree()->expandOne(cursorPosition().line(), m_doc->lines());
 }
 
 void KateView::setupCodeCompletion()
@@ -670,16 +687,30 @@ void KateView::setupCodeCompletion()
            this,             SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString*)));
 }
 
+QString KateView::viewMode () const
+{
+  if (!m_doc->isReadWrite())
+    return i18n ("R/O");
+
+  return isOverwriteMode() ? i18n("OVR") : i18n ("NORM");
+}
+
 void KateView::slotGotFocus()
 {
-  m_editActions->accel()->setEnabled( true );
+  kdDebug()<<"KateView::slotGotFocus()"<<endl;
+  if (m_editActions)
+    m_editActions->accel()->setEnabled( true );
 
-  slotStatusMsg ();
+  emit focusIn ( this );
 }
 
 void KateView::slotLostFocus()
 {
-  m_editActions->accel()->setEnabled( false );
+  kdDebug()<<"KateView::slotLostFocus()"<<endl;
+  if (m_editActions)
+    m_editActions->accel()->setEnabled( false );
+
+  emit focusOut ( this );
 }
 
 void KateView::setDynWrapIndicators(int mode)
@@ -687,63 +718,27 @@ void KateView::setDynWrapIndicators(int mode)
   config()->setDynWordWrapIndicators (mode);
 }
 
-void KateView::slotStatusMsg ()
-{
-  QString ovrstr;
-  if (m_doc->isReadWrite())
-  {
-    if (m_doc->config()->configFlags() & KateDocument::cfOvr)
-      ovrstr = i18n(" OVR ");
-    else
-      ovrstr = i18n(" INS ");
-  }
-  else
-    ovrstr = i18n(" R/O ");
-
-  uint r = cursorLine() + 1;
-  uint c = cursorColumn() + 1;
-
-  QString s1 = i18n(" Line: %1").arg(KGlobal::locale()->formatNumber(r, 0));
-  QString s2 = i18n(" Col: %1").arg(KGlobal::locale()->formatNumber(c, 0));
-
-  QString modstr = m_doc->isModified() ? QString (" * ") : QString ("   ");
-  QString blockstr = blockSelectionMode() ? i18n(" BLK ") : i18n(" NORM ");
-
-  emit viewStatusMsg (s1 + s2 + " " + ovrstr + blockstr + modstr);
-}
-
-void KateView::slotSelectionTypeChanged()
-{
-  m_toggleBlockSelection->setChecked( blockSelectionMode() );
-
-  emit newStatus();
-}
-
 bool KateView::isOverwriteMode() const
 {
-  return m_doc->config()->configFlags() & KateDocument::cfOvr;
+  return m_doc->config()->configFlags() & KateDocumentConfig::cfOvr;
 }
 
 void KateView::reloadFile()
 {
   // save cursor position
-  uint cl = cursorLine();
-  uint cc = cursorColumn();
+  int cl = cursorPosition().line();
+  int cc = cursorColumn();
 
   // save bookmarks
-  m_doc->reloadFile();
+  m_doc->documentReload();
 
-  if (m_doc->numLines() >= cl)
+  if (m_doc->lines() >= cl)
     // Explicitly call internal function because we want this to be registered as a non-external call
-    setCursorPositionInternal( cl, cc, tabWidth(), false );
-
-  emit newStatus();
+    setCursorPositionInternal( cl, cc, m_doc->config()->tabWidth(), false );
 }
 
 void KateView::slotUpdate()
 {
-  emit newStatus();
-
   slotNewUndo();
 }
 
@@ -765,7 +760,7 @@ void KateView::slotReadWriteChanged ()
       << "tools_spelling_selection";
 
   KAction *a = 0;
-  for (uint z = 0; z < l.size(); z++)
+  for (int z = 0; z < l.size(); z++)
     if ((a = actionCollection()->action( l[z].ascii() )))
       a->setEnabled (m_doc->isReadWrite());
 }
@@ -796,7 +791,7 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
 {
   if ( !m_doc || !m_doc->browserExtension()  )
     return;
-  emit m_doc->browserExtension()->popupMenu( /*this, */ev->globalPos(), m_doc->url(),
+  emit m_doc->browserExtension()->popupMenu( ev->globalPos(), m_doc->url(),
                                         QString::fromLatin1( "text/plain" ) );
   ev->accept();
 }
@@ -808,93 +803,24 @@ bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth, bo
   if (!l)
     return false;
 
-  QString line_str = m_doc->textLine( line );
+  QString line_str = m_doc->line( line );
 
-  uint z;
-  uint x = 0;
-  for (z = 0; z < line_str.length() && z < col; z++) {
+  int x = 0;
+  for (int z = 0; z < line_str.length() && (uint)z < col; z++) {
     if (line_str[z] == QChar('\t')) x += tabwidth - (x % tabwidth); else x++;
   }
 
-  m_viewInternal->updateCursor( KateTextCursor( line, x ), false, true, calledExternally );
+  m_viewInternal->updateCursor( KTextEditor::Cursor( line, x ), false, true, calledExternally );
 
   return true;
 }
 
-void KateView::setOverwriteMode( bool b )
-{
-  if ( isOverwriteMode() && !b )
-    m_doc->setConfigFlags( m_doc->config()->configFlags() ^ KateDocument::cfOvr );
-  else
-    m_doc->setConfigFlags( m_doc->config()->configFlags() | KateDocument::cfOvr );
-
-  m_toggleInsert->setChecked (isOverwriteMode ());
-}
-
 void KateView::toggleInsert()
 {
-  m_doc->setConfigFlags(m_doc->config()->configFlags() ^ KateDocument::cfOvr);
+  m_doc->config()->setConfigFlags(m_doc->config()->configFlags() ^ KateDocumentConfig::cfOvr);
   m_toggleInsert->setChecked (isOverwriteMode ());
 
-  emit newStatus();
-}
-
-bool KateView::canDiscard()
-{
-  return m_doc->closeURL();
-}
-
-void KateView::flush()
-{
-  m_doc->closeURL();
-}
-
-KateView::saveResult KateView::save()
-{
-  if( !m_doc->url().isValid() || !doc()->isReadWrite() )
-    return saveAs();
-
-  if( m_doc->save() )
-    return SAVE_OK;
-
-  return SAVE_ERROR;
-}
-
-KateView::saveResult KateView::saveAs()
-{
-
-  KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(doc()->config()->encoding(),
-                m_doc->url().url(),QString::null,this,i18n("Save File"));
-
-//   kdDebug()<<"urllist is emtpy?"<<res.URLs.isEmpty()<<endl;
-//   kdDebug()<<"url is:"<<res.URLs.first()<<endl;
-  if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first() ) )
-    return SAVE_CANCEL;
-
-  m_doc->setEncoding( res.encoding );
-
-  if( m_doc->saveAs( res.URLs.first() ) )
-    return SAVE_OK;
-
-  return SAVE_ERROR;
-}
-
-bool KateView::checkOverwrite( KURL u )
-{
-  if( !u.isLocalFile() )
-    return true;
-
-  QFileInfo info( u.path() );
-  if( !info.exists() )
-    return true;
-
-  return KMessageBox::Continue
-         == KMessageBox::warningContinueCancel
-              ( this,
-                i18n( "A file named \"%1\" already exists. Are you sure you want to overwrite it?" ).arg( info.fileName() ),
-                i18n( "Overwrite File?" ),
-                KGuiItem( i18n( "&Overwrite" ), "filesave", i18n( "Overwrite the file" ) )
-              );
+  emit viewModeChanged(this);
 }
 
 void KateView::slotSaveCanceled( const QString& error )
@@ -905,30 +831,22 @@ void KateView::slotSaveCanceled( const QString& error )
 
 void KateView::gotoLine()
 {
-  KateGotoLineDialog *dlg = new KateGotoLineDialog (this, m_viewInternal->getCursor().line() + 1, m_doc->numLines());
+  KateGotoLineDialog *dlg = new KateGotoLineDialog (this, m_viewInternal->getCursor().line() + 1, m_doc->lines());
 
   if (dlg->exec() == QDialog::Accepted)
-    gotoLineNumber( dlg->getLine() - 1 );
+    setCursorPositionInternal( dlg->getLine() - 1, 0 );
 
   delete dlg;
 }
 
-void KateView::gotoLineNumber( int line )
-{
-  // clear selection, unless we are in persistent selection mode
-  if ( !config()->persistentSelection() )
-    clearSelection();
-  setCursorPositionInternal ( line, 0, 1 );
-}
-
 void KateView::joinLines()
 {
-  int first = selStartLine();
-  int last = selEndLine();
-  //int left = m_doc->textLine( last ).length() - m_doc->selEndCol();
+  int first = selectionStart().line();
+  int last = selectionEnd().line();
+  //int left = m_doc->line( last ).length() - m_doc->selEndCol();
   if ( first == last )
   {
-    first = cursorLine();
+    first = cursorPosition().line();
     last = first + 1;
   }
   m_doc->joinLines( first, last );
@@ -941,8 +859,8 @@ void KateView::readSessionConfig(KConfig *config)
 
 void KateView::writeSessionConfig(KConfig *config)
 {
-  config->writeEntry("CursorLine",m_viewInternal->cursor.line());
-  config->writeEntry("CursorColumn",m_viewInternal->cursor.col());
+  config->writeEntry("CursorLine",m_viewInternal->m_cursor.line());
+  config->writeEntry("CursorColumn",m_viewInternal->m_cursor.column());
 }
 
 int KateView::getEol()
@@ -996,11 +914,6 @@ void KateView::toggleDynWordWrap()
   config()->setDynWordWrap( !config()->dynWordWrap() );
 }
 
-void KateView::setDynWordWrap( bool b )
-{
-  config()->setDynWordWrap( b );
-}
-
 void KateView::toggleWWMarker()
 {
   m_renderer->config()->setWordWrapMarker (!m_renderer->config()->wordWrapMarker());
@@ -1017,11 +930,11 @@ void KateView::toggleFoldingMarkers()
 }
 
 bool KateView::iconBorder() {
-  return m_viewInternal->leftBorder->iconBorderOn();
+  return m_viewInternal->m_leftBorder->iconBorderOn();
 }
 
 bool KateView::lineNumbersOn() {
-  return m_viewInternal->leftBorder->lineNumbersOn();
+  return m_viewInternal->m_leftBorder->lineNumbersOn();
 }
 
 bool KateView::scrollBarMarks() {
@@ -1029,11 +942,11 @@ bool KateView::scrollBarMarks() {
 }
 
 int KateView::dynWrapIndicators() {
-  return m_viewInternal->leftBorder->dynWrapIndicators();
+  return m_viewInternal->m_leftBorder->dynWrapIndicators();
 }
 
 bool KateView::foldingMarkersOn() {
-  return m_viewInternal->leftBorder->foldingMarkersOn();
+  return m_viewInternal->m_leftBorder->foldingMarkersOn();
 }
 
 void KateView::showCmdLine ( bool enabled )
@@ -1046,7 +959,7 @@ void KateView::showCmdLine ( bool enabled )
     if (!m_cmdLine)
     {
       m_cmdLine = new KateCmdLine (this);
-      m_grid->addMultiCellWidget (m_cmdLine, 2, 2, 0, 2);
+      m_vBox->addWidget (m_cmdLine);
     }
 
     m_cmdLine->show ();
@@ -1137,16 +1050,19 @@ void KateView::switchToCmdLine ()
   m_cmdLine->setFocus ();
 }
 
+
+#if 0
 void KateView::showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 )
 {
   m_codeCompletion->showArgHint( arg1, arg2, arg3 );
 }
 
-void KateView::showCompletionBox( QValueList<KTextEditor::CompletionEntry> arg1, int offset, bool cs )
+void KateView::showCompletionBox( Q3ValueList<KTextEditor::CompletionEntry> arg1, int offset, bool cs )
 {
   emit aboutToShowCompletionBox();
   m_codeCompletion->showCompletionBox( arg1, offset, cs );
 }
+#endif 
 
 KateRenderer *KateView::renderer ()
 {
@@ -1172,15 +1088,15 @@ void KateView::updateConfig ()
     m_toggleDynWrap->setChecked( config()->dynWordWrap() );
   }
 
-  m_viewInternal->leftBorder->setDynWrapIndicators( config()->dynWordWrapIndicators() );
+  m_viewInternal->m_leftBorder->setDynWrapIndicators( config()->dynWordWrapIndicators() );
   m_setDynWrapIndicators->setCurrentItem( config()->dynWordWrapIndicators() );
 
   // line numbers
-  m_viewInternal->leftBorder->setLineNumbersOn( config()->lineNumbers() );
+  m_viewInternal->m_leftBorder->setLineNumbersOn( config()->lineNumbers() );
   m_toggleLineNumbers->setChecked( config()->lineNumbers() );
 
   // icon bar
-  m_viewInternal->leftBorder->setIconBorderOn( config()->iconBar() );
+  m_viewInternal->m_leftBorder->setIconBorderOn( config()->iconBar() );
   m_toggleIconBar->setChecked( config()->iconBar() );
 
   // scrollbar marks
@@ -1232,8 +1148,8 @@ void KateView::updateRendererConfig()
   m_viewInternal->repaint ();
 
   // update the left border right, for example linenumbers
-  m_viewInternal->leftBorder->updateFont();
-  m_viewInternal->leftBorder->repaint ();
+  m_viewInternal->m_leftBorder->updateFont();
+  m_viewInternal->m_leftBorder->repaint ();
 
 // @@ showIndentLines is not cached anymore.
 //  m_renderer->setShowIndentLines (m_renderer->config()->showIndentationLines());
@@ -1243,7 +1159,7 @@ void KateView::updateFoldingConfig ()
 {
   // folding bar
   bool doit = config()->foldingBar() && m_doc->highlight() && m_doc->highlight()->allowsFolding();
-  m_viewInternal->leftBorder->setFoldingMarkersOn(doit);
+  m_viewInternal->m_leftBorder->setFoldingMarkersOn(doit);
   m_toggleFoldingMarkers->setChecked( doit );
   m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
 
@@ -1253,7 +1169,7 @@ void KateView::updateFoldingConfig ()
     << "folding_collapselocal" << "folding_expandlocal";
 
   KAction *a = 0;
-  for (uint z = 0; z < l.size(); z++)
+  for (int z = 0; z < l.size(); z++)
     if ((a = actionCollection()->action( l[z].ascii() )))
       a->setEnabled (m_doc->highlight() && m_doc->highlight()->allowsFolding());
 }
@@ -1269,16 +1185,21 @@ void KateView::editEnd (int editTagLineStart, int editTagLineEnd, bool tagFrom)
   m_viewInternal->editEnd (editTagLineStart, editTagLineEnd, tagFrom);
 }
 
-void KateView::editSetCursor (const KateTextCursor &cursor)
+void KateView::editSetCursor (const KTextEditor::Cursor &cursor)
 {
   m_viewInternal->editSetCursor (cursor);
 }
 //END
 
 //BEGIN TAG & CLEAR
-bool KateView::tagLine (const KateTextCursor& virtualCursor)
+bool KateView::tagLine (const KTextEditor::Cursor& virtualCursor)
 {
   return m_viewInternal->tagLine (virtualCursor);
+}
+
+bool KateView::tagRange(const KTextEditor::Range& range, bool realLines)
+{
+  return m_viewInternal->tagRange(range, realLines);
 }
 
 bool KateView::tagLines (int start, int end, bool realLines)
@@ -1286,7 +1207,7 @@ bool KateView::tagLines (int start, int end, bool realLines)
   return m_viewInternal->tagLines (start, end, realLines);
 }
 
-bool KateView::tagLines (KateTextCursor start, KateTextCursor end, bool realCursors)
+bool KateView::tagLines (KTextEditor::Cursor start, KTextEditor::Cursor end, bool realCursors)
 {
   return m_viewInternal->tagLines (start, end, realCursors);
 }
@@ -1303,13 +1224,14 @@ void KateView::clear ()
 
 void KateView::repaintText (bool paintOnlyDirty)
 {
-  m_viewInternal->paintText(0,0,m_viewInternal->width(),m_viewInternal->height(), paintOnlyDirty);
+  m_viewInternal->update ();
+  //m_viewInternal->paintText(0,0,m_viewInternal->width(),m_viewInternal->height(), paintOnlyDirty);
 }
 
 void KateView::updateView (bool changed)
 {
   m_viewInternal->updateView (changed);
-  m_viewInternal->leftBorder->update();
+  m_viewInternal->m_leftBorder->update();
 }
 
 //END
@@ -1329,47 +1251,52 @@ void KateView::slotHlChanged()
   updateFoldingConfig ();
 }
 
-uint KateView::cursorColumn()
+int KateView::cursorColumn() const
 {
   uint r = m_doc->currentColumn(m_viewInternal->getCursor());
   if ( !( m_doc->config()->configFlags() & KateDocumentConfig::cfWrapCursor ) &&
-       (uint)m_viewInternal->getCursor().col() > m_doc->textLine( m_viewInternal->getCursor().line() ).length()  )
-    r += m_viewInternal->getCursor().col() - m_doc->textLine( m_viewInternal->getCursor().line() ).length();
+       m_viewInternal->getCursor().column() > m_doc->line( m_viewInternal->getCursor().line() ).length()  )
+    r += m_viewInternal->getCursor().column() - m_doc->line( m_viewInternal->getCursor().line() ).length();
 
   return r;
 }
 
+void KateView::slotMousePositionChanged( )
+{
+  Q_ASSERT(sender() && sender()->inherits("KateSuperCursor"));
+  KateSuperCursor* mousePosition = static_cast<KateSuperCursor*>(const_cast<QObject*>(sender()));
+  emit mousePositionChanged(*mousePosition);
+}
+
+void KateView::slotCaretPositionChanged( )
+{
+  Q_ASSERT(sender() && sender()->inherits("KateSuperCursor"));
+  KateSuperCursor* caretPosition = static_cast<KateSuperCursor*>(const_cast<QObject*>(sender()));
+  emit caretPositionChanged(*caretPosition);
+}
+
 //BEGIN KTextEditor::SelectionInterface stuff
 
-bool KateView::setSelection( const KateTextCursor& start, const KateTextCursor& end )
+bool KateView::setSelection( const KTextEditor::Cursor& start, const KTextEditor::Cursor& end )
 {
-  KateTextCursor oldSelectStart = selectStart;
-  KateTextCursor oldSelectEnd = selectEnd;
+  KTextEditor::Cursor oldSelectStart = selectStart;
+  KTextEditor::Cursor oldSelectEnd = selectEnd;
 
   if (start <= end) {
-    selectStart.setPos(start);
-    selectEnd.setPos(end);
+    selectStart.setPosition(start);
+    selectEnd.setPosition(end);
   } else {
-    selectStart.setPos(end);
-    selectEnd.setPos(start);
+    selectStart.setPosition(end);
+    selectEnd.setPosition(start);
   }
 
   tagSelection(oldSelectStart, oldSelectEnd);
 
   repaintText(true);
 
-  emit selectionChanged ();
-  emit m_doc->selectionChanged ();
+  emit selectionChanged (this);
 
   return true;
-}
-
-bool KateView::setSelection( uint startLine, uint startCol, uint endLine, uint endCol )
-{
-  if (hasSelection())
-    clearSelection(false, false);
-
-  return setSelection( KateTextCursor(startLine, startCol), KateTextCursor(endLine, endCol) );
 }
 
 bool KateView::clearSelection()
@@ -1382,11 +1309,11 @@ bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
   if( !hasSelection() )
     return false;
 
-  KateTextCursor oldSelectStart = selectStart;
-  KateTextCursor oldSelectEnd = selectEnd;
+  KTextEditor::Cursor oldSelectStart = selectStart;
+  KTextEditor::Cursor oldSelectEnd = selectEnd;
 
-  selectStart.setPos(-1, -1);
-  selectEnd.setPos(-1, -1);
+  selectStart.setPosition(-1, -1);
+  selectEnd.setPosition(-1, -1);
 
   tagSelection(oldSelectStart, oldSelectEnd);
 
@@ -1397,10 +1324,7 @@ bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
     repaintText(true);
 
   if (finishedChangingSelection)
-  {
-    emit selectionChanged();
-    emit m_doc->selectionChanged ();
-  }
+    emit selectionChanged(this);
 
   return true;
 }
@@ -1410,10 +1334,10 @@ bool KateView::hasSelection() const
   return selectStart != selectEnd;
 }
 
-QString KateView::selection() const
+QString KateView::selectionText() const
 {
-  int sc = selectStart.col();
-  int ec = selectEnd.col();
+  int sc = selectStart.column();
+  int ec = selectEnd.column();
 
   if ( blockSelect )
   {
@@ -1434,8 +1358,8 @@ bool KateView::removeSelectedText ()
 
   m_doc->editStart ();
 
-  int sc = selectStart.col();
-  int ec = selectEnd.col();
+  int sc = selectStart.column();
+  int ec = selectEnd.column();
 
   if ( blockSelect )
   {
@@ -1461,34 +1385,33 @@ bool KateView::selectAll()
 {
   setBlockSelectionMode (false);
 
-  return setSelection (0, 0, m_doc->lastLine(), m_doc->lineLength(m_doc->lastLine()));
+  return setSelection (KTextEditor::Cursor (0,0), KTextEditor::Cursor(m_doc->lastLine(), m_doc->lineLength(m_doc->lastLine())));
 }
 
-bool KateView::lineColSelected (int line, int col)
+bool KateView::cursorSelected(const KTextEditor::Cursor& cursor)
 {
-  if ( (!blockSelect) && (col < 0) )
-    col = 0;
-
-  KateTextCursor cursor(line, col);
+  KTextEditor::Cursor ret = cursor;
+  if ( (!blockSelect) && (ret.column() < 0) )
+    ret.setColumn(0);
 
   if (blockSelect)
-    return cursor.line() >= selectStart.line() && cursor.line() <= selectEnd.line() && cursor.col() >= selectStart.col() && cursor.col() < selectEnd.col();
+    return cursor.line() >= selectStart.line() && ret.line() <= selectEnd.line() && ret.column() >= selectStart.column() && ret.column() < selectEnd.column();
   else
-    return (cursor >= selectStart) && (cursor < selectEnd);
+    return (ret >= selectStart) && (ret < selectEnd);
 }
 
 bool KateView::lineSelected (int line)
 {
   return (!blockSelect)
-    && (selectStart <= KateTextCursor(line, 0))
+    && (selectStart <= KTextEditor::Cursor(line, 0))
     && (line < selectEnd.line());
 }
 
-bool KateView::lineEndSelected (int line, int endCol)
+bool KateView::lineEndSelected (const KTextEditor::Cursor& lineEndPos)
 {
   return (!blockSelect)
-    && (line > selectStart.line() || (line == selectStart.line() && (selectStart.col() < endCol || endCol == -1)))
-    && (line < selectEnd.line() || (line == selectEnd.line() && (endCol <= selectEnd.col() && endCol != -1)));
+    && (lineEndPos.line() > selectStart.line() || (lineEndPos.line() == selectStart.line() && (selectStart.column() < lineEndPos.column() || lineEndPos.column() == -1)))
+    && (lineEndPos.line() < selectEnd.line() || (lineEndPos.line() == selectEnd.line() && (lineEndPos.column() <= selectEnd.column() && lineEndPos.column() != -1)));
 }
 
 bool KateView::lineHasSelected (int line)
@@ -1503,7 +1426,7 @@ bool KateView::lineIsSelection (int line)
   return (line == selectStart.line() && line == selectEnd.line());
 }
 
-void KateView::tagSelection(const KateTextCursor &oldSelectStart, const KateTextCursor &oldSelectEnd)
+void KateView::tagSelection(const KTextEditor::Cursor &oldSelectStart, const KTextEditor::Cursor &oldSelectEnd)
 {
   if (hasSelection()) {
     if (oldSelectStart.line() == -1) {
@@ -1512,7 +1435,7 @@ void KateView::tagSelection(const KateTextCursor &oldSelectStart, const KateText
       //  a) it's new; or
       tagLines(selectStart, selectEnd);
 
-    } else if (blockSelectionMode() && (oldSelectStart.col() != selectStart.col() || oldSelectEnd.col() != selectEnd.col())) {
+    } else if (blockSelectionMode() && (oldSelectStart.column() != selectStart.column() || oldSelectEnd.column() != selectEnd.column())) {
       //  b) we're in block selection mode and the columns have changed
       tagLines(selectStart, selectEnd);
       tagLines(oldSelectStart, oldSelectEnd);
@@ -1539,7 +1462,7 @@ void KateView::tagSelection(const KateTextCursor &oldSelectStart, const KateText
   }
 }
 
-void KateView::selectWord( const KateTextCursor& cursor )
+void KateView::selectWord( const KTextEditor::Cursor& cursor )
 {
   int start, end, len;
 
@@ -1549,33 +1472,17 @@ void KateView::selectWord( const KateTextCursor& cursor )
     return;
 
   len = textLine->length();
-  start = end = cursor.col();
+  start = end = cursor.column();
   while (start > 0 && m_doc->highlight()->isInWord(textLine->getChar(start - 1), textLine->attribute(start - 1))) start--;
   while (end < len && m_doc->highlight()->isInWord(textLine->getChar(end), textLine->attribute(start - 1))) end++;
   if (end <= start) return;
 
-  setSelection (cursor.line(), start, cursor.line(), end);
+  setSelection (KTextEditor::Cursor(cursor.line(), start), end-start);
 }
 
-void KateView::selectLine( const KateTextCursor& cursor )
+void KateView::selectLine( const KTextEditor::Cursor& cursor )
 {
-  setSelection (cursor.line(), 0, cursor.line()+1, 0);
-}
-
-void KateView::selectLength( const KateTextCursor& cursor, int length )
-{
-  int start, end;
-
-  KateTextLine::Ptr textLine = m_doc->plainKateTextLine(cursor.line());
-
-  if (!textLine)
-    return;
-
-  start = cursor.col();
-  end = start + length;
-  if (end <= start) return;
-
-  setSelection (cursor.line(), start, cursor.line(), end);
+  setSelection (KTextEditor::Cursor (cursor.line(), 0), KTextEditor::Cursor (cursor.line()+1, 0));
 }
 
 void KateView::cut()
@@ -1592,7 +1499,7 @@ void KateView::copy() const
   if (!hasSelection())
     return;
 
-  QApplication::clipboard()->setText(selection ());
+  QApplication::clipboard()->setText(selectionText ());
 }
 
 void KateView::copyHTML()
@@ -1602,19 +1509,19 @@ void KateView::copyHTML()
 
   KMultipleDrag *drag = new KMultipleDrag();
 
-  QTextDrag *htmltextdrag = new QTextDrag(selectionAsHtml()) ;
+  Q3TextDrag *htmltextdrag = new Q3TextDrag(selectionAsHtml()) ;
   htmltextdrag->setSubtype("html");
 
   drag->addDragObject( htmltextdrag);
-  drag->addDragObject( new QTextDrag( selection()));
+  drag->addDragObject( new Q3TextDrag( selectionText()));
 
   QApplication::clipboard()->setData(drag);
 }
 
 QString KateView::selectionAsHtml()
 {
-  int sc = selectStart.col();
-  int ec = selectEnd.col();
+  int sc = selectStart.column();
+  int ec = selectEnd.column();
 
   if ( blockSelect )
   {
@@ -1636,7 +1543,7 @@ QString KateView::textAsHtml ( uint startLine, uint startCol, uint endLine, uint
     return QString ();
 
   QString s;
-  QTextStream ts( &s, IO_WriteOnly );
+  QTextStream ts( &s, QIODevice::WriteOnly );
   ts.setEncoding(QTextStream::UnicodeUTF8);
   ts << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;
   ts << "<html xmlns=\"http://www.w3.org/1999/xhtml\">" << endl;
@@ -1673,7 +1580,7 @@ void KateView::textAsHtmlStream ( uint startLine, uint startCol, uint endLine, u
   {
     (*ts) << "<pre>" << endl;
 
-    for (uint i = startLine; (i <= endLine) && (i < m_doc->numLines()); i++)
+    for (int i = startLine; (i <= endLine) && (i < m_doc->lines()); ++i)
     {
       KateTextLine::Ptr textLine = m_doc->kateTextLine(i);
 
@@ -1769,7 +1676,7 @@ void KateView::lineAsHTML (KateTextLine::Ptr line, uint startCol, uint length, Q
         (*outputStream) << "</i>";
 
       // write the actual character :
-      (*outputStream) << QStyleSheet::escape(QString(line->getChar(curPos)));
+      (*outputStream) << Q3StyleSheet::escape(QString(line->getChar(curPos)));
 
       // save status for the next character :
       previousCharacterWasItalic = charAttributes->italic();
@@ -1817,7 +1724,7 @@ void KateView::exportAsHTML ()
     (*outputStream) << "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" << endl;
     (*outputStream) << "<meta name=\"Generator\" content=\"Kate, the KDE Advanced Text Editor\" />" << endl;
     // for the title, we write the name of the file (/usr/local/emmanuel/myfile.cpp -> myfile.cpp)
-    (*outputStream) << "<title>" << m_doc->docName () << "</title>" << endl;
+    (*outputStream) << "<title>" << m_doc->documentName () << "</title>" << endl;
     (*outputStream) << "</head>" << endl;
     (*outputStream) << "<body>" << endl;
 
@@ -1843,7 +1750,7 @@ void KateView::exportAsHTML ()
 
 //BEGIN KTextEditor::BlockSelectionInterface stuff
 
-bool KateView::blockSelectionMode ()
+bool KateView::blockSelectionMode () const
 {
   return blockSelect;
 }
@@ -1854,14 +1761,14 @@ bool KateView::setBlockSelectionMode (bool on)
   {
     blockSelect = on;
 
-    KateTextCursor oldSelectStart = selectStart;
-    KateTextCursor oldSelectEnd = selectEnd;
+    KTextEditor::Cursor oldSelectStart = selectStart;
+    KTextEditor::Cursor oldSelectEnd = selectEnd;
 
     clearSelection(false, false);
 
     setSelection(oldSelectStart, oldSelectEnd);
 
-    slotSelectionTypeChanged();
+    m_toggleBlockSelection->setChecked( blockSelectionMode() );
   }
 
   return true;
@@ -1875,44 +1782,134 @@ bool KateView::toggleBlockSelectionMode ()
 
 bool KateView::wrapCursor ()
 {
-  return !blockSelectionMode() && (m_doc->configFlags() & KateDocument::cfWrapCursor);
+  return !blockSelectionMode() && (m_doc->config()->configFlags() & KateDocumentConfig::cfWrapCursor);
 }
 
 //END
 
 //BEGIN IM INPUT STUFF
-void KateView::setIMSelectionValue( uint imStartLine, uint imStart, uint imEnd,
-                                        uint imSelStart, uint imSelEnd, bool imComposeEvent )
+void KateView::setIMSelectionValue( const KTextEditor::Range& imRange, const KTextEditor::Range& imSelection, bool imComposeEvent )
 {
-  m_imStartLine = imStartLine;
-  m_imStart = imStart;
-  m_imEnd = imEnd;
-  m_imSelStart = imSelStart;
-  m_imSelEnd = imSelEnd;
+  m_imRange = imRange;
+  m_imSelection = imSelection;
   m_imComposeEvent = imComposeEvent;
 }
 
-bool KateView::isIMSelection( int _line, int _column )
+bool KateView::isIMSelection( const KTextEditor::Cursor& pos )
 {
-  return ( ( int( m_imStartLine ) == _line ) && ( m_imSelStart < m_imSelEnd ) && ( _column >= int( m_imSelStart ) ) &&
-    ( _column < int( m_imSelEnd ) ) );
+  return m_imSelection.includes(pos);
 }
 
-bool KateView::isIMEdit( int _line, int _column )
+bool KateView::isIMEdit( const KTextEditor::Cursor& pos )
 {
-  return ( ( int( m_imStartLine ) == _line ) && ( m_imStart < m_imEnd ) && ( _column >= int( m_imStart ) ) &&
-    ( _column < int( m_imEnd ) ) );
+  return m_imRange.includes(pos);
 }
 
-void KateView::getIMSelectionValue( uint *imStartLine, uint *imStart, uint *imEnd,
-                                        uint *imSelStart, uint *imSelEnd )
+void KateView::getIMSelectionValue( KTextEditor::Range* imRange, KTextEditor::Range* imSelection )
 {
-  *imStartLine = m_imStartLine;
-  *imStart = m_imStart;
-  *imEnd = m_imEnd;
-  *imSelStart = m_imSelStart;
-  *imSelEnd = m_imSelEnd;
+  *imRange = m_imRange;
+  *imSelection = m_imSelection;
 }
 //END IM INPUT STUFF
+
+// merge the following two functions
+void KateView::slotTextInserted ( KTextEditor::View *view, const KTextEditor::Cursor &position, const QString &text)
+{
+  emit textInserted ( view, position, text);
+  if (m_customComplete) return;
+  kdDebug()<<"Checking if cc provider list is empty"<<endl;
+  if (m_completionProviders.isEmpty()) return;
+  QLinkedList<KTextEditor::CompletionData> newdata;
+
+  KTextEditor::Cursor c=cursorPosition();
+  QString lineText=m_doc->line(c.line());
+  kdDebug()<<"Checking state for all providers"<<endl;
+  const KTextEditor::CompletionData nulldata=KTextEditor::CompletionData::Null();
+  foreach (KTextEditor::CompletionProvider *provider, m_completionProviders)
+  {
+    const KTextEditor::CompletionData &nd=provider->completionData(view,KTextEditor::CompletionAsYouType,position,text,c,lineText);
+    if (nd.isValid()) newdata.append(nd);
+  }
+  m_codeCompletion->showCompletion(position,newdata);
+}
+
+void KateView::invokeCompletion(enum KTextEditor::CompletionType type) {
+  kdDebug(13020)<<"KateView::invokeCompletion"<<endl;
+  if ((type==KTextEditor::CompletionAsYouType) || (type==KTextEditor::CompletionAsYouTypeBackspace))
+  {
+    kdDebug(13020)<<"KateView::invokeCompletion: ignoring invalid call"<<endl;
+    return;
+  }
+  kdDebug(13020)<<"Before delay check"<<endl;
+  if (m_cc_cleanup) {m_delayed_cc_type=type; return;}
+  kdDebug(13020)<<"Before custom complete check"<<endl;
+  if (m_customComplete) return;
+  if (m_completionProviders.isEmpty()) return;
+  kdDebug(13020)<<"About to iterate over provider list"<<endl;
+  QLinkedList<KTextEditor::CompletionData> newdata;
+  KTextEditor::Cursor c=cursorPosition();
+  QString lineText=m_doc->line(c.line());
+  foreach (KTextEditor::CompletionProvider *provider, m_completionProviders)
+  {
+    const KTextEditor::CompletionData& nd=provider->completionData(this,type,KTextEditor::Cursor(),"",c,lineText);
+    if (nd.isValid()) newdata.append(nd);
+  }
+  m_codeCompletion->showCompletion(c,newdata);
+  if (type>KTextEditor::CompletionReinvokeAsYouType) m_customComplete=true;
+}
+
+void KateView::completionDone(){
+  kdDebug()<<"KateView::completionDone"<<endl;
+  m_customComplete=false;
+  m_cc_cleanup=true;
+  foreach (KTextEditor::CompletionProvider *provider, m_completionProviders)
+    provider->completionDone(this);
+  m_cc_cleanup=false;
+  if (m_delayed_cc_type!=KTextEditor::CompletionNone) {
+    kdDebug()<<"delayed completion call"<<endl;
+    enum KTextEditor::CompletionType t=m_delayed_cc_type;
+    m_delayed_cc_type=KTextEditor::CompletionNone;
+    invokeCompletion(t);
+  }
+}
+void KateView::completionAborted(){
+  kdDebug()<<"KateView::completionAborted"<<endl;
+  m_customComplete=false;
+  m_cc_cleanup=true;
+  foreach (KTextEditor::CompletionProvider *provider, m_completionProviders)
+    provider->completionAborted(this);
+  m_cc_cleanup=false;
+  if (m_delayed_cc_type!=KTextEditor::CompletionNone) {
+    enum KTextEditor::CompletionType t=m_delayed_cc_type;
+    m_delayed_cc_type=KTextEditor::CompletionNone;
+    invokeCompletion(t);
+  }
+}
+
+bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c, const QString &templateString, const QMap<QString,QString> &initialValues) {
+  return m_doc->insertTemplateTextImplementation(c,templateString,initialValues,this);
+}
+
+
+//BEGIN Code completion new
+bool KateView::registerCompletionProvider(KTextEditor::CompletionProvider* provider)
+{
+  kdDebug()<<"Registering completion provider:"<<provider<<endl;
+  if (!provider) return false;
+  if (m_completionProviders.contains(provider)) return false;
+  m_completionProviders.append(provider);
+  return true;	
+}
+
+bool KateView::unregisterCompletionProvider(KTextEditor::CompletionProvider* provider)
+{
+  kdDebug()<<"Unregistering completion provider:"<<provider<<endl;
+  if (!provider) return false;
+  m_completionProviderData.remove(provider);
+  return m_completionProviders.removeAll(provider);
+}
+
+
+//END Code completion new
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

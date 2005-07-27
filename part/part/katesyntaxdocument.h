@@ -21,6 +21,7 @@
 #define __KATE_SYNTAXDOCUMENT_H__
 
 #include <qdom.h>
+#include <QList>
 #include <qstringlist.h>
 
 /**
@@ -45,7 +46,7 @@ class KateSyntaxModeListItem
 /**
  * List of the KateSyntaxModeListItems holding all the syntax mode list items
  */
-typedef QValueList<KateSyntaxModeListItem*> KateSyntaxModeList;
+typedef QList<KateSyntaxModeListItem*> KateSyntaxModeList;
 
 /**
  * Class holding the data around the current QDomElement

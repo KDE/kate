@@ -15,15 +15,18 @@
   the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
   Boston, MA 02110-1301, USA.
 */
+
 #include "katetemplatehandler.h"
 #include "katetemplatehandler.moc"
 #include "katedocument.h"
 #include "katesupercursor.h"
 #include "katearbitraryhighlight.h"
 #include "kateview.h"
+#include "katerangetype.h"
+
 #include <qregexp.h>
 #include <kdebug.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 KateTemplateHandler::KateTemplateHandler(
   KateDocument *doc,
@@ -39,7 +42,7 @@ KateTemplateHandler::KateTemplateHandler(
     , m_recursion( false )
 {
   connect( m_doc, SIGNAL( destroyed() ), this, SLOT( slotDocumentDestroyed() ) );
-  m_ranges = new KateSuperRangeList( false, this ); //false/*,this*/);
+  m_ranges = new KateRangeList( false, this ); //false/*,this*/);
 
   if ( !m_doc->setTabInterceptor( this ) )
   {
@@ -48,12 +51,12 @@ KateTemplateHandler::KateTemplateHandler(
   }
 
   KateArbitraryHighlight *kah = doc->arbitraryHL();
-  /*KateArbitraryHighlightRange *hlr=new KateArbitraryHighlightRange(doc,KateTextCursor(line,column),
-   KateTextCursor(line,column+3));
+  /*KateArbitraryHighlightRange *hlr=new KateArbitraryHighlightRange(doc,KTextEditor::Cursor(line,column),
+   KTextEditor::Cursor(line,column+3));
   hlr->setUnderline(true);
   hlr->setOverline(true);
   l->append(hlr);*/
-  QValueList<KateTemplateHandlerPlaceHolderInfo> buildList;
+  Q3ValueList<KateTemplateHandlerPlaceHolderInfo> buildList;
   QRegExp rx( "([$%])\\{([^}\\s]+)\\}" );
   rx.setMinimal( true );
   int pos = 0;
@@ -111,17 +114,14 @@ KateTemplateHandler::KateTemplateHandler(
   generateRangeTable( line, column, insertString, buildList );
   kah->addHighlightToDocument( m_ranges );
 
-  for ( KateSuperRangeList::const_iterator it = m_ranges->begin();it != m_ranges->end();++it )
-  {
-    m_doc->tagLines( ( *it ) ->start().line(), ( *it ) ->end().line() );
-  }
+  m_ranges->tagAll();
 
   /* connect(doc,SIGNAL(charactersInteractivelyInserted(int ,int ,const QString&)),this,
    SLOT(slotCharactersInteractivlyInserted(int,int,const QString&)));
    connect(doc,SIGNAL(charactersSemiInteractivelyInserted(int ,int ,const QString&)),this,
    SLOT(slotCharactersInteractivlyInserted(int,int,const QString&)));*/
   connect( doc, SIGNAL( textInserted( int, int ) ), this, SLOT( slotTextInserted( int, int ) ) );
-  connect( doc, SIGNAL( aboutToRemoveText( const KateTextRange& ) ), this, SLOT( slotAboutToRemoveText( const KateTextRange& ) ) );
+  connect( doc, SIGNAL( aboutToRemoveText( const KTextEditor::Range& ) ), this, SLOT( slotAboutToRemoveText( const KTextEditor::Range& ) ) );
   connect( doc, SIGNAL( textRemoved() ), this, SLOT( slotTextRemoved() ) );
 
   ( *this ) ( Qt::Key_Tab );
@@ -129,43 +129,39 @@ KateTemplateHandler::KateTemplateHandler(
 
 KateTemplateHandler::~KateTemplateHandler()
 {
-  m_ranges->setAutoManage( true );
-
   if ( m_doc )
   {
     m_doc->removeTabInterceptor( this );
-
-    for ( KateSuperRangeList::const_iterator it = m_ranges->begin();it != m_ranges->end();++it )
-    {
-      m_doc->tagLines( ( *it ) ->start().line(), ( *it ) ->end().line() );
-    }
   }
-
-  m_ranges->clear();
 }
 
 void KateTemplateHandler::slotDocumentDestroyed() {m_doc = 0;}
 
-void KateTemplateHandler::generateRangeTable( uint insertLine, uint insertCol, const QString& insertString, const QValueList<KateTemplateHandlerPlaceHolderInfo> &buildList )
+void KateTemplateHandler::generateRangeTable( uint insertLine, uint insertCol, const QString& insertString, const Q3ValueList<KateTemplateHandlerPlaceHolderInfo> &buildList )
 {
   uint line = insertLine;
   uint col = insertCol;
   uint colInText = 0;
 
-  for ( QValueList<KateTemplateHandlerPlaceHolderInfo>::const_iterator it = buildList.begin();it != buildList.end();++it )
+  for ( Q3ValueList<KateTemplateHandlerPlaceHolderInfo>::const_iterator it = buildList.begin();it != buildList.end();++it )
   {
     KateTemplatePlaceHolder *ph = m_dict[ ( *it ).placeholder ];
 
     if ( !ph )
     {
-      ph = new KateTemplatePlaceHolder;
+      ph = new KateTemplatePlaceHolder(m_doc);
+      KateAttribute* attrib = new KateAttribute();
+      attrib->setUnderline( true );
+      attrib->setOverline( true );
+      KateRangeType* rt = new KateRangeType();
+      rt->addAttribute(attrib, KateRangeType::activateNone, true);
+      ph->ranges.setRangeType(rt);
+
       ph->isInitialValue = true;
       ph->isCursor = ( ( *it ).placeholder == "cursor" );
       m_dict.insert( ( *it ).placeholder, ph );
 
       if ( !ph->isCursor ) m_tabOrder.append( ph );
-
-      ph->ranges.setAutoManage( false );
     }
 
     // FIXME handle space/tab replacement correctly make it use of the indenter
@@ -182,16 +178,12 @@ void KateTemplateHandler::generateRangeTable( uint insertLine, uint insertCol, c
       ++colInText;
     }
 
-    KateArbitraryHighlightRange *hlr = new KateArbitraryHighlightRange( m_doc, KateTextCursor( line, col ),
-                                       KateTextCursor( line, ( *it ).len + col ) );
+    KateSuperRange *hlr = new KateSuperRange( m_doc, KTextEditor::Cursor( line, col ),
+                                       KTextEditor::Cursor( line, ( *it ).len + col ), ph->ranges.topRange() );
     colInText += ( *it ).len;
     col += ( *it ).len;
     hlr->allowZeroLength();
-    hlr->setUnderline( true );
-    hlr->setOverline( true );
     //hlr->setBehaviour(KateSuperRange::ExpandRight);
-    ph->ranges.append( hlr );
-    m_ranges->append( hlr );
   }
 
   KateTemplatePlaceHolder *cursor = m_dict[ "cursor" ];
@@ -208,7 +200,7 @@ void KateTemplateHandler::slotTextInserted( int line, int col )
   if ( m_recursion ) return ;
 
   //if (m_editSessionNumber!=0) return; // assume that this is due an udno/redo operation right now
-  KateTextCursor cur( line, col );
+  KTextEditor::Cursor cur( line, col );
 
   if ( ( !m_currentRange ) ||
        ( ( !m_currentRange->includes( cur ) ) && ( ! ( ( m_currentRange->start() == m_currentRange->end() ) && m_currentRange->end() == cur ) )
@@ -218,8 +210,8 @@ void KateTemplateHandler::slotTextInserted( int line, int col )
 
   KateTemplatePlaceHolder *ph = m_tabOrder.at( m_currentTabStop );
 
-  QString sourceText = m_doc->text ( m_currentRange->start().line(), m_currentRange->start().col(),
-                                     m_currentRange->end().line(), m_currentRange->end().col(), false );
+  QString sourceText = m_doc->text ( m_currentRange->start().line(), m_currentRange->start().column(),
+                                     m_currentRange->end().line(), m_currentRange->end().column(), false );
 
   ph->isInitialValue = false;
   bool undoDontMerge = m_doc->m_undoDontMerge;
@@ -228,14 +220,14 @@ void KateTemplateHandler::slotTextInserted( int line, int col )
 
   m_doc->editStart( /*false*/ );
 
-  for ( KateSuperRangeList::const_iterator it = ph->ranges.begin();it != ph->ranges.end();++it )
+  foreach ( KateSuperRange* range, ph->ranges.topRange()->childRanges() )
   {
-    if ( ( *it ) == m_currentRange ) continue;
+    if ( range == m_currentRange ) continue;
 
-    KateTextCursor start = ( *it ) ->start();
-    KateTextCursor end = ( *it ) ->end();
-    m_doc->removeText( start.line(), start.col(), end.line(), end.col(), false );
-    m_doc->insertText( start.line(), start.col(), sourceText );
+    KTextEditor::Cursor start = range->start();
+    KTextEditor::Cursor end = range->end();
+    m_doc->removeText( start.line(), start.column(), end.line(), end.column(), false );
+    m_doc->insertText( start.line(), start.column(), sourceText );
   }
 
   m_doc->m_undoDontMerge = false;
@@ -248,7 +240,7 @@ void KateTemplateHandler::slotTextInserted( int line, int col )
   if ( ph->isCursor ) deleteLater();
 }
 
-void KateTemplateHandler::locateRange( const KateTextCursor& cursor )
+void KateTemplateHandler::locateRange( const KTextEditor::Cursor& cursor )
 {
   /* if (m_currentRange) {
     m_doc->tagLines(m_currentRange->start().line(),m_currentRange->end().line());
@@ -259,12 +251,12 @@ void KateTemplateHandler::locateRange( const KateTextCursor& cursor )
   {
     KateTemplatePlaceHolder *ph = m_tabOrder.at( i );
 
-    for ( KateSuperRangeList::const_iterator it = ph->ranges.begin();it != ph->ranges.end();++it )
+    foreach ( KateSuperRange* range, ph->ranges.topRange()->childRanges() )
     {
-      if ( ( *it ) ->includes( cursor ) )
+      if ( range->includes( cursor ) )
       {
         m_currentTabStop = i;
-        m_currentRange = ( *it );
+        m_currentRange = range;
         //m_doc->tagLines(m_currentRange->start().line(),m_currentRange->end().line());
         return ;
       }
@@ -297,7 +289,7 @@ bool KateTemplateHandler::operator() ( KKey key )
     if ( m_currentTabStop < 0 ) m_currentTabStop = m_tabOrder.count() - 1;
   }
 
-  m_currentRange = m_tabOrder.at( m_currentTabStop ) ->ranges.at( 0 );
+  m_currentRange = m_tabOrder.at( m_currentTabStop )->ranges.topRange()->firstChildRange();
 
   if ( m_tabOrder.at( m_currentTabStop ) ->isInitialValue )
   {
@@ -305,13 +297,13 @@ bool KateTemplateHandler::operator() ( KKey key )
   }
   else m_doc->activeView()->setSelection( m_currentRange->end(), m_currentRange->end() );
 
-  m_doc->activeView() ->setCursorPosition( m_currentRange->end().line(), m_currentRange->end().col() );
+  m_doc->activeView() ->setCursorPosition( m_currentRange->end().line(), m_currentRange->end().column() );
   m_doc->activeView() ->tagLine( m_currentRange->end() );
 
   return true;
 }
 
-void KateTemplateHandler::slotAboutToRemoveText( const KateTextRange &range )
+void KateTemplateHandler::slotAboutToRemoveText( const KTextEditor::Range& range )
 {
   if ( m_recursion ) return ;
 
@@ -325,7 +317,7 @@ void KateTemplateHandler::slotAboutToRemoveText( const KateTextRange &range )
   if ( m_doc )
   {
     disconnect( m_doc, SIGNAL( textInserted( int, int ) ), this, SLOT( slotTextInserted( int, int ) ) );
-    disconnect( m_doc, SIGNAL( aboutToRemoveText( const KateTextRange& ) ), this, SLOT( slotAboutToRemoveText( const KateTextRange& ) ) );
+    disconnect( m_doc, SIGNAL( aboutToRemoveText( const KTextEditor::Range& ) ), this, SLOT( slotAboutToRemoveText( const KTextEditor::Range& ) ) );
     disconnect( m_doc, SIGNAL( textRemoved() ), this, SLOT( slotTextRemoved() ) );
   }
 
@@ -337,6 +329,6 @@ void KateTemplateHandler::slotTextRemoved()
   if ( m_recursion ) return ;
   if ( !m_currentRange ) return ;
 
-  slotTextInserted( m_currentRange->start().line(), m_currentRange->start().col() );
+  slotTextInserted( m_currentRange->start().line(), m_currentRange->start().column() );
 }
 

@@ -30,7 +30,7 @@
 #include <jobclasses.h>
 #include <kurl.h>
 
-class InsertFilePlugin : public KTextEditor::Plugin, public KTextEditor::PluginViewInterface
+class InsertFilePlugin : public KTextEditor::Plugin
 {             
   Q_OBJECT
 
@@ -45,7 +45,7 @@ class InsertFilePlugin : public KTextEditor::Plugin, public KTextEditor::PluginV
     
     
   private:
-    QPtrList<class InsertFilePluginView> m_views;
+    Q3PtrList<class InsertFilePluginView> m_views;
 };
 
 class InsertFilePluginView : public QObject, public KXMLGUIClient

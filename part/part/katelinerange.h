@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2002,2003 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2002-2005 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2003      Anakim Border <aborder@sources.sourceforge.net>
 
    This library is free software; you can redistribute it and/or
@@ -21,41 +21,55 @@
 #define _KATE_LINERANGE_H_
 
 #include "katecursor.h"
+#include "katetextline.h"
+#include "katetextlayout.h"
 
-class KateLineRange
+class QTextLayout;
+class KateDocument;
+
+class KateLineLayout : public KShared
 {
   public:
-    KateLineRange();
-    virtual ~KateLineRange ();
+    KateLineLayout(KateDocument* doc = 0L);
+    ~KateLineLayout();
+
+    KateDocument* doc() const;
+    void debugOutput() const;
 
     void clear();
+    bool isValid() const;
+    bool isOutsideDocument() const;
 
-    inline bool includesCursor (const KateTextCursor& realCursor) const
-    {
-      return realCursor.line() == line && realCursor.col() >= startCol && (!wrap || realCursor.col() < endCol);
-    }
+    bool includesCursor(const KTextEditor::Cursor& realCursor) const;
 
-    inline int xOffset () const
-    {
-      return startX ? shiftX : 0;
-    }
+    friend bool operator> (const KateLineLayout& r, const KTextEditor::Cursor& c);
+    friend bool operator>= (const KateLineLayout& r, const KTextEditor::Cursor& c);
+    friend bool operator< (const KateLineLayout& r, const KTextEditor::Cursor& c);
+    friend bool operator<= (const KateLineLayout& r, const KTextEditor::Cursor& c);
 
-    friend bool operator> (const KateLineRange& r, const KateTextCursor& c);
-    friend bool operator>= (const KateLineRange& r, const KateTextCursor& c);
-    friend bool operator< (const KateLineRange& r, const KateTextCursor& c);
-    friend bool operator<= (const KateLineRange& r, const KateTextCursor& c);
+    const KateTextLine::Ptr& textLine() const;
+    int length() const;
 
-    int line;
-    int virtualLine;
-    int startCol;
-    int endCol;
-    int startX;
-    int endX;
+    int line() const;
+    /**
+     * Only pass virtualLine if you know it (and thus we shouldn't try to look it up)
+     */
+    void setLine(int line, int virtualLine = -1);
+    KTextEditor::Cursor start() const;
 
-    bool dirty;
-    int viewLine;
-    bool wrap;
-    bool startsInvisibleBlock;
+    int virtualLine() const;
+    void setVirtualLine(int virtualLine);
+
+    bool isDirty(int viewLine) const;
+    bool setDirty(int viewLine, bool dirty = true);
+
+    int width() const;
+
+    int viewLineCount() const;
+    KateTextLayout viewLine(int viewLine) const;
+    int viewLineForColumn(int column) const;
+
+    bool startsInvisibleBlock() const;
 
     // This variable is used as follows:
     // non-dynamic-wrapping mode: unused
@@ -64,7 +78,31 @@ class KateLineRange
     //   subsequent viewLines: the X offset from the left of the display.
     //
     // this is used to provide a dynamic-wrapping-retains-indent feature.
-    int shiftX;
+    int shiftX() const;
+    void setShiftX(int shiftX);
+
+    QTextLayout* layout() const;
+    void setLayout(QTextLayout* layout);
+    void invalidateLayout();
+
+private:
+    // Disable copy
+    KateLineLayout(const KateLineLayout& copy);
+
+    QTextLayout* takeLayout() const;
+
+    KateDocument* m_doc;
+    mutable KateTextLine::Ptr m_textLine;
+    int m_line;
+    int m_virtualLine;
+    int m_shiftX;
+
+    bool m_dirty : 1;
+
+    QTextLayout* m_layout;
+    QList<bool> m_dirtyList;
 };
+
+typedef KSharedPtr<KateLineLayout> KateLineLayoutPtr;
 
 #endif

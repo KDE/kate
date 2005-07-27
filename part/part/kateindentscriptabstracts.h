@@ -22,10 +22,7 @@
 #include <qstring.h>
 #include <kdebug.h>
 
-namespace Kate {
-	class View;
-}
-
+class KateView;
 class KateDocCursor;
 
 
@@ -37,9 +34,9 @@ class KateIndentScriptImplAbstract {
         const QString &copyright, double version);
     virtual ~KateIndentScriptImplAbstract();
     
-    virtual bool processChar( class Kate::View *view, QChar c, QString &errorMsg )=0;
-    virtual bool processLine( class Kate::View *view, const KateDocCursor &line, QString &errorMsg )=0;
-    virtual bool processNewline( class Kate::View *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg )=0;
+    virtual bool processChar( KateView *view, QChar c, QString &errorMsg )=0;
+    virtual bool processLine( KateView *view, const KateDocCursor &line, QString &errorMsg )=0;
+    virtual bool processNewline( KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg )=0;
   protected:
     virtual void decRef();
     long refCount() {return m_refcount;}
@@ -69,15 +66,15 @@ class KateIndentScript {
       return *this;
     }
     /*operator KateIndentJScript*() const { return m_scr; }*/
-    bool processChar( class Kate::View *view, QChar c, QString &errorMsg ) {
+    bool processChar( KateView *view, QChar c, QString &errorMsg ) {
       kdDebug(13050)<<"KateIndentScript::processChar: m_scr:"<<m_scr<<endl;
       if (m_scr) return m_scr->processChar(view,c,errorMsg); else return true;
     }
-    bool processLine( class Kate::View *view, const KateDocCursor& line, QString &errorMsg ) {
+    bool processLine( KateView *view, const KateDocCursor& line, QString &errorMsg ) {
       kdDebug(13050)<<"KateIndentScript::processLine: m_scr:"<<m_scr<<endl;
       if (m_scr) return m_scr->processLine(view,line,errorMsg); else return true;
     }
-    bool processNewline( class Kate::View *view, const KateDocCursor& begin, bool needcontinue, QString &errorMsg ) {
+    bool processNewline( KateView *view, const KateDocCursor& begin, bool needcontinue, QString &errorMsg ) {
       kdDebug(13050)<<"KateIndentScript::processNewLine: m_scr:"<<m_scr<<endl;
       if (m_scr) return m_scr->processNewline(view,begin,needcontinue,errorMsg); else return true;
     }

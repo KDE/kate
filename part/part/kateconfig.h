@@ -21,10 +21,10 @@
 
 #include <ktexteditor/markinterface.h>
 
-#include <qbitarray.h>
-#include <qcolor.h>
-#include <qobject.h>
-#include <qvaluevector.h>
+#include <QBitArray>
+#include <QColor>
+#include <QObject>
+#include <QVector>
 
 class KateView;
 class KateDocument;
@@ -89,10 +89,10 @@ class KateConfig
 class KateDocumentConfig : public KateConfig
 {
   private:
-    friend class KateFactory;
+    friend class KateGlobal;
 
     /**
-     * only used in KateFactory for the static global fallback !!!
+     * only used in KateGlobal for the static global fallback !!!
      */
     KateDocumentConfig ();
 
@@ -186,9 +186,9 @@ class KateDocumentConfig : public KateConfig
     void setConfigFlags (uint fullFlags);
 
     const QString &encoding () const;
-    QTextCodec *codec ();
+    QTextCodec *codec () const;
 
-    void setEncoding (const QString &encoding);
+    bool setEncoding (const QString &encoding);
 
     bool isSetEncoding () const;
 
@@ -222,8 +222,8 @@ class KateDocumentConfig : public KateConfig
     const QString &backupSuffix () const;
     void setBackupSuffix (const QString &suffix);
 
-    bool plugin (uint index) const;
-    void setPlugin (uint index, bool load);
+    bool plugin (int index) const;
+    void setPlugin (int index, bool load);
 
     /**
      * Should Kate Part search for dir wide config file
@@ -277,10 +277,10 @@ class KateDocumentConfig : public KateConfig
 class KateViewConfig : public KateConfig
 {
   private:
-    friend class KateFactory;
+    friend class KateGlobal;
 
     /**
-     * only used in KateFactory for the static global fallback !!!
+     * only used in KateGlobal for the static global fallback !!!
      */
     KateViewConfig ();
 
@@ -404,10 +404,10 @@ class KateViewConfig : public KateConfig
 class KateRendererConfig : public KateConfig
 {
   private:
-    friend class KateFactory;
+    friend class KateGlobal;
 
     /**
-     * only used in KateFactory for the static global fallback !!!
+     * only used in KateGlobal for the static global fallback !!!
      */
     KateRendererConfig ();
 
@@ -501,7 +501,7 @@ class KateRendererConfig : public KateConfig
     uint m_schema;
     KateFontStruct *m_font;
     bool m_wordWrapMarker;
-    bool m_showIndentationLines;    
+    bool m_showIndentationLines;
     QColor m_backgroundColor;
     QColor m_selectionColor;
     QColor m_highlightedLineColor;
@@ -510,12 +510,12 @@ class KateRendererConfig : public KateConfig
     QColor m_tabMarkerColor;
     QColor m_iconBarColor;
     QColor m_lineNumberColor;
-    QValueVector<QColor> m_lineMarkerColor;
+    QVector<QColor> m_lineMarkerColor;
 
     bool m_schemaSet : 1;
     bool m_fontSet : 1;
     bool m_wordWrapMarkerSet : 1;
-    bool m_showIndentationLinesSet : 1;    
+    bool m_showIndentationLinesSet : 1;
     bool m_backgroundColorSet : 1;
     bool m_selectionColorSet : 1;
     bool m_highlightedLineColorSet : 1;

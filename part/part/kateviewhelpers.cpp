@@ -21,16 +21,15 @@
 #include "kateviewhelpers.h"
 #include "kateviewhelpers.moc"
 
-#include "../interfaces/document.h"
-#include "../interfaces/katecmd.h"
+#include "katecmd.h"
 #include "kateattribute.h"
 #include "katecodefoldinghelpers.h"
 #include "kateconfig.h"
 #include "katedocument.h"
-#include "katefactory.h"
 #include "katerenderer.h"
 #include "kateview.h"
 #include "kateviewinternal.h"
+#include "katelayoutcache.h"
 
 #include <kapplication.h>
 #include <kglobalsettings.h>
@@ -42,19 +41,21 @@
 
 #include <qcursor.h>
 #include <qpainter.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qstyle.h>
 #include <qtimer.h>
-#include <qwhatsthis.h>
 #include <qregexp.h>
 #include <qtextcodec.h>
+#include <QMouseEvent>
 
 #include <math.h>
 
 #include <kdebug.h>
 
+#include <QWhatsThis>
+
 //BEGIN KateScrollBar
-KateScrollBar::KateScrollBar (Orientation orientation, KateViewInternal* parent, const char* name)
+KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* parent, const char* name)
   : QScrollBar (orientation, parent->m_view, name)
   , m_middleMouseDown (false)
   , m_view(parent->m_view)
@@ -65,7 +66,7 @@ KateScrollBar::KateScrollBar (Orientation orientation, KateViewInternal* parent,
   , m_savVisibleLines(0)
   , m_showMarks(false)
 {
-  connect(this, SIGNAL(valueChanged(int)), SLOT(sliderMaybeMoved(int)));
+  connect(this, SIGNAL(valueChanged(int)), this, SLOT(sliderMaybeMoved(int)));
   connect(m_doc, SIGNAL(marksChanged()), this, SLOT(marksChanged()));
 
   m_lines.setAutoDelete(true);
@@ -73,7 +74,7 @@ KateScrollBar::KateScrollBar (Orientation orientation, KateViewInternal* parent,
 
 void KateScrollBar::mousePressEvent(QMouseEvent* e)
 {
-  if (e->button() == MidButton)
+  if (e->button() == Qt::MidButton)
     m_middleMouseDown = true;
 
   QScrollBar::mousePressEvent(e);
@@ -94,7 +95,7 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 {
   QScrollBar::mouseMoveEvent(e);
 
-  if (e->state() | LeftButton)
+  if (e->state() | Qt::LeftButton)
     redrawMarks();
 }
 
@@ -117,16 +118,19 @@ void KateScrollBar::styleChange(QStyle &s)
   recomputeMarksPositions();
 }
 
-void KateScrollBar::valueChange()
+void KateScrollBar::sliderChange ( SliderChange change )
 {
-  QScrollBar::valueChange();
-  redrawMarks();
-}
+  // call parents implementation
+  QScrollBar::sliderChange (change);
 
-void KateScrollBar::rangeChange()
-{
-  QScrollBar::rangeChange();
-  recomputeMarksPositions();
+  if (change == QAbstractSlider::SliderValueChange)
+  {
+    redrawMarks();
+  }
+  else if (change == QAbstractSlider::SliderRangeChange)
+  {
+    recomputeMarksPositions();
+  }
 }
 
 void KateScrollBar::marksChanged()
@@ -139,16 +143,20 @@ void KateScrollBar::redrawMarks()
   if (!m_showMarks)
     return;
 
+#ifdef __GNUC__
+#warning port this to QT 4
+#endif
+/*
   QPainter painter(this);
   QRect rect = sliderRect();
-  for (QIntDictIterator<QColor> it(m_lines); it.current(); ++it)
+  for (Q3IntDictIterator<QColor> it(m_lines); it.current(); ++it)
   {
     if (it.currentKey() < rect.top() || it.currentKey() > rect.bottom())
     {
       painter.setPen(*it.current());
       painter.drawLine(0, it.currentKey(), width(), it.currentKey());
     }
-  }
+  }*/
 }
 
 void KateScrollBar::recomputeMarksPositions(bool forceFullUpdate)
@@ -161,7 +169,7 @@ void KateScrollBar::recomputeMarksPositions(bool forceFullUpdate)
 
   int realHeight = frameGeometry().height() - m_topMargin - m_bottomMargin;
 
-  QPtrList<KTextEditor::Mark> marks = m_doc->marks();
+  Q3PtrList<KTextEditor::Mark> marks = m_doc->marks();
   KateCodeFoldingTree *tree = m_doc->foldingTree();
 
   for (KTextEditor::Mark *mark = marks.first(); mark; mark = marks.next())
@@ -195,6 +203,10 @@ void KateScrollBar::recomputeMarksPositions(bool forceFullUpdate)
 
 void KateScrollBar::watchScrollBarSize()
 {
+#ifdef __GNUC__
+#warning port this to QT 4
+#endif
+/*
   int savMax = maxValue();
   setMaxValue(0);
   QRect rect = sliderRect();
@@ -202,6 +214,7 @@ void KateScrollBar::watchScrollBarSize()
 
   m_topMargin = rect.top();
   m_bottomMargin = frameGeometry().height() - rect.bottom();
+*/
 }
 
 void KateScrollBar::sliderMaybeMoved(int value)
@@ -211,61 +224,6 @@ void KateScrollBar::sliderMaybeMoved(int value)
 }
 //END
 
-//BEGIN KateCmdLnWhatsThis
-class KateCmdLnWhatsThis : public QWhatsThis
-{
-  public:
-    KateCmdLnWhatsThis( KateCmdLine *parent )
-  : QWhatsThis( parent )
-  , m_parent( parent ) {;}
-
-    QString text( const QPoint & )
-    {
-      QString beg = "<qt background=\"white\"><div><table width=\"100%\"><tr><td bgcolor=\"brown\"><font color=\"white\"><b>Help: <big>";
-      QString mid = "</big></b></font></td></tr><tr><td>";
-      QString end = "</td></tr></table></div><qt>";
-
-      QString t = m_parent->text();
-      QRegExp re( "\\s*help\\s+(.*)" );
-      if ( re.search( t ) > -1 )
-      {
-        QString s;
-        // get help for command
-        QString name = re.cap( 1 );
-        if ( name == "list" )
-        {
-          return beg + i18n("Available Commands") + mid
-              + KateCmd::self()->cmds().join(" ")
-              + i18n("<p>For help on individual commands, do <code>'help &lt;command&gt;'</code></p>")
-              + end;
-        }
-        else if ( ! name.isEmpty() )
-        {
-          Kate::Command *cmd = KateCmd::self()->queryCommand( name );
-          if ( cmd )
-          {
-            if ( cmd->help( (Kate::View*)m_parent->parentWidget(), name, s ) )
-              return beg + name + mid + s + end;
-            else
-              return beg + name + mid + i18n("No help for '%1'").arg( name ) + end;
-          }
-          else
-            return beg + mid + i18n("No such command <b>%1</b>").arg(name) + end;
-        }
-      }
-
-      return beg + mid + i18n(
-          "<p>This is the Katepart <b>command line</b>.<br>"
-          "Syntax: <code><b>command [ arguments ]</b></code><br>"
-          "For a list of available commands, enter <code><b>help list</b></code><br>"
-          "For help for individual commands, enter <code><b>help &lt;command&gt;</b></code></p>")
-          + end;
-    }
-
-  private:
-    KateCmdLine *m_parent;
-};
-//END KateCmdLnWhatsThis
 
 //BEGIN KateCmdLineFlagCompletion
 /**
@@ -277,7 +235,7 @@ class KateCmdLineFlagCompletion : public KCompletion
   public:
     KateCmdLineFlagCompletion() {;}
 
-    QString makeCompletion( const QString & s )
+    QString makeCompletion( const QString & /*s*/ )
     {
       return QString::null;
     }
@@ -300,7 +258,58 @@ KateCmdLine::KateCmdLine (KateView *view)
 
   completionObject()->insertItems (KateCmd::self()->cmds());
   setAutoDeleteCompletionObject( false );
-  m_help = new KateCmdLnWhatsThis( this );
+}
+
+
+QString KateCmdLine::helptext( const QPoint & ) const
+    {
+      QString beg = "<qt background=\"white\"><div><table width=\"100%\"><tr><td bgcolor=\"brown\"><font color=\"white\"><b>Help: <big>";
+      QString mid = "</big></b></font></td></tr><tr><td>";
+      QString end = "</td></tr></table></div><qt>";
+
+      QString t = text();
+      QRegExp re( "\\s*help\\s+(.*)" );
+      if ( re.search( t ) > -1 )
+      {
+        QString s;
+        // get help for command
+        QString name = re.cap( 1 );
+        if ( name == "list" )
+        {
+          return beg + i18n("Available Commands") + mid
+              + KateCmd::self()->cmds().join(" ")
+              + i18n("<p>For help on individual commands, do <code>'help &lt;command&gt;'</code></p>")
+              + end;
+        }
+        else if ( ! name.isEmpty() )
+        {
+          KTextEditor::Command *cmd = KateCmd::self()->queryCommand( name );
+          if ( cmd )
+          {
+            if ( cmd->help( (KTextEditor::View*)parentWidget(), name, s ) )
+              return beg + name + mid + s + end;
+            else
+              return beg + name + mid + i18n("No help for '%1'").arg( name ) + end;
+          }
+          else
+            return beg + mid + i18n("No such command <b>%1</b>").arg(name) + end;
+        }
+      }
+
+      return beg + mid + i18n(
+          "<p>This is the Katepart <b>command line</b>.<br>"
+          "Syntax: <code><b>command [ arguments ]</b></code><br>"
+          "For a list of available commands, enter <code><b>help list</b></code><br>"
+          "For help for individual commands, enter <code><b>help &lt;command&gt;</b></code></p>")
+          + end;
+    }
+
+
+
+bool KateCmdLine::event(QEvent *e) {
+	if (e->type()==QEvent::WhatsThis)
+		setWhatsThis(helptext(QPoint()));
+	return KLineEdit::event(e);
 }
 
 void KateCmdLine::slotReturnPressed ( const QString& text )
@@ -316,7 +325,7 @@ void KateCmdLine::slotReturnPressed ( const QString& text )
   // Built in help: if the command starts with "help", [try to] show some help
   if ( cmd.startsWith( "help" ) )
   {
-    m_help->display( m_help->text( QPoint() ), mapToGlobal(QPoint(0,0)) );
+    QWhatsThis::showText(mapToGlobal(QPoint(0,0)), helptext( QPoint() ) );
     clear();
     KateCmd::self()->appendHistory( cmd );
     m_histpos = KateCmd::self()->historyLength();
@@ -326,7 +335,7 @@ void KateCmdLine::slotReturnPressed ( const QString& text )
 
   if (cmd.length () > 0)
   {
-    Kate::Command *p = KateCmd::self()->queryCommand (cmd);
+    KTextEditor::Command *p = KateCmd::self()->queryCommand (cmd);
 
     m_oldText = cmd;
     m_msgMode = true;
@@ -399,14 +408,14 @@ void KateCmdLine::focusInEvent ( QFocusEvent *ev )
 
 void KateCmdLine::keyPressEvent( QKeyEvent *ev )
 {
-  if (ev->key() == Key_Escape)
+  if (ev->key() == Qt::Key_Escape)
   {
     m_view->setFocus ();
     hideMe();
   }
-  else if ( ev->key() == Key_Up )
+  else if ( ev->key() == Qt::Key_Up )
     fromHistory( true );
-  else if ( ev->key() == Key_Down )
+  else if ( ev->key() == Qt::Key_Down )
     fromHistory( false );
 
   uint cursorpos = cursorPosition();
@@ -446,7 +455,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
         QString t = text();
         m_cmdend = 0;
         bool b = false;
-        for ( ; m_cmdend < t.length(); m_cmdend++ )
+        for ( ; (int)m_cmdend < t.length(); m_cmdend++ )
         {
           if ( t[m_cmdend].isLetter() )
             b = true;
@@ -480,7 +489,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
     if ( m_command )
     {
       //kdDebug(13025)<<"Checking for CommandExtension.."<<endl;
-      Kate::CommandExtension *ce = dynamic_cast<Kate::CommandExtension*>(m_command);
+      KTextEditor::CommandExtension *ce = dynamic_cast<KTextEditor::CommandExtension*>(m_command);
       if ( ce )
       {
         KCompletion *cmpl = ce->completionObject( text().left( m_cmdend ).stripWhiteSpace(), m_view );
@@ -500,7 +509,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
   }
   else if ( m_command )// check if we should call the commands processText()
   {
-    Kate::CommandExtension *ce = dynamic_cast<Kate::CommandExtension*>( m_command );
+    KTextEditor::CommandExtension *ce = dynamic_cast<KTextEditor::CommandExtension*>( m_command );
     if ( ce && ce->wantsToProcessText( text().left( m_cmdend ).stripWhiteSpace() )
          && ! ( ev->text().isNull() || ev->text().isEmpty() ) )
       ce->processText( m_view, text() );
@@ -684,11 +693,8 @@ static const char * bookmark_xpm[] = {
 const int iconPaneWidth = 16;
 const int halfIPW = 8;
 
-static QPixmap minus_px ((const char**)minus_xpm);
-static QPixmap plus_px ((const char**)plus_xpm);
-
 KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent )
-  : QWidget(parent, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
+  : QWidget(parent, "", Qt::WStaticContents | Qt::WNoAutoErase | Qt::WResizeNoErase )
   , m_view( internalView->m_view )
   , m_doc( internalView->m_doc )
   , m_viewInternal( internalView )
@@ -699,13 +705,13 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_dynWrapIndicators( 0 )
   , m_cachedLNWidth( 0 )
   , m_maxCharWidth( 0 )
+  , minus_px ((const char**)minus_xpm)
+  , plus_px ((const char**)plus_xpm)
 {
   setSizePolicy( QSizePolicy(  QSizePolicy::Fixed, QSizePolicy::Minimum ) );
 
-  setBackgroundMode( NoBackground );
-
-  m_doc->setDescription( MarkInterface::markType01, i18n("Bookmark") );
-  m_doc->setPixmap( MarkInterface::markType01, QPixmap((const char**)bookmark_xpm) );
+  m_doc->setMarkDescription( MarkInterface::markType01, i18n("Bookmark") );
+  m_doc->setMarkPixmap( MarkInterface::markType01, QPixmap((const char**)bookmark_xpm) );
 
   updateFont();
 }
@@ -795,13 +801,14 @@ void KateIconBorder::updateFont()
 
 int KateIconBorder::lineNumberWidth() const
 {
-  int width = m_lineNumbersOn ? ((int)log10((double)(m_view->doc()->numLines())) + 1) * m_maxCharWidth + 4 : 0;
+  int width = m_lineNumbersOn ? ((int)log10((double)(m_view->doc()->lines())) + 1) * m_maxCharWidth + 4 : 0;
 
   if (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) {
-    width = QMAX(style().scrollBarExtent().width() + 4, width);
+    // HACK: 16 == style().scrollBarExtent().width()
+    width = QMAX(16 + 4, width);
 
     if (m_cachedLNWidth != width || m_oldBackgroundColor != m_view->renderer()->config()->iconBarColor()) {
-      int w = style().scrollBarExtent().width();
+      int w = 16;// HACK: 16 == style().scrollBarExtent().width() style().scrollBarExtent().width();
       int h = m_view->renderer()->config()->fontMetrics()->height();
 
       QSize newSize(w, h);
@@ -815,6 +822,11 @@ int KateIconBorder::lineNumberWidth() const
 
         p.setPen(m_view->renderer()->attribute(0)->textColor());
         p.drawLine(w/2, h/2, w/2, 0);
+
+#ifdef __GNUC__
+#warning port this to QT 4
+#endif
+#if 0
 #if 1
         p.lineTo(w/4, h/4);
         p.lineTo(0, 0);
@@ -834,6 +846,7 @@ int KateIconBorder::lineNumberWidth() const
         p.lineTo(w/4, h/2);
         p.lineTo(w-1, h/2);
 #endif
+#endif
       }
     }
   }
@@ -851,7 +864,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   uint h = m_view->renderer()->config()->fontStruct()->fontHeight;
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);
-  uint lineRangesSize = m_viewInternal->lineRanges.size();
+  uint lineRangesSize = m_viewInternal->cache()->viewCacheLineCount();
 
   // center the folding boxes
   int m_px = (h - 11) / 2;
@@ -887,10 +900,10 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   KateLineInfo oldInfo;
   if (startz < lineRangesSize)
   {
-    if ((m_viewInternal->lineRanges[startz].line-1) < 0)
+    if ((m_viewInternal->cache()->viewLine(startz).line()-1) < 0)
       oldInfo.topLevel = true;
     else
-       m_doc->lineInfo(&oldInfo,m_viewInternal->lineRanges[startz].line-1);
+      m_doc->lineInfo(&oldInfo,m_viewInternal->cache()->viewLine(startz).line()-1);
   }
 
   for (uint z=startz; z <= endz; z++)
@@ -899,7 +912,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     int realLine = -1;
 
     if (z < lineRangesSize)
-     realLine = m_viewInternal->lineRanges[z].line;
+      realLine = m_viewInternal->cache()->viewLine(z).line();
 
     int lnX ( 0 );
 
@@ -911,7 +924,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     {
       p.drawLine(lnX+iconPaneWidth, y, lnX+iconPaneWidth, y+h);
 
-      if( (realLine > -1) && (m_viewInternal->lineRanges[z].startCol == 0) )
+      if( (realLine > -1) && (m_viewInternal->cache()->viewLine(z).startCol() == 0) )
       {
         uint mrk ( m_doc->mark( realLine ) ); // call only once
 
@@ -951,7 +964,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
       lnX +=2;
 
       if (realLine > -1)
-        if (m_viewInternal->lineRanges[z].startCol == 0) {
+        if (m_viewInternal->cache()->viewLine(z).startCol() == 0) {
           if (m_lineNumbersOn)
             p.drawText( lnX + 1, y, lnWidth-4, h, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
         } else if (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) {
@@ -971,7 +984,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
         if (!info.topLevel)
         {
-          if (info.startsVisibleBlock && (m_viewInternal->lineRanges[z].startCol == 0))
+          if (info.startsVisibleBlock && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
           {
             if (oldInfo.topLevel)
               p.drawLine(lnX+halfIPW,y+m_px,lnX+halfIPW,y+h-1);
@@ -982,7 +995,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
           }
           else if (info.startsInVisibleBlock)
           {
-            if (m_viewInternal->lineRanges[z].startCol == 0)
+            if (m_viewInternal->cache()->viewLine(z).startCol() == 0)
             {
               if (oldInfo.topLevel)
                 p.drawLine(lnX+halfIPW,y+m_px,lnX+halfIPW,y+h-1);
@@ -996,14 +1009,14 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
               p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
             }
 
-            if (!m_viewInternal->lineRanges[z].wrap)
+            if (!m_viewInternal->cache()->viewLine(z).wrap())
               p.drawLine(lnX+halfIPW,y+h-1,lnX+iconPaneWidth-2,y+h-1);
           }
           else
           {
             p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
 
-            if (info.endsBlock && !m_viewInternal->lineRanges[z].wrap)
+            if (info.endsBlock && !m_viewInternal->cache()->viewLine(z).wrap())
               p.drawLine(lnX+halfIPW,y+h-1,lnX+iconPaneWidth-2,y+h-1);
           }
         }
@@ -1039,37 +1052,47 @@ KateIconBorder::BorderArea KateIconBorder::positionToArea( const QPoint& p ) con
 
 void KateIconBorder::mousePressEvent( QMouseEvent* e )
 {
-  m_lastClickedLine = m_viewInternal->yToKateLineRange(e->y()).line;
+  const KateTextLayout& t = m_viewInternal->yToKateTextLayout(e->y());
+  if (t.isValid()) {
+    m_lastClickedLine = t.line();
 
-  if ( positionToArea( e->pos() ) != IconBorder )
-  {
-    QMouseEvent forward( QEvent::MouseButtonPress,
-      QPoint( 0, e->y() ), e->button(), e->state() );
-    m_viewInternal->mousePressEvent( &forward );
+    if ( positionToArea( e->pos() ) != IconBorder )
+    {
+      QMouseEvent forward( QEvent::MouseButtonPress,
+        QPoint( 0, e->y() ), e->button(), e->state() );
+      m_viewInternal->mousePressEvent( &forward );
+    }
+    return e->accept();
   }
-  e->accept();
+
+  QWidget::mousePressEvent(e);
 }
 
 void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
 {
-  if ( positionToArea( e->pos() ) != IconBorder )
-  {
-    QMouseEvent forward( QEvent::MouseMove,
-      QPoint( 0, e->y() ), e->button(), e->state() );
-    m_viewInternal->mouseMoveEvent( &forward );
+  const KateTextLayout& t = m_viewInternal->yToKateTextLayout(e->y());
+  if (t.isValid()) {
+    if ( positionToArea( e->pos() ) != IconBorder )
+    {
+      QMouseEvent forward( QEvent::MouseMove,
+        QPoint( 0, e->y() ), e->button(), e->state() );
+      m_viewInternal->mouseMoveEvent( &forward );
+    }
   }
+
+  QWidget::mouseMoveEvent(e);
 }
 
 void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
 {
-  uint cursorOnLine = m_viewInternal->yToKateLineRange(e->y()).line;
+  uint cursorOnLine = m_viewInternal->yToKateTextLayout(e->y()).line();
 
   if (cursorOnLine == m_lastClickedLine &&
       cursorOnLine <= m_doc->lastLine() )
   {
     BorderArea area = positionToArea( e->pos() );
     if( area == IconBorder) {
-      if (e->button() == LeftButton) {
+      if (e->button() == Qt::LeftButton) {
         if( m_doc->editableMarks() & KateViewConfig::global()->defaultMarkType() ) {
           if( m_doc->mark( cursorOnLine ) & KateViewConfig::global()->defaultMarkType() )
             m_doc->removeMark( cursorOnLine, KateViewConfig::global()->defaultMarkType() );
@@ -1080,7 +1103,7 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
           }
         }
         else
-        if (e->button() == RightButton) {
+        if (e->button() == Qt::RightButton) {
           showMarkMenu( cursorOnLine, QCursor::pos() );
         }
     }
@@ -1108,11 +1131,10 @@ void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
 
 void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
 {
-  QPopupMenu markMenu;
-  QPopupMenu selectDefaultMark;
+  Q3PopupMenu markMenu;
+  Q3PopupMenu selectDefaultMark;
 
-  typedef QValueVector<int> MarkTypeVector;
-  MarkTypeVector vec( 33 );
+  QVector<int> vec( 33 );
   int i=1;
 
   for( uint bit = 0; bit < 32; bit++ ) {
@@ -1178,7 +1200,7 @@ void KateViewEncodingAction::slotAboutToShow()
   QStringList modes (KGlobal::charsets()->descriptiveEncodingNames());
 
   popupMenu()->clear ();
-  for (uint z=0; z<modes.size(); ++z)
+  for (int z=0; z<modes.size(); ++z)
   {
     popupMenu()->insertItem ( modes[z], this, SLOT(setMode(int)), 0,  z);
 

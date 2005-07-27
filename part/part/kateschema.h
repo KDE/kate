@@ -24,9 +24,9 @@
 #include "katedialogs.h"
 
 #include <qstringlist.h>
-#include <qintdict.h>
+#include <q3intdict.h>
 #include <qmap.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qfont.h>
 
 #include <kconfig.h>
@@ -38,7 +38,7 @@ class KateStyleListCaption;
 
 class KColorButton;
 
-class QPopupMenu;
+class Q3PopupMenu;
 class KComboBox;
 
 class KateSchemaManager
@@ -105,7 +105,7 @@ class KateViewSchemaAction : public KActionMenu
   private:
     void init();
 
-    QGuardedPtr<KateView> m_view;
+    QPointer<KateView> m_view;
     QStringList names;
     int last;
 
@@ -125,7 +125,7 @@ class KateViewSchemaAction : public KActionMenu
     popup menu and a slot to edit a style using the keyboard.
     Added by anders, jan 23 2002.
 */
-class KateStyleListView : public QListView
+class KateStyleListView : public Q3ListView
 {
   Q_OBJECT
 
@@ -145,9 +145,9 @@ class KateStyleListView : public QListView
 
   private slots:
     /* Display a popupmenu for item i at item position */
-    void showPopupMenu( QListViewItem *i, const QPoint &globalPos );
+    void showPopupMenu( Q3ListViewItem *i, const QPoint &globalPos );
     /* call item to change a property, or display a menu */
-    void slotMousePressed( int, QListViewItem*, const QPoint&, int );
+    void slotMousePressed( int, Q3ListViewItem*, const QPoint&, int );
     /* asks item to change the property in q */
     void mSlotPopupHandler( int z );
     void unsetColor( int );
@@ -251,7 +251,7 @@ class KateSchemaConfigFontColorTab : public QWidget
 
   private:
     KateStyleListView *m_defaultStyles;
-    QIntDict<KateAttributeList> m_defaultStyleLists;
+    Q3IntDict<KateAttributeList> m_defaultStyleLists;
 };
 
 class KateSchemaConfigHighlightTab : public QWidget
@@ -279,7 +279,7 @@ class KateSchemaConfigHighlightTab : public QWidget
     uint m_schema;
     int m_hl;
 
-    QIntDict< QIntDict<KateHlItemDataList> > m_hlDict;
+    Q3IntDict< Q3IntDict<KateHlItemDataList> > m_hlDict;
 };
 
 class KateSchemaConfigPage : public KateConfigPage

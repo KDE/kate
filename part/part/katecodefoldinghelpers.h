@@ -20,14 +20,14 @@
 #define _KATE_CODEFOLDING_HELPERS_
 
 //BEGIN INCLUDES + FORWARDS
-#include <qptrlist.h>
-#include <qvaluelist.h>
+#include <q3ptrlist.h>
+#include <q3valuelist.h>
 #include <qobject.h>
-#include <qintdict.h>
-#include <qmemarray.h>
+#include <q3intdict.h>
+#include <QVector>
 
 class KateCodeFoldingTree;
-class KateTextCursor;
+namespace KTextEditor { class Cursor; }
 class KateBuffer;
 
 class QString;
@@ -66,8 +66,8 @@ class KateCodeFoldingNode
 
     inline KateCodeFoldingNode *getParentNode () {return parentNode;}
 
-    bool getBegin (KateCodeFoldingTree *tree, KateTextCursor* begin);
-    bool getEnd (KateCodeFoldingTree *tree, KateTextCursor *end);
+    bool getBegin (KateCodeFoldingTree *tree, KTextEditor::Cursor* begin);
+    bool getEnd (KateCodeFoldingTree *tree, KTextEditor::Cursor *end);
 
   /**
    * accessors for the child nodes
@@ -79,9 +79,16 @@ class KateCodeFoldingNode
 
     inline KateCodeFoldingNode *child (uint index) const { return m_children[index]; }
 
-    inline int findChild (KateCodeFoldingNode *node, uint start = 0) const { return m_children.find (node, start); }
+    inline int findChild (KateCodeFoldingNode *node, uint start = 0) const
+    {
+      for (int i=start; i < m_children.size(); ++i)
+        if (m_children[i] == node)
+          return i;
 
-    inline void appendChild (KateCodeFoldingNode *node) { m_children.resize(m_children.size()+1); m_children[m_children.size()-1] = node; }
+      return -1;
+    }
+
+    inline void appendChild (KateCodeFoldingNode *node) { m_children.append (node); }
 
     void insertChild (uint index, KateCodeFoldingNode *node);
 
@@ -110,7 +117,7 @@ class KateCodeFoldingNode
     bool deleteOpening;
     bool deleteEnding;
 
-    QMemArray<KateCodeFoldingNode*> m_children;
+    QVector<KateCodeFoldingNode*> m_children;
 };
 
 class KateCodeFoldingTree : public QObject
@@ -148,12 +155,12 @@ class KateCodeFoldingTree : public QObject
 
     KateBuffer *m_buffer;
 
-    QIntDict<unsigned int> lineMapping;
-    QIntDict<bool>         dontIgnoreUnchangedLines;
+    Q3IntDict<unsigned int> lineMapping;
+    Q3IntDict<bool>         dontIgnoreUnchangedLines;
 
-    QPtrList<KateCodeFoldingNode> markedForDeleting;
-    QPtrList<KateCodeFoldingNode> nodesForLine;
-    QValueList<KateHiddenLineBlock>   hiddenLines;
+    Q3PtrList<KateCodeFoldingNode> markedForDeleting;
+    Q3PtrList<KateCodeFoldingNode> nodesForLine;
+    Q3ValueList<KateHiddenLineBlock>   hiddenLines;
 
     unsigned int hiddenLinesCountCache;
     bool         something_changed;
@@ -166,8 +173,8 @@ class KateCodeFoldingTree : public QObject
     bool correctEndings (signed char data, KateCodeFoldingNode *node, unsigned int line, unsigned int endCol, int insertPos);
 
     void dumpNode    (KateCodeFoldingNode *node, const QString &prefix);
-    void addOpening  (KateCodeFoldingNode *node, signed char nType,QMemArray<uint>* list, unsigned int line,unsigned int charPos);
-    void addOpening_further_iterations (KateCodeFoldingNode *node,signed char nType, QMemArray<uint>*
+    void addOpening  (KateCodeFoldingNode *node, signed char nType,QVector<int>* list, unsigned int line,unsigned int charPos);
+    void addOpening_further_iterations (KateCodeFoldingNode *node,signed char nType, QVector<int>*
                                         list,unsigned int line,int current,unsigned int startLine,unsigned int charPos);
 
     void incrementBy1 (KateCodeFoldingNode *node, KateCodeFoldingNode *after);
@@ -201,7 +208,7 @@ class KateCodeFoldingTree : public QObject
     void moveSubNodesUp (KateCodeFoldingNode *node);
 
   public slots:
-    void updateLine (unsigned int line,QMemArray<uint>* regionChanges, bool *updated, bool changed,bool colschanged);
+    void updateLine (unsigned int line,QVector<int>* regionChanges, bool *updated, bool changed,bool colschanged);
     void toggleRegionVisibility (unsigned int);
     void collapseToplevelNodes ();
     void expandToplevelNodes (int numLines);

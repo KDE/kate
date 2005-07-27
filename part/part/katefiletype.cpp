@@ -23,7 +23,7 @@
 #include "katedocument.h"
 #include "kateconfig.h"
 #include "kateview.h"
-#include "katefactory.h"
+#include "kateglobal.h"
 
 #include <kconfig.h>
 #include <kmimemagic.h>
@@ -38,19 +38,15 @@
 #include <qregexp.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
-#include <qhbox.h>
-#include <qheader.h>
-#include <qhgroupbox.h>
+#include <q3groupbox.h>
+#include <q3hbox.h>
+#include <q3header.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qtoolbutton.h>
-#include <qvbox.h>
-#include <qvgroupbox.h>
-#include <qwhatsthis.h>
-#include <qwidgetstack.h>
+#include <q3widgetstack.h>
 
 #define KATE_FT_HOWMANY 1024
 //END Includes
@@ -78,7 +74,7 @@ void KateFileTypeManager::update ()
   g.sort ();
 
   m_types.clear ();
-  for (uint z=0; z < g.count(); z++)
+  for (int z=0; z < g.count(); z++)
   {
     config.setGroup (g[z]);
 
@@ -99,7 +95,7 @@ void KateFileTypeManager::update ()
 //
 // save the given list to config file + update
 //
-void KateFileTypeManager::save (QPtrList<KateFileType> *v)
+void KateFileTypeManager::save (Q3PtrList<KateFileType> *v)
 {
   KConfig config ("katefiletyperc", false, false);
 
@@ -124,7 +120,7 @@ void KateFileTypeManager::save (QPtrList<KateFileType> *v)
 
   QStringList g (config.groupList());
 
-  for (uint z=0; z < g.count(); z++)
+  for (int z=0; z < g.count(); z++)
   {
     if (newg.findIndex (g[z]) == -1)
       config.deleteGroup (g[z]);
@@ -174,16 +170,16 @@ int KateFileTypeManager::fileType (KateDocument *doc)
   // Even try the document name, if the URL is empty
   // This is usefull if the document name is set for example by a plugin which
   // created the document
-  else if ( (result = wildcardsFind(doc->docName())) != -1)
+  else if ( (result = wildcardsFind(doc->documentName())) != -1)
   {
-    kdDebug(13020)<<"KateFiletype::filetype(): got type "<<result<<" using docName '"<<doc->docName()<<"'"<<endl;
+    kdDebug(13020)<<"KateFiletype::filetype(): got type "<<result<<" using docName '"<<doc->documentName()<<"'"<<endl;
     return result;
   }
 
   // Try content-based mimetype
   KMimeType::Ptr mt = doc->mimeTypeForContent();
 
-  QPtrList<KateFileType> types;
+  Q3PtrList<KateFileType> types;
 
   for (uint z=0; z < m_types.count(); z++)
   {
@@ -214,7 +210,7 @@ int KateFileTypeManager::fileType (KateDocument *doc)
 
 int KateFileTypeManager::wildcardsFind (const QString &fileName)
 {
-  QPtrList<KateFileType> types;
+  Q3PtrList<KateFileType> types;
 
   for (uint z=0; z < m_types.count(); z++)
   {
@@ -267,22 +263,25 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
   // hl chooser
-  QHBox *hbHl = new QHBox( this );
-  layout->add (hbHl);
+  QHBoxLayout *hbHl = new QHBoxLayout();
+  layout->addLayout (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
-  QLabel *lHl = new QLabel( i18n("&Filetype:"), hbHl );
-  typeCombo = new QComboBox( false, hbHl );
+  QLabel *lHl = new QLabel( i18n("&Filetype:"), this );
+  hbHl->addWidget(lHl);
+  hbHl->addWidget(typeCombo = new QComboBox( false, this ));
   lHl->setBuddy( typeCombo );
   connect( typeCombo, SIGNAL(activated(int)),
            this, SLOT(typeChanged(int)) );
 
-  QPushButton *btnnew = new QPushButton( i18n("&New"), hbHl );
+  QPushButton *btnnew = new QPushButton( i18n("&New"), this );
+  hbHl->addWidget(btnnew);
   connect( btnnew, SIGNAL(clicked()), this, SLOT(newType()) );
 
-  btndel = new QPushButton( i18n("&Delete"), hbHl );
+  btndel = new QPushButton( i18n("&Delete"), this );
+  hbHl->addWidget(btndel);
   connect( btndel, SIGNAL(clicked()), this, SLOT(deleteType()) );
 
-  gbProps = new QGroupBox( 2, Qt::Horizontal, i18n("Properties"), this );
+  gbProps = new Q3GroupBox( 2, Qt::Horizontal, i18n("Properties"), this );
   layout->add (gbProps);
 
   // file & mime types
@@ -306,12 +305,12 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   lFileExts->setBuddy( wildcards );
 
   QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), gbProps);
-  QHBox *hbMT = new QHBox (gbProps);
+  Q3HBox *hbMT = new Q3HBox (gbProps);
   mimetypes = new QLineEdit( hbMT );
   lMimeTypes->setBuddy( mimetypes );
 
   QToolButton *btnMTW = new QToolButton(hbMT);
-  btnMTW->setIconSet(QIconSet(SmallIcon("wizard")));
+  btnMTW->setIconSet(QIcon(SmallIcon("wizard")));
   connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
 
   QLabel *lprio = new QLabel( i18n("Prio&rity:"), gbProps);
@@ -329,51 +328,51 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   connect( mimetypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( priority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
 
-  QWhatsThis::add( btnnew, i18n("Create a new file type.") );
-  QWhatsThis::add( btndel, i18n("Delete the current file type.") );
-  QWhatsThis::add( name, i18n(
+  btnnew->setWhatsThis(i18n("Create a new file type.") );
+  btndel->setWhatsThis(i18n("Delete the current file type.") );
+  name->setWhatsThis(i18n(
       "The name of the filetype will be the text of the corresponding menu item.") );
-  QWhatsThis::add( section, i18n(
+  section->setWhatsThis(i18n(
       "The section name is used to organize the file types in menus.") );
-  QWhatsThis::add( varLine, i18n(
+  varLine->setWhatsThis(i18n(
       "<p>This string allows you to configure Kate's settings for the files "
       "selected by this mimetype using Kate variables. You can set almost any "
       "configuration option, such as highlight, indent-mode, encoding, etc.</p>"
       "<p>For a full list of known variables, see the manual.</p>") );
-  QWhatsThis::add( wildcards, i18n(
+  wildcards->setWhatsThis(i18n(
       "The wildcards mask allows you to select files by filename. A typical "
       "mask uses an asterisk and the file extension, for example "
       "<code>*.txt; *.text</code>. The string is a semicolon-separated list "
       "of masks.") );
-  QWhatsThis::add( mimetypes, i18n(
+  mimetypes->setWhatsThis(i18n(
       "The mime type mask allows you to select files by mimetype. The string is "
       "a semicolon-separated list of mimetypes, for example "
       "<code>text/plain; text/english</code>.") );
-  QWhatsThis::add( btnMTW, i18n(
+  btnMTW->setWhatsThis(i18n(
       "Displays a wizard that helps you easily select mimetypes.") );
-  QWhatsThis::add( priority, i18n(
+  priority->setWhatsThis(i18n(
       "Sets a priority for this file type. If more than one file type selects the same "
       "file, the one with the highest priority will be used." ) );
 }
 
 void KateFileTypeConfigTab::apply()
 {
-  if (!changed())
+  if (!hasChanged())
     return;
 
   save ();
 
-  KateFactory::self()->fileTypeManager()->save(&m_types);
+  KateGlobal::self()->fileTypeManager()->save(&m_types);
 }
 
 void KateFileTypeConfigTab::reload()
 {
   m_types.clear();
-  for (uint z=0; z < KateFactory::self()->fileTypeManager()->list()->count(); z++)
+  for (uint z=0; z < KateGlobal::self()->fileTypeManager()->list()->count(); z++)
   {
     KateFileType *type = new KateFileType ();
 
-    *type = *KateFactory::self()->fileTypeManager()->list()->at(z);
+    *type = *KateGlobal::self()->fileTypeManager()->list()->at(z);
 
     m_types.append (type);
   }
@@ -524,7 +523,7 @@ void KateViewFileTypeAction::init()
   connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
-void KateViewFileTypeAction::updateMenu (Kate::Document *doc)
+void KateViewFileTypeAction::updateMenu (KTextEditor::Document *doc)
 {
   m_doc = (KateDocument *)doc;
 }
@@ -532,19 +531,19 @@ void KateViewFileTypeAction::updateMenu (Kate::Document *doc)
 void KateViewFileTypeAction::slotAboutToShow()
 {
   KateDocument *doc=m_doc;
-  int count = KateFactory::self()->fileTypeManager()->list()->count();
+  int count = KateGlobal::self()->fileTypeManager()->list()->count();
 
   for (int z=0; z<count; z++)
   {
-    QString hlName = KateFactory::self()->fileTypeManager()->list()->at(z)->name;
-    QString hlSection = KateFactory::self()->fileTypeManager()->list()->at(z)->section;
+    QString hlName = KateGlobal::self()->fileTypeManager()->list()->at(z)->name;
+    QString hlSection = KateGlobal::self()->fileTypeManager()->list()->at(z)->section;
 
-    if ( !hlSection.isEmpty() && (names.contains(hlName) < 1) )
+    if ( !hlSection.isEmpty() && !names.contains(hlName) )
     {
-      if (subMenusName.contains(hlSection) < 1)
+      if (!subMenusName.contains(hlSection))
       {
         subMenusName << hlSection;
-        QPopupMenu *menu = new QPopupMenu ();
+        Q3PopupMenu *menu = new Q3PopupMenu ();
         subMenus.append(menu);
         popupMenu()->insertItem (hlSection, menu);
       }
@@ -553,7 +552,7 @@ void KateViewFileTypeAction::slotAboutToShow()
       names << hlName;
       subMenus.at(m)->insertItem ( hlName, this, SLOT(setType(int)), 0,  z+1);
     }
-    else if (names.contains(hlName) < 1)
+    else if (!names.contains(hlName))
     {
       names << hlName;
       popupMenu()->insertItem ( hlName, this, SLOT(setType(int)), 0,  z+1);
@@ -574,7 +573,7 @@ void KateViewFileTypeAction::slotAboutToShow()
   else
   {
     const KateFileType *t = 0;
-    if ((t = KateFactory::self()->fileTypeManager()->fileType (doc->fileType())))
+    if ((t = KateGlobal::self()->fileTypeManager()->fileType (doc->fileType())))
     {
       int i = subMenusName.findIndex (t->section);
       if (i >= 0 && subMenus.at(i))

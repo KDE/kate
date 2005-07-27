@@ -23,7 +23,7 @@
 #define _KATELUAINDENTSCRIPT_H_
 
 #include "kateindentscriptabstracts.h"
-#include <qdict.h>
+#include <q3dict.h>
 
 struct lua_State;
 
@@ -34,9 +34,9 @@ class KateLUAIndentScriptImpl: public KateIndentScriptImplAbstract {
         const QString &copyright, double version);
     ~KateLUAIndentScriptImpl();
     
-    virtual bool processChar( class Kate::View *view, QChar c, QString &errorMsg );
-    virtual bool processLine( class Kate::View *view, const KateDocCursor &line, QString &errorMsg );
-    virtual bool processNewline( class Kate::View *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg );
+    virtual bool processChar( class KateView *view, QChar c, QString &errorMsg );
+    virtual bool processLine( class KateView *view, const KateDocCursor &line, QString &errorMsg );
+    virtual bool processNewline( class KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg );
   protected:
     virtual void decRef();
   private:
@@ -60,7 +60,7 @@ class KateLUAIndentScriptManager: public KateIndentScriptManagerAbstract
     void collectScripts (bool force = false);
     void parseScriptHeader(const QString &filePath,
         QString *niceName,QString *copyright,double *version);
-    QDict<KateLUAIndentScriptImpl> m_scripts;
+    Q3Dict<KateLUAIndentScriptImpl> m_scripts;
 };
 
 #endif

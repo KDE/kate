@@ -20,8 +20,6 @@
 #include "insertfileplugin.moc"
 
 #include <ktexteditor/document.h>
-#include <ktexteditor/viewcursorinterface.h>
-#include <ktexteditor/editinterface.h>
 
 #include <assert.h>
 #include <kio/job.h>
@@ -42,7 +40,7 @@ K_EXPORT_COMPONENT_FACTORY( ktexteditor_insertfile, KGenericFactory<InsertFilePl
 
 //BEGIN InsertFilePlugin
 InsertFilePlugin::InsertFilePlugin( QObject *parent, const char* name, const QStringList& )
-	: KTextEditor::Plugin ( (KTextEditor::Document*) parent, name )
+	: KTextEditor::Plugin ( parent )
 {
 }
 
@@ -130,7 +128,7 @@ void InsertFilePluginView::insertFile()
     error = i18n("<p>The file <strong>%1</strong> does not exist or is not readable, aborting.").arg(_file.fileName());
 
   QFile f( _tmpfile );
-  if ( !f.open(IO_ReadOnly) )
+  if ( !f.open(QIODevice::ReadOnly) )
     error = i18n("<p>Unable to open file <strong>%1</strong>, aborting.").arg(_file.fileName());
 
   if ( ! error.isEmpty() ) {
@@ -143,7 +141,7 @@ void InsertFilePluginView::insertFile()
   QString str, tmp;
   uint numlines = 0;
   uint len = 0;
-  while (!stream.eof()) {
+  while (!stream.atEnd()) {
     if ( numlines )
       str += "\n";
     tmp = stream.readLine();
@@ -161,24 +159,18 @@ void InsertFilePluginView::insertFile()
   }
 
   // insert !!
-  KTextEditor::EditInterface *ei;
-  KTextEditor::ViewCursorInterface *ci;
   KTextEditor::View *v = (KTextEditor::View*)parent();
-  ei = KTextEditor::editInterface( v->document() );
-  ci = KTextEditor::viewCursorInterface( v );
-  uint line, col;
-  ci->cursorPositionReal( &line, &col );
-  ei->insertText( line, col, str );
+  int line, col;
+  line = v->cursorPosition().line();
+  col = v->cursorPosition().column();
+  v->document()->insertText( v->cursorPosition(), str );
 
   // move the cursor
-  ci->setCursorPositionReal( line + numlines - 1, numlines > 1 ? len : col + len  );
+  v->setCursorPosition ( KTextEditor::Cursor (line + numlines - 1, numlines > 1 ? len : col + len)  );
 
   // clean up
   _file = KURL ();
   _tmpfile.truncate( 0 );
-  v = 0;
-  ei = 0;
-  ci = 0;
 }
 
 //END InsertFilePluginView

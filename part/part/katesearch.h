@@ -24,18 +24,18 @@
 #define __KATE_SEARCH_H__
 
 #include "katecursor.h"
-#include "../interfaces/document.h"
+
+#include <ktexteditor/commandinterface.h>
 
 #include <kdialogbase.h>
 
 #include <qstring.h>
 #include <qregexp.h>
 #include <qstringlist.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 class KateView;
 class KateDocument;
-class KateSuperRangeList;
 
 class KActionCollection;
 
@@ -65,13 +65,13 @@ class KateSearch : public QObject
     {
       public:
         SearchFlags flags;
-        KateTextCursor cursor;
-        KateTextCursor wrappedEnd; // after wraping around, search/replace until here
+        KTextEditor::Cursor cursor;
+        KTextEditor::Cursor wrappedEnd; // after wraping around, search/replace until here
         bool wrapped; // have we allready wrapped around ?
         bool showNotFound; // pop up annoying dialogs?
-        uint matchedLength;
-        KateTextCursor selBegin;
-        KateTextCursor selEnd;
+        int matchedLength;
+        KTextEditor::Cursor selBegin;
+        KTextEditor::Cursor selEnd;
     };
 
   public:
@@ -139,9 +139,9 @@ class KateSearch : public QObject
     void skipOne();
 
     QString getSearchText();
-    KateTextCursor getCursor();
+    KTextEditor::Cursor getCursor();
     bool doSearch( const QString& text );
-    void exposeFound( KateTextCursor &cursor, int slen );
+    void exposeFound( KTextEditor::Cursor &cursor, int slen );
 
     inline KateView* view()    { return m_view; }
     inline KateDocument* doc() { return m_doc;  }
@@ -149,11 +149,9 @@ class KateSearch : public QObject
     KateView*     m_view;
     KateDocument* m_doc;
 
-    KateSuperRangeList* m_arbitraryHLList;
-
     SConfig s;
 
-    QValueList<SConfig> m_searchResults;
+    Q3ValueList<SConfig> m_searchResults;
     int                 m_resultIndex;
 
     int           replaces;
@@ -215,15 +213,18 @@ class KateReplacePrompt : public KDialogBase
     void done (int result);
 };
 
-class SearchCommand : public Kate::Command, public Kate::CommandExtension
+class SearchCommand : public KTextEditor::Command, public KTextEditor::CommandExtension
 {
   public:
     SearchCommand() : m_ifindFlags(0) {;}
-    bool exec(class Kate::View *view, const QString &cmd, QString &errorMsg);
-    bool help(class Kate::View *, const QString &, QString &);
-    QStringList cmds();
+    bool exec(class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
+    bool help(class KTextEditor::View *, const QString &, QString &);
+    const QStringList &cmds();
     bool wantsToProcessText( const QString &/*cmdname*/ );
-    void processText( Kate::View *, const QString& );
+    void processText( KTextEditor::View *, const QString& );
+
+    virtual void flagCompletions( QStringList& ) {}
+    virtual KCompletion *completionObject( const QString &, KTextEditor::View * ) { return 0; }
 
   private:
     /**

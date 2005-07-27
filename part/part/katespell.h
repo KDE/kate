@@ -25,9 +25,12 @@
 
 #include "katecursor.h"
 
+#include <QObject>
+
 class KateView;
 
 class KAction;
+class KActionCollection;
 class KSpell;
 
 class KateSpell : public QObject
@@ -57,7 +60,7 @@ class KateSpell : public QObject
       * @param from Where to start the check
       * @param to Where to end. If this is (0,0), it will be set to the end of the document.
       */
-    void spellcheck( const KateTextCursor &from, const KateTextCursor &to=KateTextCursor() );
+    void spellcheck( const KTextEditor::Cursor &from, const KTextEditor::Cursor &to=KTextEditor::Cursor() );
 
     void ready(KSpell *);
     void misspelling( const QString&, const QStringList&, unsigned int );
@@ -74,10 +77,10 @@ class KateSpell : public QObject
     KSpell *m_kspell;
 
     // define the part of the text to check
-    KateTextCursor m_spellStart, m_spellEnd;
+    KTextEditor::Cursor m_spellStart, m_spellEnd;
 
     // keep track of where we are.
-    KateTextCursor m_spellPosCursor;
+    KTextEditor::Cursor m_spellPosCursor;
     uint m_spellLastPos;
 };
 

@@ -46,11 +46,10 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qlineedit.h>
-#include <qlistview.h>
-#include <qpopupmenu.h>
+#include <q3listview.h>
+#include <q3popupmenu.h>
 #include <qpushbutton.h>
 #include <qtoolbutton.h>
-#include <qwhatsthis.h>
 #include <qregexp.h>
 
 //#include <kdebug.h>
@@ -251,11 +250,11 @@ void ABGlobal::writeConfig()
 
 //BEGIN AutoBookmarkEntItem
 // A QListviewItem which can hold a AutoBookmarkEnt pointer
-class AutoBookmarkEntItem : public QListViewItem
+class AutoBookmarkEntItem : public Q3ListViewItem
 {
   public:
     AutoBookmarkEntItem( KListView *lv, AutoBookmarkEnt *e )
-        : QListViewItem( lv ),
+        : Q3ListViewItem( lv ),
         ent( e )
       {
         redo();
@@ -281,7 +280,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
                        KDialogBase::Ok|KDialogBase::Cancel ),
           e( e )
 {
-  QFrame *w = makeMainWidget();
+  Q3Frame *w = makeMainWidget();
   QGridLayout * lo = new QGridLayout( w, 5, 3 );
   lo->setSpacing( KDialogBase::spacingHint() );
 
@@ -290,7 +289,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
   l->setBuddy( lePattern );
   lo->addWidget( l, 0, 0 );
   lo->addMultiCellWidget(  lePattern, 0, 0, 1, 2 );
-  QWhatsThis::add( lePattern, i18n(
+  lePattern->setWhatsThis(i18n(
       "<p>A regular expression. Matching lines will be bookmarked.</p>" ) );
 
   connect( lePattern, SIGNAL(textChanged ( const QString & ) ),this, SLOT( slotPatternChanged( const QString& ) ) );
@@ -298,14 +297,14 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
   cbCS = new QCheckBox( i18n("Case &sensitive"), w );
   lo->addMultiCellWidget( cbCS, 1, 1, 0, 2 );
   cbCS->setChecked( e->flags & AutoBookmarkEnt::CaseSensitive );
-  QWhatsThis::add( cbCS, i18n(
+  cbCS->setWhatsThis(i18n(
       "<p>If enabled, the pattern matching will be case sensitive, otherwise "
       "not.</p>") );
 
   cbMM = new QCheckBox( i18n("&Minimal matching"), w );
   lo->addMultiCellWidget( cbMM, 2, 2, 0 ,2 );
   cbMM->setChecked( e->flags & AutoBookmarkEnt::MinimalMatching );
-  QWhatsThis::add( cbMM, i18n(
+  cbMM->setWhatsThis(i18n(
       "<p>If enabled, the pattern matching will use minimal matching; if you "
       "do not know what that is, please read the appendix on regular expressions "
       "in the kate manual.</p>") );
@@ -315,7 +314,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
   l->setBuddy( leFileMask );
   lo->addWidget( l, 3, 0 );
   lo->addMultiCellWidget( leFileMask, 3, 3, 1, 2 );
-  QWhatsThis::add( leFileMask, i18n(
+  leFileMask->setWhatsThis(i18n(
       "<p>A list of filename masks, separated by semicolons. This can be used "
       "to limit the usage of this entity to files with matching names.</p>"
       "<p>Use the wizard button to the right of the mimetype entry below to "
@@ -326,7 +325,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
   l->setBuddy( leMimeTypes );
   lo->addWidget( l, 4, 0 );
   lo->addWidget( leMimeTypes, 4, 1 );
-  QWhatsThis::add( leMimeTypes, i18n(
+  leMimeTypes->setWhatsThis(i18n(
       "<p>A list of mime types, separated by semicolon. This can be used to "
       "limit the usage of this entity to files with matching mime types.</p>"
       "<p>Use the wizard button on the right to get a list of existing file "
@@ -334,9 +333,9 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
 
   QToolButton *btnMTW = new QToolButton(w);
   lo->addWidget( btnMTW, 4, 2 );
-  btnMTW->setIconSet(QIconSet(SmallIcon("wizard")));
+  btnMTW->setIconSet(QIcon(SmallIcon("wizard")));
   connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
-  QWhatsThis::add( btnMTW, i18n(
+  btnMTW->setWhatsThis(i18n(
       "<p>Click this button to display a checkable list of mimetypes available "
       "on your system. When used, the file masks entry above will be filled in "
       "with the corresponding masks.</p>") );
@@ -390,7 +389,7 @@ AutoBookmarkerConfigPage::AutoBookmarkerConfigPage( QWidget *parent, const char 
   lvPatterns->addColumn( i18n("File Masks") );
   lo->addWidget( lvPatterns );
   l->setBuddy( lvPatterns );
-  QWhatsThis::add( lvPatterns, i18n(
+  lvPatterns->setWhatsThis(i18n(
       "<p>This list shows your configured autobookmark entities. When a document "
       "is opened, each entity is used in the following way: "
       "<ol>"
@@ -405,17 +404,17 @@ AutoBookmarkerConfigPage::AutoBookmarkerConfigPage( QWidget *parent, const char 
 
   btnNew = new QPushButton( i18n("&New..."), this );
   lo1->addWidget( btnNew );
-  QWhatsThis::add( btnNew, i18n(
+  btnNew->setWhatsThis(i18n(
       "Press this button to create a new autobookmark entity.") );
 
   btnDel = new QPushButton( i18n("&Delete"), this );
   lo1->addWidget( btnDel );
-  QWhatsThis::add( btnDel, i18n(
+  btnDel->setWhatsThis(i18n(
       "Press this button to delete the currently selected entity.") );
 
   btnEdit = new QPushButton( i18n("&Edit..."), this );
   lo1->addWidget( btnEdit );
-  QWhatsThis::add( btnEdit, i18n(
+  btnEdit->setWhatsThis(i18n(
       "Press this button to edit the currently selected entity.") );
 
   lo1->addStretch( 1 );
@@ -423,7 +422,7 @@ AutoBookmarkerConfigPage::AutoBookmarkerConfigPage( QWidget *parent, const char 
   connect( btnNew, SIGNAL(clicked()), this, SLOT(slotNew()) );
   connect( btnDel, SIGNAL(clicked()), this, SLOT(slotDel()) );
   connect( btnEdit, SIGNAL(clicked()), this, SLOT(slotEdit()) );
-  connect( lvPatterns, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(slotEdit()) );
+  connect( lvPatterns, SIGNAL(doubleClicked(Q3ListViewItem *)), this, SLOT(slotEdit()) );
 
   m_ents = new ABEntityList();
   m_ents->setAutoDelete( true );

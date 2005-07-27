@@ -28,13 +28,13 @@
 
 #include <kdialogbase.h>
 
-#include <qptrlist.h>
-#include <qvbox.h>
+#include <q3ptrlist.h>
+#include <q3vbox.h>
 
 class AutoBookmarkEnt
 {
   public:
-  enum REFlags { CaseSensitive=1, MinimalMatching=2 };
+  enum REFlags { Qt::CaseSensitive=1, MinimalMatching=2 };
   AutoBookmarkEnt(const QString &p=QString::null,
                   const QStringList &f=QStringList(),
                   const QStringList &m=QStringList(),
@@ -73,8 +73,8 @@ class AutoBookmarker
     void applyEntity( AutoBookmarkEnt *e );
 };
 
-typedef QPtrList<AutoBookmarkEnt> ABEntityList;
-typedef QPtrListIterator<AutoBookmarkEnt> ABEntityListIterator;
+typedef Q3PtrList<AutoBookmarkEnt> ABEntityList;
+typedef Q3PtrListIterator<AutoBookmarkEnt> ABEntityListIterator;
 
 /* singleton to keep the data */
 class ABGlobal

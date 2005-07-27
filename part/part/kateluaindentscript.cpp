@@ -36,7 +36,7 @@
 #include <klocale.h>
 
 extern "C" {
-#include <lua.h> 
+#include <lua.h>
 #include <lualib.h>
 }
 
@@ -57,7 +57,7 @@ extern "C" {
 
 //BEGIN temporary, try to use registry later
 static KateDocument *katelua_doc;
-static Kate::View *katelua_view;
+static KateView *katelua_view;
 //END
 
 
@@ -123,14 +123,14 @@ static int katelua_indenter_register(lua_State *L) {
 
 static int katelua_document_textline(lua_State *L) {
   if (lua_gettop(L)!=1) {
-      lua_pushstring(L,i18n("document.textLine:One parameter (line number) required").utf8().data());
+      lua_pushstring(L,i18n("document.line:One parameter (line number) required").utf8().data());
       lua_error(L);
   }
   if (!lua_isnumber(L,1)) {
-      lua_pushstring(L,i18n("document.textLine:One parameter (line number) required (number)").utf8().data());
+      lua_pushstring(L,i18n("document.line:One parameter (line number) required (number)").utf8().data());
       lua_error(L);
   }
-  lua_pushstring(L,katelua_doc->textLine((uint)lua_tonumber(L,1)).utf8().data());
+  lua_pushstring(L,katelua_doc->line(lua_tonumber(L,1)).utf8().data());
   return 1;
 }
 
@@ -161,16 +161,16 @@ static int katelua_document_insertText(lua_State *L) {
 }
 
 static int katelua_view_cursorline(lua_State *L) {
-  lua_pushnumber(L,katelua_view->cursorLine());
+  lua_pushnumber(L,katelua_view->cursorPosition().line());
   return 1;
 }
 static int katelua_view_cursorcolumn(lua_State *L) {
-  lua_pushnumber(L,katelua_view->cursorColumn());
+  lua_pushnumber(L,katelua_view->cursorPosition().column());
   return 1;
 }
 static int katelua_view_cursorposition(lua_State *L) {
-  lua_pushnumber(L,katelua_view->cursorLine());
-  lua_pushnumber(L,katelua_view->cursorColumn());
+  lua_pushnumber(L,katelua_view->cursorPosition().line());
+  lua_pushnumber(L,katelua_view->cursorPosition().column());
   return 2;
 
 }
@@ -179,7 +179,7 @@ static int katelua_view_setcursorpositionreal(lua_State *L) {
 }
 
 static const struct KATELUA_FUNCTIONS katelua_documenttable[4]= {
-{"textLine",katelua_document_textline},
+{"line",katelua_document_textline},
 {"removeText",katelua_document_removeText},
 {"insertText",katelua_document_insertText},
 {0,0}
@@ -207,7 +207,7 @@ static void  kateregistertable(lua_State* m_interpreter,const KATELUA_FUNCTIONS 
   lua_pop(m_interpreter,1);
 
 }
-  
+
 //END STATIC BINDING FUNCTIONS
 
 
@@ -283,7 +283,7 @@ bool KateLUAIndentScriptImpl::setupInterpreter(QString &errorMsg)
   /*open script*/
   lua_pushstring(m_interpreter,"dofile");
   lua_gettable(m_interpreter,LUA_GLOBALSINDEX);
-  QCString fn=QFile::encodeName(filePath());
+  QByteArray fn=QFile::encodeName(filePath());
   lua_pushstring(m_interpreter,fn.data());
   int execresult=lua_pcall(m_interpreter,1,1,0);
   if (execresult==0) {
@@ -299,7 +299,7 @@ bool KateLUAIndentScriptImpl::setupInterpreter(QString &errorMsg)
 }
 
 
-bool KateLUAIndentScriptImpl::processChar(Kate::View *view, QChar c, QString &errorMsg )
+bool KateLUAIndentScriptImpl::processChar(KateView *view, QChar c, QString &errorMsg )
 {
   if (!setupInterpreter(errorMsg)) return false;
   katelua_doc=((KateView*)view)->doc();
@@ -322,13 +322,13 @@ bool KateLUAIndentScriptImpl::processChar(Kate::View *view, QChar c, QString &er
   return result;
 }
 
-bool KateLUAIndentScriptImpl::processLine(Kate::View *view, const KateDocCursor &line, QString &errorMsg )
+bool KateLUAIndentScriptImpl::processLine(KateView *view, const KateDocCursor &line, QString &errorMsg )
 {
   if (!setupInterpreter(errorMsg)) return false;
   return true;
 }
 
-bool KateLUAIndentScriptImpl::processNewline( class Kate::View *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg )
+bool KateLUAIndentScriptImpl::processNewline( KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg )
 {
   if (!setupInterpreter(errorMsg)) return false;
   katelua_doc=((KateView*)view)->doc();

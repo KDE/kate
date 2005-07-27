@@ -24,13 +24,18 @@ KateAttribute::KateAttribute()
   , m_underline(false)
   , m_overline(false)
   , m_strikeout(false)
+  , m_bgColorFillWhitespace(false)
   , m_itemsSet(0)
-
 {
 }
 
 KateAttribute::~KateAttribute()
 {
+}
+
+const QTextCharFormat & KateAttribute::toFormat() const
+{
+  return m_format;
 }
 
 void KateAttribute::clear()
@@ -65,7 +70,7 @@ KateAttribute& KateAttribute::operator+=(const KateAttribute& a)
     setSelectedTextColor(a.selectedTextColor());
 
   if (a.itemSet(BGColor))
-    setBGColor(a.bgColor());
+    setBGColor(a.bgColor(), a.bgColorFillWhitespace());
 
   if (a.itemSet(SelectedBGColor))
     setSelectedBGColor(a.selectedBGColor());
@@ -98,6 +103,7 @@ void KateAttribute::setWeight(int weight)
     m_itemsSet |= Weight;
 
     m_weight = weight;
+    m_format.setFontWeight(m_weight);
 
     changed();
   }
@@ -115,6 +121,7 @@ void KateAttribute::setItalic(bool enable)
     m_itemsSet |= Italic;
 
     m_italic = enable;
+    m_format.setFontItalic(m_italic);
 
     changed();
   }
@@ -127,6 +134,7 @@ void KateAttribute::setUnderline(bool enable)
     m_itemsSet |= Underline;
 
     m_underline = enable;
+    m_format.setFontUnderline(m_underline);
 
     changed();
   }
@@ -139,6 +147,7 @@ void KateAttribute::setOverline(bool enable)
     m_itemsSet |= Overline;
 
     m_overline = enable;
+    m_format.setFontOverline(m_overline);
 
     changed();
   }
@@ -151,6 +160,7 @@ void KateAttribute::setStrikeOut(bool enable)
     m_itemsSet |= StrikeOut;
 
     m_strikeout = enable;
+    m_format.setFontStrikeOut(m_strikeout);
 
     changed();
   }
@@ -163,6 +173,7 @@ void KateAttribute::setOutline(const QColor& color)
     m_itemsSet |= Outline;
 
     m_outline = color;
+    //m_format.setFontOutline(m_outline);
 
     changed();
   }
@@ -175,6 +186,7 @@ void KateAttribute::setTextColor(const QColor& color)
     m_itemsSet |= TextColor;
 
     m_textColor = color;
+    m_format.setForeground(m_textColor);
 
     changed();
   }
@@ -192,13 +204,15 @@ void KateAttribute::setSelectedTextColor(const QColor& color)
   }
 }
 
-void KateAttribute::setBGColor(const QColor& color)
+void KateAttribute::setBGColor(const QColor& color, bool fillWhitespace)
 {
-  if (!(m_itemsSet & BGColor) || m_bgColor != color)
+  if (!(m_itemsSet & BGColor) || m_bgColor != color || m_bgColorFillWhitespace != fillWhitespace)
   {
     m_itemsSet |= BGColor;
 
     m_bgColor = color;
+    m_bgColorFillWhitespace = fillWhitespace;
+    m_format.setBackground(color);
 
     changed();
   }

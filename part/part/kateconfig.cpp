@@ -18,7 +18,7 @@
 
 #include "kateconfig.h"
 
-#include "katefactory.h"
+#include "kateglobal.h"
 #include "katerenderer.h"
 #include "kateview.h"
 #include "katedocument.h"
@@ -37,7 +37,7 @@
 #include <kinstance.h>
 #include <kstaticdeleter.h>
 
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qtextcodec.h>
 
 #include <kdebug.h>
@@ -88,7 +88,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_indentationWidth (2),
    m_wordWrapAt (80),
    m_configFlags (0),
-   m_plugins (KateFactory::self()->plugins().count()),
+   m_plugins (KateGlobal::self()->plugins().count()),
    m_tabWidthSet (true),
    m_indentationWidthSet (true),
    m_indentationModeSet (true),
@@ -121,7 +121,7 @@ KateDocumentConfig::KateDocumentConfig ()
 
 KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
  : m_configFlags (0),
-   m_plugins (KateFactory::self()->plugins().count()),
+   m_plugins (KateGlobal::self()->plugins().count()),
    m_tabWidthSet (false),
    m_indentationWidthSet (false),
    m_indentationModeSet (false),
@@ -184,8 +184,8 @@ void KateDocumentConfig::readConfig (KConfig *config)
   setBackupSuffix (config->readEntry("Backup Suffix", QString ("~")));
 
   // plugins
-  for (uint i=0; i<KateFactory::self()->plugins().count(); i++)
-    setPlugin (i, config->readBoolEntry("KTextEditor Plugin " + (KateFactory::self()->plugins())[i]->library(), false));
+  for (int i=0; i<KateGlobal::self()->plugins().count(); i++)
+    setPlugin (i, config->readBoolEntry("KTextEditor Plugin " + (KateGlobal::self()->plugins())[i]->library(), false));
 
   configEnd ();
 }
@@ -220,8 +220,8 @@ void KateDocumentConfig::writeConfig (KConfig *config)
   config->writeEntry("Backup Suffix", backupSuffix());
 
   // plugins
-  for (uint i=0; i<KateFactory::self()->plugins().count(); i++)
-    config->writeEntry("KTextEditor Plugin " + (KateFactory::self()->plugins())[i]->library(), plugin(i));
+  for (int i=0; i<KateGlobal::self()->plugins().count(); i++)
+    config->writeEntry("KTextEditor Plugin " + (KateGlobal::self()->plugins())[i]->library(), plugin(i));
 }
 
 void KateDocumentConfig::updateConfig ()
@@ -234,10 +234,8 @@ void KateDocumentConfig::updateConfig ()
 
   if (isGlobal())
   {
-    for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
-    {
-      KateFactory::self()->documents()->at(z)->updateConfig ();
-    }
+    for (int z=0; z < KateGlobal::self()->kateDocuments().size(); ++z)
+      (KateGlobal::self()->kateDocuments())[z]->updateConfig ();
   }
 }
 
@@ -416,12 +414,12 @@ const QString &KateDocumentConfig::encoding () const
   return s_global->encoding();
 }
 
-QTextCodec *KateDocumentConfig::codec ()
+QTextCodec *KateDocumentConfig::codec () const
 {
   if (m_encodingSet || isGlobal())
   {
     if (m_encoding.isEmpty() && isGlobal())
-      return KGlobal::charsets()->codecForName (QString::fromLatin1(KGlobal::locale()->encoding()));
+      return KGlobal::locale()->codecForEncoding();
     else if (m_encoding.isEmpty())
       return s_global->codec ();
     else
@@ -431,7 +429,7 @@ QTextCodec *KateDocumentConfig::codec ()
   return s_global->codec ();
 }
 
-void KateDocumentConfig::setEncoding (const QString &encoding)
+bool KateDocumentConfig::setEncoding (const QString &encoding)
 {
   QString enc = encoding;
 
@@ -441,20 +439,19 @@ void KateDocumentConfig::setEncoding (const QString &encoding)
     QTextCodec *codec = KGlobal::charsets()->codecForName (encoding, found);
 
     if (!found || !codec)
-      return;
+      return false;
 
     enc = codec->name();
   }
 
   configStart ();
 
-  if (isGlobal())
-    KateDocument::setDefaultEncoding (enc);
-
   m_encodingSet = true;
   m_encoding = enc;
 
   configEnd ();
+
+  return true;
 }
 
 bool KateDocumentConfig::isSetEncoding () const
@@ -564,9 +561,9 @@ void KateDocumentConfig::setBackupSuffix (const QString &suffix)
   configEnd ();
 }
 
-bool KateDocumentConfig::plugin (uint index) const
+bool KateDocumentConfig::plugin (int index) const
 {
-  if (index >= m_plugins.size())
+  if (index < 0 || index >= m_plugins.size())
     return false;
 
   if (m_pluginsSet.at(index) || isGlobal())
@@ -575,9 +572,9 @@ bool KateDocumentConfig::plugin (uint index) const
   return s_global->plugin (index);
 }
 
-void KateDocumentConfig::setPlugin (uint index, bool load)
+void KateDocumentConfig::setPlugin (int index, bool load)
 {
-  if (index >= m_plugins.size())
+  if (index < 0 || index >= m_plugins.size())
     return;
 
   configStart ();
@@ -731,10 +728,8 @@ void KateViewConfig::updateConfig ()
 
   if (isGlobal())
   {
-    for (uint z=0; z < KateFactory::self()->views()->count(); z++)
-    {
-      KateFactory::self()->views()->at(z)->updateConfig ();
-    }
+    for (int z=0; z < KateGlobal::self()->views().size(); ++z)
+      (KateGlobal::self()->views())[z]->updateConfig ();
   }
 }
 
@@ -1057,7 +1052,7 @@ void KateRendererConfig::readConfig (KConfig *config)
 {
   configStart ();
 
-  setSchema (KateFactory::self()->schemaManager()->number (config->readEntry("Schema", KateSchemaManager::normalSchema())));
+  setSchema (KateGlobal::self()->schemaManager()->number (config->readEntry("Schema", KateSchemaManager::normalSchema())));
 
   setWordWrapMarker (config->readBoolEntry("Word Wrap Marker", false ));
 
@@ -1068,7 +1063,7 @@ void KateRendererConfig::readConfig (KConfig *config)
 
 void KateRendererConfig::writeConfig (KConfig *config)
 {
-  config->writeEntry ("Schema", KateFactory::self()->schemaManager()->name(schema()));
+  config->writeEntry ("Schema", KateGlobal::self()->schemaManager()->name(schema()));
 
   config->writeEntry("Word Wrap Marker", wordWrapMarker() );
 
@@ -1085,10 +1080,8 @@ void KateRendererConfig::updateConfig ()
 
   if (isGlobal())
   {
-    for (uint z=0; z < KateFactory::self()->renderers()->count(); z++)
-    {
-      KateFactory::self()->renderers()->at(z)->updateConfig ();
-    }
+    for (int z=0; z < KateGlobal::self()->views().size(); ++z)
+      (KateGlobal::self()->views())[z]->renderer()->updateConfig ();
   }
 }
 
@@ -1112,8 +1105,8 @@ void KateRendererConfig::setSchema (uint schema)
 void KateRendererConfig::reloadSchema()
 {
   if ( isGlobal() )
-    for ( uint z=0; z < KateFactory::self()->renderers()->count(); z++ )
-      KateFactory::self()->renderers()->at(z)->config()->reloadSchema();
+    for ( int z=0; z < KateGlobal::self()->views().size(); ++z )
+      (KateGlobal::self()->views())[z]->renderer()->config()->reloadSchema();
 
   else if ( m_renderer && m_schemaSet )
     setSchemaInternal( m_schema );
@@ -1124,7 +1117,7 @@ void KateRendererConfig::setSchemaInternal( int schema )
   m_schemaSet = true;
   m_schema = schema;
 
-  KConfig *config (KateFactory::self()->schemaManager()->schema(schema));
+  KConfig *config (KateGlobal::self()->schemaManager()->schema(schema));
 
   QColor tmp0 (KGlobalSettings::baseColor());
   QColor tmp1 (KGlobalSettings::highlightColor());

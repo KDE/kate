@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2003 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2003-2005 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -25,14 +25,20 @@
 #include "katecursor.h"
 #include "kateattribute.h"
 #include "katetextline.h"
+#include "katelinerange.h"
 
 #include <qfont.h>
 #include <qfontmetrics.h>
+#include <QList>
+#include <QTextLayout>
 
 class KateDocument;
 class KateView;
-class KateLineRange;
 class KateRendererConfig;
+namespace  KTextEditor { class Range; }
+
+class KateLineLayout;
+typedef KSharedPtr<KateLineLayout> KateLineLayoutPtr;
 
 /**
  * Handles all of the work of rendering the text
@@ -61,6 +67,16 @@ public:
      * Destructor
      */
     ~KateRenderer();
+
+    /**
+     * Returns the document to which this renderer is bound
+     */
+    KateDocument* doc() const { return m_doc; }
+
+    /**
+     * Returns the view to which this renderer is bound
+     */
+    KateView* view() const { return m_view; }
 
     /**
      * update the highlighting attributes
@@ -147,8 +163,8 @@ public:
      */
     void increaseFontSizes();
     void decreaseFontSizes();
-    const QFont* currentFont();
-    const QFontMetrics* currentFontMetrics();
+    const QFont* currentFont() const;
+    const QFontMetrics* currentFontMetrics() const;
 
     /**
      * @return whether the renderer is configured to paint in a
@@ -166,15 +182,30 @@ public:
     /**
      * Text width & height calculation functions...
      */
+    void layoutLine(KateLineLayoutPtr line, int maxwidth = -1, bool cacheLayout = false) const;
 
     // Width calculators
-    uint spaceWidth();
-    uint textWidth(const KateTextLine::Ptr &, int cursorCol);
-    uint textWidth(const KateTextLine::Ptr &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX = 0);
-    uint textWidth(const KateTextCursor &cursor);
+    uint spaceWidth() const;
+    uint textWidth(const KateTextLine::Ptr &, int cursorCol) KDE_DEPRECATED;
+    uint textWidth(const KateTextLine::Ptr &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX = 0)  KDE_DEPRECATED;
+    uint textWidth(const KTextEditor::Cursor& cursor)  KDE_DEPRECATED;
 
-    // Cursor constrainer
-    uint textWidth(KateTextCursor &cursor, int xPos, uint startCol = 0);
+    /**
+     * Returns the x position of cursor \p col on the line \p range. If \p doLayout
+     * is false, \p col must be on the line laid out in \p range, else the function
+     * will return -1.  If \p doLayout is true, the text will be laid out until the
+     * answer is found.
+     */
+    int cursorToX(const KateTextLayout& range, int col, int maxwidth = -1) const;
+    /// \overload
+    int cursorToX(const KateTextLayout& range, const KTextEditor::Cursor& pos, int maxwidth = -1) const;
+
+    /**
+     * Returns the real cursor which is occupied by the specified x value, or that closest to it.
+     * If \p returnPastLine is true, the column will be extrapolated out with the assumption
+     * that the extra characters are spaces.
+     */
+    KTextEditor::Cursor xToCursor(const KateTextLayout& range, int x, bool returnPastLine = false) const;
 
     // Column calculators
     /**
@@ -185,11 +216,11 @@ public:
      * @p xPos is returned. If @p nearest is false, the index of the character
      * containing @p xPos is returned.
      **/
-    uint textPos(uint line, int xPos, uint startCol = 0, bool nearest=true);
+    uint textPos(uint line, int xPos, uint startCol = 0, bool nearest=true) KDE_DEPRECATED;
     /**
      * @overload
      */
-    uint textPos(const KateTextLine::Ptr &, int xPos, uint startCol = 0, bool nearest=true);
+    uint textPos(const KateTextLine::Ptr &, int xPos, uint startCol = 0, bool nearest=true) KDE_DEPRECATED;
 
     // Font height
     uint fontHeight();
@@ -207,7 +238,7 @@ public:
      * The text line is painted from the upper limit of (0,0).  To move that,
      * apply a transform to your painter.
      */
-    void paintTextLine(QPainter& paint, const KateLineRange* range, int xStart, int xEnd, const KateTextCursor* cursor = 0L, const KateBracketRange* bracketmark = 0L);
+    void paintTextLine(QPainter& paint, KateLineLayoutPtr range, int xStart, int xEnd, const KTextEditor::Cursor* cursor = 0L);
 
     /**
      * Paint the background of a line
@@ -216,9 +247,10 @@ public:
      * called only once per line it shouldn't noticably affect performance and it
      * helps readability a LOT.
      *
+     * @param currentViewLine if one of the view lines is the current line, set this to the index; otherwise -1.
      * @return whether the selection has been painted or not
      */
-    bool paintTextLineBackground(QPainter& paint, int line, bool isCurrentLine, int xStart, int xEnd);
+    void paintTextLineBackground(QPainter& paint, KateLineLayoutPtr layout, int currentViewLine, int xStart, int xEnd);
 
     /**
      * This takes an in index, and returns all the attributes for it.
@@ -227,7 +259,8 @@ public:
      *
      *   attribute(myktextline->attribute(position));
      */
-    KateAttribute* attribute(uint pos);
+    KateAttribute* attribute(uint pos) const;
+    KateAttribute* specificAttribute(int context) const;
 
   private:
     /**
@@ -255,13 +288,13 @@ public:
     bool m_showTabs;
     bool m_printerFriendly;
 
-    QMemArray<KateAttribute> *m_attributes;
+    QVector<KateAttribute> *m_attributes;
 
   /**
    * Configuration
    */
   public:
-    inline KateRendererConfig *config () { return m_config; };
+    inline KateRendererConfig *config () const { return m_config; };
 
     void updateConfig ();
 

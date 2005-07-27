@@ -21,18 +21,16 @@
 #define __KATE_BOOKMARKS_H__
 
 #include <qobject.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 
 class KateView;
 
-namespace KTextEditor { class Mark; }
-
-namespace Kate { class View; }
+namespace KTextEditor { class Mark; class View; }
 
 class KAction;
 class KToggleAction;
 class KActionCollection;
-class QPopupMenu;
+class Q3PopupMenu;
 class QMenuData;
 
 class KateBookmarks : public QObject
@@ -50,14 +48,16 @@ class KateBookmarks : public QObject
     void setSorting( Sorting s ) { m_sorting = s; };
 
   protected:
-    void insertBookmarks( QPopupMenu& menu);
+    void insertBookmarks( Q3PopupMenu& menu);
 
   private slots:
     void toggleBookmark();
     void clearBookmarks();
 
-    void slotViewGotFocus( Kate::View * );
-    void slotViewLostFocus( Kate::View * );
+    void gotoLine (int line);
+  
+    void slotViewGotFocus( KTextEditor::View * );
+    void slotViewLostFocus( KTextEditor::View * );
 
     void bookmarkMenuAboutToShow();
     void bookmarkMenuAboutToHide();
@@ -75,7 +75,7 @@ class KateBookmarks : public QObject
     KAction*                     m_goPrevious;
 
     Sorting                      m_sorting;
-    QPopupMenu*          m_bookmarksMenu;
+    Q3PopupMenu*          m_bookmarksMenu;
 
     uint _tries;
 };

@@ -20,9 +20,9 @@
 #define __kate_filetype_h__
 
 #include <qstringlist.h>
-#include <qptrlist.h>
-#include <qpopupmenu.h> // for QPtrList<QPopupMenu>, compile with gcc 3.4
-#include <qguardedptr.h>
+#include <q3ptrlist.h>
+#include <q3popupmenu.h> // for QPtrList<QPopupMenu>, compile with gcc 3.4
+#include <qpointer.h>
 
 #include "katedialogs.h"
 
@@ -51,7 +51,7 @@ class KateFileTypeManager
      */
     void update ();
 
-    void save (QPtrList<KateFileType> *v);
+    void save (Q3PtrList<KateFileType> *v);
 
     /**
      * get the right fileType for the given document
@@ -67,13 +67,13 @@ class KateFileTypeManager
     /**
      * Don't modify
      */
-    QPtrList<KateFileType> *list () { return &m_types; }
+    Q3PtrList<KateFileType> *list () { return &m_types; }
 
   private:
     int wildcardsFind (const QString &fileName);
 
   private:
-    QPtrList<KateFileType> m_types;
+    Q3PtrList<KateFileType> m_types;
 };
 
 class KateFileTypeConfigTab : public KateConfigPage
@@ -98,7 +98,7 @@ class KateFileTypeConfigTab : public KateConfigPage
     void save ();
 
   private:
-    class QGroupBox *gbProps;
+    class Q3GroupBox *gbProps;
     class QPushButton *btndel;
     class QComboBox *typeCombo;
     class QLineEdit *wildcards;
@@ -108,29 +108,29 @@ class KateFileTypeConfigTab : public KateConfigPage
     class QLineEdit *section;
     class QLineEdit *varLine;
 
-    QPtrList<KateFileType> m_types;
+    Q3PtrList<KateFileType> m_types;
     KateFileType *m_lastType;
 };
 
-class KateViewFileTypeAction : public Kate::ActionMenu
+class KateViewFileTypeAction : public KActionMenu
 {
   Q_OBJECT
 
   public:
     KateViewFileTypeAction(const QString& text, QObject* parent = 0, const char* name = 0)
-       : Kate::ActionMenu(text, parent, name) { init(); };
+       : KActionMenu(text, parent, name) { init(); };
 
     ~KateViewFileTypeAction(){;};
 
-    void updateMenu (Kate::Document *doc);
+    void updateMenu (KTextEditor::Document *doc);
 
   private:
     void init();
 
-    QGuardedPtr<KateDocument> m_doc;
+    QPointer<KateDocument> m_doc;
     QStringList subMenusName;
     QStringList names;
-    QPtrList<QPopupMenu> subMenus;
+    Q3PtrList<Q3PopupMenu> subMenus;
 
   public  slots:
     void slotAboutToShow();

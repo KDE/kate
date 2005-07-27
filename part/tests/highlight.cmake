@@ -9,7 +9,7 @@ ADD_DEFINITIONS(-Wall -Wctor-dtor-privacy -Woverloaded-virtual -Wno-long-long -p
 #and another function
 INCLUDE_DIRECTORIES(
 #comments are also highlighted inside function parameters
-#variables are blue
+#variables are Qt::blue
 ${CMAKE_CURRENT_SOURCE_DIR}/../../lib/qt4/include/Qt  
 )
 
@@ -41,7 +41,7 @@ $\(${_exe_NAME}_SRC_OBJS\) -nostdlib  -nostartfiles -Lecos/install/lib -Ttarget.
 ENDMACRO(ECOS_ADD_EXECUTABLE)
 # END of macro
 
-#calling a self-defined function, variables are also blue here
+#calling a self-defined function, variables are also Qt::blue here
 ECOS_ADD_EXECUTABLE(${PROJECT_NAME} ${the_sources} ${qt4_moc_SRCS})
 
 

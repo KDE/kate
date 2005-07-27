@@ -12,19 +12,17 @@
 
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
 */
 
 #include "katecmd.h"
+#include "kateglobal.h"
 
-#include <kstaticdeleter.h>
 #include <kdebug.h>
 
 //BEGIN KateCmd
 #define CMD_HIST_LENGTH 256
-
-KateCmd *KateCmd::s_self = 0;
 
 KateCmd::KateCmd ()
 {
@@ -34,15 +32,15 @@ KateCmd::~KateCmd ()
 {
 }
 
-bool KateCmd::registerCommand (Kate::Command *cmd)
+bool KateCmd::registerCommand (KTextEditor::Command *cmd)
 {
   QStringList l = cmd->cmds ();
 
-  for (uint z=0; z<l.count(); z++)
+  for (int z=0; z<l.count(); z++)
     if (m_dict[l[z]])
       return false;
 
-  for (uint z=0; z<l.count(); z++) {
+  for (int z=0; z<l.count(); z++) {
     m_dict.insert (l[z], cmd);
     kdDebug()<<"Inserted command:"<<l[z]<<endl;
   }
@@ -52,10 +50,10 @@ bool KateCmd::registerCommand (Kate::Command *cmd)
   return true;
 }
 
-bool KateCmd::unregisterCommand (Kate::Command *cmd)
+bool KateCmd::unregisterCommand (KTextEditor::Command *cmd)
 {
   QStringList l;
-  QDictIterator<Kate::Command> it(m_dict);
+  Q3DictIterator<KTextEditor::Command> it(m_dict);
   for( ; it.current(); ++it )
     if (it.current()==cmd) l<<it.currentKey();
   for ( QStringList::Iterator it1 = l.begin(); it1 != l.end(); ++it1 ) {
@@ -65,11 +63,11 @@ bool KateCmd::unregisterCommand (Kate::Command *cmd)
   return true;
 }
 
-Kate::Command *KateCmd::queryCommand (const QString &cmd)
+KTextEditor::Command *KateCmd::queryCommand (const QString &cmd)
 {
   // a command can be named ".*[\w\-]+" with the constrain that it must
   // contain at least one letter.
-  uint f = 0;
+  int f = 0;
   bool b = false;
   for ( ; f < cmd.length(); f++ )
   {
@@ -86,30 +84,26 @@ QStringList KateCmd::cmds ()
   return m_cmds;
 }
 
-static KStaticDeleter<KateCmd> sdCmd;
-
 KateCmd *KateCmd::self ()
 {
-  if (!s_self)
-    sdCmd.setObject(s_self, new KateCmd ());
-
-  return s_self;
+  return KateGlobal::self()->cmdManager ();
 }
 
 void KateCmd::appendHistory( const QString &cmd )
 {
-  if ( !m_history.isEmpty() && m_history.last() == cmd )
-    return;
+  if (!m_history.isEmpty()) //this line should be backported to 3.x
+    if ( m_history.last() == cmd )
+      return;
 
   if ( m_history.count() == CMD_HIST_LENGTH )
-    m_history.remove( m_history.first() );
+    m_history.removeFirst();
 
   m_history.append( cmd );
 }
 
-const QString KateCmd::fromHistory( uint index ) const
+const QString KateCmd::fromHistory( int index ) const
 {
-  if ( index > m_history.count() - 1 )
+  if ( index < 0 || index > m_history.count() - 1 )
     return QString();
   return m_history[ index ];
 }
@@ -175,7 +169,7 @@ void KateCmdShellCompletion::splitText(const QString &text, QString &text_start,
   int last_unquoted_space = -1;
   int end_space_len = 0;
 
-  for (uint pos = 0; pos < text.length(); pos++) {
+  for (int pos = 0; pos < text.length(); pos++) {
 
     end_space_len = 0;
 

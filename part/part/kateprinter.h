@@ -29,7 +29,7 @@ class KColorButton;
 class KPrinter;
 class QCheckBox;
 class QComboBox;
-class QGroupBox;
+class Q3GroupBox;
 class QLabel;
 class QLineEdit;
 class QSpinBox;
@@ -92,7 +92,7 @@ class KatePrintHeaderFooter : public KPrintDialogPage
     QCheckBox *cbEnableHeader, *cbEnableFooter;
     QLabel *lFontPreview;
     QString strFont;
-    QGroupBox *gbHeader, *gbFooter;
+    Q3GroupBox *gbHeader, *gbFooter;
     QLineEdit *leHeaderLeft, *leHeaderCenter, *leHeaderRight;
     KColorButton *kcbtnHeaderFg, *kcbtnHeaderBg;
     QCheckBox *cbHeaderEnableBgColor;
@@ -126,7 +126,7 @@ class KatePrintLayout : public KPrintDialogPage
   private:
     QComboBox *cmbSchema;
     QCheckBox *cbEnableBox, *cbDrawBackground;
-    QGroupBox *gbBoxProps;
+    Q3GroupBox *gbBoxProps;
     QSpinBox *sbBoxWidth, *sbBoxMargin;
     KColorButton* kcbtnBoxColor;
 };

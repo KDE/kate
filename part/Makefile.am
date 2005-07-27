@@ -1,4 +1,4 @@
-SUBDIRS = interfaces part data scripts plugins
+SUBDIRS = part data scripts plugins tests
 EXTRA_DIST = AUTHORS COPYING.LIB ChangeLog NEWS README TODO
 
 messages:

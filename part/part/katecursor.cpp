@@ -23,56 +23,44 @@
 
 #include "katedocument.h"
 #include "katetextline.h"
+#include "kateattribute.h"
+#include "katesuperrange.h"
 
 //
 // KateDocCursor implementation
 //
 
-KateDocCursor::KateDocCursor(KateDocument *doc) : KateTextCursor(), m_doc(doc)
+KateDocCursor::KateDocCursor(KateDocument *doc) : KTextEditor::Cursor(), m_doc(doc)
+{
+}
+
+KateDocCursor::KateDocCursor(const KTextEditor::Cursor &position, KateDocument *doc)
+  : KTextEditor::Cursor(position), m_doc(doc)
 {
 }
 
 KateDocCursor::KateDocCursor(int line, int col, KateDocument *doc)
-  : KateTextCursor(line, col), m_doc(doc)
+  : KTextEditor::Cursor(line, col), m_doc(doc)
 {
 }
 
-bool KateDocCursor::validPosition(uint line, uint col)
+bool KateDocCursor::validPosition(int line, int col)
 {
-  return line < m_doc->numLines() && (int)col <= m_doc->lineLength(line);
+  return line >= 0 && col >= 0 && line < m_doc->lines() && col <= m_doc->lineLength(line);
 }
 
 bool KateDocCursor::validPosition()
 {
-  return validPosition(line(), col());
-}
-
-void KateDocCursor::position(uint *pline, uint *pcol) const
-{
-  if (pline)
-    *pline = (uint)line();
-
-  if (pcol)
-    *pcol = (uint)col();
-}
-
-bool KateDocCursor::setPosition(uint line, uint col)
-{
-  bool ok = validPosition(line, col);
-
-  if(ok)
-    setPos(line, col);
-
-  return ok;
+  return validPosition(line(), column());
 }
 
 bool KateDocCursor::gotoNextLine()
 {
-  bool ok = (line() + 1 < (int)m_doc->numLines());
+  bool ok = (line() + 1 < m_doc->lines());
 
   if (ok) {
     m_line++;
-    m_col = 0;
+    m_column = 0;
   }
 
   return ok;
@@ -84,7 +72,7 @@ bool KateDocCursor::gotoPreviousLine()
 
   if (ok) {
     m_line--;
-    m_col = 0;
+    m_column = 0;
   }
 
   return ok;
@@ -94,7 +82,7 @@ bool KateDocCursor::gotoEndOfNextLine()
 {
   bool ok = gotoNextLine();
   if(ok)
-    m_col = m_doc->lineLength(line());
+    m_column = m_doc->lineLength(line());
 
   return ok;
 }
@@ -103,14 +91,14 @@ bool KateDocCursor::gotoEndOfPreviousLine()
 {
   bool ok = gotoPreviousLine();
   if(ok)
-    m_col = m_doc->lineLength(line());
+    m_column = m_doc->lineLength(line());
 
   return ok;
 }
 
 int KateDocCursor::nbCharsOnLineAfter()
 {
-  return ((int)m_doc->lineLength(line()) - col());
+  return ((int)m_doc->lineLength(line()) - column());
 }
 
 bool KateDocCursor::moveForward(uint nbChar)
@@ -120,25 +108,25 @@ bool KateDocCursor::moveForward(uint nbChar)
   if(nbCharLeft > 0) {
     return gotoNextLine() && moveForward((uint)nbCharLeft);
   } else {
-    m_col += nbChar;
+    m_column += nbChar;
     return true;
   }
 }
 
 bool KateDocCursor::moveBackward(uint nbChar)
 {
-  int nbCharLeft = nbChar - m_col;
+  int nbCharLeft = nbChar - m_column;
   if(nbCharLeft > 0) {
     return gotoEndOfPreviousLine() && moveBackward((uint)nbCharLeft);
   } else {
-    m_col -= nbChar;
+    m_column -= nbChar;
     return true;
   }
 }
 
 bool KateDocCursor::insertText(const QString& s)
 {
-  return m_doc->insertText(line(), col(), s);
+  return m_doc->insertText(*this, s);
 }
 
 bool KateDocCursor::removeText(uint nbChar)
@@ -148,44 +136,43 @@ bool KateDocCursor::removeText(uint nbChar)
   endCursor.moveForward(nbChar);
 
   // Remove the text
-  return m_doc->removeText((uint)line(), (uint)col(),
-         (uint)endCursor.line(), (uint)endCursor.col());
+  return m_doc->removeText(*this, endCursor);
 }
 
 QChar KateDocCursor::currentChar() const
 {
-  return m_doc->plainKateTextLine(line())->getChar(col());
+  return m_doc->plainKateTextLine(line())->getChar(column());
 }
 
 uchar KateDocCursor::currentAttrib() const
 {
-  return m_doc->plainKateTextLine(line())->attribute(col());
+  return m_doc->plainKateTextLine(line())->attribute(column());
 }
 
 bool KateDocCursor::nextNonSpaceChar()
 {
-  for(; m_line < (int)m_doc->numLines(); m_line++) {
-    m_col = m_doc->plainKateTextLine(line())->nextNonSpaceChar(col());
-    if(m_col != -1)
+  for(; m_line < m_doc->lines(); ++m_line) {
+    m_column = m_doc->plainKateTextLine(line())->nextNonSpaceChar(column());
+    if(m_column != -1)
       return true; // Next non-space char found
-    m_col = 0;
+    m_column = 0;
   }
   // No non-space char found
-  setPos(-1, -1);
+  setPosition(-1, -1);
   return false;
 }
 
 bool KateDocCursor::previousNonSpaceChar()
 {
   while (true) {
-    m_col = m_doc->plainKateTextLine(line())->previousNonSpaceChar(col());
-    if(m_col != -1) return true; // Previous non-space char found
+    m_column = m_doc->plainKateTextLine(line())->previousNonSpaceChar(column());
+    if(m_column != -1) return true; // Previous non-space char found
     if(m_line == 0) return false;
     --m_line;
-    m_col = m_doc->plainKateTextLine(m_line)->length();
+    m_column = m_doc->plainKateTextLine(m_line)->length();
   }
   // No non-space char found
-  setPos(-1, -1);
+  setPosition(-1, -1);
   return false;
 }
 

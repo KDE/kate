@@ -33,10 +33,8 @@ namespace KTextEditor
  */
 class KTEXTEDITOR_EXPORT TextHintInterface
 {
-	friend class PrivateTextHintInterface;
-public:
-	TextHintInterface();
-	virtual ~TextHintInterface();
+  public:
+	virtual ~TextHintInterface() {}
 
 	/**
 	 * enable Texthints. If they are enabled a signal needTextHint is emitted, if the mouse
@@ -50,13 +48,6 @@ public:
 	 */
 	virtual void disableTextHints()=0;
 	
-	/**
-	 * This method returns a number, unique during one application run
-	 *
-	 */	
-	unsigned int textHintInterfaceNumber () const; 
-
-
 	//signals
 
 	/**
@@ -65,15 +56,10 @@ public:
 	 * otherwise set text to the string you want the editor to display
 	 */
 	virtual void needTextHint(int line, int col, QString &text)=0;
-
-  private:
-    class PrivateTextHintInterface *d;
-    static unsigned int globalTextHintInterfaceNumber;
-    unsigned int myTextHintInterfaceNumber;
 };
 
-KTEXTEDITOR_EXPORT TextHintInterface *textHintInterface (class View *view);
-
 }
+
+Q_DECLARE_INTERFACE(KTextEditor::TextHintInterface, "org.kde.KTextEditor.TextHintInterface")
 
 #endif

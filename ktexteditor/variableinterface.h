@@ -41,10 +41,7 @@ namespace KTextEditor {
 class KTEXTEDITOR_EXPORT VariableInterface
 {
   public:
-    VariableInterface();
-    virtual ~VariableInterface();
-
-    unsigned int variableInterfaceNumber();
+    virtual ~VariableInterface() {}
 
     /**
     * @return the value of the variable @p name, or an empty string if the
@@ -60,13 +57,11 @@ class KTEXTEDITOR_EXPORT VariableInterface
     * Signal: emitted when a variable is set
     */
     virtual void variableChanged( const QString &variable, const QString &value ) = 0;
-
-  private:
-    static unsigned int globalVariableInterfaceNumber;
-    unsigned int myVariableInterfaceNumber;
 };
 
 
-KTEXTEDITOR_EXPORT VariableInterface *variableInterface( class Document * );
 } // namespace KTextEditor
+
+Q_DECLARE_INTERFACE(KTextEditor::VariableInterface, "org.kde.KTextEditor.VariableInterface")
+
 #endif //_KTEXTEDITOR_VARIABLE_INTERFACE_H_

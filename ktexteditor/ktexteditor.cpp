@@ -19,19 +19,41 @@
 
 #include <config.h>
 
-#include "document.h"
-#include "view.h"
-#include "plugin.h"
+#include "cursor.h"
+
+#include "configpage.h"
+#include "configpage.moc"
+
+#include "factory.h"
+#include "factory.moc"
+
 #include "editor.h"
+#include "editor.moc"
+
+#include "document.h"
+#include "document.moc"
+
+#include "view.h"
+#include "view.moc"
+
+#include "plugin.h"
+#include "plugin.moc"
+
+#include "codecompletioninterface.h"
+#include "commandinterface.h"
+#include "highlightinginterface.h"
+#include "markinterface.h"
+#include "modificationinterface.h"
+#include "searchinterface.h"
+#include "sessionconfiginterface.h"
+#include "templateinterface.h"
+#include "texthintinterface.h"
+#include "variableinterface.h"
 
 #include <kaction.h>
 #include <kparts/factory.h>
 #include <kparts/componentfactory.h>
-
-#include "document.moc"
-#include "view.moc"
-#include "plugin.moc"
-#include "editor.moc"
+#include <kdebug.h>
 
 using namespace KTextEditor;
 
@@ -48,184 +70,158 @@ namespace KTextEditor
     {
     }
   };
-  
-  class PrivateView
-  {
-  public:
-    PrivateView ()
-    {
-    }
 
-    ~PrivateView()
-    {
-    }
-  };
-  
-  class PrivatePlugin
-  {
-  public:
-    PrivatePlugin ()
-    {
-    }
 
-    ~PrivatePlugin ()
-    {
-    }       
-    
-    class Document *m_doc;
-  };
-  
-  class PrivatePluginViewInterface
-  {
-  public:
-    PrivatePluginViewInterface ()
-    {
-    }
 
-    ~PrivatePluginViewInterface ()
-    {
-    }
-  };
+    class CompletionItem::Private: public QSharedData { //implicitly shared data, I can't move it into a private header file or the implementation, since the QSharedDataPointer causes compile problems, perhaps I should make it a QSharedDataPointer* ....
+      public:
+        Private():icon(QIcon()),type(QString()),text(QString()),prefix(QString()),postfix(QString()),comment(QString()),userdata(QVariant()),provider(0){}
+        Private(const QString& _text, const QIcon &_icon=QIcon(), CompletionProvider* _provider=0, const QString &_prefix=QString(), const QString& _postfix=QString(), const QString& _comment=QString(), const QVariant &_userdata=QVariant(), const QString &_type=QString()):icon(_icon),type(_type),text(_text),prefix(_prefix),postfix(_postfix),comment(_comment),userdata(_userdata),provider(_provider) {}
 
-  class PrivateEditor
-  {
-  public:
-    PrivateEditor ()
-    {
-    }
+      QIcon icon;
+      QString type;
+      QString text;
+      QString prefix;
+      QString postfix;
+      QString comment;
+      QVariant userdata;
+      CompletionProvider *provider; 
 
-    ~PrivateEditor()
-    {
-    }
-  };
+      bool cmp(const Private* c) const {
+        return ( c->type == type &&
+                 c->text == text &&
+                 c->postfix == postfix &&
+                 c->prefix == prefix &&
+                 c->comment == comment &&
+                 c->userdata == userdata &&
+                 c->provider==provider &&
+                 c->icon.serialNumber()==icon.serialNumber());
+      }
+    };
+
+
 }
 
-unsigned int Document::globalDocumentNumber = 0;
-unsigned int View::globalViewNumber = 0;
-unsigned int Plugin::globalPluginNumber = 0;
-unsigned int PluginViewInterface::globalPluginViewInterfaceNumber = 0;
-unsigned int Editor::globalEditorNumber = 0;
 
-Document::Document( QObject *parent, const char *name ) : KTextEditor::Editor (parent, name )
+CompletionItem::CompletionItem() {
+  d=new CompletionItem::Private();
+}
+
+CompletionItem::CompletionItem(const QString& _text, const QIcon &_icon, CompletionProvider* _provider, const QString &_prefix, const QString& _postfix, const QString& _comment, const QVariant &_userdata, const QString &_type)
 {
-  globalDocumentNumber++;
-  myDocumentNumber = globalDocumentNumber;
+  d=new CompletionItem::Private(_text,_icon,_provider,_prefix,_postfix,_comment,_userdata,_type);
 }
 
-Document::~Document()
-{
+CompletionItem::~CompletionItem() {}
+
+CompletionItem CompletionItem::operator=(const CompletionItem &c) {d=c.d; return *this; }
+
+CompletionItem::CompletionItem (const CompletionItem &c) {d=c.d;}
+
+
+bool CompletionItem::operator==( const CompletionItem &c ) const {
+      return d->cmp(c.d);
 }
 
-unsigned int Document::documentNumber () const
-{
-  return myDocumentNumber;
-}
 
-QCString Document::documentDCOPSuffix () const
-{
-  QCString num;
-  num.setNum (documentNumber());
-  
-  return num;
-}
+const QIcon&    CompletionItem::icon() const {return d->icon;}
+const QString&  CompletionItem::text() const {return d->text;}
+const QString&  CompletionItem::markupText() const {return d->text;}
+const QString&  CompletionItem::prefix() const {return d->prefix;}
+const QString&  CompletionItem::postfix() const{return d->postfix;}
+const QString&  CompletionItem::comment() const {return d->comment;}
+const QVariant& CompletionItem::userdata() const {return d->userdata;}
+CompletionProvider *CompletionItem::provider() const {return d->provider;}
 
-View::View( Document *, QWidget *parent, const char *name ) : QWidget( parent, name )
-{
-  globalViewNumber++;
-  myViewNumber = globalViewNumber;
-}
 
-View::~View()
+
+static int globalDocumentNumber = 0;
+
+Factory::Factory( QObject *parent )
+ : KParts::Factory( parent )
 {
 }
 
-unsigned int View::viewNumber () const
-{
-  return myViewNumber;
-}
-
-QCString View::viewDCOPSuffix () const
-{
-  QCString num1, num2;
-  num1.setNum (viewNumber());
-  num2.setNum (document()->documentNumber());
-  
-  return num2 + "-" + num1;
-}
-
-Plugin::Plugin( Document *document, const char *name ) : QObject (document, name )
-{
-  globalPluginNumber++;
-  myPluginNumber = globalPluginNumber; 
-  d = new PrivatePlugin ();
-  d->m_doc = document;
-}
-
-Plugin::~Plugin()
-{
-  delete d;
-}
-
-unsigned int Plugin::pluginNumber () const
-{
-  return myPluginNumber;
-}     
-
-Document *Plugin::document () const
-{
-  return d->m_doc;
-}
-
-PluginViewInterface::PluginViewInterface()
-{
-  globalPluginViewInterfaceNumber++;
-  myPluginViewInterfaceNumber = globalPluginViewInterfaceNumber;
-}
-
-PluginViewInterface::~PluginViewInterface()
+Factory::~Factory()
 {
 }
 
-unsigned int PluginViewInterface::pluginViewInterfaceNumber () const
+Editor::Editor( QObject *parent )
+ : QObject ( parent )
 {
-  return myPluginViewInterfaceNumber;
-}
-
-Editor::Editor( QObject *parent, const char *name ) : KParts::ReadWritePart( parent, name )
-{
-  globalEditorNumber++;
-  myEditorNumber = globalEditorNumber;
 }
 
 Editor::~Editor()
 {
 }
 
-unsigned int Editor::editorNumber () const
+Document::Document( QObject *parent, const char *name )
+ : KParts::ReadWritePart( parent, name )
+ , m_d (0)
+ , m_documentNumber (++globalDocumentNumber)
 {
-  return myEditorNumber;
-}                         
-
-Editor *KTextEditor::createEditor ( const char* libname, QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name )
-{
-  return KParts::ComponentFactory::createPartInstanceFromLibrary<Editor>( libname, parentWidget, widgetName, parent, name );
 }
 
-Document *KTextEditor::createDocument ( const char* libname, QObject *parent, const char *name )
+Document::~Document()
 {
-  return KParts::ComponentFactory::createPartInstanceFromLibrary<Document>( libname, 0, 0, parent, name );
-}     
-
-Plugin *KTextEditor::createPlugin ( const char* libname, Document *document, const char *name )
-{
-  return KParts::ComponentFactory::createInstanceFromLibrary<Plugin>( libname, document, name );
 }
 
-PluginViewInterface *KTextEditor::pluginViewInterface (Plugin *plugin)
-{       
-  if (!plugin)
-    return 0;
-
-  return static_cast<PluginViewInterface*>(plugin->qt_cast("KTextEditor::PluginViewInterface"));
+int Document::documentNumber () const
+{
+  return m_documentNumber;
 }
 
+bool Document::cursorInText(const Cursor& cursor)
+{
+  if ( (cursor.line()<0) || (cursor.line()>=lines())) return false;
+  return (cursor.column()>=0) && (cursor.column()<=lineLength(cursor.line())); // = because new line isn't usually contained in line length
+}
+
+bool View::setSelection(const Cursor& position, int length,bool wrap)
+{
+  KTextEditor::Document *doc=document();
+  if (!document()) return false;
+  if (length==0) return false;
+  if (!doc->cursorInText(position)) return false;
+  Cursor end=Cursor(position.line(),position.column());
+  if (!wrap) {
+    int col=end.column()+length;
+    if (col<0) col=0;
+    if (col>doc->lineLength(end.line())) col=doc->lineLength(end.line());
+    end.setColumn(col);
+  } else {
+    kdDebug()<<"KTextEditor::View::setSelection(pos,len,true) not implemented yet"<<endl;
+  }
+  return setSelection(position,end);
+}
+
+bool View::insertText (const QString &text )
+{
+  KTextEditor::Document *doc=document();
+  if (!doc) return false;
+  return doc->insertText(cursorPosition(),text);
+}
+
+Plugin *KTextEditor::createPlugin ( const char *libname, QObject *parent )
+{
+  return KParts::ComponentFactory::createInstanceFromLibrary<Plugin>( libname, parent, "" );
+}
+
+Editor *KTextEditor::editor(const char *libname)
+{
+  KLibFactory *fact=KLibLoader::self()->factory(libname);
+
+  KTextEditor::Factory *ef=qobject_cast<KTextEditor::Factory*>(fact);
+
+  if (!ef) return 0;
+
+  return ef->editor();
+}
+
+long ArgHintData::s_id=0;
+long CompletionData::s_id=0;
+
+
+
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

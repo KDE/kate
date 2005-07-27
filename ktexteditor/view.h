@@ -19,50 +19,262 @@
 #ifndef __ktexteditor_view_h__
 #define __ktexteditor_view_h__
 
-#include <qwidget.h>
+// the very important KTextEditor::Cursor class
+#include <ktexteditor/cursor.h>
+
+// gui merging
 #include <kxmlguiclient.h>
+
+// widget
+#include <qwidget.h>
+
+class QMenu;
 
 namespace KTextEditor
 {
 
-/**
- * The View class represents a single view of a Document .
- */
+class Document;
 
+/**
+ * The View class represents a single view of a KTextEditor::Document
+ * The view should provide both the graphical representation of the text
+ * and the xmlgui for the actions
+ */
 class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
 {
-  friend class PrivateView;
-
   Q_OBJECT
 
   public:
     /**
-    * Create a new view to the given document. The document must be non-null.
-    */
-    View ( class Document *, QWidget *parent, const char *name = 0 );
-    virtual ~View ();
-
-    /**
-     * Returns the number of this view
+     * View Constructor
+     * @param parent parent widget
      */
-    unsigned int viewNumber () const;
+    View ( QWidget *parent ) : QWidget( parent ) {}
 
     /**
-     * Returns the DCOP suffix to allow identification of this view's DCOP interface.
+     * virtual destructor
      */
-    QCString viewDCOPSuffix () const;
+    virtual ~View () {}
+
+  /**
+   * Accessor for the document
+   */
+  public:
+    /**
+     * Access the parent Document.
+     * @return document
+     */
+    virtual Document *document () = 0;
+
+  /**
+   * General information about this view
+   */
+  public:
+    /**
+     * Current view state
+     * This can be used for example to show up that this view is now
+     * in INSERT mode, or OVERWRITE mode, or COMMAND mode, or whatever
+     * The string should be i18n, as this is a user aimed representation
+     * of the view state, which should be shown in the GUI
+     */
+    virtual QString viewMode () const = 0;
+
+  /**
+   * SIGNALS
+   * following signals should be emitted by the editor view
+   */
+  signals:
+    /**
+     * view got focus
+     * @param view view which got focus
+     */
+    void focusIn ( View *view );
 
     /**
-    * Acess the parent Document.
+     * view lost focus
+     * @param view view which lost focus
+     */
+    void focusOut ( View *view );
+
+    /**
+     * view mode changed
+     * @param view view which changed mode
+     */
+    void viewModeChanged ( View *view );
+
+    /**
+     * information message
+     * @param view view which sends out information
+     * @param message information message
+     */
+    void informationMessage ( View *view, const QString &message );
+
+    /**
+     * text inserted by user (typing)
+     * @param view view in which the user typed the text
+     * @param position position where the text was inserted
+     * @param text the text the user has typed into the editor
+     */
+    void textInserted ( View *view, const Cursor &position, const QString &text );
+
+  /**
+   * Context menu handling
+   */
+  public:
+    /**
+     * Set a context menu for this view
+     * @param menu new context menu object for this view
+     */
+    virtual void setContextMenu ( QMenu *menu ) = 0;
+
+    /**
+     * Retrieve the context menu for this view
+     * @return context menu object for this view or 0
+     */
+    virtual QMenu *contextMenu () = 0;
+
+  /**
+   * Cursor handling
+   */
+  public:
+    /**
+     * Set the cursor position, position is in characters
+     * @param position new cursor position
+     * @return success
+     */
+    virtual bool setCursorPosition (const Cursor &position) = 0;
+
+    /**
+     * Get the cursor position, position is in characters
+     * @return cursor position
+     */
+    virtual const Cursor &cursorPosition () const = 0;
+
+    /**
+     * Get the virtual cursor position
+     * @return cursor position, tabs count as MULTIPLE chars, as configured by user
+     * this allows access to the user visible values of the cursor position
+     */
+    virtual Cursor cursorPositionVirtual () const = 0;
+
+    /**
+     * Get the screen coordinates of the cursor position
+     * @return cursor screen coordinates
+     */
+    virtual QPoint cursorPositionCoordinates () const = 0;
+
+  /**
+   * SIGNALS
+   * following signals should be emitted by the editor view
+   * if the cursor position changes
+   */
+  signals:
+    /**
+     * cursor position changed!
+     * @param view view which emitted the signal
+     */
+    void cursorPositionChanged (View *view);
+
+  /**
+   * Selection methodes
+   * This deals with text selection & copy'n'paste
+   */
+  public:
+    /**
+     * Set selection of view, old selection will be discarded
+     * @param startPosition start of the new selection
+     * @param endPosition end of the new selection
+     * @return success
+     */
+    virtual bool setSelection ( const Cursor &startPosition, const Cursor &endPosition ) = 0;
+
+    /**
+     * Convenience method for setting a selection. An existing old selection will be discarded
+     * Implementers should replace the default implementation with a more efficient one, if possible
+     * @param position start/end position of selection, depending on the length parameter.
+     * @param length if >0 position is start pos, if <0 position is end pos.
+     * @param wrap if false selection doesn't wrap lines, and reaches only to start/end of the cursors line. (default is true)
+     */
+    virtual bool setSelection ( const Cursor &position, int length, bool wrap = true );
+
+    /**
+     * Is there any non-empty selection?
+     * @return true if some text is selected
+     */
+    virtual bool selection () const = 0;
+
+    /**
+     * Retrieve the selected text
+     * @return the selected text
+     */
+    virtual QString selectionText () const = 0;
+
+    /**
+     * Remove the current Selection (not Text)
+     * @return success
+     */
+    virtual bool removeSelection () = 0;
+
+    /**
+     * Remove the current Selection together with the selected text!
+     * @return success
+     */
+    virtual bool removeSelectionText () = 0;
+
+    /**
+     * Retrieve selection start position
+     * @return selection start
+     */
+    virtual const Cursor &selectionStart () const = 0;
+
+    /**
+     * Retrieve selection end position
+     * @return selection end
+     */
+    virtual const Cursor &selectionEnd () const = 0;
+
+  /**
+   * Blockselection stuff
+   */
+  public:
+   /**
+    * Set block selection mode to state "on"
+    * @param on should block selection be active?
+    * @return success
     */
-    virtual class Document *document () const = 0;
-    
-  private:
-    class PrivateView *d;
-    static unsigned int globalViewNumber;
-    unsigned int myViewNumber;
+    virtual bool setBlockSelection (bool on) = 0;
+
+   /**
+    * Returns the status of the selection mode - true indicates block selection mode is on.
+    * If this is true, selections applied via the SelectionInterface are handled as
+    * blockselections and the copy'n'paste functions works on
+    * rectangular blocks of text rather than normal.
+    * @return is block selection enabled?
+    */
+    virtual bool blockSelection () const = 0;
+
+  /**
+   * SIGNALS
+   * following signals should be emitted by the editor view
+   * if the selection state changes both on selection change itself and on change
+   * of blockselection mode!
+   * @param view view in which the selection has changed
+   */
+  signals:
+    void selectionChanged (View *view);
+
+  public:
+    /**
+     * Convenience function inserts the given text at the view's current cursor position
+     * It's not needed to reimplement it, except you want to do some special things with it
+     * @param text Text to be inserted
+     * @return success of insertion
+     */
+    virtual bool insertText (const QString &text);
 };
 
 }
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

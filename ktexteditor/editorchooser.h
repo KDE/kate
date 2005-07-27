@@ -1,8 +1,8 @@
 #ifndef _EDITOR_CHOOSER_H_
 #define  _EDITOR_CHOOSER_H_
 
-#include <ktexteditor/editor.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/editor.h>
 
 #include <qwidget.h>
 
@@ -13,7 +13,7 @@ namespace KTextEditor
 {
 
 class KTEXTEDITOR_EXPORT EditorChooser: public QWidget
-{                    
+{
   friend class PrivateEditorChooser;
 
   Q_OBJECT
@@ -21,14 +21,16 @@ class KTEXTEDITOR_EXPORT EditorChooser: public QWidget
   public:
     EditorChooser(QWidget *parent=0,const char *name=0);
     virtual ~EditorChooser();
-    
+
    /* void writeSysDefault();*/
 
     void readAppSetting(const QString& postfix=QString::null);
     void writeAppSetting(const QString& postfix=QString::null);
 
-    static KTextEditor::Document *createDocument(QObject* parent=0,const char *name=0,const QString& postfix=QString::null, bool fallBackToKatePart=true);
-    static KTextEditor::Editor *createEditor(QWidget *parentWidget,QObject *parent,const char* widgetName=0,const char* name=0,const QString& postfix=QString::null,bool fallBackToKatePart=true);
+    static KTextEditor::Editor *editor (const QString& postfix=QString::null, bool fallBackToKatePart = true);
+
+  signals:
+    void changed();
   private:
     class PrivateEditorChooser *d;
 };

@@ -29,6 +29,8 @@ namespace KTextEditor
 {
 
 class Document;
+class Cursor;
+class View;
 
 /**
  * This is an interface for inserting template strings with user editable
@@ -36,17 +38,14 @@ class Document;
  */
 class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInterface, but for consistency with the other classes it is not (for the 3.x release series)
 {
-  friend class PrivateTemplateInterface;
-
   public:
-    TemplateInterface();
-    virtual ~TemplateInterface();
+    virtual ~TemplateInterface() {}
 
     /**
      * Parses @p templateString for macros in the form [$%]{NAME} and finds
      * the value corresponding to NAME if any. The NAME string may contain
      * any non-whitespace character execpt '}'
-     * @param initialValues a map with the keys for the macros to expand. 
+     * @param initialValues a map with the keys for the macros to expand.
      * keys with a value are ignored.
      * @param parentWindow is used if dialogs have to be shown
      * @return true if all macros was sucessfully expanded
@@ -54,16 +53,10 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      */
     static bool expandMacros( QMap<QString, QString> &initialValues, QWidget *parentWindow );
 
-    uint templateInterfaceNumber () const;
-
-  protected:
-    void setTemplateInterfaceDCOPSuffix (const QCString &suffix);
-
   public:
 
     /**
      * Inserts an interactive ediable template text at line "line", column "col".
-     * @p parentWindow is used if dialogs have to be shown
      * @return true if inserting the string succeeded
      *
      * Use insertTemplateText(numLines(), ...) to append text at end of document
@@ -103,7 +96,7 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * If the editor supports some kind of smart indentation, the inserted code
      * should be layouted by the indenter.
      */
-    bool insertTemplateText ( uint line, uint column, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *parentWindow=0);
+    bool insertTemplateText ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues);
 
 protected:
     /**
@@ -113,19 +106,12 @@ protected:
      * insertTemplateText above.
      * @return true if any text was inserted.
      */
-    virtual bool insertTemplateTextImplementation ( uint line, uint column, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *parentWindow=0 )=0;
-
-  /**
-  * only for the interface itself - REAL PRIVATE
-  */
-  private:
-    class PrivateTemplateInterface *d;
-    static uint globalTemplateInterfaceNumber;
-    uint myTemplateInterfaceNumber;
+    virtual bool insertTemplateTextImplementation ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues)=0;
 };
 
-KTEXTEDITOR_EXPORT TemplateInterface *templateInterface (Document *doc);
-
 }
+
+Q_DECLARE_INTERFACE(KTextEditor::TemplateInterface,
+"org.kde.KTextEditor.TemplateInterface")
 
 #endif

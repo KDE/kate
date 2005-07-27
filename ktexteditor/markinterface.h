@@ -20,11 +20,11 @@
 #ifndef __ktexteditor_markinterface_h__
 #define __ktexteditor_markinterface_h__
 
-#include <qptrlist.h>
-
+#include <q3ptrlist.h>
+#include <qobject.h>
 #include <kdelibs_export.h>
 
-class QCString;
+class QPixmap;
 
 namespace KTextEditor
 {
@@ -41,16 +41,8 @@ class Mark
 */
 class KTEXTEDITOR_EXPORT MarkInterface
 {
-  friend class PrivateMarkInterface;
-  
   public:
-    MarkInterface ();
-    virtual ~MarkInterface ();
-
-    unsigned int markInterfaceNumber () const;
-    
-  protected:  
-    void setMarkInterfaceDCOPSuffix (const QCString &suffix);  
+    virtual ~MarkInterface () {}
 
   //
   // slots !!!
@@ -80,7 +72,7 @@ class KTEXTEDITOR_EXPORT MarkInterface
     /**
     * @return a list of all marks in the document
     */
-    virtual QPtrList<KTextEditor::Mark> marks () = 0;
+    virtual Q3PtrList<KTextEditor::Mark> marks () = 0;
     /**
     * Clears all marks in the document.
     */ 
@@ -92,7 +84,7 @@ class KTEXTEDITOR_EXPORT MarkInterface
      * @return number of reserved marker types
      * @since 3.3
      */
-    static int reservedMarkersCount();
+    static int reservedMarkersCount() { return 7; }
 
     /**
      * Pre-defined mark types.
@@ -157,15 +149,28 @@ class KTEXTEDITOR_EXPORT MarkInterface
   //
   public:
     virtual void marksChanged () = 0;
+    
   
-  private:
-    class PrivateMarkInterface *d;
-    static unsigned int globalMarkInterfaceNumber;
-    unsigned int myMarkInterfaceNumber;
+  public:
+    virtual void setMarkPixmap(MarkTypes, const QPixmap &)=0;
+    virtual void setMarkDescription(MarkTypes, const QString &)=0;
+    virtual void setMarksUserChangable(uint markMask)=0;
+
+    enum MarkChangeAction {
+		MarkAdded=0,
+		MarkRemoved=1
+	};
+
+  //
+  // signals !!!
+  //
+  public:
+    virtual void markChanged (KTextEditor::Mark mark, 
+                              KTextEditor::MarkInterface::MarkChangeAction action) = 0;
 };
 
-KTEXTEDITOR_EXPORT MarkInterface *markInterface (class Document *doc);
-
 }
+
+Q_DECLARE_INTERFACE(KTextEditor::MarkInterface, "org.kde.KTextEditor.MarkInterface")
 
 #endif

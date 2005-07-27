@@ -23,6 +23,8 @@
 
 #include <kdelibs_export.h>
 
+class KConfig;
+
 namespace KTextEditor
 {
 
@@ -32,57 +34,103 @@ class View;
 /**
  * Basic KTextEditor plugin class.
  * This plugin will be bound to a Document.
- */                     
+ */
 class KTEXTEDITOR_EXPORT Plugin : public QObject
 {
-  friend class PrivatePlugin;
-
   Q_OBJECT
 
   public:
-    Plugin ( Document *document = 0, const char *name = 0 );
-    virtual ~Plugin ();
-    
-    unsigned int pluginNumber () const;
-      
-    Document *document () const;
-    
-  private:
-    class PrivatePlugin *d;
-    static unsigned int globalPluginNumber;
-    unsigned int myPluginNumber;
-};
-   
-KTEXTEDITOR_EXPORT Plugin *createPlugin ( const char* libname, Document *document = 0, const char *name = 0 );
-
-/**
- * View plugin class.
- * This plugin will be bound to a View
- */
-class KTEXTEDITOR_EXPORT PluginViewInterface
-{
-  friend class PrivatePluginViewInterface;
-
-  public:
-    PluginViewInterface ();
-    virtual ~PluginViewInterface ();
-    
-    unsigned int pluginViewInterfaceNumber () const;
-  
-    /*
-     * will be called from the part to bound the plugin to a view
+    /**
+     * Plugin constructor
+     * @param parent parent object
      */
-    virtual void addView (View *) = 0;
-    virtual void removeView (View *) = 0;
+    Plugin ( QObject *parent ) : QObject (parent) {}
 
-  private:
-    class PrivatePluginViewInterface *d;
-    static unsigned int globalPluginViewInterfaceNumber;
-    unsigned int myPluginViewInterfaceNumber;
+    /**
+     * virtual destructor
+     */
+    virtual ~Plugin () {}
+
+  /**
+   * Following methodes allow the plugin to react on view and document
+   * creation
+   */
+  public:
+    /**
+     * this method is called if the plugin gui should be added
+     * to the given KTextEditor::Document
+     * @param document document to hang the gui in
+     */
+    virtual void addDocument (Document *document) { Q_UNUSED(document); }
+
+    /**
+     * this method is called if the plugin gui should be removed
+     * from the given KTextEditor::Document
+     * @param document document to hang the gui out from
+     */
+    virtual void removeDocument (Document *document) { Q_UNUSED(document); }
+
+    /**
+     * this method is called if the plugin gui should be added
+     * to the given KTextEditor::View
+     * @param view view to hang the gui in
+     */
+    virtual void addView (View *view) { Q_UNUSED(view); }
+
+    /**
+     * this method is called if the plugin gui should be removed
+     * from the given KTextEditor::View
+     * @param view view to hang the gui out from
+     */
+    virtual void removeView (View *view) { Q_UNUSED(view); }
+
+  /**
+   * Configuration management
+   * Default implementation just for convenience, does nothing
+   * and says this plugin supports no config dialog
+   */
+  public:
+    /**
+     * Read editor configuration from it's standard config
+     */
+    virtual void readConfig () {}
+
+    /**
+     * Write editor configuration to it's standard config
+     */
+    virtual void writeConfig () {}
+
+    /**
+     * Read editor configuration from given config object
+     * @param config config object
+     */
+    virtual void readConfig (KConfig *config) { Q_UNUSED(config); }
+
+    /**
+     * Write editor configuration to given config object
+     * @param config config object
+     */
+    virtual void writeConfig (KConfig *config) { Q_UNUSED(config); }
+
+    /**
+     * Does this plugin support a config dialog
+     * @return does this plugin have a config dialog?
+     */
+    virtual bool configDialogSupported () const { return false; }
+
+    /**
+     * Shows a config dialog for the part, changes will be applied
+     * to the editor, but not saved anywhere automagically, call
+     * writeConfig to save them
+     * @param parent parent widget
+     */
+    virtual void configDialog (QWidget *parent) { Q_UNUSED(parent); }
 };
 
-KTEXTEDITOR_EXPORT PluginViewInterface *pluginViewInterface (Plugin *plugin);
+KTEXTEDITOR_EXPORT Plugin *createPlugin ( const char *libname, QObject *parent );
 
 }
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

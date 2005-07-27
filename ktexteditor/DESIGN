@@ -1,0 +1,36 @@
+KTEXTEDITOR DESIGN
+
+1) MAIN INTERFACES
+
+- KTextEditor::Factory
+    Interface for the factory of any ktexteditor part, provides access to the editor object of this part.
+
+- KTextEditor::Editor
+    Interface for the editor part, allows creating of documents, a document list and some signals
+
+- KTextEditor::Document
+    Interface for the document itself, allows view creation and access the document content
+
+- KTextEditor::View
+    Interface for the views of a document
+
+2) CODING GUIDELINES
+
+- naming should follow QT style, no Java style getBlalala functions for example ;)
+
+- for the above main interfaces, which inherit QObject, all signals should be declared as real signals,
+
+- for the other interfaces, which doesn't subclass QObject, signals should be declared as virtual private
+  member functions
+
+- all signals should have as first parameter the sender object, e.g. all document signals should be:
+
+	   void signalFromDoc (Document *doc, .....)
+
+  this allows easy and consistent query which object did send the signal, which is important for most apps,
+ 	as they listen to multiple documents/views/editors/....
+
+- all interface functions should be virtual, to allow subclasses to overwrite them, most stuff should be pure virtual,
+  beside additional convenience functions
+
+.... more to follow ;)

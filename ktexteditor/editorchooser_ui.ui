@@ -1,64 +1,65 @@
-<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
-<class>EditorChooser_UI</class>
-<widget class="QWidget">
-    <property name="name">
-        <cstring>EditorChooser</cstring>
-    </property>
-    <property name="geometry">
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>482</width>
-            <height>141</height>
-        </rect>
-    </property>
-    <property name="caption">
-        <string>Editor Chooser</string>
-    </property>
-    <vbox>
-        <property name="name">
-            <cstring>unnamed</cstring>
-        </property>
-        <widget class="QLayoutWidget">
-            <property name="name">
-                <cstring>layout4</cstring>
-            </property>
-            <vbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QLabel">
-                    <property name="name">
-                        <cstring>TextLabel1</cstring>
-                    </property>
-                    <property name="minimumSize">
-                        <size>
-                            <width>460</width>
-                            <height>0</height>
-                        </size>
-                    </property>
-                    <property name="text">
-                        <string>Please choose the default text editing component that you wish to use in this application. If you choose &lt;B&gt;System Default&lt;/B&gt;, the application will honor your changes in the Control Center. All other choices will override that setting.</string>
-                    </property>
-                    <property name="alignment">
-                        <set>WordBreak|AlignVCenter|AlignLeft</set>
-                    </property>
-                </widget>
-                <widget class="QComboBox">
-                    <property name="name">
-                        <cstring>editorCombo</cstring>
-                    </property>
-                </widget>
-            </vbox>
-        </widget>
-    </vbox>
-</widget>
-<tabstops>
-    <tabstop>editorCombo</tabstop>
-</tabstops>
-<includes>
-    <include location="global" impldecl="in implementation">kdialog.h</include>
-</includes>
-<layoutdefaults spacing="6" margin="11"/>
-<layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
-</UI>
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>EditorChooser</class>
+ <widget class="QWidget" name="EditorChooser" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>482</width>
+    <height>141</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Editor Chooser</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="margin" >
+    <number>10</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item>
+    <layout class="QVBoxLayout" >
+     <property name="margin" >
+      <number>11</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="TextLabel1" >
+       <property name="minimumSize" >
+        <size>
+         <width>460</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text" >
+        <string>Please choose the default text editing component that you wish to use in this application. If you choose &lt;B>System Default&lt;/B>, the application will honor your changes in the Control Center. All other choices will override that setting.</string>
+       </property>
+       <property name="textFormat" >
+        <enum>Qt::AutoText</enum>
+       </property>
+       <property name="wordWrap" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="editorCombo" />
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <tabstops>
+  <tabstop>editorCombo</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

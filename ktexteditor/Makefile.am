@@ -2,46 +2,29 @@ INCLUDES = -I$(top_srcdir)/kio -I$(top_srcdir) -I$(top_srcdir)/interfaces -I$(to
 
 lib_LTLIBRARIES = libktexteditor.la
 
-libktexteditor_la_SOURCES = ktexteditor.cpp \
-    editinterface.cpp clipboardinterface.cpp  selectioninterface.cpp searchinterface.cpp \
-    codecompletioninterface.cpp wordwrapinterface.cpp blockselectioninterface.cpp \
-    configinterface.cpp cursorinterface.cpp  dynwordwrapinterface.cpp \
-    printinterface.cpp highlightinginterface.cpp markinterface.cpp \
-    popupmenuinterface.cpp undointerface.cpp viewcursorinterface.cpp \
-    editdcopinterface.cpp editdcopinterface.skel clipboarddcopinterface.cpp \
-    clipboarddcopinterface.skel selectiondcopinterface.cpp selectiondcopinterface.skel  \
-    searchdcopinterface.cpp searchdcopinterface.skel markinterfaceextension.cpp \
-    configinterfaceextension.cpp encodinginterface.cpp sessionconfiginterface.cpp \
-    viewstatusmsginterface.cpp editorchooser_ui.ui editorchooser.cpp \
-    blockselectiondcopinterface.cpp documentinfo.cpp documentdcopinfo.cpp\
-    blockselectiondcopinterface.skel documentdcopinfo.skel encodingdcopinterface.cpp \
-    encodingdcopinterface.skel printdcopinterface.cpp printdcopinterface.skel \
-    undodcopinterface.cpp undodcopinterface.skel viewcursordcopinterface.cpp \
-    viewcursordcopinterface.skel viewstatusmsgdcopinterface.cpp \
-    viewstatusmsgdcopinterface.skel selectioninterfaceext.cpp selectionextdcopinterface.skel \
-    texthintinterface.cpp editinterfaceext.cpp variableinterface.cpp templateinterface.cpp
+libktexteditor_la_SOURCES = ktexteditor.cpp range.cpp templateinterface.cpp editorchooser.cpp editorchooser_ui.ui
+libktexteditor_la_LDFLAGS = -no-undefined $(all_libraries) $(KDE_RPATH)
+libktexteditor_la_LIBADD = $(LIB_KPARTS)
 
-
-libktexteditor_la_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-libktexteditor_la_LIBADD = $(LIB_KPARTS) $(top_builddir)/dcop/libDCOP.la $(top_builddir)/kabc/libkabc.la
-
-ktexteditorinclude_HEADERS = document.h view.h editor.h plugin.h editinterface.h undointerface.h \
-                             selectioninterface.h cursorinterface.h \
-                             clipboardinterface.h popupmenuinterface.h \
-                             viewcursorinterface.h searchinterface.h highlightinginterface.h \
-                             blockselectioninterface.h codecompletioninterface.h \
-                             configinterface.h markinterface.h printinterface.h wordwrapinterface.h \
-                             dynwordwrapinterface.h markinterfaceextension.h configinterfaceextension.h \
-                             encodinginterface.h viewstatusmsginterface.h  sessionconfiginterface.h editorchooser.h \
-			     documentinfo.h selectioninterfaceext.h selectionextdcopinterface.h texthintinterface.h \
-			     editinterfaceext.h variableinterface.h templateinterface.h
+ktexteditorinclude_HEADERS = factory.h editor.h document.h view.h plugin.h cursor.h range.h configpage.h \
+                             searchinterface.h highlightinginterface.h \
+                             codecompletioninterface.h markinterface.h \
+                             sessionconfiginterface.h editorchooser.h \
+			     texthintinterface.h variableinterface.h templateinterface.h \
+			     modificationinterface.h commandinterface.h
 
 ktexteditorincludedir = $(includedir)/ktexteditor
+
+kde_module_LTLIBRARIES = ktexteditorkabcbridge.la
+ktexteditorkabcbridge_la_SOURCES=ktexteditorkabcbridge.cpp
+ktexteditorkabcbridge_la_LIBADD = $(LIB_KDECORE) $(top_builddir)/kabc/libkabc.la
+
+ktexteditorkabcbridge_la_LDFLAGS = -module $(all_libraries) $(KDE_PLUGIN)
 
 METASOURCES = AUTO
 
 servicetypedir = $(kde_servicetypesdir)
-servicetype_DATA = ktexteditor.desktop ktexteditoreditor.desktop ktexteditorplugin.desktop
+servicetype_DATA = ktexteditor.desktop ktexteditorplugin.desktop
 
 kcm_ktexteditor_DATA = kcm_ktexteditor.desktop
 kcm_ktexteditordir = $(kde_datadir)/kcm_componentchooser

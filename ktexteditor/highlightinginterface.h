@@ -23,7 +23,6 @@
 #include <kdelibs_export.h>
 
 class QString;
-class QCString;
 
 namespace KTextEditor
 {
@@ -33,16 +32,8 @@ namespace KTextEditor
 */
 class KTEXTEDITOR_EXPORT HighlightingInterface
 {
-  friend class PrivateHighlightingInterface;
-
   public:
-    HighlightingInterface ();
-    virtual ~HighlightingInterface ();
-
-    unsigned int highlightingInterfaceNumber () const;
-    
-  protected:  
-    void setHighlightingInterfaceDCOPSuffix (const QCString &suffix);  
+    virtual ~HighlightingInterface () {}
 
   //
 	// slots !!!
@@ -78,15 +69,10 @@ class KTEXTEDITOR_EXPORT HighlightingInterface
 	//
 	public:
 	  virtual void hlChanged () = 0;
-
-  private:
-    class PrivateHighlightingInterface *d;
-    static unsigned int globalHighlightingInterfaceNumber;
-    unsigned int myHighlightingInterfaceNumber;
 };
 
-KTEXTEDITOR_EXPORT HighlightingInterface *highlightingInterface (class Document *doc);
-
 }
+
+Q_DECLARE_INTERFACE(KTextEditor::HighlightingInterface, "org.kde.KTextEditor.HighlightingInterface")
 
 #endif

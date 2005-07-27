@@ -821,6 +821,7 @@ void KateView::toggleInsert()
   m_toggleInsert->setChecked (isOverwriteMode ());
 
   emit viewModeChanged(this);
+  emit viewEditModeChanged(this,viewEditMode());
 }
 
 void KateView::slotSaveCanceled( const QString& error )

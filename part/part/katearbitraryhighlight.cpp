@@ -50,60 +50,6 @@ void KateArbitraryHighlight::addHighlightToView(KateRangeList* list, KateView* v
   connect(list, SIGNAL(destroyed(QObject*)),SLOT(slotRangeListDeleted(QObject*)));
 }
 
-void KateArbitraryHighlight::slotRangeListDeleted(QObject* obj) {
-   int id=m_docHLs.findRef(static_cast<KateSuperRangeList*>(obj));
-   if (id>=0) m_docHLs.take(id);
-   
-   for (QMap<KateView*, QPtrList<KateSuperRangeList>* >::Iterator it = m_viewHLs.begin(); it != m_viewHLs.end(); ++it)
-    for (KateSuperRangeList* l = (*it)->first(); l; l = (*it)->next())
-      if (l==obj) {
-        l->take();
-        break; //should we check if one list is stored more than once for a view ?? I don't think adding the same list 2 or more times is sane, but who knows (jowenn)
-      }
-}
-
-KateSuperRangeList& KateArbitraryHighlight::rangesIncluding(uint line, KateView* view)
-{
-  // OPTIMISE make return value persistent
-
-  static KateSuperRangeList s_return(false);
-
-  Q_ASSERT(!s_return.autoDelete());
-  s_return.clear();
-
-  //--- TEMPORARY OPTIMISATION: return the actual range when there are none or one. ---
-  if (m_docHLs.count() + m_viewHLs.count() == 0)
-    return s_return;
-  else if (m_docHLs.count() + m_viewHLs.count() == 1)
-    if (m_docHLs.count())
-      return *(m_docHLs.first());
-    else
-      if (m_viewHLs.values().first() && m_viewHLs.values().first()->count() == 1)
-        if (m_viewHLs.keys().first() == view && m_viewHLs.values().first())
-          return *(m_viewHLs.values().first()->first());
-  //--- END Temporary optimisation ---
-
-  if (view) {
-    QPtrList<KateSuperRangeList>* list = m_viewHLs[view];
-    if (list)
-      for (KateSuperRangeList* l = list->first(); l; l = list->next())
-        if (l->count())
-          s_return.appendList(l->rangesIncluding(line));
-
-  } else {
-    for (QMap<KateView*, QPtrList<KateSuperRangeList>* >::Iterator it = m_viewHLs.begin(); it != m_viewHLs.end(); ++it)
-      for (KateSuperRangeList* l = (*it)->first(); l; l = (*it)->next())
-        if (l->count())
-          s_return.appendList(l->rangesIncluding(line));
-  }
-
-  for (KateSuperRangeList* l = m_docHLs.first(); l; l = m_docHLs.next())
-    if (l->count())
-      s_return.appendList(l->rangesIncluding(line));
-
-  return s_return;
-}
-
 void KateArbitraryHighlight::slotTagRange(KateSuperRange* range)
 {
   emit tagLines(viewForRange(range), range);
@@ -111,9 +57,13 @@ void KateArbitraryHighlight::slotTagRange(KateSuperRange* range)
 
 KateView* KateArbitraryHighlight::viewForRange(KateSuperRange* range)
 {
-  for (QMap<KateView*, QPtrList<KateSuperRangeList>* >::Iterator it = m_viewHLs.begin(); it != m_viewHLs.end(); ++it)
-    for (KateSuperRangeList* l = (*it)->first(); l; l = (*it)->next())
-      if (l->contains(range))
+  if (!range->owningList())
+    // Weird, should belong to a list if we're being asked...??
+    return 0L;
+
+  for (QMap<KateView*, QList<KateRangeList*>* >::Iterator it = m_viewHLs.begin(); it != m_viewHLs.end(); it++)
+    for (QList<KateRangeList*>::ConstIterator it2 = (*it)->constBegin(); it2 != (*it)->constEnd(); ++it2)
+      if (range->owningList() == *it2)
         return it.key();
 
   // This must belong to a document-global highlight
@@ -137,3 +87,4 @@ QList< KateSuperRange * > KateArbitraryHighlight::startingRanges( const KTextEdi
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
+

@@ -46,7 +46,6 @@ class KTEXTEDITOR_EXPORT Factory : public KParts::Factory
     /**
      * Factory Constructor
      * @param parent parent object
-     * @param name name
      */
     Factory ( QObject *parent );
 

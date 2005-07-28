@@ -37,7 +37,6 @@
 #include <kinstance.h>
 #include <kmimetype.h>
 #include <klocale.h>
-#include <kregexp.h>
 #include <kpopupmenu.h>
 #include <kglobalsettings.h>
 #include <kdebug.h>

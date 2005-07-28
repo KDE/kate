@@ -95,6 +95,7 @@ class KTEXTEDITOR_EXPORT CommandExtension
      * Implement this method if your command can provide a completion object.
      *
      * @param cmdname The command name associated with this request.
+     * @param view    The view the command will work on.
      */
     virtual KCompletion *completionObject( const QString & cmdname, KTextEditor::View *view ) = 0;
 

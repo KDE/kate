@@ -247,8 +247,16 @@ public:
      * called only once per line it shouldn't noticably affect performance and it
      * helps readability a LOT.
      *
-     * @param currentViewLine if one of the view lines is the current line, set this to the index; otherwise -1.
+     * @param paint           painter to use
+     * @param layout          Kate layout the painter is for
+     * @param currentViewLine if one of the view lines is the current line, set
+     *                        this to the index; otherwise -1.
+     * @param xStart          starting column.
+     * @param xEnd            ending column.
+     *
      * @return whether the selection has been painted or not
+     *
+     * @todo Document allowed range for @p xStart and @p xEnd.
      */
     void paintTextLineBackground(QPainter& paint, KateLineLayoutPtr layout, int currentViewLine, int xStart, int xEnd);
 

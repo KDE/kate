@@ -104,6 +104,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_customComplete(false)
     , m_cc_cleanup(false)
     , m_delayed_cc_type(KTextEditor::CompletionNone)
+    , m_delayed_cc_provider(0)
 {
   KateGlobal::self()->registerView( this );
   m_config = new KateViewConfig (this);
@@ -1834,6 +1835,7 @@ void KateView::slotTextInserted ( KTextEditor::View *view, const KTextEditor::Cu
   m_codeCompletion->showCompletion(position,newdata);
 }
 
+
 void KateView::invokeCompletion(enum KTextEditor::CompletionType type) {
   kdDebug(13020)<<"KateView::invokeCompletion"<<endl;
   if ((type==KTextEditor::CompletionAsYouType) || (type==KTextEditor::CompletionAsYouTypeBackspace))
@@ -1842,7 +1844,7 @@ void KateView::invokeCompletion(enum KTextEditor::CompletionType type) {
     return;
   }
   kdDebug(13020)<<"Before delay check"<<endl;
-  if (m_cc_cleanup) {m_delayed_cc_type=type; return;}
+  if (m_cc_cleanup) {m_delayed_cc_type=type; m_delayed_cc_provider=0; return;}
   kdDebug(13020)<<"Before custom complete check"<<endl;
   if (m_customComplete) return;
   if (m_completionProviders.isEmpty()) return;
@@ -1856,8 +1858,35 @@ void KateView::invokeCompletion(enum KTextEditor::CompletionType type) {
     if (nd.isValid()) newdata.append(nd);
   }
   m_codeCompletion->showCompletion(c,newdata);
+  if (newdata.size()!=0)
   if (type>KTextEditor::CompletionReinvokeAsYouType) m_customComplete=true;
 }
+
+void KateView::invokeCompletion(KTextEditor::CompletionProvider* provider,enum KTextEditor::CompletionType type) {
+  kdDebug(13020)<<"KateView::invokeCompletion"<<endl;
+  if ((type==KTextEditor::CompletionAsYouType) || (type==KTextEditor::CompletionAsYouTypeBackspace))
+  {
+    kdDebug(13020)<<"KateView::invokeCompletion: ignoring invalid call"<<endl;
+    return;
+  }
+  kdDebug(13020)<<"Before delay check"<<endl;
+  if (m_cc_cleanup) {m_delayed_cc_type=type; m_delayed_cc_provider=provider; return;}
+  kdDebug(13020)<<"Before custom complete check"<<endl;
+  if (m_customComplete) return;
+  if (m_completionProviders.isEmpty()) return;
+  if (!m_completionProviders.contains(provider)) return;
+
+  QLinkedList<KTextEditor::CompletionData> newdata;
+  KTextEditor::Cursor c=cursorPosition();
+  QString lineText=m_doc->line(c.line());
+  
+  const KTextEditor::CompletionData& nd=provider->completionData(this,type,KTextEditor::Cursor(),"",c,lineText);
+  if (nd.isValid()) newdata.append(nd);
+  m_codeCompletion->showCompletion(c,newdata);
+  if (newdata.size()!=0)
+    m_customComplete=true;
+}
+
 
 void KateView::completionDone(){
   kdDebug()<<"KateView::completionDone"<<endl;
@@ -1870,7 +1899,11 @@ void KateView::completionDone(){
     kdDebug()<<"delayed completion call"<<endl;
     enum KTextEditor::CompletionType t=m_delayed_cc_type;
     m_delayed_cc_type=KTextEditor::CompletionNone;
-    invokeCompletion(t);
+    if (m_delayed_cc_provider)
+      invokeCompletion(m_delayed_cc_provider,t);
+    else
+      invokeCompletion(t);
+    m_delayed_cc_provider=0;
   }
 }
 void KateView::completionAborted(){
@@ -1883,7 +1916,11 @@ void KateView::completionAborted(){
   if (m_delayed_cc_type!=KTextEditor::CompletionNone) {
     enum KTextEditor::CompletionType t=m_delayed_cc_type;
     m_delayed_cc_type=KTextEditor::CompletionNone;
-    invokeCompletion(t);
+    if (m_delayed_cc_provider)
+      invokeCompletion(m_delayed_cc_provider,t);
+    else
+      invokeCompletion(t);
+    m_delayed_cc_provider=0;
   }
 }
 

@@ -59,6 +59,11 @@ class KSelectAction;
 
 class QVBoxLayout;
 
+namespace KTextEditor
+{
+  class CompletionProvider;
+}
+
 //
 // Kate KTextEditor::View class ;)
 //
@@ -176,6 +181,7 @@ class KateView : public KTextEditor::View,
     bool registerCompletionProvider(KTextEditor::CompletionProvider*);
     bool unregisterCompletionProvider(KTextEditor::CompletionProvider*);
     void invokeCompletion(enum KTextEditor::CompletionType type);
+    void invokeCompletion(KTextEditor::CompletionProvider*,enum KTextEditor::CompletionType);
     void completionAborted();
     void completionDone();
     void completingInProgress(bool val) {m_cc_cleanup=val;}
@@ -185,6 +191,7 @@ class KateView : public KTextEditor::View,
     bool m_customComplete;
     bool m_cc_cleanup;
     enum KTextEditor::CompletionType m_delayed_cc_type;
+    KTextEditor::CompletionProvider* m_delayed_cc_provider;
 #if 0
   public slots:
     void showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 );

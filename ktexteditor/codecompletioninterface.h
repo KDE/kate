@@ -155,7 +155,8 @@ class KTEXTEDITOR_EXPORT ArgHintData {
       CompletionAsYouTypeBackspace=CompletionType2,
       CompletionReinvokeAsYouType=CompletionType3, //there does not have to be a CompleteAsYouType before an invokation of that kind
       CompletionContextIndependent=CompletionType4,
-      CompletionContextDependent=CompletionType5
+      CompletionContextDependent=CompletionType5,
+      CompletionGenericSingleProvider=CompletionType6 //recommend for the single provider invokeCompletion call, should never be used with the multiple provider enabled invokation call.
     };
 
 
@@ -194,12 +195,14 @@ class KTEXTEDITOR_EXPORT CodeCompletionInterface
 	If this call is made from a providers Aborted/Done function, the execution has to be
 	delayed, till all providers have been finished and the last type used in this call will be used. If called from within a doComplete call it should be delayed till after all completionDone calls*/
 	virtual void invokeCompletion(enum CompletionType)=0;
+        /* just like the above, but only generates generates one  call to completionData for the specified provider. The implementor of this interface should not accept providers in this function, which are not registered*/
+        virtual void invokeCompletion(CompletionProvider*,enum CompletionType)=0;
 };
 
 }
 
 Q_DECLARE_INTERFACE(KTextEditor::CodeCompletionInterface, "org.kde.KTextEditor.CodeCompletionInterface")
-
+Q_DECLARE_INTERFACE(KTextEditor::CompletionProvider, "org.kde.KTextEditor.CompletionProvider")
 #endif
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

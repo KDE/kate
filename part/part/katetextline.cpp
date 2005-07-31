@@ -29,7 +29,7 @@
 #include <qregexp.h>
 
 KateTextLine::KateTextLine ()
-  : m_noIndentationBasedFolding(false),m_noIndentationBasedFoldingAtStart(false),m_flags(0)
+  : m_flags(0)
 {
 }
 
@@ -356,9 +356,6 @@ char *KateTextLine::dump (char *buf, bool withHighlighting) const
   memcpy(buf, (char *)m_indentationDepth.data(), sizeof(unsigned short) * lind);
   buf += sizeof (unsigned short) * lind;
 
-  memcpy(buf, (bool *)m_noIndentationBasedFolding, sizeof(bool));
-  buf += sizeof (bool);
-
   return buf;
 }
 
@@ -423,10 +420,6 @@ char *KateTextLine::restore (char *buf)
   memcpy((char *) m_indentationDepth.data(), buf, sizeof(unsigned short) * lind);
   buf += sizeof(unsigned short) * lind;
 
-  bool nibf;
-  memcpy((bool *) &nibf, buf, sizeof(bool));
-  m_noIndentationBasedFolding=nibf;
-  buf += sizeof(bool);
   return buf;
 }
 

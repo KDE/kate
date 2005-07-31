@@ -52,10 +52,12 @@ class KateTextLine : public KShared
      */
     enum Flags
     {
-      flagNoOtherData = 0x1, // ONLY INTERNAL USE, NEVER EVER SET THAT !!!!
-      flagHlContinue = 0x2,
-      flagAutoWrapped = 0x4,
-      flagFoldingColumnsOutdated=0x8
+      flagNoOtherData = 1, // ONLY INTERNAL USE, NEVER EVER SET THAT !!!!
+      flagHlContinue = 2,
+      flagAutoWrapped = 4,
+      flagFoldingColumnsOutdated = 8,
+      flagNoIndentationBasedFolding = 16,
+      flagNoIndentationBasedFoldingAtStart = 32
     };
 
   public:
@@ -283,8 +285,8 @@ class KateTextLine : public KShared
     /**
      * @return true if any context at the line end has the noIndentBasedFolding flag set
      */
-    inline const bool noIndentBasedFolding() const { return m_noIndentationBasedFolding;};
-    inline const bool noIndentBasedFoldingAtStart() const { return m_noIndentationBasedFoldingAtStart;};
+    inline const bool noIndentBasedFolding() const { return m_flags & KateTextLine::flagNoIndentationBasedFolding; };
+    inline const bool noIndentBasedFoldingAtStart() const { return m_flags & KateTextLine::flagNoIndentationBasedFoldingAtStart; };
     /**
      * folding list
      * @return folding array
@@ -348,8 +350,18 @@ class KateTextLine : public KShared
     /**
      * sets if for the next line indent based folding should be disabled
      */
-    inline void setNoIndentBasedFolding(bool val) {m_noIndentationBasedFolding=val; }
-    inline void setNoIndentBasedFoldingAtStart(bool val) {m_noIndentationBasedFoldingAtStart=val; }
+    inline void setNoIndentBasedFolding(bool val)
+    {
+      if (val) m_flags = m_flags | KateTextLine::flagNoIndentationBasedFolding;
+      else m_flags = m_flags & ~ KateTextLine::flagNoIndentationBasedFolding;
+    }
+
+    inline void setNoIndentBasedFoldingAtStart(bool val)
+    {
+      if (val) m_flags = m_flags | KateTextLine::flagNoIndentationBasedFoldingAtStart;
+      else m_flags = m_flags & ~ KateTextLine::flagNoIndentationBasedFoldingAtStart;
+    }
+
     /**
      * update folding list
      * @param val new folding list
@@ -382,7 +394,6 @@ class KateTextLine : public KShared
                        + (m_ctx.size() * sizeof(short))
                        + (m_foldingList.size() * sizeof(uint))
                        + (m_indentationDepth.size() * sizeof(unsigned short))
-                       + sizeof(bool)
                      ) : 0
                  )
              );
@@ -451,9 +462,6 @@ class KateTextLine : public KShared
      * indentation stack
      */
     QVector<unsigned short> m_indentationDepth;
-
-    bool m_noIndentationBasedFolding;
-    bool m_noIndentationBasedFoldingAtStart;
 
     /**
      * flags

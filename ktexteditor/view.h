@@ -84,30 +84,25 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
      * editor might be in.
      */
     enum EditMode {
-	EditInsert=0    /**< Insert mode. Characters will be added. */,
-	EditOverwrite=1 /**< Overweite mode. Characters will be replaced. */
+      EditInsert = 0    /**< Insert mode. Characters will be added. */,
+      EditOverwrite = 1 /**< Overweite mode. Characters will be replaced. */
     };
 
     /**
      * Current edit mode
      * should return the current mode, if there is eg some vim like command mode active, it should
      * return the edit mode, which is the most possible one after leaving the command mode
-     * If in doubt return
+     * If in doubt return EditInsert
      *
-     * @todo Document those doubts
+     * @return the current edit mode of this view
      */
     virtual enum EditMode viewEditMode() const = 0;
+  
   /**
    * SIGNALS
    * following signals should be emitted by the editor view
    */
   signals:
-    /**
-     * viewEditMode changed
-     * @param view view which got focus
-     * @param mode new edit mode
-     */
-    void viewEditModeChanged( View *view, enum EditMode mode);
     /**
      * view got focus
      * @param view view which got focus
@@ -125,6 +120,13 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
      * @param view view which changed mode
      */
     void viewModeChanged ( View *view );
+
+    /**
+     * viewEditMode changed
+     * @param view view which got focus
+     * @param mode new edit mode
+     */
+    void viewEditModeChanged ( View *view, enum EditMode mode );
 
     /**
      * information message

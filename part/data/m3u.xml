@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="M3U" section="Other" extensions="*.m3u" mimetype="text/m3u" version="1.0" priority="10" author="Jan Janssen (medhefgo@web.de)" license="LGPL" >
+
+<highlighting>
+<contexts>
+ <context name="M3U" attribute="Normal Text" lineEndContext="#stay">
+  <StringDetect attribute="M3USpec" String="#EXTM3U" />
+  <RegExpr context="FindEXTINF" attribute="EXTINF" String="^#EXTINF" beginRegion="extinfo" />
+  <RegExpr attribute="Comment" String="^#.+$" />
+ </context>
+
+ <context name="FindEXTINF" attribute="Normal Text" lineEndContext="#stay">
+  <RegExpr attribute="Lenght" String=":\d+" />
+  <RegExpr attribute="Descr" String=",.+$" context="#pop" endRegion="extinfo" />
+ </context>
+</contexts>
+
+<itemDatas>
+ <itemData name="Normal Text" defStyleNum="dsNormal" />
+ <itemData name="M3USpec" defStyleNum="dsNormal" color="#0000FF" selColor="#0000FF" bold="1" italic="1"/>
+ <itemData name="Comment" defStyleNum="dsNormal" color="#8A00C1" selColor="#B700FF" bold="1" italic="1" />
+
+ <itemData name="EXTINF" defStyleNum="dsNormal" color="#008000" selColor="#00EC00" bold="0" italic="0" />
+ <itemData name="Lenght" defStyleNum="dsNormal" color="#FF0000" selColor="#FF0000" bold="0" italic="0" />
+ <itemData name="Descr" defStyleNum="dsNormal" color="#0000FF" selColor="#0000FF" bold="0" italic="0" />
+</itemDatas>
+</highlighting>
+
+
+<general>
+ <comments>
+  <comment name="singleLine" start="#" />
+ </comments>
+ <folding indentationsensitive="false" />
+</general>
+
+</language>
+

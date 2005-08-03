@@ -82,7 +82,7 @@ TODO
   mimetype:    A list of mimetypes to decide for which documents to use this syntax description [optional]
   version:     Version number of this syntax description [optional]
   kateversion: Kate version required for using this file [optional]
-  casesensitive: Whether text is matched case sensitive. [boolean, optional, default=false]
+  casesensitive: Whether text is matched case sensitive. [boolean, optional, default=true] FIXME: This is not implemented yet
   priority:    Priority of this language, if more than one are usable for the file [optional]
   author:      Name of author of this hl file [optional]
   license:     License for this hl file [optional]
@@ -146,8 +146,8 @@ WARNING: due to helper scripts, the language opening tag must be on a
 >
 
 <!-- Keyword options
-  casesensitive:        Whether keywords are matched case sensitive. [boolean, optional, default=false]
-  weakDeliminator:      Add weak deliminators [optional]
+  casesensitive:        Whether keywords are matched case sensitive. [boolean, optional, default=true]
+  weakDeliminator:      Add weak deliminators [optional, default: ""]
   additionalDeliminator: Add deliminators [optional]
   wordWrapDeliminator:  characters that are used to wrap long lines [optional]
 

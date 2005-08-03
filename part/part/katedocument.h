@@ -547,7 +547,6 @@ class KateDocument : public KTextEditor::Document,
      void exportAs(const QString&) { };
 
   signals:
-    void modifiedChanged ();
     void preHighlightChanged(uint);
 
   private slots:
@@ -741,9 +740,6 @@ class KateDocument : public KTextEditor::Document,
   public slots:
     void setPageUpDownMovesCursor(bool on);
     bool pageUpDownMovesCursor();
-
-  signals:
-    void modStateChanged (KTextEditor::Document *doc);
 
   public slots:
      void applyWordWrap ();

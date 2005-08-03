@@ -2474,8 +2474,7 @@ void KateDocument::setModified(bool m) {
       view->slotUpdate();
     }
 
-    emit modifiedChanged ();
-    emit modStateChanged ((KTextEditor::Document *)this);
+    emit modifiedChanged (this);
   }
   if ( m == false && ! undoItems.isEmpty() )
   {

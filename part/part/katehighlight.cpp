@@ -2190,7 +2190,7 @@ void KateHighlighting::readGlobalKeywordConfig()
   {
     kdDebug(13010)<<"Found global keyword config"<<endl;
 
-    if (KateHlManager::self()->syntax->groupItemData(data,QString("casesensitive"))!="0")
+    if ( IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("casesensitive")) ) )
       casesensitive=true;
     else
       casesensitive=false;
@@ -2294,10 +2294,10 @@ void KateHighlighting::readFoldingConfig()
   {
     kdDebug(13010)<<"Found global keyword config"<<endl;
 
-    if (KateHlManager::self()->syntax->groupItemData(data,QString("indentationsensitive"))!="1")
-      m_foldingIndentationSensitive=false;
-    else
+    if ( IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("indentationsensitive")) ) )
       m_foldingIndentationSensitive=true;
+    else
+      m_foldingIndentationSensitive=false;
 
     KateHlManager::self()->syntax->freeGroupInfo(data);
   }
@@ -2747,7 +2747,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
       {
         QString incCtx = KateHlManager::self()->syntax->groupItemData( data, QString("context"));
         QString incAttrib = KateHlManager::self()->syntax->groupItemData( data, QString("includeAttrib"));
-        bool includeAttrib = ( incAttrib.lower() == "true" || incAttrib.toInt() == 1 );
+        bool includeAttrib = IS_TRUE( incAttrib );
         // only context refernces of type NAME and ##Name are allowed
         if (incCtx.startsWith("##") || (!incCtx.startsWith("#")))
         {

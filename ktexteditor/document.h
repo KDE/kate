@@ -93,9 +93,10 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
 
   signals:
    /**
-    * Should be emitted at appropriate times to help applications / plugins to attach to a new view
-    * Important: this signal should be emitted after the view constructor is completed, e.g.
-    * in the createView () method
+    * Should be emitted at appropriate times to help applications / plugins to
+    * attach to a new view.
+    * @attention This signal should be emitted after the view constructor is
+    *            completed, e.g. in the createView() method.
     * @param document the document for which a new view is created
     * @param view the new created view
     */
@@ -106,16 +107,16 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
    */
   public:
     /**
-     * Returns this document's name
+     * Returns this document's name.
      * The editor part should provide some meaningful name, like some unique
      * Untitled XYZ for document without url or basename for documents with
-     * url
+     * url.
      * @return readable document name
      */
     virtual const QString &documentName () const = 0;
 
     /**
-     * Returns this document's mimetype
+     * Returns this document's mimetype.
      * @return mimetype
      */
     virtual QString mimeType() = 0;
@@ -127,15 +128,25 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
   signals:
     /**
      * document name changed
-     * @param document document which changed it's name
+     * @param document document which changed its name
      */
     void documentNameChanged ( Document *document );
 
     /**
      * document URL changed
-     * @param document document which changed it's URL
+     * @param document document which changed its URL
      */
     void documentUrlChanged ( Document *document );
+
+    /**
+     * the document's buffer changed from either state @e unmodified to
+     * @e modified or vice versa.
+     *
+     * @see KParts::ReadWritePart::isModified().
+     * @see KParts::ReadWritePart::setModified()
+     * @param document document which changed its modified state
+     */
+    void modifiedChanged ( Document *document );
 
   /**
    * VERY IMPORTANT: Methodes to set and query the current encoding of the
@@ -152,7 +163,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * by the QTextCodec, if empty encoding name given, the part should fallback
      * to it's own default encoding, e.g. the system encoding or the global user
      * settings
-     * @return success, return false, if the encoding could not be set
+     * @return success, return @e false, if the encoding could not be set
      */
     virtual bool setEncoding (const QString &encoding) = 0;
 
@@ -173,7 +184,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * The user will get prompted by the part on changes and more
      * and can cancel this action if it can harm
      * @return success, has the reload been done? if the document
-     * has no url set, it will just return false
+     * has no url set, it will just return @e false
      */
     virtual bool documentReload () = 0;
 
@@ -206,9 +217,9 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * has an unterminated (no matching editEnd() call) editing sequence
      * (result undefined) - so do all of your work in one go...
      *
-     * This call stacks, like the endEditing calls, this means you can safe
+     * This call stacks, like the endEditing calls, this means you can safely
      * call it three times in a row for example if you call editEnd three times, too,
-     * it internaly just does counting the running editing sessions
+     * it internaly just does counting the running editing sessions.
      *
      * If the texteditor part doesn't support this kind of transactions, both calls
      * just do nothing.
@@ -218,13 +229,13 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      *             cursor handling in this view, important: this only will work
      *             if you pass here a view which parent document is this document,
      *             otherwise, the view is just ignored
-     * @return success, parts not supporting it should return false
+     * @return success, parts not supporting it should return @e false
      */
     virtual bool startEditing (View *view = 0) = 0;
 
     /**
      * End an editing sequence.
-     * @return success, parts not supporting it should return false
+     * @return success, parts not supporting it should return @e false
      */
     virtual bool endEditing () = 0;
 

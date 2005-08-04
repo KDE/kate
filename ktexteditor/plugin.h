@@ -32,8 +32,9 @@ class Document;
 class View;
 
 /**
- * Basic KTextEditor plugin class.
- * This plugin will be bound to a Document.
+ * The class @p Plugin is the basic KTextEditor plugin class.
+ * This plugin will be bound to a single document, i.e. for every document
+ * a single instance of a plugin exists.
  */
 class KTEXTEDITOR_EXPORT Plugin : public QObject
 {
@@ -41,7 +42,7 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
 
   public:
     /**
-     * Plugin constructor
+     * Plugin constructor.
      * @param parent parent object
      */
     Plugin ( QObject *parent ) : QObject (parent) {}
@@ -53,75 +54,75 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
 
   /**
    * Following methodes allow the plugin to react on view and document
-   * creation
+   * creation.
    */
   public:
     /**
-     * this method is called if the plugin gui should be added
-     * to the given KTextEditor::Document
+     * This method is called if the plugin gui should be added
+     * to the @e document.
      * @param document document to hang the gui in
      */
     virtual void addDocument (Document *document) { Q_UNUSED(document); }
 
     /**
-     * this method is called if the plugin gui should be removed
-     * from the given KTextEditor::Document
+     * This method is called if the plugin gui should be removed
+     * from the @e document.
      * @param document document to hang the gui out from
      */
     virtual void removeDocument (Document *document) { Q_UNUSED(document); }
 
     /**
-     * this method is called if the plugin gui should be added
-     * to the given KTextEditor::View
+     * This method is called if the plugin gui should be added
+     * to the @e view.
      * @param view view to hang the gui in
      */
     virtual void addView (View *view) { Q_UNUSED(view); }
 
     /**
-     * this method is called if the plugin gui should be removed
-     * from the given KTextEditor::View
+     * This method is called if the plugin gui should be removed
+     * from the @e view.
      * @param view view to hang the gui out from
      */
     virtual void removeView (View *view) { Q_UNUSED(view); }
 
   /**
-   * Configuration management
+   * Configuration management.
    * Default implementation just for convenience, does nothing
-   * and says this plugin supports no config dialog
+   * and says this plugin supports no config dialog.
    */
   public:
     /**
-     * Read editor configuration from it's standard config
+     * Read the editor configuration from its standard config.
      */
     virtual void readConfig () {}
 
     /**
-     * Write editor configuration to it's standard config
+     * Write the editor configuration to its standard config.
      */
     virtual void writeConfig () {}
 
     /**
-     * Read editor configuration from given config object
+     * Read the editor configuration from the KConfig @e config.
      * @param config config object
      */
     virtual void readConfig (KConfig *config) { Q_UNUSED(config); }
 
     /**
-     * Write editor configuration to given config object
+     * Write the editor configuration to the KConfig @e config.
      * @param config config object
      */
     virtual void writeConfig (KConfig *config) { Q_UNUSED(config); }
 
     /**
-     * Does this plugin support a config dialog
-     * @return does this plugin have a config dialog?
+     * Check, whether the plugin has support for a config dialog.
+     * @return @e true, if the plugin has a config dialog, otherwise @e false
      */
     virtual bool configDialogSupported () const { return false; }
 
     /**
-     * Shows a config dialog for the part, changes will be applied
-     * to the editor, but not saved anywhere automagically, call
-     * writeConfig to save them
+     * Show the config dialog for the part, changes will be applied to the
+     * editor, but not saved anywhere automagically, call @p writeConfig()
+     * to save them.
      * @param parent parent widget
      */
     virtual void configDialog (QWidget *parent) { Q_UNUSED(parent); }

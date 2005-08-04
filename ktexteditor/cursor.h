@@ -28,20 +28,20 @@ namespace KTextEditor
 {
 
 /**
- * Class to represent a cursor in the text
- * lines and columns start with 0,0
+ * The class @p Cursor represents a cursor in the text. Its position is
+ * defined by a @e line and a @e column. Lines and columns start with 0,0.
  */
 class KTEXTEDITOR_EXPORT Cursor
 {
   public:
     /**
-     * Default constructor
-     * Creates a cursor at position 0,0
+     * The default constructor creates a cursor at position (0,0).
      */
     Cursor() : m_line(0), m_column(0) {}
 
     /**
-     * Constructor, for line & column arguments
+     * This constructor creates a cursor initialized with @e line
+     * and @e column.
      * @param line line for cursor
      * @param column column for cursor
      */
@@ -53,53 +53,53 @@ class KTEXTEDITOR_EXPORT Cursor
     virtual ~Cursor () {}
 
     /**
-     * Retrieve cursor position
+     * Get both the line and column of the cursor position.
      * @param _line will be filled with current cursor line
      * @param _column will be filled with current cursor column
      */
     inline void position (int &_line, int &_column) const { _line = line(); _column = column(); }
 
     /**
-     * Retrieve cursor line
+     * Get the cursor line.
      * @return cursor line
      */
     inline int line() const { return m_line; }
 
     /**
-     * Retrieve cursor column
+     * Get the cursor column.
      * @return cursor column
      */
     inline int column() const { return m_column; }
 
     /**
-     * Set the current cursor position
-     * This is virtual, to allow reimplementations to do checks here
-     * or to emit signals
+     * Set the current cursor position to @e pos.
+     * @note This function is @c virtual to allow reimplementations to do
+     *       checks here or to emit signals.
      * @param pos new cursor position
      */
     virtual void setPosition (const Cursor& pos) { m_line = pos.line(); m_column = pos.column(); }
 
     /**
-     * Set the cursor position
-     * This is virtual, to allow reimplementations to do checks here
-     * or to emit signals
+     * Set the cursor position to @e line and @e column.
+     * @note This function is @c virtual to allow reimplementations to do
+     *       checks here or to emit signals.
      * @param line new cursor line
      * @param column new cursor column
      */
     virtual void setPosition (int line, int column) { m_line = line; m_column = column; }
 
     /**
-     * Set the cursor line
-     * This is virtual, to allow reimplementations to do checks here
-     * or to emit signals
+     * Set the cursor line to @e line.
+     * @note This function is @c virtual to allow reimplementations to do
+     *       checks here or to emit signals.
      * @param line new cursor line
      */
     virtual void setLine (int line) { m_line = line; }
 
     /**
-     * Set the cursor column
-     * This is virtual, to allow reimplementations to do checks here
-     * or to emit signals
+     * Set the cursor column to @e column.
+     * @note This function is @c virtual to allow reimplementations to do
+     *       checks here or to emit signals.
      * @param column new cursor column
      */
     virtual void setColumn (int column) { m_column = column; }
@@ -108,7 +108,7 @@ class KTEXTEDITOR_EXPORT Cursor
      * == operator
      * @param c1 first cursor to compare
      * @param c2 second cursor to compare
-     * @return result of compare
+     * @return @e true, if c1's and c2's line and column are @e equal.
      */
     inline friend bool operator==(const Cursor& c1, const Cursor& c2)
       { return c1.line() == c2.line() && c1.column() == c2.column(); }
@@ -117,16 +117,17 @@ class KTEXTEDITOR_EXPORT Cursor
      * != operator
      * @param c1 first cursor to compare
      * @param c2 second cursor to compare
-     * @return result of compare
+     * @return @e true, if c1's and c2's line and column are @e not equal.
      */
     inline friend bool operator!=(const Cursor& c1, const Cursor& c2)
       { return !(c1 == c2); }
 
     /**
-     * gt operator
+     * > operator
      * @param c1 first cursor to compare
      * @param c2 second cursor to compare
-     * @return result of compare
+     * @return @e true, if c1's position is greater than c2's position,
+     *         otherwise @e false.
      */
     inline friend bool operator>(const Cursor& c1, const Cursor& c2)
       { return c1.line() > c2.line() || (c1.line() == c2.line() && c1.m_column > c2.m_column); }
@@ -135,7 +136,8 @@ class KTEXTEDITOR_EXPORT Cursor
      * >= operator
      * @param c1 first cursor to compare
      * @param c2 second cursor to compare
-     * @return result of compare
+     * @return @e true, if c1's position is greater than or equal to c2's
+     *         position, otherwise @e false.
      */
     inline friend bool operator>=(const Cursor& c1, const Cursor& c2)
       { return c1.line() > c2.line() || (c1.line() == c2.line() && c1.m_column >= c2.m_column); }
@@ -144,7 +146,8 @@ class KTEXTEDITOR_EXPORT Cursor
      * lt operator
      * @param c1 first cursor to compare
      * @param c2 second cursor to compare
-     * @return result of compare
+     * @return @e true, if c1's position is greater than or equal to c2's
+     *         position, otherwise @e false.
      */
     inline friend bool operator<(const Cursor& c1, const Cursor& c2)
       { return !(c1 >= c2); }
@@ -153,7 +156,8 @@ class KTEXTEDITOR_EXPORT Cursor
      * <= operator
      * @param c1 first cursor to compare
      * @param c2 second cursor to compare
-     * @return result of compare
+     * @return @e true, if c1's position is lesser than or equal to c2's
+     *         position, otherwise @e false.
      */
     inline friend bool operator<=(const Cursor& c1, const Cursor& c2)
       { return !(c1 > c2); }

@@ -48,7 +48,7 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
 
   public:
     /**
-     * Editor Constructor
+     * Editor Constructor.
      * @param parent parent object
      */
     Editor ( QObject *parent );
@@ -59,106 +59,112 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
     virtual ~Editor ();
 
   /**
-   * Stuff to create and manage the documents
+   * Methods to create and manage the documents.
    */
   public:
     /**
-     * Create a new document object
+     * Create a new document object.
      * @param parent parent object
-     * @return created KTextEditor::Document
+     * @return new KTextEditor::Document object
      */
     virtual Document *createDocument ( QObject *parent ) = 0;
 
     /**
-     * Returns a list of all documents of this editor.
+     * Get a list of all documents of this editor.
      * @return list of all existing documents
      */
     virtual const QList<Document*> &documents () = 0;
 
   /**
-   * General Information about this editor
+   * General Information about this editor.
    */
   public:
     /**
-     * return the about data
+     * Get the about data.
      * @return about data of this editor part
      */
     virtual const KAboutData *aboutData () const = 0;
 
   /**
-   * Configuration management
+   * Configuration management.
    */
   public:
     /**
-     * Read editor configuration from it's standard config
+     * Read editor configuration from its standard config.
      */
     virtual void readConfig () = 0;
 
     /**
-     * Write editor configuration to it's standard config
+     * Write editor configuration to its standard config.
      */
     virtual void writeConfig () = 0;
 
     /**
-     * Read editor configuration from given config object
+     * Read editor configuration from KConfig @e config.
      * @param config config object
      */
     virtual void readConfig (KConfig *config) = 0;
 
     /**
-     * Write editor configuration to given config object
+     * Write editor configuration to KConfig @e config.
      * @param config config object
      */
     virtual void writeConfig (KConfig *config) = 0;
 
     /**
-     * Does this editor support a config dialog
-     * @return does this editor have a config dialog?
+     * Check, whether this editor has a configuration dialog.
+     * @return @e true, if the editor has a configuration dialog,
+     *         otherwise @e false
      */
     virtual bool configDialogSupported () const = 0;
 
     /**
-     * Shows a config dialog for the part, changes will be applied
-     * to the editor, but not saved anywhere automagically, call
-     * writeConfig to save them
+     * Show the editor's config dialog, changes will be applied to the
+     * editor, but not saved anywhere automagically, call @p writeConfig()
+     * to save them.
      * @param parent parent widget
      */
     virtual void configDialog (QWidget *parent) = 0;
 
     /**
-     * Number of available config pages
-     * If the editor returns a number < 1, it doesn't support this
-     * and the embedding app should use the configDialog () instead
+     * Get the number of available config pages.
+     * If the editor returns a number < 1, it does not support config pages
+     * and the embedding application should use @p configDialog() instead.
      * @return number of config pages
      */
     virtual int configPages () const = 0;
 
     /**
-     * returns config page with the given number,
-     * config pages from 0 to configPages()-1 are available
-     * if configPages() > 0
+     * Get the config page with the @e number, config pages from 0 to
+     * @p configPages()-1 are available if @p configPages() > 0.
      * @param number index of config page
      * @param parent parent widget for config page
-     * @return created config page
+     * @return created config page or NULL, if the number is out of bounds
      */
     virtual ConfigPage *configPage (int number, QWidget *parent) = 0;
 
     /**
-     * Retrieve name for config page
+     * Get a readable name for the config page @e number. The name should be
+     * translated.
      * @param number index of config page
      * @return name of given page index
      */
     virtual QString configPageName (int number) const = 0;
 
     /**
-     * Retrieve full name for config page
+     * Get a readable full name for the config page @e number. The name
+     * should be translated.
+     *
+     * Example: If the name is "Filetypes", the full name could be
+     * "Filetype Specific Settings". For "Shortcuts" the full name would be
+     * something like "Shortcut Configuration".
      * @param number index of config page
      * @return full name of given page index
      */
     virtual QString configPageFullName (int number) const = 0;
 
     /**
-     * Retrieve pixmap for config page
+     * Get a pixmap with @e size for the config page @e number.
      * @param number index of config page
      * @param size size of pixmap
      * @return pixmap of given page index
@@ -167,9 +173,10 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
 
   signals:
     /**
-     * emit this after successfull document creation in createDocument
+     * The @e editor emits this signal whenever a @e document was successfully created.
      * @param editor editor which created the new document
      * @param document the newly created document instance
+     * @see createDocument()
      */
     void documentCreated (Editor *editor, Document *document);
 };

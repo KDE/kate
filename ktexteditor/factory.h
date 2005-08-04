@@ -34,9 +34,9 @@ namespace KTextEditor
 class Editor;
 
 /**
- * This class represents the factory of the editor
- * Each KTextEditor part must reimplement this factory,
- * to allow easy access to the editor object
+ * The class @p Factory represents the factory of the editor.
+ * Each KTextEditor part must reimplement this factory to allow
+ * easy access to the editor object.
  */
 class KTEXTEDITOR_EXPORT Factory : public KParts::Factory
 {
@@ -44,7 +44,7 @@ class KTEXTEDITOR_EXPORT Factory : public KParts::Factory
 
   public:
     /**
-     * Factory Constructor
+     * Factory Constructor.
      * @param parent parent object
      */
     Factory ( QObject *parent );
@@ -55,9 +55,9 @@ class KTEXTEDITOR_EXPORT Factory : public KParts::Factory
     virtual ~Factory ();
 
     /**
-     * Retrieve the global editor object, the editor part
-     * implementation must ensure that this object lives as long
-     * as any factory object exists or any document
+     * Get the global editor object. The editor part implementation @e must
+     * ensure that this object lives as long as any factory or document
+     * object exists.
      * @return global KTextEditor::Editor object
      */
     virtual Editor *editor () = 0;

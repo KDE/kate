@@ -74,7 +74,7 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
      * Current view state.
      * This can be used for example to show up that this view is now
      * in @e INSERT mode, or @e OVERWRITE mode, or @e COMMAND mode, or
-     * whatever edit modes are suppored.
+     * whatever edit modes are supported.
      * The string should be translated (i18n), as this is a user aimed
      * representation of the view state, which should be shown in the GUI.
      * @see viewModeChanged()

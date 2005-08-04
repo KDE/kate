@@ -33,4 +33,9 @@ KTEXTEDITOR DESIGN
 - all interface functions should be virtual, to allow subclasses to overwrite them, most stuff should be pure virtual,
   beside additional convenience functions
 
+- if you want to add a method using line/column tuples, STOP, use the KTextEditor::Cursor
+
+- if you want to have a range of text as param, try to use a KTextEditor::Range instead of two KTextEditor::Cursors
+
+
 .... more to follow ;)

@@ -1117,7 +1117,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLi
     }
 
     if( !list.isEmpty() )
-      emit marksChanged();
+      emit marksChanged( this );
 
     // yes, we added a new line !
     if (newLineAdded)
@@ -1205,7 +1205,7 @@ bool KateDocument::editUnWrapLine ( uint line, bool removeLine, uint length )
   }
 
   if( !list.isEmpty() )
-    emit marksChanged();
+    emit marksChanged( this );
 
   for( Q3PtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
     it.current()->editLineUnWrapped (line, col, removeLine, length);
@@ -1253,7 +1253,7 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   }
 
   if( !list.isEmpty() )
-    emit marksChanged();
+    emit marksChanged( this );
 
   for( Q3PtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
     it.current()->editLineInserted (line);
@@ -1303,7 +1303,7 @@ bool KateDocument::editRemoveLine ( uint line )
   }
 
   if( !list.isEmpty() )
-    emit marksChanged();
+    emit marksChanged( this );
 
   for( Q3PtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
     it.current()->editLineRemoved (line);
@@ -1707,8 +1707,8 @@ void KateDocument::clearMark( uint line )
     return;
 
   KTextEditor::Mark* mark = m_marks.take( line );
-  emit markChanged( *mark, MarkRemoved );
-  emit marksChanged();
+  emit markChanged( this, *mark, MarkRemoved );
+  emit marksChanged( this );
   delete mark;
   tagLines( line, line );
   repaintViews(true);
@@ -1744,9 +1744,9 @@ void KateDocument::addMark( uint line, uint markType )
   KTextEditor::Mark temp;
   temp.line = line;
   temp.type = markType;
-  emit markChanged( temp, MarkAdded );
+  emit markChanged( this, temp, MarkAdded );
 
-  emit marksChanged();
+  emit marksChanged( this );
   tagLines( line, line );
   repaintViews(true);
 }
@@ -1773,12 +1773,12 @@ void KateDocument::removeMark( uint line, uint markType )
   KTextEditor::Mark temp;
   temp.line = line;
   temp.type = markType;
-  emit markChanged( temp, MarkRemoved );
+  emit markChanged( this, temp, MarkRemoved );
 
   if( mark->type == 0 )
     m_marks.remove( line );
 
-  emit marksChanged();
+  emit marksChanged( this );
   tagLines( line, line );
   repaintViews(true);
 }
@@ -1800,13 +1800,13 @@ void KateDocument::clearMarks()
   for( Q3IntDictIterator<KTextEditor::Mark> it( m_marks );
        it.current(); ++it ) {
     KTextEditor::Mark* mark = it.current();
-    emit markChanged( *mark, MarkRemoved );
+    emit markChanged( this, *mark, MarkRemoved );
     tagLines( mark->line, mark->line );
   }
 
   m_marks.clear();
 
-  emit marksChanged();
+  emit marksChanged( this );
   repaintViews(true);
 }
 

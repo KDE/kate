@@ -432,8 +432,8 @@ class KateDocument : public KTextEditor::Document,
     uint editableMarks();
 
   signals:
-    void marksChanged();
-    void markChanged( KTextEditor::Mark, KTextEditor::MarkInterface::MarkChangeAction );
+    void marksChanged( KTextEditor::Document* );
+    void markChanged( KTextEditor::Document*, KTextEditor::Mark, KTextEditor::MarkInterface::MarkChangeAction );
 
   private:
     Q3IntDict<KTextEditor::Mark> m_marks;

@@ -34,6 +34,8 @@
 #include <qevent.h>
 #include <QVector>
 
+namespace KTextEditor{ class Document; }
+
 /**
    Utility: selection sort
    sort a QMemArray<uint> in ascending order.
@@ -62,7 +64,7 @@ KateBookmarks::KateBookmarks( KateView* view, Sorting sort )
   , m_view( view )
   , m_sorting( sort )
 {
-  connect (view->doc(), SIGNAL(marksChanged()), this, SLOT(marksChanged()));
+  connect (view->doc(), SIGNAL( marksChanged( KTextEditor::Document* ) ), this, SLOT( marksChanged() ));
   _tries=0;
   m_bookmarksMenu = 0L;
 }
@@ -131,6 +133,7 @@ void KateBookmarks::clearBookmarks ()
     m_view->doc()->removeMark( m.at(i)->line, KTextEditor::MarkInterface::markType01 );
 
   // just to be sure ;)
+  // dominik: the following line can be deleted afaics, as Document::removeMark emits this signal.
   marksChanged ();
 }
 

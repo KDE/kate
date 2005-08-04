@@ -71,11 +71,13 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
    */
   public:
     /**
-     * Current view state
+     * Current view state.
      * This can be used for example to show up that this view is now
-     * in INSERT mode, or OVERWRITE mode, or COMMAND mode, or whatever
-     * The string should be i18n, as this is a user aimed representation
-     * of the view state, which should be shown in the GUI
+     * in @e INSERT mode, or @e OVERWRITE mode, or @e COMMAND mode, or
+     * whatever edit modes are suppored.
+     * The string should be translated (i18n), as this is a user aimed
+     * representation of the view state, which should be shown in the GUI.
+     * @see viewModeChanged()
      */
     virtual QString viewMode () const = 0;
 
@@ -84,7 +86,7 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
      * editor might be in.
      */
     enum EditMode {
-      EditInsert = 0    /**< Insert mode. Characters will be added. */,
+      EditInsert = 0,   /**< Insert mode. Characters will be added. */
       EditOverwrite = 1 /**< Overweite mode. Characters will be replaced. */
     };
 
@@ -116,13 +118,15 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
     void focusOut ( View *view );
 
     /**
-     * view mode changed
-     * @param view view which changed mode
+     * The view mode changed.
+     * @param view the view which changed its mode
+     * @see viewMode()
      */
     void viewModeChanged ( View *view );
 
     /**
-     * viewEditMode changed
+     * The edit mode changed from either @c EditInsert to @c EditOverwrite
+     * or vice versa.
      * @param view view which got focus
      * @param mode new edit mode
      */

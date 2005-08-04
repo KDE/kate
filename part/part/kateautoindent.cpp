@@ -1988,12 +1988,12 @@ KateVarIndent::KateVarIndent( KateDocument *doc )
   d->triggers = doc->variable( "var-indent-triggerchars" );
   d->coupleAttrib = 0;
 
-  slotVariableChanged( "var-indent-couple-attribute", doc->variable( "var-indent-couple-attribute" ) );
-  slotVariableChanged( "var-indent-handle-couples", doc->variable( "var-indent-handle-couples" ) );
+  slotVariableChanged( doc, "var-indent-couple-attribute", doc->variable( "var-indent-couple-attribute" ) );
+  slotVariableChanged( doc, "var-indent-handle-couples", doc->variable( "var-indent-handle-couples" ) );
 
   // update if a setting is changed
-  connect( doc, SIGNAL(variableChanged( const QString&, const QString&) ),
-           this, SLOT(slotVariableChanged( const QString&, const QString& )) );
+  connect( doc, SIGNAL(variableChanged( KTextEditor::Document*, const QString&, const QString&) ),
+           this, SLOT(slotVariableChanged( KTextEditor::Document*, const QString&, const QString& )) );
 }
 
 KateVarIndent::~KateVarIndent()
@@ -2175,7 +2175,7 @@ void KateVarIndent::processSection (const KateDocCursor &begin, const KateDocCur
   }
 }
 
-void KateVarIndent::slotVariableChanged( const QString &var, const QString &val )
+void KateVarIndent::slotVariableChanged( KTextEditor::Document*, const QString &var, const QString &val )
 {
   if ( ! var.startsWith("var-indent") )
     return;

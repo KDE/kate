@@ -480,7 +480,7 @@ class KateDocument : public KTextEditor::Document,
     QString variable( const QString &name ) const;
 
   signals:
-    void variableChanged( const QString &, const QString & );
+    void variableChanged( KTextEditor::Document*, const QString &, const QString & );
 
   private:
     QMap<QString, QString> m_storedVariables;

@@ -496,7 +496,7 @@ class KateVarIndent :  public QObject, public KateNormalIndent
     virtual uint modeNumber () const { return KateDocumentConfig::imVarIndent; };
 
   private slots:
-    void slotVariableChanged(const QString&, const QString&);
+    void slotVariableChanged( KTextEditor::Document*, const QString&, const QString&);
 
   private:
     /**

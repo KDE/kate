@@ -4319,7 +4319,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         else
         {
           m_storedVariables.insert( var, val );
-          emit variableChanged( var, val );
+          emit variableChanged( this, var, val );
         }
       }
     }

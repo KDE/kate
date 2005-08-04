@@ -129,7 +129,7 @@ class KTEXTEDITOR_EXPORT CommandExtension
 class KTEXTEDITOR_EXPORT CommandInterface
 {
   public:
-    /** 
+    /**
      * virtual destructor
      */
     virtual ~CommandInterface () {}
@@ -142,7 +142,7 @@ class KTEXTEDITOR_EXPORT CommandInterface
      * @return success
      */
     virtual bool registerCommand (Command *cmd) = 0;
-    
+
     /**
      * unregister given command
      * this works global, for all documents
@@ -150,7 +150,7 @@ class KTEXTEDITOR_EXPORT CommandInterface
      * @return success
      */
     virtual bool unregisterCommand (Command *cmd) = 0;
-    
+
     /**
      * query for command
      * @param cmd name of command to query for
@@ -166,3 +166,5 @@ class KTEXTEDITOR_EXPORT CommandInterface
 Q_DECLARE_INTERFACE(KTextEditor::CommandInterface, "org.kde.KTextEditor.CommandInterface")
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

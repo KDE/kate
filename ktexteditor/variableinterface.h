@@ -25,28 +25,35 @@ class QString;
 
 namespace KTextEditor {
 
+class Document;
+
 /**
  * This interface is designed to provide access to "document variables",
  * for example variables defined in files like "kate: variable value;"
  * or the emacs style "-*- variable: value -*-".
  *
- * The purpose is to allow KTE plugins to use variables.
+ * The purpose is to allow KTextEditor plugins to use variables.
  * A document implementing this interface should return values for variable
- * that it does not otherwise know how to use, since they could be of interrest
- * to plugins. A document implementing this interface must emit the variableChanged()
- * signal whenever a variable is set that it will return a value for.
+ * that it does not otherwise know how to use, since they could be of
+ * interrest to plugins. A document implementing this interface must emit the
+ * signal @p variableChanged() whenever a variable is set that it will return
+ * a value for.
  *
  * @short KTextEditor interface to Document Variables
  */
 class KTEXTEDITOR_EXPORT VariableInterface
 {
   public:
+    /**
+     * virtual destructor
+     */
     virtual ~VariableInterface() {}
 
     /**
-    * @return the value of the variable @p name, or an empty string if the
-    * variable is not set or has no value.
-    */
+     * Get the value of the variable @e name.
+     * @return the value or an empty string if the variable is not set or has
+     *         no value.
+     */
     virtual QString variable( const QString &name ) const = 0;
 
     //
@@ -54,9 +61,13 @@ class KTEXTEDITOR_EXPORT VariableInterface
     //
   public:
     /**
-    * Signal: emitted when a variable is set
-    */
-    virtual void variableChanged( const QString &variable, const QString &value ) = 0;
+     * The @e document emits this signal whenever the @e value of the
+     * @e variable changes, this includes when a variable initially is set.
+     * @param document document that emitted the signal
+     * @param variable variable that changed
+     * @param value new value for @e variable
+     */
+    virtual void variableChanged( Document* document, const QString &variable, const QString &value ) = 0;
 };
 
 
@@ -65,3 +76,5 @@ class KTEXTEDITOR_EXPORT VariableInterface
 Q_DECLARE_INTERFACE(KTextEditor::VariableInterface, "org.kde.KTextEditor.VariableInterface")
 
 #endif //_KTEXTEDITOR_VARIABLE_INTERFACE_H_
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

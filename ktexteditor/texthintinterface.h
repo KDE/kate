@@ -34,27 +34,27 @@ namespace KTextEditor
 class KTEXTEDITOR_EXPORT TextHintInterface
 {
   public:
-	virtual ~TextHintInterface() {}
+    virtual ~TextHintInterface() {}
 
-	/**
-	 * enable Texthints. If they are enabled a signal needTextHint is emitted, if the mouse
-	 * changed the position and a new character is beneath the mouse cursor. The signal is delayed
-	 * for a certain time, specifiedin the timeout parameter.
-	 */
-	virtual void	enableTextHints(int timeout)=0;
+    /**
+     * enable Texthints. If they are enabled a signal needTextHint is emitted, if the mouse
+     * changed the position and a new character is beneath the mouse cursor. The signal is delayed
+     * for a certain time, specifiedin the timeout parameter.
+     */
+    virtual void enableTextHints(int timeout)=0;
 
-	/**
-	 * Disable texthints. Per default they are disabled.
-	 */
-	virtual void disableTextHints()=0;
-	
-	//signals
+    /**
+     * Disable texthints. Per default they are disabled.
+     */
+    virtual void disableTextHints()=0;
 
-	/**
-	 * emit this signal, if a tooltip text is needed for displaying.
-	 * I you don't want a tooltip to be displayd set text to an emtpy string in a connected slot,
-	 * otherwise set text to the string you want the editor to display
-	 */
+    //signals
+
+    /**
+     * emit this signal, if a tooltip text is needed for displaying.
+     * I you don't want a tooltip to be displayd set text to an emtpy string in a connected slot,
+     * otherwise set text to the string you want the editor to display
+     */
 	virtual void needTextHint(int line, int col, QString &text)=0;
 };
 
@@ -63,3 +63,5 @@ class KTEXTEDITOR_EXPORT TextHintInterface
 Q_DECLARE_INTERFACE(KTextEditor::TextHintInterface, "org.kde.KTextEditor.TextHintInterface")
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

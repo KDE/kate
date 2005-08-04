@@ -29,6 +29,8 @@ class QPixmap;
 namespace KTextEditor
 {
 
+class Document;
+
 class Mark
 {
   public:
@@ -37,59 +39,77 @@ class Mark
 };
 
 /**
-*  This is an interface to enable marks to be made in the iconborder of the Document class.
-*/
+ * The MarkInterface provides the possibility to enable and disable marks in
+ * the iconborder of a @p Document. There are several pre-defined mark types
+ * but it is possible to add custom marks and set custom pixmaps.
+ */
 class KTEXTEDITOR_EXPORT MarkInterface
 {
   public:
+    /**
+     * virtual destructor
+     */
     virtual ~MarkInterface () {}
 
   //
   // slots !!!
   //
   public:
-    /** 
-    * @return a uint representing the marks set in @p line OR'ed togeather. 
-    */
+    /**
+     * Get all marks set on the @e line.
+     * @return a @e uint representing of the marks set in @e line concatenated
+     *         by logical OR 
+     */
     virtual uint mark (uint line) = 0;
     
     /** 
-    * Adds a mark of type @p markType to @p line.
-    * Has no effect if the line allready contains a mark of that type. 
-    */
+     * Set a mark of type @e markType to @e line.
+     * If @e line already contains a mark of that type it has no effect. 
+     * All other marks are deleted before the mark is set.
+     * @param line line to set the mark
+     * @param markType mark type
+     */
     virtual void setMark (uint line, uint markType) = 0;
     /**
-    * Clears all marks set in @p line.
-    */
+     * Clear all marks set in @e line.
+     */
     virtual void clearMark (uint line) = 0;
 
+    /**
+     * Add mark of type @e markType to @e line. Existing marks on this line
+     * are preserved. If the mark @e markType already is set, nothing happens.
+     * @param line line to set the mark
+     * @param markType mark type
+     */
     virtual void addMark (uint line, uint markType) = 0;
     /**
-    *  Removes any mark of type @p markType from @p line.
-    */
+     * Removes a mark of type @e markType from @e line.
+     * @param line line to remove the mark
+     * @param markType mark type to be removed
+     */
     virtual void removeMark (uint line, uint markType) = 0;
 
     /**
-    * @return a list of all marks in the document
-    */
+     * Get a list of all marks in the document.
+     * @return a list of all marks in the document
+     */
     virtual Q3PtrList<KTextEditor::Mark> marks () = 0;
     /**
-    * Clears all marks in the document.
-    */ 
+     * Clear all marks in the document.
+     */ 
     virtual void clearMarks () = 0;
 
     /**
-     * get the number of predefined marker types we have so far.
-     * @note If you change this you have to make sure katepart supports the new size!
+     * Get the number of pre-defined marker types we have so far.
+     * @note FIXME: If you change this you have to make sure katepart supports
+     *              the new size!
      * @return number of reserved marker types
-     * @since 3.3
      */
     static int reservedMarkersCount() { return 7; }
 
     /**
      * Pre-defined mark types.
      *
-     * To create a non-standard mark type, use MarkInterfaceExtension.
      * To add a new standard mark type, edit this interface to document the type.
      */
     enum MarkTypes
@@ -148,24 +168,54 @@ class KTEXTEDITOR_EXPORT MarkInterface
   // signals !!!
   //
   public:
-    virtual void marksChanged () = 0;
-    
-  
-  public:
-    virtual void setMarkPixmap(MarkTypes, const QPixmap &)=0;
-    virtual void setMarkDescription(MarkTypes, const QString &)=0;
-    virtual void setMarksUserChangable(uint markMask)=0;
+    /**
+     * The @e document emits this signal whenever a mark changed.
+     * @param document document which emitted this signal
+     */
+    virtual void marksChanged (Document* document) = 0;
 
+    /**
+     * Methods to modify mark properties.
+     */
+  public:
+    /**
+     * Set the @e mark's pixmap to @e pixmap.
+     * @param mark mark to change
+     * @param pixmap new pixmap
+     */
+    virtual void setMarkPixmap( MarkTypes mark, const QPixmap &pixmap ) = 0;
+    /**
+     * Set the @e mark's description to @e text.
+     * @param mark mark to set the description
+     * @param text new descriptive text
+     */
+    virtual void setMarkDescription( MarkTypes mark, const QString &text ) = 0;
+    /**
+     * Set the marks user changable pattern to @e markMask, i.e. concatenate
+     * all changable marks with a logical OR.
+     * @param markMask bitmap pattern
+     */
+    virtual void setMarksUserChangable( uint markMask ) = 0;
+
+    /**
+     * Possible actions on a mark.
+     */
     enum MarkChangeAction {
-		MarkAdded=0,
-		MarkRemoved=1
+		MarkAdded=0,    /**< action: a mark was added.  */
+		MarkRemoved=1   /**< action: a mark was removed. */
 	};
 
   //
   // signals !!!
   //
   public:
-    virtual void markChanged (KTextEditor::Mark mark, 
+    /**
+     * The @e document emits this signal whenever the @e mark changes.
+     * @param document the document which emitted the signal
+     * @param mark changed makr
+     * @param action action, either removed or added
+     */
+    virtual void markChanged ( Document* document, KTextEditor::Mark mark, 
                               KTextEditor::MarkInterface::MarkChangeAction action) = 0;
 };
 

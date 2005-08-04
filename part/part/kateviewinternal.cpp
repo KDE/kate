@@ -203,7 +203,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
              this, SLOT( textHintTimeout() ) );
 
   // selection changed to set anchor
-  connect( m_view, SIGNAL( selectionChanged() ),
+  connect( m_view, SIGNAL( selectionChanged(KTextEditor::View*) ),
              this, SLOT( viewSelectionChanged() ) );
 
   // update is called in KateView, after construction and layout is over

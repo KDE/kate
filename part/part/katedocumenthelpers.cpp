@@ -27,12 +27,17 @@
 #include <kpopupmenu.h>
 #include <klocale.h>
 
+namespace KTextEditor { class View; }
+
 KateBrowserExtension::KateBrowserExtension( KateDocument* doc )
 : KParts::BrowserExtension( doc, "katepartbrowserextension" ),
   m_doc (doc)
 {
-  connect( doc, SIGNAL( selectionChanged() ),
-           this, SLOT( slotSelectionChanged() ) );
+  // FIXME: this was originally connected to the document. But as the selection
+  //        moved into the view, this is not possible anymore.
+  if( doc->activeView() )
+    connect( doc->activeView(), SIGNAL( selectionChanged(KTextEditor::View*) ),
+             this, SLOT( slotSelectionChanged() ) );
   emit enableAction( "print", true );
 }
 

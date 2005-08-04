@@ -67,7 +67,7 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
   , m_showMarks(false)
 {
   connect(this, SIGNAL(valueChanged(int)), this, SLOT(sliderMaybeMoved(int)));
-  connect(m_doc, SIGNAL(marksChanged()), this, SLOT(marksChanged()));
+  connect(m_doc, SIGNAL(marksChanged(KTextEditor::Document*)), this, SLOT(marksChanged()));
 
   m_lines.setAutoDelete(true);
 }

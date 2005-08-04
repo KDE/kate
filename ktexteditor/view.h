@@ -46,7 +46,7 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
 
   public:
     /**
-     * View Constructor
+     * View Constructor.
      * @param parent parent widget
      */
     View ( QWidget *parent ) : QWidget( parent ) {}
@@ -61,8 +61,9 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
    */
   public:
     /**
-     * Access the parent Document.
-     * @return document
+     * Get the @e document on which the view operates, i.e. the view is
+     * a view of the returned document.
+     * @return the view's document
      */
     virtual Document *document () = 0;
 
@@ -71,18 +72,19 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
    */
   public:
     /**
-     * Current view state.
-     * This can be used for example to show up that this view is now
-     * in @e INSERT mode, or @e OVERWRITE mode, or @e COMMAND mode, or
-     * whatever edit modes are supported.
-     * The string should be translated (i18n), as this is a user aimed
-     * representation of the view state, which should be shown in the GUI.
+     * Get the current view mode/state.
+     * This can be used to visually indicate the view's current mode, for
+     * example that this view's mode is now in @e INSERT mode,
+     * or @e OVERWRITE mode, or @e COMMAND mode, or whatever other edit modes
+     * are supported. The string should be translated (i18n), as this is a
+     * user aimed representation of the view state, which should be shown in
+     * the GUI (e.g. in the status bar()).
      * @see viewModeChanged()
      */
     virtual QString viewMode () const = 0;
 
     /**
-     * Edit modes. These correspond to various modes the text
+     * Possible edit modes. These correspond to various modes the text
      * editor might be in.
      */
     enum EditMode {
@@ -91,43 +93,43 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
     };
 
     /**
-     * Current edit mode
-     * should return the current mode, if there is eg some vim like command mode active, it should
-     * return the edit mode, which is the most possible one after leaving the command mode
-     * If in doubt return EditInsert
+     * Get the view's current edit mode - it should return the current mode,
+     * if there is e.g. some vim like command mode active, it should return
+     * the edit mode, which is the most possible one after leaving the
+     * command mode. If in doubt return EditInsert.
      *
      * @return the current edit mode of this view
      */
     virtual enum EditMode viewEditMode() const = 0;
-  
+
   /**
    * SIGNALS
    * following signals should be emitted by the editor view
    */
   signals:
     /**
-     * view got focus
-     * @param view view which got focus
+     * This signal is emitted whenever the @e view gets the focus.
+     * @param view view which gets focus
      */
     void focusIn ( View *view );
 
     /**
-     * view lost focus
-     * @param view view which lost focus
+     * This signal is emitted whenever the @e view looses the focus.
+     * @param view view which looses focus
      */
     void focusOut ( View *view );
 
     /**
-     * The view mode changed.
+     * This signal is emitted whenever the view mode of @e view changes.
      * @param view the view which changed its mode
      * @see viewMode()
      */
     void viewModeChanged ( View *view );
 
     /**
-     * The edit mode changed from either @c EditInsert to @c EditOverwrite
-     * or vice versa.
-     * @param view view which got focus
+     * This signal is emitted whenever the @e view's edit @e mode changed from
+     * either @c EditInsert to @c EditOverwrite or vice versa.
+     * @param view view which changed its edit mode
      * @param mode new edit mode
      */
     void viewEditModeChanged ( View *view, enum EditMode mode );
@@ -140,8 +142,9 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
     void informationMessage ( View *view, const QString &message );
 
     /**
-     * text inserted by user (typing)
-     * @param view view in which the user typed the text
+     * This signal is emitted from @e view whenever the users inserts @e text
+     * at @e position, i.e. the user typed/pasted text.
+     * @param view view in which the text was inserted
      * @param position position where the text was inserted
      * @param text the text the user has typed into the editor
      */
@@ -152,14 +155,15 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
    */
   public:
     /**
-     * Set a context menu for this view
+     * Set a context menu for this view to @e menu.
      * @param menu new context menu object for this view
      */
     virtual void setContextMenu ( QMenu *menu ) = 0;
 
     /**
-     * Retrieve the context menu for this view
-     * @return context menu object for this view or 0
+     * Get the context menu for this view. The return value can be NULL
+     * if no context menu object was set.
+     * @return context menu object
      */
     virtual QMenu *contextMenu () = 0;
 
@@ -168,27 +172,33 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
    */
   public:
     /**
-     * Set the cursor position, position is in characters
+     * Set the view's new cursor to @e position. A @e TAB character
+     * is handeled as only on character.
      * @param position new cursor position
-     * @return success
+     * @return @e true on success, otherwise @e false
      */
     virtual bool setCursorPosition (const Cursor &position) = 0;
 
     /**
-     * Get the cursor position, position is in characters
-     * @return cursor position
+     * Get the view's current cursor position. A @e TAB character is
+     * handeled as only one character.
+     * @return current cursor position
      */
     virtual const Cursor &cursorPosition () const = 0;
 
     /**
-     * Get the virtual cursor position
-     * @return cursor position, tabs count as MULTIPLE chars, as configured by user
-     * this allows access to the user visible values of the cursor position
+     * Get the current @e virtual cursor position, i.e. the tabulator
+     * character (TAB) counts @e multiple characters, as configured
+     * by the user (e.g. one TAB is 8 spaces). The virtual cursor
+     * position provides access to the user visible values of the current
+     * cursor position.
+     * 
+     * @return virtual cursor position
      */
     virtual Cursor cursorPositionVirtual () const = 0;
 
     /**
-     * Get the screen coordinates of the cursor position
+     * Get the screen coordinates (x/y) of the cursor position.
      * @return cursor screen coordinates
      */
     virtual QPoint cursorPositionCoordinates () const = 0;
@@ -200,8 +210,10 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
    */
   signals:
     /**
-     * cursor position changed!
+     * This signal is emitted whenever the @e view's cursor position changed.
      * @param view view which emitted the signal
+     * @see cursorPosition()
+     * @see cursorPositionVirtual()
      */
     void cursorPositionChanged (View *view);
 
@@ -211,54 +223,63 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
    */
   public:
     /**
-     * Set selection of view, old selection will be discarded
+     * Set the view's selection to the range specified from @e startPosition
+     * to @e endPosition. The old selection will be discarded.
      * @param startPosition start of the new selection
      * @param endPosition end of the new selection
-     * @return success
+     * @return @e true on success, otherwise @e false (e.g. when the cursor
+     *         range is invalid)
      */
     virtual bool setSelection ( const Cursor &startPosition, const Cursor &endPosition ) = 0;
 
     /**
-     * Convenience method for setting a selection. An existing old selection will be discarded
-     * Implementers should replace the default implementation with a more efficient one, if possible
-     * @param position start/end position of selection, depending on the length parameter.
-     * @param length if >0 position is start pos, if <0 position is end pos.
-     * @param wrap if false selection doesn't wrap lines, and reaches only to start/end of the cursors line. (default is true)
+     * This is an overloaded member function, provided for convenience. It
+     * differs from the above function only in what argument(s) it accepts.
+     * An existing old selection will be discarded. If possible you should
+     * reimplement the default implementation with a more efficient one.
+     * @param position start or end position of the selection, depending
+     *        on the @e length parameter
+     * @param length if >0 @e position defines the start of the selection,
+     *        if <0 @e position specifies the end
+     * @param wrap if @e false the selection does not wrap lines and reaches
+     *        only to start/end of the cursors line. Default: @e true
      */
     virtual bool setSelection ( const Cursor &position, int length, bool wrap = true );
 
     /**
-     * Is there any non-empty selection?
-     * @return true if some text is selected
+     * Query the view whether it has selected text, i.e. whether a selection
+     * exists.
+     * @return @e true if a text selection exists
      */
     virtual bool selection () const = 0;
 
     /**
-     * Retrieve the selected text
+     * Get the view's selected text.
      * @return the selected text
      */
     virtual QString selectionText () const = 0;
 
     /**
-     * Remove the current Selection (not Text)
-     * @return success
+     * Remove the view's current selection, @e without deleting the selected
+     * text.
+     * @return @e true on success, otherwise @e false
      */
     virtual bool removeSelection () = 0;
 
     /**
-     * Remove the current Selection together with the selected text!
-     * @return success
+     * Remove the view's current selection @e including the selected text.
+     * @return @e true on success, otherwise @e flase
      */
     virtual bool removeSelectionText () = 0;
 
     /**
-     * Retrieve selection start position
+     * Get the start position of the selection.
      * @return selection start
      */
     virtual const Cursor &selectionStart () const = 0;
 
     /**
-     * Retrieve selection end position
+     * Get the end position of the selection.
      * @return selection end
      */
     virtual const Cursor &selectionEnd () const = 0;
@@ -268,35 +289,40 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
    */
   public:
    /**
-    * Set block selection mode to state "on"
-    * @param on should block selection be active?
-    * @return success
+    * Set block selection mode to state @e on.
+    * @param on if @e true, block selection mode is turned on, otherwise off
+    * @return @e true on success, otherwise @e false
     */
     virtual bool setBlockSelection (bool on) = 0;
 
    /**
-    * Returns the status of the selection mode - true indicates block selection mode is on.
-    * If this is true, selections applied via the SelectionInterface are handled as
-    * blockselections and the copy'n'paste functions works on
-    * rectangular blocks of text rather than normal.
-    * @return is block selection enabled?
+    * Get the status of the selection mode - @e true indicates that block
+    * selection mode is on. If this is @e true, selections applied via the
+    * SelectionInterface are handled as block selections and the Copy&Paste
+    * functions work on rectangular blocks of text rather than normal.
+    * @return @e true, if block selection mode is enabled, otherwise @e false
     */
     virtual bool blockSelection () const = 0;
 
   /**
    * SIGNALS
-   * following signals should be emitted by the editor view
-   * if the selection state changes both on selection change itself and on change
-   * of blockselection mode!
-   * @param view view in which the selection has changed
+   * following signals should be emitted by the editor view for selection
+   * handling.
    */
   signals:
+    /**
+     * This signal is emitted whenever the @e view's selection changes.
+     * @note If the mode switches from block selection to normal selection
+     *       or vice versa this signal should also be emitted.
+     * @param view view in which the selection changed
+     */
     void selectionChanged (View *view);
 
   public:
     /**
-     * Convenience function inserts the given text at the view's current cursor position
-     * It's not needed to reimplement it, except you want to do some special things with it
+     * This is a convenience function which inserts @e text at the view's
+     * current cursor position. You do not necessarily need to reimplement
+     * it, except you want to do some special things.
      * @param text Text to be inserted
      * @return success of insertion
      */

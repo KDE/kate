@@ -46,7 +46,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
 
   public:
     /**
-     * Document Constructor
+     * Document Constructor.
      * @param parent parent object
      * @param name name
      */
@@ -58,89 +58,91 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     virtual ~Document ();
 
     /**
-     * Returns the global number of this document in your app.
+     * Get the global number of this document in your application.
      * @return document number
      */
     int documentNumber () const;
 
   /**
-   * Stuff to create and manage the views of this document and access the global
-   * editor object
+   * Methods to create and manage the views of this document and access the
+   * global editor object.
    */
   public:
     /**
-     * Create a view that will display the document data. You can create as many
-     * views as you like. When the user modifies data in one view then all other
-     * views will be updated as well.
+     * Create a view embedded into widget @e parent that will display the
+     * document data. You can create as many views as you like. When the user
+     * modifies data in one view then all other views will be updated as well,
+     * i.e. get synchronized.
      * @param parent parent widget
-     * @return created KTextEditor::View
+     * @return new document view
      */
     virtual View *createView ( QWidget *parent ) = 0;
 
     /**
-     * Returns a list of all views of this document.
+     * Get a list of all the document's views.
      * @return list of all existing views
      */
     virtual const QList<View*> &views () = 0;
 
     /**
-     * Retrieve the global editor object, the editor part
-     * implementation must ensure that this object lives as long
-     * as any factory object exists or any document
+     * Get the global editor object. The editor part implementation must
+     * ensure that this object exists as long as any factory or document
+     * object exists.
      * @return global KTextEditor::Editor object
      */
     virtual Editor *editor () = 0;
 
   signals:
    /**
-    * Should be emitted at appropriate times to help applications / plugins to
-    * attach to a new view.
+    * This signal is emitted whenever the @e document creates a new @e view.
+    * It should be called for every view to help applications / plugins to
+    * attach to the @e view.
     * @attention This signal should be emitted after the view constructor is
     *            completed, e.g. in the createView() method.
     * @param document the document for which a new view is created
-    * @param view the new created view
+    * @param view the new view
     */
     void viewCreated (Document *document, View *view);
 
   /**
-   * General information about this document and it's content
+   * General information about this document and its content.
    */
   public:
     /**
-     * Returns this document's name.
+     * Get this document's name.
      * The editor part should provide some meaningful name, like some unique
-     * Untitled XYZ for document without url or basename for documents with
-     * url.
+     * "Untitled XYZ" for the document - @e without URL or basename for
+     * documents with url.
      * @return readable document name
      */
     virtual const QString &documentName () const = 0;
 
     /**
-     * Returns this document's mimetype.
+     * Get this document's mimetype.
      * @return mimetype
      */
     virtual QString mimeType() = 0;
 
   /**
    * SIGNALS
-   * following signals should be emitted by the editor document
+   * following signals should be emitted by the editor document.
    */
   signals:
     /**
-     * document name changed
+     * This signal is emitted whenever the @e document name changes.
      * @param document document which changed its name
      */
     void documentNameChanged ( Document *document );
 
     /**
-     * document URL changed
+     * This signal is emitted whenever the @e document URL changes.
      * @param document document which changed its URL
      */
     void documentUrlChanged ( Document *document );
 
     /**
-     * the document's buffer changed from either state @e unmodified to
-     * @e modified or vice versa.
+     * This signal is emitted whenever the @e document's buffer changed from
+     * either state @e unmodified to @e modified or vice versa.
      *
      * @see KParts::ReadWritePart::isModified().
      * @see KParts::ReadWritePart::setModified()
@@ -155,217 +157,237 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
   public:
     /**
      * Set the encoding for this document. This encoding will be used
-     * while loading and saving files, it won't affect the already existing
-     * content of the document, e.g. if the file has already be opened without
-     * the correct encoding, this won't fix it, you would for example need to
-     * trigger reload for this.
-     * @param encoding new encoding for the document, name must be accepted
-     * by the QTextCodec, if empty encoding name given, the part should fallback
-     * to it's own default encoding, e.g. the system encoding or the global user
-     * settings
-     * @return success, return @e false, if the encoding could not be set
+     * while loading and saving files, it will @e not affect the already
+     * existing content of the document, e.g. if the file has already been
+     * opened without the correct encoding, this will @e not fix it, you
+     * would for example need to trigger a reload for this.
+     * @param encoding new encoding for the document, the name must be
+     *        accepted by QTextCodec, if an empty encoding name is given, the
+     *        part should fallback to its own default encoding, e.g. the
+     *        system encoding or the global user settings
+     * @see encoding()
+     * @return @e true on success, or @e false, if the encoding could not be set.
      */
     virtual bool setEncoding (const QString &encoding) = 0;
 
     /**
-     * Returns the current chosen encoding
-     * @return current encoding of the document, will return empty string if the
-     * document uses the default encoding of the editor and no own special encoding
+     * Get the current chosen encoding. The return value is an empty string,
+     * if the document uses the default encoding of the editor and no own
+     * special encoding.
+     * @see setEncoding()
+     * @return current encoding of the document
      */
     virtual const QString &encoding () const = 0;
 
   /**
-   * General file related actions
-   * All this actions cause user interaction in some cases
+   * General file related actions.
+   * All this actions cause user interaction in some cases.
    */
   public:
     /**
-     * Reload the current file
-     * The user will get prompted by the part on changes and more
-     * and can cancel this action if it can harm
-     * @return success, has the reload been done? if the document
-     * has no url set, it will just return @e false
+     * Reload the current file.
+     * The user will be prompted by the part on changes and more and can
+     * cancel this action if it can harm.
+     * @return @e true if the reload has been done, otherwise @e false. If
+     *         the document has no url set, it will just return @e false.
      */
     virtual bool documentReload () = 0;
 
     /**
-     * save the current file
-     * The user will get prompted by the part on, asked for filename if
-     * needed and more
-     * @return success, has the save been done?
+     * Save the current file.
+     * The user will be asked for a filename if needed and more.
+     * @return @e true on success, i.e. the save has been done, otherwise
+     *         @e false
      */
     virtual bool documentSave () = 0;
 
     /**
-     * save the current file with a different name
-     * The user will get prompted by the part on, asked for filename
-     * and more
-     * @return success, has the save as been done?
+     * Save the current file to another location.
+     * The user will be asked for a filename and more.
+     * @return @e true on success, i.e. the save has been done, otherwise
+     *         @e false
      */
     virtual bool documentSaveAs () = 0;
 
  /**
-  * Methodes to create/end editing sequences
+  * Methodes to create/end editing sequences.
   */
  public:
     /**
-     * Begin an editing sequence.  Edit commands during this sequence will be
-     * bunched together such that they represent a single undo command in the
-     * editor, and so that repaint events do not occur inbetween.
+     * Begin an editing sequence.
+     * Edit commands during this sequence will be bunched together so that
+     * they represent a single undo command in the editor, and so that
+     * repaint events do not occur inbetween.
      *
-     * Your application should not return control to the event loop while it
-     * has an unterminated (no matching editEnd() call) editing sequence
-     * (result undefined) - so do all of your work in one go...
+     * Your application should @e not return control to the event loop while
+     * it has an unterminated (i.e. no matching endEditing() call) editing
+     * sequence (result undefined) - so do all of your work in one go!
      *
-     * This call stacks, like the endEditing calls, this means you can safely
-     * call it three times in a row for example if you call editEnd three times, too,
-     * it internaly just does counting the running editing sessions.
+     * This call stacks, like the endEditing() calls, this means you can
+     * safely call it three times in a row for example if you call
+     * endEditing() three times, too, it internaly just does counting the
+     * running editing sessions.
      *
-     * If the texteditor part doesn't support this kind of transactions, both calls
-     * just do nothing.
+     * If the texteditor part does not support this kind of transactions,
+     * both calls just do nothing.
      *
      * @param view here you can optional give a view which does the editing
-     *             this can cause the editor part implementation to do some special
-     *             cursor handling in this view, important: this only will work
-     *             if you pass here a view which parent document is this document,
-     *             otherwise, the view is just ignored
-     * @return success, parts not supporting it should return @e false
+     *        this can cause the editor part implementation to do some
+     *        special cursor handling in this view. Important: this only will
+     *        work if you pass here a view which parent document is this
+     *        document, otherwise the view is just ignored.
+     * @return @e true on success, otherwise @e false. Parts not supporting
+     *         it should return @e false
      */
     virtual bool startEditing (View *view = 0) = 0;
 
     /**
      * End an editing sequence.
-     * @return success, parts not supporting it should return @e false
+     * @see startEditing() for more details.
+     * @return @e true on success, otherwise @e false. Parts not supporting
+     *         it should return @e false.
      */
     virtual bool endEditing () = 0;
 
   /**
-   * General access to the document's text content
+   * General access to the document's text content.
    */
   public:
     /**
-     * retrieve the document content
+     * Get the document content.
      * @return the complete document content
      */
     virtual QString text () const = 0;
 
     /**
-     * retrieve part of the document content
+     * Get the document content within the range beginning with
+     * @e startPosition and ending with @e endPosition.
      * @param startPosition start position of text to retrieve
      * @param endPosition end position of text to retrieve
-     * @return the requested text part, "" for invalid areas
+     * @return the requested text part, or "" for invalid areas
      */
     virtual QString text ( const Cursor &startPosition, const Cursor &endPosition ) const = 0;
 
     /**
-     * retrieve a single text line
+     * Get a single text line.
      * @param line the wanted line
-     * @return the requested line, "" for invalid line numbers
+     * @return the requested line, or "" for invalid line numbers
      */
     virtual QString line ( int line ) const = 0;
 
     /**
-     * count of lines in document
-     * @return The current number of lines in the document
+     * Get the count of lines of the document.
+     * @return the current number of lines in the document
      */
     virtual int lines () const = 0;
 
     /**
-     * count of characters in document
+     * Get the count of characters in the document. A TAB character counts as
+     * only one character.
      * @return the number of characters in the document
      */
     virtual int length () const = 0;
 
     /**
-     * retrieve the length of a given line in characters
+     * Get the length of a given line in characters.
      * @param line line to get length from
-     * @return the number of characters in the line (-1 if no line "line")
+     * @return the number of characters in the line or -1 if the line was
+     *         invalid
      */
     virtual int lineLength ( int line ) const = 0;
 
     /**
-     * Set the given text as new document content
+     * Set the given text as new document content.
      * @param text new content for the document
-     * @return success
+     * @return @e true on success, otherwise @e false
      */
     virtual bool setText ( const QString &text ) = 0;
 
     /**
-     * Removes the whole content of the document
-     * @return success
+     * Remove the whole content of the document.
+     * @return @e true on success, otherwise @e false
      */
     virtual bool clear () = 0;
 
     /**
-     * Inserts text at given position
+     * Insert @e text at @e position.
      * @param position position to insert the text
      * @param text text to insert
-     * @return success
+     * @return @e true on success, otherwise @e false
      */
     virtual bool insertText ( const Cursor &position, const QString &text ) = 0;
 
     /**
-     * remove part of the document content
+     * Remove a text range of the document content beginning
+     * with @e startPosition and ending with @e endPosition.
      * @param startPosition start position of text to remove
      * @param endPosition end position of text to remove
-     * @return success
+     * @return @e true on success, otherwise @e false
      */
     virtual bool removeText ( const Cursor &startPosition, const Cursor &endPosition ) = 0;
 
     /**
-     * checks if a cursor specifies a valid position in a document
-     * could be overridden by an implementor, but does not have to
+     * Checks whether the @e cursor specifies a valid position in a document.
+     * It can optionally be overridden by an implementation.
      * @param cursor which should be checked
-     * @return check result
+     * @return @e true, if the cursor is valid, otherwise @e false
      */
     virtual bool cursorInText(const Cursor &cursor);
 
     /**
-     * Insert line(s) at the given line number.
-     * Use insertLine(numLines(), text) to append line at end of document
-     * @param line line where to insert
+     * Insert line(s) at the given line number. The newline character '\\n'
+     * is treated as line delimiter, so it is possible to insert multiple
+     * lines. To append lines at the end of the document, use
+     * @code
+     *   insertLine( numLines(), text )
+     * @endcode
+     * @param line line where to insert the text
      * @param text text which should be inserted
-     * @return success
+     * @return @e true on success, otherwise @e false
      */
     virtual bool insertLine ( int line, const QString &text ) = 0;
 
     /**
-     * Remove line at the given line number.
+     * Remove @e line from the document.
      * @param line line to remove
-     * @return success
+     * @return @e true on success, otherwise @e false
      */
     virtual bool removeLine ( int line ) = 0;
 
   /**
    * SIGNALS
-   * following signals should be emitted by the document
-   * if the text content is changed
+   * Following signals should be emitted by the document if the text content
+   * is changed.
    */
   signals:
     /**
-     * Text changed!
-     * @param document document which emited this signal
+     * The @e document emits this signal whenever its text changes.
+     * @param document document which emitted this signal
      */
     void textChanged(Document *document);
 
     /**
-     * Text was inserted at range.start() up to range.end().
-     * @param document document which emited this signal
+     * The @e document emits this signal whenever text was inserted
+     * in @e range.
+     * @param document document which emitted this signal
      * @param range range that the newly inserted text occupies
      */
     void textInserted(KTextEditor::Document *document, const KTextEditor::Range& range);
 
     /**
-     * Text was removed from range.start() to range.end().
-     * @param document document which emited this signal
+     * The @e document emits this signal whenever @e range was removed, i.e.
+     * text was removed.
+     * @param document document which emitted this signal
      * @param range range that the removed text previously occupied
      */
     void textRemoved(KTextEditor::Document *document, const KTextEditor::Range& range);
 
     /**
-     * Text previously within oldRange was removed and replaced with the text now in newRange.
-     * oldRange.start() is guaranteed to equal newRange.start().
-     * @param document document which emited this signal
+     * The @e document emits this signal whenever the text in range
+     * @e oldRange was removed and replaced with the text now in @e newRange,
+     * e.g. the user selects text and pastes new text to replace the selection.
+     * @note @p oldRange.start() is guaranteed to equal @p newRange.start().
+     * @param document document which emitted this signal
      * @param oldRange range that the text previously occupied
      * @param newRange range that the changed text now occupies
      */

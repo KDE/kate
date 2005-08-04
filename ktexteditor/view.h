@@ -87,7 +87,7 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
      */
     enum EditMode {
       EditInsert = 0,   /**< Insert mode. Characters will be added. */
-      EditOverwrite = 1 /**< Overweite mode. Characters will be replaced. */
+      EditOverwrite = 1 /**< Overwrite mode. Characters will be replaced. */
     };
 
     /**

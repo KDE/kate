@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2001-2003 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2001-2005 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
 
    Based on:
@@ -37,41 +37,13 @@ KateTextLine::~KateTextLine()
 {
 }
 
-void KateTextLine::insertText (int pos, uint insLen, const QChar *insText, const uchar *insAttribs)
+void KateTextLine::insertText (int pos, uint insLen, const QChar *insText)
 {
   // nothing to do
   if (insLen == 0)
     return;
 
-  // calc new textLen, store old
-  int oldTextLen = m_text.length();
   m_text.insert (pos, insText, insLen);
-  int textLen = m_text.length();
-
-  // resize the array
-  m_attributes.resize (textLen);
-
-  // HA, insert behind text end, fill with spaces
-  if (pos >= oldTextLen)
-  {
-    for (int z = oldTextLen; z < pos; z++)
-      m_attributes[z] = 0;
-  }
-  // HA, insert in text, move the old text behind pos
-  else if (oldTextLen > 0)
-  {
-    for (int z = oldTextLen -1; z >= (int) pos; z--)
-      m_attributes[z+insLen] = m_attributes[z];
-  }
-
-  // BUH, actually insert the new text
-  for (uint z = 0; z < insLen; z++)
-  {
-    if (insAttribs == 0)
-      m_attributes[z+pos] = 0;
-    else
-      m_attributes[z+pos] = insAttribs[z];
-  }
 }
 
 void KateTextLine::removeText (uint pos, uint delLen)
@@ -91,12 +63,7 @@ void KateTextLine::removeText (uint pos, uint delLen)
   if ((pos + delLen) > textLen)
     delLen = textLen - pos;
 
-  // BU, MOVE THE OLD TEXT AROUND
-  for (uint z = pos; z < textLen - delLen; z++)
-    m_attributes[z] = m_attributes[z+delLen];
-
   m_text.remove (pos, delLen);
-  m_attributes.resize (m_text.length ());
 }
 
 void KateTextLine::truncate(int newLen)
@@ -105,10 +72,7 @@ void KateTextLine::truncate(int newLen)
     newLen = 0;
 
   if (newLen < m_text.length())
-  {
     m_text.truncate (newLen);
-    m_attributes.resize (newLen);
-  }
 }
 
 int KateTextLine::nextNonSpaceChar(uint pos) const
@@ -331,12 +295,13 @@ char *KateTextLine::dump (char *buf, bool withHighlighting) const
   if (!withHighlighting)
     return buf;
 
-  memcpy(buf, (char *)m_attributes.data(), sizeof(uchar) * l);
-  buf += sizeof (uchar) * l;
-
+  uint lattributes = m_attributesList.size();
   uint lctx = m_ctx.size();
   uint lfold = m_foldingList.size();
   uint lind = m_indentationDepth.size();
+
+  memcpy(buf, &lattributes, sizeof(uint));
+  buf += sizeof(uint);
 
   memcpy(buf, &lctx, sizeof(uint));
   buf += sizeof(uint);
@@ -347,10 +312,13 @@ char *KateTextLine::dump (char *buf, bool withHighlighting) const
   memcpy(buf, &lind, sizeof(uint));
   buf += sizeof(uint);
 
+  memcpy(buf, (char *)m_attributesList.data(), sizeof(int) * lattributes);
+  buf += sizeof (short) * lattributes;
+
   memcpy(buf, (char *)m_ctx.data(), sizeof(short) * lctx);
   buf += sizeof (short) * lctx;
 
-  memcpy(buf, (char *)m_foldingList.data(), sizeof(uint)*lfold);
+  memcpy(buf, (char *)m_foldingList.data(), sizeof(int)*lfold);
   buf += sizeof (uint) * lfold;
 
   memcpy(buf, (char *)m_indentationDepth.data(), sizeof(unsigned short) * lind);
@@ -383,21 +351,18 @@ char *KateTextLine::restore (char *buf)
     if (f & KateTextLine::flagAutoWrapped)
       m_flags = m_flags | KateTextLine::flagAutoWrapped;
 
-    // fill with clean empty attribs !
-    m_attributes.fill (0, l);
-
     return buf;
   }
   else
     m_flags = f;
 
-  m_attributes.resize (l);
-  memcpy((char *) m_attributes.data(), buf, sizeof(uchar) * l);
-  buf += sizeof(uchar) * l;
-
+  uint lattributes = 0;
   uint lctx = 0;
   uint lfold = 0;
   uint lind = 0;
+
+  memcpy((char *) &lattributes, buf, sizeof(uint));
+  buf += sizeof(uint);
 
   memcpy((char *) &lctx, buf, sizeof(uint));
   buf += sizeof(uint);
@@ -408,12 +373,16 @@ char *KateTextLine::restore (char *buf)
   memcpy((char *) &lind, buf, sizeof(uint));
   buf += sizeof(uint);
 
+  m_attributesList.resize (lattributes);
+  memcpy((char *) m_attributesList.data(), buf, sizeof(int) * lattributes);
+  buf += sizeof(short) * lattributes;
+
   m_ctx.resize (lctx);
   memcpy((char *) m_ctx.data(), buf, sizeof(short) * lctx);
   buf += sizeof(short) * lctx;
 
   m_foldingList.resize (lfold);
-  memcpy((char *) m_foldingList.data(), buf, sizeof(uint)*lfold);
+  memcpy((char *) m_foldingList.data(), buf, sizeof(int)*lfold);
   buf += sizeof(uint)*lfold;
 
   m_indentationDepth.resize (lind);

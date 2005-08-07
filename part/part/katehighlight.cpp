@@ -1347,13 +1347,9 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   // in all cases, remove old hl, or we will grow to infinite ;)
   textLine->clearAttributes ();
 
+  // no hl set, nothing to do more than the above cleaning ;)
   if (noHl)
-  {
-    if (textLine->length() > 0)
-      memset (textLine->attributes(), 0, textLine->length());
-
     return;
-  }
 
   // duplicate the ctx stack, only once !
   QVector<short> ctx (prevLine->ctxArray());
@@ -1524,10 +1520,6 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
           offset2 = len;
 
         // even set attributes ;)
-        memset ( textLine->attributes()+offset
-               , item->onlyConsume ? context->attr : item->attr
-               , offset2-offset);
-
         int attribute = item->onlyConsume ? context->attr : item->attr;
         if (attribute > 0)
           textLine->addAttribute (offset, offset2-offset, attribute);
@@ -1562,9 +1554,8 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       continue;
     }
     else
-    {
-      *(textLine->attributes() + offset) = context->attr;
-      
+    {   
+      // set attribute if any   
       if (context->attr > 0)
         textLine->addAttribute (offset, 1, context->attr);
       

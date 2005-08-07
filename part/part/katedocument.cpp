@@ -1093,7 +1093,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLi
   {
     KateTextLine::Ptr textLine = new KateTextLine();
 
-    textLine->insertText (0, pos, l->text()+col, l->attributes()+col);
+    textLine->insertText (0, pos, l->text()+col);
     l->truncate(col);
 
     m_buffer->insertLine (line+1, textLine);
@@ -1125,7 +1125,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLi
   }
   else
   {
-    nextLine->insertText (0, pos, l->text()+col, l->attributes()+col);
+    nextLine->insertText (0, pos, l->text()+col);
     l->truncate(col);
 
     m_buffer->changeLine(line);
@@ -1165,15 +1165,14 @@ bool KateDocument::editUnWrapLine ( uint line, bool removeLine, uint length )
 
   if (removeLine)
   {
-    l->insertText (col, nextLine->length(), nextLine->text(), nextLine->attributes());
+    l->insertText (col, nextLine->length(), nextLine->text());
 
     m_buffer->changeLine(line);
     m_buffer->removeLine(line+1);
   }
   else
   {
-    l->insertText (col, (nextLine->length() < length) ? nextLine->length() : length,
-      nextLine->text(), nextLine->attributes());
+    l->insertText (col, (nextLine->length() < length) ? nextLine->length() : length, nextLine->text());
     nextLine->removeText (0, (nextLine->length() < length) ? nextLine->length() : length);
 
     m_buffer->changeLine(line);
@@ -1232,7 +1231,7 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   removeTrailingSpace( line ); // old line
 
   KateTextLine::Ptr tl = new KateTextLine();
-  tl->insertText (0, s.length(), s.unicode(), 0);
+  tl->insertText (0, s.length(), s.unicode());
   m_buffer->insertLine(line, tl);
   m_buffer->changeLine(line);
 

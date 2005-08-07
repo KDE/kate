@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2001-2003 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2001-2005 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
 
    Based on:
@@ -152,23 +152,6 @@ class KateTextLine : public KShared
     inline const QChar *text() const { return m_text.unicode(); }
 
     /**
-     * Highlighting array
-     * The size of this is string().length()
-     *
-     * This contains the index for the attributes (so you can only
-     * have a maximum of 2^8 different highlighting styles in a document)
-     *
-     * To turn this into actual attributes (bold, green, etc),
-     * you need to feed these values into KRenderer::attributes
-     *
-     * e.g:  m_renderer->attributes(attributes[3]);
-     *
-     * @return hl-attributes array
-     */
-    inline const uchar *attributes () const { return m_attributes.data(); }
-    inline uchar *attributes () { return m_attributes.data(); }
-
-    /**
      * Gets a QString
      * @return text of line as QString reference
      */
@@ -268,11 +251,18 @@ class KateTextLine : public KShared
      *
      * @param pos position of attribute requested
      * @return value of attribute
-     * @see attributes
      */
-    inline uchar attribute (uint pos) const
+    inline uchar attribute (int pos) const
     {
-      if (pos < (uint)m_attributes.size()) return m_attributes[pos];
+      for (int i=0; i < m_attributesList.size(); i+=3)
+      {
+        if (pos >= m_attributesList[i] && pos <= m_attributesList[i]+m_attributesList[i+1])
+          return m_attributesList[i+2];
+
+        if (pos < m_attributesList[i])
+          break;
+      }
+
       return 0;
     }
 
@@ -304,9 +294,8 @@ class KateTextLine : public KShared
      * @param pos insert position
      * @param insLen insert length
      * @param insText text to insert
-     * @param insAttribs attributes for the insert text
      */
-    void insertText (int pos, uint insLen, const QChar *insText, const uchar *insAttribs = 0);
+    void insertText (int pos, uint insLen, const QChar *insText);
 
     /**
      * remove text at given position
@@ -385,15 +374,15 @@ class KateTextLine : public KShared
      */
     inline uint dumpSize (bool withHighlighting) const
     {
-      return ( 1
-               + sizeof(uint)
-               + (m_text.length() * sizeof(QChar))
+      return ( sizeof(uchar) // the cool flags
+               + sizeof(uint) // textlen
+               + (m_text.length() * sizeof(QChar)) // the TEXT, important, I guess
                + ( withHighlighting ?
-                     ( (3 * sizeof(uint))
-                       + (m_text.length() * sizeof(uchar))
-                       + (m_ctx.size() * sizeof(short))
-                       + (m_foldingList.size() * sizeof(uint))
-                       + (m_indentationDepth.size() * sizeof(unsigned short))
+                     ( (4 * sizeof(uint)) // 4 lenghts of the following arrays
+                       + (m_attributesList.size() * sizeof(int)) // attributes
+                       + (m_ctx.size() * sizeof(short)) // context stack
+                       + (m_foldingList.size() * sizeof(int)) // folding list
+                       + (m_indentationDepth.size() * sizeof(unsigned short)) // indentation depth
                      ) : 0
                  )
              );
@@ -436,15 +425,8 @@ class KateTextLine : public KShared
     QString m_text;
 
     /**
-     * array of highlighting attributes
-     * This is exactly the same size as m_text.length()
-     * Each letter in m_text has a uchar attribute
-     */
-    QVector<uchar> m_attributes;
-
-    /**
      * new kind to store the attribs, int array
-     * one int len, next one len, next one attrib
+     * one int start, next one len, next one attrib
      */
     QVector<int> m_attributesList;
 

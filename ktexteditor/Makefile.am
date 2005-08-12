@@ -4,7 +4,7 @@ lib_LTLIBRARIES = libktexteditor.la
 
 libktexteditor_la_SOURCES = ktexteditor.cpp range.cpp templateinterface.cpp editorchooser.cpp editorchooser_ui.ui
 libktexteditor_la_LDFLAGS = -no-undefined $(all_libraries) $(KDE_RPATH)
-libktexteditor_la_LIBADD = $(LIB_KPARTS)
+libktexteditor_la_LIBADD = $(top_builddir)/interfaces/kdocument/libkdocument.la $(LIB_KPARTS)
 
 ktexteditorinclude_HEADERS = factory.h editor.h document.h view.h plugin.h cursor.h range.h configpage.h \
                              searchinterface.h highlightinginterface.h \

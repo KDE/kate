@@ -155,8 +155,8 @@ Editor::~Editor()
 {
 }
 
-Document::Document( QObject *parent, const char *name )
- : KParts::ReadWritePart( parent, name )
+Document::Document( QObject *parent)
+ : KDocument::Document( parent)
  , m_d (0)
  , m_documentNumber (++globalDocumentNumber)
 {

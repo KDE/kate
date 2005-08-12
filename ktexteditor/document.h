@@ -22,6 +22,7 @@
 // the very important KTextEditor::Cursor class
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/range.h>
+#include <kdocument/document.h>
 
 // our main baseclass of the KTextEditor::Document
 #include <kparts/part.h>
@@ -40,7 +41,7 @@ class View;
  * This class provides access to the document content, allows
  * modifications and other stuff.
  */
-class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
+class KTEXTEDITOR_EXPORT Document : public KDocument::Document
 {
   Q_OBJECT
 
@@ -48,9 +49,8 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     /**
      * Document Constructor.
      * @param parent parent object
-     * @param name name
      */
-    Document ( QObject *parent = 0, const char *name = 0 );
+    Document ( QObject *parent = 0);
 
     /**
      * virtual destructor
@@ -68,22 +68,6 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
    * global editor object.
    */
   public:
-    /**
-     * Create a view embedded into widget @e parent that will display the
-     * document data. You can create as many views as you like. When the user
-     * modifies data in one view then all other views will be updated as well,
-     * i.e. get synchronized.
-     * @param parent parent widget
-     * @return new document view
-     */
-    virtual View *createView ( QWidget *parent ) = 0;
-
-    /**
-     * Get a list of all the document's views.
-     * @return list of all existing views
-     */
-    virtual const QList<View*> &views () = 0;
-
     /**
      * Get the global editor object. The editor part implementation must
      * ensure that this object exists as long as any factory or document

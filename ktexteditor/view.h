@@ -25,6 +25,8 @@
 // gui merging
 #include <kxmlguiclient.h>
 
+#include <kdocument/view.h>
+
 // widget
 #include <qwidget.h>
 
@@ -40,7 +42,7 @@ class Document;
  * The view should provide both the graphical representation of the text
  * and the xmlgui for the actions
  */
-class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
+class KTEXTEDITOR_EXPORT View : public KDocument::View
 {
   Q_OBJECT
 
@@ -49,7 +51,7 @@ class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
      * View Constructor.
      * @param parent parent widget
      */
-    View ( QWidget *parent ) : QWidget( parent ) {}
+    View ( QWidget *parent ) : KDocument::View( parent ) {}
 
     /**
      * virtual destructor

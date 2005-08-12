@@ -92,7 +92,7 @@ class KatePartPluginItem
 KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
                              bool bReadOnly, QWidget *parentWidget,
                              const char *, QObject *parent, const char *name)
-: KTextEditor::Document (parent, name),
+: KTextEditor::Document (parent),
   m_plugins (KateGlobal::self()->plugins().count()),
   m_activeView(0L),
   m_undoDontMerge(false),
@@ -105,6 +105,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_tempFile (0),
   m_tabInterceptor(0)
 {
+  setObjectName(name);
   m_undoComplexMerge=false;
 
   Q3CString num;
@@ -197,7 +198,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // if single view mode, like in the konqui embedding, create a default view ;)
   if ( m_bSingleViewMode )
   {
-    KTextEditor::View *view = createView( parentWidget );
+    KTextEditor::View *view = (KTextEditor::View*)createView( parentWidget );
     insertChildClient( view );
     view->show();
     setWidget( view );
@@ -335,7 +336,7 @@ void KateDocument::disablePluginGUI (KTextEditor::Plugin *plugin)
 
 //BEGIN KTextEditor::Document stuff
 
-KTextEditor::View *KateDocument::createView( QWidget *parent )
+KDocument::View *KateDocument::createView( QWidget *parent )
 {
   KateView* newView = new KateView( this, parent);
   connect(newView, SIGNAL(cursorPositionChanged()), SLOT(undoCancel()));
@@ -347,7 +348,7 @@ KTextEditor::View *KateDocument::createView( QWidget *parent )
   return newView;
 }
 
-const QList<KTextEditor::View*> &KateDocument::views ()
+const QList<KDocument::View*> &KateDocument::views ()
 {
   return m_textEditViews;
 }

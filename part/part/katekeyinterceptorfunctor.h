@@ -20,6 +20,7 @@
 #include <kshortcut.h>
 class KateKeyInterceptorFunctor {
   public:
+  virtual ~KateKeyInterceptorFunctor(){};
   virtual bool operator()(KKey key)=0;
 };
 #endif

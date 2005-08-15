@@ -1069,7 +1069,7 @@ KateTextLayout KateViewInternal::previousLayout() const
 
 KateTextLayout KateViewInternal::nextLayout() const
 {
-  uint currentViewLine = cache()->viewLine(m_cursor) + 1;
+  int currentViewLine = cache()->viewLine(m_cursor) + 1;
 
   if (currentViewLine >= cache()->line(m_cursor.line())->viewLineCount()) {
     currentViewLine = 0;

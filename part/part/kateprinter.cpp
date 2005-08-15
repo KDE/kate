@@ -639,6 +639,7 @@ bool KatePrinter::print (KateDocument *doc)
 #endif //!Q_WS_WIN
   return false;
 #endif
+  return false; //FIXME ?
 }
 //END KatePrinter
 

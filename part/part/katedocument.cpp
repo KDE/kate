@@ -864,7 +864,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine)
 
   editStart ();
 
-  for (uint line = startLine; (line <= endLine) && (line < lines()); line++)
+  for (int line = startLine; (line <= endLine) && (line < lines()); line++)
   {
     KateTextLine::Ptr l = m_buffer->line(line);
 

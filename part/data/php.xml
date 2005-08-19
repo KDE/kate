@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.23" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.24" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -2671,6 +2671,8 @@
         <StringDetect attribute="Keyword" context="#pop#pop" String="?&gt;" endRegion="php" />
         <DetectChar attribute="Comment" context="onelinecomment" char="#" />
         <IncludeRules context="##Doxygen" />
+        <RegExpr attribute="Comment" context="onelinecomment" String="\/\/\s*\{\{\{" beginRegion="ArbitraryFolding"/>
+        <RegExpr attribute="Comment" context="onelinecomment" String="\/\/\s*\}\}\}" endRegion="ArbitraryFolding"/>
         <Detect2Chars attribute="Comment" context="onelinecomment" char="/" char1="/" />
         <Detect2Chars attribute="Comment" context="twolinecomment" char="/" char1="&#42;" beginRegion="Comment"/>
         <keyword attribute="Control Structures" context="#stay" String="control structures" />

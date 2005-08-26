@@ -2086,6 +2086,12 @@ bool KateHighlighting::canBreakAt( QChar c, int attrib ) const
   return (m_additionalData[ hlKeyForAttrib( attrib ) ]->wordWrapDeliminator.find(c) != -1) && (sq.find(c) == -1);
 }
 
+QLinkedList<QRegExp> KateHighlighting::emptyLines(int attrib) const
+{
+  kdDebug()<<"hlKeyForAttrib: "<<hlKeyForAttrib(attrib)<<endl;
+  return m_additionalData[hlKeyForAttrib(attrib)]->emptyLines;
+}
+
 signed char KateHighlighting::commentRegion(int attr) const {
   QString commentRegion=m_additionalData[ hlKeyForAttrib( attr ) ]->multiLineRegion;
   return (commentRegion.isEmpty()?0:(commentRegion.toShort()));
@@ -2162,6 +2168,36 @@ void KateHighlighting::readCommentConfig()
   m_additionalData[buildIdentifier]->multiLineCommentEnd = cmlEnd;
   m_additionalData[buildIdentifier]->multiLineRegion = cmlRegion;
 }
+
+
+
+
+void KateHighlighting::readEmptyLineConfig()
+{
+  KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
+  KateSyntaxContextData *data=KateHlManager::self()->syntax->getGroupInfo("general","emptyLine");
+
+  QLinkedList<QRegExp> exprList;
+
+  if (data)
+  {
+    while  (KateHlManager::self()->syntax->nextGroup(data))
+    {
+      kdDebug(13010)<<"creating an empty line regular expression"<<endl;
+      QString regexprline=KateHlManager::self()->syntax->groupData(data,"regexpr");
+      bool regexprcase=(KateHlManager::self()->syntax->groupData(data,"casesensitive").toUpper().compare("TRUE")==0);
+      exprList.append(QRegExp(regexprline,regexprcase?Qt::CaseSensitive:Qt::CaseInsensitive));
+    }
+      KateHlManager::self()->syntax->freeGroupInfo(data);
+  }
+
+  m_additionalData[buildIdentifier]->emptyLines = exprList;
+}
+
+
+
+
+
 
 /**
  * Helper for makeContextList. It parses the xml file for information,
@@ -2646,6 +2682,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
   // fill out the propertybag
   readCommentConfig();
+  readEmptyLineConfig();
   readGlobalKeywordConfig();
   readWordWrapConfig();
 

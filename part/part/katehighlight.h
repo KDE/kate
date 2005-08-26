@@ -42,6 +42,8 @@
 #include <qstringlist.h>
 #include <qpointer.h>
 #include <qdatetime.h>
+#include <QLinkedList>
+#include <QRegExp>
 
 class KateHlContext;
 class KateHlItem;
@@ -175,6 +177,10 @@ class KateHighlighting
     bool canBreakAt( QChar c, int attrib=0 ) const;
 
     /**
+     *
+     */
+    QLinkedList<QRegExp> emptyLines(int attribute=0) const;
+    /**
     * @return true if @p beginAttr and @p endAttr are members of the same
     * highlight, and there are comment markers of either type in that.
     */
@@ -248,6 +254,7 @@ class KateHighlighting
     void readGlobalKeywordConfig();
     void readWordWrapConfig();
     void readCommentConfig();
+    void readEmptyLineConfig();
     void readIndentationConfig ();
     void readFoldingConfig ();
 
@@ -332,6 +339,7 @@ class KateHighlighting
         CSLPos  singleLineCommentPosition;
         QString deliminator;
         QString wordWrapDeliminator;
+	QLinkedList<QRegExp> emptyLines;
     };
 
     /**

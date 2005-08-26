@@ -942,6 +942,22 @@ void KateBuffer::addIndentBasedFoldingInformation(QVector<int> &foldingList,bool
   }
 }
 
+
+bool KateBuffer::isEmptyLine(KateTextLine::Ptr textline)
+{
+  QLinkedList<QRegExp> l;
+  l=m_highlight->emptyLines(textline->attribute(0));
+  kdDebug(13020)<<"trying to find empty line data"<<endl;
+  if (l.isEmpty()) return false;
+  QString txt=textline->string();
+  kdDebug(13020)<<"checking empty line regexp"<<endl;
+  foreach(QRegExp re,l) {
+    if (re.exactMatch(txt)) return true;
+  }
+  kdDebug(13020)<<"no matches"<<endl;
+  return false;
+}
+
 bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, bool invalidate)
 {
   // no hl around, no stuff to do
@@ -1070,7 +1086,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
       textLine->setNoIndentBasedFoldingAtStart(prevLine->noIndentBasedFolding());
       // this line is empty, beside spaces, or has indentaion based folding disabled, use indentation depth of the previous line !
       kdDebug(13020)<<"current_line:"<<current_line + buf->startLine()<<" textLine->noIndentBasedFoldingAtStart"<<textLine->noIndentBasedFoldingAtStart()<<endl;
-      if ( (textLine->firstChar() == -1) || textLine->noIndentBasedFoldingAtStart())
+      if ( (textLine->firstChar() == -1) || textLine->noIndentBasedFoldingAtStart() || isEmptyLine(textLine) )
       {
         // do this to get skipped empty lines indent right, which was given in the indenation array
         if (!prevLine->indentationDepthArray().isEmpty())
@@ -1094,7 +1110,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
       indentContinueNextWhitespace=false;
       if ((current_line+1) < buf->lines())
       {
-        if (buf->line(current_line+1)->firstChar() == -1)
+        if ( (buf->line(current_line+1)->firstChar() == -1) || isEmptyLine(buf->line(current_line+1)) )
         {
           nextLineIndentation = iDepth;
           indentContinueNextWhitespace=true;
@@ -1108,7 +1124,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
 
         if (blk && (blk->lines() > 0))
         {
-          if (blk->line (0)->firstChar() == -1)
+          if ( (blk->line (0)->firstChar() == -1) )
           {
             nextLineIndentation = iDepth;
             indentContinueNextWhitespace=true;

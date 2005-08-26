@@ -1405,6 +1405,7 @@ bool KateCodeFoldingTree::existsOpeningAtLineAfter(unsigned int line, KateCodeFo
     KateCodeFoldingNode *tmp2;
     unsigned int startLine=getStartLine(tmp);
 
+    if ( (tmp->findChild(node)+1) >= tmp->childCount()) return false;
     if ((tmp2 = tmp->child(tmp->findChild(node) + 1))
          && ((tmp2->startLineRel + startLine) == line))
       return true;

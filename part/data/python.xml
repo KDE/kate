@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language>
 <!-- Python syntax highlightning v0.9 by Per Wigren -->
-<language name="Python" version="1.24" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw;SConstruct;SConscript" mimetype="application/x-python;text/x-python" casesensitive="1" author="Per Wigren" license="">
+<language name="Python" version="1.25" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw;SConstruct;SConscript" mimetype="application/x-python;text/x-python" casesensitive="1" author="Per Wigren" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -225,6 +225,10 @@
 	</highlighting>
    <general>
      <folding indentationsensitive="1" />
+     <emptyLines>
+       <emptyLine regexpr="\s+" casesensitive="false"/>
+       <emptyLine regexpr="\s*#.*$" casesensitive="false"/>
+     </emptyLines>
      <comments>
        <comment name="singleLine" start="#" position="afterwhitespace"/>
      </comments>

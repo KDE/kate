@@ -130,7 +130,7 @@ KTextEditor::Editor *EditorChooser::editor(const QString& postfix,bool fallBackT
 		if (tmpEd) return tmpEd;
 	}
 	if (fallBackToKatePart)
-		return KTextEditor::editor("libkatepart");
+		return KTextEditor::editor("katepart");
 
 	return 0;
 }

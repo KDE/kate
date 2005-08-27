@@ -113,20 +113,20 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * This signal is emitted whenever the @e view gets the focus.
      * @param view view which gets focus
      */
-    void focusIn ( View *view );
+    void focusIn ( KTextEditor::View *view );
 
     /**
      * This signal is emitted whenever the @e view looses the focus.
      * @param view view which looses focus
      */
-    void focusOut ( View *view );
+    void focusOut ( KTextEditor::View *view );
 
     /**
      * This signal is emitted whenever the view mode of @e view changes.
      * @param view the view which changed its mode
      * @see viewMode()
      */
-    void viewModeChanged ( View *view );
+    void viewModeChanged ( KTextEditor::View *view );
 
     /**
      * This signal is emitted whenever the @e view's edit @e mode changed from
@@ -134,14 +134,14 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * @param view view which changed its edit mode
      * @param mode new edit mode
      */
-    void viewEditModeChanged ( View *view, enum EditMode mode );
+    void viewEditModeChanged ( KTextEditor::View *view, enum KTextEditor::View::EditMode mode );
 
     /**
      * information message
      * @param view view which sends out information
      * @param message information message
      */
-    void informationMessage ( View *view, const QString &message );
+    void informationMessage ( KTextEditor::View *view, const QString &message );
 
     /**
      * This signal is emitted from @e view whenever the users inserts @e text
@@ -150,7 +150,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * @param position position where the text was inserted
      * @param text the text the user has typed into the editor
      */
-    void textInserted ( View *view, const Cursor &position, const QString &text );
+    void textInserted ( KTextEditor::View *view, const KTextEditor::Cursor &position, const QString &text );
 
   /**
    * Context menu handling
@@ -217,7 +217,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * @see cursorPosition()
      * @see cursorPositionVirtual()
      */
-    void cursorPositionChanged (View *view);
+    void cursorPositionChanged (KTextEditor::View *view);
 
   /**
    * Selection methodes
@@ -318,7 +318,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      *       or vice versa this signal should also be emitted.
      * @param view view in which the selection changed
      */
-    void selectionChanged (View *view);
+    void selectionChanged (KTextEditor::View *view);
 
   public:
     /**

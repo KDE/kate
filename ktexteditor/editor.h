@@ -178,7 +178,7 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
      * @param document the newly created document instance
      * @see createDocument()
      */
-    void documentCreated (Editor *editor, Document *document);
+    void documentCreated (KTextEditor::Editor *editor, KTextEditor::Document *document);
 };
 
 KTEXTEDITOR_EXPORT Editor *editor ( const char *libname );

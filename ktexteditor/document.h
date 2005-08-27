@@ -86,7 +86,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
     * @param document the document for which a new view is created
     * @param view the new view
     */
-    void viewCreated (Document *document, View *view);
+    void viewCreated (KTextEditor::Document *document, KTextEditor::View *view);
 
   /**
    * General information about this document and its content.
@@ -116,13 +116,13 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * This signal is emitted whenever the @e document name changes.
      * @param document document which changed its name
      */
-    void documentNameChanged ( Document *document );
+    void documentNameChanged ( KTextEditor::Document *document );
 
     /**
      * This signal is emitted whenever the @e document URL changes.
      * @param document document which changed its URL
      */
-    void documentUrlChanged ( Document *document );
+    void documentUrlChanged ( KTextEditor::Document *document );
 
     /**
      * This signal is emitted whenever the @e document's buffer changed from
@@ -132,7 +132,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * @see KParts::ReadWritePart::setModified()
      * @param document document which changed its modified state
      */
-    void modifiedChanged ( Document *document );
+    void modifiedChanged ( KTextEditor::Document *document );
 
   /**
    * VERY IMPORTANT: Methodes to set and query the current encoding of the
@@ -348,7 +348,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * The @e document emits this signal whenever its text changes.
      * @param document document which emitted this signal
      */
-    void textChanged(Document *document);
+    void textChanged(KTextEditor::Document *document);
 
     /**
      * The @e document emits this signal whenever text was inserted

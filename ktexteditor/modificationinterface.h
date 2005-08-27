@@ -82,7 +82,8 @@ class KTEXTEDITOR_EXPORT ModificationInterface
      * @param isModified indicates the file was modified rather than created or deleted
      * @param reason the reason we are emitting the signal.
      */
-    virtual void modifiedOnDisk (Document *doc, bool isModified, ModifiedOnDiskReason reason) = 0;
+    virtual void modifiedOnDisk (KTextEditor::Document *doc, bool isModified,
+                                 KTextEditor::ModificationInterface::ModifiedOnDiskReason reason) = 0;
 };
 
 }

@@ -130,6 +130,7 @@ class KateIndentConfigTab : public KateConfigPage
     QGroupBox *m_tabs;
     KComboBox *m_indentMode;
     QPushButton *m_configPage;
+    QRadioButton *rb1, *rb2, *rb3;
 
   public slots:
     void configPage();

@@ -187,7 +187,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   opt[4] = new QCheckBox(i18n("&Backspace key indents"), keys);
   vb->addWidget (opt[4]);
 
-  QRadioButton *rb1, *rb2, *rb3;
   m_tabs = new QGroupBox(i18n("Tab Key Mode if Nothing Selected"), this );
   QVBoxLayout *tablayout=new QVBoxLayout(m_tabs);
   
@@ -325,11 +324,10 @@ void KateIndentConfigTab::apply ()
   KateDocumentConfig::global()->setIndentationWidth(indentationWidth->value());
 
   KateDocumentConfig::global()->setIndentationMode(m_indentMode->currentItem());
-#warning PORTME
-#if 0
-KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabIndentsMode, 2 == m_tabs->id (m_tabs->selected()));
-  KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabInsertsTab, 1 == m_tabs->id (m_tabs->selected()));
-#endif
+
+  KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabIndentsMode, rb3->isChecked());
+  KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabInsertsTab, rb2->isChecked());
+
   KateDocumentConfig::global()->configEnd ();
 }
 

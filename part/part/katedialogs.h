@@ -156,6 +156,7 @@ class KateSelectConfigTab : public KateConfigPage
     QGroupBox *m_tabs;
     KIntNumInput *e4;
     QCheckBox *e6;
+    QRadioButton *rb1, *rb2;
 
   public slots:
     void apply ();

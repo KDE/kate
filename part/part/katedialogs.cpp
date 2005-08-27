@@ -378,8 +378,6 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
 
   layout->addWidget(gbCursor);
 
-  QRadioButton *rb1, *rb2;
-
   m_tabs = new QGroupBox(i18n("Selection Mode"), this );
   layout->add (m_tabs);
   QVBoxLayout *tablayout=new QVBoxLayout(m_tabs);
@@ -442,10 +440,9 @@ void KateSelectConfigTab::apply ()
 
   KateViewConfig::global()->setAutoCenterLines(QMAX(0, e4->value()));
   KateDocumentConfig::global()->setPageUpDownMovesCursor(e6->isChecked());
-#warning portme
-#if 0
-  KateViewConfig::global()->setPersistentSelection (m_tabs->id (m_tabs->selected()) == 1);
-#endif
+
+  KateViewConfig::global()->setPersistentSelection (rb2->isChecked());
+
   KateDocumentConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
 }

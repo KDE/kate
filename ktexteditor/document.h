@@ -57,12 +57,6 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      */
     virtual ~Document ();
 
-    /**
-     * Get the global number of this document in your application.
-     * @return document number
-     */
-    int documentNumber () const;
-
   /**
    * Methods to create and manage the views of this document and access the
    * global editor object.
@@ -376,17 +370,6 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * @param newRange range that the changed text now occupies
      */
     void textChanged(KTextEditor::Document *document, const KTextEditor::Range& oldRange, const KTextEditor::Range& newRange);
-
-  private:
-    /**
-     * Private d-pointer
-     */
-    class PrivateDocument *m_d;
-
-    /**
-     * document number
-     */
-    int m_documentNumber;
 };
 
 }

@@ -59,20 +59,6 @@ using namespace KTextEditor;
 
 namespace KTextEditor
 {
-  class PrivateDocument
-  {
-  public:
-    PrivateDocument ()
-    {
-    }
-
-    ~PrivateDocument()
-    {
-    }
-  };
-
-
-
     class CompletionItem::Private: public QSharedData { //implicitly shared data, I can't move it into a private header file or the implementation, since the QSharedDataPointer causes compile problems, perhaps I should make it a QSharedDataPointer* ....
       public:
         Private():icon(QIcon()),type(QString()),text(QString()),prefix(QString()),postfix(QString()),comment(QString()),userdata(QVariant()),provider(0){}
@@ -133,10 +119,6 @@ const QString&  CompletionItem::comment() const {return d->comment;}
 const QVariant& CompletionItem::userdata() const {return d->userdata;}
 CompletionProvider *CompletionItem::provider() const {return d->provider;}
 
-
-
-static int globalDocumentNumber = 0;
-
 Factory::Factory( QObject *parent )
  : KParts::Factory( parent )
 {
@@ -157,18 +139,11 @@ Editor::~Editor()
 
 Document::Document( QObject *parent)
  : KDocument::Document( parent)
- , m_d (0)
- , m_documentNumber (++globalDocumentNumber)
 {
 }
 
 Document::~Document()
 {
-}
-
-int Document::documentNumber () const
-{
-  return m_documentNumber;
 }
 
 bool Document::cursorInText(const Cursor& cursor)

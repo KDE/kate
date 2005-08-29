@@ -85,6 +85,8 @@ class KatePartPluginItem
 };
 //END PRIVATE CLASSES
 
+static int dummy = 0;
+
 //BEGIN d'tor, c'tor
 //
 // KateDocument Constructor
@@ -109,7 +111,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_undoComplexMerge=false;
 
   Q3CString num;
-  num.setNum (documentNumber());
+  num.setNum (++dummy);
 
   // my dcop object
   setObjId ("KateDocument#"+num);

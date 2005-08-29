@@ -4572,14 +4572,6 @@ void KateDocument::updateFileType (int newType, bool user)
   }
 }
 
-uint KateDocument::documentNumber () const
-{
-  return KTextEditor::Document::documentNumber ();
-}
-
-
-
-
 void KateDocument::slotQueryClose_save(bool *handled, bool* abortClosing) {
       *handled=true;
       *abortClosing=true;

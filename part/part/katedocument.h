@@ -925,10 +925,6 @@ class KateDocument : public KTextEditor::Document,
   protected slots:
       //void testTemplateCode();
       void dumpRegionTree();
-
-public:
-  k_dcop:
-    uint documentNumber () const;
 };
 
 #endif

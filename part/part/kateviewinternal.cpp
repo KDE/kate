@@ -1857,6 +1857,12 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection, bool up
     return;
 
   KTextEditor::Cursor c = renderer()->xToCursor(thisLine, startX() + p.x(), !view()->wrapCursor());
+  
+  kdDebug () << "CURSOR : " << c.line() << " " << c.column() << endl;
+  #warning invalid cursor position possible
+  
+  if (c.line () < 0 || c.line() >= m_doc->lines())
+    return;
 
   if (updateSelection)
     KateViewInternal::updateSelection( c, keepSelection );

@@ -171,11 +171,21 @@ void KateSmartGroup::leaving( KateSmartCursor * cursor )
 
 KateSmartGroup * KateSmartManager::groupForLine( int line ) const
 {
+  kdDebug () << "LINE: " << line << endl;
+
   // FIXME maybe this should perform a bit better
   KateSmartGroup* smartGroup = m_firstGroup;
   while (smartGroup && !smartGroup->containsLine(line))
+  {
+    kdDebug () << "START LINE: " << smartGroup->startLine () << " END: " << smartGroup->endLine () << endl;
     smartGroup = smartGroup->next();
-
+  }
+  
+  if (smartGroup)
+     kdDebug () << "START LINE: " << smartGroup->startLine () << " END: " << smartGroup->endLine () << endl;
+     
+     
+  
   Q_ASSERT(smartGroup);
   return smartGroup;
 }

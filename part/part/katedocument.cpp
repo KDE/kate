@@ -74,7 +74,6 @@
 #include <qmap.h>
 //END  includes
 
-static bool s_fileChangedDialogsActivated = false;
 static bool s_openErrorDialogsActivated = true;
 
 //BEGIN PRIVATE CLASSES
@@ -105,7 +104,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_modOnHdReason (OnDiskUnmodified),
   m_job (0),
   m_tempFile (0),
-  m_tabInterceptor(0)
+  m_tabInterceptor(0),
+  s_fileChangedDialogsActivated (false)
 {
   setObjectName(name);
   m_undoComplexMerge=false;
@@ -3975,6 +3975,11 @@ class KateDocumentTmpMark
     QString line;
     KTextEditor::Mark mark;
 };
+
+void KateDocument::setModifiedOnDiskWarning (bool on)
+{
+  s_fileChangedDialogsActivated = on;
+}
 
 bool KateDocument::documentReload()
 {

@@ -696,6 +696,8 @@ class KateDocument : public KTextEditor::Document,
 
     void setModifiedOnDisk( ModifiedOnDiskReason reason );
 
+    void setModifiedOnDiskWarning ( bool on );
+
   public slots:
     /**
      * Ask the user what to do, if the file has been modified on disc.
@@ -911,6 +913,8 @@ class KateDocument : public KTextEditor::Document,
 
     KIO::TransferJob *m_job;
     KTempFile *m_tempFile;
+
+    bool s_fileChangedDialogsActivated;
 
   // TemplateInterface
   public:

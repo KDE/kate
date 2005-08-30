@@ -24,6 +24,7 @@
 #include <qwidget.h>
 
 #include <kdelibs_export.h>
+#include <ktexteditor/cursor.h>
 
 namespace KTextEditor
 {

@@ -70,6 +70,11 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      */
     virtual Editor *editor () = 0;
 
+    /**
+     * Return the view which is currently has user focus, if any.
+     */
+    virtual View* activeView() const = 0;
+
   signals:
    /**
     * This signal is emitted whenever the @e document creates a new @e view.
@@ -129,7 +134,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
     void modifiedChanged ( KTextEditor::Document *document );
 
   /**
-   * VERY IMPORTANT: Methodes to set and query the current encoding of the
+   * VERY IMPORTANT: Methods to set and query the current encoding of the
    * document
    */
   public:
@@ -240,11 +245,11 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
     /**
      * Get the document content within the range beginning with
      * @e startPosition and ending with @e endPosition.
-     * @param startPosition start position of text to retrieve
-     * @param endPosition end position of text to retrieve
+     * @param range the range of text to retrieve
+     * @param block set this to true to receive text in a visual block, rather than everything inside \p range
      * @return the requested text part, or "" for invalid areas
      */
-    virtual QString text ( const Cursor &startPosition, const Cursor &endPosition ) const = 0;
+    virtual QString text ( const Range& range, bool block = false ) const = 0;
 
     /**
      * Get a single text line.
@@ -260,6 +265,18 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
     virtual int lines () const = 0;
 
     /**
+     * End position of the document.
+     * @return The last column on the last line of the document
+     */
+    virtual Cursor end() const = 0;
+
+    /**
+     * A Range which encompasses the whole document.
+     * @return A range from the start to the end of the document
+     */
+    inline Range all() const { return Range(Cursor(), end()); }
+
+    /**
      * Get the count of characters in the document. A TAB character counts as
      * only one character.
      * @return the number of characters in the document
@@ -273,6 +290,8 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      *         invalid
      */
     virtual int lineLength ( int line ) const = 0;
+
+    inline Cursor endOfLine(int line) const { return Cursor(line, lineLength(line)); }
 
     /**
      * Set the given text as new document content.
@@ -291,24 +310,26 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * Insert @e text at @e position.
      * @param position position to insert the text
      * @param text text to insert
+     * @param block insert this text as a visual block of text rather than a linear sequence
      * @return @e true on success, otherwise @e false
      */
-    virtual bool insertText ( const Cursor &position, const QString &text ) = 0;
+    virtual bool insertText ( const Cursor &position, const QString &text, bool block = false ) = 0;
 
     /**
      * Remove a text range of the document content beginning
      * with @e startPosition and ending with @e endPosition.
-     * @param startPosition start position of text to remove
-     * @param endPosition end position of text to remove
+     * @param range range of text to remove
+     * @param block set this to true to remove a text block on the basis of columns, rather than everything inside \p range
      * @return @e true on success, otherwise @e false
      */
-    virtual bool removeText ( const Cursor &startPosition, const Cursor &endPosition ) = 0;
+    virtual bool removeText ( const Range &range, bool block = false ) = 0;
 
     /**
      * Checks whether the @e cursor specifies a valid position in a document.
      * It can optionally be overridden by an implementation.
      * @param cursor which should be checked
      * @return @e true, if the cursor is valid, otherwise @e false
+     * @sa SmartCursor::isValid()
      */
     virtual bool cursorInText(const Cursor &cursor);
 
@@ -345,8 +366,9 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
     void textChanged(KTextEditor::Document *document);
 
     /**
-     * The @e document emits this signal whenever text was inserted
-     * in @e range.
+     * The @e document emits this signal whenever text was inserted.  The
+     * insertion occurred at range.start(), and new text now occupies up to
+     * range.end().
      * @param document document which emitted this signal
      * @param range range that the newly inserted text occupies
      */

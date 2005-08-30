@@ -19,8 +19,7 @@
 #ifndef __ktexteditor_view_h__
 #define __ktexteditor_view_h__
 
-// the very important KTextEditor::Cursor class
-#include <ktexteditor/cursor.h>
+#include <ktexteditor/range.h>
 
 // gui merging
 #include <kxmlguiclient.h>
@@ -232,7 +231,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * @return @e true on success, otherwise @e false (e.g. when the cursor
      *         range is invalid)
      */
-    virtual bool setSelection ( const Cursor &startPosition, const Cursor &endPosition ) = 0;
+    virtual bool setSelection ( const Range &selection ) = 0;
 
     /**
      * This is an overloaded member function, provided for convenience. It
@@ -253,7 +252,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * exists.
      * @return @e true if a text selection exists
      */
-    virtual bool selection () const = 0;
+    virtual bool hasSelection() const = 0;
 
     /**
      * Get the view's selected text.
@@ -275,16 +274,10 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
     virtual bool removeSelectionText () = 0;
 
     /**
-     * Get the start position of the selection.
-     * @return selection start
+     * Get the range occupied by the current selection.
+     * @return selection range, valid only if a selection currently exists.
      */
-    virtual const Cursor &selectionStart () const = 0;
-
-    /**
-     * Get the end position of the selection.
-     * @return selection end
-     */
-    virtual const Cursor &selectionEnd () const = 0;
+    virtual const Range &selection() const = 0;
 
   /**
    * Blockselection stuff

@@ -22,6 +22,12 @@
 
 #include "range.h"
 
+#include "document.h"
+#include "view.h"
+#include "attribute.h"
+
+#include <kaction.h>
+
 using namespace KTextEditor;
 
 Range::Range()
@@ -36,6 +42,18 @@ Range::Range(const Cursor& start, const Cursor& end)
 {
 }
 
+Range::Range(const Cursor& start, int width)
+  : m_start(new Cursor(start))
+  , m_end(new Cursor(start.line(), start.column() + width))
+{
+}
+
+Range::Range(const Cursor& start, int endLine, int endCol)
+  : m_start(new Cursor(start))
+  , m_end(new Cursor(endLine, endCol))
+{
+}
+
 Range::Range(int startLine, int startCol, int endLine, int endCol)
   : m_start(new Cursor(startLine, startCol))
   , m_end(new Cursor(endLine, endCol))
@@ -45,6 +63,12 @@ Range::Range(int startLine, int startCol, int endLine, int endCol)
 Range::Range(Cursor* start, Cursor* end)
   : m_start(start)
   , m_end(end)
+{
+}
+
+Range::Range(const Range& copy)
+  : m_start(new Cursor(copy.start()))
+  , m_end(new Cursor(copy.end()))
 {
 }
 
@@ -85,19 +109,24 @@ void Range::setRange( const Cursor & start, const Cursor & end )
   }
 }
 
+bool Range::containsLine(int line) const
+{
+  return (line > start().line() || line == start().line() && !start().column()) && line < end().line();
+}
+
 bool Range::includesLine(int line) const
 {
   return line >= start().line() && line <= end().line();
 }
 
-bool Range::includesColumn( int col ) const
+bool Range::spansColumn( int col ) const
 {
   return start().column() <= col && end().column() > col;
 }
 
-int Range::includes( const Cursor& cursor ) const
+bool Range::contains( const Cursor& cursor ) const
 {
-  return ((cursor < start()) ? -1 : ((cursor > end()) ? 1:0));
+  return cursor >= start() && cursor < end();
 }
 
 bool Range::contains( const Range& range ) const
@@ -127,5 +156,273 @@ bool Range::boundaryOnLine(int line) const
   return start().line() == line || end().line() == line;
 }
 
+void Range::confineToRange(const Range& range)
+{
+  if (start() < range.start())
+    if (end() < range.end())
+      setRange(range);
+    else
+      setStart(range.start());
+  else if (end() < range.end())
+    setEnd(range.end());
+}
+
+void SmartRange::confineToRange(const Range& range)
+{
+  if (start() < range.start())
+    if (end() < range.end())
+      setRange(range);
+    else
+      setStart(range.start());
+  else if (end() < range.end())
+    setEnd(range.end());
+  else
+    // Don't need to check if children should be confined, they already are
+    return;
+
+  foreach (SmartRange* child, m_childRanges)
+    child->confineToRange(*this);
+}
+
+SmartRange::SmartRange(SmartCursor* start, SmartCursor* end, SmartRange * parent, int insertBehaviour )
+  : Range(start, end)
+  , m_attribute(0L)
+  , m_parentRange(parent)
+  , m_insertBehaviour(insertBehaviour)
+  , m_ownsAttribute(false)
+{
+  start->setBelongsToRange(this);
+  end->setBelongsToRange(this);
+}
+
+SmartRange * SmartRange::childBefore( const SmartRange * range ) const
+{
+  int index = m_childRanges.indexOf(const_cast<SmartRange*>(range));
+  if (index != -1 && --index > 0)
+    return m_childRanges[index];
+  return 0L;
+}
+
+SmartRange * SmartRange::childAfter( const SmartRange * range ) const
+{
+  int index = m_childRanges.indexOf(const_cast<SmartRange*>(range));
+  if (index != -1 && ++index < m_childRanges.count())
+    return m_childRanges[index];
+  return 0L;
+}
+
+void SmartRange::setAttribute( Attribute * attribute, bool ownsAttribute )
+{
+  if (m_ownsAttribute)
+      delete m_attribute;
+  m_attribute = attribute;
+  m_ownsAttribute = ownsAttribute;
+}
+
+SmartRange::~SmartRange( )
+{
+  if (m_ownsAttribute)
+    delete m_attribute;
+
+  /*if (!m_deleteCursors)
+  {
+    // Save from deletion in the parent
+    m_start = 0L;
+    m_end = 0L;
+  }*/
+}
+
+SmartRange * KTextEditor::SmartRange::findMostSpecificRange( const Range & input ) const
+{
+  if (contains(input)) {
+    for (QList<SmartRange*>::ConstIterator it = m_childRanges.constBegin(); it != m_childRanges.constEnd(); ++it)
+      if ((*it)->contains(input))
+        return (*it)->findMostSpecificRange(input);
+
+    return const_cast<SmartRange*>(this);
+
+  } else if (parentRange()) {
+    return parentRange()->findMostSpecificRange(input);
+
+  } else {
+    return 0L;
+  }
+}
+
+SmartRange * KTextEditor::SmartRange::firstRangeIncluding( const Cursor & pos ) const
+{
+  switch (relativePosition(pos)) {
+    case 0:
+      if (parentRange() && parentRange()->contains(pos))
+        return parentRange()->firstRangeIncluding(pos);
+
+      return const_cast<SmartRange*>(this);
+
+    case -1:
+      if (!parentRange())
+        return 0L;
+
+      if (!parentRange()->contains(pos))
+        return parentRange()->firstRangeIncluding(pos);
+
+      if (SmartRange* r = parentRange()->childAfter(this))
+        return r->firstRangeIncluding(pos);
+
+      return 0L;
+
+    case 1:
+      if (!parentRange())
+        return 0L;
+
+      if (!parentRange()->contains(pos))
+        return parentRange()->firstRangeIncluding(pos);
+
+      if (const SmartRange* r = parentRange()->childBefore(this))
+        return r->firstRangeIncluding(pos);
+
+      return 0L;
+
+    default:
+      Q_ASSERT(false);
+      return 0L;
+  }
+}
+
+SmartRange * KTextEditor::SmartRange::deepestRangeContaining( const Cursor & pos ) const
+{
+  switch (relativePosition(pos)) {
+    case 0:
+      for (QList<SmartRange*>::ConstIterator it = m_childRanges.constBegin(); it != m_childRanges.constEnd(); ++it)
+        if ((*it)->contains(pos) == 0)
+          return ((*it)->deepestRangeContaining(pos));
+
+      return const_cast<SmartRange*>(this);
+
+    case -1:
+      if (!parentRange())
+        return 0L;
+
+      if (!parentRange()->contains(pos))
+        return parentRange()->deepestRangeContaining(pos);
+
+      if (const SmartRange* r = parentRange()->childAfter(this))
+        return r->deepestRangeContaining(pos);
+
+      return 0L;
+
+    case 1:
+      if (!parentRange())
+        return 0L;
+
+      if (!parentRange()->contains(pos))
+        return parentRange()->deepestRangeContaining(pos);
+
+      if (const SmartRange* r = parentRange()->childBefore(this))
+        return r->firstRangeIncluding(pos);
+
+      return 0L;
+
+    default:
+      Q_ASSERT(false);
+      return 0L;
+  }
+}
+
+Document* SmartRange::document( ) const
+{
+  return smartStart().document();
+}
+
+void SmartRange::attachAction( KAction * action )
+{
+  m_associatedActions.append(action);
+
+  bool enable = false;
+  if (View* v = document()->activeView())
+    if (contains(v->cursorPosition()))
+      enable = true;
+
+  action->setEnabled(enable);
+
+  if (m_associatedActions.count() == 1)
+    checkFeedback();
+}
+
+void SmartRange::detachAction( KAction * action )
+{
+  m_associatedActions.remove(action);
+  if (!m_associatedActions.count())
+    checkFeedback();
+}
+
+int SmartRange::insertBehaviour( ) const
+{
+  return (smartStart().moveOnInsert() ? DoNotExpand : ExpandLeft) | (smartEnd().moveOnInsert() ? ExpandRight : DoNotExpand);
+}
+
+void SmartRange::setInsertBehaviour(int behaviour)
+{
+  static_cast<SmartCursor*>(m_start)->setMoveOnInsert(behaviour & ExpandLeft);
+  static_cast<SmartCursor*>(m_end)->setMoveOnInsert(!(behaviour & ExpandRight));
+}
+
+void SmartRange::clearAllChildRanges()
+{
+  while (m_childRanges.count()) {
+    KTextEditor::Range* r = m_childRanges.first();
+    m_childRanges.remove(m_childRanges.begin());
+
+    delete r;
+  }
+}
+
+void SmartRange::deleteAllChildRanges()
+{
+  while (m_childRanges.count()) {
+    KTextEditor::Range* r = m_childRanges.first();
+    m_childRanges.remove(m_childRanges.begin());
+
+    // FIXME editDeleteText here? or a call to delete the text on the range object
+    delete r;
+  }
+}
+
+const Range& Range::invalid()
+{
+  static Range r;
+  if (r.start().line() != -1)
+    r.setRange(Cursor(-1,-1),Cursor(-1,-1));
+  return r;
+}
+
+KTextEditor::SmartRangeWatcher::~ SmartRangeWatcher( )
+{
+}
+
+void KTextEditor::SmartRangeWatcher::positionChanged( SmartRange * )
+{
+}
+
+void KTextEditor::SmartRangeWatcher::contentsChanged( SmartRange * )
+{
+}
+
+void KTextEditor::SmartRangeWatcher::boundaryDeleted( SmartRange * , bool )
+{
+}
+
+void KTextEditor::SmartRangeWatcher::eliminated( SmartRange * )
+{
+}
+
+void KTextEditor::SmartRangeWatcher::firstCharacterDeleted( SmartRange * )
+{
+}
+
+void KTextEditor::SmartRangeWatcher::lastCharacterDeleted( SmartRange * )
+{
+}
+
+#include "range.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -48,15 +48,11 @@ class KTEXTEDITOR_EXPORT SearchInterface
      * @param startLine line to start search
      * @param startCol column to start search
      * @param text text to search for
-     * @param foundAtLine line where match is found
-     * @param foundAtCol line where match is found
-     * @param matchLen match length
      * @param casesensitive should we search casesensitive?
      * @param backwards should we search backwards?
-     * @return text found?
+     * @return valid range of match if text found, otherwise inValid() range.
      */
-    virtual bool searchText (int startLine, int startCol, const QString &text, int *foundAtLine, int *foundAtCol, int *matchLen, bool casesensitive = true, bool backwards = false) = 0;
-
+    virtual KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition, const QString &text, bool casesensitive = true, bool backwards = false) = 0;
 
     /**
      * search for given regular expression
@@ -67,9 +63,9 @@ class KTEXTEDITOR_EXPORT SearchInterface
      * @param foundAtCol line where match is found
      * @param matchLen match length
      * @param backwards should we search backwards?
-     * @return text found?
+     * @return valid range of match if text found, otherwise inValid() range.
      */
-    virtual bool searchText (int startLine, int startCol, const QRegExp &regexp, int *foundAtLine, int *foundAtCol, int *matchLen, bool backwards = false) = 0;
+    virtual KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition, const QRegExp &regexp, bool backwards = false) = 0;
 };
 
 }

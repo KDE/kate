@@ -23,18 +23,30 @@
 #ifndef __ktexteditor_range_h__
 #define __ktexteditor_range_h__
 
-#include <kdelibs_export.h>
 #include <ktexteditor/cursor.h>
+
+class KAction;
 
 namespace KTextEditor
 {
+class Attribute;
+class AttributeGroup;
 
 /**
- * The class @p Range represents a range in the text from one @p Cursor to
- * another.
+ * \short A class which represents a range in the text from one Cursor to another.
  *
- * For simplicity and convenience reason, ranges always maintain their start
- * position to be before or equal to their end position.
+ * A Range is a basic class which represents a range of text with two Cursors,
+ * from a start() position to an end() position.
+ *
+ * For simplicity and convenience, ranges always maintain their start position to
+ * be before or equal to their end position.  Attempting to set either the
+ * start or end of the range beyond the respective end or start will result in
+ * both values being set to the specified position.
+ *
+ * If you want additional functionality such as the ability to maintain positon
+ * in a document, see SmartRange.
+ *
+ * \sa SmartRange
  */
 class KTEXTEDITOR_EXPORT Range
 {
@@ -54,6 +66,18 @@ class KTEXTEDITOR_EXPORT Range
     Range(const Cursor& start, const Cursor& end);
 
     /**
+     * Constructor
+     * Creates a single-line range from \p start which extends \p width characters along the same line.
+     */
+    Range(const Cursor& start, int width);
+
+    /**
+     * Constructor
+     * Creates a range from \p start to \p endLine, \p endCol.
+     */
+    Range(const Cursor& start, int endLine, int endCol);
+
+    /**
      * Constructor.
      * Creates a range from @e startLine, @e startCol to @e endLine, @e endCol.
      * @param startLine start line
@@ -64,13 +88,25 @@ class KTEXTEDITOR_EXPORT Range
     Range(int startLine, int startCol, int endLine, int endCol);
 
     /**
+     * Copy constructor
+     */
+    Range(const Range& copy);
+
+    /**
      * Virtual destructor
      */
     virtual ~Range();
 
     /**
+     * Validity check.  In the base class, returns true unless the range starts before (0,0).
+     */
+    virtual bool isValid() const { return start().line() >= 0 && start().column() >= 0; }
+    static const Range& invalid();
+
+    /**
      * Get the start point of this range. This will always be >= start().
      */
+    inline Cursor& start() { return *m_start; }
     inline const Cursor& start() const { return *m_start; }
 
     /**
@@ -100,6 +136,7 @@ class KTEXTEDITOR_EXPORT Range
     /**
      * Get the end point of this range. This will always be >= @p start().
      */
+    inline Cursor& end() { return *m_end; }
     inline const Cursor& end() const { return *m_end; }
 
     /**
@@ -126,6 +163,8 @@ class KTEXTEDITOR_EXPORT Range
      */
     inline void setEndColumn(int column) { setEnd(Cursor(end().line(), column)); }
 
+    inline void setBothLines(int line) { setRange(Range(line, start().column(), line, end().column())); }
+
     /**
      * Set the start and end cursors to @e range.
      * @param range new range
@@ -140,16 +179,34 @@ class KTEXTEDITOR_EXPORT Range
      */
     virtual void setRange(const Cursor& start, const Cursor& end);
 
+    virtual void confineToRange(const Range& range);
+
+    // TODO: produce int versions with -1 before, 0 true, and +1 after if there is a need
     /**
-     * Check whether the range includes @e line.
+     * Returns true if this range wholly encompasses \p line.
+     */
+    bool containsLine(int line) const;
+
+    /**
+     * Check whether the range includes at least part of @e line.
      * @param line line to check
-     * @return @e true, if the range includes @e line, otherwise @e false
+     * @return @e true, if the range includes at least part of @e line, otherwise @e false
      */
     bool includesLine(int line) const;
+
+
+    /**
+     * Returns true if this range spans \p colmun.
+     */
+    bool spansColumn(int column) const;
+
+    bool contains(const Cursor& cursor) const;
+
     /**
      * Check whether the range includes @e column.
      * @param column column to check
      * @return @e true, if the range includes @e column, otherwise @e false
+     * \todo should be contains?
      */
     bool includesColumn(int column) const;
     /**
@@ -159,8 +216,10 @@ class KTEXTEDITOR_EXPORT Range
      * - 1 if @e cursor > @p end()
      * @param line line to check
      * @return depending on the case either -1, 0 or 1
+     * \todo should be contains?
      */
     int includes(const Cursor& cursor) const;
+
     /**
      * Check whether the this range contains @e range.
      * @param range range to check
@@ -194,6 +253,11 @@ class KTEXTEDITOR_EXPORT Range
      *         or the end bound, otherwise @e false
      */
     bool boundaryOnColumn(int column) const;
+    inline bool onSingleLine() const { return start().line() == end().line(); }
+
+    inline int relativePosition(const Cursor& cursor) const
+      { return ((cursor < start()) ? -1 : ((cursor > end()) ? 1:0)); }
+    inline int columnWidth() const { return end().column() - start().column(); }
 
     /**
      * = operator. Assignment.
@@ -201,6 +265,12 @@ class KTEXTEDITOR_EXPORT Range
      * @return *this
      */
     virtual Range& operator= (const Range& rhs) { setRange(rhs); return *this; }
+
+    inline friend Range operator+(const Range& r1, const Range& r2) { return Range(r1.start() + r2.start(), r1.end() + r2.end()); }
+    inline friend Range& operator+=(Range& r1, const Range& r2) { r1.setRange(r1.start() + r2.start(), r1.end() + r2.end()); return r1; }
+
+    inline friend Range operator-(const Range& r1, const Range& r2) { return Range(r1.start() - r2.start(), r1.end() - r2.end()); }
+    inline friend Range& operator-=(Range& r1, const Range& r2) { r1.setRange(r1.start() - r2.start(), r1.end() - r2.end()); return r1; }
 
     /**
      * == operator
@@ -248,6 +318,268 @@ class KTEXTEDITOR_EXPORT Range
 
     Cursor* m_start;
     Cursor* m_end;
+};
+
+class SmartRange;
+
+/**
+ * \short A class which provides notifications of state changes to a SmartRange via QObject signals.
+ *
+ * This class provides notifications of changes to the position or contents of
+ * a SmartRange via QObject signals.
+ *
+ * If you prefer to receive notifications via virtual inheritance, see SmartRangeWatcher.
+ *
+ * \sa SmartRange, SmartRangeWatcher
+ */
+class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
+{
+  Q_OBJECT
+
+  public:
+  signals:
+    /**
+     * The range's position changed.
+     */
+    void positionChanged(KTextEditor::SmartRange* range);
+
+    /**
+     * The contents of the range changed.
+     */
+    void contentsChanged(KTextEditor::SmartRange* range);
+
+    /**
+     * Either cursor's surrounding characters were both deleted.
+     * \param start true if the start boundary was deleted, false if the end boundary was deleted.
+     */
+    void boundaryDeleted(KTextEditor::SmartRange* range, bool start);
+
+    /**
+     * The range now contains no characters (ie. the start and end cursors are the same).
+     */
+    void eliminated(KTextEditor::SmartRange* range);
+
+    /**
+     * The first character of this range was deleted.
+     */
+    void firstCharacterDeleted(KTextEditor::SmartRange* range);
+
+    /**
+     * The last character of this range was deleted.
+     */
+    void lastCharacterDeleted(KTextEditor::SmartRange* range);
+};
+
+/**
+ * \short A class which provides notifications of state changes to a SmartRange via virtual inheritance.
+ *
+ * This class provides notifications of changes to the position or contents of
+ * a SmartRange via virtual inheritance.
+ *
+ * If you prefer to receive notifications via QObject signals, see SmartRangeNotifier.
+ *
+ * \sa SmartRange, SmartRangeNotifier
+ */
+class KTEXTEDITOR_EXPORT SmartRangeWatcher
+{
+  public:
+    virtual ~SmartRangeWatcher();
+
+    /**
+     * The range's position changed.
+     */
+    virtual void positionChanged(SmartRange* range);
+
+    /**
+     * The contents of the range changed.
+     */
+    virtual void contentsChanged(SmartRange* range);
+
+    /**
+     * Either cursor's surrounding characters were both deleted.
+     * \param start true if the start boundary was deleted, false if the end boundary was deleted.
+     */
+    virtual void boundaryDeleted(SmartRange* range, bool start);
+
+    /**
+     * The range now contains no characters (ie. the start and end cursors are the same).
+     */
+    virtual void eliminated(SmartRange* range);
+
+    /**
+     * The first character of this range was deleted.
+     */
+    virtual void firstCharacterDeleted(SmartRange* range);
+
+    /**
+     * The last character of this range was deleted.
+     */
+    virtual void lastCharacterDeleted(SmartRange* range);
+};
+
+/**
+ * \short A Range which is bound to a specific Document, and maintains its position.
+ *
+ * A SmartRange is an extension of the basic Range class. It maintains its
+ * position in the document and provides a number of convenience methods,
+ * including those for accessing and manipulating the content of the associated
+ * Document.  As a result of this, SmartRanges may not be copied, as they need
+ * to maintain a connection to the assicated Document.
+ *
+ * For simplicity of code, ranges always maintain their start position to
+ * be before or equal to their end position.  Attempting to set either the
+ * start or end of the range beyond the respective end or start will result in
+ * both values being set to the specified position.
+ *
+ * \sa Range, SmartRangeNotifier, SmartRangeWatcher
+ */
+class KTEXTEDITOR_EXPORT SmartRange : public Range
+{
+  public:
+    /// Determine how the range reacts to characters inserted immediately outside the range.
+    enum InsertBehaviour {
+      /// Don't expand to encapsulate new characters in either direction. This is the default.
+      DoNotExpand = 0,
+      /// Expand to encapsulate new characters to the left of the range.
+      ExpandLeft = 0x1,
+      /// Expand to encapsulate new characters to the right of the range.
+      ExpandRight = 0x2
+    };
+
+    virtual ~SmartRange();
+
+    // BEGIN Functionality present from having this range associated with a Document
+    Document* document() const;
+
+    const SmartCursor& smartStart() const { return *static_cast<const SmartCursor*>(m_start); }
+    const SmartCursor& smartEnd() const { return *static_cast<const SmartCursor*>(m_end); }
+    // END
+
+    // BEGIN Behaviour
+    /**
+     * Returns how this range reacts to characters inserted immediately outside the range.
+     */
+    int insertBehaviour() const;
+
+    /**
+     * Determine how the range should react to characters inserted immediately outside the range.
+     *
+     * TODO does this need a custom function to enable determining of the behavior based on the
+     * text that is inserted / deleted?
+     *
+     * @sa InsertBehaviour
+     */
+    void setInsertBehaviour(int behaviour);
+    // END
+
+    // BEGIN Relationships to other ranges
+    /**
+     * Returns this range's parent range, if one exists.
+     *
+     * At all times, this range will be contained within parentRange().
+     */
+    inline SmartRange* parentRange() const { return m_parentRange; }
+    inline void setParentRange(SmartRange* r) { m_parentRange = r; }
+    /// Overloaded to confine child ranges as well.
+    virtual void confineToRange(const Range& range);
+
+    inline int depth() const { return m_parentRange ? m_parentRange->depth() + 1 : 0; }
+
+    SmartRange* childBefore(const SmartRange* range) const;
+    SmartRange* childAfter(const SmartRange* range) const;
+    const QList<SmartRange*>& childRanges() const;
+    bool insertChildRange(SmartRange* newChild, const SmartRange* before);
+    void clearAllChildRanges();
+    void deleteAllChildRanges();
+
+    /**
+     * Finds the most specific range in a heirachy for the given input range
+     * (ie. the smallest range which wholly contains the input range)
+     */
+    SmartRange* findMostSpecificRange(const Range& input) const;
+
+    /**
+     * Finds the first child range which contains position \p pos.
+     */
+    SmartRange* firstRangeIncluding(const Cursor& pos) const;
+
+    /**
+     * Finds the deepest child range which contains position \p pos.
+     */
+    SmartRange* deepestRangeContaining(const Cursor& pos) const;
+    // END
+
+    // BEGIN Arbitrary highlighting
+    /**
+     * @returns the active Attribute for this range.
+     */
+    inline Attribute* attribute() const { return m_attribute; }
+
+    /**
+     * Sets the currently active attribute for this range.
+     */
+    void setAttribute(Attribute* attribute, bool ownsAttribute = true);
+
+    /**
+      * Set a grounp of attributes
+      *
+      * This range automatically assumes styles, actions, etc from the group
+      * definition.
+      */
+    //void setAttributeGroup(AttributeGroup* group);
+    // END
+
+    /**
+     * Attach an action to this range.  The action is enabled when the range is
+     * entered by the caret, and disabled on exit.  Where appropriate, the action
+     * is also added to the context menu when the caret is over this range.
+     */
+    void attachAction(KAction* action);
+    void detachAction(KAction* action);
+    const QList<KAction*>& associatedActions() const { return m_associatedActions; }
+
+    // BEGIN Notification methods
+    /**
+     * Connect to the notifier to receive signals indicating change of state of this cursor.
+     * The notifier is created at the time it is first requested.  If you have finished with
+     * notifications for a reasonable period of time you can save memory by calling deleteNotifier().
+     */
+    virtual SmartRangeNotifier* notifier() = 0;
+
+    /**
+     * When finished with a notifier(), call this method to save memory by
+     * having the SmartRangeNotifier deleted.
+     */
+    virtual void deleteNotifier() = 0;
+
+    /**
+     * Provide a SmartRangeWatcher to receive calls indicating change of state of this cursor.
+     * To finish receiving notifications, call this function with \p watcher set to 0L.
+     * \param watcher the class which will receive notifications about changes to this cursor.
+     */
+    virtual void setWatcher(SmartRangeWatcher* watcher = 0L) = 0;
+    // END
+
+  protected:
+    SmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, int insertBehaviour = DoNotExpand);
+
+    /**
+     * Implementation detail.
+     * This routine is called when the range changes how much feedback it may need, eg. if it adds an action.
+     */
+    virtual void checkFeedback() = 0;
+
+    QList<KAction*> m_associatedActions;
+
+  private:
+    Q_DISABLE_COPY(SmartRange);
+
+    Attribute* m_attribute;
+    SmartRange* m_parentRange;
+    QList<SmartRange*> m_childRanges;
+
+    int   m_insertBehaviour;
+    bool  m_ownsAttribute   :1;
 };
 
 }

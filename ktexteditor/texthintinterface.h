@@ -55,7 +55,7 @@ class KTEXTEDITOR_EXPORT TextHintInterface
      * I you don't want a tooltip to be displayd set text to an emtpy string in a connected slot,
      * otherwise set text to the string you want the editor to display
      */
-	virtual void needTextHint(int line, int col, QString &text)=0;
+	virtual void needTextHint(const KTextEditor::Cursor& position, QString &text)=0;
 };
 
 }

@@ -34,7 +34,7 @@ class Document;
 class Mark
 {
   public:
-    uint line;
+    int line;
     uint type;
 };
 
@@ -60,7 +60,7 @@ class KTEXTEDITOR_EXPORT MarkInterface
      * @return a @e uint representing of the marks set in @e line concatenated
      *         by logical OR 
      */
-    virtual uint mark (uint line) = 0;
+    virtual uint mark (int line) = 0;
     
     /** 
      * Set a mark of type @e markType to @e line.
@@ -69,11 +69,11 @@ class KTEXTEDITOR_EXPORT MarkInterface
      * @param line line to set the mark
      * @param markType mark type
      */
-    virtual void setMark (uint line, uint markType) = 0;
+    virtual void setMark (int line, uint markType) = 0;
     /**
      * Clear all marks set in @e line.
      */
-    virtual void clearMark (uint line) = 0;
+    virtual void clearMark (int line) = 0;
 
     /**
      * Add mark of type @e markType to @e line. Existing marks on this line
@@ -81,13 +81,13 @@ class KTEXTEDITOR_EXPORT MarkInterface
      * @param line line to set the mark
      * @param markType mark type
      */
-    virtual void addMark (uint line, uint markType) = 0;
+    virtual void addMark (int line, uint markType) = 0;
     /**
      * Removes a mark of type @e markType from @e line.
      * @param line line to remove the mark
      * @param markType mark type to be removed
      */
-    virtual void removeMark (uint line, uint markType) = 0;
+    virtual void removeMark (int line, uint markType) = 0;
 
     /**
      * Get a list of all marks in the document.

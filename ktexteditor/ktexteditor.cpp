@@ -49,6 +49,7 @@
 #include "templateinterface.h"
 #include "texthintinterface.h"
 #include "variableinterface.h"
+#include "smartinterface.h"
 
 #include <kaction.h>
 #include <kparts/factory.h>
@@ -167,7 +168,7 @@ bool View::setSelection(const Cursor& position, int length,bool wrap)
   } else {
     kdDebug()<<"KTextEditor::View::setSelection(pos,len,true) not implemented yet"<<endl;
   }
-  return setSelection(position,end);
+  return setSelection(Range(position,end));
 }
 
 bool View::insertText (const QString &text )
@@ -193,10 +194,11 @@ Editor *KTextEditor::editor(const char *libname)
   return ef->editor();
 }
 
+KTextEditor::SmartInterface::~ SmartInterface( )
+{
+}
+
 long ArgHintData::s_id=0;
 long CompletionData::s_id=0;
-
-
-
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -1,4 +1,4 @@
-KDE_CXXFLAGS=-fvisibility=default -fPIC
+KDE_CXXFLAGS=-fvisibility=default
 
 kde_module_LTLIBRARIES = katepart.la
 

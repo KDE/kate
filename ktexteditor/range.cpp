@@ -81,7 +81,7 @@ Range::~Range()
 Range& Range::operator= (const Range& rhs)
 {
   if (this == &rhs)
-    return;
+    return *this;
   
   setRange(rhs);
   

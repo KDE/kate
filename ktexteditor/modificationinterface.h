@@ -61,6 +61,12 @@ class KTEXTEDITOR_EXPORT ModificationInterface
      */
     virtual void setModifiedOnDisk( ModifiedOnDiskReason reason ) = 0;
 
+   /**
+    * Turn on/off any warning dialogs about the modification for this editor
+    * @param on should the editor show dialogs?
+    */
+   virtual void setModifiedOnDiskWarning ( bool on ) = 0;
+
   /**
    * These stuff is implemented as slots in the real document
    */

@@ -264,7 +264,7 @@ class KTEXTEDITOR_EXPORT Range
      * @param rhs new range
      * @return *this
      */
-    virtual Range& operator= (const Range& rhs) { setRange(rhs); return *this; }
+    virtual Range& operator= (const Range& rhs);
 
     inline friend Range operator+(const Range& r1, const Range& r2) { return Range(r1.start() + r2.start(), r1.end() + r2.end()); }
     inline friend Range& operator+=(Range& r1, const Range& r2) { r1.setRange(r1.start() + r2.start(), r1.end() + r2.end()); return r1; }

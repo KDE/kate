@@ -78,6 +78,16 @@ Range::~Range()
   delete m_end;
 }
 
+Range& Range::operator= (const Range& rhs)
+{
+  if (this == &rhs)
+    return;
+  
+  setRange(rhs);
+  
+  return *this;
+}
+
 void Range::setStart(const Cursor& newStart)
 {
   *m_start = newStart;

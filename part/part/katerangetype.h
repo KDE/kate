@@ -22,9 +22,9 @@
 #include <QList>
 #include <QMap>
 
-class KateSuperRange;
+class KateSmartRange;
 class KAction;
-class KateAttribute;
+namespace KTextEditor { class Attribute; }
 
 /**
  * Allows a group of KTextEditor::Ranges to be characterised and manipulated in a
@@ -35,8 +35,8 @@ class KateRangeType
   public:
     KateRangeType();
 
-    void addRange(KateSuperRange* range);
-    void removeRange(KateSuperRange* range);
+    void addRange(KateSmartRange* range);
+    void removeRange(KateSmartRange* range);
 
     /**
      * Attach an action to all ranges of this type.  The action is enabled when
@@ -62,16 +62,16 @@ class KateRangeType
      * Associate attributes with this range type.  Enables quick setting of
      * default attributes to a group of ranges.
      */
-    void addAttribute(KateAttribute* attribute, int activationFlags = activateNone, bool activate = false);
-    void removeAttribute(KateAttribute* attribute);
-    void changeActivationFlags(KateAttribute* attribute, int flags);
+    void addAttribute(KTextEditor::Attribute* attribute, int activationFlags = activateNone, bool activate = false);
+    void removeAttribute(KTextEditor::Attribute* attribute);
+    void changeActivationFlags(KTextEditor::Attribute* attribute, int flags);
 
     int attributeCount() const;
-    KateAttribute* attribute(int index) const;
+    KTextEditor::Attribute* attribute(int index) const;
 
     /// Get / set the index of the currently active attribute.
-    KateAttribute* activatedAttribute(bool mouseIn, bool caretIn) const;
-    void activateAttribute(KateAttribute* attribute);
+    KTextEditor::Attribute* activatedAttribute(bool mouseIn, bool caretIn) const;
+    void activateAttribute(KTextEditor::Attribute* attribute);
 
     /**
      * Quickly modify all ranges of this type in some way...
@@ -85,13 +85,13 @@ class KateRangeType
 
   private:
     void activateMouse(bool activate = true);
-    void connectMouse(KateSuperRange* range, bool doconnect);
+    void connectMouse(KateSmartRange* range, bool doconnect);
     void activateCaret(bool activate = true);
-    void connectCaret(KateSuperRange* range, bool doconnect);
+    void connectCaret(KateSmartRange* range, bool doconnect);
 
-    QList<KateSuperRange*> m_ranges;
-    QMap<KateAttribute*, int> m_attributes;
-    KateAttribute* m_activeAttribute;
+    QList<KateSmartRange*> m_ranges;
+    QMap<KTextEditor::Attribute*, int> m_attributes;
+    KTextEditor::Attribute* m_activeAttribute;
 
     bool m_haveConnectedMouse :1,
          m_haveConnectedCaret :1;

@@ -27,6 +27,7 @@
 #include "kateconfig.h"
 #include "katehighlight.h"
 #include "kateview.h"
+#include "katefont.h"
 
 #include <kdebug.h>
 
@@ -68,7 +69,7 @@ void KateRenderer::updateAttributes ()
   m_attributes = m_doc->highlight()->attributes (m_schema);
 }
 
-KateAttribute* KateRenderer::attribute(uint pos) const
+KTextEditor::Attribute* KateRenderer::attribute(uint pos) const
 {
   if (pos < (uint)m_attributes->size())
     return &(*m_attributes)[pos];
@@ -76,7 +77,7 @@ KateAttribute* KateRenderer::attribute(uint pos) const
   return &(*m_attributes)[0];
 }
 
-KateAttribute * KateRenderer::specificAttribute( int context ) const
+KTextEditor::Attribute * KateRenderer::specificAttribute( int context ) const
 {
   if (context >= 0 && context < m_attributes->count())
     return &(*m_attributes)[context];
@@ -238,14 +239,14 @@ void KateRenderer::paintWhitespaceMarker(QPainter &paint, uint x, uint y)
   paint.setPen( penBackup );
 }
 
-/*KateSuperRange* KateRenderer::advanceSyntaxHL(const KTextEditor::Cursor& currentPos, KateSuperRange* currentRange) const
+/*KateSmartRange* KateRenderer::advanceSyntaxHL(const KTextEditor::Cursor& currentPos, KateSmartRange* currentRange) const
 {
   bool outDebug = false;//currentPos.line() == 22;
 
   if (!currentRange)
     return 0L;
 
-  KateSuperRange* tmpRange = 0L;
+  KateSmartRange* tmpRange = 0L;
   // Check to see if we are exiting any ranges
   while (currentRange->end() <= currentPos) {
     if (outDebug)
@@ -263,7 +264,7 @@ void KateRenderer::paintWhitespaceMarker(QPainter &paint, uint x, uint y)
 
   // Check to see if we are entering any child ranges
   while (currentRange->childRanges().count()) {
-    QValueList<KateSuperRange*>::ConstIterator it = currentRange->childRanges().begin();
+    QValueList<KateSmartRange*>::ConstIterator it = currentRange->childRanges().begin();
 
     if (tmpRange) {
       it = currentRange->childRanges().find(tmpRange);
@@ -290,13 +291,13 @@ void KateRenderer::paintWhitespaceMarker(QPainter &paint, uint x, uint y)
   return currentRange;
 }
 
-KateAttribute merge(QPtrList<KTextEditor::Range> ranges)
+KTextEditor::Attribute merge(QPtrList<KTextEditor::Range> ranges)
 {
   ranges.sort();
 
-  KateAttribute ret;
+  KTextEditor::Attribute ret;
 
-  for (KateSuperRange* r = ranges.first(); r; r = ranges.next())
+  for (KateSmartRange* r = ranges.first(); r; r = ranges.next())
     if (r->attribute())
       ret += *(r->attribute());
 
@@ -305,7 +306,7 @@ KateAttribute merge(QPtrList<KTextEditor::Range> ranges)
 
 class RenderRange {
   public:
-    RenderRange(KateSuperRange* range = 0L)
+    RenderRange(KateSmartRange* range = 0L)
       : m_currentRange(0L)
     {
       // Might happen if we ask for a non-existing range in RenderRangeList
@@ -318,8 +319,8 @@ class RenderRange {
 
     KTextEditor::Cursor nextBoundary() const
     {
-      KateSuperRange* r = m_currentRange->deepestRangeIncluding(m_currentPos);
-      foreach (KateSuperRange* child, r->childRanges()) {
+      KTextEditor::SmartRange* r = m_currentRange->deepestRangeContaining(m_currentPos);
+      foreach (KTextEditor::SmartRange* child, r->childRanges()) {
         if (child->start() > m_currentPos)
           return child->start();
       }
@@ -333,7 +334,7 @@ class RenderRange {
 
       bool ret = false;
 
-      while (m_currentRange && !m_currentRange->includes(pos)) {
+      while (m_currentRange && !m_currentRange->contains(pos)) {
         m_attribs.pop();
         m_currentRange = m_currentRange->parentRange();
         ret = true;
@@ -341,7 +342,7 @@ class RenderRange {
 
       Q_ASSERT(m_currentRange);
 
-      KateSuperRange* r = m_currentRange->deepestRangeIncluding(pos);
+      KTextEditor::SmartRange* r = m_currentRange->deepestRangeContaining(pos);
       if (r != m_currentRange)
         ret = true;
 
@@ -351,26 +352,26 @@ class RenderRange {
       return ret;
     }
 
-    KateAttribute* currentAttribute() const
+    KTextEditor::Attribute* currentAttribute() const
     {
       if (m_attribs.count())
-        return const_cast<KateAttribute*>(&m_attribs.top());
+        return const_cast<KTextEditor::Attribute*>(&m_attribs.top());
       return 0L;
     }
 
   private:
-    void addTo(KateSuperRange* range) const
+    void addTo(KTextEditor::SmartRange* range) const
     {
-      KateSuperRange* r = range;
-      QStack<KateSuperRange*> reverseStack;
+      KTextEditor::SmartRange* r = range;
+      QStack<KTextEditor::SmartRange*> reverseStack;
       while (r != m_currentRange) {
         reverseStack.append(r);
         r = r->parentRange();
       }
 
-      KateAttribute a;
+      KTextEditor::Attribute a;
       while (reverseStack.count()) {
-        if (KateAttribute* a2 = reverseStack.top()->attribute())
+        if (KTextEditor::Attribute* a2 = reverseStack.top()->attribute())
           a += *a2;
         m_attribs.append(a);
         reverseStack.pop();
@@ -379,17 +380,17 @@ class RenderRange {
       m_currentRange = range;
     }
 
-    mutable KateSuperRange* m_currentRange;
+    mutable KTextEditor::SmartRange* m_currentRange;
     mutable KTextEditor::Cursor m_currentPos;
-    mutable QStack<KateAttribute> m_attribs;
+    mutable QStack<KTextEditor::Attribute> m_attribs;
 };
 
 class RenderRangeList : public QList<RenderRange>
 {
   public:
-    RenderRangeList(const QList<KateSuperRange*>& startingRanges)
+    RenderRangeList(const QList<KateSmartRange*>& startingRanges)
     {
-      foreach (KateSuperRange* range, startingRanges)
+      foreach (KateSmartRange* range, startingRanges)
         append(RenderRange(range));
     }
 
@@ -421,12 +422,12 @@ class RenderRangeList : public QList<RenderRange>
       return ret;
     }
 
-    KateAttribute generateAttribute() const
+    KTextEditor::Attribute generateAttribute() const
     {
-      KateAttribute a;
+      KTextEditor::Attribute a;
 
       foreach (const RenderRange& r, *this)
-        if (KateAttribute* a2 = r.currentAttribute())
+        if (KTextEditor::Attribute* a2 = r.currentAttribute())
           a += *a2;
 
       return a;
@@ -495,7 +496,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   paintTextLineBackground(paint, range, currentViewLine, xStart, xEnd);
 
   // text attribs font/style data
-  KateAttribute* attr = m_doc->highlight()->attributes(m_schema)->data();
+  KTextEditor::Attribute* attr = m_doc->highlight()->attributes(m_schema)->data();
 
   const QColor *cursorColor = &attr[0].textColor();
 
@@ -508,7 +509,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     paint.drawLine(0, (fs->fontHeight * range->viewLineCount()) - 1, xEnd - xStart, (fs->fontHeight * range->viewLineCount()) - 1);
   }
 
-  KateAttribute customHL = renderRanges.generateAttribute();
+  KTextEditor::Attribute customHL = renderRanges.generateAttribute();
 
   if (range->layout()) {
     if (range->length() > 0) {
@@ -517,8 +518,18 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       if (hasSel) {
         const QVector<int> &al = range->textLine()->attributesList();
         int lastCol = 0;
+
+        // Add selections where the first attribute doesn't start at col 0
+        if (al.count() && (int)startSel < al[0]) {
+          QTextLayout::FormatRange fr;
+          fr.start = startSel;
+          fr.length = al[0] - fr.start;
+          fr.format.setBackground(config()->selectionColor());
+          selections.append(fr);
+        }
+
         for (int i = 0; i+2 < al.count(); i += 3) {
-          if (al[i] + al[i+1] <= startSel) {
+          if (al[i] + al[i+1] <= (int)startSel) {
             lastCol = al[i] + al[i+1];
             continue;
           }
@@ -536,16 +547,25 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
           fr.length = QMIN(al[i+1], (int)endSel - fr.start);
           fr.format.setBackground(config()->selectionColor());
 
-          KateAttribute* a = specificAttribute(al[i+2]);
-          if (a->itemSet(KateAttribute::SelectedTextColor))
+          KTextEditor::Attribute* a = specificAttribute(al[i+2]);
+          if (a->itemSet(KTextEditor::Attribute::SelectedTextColor))
             fr.format.setForeground(a->selectedTextColor());
 
           selections.append(fr);
 
           lastCol = al[i] + al[i+1];
 
-          if (al[i] + al[i+1] > endSel)
+          if (al[i] + al[i+1] > (int)endSel)
             break;
+        }
+
+        // Add selections where there is no syntax HL
+        if (!al.count()) {
+          QTextLayout::FormatRange fr;
+          fr.start = startSel;
+          fr.length = endSel - fr.start;
+          fr.format.setBackground(config()->selectionColor());
+          selections.append(fr);
         }
       }
 
@@ -601,17 +621,17 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
     bool isSel = false;
 
-    KateAttribute customHL;
+    KTextEditor::Attribute customHL;
 
     const QColor *curColor = 0;
     const QColor *oldColor = 0;
 
-    KateAttribute* oldAt = &attr[0];
+    KTextEditor::Attribute* oldAt = &attr[0];
 
     uint oldXPos = xPos;
     uint xPosAfter = xPos;
 
-    KateAttribute currentHL;
+    KTextEditor::Attribute currentHL;
 
     uint blockStartCol = startcol;
     uint curCol = startcol;
@@ -649,7 +669,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
       // Determine current syntax highlighting attribute
       // A bit legacy but doesn't need to change
-      KateAttribute* curAt = (noAttribs || ((*textAttributes) >= atLen)) ? &attr[0] : &attr[*textAttributes];
+      KTextEditor::Attribute* curAt = (noAttribs || ((*textAttributes) >= atLen)) ? &attr[0] : &attr[*textAttributes];
 
       // X position calculation. Incorrect for fonts with non-zero leftBearing() and rightBearing() results.
       // TODO: make internal charWidth() function, use QFontMetrics::charWidth().
@@ -678,12 +698,12 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
         // Incorporate in arbitrary highlighting
         if (curAt != oldAt || curColor != oldColor || hitArbitraryHLBoundary) {
-          KateAttribute hl = *curAt;
+          KTextEditor::Attribute hl = *curAt;
 
           hl += customHL;
 
           // use default highlighting color if we haven't defined one above.
-          if (!hl.itemSet(KateAttribute::TextColor))
+          if (!hl.itemSet(KTextEditor::Attribute::TextColor))
             hl.setTextColor(*curColor);
 
           if (!isSel)
@@ -703,7 +723,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         // characters or not
         // Reasons for NOT delaying the drawing until the next character
         // You have to detect the change one character in advance.
-        // TODO: KateAttribute::canBatchRender()
+        // TODO: KTextEditor::Attribute::canBatchRender()
         bool renderNow = false;
         if ((isTab)
           // formatting has changed OR
@@ -764,7 +784,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
               cg.color( QColorGroup::Background ).hsv( &h2, &s2, &v2 );
               fillColor.setHsv( h1, s1, ( v1 + v2 ) / 2 );
             }
-            else if (!selectionPainted && (isSel || currentHL.itemSet(KateAttribute::BGColor)))
+            else if (!selectionPainted && (isSel || currentHL.itemSet(KTextEditor::Attribute::BGColor)))
             {
               if (isSel)
               {
@@ -941,7 +961,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   }
 }
 
-uint KateRenderer::textWidth(const KateTextLine::Ptr &textLine, int cursorCol)
+/*uint KateRenderer::textWidth(const KateTextLine::Ptr &textLine, int cursorCol)
 {
   if (!textLine)
     return 0;
@@ -956,19 +976,19 @@ uint KateRenderer::textWidth(const KateTextLine::Ptr &textLine, int cursorCol)
   int x = 0;
   int width;
   for (int z = 0; z < cursorCol; z++) {
-    KateAttribute* a = attribute(textLine->attribute(z));
+    KTextEditor::Attribute* a = attribute(textLine->attribute(z));
 
     if (z < len) {
       width = a->width(*fs, textLine->string(), z, m_tabWidth);
     } else {
       // DF: commented out. It happens all the time.
-      /**
+      /
        * Rodda: If this is hit, there is a bug.
        * What this means is that the cursor's position in the line is past the
        * end of the line. When we haven't got the "wrap cursor" mode on, this
        * should never happen.  If you can trigger this, find out why, and fix
        * it.
-       */
+       /
       //Q_ASSERT(!m_doc->wrapCursor());
       width = a->width(*fs, spaceChar, m_tabWidth);
     }
@@ -1001,7 +1021,7 @@ uint KateRenderer::textWidth(const KateTextLine::Ptr &textLine, uint startcol, u
   uint z = startcol;
   for (; z < textLine->length(); z++)
   {
-    KateAttribute* a = attribute(textLine->attribute(z));
+    KTextEditor::Attribute* a = attribute(textLine->attribute(z));
     int width = a->width(*fs, textLine->string(), z, m_tabWidth);
     Q_ASSERT(width);
     x += width;
@@ -1079,7 +1099,7 @@ uint KateRenderer::textWidth(const KTextEditor::Cursor &cursor)
   int col = QMAX(0, cursor.column());
 
   return textWidth(m_doc->kateTextLine(line), col);
-}
+}*/
 
 const QFont *KateRenderer::currentFont() const
 {
@@ -1091,12 +1111,12 @@ const QFontMetrics* KateRenderer::currentFontMetrics() const
   return config()->fontMetrics();
 }
 
-uint KateRenderer::textPos(uint line, int xPos, uint startCol, bool nearest)
+/*uint KateRenderer::textPos(uint line, int xPos, uint startCol, bool nearest)
 {
   return textPos(m_doc->kateTextLine(line), xPos, startCol, nearest);
-}
+}*/
 
-uint KateRenderer::textPos(const KateTextLine::Ptr &textLine, int xPos, uint startCol, bool nearest)
+/*uint KateRenderer::textPos(const KateTextLine::Ptr &textLine, int xPos, uint startCol, bool nearest)
 {
   Q_ASSERT(textLine);
   if (!textLine)
@@ -1112,7 +1132,7 @@ uint KateRenderer::textPos(const KateTextLine::Ptr &textLine, int xPos, uint sta
   while ( (x < xPos)  && (z < len)) {
     oldX = x;
 
-    KateAttribute* a = attribute(textLine->attribute(z));
+    KTextEditor::Attribute* a = attribute(textLine->attribute(z));
     x += a->width(*fs, textLine->string(), z, m_tabWidth);
 
     z++;
@@ -1122,7 +1142,7 @@ uint KateRenderer::textPos(const KateTextLine::Ptr &textLine, int xPos, uint sta
    // newXPos = oldX;
   }// else newXPos = x;
   return z;
-}
+}*/
 
 uint KateRenderer::fontHeight()
 {
@@ -1142,33 +1162,33 @@ bool KateRenderer::getSelectionBounds(uint line, uint lineLength, uint &start, u
   {
     if (m_view->lineIsSelection(line))
     {
-      start = m_view->selectionStart().column();
-      end = m_view->selectionEnd().column();
+      start = m_view->selection().start().column();
+      end = m_view->selection().end().column();
       hasSel = true;
     }
-    else if ((int)line == m_view->selectionStart().line())
+    else if ((int)line == m_view->selection().start().line())
     {
-      start = m_view->selectionStart().column();
+      start = m_view->selection().start().column();
       end = lineLength;
       hasSel = true;
     }
-    else if ((int)line > m_view->selectionStart().line() && (int)line < m_view->selectionEnd().line())
+    else if (!m_view->selection().includesLine(line))
     {
       start = 0;
       end = lineLength;
       hasSel = true;
     }
-    else if ((int)line == m_view->selectionEnd().line())
+    else if ((int)line == m_view->selection().end().line())
     {
       start = 0;
-      end = m_view->selectionEnd().column();
+      end = m_view->selection().end().column();
       hasSel = true;
     }
   }
   else if (m_view->lineHasSelected(line))
   {
-    start = m_view->selectionStart().column();
-    end = m_view->selectionEnd().column();
+    start = m_view->selection().start().column();
+    end = m_view->selection().end().column();
     hasSel = true;
   }
 
@@ -1192,7 +1212,7 @@ void KateRenderer::updateConfig ()
 
 uint KateRenderer::spaceWidth() const
 {
-  return attribute(0)->width(*config()->fontStruct(), spaceChar, m_tabWidth);
+  return config()->fontStruct()->myFontMetrics.width(spaceChar);
 }
 
 void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool cacheLayout) const

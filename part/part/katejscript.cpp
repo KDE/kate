@@ -396,10 +396,10 @@ Value KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, 
       return KJS::Boolean (doc->clear());
 
     case KateJSDocument::InsertText:
-      return KJS::Boolean (doc->insertText (args[0].toUInt32(exec), args[1].toUInt32(exec), args[2].toString(exec).qstring()));
+      return KJS::Boolean (doc->insertText (KTextEditor::Cursor(args[0].toUInt32(exec), args[1].toUInt32(exec)), args[2].toString(exec).qstring()));
 
     case KateJSDocument::RemoveText:
-      return KJS::Boolean (doc->removeText(args[0].toUInt32(exec), args[1].toUInt32(exec), args[2].toUInt32(exec), args[3].toUInt32(exec)));
+      return KJS::Boolean (doc->removeText(KTextEditor::Range(args[0].toUInt32(exec), args[1].toUInt32(exec), args[2].toUInt32(exec), args[3].toUInt32(exec))));
 
     case KateJSDocument::InsertLine:
       return KJS::Boolean (doc->insertLine (args[0].toUInt32(exec), args[1].toString(exec).qstring()));
@@ -550,11 +550,10 @@ Value KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, cons
       return KJS::String( view->selectionText() );
 
     case KateJSView::HasSelection:
-      return KJS::Boolean( view->selection() );
+      return KJS::Boolean( view->hasSelection() );
 
     case KateJSView::SetSelection:
-      return KJS::Boolean( view->setSelection(KTextEditor::Cursor (args[0].toInt32(exec), args[1].toInt32(exec)),
-                                              KTextEditor::Cursor (args[2].toUInt32(exec), args[3].toUInt32(exec))) );
+      return KJS::Boolean( view->setSelection(KTextEditor::Range(args[0].toInt32(exec), args[1].toInt32(exec), args[2].toUInt32(exec), args[3].toUInt32(exec))) );
 
     case KateJSView::RemoveSelectedText:
       return KJS::Boolean( view->removeSelectionText() );
@@ -587,16 +586,16 @@ KJS::Value KateJSView::getValueProperty(KJS::ExecState *exec, int token) const
 
   switch (token) {
     case KateJSView::SelStartLine:
-      return KJS::Number( view->selectionStart().line() );
+      return KJS::Number( view->selection().start().line() );
 
     case KateJSView::SelStartCol:
-      return KJS::Number( view->selectionStart().column() );
+      return KJS::Number( view->selection().start().column() );
 
     case KateJSView::SelEndLine:
-      return KJS::Number( view->selectionEnd().line() );
+      return KJS::Number( view->selection().end().line() );
 
     case KateJSView::SelEndCol:
-      return KJS::Number( view->selectionEnd().column() );
+      return KJS::Number( view->selection().end().column() );
     }
 
   return KJS::Undefined ();

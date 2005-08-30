@@ -186,7 +186,7 @@ class KateTextLine : public KShared
      * @param tabChars tabulator width in chars
      * @return position with tabulators calculated
      */
-    int cursorX (int pos, uint tabChars) const;
+    int cursorX (int pos, uint tabChars) const KDE_DEPRECATED;
 
     /**
      * Returns the text length with tabs calced in

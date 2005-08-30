@@ -18,6 +18,6 @@
 
 #include "katerange.h"
 
-#include "kateattribute.h"
+#include <ktexteditor/attribute.h>
 
 // Heh...

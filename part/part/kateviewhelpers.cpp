@@ -22,7 +22,7 @@
 #include "kateviewhelpers.moc"
 
 #include "katecmd.h"
-#include "kateattribute.h"
+#include <ktexteditor/attribute.h>
 #include "katecodefoldinghelpers.h"
 #include "kateconfig.h"
 #include "katedocument.h"
@@ -30,6 +30,7 @@
 #include "kateview.h"
 #include "kateviewinternal.h"
 #include "katelayoutcache.h"
+#include "katefont.h"
 
 #include <kapplication.h>
 #include <kglobalsettings.h>

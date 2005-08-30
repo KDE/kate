@@ -400,7 +400,7 @@ void DocWordCompletionPluginView::complete( bool fw )
       {
         // we got good a match! replace text and return.
         if ( d->lilen )
-          m_view->document()->removeText( KTextEditor::Cursor (d->cline, d->ccol), KTextEditor::Cursor (d->cline, d->ccol + d->lilen) );
+          m_view->document()->removeText( KTextEditor::Range(d->cline, d->ccol, d->cline, d->ccol + d->lilen) );
         m_view->document()->insertText( KTextEditor::Cursor (d->cline, d->ccol), m );
 
         d->lastIns = m;
@@ -517,7 +517,7 @@ QString DocWordCompletionPluginView::word()
 
   d->re.setPattern( "\\b(\\w+)$" );
   if ( d->re.searchRev(
-        m_view->document()->text( start, end )
+        m_view->document()->text( KTextEditor::Range(start, end) )
         ) < 0 )
     return QString::null; // no word
   return d->re.cap( 1 );

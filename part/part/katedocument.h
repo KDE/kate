@@ -35,6 +35,7 @@
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/variableinterface.h>
 #include <ktexteditor/modificationinterface.h>
+#include <ktexteditor/smartinterface.h>
 
 #include <dcopobject.h>
 
@@ -53,20 +54,21 @@ namespace KIO { class TransferJob; }
 
 class KateUndoGroup;
 class KateCmd;
-class KateAttribute;
+class KTextEditor::Attribute;
 class KateAutoIndent;
 class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
 class KateViewInternal;
 class KateArbitraryHighlight;
-class KateSuperRange;
+class KateSmartRange;
 class KateLineInfo;
 class KateBrowserExtension;
 class KateDocumentConfig;
 class KateHighlighting;
 class KatePartPluginItem;
 class KatePartPluginInfo;
+class KateSmartManager;
 
 class KTempFile;
 
@@ -84,6 +86,7 @@ class KateDocument : public KTextEditor::Document,
                      public KTextEditor::MarkInterface,
                      public KTextEditor::VariableInterface,
                      public KTextEditor::ModificationInterface,
+                     public KTextEditor::SmartInterface,
                      public DCOPObject
 {
   K_DCOP
@@ -148,16 +151,19 @@ class KateDocument : public KTextEditor::Document,
     KDocument::View *createView( QWidget *parent );
     const QList<KDocument::View*> &views ();
 
-    inline KateView *activeView () const { return m_activeView; }
+    virtual KTextEditor::View* activeView() const { return m_activeView; }
+    // Invalid covariant returns my a$$... for some reason gcc won't let me return a KateView above!
+    KateView* activeKateView() const;
 
   signals:
     void activeViewCaretPositionChanged(const KTextEditor::Cursor& newPosition);
     void activeViewMousePositionChanged(const KTextEditor::Cursor& newPosition);
+    void activeViewSelectionChanged(KTextEditor::View* view);
 
   private:
     QLinkedList<KateView*> m_views;
     QList<KDocument::View*> m_textEditViews;
-    KateView *m_activeView;
+    KTextEditor::View *m_activeView;
 
   //
   // KTextEditor::EditInterface stuff
@@ -165,9 +171,11 @@ class KateDocument : public KTextEditor::Document,
   public slots:
     QString text() const;
 
-    QString text ( const KTextEditor::Cursor &startPosition, const KTextEditor::Cursor &endPosition ) const;
+    // TODO add blockwise
+    QString text ( const KTextEditor::Range &range, bool blockwise = false ) const;
+    KDE_DEPRECATED QString text ( const KTextEditor::Cursor &startPosition, const KTextEditor::Cursor &endPosition ) const;
     QString text ( int startLine, int startCol, int endLine, int endCol ) const
-     { return text (KTextEditor::Cursor(startLine, startCol), KTextEditor::Cursor(endLine, endCol)); }
+     { return text (KTextEditor::Range(startLine, startCol, endLine, endCol)); }
 
     QString text ( int startLine, int startCol, int endLine, int endCol, bool blockwise ) const;
 
@@ -176,22 +184,16 @@ class KateDocument : public KTextEditor::Document,
     bool setText(const QString &);
     bool clear ();
 
-    bool insertText ( const KTextEditor::Cursor &position, const QString &s );
-    bool insertText ( int line, int column, const QString &text )
-     { return insertText (KTextEditor::Cursor(line, column), text); }
-
-    bool insertText ( int line, int col, const QString &s, bool blockwise );
-
-    bool removeText ( const KTextEditor::Cursor &startPosition, const KTextEditor::Cursor &endPosition );
-    bool removeText ( int startLine, int startCol, int endLine, int endCol )
-     { return removeText (KTextEditor::Cursor(startLine, startCol), KTextEditor::Cursor(endLine, endCol)); }
-
-    bool removeText ( int startLine, int startCol, int endLine, int endCol, bool blockwise );
-
+    bool insertText ( const KTextEditor::Cursor &position, const QString &s, bool block = false );
     bool insertLine ( int line, const QString &s );
+
+    bool removeText ( const KTextEditor::Range &range, bool block = false );
     bool removeLine ( int line );
 
+    bool replaceText ( const KTextEditor::Range &range, const QString &s, bool block = false );
+
     int lines() const;
+    virtual KTextEditor::Cursor end() const;
     int numVisLines() const;
     int length () const;
     int lineLength ( int line ) const;
@@ -288,7 +290,7 @@ class KateDocument : public KTextEditor::Document,
      * @param endLine line to stop wrapping
      * @return true on success
      */
-    bool wrapText (uint startLine, uint endLine);
+    bool wrapText (int startLine, int endLine);
 //END LINE BASED INSERT/REMOVE STUFF
 
   signals:
@@ -338,8 +340,11 @@ class KateDocument : public KTextEditor::Document,
   private:
     friend class KateTemplateHandler;
 
+  public:
+    class KateEditHistory* history() const { return m_editHistory; }
+
   private:
-    Q3PtrList<KateSuperCursor> m_superCursors;
+    KateEditHistory* m_editHistory;
 
     //
     // some internals for undo/redo
@@ -365,12 +370,10 @@ class KateDocument : public KTextEditor::Document,
   // KTextEditor::SearchInterface stuff
   //
   public slots:
-    bool searchText (int startLine, int startCol,
-        const QString &text, int *foundAtLine, int *foundAtCol,
-        int *matchLen, bool casesensitive = true, bool backwards = false);
-    bool searchText (int startLine, int startCol,
-        const QRegExp &regexp, int *foundAtLine, int *foundAtCol,
-        int *matchLen, bool backwards = false);
+    KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
+        const QString &text, bool casesensitive = true, bool backwards = false);
+    KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
+        const QRegExp &regexp, bool backwards = false);
 
   //
   // KTextEditor::HighlightingInterface stuff
@@ -411,13 +414,13 @@ class KateDocument : public KTextEditor::Document,
   // KTextEditor::MarkInterface and MarkInterfaceExtension
   //
   public slots:
-    uint mark( uint line );
+    uint mark( int line );
 
-    void setMark( uint line, uint markType );
-    void clearMark( uint line );
+    void setMark( int line, uint markType );
+    void clearMark( int line );
 
-    void addMark( uint line, uint markType );
-    void removeMark( uint line, uint markType );
+    void addMark( int line, uint markType );
+    void removeMark( int line, uint markType );
 
     Q3PtrList<KTextEditor::Mark> marks();
     void clearMarks();
@@ -484,6 +487,18 @@ class KateDocument : public KTextEditor::Document,
 
   private:
     QMap<QString, QString> m_storedVariables;
+
+  //
+  // KTextEditor::SmartInterface
+  //
+  public:
+    virtual KTextEditor::SmartCursor* newSmartCursor(const KTextEditor::Cursor& position, bool moveOnInsert = true);
+    virtual KTextEditor::SmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, int insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
+
+    KateSmartManager* smartManager() const { return m_smartManager; }
+
+  private:
+    KateSmartManager* m_smartManager;
 
   //
   // KParts::ReadWrite stuff
@@ -556,9 +571,6 @@ class KateDocument : public KTextEditor::Document,
     void addView(KTextEditor::View *);
     void removeView(KTextEditor::View *);
     void setActiveView(KTextEditor::View*);
-
-    void addSuperCursor(class KateSuperCursor *, bool privateC);
-    void removeSuperCursor(class KateSuperCursor *, bool privateC);
 
     bool ownedView(KateView *);
 
@@ -671,7 +683,7 @@ class KateDocument : public KTextEditor::Document,
   public:
     void tagAll();
 
-    void newBracketMark( const KTextEditor::Cursor& start, KateSuperRange& bm, int maxLines = -1 );
+    void newBracketMark( const KTextEditor::Cursor& start, KateSmartRange& bm, int maxLines = -1 );
     bool findMatchingBracket( KTextEditor::Range& range, int maxLines = -1 );
 
   private:
@@ -810,7 +822,7 @@ class KateDocument : public KTextEditor::Document,
      *
      * @since 3.3
      */
-    void removeTrailingSpace( uint line );
+    void removeTrailingSpace( int line );
 
   public:
     void updateFileType (int newType, bool user = false);

@@ -102,8 +102,8 @@ class KateViewInternal : public QWidget
 
   public:
     inline const KTextEditor::Cursor& startPos() const { return m_startPos; }
-    inline uint startLine () const { return m_startPos.line(); }
-    inline uint startX () const { return m_startX; }
+    inline int startLine () const { return m_startPos.line(); }
+    inline int startX () const { return m_startX; }
 
     KTextEditor::Cursor endPos () const;
     uint endLine () const;
@@ -231,16 +231,16 @@ class KateViewInternal : public QWidget
 
     Qt::CursorShape m_mouseCursor;
 
-    KateSuperCursor m_cursor;
+    KateSmartCursor m_cursor;
     // FIXME probably a bug here, the mouse position shouldn't change just because text gets changed
-    KateSuperCursor m_mouse;
+    KateSmartCursor m_mouse;
     KTextEditor::Cursor m_displayCursor;
     int m_cursorX;
 
     bool m_possibleTripleClick;
 
     // Bracket mark and corresponding decorative ranges
-    KateSuperRange m_bm, m_bmStart, m_bmEnd;
+    KateSmartRange m_bm, m_bmStart, m_bmEnd;
 
     enum DragState { diNone, diPending, diDragging };
 
@@ -259,7 +259,7 @@ class KateViewInternal : public QWidget
     QWidget* m_dummy;
 
     // These are now cursors to account for word-wrap.
-    KateSuperCursor m_startPos;
+    KateSmartCursor m_startPos;
 
     // This is set to false on resize or scroll (other than that called by makeVisible),
     // so that makeVisible is again called when a key is pressed and the cursor is in the same spot
@@ -288,8 +288,7 @@ class KateViewInternal : public QWidget
     // when drag selecting after double/triple click, keep the initial selected
     // word/line independant of direction.
     // They get set in the event of a double click, and is used with mouse move + leftbutton
-    KTextEditor::Cursor m_selStartCached;
-    KTextEditor::Cursor m_selEndCached;
+    KTextEditor::Range m_selectionCached;
 
     // Used to determine if the scrollbar will appear/disappear in non-wrapped mode
     bool scrollbarVisible(uint startLine);

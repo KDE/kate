@@ -45,7 +45,6 @@
 #include "katefiletype.h"
 #include "kateautoindent.h"
 #include "katearbitraryhighlight.h"
-#include "katerangelist.h"
 #include "katespell.h"
 
 #include <ktexteditor/plugin.h>
@@ -83,8 +82,19 @@
 #include <q3stylesheet.h>
 //END includes
 
+static void blockFix(KTextEditor::Range& range)
+{
+  if (range.start().column() > range.end().column())
+  {
+    int tmp = range.start().column();
+    range.start().setColumn(range.end().column());
+    range.end().setColumn(tmp);
+  }
+}
+
 KateView::KateView( KateDocument *doc, QWidget *parent )
     : KTextEditor::View( parent )
+    , m_destructing(false)
     , m_editActions (0)
     , m_doc( doc )
     , m_search( new KateSearch( this ) )
@@ -95,12 +105,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_hasWrap( false )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
-    , m_internalHighlights(new KateRangeList(doc, this))
-    , selectStart (m_doc, true)
-    , selectEnd (m_doc, true)
+//    , m_internalHighlights(new KateRangeList(doc, this))
+    , m_selection(m_doc)
     , blockSelect (false)
     , m_imComposeEvent( false )
-    , m_destructing(false)
     , m_customComplete(false)
     , m_cc_cleanup(false)
     , m_delayed_cc_type(KTextEditor::CompletionNone)
@@ -110,7 +118,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   m_config = new KateViewConfig (this);
 
   m_renderer = new KateRenderer(doc, this);
-  m_doc->arbitraryHL()->addHighlightToView(m_internalHighlights, this);
+  //m_doc->arbitraryHL()->addHighlightToView(m_internalHighlights, this);
 
   m_viewInternal = new KateViewInternal( this, doc );
 
@@ -146,8 +154,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   // this really is needed :)
   m_viewInternal->updateView ();
 
-  connect(&m_viewInternal->m_cursor, SIGNAL(positionChanged()), SLOT(slotCaretPositionChanged()));
-  connect(&m_viewInternal->m_mouse, SIGNAL(positionChanged()), SLOT(slotMousePositionChanged()));
+  // FIXME design + update to new api
+  //connect(&m_viewInternal->m_cursor, SIGNAL(positionChanged()), SLOT(slotCaretPositionChanged()));
+  //connect(&m_viewInternal->m_mouse, SIGNAL(positionChanged()), SLOT(slotMousePositionChanged()));
 
   setInstance( KateGlobal::self()->instance() );
   doc->addView( this );
@@ -698,7 +707,6 @@ QString KateView::viewMode () const
 
 void KateView::slotGotFocus()
 {
-  kdDebug()<<"KateView::slotGotFocus()"<<endl;
   if (m_editActions)
     m_editActions->accel()->setEnabled( true );
 
@@ -707,7 +715,6 @@ void KateView::slotGotFocus()
 
 void KateView::slotLostFocus()
 {
-  kdDebug()<<"KateView::slotLostFocus()"<<endl;
   if (m_editActions)
     m_editActions->accel()->setEnabled( false );
 
@@ -843,8 +850,8 @@ void KateView::gotoLine()
 
 void KateView::joinLines()
 {
-  int first = selectionStart().line();
-  int last = selectionEnd().line();
+  int first = selection().start().line();
+  int last = selection().end().line();
   //int left = m_doc->line( last ).length() - m_doc->selEndCol();
   if ( first == last )
   {
@@ -1265,34 +1272,28 @@ int KateView::cursorColumn() const
 
 void KateView::slotMousePositionChanged( )
 {
-  Q_ASSERT(sender() && sender()->inherits("KateSuperCursor"));
-  KateSuperCursor* mousePosition = static_cast<KateSuperCursor*>(const_cast<QObject*>(sender()));
-  emit mousePositionChanged(*mousePosition);
+  /* FIXME design + update to new api
+  Q_ASSERT(sender() && sender()->inherits("KateSmartCursor"));
+  KateSmartCursor* mousePosition = static_cast<KateSmartCursor*>(const_cast<QObject*>(sender()));
+  emit mousePositionChanged(*mousePosition);*/
 }
 
 void KateView::slotCaretPositionChanged( )
 {
-  Q_ASSERT(sender() && sender()->inherits("KateSuperCursor"));
-  KateSuperCursor* caretPosition = static_cast<KateSuperCursor*>(const_cast<QObject*>(sender()));
-  emit caretPositionChanged(*caretPosition);
+  /* FIXME design + update to new api
+  Q_ASSERT(sender() && sender()->inherits("KateSmartCursor"));
+  KateSmartCursor* caretPosition = static_cast<KateSmartCursor*>(const_cast<QObject*>(sender()));
+  emit caretPositionChanged(*caretPosition);*/
 }
 
 //BEGIN KTextEditor::SelectionInterface stuff
 
-bool KateView::setSelection( const KTextEditor::Cursor& start, const KTextEditor::Cursor& end )
+bool KateView::setSelection( const KTextEditor::Range &selection )
 {
-  KTextEditor::Cursor oldSelectStart = selectStart;
-  KTextEditor::Cursor oldSelectEnd = selectEnd;
+  KTextEditor::Range oldSelection = m_selection;
+  m_selection = selection;
 
-  if (start <= end) {
-    selectStart.setPosition(start);
-    selectEnd.setPosition(end);
-  } else {
-    selectStart.setPosition(end);
-    selectEnd.setPosition(start);
-  }
-
-  tagSelection(oldSelectStart, oldSelectEnd);
+  tagSelection(oldSelection);
 
   repaintText(true);
 
@@ -1311,16 +1312,13 @@ bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
   if( !hasSelection() )
     return false;
 
-  KTextEditor::Cursor oldSelectStart = selectStart;
-  KTextEditor::Cursor oldSelectEnd = selectEnd;
+  KTextEditor::Range oldSelection = m_selection;
 
-  selectStart.setPosition(-1, -1);
-  selectEnd.setPosition(-1, -1);
+  m_selection = KTextEditor::Range::invalid();
 
-  tagSelection(oldSelectStart, oldSelectEnd);
+  tagSelection(oldSelection);
 
-  oldSelectStart = selectStart;
-  oldSelectEnd = selectEnd;
+  oldSelection = m_selection;
 
   if (redraw)
     repaintText(true);
@@ -1333,47 +1331,32 @@ bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
 
 bool KateView::hasSelection() const
 {
-  return selectStart != selectEnd;
+  return m_selection.start() != m_selection.end();
 }
 
 QString KateView::selectionText() const
 {
-  int sc = selectStart.column();
-  int ec = selectEnd.column();
+  KTextEditor::Range range = m_selection;
 
   if ( blockSelect )
-  {
-    if (sc > ec)
-    {
-      uint tmp = sc;
-      sc = ec;
-      ec = tmp;
-    }
-  }
-  return m_doc->text (selectStart.line(), sc, selectEnd.line(), ec, blockSelect);
+    blockFix(range);
+
+  return m_doc->text(range, blockSelect);
 }
 
-bool KateView::removeSelectedText ()
+bool KateView::removeSelectedText()
 {
   if (!hasSelection())
     return false;
 
   m_doc->editStart ();
 
-  int sc = selectStart.column();
-  int ec = selectEnd.column();
+  KTextEditor::Range range = m_selection;
 
   if ( blockSelect )
-  {
-    if (sc > ec)
-    {
-      uint tmp = sc;
-      sc = ec;
-      ec = tmp;
-    }
-  }
+    blockFix(range);
 
-  m_doc->removeText (selectStart.line(), sc, selectEnd.line(), ec, blockSelect);
+  m_doc->removeText(range, blockSelect);
 
   // don't redraw the cleared selection - that's done in editEnd().
   clearSelection(false);
@@ -1387,7 +1370,7 @@ bool KateView::selectAll()
 {
   setBlockSelectionMode (false);
 
-  return setSelection (KTextEditor::Cursor (0,0), KTextEditor::Cursor(m_doc->lastLine(), m_doc->lineLength(m_doc->lastLine())));
+  return setSelection(KTextEditor::Range(KTextEditor::Cursor(), m_doc->end()));
 }
 
 bool KateView::cursorSelected(const KTextEditor::Cursor& cursor)
@@ -1397,70 +1380,66 @@ bool KateView::cursorSelected(const KTextEditor::Cursor& cursor)
     ret.setColumn(0);
 
   if (blockSelect)
-    return cursor.line() >= selectStart.line() && ret.line() <= selectEnd.line() && ret.column() >= selectStart.column() && ret.column() < selectEnd.column();
+    return cursor.line() >= m_selection.start().line() && ret.line() <= m_selection.end().line() && ret.column() >= m_selection.start().column() && ret.column() < m_selection.end().column();
   else
-    return (ret >= selectStart) && (ret < selectEnd);
+    return m_selection.contains(cursor);
 }
 
 bool KateView::lineSelected (int line)
 {
-  return (!blockSelect)
-    && (selectStart <= KTextEditor::Cursor(line, 0))
-    && (line < selectEnd.line());
+  return !blockSelect && m_selection.containsLine(line);
 }
 
 bool KateView::lineEndSelected (const KTextEditor::Cursor& lineEndPos)
 {
   return (!blockSelect)
-    && (lineEndPos.line() > selectStart.line() || (lineEndPos.line() == selectStart.line() && (selectStart.column() < lineEndPos.column() || lineEndPos.column() == -1)))
-    && (lineEndPos.line() < selectEnd.line() || (lineEndPos.line() == selectEnd.line() && (lineEndPos.column() <= selectEnd.column() && lineEndPos.column() != -1)));
+    && (lineEndPos.line() > m_selection.start().line() || (lineEndPos.line() == m_selection.start().line() && (m_selection.start().column() < lineEndPos.column() || lineEndPos.column() == -1)))
+    && (lineEndPos.line() < m_selection.end().line() || (lineEndPos.line() == m_selection.end().line() && (lineEndPos.column() <= m_selection.end().column() && lineEndPos.column() != -1)));
 }
 
 bool KateView::lineHasSelected (int line)
 {
-  return (selectStart < selectEnd)
-    && (line >= selectStart.line())
-    && (line <= selectEnd.line());
+  return hasSelection() && m_selection.containsLine(line);
 }
 
 bool KateView::lineIsSelection (int line)
 {
-  return (line == selectStart.line() && line == selectEnd.line());
+  return (line == m_selection.start().line() && line == m_selection.end().line());
 }
 
-void KateView::tagSelection(const KTextEditor::Cursor &oldSelectStart, const KTextEditor::Cursor &oldSelectEnd)
+void KateView::tagSelection(const KTextEditor::Range &oldSelection)
 {
   if (hasSelection()) {
-    if (oldSelectStart.line() == -1) {
+    if (oldSelection.start().line() == -1) {
       // We have to tag the whole lot if
       // 1) we have a selection, and:
       //  a) it's new; or
-      tagLines(selectStart, selectEnd);
+      tagLines(m_selection, true);
 
-    } else if (blockSelectionMode() && (oldSelectStart.column() != selectStart.column() || oldSelectEnd.column() != selectEnd.column())) {
+    } else if (blockSelectionMode() && (oldSelection.start().column() != m_selection.start().column() || oldSelection.end().column() != m_selection.end().column())) {
       //  b) we're in block selection mode and the columns have changed
-      tagLines(selectStart, selectEnd);
-      tagLines(oldSelectStart, oldSelectEnd);
+      tagLines(m_selection, true);
+      tagLines(oldSelection, true);
 
     } else {
-      if (oldSelectStart != selectStart) {
-        if (oldSelectStart < selectStart)
-          tagLines(oldSelectStart, selectStart);
+      if (oldSelection.start() != m_selection.start()) {
+        if (oldSelection.start() < m_selection.start())
+          tagLines(oldSelection.start(), m_selection.start(), true);
         else
-          tagLines(selectStart, oldSelectStart);
+          tagLines(m_selection.start(), oldSelection.start(), true);
       }
 
-      if (oldSelectEnd != selectEnd) {
-        if (oldSelectEnd < selectEnd)
-          tagLines(oldSelectEnd, selectEnd);
+      if (oldSelection.end() != m_selection.end()) {
+        if (oldSelection.end() < m_selection.end())
+          tagLines(oldSelection.end(), m_selection.end(), true);
         else
-          tagLines(selectEnd, oldSelectEnd);
+          tagLines(m_selection.end(), oldSelection.end(), true);
       }
     }
 
   } else {
     // No more selection, clean up
-    tagLines(oldSelectStart, oldSelectEnd);
+    tagLines(oldSelection, true);
   }
 }
 
@@ -1484,7 +1463,7 @@ void KateView::selectWord( const KTextEditor::Cursor& cursor )
 
 void KateView::selectLine( const KTextEditor::Cursor& cursor )
 {
-  setSelection (KTextEditor::Cursor (cursor.line(), 0), KTextEditor::Cursor (cursor.line()+1, 0));
+  setSelection (KTextEditor::Range(cursor.line(), 0, cursor.line()+1, 0));
 }
 
 void KateView::cut()
@@ -1522,27 +1501,14 @@ void KateView::copyHTML()
 
 QString KateView::selectionAsHtml()
 {
-  int sc = selectStart.column();
-  int ec = selectEnd.column();
-
-  if ( blockSelect )
-  {
-    if (sc > ec)
-    {
-      uint tmp = sc;
-      sc = ec;
-      ec = tmp;
-    }
-  }
-
-  return textAsHtml (selectStart.line(), sc, selectEnd.line(), ec, blockSelect);
+  return textAsHtml(m_selection, blockSelect);
 }
 
-QString KateView::textAsHtml ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise)
+QString KateView::textAsHtml ( KTextEditor::Range range, bool blockwise)
 {
   kdDebug(13020) << "textAsHtml" << endl;
-  if ( blockwise && (startCol > endCol) )
-    return QString ();
+  if (blockwise)
+    blockFix(range);
 
   QString s;
   QTextStream ts( &s, QIODevice::WriteOnly );
@@ -1555,7 +1521,7 @@ QString KateView::textAsHtml ( uint startLine, uint startCol, uint endLine, uint
   ts << "</head>" << endl;
 
   ts << "<body>" << endl;
-  textAsHtmlStream(startLine, startCol, endLine, endCol, blockwise, &ts);
+  textAsHtmlStream(range, blockwise, &ts);
 
   ts << "</body>" << endl;
   ts << "</html>" << endl;
@@ -1563,51 +1529,51 @@ QString KateView::textAsHtml ( uint startLine, uint startCol, uint endLine, uint
   return s;
 }
 
-void KateView::textAsHtmlStream ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise, QTextStream *ts)
+void KateView::textAsHtmlStream ( const KTextEditor::Range& range, bool blockwise, QTextStream *ts)
 {
-  if ( (blockwise || startLine == endLine) && (startCol > endCol) )
+  if ( (blockwise || range.onSingleLine()) && (range.start().column() > range.end().column() ) )
     return;
 
-  if (startLine == endLine)
+  if (range.onSingleLine())
   {
-    KateTextLine::Ptr textLine = m_doc->kateTextLine(startLine);
+    KateTextLine::Ptr textLine = m_doc->kateTextLine(range.start().line());
     if ( !textLine )
       return;
 
     (*ts) << "<pre>" << endl;
 
-    lineAsHTML(textLine, startCol, endCol-startCol, ts);
+    lineAsHTML(textLine, range.start().column(), range.columnWidth(), ts);
   }
   else
   {
     (*ts) << "<pre>" << endl;
 
-    for (int i = startLine; (i <= endLine) && (i < m_doc->lines()); ++i)
+    for (int i = range.start().line(); (i <= range.end().line()) && (i < m_doc->lines()); ++i)
     {
       KateTextLine::Ptr textLine = m_doc->kateTextLine(i);
 
       if ( !blockwise )
       {
-        if (i == startLine)
-          lineAsHTML(textLine, startCol, textLine->length()-startCol, ts);
-        else if (i == endLine)
-          lineAsHTML(textLine, 0, endCol, ts);
+        if (i == range.start().line())
+          lineAsHTML(textLine, range.start().column(), textLine->length() - range.start().column(), ts);
+        else if (i == range.end().line())
+          lineAsHTML(textLine, 0, range.end().column(), ts);
         else
           lineAsHTML(textLine, 0, textLine->length(), ts);
       }
       else
       {
-        lineAsHTML( textLine, startCol, endCol-startCol, ts);
+        lineAsHTML( textLine, range.start().column(), range.columnWidth(), ts);
       }
 
-      if ( i < endLine )
+      if ( i < range.end().line() )
         (*ts) << "\n";    //we are inside a <pre>, so a \n is a new line
     }
   }
   (*ts) << "</pre>";
 }
 
-void KateView::lineAsHTML (KateTextLine::Ptr line, uint startCol, uint length, QTextStream *outputStream)
+void KateView::lineAsHTML (KateTextLine::Ptr line, int startCol, int length, QTextStream *outputStream)
 {
   if(length == 0) return;
   // some variables :
@@ -1623,9 +1589,9 @@ void KateView::lineAsHTML (KateTextLine::Ptr line, uint startCol, uint length, Q
 
 
   // for each character of the line : (curPos is the position in the line)
-  for (uint curPos=startCol;curPos<(length+startCol);curPos++)
+  for (int curPos=startCol;curPos<(length+startCol);curPos++)
     {
-      KateAttribute* charAttributes = 0;
+      KTextEditor::Attribute* charAttributes = 0;
 
       charAttributes = m_renderer->attribute(line->attribute(curPos));
 
@@ -1730,7 +1696,7 @@ void KateView::exportAsHTML ()
     (*outputStream) << "</head>" << endl;
     (*outputStream) << "<body>" << endl;
 
-    textAsHtmlStream(0,0, m_doc->lastLine(), m_doc->lineLength(m_doc->lastLine()), false, outputStream);
+    textAsHtmlStream(m_doc->all(), false, outputStream);
 
     (*outputStream) << "</body>" << endl;
     (*outputStream) << "</html>" << endl;
@@ -1763,12 +1729,11 @@ bool KateView::setBlockSelectionMode (bool on)
   {
     blockSelect = on;
 
-    KTextEditor::Cursor oldSelectStart = selectStart;
-    KTextEditor::Cursor oldSelectEnd = selectEnd;
+    KTextEditor::Range oldSelection = m_selection;
 
     clearSelection(false, false);
 
-    setSelection(oldSelectStart, oldSelectEnd);
+    setSelection(oldSelection);
 
     m_toggleBlockSelection->setChecked( blockSelectionMode() );
   }
@@ -1799,12 +1764,12 @@ void KateView::setIMSelectionValue( const KTextEditor::Range& imRange, const KTe
 
 bool KateView::isIMSelection( const KTextEditor::Cursor& pos )
 {
-  return m_imSelection.includes(pos);
+  return m_imSelection.contains(pos);
 }
 
 bool KateView::isIMEdit( const KTextEditor::Cursor& pos )
 {
-  return m_imRange.includes(pos);
+  return m_imRange.contains(pos);
 }
 
 void KateView::getIMSelectionValue( KTextEditor::Range* imRange, KTextEditor::Range* imSelection )
@@ -1945,6 +1910,11 @@ bool KateView::unregisterCompletionProvider(KTextEditor::CompletionProvider* pro
   if (!provider) return false;
   m_completionProviderData.remove(provider);
   return m_completionProviders.removeAll(provider);
+}
+
+bool KateView::tagLines( KTextEditor::Range range, bool realRange )
+{
+  return tagLines(range.start(), range.end(), realRange);
 }
 
 

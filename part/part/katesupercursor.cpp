@@ -17,97 +17,46 @@
 */
 
 #include "katesupercursor.h"
-#include "katesupercursor.moc"
 
 #include "katedocument.h"
+#include "katesmartmanager.h"
 
 #include <kdebug.h>
 
-#include <qobject.h>
-
-KateSuperCursor::KateSuperCursor(KateDocument* doc, bool privateC, const KTextEditor::Cursor& cursor, QObject* parent, const char* name)
-  : QObject(parent, name)
-  , KateDocCursor(cursor.line(), cursor.column(), doc)
-  , m_doc (doc)
+KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEditor::Document* doc, bool moveOnInsert)
+  : KTextEditor::SmartCursor(position, doc, moveOnInsert)
+  , m_feedbackEnabled(false)
+  , m_oldGroupLineStart(-1)
+  , m_notifier(0L)
+  , m_watcher(0L)
 {
-  m_moveOnInsert = false;
-  m_lineRemoved = false;
-  m_privateCursor = privateC;
-
-  connect(this, SIGNAL(positionDirectlyChanged()), SIGNAL(positionChanged()));
-
-  m_doc->addSuperCursor (this, privateC);
+  // Replace straight line number with smartgroup + line offset
+  m_smartGroup = kateDocument()->smartManager()->groupForLine(m_line);
+  m_line = m_line - m_smartGroup->startLine();
+  m_smartGroup->joined(this);
 }
 
-KateSuperCursor::KateSuperCursor(KateDocument* doc, bool privateC, int lineNum, int col, QObject* parent, const char* name)
-  : QObject(parent, name)
-  , KateDocCursor(lineNum, col, doc)
-  , m_doc (doc)
+KateSmartCursor::KateSmartCursor( KTextEditor::Document * doc, bool moveOnInsert )
+  : KTextEditor::SmartCursor(KTextEditor::Cursor(), doc, moveOnInsert)
+  , m_feedbackEnabled(false)
+  , m_oldGroupLineStart(-1)
+  , m_notifier(0L)
+  , m_watcher(0L)
 {
-  m_moveOnInsert = false;
-  m_lineRemoved = false;
-  m_privateCursor = privateC;
-
-  connect(this, SIGNAL(positionDirectlyChanged()), SIGNAL(positionChanged()));
-
-  m_doc->addSuperCursor (this, privateC);
+  // Replace straight line number with smartgroup + line offset
+  m_smartGroup = kateDocument()->smartManager()->groupForLine(m_line);
+  m_line = m_line - m_smartGroup->startLine();
+  m_smartGroup->joined(this);
 }
 
-KateSuperCursor::~KateSuperCursor ()
+KateSmartCursor::~KateSmartCursor()
 {
-  m_doc->removeSuperCursor (this, m_privateCursor);
+  m_smartGroup->leaving(this);
+  if (m_notifier)
+    delete m_notifier;
 }
 
-bool KateSuperCursor::insertText(const QString& s)
-{
-  return KateDocCursor::insertText(s);
-}
-
-bool KateSuperCursor::removeText(uint nbChar)
-{
-  return KateDocCursor::removeText(nbChar);
-}
-
-QChar KateSuperCursor::currentChar() const
-{
-  return KateDocCursor::currentChar();
-}
-
-bool KateSuperCursor::atStartOfLine() const
-{
-  return column() == 0;
-}
-
-bool KateSuperCursor::atEndOfLine() const
-{
-  return column() >= (int)m_doc->kateTextLine(line())->length();
-}
-
-bool KateSuperCursor::moveOnInsert() const
-{
-  return m_moveOnInsert;
-}
-
-void KateSuperCursor::setMoveOnInsert(bool moveOnInsert)
-{
-  m_moveOnInsert = moveOnInsert;
-}
-
-void KateSuperCursor::setPosition(const KTextEditor::Cursor& pos)
-{
-  KTextEditor::Cursor tmp (pos);
-  KateDocCursor::setPosition(pos);
-
-  if (tmp != *this)
-    emit positionDirectlyChanged();
-}
-
-KateDocument* KateSuperCursor::doc() const
-{
-  return m_doc;
-}
-
-void KateSuperCursor::editTextInserted(uint line, uint col, uint len)
+/*void KateSmartCursor::editTextInserted(uint line, uint col, uint len)
 {
   if (m_line == int(line))
   {
@@ -128,7 +77,7 @@ void KateSuperCursor::editTextInserted(uint line, uint col, uint len)
   emit positionUnChanged();
 }
 
-void KateSuperCursor::editTextRemoved(uint line, uint col, uint len)
+void KateSmartCursor::editTextRemoved(uint line, uint col, uint len)
 {
   if (m_line == int(line))
   {
@@ -163,7 +112,7 @@ void KateSuperCursor::editTextRemoved(uint line, uint col, uint len)
   emit positionUnChanged();
 }
 
-void KateSuperCursor::editLineWrapped(uint line, uint col, bool newLine)
+void KateSmartCursor::editLineWrapped(uint line, uint col, bool newLine)
 {
   if (newLine && (m_line > int(line)))
   {
@@ -184,7 +133,7 @@ void KateSuperCursor::editLineWrapped(uint line, uint col, bool newLine)
   emit positionUnChanged();
 }
 
-void KateSuperCursor::editLineUnWrapped(uint line, uint col, bool removeLine, uint length)
+void KateSmartCursor::editLineUnWrapped(uint line, uint col, bool removeLine, uint length)
 {
   if (removeLine && (m_line > int(line+1)))
   {
@@ -212,7 +161,7 @@ void KateSuperCursor::editLineUnWrapped(uint line, uint col, bool removeLine, ui
   emit positionUnChanged();
 }
 
-void KateSuperCursor::editLineInserted (uint line)
+void KateSmartCursor::editLineInserted (uint line)
 {
   if (m_line >= int(line))
   {
@@ -225,7 +174,7 @@ void KateSuperCursor::editLineInserted (uint line)
   emit positionUnChanged();
 }
 
-void KateSuperCursor::editLineRemoved(uint line)
+void KateSmartCursor::editLineRemoved(uint line)
 {
   if (m_line > int(line))
   {
@@ -246,11 +195,162 @@ void KateSuperCursor::editLineRemoved(uint line)
   }
 
   emit positionUnChanged();
-}
+}*/
 
-KateSuperCursor::operator QString()
+KateSmartCursor::operator QString()
 {
   return QString("[%1,%1]").arg(line()).arg(column());
+}
+
+KateDocument* KateSmartCursor::kateDocument() const
+{
+  return static_cast<KateDocument*>(document());
+}
+
+bool KateSmartCursor::isValid( ) const
+{
+  return line() >= 0 && line() <= kateDocument()->lastLine() && column() >= 0 && column() <= kateDocument()->lineLength(line());
+}
+
+bool KateSmartCursor::isValid(const Cursor& position) const
+{
+  return position.line() >= 0 && position.line() <= kateDocument()->lastLine() && position.column() >= 0 && position.column() <= kateDocument()->lineLength(position.line());
+}
+
+bool KateSmartCursor::atEndOfLine( ) const
+{
+  return line() >= 0 && line() <= kateDocument()->lastLine() && column() >= kateDocument()->lineLength(line());
+}
+
+void KateSmartCursor::checkFeedback()
+{
+  bool feedbackNeeded = m_watcher || m_notifier;
+  if (m_feedbackEnabled != feedbackNeeded) {
+    m_smartGroup->changeCursorFeedback(this);
+    m_feedbackEnabled = feedbackNeeded;
+  }
+}
+
+int KateSmartCursor::line( ) const
+{
+  return m_smartGroup->startLine() + m_line;
+}
+
+void KateSmartCursor::setLine( int _line )
+{
+  bool haveToChangeGroups = !m_smartGroup->containsLine(_line);
+  if (haveToChangeGroups) {
+    m_smartGroup->leaving(this);
+    m_smartGroup = kateDocument()->smartManager()->groupForLine(_line);
+  }
+
+  m_line = _line - m_smartGroup->startLine();
+
+  if (haveToChangeGroups) {
+    m_smartGroup->joined(this);
+  }
+}
+
+void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool internal )
+{
+  bool haveToChangeGroups = !m_smartGroup->containsLine(pos.line());
+  if (haveToChangeGroups) {
+    m_smartGroup->leaving(this);
+    m_smartGroup = kateDocument()->smartManager()->groupForLine(pos.line());
+  }
+
+  m_line = pos.line() - m_smartGroup->newStartLine();
+  m_column = pos.column();
+
+  if (haveToChangeGroups) {
+    m_smartGroup->joined(this);
+  }
+}
+
+KTextEditor::SmartCursorNotifier* KateSmartCursor::notifier( )
+{
+  if (!m_notifier) {
+    m_notifier = new KTextEditor::SmartCursorNotifier();
+    checkFeedback();
+  }
+  return m_notifier;
+}
+
+void KateSmartCursor::deleteNotifier( )
+{
+  delete m_notifier;
+  m_notifier = 0L;
+  checkFeedback();
+}
+
+void KateSmartCursor::setWatcher( KTextEditor::SmartCursorWatcher * watcher )
+{
+  m_watcher = watcher;
+  checkFeedback();
+}
+
+bool KateSmartCursor::translate( const KateEditInfo & edit )
+{
+  if (*this < edit.oldRange().start())
+    return false;
+
+  if (*this == edit.oldRange().start()) {
+    if (!moveOnInsert())
+      return false;
+
+    KTextEditor::Cursor newPos = *this + edit.translate();
+
+    if (newPos > *this) {
+      setPosition(newPos);
+      return true;
+    }
+
+    return false;
+  }
+
+  if (line() == edit.oldRange().start().line()) {
+    KTextEditor::Cursor newPos = *this + edit.translate();
+
+    if (newPos < *this)
+      setPosition(edit.oldRange().start());
+    else
+      setPosition(newPos);
+
+    return true;
+  }
+
+  // just need to adjust line number
+  setLineInternal(line() + edit.translate().line());
+  return true;
+}
+
+bool KateSmartCursor::cursorMoved( ) const
+{
+  bool ret = m_oldGroupLineStart != m_smartGroup->startLine();
+  m_oldGroupLineStart = m_smartGroup->startLine();
+  return ret;
+}
+
+void KateSmartCursor::setLineInternal( int newLine, bool internal )
+{
+  setPositionInternal(KTextEditor::Cursor(newLine, column()), internal);
+}
+
+void KateSmartCursor::translated( )
+{
+  // TODO add feedback
+}
+
+void KateSmartCursor::migrate( KateSmartGroup * newGroup )
+{
+  int lineNum = line();
+  m_smartGroup = newGroup;
+  m_line = lineNum - m_smartGroup->startLine();
+}
+
+void KateSmartCursor::setPosition( const KTextEditor::Cursor & pos )
+{
+  setPositionInternal(pos, false);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

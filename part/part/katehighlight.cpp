@@ -1736,14 +1736,14 @@ void KateHighlighting::setKateHlItemDataList(uint schema, KateHlItemDataList &li
   {
     settings.clear();
     settings<<QString::number(p->defStyleNum,10);
-    settings<<(p->itemSet(KateAttribute::TextColor)?QString::number(p->textColor().rgb(),16):"");
-    settings<<(p->itemSet(KateAttribute::SelectedTextColor)?QString::number(p->selectedTextColor().rgb(),16):"");
-    settings<<(p->itemSet(KateAttribute::Weight)?(p->bold()?"1":"0"):"");
-    settings<<(p->itemSet(KateAttribute::Italic)?(p->italic()?"1":"0"):"");
-    settings<<(p->itemSet(KateAttribute::StrikeOut)?(p->strikeOut()?"1":"0"):"");
-    settings<<(p->itemSet(KateAttribute::Underline)?(p->underline()?"1":"0"):"");
-    settings<<(p->itemSet(KateAttribute::BGColor)?QString::number(p->bgColor().rgb(),16):"");
-    settings<<(p->itemSet(KateAttribute::SelectedBGColor)?QString::number(p->selectedBGColor().rgb(),16):"");
+    settings<<(p->itemSet(KTextEditor::Attribute::TextColor)?QString::number(p->textColor().rgb(),16):"");
+    settings<<(p->itemSet(KTextEditor::Attribute::SelectedTextColor)?QString::number(p->selectedTextColor().rgb(),16):"");
+    settings<<(p->itemSet(KTextEditor::Attribute::Weight)?(p->bold()?"1":"0"):"");
+    settings<<(p->itemSet(KTextEditor::Attribute::Italic)?(p->italic()?"1":"0"):"");
+    settings<<(p->itemSet(KTextEditor::Attribute::StrikeOut)?(p->strikeOut()?"1":"0"):"");
+    settings<<(p->itemSet(KTextEditor::Attribute::Underline)?(p->underline()?"1":"0"):"");
+    settings<<(p->itemSet(KTextEditor::Attribute::BGColor)?QString::number(p->bgColor().rgb(),16):"");
+    settings<<(p->itemSet(KTextEditor::Attribute::SelectedBGColor)?QString::number(p->selectedBGColor().rgb(),16):"");
     settings<<"---";
     config->writeEntry(p->name,settings);
   }
@@ -2878,7 +2878,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
 void KateHighlighting::clearAttributeArrays ()
 {
-  for ( QHash< int, QVector<KateAttribute> * >::iterator it( m_attributeArrays.begin() ); it != m_attributeArrays.end(); ++it )
+  for ( QHash< int, QVector<KTextEditor::Attribute> * >::iterator it( m_attributeArrays.begin() ); it != m_attributeArrays.end(); ++it )
   {
     // k, schema correct, let create the data
     KateAttributeList defaultStyleList;
@@ -2889,13 +2889,13 @@ void KateHighlighting::clearAttributeArrays ()
     getKateHlItemDataList(it.key(), itemDataList);
 
     uint nAttribs = itemDataList.count();
-    QVector<KateAttribute> *array = it.value();
+    QVector<KTextEditor::Attribute> *array = it.value();
     array->resize (nAttribs);
 
     for (uint z = 0; z < nAttribs; z++)
     {
       KateHlItemData *itemData = itemDataList.at(z);
-      KateAttribute n = *defaultStyleList.at(itemData->defStyleNum);
+      KTextEditor::Attribute n = *defaultStyleList.at(itemData->defStyleNum);
 
       if (itemData && itemData->isSomethingSet())
         n += *itemData;
@@ -2905,9 +2905,9 @@ void KateHighlighting::clearAttributeArrays ()
   }
 }
 
-QVector<KateAttribute> *KateHighlighting::attributes (uint schema)
+QVector<KTextEditor::Attribute> *KateHighlighting::attributes (uint schema)
 {
-  QVector<KateAttribute> *array;
+  QVector<KTextEditor::Attribute> *array;
 
   // found it, allready floating around
   if ((array = m_attributeArrays.value(schema)))
@@ -2929,12 +2929,12 @@ QVector<KateAttribute> *KateHighlighting::attributes (uint schema)
   getKateHlItemDataList(schema, itemDataList);
 
   uint nAttribs = itemDataList.count();
-  array = new QVector<KateAttribute> (nAttribs);
+  array = new QVector<KTextEditor::Attribute> (nAttribs);
 
   for (uint z = 0; z < nAttribs; z++)
   {
     KateHlItemData *itemData = itemDataList.at(z);
-    KateAttribute n = *defaultStyleList.at(itemData->defStyleNum);
+    KTextEditor::Attribute n = *defaultStyleList.at(itemData->defStyleNum);
 
     if (itemData && itemData->isSomethingSet())
       n += *itemData;
@@ -3192,77 +3192,77 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
 {
   list.setAutoDelete(true);
 
-  KateAttribute* normal = new KateAttribute();
+  KTextEditor::Attribute* normal = new KTextEditor::Attribute();
   normal->setTextColor(Qt::black);
   normal->setSelectedTextColor(Qt::white);
   list.append(normal);
 
-  KateAttribute* keyword = new KateAttribute();
+  KTextEditor::Attribute* keyword = new KTextEditor::Attribute();
   keyword->setTextColor(Qt::black);
   keyword->setSelectedTextColor(Qt::white);
   keyword->setBold(true);
   list.append(keyword);
 
-  KateAttribute* dataType = new KateAttribute();
+  KTextEditor::Attribute* dataType = new KTextEditor::Attribute();
   dataType->setTextColor(Qt::darkRed);
   dataType->setSelectedTextColor(Qt::white);
   list.append(dataType);
 
-  KateAttribute* decimal = new KateAttribute();
+  KTextEditor::Attribute* decimal = new KTextEditor::Attribute();
   decimal->setTextColor(Qt::blue);
   decimal->setSelectedTextColor(Qt::cyan);
   list.append(decimal);
 
-  KateAttribute* basen = new KateAttribute();
+  KTextEditor::Attribute* basen = new KTextEditor::Attribute();
   basen->setTextColor(Qt::darkCyan);
   basen->setSelectedTextColor(Qt::cyan);
   list.append(basen);
 
-  KateAttribute* floatAttribute = new KateAttribute();
+  KTextEditor::Attribute* floatAttribute = new KTextEditor::Attribute();
   floatAttribute->setTextColor(Qt::darkMagenta);
   floatAttribute->setSelectedTextColor(Qt::cyan);
   list.append(floatAttribute);
 
-  KateAttribute* charAttribute = new KateAttribute();
+  KTextEditor::Attribute* charAttribute = new KTextEditor::Attribute();
   charAttribute->setTextColor(Qt::magenta);
   charAttribute->setSelectedTextColor(Qt::magenta);
   list.append(charAttribute);
 
-  KateAttribute* string = new KateAttribute();
+  KTextEditor::Attribute* string = new KTextEditor::Attribute();
   string->setTextColor(QColor::QColor("#D00"));
   string->setSelectedTextColor(Qt::red);
   list.append(string);
 
-  KateAttribute* comment = new KateAttribute();
+  KTextEditor::Attribute* comment = new KTextEditor::Attribute();
   comment->setTextColor(Qt::darkGray);
   comment->setSelectedTextColor(Qt::gray);
   comment->setItalic(true);
   list.append(comment);
 
-  KateAttribute* others = new KateAttribute();
+  KTextEditor::Attribute* others = new KTextEditor::Attribute();
   others->setTextColor(Qt::darkGreen);
   others->setSelectedTextColor(Qt::green);
   list.append(others);
 
-  KateAttribute* alert = new KateAttribute();
+  KTextEditor::Attribute* alert = new KTextEditor::Attribute();
   alert->setTextColor(Qt::white);
   alert->setSelectedTextColor( QColor::QColor("#FCC") );
   alert->setBold(true);
   alert->setBGColor( QColor::QColor("#FCC") );
   list.append(alert);
 
-  KateAttribute* functionAttribute = new KateAttribute();
+  KTextEditor::Attribute* functionAttribute = new KTextEditor::Attribute();
   functionAttribute->setTextColor(Qt::darkBlue);
   functionAttribute->setSelectedTextColor(Qt::white);
   list.append(functionAttribute);
 
-  KateAttribute* regionmarker = new KateAttribute();
+  KTextEditor::Attribute* regionmarker = new KTextEditor::Attribute();
   regionmarker->setTextColor(Qt::white);
   regionmarker->setBGColor(Qt::gray);
   regionmarker->setSelectedTextColor(Qt::gray);
   list.append(regionmarker);
 
-  KateAttribute* error = new KateAttribute();
+  KTextEditor::Attribute* error = new KTextEditor::Attribute();
   error->setTextColor(Qt::red);
   error->setUnderline(true);
   error->setSelectedTextColor(Qt::red);
@@ -3273,7 +3273,7 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
 
   for (uint z = 0; z < defaultStyles(); z++)
   {
-    KateAttribute *i = list.at(z);
+    KTextEditor::Attribute *i = list.at(z);
     QStringList s = config->readListEntry(defaultStyleName(z));
     if (!s.isEmpty())
     {
@@ -3304,7 +3304,7 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
           i->setBGColor(col);
         }
         else
-          i->clearAttribute(KateAttribute::BGColor);
+          i->clearAttribute(KTextEditor::Attribute::BGColor);
       }
       tmp=s[7]; if (!tmp.isEmpty()) {
         if ( tmp != "-" )
@@ -3313,7 +3313,7 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
           i->setSelectedBGColor(col);
         }
         else
-          i->clearAttribute(KateAttribute::SelectedBGColor);
+          i->clearAttribute(KTextEditor::Attribute::SelectedBGColor);
       }
     }
   }
@@ -3327,16 +3327,16 @@ void KateHlManager::setDefaults(uint schema, KateAttributeList &list)
   for (uint z = 0; z < defaultStyles(); z++)
   {
     QStringList settings;
-    KateAttribute *i = list.at(z);
+    KTextEditor::Attribute *i = list.at(z);
 
-    settings<<(i->itemSet(KateAttribute::TextColor)?QString::number(i->textColor().rgb(),16):"");
-    settings<<(i->itemSet(KateAttribute::SelectedTextColor)?QString::number(i->selectedTextColor().rgb(),16):"");
-    settings<<(i->itemSet(KateAttribute::Weight)?(i->bold()?"1":"0"):"");
-    settings<<(i->itemSet(KateAttribute::Italic)?(i->italic()?"1":"0"):"");
-    settings<<(i->itemSet(KateAttribute::StrikeOut)?(i->strikeOut()?"1":"0"):"");
-    settings<<(i->itemSet(KateAttribute::Underline)?(i->underline()?"1":"0"):"");
-    settings<<(i->itemSet(KateAttribute::BGColor)?QString::number(i->bgColor().rgb(),16):"-");
-    settings<<(i->itemSet(KateAttribute::SelectedBGColor)?QString::number(i->selectedBGColor().rgb(),16):"-");
+    settings<<(i->itemSet(KTextEditor::Attribute::TextColor)?QString::number(i->textColor().rgb(),16):"");
+    settings<<(i->itemSet(KTextEditor::Attribute::SelectedTextColor)?QString::number(i->selectedTextColor().rgb(),16):"");
+    settings<<(i->itemSet(KTextEditor::Attribute::Weight)?(i->bold()?"1":"0"):"");
+    settings<<(i->itemSet(KTextEditor::Attribute::Italic)?(i->italic()?"1":"0"):"");
+    settings<<(i->itemSet(KTextEditor::Attribute::StrikeOut)?(i->strikeOut()?"1":"0"):"");
+    settings<<(i->itemSet(KTextEditor::Attribute::Underline)?(i->underline()?"1":"0"):"");
+    settings<<(i->itemSet(KTextEditor::Attribute::BGColor)?QString::number(i->bgColor().rgb(),16):"-");
+    settings<<(i->itemSet(KTextEditor::Attribute::SelectedBGColor)?QString::number(i->selectedBGColor().rgb(),16):"-");
     settings<<"---";
 
     config->writeEntry(defaultStyleName(z),settings);

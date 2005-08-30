@@ -49,7 +49,6 @@ class KateCodeCompletion;
 class KateViewConfig;
 class KateViewSchemaAction;
 class KateRenderer;
-class KateRangeList;
 class KateSpell;
 
 class KToggleAction;
@@ -110,8 +109,8 @@ class KateView : public KTextEditor::View,
   private:
     bool m_destructing;
     QString selectionAsHtml ();
-    QString textAsHtml ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise);
-    void textAsHtmlStream ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise, QTextStream *ts);
+    QString textAsHtml ( KTextEditor::Range range, bool blockwise);
+    void textAsHtmlStream ( const KTextEditor::Range& range, bool blockwise, QTextStream *ts);
 
     /**
      * Gets a substring in valid-xml html.
@@ -125,7 +124,7 @@ class KateView : public KTextEditor::View,
      *                 attributes.
      * @param outputStream A stream to write the html to
      */
-    void lineAsHTML (KateTextLine::Ptr line, uint startCol, uint length, QTextStream *outputStream);
+    void lineAsHTML (KateTextLine::Ptr line, int startCol, int length, QTextStream *outputStream);
 
   public slots:
     void exportAsHTML ();
@@ -213,7 +212,7 @@ class KateView : public KTextEditor::View,
     void disableTextHints();
 
   signals:
-    void needTextHint(int line, int col, QString &text);
+    void needTextHint(const KTextEditor::Cursor& position, QString &text);
 
   public:
     bool dynWordWrap() const      { return m_hasWrap; }
@@ -222,12 +221,12 @@ class KateView : public KTextEditor::View,
   // KTextEditor::SelectionInterface stuff
   //
   public slots:
-    virtual bool setSelection ( const KTextEditor::Cursor &startPosition, const KTextEditor::Cursor &endPosition );
+    virtual bool setSelection ( const KTextEditor::Range &selection );
 
     virtual bool setSelection ( const KTextEditor::Cursor &position, int length, bool wrap = true )
     { return KTextEditor::View::setSelection (position, length, wrap); }
 
-    virtual bool selection () const { return hasSelection(); }
+    virtual bool hasSelection() const;
 
     virtual QString selectionText () const;
 
@@ -235,9 +234,7 @@ class KateView : public KTextEditor::View,
 
     virtual bool removeSelectionText () { return removeSelectedText(); }
 
-    virtual const KTextEditor::Cursor &selectionStart () const { return selectStart; }
-
-    virtual const KTextEditor::Cursor &selectionEnd () const { return selectEnd; }
+    virtual const KTextEditor::Range &selection() const { return m_selection; }
 
     virtual bool setBlockSelection (bool on) { return setBlockSelectionMode (on); }
 
@@ -245,8 +242,6 @@ class KateView : public KTextEditor::View,
 
     bool clearSelection ();
     bool clearSelection (bool redraw, bool finishedChangingSelection = true);
-
-    bool hasSelection () const;
 
     bool removeSelectedText ();
 
@@ -266,7 +261,7 @@ class KateView : public KTextEditor::View,
     bool lineHasSelected (int line);
     bool lineIsSelection (int line);
 
-    void tagSelection (const KTextEditor::Cursor &oldSelectStart, const KTextEditor::Cursor &oldSelectEnd);
+    void tagSelection (const KTextEditor::Range &oldSelection);
 
     void selectWord(   const KTextEditor::Cursor& cursor );
     void selectLine(   const KTextEditor::Cursor& cursor );
@@ -295,6 +290,7 @@ class KateView : public KTextEditor::View,
     bool tagRange (const KTextEditor::Range& range, bool realLines = false);
     bool tagLines (int start, int end, bool realLines = false );
     bool tagLines (KTextEditor::Cursor start, KTextEditor::Cursor end, bool realCursors = false);
+    bool tagLines (KTextEditor::Range range, bool realRange = false);
 
     void tagAll ();
 
@@ -543,11 +539,9 @@ class KateView : public KTextEditor::View,
     KateViewConfig *m_config;
     bool m_startingUp;
     bool m_updatingDocumentConfig;
-    KateRangeList* m_internalHighlights;
 
     // stores the current selection
-    KateSuperCursor selectStart;
-    KateSuperCursor selectEnd;
+    KateSmartRange m_selection;
 
     // do we select normal or blockwise ?
     bool blockSelect;

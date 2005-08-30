@@ -419,7 +419,7 @@ void KateLayoutCache::viewCacheDebugOutput( ) const
       kdDebug() << "Line Invalid." << endl;
 }
 
-void KateLayoutCache::slotTextInserted( KTextEditor::Document * document, const KTextEditor::Range & range )
+void KateLayoutCache::slotTextInserted( KTextEditor::Document *, const KTextEditor::Range & range )
 {
   // OPTIMISE: check to see if it's worth the effort
 
@@ -430,7 +430,7 @@ void KateLayoutCache::slotTextInserted( KTextEditor::Document * document, const 
   updateCache(deleteFromLine, shiftFromLine, shiftAmount);
 }
 
-void KateLayoutCache::slotTextRemoved( KTextEditor::Document * document, const KTextEditor::Range & range )
+void KateLayoutCache::slotTextRemoved( KTextEditor::Document *, const KTextEditor::Range & range )
 {
   // OPTIMISE: check to see if it's worth the effort
 
@@ -441,7 +441,7 @@ void KateLayoutCache::slotTextRemoved( KTextEditor::Document * document, const K
   updateCache(deleteFromLine, shiftFromLine, shiftAmount);
 }
 
-void KateLayoutCache::slotTextChanged(KTextEditor::Document *document, const KTextEditor::Range& oldRange, const KTextEditor::Range& newRange)
+void KateLayoutCache::slotTextChanged(KTextEditor::Document *, const KTextEditor::Range& oldRange, const KTextEditor::Range& newRange)
 {
   // OPTIMISE: check to see if it's worth the effort
 

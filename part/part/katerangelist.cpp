@@ -38,10 +38,10 @@ void KateRangeList::clear()
 {
   if (!m_connect) {
     m_connect = true;
-    for (KateSuperRange* range = first(); range; range = next()) {
-      if (dynamic_cast<KateSuperRange*>(range)) {
-        connect(static_cast<KateSuperRange*>(range), SIGNAL(destroyed(QObject*)), SLOT(slotDeleted(QObject*)));
-        connect(static_cast<KateSuperRange*>(range), SIGNAL(eliminated()), SLOT(slotEliminated()));
+    for (KateSmartRange* range = first(); range; range = next()) {
+      if (dynamic_cast<KateSmartRange*>(range)) {
+        connect(static_cast<KateSmartRange*>(range), SIGNAL(destroyed(QObject*)), SLOT(slotDeleted(QObject*)));
+        connect(static_cast<KateSmartRange*>(range), SIGNAL(eliminated()), SLOT(slotEliminated()));
       }
     }
   }
@@ -58,17 +58,17 @@ KateRangeList::operator KateDocument*() const
   return m_doc;
 }
 
-KateSuperRange* KateRangeList::findMostSpecificRange( const KTextEditor::Range & input ) const
+KateSmartRange* KateRangeList::findMostSpecificRange( const KTextEditor::Range & input ) const
 {
   return m_topRange->findMostSpecificRange(input);
 }
 
-KateSuperRange* KateRangeList::firstRangeIncluding( const KTextEditor::Cursor & pos ) const
+KateSmartRange* KateRangeList::firstRangeIncluding( const KTextEditor::Cursor & pos ) const
 {
   return m_topRange->firstRangeIncluding(pos);
 }
 
-KateSuperRange* KateRangeList::deepestRangeIncluding( const KTextEditor::Cursor & pos ) const
+KateSmartRange* KateRangeList::deepestRangeIncluding( const KTextEditor::Cursor & pos ) const
 {
   return m_topRange->deepestRangeIncluding(pos);
 }
@@ -81,7 +81,7 @@ void KateRangeList::setRangeType( KateRangeType * t )
 
 void KateRangeList::tagAll( ) const
 {
-  foreach (KateSuperRange* range, m_topRange->childRanges())
+  foreach (KateSmartRange* range, m_topRange->childRanges())
     // FIXME HACK HACK
     range->slotTagRange();
 }
@@ -92,7 +92,7 @@ KateRangeList::~KateRangeList()
     tagAll();
 }
 
-KateSuperRange * KateRangeList::topRange( ) const
+KateSmartRange * KateRangeList::topRange( ) const
 {
   return m_topRange;
 }
@@ -104,25 +104,25 @@ KateRangeType * KateRangeList::rangeType( ) const
 
 /*int KateRangeList::compareItems(QPtrCollection::Item item1, QPtrCollection::Item item2)
 {
-  if (static_cast<KateSuperRange*>(item1)->start() == static_cast<KateSuperRange*>(item2)->start())
-    if (static_cast<KateSuperRange*>(item1)->end() == static_cast<KateSuperRange*>(item2)->end())
+  if (static_cast<KateSmartRange*>(item1)->start() == static_cast<KateSmartRange*>(item2)->start())
+    if (static_cast<KateSmartRange*>(item1)->end() == static_cast<KateSmartRange*>(item2)->end())
       return 0;
   else
-    return (static_cast<KateSuperRange*>(item1)->end() < static_cast<KateSuperRange*>(item2)->end()) ? -1 : 1;
+    return (static_cast<KateSmartRange*>(item1)->end() < static_cast<KateSmartRange*>(item2)->end()) ? -1 : 1;
 
-  return (static_cast<KateSuperRange*>(item1)->start() < static_cast<KateSuperRange*>(item2)->start()) ? -1 : 1;
+  return (static_cast<KateSmartRange*>(item1)->start() < static_cast<KateSmartRange*>(item2)->start()) ? -1 : 1;
 }
 
 QPtrCollection::Item KateRangeList::newItem(QPtrCollection::Item d)
 {
-  KateSuperRange* simpleRange = static_cast<KateSuperRange*>(d);
-  if (m_connect && dynamic_cast<KateSuperRange*>(simpleRange)) {
-    connect(static_cast<KateSuperRange*>(simpleRange), SIGNAL(destroyed(QObject*)), SLOT(slotDeleted(QObject*)));
-    connect(static_cast<KateSuperRange*>(simpleRange), SIGNAL(eliminated()), SLOT(slotEliminated()));
-    connect(static_cast<KateSuperRange*>(simpleRange), SIGNAL(tagRange(KateSuperRange*)), SIGNAL(tagRange(KateSuperRange*)));
+  KateSmartRange* simpleRange = static_cast<KateSmartRange*>(d);
+  if (m_connect && dynamic_cast<KateSmartRange*>(simpleRange)) {
+    connect(static_cast<KateSmartRange*>(simpleRange), SIGNAL(destroyed(QObject*)), SLOT(slotDeleted(QObject*)));
+    connect(static_cast<KateSmartRange*>(simpleRange), SIGNAL(eliminated()), SLOT(slotEliminated()));
+    connect(static_cast<KateSmartRange*>(simpleRange), SIGNAL(tagRange(KateSmartRange*)), SIGNAL(tagRange(KateSmartRange*)));
 
     // HACK HACK
-    //static_cast<KateSuperRange*>(simpleRange)->slotTagRange();
+    //static_cast<KateSmartRange*>(simpleRange)->slotTagRange();
   }
 
   if (m_trackingBoundaries) {

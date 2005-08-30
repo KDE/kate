@@ -22,7 +22,7 @@
 #define __KATE_HIGHLIGHT_H__
 
 #include "katetextline.h"
-#include "kateattribute.h"
+#include <ktexteditor/attribute.h>
 
 #include <kconfig.h>
 #include <kaction.h>
@@ -69,14 +69,14 @@ class KateEmbeddedHlInfo
 };
 
 // some typedefs
-typedef Q3PtrList<KateAttribute> KateAttributeList;
+typedef Q3PtrList<KTextEditor::Attribute> KateAttributeList;
 typedef Q3ValueList<KateHlIncludeRule*> KateHlIncludeRules;
 typedef Q3PtrList<KateHlItemData> KateHlItemDataList;
 typedef QMap<QString,KateEmbeddedHlInfo> KateEmbeddedHlInfos;
 typedef QMap<int*,QString> KateHlUnresolvedCtxRefs;
 
 //Item Properties: name, Item Style, Item Font
-class KateHlItemData : public KateAttribute
+class KateHlItemData : public KTextEditor::Attribute
 {
   public:
     KateHlItemData(const QString  name, int defStyleNum);
@@ -229,7 +229,7 @@ class KateHighlighting
 
     void clearAttributeArrays ();
 
-    QVector<KateAttribute> *attributes (uint schema);
+    QVector<KTextEditor::Attribute> *attributes (uint schema);
 
     inline bool noHighlighting () const { return noHl; };
 
@@ -315,7 +315,7 @@ class KateHighlighting
     KateHlIncludeRules includeRules;
     bool m_foldingIndentationSensitive;
 
-    QHash< int, QVector<KateAttribute> * > m_attributeArrays;
+    QHash< int, QVector<KTextEditor::Attribute> * > m_attributeArrays;
 
 
     /**
@@ -398,7 +398,7 @@ class KateHlManager : public QObject
     bool hlHidden(int n);
 
     void incDynamicCtxs() { ++dynamicCtxsCount; };
-    uint countDynamicCtxs() { return dynamicCtxsCount; };
+    int countDynamicCtxs() { return dynamicCtxsCount; };
     void setForceNoDCReset(bool b) { forceNoDCReset = b; };
 
     // be carefull: all documents hl should be invalidated after having successfully called this method!
@@ -423,7 +423,7 @@ class KateHlManager : public QObject
 
     KateSyntaxDocument *syntax;
 
-    uint dynamicCtxsCount;
+    int dynamicCtxsCount;
     QTime lastCtxsReset;
     bool forceNoDCReset;
 };

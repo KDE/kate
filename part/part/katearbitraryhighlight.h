@@ -19,7 +19,7 @@
 #ifndef KATEARBITRARYHIGHLIGHT_H
 #define KATEARBITRARYHIGHLIGHT_H
 
-#include "kateattribute.h"
+#include <ktexteditor/attribute.h>
 #include "katesupercursor.h"
 
 #include <qobject.h>
@@ -28,10 +28,10 @@
 
 class KateDocument;
 class KateView;
-class KateAttribute;
+class KTextEditor::Attribute;
 class KateRangeList;
 namespace KTextEditor { class Range; }
-class KateSuperRange;
+class KateSmartRange;
 
 /**
  * An arbitrary highlighting interface for Kate.
@@ -55,18 +55,18 @@ public:
   void addHighlightToDocument(KateRangeList* list);
   void addHighlightToView(KateRangeList* list, KateView* view);
 
-  QList<KateSuperRange*> startingRanges(const KTextEditor::Cursor& pos, KateView* view = 0L) const;
+  QList<KateSmartRange*> startingRanges(const KTextEditor::Cursor& pos, KateView* view = 0L) const;
   
 signals:
   void tagLines(KateView* view, KTextEditor::Range* range);
 
 private slots:
-  void slotTagRange(KateSuperRange* range);
+  void slotTagRange(KateSmartRange* range);
   // FIXME implement or redesign??
   //void slotRangeListDeleted(QObject* obj);
   
 private:
-  KateView* viewForRange(KateSuperRange* range);
+  KateView* viewForRange(KateSmartRange* range);
 
   QMap<KateView*, QList<KateRangeList*>* > m_viewHLs;
   QList<KateRangeList*> m_docHLs;

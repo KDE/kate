@@ -25,7 +25,7 @@
 #define __KATE_DIALOGS_H__
 
 #include "katehighlight.h"
-#include "kateattribute.h"
+#include <ktexteditor/attribute.h>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/configpage.h>

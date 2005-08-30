@@ -33,18 +33,15 @@ KateBrowserExtension::KateBrowserExtension( KateDocument* doc )
 : KParts::BrowserExtension( doc, "katepartbrowserextension" ),
   m_doc (doc)
 {
-  // FIXME: this was originally connected to the document. But as the selection
-  //        moved into the view, this is not possible anymore.
-  if( doc->activeView() )
-    connect( doc->activeView(), SIGNAL( selectionChanged(KTextEditor::View*) ),
-             this, SLOT( slotSelectionChanged() ) );
+  connect( doc, SIGNAL( activeViewSelectionChanged(KTextEditor::View*) ),
+           this, SLOT( slotSelectionChanged() ) );
   emit enableAction( "print", true );
 }
 
 void KateBrowserExtension::copy()
 {
   if (m_doc->activeView())
-    m_doc->activeView()->copy();
+    m_doc->activeKateView()->copy();
 }
 
 void KateBrowserExtension::print()
@@ -55,7 +52,7 @@ void KateBrowserExtension::print()
 void KateBrowserExtension::slotSelectionChanged()
 {
   if (m_doc->activeView())
-    emit enableAction( "copy", m_doc->activeView()->hasSelection() );
+    emit enableAction( "copy", m_doc->activeKateView()->hasSelection() );
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

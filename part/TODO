@@ -4,9 +4,6 @@ TODO:
 
 **** Refactoring/Cleanups ****
 
-* KateLineRange to become a proper class with methods etc.  Parts needed for
-  bidi.
-
 * KateViewInternal to be completely hidden from view for almost everything but
   the view itself.
 
@@ -19,6 +16,9 @@ TODO:
       * config classes already in place
       * selection moved to KateView
 
+* KTextEditor cleanups
+  - use KTextEditor:: namespace in all emitted signal arguments that need it
+
 **** new features ****
 
 * Fix EOL whitespace cleaning finally by removing whitespace at load-time and
@@ -27,13 +27,41 @@ TODO:
   -> DONE ;) whitespaces are no cleaned at load time, the magic clean on save stuff is gone
 
 * BiDi finally, using Scribe
+  * just needs porting of deprecated calls, and testing
+  * noticed a redraw bug when scrolling (grey, black areas) ? why
 
 * Finally implement arbitrary highlighting and arbitrary input filtering
+  * Smart Cursors and Ranges todo list:
+    * change edit notification to come as KTextEditor::EditInfo or similar
+      * types: Insert, Remove, Change, Batch -> more EditInfos
+      * Implement batching
+        * multiple edits for one logical edit
+        * multiple logical edits for one undo step
+    * fix passive changes to cursors/ranges
+      * make edits update the SmartManager properly -> working at least partially
+      * make SmartManager edits update the cursors and ranges -> written cold
+      * make SmartManager pass on requested notifications
+        * including most specific edited range notification (quite important!)
+    * fix active changes to cursors/ranges
+    * check to see if non-const cursors can be exposed from ranges once the above is done
+      * if so, introduce them and simplify the code
+    * move back any excessively exposed parts of the smart ranges and cursors
+    * testcases
+    * performances testing suite
+      * see if much performance is lost by making all updates first before any changes are notified (makes much more sense from 3rd party pov, plus the objects themselves can only add themselves to the list if it is needed)
+    * cachegrinding
+    * make a translation snapshot feature where you can translate any cursor from a certain point in time - would be very cool :)
+    * code cleanup
+      * add advance{Pos|Line|Column} functions and replace the set*(*+x) calls
 
 * Switch internal highlighting to use arbitrary highlighting api and thus be
   exposed (read-only)
+  * only if the above cursors and ranges can be made to perform well enough
 
-* Buffer locking (Per-line or per-group-of-lines) for multithreaded access
+* Buffer reentrancy for multithreaded access
+  * needed for potential:
+    * separate threads for processing of bracket marks,
+    * third party processing
 
 * More robust history including cursor position history
 
@@ -41,10 +69,14 @@ TODO:
 
 * Custom widgets in between lines interface (eg. so kcachegrind could use
   katepart to display its cpu usage information etc)
+  * Add an extraHeight() field to KateLineLayout
+  * Change linesDisplayed() over to use these extra heights
+  * Remove assumptions about the fixed height of lines (the difficult part? maybe not so hard seeing it supports dynamic wrapping)
+  * Expose via an interface
 
 * KateFoldingTree* to use smart cursors
 
-* Splitting a view over multiple columns (I want to by a 30" apple display ;)
+* Splitting a view over multiple columns
 
 * Modular input subsystem, to support emulation of other editors in a clean way
 

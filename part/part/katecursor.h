@@ -28,7 +28,7 @@
 #include <QString>
 
 class KateDocument;
-class KateAttribute;
+namespace KTextEditor { class Attribute; }
 
 class KateTextCursorList : public Q3PtrList<KTextEditor::Cursor>
 {

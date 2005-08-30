@@ -30,7 +30,7 @@
 
 KateTemplateHandler::KateTemplateHandler(
   KateDocument *doc,
-  uint line, uint column,
+  const KTextEditor::Cursor& position,
   const QString &templateString,
   const QMap<QString, QString> &initialValues )
     : QObject( doc )
@@ -42,7 +42,7 @@ KateTemplateHandler::KateTemplateHandler(
     , m_recursion( false )
 {
   connect( m_doc, SIGNAL( destroyed() ), this, SLOT( slotDocumentDestroyed() ) );
-  m_ranges = new KateRangeList( false, this ); //false/*,this*/);
+    //m_ranges = new KateRangeList( false, this ); //false/*,this*/);
 
   if ( !m_doc->setTabInterceptor( this ) )
   {
@@ -94,7 +94,7 @@ KateTemplateHandler::KateTemplateHandler(
 
   doc->editStart();
 
-  if ( !doc->insertText( line, column, insertString ) )
+  if ( !doc->insertText( position, insertString ) )
   {
     deleteLater();
     doc->editEnd();
@@ -111,10 +111,10 @@ KateTemplateHandler::KateTemplateHandler(
 
   doc->undoSafePoint();
   doc->editEnd();
-  generateRangeTable( line, column, insertString, buildList );
+  generateRangeTable( position, insertString, buildList );
   kah->addHighlightToDocument( m_ranges );
 
-  m_ranges->tagAll();
+    //m_ranges->tagAll();
 
   /* connect(doc,SIGNAL(charactersInteractivelyInserted(int ,int ,const QString&)),this,
    SLOT(slotCharactersInteractivlyInserted(int,int,const QString&)));
@@ -137,10 +137,10 @@ KateTemplateHandler::~KateTemplateHandler()
 
 void KateTemplateHandler::slotDocumentDestroyed() {m_doc = 0;}
 
-void KateTemplateHandler::generateRangeTable( uint insertLine, uint insertCol, const QString& insertString, const Q3ValueList<KateTemplateHandlerPlaceHolderInfo> &buildList )
+void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertPosition, const QString& insertString, const Q3ValueList<KateTemplateHandlerPlaceHolderInfo> &buildList )
 {
-  uint line = insertLine;
-  uint col = insertCol;
+  uint line = insertPosition.line();
+  uint col = insertPosition.column();
   uint colInText = 0;
 
   for ( Q3ValueList<KateTemplateHandlerPlaceHolderInfo>::const_iterator it = buildList.begin();it != buildList.end();++it )
@@ -150,12 +150,12 @@ void KateTemplateHandler::generateRangeTable( uint insertLine, uint insertCol, c
     if ( !ph )
     {
       ph = new KateTemplatePlaceHolder(m_doc);
-      KateAttribute* attrib = new KateAttribute();
+      KTextEditor::Attribute* attrib = new KTextEditor::Attribute();
       attrib->setUnderline( true );
       attrib->setOverline( true );
       KateRangeType* rt = new KateRangeType();
       rt->addAttribute(attrib, KateRangeType::activateNone, true);
-      ph->ranges.setRangeType(rt);
+        //ph->ranges.setRangeType(rt);
 
       ph->isInitialValue = true;
       ph->isCursor = ( ( *it ).placeholder == "cursor" );
@@ -178,12 +178,12 @@ void KateTemplateHandler::generateRangeTable( uint insertLine, uint insertCol, c
       ++colInText;
     }
 
-    KateSuperRange *hlr = new KateSuperRange( m_doc, KTextEditor::Cursor( line, col ),
-                                       KTextEditor::Cursor( line, ( *it ).len + col ), ph->ranges.topRange() );
+      //KateSmartRange *hlr = new KateSmartRange( m_doc, KTextEditor::Cursor( line, col ),
+      //KTextEditor::Cursor( line, ( *it ).len + col ), ph->ranges.topRange() );
     colInText += ( *it ).len;
     col += ( *it ).len;
-    hlr->allowZeroLength();
-    //hlr->setBehaviour(KateSuperRange::ExpandRight);
+      //hlr->allowZeroLength();
+    //hlr->setBehaviour(KateSmartRange::ExpandRight);
   }
 
   KateTemplatePlaceHolder *cursor = m_dict[ "cursor" ];
@@ -203,7 +203,7 @@ void KateTemplateHandler::slotTextInserted( int line, int col )
   KTextEditor::Cursor cur( line, col );
 
   if ( ( !m_currentRange ) ||
-       ( ( !m_currentRange->includes( cur ) ) && ( ! ( ( m_currentRange->start() == m_currentRange->end() ) && m_currentRange->end() == cur ) )
+       ( ( !m_currentRange->contains( cur ) ) && ( ! ( ( m_currentRange->start() == m_currentRange->end() ) && m_currentRange->end() == cur ) )
        ) ) locateRange( cur );
 
   if ( !m_currentRange ) return ;
@@ -220,7 +220,7 @@ void KateTemplateHandler::slotTextInserted( int line, int col )
 
   m_doc->editStart( /*false*/ );
 
-  foreach ( KateSuperRange* range, ph->ranges.topRange()->childRanges() )
+    /*foreach ( KateSmartRange* range, ph->ranges.topRange()->childRanges() )
   {
     if ( range == m_currentRange ) continue;
 
@@ -228,7 +228,7 @@ void KateTemplateHandler::slotTextInserted( int line, int col )
     KTextEditor::Cursor end = range->end();
     m_doc->removeText( start.line(), start.column(), end.line(), end.column(), false );
     m_doc->insertText( start.line(), start.column(), sourceText );
-  }
+  }*/
 
   m_doc->m_undoDontMerge = false;
   m_doc->m_undoComplexMerge = true;
@@ -251,7 +251,7 @@ void KateTemplateHandler::locateRange( const KTextEditor::Cursor& cursor )
   {
     KateTemplatePlaceHolder *ph = m_tabOrder.at( i );
 
-    foreach ( KateSuperRange* range, ph->ranges.topRange()->childRanges() )
+      /*foreach ( KateSmartRange* range, ph->ranges.topRange()->childRanges() )
     {
       if ( range->includes( cursor ) )
       {
@@ -260,7 +260,7 @@ void KateTemplateHandler::locateRange( const KTextEditor::Cursor& cursor )
         //m_doc->tagLines(m_currentRange->start().line(),m_currentRange->end().line());
         return ;
       }
-    }
+    }*/
 
   }
 
@@ -289,16 +289,16 @@ bool KateTemplateHandler::operator() ( KKey key )
     if ( m_currentTabStop < 0 ) m_currentTabStop = m_tabOrder.count() - 1;
   }
 
-  m_currentRange = m_tabOrder.at( m_currentTabStop )->ranges.topRange()->firstChildRange();
+    //m_currentRange = m_tabOrder.at( m_currentTabStop )->ranges.topRange()->firstChildRange();
 
   if ( m_tabOrder.at( m_currentTabStop ) ->isInitialValue )
   {
-    m_doc->activeView()->setSelection( m_currentRange->start(), m_currentRange->end() );
+    m_doc->activeView()->setSelection( *m_currentRange );
   }
-  else m_doc->activeView()->setSelection( m_currentRange->end(), m_currentRange->end() );
+  else m_doc->activeView()->setSelection( KTextEditor::Range(m_currentRange->end(), m_currentRange->end()) );
 
-  m_doc->activeView() ->setCursorPosition( m_currentRange->end().line(), m_currentRange->end().column() );
-  m_doc->activeView() ->tagLine( m_currentRange->end() );
+  m_doc->activeView()->setCursorPosition( m_currentRange->end() );
+  m_doc->activeKateView()->tagLine( m_currentRange->end() );
 
   return true;
 }
@@ -307,7 +307,7 @@ void KateTemplateHandler::slotAboutToRemoveText( const KTextEditor::Range& range
 {
   if ( m_recursion ) return ;
 
-  if ( m_currentRange && ( !m_currentRange->includes( range.start() ) ) ) locateRange( range.start() );
+  if ( m_currentRange && ( !m_currentRange->contains( range.start() ) ) ) locateRange( range.start() );
 
   if ( m_currentRange != 0 )
   {

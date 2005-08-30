@@ -377,14 +377,14 @@ void KateNormalIndent::processNewline (KateDocCursor &begin, bool /*needContinue
   while ((line > 0) && (pos < 0)) // search a not empty text line
     pos = doc->plainKateTextLine(--line)->firstChar();
 
+  begin.setColumn(0);
+
   if (pos > 0)
   {
     QString filler = doc->text(line, 0, line, pos);
-    doc->insertText(begin.line(), 0, filler);
+    doc->insertText(begin, filler);
     begin.setColumn(filler.length());
   }
-  else
-    begin.setColumn(0);
 }
 
 //END
@@ -508,9 +508,9 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
   // Slightly faster if we don't indent what we don't have to
   if (indent != measureIndent(line) || first == '}' || first == '{' || first == '#')
   {
-    doc->removeText(line.line(), 0, line.line(), firstChar);
+    doc->removeText(KTextEditor::Range(line.line(), 0, line.line(), firstChar));
     QString filler = tabString(indent);
-    if (indent > 0) doc->insertText(line.line(), 0, filler);
+    if (indent > 0) doc->insertText(KTextEditor::Cursor(line.line(), 0), filler);
     if (!processingBlock) line.setColumn(filler.length());
   }
 }
@@ -572,8 +572,8 @@ bool KateCSmartIndent::handleDoxygen (KateDocCursor &begin)
         filler = filler + " * ";
       }
 
-      doc->removeText (begin.line(), 0, begin.line(), first);
-      doc->insertText (begin.line(), 0, filler);
+      begin.setColumn(0);
+      doc->replaceText(KTextEditor::Range(begin, first), filler);
       begin.setColumn(filler.length());
 
       return true;
@@ -595,7 +595,8 @@ void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
     if (indent > 0 || inMiddle)
     {
       QString filler = tabString (indent);
-      doc->insertText (begin.line(), 0, filler);
+      begin.setColumn(0);
+      doc->insertText(begin, filler);
       begin.setColumn(filler.length());
 
       // Handles cases where user hits enter at the beginning or middle of text
@@ -621,7 +622,7 @@ void KateCSmartIndent::processChar(QChar c)
   if (triggers.find(c) < 0)
     return;
 
-  KateView *view = doc->activeView();
+  KateView *view = doc->activeKateView();
   KateDocCursor begin(view->cursorPosition().line(), 0, doc);
 
   KateTextLine::Ptr textLine = doc->plainKateTextLine(begin.line());
@@ -642,7 +643,7 @@ void KateCSmartIndent::processChar(QChar c)
       if ( first != -1
            && textLine->getChar( first ) == '*'
            && textLine->nextNonSpaceChar( first+1 ) == (int)view->cursorColumn()-1 )
-        doc->removeText( view->cursorPosition().line(), first+1, view->cursorPosition().line(), view->cursorColumn()-1);
+        doc->removeText( KTextEditor::Range(view->cursorPosition().line(), first+1, view->cursorPosition().line(), view->cursorColumn()-1));
     }
 
     // anders: don't change the indent of doxygen lines here.
@@ -1088,14 +1089,13 @@ void KatePythonIndent::processNewline (KateDocCursor &begin, bool /*newline*/)
   else
     indent += extraIndent;
 
+  begin.setColumn(0);
   if (indent > 0)
   {
     QString filler = tabString (indent);
-    doc->insertText (begin.line(), 0, filler);
+    doc->insertText(begin, filler);
     begin.setColumn(filler.length());
   }
-  else
-    begin.setColumn(0);
 }
 
 int KatePythonIndent::calcExtra (int &prevBlock, int &pos, KateDocCursor &end)
@@ -1194,7 +1194,7 @@ void KateXmlIndent::processChar (QChar c)
   if(c != '/') return;
 
   // only alter lines that start with a close element
-  KateView *view = doc->activeView();
+  KateView *view = doc->activeKateView();
   QString text = doc->plainKateTextLine(view->cursorPosition().line())->string();
   if(text.find(startsWithCloseTag) == -1) return;
 
@@ -1342,9 +1342,10 @@ uint KateXmlIndent::processLine (uint line)
   if(indent < 0) indent = 0;
 
   // apply new indent
-  doc->removeText(line, 0, line, kateLine->firstChar());
+  KTextEditor::Cursor start;
+  doc->removeText(KTextEditor::Range(start, kateLine->firstChar()));
   QString filler = tabString(indent);
-  doc->insertText(line, 0, filler);
+  doc->insertText(start, filler);
 
   return filler.length();
 }
@@ -1383,18 +1384,21 @@ void KateCSAndSIndent::processLine (KateDocCursor &line)
   QString whitespace = calcIndent(line);
   // strip off existing whitespace
   int oldIndent = textLine->firstChar();
+
+  line.setColumn( 0 );
+
   if ( oldIndent < 0 )
     oldIndent = doc->lineLength( line.line() );
+
   if( oldIndent > 0 )
-    doc->removeText(line.line(), 0, line.line(), oldIndent);
+    doc->removeText(KTextEditor::Range(line, oldIndent));
+
   // add correct amount
-  doc->insertText(line.line(), 0, whitespace);
+  doc->insertText(line, whitespace);
 
   // try to preserve the cursor position in the line
   if ( int(oldCol + whitespace.length()) >= oldIndent )
     line.setColumn( oldCol + whitespace.length() - oldIndent );
-  else
-    line.setColumn( 0 );
 }
 
 void KateCSAndSIndent::processSection (const KateDocCursor &begin, const KateDocCursor &end)
@@ -1493,8 +1497,8 @@ bool KateCSAndSIndent::handleDoxygen (KateDocCursor &begin)
   //else
   //  indent = indent + "   ";
 
-  doc->removeText (begin.line(), 0, begin.line(), first);
-  doc->insertText (begin.line(), 0, indent);
+  begin.setColumn(0);
+  doc->replaceText (KTextEditor::Range(begin, first), indent);
   begin.setColumn(indent.length());
 
   return true;
@@ -1935,7 +1939,7 @@ void KateCSAndSIndent::processChar(QChar c)
 
   // for historic reasons, processChar doesn't get a cursor
   // to work on. so fabricate one.
-  KateView *view = doc->activeView();
+  KateView *view = doc->activeKateView();
   KateDocCursor begin(view->cursorPosition().line(), 0, doc);
 
   KateTextLine::Ptr textLine = doc->plainKateTextLine(begin.line());
@@ -1957,7 +1961,7 @@ void KateCSAndSIndent::processChar(QChar c)
       if ( first != -1
            && textLine->getChar( first ) == '*'
            && textLine->nextNonSpaceChar( first+1 ) == (int)view->cursorColumn()-1 )
-        doc->removeText( view->cursorPosition().line(), first+1, view->cursorPosition().line(), view->cursorColumn()-1);
+        doc->removeText( KTextEditor::Range(view->cursorPosition().line(), first+1, view->cursorPosition().line(), view->cursorColumn()-1));
     }
 
     // anders: don't change the indent of doxygen lines here.
@@ -2015,10 +2019,10 @@ void KateVarIndent::processChar ( QChar c )
   if ( d->triggers.contains( c ) )
   {
     KateTextLine::Ptr ln = doc->plainKateTextLine( doc->activeView()->cursorPosition().line() );
-    if ( ln->attribute( doc->activeView()->cursorColumn()-1 ) == commentAttrib )
+    if ( ln->attribute( doc->activeView()->cursorPosition().column()-1 ) == commentAttrib )
       return;
 
-    KateView *view = doc->activeView();
+    KTextEditor::View *view = doc->activeView();
     KateDocCursor begin( view->cursorPosition().line(), 0, doc );
     kdDebug(13030)<<"variable indenter: process char '"<<c<<", line "<<begin.line()<<endl;
     processLine( begin );
@@ -2039,7 +2043,7 @@ void KateVarIndent::processLine ( KateDocCursor &line )
   if ( ! ktl ) return; // no line!?
 
   // skip blank lines, except for the cursor line
-  KateView *v = doc->activeView();
+  KTextEditor::View *v = doc->activeView();
   if ( (ktl->firstChar() < 0) && (!v || (int)v->cursorPosition().line() != ln ) )
     return;
 
@@ -2141,8 +2145,7 @@ void KateVarIndent::processLine ( KateDocCursor &line )
   else if ( adjustment < 0 )
     pos -= indentWidth;
 
-  ln = line.line();
-  fc = doc->plainKateTextLine( ln )->firstChar();
+  fc = doc->plainKateTextLine( line.line() )->firstChar();
 
   // dont change if there is no change.
   // ### should I actually compare the strings?
@@ -2151,14 +2154,16 @@ void KateVarIndent::processLine ( KateDocCursor &line )
   if ( fc == pos )
     return;
 
+  line.setColumn(0);
+
   if ( fc > 0 )
-    doc->removeText (ln, 0, ln, fc );
+    doc->removeText(KTextEditor::Range(line, fc) );
 
   if ( pos > 0 )
     indent = tabString( pos );
 
   if ( pos > 0 )
-    doc->insertText (ln, 0, indent);
+    doc->insertText (line, indent);
 
   // try to restore cursor ?
   line.setColumn( pos );
@@ -2283,7 +2288,7 @@ KateScriptIndent::~KateScriptIndent()
 void KateScriptIndent::processNewline( KateDocCursor &begin, bool needContinue )
 {
   kdDebug(13030) << "processNewline" << endl;
-  KateView *view = doc->activeView();
+  KateView *view = doc->activeKateView();
 
   if (view)
   {
@@ -2303,7 +2308,7 @@ void KateScriptIndent::processNewline( KateDocCursor &begin, bool needContinue )
 void KateScriptIndent::processChar( QChar c)
 {
   kdDebug(13030) << "processChar" << endl;
-  KateView *view = doc->activeView();
+  KateView *view = doc->activeKateView();
 
   if (view)
   {
@@ -2323,7 +2328,7 @@ void KateScriptIndent::processChar( QChar c)
 void KateScriptIndent::processLine (KateDocCursor &line)
 {
   kdDebug(13030) << "processLine" << endl;
-  KateView *view = doc->activeView();
+  KateView *view = doc->activeKateView();
 
   if (view)
   {

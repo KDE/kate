@@ -21,73 +21,54 @@
 
 #include "katesupercursor.h"
 #include <ktexteditor/range.h>
+#include "kateedit.h"
 
-class KateRangeList;
-class KateRangeType;
-
-class KAction;
+class KateSmartRange;
 
 /**
- * Represents a range of text, from the start() to the end().
- *
- * Also tracks its position and emits useful signals.
+ * Internal Implementation of KTextEditor::SmartRangeNotifier.
  */
-class KateSuperRange : public QObject, public KTextEditor::Range
+class KateSmartRangeNotifier : public KTextEditor::SmartRangeNotifier
 {
   Q_OBJECT
 
   public:
-    /// Determine how the range reacts to characters inserted immediately outside the range.
-    enum InsertBehaviour {
-      /// Don't expand to encapsulate new characters in either direction. This is the default.
-      DoNotExpand = 0,
-      /// Expand to encapsulate new characters to the left of the range.
-      ExpandLeft = 0x1,
-      /// Expand to encapsulate new characters to the right of the range.
-      ExpandRight = 0x2
-    };
+    KateSmartRangeNotifier(KateSmartRange* owner);
 
+    /**
+     * Implementation detail. Returns whether the positionChanged() signal
+     * needs to be emitted, as it is a relatively expensive signal to emit.
+     */
+    bool needsPositionChanges() const;
+
+  protected:
+    virtual void connectNotify(const char* signal);
+    virtual void disconnectNotify(const char* signal);
+
+  private:
+    KateSmartRange* m_owner;
+};
+
+/**
+ * Internal implementation of KTextEditor::SmartRange.
+ * Represents a range of text, from the start() to the end().
+ *
+ * Also tracks its position and emits useful signals.
+ */
+class KateSmartRange : public KTextEditor::SmartRange
+{
+  friend class KateSmartRangeNotifier;
+
+  public:
     /**
      * Constructors.  Take posession of @p start and @p end.
      */
-    KateSuperRange(KateSuperCursor* start, KateSuperCursor* end, KateSuperRange* parent = 0L);
-    KateSuperRange(KateDocument* doc, const KateSuperRange& range, KateSuperRange* parent = 0L);
-    KateSuperRange(KateDocument* doc, const KTextEditor::Cursor& start, const KTextEditor::Cursor& end, KateSuperRange* parent = 0L);
-    KateSuperRange(KateDocument* doc, uint startLine = 0, uint startCol = 0, uint endLine = 0, uint endCol = 0, KateSuperRange* parent = 0L);
+    KateSmartRange(const KTextEditor::Range& range, KateDocument* doc, KTextEditor::SmartRange* parent = 0L, int insertBehaviour = DoNotExpand);
+    /// overload
+    KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* parent = 0L);
+    virtual ~KateSmartRange();
 
-    virtual ~KateSuperRange();
-
-    KateDocument* doc() const;
-    virtual KateRangeList* owningList() const;
-
-    KateSuperCursor& superStart();
-    KateSuperCursor& superEnd();
-    const KateSuperCursor& superStart() const;
-    const KateSuperCursor& superEnd() const;
-
-    KateSuperRange* parentRange() const;
-    void setParentRange(KateSuperRange* r);
-    int depth() const;
-
-    KateSuperRange* firstChildRange() const;
-    KateSuperRange* rangeBefore(KateSuperRange* range) const;
-    KateSuperRange* rangeAfter(KateSuperRange* range) const;
-    const QList<KateSuperRange*>& childRanges() const;
-    bool insertChildRange(KateSuperRange* newChild, KateSuperRange* before);
-    void clearAllChildRanges();
-    void deleteAllChildRanges();
-
-    /**
-     * @returns the active KateAttribute for this range.
-     */
-    KateAttribute* attribute() const;
-
-    /**
-     * Sets the currently active attribute for this range.
-     */
-    void setAttribute(KateAttribute* attribute, bool ownsAttribute = true);
-
-    void allowZeroLength(bool allow = true);
+    KateDocument* kateDocument() const;
 
     enum AttachActions {
       NoActions   = 0x0,
@@ -105,110 +86,44 @@ class KateSuperRange : public QObject, public KTextEditor::Range
     void attachToView(KateView* view, int actions = TagLines | Redraw);
 
     /**
-     * Returns true if the range totally encompasses @p line
-     */
-    bool includesWholeLine(uint lineNum) const;
-
-    /**
-     * Returns how this range reacts to characters inserted immediately outside the range.
-     */
-    int behaviour() const;
-
-    /**
-     * Determine how the range should react to characters inserted immediately outside the range.
-     *
-     * TODO does this need a custom function to enable determining of the behavior based on the
-     * text that is inserted / deleted?
-     *
-     * @sa InsertBehaviour
-     */
-    void setBehaviour(int behaviour);
-
-    /**
-     * Start and end must be valid and start <= end.
+     * Start and end must be valid.
      */
     virtual bool isValid() const;
-    void setValid(bool valid);
+
+    //virtual void tagRange();
+
+    virtual KTextEditor::SmartRangeNotifier* notifier();
+    virtual void deleteNotifier();
+    virtual void setWatcher(KTextEditor::SmartRangeWatcher* watcher = 0L);
 
     /**
-     * Finds the most specific range in a heirachy for the given input range
-     * (ie. the smallest range which wholly contains the input range)
+     * Implementation detail. Defines the level of feedback required for any connected
+     * watcher / notifier.
      */
-    KateSuperRange* findMostSpecificRange(const KTextEditor::Range& input);
+    enum FeedbackLevel {
+      /// Don't provide any feedback.
+      NoFeedback,
+      /// Only provide feedback when the range in question is the most specific, wholly encompassing range to have been changed.
+      MostSpecificContentChanged,
+      /// Provide feedback whenever the contents of a range change.
+      ContentChanged,
+      /// Provide feedback whenever the position of a range changes.
+      PositionChanged
+    };
 
-    /**
-     * Finds the first range which contains position \p pos.
-     */
-    KateSuperRange* firstRangeIncluding(const KTextEditor::Cursor& pos);
+    int feedbackLevel() const { return m_feedbackLevel; }
+    // request is internal!! Only KateSuperGroup gets to set it to false.
+    void setFeedbackLevel(int feedbackLevel, bool request = true);
 
-    /**
-     * Finds the deepest range which contains position \p pos.
-     */
-    KateSuperRange* deepestRangeIncluding(const KTextEditor::Cursor& pos);
+    /// One or both of the cursors has been changed.
+    void translated(const KateEditInfo& edit);
 
-    /**
-     * Classify this range as belonging to a particular group.
-     *
-     * This range automatically assumes styles, actions, etc from the group
-     * definition.
-     */
-    KateRangeType* rangeType() const;
-
-    /**
-     * Attach an action to this range.  The action is enabled when the range is
-     * entered by the cursor and disabled on exit.  The action is also added to
-     * the context menu when the cursor is over this range.
-     */
-    void attachAction(KAction* action);
-    void detachAction(KAction* action);
-
-  signals:
-    /**
-     * More interesting signals that aren't worth implementing here:
-     *  firstCharDeleted: start()::charDeleted()
-     *  lastCharDeleted: end()::previousCharDeleted()
-     */
-
-    /**
-     * The range's position changed.
-     */
-    void positionChanged();
-
-    /**
-     * The range's position was unchanged.
-     */
-    void positionUnChanged();
-
-    /**
-     * The contents of the range changed.
-     */
-    void contentsChanged();
-
-    /**
-     * Either cursor's surrounding characters were both deleted.
-     */
-    void boundaryDeleted();
-
-    /**
-     * The range now contains no characters (ie. the start and end cursors are the same).
-     *
-     * To eliminate this range under different conditions, connect the other signal directly
-     * to this signal.
-     */
-    void eliminated();
-
-    /**
-     * Indicates the region needs re-drawing.
-     */
-    void tagRange(KateSuperRange* range);
-
-  public slots:
-    virtual void slotTagRange();
+    inline KateSmartRange& operator=(const KTextEditor::Range& r) { setRange(r); return *this; }
 
   protected:
-    KateSuperRange(KateSuperCursor* start, KateSuperCursor* end, QObject* parent = 0L);
+    virtual void checkFeedback();
 
-  private slots:
+  private:
     void slotEvaluateChanged();
     void slotEvaluateUnChanged();
     void slotMousePositionChanged(const KTextEditor::Cursor& newPosition);
@@ -219,35 +134,13 @@ class KateSuperRange : public QObject, public KTextEditor::Range
     void evaluateEliminated();
     void evaluatePositionChanged();
 
-    KateAttribute* m_attribute;
-    KateSuperRange* m_parentRange;
-    QList<KateSuperRange*> m_childRanges;
-
+    KateSmartRangeNotifier* m_notifier;
+    KTextEditor::SmartRangeWatcher* m_watcher;
     KateView* m_attachedView;
     int m_attachActions;
-    QList<KAction*> m_associatedActions;
-    bool  m_valid           :1,
-          m_ownsAttribute   :1,
-          m_evaluate        :1,
-          m_startChanged    :1,
-          m_endChanged      :1,
-          m_deleteCursors   :1,
-          m_allowZeroLength :1,
-          m_mouseOver       :1,
-          m_caretOver       :1;
-};
-
-class KateTopRange : public KateSuperRange
-{
-  Q_OBJECT
-
-  public:
-    KateTopRange(KateDocument* doc, KateRangeList* ownerList);
-
-    virtual KateRangeList* owningList() const;
-
-  private:
-    KateRangeList* m_owningList;
+    int m_feedbackLevel;
+    bool  m_mouseOver             :1,
+          m_caretOver             :1;
 };
 
 #endif

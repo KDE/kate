@@ -23,7 +23,7 @@
 #define __KATE_RENDERER_H__
 
 #include "katecursor.h"
-#include "kateattribute.h"
+#include <ktexteditor/attribute.h>
 #include "katetextline.h"
 #include "katelinerange.h"
 
@@ -207,21 +207,6 @@ public:
      */
     KTextEditor::Cursor xToCursor(const KateTextLayout& range, int x, bool returnPastLine = false) const;
 
-    // Column calculators
-    /**
-     * @return the index of the character at the horixontal position @p xpos
-     * in @p line.
-     *
-     * If @p nearest is true, the character starting nearest to
-     * @p xPos is returned. If @p nearest is false, the index of the character
-     * containing @p xPos is returned.
-     **/
-    uint textPos(uint line, int xPos, uint startCol = 0, bool nearest=true) KDE_DEPRECATED;
-    /**
-     * @overload
-     */
-    uint textPos(const KateTextLine::Ptr &, int xPos, uint startCol = 0, bool nearest=true) KDE_DEPRECATED;
-
     // Font height
     uint fontHeight();
 
@@ -262,13 +247,13 @@ public:
 
     /**
      * This takes an in index, and returns all the attributes for it.
-     * For example, if you have a ktextline, and want the KateAttribute
+     * For example, if you have a ktextline, and want the KTextEditor::Attribute
      * for a given position, do:
      *
      *   attribute(myktextline->attribute(position));
      */
-    KateAttribute* attribute(uint pos) const;
-    KateAttribute* specificAttribute(int context) const;
+    KTextEditor::Attribute* attribute(uint pos) const;
+    KTextEditor::Attribute* specificAttribute(int context) const;
 
   private:
     /**
@@ -296,7 +281,7 @@ public:
     bool m_showTabs;
     bool m_printerFriendly;
 
-    QVector<KateAttribute> *m_attributes;
+    QVector<KTextEditor::Attribute> *m_attributes;
 
   /**
    * Configuration

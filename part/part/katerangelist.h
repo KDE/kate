@@ -47,17 +47,17 @@ class KateRangeList : public QObject
      * Finds the most specific range in a heirachy for the given input range
      * (ie. the smallest range which wholly contains the input range)
      */
-    KateSuperRange* findMostSpecificRange(const KTextEditor::Range& input) const;
+    KateSmartRange* findMostSpecificRange(const KTextEditor::Range& input) const;
 
     /**
      * Finds the first range which includes position \p pos.
      */
-    KateSuperRange* firstRangeIncluding(const KTextEditor::Cursor& pos) const;
+    KateSmartRange* firstRangeIncluding(const KTextEditor::Cursor& pos) const;
     
     /**
      * Finds the deepest range which includes position \p pos.
      */
-    KateSuperRange* deepestRangeIncluding(const KTextEditor::Cursor& pos) const;
+    KateSmartRange* deepestRangeIncluding(const KTextEditor::Cursor& pos) const;
 
     /**
      * @retval true if one of the ranges other than the topmost in the list includes @p cursor
@@ -68,7 +68,7 @@ class KateRangeList : public QObject
     /**
      * @returns the top and all encompasing range
      */
-    KateSuperRange* topRange() const;
+    KateSmartRange* topRange() const;
 
     /**
      * @returns the KateRangeType for ranges in this list
@@ -95,11 +95,11 @@ class KateRangeList : public QObject
     /**
      * Connected to all ranges if connect()ed.
      */
-    void tagRange(KateSuperRange* range);
+    void tagRange(KateSmartRange* range);
 
   private:
     KateDocument* m_doc;
-    KateSuperRange* m_topRange;
+    KateSmartRange* m_topRange;
     KateRangeType* m_rangeType;
 };
 

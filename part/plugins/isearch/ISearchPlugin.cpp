@@ -50,13 +50,6 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	, m_regExp( false )
 	, m_autoWrap( false )
 	, m_wrapped( false )
-	, m_startLine( 0 )
-	, m_startCol( 0 )
-	, m_searchLine( 0 )
-	, m_searchCol( 0 )
-	, m_foundLine( 0 )
-	, m_foundCol( 0 )
-	, m_matchLen( 0 )
 	, m_toolBarWasHidden( false )
 {
 	view->insertChildClient (this);
@@ -183,7 +176,7 @@ void ISearchPluginView::setFromBeginning( bool fromBeginning )
 	m_fromBeginning = fromBeginning;
 
 	if( m_fromBeginning ) {
-		m_searchLine = m_searchCol = 0;
+		m_search.setPosition(0,0);
 	}
 }
 
@@ -310,22 +303,19 @@ void ISearchPluginView::nextMatch( bool reverse )
 	if( state != MatchSearch ) {
 		// Last search was performed by typing, start from that match.
 		if( !reverse ) {
-			m_searchLine = m_foundLine;
-			m_searchCol = m_foundCol + m_matchLen;
+			m_search = m_match.end();
 		} else {
-			m_searchLine = m_foundLine;
-			m_searchCol = m_foundCol;
+			m_search = m_match.start();
 		}
 		state = MatchSearch;
 	}
 
-	bool found = iSearch( m_searchLine, m_searchCol, text, reverse, m_autoWrap );
-	if( found ) {
-		m_searchLine = m_foundLine;
-		m_searchCol = m_foundCol + m_matchLen;
+	KTextEditor::Range found = iSearch( m_search, text, reverse, m_autoWrap );
+	if( found.isValid() ) {
+		m_search = m_match.end();
 	} else {
 		m_wrapped = true;
-		m_searchLine = m_searchCol = 0;
+		m_search.setPosition(0,0);
 	}
 }
 
@@ -338,14 +328,12 @@ void ISearchPluginView::startSearch()
 
 	m_wrapped = false;
 
-	if( m_fromBeginning ) {
-		m_startLine = m_startCol = 0;
-	} else {
-		m_startLine = m_view->cursorPosition().line();
-		m_startCol = m_view->cursorPosition().column();
-	}
-	m_searchLine = m_startLine;
-	m_searchCol = m_startCol;
+	if( m_fromBeginning )
+		m_start.setPosition(0,0);
+	else
+		m_start = m_view->cursorPosition();
+
+	m_search = m_start;
 
 	updateLabelText( false, m_searchBackward );
 
@@ -398,7 +386,7 @@ void ISearchPluginView::slotTextChanged( const QString& text )
 	if( text.isEmpty() )
 		return;
 
-	iSearch( m_searchLine, m_searchCol, text, m_searchBackward, m_autoWrap );
+	iSearch( m_search, text, m_searchBackward, m_autoWrap );
 }
 
 void ISearchPluginView::slotReturnPressed( const QString& text )
@@ -421,49 +409,41 @@ void ISearchPluginView::slotAddContextMenuItems( Q3PopupMenu *menu )
 	}
 }
 
-bool ISearchPluginView::iSearch(
-	int startLine, int startCol,
+KTextEditor::Range ISearchPluginView::iSearch(
+	const KTextEditor::Cursor& start,
 	const QString& text, bool reverse,
 	bool autoWrap )
 {
-	if( !m_view ) return false;
+	if( !m_view ) return KTextEditor::Range::invalid();
 
 //	kdDebug() << "Searching for " << text << " at " << startLine << ", " << startCol << endl;
-	bool found = false;
+	KTextEditor::Range match;
+
 	if( !m_regExp ) {
-		found = m_searchIF->searchText( startLine,
-			           startCol,
+		match = m_searchIF->searchText( start,
 			           text,
-			           &m_foundLine,
-			           &m_foundCol,
-			           &m_matchLen,
 			           m_caseSensitive,
 			           reverse );
 	} else {
-		found = m_searchIF->searchText( startLine,
-			           startCol,
+		match = m_searchIF->searchText( start,
 			           QRegExp( text ),
-			           &m_foundLine,
-			           &m_foundCol,
-			           &m_matchLen,
 			           reverse );
 	}
-	if( found ) {
-//		kdDebug() << "Found '" << text << "' at " << m_foundLine << ", " << m_foundCol << endl;
-//		v->gotoLineNumber( m_foundLine );
-		m_view->setCursorPosition( KTextEditor::Cursor (m_foundLine, m_foundCol + m_matchLen) );
-		m_view->setSelection( KTextEditor::Cursor (m_foundLine, m_foundCol), KTextEditor::Cursor (m_foundLine, m_foundCol + m_matchLen) );
+
+	if( match.isValid() ) {
+//		kdDebug() << "Found '" << text << "' at " << m_matchLine << ", " << m_matchCol << endl;
+//		v->gotoLineNumber( m_matchLine );
+		m_view->setCursorPosition( match.end() );
+		m_view->setSelection( match );
 	} else if ( autoWrap ) {
 		m_wrapped = true;
-		found = iSearch( 0, 0, text, reverse, false );
+		match = iSearch( KTextEditor::Cursor(), text, reverse, false );
 	}
 	// FIXME
-	bool overwrapped = ( m_wrapped &&
-		((m_foundLine > m_startLine ) ||
-		 (m_foundLine == m_startLine && m_foundCol >= m_startCol)) );
+	bool overwrapped = m_wrapped && match.start() >= m_start;
 //	kdDebug() << "Overwrap = " << overwrapped << ". Start was " << m_startLine << ", " << m_startCol << endl;
-	updateLabelText( !found, reverse, m_wrapped, overwrapped );
-	return found;
+	updateLabelText( !match.isValid(), reverse, m_wrapped, overwrapped );
+	return match;
 }
 
 ISearchPlugin::ISearchPlugin( QObject *parent, const char* name, const QStringList& )

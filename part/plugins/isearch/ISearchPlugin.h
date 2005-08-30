@@ -23,6 +23,7 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/searchinterface.h>
+#include <ktexteditor/range.h>
 
 #include <kxmlguiclient.h>
 #include <qobject.h>
@@ -82,7 +83,7 @@ private:
 	void quitToView( const QString &text );
 
 	void nextMatch( bool reverse );
-	bool iSearch( int startLine, int startCol,
+	KTextEditor::Range iSearch( const KTextEditor::Cursor& start,
 	              const QString& text, bool reverse, bool autoWrap );
 
 	KTextEditor::View*     m_view;
@@ -100,9 +101,9 @@ private:
 	bool           m_regExp;
 	bool           m_autoWrap;
 	bool           m_wrapped;
-	int           m_startLine, m_startCol;
-	int           m_searchLine, m_searchCol;
-	int           m_foundLine, m_foundCol, m_matchLen;
+	KTextEditor::Cursor           m_start;
+	KTextEditor::Cursor           m_search;
+	KTextEditor::Range            m_match;
 	bool           m_toolBarWasHidden;
 	enum { NoSearch, TextSearch, MatchSearch } state;
 };

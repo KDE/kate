@@ -433,7 +433,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
     replace(rep, "\\\\", "\\");
     replace(rep, "\\" + delim, delim);
 
-    doc->removeText( KTextEditor::Cursor (line, startcol), KTextEditor::Cursor (line, startcol + len) );
+    doc->removeText( KTextEditor::Range (line, startcol, line, startcol + len) );
     doc->insertText( KTextEditor::Cursor (line, startcol), rep );
 
     // TODO if replace contains \n,
@@ -510,19 +510,19 @@ bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd
   }
   else if (onlySelect)
   {
-    int startline = kview->selectionStart().line();
-    int startcol = kview->selectionStart().column();
+    int startline = kview->selection().start().line();
+    int startcol = kview->selection().start().column();
     int endcol = -1;
     do {
-      if ( startline == kview->selectionEnd().line() )
-        endcol = kview->selectionEnd().column();
+      if ( startline == kview->selection().end().line() )
+        endcol = kview->selection().end().column();
 
       res += sedMagic( doc, startline, find, replace, d, !noCase, repeat, startcol, endcol );
 
       /*if ( startcol )*/ startcol = 0;
 
       startline++;
-    } while ( startline <= kview->selectionEnd().line() );
+    } while ( startline <= kview->selection().end().line() );
   }
   else // just this line
   {

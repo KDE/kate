@@ -36,7 +36,7 @@ class KateFactory : public KTextEditor::Factory
      * @param parent parent object
      * @param name name of factory
      */
-    KateFactory ( QObject *parent = 0, const char *name = 0 )
+    KateFactory ( QObject *parent = 0 )
       : KTextEditor::Factory (parent)
     {
       KateGlobal::incRef ();

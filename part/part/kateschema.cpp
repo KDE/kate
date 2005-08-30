@@ -83,9 +83,9 @@ class KateStyleListItem : public Q3ListViewItem
 {
   public:
     KateStyleListItem( Q3ListViewItem *parent=0, const QString & stylename=0,
-                   class KateAttribute* defaultstyle=0, class KateHlItemData *data=0 );
+                   class KTextEditor::Attribute* defaultstyle=0, class KateHlItemData *data=0 );
     KateStyleListItem( Q3ListView *parent, const QString & stylename=0,
-                   class KateAttribute* defaultstyle=0, class KateHlItemData *data=0 );
+                   class KTextEditor::Attribute* defaultstyle=0, class KateHlItemData *data=0 );
     ~KateStyleListItem() { if (st) delete is; };
 
     /* mainly for readability */
@@ -113,7 +113,7 @@ class KateStyleListItem : public Q3ListViewItem
     bool isDefault();
     /* whichever style is active (st for hl mode styles not using
        the default style, ds otherwise) */
-    class KateAttribute* style() { return is; };
+    class KTextEditor::Attribute* style() { return is; };
 
   protected:
     /* reimp */
@@ -126,7 +126,7 @@ class KateStyleListItem : public Q3ListViewItem
     /* helper function to copy the default style into the KateHlItemData,
        when a property is changed and we are using default style. */
 
-    class KateAttribute *is, // the style currently in use
+    class KTextEditor::Attribute *is, // the style currently in use
               *ds;           // default style for hl mode contexts and default styles
     class KateHlItemData *st;      // itemdata for hl mode contexts
 };
@@ -867,7 +867,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   lHl->setBuddy( defaultSchemaCombo );
 
 
-  m_defaultSchema = (doc && doc->activeView()) ? doc->activeView()->renderer()->config()->schema() : KateRendererConfig::global()->schema();
+  m_defaultSchema = (doc && doc->activeView()) ? doc->activeKateView()->renderer()->config()->schema() : KateRendererConfig::global()->schema();
 
   reload();
 
@@ -1070,7 +1070,7 @@ void KateStyleListView::showPopupMenu( KateStyleListItem *i, const QPoint &globa
   if ( !dynamic_cast<KateStyleListItem*>(i) ) return;
 
   KPopupMenu m( this );
-  KateAttribute *is = i->style();
+  KTextEditor::Attribute *is = i->style();
   int id;
   // the title is used, because the menu obscures the context name when
   // displayed on behalf of spacePressed().
@@ -1079,9 +1079,9 @@ void KateStyleListView::showPopupMenu( KateStyleListItem *i, const QPoint &globa
   QPixmap scl(16,16);
   scl.fill( i->style()->selectedTextColor() );
   QPixmap bgcl(16,16);
-  bgcl.fill( i->style()->itemSet(KateAttribute::BGColor) ? i->style()->bgColor() : viewport()->colorGroup().base() );
+  bgcl.fill( i->style()->itemSet(KTextEditor::Attribute::BGColor) ? i->style()->bgColor() : viewport()->colorGroup().base() );
   QPixmap sbgcl(16,16);
-  sbgcl.fill( i->style()->itemSet(KateAttribute::SelectedBGColor) ? i->style()->selectedBGColor() : viewport()->colorGroup().base() );
+  sbgcl.fill( i->style()->itemSet(KTextEditor::Attribute::SelectedBGColor) ? i->style()->selectedBGColor() : viewport()->colorGroup().base() );
 
   if ( showtitle )
     m.addTitle( i->contextName() );
@@ -1105,13 +1105,13 @@ void KateStyleListView::showPopupMenu( KateStyleListItem *i, const QPoint &globa
   // would disable setting this with the keyboard (how many aren't doing just
   // that every day? ;)
   // ANY ideas for doing this in a nicer way will be warmly wellcomed.
-  KateAttribute *style = i->style();
-  if ( style->itemSet( KateAttribute::BGColor) || style->itemSet( KateAttribute::SelectedBGColor ) )
+  KTextEditor::Attribute *style = i->style();
+  if ( style->itemSet( KTextEditor::Attribute::BGColor) || style->itemSet( KTextEditor::Attribute::SelectedBGColor ) )
   {
     m.insertSeparator();
-    if ( style->itemSet( KateAttribute::BGColor) )
+    if ( style->itemSet( KTextEditor::Attribute::BGColor) )
       m.insertItem( i18n("Unset Background Color"), this, SLOT(unsetColor(int)), 0, 100 );
-    if ( style->itemSet( KateAttribute::SelectedBGColor ) )
+    if ( style->itemSet( KTextEditor::Attribute::SelectedBGColor ) )
       m.insertItem( i18n("Unset Selected Background Color"), this, SLOT(unsetColor(int)), 0, 101 );
   }
 
@@ -1159,7 +1159,7 @@ static const int BoxSize = 16;
 static const int ColorBtnWidth = 32;
 
 KateStyleListItem::KateStyleListItem( Q3ListViewItem *parent, const QString & stylename,
-                              KateAttribute *style, KateHlItemData *data )
+                              KTextEditor::Attribute *style, KateHlItemData *data )
         : Q3ListViewItem( parent, stylename ),
           ds( style ),
           st( data )
@@ -1168,7 +1168,7 @@ KateStyleListItem::KateStyleListItem( Q3ListViewItem *parent, const QString & st
 }
 
 KateStyleListItem::KateStyleListItem( Q3ListView *parent, const QString & stylename,
-                              KateAttribute *style, KateHlItemData *data )
+                              KTextEditor::Attribute *style, KateHlItemData *data )
         : Q3ListViewItem( parent, stylename ),
           ds( style ),
           st( data )
@@ -1182,7 +1182,7 @@ void KateStyleListItem::initStyle()
     is = ds;
   else
   {
-    is = new KateAttribute (*ds);
+    is = new KTextEditor::Attribute (*ds);
 
     if (st->isSomethingSet())
       *is += *st;
@@ -1195,56 +1195,56 @@ void KateStyleListItem::updateStyle()
   if (!st)
     return;
 
-  if ( is->itemSet(KateAttribute::Weight) )
+  if ( is->itemSet(KTextEditor::Attribute::Weight) )
   {
     if ( is->weight() != st->weight())
       st->setWeight( is->weight() );
   }
 
-  if ( is->itemSet(KateAttribute::Italic) )
+  if ( is->itemSet(KTextEditor::Attribute::Italic) )
   {
     if ( is->italic() != st->italic())
       st->setItalic( is->italic() );
   }
 
-  if ( is->itemSet(KateAttribute::StrikeOut) )
+  if ( is->itemSet(KTextEditor::Attribute::StrikeOut) )
   {
     if ( is->strikeOut() != st->strikeOut())
 
       st->setStrikeOut( is->strikeOut() );
   }
 
-  if ( is->itemSet(KateAttribute::Underline) )
+  if ( is->itemSet(KTextEditor::Attribute::Underline) )
   {
     if ( is->underline() != st->underline())
       st->setUnderline( is->underline() );
   }
 
-  if ( is->itemSet(KateAttribute::Outline) )
+  if ( is->itemSet(KTextEditor::Attribute::Outline) )
   {
     if ( is->outline() != st->outline())
       st->setOutline( is->outline() );
   }
 
-  if ( is->itemSet(KateAttribute::TextColor) )
+  if ( is->itemSet(KTextEditor::Attribute::TextColor) )
   {
     if ( is->textColor() != st->textColor())
       st->setTextColor( is->textColor() );
   }
 
-  if ( is->itemSet(KateAttribute::SelectedTextColor) )
+  if ( is->itemSet(KTextEditor::Attribute::SelectedTextColor) )
   {
     if ( is->selectedTextColor() != st->selectedTextColor())
       st->setSelectedTextColor( is->selectedTextColor() );
   }
 
-  if ( is->itemSet(KateAttribute::BGColor) )
+  if ( is->itemSet(KTextEditor::Attribute::BGColor) )
   {
     if ( is->bgColor() != st->bgColor())
       st->setBGColor( is->bgColor() );
   }
 
-  if ( is->itemSet(KateAttribute::SelectedBGColor) )
+  if ( is->itemSet(KTextEditor::Attribute::SelectedBGColor) )
   {
     if ( is->selectedBGColor() != st->selectedBGColor())
       st->setSelectedBGColor( is->selectedBGColor() );
@@ -1337,7 +1337,7 @@ void KateStyleListItem::toggleDefStyle()
   }
   else {
     delete is;
-    is = new KateAttribute( *ds );
+    is = new KTextEditor::Attribute( *ds );
     repaint();
   }
 }
@@ -1379,10 +1379,10 @@ void KateStyleListItem::setColor( int column )
     case Color:
       if ( def )
       {
-        if ( ds->itemSet(KateAttribute::TextColor) )
+        if ( ds->itemSet(KTextEditor::Attribute::TextColor) )
           is->setTextColor( ds->textColor());
         else
-          is->clearAttribute(KateAttribute::TextColor);
+          is->clearAttribute(KTextEditor::Attribute::TextColor);
       }
       else
         is->setTextColor( c );
@@ -1390,10 +1390,10 @@ void KateStyleListItem::setColor( int column )
     case SelColor:
       if ( def )
       {
-        if ( ds->itemSet(KateAttribute::SelectedTextColor) )
+        if ( ds->itemSet(KTextEditor::Attribute::SelectedTextColor) )
           is->setSelectedTextColor( ds->selectedTextColor());
         else
-          is->clearAttribute(KateAttribute::SelectedTextColor);
+          is->clearAttribute(KTextEditor::Attribute::SelectedTextColor);
       }
       else
         is->setSelectedTextColor( c );
@@ -1401,10 +1401,10 @@ void KateStyleListItem::setColor( int column )
     case BgColor:
       if ( def )
       {
-        if ( ds->itemSet(KateAttribute::BGColor) )
+        if ( ds->itemSet(KTextEditor::Attribute::BGColor) )
           is->setBGColor( ds->bgColor());
         else
-          is->clearAttribute(KateAttribute::BGColor);
+          is->clearAttribute(KTextEditor::Attribute::BGColor);
       }
       else
         is->setBGColor( c );
@@ -1412,10 +1412,10 @@ void KateStyleListItem::setColor( int column )
     case SelBgColor:
       if ( def )
       {
-        if ( ds->itemSet(KateAttribute::SelectedBGColor) )
+        if ( ds->itemSet(KTextEditor::Attribute::SelectedBGColor) )
           is->setSelectedBGColor( ds->selectedBGColor());
         else
-          is->clearAttribute(KateAttribute::SelectedBGColor);
+          is->clearAttribute(KTextEditor::Attribute::SelectedBGColor);
       }
       else
         is->setSelectedBGColor( c );
@@ -1427,10 +1427,10 @@ void KateStyleListItem::setColor( int column )
 
 void KateStyleListItem::unsetColor( int c )
 {
-  if ( c == 100 && is->itemSet(KateAttribute::BGColor) )
-    is->clearAttribute(KateAttribute::BGColor);
-  else if ( c == 101 && is->itemSet(KateAttribute::SelectedBGColor) )
-    is->clearAttribute(KateAttribute::SelectedBGColor);
+  if ( c == 100 && is->itemSet(KTextEditor::Attribute::BGColor) )
+    is->clearAttribute(KTextEditor::Attribute::BGColor);
+  else if ( c == 101 && is->itemSet(KTextEditor::Attribute::SelectedBGColor) )
+    is->clearAttribute(KTextEditor::Attribute::SelectedBGColor);
 }
 
 void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int col, int width, int align )
@@ -1462,9 +1462,9 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
       mcg.setColor(QColorGroup::HighlightedText, is->selectedTextColor());
       // text background color
       c = is->bgColor();
-      if ( c.isValid() && is->itemSet(KateAttribute::BGColor) )
+      if ( c.isValid() && is->itemSet(KTextEditor::Attribute::BGColor) )
         mcg.setColor( QColorGroup::Base, c );
-      if ( isSelected() && is->itemSet(KateAttribute::SelectedBGColor) )
+      if ( isSelected() && is->itemSet(KTextEditor::Attribute::SelectedBGColor) )
       {
         c = is->selectedBGColor();
         if ( c.isValid() )
@@ -1531,21 +1531,21 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
       if ( col == Color)
       {
         c = is->textColor();
-        set = is->itemSet(KateAttribute::TextColor);
+        set = is->itemSet(KTextEditor::Attribute::TextColor);
       }
       else if ( col == SelColor )
       {
         c = is->selectedTextColor();
-        set = is->itemSet( KateAttribute::SelectedTextColor);
+        set = is->itemSet( KTextEditor::Attribute::SelectedTextColor);
       }
       else if ( col == BgColor )
       {
-        set = is->itemSet(KateAttribute::BGColor);
+        set = is->itemSet(KTextEditor::Attribute::BGColor);
         c = set ? is->bgColor() : mcg.base();
       }
       else if ( col == SelBgColor )
       {
-        set = is->itemSet(KateAttribute::SelectedBGColor);
+        set = is->itemSet(KTextEditor::Attribute::SelectedBGColor);
         c = set ? is->selectedBGColor(): mcg.base();
       }
 

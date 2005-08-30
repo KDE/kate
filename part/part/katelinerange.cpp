@@ -95,7 +95,7 @@ bool KateLineLayout::startsInvisibleBlock() const
   if (!isValid() || virtualLine() == 0)
     return false;
 
-  return virtualLine() - 1 != m_doc->getVirtualLine(line() - 1);
+  return (virtualLine() - 1) != (int)m_doc->getVirtualLine(line() - 1);
 }
 
 int KateLineLayout::shiftX() const

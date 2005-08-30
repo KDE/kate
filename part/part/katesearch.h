@@ -23,8 +23,7 @@
 #ifndef __KATE_SEARCH_H__
 #define __KATE_SEARCH_H__
 
-#include "katecursor.h"
-
+#include <ktexteditor/range.h>
 #include <ktexteditor/commandinterface.h>
 
 #include <kdialogbase.h>
@@ -70,8 +69,7 @@ class KateSearch : public QObject
         bool wrapped; // have we allready wrapped around ?
         bool showNotFound; // pop up annoying dialogs?
         int matchedLength;
-        KTextEditor::Cursor selBegin;
-        KTextEditor::Cursor selEnd;
+        KTextEditor::Range selection;
     };
 
   public:

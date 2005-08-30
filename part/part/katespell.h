@@ -68,9 +68,9 @@ class KateSpell : public QObject
     void spellResult( const QString& );
     void spellCleanDone();
 
-    void locatePosition( uint pos, uint& line, uint& col );
-
   private:
+    KTextEditor::Cursor locatePosition( int pos );
+
     KateView *m_view;
     KAction *m_spellcheckSelection;
 

@@ -72,9 +72,7 @@ void KateSpell::spellcheckFromCursor()
 
 void KateSpell::spellcheckSelection()
 {
-  KTextEditor::Cursor from ( m_view->selectionStart() );
-  KTextEditor::Cursor to( m_view->selectionEnd() );
-  spellcheck( from, to );
+  spellcheck( m_view->selection().start(), m_view->selection().end() );
 }
 
 void KateSpell::spellcheck()
@@ -128,7 +126,7 @@ void KateSpell::ready(KSpell *)
   kdDebug (13020) << "SPELLING READY STATUS: " << m_kspell->status () << endl;
 }
 
-void KateSpell::locatePosition( uint pos, uint& line, uint& col )
+KTextEditor::Cursor KateSpell::locatePosition( int pos )
 {
   uint remains;
 
@@ -149,28 +147,22 @@ void KateSpell::locatePosition( uint pos, uint& line, uint& col )
     }
   }
 
-  line = m_spellPosCursor.line();
-  col = m_spellPosCursor.column();
+  return m_spellPosCursor;
 }
 
 void KateSpell::misspelling( const QString& origword, const QStringList&, unsigned int pos )
 {
-  uint line, col;
+  KTextEditor::Cursor cursor = locatePosition( pos );
 
-  locatePosition( pos, line, col );
-
-  m_view->setCursorPositionInternal (line, col, 1);
-  m_view->setSelection( KTextEditor::Cursor (line, col), origword.length() );
+  m_view->setCursorPositionInternal (cursor.line(), cursor.column(), 1);
+  m_view->setSelection( cursor, origword.length() );
 }
 
 void KateSpell::corrected( const QString& originalword, const QString& newword, unsigned int pos )
 {
-  uint line, col;
+  KTextEditor::Cursor cursor = locatePosition( pos );
 
-  locatePosition( pos, line, col );
-
-  m_view->doc()->removeText( line, col, line, col + originalword.length() );
-  m_view->doc()->insertText( line, col, newword );
+  m_view->doc()->replaceText( KTextEditor::Range(cursor, originalword.length()), newword );
 }
 
 void KateSpell::spellResult( const QString& )

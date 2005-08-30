@@ -20,7 +20,7 @@
 
 #include "katedocument.h"
 #include "katesuperrange.h"
-#include "kateattribute.h"
+#include <ktexteditor/attribute.h>
 
 KateRangeType::KateRangeType()
   : m_activeAttribute(0L)
@@ -29,7 +29,7 @@ KateRangeType::KateRangeType()
 {
 }
 
-void KateRangeType::addAttribute( KateAttribute * attribute, int activationFlags, bool activate )
+void KateRangeType::addAttribute( KTextEditor::Attribute * attribute, int activationFlags, bool activate )
 {
   Q_ASSERT(!m_attributes.contains(attribute));
   Q_ASSERT(!(activateMouseIn & activationFlags && activateMouseOut & activationFlags));
@@ -48,7 +48,7 @@ void KateRangeType::addAttribute( KateAttribute * attribute, int activationFlags
     activateCaret();
 }
 
-void KateRangeType::removeAttribute( KateAttribute * attribute )
+void KateRangeType::removeAttribute( KTextEditor::Attribute * attribute )
 {
   Q_ASSERT(m_attributes.contains(attribute));
   m_attributes.remove(attribute);
@@ -58,13 +58,13 @@ void KateRangeType::removeAttribute( KateAttribute * attribute )
   }
 }
 
-void KateRangeType::changeActivationFlags( KateAttribute * attribute, int flags )
+void KateRangeType::changeActivationFlags( KTextEditor::Attribute * attribute, int flags )
 {
   Q_ASSERT(m_attributes.contains(attribute));
   m_attributes[attribute] = flags;
 
   bool needMouse, needCaret;
-  for (QMap<KateAttribute*, int>::ConstIterator it = m_attributes.constBegin(); it != m_attributes.constEnd(); ++it) {
+  for (QMap<KTextEditor::Attribute*, int>::ConstIterator it = m_attributes.constBegin(); it != m_attributes.constEnd(); ++it) {
     needMouse |= (activateMouseIn | activateMouseOut) & it.data();
     needCaret |= (activateCaretIn | activateCaretOut) & it.data();
   }
@@ -81,64 +81,64 @@ void KateRangeType::activateMouse( bool activate )
   if (m_haveConnectedMouse == activate)
     return;
 
-  for (QList<KateSuperRange*>::ConstIterator it = m_ranges.begin(); it != m_ranges.end(); ++it)
+  for (QList<KateSmartRange*>::ConstIterator it = m_ranges.begin(); it != m_ranges.end(); ++it)
     connectMouse(*it, activate);
 
   m_haveConnectedMouse = activate;
 }
 
-void KateRangeType::connectMouse( KateSuperRange * range, bool doconnect )
+void KateRangeType::connectMouse( KateSmartRange * range, bool doconnect )
 {
-  KateDocument* doc = m_ranges.first()->doc();
+    /*KateDocument* doc = m_ranges.first()->kateDocument();
 
   if (doconnect)
     QObject::connect(doc, SIGNAL(activeViewMousePositionChanged(const KTextEditor::Cursor&)), range, SLOT(slotMousePositionChanged(const KTextEditor::Cursor&)));
   else
-    QObject::disconnect(doc, SIGNAL(activeViewMousePositionChanged(const KTextEditor::Cursor&)), range, SLOT(slotMousePositionChanged(const KTextEditor::Cursor&)));
+    QObject::disconnect(doc, SIGNAL(activeViewMousePositionChanged(const KTextEditor::Cursor&)), range, SLOT(slotMousePositionChanged(const KTextEditor::Cursor&)));*/
 }
 
 void KateRangeType::activateCaret( bool activate )
 {
-  if (m_haveConnectedCaret == activate)
+    /*if (m_haveConnectedCaret == activate)
     return;
 
-  for (QList<KateSuperRange*>::ConstIterator it = m_ranges.begin(); it != m_ranges.end(); ++it)
+  for (QList<KateSmartRange*>::ConstIterator it = m_ranges.begin(); it != m_ranges.end(); ++it)
     connectCaret(*it, activate);
 
-  m_haveConnectedCaret = activate;
+  m_haveConnectedCaret = activate;*/
 }
 
-void KateRangeType::connectCaret( KateSuperRange * range, bool doconnect )
+void KateRangeType::connectCaret( KateSmartRange * range, bool doconnect )
 {
-  KateDocument* doc = m_ranges.first()->doc();
+    /*KateDocument* doc = m_ranges.first()->doc();
 
   if (doconnect)
     QObject::connect(doc, SIGNAL(activeViewCaretPositionChanged(const KTextEditor::Cursor&)), range, SLOT(slotCaretPositionChanged(const KTextEditor::Cursor&)));
   else
-    QObject::disconnect(doc, SIGNAL(activeViewCaretPositionChanged(const KTextEditor::Cursor&)), range, SLOT(slotCaretPositionChanged(const KTextEditor::Cursor&)));
+    QObject::disconnect(doc, SIGNAL(activeViewCaretPositionChanged(const KTextEditor::Cursor&)), range, SLOT(slotCaretPositionChanged(const KTextEditor::Cursor&)));*/
 }
 
 void KateRangeType::tagAll( )
 {
-  for (QList<KateSuperRange*>::ConstIterator it = m_ranges.begin(); it != m_ranges.end(); ++it)
-    (*it)->slotTagRange();
+    /*for (QList<KateSmartRange*>::ConstIterator it = m_ranges.begin(); it != m_ranges.end(); ++it)
+    (*it)->slotTagRange();*/
 }
 
-KateAttribute * KateRangeType::activatedAttribute(bool mouseIn, bool caretIn) const
+KTextEditor::Attribute * KateRangeType::activatedAttribute(bool mouseIn, bool caretIn) const
 {
   int matchingFlag = (mouseIn ? activateMouseIn : activateMouseOut) | (caretIn ? activateCaretIn : activateCaretOut);
 
-  static KateAttribute* ret = new KateAttribute();
+  static KTextEditor::Attribute* ret = new KTextEditor::Attribute();
   *ret = *m_activeAttribute;
   if (matchingFlag)
-    for (QMap<KateAttribute*, int>::ConstIterator it = m_attributes.constBegin(); it != m_attributes.constEnd(); ++it)
+    for (QMap<KTextEditor::Attribute*, int>::ConstIterator it = m_attributes.constBegin(); it != m_attributes.constEnd(); ++it)
       if (it.data() & matchingFlag)
         *ret += *it.key();
 
   return ret;
 }
 
-void KateRangeType::addRange( KateSuperRange* range )
+void KateRangeType::addRange( KateSmartRange* range )
 {
   m_ranges.append(range);
   if (m_haveConnectedMouse)
@@ -147,7 +147,7 @@ void KateRangeType::addRange( KateSuperRange* range )
     connectCaret(range, true);
 }
 
-void KateRangeType::removeRange( KateSuperRange* range )
+void KateRangeType::removeRange( KateSmartRange* range )
 {
   m_ranges.remove(range);
   if (m_haveConnectedMouse)

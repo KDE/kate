@@ -23,7 +23,7 @@
 
 #include "katedocument.h"
 #include "katetextline.h"
-#include "kateattribute.h"
+#include <ktexteditor/attribute.h>
 #include "katesuperrange.h"
 
 //
@@ -136,7 +136,7 @@ bool KateDocCursor::removeText(uint nbChar)
   endCursor.moveForward(nbChar);
 
   // Remove the text
-  return m_doc->removeText(*this, endCursor);
+  return m_doc->removeText(KTextEditor::Range(*this, endCursor));
 }
 
 QChar KateDocCursor::currentChar() const

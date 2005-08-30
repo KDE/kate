@@ -1,5 +1,3 @@
-KDE_CXXFLAGS=-fvisibility=default
-
 kde_module_LTLIBRARIES = katepart.la
 
 katepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmds.cpp kateundo.cpp \

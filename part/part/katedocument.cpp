@@ -2015,12 +2015,19 @@ bool KateDocument::openFile(KIO::Job * job)
     setEncoding (serviceType.mid(pos+1));
 
   // do we have success ?
+  emit KTextEditor::Document::textRemoved(this, all());
+  history()->doEdit( new KateEditInfo(this, KateEditInfo::CloseFile, all(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
+
   bool success = m_buffer->openFile (m_file);
+
   //
   // yeah, success
   //
   if (success)
   {
+    emit KTextEditor::Document::textInserted(this, all());
+    history()->doEdit( new KateEditInfo(this, KateEditInfo::CloseFile, KTextEditor::Range(0,0,0,0), QStringList(), all(), QStringList()) );
+
     /*if (highlight() && !m_url.isLocalFile()) {
       // The buffer's highlighting gets nuked by KateBuffer::clear()
       m_buffer->setHighlight(m_highlight);

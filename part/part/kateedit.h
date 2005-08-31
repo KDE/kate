@@ -36,6 +36,8 @@ class KateEditInfo
 
   public:
     enum EditSources {
+      OpenFile,
+      CloseFile,
       UserInput,
       CutCopyPaste,
       SearchReplace,

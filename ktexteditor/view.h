@@ -252,7 +252,13 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * exists.
      * @return @e true if a text selection exists
      */
-    virtual bool hasSelection() const = 0;
+    virtual bool selection() const = 0;
+
+    /**
+     * Get the range occupied by the current selection.
+     * @return selection range, valid only if a selection currently exists.
+     */
+    virtual const Range &selectionRange() const = 0;
 
     /**
      * Get the view's selected text.
@@ -272,12 +278,6 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * @return @e true on success, otherwise @e flase
      */
     virtual bool removeSelectionText () = 0;
-
-    /**
-     * Get the range occupied by the current selection.
-     * @return selection range, valid only if a selection currently exists.
-     */
-    virtual const Range &selection() const = 0;
 
   /**
    * Blockselection stuff

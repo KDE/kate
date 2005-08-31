@@ -143,7 +143,7 @@ static int katelua_document_removeText(lua_State *L) {
       lua_pushstring(L,i18n("document.removeText:Four parameters needed (start line, start col,end line, end col) (4x number)").utf8().data());
       lua_error(L);
   }
-  lua_pushboolean(L,katelua_doc->removeText((uint)lua_tonumber(L,1),(uint)lua_tonumber(L,2),(uint)lua_tonumber(L,3),(uint)lua_tonumber(L,4)));
+  lua_pushboolean(L,katelua_doc->removeText(KTextEditor::Range(lua_tonumber(L,1),lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4))));
   return 1;
 }
 
@@ -156,7 +156,7 @@ static int katelua_document_insertText(lua_State *L) {
       lua_pushstring(L,i18n("document.removeText:Three parameters needed (line,col,text) (number,number,string)").utf8().data());
       lua_error(L);
   }
-  lua_pushboolean(L,katelua_doc->insertText((uint)lua_tonumber(L,1),(uint)lua_tonumber(L,2),QString::fromUtf8(lua_tostring(L,3))));
+  lua_pushboolean(L,katelua_doc->insertText(KTextEditor::Cursor(lua_tonumber(L,1),lua_tonumber(L,2)),QString::fromUtf8(lua_tostring(L,3))));
   return 1;
 }
 

@@ -850,8 +850,8 @@ void KateView::gotoLine()
 
 void KateView::joinLines()
 {
-  int first = selection().start().line();
-  int last = selection().end().line();
+  int first = selectionRange().start().line();
+  int last = selectionRange().end().line();
   //int left = m_doc->line( last ).length() - m_doc->selEndCol();
   if ( first == last )
   {
@@ -1034,14 +1034,14 @@ void KateView::findAgain( bool back )
 
 void KateView::slotSelectionChanged ()
 {
-  m_copy->setEnabled (hasSelection());
-  m_copyHTML->setEnabled (hasSelection());
-  m_deSelect->setEnabled (hasSelection());
+  m_copy->setEnabled (selection());
+  m_copyHTML->setEnabled (selection());
+  m_deSelect->setEnabled (selection());
 
   if (m_doc->readOnly())
     return;
 
-  m_cut->setEnabled (hasSelection());
+  m_cut->setEnabled (selection());
 
   m_spell->updateActions ();
 }
@@ -1309,7 +1309,7 @@ bool KateView::clearSelection()
 
 bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
 {
-  if( !hasSelection() )
+  if( !selection() )
     return false;
 
   KTextEditor::Range oldSelection = m_selection;
@@ -1329,7 +1329,7 @@ bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
   return true;
 }
 
-bool KateView::hasSelection() const
+bool KateView::selection() const
 {
   return m_selection.start() != m_selection.end();
 }
@@ -1346,7 +1346,7 @@ QString KateView::selectionText() const
 
 bool KateView::removeSelectedText()
 {
-  if (!hasSelection())
+  if (!selection())
     return false;
 
   m_doc->editStart ();
@@ -1399,7 +1399,7 @@ bool KateView::lineEndSelected (const KTextEditor::Cursor& lineEndPos)
 
 bool KateView::lineHasSelected (int line)
 {
-  return hasSelection() && m_selection.containsLine(line);
+  return selection() && m_selection.containsLine(line);
 }
 
 bool KateView::lineIsSelection (int line)
@@ -1409,7 +1409,7 @@ bool KateView::lineIsSelection (int line)
 
 void KateView::tagSelection(const KTextEditor::Range &oldSelection)
 {
-  if (hasSelection()) {
+  if (selection()) {
     if (oldSelection.start().line() == -1) {
       // We have to tag the whole lot if
       // 1) we have a selection, and:
@@ -1468,7 +1468,7 @@ void KateView::selectLine( const KTextEditor::Cursor& cursor )
 
 void KateView::cut()
 {
-  if (!hasSelection())
+  if (!selection())
     return;
 
   copy();
@@ -1477,7 +1477,7 @@ void KateView::cut()
 
 void KateView::copy() const
 {
-  if (!hasSelection())
+  if (!selection())
     return;
 
   QApplication::clipboard()->setText(selectionText ());
@@ -1485,7 +1485,7 @@ void KateView::copy() const
 
 void KateView::copyHTML()
 {
-  if (!hasSelection())
+  if (!selection())
     return;
 
   KMultipleDrag *drag = new KMultipleDrag();

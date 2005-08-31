@@ -550,7 +550,7 @@ Value KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, cons
       return KJS::String( view->selectionText() );
 
     case KateJSView::HasSelection:
-      return KJS::Boolean( view->hasSelection() );
+      return KJS::Boolean( view->selection() );
 
     case KateJSView::SetSelection:
       return KJS::Boolean( view->setSelection(KTextEditor::Range(args[0].toInt32(exec), args[1].toInt32(exec), args[2].toUInt32(exec), args[3].toUInt32(exec))) );
@@ -586,16 +586,16 @@ KJS::Value KateJSView::getValueProperty(KJS::ExecState *exec, int token) const
 
   switch (token) {
     case KateJSView::SelStartLine:
-      return KJS::Number( view->selection().start().line() );
+      return KJS::Number( view->selectionRange().start().line() );
 
     case KateJSView::SelStartCol:
-      return KJS::Number( view->selection().start().column() );
+      return KJS::Number( view->selectionRange().start().column() );
 
     case KateJSView::SelEndLine:
-      return KJS::Number( view->selection().end().line() );
+      return KJS::Number( view->selectionRange().end().line() );
 
     case KateJSView::SelEndCol:
-      return KJS::Number( view->selection().end().column() );
+      return KJS::Number( view->selectionRange().end().column() );
     }
 
   return KJS::Undefined ();

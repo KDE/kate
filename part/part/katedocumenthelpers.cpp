@@ -52,7 +52,7 @@ void KateBrowserExtension::print()
 void KateBrowserExtension::slotSelectionChanged()
 {
   if (m_doc->activeView())
-    emit enableAction( "copy", m_doc->activeKateView()->hasSelection() );
+    emit enableAction( "copy", m_doc->activeKateView()->selection() );
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

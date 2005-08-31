@@ -102,7 +102,7 @@ void KDataToolPluginView::aboutToShow()
 		delete m_notAvailable;
 		m_notAvailable=0;
 	}
-	if ( m_view->hasSelection() )
+	if ( m_view->selection() )
 	{
 		word = m_view->selectionText();
 		if ( word.find(' ') == -1 && word.find('\t') == -1 && word.find('\n') == -1 )
@@ -191,7 +191,7 @@ void KDataToolPluginView::slotToolActivated( const KDataToolInfo &info, const QS
 	}
 
 	QString text;
-	if ( m_view->hasSelection() )
+	if ( m_view->selection() )
 		text = m_view->selectionText();
 	else
 		text = m_wordUnderCursor;
@@ -215,7 +215,7 @@ void KDataToolPluginView::slotToolActivated( const KDataToolInfo &info, const QS
 			int line, col;
 			line = m_view->cursorPosition().line();
       col = m_view->cursorPosition().column();
-			if ( !m_view->hasSelection() )
+			if ( !m_view->selection() )
 			{
 				m_view->setSelection(KTextEditor::Range(m_singleWord_line, m_singleWord_start, m_singleWord_line, m_singleWord_end));
 			}

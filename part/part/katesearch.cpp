@@ -84,11 +84,11 @@ void KateSearch::find()
 {
   // if multiline selection around, search in it
   long searchf = KateViewConfig::global()->searchFlags();
-  if (m_view->hasSelection() && !m_view->selection().onSingleLine())
+  if (m_view->selection() && !m_view->selectionRange().onSingleLine())
     searchf |= KFindDialog::SelectedText;
 
   KFindDialog *findDialog = new KFindDialog (  m_view, "", searchf,
-                                               s_searchList, m_view->hasSelection() );
+                                               s_searchList, m_view->selection() );
 
   findDialog->setPattern (getSearchText());
 
@@ -127,7 +127,7 @@ void KateSearch::find( const QString &pattern, long flags, bool add, bool showno
 
   if ( searchFlags.selected )
   {
-    s.selection = m_view->selection();
+    s.selection = m_view->selectionRange();
     s.cursor   = s.flags.backward ? s.selection.end() : s.selection.start();
   } else {
     s.cursor = getCursor();
@@ -146,11 +146,11 @@ void KateSearch::replace()
 
   // if multiline selection around, search in it
   long searchf = KateViewConfig::global()->searchFlags();
-  if (m_view->hasSelection() && !m_view->selection().onSingleLine())
+  if (m_view->selection() && !m_view->selectionRange().onSingleLine())
     searchf |= KFindDialog::SelectedText;
 
   KReplaceDialog *replaceDialog = new KReplaceDialog (  m_view, "", searchf,
-                                               s_searchList, s_replaceList, m_view->hasSelection() );
+                                               s_searchList, s_replaceList, m_view->selection() );
 
   replaceDialog->setPattern (getSearchText());
 
@@ -192,7 +192,7 @@ void KateSearch::replace( const QString& pattern, const QString &replacement, lo
   searchFlags.useBackRefs = KateViewConfig::global()->searchFlags() & KReplaceDialog::BackReference;
   if ( searchFlags.selected )
   {
-    s.selection = m_view->selection();
+    s.selection = m_view->selectionRange();
     s.cursor   = s.flags.backward ? s.selection.end() : s.selection.start();
   } else {
     s.cursor = getCursor();
@@ -484,13 +484,13 @@ QString KateSearch::getSearchText()
   {
   case KateViewConfig::SelectionOnly: // (Windows)
     //kdDebug() << "getSearchText(): SelectionOnly" << endl;
-    if( m_view->hasSelection() )
+    if( m_view->selection() )
       str = m_view->selectionText();
     break;
 
   case KateViewConfig::SelectionWord: // (classic Kate behavior)
     //kdDebug() << "getSearchText(): SelectionWord" << endl;
-    if( m_view->hasSelection() )
+    if( m_view->selection() )
       str = m_view->selectionText();
     else
       str = view()->currentWord();
@@ -504,7 +504,7 @@ QString KateSearch::getSearchText()
   case KateViewConfig::WordSelection: // (persistent selection lover)
     //kdDebug() << "getSearchText(): WordSelection" << endl;
     str = view()->currentWord();
-    if (str.isEmpty() && m_view->hasSelection() )
+    if (str.isEmpty() && m_view->selection() )
       str = m_view->selectionText();
     break;
 
@@ -833,7 +833,7 @@ void SearchCommand::processText( KTextEditor::View *view, const QString &cmd )
       // of the selection.
       if ( pattern.startsWith( v->selectionText() ) &&
            v->selectionText().length() + 1 == pattern.length() )
-        v->setCursorPositionInternal( v->selection().start().line(), v->selection().start().column() );
+        v->setCursorPositionInternal( v->selectionRange().start().line(), v->selectionRange().start().column() );
 
       v->find( pattern, m_ifindFlags, false );
     }

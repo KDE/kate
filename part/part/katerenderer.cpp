@@ -1158,37 +1158,37 @@ bool KateRenderer::getSelectionBounds(uint line, uint lineLength, uint &start, u
 {
   bool hasSel = false;
 
-  if (m_view->hasSelection() && !m_view->blockSelectionMode())
+  if (m_view->selection() && !m_view->blockSelectionMode())
   {
     if (m_view->lineIsSelection(line))
     {
-      start = m_view->selection().start().column();
-      end = m_view->selection().end().column();
+      start = m_view->selectionRange().start().column();
+      end = m_view->selectionRange().end().column();
       hasSel = true;
     }
-    else if ((int)line == m_view->selection().start().line())
+    else if ((int)line == m_view->selectionRange().start().line())
     {
-      start = m_view->selection().start().column();
+      start = m_view->selectionRange().start().column();
       end = lineLength;
       hasSel = true;
     }
-    else if (!m_view->selection().includesLine(line))
+    else if (!m_view->selectionRange().includesLine(line))
     {
       start = 0;
       end = lineLength;
       hasSel = true;
     }
-    else if ((int)line == m_view->selection().end().line())
+    else if ((int)line == m_view->selectionRange().end().line())
     {
       start = 0;
-      end = m_view->selection().end().column();
+      end = m_view->selectionRange().end().column();
       hasSel = true;
     }
   }
   else if (m_view->lineHasSelected(line))
   {
-    start = m_view->selection().start().column();
-    end = m_view->selection().end().column();
+    start = m_view->selectionRange().start().column();
+    end = m_view->selectionRange().end().column();
     hasSel = true;
   }
 

@@ -62,7 +62,7 @@ void KateSpell::createActions( KActionCollection* ac )
 
 void KateSpell::updateActions ()
 {
-  m_spellcheckSelection->setEnabled (m_view->hasSelection ());
+  m_spellcheckSelection->setEnabled (m_view->selection ());
 }
 
 void KateSpell::spellcheckFromCursor()
@@ -72,7 +72,7 @@ void KateSpell::spellcheckFromCursor()
 
 void KateSpell::spellcheckSelection()
 {
-  spellcheck( m_view->selection().start(), m_view->selection().end() );
+  spellcheck( m_view->selectionRange().start(), m_view->selectionRange().end() );
 }
 
 void KateSpell::spellcheck()

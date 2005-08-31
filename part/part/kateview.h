@@ -226,7 +226,7 @@ class KateView : public KTextEditor::View,
     virtual bool setSelection ( const KTextEditor::Cursor &position, int length, bool wrap = true )
     { return KTextEditor::View::setSelection (position, length, wrap); }
 
-    virtual bool hasSelection() const;
+    virtual bool selection() const;
 
     virtual QString selectionText () const;
 
@@ -234,7 +234,7 @@ class KateView : public KTextEditor::View,
 
     virtual bool removeSelectionText () { return removeSelectedText(); }
 
-    virtual const KTextEditor::Range &selection() const { return m_selection; }
+    virtual const KTextEditor::Range &selectionRange() const { return m_selection; }
 
     virtual bool setBlockSelection (bool on) { return setBlockSelectionMode (on); }
 

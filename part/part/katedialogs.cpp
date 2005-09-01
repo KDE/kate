@@ -91,7 +91,7 @@
 #include <qpainter.h>
 #include <q3pointarray.h>
 #include <q3ptrcollection.h>
-#include <qpushbutton.h>
+#include <kpushbutton.h>
 #include <qradiobutton.h>
 #include <qslider.h>
 #include <qspinbox.h>

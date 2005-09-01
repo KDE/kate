@@ -345,7 +345,7 @@ void KateDocument::disablePluginGUI (KTextEditor::Plugin *plugin)
 KDocument::View *KateDocument::createView( QWidget *parent )
 {
   KateView* newView = new KateView( this, parent);
-  connect(newView, SIGNAL(cursorPositionChanged()), SLOT(undoCancel()));
+  connect(newView, SIGNAL(cursorPositionChanged(KTextEditor::View*)), SLOT(undoCancel()));
   if ( s_fileChangedDialogsActivated )
     connect( newView, SIGNAL(gotFocus( KTextEditor::View * )), this, SLOT(slotModifiedOnDisk()) );
 

@@ -26,6 +26,7 @@
 class KateView;
 
 namespace KTextEditor { class Mark; class View; }
+namespace KDocument { class View; }
 
 class KAction;
 class KToggleAction;
@@ -56,8 +57,8 @@ class KateBookmarks : public QObject
 
     void gotoLine (int line);
   
-    void slotViewGotFocus( KTextEditor::View * );
-    void slotViewLostFocus( KTextEditor::View * );
+    void slotViewGotFocus( KDocument::View * );
+    void slotViewLostFocus( KDocument::View * );
 
     void bookmarkMenuAboutToShow();
     void bookmarkMenuAboutToHide();

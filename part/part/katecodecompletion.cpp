@@ -135,7 +135,7 @@ KateCodeCompletion::KateCodeCompletion( KateView* view )
   connect( m_pArgHint, SIGNAL(argHintHidden()),
            this, SIGNAL(argHintHidden()) );
 
-  connect( m_view, SIGNAL(cursorPositionChanged()),
+  connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*)),
            this, SLOT(slotCursorPosChanged()) );
 }
 

@@ -3030,7 +3030,7 @@ int KateHlManager::nameFind(const QString &name)
 
 int KateHlManager::detectHighlighting (KateDocument *doc)
 {
-  int hl = wildcardFind( doc->url().filename() );
+  int hl = wildcardFind( doc->url().fileName(true) );
   if ( hl < 0 )
     hl = mimeFind ( doc );
 

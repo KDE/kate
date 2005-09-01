@@ -14,33 +14,30 @@
 
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-   Boston, MA 02111-1307, USA.
+   the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
+   Boston, MA 02110-1301, USA.
 */
 
 #include "katetest.h"
 #include "katetest.moc"
 
-#include "../interfaces/document.h"
-#include "../interfaces/view.h"
-
-#include "katefactory.h"
-
-#include <ktexteditor/configinterface.h>
+#include <ktexteditor/document.h>
+#include <ktexteditor/view.h>
 #include <ktexteditor/sessionconfiginterface.h>
-#include <ktexteditor/viewcursorinterface.h>
-#include <ktexteditor/printinterface.h>
-#include <ktexteditor/encodinginterface.h>
+#include <ktexteditor/modificationinterface.h>
+#include <ktexteditor/editor.h>
 #include <ktexteditor/editorchooser.h>
-#include <ktexteditor/popupmenuinterface.h>
 
 #include <kio/netaccess.h>
 
+#include <kdeversion.h>
+#include <kaboutapplication.h>
 #include <dcopclient.h>
 #include <kurldrag.h>
 #include <kencodingfiledialog.h>
 #include <kdiroperator.h>
 #include <kiconloader.h>
+#include <kstandarddirs.h>
 #include <kaboutdata.h>
 #include <kstatusbar.h>
 #include <kstdaction.h>
@@ -57,18 +54,36 @@
 #include <kedittoolbar.h>
 #include <kparts/event.h>
 #include <kmenubar.h>
-#include <kstandarddirs.h>
+#include <kiconloader.h>
+#include <klocale.h>
+#include <ksqueezedtextlabel.h>
+#include <kconfig.h>
+#include <kdebug.h>
+#include <kstringhandler.h>
 
-#include <q3vbox.h>
+#include <QStackedWidget>
+#include <qpainter.h>
+#include <qlabel.h>
+#include <qcursor.h>
+#include <QMenu>
+#include <qpixmap.h>
+#include <qtimer.h>
+#include <q3dropsite.h>
+#include <q3dragobject.h>
 #include <qtextcodec.h>
 #include <qlayout.h>
-#include <Q3PtrList>
+//Added by qt3to4:
+#include <QDragEnterEvent>
+#include <QVBoxLayout>
+#include <Q3ValueList>
+#include <QDropEvent>
+#include <Q3PopupMenu>
 
 // StatusBar field IDs
 #define KWRITE_ID_GEN 1
 
-Q3PtrList<KTextEditor::Document> KWrite::docList;
-Q3PtrList<KWrite> KWrite::winList;
+QList<KTextEditor::Document*> KWrite::docList;
+QList<KWrite*> KWrite::winList;
 
 KWrite::KWrite (KTextEditor::Document *doc)
     : m_view(0),
@@ -80,32 +95,50 @@ KWrite::KWrite (KTextEditor::Document *doc)
 
   if ( !doc )
   {
-    doc = (KTextEditor::Document *)KateFactory::self()->createPartObject (0,0,0,"", "Kate::Document", QStringList());
+    KTextEditor::Editor *editor = KTextEditor::EditorChooser::editor();
+
+    if ( !editor )
+    {
+      KMessageBox::error(this, i18n("A KDE text-editor component could not be found;\n"
+                                    "please check your KDE installation."));
+      kapp->exit(1);
+    }
+
+    doc = editor->createDocument(0);
+  
+    // enable the modified on disk warning dialogs if any
+    if (qobject_cast<KTextEditor::ModificationInterface *>(doc))
+      qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning (true);
 
     docList.append(doc);
   }
 
-  m_view = doc->createView (this, 0L);
+  m_view = qobject_cast<KTextEditor::View*>(doc->createView (this));
 
   setCentralWidget(m_view);
 
   setupActions();
   setupStatusBar();
 
-  setAcceptDrops(true);
+  // signals for the statusbar
+  connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *)), this, SLOT(cursorPositionChanged(KTextEditor::View *)));
+  connect(m_view, SIGNAL(viewModeChanged(KTextEditor::View *)), this, SLOT(viewModeChanged(KTextEditor::View *)));
+  connect(m_view, SIGNAL(selectionChanged (KTextEditor::View *)), this, SLOT(selectionChanged (KTextEditor::View *)));
+  connect(m_view, SIGNAL(informationMessage (KTextEditor::View *, const QString &)), this, SLOT(informationMessage (KTextEditor::View *, const QString &)));
+  connect(m_view->document(), SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(modifiedChanged()));
+  connect(m_view->document(), SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(modifiedChanged()) );
+  connect(m_view->document(), SIGNAL(documentNameChanged(KTextEditor::Document *)), this, SLOT(documentNameChanged()));
 
-  connect(m_view,SIGNAL(newStatus()),this,SLOT(newCaption()));
-  connect(m_view,SIGNAL(viewStatusMsg(const QString &)),this,SLOT(newStatus(const QString &)));
-  connect(m_view->document(),SIGNAL(fileNameChanged()),this,SLOT(newCaption()));
-  connect(m_view->document(),SIGNAL(fileNameChanged()),this,SLOT(slotFileNameChanged()));
+  setAcceptDrops(true);
   connect(m_view,SIGNAL(dropEventPass(QDropEvent *)),this,SLOT(slotDropEvent(QDropEvent *)));
 
-  setXMLFile( "./katetestui.rc" );
+  KGlobal::dirs()->addResourceDir( "data", QDir::currentDirPath() );
+  setXMLFile( "katetest.rc" );
   createShellGUI( true );
   guiFactory()->addClient( m_view );
 
   // install a working kate part popup dialog thingy
-  ((Kate::View*)m_view)->installPopup ((Q3PopupMenu*)(factory()->container("ktexteditor_popup", this)) );
+  m_view->setContextMenu ((QMenu*)(factory()->container("ktexteditor_popup", this)) );
 
   // call it as last thing, must be sure everything is already set up ;)
   setAutoSaveSettings ("MainWindow Settings");
@@ -118,6 +151,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
 
   winList.append (this);
 
+  updateStatus ();
   show ();
 }
 
@@ -163,7 +197,7 @@ void KWrite::setupActions()
   m_paShowStatusBar = KStdAction::showStatusbar(this, SLOT(toggleStatusBar()), actionCollection(), "settings_show_statusbar");
   m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
-  m_paShowPath = new KToggleAction(i18n("Sho&w Path"), 0, this, SLOT(newCaption()),
+  m_paShowPath = new KToggleAction(i18n("Sho&w Path"), 0, this, SLOT(documentNameChanged()),
                     actionCollection(), "set_showPath");
   m_paShowPath->setCheckedState(i18n("Hide Path"));
   m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
@@ -172,11 +206,40 @@ void KWrite::setupActions()
 
   a=KStdAction::configureToolbars(this, SLOT(editToolbars()), actionCollection(), "set_configure_toolbars");
   a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
+
+  a=new KAction(i18n("&About Editor Component"),0,this,SLOT(aboutEditor()),actionCollection(),"help_about_editor");
+
 }
 
 void KWrite::setupStatusBar()
 {
-  statusBar()->insertItem("", KWRITE_ID_GEN);
+  // statusbar stuff
+  m_lineColLabel = new QLabel( statusBar() );
+  statusBar()->addWidget( m_lineColLabel, 0, false );
+  m_lineColLabel->setAlignment( Qt::AlignCenter );
+
+  m_modifiedLabel = new QLabel( QString("   "), statusBar() );
+  statusBar()->addWidget( m_modifiedLabel, 0, false );
+  m_modifiedLabel->setAlignment( Qt::AlignCenter );
+
+  m_insertModeLabel = new QLabel( i18n(" INS "), statusBar() );
+  statusBar()->addWidget( m_insertModeLabel, 0, false );
+  m_insertModeLabel->setAlignment( Qt::AlignCenter );
+
+  m_selectModeLabel = new QLabel( i18n(" NORM "), statusBar() );
+  statusBar()->addWidget( m_selectModeLabel, 0, false );
+  m_selectModeLabel->setAlignment( Qt::AlignCenter );
+
+  m_fileNameLabel=new KSqueezedTextLabel( statusBar() );
+  statusBar()->addWidget( m_fileNameLabel, 1, true );
+  m_fileNameLabel->setMinimumSize( 0, 0 );
+  m_fileNameLabel->setSizePolicy(QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Fixed ));
+  m_fileNameLabel->setAlignment( /*Qt::AlignRight*/Qt::AlignLeft );
+
+  m_modPm = SmallIcon("modified");
+  m_modDiscPm = SmallIcon("modonhd");
+  m_modmodPm = SmallIcon("modmod");
+  m_noPm = SmallIcon("null");
 }
 
 // load on url
@@ -222,25 +285,12 @@ void KWrite::slotNew()
 
 void KWrite::slotOpen()
 {
-  if (KTextEditor::encodingInterface(m_view->document()))
-  {
-	KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenURLsAndEncoding(
-		KTextEditor::encodingInterface(m_view->document())->encoding(),
-	m_view->document()->url().url(),QString::null,this,i18n("Open File"));
+	KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenURLsAndEncoding(m_view->document()->encoding(), m_view->document()->url().url(),QString::null,this,i18n("Open File"));
 
-    for (KURL::List::Iterator i=r.URLs.begin(); i != r.URLs.end(); ++i)
-    {
-      encoding = r.encoding;
-      slotOpen ( *i );
-    }
-  }
-  else
+  for (KURL::List::Iterator i=r.URLs.begin(); i != r.URLs.end(); ++i)
   {
-    KURL::List l=KFileDialog::getOpenURLs(m_view->document()->url().url(),QString::null,this,QString::null);
-    for (KURL::List::Iterator i=l.begin(); i != l.end(); ++i)
-    {
-      slotOpen ( *i );
-    }
+    encoding = r.encoding;
+    slotOpen ( *i );
   }
 }
 
@@ -257,12 +307,12 @@ void KWrite::slotOpen( const KURL& url )
   if (m_view->document()->isModified() || !m_view->document()->url().isEmpty())
   {
     KWrite *t = new KWrite();
-    if (KTextEditor::encodingInterface(t->m_view->document())) KTextEditor::encodingInterface(t->m_view->document())->setEncoding(encoding);
+    t->m_view->document()->setEncoding(encoding);
     t->loadURL(url);
   }
   else
   {
-    if (KTextEditor::encodingInterface(m_view->document())) KTextEditor::encodingInterface(m_view->document())->setEncoding(encoding);
+    m_view->document()->setEncoding(encoding);
     loadURL(url);
   }
 }
@@ -314,52 +364,6 @@ void KWrite::editToolbars()
   delete dlg;
 }
 
-void KWrite::printNow()
-{
-  KTextEditor::printInterface(m_view->document())->print ();
-}
-
-void KWrite::printDlg()
-{
-  KTextEditor::printInterface(m_view->document())->printDialog ();
-}
-
-void KWrite::newStatus(const QString &msg)
-{
-  newCaption();
-
-  statusBar()->changeItem(msg,KWRITE_ID_GEN);
-}
-
-void KWrite::newCaption()
-{
-  if (m_view->document()->url().isEmpty()) {
-    setCaption(i18n("Untitled"),m_view->document()->isModified());
-  }
-  else
-  {
-    QString c;
-    if (!m_paShowPath->isChecked())
-    {
-      c = m_view->document()->url().fileName();
-
-      //File name shouldn't be too long - Maciek
-      if (c.length() > 64)
-        c = c.left(64) + "...";
-    }
-    else
-    {
-      c = m_view->document()->url().prettyURL();
-
-      //File name shouldn't be too long - Maciek
-      if (c.length() > 64)
-        c = "..." + c.right(64);
-    }
-
-    setCaption (c, m_view->document()->isModified());
-  }
-}
-
 void KWrite::dragEnterEvent( QDragEnterEvent *event )
 {
   event->accept(KURLDrag::canDecode(event));
@@ -408,8 +412,7 @@ void KWrite::readConfig(KConfig *config)
 
   m_recentFiles->loadEntries(config, "Recent Files");
 
-  if (m_view && KTextEditor::configInterface(m_view->document()))
-    KTextEditor::configInterface(m_view->document())->readConfig(config);
+  m_view->document()->editor()->readConfig(config);
 
   if( m_paShowStatusBar->isChecked() )
     statusBar()->show();
@@ -426,8 +429,7 @@ void KWrite::writeConfig(KConfig *config)
 
   m_recentFiles->saveEntries(config, "Recent Files");
 
-  if (m_view && KTextEditor::configInterface(m_view->document()))
-    KTextEditor::configInterface(m_view->document())->writeConfig(config);
+  m_view->document()->editor()->writeConfig(config);
 
   config->sync ();
 }
@@ -455,17 +457,17 @@ void KWrite::readProperties(KConfig *config)
 {
   readConfig(config);
 
-  if (KTextEditor::sessionConfigInterface(m_view))
-    KTextEditor::sessionConfigInterface(m_view)->readSessionConfig(config);
+  if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view))
+    iface->readSessionConfig(config);
 }
 
 void KWrite::saveProperties(KConfig *config)
 {
   writeConfig(config);
-  config->writeEntry("DocumentNumber",docList.find(m_view->document()) + 1);
+  config->writeEntry("DocumentNumber",docList.indexOf(m_view->document()) + 1);
 
-  if (KTextEditor::sessionConfigInterface(m_view))
-    KTextEditor::sessionConfigInterface(m_view)->writeSessionConfig(config);
+  if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view))
+    iface->writeSessionConfig(config);
 }
 
 void KWrite::saveGlobalProperties(KConfig *config) //save documents
@@ -473,23 +475,23 @@ void KWrite::saveGlobalProperties(KConfig *config) //save documents
   config->setGroup("Number");
   config->writeEntry("NumberOfDocuments",docList.count());
 
-  for (uint z = 1; z <= docList.count(); z++)
+  for (int z = 1; z <= docList.count(); z++)
   {
      QString buf = QString("Document %1").arg(z);
      config->setGroup(buf);
 
      KTextEditor::Document *doc = docList.at(z - 1);
 
-     if (KTextEditor::configInterface(doc))
-       KTextEditor::configInterface(doc)->writeSessionConfig(config);
+     if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
+       iface->writeSessionConfig(config);
   }
 
-  for (uint z = 1; z <= winList.count(); z++)
+  for (int z = 1; z <= winList.count(); z++)
   {
      QString buf = QString("Window %1").arg(z);
      config->setGroup(buf);
 
-     config->writeEntry("DocumentNumber",docList.find(winList.at(z-1)->view()->document()) + 1);
+     config->writeEntry("DocumentNumber",docList.indexOf(winList.at(z-1)->view()->document()) + 1);
   }
 }
 
@@ -500,6 +502,15 @@ void KWrite::restore()
 
   if (!config)
     return;
+
+  KTextEditor::Editor *editor = KTextEditor::EditorChooser::editor();
+
+  if ( !editor )
+  {
+    KMessageBox::error(0, i18n("A KDE text-editor component could not be found;\n"
+                                  "please check your KDE installation."));
+    kapp->exit(1);
+  }
 
   int docs, windows;
   QString buf;
@@ -514,10 +525,10 @@ void KWrite::restore()
   {
      buf = QString("Document %1").arg(z);
      config->setGroup(buf);
-     doc=KTextEditor::EditorChooser::createDocument(0,"KTextEditor::Document");
+     doc=editor->createDocument(0);
 
-     if (KTextEditor::configInterface(doc))
-       KTextEditor::configInterface(doc)->readSessionConfig(config);
+     if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
+       iface->readSessionConfig(config);
      docList.append(doc);
   }
 
@@ -527,6 +538,102 @@ void KWrite::restore()
     config->setGroup(buf);
     t = new KWrite(docList.at(config->readNumEntry("DocumentNumber") - 1));
     t->restore(config,z);
+  }
+}
+
+void KWrite::aboutEditor()
+{
+  KAboutApplication *ad = new KAboutApplication (m_view->document()->editor()->aboutData(), this);
+
+  ad->exec();
+
+  delete ad;
+}
+
+void KWrite::updateStatus ()
+{
+  viewModeChanged (m_view);
+  cursorPositionChanged (m_view);
+  selectionChanged (m_view);
+  modifiedChanged ();
+  documentNameChanged ();
+}
+
+void KWrite::viewModeChanged ( KTextEditor::View *view )
+{
+  m_insertModeLabel->setText( view->viewMode() );
+}
+
+void KWrite::cursorPositionChanged ( KTextEditor::View *view )
+{
+  KTextEditor::Cursor position (view->cursorPositionVirtual());
+
+  m_lineColLabel->setText(
+    i18n(" Line: %1 Col: %2 ").arg(KGlobal::locale()->formatNumber(position.line()+1, 0))
+                              .arg(KGlobal::locale()->formatNumber(position.column()+1, 0)) );
+}
+
+void KWrite::selectionChanged (KTextEditor::View *view)
+{
+  m_selectModeLabel->setText( view->blockSelection() ? i18n(" BLK ") : i18n(" NORM ") );
+}
+
+void KWrite::informationMessage (KTextEditor::View *view, const QString &message)
+{
+  m_fileNameLabel->setText( message );
+
+  // timer to reset this after 4 seconds
+  QTimer::singleShot(4000, this, SLOT(documentNameChanged()));
+}
+
+void KWrite::modifiedChanged()
+{
+    bool mod = m_view->document()->isModified();
+
+   /* const KateDocumentInfo *info
+      = KateDocManager::self()->documentInfo ( m_view->document() );
+*/
+    bool modOnHD = false; //info && info->modifiedOnDisc;
+
+    m_modifiedLabel->setPixmap(
+        mod ? m_modPm : m_noPm
+          /*info && modOnHD ?
+            m_modmodPm :
+            m_modPm :
+          info && modOnHD ?
+            m_modDiscPm :
+        m_noPm*/
+        );
+}
+
+void KWrite::documentNameChanged ()
+{
+  m_fileNameLabel->setText( KStringHandler::lsqueeze(m_view->document()->documentName (), 64) );
+
+  if (m_view->document()->url().isEmpty()) {
+    setCaption(i18n("Untitled"),m_view->document()->isModified());
+  }
+  else
+  {
+    QString c;
+    if (!m_paShowPath->isChecked())
+    {
+      c = m_view->document()->url().fileName();
+
+      //File name shouldn't be too long - Maciek
+      if (c.length() > 64)
+        c = c.left(64) + "...";
+    }
+    else
+    {
+      c = m_view->document()->url().prettyURL();
+
+      //File name shouldn't be too long - Maciek
+      if (c.length() > 64)
+        c = "..." + c.right(64);
+    }
+
+    setCaption (c, m_view->document()->isModified());
   }
 }
 
@@ -540,14 +647,17 @@ static KCmdLineOptions options[] =
   KCmdLineLastOption
 };
 
-int main(int argc, char **argv)
+extern "C" KDE_EXPORT int main(int argc, char **argv)
 {
-  Kate::Document::setFileChangedDialogsActivated (true);
-
   KLocale::setMainCatalogue("kate");         //lukas: set this to have the kwritepart translated using kate message catalog
 
-  KAboutData aboutData ( "katetest", I18N_NOOP("Kate Test"), "1.0",
-                         I18N_NOOP( "Kate Test (aka KWrite - Text Editor)" ), KAboutData::License_LGPL_V2,
+  // here we go, construct the KWrite version
+  QString kWriteVersion  = QString ("%1.%2.%3").arg(KDE::versionMajor() + 1).arg(KDE::versionMinor()).arg(KDE::versionRelease());
+
+  KAboutData aboutData ( "kwrite",
+                         I18N_NOOP("KWrite"), 
+                         kWriteVersion.latin1(),
+                         I18N_NOOP( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
                          I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://kate.kde.org" );
 
   aboutData.addAuthor ("Christoph Cullmann", I18N_NOOP("Maintainer"), "cullmann@kde.org", "http://www.babylon2k.de");
@@ -586,21 +696,17 @@ int main(int argc, char **argv)
   KCmdLineArgs::init( argc, argv, &aboutData );
   KCmdLineArgs::addCmdLineOptions( options );
 
-  KApplication a; 
-  
-  // KXMLGUIClient looks in the "data" resource for the .rc files
-  // Let's add $PWD (ideally $srcdir instead...) to it
-  KGlobal::dirs()->addResourceDir( "data", QDir::currentDirPath() );
+  KApplication a;
 
   KGlobal::locale()->insertCatalogue("katepart");
 
-/*  DCOPClient *client = kapp->dcopClient();
+  DCOPClient *client = kapp->dcopClient();
   if (!client->isRegistered())
   {
     client->attach();
     client->registerAs("kwrite");
   }
-*/
+
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
   if (kapp->isRestored())
@@ -648,13 +754,13 @@ int main(int argc, char **argv)
           } while( !line.isNull() );
 
 
-          KTextEditor::EditInterface *doc = KTextEditor::editInterface (t->view()->document());
+          KTextEditor::Document *doc = t->view()->document();
           if( doc )
               doc->setText( text );
         }
 
-        if (nav && KTextEditor::viewCursorInterface(t->view()))
-          KTextEditor::viewCursorInterface(t->view())->setCursorPosition (line, column);
+        if (nav && t->view())
+          t->view()->setCursorPosition (KTextEditor::Cursor (line, column));
     }
     else
     {
@@ -667,19 +773,19 @@ int main(int argc, char **argv)
 
         if (noDir)
         {
-          if (Kate::document (t->view()->document()))
-            Kate::Document::setOpenErrorDialogsActivated (false);
+//          if (Kate::document (t->view()->document()))
+  //          KTextEditor::Document::setOpenErrorDialogsActivated (false);
 
-          if (codec && KTextEditor::encodingInterface(t->view()->document()))
-            KTextEditor::encodingInterface(t->view()->document())->setEncoding(codec->name());
+          if (codec)
+            t->view()->document()->setEncoding(codec->name());
 
           t->loadURL( args->url( z ) );
 
-          if (Kate::document (t->view()->document()))
-            Kate::Document::setOpenErrorDialogsActivated (true);
+    //      if (Kate::document (t->view()->document()))
+      //      KTextEditor::Document::setOpenErrorDialogsActivated (true);
 
-          if (nav && KTextEditor::viewCursorInterface(t->view()))
-            KTextEditor::viewCursorInterface(t->view())->setCursorPosition (line, column);
+          if (nav)
+            t->view()->setCursorPosition (KTextEditor::Cursor (line, column));
         }
         else
           KMessageBox::sorry( t, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.").arg(args->url(z).url()) );
@@ -694,6 +800,7 @@ int main(int argc, char **argv)
 
   return a.exec ();
 }
+
 
 KWriteEditorChooser::KWriteEditorChooser(QWidget *):
 	KDialogBase(KDialogBase::Plain,i18n("Choose Editor Component"),KDialogBase::Ok | KDialogBase::Cancel, KDialogBase::Cancel)

@@ -14,12 +14,12 @@
 
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-   Boston, MA 02111-1307, USA.
+   the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
+   Boston, MA 02110-1301, USA.
 */
 
-#ifndef __KATE_TEST_H__
-#define __KATE_TEST_H__
+#ifndef __KWRITE_MAIN_H__
+#define __KWRITE_MAIN_H__
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
@@ -27,8 +27,10 @@
 #include <kparts/mainwindow.h>
 
 #include <kdialogbase.h>
-
-#include <Q3PtrList>
+//Added by qt3to4:
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QList>
 
 namespace KTextEditor { class EditorChooser; }
 
@@ -36,6 +38,7 @@ class KAction;
 class KToggleAction;
 class KSelectAction;
 class KRecentFilesAction;
+class KSqueezedTextLabel;
 
 class KWrite : public KParts::MainWindow
 {
@@ -70,14 +73,9 @@ class KWrite : public KParts::MainWindow
     void editKeys();
     void editToolbars();
     void changeEditor();
+    void aboutEditor();
 
   public slots:
-    void printNow();
-    void printDlg();
-
-    void newStatus(const QString &msg);
-    void newCaption();
-
     void slotDropEvent(QDropEvent *);
 
     void slotEnableActions( bool enable );
@@ -114,8 +112,34 @@ class KWrite : public KParts::MainWindow
 
     QString encoding;
 
-    static Q3PtrList<KTextEditor::Document> docList;
-    static Q3PtrList<KWrite> winList;
+    static QList<KTextEditor::Document*> docList;
+    static QList<KWrite*> winList;
+
+  /**
+   * Stuff for the status bar
+   */
+  public slots:
+    void updateStatus ();
+
+    void viewModeChanged ( KTextEditor::View *view );
+
+    void cursorPositionChanged ( KTextEditor::View *view );
+
+    void selectionChanged (KTextEditor::View *view);
+
+    void modifiedChanged();
+
+    void documentNameChanged ();
+
+    void informationMessage (KTextEditor::View *view, const QString &message);
+
+   private:
+      QLabel* m_lineColLabel;
+      QLabel* m_modifiedLabel;
+      QLabel* m_insertModeLabel;
+      QLabel* m_selectModeLabel;
+      KSqueezedTextLabel* m_fileNameLabel;
+      QPixmap m_modPm, m_modDiscPm, m_modmodPm, m_noPm;
 };
 
 class KWriteEditorChooser: public KDialogBase

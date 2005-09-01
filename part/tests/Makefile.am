@@ -10,8 +10,8 @@ kunittest_kate_la_SOURCES = kateregression.cpp
 kunittest_kate_la_LIBADD = $(top_builddir)/kate/part/katepart.la $(LIB_KUNITTEST)
 kunittest_kate_la_LDFLAGS = -module $(KDE_CHECK_PLUGIN) $(all_libraries)
 
-#check_PROGRAMS = katetest
+check_PROGRAMS = katetest
 
-#katetest_SOURCES = katetest.cpp
-#katetest_LDADD = $(top_builddir)/kate/part/katepart.la
-#katetest_LDFLAGS = $(KDE_RPATH)
+katetest_SOURCES = katetest.cpp
+katetest_LDADD = $(top_builddir)/kate/part/katepart.la
+katetest_LDFLAGS = $(KDE_RPATH)

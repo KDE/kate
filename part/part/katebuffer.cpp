@@ -1428,7 +1428,7 @@ void KateBufBlock::fillBlock (KateFileLoader *stream)
 
     if (!rawData.isEmpty())
     {
-      if (!KateGlobal::self()->vm()->copyBlock(m_vmblock, rawData.data(), 0, size))
+      if (!KateGlobal::self()->vm()->copy(m_vmblock, rawData.data(), 0, size))
       {
         if (m_vmblock)
           KateGlobal::self()->vm()->free(m_vmblock);
@@ -1521,7 +1521,7 @@ void KateBufBlock::swapIn ()
   QByteArray rawData (m_vmblockSize);
 
   // what to do if that fails ?
-  if (!KateGlobal::self()->vm()->copyBlock(rawData.data(), m_vmblock, 0, rawData.size()))
+  if (!KateGlobal::self()->vm()->copy(rawData.data(), m_vmblock, 0, rawData.size()))
     m_parent->m_cacheReadError = true;
 
   // reserve mem, keep realloc away on push_back
@@ -1570,7 +1570,7 @@ void KateBufBlock::swapOut ()
 
     if (!rawData.isEmpty())
     {
-      if (!KateGlobal::self()->vm()->copyBlock(m_vmblock, rawData.data(), 0, rawData.size()))
+      if (!KateGlobal::self()->vm()->copy(m_vmblock, rawData.data(), 0, rawData.size()))
       {
         if (m_vmblock)
           KateGlobal::self()->vm()->free(m_vmblock);

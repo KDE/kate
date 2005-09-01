@@ -71,7 +71,7 @@
 #include <kseparator.h>
 #include <kstandarddirs.h>
 #include <ktempfile.h>
-
+#include <kpushbutton.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qdialog.h>

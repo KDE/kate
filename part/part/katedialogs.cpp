@@ -189,7 +189,7 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
 
   m_tabs = new QGroupBox(i18n("Tab Key Mode if Nothing Selected"), this );
   QVBoxLayout *tablayout=new QVBoxLayout(m_tabs);
-  
+
   tablayout->addWidget( rb1=new QRadioButton( i18n("Insert indent &characters"), m_tabs ));
   tablayout->addWidget( rb2=new QRadioButton( i18n("I&nsert tab character"), m_tabs ));
   tablayout->addWidget( rb3=new QRadioButton( i18n("Indent current &line"), m_tabs ));
@@ -381,7 +381,7 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   m_tabs = new QGroupBox(i18n("Selection Mode"), this );
   layout->add (m_tabs);
   QVBoxLayout *tablayout=new QVBoxLayout(m_tabs);
-  
+
   tablayout->addWidget( rb1=new QRadioButton( i18n("&Normal"), m_tabs ));
   tablayout->addWidget( rb2=new QRadioButton( i18n("&Persistent"), m_tabs ));
 
@@ -684,10 +684,10 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
 
   m_bmSort = new QGroupBox(i18n("Sort Bookmarks Menu"), this );
   QVBoxLayout *bmSortLayout=new QVBoxLayout(m_bmSort);
-  
+
   bmSortLayout->addWidget( rb1=new QRadioButton( i18n("By &position"), m_bmSort ));
   bmSortLayout->addWidget( rb2=new QRadioButton( i18n("By c&reation"), m_bmSort ));
-  
+
   blay->addWidget(m_bmSort, 0 );
 
   m_showIndentLines = new QCheckBox(i18n("Show indentation lines"), this);
@@ -860,7 +860,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
 
   QGroupBox *gbEnc = new QGroupBox(i18n("File Format"), this);
   layout->addWidget( gbEnc );
-  
+
   QVBoxLayout *gbEncLayout=new QVBoxLayout(gbEnc);
 
   QHBoxLayout *e5Layout = new QHBoxLayout();
@@ -1122,8 +1122,8 @@ void KatePartPluginListItem::stateChange(bool b)
 //END
 
 //BEGIN PluginListView
-KatePartPluginListView::KatePartPluginListView(QWidget *parent, const char *name)
-  : KListView(parent, name)
+KatePartPluginListView::KatePartPluginListView(QWidget *parent)
+  : KListView(parent)
 {
 }
 

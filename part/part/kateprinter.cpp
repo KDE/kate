@@ -645,8 +645,8 @@ bool KatePrinter::print (KateDocument *doc)
 
 #ifndef Q_WS_WIN //TODO: reenable
 //BEGIN KatePrintTextSettings
-KatePrintTextSettings::KatePrintTextSettings( KPrinter * /*printer*/, QWidget *parent, const char *name )
-  : KPrintDialogPage( parent, name )
+KatePrintTextSettings::KatePrintTextSettings( KPrinter * /*printer*/, QWidget *parent )
+  : KPrintDialogPage( parent )
 {
   setTitle( i18n("Te&xt Settings") );
 
@@ -706,8 +706,8 @@ void KatePrintTextSettings::enableSelection( bool enable )
 //END KatePrintTextSettings
 
 //BEGIN KatePrintHeaderFooter
-KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter * /*printer*/, QWidget *parent, const char *name )
-  : KPrintDialogPage( parent, name )
+KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter * /*printer*/, QWidget *parent )
+  : KPrintDialogPage( parent )
 {
   setTitle( i18n("Hea&der && Footer") );
 
@@ -914,8 +914,8 @@ void KatePrintHeaderFooter::setHFFont()
 
 //BEGIN KatePrintLayout
 
-KatePrintLayout::KatePrintLayout( KPrinter * /*printer*/, QWidget *parent, const char *name )
-  : KPrintDialogPage( parent, name )
+KatePrintLayout::KatePrintLayout( KPrinter * /*printer*/, QWidget *parent)
+  : KPrintDialogPage( parent )
 {
   setTitle( i18n("L&ayout") );
 

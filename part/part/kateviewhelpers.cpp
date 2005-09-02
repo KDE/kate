@@ -695,7 +695,7 @@ const int iconPaneWidth = 16;
 const int halfIPW = 8;
 
 KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent )
-  : QWidget(parent, "", Qt::WStaticContents | Qt::WNoAutoErase | Qt::WResizeNoErase )
+  : QWidget(parent, Qt::WStaticContents | Qt::WNoAutoErase | Qt::WResizeNoErase )
   , m_view( internalView->m_view )
   , m_doc( internalView->m_doc )
   , m_viewInternal( internalView )

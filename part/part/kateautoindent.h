@@ -52,7 +52,7 @@ class IndenterConfigPage : public QWidget
      * @param parent parent widget
      * @param name name
      */
-    IndenterConfigPage ( QWidget *parent=0, const char *name=0 ) : QWidget(parent, name) {}
+    IndenterConfigPage ( QWidget *parent=0 ) : QWidget(parent) {}
     virtual ~IndenterConfigPage () {}
 
   public slots:
@@ -542,7 +542,7 @@ class ScriptIndentConfigPage : public IndenterConfigPage
     Q_OBJECT
 
   public:
-    ScriptIndentConfigPage ( QWidget *parent=0, const char *name=0 );
+    ScriptIndentConfigPage ( QWidget *parent=0 );
     virtual ~ScriptIndentConfigPage ();
 
   public slots:

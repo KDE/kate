@@ -273,7 +273,7 @@ class KatePartPluginListView : public KListView
   friend class KatePartPluginListItem;
 
   public:
-    KatePartPluginListView (QWidget *parent = 0, const char *name = 0);
+    KatePartPluginListView (QWidget *parent = 0);
 
   signals:
     void stateChange(KatePartPluginListItem *, bool);

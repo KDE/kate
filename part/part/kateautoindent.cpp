@@ -2348,8 +2348,8 @@ void KateScriptIndent::processLine (KateDocCursor &line)
 
 //BEGIN ScriptIndentConfigPage, THIS IS ONLY A TEST! :)
 #include <qlabel.h>
-ScriptIndentConfigPage::ScriptIndentConfigPage ( QWidget *parent, const char *name )
-  : IndenterConfigPage(parent, name)
+ScriptIndentConfigPage::ScriptIndentConfigPage ( QWidget *parent)
+    : IndenterConfigPage(parent)
 {
   QLabel* hello = new QLabel("Hello world! Dummy for testing purpose.", this);
   hello->show();

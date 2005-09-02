@@ -19,7 +19,7 @@ class KTEXTEDITOR_EXPORT EditorChooser: public QWidget
   Q_OBJECT
 
   public:
-    EditorChooser(QWidget *parent=0,const char *name=0);
+    EditorChooser(QWidget *parent=0);
     virtual ~EditorChooser();
 
    /* void writeSysDefault();*/

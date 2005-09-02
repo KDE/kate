@@ -32,8 +32,8 @@ namespace KTextEditor
 
 }
 
-EditorChooser::EditorChooser(QWidget *parent,const char *name)
-    : QWidget(parent,name)
+EditorChooser::EditorChooser(QWidget *parent)
+    : QWidget(parent)
   {
   d = new PrivateEditorChooser ();
 
@@ -62,7 +62,7 @@ EditorChooser::EditorChooser(QWidget *parent,const char *name)
 		d->elements.append((*it)->desktopEntryName());
   	}
     	d->chooser->editorCombo->setCurrentItem(0);
-	
+
 	connect(d->chooser->editorCombo,SIGNAL(activated(int)),this,SIGNAL(changed()));
 }
 

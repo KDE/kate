@@ -133,7 +133,7 @@ class KateStyleListView : public Q3ListView
 
   public:
     KateStyleListView( QWidget *parent=0, bool showUseDefaults=false);
-    ~KateStyleListView() {};
+    ~KateStyleListView() {}
     /* Display a popupmenu for item i at the specified global position, eventually with a title,
        promoting the context name of that item */
     void showPopupMenu( KateStyleListItem *i, const QPoint &globalPos, bool showtitle=false );

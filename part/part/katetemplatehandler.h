@@ -44,7 +44,7 @@ class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 		};
 		class KateTemplateHandlerPlaceHolderInfo{
 			public:
-				KateTemplateHandlerPlaceHolderInfo():begin(0),len(0),placeholder(""){};
+				KateTemplateHandlerPlaceHolderInfo():begin(0),len(0),placeholder(""){}
 				KateTemplateHandlerPlaceHolderInfo(uint begin_,uint len_,const QString& placeholder_):begin(begin_),len(len_),placeholder(placeholder_){}
 				uint begin;
 				uint len;

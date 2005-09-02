@@ -53,7 +53,7 @@ class KatePrintTextSettings : public KPrintDialogPage
   Q_OBJECT
   public:
     KatePrintTextSettings( KPrinter *printer, QWidget *parent=0 );
-    ~KatePrintTextSettings(){};
+    ~KatePrintTextSettings(){}
 
     void getOptions(QMap<QString,QString>& opts, bool incldef = false);
     void setOptions(const QMap<QString,QString>& opts);
@@ -80,7 +80,7 @@ class KatePrintHeaderFooter : public KPrintDialogPage
   Q_OBJECT
   public:
     KatePrintHeaderFooter( KPrinter *printer, QWidget *parent=0 );
-    ~KatePrintHeaderFooter(){};
+    ~KatePrintHeaderFooter(){}
 
     void getOptions(QMap<QString,QString>& opts, bool incldef = false);
     void setOptions(const QMap<QString,QString>& opts);

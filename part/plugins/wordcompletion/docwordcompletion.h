@@ -132,7 +132,7 @@ class DocWordCompletionConfigPage : public KTextEditor::ConfigPage
   Q_OBJECT
   public:
     DocWordCompletionConfigPage( DocWordCompletionPlugin *completion, QWidget *parent, const char *name );
-    virtual ~DocWordCompletionConfigPage() {};
+    virtual ~DocWordCompletionConfigPage() {}
 
     virtual void apply();
     virtual void reset();

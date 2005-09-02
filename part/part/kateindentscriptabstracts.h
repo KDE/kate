@@ -88,8 +88,8 @@ class KateIndentScriptManagerAbstract
 {
 
   public:
-    KateIndentScriptManagerAbstract () {};
-    virtual ~KateIndentScriptManagerAbstract () {};
+    KateIndentScriptManagerAbstract () {}
+    virtual ~KateIndentScriptManagerAbstract () {}
     virtual KateIndentScript script(const QString &scriptname)=0;
 };
 

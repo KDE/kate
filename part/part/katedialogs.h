@@ -137,8 +137,8 @@ class KateIndentConfigTab : public KateConfigPage
 
     void apply ();
     void reload ();
-    void reset () {};
-    void defaults () {};
+    void reset () {}
+    void defaults () {}
 };
 
 class KateSelectConfigTab : public KateConfigPage
@@ -161,8 +161,8 @@ class KateSelectConfigTab : public KateConfigPage
   public slots:
     void apply ();
     void reload ();
-    void reset () {};
-    void defaults () {};
+    void reset () {}
+    void defaults () {}
 };
 
 class KateEditConfigTab : public KateConfigPage
@@ -186,8 +186,8 @@ class KateEditConfigTab : public KateConfigPage
   public slots:
     void apply ();
     void reload ();
-    void reset () {};
-    void defaults () {};
+    void reset () {}
+    void defaults () {}
 };
 
 class KateViewDefaultsConfig : public KateConfigPage
@@ -227,9 +227,9 @@ class KateEditKeyConfiguration: public KateConfigPage
 
   public slots:
     void apply();
-    void reload()   {};
-    void reset()    {};
-    void defaults() {};
+    void reload()   {}
+    void reset()    {}
+    void defaults() {}
 
   protected:
     void showEvent ( QShowEvent * );
@@ -293,9 +293,9 @@ class KatePartPluginConfigPage : public KateConfigPage
 
   public slots:
     void apply ();
-    void reload () {};
-    void reset () {};
-    void defaults () {};
+    void reload () {}
+    void reset () {}
+    void defaults () {}
 
   private slots:
     void slotCurrentChanged( Q3ListViewItem * );
@@ -319,8 +319,8 @@ class KateHlConfigPage : public KateConfigPage
   public slots:
     void apply ();
     void reload ();
-    void reset () {};
-    void defaults () {};
+    void reset () {}
+    void defaults () {}
 
   protected slots:
     void hlChanged(int);

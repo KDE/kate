@@ -39,7 +39,7 @@ class AutoBookmarkEnt
                   const QStringList &f=QStringList(),
                   const QStringList &m=QStringList(),
                   int flags=1 );
-  ~AutoBookmarkEnt(){};
+  ~AutoBookmarkEnt(){}
   QString pattern;
   QStringList filemask;
   QStringList mimemask;
@@ -55,7 +55,7 @@ class AutoBookmarker
     AutoBookmarker( QObject *parent = 0,
                         const char* name = 0,
                         const QStringList &args = QStringList() );
-    virtual ~AutoBookmarker() {};
+    virtual ~AutoBookmarker() {}
 
     void addView (KTextEditor::View *view);
     void removeView (KTextEditor::View *view);
@@ -99,7 +99,7 @@ class AutoBookmarkerConfigPage : public KTextEditor::ConfigPage
   Q_OBJECT
   public:
     AutoBookmarkerConfigPage( QWidget *parent, const char *name );
-    virtual ~AutoBookmarkerConfigPage() {};
+    virtual ~AutoBookmarkerConfigPage() {}
 
     virtual void apply();
     virtual void reset();
@@ -121,7 +121,7 @@ class AutoBookmarkerEntEditor : public KDialogBase
   Q_OBJECT
   public:
     AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkEnt *e );
-    ~AutoBookmarkerEntEditor(){};
+    ~AutoBookmarkerEntEditor(){}
 
     void apply();
 

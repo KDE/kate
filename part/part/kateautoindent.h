@@ -137,7 +137,7 @@ class KateAutoIndent
     /**
      * Update indenter's configuration (indention width, attributes etc.)
      */
-    virtual void updateConfig () {};
+    virtual void updateConfig () {}
 
     /**
      * does this indenter support processNewLine

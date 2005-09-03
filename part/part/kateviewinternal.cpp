@@ -300,7 +300,7 @@ KateTextLayout KateViewInternal::yToKateTextLayout(int y) const
   int range = y / renderer()->fontHeight();
 
   // lineRanges is always bigger than 0, after the initial updateView call
-  if (range > 0 && range <= cache()->viewCacheLineCount())
+  if (range >= 0 && range <= cache()->viewCacheLineCount())
     return cache()->viewLine(range);
 
   return KateTextLayout::invalid();
@@ -2294,12 +2294,12 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
 void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
 {
   // FIXME only do this if needing to track mouse movement
-  const KateTextLayout& thisLine = yToKateTextLayout(e->y());
+  /*const KateTextLayout& thisLine = yToKateTextLayout(e->y());
   if (thisLine.isValid()) {
     m_mouse.setPosition(renderer()->xToCursor(thisLine, e->x(), !view()->wrapCursor()));
   } else {
     m_mouse.setPosition(KTextEditor::Cursor(0,0));
-  }
+  }*/
 
   if( e->state() & Qt::LeftButton )
   {

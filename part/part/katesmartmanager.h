@@ -67,6 +67,7 @@ class KateSmartManager : public QObject
 
     KateSmartGroup* m_firstGroup;
     QSet<KateSmartRange*> m_specificRanges;
+    KateSmartGroup* m_invalidGroup;
 };
 
 /**

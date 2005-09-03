@@ -31,6 +31,7 @@ static const int s_maximumGroupSize = 6;
 KateSmartManager::KateSmartManager(KateDocument* parent)
   : QObject(parent)
   , m_firstGroup(new KateSmartGroup(0, 0, 0L, 0L))
+  , m_invalidGroup(new KateSmartGroup(-1, -1, 0L, 0L))
 {
   connect(doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(slotTextChanged(KateEditInfo*)));
 }
@@ -171,21 +172,23 @@ void KateSmartGroup::leaving( KateSmartCursor * cursor )
 
 KateSmartGroup * KateSmartManager::groupForLine( int line ) const
 {
-  kdDebug () << "LINE: " << line << endl;
+  // Special case
+  if (line == -1)
+    return m_invalidGroup;
+
+  //kdDebug () << "LINE: " << line << endl;
 
   // FIXME maybe this should perform a bit better
   KateSmartGroup* smartGroup = m_firstGroup;
   while (smartGroup && !smartGroup->containsLine(line))
   {
-    kdDebug () << "START LINE: " << smartGroup->startLine () << " END: " << smartGroup->endLine () << endl;
+    //kdDebug () << "START LINE: " << smartGroup->startLine () << " END: " << smartGroup->endLine () << endl;
     smartGroup = smartGroup->next();
   }
-  
-  if (smartGroup)
-     kdDebug () << "START LINE: " << smartGroup->startLine () << " END: " << smartGroup->endLine () << endl;
-     
-     
-  
+
+  //if (smartGroup)
+    // kdDebug () << "START LINE: " << smartGroup->startLine () << " END: " << smartGroup->endLine () << endl;
+
   Q_ASSERT(smartGroup);
   return smartGroup;
 }

@@ -32,6 +32,7 @@ KateSmartRange::KateSmartRange(const KTextEditor::Range& range, KateDocument* do
   , m_watcher(0L)
   , m_attachedView(0L)
   , m_attachActions(TagLines)
+  , m_feedbackLevel(NoFeedback)
   , m_mouseOver(false)
   , m_caretOver(false)
 {
@@ -43,6 +44,7 @@ KateSmartRange::KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* paren
   , m_watcher(0L)
   , m_attachedView(0L)
   , m_attachActions(TagLines)
+  , m_feedbackLevel(NoFeedback)
   , m_mouseOver(false)
   , m_caretOver(false)
 {

@@ -201,7 +201,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
   // Check to see if we need to split or consolidate
   int splitEndLine = edit->translate().line() + firstSmartGroup->endLine();
   if (edit->translate().line() >= 0) {
-    kdDebug() << k_funcinfo << "Need to translate smartGroups by " << edit->translate().line() << " line(s); startLine " << firstSmartGroup->startLine() << " endLine " << firstSmartGroup->endLine() << " splitEndLine " << splitEndLine << "." << endl;
+    //kdDebug() << k_funcinfo << "Need to translate smartGroups by " << edit->translate().line() << " line(s); startLine " << firstSmartGroup->startLine() << " endLine " << firstSmartGroup->endLine() << " splitEndLine " << splitEndLine << "." << endl;
     KateSmartGroup* endGroup = currentGroup->next();
     int currentCanExpand = endGroup ? s_maximumGroupSize - currentGroup->length() : s_defaultGroupSize - currentGroup->length();
     //int nextCanExpand = currentGroup->next() ? (endGroup ? s_maximumGroupSize - currentGroup->next()->length() : s_defaultGroupSize - currentGroup->next()->length()) : 0;
@@ -224,7 +224,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
       do {
         newStartLine = currentGroup->endLine() + 1;
         newEndLine = QMIN(newStartLine + s_defaultGroupSize - 1, splitEndLine);
-        kdDebug() << k_funcinfo << "NewStartLine " << newStartLine << " NewEndLine " << newEndLine << endl;
+        //kdDebug() << k_funcinfo << "NewStartLine " << newStartLine << " NewEndLine " << newEndLine << endl;
         currentGroup = new KateSmartGroup(newStartLine, newEndLine, currentGroup, endGroup);
       } while (newEndLine < splitEndLine);
     }
@@ -258,7 +258,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
   for (KateSmartGroup* smartGroup = firstSmartGroup->next(); smartGroup; smartGroup = smartGroup->next())
     smartGroup->translated(*edit);
 
-  debugOutput();
+  //debugOutput();
 }
 
 void KateSmartGroup::translateChanged( const KateEditInfo& edit, QLinkedList< KateSmartRange * > & m_ranges, bool first )

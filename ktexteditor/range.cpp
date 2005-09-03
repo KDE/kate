@@ -27,6 +27,7 @@
 #include "attribute.h"
 
 #include <kaction.h>
+#include <kdebug.h>
 
 using namespace KTextEditor;
 
@@ -37,9 +38,15 @@ Range::Range()
 }
 
 Range::Range(const Cursor& start, const Cursor& end)
-  : m_start(new Cursor(start))
-  , m_end(new Cursor(end))
 {
+  if (start <= end) {
+    m_start = new Cursor(start);
+    m_end = new Cursor(end);
+
+  } else {
+    m_start = new Cursor(end);
+    m_end = new Cursor(start);
+  }
 }
 
 Range::Range(const Cursor& start, int width)
@@ -52,6 +59,10 @@ Range::Range(const Cursor& start, int endLine, int endCol)
   : m_start(new Cursor(start))
   , m_end(new Cursor(endLine, endCol))
 {
+  if (*m_end < *m_start) {
+    kdWarning() << k_funcinfo << "Attempting to set end before start." << endl;
+    *m_end = *m_start;
+  }
 }
 
 Range::Range(int startLine, int startCol, int endLine, int endCol)

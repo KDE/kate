@@ -41,7 +41,8 @@ class AttributeGroup;
  * For simplicity and convenience, ranges always maintain their start position to
  * be before or equal to their end position.  Attempting to set either the
  * start or end of the range beyond the respective end or start will result in
- * both values being set to the specified position.
+ * both values being set to the specified position.  In the constructor, the
+ * start and end will be swapped if necessary.
  *
  * If you want additional functionality such as the ability to maintain positon
  * in a document, see SmartRange.
@@ -60,6 +61,7 @@ class KTEXTEDITOR_EXPORT Range
     /**
      * Constructor.
      * Creates a range from @e start to @e end.
+     * If start is after end, they will be swapped.
      * @param start start position
      * @param end end position
      */

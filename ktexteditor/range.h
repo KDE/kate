@@ -540,7 +540,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     // BEGIN Notification methods
     /**
-     * Connect to the notifier to receive signals indicating change of state of this cursor.
+     * Connect to the notifier to receive signals indicating change of state of this range.
      * The notifier is created at the time it is first requested.  If you have finished with
      * notifications for a reasonable period of time you can save memory by calling deleteNotifier().
      */
@@ -553,9 +553,9 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     virtual void deleteNotifier() = 0;
 
     /**
-     * Provide a SmartRangeWatcher to receive calls indicating change of state of this cursor.
+     * Provide a SmartRangeWatcher to receive calls indicating change of state of this range.
      * To finish receiving notifications, call this function with \p watcher set to 0L.
-     * \param watcher the class which will receive notifications about changes to this cursor.
+     * \param watcher the class which will receive notifications about changes to this range.
      */
     virtual void setWatcher(SmartRangeWatcher* watcher = 0L) = 0;
     // END

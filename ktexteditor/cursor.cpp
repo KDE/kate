@@ -22,18 +22,22 @@
 
 using namespace KTextEditor;
 
-SmartCursor::SmartCursor( const Cursor & position, Document * doc, bool moveOnInsert )
-  : Cursor(position)
-  , m_doc(doc)
-  , m_moveOnInsert(moveOnInsert)
-  , m_range(0L)
+Cursor::Cursor( )
+  : m_line(0)
+  , m_column(0)
 {
-  Q_ASSERT(m_doc);
 }
 
-bool SmartCursor::atEndOfDocument( ) const
+Cursor::Cursor( int _line, int _column )
+  : m_line(_line)
+  , m_column(_column)
 {
-  return *this >= m_doc->end();
+}
+
+Cursor::Cursor(const Cursor& copy)
+  : m_line(copy.line())
+  , m_column(copy.column())
+{
 }
 
 void Cursor::setPosition( const Cursor & pos )
@@ -71,28 +75,22 @@ Cursor::~ Cursor( )
 {
 }
 
-KTextEditor::Cursor::Cursor( )
-  : m_line(0)
-  , m_column(0)
-{
-}
-
-KTextEditor::Cursor::Cursor( int _line, int _column )
-  : m_line(_line)
-  , m_column(_column)
-{
-}
-
-void Cursor::setPosition( int newLine, int newColumn )
-{
-  // FIXME workaround
-  //setPosition(Cursor(newLine, newColumn));
-  m_line = newLine;
-  m_column = newColumn;
-}
-
 SmartCursor::~ SmartCursor( )
 {
+}
+
+SmartCursor::SmartCursor( const Cursor & position, Document * doc, bool moveOnInsert )
+  : Cursor(position)
+  , m_doc(doc)
+  , m_moveOnInsert(moveOnInsert)
+  , m_range(0L)
+{
+  Q_ASSERT(m_doc);
+}
+
+bool SmartCursor::atEndOfDocument( ) const
+{
+  return *this >= m_doc->end();
 }
 
 bool KTextEditor::SmartCursor::isSmart( ) const

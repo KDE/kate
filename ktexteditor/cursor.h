@@ -63,6 +63,9 @@ class KTEXTEDITOR_EXPORT Cursor
      */
     Cursor(int line, int column);
 
+    /// Copy constructor.
+    Cursor(const Cursor& copy);
+
     // Virtual destructor. Do not remove! Needed for inheritance.
     virtual ~Cursor ();
 
@@ -116,12 +119,10 @@ class KTEXTEDITOR_EXPORT Cursor
 
     /**
      * Set the cursor position to @e line and @e column.
-     * @note This function is @c virtual to allow reimplementations to do
-     *       checks here or to emit signals.
      * @param line new cursor line
      * @param column new cursor column
      */
-    void setPosition(int line, int column);
+    inline void setPosition(int line, int column) { setPosition(Cursor(line, column)); }
 
     /**
      * @returns true if the cursor is situated at the start of the line, false if it isn't.

@@ -2,7 +2,6 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- author: Giancarlo Niccolai (giancarlo@niccolai.ws) -->
 <!-- This file is released under GPL license 2.0 or any later version at your choice. -->
-<!-- $Id$ -->
 <language name="Inform" version="1.23" kateversion="2.3" section="Sources" extensions="*.inf;*.h" mimetype="text/x-inform-src" author="Giancarlo Niccolai (giancarlo@niccolai.ws)" license="GPL">
 <highlighting>
    <list name="keywords">

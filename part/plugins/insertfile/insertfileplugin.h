@@ -14,10 +14,7 @@
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
    Boston, MA 02110-1301, USA.
-
-   $Id$
-*/
-
+ */
 
 #ifndef _INSERT_FILE_PLUGIN_H_
 #define _INSERT_FILE_PLUGIN_H_

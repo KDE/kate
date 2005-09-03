@@ -14,9 +14,7 @@
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
    Boston, MA 02110-1301, USA.
-*/
-
-// $Id$
+ */
 
 #ifndef _KATE_KDATATOOL_
 #define _KATE_KDATATOOL_

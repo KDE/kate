@@ -486,8 +486,8 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   // Paint selection background as the whole line is selected
   // selection startcol/endcol calc
   bool hasSel = false;
-  uint startSel = 0;
-  uint endSel = 0;
+  int startSel = 0;
+  int endSel = 0;
 
   int currentViewLine = -1;
   if (cursor && cursor->line() == range->line())
@@ -1154,7 +1154,7 @@ uint KateRenderer::documentHeight()
   return m_doc->lines() * fontHeight();
 }
 
-bool KateRenderer::getSelectionBounds(uint line, uint lineLength, uint &start, uint &end)
+bool KateRenderer::getSelectionBounds(int line, int lineLength, int &start, int &end)
 {
   bool hasSel = false;
 
@@ -1166,19 +1166,19 @@ bool KateRenderer::getSelectionBounds(uint line, uint lineLength, uint &start, u
       end = m_view->selectionRange().end().column();
       hasSel = true;
     }
-    else if ((int)line == m_view->selectionRange().start().line())
+    else if (line == m_view->selectionRange().start().line())
     {
       start = m_view->selectionRange().start().column();
       end = lineLength;
       hasSel = true;
     }
-    else if (!m_view->selectionRange().includesLine(line))
+    else if (m_view->selectionRange().containsLine(line))
     {
       start = 0;
       end = lineLength;
       hasSel = true;
     }
-    else if ((int)line == m_view->selectionRange().end().line())
+    else if (line == m_view->selectionRange().end().line())
     {
       start = 0;
       end = m_view->selectionRange().end().column();

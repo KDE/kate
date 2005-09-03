@@ -1290,12 +1290,8 @@ void KateView::slotCaretPositionChanged( )
 
 bool KateView::setSelection( const KTextEditor::Range &selection )
 {
-  kdDebug(13030) << k_funcinfo << "[" << selection.start().line() << "," << selection.start().column() << " -> " << selection.end().line() << "," << selection.end().column() << "]" << endl;
-
   KTextEditor::Range oldSelection = m_selection;
   m_selection = selection;
-
-  kdDebug(13030) << k_funcinfo << "[" << m_selection.start().line() << "," << m_selection.start().column() << " -> " << m_selection.end().line() << "," << m_selection.end().column() << "]" << endl;
 
   tagSelection(oldSelection);
 

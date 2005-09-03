@@ -250,7 +250,7 @@ void KateRenderer::paintWhitespaceMarker(QPainter &paint, uint x, uint y)
   // Check to see if we are exiting any ranges
   while (currentRange->end() <= currentPos) {
     if (outDebug)
-      kdDebug() << k_funcinfo << currentRange << "Leaving range " << *currentRange << " (current col: " << currentPos.column() << ")" << endl;
+      kdDebug(13033) << k_funcinfo << currentRange << "Leaving range " << *currentRange << " (current col: " << currentPos.column() << ")" << endl;
 
     tmpRange = currentRange;
 
@@ -276,7 +276,7 @@ void KateRenderer::paintWhitespaceMarker(QPainter &paint, uint x, uint y)
       currentRange = *it;
 
       if (outDebug)
-        kdDebug() << k_funcinfo << currentRange << "Entering range " << *currentRange << " (current col: " << currentPos.column() << ")" << endl;
+        kdDebug(13033) << k_funcinfo << currentRange << "Entering range " << *currentRange << " (current col: " << currentPos.column() << ")" << endl;
 
       goto doubleContinue;
       }

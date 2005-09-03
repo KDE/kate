@@ -277,10 +277,10 @@ void KateDocument::disableAllPluginsGUI (KateView *view)
 
 void KateDocument::loadPlugin (uint pluginIndex)
 {
-  kdDebug()<<"loadPlugin (entered)"<<endl;
+  kdDebug(13020)<<"loadPlugin (entered)"<<endl;
   if (m_plugins[pluginIndex]) return;
 
-  kdDebug()<<"loadPlugin (loading plugin)"<<endl;
+  kdDebug(13020)<<"loadPlugin (loading plugin)"<<endl;
   m_plugins[pluginIndex] = KTextEditor::createPlugin (QFile::encodeName((KateGlobal::self()->plugins())[pluginIndex]->library()), this);
 
   enablePluginGUI (m_plugins[pluginIndex]);
@@ -298,7 +298,7 @@ void KateDocument::unloadPlugin (uint pluginIndex)
 
 void KateDocument::enablePluginGUI (KTextEditor::Plugin *plugin, KateView *view)
 {
-  kdDebug()<<"KateDocument::enablePluginGUI(plugin,view):"<<"plugin"<<endl;
+  kdDebug(13020)<<"KateDocument::enablePluginGUI(plugin,view):"<<"plugin"<<endl;
   if (!plugin) return;
 
   KXMLGUIFactory *factory = view->factory();
@@ -313,7 +313,7 @@ void KateDocument::enablePluginGUI (KTextEditor::Plugin *plugin, KateView *view)
 
 void KateDocument::enablePluginGUI (KTextEditor::Plugin *plugin)
 {
-  kdDebug()<<"KateDocument::enablePluginGUI(plugin):"<<"plugin"<<endl;  
+  kdDebug(13020)<<"KateDocument::enablePluginGUI(plugin):"<<"plugin"<<endl;
   if (!plugin) return;
 
   foreach(KateView *view,m_views)

@@ -157,10 +157,10 @@ void KateCodeCompletion::buildItemList() {
   }
   qSort(m_items);
 #if 0
-  kdDebug()<<"------------"<<endl;
+  kdDebug(13035)<<"------------"<<endl;
   foreach (const CompletionItem& item,m_items)
-    kdDebug()<<item.text()<<endl;
-  kdDebug()<<"------------"<<endl;
+    kdDebug(13035)<<item.text()<<endl;
+  kdDebug(13035)<<"------------"<<endl;
 #endif
 }
 
@@ -171,12 +171,12 @@ void KateCodeCompletion::showCompletion(const KTextEditor::Cursor &position,cons
   if (data.isEmpty() && m_data.isEmpty()) return;
   else if (m_data.isEmpty()) { // new completion
     m_data=data;
-    kdDebug()<<"m_data was empty"<<endl;
+    kdDebug(13035)<<"m_data was empty"<<endl;
     buildItemList();
     updateBox();
   } else if (data.isEmpty()) {  // abort completion, no providers anymore
     m_data.clear();
-    kdDebug()<<"data is empty"<<endl;
+    kdDebug(13035)<<"data is empty"<<endl;
     buildItemList();
     updateBox();
     return;
@@ -184,17 +184,17 @@ void KateCodeCompletion::showCompletion(const KTextEditor::Cursor &position,cons
   } else { //update completion
     if (data.size()!=m_data.size()) { // different provider count
       m_data=data;
-      kdDebug()<<"different size"<<endl;
+      kdDebug(13035)<<"different size"<<endl;
       buildItemList();
       updateBox();
     } else {
       bool equal=true;
       for (QLinkedList<KTextEditor::CompletionData>::const_iterator it1=data.constBegin(),
           it2=m_data.constBegin();it1!=data.constEnd();++it1,++it2) {
-          if (!((*it1)==(*it2))) {equal=false; kdDebug()<<(*it1).id()<<" "<<(*it2).id()<<endl; break;}
+          if (!((*it1)==(*it2))) {equal=false; kdDebug(13035)<<(*it1).id()<<" "<<(*it2).id()<<endl; break;}
       }
       if (equal) return;
-      kdDebug()<<"not equal"<<endl;
+      kdDebug(13035)<<"not equal"<<endl;
       m_data=data;
       buildItemList();
       updateBox();
@@ -222,7 +222,7 @@ void KateCodeCompletion::showCompletionBox(
 
 bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
 {
-  kdDebug()<<"KateCodeCompletion::eventFilter"<<endl;
+  kdDebug(13035)<<"KateCodeCompletion::eventFilter"<<endl;
   if ( o != m_completionPopup &&
        o != m_completionListBox &&
        o != m_completionListBox->viewport()
@@ -265,13 +265,13 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
     QApplication::sendEvent(m_view->window(),e);
   }
 
-  kdDebug()<<"e->type()=="<<e->type()<<endl;
+  kdDebug(13035)<<"e->type()=="<<e->type()<<endl;
   return false;
 }
 
 void KateCodeCompletion::handleKey (QKeyEvent *e)
 {
-  kdDebug()<<"KateCodeCompletion::handleKey"<<endl;
+  kdDebug(13035)<<"KateCodeCompletion::handleKey"<<endl;
   // close completion if you move out of range
   if ((e->key() == Qt::Key_Up) && (m_completionListBox->currentItem() == 0))
   {
@@ -298,12 +298,12 @@ void KateCodeCompletion::doComplete()
 {
 #if 0
   foreach (const KTextEditor::CompletionData& data,m_data) {
-    kdDebug()<<"datalist="<<&data<<endl;
+    kdDebug(13035)<<"datalist="<<&data<<endl;
   }
-  kdDebug()<<"doComplete------------"<<endl;
+  kdDebug(13035)<<"doComplete------------"<<endl;
   foreach (const CompletionItem& item,m_items)
-    kdDebug()<<item.text()<<endl;
-  kdDebug()<<"doComplete------------"<<endl;
+    kdDebug(13035)<<item.text()<<endl;
+  kdDebug(13035)<<"doComplete------------"<<endl;
 #endif
 
   KateCompletionItem* item = static_cast<KateCompletionItem*>(
@@ -344,7 +344,7 @@ void KateCodeCompletion::abortCompletion()
 
 void KateCodeCompletion::complete( KTextEditor::CompletionItem entry )
 {
-  kdDebug()<<"KateCodeCompletion::completion=============about to close completion box"<<endl;
+  kdDebug(13035)<<"KateCodeCompletion::completion=============about to close completion box"<<endl;
   m_blockEvents=true;
   m_completionPopup->hide();
   delete m_commentLabel;
@@ -372,7 +372,7 @@ void KateCodeCompletion::updateBox( bool )
   }
 #endif 
   m_completionListBox->clear();
-  kdDebug()<<"m_items.size():"<<m_items.size()<<endl;;
+  kdDebug(13035)<<"m_items.size():"<<m_items.size()<<endl;;
   if (m_items.size()==0)
   {
     if (codeCompletionVisible())

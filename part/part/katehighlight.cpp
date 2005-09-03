@@ -2088,7 +2088,7 @@ bool KateHighlighting::canBreakAt( QChar c, int attrib ) const
 
 QLinkedList<QRegExp> KateHighlighting::emptyLines(int attrib) const
 {
-  kdDebug()<<"hlKeyForAttrib: "<<hlKeyForAttrib(attrib)<<endl;
+  kdDebug(13010)<<"hlKeyForAttrib: "<<hlKeyForAttrib(attrib)<<endl;
   return m_additionalData[hlKeyForAttrib(attrib)]->emptyLines;
 }
 

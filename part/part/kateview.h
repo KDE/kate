@@ -359,7 +359,7 @@ class KateView : public KTextEditor::View,
     void shiftHome()          { m_viewInternal->home(true);          }
     void end()                { m_viewInternal->end();               }
     void shiftEnd()           { m_viewInternal->end(true);           }
-    void up()                 { kdDebug()<<"KateView::up()"<<endl;m_viewInternal->cursorUp();          }
+    void up()                 { kdDebug(13030)<<"KateView::up()"<<endl;m_viewInternal->cursorUp();          }
     void shiftUp()            { m_viewInternal->cursorUp(true);      }
     void down()               { m_viewInternal->cursorDown();        }
     void shiftDown()          { m_viewInternal->cursorDown(true);    }

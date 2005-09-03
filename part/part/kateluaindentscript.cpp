@@ -71,11 +71,11 @@ typedef struct KATELUA_FUNCTIONS {
 static int katelua_katedebug(lua_State *L) {
   int n=lua_gettop(L);
   for (int i=1;i<=n;i++) {
-    if (lua_isnil(L,i)) kdDebug()<<"NIL VALUE"<<endl;
-    else if (lua_isstring(L,i)) kdDebug()<<lua_tostring(L,i)<<endl;
-    else if (lua_isboolean(L,i)) kdDebug()<<(bool)lua_toboolean(L,i)<<endl;
-    else if (lua_isnumber(L,i)) kdDebug()<<lua_tonumber(L,i)<<endl;
-    else kdDebug()<<"Invalid type for katedebug:"<<lua_type(L,i)<<endl;
+    if (lua_isnil(L,i)) kdDebug(13060)<<"NIL VALUE"<<endl;
+    else if (lua_isstring(L,i)) kdDebug(13060)<<lua_tostring(L,i)<<endl;
+    else if (lua_isboolean(L,i)) kdDebug(13060)<<(bool)lua_toboolean(L,i)<<endl;
+    else if (lua_isnumber(L,i)) kdDebug(13060)<<lua_tonumber(L,i)<<endl;
+    else kdDebug(13060)<<"Invalid type for katedebug:"<<lua_type(L,i)<<endl;
   }
   return 0;
 }
@@ -88,9 +88,9 @@ static int katelua_indenter_register(lua_State *L) {
   }
   if ( (!lua_isfunction(L,2)) || (!lua_isnumber(L,1)))
   {
-    /*if (lua_isnumber(L,1)) kdDebug()<<"A"<<endl;
-    if (lua_isfunction(L,2)) kdDebug()<<"B"<<endl;
-    kdDebug()<<lua_type(L,2)<<endl;*/
+    /*if (lua_isnumber(L,1)) kdDebug(13060)<<"A"<<endl;
+    if (lua_isfunction(L,2)) kdDebug(13060)<<"B"<<endl;
+    kdDebug(13060)<<lua_type(L,2)<<endl;*/
     lua_pushstring(L,i18n("indenter.register requires 2 parameters (event id (number), function to call (function))").utf8().data());
     lua_error(L);
   }
@@ -116,7 +116,7 @@ static int katelua_indenter_register(lua_State *L) {
   lua_pop(L,1);
   lua_pushvalue(L,2);
   lua_settable(L,LUA_REGISTRYINDEX);
-  kdDebug()<<"katelua_indenter_register: Success"<<endl;
+  kdDebug(13060)<<"katelua_indenter_register: Success"<<endl;
   return 0;
 }
 
@@ -287,11 +287,11 @@ bool KateLUAIndentScriptImpl::setupInterpreter(QString &errorMsg)
   lua_pushstring(m_interpreter,fn.data());
   int execresult=lua_pcall(m_interpreter,1,1,0);
   if (execresult==0) {
-    kdDebug()<<"Lua script has been loaded successfully. Lua interpreter version:"<<lua_version()<<endl;
+    kdDebug(13060)<<"Lua script has been loaded successfully. Lua interpreter version:"<<lua_version()<<endl;
     return true;
   } else {
     errorMsg=i18n("Lua indenting script had errors: %1").arg(lua_tostring(m_interpreter,lua_gettop(m_interpreter)));
-    kdDebug()<<errorMsg<<endl;
+    kdDebug(13060)<<errorMsg<<endl;
     deleteInterpreter();
 
     return false;
@@ -314,7 +314,7 @@ bool KateLUAIndentScriptImpl::processChar(KateView *view, QChar c, QString &erro
     if (lua_pcall(m_interpreter,1,0,0)!=0)
     {
       errorMsg=i18n("Lua indenting script had errors: %1").arg(lua_tostring(m_interpreter,lua_gettop(m_interpreter)));
-      kdDebug()<<errorMsg<<endl;
+      kdDebug(13060)<<errorMsg<<endl;
       result=false;
     }
   }
@@ -342,7 +342,7 @@ bool KateLUAIndentScriptImpl::processNewline( KateView *view, const KateDocCurso
     if (lua_pcall(m_interpreter,0,0,0)!=0)
     {
       errorMsg=i18n("Lua indenting script had errors: %1").arg(lua_tostring(m_interpreter,lua_gettop(m_interpreter)));
-      kdDebug()<<errorMsg<<endl;
+      kdDebug(13060)<<errorMsg<<endl;
       result=false;
     }
   }
@@ -367,7 +367,7 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
   if (!m_scripts.isEmpty())
     return;
 
-  kdDebug()<<"================================================="<<endl<<"Trying to find Lua scripts"<<endl
+  kdDebug(13060)<<"================================================="<<endl<<"Trying to find Lua scripts"<<endl
       <<"================================================="<<endl;
 
   // We'll store the scripts list in this config
@@ -398,7 +398,7 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
     struct stat sbuf;
     memset (&sbuf, 0, sizeof(sbuf));
     stat(QFile::encodeName(*it), &sbuf);
-    kdDebug()<<"Lua script file:"<<(*it)<<endl;
+    kdDebug(13060)<<"Lua script file:"<<(*it)<<endl;
     // If the group exist and we're not forced to read the .js file, let's build myModeList for katepartjscriptrc
     bool readnew=false;
     if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readNumEntry("lastModified")))

@@ -556,10 +556,10 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
  */
 void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, uint endCol, bool force, bool center, bool calledExternally)
 {
-  //kdDebug() << "MakeVisible start [" << startPos().line << "," << startPos().col << "] end [" << endPos().line << "," << endPos().col << "] -> request: [" << c.line << "," << c.col << "]" <<endl;// , new start [" << scroll.line << "," << scroll.col << "] lines " << (linesDisplayed() - 1) << " height " << height() << endl;
+  //kdDebug(13030) << "MakeVisible start [" << startPos().line << "," << startPos().col << "] end [" << endPos().line << "," << endPos().col << "] -> request: [" << c.line << "," << c.col << "]" <<endl;// , new start [" << scroll.line << "," << scroll.col << "] lines " << (linesDisplayed() - 1) << " height " << height() << endl;
     // if the line is in a folded region, unfold all the way up
     //if ( m_doc->foldingTree()->findNodeForLine( c.line )->visible )
-    //  kdDebug()<<"line ("<<c.line<<") should be visible"<<endl;
+    //  kdDebug(13030)<<"line ("<<c.line<<") should be visible"<<endl;
 
   if ( force )
   {
@@ -769,7 +769,7 @@ public:
   CalculatingCursor& operator--() { return operator-=( 1 ); }
 
   void makeValid() {
-    m_line = QMAX( 0, QMIN( int( m_vi->m_doc->lines() - 1 ), line() ) );
+    setLine(QMAX( 0, QMIN( int( m_vi->m_doc->lines() - 1 ), line() ) ));
     if (m_vi->m_view->wrapCursor())
       m_column = QMAX( 0, QMIN( m_vi->m_doc->lineLength( line() ), column() ) );
     else
@@ -868,7 +868,7 @@ public:
 
           // Advance to the beginning of the next line
           m_column = 0;
-          m_line++;
+          setLine(line() + 1);
 
           // Retrieve the next text range
           thisLine = m_vi->cache()->line(line());
@@ -891,7 +891,7 @@ public:
             break;
 
           // Start going back to the end of the last line
-          m_line--;
+          setLine(line() - 1);
 
           // Retrieve the next text range
           thisLine = m_vi->cache()->line(line());
@@ -1705,7 +1705,7 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
   else
     m_currentMaxX = m_cursorX;
 
-  //kdDebug() << "m_currentMaxX: " << m_currentMaxX << " (was "<< oldmaxx << "), m_cursorX: " << m_cursorX << endl;
+  //kdDebug(13030) << "m_currentMaxX: " << m_currentMaxX << " (was "<< oldmaxx << "), m_cursorX: " << m_cursorX << endl;
   //kdDebug(13030) << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << m_displayCursor.line << ", " << m_displayCursor.col << "; Top is " << startLine() << ", " << startPos().col <<  endl;
 
   update(); //paintText(0, 0, width(), height(), true);
@@ -1765,19 +1765,19 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
 {
   if (realCursors)
   {
-    //kdDebug()<<"realLines is true"<<endl;
+    //kdDebug(13030)<<"realLines is true"<<endl;
     start = toVirtualCursor(start);
     end = toVirtualCursor(end);
   }
 
   if (end.line() < (int)startLine())
   {
-    //kdDebug()<<"end<startLine"<<endl;
+    //kdDebug(13030)<<"end<startLine"<<endl;
     return false;
   }
   if (start.line() > (int)endLine())
   {
-    //kdDebug()<<"start> endLine"<<start<<" "<<((int)endLine())<<endl;
+    //kdDebug(13030)<<"start> endLine"<<start<<" "<<((int)endLine())<<endl;
     return false;
   }
 
@@ -1790,7 +1790,7 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
     if ((cache()->viewLine(z).virtualLine() > start.line() || (cache()->viewLine(z).virtualLine() == start.line() && cache()->viewLine(z).endCol() >= start.column() && start.column() != -1)) && (cache()->viewLine(z).virtualLine() < end.line() || (cache()->viewLine(z).virtualLine() == end.line() && (cache()->viewLine(z).startCol() <= end.column() || end.column() == -1)))) {
       ret = true;
       cache()->viewLine(z).setDirty();
-      //kdDebug() << "Tagged line " << cache()->viewLine(z).line << endl;
+      //kdDebug(13030) << "Tagged line " << cache()->viewLine(z).line << endl;
     }
   }
 
@@ -1857,10 +1857,7 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection, bool up
     return;
 
   KTextEditor::Cursor c = renderer()->xToCursor(thisLine, startX() + p.x(), !view()->wrapCursor());
-  
-  kdDebug () << "CURSOR : " << c.line() << " " << c.column() << endl;
-  #warning invalid cursor position possible
-  
+
   if (c.line () < 0 || c.line() >= m_doc->lines())
     return;
 

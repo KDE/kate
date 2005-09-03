@@ -1169,7 +1169,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
             bool addindent=false;
             int deindent=0;
             if (!indentDepth.isEmpty())
-              kdDebug()<<"indentDepth[indentDepth.size()-1]:"<<indentDepth[indentDepth.size()-1]<<endl;
+              kdDebug(13020)<<"indentDepth[indentDepth.size()-1]:"<<indentDepth[indentDepth.size()-1]<<endl;
             if ((nextLineIndentation>0) && ( indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1]<nextLineIndentation)))
             {
               kdDebug(13020)<<"addindent==true"<<endl;

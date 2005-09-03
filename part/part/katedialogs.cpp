@@ -98,6 +98,7 @@
 #include <qstringlist.h>
 #include <qtabwidget.h>
 #include <qtextcodec.h>
+#include <qtextstream.h>
 #include <qtoolbutton.h>
 #include <q3vbox.h>
 

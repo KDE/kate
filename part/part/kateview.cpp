@@ -80,6 +80,7 @@
 #include <qlayout.h>
 #include <qclipboard.h>
 #include <q3stylesheet.h>
+#include <qtextstream.h>
 //END includes
 
 static void blockFix(KTextEditor::Range& range)

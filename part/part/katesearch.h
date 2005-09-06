@@ -31,7 +31,6 @@
 #include <qstring.h>
 #include <qregexp.h>
 #include <qstringlist.h>
-#include <q3valuelist.h>
 
 class KateView;
 class KateDocument;
@@ -149,7 +148,6 @@ class KateSearch : public QObject
 
     SConfig s;
 
-    Q3ValueList<SConfig> m_searchResults;
     int                 m_resultIndex;
 
     int           replaces;

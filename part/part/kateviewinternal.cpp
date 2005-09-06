@@ -44,7 +44,7 @@
 #include <kurldrag.h>
 
 #include <qstyle.h>
-#include <q3dragobject.h>
+#include <QMimeData>
 #include <q3popupmenu.h>
 #include <q3dropsite.h>
 #include <qpainter.h>
@@ -2550,14 +2550,33 @@ void KateViewInternal::focusOutEvent (QFocusEvent *)
 void KateViewInternal::doDrag()
 {
   m_dragInfo.state = diDragging;
-  m_dragInfo.dragObject = new Q3TextDrag(m_view->selectionText(), this);
-  m_dragInfo.dragObject->drag();
+  m_dragInfo.dragObject = new QDrag(this);
+  QMimeData *mimeData=new QMimeData();
+  mimeData->setText(m_view->selectionText());
+  m_dragInfo.dragObject->setMimeData(mimeData);
+  m_dragInfo.dragObject->start(Qt::MoveAction);
 }
 
 void KateViewInternal::dragEnterEvent( QDragEnterEvent* event )
 {
+  if (event->source()==this) event->setDropAction(Qt::MoveAction);
   event->accept( (Q3TextDrag::canDecode(event) && m_doc->isReadWrite()) ||
                   KURLDrag::canDecode(event) );
+}
+
+void KateViewInternal::fixDropEvent(QDropEvent* event) {
+  if (event->source()!=this) event->setDropAction(Qt::CopyAction);
+  else {
+    Qt::DropAction action=Qt::MoveAction;
+#ifdef Q_WS_MAC
+    if(event->keyboardModifiers() & Qt::AltModifier)
+        action = Qt::CopyAction;
+#else
+    if (event->keyboardModifiers() & Qt::ControlModifier)
+        action = Qt::CopyAction;
+#endif
+    event->setDropAction(action);
+  }
 }
 
 void KateViewInternal::dragMoveEvent( QDragMoveEvent* event )
@@ -2567,7 +2586,7 @@ void KateViewInternal::dragMoveEvent( QDragMoveEvent* event )
 
   // important: accept action to switch between copy and move mode
   // without this, the text will always be copied.
-  event->acceptAction();
+  fixDropEvent(event);
 }
 
 void KateViewInternal::dropEvent( QDropEvent* event )
@@ -2576,12 +2595,9 @@ void KateViewInternal::dropEvent( QDropEvent* event )
 
       emit dropEventPass(event);
 
-  } else if ( Q3TextDrag::canDecode(event) && m_doc->isReadWrite() ) {
+  } else if ( event->mimeData()->hasText() && m_doc->isReadWrite() ) {
 
-    QString text;
-
-    if (!Q3TextDrag::decode(event, text))
-      return;
+    QString text=event->mimeData()->text();
 
     // is the source our own document?
     bool priv = false;
@@ -2597,14 +2613,16 @@ void KateViewInternal::dropEvent( QDropEvent* event )
       return;
     }
 
+    fixDropEvent(event);
+
     // use one transaction
     m_doc->editStart ();
 
     // on move: remove selected text; on copy: duplicate text
-    if ( event->action() != QDropEvent::Copy )
-      m_view->removeSelectedText();
+    m_doc->insertText(m_cursor, text );
 
-    m_doc->insertText( m_cursor, text );
+    if ( event->dropAction() != Qt::CopyAction )
+      m_view->removeSelectedText();
 
     m_doc->editEnd ();
 

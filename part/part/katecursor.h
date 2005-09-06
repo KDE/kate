@@ -30,12 +30,6 @@
 class KateDocument;
 namespace KTextEditor { class Attribute; }
 
-class KateTextCursorList : public Q3PtrList<KTextEditor::Cursor>
-{
-  protected:
-    virtual int compareItems(Q3PtrCollection::Item item1, Q3PtrCollection::Item item2);
-};
-
 /**
   Cursor class with a pointer to its document.
 */

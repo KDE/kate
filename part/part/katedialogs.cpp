@@ -77,9 +77,7 @@
 #include <qdialog.h>
 #include <qdom.h>
 #include <qfile.h>
-#include <q3grid.h>
-#include <q3groupbox.h>
-#include <q3hbox.h>
+#include <qgroupbox.h>
 #include <q3header.h>
 #include <qlabel.h>
 #include <qlayout.h>
@@ -89,8 +87,6 @@
 #include <qmap.h>
 #include <qobject.h>
 #include <qpainter.h>
-#include <q3pointarray.h>
-#include <q3ptrcollection.h>
 #include <kpushbutton.h>
 #include <qradiobutton.h>
 #include <qslider.h>
@@ -358,24 +354,28 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
 
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
-  QGroupBox *gbCursor = new Q3GroupBox(1, Qt::Horizontal, i18n("Text Cursor Movement"), this);
-
+  QGroupBox *gbCursor = new QGroupBox( i18n("Text Cursor Movement"), this);
+  QVBoxLayout *layout1=new QVBoxLayout(gbCursor);
   opt[0] = new QCheckBox(i18n("Smart ho&me"), gbCursor);
   opt[0]->setChecked(configFlags & flags[3]);
   connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  layout1->addWidget(opt[0]);
 
   opt[1] = new QCheckBox(i18n("Wrap c&ursor"), gbCursor);
   opt[1]->setChecked(configFlags & flags[4]);
   connect(opt[1], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
+  layout1->addWidget(opt[1]);
+  
   e6 = new QCheckBox(i18n("&PageUp/PageDown moves cursor"), gbCursor);
   e6->setChecked(KateDocumentConfig::global()->pageUpDownMovesCursor());
   connect(e6, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  layout1->addWidget(e6);
 
   e4 = new KIntNumInput(KateViewConfig::global()->autoCenterLines(),gbCursor);
   e4->setRange(0, 1000000, 1, false);
   e4->setLabel(i18n("Autocenter cursor (lines):"), Qt::AlignVCenter);
   connect(e4, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  layout1->addWidget(e4);
 
   layout->addWidget(gbCursor);
 
@@ -468,37 +468,45 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   QVBoxLayout *mainLayout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   int configFlags = KateDocumentConfig::global()->configFlags();
 
-  QGroupBox *gbWhiteSpace = new Q3GroupBox(1, Qt::Horizontal, i18n("Tabulators"), this);
-
+  QGroupBox *gbWhiteSpace = new QGroupBox(i18n("Tabulators"), this);
+  QVBoxLayout *layout1=new QVBoxLayout(gbWhiteSpace);
   opt[3] = new QCheckBox( i18n("&Insert spaces instead of tabulators"), gbWhiteSpace );
   opt[3]->setChecked( configFlags & KateDocumentConfig::cfReplaceTabsDyn );
   connect( opt[3], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
+  layout1->addWidget(opt[3]);
 
   opt[2] = new QCheckBox(i18n("&Show tabulators"), gbWhiteSpace);
   opt[2]->setChecked(configFlags & flags[2]);
   connect(opt[2], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  layout1->addWidget(opt[2]);
 
   e2 = new KIntNumInput(KateDocumentConfig::global()->tabWidth(),gbWhiteSpace);
   e2->setRange(1, 16, 1, false);
   e2->setLabel(i18n("Tab width:"), Qt::AlignVCenter);
   connect(e2, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  layout1->addWidget(e2);
 
   mainLayout->addWidget(gbWhiteSpace);
 
-  QGroupBox *gbWordWrap = new Q3GroupBox(1, Qt::Horizontal, i18n("Static Word Wrap"), this);
+  QGroupBox *gbWordWrap = new QGroupBox(i18n("Static Word Wrap"), this);
+  layout1=new QVBoxLayout(gbWordWrap);
 
   opt[0] = new QCheckBox(i18n("Enable static &word wrap"), gbWordWrap);
   opt[0]->setChecked(KateDocumentConfig::global()->wordWrap());
   connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  layout1->addWidget(opt[0]);
 
   m_wwmarker = new QCheckBox( i18n("&Show static word wrap marker (if applicable)"), gbWordWrap );
   m_wwmarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
   connect(m_wwmarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  layout1->addWidget(m_wwmarker);
+
 
   e1 = new KIntNumInput(KateDocumentConfig::global()->wordWrapAt(),gbWordWrap);
   e1->setRange(20, 200, 1, false);
   e1->setLabel(i18n("Wrap words at:"), Qt::AlignVCenter);
   connect(e1, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  layout1->addWidget(e1);
 
   mainLayout->addWidget(gbWordWrap);
 
@@ -646,17 +654,21 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
 
   QVBoxLayout *blay=new QVBoxLayout(this,0,KDialog::spacingHint());
 
-  QGroupBox *gbWordWrap = new Q3GroupBox(1, Qt::Horizontal, i18n("Word Wrap"), this);
-
+  QGroupBox *gbWordWrap = new QGroupBox(i18n("Word Wrap"), this);
+  QVBoxLayout *layout=new QVBoxLayout(gbWordWrap);
   m_dynwrap=new QCheckBox(i18n("&Dynamic word wrap"),gbWordWrap);
+  layout->addWidget(m_dynwrap);
 
-  Q3HBox *m_dynwrapIndicatorsLay = new Q3HBox (gbWordWrap);
-  m_dynwrapIndicatorsLabel = new QLabel( i18n("Dynamic word wrap indicators (if applicable):"), m_dynwrapIndicatorsLay );
-  m_dynwrapIndicatorsCombo = new KComboBox( m_dynwrapIndicatorsLay );
+  QHBoxLayout *sublayout=new QHBoxLayout();
+  m_dynwrapIndicatorsLabel = new QLabel( i18n("Dynamic word wrap indicators (if applicable):"),this);
+  m_dynwrapIndicatorsCombo = new KComboBox( this);
   m_dynwrapIndicatorsCombo->insertItem( i18n("Off") );
   m_dynwrapIndicatorsCombo->insertItem( i18n("Follow Line Numbers") );
   m_dynwrapIndicatorsCombo->insertItem( i18n("Always On") );
   m_dynwrapIndicatorsLabel->setBuddy(m_dynwrapIndicatorsCombo);
+  layout->addItem(sublayout);
+  sublayout->addWidget(m_dynwrapIndicatorsLabel);
+  sublayout->addWidget(m_dynwrapIndicatorsCombo);
 
   m_dynwrapAlignLevel = new KIntNumInput(gbWordWrap);
   m_dynwrapAlignLevel->setLabel(i18n("Vertically align dynamically wrapped lines to indentation depth:"));
@@ -664,7 +676,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   // xgettext:no-c-format
   m_dynwrapAlignLevel->setSuffix(i18n("% of View Width"));
   m_dynwrapAlignLevel->setSpecialValueText(i18n("Disabled"));
-
+  layout->addWidget(m_dynwrapAlignLevel);
   blay->addWidget(gbWordWrap);
 
   QGroupBox *gbFold = new QGroupBox(i18n("Code Folding"), this);
@@ -1233,17 +1245,19 @@ void KatePartPluginConfigPage::slotConfigure()
 //BEGIN KateHlConfigPage
 KateHlConfigPage::KateHlConfigPage (QWidget *parent)
  : KateConfigPage (parent, "")
- , hlData (0)
+ , m_currentHlData (-1)
 {
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
   // hl chooser
-  Q3HBox *hbHl = new Q3HBox( this );
-  layout->add (hbHl);
+  QHBoxLayout *hbl=new QHBoxLayout();
+  layout->addItem(hbl);
 
-  hbHl->setSpacing( KDialog::spacingHint() );
-  QLabel *lHl = new QLabel( i18n("H&ighlight:"), hbHl );
-  hlCombo = new QComboBox( false, hbHl );
+  hbl->setSpacing( KDialog::spacingHint() );
+  QLabel *lHl = new QLabel( i18n("H&ighlight:"), this);
+  hbl->addWidget(lHl);
+  hlCombo = new QComboBox( false, this);
+  hbl->addWidget(hlCombo);
   lHl->setBuddy( hlCombo );
   connect( hlCombo, SIGNAL(activated(int)),
            this, SLOT(hlChanged(int)) );
@@ -1256,51 +1270,60 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
   }
   hlCombo->setCurrentItem(0);
 
-  Q3GroupBox *gbInfo = new Q3GroupBox( 1, Qt::Horizontal, i18n("Information"), this );
+  QGroupBox *gbInfo = new QGroupBox(i18n("Information"), this );
   layout->add (gbInfo);
-
+  QVBoxLayout *subLayout=new QVBoxLayout(gbInfo);
   // author
-  Q3HBox *hb1 = new Q3HBox( gbInfo);
-  new QLabel( i18n("Author:"), hb1 );
-  author  = new QLabel (hb1);
+  hbl = new QHBoxLayout();
+  subLayout->addItem(hbl);
+  hbl->addWidget(new QLabel( i18n("Author:"), gbInfo ));
+  hbl->addWidget(author  = new QLabel (gbInfo));
   author->setTextFormat (Qt::RichText);
 
   // license
-  Q3HBox *hb2 = new Q3HBox( gbInfo);
-  new QLabel( i18n("License:"), hb2 );
-  license  = new QLabel (hb2);
+  QHBoxLayout *hb2 = new QHBoxLayout();
+  subLayout->addItem(hb2);
+  hb2->addWidget(new QLabel( i18n("License:"), gbInfo));
+  hb2->addWidget(license  = new QLabel (gbInfo));
 
-  Q3GroupBox *gbProps = new Q3GroupBox( 1, Qt::Horizontal, i18n("Properties"), this );
+  QGroupBox *gbProps = new QGroupBox(i18n("Properties"), this );
   layout->add (gbProps);
+ 
+  QGridLayout *gl=new QGridLayout(gbProps);
 
   // file & mime types
-  Q3HBox *hbFE = new Q3HBox( gbProps);
-  QLabel *lFileExts = new QLabel( i18n("File e&xtensions:"), hbFE );
-  wildcards  = new QLineEdit( hbFE );
+  QLabel *lFileExts = new QLabel( i18n("File e&xtensions:"), gbProps);
+  gl->addWidget(lFileExts,0,0);
+  gl->addWidget(wildcards  = new QLineEdit(gbProps ),0,1);
   lFileExts->setBuddy( wildcards );
 
-  Q3HBox *hbMT = new Q3HBox( gbProps );
-  QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), hbMT);
-  mimetypes = new QLineEdit( hbMT );
+  QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), gbProps);
+  gl->addWidget(lMimeTypes,1,0);
+  QHBoxLayout *hbx=new QHBoxLayout();
+  gl->addItem(hbx,1,1);
+  hbx->addWidget(mimetypes = new QLineEdit( gbProps));
   lMimeTypes->setBuddy( mimetypes );
 
-  Q3HBox *hbMT2 = new Q3HBox( gbProps );
-  QLabel *lprio = new QLabel( i18n("Prio&rity:"), hbMT2);
-  priority = new KIntNumInput( hbMT2 );
-
-  lprio->setBuddy( priority );
-
-  QToolButton *btnMTW = new QToolButton(hbMT);
+  QToolButton *btnMTW = new QToolButton(gbProps);
+  hbx->addWidget(btnMTW);
   btnMTW->setIconSet(QIcon(SmallIcon("wizard")));
   connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
 
-  // download/new buttons
-  Q3HBox *hbBtns = new Q3HBox( this );
-  layout->add (hbBtns);
+  QLabel *lprio = new QLabel( i18n("Prio&rity:"), gbProps);
+  gl->addWidget(lprio,2,0);
+  priority = new KIntNumInput( gbProps);
+  gl->addWidget(priority,2,1);
+  lprio->setBuddy( priority );
 
-  ((QBoxLayout*)hbBtns->layout())->addStretch(1); // hmm.
+
+  // download/new buttons
+  QHBoxLayout *hbBtns = new QHBoxLayout();
+  layout->addItem (hbBtns);
+
+  hbBtns->addStretch(1); // hmm.
   hbBtns->setSpacing( KDialog::spacingHint() );
-  QPushButton *btnDl = new QPushButton(i18n("Do&wnload..."), hbBtns);
+  QPushButton *btnDl = new QPushButton(i18n("Do&wnload..."), this);
+  hbBtns->addWidget(btnDl);
   connect( btnDl, SIGNAL(clicked()), this, SLOT(hlDownload()) );
 
   hlCombo->setCurrentItem( 0 );
@@ -1344,8 +1367,8 @@ void KateHlConfigPage::apply ()
 
   writeback();
 
-  for ( Q3IntDictIterator<KateHlData> it( hlDataDict ); it.current(); ++it )
-    KateHlManager::self()->getHl( it.currentKey() )->setData( it.current() );
+  for(QHash<int,KateHlData>::const_iterator it=hlDataDict.constBegin();it!=hlDataDict.constEnd();++it)
+    KateHlManager::self()->getHl( it.key() )->setData( it.value() );
 
   KateHlManager::self()->getKConfig()->sync ();
 }
@@ -1362,17 +1385,18 @@ void KateHlConfigPage::hlChanged(int z)
 
   if (!hl)
   {
-    hlData = 0;
+    m_currentHlData = -1;
     return;
   }
 
-  if ( !hlDataDict.find( z ) )
+  if ( !hlDataDict.contains( z ) )
     hlDataDict.insert( z, hl->getData() );
 
-  hlData = hlDataDict.find( z );
-  wildcards->setText(hlData->wildcards);
-  mimetypes->setText(hlData->mimetypes);
-  priority->setValue(hlData->priority);
+  m_currentHlData = z;
+  const KateHlData& hlData=hlDataDict[ z ];
+  wildcards->setText(hlData.wildcards);
+  mimetypes->setText(hlData.mimetypes);
+  priority->setValue(hlData.priority);
 
   // split author string if needed into multiple lines !
   QStringList l= QStringList::split (QRegExp("[,;]"), hl->author());
@@ -1383,11 +1407,12 @@ void KateHlConfigPage::hlChanged(int z)
 
 void KateHlConfigPage::writeback()
 {
-  if (hlData)
+  if (m_currentHlData!=-1)
   {
-    hlData->wildcards = wildcards->text();
-    hlData->mimetypes = mimetypes->text();
-    hlData->priority = priority->value();
+    KateHlData &hlData=hlDataDict[m_currentHlData];    
+    hlData.wildcards = wildcards->text();
+    hlData.mimetypes = mimetypes->text();
+    hlData.priority = priority->value();
   }
 }
 

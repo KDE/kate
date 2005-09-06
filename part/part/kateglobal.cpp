@@ -262,7 +262,7 @@ void KateGlobal::configDialog(QWidget *parent)
   KWin::setIcons( kd->winId(), kapp->icon(), kapp->miniIcon() );
 #endif
 
-  Q3PtrList<KTextEditor::ConfigPage> editorPages;
+  QList<KTextEditor::ConfigPage*> editorPages;
 
   for (int i = 0; i < configPages (); i++)
   {

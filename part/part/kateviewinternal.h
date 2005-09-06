@@ -33,7 +33,7 @@
 #include <qpoint.h>
 #include <qtimer.h>
 #include <q3intdict.h>
-#include <Q3TextDrag>
+#include <QDrag>
 #include <QWidget>
 
 class KateView;
@@ -161,6 +161,8 @@ class KateViewInternal : public QWidget
     QPoint cursorCoordinates() const;
 
   // EVENT HANDLING STUFF - IMPORTANT
+  private:
+    void fixDropEvent(QDropEvent *event);
   protected:
     virtual void paintEvent(QPaintEvent *e);
     virtual bool eventFilter( QObject *obj, QEvent *e );
@@ -247,7 +249,7 @@ class KateViewInternal : public QWidget
     struct _dragInfo {
       DragState    state;
       QPoint       start;
-      Q3TextDrag*   dragObject;
+      QDrag*   dragObject;
     } m_dragInfo;
 
     uint m_iconBorderHeight;

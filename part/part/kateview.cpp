@@ -68,7 +68,6 @@
 #include <kaccel.h>
 #include <klibloader.h>
 #include <kencodingfiledialog.h>
-#include <kmultipledrag.h>
 #include <ktempfile.h>
 #include <ksavefile.h>
 
@@ -79,8 +78,9 @@
 #include <q3popupmenu.h>
 #include <qlayout.h>
 #include <qclipboard.h>
-#include <q3stylesheet.h>
+#include <qtextdocument.h>
 #include <qtextstream.h>
+#include <qmimedata.h>
 //END includes
 
 static void blockFix(KTextEditor::Range& range)
@@ -1489,15 +1489,10 @@ void KateView::copyHTML()
   if (!selection())
     return;
 
-  KMultipleDrag *drag = new KMultipleDrag();
-
-  Q3TextDrag *htmltextdrag = new Q3TextDrag(selectionAsHtml()) ;
-  htmltextdrag->setSubtype("html");
-
-  drag->addDragObject( htmltextdrag);
-  drag->addDragObject( new Q3TextDrag( selectionText()));
-
-  QApplication::clipboard()->setData(drag);
+  QMimeData *data=new QMimeData();
+  data->setText(selectionText());
+  data->setHtml(selectionAsHtml());
+  QApplication::clipboard()->setMimeData(data);
 }
 
 QString KateView::selectionAsHtml()
@@ -1645,7 +1640,7 @@ void KateView::lineAsHTML (KateTextLine::Ptr line, int startCol, int length, QTe
         (*outputStream) << "</i>";
 
       // write the actual character :
-      (*outputStream) << Q3StyleSheet::escape(QString(line->getChar(curPos)));
+      (*outputStream) << Qt::escape(QString(line->getChar(curPos)));
 
       // save status for the next character :
       previousCharacterWasItalic = charAttributes->italic();

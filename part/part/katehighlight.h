@@ -106,7 +106,7 @@ class KateHlData
 {
   public:
     KateHlData(const QString &wildcards, const QString &mimetypes,const QString &identifier, int priority);
-
+    KateHlData();
   public:
     QString wildcards;
     QString mimetypes;
@@ -141,9 +141,8 @@ class KateHighlighting
 
     QString getMimetypes();
 
-    // this pointer needs to be deleted !!!!!!!!!!
-    KateHlData *getData();
-    void setData(KateHlData *);
+    KateHlData getData();
+    void setData(const KateHlData&);
 
     void setKateHlItemDataList(uint schema, KateHlItemDataList &);
 

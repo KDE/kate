@@ -38,11 +38,11 @@
 #include <knotifyclient.h>
 #include <kglobal.h>
 #include <kcharsets.h>
+#include <kmenu.h>
 #include <kpopupmenu.h>
 
 #include <qcursor.h>
 #include <qpainter.h>
-#include <q3popupmenu.h>
 #include <qstyle.h>
 #include <qtimer.h>
 #include <qregexp.h>
@@ -1132,8 +1132,8 @@ void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
 
 void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
 {
-  Q3PopupMenu markMenu;
-  Q3PopupMenu selectDefaultMark;
+  KMenu markMenu;
+  KMenu selectDefaultMark;
 
   QVector<int> vec( 33 );
   int i=1;
@@ -1143,33 +1143,38 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
     if( !(m_doc->editableMarks() & markType) )
       continue;
 
+    QAction *mA;
+    QAction *dMA;
     if( !m_doc->markDescription( markType ).isEmpty() ) {
-      markMenu.insertItem( m_doc->markDescription( markType ), i );
-      selectDefaultMark.insertItem( m_doc->markDescription( markType ), i+100);
+      mA=markMenu.addAction( m_doc->markDescription( markType ));
+      dMA=selectDefaultMark.addAction( m_doc->markDescription( markType ));
     } else {
-      markMenu.insertItem( i18n("Mark Type %1").arg( bit + 1 ), i );
-      selectDefaultMark.insertItem( i18n("Mark Type %1").arg( bit + 1 ), i+100);
+      mA=markMenu.addAction( i18n("Mark Type %1").arg( bit + 1 ));
+      dMA=selectDefaultMark.addAction( i18n("Mark Type %1").arg( bit + 1 ));
     }
-
+    mA->setData(i);
+    mA->setCheckable(true);
+    dMA->setData(i+100);
+    dMA->setCheckable(true);
     if( m_doc->mark( line ) & markType )
-      markMenu.setItemChecked( i, true );
+      mA->setChecked(true );
 
     if( markType & KateViewConfig::global()->defaultMarkType() )
-      selectDefaultMark.setItemChecked( i+100, true );
+      dMA->setChecked(true );
 
     vec[i++] = markType;
   }
 
-  if( markMenu.count() == 0 )
+  if( markMenu.actions().count() == 0 )
     return;
 
-  if( markMenu.count() > 1 )
-    markMenu.insertItem( i18n("Set Default Mark Type" ), &selectDefaultMark);
+  if( markMenu.actions().count() > 1 )
+    markMenu.addAction( i18n("Set Default Mark Type" ))->setMenu(&selectDefaultMark);
 
-  int result = markMenu.exec( pos );
-  if( result <= 0 )
+  QAction *rA = markMenu.exec( pos );
+  if( !rA )
     return;
-
+  int result=rA->data().toInt();
   if ( result > 100)
   {
      KateViewConfig::global()->setDefaultMarkType (vec[result-100]);

@@ -1122,6 +1122,8 @@ KateHlData::KateHlData(const QString &wildcards, const QString &mimetypes, const
 {
 }
 
+KateHlData::KateHlData() {}
+
 //BEGIN KateHlContext
 KateHlContext::KateHlContext (const QString &_hlId, int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough,
 	int _fallthroughContext, bool _dynamic, bool _noIndentationBasedFolding)
@@ -1647,28 +1649,26 @@ int KateHighlighting::priority()
   return config->readNumEntry("Priority", m_priority);
 }
 
-KateHlData *KateHighlighting::getData()
+KateHlData KateHighlighting::getData()
 {
   KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName);
 
-  KateHlData *hlData = new KateHlData(
+  return  KateHlData(
   config->readEntry("Wildcards", iWildcards),
   config->readEntry("Mimetypes", iMimetypes),
   config->readEntry("Identifier", identifier),
   config->readNumEntry("Priority", m_priority));
-
- return hlData;
 }
 
-void KateHighlighting::setData(KateHlData *hlData)
+void KateHighlighting::setData(const KateHlData &hlData)
 {
   KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName);
 
-  config->writeEntry("Wildcards",hlData->wildcards);
-  config->writeEntry("Mimetypes",hlData->mimetypes);
-  config->writeEntry("Priority",hlData->priority);
+  config->writeEntry("Wildcards",hlData.wildcards);
+  config->writeEntry("Mimetypes",hlData.mimetypes);
+  config->writeEntry("Priority",hlData.priority);
 }
 
 void KateHighlighting::getKateHlItemDataList (uint schema, KateHlItemDataList &list)

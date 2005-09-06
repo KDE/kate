@@ -36,7 +36,6 @@
 
 #include <qstringlist.h>
 #include <qcolor.h>
-#include <q3intdict.h>
 #include <qtabwidget.h>
 
 class KatePartPluginListItem;
@@ -336,8 +335,8 @@ class KateHlConfigPage : public KateConfigPage
     class KIntNumInput *priority;
     class QLabel *author, *license;
 
-    Q3IntDict<KateHlData> hlDataDict;
-    KateHlData *hlData;
+    QHash<int,KateHlData> hlDataDict;
+    int m_currentHlData;
 };
 
 class KateHlDownloadDialog: public KDialogBase

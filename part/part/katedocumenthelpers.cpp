@@ -30,9 +30,10 @@
 namespace KTextEditor { class View; }
 
 KateBrowserExtension::KateBrowserExtension( KateDocument* doc )
-: KParts::BrowserExtension( doc, "katepartbrowserextension" ),
+: KParts::BrowserExtension( doc ),
   m_doc (doc)
 {
+  setObjectName( "katepartbrowserextension" );
   connect( doc, SIGNAL( activeViewSelectionChanged(KTextEditor::View*) ),
            this, SLOT( slotSelectionChanged() ) );
   emit enableAction( "print", true );

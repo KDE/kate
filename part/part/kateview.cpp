@@ -468,7 +468,8 @@ void KateView::slotConfigDialog ()
 
 void KateView::setupEditActions()
 {
-  m_editActions = new KActionCollection( m_viewInternal, this, "edit_actions" );
+  m_editActions = new KActionCollection( m_viewInternal, this );
+  m_editActions->setObjectName( "edit_actions" );
   KActionCollection* ac = m_editActions;
 
   new KAction(
@@ -1071,7 +1072,7 @@ void KateView::showCompletionBox( Q3ValueList<KTextEditor::CompletionEntry> arg1
   emit aboutToShowCompletionBox();
   m_codeCompletion->showCompletionBox( arg1, offset, cs );
 }
-#endif 
+#endif
 
 KateRenderer *KateView::renderer ()
 {
@@ -1839,7 +1840,7 @@ void KateView::invokeCompletion(KTextEditor::CompletionProvider* provider,enum K
   QLinkedList<KTextEditor::CompletionData> newdata;
   KTextEditor::Cursor c=cursorPosition();
   QString lineText=m_doc->line(c.line());
-  
+
   const KTextEditor::CompletionData& nd=provider->completionData(this,type,KTextEditor::Cursor(),"",c,lineText);
   if (nd.isValid()) newdata.append(nd);
   m_codeCompletion->showCompletion(c,newdata);
@@ -1896,7 +1897,7 @@ bool KateView::registerCompletionProvider(KTextEditor::CompletionProvider* provi
   if (!provider) return false;
   if (m_completionProviders.contains(provider)) return false;
   m_completionProviders.append(provider);
-  return true;	
+  return true;
 }
 
 bool KateView::unregisterCompletionProvider(KTextEditor::CompletionProvider* provider)

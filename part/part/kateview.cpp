@@ -54,7 +54,6 @@
 #include <kio/netaccess.h>
 
 #include <kconfig.h>
-#include <kurldrag.h>
 #include <kdebug.h>
 #include <kapplication.h>
 #include <kcursor.h>
@@ -788,8 +787,8 @@ void KateView::slotNewUndo()
 
 void KateView::slotDropEventPass( QDropEvent * ev )
 {
-  KURL::List lstDragURLs;
-  bool ok = KURLDrag::decode( ev, lstDragURLs );
+  const KURL::List lstDragURLs=KURL::List::fromMimeData(ev->mimeData());
+  bool ok = !lstDragURLs.isEmpty();
 
   KParts::BrowserExtension * ext = KParts::BrowserExtension::childObject( doc() );
   if ( ok && ext )

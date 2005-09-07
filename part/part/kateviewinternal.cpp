@@ -41,7 +41,6 @@
 #include <kdebug.h>
 #include <kapplication.h>
 #include <kglobalsettings.h>
-#include <kurldrag.h>
 
 #include <qstyle.h>
 #include <QMimeData>
@@ -2560,8 +2559,8 @@ void KateViewInternal::doDrag()
 void KateViewInternal::dragEnterEvent( QDragEnterEvent* event )
 {
   if (event->source()==this) event->setDropAction(Qt::MoveAction);
-  event->accept( (Q3TextDrag::canDecode(event) && m_doc->isReadWrite()) ||
-                  KURLDrag::canDecode(event) );
+  event->accept( (event->mimeData()->hasText() && m_doc->isReadWrite()) ||
+                  KURL::List::canDecode(event->mimeData()) );
 }
 
 void KateViewInternal::fixDropEvent(QDropEvent* event) {
@@ -2591,7 +2590,7 @@ void KateViewInternal::dragMoveEvent( QDragMoveEvent* event )
 
 void KateViewInternal::dropEvent( QDropEvent* event )
 {
-  if ( KURLDrag::canDecode(event) ) {
+  if ( KURL::List::canDecode(event->mimeData()) ) {
 
       emit dropEventPass(event);
 

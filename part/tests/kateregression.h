@@ -19,21 +19,19 @@
 #ifndef KATEREGRESSION_H
 #define KATEREGRESSION_H
 
-#include "tester.h"
+#include <QObject>
 
 class KateDocument;
 
 /**
 @author Hamish Rodda
 */
-class KateRegression : public KUnitTest::Tester
+class KateRegression : public QObject
 {
   Q_OBJECT
 
-  public:
-    KateRegression();
-
-    virtual void allTests();
+  private slots:
+    void testAll();
 
   private:
     void checkSmartManager();

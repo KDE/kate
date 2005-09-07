@@ -15,7 +15,7 @@ katepart_la_LIBADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la $(
 
 katepart_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN)
 
-INCLUDES = -I$(top_srcdir)/kunittest -I$(top_srcdir) -I$(top_srcdir)/kdeprint \
+INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/kdeprint \
 	-I$(top_srcdir)/interfaces -I$(top_srcdir)/interfaces/kregexpeditor -I$(top_srcdir)/kdefx \
 	-I$(top_srcdir)/kutils -I$(top_builddir)/kjs $(LUA_INCLUDES) $(all_includes)
 

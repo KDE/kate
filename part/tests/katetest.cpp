@@ -78,6 +78,7 @@
 #include <Q3ValueList>
 #include <QDropEvent>
 #include <Q3PopupMenu>
+#include <kxmlguifactory.h>
 
 // StatusBar field IDs
 #define KWRITE_ID_GEN 1
@@ -105,7 +106,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
     }
 
     doc = editor->createDocument(0);
-  
+
     // enable the modified on disk warning dialogs if any
     if (qobject_cast<KTextEditor::ModificationInterface *>(doc))
       qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning (true);
@@ -366,7 +367,7 @@ void KWrite::editToolbars()
 
 void KWrite::dragEnterEvent( QDragEnterEvent *event )
 {
-  event->accept(KURLDrag::canDecode(event));
+  event->accept(KURL::List::canDecode(event->mimeData()));
 }
 
 void KWrite::dropEvent( QDropEvent *event )
@@ -376,12 +377,12 @@ void KWrite::dropEvent( QDropEvent *event )
 
 void KWrite::slotDropEvent( QDropEvent *event )
 {
-  KURL::List textlist;
+  const KURL::List textlist = KURL::List::fromMimeData(event->mimeData());
 
-  if (!KURLDrag::decode(event, textlist))
+  if (textlist.isEmpty())
     return;
 
-  for (KURL::List::Iterator i=textlist.begin(); i != textlist.end(); ++i)
+  for (KURL::List::ConstIterator i=textlist.begin(); i != textlist.end(); ++i)
     slotOpen (*i);
 }
 
@@ -578,7 +579,7 @@ void KWrite::selectionChanged (KTextEditor::View *view)
   m_selectModeLabel->setText( view->blockSelection() ? i18n(" BLK ") : i18n(" NORM ") );
 }
 
-void KWrite::informationMessage (KTextEditor::View *view, const QString &message)
+void KWrite::informationMessage (KTextEditor::View *, const QString &message)
 {
   m_fileNameLabel->setText( message );
 
@@ -655,7 +656,7 @@ extern "C" KDE_EXPORT int main(int argc, char **argv)
   QString kWriteVersion  = QString ("%1.%2.%3").arg(KDE::versionMajor() + 1).arg(KDE::versionMinor()).arg(KDE::versionRelease());
 
   KAboutData aboutData ( "kwrite",
-                         I18N_NOOP("KWrite"), 
+                         I18N_NOOP("KWrite"),
                          kWriteVersion.latin1(),
                          I18N_NOOP( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
                          I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://kate.kde.org" );

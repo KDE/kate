@@ -41,6 +41,7 @@
 #include <kapplication.h>
 #include <kaboutdata.h>
 #include <ktexteditor/markinterface.h>
+#include <khbox.h>
 
 #include <q3buttongroup.h>
 #include <qcheckbox.h>
@@ -54,7 +55,6 @@
 #include <qlineedit.h>
 #include <q3header.h>
 #include <q3listbox.h>
-#include <q3hbox.h>
 #include <qpainter.h>
 #include <qobject.h>
 #include <qpixmap.h>
@@ -270,35 +270,35 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
 {
   m_schema = -1;
 
-  Q3HBox *b;
+  KHBox *b;
   QLabel *label;
 
   QVBoxLayout *blay=new QVBoxLayout(this, 0, KDialog::spacingHint());
 
   QGroupBox *gbTextArea = new Q3GroupBox(1, Qt::Horizontal, i18n("Text Area Background"), this);
 
-  b = new Q3HBox (gbTextArea);
+  b = new KHBox (gbTextArea);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Normal text:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_back = new KColorButton(b);
 
-  b = new Q3HBox (gbTextArea);
+  b = new KHBox (gbTextArea);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Selected text:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_selected = new KColorButton(b);
 
-  b = new Q3HBox (gbTextArea);
+  b = new KHBox (gbTextArea);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Current line:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_current = new KColorButton(b);
 
   // Markers from kdelibs/interfaces/ktextinterface/markinterface.h
-  b = new Q3HBox (gbTextArea);
+  b = new KHBox (gbTextArea);
   b->setSpacing(KDialog::spacingHint());
-  m_combobox = new KComboBox(b, "color_combo_box");
+  m_combobox = new KComboBox(b);
   // add the predefined mark types as defined in markinterface.h
   m_combobox->insertItem(i18n("Bookmark"));            // markType01
   m_combobox->insertItem(i18n("Active Breakpoint"));   // markType02
@@ -315,31 +315,31 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
 
   QGroupBox *gbBorder = new Q3GroupBox(1, Qt::Horizontal, i18n("Additional Elements"), this);
 
-  b = new Q3HBox (gbBorder);
+  b = new KHBox (gbBorder);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Left border background:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_iconborder = new KColorButton(b);
 
-  b = new Q3HBox (gbBorder);
+  b = new KHBox (gbBorder);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Line numbers:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_linenumber = new KColorButton(b);
 
-  b = new Q3HBox (gbBorder);
+  b = new KHBox (gbBorder);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Bracket highlight:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_bracket = new KColorButton(b);
 
-  b = new Q3HBox (gbBorder);
+  b = new KHBox (gbBorder);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Word wrap markers:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_wwmarker = new KColorButton(b);
 
-  b = new Q3HBox (gbBorder);
+  b = new KHBox (gbBorder);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Tab markers:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
@@ -681,7 +681,7 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
   // hl chooser
-  Q3HBox *hbHl = new Q3HBox( this );
+  KHBox *hbHl = new KHBox( this );
   layout->add (hbHl);
 
   hbHl->setSpacing( KDialog::spacingHint() );
@@ -825,7 +825,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
 {
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
-  Q3HBox *hbHl = new Q3HBox( this );
+  KHBox *hbHl = new KHBox( this );
   layout->add (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
   QLabel *lHl = new QLabel( i18n("&Schema:"), hbHl );
@@ -859,7 +859,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   m_highlightTab = new KateSchemaConfigHighlightTab (m_tabWidget, "", m_fontColorTab, hl );
   m_tabWidget->addTab (m_highlightTab, i18n("Highlighting Text Styles"));
 
-  hbHl = new Q3HBox( this );
+  hbHl = new KHBox( this );
   layout->add (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
   lHl = new QLabel( i18n("&Default schema for %1:").arg(KApplication::kApplication()->aboutData()->programName ()), hbHl );

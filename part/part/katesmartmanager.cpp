@@ -176,18 +176,10 @@ KateSmartGroup * KateSmartManager::groupForLine( int line ) const
   if (line == -1)
     return m_invalidGroup;
 
-  //kdDebug () << "LINE: " << line << endl;
-
   // FIXME maybe this should perform a bit better
   KateSmartGroup* smartGroup = m_firstGroup;
   while (smartGroup && !smartGroup->containsLine(line))
-  {
-    //kdDebug () << "START LINE: " << smartGroup->startLine () << " END: " << smartGroup->endLine () << endl;
     smartGroup = smartGroup->next();
-  }
-
-  //if (smartGroup)
-    // kdDebug () << "START LINE: " << smartGroup->startLine () << " END: " << smartGroup->endLine () << endl;
 
   Q_ASSERT(smartGroup);
   return smartGroup;
@@ -236,23 +228,23 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
       currentGroup->merge();
   }
 
-  QLinkedList<KateSmartRange*> m_changedRanges;
+  QLinkedList<KateSmartRange*> changedRanges;
 
   // Translate affected groups
   bool changed = true;
-  currentGroup->translateChanged(*edit, m_changedRanges, true);
+  currentGroup->translateChanged(*edit, changedRanges, true);
 
   for (KateSmartGroup* smartGroup = currentGroup->next(); smartGroup; smartGroup = smartGroup->next()) {
     if (changed)
       changed = smartGroup->endLine() <= edit->oldRange().end().line(); // + edit->translate().line()
 
     if (changed)
-      smartGroup->translateChanged(*edit, m_changedRanges, false);
+      smartGroup->translateChanged(*edit, changedRanges, false);
     else
       smartGroup->translateShifted(*edit);
   }
 
-  foreach (KateSmartRange* range, m_changedRanges)
+  foreach (KateSmartRange* range, changedRanges)
     range->translated(*edit);
 
   for (KateSmartGroup* smartGroup = firstSmartGroup->next(); smartGroup; smartGroup = smartGroup->next())
@@ -263,7 +255,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 
 void KateSmartGroup::translateChanged( const KateEditInfo& edit, QLinkedList< KateSmartRange * > & m_ranges, bool first )
 {
-  kdDebug() << k_funcinfo << edit.oldRange().start().line() << "," << edit.oldRange().start().column() << " was to " << edit.oldRange().end().line() << "," << edit.oldRange().end().column() << " now to " << edit.newRange().end().line() << "," << edit.newRange().end().column() << " numcursors feedback " << m_feedbackCursors.count() << " normal " << m_normalCursors.count() << endl;
+  //kdDebug() << k_funcinfo << edit.oldRange().start().line() << "," << edit.oldRange().start().column() << " was to " << edit.oldRange().end().line() << "," << edit.oldRange().end().column() << " now to " << edit.newRange().end().line() << "," << edit.newRange().end().column() << " numcursors feedback " << m_feedbackCursors.count() << " normal " << m_normalCursors.count() << endl;
 
   if (!first)
     translateShifted(edit);
@@ -363,7 +355,7 @@ void KateSmartManager::debugOutput( ) const
     currentGroup = currentGroup->next();
   }
 
-  kdDebug() << "KateSmartManager: SmartGroups " << groupCount << " from " << m_firstGroup->startLine() << " to " << currentGroup->endLine() << "; Specific Ranges " << m_specificRanges.count() << endl;
+  //kdDebug() << "KateSmartManager: SmartGroups " << groupCount << " from " << m_firstGroup->startLine() << " to " << currentGroup->endLine() << "; Specific Ranges " << m_specificRanges.count() << endl;
 
   currentGroup = m_firstGroup;
   while (currentGroup) {

@@ -31,7 +31,18 @@
 
 #include <QtTest/qttest_kde.h>
 
-QTTEST_KDEMAIN( KateRegression, NoGUI )
+QTTEST_KDEMAIN( KateRegression, GUI )
+
+namespace QtTest {
+	template<>
+	char* toString(const KTextEditor::Cursor& cursor)
+	{
+		QByteArray ba = "Cursor(";
+		ba += QByteArray::number(cursor.line()) + ", " + QByteArray::number(cursor.column());
+		ba += ")";
+		return qstrdup(ba.data());
+	}
+}
 
 // TODO split it various functions
 void KateRegression::testAll()
@@ -41,49 +52,50 @@ void KateRegression::testAll()
   VERIFY(m_doc);
 
   // Multi-line insert
-  KTextEditor::SmartCursor* cursor1 = m_doc->newSmartCursor(KTextEditor::Cursor(), true);
-  KTextEditor::SmartCursor* cursor2 = m_doc->newSmartCursor(KTextEditor::Cursor(), false);
+  KTextEditor::Cursor* cursor1 = m_doc->newSmartCursor(KTextEditor::Cursor(), false);
+  KTextEditor::Cursor* cursor2 = m_doc->newSmartCursor(KTextEditor::Cursor(), true);
 
   m_doc->insertText(KTextEditor::Cursor(), "Test Text\nMore Test Text");
-  COMPARE(m_doc->end().line(), 1);
-  COMPARE(m_doc->end().column(), 14);
+  COMPARE(m_doc->end(), KTextEditor::Cursor(1,14));
+
   QString text = m_doc->text(KTextEditor::Range(1,0,1,14));
   COMPARE(text, QString("More Test Text"));
 
   // Check cursors and ranges have moved properly
-  COMPARE(*cursor1 == KTextEditor::Cursor(0,0), true);
-  COMPARE(*cursor2 == KTextEditor::Cursor(1,14), true);
+  COMPARE(*cursor1, KTextEditor::Cursor(0,0));
+  COMPARE(*cursor2, KTextEditor::Cursor(1,14));
 
   // Intra-line insert
-  KTextEditor::SmartCursor* cursorStartOfLine = m_doc->newSmartCursor(KTextEditor::Cursor(1,0));
+  KTextEditor::Cursor* cursorStartOfLine = m_doc->newSmartCursor(KTextEditor::Cursor(1,0));
 
-  KTextEditor::SmartCursor* cursorStartOfEdit = m_doc->newSmartCursor(KTextEditor::Cursor(1,5), false);
-  KTextEditor::SmartCursor* cursorEndOfEdit = m_doc->newSmartCursor(KTextEditor::Cursor(1,5), true);
+  KTextEditor::Cursor* cursorStartOfEdit = m_doc->newSmartCursor(KTextEditor::Cursor(1,5), false);
+  KTextEditor::Cursor* cursorEndOfEdit = m_doc->newSmartCursor(KTextEditor::Cursor(1,5), true);
 
-  KTextEditor::SmartCursor* cursorPastEdit = m_doc->newSmartCursor(KTextEditor::Cursor(1,7));
-  KTextEditor::SmartCursor* cursorEOL = m_doc->newSmartCursor(m_doc->endOfLine(1), false);
-  KTextEditor::SmartCursor* cursorEOLMoves = m_doc->newSmartCursor(m_doc->endOfLine(1), true);
+  KTextEditor::Cursor* cursorPastEdit = m_doc->newSmartCursor(KTextEditor::Cursor(1,7));
+  KTextEditor::Cursor* cursorEOL = m_doc->newSmartCursor(m_doc->endOfLine(1), false);
+  KTextEditor::Cursor* cursorEOLMoves = m_doc->newSmartCursor(m_doc->endOfLine(1), true);
 
   m_doc->insertText(*cursorStartOfEdit, "Additional ");
-  COMPARE(*cursorStartOfLine == KTextEditor::Cursor(1,0), true);
-  COMPARE(*cursorStartOfEdit == KTextEditor::Cursor(1,5), true);
-  COMPARE(*cursorEndOfEdit == KTextEditor::Cursor(1,16), true);
-  COMPARE(*cursorPastEdit == KTextEditor::Cursor(1,18), true);
-  COMPARE(*cursorEOL == m_doc->endOfLine(1), true);
-  COMPARE(*cursorEOLMoves == m_doc->endOfLine(1), true);
+  COMPARE(*cursorStartOfLine, KTextEditor::Cursor(1,0));
+  COMPARE(*cursorStartOfEdit, KTextEditor::Cursor(1,5));
+  COMPARE(*cursorEndOfEdit, KTextEditor::Cursor(1,16));
+  COMPARE(*cursorPastEdit, KTextEditor::Cursor(1,18));
+  COMPARE(*cursorEOL, m_doc->endOfLine(1));
+  COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
 
   KTextEditor::Cursor oldEOL = *cursorEOL;
 
   // Insert at EOL
   m_doc->insertText(m_doc->endOfLine(1), " Even More");
-  COMPARE(*cursorEOL == oldEOL, true);
-  COMPARE(*cursorEOLMoves == m_doc->endOfLine(1), true);
+  COMPARE(*cursorEOL, oldEOL);
+  COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
 
   *cursorEOL = *cursorEOLMoves;
 
   m_doc->insertText(m_doc->endOfLine(1), "\n");
-  COMPARE(*cursorEOL == m_doc->endOfLine(1), true);
-  COMPARE(*cursorEOLMoves == KTextEditor::Cursor(2, 0), true);
+
+  COMPARE(*cursorEOL,m_doc->endOfLine(1));
+  COMPARE(*cursorEOLMoves, KTextEditor::Cursor(2, 0));
 
   checkSmartManager();
   m_doc->smartManager()->debugOutput();

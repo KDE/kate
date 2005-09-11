@@ -83,6 +83,16 @@ void KateRegression::testAll()
   COMPARE(*cursorEOL, m_doc->endOfLine(1));
   COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
 
+  // Intra-line remove
+  m_doc->removeText(KTextEditor::Range(*cursorStartOfEdit, 11));
+
+  COMPARE(*cursorStartOfLine, KTextEditor::Cursor(1,0));
+  COMPARE(*cursorStartOfEdit, KTextEditor::Cursor(1,5));
+  COMPARE(*cursorEndOfEdit, KTextEditor::Cursor(1,5));
+  COMPARE(*cursorPastEdit, KTextEditor::Cursor(1,7));
+  COMPARE(*cursorEOL, m_doc->endOfLine(1));
+  COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
+
   KTextEditor::Cursor oldEOL = *cursorEOL;
 
   // Insert at EOL
@@ -111,13 +121,14 @@ void KateRegression::testAll()
 void KateRegression::checkSmartManager()
 {
   KateSmartGroup* currentGroup = m_doc->smartManager()->groupForLine(0);
-  COMPARE(!currentGroup, false);
+  VERIFY(currentGroup);
+
   forever {
     if (!currentGroup->previous())
       COMPARE(currentGroup->startLine(), 0);
 
     foreach (KateSmartCursor* cursor, currentGroup->feedbackCursors()) {
-      COMPARE(currentGroup->containsLine(cursor->line()), true);
+      VERIFY(currentGroup->containsLine(cursor->line()));
       COMPARE(cursor->m_smartGroup, currentGroup);
     }
 

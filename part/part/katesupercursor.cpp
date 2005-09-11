@@ -291,32 +291,37 @@ void KateSmartCursor::setWatcher( KTextEditor::SmartCursorWatcher * watcher )
 
 bool KateSmartCursor::translate( const KateEditInfo & edit )
 {
+  // If this cursor is before the edit, no action is required
   if (*this < edit.oldRange().start())
     return false;
 
-  if (*this == edit.oldRange().start()) {
-    if (!moveOnInsert())
-      return false;
+  // If this cursor is on a line affected by the edit
+  if (edit.oldRange().includesLine(line())) {
+    // If this cursor is at the start of the edit
+    if (*this == edit.oldRange().start()) {
+      // And it doesn't need to move, no action is required
+      if (!moveOnInsert())
+        return false;
+    }
 
-    KTextEditor::Cursor newPos = *this + edit.translate();
+    // Calculate the new position
+    KTextEditor::Cursor newPos;
+    if (edit.oldRange().contains(*this)) {
+      if (moveOnInsert())
+        newPos = edit.newRange().end();
+      else
+        newPos = edit.oldRange().start();
 
-    if (newPos > *this) {
+    } else {
+      newPos = *this + edit.translate();
+    }
+
+    if (newPos != *this) {
       setPosition(newPos);
       return true;
     }
 
     return false;
-  }
-
-  if (line() == edit.oldRange().start().line()) {
-    KTextEditor::Cursor newPos = *this + edit.translate();
-
-    if (newPos < *this)
-      setPosition(edit.oldRange().start());
-    else
-      setPosition(newPos);
-
-    return true;
   }
 
   // just need to adjust line number

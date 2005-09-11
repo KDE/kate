@@ -202,10 +202,6 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
       // Current group can expand to accommodate the extra lines
       currentGroup->setEndLine(currentGroup->endLine() + edit->translate().line());
 
-    /*} else if (nextCanExpand >= edit->translate().line()) {
-      // Next group can expand to accommodate the extra lines
-      currentGroup->next()->setStartLine(currentGroup->next()->startLine() - 1);*/
-
     } else {
       // Need at least one new group
       int newStartLine, newEndLine;
@@ -216,8 +212,8 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
       do {
         newStartLine = currentGroup->endLine() + 1;
         newEndLine = QMIN(newStartLine + s_defaultGroupSize - 1, splitEndLine);
-        //kdDebug() << k_funcinfo << "NewStartLine " << newStartLine << " NewEndLine " << newEndLine << endl;
         currentGroup = new KateSmartGroup(newStartLine, newEndLine, currentGroup, endGroup);
+
       } while (newEndLine < splitEndLine);
     }
 
@@ -226,19 +222,21 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
     // might need to consolitate
     while (currentGroup->next() && currentGroup->length() - edit->translate().line() < s_minimumGroupSize)
       currentGroup->merge();
+
+    currentGroup->setEndLine(currentGroup->endLine() + edit->translate().line());
   }
 
   QLinkedList<KateSmartRange*> changedRanges;
 
   // Translate affected groups
-  bool changed = true;
+  bool groupChanged = true;
   currentGroup->translateChanged(*edit, changedRanges, true);
 
   for (KateSmartGroup* smartGroup = currentGroup->next(); smartGroup; smartGroup = smartGroup->next()) {
-    if (changed)
-      changed = smartGroup->endLine() <= edit->oldRange().end().line(); // + edit->translate().line()
+    if (groupChanged)
+      groupChanged = smartGroup->endLine() <= edit->oldRange().end().line(); // + edit->translate().line()
 
-    if (changed)
+    if (groupChanged)
       smartGroup->translateChanged(*edit, changedRanges, false);
     else
       smartGroup->translateShifted(*edit);
@@ -274,13 +272,14 @@ void KateSmartGroup::translateChanged( const KateEditInfo& edit, QLinkedList< Ka
 void KateSmartGroup::translateShifted(const KateEditInfo& edit)
 {
   m_newStartLine = QMAX(m_startLine, m_startLine + edit.translate().line());
+  m_newEndLine = QMAX(m_endLine, m_endLine + edit.translate().line());
 }
 
 void KateSmartGroup::translated(const KateEditInfo& edit)
 {
   if (m_startLine != m_newStartLine) {
     m_startLine = m_newStartLine;
-    m_endLine += edit.translate().line();
+    m_endLine = m_newEndLine;
   }
 
   // Todo: don't need to provide positionChanged to all feedback cursors?
@@ -295,6 +294,7 @@ KateSmartGroup::KateSmartGroup( int startLine, int endLine, KateSmartGroup * pre
   : m_startLine(startLine)
   , m_newStartLine(startLine)
   , m_endLine(endLine)
+  , m_newEndLine(endLine)
   , m_next(next)
   , m_previous(previous)
 {
@@ -320,7 +320,7 @@ void KateSmartGroup::merge( )
   m_rangesTraversing += next()->rangesTraversing();
   m_rangesStartingPosition += next()->rangesStaringPosition();
 
-  m_endLine = next()->endLine();
+  m_newEndLine = m_endLine = next()->endLine();
   KateSmartGroup* newNext = next()->next();
   delete m_next;
   m_next = newNext;

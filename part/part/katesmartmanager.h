@@ -86,9 +86,9 @@ class KateSmartGroup
     inline int startLine() const { return m_startLine; }
     inline int newStartLine() const { return m_newStartLine; }
     inline int endLine() const { return m_endLine; }
-    inline void setEndLine(int endLine) { m_endLine = endLine; }
+    inline void setEndLine(int endLine) { m_newEndLine = m_endLine = endLine; }
     inline int length() const { return m_endLine - m_startLine + 1; }
-    inline bool containsLine(int line) const { return line >= m_startLine && line <= m_endLine; }
+    inline bool containsLine(int line) const { return line >= m_newStartLine && line <= m_newEndLine; }
 
     inline KateSmartGroup* previous() const { return m_previous; }
     inline void setPrevious(KateSmartGroup* previous) { m_previous = previous; }
@@ -141,7 +141,7 @@ class KateSmartGroup
     void debugOutput() const;
 
   private:
-    int m_startLine, m_newStartLine, m_endLine;
+    int m_startLine, m_newStartLine, m_endLine, m_newEndLine;
     KateSmartGroup* m_next;
     KateSmartGroup* m_previous;
 

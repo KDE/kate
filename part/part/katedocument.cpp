@@ -547,7 +547,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
       }
 
       currentLine++;
-      currentLineStart = pos;
+      currentLineStart = pos + 1;
     }
     else
     {

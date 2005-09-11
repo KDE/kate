@@ -92,10 +92,17 @@ void KateRegression::testAll()
 
   *cursorEOL = *cursorEOLMoves;
 
+  // wrap line
   m_doc->insertText(m_doc->endOfLine(1), "\n");
 
   COMPARE(*cursorEOL,m_doc->endOfLine(1));
   COMPARE(*cursorEOLMoves, KTextEditor::Cursor(2, 0));
+
+  // Remove line wrapping
+  m_doc->removeText(KTextEditor::Range(m_doc->endOfLine(1), KTextEditor::Cursor(2, 0)));
+
+  COMPARE(*cursorEOL,m_doc->endOfLine(1));
+  COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
 
   checkSmartManager();
   m_doc->smartManager()->debugOutput();

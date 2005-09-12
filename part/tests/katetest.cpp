@@ -701,7 +701,7 @@ extern "C" KDE_EXPORT int main(int argc, char **argv)
 
   KGlobal::locale()->insertCatalog("katepart");
 
-  DCOPClient *client = kapp->dcopClient();
+  DCOPClient *client = KApplication::dcopClient();
   if (!client->isRegistered())
   {
     client->attach();

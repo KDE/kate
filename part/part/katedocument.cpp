@@ -2761,7 +2761,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
       if (!textLine)
         return;
 
-      if (config()->wordWrap() && textLine->endingWith(QString::fromLatin1(" ")))
+      if (config()->wordWrap() && textLine->endingWith(QLatin1String(" ")))
       {
         // gg: in hard wordwrap mode, backspace must also eat the trailing space
         removeText (KTextEditor::Range(line-1, textLine->length()-1, line, 0));

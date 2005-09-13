@@ -801,7 +801,7 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
   if ( !m_doc || !m_doc->browserExtension()  )
     return;
   emit m_doc->browserExtension()->popupMenu( ev->globalPos(), m_doc->url(),
-                                        QString::fromLatin1( "text/plain" ) );
+                                        QLatin1String( "text/plain" ) );
   ev->accept();
 }
 

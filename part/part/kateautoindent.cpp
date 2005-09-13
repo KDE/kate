@@ -1542,7 +1542,7 @@ bool KateCSAndSIndent::startsWithLabel( int line )
     return false;
 
   const QString lineContents = indentLine->string();
-  static const QString symbols = QString::fromLatin1(";:[]{}");
+  static const QString symbols = QLatin1String(";:[]{}");
   const int last = indentLine->lastChar();
   for ( int n = indentFirst + 1; n <= last; ++n )
   {
@@ -1740,8 +1740,8 @@ QString KateCSAndSIndent::calcIndent (const KateDocCursor &begin)
   // if the line starts with # (but isn't a c# region thingy), no indentation at all.
   if( currLineFirst >= 0 && currLine->getChar(currLineFirst) == '#' )
   {
-    if( !currLine->stringAtPos( currLineFirst+1, QString::fromLatin1("region") ) &&
-        !currLine->stringAtPos( currLineFirst+1, QString::fromLatin1("endregion") ) )
+    if( !currLine->stringAtPos( currLineFirst+1, QLatin1String("region") ) &&
+        !currLine->stringAtPos( currLineFirst+1, QLatin1String("endregion") ) )
       return QString::null;
   }
 
@@ -1797,10 +1797,10 @@ QString KateCSAndSIndent::calcIndent (const KateDocCursor &begin)
       {
         #define ARRLEN( array ) ( sizeof(array)/sizeof(array[0]) )
         for( uint n = 0; n < ARRLEN(scopeKeywords); ++n )
-          if( textLine->stringAtPos(pos, QString::fromLatin1(scopeKeywords[n]) ) )
+          if( textLine->stringAtPos(pos, QLatin1String(scopeKeywords[n]) ) )
             return calcIndentAfterKeyword( begin, cur, pos, false );
         for( uint n = 0; n < ARRLEN(blockScopeKeywords); ++n )
-          if( textLine->stringAtPos(pos, QString::fromLatin1(blockScopeKeywords[n]) ) )
+          if( textLine->stringAtPos(pos, QLatin1String(blockScopeKeywords[n]) ) )
             return calcIndentAfterKeyword( begin, cur, pos, true );
         #undef ARRLEN
       }
@@ -1892,7 +1892,7 @@ QString KateCSAndSIndent::calcIndentInBrace(const KateDocCursor &indentCursor, c
   //        beginning 'namespace'. that's 99% of usage, I'd guess.
   {
     if( braceFirst >= 0 && braceLine->attribute(braceFirst) == keywordAttrib &&
-        braceLine->stringAtPos( braceFirst, QString::fromLatin1( "namespace" ) ) )
+        braceLine->stringAtPos( braceFirst, QLatin1String( "namespace" ) ) )
       return continuationIndent(indentCursor) + whitespaceToOpenBrace;
 
     if( braceCursor.line() > 0 )
@@ -1900,7 +1900,7 @@ QString KateCSAndSIndent::calcIndentInBrace(const KateDocCursor &indentCursor, c
       KateTextLine::Ptr prevLine = doc->plainKateTextLine(braceCursor.line() - 1);
       int firstPrev = prevLine->firstChar();
       if( firstPrev >= 0 && prevLine->attribute(firstPrev) == keywordAttrib &&
-          prevLine->stringAtPos( firstPrev, QString::fromLatin1( "namespace" ) ) )
+          prevLine->stringAtPos( firstPrev, QLatin1String( "namespace" ) ) )
         return continuationIndent(indentCursor) + whitespaceToOpenBrace;
     }
   }

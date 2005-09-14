@@ -893,7 +893,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
           break;
       }
 
-      int searchStart = KMIN (z2, l->length()-1);
+      int searchStart = kMin (z2, l->length()-1);
 
       // If where we are wrapping is an end of line and is a space we don't
       // want to wrap there

@@ -574,7 +574,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     QList<KAction*> m_associatedActions;
 
   private:
-    Q_DISABLE_COPY(SmartRange);
+    Q_DISABLE_COPY(SmartRange)
 
     Attribute* m_attribute;
     SmartRange* m_parentRange;

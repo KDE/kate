@@ -112,7 +112,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setObjectName(name);
   m_undoComplexMerge=false;
 
-  Q3CString num;
+  QByteArray num;
   num.setNum (++dummy);
 
   // my dcop object
@@ -4403,7 +4403,7 @@ void KateDocument::slotModOnHdDirty (const QString &path)
     // compare md5 with the one we have (if we have one)
     if ( ! m_digest.isEmpty() )
     {
-      Q3CString tmp;
+      QByteArray tmp;
       if ( createDigest( tmp ) && tmp == m_digest )
         return;
     }
@@ -4449,7 +4449,7 @@ void KateDocument::slotModOnHdDeleted (const QString &path)
   }
 }
 
-bool KateDocument::createDigest( Q3CString &result )
+bool KateDocument::createDigest( QByteArray &result )
 {
   bool ret = false;
   result = "";

@@ -805,7 +805,7 @@ class KateDocument : public KTextEditor::Document,
      *
      * @since 3.3
      */
-    bool createDigest ( Q3CString &result );
+    bool createDigest ( QByteArray &result );
 
     /**
      * create a string for the modonhd warnings, giving the reason.
@@ -844,7 +844,7 @@ class KateDocument : public KTextEditor::Document,
 
     bool m_modOnHd;
     ModifiedOnDiskReason m_modOnHdReason;
-    Q3CString m_digest; // MD5 digest, updated on load/save
+    QByteArray m_digest; // MD5 digest, updated on load/save
 
     QString m_docName;
     int m_docNameNumber;

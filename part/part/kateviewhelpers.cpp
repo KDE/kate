@@ -1088,7 +1088,7 @@ void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
 
 void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
 {
-  uint cursorOnLine = m_viewInternal->yToKateTextLayout(e->y()).line();
+  int cursorOnLine = m_viewInternal->yToKateTextLayout(e->y()).line();
 
   if (cursorOnLine == m_lastClickedLine &&
       cursorOnLine <= m_doc->lastLine() )

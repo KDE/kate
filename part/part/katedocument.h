@@ -230,7 +230,7 @@ class KateDocument : public KTextEditor::Document,
      * @param s string to be inserted
      * @return true on success
      */
-    bool editInsertText ( uint line, uint col, const QString &s );
+    bool editInsertText ( int line, int col, const QString &s );
     /**
      * Remove a string in the given line/column
      * @param line line number
@@ -238,7 +238,7 @@ class KateDocument : public KTextEditor::Document,
      * @param len length of text to be removed
      * @return true on success
      */
-    bool editRemoveText ( uint line, uint col, uint len );
+    bool editRemoveText ( int line, int col, int len );
 
     /**
      * Mark @p line as @p autowrapped. This is necessary if static word warp is
@@ -248,7 +248,7 @@ class KateDocument : public KTextEditor::Document,
      * @param autowrapped autowrapped?
      * @return true on success
      */
-    bool editMarkLineAutoWrapped ( uint line, bool autowrapped );
+    bool editMarkLineAutoWrapped ( int line, bool autowrapped );
 
     /**
      * Wrap @p line. If @p newLine is true, ignore the textline's flag
@@ -260,7 +260,7 @@ class KateDocument : public KTextEditor::Document,
      * @param newLineAdded return value is true, if new line was added (may be 0)
      * @return true on success
      */
-    bool editWrapLine ( uint line, uint col, bool newLine = true, bool *newLineAdded = 0 );
+    bool editWrapLine ( int line, int col, bool newLine = true, bool *newLineAdded = 0 );
     /**
      * Unwrap @p line. If @p removeLine is true, we force to join the lines. If
      * @p removeLine is true, @p length is ignored (eg not needed).
@@ -268,7 +268,7 @@ class KateDocument : public KTextEditor::Document,
      * @param removeLine if true, force to remove the next line
      * @return true on success
      */
-    bool editUnWrapLine ( uint line, bool removeLine = true, uint length = 0 );
+    bool editUnWrapLine ( int line, bool removeLine = true, int length = 0 );
 
     /**
      * Insert a string at the given line.
@@ -276,13 +276,13 @@ class KateDocument : public KTextEditor::Document,
      * @param s string to insert
      * @return true on success
      */
-    bool editInsertLine ( uint line, const QString &s );
+    bool editInsertLine ( int line, const QString &s );
     /**
      * Remove a line
      * @param line line number
      * @return true on success
      */
-    bool editRemoveLine ( uint line );
+    bool editRemoveLine ( int line );
 
     /**
      * Remove a line
@@ -297,12 +297,12 @@ class KateDocument : public KTextEditor::Document,
     /**
      * Emmitted when text from @p line was wrapped at position pos onto line @p nextLine.
      */
-    void editLineWrapped ( uint line, uint col, uint len );
+    void editLineWrapped ( int line, int col, int len );
 
     /**
      * Emitted each time text from @p nextLine was upwrapped onto @p line.
      */
-    void editLineUnWrapped ( uint line, uint col );
+    void editLineUnWrapped ( int line, int col );
 
   private:
     void undoStart();

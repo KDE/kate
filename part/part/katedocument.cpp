@@ -856,6 +856,12 @@ void KateDocument::editEnd ()
 
 bool KateDocument::wrapText(int startLine, int endLine)
 {
+  if (startLine < 0 || endLine < 0)
+    return false;
+
+  if (!isReadWrite())
+    return false;
+ 
   int col = config()->wordWrapAt();
 
   if (col == 0)
@@ -973,8 +979,11 @@ void KateDocument::editAddUndo (KateUndoGroup::UndoType type, uint line, uint co
   }
 }
 
-bool KateDocument::editInsertText ( uint line, uint col, const QString &str )
+bool KateDocument::editInsertText ( int line, int col, const QString &str )
 {
+  if (line < 0 || col < 0)
+    return false;
+
   if (!isReadWrite())
     return false;
 
@@ -1014,8 +1023,11 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &str )
   return true;
 }
 
-bool KateDocument::editRemoveText ( uint line, uint col, uint len )
+bool KateDocument::editRemoveText ( int line, int col, int len )
 {
+  if (line < 0 || col < 0 || len < 0)
+    return false;
+
   if (!isReadWrite())
     return false;
 
@@ -1041,8 +1053,11 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
   return true;
 }
 
-bool KateDocument::editMarkLineAutoWrapped ( uint line, bool autowrapped )
+bool KateDocument::editMarkLineAutoWrapped ( int line, bool autowrapped )
 {
+  if (line < 0)
+    return false;
+
   if (!isReadWrite())
     return false;
 
@@ -1064,8 +1079,11 @@ bool KateDocument::editMarkLineAutoWrapped ( uint line, bool autowrapped )
   return true;
 }
 
-bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLineAdded)
+bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLineAdded)
 {
+  if (line < 0 || col < 0)
+    return false;
+
   if (!isReadWrite())
     return false;
 
@@ -1140,8 +1158,11 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLi
   return true;
 }
 
-bool KateDocument::editUnWrapLine ( uint line, bool removeLine, uint length )
+bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
 {
+  if (line < 0 || length < 0)
+    return false;
+
   if (!isReadWrite())
     return false;
 
@@ -1208,8 +1229,11 @@ bool KateDocument::editUnWrapLine ( uint line, bool removeLine, uint length )
   return true;
 }
 
-bool KateDocument::editInsertLine ( uint line, const QString &s )
+bool KateDocument::editInsertLine ( int line, const QString &s )
 {
+  if (line < 0)
+    return false;
+
   if (!isReadWrite())
     return false;
 
@@ -1254,8 +1278,11 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   return true;
 }
 
-bool KateDocument::editRemoveLine ( uint line )
+bool KateDocument::editRemoveLine ( int line )
 {
+  if (line < 0)
+    return false;
+
   if (!isReadWrite())
     return false;
 

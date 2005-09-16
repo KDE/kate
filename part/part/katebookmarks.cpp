@@ -127,7 +127,7 @@ void KateBookmarks::toggleBookmark ()
 
 void KateBookmarks::clearBookmarks ()
 {
-  const QHash<int, KTextEditor::Mark*> &m = m_view->doc()->marks();
+  QHash<int, KTextEditor::Mark*> m = m_view->doc()->marks();
   for (QHash<int, KTextEditor::Mark*>::const_iterator i = m.constBegin(); i != m.constEnd(); ++i)
     m_view->doc()->removeMark( i.value()->line, KTextEditor::MarkInterface::markType01 );
 
@@ -239,7 +239,6 @@ void KateBookmarks::bookmarkMenuAboutToShow()
                                 & KTextEditor::MarkInterface::markType01 );
   m_bookmarkToggle->plug( m_bookmarksMenu );
   m_bookmarkClear->plug( m_bookmarksMenu );
-
 
   insertBookmarks(*m_bookmarksMenu);
 }

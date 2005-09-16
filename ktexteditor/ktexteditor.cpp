@@ -53,7 +53,7 @@
 
 #include <kaction.h>
 #include <kparts/factory.h>
-#include <kparts/componentfactory.h>
+#include <klibloader.h>
 #include <kdebug.h>
 
 using namespace KTextEditor;
@@ -180,7 +180,7 @@ bool View::insertText (const QString &text )
 
 Plugin *KTextEditor::createPlugin ( const char *libname, QObject *parent )
 {
-  return KParts::ComponentFactory::createInstanceFromLibrary<Plugin>( libname, parent, "" );
+  return KLibLoader::createInstance<Plugin>( libname, parent );
 }
 
 Editor *KTextEditor::editor(const char *libname)

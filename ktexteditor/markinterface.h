@@ -91,8 +91,9 @@ class KTEXTEDITOR_EXPORT MarkInterface
     virtual void removeMark (int line, uint markType) = 0;
 
     /**
-     * Get a list of all marks in the document.
-     * @return a list of all marks in the document
+     * Get a hash holding all marks in the document.
+     * The hash key for a mark is it's line
+     * @return a hash holding all marks in the document
      */
     virtual const QHash<int, KTextEditor::Mark*> &marks () = 0;
 

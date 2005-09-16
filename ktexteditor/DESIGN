@@ -1,41 +1,59 @@
-KTEXTEDITOR DESIGN
+/** @file Mainpage.dox
+    @brief Mainpage of the KTextEditor Interface Documentation.
+*/
+/**
+@mainpage The KTextEditor Interfaces.
 
-1) MAIN INTERFACES
+@section intro Introduction
+The KTextEditor (often referenced as KTE) interfaces are a set of
+well-defined interfaces that can be implemented by an application/component.
+It is possible to substitute an editor component with another. The two
+popular implementations right now are
+ - the Kate Editor Component or in short Kate Part and
+ - the yzis vim-like editor.
 
-- KTextEditor::Factory
-    Interface for the factory of any ktexteditor part, provides access to the editor object of this part.
+@section design Design
+The core of the KTextEditor interfaces consists of several main interfaces:
+- @p KTextEditor::Factory - The Factory is an interface for the factory of
+  any KTextEditor part and provides access to the editor object of this part.
+- @p KTextEditor::Editor - The Editor interface describes the interface for
+  for the editor part and provides methods to create documents, get a
+  document list and a signal that informs about when a new document was
+  created.
+- @p KTextEditor::Document - The Document interface represents a document
+  itself and allows to create views and access the document contents.
+- @p KTextEditor::View - The View interface provides a widget to view the
+  contents of a Document.
 
-- KTextEditor::Editor
-    Interface for the editor part, allows creating of documents, a document list and some signals
+@section guidelines Coding Guidelines
+The whole KTextEditor interfaces have a consistent design.
+- naming should follow QT style. Do not use Java style getters like getBla
+  for example,
+- core interfaces (described above) which inherit QObject must declare all
+  signals as real signals,
+- all other interfaces, which do not subclass QObject, must declare their
+  signals as virtual private member functions. An implementation must
+  reimplement this virtual member function as a real signal.
+- all signals must have the sender object as first parameter, for example
+  all document signals should look like this:
+  @code
+    void signalFromDocument (KTextEditor::Document *doc, .....);
+  @endcode
+  This allows easy and consistent query which object did send the signal,
+  which is important for most applications, as they listen to multiple
+  documents/views/editors/...
+- all interface functions should be virtual, to allow subclasses to
+  overwrite them, most members should even be pure virtual, beside
+  additional convenience/helper functions.
 
-- KTextEditor::Document
-    Interface for the document itself, allows view creation and access the document content
-
-- KTextEditor::View
-    Interface for the views of a document
-
-2) CODING GUIDELINES
-
-- naming should follow QT style, no Java style getBlalala functions for example ;)
-
-- for the above main interfaces, which inherit QObject, all signals should be declared as real signals,
-
-- for the other interfaces, which doesn't subclass QObject, signals should be declared as virtual private
-  member functions
-
-- all signals should have as first parameter the sender object, e.g. all document signals should be:
-
-	   void signalFromDoc (Document *doc, .....)
-
-  this allows easy and consistent query which object did send the signal, which is important for most apps,
- 	as they listen to multiple documents/views/editors/....
-
-- all interface functions should be virtual, to allow subclasses to overwrite them, most stuff should be pure virtual,
-  beside additional convenience functions
-
-- if you want to add a method using line/column tuples, STOP, use the KTextEditor::Cursor
-
-- if you want to have a range of text as param, try to use a KTextEditor::Range instead of two KTextEditor::Cursors
+The interface @p KTextEditor::Cursor represents a cursorposition, i.e. a
+line/column tuple. The same holds for @p KTextEditor::Range. As both of this
+concepts are much cleaner than tuples, please keep the following guidelines:
+- never use line/column tuples in parameter lists, use
+  @p KTextEditor::Cursor instead,
+- never use Cursor/Cursor tuples for ranges, use a @p KTextEditor::Range
+  instead of two @p KTextEditor::Cursors.
 
 
-.... more to follow ;)
+@note This document is not finished, additional hints are welcome.
+*/

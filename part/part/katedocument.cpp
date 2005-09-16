@@ -155,7 +155,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_bBrowserView = bBrowserView;
   m_bReadOnly = bReadOnly;
 
-  m_marks.setAutoDelete( true );
   m_markPixmaps.setAutoDelete( true );
   m_markDescriptions.setAutoDelete( true );
   setMarksUserChangable( markType01 );
@@ -249,6 +248,11 @@ KateDocument::~KateDocument()
 
   // clean up plugins
   unloadAllPlugins ();
+
+  // cu marks
+  for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
+    delete i.value();
+  m_marks.clear();
 
   delete m_config;
   delete m_indenter;
@@ -459,11 +463,10 @@ bool KateDocument::setText(const QString &s)
   if (!isReadWrite())
     return false;
 
-  Q3PtrList<KTextEditor::Mark> m = marks ();
   Q3ValueList<KTextEditor::Mark> msave;
 
-  for (int i=0; i < m.count(); i++)
-    msave.append (*m.at(i));
+  for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
+    msave.append (*i.value());
 
   editStart ();
 
@@ -1092,19 +1095,19 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLi
     m_buffer->insertLine (line+1, textLine);
     m_buffer->changeLine(line);
 
-    Q3PtrList<KTextEditor::Mark> list;
-    for( Q3IntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it )
+   QList<KTextEditor::Mark*> list;
+  for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
     {
-      if( it.current()->line >= line )
+      if( i.value()->line >= line )
       {
-        if ((col == 0) || (it.current()->line > line))
-          list.append( it.current() );
+        if ((col == 0) || (i.value()->line > line))
+          list.append( i.value() );
       }
     }
 
-    for( Q3PtrListIterator<KTextEditor::Mark> it( list ); it.current(); ++it )
+    for( int i=0; i < list.size(); ++i )
     {
-      KTextEditor::Mark* mark = m_marks.take( it.current()->line );
+      KTextEditor::Mark* mark = m_marks.take( list[i]->line );
       mark->line++;
       m_marks.insert( mark->line, mark );
     }
@@ -1170,26 +1173,26 @@ bool KateDocument::editUnWrapLine ( uint line, bool removeLine, uint length )
     m_buffer->changeLine(line+1);
   }
 
-  Q3PtrList<KTextEditor::Mark> list;
-  for( Q3IntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it )
+  QList<KTextEditor::Mark*> list;
+  for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
   {
-    if( it.current()->line >= line+1 )
-      list.append( it.current() );
+    if( i.value()->line >= line+1 )
+      list.append( i.value() );
 
-    if ( it.current()->line == line+1 )
+    if ( i.value()->line == line+1 )
     {
       KTextEditor::Mark* mark = m_marks.take( line );
 
       if (mark)
       {
-        it.current()->type |= mark->type;
+        i.value()->type |= mark->type;
       }
     }
   }
 
-  for( Q3PtrListIterator<KTextEditor::Mark> it( list ); it.current(); ++it )
-  {
-    KTextEditor::Mark* mark = m_marks.take( it.current()->line );
+  for( int i=0; i < list.size(); ++i )
+    {
+    KTextEditor::Mark* mark = m_marks.take( list[i]->line );
     mark->line--;
     m_marks.insert( mark->line, mark );
   }
@@ -1226,16 +1229,16 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
   removeTrailingSpace( line ); // new line
 
-  Q3PtrList<KTextEditor::Mark> list;
-  for( Q3IntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it )
+  QList<KTextEditor::Mark*> list;
+  for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
   {
-    if( it.current()->line >= line )
-      list.append( it.current() );
+    if( i.value()->line >= line )
+      list.append( i.value() );
   }
 
-  for( Q3PtrListIterator<KTextEditor::Mark> it( list ); it.current(); ++it )
+  for( int i=0; i < list.size(); ++i )
   {
-    KTextEditor::Mark* mark = m_marks.take( it.current()->line );
+    KTextEditor::Mark* mark = m_marks.take( list[i]->line );
     mark->line++;
     m_marks.insert( mark->line, mark );
   }
@@ -1270,22 +1273,22 @@ bool KateDocument::editRemoveLine ( uint line )
 
   m_buffer->removeLine(line);
 
-  Q3PtrList<KTextEditor::Mark> list;
   KTextEditor::Mark* rmark = 0;
-  for( Q3IntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it )
+  QList<KTextEditor::Mark*> list;
+  for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
   {
-    if ( (it.current()->line > line) )
-      list.append( it.current() );
-    else if ( (it.current()->line == line) )
-      rmark = it.current();
+    if ( (i.value()->line > line) )
+      list.append( i.value() );
+    else if ( (i.value()->line == line) )
+      rmark = i.value();
   }
 
   if (rmark)
     delete (m_marks.take (rmark->line));
 
-  for( Q3PtrListIterator<KTextEditor::Mark> it( list ); it.current(); ++it )
+  for( int i=0; i < list.size(); ++i )
   {
-    KTextEditor::Mark* mark = m_marks.take( it.current()->line );
+    KTextEditor::Mark* mark = m_marks.take( list[i]->line );
     mark->line--;
     m_marks.insert( mark->line, mark );
   }
@@ -1648,19 +1651,19 @@ void KateDocument::writeSessionConfig(KConfig *kconfig)
   kconfig->writeEntry("Indentation Mode", config()->indentationMode() );
 
   // Save Bookmarks
-  Q3ValueList<int> marks;
-  for( Q3IntDictIterator<KTextEditor::Mark> it( m_marks );
-       it.current() && it.current()->type & KTextEditor::MarkInterface::markType01;
-       ++it )
-     marks << it.current()->line;
+  QList<int> marks;
+  for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
+    if (i.value()->type & KTextEditor::MarkInterface::markType01) 
+     marks << i.value()->line;
 
   kconfig->writeEntry( "Bookmarks", marks );
 }
 
 uint KateDocument::mark( int line )
 {
-  if( !m_marks[line] )
+  if( !m_marks.value(line) )
     return 0;
+
   return m_marks[line]->type;
 }
 
@@ -1675,7 +1678,7 @@ void KateDocument::clearMark( int line )
   if( line > lastLine() )
     return;
 
-  if( !m_marks[line] )
+  if( !m_marks.value(line) )
     return;
 
   KTextEditor::Mark* mark = m_marks.take( line );
@@ -1694,7 +1697,7 @@ void KateDocument::addMark( int line, uint markType )
   if( markType == 0 )
     return;
 
-  if( m_marks[line] ) {
+  if( m_marks.value(line) ) {
     KTextEditor::Mark* mark = m_marks[line];
 
     // Remove bits already set
@@ -1727,7 +1730,8 @@ void KateDocument::removeMark( int line, uint markType )
 {
   if( line > lastLine() )
     return;
-  if( !m_marks[line] )
+
+  if( !m_marks.value(line) )
     return;
 
   KTextEditor::Mark* mark = m_marks[line];
@@ -1755,25 +1759,22 @@ void KateDocument::removeMark( int line, uint markType )
   repaintViews(true);
 }
 
-Q3PtrList<KTextEditor::Mark> KateDocument::marks()
+const QHash<int, KTextEditor::Mark*> &KateDocument::marks()
 {
-  Q3PtrList<KTextEditor::Mark> list;
-
-  for( Q3IntDictIterator<KTextEditor::Mark> it( m_marks );
-       it.current(); ++it ) {
-    list.append( it.current() );
-  }
-
-  return list;
+  return m_marks;
 }
 
 void KateDocument::clearMarks()
 {
-  for( Q3IntDictIterator<KTextEditor::Mark> it( m_marks );
-       it.current(); ++it ) {
-    KTextEditor::Mark* mark = it.current();
-    emit markChanged( this, *mark, MarkRemoved );
-    tagLines( mark->line, mark->line );
+  while (!m_marks.isEmpty())
+  {
+    QHash<int, KTextEditor::Mark*>::iterator it = m_marks.begin();
+    KTextEditor::Mark mark = *it.value();
+    delete it.value();
+    m_marks.erase (it);    
+
+    emit markChanged( this, mark, MarkRemoved );
+    tagLines( mark.line, mark.line );
   }
 
   m_marks.clear();
@@ -3966,14 +3967,14 @@ bool KateDocument::documentReload()
       }
     }
 
-    Q3ValueList<KateDocumentTmpMark> tmp;
+    QList<KateDocumentTmpMark> tmp;
 
-    for( Q3IntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it )
+    for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
     {
       KateDocumentTmpMark m;
 
-      m.line = line (it.current()->line);
-      m.mark = *it.current();
+      m.line = line (i.value()->line);
+      m.mark = *i.value();
 
       tmp.append (m);
     }

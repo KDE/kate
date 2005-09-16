@@ -127,10 +127,9 @@ void KateBookmarks::toggleBookmark ()
 
 void KateBookmarks::clearBookmarks ()
 {
-
-  Q3PtrList<KTextEditor::Mark> m = m_view->doc()->marks();
-  for (uint i=0; i < m.count(); i++)
-    m_view->doc()->removeMark( m.at(i)->line, KTextEditor::MarkInterface::markType01 );
+  const QHash<int, KTextEditor::Mark*> &m = m_view->doc()->marks();
+  for (QHash<int, KTextEditor::Mark*>::const_iterator i = m.constBegin(); i != m.constEnd(); ++i)
+    m_view->doc()->removeMark( i.value()->line, KTextEditor::MarkInterface::markType01 );
 
   // just to be sure ;)
   // dominik: the following line can be deleted afaics, as Document::removeMark emits this signal.
@@ -151,38 +150,38 @@ void KateBookmarks::slotViewLostFocus( KDocument::View *v )
 
 void KateBookmarks::insertBookmarks( Q3PopupMenu& menu )
 {
-  uint line = m_view->cursorPosition().line();
+  int line = m_view->cursorPosition().line();
   const QRegExp re("&(?!&)");
   int idx( -1 );
   int old_menu_count = menu.count();
   KTextEditor::Mark *next = 0;
   KTextEditor::Mark *prev = 0;
 
-  Q3PtrList<KTextEditor::Mark> m = m_view->doc()->marks();
-  QVector<uint> sortArray( m.count() );
-  Q3PtrListIterator<KTextEditor::Mark> it( m );
+  const QHash<int, KTextEditor::Mark*> &m = m_view->doc()->marks();
+  QVector<uint> sortArray( m.size() );
 
-  if ( it.count() > 0 )
+  if ( !m.isEmpty() )
     menu.insertSeparator();
-
-  for( int i = 0; *it; ++it, ++i )
+  
+  int i = 0;
+  for (QHash<int, KTextEditor::Mark*>::const_iterator it = m.constBegin(); it != m.constEnd(); ++it, ++i)
   {
-    if( (*it)->type & KTextEditor::MarkInterface::markType01 )
+    if( it.value()->type & KTextEditor::MarkInterface::markType01 )
     {
       QString bText = KStringHandler::rEmSqueeze
-                      ( m_view->doc()->line( (*it)->line ),
+                      ( m_view->doc()->line( it.value()->line ),
                         menu.fontMetrics(), 32 );
       bText.replace(re, "&&"); // kill undesired accellerators!
       bText.replace('\t', ' '); // kill tabs, as they are interpreted as shortcuts
 
       if ( m_sorting == Position )
       {
-        sortArray[i] = (*it)->line;
+        sortArray[i] = it.value()->line;
         ssort( sortArray, i );
 
         for (int i=0; i < sortArray.size(); ++i)
         {
-          if (sortArray[i] == (*it)->line)
+          if (sortArray[i] == it.value()->line)
           {
             idx = i + 3;
             break;
@@ -191,19 +190,19 @@ void KateBookmarks::insertBookmarks( Q3PopupMenu& menu )
       }
 
       menu.insertItem(
-          QString("%1 - \"%2\"").arg( (*it)->line+1 ).arg( bText ),
-          this, SLOT(gotoLine(int)), 0, (*it)->line, idx );
+          QString("%1 - \"%2\"").arg( it.value()->line+1 ).arg( bText ),
+          this, SLOT(gotoLine(int)), 0, it.value()->line, idx );
 
-      if ( (*it)->line < line )
+      if ( it.value()->line < line )
       {
-        if ( ! prev || prev->line < (*it)->line )
+        if ( ! prev || prev->line < it.value()->line )
           prev = (*it);
       }
 
-      else if ( (*it)->line > line )
+      else if ( it.value()->line > line )
       {
-        if ( ! next || next->line > (*it)->line )
-          next = (*it);
+        if ( ! next || next->line > it.value()->line )
+          next = it.value();
       }
     }
   }
@@ -235,9 +234,6 @@ void KateBookmarks::gotoLine (int line)
 
 void KateBookmarks::bookmarkMenuAboutToShow()
 {
-
-  Q3PtrList<KTextEditor::Mark> m = m_view->doc()->marks();
-
   m_bookmarksMenu->clear();
   m_bookmarkToggle->setChecked( m_view->doc()->mark( m_view->cursorPosition().line() )
                                 & KTextEditor::MarkInterface::markType01 );
@@ -263,16 +259,18 @@ void KateBookmarks::bookmarkMenuAboutToHide()
 
 void KateBookmarks::goNext()
 {
-  Q3PtrList<KTextEditor::Mark> m = m_view->doc()->marks();
+  const QHash<int, KTextEditor::Mark*> &m = m_view->doc()->marks();
   if (m.isEmpty())
     return;
 
-  uint line = m_view->cursorPosition().line();
+  int line = m_view->cursorPosition().line();
   int found = -1;
 
-  for (uint z=0; z < m.count(); z++)
-    if ( (m.at(z)->line > line) && ((found == -1) || (uint(found) > m.at(z)->line)) )
-      found = m.at(z)->line;
+  for (QHash<int, KTextEditor::Mark*>::const_iterator it = m.constBegin(); it != m.constEnd(); ++it)
+  {
+    if ( (it.value()->line > line) && ((found == -1) || (found > it.value()->line)) )
+      found = it.value()->line;
+  }
 
   if (found != -1)
     gotoLine ( found );
@@ -280,16 +278,18 @@ void KateBookmarks::goNext()
 
 void KateBookmarks::goPrevious()
 {
-  Q3PtrList<KTextEditor::Mark> m = m_view->doc()->marks();
+  const QHash<int, KTextEditor::Mark*> &m = m_view->doc()->marks();
   if (m.isEmpty())
     return;
 
-  uint line = m_view->cursorPosition().line();
+  int line = m_view->cursorPosition().line();
   int found = -1;
 
-  for (uint z=0; z < m.count(); z++)
-    if ((m.at(z)->line < line) && ((found == -1) || (uint(found) < m.at(z)->line)))
-      found = m.at(z)->line;
+  for (QHash<int, KTextEditor::Mark*>::const_iterator it = m.constBegin(); it != m.constEnd(); ++it)
+  {
+    if ((it.value()->line < line) && ((found == -1) || (found < it.value()->line)))
+      found = it.value()->line;
+  }
 
   if (found != -1)
     gotoLine ( found );

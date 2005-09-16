@@ -422,7 +422,7 @@ class KateDocument : public KTextEditor::Document,
     void addMark( int line, uint markType );
     void removeMark( int line, uint markType );
 
-    Q3PtrList<KTextEditor::Mark> marks();
+    const QHash<int, KTextEditor::Mark*> &marks ();
     void clearMarks();
 
     void setMarkPixmap( MarkInterface::MarkTypes, const QPixmap& );
@@ -439,7 +439,7 @@ class KateDocument : public KTextEditor::Document,
     void markChanged( KTextEditor::Document*, KTextEditor::Mark, KTextEditor::MarkInterface::MarkChangeAction );
 
   private:
-    Q3IntDict<KTextEditor::Mark> m_marks;
+    QHash<int, KTextEditor::Mark*> m_marks;
     Q3IntDict<QPixmap>           m_markPixmaps;
     Q3IntDict<QString>           m_markDescriptions;
     uint                        m_editableMarks;

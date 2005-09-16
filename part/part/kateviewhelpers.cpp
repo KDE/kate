@@ -170,11 +170,13 @@ void KateScrollBar::recomputeMarksPositions(bool forceFullUpdate)
 
   int realHeight = frameGeometry().height() - m_topMargin - m_bottomMargin;
 
-  Q3PtrList<KTextEditor::Mark> marks = m_doc->marks();
+  const QHash<int, KTextEditor::Mark*> &marks = m_doc->marks();
   KateCodeFoldingTree *tree = m_doc->foldingTree();
 
-  for (KTextEditor::Mark *mark = marks.first(); mark; mark = marks.next())
+  for (QHash<int, KTextEditor::Mark*>::const_iterator i = marks.constBegin(); i != marks.constEnd(); ++i)
   {
+    KTextEditor::Mark *mark = i.value();
+
     uint line = mark->line;
 
     if (tree)

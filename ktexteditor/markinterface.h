@@ -20,9 +20,10 @@
 #ifndef __ktexteditor_markinterface_h__
 #define __ktexteditor_markinterface_h__
 
-#include <q3ptrlist.h>
-#include <qobject.h>
 #include <kdelibs_export.h>
+
+#include <qhash.h>
+#include <qobject.h>
 
 class QPixmap;
 
@@ -93,7 +94,8 @@ class KTEXTEDITOR_EXPORT MarkInterface
      * Get a list of all marks in the document.
      * @return a list of all marks in the document
      */
-    virtual Q3PtrList<KTextEditor::Mark> marks () = 0;
+    virtual const QHash<int, KTextEditor::Mark*> &marks () = 0;
+
     /**
      * Clear all marks in the document.
      */ 

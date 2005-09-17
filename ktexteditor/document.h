@@ -37,9 +37,12 @@ class Editor;
 class View;
 
 /**
- * The main class representing a text document.
- * This class provides access to the document content, allows
- * modifications and other stuff.
+ * A KPart derived class representing a text document.
+ *
+ * The Document class represents a text document providing methods to
+ * modify the content and create views. A document can have any number
+ * of views, each view representing the same content, i.e. all views are
+ * synchronized.
  */
 class KTEXTEDITOR_EXPORT Document : public KDocument::Document
 {

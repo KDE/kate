@@ -12,7 +12,7 @@ popular implementations right now are
  - the Kate Editor Component or in short Kate Part and
  - the yzis vim-like editor.
 
-@section design Design
+@section design Design: The Core Interfaces
 The core of the KTextEditor interfaces consists of several main interfaces:
 - @p KTextEditor::Factory - The Factory is an interface for the factory of
   any KTextEditor part and provides access to the editor object of this part.
@@ -24,6 +24,26 @@ The core of the KTextEditor interfaces consists of several main interfaces:
   itself and allows to create views and access the document contents.
 - @p KTextEditor::View - The View interface provides a widget to view the
   contents of a Document.
+
+So the hierarchy looks as follows
+\image html ktexteditorhierarchy.png "Basic KTextEditor Hierarchy"
+
+The Factory provides access to the chosen Editor (selected with
+@p KTextEditor::EditorChooser). The Editor has a list of all opened documents
+and can create new documents. A Document's content is visualized by a View.
+A Document can have multiple views (or none) and all views of the same
+document are synchronized.
+
+So a KTextEditor implementation provides access to its Factory in its library.
+Via this Factory the Editor instance can be accessed (the actually underlying
+Editor part) which gives access to the global services of the part.
+If you want to load a Kate Part and a yzis part you need two different
+factories. This is also the reason why the signal
+<code>void Editor::documentCreated()</code> contains the Editor as first
+argument. In other words: You would never want to have two factories around
+(i.e. two Editor* instances) that both return Kate Parts, the Kate Part
+solves this by using a static accessor in the Editor derived class KateGlobal
+that returns the Editor* object.
 
 @section guidelines Coding Guidelines
 The whole KTextEditor interfaces have a consistent design.
@@ -52,7 +72,7 @@ concepts are much cleaner than tuples, please keep the following guidelines:
 - never use line/column tuples in parameter lists, use
   @p KTextEditor::Cursor instead,
 - never use Cursor/Cursor tuples for ranges, use a @p KTextEditor::Range
-  instead of two @p KTextEditor::Cursors.
+  instead of two Cursors.
 
 
 @note This document is not finished, additional hints are welcome.

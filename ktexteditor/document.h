@@ -37,12 +37,48 @@ class Editor;
 class View;
 
 /**
- * A KPart derived class representing a text document.
+ * A KParts derived class representing a text document.
  *
- * The Document class represents a text document providing methods to
+ * @subsection document_intro Introduction
+ * The Document class represents a pure text document providing methods to
  * modify the content and create views. A document can have any number
  * of views, each view representing the same content, i.e. all views are
- * synchronized.
+ * synchronized. Support for text selection is handeled by a View and text
+ * format attribues by the Attribute interface.
+ *
+ * To reload a document from a file call documentReload(), to save the
+ * document call documentSave() or documentSaveAs(). Whenever the modified
+ * state of the document changes the signal modifiedChanged() is emitted.
+ * Further signals are documentUrlChanged(). The encoding can be specified
+ * with setEncoding(), however this will only take effect on file reload and
+ * file save.
+ *
+ * Every document has a application wide unique document number, accessible
+ * with documentNumber().
+ *
+ * @subsection document_manipulation Text Manipulation
+ * Get the whole content with text() and set new content with setText().
+ * Call insertText() or insertLine() to insert new text or removeText()
+ * and removeLine() to remove content. Whenever the document's content
+ * changed the signal textChanged() is emitted. Additional signals are
+ * textInserted() and textRemoved().
+ *
+ * If the editor part supports it a document provides full undo/redo history.
+ * Text manipulation actions can be grouped together using startEditing()
+ * and endEditing(). All actions inbetween are grouped together to only one
+ * undo/redo action. Due to internal reference counting you can call
+ * startEditing() and endEditing() as often as you wish, but make sure you
+ * call endEditing() exactly as often as you call startEditing(), otherwise
+ * the reference counter gets confused.
+ *
+ * @subsection document_views Document Views
+ * A View displays the document's content. As already mentioned a document
+ * can have any number of views, all synchronized. Get a list of all views
+ * with views(). Only one of the views can be active, get it by using
+ * activeView(). Create a new view with createView(). Everytime a new view
+ * is created the signal viewCreated() is emitted.
+ *
+ * @see Editor, View, Attribute
  */
 class KTEXTEDITOR_EXPORT Document : public KDocument::Document
 {
@@ -60,7 +96,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      */
     virtual ~Document ();
 
-  /**
+  /*
    * Methods to create and manage the views of this document and access the
    * global editor object.
    */
@@ -90,7 +126,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
     */
     void viewCreated (KTextEditor::Document *document, KTextEditor::View *view);
 
-  /**
+  /*
    * General information about this document and its content.
    */
   public:
@@ -109,7 +145,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      */
     virtual QString mimeType() = 0;
 
-  /**
+  /*
    * SIGNALS
    * following signals should be emitted by the editor document.
    */
@@ -136,7 +172,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      */
     void modifiedChanged ( KTextEditor::Document *document );
 
-  /**
+  /*
    * VERY IMPORTANT: Methods to set and query the current encoding of the
    * document
    */
@@ -165,7 +201,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      */
     virtual const QString &encoding () const = 0;
 
-  /**
+  /*
    * General file related actions.
    * All this actions cause user interaction in some cases.
    */
@@ -195,7 +231,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      */
     virtual bool documentSaveAs () = 0;
 
- /**
+ /*
   * Methodes to create/end editing sequences.
   */
  public:
@@ -235,7 +271,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      */
     virtual bool endEditing () = 0;
 
-  /**
+  /*
    * General access to the document's text content.
    */
   public:
@@ -356,7 +392,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      */
     virtual bool removeLine ( int line ) = 0;
 
-  /**
+  /*
    * SIGNALS
    * Following signals should be emitted by the document if the text content
    * is changed.

@@ -240,8 +240,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
     /**
      * Set the view's selection to the range @p selection.
      * The old selection will be discarded.
-     * @param startPosition start of the new selection
-     * @param endPosition end of the new selection
+     * @param range the range of the new selection
      * @return @e true on success, otherwise @e false (e.g. when the cursor
      *         range is invalid)
      * @see selectionRange(), selection()
@@ -304,7 +303,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    */
   public:
    /**
-    * Set block selection mode to state @e on.
+    * Set block selection mode to state @p on.
     * @param on if @e true, block selection mode is turned on, otherwise off
     * @return @e true on success, otherwise @e false
     * @see blockSelection()
@@ -328,7 +327,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    */
   signals:
     /**
-     * This signal is emitted whenever the @e view's selection changes.
+     * This signal is emitted whenever the @p view's selection changes.
      * @note If the mode switches from block selection to normal selection
      *       or vice versa this signal should also be emitted.
      * @param view view in which the selection changed
@@ -338,11 +337,11 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
 
   public:
     /**
-     * This is a convenience function which inserts @e text at the view's
+     * This is a convenience function which inserts @p text at the view's
      * current cursor position. You do not necessarily need to reimplement
      * it, except you want to do some special things.
      * @param text Text to be inserted
-     * @return success of insertion
+     * @return @e true on success of insertion, otherwise @e false
      */
     virtual bool insertText (const QString &text);
 };

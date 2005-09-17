@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Clipper" version="1.04" kateversion="2.3" section="Sources" extensions="*.prg;*.PRG;*.ch" priority="8" author="Andrey Cherepanov (sibskull@mail.ru)" license="LGPL">
+<language name="Clipper" version="1.05" kateversion="2.3" section="Sources" extensions="*.prg;*.PRG;*.ch" mimetype="text/x-clipper-src" priority="2" author="Andrey Cherepanov (sibskull@mail.ru)" license="GPL">
   <highlighting>
 
     <list name="keywords">
@@ -408,19 +408,24 @@
 
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <RegExpr attribute="Keyword" context="#stay" String="\bfunction\b" insensitive="TRUE" beginRegion="asdf" />
-        <RegExpr attribute="Keyword" context="#stay" String="\breturn\b" insensitive="TRUE" endRegion="asdf" />
+        <RegExpr attribute="Keyword" context="#stay" String="\bfunction\b" insensitive="TRUE" beginRegion="regFunction" />
+        <RegExpr attribute="Keyword" context="#stay" String="^return\b" insensitive="TRUE" endRegion="regFunction" />
+	<RegExpr attribute="Keyword" context="#stay" String="\bbegin\s+sequence\b" insensitive="TRUE" beginRegion="regSequence" />
+	<RegExpr attribute="Keyword" context="#stay" String="\bend\s+sequence\b" insensitive="TRUE" endRegion="regSequence" />
         <RegExpr attribute="Keyword" context="#stay" String="\bdo\s+case\b" insensitive="TRUE" beginRegion="regDoCase" />
-        <RegExpr attribute="Keyword" context="#stay" String="\bdo\s+while\b" insensitive="TRUE" beginRegion="regDoWhile" />
-        <RegExpr attribute="Keyword" context="#stay" String="\benddo\b" insensitive="TRUE" endRegion="regDoWhile" />
         <RegExpr attribute="Keyword" context="#stay" String="\bendcase\b" insensitive="TRUE" endRegion="regDoCase" />
+	<RegExpr attribute="Keyword" context="#stay" String="\bdo\s+while\b" insensitive="TRUE" beginRegion="regDoWhile" />
+	<RegExpr attribute="Keyword" context="#stay" String="\benddo\b" insensitive="TRUE" endRegion="regDoWhile" />
         <RegExpr attribute="Keyword" context="#stay" String="\bfor\b" insensitive="TRUE" beginRegion="regFor" />
         <RegExpr attribute="Keyword" context="#stay" String="\bnext\b" insensitive="TRUE" endRegion="regFor" />
         <RegExpr attribute="Keyword" context="#stay" String="\bif\b" insensitive="TRUE" beginRegion="regIf" />
         <RegExpr attribute="Keyword" context="#stay" String="\belseif\b" insensitive="TRUE" endRegion="regIf" beginRegion="regIf" />
+	<RegExpr attribute="Keyword" context="#stay" String="\belse\b" insensitive="TRUE" endRegion="regIf" beginRegion="regIf" />
         <RegExpr attribute="Keyword" context="#stay" String="\bendif\b" insensitive="TRUE" endRegion="regIf" />
-
-        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+	<RegExpr attribute="Keyword" context="#stay" String="\bswitch\b" insensitive="TRUE" beginRegion="regSwitch" />
+	<RegExpr attribute="Keyword" context="#stay" String="\bendswitch\b" insensitive="TRUE" endRegion="regSwitch" />
+        
+	<keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Command" context="#stay" String="commands"/>
         <keyword attribute="Function" context="#stay" String="functions"/>
         <HlCHex  attribute="StringChar" context="#stay"/>
@@ -428,6 +433,7 @@
         <RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*$" beginRegion="regMarker"/>
         <RegExpr attribute="Region Marker" context="#stay" String="//\s*END.*$" endRegion="regMarker"/>
         <Detect2Chars attribute="Comment" context="LineComment" char="/" char1="/"/>
+	<RegExpr attribute="Comment" context="LineComment" String="^\s*\*.*$"/>
         <Detect2Chars attribute="Comment" context="BlockComment" char="/" char1="*" beginRegion="Comment2" />
         <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;:=&gt;[]^~"/>
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="#"/>
@@ -486,6 +492,7 @@
   </highlighting>
   <general>
     <comments>
+      <comment name="singleLine" start="*" />
       <comment name="singleLine" start="//" />
       <comment name="multiLine" start="/*" end="*/" />
     </comments>

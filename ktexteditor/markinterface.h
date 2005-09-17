@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __ktexteditor_markinterface_h__
-#define __ktexteditor_markinterface_h__
+#ifndef KDELIBS_KTEXTEDITOR_MARKINTERFACE_H
+#define KDELIBS_KTEXTEDITOR_MARKINTERFACE_H
 
 #include <kdelibs_export.h>
 
@@ -59,13 +59,13 @@ class KTEXTEDITOR_EXPORT MarkInterface
     /**
      * Get all marks set on the @e line.
      * @return a @e uint representing of the marks set in @e line concatenated
-     *         by logical OR 
+     *         by logical OR
      */
     virtual uint mark (int line) = 0;
-    
-    /** 
+
+    /**
      * Set a mark of type @e markType to @e line.
-     * If @e line already contains a mark of that type it has no effect. 
+     * If @e line already contains a mark of that type it has no effect.
      * All other marks are deleted before the mark is set.
      * @param line line to set the mark
      * @param markType mark type
@@ -99,7 +99,7 @@ class KTEXTEDITOR_EXPORT MarkInterface
 
     /**
      * Clear all marks in the document.
-     */ 
+     */
     virtual void clearMarks () = 0;
 
     /**
@@ -218,7 +218,7 @@ class KTEXTEDITOR_EXPORT MarkInterface
      * @param mark changed makr
      * @param action action, either removed or added
      */
-    virtual void markChanged ( Document* document, KTextEditor::Mark mark, 
+    virtual void markChanged ( Document* document, KTextEditor::Mark mark,
                               KTextEditor::MarkInterface::MarkChangeAction action) = 0;
 };
 

@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __ktexteditor_codecompletioninterface_h__
-#define __ktexteditor_codecompletioninterface_h__
+#ifndef KDELIBS_KTEXTEDITOR_CODECOMPLETIONINTERFACE_H
+#define KDELIBS_KTEXTEDITOR_CODECOMPLETIONINTERFACE_H
 
 #include <qstring.h>
 #include <qstringlist.h>
@@ -200,7 +200,7 @@ class KTEXTEDITOR_EXPORT CompletionProvider
     virtual ~CompletionProvider(){;}
   public:
 
-    
+
     /* insertion position can only be assumed valid, if the completion type is CompleteAsYouType and the inserted text is not empty*/
     virtual const CompletionData completionData(View*,enum CompletionType, const Cursor& /*insertion pos*/, const QString& /*insertedText*/,const Cursor& /*current pos*/, const QString& /*current line*/)=0;
     virtual const ArgHintData argHintData(View *,const Cursor&, const QString&)=0;

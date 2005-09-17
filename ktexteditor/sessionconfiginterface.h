@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __ktexteditor_sessionconfiginterface_h__
-#define __ktexteditor_sessionconfiginterface_h__
+#ifndef KDELIBS_KTEXTEDITOR_SESSIONCONFIGINTERFACE_H
+#define KDELIBS_KTEXTEDITOR_SESSIONCONFIGINTERFACE_H
 
 #include <kdelibs_export.h>
 

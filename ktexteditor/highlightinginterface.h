@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __ktexteditor_highlightinginterface_h__
-#define __ktexteditor_highlightinginterface_h__
+#ifndef KDELIBS_KTEXTEDITOR_HIGHLIGHTINGINTERFACE_H
+#define KDELIBS_KTEXTEDITOR_HIGHLIGHTINGINTERFACE_H
 
 #include <kdelibs_export.h>
 
@@ -48,17 +48,17 @@ class KTEXTEDITOR_EXPORT HighlightingInterface
 	* set the current active highlighting mode
 	*/
 	virtual bool setHlMode (unsigned int mode) = 0;
-  
+
 	/**
 	* returns the number of available highlightings
 	*/
   virtual unsigned int hlModeCount () = 0;
-	
+
 	/**
 	* returns the name of the highlighting with number "mode"
 	*/
 	virtual QString hlModeName (unsigned int mode) = 0;
-	
+
 	/**
 	* returns the sectionname of the highlighting with number "mode"
 	*/

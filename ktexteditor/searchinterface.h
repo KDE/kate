@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __ktexteditor_searchinterface_h__
-#define __ktexteditor_searchinterface_h__
+#ifndef KDELIBS_KTEXTEDITOR_SEARCHINTERFACE_H
+#define KDELIBS_KTEXTEDITOR_SEARCHINTERFACE_H
 
 #include <kdelibs_export.h>
 

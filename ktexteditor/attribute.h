@@ -16,8 +16,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef __ktexteditor_attribute_h__
-#define __ktexteditor_attribute_h__
+#ifndef KDELIBS_KTEXTEDITOR_ATTRIBUTE_H
+#define KDELIBS_KTEXTEDITOR_ATTRIBUTE_H
 
 #include <kdelibs_export.h>
 
@@ -75,22 +75,22 @@ public:
 
   inline bool bold() const
   { return weight() >= QFont::Bold; };
-  
+
   void setBold(bool enable = true);
 
   inline bool italic() const
   { return m_italic; };
-  
+
   void setItalic(bool enable = true);
 
   inline bool overline() const
   { return m_overline; };
-  
+
   void setOverline(bool enable = true);
 
   inline bool underline() const
   { return m_underline; };
-  
+
   void setUnderline(bool enable = true);
 
   inline bool strikeOut() const
@@ -100,12 +100,12 @@ public:
 
   inline const QColor& outline() const
   { return m_outline; };
-  
+
   void setOutline(const QColor& color);
 
   inline const QColor& textColor() const
   { return m_textColor; };
-  
+
   void setTextColor(const QColor& color);
 
   inline const QColor& selectedTextColor() const
@@ -117,12 +117,12 @@ public:
   { return m_bgColor; };
   inline bool bgColorFillWhitespace() const
   { return m_bgColorFillWhitespace; };
-  
+
   void setBGColor(const QColor& color, bool fillWhitespace = false);
 
   inline const QColor& selectedBGColor() const
   { return m_selectedBGColor; };
-  
+
   void setSelectedBGColor(const QColor& color);
 
   Attribute& operator+=(const Attribute& a);
@@ -131,43 +131,43 @@ public:
   {
     if (h1.m_itemsSet != h2.m_itemsSet)
       return false;
-    
+
     if (h1.itemSet(Attribute::Weight))
       if (h1.m_weight != h2.m_weight)
         return false;
-    
+
     if (h1.itemSet(Attribute::Italic))
       if (h1.m_italic != h2.m_italic)
         return false;
-    
+
     if (h1.itemSet(Attribute::Underline))
       if (h1.m_underline != h2.m_underline)
         return false;
-    
+
     if (h1.itemSet(Attribute::StrikeOut))
       if (h1.m_strikeout != h2.m_strikeout)
         return false;
-    
+
     if (h1.itemSet(Attribute::Outline))
       if (h1.m_outline != h2.m_outline)
         return false;
-    
+
     if (h1.itemSet(Attribute::TextColor))
       if (h1.m_textColor != h2.m_textColor)
         return false;
-    
+
     if (h1.itemSet(Attribute::SelectedTextColor))
       if (h1.m_selectedTextColor != h2.m_selectedTextColor)
         return false;
-    
+
     if (h1.itemSet(Attribute::BGColor))
       if (h1.m_bgColor != h2.m_bgColor)
         return false;
-    
+
     if (h1.itemSet(Attribute::SelectedBGColor))
       if (h1.m_selectedBGColor != h2.m_selectedBGColor)
         return false;
-    
+
     return true;
   }
 

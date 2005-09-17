@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __ktexteditor_document_h__
-#define __ktexteditor_document_h__
+#ifndef KDELIBS_KTEXTEDITOR_DOCUMENT_H
+#define KDELIBS_KTEXTEDITOR_DOCUMENT_H
 
 // the very important KTextEditor::Cursor class
 #include <ktexteditor/cursor.h>

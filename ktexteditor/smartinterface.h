@@ -16,8 +16,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef __ktexteditor_smartinterface_h__
-#define __ktexteditor_smartinterface_h__
+#ifndef KDELIBS_KTEXTEDITOR_SMARTINTERFACE_H
+#define KDELIBS_KTEXTEDITOR_SMARTINTERFACE_H
 
 #include <ktexteditor/range.h>
 

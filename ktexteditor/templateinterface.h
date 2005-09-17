@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __ktexteditor_templateinterface_h__
-#define __ktexteditor_templateinterface_h__
+#ifndef KDELIBS_KTEXTEDITOR_TEMPLATEINTERFACE_H
+#define KDELIBS_KTEXTEDITOR_TEMPLATEINTERFACE_H
 
 #include <qstring.h>
 #include <qmap.h>

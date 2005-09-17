@@ -17,8 +17,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef __ktexteditor_commandinterface_h__
-#define __ktexteditor_commandinterface_h__
+#ifndef KDELIBS_KTEXTEDITOR_COMMANDINTERFACE_H
+#define KDELIBS_KTEXTEDITOR_COMMANDINTERFACE_H
 
 #include <kdelibs_export.h>
 #include <qobject.h>

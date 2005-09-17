@@ -25,7 +25,7 @@ namespace KTextEditor
  * You can find this class in action in KDE's control center in
  * "KDE Components > Component Chooser > Embedded Text Editor".
  *
- * @author Joseph Wenninger <jowenn@kde.org>
+ * @author Joseph Wenninger \<jowenn@kde.org\>
  */
 class KTEXTEDITOR_EXPORT EditorChooser: public QWidget
 {

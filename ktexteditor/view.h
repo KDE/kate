@@ -39,11 +39,52 @@ class Document;
 /**
  * A text widget with KXMLGUIClient that represents a Document.
  *
- * The View class represents a single view of a KTextEditor::Document.
- * A view should provide both the graphical representation of the text
- * and the xmlgui for the actions.
+ * @subsection view_intro Introduction
+ * The View class represents a single view of a KTextEditor::Document,
+ * get the document on which the view operates with document().
+ * A view provides both the graphical representation of the text and the
+ * KXMLGUIClient for the actions. The view itself does not provide
+ * text manipulation, use the methods from the Document instead. The only
+ * method to insert text is insertText(), which inserts the given text
+ * at the current cursor position and emits the signal textInserted().
  *
  * Usually a view is created by using KDocument::createView().
+ * Furthermore a view can have a context menu. Set it with setContextMenu()
+ * and get it with contextMenu().
+ *
+ * @subsection view_selection Text Selection
+ * As the view is a graphical text editor it provides @e normal and @e block
+ * text selection. You can check with selection() whether a selection exists.
+ * removeSelection() will remove the selection without removing the text,
+ * whereas removeSelectionText() also removes both, the selection and the
+ * selected text. Use selectionText() to get the selected text and
+ * setSelection() to specify the selected textrange. The signal
+ * selectionChanged() is emitted whenever the selecteion changed.
+ *
+ * @subsection view_cursor Cursor Positions
+ * A view has one Cursor which represents a line/column tuple. Two different
+ * kinds of cursor positions are supported: first is the @e real cursor
+ * position where a @e tab character only counts one character. Second is the
+ * @e virtual cursor position, where a @e tab character counts as many
+ * spaces as defined. Get the real position with cursorPosition() and the
+ * virtual position with cursorPositionVirtual(). Set the real cursor
+ * position with setCursorPosition(). You can even get the screen coordinates
+ * of the current cursor position in pixel by using
+ * cursorPositionCoordinates(). The signal cursorPositionChanged() is emitted
+ * whenever the cursor position changed.
+ *
+ * @subsection view_modes Edit Modes
+ * A view supports several edit modes (EditMode). Common edit modes are
+ * @e insert-mode (INS) and @e overwrite-mode (OVR). Which edit modes the
+ * editor supports depends on the implementation, another famos mode is the
+ * @e command-mode for example in vim and yzis. The getter viewMode() returns
+ * a string like @p INS or @p OVR and is represented in the user interface
+ * for example in the status bar. Further you can get the edit mode as enum
+ * by using viewEditMode(). Whenever the edit mode changed the signals
+ * viewModeChanged() and viewEditModeChanged() are emitted.
+ *
+ * @see KTextEditor::Document
+ * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT View : public KDocument::View
 {
@@ -64,7 +105,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      */
     virtual ~View () {}
 
-  /**
+  /*
    * Accessor for the document
    */
   public:
@@ -75,7 +116,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      */
     virtual Document *document () = 0;
 
-  /**
+  /*
    * General information about this view
    */
   public:
@@ -86,7 +127,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * whatever other edit modes are supported. The string should be
      * translated (i18n), as this is a user aimed representation of the view
      * state, which should be shown in the GUI, for example in the status bar.
-     * @return 
+     * @return
      * @see viewModeChanged()
      */
     virtual QString viewMode () const = 0;
@@ -107,10 +148,11 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * return EditInsert.
      *
      * @return the current edit mode of this view
+     * @see viewEditModeChanged()
      */
     virtual enum EditMode viewEditMode() const = 0;
 
-  /**
+  /*
    * SIGNALS
    * following signals should be emitted by the editor view
    */
@@ -158,10 +200,11 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * @param view view in which the text was inserted
      * @param position position where the text was inserted
      * @param text the text the user has typed into the editor
+     * @see insertText()
      */
     void textInserted ( KTextEditor::View *view, const KTextEditor::Cursor &position, const QString &text );
 
-  /**
+  /*
    * Context menu handling
    */
   public:
@@ -180,7 +223,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      */
     virtual QMenu *contextMenu () = 0;
 
-  /**
+  /*
    * Cursor handling
    */
   public:
@@ -207,7 +250,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * by the user (e.g. one TAB is 8 spaces). The virtual cursor
      * position provides access to the user visible values of the current
      * cursor position.
-     * 
+     *
      * @return virtual cursor position
      * @see cursorPosition()
      */
@@ -219,7 +262,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      */
     virtual QPoint cursorPositionCoordinates () const = 0;
 
-  /**
+  /*
    * SIGNALS
    * following signals should be emitted by the editor view
    * if the cursor position changes
@@ -232,7 +275,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      */
     void cursorPositionChanged (KTextEditor::View *view);
 
-  /**
+  /*
    * Selection methodes.
    * This deals with text selection and copy&paste
    */
@@ -273,6 +316,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
     /**
      * Get the range occupied by the current selection.
      * @return selection range, valid only if a selection currently exists.
+     * @see setSelection()
      */
     virtual const Range &selectionRange() const = 0;
 
@@ -298,7 +342,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      */
     virtual bool removeSelectionText () = 0;
 
-  /**
+  /*
    * Blockselection stuff
    */
   public:
@@ -320,7 +364,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
     */
     virtual bool blockSelection () const = 0;
 
-  /**
+  /*
    * SIGNALS
    * following signals should be emitted by the editor view for selection
    * handling.
@@ -342,6 +386,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * it, except you want to do some special things.
      * @param text Text to be inserted
      * @return @e true on success of insertion, otherwise @e false
+     * @see textInserted()
      */
     virtual bool insertText (const QString &text);
 };

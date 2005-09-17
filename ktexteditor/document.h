@@ -46,9 +46,11 @@ class View;
  * synchronized. Support for text selection is handeled by a View and text
  * format attribues by the Attribute interface.
  *
+ * To load a document call KParts::ReadOnlyPart::openURL().
  * To reload a document from a file call documentReload(), to save the
  * document call documentSave() or documentSaveAs(). Whenever the modified
  * state of the document changes the signal modifiedChanged() is emitted.
+ * Check the modified state with isModified().
  * Further signals are documentUrlChanged(). The encoding can be specified
  * with setEncoding(), however this will only take effect on file reload and
  * file save.
@@ -74,11 +76,13 @@ class View;
  * @subsection document_views Document Views
  * A View displays the document's content. As already mentioned a document
  * can have any number of views, all synchronized. Get a list of all views
- * with views(). Only one of the views can be active, get it by using
- * activeView(). Create a new view with createView(). Everytime a new view
- * is created the signal viewCreated() is emitted.
+ * with views(). Only one of the views can be active (i.e. has focus), get
+ * it by using activeView(). Create a new view with createView(). Everytime
+ * a new view is created the signal viewCreated() is emitted.
  *
- * @see Editor, View, Attribute
+ * @see KTextEditor::Editor, KTextEditor::View, KTextEditor::Attribute,
+ *      KParts::ReadWritePart
+ * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT Document : public KDocument::Document
 {
@@ -86,13 +90,16 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
 
   public:
     /**
-     * Document Constructor.
+     * Constructor.
+     *
+     * Create a new document with @p parent.
      * @param parent parent object
+     * @see Editor::createDocument()
      */
     Document ( QObject *parent = 0);
 
     /**
-     * virtual destructor
+     * Virtual destructor.
      */
     virtual ~Document ();
 
@@ -106,6 +113,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * ensure that this object exists as long as any factory or document
      * object exists.
      * @return global KTextEditor::Editor object
+     * @see KTextEditor::Editor
      */
     virtual Editor *editor () = 0;
 
@@ -116,13 +124,14 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
 
   signals:
    /**
-    * This signal is emitted whenever the @e document creates a new @e view.
+    * This signal is emitted whenever the @p document creates a new @p view.
     * It should be called for every view to help applications / plugins to
-    * attach to the @e view.
+    * attach to the @p view.
     * @attention This signal should be emitted after the view constructor is
     *            completed, e.g. in the createView() method.
     * @param document the document for which a new view is created
     * @param view the new view
+    * @see createView()
     */
     void viewCreated (KTextEditor::Document *document, KTextEditor::View *view);
 
@@ -151,24 +160,26 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
    */
   signals:
     /**
-     * This signal is emitted whenever the @e document name changes.
+     * This signal is emitted whenever the @p document name changes.
      * @param document document which changed its name
+     * @see documentName()
      */
     void documentNameChanged ( KTextEditor::Document *document );
 
     /**
-     * This signal is emitted whenever the @e document URL changes.
+     * This signal is emitted whenever the @p document URL changes.
      * @param document document which changed its URL
+     * @see KParts::ReadOnlyPart::url()
      */
     void documentUrlChanged ( KTextEditor::Document *document );
 
     /**
-     * This signal is emitted whenever the @e document's buffer changed from
+     * This signal is emitted whenever the @p document's buffer changed from
      * either state @e unmodified to @e modified or vice versa.
      *
+     * @param document document which changed its modified state
      * @see KParts::ReadWritePart::isModified().
      * @see KParts::ReadWritePart::setModified()
-     * @param document document which changed its modified state
      */
     void modifiedChanged ( KTextEditor::Document *document );
 
@@ -187,8 +198,8 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      *        accepted by QTextCodec, if an empty encoding name is given, the
      *        part should fallback to its own default encoding, e.g. the
      *        system encoding or the global user settings
-     * @see encoding()
      * @return @e true on success, or @e false, if the encoding could not be set.
+     * @see encoding()
      */
     virtual bool setEncoding (const QString &encoding) = 0;
 
@@ -196,8 +207,8 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * Get the current chosen encoding. The return value is an empty string,
      * if the document uses the default encoding of the editor and no own
      * special encoding.
-     * @see setEncoding()
      * @return current encoding of the document
+     * @see setEncoding()
      */
     virtual const QString &encoding () const = 0;
 
@@ -260,14 +271,15 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      *        document, otherwise the view is just ignored.
      * @return @e true on success, otherwise @e false. Parts not supporting
      *         it should return @e false
+     * @see endEditing()
      */
     virtual bool startEditing (View *view = 0) = 0;
 
     /**
      * End an editing sequence.
-     * @see startEditing() for more details.
      * @return @e true on success, otherwise @e false. Parts not supporting
      *         it should return @e false.
+     * @see startEditing() for more details
      */
     virtual bool endEditing () = 0;
 
@@ -278,15 +290,17 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
     /**
      * Get the document content.
      * @return the complete document content
+     * @see setText()
      */
     virtual QString text () const = 0;
 
     /**
-     * Get the document content within the range beginning with
-     * @e startPosition and ending with @e endPosition.
+     * Get the document content within the given @p range.
      * @param range the range of text to retrieve
-     * @param block set this to true to receive text in a visual block, rather than everything inside \p range
-     * @return the requested text part, or "" for invalid areas
+     * @param block Set this to @e true to receive text in a visual block,
+     *        rather than everything inside @p range.
+     * @return the requested text part, or QString() for invalid ranges.
+     * @see setText()
      */
     virtual QString text ( const Range& range, bool block = false ) const = 0;
 
@@ -294,18 +308,21 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * Get a single text line.
      * @param line the wanted line
      * @return the requested line, or "" for invalid line numbers
+     * @see text(), lineLength()
      */
     virtual QString line ( int line ) const = 0;
 
     /**
      * Get the count of lines of the document.
      * @return the current number of lines in the document
+     * @see length()
      */
     virtual int lines () const = 0;
 
     /**
      * End position of the document.
      * @return The last column on the last line of the document
+     * @see all()
      */
     virtual Cursor end() const = 0;
 
@@ -319,6 +336,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * Get the count of characters in the document. A TAB character counts as
      * only one character.
      * @return the number of characters in the document
+     * @see lines()
      */
     virtual int length () const = 0;
 
@@ -327,48 +345,57 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * @param line line to get length from
      * @return the number of characters in the line or -1 if the line was
      *         invalid
+     * @see line()
      */
     virtual int lineLength ( int line ) const = 0;
 
+    /**
+     * Get the end cursor position of line @p line.
+     * @param line line
+     * @see lineLength(), line()
+     */
     inline Cursor endOfLine(int line) const { return Cursor(line, lineLength(line)); }
 
     /**
      * Set the given text as new document content.
      * @param text new content for the document
      * @return @e true on success, otherwise @e false
+     * @see text()
      */
     virtual bool setText ( const QString &text ) = 0;
 
     /**
      * Remove the whole content of the document.
      * @return @e true on success, otherwise @e false
+     * @see removeText(), removeLine()
      */
     virtual bool clear () = 0;
 
     /**
-     * Insert @e text at @e position.
+     * Insert @p text at @p position.
      * @param position position to insert the text
      * @param text text to insert
      * @param block insert this text as a visual block of text rather than a linear sequence
      * @return @e true on success, otherwise @e false
+     * @see setText(), removeText()
      */
     virtual bool insertText ( const Cursor &position, const QString &text, bool block = false ) = 0;
 
     /**
-     * Remove a text range of the document content beginning
-     * with @e startPosition and ending with @e endPosition.
+     * Remove the text specified in @p range.
      * @param range range of text to remove
      * @param block set this to true to remove a text block on the basis of columns, rather than everything inside \p range
      * @return @e true on success, otherwise @e false
+     * @see setText(), insertText()
      */
     virtual bool removeText ( const Range &range, bool block = false ) = 0;
 
     /**
-     * Checks whether the @e cursor specifies a valid position in a document.
+     * Checks whether the @p cursor specifies a valid position in a document.
      * It can optionally be overridden by an implementation.
      * @param cursor which should be checked
      * @return @e true, if the cursor is valid, otherwise @e false
-     * @sa SmartCursor::isValid()
+     * @see SmartCursor::isValid()
      */
     virtual bool cursorInText(const Cursor &cursor);
 
@@ -382,13 +409,15 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * @param line line where to insert the text
      * @param text text which should be inserted
      * @return @e true on success, otherwise @e false
+     * @see insertText()
      */
     virtual bool insertLine ( int line, const QString &text ) = 0;
 
     /**
-     * Remove @e line from the document.
+     * Remove @p line from the document.
      * @param line line to remove
      * @return @e true on success, otherwise @e false
+     * @see removeText(), clear()
      */
     virtual bool removeLine ( int line ) = 0;
 
@@ -399,36 +428,40 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
    */
   signals:
     /**
-     * The @e document emits this signal whenever its text changes.
+     * The @p document emits this signal whenever its text changes.
      * @param document document which emitted this signal
+     * @see text(), textLine()
      */
     void textChanged(KTextEditor::Document *document);
 
     /**
-     * The @e document emits this signal whenever text was inserted.  The
+     * The @p document emits this signal whenever text was inserted.  The
      * insertion occurred at range.start(), and new text now occupies up to
      * range.end().
      * @param document document which emitted this signal
      * @param range range that the newly inserted text occupies
+     * @see insertText(), insertLine()
      */
     void textInserted(KTextEditor::Document *document, const KTextEditor::Range& range);
 
     /**
-     * The @e document emits this signal whenever @e range was removed, i.e.
+     * The @p document emits this signal whenever @p range was removed, i.e.
      * text was removed.
      * @param document document which emitted this signal
      * @param range range that the removed text previously occupied
+     * @see removeText(), removeLine(), clear()
      */
     void textRemoved(KTextEditor::Document *document, const KTextEditor::Range& range);
 
     /**
-     * The @e document emits this signal whenever the text in range
-     * @e oldRange was removed and replaced with the text now in @e newRange,
+     * The @p document emits this signal whenever the text in range
+     * @p oldRange was removed and replaced with the text now in @e newRange,
      * e.g. the user selects text and pastes new text to replace the selection.
      * @note @p oldRange.start() is guaranteed to equal @p newRange.start().
      * @param document document which emitted this signal
      * @param oldRange range that the text previously occupied
      * @param newRange range that the changed text now occupies
+     * @see insertText(), insertLine(), removeText(), removeLine(), clear()
      */
     void textChanged(KTextEditor::Document *document, const KTextEditor::Range& oldRange, const KTextEditor::Range& newRange);
 };

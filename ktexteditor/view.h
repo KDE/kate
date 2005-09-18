@@ -80,12 +80,12 @@ class Document;
  *
  * A view supports several edit modes (EditMode). Common edit modes are
  * @e insert-mode (INS) and @e overwrite-mode (OVR). Which edit modes the
- * editor supports depends on the implementation, another famos mode is the
- * @e command-mode for example in vim and yzis. The getter viewMode() returns
- * a string like @p INS or @p OVR and is represented in the user interface
- * for example in the status bar. Further you can get the edit mode as enum
- * by using viewEditMode(). Whenever the edit mode changed the signals
- * viewModeChanged() and viewEditModeChanged() are emitted.
+ * editor supports depends on the implementation, another well-known mode is
+ * the @e command-mode for example in vim and yzis. The getter viewMode()
+ * returns a string like @p INS or @p OVR and is represented in the user
+ * interface for example in the status bar. Further you can get the edit
+ * mode as enum by using viewEditMode(). Whenever the edit mode changed the
+ * signals viewModeChanged() and viewEditModeChanged() are emitted.
  *
  * @see KTextEditor::Document
  * @author Christoph Cullmann \<cullmann@kde.org\>

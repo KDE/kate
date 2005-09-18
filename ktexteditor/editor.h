@@ -186,7 +186,7 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
     virtual ConfigPage *configPage (int number, QWidget *parent) = 0;
 
     /**
-     * Get a readable name for the config page @e number. The name should be
+     * Get a readable name for the config page @p number. The name should be
      * translated.
      * @param number index of config page
      * @return name of given page index

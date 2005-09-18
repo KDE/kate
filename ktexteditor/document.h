@@ -51,7 +51,7 @@ class View;
  * To reload a document from a file call documentReload(), to save the
  * document call documentSave() or documentSaveAs(). Whenever the modified
  * state of the document changes the signal modifiedChanged() is emitted.
- * Check the modified state with isModified().
+ * Check the modified state with KParts::ReadWritePart::isModified().
  * Further signals are documentUrlChanged(). The encoding can be specified
  * with setEncoding(), however this will only take effect on file reload and
  * file save.

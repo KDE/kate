@@ -39,7 +39,8 @@ class Document;
 /**
  * A text widget with KXMLGUIClient that represents a Document.
  *
- * @subsection view_intro Introduction
+ * <b>Introduction</b>\n
+ *
  * The View class represents a single view of a KTextEditor::Document,
  * get the document on which the view operates with document().
  * A view provides both the graphical representation of the text and the
@@ -52,7 +53,8 @@ class Document;
  * Furthermore a view can have a context menu. Set it with setContextMenu()
  * and get it with contextMenu().
  *
- * @subsection view_selection Text Selection
+ * <b>Text Selection</b>\n
+ *
  * As the view is a graphical text editor it provides @e normal and @e block
  * text selection. You can check with selection() whether a selection exists.
  * removeSelection() will remove the selection without removing the text,
@@ -61,7 +63,8 @@ class Document;
  * setSelection() to specify the selected textrange. The signal
  * selectionChanged() is emitted whenever the selecteion changed.
  *
- * @subsection view_cursor Cursor Positions
+ * <b>Cursor Positions</b>\n
+ *
  * A view has one Cursor which represents a line/column tuple. Two different
  * kinds of cursor positions are supported: first is the @e real cursor
  * position where a @e tab character only counts one character. Second is the
@@ -73,7 +76,8 @@ class Document;
  * cursorPositionCoordinates(). The signal cursorPositionChanged() is emitted
  * whenever the cursor position changed.
  *
- * @subsection view_modes Edit Modes
+ * <b>Edit Modes</b>\n
+ *
  * A view supports several edit modes (EditMode). Common edit modes are
  * @e insert-mode (INS) and @e overwrite-mode (OVR). Which edit modes the
  * editor supports depends on the implementation, another famos mode is the

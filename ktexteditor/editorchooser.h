@@ -15,6 +15,8 @@ namespace KTextEditor
 /**
  * Editor Component Chooser.
  *
+ * <b>Introduction</b>\n
+ *
  * The EditorChooser is a simple group box that contains an information
  * label and a combo box which lists all available KTextEditor
  * implementations. To give the user the possibility to choose a text editor

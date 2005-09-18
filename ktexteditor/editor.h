@@ -40,7 +40,7 @@ class ConfigPage;
 /**
  * Accessor interface for Editor part.
  *
- * @subsection editor_intro Introduction
+ * <b>Introduction</b>\n
  * The Editor part can be accessed via the KTextEditor::Factory and provides
  * general information and configuration methods for the Editor
  * implementation, for example KAboutData by using aboutData().
@@ -50,7 +50,8 @@ class ConfigPage;
  * signal documentCreated() is emitted whenever the Editor created a new
  * document.
  *
- * @subsection editor_configuration Editor Configuration
+ * <b>Editor Configuration</b>\n
+ *
  * If the Editor implementation supports a config dialog
  * configDialogSupported() returns @e true, then the config dialog can be
  * shown with configDialog(). Additionally config pages can be embedded into
@@ -62,7 +63,8 @@ class ConfigPage;
  * configPagePixmap. Use the config dialog only if there are no config pages.
  * The configuration can be saved with readConfig() and writeConfig().
  *
- * @subsection editor_implementation Implementation Notes
+ * <b>Implementation Notes</b>\n
+ *
  * Usually only one instance of the Editor exists. The Kate Part internally
  * implementation uses a static accessor to make sure that only Kate Part
  * Editor object exists. So several factories still use the same Editor.

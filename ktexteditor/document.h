@@ -39,7 +39,8 @@ class View;
 /**
  * A KParts derived class representing a text document.
  *
- * @subsection document_intro Introduction
+ * <b>Introduction</b>\n
+ *
  * The Document class represents a pure text document providing methods to
  * modify the content and create views. A document can have any number
  * of views, each view representing the same content, i.e. all views are
@@ -58,7 +59,8 @@ class View;
  * Every document has a application wide unique document number, accessible
  * with documentNumber().
  *
- * @subsection document_manipulation Text Manipulation
+ * <b>Text Manipulation</b>\n
+ *
  * Get the whole content with text() and set new content with setText().
  * Call insertText() or insertLine() to insert new text or removeText()
  * and removeLine() to remove content. Whenever the document's content
@@ -73,7 +75,8 @@ class View;
  * call endEditing() exactly as often as you call startEditing(), otherwise
  * the reference counter gets confused.
  *
- * @subsection document_views Document Views
+ * <b>Document Views</b>\n
+ *
  * A View displays the document's content. As already mentioned a document
  * can have any number of views, all synchronized. Get a list of all views
  * with views(). Only one of the views can be active (i.e. has focus), get

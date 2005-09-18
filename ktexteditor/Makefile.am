@@ -31,6 +31,6 @@ kcm_ktexteditordir = $(kde_datadir)/kcm_componentchooser
 
 templateinterface.lo: $(top_builddir)/kabc/addressee.h
 
-DOXYGEN_REFERENCES = kdecore kparts
+DOXYGEN_REFERENCES = kdecore kdeui kparts
 include ../../admin/Doxyfile.am
 

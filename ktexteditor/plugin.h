@@ -32,9 +32,56 @@ class Document;
 class View;
 
 /**
- * The class @p Plugin is the basic KTextEditor plugin class.
- * This plugin will be bound to a single document, i.e. for every document
- * a single instance of a plugin exists.
+ * KTextEditor Plugin interface.
+ *
+ * <b>Introduction</b>\n
+ *
+ * The Plugin class provides methods to create loadable plugins for all
+ * KTextEditor implementations. A plugin will be bound to a single document,
+ * i.e. for @e every document a single instance of the plugin exists.
+ *
+ * <b>Configuration Management</b>\n
+ *
+ * If your plugin supports a config dialog overwrite configDialogSupported()
+ * and return @e true (The default implementation returns @e false and
+ * indicates that the plugin does not support a config dialog). The config
+ * dialog can be shown by calling configDialog(), it can also be called from
+ * a KTextEditor implementation (e.g. the KTextEditor implementation might
+ * have a listview that shows all available plugins along with a
+ * @e Configure... button). To save or load plugin settings call
+ * writeConfig() and readConfig().
+ *
+ * <b>Plugin Architecture</b>\n
+ *
+ * After the plugin is loaded the editor implementation will call addView()
+ * for all views of the Document. If your plugin has a GUI it is common to
+ * add an extra class, like:
+ * @code
+ *   class PluginView : public QObject, public KXMLGUIClient
+ *   {
+ *       Q_OBJECT
+ *   public:
+ *       // Constructor and other methods
+ *       PluginView( KTextEditor::View* view );
+ *       // ...
+ *   private
+ *       KTextEditor::Document* m_doc;
+ *   };
+ * @endcode
+ * Your KTextEditor::Plugin derived class then will create a new PluginView
+ * for every View, i.e. for every call of addView().
+ *
+ * The method removeView() will be called whenever a View is removed/closed.
+ * If you have a PluginView for every view this is the place to remove it.
+ *
+ *
+ *
+ * @TODO fix stuff :(
+ *
+ *
+ *
+ * @see KTextEditor::Editor, KTextEditor::Document, KTextEditor::View
+ * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT Plugin : public QObject
 {
@@ -42,17 +89,19 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
 
   public:
     /**
-     * Plugin constructor.
+     * Constructor.
+     *
+     * Create a new plugin.
      * @param parent parent object
      */
     Plugin ( QObject *parent ) : QObject (parent) {}
 
     /**
-     * virtual destructor
+     * Virtual destructor.
      */
     virtual ~Plugin () {}
 
-  /**
+  /*
    * Following methodes allow the plugin to react on view and document
    * creation.
    */
@@ -85,7 +134,7 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
      */
     virtual void removeView (View *view) { Q_UNUSED(view); }
 
-  /**
+  /*
    * Configuration management.
    * Default implementation just for convenience, does nothing
    * and says this plugin supports no config dialog.
@@ -128,6 +177,10 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
     virtual void configDialog (QWidget *parent) { Q_UNUSED(parent); }
 };
 
+/**
+ * Create a plugin called @p libname with parent object @p parent.
+ * @return the plugin or NULL if it could not be loaded
+ */
 KTEXTEDITOR_EXPORT Plugin *createPlugin ( const char *libname, QObject *parent );
 
 }

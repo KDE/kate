@@ -27,36 +27,61 @@ namespace KTextEditor
 {
 
 /**
- * This class represents a config page of an editor
+ * Config page interface for the Editor.
+ *
+ * <b>Introduction</b>\n
+ *
+ * The class ConfigPage represents a config page of the KTextEditor::Editor.
+ * The Editor's config pages are usually embedded into a dialog that shows
+ * buttons like @e Defaults, @e Reset and @e Apply. If one of the buttons is
+ * clicked and the condig page sent the signal changed() beforehand the
+ * Editor will call the corresponding slot, either defaults(), reset() or
+ * apply().
+ *
+ * @see KTextEditor::Editor
+ * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT ConfigPage : public QWidget
 {
   Q_OBJECT
 
   public:
+    /**
+     * Constructor.
+     *
+     * Create a new config page with @p parent.
+     * @param parent parent widget
+     */
     ConfigPage ( QWidget *parent ) : QWidget (parent) {}
+    /**
+     * Virtual destructor.
+     */
     virtual ~ConfigPage () {}
 
   public slots:
     /**
-      Applies the changes to all documents
-    */
+     * This slot is called whenever the button @e Apply or @e OK was clicked.
+     * Apply the changed settings made in the config page now.
+     */
     virtual void apply () = 0;
 
     /**
-      Reset the changes
-    */
+     * This slot is called whenever the button @e Reset was clicked.
+     * Reset the config page settings to the initial state.
+     */
     virtual void reset () = 0;
 
     /**
-      Sets default options
-    */
+     * Sets default options
+     * This slot is called whenever the button @e Defaults was clicked.
+     * Set the config page settings to the default values.
+     */
     virtual void defaults () = 0;
 
   signals:
     /**
-      Emitted when something changes
-    */
+     * Emit this signal whenever a config option changed.
+     */
     void changed();
 };
 

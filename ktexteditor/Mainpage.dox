@@ -1,3 +1,12 @@
+This file is part of the KDE project
+
+Copyright (c) 2005 by Dominik Haumann <dhdev@gmx.de>
+Copyright (c) 2005 by Christoph Cullmann <cullmann@kde.org>
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.2
+or any later version published by the Free Software Foundation;
+
 /** @file Mainpage.dox
     @brief Mainpage of the KTextEditor Interface Documentation.
 */
@@ -5,14 +14,20 @@
 @mainpage The KTextEditor Interfaces.
 
 @section intro Introduction
-The KTextEditor (often referenced as KTE) interfaces are a set of
+The KTextEditor interfaces - also called KTE interfaces - are a set of
 well-defined interfaces that can be implemented by an application/library.
 It is possible to substitute an editor component with another. The two
 popular implementations right now are
  - the Kate Editor Component or in short Kate Part and
  - the yzis vim-like editor.
 
-@section design Design: The Core Interfaces
+Overview
+ - @ref kte_design
+ - @ref kte_guidelines
+ - @ref kte_porting_to_kde4
+ - @ref kte_embedding
+
+@section kte_design General Design of the Core Interfaces
 The core of the KTextEditor interfaces consists of several main interfaces:
 - @p KTextEditor::Factory - The Factory is an interface for the factory of
   any KTextEditor part and provides access to the editor object of this part.
@@ -45,7 +60,7 @@ argument. In other words: You would never want to have two factories around
 solves this by using a static accessor in the Editor derived class KateGlobal
 that returns the Editor* object.
 
-@section guidelines Coding Guidelines
+@section kte_guidelines Coding Guidelines and API Conventions
 The whole KTextEditor interfaces have a consistent design.
 - naming should follow Qt style. Do not use Java style getters like getBla()
   for example,
@@ -57,7 +72,7 @@ The whole KTextEditor interfaces have a consistent design.
 - all signals must have the sender object as first parameter, for example
   all document signals should look like this:
   @code
-    void signalFromDocument (KTextEditor::Document *doc, .....);
+  void signalFromDocument (KTextEditor::Document *doc, .....);
   @endcode
   This allows easy and consistent query which object did send the signal,
   which is important for most applications, as they listen to multiple
@@ -75,5 +90,31 @@ concepts are much cleaner than tuples, please keep the following guidelines:
   instead of two Cursors.
 
 
-@note This document is not finished, additional hints are welcome.
+
+@todo add
+ - @a -lktexteditor hint or $(LIB_KTEXTEDITOR) in the KDE build framework.
+ - Implementor Notes: Information about Q_INTERFACES and qobject_cast.
+
+
+
+@author Dominik Haumann \<dhdev@gmx.de\>
+@author Christoph Cullmann \<cullmann@kde.org\>
+*/
+
+
+
+
+
+/**
+@page kte_porting_to_kde4 Porting to KDE 4
+@author Dominik Haumann \<dhdev@gmx.de\>
+*/
+
+
+
+
+
+/**
+@page kte_embedding Embedding a KTextEditor Component into an Application
+@author Dominik Haumann \<dhdev@gmx.de\>
 */

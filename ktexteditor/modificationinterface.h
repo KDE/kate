@@ -29,10 +29,40 @@ class Document;
 class View;
 
 /**
- * ModificationInterface
- * This interfaces is aimed for the KTextEditor::Document and provides
- * signals and slots to handle modifications of open files by external
- * applications
+ * External modification extension interface for the Document.
+ *
+ * <b>Introduction</b>\n
+ *
+ * The class ModificationInterface provides methods to handle modifications
+ * of all opened files caused by external programs. Whenever the
+ * modified-on-disk state changes the signal modifiedOnDisk() is emitted
+ * along with a ModifiedOnDiskReason. Set the state by calling
+ * setModifiedOnDisk(). Whether the Editor should show warning dialogs to
+ * inform the user about external modified files can be controlled with
+ * setModifiedOnDiskWarning(). The slot modifiedOnDisk() is called to ask
+ * the user what to do whenever a file was modified.
+ *
+ * <b>Accessing the ModificationInterface</b>\n
+ *
+ * The ModificationInterface is supposed to be an extension interface for a
+ * Document, i.e. the Document inherits the MarkInterface @e provided that
+ * the used KTextEditor library implements the interface. To access the
+ * ModificationInterface do the following:
+ * @code
+ *   // doc is of type KTextEditor::Document*
+ *   KTextEditor::ModificationInterface *modificationInterface =
+ *       qobject_cast\<KTextEditor::ModificationInterface*\>( doc );
+ *
+ *   if( modificationInterface ) {
+ *       // the implementation supports the ModificationInterface
+ *       // do stuff
+ *   }
+ *   else {
+ *       // the implementation does not support the ModificationInterface
+ *   }
+ * @endcode
+ *
+ * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT ModificationInterface
 {

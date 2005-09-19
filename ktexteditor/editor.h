@@ -41,6 +41,7 @@ class ConfigPage;
  * Accessor interface for Editor part.
  *
  * <b>Introduction</b>\n
+ *
  * The Editor part can be accessed via the KTextEditor::Factory and provides
  * general information and configuration methods for the Editor
  * implementation, for example KAboutData by using aboutData().
@@ -60,16 +61,17 @@ class ConfigPage;
  * the requested page. Further a config page has a short descriptive name,
  * get it with configPageName(). You can get more detailed name by using
  * configPageFullName. Also evary config page has a pixmap, get it with
- * configPagePixmap. Use the config dialog only if there are no config pages.
- * The configuration can be saved with readConfig() and writeConfig().
+ * configPagePixmap(). Use the config dialog only if there are no config
+ * pages. The configuration can be saved with readConfig() and writeConfig().
  *
  * <b>Implementation Notes</b>\n
  *
- * Usually only one instance of the Editor exists. The Kate Part internally
- * implementation uses a static accessor to make sure that only Kate Part
- * Editor object exists. So several factories still use the same Editor.
+ * Usually only one instance of the Editor exists. The Kate Part
+ * implementation internally uses a static accessor to make sure that only
+ * Kate Part Editor object exists. So several factories still use the same
+ * Editor.
  *
- * @see KTextEditor::Factory, KTextEditor::Document
+ * @see KTextEditor::Factory, KTextEditor::Document, KTextEditor::ConfigPage
  * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT Editor : public QObject
@@ -226,8 +228,17 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
     void documentCreated (KTextEditor::Editor *editor, KTextEditor::Document *document);
 };
 
+
+/**
+ * Helper function for the EditorChooser.
+ * @param libname library name
+ * @return Editor object or NULL if not available
+ * @see KTextEditor::EditorChooser::editor()
+ */
 KTEXTEDITOR_EXPORT Editor *editor ( const char *libname );
 
 }
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

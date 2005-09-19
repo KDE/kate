@@ -27,6 +27,7 @@ namespace KTextEditor
  * You can find this class in action in KDE's control center in
  * "KDE Components > Component Chooser > Embedded Text Editor".
  *
+ * @see KTextEditor::Editor
  * @author Joseph Wenninger \<jowenn@kde.org\>
  */
 class KTEXTEDITOR_EXPORT EditorChooser: public QWidget
@@ -109,3 +110,5 @@ public slots:
 
 }
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -202,6 +202,9 @@ const QList<KTextEditor::Document*> &KateGlobal::documents ()
 //BEGIN KTextEditor::ConfigInterfaceExtension stuff
 void KateGlobal::readConfig(KConfig *config)
 {
+  if( !config )
+    config = kapp->config();
+
   config->setGroup("Kate Document Defaults");
 
   // read max loadable blocks, more blocks will be swapped out
@@ -218,6 +221,9 @@ void KateGlobal::readConfig(KConfig *config)
 
 void KateGlobal::writeConfig(KConfig *config)
 {
+  if( !config )
+    config = kapp->config();
+
   config->setGroup("Kate Document Defaults");
 
   // write max loadable blocks, more blocks will be swapped out
@@ -230,18 +236,7 @@ void KateGlobal::writeConfig(KConfig *config)
 
   config->setGroup("Kate Renderer Defaults");
   KateRendererConfig::global()->writeConfig (config);
-}
 
-void KateGlobal::readConfig()
-{
-  KConfig *config = kapp->config();
-  readConfig (config);
-}
-
-void KateGlobal::writeConfig()
-{
-  KConfig *config = kapp->config();
-  writeConfig (config);
   config->sync();
 }
 

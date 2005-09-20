@@ -287,6 +287,7 @@ void KateDocument::loadPlugin (uint pluginIndex)
   kdDebug(13020)<<"loadPlugin (loading plugin)"<<endl;
   m_plugins[pluginIndex] = KTextEditor::createPlugin (QFile::encodeName((KateGlobal::self()->plugins())[pluginIndex]->library()), this);
 
+  // TODO: call Plugin::readConfig with right KConfig* 
   enablePluginGUI (m_plugins[pluginIndex]);
 }
 
@@ -295,6 +296,7 @@ void KateDocument::unloadPlugin (uint pluginIndex)
   if (!m_plugins[pluginIndex]) return;
 
   disablePluginGUI (m_plugins[pluginIndex]);
+  // TODO: call Plugin::writeConfig with right KConfig* 
 
   delete m_plugins[pluginIndex];
   m_plugins[pluginIndex] = 0L;

@@ -108,26 +108,16 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
    */
   public:
     /**
-     * Read editor configuration from it's standard config
-     */
-    void readConfig ();
-
-    /**
-     * Write editor configuration to it's standard config
-     */
-    void writeConfig ();
-
-    /**
      * Read editor configuration from given config object
      * @param config config object
      */
-    void readConfig (KConfig *config);
+    void readConfig (KConfig *config = 0);
 
     /**
      * Write editor configuration to given config object
      * @param config config object
      */
-    void writeConfig (KConfig *config);
+    void writeConfig (KConfig *config = 0);
 
     /**
      * Does this editor support a config dialog

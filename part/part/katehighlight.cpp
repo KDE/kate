@@ -47,6 +47,7 @@
 #include <QSet>
 #include <qstringlist.h>
 #include <qtextstream.h>
+#include <Q3PopupMenu>
 //END
 
 //BEGIN defines

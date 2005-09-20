@@ -36,7 +36,7 @@
 #include <kreplacedialog.h>
 #include <kinstance.h>
 #include <kstaticdeleter.h>
-
+#include <kfind.h>
 #include <q3popupmenu.h>
 #include <qtextcodec.h>
 
@@ -676,7 +676,7 @@ void KateViewConfig::readConfig (KConfig *config)
 
   setAutoCenterLines (config->readNumEntry( "Auto Center Lines", 0 ));
 
-  setSearchFlags (config->readNumEntry("Search Config Flags", KFindDialog::FromCursor | KFindDialog::CaseSensitive | KReplaceDialog::PromptOnReplace));
+  setSearchFlags (config->readNumEntry("Search Config Flags", KFind::FromCursor | KFind::CaseSensitive | KReplaceDialog::PromptOnReplace));
 
   setCmdLine (config->readBoolEntry( "Command Line", false));
 

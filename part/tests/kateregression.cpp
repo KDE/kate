@@ -76,6 +76,8 @@ void KateRegression::testAll()
   KTextEditor::Cursor* cursorEOLMoves = m_doc->newSmartCursor(m_doc->endOfLine(1), true);
 
   addCursorExpectation(cursorStartOfEdit, CursorSignalExpectation(false, false, false, true, false, false));
+  addCursorExpectation(cursorEndOfEdit, CursorSignalExpectation(false, false, true, false, true, false));
+  addCursorExpectation(cursorPastEdit, CursorSignalExpectation(false, false, false, false, true, false));
 
   m_doc->insertText(*cursorStartOfEdit, "Additional ");
   COMPARE(*cursorStartOfLine, KTextEditor::Cursor(1,0));
@@ -153,6 +155,12 @@ CursorSignalExpectation::CursorSignalExpectation( bool a, bool b, bool c, bool d
   , expectCharacterInsertedAfter(d)
   , expectPositionChanged(e)
   , expectPositionDeleted(f)
+  , watcherExpectCharacterDeletedBefore(a)
+  , watcherExpectCharacterDeletedAfter(b)
+  , watcherExpectCharacterInsertedBefore(c)
+  , watcherExpectCharacterInsertedAfter(d)
+  , watcherExpectPositionChanged(e)
+  , watcherExpectPositionDeleted(f)
 {
 }
 
@@ -163,6 +171,7 @@ void KateRegression::addCursorExpectation(KTextEditor::Cursor* c, const CursorSi
   connect(cursor->notifier(), SIGNAL(characterInserted(KTextEditor::SmartCursor*, bool)), this, SLOT(slotCharacterInserted(KTextEditor::SmartCursor*, bool)));
   connect(cursor->notifier(), SIGNAL(positionChanged(KTextEditor::SmartCursor*)), this, SLOT(slotPositionChanged(KTextEditor::SmartCursor*)));
   connect(cursor->notifier(), SIGNAL(positionDeleted(KTextEditor::SmartCursor*)), this, SLOT(slotPositionDeleted(KTextEditor::SmartCursor*)));
+  cursor->setWatcher(this);
   m_cursorExpectations.insert(cursor, expectation);
 }
 
@@ -180,6 +189,20 @@ void KateRegression::slotCharacterDeleted( KTextEditor::SmartCursor * cursor, bo
   }
 }
 
+void KateRegression::characterDeleted( KTextEditor::SmartCursor * cursor, bool deletedBefore )
+{
+  VERIFY(m_cursorExpectations.contains(cursor));
+
+  if (deletedBefore) {
+    VERIFY(m_cursorExpectations[cursor].watcherExpectCharacterDeletedBefore);
+    m_cursorExpectations[cursor].watcherExpectCharacterDeletedBefore = false;
+
+  } else {
+    VERIFY(m_cursorExpectations[cursor].watcherExpectCharacterDeletedAfter);
+    m_cursorExpectations[cursor].watcherExpectCharacterDeletedAfter = false;
+  }
+}
+
 void KateRegression::slotCharacterInserted( KTextEditor::SmartCursor * cursor, bool before )
 {
   VERIFY(m_cursorExpectations.contains(cursor));
@@ -192,6 +215,27 @@ void KateRegression::slotCharacterInserted( KTextEditor::SmartCursor * cursor, b
     VERIFY(m_cursorExpectations[cursor].expectCharacterInsertedAfter);
     m_cursorExpectations[cursor].expectCharacterInsertedAfter = false;
   }
+}
+
+void KateRegression::characterInserted( KTextEditor::SmartCursor * cursor, bool insertedBefore )
+{
+  VERIFY(m_cursorExpectations.contains(cursor));
+
+  if (insertedBefore) {
+    VERIFY(m_cursorExpectations[cursor].watcherExpectCharacterInsertedBefore);
+    m_cursorExpectations[cursor].watcherExpectCharacterInsertedBefore = false;
+
+  } else {
+    VERIFY(m_cursorExpectations[cursor].watcherExpectCharacterInsertedAfter);
+    m_cursorExpectations[cursor].watcherExpectCharacterInsertedAfter = false;
+  }
+}
+
+void KateRegression::positionChanged( KTextEditor::SmartCursor * cursor )
+{
+  VERIFY(m_cursorExpectations.contains(cursor));
+  VERIFY(m_cursorExpectations[cursor].watcherExpectPositionChanged);
+  m_cursorExpectations[cursor].watcherExpectPositionChanged = false;
 }
 
 void KateRegression::slotPositionChanged( KTextEditor::SmartCursor * cursor )
@@ -208,12 +252,21 @@ void KateRegression::slotPositionDeleted( KTextEditor::SmartCursor * cursor )
   m_cursorExpectations[cursor].expectPositionDeleted = false;
 }
 
+void KateRegression::positionDeleted( KTextEditor::SmartCursor * cursor )
+{
+  VERIFY(m_cursorExpectations.contains(cursor));
+  VERIFY(m_cursorExpectations[cursor].watcherExpectPositionDeleted);
+  m_cursorExpectations[cursor].watcherExpectPositionDeleted = false;
+}
+
 void KateRegression::checkSignalExpectations( )
 {
   QMapIterator<KTextEditor::SmartCursor*, CursorSignalExpectation> it = m_cursorExpectations;
   while (it.hasNext()) {
     it.next();
     it.value().checkExpectationsFulfilled();
+    it.key()->setWatcher(0L);
+    it.key()->deleteNotifier();
   }
   m_cursorExpectations.clear();
 }
@@ -221,18 +274,30 @@ void KateRegression::checkSignalExpectations( )
 void CursorSignalExpectation::checkExpectationsFulfilled( ) const
 {
   if (expectCharacterDeletedBefore)
-    FAIL("Expected to be notified of a character to be deleted before cursor.");
+    FAIL("Notifier: Expected to be notified of a character to be deleted before cursor.");
   if (expectCharacterDeletedAfter)
-    FAIL("Expected to be notified of a character to be deleted after cursor.");
+    FAIL("Notifier: Expected to be notified of a character to be deleted after cursor.");
   if (expectCharacterInsertedBefore)
-    FAIL("Expected to be notified of a character to be inserted before cursor.");
+    FAIL("Notifier: Expected to be notified of a character to be inserted before cursor.");
   if (expectCharacterInsertedAfter)
-    FAIL("Expected to be notified of a character to be inserted after cursor.");
+    FAIL("Notifier: Expected to be notified of a character to be inserted after cursor.");
   if (expectPositionChanged)
-    FAIL("Expected to be notified of the cursor's position change.");
+    FAIL("Notifier: Expected to be notified of the cursor's position change.");
   if (expectPositionDeleted)
-    FAIL("Expected to be notified of the cursor's position deletion.");
-}
+    FAIL("Notifier: Expected to be notified of the cursor's position deletion.");
 
+  if (watcherExpectCharacterDeletedBefore)
+    FAIL("Watcher: Expected to be notified of a character to be deleted before cursor.");
+  if (watcherExpectCharacterDeletedAfter)
+    FAIL("Watcher: Expected to be notified of a character to be deleted after cursor.");
+  if (watcherExpectCharacterInsertedBefore)
+    FAIL("Watcher: Expected to be notified of a character to be inserted before cursor.");
+  if (watcherExpectCharacterInsertedAfter)
+    FAIL("Watcher: Expected to be notified of a character to be inserted after cursor.");
+  if (watcherExpectPositionChanged)
+    FAIL("Watcher: Expected to be notified of the cursor's position change.");
+  if (watcherExpectPositionDeleted)
+    FAIL("Watcher: Expected to be notified of the cursor's position deletion.");
+}
 
 #include "kateregression.moc"

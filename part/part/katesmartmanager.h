@@ -136,7 +136,9 @@ class KateSmartGroup
     void translateChanged(const KateEditInfo& edit, QLinkedList<KateSmartRange*>& m_ranges, bool first);
     void translateShifted(const KateEditInfo& edit);
 
-    void translated(const KateEditInfo& edit);
+    // Second pass for feedback
+    void translatedChanged(const KateEditInfo& edit);
+    void translatedShifted(const KateEditInfo& edit);
 
     void debugOutput() const;
 

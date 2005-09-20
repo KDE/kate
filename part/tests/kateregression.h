@@ -22,9 +22,9 @@
 #include <QObject>
 #include <QMap>
 
-class KateDocument;
+#include <ktexteditor/cursor.h>
 
-namespace KTextEditor { class Cursor; class SmartCursor; }
+class KateDocument;
 
 struct CursorSignalExpectation
 {
@@ -37,11 +37,24 @@ struct CursorSignalExpectation
   bool expectCharacterInsertedAfter;
   bool expectPositionChanged;
   bool expectPositionDeleted;
+
+  bool watcherExpectCharacterDeletedBefore;
+  bool watcherExpectCharacterDeletedAfter;
+  bool watcherExpectCharacterInsertedBefore;
+  bool watcherExpectCharacterInsertedAfter;
+  bool watcherExpectPositionChanged;
+  bool watcherExpectPositionDeleted;
 };
 
-class KateRegression : public QObject
+class KateRegression : public QObject, public KTextEditor::SmartCursorWatcher
 {
   Q_OBJECT
+
+  public:
+    virtual void positionChanged(KTextEditor::SmartCursor* cursor);
+    virtual void positionDeleted(KTextEditor::SmartCursor* cursor);
+    virtual void characterDeleted(KTextEditor::SmartCursor* cursor, bool deletedBefore);
+    virtual void characterInserted(KTextEditor::SmartCursor* cursor, bool insertedBefore);
 
   public slots:
     void slotCharacterDeleted(KTextEditor::SmartCursor* cursor, bool before);

@@ -117,6 +117,8 @@ class KateSmartRange : public KTextEditor::SmartRange
 
     /// One or both of the cursors has been changed.
     void translated(const KateEditInfo& edit);
+    /// The range has been shifted only
+    void shifted();
 
     inline KateSmartRange& operator=(const KTextEditor::Range& r) { setRange(r); return *this; }
 

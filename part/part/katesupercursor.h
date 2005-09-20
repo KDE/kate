@@ -48,7 +48,7 @@ namespace KTextEditor { class Document; }
  **/
 class KateSmartCursor : public KTextEditor::SmartCursor
 {
-public:
+  public:
     KateSmartCursor(const KTextEditor::Cursor& position, KTextEditor::Document* doc, bool moveOnInsert = true);
     /// \overload
     KateSmartCursor(KTextEditor::Document* doc, bool moveOnInsert = true);
@@ -95,6 +95,9 @@ public:
      */
     void translated(const KateEditInfo & edit);
 
+    // Called when the cursor's position has changed only (character changes not possible)
+    void shifted();
+
   protected:
     void setLineInternal(int newLine, bool internal = true);
     void setPositionInternal(const KTextEditor::Cursor& pos, bool internal = true);
@@ -116,6 +119,13 @@ public:
     KateSmartGroup* m_smartGroup;
     bool m_feedbackEnabled  :1;
     mutable int m_oldGroupLineStart;
+
+    /**
+     * Cursor which stores the previous position of this cursor.
+     * Not guaranteed to be up to date - only up to date when the smartGroup that this cursor
+     * is in receives an edit.
+     */
+    Cursor m_lastPosition;
 
     KateSmartCursorNotifier* m_notifier;
     KTextEditor::SmartCursorWatcher* m_watcher;

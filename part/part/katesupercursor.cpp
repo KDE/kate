@@ -349,15 +349,23 @@ void KateSmartCursor::translated(const KateEditInfo & edit)
   if (*this < edit.oldRange().start())
     return;
 
-  if (!edit.oldRange().isEmpty() && edit.oldRange().contains(lastPosition())) {
-    if (edit.oldRange().start() == lastPosition()) {
+  // We can rely on m_lastPosition because it is updated in translate(), otherwise just shifted() is called
+  if (m_lastPosition != *this)
+    // position changed
+    if (m_notifier)
+      emit m_notifier->positionChanged(this);
+    if (m_watcher)
+      m_watcher->positionChanged(this);
+
+  if (!edit.oldRange().isEmpty() && edit.oldRange().contains(m_lastPosition)) {
+    if (edit.oldRange().start() == m_lastPosition) {
       // character deleted after
       if (m_notifier)
         emit m_notifier->characterDeleted(this, false);
       if (m_watcher)
         m_watcher->characterDeleted(this, false);
 
-    } else if (edit.oldRange().end() == lastPosition()) {
+    } else if (edit.oldRange().end() == m_lastPosition) {
       // character deleted before
       if (m_notifier)
         emit m_notifier->characterDeleted(this, true);
@@ -387,6 +395,17 @@ void KateSmartCursor::translated(const KateEditInfo & edit)
         m_watcher->characterInserted(this, true);
     }
   }
+}
+
+void KateSmartCursor::shifted( )
+{
+  Q_ASSERT(m_lastPosition != *this);
+
+  // position changed
+  if (m_notifier)
+    emit m_notifier->positionChanged(this);
+  if (m_watcher)
+    m_watcher->positionChanged(this);
 }
 
 void KateSmartCursor::migrate( KateSmartGroup * newGroup )

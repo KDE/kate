@@ -245,8 +245,16 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
   foreach (KateSmartRange* range, changedRanges)
     range->translated(*edit);
 
-  for (KateSmartGroup* smartGroup = firstSmartGroup; smartGroup; smartGroup = smartGroup->next())
-    smartGroup->translated(*edit);
+  groupChanged = true;
+  for (KateSmartGroup* smartGroup = firstSmartGroup; smartGroup; smartGroup = smartGroup->next()) {
+    if (groupChanged)
+      groupChanged = smartGroup->endLine() <= edit->oldRange().end().line(); // + edit->translate().line()
+
+    if (groupChanged)
+      smartGroup->translatedChanged(*edit);
+    else
+      smartGroup->translatedShifted(*edit);
+  }
 
   //debugOutput();
 }
@@ -275,22 +283,36 @@ void KateSmartGroup::translateShifted(const KateEditInfo& edit)
   m_newEndLine = QMAX(m_endLine, m_endLine + edit.translate().line());
 }
 
-void KateSmartGroup::translated(const KateEditInfo& edit)
+void KateSmartGroup::translatedChanged(const KateEditInfo& edit)
 {
   if (m_startLine != m_newStartLine) {
     m_startLine = m_newStartLine;
     m_endLine = m_newEndLine;
   }
 
-  foreach (KateSmartCursor* cursor, m_normalCursors)
-    cursor->translated(edit);
-
-  // Todo: don't need to provide positionChanged to all feedback cursors?
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
     cursor->translated(edit);
 
   foreach (KateSmartRange* range, m_rangesStartingPosition)
     range->translated(edit);
+}
+
+void KateSmartGroup::translatedShifted(const KateEditInfo& edit)
+{
+  if (m_startLine != m_newStartLine) {
+    m_startLine = m_newStartLine;
+    m_endLine = m_newEndLine;
+  }
+
+  if (edit.translate().line() == 0)
+    return;
+
+  // Todo: don't need to provide positionChanged to all feedback cursors?
+  foreach (KateSmartCursor* cursor, m_feedbackCursors)
+    cursor->shifted();
+
+  foreach (KateSmartRange* range, m_rangesStartingPosition)
+    range->shifted();
 }
 
 KateSmartGroup::KateSmartGroup( int startLine, int endLine, KateSmartGroup * previous, KateSmartGroup * next )

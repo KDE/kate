@@ -271,6 +271,11 @@ void KateSmartRange::translated(const KateEditInfo& edit)
   // TODO provide the requested feedback.
 }
 
+void KateSmartRange::shifted( )
+{
+  // TODO provide the requested feedback.
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;
 
 #include "katesuperrange.moc"

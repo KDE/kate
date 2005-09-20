@@ -238,6 +238,8 @@ class KTEXTEDITOR_EXPORT SmartCursorWatcher
 
     /**
      * The character immediately surrounding the cursor was deleted.
+     * If both characters are simultaneously deleted, positionDeleted() is called instead.
+     *
      * \param before true if the character immediately before was deleted, false if the
      *               character immediately after was deleted.
      */
@@ -283,7 +285,9 @@ class KTEXTEDITOR_EXPORT SmartCursorNotifier : public QObject
     void positionDeleted(KTextEditor::SmartCursor* cursor);
 
     /**
-     * The character immediately surrounding the cursor was deleted.
+     * One character immediately surrounding the cursor was deleted.
+     * If both characters are simultaneously deleted, positionDeleted() is called instead.
+     *
      * \param before true if the character immediately before was deleted, false if the
      *               character immediately after was deleted.
      */
@@ -322,6 +326,8 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
 {
   public:
     virtual ~SmartCursor();
+
+    const Cursor& lastPosition() const { return m_lastPosition; }
 
     /**
      * Returns the document to which this cursor is attached.
@@ -400,6 +406,9 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     SmartCursor(const Cursor& position, Document* doc, bool moveOnInsert);
 
     virtual void checkFeedback() = 0;
+
+    /// Cursor which stores the previous position of this cursor.
+    Cursor m_lastPosition;
 
   private:
     SmartCursor(const SmartCursor &);

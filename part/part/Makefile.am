@@ -9,7 +9,7 @@ katepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmds.cpp kateundo.cpp \
 			katedocument.skel katetemplatehandler.cpp katejscript.cpp katespell.cpp kateprinter.cpp \
 			kateindentscriptabstracts.cpp kateluaindentscript.cpp katerange.cpp katerangetype.cpp \
 			katesuperrange.cpp kateglobal.cpp katecmd.cpp katelayoutcache.cpp katetextlayout.cpp \
-		katesmartmanager.cpp kateedit.cpp
+		katesmartmanager.cpp kateedit.cpp katesmartcursornotifier.cpp
 
 katepart_la_LIBADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la $(top_builddir)/kdeprint/libkdeprint.la $(top_builddir)/kutils/libkutils.la $(top_builddir)/kjs/libkjs.la $(LUA_LIBS)
 

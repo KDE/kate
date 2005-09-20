@@ -1306,7 +1306,7 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
 
   QToolButton *btnMTW = new QToolButton(gbProps);
   hbx->addWidget(btnMTW);
-  btnMTW->setIconSet(QIcon(SmallIcon("wizard")));
+  btnMTW->setIcon(QIcon(SmallIcon("wizard")));
   connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
 
   QLabel *lprio = new QLabel( i18n("Prio&rity:"), gbProps);
@@ -1454,7 +1454,7 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   list->setAllColumnsShowFocus(true);
 
   new QLabel(i18n("<b>Note:</b> New versions are selected automatically."), vbox);
-  actionButton (User1)->setIconSet(SmallIconSet("ok"));
+  actionButton (User1)->setIcon(SmallIconSet("ok"));
 
   transferJob = KIO::get(
     KURL(QString(HLDOWNLOADPATH)

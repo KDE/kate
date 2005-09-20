@@ -451,7 +451,7 @@ class KateViewHighlightAction: public KActionMenu
     void slotAboutToShow();
 
   private slots:
-    void setHl (int mode);
+    void setHl (bool checked);
 };
 
 #endif

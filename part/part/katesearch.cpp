@@ -717,7 +717,7 @@ while ( (p = pattern.find( '\\' + delim, p )) > -1 )\
     {
       flags = re_rep2.cap( 1 );
       pattern = re_rep2.cap( 2 );
-      replacement = re_rep2.cap( 3 ).stripWhiteSpace();
+      replacement = re_rep2.cap( 3 ).trimmed();
     }
     else
     {

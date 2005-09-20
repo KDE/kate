@@ -298,7 +298,7 @@ QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QStrin
 
           for (int i=0; i<childlist.count(); i++)
           {
-            QString element = childlist.item(i).toElement().text().stripWhiteSpace();
+            QString element = childlist.item(i).toElement().text().trimmed();
             if (element.isEmpty())
               continue;
 #ifndef NDEBUG

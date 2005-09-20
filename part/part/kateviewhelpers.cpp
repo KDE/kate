@@ -435,7 +435,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
     {
       if ( ! c.isLetterOrNumber() && c != '-' && c != '_' )
       {
-        m_command = KateCmd::self()->queryCommand( text().stripWhiteSpace() );
+        m_command = KateCmd::self()->queryCommand( text().trimmed() );
         if ( m_command )
         {
           //kdDebug(13025)<<"keypress in commandline: We have a command! "<<m_command<<". text is '"<<text()<<"'"<<endl;
@@ -451,7 +451,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
     else // since cursor is inside the command name, we reconsider it
     {
       kdDebug(13025)<<"keypress in commandline: \\W -- text is "<<text()<<endl;
-      m_command = KateCmd::self()->queryCommand( text().stripWhiteSpace() );
+      m_command = KateCmd::self()->queryCommand( text().trimmed() );
       if ( m_command )
       {
         //kdDebug(13025)<<"keypress in commandline: We have a command! "<<m_command<<endl;
@@ -495,7 +495,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
       KTextEditor::CommandExtension *ce = dynamic_cast<KTextEditor::CommandExtension*>(m_command);
       if ( ce )
       {
-        KCompletion *cmpl = ce->completionObject( text().left( m_cmdend ).stripWhiteSpace(), m_view );
+        KCompletion *cmpl = ce->completionObject( text().left( m_cmdend ).trimmed(), m_view );
         if ( cmpl )
         {
         // save the old completion object and use what the command provides
@@ -513,7 +513,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
   else if ( m_command )// check if we should call the commands processText()
   {
     KTextEditor::CommandExtension *ce = dynamic_cast<KTextEditor::CommandExtension*>( m_command );
-    if ( ce && ce->wantsToProcessText( text().left( m_cmdend ).stripWhiteSpace() )
+    if ( ce && ce->wantsToProcessText( text().left( m_cmdend ).trimmed() )
          && ! ( ev->text().isNull() || ev->text().isEmpty() ) )
       ce->processText( m_view, text() );
   }

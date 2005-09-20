@@ -33,7 +33,7 @@
 #include <kdeversion.h>
 #include <kaboutapplication.h>
 #include <dcopclient.h>
-#include <kurldrag.h>
+#include <kurl.h>
 #include <kencodingfiledialog.h>
 #include <kdiroperator.h>
 #include <kiconloader.h>

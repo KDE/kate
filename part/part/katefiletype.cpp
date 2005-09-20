@@ -310,7 +310,7 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   lMimeTypes->setBuddy( mimetypes );
 
   QToolButton *btnMTW = new QToolButton(hbMT);
-  btnMTW->setIconSet(QIcon(SmallIcon("wizard")));
+  btnMTW->setIcon(QIcon(SmallIcon("wizard")));
   connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
 
   QLabel *lprio = new QLabel( i18n("Prio&rity:"), gbProps);

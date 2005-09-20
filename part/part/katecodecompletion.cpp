@@ -423,7 +423,7 @@ void KateCodeCompletion::updateBox( bool )
 /*||
 
       ( m_completionListBox->count() == 1 && // abort if we equaled the last item
-        currentComplText == m_completionListBox->text(0).stripWhiteSpace() ) ) */{
+        currentComplText == m_completionListBox->text(0).trimmed() ) ) */{
     abortCompletion();
     m_view->setFocus();
     return;
@@ -611,7 +611,7 @@ void KateArgHint::cursorPositionChanged( KateView* view, int line, int col )
 void KateArgHint::addFunction( int id, const QString& prot )
 {
     m_functionMap[ id ] = prot;
-    QLabel* label = new QLabel( prot.stripWhiteSpace().simplifyWhiteSpace(), this );
+    QLabel* label = new QLabel( prot.trimmed().simplifyWhiteSpace(), this );
     label->setBackgroundColor( QColor(255, 255, 238) );
     label->show();
     labelDict.insert( id, label );

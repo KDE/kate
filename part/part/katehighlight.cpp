@@ -45,6 +45,7 @@
 #include <kapplication.h>
 
 #include <QSet>
+#include <QAction>
 #include <qstringlist.h>
 #include <qtextstream.h>
 #include <Q3PopupMenu>
@@ -3431,19 +3432,19 @@ void KateViewHighlightAction::slotAboutToShow()
         if (!subMenusName.contains(hlSection))
         {
           subMenusName << hlSection;
-          QMenu *menu = new QMenu ();
+          QMenu *menu = new QMenu ('&'+hlSection);
           subMenus.append(menu);
-          popupMenu()->insertItem ( '&' + hlSection, menu);
+          popupMenu()->addMenu( menu);
         }
 
         int m = subMenusName.findIndex (hlSection);
         names << hlName;
-        subMenus.at(m)->insertItem ( '&' + hlName, this, SLOT(setHl(int)), 0,  z);
+        subMenus.at(m)->addAction( '&' + hlName, this, SLOT(setHl(bool)))->setData(z);
       }
       else if (!names.contains(hlName))
       {
         names << hlName;
-        popupMenu()->insertItem ( '&' + hlName, this, SLOT(setHl(int)), 0,  z);
+        popupMenu()->addAction ( '&' + hlName, this, SLOT(setHl(bool)))->setData(z);
       }
     }
   }
@@ -3466,8 +3467,12 @@ void KateViewHighlightAction::slotAboutToShow()
     popupMenu()->setItemChecked (0, true);
 }
 
-void KateViewHighlightAction::setHl (int mode)
+void KateViewHighlightAction::setHl (bool checked)
 {
+  if (!sender()) return;
+  QAction *action=qobject_cast<QAction*>(sender());
+  if (!action) return;
+  int mode=action->data().toInt();
   KateDocument *doc=m_doc;
 
   if (doc)

@@ -333,7 +333,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
 
   QToolButton *btnMTW = new QToolButton(w);
   lo->addWidget( btnMTW, 4, 2 );
-  btnMTW->setIconSet(QIcon(SmallIcon("wizard")));
+  btnMTW->setIcon(QIcon(SmallIcon("wizard")));
   connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
   btnMTW->setWhatsThis(i18n(
       "<p>Click this button to display a checkable list of mimetypes available "

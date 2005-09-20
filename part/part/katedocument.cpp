@@ -4225,7 +4225,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
     {
       p += kvVar.matchedLength();
       var = kvVar.cap( 1 );
-      val = kvVar.cap( 2 ).stripWhiteSpace();
+      val = kvVar.cap( 2 ).trimmed();
       bool state; // store booleans here
       int n; // store ints here
 
@@ -4384,7 +4384,7 @@ void KateDocument::setViewVariable( QString var, QString val )
 
 bool KateDocument::checkBoolValue( QString val, bool *result )
 {
-  val = val.stripWhiteSpace().lower();
+  val = val.trimmed().lower();
   QStringList l;
   l << "1" << "on" << "true";
   if ( l.contains( val ) )

@@ -1134,12 +1134,12 @@ void KateIndentJScriptManager::parseScriptHeader(const QString &filePath,
         kdDebug(13050)<<"key-length:"<<sl[1].length()<<endl<<"value-length:"<<sl[2].length()<<endl;
         QString key=sl[1];
         QString value=sl[2];
-        if (key=="NAME") (*niceName)=value.stripWhiteSpace();
-        else if (key=="VERSION") (*version)=value.stripWhiteSpace().toDouble(0);
+        if (key=="NAME") (*niceName)=value.trimmed();
+        else if (key=="VERSION") (*version)=value.trimmed().toDouble(0);
         else if (key=="COPYRIGHT")
         {
           tmpblockdata="";
-          if (value.stripWhiteSpace().length()>0)  tmpblockdata=value;
+          if (value.trimmed().length()>0)  tmpblockdata=value;
           currentState=COPYRIGHT;
         } else kdDebug(13050)<<"ignoring key"<<endl;
       }

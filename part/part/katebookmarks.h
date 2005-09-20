@@ -32,7 +32,6 @@ class KAction;
 class KToggleAction;
 class KActionCollection;
 class QMenu;
-class QMenuData;
 
 class KateBookmarks : public QObject
 {
@@ -76,7 +75,7 @@ class KateBookmarks : public QObject
     KAction*                     m_goPrevious;
 
     Sorting                      m_sorting;
-    QMenu*          m_bookmarksMenu;
+    QMenu*                       m_bookmarksMenu;
 
     uint _tries;
 };

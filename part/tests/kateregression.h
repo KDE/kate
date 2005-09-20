@@ -20,23 +20,45 @@
 #define KATEREGRESSION_H
 
 #include <QObject>
+#include <QMap>
 
 class KateDocument;
 
-/**
-@author Hamish Rodda
-*/
+namespace KTextEditor { class Cursor; class SmartCursor; }
+
+struct CursorSignalExpectation
+{
+  CursorSignalExpectation(bool a = false, bool b = false, bool c = false, bool d = false, bool e = false, bool f = false);
+  void checkExpectationsFulfilled() const;
+
+  bool expectCharacterDeletedBefore;
+  bool expectCharacterDeletedAfter;
+  bool expectCharacterInsertedBefore;
+  bool expectCharacterInsertedAfter;
+  bool expectPositionChanged;
+  bool expectPositionDeleted;
+};
+
 class KateRegression : public QObject
 {
   Q_OBJECT
+
+  public slots:
+    void slotCharacterDeleted(KTextEditor::SmartCursor* cursor, bool before);
+    void slotCharacterInserted(KTextEditor::SmartCursor* cursor, bool before);
+    void slotPositionChanged(KTextEditor::SmartCursor* cursor);
+    void slotPositionDeleted(KTextEditor::SmartCursor* cursor);
 
   private slots:
     void testAll();
 
   private:
     void checkSmartManager();
+    void addCursorExpectation(KTextEditor::Cursor* cursor, const CursorSignalExpectation& expectation);
+    void checkSignalExpectations();
 
     KateDocument* m_doc;
+    QMap<KTextEditor::SmartCursor*, CursorSignalExpectation> m_cursorExpectations;
 };
 
 #endif

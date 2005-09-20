@@ -24,7 +24,7 @@
 #include "katedocument.h"
 #include "kateview.h"
 
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <klocale.h>
 
 namespace KTextEditor { class View; }

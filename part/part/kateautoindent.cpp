@@ -29,7 +29,7 @@
 
 #include <klocale.h>
 #include <kdebug.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 
 //BEGIN KateAutoIndent
 

@@ -37,7 +37,7 @@
 #include <kinstance.h>
 #include <kmimetype.h>
 #include <klocale.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kglobalsettings.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
@@ -3430,7 +3430,7 @@ void KateViewHighlightAction::slotAboutToShow()
         if (!subMenusName.contains(hlSection))
         {
           subMenusName << hlSection;
-          Q3PopupMenu *menu = new Q3PopupMenu ();
+          QMenu *menu = new QMenu ();
           subMenus.append(menu);
           popupMenu()->insertItem ( '&' + hlSection, menu);
         }

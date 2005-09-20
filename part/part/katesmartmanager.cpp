@@ -113,7 +113,7 @@ void KateSmartGroup::addCursor( KateSmartCursor * cursor)
 
 void KateSmartGroup::changeCursorFeedback( KateSmartCursor * cursor )
 {
-  if (cursor->feedbackEnabled()) {
+  if (!cursor->feedbackEnabled()) {
     m_normalCursors.remove(cursor);
     m_feedbackCursors.insert(cursor);
   } else {
@@ -245,7 +245,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
   foreach (KateSmartRange* range, changedRanges)
     range->translated(*edit);
 
-  for (KateSmartGroup* smartGroup = firstSmartGroup->next(); smartGroup; smartGroup = smartGroup->next())
+  for (KateSmartGroup* smartGroup = firstSmartGroup; smartGroup; smartGroup = smartGroup->next())
     smartGroup->translated(*edit);
 
   //debugOutput();
@@ -282,9 +282,12 @@ void KateSmartGroup::translated(const KateEditInfo& edit)
     m_endLine = m_newEndLine;
   }
 
+  foreach (KateSmartCursor* cursor, m_normalCursors)
+    cursor->translated(edit);
+
   // Todo: don't need to provide positionChanged to all feedback cursors?
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
-    cursor->translated();
+    cursor->translated(edit);
 
   foreach (KateSmartRange* range, m_rangesStartingPosition)
     range->translated(edit);

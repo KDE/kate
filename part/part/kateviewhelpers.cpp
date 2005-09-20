@@ -39,7 +39,7 @@
 #include <kglobal.h>
 #include <kcharsets.h>
 #include <kmenu.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 
 #include <qcursor.h>
 #include <qpainter.h>

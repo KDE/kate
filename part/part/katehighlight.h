@@ -55,7 +55,7 @@ class KateTextLine;
 class KateSyntaxModeListItem;
 class KateSyntaxContextData;
 
-class Q3PopupMenu;
+class QMenu;
 
 class KateEmbeddedHlInfo
 {
@@ -445,7 +445,7 @@ class KateViewHighlightAction: public KActionMenu
     QPointer<KateDocument> m_doc;
     QStringList subMenusName;
     QStringList names;
-    Q3PtrList<Q3PopupMenu> subMenus;
+    Q3PtrList<QMenu> subMenus;
 
   public  slots:
     void slotAboutToShow();

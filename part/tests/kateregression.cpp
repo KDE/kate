@@ -34,14 +34,14 @@
 QTTEST_KDEMAIN( KateRegression, GUI )
 
 namespace QtTest {
-	template<>
-	char* toString(const KTextEditor::Cursor& cursor)
-	{
-		QByteArray ba = "Cursor(";
-		ba += QByteArray::number(cursor.line()) + ", " + QByteArray::number(cursor.column());
-		ba += ")";
-		return qstrdup(ba.data());
-	}
+  template<>
+  char* toString(const KTextEditor::Cursor& cursor)
+  {
+    QByteArray ba = "Cursor(";
+    ba += QByteArray::number(cursor.line()) + ", " + QByteArray::number(cursor.column());
+    ba += ")";
+    return qstrdup(ba.data());
+  }
 }
 
 // TODO split it various functions
@@ -75,6 +75,8 @@ void KateRegression::testAll()
   KTextEditor::Cursor* cursorEOL = m_doc->newSmartCursor(m_doc->endOfLine(1), false);
   KTextEditor::Cursor* cursorEOLMoves = m_doc->newSmartCursor(m_doc->endOfLine(1), true);
 
+  addCursorExpectation(cursorStartOfEdit, CursorSignalExpectation(false, false, false, true, false, false));
+
   m_doc->insertText(*cursorStartOfEdit, "Additional ");
   COMPARE(*cursorStartOfLine, KTextEditor::Cursor(1,0));
   COMPARE(*cursorStartOfEdit, KTextEditor::Cursor(1,5));
@@ -82,6 +84,8 @@ void KateRegression::testAll()
   COMPARE(*cursorPastEdit, KTextEditor::Cursor(1,18));
   COMPARE(*cursorEOL, m_doc->endOfLine(1));
   COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
+
+  checkSignalExpectations();
 
   // Intra-line remove
   m_doc->removeText(KTextEditor::Range(*cursorStartOfEdit, 11));
@@ -140,6 +144,94 @@ void KateRegression::checkSmartManager()
   }
 
   COMPARE(currentGroup->endLine(), m_doc->lines() - 1);
+}
+
+CursorSignalExpectation::CursorSignalExpectation( bool a, bool b, bool c, bool d, bool e, bool f)
+  : expectCharacterDeletedBefore(a)
+  , expectCharacterDeletedAfter(b)
+  , expectCharacterInsertedBefore(c)
+  , expectCharacterInsertedAfter(d)
+  , expectPositionChanged(e)
+  , expectPositionDeleted(f)
+{
+}
+
+void KateRegression::addCursorExpectation(KTextEditor::Cursor* c, const CursorSignalExpectation & expectation )
+{
+  KTextEditor::SmartCursor* cursor = static_cast<KTextEditor::SmartCursor*>(c);
+  connect(cursor->notifier(), SIGNAL(characterDeleted(KTextEditor::SmartCursor*, bool)), this, SLOT(slotCharacterDeleted(KTextEditor::SmartCursor*, bool)));
+  connect(cursor->notifier(), SIGNAL(characterInserted(KTextEditor::SmartCursor*, bool)), this, SLOT(slotCharacterInserted(KTextEditor::SmartCursor*, bool)));
+  connect(cursor->notifier(), SIGNAL(positionChanged(KTextEditor::SmartCursor*)), this, SLOT(slotPositionChanged(KTextEditor::SmartCursor*)));
+  connect(cursor->notifier(), SIGNAL(positionDeleted(KTextEditor::SmartCursor*)), this, SLOT(slotPositionDeleted(KTextEditor::SmartCursor*)));
+  m_cursorExpectations.insert(cursor, expectation);
+}
+
+void KateRegression::slotCharacterDeleted( KTextEditor::SmartCursor * cursor, bool before )
+{
+  VERIFY(m_cursorExpectations.contains(cursor));
+
+  if (before) {
+    VERIFY(m_cursorExpectations[cursor].expectCharacterDeletedBefore);
+    m_cursorExpectations[cursor].expectCharacterDeletedBefore = false;
+
+  } else {
+    VERIFY(m_cursorExpectations[cursor].expectCharacterDeletedAfter);
+    m_cursorExpectations[cursor].expectCharacterDeletedAfter = false;
+  }
+}
+
+void KateRegression::slotCharacterInserted( KTextEditor::SmartCursor * cursor, bool before )
+{
+  VERIFY(m_cursorExpectations.contains(cursor));
+
+  if (before) {
+    VERIFY(m_cursorExpectations[cursor].expectCharacterInsertedBefore);
+    m_cursorExpectations[cursor].expectCharacterInsertedBefore = false;
+
+  } else {
+    VERIFY(m_cursorExpectations[cursor].expectCharacterInsertedAfter);
+    m_cursorExpectations[cursor].expectCharacterInsertedAfter = false;
+  }
+}
+
+void KateRegression::slotPositionChanged( KTextEditor::SmartCursor * cursor )
+{
+  VERIFY(m_cursorExpectations.contains(cursor));
+  VERIFY(m_cursorExpectations[cursor].expectPositionChanged);
+  m_cursorExpectations[cursor].expectPositionChanged = false;
+}
+
+void KateRegression::slotPositionDeleted( KTextEditor::SmartCursor * cursor )
+{
+  VERIFY(m_cursorExpectations.contains(cursor));
+  VERIFY(m_cursorExpectations[cursor].expectPositionDeleted);
+  m_cursorExpectations[cursor].expectPositionDeleted = false;
+}
+
+void KateRegression::checkSignalExpectations( )
+{
+  QMapIterator<KTextEditor::SmartCursor*, CursorSignalExpectation> it = m_cursorExpectations;
+  while (it.hasNext()) {
+    it.next();
+    it.value().checkExpectationsFulfilled();
+  }
+  m_cursorExpectations.clear();
+}
+
+void CursorSignalExpectation::checkExpectationsFulfilled( ) const
+{
+  if (expectCharacterDeletedBefore)
+    FAIL("Expected to be notified of a character to be deleted before cursor.");
+  if (expectCharacterDeletedAfter)
+    FAIL("Expected to be notified of a character to be deleted after cursor.");
+  if (expectCharacterInsertedBefore)
+    FAIL("Expected to be notified of a character to be inserted before cursor.");
+  if (expectCharacterInsertedAfter)
+    FAIL("Expected to be notified of a character to be inserted after cursor.");
+  if (expectPositionChanged)
+    FAIL("Expected to be notified of the cursor's position change.");
+  if (expectPositionDeleted)
+    FAIL("Expected to be notified of the cursor's position deletion.");
 }
 
 

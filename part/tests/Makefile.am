@@ -16,3 +16,4 @@ katetest_LDADD = $(top_builddir)/kate/part/katepart.la
 katetest_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 
 TESTS = kateregression
+

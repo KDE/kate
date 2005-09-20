@@ -38,7 +38,7 @@ class KateStyleListCaption;
 
 class KColorButton;
 
-class Q3PopupMenu;
+class QMenu;
 class KComboBox;
 
 class KateSchemaManager

@@ -31,7 +31,7 @@ namespace KDocument { class View; }
 class KAction;
 class KToggleAction;
 class KActionCollection;
-class Q3PopupMenu;
+class QMenu;
 class QMenuData;
 
 class KateBookmarks : public QObject
@@ -49,7 +49,7 @@ class KateBookmarks : public QObject
     void setSorting( Sorting s ) { m_sorting = s; };
 
   protected:
-    void insertBookmarks( Q3PopupMenu& menu);
+    void insertBookmarks( QMenu& menu);
 
   private slots:
     void toggleBookmark();
@@ -76,7 +76,7 @@ class KateBookmarks : public QObject
     KAction*                     m_goPrevious;
 
     Sorting                      m_sorting;
-    Q3PopupMenu*          m_bookmarksMenu;
+    QMenu*          m_bookmarksMenu;
 
     uint _tries;
 };

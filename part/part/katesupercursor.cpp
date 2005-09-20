@@ -20,6 +20,7 @@
 
 #include "katedocument.h"
 #include "katesmartmanager.h"
+#include "katesmartcursornotifier.h"
 
 #include <kdebug.h>
 
@@ -253,6 +254,8 @@ void KateSmartCursor::setLine( int _line )
 
 void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool internal )
 {
+  m_lastPosition = *this;
+
   bool haveToChangeGroups = !m_smartGroup->containsLine(pos.line());
   if (haveToChangeGroups) {
     m_smartGroup->leaving(this);
@@ -270,7 +273,7 @@ void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool
 KTextEditor::SmartCursorNotifier* KateSmartCursor::notifier( )
 {
   if (!m_notifier) {
-    m_notifier = new KTextEditor::SmartCursorNotifier();
+    m_notifier = new KateSmartCursorNotifier();
     checkFeedback();
   }
   return m_notifier;
@@ -341,9 +344,49 @@ void KateSmartCursor::setLineInternal( int newLine, bool internal )
   setPositionInternal(KTextEditor::Cursor(newLine, column()), internal);
 }
 
-void KateSmartCursor::translated( )
+void KateSmartCursor::translated(const KateEditInfo & edit)
 {
-  // TODO add feedback
+  if (*this < edit.oldRange().start())
+    return;
+
+  if (!edit.oldRange().isEmpty() && edit.oldRange().contains(lastPosition())) {
+    if (edit.oldRange().start() == lastPosition()) {
+      // character deleted after
+      if (m_notifier)
+        emit m_notifier->characterDeleted(this, false);
+      if (m_watcher)
+        m_watcher->characterDeleted(this, false);
+
+    } else if (edit.oldRange().end() == lastPosition()) {
+      // character deleted before
+      if (m_notifier)
+        emit m_notifier->characterDeleted(this, true);
+      if (m_watcher)
+        m_watcher->characterDeleted(this, true);
+
+    } else {
+      // position deleted
+      if (m_notifier)
+        emit m_notifier->positionDeleted(this);
+    }
+  }
+
+  if (!edit.newRange().isEmpty()) {
+    if (*this == edit.newRange().start()) {
+      // character inserted after
+      if (m_notifier)
+        emit m_notifier->characterInserted(this, false);
+      if (m_watcher)
+        m_watcher->characterInserted(this, false);
+
+    } else if (*this == edit.newRange().end()) {
+      // character inserted before
+      if (m_notifier)
+        emit m_notifier->characterInserted(this, true);
+      if (m_watcher)
+        m_watcher->characterInserted(this, true);
+    }
+  }
 }
 
 void KateSmartCursor::migrate( KateSmartGroup * newGroup )

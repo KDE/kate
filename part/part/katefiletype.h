@@ -130,7 +130,7 @@ class KateViewFileTypeAction : public KActionMenu
     QPointer<KateDocument> m_doc;
     QStringList subMenusName;
     QStringList names;
-    Q3PtrList<Q3PopupMenu> subMenus;
+    Q3PtrList<QMenu> subMenus;
 
   public  slots:
     void slotAboutToShow();

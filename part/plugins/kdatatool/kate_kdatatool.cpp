@@ -25,7 +25,7 @@
 #include <kdebug.h>
 #include <kdatatool.h>
 #include <ktexteditor/document.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kmessagebox.h>
 //END includes
 

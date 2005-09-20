@@ -33,7 +33,7 @@
 #include <kiconloader.h>
 #include <knuminput.h>
 #include <klocale.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 
 #include <qregexp.h>
 #include <qcheckbox.h>
@@ -543,7 +543,7 @@ void KateViewFileTypeAction::slotAboutToShow()
       if (!subMenusName.contains(hlSection))
       {
         subMenusName << hlSection;
-        Q3PopupMenu *menu = new Q3PopupMenu ();
+        QMenu *menu = new QMenu ();
         subMenus.append(menu);
         popupMenu()->insertItem (hlSection, menu);
       }

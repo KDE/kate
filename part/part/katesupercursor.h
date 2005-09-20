@@ -28,6 +28,7 @@
 class KateDocument;
 class KateView;
 class KateSmartGroup;
+class KateSmartCursorNotifier;
 namespace KTextEditor { class Document; }
 
 /**
@@ -92,7 +93,7 @@ public:
      * cursor's position moves and it's not needing to be adjusted via
      * translateCursor().
      */
-    void translated();
+    void translated(const KateEditInfo & edit);
 
   protected:
     void setLineInternal(int newLine, bool internal = true);
@@ -116,7 +117,7 @@ public:
     bool m_feedbackEnabled  :1;
     mutable int m_oldGroupLineStart;
 
-    KTextEditor::SmartCursorNotifier* m_notifier;
+    KateSmartCursorNotifier* m_notifier;
     KTextEditor::SmartCursorWatcher* m_watcher;
 };
 

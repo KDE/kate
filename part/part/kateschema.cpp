@@ -36,7 +36,7 @@
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <kmessagebox.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kcolordialog.h>
 #include <kapplication.h>
 #include <kaboutdata.h>
@@ -1069,7 +1069,7 @@ void KateStyleListView::showPopupMenu( KateStyleListItem *i, const QPoint &globa
 {
   if ( !dynamic_cast<KateStyleListItem*>(i) ) return;
 
-  KPopupMenu m( this );
+  KMenu m( this );
   KTextEditor::Attribute *is = i->style();
   int id;
   // the title is used, because the menu obscures the context name when

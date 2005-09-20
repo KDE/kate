@@ -63,7 +63,7 @@
 #include <kmimetypechooser.h>
 #include <knuminput.h>
 #include <kparts/componentfactory.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kprocess.h>
 #include <kprocio.h>
 #include <kregexpeditorinterface.h>

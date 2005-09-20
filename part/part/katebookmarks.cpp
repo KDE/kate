@@ -25,7 +25,7 @@
 
 #include <klocale.h>
 #include <kaction.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kstringhandler.h>
 #include <kxmlguiclient.h>
 #include <kxmlguifactory.h>
@@ -148,7 +148,7 @@ void KateBookmarks::slotViewLostFocus( KDocument::View *v )
     m_bookmarksMenu->clear();
 }
 
-void KateBookmarks::insertBookmarks( Q3PopupMenu& menu )
+void KateBookmarks::insertBookmarks( QMenu& menu )
 {
   int line = m_view->cursorPosition().line();
   const QRegExp re("&(?!&)");

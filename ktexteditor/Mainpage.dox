@@ -94,6 +94,7 @@ concepts are much cleaner than tuples, please keep the following guidelines:
 @todo add
  - @a -lktexteditor hint or $(LIB_KTEXTEDITOR) in the KDE build framework.
  - Implementor Notes: Information about Q_INTERFACES and qobject_cast.
+   see http://doc.trolltech.com/4.0/plugins-howto.html#the-lower-level-api-extending-qt-applications
 
 
 

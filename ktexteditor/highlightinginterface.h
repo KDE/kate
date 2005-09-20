@@ -28,47 +28,98 @@ namespace KTextEditor
 {
 
 /**
-*  This is an interface for syntax highlighting of a Document.
-*/
+ * Highlighting extension interface for the Document.
+ *
+ * <b>Introduction</b>\n
+ *
+ * The class HighlightingInterface provides only very general methods to get
+ * information about syntax highlighting modes. Use hlMode() to get the
+ * current highlighting mode and setHlMode() to set it. To get the number of
+ * available syntax highlighting modes use hlModeCount(). The name of a mode
+ * can be retrieved by using hlModeName(), to get the section to which a mode
+ * belongs use hlModeSectionName(). The signal hlChanged() is emitted
+ * whenever the syntax highlighting mode changed.
+ *
+ * <b>Accessing the HighlightingInterface</b>\n
+ *
+ * The HighlightingInterface is supposed to be an extension interface for a
+ * Document, i.e. the Document inherits the HighlightingInterface
+ * @e provided that the used KTextEditor library implements the interface.
+ * To access the HighlightingInterface do the following:
+ * @code
+ *   // doc is of type KTextEditor::Document*
+ *   KTextEditor::HighlightingInterface *highlightingInterface =
+ *       qobject_cast<KTextEditor::HighlightingInterface*>( doc );
+ *
+ *   if( highlightingInterface ) {
+ *       // the implementation supports the HighlightingInterface
+ *       // do stuff
+ *   }
+ *   else {
+ *       // the implementation does not support the HighlightingInterface
+ *   }
+ * @endcode
+ *
+ * @see KTextEditor::Document
+ * @author Christoph Cullmann \<cullmann@kde.org\>
+ */
 class KTEXTEDITOR_EXPORT HighlightingInterface
 {
   public:
+    /**
+     * Virtual destructor.
+     */
     virtual ~HighlightingInterface () {}
 
   //
-	// slots !!!
-	//
+  // SLOTS !!!
+  //
   public:
-	/**
-  * returns the current active highlighting mode
-  */
-	virtual unsigned int hlMode () = 0;
+    /**
+     * Get the current active syntax highlighting mode.
+     * @return current active mode
+     * @see setHlMode()
+     */
+    virtual unsigned int hlMode () = 0;
 
-  /**
-	* set the current active highlighting mode
-	*/
-	virtual bool setHlMode (unsigned int mode) = 0;
+    /**
+     * Set the syntax highlighting mode to @p mode.
+     * @param mode new highlighting mode
+     * @see hlMode()
+     */
+    virtual bool setHlMode (unsigned int mode) = 0;
 
-	/**
-	* returns the number of available highlightings
-	*/
-  virtual unsigned int hlModeCount () = 0;
+    /**
+     * Get the number of available syntax highlighting modes.
+     * @return number of available modes
+     */
+    virtual unsigned int hlModeCount () = 0;
 
-	/**
-	* returns the name of the highlighting with number "mode"
-	*/
-	virtual QString hlModeName (unsigned int mode) = 0;
+    /**
+     * Get the name of the syntax highlighting mode with number @p mode.
+     * @return name of @p mode
+     * @see hlModeSectionName()
+     */
+    virtual QString hlModeName (unsigned int mode) = 0;
 
-	/**
-	* returns the sectionname of the highlighting with number "mode"
-	*/
-  virtual QString hlModeSectionName (unsigned int mode) = 0;
+    /**
+     * Get the name of the section to which the syntax highlighting mode
+     * with number @p mode belongs to.
+     * @return section name
+     * @see hlModeName()
+     */
+    virtual QString hlModeSectionName (unsigned int mode) = 0;
 
-	//
-	// signals !!!
-	//
-	public:
-	  virtual void hlChanged () = 0;
+  //
+  // SIGNALS !!!
+  //
+  public:
+    /**
+     * This signal is emitted whenever the document's syntax highlighting
+     * mode changed.
+     * @see hlMode(), setHlMode()
+     */
+    virtual void hlChanged () = 0;
 };
 
 }
@@ -76,3 +127,5 @@ class KTEXTEDITOR_EXPORT HighlightingInterface
 Q_DECLARE_INTERFACE(KTextEditor::HighlightingInterface, "org.kde.KTextEditor.HighlightingInterface")
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

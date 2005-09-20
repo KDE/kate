@@ -31,41 +31,81 @@ namespace KTextEditor
 class Document;
 
 /**
- * This is an interface to search throught a KTextEditor::Document object.
- * It allows to search for given text or regular expression
+ * Search interface expression for the Document.
+ *
+ * <b>Introduction</b>\n
+ *
+ * The SearchInterface provides methods to search for a given text pattern in
+ * a Document. You can either search for a simple text or for a regular
+ * expression by using a QRegExp, see searchText().
+ *
+ * <b>Accessing the ModificationInterface</b>\n
+ *
+ * The SearchInterface is supposed to be an extension interface for a
+ * Document, i.e. the Document inherits the SearchInterface @e provided that
+ * the used KTextEditor library implements the interface. To access the
+ * SearchInterface do the following:
+ * @code
+ *   // doc is of type KTextEditor::Document*
+ *   KTextEditor::SearchInterface *searchInterface =
+ *       qobject_cast<KTextEditor::SearchInterface*>( doc );
+ *
+ *   if( searchInterface ) {
+ *       // the implementation supports the SearchInterface
+ *       // do stuff
+ *   }
+ *   else {
+ *       // the implementation does not support the SearchInterface
+ *   }
+ * @endcode
+ *
+ * @see KTextEditor::Document
+ * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT SearchInterface
 {
   public:
     /**
-     * Virtual Destructor
+     * Virtual destructor.
      */
     virtual ~SearchInterface() {}
 
   public:
     /**
-     * search for given text
-     * @param startLine line to start search
-     * @param startCol column to start search
+     * Search for the given @p text beginning from @p startPosition taking
+     * into account whether to search @p casesensitive and @p backwards.
+     *
+     * @param startPosition start cursor position
      * @param text text to search for
-     * @param casesensitive should we search casesensitive?
-     * @param backwards should we search backwards?
-     * @return valid range of match if text found, otherwise inValid() range.
+     * @param casesensitive if @e true, the search is performed case
+     *        sensitive, otherwise case insensitive
+     * @param backwards if @e true, the search will be backwards
+     * @return The valid range of the matched text if @p text was found. If
+     *        the @p text was not found, the returned range is not valid
+     *        (see Range::isValid()).
+     * @see KTextEditor::Range
      */
-    virtual KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition, const QString &text, bool casesensitive = true, bool backwards = false) = 0;
+    virtual KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
+                                           const QString &text,
+                                           bool casesensitive = true,
+                                           bool backwards = false) = 0;
 
     /**
-     * search for given regular expression
-     * @param startLine line to start search
-     * @param startCol column to start search
-     * @param regexp expression to search for
-     * @param foundAtLine line where match is found
-     * @param foundAtCol line where match is found
-     * @param matchLen match length
-     * @param backwards should we search backwards?
-     * @return valid range of match if text found, otherwise inValid() range.
+     * Search for the regular expression @p regexp beginning from
+     * @p startPosition, if @p backwards is @e true, the search direction will
+     * be reversed.
+     *
+     * @param startPosition start cursor position
+     * @param text text to search for
+     * @param backwards if @e true, the search will be backwards
+     * @return The valid range of the matched text if @p text was found. If
+     *        the @p text was not found, the returned range is not valid
+     *        (see Range::isValid()).
+     * @see KTextEditor::Range, QRegExp
      */
-    virtual KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition, const QRegExp &regexp, bool backwards = false) = 0;
+    virtual KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
+                                           const QRegExp &regexp,
+                                           bool backwards = false) = 0;
 };
 
 }
@@ -73,3 +113,5 @@ class KTEXTEDITOR_EXPORT SearchInterface
 Q_DECLARE_INTERFACE(KTextEditor::SearchInterface, "org.kde.KTextEditor.SearchInterface")
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

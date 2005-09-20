@@ -48,7 +48,10 @@ class Document;
 class Mark
 {
   public:
+    /** The line that contains the mark. */
     int line;
+
+    /** The mark types in the line, combined with logical OR. */
     uint type;
 };
 
@@ -73,7 +76,7 @@ class Mark
  * @code
  *   // doc is of type KTextEditor::Document*
  *   KTextEditor::MarkInterface *markInterface =
- *       qobject_cast\<KTextEditor::MarkInterface*\>( doc );
+ *       qobject_cast<KTextEditor::MarkInterface*>( doc );
  *
  *   if( markInterface ) {
  *       // the implementation supports the MarkInterface
@@ -107,7 +110,7 @@ class Mark
  * mark mask via setMarksUserChangable(). To set a description and pixmap of
  * a mark type call setMarkDescription() and setMarkPixmap().
  *
- * @see KTextEditor::Document
+ * @see KTextEditor::Document, KTextEditor::Mark
  * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT MarkInterface

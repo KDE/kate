@@ -51,7 +51,7 @@ class View;
  * @code
  *   // doc is of type KTextEditor::Document*
  *   KTextEditor::ModificationInterface *modificationInterface =
- *       qobject_cast\<KTextEditor::ModificationInterface*\>( doc );
+ *       qobject_cast<KTextEditor::ModificationInterface*>( doc );
  *
  *   if( modificationInterface ) {
  *       // the implementation supports the ModificationInterface
@@ -62,6 +62,7 @@ class View;
  *   }
  * @endcode
  *
+ * @see KTextEditor::Document
  * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT ModificationInterface

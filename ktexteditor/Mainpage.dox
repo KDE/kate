@@ -24,7 +24,7 @@ popular implementations right now are
 Overview
  - @ref kte_design
  - @ref kte_guidelines
- - @ref kte_porting_to_kde4
+ - @ref kte_port_to_kde4
  - @ref kte_embedding
 
 @section kte_design General Design of the Core Interfaces
@@ -106,7 +106,35 @@ concepts are much cleaner than tuples, please keep the following guidelines:
 
 
 /**
-@page kte_porting_to_kde4 Porting to KDE 4
+@page kte_port_to_kde4 Porting to KDE 4
+This document describes porting applications using the KTextEditor interfaces
+from KDE 3 to KDE 4.
+
+\section kte_port_intro Introduction
+The KTextEditor interfaces changes in KDE 4 are neither binary nor source
+compatible to the KTextEditor interfaces included in KDE 3, so programs
+written/compiled for the KDE 3 KTextEditor interfaces will not compile with
+KDE 4.
+
+The KDE 4 KTextEditor interfaces undergone a heavy cleanup, i.e. obsolete
+functions were removed, interfaces were merged and extended.
+
+@todo everything
+
+@subsection kte_port_interfaces Interface Changes
+ - all interfaceExt classes merged
+ - use qobject_cast for interface extensions
+ - renamed: modifiedOnDisc -> modifiedOnDisk
+
+@subsection kte_port_plugins Plugin Changes
+The Plugin interface changed to support more that one Document at a time.
+A plugin in a KDE 4 KTextEditor implementation no longer is bound to a single
+document (i.e. for @e every document a single instance of the plugin existed).
+Now a plugin can handle several documents and views.
+
+@see KTextEditor::Plugin
+
+
 @author Dominik Haumann \<dhdev@gmx.de\>
 */
 

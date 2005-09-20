@@ -62,7 +62,8 @@ class ConfigPage;
  * get it with configPageName(). You can get more detailed name by using
  * configPageFullName. Also evary config page has a pixmap, get it with
  * configPagePixmap(). Use the config dialog only if there are no config
- * pages. The configuration can be saved with readConfig() and writeConfig().
+ * pages. The configuration can be saved and loaded with readConfig() and
+ * writeConfig().
  *
  * <b>Implementation Notes</b>\n
  *
@@ -71,7 +72,12 @@ class ConfigPage;
  * Kate Part Editor object exists. So several factories still use the same
  * Editor.
  *
+ * readConfig() and writeConfig() should be forwarded to all loaded plugins
+ * as well, see KTextEditor::Plugin::readConfig() and
+ * KTextEditor::Plugin::writeConfig().
+ *
  * @see KTextEditor::Factory, KTextEditor::Document, KTextEditor::ConfigPage
+ *      KTextEditor::Plugin
  * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT Editor : public QObject
@@ -126,30 +132,24 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
    */
   public:
     /**
-     * Read editor configuration from its standard config.
-     * @see writeConfig()
-     */
-    virtual void readConfig () = 0;
-
-    /**
-     * Write editor configuration to its standard config.
-     * @see readConfig()
-     */
-    virtual void writeConfig () = 0;
-
-    /**
      * Read editor configuration from KConfig @p config.
+     * If @p config is NULL you should use kapp->config() as a fallback
+     * solution. Additionally the readConfig() call should be forwarded to
+     * every loaded plugin.
      * @param config config object
      * @see writeConfig()
      */
-    virtual void readConfig (KConfig *config) = 0;
+    virtual void readConfig (KConfig *config = 0) = 0;
 
     /**
      * Write editor configuration to KConfig @p config.
+     * If @p config is NULL you should use kapp->config() as a fallback
+     * solution. Additionally the writeConfig() call should be forwarded to
+     * every loaded plugin.
      * @param config config object
      * @see readConfig()
      */
-    virtual void writeConfig (KConfig *config) = 0;
+    virtual void writeConfig (KConfig *config = 0) = 0;
 
     /**
      * Check, whether this editor has a configuration dialog.
@@ -216,16 +216,19 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
      * @return pixmap for the given page index
      * @see configPageName(), configPageFullName()
      */
-    virtual QPixmap configPagePixmap (int number, int size = KIcon::SizeSmall) const = 0;
+    virtual QPixmap configPagePixmap (int number,
+                                      int size = KIcon::SizeSmall) const = 0;
 
   signals:
     /**
-     * The @p editor emits this signal whenever a @p document was successfully created.
+     * The @p editor emits this signal whenever a @p document was successfully
+     * created.
      * @param editor editor which created the new document
      * @param document the newly created document instance
      * @see createDocument()
      */
-    void documentCreated (KTextEditor::Editor *editor, KTextEditor::Document *document);
+    void documentCreated (KTextEditor::Editor *editor,
+                          KTextEditor::Document *document);
 };
 
 

@@ -34,8 +34,8 @@ class Document;
  *
  * The VariableInterface is designed to provide access to so called
  * "document variables" (also called modelines), for example variables
- * defined in files like "<tt>kate: variable value;</tt>" or the emacs style
- * "<tt>-*- variable: value -*-</tt>".
+ * defined in files like "kate: variable value;" or the emacs style
+ * "-*- variable: value -*-".
  *
  * The idea is to allow KTextEditor plugins and applications to use document
  * variables. A document implementing this interface should return values
@@ -53,7 +53,7 @@ class Document;
  * @code
  *   // doc is of type KTextEditor::Document*
  *   KTextEditor::VariableInterface *variableInterface =
- *       qobject_cast\<KTextEditor::VariableInterface*\>( doc );
+ *       qobject_cast<KTextEditor::VariableInterface*>( doc );
  *
  *   if( variableInterface ) {
  *       // the implementation supports the VariableInterface

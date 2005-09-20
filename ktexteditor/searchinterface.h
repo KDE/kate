@@ -31,7 +31,7 @@ namespace KTextEditor
 class Document;
 
 /**
- * Search interface expression for the Document.
+ * Search interface extension for the Document.
  *
  * <b>Introduction</b>\n
  *
@@ -39,23 +39,20 @@ class Document;
  * a Document. You can either search for a simple text or for a regular
  * expression by using a QRegExp, see searchText().
  *
- * <b>Accessing the ModificationInterface</b>\n
+ * <b>Accessing the SearchInterface</b>\n
  *
  * The SearchInterface is supposed to be an extension interface for a
- * Document, i.e. the Document inherits the SearchInterface @e provided that
- * the used KTextEditor library implements the interface. To access the
- * SearchInterface do the following:
+ * Document, i.e. the Document inherits the interface @e provided that the
+ * used KTextEditor library implements the interface. Use qobject_cast to
+ * access the interface:
  * @code
  *   // doc is of type KTextEditor::Document*
- *   KTextEditor::SearchInterface *searchInterface =
+ *   KTextEditor::SearchInterface *iface =
  *       qobject_cast<KTextEditor::SearchInterface*>( doc );
  *
- *   if( searchInterface ) {
- *       // the implementation supports the SearchInterface
+ *   if( iface ) {
+ *       // the implementation supports the interface
  *       // do stuff
- *   }
- *   else {
- *       // the implementation does not support the SearchInterface
  *   }
  * @endcode
  *

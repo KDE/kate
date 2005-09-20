@@ -45,20 +45,17 @@ class View;
  * <b>Accessing the ModificationInterface</b>\n
  *
  * The ModificationInterface is supposed to be an extension interface for a
- * Document, i.e. the Document inherits the MarkInterface @e provided that
- * the used KTextEditor library implements the interface. To access the
- * ModificationInterface do the following:
+ * Document, i.e. the Document inherits the interface @e provided that the
+ * used KTextEditor library implements the interface. Use qobject_cast to
+ * access the interface:
  * @code
  *   // doc is of type KTextEditor::Document*
- *   KTextEditor::ModificationInterface *modificationInterface =
+ *   KTextEditor::ModificationInterface *iface =
  *       qobject_cast<KTextEditor::ModificationInterface*>( doc );
  *
- *   if( modificationInterface ) {
- *       // the implementation supports the ModificationInterface
+ *   if( iface ) {
+ *       // the implementation supports the interface
  *       // do stuff
- *   }
- *   else {
- *       // the implementation does not support the ModificationInterface
  *   }
  * @endcode
  *
@@ -69,7 +66,7 @@ class KTEXTEDITOR_EXPORT ModificationInterface
 {
   public:
     /**
-     * virtual destructor
+     * Virtual destructor.
      */
     virtual ~ModificationInterface () {}
 
@@ -86,40 +83,53 @@ class KTEXTEDITOR_EXPORT ModificationInterface
 
   public:
     /**
-     * For client apps that want to deal with files modified on disk, it is
-     * nessecary to reset this property.
-     * @p reason is a ModifiedOnDiskReason.
+     * Set the document's modified-on-disk state to @p reason.
+     * KTextEditor implementations should emit the signal modifiedOnDisk()
+     * along with the reason. When the document is in a clean state again the
+     * reason should be ModifiedOnDiskReason::OnDiskModified.
+     *
+     * @param reason the modified-on-disk reason.
+     * @see ModifiedOnDiskReason, modifiedOnDisk()
      */
     virtual void setModifiedOnDisk( ModifiedOnDiskReason reason ) = 0;
 
    /**
-    * Turn on/off any warning dialogs about the modification for this editor
-    * @param on should the editor show dialogs?
+    * Control, whether the editor should show a warning dialog whenever a file
+    * was modified on disk. If @p on is @e true the editor will show warning
+    * dialogs.
+    * @param on controls, whether the editor should show a warning dialog for
+    *        files modified on disk
     */
    virtual void setModifiedOnDiskWarning ( bool on ) = 0;
 
-  /**
-   * These stuff is implemented as slots in the real document
+  /*
+   * These stuff is implemented as SLOTS in the real document
    */
   public:
     /**
-     * Ask the user what to do, if the file is modified on disk.
-     * The @p v argument is used to avoid asking again, when the
-     * editor regains focus after the dialog is hidden.
+     * Ask the user what to do, if the file was modified on disk.
+     * The argument @p view is used to avoid asking again, when the editor
+     * regains focus after the dialog is hidden.
+     * @param view the view that should be notified of the user's decision
+     * @see setModifiedOnDisk(), modifiedOnDisk()
      */
     virtual void slotModifiedOnDisk( View *view = 0 ) = 0;
 
-  /**
-   * These stuff is implemented as signals in the real document
+  /*
+   * These stuff is implemented as SIGNALS in the real document
    */
   public:
     /**
-     * Indicate this file is modified on disk
-     * @param doc the KTextEditor::Document object that represents the file on disk
-     * @param isModified indicates the file was modified rather than created or deleted
-     * @param reason the reason we are emitting the signal.
+     * This signal is emitted whenever the @p document changed its
+     * modified-on-disk state.
+     * @param document the Document object that represents the file on disk
+     * @param isModified if @e true, the file was modified rather than created
+     *        or deleted
+     * @param reason the reason why the signal was emitted
+     * @see setModifiedOnDisk()
      */
-    virtual void modifiedOnDisk (KTextEditor::Document *doc, bool isModified,
+    virtual void modifiedOnDisk (KTextEditor::Document *document,
+                                 bool isModified,
                                  KTextEditor::ModificationInterface::ModifiedOnDiskReason reason) = 0;
 };
 

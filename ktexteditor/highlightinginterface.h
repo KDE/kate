@@ -43,20 +43,17 @@ namespace KTextEditor
  * <b>Accessing the HighlightingInterface</b>\n
  *
  * The HighlightingInterface is supposed to be an extension interface for a
- * Document, i.e. the Document inherits the HighlightingInterface
- * @e provided that the used KTextEditor library implements the interface.
- * To access the HighlightingInterface do the following:
+ * Document, i.e. the Document inherits the interface @e provided that the
+ * used KTextEditor library implements the interface. Use qobject_cast to
+ * access the interface:
  * @code
  *   // doc is of type KTextEditor::Document*
- *   KTextEditor::HighlightingInterface *highlightingInterface =
+ *   KTextEditor::HighlightingInterface *iface =
  *       qobject_cast<KTextEditor::HighlightingInterface*>( doc );
  *
- *   if( highlightingInterface ) {
- *       // the implementation supports the HighlightingInterface
+ *   if( iface ) {
+ *       // the implementation supports the interface
  *       // do stuff
- *   }
- *   else {
- *       // the implementation does not support the HighlightingInterface
  *   }
  * @endcode
  *

@@ -70,20 +70,17 @@ class Mark
  * <b>Accessing the MarkInterface</b>\n
  *
  * The MarkInterface is supposed to be an extension interface for a Document,
- * i.e. the Document inherits the MarkInterface @e provided that the used
- * KTextEditor library implements the interface. To access the MarkInterface
- * do the following:
+ * i.e. the Document inherits the interface @e provided that the used
+ * KTextEditor library implements the interface. Use qobject_cast to access
+ * the interface:
  * @code
  *   // doc is of type KTextEditor::Document*
- *   KTextEditor::MarkInterface *markInterface =
+ *   KTextEditor::MarkInterface *iface =
  *       qobject_cast<KTextEditor::MarkInterface*>( doc );
  *
- *   if( markInterface ) {
- *       // the implementation supports the MarkInterface
+ *   if( iface ) {
+ *       // the implementation supports the interface
  *       // do stuff
- *   }
- *   else {
- *       // the implementation does not support the MarkInterface
  *   }
  * @endcode
  *

@@ -47,20 +47,17 @@ class Document;
  * <b>Accessing the VariableInterface</b>\n
  *
  * The VariableInterface is supposed to be an extension interface for a
- * Document, i.e. the Document inherits the MarkInterface @e provided that
- * the used KTextEditor library implements the interface. To access the
- * VariableInterface do the following:
+ * Document, i.e. the Document inherits the interface @e provided that the
+ * used KTextEditor library implements the interface. Use qobject_cast to
+ * access the interface:
  * @code
  *   // doc is of type KTextEditor::Document*
- *   KTextEditor::VariableInterface *variableInterface =
+ *   KTextEditor::VariableInterface *iface =
  *       qobject_cast<KTextEditor::VariableInterface*>( doc );
  *
- *   if( variableInterface ) {
- *       // the implementation supports the VariableInterface
+ *   if( iface ) {
+ *       // the implementation supports the interface
  *       // do stuff
- *   }
- *   else {
- *       // the implementation does not support the VariableInterface
  *   }
  * @endcode
  *

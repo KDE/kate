@@ -60,8 +60,9 @@ Range::Range(const Cursor& start, int endLine, int endCol)
   , m_end(new Cursor(endLine, endCol))
 {
   if (*m_end < *m_start) {
-    kdWarning() << k_funcinfo << "Attempting to set end before start." << endl;
-    *m_end = *m_start;
+    Cursor* temp = m_end;
+    m_end = m_start;
+    m_start = temp;
   }
 }
 
@@ -69,12 +70,22 @@ Range::Range(int startLine, int startCol, int endLine, int endCol)
   : m_start(new Cursor(startLine, startCol))
   , m_end(new Cursor(endLine, endCol))
 {
+  if (*m_end < *m_start) {
+    Cursor* temp = m_end;
+    m_end = m_start;
+    m_start = temp;
+  }
 }
 
 Range::Range(Cursor* start, Cursor* end)
   : m_start(start)
   , m_end(end)
 {
+  if (*m_end < *m_start) {
+    Cursor temp = *m_end;
+    *m_end = *m_start;
+    *m_start = temp;
+  }
 }
 
 Range::Range(const Range& copy)

@@ -31,7 +31,7 @@ namespace KTextEditor
 class Document;
 
 /**
- * \short A class which represents a position in a document.
+ * \short A Cursor represents a position in a Document.
  *
  * A Cursor is a basic class which contains the line() and column() a position
  * in a Document. It is very lightweight and maintains no affiliation with a
@@ -303,7 +303,7 @@ class KTEXTEDITOR_EXPORT SmartCursorNotifier : public QObject
 class SmartRange;
 
 /**
- * \short A Cursor which is bound to a specific Document, and maintains its position.
+ * \short A SmartCursor is a Cursor which is bound to a specific Document, and maintains its position.
  *
  * A SmartCursor is an extension of the basic Cursor class. It maintains its
  * position in the document and provides a number of convenience methods,
@@ -316,7 +316,7 @@ class SmartRange;
  * notification via notifier(), or SmartCursorWatcher for virtual inheritance
  * notification via setWatcher().
  *
- * \sa Cursor, SmartCursorNotifier, SmartCursorWatcher.
+ * \sa Cursor, SmartCursorNotifier, and SmartCursorWatcher.
  */
 class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
 {

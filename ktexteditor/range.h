@@ -33,7 +33,7 @@ class Attribute;
 class AttributeGroup;
 
 /**
- * \short A class which represents a range in the text from one Cursor to another.
+ * \short A Range represents a section of text, from one Cursor to another.
  *
  * A Range is a basic class which represents a range of text with two Cursors,
  * from a start() position to an end() position.
@@ -136,15 +136,21 @@ class KTEXTEDITOR_EXPORT Range
     inline void setStartColumn(int column) { setStart(Cursor(start().line(), column)); }
 
     /**
-     * Get the end point of this range. This will always be >= @p start().
+     * Get the end point of this range. This will always be >= start().
+     * This non-const function allows direct manipulation of end(), while still retaining
+     * notification support.
      */
     inline Cursor& end() { return *m_end; }
+
+    /**
+     * Get the end point of this range. This will always be >= start().
+     */
     inline const Cursor& end() const { return *m_end; }
 
     /**
-     * Set the end point of this range. If @e end is before @p start(),
-     * @p start() will be moved to the same point as @e end, as ranges are
-     * not allowed to have @p start() > @p end().
+     * Set the end point of this range. If @e end is before start(),
+     * start() will be moved to the same point as @e end, as ranges are
+     * not allowed to have start() > end().
      * @param end end cursor
      */
     virtual void setEnd(const Cursor& end);
@@ -257,9 +263,22 @@ class KTEXTEDITOR_EXPORT Range
     bool boundaryOnColumn(int column) const;
     inline bool onSingleLine() const { return start().line() == end().line(); }
 
+    /**
+     * Returns where \p cursor is positioned, relative to this range.
+     * @return \e -1 if before, \e +1 if after, and \e 0 if \p cursor is contained within the range.
+     */
     inline int relativePosition(const Cursor& cursor) const
       { return ((cursor < start()) ? -1 : ((cursor > end()) ? 1:0)); }
+
+    /**
+     * Returns the number of columns of the end() relative to the start().
+     */
     inline int columnWidth() const { return end().column() - start().column(); }
+
+    /**
+     * Returns true if this range contains no characters, ie. the start() and end() positions are the same.
+     */
+    inline bool isEmpty() const { return start() == end(); }
 
     /**
      * = operator. Assignment.

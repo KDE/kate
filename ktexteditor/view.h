@@ -87,7 +87,24 @@ class Document;
  * mode as enum by using viewEditMode(). Whenever the edit mode changed the
  * signals viewModeChanged() and viewEditModeChanged() are emitted.
  *
- * @see KTextEditor::Document
+ * <b>View Interface Extensions</b>\n
+ *
+ * A simple view represents the text of a Document and provides a text cursor,
+ * text selection, edit modes etc.
+ * Advanced concepts like code completion and text hints are defined in the
+ * extension interfaces. An KTextEditor implementation does not need to
+ * support all the extensions. To implement the interfaces multiple
+ * inheritance is used. The extension interfaces for the view are in order:
+ *   - TextHintInterface, texthint support (used by debuggers for example)
+ *   - CodeCompletionInterface, support for listbox like popup widgets
+ *   - SessionConfigInterface, support for session related settings
+ *   - TemplateInterface, support for editable template fields
+ * For further details read the detailed descriptions in the corresponding
+ * interfaces.
+ *
+ * @see KTextEditor::Document, KTextEditor::TemplateInterface,
+ *      KTextEditor::CodeCompletionInterface,
+ *      KTextEditor::SessionConfigInterface, KTextEditor::TemplateInterface
  * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT View : public KDocument::View

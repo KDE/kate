@@ -53,6 +53,22 @@ class View;
  * readConfig() is called by the Editor part. Usually you do not have to call
  * readConfig() and writeConfig() yourself.
  *
+ * <b>Session Management</b>\n
+ *
+ * As an extension a Plugin can implement the SessionConfigInterface. This
+ * interface provides functions to read and write session related settings.
+ * If you have session dependant data additionally derive your Plugin from
+ * this interface and implement the session related functions, for example:
+ * @code
+ *   class MyPlugin : public KTextEditor::Plugin,
+ *                    public KTextEditor::SessionConfigInterface
+ *   {
+ *     // ...
+ *     virtual void readSessionConfig (KConfig *config);
+ *     virtual void writeSessionConfig (KConfig *config);
+ *   };
+ * @endcode
+ *
  * <b>Plugin Architecture</b>\n
  *
  * After the plugin is loaded the editor implementation should first call

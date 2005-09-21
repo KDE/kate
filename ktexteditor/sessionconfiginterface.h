@@ -37,6 +37,14 @@ namespace KTextEditor
  * read from the given KConfig* and writeSessionConfig() whenever they are to
  * be written, for example when a session changed or was closed.
  *
+ * <b>Adding Session Support</b>\n
+ *
+ * To add support for sessions a KTextEditor implementation has to derive the
+ * Document and View class from SessionConfigInterface and reimplement
+ * readSessionConfig() and writeSessionConfig().
+ *
+ * The same applies to a Plugin, read the detailed description for plugins.
+ *
  * <b>Accessing the SessionConfigInterface</b>\n
  *
  * The SessionConfigInterface is supposed to be an extension interface for a

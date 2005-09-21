@@ -79,9 +79,9 @@ class KTEXTEDITOR_EXPORT VariableInterface
      */
     virtual QString variable( const QString &name ) const = 0;
 
-    //
-    // signals!!
-    //
+  //
+  // signals!!
+  //
   public:
     /**
      * The @p document emits this signal whenever the @p value of the

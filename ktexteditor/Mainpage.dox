@@ -158,6 +158,7 @@ Cursor, and all Cursor/Cursor tuples with a Range.
 @subsection kte_port_interfaces Interface Changes
 Entirely removed interfaces are in order
 <code>
+ - all DCOP interfaces
  - ClipboardInterface
  - CursorInterface
  - DynWordWrapInterface
@@ -183,7 +184,7 @@ The following interfaces were merged, in order:
 
 The following interfaces were renamed, in order:
  - @p CompletionEntry was renamed to @p CompletionItem
- - The signal @p modifiedOnDisc() was renamed to @p modifiedOnDisk()
+ - signal @p modifiedOnDisc() was renamed to @p modifiedOnDisk()
 
 @subsection kte_port_plugins Plugin Changes
 The Plugin interface changed to support more than only one Document at a time.
@@ -203,8 +204,22 @@ Now a plugin can handle several documents and views.
 /**
 @page kte_embedding Embedding a KTextEditor Component into an Application
 
-@todo add
- - @a -lktexteditor hint or \$(LIB_KTEXTEDITOR) in the KDE build framework.
+@todo everything
+
+Actually KWrite is THE example... just convert it into a howto.
+link: -lktexteditor hint or \$(LIB_KTEXTEDITOR) in the KDE build framework.
+
+<code>
+ __________________________________
+ |This page is under construction!|
+ ----------------------------------
+       \   ^__^
+        \  (Oo)\_______
+           (__)\       )\/\
+               ||----w |
+               ||     ||
+</code>
+
 
 @author Dominik Haumann \<dhdev@gmx.de\>
 */

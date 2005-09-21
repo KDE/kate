@@ -83,8 +83,29 @@ class View;
  * it by using activeView(). Create a new view with createView(). Everytime
  * a new view is created the signal viewCreated() is emitted.
  *
- * @see KTextEditor::Editor, KTextEditor::View, KTextEditor::Attribute,
- *      KParts::ReadWritePart
+ * <b>Document Interface Extensions</b>\n
+ *
+ * A simple document represents text and provides text manipulation methods.
+ * However, a real text editor should support advanced concepts like session
+ * support, textsearch support, bookmark/general mark support etc. That is why
+ * the KTextEditor library provides several additional interfaces to extend
+ * a document's capabilities via multiple inheritance. Extension interfaces
+ * for the document are in order:
+ *   - HighlightingInterface, general syntax highlighting methods
+ *   - MarkInterface, mark support for text marks like bookmarks
+ *   - ModificationInterface, external modification support
+ *   - SearchInterface, support searching for text
+ *   - SessionConfigInterface, support for session related settings
+ *   - SmartInterface, advanced cursor position handling
+ *   - VariableInterface, support document variables
+ * For further details read the detailed descriptions in the corresponding
+ * interfaces.
+ *
+ * @see KParts::ReadWritePart, KTextEditor::Editor, KTextEditor::View,
+ *      KTextEditor::HighlightingInterface, KTextEditor::MarkInterface,
+ *      KTextEditor::ModificationInterface, KTextEditor::SearchInterface,
+ *      KTextEditor::SessionConfigInterface, KTextEditor::SmartInterface,
+ *      KTextEditor::VariableInterface
  * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT Document : public KDocument::Document

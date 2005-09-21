@@ -77,7 +77,8 @@ class View;
  * The method removeView() will be called whenever a View is removed/closed.
  * If you have a PluginView for every view this is the place to remove it.
  *
- * @see KTextEditor::Editor, KTextEditor::Document, KTextEditor::View
+ * @see KTextEditor::Editor, KTextEditor::Document, KTextEditor::View,
+ *      KTextEditor::SessionConfigInterface
  * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT Plugin : public QObject

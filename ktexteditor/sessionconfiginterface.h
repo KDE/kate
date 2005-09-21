@@ -27,33 +27,34 @@ namespace KTextEditor
 {
 
 /**
- * Session config interface extension for the Document and the View.
+ * Session config interface extension for the Document, View and Plugin.
  *
  * <b>Introduction</b>\n
  *
- * This is an interface to session-specific configuration of the
- * Document, Plugin and PluginViewInterface classes.
+ * The SessionConfigInterface is an extension for Documents, Views and Plugins
+ * to add support for session-specific configuration settings.
+ * readSessionConfig() is called whenever session-specific settings are to be
+ * read from the given KConfig* and writeSessionConfig() whenever they are to
+ * be written, for example when a session changed or was closed.
  *
  * <b>Accessing the SessionConfigInterface</b>\n
  *
  * The SessionConfigInterface is supposed to be an extension interface for a
- * Document, i.e. the Document inherits the interface @e provided that the
- * used KTextEditor library implements the interface. Use qobject_cast to
+ * Document, a View or a Plugin, i.e. the Document/View/Plugin inherits the
+ * interface @e provided that it implements the interface. Use qobject_cast to
  * access the interface:
  * @code
- *   // doc is of type KTextEditor::Document*
+ *   // object is of type KTextEditor::Document* or View* or Plugin*
  *   KTextEditor::SessionConfigInterface *iface =
- *       qobject_cast<KTextEditor::SessionConfigInterface*>( doc );
+ *       qobject_cast<KTextEditor::SessionConfigInterface*>( object );
  *
  *   if( iface ) {
- *       // the implementation supports the interface
+ *       // interface is supported
  *       // do stuff
  *   }
  * @endcode
-
-@todo dh: document functions and this interface, not clear yet.
-
- * @see KTextEditor::Document, KTextEditor::View
+ *
+ * @see KTextEditor::Document, KTextEditor::View, KTextEditor::Plugin
  * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT SessionConfigInterface
@@ -69,20 +70,25 @@ class KTEXTEDITOR_EXPORT SessionConfigInterface
   //
   public:
     /**
-     * Read session config settings of only this document/view/plugin
-     * In case of the document, that means for example it should reload the file,
-     * restore all marks, ...
+     * Read session settings from the given @p config.
+     *
+     * That means for example
+     *  - a Document should reload the file, restore all marks etc...
+     *  - a View should scroll to the last position and restore the cursor
+     *    position etc...
+     *  - a Plugin should restore session specific settings
+     *
      * @param config read the session settings from this KConfig
+     * @see writeSessionConfig()
      */
     virtual void readSessionConfig (KConfig *config) = 0;
 
     /**
      * Write session settings to the @p config.
+     * See readSessionConfig() for more details.
      *
-     * of only this document/view/plugin
-     * In case of the document, that means for example it should reload the file,
-     * restore all marks, ...
      * @param config write the session settings to this KConfig
+     * @see readSessionConfig()
      */
     virtual void writeSessionConfig (KConfig *config) = 0;
 };

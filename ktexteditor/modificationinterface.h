@@ -86,7 +86,7 @@ class KTEXTEDITOR_EXPORT ModificationInterface
      * Set the document's modified-on-disk state to @p reason.
      * KTextEditor implementations should emit the signal modifiedOnDisk()
      * along with the reason. When the document is in a clean state again the
-     * reason should be ModifiedOnDiskReason::OnDiskModified.
+     * reason should be ModifiedOnDiskReason::OnDiskUnmodified.
      *
      * @param reason the modified-on-disk reason.
      * @see ModifiedOnDiskReason, modifiedOnDisk()

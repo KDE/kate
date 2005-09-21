@@ -93,10 +93,10 @@ class KTEXTEDITOR_EXPORT SearchInterface
      * be reversed.
      *
      * @param startPosition start cursor position
-     * @param text text to search for
+     * @param regexp text to search for
      * @param backwards if @e true, the search will be backwards
-     * @return The valid range of the matched text if @p text was found. If
-     *        the @p text was not found, the returned range is not valid
+     * @return The valid range of the matched @p regexp. If the search was not
+     *        successful, the returned range is not valid
      *        (see Range::isValid()).
      * @see KTextEditor::Range, QRegExp
      */

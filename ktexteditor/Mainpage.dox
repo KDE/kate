@@ -10,8 +10,7 @@ or any later version published by the Free Software Foundation;
 /** @file Mainpage.dox
     @brief Mainpage of the KTextEditor Interface Documentation.
 */
-/**
-@mainpage The KTextEditor Interfaces.
+/** @mainpage The KTextEditor Interfaces.
 
 @section intro Introduction
 The KTextEditor interfaces - also called KTE interfaces - are a set of
@@ -135,8 +134,7 @@ To cast a View @e view into the @e DesiredExtensionInterface do the following:
 
 
 
-/**
-@page kte_port_to_kde4 Porting to KDE 4
+/** @page kte_port_to_kde4 Porting to KDE 4
 This document describes porting applications using the KTextEditor interfaces
 from KDE 3 to KDE 4. This page does not claim to be complete, the main goal is
 to show what interfaces were removed, changed or added to give some impression
@@ -154,6 +152,9 @@ changes like for example parameter changes of a function are not mentioned in
 detail in this page, look into the particular class API documentation. As
 already mentioned in the mainpage, all line/column tuples were replaced with a
 Cursor, and all Cursor/Cursor tuples with a Range.
+
+A KTextEditor::Factory class was introduced to access a specific Editor
+implementation, read \ref kte_design for detailed information.
 
 @section kte_port_change Interface Changes
 Some interfaces were removed mainly because they described user actions which
@@ -211,8 +212,7 @@ Now a plugin can handle several documents and views.
 
 
 
-/**
-@page kte_embedding Embedding a KTextEditor Component into an Application
+/** @page kte_embedding Embedding a KTextEditor Component into an Application
 
 @todo everything
 

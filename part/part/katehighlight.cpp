@@ -59,7 +59,7 @@
 static const int KATE_DYNAMIC_CONTEXTS_RESET_DELAY = 30 * 1000;
 
 // x is a QString. if x is "true" or "1" this expression returns "true"
-#define IS_TRUE(x) x.lower() == QString("true") || x.toInt() == 1
+#define IS_TRUE(x) x.toLower() == QString("true") || x.toInt() == 1
 //END defines
 
 //BEGIN  Prviate HL classes
@@ -513,7 +513,7 @@ KateHlItem *KateHl2CharDetect::clone(const QStringList *args)
 //BEGIN KateHlStringDetect
 KateHlStringDetect::KateHlStringDetect(int attribute, int context, signed char regionId,signed char regionId2,const QString &s, bool inSensitive)
   : KateHlItem(attribute, context,regionId,regionId2)
-  , str(inSensitive ? s.upper() : s)
+  , str(inSensitive ? s.toUpper() : s)
   , strLen (str.length())
   , _inSensitive(inSensitive)
 {
@@ -527,7 +527,7 @@ int KateHlStringDetect::checkHgl(const QString& text, int offset, int len)
   if (_inSensitive)
   {
     for (int i=0; i < strLen; i++)
-      if (text[offset++].upper() != str[i])
+      if (text[offset++].toUpper() != str[i])
         return 0;
 
     return offset;
@@ -630,7 +630,7 @@ void KateHlKeyword::addList(const QStringList& list)
     if (_caseSensitive)
       dict[len]->insert(list[i]);
     else
-      dict[len]->insert(list[i].lower());
+      dict[len]->insert(list[i].toLower());
   }
 }
 
@@ -656,7 +656,7 @@ int KateHlKeyword::checkHgl(const QString& text, int offset, int len)
   }
   else
   {
-    if (dict[wordLen]->contains(QConstString(text.unicode() + offset, wordLen).string().lower()) )
+    if (dict[wordLen]->contains(QConstString(text.unicode() + offset, wordLen).string().toLower()) )
       return offset2;
   }
   
@@ -1849,7 +1849,7 @@ void KateHighlighting::addToKateHlItemDataList()
     QString selBgColor = KateHlManager::self()->syntax->groupData(data,QString("selBackgroundColor"));
 
     KateHlItemData* newData = new KateHlItemData(
-            buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
+            buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("name")).simplified(),
             getDefStyleNum(KateHlManager::self()->syntax->groupData(data,QString("defStyleNum"))));
 
     /* here the custom style overrides are specified, if needed */
@@ -1954,7 +1954,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
   }
 
   int attr = 0;
-  QString tmpAttr=KateHlManager::self()->syntax->groupItemData(data,QString("attribute")).simplifyWhiteSpace();
+  QString tmpAttr=KateHlManager::self()->syntax->groupItemData(data,QString("attribute")).simplified();
   bool onlyConsume = tmpAttr.isEmpty();
 
   // only relevant for non consumer
@@ -2358,7 +2358,7 @@ void  KateHighlighting::createContextNameList(QStringList *ContextNameList,int c
   {
      while (KateHlManager::self()->syntax->nextGroup(data))
      {
-          QString tmpAttr=KateHlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace();
+          QString tmpAttr=KateHlManager::self()->syntax->groupData(data,QString("name")).simplified();
     if (tmpAttr.isEmpty())
     {
      tmpAttr=QString("!KATE_INTERNAL_DUMMY! %1").arg(id);
@@ -2378,7 +2378,7 @@ int KateHighlighting::getIdFromString(QStringList *ContextNameList, QString tmpL
 {
   unres="";
   int context;
-  if ((tmpLineEndContext=="#stay") || (tmpLineEndContext.simplifyWhiteSpace().isEmpty()))
+  if ((tmpLineEndContext=="#stay") || (tmpLineEndContext.simplified().isEmpty()))
     context=-1;
 
   else if (tmpLineEndContext.startsWith("#pop"))
@@ -2710,7 +2710,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
     {
       kdDebug(13010)<<"Found a context in file, building structure now"<<endl;
       //BEGIN - Translation of the attribute parameter
-      QString tmpAttr=KateHlManager::self()->syntax->groupData(data,QString("attribute")).simplifyWhiteSpace();
+      QString tmpAttr=KateHlManager::self()->syntax->groupData(data,QString("attribute")).simplified();
       int attr;
       if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
         attr=tmpAttr.toInt();
@@ -2718,9 +2718,9 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         attr=lookupAttrName(tmpAttr,iDl);
       //END - Translation of the attribute parameter
 
-      ctxName=buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
+      ctxName=buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplified();
 
-      QString tmpLineEndContext=KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
+      QString tmpLineEndContext=KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplified();
       int context;
 
       context=getIdFromString(&ContextNameList, tmpLineEndContext,dummy);
@@ -2750,7 +2750,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
       bool dynamic = false;
       QString tmpDynamic = KateHlManager::self()->syntax->groupData(data, QString("dynamic") );
-      if ( tmpDynamic.lower() == "true" ||  tmpDynamic.toInt() == 1 )
+      if ( tmpDynamic.toLower() == "true" ||  tmpDynamic.toInt() == 1 )
         dynamic = true;
 
       KateHlContext *ctxNew = new KateHlContext (
@@ -2785,7 +2785,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
           if (!incCtx.startsWith("#"))
           {
             // a local reference -> just initialize the include rule structure
-            incCtx=buildPrefix+incCtx.simplifyWhiteSpace();
+            incCtx=buildPrefix+incCtx.simplified();
             includeRules.append(new KateHlIncludeRule(i,m_contexts[i]->items.count(),incCtx, includeAttrib));
           }
           else
@@ -2985,8 +2985,8 @@ KateHlManager::KateHlManager()
       if (insert == hlList.count())
         break;
 
-      if ( QString(hlList.at(insert)->section() + hlList.at(insert)->nameTranslated()).lower()
-            > QString(hl->section() + hl->nameTranslated()).lower() )
+      if ( QString(hlList.at(insert)->section() + hlList.at(insert)->nameTranslated()).toLower()
+            > QString(hl->section() + hl->nameTranslated()).toLower() )
         break;
     }
 

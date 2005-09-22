@@ -478,8 +478,8 @@ void KateGlobal::registerDocument ( KateDocument *doc )
 
 void KateGlobal::deregisterDocument ( KateDocument *doc )
 {
-  m_docs.remove (doc);
-  m_documents.remove( doc );
+  m_docs.removeAll (doc);
+  m_documents.removeAll( doc );
   KateGlobal::decRef ();
 }
 
@@ -491,7 +491,7 @@ void KateGlobal::registerView ( KateView *view )
 
 void KateGlobal::deregisterView ( KateView *view )
 {
-  m_views.remove( view );
+  m_views.removeAll( view );
   KateGlobal::decRef ();
 }
 

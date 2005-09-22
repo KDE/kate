@@ -83,7 +83,7 @@ static int katelua_katedebug(lua_State *L) {
 static int katelua_indenter_register(lua_State *L) {
   int n=lua_gettop(L);
   if (n!=2) {
-    lua_pushstring(L,i18n("indenter.register requires 2 parameters (event id, function to call)").utf8().data());
+    lua_pushstring(L,i18n("indenter.register requires 2 parameters (event id, function to call)").toUtf8().data());
     lua_error(L);
   }
   if ( (!lua_isfunction(L,2)) || (!lua_isnumber(L,1)))
@@ -91,7 +91,7 @@ static int katelua_indenter_register(lua_State *L) {
     /*if (lua_isnumber(L,1)) kdDebug(13060)<<"A"<<endl;
     if (lua_isfunction(L,2)) kdDebug(13060)<<"B"<<endl;
     kdDebug(13060)<<lua_type(L,2)<<endl;*/
-    lua_pushstring(L,i18n("indenter.register requires 2 parameters (event id (number), function to call (function))").utf8().data());
+    lua_pushstring(L,i18n("indenter.register requires 2 parameters (event id (number), function to call (function))").toUtf8().data());
     lua_error(L);
   }
   switch ((int)lua_tonumber(L,1))
@@ -105,12 +105,12 @@ static int katelua_indenter_register(lua_State *L) {
       lua_pushstring(L,ONNEWLINESTR);
       break;
     default:
-      lua_pushstring(L,i18n("indenter.register:invalid event id").utf8().data());
+      lua_pushstring(L,i18n("indenter.register:invalid event id").toUtf8().data());
       lua_error(L);
   }
   lua_gettable(L,LUA_REGISTRYINDEX);
   if (!lua_isnil(L,lua_gettop(L))) {
-      lua_pushstring(L,i18n("indenter.register:there is already a function set for given").utf8().data());
+      lua_pushstring(L,i18n("indenter.register:there is already a function set for given").toUtf8().data());
       lua_error(L);
   }
   lua_pop(L,1);
@@ -123,24 +123,24 @@ static int katelua_indenter_register(lua_State *L) {
 
 static int katelua_document_textline(lua_State *L) {
   if (lua_gettop(L)!=1) {
-      lua_pushstring(L,i18n("document.line:One parameter (line number) required").utf8().data());
+      lua_pushstring(L,i18n("document.line:One parameter (line number) required").toUtf8().data());
       lua_error(L);
   }
   if (!lua_isnumber(L,1)) {
-      lua_pushstring(L,i18n("document.line:One parameter (line number) required (number)").utf8().data());
+      lua_pushstring(L,i18n("document.line:One parameter (line number) required (number)").toUtf8().data());
       lua_error(L);
   }
-  lua_pushstring(L,katelua_doc->line(lua_tonumber(L,1)).utf8().data());
+  lua_pushstring(L,katelua_doc->line(lua_tonumber(L,1)).toUtf8().data());
   return 1;
 }
 
 static int katelua_document_removeText(lua_State *L) {
   if (lua_gettop(L)!=4) {
-      lua_pushstring(L,i18n("document.removeText:Four parameters needed (start line, start col,end line, end col)").utf8().data());
+      lua_pushstring(L,i18n("document.removeText:Four parameters needed (start line, start col,end line, end col)").toUtf8().data());
       lua_error(L);
   }
   if ((!lua_isnumber(L,1)) || (!lua_isnumber(L,2))  ||(!lua_isnumber(L,3)) || (!lua_isnumber(L,4)))  {
-      lua_pushstring(L,i18n("document.removeText:Four parameters needed (start line, start col,end line, end col) (4x number)").utf8().data());
+      lua_pushstring(L,i18n("document.removeText:Four parameters needed (start line, start col,end line, end col) (4x number)").toUtf8().data());
       lua_error(L);
   }
   lua_pushboolean(L,katelua_doc->removeText(KTextEditor::Range(lua_tonumber(L,1),lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4))));
@@ -149,11 +149,11 @@ static int katelua_document_removeText(lua_State *L) {
 
 static int katelua_document_insertText(lua_State *L) {
   if (lua_gettop(L)!=3) {
-      lua_pushstring(L,i18n("document.insertText:Three parameters needed (line,col,text)").utf8().data());
+      lua_pushstring(L,i18n("document.insertText:Three parameters needed (line,col,text)").toUtf8().data());
       lua_error(L);
   }
   if ((!lua_isnumber(L,1)) || (!lua_isnumber(L,2))  ||(!lua_isstring(L,3)) )  {
-      lua_pushstring(L,i18n("document.removeText:Three parameters needed (line,col,text) (number,number,string)").utf8().data());
+      lua_pushstring(L,i18n("document.removeText:Three parameters needed (line,col,text) (number,number,string)").toUtf8().data());
       lua_error(L);
   }
   lua_pushboolean(L,katelua_doc->insertText(KTextEditor::Cursor(lua_tonumber(L,1),lua_tonumber(L,2)),QString::fromUtf8(lua_tostring(L,3))));
@@ -310,7 +310,7 @@ bool KateLUAIndentScriptImpl::processChar(KateView *view, QChar c, QString &erro
   bool result=true;
   if (!lua_isnil(m_interpreter,lua_gettop(m_interpreter)))
   {
-    lua_pushstring(m_interpreter,QString(c).utf8().data());
+    lua_pushstring(m_interpreter,QString(c).toUtf8().data());
     if (lua_pcall(m_interpreter,1,0,0)!=0)
     {
       errorMsg=i18n("Lua indenting script had errors: %1").arg(lua_tostring(m_interpreter,lua_gettop(m_interpreter)));
@@ -465,7 +465,7 @@ void KateLUAIndentScriptManager::parseScriptHeader(const QString &filePath,
   }
   QTextStream st(&f);
   st.setEncoding (QTextStream::UnicodeUTF8);
-  if (!st.readLine().upper().startsWith("/**KATE")) {
+  if (!st.readLine().toUpper().startsWith("/**KATE")) {
     kdDebug(13050)<<"No header found"<<endl;
     f.close();
     return;

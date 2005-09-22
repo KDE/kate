@@ -2045,7 +2045,7 @@ bool KateDocument::openFile(KIO::Job * job)
   //
   // service type magic to get encoding right
   //
-  QString serviceType = m_extension->urlArgs().serviceType.simplifyWhiteSpace();
+  QString serviceType = m_extension->urlArgs().serviceType.simplified();
   int pos = serviceType.find(';');
   if (pos != -1)
     setEncoding (serviceType.mid(pos+1));
@@ -2316,7 +2316,7 @@ void KateDocument::readDirConfig ()
 
   if (m_url.isLocalFile() && (depth > -1))
   {
-    QString currentDir = QFileInfo (m_file).dirPath();
+    QString currentDir = QFileInfo (m_file).absolutePath();
 
     // only search as deep as specified or not at all ;)
     while (depth > -1)
@@ -2344,7 +2344,7 @@ void KateDocument::readDirConfig ()
         break;
       }
 
-      QString newDir = QFileInfo (currentDir).dirPath();
+      QString newDir = QFileInfo (currentDir).absolutePath();
 
       // bail out on looping (for example reached /)
       if (currentDir == newDir)
@@ -3557,9 +3557,9 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
       QString s = text( range );
 
       if ( t == Uppercase )
-        s = s.upper();
+        s = s.toUpper();
       else if ( t == Lowercase )
-        s = s.lower();
+        s = s.toLower();
       else // Capitalize
       {
         KateTextLine::Ptr l = m_buffer->plainLine( range.start().line() );
@@ -3575,7 +3575,7 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
                    ! p && ! highlight()->isInWord( l->getChar( range.start().column() - 1 )) ) ||
                    ( p && ! highlight()->isInWord( s.at( p-1 ) ) )
              )
-            s[p] = s.at(p).upper();
+            s[p] = s.at(p).toUpper();
           p++;
         }
       }
@@ -3593,17 +3593,17 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
     QString s;
     switch ( t ) {
       case Uppercase:
-      s = text( KTextEditor::Range(cursor, 1) ).upper();
+      s = text( KTextEditor::Range(cursor, 1) ).toUpper();
       break;
       case Lowercase:
-      s = text( KTextEditor::Range(cursor, 1) ).lower();
+      s = text( KTextEditor::Range(cursor, 1) ).toLower();
       break;
       case Capitalize:
       {
         KateTextLine::Ptr l = m_buffer->plainLine( cursor.line() );
         while ( cursor.column() > 0 && highlight()->isInWord( l->getChar( cursor.column() - 1 ), l->attribute( cursor.column() - 1 ) ) )
           cursor.setColumn(cursor.column() - 1);
-        s = text( KTextEditor::Range(cursor, 1) ).upper();
+        s = text( KTextEditor::Range(cursor, 1) ).toUpper();
       }
       break;
       default:
@@ -4221,7 +4221,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
     int p( 0 );
     QString s = kvLine.cap(1);
     QString  var, val;
-    while ( (p = kvVar.search( s, p )) > -1 )
+    while ( (p = kvVar.indexIn( s, p )) > -1 )
     {
       p += kvVar.matchedLength();
       var = kvVar.cap( 1 );
@@ -4295,7 +4295,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         {
           QStringList l;
           l << "unix" << "dos" << "mac";
-          if ( (n = l.findIndex( val.lower() )) != -1 )
+          if ( (n = l.indexOf( val.toLower() )) != -1 )
             m_config->setEol( n );
         }
         else if ( var == "encoding" )
@@ -4304,7 +4304,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         {
           for ( uint i=0; i < hlModeCount(); i++ )
           {
-            if ( hlModeName( i ).lower() == val.lower() )
+            if ( hlModeName( i ).toLower() == val.toLower() )
             {
               setHlMode( i );
               break;
@@ -4384,7 +4384,7 @@ void KateDocument::setViewVariable( QString var, QString val )
 
 bool KateDocument::checkBoolValue( QString val, bool *result )
 {
-  val = val.trimmed().lower();
+  val = val.trimmed().toLower();
   QStringList l;
   l << "1" << "on" << "true";
   if ( l.contains( val ) )

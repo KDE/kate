@@ -74,7 +74,7 @@ bool KateSyntaxDocument::setIdentifier(const QString& identifier)
       if (!success)
       {
         KMessageBox::error(0L,i18n("<qt>The error <b>%4</b><br> has been detected in the file %1 at %2/%3</qt>").arg(identifier)
-            .arg(line).arg(col).arg(i18n("QXml",errorMsg.utf8())));
+            .arg(line).arg(col).arg(i18n("QXml",errorMsg.toUtf8())));
         return false;
       }
     }
@@ -368,8 +368,8 @@ void KateSyntaxDocument::setupModeList (bool force)
       // Let's make a new KateSyntaxModeListItem to instert in myModeList from the information in katesyntax..rc
       KateSyntaxModeListItem *mli=new KateSyntaxModeListItem;
       mli->name       = config.readEntry("name");
-      mli->nameTranslated = i18n("Language",mli->name.utf8());
-      mli->section    = i18n("Language Section",config.readEntry("section").utf8());
+      mli->nameTranslated = i18n("Language",mli->name.toUtf8());
+      mli->section    = i18n("Language Section",config.readEntry("section").toUtf8());
       mli->mimetype   = config.readEntry("mimetype");
       mli->extension  = config.readEntry("extension");
       mli->version    = config.readEntry("version");
@@ -442,8 +442,8 @@ void KateSyntaxDocument::setupModeList (bool force)
               config.writeEntry("lastModified", sbuf.st_mtime);
 
               // Now that the data is in the config file, translate section
-              mli->section    = i18n("Language Section",mli->section.utf8());
-              mli->nameTranslated = i18n("Language",mli->name.utf8());
+              mli->section    = i18n("Language Section",mli->section.toUtf8());
+              mli->nameTranslated = i18n("Language",mli->name.toUtf8());
 
               // Append the new item to the list.
               myModeList.append(mli);

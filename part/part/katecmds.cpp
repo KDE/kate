@@ -52,7 +52,7 @@ static void setDocFlag( KateDocumentConfig::ConfigFlags flag, bool enable,
 static bool getBoolArg( QString s, bool *val  )
 {
   bool res( false );
-  s = s.lower();
+  s = s.toLower();
   res = (s == "on" || s == "1" || s == "true");
   if ( res )
   {
@@ -158,10 +158,10 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   }
   else if ( cmd == "set-highlight" )
   {
-    QString val = _cmd.section( ' ', 1 ).lower();
+    QString val = _cmd.section( ' ', 1 ).toLower();
     for ( uint i=0; i < v->doc()->hlModeCount(); i++ )
     {
-      if ( v->doc()->hlModeName( i ).lower() == val )
+      if ( v->doc()->hlModeName( i ).toLower() == val )
       {
         v->doc()->setHlMode( i );
         return true;

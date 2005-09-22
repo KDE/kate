@@ -141,7 +141,9 @@ const int KateIndentConfigTab::flags[] = {
 KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
-  QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+  QVBoxLayout *layout = new QVBoxLayout(this);
+  layout->setMargin(0);
+  layout->setSpacing( KDialog::spacingHint() );
   int configFlags = KateDocumentConfig::global()->configFlags();
 
   QGroupBox *gbAuto = new QGroupBox(i18n("Automatic Indentation"), this);
@@ -154,7 +156,7 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   indentLayout->addWidget(indentLabel);
   m_indentMode = new KComboBox (gbAuto);
   indentLayout->addWidget(m_indentMode);
-  m_indentMode->insertStringList (KateAutoIndent::listModes());
+  m_indentMode->addItems (KateAutoIndent::listModes());
   indentLabel->setBuddy(m_indentMode);
   m_configPage = new QPushButton(SmallIconSet("configure"), i18n("Configure..."), gbAuto);
   indentLayout->addWidget(m_configPage);
@@ -276,7 +278,7 @@ void KateIndentConfigTab::indenterSelected (int index)
 
 void KateIndentConfigTab::configPage()
 {
-  uint index = m_indentMode->currentItem();
+  uint index = m_indentMode->currentIndex();
   if ( KateAutoIndent::hasConfigPage(index) )
   {
     KDialogBase dlg(this, "indenter_config_dialog", true, i18n("Configure Indenter"),
@@ -320,7 +322,7 @@ void KateIndentConfigTab::apply ()
   KateDocumentConfig::global()->setConfigFlags(configFlags);
   KateDocumentConfig::global()->setIndentationWidth(indentationWidth->value());
 
-  KateDocumentConfig::global()->setIndentationMode(m_indentMode->currentItem());
+  KateDocumentConfig::global()->setIndentationMode(m_indentMode->currentIndex());
 
   KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabIndentsMode, rb3->isChecked());
   KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabInsertsTab, rb2->isChecked());
@@ -337,10 +339,10 @@ void KateIndentConfigTab::reload ()
   else
     ((QRadioButton*)(m_tabs->layout()->itemAt(0)->widget()))->setChecked(true);
 
-  m_indentMode->setCurrentItem (KateDocumentConfig::global()->indentationMode());
+  m_indentMode->setCurrentIndex (KateDocumentConfig::global()->indentationMode());
 
   somethingToggled ();
-  indenterSelected (m_indentMode->currentItem());
+  indenterSelected (m_indentMode->currentIndex());
 }
 //END KateIndentConfigTab
 
@@ -352,7 +354,9 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
 {
   int configFlags = KateDocumentConfig::global()->configFlags();
 
-  QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+  QVBoxLayout *layout = new QVBoxLayout(this);
+  layout->setMargin(0);
+  layout->setSpacing(KDialog::spacingHint() );
 
   QGroupBox *gbCursor = new QGroupBox( i18n("Text Cursor Movement"), this);
   QVBoxLayout *layout1=new QVBoxLayout(gbCursor);
@@ -380,7 +384,7 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   layout->addWidget(gbCursor);
 
   m_tabs = new QGroupBox(i18n("Selection Mode"), this );
-  layout->add (m_tabs);
+  layout->addWidget (m_tabs);
   QVBoxLayout *tablayout=new QVBoxLayout(m_tabs);
 
   tablayout->addWidget( rb1=new QRadioButton( i18n("&Normal"), m_tabs ));
@@ -465,7 +469,9 @@ const int KateEditConfigTab::flags[] = {KateDocumentConfig::cfWordWrap,
 KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
-  QVBoxLayout *mainLayout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+  QVBoxLayout *mainLayout = new QVBoxLayout(this);
+  mainLayout->setMargin( 0);
+  mainLayout->setSpacing(KDialog::spacingHint() );
   int configFlags = KateDocumentConfig::global()->configFlags();
 
   QGroupBox *gbWhiteSpace = new QGroupBox(i18n("Tabulators"), this);
@@ -527,16 +533,17 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   mainLayout->addWidget(e3);
   connect(e3, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
-  QHBoxLayout *e5Layout = new QHBoxLayout(mainLayout);
+  QHBoxLayout *e5Layout = new QHBoxLayout();
+  mainLayout->addItem(e5Layout);
   QLabel *e5Label = new QLabel(i18n("Smart search t&ext from:"), this);
   e5Layout->addWidget(e5Label);
   e5 = new KComboBox (this);
-  e5->insertItem( i18n("Nowhere") );
-  e5->insertItem( i18n("Selection Only") );
-  e5->insertItem( i18n("Selection, then Current Word") );
-  e5->insertItem( i18n("Current Word Only") );
-  e5->insertItem( i18n("Current Word, then Selection") );
-  e5->setCurrentItem(KateViewConfig::global()->textToSearchMode());
+  e5->addItem( i18n("Nowhere") );
+  e5->addItem( i18n("Selection Only") );
+  e5->addItem( i18n("Selection, then Current Word") );
+  e5->addItem( i18n("Current Word Only") );
+  e5->addItem( i18n("Current Word, then Selection") );
+  e5->setCurrentIndex(KateViewConfig::global()->textToSearchMode());
   e5Layout->addWidget(e5);
   e5Label->setBuddy(e5);
   connect(e5, SIGNAL(activated(int)), this, SLOT(slotChanged()));
@@ -632,7 +639,7 @@ void KateEditConfigTab::apply ()
   else
     KateDocumentConfig::global()->setUndoSteps(e3->value());
 
-  KateViewConfig::global()->setTextToSearchMode(e5->currentItem());
+  KateViewConfig::global()->setTextToSearchMode(e5->currentIndex());
 
   KateRendererConfig::global()->setWordWrapMarker (m_wwmarker->isChecked());
 
@@ -652,7 +659,9 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   QRadioButton *rb1;
   QRadioButton *rb2;
 
-  QVBoxLayout *blay=new QVBoxLayout(this,0,KDialog::spacingHint());
+  QVBoxLayout *blay=new QVBoxLayout(this);
+  blay->setMargin(0);
+  blay->setSpacing(KDialog::spacingHint());
 
   QGroupBox *gbWordWrap = new QGroupBox(i18n("Word Wrap"), this);
   QVBoxLayout *layout=new QVBoxLayout(gbWordWrap);
@@ -662,9 +671,9 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   QHBoxLayout *sublayout=new QHBoxLayout();
   m_dynwrapIndicatorsLabel = new QLabel( i18n("Dynamic word wrap indicators (if applicable):"),this);
   m_dynwrapIndicatorsCombo = new KComboBox( this);
-  m_dynwrapIndicatorsCombo->insertItem( i18n("Off") );
-  m_dynwrapIndicatorsCombo->insertItem( i18n("Follow Line Numbers") );
-  m_dynwrapIndicatorsCombo->insertItem( i18n("Always On") );
+  m_dynwrapIndicatorsCombo->addItem( i18n("Off") );
+  m_dynwrapIndicatorsCombo->addItem( i18n("Follow Line Numbers") );
+  m_dynwrapIndicatorsCombo->addItem( i18n("Always On") );
   m_dynwrapIndicatorsLabel->setBuddy(m_dynwrapIndicatorsCombo);
   layout->addItem(sublayout);
   sublayout->addWidget(m_dynwrapIndicatorsLabel);
@@ -784,7 +793,7 @@ void KateViewDefaultsConfig::apply ()
   KateRendererConfig::global()->configStart ();
 
   KateViewConfig::global()->setDynWordWrap (m_dynwrap->isChecked());
-  KateViewConfig::global()->setDynWordWrapIndicators (m_dynwrapIndicatorsCombo->currentItem ());
+  KateViewConfig::global()->setDynWordWrapIndicators (m_dynwrapIndicatorsCombo->currentIndex ());
   KateViewConfig::global()->setDynWordWrapAlignIndent(m_dynwrapAlignLevel->value());
   KateViewConfig::global()->setLineNumbers (m_line->isChecked());
   KateViewConfig::global()->setIconBar (m_icons->isChecked());
@@ -802,7 +811,7 @@ void KateViewDefaultsConfig::apply ()
 void KateViewDefaultsConfig::reload ()
 {
   m_dynwrap->setChecked(KateViewConfig::global()->dynWordWrap());
-  m_dynwrapIndicatorsCombo->setCurrentItem( KateViewConfig::global()->dynWordWrapIndicators() );
+  m_dynwrapIndicatorsCombo->setCurrentIndex( KateViewConfig::global()->dynWordWrapIndicators() );
   m_dynwrapAlignLevel->setValue(KateViewConfig::global()->dynWordWrapAlignIndent());
   m_line->setChecked(KateViewConfig::global()->lineNumbers());
   m_icons->setChecked(KateViewConfig::global()->iconBar());
@@ -834,10 +843,10 @@ void KateEditKeyConfiguration::showEvent ( QShowEvent * )
 
   if (!m_ready)
   {
-    (new QVBoxLayout(this))->setAutoAdd(true);
+    QVBoxLayout *l=new QVBoxLayout(this);
     KateView* view = (KateView*)m_doc->views().at(0);
     m_ac = view->editActionCollection();
-    m_keyChooser = new KKeyChooser( m_ac, this, false );
+    l->addWidget(m_keyChooser = new KKeyChooser( m_ac, this, false ));
     connect( m_keyChooser, SIGNAL( keyChange() ), this, SLOT( slotChanged() ) );
     m_keyChooser->show ();
 
@@ -869,7 +878,9 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   : KateConfigPage( parent )
 {
   int configFlags = KateDocumentConfig::global()->configFlags();
-  QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+  QVBoxLayout *layout = new QVBoxLayout(this);
+  layout->setMargin( 0);
+  layout->setSpacing( KDialog::spacingHint() );
 
   QGroupBox *gbEnc = new QGroupBox(i18n("File Format"), this);
   layout->addWidget( gbEnc );
@@ -895,9 +906,9 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   allowEolDetection = new QCheckBox(i18n("&Automatic end of line detection"), gbEnc);
   gbEncLayout->addWidget(allowEolDetection);
 
-  m_eol->insertItem (i18n("UNIX"));
-  m_eol->insertItem (i18n("DOS/Windows"));
-  m_eol->insertItem (i18n("Macintosh"));
+  m_eol->addItem (i18n("UNIX"));
+  m_eol->addItem (i18n("DOS/Windows"));
+  m_eol->addItem (i18n("Macintosh"));
 
   QGroupBox *gbMem = new QGroupBox(i18n("Memory Usage"), this);
   layout->addWidget( gbMem );
@@ -905,7 +916,9 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   e5Layout = new QHBoxLayout(gbMem);
   e5Layout->setSpacing (32);
   blockCountLabel = new QLabel(i18n("Maximum loaded &blocks per file:"), gbMem);
-  blockCount = new QSpinBox (4, 512, 4, gbMem);
+  blockCount = new QSpinBox (gbMem);
+  blockCount->setRange(4, 512);
+  blockCount->setSingleStep( 4);
   blockCount->setValue (KateBuffer::maxLoadedBlocks());
   blockCountLabel->setBuddy(blockCount);
 
@@ -1040,9 +1053,9 @@ void KateSaveConfigTab::apply()
 
   KateDocumentConfig::global()->setConfigFlags(configFlags);
 
-  KateDocumentConfig::global()->setEncoding((m_encoding->currentItem() == 0) ? "" : KGlobal::charsets()->encodingForName(m_encoding->currentText()));
+  KateDocumentConfig::global()->setEncoding((m_encoding->currentIndex() == 0) ? "" : KGlobal::charsets()->encodingForName(m_encoding->currentText()));
 
-  KateDocumentConfig::global()->setEol(m_eol->currentItem());
+  KateDocumentConfig::global()->setEol(m_eol->currentIndex());
   KateDocumentConfig::global()->setAllowEolDetection(allowEolDetection->isChecked());
 
   KateDocumentConfig::global()->configEnd ();
@@ -1052,8 +1065,8 @@ void KateSaveConfigTab::reload()
 {
   // encoding
   m_encoding->clear ();
-  m_encoding->insertItem (i18n("KDE Default"));
-  m_encoding->setCurrentItem(0);
+  m_encoding->addItem (i18n("KDE Default"));
+  m_encoding->setCurrentIndex(0);
   QStringList encodings (KGlobal::charsets()->descriptiveEncodingNames());
   int insert = 1;
   for (int i=0; i < encodings.count(); i++)
@@ -1063,11 +1076,11 @@ void KateSaveConfigTab::reload()
 
     if (found)
     {
-      m_encoding->insertItem (encodings[i]);
+      m_encoding->addItem (encodings[i]);
 
       if ( codecForEnc->name() == KateDocumentConfig::global()->encoding() )
       {
-        m_encoding->setCurrentItem(insert);
+        m_encoding->setCurrentIndex(insert);
       }
 
       insert++;
@@ -1075,7 +1088,7 @@ void KateSaveConfigTab::reload()
   }
 
   // eol
-  m_eol->setCurrentItem(KateDocumentConfig::global()->eol());
+  m_eol->setCurrentIndex(KateDocumentConfig::global()->eol());
   allowEolDetection->setChecked(KateDocumentConfig::global()->allowEolDetection());
 
   dirSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
@@ -1150,7 +1163,7 @@ void KatePartPluginListView::stateChanged(KatePartPluginListItem *item, bool b)
 KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfigPage (parent, "")
 {
   // sizemanagment
-  QGridLayout *grid = new QGridLayout( this, 1, 1 );
+  QGridLayout *grid = new QGridLayout( this); //, 1, 1 );
   grid->setSpacing( KDialogBase::spacingHint() );
 
   listView = new KatePartPluginListView(this);
@@ -1247,7 +1260,9 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
  : KateConfigPage (parent, "")
  , m_currentHlData (-1)
 {
-  QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+  QVBoxLayout *layout = new QVBoxLayout(this);
+  layout->setMargin( 0);
+  layout->setSpacing( KDialog::spacingHint() );
 
   // hl chooser
   QHBoxLayout *hbl=new QHBoxLayout();
@@ -1256,7 +1271,8 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
   hbl->setSpacing( KDialog::spacingHint() );
   QLabel *lHl = new QLabel( i18n("H&ighlight:"), this);
   hbl->addWidget(lHl);
-  hlCombo = new QComboBox( false, this);
+  hlCombo = new QComboBox(this);
+  hlCombo->setEditable(false);
   hbl->addWidget(hlCombo);
   lHl->setBuddy( hlCombo );
   connect( hlCombo, SIGNAL(activated(int)),
@@ -1264,14 +1280,14 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
 
   for( int i = 0; i < KateHlManager::self()->highlights(); i++) {
     if (KateHlManager::self()->hlSection(i).length() > 0)
-      hlCombo->insertItem(KateHlManager::self()->hlSection(i) + QString ("/") + KateHlManager::self()->hlNameTranslated(i));
+      hlCombo->addItem(KateHlManager::self()->hlSection(i) + QString ("/") + KateHlManager::self()->hlNameTranslated(i));
     else
-      hlCombo->insertItem(KateHlManager::self()->hlNameTranslated(i));
+      hlCombo->addItem(KateHlManager::self()->hlNameTranslated(i));
   }
-  hlCombo->setCurrentItem(0);
+  hlCombo->setCurrentIndex(0);
 
   QGroupBox *gbInfo = new QGroupBox(i18n("Information"), this );
-  layout->add (gbInfo);
+  layout->addWidget (gbInfo);
   QVBoxLayout *subLayout=new QVBoxLayout(gbInfo);
   // author
   hbl = new QHBoxLayout();
@@ -1287,7 +1303,7 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
   hb2->addWidget(license  = new QLabel (gbInfo));
 
   QGroupBox *gbProps = new QGroupBox(i18n("Properties"), this );
-  layout->add (gbProps);
+  layout->addWidget (gbProps);
  
   QGridLayout *gl=new QGridLayout(gbProps);
 
@@ -1326,7 +1342,7 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
   hbBtns->addWidget(btnDl);
   connect( btnDl, SIGNAL(clicked()), this, SLOT(hlDownload()) );
 
-  hlCombo->setCurrentItem( 0 );
+  hlCombo->setCurrentIndex( 0 );
   hlChanged(0);
 
   hlCombo->setWhatsThis(i18n(
@@ -1399,7 +1415,8 @@ void KateHlConfigPage::hlChanged(int z)
   priority->setValue(hlData.priority);
 
   // split author string if needed into multiple lines !
-  QStringList l= QStringList::split (QRegExp("[,;]"), hl->author());
+  //QStringList l= QStringList::split (QRegExp("[,;]"), hl->author());
+  QStringList l= hl->author().split (QRegExp("[,;]"));
   author->setText (l.join ("<br>"));
 
   license->setText (hl->license());
@@ -1425,7 +1442,8 @@ void KateHlConfigPage::hlDownload()
 void KateHlConfigPage::showMTDlg()
 {
   QString text = i18n("Select the MimeTypes you want highlighted using the '%1' syntax highlight rules.\nPlease note that this will automatically edit the associated file extensions as well.").arg( hlCombo->currentText() );
-  QStringList list = QStringList::split( QRegExp("\\s*;\\s*"), mimetypes->text() );
+  //QStringList list = QStringList::split( QRegExp("\\s*;\\s*"), mimetypes->text() );
+  QStringList list = mimetypes->text().split( QRegExp("\\s*;\\s*") );
   KMimeTypeChooserDialog *d = new KMimeTypeChooserDialog( i18n("Select Mime Types"), text, list, "text", this );
 
   if ( d->exec() == KDialogBase::Accepted ) {
@@ -1557,12 +1575,15 @@ KateGotoLineDialog::KateGotoLineDialog(QWidget *parent, int line, int max)
   QWidget *page = new QWidget(this);
   setMainWidget(page);
 
-  QVBoxLayout *topLayout = new QVBoxLayout( page, 0, spacingHint() );
+  QVBoxLayout *topLayout = new QVBoxLayout( page);
+  topLayout->setMargin( 0);
+  topLayout->setSpacing(spacingHint());
   e1 = new KIntNumInput(line,page);
   e1->setRange(1, max);
   e1->setEditFocus(true);
 
-  QLabel *label = new QLabel( e1,i18n("&Go to line:"), page );
+  QLabel *label = new QLabel(i18n("&Go to line:"), page );
+  label->setBuddy(e1);
   topLayout->addWidget(label);
   topLayout->addWidget(e1);
   topLayout->addSpacing(spacingHint()); // A little bit extra space
@@ -1611,7 +1632,8 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
 
   QFrame *w = makeMainWidget();
   QVBoxLayout *lo = new QVBoxLayout( w );
-  QHBoxLayout *lo1 = new QHBoxLayout( lo );
+  QHBoxLayout *lo1 = new QHBoxLayout();
+  lo->addItem(lo1);
   QLabel *icon = new QLabel( w );
   icon->setPixmap( DesktopIcon("messagebox_warning" ) );
   lo1->addWidget( icon );
@@ -1620,7 +1642,8 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
   // If the file isn't deleted, present a diff button, and a overwrite action.
   if ( modtype != 3 )
   {
-    QHBoxLayout *lo2 = new QHBoxLayout( lo );
+    QHBoxLayout *lo2 = new QHBoxLayout();
+    lo->addItem(lo2);
     QPushButton *btnDiff = new QPushButton( i18n("&View Difference"), w );
     lo2->addStretch( 1 );
     lo2->addWidget( btnDiff );

@@ -410,9 +410,9 @@ void KateCodeCompletion::updateBox( bool )
         int tmp=(currentCol-(it->data->matchStart().column()));
         if (tmp<0) continue;
         len=tmp;
-        currComp=currentLine.mid(it->data->matchStart().column(),len).upper();
+        currComp=currentLine.mid(it->data->matchStart().column(),len).toUpper();
       }
-      if( (*it).text().upper().startsWith(currComp) ) {
+      if( (*it).text().toUpper().startsWith(currComp) ) {
         afteritem=new KateCompletionItem(m_completionListBox,*it,afteritem);
       }
     }
@@ -611,7 +611,7 @@ void KateArgHint::cursorPositionChanged( KateView* view, int line, int col )
 void KateArgHint::addFunction( int id, const QString& prot )
 {
     m_functionMap[ id ] = prot;
-    QLabel* label = new QLabel( prot.trimmed().simplifyWhiteSpace(), this );
+    QLabel* label = new QLabel( prot.trimmed().simplified(), this );
     label->setBackgroundColor( QColor(255, 255, 238) );
     label->show();
     labelDict.insert( id, label );

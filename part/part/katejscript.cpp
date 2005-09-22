@@ -736,9 +736,9 @@ bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QSt
   }
 
    //create a list of args
-  QStringList args( QStringList::split( QRegExp("\\s+"), _cmd ) );
+  QStringList args( _cmd.split( QRegExp("\\s+") ,QString::SkipEmptyParts) );
   QString cmd ( args.first() );
-  args.remove( args.first() );
+  args.removeFirst();
 
   kdDebug(13050) << "try to exec: " << cmd << endl;
 
@@ -757,9 +757,10 @@ bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QSt
   }
 
   QTextStream stream( &file );
-  stream.setEncoding (QTextStream::UnicodeUTF8);
+  //stream.setEncoding (QTextStream::UnicodeUTF8);
+  stream.setCodec ("UTF-8");
 
-  QString source = stream.read ();
+  QString source = stream.readAll ();
 
   file.close();
 
@@ -894,9 +895,10 @@ bool KateIndentJScriptImpl::setupInterpreter(QString &errorMsg)
     }
 
     QTextStream stream( &file );
-    stream.setEncoding (QTextStream::UnicodeUTF8);
+    //stream.setEncoding (QTextStream::UnicodeUTF8);
+    stream.setCodec("UTF-8");
 
-    QString source = stream.read ();
+    QString source = stream.readAll ();
 
     file.close();
 
@@ -1102,8 +1104,9 @@ void KateIndentJScriptManager::parseScriptHeader(const QString &filePath,
     return;
   }
   QTextStream st(&f);
-  st.setEncoding (QTextStream::UnicodeUTF8);
-  if (!st.readLine().upper().startsWith("/**KATE")) {
+  //st.setEncoding (QTextStream::UnicodeUTF8);
+  st.setCodec("UTF-8");
+  if (!st.readLine().toUpper().startsWith("/**KATE")) {
     kdDebug(13050)<<"No header found"<<endl;
     f.close();
     return;

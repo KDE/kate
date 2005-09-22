@@ -351,7 +351,7 @@ void KateSearch::replaceOne()
   if ( s.flags.regExp && s.flags.useBackRefs ) {
     // replace each "(?!\)\d+" with the corresponding capture
     QRegExp br("\\\\(\\d+)");
-    int pos = br.search( replaceWith );
+    int pos = br.indexIn( replaceWith );
     int ncaps = m_re.numCaptures();
     while ( pos >= 0 ) {
       QString sc;
@@ -365,7 +365,7 @@ void KateSearch::replaceOne()
           kdDebug()<<"KateSearch::replaceOne(): you don't have "<<ccap<<" backreferences in regexp '"<<m_re.pattern()<<"'"<<endl;
         }
       }
-      pos = br.search( replaceWith, pos+QMAX(br.matchedLength(), (int)sc.length()) );
+      pos = br.indexIn( replaceWith, pos+QMAX(br.matchedLength(), (int)sc.length()) );
     }
   }
 
@@ -384,7 +384,7 @@ void KateSearch::replaceOne()
     if ( ! s.flags.backward )
     {
       s.cursor.setLine( s.cursor.line() + newlines );
-      s.cursor.setColumn( replaceWith.length() - replaceWith.findRev('\n') );
+      s.cursor.setColumn( replaceWith.length() - replaceWith.lastIndexOf('\n') );
     }
     // selection?
     if ( s.flags.selected )
@@ -653,7 +653,7 @@ bool SearchCommand::exec(class KTextEditor::View *view, const QString &cmd, QStr
   {
 
     static QRegExp re_find("find(?::([bcersw]*))?\\s+(.+)");
-    if ( re_find.search( cmd ) < 0 )
+    if ( re_find.indexIn( cmd ) < 0 )
     {
       msg = i18n("Usage: find[:[bcersw]] PATTERN");
       return false;
@@ -665,7 +665,7 @@ bool SearchCommand::exec(class KTextEditor::View *view, const QString &cmd, QStr
   else if ( cmd.startsWith( "ifind" ) )
   {
     static QRegExp re_ifind("ifind(?::([bcrs]*))?\\s+(.*)");
-    if ( re_ifind.search( cmd ) < 0 )
+    if ( re_ifind.indexIn( cmd ) < 0 )
     {
       msg = i18n("Usage: ifind[:[bcrs]] PATTERN");
       return false;
@@ -683,14 +683,14 @@ bool SearchCommand::exec(class KTextEditor::View *view, const QString &cmd, QStr
     // Else, it's just one or two (space separated) words
     QRegExp re_rep2("replace(?::([bceprsw]*))?\\s+(\\S+)(.*)");
 #define unbackslash(s) p=0;\
-while ( (p = pattern.find( '\\' + delim, p )) > -1 )\
+while ( (p = pattern.indexOf( '\\' + delim, p )) > -1 )\
 {\
   if ( !p || pattern[p-1] != '\\' )\
     pattern.remove( p, 1 );\
   p++;\
 }
 
-    if ( re_rep.search( cmd ) >= 0 )
+    if ( re_rep.indexIn( cmd ) >= 0 )
     {
       flags = re_rep.cap(1);
       pattern = re_rep.cap( 3 );
@@ -704,7 +704,7 @@ while ( (p = pattern.find( '\\' + delim, p )) > -1 )\
       // .. and in replacement
       unbackslash(replacement);
     }
-    else if ( re_rep1.search( cmd ) >= 0 )
+    else if ( re_rep1.indexIn( cmd ) >= 0 )
     {
       flags = re_rep1.cap(1);
       pattern = re_rep1.cap( 3 );
@@ -713,7 +713,7 @@ while ( (p = pattern.find( '\\' + delim, p )) > -1 )\
       QString delim = re_rep1.cap( 2 );
       unbackslash(pattern);
     }
-    else if ( re_rep2.search( cmd ) >= 0 )
+    else if ( re_rep2.indexIn( cmd ) >= 0 )
     {
       flags = re_rep2.cap( 1 );
       pattern = re_rep2.cap( 2 );
@@ -809,7 +809,7 @@ bool SearchCommand::wantsToProcessText( const QString &cmdname )
 void SearchCommand::processText( KTextEditor::View *view, const QString &cmd )
 {
   static QRegExp re_ifind("ifind(?::([bcrs]*))?\\s(.*)");
-  if ( re_ifind.search( cmd ) > -1 )
+  if ( re_ifind.indexIn( cmd ) > -1 )
   {
     QString flags = re_ifind.cap( 1 );
     QString pattern = re_ifind.cap( 2 );

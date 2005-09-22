@@ -33,7 +33,7 @@ namespace KTextEditor
 class Document;
 
 /**
- * Mark class containing line and mark type.
+ * Mark class containing line and mark types.
  *
  * <b>Introduction</b>\n
  *

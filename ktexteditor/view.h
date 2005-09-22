@@ -87,7 +87,7 @@ class Document;
  * mode as enum by using viewEditMode(). Whenever the edit mode changed the
  * signals viewModeChanged() and viewEditModeChanged() are emitted.
  *
- * <b>View Interface Extensions</b>\n
+ * <b>View Extension Interfaces</b>\n
  *
  * A simple view represents the text of a Document and provides a text cursor,
  * text selection, edit modes etc.
@@ -99,6 +99,7 @@ class Document;
  *   - CodeCompletionInterface, support for listbox like popup widgets
  *   - SessionConfigInterface, support for session related settings
  *   - TemplateInterface, support for editable template fields
+ *
  * For further details read the detailed descriptions in the corresponding
  * interfaces.
  *

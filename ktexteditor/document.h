@@ -83,7 +83,7 @@ class View;
  * it by using activeView(). Create a new view with createView(). Everytime
  * a new view is created the signal viewCreated() is emitted.
  *
- * <b>Document Interface Extensions</b>\n
+ * <b>Document Extension Interfaces</b>\n
  *
  * A simple document represents text and provides text manipulation methods.
  * However, a real text editor should support advanced concepts like session
@@ -98,6 +98,7 @@ class View;
  *   - SessionConfigInterface, support for session related settings
  *   - SmartInterface, advanced cursor position handling
  *   - VariableInterface, support document variables
+ *
  * For further details read the detailed descriptions in the corresponding
  * interfaces.
  *

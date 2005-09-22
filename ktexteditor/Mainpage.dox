@@ -30,7 +30,7 @@ External documentation
  - @ref kte_port_to_kde4
  - @ref kte_embedding
 
-<hr>
+<hr/>
 
 @section kte_design General Design of the Core Interfaces
 The core of the KTextEditor interfaces consists of several main interfaces:
@@ -99,7 +99,7 @@ To access an extension interface qobject_cast should be used (see also
 http://doc.trolltech.com/4.0/plugins-howto.html#the-lower-level-api-extending-qt-applications
 for how qobject_cast works with Q_INTERFACES and Q_DECLARE_INTERFACE).
 
-A KTextEditor implementation may implement interfaces, but it does @e not need
+A KTextEditor implementation may implement interfaces, but it does not @e need
 to. So as a KTextEditor user you have to cast the Document or View into the
 interface and then check whether the cast returns NULL or the desired
 interface.
@@ -155,20 +155,19 @@ detail in this page, look into the particular class API documentation. As
 already mentioned in the mainpage, all line/column tuples were replaced with a
 Cursor, and all Cursor/Cursor tuples with a Range.
 
-@subsection kte_port_interfaces Interface Changes
-Entirely removed interfaces are in order
-<code>
+@section kte_port_change Interface Changes
+Entirely removed interfaces are, in order:
  - all DCOP interfaces
- - ClipboardInterface
- - CursorInterface
- - DynWordWrapInterface
- - PrintInterface
- - SelectionExtDCOPInterface
- - UndoInterface
- - ViewStatusMsgInterface
- - WordWrapInterface
-</code>
+ - @p ClipboardInterface
+ - @p CursorInterface
+ - @p DynWordWrapInterface
+ - @p PrintInterface
+ - @p SelectionExtDCOPInterface
+ - @p UndoInterface
+ - @p ViewStatusMsgInterface
+ - @p WordWrapInterface
 
+@section kte_port_merge Merged Interfaces
 The following interfaces were merged, in order:
  - @p BlockSelectionInterface, @p SelectionInterface and
    @p SelectionInterfaceExt were merged into the @p View, so that a
@@ -182,11 +181,15 @@ The following interfaces were merged, in order:
  - @p PopupMenuInterface was merged into the @p View
  - @p ViewCursorInterface was merged into the @p View
 
+@section kte_port_rename Interface Changes
 The following interfaces were renamed, in order:
  - @p CompletionEntry was renamed to @p CompletionItem
  - signal @p modifiedOnDisc() was renamed to @p modifiedOnDisk()
 
-@subsection kte_port_plugins Plugin Changes
+@section kte_port_new New Interfaces
+@todo new interfaces...
+
+@section kte_port_plugins Plugin Changes
 The Plugin interface changed to support more than only one Document at a time.
 A plugin in a KDE 4 KTextEditor implementation no longer is bound to a single
 document (i.e. for @e every document a single instance of the plugin existed).
@@ -208,7 +211,7 @@ Now a plugin can handle several documents and views.
 
 Actually KWrite is THE example... just convert it into a howto.
 link: -lktexteditor hint or \$(LIB_KTEXTEDITOR) in the KDE build framework.
-
+<pre>
 <code>
  __________________________________
  |This page is under construction!|
@@ -219,7 +222,7 @@ link: -lktexteditor hint or \$(LIB_KTEXTEDITOR) in the KDE build framework.
                ||----w |
                ||     ||
 </code>
-
+</pre>
 
 @author Dominik Haumann \<dhdev@gmx.de\>
 */

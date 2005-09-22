@@ -41,8 +41,11 @@ class Document;
  * variables. A document implementing this interface should return values
  * for variables that it does not otherwise know how to use, since they
  * could be of interest for plugins. A Document implementing this interface
- * must emit the signal variableChanged() whenever a variable is set that it
- * will return a value for.
+ * must emit the signal variableChanged() whenever a variable/value pair was
+ * set, changed or removed.
+ *
+ * @note Implementations should check the document variables whenever the
+ *       document was saved or loaded.
  *
  * <b>Accessing the VariableInterface</b>\n
  *

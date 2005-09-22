@@ -83,7 +83,7 @@ class View;
  *       // Constructor and other methods
  *       PluginView( KTextEditor::View* view );
  *       // ...
- *   private
+ *   private:
  *       KTextEditor::View* m_view;
  *   };
  * @endcode
@@ -150,8 +150,8 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
      * This method is called whenever the plugin should add its GUI to
      * @p view.
      * The process for the Editor can be roughly described as follows:
-     *   # add documents the plugin should handle via addDocument()
-     *   # for every document @e doc call addView() for @e every view for
+     *   - add documents the plugin should handle via addDocument()
+     *   - for every document @e doc call addView() for @e every view for
      *     @e doc.
      *
      * For every call of addView() will finally follow a call of

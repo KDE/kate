@@ -30,8 +30,6 @@ External documentation
  - @ref kte_port_to_kde4
  - @ref kte_embedding
 
-<hr/>
-
 @section kte_design General Design of the Core Interfaces
 The core of the KTextEditor interfaces consists of several main interfaces:
 - @p KTextEditor::Factory - The Factory is an interface for the factory of
@@ -140,7 +138,9 @@ To cast a View @e view into the @e DesiredExtensionInterface do the following:
 /**
 @page kte_port_to_kde4 Porting to KDE 4
 This document describes porting applications using the KTextEditor interfaces
-from KDE 3 to KDE 4.
+from KDE 3 to KDE 4. This page does not claim to be complete, the main goal is
+to show what interfaces were removed, changed or added to give some impression
+and orientation of what to do.
 
 \section kte_port_intro Introduction
 The KTextEditor interfaces changes in KDE 4 are neither binary nor source
@@ -156,7 +156,10 @@ already mentioned in the mainpage, all line/column tuples were replaced with a
 Cursor, and all Cursor/Cursor tuples with a Range.
 
 @section kte_port_change Interface Changes
-Entirely removed interfaces are, in order:
+Some interfaces were removed mainly because they described user actions which
+implementation and support is up to the KTextEditor part itself, like
+printing, copy & paste and word wrapping. Entirely removed interfaces are, in
+order:
  - all DCOP interfaces
  - @p ClipboardInterface
  - @p CursorInterface
@@ -187,7 +190,11 @@ The following interfaces were renamed, in order:
  - signal @p modifiedOnDisc() was renamed to @p modifiedOnDisk()
 
 @section kte_port_new New Interfaces
-@todo new interfaces...
+The following interfaces are new
+ - @p ModificationInterface, support for handling external modified files
+ - @p CommandInterface, support for command-line commands
+
+@todo Small note on new classes like Cursor and Range
 
 @section kte_port_plugins Plugin Changes
 The Plugin interface changed to support more than only one Document at a time.

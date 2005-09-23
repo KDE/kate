@@ -41,7 +41,7 @@
 #include <kwin.h>
 #include <kiconloader.h>
 
-#include <q3vbox.h>
+#include <kvbox.h>
 
 KateGlobal *KateGlobal::s_self = 0;
 
@@ -264,7 +264,7 @@ void KateGlobal::configDialog(QWidget *parent)
     QStringList path;
     path.clear();
     path << configPageName (i);
-    Q3VBox *page = kd->addVBoxPage(path, configPageFullName (i),
+    KVBox *page = kd->addVBoxPage(path, configPageFullName (i),
                               configPagePixmap(i, KIcon::SizeMedium) );
 
     editorPages.append (configPage(i, page));

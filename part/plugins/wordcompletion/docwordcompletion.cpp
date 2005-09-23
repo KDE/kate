@@ -49,7 +49,7 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <q3hbox.h>
-#include <q3vbox.h>
+#include <kvbox.h>
 #include <qcheckbox.h>
 
 // #include <kdebug.h>

@@ -43,7 +43,7 @@ The core of the KTextEditor interfaces consists of several main interfaces:
   contents of a Document.
 
 So the hierarchy looks as follows
-\image html ktexteditorhierarchy.png "Basic KTextEditor Hierarchy"
+@image html ktexteditorhierarchy.png "Basic KTextEditor Hierarchy"
 
 The Factory provides access to the chosen Editor (selected with
 @p KTextEditor::EditorChooser). The Editor has a list of all opened documents
@@ -154,9 +154,9 @@ already mentioned in the mainpage, all line/column tuples were replaced with a
 Cursor, and all Cursor/Cursor tuples with a Range.
 
 A KTextEditor::Factory class was introduced to access a specific Editor
-implementation, read \ref kte_design for detailed information.
+implementation, read @ref kte_design for detailed information.
 
-@section kte_port_change Interface Changes
+@section kte_port_remove Removed Interfaces
 Some interfaces were removed mainly because they described user actions which
 implementation and support is up to the KTextEditor part itself, like
 printing, copy & paste and word wrapping. Entirely removed interfaces are, in
@@ -187,6 +187,9 @@ The following interfaces were merged, in order:
 
 @section kte_port_rename Interface Changes
 The following interfaces were renamed, in order:
+ - @p CodeCompletionInterface was changed to support several clients at once.
+   A client registers a so-called @p CompletionProvider that provides its own
+   completion and argument hint da.
  - @p CompletionEntry was renamed to @p CompletionItem
  - signal @p modifiedOnDisc() was renamed to @p modifiedOnDisk()
 

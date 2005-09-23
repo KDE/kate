@@ -81,7 +81,9 @@ class View;
  *       Q_OBJECT
  *   public:
  *       // Constructor and other methods
- *       PluginView( KTextEditor::View* view );
+ *       PluginView( KTextEditor::View* view )
+ *         : QObject( view ), KXMLGUIClient( view )
+ *       { ... }
  *       // ...
  *   private:
  *       KTextEditor::View* m_view;

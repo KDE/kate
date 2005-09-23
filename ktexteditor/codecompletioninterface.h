@@ -427,6 +427,23 @@ class KTEXTEDITOR_EXPORT CompletionProvider
  * This is visualized in the following hierarchy:
  * @image html ktexteditorcodecompletion "Code Completion Hierarchy"
  *
+ * <b>Accessing the CodeCompletionInterface</b>\n
+ *
+ * The CodeCompletionInterface is supposed to be an extension interface for a
+ * View, i.e. the View inherits the interface @e provided that the
+ * used KTextEditor library implements the interface. Use qobject_cast to
+ * access the interface:
+ * @code
+ *   // view is of type KTextEditor::View*
+ *   KTextEditor::CodeCompletionInterface *iface =
+ *       qobject_cast<KTextEditor::CodeCompletionInterface*>( view );
+ *
+ *   if( iface ) {
+ *       // the implementation supports the interface
+ *       // do stuff
+ *   }
+ * @endcode
+ *
  * <b>Example Code</b>\n
  *
  * Throughout the example we assume that we work on the @e view and that
@@ -461,23 +478,6 @@ class KTEXTEDITOR_EXPORT CompletionProvider
  *   if( iface )
  *       iface->invokeCompletion( provider,
  *           KTextEditor::CompletionGenericSingleProvider );
- * @endcode
- *
- * <b>Accessing the CodeCompletionInterface</b>\n
- *
- * The CodeCompletionInterface is supposed to be an extension interface for a
- * View, i.e. the View inherits the interface @e provided that the
- * used KTextEditor library implements the interface. Use qobject_cast to
- * access the interface:
- * @code
- *   // view is of type KTextEditor::View*
- *   KTextEditor::CodeCompletionInterface *iface =
- *       qobject_cast<KTextEditor::CodeCompletionInterface*>( view );
- *
- *   if( iface ) {
- *       // the implementation supports the interface
- *       // do stuff
- *   }
  * @endcode
  *
  * @see KTextEditor::View, KTextEditor::CompletionProvider,

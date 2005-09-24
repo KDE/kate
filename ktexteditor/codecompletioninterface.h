@@ -425,7 +425,7 @@ class KTEXTEDITOR_EXPORT CompletionProvider
  *
  * The provider itself then can control the completion and argument hint data.
  * This is visualized in the following hierarchy:
- * @image html ktexteditorcodecompletion "Code Completion Hierarchy"
+ * @image html ktexteditorcodecompletion.png "Code Completion Hierarchy"
  *
  * <b>Accessing the CodeCompletionInterface</b>\n
  *

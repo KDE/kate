@@ -133,7 +133,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
   setAcceptDrops(true);
   connect(m_view,SIGNAL(dropEventPass(QDropEvent *)),this,SLOT(slotDropEvent(QDropEvent *)));
 
-  KGlobal::dirs()->addResourceDir( "data", QDir::currentDirPath() );
+  KGlobal::dirs()->addResourceDir( "data", QDir::currentPath() );
   setXMLFile( "katetest.rc" );
   createShellGUI( true );
   guiFactory()->addClient( m_view );

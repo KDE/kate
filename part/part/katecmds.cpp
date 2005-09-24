@@ -448,7 +448,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
       {
       //  if ( endcol  >= startcol + len )
           endcol -= (startcol + len);
-          uint sc = rep.length() - rep.findRev('\n') - 1;
+          uint sc = rep.length() - rep.lastIndexOf('\n') - 1;
         matches += sedMagic( doc, line, find, repOld, delim, noCase, repeat, sc, endcol );
       }
     }

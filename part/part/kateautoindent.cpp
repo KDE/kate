@@ -1447,7 +1447,7 @@ QString KateCSAndSIndent::findOpeningCommentIndentation(const KateDocCursor &sta
   {
     KateTextLine::Ptr textLine = doc->plainKateTextLine(cur.line());
 
-    int pos = textLine->string().findRev("/*");
+    int pos = textLine->string().lastIndexOf("/*");
     // FIXME: /* inside /* is possible. This screws up in that case...
     if (pos >= 0)
       return initialWhitespace(textLine, pos);

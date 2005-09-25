@@ -76,8 +76,17 @@ class ConfigPage;
  * as well, see KTextEditor::Plugin::readConfig() and
  * KTextEditor::Plugin::writeConfig().
  *
+ * <b>Editor Extension Interfaces</b>\n
+ *
+ * There is only a signle extension interface for the Editor: the
+ * CommandInterface. With the CommandInterface it is possible to add and
+ * remove new command line commands which are valid for all documents. Common
+ * use cases are fox example commands like @e find or settings document
+ * variables. For further details read the detailed descriptions in the class
+ * KTextEditor::CommandInterface.
+ *
  * @see KTextEditor::Factory, KTextEditor::Document, KTextEditor::ConfigPage
- *      KTextEditor::Plugin
+ *      KTextEditor::Plugin, KTextEditor::CommandInterface
  * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT Editor : public QObject

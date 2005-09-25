@@ -34,131 +34,209 @@ class Editor;
 class View;
 
 /**
- * KTextEditor::Command
- * Aims to capsule a command for the editor command line
+ * An Editor command line command.
+ *
+ * <b>Introduction</b>\n
+ *
+ * The Command class represents a command for the editor command line. A
+ * command simply consists of a string, for example @e find. To register a
+ * command use CommandInterface::registerCommand(). The Editor itself queries
+ * the command for a list of accepted strings/commands by calling cmds().
+ * If the command gets invoked the function exec() is called, i.e. you have
+ * to implement the @e reaction in exec(). Whenever the user needs help for
+ * a command help() is called.
+ *
+ * <b>Command Extensions</b>\n
+ *
+ * @todo document CommandExtension
+ *
+ * @see KTextEditor::CommandInterface(), KTextEditor::CommandExtension
+ * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT Command
 {
   public:
+    /**
+     * Virtual destructor.
+     */
     virtual ~Command () {}
 
   public:
     /**
-     * Pure text start part of the commands which can be handled by this object
-     * which means i.e. for s/sdl/sdf/g => s or for char:1212 => char
+     * Return a list of strings a command may begin with.
+     * A string is the start part of a pure text which can be handled by this
+     * command, i.e. for the command s/sdl/sdf/g the corresponding string is
+     * simply @e s, and for char:1212 simply @e char.
+     * @return list of supported commands
      */
     virtual const QStringList &cmds () = 0;
 
     /**
-     * Execute this command for the given view and cmd string, return a bool
-     * about success, msg for status
+     * Execute the command for the given @p view and @p cmd string.
+     * Return the success value and a @p msg for status, i.e. if you return
+     * @e true, the @p msg is ignored.
+     * @return @e true on success, otherwise @e false
      */
     virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg) = 0;
 
     /**
-     * Shows help for the given view and cmd string, return a bool
-     * about success, msg for status
+     * Shows help for the given @p view and @p cmd string.
+     * Return the success value and a @p msg for status, i.e. if you return
+     * @e true, the @p msg is ignored.
+     * @return @e true on success, otherwise @e false
      */
     virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg) = 0;
 };
 
 /**
- * Extension to the Command interface, allowing to interact with commands
- * during typing. This allows for completion and for example the isearch
- * plugin. If you develop a command that wants to complete or process text
- * as thu user types the arguments, or that has flags, you can have
- * your command inherit this class.
+ * Extension interface for a Command.
+ *
+ * <b>Introduction</b>\n
+ *
+ * The CommandExtension extends the Command interface allowing to interact
+ * with commands during typing. This allows for completion and for example
+ * the isearch plugin. If you develop a command that wants to complete or
+ * process text as the user types the arguments, or that has flags, you can
+ * have your command inherit this class.
+ *
+ * If your commands supports flags return them by reimplementing
+ * flagCompletions(). You can return your own KCompletion object if the
+ * command has available completion data. If you want to interactively react
+ * on changes return @e true in wantsToProcessText() for the given command
+ * and reimplement processText().
+ *
+ * @see KTextEditor::CommandInterface(), KTextEditor::Command, KCompletion
+ * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT CommandExtension
 {
   public:
+    /**
+     * Virtual destructor.
+     */
     virtual ~CommandExtension() {}
 
     /**
-     * Fill in a list of flags to complete from. Each flag is a single letter,
-     * any following text in the string is taken to be a description of the
-     * flag's meaning, and showed to the user as a hint.
+     * Fill in a @p list of flags to complete from. Each flag is a single
+     * letter, any following text in the string is taken to be a description
+     * of the flag's meaning, and showed to the user as a hint.
      * Implement this method if your command has flags.
      *
      * This method is called each time the flag string in the typed command
-     * is changed, so that the available flags can be adjusted. When completions
-     * are displayed, existing flags are left out.
-     *
+     * is changed, so that the available flags can be adjusted. When
+     * completions are displayed, existing flags are left out.
+     * @param list flag list
      */ //### this is yet to be tried
     virtual void flagCompletions( QStringList&list ) = 0;
 
     /**
-     * @return a KCompletion object that will substitute the command line default
-     * one while typing the first argument to the command. The text will be
-     * added to the command seperated by one space character.
+     * Return a KCompletion object that will substitute the command line
+     * default one while typing the first argument of the command @p cmdname.
+     * The text will be added to the command seperated by one space character.
      *
      * Implement this method if your command can provide a completion object.
      *
-     * @param cmdname The command name associated with this request.
-     * @param view    The view the command will work on.
+     * @param cmdname the command name associated with this request.
+     * @param view the view the command will work on
+     * @return the completion object or NULL, if you do not support a
+     *         completion object
      */
     virtual KCompletion *completionObject( const QString & cmdname, KTextEditor::View *view ) = 0;
 
     /**
-     * @return whether this command wants to process text interactively given the @p cmdname.
-     * If true, the command's processText() method is called when the
-     * text in the command line is changed.
+     * Check, whether the command wants to process text interactively for the
+     * given command with name @p cmdname.
+     * If you return true, the command's processText() method is called
+     * whenever the text in the command line changed.
      *
      * Reimplement this to return true, if your commands wants to process the
-     * text as typed.
+     * text while typing.
      *
      * @param cmdname the command name associated with this query.
+     * @return @e true, if your command wants to process text interactively,
+     *         otherwise @e false
+     * @see processText()
      */
     virtual bool wantsToProcessText( const QString &cmdname ) = 0;
 
     /**
-     * This is called by the commandline each time the argument text for the
-     * command changes, if wantsToProcessText() returns true.
-     * @param view The current view
-     * @param text The current command text typed by the user.
+     * This is called by the command line each time the argument text for the
+     * command changed, if wantsToProcessText() returns @e true.
+     * @param view the current view
+     * @param text the current command text typed by the user
+     * @see wantsToProcessText()
      */ // ### yet to be tested. The obvious candidate is isearch.
     virtual void processText( KTextEditor::View *view, const QString &text ) = 0;
 };
 
 /**
- * CommandInterface
- * This interfaces is aimed for the KTextEditor::Editor and provides
- * a way for applications to enhance the editor command line with own
- * commands
+ * Command extension interface for the Editor.
+ *
+ * <b>Introduction</b>\n
+ *
+ * The CommandInterface extends the Editor to support command line commands.
+ * An application or a Plugin can register new commands by using
+ * registerCommand(). To unregister a command call unregisterCommand(). To
+ * check, whether a command with a given name exists use queryCommand().
+ *
+ * <b>Accessing the CommandInterface</b>\n
+ *
+ * The CommandInterface is supposed to be an extension interface for the
+ * Editor, i.e. the Editor inherits the interface @e provided that the
+ * used KTextEditor library implements the interface. Use qobject_cast to
+ * access the interface:
+ * @code
+ *   // editor is of type KTextEditor::Editor*
+ *   KTextEditor::CommandInterface *iface =
+ *       qobject_cast<KTextEditor::CommandInterface*>( editor );
+ *
+ *   if( iface ) {
+ *       // the implementation supports the interface
+ *       // do stuff
+ *   }
+ * @endcode
+ *
+ * @see KTextEditor::Editor, KTextEditor::Command,
+ *      KTextEditor::CommandExtension
+ * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT CommandInterface
 {
   public:
     /**
-     * virtual destructor
+     * Virtual destructor.
      */
     virtual ~CommandInterface () {}
 
   public:
     /**
-     * register given command
-     * this works global, for all documents
+     * Register a the new command @p cmd. The command will be registered for
+     * all documents, i.e. every command is global.
+     *
      * @param cmd command to register
-     * @return success
+     * @return @e true on success, otherwise @e false
+     * @see unregisterCommand()
      */
     virtual bool registerCommand (Command *cmd) = 0;
 
     /**
-     * unregister given command
-     * this works global, for all documents
+     * Unregister the command @p cmd. The command will be unregistered for
+     * all documents.
+     *
      * @param cmd command to unregister
      * @return success
+     * @see registerCommand()
      */
     virtual bool unregisterCommand (Command *cmd) = 0;
 
     /**
-     * query for command
+     * Query for the command @p cmd.
+     * If the command @p cmd does not exist the return value is NULL.
+     *
      * @param cmd name of command to query for
-     * @return found command or 0
+     * @return the found command or NULL if no such command exists
      */
     virtual Command *queryCommand (const QString &cmd) = 0;
-
-
 };
 
 }

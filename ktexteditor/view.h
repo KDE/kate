@@ -96,7 +96,7 @@ class Document;
  * support all the extensions. To implement the interfaces multiple
  * inheritance is used. The extension interfaces for the view are in order:
  *   - TextHintInterface, texthint support (used by debuggers for example)
- *   - CodeCompletionInterface, support for listbox like popup widgets
+ *   - CodeCompletionInterface, support for code completion and argument hints
  *   - SessionConfigInterface, support for session related settings
  *   - TemplateInterface, support for editable template fields
  *

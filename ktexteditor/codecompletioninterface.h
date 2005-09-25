@@ -34,27 +34,45 @@ class View;
 class CompletionProvider;
 
 /**
- * An item for the completion popup. <code>text</code> is the completed string,
- * <code>prefix</code> appears in front of it, <code>suffix</code> appears after it.
- * <code>type</code> does not appear in the completion list.
- * <code>prefix</code>, <code>suffix</code>, and <code>type</code> are not part of the
- * inserted text if a completion takes place. <code>comment</code> appears in a tooltip right of
- * the completion list for the currently selected item. <code>userdata</code> can be
- * free formed data, which the user of this interface can use in
- * CodeCompletionInterface::filterInsertString().
+ * A code completion item for the completion box.
+ *
+ * <b>Introduction</b>\n
+ *
+ * An item for the code completion box contains
+ *  - a text() which is used to complete the string
+ *  - a prefix() which appears in front of the text()
+ *  - a suffix() which appears after the text()
+ *  - an icon() which appears before the prefix()
+ *  - a type() that does not appear in the completion list
+ *  - a comment() which appears in a tooltip right to the completion box
+ *  - userdata() where the user can save user related data
+ *
+ * An item belongs to a provider() that added the item to the completion box.
+ * Only the text() itself is actually used to complete the string.
  *
  *
+ * @todo ??? userdata, which the user of this interface can use in
+ *       CodeCompletionInterface::filterInsertString(). <- does not exist
+ *
+ * @author Joseph Wenninger \<jowenn@kde.org\>
  */
 //possible better d pointer + functions
 class KTEXTEDITOR_EXPORT CompletionItem
 {
   public:
     CompletionItem();
-    CompletionItem(const QString& _text, const QIcon &_icon=QIcon(), CompletionProvider* _provider=0, const QString &_prefix=QString(), const QString& _postfix=QString(), const QString& _comment=QString(), const QVariant &_userdata=QVariant(), const QString &_type=QString());
+    CompletionItem(const QString& _text,
+                   const QIcon &_icon=QIcon(),
+                   CompletionProvider* _provider=0,
+                   const QString &_prefix=QString(),
+                   const QString& _postfix=QString(),
+                   const QString& _comment=QString(),
+                   const QVariant &_userdata=QVariant(),
+                   const QString &_type=QString());
     ~CompletionItem();
     const QIcon&    icon() const;
     const QString&  text() const;
-    const QString&  markupText() const;
+    const QString&  markupText() const; ///< @todo ???
     const QString&  prefix() const;
     const QString&  postfix() const;
     const QString&  comment() const;
@@ -83,6 +101,7 @@ class KTEXTEDITOR_EXPORT CompletionData
     /**
      * Constructor.
      * You should never use this constructor yourself.
+     * @todo ??? why not make it private then?
      */
     CompletionData():m_id(0) {}
     /**
@@ -92,7 +111,7 @@ class KTEXTEDITOR_EXPORT CompletionData
      * @p matchStart.
      * @param items the items containing the completion information
      * @param matchStart start position
-     * @param casesensitive FIXME ?
+     * @param casesensitive the case sensitivity for comparisons
      */
     CompletionData(QList<CompletionItem> items,
                    const KTextEditor::Cursor& matchStart,
@@ -104,7 +123,7 @@ class KTEXTEDITOR_EXPORT CompletionData
     {}
 
     /**
-     * Get all the completion data's items.
+     * Get all the completion data items.
      * @return all items
      */
     inline const QList<CompletionItem>& items()const {return m_items;}
@@ -112,6 +131,7 @@ class KTEXTEDITOR_EXPORT CompletionData
     /**
      * Get the start position.
      * @return the start position
+     * @todo ??? what for
      */
     inline const KTextEditor::Cursor& matchStart() const {return m_matchStart;}
 
@@ -147,6 +167,7 @@ class KTEXTEDITOR_EXPORT CompletionData
 
     /**
      * Get the id.
+     * @todo ??? Why does completion data need an id ?
      * @return the id
      */
     inline int id() const {return m_id;};
@@ -163,6 +184,8 @@ class KTEXTEDITOR_EXPORT CompletionData
 /**
  * Argument hint class containing information about argument hints.
  *
+ * @todo ??? not finished at all I guess
+ *
  * @author Joseph Wenninger \<jowenn@kde.org\>
  */
 class KTEXTEDITOR_EXPORT ArgHintData
@@ -171,6 +194,7 @@ class KTEXTEDITOR_EXPORT ArgHintData
     /**
      * Constructor.
      * You should never use this constructor yourself.
+     * @todo ??? why not make it private then
      */
     ArgHintData():m_id(0) {}
 
@@ -281,13 +305,39 @@ class KTEXTEDITOR_EXPORT ArgHintData
       CompletionType31=0x40000000,
       CompletionType32=0x80000000,
 
-      CompletionNone=CompletionType0,
+      CompletionNone=CompletionType0, ///< @todo ???
+      /**
+       * The user typed text. CompletionProvider::completionData() is called
+       * for @e every registered provider.
+       */
       CompletionAsYouType=CompletionType1,
+      /**
+       * The user deleted text with backspace.
+       */
       CompletionAsYouTypeBackspace=CompletionType2,
-      CompletionReinvokeAsYouType=CompletionType3, //there does not have to be a CompleteAsYouType before an invokation of that kind
+      /**
+       * @todo ???
+       * There does not have to be a CompleteAsYouType before an invokation of
+       * that kind.
+       */
+      CompletionReinvokeAsYouType=CompletionType3,
+      /**
+       * @todo ???
+       */
       CompletionContextIndependent=CompletionType4,
+      /**
+       * @todo ???
+       */
       CompletionContextDependent=CompletionType5,
-      CompletionGenericSingleProvider=CompletionType6 //recommend for the single provider invokeCompletion call, should never be used with the multiple provider enabled invokation call.
+      /**
+       * This type indicates that CodeCompletionInterface::invokeCompletion()
+       * was called with a @e single provider. The provider can be sure that
+       * it is the only one who shows completion entries in the listbox.
+       *
+       * @note It should never be used with the multiple provider enabled
+       *       invokation call.
+       */
+      CompletionGenericSingleProvider=CompletionType6
     };
 
 
@@ -301,13 +351,18 @@ class KTEXTEDITOR_EXPORT ArgHintData
  * and argument hints.
  *
  * Every provider is queried for completion data @e everytime a character
- * was inserted, you will know this in completionData() as the type then is
- * set to @p CompletionAsYouType. If the type for example is
+ * was inserted into the view, the type in completionData() is set to
+ * @p CompletionAsYouType. If the type for example is
  * @p CompletionGenericSingleProvider you can be sure that you are the only
  * provider, i.e. a provider knows that the invokation was forced.
  *
  * There are several other completion types, look into the
  * KTextEditor::CompletionType list for further details.
+ *
+ * After completionData() was called there are two possibilities: Either the
+ * completion process was aborted or done. If it was aborted,
+ * completionAborted() is called for @e every provider, if it was done,
+ * completionDone() is called.
  *
  * <b>Implementation Notes</b>\n
  *
@@ -367,7 +422,8 @@ class KTEXTEDITOR_EXPORT CompletionProvider
                                           const QString& text)=0;
 
     /**
-     * This function is called whenever a completion process has been aborted.
+     * This function is called for @e every provider whenever a completion
+     * process has been aborted.
      *
      * A provider that inserted data to the completion box for a completion
      * process should @e not assume that it is the only one who gets this
@@ -375,13 +431,15 @@ class KTEXTEDITOR_EXPORT CompletionProvider
      * providers.
      *
      * @param view the view of the completion box
+     * @see completionDone()
      */
     virtual void completionAborted(View *view)=0;
 
     /**
-     * This function is called whenever a completion entry was chosen.
-     * If a provider has cached data this is the place to clean it up.
+     * This function is called for @e every provider whenever a completion
+     * entry was chosen.
      * @param view the view of the completion box
+     * @see completionAborted()
      */
     virtual void completionDone(View *view)=0;
 
@@ -390,11 +448,13 @@ class KTEXTEDITOR_EXPORT CompletionProvider
      *
      * This method is called only for the provider that provided the item, no
      * default handling will be done by the editor component, i.e. you have to
-     * insert the text yourself.
+     * insert the text yourself. After the completion process completionDone()
+     * is called for @e every provider.
      *
      * @param view the view of the completion box
      * @param data the completion data
      * @param item the chosen item, use it to do the completion
+     * @see completionDone()
      */
     virtual void doComplete(View *view,
                             const CompletionData &data,
@@ -416,12 +476,12 @@ class KTEXTEDITOR_EXPORT CompletionProvider
  *
  * It is possible that several clients want to access the code completion
  * interface, e.g. the Word completion Plugin and Quanta+. So it is important
- * that several clients do not clash and work smooth simultaneously.
+ * that several clients do not clash and work simultaneously in a smooth way.
  *
- * The solution is to install a so-called code completion @e provider. A
- * client has to register a new CompletionProvider by using
- * registerCompletionProvider(). To invoke the provider use invokeCompletion()
- * with the appropriate arguments.
+ * The solution is to install a so-called @e CompletionProvider. A client has
+ * to register a new CompletionProvider by using registerCompletionProvider().
+ * To invoke the provider use invokeCompletion() with the appropriate
+ * arguments.
  *
  * The provider itself then can control the completion and argument hint data.
  * This is visualized in the following hierarchy:
@@ -447,7 +507,7 @@ class KTEXTEDITOR_EXPORT CompletionProvider
  * <b>Example Code</b>\n
  *
  * Throughout the example we assume that we work on the @e view and that
- * @e this is a class derived from CompletionProvider.
+ * @e this and @e provider is a class derived from CompletionProvider.
  *
  * Step 1: register the provider
  * @code
@@ -456,22 +516,28 @@ class KTEXTEDITOR_EXPORT CompletionProvider
  *   if( iface ) iface->registerCompletionProvider( provider );
  * @endcode
  *
- * Step 2: reimplement Provider::completionData()
+ * Step 2: reimplement CompletionProvider::completionData()
  * @code
- *   // get current cursor position, then current word
- *   const KTextEditor::Cursor& cursor = view.cursorPosition();
- *   // assumint you have something like a wordAt() function
- *   QString text = wordAt( view->document(), cursor );
+ *   virtual const CompletionData completionData(View* view,
+ *                                               enum CompletionType completionType,
+ *                                               const Cursor& insertionPosition,
+ *                                               const QString& insertedText,
+ *                                               const Cursor& currentPos,
+ *                                               const QString& currentLine)
+ *   {
+ *       // assumint you have something like a wordAt() function
+ *       QString text = wordAt( view->document(), currentPos );
  *
- *   // create list of matches, assuming allMatches() exist
- *   QList<KTextEditor::CompletionItem> matches = allMatches( text );
- *   return matches;
+ *       // create list of matches, assuming allMatches() exist
+ *       QList<KTextEditor::CompletionItem> matches = allMatches( text );
+ *       return matches;
  *
- *   // or if you know there is no data just return the following
- *   return KTextEditor::CompletionData::Null();
+ *       // or if you know there is no data just return the following
+ *       return KTextEditor::CompletionData::Null();
+ *   }
  * @endcode
  *
- * Step 3: show the completion box
+ * Step 3: force the @e view to show the completion box
  * @code
  *   KTextEditor::CodeCompletionInterface *iface =
  *       qobject_cast<KTextEditor::CodeCompletionInterface *>( view );

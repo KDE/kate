@@ -56,7 +56,7 @@ Via this Factory the Editor instance can be accessed (the actually underlying
 Editor part) which gives access to the global services of the part.
 If you want to load a Kate Part and a yzis part you need two different
 factories. This is also the reason why the signal
-<code>void Editor::documentCreated()</code> contains the Editor as first
+KTextEditor::Editor::documentCreated() contains the Editor as first
 argument. In other words: You would never want to have two factories around
 (i.e. two Editor* instances) that both return Kate Parts, the Kate Part
 solves this by using a static accessor in the Editor derived class KateGlobal
@@ -91,10 +91,10 @@ concepts are much cleaner than tuples, please keep the following guidelines:
 - never use Cursor/Cursor tuples for ranges, use a @p KTextEditor::Range
   instead of two Cursors.
 
-@section kte_interface_access Accessing an Interface
-To access an extension interface qobject_cast should be used (see also
-http://doc.trolltech.com/4.0/plugins-howto.html#the-lower-level-api-extending-qt-applications
-for how qobject_cast works with Q_INTERFACES and Q_DECLARE_INTERFACE).
+@section kte_interface_access Accessing an Extension Interface
+To access an extension interface qobject_cast should be used (read
+<a href="http://doc.trolltech.com/4.0/plugins-howto.html#the-lower-level-api-extending-qt-applications">
+Extending Qt Applications</a> for detailed information).
 
 A KTextEditor implementation may implement interfaces, but it does not @e need
 to. So as a KTextEditor user you have to cast the Document or View into the

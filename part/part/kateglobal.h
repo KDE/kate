@@ -28,6 +28,7 @@
 #include <kaboutdata.h>
 #include <ktexteditor/commandinterface.h>
 #include <QList>
+#include <q3valuelist.h>
 
 /**
  * katepart version must be a string in double quotes, format: "x.x"

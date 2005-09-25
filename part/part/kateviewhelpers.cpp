@@ -69,8 +69,6 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
 {
   connect(this, SIGNAL(valueChanged(int)), this, SLOT(sliderMaybeMoved(int)));
   connect(m_doc, SIGNAL(marksChanged(KTextEditor::Document*)), this, SLOT(marksChanged()));
-
-  m_lines.setAutoDelete(true);
 }
 
 void KateScrollBar::mousePressEvent(QMouseEvent* e)
@@ -195,7 +193,7 @@ void KateScrollBar::recomputeMarksPositions(bool forceFullUpdate)
 
     double d = (double)line / (m_savVisibleLines - 1);
     m_lines.insert(m_topMargin + (int)(d * realHeight),
-                   new QColor(KateRendererConfig::global()->lineMarkerColor((KTextEditor::MarkInterface::MarkTypes)mark->type)));
+                   QColor(KateRendererConfig::global()->lineMarkerColor((KTextEditor::MarkInterface::MarkTypes)mark->type)));
   }
 
   if (forceFullUpdate)

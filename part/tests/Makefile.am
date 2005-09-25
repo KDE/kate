@@ -12,7 +12,7 @@ kateregression_LDADD = $(top_builddir)/kate/part/katepart.la $(top_builddir)/qtt
 kateregression_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 
 katetest_SOURCES = katetest.cpp
-katetest_LDADD = $(top_builddir)/kate/part/katepart.la
+katetest_LDADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la
 katetest_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 
 TESTS = kateregression

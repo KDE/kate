@@ -42,15 +42,11 @@
 #include <kapplication.h>
 #include <kglobalsettings.h>
 
-#include <qstyle.h>
 #include <QMimeData>
-#include <q3popupmenu.h>
-#include <q3dropsite.h>
-#include <qpainter.h>
-#include <qlayout.h>
-#include <qclipboard.h>
-#include <qpixmap.h>
-#include <q3vbox.h>
+#include <QPainter>
+#include <QLayout>
+#include <QClipboard>
+#include <QPixmap>
 #include <QWheelEvent>
 #include <QMouseEvent>
 #include <QClipboard>

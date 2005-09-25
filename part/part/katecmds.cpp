@@ -35,8 +35,7 @@
 #include <kurl.h>
 #include <kshellcompletion.h>
 
-#include <qregexp.h>
-
+#include <QRegExp>
 
 //BEGIN CoreCommands
 // syncs a config flag in the document with a boolean value

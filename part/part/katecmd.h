@@ -23,8 +23,8 @@
 
 #include <kcompletion.h>
 
-#include <q3dict.h>
-#include <qstringlist.h>
+#include <QHash>
+#include <QStringList>
 
 class KateCmd
 {
@@ -44,7 +44,7 @@ class KateCmd
     uint historyLength() const { return m_history.count(); }
 
   private:
-    Q3Dict<KTextEditor::Command> m_dict;
+    QHash<QString, KTextEditor::Command *> m_dict;
     QStringList m_cmds;
     QStringList m_history;
 };

@@ -154,31 +154,6 @@ bool KateTextLine::stringAtPos(int pos, const QString& match) const
   return true;
 }
 
-bool KateTextLine::startingWith(const QString& match) const
-{
-  if (match.length() > m_text.length())
-    return false;
-
-  for (int i=0; i < match.length(); i++)
-    if (m_text[i] != match[i])
-      return false;
-
-  return true;
-}
-
-bool KateTextLine::endingWith(const QString& match) const
-{
-  if (match.length() > m_text.length())
-    return false;
-
-  uint start = m_text.length() - match.length();
-  for (int i=0; i < match.length(); i++)
-    if (m_text[start+i] != match[i])
-      return false;
-
-  return true;
-}
-
 int KateTextLine::cursorX(int pos, uint tabChars) const
 {
   if (pos < 0)
@@ -196,7 +171,6 @@ int KateTextLine::cursorX(int pos, uint tabChars) const
 
   return x;
 }
-
 
 uint KateTextLine::lengthWithTabs (uint tabChars) const
 {

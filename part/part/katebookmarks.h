@@ -20,8 +20,7 @@
 #ifndef __KATE_BOOKMARKS_H__
 #define __KATE_BOOKMARKS_H__
 
-#include <qobject.h>
-#include <q3ptrlist.h>
+#include <QObject>
 
 class KateView;
 

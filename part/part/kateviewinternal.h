@@ -30,9 +30,8 @@
 #include "katetextline.h"
 #include "katedocument.h"
 
-#include <qpoint.h>
-#include <qtimer.h>
-#include <q3intdict.h>
+#include <QPoint>
+#include <QTimer>
 #include <QDrag>
 #include <QWidget>
 

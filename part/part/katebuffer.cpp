@@ -35,12 +35,11 @@
 #include <kglobal.h>
 #include <kcharsets.h>
 
-#include <qfile.h>
-#include <qtextstream.h>
-#include <qtimer.h>
-#include <qtextcodec.h>
-#include <qdatetime.h>
-#include <q3popupmenu.h>
+#include <QFile>
+#include <QTextStream>
+#include <QTimer>
+#include <QTextCodec>
+#include <QDateTime>
 
 /**
  * loader block size, load 256 kb at once per default

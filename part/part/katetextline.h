@@ -208,14 +208,14 @@ class KateTextLine : public KShared
      * @param match string to test
      * @return does line start with given string?
      */
-    bool startingWith(const QString& match) const;
+    inline bool startingWith(const QString& match) const { return m_text.startsWith (match); }
 
     /**
      * Is the line ending with the given string
      * @param match string to test
      * @return does the line end with given string?
      */
-    bool endingWith(const QString& match) const;
+    inline bool endingWith(const QString& match) const { return m_text.endsWith (match); }
 
     /**
      * search given string

@@ -30,8 +30,8 @@
 #include <kxmlguiclient.h>
 #include <kxmlguifactory.h>
 
-#include <qregexp.h>
-#include <qevent.h>
+#include <QRegExp>
+#include <QEvent>
 #include <QVector>
 
 namespace KTextEditor{ class Document; }

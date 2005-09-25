@@ -24,11 +24,10 @@
 #include <kaction.h>
 #include <klineedit.h>
 
-#include <qwidget.h>
-#include <qpixmap.h>
-#include <qcolor.h>
-#include <qscrollbar.h>
-#include <q3intdict.h>
+#include <QPixmap>
+#include <QColor>
+#include <QScrollBar>
+#include <QHash>
 
 class KateDocument;
 class KateView;
@@ -86,7 +85,7 @@ class KateScrollBar : public QScrollBar
     int m_bottomMargin;
     uint m_savVisibleLines;
 
-    Q3IntDict<QColor> m_lines;
+    QHash<int, QColor> m_lines;
 
     bool m_showMarks;
 };

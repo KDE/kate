@@ -37,7 +37,7 @@ bool KateCmd::registerCommand (KTextEditor::Command *cmd)
   QStringList l = cmd->cmds ();
 
   for (int z=0; z<l.count(); z++)
-    if (m_dict[l[z]])
+    if (m_dict.contains(l[z]))
       return false;
 
   for (int z=0; z<l.count(); z++) {
@@ -53,13 +53,18 @@ bool KateCmd::registerCommand (KTextEditor::Command *cmd)
 bool KateCmd::unregisterCommand (KTextEditor::Command *cmd)
 {
   QStringList l;
-  Q3DictIterator<KTextEditor::Command> it(m_dict);
-  for( ; it.current(); ++it )
-    if (it.current()==cmd) l<<it.currentKey();
+
+  QHash<QString, KTextEditor::Command*>::const_iterator i = m_dict.constBegin();
+  while (i != m_dict.constEnd()) {
+      if (i.value()==cmd) l << i.key();
+      ++i;
+  }
+
   for ( QStringList::Iterator it1 = l.begin(); it1 != l.end(); ++it1 ) {
     m_dict.remove(*it1);
     kdDebug(13050)<<"Removed command:"<<*it1<<endl;
   }
+
   return true;
 }
 
@@ -76,7 +81,7 @@ KTextEditor::Command *KateCmd::queryCommand (const QString &cmd)
     if ( b && ( ! cmd[f].isLetterOrNumber() && cmd[f] != '-' && cmd[f] != '_' ) )
       break;
   }
-  return m_dict[cmd.left(f)];
+  return m_dict.value(cmd.left(f));
 }
 
 QStringList KateCmd::cmds ()

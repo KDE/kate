@@ -3440,35 +3440,38 @@ void KateViewHighlightAction::slotAboutToShow()
 
         int m = subMenusName.findIndex (hlSection);
         names << hlName;
-        subMenus.at(m)->addAction( '&' + hlName, this, SLOT(setHl(bool)))->setData(z);
+        QAction *a=subMenus.at(m)->addAction( '&' + hlName, this, SLOT(setHl()));
+	a->setData(z);
+	a->setCheckable(true);
+	subActions.append(a);
       }
       else if (!names.contains(hlName))
       {
         names << hlName;
-        popupMenu()->addAction ( '&' + hlName, this, SLOT(setHl(bool)))->setData(z);
+        QAction *a=popupMenu()->addAction ( '&' + hlName, this, SLOT(setHl()));
+	a->setData(z);
+	a->setCheckable(true);
+	subActions.append(a);
       }
     }
   }
 
   if (!m_doc) return;
-
-  for (int i=0;i<subMenus.count();i++)
-  {
-    for (int i2=0;i2<subMenus.at(i)->count();i2++)
-    {
-      subMenus.at(i)->setItemChecked(subMenus.at(i)->idAt(i2),false);
-    }
+  for (int i=0;i<subActions.count();i++) {
+	subActions[i]->setChecked(false);
   }
-  popupMenu()->setItemChecked (0, false);
 
-  int i = subMenusName.findIndex (KateHlManager::self()->hlSection(m_doc->hlMode()));
-  if (i >= 0 && subMenus.at(i))
-    subMenus.at(i)->setItemChecked (m_doc->hlMode(), true);
-  else
-    popupMenu()->setItemChecked (0, true);
+  int mode=m_doc->hlMode();
+  int start=mode;
+  if ( (mode<0) || (mode>=subActions.count() ) )
+    start=subActions.count()-1;
+  for(;(start>0) && (subActions[start]->data().toInt()!=mode);start--);
+  if (start>=0);
+    subActions[start]->setChecked(true);
+
 }
 
-void KateViewHighlightAction::setHl (bool checked)
+void KateViewHighlightAction::setHl ()
 {
   if (!sender()) return;
   QAction *action=qobject_cast<QAction*>(sender());

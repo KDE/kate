@@ -95,7 +95,7 @@ class KateViewSchemaAction : public KActionMenu
   Q_OBJECT
 
   public:
-    KateViewSchemaAction(const QString& text, QObject* parent = 0, const char* name = 0)
+    KateViewSchemaAction(const QString& text, KActionCollection* parent = 0, const char* name = 0)
        : KActionMenu(text, parent, name) { init(); };
 
     ~KateViewSchemaAction(){;};

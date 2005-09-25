@@ -194,7 +194,7 @@ class KateViewIndentationAction : public KActionMenu
   Q_OBJECT
 
   public:
-    KateViewIndentationAction(KateDocument *_doc, const QString& text, QObject* parent = 0, const char* name = 0);
+    KateViewIndentationAction(KateDocument *_doc, const QString& text, KActionCollection* parent = 0, const char* name = 0);
 
     ~KateViewIndentationAction(){;};
 

@@ -44,6 +44,7 @@
 #include <qdatetime.h>
 #include <QLinkedList>
 #include <QRegExp>
+#include <QAction>
 
 class KateHlContext;
 class KateHlItem;
@@ -432,7 +433,7 @@ class KateViewHighlightAction: public KActionMenu
   Q_OBJECT
 
   public:
-    KateViewHighlightAction(const QString& text, QObject* parent = 0, const char* name = 0)
+    KateViewHighlightAction(const QString& text, KActionCollection *parent = 0, const char* name = 0)
        : KActionMenu(text, parent, name) { init(); };
 
     ~KateViewHighlightAction();
@@ -446,12 +447,12 @@ class KateViewHighlightAction: public KActionMenu
     QStringList subMenusName;
     QStringList names;
     QList<QMenu*> subMenus;
-
+    QList<QAction*> subActions;
   public  slots:
     void slotAboutToShow();
 
   private slots:
-    void setHl (bool checked);
+    void setHl ();
 };
 
 #endif

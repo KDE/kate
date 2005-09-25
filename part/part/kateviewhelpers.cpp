@@ -1195,7 +1195,7 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
 }
 //END KateIconBorder
 
-KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject* parent, const char* name)
+KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, KActionCollection* parent, const char* name)
        : KActionMenu (text, parent, name), doc(_doc), view (_view)
 {
   connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));

@@ -156,7 +156,7 @@ KateAutoIndent::~KateAutoIndent ()
 //END KateAutoIndent
 
 //BEGIN KateViewIndentAction
-KateViewIndentationAction::KateViewIndentationAction(KateDocument *_doc, const QString& text, QObject* parent, const char* name)
+KateViewIndentationAction::KateViewIndentationAction(KateDocument *_doc, const QString& text, KActionCollection* parent, const char* name)
        : KActionMenu (text, parent, name), doc(_doc)
 {
   connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));

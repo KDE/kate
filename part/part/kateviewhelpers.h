@@ -190,7 +190,7 @@ class KateViewEncodingAction : public KActionMenu
   Q_OBJECT
 
   public:
-    KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject* parent = 0, const char* name = 0);
+    KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, KActionCollection* parent = 0, const char* name = 0);
 
     ~KateViewEncodingAction(){;};
 

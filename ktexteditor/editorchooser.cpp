@@ -10,6 +10,7 @@
 #include <qlabel.h>
 #include <kapplication.h>
 #include <qlayout.h>
+#include <q3valuelist.h>
 
 #include "editorchooser_ui.h"
 

@@ -428,7 +428,7 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
     QColor tmp7 ( "#000000" );
 
     // same std colors like in KateDocument::markColor
-    Q3ValueVector <QColor> mark(KTextEditor::MarkInterface::reservedMarkersCount());
+    QVector <QColor> mark(KTextEditor::MarkInterface::reservedMarkersCount());
     Q_ASSERT(mark.size() > 6);
     mark[0] = Qt::blue;
     mark[1] = Qt::red;

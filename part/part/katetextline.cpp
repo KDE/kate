@@ -119,11 +119,11 @@ const QChar *KateTextLine::firstNonSpace() const
   return (first > -1) ? ((QChar*)m_text.unicode())+first : m_text.unicode();
 }
 
-uint KateTextLine::indentDepth (uint tabwidth) const
+int KateTextLine::indentDepth (int tabwidth) const
 {
-  uint d = 0;
+  int d = 0;
 
-  for(int i = 0; i < m_text.length(); i++)
+  for(int i = 0; i < m_text.length(); ++i)
   {
     if(m_text[i].isSpace())
     {
@@ -147,21 +147,21 @@ bool KateTextLine::stringAtPos(int pos, const QString& match) const
   if ((pos+match.length()) > m_text.length())
     return false;
 
-  for (int i=0; i < match.length(); i++)
+  for (int i=0; i < match.length(); ++i)
     if (m_text[i+pos] != match[i])
       return false;
 
   return true;
 }
 
-int KateTextLine::cursorX(int pos, uint tabChars) const
+int KateTextLine::cursorX (int pos, int tabChars) const
 {
   if (pos < 0)
     pos = 0;
 
   uint x = 0;
 
-  for ( int z = 0; z < kMin (pos, m_text.length()); z++)
+  for ( int z = 0; z < kMin (pos, m_text.length()); ++z)
   {
     if (m_text[z] == QChar('\t'))
       x += tabChars - (x % tabChars);
@@ -172,11 +172,11 @@ int KateTextLine::cursorX(int pos, uint tabChars) const
   return x;
 }
 
-uint KateTextLine::lengthWithTabs (uint tabChars) const
+int KateTextLine::lengthWithTabs (int tabChars) const
 {
-  uint x = 0;
+  int x = 0;
 
-  for ( int z = 0; z < m_text.length(); z++)
+  for ( int z = 0; z < m_text.length(); ++z)
   {
     if (m_text[z] == QChar('\t'))
       x += tabChars - (x % tabChars);
@@ -187,7 +187,8 @@ uint KateTextLine::lengthWithTabs (uint tabChars) const
   return x;
 }
 
-bool KateTextLine::searchText (uint startCol, const QString &text, uint *foundAtCol, uint *matchLen, bool casesensitive, bool backwards)
+bool KateTextLine::searchText (uint startCol, const QString &text, uint *foundAtCol,
+                               uint *matchLen, bool casesensitive, bool backwards)
 {
   int index;
 

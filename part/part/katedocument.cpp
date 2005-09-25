@@ -886,10 +886,10 @@ bool KateDocument::wrapText(int startLine, int endLine)
 
       kdDebug (13020) << "do wrap line: " << line << endl;
 
-      uint eolPosition = l->length()-1;
+      int eolPosition = l->length()-1;
 
       // take tabs into account here, too
-      uint x = 0;
+      int x = 0;
       const QString & t = l->string();
       int z2 = 0;
       for ( ; z2 < l->length(); z2++)
@@ -918,7 +918,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
       // boundry, using KateHighlight::canBreakAt().
       // This could be a priority (setting) in the hl/filetype/document
       int z = 0;
-      uint nw = 0; // alternative position, a non word character
+      int nw = 0; // alternative position, a non word character
       for (z=searchStart; z > 0; z--)
       {
         if (t.at(z).isSpace()) break;

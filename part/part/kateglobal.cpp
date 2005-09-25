@@ -259,7 +259,7 @@ void KateGlobal::configDialog(QWidget *parent)
 
   QList<KTextEditor::ConfigPage*> editorPages;
 
-  for (int i = 0; i < configPages (); i++)
+  for (int i = 0; i < configPages (); ++i)
   {
     QStringList path;
     path.clear();
@@ -276,7 +276,7 @@ void KateGlobal::configDialog(QWidget *parent)
     KateViewConfig::global()->configStart ();
     KateRendererConfig::global()->configStart ();
 
-    for (uint i=0; i<editorPages.count(); i++)
+    for (int i=0; i < editorPages.count(); ++i)
     {
       editorPages.at(i)->apply();
     }

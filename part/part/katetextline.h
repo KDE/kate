@@ -142,8 +142,13 @@ class KateTextLine : public KShared
      * @return character at the given position or QChar::null if position is
      *   beyond the length of the string
      */
-    inline QChar getChar (uint pos) const { if (pos < (uint)m_text.length()) return m_text[pos];
-      return QChar(QChar::Null); }
+    inline QChar getChar (int pos) const
+    { 
+      if (pos >= 0 && pos < m_text.length())
+        return m_text[pos];
+      
+      return QChar(QChar::Null);
+    }
 
     /**
      * Gets the text as a unicode representation
@@ -159,12 +164,12 @@ class KateTextLine : public KShared
 
     /**
      * Gets a substring.
-     * @param startCol start column of substring
+     * @param column start column of substring
      * @param length length of substring
      * @return wanted substring
      */
-    inline QString string(uint startCol, uint length) const
-    { return m_text.mid(startCol, length); }
+    inline QString string(int column, int length) const
+    { return m_text.mid(column, length); }
 
     /**
      * Gets a null terminated pointer to first non space char
@@ -177,7 +182,7 @@ class KateTextLine : public KShared
      * @param tabwidth width of the tabulators
      * @return indentation width
      */
-    uint indentDepth (uint tabwidth) const;
+    int indentDepth (int tabwidth) const;
 
     /**
      * Returns the x position of the cursor at the given position, which
@@ -186,14 +191,14 @@ class KateTextLine : public KShared
      * @param tabChars tabulator width in chars
      * @return position with tabulators calculated
      */
-    int cursorX (int pos, uint tabChars) const;
+    int cursorX (int pos, int tabChars) const;
 
     /**
      * Returns the text length with tabs calced in
      * @param tabChars tabulator width in chars
      * @return text length
      */
-    uint lengthWithTabs (uint tabChars) const;
+    int lengthWithTabs (int tabChars) const;
 
     /**
      * Can we find the given string at the given position

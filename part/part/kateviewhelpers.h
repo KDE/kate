@@ -83,7 +83,7 @@ class KateScrollBar : public QScrollBar
 
     int m_topMargin;
     int m_bottomMargin;
-    uint m_savVisibleLines;
+    int m_savVisibleLines;
 
     QHash<int, QColor> m_lines;
 
@@ -172,7 +172,7 @@ class KateIconBorder : public QWidget
     bool m_dynWrapIndicatorsOn:1;
     int m_dynWrapIndicators;
 
-    uint m_lastClickedLine;
+    int m_lastClickedLine;
 
     int m_cachedLNWidth;
 

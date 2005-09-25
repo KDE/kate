@@ -37,10 +37,9 @@
 #include <kinstance.h>
 #include <kstaticdeleter.h>
 #include <kfind.h>
-#include <q3popupmenu.h>
-#include <qtextcodec.h>
-
 #include <kdebug.h>
+
+#include <QTextCodec>
 
 //BEGIN KateConfig
 KateConfig::KateConfig ()

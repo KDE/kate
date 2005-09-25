@@ -435,7 +435,7 @@ class KateViewHighlightAction: public KActionMenu
     KateViewHighlightAction(const QString& text, QObject* parent = 0, const char* name = 0)
        : KActionMenu(text, parent, name) { init(); };
 
-    ~KateViewHighlightAction(){;};
+    ~KateViewHighlightAction();
 
     void updateMenu (KateDocument *doc);
 
@@ -445,7 +445,7 @@ class KateViewHighlightAction: public KActionMenu
     QPointer<KateDocument> m_doc;
     QStringList subMenusName;
     QStringList names;
-    Q3PtrList<QMenu> subMenus;
+    QList<QMenu*> subMenus;
 
   public  slots:
     void slotAboutToShow();

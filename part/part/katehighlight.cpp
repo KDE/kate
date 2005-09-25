@@ -3402,10 +3402,14 @@ bool KateHlManager::resetDynamicCtxs()
 //END
 
 //BEGIN KateHighlightAction
+KateViewHighlightAction::~KateViewHighlightAction()
+{
+  qDeleteAll (subMenus);
+}
+
 void KateViewHighlightAction::init()
 {
   m_doc = 0;
-  subMenus.setAutoDelete( true );
 
   connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
@@ -3417,10 +3421,7 @@ void KateViewHighlightAction::updateMenu (KateDocument *doc)
 
 void KateViewHighlightAction::slotAboutToShow()
 {
-  KateDocument *doc=m_doc;
-  int count = KateHlManager::self()->highlights();
-
-  for (int z=0; z<count; z++)
+  for (int z=0; z < KateHlManager::self()->highlights(); z++)
   {
     QString hlName = KateHlManager::self()->hlNameTranslated (z);
     QString hlSection = KateHlManager::self()->hlSection (z);
@@ -3449,20 +3450,20 @@ void KateViewHighlightAction::slotAboutToShow()
     }
   }
 
-  if (!doc) return;
+  if (!m_doc) return;
 
-  for (uint i=0;i<subMenus.count();i++)
+  for (int i=0;i<subMenus.count();i++)
   {
-    for (uint i2=0;i2<subMenus.at(i)->count();i2++)
+    for (int i2=0;i2<subMenus.at(i)->count();i2++)
     {
       subMenus.at(i)->setItemChecked(subMenus.at(i)->idAt(i2),false);
     }
   }
   popupMenu()->setItemChecked (0, false);
 
-  int i = subMenusName.findIndex (KateHlManager::self()->hlSection(doc->hlMode()));
+  int i = subMenusName.findIndex (KateHlManager::self()->hlSection(m_doc->hlMode()));
   if (i >= 0 && subMenus.at(i))
-    subMenus.at(i)->setItemChecked (doc->hlMode(), true);
+    subMenus.at(i)->setItemChecked (m_doc->hlMode(), true);
   else
     popupMenu()->setItemChecked (0, true);
 }

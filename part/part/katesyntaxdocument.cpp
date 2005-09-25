@@ -29,7 +29,7 @@
 #include <kmessagebox.h>
 #include <kconfig.h>
 
-#include <qfile.h>
+#include <QFile>
 
 KateSyntaxDocument::KateSyntaxDocument(bool force)
   : QDomDocument()

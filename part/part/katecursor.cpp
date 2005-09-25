@@ -23,8 +23,9 @@
 
 #include "katedocument.h"
 #include "katetextline.h"
-#include <ktexteditor/attribute.h>
 #include "katesuperrange.h"
+
+#include <ktexteditor/attribute.h>
 
 //
 // KateDocCursor implementation

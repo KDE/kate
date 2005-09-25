@@ -144,7 +144,7 @@ KateCodeFoldingNode *KateCodeFoldingNode::takeChild (uint index)
 
 void KateCodeFoldingNode::clearChildren ()
 {
-  for (uint i=0; i < m_children.size(); ++i)
+  for (int i=0; i < m_children.size(); ++i)
     delete m_children[i];
 
   m_children.resize (0);
@@ -1055,7 +1055,7 @@ void KateCodeFoldingTree::lineHasBeenRemoved(unsigned int line)
   if (node->parentNode)
     decrementBy1(node->parentNode, node);
 
-  for (Q3ValueList<KateHiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
+  for (QList<KateHiddenLineBlock>::iterator it=hiddenLines.begin(); it != hiddenLines.end(); ++it)
   {
     if ((*it).start > line)
       (*it).start--;
@@ -1115,7 +1115,7 @@ void KateCodeFoldingTree::lineHasBeenInserted(unsigned int line)
   if (node->parentNode)
     incrementBy1(node->parentNode, node);
 
-  for (Q3ValueList<KateHiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
+  for (QList<KateHiddenLineBlock>::iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
   {
     if ((*it).start > line)
       (*it).start++;
@@ -1340,7 +1340,7 @@ void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
     addHiddenLineBlock(nodesForLine.at(0),line);
   else
   {
-    for (Q3ValueList<KateHiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end();++it)
+    for (QList<KateHiddenLineBlock>::iterator it=hiddenLines.begin(); it!=hiddenLines.end();++it)
       if ((*it).start == line+1)
       {
         hiddenLines.remove(it);
@@ -1373,7 +1373,7 @@ void KateCodeFoldingTree::addHiddenLineBlock(KateCodeFoldingNode *node,unsigned 
   data.length = node->endLineRel-(existsOpeningAtLineAfter(line+node->endLineRel,node)?1:0); // without -1;
   bool inserted = false;
 
-  for (Q3ValueList<KateHiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
+  for (QList<KateHiddenLineBlock>::iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
   {
     if (((*it).start>=data.start) && ((*it).start<=data.start+data.length-1)) // another hidden block starting at the within this block already exits -> adapt new block
     {
@@ -1434,7 +1434,7 @@ unsigned int KateCodeFoldingTree::getRealLine(unsigned int virtualLine)
     return (*real);
 
   unsigned int tmp = virtualLine;
-  for (Q3ValueList<KateHiddenLineBlock>::ConstIterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
+  for (QList<KateHiddenLineBlock>::const_iterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
   {
     if ((*it).start<=virtualLine)
       virtualLine += (*it).length;
@@ -1459,10 +1459,10 @@ unsigned int KateCodeFoldingTree::getVirtualLine(unsigned int realLine)
 
   // kdDebug(13000)<<QString("RealLine--> %1").arg(realLine)<<endl;
 
-  for (Q3ValueList<KateHiddenLineBlock>::ConstIterator it=hiddenLines.fromLast(); it!=hiddenLines.end(); --it)
+  for (int i = hiddenLines.size()-1; i >= 0; --i)
   {
-    if ((*it).start <= realLine)
-      realLine -= (*it).length;
+    if (hiddenLines[i].start <= realLine)
+      realLine -= hiddenLines[i].length;
     // else
       // break;
   }
@@ -1487,7 +1487,7 @@ unsigned int KateCodeFoldingTree::getHiddenLinesCount(unsigned int doclen)
   hiddenLinesCountCacheValid = true;
   hiddenLinesCountCache = 0;
 
-  for (Q3ValueList<KateHiddenLineBlock>::ConstIterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
+  for (QList<KateHiddenLineBlock>::const_iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
   {
     if ((*it).start+(*it).length<=doclen)
       hiddenLinesCountCache += (*it).length;
@@ -1624,7 +1624,7 @@ void KateCodeFoldingTree::ensureVisible( uint line )
 {
   // first have a look, if the line is really hidden
   bool found=false;
-  for (Q3ValueList<KateHiddenLineBlock>::ConstIterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
+  for (QList<KateHiddenLineBlock>::const_iterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
   {
     if ( ((*it).start<=line)  && ((*it).start+(*it).length>line) )
     {

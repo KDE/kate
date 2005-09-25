@@ -21,9 +21,9 @@
 
 //BEGIN INCLUDES + FORWARDS
 #include <q3ptrlist.h>
-#include <q3valuelist.h>
 #include <qobject.h>
 #include <q3intdict.h>
+#include <QList>
 #include <QVector>
 
 class KateCodeFoldingTree;
@@ -75,7 +75,7 @@ class KateCodeFoldingNode
   protected:
     inline bool noChildren () const { return m_children.isEmpty(); }
 
-    inline uint childCount () const { return m_children.size(); }
+    inline int childCount () const { return m_children.size(); }
 
     inline KateCodeFoldingNode *child (uint index) const { return m_children[index]; }
 
@@ -160,7 +160,7 @@ class KateCodeFoldingTree : public QObject
 
     Q3PtrList<KateCodeFoldingNode> markedForDeleting;
     Q3PtrList<KateCodeFoldingNode> nodesForLine;
-    Q3ValueList<KateHiddenLineBlock>   hiddenLines;
+    QList<KateHiddenLineBlock>   hiddenLines;
 
     unsigned int hiddenLinesCountCache;
     bool         something_changed;

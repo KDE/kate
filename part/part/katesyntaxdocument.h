@@ -20,9 +20,9 @@
 #ifndef __KATE_SYNTAXDOCUMENT_H__
 #define __KATE_SYNTAXDOCUMENT_H__
 
-#include <qdom.h>
+#include <QDomDocument>
 #include <QList>
-#include <qstringlist.h>
+#include <QStringList>
 
 /**
  * Information about each syntax hl Mode

@@ -24,7 +24,6 @@
 
 #include <ktexteditor/cursor.h>
 
-#include <Q3PtrList>
 #include <QString>
 
 class KateDocument;

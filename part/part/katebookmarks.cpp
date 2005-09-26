@@ -161,7 +161,7 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
   QVector<uint> sortArray( m.size() );
 
   if ( !m.isEmpty() )
-    menu.insertSeparator();
+    menu.addSeparator();
   
   int i = 0;
   for (QHash<int, KTextEditor::Mark*>::const_iterator it = m.constBegin(); it != m.constEnd(); ++it, ++i)
@@ -174,6 +174,7 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
       bText.replace(re, "&&"); // kill undesired accellerators!
       bText.replace('\t', ' '); // kill tabs, as they are interpreted as shortcuts
 
+      QAction *before=0;
       if ( m_sorting == Position )
       {
         sortArray[i] = it.value()->line;
@@ -184,14 +185,22 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
           if (sortArray[i] == it.value()->line)
           {
             idx = i + 3;
+            if (idx>=menu.actions().size()) before=0;
+            else before=menu.actions()[idx];
             break;
           }
         }
       }
 
-      menu.insertItem(
+      if (before) {
+        QAction *a=new QAction(QString("%1 - \"%2\"").arg( it.value()->line+1 ).arg( bText ),&menu);
+        menu.insertAction(before,a);
+        connect(a,SIGNAL(activated()),this,SLOT(gotoLine()));
+        a->setData(it.value()->line);
+      }else
+        menu.addAction(
           QString("%1 - \"%2\"").arg( it.value()->line+1 ).arg( bText ),
-          this, SLOT(gotoLine(int)), 0, it.value()->line, idx );
+          this, SLOT(gotoLine()))->setData(it.value()->line);
 
       if ( it.value()->line < line )
       {
@@ -225,6 +234,12 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
   if ( next || prev )
     menu.insertSeparator( idx );
 
+}
+
+void KateBookmarks::gotoLine()
+{
+  if (!sender()) return;
+  gotoLine(((QAction*)(sender()))->data().toInt());
 }
 
 void KateBookmarks::gotoLine (int line)

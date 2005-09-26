@@ -52,7 +52,8 @@ class KateBookmarks : public QObject
   private slots:
     void toggleBookmark();
     void clearBookmarks();
-
+  
+    void gotoLine();
     void gotoLine (int line);
   
     void slotViewGotFocus( KDocument::View * );

@@ -1198,33 +1198,51 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
 KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, KActionCollection* parent, const char* name)
        : KActionMenu (text, parent, name), doc(_doc), view (_view)
 {
+  m_actions=new QActionGroup(this);
+  m_actions->setExclusive(true);
+  
+  QStringList modes (KGlobal::charsets()->descriptiveEncodingNames());
+  for (int z=0; z<modes.size(); ++z)
+  {
+    QAction *a=m_actions->addAction( modes[z]);
+    a->setCheckable(true);
+    a->setData(z);
+  }
+  popupMenu()->addActions(m_actions->actions());
+  connect(m_actions,SIGNAL(triggered(QAction*)),this,SLOT(setMode(QAction*)));
   connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
 void KateViewEncodingAction::slotAboutToShow()
 {
   QStringList modes (KGlobal::charsets()->descriptiveEncodingNames());
-
-  popupMenu()->clear ();
-  for (int z=0; z<modes.size(); ++z)
-  {
-    popupMenu()->insertItem ( modes[z], this, SLOT(setMode(int)), 0,  z);
-
+  QString name=doc->config()->codec()->name();
+  int id=-1;
+  int i=0;
+  foreach(const QString &cname,modes) {
     bool found = false;
-    QTextCodec *codecForEnc = KGlobal::charsets()->codecForName(KGlobal::charsets()->encodingForName(modes[z]), found);
-
-    if (found && codecForEnc)
-    {
-      if (codecForEnc->name() == doc->config()->codec()->name())
-        popupMenu()->setItemChecked (z, true);
+    QTextCodec *codecForEnc = KGlobal::charsets()->codecForName(KGlobal::charsets()->encodingForName(cname), found);
+    if (codecForEnc && (codecForEnc->name()==name)) {
+      id=i;
+      break;
     }
+    i++;
+  }
+  popupMenu()->clear();
+  kdDebug()<<id<<endl<<m_actions->actions().size()<<endl;
+  if ( (id<0) || (id>=m_actions->actions().size()) || (m_actions->actions()[id]->data().toInt()!=id)) {
+    popupMenu()->addAction(i18n("Encoding management error"))->setEnabled(false);
+  } else {
+    popupMenu()->addActions(m_actions->actions());
+    m_actions->actions()[id]->setChecked(true);
   }
 }
 
-void KateViewEncodingAction::setMode (int mode)
+void KateViewEncodingAction::setMode (QAction* a)
 {
+  kdDebug()<<"setMode"<<endl;
   QStringList modes (KGlobal::charsets()->descriptiveEncodingNames());
-  doc->setEncoding( KGlobal::charsets()->encodingForName( modes[mode] ) );
+  doc->setEncoding( KGlobal::charsets()->encodingForName( modes[a->data().toInt()] ) );
   view->reloadFile();
 }
 

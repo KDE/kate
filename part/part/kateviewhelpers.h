@@ -32,6 +32,7 @@
 class KateDocument;
 class KateView;
 class KateViewInternal;
+class QActionGroup;
 
 namespace KTextEditor {
   class Command;
@@ -197,12 +198,11 @@ class KateViewEncodingAction : public KActionMenu
   private:
     KateDocument* doc;
     KateView *view;
-
-  public  slots:
-    void slotAboutToShow();
+    QActionGroup *m_actions;
 
   private slots:
-    void setMode (int mode);
+    void setMode (QAction*);
+    void slotAboutToShow();
 };
 
 #endif

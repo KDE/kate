@@ -398,12 +398,12 @@ void KateFileTypeConfigTab::update ()
 
   for( uint i = 0; i < m_types.count(); i++) {
     if (m_types.at(i)->section.length() > 0)
-      typeCombo->insertItem(m_types.at(i)->section + QString ("/") + m_types.at(i)->name);
+      typeCombo->addItem(m_types.at(i)->section + QString ("/") + m_types.at(i)->name);
     else
-      typeCombo->insertItem(m_types.at(i)->name);
+      typeCombo->addItem(m_types.at(i)->name);
   }
 
-  typeCombo->setCurrentItem (0);
+  typeCombo->setCurrentIndex (0);
 
   typeChanged (0);
 
@@ -412,7 +412,7 @@ void KateFileTypeConfigTab::update ()
 
 void KateFileTypeConfigTab::deleteType ()
 {
-  int type = typeCombo->currentItem ();
+  int type = typeCombo->currentIndex ();
 
   if ((type > -1) && ((uint)type < m_types.count()))
   {
@@ -428,7 +428,7 @@ void KateFileTypeConfigTab::newType ()
   for( uint i = 0; i < m_types.count(); i++) {
     if (m_types.at(i)->name == newN)
     {
-      typeCombo->setCurrentItem (i);
+      typeCombo->setCurrentIndex (i);
       typeChanged (i);
       return;
     }

@@ -98,9 +98,8 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     KCC_ERR( i18n("Could not access view") );
 
   //create a list of args
-  QStringList args( QStringList::split( QRegExp("\\s+"), _cmd ) );
-  QString cmd ( args.first() );
-  args.remove( args.first() );
+  QStringList args(_cmd.split( QRegExp("\\s+"), QString::SkipEmptyParts)) ;
+  QString cmd ( args.takeFirst() );
 
   // ALL commands that takes no arguments.
   if ( cmd == "indent" )
@@ -300,7 +299,7 @@ static void replace(QString &s, const QString &needle, const QString &with)
   int pos=0;
   while (1)
   {
-    pos=s.find(needle, pos);
+    pos=s.indexOf(needle, pos);
     if (pos==-1) break;
     s.replace(pos, needle.length(), with);
     pos+=with.length();
@@ -373,7 +372,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
   // * handle capatures by putting them in one list.
   // * the existing insertion is fine, including the line calculation.
 
-  QStringList patterns = QStringList::split( QRegExp("(^\\\\n|(?![^\\\\])\\\\n)"), find, true );
+  QStringList patterns(find.split( QRegExp("(^\\\\n|(?![^\\\\])\\\\n)"), QString::KeepEmptyParts));
   if ( patterns.count() > 1 )
   {
     for ( int i = 0; i < patterns.count(); i++ )
@@ -387,7 +386,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
     }
   }
 
-  QRegExp matcher(patterns[0], noCase);
+  QRegExp matcher(patterns[0], noCase ?Qt::CaseSensitive:Qt::CaseInsensitive);
 
   uint len;
   int matches = 0;
@@ -469,7 +468,7 @@ bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd
    kdDebug(13025)<<"SedReplace::execCmd( "<<cmd<<" )"<<endl;
 
   QRegExp delim("^[$%]?s\\s*([^\\w\\s])");
-  if ( delim.search( cmd ) < 0 ) return false;
+  if ( delim.indexIn( cmd ) < 0 ) return false;
 
   bool fullFile=cmd[0]=='%';
   bool noCase=cmd[cmd.length()-1]=='i' || cmd[cmd.length()-2]=='i';
@@ -480,14 +479,14 @@ bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd
    kdDebug(13025)<<"SedReplace: delimiter is '"<<d<<"'"<<endl;
 
   QRegExp splitter( QString("^[$%]?s\\s*")  + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d +"((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d + "[ig]{0,2}$" );
-  if (splitter.search(cmd)<0) return false;
+  if (splitter.indexIn(cmd)<0) return false;
 
   QString find=splitter.cap(1);
-   kdDebug(13025)<< "SedReplace: find=" << find.latin1() <<endl;
+   kdDebug(13025)<< "SedReplace: find=" << find <<endl;
 
   QString replace=splitter.cap(2);
   exchangeAbbrevs(replace);
-   kdDebug(13025)<< "SedReplace: replace=" << replace.latin1() <<endl;
+   kdDebug(13025)<< "SedReplace: replace=" << replace <<endl;
 
   KateDocument *doc = ((KateView*)view)->doc();
   if ( ! doc ) return false;
@@ -544,7 +543,7 @@ bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd
 
   // hex, octal, base 9+1
   QRegExp num("^char *(0?x[0-9A-Fa-f]{1,4}|0[0-7]{1,6}|[0-9]{1,3})$");
-  if (num.search(cmd)==-1) return false;
+  if (num.indexIn(cmd)==-1) return false;
 
   cmd=num.cap(1);
 

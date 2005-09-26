@@ -1508,7 +1508,8 @@ QString KateView::textAsHtml ( KTextEditor::Range range, bool blockwise)
 
   QString s;
   QTextStream ts( &s, QIODevice::WriteOnly );
-  ts.setEncoding(QTextStream::UnicodeUTF8);
+  //ts.setEncoding(QTextStream::UnicodeUTF8);
+  ts.setCodec(QTextCodec::codecForName("UTF-8"));
   ts << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;
   ts << "<html xmlns=\"http://www.w3.org/1999/xhtml\">" << endl;
   ts << "<head>" << endl;
@@ -1607,7 +1608,7 @@ void KateView::lineAsHTML (KateTextLine::Ptr line, int startCol, int length, QTe
         // let's read that color :
         int red, green, blue;
         // getting the red, green, blue values of the color :
-        charAttributes->textColor().rgb(&red, &green, &blue);
+        charAttributes->textColor().getRgb(&red, &green, &blue);
   if(!(red == 0 && green == 0 && blue == 0)) {
           (*outputStream) << "<span style='color: #"
               << ( (red < 0x10)?"0":"")  // need to put 0f, NOT f for instance. don't touch 1f.
@@ -1678,8 +1679,8 @@ void KateView::exportAsHTML ()
   {
     QTextStream *outputStream = savefile->textStream();
 
-    outputStream->setEncoding(QTextStream::UnicodeUTF8);
-
+    //outputStream->setEncoding(QTextStream::UnicodeUTF8);
+    outputStream->setCodec(QTextCodec::codecForName("UTF-8"));
     // let's write the HTML header :
     (*outputStream) << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
     (*outputStream) << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;

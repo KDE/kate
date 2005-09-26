@@ -62,7 +62,7 @@ class KateCodeCompletionCommentLabel : public QLabel
         setFrameStyle( Q3Frame::Plain | Q3Frame::Box );
         setLineWidth( 1 );
         setAlignment( Qt::AlignLeft | Qt::AlignTop );
-        polish();
+        ensurePolished();
         setText(text);
         adjustSize();
     }

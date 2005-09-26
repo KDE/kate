@@ -2073,7 +2073,7 @@ QString KateHighlighting::hlKeyForAttrib( int i ) const
     if ( i >= k )
       break;
   }
-  return it.data();
+  return it.value();
 }
 
 bool KateHighlighting::isInWord( QChar c, int attrib ) const
@@ -2447,7 +2447,7 @@ void KateHighlighting::makeContextList()
     something_changed=false; //assume all "embedded" hls have already been loaded
     for (KateEmbeddedHlInfos::const_iterator it=embeddedHls.begin(); it!=embeddedHls.end();++it)
     {
-      if (!it.data().loaded)  // we found one, we still have to load
+      if (!it.value().loaded)  // we found one, we still have to load
       {
         kdDebug(13010)<<"**************** Inner loop in make ContextList"<<endl;
         QString identifierToUse;
@@ -2493,9 +2493,9 @@ void KateHighlighting::makeContextList()
     unresIt!=unresolvedContextReferences.end();++unresIt)
   {
     //try to find the context0 id for a given unresolvedReference
-    KateEmbeddedHlInfos::const_iterator hlIt=embeddedHls.find(unresIt.data());
+    KateEmbeddedHlInfos::const_iterator hlIt=embeddedHls.find(unresIt.value());
     if (hlIt!=embeddedHls.end())
-      *(unresIt.key())=hlIt.data().context0;
+      *(unresIt.key())=hlIt.value().context0;
   }
 
   // eventually handle KateHlIncludeRules items, if they exist.

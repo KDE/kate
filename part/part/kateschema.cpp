@@ -300,13 +300,13 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
   b->setSpacing(KDialog::spacingHint());
   m_combobox = new KComboBox(b);
   // add the predefined mark types as defined in markinterface.h
-  m_combobox->insertItem(i18n("Bookmark"));            // markType01
-  m_combobox->insertItem(i18n("Active Breakpoint"));   // markType02
-  m_combobox->insertItem(i18n("Reached Breakpoint"));  // markType03
-  m_combobox->insertItem(i18n("Disabled Breakpoint")); // markType04
-  m_combobox->insertItem(i18n("Execution"));           // markType05
-  m_combobox->insertItem(i18n("Warning"));             // markType06
-  m_combobox->insertItem(i18n("Error"));               // markType07
+  m_combobox->addItem(i18n("Bookmark"));            // markType01
+  m_combobox->addItem(i18n("Active Breakpoint"));   // markType02
+  m_combobox->addItem(i18n("Reached Breakpoint"));  // markType03
+  m_combobox->addItem(i18n("Disabled Breakpoint")); // markType04
+  m_combobox->addItem(i18n("Execution"));           // markType05
+  m_combobox->addItem(i18n("Warning"));             // markType06
+  m_combobox->addItem(i18n("Error"));               // markType07
   m_combobox->setCurrentItem(0);
   m_markers = new KColorButton(b, "marker_color_button");
   connect( m_combobox, SIGNAL( activated( int ) ), SLOT( slotComboBoxChanged( int ) ) );
@@ -693,9 +693,9 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
 
   for( int i = 0; i < KateHlManager::self()->highlights(); i++) {
     if (KateHlManager::self()->hlSection(i).length() > 0)
-      hlCombo->insertItem(KateHlManager::self()->hlSection(i) + QString ("/") + KateHlManager::self()->hlNameTranslated(i));
+      hlCombo->addItem(KateHlManager::self()->hlSection(i) + QString ("/") + KateHlManager::self()->hlNameTranslated(i));
     else
-      hlCombo->insertItem(KateHlManager::self()->hlNameTranslated(i));
+      hlCombo->addItem(KateHlManager::self()->hlNameTranslated(i));
   }
   hlCombo->setCurrentItem(0);
 

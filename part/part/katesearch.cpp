@@ -46,11 +46,12 @@ QStringList KateSearch::s_replaceList = QStringList();
 QString KateSearch::s_pattern = QString();
 
 KateSearch::KateSearch( KateView* view )
-  : QObject( view, "kate search" )
+  : QObject( view )
   , m_view( view )
   , m_doc( view->doc() )
   , replacePrompt( new KateReplacePrompt( view ) )
 {
+  setObjectName("kate search");
   connect(replacePrompt,SIGNAL(clicked()),this,SLOT(replaceSlot()));
 }
 
@@ -536,10 +537,10 @@ bool KateSearch::doSearch( const QString& text )
 
   do {
       if( regExp ) {
-        m_re = QRegExp( text, caseSensitive );
+        m_re = QRegExp( text, caseSensitive ? Qt::CaseSensitive: Qt::CaseInsensitive);
         match = doc()->searchText( startPos, m_re, backward );
       } else if ( wholeWords ) {
-        QRegExp re( "\\b" + text + "\\b", caseSensitive );
+        QRegExp re( "\\b" + text + "\\b", caseSensitive ? Qt::CaseSensitive: Qt::CaseInsensitive);
         match = doc()->searchText( startPos, re, backward );
       } else {
         match = doc()->searchText( startPos, text, caseSensitive, backward );
@@ -607,7 +608,9 @@ KateReplacePrompt::KateReplacePrompt ( QWidget *parent )
   QWidget *page = new QWidget(this);
   setMainWidget(page);
 
-  QBoxLayout *topLayout = new QVBoxLayout( page, 0, spacingHint() );
+  QBoxLayout *topLayout = new QVBoxLayout( page);
+  topLayout->setMargin(0);
+  topLayout->setSpacing(spacingHint() );
   QLabel *label = new QLabel(i18n("Found an occurrence of your search term. What do you want to do?"),page);
   topLayout->addWidget(label );
 }

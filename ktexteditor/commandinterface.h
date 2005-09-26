@@ -55,7 +55,7 @@ class View;
  * command extension provides methods to give help on @e flags or add a
  * KCompletion object and process the typed text interactively.
  *
- * @see KTextEditor::CommandInterface(), KTextEditor::CommandExtension
+ * @see KTextEditor::CommandInterface, KTextEditor::CommandExtension
  * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT Command
@@ -115,7 +115,7 @@ class KTEXTEDITOR_EXPORT Command
  * on changes return @e true in wantsToProcessText() for the given command
  * and reimplement processText().
  *
- * @see KTextEditor::CommandInterface(), KTextEditor::Command, KCompletion
+ * @see KTextEditor::CommandInterface, KTextEditor::Command, KCompletion
  * @author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT CommandExtension

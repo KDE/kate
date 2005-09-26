@@ -15,6 +15,7 @@
 
     ---
     Copyright (C) 2004, Anders Lund <anders@alweb.dk>
+    Copyright (C) 2005 Dominik Haumann (dhdev@gmx.de) (documentation)
 */
 #ifndef _KTEXTEDITOR_VARIABLE_INTERFACE_H_
 #define _KTEXTEDITOR_VARIABLE_INTERFACE_H_

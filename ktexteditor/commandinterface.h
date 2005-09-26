@@ -1,5 +1,6 @@
 /* This file is part of the KDE project
    Copyright (C) 2005 Christoph Cullmann (cullmann@kde.org)
+   Copyright (C) 2005 Dominik Haumann (dhdev@gmx.de) (documentation)
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -48,7 +49,11 @@ class View;
  *
  * <b>Command Extensions</b>\n
  *
- * @todo document CommandExtension
+ * If your command needs to interactively react on changes while the user is
+ * typing text - look at the @e ifind command in Kate for example - you have
+ * to additionally derive your command from the class CommandExtension. The
+ * command extension provides methods to give help on @e flags or add a
+ * KCompletion object and process the typed text interactively.
  *
  * @see KTextEditor::CommandInterface(), KTextEditor::CommandExtension
  * @author Christoph Cullmann \<cullmann@kde.org\>
@@ -73,17 +78,22 @@ class KTEXTEDITOR_EXPORT Command
 
     /**
      * Execute the command for the given @p view and @p cmd string.
-     * Return the success value and a @p msg for status, i.e. if you return
-     * @e true, the @p msg is ignored.
+     * Return the success value and a @p msg for status. As example we
+     * consider a replace command. The replace command would return the number
+     * of replaced strings as @p msg, like "16 replacements made." If an error
+     * occured in the usage it would return @e false and set the @p msg to
+     * something like "missing argument." or such.
+     *
      * @return @e true on success, otherwise @e false
      */
     virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg) = 0;
 
     /**
      * Shows help for the given @p view and @p cmd string.
-     * Return the success value and a @p msg for status, i.e. if you return
-     * @e true, the @p msg is ignored.
-     * @return @e true on success, otherwise @e false
+     * If your command has a help text for @p cmd you have to return @e true
+     * and set the @p msg to a meaningful text. The help text is embedded by
+     * the Editor in a Qt::RichText enabled widget, e.g. a QToolTip.
+     * @return @e true if your command has a help text, otherwise @e false
      */
     virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg) = 0;
 };
@@ -224,7 +234,7 @@ class KTEXTEDITOR_EXPORT CommandInterface
      * all documents.
      *
      * @param cmd command to unregister
-     * @return success
+     * @return @e true on success, otherwise @e false
      * @see registerCommand()
      */
     virtual bool unregisterCommand (Command *cmd) = 0;

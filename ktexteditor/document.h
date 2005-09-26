@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2005 Dominik Haumann (dhdev@gmx.de) (documentation)
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -45,7 +46,7 @@ class View;
  * modify the content and create views. A document can have any number
  * of views, each view representing the same content, i.e. all views are
  * synchronized. Support for text selection is handeled by a View and text
- * format attribues by the Attribute interface.
+ * format attribues by the Attribute class.
  *
  * To load a document call KParts::ReadOnlyPart::openURL().
  * To reload a document from a file call documentReload(), to save the

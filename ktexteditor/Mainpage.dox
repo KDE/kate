@@ -25,7 +25,7 @@ Overview
  - @ref kte_guidelines
  - @ref kte_interface_access
 
-External documentation
+Further topics
  - @ref kte_port_to_kde4
  - @ref kte_embedding
 
@@ -92,7 +92,7 @@ concepts are much cleaner than tuples, please keep the following guidelines:
   instead of two Cursors.
 
 @section kte_interface_access Accessing an Extension Interface
-To access an extension interface qobject_cast should be used (read
+To access an extension interface use qobject_cast (read
 <a href="http://doc.trolltech.com/4.0/plugins-howto.html#the-lower-level-api-extending-qt-applications">
 Extending Qt Applications</a> for detailed information).
 
@@ -138,13 +138,14 @@ To cast a View @e view into the @e DesiredExtensionInterface do the following:
 This document describes porting applications using the KTextEditor interfaces
 from KDE 3 to KDE 4. This page does not claim to be complete, the main goal is
 to show what interfaces were removed, changed or added to give some impression
-and orientation of what to do.
+and orientation of what you have to do to port your application to the KDE 4
+KTextEditor interfaces.
 
 \section kte_port_intro Introduction
 The KTextEditor interfaces changes in KDE 4 are neither binary nor source
 compatible to the KTextEditor interfaces included in KDE 3, so programs
-written/compiled for the KDE 3 KTextEditor interfaces will not compile with
-KDE 4.
+written/compiled for the KDE 3 KTextEditor interfaces will not compile
+(nor run) under KDE 4.
 
 The KDE 4 KTextEditor interfaces undergone a heavy cleanup, i.e. obsolete
 functions were removed, interfaces were merged and extended. All interface
@@ -200,11 +201,12 @@ The following interfaces are new
 
 @todo Small note on new classes like Cursor and Range
 
-@section kte_port_plugins Plugin Changes
+@section kte_port_plugins Plugin Architecture Changes
 The Plugin interface changed to support more than only one Document at a time.
 A plugin in a KDE 4 KTextEditor implementation no longer is bound to a single
 document (i.e. for @e every document a single instance of the plugin existed).
-Now a plugin can handle several documents and views.
+Now a plugin can handle several documents and views. Also a plugin now is able
+to load and save session related config settings if desired.
 
 @see KTextEditor::Plugin
 

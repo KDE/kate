@@ -20,7 +20,7 @@
 #ifndef __KATE_SYNTAXDOCUMENT_H__
 #define __KATE_SYNTAXDOCUMENT_H__
 
-#include <QDomDocument>
+#include <qdom.h>
 #include <QList>
 #include <QStringList>
 

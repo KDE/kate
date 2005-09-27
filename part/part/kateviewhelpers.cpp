@@ -1060,7 +1060,7 @@ void KateIconBorder::mousePressEvent( QMouseEvent* e )
     if ( positionToArea( e->pos() ) != IconBorder )
     {
       QMouseEvent forward( QEvent::MouseButtonPress,
-        QPoint( 0, e->y() ), e->button(), e->state() );
+        QPoint( 0, e->y() ), e->button(), e->buttons(),e->modifiers() );
       m_viewInternal->mousePressEvent( &forward );
     }
     return e->accept();
@@ -1076,7 +1076,7 @@ void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
     if ( positionToArea( e->pos() ) != IconBorder )
     {
       QMouseEvent forward( QEvent::MouseMove,
-        QPoint( 0, e->y() ), e->button(), e->state() );
+        QPoint( 0, e->y() ), e->button(), e->buttons(),e->modifiers() );
       m_viewInternal->mouseMoveEvent( &forward );
     }
   }
@@ -1119,14 +1119,14 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
   }
 
   QMouseEvent forward( QEvent::MouseButtonRelease,
-    QPoint( 0, e->y() ), e->button(), e->state() );
+    QPoint( 0, e->y() ), e->button(), e->buttons(),e->modifiers() );
   m_viewInternal->mouseReleaseEvent( &forward );
 }
 
 void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
 {
   QMouseEvent forward( QEvent::MouseButtonDblClick,
-    QPoint( 0, e->y() ), e->button(), e->state() );
+    QPoint( 0, e->y() ), e->button(), e->buttons(),e->modifiers() );
   m_viewInternal->mouseDoubleClickEvent( &forward );
 }
 

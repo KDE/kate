@@ -160,6 +160,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setMarksUserChangable( markType01 );
 
   m_undoMergeTimer = new QTimer(this);
+  m_undoMergeTimer->setSingleShot(true);
   connect(m_undoMergeTimer, SIGNAL(timeout()), SLOT(undoCancel()));
 
   clearMarks ();
@@ -788,7 +789,7 @@ void KateDocument::undoEnd()
 
     // (Re)Start the single-shot timer to cancel the undo merge
     // the user has 5 seconds to input more data, or undo merging gets canceled for the current undo item.
-    m_undoMergeTimer->start(5000, true);
+    m_undoMergeTimer->start(5000);
 
     if (changedUndo)
       emit undoChanged();
@@ -1001,7 +1002,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &str )
       uint tw = config()->tabWidth();
       int pos = 0;
       uint l = 0;
-      while ( (pos = s.find('\t')) > -1 )
+      while ( (pos = s.indexOf('\t')) > -1 )
       {
         l = tw - ( (col + pos)%tw );
         s.replace( pos, 1, QString().fill( ' ', l ) );
@@ -1884,7 +1885,7 @@ QString KateDocument::mimeType()
 
 KMimeType::Ptr KateDocument::mimeTypeForContent()
 {
-  QByteArray buf (1024);
+  QByteArray buf (1024,'\0');
   uint bufpos = 0;
 
   for (int i=0; i < lines(); ++i)
@@ -1896,7 +1897,7 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
       len = 1024 - bufpos;
 
     QString ld (line + QChar::fromAscii('\n'));
-    memcpy(buf.data() + bufpos, ld.latin1(), len);
+    buf.replace(bufpos,len,ld.toLatin1()); //memcpy(buf.data() + bufpos, ld.latin1(), len);
 
     bufpos += len;
 
@@ -1983,7 +1984,7 @@ void KateDocument::slotDataKate ( KIO::Job *, const QByteArray &data )
   if (!m_tempFile || !m_tempFile->file())
     return;
 
-  m_tempFile->file()->writeBlock (data);
+  m_tempFile->file()->write (data);
 }
 
 void KateDocument::slotFinishedKate ( KIO::Job * job )
@@ -2046,7 +2047,7 @@ bool KateDocument::openFile(KIO::Job * job)
   // service type magic to get encoding right
   //
   QString serviceType = m_extension->urlArgs().serviceType.simplified();
-  int pos = serviceType.find(';');
+  int pos = serviceType.indexOf(';');
   if (pos != -1)
     setEncoding (serviceType.mid(pos+1));
 
@@ -2541,7 +2542,7 @@ void KateDocument::removeView(KTextEditor::View *view) {
     setActiveView(0L);
 
   m_views.removeAll( (KateView *) view );
-  m_textEditViews.remove( view  );
+  m_textEditViews.removeAll( view  );
   if (!((KateView*)view)->destructing()) delete view;
 }
 
@@ -4206,7 +4207,7 @@ void KateDocument::readVariables(bool onlyViewAndRenderer)
 
 void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
 {
-  if ( kvLine.search( t ) > -1 )
+  if ( kvLine.indexIn( t ) > -1 )
   {
     QStringList vvl; // view variable names
     vvl << "dynamic-word-wrap" << "dynamic-word-wrap-indicators"

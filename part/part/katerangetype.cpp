@@ -65,8 +65,8 @@ void KateRangeType::changeActivationFlags( KTextEditor::Attribute * attribute, i
 
   bool needMouse, needCaret;
   for (QMap<KTextEditor::Attribute*, int>::ConstIterator it = m_attributes.constBegin(); it != m_attributes.constEnd(); ++it) {
-    needMouse |= (activateMouseIn | activateMouseOut) & it.data();
-    needCaret |= (activateCaretIn | activateCaretOut) & it.data();
+    needMouse |= (activateMouseIn | activateMouseOut) & it.value();
+    needCaret |= (activateCaretIn | activateCaretOut) & it.value();
   }
 
   if (needMouse != m_haveConnectedMouse)
@@ -132,7 +132,7 @@ KTextEditor::Attribute * KateRangeType::activatedAttribute(bool mouseIn, bool ca
   *ret = *m_activeAttribute;
   if (matchingFlag)
     for (QMap<KTextEditor::Attribute*, int>::ConstIterator it = m_attributes.constBegin(); it != m_attributes.constEnd(); ++it)
-      if (it.data() & matchingFlag)
+      if (it.value() & matchingFlag)
         *ret += *it.key();
 
   return ret;
@@ -149,7 +149,7 @@ void KateRangeType::addRange( KateSmartRange* range )
 
 void KateRangeType::removeRange( KateSmartRange* range )
 {
-  m_ranges.remove(range);
+  m_ranges.removeAll(range);
   if (m_haveConnectedMouse)
     connectMouse(range, false);
   if (m_haveConnectedCaret)

@@ -97,7 +97,13 @@ void KateFontStruct::updateFontData ()
 }
 
 void KateFontStruct::setFont (const QFont & font)
-{
+{  
+  QFontMetrics testFM (font);
+
+  // no valid font tried
+  if ((testFM.ascent() + testFM.descent() + 1) < 1)
+    return;
+
   myFont = font;
 
   myFontBold = QFont (font);

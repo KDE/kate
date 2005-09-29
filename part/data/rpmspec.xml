@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="RPM Spec" version="1.04" kateversion="2.4" section="Other" extensions="*.spec" mimetype="">
+<language name="RPM Spec" version="1.1" kateversion="2.4" section="Other" extensions="*.spec" mimetype="">
   <highlighting>
     <list name="keywords">
         <item> Name </item>
                 <item> Summary </item>
                 <item> Version </item>
+                <item> Epoch </item>
+                <item> Serial </item>
                 <item> Release </item>
                 <item> Source </item>
                 <item> Group </item>
-                <item> BuildRoot </item>
                 <item> Copyright </item>
+                <item> License </item>
+                <item> Vendor </item>
+                <item> Distribution </item>
                 <item> Packager </item>
                 <item> Url </item>
                 <item> URL </item>
                 <item> Prefix </item>
+                <item> Conflicts </item>
+                <item> Obsoletes </item>
                 <item> Provides </item>
+                <item> PreReq </item>
                 <item> Requires </item>
+                <item> BuildArch </item>
+                <item> BuildArchitectures </item>
+                <item> BuildConflicts </item>
                 <item> BuildRequires </item>
-                <item> Serial </item>
-                <item> Vendor </item>
-                <item> License </item>
+                <item> BuildRoot </item>
+                <item> ExclusiveArch </item>
+                <item> ExclusiveOs </item>
+                <item> ExcludeArch </item>
+                <item> ExcludeOs </item>
     </list>
     <list name="types">
       <item> GPL </item>

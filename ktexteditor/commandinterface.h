@@ -146,12 +146,12 @@ class KTEXTEDITOR_EXPORT CommandExtension
      *
      * Implement this method if your command can provide a completion object.
      *
-     * @param cmdname the command name associated with this request.
      * @param view the view the command will work on
+     * @param cmdname the command name associated with this request.
      * @return the completion object or NULL, if you do not support a
      *         completion object
      */
-    virtual KCompletion *completionObject( const QString & cmdname, KTextEditor::View *view ) = 0;
+    virtual KCompletion *completionObject( KTextEditor::View *view, const QString & cmdname ) = 0;
 
     /**
      * Check, whether the command wants to process text interactively for the

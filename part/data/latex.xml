@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.13" section="Markup" kateversion="2.4" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL" >
+<language name="LaTeX" version="1.14" section="Markup" kateversion="2.4" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL" >
   <highlighting>
     <contexts>
       <context name="Normal Text" attribute="Normal Text" lineEndContext="#stay">
@@ -36,7 +36,7 @@
       <context name="Environment" attribute="Environment" lineEndContext="#stay">
         <DetectChar char="}" attribute="Normal Text" context="#pop#pop"/>
         <DetectChar char="]" attribute="Normal Text" context="#pop#pop"/>
-        <RegExpr String="(verbatim|lstlisting|boxedverbatim|Verbatim)\*?" attribute="Environment" context="VerbatimEnv"/>
+        <RegExpr String="(semiverbatim|verbatim|lstlisting|boxedverbatim|Verbatim)\*?" attribute="Environment" context="VerbatimEnv"/>
         <RegExpr String="(equation|displaymath|eqnarray|subeqnarray|math|multline|gather|align|alignat|flalign)\*?" attribute="Environment" context="MathEnv"/>
       </context>
 
@@ -55,11 +55,11 @@
         <RegExpr String="\S" attribute="Normal Text" context="#pop"/>
       </context>
       <context name="Verbatim" attribute="Verbatim" lineEndContext="#stay">
-        <RegExpr String="\\end(?=\{(verbatim|lstlisting|boxedverbatim|Verbatim)\*?\})" attribute="Structure"  context="VerbFindEnd"/>
+        <RegExpr String="\\end(?=\{(semiverbatim|verbatim|lstlisting|boxedverbatim|Verbatim)\*?\})" attribute="Structure"  context="VerbFindEnd"/>
       </context>
       <context name="VerbFindEnd" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
         <DetectChar char="{" attribute="Normal Text" context="#stay"/>
-        <RegExpr String="(verbatim|lstlisting|boxedverbatim|Verbatim)\*?" attribute="Environment" context="#stay"/>
+        <RegExpr String="(semiverbatim|verbatim|lstlisting|boxedverbatim|Verbatim)\*?" attribute="Environment" context="#stay"/>
         <DetectChar char="}" attribute="Normal Text" context="#pop#pop#pop#pop#pop" endRegion="block"/>
       </context>
 

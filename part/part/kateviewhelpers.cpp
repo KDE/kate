@@ -493,7 +493,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
       KTextEditor::CommandExtension *ce = dynamic_cast<KTextEditor::CommandExtension*>(m_command);
       if ( ce )
       {
-        KCompletion *cmpl = ce->completionObject( text().left( m_cmdend ).trimmed(), m_view );
+        KCompletion *cmpl = ce->completionObject( m_view, text().left( m_cmdend ).trimmed() );
         if ( cmpl )
         {
         // save the old completion object and use what the command provides

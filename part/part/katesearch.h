@@ -220,7 +220,7 @@ class SearchCommand : public KTextEditor::Command, public KTextEditor::CommandEx
     void processText( KTextEditor::View *, const QString& );
 
     virtual void flagCompletions( QStringList& ) {}
-    virtual KCompletion *completionObject( const QString &, KTextEditor::View * ) { return 0; }
+    virtual KCompletion *completionObject( KTextEditor::View *, const QString & ) { return 0; }
 
   private:
     /**

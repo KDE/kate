@@ -275,7 +275,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   KCC_ERR( i18n("Unknown command '%1'").arg(cmd) );
 }
 
-KCompletion *KateCommands::CoreCommands::completionObject( const QString &cmd, KTextEditor::View *view )
+KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *view, const QString &cmd )
 {
   if ( cmd == "set-highlight" )
   {

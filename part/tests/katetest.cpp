@@ -710,7 +710,7 @@ extern "C" KDE_EXPORT int main(int argc, char **argv)
 
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-  if (kapp->isRestored())
+  if (qApp->isSessionRestored())
   {
     KWrite::restore();
   }

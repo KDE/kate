@@ -89,15 +89,24 @@ void KateRegression::testAll()
 
   checkSignalExpectations();
 
+  KTextEditor::Cursor* cursorInsideDelete = m_doc->newSmartCursor(KTextEditor::Cursor(1,7));
+
+  addCursorExpectation(cursorStartOfEdit, CursorSignalExpectation(false, true, false, false, false, false));
+  addCursorExpectation(cursorInsideDelete, CursorSignalExpectation(false, false, false, false, true, true));
+  addCursorExpectation(cursorEndOfEdit, CursorSignalExpectation(true, false, false, false, true, false));
+
   // Intra-line remove
   m_doc->removeText(KTextEditor::Range(*cursorStartOfEdit, 11));
 
   COMPARE(*cursorStartOfLine, KTextEditor::Cursor(1,0));
   COMPARE(*cursorStartOfEdit, KTextEditor::Cursor(1,5));
+  COMPARE(*cursorInsideDelete, KTextEditor::Cursor(1,5));
   COMPARE(*cursorEndOfEdit, KTextEditor::Cursor(1,5));
   COMPARE(*cursorPastEdit, KTextEditor::Cursor(1,7));
   COMPARE(*cursorEOL, m_doc->endOfLine(1));
   COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
+
+  checkSignalExpectations();
 
   KTextEditor::Cursor oldEOL = *cursorEOL;
 

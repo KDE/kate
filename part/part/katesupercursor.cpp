@@ -378,6 +378,8 @@ void KateSmartCursor::translated(const KateEditInfo & edit)
       // position deleted
       if (m_notifier)
         emit m_notifier->positionDeleted(this);
+      if (m_watcher)
+        m_watcher->positionDeleted(this);
     }
   }
 

@@ -54,6 +54,8 @@ TODO:
     * code cleanup
       * add advance{Pos|Line|Column} functions and replace the set*(*+x) calls
 
+* API Review for {Smart|}{Cursor|Range}
+
 * Switch internal highlighting to use arbitrary highlighting api and thus be
   exposed (read-only)
   * only if the above cursors and ranges can be made to perform well enough

@@ -48,6 +48,12 @@
 #include <qdatetime.h>
 #include <QClipboard>
 
+#ifndef NDEBUG
+#define KATE_TESTONLY_EXPORT KDE_EXPORT
+#elif
+#define KATE_TESTONLY_EXPORT
+#endif
+
 namespace KTextEditor { class Plugin; }
 
 namespace KIO { class TransferJob; }
@@ -79,15 +85,15 @@ class KateKeyInterceptorFunctor;
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
-class KateDocument : public KTextEditor::Document,
-                     public KTextEditor::SessionConfigInterface,
-                     public KTextEditor::SearchInterface,
-                     public KTextEditor::HighlightingInterface,
-                     public KTextEditor::MarkInterface,
-                     public KTextEditor::VariableInterface,
-                     public KTextEditor::ModificationInterface,
-                     public KTextEditor::SmartInterface,
-                     public DCOPObject
+class KATE_TESTONLY_EXPORT KateDocument : public KTextEditor::Document,
+                                          public KTextEditor::SessionConfigInterface,
+                                          public KTextEditor::SearchInterface,
+                                          public KTextEditor::HighlightingInterface,
+                                          public KTextEditor::MarkInterface,
+                                          public KTextEditor::VariableInterface,
+                                          public KTextEditor::ModificationInterface,
+                                          public KTextEditor::SmartInterface,
+                                          public DCOPObject
 {
   K_DCOP
   Q_OBJECT

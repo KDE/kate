@@ -105,6 +105,9 @@ void KateSmartManager::removeRangeWantingMostSpecificContentFeedback( KateSmartR
 
 void KateSmartGroup::addCursor( KateSmartCursor * cursor)
 {
+  Q_ASSERT(!m_feedbackCursors.contains(cursor));
+  Q_ASSERT(!m_normalCursors.contains(cursor));
+
   if (cursor->feedbackEnabled())
     m_feedbackCursors.insert(cursor);
   else
@@ -114,9 +117,14 @@ void KateSmartGroup::addCursor( KateSmartCursor * cursor)
 void KateSmartGroup::changeCursorFeedback( KateSmartCursor * cursor )
 {
   if (!cursor->feedbackEnabled()) {
+    Q_ASSERT(!m_feedbackCursors.contains(cursor));
+    Q_ASSERT(m_normalCursors.contains(cursor));
     m_normalCursors.remove(cursor);
     m_feedbackCursors.insert(cursor);
+
   } else {
+    Q_ASSERT(m_feedbackCursors.contains(cursor));
+    Q_ASSERT(!m_normalCursors.contains(cursor));
     m_feedbackCursors.remove(cursor);
     m_normalCursors.insert(cursor);
   }
@@ -124,10 +132,16 @@ void KateSmartGroup::changeCursorFeedback( KateSmartCursor * cursor )
 
 void KateSmartGroup::removeCursor( KateSmartCursor * cursor)
 {
-  if (cursor->feedbackEnabled())
+  if (cursor->feedbackEnabled()) {
+    Q_ASSERT(m_feedbackCursors.contains(cursor));
+    Q_ASSERT(!m_normalCursors.contains(cursor));
     m_feedbackCursors.remove(cursor);
-  else
+
+  } else {
+    Q_ASSERT(m_feedbackCursors.contains(cursor));
+    Q_ASSERT(!m_normalCursors.contains(cursor));
     m_normalCursors.remove(cursor);
+  }
 }
 
 void KateSmartGroup::addTraversingRange( KateSmartRange * range )

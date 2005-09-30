@@ -28,6 +28,7 @@ KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEdito
   : KTextEditor::SmartCursor(position, doc, moveOnInsert)
   , m_feedbackEnabled(false)
   , m_oldGroupLineStart(-1)
+  , m_lastPosition(position)
   , m_notifier(0L)
   , m_watcher(0L)
 {
@@ -350,12 +351,13 @@ void KateSmartCursor::translated(const KateEditInfo & edit)
     return;
 
   // We can rely on m_lastPosition because it is updated in translate(), otherwise just shifted() is called
-  if (m_lastPosition != *this)
+  if (m_lastPosition != *this) {
     // position changed
     if (m_notifier)
       emit m_notifier->positionChanged(this);
     if (m_watcher)
       m_watcher->positionChanged(this);
+  }
 
   if (!edit.oldRange().isEmpty() && edit.oldRange().contains(m_lastPosition)) {
     if (edit.oldRange().start() == m_lastPosition) {

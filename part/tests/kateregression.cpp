@@ -149,18 +149,30 @@ void KateRegression::checkSmartManager()
 }
 
 CursorSignalExpectation::CursorSignalExpectation( bool a, bool b, bool c, bool d, bool e, bool f)
-  : expectCharacterDeletedBefore(a)
-  , expectCharacterDeletedAfter(b)
-  , expectCharacterInsertedBefore(c)
-  , expectCharacterInsertedAfter(d)
-  , expectPositionChanged(e)
-  , expectPositionDeleted(f)
+  : notifierExpectCharacterDeletedBefore(a)
+  , notifierExpectCharacterDeletedAfter(b)
+  , notifierExpectCharacterInsertedBefore(c)
+  , notifierExpectCharacterInsertedAfter(d)
+  , notifierExpectPositionChanged(e)
+  , notifierExpectPositionDeleted(f)
   , watcherExpectCharacterDeletedBefore(a)
   , watcherExpectCharacterDeletedAfter(b)
   , watcherExpectCharacterInsertedBefore(c)
   , watcherExpectCharacterInsertedAfter(d)
   , watcherExpectPositionChanged(e)
   , watcherExpectPositionDeleted(f)
+  , notifierCharacterDeletedBefore(0)
+  , notifierCharacterDeletedAfter(0)
+  , notifierCharacterInsertedBefore(0)
+  , notifierCharacterInsertedAfter(0)
+  , notifierPositionChanged(0)
+  , notifierPositionDeleted(0)
+  , watcherCharacterDeletedBefore(0)
+  , watcherCharacterDeletedAfter(0)
+  , watcherCharacterInsertedBefore(0)
+  , watcherCharacterInsertedAfter(0)
+  , watcherPositionChanged(0)
+  , watcherPositionDeleted(0)
 {
 }
 
@@ -180,12 +192,12 @@ void KateRegression::slotCharacterDeleted( KTextEditor::SmartCursor * cursor, bo
   VERIFY(m_cursorExpectations.contains(cursor));
 
   if (before) {
-    VERIFY(m_cursorExpectations[cursor].expectCharacterDeletedBefore);
-    m_cursorExpectations[cursor].expectCharacterDeletedBefore = false;
+    VERIFY(m_cursorExpectations[cursor].notifierExpectCharacterDeletedBefore);
+    m_cursorExpectations[cursor].notifierCharacterDeletedBefore++;
 
   } else {
-    VERIFY(m_cursorExpectations[cursor].expectCharacterDeletedAfter);
-    m_cursorExpectations[cursor].expectCharacterDeletedAfter = false;
+    VERIFY(m_cursorExpectations[cursor].notifierExpectCharacterDeletedAfter);
+    m_cursorExpectations[cursor].notifierCharacterDeletedAfter++;
   }
 }
 
@@ -195,11 +207,11 @@ void KateRegression::characterDeleted( KTextEditor::SmartCursor * cursor, bool d
 
   if (deletedBefore) {
     VERIFY(m_cursorExpectations[cursor].watcherExpectCharacterDeletedBefore);
-    m_cursorExpectations[cursor].watcherExpectCharacterDeletedBefore = false;
+    m_cursorExpectations[cursor].watcherCharacterDeletedBefore++;
 
   } else {
     VERIFY(m_cursorExpectations[cursor].watcherExpectCharacterDeletedAfter);
-    m_cursorExpectations[cursor].watcherExpectCharacterDeletedAfter = false;
+    m_cursorExpectations[cursor].watcherCharacterDeletedAfter++;
   }
 }
 
@@ -208,12 +220,12 @@ void KateRegression::slotCharacterInserted( KTextEditor::SmartCursor * cursor, b
   VERIFY(m_cursorExpectations.contains(cursor));
 
   if (before) {
-    VERIFY(m_cursorExpectations[cursor].expectCharacterInsertedBefore);
-    m_cursorExpectations[cursor].expectCharacterInsertedBefore = false;
+    VERIFY(m_cursorExpectations[cursor].notifierExpectCharacterInsertedBefore);
+    m_cursorExpectations[cursor].notifierCharacterInsertedBefore++;
 
   } else {
-    VERIFY(m_cursorExpectations[cursor].expectCharacterInsertedAfter);
-    m_cursorExpectations[cursor].expectCharacterInsertedAfter = false;
+    VERIFY(m_cursorExpectations[cursor].notifierExpectCharacterInsertedAfter);
+    m_cursorExpectations[cursor].notifierCharacterInsertedAfter++;
   }
 }
 
@@ -223,11 +235,11 @@ void KateRegression::characterInserted( KTextEditor::SmartCursor * cursor, bool 
 
   if (insertedBefore) {
     VERIFY(m_cursorExpectations[cursor].watcherExpectCharacterInsertedBefore);
-    m_cursorExpectations[cursor].watcherExpectCharacterInsertedBefore = false;
+    m_cursorExpectations[cursor].watcherCharacterInsertedBefore++;
 
   } else {
     VERIFY(m_cursorExpectations[cursor].watcherExpectCharacterInsertedAfter);
-    m_cursorExpectations[cursor].watcherExpectCharacterInsertedAfter = false;
+    m_cursorExpectations[cursor].watcherCharacterInsertedAfter++;
   }
 }
 
@@ -235,28 +247,28 @@ void KateRegression::positionChanged( KTextEditor::SmartCursor * cursor )
 {
   VERIFY(m_cursorExpectations.contains(cursor));
   VERIFY(m_cursorExpectations[cursor].watcherExpectPositionChanged);
-  m_cursorExpectations[cursor].watcherExpectPositionChanged = false;
+  m_cursorExpectations[cursor].watcherPositionChanged++;
 }
 
 void KateRegression::slotPositionChanged( KTextEditor::SmartCursor * cursor )
 {
   VERIFY(m_cursorExpectations.contains(cursor));
-  VERIFY(m_cursorExpectations[cursor].expectPositionChanged);
-  m_cursorExpectations[cursor].expectPositionChanged = false;
+  VERIFY(m_cursorExpectations[cursor].notifierExpectPositionChanged);
+  m_cursorExpectations[cursor].notifierPositionChanged++;
 }
 
 void KateRegression::slotPositionDeleted( KTextEditor::SmartCursor * cursor )
 {
   VERIFY(m_cursorExpectations.contains(cursor));
-  VERIFY(m_cursorExpectations[cursor].expectPositionDeleted);
-  m_cursorExpectations[cursor].expectPositionDeleted = false;
+  VERIFY(m_cursorExpectations[cursor].notifierExpectPositionDeleted);
+  m_cursorExpectations[cursor].notifierPositionDeleted++;
 }
 
 void KateRegression::positionDeleted( KTextEditor::SmartCursor * cursor )
 {
   VERIFY(m_cursorExpectations.contains(cursor));
   VERIFY(m_cursorExpectations[cursor].watcherExpectPositionDeleted);
-  m_cursorExpectations[cursor].watcherExpectPositionDeleted = false;
+  m_cursorExpectations[cursor].watcherPositionDeleted++;
 }
 
 void KateRegression::checkSignalExpectations( )
@@ -273,31 +285,57 @@ void KateRegression::checkSignalExpectations( )
 
 void CursorSignalExpectation::checkExpectationsFulfilled( ) const
 {
-  if (expectCharacterDeletedBefore)
+  if (notifierExpectCharacterDeletedBefore && notifierCharacterDeletedBefore == 0)
     FAIL("Notifier: Expected to be notified of a character to be deleted before cursor.");
-  if (expectCharacterDeletedAfter)
+  if (notifierExpectCharacterDeletedAfter && notifierCharacterDeletedAfter == 0)
     FAIL("Notifier: Expected to be notified of a character to be deleted after cursor.");
-  if (expectCharacterInsertedBefore)
+  if (notifierExpectCharacterInsertedBefore && notifierCharacterInsertedBefore == 0)
     FAIL("Notifier: Expected to be notified of a character to be inserted before cursor.");
-  if (expectCharacterInsertedAfter)
+  if (notifierExpectCharacterInsertedAfter && notifierCharacterInsertedAfter == 0)
     FAIL("Notifier: Expected to be notified of a character to be inserted after cursor.");
-  if (expectPositionChanged)
+  if (notifierExpectPositionChanged && notifierPositionChanged == 0)
     FAIL("Notifier: Expected to be notified of the cursor's position change.");
-  if (expectPositionDeleted)
+  if (notifierExpectPositionDeleted && notifierPositionDeleted == 0)
     FAIL("Notifier: Expected to be notified of the cursor's position deletion.");
 
-  if (watcherExpectCharacterDeletedBefore)
+  if (notifierCharacterDeletedBefore > 1)
+    FAIL("Notifier: Notified more than once about a character to be deleted before cursor.");
+  if (notifierCharacterDeletedAfter > 1)
+    FAIL("Notifier: Notified more than once about a character to be deleted after cursor.");
+  if (notifierCharacterInsertedBefore > 1)
+    FAIL("Notifier: Notified more than once about a character to be inserted before cursor.");
+  if (notifierCharacterInsertedAfter > 1)
+    FAIL("Notifier: Notified more than once about a character to be inserted after cursor.");
+  if (notifierPositionChanged > 1)
+    FAIL("Notifier: Notified more than once about the cursor's position change.");
+  if (notifierPositionDeleted > 1)
+    FAIL("Notifier: Notified more than once about the cursor's position deletion.");
+
+  if (watcherExpectCharacterDeletedBefore && watcherCharacterDeletedBefore == 0)
     FAIL("Watcher: Expected to be notified of a character to be deleted before cursor.");
-  if (watcherExpectCharacterDeletedAfter)
+  if (watcherExpectCharacterDeletedAfter && watcherCharacterDeletedAfter == 0)
     FAIL("Watcher: Expected to be notified of a character to be deleted after cursor.");
-  if (watcherExpectCharacterInsertedBefore)
+  if (watcherExpectCharacterInsertedBefore && watcherCharacterInsertedBefore == 0)
     FAIL("Watcher: Expected to be notified of a character to be inserted before cursor.");
-  if (watcherExpectCharacterInsertedAfter)
+  if (watcherExpectCharacterInsertedAfter && watcherCharacterInsertedAfter == 0)
     FAIL("Watcher: Expected to be notified of a character to be inserted after cursor.");
-  if (watcherExpectPositionChanged)
+  if (watcherExpectPositionChanged && watcherPositionChanged == 0)
     FAIL("Watcher: Expected to be notified of the cursor's position change.");
-  if (watcherExpectPositionDeleted)
+  if (watcherExpectPositionDeleted && watcherPositionDeleted == 0)
     FAIL("Watcher: Expected to be notified of the cursor's position deletion.");
+
+  if (watcherCharacterDeletedBefore > 1)
+    FAIL("Watcher: Notified more than once about a character to be deleted before cursor.");
+  if (watcherCharacterDeletedAfter > 1)
+    FAIL("Watcher: Notified more than once about a character to be deleted after cursor.");
+  if (watcherCharacterInsertedBefore > 1)
+    FAIL("Watcher: Notified more than once about a character to be inserted before cursor.");
+  if (watcherCharacterInsertedAfter > 1)
+    FAIL("Watcher: Notified more than once about a character to be inserted after cursor.");
+  if (watcherPositionChanged > 1)
+    FAIL("Watcher: Notified more than once about the cursor's position change.");
+  if (watcherPositionDeleted > 1)
+    FAIL("Watcher: Notified more than once about the cursor's position deletion.");
 }
 
 #include "kateregression.moc"

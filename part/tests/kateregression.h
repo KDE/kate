@@ -31,12 +31,12 @@ struct CursorSignalExpectation
   CursorSignalExpectation(bool a = false, bool b = false, bool c = false, bool d = false, bool e = false, bool f = false);
   void checkExpectationsFulfilled() const;
 
-  bool expectCharacterDeletedBefore;
-  bool expectCharacterDeletedAfter;
-  bool expectCharacterInsertedBefore;
-  bool expectCharacterInsertedAfter;
-  bool expectPositionChanged;
-  bool expectPositionDeleted;
+  bool notifierExpectCharacterDeletedBefore;
+  bool notifierExpectCharacterDeletedAfter;
+  bool notifierExpectCharacterInsertedBefore;
+  bool notifierExpectCharacterInsertedAfter;
+  bool notifierExpectPositionChanged;
+  bool notifierExpectPositionDeleted;
 
   bool watcherExpectCharacterDeletedBefore;
   bool watcherExpectCharacterDeletedAfter;
@@ -44,6 +44,20 @@ struct CursorSignalExpectation
   bool watcherExpectCharacterInsertedAfter;
   bool watcherExpectPositionChanged;
   bool watcherExpectPositionDeleted;
+
+  int notifierCharacterDeletedBefore;
+  int notifierCharacterDeletedAfter;
+  int notifierCharacterInsertedBefore;
+  int notifierCharacterInsertedAfter;
+  int notifierPositionChanged;
+  int notifierPositionDeleted;
+
+  int watcherCharacterDeletedBefore;
+  int watcherCharacterDeletedAfter;
+  int watcherCharacterInsertedBefore;
+  int watcherCharacterInsertedAfter;
+  int watcherPositionChanged;
+  int watcherPositionDeleted;
 };
 
 class KateRegression : public QObject, public KTextEditor::SmartCursorWatcher

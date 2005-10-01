@@ -500,6 +500,7 @@ class KATE_TESTONLY_EXPORT KateDocument : public KTextEditor::Document,
   public:
     virtual KTextEditor::SmartCursor* newSmartCursor(const KTextEditor::Cursor& position, bool moveOnInsert = true);
     virtual KTextEditor::SmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, int insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
+    virtual KTextEditor::SmartRange* newSmartRange(KTextEditor::SmartCursor* start, KTextEditor::SmartCursor* end, KTextEditor::SmartRange* parent = 0L, int insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
 
     KateSmartManager* smartManager() const { return m_smartManager; }
 

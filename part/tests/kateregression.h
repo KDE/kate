@@ -28,7 +28,7 @@ class KateDocument;
 
 struct CursorSignalExpectation
 {
-  CursorSignalExpectation(bool a = false, bool b = false, bool c = false, bool d = false, bool e = false, bool f = false);
+  CursorSignalExpectation(bool delBefore = false, bool delAfter = false, bool insBefore = false, bool insAfter = false, bool posChanged = false, bool posDeleted = false);
   void checkExpectationsFulfilled() const;
 
   bool notifierExpectCharacterDeletedBefore;

@@ -66,6 +66,8 @@ class KateSmartRange : public KTextEditor::SmartRange
     KateSmartRange(const KTextEditor::Range& range, KateDocument* doc, KTextEditor::SmartRange* parent = 0L, int insertBehaviour = DoNotExpand);
     /// overload
     KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* parent = 0L);
+
+    KateSmartRange(KateSmartCursor* start, KateSmartCursor* end, KateDocument* doc, KTextEditor::SmartRange* parent = 0L, int insertBehaviour = DoNotExpand);
     virtual ~KateSmartRange();
 
     KateDocument* kateDocument() const;

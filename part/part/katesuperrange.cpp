@@ -50,6 +50,18 @@ KateSmartRange::KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* paren
 {
 }
 
+KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, KateDocument * doc, KTextEditor::SmartRange * parent, int insertBehaviour )
+  : KTextEditor::SmartRange(start, end, parent, insertBehaviour)
+  , m_notifier(0L)
+  , m_watcher(0L)
+  , m_attachedView(0L)
+  , m_attachActions(TagLines)
+  , m_feedbackLevel(NoFeedback)
+  , m_mouseOver(false)
+  , m_caretOver(false)
+{
+}
+
 KateSmartRange::~KateSmartRange()
 {
 }

@@ -42,6 +42,17 @@ namespace QtTest {
     ba += ")";
     return qstrdup(ba.data());
   }
+
+  template<>
+  char* toString(const KTextEditor::Range& range)
+  {
+    QByteArray ba = "Range([";
+    ba += QByteArray::number(range.start().line()) + ", " + QByteArray::number(range.start().column());
+    ba += "] -> [";
+    ba += QByteArray::number(range.end().line()) + ", " + QByteArray::number(range.end().column());
+    ba += "])";
+    return qstrdup(ba.data());
+  }
 }
 
 // TODO split it various functions
@@ -78,6 +89,8 @@ void KateRegression::testAll()
   KTextEditor::Cursor* cursorStartOfEdit = m_doc->newSmartCursor(KTextEditor::Cursor(1,5), false);
   KTextEditor::Cursor* cursorEndOfEdit = m_doc->newSmartCursor(KTextEditor::Cursor(1,5), true);
 
+  KTextEditor::Range* rangeEdit = static_cast<KTextEditor::SmartInterface*>(m_doc)->newSmartRange(*cursorStartOfEdit, *cursorEndOfEdit, 0L, KTextEditor::SmartRange::ExpandRight);
+
   KTextEditor::Cursor* cursorPastEdit = m_doc->newSmartCursor(KTextEditor::Cursor(1,6));
   KTextEditor::Cursor* cursorEOL = m_doc->newSmartCursor(m_doc->endOfLine(1), false);
   KTextEditor::Cursor* cursorEOLMoves = m_doc->newSmartCursor(m_doc->endOfLine(1), true);
@@ -91,6 +104,7 @@ void KateRegression::testAll()
   addCursorExpectation(cursorNextLine, CursorSignalExpectation(false, false, false, false, false, false));
 
   m_doc->insertText(*cursorStartOfEdit, "Additional ");
+
   COMPARE(*cursorStartOfLine, KTextEditor::Cursor(1,0));
   COMPARE(*cursorStartOfEdit, KTextEditor::Cursor(1,5));
   COMPARE(*cursorEndOfEdit, KTextEditor::Cursor(1,16));
@@ -98,6 +112,8 @@ void KateRegression::testAll()
   COMPARE(*cursorEOL, m_doc->endOfLine(1));
   COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
   COMPARE(*cursorNextLine, KTextEditor::Cursor(2,0));
+
+  COMPARE(*rangeEdit, KTextEditor::Range(*cursorStartOfEdit, *cursorEndOfEdit));
 
   checkSignalExpectations();
 
@@ -107,6 +123,7 @@ void KateRegression::testAll()
   addCursorExpectation(cursorInsideDelete, CursorSignalExpectation(false, false, false, false, true, true));
   addCursorExpectation(cursorEndOfEdit, CursorSignalExpectation(true, false, false, false, true, false));
   addCursorExpectation(cursorPastEdit, CursorSignalExpectation(false, false, false, false, true, false));
+  addCursorExpectation(cursorNextLine, CursorSignalExpectation(false, false, false, false, false, false));
 
   // Intra-line remove
   m_doc->removeText(KTextEditor::Range(*cursorStartOfEdit, 11));
@@ -118,28 +135,35 @@ void KateRegression::testAll()
   COMPARE(*cursorPastEdit, KTextEditor::Cursor(1,6));
   COMPARE(*cursorEOL, m_doc->endOfLine(1));
   COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
-
   checkSignalExpectations();
 
   KTextEditor::Cursor oldEOL = *cursorEOL;
 
+  addCursorExpectation(cursorPastEdit, CursorSignalExpectation(false, false, false, false, false, false));
   addCursorExpectation(cursorEOL, CursorSignalExpectation(false, false, false, true, false, false));
   addCursorExpectation(cursorEOLMoves, CursorSignalExpectation(false, false, true, false, true, false));
+  addCursorExpectation(cursorNextLine, CursorSignalExpectation(false, false, false, false, false, false));
 
   // Insert at EOL
   m_doc->insertText(m_doc->endOfLine(1), " Even More");
+
   COMPARE(*cursorEOL, oldEOL);
   COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
-
   checkSignalExpectations();
 
   *cursorEOL = *cursorEOLMoves;
+
+  addCursorExpectation(cursorPastEdit, CursorSignalExpectation(false, false, false, false, false, false));
+  addCursorExpectation(cursorEOL, CursorSignalExpectation(false, false, false, true, false, false));
+  addCursorExpectation(cursorEOLMoves, CursorSignalExpectation(false, false, true, false, true, false));
+  addCursorExpectation(cursorNextLine, CursorSignalExpectation(false, false, false, false, true, false));
 
   // wrap line
   m_doc->insertText(m_doc->endOfLine(1), "\n");
 
   COMPARE(*cursorEOL,m_doc->endOfLine(1));
   COMPARE(*cursorEOLMoves, KTextEditor::Cursor(2, 0));
+  checkSignalExpectations();
 
   // Remove line wrapping
   m_doc->removeText(KTextEditor::Range(m_doc->endOfLine(1), KTextEditor::Cursor(2, 0)));

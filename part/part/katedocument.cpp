@@ -4663,6 +4663,17 @@ KTextEditor::SmartRange * KateDocument::newSmartRange( const KTextEditor::Range 
   return new KateSmartRange(range, this, parent, insertBehaviour);
 }
 
+KTextEditor::SmartRange * KateDocument::newSmartRange( KTextEditor::SmartCursor * start, KTextEditor::SmartCursor * end, KTextEditor::SmartRange * parent, int insertBehaviour )
+{
+  KateSmartCursor* kstart = dynamic_cast<KateSmartCursor*>(start);
+  KateSmartCursor* kend = dynamic_cast<KateSmartCursor*>(end);
+  if (!kstart || !kend)
+    return 0L;
+  if (kstart->belongsToRange() || kend->belongsToRange())
+    return 0L;
+  return new KateSmartRange(kstart, kend, this, parent, insertBehaviour);
+}
+
 bool KateDocument::replaceText( const KTextEditor::Range & range, const QString & s, bool block )
 {
   // TODO more efficient?

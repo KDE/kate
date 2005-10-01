@@ -78,7 +78,7 @@ void KateRegression::testAll()
   KTextEditor::Cursor* cursorStartOfEdit = m_doc->newSmartCursor(KTextEditor::Cursor(1,5), false);
   KTextEditor::Cursor* cursorEndOfEdit = m_doc->newSmartCursor(KTextEditor::Cursor(1,5), true);
 
-  KTextEditor::Cursor* cursorPastEdit = m_doc->newSmartCursor(KTextEditor::Cursor(1,7));
+  KTextEditor::Cursor* cursorPastEdit = m_doc->newSmartCursor(KTextEditor::Cursor(1,6));
   KTextEditor::Cursor* cursorEOL = m_doc->newSmartCursor(m_doc->endOfLine(1), false);
   KTextEditor::Cursor* cursorEOLMoves = m_doc->newSmartCursor(m_doc->endOfLine(1), true);
 
@@ -94,7 +94,7 @@ void KateRegression::testAll()
   COMPARE(*cursorStartOfLine, KTextEditor::Cursor(1,0));
   COMPARE(*cursorStartOfEdit, KTextEditor::Cursor(1,5));
   COMPARE(*cursorEndOfEdit, KTextEditor::Cursor(1,16));
-  COMPARE(*cursorPastEdit, KTextEditor::Cursor(1,18));
+  COMPARE(*cursorPastEdit, KTextEditor::Cursor(1,17));
   COMPARE(*cursorEOL, m_doc->endOfLine(1));
   COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
   COMPARE(*cursorNextLine, KTextEditor::Cursor(2,0));
@@ -106,6 +106,7 @@ void KateRegression::testAll()
   addCursorExpectation(cursorStartOfEdit, CursorSignalExpectation(false, true, false, false, false, false));
   addCursorExpectation(cursorInsideDelete, CursorSignalExpectation(false, false, false, false, true, true));
   addCursorExpectation(cursorEndOfEdit, CursorSignalExpectation(true, false, false, false, true, false));
+  addCursorExpectation(cursorPastEdit, CursorSignalExpectation(false, false, false, false, true, false));
 
   // Intra-line remove
   m_doc->removeText(KTextEditor::Range(*cursorStartOfEdit, 11));
@@ -114,7 +115,7 @@ void KateRegression::testAll()
   COMPARE(*cursorStartOfEdit, KTextEditor::Cursor(1,5));
   COMPARE(*cursorInsideDelete, KTextEditor::Cursor(1,5));
   COMPARE(*cursorEndOfEdit, KTextEditor::Cursor(1,5));
-  COMPARE(*cursorPastEdit, KTextEditor::Cursor(1,7));
+  COMPARE(*cursorPastEdit, KTextEditor::Cursor(1,6));
   COMPARE(*cursorEOL, m_doc->endOfLine(1));
   COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
 
@@ -122,10 +123,15 @@ void KateRegression::testAll()
 
   KTextEditor::Cursor oldEOL = *cursorEOL;
 
+  addCursorExpectation(cursorEOL, CursorSignalExpectation(false, false, false, true, false, false));
+  addCursorExpectation(cursorEOLMoves, CursorSignalExpectation(false, false, true, false, true, false));
+
   // Insert at EOL
   m_doc->insertText(m_doc->endOfLine(1), " Even More");
   COMPARE(*cursorEOL, oldEOL);
   COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
+
+  checkSignalExpectations();
 
   *cursorEOL = *cursorEOLMoves;
 
@@ -142,7 +148,7 @@ void KateRegression::testAll()
   COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
 
   checkSmartManager();
-  m_doc->smartManager()->debugOutput();
+  //m_doc->smartManager()->debugOutput();
 }
 
 void KateRegression::checkSmartManager()
@@ -274,7 +280,8 @@ void KateRegression::positionChanged( KTextEditor::SmartCursor * cursor )
 void KateRegression::slotPositionChanged( KTextEditor::SmartCursor * cursor )
 {
   VERIFY(m_cursorExpectations.contains(cursor));
-  VERIFY(m_cursorExpectations[cursor].notifierExpectPositionChanged);
+  if (!m_cursorExpectations[cursor].notifierExpectPositionChanged)
+    VERIFY(m_cursorExpectations[cursor].notifierExpectPositionChanged);
   m_cursorExpectations[cursor].notifierPositionChanged++;
 }
 

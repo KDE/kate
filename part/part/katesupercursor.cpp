@@ -255,7 +255,8 @@ void KateSmartCursor::setLine( int _line )
 
 void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool internal )
 {
-  m_lastPosition = *this;
+  if (m_feedbackEnabled)
+    m_lastPosition = *this;
 
   bool haveToChangeGroups = !m_smartGroup->containsLine(pos.line());
   if (haveToChangeGroups) {
@@ -269,6 +270,9 @@ void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool
   if (haveToChangeGroups) {
     m_smartGroup->joined(this);
   }
+
+  if (!m_feedbackEnabled)
+    m_lastPosition = *this;
 }
 
 KTextEditor::SmartCursorNotifier* KateSmartCursor::notifier( )
@@ -347,8 +351,10 @@ void KateSmartCursor::setLineInternal( int newLine, bool internal )
 
 void KateSmartCursor::translated(const KateEditInfo & edit)
 {
-  if (*this < edit.oldRange().start())
+  if (*this < edit.oldRange().start()) {
+    m_lastPosition = *this;
     return;
+  }
 
   // We can rely on m_lastPosition because it is updated in translate(), otherwise just shifted() is called
   if (m_lastPosition != *this) {
@@ -399,6 +405,8 @@ void KateSmartCursor::translated(const KateEditInfo & edit)
         m_watcher->characterInserted(this, true);
     }
   }
+
+  m_lastPosition = *this;
 }
 
 void KateSmartCursor::shifted( )
@@ -410,6 +418,8 @@ void KateSmartCursor::shifted( )
     emit m_notifier->positionChanged(this);
   if (m_watcher)
     m_watcher->positionChanged(this);
+
+  m_lastPosition = *this;
 }
 
 void KateSmartCursor::migrate( KateSmartGroup * newGroup )

@@ -683,8 +683,8 @@ void KateArgHint::adjustSize( )
     if( width() > screen.width() )
         resize( screen.width(), height() );
 
-    if( x() + width() > screen.width() )
-        move( screen.width() - width(), y() );
+    if( x() + width() > screen.x() + screen.width() )
+        move( screen.x() + screen.width() - width(), y() );
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -206,7 +206,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 
   // Check to see if we need to split or consolidate
   int splitEndLine = edit->translate().line() + firstSmartGroup->endLine();
-  if (edit->translate().line() >= 0) {
+  if (edit->translate().line() > 0) {
     //kdDebug() << k_funcinfo << "Need to translate smartGroups by " << edit->translate().line() << " line(s); startLine " << firstSmartGroup->startLine() << " endLine " << firstSmartGroup->endLine() << " splitEndLine " << splitEndLine << "." << endl;
     KateSmartGroup* endGroup = currentGroup->next();
     int currentCanExpand = endGroup ? s_maximumGroupSize - currentGroup->length() : s_defaultGroupSize - currentGroup->length();
@@ -232,7 +232,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
     }
 
 
-  } else {
+  } else if (edit->translate().line() < 0) {
     // might need to consolitate
     while (currentGroup->next() && currentGroup->length() - edit->translate().line() < s_minimumGroupSize)
       currentGroup->merge();
@@ -248,7 +248,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 
   for (KateSmartGroup* smartGroup = currentGroup->next(); smartGroup; smartGroup = smartGroup->next()) {
     if (groupChanged)
-      groupChanged = smartGroup->endLine() <= edit->oldRange().end().line(); // + edit->translate().line()
+      groupChanged = smartGroup->startLine() <= edit->oldRange().end().line(); // + edit->translate().line()
 
     if (groupChanged)
       smartGroup->translateChanged(*edit, changedRanges, false);
@@ -262,7 +262,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
   groupChanged = true;
   for (KateSmartGroup* smartGroup = firstSmartGroup; smartGroup; smartGroup = smartGroup->next()) {
     if (groupChanged)
-      groupChanged = smartGroup->endLine() <= edit->oldRange().end().line(); // + edit->translate().line()
+      groupChanged = smartGroup->startLine() <= edit->oldRange().end().line(); // + edit->translate().line()
 
     if (groupChanged)
       smartGroup->translatedChanged(*edit);

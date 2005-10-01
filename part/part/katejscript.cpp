@@ -1119,7 +1119,7 @@ void KateIndentJScriptManager::parseScriptHeader(const QString &filePath,
   QRegExp endExpr("[\\s\\t]*\\*\\*\\/[\\s\\t]*$");
   QRegExp keyValue("[\\s\\t]*\\*\\s*(.+):(.*)$");
   QRegExp blockContent("[\\s\\t]*\\*(.*)$");
-  while ((line=st.readLine())!=QString::null) {
+  while (!(line=st.readLine()).isNull()) {
     if (endExpr.exactMatch(line)) {
       kdDebug(13050)<<"end of config block"<<endl;
       if (currentState==NOTHING) break;

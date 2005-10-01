@@ -65,6 +65,13 @@ void KateRegression::testAll()
   COMPARE(*cursor1, KTextEditor::Cursor(0,0));
   COMPARE(*cursor2, KTextEditor::Cursor(1,14));
 
+  KTextEditor::Cursor cursor3 = m_doc->endOfLine(1);
+
+  // Set up a few more lines
+  m_doc->insertText(*cursor2, "\nEven More Test Text");
+  COMPARE(m_doc->end(), KTextEditor::Cursor(2,19));
+  COMPARE(cursor3, m_doc->endOfLine(1));
+
   // Intra-line insert
   KTextEditor::Cursor* cursorStartOfLine = m_doc->newSmartCursor(KTextEditor::Cursor(1,0));
 
@@ -75,9 +82,13 @@ void KateRegression::testAll()
   KTextEditor::Cursor* cursorEOL = m_doc->newSmartCursor(m_doc->endOfLine(1), false);
   KTextEditor::Cursor* cursorEOLMoves = m_doc->newSmartCursor(m_doc->endOfLine(1), true);
 
+  KTextEditor::Cursor* cursorNextLine = m_doc->newSmartCursor(KTextEditor::Cursor(2,0));
+
+  addCursorExpectation(cursorStartOfLine, CursorSignalExpectation(false, false, false, false, false, false));
   addCursorExpectation(cursorStartOfEdit, CursorSignalExpectation(false, false, false, true, false, false));
   addCursorExpectation(cursorEndOfEdit, CursorSignalExpectation(false, false, true, false, true, false));
   addCursorExpectation(cursorPastEdit, CursorSignalExpectation(false, false, false, false, true, false));
+  addCursorExpectation(cursorNextLine, CursorSignalExpectation(false, false, false, false, false, false));
 
   m_doc->insertText(*cursorStartOfEdit, "Additional ");
   COMPARE(*cursorStartOfLine, KTextEditor::Cursor(1,0));
@@ -86,6 +97,7 @@ void KateRegression::testAll()
   COMPARE(*cursorPastEdit, KTextEditor::Cursor(1,18));
   COMPARE(*cursorEOL, m_doc->endOfLine(1));
   COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
+  COMPARE(*cursorNextLine, KTextEditor::Cursor(2,0));
 
   checkSignalExpectations();
 

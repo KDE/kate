@@ -359,7 +359,7 @@ void KateSmartCursor::translated(const KateEditInfo & edit)
       m_watcher->positionChanged(this);
   }
 
-  if (!edit.oldRange().isEmpty() && edit.oldRange().contains(m_lastPosition)) {
+  if (!edit.oldRange().isEmpty() && edit.oldRange().start() <= m_lastPosition && edit.oldRange().end() >= m_lastPosition) {
     if (edit.oldRange().start() == m_lastPosition) {
       // character deleted after
       if (m_notifier)

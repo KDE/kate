@@ -96,7 +96,8 @@
 #include <qtextcodec.h>
 #include <qtextstream.h>
 #include <qtoolbutton.h>
-#include <q3vbox.h>
+#include <kvbox.h>
+
 
 // trailing slash is important
 #define HLDOWNLOADPATH "http://www.kde.org/apps/kate/syntax/"
@@ -284,7 +285,7 @@ void KateIndentConfigTab::configPage()
     KDialogBase dlg(this, "indenter_config_dialog", true, i18n("Configure Indenter"),
       KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Cancel, true);
 
-    Q3VBox *box = new Q3VBox(&dlg);
+    KVBox *box = new KVBox(&dlg);
     box->setSpacing( KDialog::spacingHint() );
     dlg.setMainWidget(box);
     new QLabel("<qt><b>" + KateAutoIndent::modeDescription(index) + "</b></qt>", box);
@@ -1459,7 +1460,7 @@ void KateHlConfigPage::showMTDlg()
 KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bool modal)
   :KDialogBase(KDialogBase::Swallow, i18n("Highlight Download"), User1|Close, User1, parent, name, modal, true, i18n("&Install"))
 {
-  Q3VBox* vbox = new Q3VBox(this);
+  KVBox* vbox = new KVBox(this);
   setMainWidget(vbox);
   vbox->setSpacing(spacingHint());
   new QLabel(i18n("Select the syntax highlighting files you want to update:"), vbox);

@@ -39,7 +39,7 @@
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <q3groupbox.h>
-#include <q3hbox.h>
+
 #include <q3header.h>
 #include <qlabel.h>
 #include <qlayout.h>
@@ -47,6 +47,7 @@
 #include <qpushbutton.h>
 #include <qtoolbutton.h>
 #include <q3widgetstack.h>
+#include <kvbox.h>
 
 #define KATE_FT_HOWMANY 1024
 //END Includes
@@ -305,7 +306,7 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   lFileExts->setBuddy( wildcards );
 
   QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), gbProps);
-  Q3HBox *hbMT = new Q3HBox (gbProps);
+  KHBox *hbMT = new KHBox (gbProps);
   mimetypes = new QLineEdit( hbMT );
   lMimeTypes->setBuddy( mimetypes );
 

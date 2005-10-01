@@ -46,12 +46,13 @@
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <q3groupbox.h>
-#include <q3hbox.h>
+
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qlineedit.h>
 #include <qspinbox.h>
 #include <qstringlist.h>
+#include <kvbox.h>
 
 //BEGIN KatePrinter
 bool KatePrinter::print (KateDocument *doc)
@@ -737,14 +738,14 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter * /*printer*/, QWidget *p
   lo->addWidget( gbHeader );
 
   QLabel *lHeaderFormat = new QLabel( i18n("&Format:"), gbHeader );
-  Q3HBox *hbHeaderFormat = new Q3HBox( gbHeader );
+  KHBox *hbHeaderFormat = new KHBox( gbHeader );
   hbHeaderFormat->setSpacing( sp );
   leHeaderLeft = new QLineEdit( hbHeaderFormat );
   leHeaderCenter = new QLineEdit( hbHeaderFormat );
   leHeaderRight = new QLineEdit( hbHeaderFormat );
   lHeaderFormat->setBuddy( leHeaderLeft );
   new QLabel( i18n("Colors:"), gbHeader );
-  Q3HBox *hbHeaderColors = new Q3HBox( gbHeader );
+  KHBox *hbHeaderColors = new KHBox( gbHeader );
   hbHeaderColors->setSpacing( sp );
   QLabel *lHeaderFgCol = new QLabel( i18n("Foreground:"), hbHeaderColors );
   kcbtnHeaderFg = new KColorButton( hbHeaderColors );
@@ -757,7 +758,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter * /*printer*/, QWidget *p
 
   // footer
   QLabel *lFooterFormat = new QLabel( i18n("For&mat:"), gbFooter );
-  Q3HBox *hbFooterFormat = new Q3HBox( gbFooter );
+  KHBox *hbFooterFormat = new KHBox( gbFooter );
   hbFooterFormat->setSpacing( sp );
   leFooterLeft = new QLineEdit( hbFooterFormat );
   leFooterCenter = new QLineEdit( hbFooterFormat );
@@ -765,7 +766,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter * /*printer*/, QWidget *p
   lFooterFormat->setBuddy( leFooterLeft );
 
   new QLabel( i18n("Colors:"), gbFooter );
-  Q3HBox *hbFooterColors = new Q3HBox( gbFooter );
+  KHBox *hbFooterColors = new KHBox( gbFooter );
   hbFooterColors->setSpacing( sp );
   QLabel *lFooterBgCol = new QLabel( i18n("Foreground:"), hbFooterColors );
   kcbtnFooterFg = new KColorButton( hbFooterColors );
@@ -922,7 +923,7 @@ KatePrintLayout::KatePrintLayout( KPrinter * /*printer*/, QWidget *parent)
   QVBoxLayout *lo = new QVBoxLayout ( this );
   lo->setSpacing( KDialog::spacingHint() );
 
-  Q3HBox *hb = new Q3HBox( this );
+  KHBox *hb = new KHBox( this );
   lo->addWidget( hb );
   QLabel *lSchema = new QLabel( i18n("&Schema:"), hb );
   cmbSchema = new QComboBox( false, hb );

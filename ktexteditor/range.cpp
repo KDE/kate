@@ -224,7 +224,9 @@ SmartRange::SmartRange(SmartCursor* start, SmartCursor* end, SmartRange * parent
   , m_ownsAttribute(false)
 {
   start->setBelongsToRange(this);
+  start->setMoveOnInsert(m_insertBehaviour & ExpandLeft);
   end->setBelongsToRange(this);
+  end->setMoveOnInsert(m_insertBehaviour & ExpandRight);
 }
 
 SmartRange * SmartRange::childBefore( const SmartRange * range ) const

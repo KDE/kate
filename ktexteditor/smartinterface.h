@@ -68,6 +68,15 @@ class KTEXTEDITOR_EXPORT SmartInterface
     /// \overload
     inline SmartRange* newSmartRange(int startLine, int startColumn, int endLine, int endColumn, SmartRange* parent = 0L, int insertBehaviour = SmartRange::DoNotExpand)
       { return newSmartRange(Range(startLine, startColumn, endLine, endColumn), parent, insertBehaviour); }
+
+    /**
+     * Creates a new SmartRange from pre-existing SmartCursors.  The cursors must not be part of any other range.
+     * \param start Start SmartCursor
+     * \param end End SmartCursor
+     * \param parent The parent SmartRange, if this is to be the child of an existing range.
+     * \param insertBehaviour Define whether the range should expand when text is inserted at ends of the range.
+     */
+    virtual SmartRange* newSmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, int insertBehaviour = SmartRange::DoNotExpand) = 0;
 };
 
 KTEXTEDITOR_EXPORT SmartInterface *smartInterface(class Document *doc);

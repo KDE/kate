@@ -64,7 +64,7 @@
 #include <qstringlist.h>
 #include <qtabwidget.h>
 #include <q3vbox.h>
-#include <Q3PointArray>
+#include <QPolygon>
 //END
 
 //BEGIN KateStyleListViewItem decl
@@ -1503,7 +1503,7 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
           (col == Strikeout && is->strikeOut()) ||
           (col == UseDefStyle && *is == *ds ) )
       {
-        Q3PointArray a( 7*2 );
+        QPolygon a( 7*2 );
         int i, xx, yy;
         xx = x+1+marg;
         yy = y+5;

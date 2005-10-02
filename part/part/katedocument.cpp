@@ -2499,8 +2499,6 @@ void KateDocument::setModified(bool m) {
 
 void KateDocument::makeAttribs(bool needInvalidate)
 {
-  highlight()->clearAttributeArrays ();
-
   foreach(KateView *view,m_views)
     view->renderer()->updateAttributes ();
 

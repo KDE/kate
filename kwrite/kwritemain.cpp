@@ -644,7 +644,7 @@ static KCmdLineOptions options[] =
 
 extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 {
-  KLocale::setMainCatalogue("kate");         //lukas: set this to have the kwritepart translated using kate message catalog
+  KLocale::setMainCatalog("kate");         //lukas: set this to have the kwritepart translated using kate message catalog
 
   // here we go, construct the KWrite version
   QString kWriteVersion  = QString ("%1.%2.%3").arg(KDE::versionMajor() + 1).arg(KDE::versionMinor()).arg(KDE::versionRelease());
@@ -693,7 +693,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 
   KApplication a;
 
-  KGlobal::locale()->insertCatalogue("katepart");
+  KGlobal::locale()->insertCatalog("katepart");
 
   DCOPClient *client = kapp->dcopClient();
   if (!client->isRegistered())
@@ -704,7 +704,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-  if (kapp->isRestored())
+  if (QApplication::isSessionRestored())
   {
     KWrite::restore();
   }

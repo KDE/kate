@@ -48,7 +48,7 @@
 #include <qspinbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
-#include <q3hbox.h>
+
 #include <kvbox.h>
 #include <qcheckbox.h>
 
@@ -578,7 +578,7 @@ DocWordCompletionConfigPage::DocWordCompletionConfigPage( DocWordCompletionPlugi
   cbAutoPopup = new QCheckBox( i18n("Automatically &show completion list"), this );
   lo->addWidget( cbAutoPopup );
 
-  Q3HBox *hb = new Q3HBox( this );
+  KHBox *hb = new KHBox( this );
   hb->setSpacing( KDialog::spacingHint() );
   lo->addWidget( hb );
   QLabel *l = new QLabel( i18n(

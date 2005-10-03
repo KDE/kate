@@ -889,9 +889,9 @@ void KateSchemaConfigPage::apply()
   m_highlightTab->apply ();
 
   // just sync the config
-  //KateFactory::self()->schemaManager()->schema (0)->sync();
+  KateGlobal::self()->schemaManager()->schema (0)->sync();
 
-  //KateFactory::self()->schemaManager()->update ();
+  KateGlobal::self()->schemaManager()->update ();
 
   // clear all attributes
   for (int i = 0; i < KateHlManager::self()->highlights(); ++i)

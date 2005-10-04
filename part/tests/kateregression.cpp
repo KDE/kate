@@ -58,7 +58,6 @@ namespace QtTest {
 // TODO split it various functions
 void KateRegression::testAll()
 {
-  kdDebug() << k_funcinfo << endl;
   m_doc = dynamic_cast<KateDocument*>(KateGlobal::self()->createDocument(this));
   VERIFY(m_doc);
 
@@ -102,6 +101,10 @@ void KateRegression::testAll()
   addCursorExpectation(cursorEndOfEdit, CursorSignalExpectation(false, false, true, false, true, false));
   addCursorExpectation(cursorPastEdit, CursorSignalExpectation(false, false, false, false, true, false));
   addCursorExpectation(cursorNextLine, CursorSignalExpectation(false, false, false, false, false, false));
+
+  RangeSignalExpectation* rangeEditExpectation = new RangeSignalExpectation(rangeEdit);
+  rangeEditExpectation->setExpected(RangeSignalExpectation::signalContentsChanged);
+  addRangeExpectation(rangeEditExpectation);
 
   m_doc->insertText(*cursorStartOfEdit, "Additional ");
 
@@ -333,6 +336,11 @@ void KateRegression::checkSignalExpectations( )
     it.key()->deleteNotifier();
   }
   m_cursorExpectations.clear();
+
+  foreach (RangeSignalExpectation* e, m_rangeExpectations)
+    e->checkExpectationsFulfilled();
+  qDeleteAll(m_rangeExpectations);
+  m_rangeExpectations.clear();
 }
 
 void CursorSignalExpectation::checkExpectationsFulfilled( ) const
@@ -388,6 +396,148 @@ void CursorSignalExpectation::checkExpectationsFulfilled( ) const
     FAIL("Watcher: Notified more than once about the cursor's position change.");
   if (watcherPositionDeleted > 1)
     FAIL("Watcher: Notified more than once about the cursor's position deletion.");
+}
+
+RangeSignalExpectation::RangeSignalExpectation(KTextEditor::Range* range)
+  : smartRange(dynamic_cast<KTextEditor::SmartRange*>(range))
+{
+  Q_ASSERT(smartRange);
+  for (int i = 0; i < numSignals; ++i) {
+    expectations[i] = false;
+    notifierNotifications[i] = 0;
+    watcherNotifications[i] = 0;
+  }
+  smartRange->setWatcher(this);
+  connect(smartRange->notifier(), SIGNAL(positionChanged(KTextEditor::SmartRange*)),        SLOT(positionChanged(KTextEditor::SmartRange*)));
+  connect(smartRange->notifier(), SIGNAL(contentsChanged(KTextEditor::SmartRange*)),        SLOT(contentsChanged(KTextEditor::SmartRange*)));
+  connect(smartRange->notifier(), SIGNAL(boundaryDeleted(KTextEditor::SmartRange*,bool)),   SLOT(boundaryDeleted(KTextEditor::SmartRange*,bool)));
+  connect(smartRange->notifier(), SIGNAL(eliminated(KTextEditor::SmartRange*)),             SLOT(eliminated(KTextEditor::SmartRange*)));
+  connect(smartRange->notifier(), SIGNAL(firstCharacterDeleted(KTextEditor::SmartRange*)),  SLOT(firstCharacterDeleted(KTextEditor::SmartRange*)));
+  connect(smartRange->notifier(), SIGNAL(lastCharacterDeleted(KTextEditor::SmartRange*)),   SLOT(lastCharacterDeleted(KTextEditor::SmartRange*)));
+}
+
+void RangeSignalExpectation::checkExpectationsFulfilled( ) const
+{
+  for (int i = 0; i < numSignals; ++i) {
+    if (expectations[i]) {
+      if (notifierNotifications[i] == 0)
+        FAIL(QString("Notifier: Expected to be notified of %1.").arg(nameForSignal(i)).toLatin1());
+      else if (notifierNotifications[i] > 1)
+        FAIL(QString("Notifier: Notified more than once about %1.").arg(nameForSignal(i)).toLatin1());
+
+      if (watcherNotifications[i] == 0)
+        FAIL(QString("Watcher: Expected to be notified of %1.").arg(nameForSignal(i)).toLatin1());
+      else if (watcherNotifications[i] > 1)
+        FAIL(QString("Watcher: Notified more than once about %1.").arg(nameForSignal(i)).toLatin1());
+    }
+  }
+}
+
+void RangeSignalExpectation::setExpected( int signal )
+{
+  Q_ASSERT(signal >= 0 && signal < numSignals);
+  expectations[signal] = true;
+}
+
+void RangeSignalExpectation::positionChanged( KTextEditor::SmartRange * )
+{
+  VERIFY(expectations[signalPositionChanged]);
+
+  if (sender())
+    watcherNotifications[signalPositionChanged]++;
+  else
+    notifierNotifications[signalPositionChanged]++;
+}
+
+void RangeSignalExpectation::contentsChanged( KTextEditor::SmartRange * )
+{
+  VERIFY(expectations[signalContentsChanged]);
+
+  if (sender())
+    watcherNotifications[signalContentsChanged]++;
+  else
+    notifierNotifications[signalContentsChanged]++;
+}
+
+void RangeSignalExpectation::boundaryDeleted( KTextEditor::SmartRange * , bool start )
+{
+  if (start) {
+    VERIFY(expectations[signalStartBoundaryDeleted]);
+    if (sender())
+      watcherNotifications[signalStartBoundaryDeleted]++;
+    else
+      notifierNotifications[signalStartBoundaryDeleted]++;
+
+  } else {
+    VERIFY(expectations[signalEndBoundaryDeleted]);
+    if (sender())
+      watcherNotifications[signalEndBoundaryDeleted]++;
+    else
+      notifierNotifications[signalEndBoundaryDeleted]++;
+  }
+}
+
+void RangeSignalExpectation::eliminated( KTextEditor::SmartRange * )
+{
+  VERIFY(expectations[signalEliminated]);
+
+  if (sender())
+    watcherNotifications[signalEliminated]++;
+  else
+    notifierNotifications[signalEliminated]++;
+}
+
+void RangeSignalExpectation::firstCharacterDeleted( KTextEditor::SmartRange * )
+{
+  VERIFY(expectations[signalFirstCharacterDeleted]);
+
+  if (sender())
+    watcherNotifications[signalFirstCharacterDeleted]++;
+  else
+    notifierNotifications[signalFirstCharacterDeleted]++;
+}
+
+void RangeSignalExpectation::lastCharacterDeleted( KTextEditor::SmartRange * )
+{
+  VERIFY(expectations[signalLastCharacterDeleted]);
+
+  if (sender())
+    watcherNotifications[signalLastCharacterDeleted]++;
+  else
+    notifierNotifications[signalLastCharacterDeleted]++;
+}
+
+RangeSignalExpectation::~ RangeSignalExpectation( )
+{
+  smartRange->setWatcher(0L);
+  smartRange->deleteNotifier();
+}
+
+void KateRegression::addRangeExpectation( RangeSignalExpectation * expectation )
+{
+  m_rangeExpectations.append(expectation);
+}
+
+QString RangeSignalExpectation::nameForSignal( int signal ) const
+{
+  switch (signal) {
+    case signalPositionChanged:
+      return "position change";
+    case signalContentsChanged:
+      return "content change";
+    case signalStartBoundaryDeleted:
+      return "starting boundary deletion";
+    case signalEndBoundaryDeleted:
+      return "ending boundary deletion";
+    case signalEliminated:
+      return "elimination of the range";
+    case signalFirstCharacterDeleted:
+      return "first character deletion";
+    case signalLastCharacterDeleted:
+      return "last character deletion";
+    default:
+      return "[invalid signal]";
+  }
 }
 
 #include "kateregression.moc"

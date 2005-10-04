@@ -139,7 +139,7 @@ class KATE_TESTONLY_EXPORT KateSmartGroup
     void merge();
 
     // First pass for translation
-    void translateChanged(const KateEditInfo& edit, QLinkedList<KateSmartRange*>& m_ranges, bool first);
+    void translateChanged(const KateEditInfo& edit, QSet<KateSmartRange*>& m_ranges, bool first);
     void translateShifted(const KateEditInfo& edit);
 
     // Second pass for feedback

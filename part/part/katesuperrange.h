@@ -31,6 +31,7 @@ class KateSmartRange;
 class KateSmartRangeNotifier : public KTextEditor::SmartRangeNotifier
 {
   Q_OBJECT
+  friend class KateSmartRange;
 
   public:
     KateSmartRangeNotifier(KateSmartRange* owner);
@@ -67,10 +68,12 @@ class KateSmartRange : public KTextEditor::SmartRange
     /// overload
     KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* parent = 0L);
 
-    KateSmartRange(KateSmartCursor* start, KateSmartCursor* end, KateDocument* doc, KTextEditor::SmartRange* parent = 0L, int insertBehaviour = DoNotExpand);
+    KateSmartRange(KateSmartCursor* start, KateSmartCursor* end, KTextEditor::SmartRange* parent = 0L, int insertBehaviour = DoNotExpand);
     virtual ~KateSmartRange();
 
     KateDocument* kateDocument() const;
+    KateSmartCursor& kStart() { return *static_cast<KateSmartCursor*>(m_start); }
+    KateSmartCursor& kEnd() { return *static_cast<KateSmartCursor*>(m_end); }
 
     enum AttachActions {
       NoActions   = 0x0,
@@ -96,7 +99,7 @@ class KateSmartRange : public KTextEditor::SmartRange
 
     virtual KTextEditor::SmartRangeNotifier* notifier();
     virtual void deleteNotifier();
-    virtual void setWatcher(KTextEditor::SmartRangeWatcher* watcher = 0L);
+    virtual void setWatcher(KTextEditor::SmartRangeWatcher* watcher);
 
     /**
      * Implementation detail. Defines the level of feedback required for any connected

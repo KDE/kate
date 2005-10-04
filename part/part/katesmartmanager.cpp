@@ -240,7 +240,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
     currentGroup->setEndLine(currentGroup->endLine() + edit->translate().line());
   }
 
-  QLinkedList<KateSmartRange*> changedRanges;
+  QSet<KateSmartRange*> changedRanges;
 
   // Translate affected groups
   bool groupChanged = true;
@@ -256,9 +256,6 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
       smartGroup->translateShifted(*edit);
   }
 
-  foreach (KateSmartRange* range, changedRanges)
-    range->translated(*edit);
-
   groupChanged = true;
   for (KateSmartGroup* smartGroup = firstSmartGroup; smartGroup; smartGroup = smartGroup->next()) {
     if (groupChanged)
@@ -270,12 +267,15 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
       smartGroup->translatedShifted(*edit);
   }
 
+  foreach (KateSmartRange* range, changedRanges)
+    range->translated(*edit);
+
   //debugOutput();
 }
 
-void KateSmartGroup::translateChanged( const KateEditInfo& edit, QLinkedList< KateSmartRange * > & m_ranges, bool first )
+void KateSmartGroup::translateChanged( const KateEditInfo& edit, QSet< KateSmartRange * > & m_ranges, bool first )
 {
-  //kdDebug() << k_funcinfo << edit.oldRange().start().line() << "," << edit.oldRange().start().column() << " was to " << edit.oldRange().end().line() << "," << edit.oldRange().end().column() << " now to " << edit.newRange().end().line() << "," << edit.newRange().end().column() << " numcursors feedback " << m_feedbackCursors.count() << " normal " << m_normalCursors.count() << endl;
+  //kdDebug() << k_funcinfo << edit.start().line() << "," << edit.start().column() << " was to " << edit.oldRange().end().line() << "," << edit.oldRange().end().column() << " now to " << edit.newRange().end().line() << "," << edit.newRange().end().column() << " numcursors feedback " << m_feedbackCursors.count() << " normal " << m_normalCursors.count() << endl;
 
   if (!first)
     translateShifted(edit);
@@ -283,12 +283,12 @@ void KateSmartGroup::translateChanged( const KateEditInfo& edit, QLinkedList< Ka
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
     if (cursor->translate(edit))
       if (cursor->belongsToRange())
-        m_ranges.append(static_cast<KateSmartRange*>(cursor->belongsToRange()));
+        m_ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
 
   foreach (KateSmartCursor* cursor, m_normalCursors)
     if (cursor->translate(edit))
       if (cursor->belongsToRange())
-        m_ranges.append(static_cast<KateSmartRange*>(cursor->belongsToRange()));
+        m_ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
 }
 
 void KateSmartGroup::translateShifted(const KateEditInfo& edit)

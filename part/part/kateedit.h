@@ -73,6 +73,8 @@ class KateEditInfo
 
     bool merge(KateEditInfo* edit);
 
+    const KTextEditor::Cursor& start() const { return m_oldRange.start(); }
+
     /**
      * Returns the range of text occupied by the edit region before the edit took place.
      */

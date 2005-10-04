@@ -23,6 +23,7 @@
 #include <QMap>
 
 #include <ktexteditor/cursor.h>
+#include <ktexteditor/range.h>
 
 class KateDocument;
 
@@ -60,6 +61,47 @@ struct CursorSignalExpectation
   int watcherPositionDeleted;
 };
 
+class RangeSignalExpectation : public QObject, public KTextEditor::SmartRangeWatcher
+{
+  Q_OBJECT
+
+  public:
+    RangeSignalExpectation(KTextEditor::Range* range);
+    virtual ~RangeSignalExpectation();
+
+    enum signal {
+      signalPositionChanged = 0,
+      signalContentsChanged,
+      signalStartBoundaryDeleted,
+      signalEndBoundaryDeleted,
+      signalEliminated,
+      signalFirstCharacterDeleted,
+      signalLastCharacterDeleted,
+      numSignals
+    };
+
+    void checkExpectationsFulfilled() const;
+    void setExpected(int signal);
+
+  public slots:
+    virtual void positionChanged(KTextEditor::SmartRange* range);
+    virtual void contentsChanged(KTextEditor::SmartRange* range);
+    virtual void boundaryDeleted(KTextEditor::SmartRange* range, bool start);
+    virtual void eliminated(KTextEditor::SmartRange* range);
+    virtual void firstCharacterDeleted(KTextEditor::SmartRange* range);
+    virtual void lastCharacterDeleted(KTextEditor::SmartRange* range);
+
+  private:
+    QString nameForSignal(int signal) const;
+
+    KTextEditor::SmartRange* smartRange;
+
+    bool expectations[numSignals];
+
+    int notifierNotifications[numSignals];
+    int watcherNotifications[numSignals];
+};
+
 class KateRegression : public QObject, public KTextEditor::SmartCursorWatcher
 {
   Q_OBJECT
@@ -82,10 +124,12 @@ class KateRegression : public QObject, public KTextEditor::SmartCursorWatcher
   private:
     void checkSmartManager();
     void addCursorExpectation(KTextEditor::Cursor* cursor, const CursorSignalExpectation& expectation);
+    void addRangeExpectation(RangeSignalExpectation* expectation);
     void checkSignalExpectations();
 
     KateDocument* m_doc;
     QMap<KTextEditor::SmartCursor*, CursorSignalExpectation> m_cursorExpectations;
+    QList<RangeSignalExpectation*> m_rangeExpectations;
 };
 
 #endif

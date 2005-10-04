@@ -4669,7 +4669,7 @@ KTextEditor::SmartRange * KateDocument::newSmartRange( KTextEditor::SmartCursor 
     return 0L;
   if (kstart->belongsToRange() || kend->belongsToRange())
     return 0L;
-  return new KateSmartRange(kstart, kend, this, parent, insertBehaviour);
+  return new KateSmartRange(kstart, kend, parent, insertBehaviour);
 }
 
 bool KateDocument::replaceText( const KTextEditor::Range & range, const QString & s, bool block )

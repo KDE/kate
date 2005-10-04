@@ -50,7 +50,7 @@ KateSmartRange::KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* paren
 {
 }
 
-KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, KateDocument * doc, KTextEditor::SmartRange * parent, int insertBehaviour )
+KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, KTextEditor::SmartRange * parent, int insertBehaviour )
   : KTextEditor::SmartRange(start, end, parent, insertBehaviour)
   , m_notifier(0L)
   , m_watcher(0L)
@@ -206,12 +206,11 @@ void KateSmartRange::slotCaretPositionChanged(const KTextEditor::Cursor& newPosi
 
 void KateSmartRange::checkFeedback( )
 {
-  // FIXME
-  /*bool feedbackNeeded = m_watcher || m_notifier;
-  if (m_feedbackEnabled != feedbackNeeded) {
-    !!!FIXME
-    setFeedbackLevel();
-  }*/
+  // FIXME don't set max feedback level if the feedback objects don't need it.
+  int feedbackNeeded = (m_watcher || m_notifier) ? PositionChanged : NoFeedback;
+  if (m_feedbackLevel != feedbackNeeded) {
+    setFeedbackLevel(feedbackNeeded);
+  }
 }
 
 KateDocument * KateSmartRange::kateDocument( ) const
@@ -259,9 +258,10 @@ void KateSmartRangeNotifier::disconnectNotify(const char* signal)
 
 KTextEditor::SmartRangeNotifier* KateSmartRange::notifier()
 {
-  if (!m_notifier)
+  if (!m_notifier) {
     m_notifier = new KateSmartRangeNotifier(this);
-  checkFeedback();
+    checkFeedback();
+  }
   return m_notifier;
 }
 
@@ -280,12 +280,52 @@ void KateSmartRange::setWatcher(KTextEditor::SmartRangeWatcher* watcher)
 
 void KateSmartRange::translated(const KateEditInfo& edit)
 {
-  // TODO provide the requested feedback.
+  if (end() < edit.start()) {
+    kStart().resetLastPosition();
+    kEnd().resetLastPosition();
+    return;
+  }
+
+  if (kStart().lastPosition() != kStart()) {
+    // position changed
+    if (m_notifier)
+      emit m_notifier->positionChanged(this);
+    if (m_watcher)
+      m_watcher->positionChanged(this);
+  }
+
+  if (kStart().lastPosition() <= edit.oldRange().end()) {
+    // contents changed
+    if (m_notifier)
+      emit m_notifier->contentsChanged(this);
+    if (m_watcher)
+      m_watcher->contentsChanged(this);
+  }
+
+  if (start() == end() && kStart().lastPosition() != kEnd().lastPosition()) {
+    // range eliminated
+    if (m_notifier)
+      emit m_notifier->eliminated(this);
+    if (m_watcher)
+      m_watcher->eliminated(this);
+  }
+
+  kStart().resetLastPosition();
+  kEnd().resetLastPosition();
 }
 
 void KateSmartRange::shifted( )
 {
-  // TODO provide the requested feedback.
+  if (kStart().lastPosition() != kStart()) {
+    // position changed
+    if (m_notifier)
+      emit m_notifier->positionChanged(this);
+    if (m_watcher)
+      m_watcher->positionChanged(this);
+  }
+
+  kStart().resetLastPosition();
+  kEnd().resetLastPosition();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -98,6 +98,10 @@ class KateSmartCursor : public KTextEditor::SmartCursor
     // Called when the cursor's position has changed only (character changes not possible)
     void shifted();
 
+    // Used by KateSmartRange once it has finished its feedback.
+    const KTextEditor::Cursor& lastPosition() const { return m_lastPosition; }
+    void resetLastPosition();
+
   protected:
     void setLineInternal(int newLine, bool internal = true);
     void setPositionInternal(const KTextEditor::Cursor& pos, bool internal = true);

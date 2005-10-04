@@ -58,147 +58,6 @@ KateSmartCursor::~KateSmartCursor()
     delete m_notifier;
 }
 
-/*void KateSmartCursor::editTextInserted(uint line, uint col, uint len)
-{
-  if (m_line == int(line))
-  {
-    if ((m_column > int(col)) || (m_moveOnInsert && (m_column == int(col))))
-    {
-      bool insertedAt = m_column == int(col);
-
-      m_column += len;
-
-      if (insertedAt)
-        emit charInsertedAt();
-
-      emit positionChanged();
-      return;
-    }
-  }
-
-  emit positionUnChanged();
-}
-
-void KateSmartCursor::editTextRemoved(uint line, uint col, uint len)
-{
-  if (m_line == int(line))
-  {
-    if (m_column > int(col))
-    {
-      if (m_column > int(col + len))
-      {
-        m_column -= len;
-      }
-      else
-      {
-        bool prevCharDeleted = m_column == int(col + len);
-
-        m_column = col;
-
-        if (prevCharDeleted)
-          emit charDeletedBefore();
-        else
-          emit positionDeleted();
-      }
-
-      emit positionChanged();
-      return;
-
-    }
-    else if (m_column == int(col))
-    {
-      emit charDeletedAfter();
-    }
-  }
-
-  emit positionUnChanged();
-}
-
-void KateSmartCursor::editLineWrapped(uint line, uint col, bool newLine)
-{
-  if (newLine && (m_line > int(line)))
-  {
-    m_line++;
-
-    emit positionChanged();
-    return;
-  }
-  else if ( (m_line == int(line)) && (m_column > int(col)) || (m_moveOnInsert && (m_column == int(col))) )
-  {
-    m_line++;
-    m_column -= col;
-
-    emit positionChanged();
-    return;
-  }
-
-  emit positionUnChanged();
-}
-
-void KateSmartCursor::editLineUnWrapped(uint line, uint col, bool removeLine, uint length)
-{
-  if (removeLine && (m_line > int(line+1)))
-  {
-    m_line--;
-
-    emit positionChanged();
-    return;
-  }
-  else if ( (m_line == int(line+1)) && (removeLine || (m_column < int(length))) )
-  {
-    m_line = line;
-    m_column += col;
-
-    emit positionChanged();
-    return;
-  }
-  else if ( (m_line == int(line+1)) && (m_column >= int(length)) )
-  {
-    m_column -= length;
-
-    emit positionChanged();
-    return;
-  }
-
-  emit positionUnChanged();
-}
-
-void KateSmartCursor::editLineInserted (uint line)
-{
-  if (m_line >= int(line))
-  {
-    m_line++;
-
-    emit positionChanged();
-    return;
-  }
-
-  emit positionUnChanged();
-}
-
-void KateSmartCursor::editLineRemoved(uint line)
-{
-  if (m_line > int(line))
-  {
-    m_line--;
-
-    emit positionChanged();
-    return;
-  }
-  else if (m_line == int(line))
-  {
-    m_line = (int(line) <= m_doc->lastLine()) ? line : (line - 1);
-    m_column = 0;
-
-    emit positionDeleted();
-
-    emit positionChanged();
-    return;
-  }
-
-  emit positionUnChanged();
-}*/
-
 KateSmartCursor::operator QString()
 {
   return QString("[%1,%1]").arg(line()).arg(column());
@@ -300,13 +159,13 @@ void KateSmartCursor::setWatcher( KTextEditor::SmartCursorWatcher * watcher )
 bool KateSmartCursor::translate( const KateEditInfo & edit )
 {
   // If this cursor is before the edit, no action is required
-  if (*this < edit.oldRange().start())
+  if (*this < edit.start())
     return false;
 
   // If this cursor is on a line affected by the edit
   if (edit.oldRange().includesLine(line())) {
     // If this cursor is at the start of the edit
-    if (*this == edit.oldRange().start()) {
+    if (*this == edit.start()) {
       // And it doesn't need to move, no action is required
       if (!moveOnInsert())
         return false;
@@ -318,7 +177,7 @@ bool KateSmartCursor::translate( const KateEditInfo & edit )
       if (moveOnInsert())
         newPos = edit.newRange().end();
       else
-        newPos = edit.oldRange().start();
+        newPos = edit.start();
 
     } else {
       newPos = *this + edit.translate();
@@ -351,8 +210,9 @@ void KateSmartCursor::setLineInternal( int newLine, bool internal )
 
 void KateSmartCursor::translated(const KateEditInfo & edit)
 {
-  if (*this < edit.oldRange().start()) {
-    m_lastPosition = *this;
+  if (*this < edit.start()) {
+    if (!belongsToRange() || static_cast<KateSmartRange*>(belongsToRange())->feedbackLevel() == KateSmartRange::NoFeedback)
+      m_lastPosition = *this;
     return;
   }
 
@@ -365,8 +225,8 @@ void KateSmartCursor::translated(const KateEditInfo & edit)
       m_watcher->positionChanged(this);
   }
 
-  if (!edit.oldRange().isEmpty() && edit.oldRange().start() <= m_lastPosition && edit.oldRange().end() >= m_lastPosition) {
-    if (edit.oldRange().start() == m_lastPosition) {
+  if (!edit.oldRange().isEmpty() && edit.start() <= m_lastPosition && edit.oldRange().end() >= m_lastPosition) {
+    if (edit.start() == m_lastPosition) {
       // character deleted after
       if (m_notifier)
         emit m_notifier->characterDeleted(this, false);
@@ -406,7 +266,8 @@ void KateSmartCursor::translated(const KateEditInfo & edit)
     }
   }
 
-  m_lastPosition = *this;
+  if (!belongsToRange() || static_cast<KateSmartRange*>(belongsToRange())->feedbackLevel() == KateSmartRange::NoFeedback)
+    m_lastPosition = *this;
 }
 
 void KateSmartCursor::shifted( )
@@ -419,7 +280,8 @@ void KateSmartCursor::shifted( )
   if (m_watcher)
     m_watcher->positionChanged(this);
 
-  m_lastPosition = *this;
+  if (!belongsToRange() || static_cast<KateSmartRange*>(belongsToRange())->feedbackLevel() == KateSmartRange::NoFeedback)
+    m_lastPosition = *this;
 }
 
 void KateSmartCursor::migrate( KateSmartGroup * newGroup )
@@ -432,6 +294,11 @@ void KateSmartCursor::migrate( KateSmartGroup * newGroup )
 void KateSmartCursor::setPosition( const KTextEditor::Cursor & pos )
 {
   setPositionInternal(pos, false);
+}
+
+void KateSmartCursor::resetLastPosition( )
+{
+  m_lastPosition = *this;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

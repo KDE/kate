@@ -472,7 +472,10 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     // BEGIN Functionality present from having this range associated with a Document
     Document* document() const;
 
+    SmartCursor& smartStart() { return *static_cast<SmartCursor*>(m_start); }
     const SmartCursor& smartStart() const { return *static_cast<const SmartCursor*>(m_start); }
+
+    SmartCursor& smartEnd() { return *static_cast<SmartCursor*>(m_end); }
     const SmartCursor& smartEnd() const { return *static_cast<const SmartCursor*>(m_end); }
     // END
 
@@ -542,7 +545,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     void setAttribute(Attribute* attribute, bool ownsAttribute = true);
 
     /**
-      * Set a grounp of attributes
+      * Set a group of attributes
       *
       * This range automatically assumes styles, actions, etc from the group
       * definition.
@@ -578,7 +581,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * To finish receiving notifications, call this function with \p watcher set to 0L.
      * \param watcher the class which will receive notifications about changes to this range.
      */
-    virtual void setWatcher(SmartRangeWatcher* watcher = 0L) = 0;
+    virtual void setWatcher(SmartRangeWatcher* watcher) = 0;
     // END
 
   protected:

@@ -178,7 +178,7 @@ class KATE_TESTONLY_EXPORT KateGlobal : public KTextEditor::Editor, public KText
     /**
      * decrement reference counter
      */
-    static void decRef () { if (s_ref > 0) --s_ref; if (s_ref == 0) { delete s_self; } }
+    static void decRef () { if (s_ref > 0) --s_ref; if (s_ref == 0) { s_self->deleteLater(); s_self = 0L; } }
 
     /**
      * public accessor to the instance

@@ -7,7 +7,8 @@ METASOURCES = AUTO
 
 check_PROGRAMS = katetest kateregression
 
-kateregression_SOURCES = kateregression.cpp
+kateregression_SOURCES = kateregression.cpp rangeexpectation.cpp \
+	cursorexpectation.cpp
 kateregression_LDADD = $(top_builddir)/kate/part/katepart.la $(top_builddir)/qttestlib/libqttestlib.la
 kateregression_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 
@@ -17,3 +18,4 @@ katetest_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 
 TESTS = kateregression
 
+noinst_HEADERS = rangeexpectation.h cursorexpectation.h

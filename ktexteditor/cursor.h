@@ -75,6 +75,16 @@ class KTEXTEDITOR_EXPORT Cursor
     virtual bool isSmart() const;
 
     /**
+     * Returns whether the current position of this cursor is a valid position
+     * (line + column must both be >= 0).
+     *
+     * Smart cursors should override this to return whether the cursor is valid
+     * within the linked document.
+     */
+    virtual bool isValid() const;
+    static const Cursor& invalid();
+
+    /**
      * Get both the line and column of the cursor position.
      * @param _line will be filled with current cursor line
      * @param _column will be filled with current cursor column
@@ -331,12 +341,6 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      * Returns the document to which this cursor is attached.
      */
     inline Document* document() const { return m_doc; }
-
-    /**
-     * Returns whether the current position of this cursor is a valid position
-     * within the document to which it is bound.
-     */
-    virtual bool isValid() const = 0;
 
     /**
      * Returns whether the specified position is a valid position within the

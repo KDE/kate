@@ -40,6 +40,17 @@ Cursor::Cursor(const Cursor& copy)
 {
 }
 
+bool KTextEditor::Cursor::isValid() const
+{
+  return m_line >= 0 && m_column >= 0;
+}
+
+const Cursor & KTextEditor::Cursor::invalid( )
+{
+  static Cursor invalid(-1,-1);
+  return invalid;
+}
+
 void Cursor::setPosition( const Cursor & pos )
 {
   m_line = pos.line();

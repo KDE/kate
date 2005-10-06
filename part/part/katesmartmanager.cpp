@@ -52,7 +52,10 @@ KTextEditor::SmartCursor * KateSmartManager::newSmartCursor( const KTextEditor::
 
 KTextEditor::SmartRange * KateSmartManager::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, int insertBehaviour )
 {
-  return new KateSmartRange(range, doc(), parent, insertBehaviour);
+  KateSmartRange* newRange = new KateSmartRange(range, doc(), parent, insertBehaviour);
+  if (!parent)
+    rangeLostParent(newRange);
+  return newRange;
 }
 
 /*void KateSmartManager::requestFeedback( KateSmartRange * range, int previousLevelOfFeedback)
@@ -248,7 +251,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 
   for (KateSmartGroup* smartGroup = currentGroup->next(); smartGroup; smartGroup = smartGroup->next()) {
     if (groupChanged)
-      groupChanged = smartGroup->startLine() <= edit->oldRange().end().line(); // + edit->translate().line()
+      groupChanged = smartGroup->startLine() <= edit->oldRange().end().line();
 
     if (groupChanged)
       smartGroup->translateChanged(*edit, changedRanges, false);
@@ -259,7 +262,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
   groupChanged = true;
   for (KateSmartGroup* smartGroup = firstSmartGroup; smartGroup; smartGroup = smartGroup->next()) {
     if (groupChanged)
-      groupChanged = smartGroup->startLine() <= edit->oldRange().end().line(); // + edit->translate().line()
+      groupChanged = smartGroup->startLine() <= edit->oldRange().end().line();
 
     if (groupChanged)
       smartGroup->translatedChanged(*edit);
@@ -267,13 +270,28 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
       smartGroup->translatedShifted(*edit);
   }
 
-  foreach (KateSmartRange* range, changedRanges)
-    range->translated(*edit);
+  foreach (KateSmartRange* range, m_topRanges)
+    feedbackRange(*edit, range);
 
   //debugOutput();
 }
 
-void KateSmartGroup::translateChanged( const KateEditInfo& edit, QSet< KateSmartRange * > & m_ranges, bool first )
+void KateSmartManager::feedbackRange( const KateEditInfo& edit, KateSmartRange * range )
+{
+  if (range->end() < edit.start())
+    return;
+
+  if (range->start() > edit.oldRange().end())
+    range->shifted();
+  else
+    range->translated(edit);
+
+  foreach (KTextEditor::SmartRange* child, range->childRanges())
+    feedbackRange(edit, static_cast<KateSmartRange*>(child));
+}
+
+
+void KateSmartGroup::translateChanged( const KateEditInfo& edit, QSet< KateSmartRange * > & ranges, bool first )
 {
   //kdDebug() << k_funcinfo << edit.start().line() << "," << edit.start().column() << " was to " << edit.oldRange().end().line() << "," << edit.oldRange().end().column() << " now to " << edit.newRange().end().line() << "," << edit.newRange().end().column() << " numcursors feedback " << m_feedbackCursors.count() << " normal " << m_normalCursors.count() << endl;
 
@@ -283,12 +301,12 @@ void KateSmartGroup::translateChanged( const KateEditInfo& edit, QSet< KateSmart
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
     if (cursor->translate(edit))
       if (cursor->belongsToRange() && static_cast<KateSmartRange*>(cursor->belongsToRange())->feedbackEnabled())
-        m_ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
+        ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
 
   foreach (KateSmartCursor* cursor, m_normalCursors)
     if (cursor->translate(edit))
       if (cursor->belongsToRange() && static_cast<KateSmartRange*>(cursor->belongsToRange())->feedbackEnabled())
-        m_ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
+        ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
 }
 
 void KateSmartGroup::translateShifted(const KateEditInfo& edit)

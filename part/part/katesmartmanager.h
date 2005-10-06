@@ -63,10 +63,7 @@ class KATE_TESTONLY_EXPORT KateSmartManager : public QObject
     void slotTextChanged(KateEditInfo* edit);
 
   private:
-    void addRangeWantingMostSpecificContentFeedback(KateSmartRange* range);
-    void removeRangeWantingMostSpecificContentFeedback(KateSmartRange* range);
-    void addPositionRange(KateSmartRange* range);
-    void removePositionRange(KateSmartRange* range);
+    void feedbackRange(const KateEditInfo& edit, KateSmartRange* range);
 
     const QSet<KateSmartRange*>& rangesWantingMostSpecificContentFeedback() const;
 

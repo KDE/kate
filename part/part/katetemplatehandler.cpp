@@ -19,7 +19,7 @@
 #include "katetemplatehandler.h"
 #include "katetemplatehandler.moc"
 #include "katedocument.h"
-#include "katesupercursor.h"
+#include "katesmartcursor.h"
 #include "katearbitraryhighlight.h"
 #include "kateview.h"
 #include "katerangetype.h"

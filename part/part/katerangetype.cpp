@@ -19,7 +19,7 @@
 #include "katerangetype.h"
 
 #include "katedocument.h"
-#include "katesuperrange.h"
+#include "katesmartrange.h"
 #include <ktexteditor/attribute.h>
 
 KateRangeType::KateRangeType()

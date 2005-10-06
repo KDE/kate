@@ -19,8 +19,8 @@
 #include "katesmartmanager.h"
 
 #include "katedocument.h"
-#include "katesupercursor.h"
-#include "katesuperrange.h"
+#include "katesmartcursor.h"
+#include "katesmartrange.h"
 
 #include <kdebug.h>
 

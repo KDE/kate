@@ -18,7 +18,7 @@
 #ifndef _KATE_TEMPLATE_HANDLER_H_
 #define _KATE_TEMPLATE_HANDLER_H_
 
-#include "katesuperrange.h"
+#include "katesmartrange.h"
 #include "katekeyinterceptorfunctor.h"
 #include <qobject.h>
 #include <qmap.h>

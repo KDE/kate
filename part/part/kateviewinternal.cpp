@@ -30,7 +30,7 @@
 #include "katecodefoldinghelpers.h"
 #include "kateviewhelpers.h"
 #include "katehighlight.h"
-#include "katesupercursor.h"
+#include "katesmartcursor.h"
 #include "katerenderer.h"
 #include "katecodecompletion.h"
 #include "kateconfig.h"

@@ -23,7 +23,7 @@
 
 #include "katedocument.h"
 #include "katetextline.h"
-#include "katesuperrange.h"
+#include "katesmartrange.h"
 
 #include <ktexteditor/attribute.h>
 

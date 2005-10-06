@@ -20,7 +20,7 @@
 #define KATEARBITRARYHIGHLIGHT_H
 
 #include <ktexteditor/attribute.h>
-#include "katesupercursor.h"
+#include "katesmartcursor.h"
 
 #include <qobject.h>
 #include <q3ptrlist.h>

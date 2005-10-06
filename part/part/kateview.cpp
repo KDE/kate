@@ -95,6 +95,10 @@ static void blockFix(KTextEditor::Range& range)
 KateView::KateView( KateDocument *doc, QWidget *parent )
     : KTextEditor::View( parent )
     , m_destructing(false)
+    , m_customComplete(false)
+    , m_cc_cleanup(false)
+    , m_delayed_cc_type(KTextEditor::CompletionNone)
+    , m_delayed_cc_provider(0)
     , m_editActions (0)
     , m_doc( doc )
     , m_search( new KateSearch( this ) )
@@ -105,20 +109,15 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_hasWrap( false )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
-//    , m_internalHighlights(new KateRangeList(doc, this))
     , m_selection(m_doc)
     , blockSelect (false)
-    , m_customComplete(false)
-    , m_cc_cleanup(false)
-    , m_delayed_cc_type(KTextEditor::CompletionNone)
-    , m_delayed_cc_provider(0)
     , m_imComposeEvent( false )
 {
   KateGlobal::self()->registerView( this );
+
   m_config = new KateViewConfig (this);
 
   m_renderer = new KateRenderer(doc, this);
-  //m_doc->arbitraryHL()->addHighlightToView(m_internalHighlights, this);
 
   m_viewInternal = new KateViewInternal( this, doc );
 

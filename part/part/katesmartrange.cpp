@@ -16,7 +16,7 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "katesuperrange.h"
+#include "katesmartrange.h"
 
 #include "katedocument.h"
 #include "kateview.h"
@@ -347,4 +347,4 @@ void KateSmartRange::setParentRange( SmartRange * r )
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
 
-#include "katesuperrange.moc"
+#include "katesmartrange.moc"

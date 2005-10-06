@@ -21,8 +21,8 @@
 #ifndef _KATE_DOCUMENT_H_
 #define _KATE_DOCUMENT_H_
 
-#include "katesupercursor.h"
-#include "katesuperrange.h"
+#include "katesmartcursor.h"
+#include "katesmartrange.h"
 #include "katetextline.h"
 #include "kateundo.h"
 #include "katebuffer.h"

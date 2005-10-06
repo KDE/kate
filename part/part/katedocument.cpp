@@ -32,7 +32,7 @@
 #include "katedocumenthelpers.h"
 #include "kateprinter.h"
 #include "katelinerange.h"
-#include "katesupercursor.h"
+#include "katesmartcursor.h"
 #include "katearbitraryhighlight.h"
 #include "katerenderer.h"
 #include <ktexteditor/attribute.h>

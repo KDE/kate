@@ -19,7 +19,7 @@
 #ifndef KATERANGELIST_H
 #define KATERANGELIST_H
 
-#include "katesuperrange.h"
+#include "katesmartrange.h"
 
 /**
  * A class which contains a list of KTextEditor::Ranges. Mostly a convenience class,

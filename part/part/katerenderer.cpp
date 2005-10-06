@@ -1280,7 +1280,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
           int pos = lineLayout->textLine()->nextNonSpaceChar(0);
 
           if (pos > 0) {
-            shiftX = line.cursorToX(pos);
+            shiftX = (int)line.cursorToX(pos);
           }
 
           if (shiftX > ((double)maxwidth / 100 * m_view->config()->dynWordWrapAlignIndent()) || shiftX == -1)
@@ -1307,7 +1307,7 @@ int KateRenderer::cursorToX(const KateTextLayout& range, const KTextEditor::Curs
 {
   Q_ASSERT(range.isValid());
 
-  return range.lineLayout().cursorToX(pos.column());
+  return (int)range.lineLayout().cursorToX(pos.column());
 }
 
 KTextEditor::Cursor KateRenderer::xToCursor(const KateTextLayout & range, int x, bool returnPastLine ) const

@@ -19,7 +19,7 @@
 #ifndef KATESUPERRANGE_H
 #define KATESUPERRANGE_H
 
-#include "katesupercursor.h"
+#include "katesmartcursor.h"
 #include <ktexteditor/range.h>
 #include "kateedit.h"
 

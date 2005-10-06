@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "katesupercursor.h"
+#include "katesmartcursor.h"
 
 #include "katedocument.h"
 #include "katesmartmanager.h"

@@ -19,8 +19,8 @@
 #include "katearbitraryhighlight.h"
 #include "katearbitraryhighlight.moc"
 
-#include "katesupercursor.h"
-#include "katesuperrange.h"
+#include "katesmartcursor.h"
+#include "katesmartrange.h"
 #include "katedocument.h"
 
 #include <kdebug.h>

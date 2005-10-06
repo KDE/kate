@@ -25,7 +25,7 @@
 #ifndef _KATE_VIEW_INTERNAL_
 #define _KATE_VIEW_INTERNAL_
 
-#include "katesupercursor.h"
+#include "katesmartcursor.h"
 #include "katelinerange.h"
 #include "katetextline.h"
 #include "katedocument.h"

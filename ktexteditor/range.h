@@ -261,6 +261,11 @@ class KTEXTEDITOR_EXPORT Range
      *         or the end bound, otherwise @e false
      */
     bool boundaryOnColumn(int column) const;
+
+    /**
+     * Check whether this range is wholly contained within one line, ie. if
+     * start().line() == end().line().
+     */
     inline bool onSingleLine() const { return start().line() == end().line(); }
 
     /**
@@ -503,7 +508,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * At all times, this range will be contained within parentRange().
      */
     inline SmartRange* parentRange() const { return m_parentRange; }
-    inline void setParentRange(SmartRange* r) { m_parentRange = r; }
+    virtual void setParentRange(SmartRange* r) { m_parentRange = r; }
     /// Overloaded to confine child ranges as well.
     virtual void confineToRange(const Range& range);
 

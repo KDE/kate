@@ -107,18 +107,6 @@ class KateSmartCursor : public KTextEditor::SmartCursor
     void setPositionInternal(const KTextEditor::Cursor& pos, bool internal = true);
     virtual void checkFeedback();
 
-  /* BEGIN METHODS TO CALL FROM KATE DOCUMENT TO KEEP CURSOR UP TO DATE
-  public:
-    void editTextInserted ( uint line, uint col, uint len);
-    void editTextRemoved ( uint line, uint col, uint len);
-
-    void editLineWrapped ( uint line, uint col, bool newLine = true );
-    void editLineUnWrapped ( uint line, uint col, bool removeLine = true, uint length = 0 );
-
-    void editLineInserted ( uint line );
-    void editLineRemoved ( uint line );
-  // END */
-
   private:
     KateSmartGroup* m_smartGroup;
     bool m_feedbackEnabled  :1;
@@ -130,6 +118,7 @@ class KateSmartCursor : public KTextEditor::SmartCursor
      * is in receives an edit.
      */
     Cursor m_lastPosition;
+    bool m_lastPositionUsed;
 
     KateSmartCursorNotifier* m_notifier;
     KTextEditor::SmartCursorWatcher* m_watcher;

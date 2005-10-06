@@ -101,10 +101,12 @@ class KateSmartRange : public KTextEditor::SmartRange
     virtual void deleteNotifier();
     virtual void setWatcher(KTextEditor::SmartRangeWatcher* watcher);
 
+    virtual void setParentRange(SmartRange* r);
+
     /**
      * Implementation detail. Defines the level of feedback required for any connected
      * watcher / notifier.
-     */
+     *
     enum FeedbackLevel {
       /// Don't provide any feedback.
       NoFeedback,
@@ -115,10 +117,11 @@ class KateSmartRange : public KTextEditor::SmartRange
       /// Provide feedback whenever the position of a range changes.
       PositionChanged
     };
+    Q_DECLARE_FLAGS(FeedbackLevels, FeedbackLevel);*/
 
-    int feedbackLevel() const { return m_feedbackLevel; }
-    // request is internal!! Only KateSuperGroup gets to set it to false.
-    void setFeedbackLevel(int feedbackLevel, bool request = true);
+    bool feedbackEnabled() const { return m_notifier || m_watcher; }
+    // request is internal!! Only KateSmartGroup gets to set it to false.
+    /*void setFeedbackLevel(int feedbackLevel, bool request = true);*/
 
     /// One or both of the cursors has been changed.
     void translated(const KateEditInfo& edit);
@@ -145,9 +148,11 @@ class KateSmartRange : public KTextEditor::SmartRange
     KTextEditor::SmartRangeWatcher* m_watcher;
     KateView* m_attachedView;
     int m_attachActions;
-    int m_feedbackLevel;
+    //FeedbackLevels m_feedbackLevel;
     bool  m_mouseOver             :1,
           m_caretOver             :1;
 };
+
+//Q_DECLARE_OPERATORS_FOR_FLAGS(KateSmartRange::FeedbackLevels);
 
 #endif

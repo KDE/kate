@@ -18,16 +18,19 @@
 
 #include "rangeexpectation.h"
 
+#include <math.h>
+
 #include <QtTest/qttest_kde.h>
 
 #include "kateregression.h"
 
-RangeExpectation::RangeExpectation(KTextEditor::Range* range)
+RangeExpectation::RangeExpectation(KTextEditor::Range* range, RangeSignals signalsExpected, const KTextEditor::Range& rangeExpected)
   : m_smartRange(dynamic_cast<KTextEditor::SmartRange*>(range))
+  , m_expectedRange(rangeExpected)
+  , m_expectations(signalsExpected)
 {
   Q_ASSERT(m_smartRange);
   for (int i = 0; i < numSignals; ++i) {
-    m_expectations[i] = false;
     m_notifierNotifications[i] = 0;
     m_watcherNotifications[i] = 0;
   }
@@ -53,7 +56,8 @@ RangeExpectation::~ RangeExpectation( )
 void RangeExpectation::checkExpectationsFulfilled( ) const
 {
   for (int i = 0; i < numSignals; ++i) {
-    if (m_expectations[i]) {
+    int j = 2 << (i - 1);
+    if (m_expectations & j) {
       if (m_notifierNotifications[i] == 0)
         FAIL(QString("Notifier: Expected to be notified of %1.").arg(nameForSignal(i)).toLatin1());
       else if (m_notifierNotifications[i] > 1)
@@ -67,112 +71,81 @@ void RangeExpectation::checkExpectationsFulfilled( ) const
   }
 }
 
-void RangeExpectation::setExpected( int signal )
+void RangeExpectation::signalReceived( int signal )
 {
-  Q_ASSERT(signal >= 0 && signal < numSignals);
-  m_expectations[signal] = true;
-}
-
-void RangeExpectation::positionChanged( KTextEditor::SmartRange * )
-{
-  VERIFY(m_expectations[signalPositionChanged]);
+  VERIFY(m_expectations & signal);
   COMPARE(*static_cast<KTextEditor::Range*>(m_smartRange), m_expectedRange);
+
+  signal = int(log(signal) / log(2));
 
   if (sender())
-    m_watcherNotifications[signalPositionChanged]++;
+    m_watcherNotifications[signal]++;
   else
-    m_notifierNotifications[signalPositionChanged]++;
+    m_notifierNotifications[signal]++;
 }
 
-void RangeExpectation::contentsChanged( KTextEditor::SmartRange * )
+void RangeExpectation::positionChanged( KTextEditor::SmartRange * range )
 {
-  VERIFY(m_expectations[signalContentsChanged]);
-  COMPARE(*static_cast<KTextEditor::Range*>(m_smartRange), m_expectedRange);
-
-  if (sender())
-    m_watcherNotifications[signalContentsChanged]++;
-  else
-    m_notifierNotifications[signalContentsChanged]++;
+  COMPARE(range, m_smartRange);
+  signalReceived(PositionChanged);
 }
 
-void RangeExpectation::boundaryDeleted( KTextEditor::SmartRange * , bool start )
+void RangeExpectation::contentsChanged( KTextEditor::SmartRange * range )
 {
-  COMPARE(*static_cast<KTextEditor::Range*>(m_smartRange), m_expectedRange);
+  COMPARE(range, m_smartRange);
+  signalReceived(ContentsChanged);
+}
+
+void RangeExpectation::boundaryDeleted( KTextEditor::SmartRange * range, bool start )
+{
+  COMPARE(range, m_smartRange);
 
   if (start) {
-    VERIFY(m_expectations[signalStartBoundaryDeleted]);
-    if (sender())
-      m_watcherNotifications[signalStartBoundaryDeleted]++;
-    else
-      m_notifierNotifications[signalStartBoundaryDeleted]++;
+    signalReceived(StartBoundaryDeleted);
 
   } else {
-    VERIFY(m_expectations[signalEndBoundaryDeleted]);
-    if (sender())
-      m_watcherNotifications[signalEndBoundaryDeleted]++;
-    else
-      m_notifierNotifications[signalEndBoundaryDeleted]++;
+    signalReceived(EndBoundaryDeleted);
   }
 }
 
-void RangeExpectation::eliminated( KTextEditor::SmartRange * )
+void RangeExpectation::eliminated( KTextEditor::SmartRange * range )
 {
-  VERIFY(m_expectations[signalEliminated]);
-  COMPARE(*static_cast<KTextEditor::Range*>(m_smartRange), m_expectedRange);
-
-  if (sender())
-    m_watcherNotifications[signalEliminated]++;
-  else
-    m_notifierNotifications[signalEliminated]++;
+  COMPARE(range, m_smartRange);
+  signalReceived(Eliminated);
 }
 
-void RangeExpectation::firstCharacterDeleted( KTextEditor::SmartRange * )
+void RangeExpectation::firstCharacterDeleted( KTextEditor::SmartRange * range )
 {
-  VERIFY(m_expectations[signalFirstCharacterDeleted]);
-  COMPARE(*static_cast<KTextEditor::Range*>(m_smartRange), m_expectedRange);
-
-  if (sender())
-    m_watcherNotifications[signalFirstCharacterDeleted]++;
-  else
-    m_notifierNotifications[signalFirstCharacterDeleted]++;
+  COMPARE(range, m_smartRange);
+  signalReceived(FirstCharacterDeleted);
 }
 
-void RangeExpectation::lastCharacterDeleted( KTextEditor::SmartRange * )
+void RangeExpectation::lastCharacterDeleted( KTextEditor::SmartRange * range )
 {
-  VERIFY(m_expectations[signalLastCharacterDeleted]);
-  COMPARE(*static_cast<KTextEditor::Range*>(m_smartRange), m_expectedRange);
-
-  if (sender())
-    m_watcherNotifications[signalLastCharacterDeleted]++;
-  else
-    m_notifierNotifications[signalLastCharacterDeleted]++;
+  COMPARE(range, m_smartRange);
+  signalReceived(LastCharacterDeleted);
 }
 
 QString RangeExpectation::nameForSignal( int signal ) const
 {
   switch (signal) {
-    case signalPositionChanged:
+    case PositionChanged:
       return "position change";
-    case signalContentsChanged:
+    case ContentsChanged:
       return "content change";
-    case signalStartBoundaryDeleted:
+    case StartBoundaryDeleted:
       return "starting boundary deletion";
-    case signalEndBoundaryDeleted:
+    case EndBoundaryDeleted:
       return "ending boundary deletion";
-    case signalEliminated:
+    case Eliminated:
       return "elimination of the range";
-    case signalFirstCharacterDeleted:
+    case FirstCharacterDeleted:
       return "first character deletion";
-    case signalLastCharacterDeleted:
+    case LastCharacterDeleted:
       return "last character deletion";
     default:
       return "[invalid signal]";
   }
-}
-
-void RangeExpectation::setExpected( const KTextEditor::Range & expectedRange )
-{
-  m_expectedRange = expectedRange;
 }
 
 #include "rangeexpectation.moc"

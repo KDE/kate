@@ -107,16 +107,12 @@ void KateRegression::testAll()
   new CursorExpectation(cursorPastEdit, CursorExpectation::PositionChanged, KTextEditor::Cursor(1,17));
   new CursorExpectation(cursorNextLine);
 
-  /*RangeExpectation* rangeEditExpectation = new RangeExpectation(rangeEdit);
-  rangeEditExpectation->setExpected(RangeExpectation::signalContentsChanged);*/
-//  addRangeExpectation(rangeEditExpectation);
+  new RangeExpectation(rangeEdit, RangeExpectation::ContentsChanged, KTextEditor::Range(*cursorStartOfEdit, KTextEditor::Cursor(1,16)));
 
   m_doc->insertText(*cursorStartOfEdit, "Additional ");
 
   COMPARE(*cursorEOL, m_doc->endOfLine(1));
   COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
-
-  COMPARE(*rangeEdit, KTextEditor::Range(*cursorStartOfEdit, *cursorEndOfEdit));
 
   checkSignalExpectations();
 

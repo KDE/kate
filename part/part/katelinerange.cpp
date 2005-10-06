@@ -177,7 +177,7 @@ KateTextLayout KateLineLayout::viewLine( int viewLine ) const
 
 int KateLineLayout::width( ) const
 {
-  return layout()->boundingRect().width();
+  return (int)layout()->boundingRect().width();
 }
 
 bool KateLineLayout::isOutsideDocument( ) const

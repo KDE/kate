@@ -112,7 +112,7 @@ void KateSmartCursor::setLine( int _line )
   }
 }
 
-void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool internal )
+void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool /*internal*/ )
 {
   if (m_feedbackEnabled)
     m_lastPosition = *this;
@@ -211,7 +211,7 @@ void KateSmartCursor::setLineInternal( int newLine, bool internal )
 void KateSmartCursor::translated(const KateEditInfo & edit)
 {
   if (*this < edit.start()) {
-    if (!belongsToRange() || static_cast<KateSmartRange*>(belongsToRange())->feedbackLevel() == KateSmartRange::NoFeedback)
+    if (!belongsToRange() || !static_cast<KateSmartRange*>(belongsToRange())->feedbackEnabled())
       m_lastPosition = *this;
     return;
   }
@@ -266,7 +266,7 @@ void KateSmartCursor::translated(const KateEditInfo & edit)
     }
   }
 
-  if (!belongsToRange() || static_cast<KateSmartRange*>(belongsToRange())->feedbackLevel() == KateSmartRange::NoFeedback)
+  if (!belongsToRange() || !static_cast<KateSmartRange*>(belongsToRange())->feedbackEnabled())
     m_lastPosition = *this;
 }
 
@@ -280,7 +280,7 @@ void KateSmartCursor::shifted( )
   if (m_watcher)
     m_watcher->positionChanged(this);
 
-  if (!belongsToRange() || static_cast<KateSmartRange*>(belongsToRange())->feedbackLevel() == KateSmartRange::NoFeedback)
+  if (!belongsToRange() || !static_cast<KateSmartRange*>(belongsToRange())->feedbackEnabled())
     m_lastPosition = *this;
 }
 

@@ -55,7 +55,7 @@ KTextEditor::SmartRange * KateSmartManager::newSmartRange( const KTextEditor::Ra
   return new KateSmartRange(range, doc(), parent, insertBehaviour);
 }
 
-void KateSmartManager::requestFeedback( KateSmartRange * range, int previousLevelOfFeedback)
+/*void KateSmartManager::requestFeedback( KateSmartRange * range, int previousLevelOfFeedback)
 {
   if (range->feedbackLevel() == previousLevelOfFeedback)
     return;
@@ -101,7 +101,7 @@ void KateSmartManager::addRangeWantingMostSpecificContentFeedback( KateSmartRang
 void KateSmartManager::removeRangeWantingMostSpecificContentFeedback( KateSmartRange * range )
 {
   m_specificRanges.remove(range);
-}
+}*/
 
 void KateSmartGroup::addCursor( KateSmartCursor * cursor)
 {
@@ -144,7 +144,7 @@ void KateSmartGroup::removeCursor( KateSmartCursor * cursor)
   }
 }
 
-void KateSmartGroup::addTraversingRange( KateSmartRange * range )
+/*void KateSmartGroup::addTraversingRange( KateSmartRange * range )
 {
   m_rangesTraversing.insert(range);
 }
@@ -162,26 +162,26 @@ void KateSmartGroup::addStartingPositionRange( KateSmartRange * range )
 void KateSmartGroup::removeStartingPositionRange( KateSmartRange * range )
 {
   m_rangesStartingPosition.remove(range);
-}
+}*/
 
 void KateSmartGroup::joined( KateSmartCursor * cursor )
 {
   addCursor(cursor);
 
-  if (KateSmartRange* range = static_cast<KateSmartRange*>(cursor->belongsToRange()))
-    range->kateDocument()->smartManager()->requestFeedback(range, KateSmartRange::NoFeedback);
+  /*if (KateSmartRange* range = static_cast<KateSmartRange*>(cursor->belongsToRange()))
+    range->kateDocument()->smartManager()->requestFeedback(range, KateSmartRange::NoFeedback);*/
 }
 
 void KateSmartGroup::leaving( KateSmartCursor * cursor )
 {
   removeCursor(cursor);
 
-  if (KateSmartRange* range = static_cast<KateSmartRange*>(cursor->belongsToRange())) {
+  /*if (KateSmartRange* range = static_cast<KateSmartRange*>(cursor->belongsToRange())) {
     int currentFeedback = range->feedbackLevel();
     range->setFeedbackLevel(KateSmartRange::NoFeedback, false);
     range->kateDocument()->smartManager()->requestFeedback(range, currentFeedback);
     range->setFeedbackLevel(currentFeedback, false);
-  }
+  }*/
 }
 
 KateSmartGroup * KateSmartManager::groupForLine( int line ) const
@@ -282,12 +282,12 @@ void KateSmartGroup::translateChanged( const KateEditInfo& edit, QSet< KateSmart
 
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
     if (cursor->translate(edit))
-      if (cursor->belongsToRange())
+      if (cursor->belongsToRange() && static_cast<KateSmartRange*>(cursor->belongsToRange())->feedbackEnabled())
         m_ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
 
   foreach (KateSmartCursor* cursor, m_normalCursors)
     if (cursor->translate(edit))
-      if (cursor->belongsToRange())
+      if (cursor->belongsToRange() && static_cast<KateSmartRange*>(cursor->belongsToRange())->feedbackEnabled())
         m_ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
 }
 
@@ -307,8 +307,8 @@ void KateSmartGroup::translatedChanged(const KateEditInfo& edit)
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
     cursor->translated(edit);
 
-  foreach (KateSmartRange* range, m_rangesStartingPosition)
-    range->translated(edit);
+  /*foreach (KateSmartRange* range, m_rangesStartingPosition)
+    range->translated(edit);*/
 }
 
 void KateSmartGroup::translatedShifted(const KateEditInfo& edit)
@@ -325,8 +325,8 @@ void KateSmartGroup::translatedShifted(const KateEditInfo& edit)
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
     cursor->shifted();
 
-  foreach (KateSmartRange* range, m_rangesStartingPosition)
-    range->shifted();
+  /*foreach (KateSmartRange* range, m_rangesStartingPosition)
+    range->shifted();*/
 }
 
 KateSmartGroup::KateSmartGroup( int startLine, int endLine, KateSmartGroup * previous, KateSmartGroup * next )
@@ -356,8 +356,8 @@ void KateSmartGroup::merge( )
     cursor->migrate(this);
   m_normalCursors += next()->normalCursors();
 
-  m_rangesTraversing += next()->rangesTraversing();
-  m_rangesStartingPosition += next()->rangesStaringPosition();
+  //m_rangesTraversing += next()->rangesTraversing();
+  //m_rangesStartingPosition += next()->rangesStaringPosition();
 
   m_newEndLine = m_endLine = next()->endLine();
   KateSmartGroup* newNext = next()->next();
@@ -375,7 +375,7 @@ const QSet< KateSmartCursor * > & KateSmartGroup::normalCursors( ) const
   return m_normalCursors;
 }
 
-const QSet< KateSmartRange * > & KateSmartGroup::rangesTraversing( ) const
+/*const QSet< KateSmartRange * > & KateSmartGroup::rangesTraversing( ) const
 {
   return m_rangesTraversing;
 }
@@ -383,7 +383,7 @@ const QSet< KateSmartRange * > & KateSmartGroup::rangesTraversing( ) const
 const QSet< KateSmartRange * > & KateSmartGroup::rangesStaringPosition( ) const
 {
   return m_rangesTraversing;
-}
+}*/
 
 void KateSmartManager::debugOutput( ) const
 {
@@ -405,7 +405,19 @@ void KateSmartManager::debugOutput( ) const
 
 void KateSmartGroup::debugOutput( ) const
 {
-  kdDebug() << " -> KateSmartGroup: from " << startLine() << " to " << endLine() << "; Cursors " << m_normalCursors.count() + m_feedbackCursors.count() << " (" << m_feedbackCursors.count() << " feedback), Ranges Traversing " << m_rangesTraversing.count() << ", Starting+Feedback " << m_rangesStartingPosition.count() << endl;
+  kdDebug() << " -> KateSmartGroup: from " << startLine() << " to " << endLine() << "; Cursors " << m_normalCursors.count() + m_feedbackCursors.count() << " (" << m_feedbackCursors.count() << " feedback)" /*", Ranges Traversing " << m_rangesTraversing.count() << ", Starting+Feedback " << m_rangesStartingPosition.count() */ << endl;
+}
+
+void KateSmartManager::rangeGotParent( KateSmartRange * range )
+{
+  Q_ASSERT(m_topRanges.contains(range));
+  m_topRanges.remove(range);
+}
+
+void KateSmartManager::rangeLostParent( KateSmartRange * range )
+{
+  Q_ASSERT(!m_topRanges.contains(range));
+  m_topRanges.insert(range);
 }
 
 #include "katesmartmanager.moc"

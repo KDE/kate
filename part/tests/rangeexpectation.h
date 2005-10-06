@@ -19,6 +19,8 @@
 #ifndef RANGEEXPECTATION_H
 #define RANGEEXPECTATION_H
 
+#include <QFlags>
+
 #include <ktexteditor/range.h>
 
 class RangeExpectation : public QObject, public KTextEditor::SmartRangeWatcher
@@ -26,23 +28,23 @@ class RangeExpectation : public QObject, public KTextEditor::SmartRangeWatcher
   Q_OBJECT
 
   public:
-    RangeExpectation(KTextEditor::Range* range);
+    enum RangeSignal {
+      NoSignal = 0x0,
+      PositionChanged = 0x1,
+      ContentsChanged = 0x2,
+      StartBoundaryDeleted = 0x4,
+      EndBoundaryDeleted = 0x8,
+      Eliminated = 0x10,
+      FirstCharacterDeleted = 0x20,
+      LastCharacterDeleted = 0x40,
+    };
+    static const int numSignals = 7;
+    Q_DECLARE_FLAGS(RangeSignals, RangeSignal);
+
+    RangeExpectation(KTextEditor::Range* range, RangeSignals signalsExpected = NoSignal, const KTextEditor::Range& rangeExpected = KTextEditor::Range::invalid());
     virtual ~RangeExpectation();
 
-    enum signal {
-      signalPositionChanged = 0,
-      signalContentsChanged,
-      signalStartBoundaryDeleted,
-      signalEndBoundaryDeleted,
-      signalEliminated,
-      signalFirstCharacterDeleted,
-      signalLastCharacterDeleted,
-      numSignals
-    };
-
     void checkExpectationsFulfilled() const;
-    void setExpected(int signal);
-    void setExpected(const KTextEditor::Range& expectedRange);
 
   public slots:
     virtual void positionChanged(KTextEditor::SmartRange* range);
@@ -54,14 +56,17 @@ class RangeExpectation : public QObject, public KTextEditor::SmartRangeWatcher
 
   private:
     QString nameForSignal(int signal) const;
+    void signalReceived(int signal);
 
     KTextEditor::SmartRange* m_smartRange;
     KTextEditor::Range m_expectedRange;
 
-    bool m_expectations[numSignals];
+    RangeSignals m_expectations;
 
     int m_notifierNotifications[numSignals];
     int m_watcherNotifications[numSignals];
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(RangeExpectation::RangeSignals);
 
 #endif

@@ -18,7 +18,10 @@
 
 #include "cursorexpectation.h"
 
+#include <math.h>
+
 #include <QtTest/qttest_kde.h>
+#include <kdebug.h>
 
 #include "kateregression.h"
 
@@ -55,83 +58,53 @@ CursorExpectation::~CursorExpectation()
 void CursorExpectation::characterDeleted( KTextEditor::SmartCursor * cursor, bool deletedBefore )
 {
   COMPARE(cursor, m_smartCursor);
-  COMPARE(*static_cast<KTextEditor::Cursor*>(cursor), m_expectedCursor);
 
   if (deletedBefore) {
-    VERIFY(m_expectations & CharacterDeletedBefore);
-    if (sender())
-      m_watcherNotifications[iCharacterDeletedBefore]++;
-    else
-      m_notifierNotifications[iCharacterDeletedBefore]++;
+    signalReceived(CharacterDeletedBefore);
 
   } else {
-    VERIFY(m_expectations & CharacterDeletedAfter);
-    if (sender())
-      m_watcherNotifications[iCharacterDeletedAfter]++;
-    else
-      m_notifierNotifications[iCharacterDeletedAfter]++;
+    signalReceived(CharacterDeletedAfter);
   }
 }
 
 void CursorExpectation::characterInserted( KTextEditor::SmartCursor * cursor, bool insertedBefore )
 {
   COMPARE(cursor, m_smartCursor);
-  COMPARE(*static_cast<KTextEditor::Cursor*>(cursor), m_expectedCursor);
 
   if (insertedBefore) {
-    VERIFY(m_expectations & CharacterInsertedBefore);
-    if (sender())
-      m_watcherNotifications[iCharacterInsertedBefore]++;
-    else
-      m_notifierNotifications[iCharacterInsertedBefore]++;
+    signalReceived(CharacterInsertedBefore);
 
   } else {
-    VERIFY(m_expectations & CharacterInsertedAfter);
-    if (sender())
-      m_watcherNotifications[iCharacterInsertedAfter]++;
-    else
-      m_notifierNotifications[iCharacterInsertedAfter]++;
+    signalReceived(CharacterInsertedAfter);
   }
 }
 
 void CursorExpectation::positionChanged( KTextEditor::SmartCursor * cursor )
 {
   COMPARE(cursor, m_smartCursor);
-  COMPARE(*static_cast<KTextEditor::Cursor*>(cursor), m_expectedCursor);
-
-  VERIFY(m_expectations & PositionChanged);
-  if (sender())
-    m_watcherNotifications[iPositionChanged]++;
-  else
-    m_notifierNotifications[iPositionChanged]++;
+  signalReceived(PositionChanged);
 }
 
 void CursorExpectation::positionDeleted( KTextEditor::SmartCursor * cursor )
 {
   COMPARE(cursor, m_smartCursor);
-  COMPARE(*static_cast<KTextEditor::Cursor*>(cursor), m_expectedCursor);
-
-  VERIFY(m_expectations & PositionDeleted);
-  if (sender())
-    m_watcherNotifications[iPositionDeleted]++;
-  else
-    m_notifierNotifications[iPositionDeleted]++;
+  signalReceived(PositionDeleted);
 }
 
 QString CursorExpectation::nameForSignal( int signal ) const
 {
   switch (signal) {
-    case iCharacterDeletedBefore:
+    case CharacterDeletedBefore:
       return "a character to be deleted before cursor";
-    case iCharacterDeletedAfter:
+    case CharacterDeletedAfter:
       return "a character to be deleted after cursor";
-    case iCharacterInsertedBefore:
+    case CharacterInsertedBefore:
       return "a character to be inserted before cursor";
-    case iCharacterInsertedAfter:
+    case CharacterInsertedAfter:
       return "a character to be inserted after cursor";
-    case iPositionChanged:
+    case PositionChanged:
       return "the cursor's position change";
-    case iPositionDeleted:
+    case PositionDeleted:
       return "the cursor's position change";
     default:
       return "[invalid signal]";
@@ -154,6 +127,20 @@ void CursorExpectation::checkExpectationsFulfilled( ) const
         FAIL(QString("Watcher: Notified more than once about %1.").arg(nameForSignal(i)).toLatin1());
     }
   }
+}
+
+void CursorExpectation::signalReceived( int signal )
+{
+  COMPARE(*static_cast<KTextEditor::Cursor*>(m_smartCursor), m_expectedCursor);
+
+  VERIFY(m_expectations & signal);
+
+  signal = int(log(signal) / log(2));
+
+  if (sender())
+    m_watcherNotifications[signal]++;
+  else
+    m_notifierNotifications[signal]++;
 }
 
 #include "cursorexpectation.moc"

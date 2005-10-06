@@ -54,7 +54,8 @@ class KATE_TESTONLY_EXPORT KateSmartManager : public QObject
     KTextEditor::SmartCursor* newSmartCursor(const KTextEditor::Cursor& position, bool moveOnInsert = true);
     KTextEditor::SmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, int insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
 
-    void requestFeedback(KateSmartRange* range, int previousLevelOfFeedback);
+    void rangeGotParent(KateSmartRange* range);
+    void rangeLostParent(KateSmartRange* range);
 
     KateSmartGroup* groupForLine(int line) const;
 
@@ -72,7 +73,7 @@ class KATE_TESTONLY_EXPORT KateSmartManager : public QObject
     void debugOutput() const;
 
     KateSmartGroup* m_firstGroup;
-    QSet<KateSmartRange*> m_specificRanges;
+    QSet<KateSmartRange*> m_topRanges;
     KateSmartGroup* m_invalidGroup;
 };
 
@@ -125,21 +126,11 @@ class KATE_TESTONLY_EXPORT KateSmartGroup
      */
     void leaving(KateSmartCursor* cursor);
 
-    // Ranges traversing this group that need notification of content changes
-    void addTraversingRange(KateSmartRange* range);
-    void removeTraversingRange(KateSmartRange* range);
-    const QSet<KateSmartRange*>& rangesTraversing() const;
-
-    // Ranges starting in this group that need notification of position changes
-    void addStartingPositionRange(KateSmartRange* range);
-    void removeStartingPositionRange(KateSmartRange* range);
-    const QSet<KateSmartRange*>& rangesStaringPosition() const;
-
     // Merge with the next Smart Group, because this group became too small.
     void merge();
 
     // First pass for translation
-    void translateChanged(const KateEditInfo& edit, QSet<KateSmartRange*>& m_ranges, bool first);
+    void translateChanged(const KateEditInfo& edit, QSet<KateSmartRange*>& ranges, bool first);
     void translateShifted(const KateEditInfo& edit);
 
     // Second pass for feedback
@@ -155,8 +146,6 @@ class KATE_TESTONLY_EXPORT KateSmartGroup
 
     QSet<KateSmartCursor*> m_feedbackCursors;
     QSet<KateSmartCursor*> m_normalCursors;
-    QSet<KateSmartRange*> m_rangesTraversing;
-    QSet<KateSmartRange*> m_rangesStartingPosition;
 };
 
 #endif

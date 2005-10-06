@@ -108,11 +108,11 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 //    , m_internalHighlights(new KateRangeList(doc, this))
     , m_selection(m_doc)
     , blockSelect (false)
-    , m_imComposeEvent( false )
     , m_customComplete(false)
     , m_cc_cleanup(false)
     , m_delayed_cc_type(KTextEditor::CompletionNone)
     , m_delayed_cc_provider(0)
+    , m_imComposeEvent( false )
 {
   KateGlobal::self()->registerView( this );
   m_config = new KateViewConfig (this);

@@ -32,7 +32,7 @@ KateSmartRange::KateSmartRange(const KTextEditor::Range& range, KateDocument* do
   , m_watcher(0L)
   , m_attachedView(0L)
   , m_attachActions(TagLines)
-  , m_feedbackLevel(NoFeedback)
+//  , m_feedbackLevel(NoFeedback)
   , m_mouseOver(false)
   , m_caretOver(false)
 {
@@ -44,7 +44,7 @@ KateSmartRange::KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* paren
   , m_watcher(0L)
   , m_attachedView(0L)
   , m_attachActions(TagLines)
-  , m_feedbackLevel(NoFeedback)
+//  , m_feedbackLevel(NoFeedback)
   , m_mouseOver(false)
   , m_caretOver(false)
 {
@@ -56,7 +56,7 @@ KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, 
   , m_watcher(0L)
   , m_attachedView(0L)
   , m_attachActions(TagLines)
-  , m_feedbackLevel(NoFeedback)
+//  , m_feedbackLevel(NoFeedback)
   , m_mouseOver(false)
   , m_caretOver(false)
 {
@@ -207,10 +207,10 @@ void KateSmartRange::slotCaretPositionChanged(const KTextEditor::Cursor& newPosi
 void KateSmartRange::checkFeedback( )
 {
   // FIXME don't set max feedback level if the feedback objects don't need it.
-  int feedbackNeeded = (m_watcher || m_notifier) ? PositionChanged : NoFeedback;
+  /*int feedbackNeeded = (m_watcher || m_notifier) ? PositionChanged : NoFeedback;
   if (m_feedbackLevel != feedbackNeeded) {
     setFeedbackLevel(feedbackNeeded);
-  }
+  }*/
 }
 
 KateDocument * KateSmartRange::kateDocument( ) const
@@ -218,13 +218,13 @@ KateDocument * KateSmartRange::kateDocument( ) const
   return static_cast<KateDocument*>(document());
 }
 
-void KateSmartRange::setFeedbackLevel( int feedbackLevel, bool request )
+/*void KateSmartRange::setFeedbackLevel( int feedbackLevel, bool request )
 {
   int oldFeedbackLevel = m_feedbackLevel;
   m_feedbackLevel = feedbackLevel;
   if (request)
     kateDocument()->smartManager()->requestFeedback(this, oldFeedbackLevel);
-}
+}*/
 
 /*KTextEditor::Attribute * KateSmartRange::attribute( ) const
 {
@@ -326,6 +326,23 @@ void KateSmartRange::shifted( )
 
   kStart().resetLastPosition();
   kEnd().resetLastPosition();
+}
+
+void KateSmartRange::setParentRange( SmartRange * r )
+{
+  bool gotParent = false;
+  bool lostParent = false;
+  if (!parentRange() && r)
+    gotParent = true;
+  else if (parentRange() && !r)
+    lostParent = true;
+
+  SmartRange::setParentRange(r);
+
+  if (gotParent)
+    kateDocument()->smartManager()->rangeGotParent(this);
+  else if (lostParent)
+    kateDocument()->smartManager()->rangeLostParent(this);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

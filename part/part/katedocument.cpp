@@ -106,8 +106,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_modOnHdReason (OnDiskUnmodified),
   m_job (0),
   m_tempFile (0),
-  m_tabInterceptor(0),
-  s_fileChangedDialogsActivated (false)
+  s_fileChangedDialogsActivated (false),
+  m_tabInterceptor(0)
 {
   setObjectName(name);
   m_undoComplexMerge=false;

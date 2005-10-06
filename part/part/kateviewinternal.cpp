@@ -1742,6 +1742,11 @@ void KateViewInternal::updateBracketMarks()
 
 bool KateViewInternal::tagLine(const KTextEditor::Cursor& virtualCursor)
 {
+  // FIXME may be a more efficient way for this
+  if ((int)m_doc->getRealLine(virtualCursor.line()) > m_doc->lastLine())
+    return false;
+  // End FIXME
+
   int viewLine = cache()->displayViewLine(virtualCursor, true);
   if (viewLine >= 0 && viewLine < cache()->viewCacheLineCount()) {
     cache()->viewLine(viewLine).setDirty();

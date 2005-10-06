@@ -138,8 +138,8 @@ void KateSmartGroup::removeCursor( KateSmartCursor * cursor)
     m_feedbackCursors.remove(cursor);
 
   } else {
-    Q_ASSERT(m_feedbackCursors.contains(cursor));
-    Q_ASSERT(!m_normalCursors.contains(cursor));
+    Q_ASSERT(!m_feedbackCursors.contains(cursor));
+    Q_ASSERT(m_normalCursors.contains(cursor));
     m_normalCursors.remove(cursor);
   }
 }

@@ -37,10 +37,10 @@ RangeExpectation::RangeExpectation(KTextEditor::Range* range, RangeSignals signa
 
   connect(m_smartRange->notifier(), SIGNAL(positionChanged(KTextEditor::SmartRange*)),        SLOT(positionChanged(KTextEditor::SmartRange*)));
   connect(m_smartRange->notifier(), SIGNAL(contentsChanged(KTextEditor::SmartRange*)),        SLOT(contentsChanged(KTextEditor::SmartRange*)));
-  connect(m_smartRange->notifier(), SIGNAL(boundaryDeleted(KTextEditor::SmartRange*,bool)),   SLOT(boundaryDeleted(KTextEditor::SmartRange*,bool)));
+  //connect(m_smartRange->notifier(), SIGNAL(boundaryDeleted(KTextEditor::SmartRange*,bool)),   SLOT(boundaryDeleted(KTextEditor::SmartRange*,bool)));
   connect(m_smartRange->notifier(), SIGNAL(eliminated(KTextEditor::SmartRange*)),             SLOT(eliminated(KTextEditor::SmartRange*)));
-  connect(m_smartRange->notifier(), SIGNAL(firstCharacterDeleted(KTextEditor::SmartRange*)),  SLOT(firstCharacterDeleted(KTextEditor::SmartRange*)));
-  connect(m_smartRange->notifier(), SIGNAL(lastCharacterDeleted(KTextEditor::SmartRange*)),   SLOT(lastCharacterDeleted(KTextEditor::SmartRange*)));
+  //connect(m_smartRange->notifier(), SIGNAL(firstCharacterDeleted(KTextEditor::SmartRange*)),  SLOT(firstCharacterDeleted(KTextEditor::SmartRange*)));
+  //connect(m_smartRange->notifier(), SIGNAL(lastCharacterDeleted(KTextEditor::SmartRange*)),   SLOT(lastCharacterDeleted(KTextEditor::SmartRange*)));
 
   m_smartRange->setWatcher(this);
 
@@ -59,14 +59,14 @@ void RangeExpectation::checkExpectationsFulfilled( ) const
     int j = 2 << (i - 1);
     if (m_expectations & j) {
       if (m_notifierNotifications[i] == 0)
-        FAIL(QString("Notifier: Expected to be notified of %1.").arg(nameForSignal(i)).toLatin1());
+        FAIL(QString("Notifier: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
       else if (m_notifierNotifications[i] > 1)
-        FAIL(QString("Notifier: Notified more than once about %1.").arg(nameForSignal(i)).toLatin1());
+        FAIL(QString("Notifier: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
 
       if (m_watcherNotifications[i] == 0)
-        FAIL(QString("Watcher: Expected to be notified of %1.").arg(nameForSignal(i)).toLatin1());
+        FAIL(QString("Watcher: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
       else if (m_watcherNotifications[i] > 1)
-        FAIL(QString("Watcher: Notified more than once about %1.").arg(nameForSignal(i)).toLatin1());
+        FAIL(QString("Watcher: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
     }
   }
 }
@@ -96,7 +96,7 @@ void RangeExpectation::contentsChanged( KTextEditor::SmartRange * range )
   signalReceived(ContentsChanged);
 }
 
-void RangeExpectation::boundaryDeleted( KTextEditor::SmartRange * range, bool start )
+/*void RangeExpectation::boundaryDeleted( KTextEditor::SmartRange * range, bool start )
 {
   COMPARE(range, m_smartRange);
 
@@ -106,7 +106,7 @@ void RangeExpectation::boundaryDeleted( KTextEditor::SmartRange * range, bool st
   } else {
     signalReceived(EndBoundaryDeleted);
   }
-}
+}*/
 
 void RangeExpectation::eliminated( KTextEditor::SmartRange * range )
 {
@@ -114,7 +114,7 @@ void RangeExpectation::eliminated( KTextEditor::SmartRange * range )
   signalReceived(Eliminated);
 }
 
-void RangeExpectation::firstCharacterDeleted( KTextEditor::SmartRange * range )
+/*void RangeExpectation::firstCharacterDeleted( KTextEditor::SmartRange * range )
 {
   COMPARE(range, m_smartRange);
   signalReceived(FirstCharacterDeleted);
@@ -124,7 +124,7 @@ void RangeExpectation::lastCharacterDeleted( KTextEditor::SmartRange * range )
 {
   COMPARE(range, m_smartRange);
   signalReceived(LastCharacterDeleted);
-}
+}*/
 
 QString RangeExpectation::nameForSignal( int signal ) const
 {
@@ -133,16 +133,16 @@ QString RangeExpectation::nameForSignal( int signal ) const
       return "position change";
     case ContentsChanged:
       return "content change";
-    case StartBoundaryDeleted:
+    /*case StartBoundaryDeleted:
       return "starting boundary deletion";
     case EndBoundaryDeleted:
-      return "ending boundary deletion";
+      return "ending boundary deletion";*/
     case Eliminated:
       return "elimination of the range";
-    case FirstCharacterDeleted:
+    /*case FirstCharacterDeleted:
       return "first character deletion";
     case LastCharacterDeleted:
-      return "last character deletion";
+      return "last character deletion";*/
     default:
       return "[invalid signal]";
   }

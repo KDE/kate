@@ -119,10 +119,12 @@ void KateRegression::testAll()
   KTextEditor::Cursor* cursorInsideDelete = m_doc->newSmartCursor(KTextEditor::Cursor(1,7));
 
   new CursorExpectation(cursorStartOfEdit, CursorExpectation::CharacterDeletedAfter);
-  new CursorExpectation(cursorInsideDelete, CursorExpectation::PositionChanged | CursorExpectation::PositionDeleted, KTextEditor::Cursor(1,5));
-  new CursorExpectation(cursorEndOfEdit, CursorExpectation::CharacterDeletedBefore | CursorExpectation::PositionChanged, KTextEditor::Cursor(1,5));
+  new CursorExpectation(cursorInsideDelete, CursorExpectation::PositionChanged | CursorExpectation::PositionDeleted, *cursorStartOfEdit);
+  new CursorExpectation(cursorEndOfEdit, CursorExpectation::CharacterDeletedBefore | CursorExpectation::PositionChanged, *cursorStartOfEdit);
   new CursorExpectation(cursorPastEdit, CursorExpectation::PositionChanged, KTextEditor::Cursor(1,6));
   new CursorExpectation(cursorNextLine, CursorExpectation::NoSignal, KTextEditor::Cursor(2,0));
+
+  new RangeExpectation(rangeEdit, RangeExpectation::ContentsChanged, KTextEditor::Range(*cursorStartOfEdit, *cursorStartOfEdit));
 
   // Intra-line remove
   m_doc->removeText(KTextEditor::Range(*cursorStartOfEdit, 11));

@@ -300,6 +300,22 @@ void KateSmartRange::translated(const KateEditInfo& edit)
       emit m_notifier->contentsChanged(this);
     if (m_watcher)
       m_watcher->contentsChanged(this);
+
+    /*if (kStart().lastPosition() >= edit.start() && kStart().lastPosition() < edit.oldRange().end()) {
+      // first character deleted
+      if (m_notifier)
+        emit m_notifier->firstCharacterDeleted(this);
+      if (m_watcher)
+        m_watcher->firstCharacterDeleted(this);
+    }
+
+    if (kEnd().lastPosition() >= edit.start() && kEnd().lastPosition() <= edit.oldRange().end()) {
+      // last character deleted
+      if (m_notifier)
+        emit m_notifier->lastCharacterDeleted(this);
+      if (m_watcher)
+        m_watcher->lastCharacterDeleted(this);
+    }*/
   }
 
   if (start() == end() && kStart().lastPosition() != kEnd().lastPosition()) {

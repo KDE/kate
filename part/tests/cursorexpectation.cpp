@@ -117,14 +117,14 @@ void CursorExpectation::checkExpectationsFulfilled( ) const
     int j = 2 << (i - 1);
     if (m_expectations & j) {
       if (m_notifierNotifications[i] == 0)
-        FAIL(QString("Notifier: Expected to be notified of %1.").arg(nameForSignal(i)).toLatin1());
+        FAIL(QString("Notifier: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
       else if (m_notifierNotifications[i] > 1)
-        FAIL(QString("Notifier: Notified more than once about %1.").arg(nameForSignal(i)).toLatin1());
+        FAIL(QString("Notifier: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
 
       if (m_watcherNotifications[i] == 0)
-        FAIL(QString("Watcher: Expected to be notified of %1.").arg(nameForSignal(i)).toLatin1());
+        FAIL(QString("Watcher: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
       else if (m_watcherNotifications[i] > 1)
-        FAIL(QString("Watcher: Notified more than once about %1.").arg(nameForSignal(i)).toLatin1());
+        FAIL(QString("Watcher: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
     }
   }
 }

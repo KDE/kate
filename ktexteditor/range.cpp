@@ -441,11 +441,11 @@ void KTextEditor::SmartRangeWatcher::contentsChanged( SmartRange * )
 {
 }
 
-void KTextEditor::SmartRangeWatcher::boundaryDeleted( SmartRange * , bool )
+void KTextEditor::SmartRangeWatcher::eliminated( SmartRange * )
 {
 }
 
-void KTextEditor::SmartRangeWatcher::eliminated( SmartRange * )
+/*void KTextEditor::SmartRangeWatcher::boundaryDeleted( SmartRange * , bool )
 {
 }
 
@@ -455,7 +455,7 @@ void KTextEditor::SmartRangeWatcher::firstCharacterDeleted( SmartRange * )
 
 void KTextEditor::SmartRangeWatcher::lastCharacterDeleted( SmartRange * )
 {
-}
+}*/
 
 #include "range.moc"
 

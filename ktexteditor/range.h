@@ -375,10 +375,13 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
     void contentsChanged(KTextEditor::SmartRange* range);
 
     /**
+     * NOTE: this signal does not appear to be useful on reflection.
+     * if you want it, please email rodda@kde.org
+     *
      * Either cursor's surrounding characters were both deleted.
      * \param start true if the start boundary was deleted, false if the end boundary was deleted.
-     */
-    void boundaryDeleted(KTextEditor::SmartRange* range, bool start);
+     *
+    void boundaryDeleted(KTextEditor::SmartRange* range, bool start);*/
 
     /**
      * The range now contains no characters (ie. the start and end cursors are the same).
@@ -386,14 +389,20 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
     void eliminated(KTextEditor::SmartRange* range);
 
     /**
+     * NOTE: this signal does not appear to be useful on reflection.
+     * if you want it, please email rodda@kde.org
+     *
      * The first character of this range was deleted.
-     */
+     *
     void firstCharacterDeleted(KTextEditor::SmartRange* range);
 
-    /**
+    **
+     * NOTE: this signal does not appear to be useful on reflection.
+     * if you want it, please email rodda@kde.org
+     *
      * The last character of this range was deleted.
-     */
-    void lastCharacterDeleted(KTextEditor::SmartRange* range);
+     *
+    void lastCharacterDeleted(KTextEditor::SmartRange* range);*/
 };
 
 /**
@@ -422,10 +431,13 @@ class KTEXTEDITOR_EXPORT SmartRangeWatcher
     virtual void contentsChanged(SmartRange* range);
 
     /**
+     * NOTE: this signal does not appear to be useful on reflection.
+     * if you want it, please email rodda@kde.org
+     *
      * Either cursor's surrounding characters were both deleted.
      * \param start true if the start boundary was deleted, false if the end boundary was deleted.
-     */
-    virtual void boundaryDeleted(SmartRange* range, bool start);
+     *
+    virtual void boundaryDeleted(SmartRange* range, bool start);*/
 
     /**
      * The range now contains no characters (ie. the start and end cursors are the same).
@@ -433,14 +445,20 @@ class KTEXTEDITOR_EXPORT SmartRangeWatcher
     virtual void eliminated(SmartRange* range);
 
     /**
+     * NOTE: this signal does not appear to be useful on reflection.
+     * if you want it, please email rodda@kde.org
+     *
      * The first character of this range was deleted.
-     */
-    virtual void firstCharacterDeleted(SmartRange* range);
+     *
+    virtual void firstCharacterDeleted(SmartRange* range);*/
 
     /**
+     * NOTE: this signal does not appear to be useful on reflection.
+     * if you want it, please email rodda@kde.org
+     *
      * The last character of this range was deleted.
-     */
-    virtual void lastCharacterDeleted(SmartRange* range);
+     *
+    virtual void lastCharacterDeleted(SmartRange* range);*/
 };
 
 /**
@@ -516,7 +534,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     SmartRange* childBefore(const SmartRange* range) const;
     SmartRange* childAfter(const SmartRange* range) const;
-    const QList<SmartRange*>& childRanges() const;
+    inline const QList<SmartRange*>& childRanges() const { return m_childRanges; }
     bool insertChildRange(SmartRange* newChild, const SmartRange* before);
     void clearAllChildRanges();
     void deleteAllChildRanges();

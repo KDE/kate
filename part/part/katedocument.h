@@ -103,6 +103,7 @@ class KATE_TESTONLY_EXPORT KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::MarkInterface)
   Q_INTERFACES(KTextEditor::VariableInterface)
   Q_INTERFACES(KTextEditor::ModificationInterface)
+  Q_INTERFACES(KTextEditor::SmartInterface)
 
   friend class KateViewInternal;
   friend class KateRenderer;

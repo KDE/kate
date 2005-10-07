@@ -33,7 +33,6 @@
 #include <kdeversion.h>
 #include <kaboutapplication.h>
 #include <dcopclient.h>
-#include <kurldrag.h>
 #include <kencodingfiledialog.h>
 #include <kdiroperator.h>
 #include <kiconloader.h>
@@ -59,6 +58,7 @@
 #include <kconfig.h>
 #include <kdebug.h>
 #include <kstringhandler.h>
+#include <kxmlguifactory.h>
 
 #include <QStackedWidget>
 #include <qpainter.h>
@@ -90,8 +90,6 @@ KWrite::KWrite (KTextEditor::Document *doc)
       m_paShowPath(0),
       m_paShowStatusBar(0)
 {
-  setMinimumSize(200,200);
-
   if ( !doc )
   {
     KTextEditor::Editor *editor = KTextEditor::EditorChooser::editor();
@@ -138,12 +136,12 @@ KWrite::KWrite (KTextEditor::Document *doc)
   // install a working kate part popup dialog thingy
   m_view->setContextMenu ((QMenu*)(factory()->container("ktexteditor_popup", this)) );
 
-  // call it as last thing, must be sure everything is already set up ;)
-  setAutoSaveSettings ("MainWindow Settings");
-
   // init with more usefull size, stolen from konq :)
-  if ( !initialGeometrySet() && !kapp->config()->hasGroup("MainWindow Settings"))
-    resize( 700, 480 );
+  if (!initialGeometrySet())
+    resize( QSize(700, 480).expandedTo(minimumSizeHint()));
+
+  // call it as last thing, must be sure everything is already set up ;)
+  setAutoSaveSettings ();
 
   readConfig ();
 
@@ -361,7 +359,8 @@ void KWrite::editToolbars()
 
 void KWrite::dragEnterEvent( QDragEnterEvent *event )
 {
-  event->accept(KURLDrag::canDecode(event));
+  KURL::List uriList = KURL::List::fromMimeData( event->mimeData() );
+  event->accept(!uriList.isEmpty());
 }
 
 void KWrite::dropEvent( QDropEvent *event )
@@ -371,9 +370,9 @@ void KWrite::dropEvent( QDropEvent *event )
 
 void KWrite::slotDropEvent( QDropEvent *event )
 {
-  KURL::List textlist;
+  KURL::List textlist = KURL::List::fromMimeData( event->mimeData() );
 
-  if (!KURLDrag::decode(event, textlist))
+  if (textlist.isEmpty())
     return;
 
   for (KURL::List::Iterator i=textlist.begin(); i != textlist.end(); ++i)
@@ -704,7 +703,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-  if (QApplication::isSessionRestored())
+  if (a.isSessionRestored())
   {
     KWrite::restore();
   }

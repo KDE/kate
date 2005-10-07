@@ -79,9 +79,9 @@ class KTEXTEDITOR_EXPORT SmartInterface
     virtual SmartRange* newSmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, int insertBehaviour = SmartRange::DoNotExpand) = 0;
 };
 
-KTEXTEDITOR_EXPORT SmartInterface *smartInterface(class Document *doc);
-
 }
+
+Q_DECLARE_INTERFACE(KTextEditor::SmartInterface, "org.kde.KTextEditor.SmartInterface")
 
 #endif
 

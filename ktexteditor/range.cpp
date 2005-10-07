@@ -100,6 +100,19 @@ Range::~Range()
   delete m_end;
 }
 
+bool KTextEditor::Range::isValid( ) const
+{
+  return start().line() >= 0 && start().column() >= 0;
+}
+
+const Range& Range::invalid()
+{
+  static Range r;
+  if (r.start().line() != -1)
+    r.setRange(Cursor(-1,-1),Cursor(-1,-1));
+  return r;
+}
+
 Range& Range::operator= (const Range& rhs)
 {
   if (this == &rhs)
@@ -216,17 +229,15 @@ void SmartRange::confineToRange(const Range& range)
     child->confineToRange(*this);
 }
 
-SmartRange::SmartRange(SmartCursor* start, SmartCursor* end, SmartRange * parent, int insertBehaviour )
+SmartRange::SmartRange(SmartCursor* start, SmartCursor* end, SmartRange * parent, InsertBehaviours insertBehaviour )
   : Range(start, end)
   , m_attribute(0L)
   , m_parentRange(parent)
-  , m_insertBehaviour(insertBehaviour)
   , m_ownsAttribute(false)
 {
   start->setBelongsToRange(this);
-  start->setMoveOnInsert(m_insertBehaviour & ExpandLeft);
   end->setBelongsToRange(this);
-  end->setMoveOnInsert(m_insertBehaviour & ExpandRight);
+  setInsertBehaviour(insertBehaviour);
 }
 
 SmartRange * SmartRange::childBefore( const SmartRange * range ) const
@@ -245,18 +256,9 @@ SmartRange * SmartRange::childAfter( const SmartRange * range ) const
   return 0L;
 }
 
-void SmartRange::setAttribute( Attribute * attribute, bool ownsAttribute )
-{
-  if (m_ownsAttribute)
-      delete m_attribute;
-  m_attribute = attribute;
-  m_ownsAttribute = ownsAttribute;
-}
-
 SmartRange::~SmartRange( )
 {
-  if (m_ownsAttribute)
-    delete m_attribute;
+  setAttribute(0L);
 
   /*if (!m_deleteCursors)
   {
@@ -389,12 +391,12 @@ void SmartRange::detachAction( KAction * action )
     checkFeedback();
 }
 
-int SmartRange::insertBehaviour( ) const
+SmartRange::InsertBehaviours SmartRange::insertBehaviour( ) const
 {
   return (smartStart().moveOnInsert() ? DoNotExpand : ExpandLeft) | (smartEnd().moveOnInsert() ? ExpandRight : DoNotExpand);
 }
 
-void SmartRange::setInsertBehaviour(int behaviour)
+void SmartRange::setInsertBehaviour(SmartRange::InsertBehaviours behaviour)
 {
   static_cast<SmartCursor*>(m_start)->setMoveOnInsert(behaviour & ExpandLeft);
   static_cast<SmartCursor*>(m_end)->setMoveOnInsert(!(behaviour & ExpandRight));
@@ -421,12 +423,9 @@ void SmartRange::deleteAllChildRanges()
   }
 }
 
-const Range& Range::invalid()
+void KTextEditor::SmartRange::setParentRange( SmartRange * r )
 {
-  static Range r;
-  if (r.start().line() != -1)
-    r.setRange(Cursor(-1,-1),Cursor(-1,-1));
-  return r;
+  m_parentRange = r;
 }
 
 KTextEditor::SmartRangeWatcher::~ SmartRangeWatcher( )
@@ -443,6 +442,24 @@ void KTextEditor::SmartRangeWatcher::contentsChanged( SmartRange * )
 
 void KTextEditor::SmartRangeWatcher::eliminated( SmartRange * )
 {
+}
+
+void SmartRange::setAttribute( Attribute * attribute, bool ownsAttribute )
+{
+  if (m_attribute)
+    m_attribute->removeRange(this);
+
+  if (m_ownsAttribute) delete m_attribute;
+
+  m_attribute = attribute;
+  m_ownsAttribute = ownsAttribute;
+  if (m_attribute)
+    m_attribute->addRange(this);
+}
+
+Attribute * KTextEditor::SmartRange::attribute( ) const
+{
+  return m_attribute;
 }
 
 /*void KTextEditor::SmartRangeWatcher::boundaryDeleted( SmartRange * , bool )

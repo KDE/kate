@@ -29,6 +29,8 @@ Attribute::Attribute()
   , m_bgColorFillWhitespace(false)
   , m_itemsSet(0)
 {
+  for (int i = 0; i < 4; ++i)
+    m_dynamicAttributes[i] = 0L;
 }
 
 Attribute::~Attribute()
@@ -235,6 +237,32 @@ void Attribute::setSelectedBGColor(const QColor& color)
 bool operator !=(const Attribute& h1, const Attribute& h2)
 {
   return !(h1 == h2);
+}
+
+void KTextEditor::Attribute::addRange( SmartRange * range )
+{
+  m_usingRanges.append(range);
+}
+
+void KTextEditor::Attribute::removeRange( SmartRange * range )
+{
+  m_usingRanges.remove(range);
+}
+
+Attribute * KTextEditor::Attribute::dynamicAttribute( ActivationFlags activationFlags ) const
+{
+  switch (activationFlags) {
+    case ActivateCaretIn:
+      return m_dynamicAttributes[0];
+    case ActivateCaretOut:
+      return m_dynamicAttributes[1];
+    case ActivateMouseIn:
+      return m_dynamicAttributes[2];
+    case ActivateMouseOut:
+      return m_dynamicAttributes[3];
+    default:
+      return 0L;
+  }
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

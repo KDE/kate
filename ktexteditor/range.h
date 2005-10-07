@@ -30,7 +30,6 @@ class KAction;
 namespace KTextEditor
 {
 class Attribute;
-class AttributeGroup;
 
 /**
  * \short A Range represents a section of text, from one Cursor to another.
@@ -102,13 +101,19 @@ class KTEXTEDITOR_EXPORT Range
     /**
      * Validity check.  In the base class, returns true unless the range starts before (0,0).
      */
-    virtual bool isValid() const { return start().line() >= 0 && start().column() >= 0; }
+    virtual bool isValid() const;
     static const Range& invalid();
 
     /**
-     * Get the start point of this range. This will always be >= start().
+     * Get the start point of this range. This will always be <= end().
+     * This non-const function allows direct manipulation of end(), while still retaining
+     * notification support.
      */
     inline Cursor& start() { return *m_start; }
+
+    /**
+     * Get the start point of this range. This will always be <= end().
+     */
     inline const Cursor& start() const { return *m_start; }
 
     /**
@@ -202,12 +207,15 @@ class KTEXTEDITOR_EXPORT Range
      */
     bool includesLine(int line) const;
 
-
     /**
      * Returns true if this range spans \p colmun.
      */
     bool spansColumn(int column) const;
 
+    /**
+     * Returns true if \p cursor is wholly contained within this range, ie >= start() and \< end().
+     * \param cursor Cursor to test for containment
+     */
     bool contains(const Cursor& cursor) const;
 
     /**
@@ -489,6 +497,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
       /// Expand to encapsulate new characters to the right of the range.
       ExpandRight = 0x2
     };
+    Q_DECLARE_FLAGS(InsertBehaviours, InsertBehaviour);
 
     virtual ~SmartRange();
 
@@ -506,7 +515,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     /**
      * Returns how this range reacts to characters inserted immediately outside the range.
      */
-    int insertBehaviour() const;
+    InsertBehaviours insertBehaviour() const;
 
     /**
      * Determine how the range should react to characters inserted immediately outside the range.
@@ -516,7 +525,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      *
      * @sa InsertBehaviour
      */
-    void setInsertBehaviour(int behaviour);
+    void setInsertBehaviour(InsertBehaviours behaviour);
     // END
 
     // BEGIN Relationships to other ranges
@@ -526,7 +535,15 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * At all times, this range will be contained within parentRange().
      */
     inline SmartRange* parentRange() const { return m_parentRange; }
-    virtual void setParentRange(SmartRange* r) { m_parentRange = r; }
+
+    /**
+     * Set this range's parent range.
+     *
+     * At all times, this range will be contained within parentRange().  So, if it is outside of the
+     * new parent, it will be constrained automatically.
+     */
+    virtual void setParentRange(SmartRange* r);
+
     /// Overloaded to confine child ranges as well.
     virtual void confineToRange(const Range& range);
 
@@ -558,32 +575,40 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     // BEGIN Arbitrary highlighting
     /**
-     * @returns the active Attribute for this range.
+     * Gets the active Attribute for this range.  If one was set directly, it will be returned.
+     * If not, when there is an attributeGroup() defined for this range, and followActiveGroup() is true,
+     * the currently active Attribute from the attributeGroup() will be returned.
      */
-    inline Attribute* attribute() const { return m_attribute; }
+    Attribute* attribute() const;
 
     /**
      * Sets the currently active attribute for this range.
+     *
+     * \param attribute Attribute to assign to this range.  If this is null, the AttributeGroup system will take over.
+     * \param ownsAttribute Set to true when this object should take ownership of \p attribute.
+     *                      If true, \p attribute will be deleted when this cursor is deleted.
      */
-    void setAttribute(Attribute* attribute, bool ownsAttribute = true);
-
-    /**
-      * Set a group of attributes
-      *
-      * This range automatically assumes styles, actions, etc from the group
-      * definition.
-      */
-    //void setAttributeGroup(AttributeGroup* group);
+    virtual void setAttribute(Attribute* attribute, bool ownsAttribute = false);
     // END
 
+    // BEGIN Action binding
     /**
-     * Attach an action to this range.  The action is enabled when the range is
-     * entered by the caret, and disabled on exit.  Where appropriate, the action
-     * is also added to the context menu when the caret is over this range.
+     * Attach an action to this range.  This will enable the attached action(s) when the caret
+     * enters the range, and disable them on exit.  The action is also added to the context menu when
+     * the caret is within the range.
      */
     void attachAction(KAction* action);
+
+    /**
+     * Remove an action from this range.
+     */
     void detachAction(KAction* action);
+
+    /**
+     * Returns a list of currently associated KActions.
+     */
     const QList<KAction*>& associatedActions() const { return m_associatedActions; }
+    // END
 
     // BEGIN Notification methods
     /**
@@ -608,7 +633,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     // END
 
   protected:
-    SmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, int insertBehaviour = DoNotExpand);
+    SmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, InsertBehaviours insertBehaviour = DoNotExpand);
 
     /**
      * Implementation detail.
@@ -616,18 +641,18 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      */
     virtual void checkFeedback() = 0;
 
-    QList<KAction*> m_associatedActions;
-
   private:
     Q_DISABLE_COPY(SmartRange)
 
     Attribute* m_attribute;
     SmartRange* m_parentRange;
     QList<SmartRange*> m_childRanges;
+    QList<KAction*> m_associatedActions;
 
-    int   m_insertBehaviour;
-    bool  m_ownsAttribute   :1;
+    bool              m_ownsAttribute     :1;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(SmartRange::InsertBehaviours);
 
 }
 

@@ -26,7 +26,7 @@
 
 #include <kdebug.h>
 
-KateSmartRange::KateSmartRange(const KTextEditor::Range& range, KateDocument* doc, KTextEditor::SmartRange* parent, int insertBehaviour)
+KateSmartRange::KateSmartRange(const KTextEditor::Range& range, KateDocument* doc, KTextEditor::SmartRange* parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour)
   : KTextEditor::SmartRange(new KateSmartCursor(range.start(), doc), new KateSmartCursor(range.end(), doc), parent, insertBehaviour)
   , m_notifier(0L)
   , m_watcher(0L)
@@ -50,7 +50,7 @@ KateSmartRange::KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* paren
 {
 }
 
-KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, KTextEditor::SmartRange * parent, int insertBehaviour )
+KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour )
   : KTextEditor::SmartRange(start, end, parent, insertBehaviour)
   , m_notifier(0L)
   , m_watcher(0L)
@@ -77,113 +77,6 @@ bool KateSmartRange::isValid() const
   return start() <= end();
 }
 
-/*void KateSmartRange::slotEvaluateChanged()
-{
-  if (sender() == dynamic_cast<QObject*>(m_start)) {
-    if (m_evaluate) {
-      if (!m_endChanged) {
-        // Only one was changed
-        evaluateEliminated();
-
-      } else {
-        // Both were changed
-        evaluatePositionChanged();
-        m_endChanged = false;
-      }
-
-    } else {
-      m_startChanged = true;
-    }
-
-  } else {
-    if (m_evaluate) {
-      if (!m_startChanged) {
-        // Only one was changed
-        evaluateEliminated();
-
-      } else {
-        // Both were changed
-        evaluatePositionChanged();
-        m_startChanged = false;
-      }
-
-    } else {
-      m_endChanged = true;
-    }
-  }
-
-  m_evaluate = !m_evaluate;
-}
-
-void KateSmartRange::slotEvaluateUnChanged()
-{
-  if (sender() == dynamic_cast<QObject*>(m_start)) {
-    if (m_evaluate) {
-      if (m_endChanged) {
-        // Only one changed
-        evaluateEliminated();
-        m_endChanged = false;
-
-      } else {
-        // Neither changed
-        emit positionUnChanged();
-      }
-    }
-
-  } else {
-    if (m_evaluate) {
-      if (m_startChanged) {
-        // Only one changed
-        evaluateEliminated();
-        m_startChanged = false;
-
-      } else {
-        // Neither changed
-        emit positionUnChanged();
-      }
-    }
-  }
-
-  m_evaluate = !m_evaluate;
-}
-
-void KateSmartRange::slotTagRange()
-{
-  if (m_attachActions & TagLines)
-    if (m_attachedView)
-      m_attachedView->tagRange(*this);
-    else
-      doc()->tagLines(start(), end());
-
-  if (m_attachActions & Redraw)
-    if (m_attachedView)
-      m_attachedView->repaintText(true);
-    else
-      doc()->repaintViews(true);
-  //else
-    //FIXME this method doesn't exist??
-    //doc()->updateViews();
-
-  emit tagRange(this);
-}
-
-void KateSmartRange::evaluateEliminated()
-{
-  if (start() == end()) {
-    if (!m_allowZeroLength) emit eliminated();
-  }
-  else
-    emit contentsChanged();
-}
-
-void KateSmartRange::evaluatePositionChanged()
-{
-  if (start() == end())
-    emit eliminated();
-  else
-    emit positionChanged();
-}*/
-
 void KateSmartRange::slotMousePositionChanged(const KTextEditor::Cursor& newPosition)
 {
   bool includesMouse = contains(newPosition);
@@ -206,34 +99,12 @@ void KateSmartRange::slotCaretPositionChanged(const KTextEditor::Cursor& newPosi
 
 void KateSmartRange::checkFeedback( )
 {
-  // FIXME don't set max feedback level if the feedback objects don't need it.
-  /*int feedbackNeeded = (m_watcher || m_notifier) ? PositionChanged : NoFeedback;
-  if (m_feedbackLevel != feedbackNeeded) {
-    setFeedbackLevel(feedbackNeeded);
-  }*/
 }
 
 KateDocument * KateSmartRange::kateDocument( ) const
 {
   return static_cast<KateDocument*>(document());
 }
-
-/*void KateSmartRange::setFeedbackLevel( int feedbackLevel, bool request )
-{
-  int oldFeedbackLevel = m_feedbackLevel;
-  m_feedbackLevel = feedbackLevel;
-  if (request)
-    kateDocument()->smartManager()->requestFeedback(this, oldFeedbackLevel);
-}*/
-
-/*KTextEditor::Attribute * KateSmartRange::attribute( ) const
-{
-  if (owningList() && owningList()->rangeType())
-    if (KTextEditor::Attribute* a = owningList()->rangeType()->activatedAttribute(m_mouseOver, m_caretOver))
-      return a;
-
-  return 0L;
-}*/
 
 KateSmartRangeNotifier::KateSmartRangeNotifier(KateSmartRange* owner)
   : m_owner(owner)

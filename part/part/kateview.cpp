@@ -44,7 +44,6 @@
 #include "kateconfig.h"
 #include "katefiletype.h"
 #include "kateautoindent.h"
-#include "katearbitraryhighlight.h"
 #include "katespell.h"
 
 #include <ktexteditor/plugin.h>
@@ -1911,6 +1910,36 @@ bool KateView::unregisterCompletionProvider(KTextEditor::CompletionProvider* pro
 bool KateView::tagLines( KTextEditor::Range range, bool realRange )
 {
   return tagLines(range.start(), range.end(), realRange);
+}
+
+void KateView::addHighlight( KTextEditor::SmartRange * topRange )
+{
+  m_highlights.append(topRange);
+}
+
+void KateView::removeHighlight( KTextEditor::SmartRange * topRange )
+{
+  m_highlights.remove(topRange);
+}
+
+const QList< KTextEditor::SmartRange * > & KateView::highlights( ) const
+{
+  return m_highlights;
+}
+
+void KateView::addActions( KTextEditor::SmartRange * topRange )
+{
+  m_actions.append(topRange);
+}
+
+void KateView::removeActions( KTextEditor::SmartRange * topRange )
+{
+  m_actions.remove(topRange);
+}
+
+const QList< KTextEditor::SmartRange * > & KateView::actions( ) const
+{
+  return m_actions;
 }
 
 

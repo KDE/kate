@@ -50,9 +50,17 @@ KTextEditor::SmartCursor * KateSmartManager::newSmartCursor( const KTextEditor::
   return new KateSmartCursor(position, doc(), moveOnInsert);
 }
 
-KTextEditor::SmartRange * KateSmartManager::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, int insertBehaviour )
+KTextEditor::SmartRange * KateSmartManager::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour )
 {
   KateSmartRange* newRange = new KateSmartRange(range, doc(), parent, insertBehaviour);
+  if (!parent)
+    rangeLostParent(newRange);
+  return newRange;
+}
+
+KTextEditor::SmartRange * KateSmartManager::newSmartRange( KateSmartCursor * start, KateSmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour )
+{
+  KateSmartRange* newRange = new KateSmartRange(start, end, parent, insertBehaviour);
   if (!parent)
     rangeLostParent(newRange);
   return newRange;

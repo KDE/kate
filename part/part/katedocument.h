@@ -66,7 +66,6 @@ class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
 class KateViewInternal;
-class KateArbitraryHighlight;
 class KateSmartRange;
 class KateLineInfo;
 class KateBrowserExtension;
@@ -402,15 +401,6 @@ class KATE_TESTONLY_EXPORT KateDocument : public KTextEditor::Document,
     void hlChanged ();
 
   //
-  // Kate::ArbitraryHighlightingInterface stuff
-  //
-  public:
-    KateArbitraryHighlight* arbitraryHL() const { return m_arbitraryHL; };
-
-  private slots:
-    void tagArbitraryLines(KateView* view, KTextEditor::Range* range);
-
-  //
   // KTextEditor::ConfigInterface stuff
   //
   public:
@@ -500,13 +490,39 @@ class KATE_TESTONLY_EXPORT KateDocument : public KTextEditor::Document,
   //
   public:
     virtual KTextEditor::SmartCursor* newSmartCursor(const KTextEditor::Cursor& position, bool moveOnInsert = true);
-    virtual KTextEditor::SmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, int insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
-    virtual KTextEditor::SmartRange* newSmartRange(KTextEditor::SmartCursor* start, KTextEditor::SmartCursor* end, KTextEditor::SmartRange* parent = 0L, int insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
+    virtual KTextEditor::SmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
+    virtual KTextEditor::SmartRange* newSmartRange(KTextEditor::SmartCursor* start, KTextEditor::SmartCursor* end, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
+
+    // BEGIN Syntax highlighting extension
+    virtual void addHighlightToDocument(KTextEditor::SmartRange* topRange);
+    virtual void removeHighlightFromDocument(KTextEditor::SmartRange* topRange);
+    virtual const QList<KTextEditor::SmartRange*>& documentHighlights() const;
+
+    virtual void addHighlightToView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
+    virtual void removeHighlightFromView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
+    virtual const QList<KTextEditor::SmartRange*>& viewHighlights(KTextEditor::View* view) const;
+    // END
+
+    // BEGIN Action binding extension
+    virtual void addActionsToDocument(KTextEditor::SmartRange* topRange);
+    virtual void removeActionsFromDocument(KTextEditor::SmartRange* topRange);
+    virtual const QList<KTextEditor::SmartRange*>& documentActions() const;
+
+    virtual void addActionsToView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
+    virtual void removeActionsFromView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
+    virtual const QList<KTextEditor::SmartRange*>& viewActions(KTextEditor::View* view) const;
+    // END
 
     KateSmartManager* smartManager() const { return m_smartManager; }
 
+  protected:
+    virtual void attributeDynamic(KTextEditor::Attribute* a);
+    virtual void attributeNotDynamic(KTextEditor::Attribute* a);
+
   private:
     KateSmartManager* m_smartManager;
+    QList<KTextEditor::SmartRange*> m_documentHighlights;
+    QList<KTextEditor::SmartRange*> m_documentActions;
 
   //
   // KParts::ReadWrite stuff
@@ -843,8 +859,6 @@ class KATE_TESTONLY_EXPORT KateDocument : public KTextEditor::Document,
   private:
     // text buffer
     KateBuffer *m_buffer;
-
-    KateArbitraryHighlight* m_arbitraryHL;
 
     KateAutoIndent *m_indenter;
 

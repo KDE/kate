@@ -33,7 +33,6 @@
 #include "kateprinter.h"
 #include "katelinerange.h"
 #include "katesmartcursor.h"
-#include "katearbitraryhighlight.h"
 #include "katerenderer.h"
 #include <ktexteditor/attribute.h>
 #include "kateconfig.h"
@@ -173,7 +172,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_buffer->setHighlight (0);
 
   m_extension = new KateBrowserExtension( this );
-  m_arbitraryHL = new KateArbitraryHighlight();
   m_indenter = KateAutoIndent::createIndenter ( this, 0 );
 
   m_indenter->updateConfig ();
@@ -184,9 +182,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   // if the user changes the highlight with the dialog, notify the doc
   connect(KateHlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));
-
-  // signal for the arbitrary HL
-  connect(m_arbitraryHL, SIGNAL(tagLines(KateView*, KTextEditor::Range*)), SLOT(tagArbitraryLines(KateView*, KTextEditor::Range*)));
 
   // signals for mod on hd
   connect( KateGlobal::self()->dirWatch(), SIGNAL(dirty (const QString &)),
@@ -240,8 +235,6 @@ KateDocument::~KateDocument()
   }
 
   delete m_editCurrentUndo;
-
-  delete m_arbitraryHL;
 
   // cleanup the undo items, very important, truee :/
   undoItems.setAutoDelete(true);
@@ -4150,14 +4143,6 @@ void KateDocument::dumpRegionTree()
 }
 //END
 
-void KateDocument::tagArbitraryLines(KateView* view, KTextEditor::Range* range)
-{
-  if (view)
-    view->tagLines(range->start(), range->end());
-  else
-    tagLines(range->start(), range->end());
-}
-
 void KateDocument::lineInfo (KateLineInfo *info, unsigned int line)
 {
   m_buffer->lineInfo(info,line);
@@ -4707,12 +4692,12 @@ KTextEditor::SmartCursor* KateDocument::newSmartCursor( const KTextEditor::Curso
   return m_smartManager->newSmartCursor(position, moveOnInsert);
 }
 
-KTextEditor::SmartRange * KateDocument::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, int insertBehaviour )
+KTextEditor::SmartRange * KateDocument::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour )
 {
   return m_smartManager->newSmartRange( range, parent, insertBehaviour );
 }
 
-KTextEditor::SmartRange * KateDocument::newSmartRange( KTextEditor::SmartCursor * start, KTextEditor::SmartCursor * end, KTextEditor::SmartRange * parent, int insertBehaviour )
+KTextEditor::SmartRange * KateDocument::newSmartRange( KTextEditor::SmartCursor * start, KTextEditor::SmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour )
 {
   KateSmartCursor* kstart = dynamic_cast<KateSmartCursor*>(start);
   KateSmartCursor* kend = dynamic_cast<KateSmartCursor*>(end);
@@ -4720,7 +4705,7 @@ KTextEditor::SmartRange * KateDocument::newSmartRange( KTextEditor::SmartCursor 
     return 0L;
   if (kstart->belongsToRange() || kend->belongsToRange())
     return 0L;
-  return new KateSmartRange(kstart, kend, parent, insertBehaviour);
+  return m_smartManager->newSmartRange(kstart, kend, parent, insertBehaviour);
 }
 
 bool KateDocument::replaceText( const KTextEditor::Range & range, const QString & s, bool block )
@@ -4729,6 +4714,76 @@ bool KateDocument::replaceText( const KTextEditor::Range & range, const QString 
   bool changed = removeText(range, block);
   changed |= insertText(range.start(), s, block);
   return changed;
+}
+
+void KateDocument::addHighlightToDocument( KTextEditor::SmartRange * topRange )
+{
+  m_documentHighlights.append(topRange);
+}
+
+void KateDocument::removeHighlightFromDocument( KTextEditor::SmartRange * topRange )
+{
+  m_documentHighlights.remove(topRange);
+}
+
+const QList< KTextEditor::SmartRange * > & KateDocument::documentHighlights( ) const
+{
+  return m_documentHighlights;
+}
+
+void KateDocument::addHighlightToView( KTextEditor::View * view, KTextEditor::SmartRange * topRange )
+{
+  static_cast<KateView*>(view)->addHighlight(topRange);
+}
+
+void KateDocument::removeHighlightFromView( KTextEditor::View * view, KTextEditor::SmartRange * topRange )
+{
+  static_cast<KateView*>(view)->removeHighlight(topRange);
+}
+
+const QList< KTextEditor::SmartRange * > & KateDocument::viewHighlights( KTextEditor::View * view ) const
+{
+  return static_cast<KateView*>(view)->highlights();
+}
+
+void KateDocument::addActionsToDocument( KTextEditor::SmartRange * topRange )
+{
+  m_documentActions.append(topRange);
+}
+
+void KateDocument::removeActionsFromDocument( KTextEditor::SmartRange * topRange )
+{
+  m_documentActions.remove(topRange);
+}
+
+const QList< KTextEditor::SmartRange * > & KateDocument::documentActions( ) const
+{
+  return m_documentActions;
+}
+
+void KateDocument::addActionsToView( KTextEditor::View * view, KTextEditor::SmartRange * topRange )
+{
+  static_cast<KateView*>(view)->addActions(topRange);
+}
+
+void KateDocument::removeActionsFromView( KTextEditor::View * view, KTextEditor::SmartRange * topRange )
+{
+  static_cast<KateView*>(view)->removeActions(topRange);
+}
+
+const QList< KTextEditor::SmartRange * > & KateDocument::viewActions( KTextEditor::View * view ) const
+{
+  return static_cast<KateView*>(view)->actions();
+}
+
+void KateDocument::attributeDynamic( KTextEditor::Attribute * )
+{
+  // TODO link in with cursor + mouse tracking
+}
+
+void KateDocument::attributeNotDynamic( KTextEditor::Attribute * )
+{
+  // TODO de-link cursor + mouse tracking
 }
 
 //END KTextEditor::SmartInterface

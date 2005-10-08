@@ -248,6 +248,26 @@ class KateView : public KTextEditor::View,
     bool selectAll();
 
   //
+  // Arbitrary Syntax HL + Action extensions
+  //
+  public:
+    // BEGIN Syntax highlighting extension
+    void addHighlight(KTextEditor::SmartRange* topRange);
+    void removeHighlight(KTextEditor::SmartRange* topRange);
+    const QList<KTextEditor::SmartRange*>& highlights() const;
+    // END
+
+    // BEGIN Action binding extension
+    void addActions(KTextEditor::SmartRange* topRange);
+    void removeActions(KTextEditor::SmartRange* topRange);
+    const QList<KTextEditor::SmartRange*>& actions() const;
+    // END
+
+  private:
+    QList<KTextEditor::SmartRange*> m_highlights;
+    QList<KTextEditor::SmartRange*> m_actions;
+
+  //
   // internal helper stuff, for katerenderer and so on
   //
   public:

@@ -52,7 +52,8 @@ class KATE_TESTONLY_EXPORT KateSmartManager : public QObject
     KateDocument* doc() const;
 
     KTextEditor::SmartCursor* newSmartCursor(const KTextEditor::Cursor& position, bool moveOnInsert = true);
-    KTextEditor::SmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, int insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
+    KTextEditor::SmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
+    KTextEditor::SmartRange* newSmartRange(KateSmartCursor* start, KateSmartCursor* end, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
 
     void rangeGotParent(KateSmartRange* range);
     void rangeLostParent(KateSmartRange* range);

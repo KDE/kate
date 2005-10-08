@@ -20,9 +20,10 @@
 #include "katetemplatehandler.moc"
 #include "katedocument.h"
 #include "katesmartcursor.h"
-#include "katearbitraryhighlight.h"
 #include "kateview.h"
 #include "katerangetype.h"
+
+#include <ktexteditor/attribute.h>
 
 #include <qregexp.h>
 #include <kdebug.h>
@@ -50,8 +51,8 @@ KateTemplateHandler::KateTemplateHandler(
     return ;
   }
 
-  KateArbitraryHighlight *kah = doc->arbitraryHL();
-  /*KateArbitraryHighlightRange *hlr=new KateArbitraryHighlightRange(doc,KTextEditor::Cursor(line,column),
+  /*KateArbitraryHighlight *kah = doc->arbitraryHL();
+  KateArbitraryHighlightRange *hlr=new KateArbitraryHighlightRange(doc,KTextEditor::Cursor(line,column),
    KTextEditor::Cursor(line,column+3));
   hlr->setUnderline(true);
   hlr->setOverline(true);
@@ -112,7 +113,7 @@ KateTemplateHandler::KateTemplateHandler(
   doc->undoSafePoint();
   doc->editEnd();
   generateRangeTable( position, insertString, buildList );
-  kah->addHighlightToDocument( m_ranges );
+  //kah->addHighlightToDocument( m_ranges );
 
     //m_ranges->tagAll();
 

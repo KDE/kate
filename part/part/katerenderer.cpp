@@ -23,7 +23,6 @@
 
 #include "katelinerange.h"
 #include "katedocument.h"
-#include "katearbitraryhighlight.h"
 #include "kateconfig.h"
 #include "katehighlight.h"
 #include "kateview.h"
@@ -475,7 +474,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
   bool showCursor = drawCaret() && cursor && range->includesCursor(*cursor);
 
-  RenderRangeList renderRanges(m_doc->arbitraryHL()->startingRanges(range->start(), m_view));
+  //RenderRangeList renderRanges(m_doc->arbitraryHL()->startingRanges(range->start(), m_view));
 
   // should the cursor be painted (if it is in the current xstart - xend range)
   int cursorMaxWidth = 0;
@@ -509,7 +508,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     paint.drawLine(0, (fs->fontHeight * range->viewLineCount()) - 1, xEnd - xStart, (fs->fontHeight * range->viewLineCount()) - 1);
   }
 
-  KTextEditor::Attribute customHL = renderRanges.generateAttribute();
+  //KTextEditor::Attribute customHL = renderRanges.generateAttribute();
 
   if (range->layout()) {
     if (range->length() > 0) {

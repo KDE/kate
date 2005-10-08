@@ -79,6 +79,8 @@ Attribute& Attribute::operator+=(const Attribute& a)
   if (a.itemSet(SelectedBGColor))
     setSelectedBGColor(a.selectedBGColor());
 
+  m_associatedActions += a.associatedActions();
+
   return *this;
 }
 

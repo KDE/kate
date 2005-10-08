@@ -183,6 +183,8 @@ public:
      * Text width & height calculation functions...
      */
     void layoutLine(KateLineLayoutPtr line, int maxwidth = -1, bool cacheLayout = false) const;
+    QVector<QTextLayout::FormatRange> selectionDecorationsForLine(KateLineLayoutPtr range) const;
+    QList<QTextLayout::FormatRange> decorationsForLine(KateLineLayoutPtr range) const;
 
     // Width calculators
     uint spaceWidth() const;
@@ -214,14 +216,19 @@ public:
     uint documentHeight();
 
     // Selection boundaries
-    bool getSelectionBounds(int line, int lineLength, int &start, int &end);
+    bool getSelectionBounds(int line, int lineLength, int &start, int &end) const;
 
     /**
      * This is the ultimate function to perform painting of a text line.
-     * (supports startcol/endcol, startx/endx)
      *
      * The text line is painted from the upper limit of (0,0).  To move that,
      * apply a transform to your painter.
+     *
+     * @param paint           painter to use
+     * @param range           layout to use in painting this line
+     * @param xStart          starting width in pixels.
+     * @param xEnd            ending width in pixels.
+     * @param cursor          position of the caret, if placed on the current line.
      */
     void paintTextLine(QPainter& paint, KateLineLayoutPtr range, int xStart, int xEnd, const KTextEditor::Cursor* cursor = 0L);
 
@@ -233,15 +240,11 @@ public:
      * helps readability a LOT.
      *
      * @param paint           painter to use
-     * @param layout          Kate layout the painter is for
+     * @param layout          layout to use in painting this line
      * @param currentViewLine if one of the view lines is the current line, set
      *                        this to the index; otherwise -1.
-     * @param xStart          starting column.
-     * @param xEnd            ending column.
-     *
-     * @return whether the selection has been painted or not
-     *
-     * @todo Document allowed range for @p xStart and @p xEnd.
+     * @param xStart          starting width in pixels.
+     * @param xEnd            ending width in pixels.
      */
     void paintTextLineBackground(QPainter& paint, KateLineLayoutPtr layout, int currentViewLine, int xStart, int xEnd);
 

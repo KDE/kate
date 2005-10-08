@@ -1214,6 +1214,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   opt.setTabStop(m_doc->config()->tabWidth());
   l->setTextOption(opt);
 
+  // Syntax highlighting, inbuilt and arbitrary for now.
   l->setAdditionalFormats(decorationsForLine(lineLayout));
 
   // Begin layouting

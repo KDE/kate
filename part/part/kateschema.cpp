@@ -308,7 +308,7 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
   m_combobox->addItem(i18n("Warning"));             // markType06
   m_combobox->addItem(i18n("Error"));               // markType07
   m_combobox->setCurrentItem(0);
-  m_markers = new KColorButton(b, "marker_color_button");
+  m_markers = new KColorButton(b);
   connect( m_combobox, SIGNAL( activated( int ) ), SLOT( slotComboBoxChanged( int ) ) );
 
   blay->addWidget(gbTextArea);

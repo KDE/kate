@@ -29,7 +29,8 @@ namespace KTextEditor {
 class Document;
 
 /**
- * Variable/Modeline extension interface for the Document.
+ * @brief Variable/Modeline extension interface for the Document.
+ * @ingroup kte_group_doc_extensions
  *
  * <b>Introduction</b>\n
  *

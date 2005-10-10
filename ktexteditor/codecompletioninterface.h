@@ -35,7 +35,7 @@ class View;
 class CompletionProvider;
 
 /**
- * A code completion item for the completion box.
+ * @brief A code completion item for the completion box.
  *
  * <b>Introduction</b>\n
  *
@@ -92,7 +92,7 @@ class KTEXTEDITOR_EXPORT CompletionItem
 
 
 /**
- * Information about matching code completion data.
+ * @brief Information about matching code completion data.
  *
  * @author Joseph Wenninger \<jowenn@kde.org\>
  */
@@ -183,7 +183,7 @@ class KTEXTEDITOR_EXPORT CompletionData
 
 
 /**
- * Argument hint class containing information about argument hints.
+ * @brief Argument hint class containing information about argument hints.
  *
  * @todo ??? not finished at all I guess
  *
@@ -344,7 +344,7 @@ class KTEXTEDITOR_EXPORT ArgHintData
 
 
 /**
- * Code completion provider.
+ * @brief Code completion provider.
  *
  * <b>Introduction</b>\n
  *
@@ -463,7 +463,8 @@ class KTEXTEDITOR_EXPORT CompletionProvider
 };
 
 /**
- * Code completion extension interface for the View.
+ * @brief Code completion extension interface for the View.
+ * @ingroup kte_group_view_extensions
  *
  * <b>Introduction</b>\n
  *

@@ -38,7 +38,7 @@ class Editor;
 class View;
 
 /**
- * A KParts derived class representing a text document.
+ * @brief A KParts derived class representing a text document.
  *
  * <b>Introduction</b>\n
  *
@@ -90,18 +90,10 @@ class View;
  * However, a real text editor should support advanced concepts like session
  * support, textsearch support, bookmark/general mark support etc. That is why
  * the KTextEditor library provides several additional interfaces to extend
- * a document's capabilities via multiple inheritance. Extension interfaces
- * for the document are in order:
- *   - HighlightingInterface, general syntax highlighting methods
- *   - MarkInterface, mark support for text marks like bookmarks
- *   - ModificationInterface, external modification support
- *   - SearchInterface, support searching for text
- *   - SessionConfigInterface, support for session related settings
- *   - SmartInterface, advanced cursor position handling
- *   - VariableInterface, support document variables
+ * a document's capabilities via multiple inheritance.
  *
- * For further details read the detailed descriptions in the corresponding
- * interfaces.
+ * More information about interfaces for the document can be found in
+ * @ref kte_group_doc_extensions.
  *
  * @see KParts::ReadWritePart, KTextEditor::Editor, KTextEditor::View,
  *      KTextEditor::HighlightingInterface, KTextEditor::MarkInterface,

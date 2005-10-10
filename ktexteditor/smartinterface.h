@@ -25,7 +25,8 @@ namespace KTextEditor
 {
 
 /**
- * \short An interface for utilising SmartCursors and SmartRanges.
+ * \short A Document extension interface for handling SmartCursors and SmartRanges.
+ * \ingroup kte_group_doc_extensions
  *
  * Use this interface to:
  * \li create new SmartCursors and SmartRanges;
@@ -61,7 +62,7 @@ namespace KTextEditor
  * each of these branches instead (but this is unlikely unless the tree is complex).
  *
  * \todo add clearCursors() and clearRanges() functions to delete all cursors + ranges associated with a specific document
- * \author Hamish Rodda <rodda@kde.org>
+ * \author Hamish Rodda \<rodda@kde.org\>
  */
 class KTEXTEDITOR_EXPORT SmartInterface
 {

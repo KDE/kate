@@ -30,7 +30,8 @@ class Document;
 class View;
 
 /**
- * External modification extension interface for the Document.
+ * @brief External modification extension interface for the Document.
+ * @ingroup kte_group_doc_extensions
  *
  * <b>Introduction</b>\n
  *

@@ -33,7 +33,7 @@ class Document;
 class View;
 
 /**
- * KTextEditor Plugin interface.
+ * @brief KTextEditor Plugin interface.
  *
  * <b>Introduction</b>\n
  *

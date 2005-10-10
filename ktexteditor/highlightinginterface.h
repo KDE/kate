@@ -29,7 +29,8 @@ namespace KTextEditor
 {
 
 /**
- * Highlighting extension interface for the Document.
+ * @brief Highlighting extension interface for the Document.
+ * @ingroup kte_group_doc_extensions
  *
  * <b>Introduction</b>\n
  *

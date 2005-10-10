@@ -12,24 +12,46 @@ or any later version published by the Free Software Foundation;
 */
 /** @mainpage The KTextEditor Interfaces.
 
-@section intro Introduction
+@section Introduction
 The KTextEditor interfaces - also called KTE interfaces - are a set of
 well-defined interfaces that can be implemented by an application/library.
-It is possible to substitute an editor component with another. The two
-popular implementations right now are
+It is possible to substitute an implementation of the editor component with
+another. The two popular implementations right now are
  - the Kate Editor Component or in short Kate Part and
  - the yzis vim-like editor.
 
-Overview
+General:
  - @ref kte_design
- - @ref kte_guidelines
- - @ref kte_interface_access
-
-Further topics
- - @ref kte_port_to_kde4
  - @ref kte_embedding
+ - @ref kte_port_to_kde4
+ - <a href="http://www.kate-editor.org/index.php/Contacts">Contact/Mailing Lists</a>
 
-@section kte_design General Design of the Core Interfaces
+
+Implementation Notes:
+ - @ref kte_guidelines
+
+Extension Interfaces:
+ - @ref kte_group_doc_extensions
+ - @ref kte_group_view_extensions
+ - @ref kte_group_editor_extensions
+ - @ref kte_group_plugin_extensions
+ - @ref kte_group_command_extensions
+
+API Reference:
+ - <a href="classes.html">All Classes</a>
+ - <a href="annotated.html">Annotated Classes</a>
+ - <a href="hierarchy.html">Inheritance Hierarchy</a>
+<!-- grouped classes -> TODO Grouping -->
+
+@author Dominik Haumann \<dhdev@gmx.de\>
+@author Christoph Cullmann \<cullmann@kde.org\>
+*/
+
+
+
+
+
+/** @page kte_design General Design of the Core Interfaces
 The core of the KTextEditor interfaces consists of several main interfaces:
 - @p KTextEditor::Factory - The Factory is an interface for the factory of
   any KTextEditor part and provides access to the editor object of this part.
@@ -62,11 +84,19 @@ argument. In other words: You would never want to have two factories around
 solves this by using a static accessor in the Editor derived class KateGlobal
 that returns the Editor* object.
 
-@section kte_guidelines Coding Guidelines and API Conventions
+@see KTextEditor::Factory, KTextEditor::Editor, KTextEditor::Document,
+     KTextEditor::View
+*/
+
+
+
+
+
+/** @page kte_guidelines Coding Guidelines and API Conventions
 The whole KTextEditor interfaces have a consistent design.
 - naming should follow Qt style. Do not use Java style getters like getBla()
   for example,
-- core interfaces (described above) which inherit QObject must declare all
+- core interfaces (see @ref kte_design) which inherit QObject must declare all
   signals as real signals,
 - all other interfaces, which do not subclass QObject, must declare their
   signals as virtual private member functions. An implementation must
@@ -90,19 +120,20 @@ concepts are much cleaner than tuples, please keep the following guidelines:
   @p KTextEditor::Cursor instead,
 - never use Cursor/Cursor tuples for ranges, use a @p KTextEditor::Range
   instead of two Cursors.
+*/
 
-@section kte_interface_access Accessing an Extension Interface
-To access an extension interface use qobject_cast (read
-<a href="http://doc.trolltech.com/4.0/plugins-howto.html#the-lower-level-api-extending-qt-applications">
-Extending Qt Applications</a> for detailed information).
 
-A KTextEditor implementation may implement interfaces, but it does not @e need
-to. So as a KTextEditor user you have to cast the Document or View into the
-interface and then check whether the cast returns NULL or the desired
-interface.
 
-To cast a Document @e doc into the @e DesiredExtensionInterface do the
-following:
+
+
+/** @defgroup kte_group_doc_extensions Document Extension Interfaces
+A KTextEditor implementation may implement a Document extension interface, but
+it does not @e need to. So as a KTextEditor user you have to cast the Document
+to the desired interface and then check, whether the cast returns NULL or the
+valid interface.
+
+Use qobject_cast to cast a Document @e doc into the
+@e DesiredExtensionInterface, example:
 @code
   // doc is of type KTextEditor::Document*
   KTextEditor::DesiredExtensionInterface *iface =
@@ -111,10 +142,31 @@ following:
   if( iface ) {
       // the implementation supports the interface
       // do stuff
-}
+  }
+  else
+  {
+      // the implementation does not support the interface
+  }
 @endcode
 
-To cast a View @e view into the @e DesiredExtensionInterface do the following:
+@see KTextEditor::Document
+
+The following classes are a list of all available Document extension interfaces.
+<!-- The classes are defined by the @ingroup doxygen command -->
+*/
+
+
+
+
+
+/** @defgroup kte_group_view_extensions View Extension Interfaces
+A KTextEditor implementation may implement a View extension interface, but
+it does not @e need to. So as a KTextEditor user you have to cast the View
+to the desired interface and then check, whether the cast returns NULL or the
+valid interface.
+
+Use qobject_cast to cast a View @e view into the
+@e DesiredExtensionInterface, example:
 @code
   // view is of type KTextEditor::View*
   KTextEditor::DesiredExtensionInterface *iface =
@@ -124,10 +176,114 @@ To cast a View @e view into the @e DesiredExtensionInterface do the following:
       // the implementation supports the interface
       // do stuff
 }
+  else
+{
+      // the implementation does not support the interface
+}
 @endcode
 
-@author Dominik Haumann \<dhdev@gmx.de\>
-@author Christoph Cullmann \<cullmann@kde.org\>
+@see KTextEditor::View
+
+The following classes are a list of all available View extension interfaces.
+<!-- The classes are defined by the @ingroup doxygen command -->
+*/
+
+
+
+
+
+/** @defgroup kte_group_editor_extensions Editor Extension Interfaces
+A KTextEditor implementation may implement an Editor extension interface, but
+it does not @e need to. So as a KTextEditor user you have to cast the Editor
+to the desired interface and then check, whether the cast returns NULL or the
+valid interface.
+
+Use qobject_cast to cast a Editor @e editor into the
+@e DesiredExtensionInterface, example:
+@code
+  // editor is of type KTextEditor::Editor*
+  KTextEditor::DesiredExtensionInterface *iface =
+      qobject_cast<KTextEditor::DesiredExtensionInterface*>( view );
+
+  if( iface ) {
+      // the implementation supports the interface
+      // do stuff
+}
+  else
+{
+      // the implementation does not support the interface
+}
+@endcode
+
+@see KTextEditor::Editor
+
+The following classes are a list of all available Editor extension interfaces.
+<!-- The classes are defined by the @ingroup doxygen command -->
+*/
+
+
+
+
+
+/** @defgroup kte_group_plugin_extensions Plugin Extension Interfaces
+A KTextEditor Plugin can use extension interfaces, but it does not @e need
+to. So as a KTextEditor implementator you have to cast the Plugin to the desired
+interface and then check, whether the cast returns NULL or the valid interface.
+
+Use qobject_cast to cast a Plugin @e plugin into the
+@e DesiredExtensionInterface, example:
+@code
+  // plugin is of type KTextEditor::Plugin*
+  KTextEditor::DesiredExtensionInterface *iface =
+      qobject_cast<KTextEditor::DesiredExtensionInterface*>( plugin );
+
+  if( iface ) {
+      // the implementation supports the interface
+      // do stuff
+  }
+  else
+  {
+      // the implementation does not support the interface
+  }
+@endcode
+
+@see KTextEditor::Plugin
+
+The following classes are a list of all available Plugin extension interfaces.
+<!-- The classes are defined by the @ingroup doxygen command -->
+*/
+
+
+
+
+
+/** @defgroup kte_group_command_extensions Command Extension Interfaces
+A KTextEditor command-line Command can use extension interfaces, but it does not
+@e need to. So as a KTextEditor implementator you have to cast the Plugin to the
+desired interface and then check, whether the cast returns NULL or the valid
+interface.
+
+Use qobject_cast to cast a Command @e cmd into the
+@e DesiredExtensionInterface, example:
+@code
+  // cmd is of type KTextEditor::Command*
+  KTextEditor::DesiredExtensionInterface *iface =
+      qobject_cast<KTextEditor::DesiredExtensionInterface*>( cmd );
+
+  if( iface ) {
+      // the implementation supports the interface
+      // do stuff
+  }
+  else
+  {
+      // the implementation does not support the interface
+  }
+@endcode
+
+@see KTextEditor::Command
+
+The following classes are a list of all available Command extension interfaces.
+<!-- The classes are defined by the @ingroup doxygen command -->
 */
 
 
@@ -217,7 +373,7 @@ to load and save session related config settings if desired.
 
 
 
-/** @page kte_embedding Embedding a KTextEditor Component into an Application
+/** @page kte_embedding How to use the KTextEditor Interfaces
 
 @todo everything
 

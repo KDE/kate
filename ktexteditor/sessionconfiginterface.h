@@ -28,7 +28,10 @@ namespace KTextEditor
 {
 
 /**
- * Session config interface extension for the Document, View and Plugin.
+ * @brief Session config interface extension for the Document, View and Plugin.
+ * @ingroup kte_group_doc_extensions
+ * @ingroup kte_group_view_extensions
+ * @ingroup kte_group_plugin_extensions
  *
  * <b>Introduction</b>\n
  *

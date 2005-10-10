@@ -38,7 +38,7 @@ namespace KTextEditor
 class Document;
 
 /**
- * A text widget with KXMLGUIClient that represents a Document.
+ * @brief A text widget with KXMLGUIClient that represents a Document.
  *
  * <b>Introduction</b>\n
  *
@@ -95,14 +95,10 @@ class Document;
  * Advanced concepts like code completion and text hints are defined in the
  * extension interfaces. An KTextEditor implementation does not need to
  * support all the extensions. To implement the interfaces multiple
- * inheritance is used. The extension interfaces for the view are in order:
- *   - TextHintInterface, texthint support (used by debuggers for example)
- *   - CodeCompletionInterface, support for code completion and argument hints
- *   - SessionConfigInterface, support for session related settings
- *   - TemplateInterface, support for editable template fields
+ * inheritance is used.
  *
- * For further details read the detailed descriptions in the corresponding
- * interfaces.
+ * More information about interfaces for the view can be found in
+ * @ref kte_group_view_extensions.
  *
  * @see KTextEditor::Document, KTextEditor::TemplateInterface,
  *      KTextEditor::CodeCompletionInterface,

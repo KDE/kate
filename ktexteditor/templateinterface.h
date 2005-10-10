@@ -36,6 +36,7 @@ class View;
 /**
  * This is an interface for inserting template strings with user editable
  * fields into a document.
+ * @ingroup kte_group_view_extensions
  */
 class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInterface, but for consistency with the other classes it is not (for the 3.x release series)
 {

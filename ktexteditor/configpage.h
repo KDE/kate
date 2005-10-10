@@ -28,7 +28,7 @@ namespace KTextEditor
 {
 
 /**
- * Config page interface for the Editor.
+ * @brief Config page interface for the Editor.
  *
  * <b>Introduction</b>\n
  *

@@ -34,7 +34,7 @@ namespace KTextEditor
 class Document;
 
 /**
- * Mark class containing line and mark types.
+ * @brief Mark class containing line and mark types.
  *
  * <b>Introduction</b>\n
  *
@@ -57,7 +57,8 @@ class Mark
 };
 
 /**
- * Mark extension interface for the Document.
+ * @brief Mark extension interface for the Document.
+ * @ingroup kte_group_doc_extensions
  *
  * <b>Introduction</b>\n
  *

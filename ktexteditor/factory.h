@@ -35,7 +35,7 @@ namespace KTextEditor
 class Editor;
 
 /**
- * Accessor to the Editor implementation.
+ * @brief Accessor to the Editor implementation.
  *
  * <b>Introduction</b>\n
  *

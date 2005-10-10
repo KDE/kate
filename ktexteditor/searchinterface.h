@@ -32,7 +32,8 @@ namespace KTextEditor
 class Document;
 
 /**
- * Search interface extension for the Document.
+ * @brief Search interface extension for the Document.
+ * @ingroup kte_group_doc_extensions
  *
  * <b>Introduction</b>\n
  *

@@ -30,7 +30,7 @@ namespace KTextEditor
 {
 
 /**
- * Editor Component Chooser.
+ * @brief Editor Component Chooser.
  *
  * <b>Introduction</b>\n
  *

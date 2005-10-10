@@ -35,7 +35,7 @@ class Editor;
 class View;
 
 /**
- * An Editor command line command.
+ * @brief An Editor command line command.
  *
  * <b>Introduction</b>\n
  *
@@ -99,7 +99,8 @@ class KTEXTEDITOR_EXPORT Command
 };
 
 /**
- * Extension interface for a Command.
+ * @brief Extension interface for a Command.
+ * @ingroup kte_group_command_extensions
  *
  * <b>Introduction</b>\n
  *
@@ -180,7 +181,8 @@ class KTEXTEDITOR_EXPORT CommandExtension
 };
 
 /**
- * Command extension interface for the Editor.
+ * @brief Command extension interface for the Editor.
+ * @ingroup kte_group_editor_extensions
  *
  * <b>Introduction</b>\n
  *

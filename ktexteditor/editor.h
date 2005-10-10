@@ -39,7 +39,7 @@ class Document;
 class ConfigPage;
 
 /**
- * Accessor interface for Editor part.
+ * @brief Accessor interface for Editor part.
  *
  * <b>Introduction</b>\n
  *

@@ -192,14 +192,11 @@ public:
     uint textWidth(const KTextEditor::Cursor& cursor)  KDE_DEPRECATED;
 
     /**
-     * Returns the x position of cursor \p col on the line \p range. If \p doLayout
-     * is false, \p col must be on the line laid out in \p range, else the function
-     * will return -1.  If \p doLayout is true, the text will be laid out until the
-     * answer is found.
+     * Returns the x position of cursor \p col on the line \p range.
      */
-    int cursorToX(const KateTextLayout& range, int col, int maxwidth = -1) const;
+    int cursorToX(const KateTextLayout& range, int col) const;
     /// \overload
-    int cursorToX(const KateTextLayout& range, const KTextEditor::Cursor& pos, int maxwidth = -1) const;
+    int cursorToX(const KateTextLayout& range, const KTextEditor::Cursor& pos) const;
 
     /**
      * Returns the real cursor which is occupied by the specified x value, or that closest to it.

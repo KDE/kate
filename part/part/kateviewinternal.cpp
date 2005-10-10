@@ -592,7 +592,7 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, uint endCol, b
 
   if (!m_view->dynWordWrap() && endCol != (uint)-1)
   {
-    int sX = renderer()->cursorToX(cache()->textLayout(c), c, !view()->wrapCursor());
+    int sX = renderer()->cursorToX(cache()->textLayout(c), c);
 
     int sXborder = sX-8;
     if (sXborder < 0)

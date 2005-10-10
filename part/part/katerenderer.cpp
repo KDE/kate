@@ -703,14 +703,30 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       int caretWidth = 2;
       if (caretStyle() == Replace) {
         QTextLine line = range->layout()->lineForTextPosition(cursor->column());
-        caretWidth = line.cursorToX(cursor->column() + 1) - line.cursorToX(cursor->column());
+        caretWidth = int(line.cursorToX(cursor->column() + 1) - line.cursorToX(cursor->column()));
         if (caretWidth < 0)
           caretWidth = -caretWidth;
       }
-      paint.setPen(QPen(Qt::black, caretWidth));
+
+      QColor c;
+      // Could actually use the real highlighting system for this... would be slower but more accurate for corner cases
+      foreach (QTextLayout::FormatRange r, range->layout()->additionalFormats())
+        if (r.start <= cursor->column() && r.start + r.length > cursor->column()) {
+          c = r.format.foreground().color();
+          break;
+        }
+      if (!c.isValid())
+        if (range->layout()->additionalFormats().count())
+          c = range->layout()->additionalFormats().last().format.foreground().color();
+        else
+          c = Qt::black;
+
+      paint.save();
+      paint.setPen(QPen(c, caretWidth));
 
       // Draw the cursor, start drawing in the middle as the above sets the width from the centre of the line
       range->layout()->drawCursor(&paint, QPoint(caretWidth/2 - xStart,0), cursor->column());
+      paint.restore();
     }
   }
 
@@ -963,12 +979,12 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   lineLayout->setLayout(l);
 }
 
-int KateRenderer::cursorToX(const KateTextLayout& range, int col, int maxwidth ) const
+int KateRenderer::cursorToX(const KateTextLayout& range, int col) const
 {
-  return cursorToX(range, KTextEditor::Cursor(range.line(), col), maxwidth);
+  return cursorToX(range, KTextEditor::Cursor(range.line(), col));
 }
 
-int KateRenderer::cursorToX(const KateTextLayout& range, const KTextEditor::Cursor & pos, int maxwidth ) const
+int KateRenderer::cursorToX(const KateTextLayout& range, const KTextEditor::Cursor & pos) const
 {
   Q_ASSERT(range.isValid());
 

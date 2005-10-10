@@ -686,9 +686,17 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       if (showTabs()) {
         const QString& text = range->textLine()->string();
         int tabIndex = text.indexOf(tabChar);
+        int y = (fs->fontHeight * i) + fs->fontAscent;
         while (tabIndex != -1) {
-          paintWhitespaceMarker(paint, (int)line.lineLayout().cursorToX(tabIndex) - xStart, (fs->fontHeight * (i + 1)) - 1);
+          paintWhitespaceMarker(paint, (int)line.lineLayout().cursorToX(tabIndex) - xStart, y);
           tabIndex = text.indexOf(tabChar, tabIndex + 1);
+        }
+
+        // FIXME need to add config option for draw trailing spaces
+        int spaceIndex = text.count() - 1;
+        while (spaceIndex >= 0 && text.at(spaceIndex).isSpace()) {
+          paintWhitespaceMarker(paint, (int)line.lineLayout().cursorToX(spaceIndex) - xStart, y);
+          --spaceIndex;
         }
       }
     }

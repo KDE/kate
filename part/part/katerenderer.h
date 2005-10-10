@@ -183,8 +183,7 @@ public:
      * Text width & height calculation functions...
      */
     void layoutLine(KateLineLayoutPtr line, int maxwidth = -1, bool cacheLayout = false) const;
-    QVector<QTextLayout::FormatRange> selectionDecorationsForLine(KateLineLayoutPtr range) const;
-    QList<QTextLayout::FormatRange> decorationsForLine(KateLineLayoutPtr range) const;
+    QList<QTextLayout::FormatRange> decorationsForLine(KateLineLayoutPtr range, bool selectionsOnly = false) const;
 
     // Width calculators
     uint spaceWidth() const;

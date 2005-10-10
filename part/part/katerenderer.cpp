@@ -546,79 +546,11 @@ void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint row)
   paint.setPen( penBackup );
 }
 
-QVector< QTextLayout::FormatRange > KateRenderer::selectionDecorationsForLine( KateLineLayoutPtr range ) const
-{
-  // Legacy code, no pressing need to update it right now
-  bool hasSel = false;
-  int startSel = 0;
-  int endSel = 0;
-
-  if (showSelections())
-    hasSel = getSelectionBounds(range->line(), range->length(), startSel, endSel);
-
-  QVector<QTextLayout::FormatRange> selections;
-  if (hasSel) {
-    const QVector<int> &al = range->textLine()->attributesList();
-    int lastCol = 0;
-
-    // Add selections where the first attribute doesn't start at col 0
-    if (al.count() && (int)startSel < al[0]) {
-      QTextLayout::FormatRange fr;
-      fr.start = startSel;
-      fr.length = al[0] - fr.start;
-      fr.format.setBackground(config()->selectionColor());
-      selections.append(fr);
-    }
-
-    for (int i = 0; i+2 < al.count(); i += 3) {
-      if (al[i] + al[i+1] <= (int)startSel) {
-        lastCol = al[i] + al[i+1];
-        continue;
-      }
-
-      if (al[i] > lastCol) {
-        QTextLayout::FormatRange fr;
-        fr.start = QMAX(lastCol, (int)startSel);
-        fr.length = QMIN(al[i] - lastCol, (int)endSel - fr.start);
-        fr.format.setBackground(config()->selectionColor());
-        selections.append(fr);
-      }
-
-      QTextLayout::FormatRange fr;
-      fr.start = QMAX(al[i], (int)startSel);
-      fr.length = QMIN(al[i+1], (int)endSel - fr.start);
-      fr.format.setBackground(config()->selectionColor());
-
-      KTextEditor::Attribute* a = specificAttribute(al[i+2]);
-      if (a->itemSet(KTextEditor::Attribute::SelectedTextColor))
-        fr.format.setForeground(a->selectedTextColor());
-
-      selections.append(fr);
-
-      lastCol = al[i] + al[i+1];
-
-      if (al[i] + al[i+1] > (int)endSel)
-        break;
-    }
-
-    // Add selections where there is no syntax HL
-    if (!al.count()) {
-      QTextLayout::FormatRange fr;
-      fr.start = startSel;
-      fr.length = endSel - fr.start;
-      fr.format.setBackground(config()->selectionColor());
-      selections.append(fr);
-    }
-  }
-
-  return selections;
-}
-
-QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayoutPtr range ) const
+QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayoutPtr range, bool selectionsOnly ) const
 {
   QList<QTextLayout::FormatRange> newHighlight;
 
-  if (range->textLine()->attributesList().count() || m_view->selection() || m_view->highlights().count() || m_doc->documentHighlights().count()) {
+  if (range->textLine()->attributesList().count() || m_view->highlights().count() || m_doc->documentHighlights().count()) {
     RenderRangeList renderRanges;
     renderRanges.appendRanges(m_view->highlights());
     renderRanges.appendRanges(m_doc->documentHighlights());
@@ -630,18 +562,24 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
     }
     renderRanges.append(inbuiltHighlight);
 
-    /*  Selections taken care of by selectionDecorationsForLine()
     NormalRenderRange* selectionHighlight = 0L;
-    if (showSelections() && m_view->selection()) {
+    if (selectionsOnly && showSelections() && m_view->selection()) {
       selectionHighlight = new NormalRenderRange();
       static KTextEditor::Attribute backgroundAttribute;
       backgroundAttribute.setBGColor(config()->selectionColor());
       selectionHighlight->addRange(new KTextEditor::Range(m_view->selectionRange()), &backgroundAttribute);
       renderRanges.append(selectionHighlight);
-    }*/
+    }
 
-    KTextEditor::Cursor currentPosition = range->start();
-    KTextEditor::Cursor nextLine(range->line() + 1, 0);
+    KTextEditor::Cursor currentPosition, endPosition;
+
+    if (selectionsOnly) {
+      currentPosition = qMax(range->start(), m_view->selectionRange().start());
+      endPosition = qMin(KTextEditor::Cursor(range->line() + 1, 0), m_view->selectionRange().end());
+    } else {
+      currentPosition = range->start();
+      endPosition = KTextEditor::Cursor(range->line() + 1, 0);
+    }
 
     do {
       renderRanges.advanceTo(currentPosition);
@@ -659,10 +597,10 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
       QTextLayout::FormatRange fr;
       fr.start = currentPosition.column();
 
-      if (nextPosition < nextLine)
+      if (nextPosition < endPosition)
         fr.length = nextPosition.column() - currentPosition.column();
       else
-        fr.length = range->length() - currentPosition.column();
+        fr.length = endPosition.column() - currentPosition.column();
 
       KTextEditor::Attribute a = renderRanges.generateAttribute();
       fr.format = a.toFormat();
@@ -675,10 +613,10 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
 
       currentPosition = nextPosition;
 
-    } while (currentPosition < nextLine);
+    } while (currentPosition < endPosition);
 
     delete inbuiltHighlight;
-    //delete selectionHighlight;
+    delete selectionHighlight;
   }
 
   return newHighlight;
@@ -725,7 +663,11 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   if (range->layout()) {
     if (range->length() > 0) {
       // Draw the text :)
-      range->layout()->draw(&paint, QPoint(-xStart,0), selectionDecorationsForLine(range));
+      // FIXME toVector() may be a performance issue
+      if (m_view->selection() && showSelections() && m_view->selectionRange().includesLine(range->line()))
+        range->layout()->draw(&paint, QPoint(-xStart,0), decorationsForLine(range, true).toVector());
+      else
+        range->layout()->draw(&paint, QPoint(-xStart,0));
     }
 
     // Loop each individual line for additional text decoration etc.

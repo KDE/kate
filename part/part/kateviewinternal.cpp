@@ -420,7 +420,7 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
   // set false here but reversed if we return to makeVisible
   m_madeVisible = false;
 
-  if (viewLinesScrolledUsable)
+  if (false && viewLinesScrolledUsable)
   {
     int lines = linesDisplayed();
     if ((int)m_doc->numVisLines() < lines) {
@@ -1143,14 +1143,14 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
   while (virtualLine >= 0 && virtualLine < (int)m_doc->visibleLines())
   {
     int realLine = m_doc->getRealLine(virtualLine);
-    KateLineLayoutPtr thisLine = cache()->line(realLine);
+    KateLineLayoutPtr thisLine = cache()->line(realLine, virtualLine);
     if (!thisLine)
       break;
 
     for (int i = 0; i < QMAX(1, thisLine->viewLineCount() - 1); ++i) {
-      KateTextLayout thisViewLine = cache()->viewLine(i);
-
       if (offset == currentOffset) {
+        KateTextLayout thisViewLine = cache()->viewLine(i);
+
         if (!forwards) {
           // We actually want it the other way around
           int requiredViewLine = cache()->lastViewLine(realLine) - thisViewLine.viewLine();

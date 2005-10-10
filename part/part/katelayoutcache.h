@@ -58,8 +58,12 @@ class KateLayoutCache
      * Layouts which are not directly part of the view will be kept until the
      * cache is full or until they are invalidated by other means (eg. the text
      * changes).
+     *
+     * \param realLine real line number of the layout to retrieve.
+     * \param virtualLine virtual line number. only needed if you think it may have changed
+     *                    (ie. basically internal to KateLayoutCache)
      */
-    KateLineLayoutPtr line(int realLine) const;
+    KateLineLayoutPtr line(int realLine, int virtualLine = -1) const;
     /// \overload
     KateLineLayoutPtr line(const KTextEditor::Cursor& realCursor) const;
 

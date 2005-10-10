@@ -100,6 +100,7 @@ class KateViewInternal : public QWidget
     void makeVisible (const KTextEditor::Cursor& c, uint endCol, bool force = false, bool center = false, bool calledExternally = false);
 
   public:
+    // Start Position is a virtual cursor
     inline const KTextEditor::Cursor& startPos() const { return m_startPos; }
     inline int startLine () const { return m_startPos.line(); }
     inline int startX () const { return m_startX; }
@@ -260,6 +261,7 @@ class KateViewInternal : public QWidget
     QWidget* m_dummy;
 
     // These are now cursors to account for word-wrap.
+    // Start Position is a virtual cursor
     KateSmartCursor m_startPos;
 
     // This is set to false on resize or scroll (other than that called by makeVisible),

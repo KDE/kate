@@ -625,18 +625,12 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
 /*
 The ultimate line painting function.
 Currently missing features:
-- draw EOL spaces
 - draw indent lines
 - draw input method hints
 */
 void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int xStart, int xEnd, const KTextEditor::Cursor* cursor)
 {
   Q_ASSERT(range->isValid());
-
-  bool showCursor = drawCaret() && cursor && range->includesCursor(*cursor);
-
-  // should the cursor be painted (if it is in the current xstart - xend range)
-  int cursorMaxWidth = 0;
 
   // font data
   KateFontStruct* fs = config()->fontStruct();
@@ -650,11 +644,6 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     currentViewLine = range->viewLineForColumn(cursor->column());
 
   paintTextLineBackground(paint, range, currentViewLine, xStart, xEnd);
-
-  // text attribs font/style data
-  KTextEditor::Attribute* attr = m_doc->highlight()->attributes(m_schema)->data();
-
-  const QColor *cursorColor = &attr[0].textColor();
 
   // Draws the dashed underline at the start of a folded block of text.
   if (range->startsInvisibleBlock()) {
@@ -708,18 +697,20 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         QBrush(config()->wordWrapMarkerColor(), Qt::DiagCrossPattern));
     }
 
-    // Draw cursor
-    if (showCursor) {
-      paint.save();
-
-      // Make the cursor the desired width
-      uint cursorWidth = (caretStyle() == Replace && (cursorMaxWidth > 2)) ? cursorMaxWidth : 2;
-      paint.setPen(QPen(*cursorColor, cursorWidth));
+    // Draw caret
+    if (drawCaret() && cursor && range->includesCursor(*cursor)) {
+      // Make the caret the desired width
+      int caretWidth = 2;
+      if (caretStyle() == Replace) {
+        QTextLine line = range->layout()->lineForTextPosition(cursor->column());
+        caretWidth = line.cursorToX(cursor->column() + 1) - line.cursorToX(cursor->column());
+        if (caretWidth < 0)
+          caretWidth = -caretWidth;
+      }
+      paint.setPen(QPen(Qt::black, caretWidth));
 
       // Draw the cursor, start drawing in the middle as the above sets the width from the centre of the line
-      range->layout()->drawCursor(&paint, QPoint(cursorWidth/2 - xStart,0), cursor->column());
-
-      paint.restore();
+      range->layout()->drawCursor(&paint, QPoint(caretWidth/2 - xStart,0), cursor->column());
     }
   }
 

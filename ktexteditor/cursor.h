@@ -25,6 +25,7 @@
 
 #include <kdelibs_export.h>
 #include <QObject>
+#include <kdebug.h>
 
 namespace KTextEditor
 {
@@ -204,6 +205,16 @@ class KTEXTEDITOR_EXPORT Cursor
      */
     inline friend bool operator<=(const Cursor& c1, const Cursor& c2)
       { return !(c1 > c2); }
+
+    inline friend kdbgstream& operator<< (kdbgstream& s, const Cursor& cursor) {
+      if (&cursor)
+        s << "(" << cursor.line() << ", " << cursor.column() << ")";
+      else
+        s << "(null cursor)";
+      return s;
+    }
+
+    inline friend kndbgstream& operator<< (kndbgstream& s, const Cursor&) { return s; }
 
   protected:
     /**

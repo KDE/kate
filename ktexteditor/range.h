@@ -342,6 +342,16 @@ class KTEXTEDITOR_EXPORT Range
     inline friend bool operator<(const Range& r1, const Range& r2)
       { return r1.end() < r2.start(); }
 
+    inline friend kdbgstream& operator<< (kdbgstream& s, const Range& range) {
+      if (&range)
+        s << "[" << range.start() << " -> " << range.end() << "]";
+      else
+        s << "(null range)";
+      return s;
+    }
+
+    inline friend kndbgstream& operator<< (kndbgstream& s, const Range&) { return s; }
+
   protected:
     /**
      * Constructor for advanced cursor types.

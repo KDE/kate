@@ -4733,17 +4733,17 @@ const QList< KTextEditor::SmartRange * > & KateDocument::documentHighlights( ) c
 
 void KateDocument::addHighlightToView( KTextEditor::View * view, KTextEditor::SmartRange * topRange )
 {
-  static_cast<KateView*>(view)->addHighlight(topRange);
+  static_cast<KateView*>(view)->addExternalHighlight(topRange);
 }
 
 void KateDocument::removeHighlightFromView( KTextEditor::View * view, KTextEditor::SmartRange * topRange )
 {
-  static_cast<KateView*>(view)->removeHighlight(topRange);
+  static_cast<KateView*>(view)->removeExternalHighlight(topRange);
 }
 
 const QList< KTextEditor::SmartRange * > & KateDocument::viewHighlights( KTextEditor::View * view ) const
 {
-  return static_cast<KateView*>(view)->highlights();
+  return static_cast<KateView*>(view)->externalHighlights();
 }
 
 void KateDocument::addActionsToDocument( KTextEditor::SmartRange * topRange )

@@ -1912,19 +1912,34 @@ bool KateView::tagLines( KTextEditor::Range range, bool realRange )
   return tagLines(range.start(), range.end(), realRange);
 }
 
-void KateView::addHighlight( KTextEditor::SmartRange * topRange )
+void KateView::addInternalHighlight( KTextEditor::SmartRange * topRange )
 {
-  m_highlights.append(topRange);
+  m_internalHighlights.append(topRange);
 }
 
-void KateView::removeHighlight( KTextEditor::SmartRange * topRange )
+void KateView::removeInternalHighlight( KTextEditor::SmartRange * topRange )
 {
-  m_highlights.remove(topRange);
+  m_internalHighlights.remove(topRange);
 }
 
-const QList< KTextEditor::SmartRange * > & KateView::highlights( ) const
+const QList< KTextEditor::SmartRange * > & KateView::internalHighlights( ) const
 {
-  return m_highlights;
+  return m_internalHighlights;
+}
+
+void KateView::addExternalHighlight( KTextEditor::SmartRange * topRange )
+{
+  m_externalHighlights.append(topRange);
+}
+
+void KateView::removeExternalHighlight( KTextEditor::SmartRange * topRange )
+{
+  m_externalHighlights.remove(topRange);
+}
+
+const QList< KTextEditor::SmartRange * > & KateView::externalHighlights( ) const
+{
+  return m_externalHighlights;
 }
 
 void KateView::addActions( KTextEditor::SmartRange * topRange )

@@ -61,8 +61,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_mouse(doc)
   , m_possibleTripleClick (false)
   , m_bm(doc)
-  , m_bmStart(doc)
-  , m_bmEnd(doc)
+  , m_bmStart(doc, &m_bm)
+  , m_bmEnd(doc, &m_bm)
   , m_dummy (0)
   , m_startPos(doc)
   , m_madeVisible(false)
@@ -96,9 +96,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
     bracketFill.setBold(true);
   }
 
-  /*m_bm.setAttribute(&bracketOutline, false);
+  m_bm.setAttribute(&bracketOutline, false);
   m_bmStart.setAttribute(&bracketFill, false);
-  m_bmEnd.setAttribute(&bracketFill, false);*/
+  m_bmEnd.setAttribute(&bracketFill, false);
 
   setMinimumSize (0,0);
 

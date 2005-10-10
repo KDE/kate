@@ -32,8 +32,7 @@
 
 #include <kdebug.h>
 
-#include <qpainter.h>
-#include <q3popupmenu.h>
+#include <QPainter>
 #include <QTextLayout>
 #include <QStack>
 
@@ -550,9 +549,10 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
 {
   QList<QTextLayout::FormatRange> newHighlight;
 
-  if (range->textLine()->attributesList().count() || m_view->highlights().count() || m_doc->documentHighlights().count()) {
+  if (range->textLine()->attributesList().count() || m_view->externalHighlights().count() || m_view->internalHighlights().count() || m_doc->documentHighlights().count()) {
     RenderRangeList renderRanges;
-    renderRanges.appendRanges(m_view->highlights());
+    renderRanges.appendRanges(m_view->internalHighlights());
+    renderRanges.appendRanges(m_view->externalHighlights());
     renderRanges.appendRanges(m_doc->documentHighlights());
 
     NormalRenderRange* inbuiltHighlight = new NormalRenderRange();
@@ -622,14 +622,16 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
   return newHighlight;
 }
 
+/*
+The ultimate line painting function.
+Currently missing features:
+- draw EOL spaces
+- draw indent lines
+- draw input method hints
+*/
 void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int xStart, int xEnd, const KTextEditor::Cursor* cursor)
 {
-  // textline
-  KateTextLine::Ptr textLine = range->textLine();
-
-  Q_ASSERT(textLine);
-  if (!textLine)
-    return;
+  Q_ASSERT(range->isValid());
 
   bool showCursor = drawCaret() && cursor && range->includesCursor(*cursor);
 
@@ -637,7 +639,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   int cursorMaxWidth = 0;
 
   // font data
-  KateFontStruct * fs = config()->fontStruct();
+  KateFontStruct* fs = config()->fontStruct();
 
   // Paint selection background as the whole line is selected
   // selection startcol/endcol calc
@@ -673,10 +675,21 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     // Loop each individual line for additional text decoration etc.
     for (int i = 0; i < range->viewLineCount(); ++i) {
       KateTextLayout line = range->viewLine(i);
+
       // Draw selection outside of areas where text is rendered
       if (m_view->selection() && m_view->lineEndSelected(line.end())) {
         QRect area(line.endX() + line.xOffset() - xStart, fs->fontHeight * i, xEnd - xStart, fs->fontHeight * (i + 1));
         paint.fillRect(area, config()->selectionColor());
+      }
+
+      // Draw tab stops
+      if (showTabs()) {
+        const QString& text = range->textLine()->string();
+        int tabIndex = text.indexOf(tabChar);
+        while (tabIndex != -1) {
+          paintWhitespaceMarker(paint, (int)line.lineLayout().cursorToX(tabIndex) - xStart, (fs->fontHeight * (i + 1)) - 1);
+          tabIndex = text.indexOf(tabChar, tabIndex + 1);
+        }
       }
     }
 
@@ -702,147 +715,24 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     }
   }
 
-  // Optimisation to quickly draw an empty line of text
-  /*if (len < 1)
-  {
-    if (showCursor && (cursor->column() >= int(startcol)))
-    {
-      cursorVisible = true;
-      cursorXPos = xPos + cursor->column() * fs->myFontMetrics.width(spaceChar);
-    }
-  }
-  else
+  /* Remnants from the old implementation which haven't yet been integrated into the new
   {
     bool isIMSel  = false;
     bool isIMEdit = false;
 
-    bool isSel = false;
-
-    KTextEditor::Attribute customHL;
-
-    const QColor *curColor = 0;
-    const QColor *oldColor = 0;
-
-    KTextEditor::Attribute* oldAt = &attr[0];
-
-    uint oldXPos = xPos;
-    uint xPosAfter = xPos;
-
-    KTextEditor::Attribute currentHL;
-
-    uint blockStartCol = startcol;
-    uint curCol = startcol;
-    uint nextCol = curCol + 1;
-
-    // text + attrib data from line
-    const uchar *textAttributes = textLine->attributes ();
-    bool noAttribs = !textAttributes;
-
-    // adjust to startcol ;)
-    textAttributes = textAttributes + startcol;
-
-    uint atLen = m_doc->highlight()->attributes(m_schema)->size();
-
-    // Determine if we have trailing whitespace and store the column
-    // if lastChar == -1, set to 0, if lastChar exists, increase by one
-    uint trailingWhitespaceColumn = textLine->lastChar() + 1;
-    const uint lastIndentColumn = textLine->firstChar();
-
-    // Could be precomputed.
-    const uint spaceWidth = fs->width (spaceChar, false, false, m_tabWidth);
-
-    // Get current x position.
-    int curPos = textLine->cursorX(curCol, m_tabWidth);
-
     while (curCol - startcol < len)
     {
-      // make sure curPos is updated correctly.
-      Q_ASSERT(curPos == textLine->cursorX(curCol, m_tabWidth));
-
-      QChar curChar = textLine->string()[curCol];
-      // Decide if this character is a tab - we treat the spacing differently
-      // TODO: move tab width calculation elsewhere?
-      bool isTab = curChar == tabChar;
-
-      // Determine current syntax highlighting attribute
-      // A bit legacy but doesn't need to change
-      KTextEditor::Attribute* curAt = (noAttribs || ((*textAttributes) >= atLen)) ? &attr[0] : &attr[*textAttributes];
-
-      // X position calculation. Incorrect for fonts with non-zero leftBearing() and rightBearing() results.
-      // TODO: make internal charWidth() function, use QFontMetrics::charWidth().
-      xPosAfter += curAt->width(*fs, curChar, m_tabWidth);
-
-      // Tab special treatment, move to charWidth().
-      if (isTab)
-        xPosAfter -= (xPosAfter % curAt->width(*fs, curChar, m_tabWidth));
-
       // Only draw after the starting X value
       if ((int)xPosAfter >= xStart)
       {
-        // Determine if we're in a selection and should be drawing it
-        isSel = (showSelections() && hasSel && (curCol >= startSel) && (curCol < endSel));
-
         // input method edit area
         isIMEdit = m_view && m_view->isIMEdit( line, curCol );
 
         // input method selection
         isIMSel = m_view && m_view->isIMSelection( line, curCol );
 
-        // Determine current color, taking into account selection
-        curColor = isSel ? &(curAt->selectedTextColor()) : &(curAt->textColor());
-
-        bool hitArbitraryHLBoundary = renderRanges.advanceTo(nextPos);
-
-        // Incorporate in arbitrary highlighting
-        if (curAt != oldAt || curColor != oldColor || hitArbitraryHLBoundary) {
-          KTextEditor::Attribute hl = *curAt;
-
-          hl += customHL;
-
-          // use default highlighting color if we haven't defined one above.
-          if (!hl.itemSet(KTextEditor::Attribute::TextColor))
-            hl.setTextColor(*curColor);
-
-          if (!isSel)
-            paint.setPen(hl.textColor());
-          else
-            paint.setPen(hl.selectedTextColor());
-
-          paint.setFont(hl.font(*currentFont()));
-
-          if (hitArbitraryHLBoundary)
-            customHL = renderRanges.generateAttribute();
-
-          currentHL = hl;
-        }
-
-        // Determine whether we can delay painting to draw a block of similarly formatted
-        // characters or not
-        // Reasons for NOT delaying the drawing until the next character
-        // You have to detect the change one character in advance.
-        // TODO: KTextEditor::Attribute::canBatchRender()
-        bool renderNow = false;
-        if ((isTab)
-          // formatting has changed OR
-          || (hitArbitraryHLBoundary)
-
-          // it is the end of the line OR
-          || (curCol >= len - 1)
-
-          // the rest of the line is trailing whitespace OR
-          || (curCol + 1 >= trailingWhitespaceColumn)
-
           // indentation lines OR
           || (showIndentLines() && curCol < lastIndentColumn)
-
-          // the x position is past the end OR
-          || ((int)xPos > xEnd)
-
-          // it is a different attribute OR
-          || (!noAttribs && curAt != &attr[*(textAttributes+1)])
-
-          // the selection boundary was crossed OR
-          || (isSel != (hasSel && (nextCol >= startSel) && (nextCol < endSel)))
 
           // the next char is a tab (removed the "and this isn't" because that's dealt with above)
           // i.e. we have to draw the current text so the tab can be rendered as above.
@@ -853,18 +743,6 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
           // input method selection
           || ( m_view && (isIMSel !=  m_view->isIMSelection( line, nextCol )) )
-        )
-        {
-          renderNow = true;
-        }
-
-        if (renderNow)
-        {
-          if (!isPrinterFriendly())
-          {
-            bool paintBackground = true;
-            uint width = xPosAfter - oldXPos;
-            QColor fillColor;
 
             if (isIMSel && !isTab)
             {
@@ -881,29 +759,6 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
               cg.color( QColorGroup::Background ).hsv( &h2, &s2, &v2 );
               fillColor.setHsv( h1, s1, ( v1 + v2 ) / 2 );
             }
-            else if (!selectionPainted && (isSel || currentHL.itemSet(KTextEditor::Attribute::BGColor)))
-            {
-              if (isSel)
-              {
-                fillColor = config()->selectionColor();
-
-                // If this is the last block of text, fill up to the end of the line if the
-                // selection stretches that far
-                if ((curCol >= len - 1) && m_view->lineEndSelected (line, endcol))
-                  width = xEnd - oldXPos;
-              }
-              else
-              {
-                fillColor = currentHL.bgColor();
-              }
-            }
-            else
-            {
-              paintBackground = false;
-            }
-
-            if (paintBackground)
-              paint.fillRect(oldXPos - xStart, 0, width, fs->fontHeight, fillColor);
 
             if (isIMSel && paintBackground && !isTab)
             {
@@ -934,37 +789,6 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
                 }
               }
             }
-          }
-
-          // or we will see no text ;)
-          int y = fs->fontAscent;
-
-          // make sure we redraw the right character groups on attrib/selection changes
-          // Special case... de-special case some of it
-          if (isTab || (curCol >= trailingWhitespaceColumn))
-          {
-            // Draw spaces too, because it might be eg. underlined
-            static QString spaces;
-            if (int(spaces.length()) != m_tabWidth)
-              spaces.fill(' ', m_tabWidth);
-
-            paint.drawText(oldXPos-xStart, y, isTab ? spaces : QString(" "));
-
-            if (showTabs())
-            {
-            // trailing spaces and tabs may also have to be different options.
-            //  if( curCol >= lastIndentColumn )
-              paintWhitespaceMarker(paint, xPos - xStart, y);
-            }
-
-            // variable advancement
-            blockStartCol = nextCol;
-            oldXPos = xPosAfter;
-          }
-          else
-          {
-            // Here's where the money is...
-            paint.drawText(oldXPos-xStart, y, textLine->string(), blockStartCol, nextCol-blockStartCol);
 
             // Draw preedit's underline
             if (isIMEdit) {
@@ -974,52 +798,6 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
             // Put pen color back
             if (isIMSel) paint.restore();
-
-            // We're done drawing?
-            if ((int)xPos > xEnd)
-              break;
-
-            // variable advancement
-            blockStartCol = nextCol;
-            oldXPos = xPosAfter;
-            //oldS = s+1;
-          }
-        } // renderNow
-
-        // determine cursor X position
-        if (showCursor && (cursor->column() == int(curCol)))
-        {
-          cursorVisible = true;
-          cursorXPos = xPos;
-          cursorMaxWidth = xPosAfter - xPos;
-          cursorColor = &curAt->textColor();
-        }
-      } // xPosAfter >= xStart
-      else
-      {
-        // variable advancement
-        blockStartCol = nextCol;
-        oldXPos = xPosAfter;
-      }
-
-      // increase xPos
-      xPos = xPosAfter;
-
-      // increase attribs pos
-      textAttributes++;
-
-      // to only switch font/color if needed
-      oldAt = curAt;
-      oldColor = curColor;
-
-      // col move
-      curCol++;
-      nextCol++;
-      currentPos.setColumn(currentPos.column() + 1);
-      nextPos.setColumn(nextPos.column() + 1);
-
-      //syntaxHL = nextSyntaxHL;
-      //nextSyntaxHL = advanceSyntaxHL(nextPos, syntaxHL);
 
       // Update the current indentation pos.
       if (isTab)
@@ -1031,23 +809,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         curPos++;
       }
     }
-
-    // Determine cursor position (if it is not within the range being drawn)
-    if (showCursor && (cursor->column() >= int(curCol)))
-    {
-      cursorVisible = true;
-      cursorXPos = xPos + (cursor->column() - int(curCol)) * fs->myFontMetrics.width(spaceChar);
-      cursorMaxWidth = xPosAfter - xPos;
-      cursorColor = &oldAt->textColor();
-    }
-  }*/
-
-  // Paint cursor
-  /*if (cursorVisible)
-  {
-    uint cursorWidth = (caretStyle() == Replace && (cursorMaxWidth > 2)) ? cursorMaxWidth : 2;
-    paint.fillRect(cursorXPos-xStart, 0, cursorWidth, fs->fontHeight, *cursorColor);
-  }*/
+  */
 
   // show word wrap marker if desirable
   if (!isPrinterFriendly() && config()->wordWrapMarker() && fs->fixedPitch())
@@ -1153,7 +915,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
 
   // Tab width
   QTextOption opt;
-  opt.setTabStop(m_doc->config()->tabWidth());
+  opt.setTabStop(m_tabWidth * config()->fontStruct()->width(spaceChar, false, false, m_tabWidth));
   l->setTextOption(opt);
 
   // Syntax highlighting, inbuilt and arbitrary

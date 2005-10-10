@@ -252,9 +252,13 @@ class KateView : public KTextEditor::View,
   //
   public:
     // BEGIN Syntax highlighting extension
-    void addHighlight(KTextEditor::SmartRange* topRange);
-    void removeHighlight(KTextEditor::SmartRange* topRange);
-    const QList<KTextEditor::SmartRange*>& highlights() const;
+    void addExternalHighlight(KTextEditor::SmartRange* topRange);
+    void removeExternalHighlight(KTextEditor::SmartRange* topRange);
+    const QList<KTextEditor::SmartRange*>& externalHighlights() const;
+
+    void addInternalHighlight(KTextEditor::SmartRange* topRange);
+    void removeInternalHighlight(KTextEditor::SmartRange* topRange);
+    const QList<KTextEditor::SmartRange*>& internalHighlights() const;
     // END
 
     // BEGIN Action binding extension
@@ -264,7 +268,8 @@ class KateView : public KTextEditor::View,
     // END
 
   private:
-    QList<KTextEditor::SmartRange*> m_highlights;
+    QList<KTextEditor::SmartRange*> m_externalHighlights;
+    QList<KTextEditor::SmartRange*> m_internalHighlights;
     QList<KTextEditor::SmartRange*> m_actions;
 
   //

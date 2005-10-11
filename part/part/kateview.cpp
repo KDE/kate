@@ -673,7 +673,7 @@ void KateView::slotCollapseLocal()
   if (realLine != -1)
     // TODO rodda: fix this to only set line and allow internal view to chose column
     // Explicitly call internal because we want this to be registered as an internal call
-    setCursorPositionInternal(realLine, cursorColumn(), m_doc->config()->tabWidth(), false);
+    setCursorPositionInternal(KTextEditor::Cursor(realLine, cursorColumn()), m_doc->config()->tabWidth());
 }
 
 void KateView::slotExpandLocal()
@@ -733,15 +733,14 @@ bool KateView::isOverwriteMode() const
 void KateView::reloadFile()
 {
   // save cursor position
-  int cl = cursorPosition().line();
-  int cc = cursorColumn();
+  KTextEditor::Cursor cursor(cursorPosition().line(), cursorColumn());
 
   // save bookmarks
   m_doc->documentReload();
 
-  if (m_doc->lines() >= cl)
+  if (m_doc->lines() >= cursor.line())
     // Explicitly call internal function because we want this to be registered as a non-external call
-    setCursorPositionInternal( cl, cc, m_doc->config()->tabWidth(), false );
+    setCursorPositionInternal( cursor, m_doc->config()->tabWidth(), false );
 }
 
 void KateView::slotUpdate()
@@ -803,21 +802,21 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
   ev->accept();
 }
 
-bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth, bool calledExternally )
+bool KateView::setCursorPositionInternal( const KTextEditor::Cursor& position, uint tabwidth, bool calledExternally )
 {
-  KateTextLine::Ptr l = m_doc->kateTextLine( line );
+  KateTextLine::Ptr l = m_doc->kateTextLine( position.line() );
 
   if (!l)
     return false;
 
-  QString line_str = m_doc->line( line );
+  QString line_str = m_doc->line( position.line() );
 
   int x = 0;
-  for (int z = 0; z < line_str.length() && (uint)z < col; z++) {
+  for (int z = 0; z < line_str.length() && (uint)z < position.column(); z++) {
     if (line_str[z] == QChar('\t')) x += tabwidth - (x % tabwidth); else x++;
   }
 
-  m_viewInternal->updateCursor( KTextEditor::Cursor( line, x ), false, true, calledExternally );
+  m_viewInternal->updateCursor( position, false, true, calledExternally );
 
   return true;
 }
@@ -842,7 +841,7 @@ void KateView::gotoLine()
   KateGotoLineDialog *dlg = new KateGotoLineDialog (this, m_viewInternal->getCursor().line() + 1, m_doc->lines());
 
   if (dlg->exec() == QDialog::Accepted)
-    setCursorPositionInternal( dlg->getLine() - 1, 0 );
+    setCursorPositionInternal( KTextEditor::Cursor(dlg->getLine() - 1, 0) );
 
   delete dlg;
 }
@@ -862,7 +861,7 @@ void KateView::joinLines()
 
 void KateView::readSessionConfig(KConfig *config)
 {
-  setCursorPositionInternal (config->readNumEntry("CursorLine"), config->readNumEntry("CursorColumn"), 1);
+  setCursorPositionInternal(KTextEditor::Cursor(config->readNumEntry("CursorLine"), config->readNumEntry("CursorColumn")));
 }
 
 void KateView::writeSessionConfig(KConfig *config)

@@ -244,7 +244,7 @@ void KateBookmarks::gotoLine()
 
 void KateBookmarks::gotoLine (int line)
 {
-  m_view->setCursorPositionReal (line, 0);
+  m_view->setCursorPosition(KTextEditor::Cursor(line, 0));
 }
 
 void KateBookmarks::bookmarkMenuAboutToShow()

@@ -62,6 +62,7 @@ class KATE_TESTONLY_EXPORT KateSmartManager : public QObject
 
   private slots:
     void slotTextChanged(KateEditInfo* edit);
+    void verifyCorrect() const;
 
   private:
     void feedbackRange(const KateEditInfo& edit, KateSmartRange* range);
@@ -91,7 +92,9 @@ class KATE_TESTONLY_EXPORT KateSmartGroup
     inline int startLine() const { return m_startLine; }
     inline int newStartLine() const { return m_newStartLine; }
     inline int endLine() const { return m_endLine; }
+    inline int newEndLine() const { return m_newEndLine; }
     inline void setEndLine(int endLine) { m_newEndLine = m_endLine = endLine; }
+    inline void setNewEndLine(int endLine) { m_newEndLine = endLine; }
     inline int length() const { return m_endLine - m_startLine + 1; }
     inline bool containsLine(int line) const { return line >= m_newStartLine && line <= m_newEndLine; }
 
@@ -128,7 +131,7 @@ class KATE_TESTONLY_EXPORT KateSmartGroup
     void merge();
 
     // First pass for translation
-    void translateChanged(const KateEditInfo& edit, QSet<KateSmartRange*>& ranges, bool first);
+    void translateChanged(const KateEditInfo& edit);
     void translateShifted(const KateEditInfo& edit);
 
     // Second pass for feedback

@@ -51,11 +51,11 @@ namespace QtTest {
   template<>
   char* toString(const KTextEditor::Range& range)
   {
-    QByteArray ba = "Range([";
+    QByteArray ba = "Range[(";
     ba += QByteArray::number(range.start().line()) + ", " + QByteArray::number(range.start().column());
-    ba += "] -> [";
+    ba += ") -> (";
     ba += QByteArray::number(range.end().line()) + ", " + QByteArray::number(range.end().column());
-    ba += "])";
+    ba += ")]";
     return qstrdup(ba.data());
   }
 }

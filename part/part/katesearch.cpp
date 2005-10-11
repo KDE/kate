@@ -592,7 +592,7 @@ bool KateSearch::doSearch( const QString& text )
 
 void KateSearch::exposeFound( KTextEditor::Cursor &cursor, int slen )
 {
-  view()->setCursorPositionInternal ( cursor.line(), cursor.column() + slen, 1 );
+  view()->setCursorPositionInternal ( KTextEditor::Cursor(cursor.line(), cursor.column() + slen), 1 );
   view()->setSelection( cursor, slen );
 }
 //END KateSearch
@@ -836,7 +836,7 @@ void SearchCommand::processText( KTextEditor::View *view, const QString &cmd )
       // of the selection.
       if ( pattern.startsWith( v->selectionText() ) &&
            v->selectionText().length() + 1 == pattern.length() )
-        v->setCursorPositionInternal( v->selectionRange().start().line(), v->selectionRange().start().column() );
+        v->setCursorPositionInternal( v->selectionRange().start() );
 
       v->find( pattern, m_ifindFlags, false );
     }

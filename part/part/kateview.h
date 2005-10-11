@@ -141,7 +141,7 @@ class KateView : public KTextEditor::View,
   //
   public:
     bool setCursorPosition (const KTextEditor::Cursor &position)
-      { return setCursorPositionInternal( position.line(), position.column(), 1, true ); }
+      { return setCursorPositionInternal( position, 1, true ); }
 
     const KTextEditor::Cursor &cursorPosition () const
      { return m_viewInternal->getCursor(); }
@@ -152,11 +152,8 @@ class KateView : public KTextEditor::View,
     QPoint cursorPositionCoordinates() const
         { return m_viewInternal->cursorCoordinates(); }
 
-    bool setCursorPosition( int line, int col )
-        { return setCursorPositionInternal( line, col, m_doc->config()->tabWidth(), true );  }
-
-    bool setCursorPositionReal( int line, int col)
-        { return setCursorPositionInternal( line, col, 1, true );           }
+    bool setCursorPositionVisual( const KTextEditor::Cursor& position )
+        { return setCursorPositionInternal( position, m_doc->config()->tabWidth(), true ); }
 
     /**
      * calculate the virtual column position of the cursor
@@ -172,6 +169,10 @@ class KateView : public KTextEditor::View,
   private slots:
     void slotMousePositionChanged();
     void slotCaretPositionChanged();
+
+  // Internal
+  public:
+    bool setCursorPositionInternal( const KTextEditor::Cursor& position, uint tabwidth = 1, bool calledExternally = false );
 
   //
   // KTextEditor::CodeCompletionInterface
@@ -475,9 +476,6 @@ class KateView : public KTextEditor::View,
 
   public:
     void slotTextInserted ( KTextEditor::View *view, const KTextEditor::Cursor &position, const QString &text);
-
-  public:
-    bool setCursorPositionInternal( uint line, uint col, uint tabwidth = 1, bool calledExternally = false );
 
   protected:
     void contextMenuEvent( QContextMenuEvent* );

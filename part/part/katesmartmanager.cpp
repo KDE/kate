@@ -24,9 +24,9 @@
 
 #include <kdebug.h>
 
-static const int s_defaultGroupSize = 4;
-static const int s_minimumGroupSize = 2;
-static const int s_maximumGroupSize = 6;
+static const int s_defaultGroupSize = 40;
+static const int s_minimumGroupSize = 20;
+static const int s_maximumGroupSize = 60;
 
 KateSmartManager::KateSmartManager(KateDocument* parent)
   : QObject(parent)
@@ -34,6 +34,7 @@ KateSmartManager::KateSmartManager(KateDocument* parent)
   , m_invalidGroup(new KateSmartGroup(-1, -1, 0L, 0L))
 {
   connect(doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(slotTextChanged(KateEditInfo*)));
+  connect(doc(), SIGNAL(textChanged(KTextEditor::Document*)), SLOT(verifyCorrect()));
 }
 
 KateSmartManager::~KateSmartManager()
@@ -65,54 +66,6 @@ KTextEditor::SmartRange * KateSmartManager::newSmartRange( KateSmartCursor * sta
     rangeLostParent(newRange);
   return newRange;
 }
-
-/*void KateSmartManager::requestFeedback( KateSmartRange * range, int previousLevelOfFeedback)
-{
-  if (range->feedbackLevel() == previousLevelOfFeedback)
-    return;
-
-  switch (previousLevelOfFeedback) {
-    case KateSmartRange::MostSpecificContentChanged:
-      removeRangeWantingMostSpecificContentFeedback(range);
-      break;
-
-    case KateSmartRange::PositionChanged:
-      removePositionRange(range);
-      break;
-  }
-
-  switch (range->feedbackLevel()) {
-    case KateSmartRange::MostSpecificContentChanged:
-      addRangeWantingMostSpecificContentFeedback(range);
-      break;
-
-    case KateSmartRange::PositionChanged:
-      addPositionRange(range);
-      break;
-  }
-}
-
-void KateSmartManager::addPositionRange( KateSmartRange * range )
-{
-  const KateSmartCursor* start = static_cast<const KateSmartCursor*>(&range->start());
-  start->smartGroup()->addStartingPositionRange(range);
-}
-
-void KateSmartManager::removePositionRange( KateSmartRange * range )
-{
-  const KateSmartCursor* start = static_cast<const KateSmartCursor*>(&range->start());
-  start->smartGroup()->removeStartingPositionRange(range);
-}
-
-void KateSmartManager::addRangeWantingMostSpecificContentFeedback( KateSmartRange * range )
-{
-  m_specificRanges.insert(range);
-}
-
-void KateSmartManager::removeRangeWantingMostSpecificContentFeedback( KateSmartRange * range )
-{
-  m_specificRanges.remove(range);
-}*/
 
 void KateSmartGroup::addCursor( KateSmartCursor * cursor)
 {
@@ -155,44 +108,14 @@ void KateSmartGroup::removeCursor( KateSmartCursor * cursor)
   }
 }
 
-/*void KateSmartGroup::addTraversingRange( KateSmartRange * range )
-{
-  m_rangesTraversing.insert(range);
-}
-
-void KateSmartGroup::removeTraversingRange( KateSmartRange * range )
-{
-  m_rangesTraversing.remove(range);
-}
-
-void KateSmartGroup::addStartingPositionRange( KateSmartRange * range )
-{
-  m_rangesStartingPosition.insert(range);
-}
-
-void KateSmartGroup::removeStartingPositionRange( KateSmartRange * range )
-{
-  m_rangesStartingPosition.remove(range);
-}*/
-
 void KateSmartGroup::joined( KateSmartCursor * cursor )
 {
   addCursor(cursor);
-
-  /*if (KateSmartRange* range = static_cast<KateSmartRange*>(cursor->belongsToRange()))
-    range->kateDocument()->smartManager()->requestFeedback(range, KateSmartRange::NoFeedback);*/
 }
 
 void KateSmartGroup::leaving( KateSmartCursor * cursor )
 {
   removeCursor(cursor);
-
-  /*if (KateSmartRange* range = static_cast<KateSmartRange*>(cursor->belongsToRange())) {
-    int currentFeedback = range->feedbackLevel();
-    range->setFeedbackLevel(KateSmartRange::NoFeedback, false);
-    range->kateDocument()->smartManager()->requestFeedback(range, currentFeedback);
-    range->setFeedbackLevel(currentFeedback, false);
-  }*/
 }
 
 KateSmartGroup * KateSmartManager::groupForLine( int line ) const
@@ -217,25 +140,28 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 
   // Check to see if we need to split or consolidate
   int splitEndLine = edit->translate().line() + firstSmartGroup->endLine();
+
   if (edit->translate().line() > 0) {
-    //kdDebug() << k_funcinfo << "Need to translate smartGroups by " << edit->translate().line() << " line(s); startLine " << firstSmartGroup->startLine() << " endLine " << firstSmartGroup->endLine() << " splitEndLine " << splitEndLine << "." << endl;
+    // May need to expand smart groups
     KateSmartGroup* endGroup = currentGroup->next();
+
     int currentCanExpand = endGroup ? s_maximumGroupSize - currentGroup->length() : s_defaultGroupSize - currentGroup->length();
-    //int nextCanExpand = currentGroup->next() ? (endGroup ? s_maximumGroupSize - currentGroup->next()->length() : s_defaultGroupSize - currentGroup->next()->length()) : 0;
+    int expanded = 0;
 
-    if (currentCanExpand >= edit->translate().line()) {
+    if (currentCanExpand) {
+       int expandBy = qMin(edit->translate().line(), currentCanExpand);
       // Current group can expand to accommodate the extra lines
-      currentGroup->setEndLine(currentGroup->endLine() + edit->translate().line());
+      currentGroup->setNewEndLine(currentGroup->endLine() + expandBy);
 
-    } else {
+      expanded = expandBy;
+    }
+
+    if (expanded < edit->translate().line()) {
       // Need at least one new group
       int newStartLine, newEndLine;
 
-      // Trying to get the debugger to stop before the loop
-      newStartLine = 0;
-
       do {
-        newStartLine = currentGroup->endLine() + 1;
+        newStartLine = currentGroup->newEndLine() + 1;
         newEndLine = QMIN(newStartLine + s_defaultGroupSize - 1, splitEndLine);
         currentGroup = new KateSmartGroup(newStartLine, newEndLine, currentGroup, endGroup);
 
@@ -244,33 +170,36 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 
 
   } else if (edit->translate().line() < 0) {
-    // might need to consolitate
-    while (currentGroup->next() && currentGroup->length() - edit->translate().line() < s_minimumGroupSize)
+    // Might need to consolitate
+    // Consolidate groups together while keeping the end result the same
+    while (currentGroup->next() && currentGroup->length() + edit->translate().line() < s_minimumGroupSize)
       currentGroup->merge();
 
-    currentGroup->setEndLine(currentGroup->endLine() + edit->translate().line());
+    // Reduce the size of the current group
+    currentGroup->setNewEndLine(currentGroup->endLine() + edit->translate().line());
   }
 
-  QSet<KateSmartRange*> changedRanges;
+  // Shift the groups so they have their new start and end lines
+  if (edit->translate().line())
+    for (KateSmartGroup* smartGroup = currentGroup->next(); smartGroup; smartGroup = smartGroup->next())
+      smartGroup->translateShifted(*edit);
 
   // Translate affected groups
-  bool groupChanged = true;
-  currentGroup->translateChanged(*edit, changedRanges, true);
+  for (KateSmartGroup* smartGroup = currentGroup; smartGroup; smartGroup = smartGroup->next()) {
+    if (smartGroup->startLine() > edit->oldRange().end().line())
+      break;
 
-  for (KateSmartGroup* smartGroup = currentGroup->next(); smartGroup; smartGroup = smartGroup->next()) {
-    if (groupChanged)
-      groupChanged = smartGroup->startLine() <= edit->oldRange().end().line();
-
-    if (groupChanged)
-      smartGroup->translateChanged(*edit, changedRanges, false);
-    else
-      smartGroup->translateShifted(*edit);
+    smartGroup->translateChanged(*edit);
   }
 
-  groupChanged = true;
+  // Cursor feedback
+  bool groupChanged = true;
   for (KateSmartGroup* smartGroup = firstSmartGroup; smartGroup; smartGroup = smartGroup->next()) {
-    if (groupChanged)
+    if (groupChanged) {
       groupChanged = smartGroup->startLine() <= edit->oldRange().end().line();
+      if (!groupChanged && !edit->translate().line())
+        break;
+    }
 
     if (groupChanged)
       smartGroup->translatedChanged(*edit);
@@ -278,10 +207,12 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
       smartGroup->translatedShifted(*edit);
   }
 
+  // Range feedback
   foreach (KateSmartRange* range, m_topRanges)
     feedbackRange(*edit, range);
 
   //debugOutput();
+  //verifyCorrect();
 }
 
 void KateSmartManager::feedbackRange( const KateEditInfo& edit, KateSmartRange * range )
@@ -299,42 +230,34 @@ void KateSmartManager::feedbackRange( const KateEditInfo& edit, KateSmartRange *
 }
 
 
-void KateSmartGroup::translateChanged( const KateEditInfo& edit, QSet< KateSmartRange * > & ranges, bool first )
+void KateSmartGroup::translateChanged( const KateEditInfo& edit)
 {
-  //kdDebug() << k_funcinfo << edit.start().line() << "," << edit.start().column() << " was to " << edit.oldRange().end().line() << "," << edit.oldRange().end().column() << " now to " << edit.newRange().end().line() << "," << edit.newRange().end().column() << " numcursors feedback " << m_feedbackCursors.count() << " normal " << m_normalCursors.count() << endl;
-
-  if (!first)
-    translateShifted(edit);
+  //kdDebug() << k_funcinfo << "Was " << edit.oldRange() << " now " << edit.newRange() << " numcursors feedback " << m_feedbackCursors.count() << " normal " << m_normalCursors.count() << endl;
 
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
-    if (cursor->translate(edit))
-      if (cursor->belongsToRange() && static_cast<KateSmartRange*>(cursor->belongsToRange())->feedbackEnabled())
-        ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
+    cursor->translate(edit);
+      //if (cursor->belongsToRange() && static_cast<KateSmartRange*>(cursor->belongsToRange())->feedbackEnabled())
+        //ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
 
   foreach (KateSmartCursor* cursor, m_normalCursors)
-    if (cursor->translate(edit))
-      if (cursor->belongsToRange() && static_cast<KateSmartRange*>(cursor->belongsToRange())->feedbackEnabled())
-        ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
+    cursor->translate(edit);
+      //if (cursor->belongsToRange() && static_cast<KateSmartRange*>(cursor->belongsToRange())->feedbackEnabled())
+        //ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
 }
 
 void KateSmartGroup::translateShifted(const KateEditInfo& edit)
 {
-  m_newStartLine = QMAX(m_startLine, m_startLine + edit.translate().line());
-  m_newEndLine = QMAX(m_endLine, m_endLine + edit.translate().line());
+  m_newStartLine = m_startLine + edit.translate().line();
+  m_newEndLine = m_endLine + edit.translate().line();
 }
 
 void KateSmartGroup::translatedChanged(const KateEditInfo& edit)
 {
-  if (m_startLine != m_newStartLine) {
-    m_startLine = m_newStartLine;
-    m_endLine = m_newEndLine;
-  }
+  m_startLine = m_newStartLine;
+  m_endLine = m_newEndLine;
 
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
     cursor->translated(edit);
-
-  /*foreach (KateSmartRange* range, m_rangesStartingPosition)
-    range->translated(edit);*/
 }
 
 void KateSmartGroup::translatedShifted(const KateEditInfo& edit)
@@ -350,9 +273,6 @@ void KateSmartGroup::translatedShifted(const KateEditInfo& edit)
   // Todo: don't need to provide positionChanged to all feedback cursors?
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
     cursor->shifted();
-
-  /*foreach (KateSmartRange* range, m_rangesStartingPosition)
-    range->shifted();*/
 }
 
 KateSmartGroup::KateSmartGroup( int startLine, int endLine, KateSmartGroup * previous, KateSmartGroup * next )
@@ -382,13 +302,12 @@ void KateSmartGroup::merge( )
     cursor->migrate(this);
   m_normalCursors += next()->normalCursors();
 
-  //m_rangesTraversing += next()->rangesTraversing();
-  //m_rangesStartingPosition += next()->rangesStaringPosition();
-
   m_newEndLine = m_endLine = next()->endLine();
   KateSmartGroup* newNext = next()->next();
   delete m_next;
   m_next = newNext;
+  if (m_next)
+    m_next->setPrevious(this);
 }
 
 const QSet< KateSmartCursor * > & KateSmartGroup::feedbackCursors( ) const
@@ -401,16 +320,6 @@ const QSet< KateSmartCursor * > & KateSmartGroup::normalCursors( ) const
   return m_normalCursors;
 }
 
-/*const QSet< KateSmartRange * > & KateSmartGroup::rangesTraversing( ) const
-{
-  return m_rangesTraversing;
-}
-
-const QSet< KateSmartRange * > & KateSmartGroup::rangesStaringPosition( ) const
-{
-  return m_rangesTraversing;
-}*/
-
 void KateSmartManager::debugOutput( ) const
 {
   int groupCount = 1;
@@ -420,7 +329,7 @@ void KateSmartManager::debugOutput( ) const
     currentGroup = currentGroup->next();
   }
 
-  //kdDebug() << "KateSmartManager: SmartGroups " << groupCount << " from " << m_firstGroup->startLine() << " to " << currentGroup->endLine() << "; Specific Ranges " << m_specificRanges.count() << endl;
+  kdDebug() << "KateSmartManager: SmartGroups " << groupCount << " from " << m_firstGroup->startLine() << " to " << currentGroup->endLine() << endl;
 
   currentGroup = m_firstGroup;
   while (currentGroup) {
@@ -431,7 +340,36 @@ void KateSmartManager::debugOutput( ) const
 
 void KateSmartGroup::debugOutput( ) const
 {
-  kdDebug() << " -> KateSmartGroup: from " << startLine() << " to " << endLine() << "; Cursors " << m_normalCursors.count() + m_feedbackCursors.count() << " (" << m_feedbackCursors.count() << " feedback)" /*", Ranges Traversing " << m_rangesTraversing.count() << ", Starting+Feedback " << m_rangesStartingPosition.count() */ << endl;
+  kdDebug() << " -> KateSmartGroup: from " << startLine() << " to " << endLine() << "; Cursors " << m_normalCursors.count() + m_feedbackCursors.count() << " (" << m_feedbackCursors.count() << " feedback)" << endl;
+}
+
+void KateSmartManager::verifyCorrect() const
+{
+  KateSmartGroup* currentGroup = groupForLine(0);
+  Q_ASSERT(currentGroup);
+  Q_ASSERT(currentGroup == m_firstGroup);
+
+  forever {
+    if (!currentGroup->previous())
+      Q_ASSERT(currentGroup->startLine() == 0);
+
+    foreach (KateSmartCursor* cursor, currentGroup->feedbackCursors()) {
+      Q_ASSERT(currentGroup->containsLine(cursor->line()));
+      Q_ASSERT(cursor->smartGroup() == currentGroup);
+    }
+
+    if (!currentGroup->next())
+      break;
+
+    Q_ASSERT(currentGroup->endLine() == currentGroup->next()->startLine() - 1);
+    Q_ASSERT(currentGroup->next()->previous() == currentGroup);
+
+    currentGroup = currentGroup->next();
+  }
+
+  Q_ASSERT(currentGroup->endLine() == doc()->lines() - 1);
+
+  kdDebug() << k_funcinfo << "Verified correct." << endl;
 }
 
 void KateSmartManager::rangeGotParent( KateSmartRange * range )

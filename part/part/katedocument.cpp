@@ -2439,7 +2439,7 @@ bool KateDocument::closeURL()
   {
     // Explicitly call the internal version because we don't want this to look like
     // an external request (and thus have the view not QWidget::scroll()ed.
-    view->setCursorPositionInternal(0, 0, 1, false);
+    view->setCursorPositionInternal(KTextEditor::Cursor(0,0), 1, false);
     view->updateView(true);
   }
 
@@ -2650,7 +2650,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   editEnd ();
 
   if (bracketInserted)
-    view->setCursorPositionInternal (view->cursorPosition().line(), view->cursorPosition().column()-1);
+    view->setCursorPositionInternal (view->cursorPosition() - KTextEditor::Cursor(0,1));
 
   view->slotTextInserted (view, oldCur, chars);
   return true;
@@ -2888,7 +2888,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
   // even in that case, but user expects other behavior in block selection
   // mode !
   if (view->blockSelectionMode())
-    view->setCursorPositionInternal(pos.line() + lines, pos.column());
+    view->setCursorPositionInternal(pos + KTextEditor::Cursor(lines, 0));
 
   if (m_indenter->canProcessLine())
   {
@@ -3767,15 +3767,12 @@ inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isE
 */
 void KateDocument::newBracketMark( const KTextEditor::Cursor& cursor, KateSmartRange& bm, int maxLines )
 {
-  // FIXME need to 
-  //  bm.setValid(false);
-
   bm.setStart(cursor);
 
-  if( !findMatchingBracket( bm, maxLines ) )
+  if( findMatchingBracket( bm, maxLines ) )
     return;
 
-  //bm.setValid(true);
+  bm = KTextEditor::Range::invalid();
 
  // const int tw = config()->tabWidth();
  // const int indentStart = m_buffer->plainLine(bm.start().line())->indentDepth(tw);

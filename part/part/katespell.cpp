@@ -154,7 +154,7 @@ void KateSpell::misspelling( const QString& origword, const QStringList&, unsign
 {
   KTextEditor::Cursor cursor = locatePosition( pos );
 
-  m_view->setCursorPositionInternal (cursor.line(), cursor.column(), 1);
+  m_view->setCursorPositionInternal (cursor, 1);
   m_view->setSelection( cursor, origword.length() );
 }
 

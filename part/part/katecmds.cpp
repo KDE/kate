@@ -207,7 +207,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
         KCC_ERR( i18n("Line must be at least 1") );
       if ( val > v->doc()->lines() )
         KCC_ERR( i18n("There is not that many lines in this document") );
-      v->setCursorPositionReal( val - 1, 0 );
+      v->setCursorPosition( KTextEditor::Cursor(val - 1, 0) );
     }
     return true;
   }

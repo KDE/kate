@@ -1147,9 +1147,9 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
     if (!thisLine)
       break;
 
-    for (int i = 0; i < QMAX(1, thisLine->viewLineCount() - 1); ++i) {
+    for (int i = 0; i < thisLine->viewLineCount(); ++i) {
       if (offset == currentOffset) {
-        KateTextLayout thisViewLine = cache()->viewLine(i);
+        KateTextLayout thisViewLine = thisLine->viewLine(i);
 
         if (!forwards) {
           // We actually want it the other way around
@@ -2768,7 +2768,6 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
   else //if ( m_view->isActive() )
   {
 #warning fixme, this needs to be fixed app transparent to only be done if this view is the view where the editing did happen
-
     makeVisible(m_displayCursor, m_displayCursor.column());
   }
 

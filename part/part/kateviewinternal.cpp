@@ -1069,7 +1069,7 @@ KateTextLayout KateViewInternal::nextLayout() const
 
   if (currentViewLine >= cache()->line(m_cursor.line())->viewLineCount()) {
     currentViewLine = 0;
-    return cache()->textLayout(m_cursor.line() + 1, currentViewLine);
+    return cache()->textLayout(m_doc->getRealLine(m_displayCursor.line() + 1), currentViewLine);
   } else {
     return cache()->textLayout(m_cursor.line(), currentViewLine);
   }

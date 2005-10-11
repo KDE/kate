@@ -936,20 +936,20 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
             MarkInterface::MarkTypes markType = (MarkInterface::MarkTypes)(1<<bit);
             if( mrk & markType )
             {
-              QPixmap *px_mark (m_doc->markPixmap( markType ));
+              QPixmap px_mark (m_doc->markPixmap( markType ));
 
-              if (px_mark)
+              if (!px_mark.isNull())
               {
                 // center the mark pixmap
-                int x_px = (iconPaneWidth - px_mark->width()) / 2;
+                int x_px = (iconPaneWidth - px_mark.width()) / 2;
                 if (x_px < 0)
                   x_px = 0;
 
-                int y_px = (h - px_mark->height()) / 2;
+                int y_px = (h - px_mark.height()) / 2;
                 if (y_px < 0)
                   y_px = 0;
 
-                p.drawPixmap( lnX+x_px, y+y_px, *px_mark);
+                p.drawPixmap( lnX+x_px, y+y_px, px_mark);
               }
             }
           }

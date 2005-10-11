@@ -154,8 +154,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_bBrowserView = bBrowserView;
   m_bReadOnly = bReadOnly;
 
-  m_markPixmaps.setAutoDelete( true );
-  m_markDescriptions.setAutoDelete( true );
   setMarksUserChangable( markType01 );
 
   m_undoMergeTimer = new QTimer(this);
@@ -1808,20 +1806,20 @@ void KateDocument::clearMarks()
 
 void KateDocument::setMarkPixmap( MarkInterface::MarkTypes type, const QPixmap& pixmap )
 {
-  m_markPixmaps.replace( type, new QPixmap( pixmap ) );
+  m_markPixmaps.insert( type, pixmap );
 }
 
 void KateDocument::setMarkDescription( MarkInterface::MarkTypes type, const QString& description )
 {
-  m_markDescriptions.replace( type, new QString( description ) );
+  m_markDescriptions.insert( type, description );
 }
 
-QPixmap *KateDocument::markPixmap( MarkInterface::MarkTypes type )
+const QPixmap& KateDocument::markPixmap( MarkInterface::MarkTypes type ) const
 {
   return m_markPixmaps[type];
 }
 
-QColor KateDocument::markColor( MarkInterface::MarkTypes type )
+QColor KateDocument::markColor( MarkInterface::MarkTypes type ) const
 {
   uint reserved = (0x1 << KTextEditor::MarkInterface::reservedMarkersCount()) - 1;
   if ((uint)type >= (uint)markType01 && (uint)type <= reserved) {
@@ -1831,10 +1829,10 @@ QColor KateDocument::markColor( MarkInterface::MarkTypes type )
   }
 }
 
-QString KateDocument::markDescription( MarkInterface::MarkTypes type )
+QString KateDocument::markDescription( MarkInterface::MarkTypes type ) const
 {
-  if( m_markDescriptions[type] )
-    return *m_markDescriptions[type];
+  if( m_markDescriptions.contains(type) )
+    return m_markDescriptions[type];
   return QString::null;
 }
 

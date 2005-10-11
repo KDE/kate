@@ -22,7 +22,7 @@
 //BEGIN INCLUDES + FORWARDS
 #include <q3ptrlist.h>
 #include <qobject.h>
-#include <q3intdict.h>
+#include <QHash>
 #include <QList>
 #include <QVector>
 
@@ -155,8 +155,8 @@ class KateCodeFoldingTree : public QObject
 
     KateBuffer *m_buffer;
 
-    Q3IntDict<unsigned int> lineMapping;
-    Q3IntDict<bool>         dontIgnoreUnchangedLines;
+    QHash<int,unsigned int> lineMapping;
+    QHash<int,bool>         dontIgnoreUnchangedLines;
 
     Q3PtrList<KateCodeFoldingNode> markedForDeleting;
     Q3PtrList<KateCodeFoldingNode> nodesForLine;

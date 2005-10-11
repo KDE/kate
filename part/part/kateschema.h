@@ -251,7 +251,7 @@ class KateSchemaConfigFontColorTab : public QWidget
 
   private:
     KateStyleListView *m_defaultStyles;
-    Q3IntDict<KateAttributeList> m_defaultStyleLists;
+    QHash<int,KateAttributeList*> m_defaultStyleLists;
 };
 
 class KateSchemaConfigHighlightTab : public QWidget
@@ -263,7 +263,7 @@ class KateSchemaConfigHighlightTab : public QWidget
     ~KateSchemaConfigHighlightTab();
 
   public:
-    void schemaChanged (uint schema);
+    void schemaChanged (int schema);
     void reload ();
     void apply ();
 
@@ -276,10 +276,10 @@ class KateSchemaConfigHighlightTab : public QWidget
     QComboBox *hlCombo;
     KateStyleListView *m_styles;
 
-    uint m_schema;
+    int m_schema;
     int m_hl;
 
-    Q3IntDict< Q3IntDict<KateHlItemDataList> > m_hlDict;
+    QHash<int, QHash<int, KateHlItemDataList*> > m_hlDict;
 };
 
 class KateSchemaConfigPage : public KateConfigPage

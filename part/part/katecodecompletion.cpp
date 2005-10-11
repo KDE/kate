@@ -521,7 +521,6 @@ KateArgHint::KateArgHint( KateView* parent, const char* name )
     setBackgroundColor( Qt::black );
     setPaletteForegroundColor( Qt::black );
 
-    labelDict.setAutoDelete( true );
     layout = new QVBoxLayout( this, 1, 2 );
     layout->setAutoAdd( true );
     editorView = parent;
@@ -536,6 +535,7 @@ KateArgHint::KateArgHint( KateView* parent, const char* name )
 
 KateArgHint::~KateArgHint()
 {
+    qDeleteAll(labelDict);
 }
 
 void KateArgHint::setArgMarkInfos( const QString& wrapping, const QString& delimiter )
@@ -549,6 +549,7 @@ void KateArgHint::reset( int line, int col )
 {
     m_functionMap.clear();
     m_currentFunction = -1;
+    qDeleteAll(labelDict);
     labelDict.clear();
 
     m_currentLine = line;

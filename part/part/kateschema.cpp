@@ -590,8 +590,6 @@ void KateSchemaConfigFontTab::schemaChanged( int newSchema )
 KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab( QWidget *parent, const char * )
   : QWidget (parent)
 {
-  m_defaultStyleLists.setAutoDelete(true);
-
   // sizemanagment
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
 
@@ -611,11 +609,12 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab( QWidget *parent, con
 
 KateSchemaConfigFontColorTab::~KateSchemaConfigFontColorTab()
 {
+  qDeleteAll(m_defaultStyleLists);
 }
 
 KateAttributeList *KateSchemaConfigFontColorTab::attributeList (uint schema)
 {
-  if (!m_defaultStyleLists[schema])
+  if (!m_defaultStyleLists.contains(schema))
   {
     KateAttributeList *list = new KateAttributeList ();
     KateHlManager::self()->getDefaults(schema, *list);
@@ -656,13 +655,17 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
 void KateSchemaConfigFontColorTab::reload ()
 {
   m_defaultStyles->clear ();
+  qDeleteAll(m_defaultStyleLists);
   m_defaultStyleLists.clear ();
 }
 
 void KateSchemaConfigFontColorTab::apply ()
 {
-  for ( Q3IntDictIterator<KateAttributeList> it( m_defaultStyleLists ); it.current(); ++it )
-    KateHlManager::self()->setDefaults(it.currentKey(), *(it.current()));
+  QHashIterator<int,KateAttributeList*> it = m_defaultStyleLists;
+  while (it.hasNext()) {
+    it.next();
+    KateHlManager::self()->setDefaults(it.key(), *it.value());
+  }
 }
 
 //END FontColorConfig
@@ -675,8 +678,6 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
 
   m_schema = 0;
   m_hl = 0;
-
-  m_hlDict.setAutoDelete (true);
 
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
@@ -720,6 +721,11 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
 
 KateSchemaConfigHighlightTab::~KateSchemaConfigHighlightTab()
 {
+  QHashIterator<int, QHash<int, KateHlItemDataList*> > it = m_hlDict;
+  while (it.hasNext()) {
+    it.next();
+    qDeleteAll(it.value());
+  }
 }
 
 void KateSchemaConfigHighlightTab::hlChanged(int z)
@@ -729,7 +735,7 @@ void KateSchemaConfigHighlightTab::hlChanged(int z)
   schemaChanged (m_schema);
 }
 
-void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
+void KateSchemaConfigHighlightTab::schemaChanged (int schema)
 {
   m_schema = schema;
 
@@ -737,21 +743,20 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
 
   m_styles->clear ();
 
-  if (!m_hlDict[m_schema])
+  if (!m_hlDict.contains(m_schema))
   {
     kdDebug(13030) << "NEW SCHEMA, create dict" << endl;
 
-    m_hlDict.insert (schema, new Q3IntDict<KateHlItemDataList>);
-    m_hlDict[m_schema]->setAutoDelete (true);
+    m_hlDict.insert (schema, QHash<int, KateHlItemDataList*>());
   }
 
-  if (!m_hlDict[m_schema]->find(m_hl))
+  if (!m_hlDict[m_schema].contains(m_hl))
   {
     kdDebug(13030) << "NEW HL, create list" << endl;
 
     KateHlItemDataList *list = new KateHlItemDataList ();
     KateHlManager::self()->getHl( m_hl )->getKateHlItemDataListCopy (m_schema, *list);
-    m_hlDict[m_schema]->insert (m_hl, list);
+    m_hlDict[m_schema].insert (m_hl, list);
   }
 
   KateAttributeList *l = m_defaults->attributeList (schema);
@@ -774,9 +779,9 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   m_styles->viewport()->setPalette( p );
 
   Q3Dict<KateStyleListCaption> prefixes;
-  for ( KateHlItemData *itemData = m_hlDict[m_schema]->find(m_hl)->last();
+  for ( KateHlItemData *itemData = m_hlDict[m_schema][m_hl]->last();
         itemData != 0L;
-        itemData = m_hlDict[m_schema]->find(m_hl)->prev())
+        itemData = m_hlDict[m_schema][m_hl]->prev())
   {
     kdDebug(13030) << "insert items " << itemData->name << endl;
 
@@ -804,6 +809,12 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
 void KateSchemaConfigHighlightTab::reload ()
 {
   m_styles->clear ();
+
+  QHashIterator<int, QHash<int, KateHlItemDataList*> > it = m_hlDict;
+  while (it.hasNext()) {
+    it.next();
+    qDeleteAll(it.value());
+  }
   m_hlDict.clear ();
 
   hlChanged (0);
@@ -811,9 +822,15 @@ void KateSchemaConfigHighlightTab::reload ()
 
 void KateSchemaConfigHighlightTab::apply ()
 {
-  for ( Q3IntDictIterator< Q3IntDict<KateHlItemDataList> > it( m_hlDict ); it.current(); ++it )
-    for ( Q3IntDictIterator< KateHlItemDataList > it2( *it.current() ); it2.current(); ++it2 )
-       KateHlManager::self()->getHl( it2.currentKey() )->setKateHlItemDataList (it.currentKey(), *(it2.current()));
+  QHashIterator<int, QHash<int, KateHlItemDataList*> > it = m_hlDict;
+  while (it.hasNext()) {
+    it.next();
+    QHashIterator<int, KateHlItemDataList*> it2 = it.value();
+    while (it2.hasNext()) {
+      it2.next();
+      KateHlManager::self()->getHl( it2.key() )->setKateHlItemDataList (it.key(), *(it2.value()));
+    }
+  }
 }
 
 //END KateSchemaConfigHighlightTab

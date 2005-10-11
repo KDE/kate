@@ -424,9 +424,9 @@ class KATE_TESTONLY_EXPORT KateDocument : public KTextEditor::Document,
 
     void setMarkPixmap( MarkInterface::MarkTypes, const QPixmap& );
     void setMarkDescription( MarkInterface::MarkTypes, const QString& );
-    QString markDescription( MarkInterface::MarkTypes );
-    QPixmap *markPixmap( MarkInterface::MarkTypes );
-    QColor markColor( MarkInterface::MarkTypes );
+    QString markDescription( MarkInterface::MarkTypes ) const;
+    const QPixmap& markPixmap( MarkInterface::MarkTypes ) const;
+    QColor markColor( MarkInterface::MarkTypes ) const;
 
     void setMarksUserChangable( uint markMask );
     uint editableMarks();
@@ -437,8 +437,8 @@ class KATE_TESTONLY_EXPORT KateDocument : public KTextEditor::Document,
 
   private:
     QHash<int, KTextEditor::Mark*> m_marks;
-    Q3IntDict<QPixmap>           m_markPixmaps;
-    Q3IntDict<QString>           m_markDescriptions;
+    QHash<int,QPixmap>           m_markPixmaps;
+    QHash<int,QString>           m_markDescriptions;
     uint                        m_editableMarks;
 
   //

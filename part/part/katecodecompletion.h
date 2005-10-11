@@ -36,7 +36,7 @@
 #include <qlabel.h>
 #include <q3frame.h>
 #include <qmap.h>
-#include <q3intdict.h>
+#include <QHash>
 #include <kdebug.h>
 
 class KateView;
@@ -194,7 +194,7 @@ class KateArgHint: public Q3Frame
       int m_currentLine;
       int m_currentCol;
       KateView* editorView;
-      Q3IntDict<QLabel> labelDict;
+      QHash<int,QLabel*> labelDict;
       QLayout* layout;
 };
 

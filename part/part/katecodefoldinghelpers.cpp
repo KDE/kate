@@ -170,7 +170,6 @@ void KateCodeFoldingTree::clear()
   m_root.endLineRel=1;      // temporary;
 
   hiddenLinesCountCacheValid=false;
-  lineMapping.setAutoDelete(true);
   hiddenLines.clear();
   lineMapping.clear();
   nodesForLine.clear();
@@ -1429,9 +1428,8 @@ unsigned int KateCodeFoldingTree::getRealLine(unsigned int virtualLine)
 
   // kdDebug(13000)<<QString("VirtualLine %1").arg(virtualLine)<<endl;
 
-  unsigned int *real=lineMapping[virtualLine];
-  if (real)
-    return (*real);
+  if (lineMapping.contains(virtualLine))
+    return lineMapping[virtualLine];
 
   unsigned int tmp = virtualLine;
   for (QList<KateHiddenLineBlock>::const_iterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
@@ -1444,7 +1442,7 @@ unsigned int KateCodeFoldingTree::getRealLine(unsigned int virtualLine)
 
   // kdDebug(13000)<<QString("Real Line %1").arg(virtualLine)<<endl;
 
-  lineMapping.insert(tmp, new unsigned int(virtualLine));
+  lineMapping.insert(tmp, virtualLine);
   return virtualLine;
 }
 

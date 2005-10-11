@@ -399,7 +399,7 @@ SmartRange::InsertBehaviours SmartRange::insertBehaviour( ) const
 void SmartRange::setInsertBehaviour(SmartRange::InsertBehaviours behaviour)
 {
   static_cast<SmartCursor*>(m_start)->setMoveOnInsert(behaviour & ExpandLeft);
-  static_cast<SmartCursor*>(m_end)->setMoveOnInsert(!(behaviour & ExpandRight));
+  static_cast<SmartCursor*>(m_end)->setMoveOnInsert(behaviour & ExpandRight);
 }
 
 void SmartRange::clearAllChildRanges()

@@ -134,7 +134,7 @@ bool TemplateInterface::insertTemplateText ( const Cursor& insertPosition, const
 
   while ( pos >= 0 )
   {
-    pos = rx.search( templateString, pos );
+    pos = rx.indexIn( templateString, pos );
 
     if ( pos > -1 )
     {

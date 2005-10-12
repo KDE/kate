@@ -386,7 +386,7 @@ void SmartRange::attachAction( KAction * action )
 
 void SmartRange::detachAction( KAction * action )
 {
-  m_associatedActions.remove(action);
+  m_associatedActions.removeAt(m_associatedActions.indexOf(action));
   if (!m_associatedActions.count())
     checkFeedback();
 }
@@ -404,23 +404,15 @@ void SmartRange::setInsertBehaviour(SmartRange::InsertBehaviours behaviour)
 
 void SmartRange::clearAllChildRanges()
 {
-  while (m_childRanges.count()) {
-    KTextEditor::Range* r = m_childRanges.first();
-    m_childRanges.remove(m_childRanges.begin());
-
-    delete r;
-  }
+  qDeleteAll(m_childRanges);
 }
 
 void SmartRange::deleteAllChildRanges()
 {
-  while (m_childRanges.count()) {
-    KTextEditor::Range* r = m_childRanges.first();
-    m_childRanges.remove(m_childRanges.begin());
-
+  foreach (KTextEditor::Range* r, m_childRanges);
     // FIXME editDeleteText here? or a call to delete the text on the range object
-    delete r;
-  }
+
+  qDeleteAll(m_childRanges);
 }
 
 void KTextEditor::SmartRange::setParentRange( SmartRange * r )

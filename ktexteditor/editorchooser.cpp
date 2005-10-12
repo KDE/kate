@@ -19,15 +19,15 @@
 #include <editorchooser.moc>
 
 #include <qcombobox.h>
+#include <qstringlist.h>
+#include <qlabel.h>
+#include <qlayout.h>
+
 #include <ktrader.h>
 #include <kconfig.h>
-#include <qstringlist.h>
 #include <kservice.h>
 #include <klocale.h>
-#include <qlabel.h>
 #include <kapplication.h>
-#include <qlayout.h>
-#include <q3valuelist.h>
 
 #include "editorchooser_ui.h"
 
@@ -69,17 +69,17 @@ EditorChooser::EditorChooser(QWidget *parent)
 	{
     		if ((*it)->desktopEntryName().contains(editor))
 		{
-			d->chooser->editorCombo->insertItem(i18n("System Default (currently: %1)").arg((*it)->name()));
+			d->chooser->editorCombo->addItem(i18n("System Default (currently: %1)").arg((*it)->name()));
 			break;
 		}
   	}
 
   	for (KTrader::OfferList::Iterator it = offers.begin(); it != offers.end(); ++it)
   	{
-    		d->chooser->editorCombo->insertItem((*it)->name());
+    		d->chooser->editorCombo->addItem((*it)->name());
 		d->elements.append((*it)->desktopEntryName());
   	}
-    	d->chooser->editorCombo->setCurrentItem(0);
+    	d->chooser->editorCombo->setCurrentIndex(0);
 
 	connect(d->chooser->editorCombo,SIGNAL(activated(int)),this,SIGNAL(changed()));
 }
@@ -96,12 +96,12 @@ void EditorChooser::readAppSetting(const QString& postfix){
 	else
 		cfg->setGroup("KTEXTEDITOR:"+postfix);
 	QString editor=cfg->readPathEntry("editor");
-	if (editor.isEmpty()) d->chooser->editorCombo->setCurrentItem(0);
+	if (editor.isEmpty()) d->chooser->editorCombo->setCurrentIndex(0);
 	else
 	{
-		int idx=d->elements.findIndex(editor);
+		int idx=d->elements.indexOf(editor);
 		idx=idx+1;
-		d->chooser->editorCombo->setCurrentItem(idx);
+		d->chooser->editorCombo->setCurrentIndex(idx);
 	}
 	cfg->setGroup(previousGroup);
 }
@@ -114,8 +114,8 @@ void EditorChooser::writeAppSetting(const QString& postfix){
 	else
 		cfg->setGroup("KTEXTEDITOR:"+postfix);
 	cfg->writeEntry("DEVELOPER_INFO","NEVER TRY TO USE VALUES FROM THAT GROUP, THEY ARE SUBJECT TO CHANGES");
-	cfg->writePathEntry("editor", (d->chooser->editorCombo->currentItem()==0) ?
-		QString() : QString(d->elements.at(d->chooser->editorCombo->currentItem()-1)));
+	cfg->writePathEntry("editor", (d->chooser->editorCombo->currentIndex()==0) ?
+		QString() : QString(d->elements.at(d->chooser->editorCombo->currentIndex()-1)));
 	cfg->sync();
 	cfg->setGroup(previousGroup);
 
@@ -144,7 +144,7 @@ KTextEditor::Editor *EditorChooser::editor(const QString& postfix,bool fallBackT
 	KService::Ptr serv=KService::serviceByDesktopName(editor);
 	if (serv)
 	{
-		tmpEd=KTextEditor::editor(serv->library().latin1());
+		tmpEd=KTextEditor::editor(serv->library().toLatin1());
 		if (tmpEd) return tmpEd;
 	}
 	if (fallBackToKatePart)

@@ -70,7 +70,7 @@ private slots:
 	void slotSearchAction( bool reverse );
 	void slotTextChanged( const QString& text );
 	void slotReturnPressed( const QString& text );
-	void slotAddContextMenuItems( Q3PopupMenu *menu);
+	void slotAddContextMenuItems( QMenu *menu);
 
 private:
 	void readConfig();

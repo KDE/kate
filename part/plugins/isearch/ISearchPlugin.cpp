@@ -80,8 +80,8 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	         this, SLOT(slotTextChanged(const QString&)) );
 	connect( m_combo, SIGNAL(returnPressed(const QString&)),
 	         this, SLOT(slotReturnPressed(const QString&)) );
-	connect( m_combo, SIGNAL(aboutToShowContextMenu(Q3PopupMenu*)),
-		 this, SLOT(slotAddContextMenuItems(Q3PopupMenu*)) );
+	connect( m_combo, SIGNAL(aboutToShowContextMenu(QMenu*)),
+		 this, SLOT(slotAddContextMenuItems(QMenu*)) );
 	m_comboAction = new KWidgetAction(
 		m_combo,
 		i18n("Search"), 0, 0, 0,
@@ -394,7 +394,7 @@ void ISearchPluginView::slotReturnPressed( const QString& text )
 	quitToView( text );
 }
 
-void ISearchPluginView::slotAddContextMenuItems( Q3PopupMenu *menu )
+void ISearchPluginView::slotAddContextMenuItems( QMenu *menu )
 {
 	if( menu ) {
 		menu->insertSeparator();

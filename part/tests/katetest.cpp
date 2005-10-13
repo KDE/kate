@@ -77,7 +77,6 @@
 #include <QVBoxLayout>
 #include <Q3ValueList>
 #include <QDropEvent>
-#include <Q3PopupMenu>
 #include <kxmlguifactory.h>
 
 // StatusBar field IDs

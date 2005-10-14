@@ -489,6 +489,8 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * cursors and ranges.
      *
      * Any modifications made to the document at this point will be lost.
+     *
+     * @param document the document being closed
      */
     void aboutToClose(KTextEditor::Document *document);
 };

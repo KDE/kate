@@ -404,7 +404,11 @@ void SmartRange::setInsertBehaviour(SmartRange::InsertBehaviours behaviour)
 
 void SmartRange::clearAllChildRanges()
 {
+  // FIXME: Probably more efficient to prevent them from unlinking themselves?
   qDeleteAll(m_childRanges);
+
+  // i.e. this is probably already clear
+  m_childRanges.clear();
 }
 
 void SmartRange::deleteAllChildRanges()

@@ -482,6 +482,15 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * @see insertText(), insertLine(), removeText(), removeLine(), clear()
      */
     void textChanged(KTextEditor::Document *document, const KTextEditor::Range& oldRange, const KTextEditor::Range& newRange);
+
+    /**
+     * Warn anyone listening that the current document is about to close.
+     * At this point all of the information is still accessible, such as the text,
+     * cursors and ranges.
+     *
+     * Any modifications made to the document at this point will be lost.
+     */
+    void aboutToClose(KTextEditor::Document *document);
 };
 
 }

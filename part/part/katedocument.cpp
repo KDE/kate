@@ -229,7 +229,13 @@ KateDocument::~KateDocument()
     //m_views.setAutoDelete( true );
     //m_views.clear();
     while (m_views.count()>0)
-	delete m_views.takeFirst();
+       delete m_views.takeFirst();
+  }
+  else
+  {
+    if (m_views.count())
+      // Tell the view it's no longer allowed to access the document.
+      m_views.first()->setDestructing();
   }
 
   delete m_editCurrentUndo;
@@ -1814,7 +1820,7 @@ void KateDocument::setMarkDescription( MarkInterface::MarkTypes type, const QStr
   m_markDescriptions.insert( type, description );
 }
 
-const QPixmap& KateDocument::markPixmap( MarkInterface::MarkTypes type ) const
+QPixmap KateDocument::markPixmap( MarkInterface::MarkTypes type ) const
 {
   return m_markPixmaps[type];
 }

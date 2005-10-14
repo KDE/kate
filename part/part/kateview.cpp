@@ -196,11 +196,14 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
 KateView::~KateView()
 {
-  m_destructing=true;
-  if (!m_doc->singleViewMode())
-    m_doc->disableAllPluginsGUI (this);
+  if (!m_destructing) {
+    m_destructing=true;
 
-  m_doc->removeView( this );
+    if (!m_doc->singleViewMode())
+      m_doc->disableAllPluginsGUI (this);
+
+    m_doc->removeView( this );
+  }
 
   delete m_viewInternal;
   delete m_codeCompletion;

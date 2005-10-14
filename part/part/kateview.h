@@ -89,6 +89,7 @@ class KateView : public KTextEditor::View,
 
     QString viewMode () const;
 
+    void setDestructing() { m_destructing = true; }
     inline bool destructing() {return m_destructing;}
 
   //

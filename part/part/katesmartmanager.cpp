@@ -34,7 +34,7 @@ KateSmartManager::KateSmartManager(KateDocument* parent)
   , m_invalidGroup(new KateSmartGroup(-1, -1, 0L, 0L))
 {
   connect(doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(slotTextChanged(KateEditInfo*)));
-  connect(doc(), SIGNAL(textChanged(KTextEditor::Document*)), SLOT(verifyCorrect()));
+  //connect(doc(), SIGNAL(textChanged(KTextEditor::Document*)), SLOT(verifyCorrect()));
 }
 
 KateSmartManager::~KateSmartManager()

@@ -2399,6 +2399,9 @@ bool KateDocument::closeURL()
   if (!KParts::ReadWritePart::closeURL ())
     return false;
 
+  // Tell the world that we're about to go ahead with the close
+  emit aboutToClose(this);
+
   // remove file from dirwatch
   deactivateDirWatch ();
 

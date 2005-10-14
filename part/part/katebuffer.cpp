@@ -41,6 +41,8 @@
 #include <QTextCodec>
 #include <QDateTime>
 
+#include <limits.h>
+
 /**
  * loader block size, load 256 kb at once per default
  * if file size is smaller, fall back to file size
@@ -369,7 +371,7 @@ void KateBuffer::editStart ()
 
   editIsRunning = true;
 
-  editTagLineStart = 0xffffffff;
+  editTagLineStart = INT_MAX;
   editTagLineEnd = 0;
   editTagLineFrom = false;
 

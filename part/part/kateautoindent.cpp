@@ -381,7 +381,7 @@ void KateNormalIndent::processNewline (KateDocCursor &begin, bool /*needContinue
 
   if (pos > 0)
   {
-    QString filler = doc->text(line, 0, line, pos);
+    QString filler = doc->text(KTextEditor::Range(line, 0, line, pos));
     doc->insertText(begin, filler);
     begin.setColumn(filler.length());
   }

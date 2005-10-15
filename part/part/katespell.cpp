@@ -121,7 +121,7 @@ void KateSpell::ready(KSpell *)
 {
   m_kspell->setProgressResolution( 1 );
 
-  m_kspell->check( m_view->doc()->text( m_spellStart.line(), m_spellStart.column(), m_spellEnd.line(), m_spellEnd.column() ) );
+  m_kspell->check( m_view->doc()->text( KTextEditor::Range(m_spellStart, m_spellEnd) ) );
 
   kdDebug (13020) << "SPELLING READY STATUS: " << m_kspell->status () << endl;
 }

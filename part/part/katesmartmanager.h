@@ -65,7 +65,7 @@ class KATE_TESTONLY_EXPORT KateSmartManager : public QObject
     void verifyCorrect() const;
 
   private:
-    void feedbackRange(const KateEditInfo& edit, KateSmartRange* range);
+    KateSmartRange* feedbackRange(const KateEditInfo& edit, KateSmartRange* range);
 
     const QSet<KateSmartRange*>& rangesWantingMostSpecificContentFeedback() const;
 

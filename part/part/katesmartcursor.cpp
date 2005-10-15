@@ -32,6 +32,11 @@ KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEdito
   , m_notifier(0L)
   , m_watcher(0L)
 {
+  if (position > kateDocument()->documentEnd()) {
+    kdWarning() << k_funcinfo << "Attempted to set cursor position past end of document." << endl;
+    m_line = -1;
+  }
+
   // Replace straight line number with smartgroup + line offset
   m_smartGroup = kateDocument()->smartManager()->groupForLine(m_line);
   m_line = m_line - m_smartGroup->startLine();
@@ -99,39 +104,63 @@ int KateSmartCursor::line( ) const
 
 void KateSmartCursor::setLine( int _line )
 {
-  bool haveToChangeGroups = !m_smartGroup->containsLine(_line);
-  if (haveToChangeGroups) {
-    m_smartGroup->leaving(this);
-    m_smartGroup = kateDocument()->smartManager()->groupForLine(_line);
-  }
-
-  m_line = _line - m_smartGroup->startLine();
-
-  if (haveToChangeGroups) {
-    m_smartGroup->joined(this);
-  }
+  setPositionInternal(KTextEditor::Cursor(_line, m_column), false);
 }
 
-void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool /*internal*/ )
+void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool internal )
 {
+  // Shortcut if there's no change :)
+  if (*this == pos)
+    return;
+
+  // Remember this position if the feedback system needs it
   if (m_feedbackEnabled)
     m_lastPosition = *this;
 
+  // Deal with crossing a smart group border
   bool haveToChangeGroups = !m_smartGroup->containsLine(pos.line());
   if (haveToChangeGroups) {
     m_smartGroup->leaving(this);
     m_smartGroup = kateDocument()->smartManager()->groupForLine(pos.line());
   }
 
+  // Decide whether the parent range has expanded or contracted, if there is one
+  bool expanded = true;
+  if (!internal && range()) {
+    if (this == &range()->start()) {
+      if (line() > pos.line() || m_column > pos.column())
+        expanded = false;
+
+    } else {
+      if (line() < pos.line() || m_column < pos.column())
+        expanded = false;
+    }
+  }
+
+  // Set the new position
   m_line = pos.line() - m_smartGroup->newStartLine();
   m_column = pos.column();
 
+  // Finish dealing with crossing a smart group border
   if (haveToChangeGroups) {
     m_smartGroup->joined(this);
   }
 
+  // Forget this position change if the feedback system doesn't need it
   if (!m_feedbackEnabled)
     m_lastPosition = *this;
+
+  // Tell the range about this
+  if (range())
+    range()->cursorChanged(this);
+
+  // Properly adjust parent or child range(s)
+  if (!internal && smartRange())
+    if (expanded && smartRange()->parentRange())
+      smartRange()->parentRange()->expandToRange(*range());
+    else
+      foreach (KTextEditor::SmartRange* r, smartRange()->childRanges())
+        r->confineToRange(*range());
 }
 
 KTextEditor::SmartCursorNotifier* KateSmartCursor::notifier( )
@@ -211,7 +240,7 @@ void KateSmartCursor::setLineInternal( int newLine, bool internal )
 void KateSmartCursor::translated(const KateEditInfo & edit)
 {
   if (*this < edit.start()) {
-    if (!belongsToRange() || !static_cast<KateSmartRange*>(belongsToRange())->feedbackEnabled())
+    if (!range() || !static_cast<KateSmartRange*>(range())->feedbackEnabled())
       m_lastPosition = *this;
     return;
   }
@@ -266,7 +295,7 @@ void KateSmartCursor::translated(const KateEditInfo & edit)
     }
   }
 
-  if (!belongsToRange() || !static_cast<KateSmartRange*>(belongsToRange())->feedbackEnabled())
+  if (!range() || !static_cast<KateSmartRange*>(range())->feedbackEnabled())
     m_lastPosition = *this;
 }
 
@@ -280,7 +309,7 @@ void KateSmartCursor::shifted( )
   if (m_watcher)
     m_watcher->positionChanged(this);
 
-  if (!belongsToRange() || !static_cast<KateSmartRange*>(belongsToRange())->feedbackEnabled())
+  if (!range() || !static_cast<KateSmartRange*>(range())->feedbackEnabled())
     m_lastPosition = *this;
 }
 
@@ -293,9 +322,9 @@ void KateSmartCursor::migrate( KateSmartGroup * newGroup )
 
 void KateSmartCursor::setPosition( const KTextEditor::Cursor & pos )
 {
-  if (pos > kateDocument()->end()) {
+  if (pos > kateDocument()->documentEnd()) {
     kdWarning() << k_funcinfo << "Attempted to set cursor position past end of document." << endl;
-    setPositionInternal(kateDocument()->end(), false);
+    setPositionInternal(invalid(), false);
     return;
   }
 

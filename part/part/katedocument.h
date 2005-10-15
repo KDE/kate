@@ -175,23 +175,24 @@ class KATE_TESTONLY_EXPORT KateDocument : public KTextEditor::Document,
   // KTextEditor::EditInterface stuff
   //
   public slots:
-    QString text() const;
+    virtual QString text() const;
 
-    // TODO add blockwise
-    QString text ( const KTextEditor::Range &range, bool blockwise = false ) const;
-    KDE_DEPRECATED QString text ( const KTextEditor::Cursor &startPosition, const KTextEditor::Cursor &endPosition ) const;
-    QString text ( int startLine, int startCol, int endLine, int endCol ) const
-     { return text (KTextEditor::Range(startLine, startCol, endLine, endCol)); }
+    virtual QString text ( const KTextEditor::Range &range, bool blockwise = false ) const;
+    virtual QStringList textLines ( const KTextEditor::Range& range, bool block = false ) const;
 
-    QString text ( int startLine, int startCol, int endLine, int endCol, bool blockwise ) const;
+    virtual QString line ( int line ) const;
 
-    QString line ( int line ) const;
+    virtual QChar character( const KTextEditor::Cursor& position ) const;
 
-    bool setText(const QString &);
-    bool clear ();
+    virtual bool setText(const QString &);
+    virtual bool setText(const QStringList& text);
+    virtual bool clear ();
 
-    bool insertText ( const KTextEditor::Cursor &position, const QString &s, bool block = false );
-    bool insertLine ( int line, const QString &s );
+    virtual bool insertText ( const KTextEditor::Cursor &position, const QString &s, bool block = false );
+    virtual bool insertText ( const KTextEditor::Cursor &position, const QStringList &text, bool block = false );
+
+    virtual bool insertLine ( int line, const QString &s );
+    virtual bool insertLines ( int line, const QStringList &s );
 
     bool removeText ( const KTextEditor::Range &range, bool block = false );
     bool removeLine ( int line );
@@ -199,9 +200,9 @@ class KATE_TESTONLY_EXPORT KateDocument : public KTextEditor::Document,
     bool replaceText ( const KTextEditor::Range &range, const QString &s, bool block = false );
 
     int lines() const;
-    virtual KTextEditor::Cursor end() const;
+    virtual KTextEditor::Cursor documentEnd() const;
     int numVisLines() const;
-    int length () const;
+    int totalCharacters() const;
     int lineLength ( int line ) const;
 
   signals:

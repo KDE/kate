@@ -326,6 +326,9 @@ class SmartRenderRange : public RenderRange {
 
     KTextEditor::Cursor nextBoundary() const
     {
+      if (!m_currentRange)
+        return KTextEditor::Cursor(INT_MAX,INT_MAX);
+
       KTextEditor::SmartRange* r = m_currentRange->deepestRangeContaining(m_currentPos);
       foreach (KTextEditor::SmartRange* child, r->childRanges()) {
         if (child->start() > m_currentPos)
@@ -336,6 +339,8 @@ class SmartRenderRange : public RenderRange {
 
     bool advanceTo(const KTextEditor::Cursor& pos) const
     {
+      m_currentPos = pos;
+
       if (!m_currentRange)
         return false;
 
@@ -347,7 +352,8 @@ class SmartRenderRange : public RenderRange {
         ret = true;
       }
 
-      Q_ASSERT(m_currentRange);
+      if (!m_currentRange)
+        return ret;
 
       KTextEditor::SmartRange* r = m_currentRange->deepestRangeContaining(pos);
       if (r != m_currentRange)
@@ -412,7 +418,7 @@ class NormalRenderRange : public RenderRange {
     virtual KTextEditor::Cursor nextBoundary() const
     {
       int index = m_currentRange;
-      do {
+      while (index < m_ranges.count()) {
         if (m_ranges.at(index).first->start() > m_currentPos)
           return m_ranges.at(index).first->start();
 
@@ -421,7 +427,7 @@ class NormalRenderRange : public RenderRange {
 
         ++index;
 
-      } while (index < m_ranges.count());
+      }
 
       return KTextEditor::Cursor(INT_MAX, INT_MAX);
     }
@@ -431,7 +437,7 @@ class NormalRenderRange : public RenderRange {
       m_currentPos = pos;
 
       int index = m_currentRange;
-      do {
+      while (index < m_ranges.count()) {
         if (m_ranges.at(index).first->end() <= pos) {
           ++index;
 
@@ -440,15 +446,14 @@ class NormalRenderRange : public RenderRange {
           m_currentRange = index;
           return ret;
         }
-
-      } while (index < m_ranges.count());
+      }
 
       return false;
     }
 
     virtual KTextEditor::Attribute* currentAttribute() const
     {
-      if (m_ranges[m_currentRange].first->contains(m_currentPos))
+      if (m_currentRange < m_ranges.count() && m_ranges[m_currentRange].first->contains(m_currentPos))
         return m_ranges[m_currentRange].second;
 
       return 0L;

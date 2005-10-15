@@ -127,6 +127,11 @@ void KateSmartRangeNotifier::disconnectNotify(const char* signal)
       m_owner->checkFeedback();
 }
 
+bool KateSmartRange::hasNotifier( ) const
+{
+  return m_notifier;
+}
+
 KTextEditor::SmartRangeNotifier* KateSmartRange::notifier()
 {
   if (!m_notifier) {
@@ -141,6 +146,11 @@ void KateSmartRange::deleteNotifier()
   delete m_notifier;
   m_notifier = 0L;
   checkFeedback();
+}
+
+KTextEditor::SmartRangeWatcher * KateSmartRange::watcher( ) const
+{
+  return m_watcher;
 }
 
 void KateSmartRange::setWatcher(KTextEditor::SmartRangeWatcher* watcher)
@@ -199,6 +209,15 @@ void KateSmartRange::translated(const KateEditInfo& edit)
 
   kStart().resetLastPosition();
   kEnd().resetLastPosition();
+}
+
+void KateSmartRange::feedbackMostSpecific( KateSmartRange * mostSpecific )
+{
+  // most specific range feedback
+  if (m_notifier)
+    emit m_notifier->contentsChanged(this, mostSpecific);
+  if (m_watcher)
+    m_watcher->contentsChanged(this, mostSpecific);
 }
 
 void KateSmartRange::shifted( )

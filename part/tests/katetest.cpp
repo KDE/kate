@@ -79,6 +79,8 @@
 #include <QDropEvent>
 #include <kxmlguifactory.h>
 
+#include "arbitraryhighlighttest.h"
+
 // StatusBar field IDs
 #define KWRITE_ID_GEN 1
 
@@ -112,6 +114,8 @@ KWrite::KWrite (KTextEditor::Document *doc)
 
     docList.append(doc);
   }
+
+  new ArbitraryHighlightTest(doc);
 
   m_view = qobject_cast<KTextEditor::View*>(doc->createView (this));
 

@@ -211,8 +211,7 @@ void KateTemplateHandler::slotTextInserted( int line, int col )
 
   KateTemplatePlaceHolder *ph = m_tabOrder.at( m_currentTabStop );
 
-  QString sourceText = m_doc->text ( m_currentRange->start().line(), m_currentRange->start().column(),
-                                     m_currentRange->end().line(), m_currentRange->end().column(), false );
+  QString sourceText = m_doc->text ( *m_currentRange );
 
   ph->isInitialValue = false;
   bool undoDontMerge = m_doc->m_undoDontMerge;

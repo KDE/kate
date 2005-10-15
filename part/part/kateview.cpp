@@ -815,7 +815,7 @@ bool KateView::setCursorPositionInternal( const KTextEditor::Cursor& position, u
   QString line_str = m_doc->line( position.line() );
 
   int x = 0;
-  for (int z = 0; z < line_str.length() && (uint)z < position.column(); z++) {
+  for (int z = 0; z < line_str.length() && z < position.column(); z++) {
     if (line_str[z] == QChar('\t')) x += tabwidth - (x % tabwidth); else x++;
   }
 
@@ -1371,7 +1371,7 @@ bool KateView::selectAll()
 {
   setBlockSelectionMode (false);
 
-  return setSelection(KTextEditor::Range(KTextEditor::Cursor(), m_doc->end()));
+  return setSelection(KTextEditor::Range(KTextEditor::Cursor(), m_doc->documentEnd()));
 }
 
 bool KateView::cursorSelected(const KTextEditor::Cursor& cursor)
@@ -1693,7 +1693,7 @@ void KateView::exportAsHTML ()
     (*outputStream) << "</head>" << endl;
     (*outputStream) << "<body>" << endl;
 
-    textAsHtmlStream(m_doc->all(), false, outputStream);
+    textAsHtmlStream(m_doc->documentRange(), false, outputStream);
 
     (*outputStream) << "</body>" << endl;
     (*outputStream) << "</html>" << endl;

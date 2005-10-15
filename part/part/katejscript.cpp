@@ -375,7 +375,7 @@ Value KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, 
       return KJS::String (doc->text());
 
     case KateJSDocument::Text:
-      return KJS::String (doc->text(args[0].toUInt32(exec), args[1].toUInt32(exec), args[2].toUInt32(exec), args[3].toUInt32(exec)));
+      return KJS::String (doc->text(KTextEditor::Range(args[0].toUInt32(exec), args[1].toUInt32(exec), args[2].toUInt32(exec), args[3].toUInt32(exec))));
 
     case KateJSDocument::TextLine:
       return KJS::String (doc->line (args[0].toUInt32(exec)));
@@ -384,7 +384,7 @@ Value KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, 
       return KJS::Number (doc->lines());
 
     case KateJSDocument::Length:
-      return KJS::Number (doc->length());
+      return KJS::Number (doc->totalCharacters());
 
     case KateJSDocument::LineLength:
       return KJS::Number (doc->lineLength(args[0].toUInt32(exec)));

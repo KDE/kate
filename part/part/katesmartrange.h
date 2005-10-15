@@ -97,8 +97,10 @@ class KateSmartRange : public KTextEditor::SmartRange
 
     //virtual void tagRange();
 
+    virtual bool hasNotifier() const;
     virtual KTextEditor::SmartRangeNotifier* notifier();
     virtual void deleteNotifier();
+    virtual KTextEditor::SmartRangeWatcher* watcher() const;
     virtual void setWatcher(KTextEditor::SmartRangeWatcher* watcher);
 
     virtual void setParentRange(SmartRange* r);
@@ -125,6 +127,7 @@ class KateSmartRange : public KTextEditor::SmartRange
 
     /// One or both of the cursors has been changed.
     void translated(const KateEditInfo& edit);
+    void feedbackMostSpecific(KateSmartRange* mostSpecific);
     /// The range has been shifted only
     void shifted();
 

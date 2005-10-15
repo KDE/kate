@@ -48,6 +48,8 @@ namespace KTextEditor { class Document; }
  **/
 class KateSmartCursor : public KTextEditor::SmartCursor
 {
+  friend class KateSmartRange;
+
   public:
     KateSmartCursor(const KTextEditor::Cursor& position, KTextEditor::Document* doc, bool moveOnInsert = true);
     /// \overload
@@ -104,6 +106,8 @@ class KateSmartCursor : public KTextEditor::SmartCursor
 
   protected:
     void setLineInternal(int newLine, bool internal = true);
+
+    // Where internal == true, don't constrain parent or child ranges.
     void setPositionInternal(const KTextEditor::Cursor& pos, bool internal = true);
     virtual void checkFeedback();
 

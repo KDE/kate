@@ -208,25 +208,40 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
   }
 
   // Range feedback
-  foreach (KateSmartRange* range, m_topRanges)
-    feedbackRange(*edit, range);
+  foreach (KateSmartRange* range, m_topRanges) {
+    KateSmartRange* mostSpecific = feedbackRange(*edit, range);
+
+    if (!mostSpecific)
+      mostSpecific = range;
+    range->feedbackMostSpecific(mostSpecific);
+  }
 
   //debugOutput();
   //verifyCorrect();
 }
 
-void KateSmartManager::feedbackRange( const KateEditInfo& edit, KateSmartRange * range )
+KateSmartRange* KateSmartManager::feedbackRange( const KateEditInfo& edit, KateSmartRange * range )
 {
-  if (range->end() < edit.start())
-    return;
+  KateSmartRange* mostSpecific = 0L;
 
-  if (range->start() > edit.oldRange().end())
-    range->shifted();
-  else
-    range->translated(edit);
+  if (range->end() < edit.start())
+    return mostSpecific;
 
   foreach (KTextEditor::SmartRange* child, range->childRanges())
-    feedbackRange(edit, static_cast<KateSmartRange*>(child));
+    if (!mostSpecific)
+      mostSpecific = feedbackRange(edit, static_cast<KateSmartRange*>(child));
+    else
+      feedbackRange(edit, static_cast<KateSmartRange*>(child));
+
+  if (range->start() > edit.oldRange().end()) {
+    range->shifted();
+
+  } else {
+    if (!mostSpecific)
+    range->translated(edit);
+  }
+
+  return mostSpecific;
 }
 
 
@@ -236,13 +251,9 @@ void KateSmartGroup::translateChanged( const KateEditInfo& edit)
 
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
     cursor->translate(edit);
-      //if (cursor->belongsToRange() && static_cast<KateSmartRange*>(cursor->belongsToRange())->feedbackEnabled())
-        //ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
 
   foreach (KateSmartCursor* cursor, m_normalCursors)
     cursor->translate(edit);
-      //if (cursor->belongsToRange() && static_cast<KateSmartRange*>(cursor->belongsToRange())->feedbackEnabled())
-        //ranges.insert(static_cast<KateSmartRange*>(cursor->belongsToRange()));
 }
 
 void KateSmartGroup::translateShifted(const KateEditInfo& edit)

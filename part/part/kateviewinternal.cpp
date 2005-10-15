@@ -1300,7 +1300,7 @@ void KateViewInternal::cursorToMatchingBracket( bool sel )
   // If it's an ending bracket, put it to the right (so we can easily
   // get back to the original bracket).
   if( range.end() > range.start() )
-    range.setEndColumn(range.end().column() + 1);
+    range.end().setColumn(range.end().column() + 1);
 
   updateSelection( range.end(), sel );
   updateCursor( range.end() );
@@ -1724,15 +1724,15 @@ void KateViewInternal::updateBracketMarks()
   m_doc->newBracketMark( m_cursor, m_bm, maxLines );
 
   if ( m_bm.isValid() ) {
-    m_bmStart.setStart(m_bm.start());
-    m_bmStart.setEnd(m_bm.start().line(), m_bm.start().column() + 1);
+    m_bmStart.start() = m_bm.start();
+    m_bmStart.end().setPosition(m_bm.start().line(), m_bm.start().column() + 1);
     //m_bmStart.setValid(true);
 
-    m_bmEnd.setStart(m_bm.end());
-    m_bmEnd.setEnd(m_bm.end().line(), m_bmEnd.end().column() + 1);
+    m_bmEnd.start() = m_bm.end();
+    m_bmEnd.end().setPosition(m_bm.end().line(), m_bmEnd.end().column() + 1);
     //m_bmEnd.setValid(true);
 
-    m_bm.setEndColumn(m_bm.end().column() + 1);
+    m_bm.end().setColumn(m_bm.end().column() + 1);
 
     tagRange(m_bm, true);
     tagRange(m_bmStart, true);

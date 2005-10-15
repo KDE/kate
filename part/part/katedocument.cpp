@@ -392,60 +392,106 @@ QString KateDocument::text() const
 
 QString KateDocument::text( const KTextEditor::Range& range, bool blockwise ) const
 {
-  return text(range.start().line(), range.start().column(), range.end().line(), range.end().column(), blockwise);
-}
-
-QString KateDocument::text ( const KTextEditor::Cursor &startPosition, const KTextEditor::Cursor &endPosition ) const
-{
-  return text(startPosition.line(), startPosition.column(), endPosition.line(), endPosition.column(), false);
-}
-
-QString KateDocument::text ( int startLine, int startCol, int endLine, int endCol, bool blockwise) const
-{
-  if ( blockwise && (startCol > endCol) )
+  if ( blockwise && (range.start().column() > range.end().column()) )
     return QString ();
 
   QString s;
 
-  if (startLine == endLine)
+  if (range.start().line() == range.end().line())
   {
-    if (startCol > endCol)
+    if (range.start().column() > range.end().column())
       return QString ();
 
-    KateTextLine::Ptr textLine = m_buffer->plainLine(startLine);
+    KateTextLine::Ptr textLine = m_buffer->plainLine(range.start().line());
 
     if ( !textLine )
       return QString ();
 
-    return textLine->string(startCol, endCol-startCol);
+    return textLine->string(range.start().column(), range.end().column()-range.start().column());
   }
   else
   {
 
-    for (int i = startLine; (i <= endLine) && (i < m_buffer->count()); ++i)
+    for (int i = range.start().line(); (i <= range.end().line()) && (i < m_buffer->count()); ++i)
     {
       KateTextLine::Ptr textLine = m_buffer->plainLine(i);
 
       if ( !blockwise )
       {
-        if (i == startLine)
-          s.append (textLine->string(startCol, textLine->length()-startCol));
-        else if (i == endLine)
-          s.append (textLine->string(0, endCol));
+        if (i == range.start().line())
+          s.append (textLine->string(range.start().column(), textLine->length()-range.start().column()));
+        else if (i == range.end().line())
+          s.append (textLine->string(0, range.end().column()));
         else
           s.append (textLine->string());
       }
       else
       {
-        s.append( textLine->string( startCol, endCol-startCol));
+        s.append( textLine->string( range.start().column(), range.end().column()-range.start().column()));
       }
 
-      if ( i < endLine )
+      if ( i < range.end().line() )
         s.append(QChar::fromAscii('\n'));
     }
   }
 
   return s;
+}
+
+QChar KateDocument::character( const KTextEditor::Cursor & position ) const
+{
+  KateTextLine::Ptr textLine = m_buffer->plainLine(position.line());
+
+  if ( !textLine )
+    return QChar();
+
+  if (position.column() >= 0 && position.column() < textLine->string().length())
+    return textLine->string().at(position.column());
+
+  return QChar();
+}
+
+QStringList KateDocument::textLines( const KTextEditor::Range & range, bool blockwise ) const
+{
+  QStringList ret;
+
+  if ( blockwise && (range.start().column() > range.end().column()) )
+    return ret;
+
+  if (range.start().line() == range.end().line())
+  {
+    Q_ASSERT(range.start() <= range.end());
+
+    KateTextLine::Ptr textLine = m_buffer->plainLine(range.start().line());
+
+    if ( !textLine )
+      return ret;
+
+    ret << textLine->string(range.start().column(), range.end().column() - range.start().column());
+  }
+  else
+  {
+    for (int i = range.start().line(); (i <= range.end().line()) && (i < m_buffer->count()); ++i)
+    {
+      KateTextLine::Ptr textLine = m_buffer->plainLine(i);
+
+      if ( !blockwise )
+      {
+        if (i == range.start().line())
+          ret << textLine->string(range.start().column(), textLine->length() - range.start().column());
+        else if (i == range.end().line())
+          ret << textLine->string(0, range.end().column());
+        else
+          ret << textLine->string();
+      }
+      else
+      {
+        ret << textLine->string(range.start().column(), range.end().column() - range.start().column());
+      }
+    }
+  }
+
+  return ret;
 }
 
 QString KateDocument::line( int line ) const
@@ -475,6 +521,32 @@ bool KateDocument::setText(const QString &s)
 
   // insert the new text
   insertText (KTextEditor::Cursor(), s);
+
+  editEnd ();
+
+  for (int i=0; i < msave.count(); i++)
+    setMark (msave[i].line, msave[i].type);
+
+  return true;
+}
+
+bool KateDocument::setText( const QStringList & text )
+{
+  if (!isReadWrite())
+    return false;
+
+  Q3ValueList<KTextEditor::Mark> msave;
+
+  for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
+    msave.append (*i.value());
+
+  editStart ();
+
+  // delete the text
+  clear();
+
+  // insert the new text
+  insertText (KTextEditor::Cursor::start(), text);
 
   editEnd ();
 
@@ -577,6 +649,87 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
   return true;
 }
 
+bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStringList & textLines, bool block )
+{
+  if (!isReadWrite())
+    return false;
+
+  if (textLines.isEmpty() || (textLines.count() == 1 && textLines.first().isEmpty()))
+    return true;
+
+  // FIXME - huh, contradicted below
+  if (position.line() > lines())
+    return false;
+
+  editStart();
+
+  if (position.line() > lines())
+    editInsertLine(position.line(),"");
+
+  int currentLine = position.line();
+  int currentLineStart = 0;
+  int insertColumn = position.column();
+
+  bool replacetabs = ( config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn );
+  int tabWidth = config()->tabWidth();
+
+  static const QChar newLineChar('\n');
+  static const QChar tabChar('\t');
+  static const QChar spaceChar(' ');
+
+  foreach (QString text, textLines)
+  {
+    int pos = 0;
+    for (; pos < text.length(); pos++)
+    {
+      const QChar& ch = text.at(pos);
+
+      if (ch == newLineChar)
+      {
+        if ( !block )
+        {
+          // Only perform the text insert if there is text to insert
+          if (currentLineStart < pos - currentLineStart)
+            editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart));
+
+          editWrapLine(currentLine, pos + insertColumn);
+
+          insertColumn = 0;
+        }
+        else
+        {
+          editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart));
+
+          if ( currentLine == lastLine() )
+            editWrapLine(currentLine , insertColumn + pos - currentLineStart);
+        }
+
+        currentLine++;
+        currentLineStart = pos + 1;
+      }
+      else
+      {
+        if ( replacetabs && ch == tabChar )
+        {
+          int spacesRequired = tabWidth - ( (insertColumn + pos - currentLineStart) % tabWidth ); //###
+          editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart) + QString(spacesRequired, spaceChar));
+
+          currentLineStart = pos - currentLineStart + spacesRequired;
+          insertColumn = pos - currentLineStart;
+        }
+      }
+    }
+
+    // Only perform the text insert if there is text to insert
+    if (currentLineStart < pos - currentLineStart)
+      editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart));
+  }
+
+  editEnd();
+  return true;
+}
+
+
 bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
 {
   KTextEditor::Range range = _range;
@@ -602,7 +755,7 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
   {
     if ( range.end().line() > lastLine() )
     {
-      range.setEnd(lastLine()+1, 0);
+      range.end().setPosition(lastLine()+1, 0);
     }
 
     if (range.onSingleLine())
@@ -663,6 +816,22 @@ bool KateDocument::insertLine( int l, const QString &str )
   return editInsertLine (l, str);
 }
 
+bool KateDocument::insertLines( int line, const QStringList & text )
+{
+  if (!isReadWrite())
+    return false;
+
+  if (line < 0 || line > lines())
+    return false;
+
+  bool success = true;
+  foreach (QString string, text)
+    // FIXME assumes no \n in each string
+    success &= editInsertLine (line++, string);
+
+  return success;
+}
+
 bool KateDocument::removeLine( int line )
 {
   if (!isReadWrite())
@@ -674,7 +843,7 @@ bool KateDocument::removeLine( int line )
   return editRemoveLine (line);
 }
 
-int KateDocument::length() const
+int KateDocument::totalCharacters() const
 {
   int l = 0;
 
@@ -2049,8 +2218,8 @@ bool KateDocument::openFile(KIO::Job * job)
     setEncoding (serviceType.mid(pos+1));
 
   // do we have success ?
-  emit KTextEditor::Document::textRemoved(this, all());
-  history()->doEdit( new KateEditInfo(this, KateEditInfo::CloseFile, all(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
+  emit KTextEditor::Document::textRemoved(this, documentRange());
+  history()->doEdit( new KateEditInfo(this, KateEditInfo::CloseFile, documentRange(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
 
   bool success = m_buffer->openFile (m_file);
 
@@ -2059,8 +2228,8 @@ bool KateDocument::openFile(KIO::Job * job)
   //
   if (success)
   {
-    emit KTextEditor::Document::textInserted(this, all());
-    history()->doEdit( new KateEditInfo(this, KateEditInfo::CloseFile, KTextEditor::Range(0,0,0,0), QStringList(), all(), QStringList()) );
+    emit KTextEditor::Document::textInserted(this, documentRange());
+    history()->doEdit( new KateEditInfo(this, KateEditInfo::CloseFile, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
 
     /*if (highlight() && !m_url.isLocalFile()) {
       // The buffer's highlighting gets nuked by KateBuffer::clear()
@@ -3774,7 +3943,7 @@ inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isE
 */
 void KateDocument::newBracketMark( const KTextEditor::Cursor& cursor, KateSmartRange& bm, int maxLines )
 {
-  bm.setStart(cursor);
+  bm.start() = cursor;
 
   if( findMatchingBracket( bm, maxLines ) )
     return;
@@ -3806,10 +3975,10 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   } else if ( isStartBracket( right ) ) {
     bracket = right;
   } else if ( isEndBracket( left ) ) {
-    range.setStartColumn(range.start().column() - 1);
+    range.start().setColumn(range.start().column() - 1);
     bracket = left;
   } else if ( isBracket( left ) ) {
-    range.setStartColumn(range.start().column() - 1);
+    range.start().setColumn(range.start().column() - 1);
     bracket = left;
   } else if ( isBracket( right ) ) {
     bracket = right;
@@ -3833,29 +4002,29 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   int startAttr = textLine->attribute( range.start().column() );
   uint count = 0;
   int lines = 0;
-  range.setEnd(range.start());
+  range.end() = range.start();
 
   while( true ) {
     /* Increment or decrement, check base cases */
     if( forward ) {
       if( range.end().column() + 1 < lineLength( range.end().line() ) ) {
-        range.setEndColumn(range.end().column() + 1);
+        range.end().setColumn(range.end().column() + 1);
 
       } else {
         if( range.end().line() >= (int)lastLine() )
           return false;
-        range.setEnd(range.end().line() + 1, 0);
+        range.end().setPosition(range.end().line() + 1, 0);
         textLine = m_buffer->plainLine( range.end().line() );
         lines++;
       }
     } else {
       if( range.end().column() > 0 ) {
-        range.setEndColumn(range.end().column() - 1);
+        range.end().setColumn(range.end().column() - 1);
 
       } else {
         if( range.end().line() <= 0 )
           return false;
-        range.setEnd(range.end().line() - 1, lineLength( range.end().line() ) - 1);
+        range.end().setPosition(range.end().line() - 1, lineLength( range.end().line() ) - 1);
         textLine = m_buffer->plainLine( range.end().line() );
         lines++;
       }
@@ -4684,7 +4853,7 @@ KateView * KateDocument::activeKateView( ) const
   return static_cast<KateView*>(m_activeView);
 }
 
-KTextEditor::Cursor KateDocument::end( ) const
+KTextEditor::Cursor KateDocument::documentEnd( ) const
 {
   return KTextEditor::Cursor(lastLine(), lineLength(lastLine()));
 }
@@ -4707,7 +4876,7 @@ KTextEditor::SmartRange * KateDocument::newSmartRange( KTextEditor::SmartCursor 
   KateSmartCursor* kend = dynamic_cast<KateSmartCursor*>(end);
   if (!kstart || !kend)
     return 0L;
-  if (kstart->belongsToRange() || kend->belongsToRange())
+  if (kstart->range() || kend->range())
     return 0L;
   return m_smartManager->newSmartRange(kstart, kend, parent, insertBehaviour);
 }

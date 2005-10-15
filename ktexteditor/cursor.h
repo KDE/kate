@@ -30,6 +30,8 @@
 namespace KTextEditor
 {
 class Document;
+class Range;
+class SmartRange;
 
 /**
  * \short A Cursor represents a position in a Document.
@@ -50,6 +52,8 @@ class Document;
  */
 class KTEXTEDITOR_EXPORT Cursor
 {
+  friend class Range;
+
   public:
     /**
      * The default constructor creates a cursor at position (0,0).
@@ -83,7 +87,17 @@ class KTEXTEDITOR_EXPORT Cursor
      * within the linked document.
      */
     virtual bool isValid() const;
+
+    /**
+     * Returns an invalid cursor.
+     * \todo should invalid cursors be always or never equal to each other?
+     */
     static const Cursor& invalid();
+
+    /**
+     * Returns a cursor representing the start of any document - i.e., line 0, column 0.
+     */
+    static const Cursor& start();
 
     /**
      * Get both the line and column of the cursor position.
@@ -134,6 +148,11 @@ class KTEXTEDITOR_EXPORT Cursor
      * @param column new cursor column
      */
     inline void setPosition(int line, int column) { setPosition(Cursor(line, column)); }
+
+    /**
+     * Returns the range that this cursor belongs to, if any.
+     */
+    inline Range* range() const { return m_range; }
 
     /**
      * @returns true if the cursor is situated at the start of the line, false if it isn't.
@@ -218,6 +237,11 @@ class KTEXTEDITOR_EXPORT Cursor
 
   protected:
     /**
+     * Sets the range that this cursor belongs to.
+     */
+    void setRange(Range* range);
+
+    /**
      * cursor line
      */
     int m_line;
@@ -226,6 +250,11 @@ class KTEXTEDITOR_EXPORT Cursor
      * cursor column
      */
     int m_column;
+
+    /**
+     * range which owns this cursor, if any
+     */
+    Range* m_range;
 };
 
 class SmartCursor;
@@ -244,7 +273,22 @@ class SmartCursor;
 class KTEXTEDITOR_EXPORT SmartCursorWatcher
 {
   public:
+    SmartCursorWatcher();
     virtual ~SmartCursorWatcher();
+
+    /**
+     * Returns whether this watcher wants to be notified of changes that happen
+     * directly to the cursor, e.g. by calls to SmartCursor::setPosition(), rather
+     * than just when surrounding text changes.
+     */
+    bool wantsDirectChanges() const;
+
+    /**
+     * Set whether this watcher should be notified of changes that happen
+     * directly to the cursor, e.g. by calls to SmartCursor::setPosition(), rather
+     * than just when surrounding text changes.
+     */
+    void setWantsDirectChanges(bool wantsDirectChanges);
 
     /**
      * The cursor's position was changed.
@@ -275,6 +319,9 @@ class KTEXTEDITOR_EXPORT SmartCursorWatcher
      * @li false -> the char was inserted after
      */
     virtual void characterInserted(SmartCursor* cursor, bool insertedBefore);
+
+  private:
+    bool m_wantDirectChanges;
 };
 
 /**
@@ -293,6 +340,22 @@ class KTEXTEDITOR_EXPORT SmartCursorNotifier : public QObject
   Q_OBJECT
 
   public:
+    SmartCursorNotifier();
+
+    /**
+     * Returns whether this notifier will notify of changes that happen
+     * directly to the cursor, e.g. by calls to SmartCursor::setPosition(), rather
+     * than just when surrounding text changes.
+     */
+    bool wantsDirectChanges() const;
+
+    /**
+     * Set whether this notifier should notify of changes that happen
+     * directly to the cursor, e.g. by calls to SmartCursor::setPosition(), rather
+     * than just when surrounding text changes.
+     */
+    void setWantsDirectChanges(bool wantsDirectChanges);
+
   signals:
     /**
      * The cursor's position was changed.
@@ -323,9 +386,10 @@ class KTEXTEDITOR_EXPORT SmartCursorNotifier : public QObject
      * @li false -> the char was inserted after
      */
     void characterInserted(KTextEditor::SmartCursor* cursor, bool insertedBefore);
-};
 
-class SmartRange;
+  private:
+    bool m_wantDirectChanges;
+};
 
 /**
  * \short A SmartCursor is a Cursor which is bound to a specific Document, and maintains its position.
@@ -345,9 +409,17 @@ class SmartRange;
  */
 class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
 {
+  friend class SmartRange;
+
   public:
     virtual ~SmartCursor();
 
+    // Reimplementations
+    virtual void setLine (int line);
+    virtual void setColumn (int column);
+    virtual void setPosition (const Cursor& pos);
+
+    // BEGIN Functionality present from having this cursor associated with a Document
     /**
      * Returns the document to which this cursor is attached.
      */
@@ -361,14 +433,28 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     virtual bool isValid(const Cursor& position) const = 0;
 
     /**
+     * Return the character in the document at this position.
+     */
+    QChar character() const;
+
+    /**
+     * Insert @p text.
+     * @param text text to insert
+     * @param block insert this text as a visual block of text rather than a linear sequence
+     * @return @e true on success, otherwise @e false
+     */
+    virtual bool insertText(const QStringList &text, bool block = false);
+    // END
+
+    /**
      * Returns whether this cursor is a SmartCursor.
      */
     virtual bool isSmart() const;
 
-    inline SmartRange* belongsToRange() const { return m_range; }
-    inline void setBelongsToRange(SmartRange* range) { m_range = range; checkFeedback(); }
-
-    // Text editing commands here
+    /**
+     * Returns the range that this cursor belongs to, if any.
+     */
+    SmartRange* smartRange() const;
 
     /**
      * @returns true if the cursor is situated at the end of the line, false if it isn't.
@@ -418,14 +504,24 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
   protected:
     SmartCursor(const Cursor& position, Document* doc, bool moveOnInsert);
 
+    /**
+     * Called whenever the feedback requirements may have changed.
+     *
+     * Note: this is not called on construction, although it would make sense -
+     *       unfortunately the subclass is not yet initialized.
+     */
     virtual void checkFeedback() = 0;
+
+    /**
+     * Sets the range that this cursor belongs to.
+     */
+    void setRange(SmartRange* range);
 
   private:
     SmartCursor(const SmartCursor &);
 
     Document* m_doc;
     bool m_moveOnInsert : 1;
-    SmartRange* m_range;
 };
 
 }

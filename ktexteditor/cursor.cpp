@@ -25,18 +25,21 @@ using namespace KTextEditor;
 Cursor::Cursor( )
   : m_line(0)
   , m_column(0)
+  , m_range(0L)
 {
 }
 
 Cursor::Cursor( int _line, int _column )
   : m_line(_line)
   , m_column(_column)
+  , m_range(0L)
 {
 }
 
 Cursor::Cursor(const Cursor& copy)
   : m_line(copy.line())
   , m_column(copy.column())
+  , m_range(0L)
 {
 }
 
@@ -49,6 +52,12 @@ const Cursor & KTextEditor::Cursor::invalid( )
 {
   static Cursor invalid(-1,-1);
   return invalid;
+}
+
+const Cursor& Cursor::start()
+{
+  static Cursor start(0, 0);
+  return start;
 }
 
 void Cursor::setPosition( const Cursor & pos )
@@ -94,19 +103,23 @@ SmartCursor::SmartCursor( const Cursor & position, Document * doc, bool moveOnIn
   : Cursor(position)
   , m_doc(doc)
   , m_moveOnInsert(moveOnInsert)
-  , m_range(0L)
 {
   Q_ASSERT(m_doc);
 }
 
 bool SmartCursor::atEndOfDocument( ) const
 {
-  return *this >= m_doc->end();
+  return *this >= m_doc->documentEnd();
 }
 
 bool KTextEditor::SmartCursor::isSmart( ) const
 {
   return true;
+}
+
+bool KTextEditor::SmartCursor::insertText( const QStringList & text, bool block )
+{
+  return document()->insertText(*this, text, block);
 }
 
 KTextEditor::SmartCursorWatcher::~ SmartCursorWatcher( )
@@ -127,6 +140,87 @@ void KTextEditor::SmartCursorWatcher::characterDeleted( SmartCursor * , bool )
 
 void KTextEditor::SmartCursorWatcher::characterInserted( SmartCursor * , bool )
 {
+}
+
+QChar KTextEditor::SmartCursor::character( ) const
+{
+  return document()->character(*this);
+}
+
+SmartCursorWatcher::SmartCursorWatcher( )
+  : m_wantDirectChanges(true)
+{
+}
+
+bool KTextEditor::SmartCursorWatcher::wantsDirectChanges( ) const
+{
+  return m_wantDirectChanges;
+}
+
+void KTextEditor::SmartCursorWatcher::setWantsDirectChanges( bool wantsDirectChanges )
+{
+  m_wantDirectChanges = wantsDirectChanges;
+}
+
+SmartRange * KTextEditor::SmartCursor::smartRange( ) const
+{
+  return static_cast<SmartRange*>(m_range);
+}
+
+void KTextEditor::Cursor::setRange( Range * range )
+{
+  m_range = range;
+}
+
+void KTextEditor::SmartCursor::setRange( SmartRange * range )
+{
+  Cursor::setRange(range);
+  checkFeedback();
+}
+
+void KTextEditor::SmartCursor::setLine( int line )
+{
+  if (line == this->line())
+    return;
+
+  Cursor::setLine(line);
+  if (m_range)
+    m_range->cursorChanged(this);
+}
+
+void KTextEditor::SmartCursor::setColumn( int column )
+{
+  if (column == this->column())
+    return;
+
+  Cursor::setColumn(column);
+  if (m_range)
+    m_range->cursorChanged(this);
+}
+
+void KTextEditor::SmartCursor::setPosition( const Cursor & pos )
+{
+  if (pos == *this)
+    return;
+
+  Cursor::setPosition(pos);
+  if (m_range)
+    m_range->cursorChanged(this);
+}
+
+KTextEditor::SmartCursorNotifier::SmartCursorNotifier( )
+  : m_wantDirectChanges(true)
+{
+}
+
+bool KTextEditor::SmartCursorNotifier::wantsDirectChanges( ) const
+{
+  return m_wantDirectChanges;
+}
+
+void KTextEditor::SmartCursorNotifier::setWantsDirectChanges( bool wantsDirectChanges )
+{
+  m_wantDirectChanges = wantsDirectChanges;
 }
 
 #include "cursor.moc"

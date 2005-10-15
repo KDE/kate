@@ -279,7 +279,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * endEditing() three times, too, it internaly just does counting the
      * running editing sessions.
      *
-     * If the texteditor part does not support this kind of transactions,
+     * If the texteditor part does not support these transactions,
      * both calls just do nothing.
      *
      * @param view here you can optional give a view which does the editing
@@ -323,6 +323,25 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
     virtual QString text ( const Range& range, bool block = false ) const = 0;
 
     /**
+     * Get the character at @p cursor.
+     * @param position the location of the character to retrieve
+     * @return the requested character, or QChar() for invalid cursors.
+     * @see setText()
+     */
+    virtual QChar character( const Cursor& position ) const = 0;
+
+    /**
+     * Get the document content within the given @p range.
+     * @param range the range of text to retrieve
+     * @param block Set this to @e true to receive text in a visual block,
+     *        rather than everything inside @p range.
+     * @return the requested text lines, or QStringList() for invalid ranges.
+     *         no end of line termination is included.
+     * @see setText()
+     */
+    virtual QStringList textLines ( const Range& range, bool block = false ) const = 0;
+
+    /**
      * Get a single text line.
      * @param line the wanted line
      * @return the requested line, or "" for invalid line numbers
@@ -342,13 +361,13 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * @return The last column on the last line of the document
      * @see all()
      */
-    virtual Cursor end() const = 0;
+    virtual Cursor documentEnd() const = 0;
 
     /**
      * A Range which encompasses the whole document.
      * @return A range from the start to the end of the document
      */
-    inline Range all() const { return Range(Cursor(), end()); }
+    inline Range documentRange() const { return Range(Cursor::start(), documentEnd()); }
 
     /**
      * Get the count of characters in the document. A TAB character counts as
@@ -356,7 +375,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * @return the number of characters in the document
      * @see lines()
      */
-    virtual int length () const = 0;
+    virtual int totalCharacters() const = 0;
 
     /**
      * Get the length of a given line in characters.
@@ -383,6 +402,14 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
     virtual bool setText ( const QString &text ) = 0;
 
     /**
+     * Set the given text as new document content.
+     * @param text new content for the document
+     * @return @e true on success, otherwise @e false
+     * @see text()
+     */
+    virtual bool setText ( const QStringList &text ) = 0;
+
+    /**
      * Remove the whole content of the document.
      * @return @e true on success, otherwise @e false
      * @see removeText(), removeLine()
@@ -398,6 +425,26 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * @see setText(), removeText()
      */
     virtual bool insertText ( const Cursor &position, const QString &text, bool block = false ) = 0;
+
+    /**
+     * Insert @p text at @p position.
+     * @param position position to insert the text
+     * @param text text to insert
+     * @param block insert this text as a visual block of text rather than a linear sequence
+     * @return @e true on success, otherwise @e false
+     * @see setText(), removeText()
+     */
+    virtual bool insertText ( const Cursor &position, const QStringList &text, bool block = false ) = 0;
+
+    /**
+     * Replace text from @p range with specified @p text.
+     * @param range range of text to replace
+     * @param text text to replace with
+     * @param block replace text as a visual block of text rather than a linear sequence
+     * @return @e true on success, otherwise @e false
+     * @see setText(), removeText(), insertText()
+     */
+    virtual bool replaceText ( const Range &range, const QStringList &text, bool block = false );
 
     /**
      * Remove the text specified in @p range.
@@ -430,6 +477,20 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * @see insertText()
      */
     virtual bool insertLine ( int line, const QString &text ) = 0;
+
+    /**
+     * Insert line(s) at the given line number. The newline character '\\n'
+     * is treated as line delimiter, so it is possible to insert multiple
+     * lines. To append lines at the end of the document, use
+     * @code
+     *   insertLine( numLines(), text )
+     * @endcode
+     * @param line line where to insert the text
+     * @param text text which should be inserted
+     * @return @e true on success, otherwise @e false
+     * @see insertText()
+     */
+    virtual bool insertLines ( int line, const QStringList &text ) = 0;
 
     /**
      * Remove @p line from the document.

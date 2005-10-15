@@ -50,10 +50,12 @@ class Attribute;
  */
 class KTEXTEDITOR_EXPORT Range
 {
+  friend class Cursor;
+
   public:
     /**
-     * The default constructor creates a range from position (0,0) to
-     * position (0,0).
+     * The default constructor creates a range from position (0, 0) to
+     * position (0, 0).
      */
     Range();
 
@@ -102,12 +104,21 @@ class KTEXTEDITOR_EXPORT Range
      * Validity check.  In the base class, returns true unless the range starts before (0,0).
      */
     virtual bool isValid() const;
+
+    /**
+     * Returns an invalid range.
+     */
     static const Range& invalid();
 
     /**
      * Get the start point of this range. This will always be <= end().
-     * This non-const function allows direct manipulation of end(), while still retaining
+     *
+     * This non-const function allows direct manipulation of start(), while still retaining
      * notification support.
+     *
+     * If start() is set to a position after end(), end() will be moved to the
+     * same position as start(), as ranges are not allowed to have
+     * start() > end().
      */
     inline Cursor& start() { return *m_start; }
 
@@ -117,33 +128,14 @@ class KTEXTEDITOR_EXPORT Range
     inline const Cursor& start() const { return *m_start; }
 
     /**
-     * Set the start point of this range. If @e start is after @p end(),
-     * @p end() will be moved to the same point as @e start, as ranges are
-     * not allowed to have @p start() > @p end().
-     * @param start start cursor
-     */
-    virtual void setStart(const Cursor& start);
-    /**
-     * @overload void setStart(const Cursor& start)
-     * @param line start line
-     * @param column start column
-     */
-    inline void setStart(int line, int column) { setStart(Cursor(line, column)); }
-    /**
-     * @overload void setStart(const Cursor& start)
-     * @param line start line
-     */
-    inline void setStartLine(int line) { setStart(Cursor(line, start().column())); }
-    /**
-     * @overload void setStart(const Cursor& start)
-     * @param column start column
-     */
-    inline void setStartColumn(int column) { setStart(Cursor(start().line(), column)); }
-
-    /**
      * Get the end point of this range. This will always be >= start().
+     *
      * This non-const function allows direct manipulation of end(), while still retaining
      * notification support.
+     *
+     * If end() is set to a position before start(), start() will be moved to the
+     * same position as end(), as ranges are not allowed to have
+     * start() > end().
      */
     inline Cursor& end() { return *m_end; }
 
@@ -153,29 +145,10 @@ class KTEXTEDITOR_EXPORT Range
     inline const Cursor& end() const { return *m_end; }
 
     /**
-     * Set the end point of this range. If @e end is before start(),
-     * start() will be moved to the same point as @e end, as ranges are
-     * not allowed to have start() > end().
-     * @param end end cursor
+     * Convenience function.  Set the start and end lines to \p line.
+     *
+     * \param line the line number to assign to start() and end()
      */
-    virtual void setEnd(const Cursor& end);
-    /**
-     * @overload void setEnd(const Cursor& end)
-     * @param line end line
-     * @param column end column
-     */
-    inline void setEnd(int line, int column) { setEnd(Cursor(line, column)); }
-    /**
-     * @overload void setEnd(const Cursor& end)
-     * @param line end line
-     */
-    inline void setEndLine(int line) { setEnd(Cursor(line, end().column())); }
-    /**
-     * @overload void setEnd(const Cursor& end)
-     * @param column end column
-     */
-    inline void setEndColumn(int column) { setEnd(Cursor(end().line(), column)); }
-
     inline void setBothLines(int line) { setRange(Range(line, start().column(), line, end().column())); }
 
     /**
@@ -192,6 +165,18 @@ class KTEXTEDITOR_EXPORT Range
      */
     virtual void setRange(const Cursor& start, const Cursor& end);
 
+    /**
+     * Expand this range if necessary to contain \p range.
+     *
+     * \param range range which this range should contain
+     */
+    virtual void expandToRange(const Range& range);
+
+    /**
+     * Confine this range if neccessary to fit within \p range.
+     *
+     * \param range range which should contain this range
+     */
     virtual void confineToRange(const Range& range);
 
     // TODO: produce int versions with -1 before, 0 true, and +1 after if there is a need
@@ -352,6 +337,15 @@ class KTEXTEDITOR_EXPORT Range
 
     inline friend kndbgstream& operator<< (kndbgstream& s, const Range&) { return s; }
 
+    /**
+     * \internal
+     *
+     * Notify this range that one or both of the cursors' position has changed directly.
+     *
+     * \param cursor the cursor that changed. If 0L, both cursors have changed.
+     */
+    virtual void cursorChanged(Cursor* cursor);
+
   protected:
     /**
      * Constructor for advanced cursor types.
@@ -379,8 +373,27 @@ class SmartRange;
 class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
 {
   Q_OBJECT
+  friend class SmartRange;
 
   public:
+    SmartRangeNotifier();
+
+    /**
+     * Returns whether this notifier will notify of changes that happen
+     * directly to the range, e.g. by calls to SmartCursor::setRange(), or by
+     * direct assignment to either of the start() or end() cursors, rather
+     * than just when surrounding text changes.
+     */
+    bool wantsDirectChanges() const;
+
+    /**
+     * Set whether this notifier should notify of changes that happen
+     * directly to the range, e.g. by calls to SmartCursor::setRange(), or by
+     * direct assignment to either of the start() or end() cursors, rather
+     * than just when surrounding text changes.
+     */
+    void setWantsDirectChanges(bool wantsDirectChanges);
+
   signals:
     /**
      * The range's position changed.
@@ -391,6 +404,17 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
      * The contents of the range changed.
      */
     void contentsChanged(KTextEditor::SmartRange* range);
+
+    /**
+     * The contents of the range changed.  This notification is special in that it is only emitted by
+     * the top range of a heirachy, and also gives the furthest descendant child range which still
+     * encompasses the whole change in contents.
+     *
+     * \param range the range which has changed
+     * \param mostSpecificChild the child range which both contains the entire change and is 
+     *                          the furthest descendant of this range.
+     */
+    void contentsChanged(KTextEditor::SmartRange* range, KTextEditor::SmartRange* mostSpecificChild);
 
     /**
      * NOTE: this signal does not appear to be useful on reflection.
@@ -421,6 +445,9 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
      * The last character of this range was deleted.
      *
     void lastCharacterDeleted(KTextEditor::SmartRange* range);*/
+
+  private:
+    bool m_wantDirectChanges;
 };
 
 /**
@@ -436,7 +463,24 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
 class KTEXTEDITOR_EXPORT SmartRangeWatcher
 {
   public:
+    SmartRangeWatcher();
     virtual ~SmartRangeWatcher();
+
+    /**
+     * Returns whether this watcher will be notified of changes that happen
+     * directly to the range, e.g. by calls to SmartCursor::setRange(), or by
+     * direct assignment to either of the start() or end() cursors, rather
+     * than just when surrounding text changes.
+     */
+    bool wantsDirectChanges() const;
+
+    /**
+     * Set whether this watcher should be notified of changes that happen
+     * directly to the range, e.g. by calls to SmartCursor::setRange(), or by
+     * direct assignment to either of the start() or end() cursors, rather
+     * than just when surrounding text changes.
+     */
+    void setWantsDirectChanges(bool wantsDirectChanges);
 
     /**
      * The range's position changed.
@@ -447,6 +491,17 @@ class KTEXTEDITOR_EXPORT SmartRangeWatcher
      * The contents of the range changed.
      */
     virtual void contentsChanged(SmartRange* range);
+
+    /**
+     * The contents of the range changed.  This notification is special in that it is only emitted by
+     * the top range of a heirachy, and also gives the furthest descendant child range which still
+     * encompasses the whole change in contents.
+     *
+     * \param range the range which has changed
+     * \param mostSpecificChild the child range which both contains the entire change and is 
+     *                          the furthest descendant of this range.
+     */
+    virtual void contentsChanged(KTextEditor::SmartRange* range, KTextEditor::SmartRange* mostSpecificChild);
 
     /**
      * NOTE: this signal does not appear to be useful on reflection.
@@ -477,6 +532,9 @@ class KTEXTEDITOR_EXPORT SmartRangeWatcher
      * The last character of this range was deleted.
      *
     virtual void lastCharacterDeleted(SmartRange* range);*/
+
+  private:
+    bool m_wantDirectChanges;
 };
 
 /**
@@ -497,6 +555,8 @@ class KTEXTEDITOR_EXPORT SmartRangeWatcher
  */
 class KTEXTEDITOR_EXPORT SmartRange : public Range
 {
+  friend class SmartCursor;
+
   public:
     /// Determine how the range reacts to characters inserted immediately outside the range.
     enum InsertBehaviour {
@@ -511,7 +571,13 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     virtual ~SmartRange();
 
+    // Overload
+    virtual void setRange(const Range& range);
+
     // BEGIN Functionality present from having this range associated with a Document
+    /**
+     * Retrieve the document associated with this SmartRange.
+     */
     Document* document() const;
 
     SmartCursor& smartStart() { return *static_cast<SmartCursor*>(m_start); }
@@ -519,6 +585,32 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     SmartCursor& smartEnd() { return *static_cast<SmartCursor*>(m_end); }
     const SmartCursor& smartEnd() const { return *static_cast<const SmartCursor*>(m_end); }
+
+    /**
+     * Retrieve the text which is contained within this range.
+     *
+     * \param block specify whether the text should be returned from the range's visual block, rather
+     *              than all the text within the range.
+     */
+    virtual QStringList text(bool block = false) const;
+
+    /**
+     * Replace text in this range with \p text
+     *
+     * @param text text to use as a replacement
+     * @param block insert this text as a visual block of text rather than a linear sequence
+     * @return @e true on success, otherwise @e false
+     */
+    virtual bool replaceText(const QStringList &text, bool block = false);
+
+    /**
+     * Remove text contained within this range.
+     * The range itself will not be deleted.
+     *
+     * \param block specify whether the text should be deleted from the range's visual block, rather
+     *              than all the text within the range.
+     */
+    virtual bool removeText(bool block = false);
     // END
 
     // BEGIN Behaviour
@@ -556,15 +648,16 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     /// Overloaded to confine child ranges as well.
     virtual void confineToRange(const Range& range);
+    /// Overloaded to expand parent ranges.
+    virtual void expandToRange(const Range& range);
 
     inline int depth() const { return m_parentRange ? m_parentRange->depth() + 1 : 0; }
 
-    SmartRange* childBefore(const SmartRange* range) const;
-    SmartRange* childAfter(const SmartRange* range) const;
-    inline const QList<SmartRange*>& childRanges() const { return m_childRanges; }
-    bool insertChildRange(SmartRange* newChild, const SmartRange* before);
-    void clearAllChildRanges();
-    void deleteAllChildRanges();
+    const QList<SmartRange*>& childRanges() const;
+    void clearChildRanges();
+    void deleteChildRanges();
+    SmartRange* childBefore( const SmartRange * range ) const;
+    SmartRange* childAfter( const SmartRange * range ) const;
 
     /**
      * Finds the most specific range in a heirachy for the given input range
@@ -626,6 +719,13 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * The notifier is created at the time it is first requested.  If you have finished with
      * notifications for a reasonable period of time you can save memory by calling deleteNotifier().
      */
+    virtual bool hasNotifier() const = 0;
+
+    /**
+     * Connect to the notifier to receive signals indicating change of state of this range.
+     * The notifier is created at the time it is first requested.  If you have finished with
+     * notifications for a reasonable period of time you can save memory by calling deleteNotifier().
+     */
     virtual SmartRangeNotifier* notifier() = 0;
 
     /**
@@ -639,8 +739,24 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * To finish receiving notifications, call this function with \p watcher set to 0L.
      * \param watcher the class which will receive notifications about changes to this range.
      */
+    virtual SmartRangeWatcher* watcher() const = 0;
+
+    /**
+     * Provide a SmartRangeWatcher to receive calls indicating change of state of this range.
+     * To finish receiving notifications, call this function with \p watcher set to 0L.
+     * \param watcher the class which will receive notifications about changes to this range.
+     */
     virtual void setWatcher(SmartRangeWatcher* watcher) = 0;
     // END
+
+    /**
+     * \internal
+     *
+     * Notify this range that one or both of the cursors' position has changed directly.
+     *
+     * \param cursor the cursor that changed. If 0L, both cursors have changed.
+     */
+    virtual void cursorChanged(Cursor* cursor);
 
   protected:
     SmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, InsertBehaviours insertBehaviour = DoNotExpand);
@@ -653,6 +769,9 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
   private:
     Q_DISABLE_COPY(SmartRange)
+
+    void insertChildRange(SmartRange* newChild);
+    void removeChildRange(SmartRange* newChild);
 
     Attribute* m_attribute;
     SmartRange* m_parentRange;

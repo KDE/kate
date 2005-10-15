@@ -23,6 +23,8 @@
 
 namespace KTextEditor
 {
+class Document;
+class View;
 
 /**
  * \short A Document extension interface for handling SmartCursors and SmartRanges.
@@ -77,7 +79,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * \param position The initial cursor position assumed by the new cursor.
      * \param moveOnInsert Define whether the cursor should move when text is inserted at the cursor position.
      */
-    virtual SmartCursor* newSmartCursor(const Cursor& position, bool moveOnInsert = true) = 0;
+    virtual SmartCursor* newSmartCursor(const Cursor& position = Cursor::invalid(), bool moveOnInsert = true) = 0;
     /// \overload
     inline SmartCursor* newSmartCursor(bool moveOnInsert = true)
       { return newSmartCursor(Cursor(), moveOnInsert); }
@@ -93,10 +95,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * \param parent The parent SmartRange, if this is to be the child of an existing range.
      * \param insertBehaviour Define whether the range should expand when text is inserted at ends of the range.
      */
-    virtual SmartRange* newSmartRange(const Range& range, SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand) = 0;
-    /// \overload
-    inline SmartRange* newSmartRange(SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand)
-      { return newSmartRange(Range(), parent, insertBehaviour); }
+    virtual SmartRange* newSmartRange(const Range& range = Range::invalid(), SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand) = 0;
     /// \overload
     inline SmartRange* newSmartRange(const Cursor& startPosition, const Cursor& endPosition, SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand)
       { return newSmartRange(Range(startPosition, endPosition), parent, insertBehaviour); }

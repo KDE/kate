@@ -35,6 +35,8 @@ Range::Range()
   : m_start(new Cursor())
   , m_end(new Cursor())
 {
+  m_start->setRange(this);
+  m_end->setRange(this);
 }
 
 Range::Range(const Cursor& start, const Cursor& end)
@@ -47,12 +49,17 @@ Range::Range(const Cursor& start, const Cursor& end)
     m_start = new Cursor(end);
     m_end = new Cursor(start);
   }
+
+  m_start->setRange(this);
+  m_end->setRange(this);
 }
 
 Range::Range(const Cursor& start, int width)
   : m_start(new Cursor(start))
   , m_end(new Cursor(start.line(), start.column() + width))
 {
+  m_start->setRange(this);
+  m_end->setRange(this);
 }
 
 Range::Range(const Cursor& start, int endLine, int endCol)
@@ -64,6 +71,9 @@ Range::Range(const Cursor& start, int endLine, int endCol)
     m_end = m_start;
     m_start = temp;
   }
+
+  m_start->setRange(this);
+  m_end->setRange(this);
 }
 
 Range::Range(int startLine, int startCol, int endLine, int endCol)
@@ -75,6 +85,9 @@ Range::Range(int startLine, int startCol, int endLine, int endCol)
     m_end = m_start;
     m_start = temp;
   }
+
+  m_start->setRange(this);
+  m_end->setRange(this);
 }
 
 Range::Range(Cursor* start, Cursor* end)
@@ -86,12 +99,17 @@ Range::Range(Cursor* start, Cursor* end)
     *m_end = *m_start;
     *m_start = temp;
   }
+
+  m_start->setRange(this);
+  m_end->setRange(this);
 }
 
 Range::Range(const Range& copy)
   : m_start(new Cursor(copy.start()))
   , m_end(new Cursor(copy.end()))
 {
+  m_start->setRange(this);
+  m_end->setRange(this);
 }
 
 Range::~Range()
@@ -121,20 +139,6 @@ Range& Range::operator= (const Range& rhs)
   setRange(rhs);
   
   return *this;
-}
-
-void Range::setStart(const Cursor& newStart)
-{
-  *m_start = newStart;
-  if (start() > end())
-    *m_end = newStart;
-}
-
-void Range::setEnd(const Cursor& newEnd)
-{
-  *m_end = newEnd;
-  if (start() > end())
-    *m_start = newEnd;
 }
 
 void Range::setRange(const Range& range)
@@ -204,23 +208,23 @@ bool Range::boundaryOnLine(int line) const
 void Range::confineToRange(const Range& range)
 {
   if (start() < range.start())
-    if (end() < range.end())
+    if (end() > range.end())
       setRange(range);
     else
-      setStart(range.start());
-  else if (end() < range.end())
-    setEnd(range.end());
+      start() = range.start();
+  else if (end() > range.end())
+    end() = range.end();
 }
 
 void SmartRange::confineToRange(const Range& range)
 {
   if (start() < range.start())
-    if (end() < range.end())
+    if (end() > range.end())
       setRange(range);
     else
-      setStart(range.start());
-  else if (end() < range.end())
-    setEnd(range.end());
+      start() = range.start();
+  else if (end() > range.end())
+    end() = range.end();
   else
     // Don't need to check if children should be confined, they already are
     return;
@@ -229,15 +233,117 @@ void SmartRange::confineToRange(const Range& range)
     child->confineToRange(*this);
 }
 
+void Range::expandToRange(const Range& range)
+{
+  if (start() > range.start())
+    if (end() < range.end())
+      setRange(range);
+    else
+      start() = range.start();
+  else if (end() < range.end())
+    end() = range.end();
+}
+
+void SmartRange::expandToRange(const Range& range)
+{
+  if (start() > range.start())
+    if (end() < range.end())
+      setRange(range);
+    else
+      start() = range.start();
+  else if (end() < range.end())
+    end() = range.end();
+  else
+    // Don't need to check if parents should be expanded, they already are
+    return;
+
+  if (parentRange())
+    parentRange()->expandToRange(*this);
+}
+
 SmartRange::SmartRange(SmartCursor* start, SmartCursor* end, SmartRange * parent, InsertBehaviours insertBehaviour )
   : Range(start, end)
   , m_attribute(0L)
-  , m_parentRange(parent)
+  , m_parentRange(0L)
   , m_ownsAttribute(false)
 {
-  start->setBelongsToRange(this);
-  end->setBelongsToRange(this);
   setInsertBehaviour(insertBehaviour);
+
+  if (parent)
+    setParentRange(parent);
+}
+
+void SmartRange::setRange(const Range& range)
+{
+  bool expandStart, expandEnd;
+  if (parentRange() || childRanges().count()) {
+    expandStart = start() > range.start();
+    expandEnd = end() < range.end();
+  }
+
+  Range::setRange(range);
+
+  if (parentRange() || childRanges().count()) {
+    if (expandStart && expandEnd) {
+      if (parentRange())
+        parentRange()->expandToRange(*this);
+
+    } else if (!expandStart && !expandEnd) {
+      foreach (SmartRange* r, childRanges())
+        r->confineToRange(*this);
+
+    } else {
+      if (parentRange())
+        parentRange()->expandToRange(*this);
+
+      if (expandStart) {
+        bool confining = false;
+        foreach (SmartRange* r, childRanges()) {
+          if (confining) {
+            r->confineToRange(*this);
+
+          } else {
+            confining = r->end() > end();
+            if (confining)
+              r->confineToRange(*this);
+          }
+        }
+
+      } else {
+        bool confining = false;
+        SmartRange* r;
+        for (QList<SmartRange*>::ConstIterator it = childRanges().constEnd(); it != childRanges().constBegin(); ++it) {
+          r = *it;
+          if (confining) {
+            r->confineToRange(*this);
+
+          } else {
+            confining = r->start() < start();
+            if (confining)
+              r->confineToRange(*this);
+          }
+        }
+      }
+    }
+  }
+}
+
+SmartRange::~SmartRange( )
+{
+  setParentRange(0L);
+  setAttribute(0L);
+
+  /*if (!m_deleteCursors)
+  {
+    // Save from deletion in the parent
+    m_start = 0L;
+    m_end = 0L;
+  }*/
+}
+
+const QList<SmartRange*>& SmartRange::childRanges() const
+{
+  return m_childRanges;
 }
 
 SmartRange * SmartRange::childBefore( const SmartRange * range ) const
@@ -256,16 +362,33 @@ SmartRange * SmartRange::childAfter( const SmartRange * range ) const
   return 0L;
 }
 
-SmartRange::~SmartRange( )
+void KTextEditor::SmartRange::insertChildRange( SmartRange * newChild )
 {
-  setAttribute(0L);
+  Q_ASSERT(newChild->parentRange() == this);
+  QMutableListIterator<SmartRange*> it = m_childRanges;
+  it.toBack();
+  while (it.hasPrevious()) {
+    if (it.peekPrevious()->end() <= newChild->start()) {
+      it.insert(newChild);
+      if (it.hasNext() && it.next()->start() < newChild->end())
+          it.next()->start() = newChild->end();
+      return;
 
-  /*if (!m_deleteCursors)
-  {
-    // Save from deletion in the parent
-    m_start = 0L;
-    m_end = 0L;
-  }*/
+    } else if (it.peekPrevious()->start() >= newChild->start()) {
+      it.peekPrevious()->end() = newChild->start();
+      it.insert(newChild);
+      return;
+    }
+
+    it.previous();
+  }
+
+  m_childRanges.prepend(newChild);
+}
+
+void SmartRange::removeChildRange(SmartRange* newChild)
+{
+  m_childRanges.remove(newChild);
 }
 
 SmartRange * KTextEditor::SmartRange::findMostSpecificRange( const Range & input ) const
@@ -328,9 +451,12 @@ SmartRange * KTextEditor::SmartRange::deepestRangeContaining( const Cursor & pos
 {
   switch (relativePosition(pos)) {
     case 0:
-      for (QList<SmartRange*>::ConstIterator it = m_childRanges.constBegin(); it != m_childRanges.constEnd(); ++it)
-        if ((*it)->contains(pos) == 0)
-          return ((*it)->deepestRangeContaining(pos));
+      foreach (SmartRange* r, m_childRanges)
+        if (r->contains(pos)) {
+          SmartRange* j;
+          j = r->deepestRangeContaining(pos);
+          return j;
+        }
 
       return const_cast<SmartRange*>(this);
 
@@ -402,26 +528,35 @@ void SmartRange::setInsertBehaviour(SmartRange::InsertBehaviours behaviour)
   static_cast<SmartCursor*>(m_end)->setMoveOnInsert(behaviour & ExpandRight);
 }
 
-void SmartRange::clearAllChildRanges()
+void SmartRange::clearChildRanges()
 {
   // FIXME: Probably more efficient to prevent them from unlinking themselves?
+  foreach (KTextEditor::SmartRange* r, m_childRanges)
+    r->clearChildRanges();
+
   qDeleteAll(m_childRanges);
 
   // i.e. this is probably already clear
   m_childRanges.clear();
 }
 
-void SmartRange::deleteAllChildRanges()
+void SmartRange::deleteChildRanges()
 {
-  foreach (KTextEditor::Range* r, m_childRanges);
-    // FIXME editDeleteText here? or a call to delete the text on the range object
+  foreach (KTextEditor::SmartRange* r, m_childRanges)
+    r->removeText();
 
   qDeleteAll(m_childRanges);
 }
 
 void KTextEditor::SmartRange::setParentRange( SmartRange * r )
 {
+  if (m_parentRange)
+    m_parentRange->removeChildRange(this);
+
   m_parentRange = r;
+
+  if (m_parentRange)
+    m_parentRange->insertChildRange(this);
 }
 
 KTextEditor::SmartRangeWatcher::~ SmartRangeWatcher( )
@@ -458,17 +593,88 @@ Attribute * KTextEditor::SmartRange::attribute( ) const
   return m_attribute;
 }
 
-/*void KTextEditor::SmartRangeWatcher::boundaryDeleted( SmartRange * , bool )
+QStringList KTextEditor::SmartRange::text( bool block ) const
+{
+  return document()->textLines(*this, block);
+}
+
+bool KTextEditor::SmartRange::replaceText( const QStringList & text, bool block )
+{
+  return document()->replaceText(*this, text, block);
+}
+
+bool KTextEditor::SmartRange::removeText( bool block )
+{
+  return document()->removeText(*this, block);
+}
+
+void KTextEditor::SmartRangeWatcher::contentsChanged( KTextEditor::SmartRange * , KTextEditor::SmartRange *  )
 {
 }
 
-void KTextEditor::SmartRangeWatcher::firstCharacterDeleted( SmartRange * )
+void KTextEditor::SmartRange::cursorChanged( Cursor* c )
+{
+  Range::cursorChanged(c);
+
+  // SmartCursor and its subclasses take care of adjusting ranges if the tree structure is being used.
+  if (hasNotifier() && notifier()->wantsDirectChanges()) {
+    emit notifier()->positionChanged(this);
+    emit notifier()->contentsChanged(this);
+
+    if (start() == end())
+      emit notifier()->eliminated(this);
+  }
+
+  if (watcher() && watcher()->wantsDirectChanges()) {
+    watcher()->positionChanged(this);
+    notifier()->contentsChanged(this);
+
+    if (start() == end())
+      notifier()->eliminated(this);
+  }
+}
+
+void KTextEditor::Range::cursorChanged( Cursor * c )
+{
+  if (c == m_start) {
+    if (*c > *m_end)
+      *m_end = *c;
+
+  } else if (c == m_end) {
+    if (*c < *m_start)
+      *m_start = *c;
+  }
+}
+
+KTextEditor::SmartRangeNotifier::SmartRangeNotifier( )
+  : m_wantDirectChanges(true)
 {
 }
 
-void KTextEditor::SmartRangeWatcher::lastCharacterDeleted( SmartRange * )
+bool KTextEditor::SmartRangeNotifier::wantsDirectChanges( ) const
 {
-}*/
+  return m_wantDirectChanges;
+}
+
+void KTextEditor::SmartRangeNotifier::setWantsDirectChanges( bool wantsDirectChanges )
+{
+  m_wantDirectChanges = wantsDirectChanges;
+}
+
+KTextEditor::SmartRangeWatcher::SmartRangeWatcher( )
+  : m_wantDirectChanges(true)
+{
+}
+
+bool KTextEditor::SmartRangeWatcher::wantsDirectChanges( ) const
+{
+  return m_wantDirectChanges;
+}
+
+void KTextEditor::SmartRangeWatcher::setWantsDirectChanges( bool wantsDirectChanges )
+{
+  m_wantDirectChanges = wantsDirectChanges;
+}
 
 #include "range.moc"
 

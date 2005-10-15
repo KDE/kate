@@ -19,7 +19,7 @@
 #ifndef KATESMARTCURSORNOTIFIER_H
 #define KATESMARTCURSORNOTIFIER_H
 
-#include <ktexteditor/cursor.h>
+#include <ktexteditor/cursorfeedback.h>
 
 /**
 Kate implementation of the smart cursor notifier.  Basically allows emission of signals.

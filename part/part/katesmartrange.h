@@ -20,7 +20,8 @@
 #define KATESUPERRANGE_H
 
 #include "katesmartcursor.h"
-#include <ktexteditor/range.h>
+#include <ktexteditor/smartrange.h>
+#include <ktexteditor/rangefeedback.h>
 #include "kateedit.h"
 
 class KateSmartRange;

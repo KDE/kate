@@ -22,6 +22,7 @@
 
 #include <QtTest/qttest_kde.h>
 #include <kdebug.h>
+#include <ktexteditor/smartcursor.h>
 
 #include "kateregression.h"
 

@@ -21,6 +21,7 @@
 
 #include <QFlags>
 #include <ktexteditor/cursor.h>
+#include <ktexteditor/cursorfeedback.h>
 
 class CursorExpectation : public QObject, public KTextEditor::SmartCursorWatcher
 {

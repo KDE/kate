@@ -23,7 +23,7 @@
 #include <QSet>
 #include <QLinkedList>
 
-#include <ktexteditor/range.h>
+#include <ktexteditor/smartrange.h>
 
 #include "kateedit.h"
 

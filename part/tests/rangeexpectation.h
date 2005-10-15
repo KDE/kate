@@ -22,6 +22,7 @@
 #include <QFlags>
 
 #include <ktexteditor/range.h>
+#include <ktexteditor/rangefeedback.h>
 
 class RangeExpectation : public QObject, public KTextEditor::SmartRangeWatcher
 {

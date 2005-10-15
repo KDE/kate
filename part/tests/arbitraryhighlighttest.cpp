@@ -20,6 +20,7 @@
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/smartinterface.h>
+#include <ktexteditor/rangefeedback.h>
 #include <ktexteditor/attribute.h>
 
 using namespace KTextEditor;

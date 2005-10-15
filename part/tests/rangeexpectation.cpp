@@ -21,6 +21,7 @@
 #include <math.h>
 
 #include <QtTest/qttest_kde.h>
+#include <ktexteditor/smartrange.h>
 
 #include "kateregression.h"
 

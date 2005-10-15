@@ -71,7 +71,7 @@ void KateRegression::testAll()
   KTextEditor::Cursor* cursor2 = m_doc->newSmartCursor(KTextEditor::Cursor(), true);
 
   m_doc->insertText(KTextEditor::Cursor(), "Test Text\nMore Test Text");
-  COMPARE(m_doc->end(), KTextEditor::Cursor(1,14));
+  COMPARE(m_doc->documentEnd(), KTextEditor::Cursor(1,14));
 
   QString text = m_doc->text(KTextEditor::Range(1,0,1,14));
   COMPARE(text, QString("More Test Text"));
@@ -84,7 +84,7 @@ void KateRegression::testAll()
 
   // Set up a few more lines
   m_doc->insertText(*cursor2, "\nEven More Test Text");
-  COMPARE(m_doc->end(), KTextEditor::Cursor(2,19));
+  COMPARE(m_doc->documentEnd(), KTextEditor::Cursor(2,19));
   COMPARE(cursor3, m_doc->endOfLine(1));
 
   // Intra-line insert

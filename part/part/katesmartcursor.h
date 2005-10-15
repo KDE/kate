@@ -19,7 +19,7 @@
 #ifndef KATESUPERCURSOR_H
 #define KATESUPERCURSOR_H
 
-#include <ktexteditor/cursor.h>
+#include <ktexteditor/smartcursor.h>
 
 #include <QObject>
 

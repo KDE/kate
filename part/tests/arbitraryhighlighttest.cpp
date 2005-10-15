@@ -57,7 +57,7 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
   if (!ranges[0]) {
     for (int i = 0; i < 10; ++i) {
       ranges[i] = new Attribute();
-      ranges[i]->setBGColor(QColor(0xFF - i * 8,0xFF,0xFF));
+      ranges[i]->setBGColor(QColor(0xFF - (i * 0x20), 0xFF, 0xFF));
     }
   }
 
@@ -73,7 +73,7 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
           currentRange->setAttribute(ranges[currentRange->depth()]);
 
       } else if (string.at(i) == closeBrace && currentRange->parentRange()) {
-        currentRange->end() = current;
+        currentRange->end() = current + Cursor(0,1);
         currentRange = currentRange->parentRange();
       }
       current.setColumn(current.column() + 1);

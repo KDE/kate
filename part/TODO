@@ -38,17 +38,11 @@ TODO:
         * multiple edits for one logical edit
         * multiple logical edits for one undo step
     * fix passive changes to cursors/ranges
-      * make edits update the SmartManager properly -> working at least partially
-      * make SmartManager edits update the cursors and ranges -> written cold
       * make SmartManager pass on requested notifications
         * including most specific edited range notification (quite important!)
-    * fix active changes to cursors/ranges
-    * check to see if non-const cursors can be exposed from ranges once the above is done
-      * if so, introduce them and simplify the code
     * move back any excessively exposed parts of the smart ranges and cursors
     * testcases
     * performances testing suite
-      * see if much performance is lost by making all updates first before any changes are notified (makes much more sense from 3rd party pov, plus the objects themselves can only add themselves to the list if it is needed)
     * cachegrinding
     * make a translation snapshot feature where you can translate any cursor from a certain point in time - would be very cool :)
     * code cleanup
@@ -98,3 +92,12 @@ TODO:
      finished and a clever way to let scripts register for the katecmdline needs to
      be implemented, with caching and all other cool things the world doesn'T or does
      need
+
+* Cursor position restriction extension
+  * export enough api to allow 3rd party apps to provide a cursor that
+    * handles advancing/retreating
+    * allows to query if a position is a valid cursor position, and to find the closest valid position
+  * create a test version which does some basic restriction
+
+* Input restriction extension
+  * needed? probably not

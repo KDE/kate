@@ -239,71 +239,6 @@ void KateRenderer::paintWhitespaceMarker(QPainter &paint, uint x, uint y)
   paint.setPen( penBackup );
 }
 
-/*KateSmartRange* KateRenderer::advanceSyntaxHL(const KTextEditor::Cursor& currentPos, KateSmartRange* currentRange) const
-{
-  bool outDebug = false;//currentPos.line() == 22;
-
-  if (!currentRange)
-    return 0L;
-
-  KateSmartRange* tmpRange = 0L;
-  // Check to see if we are exiting any ranges
-  while (currentRange->end() <= currentPos) {
-    if (outDebug)
-      kdDebug(13033) << k_funcinfo << currentRange << "Leaving range " << *currentRange << " (current col: " << currentPos.column() << ")" << endl;
-
-    tmpRange = currentRange;
-
-    Q_ASSERT(currentRange->parentRange());
-    currentRange = currentRange->parentRange();
-  }
-
-  // We are now in a range which includes currentPos.
-  // FIXME FIXME this needs to be asserted!
-  Q_ASSERT(currentRange->includes(currentPos));
-
-  // Check to see if we are entering any child ranges
-  while (currentRange->childRanges().count()) {
-    QValueList<KateSmartRange*>::ConstIterator it = currentRange->childRanges().begin();
-
-    if (tmpRange) {
-      it = currentRange->childRanges().find(tmpRange);
-      tmpRange = 0L;
-    }
-
-    for (; it != currentRange->childRanges().end(); ++it)
-      if ((*it)->includes(currentPos)) {
-      currentRange = *it;
-
-      if (outDebug)
-        kdDebug(13033) << k_funcinfo << currentRange << "Entering range " << *currentRange << " (current col: " << currentPos.column() << ")" << endl;
-
-      goto doubleContinue;
-      }
-
-    // No matches; done...
-      break;
-
-    doubleContinue:
-          continue;
-  }
-
-  return currentRange;
-}
-
-KTextEditor::Attribute merge(QPtrList<KTextEditor::Range> ranges)
-{
-  ranges.sort();
-
-  KTextEditor::Attribute ret;
-
-  for (KateSmartRange* r = ranges.first(); r; r = ranges.next())
-    if (r->attribute())
-      ret += *(r->attribute());
-
-  return ret;
-}*/
-
 class RenderRange {
   public:
     virtual ~RenderRange() {};
@@ -596,24 +531,25 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
 
       KTextEditor::Cursor nextPosition = renderRanges.nextBoundary();
 
-      //if (range->line() == 43)
-        //kdDebug() << "Advanced to " << currentPosition.line() << "," << currentPosition.column() << ", nextPosition " << nextPosition.line() << "," << nextPosition.column() << endl;
-
       QTextLayout::FormatRange fr;
       fr.start = currentPosition.column();
 
-      if (nextPosition < endPosition)
+      if (nextPosition < endPosition) {
         fr.length = nextPosition.column() - currentPosition.column();
-      else
-        fr.length = endPosition.column() - currentPosition.column();
+
+      } else {
+        if (endPosition.line() > range->line())
+          // +1 to force background drawing at the end of the line when it's warranted
+          fr.length = range->length() - currentPosition.column() + 1;
+        else
+          fr.length = endPosition.column() - currentPosition.column();
+      }
 
       KTextEditor::Attribute a = renderRanges.generateAttribute();
       fr.format = a.toFormat();
       if (m_view->selection() && m_view->selectionRange().contains(currentPosition) && a.itemSet(KTextEditor::Attribute::SelectedTextColor))
         fr.format.setForeground(a.selectedTextColor());
 
-      //if (range->line() == 43)
-        //kdDebug() << k_funcinfo << "Adding attribute from " << fr.start << " length " << fr.length << " (colour "<< fr.format.foreground() <<" bold " << fr.format.fontWeight() << ")" << endl;
       newHighlight.append(fr);
 
       currentPosition = nextPosition;
@@ -667,13 +603,35 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     }
 
     // Loop each individual line for additional text decoration etc.
+    QListIterator<QTextLayout::FormatRange> it = range->layout()->additionalFormats();
     for (int i = 0; i < range->viewLineCount(); ++i) {
       KateTextLayout line = range->viewLine(i);
+
+      // Determine the background color to use, if any, for the end of this view line
+      QColor backgroundColor;
+      while (it.hasNext()) {
+        const QTextLayout::FormatRange& fr = it.peekNext();
+        if (fr.start > line.endCol())
+          break;
+
+        if (fr.start + fr.length > line.endCol()) {
+          if (fr.format.hasProperty(QTextFormat::BackgroundBrush))
+            backgroundColor = fr.format.background().color();
+          break;
+        }
+
+        it.next();
+      }
 
       // Draw selection outside of areas where text is rendered
       if (m_view->selection() && m_view->lineEndSelected(line.end())) {
         QRect area(line.endX() + line.xOffset() - xStart, fs->fontHeight * i, xEnd - xStart, fs->fontHeight * (i + 1));
         paint.fillRect(area, config()->selectionColor());
+
+      } else if (backgroundColor.isValid()) {
+        // Draw text background outside of areas where text is rendered.
+        QRect area(line.endX() + line.xOffset() - xStart, fs->fontHeight * i, xEnd - xStart, fs->fontHeight * (i + 1));
+        paint.fillRect(area, backgroundColor);
       }
 
       // Draw tab stops
@@ -935,6 +893,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
 
   // Tab width
   QTextOption opt;
+  opt.setFlags(QTextOption::IncludeTrailingSpaces);
   opt.setTabStop(m_tabWidth * config()->fontStruct()->width(spaceChar, false, false, m_tabWidth));
   l->setTextOption(opt);
 

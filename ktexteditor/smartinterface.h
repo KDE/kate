@@ -19,12 +19,13 @@
 #ifndef KDELIBS_KTEXTEDITOR_SMARTINTERFACE_H
 #define KDELIBS_KTEXTEDITOR_SMARTINTERFACE_H
 
-#include <ktexteditor/range.h>
+#include <ktexteditor/smartrange.h>
 
 namespace KTextEditor
 {
 class Document;
 class View;
+class SmartCursor;
 
 /**
  * \short A Document extension interface for handling SmartCursors and SmartRanges.

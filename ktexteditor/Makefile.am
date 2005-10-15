@@ -2,16 +2,18 @@ INCLUDES = -I$(top_srcdir)/kio -I$(top_srcdir) -I$(top_srcdir)/interfaces -I$(to
 
 lib_LTLIBRARIES = libktexteditor.la
 
-libktexteditor_la_SOURCES = ktexteditor.cpp range.cpp cursor.cpp templateinterface.cpp \
-	editorchooser.cpp editorchooser_ui.ui attribute.cpp
+libktexteditor_la_SOURCES = ktexteditor.cpp range.cpp cursor.cpp \
+	templateinterface.cpp 	editorchooser.cpp editorchooser_ui.ui attribute.cpp cursorfeedback.cpp \
+	rangefeedback.cpp smartcursor.cpp smartrange.cpp
 libktexteditor_la_LDFLAGS = -no-undefined $(all_libraries) $(KDE_RPATH)
 libktexteditor_la_LIBADD = $(top_builddir)/interfaces/kdocument/libkdocument.la $(LIB_KPARTS)
 
 ktexteditorinclude_HEADERS = factory.h editor.h document.h view.h plugin.h \
-	cursor.h range.h configpage.h searchinterface.h highlightinginterface.h \
-	codecompletioninterface.h markinterface.h sessionconfiginterface.h editorchooser.h 			 \
-	texthintinterface.h variableinterface.h templateinterface.h 			 modificationinterface.h \
-	commandinterface.h smartinterface.h attribute.h
+		cursor.h range.h configpage.h searchinterface.h highlightinginterface.h \
+		codecompletioninterface.h markinterface.h sessionconfiginterface.h editorchooser.h 			 \
+		texthintinterface.h variableinterface.h templateinterface.h 			 modificationinterface.h \
+		commandinterface.h smartinterface.h attribute.h cursorfeedback.h rangefeedback.h \
+	smartcursor.h smartrange.h
 
 ktexteditorincludedir = $(includedir)/ktexteditor
 

@@ -264,8 +264,18 @@ void KateSearch::search( SearchFlags flags )
 void KateSearch::wrapSearch()
 {
   if( s.flags.selected )
-  {
-      s.cursor   = s.flags.backward ? s.selection.end() : s.selection.start();
+  {      
+    KTextEditor::Cursor start (s.selection.start());
+    KTextEditor::Cursor end (s.selection.end());
+      
+    // recalc for block sel, to have start with lowest col, end with highest
+    if (m_view->blockSelectionMode())
+    {
+      start.setColumn (QMIN(s.selection.start().column(), s.selection.end().column()));
+      end.setColumn (QMAX(s.selection.start().column(), s.selection.end().column()));
+    }
+    
+    s.cursor = s.flags.backward ? end : start;
   }
   else
   {
@@ -548,20 +558,31 @@ bool KateSearch::doSearch( const QString& text )
 
     if ( match.isValid() && s.flags.selected )
     {
-      if ( !s.flags.backward && match.start() >= s.selection.end()
-        ||  s.flags.backward && match.start() < s.selection.start() )
+      KTextEditor::Cursor start (s.selection.start());
+      KTextEditor::Cursor end (s.selection.end());
+        
+      // recalc for block sel, to have start with lowest col, end with highest
+      if (m_view->blockSelectionMode())
+      {
+        start.setColumn (QMIN(s.selection.start().column(), s.selection.end().column()));
+        end.setColumn (QMAX(s.selection.start().column(), s.selection.end().column()));
+      }
+    
+      if ( !s.flags.backward && match.start() >= end
+        ||  s.flags.backward && match.start() < start )
         match = KTextEditor::Range::invalid();
       else if (m_view->blockSelection())
       {
-        if (match.start().column() < s.selection.end().column() && match.start().column() >= s.selection.start().column())
+        if (match.start().column() >= start.column() && match.start().column() < end.column())
           break;
       }
     }
 
     startPos = match.start() + KTextEditor::Cursor(0,1);
   }
-  while (m_view->blockSelection() && match.isValid());
-
+  while (s.flags.selected && m_view->blockSelectionMode() && match.isValid());
+  // in the case we want to search in selection + blockselection we need to loop
+  
   if( !match.isValid() ) return false;
 
   // save the search result

@@ -444,7 +444,7 @@ void KateSelectConfigTab::apply ()
   }
   KateDocumentConfig::global()->setConfigFlags(configFlags);
 
-  KateViewConfig::global()->setAutoCenterLines(QMAX(0, e4->value()));
+  KateViewConfig::global()->setAutoCenterLines(qMax(0, e4->value()));
   KateDocumentConfig::global()->setPageUpDownMovesCursor(e6->isChecked());
 
   KateViewConfig::global()->setPersistentSelection (rb2->isChecked());

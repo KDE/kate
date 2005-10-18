@@ -763,7 +763,7 @@ void KateViewConfig::setDynWordWrapIndicators (int mode)
   configStart ();
 
   m_dynWordWrapIndicatorsSet = true;
-  m_dynWordWrapIndicators = QMIN(80, QMAX(0, mode));
+  m_dynWordWrapIndicators = qBound(0, mode, 80);
 
   configEnd ();
 }

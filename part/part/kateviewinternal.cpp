@@ -338,12 +338,12 @@ void KateViewInternal::scrollViewLines(int offset)
 
 void KateViewInternal::scrollNextPage()
 {
-  scrollViewLines(QMAX( (int)linesDisplayed() - 1, 0 ));
+  scrollViewLines(qMax( (int)linesDisplayed() - 1, 0 ));
 }
 
 void KateViewInternal::scrollPrevPage()
 {
-  scrollViewLines(-QMAX( (int)linesDisplayed() - 1, 0 ));
+  scrollViewLines(-qMax( (int)linesDisplayed() - 1, 0 ));
 }
 
 void KateViewInternal::scrollPrevLine()
@@ -764,11 +764,11 @@ public:
   CalculatingCursor& operator--() { return operator-=( 1 ); }
 
   void makeValid() {
-    setLine(QMAX( 0, QMIN( int( m_vi->m_doc->lines() - 1 ), line() ) ));
+    setLine(qBound( 0, line(), int( m_vi->m_doc->lines() - 1 ) ) );
     if (m_vi->m_view->wrapCursor())
-      m_column = QMAX( 0, QMIN( m_vi->m_doc->lineLength( line() ), column() ) );
+      m_column = qBound( 0, column(), m_vi->m_doc->lineLength( line() ) );
     else
-      m_column = QMAX( 0, column() );
+      m_column = qMax( 0, column() );
     Q_ASSERT( valid() );
   }
 
@@ -1372,7 +1372,7 @@ void KateViewInternal::pageUp( bool sel )
   if (cursorStart < m_minLinesVisible)
     lineadj -= m_minLinesVisible - cursorStart;
 
-  int linesToScroll = -QMAX( ((int)linesDisplayed() - 1) - lineadj, 0 );
+  int linesToScroll = -qMax( ((int)linesDisplayed() - 1) - lineadj, 0 );
   m_preserveMaxX = true;
 
   // don't scroll the full view in case the scrollbar appears
@@ -1431,7 +1431,7 @@ void KateViewInternal::pageDown( bool sel )
   if (cursorStart > 0)
     lineadj -= cursorStart;
 
-  int linesToScroll = QMAX( ((int)linesDisplayed() - 1) - lineadj, 0 );
+  int linesToScroll = qMax( ((int)linesDisplayed() - 1) - lineadj, 0 );
   m_preserveMaxX = true;
 
   // don't scroll the full view in case the scrollbar appears
@@ -1491,7 +1491,7 @@ int KateViewInternal::maxLen(uint startLine)
     if (virtualLine < 0 || virtualLine >= (int)m_doc->visibleLines())
       break;
 
-    maxLen = QMAX(maxLen, cache()->line((int)m_doc->getRealLine(virtualLine))->width());
+    maxLen = qMax(maxLen, cache()->line((int)m_doc->getRealLine(virtualLine))->width());
   }
 
   return maxLen;

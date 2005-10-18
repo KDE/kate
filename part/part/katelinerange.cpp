@@ -129,7 +129,7 @@ void KateLineLayout::setLayout(QTextLayout* layout)
   m_layout = layout;
   m_dirtyList.clear();
   if (m_layout)
-    for (int i = 0; i < QMAX(1, m_layout->lineCount()); ++i)
+    for (int i = 0; i < qMax(1, m_layout->lineCount()); ++i)
       m_dirtyList.append(true);
 }
 

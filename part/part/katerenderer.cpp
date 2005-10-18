@@ -318,6 +318,9 @@ class SmartRenderRange : public RenderRange {
       }
 
       KTextEditor::Attribute a;
+      if (m_attribs.count())
+        a = m_attribs.top();
+
       while (reverseStack.count()) {
         if (KTextEditor::Attribute* a2 = reverseStack.top()->attribute())
           a += *a2;

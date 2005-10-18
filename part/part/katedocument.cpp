@@ -795,8 +795,8 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
   } // if ( ! block )
   else
   {
-    int startLine = QMAX(0, range.start().line());
-    for (int line = QMIN(range.end().line(), lastLine()); line >= startLine; --line)
+    int startLine = qMax(0, range.start().line());
+    for (int line = qMin(range.end().line(), lastLine()); line >= startLine; --line)
       editRemoveText(line, range.start().column(), range.end().column() - range.start().column());
   }
 
@@ -2922,8 +2922,8 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
     return;
   }
 
-  uint col = QMAX( c.column(), 0 );
-  uint line = QMAX( c.line(), 0 );
+  uint col = qMax( c.column(), 0 );
+  uint line = qMax( c.line(), 0 );
 
   if ((col == 0) && (line == 0))
     return;
@@ -4733,7 +4733,7 @@ void KateDocument::removeTrailingSpace( int line )
     if ( ! ln ) return;
 
     if ( line == activeView()->cursorPosition().line()
-         && activeView()->cursorPosition().column() >= QMAX(0,ln->lastChar()) )
+         && activeView()->cursorPosition().column() >= qMax(0,ln->lastChar()) )
       return;
 
     if ( ln->length() )

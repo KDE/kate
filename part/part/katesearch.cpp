@@ -376,7 +376,7 @@ void KateSearch::replaceOne()
           kdDebug()<<"KateSearch::replaceOne(): you don't have "<<ccap<<" backreferences in regexp '"<<m_re.pattern()<<"'"<<endl;
         }
       }
-      pos = br.indexIn( replaceWith, pos+QMAX(br.matchedLength(), (int)sc.length()) );
+      pos = br.indexIn( replaceWith, pos + qMax(br.matchedLength(), (int)sc.length()) );
     }
   }
 

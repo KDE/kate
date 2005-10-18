@@ -253,10 +253,6 @@ void KateGlobal::configDialog(QWidget *parent)
                                       KDialogBase::Ok,
                                       parent );
 
-#ifndef Q_WS_WIN //TODO: reenable
-  KWin::setIcons( kd->winId(), kapp->icon(), kapp->miniIcon() );
-#endif
-
   QList<KTextEditor::ConfigPage*> editorPages;
 
   for (int i = 0; i < configPages (); ++i)

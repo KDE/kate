@@ -50,7 +50,6 @@ class IndenterConfigPage : public QWidget
     /**
      * Standard constructor
      * @param parent parent widget
-     * @param name name
      */
     IndenterConfigPage ( QWidget *parent=0 ) : QWidget(parent) {}
     virtual ~IndenterConfigPage () {}

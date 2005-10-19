@@ -131,7 +131,7 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <RegExpr attribute="Keyword" context="#stay" String="\b(begin|case|record)(?=(\{[^}]*(\}|$)|\(\*.*(\*\)|$))*([\s]|$|//))" insensitive="true" beginRegion="Region1"/>
-        <RegExpr attribute="ISO/Delphi Extended" context="#stay" String="\b((object|class)(?=(\(.*\))?(\{[^}]*(\}|$)|\(\*.*(\*\)|$))*([\s]|$|//))|try(?=(\{[^}]*(\}|$)|\(\*.*(\*\)|$))*([\s]|$|//)))" insensitive="true" beginRegion="Region1"/>
+        <RegExpr attribute="ISO/Delphi Extended" context="#stay" String="\b((object|class)(?=(\(.*\))?(\{[^}]*(\}|$)|\(\*.*(\*\)|$))*;?([\s]|$|//))|try(?=(\{[^}]*(\}|$)|\(\*.*(\*\)|$))*([\s]|$|//)))" insensitive="true" beginRegion="Region1"/>
         <RegExpr attribute="Keyword" context="#stay" String="\bend(?=((\{[^}]*(\}|$)|\(\*.*(\*\)|$))*)([.;\s]|$)|//|$)" insensitive="true" endRegion="Region1"/>
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="ISO/Delphi Extended" context="#stay" String="ISO/Delphi Extended"/>

@@ -400,7 +400,7 @@ class KTEXTEDITOR_EXPORT CompletionProvider
      * data, i.e. for empty lists.
      *
      * @param view the view that wants to show a completion box
-     * @param completionData the completion type
+     * @param completionType the completion type
      * @param insertionPosition the start position of the inserted text
      * @param insertedText the inserted text
      * @param currentPos the current cursor position

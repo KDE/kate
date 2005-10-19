@@ -92,7 +92,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
     // BEGIN New range methods
     /**
      * Creates a new SmartRange.
-     * \param position The initial text range assumed by the new range.
+     * \param range The initial text range assumed by the new range.
      * \param parent The parent SmartRange, if this is to be the child of an existing range.
      * \param insertBehaviour Define whether the range should expand when text is inserted at ends of the range.
      */

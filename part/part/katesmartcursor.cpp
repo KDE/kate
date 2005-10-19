@@ -150,17 +150,20 @@ void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool
   if (!m_feedbackEnabled)
     m_lastPosition = *this;
 
-  // Tell the range about this
-  if (range())
-    range()->cursorChanged(this);
+  // Adjustments only needed for non-internal position changes...
+  if (!internal) {
+    // Tell the range about this
+    if (range())
+      range()->cursorChanged(this);
 
-  // Properly adjust parent or child range(s)
-  if (!internal && smartRange())
-    if (expanded && smartRange()->parentRange())
-      smartRange()->parentRange()->expandToRange(*range());
-    else
-      foreach (KTextEditor::SmartRange* r, smartRange()->childRanges())
-        r->confineToRange(*range());
+    // Properly adjust parent or child range(s)
+    if (smartRange())
+      if (expanded && smartRange()->parentRange())
+        smartRange()->parentRange()->expandToRange(*range());
+      else
+        foreach (KTextEditor::SmartRange* r, smartRange()->childRanges())
+          r->confineToRange(*range());
+  }
 }
 
 KTextEditor::SmartCursorNotifier* KateSmartCursor::notifier( )
@@ -213,7 +216,7 @@ bool KateSmartCursor::translate( const KateEditInfo & edit )
     }
 
     if (newPos != *this) {
-      setPosition(newPos);
+      setPositionInternal(newPos);
       return true;
     }
 

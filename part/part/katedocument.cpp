@@ -455,6 +455,9 @@ QStringList KateDocument::textLines( const KTextEditor::Range & range, bool bloc
 {
   QStringList ret;
 
+  if (!range.isValid())
+    return ret;
+
   if ( blockwise && (range.start().column() > range.end().column()) )
     return ret;
 

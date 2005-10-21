@@ -406,4 +406,10 @@ void KateSmartManager::rangeLostParent( KateSmartRange * range )
   m_topRanges.insert(range);
 }
 
+void KateSmartManager::rangeDeleted( KateSmartRange * range )
+{
+  if (!range->parentRange())
+    m_topRanges.remove(range);
+}
+
 #include "katesmartmanager.moc"

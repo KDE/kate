@@ -203,6 +203,48 @@ KateRegression * KateRegression::self( )
   return s_self;
 }
 
+void KateRegression::testRange( )
+{
+  Range r;
+  checkRange(r);
+}
+
+void KateRegression::testSmartRange( )
+{
+  SmartRange* range = smart()->newSmartRange();
+  checkRange(*range);
+  delete range;
+}
+
+void KateRegression::checkRange( Range & valid )
+{
+  VERIFY(valid.isValid() && valid.start() <= valid.end());
+
+  Cursor before(0,1), start(0,2), end(1,4), after(1,10);
+
+  Range result(start, end);
+  VERIFY(valid.isValid() && valid.start() <= valid.end());
+
+  valid.setRange(start, end);
+  VERIFY(valid.isValid() && valid.start() <= valid.end());
+  COMPARE(valid, result);
+
+  valid.setRange(end, start);
+  VERIFY(valid.isValid() && valid.start() <= valid.end());
+  COMPARE(valid, result);
+
+  valid.start() = after;
+  VERIFY(valid.isValid() && valid.start() <= valid.end());
+  COMPARE(valid, Range(after, after));
+
+  valid = result;
+  COMPARE(valid, result);
+
+  valid.end() = before;
+  VERIFY(valid.isValid() && valid.start() <= valid.end());
+  COMPARE(valid, Range(before, before));
+}
+
 void KateRegression::testRangeTree( )
 {
   Range* top = smart()->newSmartRange(m_doc->documentRange());
@@ -251,6 +293,5 @@ SmartInterface * KateRegression::smart( ) const
 {
   return dynamic_cast<SmartInterface*>(const_cast<Document*>(m_doc));
 }
-
 
 #include "kateregression.moc"

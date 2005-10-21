@@ -27,12 +27,6 @@
 
 #include "kateedit.h"
 
-#ifndef NDEBUG
-#define KATE_TESTONLY_EXPORT KDE_EXPORT
-#elif
-#define KATE_TESTONLY_EXPORT
-#endif
-
 class KateDocument;
 class KateSmartCursor;
 class KateSmartRange;
@@ -41,7 +35,7 @@ class KateSmartGroup;
 /**
  * Manages SmartCursors and SmartRanges.
  */
-class KATE_TESTONLY_EXPORT KateSmartManager : public QObject
+class KateSmartManager : public QObject
 {
   Q_OBJECT
 
@@ -57,6 +51,7 @@ class KATE_TESTONLY_EXPORT KateSmartManager : public QObject
 
     void rangeGotParent(KateSmartRange* range);
     void rangeLostParent(KateSmartRange* range);
+    void rangeDeleted(KateSmartRange* range);
 
     KateSmartGroup* groupForLine(int line) const;
 
@@ -84,7 +79,7 @@ class KATE_TESTONLY_EXPORT KateSmartManager : public QObject
  *
  * Needs a comprehensive regression and performance test suite...
  */
-class KATE_TESTONLY_EXPORT KateSmartGroup
+class KateSmartGroup
 {
   public:
     KateSmartGroup(int startLine, int endLine, KateSmartGroup* previous, KateSmartGroup* next);

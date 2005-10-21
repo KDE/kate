@@ -64,6 +64,7 @@ KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, 
 
 KateSmartRange::~KateSmartRange()
 {
+  kateDocument()->smartManager()->rangeDeleted(this);
 }
 
 void KateSmartRange::attachToView(KateView* view, int actions)

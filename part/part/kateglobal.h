@@ -36,12 +36,6 @@
  */
 #define KATEPART_VERSION "3.0"
 
-#ifndef NDEBUG
-#define KATE_TESTONLY_EXPORT KDE_EXPORT
-#elif
-#define KATE_TESTONLY_EXPORT
-#endif
-
 class KateCmd;
 class KateFileTypeManager;
 class KateSchemaManager;
@@ -70,7 +64,7 @@ namespace Kate {
  * or view stay around, here is the place to put things
  * which are needed and shared by all this objects ;)
  */
-class KATE_TESTONLY_EXPORT KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterface
+class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterface
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::CommandInterface)

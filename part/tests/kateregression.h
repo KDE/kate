@@ -22,6 +22,8 @@
 #include <QObject>
 #include <QMap>
 
+#include <ktexteditor/range.h>
+
 class CursorExpectation;
 class RangeExpectation;
 
@@ -46,9 +48,12 @@ class KateRegression : public QObject
 
   private slots:
     void testAll();
+    void testRange();
+    void testSmartRange();
     void testRangeTree();
 
   private:
+    void checkRange(KTextEditor::Range& valid);
     void checkSmartManager();
     void checkSignalExpectations();
 

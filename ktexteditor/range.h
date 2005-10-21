@@ -33,7 +33,7 @@ namespace KTextEditor
 class Attribute;
 
 /**
- * \short A Range represents a section of text, from one Cursor to another.
+ * \short An object representing a section of text, from one Cursor to another.
  *
  * A Range is a basic class which represents a range of text with two Cursors,
  * from a start() position to an end() position.
@@ -55,50 +55,59 @@ class KTEXTEDITOR_EXPORT Range
 
   public:
     /**
-     * The default constructor creates a range from position (0, 0) to
+     * Default constructor. Creates a valid range from position (0, 0) to
      * position (0, 0).
      */
     Range();
 
     /**
-     * Constructor.
-     * Creates a range from @e start to @e end.
+     * Constructor which creates a range from @e start to @e end.
      * If start is after end, they will be swapped.
+     *
      * @param start start position
      * @param end end position
      */
     Range(const Cursor& start, const Cursor& end);
 
     /**
-     * Constructor
-     * Creates a single-line range from \p start which extends \p width characters along the same line.
+     * Constructor which creates a single-line range from \p start,
+     * extending \p width characters along the same line.
+     *
+     * \param start start position
+     * \param width width of this range in columns along the same line
      */
     Range(const Cursor& start, int width);
 
     /**
-     * Constructor
-     * Creates a range from \p start to \p endLine, \p endCol.
+     * Constructor which creates a range from \p start, to \p endLine, \p endColumn.
+     *
+     * \param start start position
+     * \param endLine end line
+     * \param endColumn end column
      */
-    Range(const Cursor& start, int endLine, int endCol);
+    Range(const Cursor& start, int endLine, int endColumn);
 
     /**
-     * Constructor.
-     * Creates a range from @e startLine, @e startCol to @e endLine, @e endCol.
+     * Constructor which creates a range from @e startLine, @e startColumn to @e endLine, @e endColumn.
+     *
      * @param startLine start line
      * @param startCol start column
      * @param endLine end line
      * @param endCol end column
      */
-    Range(int startLine, int startCol, int endLine, int endCol);
+    Range(int startLine, int startColumn, int endLine, int endColumn);
 
     /**
-     * Copy constructor
+     * Copy constructor.
+     *
+     * \param copy the range from which to copy the start and end position.
      */
     Range(const Range& copy);
 
     /**
-     * Virtual destructor
+     * Virtual destructor.
      */
+    //Do not remove! Needed for inheritance.
     virtual ~Range();
 
     /**
@@ -120,11 +129,20 @@ class KTEXTEDITOR_EXPORT Range
      * If start() is set to a position after end(), end() will be moved to the
      * same position as start(), as ranges are not allowed to have
      * start() > end().
+     *
+     * \note If you want to change both start() and end() simultaneously,
+     *       you should use setRange(), for several reasons:
+     *       * otherwise, the rule preventing start() > end() may alter your intended change
+     *       * any notifications needed will be performed multiple times for no benefit
+     *
+     * \returns a reference to the start of this range.
      */
     inline Cursor& start() { return *m_start; }
 
     /**
      * Get the start point of this range. This will always be <= end().
+     *
+     * \returns a const reference to the start of this range.
      */
     inline const Cursor& start() const { return *m_start; }
 
@@ -137,12 +155,21 @@ class KTEXTEDITOR_EXPORT Range
      * If end() is set to a position before start(), start() will be moved to the
      * same position as end(), as ranges are not allowed to have
      * start() > end().
+     *
+     * \note If you want to change both start() and end() simultaneously,
+     *       you should use setRange(), for several reasons:
+     *       * otherwise, the rule preventing start() > end() may alter your intended change
+     *       * any notifications needed will be performed multiple times for no benefit
+     *
+     * \returns a reference to the end of this range.
      */
     inline Cursor& end() { return *m_end; }
 
     /**
      * Get the end point of this range. This will always be >= start().
-     */
+      *
+     * \returns a const reference to the end of this range.
+    */
     inline const Cursor& end() const { return *m_end; }
 
     /**
@@ -150,17 +177,22 @@ class KTEXTEDITOR_EXPORT Range
      *
      * \param line the line number to assign to start() and end()
      */
-    inline void setBothLines(int line) { setRange(Range(line, start().column(), line, end().column())); }
+    void setBothLines(int line);
 
     /**
-     * Set the start and end cursors to @e range.
-     * @param range new range
+     * Set the start and end cursors to @e range.start() and @e range.end() respectively.
+     *
+     * @param range range to assign to this range
      */
     virtual void setRange(const Range& range);
 
     /**
      * @overload void setRange(const Range& range)
-     * If @e start is after @e end, they will be reversed.
+     *
+     * Set the start and end cursors to @e start and @e end respectively.
+     *
+     * @note If @e start is after @e end, they will be reversed.
+     *
      * @param start start cursor
      * @param end end cursor
      */
@@ -170,166 +202,281 @@ class KTEXTEDITOR_EXPORT Range
      * Expand this range if necessary to contain \p range.
      *
      * \param range range which this range should contain
-     * \return true if expansion occurred, false otherwise
+     *
+     * \return \e true if expansion occurred, \e false otherwise
      */
     virtual bool expandToRange(const Range& range);
 
     /**
-     * Confine this range if neccessary to fit within \p range.
+     * Confine this range if necessary to fit within \p range.
      *
      * \param range range which should contain this range
-     * \return true if confinement occurred, false otherwise
+     *
+     * \return \e true if confinement occurred, \e false otherwise
      */
     virtual bool confineToRange(const Range& range);
 
-    // TODO: produce int versions with -1 before, 0 true, and +1 after if there is a need
+    // BEGIN comparison functions
     /**
-     * Returns true if this range wholly encompasses \p line.
-     */
-    bool containsLine(int line) const;
-
-    /**
-     * Check whether the range includes at least part of @e line.
-     * @param line line to check
-     * @return @e true, if the range includes at least part of @e line, otherwise @e false
-     */
-    bool includesLine(int line) const;
-
-    /**
-     * Returns true if this range spans \p colmun.
-     */
-    bool spansColumn(int column) const;
-
-    /**
-     * Returns true if \p cursor is wholly contained within this range, ie >= start() and \< end().
-     * \param cursor Cursor to test for containment
+     * Check to see if \p cursor is contained within this range, ie >= start() and \< end().
+     *
+     * \param cursor the position to test for containment
+     *
+     * \return \e true if the cursor is contained within this range, otherwise \e false.
      */
     bool contains(const Cursor& cursor) const;
 
     /**
-     * Check whether the range includes @e column.
-     * @param column column to check
-     * @return @e true, if the range includes @e column, otherwise @e false
-     * \todo should be contains?
+     * Returns true if this range wholly encompasses \p line.
+     *
+     * \param line line to check
+     *
+     * \return \e true if the line is wholly encompassed by this range, otherwise \e false.
      */
-    bool includesColumn(int column) const;
-    /**
-     * Check whether the range includes @e cursor. Returns
-     * - -1 if @e cursor < @p start()
-     * - 0 if @p start() <= @e cursor <= @p end()
-     * - 1 if @e cursor > @p end()
-     * @param line line to check
-     * @return depending on the case either -1, 0 or 1
-     * \todo should be contains?
-     */
-    int includes(const Cursor& cursor) const;
+    bool containsLine(int line) const;
 
     /**
-     * Check whether the this range contains @e range.
+     * Check whether the range contains @e column.
+     *
+     * @param column column to check
+     *
+     * @return @e true if the range contains @e column, otherwise @e false
+     */
+    bool containsColumn(int column) const;
+
+    /**
+     * Check whether the range overlaps at least part of @e line.
+     *
+     * @param line line to check
+     *
+     * @return @e true, if the range overlaps at least part of @e line, otherwise @e false
+     */
+    bool overlapsLine(int line) const;
+
+    /**
+     * Check to see if this range spans \p column; that is, if \p column is
+     * between start().column() and end().column().  This function is intended
+     * for use in relation to block text editing.
+     *
+     * \param column the column to test
+     *
+     * \return \e true if the column is between the range's starting and ending
+     *         columns, otherwise \e false.
+     */
+    bool spansColumn(int column) const;
+
+    /**
+     * Determine where \p cursor is positioned in relationship to this range.
+     * Equivalency (a return value of 0) is returned when \p cursor is \e contained
+     * within the range, not when \e overlapped - i.e., \p cursor may be on a
+     * line which is also partially occupied by this range, but the position
+     * may not be eqivalent.  For overlap checking, use positionRelativeToLine().
+     *
+     * @param cursor position to check
+     *
+     * @return \e -1 if before, \e +1 if after, and \e 0 if \p cursor is contained within the range.
+     *
+     * @see positionRelativeToLine()
+     */
+    int positionRelativeToCursor(const Cursor& cursor) const;
+
+    /**
+     * Determine where \p line is positioned in relationship to this range.
+     * Equivalency (a return value of 0) is returned when \p line is \e overlapped
+     * within the range, not when \e contained - i.e., this range may not cover an entire line,
+     * but \p line's position will still be eqivalent.  For containment checking, use positionRelativeToCursor().
+     *
+     * @param line line to check
+     *
+     * @return \e -1 if before, \e +1 if after, and \e 0 if \p line is overlapped by this range.
+     *
+     * @see positionRelativeToCursor()
+     */
+    int positionRelativeToLine(int line) const;
+
+    /**
+     * Check whether the this range wholly encompasses @e range.
+     *
      * @param range range to check
+     *
      * @return @e true, if this range contains @e range, otherwise @e false
      */
     bool contains(const Range& range) const;
+
     /**
      * Check whether the this range overlaps with @e range.
+     *
      * @param range range to check against
+     *
      * @return @e true, if this range overlaps with @e range, otherwise @e false
      */
     bool overlaps(const Range& range) const;
+
     /**
-     * Check whether @e cursor == @p start() or @e cursor == @p end().
+     * Check whether \p cursor is located at either of the start() or end()
+     * boundaries.
+     *
      * @param cursor cursor to check
-     * @return @e true, if the cursor is equal to @p start() or @p end(),
-     *         otherwise @e false
+     *
+     * @return @e true if the cursor is equal to @p start() or @p end(),
+     *         otherwise @e false.
      */
-    bool boundaryAt(const Cursor& cursor) const;
+    bool boundaryAtCursor(const Cursor& cursor) const;
+
     /**
-     * Check whether @e line == @p start().line() or @e line == @p end().line().
+     * Check whether \p line is on the same line as either of the start() or
+     * end() boundaries.
+     *
      * @param line line to check
-     * @return @e true, if the line is either the same with the start bound
-     *         or the end bound, otherwise @e false
+     *
+     * @return @e true if \p line is on the same line as either of the
+     *         boundaries, otherwise @e false
      */
     bool boundaryOnLine(int line) const;
+
     /**
-     * Check whether @e column == @p start().column() or @e column == @p end().column().
+     * Check whether \p column is on the same column as either of the start()
+     * or end() boundaries.
+     *
      * @param column column to check
-     * @return @e true, if the column is either the same with the start bound
-     *         or the end bound, otherwise @e false
+     *
+     * @return @e true if \p column is on the same column as either of the
+     *         boundaries, otherwise @e false
      */
     bool boundaryOnColumn(int column) const;
 
     /**
      * Check whether this range is wholly contained within one line, ie. if
-     * start().line() == end().line().
+     * the start() and end() positions are on the same line.
+     *
+     * \return @e true if both the start and end positions are on the same
+     *         line, otherwise @e false
      */
-    inline bool onSingleLine() const { return start().line() == end().line(); }
+    bool onSingleLine() const;
 
     /**
-     * Returns where \p cursor is positioned, relative to this range.
-     * @return \e -1 if before, \e +1 if after, and \e 0 if \p cursor is contained within the range.
+     * Returns the number of columns separating the start() and end() positions.
+     *
+     * \return the number of columns separating the start() and end() positions.
      */
-    inline int relativePosition(const Cursor& cursor) const
-      { return ((cursor < start()) ? -1 : ((cursor > end()) ? 1:0)); }
+    int columnWidth() const;
 
     /**
-     * Returns the number of columns of the end() relative to the start().
+     * Returns true if this range contains no characters, ie. the start() and
+     * end() positions are the same.
+     *
+     * \returns @e true if the range contains no characters, otherwise @e false
      */
-    inline int columnWidth() const { return end().column() - start().column(); }
+    bool isEmpty() const;
+    // END
 
     /**
-     * Returns true if this range contains no characters, ie. the start() and end() positions are the same.
+     * Assignment operator. Same as setRange().
+     *
+     * @param rhs range to assign to this range.
+     *
+     * @return a reference to this range, after assignment has occurred.
+     *
+     * @see setRange()
      */
-    inline bool isEmpty() const { return start() == end(); }
+    virtual Range& operator=(const Range& rhs);
 
     /**
-     * = operator. Assignment.
-     * @param rhs new range
-     * @return *this
+     * Addition operator. Takes two ranges and returns their summation.
+     *
+     * \param r1 the first range
+     * \param r2 the second range
+     *
+     * \return a the summation of the two input ranges
      */
-    virtual Range& operator= (const Range& rhs);
-
-    inline friend Range operator+(const Range& r1, const Range& r2) { return Range(r1.start() + r2.start(), r1.end() + r2.end()); }
-    inline friend Range& operator+=(Range& r1, const Range& r2) { r1.setRange(r1.start() + r2.start(), r1.end() + r2.end()); return r1; }
-
-    inline friend Range operator-(const Range& r1, const Range& r2) { return Range(r1.start() - r2.start(), r1.end() - r2.end()); }
-    inline friend Range& operator-=(Range& r1, const Range& r2) { r1.setRange(r1.start() - r2.start(), r1.end() - r2.end()); return r1; }
+    inline friend Range operator+(const Range& r1, const Range& r2)
+      { return Range(r1.start() + r2.start(), r1.end() + r2.end()); }
 
     /**
-     * == operator
+     * Addition assignment operator. Adds \p r2 to this range.
+     *
+     * \param r1 the first range
+     * \param r2 the second range
+     *
+     * \return a reference to the cursor which has just been added to
+     */
+    inline friend Range& operator+=(Range& r1, const Range& r2)
+      { r1.setRange(r1.start() + r2.start(), r1.end() + r2.end()); return r1; }
+
+    /**
+     * Subtraction operator. Takes two ranges and returns the subtraction
+     * of \p r2 from \p r1.
+     *
+     * \param r1 the first range
+     * \param r2 the second range
+     *
+     * \return a range representing the subtraction of \p r2 from \p r1
+     */
+    inline friend Range operator-(const Range& r1, const Range& r2)
+      { return Range(r1.start() - r2.start(), r1.end() - r2.end()); }
+
+    /**
+     * Subtraction assignment operator. Subtracts \p r2 from \p r1.
+     *
+     * \param r1 the first range
+     * \param r2 the second range
+     *
+     * \return a reference to the range which has just been subtracted from
+     */
+    inline friend Range& operator-=(Range& r1, const Range& r2)
+      { r1.setRange(r1.start() - r2.start(), r1.end() - r2.end()); return r1; }
+
+    /**
+     * Equality operator.
+     *
      * @param r1 first range to compare
      * @param r2 second range to compare
-     * @return @e true, if @e r1 and @e r2 equal, otherwise @e false
+     *
+     * @return @e true if @e r1 and @e r2 equal, otherwise @e false
      */
     inline friend bool operator==(const Range& r1, const Range& r2)
       { return r1.start() == r2.start() && r1.end() == r2.end(); }
 
     /**
-     * != operator
+     * Inequality operator.
+     *
      * @param r1 first range to compare
      * @param r2 second range to compare
-     * @return @e true, if @e r1 and @e r2 do @e not equal, otherwise @e false
+     *
+     * @return @e true if @e r1 and @e r2 do @e not equal, otherwise @e false
      */
     inline friend bool operator!=(const Range& r1, const Range& r2)
       { return r1.start() != r2.start() || r1.end() != r2.end(); }
 
     /**
-     * Greater than operator.
+     * Greater than operator.  Looks only at the position of the two ranges,
+     * does not consider their size.
+     *
      * @param r1 first range to compare
      * @param r2 second range to compare
-     * @return @e true, if @e r1 starts after where @e r2 ends, otherwise @e false
+     *
+     * @return @e true if @e r1 starts after where @e r2 ends, otherwise @e false
      */
     inline friend bool operator>(const Range& r1, const Range& r2)
       { return r1.start() > r2.end(); }
 
     /**
-     * Less than operator.
+     * Less than operator.  Looks only at the position of the two ranges,
+     * does not consider their size.
+     *
      * @param r1 first range to compare
      * @param r2 second range to compare
-     * @return @e true, if @e r1 ends before @e r2 begins, otherwise @e false
+     *
+     * @return @e true if @e r1 ends before @e r2 begins, otherwise @e false
      */
     inline friend bool operator<(const Range& r1, const Range& r2)
       { return r1.end() < r2.start(); }
 
+    /**
+     * kdDebug() stream operator.  Writes this range to the debug output in a nicely formatted way.
+     *
+     * \todo remove for the release? hopefully some other, just as convenient way can be found
+     */
     inline friend kdbgstream& operator<< (kdbgstream& s, const Range& range) {
       if (&range)
         s << "[" << range.start() << " -> " << range.end() << "]";
@@ -338,6 +485,9 @@ class KTEXTEDITOR_EXPORT Range
       return s;
     }
 
+    /**
+     * Non-debug stream operator; does nothing.
+     */
     inline friend kndbgstream& operator<< (kndbgstream& s, const Range&) { return s; }
 
   protected:
@@ -345,15 +495,11 @@ class KTEXTEDITOR_EXPORT Range
      * Constructor for advanced cursor types.
      * Creates a range from @e start to @e end.
      * Takes ownership of @e start and @e end.
+     *
+     * \param start the start cursor.
+     * \param end the end cursor.
      */
     Range(Cursor* start, Cursor* end);
-
-    enum {
-      RangeStartExpanded = 0x1,
-      RangeStartContracted = 0x2,
-      RangeEndExpanded = 0x4,
-      RangeEndContracted = 0x8
-    };
 
     /**
      * \internal
@@ -365,7 +511,14 @@ class KTEXTEDITOR_EXPORT Range
      */
     virtual void rangeChanged(Cursor* cursor, const Range& from);
 
+    /**
+     * This range's start cursor pointer.
+     */
     Cursor* m_start;
+
+    /**
+     * This range's end cursor pointer.
+     */
     Cursor* m_end;
 };
 

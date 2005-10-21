@@ -131,4 +131,14 @@ void KTextEditor::Cursor::cursorChangedDirectly(const Cursor& from)
   }
 }
 
+bool KTextEditor::Cursor::atStartOfLine( ) const
+{
+  return m_column == 0;
+}
+
+bool KTextEditor::Cursor::atStartOfDocument( ) const
+{
+  return m_line == 0 && m_column == 0;
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -160,7 +160,7 @@ SmartRange * SmartRange::findMostSpecificRange( const Range & input ) const
 
 SmartRange * SmartRange::firstRangeIncluding( const Cursor & pos ) const
 {
-  switch (relativePosition(pos)) {
+  switch (positionRelativeToCursor(pos)) {
     case 0:
       if (parentRange() && parentRange()->contains(pos))
         return parentRange()->firstRangeIncluding(pos);
@@ -199,7 +199,7 @@ SmartRange * SmartRange::firstRangeIncluding( const Cursor & pos ) const
 
 SmartRange * SmartRange::deepestRangeContaining( const Cursor & pos ) const
 {
-  switch (relativePosition(pos)) {
+  switch (positionRelativeToCursor(pos)) {
     case 0:
       foreach (SmartRange* r, m_childRanges)
         if (r->contains(pos)) {

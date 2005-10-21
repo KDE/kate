@@ -55,9 +55,9 @@ Range::Range(const Cursor& start, int width)
   m_end->setRange(this);
 }
 
-Range::Range(const Cursor& start, int endLine, int endCol)
+Range::Range(const Cursor& start, int endLine, int endColumn)
   : m_start(new Cursor(start))
-  , m_end(new Cursor(endLine, endCol))
+  , m_end(new Cursor(endLine, endColumn))
 {
   if (*m_end < *m_start) {
     Cursor* temp = m_end;
@@ -69,9 +69,9 @@ Range::Range(const Cursor& start, int endLine, int endCol)
   m_end->setRange(this);
 }
 
-Range::Range(int startLine, int startCol, int endLine, int endCol)
-  : m_start(new Cursor(startLine, startCol))
-  , m_end(new Cursor(endLine, endCol))
+Range::Range(int startLine, int startColumn, int endLine, int endColumn)
+  : m_start(new Cursor(startLine, startColumn))
+  , m_end(new Cursor(endLine, endColumn))
 {
   if (*m_end < *m_start) {
     Cursor* temp = m_end;
@@ -153,7 +153,7 @@ bool Range::containsLine(int line) const
   return (line > start().line() || line == start().line() && !start().column()) && line < end().line();
 }
 
-bool Range::includesLine(int line) const
+bool Range::overlapsLine(int line) const
 {
   return line >= start().line() && line <= end().line();
 }
@@ -185,7 +185,7 @@ bool Range::overlaps( const Range& range ) const
     return contains(range);
 }
 
-bool Range::boundaryAt(const Cursor& cursor) const
+bool Range::boundaryAtCursor(const Cursor& cursor) const
 {
   return cursor == start() || cursor == end();
 }
@@ -235,6 +235,48 @@ void Range::rangeChanged( Cursor * c, const Range& )
     if (*c < *m_start)
       *m_start = *c;
   }
+}
+
+void Range::setBothLines( int line )
+{
+  setRange(Range(line, start().column(), line, end().column()));
+}
+
+bool KTextEditor::Range::onSingleLine( ) const
+{
+  return start().line() == end().line();
+}
+
+int KTextEditor::Range::columnWidth( ) const
+{
+  return end().column() - start().column();
+}
+
+bool KTextEditor::Range::isEmpty( ) const
+{
+  return start() == end();
+}
+
+int Range::positionRelativeToCursor( const Cursor & cursor ) const
+{
+  if (cursor < start())
+    return -1;
+
+  if (cursor > end())
+    return +1;
+
+  return 0;
+}
+
+int Range::positionRelativeToLine( int line ) const
+{
+  if (line < start().line())
+    return -1;
+
+  if (line > end().line())
+    return +1;
+
+  return 0;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

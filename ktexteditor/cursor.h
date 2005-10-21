@@ -38,14 +38,17 @@ class Range;
  * in a Document. It is very lightweight and maintains no affiliation with a
  * particular Document.
  *
+ * If you want additional functionality such as the ability to maintain positon
+ * in a document, see SmartCursor.
+ *
  * \note The Cursor class is designed to be passed via value, while SmartCursor
  * and derivatives must be passed via pointer or reference as they maintain a
  * connection with their document internally and cannot be copied.
  *
  * \note Lines and columns start at 0.
  *
- * If you want additional functionality such as the ability to maintain positon
- * in a document, see SmartCursor.
+ * \note Think of cursors as having their position at the start of a character,
+ *       not in the middle of one.
  *
  * \sa SmartCursor
  */
@@ -165,15 +168,13 @@ class KTEXTEDITOR_EXPORT Cursor
      * Determine if this cursor is located at the start of a line.
      * @returns \e true if the cursor is situated at the start of the line, \e false if it isn't.
      */
-    inline bool atStartOfLine() const
-      { return m_column == 0; }
+    bool atStartOfLine() const;
 
     /**
      * Determine if this cursor is located at the start of a document.
      * @returns \e true if the cursor is situated at the start of the document, \e false if it isn't.
      */
-    inline bool atStartOfDocument() const
-      { return m_line == 0 && m_column == 0; }
+    bool atStartOfDocument() const;
 
     /**
      * Assignment operator. Same as setPosition().
@@ -185,7 +186,7 @@ class KTEXTEDITOR_EXPORT Cursor
       { setPosition(c); return *this; }
 
     /**
-     * Addition operator. Takes two Cursors and returns their summation.
+     * Addition operator. Takes two cursors and returns their summation.
      * \param c1 the first position
      * \param c2 the second position
      * \return a the summation of the two input cursors
@@ -194,7 +195,7 @@ class KTEXTEDITOR_EXPORT Cursor
       { return Cursor(c1.line() + c2.line(), c1.column() + c2.column()); }
 
     /**
-     * Addition-to-this-Cursor operator. Adds \p c2 to this cursor.
+     * Addition assignment operator. Adds \p c2 to this cursor.
      * \param c1 the cursor being added to
      * \param c2 the position to add
      * \return a reference to the cursor which has just been added to
@@ -203,16 +204,18 @@ class KTEXTEDITOR_EXPORT Cursor
       { c1.setPosition(c1.line() + c2.line(), c1.column() + c2.column()); return c1; }
 
     /**
-     * Subtraction operator. Takes two Cursors and returns c1 - c2.
+     * Subtraction operator. Takes two cursors and returns the subtraction
+     * of \p c2 from \p c1.
+     *
      * \param c1 the first position
      * \param c2 the second position
-     * \return a cursor representing the subtraction of c2 from c1
+     * \return a cursor representing the subtraction of \p c2 from \p c1
      */
     inline friend Cursor operator-(const Cursor& c1, const Cursor& c2)
       { return Cursor(c1.line() - c2.line(), c1.column() - c2.column()); }
 
     /**
-     * Subtraction-from-this-Cursor operator. Subtracts \p c2 from \p c1.
+     * Subtraction assignment operator. Subtracts \p c2 from \p c1.
      * \param c1 the cursor being subtracted from
      * \param c2 the position to subtract
      * \return a reference to the cursor which has just been subtracted from
@@ -221,7 +224,7 @@ class KTEXTEDITOR_EXPORT Cursor
       { c1.setPosition(c1.line() - c2.line(), c1.column() - c2.column()); return c1; }
 
     /**
-     * Equivalence operator.
+     * Equality operator.
      * @param c1 first cursor to compare
      * @param c2 second cursor to compare
      * @return @e true, if c1's and c2's line and column are @e equal.
@@ -292,13 +295,13 @@ class KTEXTEDITOR_EXPORT Cursor
     }
 
     /**
-     * \internal
      * Non-debug stream operator; does nothing.
      */
     inline friend kndbgstream& operator<< (kndbgstream& s, const Cursor&) { return s; }
 
   protected:
     /**
+     * \internal
      * Sets the range that this cursor belongs to.
      */
     void setRange(Range* range);

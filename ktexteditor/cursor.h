@@ -166,13 +166,13 @@ class KTEXTEDITOR_EXPORT Cursor
 
     /**
      * Determine if this cursor is located at the start of a line.
-     * @returns \e true if the cursor is situated at the start of the line, \e false if it isn't.
+     * @return \e true if the cursor is situated at the start of the line, \e false if it isn't.
      */
     bool atStartOfLine() const;
 
     /**
      * Determine if this cursor is located at the start of a document.
-     * @returns \e true if the cursor is situated at the start of the document, \e false if it isn't.
+     * @return \e true if the cursor is situated at the start of the document, \e false if it isn't.
      */
     bool atStartOfDocument() const;
 

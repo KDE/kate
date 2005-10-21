@@ -91,7 +91,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     SmartRange* smartRange() const;
 
     /**
-     * @returns true if the cursor is situated at the end of the line, false if it isn't.
+     * @return true if the cursor is situated at the end of the line, false if it isn't.
      */
     virtual bool atEndOfLine() const = 0;
     bool atEndOfDocument() const;

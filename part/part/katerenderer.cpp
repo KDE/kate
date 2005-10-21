@@ -599,7 +599,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     if (range->length() > 0) {
       // Draw the text :)
       // FIXME toVector() may be a performance issue
-      if (m_view->selection() && showSelections() && m_view->selectionRange().includesLine(range->line()))
+      if (m_view->selection() && showSelections() && m_view->selectionRange().overlapsLine(range->line()))
         range->layout()->draw(&paint, QPoint(-xStart,0), decorationsForLine(range, true).toVector());
       else
         range->layout()->draw(&paint, QPoint(-xStart,0));

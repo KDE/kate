@@ -174,7 +174,7 @@ bool KateSmartCursor::translate( const KateEditInfo & edit )
     return false;
 
   // If this cursor is on a line affected by the edit
-  if (edit.oldRange().includesLine(line())) {
+  if (edit.oldRange().overlapsLine(line())) {
     // If this cursor is at the start of the edit
     if (*this == edit.start()) {
       // And it doesn't need to move, no action is required

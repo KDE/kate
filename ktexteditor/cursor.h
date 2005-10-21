@@ -32,15 +32,16 @@ class Document;
 class Range;
 
 /**
- * \short A Cursor represents a position in a Document.
+ * \short An object which represents a position in a Document.
  *
  * A Cursor is a basic class which contains the line() and column() a position
  * in a Document. It is very lightweight and maintains no affiliation with a
  * particular Document.
  *
  * \note The Cursor class is designed to be passed via value, while SmartCursor
- * and derivatives must be passed via pointer as they maintain a connection
- * with their document internally.
+ * and derivatives must be passed via pointer or reference as they maintain a
+ * connection with their document internally and cannot be copied.
+ *
  * \note Lines and columns start at 0.
  *
  * If you want additional functionality such as the ability to maintain positon
@@ -59,18 +60,26 @@ class KTEXTEDITOR_EXPORT Cursor
     Cursor();
 
     /**
-     * This constructor creates a cursor initialized with @e line
-     * and @e column.
+     * This constructor creates a cursor initialized with \p line
+     * and \p column.
      * @param line line for cursor
      * @param column column for cursor
      */
     Cursor(int line, int column);
 
-    /// Copy constructor.
+    /**
+     * Copy constructor.  Does not copy the owning range, as a range does not
+     * have any association with copies of its cursors.
+     *
+     * \param copy the cursor to copy.
+     */
     Cursor(const Cursor& copy);
 
-    // Virtual destructor. Do not remove! Needed for inheritance.
-    virtual ~Cursor ();
+    /**
+     * Virtual destructor.
+     */
+    //Do not remove! Needed for inheritance.
+    virtual ~Cursor();
 
     /**
      * Returns whether this cursor is a SmartCursor.
@@ -153,20 +162,66 @@ class KTEXTEDITOR_EXPORT Cursor
     inline Range* range() const { return m_range; }
 
     /**
-     * @returns true if the cursor is situated at the start of the line, false if it isn't.
+     * Determine if this cursor is located at the start of a line.
+     * @returns \e true if the cursor is situated at the start of the line, \e false if it isn't.
      */
-    inline bool atStartOfLine() const { return m_column == 0; }
-    inline bool atStartOfDocument() const { return m_line == 0 && m_column == 0; }
-
-    inline Cursor& operator=(const Cursor& c) { setPosition(c); return *this; }
-    inline friend Cursor operator+(const Cursor& c1, const Cursor& c2) { return Cursor(c1.line() + c2.line(), c1.column() + c2.column()); }
-    inline friend Cursor& operator+=(Cursor& c1, const Cursor& c2) { c1.setPosition(c1.line() + c2.line(), c1.column() + c2.column()); return c1; }
-
-    inline friend Cursor operator-(const Cursor& c1, const Cursor& c2) { return Cursor(c1.line() - c2.line(), c1.column() - c2.column()); }
-    inline friend Cursor& operator-=(Cursor& c1, const Cursor& c2) { c1.setPosition(c1.line() - c2.line(), c1.column() - c2.column()); return c1; }
+    inline bool atStartOfLine() const
+      { return m_column == 0; }
 
     /**
-     * == operator
+     * Determine if this cursor is located at the start of a document.
+     * @returns \e true if the cursor is situated at the start of the document, \e false if it isn't.
+     */
+    inline bool atStartOfDocument() const
+      { return m_line == 0 && m_column == 0; }
+
+    /**
+     * Assignment operator. Same as setPosition().
+     * \param cursor the position to assign.
+     * \return a reference to this cursor
+     * \see setPosition()
+     */
+    inline Cursor& operator=(const Cursor& c)
+      { setPosition(c); return *this; }
+
+    /**
+     * Addition operator. Takes two Cursors and returns their summation.
+     * \param c1 the first position
+     * \param c2 the second position
+     * \return a the summation of the two input cursors
+     */
+    inline friend Cursor operator+(const Cursor& c1, const Cursor& c2)
+      { return Cursor(c1.line() + c2.line(), c1.column() + c2.column()); }
+
+    /**
+     * Addition-to-this-Cursor operator. Adds \p c2 to this cursor.
+     * \param c1 the cursor being added to
+     * \param c2 the position to add
+     * \return a reference to the cursor which has just been added to
+     */
+    inline friend Cursor& operator+=(Cursor& c1, const Cursor& c2)
+      { c1.setPosition(c1.line() + c2.line(), c1.column() + c2.column()); return c1; }
+
+    /**
+     * Subtraction operator. Takes two Cursors and returns c1 - c2.
+     * \param c1 the first position
+     * \param c2 the second position
+     * \return a cursor representing the subtraction of c2 from c1
+     */
+    inline friend Cursor operator-(const Cursor& c1, const Cursor& c2)
+      { return Cursor(c1.line() - c2.line(), c1.column() - c2.column()); }
+
+    /**
+     * Subtraction-from-this-Cursor operator. Subtracts \p c2 from \p c1.
+     * \param c1 the cursor being subtracted from
+     * \param c2 the position to subtract
+     * \return a reference to the cursor which has just been subtracted from
+     */
+    inline friend Cursor& operator-=(Cursor& c1, const Cursor& c2)
+      { c1.setPosition(c1.line() - c2.line(), c1.column() - c2.column()); return c1; }
+
+    /**
+     * Equivalence operator.
      * @param c1 first cursor to compare
      * @param c2 second cursor to compare
      * @return @e true, if c1's and c2's line and column are @e equal.
@@ -175,7 +230,7 @@ class KTEXTEDITOR_EXPORT Cursor
       { return c1.line() == c2.line() && c1.column() == c2.column(); }
 
     /**
-     * != operator
+     * Inequality operator.
      * @param c1 first cursor to compare
      * @param c2 second cursor to compare
      * @return @e true, if c1's and c2's line and column are @e not equal.
@@ -194,7 +249,7 @@ class KTEXTEDITOR_EXPORT Cursor
       { return c1.line() > c2.line() || (c1.line() == c2.line() && c1.m_column > c2.m_column); }
 
     /**
-     * >= operator
+     * Greater than or equal to operator.
      * @param c1 first cursor to compare
      * @param c2 second cursor to compare
      * @return @e true, if c1's position is greater than or equal to c2's
@@ -204,7 +259,7 @@ class KTEXTEDITOR_EXPORT Cursor
       { return c1.line() > c2.line() || (c1.line() == c2.line() && c1.m_column >= c2.m_column); }
 
     /**
-     * Less than operator
+     * Less than operator.
      * @param c1 first cursor to compare
      * @param c2 second cursor to compare
      * @return @e true, if c1's position is greater than or equal to c2's
@@ -214,7 +269,7 @@ class KTEXTEDITOR_EXPORT Cursor
       { return !(c1 >= c2); }
 
     /**
-     * <= operator
+     * Less than or equal to operator.
      * @param c1 first cursor to compare
      * @param c2 second cursor to compare
      * @return @e true, if c1's position is lesser than or equal to c2's
@@ -223,6 +278,11 @@ class KTEXTEDITOR_EXPORT Cursor
     inline friend bool operator<=(const Cursor& c1, const Cursor& c2)
       { return !(c1 > c2); }
 
+    /**
+     * kdDebug() stream operator.  Writes this cursor to the debug output in a nicely formatted way.
+     *
+     * \todo remove for the release? hopefully some other, just as convenient way can be found
+     */
     inline friend kdbgstream& operator<< (kdbgstream& s, const Cursor& cursor) {
       if (&cursor)
         s << "(" << cursor.line() << ", " << cursor.column() << ")";
@@ -231,6 +291,10 @@ class KTEXTEDITOR_EXPORT Cursor
       return s;
     }
 
+    /**
+     * \internal
+     * Non-debug stream operator; does nothing.
+     */
     inline friend kndbgstream& operator<< (kndbgstream& s, const Cursor&) { return s; }
 
   protected:

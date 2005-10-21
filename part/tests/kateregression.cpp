@@ -16,14 +16,13 @@
    Boston, MA 02111-1307, USA.
 */
 
-#define private public
-#define protected public
-
 #include "kateregression.h"
 
-#include "kateglobal.h"
-#include "katedocument.h"
-#include "katesmartmanager.h"
+#include <ktexteditor/editorchooser.h>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/document.h>
+#include <ktexteditor/smartrange.h>
+#include <ktexteditor/smartinterface.h>
 
 #include <kaboutdata.h>
 #include <kapplication.h>
@@ -65,12 +64,17 @@ namespace QtTest {
 // TODO split it various functions
 void KateRegression::testAll()
 {
-  m_doc = dynamic_cast<KateDocument*>(KateGlobal::self()->createDocument(this));
+  Editor* editor = EditorChooser::editor();
+  VERIFY(editor);
+
+  m_doc = editor->createDocument(this);
   VERIFY(m_doc);
 
+  VERIFY(smart());
+
   // Multi-line insert
-  Cursor* cursor1 = m_doc->newSmartCursor(Cursor(), false);
-  Cursor* cursor2 = m_doc->newSmartCursor(Cursor(), true);
+  Cursor* cursor1 = smart()->newSmartCursor(Cursor(), false);
+  Cursor* cursor2 = smart()->newSmartCursor(Cursor(), true);
 
   m_doc->insertText(Cursor(), "Test Text\nMore Test Text");
   COMPARE(m_doc->documentEnd(), Cursor(1,14));
@@ -90,18 +94,18 @@ void KateRegression::testAll()
   COMPARE(cursor3, m_doc->endOfLine(1));
 
   // Intra-line insert
-  Cursor* cursorStartOfLine = m_doc->newSmartCursor(Cursor(1,0));
+  Cursor* cursorStartOfLine = smart()->newSmartCursor(Cursor(1,0));
 
-  Cursor* cursorStartOfEdit = m_doc->newSmartCursor(Cursor(1,5), false);
-  Cursor* cursorEndOfEdit = m_doc->newSmartCursor(Cursor(1,5), true);
+  Cursor* cursorStartOfEdit = smart()->newSmartCursor(Cursor(1,5), false);
+  Cursor* cursorEndOfEdit = smart()->newSmartCursor(Cursor(1,5), true);
 
   Range* rangeEdit = smart()->newSmartRange(*cursorStartOfEdit, *cursorEndOfEdit, 0L, SmartRange::ExpandRight);
 
-  Cursor* cursorPastEdit = m_doc->newSmartCursor(Cursor(1,6));
-  Cursor* cursorEOL = m_doc->newSmartCursor(m_doc->endOfLine(1), false);
-  Cursor* cursorEOLMoves = m_doc->newSmartCursor(m_doc->endOfLine(1), true);
+  Cursor* cursorPastEdit = smart()->newSmartCursor(Cursor(1,6));
+  Cursor* cursorEOL = smart()->newSmartCursor(m_doc->endOfLine(1), false);
+  Cursor* cursorEOLMoves = smart()->newSmartCursor(m_doc->endOfLine(1), true);
 
-  Cursor* cursorNextLine = m_doc->newSmartCursor(Cursor(2,0));
+  Cursor* cursorNextLine = smart()->newSmartCursor(Cursor(2,0));
 
   new CursorExpectation(cursorStartOfLine);
   new CursorExpectation(cursorStartOfEdit, CursorExpectation::CharacterInsertedAfter);
@@ -118,7 +122,7 @@ void KateRegression::testAll()
 
   checkSignalExpectations();
 
-  Cursor* cursorInsideDelete = m_doc->newSmartCursor(Cursor(1,7));
+  Cursor* cursorInsideDelete = smart()->newSmartCursor(Cursor(1,7));
 
   new CursorExpectation(cursorStartOfEdit, CursorExpectation::CharacterDeletedAfter);
   new CursorExpectation(cursorInsideDelete, CursorExpectation::PositionChanged | CursorExpectation::PositionDeleted, *cursorStartOfEdit);
@@ -164,33 +168,6 @@ void KateRegression::testAll()
 
   COMPARE(*cursorEOL,m_doc->endOfLine(1));
   COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
-
-  checkSmartManager();
-  //m_doc->smartManager()->debugOutput();
-}
-
-void KateRegression::checkSmartManager()
-{
-  KateSmartGroup* currentGroup = m_doc->smartManager()->groupForLine(0);
-  VERIFY(currentGroup);
-
-  forever {
-    if (!currentGroup->previous())
-      COMPARE(currentGroup->startLine(), 0);
-
-    foreach (KateSmartCursor* cursor, currentGroup->feedbackCursors()) {
-      VERIFY(currentGroup->containsLine(cursor->line()));
-      COMPARE(cursor->m_smartGroup, currentGroup);
-    }
-
-    if (!currentGroup->next())
-      break;
-
-    COMPARE(currentGroup->endLine(), currentGroup->next()->startLine() - 1);
-    COMPARE(currentGroup->next()->previous(), currentGroup);
-  }
-
-  COMPARE(currentGroup->endLine(), m_doc->lines() - 1);
 }
 
 void KateRegression::checkSignalExpectations( )
@@ -272,7 +249,7 @@ void KateRegression::testRangeTree( )
 
 SmartInterface * KateRegression::smart( ) const
 {
-  return static_cast<SmartInterface*>(m_doc);
+  return dynamic_cast<SmartInterface*>(const_cast<Document*>(m_doc));
 }
 
 

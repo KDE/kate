@@ -22,11 +22,11 @@
 #include <QObject>
 #include <QMap>
 
-class KateDocument;
 class CursorExpectation;
 class RangeExpectation;
 
 namespace KTextEditor {
+  class Document;
   class SmartInterface;
 }
 
@@ -53,7 +53,7 @@ class KateRegression : public QObject
     void checkSignalExpectations();
 
     static KateRegression* s_self;
-    KateDocument* m_doc;
+    KTextEditor::Document* m_doc;
     QList<CursorExpectation*> m_cursorExpectations;
     QList<RangeExpectation*> m_rangeExpectations;
 };

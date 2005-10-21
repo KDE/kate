@@ -153,7 +153,7 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   QHBoxLayout *indentLayout = new QHBoxLayout();
   vb->addItem(indentLayout);
   indentLayout->setSpacing(KDialog::spacingHint());
-  QLabel *indentLabel = new QLabel(i18n("&Indentation mode:"),gbAuto);
+  QLabel *indentLabel = new QLabel(i18n("Default &Indentation mode:"),gbAuto);
   indentLayout->addWidget(indentLabel);
   m_indentMode = new KComboBox (gbAuto);
   indentLayout->addWidget(m_indentMode);
@@ -233,6 +233,11 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   m_configPage->setWhatsThis( i18n(
         "If this button is enabled, additional indenter specific options are "
         "available and can be configured in an extra dialog.") );
+
+  m_indentMode->setWhatsThis( i18n(
+        "The specified indentation mode will be used for all new documents. Be aware "
+        "that it is also possible to set the indentation mode with document variables, "
+        "filetypes or a .kateconfig file." ) );
 
   reload ();
 

@@ -53,11 +53,6 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
   public:
     virtual ~SmartCursor();
 
-    // Reimplementations
-    virtual void setLine (int line);
-    virtual void setColumn (int column);
-    virtual void setPosition (const Cursor& pos);
-
     // BEGIN Functionality present from having this cursor associated with a Document
     /**
      * Returns the document to which this cursor is attached.

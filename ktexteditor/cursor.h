@@ -240,6 +240,12 @@ class KTEXTEDITOR_EXPORT Cursor
     void setRange(Range* range);
 
     /**
+     * \internal
+     * Notify the owning range, if any, that this cursor has changed directly.
+     */
+    void cursorChangedDirectly(const Cursor& from);
+
+    /**
      * cursor line
      */
     int m_line;

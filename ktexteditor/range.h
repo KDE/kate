@@ -164,21 +164,23 @@ class KTEXTEDITOR_EXPORT Range
      * @param start start cursor
      * @param end end cursor
      */
-    virtual void setRange(const Cursor& start, const Cursor& end);
+    void setRange(const Cursor& start, const Cursor& end);
 
     /**
      * Expand this range if necessary to contain \p range.
      *
      * \param range range which this range should contain
+     * \return true if expansion occurred, false otherwise
      */
-    virtual void expandToRange(const Range& range);
+    virtual bool expandToRange(const Range& range);
 
     /**
      * Confine this range if neccessary to fit within \p range.
      *
      * \param range range which should contain this range
+     * \return true if confinement occurred, false otherwise
      */
-    virtual void confineToRange(const Range& range);
+    virtual bool confineToRange(const Range& range);
 
     // TODO: produce int versions with -1 before, 0 true, and +1 after if there is a need
     /**
@@ -338,15 +340,6 @@ class KTEXTEDITOR_EXPORT Range
 
     inline friend kndbgstream& operator<< (kndbgstream& s, const Range&) { return s; }
 
-    /**
-     * \internal
-     *
-     * Notify this range that one or both of the cursors' position has changed directly.
-     *
-     * \param cursor the cursor that changed. If 0L, both cursors have changed.
-     */
-    virtual void cursorChanged(Cursor* cursor);
-
   protected:
     /**
      * Constructor for advanced cursor types.
@@ -354,6 +347,23 @@ class KTEXTEDITOR_EXPORT Range
      * Takes ownership of @e start and @e end.
      */
     Range(Cursor* start, Cursor* end);
+
+    enum {
+      RangeStartExpanded = 0x1,
+      RangeStartContracted = 0x2,
+      RangeEndExpanded = 0x4,
+      RangeEndContracted = 0x8
+    };
+
+    /**
+     * \internal
+     *
+     * Notify this range that one or both of the cursors' position has changed directly.
+     *
+     * \param cursor the cursor that changed. If 0L, both cursors have changed.
+     * \param from the previous position of this range
+     */
+    virtual void rangeChanged(Cursor* cursor, const Range& from);
 
     Cursor* m_start;
     Cursor* m_end;

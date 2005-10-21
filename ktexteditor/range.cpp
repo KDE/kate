@@ -142,13 +142,10 @@ void Range::setRange(const Range& range)
 
 void Range::setRange( const Cursor & start, const Cursor & end )
 {
-  if (start > end) {
-    *m_start = end;
-    *m_end = start;
-  } else {
-    *m_start = start;
-    *m_end = end;
-  }
+  if (start > end)
+    setRange(Range(end, start));
+  else
+    setRange(Range(start, end));
 }
 
 bool Range::containsLine(int line) const
@@ -198,7 +195,7 @@ bool Range::boundaryOnLine(int line) const
   return start().line() == line || end().line() == line;
 }
 
-void Range::confineToRange(const Range& range)
+bool Range::confineToRange(const Range& range)
 {
   if (start() < range.start())
     if (end() > range.end())
@@ -207,9 +204,13 @@ void Range::confineToRange(const Range& range)
       start() = range.start();
   else if (end() > range.end())
     end() = range.end();
+  else
+    return false;
+
+  return true;
 }
 
-void Range::expandToRange(const Range& range)
+bool Range::expandToRange(const Range& range)
 {
   if (start() > range.start())
     if (end() < range.end())
@@ -218,9 +219,13 @@ void Range::expandToRange(const Range& range)
       start() = range.start();
   else if (end() < range.end())
     end() = range.end();
+  else
+    return false;
+
+  return true;
 }
 
-void Range::cursorChanged( Cursor * c )
+void Range::rangeChanged( Cursor * c, const Range& )
 {
   if (c == m_start) {
     if (*c > *m_end)

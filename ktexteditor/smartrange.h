@@ -142,9 +142,9 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     virtual void setParentRange(SmartRange* r);
 
     /// Overloaded to confine child ranges as well.
-    virtual void confineToRange(const Range& range);
+    virtual bool confineToRange(const Range& range);
     /// Overloaded to expand parent ranges.
-    virtual void expandToRange(const Range& range);
+    virtual bool expandToRange(const Range& range);
 
     inline int depth() const { return m_parentRange ? m_parentRange->depth() + 1 : 0; }
 
@@ -244,17 +244,18 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     virtual void setWatcher(SmartRangeWatcher* watcher) = 0;
     // END
 
+  protected:
+    SmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, InsertBehaviours insertBehaviour = DoNotExpand);
+
     /**
      * \internal
      *
      * Notify this range that one or both of the cursors' position has changed directly.
      *
-     * \param cursor the cursor that changed. If 0L, both cursors have changed.
+     * \param cursor the cursor that changed. If null, both cursors have changed.
+     * \param from the previous position of this range
      */
-    virtual void cursorChanged(Cursor* cursor);
-
-  protected:
-    SmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, InsertBehaviours insertBehaviour = DoNotExpand);
+    virtual void rangeChanged(Cursor* cursor, const Range& from);
 
     /**
      * Implementation detail.

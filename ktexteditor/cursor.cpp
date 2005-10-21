@@ -18,6 +18,8 @@
 
 #include "cursor.h"
 
+#include "range.h"
+
 using namespace KTextEditor;
 
 Cursor::Cursor( )
@@ -58,10 +60,41 @@ const Cursor& Cursor::start()
   return start;
 }
 
+void Cursor::setLine( int line )
+{
+  if (line == this->line())
+    return;
+
+  Cursor old = *this;
+
+  m_line = line;
+
+  cursorChangedDirectly(old);
+}
+
+void Cursor::setColumn( int column )
+{
+  if (column == this->column())
+    return;
+
+  Cursor old = *this;
+
+  m_column = column;
+
+  cursorChangedDirectly(old);
+}
+
 void Cursor::setPosition( const Cursor & pos )
 {
+  if (pos == *this)
+    return;
+
+  Cursor old = *this;
+
   m_line = pos.line();
   m_column = pos.column();
+
+  cursorChangedDirectly(old);
 }
 
 bool Cursor::isSmart( ) const
@@ -72,16 +105,6 @@ bool Cursor::isSmart( ) const
 int Cursor::line( ) const
 {
   return m_line;
-}
-
-void Cursor::setColumn( int _column )
-{
-  m_column = _column;
-}
-
-void Cursor::setLine( int _line )
-{
-  m_line = _line;
 }
 
 void Cursor::position (int &_line, int &_column) const
@@ -96,6 +119,16 @@ Cursor::~ Cursor( )
 void Cursor::setRange( Range * range )
 {
   m_range = range;
+}
+
+void KTextEditor::Cursor::cursorChangedDirectly(const Cursor& from)
+{
+  if (m_range) {
+    if (this == &m_range->start())
+      m_range->rangeChanged(this, Range(from, m_range->end()));
+    else
+      m_range->rangeChanged(this, Range(m_range->start(), from));
+  }
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

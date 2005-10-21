@@ -31,102 +31,51 @@ using namespace KTextEditor;
 SmartRange::SmartRange(SmartCursor* start, SmartCursor* end, SmartRange * parent, InsertBehaviours insertBehaviour )
   : Range(start, end)
   , m_attribute(0L)
-  , m_parentRange(0L)
+  , m_parentRange(parent)
   , m_ownsAttribute(false)
 {
   setInsertBehaviour(insertBehaviour);
 
-  if (parent)
-    setParentRange(parent);
+  if (m_parentRange) {
+    m_parentRange->expandToRange(*this);
+    m_parentRange->insertChildRange(this);
+  }
 }
 
-void SmartRange::confineToRange(const Range& range)
+bool SmartRange::confineToRange(const Range& range)
 {
-  if (start() < range.start())
-    if (end() > range.end())
-      setRange(range);
-    else
-      start() = range.start();
-  else if (end() > range.end())
-    end() = range.end();
-  else
+  if (!Range::confineToRange(range))
     // Don't need to check if children should be confined, they already are
-    return;
+    return false;
 
   foreach (SmartRange* child, m_childRanges)
     child->confineToRange(*this);
+
+  return true;
 }
 
-void SmartRange::expandToRange(const Range& range)
+bool SmartRange::expandToRange(const Range& range)
 {
-  if (start() > range.start())
-    if (end() < range.end())
-      setRange(range);
-    else
-      start() = range.start();
-  else if (end() < range.end())
-    end() = range.end();
-  else
+  if (!Range::expandToRange(range))
     // Don't need to check if parents should be expanded, they already are
-    return;
+    return false;
 
   if (parentRange())
     parentRange()->expandToRange(*this);
+
+  return true;
 }
 
 void SmartRange::setRange(const Range& range)
 {
-  bool expandStart, expandEnd;
-  if (parentRange() || childRanges().count()) {
-    expandStart = start() > range.start();
-    expandEnd = end() < range.end();
-  }
+  if (range == *this)
+    return;
+
+  Range old = *this;
 
   Range::setRange(range);
 
-  if (parentRange() || childRanges().count()) {
-    if (expandStart && expandEnd) {
-      if (parentRange())
-        parentRange()->expandToRange(*this);
-
-    } else if (!expandStart && !expandEnd) {
-      foreach (SmartRange* r, childRanges())
-        r->confineToRange(*this);
-
-    } else {
-      if (parentRange())
-        parentRange()->expandToRange(*this);
-
-      if (expandStart) {
-        bool confining = false;
-        foreach (SmartRange* r, childRanges()) {
-          if (confining) {
-            r->confineToRange(*this);
-
-          } else {
-            confining = r->end() > end();
-            if (confining)
-              r->confineToRange(*this);
-          }
-        }
-
-      } else {
-        bool confining = false;
-        SmartRange* r;
-        for (QList<SmartRange*>::ConstIterator it = childRanges().constEnd(); it != childRanges().constBegin(); ++it) {
-          r = *it;
-          if (confining) {
-            r->confineToRange(*this);
-
-          } else {
-            confining = r->start() < start();
-            if (confining)
-              r->confineToRange(*this);
-          }
-        }
-      }
-    }
-  }
+  rangeChanged(0L, old);
 }
 
 SmartRange::~SmartRange( )
@@ -393,9 +342,41 @@ bool SmartRange::removeText( bool block )
   return document()->removeText(*this, block);
 }
 
-void SmartRange::cursorChanged( Cursor* c )
+void SmartRange::rangeChanged( Cursor* c, const Range& from )
 {
-  Range::cursorChanged(c);
+  Range::rangeChanged(c, from);
+
+  // Decide whether the parent range has expanded or contracted, if there is one
+  if (parentRange() && (start() < from.start() || end() > from.end()))
+    parentRange()->expandToRange(*this);
+
+  if (childRanges().count()) {
+    SmartRange* r;
+    QList<SmartRange*>::ConstIterator it;
+
+    // Start has contracted - adjust from the start of the child ranges
+    int i = 0;
+    if (start() > from.start()) {
+      for (; i < childRanges().count(); ++i) {
+        r = childRanges().at(i);
+        if (r->start() < start())
+          r->confineToRange(*this);
+        else
+          break;
+      }
+    }
+
+    // End has contracted - adjust from the start of the child ranges, if they haven't already been adjusted above
+    if (end() < from.end()) {
+      for (int j = childRanges().count() - 1; j >= i; --j) {
+        r = childRanges().at(j);
+        if (r->end() > end())
+          r->confineToRange(*this);
+        else
+          break;
+      }
+    }
+  }
 
   // SmartCursor and its subclasses take care of adjusting ranges if the tree structure is being used.
   if (hasNotifier() && notifier()->wantsDirectChanges()) {

@@ -66,34 +66,4 @@ void SmartCursor::setRange( SmartRange * range )
   checkFeedback();
 }
 
-void SmartCursor::setLine( int line )
-{
-  if (line == this->line())
-    return;
-
-  Cursor::setLine(line);
-  if (m_range)
-    m_range->cursorChanged(this);
-}
-
-void SmartCursor::setColumn( int column )
-{
-  if (column == this->column())
-    return;
-
-  Cursor::setColumn(column);
-  if (m_range)
-    m_range->cursorChanged(this);
-}
-
-void SmartCursor::setPosition( const Cursor & pos )
-{
-  if (pos == *this)
-    return;
-
-  Cursor::setPosition(pos);
-  if (m_range)
-    m_range->cursorChanged(this);
-}
-
 // kate: space-indent on; indent-width 2; replace-tabs on;

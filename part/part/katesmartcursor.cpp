@@ -113,6 +113,8 @@ void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool
   if (*this == pos)
     return;
 
+  KTextEditor::Cursor old = *this;
+
   // Remember this position if the feedback system needs it
   if (m_feedbackEnabled)
     m_lastPosition = *this;
@@ -122,19 +124,6 @@ void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool
   if (haveToChangeGroups) {
     m_smartGroup->leaving(this);
     m_smartGroup = kateDocument()->smartManager()->groupForLine(pos.line());
-  }
-
-  // Decide whether the parent range has expanded or contracted, if there is one
-  bool expanded = true;
-  if (!internal && range()) {
-    if (this == &range()->start()) {
-      if (line() > pos.line() || m_column > pos.column())
-        expanded = false;
-
-    } else {
-      if (line() < pos.line() || m_column < pos.column())
-        expanded = false;
-    }
   }
 
   // Set the new position
@@ -151,19 +140,9 @@ void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool
     m_lastPosition = *this;
 
   // Adjustments only needed for non-internal position changes...
-  if (!internal) {
+  if (!internal)
     // Tell the range about this
-    if (range())
-      range()->cursorChanged(this);
-
-    // Properly adjust parent or child range(s)
-    if (smartRange())
-      if (expanded && smartRange()->parentRange())
-        smartRange()->parentRange()->expandToRange(*range());
-      else
-        foreach (KTextEditor::SmartRange* r, smartRange()->childRanges())
-          r->confineToRange(*range());
-  }
+    cursorChangedDirectly(old);
 }
 
 KTextEditor::SmartCursorNotifier* KateSmartCursor::notifier( )

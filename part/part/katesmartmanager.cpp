@@ -129,6 +129,11 @@ KateSmartGroup * KateSmartManager::groupForLine( int line ) const
   while (smartGroup && !smartGroup->containsLine(line))
     smartGroup = smartGroup->next();
 
+  // If you hit this assert, it is a fundamental bug in katepart.  A cursor's
+  // position is being set beyond the end of the document, or (perhaps less
+  // likely), in this class itself.
+  //
+  // Please figure out how to reproduce, and report to rodda@kde.org.
   Q_ASSERT(smartGroup);
   return smartGroup;
 }
@@ -224,6 +229,7 @@ KateSmartRange* KateSmartManager::feedbackRange( const KateEditInfo& edit, KateS
 {
   KateSmartRange* mostSpecific = 0L;
 
+  // This range preceeds the edit... no more to do
   if (range->end() < edit.start())
     return mostSpecific;
 
@@ -234,10 +240,15 @@ KateSmartRange* KateSmartManager::feedbackRange( const KateEditInfo& edit, KateS
       feedbackRange(edit, static_cast<KateSmartRange*>(child));
 
   if (range->start() > edit.oldRange().end()) {
+    // This range is after the edit... has only been shifted
     range->shifted();
 
   } else {
+    // This range is within the edit.
     if (!mostSpecific)
+      if (range->start() < edit.oldRange().start() && range->end() > edit.oldRange().end())
+        mostSpecific = range;
+
     range->translated(edit);
   }
 

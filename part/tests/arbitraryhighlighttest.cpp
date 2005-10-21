@@ -70,12 +70,29 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
 
   SmartRange* currentRange = mostSpecificChild;
   currentRange->clearChildRanges();
-  QStringList text = currentRange->text();
-  Cursor current = range->start();
+
+  Cursor current = currentRange->start();
+  QStringList text;
+
+  Range textNeeded = *currentRange;
+  if (range != currentRange) {
+    if (textNeeded.start() >= textNeeded.end() - Cursor(0,2)) {
+      outputRange(range, mostSpecificChild);
+      return;
+    }
+
+    textNeeded.start() += Cursor(0,1);
+    textNeeded.end() -= Cursor(0,1);
+
+    current += Cursor(0,1);
+  }
+
+  text = currentRange->document()->textLines(textNeeded);
+
   foreach (QString string, text) {
     for (int i = 0; i < string.length(); ++i) {
       if (string.at(i) == openBrace) {
-        currentRange = smart()->newSmartRange(current, mostSpecificChild->end(), currentRange);
+        currentRange = smart()->newSmartRange(current, currentRange->end(), currentRange);
         if (currentRange->depth() < 10)
           currentRange->setAttribute(ranges[currentRange->depth()]);
 

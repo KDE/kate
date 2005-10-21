@@ -26,6 +26,10 @@ class KateDocument;
 class CursorExpectation;
 class RangeExpectation;
 
+namespace KTextEditor {
+  class SmartInterface;
+}
+
 class KateRegression : public QObject
 {
   Q_OBJECT
@@ -38,8 +42,11 @@ class KateRegression : public QObject
     void addCursorExpectation(CursorExpectation* expectation);
     void addRangeExpectation(RangeExpectation* expectation);
 
+    KTextEditor::SmartInterface* smart() const;
+
   private slots:
     void testAll();
+    void testRangeTree();
 
   private:
     void checkSmartManager();

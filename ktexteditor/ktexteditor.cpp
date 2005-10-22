@@ -204,6 +204,10 @@ Editor *KTextEditor::editor(const char *libname)
   return ef->editor();
 }
 
+SmartInterface::SmartInterface()
+  : m_clearOnDocumentReload(true)
+{
+}
 KTextEditor::SmartInterface::~ SmartInterface( )
 {
 }

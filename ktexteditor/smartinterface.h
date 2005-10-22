@@ -74,11 +74,50 @@ class KTEXTEDITOR_EXPORT SmartInterface
   friend class Attribute;
 
   public:
+    SmartInterface();
     virtual ~SmartInterface();
+
+    /**
+     * Clears or deletes all instances of smart objects, ie:
+     * \li deletes all SmartCursors
+     * \li deletes all SmartRanges
+     * \li clears all arbitrary highlight ranges
+     * \li clears all action binding
+     *
+     * This method is likely to be noticably faster than deleting and clearing each instance yourself.
+     *
+     * Deletion occurs without modification to the underlying text.
+     */
+    virtual void clearSmartInterface() = 0;
+
+    /**
+     * Returns whether the smart interface will be cleared on reload of the document.
+     *
+     * Defaults to true.
+     */
+    bool clearOnDocumentReload() const;
+
+    /**
+     * Specify whether the smart interface should be cleared on reload of the document.
+     *
+     * \param clearOnReload set to true to enable clearing of the smart interface on reload (the default).
+     */
+    void setClearOnDocumentReload(bool clearOnReload);
 
     // BEGIN New cursor methods
     /**
+     * \name SmartCursors
+     *
+     * The following functions allow for creation and deletion of SmartCursors.
+     * \{
+     */
+    /**
      * Creates a new SmartCursor.
+     *
+     * You own this object, and may delete it when you are finished with it.
+     * Alternatively, you may call the various clear methods, or wait for the Document
+     * to be destroyed.
+     *
      * \param position The initial cursor position assumed by the new cursor.
      *                 If not specified, it will start at position (0, 0).
      * \param moveOnInsert Define whether the cursor should move when text is inserted at the cursor position.
@@ -90,6 +129,10 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * \n \n
      * Creates a new SmartCursor.
      *
+     * You own this object, and may delete it when you are finished with it.
+     * Alternatively, you may call the various clear methods, or wait for the Document
+     * to be destroyed.
+     *
      * \param moveOnInsert Define whether the cursor should move when text is inserted at the cursor position.
      */
     inline SmartCursor* newSmartCursor(bool moveOnInsert = true)
@@ -97,8 +140,12 @@ class KTEXTEDITOR_EXPORT SmartInterface
 
     /**
      * \overload
-     *
+     * \n \n
      * Creates a new SmartCursor.
+     *
+     * You own this object, and may delete it when you are finished with it.
+     * Alternatively, you may call the various clear methods, or wait for the Document
+     * to be destroyed.
      *
      * \param line the line number of the cursor's initial position
      * \param column the line number of the cursor's initial position
@@ -106,51 +153,225 @@ class KTEXTEDITOR_EXPORT SmartInterface
      */
     inline SmartCursor* newSmartCursor(int line, int column, bool moveOnInsert = true)
       { return newSmartCursor(Cursor(line, column), moveOnInsert); }
+
+    /**
+     * Delete all SmartCursors from this document, with the exception of those
+     * cursors currently bound to ranges.
+     */
+    virtual void deleteCursors() = 0;
     // END
 
     // BEGIN New range methods
     /**
+     * \}
+     *
+     * \name SmartRanges
+     *
+     * The following functions allow for creation of new SmartRanges.
+     * \{
+     */
+    /**
      * Creates a new SmartRange.
      * \param range The initial text range assumed by the new range.
      * \param parent The parent SmartRange, if this is to be the child of an existing range.
-     * \param insertBehaviour Define whether the range should expand when text is inserted at ends of the range.
+     * \param insertBehaviour Define whether the range should expand when text is inserted adjacent to the range.
      */
     virtual SmartRange* newSmartRange(const Range& range = Range(), SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand) = 0;
-    /// \overload
+
+    /**
+     * \overload
+     * \n \n
+     * Creates a new SmartRange.
+     * \param startPosition The start position assumed by the new range.
+     * \param endPosition The end position assumed by the new range.
+     * \param parent The parent SmartRange, if this is to be the child of an existing range.
+     * \param insertBehaviour Define whether the range should expand when text is inserted adjacent to the range.
+     */
     inline SmartRange* newSmartRange(const Cursor& startPosition, const Cursor& endPosition, SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand)
       { return newSmartRange(Range(startPosition, endPosition), parent, insertBehaviour); }
-    /// \overload
+
+    /**
+     * \overload
+     * \n \n
+     * Creates a new SmartRange.
+     * \param startLine The start line assumed by the new range.
+     * \param startColumn The start column assumed by the new range.
+     * \param endLine The end line assumed by the new range.
+     * \param endColumn The end column assumed by the new range.
+     * \param parent The parent SmartRange, if this is to be the child of an existing range.
+     * \param insertBehaviour Define whether the range should expand when text is inserted adjacent to the range.
+     */
     inline SmartRange* newSmartRange(int startLine, int startColumn, int endLine, int endColumn, SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand)
       { return newSmartRange(Range(startLine, startColumn, endLine, endColumn), parent, insertBehaviour); }
 
     /**
      * Creates a new SmartRange from pre-existing SmartCursors.  The cursors must not be part of any other range.
+     *
      * \param start Start SmartCursor
      * \param end End SmartCursor
      * \param parent The parent SmartRange, if this is to be the child of an existing range.
      * \param insertBehaviour Define whether the range should expand when text is inserted at ends of the range.
      */
     virtual SmartRange* newSmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand) = 0;
+
+    /**
+     * Delete a SmartRange without deleting the SmartCursors which make up its start() and end().
+     *
+     * First, extract the cursors yourself using:
+     * \code
+     *  SmartCursor* start = &range->smartStart();
+     *  SmartCursor* end = &range->smartEnd();
+     * \endcode
+     *
+     * Then, call this function to delete the SmartRange instance.  The underlying text will not be affected.
+     *
+     * \param range the range to dissociate from its smart cursors, and delete
+     */
+    virtual void unbindSmartRange(SmartRange* range) = 0;
+
+    /**
+     * Delete all SmartRanges from this document. This will also delete all
+     * cursors currently bound to ranges.
+     *
+     * This will not affect any underlying text.
+     */
+    virtual void deleteRanges() = 0;
     // END
 
     // BEGIN Syntax highlighting extension
+    /**
+     * \}
+     *
+     * \name Arbitrary Highlighting
+     *
+     * The following functions enable highlighting processing for SmartRanges with arbitrary
+     * highlighting information.
+     * \{
+     */
+    /**
+     * Register a SmartRange tree as providing arbitrary highlighting information,
+     * and that it should be rendered on all of the views of a document.
+     *
+     * \param topRange the top range of the tree to add
+     */
     virtual void addHighlightToDocument(SmartRange* topRange) = 0;
+
+    /**
+     * Remove a SmartRange tree from providing arbitrary highlighting information
+     * to all of the views of a document.
+     *
+     * \param topRange the top range of the tree to remove
+     */
     virtual void removeHighlightFromDocument(SmartRange* topRange) = 0;
+
+    /**
+     * Return a list of SmartRanges which are currently registered as
+     * providing arbitrary highlighting information to all of the views of a
+     * document.
+     */
     virtual const QList<SmartRange*>& documentHighlights() const = 0;
 
+    /**
+     * Register a SmartRange tree as providing arbitrary highlighting information,
+     * and that it should be rendered on the specified \p view.
+     *
+     * \param view view on which to render the highlight
+     * \param topRange the top range of the tree to add
+     */
     virtual void addHighlightToView(View* view, SmartRange* topRange) = 0;
+
+    /**
+     * Remove a SmartRange tree from providing arbitrary highlighting information
+     * to a specific view of a document.
+     *
+     * \note implementations should not take into account document-bound
+     *       highlighting ranges when calling this function; it is intended solely
+     *       to be the counter of addHighlightToView()
+     *
+     * \param view view on which the highlight was previously rendered
+     * \param topRange the top range of the tree to remove
+     */
     virtual void removeHighlightFromView(View* view, SmartRange* topRange) = 0;
+
+    /**
+     * Return a list of SmartRanges which are currently registered as
+     * providing arbitrary highlighting information to a specific view of a
+     * document.
+     *
+     * \note implementations should not take into account document-bound
+     *       highlighting ranges when returning the list; it is intended solely
+     *       to show highlights added via addHighlightToView()
+     *
+     * \param view view to query for the highlight list
+     */
     virtual const QList<SmartRange*>& viewHighlights(View* view) const = 0;
     // END
 
     // BEGIN Action binding extension
+    /**
+     * \}
+     *
+     * \name Action Binding
+     *
+     * The following functions allow for the processing of KActions bound to SmartRanges.
+     * \{
+     */
+    /**
+     * Register a SmartRange tree as providing bound actions,
+     * and that they should interact with all of the views of a document.
+     *
+     * \param topRange the top range of the tree to add
+     */
     virtual void addActionsToDocument(SmartRange* topRange) = 0;
+
+    /**
+     * Remove a SmartRange tree from providing bound actions
+     * to all of the views of a document.
+     *
+     * \param topRange the top range of the tree to remove
+     */
     virtual void removeActionsFromDocument(SmartRange* topRange) = 0;
+
+    /**
+     * Return a list of SmartRanges which are currently registered as
+     * providing bound actions to all of the views of a document.
+     */
     virtual const QList<SmartRange*>& documentActions() const = 0;
 
+    /**
+     * Register a SmartRange tree as providing bound actions,
+     * and that they should interact with the specified \p view.
+     *
+     * \param view view on which to use the actions
+     * \param topRange the top range of the tree to add
+     */
     virtual void addActionsToView(View* view, SmartRange* topRange) = 0;
+
+    /**
+     * Remove a SmartRange tree from providing bound actions
+     * to the specified \p view.
+     *
+     * \note implementations should not take into account document-bound
+     *       action ranges when calling this function; it is intended solely
+     *       to be the counter of addActionsToView()
+     *
+     * \param view view on which the actions were previously used
+     * \param topRange the top range of the tree to remove
+     */
     virtual void removeActionsFromView(View* view, SmartRange* topRange) = 0;
+
+    /**
+     * Return a list of SmartRanges which are currently registered as
+     * providing bound actions to the specified \p view.
+     *
+     * \note implementations should not take into account document-bound
+     *       action ranges when returning the list; it is intended solely
+     *       to show actions added via addActionsToView()
+     *
+     * \param view view to query for the action list
+     */
     virtual const QList<SmartRange*>& viewActions(View* view) const = 0;
+    //!\}
     // END
 
   protected:
@@ -168,6 +389,9 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * tracking.
      */
     virtual void attributeNotDynamic(Attribute* a) = 0;
+
+  private:
+    bool m_clearOnDocumentReload;
 };
 
 }

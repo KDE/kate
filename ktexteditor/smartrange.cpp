@@ -280,22 +280,29 @@ void SmartRange::setInsertBehaviour(SmartRange::InsertBehaviours behaviour)
 
 void SmartRange::clearChildRanges()
 {
-  // FIXME: Probably more efficient to prevent them from unlinking themselves?
   foreach (SmartRange* r, m_childRanges)
-    r->clearChildRanges();
+    r->removeText();
+}
 
+void SmartRange::deleteChildRanges()
+{
+  // FIXME: Probably more efficient to prevent them from unlinking themselves?
   qDeleteAll(m_childRanges);
 
   // i.e. this is probably already clear
   m_childRanges.clear();
 }
 
-void SmartRange::deleteChildRanges()
+void KTextEditor::SmartRange::clearAndDeleteChildRanges( )
 {
+  // FIXME: Probably more efficient to prevent them from unlinking themselves?
   foreach (SmartRange* r, m_childRanges)
     r->removeText();
 
   qDeleteAll(m_childRanges);
+
+  // i.e. this is probably already clear
+  m_childRanges.clear();
 }
 
 void SmartRange::setParentRange( SmartRange * r )

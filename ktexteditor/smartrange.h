@@ -284,16 +284,24 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     const QList<SmartRange*>& childRanges() const;
 
     /**
-     * Clears child ranges - i.e., deletes the SmartRange objects, but not the
-     * text that they cover.
+     * Clears child ranges - i.e., removes the text that is covered by the ranges.
+     * The ranges themselves are not deleted.
+     *
+     * \sa removeText()
      */
     void clearChildRanges();
 
     /**
-     * Deletes child ranges - i.e., deletes both the SmartRange objects and the
-     * text that they cover.
+     * Deletes child ranges - i.e., deletes the SmartRange objects only.
+     * The underlying text is not affected.
      */
     void deleteChildRanges();
+
+    /**
+     * Clears child ranges - i.e., clears the text that is covered by the ranges,
+     * and deletes the SmartRange objects.
+     */
+    void clearAndDeleteChildRanges();
 
     /**
      * Find the child before \p range, if any.

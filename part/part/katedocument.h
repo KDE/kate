@@ -484,9 +484,15 @@ class KateDocument : public KTextEditor::Document,
   // KTextEditor::SmartInterface
   //
   public:
+    virtual void clearSmartInterface();
+
     virtual KTextEditor::SmartCursor* newSmartCursor(const KTextEditor::Cursor& position, bool moveOnInsert = true);
+    virtual void deleteCursors();
+
     virtual KTextEditor::SmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
     virtual KTextEditor::SmartRange* newSmartRange(KTextEditor::SmartCursor* start, KTextEditor::SmartCursor* end, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
+    virtual void unbindSmartRange(KTextEditor::SmartRange* range);
+    virtual void deleteRanges();
 
     // BEGIN Syntax highlighting extension
     virtual void addHighlightToDocument(KTextEditor::SmartRange* topRange);

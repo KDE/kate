@@ -34,6 +34,9 @@ class KateSmartGroup;
 
 /**
  * Manages SmartCursors and SmartRanges.
+ *
+ * \todo potential performance optimisation: use separate sets for internal and non-internal cursors + ranges
+ * \todo potential performance optimisation: bypass unhooking routines when clearing
  */
 class KateSmartManager : public QObject
 {
@@ -45,9 +48,15 @@ class KateSmartManager : public QObject
 
     KateDocument* doc() const;
 
-    KTextEditor::SmartCursor* newSmartCursor(const KTextEditor::Cursor& position, bool moveOnInsert = true);
-    KTextEditor::SmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
-    KTextEditor::SmartRange* newSmartRange(KateSmartCursor* start, KateSmartCursor* end, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand);
+    void clear(bool includingInternal);
+
+    KTextEditor::SmartCursor* newSmartCursor(const KTextEditor::Cursor& position, bool moveOnInsert = true, bool internal = true);
+    void deleteCursors(bool includingInternal);
+
+    KTextEditor::SmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand, bool internal = true);
+    KTextEditor::SmartRange* newSmartRange(KateSmartCursor* start, KateSmartCursor* end, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand, bool internal = true);
+    void unbindSmartRange(KTextEditor::SmartRange* range);
+    void deleteRanges(bool includingInternal);
 
     void rangeGotParent(KateSmartRange* range);
     void rangeLostParent(KateSmartRange* range);
@@ -61,8 +70,6 @@ class KateSmartManager : public QObject
 
   private:
     KateSmartRange* feedbackRange(const KateEditInfo& edit, KateSmartRange* range);
-
-    const QSet<KateSmartRange*>& rangesWantingMostSpecificContentFeedback() const;
 
     void debugOutput() const;
 
@@ -132,6 +139,9 @@ class KateSmartGroup
     // Second pass for feedback
     void translatedChanged(const KateEditInfo& edit);
     void translatedShifted(const KateEditInfo& edit);
+
+    void deleteCursors(bool includingInternal);
+    void deleteCursorsInternal(QSet<KateSmartCursor*>& set);
 
     void debugOutput() const;
 

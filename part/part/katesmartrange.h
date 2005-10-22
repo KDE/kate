@@ -76,6 +76,11 @@ class KateSmartRange : public KTextEditor::SmartRange
     KateSmartCursor& kStart() { return *static_cast<KateSmartCursor*>(m_start); }
     KateSmartCursor& kEnd() { return *static_cast<KateSmartCursor*>(m_end); }
 
+    bool isInternal() const { return m_isInternal; }
+    void setInternal();
+
+    void unbindAndDelete();
+
     enum AttachActions {
       NoActions   = 0x0,
       TagLines    = 0x1,
@@ -154,7 +159,8 @@ class KateSmartRange : public KTextEditor::SmartRange
     int m_attachActions;
     //FeedbackLevels m_feedbackLevel;
     bool  m_mouseOver             :1,
-          m_caretOver             :1;
+          m_caretOver             :1,
+          m_isInternal            :1;
 };
 
 //Q_DECLARE_OPERATORS_FOR_FLAGS(KateSmartRange::FeedbackLevels);

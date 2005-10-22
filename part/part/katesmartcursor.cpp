@@ -29,12 +29,14 @@ KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEdito
   , m_feedbackEnabled(false)
   , m_oldGroupLineStart(-1)
   , m_lastPosition(position)
+  , m_isInternal(false)
   , m_notifier(0L)
   , m_watcher(0L)
 {
   if (position > kateDocument()->documentEnd()) {
     kdWarning() << k_funcinfo << "Attempted to set cursor position past end of document." << endl;
     m_line = -1;
+    m_column = -1;
   }
 
   // Replace straight line number with smartgroup + line offset
@@ -47,6 +49,7 @@ KateSmartCursor::KateSmartCursor( KTextEditor::Document * doc, bool moveOnInsert
   : KTextEditor::SmartCursor(KTextEditor::Cursor(), doc, moveOnInsert)
   , m_feedbackEnabled(false)
   , m_oldGroupLineStart(-1)
+  , m_isInternal(false)
   , m_notifier(0L)
   , m_watcher(0L)
 {
@@ -332,6 +335,16 @@ bool KateSmartCursor::hasNotifier( ) const
 KTextEditor::SmartCursorWatcher * KateSmartCursor::watcher( ) const
 {
   return m_watcher;
+}
+
+void KateSmartCursor::unbindFromRange( )
+{
+  setRange(0L);
+}
+
+void KateSmartCursor::setInternal( )
+{
+  m_isInternal = true;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

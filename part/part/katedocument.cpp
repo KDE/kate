@@ -4865,12 +4865,12 @@ KTextEditor::Cursor KateDocument::documentEnd( ) const
 //BEGIN KTextEditor::SmartInterface
 KTextEditor::SmartCursor* KateDocument::newSmartCursor( const KTextEditor::Cursor & position, bool moveOnInsert )
 {
-  return m_smartManager->newSmartCursor(position, moveOnInsert);
+  return m_smartManager->newSmartCursor(position, moveOnInsert, false);
 }
 
 KTextEditor::SmartRange * KateDocument::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour )
 {
-  return m_smartManager->newSmartRange( range, parent, insertBehaviour );
+  return m_smartManager->newSmartRange( range, parent, insertBehaviour, false );
 }
 
 KTextEditor::SmartRange * KateDocument::newSmartRange( KTextEditor::SmartCursor * start, KTextEditor::SmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour )
@@ -4881,7 +4881,12 @@ KTextEditor::SmartRange * KateDocument::newSmartRange( KTextEditor::SmartCursor 
     return 0L;
   if (kstart->range() || kend->range())
     return 0L;
-  return m_smartManager->newSmartRange(kstart, kend, parent, insertBehaviour);
+  return m_smartManager->newSmartRange(kstart, kend, parent, insertBehaviour, false);
+}
+
+void KateDocument::unbindSmartRange( KTextEditor::SmartRange * range )
+{
+  m_smartManager->unbindSmartRange(range);
 }
 
 bool KateDocument::replaceText( const KTextEditor::Range & range, const QString & s, bool block )
@@ -4960,6 +4965,23 @@ void KateDocument::attributeDynamic( KTextEditor::Attribute * )
 void KateDocument::attributeNotDynamic( KTextEditor::Attribute * )
 {
   // TODO de-link cursor + mouse tracking
+}
+
+void KateDocument::clearSmartInterface( )
+{
+  m_documentHighlights.clear();
+  m_documentActions.clear();
+  m_smartManager->clear(false);
+}
+
+void KateDocument::deleteCursors( )
+{
+  m_smartManager->deleteCursors(false);
+}
+
+void KateDocument::deleteRanges( )
+{
+  m_smartManager->deleteRanges(false);
 }
 
 //END KTextEditor::SmartInterface

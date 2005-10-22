@@ -46,22 +46,29 @@ KateDocument * KateSmartManager::doc( ) const
   return static_cast<KateDocument*>(parent());
 }
 
-KTextEditor::SmartCursor * KateSmartManager::newSmartCursor( const KTextEditor::Cursor & position, bool moveOnInsert )
+KTextEditor::SmartCursor * KateSmartManager::newSmartCursor( const KTextEditor::Cursor & position, bool moveOnInsert, bool internal )
 {
-  return new KateSmartCursor(position, doc(), moveOnInsert);
+  KateSmartCursor* c = new KateSmartCursor(position, doc(), moveOnInsert);
+  if (internal)
+    c->setInternal();
+  return c;
 }
 
-KTextEditor::SmartRange * KateSmartManager::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour )
+KTextEditor::SmartRange * KateSmartManager::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour, bool internal )
 {
   KateSmartRange* newRange = new KateSmartRange(range, doc(), parent, insertBehaviour);
+  if (internal)
+    newRange->setInternal();
   if (!parent)
     rangeLostParent(newRange);
   return newRange;
 }
 
-KTextEditor::SmartRange * KateSmartManager::newSmartRange( KateSmartCursor * start, KateSmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour )
+KTextEditor::SmartRange * KateSmartManager::newSmartRange( KateSmartCursor * start, KateSmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour, bool internal )
 {
   KateSmartRange* newRange = new KateSmartRange(start, end, parent, insertBehaviour);
+  if (internal)
+    newRange->setInternal();
   if (!parent)
     rangeLostParent(newRange);
   return newRange;
@@ -410,6 +417,66 @@ void KateSmartManager::rangeDeleted( KateSmartRange * range )
 {
   if (!range->parentRange())
     m_topRanges.remove(range);
+}
+
+void KateSmartManager::unbindSmartRange( KTextEditor::SmartRange * range )
+{
+  static_cast<KateSmartRange*>(range)->unbindAndDelete();
+}
+
+void KateSmartManager::deleteCursors(bool includingInternal)
+{
+  m_invalidGroup->deleteCursors(includingInternal);
+  for (KateSmartGroup* g = m_firstGroup; g; g = g->next())
+    g->deleteCursors(includingInternal);
+}
+
+void KateSmartGroup::deleteCursors( bool includingInternal )
+{
+  if (includingInternal) {
+    qDeleteAll(m_feedbackCursors);
+    qDeleteAll(m_normalCursors);
+    Q_ASSERT(!m_feedbackCursors.count());
+    Q_ASSERT(!m_normalCursors.count());
+
+  } else {
+    deleteCursorsInternal(m_feedbackCursors);
+    deleteCursorsInternal(m_normalCursors);
+  }
+}
+
+void KateSmartGroup::deleteCursorsInternal( QSet< KateSmartCursor * > & set )
+{
+  QSet<KateSmartCursor*>::ConstIterator it = set.constBegin();
+  while (it != set.constEnd()) {
+    KateSmartCursor* c = *it;
+    ++it;
+    if (!c->range() && !c->isInternal()) {
+      m_feedbackCursors.remove(c);
+      delete c;
+      // Removing from set is already taken care of
+    }
+  }
+}
+
+void KateSmartManager::deleteRanges( bool includingInternal )
+{
+  QSet<KateSmartRange*>::ConstIterator it = m_topRanges.constBegin();
+  while (it != m_topRanges.constEnd()) {
+    KateSmartRange* range = *it;
+    ++it;
+    if (includingInternal || !range->isInternal()) {
+      range->deleteChildRanges();
+      delete range;
+      // Removing from m_topRanges is already taken care of
+    }
+  }
+}
+
+void KateSmartManager::clear( bool includingInternal )
+{
+  deleteCursors(includingInternal);
+  deleteRanges(includingInternal);
 }
 
 #include "katesmartmanager.moc"

@@ -56,6 +56,11 @@ class KateSmartCursor : public KTextEditor::SmartCursor
     KateSmartCursor(KTextEditor::Document* doc, bool moveOnInsert = true);
     virtual ~KateSmartCursor();
 
+    void unbindFromRange();
+
+    bool isInternal() const { return m_isInternal; }
+    void setInternal();
+
     /**
     * Debug: output the position.
     */
@@ -124,7 +129,8 @@ class KateSmartCursor : public KTextEditor::SmartCursor
      * is in receives an edit.
      */
     Cursor m_lastPosition;
-    bool m_lastPositionUsed;
+
+    bool  m_isInternal       : 1;
 
     KateSmartCursorNotifier* m_notifier;
     KTextEditor::SmartCursorWatcher* m_watcher;

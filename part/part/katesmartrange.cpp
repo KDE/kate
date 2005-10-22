@@ -35,6 +35,7 @@ KateSmartRange::KateSmartRange(const KTextEditor::Range& range, KateDocument* do
 //  , m_feedbackLevel(NoFeedback)
   , m_mouseOver(false)
   , m_caretOver(false)
+  , m_isInternal(false)
 {
 }
 
@@ -47,6 +48,7 @@ KateSmartRange::KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* paren
 //  , m_feedbackLevel(NoFeedback)
   , m_mouseOver(false)
   , m_caretOver(false)
+  , m_isInternal(false)
 {
 }
 
@@ -59,12 +61,14 @@ KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, 
 //  , m_feedbackLevel(NoFeedback)
   , m_mouseOver(false)
   , m_caretOver(false)
+  , m_isInternal(false)
 {
 }
 
 KateSmartRange::~KateSmartRange()
 {
-  kateDocument()->smartManager()->rangeDeleted(this);
+  if (m_start)
+    kateDocument()->smartManager()->rangeDeleted(this);
 }
 
 void KateSmartRange::attachToView(KateView* view, int actions)
@@ -250,6 +254,21 @@ void KateSmartRange::setParentRange( SmartRange * r )
     kateDocument()->smartManager()->rangeGotParent(this);
   else if (lostParent)
     kateDocument()->smartManager()->rangeLostParent(this);
+}
+
+void KateSmartRange::unbindAndDelete( )
+{
+  kateDocument()->smartManager()->rangeDeleted(this);
+  kStart().unbindFromRange();
+  kEnd().unbindFromRange();
+  m_start = 0L;
+  m_end = 0L;
+  delete this;
+}
+
+void KateSmartRange::setInternal( )
+{
+  m_isInternal = true;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

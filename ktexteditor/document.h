@@ -378,6 +378,11 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
     virtual int totalCharacters() const = 0;
 
     /**
+     * Returns if the document is empty.
+     */
+    virtual bool isEmpty() const;
+
+    /**
      * Get the length of a given line in characters.
      * @param line line to get length from
      * @return the number of characters in the line or -1 if the line was

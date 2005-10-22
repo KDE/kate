@@ -566,11 +566,13 @@ class KTEXTEDITOR_EXPORT Range
     virtual void rangeChanged(Cursor* cursor, const Range& from);
 
     /**
+     * \internal
      * This range's start cursor pointer.
      */
     Cursor* m_start;
 
     /**
+     * \internal
      * This range's end cursor pointer.
      */
     Cursor* m_end;

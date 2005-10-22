@@ -58,9 +58,10 @@ class Mark
 
 /**
  * @brief Mark extension interface for the Document.
+ *
  * @ingroup kte_group_doc_extensions
  *
- * <b>Introduction</b>\n
+ * \section intro Introduction
  *
  * The MarkInterface provides methods to enable and disable marks in a
  * Document, a marked line can be visualized for example with a shaded
@@ -69,11 +70,11 @@ class Mark
  * reservedMarkersCount(). Additionally it is possible to add custom marks
  * and set custom pixmaps.
  *
- * <b>Accessing the MarkInterface</b>\n
+ * \section accessing Accessing the MarkInterface
  *
  * The MarkInterface is supposed to be an extension interface for a Document,
- * i.e. the Document inherits the interface @e provided that the used
- * KTextEditor library implements the interface. Use qobject_cast to access
+ * i.e. the Document inherits the interface @e provided that the
+ * KTextEditor library in use implements the interface. Use qobject_cast to access
  * the interface:
  * @code
  *   // doc is of type KTextEditor::Document*
@@ -86,7 +87,7 @@ class Mark
  *   }
  * @endcode
  *
- * <b>Handling Marks</b>\n
+ * \section handling Handling Marks
  *
  * Get all marks in the document by calling marks(). Use clearMarks() to
  * remove all marks in the entire document. A single mark can be retrieved
@@ -103,7 +104,7 @@ class Mark
  *     removeMark(), etc, the @e uint may contain @e multiple marks, i.e.
  *     you can add and remove multiple marks @e simultaneously.
  *
- * <b>Userdefined Marks</b>\n
+ * \section userdefined User Defined Marks
  *
  * All marks that should be changable by the user can be specified with a
  * mark mask via setMarksUserChangable(). To set a description and pixmap of

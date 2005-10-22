@@ -208,8 +208,24 @@ SmartInterface::SmartInterface()
   : m_clearOnDocumentReload(true)
 {
 }
-KTextEditor::SmartInterface::~ SmartInterface( )
+
+SmartInterface::~ SmartInterface( )
 {
+}
+
+bool SmartInterface::clearOnDocumentReload() const
+{
+  return m_clearOnDocumentReload;
+}
+
+void SmartInterface::setClearOnDocumentReload(bool clearOnReload)
+{
+  m_clearOnDocumentReload = clearOnReload;
+}
+
+bool Document::isEmpty( ) const
+{
+  return documentEnd() == Cursor::start();
 }
 
 long ArgHintData::s_id=0;

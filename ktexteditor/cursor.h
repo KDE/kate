@@ -106,7 +106,6 @@ class KTEXTEDITOR_EXPORT Cursor
 
     /**
      * Returns an invalid cursor.
-     * \todo should invalid cursors be always or never equal to each other?
      */
     static const Cursor& invalid();
 
@@ -193,8 +192,8 @@ class KTEXTEDITOR_EXPORT Cursor
      * \return a reference to this cursor
      * \see setPosition()
      */
-    inline Cursor& operator=(const Cursor& c)
-      { setPosition(c); return *this; }
+    inline Cursor& operator=(const Cursor& cursor)
+      { setPosition(cursor); return *this; }
 
     /**
      * Addition operator. Takes two cursors and returns their summation.
@@ -236,6 +235,10 @@ class KTEXTEDITOR_EXPORT Cursor
 
     /**
      * Equality operator.
+     *
+     * \note comparison between two invalid cursors is undefined.
+     *       comparison between and invalid and a valid cursor will always be \e false.
+     *
      * @param c1 first cursor to compare
      * @param c2 second cursor to compare
      * @return @e true, if c1's and c2's line and column are @e equal.

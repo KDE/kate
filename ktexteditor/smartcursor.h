@@ -145,7 +145,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     /**
      * \}
      *
-     * \name Behaviour functions
+     * \name Behaviour
      *
      * The following functions relate to the behaviour of this SmartCursor.
      * \{
@@ -168,7 +168,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     /**
      * \}
      *
-     * \name Notification functions
+     * \name Notification
      *
      * The following functions allow for changes related to this cursor to be
      * notified to 3rd party programs.
@@ -233,8 +233,8 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      *
      * \sa setPosition()
      */
-    inline SmartCursor& operator=(const SmartCursor& c)
-      { setPosition(c); return *this; }
+    inline SmartCursor& operator=(const SmartCursor& cursor)
+      { setPosition(cursor); return *this; }
 
   protected:
     /**

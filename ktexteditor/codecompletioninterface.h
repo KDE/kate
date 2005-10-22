@@ -464,6 +464,7 @@ class KTEXTEDITOR_EXPORT CompletionProvider
 
 /**
  * @brief Code completion extension interface for the View.
+ *
  * @ingroup kte_group_view_extensions
  *
  * <b>Introduction</b>\n

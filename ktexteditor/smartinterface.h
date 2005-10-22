@@ -65,7 +65,22 @@ class SmartCursor;
  * If only small branches of a tree contain actions, it may be more efficient to simply add
  * each of these branches instead (but this is unlikely unless the tree is complex).
  *
- * \todo add clearCursors() and clearRanges() functions to delete all cursors + ranges associated with a specific document
+ * \section accessing Accessing the Smart Interface
+ *
+ * The SmartInterface is supposed to be an extension interface for a Document,
+ * i.e. the Document inherits the interface @e provided that the 
+ * KTextEditor library in use implements the interface. Use dynamic_cast to access
+ * the interface:
+ * \code
+ *   // doc is of type KTextEditor::Document*
+ *   KTextEditor::SmartInterface *iface =
+ *       dynamic_cast<KTextEditor::SmartInterface*>( doc );
+ *
+ *   if( iface ) {
+ *       // the implementation supports the interface
+ *       // do stuff
+ *   }
+ * \endcode
  *
  * \author Hamish Rodda \<rodda@kde.org\>
  */
@@ -106,7 +121,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
 
     // BEGIN New cursor methods
     /**
-     * \name SmartCursors
+     * \name Smart Cursors
      *
      * The following functions allow for creation and deletion of SmartCursors.
      * \{
@@ -165,7 +180,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
     /**
      * \}
      *
-     * \name SmartRanges
+     * \name Smart Ranges
      *
      * The following functions allow for creation of new SmartRanges.
      * \{
@@ -269,7 +284,12 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * providing arbitrary highlighting information to all of the views of a
      * document.
      */
-    virtual const QList<SmartRange*>& documentHighlights() const = 0;
+    virtual QList<SmartRange*> documentHighlights() const = 0;
+
+    /**
+     * Clear the highlight ranges from a Document.
+     */
+    virtual void clearDocumentHighlights() = 0;
 
     /**
      * Register a SmartRange tree as providing arbitrary highlighting information,
@@ -304,7 +324,14 @@ class KTEXTEDITOR_EXPORT SmartInterface
      *
      * \param view view to query for the highlight list
      */
-    virtual const QList<SmartRange*>& viewHighlights(View* view) const = 0;
+    virtual QList<SmartRange*> viewHighlights(View* view) const = 0;
+
+    /**
+     * Clear the highlight ranges from a View.
+     *
+     * \param view view to clear highlights from
+     */
+    virtual void clearViewHighlights(View* view) = 0;
     // END
 
     // BEGIN Action binding extension
@@ -336,7 +363,12 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * Return a list of SmartRanges which are currently registered as
      * providing bound actions to all of the views of a document.
      */
-    virtual const QList<SmartRange*>& documentActions() const = 0;
+    virtual QList<SmartRange*> documentActions() const = 0;
+
+    /**
+     * Remove all bound SmartRanges which provide actions to the document.
+     */
+    virtual void clearDocumentActions() = 0;
 
     /**
      * Register a SmartRange tree as providing bound actions,
@@ -370,7 +402,14 @@ class KTEXTEDITOR_EXPORT SmartInterface
      *
      * \param view view to query for the action list
      */
-    virtual const QList<SmartRange*>& viewActions(View* view) const = 0;
+    virtual QList<SmartRange*> viewActions(View* view) const = 0;
+
+    /**
+     * Remove all bound SmartRanges which provide actions to the specified \p view.
+     *
+     * \param view view from which to remove actions
+     */
+    virtual void clearViewActions(View* view) = 0;
     //!\}
     // END
 

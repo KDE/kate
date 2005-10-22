@@ -318,4 +318,14 @@ void KateSmartCursor::resetLastPosition( )
   m_lastPosition = *this;
 }
 
+bool KateSmartCursor::hasNotifier( ) const
+{
+  return m_notifier;
+}
+
+KTextEditor::SmartCursorWatcher * KateSmartCursor::watcher( ) const
+{
+  return m_watcher;
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

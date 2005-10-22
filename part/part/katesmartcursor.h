@@ -73,8 +73,10 @@ class KateSmartCursor : public KTextEditor::SmartCursor
     virtual bool isValid(const Cursor& position) const;
     virtual bool atEndOfLine() const;
 
+    virtual bool hasNotifier() const;
     virtual KTextEditor::SmartCursorNotifier* notifier();
     virtual void deleteNotifier();
+    virtual KTextEditor::SmartCursorWatcher* watcher() const;
     virtual void setWatcher(KTextEditor::SmartCursorWatcher* watcher = 0L);
 
     inline bool feedbackEnabled() const { return m_feedbackEnabled; }

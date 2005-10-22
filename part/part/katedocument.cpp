@@ -1074,7 +1074,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
           break;
       }
 
-      int searchStart = kMin (z2, l->length()-1);
+      int searchStart = qMin (z2, l->length()-1);
 
       // If where we are wrapping is an end of line and is a space we don't
       // want to wrap there
@@ -3522,8 +3522,8 @@ bool KateDocument::removeStartStopCommentFromSelection( KateView *view, int attr
   QString startComment = highlight()->getCommentStart( attrib );
   QString endComment = highlight()->getCommentEnd( attrib );
 
-  int sl = kMax<int> (0, view->selectionRange().start().line());
-  int el = kMin<int>  (view->selectionRange().end().line(), lastLine());
+  int sl = qMax<int> (0, view->selectionRange().start().line());
+  int el = qMin<int>  (view->selectionRange().end().line(), lastLine());
   int sc = view->selectionRange().start().column();
   int ec = view->selectionRange().end().column();
 

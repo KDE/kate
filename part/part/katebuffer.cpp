@@ -80,7 +80,7 @@ static const int KATE_MAX_DYNAMIC_CONTEXTS = 512;
 
 void KateBuffer::setMaxLoadedBlocks (int count)
 {
-  m_maxLoadedBlocks = kMax ((int)4, count);
+  m_maxLoadedBlocks = qMax ((int)4, count);
 }
 
 class KateFileLoader
@@ -88,7 +88,7 @@ class KateFileLoader
   public:
     KateFileLoader (const QString &filename, QTextCodec *codec, bool removeTrailingSpaces)
       : m_file (filename)
-      , m_buffer (kMin (m_file.size(), KATE_FILE_LOADER_BS))
+      , m_buffer (qMin (m_file.size(), KATE_FILE_LOADER_BS))
       , m_codec (codec)
       , m_decoder (m_codec->makeDecoder())
       , m_position (0)

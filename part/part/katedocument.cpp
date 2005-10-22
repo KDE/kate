@@ -4910,7 +4910,7 @@ void KateDocument::removeHighlightFromDocument( KTextEditor::SmartRange * topRan
   m_documentHighlights.remove(topRange);
 }
 
-QList< KTextEditor::SmartRange * > KateDocument::documentHighlights( ) const
+const QList< KTextEditor::SmartRange * > KateDocument::documentHighlights( ) const
 {
   return m_documentHighlights;
 }
@@ -4925,7 +4925,7 @@ void KateDocument::removeHighlightFromView( KTextEditor::View * view, KTextEdito
   static_cast<KateView*>(view)->removeExternalHighlight(topRange);
 }
 
-QList< KTextEditor::SmartRange * > KateDocument::viewHighlights( KTextEditor::View * view ) const
+const QList< KTextEditor::SmartRange * > KateDocument::viewHighlights( KTextEditor::View * view ) const
 {
   return static_cast<KateView*>(view)->externalHighlights();
 }
@@ -4940,7 +4940,7 @@ void KateDocument::removeActionsFromDocument( KTextEditor::SmartRange * topRange
   m_documentActions.remove(topRange);
 }
 
-QList< KTextEditor::SmartRange * > KateDocument::documentActions( ) const
+const QList< KTextEditor::SmartRange * > KateDocument::documentActions( ) const
 {
   return m_documentActions;
 }
@@ -4955,7 +4955,7 @@ void KateDocument::removeActionsFromView( KTextEditor::View * view, KTextEditor:
   static_cast<KateView*>(view)->removeActions(topRange);
 }
 
-QList< KTextEditor::SmartRange * > KateDocument::viewActions( KTextEditor::View * view ) const
+const QList< KTextEditor::SmartRange * > KateDocument::viewActions( KTextEditor::View * view ) const
 {
   return static_cast<KateView*>(view)->actions();
 }

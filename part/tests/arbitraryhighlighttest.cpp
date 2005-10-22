@@ -69,7 +69,7 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
   }
 
   SmartRange* currentRange = mostSpecificChild;
-  currentRange->clearChildRanges();
+  currentRange->deleteChildRanges();
 
   Cursor current = currentRange->start();
   QStringList text;

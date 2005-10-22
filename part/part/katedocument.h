@@ -497,24 +497,24 @@ class KateDocument : public KTextEditor::Document,
     // BEGIN Syntax highlighting extension
     virtual void addHighlightToDocument(KTextEditor::SmartRange* topRange);
     virtual void removeHighlightFromDocument(KTextEditor::SmartRange* topRange);
-    virtual QList<KTextEditor::SmartRange*> documentHighlights() const;
+    virtual const QList<KTextEditor::SmartRange*> documentHighlights() const;
     virtual void clearDocumentHighlights();
 
     virtual void addHighlightToView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
     virtual void removeHighlightFromView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
-    virtual QList<KTextEditor::SmartRange*> viewHighlights(KTextEditor::View* view) const;
+    virtual const QList<KTextEditor::SmartRange*> viewHighlights(KTextEditor::View* view) const;
     virtual void clearViewHighlights(KTextEditor::View* view);
     // END
 
     // BEGIN Action binding extension
     virtual void addActionsToDocument(KTextEditor::SmartRange* topRange);
     virtual void removeActionsFromDocument(KTextEditor::SmartRange* topRange);
-    virtual QList<KTextEditor::SmartRange*> documentActions() const;
+    virtual const QList<KTextEditor::SmartRange*> documentActions() const;
     virtual void clearDocumentActions();
 
     virtual void addActionsToView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
     virtual void removeActionsFromView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
-    virtual QList<KTextEditor::SmartRange*> viewActions(KTextEditor::View* view) const;
+    virtual const QList<KTextEditor::SmartRange*> viewActions(KTextEditor::View* view) const;
     virtual void clearViewActions(KTextEditor::View* view);
     // END
 

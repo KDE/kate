@@ -31,7 +31,7 @@ class SmartCursorWatcher;
 class SmartCursorNotifier;
 
 /**
- * \short A SmartCursor is a Cursor which is bound to a specific Document, and maintains its position.
+ * \short A Cursor which is bound to a specific Document, and maintains its position.
  *
  * A SmartCursor is an extension of the basic Cursor class. It maintains its
  * position in the document and provides a number of convenience methods,
@@ -44,13 +44,29 @@ class SmartCursorNotifier;
  * notification via notifier(), or SmartCursorWatcher for virtual inheritance
  * notification via setWatcher().
  *
- * \sa Cursor, SmartCursorNotifier, and SmartCursorWatcher.
+ * To create a new SmartCursor:
+ * \code
+ *   // Retrieve the SmartInterface
+ *   KTextEditor::SmartInterface* smart =
+ *                   dynamic_cast<KTextEditor::SmartInterface*>( yourDocument );
+ *
+ *   if ( smart ) {
+ *       KTextEditor::SmartCursor* cursor = smart->newSmartCursor();
+ *   }
+ * \endcode
+ *
+ * When finished with a SmartCursor, simply delete it.
+ *
+ * \sa Cursor, SmartCursorNotifier, SmartCursorWatcher, and SmartInterface.
  */
 class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
 {
   friend class SmartRange;
 
   public:
+    /**
+     * Virtual destructor.
+     */
     virtual ~SmartCursor();
 
     // BEGIN Functionality present from having this cursor associated with a Document
@@ -60,21 +76,23 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     inline Document* document() const { return m_doc; }
 
     /**
-     * Returns whether the specified position is a valid position within the
-     * associated document.
-     * \sa Document::cursorInText
+     * \overload Cursor::isValid()
+     * \sa Document::cursorInText()
      */
-    virtual bool isValid(const Cursor& position) const = 0;
+    virtual bool isValid() const;
 
     /**
-     * Return the character in the document at this position.
+     * Returns the character in the document immediately after this position,
+     * ie. from this position to this position plus Cursor(0,1).
      */
     QChar character() const;
 
     /**
      * Insert @p text.
+     *
      * @param text text to insert
      * @param block insert this text as a visual block of text rather than a linear sequence
+     *
      * @return @e true on success, otherwise @e false
      */
     virtual bool insertText(const QStringList &text, bool block = false);
@@ -87,74 +105,138 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
 
     /**
      * Returns the range that this cursor belongs to, if any.
+     *
+     * \sa Cursor::range()
      */
     SmartRange* smartRange() const;
 
     /**
-     * @return true if the cursor is situated at the end of the line, false if it isn't.
+     * Determine if this cursor is located at the end of the current line.
+     *
+     * @return @e true if the cursor is situated at the end of the line, otherwise @e false.
      */
-    virtual bool atEndOfLine() const = 0;
-    bool atEndOfDocument() const;
+    virtual bool atEndOfLine() const;
+
+    /**
+     * Determine if this cursor is located at the end of the document.
+     *
+     * @return @e true if the cursor is situated at the end of the document, otherwise @e false.
+     */
+    virtual bool atEndOfDocument() const;
 
     // BEGIN Behaviour methods
     /**
      * Returns how this cursor behaves when text is inserted at the cursor.
      * Defaults to moving on insert.
      */
-    inline bool moveOnInsert() const { return m_moveOnInsert; }
+    bool moveOnInsert() const;
 
     /**
      * Change the behavior of the cursor when text is inserted at the cursor.
      *
      * If @p moveOnInsert is true, the cursor will end up at the end of the insert.
      */
-    inline void setMoveOnInsert(bool moveOnInsert) { m_moveOnInsert = moveOnInsert; }
+    void setMoveOnInsert(bool moveOnInsert);
     // END
 
     // BEGIN Notification methods
     /**
+     * Determine if a notifier already exists for this smart cursor.
+     *
+     * \return \e true if a notifier already exists, otherwise \e false
+     */
+    virtual bool hasNotifier() const = 0;
+
+    /**
+     * Returns the current SmartCursorNotifier.  If one does not already exist,
+     * it will be created.
+     *
      * Connect to the notifier to receive signals indicating change of state of this cursor.
      * The notifier is created at the time it is first requested.  If you have finished with
-     * notifications for a reasonable period of time you can save memory by calling deleteNotifier().
+     * notifications for a reasonable period of time you can save memory, and potentially
+     * editor logic processing time, by calling deleteNotifier().
+     *
+     * \return a pointer to the current SmartCursorNotifier for this SmartCursor.
+     *         If one does not already exist, it will be created.
      */
     virtual SmartCursorNotifier* notifier() = 0;
 
     /**
-     * When finished with a notifier(), call this method to save memory by
-     * having the SmartCursorNotifier deleted.
+     * Deletes the current SmartCursorNotifier.
+     *
+     * When finished with a notifier, call this method to save memory, and potentially
+     * editor logic processing time, by having the SmartCursorNotifier deleted.
      */
     virtual void deleteNotifier() = 0;
 
     /**
+     * Returns a pointer to the current SmartCursorWatcher, if one has been set.
+     *
+     * \return the current SmartCursorWatcher pointer if one exists, otherwise null.
+     */
+    virtual SmartCursorWatcher* watcher() const = 0;
+
+    /**
      * Provide a SmartCursorWatcher to receive calls indicating change of state of this cursor.
      * To finish receiving notifications, call this function with \p watcher set to 0L.
+     *
      * \param watcher the class which will receive notifications about changes to this cursor.
      */
     virtual void setWatcher(SmartCursorWatcher* watcher = 0L) = 0;
     // END
 
-    inline SmartCursor& operator=(const SmartCursor& c) { setPosition(c); return *this; }
+    /**
+     * Assignment operator. Assigns the current position of the provided cursor, \p c, only;
+     * does not assign watchers, notifiers, behaviour etc.
+     *
+     * \note The assignment will be performed even if the provided cursor belongs to
+     *       another Document.
+     *
+     * \param cursor the position to assign.
+     *
+     * \return a reference to this cursor, after assignment has occurred.
+     *
+     * \sa setPosition()
+     */
+    inline SmartCursor& operator=(const SmartCursor& c)
+      { setPosition(c); return *this; }
 
   protected:
+    /**
+     * \internal
+     *
+     * Constructor for subclasses to utilise.  Protected to prevent direct
+     * instantiation.
+     *
+     * \note 3rd party developers: you do not (and should not) need to subclass
+     *       the Smart* classes; instead, use the SmartInterface to create instances.
+     *
+     * \param position the cursor position to assign
+     * \param doc the Document this cursor is associated with
+     * \param moveOnInsert the behaviour of this cursor when on the position of an insert.
+     *        If \e true, move with the insert; if \e false, retain the current position.
+     */
     SmartCursor(const Cursor& position, Document* doc, bool moveOnInsert);
 
-    /**
-     * Called whenever the feedback requirements may have changed.
-     *
-     * Note: this is not called on construction, although it would make sense -
-     *       unfortunately the subclass is not yet initialized.
-     */
-    virtual void checkFeedback() = 0;
-
-    /**
-     * Sets the range that this cursor belongs to.
-     */
-    void setRange(SmartRange* range);
-
   private:
-    SmartCursor(const SmartCursor &);
+    /**
+     * \internal
+     * Copy constructor: Disable copying of this class.
+     */
+    SmartCursor(const SmartCursor&);
 
+    /**
+     * \internal
+     *
+     * The document that this cursor is associated with.
+     */
     Document* m_doc;
+
+    /**
+     * \internal
+     *
+     * Retains the behaviour of the cursor when an insert takes place at the cursor's position.
+     */
     bool m_moveOnInsert : 1;
 };
 

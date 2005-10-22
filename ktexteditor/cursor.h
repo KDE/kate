@@ -302,28 +302,38 @@ class KTEXTEDITOR_EXPORT Cursor
   protected:
     /**
      * \internal
+     *
      * Sets the range that this cursor belongs to.
+     *
+     * \param range the range that this cursor is referenced from.
      */
-    void setRange(Range* range);
+    virtual void setRange(Range* range);
 
     /**
      * \internal
+     *
      * Notify the owning range, if any, that this cursor has changed directly.
      */
     void cursorChangedDirectly(const Cursor& from);
 
     /**
-     * cursor line
+     * \internal
+     *
+     * Cursor line
      */
     int m_line;
 
     /**
-     * cursor column
+     * \internal
+     *
+     * Cursor column
      */
     int m_column;
 
     /**
-     * range which owns this cursor, if any
+     * \internal
+     *
+     * Range which owns this cursor, if any
      */
     Range* m_range;
 };

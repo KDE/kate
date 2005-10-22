@@ -46,7 +46,20 @@ class SmartRangeWatcher;
  * start or end of the range beyond the respective end or start will result in
  * both values being set to the specified position.
  *
- * \sa Range, SmartRangeNotifier, SmartRangeWatcher
+ * To create a new SmartRange:
+ * \code
+ *   // Retrieve the SmartInterface
+ *   KTextEditor::SmartInterface* smart =
+ *                   dynamic_cast<KTextEditor::SmartInterface*>( yourDocument );
+ *
+ *   if ( smart ) {
+ *       KTextEditor::SmartRange* range = smart->newSmartRange();
+ *   }
+ * \endcode
+ *
+ * When finished with a SmartRange, simply delete it.
+ *
+ * \sa Range, SmartRangeNotifier, SmartRangeWatcher, and SmartInterface
  */
 class KTEXTEDITOR_EXPORT SmartRange : public Range
 {
@@ -72,13 +85,53 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     // BEGIN Functionality present from having this range associated with a Document
     /**
      * Retrieve the document associated with this SmartRange.
+     *
+     * \return a pointer to the associated document
      */
     Document* document() const;
 
+    /**
+     * Get the start point of this range. This version returns a casted
+     * version of start(), as SmartRanges always use SmartCursors as
+     * the start() and end().
+     *
+     * \returns a reference to the start of this range.
+     *
+     * \see Range::start()
+     */
     SmartCursor& smartStart() { return *static_cast<SmartCursor*>(m_start); }
+
+    /**
+     * Get the start point of this range. This version returns a casted
+     * version of start(), as SmartRanges always use SmartCursors as
+     * the start() and end().
+     *
+     * \returns a const reference to the start of this range.
+     *
+     * \see Range::start()
+     */
     const SmartCursor& smartStart() const { return *static_cast<const SmartCursor*>(m_start); }
 
+    /**
+     * Get the end point of this range. This version returns a casted
+     * version of end(), as SmartRanges always use SmartCursors as
+     * the start() and end().
+     *
+     * \returns a reference to the end of this range.
+     *
+     * \see Range::end()
+     */
     SmartCursor& smartEnd() { return *static_cast<SmartCursor*>(m_end); }
+
+    /**
+     * Get the end point of this range. This version returns a casted
+     * version of end(), as SmartRanges always use SmartCursors as
+     * the start() and end().
+     *
+     * \returns a const reference to the end of this range.
+     *
+     * \see Range::end()
+     */
     const SmartCursor& smartEnd() const { return *static_cast<const SmartCursor*>(m_end); }
 
     /**
@@ -111,16 +164,20 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     // BEGIN Behaviour
     /**
      * Returns how this range reacts to characters inserted immediately outside the range.
+     *
+     * \return the current insert behavior.
      */
     InsertBehaviours insertBehaviour() const;
 
     /**
      * Determine how the range should react to characters inserted immediately outside the range.
      *
-     * TODO does this need a custom function to enable determining of the behavior based on the
+     * \todo does this need a custom function to enable determining of the behavior based on the
      * text that is inserted / deleted?
      *
-     * @sa InsertBehaviour
+     * \param behaviour the insertion behaviour to use for future edits
+     *
+     * \sa InsertBehaviour
      */
     void setInsertBehaviour(InsertBehaviours behaviour);
     // END
@@ -130,6 +187,8 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * Returns this range's parent range, if one exists.
      *
      * At all times, this range will be contained within parentRange().
+     *
+     * \return a pointer to the current parent range
      */
     inline SmartRange* parentRange() const { return m_parentRange; }
 
@@ -137,75 +196,146 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * Set this range's parent range.
      *
      * At all times, this range will be contained within parentRange().  So, if it is outside of the
-     * new parent, it will be constrained automatically.
+     * new parent to begin with, it will be constrained automatically.
+     *
+     * \param r range to become the new parent of this range
      */
     virtual void setParentRange(SmartRange* r);
 
-    /// Overloaded to confine child ranges as well.
+    /**
+     * \overload Range::confineToRange(const Range&)
+     * Overloaded version which confines child ranges as well.
+     */
     virtual bool confineToRange(const Range& range);
-    /// Overloaded to expand parent ranges.
+
+    /**
+     * \overload Range::expandToRange(const Range&)
+     * Overloaded version which expands child ranges as well.
+     */
     virtual bool expandToRange(const Range& range);
 
-    inline int depth() const { return m_parentRange ? m_parentRange->depth() + 1 : 0; }
+    /**
+     * Calculate the current depth of this range.
+     *
+     * \return the depth of this range, where 0 is no parent, 1 is one parent, etc.
+     */
+    inline int depth() const
+      { return m_parentRange ? m_parentRange->depth() + 1 : 0; }
 
+    /**
+     * Get the ordered list of child ranges.
+     *
+     * To insert a child range, simply set its parent to this range using setParentRange().
+     *
+     * \returns a list of child ranges.
+     */
     const QList<SmartRange*>& childRanges() const;
+
+    /**
+     * Clears child ranges - i.e., deletes the SmartRange objects, but not the
+     * text that they cover.
+     */
     void clearChildRanges();
+
+    /**
+     * Deletes child ranges - i.e., deletes both the SmartRange objects and the
+     * text that they cover.
+     */
     void deleteChildRanges();
+
+    /**
+     * Find the child before \p range, if any.
+     *
+     * \param range to seach backwards from
+     *
+     * \return the range before \p range if one exists, otherwise null.
+     */
     SmartRange* childBefore( const SmartRange * range ) const;
+
+    /**
+     * Find the child after \p range, if any.
+     *
+     * \param range to seach backwards from
+     *
+     * \return the range before \p range if one exists, otherwise null.
+     */
     SmartRange* childAfter( const SmartRange * range ) const;
 
     /**
      * Finds the most specific range in a heirachy for the given input range
      * (ie. the smallest range which wholly contains the input range)
+     *
+     * \param input the range to use in searching
+     *
+     * \return the deepest range which contains \p input
      */
     SmartRange* findMostSpecificRange(const Range& input) const;
 
     /**
      * Finds the first child range which contains position \p pos.
+     *
+     * \param pos the cursor position to use in searching
+     *
+     * \return the shallowest range (from and including this range) which
+     *         contains \p pos
      */
     SmartRange* firstRangeIncluding(const Cursor& pos) const;
 
     /**
      * Finds the deepest child range which contains position \p pos.
+     *
+     * \param pos the cursor position to use in searching
+     *
+     * \return the deepest range (from and including this range) which
+     *         contains \p pos
      */
     SmartRange* deepestRangeContaining(const Cursor& pos) const;
     // END
 
     // BEGIN Arbitrary highlighting
     /**
-     * Gets the active Attribute for this range.  If one was set directly, it will be returned.
-     * If not, when there is an attributeGroup() defined for this range, and followActiveGroup() is true,
-     * the currently active Attribute from the attributeGroup() will be returned.
+     * Gets the active Attribute for this range.
+     *
+     * \return a pointer to the active attribute
      */
     Attribute* attribute() const;
 
     /**
      * Sets the currently active attribute for this range.
      *
-     * \param attribute Attribute to assign to this range.  If this is null, the AttributeGroup system will take over.
-     * \param ownsAttribute Set to true when this object should take ownership of \p attribute.
-     *                      If true, \p attribute will be deleted when this cursor is deleted.
+     * \param attribute Attribute to assign to this range. If null, simply
+     *                  removes the previous Attribute.
+     * \param ownsAttribute Set to true when this object should take ownership
+     *                      of \p attribute. If \e true, \p attribute will be
+     *                      deleted when this cursor is deleted.
      */
     virtual void setAttribute(Attribute* attribute, bool ownsAttribute = false);
     // END
 
     // BEGIN Action binding
     /**
-     * Attach an action to this range.  This will enable the attached action(s) when the caret
-     * enters the range, and disable them on exit.  The action is also added to the context menu when
-     * the caret is within the range.
+     * Attach an action to this range.  This will enable the attached action(s)
+     * when the caret enters the range, and disable them on exit.  The action
+     * is also added to the context menu when the caret is within the range.
+     *
+     * \param action action to attach to this range
      */
     void attachAction(KAction* action);
 
     /**
-     * Remove an action from this range.
+     * Detach an action from this range.
+     *
+     * \param action action to detach from this range
      */
     void detachAction(KAction* action);
 
     /**
-     * Returns a list of currently associated KActions.
+     * Access the list of currently associated KActions.
+     *
+     * \return the list of associated actions
      */
-    const QList<KAction*>& associatedActions() const { return m_associatedActions; }
+    const QList<KAction*>& associatedActions() const
+      { return m_associatedActions; }
     // END
 
     // BEGIN Notification methods
@@ -230,21 +360,56 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     virtual void deleteNotifier() = 0;
 
     /**
-     * Provide a SmartRangeWatcher to receive calls indicating change of state of this range.
-     * To finish receiving notifications, call this function with \p watcher set to 0L.
-     * \param watcher the class which will receive notifications about changes to this range.
+     * Returns a pointer to the current SmartRangeWatcher, if one has been set.
+     *
+     * \return the current watcher if one exists, otherwise null.
      */
     virtual SmartRangeWatcher* watcher() const = 0;
 
     /**
-     * Provide a SmartRangeWatcher to receive calls indicating change of state of this range.
-     * To finish receiving notifications, call this function with \p watcher set to 0L.
-     * \param watcher the class which will receive notifications about changes to this range.
+     * Provide a SmartRangeWatcher to receive calls indicating change of state
+     * of this range. To finish receiving notifications, call this function with
+     * \p watcher set to null.
+     *
+     * \param watcher the instance of a class which is to receive
+     *                notifications about changes to this range, or null to
+     *                stop delivering notifications to a previously assigned
+     *                instance.
      */
     virtual void setWatcher(SmartRangeWatcher* watcher) = 0;
     // END
 
+    /**
+     * Assignment operator. Assigns the current position of the provided range, \p rhs, only;
+     * does not assign watchers, notifiers, behaviour etc.
+     *
+     * \note The assignment will be performed even if the provided range belongs to
+     *       another Document.
+     *
+     * @param rhs range to assign to this range.
+     *
+     * @return a reference to this range, after assignment has occurred.
+     *
+     * @see setRange()
+     */
+    inline SmartRange& operator=(const SmartRange& rhs)
+      { setRange(rhs); return *this; }
+
   protected:
+    /**
+     * \internal
+     *
+     * Constructor for subclasses to utilise.  Protected to prevent direct
+     * instantiation.
+     *
+     * \note 3rd party developers: you do not (and should not) need to subclass
+     *       the Smart* classes; instead, use the SmartInterface to create instances.
+     *
+     * \param start the start cursor to use - ownership is taken
+     * \param end the end cursor to use - ownership is taken
+     * \param insertBehaviour the behaviour of this range when an insert happens
+     *                        immediately outside the range.
+     */
     SmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, InsertBehaviours insertBehaviour = DoNotExpand);
 
     /**
@@ -258,22 +423,66 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     virtual void rangeChanged(Cursor* cursor, const Range& from);
 
     /**
-     * Implementation detail.
+     * \internal
+     *
      * This routine is called when the range changes how much feedback it may need, eg. if it adds an action.
      */
     virtual void checkFeedback() = 0;
 
   private:
-    Q_DISABLE_COPY(SmartRange)
+    /**
+     * \internal
+     * Copy constructor: Disable copying of this class.
+     */
+    SmartRange(const SmartRange&);
 
+    /**
+     * \internal
+     *
+     * New child classes call this to register themselves.
+     */
     void insertChildRange(SmartRange* newChild);
+
+    /**
+     * \internal
+     *
+     * Disassociating child classes call this to de-register themselves.
+     */
     void removeChildRange(SmartRange* newChild);
 
+    /**
+     * \internal
+     *
+     * This range's current attribute.
+     */
     Attribute* m_attribute;
+
+    /**
+     * \internal
+     *
+     * This range's current parent range.
+     */
     SmartRange* m_parentRange;
+
+    /**
+     * \internal
+     *
+     * The list of this range's child ranges.
+     */
     QList<SmartRange*> m_childRanges;
+
+    /**
+     * \internal
+     *
+     * The list of this range's associated KActions.
+     */
     QList<KAction*> m_associatedActions;
 
+    /**
+     * \internal
+     *
+     * Whether this range owns the currently assigned attribute or not.
+     */
     bool              m_ownsAttribute     :1;
 };
 

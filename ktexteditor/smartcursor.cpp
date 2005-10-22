@@ -23,16 +23,21 @@
 
 using namespace KTextEditor;
 
-SmartCursor::~ SmartCursor( )
-{
-}
-
 SmartCursor::SmartCursor( const Cursor & position, Document * doc, bool moveOnInsert )
   : Cursor(position)
   , m_doc(doc)
   , m_moveOnInsert(moveOnInsert)
 {
   Q_ASSERT(m_doc);
+}
+
+SmartCursor::~ SmartCursor( )
+{
+}
+
+bool KTextEditor::SmartCursor::isValid( ) const
+{
+  return m_doc->cursorInText(*this);
 }
 
 bool SmartCursor::atEndOfDocument( ) const
@@ -60,10 +65,19 @@ SmartRange * SmartCursor::smartRange( ) const
   return static_cast<SmartRange*>(m_range);
 }
 
-void SmartCursor::setRange( SmartRange * range )
+bool SmartCursor::atEndOfLine( ) const
 {
-  Cursor::setRange(range);
-  checkFeedback();
+  return column() == m_doc->lineLength(line());
+}
+
+bool KTextEditor::SmartCursor::moveOnInsert( ) const
+{
+  return m_moveOnInsert;
+}
+
+void KTextEditor::SmartCursor::setMoveOnInsert( bool moveOnInsert )
+{
+  m_moveOnInsert = moveOnInsert;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

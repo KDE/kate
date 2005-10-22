@@ -124,16 +124,6 @@ const Range& Range::invalid()
   return r;
 }
 
-Range& Range::operator= (const Range& rhs)
-{
-  if (this == &rhs)
-    return *this;
-  
-  setRange(rhs);
-  
-  return *this;
-}
-
 void Range::setRange(const Range& range)
 {
   *m_start = range.start();

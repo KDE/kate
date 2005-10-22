@@ -379,7 +379,8 @@ class KTEXTEDITOR_EXPORT Range
      *
      * @see setRange()
      */
-    virtual Range& operator=(const Range& rhs);
+    inline Range& operator=(const Range& rhs)
+      { setRange(rhs); return *this; }
 
     /**
      * Addition operator. Takes two ranges and returns their summation.

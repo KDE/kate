@@ -4215,6 +4215,9 @@ bool KateDocument::documentReload()
       }
     }
 
+    if (clearOnDocumentReload())
+      m_smartManager->clear(false);
+
     QList<KateDocumentTmpMark> tmp;
 
     for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
@@ -4907,7 +4910,7 @@ void KateDocument::removeHighlightFromDocument( KTextEditor::SmartRange * topRan
   m_documentHighlights.remove(topRange);
 }
 
-const QList< KTextEditor::SmartRange * > & KateDocument::documentHighlights( ) const
+QList< KTextEditor::SmartRange * > KateDocument::documentHighlights( ) const
 {
   return m_documentHighlights;
 }
@@ -4922,7 +4925,7 @@ void KateDocument::removeHighlightFromView( KTextEditor::View * view, KTextEdito
   static_cast<KateView*>(view)->removeExternalHighlight(topRange);
 }
 
-const QList< KTextEditor::SmartRange * > & KateDocument::viewHighlights( KTextEditor::View * view ) const
+QList< KTextEditor::SmartRange * > KateDocument::viewHighlights( KTextEditor::View * view ) const
 {
   return static_cast<KateView*>(view)->externalHighlights();
 }
@@ -4937,7 +4940,7 @@ void KateDocument::removeActionsFromDocument( KTextEditor::SmartRange * topRange
   m_documentActions.remove(topRange);
 }
 
-const QList< KTextEditor::SmartRange * > & KateDocument::documentActions( ) const
+QList< KTextEditor::SmartRange * > KateDocument::documentActions( ) const
 {
   return m_documentActions;
 }
@@ -4952,7 +4955,7 @@ void KateDocument::removeActionsFromView( KTextEditor::View * view, KTextEditor:
   static_cast<KateView*>(view)->removeActions(topRange);
 }
 
-const QList< KTextEditor::SmartRange * > & KateDocument::viewActions( KTextEditor::View * view ) const
+QList< KTextEditor::SmartRange * > KateDocument::viewActions( KTextEditor::View * view ) const
 {
   return static_cast<KateView*>(view)->actions();
 }
@@ -4969,8 +4972,12 @@ void KateDocument::attributeNotDynamic( KTextEditor::Attribute * )
 
 void KateDocument::clearSmartInterface( )
 {
-  m_documentHighlights.clear();
-  m_documentActions.clear();
+  clearDocumentHighlights();
+  foreach (KateView* view, m_views)
+    clearViewHighlights(view);
+
+  clearDocumentActions();
+
   m_smartManager->clear(false);
 }
 
@@ -4983,6 +4990,27 @@ void KateDocument::deleteRanges( )
 {
   m_smartManager->deleteRanges(false);
 }
+
+void KateDocument::clearDocumentHighlights( )
+{
+  m_documentHighlights.clear();
+}
+
+void KateDocument::clearViewHighlights( KTextEditor::View * view )
+{
+  static_cast<KateView*>(view)->clearExternalHighlights();
+}
+
+void KateDocument::clearDocumentActions( )
+{
+  m_documentActions.clear();
+}
+
+void KateDocument::clearViewActions( KTextEditor::View * view )
+{
+  static_cast<KateView*>(view)->clearActions();
+}
+
 
 //END KTextEditor::SmartInterface
 

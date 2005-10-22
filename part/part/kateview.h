@@ -257,6 +257,7 @@ class KateView : public KTextEditor::View,
     void addExternalHighlight(KTextEditor::SmartRange* topRange);
     void removeExternalHighlight(KTextEditor::SmartRange* topRange);
     const QList<KTextEditor::SmartRange*>& externalHighlights() const;
+    void clearExternalHighlights();
 
     void addInternalHighlight(KTextEditor::SmartRange* topRange);
     void removeInternalHighlight(KTextEditor::SmartRange* topRange);
@@ -267,6 +268,7 @@ class KateView : public KTextEditor::View,
     void addActions(KTextEditor::SmartRange* topRange);
     void removeActions(KTextEditor::SmartRange* topRange);
     const QList<KTextEditor::SmartRange*>& actions() const;
+    void clearActions();
     // END
 
   private:

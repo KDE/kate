@@ -1959,6 +1959,16 @@ const QList< KTextEditor::SmartRange * > & KateView::actions( ) const
   return m_actions;
 }
 
+void KateView::clearExternalHighlights( )
+{
+  m_externalHighlights.clear();
+}
+
+void KateView::clearActions( )
+{
+  m_actions.clear();
+}
+
 
 //END Code completion new
 

@@ -37,11 +37,20 @@ class SmartCursor;
  * If you prefer to receive notifications via QObject signals, see SmartCursorNotifier.
  *
  * \sa SmartCursor, SmartCursorNotifier
+ *
+ * \author Hamish Rodda \<rodda@kde.org\>
  */
 class KTEXTEDITOR_EXPORT SmartCursorWatcher
 {
   public:
+    /**
+     * Default constructor.
+     */
     SmartCursorWatcher();
+
+    /**
+     * Virtual destructor.
+     */
     virtual ~SmartCursorWatcher();
 
     /**
@@ -55,17 +64,23 @@ class KTEXTEDITOR_EXPORT SmartCursorWatcher
      * Set whether this watcher should be notified of changes that happen
      * directly to the cursor, e.g. by calls to SmartCursor::setPosition(), rather
      * than just when surrounding text changes.
+     *
+     * \param wantsDirectChanges whether this watcher should receive notifications for direct changes.
      */
     void setWantsDirectChanges(bool wantsDirectChanges);
 
     /**
      * The cursor's position was changed.
+     *
+     * \param cursor pointer to the cursor which generated the notification.
      */
     virtual void positionChanged(SmartCursor* cursor);
 
     /**
      * The cursor's surrounding characters were both deleted simultaneously.
      * The cursor is automatically placed at the start of the deleted region.
+     *
+     * \param cursor pointer to the cursor which generated the notification.
      */
     virtual void positionDeleted(SmartCursor* cursor);
 
@@ -73,20 +88,29 @@ class KTEXTEDITOR_EXPORT SmartCursorWatcher
      * The character immediately surrounding the cursor was deleted.
      * If both characters are simultaneously deleted, positionDeleted() is called instead.
      *
+     * \param cursor pointer to the cursor which generated the notification.
      * \param deletedBefore @c true if the character immediately before was deleted,
-     *               @c false if the character immediately after was deleted.
+     *                      @c false if the character immediately after was deleted.
      */
     virtual void characterDeleted(SmartCursor* cursor, bool deletedBefore);
 
     /**
-     * A character was inserted immediately before or after the cursor.
+     * A character was inserted immediately before or after the cursor, as given
+     * by \p insertedBefore.
      *
-     * Whether the char was inserted before or after this cursor depends on
-     * moveOnInsert():
-     * @li true -> the char was inserted before
-     * @li false -> the char was inserted after
+     * \param cursor pointer to the cursor which generated the notification.
+     * \param insertedBefore \e true if a character was inserted before \p cursor,
+     *                       \e false if a character was inserted after
      */
     virtual void characterInserted(SmartCursor* cursor, bool insertedBefore);
+
+    /**
+     * The SmartCursor instance specified by \p cursor is being deleted.
+     *
+     * \param cursor pointer to the cursor which is about to be deleted.  It is
+     *               still safe to access information at this point.
+     */
+    virtual void deleted(SmartCursor* cursor);
 
   private:
     bool m_wantDirectChanges;
@@ -102,12 +126,17 @@ class KTEXTEDITOR_EXPORT SmartCursorWatcher
  * If you prefer to receive notifications via virtual inheritance, see SmartCursorWatcher.
  *
  * \sa SmartCursor, SmartCursorNotifier
+ *
+ * \author Hamish Rodda \<rodda@kde.org\>
  */
 class KTEXTEDITOR_EXPORT SmartCursorNotifier : public QObject
 {
   Q_OBJECT
 
   public:
+    /**
+     * Default constructor.
+     */
     SmartCursorNotifier();
 
     /**
@@ -121,18 +150,24 @@ class KTEXTEDITOR_EXPORT SmartCursorNotifier : public QObject
      * Set whether this notifier should notify of changes that happen
      * directly to the cursor, e.g. by calls to SmartCursor::setPosition(), rather
      * than just when surrounding text changes.
+     *
+     * \param wantsDirectChanges whether this notifier should provide notifications for direct changes.
      */
     void setWantsDirectChanges(bool wantsDirectChanges);
 
   signals:
     /**
      * The cursor's position was changed.
+     *
+     * \param cursor pointer to the cursor which generated the notification.
      */
     void positionChanged(KTextEditor::SmartCursor* cursor);
 
     /**
      * The cursor's surrounding characters were both deleted simultaneously.
      * The cursor is automatically placed at the start of the deleted region.
+     *
+     * \param cursor pointer to the cursor which generated the notification.
      */
     void positionDeleted(KTextEditor::SmartCursor* cursor);
 
@@ -140,20 +175,29 @@ class KTEXTEDITOR_EXPORT SmartCursorNotifier : public QObject
      * One character immediately surrounding the cursor was deleted.
      * If both characters are simultaneously deleted, positionDeleted() is called instead.
      *
+     * \param cursor pointer to the cursor which generated the notification.
      * \param deletedBefore @c true if the character immediately before was deleted,
-     *               @c false if the character immediately after was deleted.
+     *                      @c false if the character immediately after was deleted.
      */
     void characterDeleted(KTextEditor::SmartCursor* cursor, bool deletedBefore);
 
     /**
-     * A character was inserted immediately before or after the cursor.
+     * A character was inserted immediately before or after the cursor, as given
+     * by \p insertedBefore.
      *
-     * Whether the char was inserted before or after this cursor depends on
-     * moveOnInsert():
-     * @li true -> the char was inserted before
-     * @li false -> the char was inserted after
+     * \param cursor pointer to the cursor which generated the notification.
+     * \param insertedBefore \e true if a character was inserted before \p cursor,
+     *                       \e false if a character was inserted after
      */
     void characterInserted(KTextEditor::SmartCursor* cursor, bool insertedBefore);
+
+    /**
+     * The SmartCursor instance specified by \p cursor is being deleted.
+     *
+     * \param cursor pointer to the cursor which is about to be deleted.  It is
+     *               still safe to access information at this point.
+     */
+    void deleted(KTextEditor::SmartCursor* cursor);
 
   private:
     bool m_wantDirectChanges;

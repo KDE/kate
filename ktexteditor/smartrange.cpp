@@ -141,29 +141,29 @@ void SmartRange::removeChildRange(SmartRange* newChild)
   m_childRanges.remove(newChild);
 }
 
-SmartRange * SmartRange::findMostSpecificRange( const Range & input ) const
+SmartRange * SmartRange::mostSpecificRange( const Range & input ) const
 {
   if (contains(input)) {
-    for (QList<SmartRange*>::ConstIterator it = m_childRanges.constBegin(); it != m_childRanges.constEnd(); ++it)
-      if ((*it)->contains(input))
-        return (*it)->findMostSpecificRange(input);
+    foreach (SmartRange* r, m_childRanges)
+      if (r->contains(input))
+        return r->mostSpecificRange(input);
 
     return const_cast<SmartRange*>(this);
 
   } else if (parentRange()) {
-    return parentRange()->findMostSpecificRange(input);
+    return parentRange()->mostSpecificRange(input);
 
   } else {
     return 0L;
   }
 }
 
-SmartRange * SmartRange::firstRangeIncluding( const Cursor & pos ) const
+SmartRange * SmartRange::firstRangeContaining( const Cursor & pos ) const
 {
   switch (positionRelativeToCursor(pos)) {
     case 0:
       if (parentRange() && parentRange()->contains(pos))
-        return parentRange()->firstRangeIncluding(pos);
+        return parentRange()->firstRangeContaining(pos);
 
       return const_cast<SmartRange*>(this);
 
@@ -172,10 +172,10 @@ SmartRange * SmartRange::firstRangeIncluding( const Cursor & pos ) const
         return 0L;
 
       if (!parentRange()->contains(pos))
-        return parentRange()->firstRangeIncluding(pos);
+        return parentRange()->firstRangeContaining(pos);
 
       if (SmartRange* r = parentRange()->childAfter(this))
-        return r->firstRangeIncluding(pos);
+        return r->firstRangeContaining(pos);
 
       return 0L;
 
@@ -184,10 +184,10 @@ SmartRange * SmartRange::firstRangeIncluding( const Cursor & pos ) const
         return 0L;
 
       if (!parentRange()->contains(pos))
-        return parentRange()->firstRangeIncluding(pos);
+        return parentRange()->firstRangeContaining(pos);
 
       if (const SmartRange* r = parentRange()->childBefore(this))
-        return r->firstRangeIncluding(pos);
+        return r->firstRangeContaining(pos);
 
       return 0L;
 
@@ -230,7 +230,7 @@ SmartRange * SmartRange::deepestRangeContaining( const Cursor & pos ) const
         return parentRange()->deepestRangeContaining(pos);
 
       if (const SmartRange* r = parentRange()->childBefore(this))
-        return r->firstRangeIncluding(pos);
+        return r->firstRangeContaining(pos);
 
       return 0L;
 
@@ -394,6 +394,16 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
     if (start() == end())
       notifier()->eliminated(this);
   }
+}
+
+bool KTextEditor::SmartRange::isSmartRange( ) const
+{
+  return true;
+}
+
+SmartRange* KTextEditor::SmartRange::toSmartRange( ) const
+{
+  return const_cast<SmartRange*>(this);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

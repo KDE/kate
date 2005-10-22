@@ -70,6 +70,10 @@ void SmartCursorNotifier::setWantsDirectChanges( bool wantsDirectChanges )
   m_wantDirectChanges = wantsDirectChanges;
 }
 
+void SmartCursorWatcher::deleted( SmartCursor * )
+{
+}
+
 #include "cursorfeedback.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -148,7 +148,7 @@ bool Range::overlapsLine(int line) const
   return line >= start().line() && line <= end().line();
 }
 
-bool Range::spansColumn( int col ) const
+bool Range::overlapsColumn( int col ) const
 {
   return start().column() <= col && end().column() > col;
 }
@@ -242,6 +242,11 @@ int KTextEditor::Range::columnWidth( ) const
   return end().column() - start().column();
 }
 
+int KTextEditor::Range::numberOfLines( ) const
+{
+  return end().line() - start().line();
+}
+
 bool KTextEditor::Range::isEmpty( ) const
 {
   return start() == end();
@@ -267,6 +272,21 @@ int Range::positionRelativeToLine( int line ) const
     return +1;
 
   return 0;
+}
+
+void KTextEditor::Range::setBothColumns( int column )
+{
+  setRange(Range(start().line(), column, end().line(), column));
+}
+
+bool KTextEditor::Range::isSmartRange( ) const
+{
+  return false;
+}
+
+SmartRange* KTextEditor::Range::toSmartRange( ) const
+{
+  return 0L;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

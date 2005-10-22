@@ -28,15 +28,16 @@ class View;
 class SmartCursor;
 
 /**
- * \short A Document extension interface for handling SmartCursors and SmartRanges.
+ * \brief A Document extension interface for handling SmartCursors and SmartRanges.
+ *
  * \ingroup kte_group_doc_extensions
  *
  * Use this interface to:
  * \li create new SmartCursors and SmartRanges;
- * \li use them to create arbitrary highlighting; and
- * \li use them to associate KActions to ranges of text
+ * \li create arbitrary highlighting; and
+ * \li associate KActions to ranges of text
  *
- * \section Creation of SmartCursors and SmartRanges
+ * \section creation Creation of SmartCursors and SmartRanges
  * These functions must be used to create SmartCursors and SmartRanges.  This
  * means that these objects cannot be derived from by third party applications.
  *
@@ -44,7 +45,7 @@ class SmartCursor;
  * the Document with which they were associated.  Alternatively, they are all
  * deleted with the deletion of the owning Document.
  *
- * \section Arbitrary Highlighting Interface
+ * \section highlight Arbitrary Highlighting Interface
  * Arbitrary highlighting of text can be achieved by creating SmartRanges in a
  * tree structure, and assigning appropriate Attributes to these ranges.
  *
@@ -53,7 +54,7 @@ class SmartCursor;
  * per tree; just supply the top range you want to have highlighted.  Calling
  * this function more than once with ranges from the same tree may give undefined results.
  *
- * \section Action Binding Interface
+ * \section action Action Binding Interface
  * Action binding can be used to associate KActions with specific ranges of text.
  * These bound actions are automatically enabled and disabled when the caret enters
  * their associated ranges, and context menus are automatically populated with the
@@ -65,6 +66,7 @@ class SmartCursor;
  * each of these branches instead (but this is unlikely unless the tree is complex).
  *
  * \todo add clearCursors() and clearRanges() functions to delete all cursors + ranges associated with a specific document
+ *
  * \author Hamish Rodda \<rodda@kde.org\>
  */
 class KTEXTEDITOR_EXPORT SmartInterface
@@ -78,13 +80,30 @@ class KTEXTEDITOR_EXPORT SmartInterface
     /**
      * Creates a new SmartCursor.
      * \param position The initial cursor position assumed by the new cursor.
+     *                 If not specified, it will start at position (0, 0).
      * \param moveOnInsert Define whether the cursor should move when text is inserted at the cursor position.
      */
-    virtual SmartCursor* newSmartCursor(const Cursor& position = Cursor::invalid(), bool moveOnInsert = true) = 0;
-    /// \overload
+    virtual SmartCursor* newSmartCursor(const Cursor& position = Cursor::start(), bool moveOnInsert = true) = 0;
+
+    /**
+     * \overload
+     * \n \n
+     * Creates a new SmartCursor.
+     *
+     * \param moveOnInsert Define whether the cursor should move when text is inserted at the cursor position.
+     */
     inline SmartCursor* newSmartCursor(bool moveOnInsert = true)
-      { return newSmartCursor(Cursor(), moveOnInsert); }
-    /// \overload
+      { return newSmartCursor(Cursor::start(), moveOnInsert); }
+
+    /**
+     * \overload
+     *
+     * Creates a new SmartCursor.
+     *
+     * \param line the line number of the cursor's initial position
+     * \param column the line number of the cursor's initial position
+     * \param moveOnInsert Define whether the cursor should move when text is inserted at the cursor position.
+     */
     inline SmartCursor* newSmartCursor(int line, int column, bool moveOnInsert = true)
       { return newSmartCursor(Cursor(line, column), moveOnInsert); }
     // END
@@ -96,7 +115,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * \param parent The parent SmartRange, if this is to be the child of an existing range.
      * \param insertBehaviour Define whether the range should expand when text is inserted at ends of the range.
      */
-    virtual SmartRange* newSmartRange(const Range& range = Range::invalid(), SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand) = 0;
+    virtual SmartRange* newSmartRange(const Range& range = Range(), SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand) = 0;
     /// \overload
     inline SmartRange* newSmartRange(const Cursor& startPosition, const Cursor& endPosition, SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand)
       { return newSmartRange(Range(startPosition, endPosition), parent, insertBehaviour); }

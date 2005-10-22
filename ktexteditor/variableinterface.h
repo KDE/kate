@@ -30,9 +30,10 @@ class Document;
 
 /**
  * @brief Variable/Modeline extension interface for the Document.
+ *
  * @ingroup kte_group_doc_extensions
  *
- * <b>Introduction</b>\n
+ * \section intro Introduction
  *
  * The VariableInterface is designed to provide access to so called
  * "document variables" (also called modelines), for example variables
@@ -49,7 +50,7 @@ class Document;
  * @note Implementations should check the document variables whenever the
  *       document was saved or loaded.
  *
- * <b>Accessing the VariableInterface</b>\n
+ * \section accessing Accessing the VariableInterface
  *
  * The VariableInterface is supposed to be an extension interface for a
  * Document, i.e. the Document inherits the interface @e provided that the

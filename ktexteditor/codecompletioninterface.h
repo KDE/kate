@@ -37,7 +37,7 @@ class CompletionProvider;
 /**
  * @brief A code completion item for the completion box.
  *
- * <b>Introduction</b>\n
+ * \section intro Introduction
  *
  * An item for the code completion box contains
  *  - a text() which is used to complete the string

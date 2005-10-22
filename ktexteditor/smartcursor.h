@@ -58,6 +58,8 @@ class SmartCursorNotifier;
  * When finished with a SmartCursor, simply delete it.
  *
  * \sa Cursor, SmartCursorNotifier, SmartCursorWatcher, and SmartInterface.
+ *
+ * \author Hamish Rodda \<rodda@kde.org\>
  */
 class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
 {
@@ -66,42 +68,21 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
   public:
     /**
      * Virtual destructor.
+     *
+     * Subclasses should call SmartCursorNotifier::deleted() and
+     * SmartCursorWatcher::deleted() methods \e before cleaning themselves up.
      */
     virtual ~SmartCursor();
 
-    // BEGIN Functionality present from having this cursor associated with a Document
     /**
-     * Returns the document to which this cursor is attached.
+     * Returns that this cursor is a SmartCursor.
      */
-    inline Document* document() const { return m_doc; }
+    virtual bool isSmartCursor() const;
 
     /**
-     * \overload Cursor::isValid()
-     * \sa Document::cursorInText()
+     * Returns this cursor as a SmartCursor
      */
-    virtual bool isValid() const;
-
-    /**
-     * Returns the character in the document immediately after this position,
-     * ie. from this position to this position plus Cursor(0,1).
-     */
-    QChar character() const;
-
-    /**
-     * Insert @p text.
-     *
-     * @param text text to insert
-     * @param block insert this text as a visual block of text rather than a linear sequence
-     *
-     * @return @e true on success, otherwise @e false
-     */
-    virtual bool insertText(const QStringList &text, bool block = false);
-    // END
-
-    /**
-     * Returns whether this cursor is a SmartCursor.
-     */
-    virtual bool isSmart() const;
+    virtual SmartCursor* toSmartCursor() const;
 
     /**
      * Returns the range that this cursor belongs to, if any.
@@ -109,6 +90,19 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      * \sa Cursor::range()
      */
     SmartRange* smartRange() const;
+
+    // BEGIN Functionality present from having this cursor associated with a Document
+    /**
+     * \name Document-related functions
+     *
+     * The following functions are provided for convenient access to the
+     * associated Document.
+     * \{
+     */
+    /**
+     * Returns the document to which this cursor is attached.
+     */
+    inline Document* document() const { return m_doc; }
 
     /**
      * Determine if this cursor is located at the end of the current line.
@@ -124,7 +118,38 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      */
     virtual bool atEndOfDocument() const;
 
+    /**
+     * \overload Cursor::isValid()
+     * \sa Document::cursorInText()
+     */
+    virtual bool isValid() const;
+
+    /**
+     * Returns the character in the document immediately after this position,
+     * ie. from this position to this position plus Cursor(0,1).
+     */
+    QChar character() const;
+
+    /**
+     * Insert @p text into the associated Document.
+     *
+     * @param text text to insert
+     * @param block insert this text as a visual block of text rather than a linear sequence
+     *
+     * @return @e true on success, otherwise @e false
+     */
+    virtual bool insertText(const QStringList &text, bool block = false);
+    // END
+
     // BEGIN Behaviour methods
+    /**
+     * \}
+     *
+     * \name Behaviour functions
+     *
+     * The following functions relate to the behaviour of this SmartCursor.
+     * \{
+     */
     /**
      * Returns how this cursor behaves when text is inserted at the cursor.
      * Defaults to moving on insert.
@@ -140,6 +165,15 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     // END
 
     // BEGIN Notification methods
+    /**
+     * \}
+     *
+     * \name Notification functions
+     *
+     * The following functions allow for changes related to this cursor to be
+     * notified to 3rd party programs.
+     * \{
+     */
     /**
      * Determine if a notifier already exists for this smart cursor.
      *
@@ -183,11 +217,12 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      * \param watcher the class which will receive notifications about changes to this cursor.
      */
     virtual void setWatcher(SmartCursorWatcher* watcher = 0L) = 0;
+    //!\}
     // END
 
     /**
      * Assignment operator. Assigns the current position of the provided cursor, \p c, only;
-     * does not assign watchers, notifiers, behaviour etc.
+     * does not assign watchers, notifiers, behaviour, etc.
      *
      * \note The assignment will be performed even if the provided cursor belongs to
      *       another Document.

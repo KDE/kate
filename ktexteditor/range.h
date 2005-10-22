@@ -31,6 +31,7 @@ class KAction;
 namespace KTextEditor
 {
 class Attribute;
+class SmartRange;
 
 /**
  * \short An object representing a section of text, from one Cursor to another.
@@ -48,6 +49,8 @@ class Attribute;
  * in a document, see SmartRange.
  *
  * \sa SmartRange
+ *
+ * \author Hamish Rodda \<rodda@kde.org\>
  */
 class KTEXTEDITOR_EXPORT Range
 {
@@ -91,9 +94,9 @@ class KTEXTEDITOR_EXPORT Range
      * Constructor which creates a range from @e startLine, @e startColumn to @e endLine, @e endColumn.
      *
      * @param startLine start line
-     * @param startCol start column
+     * @param startColumn start column
      * @param endLine end line
-     * @param endCol end column
+     * @param endColumn end column
      */
     Range(int startLine, int startColumn, int endLine, int endColumn);
 
@@ -121,56 +124,82 @@ class KTEXTEDITOR_EXPORT Range
     static const Range& invalid();
 
     /**
-     * Get the start point of this range. This will always be <= end().
+     * Returns whether this range is a SmartRange.
+     */
+    virtual bool isSmartRange() const;
+
+    /**
+     * Returns this range as a SmartRange, if it is one.
+     */
+    virtual SmartRange* toSmartRange() const;
+
+    /**
+     * \name Position
      *
-     * This non-const function allows direct manipulation of start(), while still retaining
-     * notification support.
+     * The following functions provide access to, and manipulation of, the range's position.
+     * \{
+     */
+    /**
+     * Get the start position of this range. This will always be <= end().
      *
-     * If start() is set to a position after end(), end() will be moved to the
-     * same position as start(), as ranges are not allowed to have
+     * This non-const function allows direct manipulation of the start position,
+     * while still retaining notification support.
+     *
+     * If start is set to a position after end, end will be moved to the
+     * same position as start, as ranges are not allowed to have
      * start() > end().
      *
      * \note If you want to change both start() and end() simultaneously,
      *       you should use setRange(), for several reasons:
-     *       * otherwise, the rule preventing start() > end() may alter your intended change
-     *       * any notifications needed will be performed multiple times for no benefit
+     *       \li otherwise, the rule preventing start() > end() may alter your intended change
+     *       \li any notifications needed will be performed multiple times for no benefit
      *
-     * \returns a reference to the start of this range.
+     * \returns a reference to the start position of this range.
      */
-    inline Cursor& start() { return *m_start; }
+    inline Cursor& start()
+      { return *m_start; }
 
     /**
-     * Get the start point of this range. This will always be <= end().
+     * Get the start position of this range. This will always be <= end().
      *
-     * \returns a const reference to the start of this range.
+     * \returns a const reference to the start position of this range.
+     *
+     * \internal this function is virtual to allow for covariant return of SmartCursors.
      */
-    inline const Cursor& start() const { return *m_start; }
+    inline const Cursor& start() const
+      { return *m_start; }
 
     /**
-     * Get the end point of this range. This will always be >= start().
+     * Get the end position of this range. This will always be >= start().
      *
-     * This non-const function allows direct manipulation of end(), while still retaining
-     * notification support.
+     * This non-const function allows direct manipulation of the end position,
+     * while still retaining notification support.
      *
-     * If end() is set to a position before start(), start() will be moved to the
-     * same position as end(), as ranges are not allowed to have
+     * If end is set to a position before start, start will be moved to the
+     * same position as end, as ranges are not allowed to have
      * start() > end().
      *
      * \note If you want to change both start() and end() simultaneously,
      *       you should use setRange(), for several reasons:
-     *       * otherwise, the rule preventing start() > end() may alter your intended change
-     *       * any notifications needed will be performed multiple times for no benefit
+     *       \li otherwise, the rule preventing start() > end() may alter your intended change
+     *       \li any notifications needed will be performed multiple times for no benefit
      *
-     * \returns a reference to the end of this range.
+     * \returns a reference to the end position of this range.
+     *
+     * \internal this function is virtual to allow for covariant return of SmartCursors.
      */
-    inline Cursor& end() { return *m_end; }
+    inline Cursor& end()
+      { return *m_end; }
 
     /**
-     * Get the end point of this range. This will always be >= start().
-      *
-     * \returns a const reference to the end of this range.
-    */
-    inline const Cursor& end() const { return *m_end; }
+     * Get the end position of this range. This will always be >= start().
+     *
+     * \returns a const reference to the end position of this range.
+     *
+     * \internal this function is virtual to allow for covariant return of SmartCursors.
+     */
+    inline const Cursor& end() const
+      { return *m_end; }
 
     /**
      * Convenience function.  Set the start and end lines to \p line.
@@ -180,6 +209,13 @@ class KTEXTEDITOR_EXPORT Range
     void setBothLines(int line);
 
     /**
+     * Convenience function.  Set the start and end columns to \p column.
+     *
+     * \param column the column number to assign to start() and end()
+     */
+    void setBothColumns(int column);
+
+    /**
      * Set the start and end cursors to @e range.start() and @e range.end() respectively.
      *
      * @param range range to assign to this range
@@ -187,8 +223,8 @@ class KTEXTEDITOR_EXPORT Range
     virtual void setRange(const Range& range);
 
     /**
-     * @overload void setRange(const Range& range)
-     *
+     * @overload
+     * \n \n
      * Set the start and end cursors to @e start and @e end respectively.
      *
      * @note If @e start is after @e end, they will be reversed.
@@ -216,7 +252,58 @@ class KTEXTEDITOR_EXPORT Range
      */
     virtual bool confineToRange(const Range& range);
 
+    /**
+     * Check whether this range is wholly contained within one line, ie. if
+     * the start() and end() positions are on the same line.
+     *
+     * \return @e true if both the start and end positions are on the same
+     *         line, otherwise @e false
+     */
+    bool onSingleLine() const;
+
+    /**
+     * Returns the number of lines separating the start() and end() positions.
+     *
+     * \return the number of lines separating the start() and end() positions;
+     *         0 if the start and end lines are the same.
+     */
+    int numberOfLines() const;
+
+    /**
+     * Returns the number of columns separating the start() and end() positions.
+     *
+     * \return the number of columns separating the start() and end() positions;
+     *         0 if the start and end columns are the same.
+     */
+    int columnWidth() const;
+
+    /**
+     * Returns true if this range contains no characters, ie. the start() and
+     * end() positions are the same.
+     *
+     * \returns @e true if the range contains no characters, otherwise @e false
+     */
+    bool isEmpty() const;
+
     // BEGIN comparison functions
+    /**
+     * \}
+     *
+     * \name Comparison
+     *
+     * The following functions perform checks against this range in comparison
+     * to other lines, columns, cursors, and ranges.
+     * \{
+     */
+    /**
+     * Check whether the this range wholly encompasses @e range.
+     *
+     * @param range range to check
+     *
+     * @return @e true, if this range contains @e range, otherwise @e false
+     */
+    bool contains(const Range& range) const;
+
     /**
      * Check to see if \p cursor is contained within this range, ie >= start() and \< end().
      *
@@ -245,6 +332,15 @@ class KTEXTEDITOR_EXPORT Range
     bool containsColumn(int column) const;
 
     /**
+     * Check whether the this range overlaps with @e range.
+     *
+     * @param range range to check against
+     *
+     * @return @e true, if this range overlaps with @e range, otherwise @e false
+     */
+    bool overlaps(const Range& range) const;
+
+    /**
      * Check whether the range overlaps at least part of @e line.
      *
      * @param line line to check
@@ -254,16 +350,16 @@ class KTEXTEDITOR_EXPORT Range
     bool overlapsLine(int line) const;
 
     /**
-     * Check to see if this range spans \p column; that is, if \p column is
-     * between start().column() and end().column().  This function is intended
-     * for use in relation to block text editing.
+     * Check to see if this range overlaps \p column; that is, if \p column is
+     * between start().column() and end().column().  This function is most likely
+     * to be useful in relation to block text editing.
      *
      * \param column the column to test
      *
      * \return \e true if the column is between the range's starting and ending
      *         columns, otherwise \e false.
      */
-    bool spansColumn(int column) const;
+    bool overlapsColumn(int column) const;
 
     /**
      * Determine where \p cursor is positioned in relationship to this range.
@@ -293,24 +389,6 @@ class KTEXTEDITOR_EXPORT Range
      * @see positionRelativeToCursor()
      */
     int positionRelativeToLine(int line) const;
-
-    /**
-     * Check whether the this range wholly encompasses @e range.
-     *
-     * @param range range to check
-     *
-     * @return @e true, if this range contains @e range, otherwise @e false
-     */
-    bool contains(const Range& range) const;
-
-    /**
-     * Check whether the this range overlaps with @e range.
-     *
-     * @param range range to check against
-     *
-     * @return @e true, if this range overlaps with @e range, otherwise @e false
-     */
-    bool overlaps(const Range& range) const;
 
     /**
      * Check whether \p cursor is located at either of the start() or end()
@@ -344,30 +422,7 @@ class KTEXTEDITOR_EXPORT Range
      *         boundaries, otherwise @e false
      */
     bool boundaryOnColumn(int column) const;
-
-    /**
-     * Check whether this range is wholly contained within one line, ie. if
-     * the start() and end() positions are on the same line.
-     *
-     * \return @e true if both the start and end positions are on the same
-     *         line, otherwise @e false
-     */
-    bool onSingleLine() const;
-
-    /**
-     * Returns the number of columns separating the start() and end() positions.
-     *
-     * \return the number of columns separating the start() and end() positions.
-     */
-    int columnWidth() const;
-
-    /**
-     * Returns true if this range contains no characters, ie. the start() and
-     * end() positions are the same.
-     *
-     * \returns @e true if the range contains no characters, otherwise @e false
-     */
-    bool isEmpty() const;
+    //!\}
     // END
 
     /**
@@ -475,8 +530,6 @@ class KTEXTEDITOR_EXPORT Range
 
     /**
      * kdDebug() stream operator.  Writes this range to the debug output in a nicely formatted way.
-     *
-     * \todo remove for the release? hopefully some other, just as convenient way can be found
      */
     inline friend kdbgstream& operator<< (kdbgstream& s, const Range& range) {
       if (&range)

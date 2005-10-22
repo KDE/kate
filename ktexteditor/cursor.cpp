@@ -97,7 +97,7 @@ void Cursor::setPosition( const Cursor & pos )
   cursorChangedDirectly(old);
 }
 
-bool Cursor::isSmart( ) const
+bool Cursor::isSmartCursor( ) const
 {
   return false;
 }
@@ -139,6 +139,11 @@ bool KTextEditor::Cursor::atStartOfLine( ) const
 bool KTextEditor::Cursor::atStartOfDocument( ) const
 {
   return m_line == 0 && m_column == 0;
+}
+
+SmartCursor * KTextEditor::Cursor::toSmartCursor( ) const
+{
+  return 0L;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

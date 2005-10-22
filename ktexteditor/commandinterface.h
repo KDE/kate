@@ -100,6 +100,7 @@ class KTEXTEDITOR_EXPORT Command
 
 /**
  * @brief Extension interface for a Command.
+ *
  * @ingroup kte_group_command_extensions
  *
  * <b>Introduction</b>\n
@@ -182,6 +183,7 @@ class KTEXTEDITOR_EXPORT CommandExtension
 
 /**
  * @brief Command extension interface for the Editor.
+ *
  * @ingroup kte_group_editor_extensions
  *
  * <b>Introduction</b>\n

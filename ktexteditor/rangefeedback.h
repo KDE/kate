@@ -36,6 +36,8 @@ class SmartRange;
  * If you prefer to receive notifications via virtual inheritance, see SmartRangeWatcher.
  *
  * \sa SmartRange, SmartRangeWatcher
+ *
+ * \author Hamish Rodda \<rodda@kde.org\>
  */
 class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
 {
@@ -43,6 +45,9 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
   friend class SmartRange;
 
   public:
+    /**
+     * Default constructor.
+     */
     SmartRangeNotifier();
 
     /**
@@ -58,60 +63,51 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
      * directly to the range, e.g. by calls to SmartCursor::setRange(), or by
      * direct assignment to either of the start() or end() cursors, rather
      * than just when surrounding text changes.
+     *
+     * \param wantsDirectChanges whether this watcher should provide notifications for direct changes.
      */
     void setWantsDirectChanges(bool wantsDirectChanges);
 
   signals:
     /**
      * The range's position changed.
+     *
+     * \param range pointer to the range which generated the notification.
      */
     void positionChanged(KTextEditor::SmartRange* range);
 
     /**
      * The contents of the range changed.
+     *
+     * \param range pointer to the range which generated the notification.
      */
     void contentsChanged(KTextEditor::SmartRange* range);
 
     /**
      * The contents of the range changed.  This notification is special in that it is only emitted by
      * the top range of a heirachy, and also gives the furthest descendant child range which still
-     * encompasses the whole change in contents.
+     * encompasses the whole change (see \p contents).
      *
-     * \param range the range which has changed
-     * \param mostSpecificChild the child range which both contains the entire change and is 
+     * \param range pointer to the range which generated the notification.
+     * \param mostSpecificChild the child range which both contains the entire change and is
      *                          the furthest descendant of this range.
      */
     void contentsChanged(KTextEditor::SmartRange* range, KTextEditor::SmartRange* mostSpecificChild);
 
     /**
-     * NOTE: this signal does not appear to be useful on reflection.
-     * if you want it, please email rodda@kde.org
-     *
-     * Either cursor's surrounding characters were both deleted.
-     * \param start true if the start boundary was deleted, false if the end boundary was deleted.
-     *
-    void boundaryDeleted(KTextEditor::SmartRange* range, bool start);*/
-
-    /**
      * The range now contains no characters (ie. the start and end cursors are the same).
+     *
+     * \param range pointer to the range which generated the notification.
      */
     void eliminated(KTextEditor::SmartRange* range);
 
     /**
-     * NOTE: this signal does not appear to be useful on reflection.
-     * if you want it, please email rodda@kde.org
+     * The SmartRange instance specified by \p range is being deleted.
      *
-     * The first character of this range was deleted.
-     *
-    void firstCharacterDeleted(KTextEditor::SmartRange* range);
-
-    **
-     * NOTE: this signal does not appear to be useful on reflection.
-     * if you want it, please email rodda@kde.org
-     *
-     * The last character of this range was deleted.
-     *
-    void lastCharacterDeleted(KTextEditor::SmartRange* range);*/
+     * \param range pointer to the range which is about to be deleted.  It is
+     *              still safe to access information at this point.
+     */
+    void deleted(KTextEditor::SmartRange* range);
 
   private:
     bool m_wantDirectChanges;
@@ -126,11 +122,20 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
  * If you prefer to receive notifications via QObject signals, see SmartRangeNotifier.
  *
  * \sa SmartRange, SmartRangeNotifier
+ *
+ * \author Hamish Rodda \<rodda@kde.org\>
  */
 class KTEXTEDITOR_EXPORT SmartRangeWatcher
 {
   public:
+    /**
+     * Default constructor
+     */
     SmartRangeWatcher();
+
+    /**
+     * Virtual destructor
+     */
     virtual ~SmartRangeWatcher();
 
     /**
@@ -146,59 +151,50 @@ class KTEXTEDITOR_EXPORT SmartRangeWatcher
      * directly to the range, e.g. by calls to SmartCursor::setRange(), or by
      * direct assignment to either of the start() or end() cursors, rather
      * than just when surrounding text changes.
+     *
+     * \param wantsDirectChanges whether this watcher should receive notifications for direct changes.
      */
     void setWantsDirectChanges(bool wantsDirectChanges);
 
     /**
      * The range's position changed.
+     *
+     * \param range pointer to the range which generated the notification.
      */
     virtual void positionChanged(SmartRange* range);
 
     /**
      * The contents of the range changed.
+     *
+     * \param range pointer to the range which generated the notification.
      */
     virtual void contentsChanged(SmartRange* range);
 
     /**
      * The contents of the range changed.  This notification is special in that it is only emitted by
      * the top range of a heirachy, and also gives the furthest descendant child range which still
-     * encompasses the whole change in contents.
+     * encompasses the whole change (see \p contents).
      *
      * \param range the range which has changed
      * \param mostSpecificChild the child range which both contains the entire change and is 
      *                          the furthest descendant of this range.
      */
-    virtual void contentsChanged(KTextEditor::SmartRange* range, KTextEditor::SmartRange* mostSpecificChild);
-
-    /**
-     * NOTE: this signal does not appear to be useful on reflection.
-     * if you want it, please email rodda@kde.org
-     *
-     * Either cursor's surrounding characters were both deleted.
-     * \param start true if the start boundary was deleted, false if the end boundary was deleted.
-     *
-    virtual void boundaryDeleted(SmartRange* range, bool start);*/
+    virtual void contentsChanged(SmartRange* range, SmartRange* mostSpecificChild);
 
     /**
      * The range now contains no characters (ie. the start and end cursors are the same).
+     *
+     * \param range pointer to the range which generated the notification.
      */
     virtual void eliminated(SmartRange* range);
 
     /**
-     * NOTE: this signal does not appear to be useful on reflection.
-     * if you want it, please email rodda@kde.org
+     * The SmartRange instance specified by \p range is being deleted.
      *
-     * The first character of this range was deleted.
-     *
-    virtual void firstCharacterDeleted(SmartRange* range);*/
-
-    /**
-     * NOTE: this signal does not appear to be useful on reflection.
-     * if you want it, please email rodda@kde.org
-     *
-     * The last character of this range was deleted.
-     *
-    virtual void lastCharacterDeleted(SmartRange* range);*/
+     * \param range pointer to the range which is about to be deleted.  It is
+     *              still safe to access information at this point.
+     */
+    virtual void deleted(SmartRange* range);
 
   private:
     bool m_wantDirectChanges;

@@ -31,9 +31,10 @@ class View;
 
 /**
  * @brief External modification extension interface for the Document.
+ *
  * @ingroup kte_group_doc_extensions
  *
- * <b>Introduction</b>\n
+ * \section intro Introduction
  *
  * The class ModificationInterface provides methods to handle modifications
  * of all opened files caused by external programs. Whenever the
@@ -44,7 +45,7 @@ class View;
  * setModifiedOnDiskWarning(). The slot modifiedOnDisk() is called to ask
  * the user what to do whenever a file was modified.
  *
- * <b>Accessing the ModificationInterface</b>\n
+ * \section accessing Accessing the ModificationInterface
  *
  * The ModificationInterface is supposed to be an extension interface for a
  * Document, i.e. the Document inherits the interface @e provided that the

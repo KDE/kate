@@ -36,7 +36,7 @@ class Document;
 /**
  * @brief Mark class containing line and mark types.
  *
- * <b>Introduction</b>\n
+ * \section intro Introduction
  *
  * The class Mark represents a mark in a Document. It contains the @e line
  * and @e type. A line can have multiple marks, like a @e bookmark and a

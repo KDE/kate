@@ -45,7 +45,7 @@ bool SmartCursor::atEndOfDocument( ) const
   return *this >= m_doc->documentEnd();
 }
 
-bool SmartCursor::isSmart( ) const
+bool SmartCursor::isSmartCursor( ) const
 {
   return true;
 }
@@ -78,6 +78,11 @@ bool KTextEditor::SmartCursor::moveOnInsert( ) const
 void KTextEditor::SmartCursor::setMoveOnInsert( bool moveOnInsert )
 {
   m_moveOnInsert = moveOnInsert;
+}
+
+SmartCursor * KTextEditor::SmartCursor::toSmartCursor( ) const
+{
+  return const_cast<SmartCursor*>(this);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

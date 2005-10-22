@@ -29,11 +29,12 @@ namespace KTextEditor
 
 /**
  * @brief Session config interface extension for the Document, View and Plugin.
+ *
  * @ingroup kte_group_doc_extensions
  * @ingroup kte_group_view_extensions
  * @ingroup kte_group_plugin_extensions
  *
- * <b>Introduction</b>\n
+ * \section intro Introduction
  *
  * The SessionConfigInterface is an extension for Documents, Views and Plugins
  * to add support for session-specific configuration settings.
@@ -41,7 +42,7 @@ namespace KTextEditor
  * read from the given KConfig* and writeSessionConfig() whenever they are to
  * be written, for example when a session changed or was closed.
  *
- * <b>Adding Session Support</b>\n
+ * \section support Adding Session Support
  *
  * To add support for sessions a KTextEditor implementation has to derive the
  * Document and View class from SessionConfigInterface and reimplement
@@ -49,7 +50,7 @@ namespace KTextEditor
  *
  * The same applies to a Plugin, read the detailed description for plugins.
  *
- * <b>Accessing the SessionConfigInterface</b>\n
+ * \section accessing Accessing the SessionConfigInterface
  *
  * The SessionConfigInterface is supposed to be an extension interface for a
  * Document, a View or a Plugin, i.e. the Document/View/Plugin inherits the

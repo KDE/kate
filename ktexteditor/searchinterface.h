@@ -33,15 +33,16 @@ class Document;
 
 /**
  * @brief Search interface extension for the Document.
+ *
  * @ingroup kte_group_doc_extensions
  *
- * <b>Introduction</b>\n
+ * \section intro Introduction
  *
  * The SearchInterface provides methods to search for a given text pattern in
  * a Document. You can either search for a simple text or for a regular
  * expression by using a QRegExp, see searchText().
  *
- * <b>Accessing the SearchInterface</b>\n
+ * \section intro Accessing the SearchInterface
  *
  * The SearchInterface is supposed to be an extension interface for a
  * Document, i.e. the Document inherits the interface @e provided that the

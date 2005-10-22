@@ -71,6 +71,10 @@ void SmartRangeWatcher::setWantsDirectChanges( bool wantsDirectChanges )
   m_wantDirectChanges = wantsDirectChanges;
 }
 
+void SmartRangeWatcher::deleted( SmartRange * )
+{
+}
+
 #include "rangefeedback.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -30,6 +30,7 @@ namespace KTextEditor
 {
 class Document;
 class Range;
+class SmartCursor;
 
 /**
  * \short An object which represents a position in a Document.
@@ -85,11 +86,6 @@ class KTEXTEDITOR_EXPORT Cursor
     virtual ~Cursor();
 
     /**
-     * Returns whether this cursor is a SmartCursor.
-     */
-    virtual bool isSmart() const;
-
-    /**
      * Returns whether the current position of this cursor is a valid position
      * (line + column must both be >= 0).
      *
@@ -97,6 +93,16 @@ class KTEXTEDITOR_EXPORT Cursor
      * within the linked document.
      */
     virtual bool isValid() const;
+
+    /**
+     * Returns whether this cursor is a SmartCursor.
+     */
+    virtual bool isSmartCursor() const;
+
+    /**
+     * Returns this cursor as a SmartCursor, if it is one.
+     */
+    virtual SmartCursor* toSmartCursor() const;
 
     /**
      * Returns an invalid cursor.
@@ -110,11 +116,27 @@ class KTEXTEDITOR_EXPORT Cursor
     static const Cursor& start();
 
     /**
-     * Get both the line and column of the cursor position.
-     * @param _line will be filled with current cursor line
-     * @param _column will be filled with current cursor column
+     * \name Position
+     *
+     * The following functions provide access to, and manipulation of, the cursor's position.
+     * \{
      */
-    void position (int &_line, int &_column) const;
+    /**
+     * Set the current cursor position to @e position.
+     *
+     * @param position new cursor position
+     */
+    virtual void setPosition(const Cursor& position);
+
+    /**
+     * \overload
+     *
+     * Set the cursor position to @e line and @e column.
+     *
+     * @param line new cursor line
+     * @param column new cursor column
+     */
+    inline void setPosition(int line, int column) { setPosition(Cursor(line, column)); }
 
     /**
      * Retrieve the line on which this cursor is situated.
@@ -124,11 +146,9 @@ class KTEXTEDITOR_EXPORT Cursor
 
     /**
      * Set the cursor line to @e line.
-     * @note This function is @c virtual to allow reimplementations to do
-     *       checks here or to emit signals.
      * @param line new cursor line
      */
-    virtual void setLine (int line);
+    virtual void setLine(int line);
 
     /**
      * Retrieve the column on which this cursor is situated.
@@ -138,31 +158,9 @@ class KTEXTEDITOR_EXPORT Cursor
 
     /**
      * Set the cursor column to @e column.
-     * @note This function is @c virtual to allow reimplementations to do
-     *       checks here or to emit signals.
      * @param column new cursor column
      */
-    virtual void setColumn (int column);
-
-    /**
-     * Set the current cursor position to @e pos.
-     * @note This function is @c virtual to allow reimplementations to do
-     *       checks here or to emit signals.
-     * @param pos new cursor position
-     */
-    virtual void setPosition (const Cursor& pos);
-
-    /**
-     * Set the cursor position to @e line and @e column.
-     * @param line new cursor line
-     * @param column new cursor column
-     */
-    inline void setPosition(int line, int column) { setPosition(Cursor(line, column)); }
-
-    /**
-     * Returns the range that this cursor belongs to, if any.
-     */
-    inline Range* range() const { return m_range; }
+    virtual void setColumn(int column);
 
     /**
      * Determine if this cursor is located at the start of a line.
@@ -175,6 +173,19 @@ class KTEXTEDITOR_EXPORT Cursor
      * @return \e true if the cursor is situated at the start of the document, \e false if it isn't.
      */
     bool atStartOfDocument() const;
+
+    /**
+     * Get both the line and column of the cursor position.
+     * @param line will be filled with current cursor line
+     * @param column will be filled with current cursor column
+     */
+    void position (int &line, int &column) const;
+    //!\}
+
+    /**
+     * Returns the range that this cursor belongs to, if any.
+     */
+    inline Range* range() const { return m_range; }
 
     /**
      * Assignment operator. Same as setPosition().
@@ -283,8 +294,6 @@ class KTEXTEDITOR_EXPORT Cursor
 
     /**
      * kdDebug() stream operator.  Writes this cursor to the debug output in a nicely formatted way.
-     *
-     * \todo remove for the release? hopefully some other, just as convenient way can be found
      */
     inline friend kdbgstream& operator<< (kdbgstream& s, const Cursor& cursor) {
       if (&cursor)

@@ -292,7 +292,7 @@ The following classes are a list of all available Command extension interfaces.
 
 /** @page kte_port_to_kde4 Porting to KDE 4
 This document describes porting applications using the KTextEditor interfaces
-from KDE 3 to KDE 4. This page does not claim to be complete, the main goal is
+from KDE 3 to KDE 4. This page does not try to be complete; its main goal is
 to show what interfaces were removed, changed or added to give some impression
 and orientation of what you have to do to port your application to the KDE 4
 KTextEditor interfaces.
@@ -301,14 +301,14 @@ KTextEditor interfaces.
 The KTextEditor interfaces changes in KDE 4 are neither binary nor source
 compatible to the KTextEditor interfaces included in KDE 3, so programs
 written/compiled for the KDE 3 KTextEditor interfaces will not compile
-(nor run) under KDE 4.
+(nor run) under KDE 4.  There are no plans to provide a compatibility layer.
 
 The KDE 4 KTextEditor interfaces undergone a heavy cleanup, i.e. obsolete
 functions were removed, interfaces were merged and extended. All interface
 changes like for example parameter changes of a function are not mentioned in
 detail in this page, look into the particular class API documentation. As
 already mentioned in the mainpage, all line/column tuples were replaced with a
-Cursor, and all Cursor/Cursor tuples with a Range.
+KTextEditor::Cursor, and all Cursor/Cursor tuples with a KTextEditor::Range.
 
 A KTextEditor::Factory class was introduced to access a specific Editor
 implementation, read @ref kte_design for detailed information.
@@ -351,11 +351,23 @@ The following interfaces were renamed, in order:
  - signal @p modifiedOnDisc() was renamed to @p modifiedOnDisk()
 
 @section kte_port_new New Interfaces
-The following interfaces are new
+The following interfaces are new:
  - @p ModificationInterface, support for handling external modified files
  - @p CommandInterface, support for command-line commands
+ - @p SmartInterface, support for smart cursors + ranges, plus their uses such as
+      arbitrary highlighting and action association
 
-@todo Small note on new classes like Cursor and Range
+@section kte_port_enhanced_classes Significantly Enhanced Classes
+The following classes have been significantly enhanced:
+ - @p Cursor has been upgraded for greatly increased convenience, and now forms a cornerstone of the interface.
+
+@section kte_port_new_classes New Classes
+The following classes are new:
+ - @p SmartCursor, a Cursor which is bound to a specific Document, and maintains its position.
+ - @p SmartCursorWatcher and @p SmartCursorNotifier, classes for providing notifications of changes to a SmartCursor
+ - @p Range, a tuple of start + end cursors with many convenience methods
+ - @p SmartRange, a Range which is bound to a specific Document, and maintains its position.
+ - @p SmartRangeWatcher and @p SmartRangeNotifier, classes for providing notifications of changes to a SmartRange
 
 @section kte_port_plugins Plugin Architecture Changes
 The Plugin interface changed to support more than only one Document at a time.

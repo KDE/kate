@@ -284,7 +284,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * providing arbitrary highlighting information to all of the views of a
      * document.
      */
-    virtual QList<SmartRange*> documentHighlights() const = 0;
+    virtual const QList<SmartRange*> documentHighlights() const = 0;
 
     /**
      * Clear the highlight ranges from a Document.
@@ -324,7 +324,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      *
      * \param view view to query for the highlight list
      */
-    virtual QList<SmartRange*> viewHighlights(View* view) const = 0;
+    virtual const QList<SmartRange*> viewHighlights(View* view) const = 0;
 
     /**
      * Clear the highlight ranges from a View.
@@ -363,7 +363,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * Return a list of SmartRanges which are currently registered as
      * providing bound actions to all of the views of a document.
      */
-    virtual QList<SmartRange*> documentActions() const = 0;
+    virtual const QList<SmartRange*> documentActions() const = 0;
 
     /**
      * Remove all bound SmartRanges which provide actions to the document.
@@ -402,7 +402,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      *
      * \param view view to query for the action list
      */
-    virtual QList<SmartRange*> viewActions(View* view) const = 0;
+    virtual const QList<SmartRange*> viewActions(View* view) const = 0;
 
     /**
      * Remove all bound SmartRanges which provide actions to the specified \p view.

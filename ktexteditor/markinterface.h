@@ -70,7 +70,7 @@ class Mark
  * reservedMarkersCount(). Additionally it is possible to add custom marks
  * and set custom pixmaps.
  *
- * \section accessing Accessing the MarkInterface
+ * \section access Accessing the MarkInterface
  *
  * The MarkInterface is supposed to be an extension interface for a Document,
  * i.e. the Document inherits the interface @e provided that the

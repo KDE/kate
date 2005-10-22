@@ -37,7 +37,7 @@ class Editor;
 /**
  * @brief Accessor to the Editor implementation.
  *
- * <b>Introduction</b>\n
+ * \section intro Introduction
  *
  * The Factory provides access to the chosen Editor (selected with
  * KTextEditor::EditorChooser). The Editor itself then provides methods

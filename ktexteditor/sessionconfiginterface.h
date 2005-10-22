@@ -50,7 +50,7 @@ namespace KTextEditor
  *
  * The same applies to a Plugin, read the detailed description for plugins.
  *
- * \section accessing Accessing the SessionConfigInterface
+ * \section access Accessing the SessionConfigInterface
  *
  * The SessionConfigInterface is supposed to be an extension interface for a
  * Document, a View or a Plugin, i.e. the Document/View/Plugin inherits the

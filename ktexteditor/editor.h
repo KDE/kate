@@ -41,7 +41,13 @@ class ConfigPage;
 /**
  * @brief Accessor interface for Editor part.
  *
- * <b>Introduction</b>\n
+ * Topics:
+ *  - \ref intro
+ *  - \ref config
+ *  - \ref notes
+ *  - \ref extensions
+ *
+ * \section intro Introduction
  *
  * The Editor part can be accessed via the KTextEditor::Factory and provides
  * general information and configuration methods for the Editor
@@ -52,7 +58,7 @@ class ConfigPage;
  * signal documentCreated() is emitted whenever the Editor created a new
  * document.
  *
- * <b>Editor Configuration</b>\n
+ * \section config Editor Configuration
  *
  * If the Editor implementation supports a config dialog
  * configDialogSupported() returns @e true, then the config dialog can be
@@ -66,7 +72,7 @@ class ConfigPage;
  * pages. The configuration can be saved and loaded with readConfig() and
  * writeConfig().
  *
- * <b>Implementation Notes</b>\n
+ * \section notes Implementation Notes
  *
  * Usually only one instance of the Editor exists. The Kate Part
  * implementation internally uses a static accessor to make sure that only
@@ -77,7 +83,7 @@ class ConfigPage;
  * as well, see KTextEditor::Plugin::readConfig() and
  * KTextEditor::Plugin::writeConfig().
  *
- * <b>Editor Extension Interfaces</b>\n
+ * \section extensions Editor Extension Interfaces
  *
  * There is only a signle extension interface for the Editor: the
  * CommandInterface. With the CommandInterface it is possible to add and

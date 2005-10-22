@@ -1,3 +1,4 @@
+/*
 This file is part of the KDE project
 
 Copyright (c) 2005 by Dominik Haumann <dhdev@gmx.de>
@@ -6,6 +7,7 @@ Copyright (c) 2005 by Christoph Cullmann <cullmann@kde.org>
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.2
 or any later version published by the Free Software Foundation;
+*/
 
 /** @file Mainpage.dox
     @brief Mainpage of the KTextEditor Interface Documentation.
@@ -393,18 +395,8 @@ to load and save session related config settings if desired.
 
 Actually KWrite is THE example... just convert it into a howto.
 link: -lktexteditor hint or \$(LIB_KTEXTEDITOR) in the KDE build framework.
-<pre>
-<code>
- __________________________________
- |This page is under construction!|
- ----------------------------------
-       \   ^__^
-        \  (Oo)\_______
-           (__)\       )\/\
-               ||----w |
-               ||     ||
-</code>
-</pre>
+
+<code>This page is under construction</code>
 
 @author Dominik Haumann \<dhdev@gmx.de\>
 */

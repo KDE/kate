@@ -32,6 +32,13 @@ class SmartCursor;
  *
  * \ingroup kte_group_doc_extensions
  *
+ * Topics:
+ *  - \ref intro
+ *  - \ref highlight
+ *  - \ref action
+ *  - \ref access
+ *
+ * \section intro Introduction
  * Use this interface to:
  * \li create new SmartCursors and SmartRanges;
  * \li create arbitrary highlighting; and
@@ -65,7 +72,7 @@ class SmartCursor;
  * If only small branches of a tree contain actions, it may be more efficient to simply add
  * each of these branches instead (but this is unlikely unless the tree is complex).
  *
- * \section accessing Accessing the Smart Interface
+ * \section access Accessing the Smart Interface
  *
  * The SmartInterface is supposed to be an extension interface for a Document,
  * i.e. the Document inherits the interface @e provided that the 

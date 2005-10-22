@@ -346,7 +346,7 @@ class KTEXTEDITOR_EXPORT ArgHintData
 /**
  * @brief Code completion provider.
  *
- * <b>Introduction</b>\n
+ * \section intro Introduction
  *
  * A CompletionProvider is supposed to provide the data for code completion
  * and argument hints.
@@ -365,7 +365,7 @@ class KTEXTEDITOR_EXPORT ArgHintData
  * completionAborted() is called for @e every provider, if it was done,
  * completionDone() is called.
  *
- * <b>Implementation Notes</b>\n
+ * \section notes Implementation Notes
  *
  * The provider should cache the completion data it initially created as long
  * as possible, i.e. as long as the word that was used to create the data did

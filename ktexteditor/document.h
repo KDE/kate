@@ -40,7 +40,13 @@ class View;
 /**
  * @brief A KParts derived class representing a text document.
  *
- * <b>Introduction</b>\n
+ * Topics:
+ *  - \ref intro
+ *  - \ref manipulation
+ *  - \ref views
+ *  - \ref extensions
+ *
+ * \section intro Introduction
  *
  * The Document class represents a pure text document providing methods to
  * modify the content and create views. A document can have any number
@@ -60,7 +66,7 @@ class View;
  * Every document has a application wide unique document number, accessible
  * with documentNumber().
  *
- * <b>Text Manipulation</b>\n
+ * \section manipulation Text Manipulation
  *
  * Get the whole content with text() and set new content with setText().
  * Call insertText() or insertLine() to insert new text or removeText()
@@ -76,7 +82,7 @@ class View;
  * call endEditing() exactly as often as you call startEditing(), otherwise
  * the reference counter gets confused.
  *
- * <b>Document Views</b>\n
+ * \section views Document Views
  *
  * A View displays the document's content. As already mentioned a document
  * can have any number of views, all synchronized. Get a list of all views
@@ -84,7 +90,7 @@ class View;
  * it by using activeView(). Create a new view with createView(). Everytime
  * a new view is created the signal viewCreated() is emitted.
  *
- * <b>Document Extension Interfaces</b>\n
+ * \section extensions Document Extension Interfaces
  *
  * A simple document represents text and provides text manipulation methods.
  * However, a real text editor should support advanced concepts like session

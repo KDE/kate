@@ -37,7 +37,7 @@ class View;
 /**
  * @brief An Editor command line command.
  *
- * <b>Introduction</b>\n
+ * \section intro Introduction
  *
  * The Command class represents a command for the editor command line. A
  * command simply consists of a string, for example @e find. To register a
@@ -47,7 +47,7 @@ class View;
  * to implement the @e reaction in exec(). Whenever the user needs help for
  * a command help() is called.
  *
- * <b>Command Extensions</b>\n
+ * \section extension Command Extensions
  *
  * If your command needs to interactively react on changes while the user is
  * typing text - look at the @e ifind command in Kate for example - you have
@@ -103,7 +103,7 @@ class KTEXTEDITOR_EXPORT Command
  *
  * @ingroup kte_group_command_extensions
  *
- * <b>Introduction</b>\n
+ * \section intro Introduction
  *
  * The CommandExtension extends the Command interface allowing to interact
  * with commands during typing. This allows for completion and for example
@@ -186,14 +186,14 @@ class KTEXTEDITOR_EXPORT CommandExtension
  *
  * @ingroup kte_group_editor_extensions
  *
- * <b>Introduction</b>\n
+ * \section intro Introduction
  *
  * The CommandInterface extends the Editor to support command line commands.
  * An application or a Plugin can register new commands by using
  * registerCommand(). To unregister a command call unregisterCommand(). To
  * check, whether a command with a given name exists use queryCommand().
  *
- * <b>Accessing the CommandInterface</b>\n
+ * \section access Accessing the CommandInterface
  *
  * The CommandInterface is supposed to be an extension interface for the
  * Editor, i.e. the Editor inherits the interface @e provided that the

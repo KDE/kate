@@ -43,7 +43,7 @@ namespace KTextEditor
  * belongs use hlModeSectionName(). The signal hlChanged() is emitted
  * whenever the syntax highlighting mode changed.
  *
- * \section accessing Accessing the HighlightingInterface
+ * \section access Accessing the HighlightingInterface
  *
  * The HighlightingInterface is supposed to be an extension interface for a
  * Document, i.e. the Document inherits the interface @e provided that the

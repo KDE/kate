@@ -32,7 +32,7 @@ namespace KTextEditor
 /**
  * @brief Editor Component Chooser.
  *
- * <b>Introduction</b>\n
+ * \section intro Introduction
  *
  * The EditorChooser is a simple group box that contains an information
  * label and a combo box which lists all available KTextEditor

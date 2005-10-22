@@ -45,7 +45,7 @@ class View;
  * setModifiedOnDiskWarning(). The slot modifiedOnDisk() is called to ask
  * the user what to do whenever a file was modified.
  *
- * \section accessing Accessing the ModificationInterface
+ * \section access Accessing the ModificationInterface
  *
  * The ModificationInterface is supposed to be an extension interface for a
  * Document, i.e. the Document inherits the interface @e provided that the

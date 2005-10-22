@@ -40,7 +40,14 @@ class Document;
 /**
  * @brief A text widget with KXMLGUIClient that represents a Document.
  *
- * <b>Introduction</b>\n
+ * Topics:
+ *  - \ref intro
+ *  - \ref selection
+ *  - \ref cursors
+ *  - \ref modes
+ *  - \ref extensions
+ *
+ * \section intro Introduction
  *
  * The View class represents a single view of a KTextEditor::Document,
  * get the document on which the view operates with document().
@@ -54,7 +61,7 @@ class Document;
  * Furthermore a view can have a context menu. Set it with setContextMenu()
  * and get it with contextMenu().
  *
- * <b>Text Selection</b>\n
+ * \section selection Text Selection
  *
  * As the view is a graphical text editor it provides @e normal and @e block
  * text selection. You can check with selection() whether a selection exists.
@@ -64,7 +71,7 @@ class Document;
  * setSelection() to specify the selected textrange. The signal
  * selectionChanged() is emitted whenever the selecteion changed.
  *
- * <b>Cursor Positions</b>\n
+ * \section cursors Cursor Positions
  *
  * A view has one Cursor which represents a line/column tuple. Two different
  * kinds of cursor positions are supported: first is the @e real cursor
@@ -77,7 +84,7 @@ class Document;
  * cursorPositionCoordinates(). The signal cursorPositionChanged() is emitted
  * whenever the cursor position changed.
  *
- * <b>Edit Modes</b>\n
+ * \section modes Edit Modes
  *
  * A view supports several edit modes (EditMode). Common edit modes are
  * @e insert-mode (INS) and @e overwrite-mode (OVR). Which edit modes the
@@ -88,7 +95,7 @@ class Document;
  * mode as enum by using viewEditMode(). Whenever the edit mode changed the
  * signals viewModeChanged() and viewEditModeChanged() are emitted.
  *
- * <b>View Extension Interfaces</b>\n
+ * \section extensions View Extension Interfaces
  *
  * A simple view represents the text of a Document and provides a text cursor,
  * text selection, edit modes etc.

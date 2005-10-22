@@ -35,14 +35,20 @@ class View;
 /**
  * @brief KTextEditor Plugin interface.
  *
- * <b>Introduction</b>\n
+ * Topics:
+ *  - \ref intro
+ *  - \ref config
+ *  - \ref sessions
+ *  - \ref arch
+ *
+ * \section intro Introduction
  *
  * The Plugin class provides methods to create loadable plugins for all
  * KTextEditor implementations. A plugin can handle several documents and
  * views. For every document the plugin should handle addDocument() is called
  * and for every view addView().
  *
- * <b>Configuration Management</b>\n
+ * \section config Configuration Management
  *
  * If your plugin supports a config dialog overwrite configDialogSupported()
  * and return @e true (The default implementation returns @e false and
@@ -54,7 +60,7 @@ class View;
  * readConfig() is called by the Editor part. Usually you do not have to call
  * readConfig() and writeConfig() yourself.
  *
- * <b>Session Management</b>\n
+ * \section sessions Session Management
  *
  * As an extension a Plugin can implement the SessionConfigInterface. This
  * interface provides functions to read and write session related settings.
@@ -70,7 +76,7 @@ class View;
  *   };
  * @endcode
  *
- * <b>Plugin Architecture</b>\n
+ * \section arch Plugin Architecture
  *
  * After the plugin is loaded the editor implementation should first call
  * readConfig() with a given KConfig object. After this it will call

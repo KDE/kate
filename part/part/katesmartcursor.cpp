@@ -58,9 +58,15 @@ KateSmartCursor::KateSmartCursor( KTextEditor::Document * doc, bool moveOnInsert
 
 KateSmartCursor::~KateSmartCursor()
 {
-  m_smartGroup->leaving(this);
-  if (m_notifier)
+  if (m_notifier) {
+    emit m_notifier->deleted(this);
     delete m_notifier;
+  }
+
+  if (m_watcher)
+    m_watcher->deleted(this);
+
+  m_smartGroup->leaving(this);
 }
 
 KateSmartCursor::operator QString()

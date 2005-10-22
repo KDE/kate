@@ -4396,13 +4396,13 @@ void KateDocument::readVariables(bool onlyViewAndRenderer)
     v->renderer()->config()->configStart();
   }
   // read a number of lines in the top/bottom of the document
-  for (int i=0; i < kMin( 9, lines() ); ++i )
+  for (int i=0; i < qMin( 9, lines() ); ++i )
   {
     readVariableLine( line( i ), onlyViewAndRenderer );
   }
   if ( lines() > 10 )
   {
-    for ( int i = kMax( 10, lines() - 10); i < lines(); i++ )
+    for ( int i = qMax( 10, lines() - 10); i < lines(); i++ )
     {
       readVariableLine( line( i ), onlyViewAndRenderer );
     }

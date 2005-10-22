@@ -622,10 +622,10 @@ KateTextLine::Ptr KateBuffer::line_internal (KateBufBlock *buf, int i)
   KateBufBlock *buf2 = 0;
   while ((i >= m_lineHighlighted) && (buf2 = findBlock(m_lineHighlighted)))
   {
-    int end = kMin(i + KATE_HL_LOOKAHEAD, buf2->endLine());
+    int end = qMin(i + KATE_HL_LOOKAHEAD, buf2->endLine());
 
     doHighlight ( buf2,
-                  kMax(m_lineHighlighted, buf2->startLine()),
+                  qMax(m_lineHighlighted, buf2->startLine()),
                   end,
                   false );
 
@@ -1000,10 +1000,10 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
         KateBufBlock *buf = 0;
         while ((endLine > m_lineHighlighted) && (buf = findBlock(m_lineHighlighted)))
         {
-          int end = kMin(endLine, buf->endLine());
+          int end = qMin(endLine, buf->endLine());
 
           doHighlight ( buf,
-                        kMax(m_lineHighlighted, buf->startLine()),
+                        qMax(m_lineHighlighted, buf->startLine()),
                         end,
                         false );
 

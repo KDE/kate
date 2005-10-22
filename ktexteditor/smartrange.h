@@ -85,7 +85,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
       /// Expand to encapsulate new characters to the right of the range.
       ExpandRight = 0x2
     };
-    Q_DECLARE_FLAGS(InsertBehaviours, InsertBehaviour);
+    Q_DECLARE_FLAGS(InsertBehaviours, InsertBehaviour)
 
     virtual ~SmartRange();
 
@@ -573,7 +573,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 };
 
 /// Operators for QFlags - SmartRange::InsertBehaviours
-Q_DECLARE_OPERATORS_FOR_FLAGS(SmartRange::InsertBehaviours);
+Q_DECLARE_OPERATORS_FOR_FLAGS(SmartRange::InsertBehaviours)
 
 }
 

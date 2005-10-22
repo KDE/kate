@@ -91,7 +91,7 @@ class KTEXTEDITOR_EXPORT Attribute
       ActivateCaretIn     = 0x4,
       ActivateCaretOut    = 0x8
     };
-    Q_DECLARE_FLAGS(ActivationFlags, ActivationFlag);
+    Q_DECLARE_FLAGS(ActivationFlags, ActivationFlag)
 
     Attribute* dynamicAttribute(ActivationFlags activationFlags) const;
     void setDynamicAttribute(ActivationFlags activationFlags, Attribute* attribute);

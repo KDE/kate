@@ -509,7 +509,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
     if (selectionsOnly && showSelections() && m_view->selection()) {
       selectionHighlight = new NormalRenderRange();
       static KTextEditor::Attribute backgroundAttribute;
-      backgroundAttribute.setBGColor(config()->selectionColor());
+      backgroundAttribute.setBackground(config()->selectionColor());
       selectionHighlight->addRange(new KTextEditor::Range(m_view->selectionRange()), &backgroundAttribute);
       renderRanges.append(selectionHighlight);
     }
@@ -549,9 +549,9 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
       }
 
       KTextEditor::Attribute a = renderRanges.generateAttribute();
-      fr.format = a.toFormat();
-      if (m_view->selection() && m_view->selectionRange().contains(currentPosition) && a.itemSet(KTextEditor::Attribute::SelectedTextColor))
-        fr.format.setForeground(a.selectedTextColor());
+      fr.format = a;
+      if (m_view->selection() && m_view->selectionRange().contains(currentPosition) && a.hasProperty(KTextEditor::Attribute::SelectedForeground))
+        fr.format.setForeground(a.selectedForeground());
 
       newHighlight.append(fr);
 

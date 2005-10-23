@@ -152,8 +152,8 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
     {
       ph = new KateTemplatePlaceHolder(m_doc);
       KTextEditor::Attribute* attrib = new KTextEditor::Attribute();
-      attrib->setUnderline( true );
-      attrib->setOverline( true );
+      attrib->setFontUnderline( true );
+      attrib->setFontOverline( true );
       KateRangeType* rt = new KateRangeType();
       rt->addAttribute(attrib, KateRangeType::activateNone, true);
         //ph->ranges.setRangeType(rt);

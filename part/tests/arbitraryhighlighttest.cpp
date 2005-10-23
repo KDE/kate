@@ -57,15 +57,15 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
   if (!ranges[0]) {
     for (int i = 0; i < 10; ++i) {
       ranges[i] = new Attribute();
-      ranges[i]->setBGColor(QColor(0xFF - (i * 0x20), 0xFF, 0xFF));
+      ranges[i]->setBackground(QColor(0xFF - (i * 0x20), 0xFF, 0xFF));
     }
-    ranges[2]->setBold();
-    ranges[2]->setTextColor(Qt::red);
-    ranges[3]->setUnderline();
-    ranges[3]->setSelectedTextColor(Qt::magenta);
-    ranges[4]->setStrikeOut();
+    ranges[2]->setFontBold();
+    ranges[2]->setForeground(Qt::red);
+    ranges[3]->setFontUnderline(true);
+    ranges[3]->setSelectedForeground(Qt::magenta);
+    ranges[4]->setFontStrikeOut(true);
     ranges[5]->setOutline(Qt::blue);
-    ranges[5]->setTextColor(Qt::white);
+    ranges[5]->setForeground(Qt::white);
   }
 
   SmartRange* currentRange = mostSpecificChild;

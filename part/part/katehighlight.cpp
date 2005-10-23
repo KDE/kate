@@ -1696,24 +1696,24 @@ void KateHighlighting::getKateHlItemDataList (uint schema, KateHlItemDataList &l
       QRgb col;
 
       tmp=s[1]; if (!tmp.isEmpty()) {
-         col=tmp.toUInt(0,16); p->setTextColor(col); }
+         col=tmp.toUInt(0,16); p->setForeground(QColor(col)); }
 
       tmp=s[2]; if (!tmp.isEmpty()) {
-         col=tmp.toUInt(0,16); p->setSelectedTextColor(col); }
+         col=tmp.toUInt(0,16); p->setSelectedForeground(QColor(col)); }
 
-      tmp=s[3]; if (!tmp.isEmpty()) p->setBold(tmp!="0");
+      tmp=s[3]; if (!tmp.isEmpty()) p->setFontBold(tmp!="0");
 
-      tmp=s[4]; if (!tmp.isEmpty()) p->setItalic(tmp!="0");
+      tmp=s[4]; if (!tmp.isEmpty()) p->setFontItalic(tmp!="0");
 
-      tmp=s[5]; if (!tmp.isEmpty()) p->setStrikeOut(tmp!="0");
+      tmp=s[5]; if (!tmp.isEmpty()) p->setFontStrikeOut(tmp!="0");
 
-      tmp=s[6]; if (!tmp.isEmpty()) p->setUnderline(tmp!="0");
+      tmp=s[6]; if (!tmp.isEmpty()) p->setFontUnderline(tmp!="0");
 
       tmp=s[7]; if (!tmp.isEmpty()) {
-         col=tmp.toUInt(0,16); p->setBGColor(col); }
+         col=tmp.toUInt(0,16); p->setBackground(QColor(col)); }
 
       tmp=s[8]; if (!tmp.isEmpty()) {
-         col=tmp.toUInt(0,16); p->setSelectedBGColor(col); }
+         col=tmp.toUInt(0,16); p->setSelectedBackground(QColor(col)); }
 
     }
   }
@@ -1737,14 +1737,14 @@ void KateHighlighting::setKateHlItemDataList(uint schema, KateHlItemDataList &li
   {
     settings.clear();
     settings<<QString::number(p->defStyleNum,10);
-    settings<<(p->itemSet(KTextEditor::Attribute::TextColor)?QString::number(p->textColor().rgb(),16):"");
-    settings<<(p->itemSet(KTextEditor::Attribute::SelectedTextColor)?QString::number(p->selectedTextColor().rgb(),16):"");
-    settings<<(p->itemSet(KTextEditor::Attribute::Weight)?(p->bold()?"1":"0"):"");
-    settings<<(p->itemSet(KTextEditor::Attribute::Italic)?(p->italic()?"1":"0"):"");
-    settings<<(p->itemSet(KTextEditor::Attribute::StrikeOut)?(p->strikeOut()?"1":"0"):"");
-    settings<<(p->itemSet(KTextEditor::Attribute::Underline)?(p->underline()?"1":"0"):"");
-    settings<<(p->itemSet(KTextEditor::Attribute::BGColor)?QString::number(p->bgColor().rgb(),16):"");
-    settings<<(p->itemSet(KTextEditor::Attribute::SelectedBGColor)?QString::number(p->selectedBGColor().rgb(),16):"");
+    settings<<(p->hasProperty(QTextFormat::ForegroundBrush)?QString::number(p->foreground().color().rgb(),16):"");
+    settings<<(p->hasProperty(KTextEditor::Attribute::SelectedForeground)?QString::number(p->selectedForeground().color().rgb(),16):"");
+    settings<<(p->hasProperty(QTextFormat::FontWeight)?(p->fontBold()?"1":"0"):"");
+    settings<<(p->hasProperty(QTextFormat::FontItalic)?(p->fontItalic()?"1":"0"):"");
+    settings<<(p->hasProperty(QTextFormat::FontStrikeOut)?(p->fontStrikeOut()?"1":"0"):"");
+    settings<<(p->hasProperty(QTextFormat::FontUnderline)?(p->fontUnderline()?"1":"0"):"");
+    settings<<(p->hasProperty(QTextFormat::BackgroundBrush)?QString::number(p->background().color().rgb(),16):"");
+    settings<<(p->hasProperty(KTextEditor::Attribute::SelectedBackground)?QString::number(p->selectedBackground().color().rgb(),16):"");
     settings<<"---";
     config->writeEntry(p->name,settings);
   }
@@ -1852,15 +1852,15 @@ void KateHighlighting::addToKateHlItemDataList()
             getDefStyleNum(KateHlManager::self()->syntax->groupData(data,QString("defStyleNum"))));
 
     /* here the custom style overrides are specified, if needed */
-    if (!color.isEmpty()) newData->setTextColor(QColor(color));
-    if (!selColor.isEmpty()) newData->setSelectedTextColor(QColor(selColor));
-    if (!bold.isEmpty()) newData->setBold( IS_TRUE(bold) );
-    if (!italic.isEmpty()) newData->setItalic( IS_TRUE(italic) );
+    if (!color.isEmpty()) newData->setForeground(QColor(color));
+    if (!selColor.isEmpty()) newData->setSelectedForeground(QColor(selColor));
+    if (!bold.isEmpty()) newData->setFontBold( IS_TRUE(bold) );
+    if (!italic.isEmpty()) newData->setFontItalic( IS_TRUE(italic) );
     // new attributes for the new rendering view
-    if (!underline.isEmpty()) newData->setUnderline( IS_TRUE(underline) );
-    if (!strikeOut.isEmpty()) newData->setStrikeOut( IS_TRUE(strikeOut) );
-    if (!bgColor.isEmpty()) newData->setBGColor(QColor(bgColor));
-    if (!selBgColor.isEmpty()) newData->setSelectedBGColor(QColor(selBgColor));
+    if (!underline.isEmpty()) newData->setFontUnderline( IS_TRUE(underline) );
+    if (!strikeOut.isEmpty()) newData->setFontStrikeOut( IS_TRUE(strikeOut) );
+    if (!bgColor.isEmpty()) newData->setBackground(QColor(bgColor));
+    if (!selBgColor.isEmpty()) newData->setSelectedBackground(QColor(selBgColor));
 
     internalIDList.append(newData);
   }
@@ -2898,7 +2898,7 @@ void KateHighlighting::clearAttributeArrays ()
       KateHlItemData *itemData = itemDataList.at(z);
       KTextEditor::Attribute n = *defaultStyleList.at(itemData->defStyleNum);
 
-      if (itemData && itemData->isSomethingSet())
+      if (itemData && itemData->properties().count())
         n += *itemData;
 
       (*array)[z] = n;
@@ -2937,7 +2937,7 @@ QVector<KTextEditor::Attribute> *KateHighlighting::attributes (uint schema)
     KateHlItemData *itemData = itemDataList.at(z);
     KTextEditor::Attribute n = *defaultStyleList.at(itemData->defStyleNum);
 
-    if (itemData && itemData->isSomethingSet())
+    if (itemData && itemData->properties().count())
       n += *itemData;
 
     (*array)[z] = n;
@@ -3194,79 +3194,79 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
   list.setAutoDelete(true);
 
   KTextEditor::Attribute* normal = new KTextEditor::Attribute();
-  normal->setTextColor(Qt::black);
-  normal->setSelectedTextColor(Qt::white);
+  normal->setForeground(Qt::black);
+  normal->setSelectedForeground(Qt::white);
   list.append(normal);
 
   KTextEditor::Attribute* keyword = new KTextEditor::Attribute();
-  keyword->setTextColor(Qt::black);
-  keyword->setSelectedTextColor(Qt::white);
-  keyword->setBold(true);
+  keyword->setForeground(Qt::black);
+  keyword->setSelectedForeground(Qt::white);
+  keyword->setFontBold(true);
   list.append(keyword);
 
   KTextEditor::Attribute* dataType = new KTextEditor::Attribute();
-  dataType->setTextColor(Qt::darkRed);
-  dataType->setSelectedTextColor(Qt::white);
+  dataType->setForeground(Qt::darkRed);
+  dataType->setSelectedForeground(Qt::white);
   list.append(dataType);
 
   KTextEditor::Attribute* decimal = new KTextEditor::Attribute();
-  decimal->setTextColor(Qt::blue);
-  decimal->setSelectedTextColor(Qt::cyan);
+  decimal->setForeground(Qt::blue);
+  decimal->setSelectedForeground(Qt::cyan);
   list.append(decimal);
 
   KTextEditor::Attribute* basen = new KTextEditor::Attribute();
-  basen->setTextColor(Qt::darkCyan);
-  basen->setSelectedTextColor(Qt::cyan);
+  basen->setForeground(Qt::darkCyan);
+  basen->setSelectedForeground(Qt::cyan);
   list.append(basen);
 
   KTextEditor::Attribute* floatAttribute = new KTextEditor::Attribute();
-  floatAttribute->setTextColor(Qt::darkMagenta);
-  floatAttribute->setSelectedTextColor(Qt::cyan);
+  floatAttribute->setForeground(Qt::darkMagenta);
+  floatAttribute->setSelectedForeground(Qt::cyan);
   list.append(floatAttribute);
 
   KTextEditor::Attribute* charAttribute = new KTextEditor::Attribute();
-  charAttribute->setTextColor(Qt::magenta);
-  charAttribute->setSelectedTextColor(Qt::magenta);
+  charAttribute->setForeground(Qt::magenta);
+  charAttribute->setSelectedForeground(Qt::magenta);
   list.append(charAttribute);
 
   KTextEditor::Attribute* string = new KTextEditor::Attribute();
-  string->setTextColor(QColor::QColor("#D00"));
-  string->setSelectedTextColor(Qt::red);
+  string->setForeground(QColor::QColor("#D00"));
+  string->setSelectedForeground(Qt::red);
   list.append(string);
 
   KTextEditor::Attribute* comment = new KTextEditor::Attribute();
-  comment->setTextColor(Qt::darkGray);
-  comment->setSelectedTextColor(Qt::gray);
-  comment->setItalic(true);
+  comment->setForeground(Qt::darkGray);
+  comment->setSelectedForeground(Qt::gray);
+  comment->setFontItalic(true);
   list.append(comment);
 
   KTextEditor::Attribute* others = new KTextEditor::Attribute();
-  others->setTextColor(Qt::darkGreen);
-  others->setSelectedTextColor(Qt::green);
+  others->setForeground(Qt::darkGreen);
+  others->setSelectedForeground(Qt::green);
   list.append(others);
 
   KTextEditor::Attribute* alert = new KTextEditor::Attribute();
-  alert->setTextColor(Qt::black);
-  alert->setSelectedTextColor( QColor::QColor("#FCC") );
-  alert->setBold(true);
-  alert->setBGColor( QColor::QColor("#FCC") );
+  alert->setForeground(Qt::black);
+  alert->setSelectedForeground( QColor::QColor("#FCC") );
+  alert->setFontBold(true);
+  alert->setBackground( QColor::QColor("#FCC") );
   list.append(alert);
 
   KTextEditor::Attribute* functionAttribute = new KTextEditor::Attribute();
-  functionAttribute->setTextColor(Qt::darkBlue);
-  functionAttribute->setSelectedTextColor(Qt::white);
+  functionAttribute->setForeground(Qt::darkBlue);
+  functionAttribute->setSelectedForeground(Qt::white);
   list.append(functionAttribute);
 
   KTextEditor::Attribute* regionmarker = new KTextEditor::Attribute();
-  regionmarker->setTextColor(Qt::white);
-  regionmarker->setBGColor(Qt::gray);
-  regionmarker->setSelectedTextColor(Qt::gray);
+  regionmarker->setForeground(Qt::white);
+  regionmarker->setBackground(Qt::gray);
+  regionmarker->setSelectedForeground(Qt::gray);
   list.append(regionmarker);
 
   KTextEditor::Attribute* error = new KTextEditor::Attribute();
-  error->setTextColor(Qt::red);
-  error->setUnderline(true);
-  error->setSelectedTextColor(Qt::red);
+  error->setForeground(Qt::red);
+  error->setFontUnderline(true);
+  error->setSelectedForeground(Qt::red);
   list.append(error);
 
   KConfig *config = KateHlManager::self()->self()->getKConfig();
@@ -3285,36 +3285,36 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
       QRgb col;
 
       tmp=s[0]; if (!tmp.isEmpty()) {
-         col=tmp.toUInt(0,16); i->setTextColor(col); }
+         col=tmp.toUInt(0,16); i->setForeground(QColor(col)); }
 
       tmp=s[1]; if (!tmp.isEmpty()) {
-         col=tmp.toUInt(0,16); i->setSelectedTextColor(col); }
+         col=tmp.toUInt(0,16); i->setSelectedForeground(QColor(col)); }
 
-      tmp=s[2]; if (!tmp.isEmpty()) i->setBold(tmp!="0");
+      tmp=s[2]; if (!tmp.isEmpty()) i->setFontBold(tmp!="0");
 
-      tmp=s[3]; if (!tmp.isEmpty()) i->setItalic(tmp!="0");
+      tmp=s[3]; if (!tmp.isEmpty()) i->setFontItalic(tmp!="0");
 
-      tmp=s[4]; if (!tmp.isEmpty()) i->setStrikeOut(tmp!="0");
+      tmp=s[4]; if (!tmp.isEmpty()) i->setFontStrikeOut(tmp!="0");
 
-      tmp=s[5]; if (!tmp.isEmpty()) i->setUnderline(tmp!="0");
+      tmp=s[5]; if (!tmp.isEmpty()) i->setFontUnderline(tmp!="0");
 
       tmp=s[6]; if (!tmp.isEmpty()) {
         if ( tmp != "-" )
         {
           col=tmp.toUInt(0,16);
-          i->setBGColor(col);
+          i->setBackground(QColor(col));
         }
         else
-          i->clearAttribute(KTextEditor::Attribute::BGColor);
+          i->clearBackground();
       }
       tmp=s[7]; if (!tmp.isEmpty()) {
         if ( tmp != "-" )
         {
           col=tmp.toUInt(0,16);
-          i->setSelectedBGColor(col);
+          i->setSelectedBackground(QColor(col));
         }
         else
-          i->clearAttribute(KTextEditor::Attribute::SelectedBGColor);
+          i->clearProperty(KTextEditor::Attribute::SelectedBackground);
       }
     }
   }
@@ -3328,16 +3328,16 @@ void KateHlManager::setDefaults(uint schema, KateAttributeList &list)
   for (uint z = 0; z < defaultStyles(); z++)
   {
     QStringList settings;
-    KTextEditor::Attribute *i = list.at(z);
+    KTextEditor::Attribute *p = list.at(z);
 
-    settings<<(i->itemSet(KTextEditor::Attribute::TextColor)?QString::number(i->textColor().rgb(),16):"");
-    settings<<(i->itemSet(KTextEditor::Attribute::SelectedTextColor)?QString::number(i->selectedTextColor().rgb(),16):"");
-    settings<<(i->itemSet(KTextEditor::Attribute::Weight)?(i->bold()?"1":"0"):"");
-    settings<<(i->itemSet(KTextEditor::Attribute::Italic)?(i->italic()?"1":"0"):"");
-    settings<<(i->itemSet(KTextEditor::Attribute::StrikeOut)?(i->strikeOut()?"1":"0"):"");
-    settings<<(i->itemSet(KTextEditor::Attribute::Underline)?(i->underline()?"1":"0"):"");
-    settings<<(i->itemSet(KTextEditor::Attribute::BGColor)?QString::number(i->bgColor().rgb(),16):"-");
-    settings<<(i->itemSet(KTextEditor::Attribute::SelectedBGColor)?QString::number(i->selectedBGColor().rgb(),16):"-");
+    settings<<(p->hasProperty(QTextFormat::ForegroundBrush)?QString::number(p->foreground().color().rgb(),16):"");
+    settings<<(p->hasProperty(KTextEditor::Attribute::SelectedForeground)?QString::number(p->selectedForeground().color().rgb(),16):"");
+    settings<<(p->hasProperty(QTextFormat::FontWeight)?(p->fontBold()?"1":"0"):"");
+    settings<<(p->hasProperty(QTextFormat::FontItalic)?(p->fontItalic()?"1":"0"):"");
+    settings<<(p->hasProperty(QTextFormat::FontStrikeOut)?(p->fontStrikeOut()?"1":"0"):"");
+    settings<<(p->hasProperty(QTextFormat::FontUnderline)?(p->fontUnderline()?"1":"0"):"");
+    settings<<(p->hasProperty(QTextFormat::BackgroundBrush)?QString::number(p->background().color().rgb(),16):"");
+    settings<<(p->hasProperty(KTextEditor::Attribute::SelectedBackground)?QString::number(p->selectedBackground().color().rgb(),16):"");
     settings<<"---";
 
     config->writeEntry(defaultStyleName(z),settings);
@@ -3481,6 +3481,12 @@ void KateViewHighlightAction::setHl ()
   if (doc)
     doc->setHlMode((uint)mode);
 }
+
+void KateHlItemData::clear( )
+{
+  (*static_cast<KTextEditor::Attribute*>(this)) = KTextEditor::Attribute();
+}
+
 //END KateViewHighlightAction
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

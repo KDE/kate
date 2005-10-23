@@ -543,16 +543,16 @@ void KateView::setupEditActions()
     ac, "scroll_line_up" );
 
   new KAction(i18n("Move to Next Line"), Qt::Key_Down, this, SLOT(down()),
-	      ac, "move_line_down");
+              ac, "move_line_down");
 
   new KAction(i18n("Move to Previous Line"), Qt::Key_Up, this, SLOT(up()),
-	      ac, "move_line_up");
+              ac, "move_line_up");
 
   new KAction(i18n("Move Character Right"), Qt::Key_Right, this,
-	      SLOT(cursorRight()), ac, "move_cursor_right");
+              SLOT(cursorRight()), ac, "move_cursor_right");
 
   new KAction(i18n("Move Character Left"), Qt::Key_Left, this, SLOT(cursorLeft()),
-	      ac, "move_cusor_left");
+              ac, "move_cusor_left");
 
   new KAction(
     i18n("Select to Next Line"),                    Qt::SHIFT + Qt::Key_Down,
@@ -1052,10 +1052,10 @@ void KateView::switchToCmdLine ()
   if (!m_cmdLineOn)
     m_config->setCmdLine (true);
   else {
-	if (m_cmdLine->hasFocus()) {
-		this->setFocus();
-		return;
-	}
+        if (m_cmdLine->hasFocus()) {
+                this->setFocus();
+                return;
+        }
   }
   m_cmdLine->setFocus ();
 }
@@ -1594,7 +1594,7 @@ void KateView::lineAsHTML (KateTextLine::Ptr line, int startCol, int length, QTe
 
       //ASSERT(charAttributes != NULL);
       // let's give the color for that character :
-      if ( (charAttributes->textColor() != previousCharacterColor))
+      if ( (charAttributes->foreground() != previousCharacterColor))
       {  // the new character has a different color :
         // if we were in a bold or italic section, close it
         if (previousCharacterWasBold)
@@ -1608,7 +1608,7 @@ void KateView::lineAsHTML (KateTextLine::Ptr line, int startCol, int length, QTe
         // let's read that color :
         int red, green, blue;
         // getting the red, green, blue values of the color :
-        charAttributes->textColor().getRgb(&red, &green, &blue);
+        charAttributes->foreground().color().getRgb(&red, &green, &blue);
   if(!(red == 0 && green == 0 && blue == 0)) {
           (*outputStream) << "<span style='color: #"
               << ( (red < 0x10)?"0":"")  // need to put 0f, NOT f for instance. don't touch 1f.
@@ -1623,20 +1623,20 @@ void KateView::lineAsHTML (KateTextLine::Ptr line, int startCol, int length, QTe
         needToReinitializeTags = true;
       }
       // bold status :
-      if ( (needToReinitializeTags && charAttributes->bold()) ||
-          (!previousCharacterWasBold && charAttributes->bold()) )
+      if ( (needToReinitializeTags && charAttributes->fontBold()) ||
+          (!previousCharacterWasBold && charAttributes->fontBold()) )
         // we enter a bold section
         (*outputStream) << "<b>";
-      if ( !needToReinitializeTags && (previousCharacterWasBold && !charAttributes->bold()) )
+      if ( !needToReinitializeTags && (previousCharacterWasBold && !charAttributes->fontBold()) )
         // we leave a bold section
         (*outputStream) << "</b>";
 
       // italic status :
-      if ( (needToReinitializeTags && charAttributes->italic()) ||
-           (!previousCharacterWasItalic && charAttributes->italic()) )
+      if ( (needToReinitializeTags && charAttributes->fontItalic()) ||
+           (!previousCharacterWasItalic && charAttributes->fontItalic()) )
         // we enter an italic section
         (*outputStream) << "<i>";
-      if ( !needToReinitializeTags && (previousCharacterWasItalic && !charAttributes->italic()) )
+      if ( !needToReinitializeTags && (previousCharacterWasItalic && !charAttributes->fontItalic()) )
         // we leave an italic section
         (*outputStream) << "</i>";
 
@@ -1644,9 +1644,9 @@ void KateView::lineAsHTML (KateTextLine::Ptr line, int startCol, int length, QTe
       (*outputStream) << Qt::escape(QString(line->getChar(curPos)));
 
       // save status for the next character :
-      previousCharacterWasItalic = charAttributes->italic();
-      previousCharacterWasBold = charAttributes->bold();
-      previousCharacterColor = charAttributes->textColor();
+      previousCharacterWasItalic = charAttributes->fontItalic();
+      previousCharacterWasBold = charAttributes->fontBold();
+      previousCharacterColor = charAttributes->foreground();
       needToReinitializeTags = false;
     }
   // Be good citizens and close our tags

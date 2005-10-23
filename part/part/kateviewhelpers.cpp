@@ -821,7 +821,7 @@ int KateIconBorder::lineNumberWidth() const
 
         h = m_view->renderer()->config()->fontMetrics()->ascent();
 
-        p.setPen(m_view->renderer()->attribute(0)->textColor());
+        p.setPen(m_view->renderer()->attribute(0)->foreground());
         p.drawLine(w/2, h/2, w/2, 0);
 
 #ifdef __GNUC__

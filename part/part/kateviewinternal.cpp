@@ -89,11 +89,12 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 {
   // Set up bracket marking
   static KTextEditor::Attribute bracketOutline, bracketFill;
-  if (!bracketOutline.isSomethingSet())
+  if (!bracketOutline.properties().count())
     bracketOutline.setOutline(m_view->m_renderer->config()->highlightedBracketColor());
-  if (!bracketFill.isSomethingSet()) {
-    bracketFill.setBGColor(m_view->m_renderer->config()->highlightedBracketColor(), false);
-    bracketFill.setBold(true);
+  if (!bracketFill.properties().count()) {
+    bracketFill.setBackground(m_view->m_renderer->config()->highlightedBracketColor());
+    bracketFill.setBackgroundFillWhitespace(false);
+    bracketFill.setFontBold();
   }
 
   m_bm.setAttribute(&bracketOutline, false);

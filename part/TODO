@@ -16,9 +16,6 @@ TODO:
       * config classes already in place
       * selection moved to KateView
 
-* KTextEditor cleanups
-  - use KTextEditor:: namespace in all emitted signal arguments that need it
-
 **** new features ****
 
 * Fix EOL whitespace cleaning finally by removing whitespace at load-time and
@@ -29,6 +26,7 @@ TODO:
 * BiDi finally, using Scribe
   * just needs porting of deprecated calls, and testing
   * noticed a redraw bug when scrolling (grey, black areas) ? why
+  * return to dirty-lines-only drawing
 
 * Finally implement arbitrary highlighting and arbitrary input filtering
   * Smart Cursors and Ranges todo list:

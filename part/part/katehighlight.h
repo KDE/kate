@@ -98,6 +98,8 @@ class KateHlItemData : public KTextEditor::Attribute
       dsRegionMarker,
       dsError };
 
+    void clear();
+
   public:
     const QString name;
     int defStyleNum;

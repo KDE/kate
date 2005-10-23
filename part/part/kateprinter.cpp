@@ -514,7 +514,7 @@ bool KatePrinter::print (KateDocument *doc)
              // use color of dsNormal for the title string and the hline
              KateAttributeList _dsList;
              KateHlManager::self()->getDefaults ( renderer.config()->schema(), _dsList );
-             paint.setPen( _dsList.at(0)->textColor() );
+             paint.setPen( _dsList.at(0)->foreground() );
              int _marg = 0; // this could be available globally!??
              if ( useBox )
              {
@@ -549,7 +549,7 @@ bool KatePrinter::print (KateDocument *doc)
 
              while ( ( _d = _it.current() ) != 0 )
              {
-               paint.setPen( renderer.attribute(_i)->textColor() );
+               paint.setPen( renderer.attribute(_i)->foreground() );
                paint.setFont( renderer.attribute(_i)->font( *renderer.currentFont() ) );
                paint.drawText(( _x + ((_i%guideCols)*_cw)), y, _cw, renderer.fontHeight(),
                         Qt::AlignVCenter|Qt::AlignLeft, _d->name, -1, &_r );

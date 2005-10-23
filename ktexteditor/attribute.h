@@ -37,25 +37,11 @@ class SmartRange;
  * TODO: store the actual font as well.
  * TODO: update changed mechanism - use separate bitfield
  */
-class KTEXTEDITOR_EXPORT Attribute
+class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
 {
   friend class SmartRange;
 
   public:
-    enum items {
-      Weight = 0x1,
-      Bold = 0x2,
-      Italic = 0x4,
-      Underline = 0x8,
-      StrikeOut = 0x10,
-      Outline = 0x20,
-      TextColor = 0x40,
-      SelectedTextColor = 0x80,
-      BGColor = 0x100,
-      SelectedBGColor = 0x200,
-      Overline = 0x400
-    };
-
     Attribute();
     virtual ~Attribute();
 
@@ -78,6 +64,11 @@ class KTEXTEDITOR_EXPORT Attribute
      * Returns a list of currently associated KActions.
      */
     const QList<KAction*>& associatedActions() const { return m_associatedActions; }
+
+    /**
+     * Clears all associations between KActions and this attribute.
+     */
+    void clearAssociatedActions();
     // END
 
     // BEGIN Dynamic highlighting
@@ -97,130 +88,34 @@ class KTEXTEDITOR_EXPORT Attribute
     void setDynamicAttribute(ActivationFlags activationFlags, Attribute* attribute);
     // END
 
-    QFont font(const QFont& ref);
-    const QTextCharFormat& toFormat() const;
+    // BEGIN custom properties
+    enum CustomProperties {
+      Outline = QTextFormat::UserProperty,
+      SelectedForeground,
+      SelectedBackground,
+      BackgroundFillWhitespace
+    };
 
-    inline bool itemSet(int item) const
-    { return item & m_itemsSet; };
+    QBrush outline() const;
+    void setOutline(const QBrush& brush);
 
-    inline bool isSomethingSet() const
-    { return m_itemsSet; };
+    QBrush selectedForeground() const;
+    void setSelectedForeground(const QBrush& foreground);
 
-    inline int itemsSet() const
-    { return m_itemsSet; };
+    bool backgroundFillWhitespace() const;
+    void setBackgroundFillWhitespace(bool fillWhitespace);
 
-    inline void clearAttribute(int item)
-    { m_itemsSet &= (~item); }
+    QBrush selectedBackground() const;
+    void setSelectedBackground(const QBrush& brush);
+    // END
 
-    inline int weight() const
-    { return m_weight; };
-
-    void setWeight(int weight);
-
-    inline bool bold() const
-    { return weight() >= QFont::Bold; };
-
-    void setBold(bool enable = true);
-
-    inline bool italic() const
-    { return m_italic; };
-
-    void setItalic(bool enable = true);
-
-    inline bool overline() const
-    { return m_overline; };
-
-    void setOverline(bool enable = true);
-
-    inline bool underline() const
-    { return m_underline; };
-
-    void setUnderline(bool enable = true);
-
-    inline bool strikeOut() const
-    { return m_strikeout; };
-
-    void setStrikeOut(bool enable = true);
-
-    inline const QColor& outline() const
-    { return m_outline; };
-
-    void setOutline(const QColor& color);
-
-    inline const QColor& textColor() const
-    { return m_textColor; };
-
-    void setTextColor(const QColor& color);
-
-    inline const QColor& selectedTextColor() const
-    { return m_selectedTextColor; };
-
-    void setSelectedTextColor(const QColor& color);
-
-    inline const QColor& bgColor() const
-    { return m_bgColor; };
-    inline bool bgColorFillWhitespace() const
-    { return m_bgColorFillWhitespace; };
-
-    void setBGColor(const QColor& color, bool fillWhitespace = false);
-
-    inline const QColor& selectedBGColor() const
-    { return m_selectedBGColor; };
-
-    void setSelectedBGColor(const QColor& color);
+    // Fix deficiencies in QText{Char}Format
+    void clear();
+    bool hasAnyProperty() const;
+    bool fontBold() const;
+    void setFontBold(bool bold = true);
 
     Attribute& operator+=(const Attribute& a);
-
-    friend bool operator ==(const Attribute& h1, const Attribute& h2)
-    {
-      if (h1.m_itemsSet != h2.m_itemsSet)
-        return false;
-
-      if (h1.itemSet(Attribute::Weight))
-        if (h1.m_weight != h2.m_weight)
-          return false;
-
-      if (h1.itemSet(Attribute::Italic))
-        if (h1.m_italic != h2.m_italic)
-          return false;
-
-      if (h1.itemSet(Attribute::Underline))
-        if (h1.m_underline != h2.m_underline)
-          return false;
-
-      if (h1.itemSet(Attribute::StrikeOut))
-        if (h1.m_strikeout != h2.m_strikeout)
-          return false;
-
-      if (h1.itemSet(Attribute::Outline))
-        if (h1.m_outline != h2.m_outline)
-          return false;
-
-      if (h1.itemSet(Attribute::TextColor))
-        if (h1.m_textColor != h2.m_textColor)
-          return false;
-
-      if (h1.itemSet(Attribute::SelectedTextColor))
-        if (h1.m_selectedTextColor != h2.m_selectedTextColor)
-          return false;
-
-      if (h1.itemSet(Attribute::BGColor))
-        if (h1.m_bgColor != h2.m_bgColor)
-          return false;
-
-      if (h1.itemSet(Attribute::SelectedBGColor))
-        if (h1.m_selectedBGColor != h2.m_selectedBGColor)
-          return false;
-
-      return true;
-    }
-
-    friend bool operator !=(const Attribute& h1, const Attribute& h2);
-
-    virtual void changed() { m_changed = true; };
-    bool isChanged() { bool ret = m_changed; m_changed = false; return ret; };
-
-    void clear();
 
   private:
     // Add / remove ranges to tag if an attribute changes.
@@ -230,17 +125,6 @@ class KTEXTEDITOR_EXPORT Attribute
     QList<SmartRange*> m_usingRanges;
     QList<KAction*> m_associatedActions;
     Attribute* m_dynamicAttributes[4];
-
-    mutable QTextCharFormat m_format;
-    int m_weight;
-    bool m_italic : 1,
-      m_underline : 1,
-      m_overline : 1,
-      m_strikeout : 1,
-      m_changed : 1,
-      m_bgColorFillWhitespace : 1;
-    QColor m_outline, m_textColor, m_selectedTextColor, m_bgColor, m_selectedBGColor;
-    int m_itemsSet;
 };
 
 }

@@ -2063,6 +2063,8 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
 
 QString KateHighlighting::hlKeyForAttrib( int i ) const
 {
+  // find entry. This is faster than QMap::find. m_hlIndex always has an entry
+  // for key '0' (it is "none"), so the result is always valid.
   int k = 0;
   QMap<int,QString>::const_iterator it = m_hlIndex.constEnd();
   while ( it != m_hlIndex.constBegin() )

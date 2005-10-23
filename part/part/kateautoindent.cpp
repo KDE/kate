@@ -316,7 +316,9 @@ bool KateNormalIndent::skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool 
   do
   {
     uchar attrib = cur.currentAttrib();
-    if (attrib != commentAttrib && attrib != doxyCommentAttrib && attrib != regionAttrib && attrib != alertAttrib && attrib != tagAttrib && attrib != wordAttrib)
+    const QString hlFile = doc->highlight()->hlKeyForAttrib( attrib );
+
+    if (attrib != commentAttrib && attrib != regionAttrib && attrib != alertAttrib && !hlFile.endsWith("doxygen.xml"))
     {
       QChar c = cur.currentChar();
       if (!c.isNull() && !c.isSpace())

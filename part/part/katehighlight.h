@@ -229,6 +229,13 @@ class KateHighlighting
     */
     int attribute( int context ) const;
 
+    /**
+     * map attribute to its highlighting file.
+     * the returned string is used as key for m_additionalData.
+     */
+    QString hlKeyForAttrib( int attrib ) const;
+
+
     void clearAttributeArrays ();
 
     QVector<KTextEditor::Attribute> *attributes (uint schema);
@@ -268,11 +275,6 @@ class KateHighlighting
 
     void createContextNameList(QStringList *ContextNameList, int ctx0);
     int getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext,/*NO CONST*/ QString &unres);
-
-    /**
-     * @return the key to use for @p attrib in m_additionalData.
-     */
-    QString hlKeyForAttrib( int attrib ) const;
 
     KateHlItemDataList internalIDList;
 

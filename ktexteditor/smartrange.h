@@ -375,7 +375,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      *                  removes the previous Attribute.
      * \param takeOwnership Set to true when this object should take ownership
      *                      of \p attribute. If \e true, \p attribute will be
-     *                      deleted when this cursor is deleted.
+     *                      deleted when this range is deleted.
      */
     virtual void setAttribute(Attribute* attribute, bool takeOwnership = false);
     // END

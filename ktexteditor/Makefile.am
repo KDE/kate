@@ -37,3 +37,4 @@ ktexteditorkabcbridge.lo: $(top_builddir)/kabc/addressee.h
 DOXYGEN_REFERENCES = kdecore kdeui kparts
 include ../../admin/Doxyfile.am
 
+noinst_HEADERS = attribute_p.h

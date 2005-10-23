@@ -72,6 +72,14 @@ class SmartCursor;
  * If only small branches of a tree contain actions, it may be more efficient to simply add
  * each of these branches instead (but this is unlikely unless the tree is complex).
  *
+ * Note that actions can be bound either directly to the range via
+ * SmartRange::attachAction(), or indirectly via Attribute::attachAction().  Using
+ * attributes may be more convenient when you want all ranges of a specific type to have
+ * the same action associated with them.
+ *
+ * \todo extend this to provide a signal from the action indicating which range was
+ *       used to activate it (if possible)
+ *
  * \section access Accessing the Smart Interface
  *
  * The SmartInterface is supposed to be an extension interface for a Document,

@@ -18,12 +18,29 @@
 
 #include "attribute.h"
 
+#include "attribute_p.h"
+
 using namespace KTextEditor;
 
-Attribute::Attribute()
+AttributePrivate::AttributePrivate()
 {
-  for (int i = 0; i < 4; ++i)
-    m_dynamicAttributes[i] = 0L;
+  for (int i = 0; i < Attribute::ActivateCaretIn; ++i) {
+    dynamicAttributes[i] = 0L;
+    ownsDynamicAttributes[i] = false;
+  }
+}
+
+AttributePrivate::~AttributePrivate()
+{
+  for (int i = 0; i < Attribute::ActivateCaretIn; ++i) {
+    if (ownsDynamicAttributes[i])
+      delete dynamicAttributes[i];
+  }
+}
+
+Attribute::Attribute()
+  : d(new AttributePrivate())
+{
 }
 
 Attribute::~Attribute()
@@ -34,35 +51,39 @@ Attribute& Attribute::operator+=(const Attribute& a)
 {
   merge(a);
 
-  m_associatedActions += a.associatedActions();
+  d->associatedActions += a.associatedActions();
 
   return *this;
 }
 
 void Attribute::addRange( SmartRange * range )
 {
-  m_usingRanges.append(range);
+  d->usingRanges.insert(range);
 }
 
 void Attribute::removeRange( SmartRange * range )
 {
-  m_usingRanges.remove(range);
+  d->usingRanges.remove(range);
 }
 
-Attribute * Attribute::dynamicAttribute( ActivationFlags activationFlags ) const
+Attribute * Attribute::dynamicAttribute(ActivationType type) const
 {
-  switch (activationFlags) {
-    case ActivateCaretIn:
-      return m_dynamicAttributes[0];
-    case ActivateCaretOut:
-      return m_dynamicAttributes[1];
-    case ActivateMouseIn:
-      return m_dynamicAttributes[2];
-    case ActivateMouseOut:
-      return m_dynamicAttributes[3];
-    default:
-      return 0L;
-  }
+  if (type < 0 || type > ActivateCaretIn)
+    return 0L;
+
+  return d->dynamicAttributes[type];
+}
+
+void Attribute::setDynamicAttribute( ActivationType type, Attribute * attribute, bool takeOwnership )
+{
+  if (type < 0 || type > ActivateCaretIn)
+    return;
+
+  if (d->ownsDynamicAttributes[type])
+    delete d->dynamicAttributes[type];
+
+  d->dynamicAttributes[type] = attribute;
+  d->ownsDynamicAttributes[type] = takeOwnership;
 }
 
 QBrush Attribute::outline( ) const
@@ -134,12 +155,17 @@ void Attribute::setFontBold( bool bold )
 
 void Attribute::clearAssociatedActions( )
 {
-  m_associatedActions.clear();
+  d->associatedActions.clear();
 }
 
 bool Attribute::hasAnyProperty( ) const
 {
   return properties().count();
+}
+
+const QList< KAction * > & Attribute::associatedActions( ) const
+{
+  return d->associatedActions;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

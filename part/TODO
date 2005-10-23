@@ -22,6 +22,8 @@ TODO:
   keeping the document consistent all the time
 
   -> DONE ;) whitespaces are no cleaned at load time, the magic clean on save stuff is gone
+  Ah, but there are bugs:
+  * indenting a block of text will create whitespace on lines that were empty to start with
 
 * BiDi finally, using Scribe
   * just needs porting of deprecated calls, and testing
@@ -35,8 +37,10 @@ TODO:
         * multiple edits for one logical edit
         * multiple logical edits for one undo step
     * fix passive changes to cursors/ranges
-      * make SmartManager pass on requested notifications
-        * including most specific edited range notification (quite important!)
+      * extra regression testing needed to check that notifications work across SmartGroup boundaries
+      * implement feedback requirement tree
+    * add a QVariant as data store for 3rd party apps
+    * D-pointer consideration
     * move back any excessively exposed parts of the smart ranges and cursors
     * testcases
     * performances testing suite

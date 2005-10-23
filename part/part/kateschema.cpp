@@ -1207,7 +1207,7 @@ void KateStyleListItem::initStyle()
   {
     is = new KTextEditor::Attribute (*ds);
 
-    if (st->properties().count())
+    if (st->hasAnyProperty())
       *is += *st;
   }
 }

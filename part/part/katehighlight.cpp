@@ -2898,7 +2898,7 @@ void KateHighlighting::clearAttributeArrays ()
       KateHlItemData *itemData = itemDataList.at(z);
       KTextEditor::Attribute n = *defaultStyleList.at(itemData->defStyleNum);
 
-      if (itemData && itemData->properties().count())
+      if (itemData && itemData->hasAnyProperty())
         n += *itemData;
 
       (*array)[z] = n;
@@ -2937,7 +2937,7 @@ QVector<KTextEditor::Attribute> *KateHighlighting::attributes (uint schema)
     KateHlItemData *itemData = itemDataList.at(z);
     KTextEditor::Attribute n = *defaultStyleList.at(itemData->defStyleNum);
 
-    if (itemData && itemData->properties().count())
+    if (itemData && itemData->hasAnyProperty())
       n += *itemData;
 
     (*array)[z] = n;

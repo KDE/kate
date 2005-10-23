@@ -92,6 +92,8 @@ class KateViewInternal : public QWidget
 
     void tagAll ();
 
+    void updateDirty();
+
     void clear ();
   //END
 
@@ -122,6 +124,7 @@ class KateViewInternal : public QWidget
   private slots:
     void scrollLines(int line); // connected to the sliderMoved of the m_lineScroll
     void scrollViewLines(int offset);
+    void scrollAction(int action);
     void scrollNextPage();
     void scrollPrevPage();
     void scrollPrevLine();
@@ -204,7 +207,7 @@ class KateViewInternal : public QWidget
     void scrollPos(KTextEditor::Cursor& c, bool force = false, bool calledExternally = false);
     void scrollLines( int lines, bool sel );
 
-    uint linesDisplayed() const;
+    int linesDisplayed() const;
 
     int lineToY(uint viewLine) const;
 

@@ -25,8 +25,7 @@ TODO:
 
 * BiDi finally, using Scribe
   * just needs porting of deprecated calls, and testing
-  * noticed a redraw bug when scrolling (grey, black areas) ? why
-  * return to dirty-lines-only drawing
+  * fix remaining redraw bugs while scrolling (grey, black areas)
 
 * Finally implement arbitrary highlighting and arbitrary input filtering
   * Smart Cursors and Ranges todo list:
@@ -45,8 +44,6 @@ TODO:
     * make a translation snapshot feature where you can translate any cursor from a certain point in time - would be very cool :)
     * code cleanup
       * add advance{Pos|Line|Column} functions and replace the set*(*+x) calls
-
-* API Review for {Smart|}{Cursor|Range}
 
 * Switch internal highlighting to use arbitrary highlighting api and thus be
   exposed (read-only)
@@ -68,7 +65,7 @@ TODO:
   * Remove assumptions about the fixed height of lines (the difficult part? maybe not so hard seeing it supports dynamic wrapping)
   * Expose via an interface
 
-* KateFoldingTree* to use smart cursors
+* KateFoldingTree* to use smart*
 
 * Splitting a view over multiple columns
 

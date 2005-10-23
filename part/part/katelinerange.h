@@ -97,8 +97,6 @@ private:
     int m_virtualLine;
     int m_shiftX;
 
-    bool m_dirty : 1;
-
     QTextLayout* m_layout;
     QList<bool> m_dirtyList;
 };

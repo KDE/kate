@@ -29,6 +29,7 @@ KateLayoutCache::KateLayoutCache(KateRenderer* renderer)
   : m_renderer(renderer)
   , m_startPos(-1,-1)
   , m_viewWidth(0)
+  , m_wrap(false)
 {
   Q_ASSERT(m_renderer);
 }
@@ -43,36 +44,39 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
 
   enableLayoutCache = true;
 
-  m_startPos = startPos;
-  int realLine = m_renderer->doc()->getRealLine(m_startPos.line());
+  int realLine = m_renderer->doc()->getRealLine(startPos.line());
   int _viewLine = 0;
 
-  // TODO check these assumptions are ok... probably they don't give much speedup anyway?
-  if (startPos == m_startPos && m_textLayouts.count()) {
-    _viewLine = m_textLayouts.first().viewLine();
+  if (wrap()) {
+    // TODO check these assumptions are ok... probably they don't give much speedup anyway?
+    if (startPos == m_startPos && m_textLayouts.count()) {
+      _viewLine = m_textLayouts.first().viewLine();
 
-  } else if (viewLinesScrolled > 0 && m_textLayouts.count() > viewLinesScrolled) {
-    _viewLine = m_textLayouts[viewLinesScrolled].viewLine();
+    } else if (viewLinesScrolled > 0 && viewLinesScrolled < m_textLayouts.count()) {
+      _viewLine = m_textLayouts[viewLinesScrolled].viewLine();
 
-  } else {
-    KateLineLayoutPtr l = line(realLine);
-    if (l) {
-      Q_ASSERT(l->isValid());
-      Q_ASSERT(l->length() >= m_startPos.column() || m_renderer->view()->wrapCursor());
+    } else {
+      KateLineLayoutPtr l = line(realLine);
+      if (l) {
+        Q_ASSERT(l->isValid());
+        Q_ASSERT(l->length() >= startPos.column() || m_renderer->view()->wrapCursor());
 
-      for (; _viewLine < l->viewLineCount(); ++_viewLine) {
-        const KateTextLayout& t = l->viewLine(_viewLine);
-        if (t.startCol() >= m_startPos.column() || _viewLine == l->viewLineCount() - 1)
-          goto foundViewLine;
+        for (; _viewLine < l->viewLineCount(); ++_viewLine) {
+          const KateTextLayout& t = l->viewLine(_viewLine);
+          if (t.startCol() >= startPos.column() || _viewLine == l->viewLineCount() - 1)
+            goto foundViewLine;
+        }
+
+        // FIXME FIXME need to calculate past-end-of-line position here...
+        Q_ASSERT(false);
+
+        foundViewLine:
+        Q_ASSERT(true);
       }
-
-      // FIXME FIXME need to calculate past-end-of-line position here...
-      Q_ASSERT(false);
-
-      foundViewLine:
-      Q_ASSERT(true);
     }
   }
+
+  m_startPos = startPos;
 
   // Move the text layouts if we've just scrolled...
   if (viewLinesScrolled != 0) {
@@ -80,32 +84,8 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
     bool forwards = viewLinesScrolled >= 0 ? true : false;
     for (int z = forwards ? 0 : m_textLayouts.count() - 1; forwards ? (z < m_textLayouts.count()) : (z >= 0); forwards ? z++ : z--) {
       int oldZ = z + viewLinesScrolled;
-      if (oldZ >= 0 && oldZ < m_textLayouts.count()) {
+      if (oldZ >= 0 && oldZ < m_textLayouts.count())
         m_textLayouts[z] = m_textLayouts[oldZ];
-
-      } /*else {
-        if (forwards) {
-          if (m_textLayouts[z-1].wrap()) {
-            m_textLayouts.append(m_textLayouts[z-1].kateLineLayout()->viewLine(m_textLayouts[z-1].viewLine() + 1));
-          } else {
-            KateLineLayoutPtr l = line(m_textLayouts[z-1].line() + 1);
-            if (!l)
-              m_textLayouts[z] = KateTextLayout::invalid();
-            else
-              m_textLayouts[z] = l->viewLine(0);
-          }
-        } else {
-          if (m_textLayouts[z+1].viewLine()) {
-            m_textLayouts[z] = m_textLayouts[z+1].kateLineLayout()->viewLine(m_textLayouts[z+1].viewLine() - 1);
-          } else {
-            KateLineLayoutPtr l = line(m_textLayouts[z+1].line() - 1);
-            if (!l)
-              m_textLayouts[z] = KateTextLayout::invalid();
-            else
-              m_textLayouts[z] = l->viewLine(-1);
-          }
-        }
-      }*/
     }
   }
 
@@ -161,97 +141,6 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
   enableLayoutCache = false;
 }
 
-/*void KateLayoutCache::scrollViewCache( int viewLinesScrolled )
-{
-  // Move the text layouts if we've just scrolled...
-  if (viewLinesScrolled == 0)
-    return;
-
-  enableLayoutCache = true;
-  // loop backwards if we've just scrolled up...
-  bool forwards = viewLinesScrolled >= 0 ? true : false;
-  for (int z = forwards ? 0 : m_textLayouts.count() - 1; forwards ? (z < m_textLayouts.count()) : (z >= 0); forwards ? z++ : z--) {
-    int oldZ = z + viewLinesScrolled;
-    if (oldZ >= 0 && oldZ < m_textLayouts.count()) {
-      m_textLayouts[z] = m_textLayouts[oldZ];
-
-    } else {
-      if (forwards) {
-        if (m_textLayouts[z-1].wrap()) {
-          m_textLayouts.append(m_textLayouts[z-1].kateLineLayout()->viewLine(m_textLayouts[z-1].viewLine() + 1));
-        } else {
-          KateLineLayoutPtr l = line(m_textLayouts[z-1].line() + 1);
-          if (!l)
-            m_textLayouts[z] = KateTextLayout::invalid();
-          else
-            m_textLayouts[z] = l->viewLine(0);
-        }
-      } else {
-        if (m_textLayouts[z+1].viewLine()) {
-          m_textLayouts[z] = m_textLayouts[z+1].kateLineLayout()->viewLine(m_textLayouts[z+1].viewLine() - 1);
-        } else {
-          KateLineLayoutPtr l = line(m_textLayouts[z+1].line() - 1);
-          if (!l)
-            m_textLayouts[z] = KateTextLayout::invalid();
-          else
-            m_textLayouts[z] = l->viewLine(-1);
-        }
-      }
-    }
-  }
-  enableLayoutCache = false;
-
-  m_startPos = m_textLayouts.first().start();
-}
-
-void KateLayoutCache::setViewCacheStartPos( const KTextEditor::Cursor & newStartPos )
-{
-  if (newStartPos == m_startPos)
-    return;
-
-  m_startPos = newStartPos;
-
-  int _line = newStartPos.line();
-  int _viewLine = 0;
-  KateLineLayoutPtr l = line(_line);
-  for (int i = 0; i < viewCacheLineCount(); ++i) {
-    if (!l) {
-      m_textLayouts[i] = KateTextLayout::invalid();
-      continue;
-    }
-
-    Q_ASSERT(l->isValid());
-
-    if (!i) {
-      Q_ASSERT(l->length() >= m_startPos.column());
-
-      for (; _viewLine < l->viewLineCount(); ++_viewLine) {
-        const KateTextLayout& t = l->viewLine(_viewLine);
-        if (t.startCol() >= m_startPos.column() || _viewLine == l->viewLineCount() - 1) {
-          m_textLayouts[i] = t;
-          break;
-        }
-      }
-    } else {
-      Q_ASSERT(_viewLine < l->viewLineCount());
-      m_textLayouts[i] = l->viewLine(_viewLine);
-    }
-
-    //kdDebug() << k_funcinfo << "Laid out line " << _line << " (" << l << "), viewLine " << _viewLine << " (" << m_textLayouts[i].kateLineLayout().data() << ")" << endl;
-    //m_textLayouts[i].debugOutput();
-
-    _viewLine++;
-
-    if (_viewLine > l->viewLineCount() - 1) {
-      _line++;
-      _viewLine = 0;
-      l = line(_line);
-    }
-  }
-
-  //kdDebug() << k_funcinfo << "Laid out lines from pos " << m_startPos.line() << "," << m_startPos.column() << " to " << _line << ", viewLine " << _viewLine << endl;
-}*/
-
 KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine ) const
 {
   if (m_lineLayouts.contains(realLine)) {
@@ -259,7 +148,7 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine ) const
     if (virtualLine != -1)
       l->setVirtualLine(virtualLine);
     if (!l->isValid())
-      m_renderer->layoutLine(l, m_viewWidth, enableLayoutCache);
+      m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
     Q_ASSERT(l->isValid());
     return l;
   }
@@ -269,7 +158,7 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine ) const
 
   KateLineLayoutPtr l = new KateLineLayout(m_renderer->doc());
   l->setLine(realLine, virtualLine);
-  m_renderer->layoutLine(l, m_viewWidth, enableLayoutCache);
+  m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
   Q_ASSERT(l->isValid());
 
   m_lineLayouts.insert(realLine, l);
@@ -521,4 +410,15 @@ void KateLayoutCache::setViewWidth( int width )
         const_cast<KateLineLayout*>(it.value().data())->invalidateLayout();
     }
   }
+}
+
+bool KateLayoutCache::wrap( ) const
+{
+  return m_wrap;
+}
+
+void KateLayoutCache::setWrap( bool wrap )
+{
+  m_wrap = wrap;
+  clear();
 }

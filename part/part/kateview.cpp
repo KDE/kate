@@ -1234,8 +1234,10 @@ void KateView::clear ()
 
 void KateView::repaintText (bool paintOnlyDirty)
 {
-  m_viewInternal->update ();
-  //m_viewInternal->paintText(0,0,m_viewInternal->width(),m_viewInternal->height(), paintOnlyDirty);
+  if (paintOnlyDirty)
+    m_viewInternal->updateDirty();
+  else
+    m_viewInternal->update();
 }
 
 void KateView::updateView (bool changed)

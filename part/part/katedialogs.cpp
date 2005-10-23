@@ -824,7 +824,9 @@ void KateViewDefaultsConfig::reload ()
   m_scrollBarMarks->setChecked(KateViewConfig::global()->scrollBarMarks());
   m_folding->setChecked(KateViewConfig::global()->foldingBar());
   //m_bmSort->setButton( KateViewConfig::global()->bookmarkSort() );
-  ((QRadioButton*)(m_bmSort->layout()->itemAt(KateViewConfig::global()->bookmarkSort())->widget()))->setChecked(true);
+  QLayoutItem* bookmarkItem = m_bmSort->layout()->itemAt(KateViewConfig::global()->bookmarkSort());
+  if (bookmarkItem)
+    static_cast<QRadioButton*>(bookmarkItem->widget())->setChecked(true);
   m_showIndentLines->setChecked(KateRendererConfig::global()->showIndentationLines());
 }
 

@@ -657,7 +657,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     }
 
     // draw word-wrap-honor-indent filling
-    if (range->viewLineCount() && range->shiftX() && range->shiftX() > xStart)
+    if (range->viewLineCount() > 1 && range->shiftX() && range->shiftX() > xStart)
     {
       paint.fillRect(0, fs->fontHeight, range->shiftX() - xStart, fs->fontHeight * (range->viewLineCount() - 1),
         QBrush(config()->wordWrapMarkerColor(), Qt::DiagCrossPattern));
@@ -667,8 +667,8 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     if (drawCaret() && cursor && range->includesCursor(*cursor)) {
       // Make the caret the desired width
       int caretWidth = 2;
+      QTextLine line = range->layout()->lineForTextPosition(cursor->column());
       if (caretStyle() == Replace) {
-        QTextLine line = range->layout()->lineForTextPosition(cursor->column());
         caretWidth = int(line.cursorToX(cursor->column() + 1) - line.cursorToX(cursor->column()));
         if (caretWidth < 0)
           caretWidth = -caretWidth;
@@ -689,6 +689,9 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
       paint.save();
       paint.setPen(QPen(c, caretWidth));
+
+      // Clip the caret - Qt's caret has a habit of intruding onto other lines
+      paint.setClipRect(0, line.lineNumber() * fs->fontHeight, xEnd - xStart, fs->fontHeight);
 
       // Draw the cursor, start drawing in the middle as the above sets the width from the centre of the line
       range->layout()->drawCursor(&paint, QPoint(caretWidth/2 - xStart,0), cursor->column());

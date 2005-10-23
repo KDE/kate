@@ -31,7 +31,6 @@ KateLineLayout::KateLineLayout(KateDocument* doc)
   , m_line(-1)
   , m_virtualLine(-1)
   , m_shiftX(0)
-  , m_dirty(true)
   , m_layout(0L)
 {
   Q_ASSERT(doc);
@@ -177,7 +176,12 @@ KateTextLayout KateLineLayout::viewLine( int viewLine ) const
 
 int KateLineLayout::width( ) const
 {
-  return (int)layout()->boundingRect().width();
+  int width = 0;
+
+  for (int i = 0; i < m_layout->lineCount(); ++i)
+    width = qMax((int)m_layout->lineAt(i).naturalTextWidth(), width);
+
+  return width;
 }
 
 bool KateLineLayout::isOutsideDocument( ) const

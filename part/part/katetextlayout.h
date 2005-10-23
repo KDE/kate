@@ -86,6 +86,7 @@ class KateTextLayout
 
     int m_viewLine;
     mutable int m_startX;
+    bool m_invalidDirty;
 };
 
 #endif

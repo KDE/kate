@@ -27,7 +27,7 @@ class KateRenderer;
 namespace KTextEditor { class Document; }
 
 /**
- * This class handles kate's caching of layouting information (in KateLineLayout
+ * This class handles Kate's caching of layouting information (in KateLineLayout
  * and KateTextLayout).  This information is used primarily by both the view and
  * the renderer.
  *
@@ -38,7 +38,7 @@ namespace KTextEditor { class Document; }
  * caches for separate views of the same document, even for view and printer
  * (if the renderer is made to support rendering onto different targets).
  *
- * @author Hamish Rodda
+ * @author Hamish Rodda \<rodda@kde.org\>
  */
 class KateLayoutCache
 {
@@ -49,6 +49,9 @@ class KateLayoutCache
 
     int viewWidth() const;
     void setViewWidth(int width);
+
+    bool wrap() const;
+    void setWrap(bool wrap);
 
     // BEGIN generic methods to get/set layouts
     /**
@@ -126,6 +129,7 @@ private:
     mutable QVector<KateTextLayout> m_textLayouts;
 
     int m_viewWidth;
+    bool m_wrap;
 };
 
 #endif

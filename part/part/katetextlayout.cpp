@@ -27,6 +27,7 @@ KateTextLayout::KateTextLayout(KateLineLayoutPtr line, int viewLine)
   : m_lineLayout(line)
   , m_viewLine(viewLine)
   , m_startX(m_viewLine ? -1 : 0)
+  , m_invalidDirty(true)
 {
   if (isValid())
     m_textLayout = m_lineLayout->layout()->lineAt(m_viewLine);
@@ -35,7 +36,7 @@ KateTextLayout::KateTextLayout(KateLineLayoutPtr line, int viewLine)
 bool KateTextLayout::isDirty( ) const
 {
   if (!isValid())
-    return true;
+    return m_invalidDirty;
 
   return m_lineLayout->isDirty(viewLine());
 }
@@ -43,7 +44,7 @@ bool KateTextLayout::isDirty( ) const
 bool KateTextLayout::setDirty( bool dirty )
 {
   if (!isValid())
-    return true;
+    return (m_invalidDirty = dirty);
 
   return m_lineLayout->setDirty(viewLine(), dirty);
 }

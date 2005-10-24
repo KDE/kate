@@ -289,4 +289,17 @@ SmartRange* KTextEditor::Range::toSmartRange( ) const
   return 0L;
 }
 
+Range KTextEditor::Range::intersect( const Range & range ) const
+{
+  if (*this > range || *this < range)
+    return invalid();
+
+  return Range(qMax(start(), range.start()), qMin(end(), range.end()));
+}
+
+Range KTextEditor::Range::encompass( const Range & range ) const
+{
+  return Range(qMin(start(), range.start()), qMax(end(), range.end()));
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

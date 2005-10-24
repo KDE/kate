@@ -75,6 +75,22 @@ void SmartRangeWatcher::deleted( SmartRange * )
 {
 }
 
+void SmartRangeWatcher::mouseEntered( KTextEditor::SmartRange * , KTextEditor::View * )
+{
+}
+
+void SmartRangeWatcher::mouseExited( KTextEditor::SmartRange * , KTextEditor::View * )
+{
+}
+
+void SmartRangeWatcher::caretEntered( KTextEditor::SmartRange * , KTextEditor::View * )
+{
+}
+
+void SmartRangeWatcher::caretExited( KTextEditor::SmartRange * , KTextEditor::View * )
+{
+}
+
 #include "rangefeedback.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

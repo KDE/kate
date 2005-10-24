@@ -18,6 +18,8 @@
 
 #include "smartrange.h"
 
+#include <QStack>
+
 #include "document.h"
 #include "view.h"
 #include "attribute.h"
@@ -40,6 +42,21 @@ SmartRange::SmartRange(SmartCursor* start, SmartCursor* end, SmartRange * parent
     m_parentRange->expandToRange(*this);
     m_parentRange->insertChildRange(this);
   }
+}
+
+SmartRange::~SmartRange( )
+{
+  deleteChildRanges();
+
+  setParentRange(0L);
+  setAttribute(0L);
+
+  /*if (!m_deleteCursors)
+  {
+    // Save from deletion in the parent
+    m_start = 0L;
+    m_end = 0L;
+  }*/
 }
 
 bool SmartRange::confineToRange(const Range& range)
@@ -76,19 +93,6 @@ void SmartRange::setRange(const Range& range)
   Range::setRange(range);
 
   rangeChanged(0L, old);
-}
-
-SmartRange::~SmartRange( )
-{
-  setParentRange(0L);
-  setAttribute(0L);
-
-  /*if (!m_deleteCursors)
-  {
-    // Save from deletion in the parent
-    m_start = 0L;
-    m_end = 0L;
-  }*/
 }
 
 const QList<SmartRange*>& SmartRange::childRanges() const
@@ -143,6 +147,9 @@ void SmartRange::removeChildRange(SmartRange* newChild)
 
 SmartRange * SmartRange::mostSpecificRange( const Range & input ) const
 {
+  if (!input.isValid())
+    return 0L;
+
   if (contains(input)) {
     foreach (SmartRange* r, m_childRanges)
       if (r->contains(input))
@@ -160,6 +167,9 @@ SmartRange * SmartRange::mostSpecificRange( const Range & input ) const
 
 SmartRange * SmartRange::firstRangeContaining( const Cursor & pos ) const
 {
+  if (!pos.isValid())
+    return 0L;
+
   switch (positionRelativeToCursor(pos)) {
     case 0:
       if (parentRange() && parentRange()->contains(pos))
@@ -197,40 +207,54 @@ SmartRange * SmartRange::firstRangeContaining( const Cursor & pos ) const
   }
 }
 
-SmartRange * SmartRange::deepestRangeContaining( const Cursor & pos ) const
+SmartRange * SmartRange::deepestRangeContaining( const Cursor & pos, QStack<SmartRange*>* rangesEntered, QStack<SmartRange*>* rangesExited ) const
+{
+  if (!pos.isValid())
+    return 0L;
+
+  return deepestRangeContainingInternal(pos, rangesEntered, rangesExited, true);
+}
+
+SmartRange * SmartRange::deepestRangeContainingInternal( const Cursor & pos, QStack<SmartRange*>* rangesEntered, QStack<SmartRange*>* rangesExited, bool first ) const
 {
   switch (positionRelativeToCursor(pos)) {
     case 0:
+      if (!first && rangesEntered)
+        rangesEntered->push(const_cast<SmartRange*>(this));
+
       foreach (SmartRange* r, m_childRanges)
-        if (r->contains(pos)) {
-          SmartRange* j;
-          j = r->deepestRangeContaining(pos);
-          return j;
-        }
+        if (r->contains(pos))
+          return r->deepestRangeContainingInternal(pos, rangesEntered, rangesExited);
 
       return const_cast<SmartRange*>(this);
 
     case -1:
+      if (rangesExited)
+        rangesExited->push(const_cast<SmartRange*>(this));
+
       if (!parentRange())
         return 0L;
 
       if (!parentRange()->contains(pos))
-        return parentRange()->deepestRangeContaining(pos);
+        return parentRange()->deepestRangeContainingInternal(pos, rangesEntered, rangesExited);
 
       if (const SmartRange* r = parentRange()->childAfter(this))
-        return r->deepestRangeContaining(pos);
+        return r->deepestRangeContainingInternal(pos, rangesEntered, rangesExited);
 
       return 0L;
 
     case 1:
+      if (rangesExited)
+        rangesExited->push(const_cast<SmartRange*>(this));
+
       if (!parentRange())
         return 0L;
 
       if (!parentRange()->contains(pos))
-        return parentRange()->deepestRangeContaining(pos);
+        return parentRange()->deepestRangeContainingInternal(pos, rangesEntered, rangesExited);
 
       if (const SmartRange* r = parentRange()->childBefore(this))
-        return r->firstRangeContaining(pos);
+        return r->deepestRangeContainingInternal(pos, rangesEntered, rangesExited);
 
       return 0L;
 
@@ -245,7 +269,7 @@ Document* SmartRange::document( ) const
   return smartStart().document();
 }
 
-void SmartRange::attachAction( KAction * action )
+void SmartRange::associateAction( KAction * action )
 {
   m_associatedActions.append(action);
 
@@ -260,11 +284,17 @@ void SmartRange::attachAction( KAction * action )
     checkFeedback();
 }
 
-void SmartRange::detachAction( KAction * action )
+void SmartRange::dissociateAction( KAction * action )
 {
-  m_associatedActions.removeAt(m_associatedActions.indexOf(action));
+  m_associatedActions.removeAll(action);
   if (!m_associatedActions.count())
     checkFeedback();
+}
+
+void KTextEditor::SmartRange::clearAssociatedActions( )
+{
+  m_associatedActions.clear();
+  checkFeedback();
 }
 
 SmartRange::InsertBehaviours SmartRange::insertBehaviour( ) const
@@ -318,15 +348,15 @@ void SmartRange::setParentRange( SmartRange * r )
 
 void SmartRange::setAttribute( Attribute * attribute, bool ownsAttribute )
 {
-  if (m_attribute)
-    m_attribute->removeRange(this);
+  //if (m_attribute)
+    //m_attribute->removeRange(this);
 
   if (m_ownsAttribute) delete m_attribute;
 
   m_attribute = attribute;
   m_ownsAttribute = ownsAttribute;
-  if (m_attribute)
-    m_attribute->addRange(this);
+  //if (m_attribute)
+    //m_attribute->addRange(this);
 }
 
 Attribute * SmartRange::attribute( ) const
@@ -411,6 +441,17 @@ bool KTextEditor::SmartRange::isSmartRange( ) const
 SmartRange* KTextEditor::SmartRange::toSmartRange( ) const
 {
   return const_cast<SmartRange*>(this);
+}
+
+bool KTextEditor::SmartRange::hasParent( SmartRange * parent ) const
+{
+  if (parentRange() == parent)
+    return true;
+
+  if (parentRange())
+    return parentRange()->hasParent(parent);
+
+  return false;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

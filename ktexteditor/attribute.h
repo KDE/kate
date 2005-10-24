@@ -51,6 +51,8 @@ class SmartRange;
  * redrawn.  Once you have finished changing properties, you should
  * call changed() to force redrawing of affected ranges of text.
  *
+ * \todo consider if tracking which ranges use this attribute is needed
+ *
  * \sa SmartInterface
  *
  * \author Hamish Rodda \<rodda@kde.org\>
@@ -92,6 +94,8 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
       SelectedBackground,
       /// Determines whether background color is drawn over whitespace. Defaults to true.
       BackgroundFillWhitespace,
+      /// Defined to allow storage of dynamic effect information
+      AttributeDynamicEffect = 0x10A00,
       /// Defined to allow 3rd party code to create their own custom attributes - you may use values at or above this property.
       AttributeUserProperty = 0x110000
     };
@@ -199,32 +203,32 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
     bool hasAnyProperty() const;
     // END
 
-    // BEGIN Action attachment
+    // BEGIN Action association
     /**
      * \}
-     * \name Action attachment
+     * \name Action association
      *
      * The following functions allow for KActions to be associated with attributes,
      * and thus with ranges which use this attribute.
      * \{
      */
     /**
-     * Attach an action to this attribute.  When assigned to a range, this attribute
-     * will enable the attached action(s) when the caret enters the range, and
+     * Associate an action with this attribute.  When assigned to a range, this attribute
+     * will enable the associated action(s) when the caret enters the range, and
      * disable them on exit.  The action is also added to the context menu when
      * the caret is within an associated range.
      *
-     * \param action KAction to attach to this Attribute
+     * \param action KAction to associate with this Attribute
      */
-    void attachAction(KAction* action);
+    void associateAction(KAction* action);
 
     /**
-     * Remove an action from this attribute; it will no longer be managed by associated
-     * ranges.
+     * Remove the association with an action from this attribute; it will no
+     * longer be managed by associated ranges.
      *
-     * \param action KAction to detach from this Attribute
+     * \param action KAction to dissociate from this Attribute
      */
-    void detachAction(KAction* action);
+    void dissociateAction(KAction* action);
 
     /**
      * Returns a list of currently associated KActions.
@@ -250,6 +254,15 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
       /// Activate attribute on caret in
       ActivateCaretIn
     };
+
+    enum Effect {
+      EffectNone          = 0x0,
+      EffectFadeIn        = 0x1,
+      EffectFadeOut       = 0x2,
+      EffectPulse         = 0x4,
+      EffectCycleGradient = 0x8
+    };
+    Q_DECLARE_FLAGS(Effects, Effect)
     /**
      * \name Dynamic highlighting
      *
@@ -275,10 +288,13 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
      * \param type the activation type to set the attribute for
      * \param attribute the attribute to assign
      * \param takeOwnership Set to true when this object should take ownership
-     *                      of \p attribute. If \e true, \p attribute will be
+     *                      of \a attribute. If \e true, \a attribute will be
      *                      deleted when this attribute is deleted.
      */
     void setDynamicAttribute(ActivationType type, Attribute* attribute, bool takeOwnership = false);
+
+    Effects effects() const;
+    void setEffects(Effects effects);
     //!\}
     // END
 
@@ -296,19 +312,20 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
      * \internal
      * Add a range using this attribute.
      * \param range range using this attribute.
-     */
+     *
     void addRange(SmartRange* range);
-    /**
+    **
      * \internal
      * Remove a range which is no longer using this attribute.
      * \param range range no longer using this attribute.
-     */
-    void removeRange(SmartRange* range);
+     *
+    void removeRange(SmartRange* range);*/
 
   private:
     class AttributePrivate* d;
 };
 
+Q_DECLARE_OPERATORS_FOR_FLAGS(Attribute::Effects)
 }
 
 #endif

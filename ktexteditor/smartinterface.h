@@ -52,7 +52,7 @@ class SmartCursor;
  * the Document with which they were associated.  Alternatively, they are all
  * deleted with the deletion of the owning Document.
  *
- * \section highlight Arbitrary Highlighting Interface
+ * \section highlight Arbitrary Highlighting
  * Arbitrary highlighting of text can be achieved by creating SmartRanges in a
  * tree structure, and assigning appropriate Attributes to these ranges.
  *
@@ -61,7 +61,7 @@ class SmartCursor;
  * per tree; just supply the top range you want to have highlighted.  Calling
  * this function more than once with ranges from the same tree may give undefined results.
  *
- * \section action Action Binding Interface
+ * \section action Action Binding
  * Action binding can be used to associate KActions with specific ranges of text.
  * These bound actions are automatically enabled and disabled when the caret enters
  * their associated ranges, and context menus are automatically populated with the
@@ -80,7 +80,7 @@ class SmartCursor;
  * \todo extend this to provide a signal from the action indicating which range was
  *       used to activate it (if possible)
  *
- * \section access Accessing the Smart Interface
+ * \section access Accessing the interface
  *
  * The SmartInterface is supposed to be an extension interface for a Document,
  * i.e. the Document inherits the interface @e provided that the 
@@ -283,8 +283,9 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * and that it should be rendered on all of the views of a document.
      *
      * \param topRange the top range of the tree to add
+     * \param supportDynamic support dynamic highlighting attributes
      */
-    virtual void addHighlightToDocument(SmartRange* topRange) = 0;
+    virtual void addHighlightToDocument(SmartRange* topRange, bool supportDynamic = false) = 0;
 
     /**
      * Remove a SmartRange tree from providing arbitrary highlighting information
@@ -312,8 +313,9 @@ class KTEXTEDITOR_EXPORT SmartInterface
      *
      * \param view view on which to render the highlight
      * \param topRange the top range of the tree to add
+     * \param supportDynamic support dynamic highlighting attributes
      */
-    virtual void addHighlightToView(View* view, SmartRange* topRange) = 0;
+    virtual void addHighlightToView(View* view, SmartRange* topRange, bool supportDynamic = false) = 0;
 
     /**
      * Remove a SmartRange tree from providing arbitrary highlighting information

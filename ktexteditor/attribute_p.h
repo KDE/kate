@@ -20,7 +20,7 @@
 #define KDELIBS_KTEXTEDITOR_ATTRIBUTE_P_H
 
 #include <QList>
-#include <QSet>
+//#include <QSet>
 
 #include "attribute.h"
 
@@ -35,7 +35,7 @@ class AttributePrivate
     AttributePrivate();
     ~AttributePrivate();
 
-    QSet<SmartRange*> usingRanges;
+    //QSet<SmartRange*> usingRanges;
     QList<KAction*> associatedActions;
     Attribute* dynamicAttributes[Attribute::ActivateCaretIn];
     bool ownsDynamicAttributes[Attribute::ActivateCaretIn];

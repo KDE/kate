@@ -24,6 +24,8 @@
 
 #include <QList>
 
+template <class T> class QStack;
+
 class KAction;
 
 namespace KTextEditor
@@ -254,7 +256,8 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      *
      * \return a pointer to the current parent range
      */
-    inline SmartRange* parentRange() const { return m_parentRange; }
+    inline SmartRange* parentRange() const
+      { return m_parentRange; }
 
     /**
      * Set this range's parent range.
@@ -267,12 +270,29 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     virtual void setParentRange(SmartRange* r);
 
     /**
+     * Determine whether \a parent is a parent of this range.
+     *
+     * \param parent range to check to see if it is a parent of this range.
+     *
+     * \return \e true if \a parent is in the parent heirachy, otherwise \e false.
+     */
+    bool hasParent(SmartRange* parent) const;
+
+    /**
      * Calculate the current depth of this range.
      *
      * \return the depth of this range, where 0 is no parent, 1 is one parent, etc.
      */
     inline int depth() const
       { return m_parentRange ? m_parentRange->depth() + 1 : 0; }
+
+    /**
+     * Returns the range's top parent range, or this range if there are no parents.
+     *
+     * \return a pointer to the top parent range
+     */
+    inline SmartRange* topParentRange() const
+      { return parentRange() ? parentRange()->topParentRange() : const_cast<SmartRange*>(this); }
 
     /**
      * Get the ordered list of child ranges.
@@ -342,14 +362,22 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     SmartRange* firstRangeContaining(const Cursor& pos) const;
 
     /**
-     * Finds the deepest child range which contains position \p pos.
+     * Finds the deepest range in the heirachy which contains position \p pos.
+     * Allows the caller to determine which ranges were entered and exited
+     * by providing pointers to QStack<SmartRange*>.
      *
      * \param pos the cursor position to use in searching
+     * \param rangesEntered provide a QStack<SmartRange*> here to find out
+     *                      which ranges were entered during the traversal.
+     *                      The top item was the first descended.
+     * \param rangesExited provide a QStack<SmartRange*> here to find out
+     *                     which ranges were exited during the traversal.
+     *                     The top item was the first exited.
      *
      * \return the deepest range (from and including this range) which
-     *         contains \p pos
+     *         contains \p pos, or null if no ranges contain this position.
      */
-    SmartRange* deepestRangeContaining(const Cursor& pos) const;
+    SmartRange* deepestRangeContaining(const Cursor& pos, QStack<SmartRange*>* rangesEntered = 0L, QStack<SmartRange*>* rangesExited = 0L) const;
     // END
 
     // BEGIN Arbitrary highlighting
@@ -390,20 +418,22 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * \{
      */
     /**
-     * Attach an action to this range.  This will enable the attached action(s)
-     * when the caret enters the range, and disable them on exit.  The action
-     * is also added to the context menu when the caret is within the range.
+     * Associate an action with this range.  The associated action(s) will be
+     * enabled when the caret enters the range, and disabled them on exit.
+     * The action is also added to the context menu when the mouse/caret is within
+     * an associated range.
      *
-     * \param action action to attach to this range
+     * \param action KAction to associate with this range
      */
-    void attachAction(KAction* action);
+    void associateAction(KAction* action);
 
     /**
-     * Detach an action from this range.
+     * Remove the association with an action from this range; it will no
+     * longer be managed.
      *
-     * \param action action to detach from this range
+     * \param action KAction to dissociate from this range
      */
-    void detachAction(KAction* action);
+    void dissociateAction(KAction* action);
 
     /**
      * Access the list of currently associated KActions.
@@ -412,6 +442,11 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      */
     const QList<KAction*>& associatedActions() const
       { return m_associatedActions; }
+
+    /**
+     * Clears all associations between KActions and this range.
+     */
+    void clearAssociatedActions();
     // END
 
     // BEGIN Notification methods
@@ -524,6 +559,12 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     /**
      * \internal
+     * Implementation of deepestRangeContaining().
+     */
+    SmartRange* deepestRangeContainingInternal(const Cursor& pos, QStack<SmartRange*>* rangesEntered, QStack<SmartRange*>* rangesExited, bool first = false) const;
+
+    /**
+     * \internal
      *
      * New child classes call this to register themselves.
      */
@@ -572,7 +613,6 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     bool m_ownsAttribute :1;
 };
 
-/// Operators for QFlags - SmartRange::InsertBehaviours
 Q_DECLARE_OPERATORS_FOR_FLAGS(SmartRange::InsertBehaviours)
 
 }

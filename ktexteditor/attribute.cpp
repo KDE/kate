@@ -56,7 +56,7 @@ Attribute& Attribute::operator+=(const Attribute& a)
   return *this;
 }
 
-void Attribute::addRange( SmartRange * range )
+/*void Attribute::addRange( SmartRange * range )
 {
   d->usingRanges.insert(range);
 }
@@ -64,7 +64,7 @@ void Attribute::addRange( SmartRange * range )
 void Attribute::removeRange( SmartRange * range )
 {
   d->usingRanges.remove(range);
-}
+}*/
 
 Attribute * Attribute::dynamicAttribute(ActivationType type) const
 {
@@ -88,8 +88,8 @@ void Attribute::setDynamicAttribute( ActivationType type, Attribute * attribute,
 
 QBrush Attribute::outline( ) const
 {
-  if (properties().contains(Outline))
-    return qVariantValue<QBrush>(properties()[Outline]);
+  if (hasProperty(Outline))
+    return qVariantValue<QBrush>(property(Outline));
 
   return QBrush();
 }
@@ -101,8 +101,8 @@ void Attribute::setOutline( const QBrush & brush )
 
 QBrush Attribute::selectedForeground( ) const
 {
-  if (properties().contains(SelectedForeground))
-    return qVariantValue<QBrush>(properties()[SelectedForeground]);
+  if (hasProperty(SelectedForeground))
+    return qVariantValue<QBrush>(property(SelectedForeground));
 
   return QBrush();
 }
@@ -114,8 +114,8 @@ void Attribute::setSelectedForeground( const QBrush & foreground )
 
 bool Attribute::backgroundFillWhitespace( ) const
 {
-  if (properties().contains(BackgroundFillWhitespace))
-    return properties()[BackgroundFillWhitespace].toBool();
+  if (hasProperty(BackgroundFillWhitespace))
+    return boolProperty(BackgroundFillWhitespace);
 
   return true;
 }
@@ -127,7 +127,7 @@ void Attribute::setBackgroundFillWhitespace( bool fillWhitespace )
 
 QBrush Attribute::selectedBackground( ) const
 {
-  if (properties().contains(SelectedBackground))
+  if (hasProperty(SelectedBackground))
     return qVariantValue<QBrush>(properties()[SelectedBackground]);
 
   return QBrush();
@@ -166,6 +166,19 @@ bool Attribute::hasAnyProperty( ) const
 const QList< KAction * > & Attribute::associatedActions( ) const
 {
   return d->associatedActions;
+}
+
+Attribute::Effects KTextEditor::Attribute::effects( ) const
+{
+  if (hasProperty(AttributeDynamicEffect))
+    return static_cast<Effects>(intProperty(AttributeDynamicEffect));
+
+  return EffectNone;
+}
+
+void KTextEditor::Attribute::setEffects( Effects effects )
+{
+  setProperty(AttributeDynamicEffect, static_cast<int>(effects));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

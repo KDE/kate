@@ -426,6 +426,26 @@ class KTEXTEDITOR_EXPORT Range
     // END
 
     /**
+     * Intersects this range with another, returning the shared area of
+     * the two ranges.
+     *
+     * \param range other range to intersect with this
+     *
+     * \return the intersection of this range and the supplied \a range.
+     */
+    Range intersect(const Range& range) const;
+
+    /**
+     * Returns the smallest range which encompasses this range and the
+     * supplied \a range.
+     *
+     * \param range other range to encompass
+     *
+     * \return the smallest range which contains this range and the supplied \a range.
+     */
+    Range encompass(const Range& range) const;
+
+    /**
      * Assignment operator. Same as setRange().
      *
      * @param rhs range to assign to this range.
@@ -481,6 +501,27 @@ class KTEXTEDITOR_EXPORT Range
      */
     inline friend Range& operator-=(Range& r1, const Range& r2)
       { r1.setRange(r1.start() - r2.start(), r1.end() - r2.end()); return r1; }
+
+    /**
+     * Intersects \a r1 and \a r2.
+     *
+     * \param r1 the first range
+     * \param r2 the second range
+     *
+     * \return the intersected range, invalid() if there is no overlap
+     */
+    inline friend Range operator&(const Range& r1, const Range& r2)
+      { return r1.intersect(r2); }
+
+    /**
+     * Intersects this range with \a r1 and assigns the result.
+     *
+     * \param r1 the range to intersect
+     *
+     * \return a reference to this range, after the intersection has taken place
+     */
+    inline friend Range& operator&=(Range& r1, const Range& r2)
+      { r1.setRange(r1.intersect(r2)); return r1; }
 
     /**
      * Equality operator.

@@ -26,6 +26,7 @@
 namespace KTextEditor
 {
 class SmartRange;
+class View;
 
 /**
  * \short A class which provides notifications of state changes to a SmartRange via QObject signals.
@@ -93,6 +94,54 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
      *                          the furthest descendant of this range.
      */
     void contentsChanged(KTextEditor::SmartRange* range, KTextEditor::SmartRange* mostSpecificChild);
+
+    /**
+     * The mouse cursor on \a view entered \p range.
+     *
+     * \todo For now, to receive this notification, the range heirachy must be registered with
+     * the SmartInterface as for arbitrary highlighting with dynamic highlighting.
+     * Need to add another (and probably simplify existing) method.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param view view over which the mouse moved to generate the notification
+     */
+    void mouseEntered(KTextEditor::SmartRange* range, KTextEditor::View* view);
+
+    /**
+     * The mouse cursor on \a view exited \p range.
+     *
+     * \todo For now, to receive this notification, the range heirachy must be registered with
+     * the SmartInterface as for arbitrary highlighting with dynamic highlighting.
+     * Need to add another (and probably simplify existing) method.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param view view over which the mouse moved to generate the notification
+     */
+    void mouseExited(KTextEditor::SmartRange* range, KTextEditor::View* view);
+
+    /**
+     * The caret on \a view entered \p range.
+     *
+     * \todo For now, to receive this notification, the range heirachy must be registered with
+     * the SmartInterface as for arbitrary highlighting with dynamic highlighting.
+     * Need to add another (and probably simplify existing) method.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param view view over which the mouse moved to generate the notification
+     */
+    void caretEntered(KTextEditor::SmartRange* range, KTextEditor::View* view);
+
+    /**
+     * The caret on \a view exited \p range.
+     *
+     * \todo For now, to receive this notification, the range heirachy must be registered with
+     * the SmartInterface as for arbitrary highlighting with dynamic highlighting.
+     * Need to add another (and probably simplify existing) method.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param view view over which the mouse moved to generate the notification
+     */
+    void caretExited(KTextEditor::SmartRange* range, KTextEditor::View* view);
 
     /**
      * The range now contains no characters (ie. the start and end cursors are the same).
@@ -180,6 +229,54 @@ class KTEXTEDITOR_EXPORT SmartRangeWatcher
      *                          the furthest descendant of this range.
      */
     virtual void contentsChanged(SmartRange* range, SmartRange* mostSpecificChild);
+
+    /**
+     * The mouse cursor on \a view entered \p range.
+     *
+     * \todo For now, to receive this notification, the range heirachy must be registered with
+     * the SmartInterface as for arbitrary highlighting with dynamic highlighting.
+     * Need to add another (and probably simplify existing) method.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param view view over which the mouse moved to generate the notification
+     */
+    virtual void mouseEntered(KTextEditor::SmartRange* range, KTextEditor::View* view);
+
+    /**
+     * The mouse cursor on \a view exited \p range.
+     *
+     * \todo For now, to receive this notification, the range heirachy must be registered with
+     * the SmartInterface as for arbitrary highlighting with dynamic highlighting.
+     * Need to add another (and probably simplify existing) method.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param view view over which the mouse moved to generate the notification
+     */
+    virtual void mouseExited(KTextEditor::SmartRange* range, KTextEditor::View* view);
+
+    /**
+     * The caret on \a view entered \p range.
+     *
+     * \todo For now, to receive this notification, the range heirachy must be registered with
+     * the SmartInterface as for arbitrary highlighting with dynamic highlighting.
+     * Need to add another (and probably simplify existing) method.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param view view over which the mouse moved to generate the notification
+     */
+    virtual void caretEntered(KTextEditor::SmartRange* range, KTextEditor::View* view);
+
+    /**
+     * The caret on \a view exited \p range.
+     *
+     * \todo For now, to receive this notification, the range heirachy must be registered with
+     * the SmartInterface as for arbitrary highlighting with dynamic highlighting.
+     * Need to add another (and probably simplify existing) method.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param view view over which the mouse moved to generate the notification
+     */
+    virtual void caretExited(KTextEditor::SmartRange* range, KTextEditor::View* view);
 
     /**
      * The range now contains no characters (ie. the start and end cursors are the same).

@@ -1054,6 +1054,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
     QVector<int> foldingList;
     bool ctxChanged = false;
 
+    // FIXME using .get is BAD but doHighlight uses prevLine-- !!
     m_highlight->doHighlight (prevLine.get(), textLine.get(), &foldingList, &ctxChanged);
 
     // debug stuff

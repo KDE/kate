@@ -29,6 +29,10 @@ TODO:
   * just needs porting of deprecated calls, and testing
   * fix remaining redraw bugs while scrolling (grey, black areas)
 
+* Fix word wrap indicators
+
+* Test mouse smartcursor (in kateviewinternal)
+
 * Finally implement arbitrary highlighting and arbitrary input filtering
   * Smart Cursors and Ranges todo list:
     * change edit notification to come as KTextEditor::EditInfo or similar

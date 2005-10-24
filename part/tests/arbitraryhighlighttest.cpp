@@ -23,15 +23,15 @@
 #include <ktexteditor/rangefeedback.h>
 #include <ktexteditor/attribute.h>
 
+#include <QTimer>
+
 using namespace KTextEditor;
 
 ArbitraryHighlightTest::ArbitraryHighlightTest(Document* parent)
   : QObject(parent)
-  , m_topRange(smart()->newSmartRange(parent->documentRange()))
+  , m_topRange(0L)
 {
-  smart()->addHighlightToDocument(m_topRange);
-  m_topRange->setInsertBehaviour(SmartRange::ExpandRight);
-  connect(m_topRange->notifier(), SIGNAL(contentsChanged(KTextEditor::SmartRange*, KTextEditor::SmartRange*)), SLOT(slotRangeChanged(KTextEditor::SmartRange*, KTextEditor::SmartRange*)));
+  QTimer::singleShot(0, this, SLOT(slotCreateTopRange()));
 }
 
 ArbitraryHighlightTest::~ArbitraryHighlightTest()
@@ -59,13 +59,18 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
       ranges[i] = new Attribute();
       ranges[i]->setBackground(QColor(0xFF - (i * 0x20), 0xFF, 0xFF));
     }
-    ranges[2]->setFontBold();
-    ranges[2]->setForeground(Qt::red);
-    ranges[3]->setFontUnderline(true);
-    ranges[3]->setSelectedForeground(Qt::magenta);
-    ranges[4]->setFontStrikeOut(true);
-    ranges[5]->setOutline(Qt::blue);
-    ranges[5]->setForeground(Qt::white);
+    //ranges[2]->setFontBold();
+    //ranges[2]->setForeground(Qt::red);
+
+    Attribute* dyn = new Attribute();
+    dyn->setBackground(Qt::blue);
+    ranges[2]->setDynamicAttribute(Attribute::ActivateMouseIn, dyn, true);
+
+    //ranges[3]->setFontUnderline(true);
+    //ranges[3]->setSelectedForeground(Qt::magenta);
+    //ranges[4]->setFontStrikeOut(true);
+    //ranges[5]->setOutline(Qt::blue);
+    //ranges[5]->setForeground(Qt::white);
   }
 
   SmartRange* currentRange = mostSpecificChild;
@@ -115,5 +120,21 @@ void ArbitraryHighlightTest::outputRange( KTextEditor::SmartRange * range, KText
     outputRange(child, mostSpecific);
 }
 
+void ArbitraryHighlightTest::slotRangeDeleted( KTextEditor::SmartRange * )
+{
+  m_topRange = 0L;
+  QTimer::singleShot(0, this, SLOT(slotCreateTopRange()));
+}
+
+void ArbitraryHighlightTest::slotCreateTopRange( )
+{
+  m_topRange = smart()->newSmartRange(static_cast<Document*>(parent())->documentRange());
+  smart()->addHighlightToDocument(m_topRange, true);
+  m_topRange->setInsertBehaviour(SmartRange::ExpandRight);
+  connect(m_topRange->notifier(), SIGNAL(contentsChanged(KTextEditor::SmartRange*, KTextEditor::SmartRange*)), SLOT(slotRangeChanged(KTextEditor::SmartRange*, KTextEditor::SmartRange*)));
+  connect(m_topRange->notifier(), SIGNAL(rangeDeleted(KTextEditor::SmartRange*)), SLOT(slotRangeDeleted(KTextEditor::SmartRange*)));
+
+  slotRangeChanged(m_topRange, m_topRange);
+}
 
 #include "arbitraryhighlighttest.moc"

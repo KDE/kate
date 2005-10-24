@@ -253,26 +253,31 @@ class KateView : public KTextEditor::View,
   // Arbitrary Syntax HL + Action extensions
   //
   public:
-    // BEGIN Syntax highlighting extension
-    void addExternalHighlight(KTextEditor::SmartRange* topRange);
-    void removeExternalHighlight(KTextEditor::SmartRange* topRange);
+    // Syntax highlighting extension
+    void addExternalHighlight(KTextEditor::SmartRange* topRange, bool supportDynamic);
     const QList<KTextEditor::SmartRange*>& externalHighlights() const;
     void clearExternalHighlights();
 
     void addInternalHighlight(KTextEditor::SmartRange* topRange);
     void removeInternalHighlight(KTextEditor::SmartRange* topRange);
     const QList<KTextEditor::SmartRange*>& internalHighlights() const;
-    // END
 
-    // BEGIN Action binding extension
+    // Action association extension
     void addActions(KTextEditor::SmartRange* topRange);
-    void removeActions(KTextEditor::SmartRange* topRange);
     const QList<KTextEditor::SmartRange*>& actions() const;
     void clearActions();
-    // END
+
+  signals:
+    void dynamicHighlightAdded(KateSmartRange* range);
+    void dynamicHighlightRemoved(KateSmartRange* range);
+
+  public slots:
+    void removeExternalHighlight(KTextEditor::SmartRange* topRange);
+    void removeActions(KTextEditor::SmartRange* topRange);
 
   private:
     QList<KTextEditor::SmartRange*> m_externalHighlights;
+    QList<KTextEditor::SmartRange*> m_externalHighlightsDynamic;
     QList<KTextEditor::SmartRange*> m_internalHighlights;
     QList<KTextEditor::SmartRange*> m_actions;
 

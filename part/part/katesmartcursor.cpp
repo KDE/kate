@@ -30,6 +30,7 @@ KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEdito
   , m_oldGroupLineStart(-1)
   , m_lastPosition(position)
   , m_isInternal(false)
+  , m_ignoreTranslation(false)
   , m_notifier(0L)
   , m_watcher(0L)
 {
@@ -50,6 +51,7 @@ KateSmartCursor::KateSmartCursor( KTextEditor::Document * doc, bool moveOnInsert
   , m_feedbackEnabled(false)
   , m_oldGroupLineStart(-1)
   , m_isInternal(false)
+  , m_ignoreTranslation(false)
   , m_notifier(0L)
   , m_watcher(0L)
 {
@@ -182,6 +184,11 @@ bool KateSmartCursor::translate( const KateEditInfo & edit )
   if (*this < edit.start())
     return false;
 
+  if (ignoreTranslation()) {
+    setPositionInternal(invalid());
+    return true;
+  }
+
   // If this cursor is on a line affected by the edit
   if (edit.oldRange().overlapsLine(line())) {
     // If this cursor is at the start of the edit
@@ -230,7 +237,7 @@ void KateSmartCursor::setLineInternal( int newLine, bool internal )
 
 void KateSmartCursor::translated(const KateEditInfo & edit)
 {
-  if (*this < edit.start()) {
+  if (*this < edit.start() || ignoreTranslation()) {
     if (!range() || !static_cast<KateSmartRange*>(range())->feedbackEnabled())
       m_lastPosition = *this;
     return;

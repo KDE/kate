@@ -48,6 +48,7 @@
 #include <qregexp.h>
 #include <qtextcodec.h>
 #include <QMouseEvent>
+#include <QPainterPath>
 
 #include <math.h>
 
@@ -822,31 +823,29 @@ int KateIconBorder::lineNumberWidth() const
         h = m_view->renderer()->config()->fontMetrics()->ascent();
 
         p.setPen(m_view->renderer()->attribute(0)->foreground());
-        p.drawLine(w/2, h/2, w/2, 0);
+        //p.drawLine(w/2, h/2, w/2, 0);
 
-#ifdef __GNUC__
-#warning port this to QT 4
-#endif
-#if 0
 #if 1
-        p.lineTo(w/4, h/4);
-        p.lineTo(0, 0);
-        p.lineTo(0, h/2);
-        p.lineTo(w/2, h-1);
-        p.lineTo(w*3/4, h-1);
-        p.lineTo(w-1, h*3/4);
-        p.lineTo(w*3/4, h/2);
-        p.lineTo(0, h/2);
+        QPainterPath path;
+        path.lineTo(w/4, h/4);
+        path.lineTo(0, 0);
+        path.lineTo(0, h/2);
+        path.lineTo(w/2, h-1);
+        path.lineTo(w*3/4, h-1);
+        path.lineTo(w-1, h*3/4);
+        path.lineTo(w*3/4, h/2);
+        path.lineTo(0, h/2);
+
+        p.drawPath(path);
 #else
-        p.lineTo(w*3/4, h/4);
-        p.lineTo(w-1,0);
-        p.lineTo(w-1, h/2);
-        p.lineTo(w/2, h-1);
-        p.lineTo(w/4,h-1);
-        p.lineTo(0, h*3/4);
-        p.lineTo(w/4, h/2);
-        p.lineTo(w-1, h/2);
-#endif
+        path.lineTo(w*3/4, h/4);
+        path.lineTo(w-1,0);
+        path.lineTo(w-1, h/2);
+        path.lineTo(w/2, h-1);
+        path.lineTo(w/4,h-1);
+        path.lineTo(0, h*3/4);
+        path.lineTo(w/4, h/2);
+        path.lineTo(w-1, h/2);
 #endif
       }
     }

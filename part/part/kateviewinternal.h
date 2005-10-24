@@ -25,6 +25,8 @@
 #ifndef _KATE_VIEW_INTERNAL_
 #define _KATE_VIEW_INTERNAL_
 
+#include <ktexteditor/attribute.h>
+
 #include "katesmartcursor.h"
 #include "katelinerange.h"
 #include "katetextline.h"
@@ -34,6 +36,7 @@
 #include <QTimer>
 #include <QDrag>
 #include <QWidget>
+#include <QSet>
 
 class KateView;
 class KateIconBorder;
@@ -385,6 +388,22 @@ class KateViewInternal : public QWidget
   private:
     KTextEditor::Range m_imPreedit;
     KTextEditor::Cursor m_imPreeditSelStart;
+
+  // Dynamic highlighting
+  private:
+    void mouseMoved();
+    void startDynamic(KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
+    void endDynamic(KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
+
+  public slots:
+    void dynamicHighlightAdded(KateSmartRange* range);
+    void dynamicHighlightRemoved(KateSmartRange* range);
+    void rangeDeleted(KateSmartRange* range);
+
+  private:
+    QList<KateSmartRange*> m_dynamicHighlights;
+    QSet<KateSmartRange*> m_currentCaretRanges;
+    QSet<KateSmartRange*> m_currentMouseRanges;
 };
 
 #endif

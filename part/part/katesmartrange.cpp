@@ -23,6 +23,7 @@
 #include <ktexteditor/attribute.h>
 #include "katerangetype.h"
 #include "katesmartmanager.h"
+#include "kateviewinternal.h"
 
 #include <kdebug.h>
 
@@ -30,8 +31,6 @@ KateSmartRange::KateSmartRange(const KTextEditor::Range& range, KateDocument* do
   : KTextEditor::SmartRange(new KateSmartCursor(range.start(), doc), new KateSmartCursor(range.end(), doc), parent, insertBehaviour)
   , m_notifier(0L)
   , m_watcher(0L)
-  , m_attachedView(0L)
-  , m_attachActions(TagLines)
 //  , m_feedbackLevel(NoFeedback)
   , m_mouseOver(false)
   , m_caretOver(false)
@@ -43,8 +42,6 @@ KateSmartRange::KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* paren
   : KTextEditor::SmartRange(new KateSmartCursor(doc), new KateSmartCursor(doc), parent)
   , m_notifier(0L)
   , m_watcher(0L)
-  , m_attachedView(0L)
-  , m_attachActions(TagLines)
 //  , m_feedbackLevel(NoFeedback)
   , m_mouseOver(false)
   , m_caretOver(false)
@@ -56,8 +53,6 @@ KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, 
   : KTextEditor::SmartRange(start, end, parent, insertBehaviour)
   , m_notifier(0L)
   , m_watcher(0L)
-  , m_attachedView(0L)
-  , m_attachActions(TagLines)
 //  , m_feedbackLevel(NoFeedback)
   , m_mouseOver(false)
   , m_caretOver(false)
@@ -71,35 +66,9 @@ KateSmartRange::~KateSmartRange()
     kateDocument()->smartManager()->rangeDeleted(this);
 }
 
-void KateSmartRange::attachToView(KateView* view, int actions)
-{
-  m_attachedView = view;
-  m_attachActions = actions;
-}
-
 bool KateSmartRange::isValid() const
 {
   return start() <= end();
-}
-
-void KateSmartRange::slotMousePositionChanged(const KTextEditor::Cursor& newPosition)
-{
-  bool includesMouse = contains(newPosition);
-  if (includesMouse != m_mouseOver) {
-    m_mouseOver = includesMouse;
-
-    //slotTagRange();
-  }
-}
-
-void KateSmartRange::slotCaretPositionChanged(const KTextEditor::Cursor& newPosition)
-{
-  bool includesCaret = contains(newPosition);
-  if (includesCaret != m_caretOver) {
-    m_caretOver = includesCaret;
-
-    //slotTagRange();
-  }
 }
 
 void KateSmartRange::checkFeedback( )
@@ -148,6 +117,9 @@ KTextEditor::SmartRangeNotifier* KateSmartRange::notifier()
 
 void KateSmartRange::deleteNotifier()
 {
+  if (m_notifier && m_notifier->connectedInternally())
+    return;
+
   delete m_notifier;
   m_notifier = 0L;
   checkFeedback();
@@ -269,6 +241,16 @@ void KateSmartRange::unbindAndDelete( )
 void KateSmartRange::setInternal( )
 {
   m_isInternal = true;
+}
+
+void KateSmartRangeNotifier::setConnectedInternally( )
+{
+  m_connectedInternally = true;
+}
+
+bool KateSmartRangeNotifier::connectedInternally( ) const
+{
+  return m_connectedInternally;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

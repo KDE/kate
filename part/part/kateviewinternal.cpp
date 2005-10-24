@@ -50,6 +50,7 @@
 #include <QWheelEvent>
 #include <QMouseEvent>
 #include <QClipboard>
+#include <QStack>
 
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view)
@@ -105,6 +106,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   // cursor
   m_cursor.setMoveOnInsert (true);
+  m_mouse.setIgnoreTranslation();
 
   // invalidate m_selectionCached.start(), or keyb selection is screwed initially
   m_selectionCached = KTextEditor::Range::invalid();
@@ -196,6 +198,11 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   // selection changed to set anchor
   connect( m_view, SIGNAL( selectionChanged(KTextEditor::View*) ),
              this, SLOT( viewSelectionChanged() ) );
+
+  connect(m_doc, SIGNAL(dynamicHighlightAdded(KateSmartRange*)), SLOT(dynamicHighlightAdded(KateSmartRange*)));
+  connect(m_doc, SIGNAL(dynamicHighlightRemoved(KateSmartRange*)), SLOT(dynamicHighlightRemoved(KateSmartRange*)));
+  connect(m_view, SIGNAL(dynamicHighlightAdded(KateSmartRange*)), SLOT(dynamicHighlightAdded(KateSmartRange*)));
+  connect(m_view, SIGNAL(dynamicHighlightRemoved(KateSmartRange*)), SLOT(dynamicHighlightRemoved(KateSmartRange*)));
 
   // update is called in KateView, after construction and layout is over
   // but before any other kateviewinternal call
@@ -1518,7 +1525,7 @@ int KateViewInternal::maxLen(uint startLine)
   for (int z = 0; z < displayLines; z++) {
     int virtualLine = startLine + z;
 
-    if (virtualLine < 0 || virtualLine >= m_doc->visibleLines())
+    if (virtualLine < 0 || virtualLine >= (int)m_doc->visibleLines())
       break;
 
     maxLen = qMax(maxLen, cache()->line(m_doc->getRealLine(virtualLine))->width());
@@ -2321,12 +2328,14 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
 void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
 {
   // FIXME only do this if needing to track mouse movement
-  /*const KateTextLayout& thisLine = yToKateTextLayout(e->y());
+  const KateTextLayout& thisLine = yToKateTextLayout(e->y());
   if (thisLine.isValid()) {
-    m_mouse.setPosition(renderer()->xToCursor(thisLine, e->x(), !view()->wrapCursor()));
-  } else {
-    m_mouse.setPosition(KTextEditor::Cursor(0,0));
-  }*/
+    KTextEditor::Cursor newPosition = renderer()->xToCursor(thisLine, e->x(), !view()->wrapCursor());
+    if (newPosition != m_mouse) {
+      m_mouse = newPosition;
+      mouseMoved();
+    }
+  }
 
   if( e->state() & Qt::LeftButton )
   {
@@ -2895,6 +2904,100 @@ KTextEditor::Cursor KateViewInternal::toVirtualCursor( const KTextEditor::Cursor
 KateRenderer * KateViewInternal::renderer( ) const
 {
   return m_view->renderer();
+}
+
+void KateViewInternal::dynamicHighlightAdded( KateSmartRange * range )
+{
+  m_dynamicHighlights.append(range);
+  m_currentCaretRanges.insert(static_cast<KateSmartRange*>(range->deepestRangeContaining(m_cursor)));
+
+  if (m_mouse.isValid())
+    if (KateSmartRange* r = static_cast<KateSmartRange*>(range->deepestRangeContaining(m_cursor))) {
+      m_currentMouseRanges.insert(r);
+      return;
+    }
+
+  m_currentMouseRanges.insert(range);
+}
+
+void KateViewInternal::dynamicHighlightRemoved( KateSmartRange * range )
+{
+  m_dynamicHighlights.remove(range);
+
+  foreach (KateSmartRange* r, m_currentCaretRanges)
+    if (r->hasParent(range)) {
+      m_currentCaretRanges.remove(r);
+      break;
+    }
+
+  foreach (KateSmartRange* r, m_currentMouseRanges)
+    if (r->hasParent(range)) {
+      m_currentMouseRanges.remove(r);
+      break;
+    }
+}
+
+void KateViewInternal::rangeDeleted( KateSmartRange * range )
+{
+  if (m_currentCaretRanges.contains(range)) {
+    m_currentCaretRanges.remove(range);
+    if (range->parentRange())
+      m_currentCaretRanges.insert(static_cast<KateSmartRange*>(range->parentRange()));
+  }
+
+  if (m_currentMouseRanges.contains(range)) {
+    m_currentMouseRanges.remove(range);
+    if (range->parentRange())
+      m_currentMouseRanges.insert(static_cast<KateSmartRange*>(range->parentRange()));
+  }
+}
+
+void KateViewInternal::startDynamic( KateSmartRange * range, KTextEditor::Attribute::ActivationType type )
+{
+  kdDebug() << k_funcinfo << "Starting dynamic highlighting on " << *range << endl;
+  range->setMouseOver(true);
+
+  tagRange(*range, true);
+  updateDirty();
+}
+
+void KateViewInternal::endDynamic( KateSmartRange * range, KTextEditor::Attribute::ActivationType type )
+{
+  kdDebug() << k_funcinfo << "Ending dynamic highlighting on " << *range << endl;
+  range->setMouseOver(false);
+
+  tagRange(*range, true);
+  updateDirty();
+}
+
+void KateViewInternal::mouseMoved( )
+{
+  //kdDebug() << k_funcinfo << m_mouse << endl;
+
+  typedef QPair<KateSmartRange*,KateSmartRange*> SmartRangePair;
+
+  QList<SmartRangePair> replacements;
+  foreach (KateSmartRange* previousRange, m_currentMouseRanges) {
+    QStack<KTextEditor::SmartRange*> enterStack, exitStack;
+    KTextEditor::SmartRange* newRange = previousRange->deepestRangeContaining(m_mouse, &enterStack, &exitStack);
+    if (newRange != previousRange) {
+      foreach (KTextEditor::SmartRange* exitedRange, exitStack)
+        endDynamic(static_cast<KateSmartRange*>(exitedRange), KTextEditor::Attribute::ActivateMouseIn);
+
+      foreach (KTextEditor::SmartRange* enteredRange, enterStack)
+        // FIXME need to startDynamic on top level ranges that are entered - needs redesign.
+        startDynamic(static_cast<KateSmartRange*>(enteredRange), KTextEditor::Attribute::ActivateMouseIn);
+
+      if (!newRange)
+        newRange = previousRange->topParentRange();
+      replacements.append(SmartRangePair(previousRange, static_cast<KateSmartRange*>(newRange)));
+    }
+  }
+
+  foreach (SmartRangePair pair, replacements) {
+    m_currentMouseRanges.remove(pair.first);
+    m_currentMouseRanges.insert(pair.second);
+  }
 }
 
 #if 0

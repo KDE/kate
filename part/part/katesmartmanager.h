@@ -50,11 +50,11 @@ class KateSmartManager : public QObject
 
     void clear(bool includingInternal);
 
-    KTextEditor::SmartCursor* newSmartCursor(const KTextEditor::Cursor& position, bool moveOnInsert = true, bool internal = true);
+    KateSmartCursor* newSmartCursor(const KTextEditor::Cursor& position, bool moveOnInsert = true, bool internal = true);
     void deleteCursors(bool includingInternal);
 
-    KTextEditor::SmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand, bool internal = true);
-    KTextEditor::SmartRange* newSmartRange(KateSmartCursor* start, KateSmartCursor* end, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand, bool internal = true);
+    KateSmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand, bool internal = true);
+    KateSmartRange* newSmartRange(KateSmartCursor* start, KateSmartCursor* end, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand, bool internal = true);
     void unbindSmartRange(KTextEditor::SmartRange* range);
     void deleteRanges(bool includingInternal);
 
@@ -63,6 +63,9 @@ class KateSmartManager : public QObject
     void rangeDeleted(KateSmartRange* range);
 
     KateSmartGroup* groupForLine(int line) const;
+
+  signals:
+    void signalRangeDeleted(KateSmartRange* range);
 
   private slots:
     void slotTextChanged(KateEditInfo* edit);

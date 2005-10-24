@@ -43,12 +43,16 @@ class KateSmartRangeNotifier : public KTextEditor::SmartRangeNotifier
      */
     bool needsPositionChanges() const;
 
+    bool connectedInternally() const;
+    void setConnectedInternally();
+
   protected:
     virtual void connectNotify(const char* signal);
     virtual void disconnectNotify(const char* signal);
 
   private:
     KateSmartRange* m_owner;
+    bool m_connectedInternally;
 };
 
 /**
@@ -79,6 +83,12 @@ class KateSmartRange : public KTextEditor::SmartRange
     bool isInternal() const { return m_isInternal; }
     void setInternal();
 
+    inline bool isMouseOver() { return m_mouseOver; }
+    inline void setMouseOver(bool mouseOver) { m_mouseOver = mouseOver; }
+
+    inline bool isCaretOver() { return m_caretOver; }
+    inline void setCaretOver(bool caretOver) { m_caretOver = caretOver; }
+
     void unbindAndDelete();
 
     enum AttachActions {
@@ -88,20 +98,9 @@ class KateSmartRange : public KTextEditor::SmartRange
     };
 
     /**
-     * Attach a range to a certain view.  Currently this can only tag and redraw
-     * the view when it changes.  This is the default behaviour when attaching.
-     *
-     * The view can also be 0L, in which case the actions apply to all views.
-     * The default for attachment is FIXME
-     */
-    void attachToView(KateView* view, int actions = TagLines | Redraw);
-
-    /**
      * Start and end must be valid.
      */
     virtual bool isValid() const;
-
-    //virtual void tagRange();
 
     virtual bool hasNotifier() const;
     virtual KTextEditor::SmartRangeNotifier* notifier();
@@ -143,24 +142,14 @@ class KateSmartRange : public KTextEditor::SmartRange
     virtual void checkFeedback();
 
   private:
-    void slotEvaluateChanged();
-    void slotEvaluateUnChanged();
-    void slotMousePositionChanged(const KTextEditor::Cursor& newPosition);
-    void slotCaretPositionChanged(const KTextEditor::Cursor& newPosition);
-
-  private:
     void init();
-    void evaluateEliminated();
-    void evaluatePositionChanged();
 
     KateSmartRangeNotifier* m_notifier;
     KTextEditor::SmartRangeWatcher* m_watcher;
-    KateView* m_attachedView;
-    int m_attachActions;
-    //FeedbackLevels m_feedbackLevel;
-    bool  m_mouseOver             :1,
-          m_caretOver             :1,
-          m_isInternal            :1;
+
+    bool  m_mouseOver   :1,
+          m_caretOver   :1,
+          m_isInternal  :1;
 };
 
 //Q_DECLARE_OPERATORS_FOR_FLAGS(KateSmartRange::FeedbackLevels);

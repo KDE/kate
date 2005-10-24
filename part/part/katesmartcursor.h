@@ -61,6 +61,11 @@ class KateSmartCursor : public KTextEditor::SmartCursor
     bool isInternal() const { return m_isInternal; }
     void setInternal();
 
+    // Ignore translation - used by the mouse cursor
+    // Sets the cursor to invalid() whenever a translation happens
+    inline bool ignoreTranslation() const { return m_ignoreTranslation; }
+    inline void setIgnoreTranslation() { m_ignoreTranslation = true; }
+
     /**
     * Debug: output the position.
     */
@@ -130,7 +135,8 @@ class KateSmartCursor : public KTextEditor::SmartCursor
      */
     Cursor m_lastPosition;
 
-    bool  m_isInternal       : 1;
+    bool  m_isInternal        :1,
+          m_ignoreTranslation :1;
 
     KateSmartCursorNotifier* m_notifier;
     KTextEditor::SmartCursorWatcher* m_watcher;

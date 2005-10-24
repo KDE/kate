@@ -494,21 +494,18 @@ class KateDocument : public KTextEditor::Document,
     virtual void unbindSmartRange(KTextEditor::SmartRange* range);
     virtual void deleteRanges();
 
-    // BEGIN Syntax highlighting extension
-    virtual void addHighlightToDocument(KTextEditor::SmartRange* topRange);
-    virtual void removeHighlightFromDocument(KTextEditor::SmartRange* topRange);
+    // Syntax highlighting extension
+    virtual void addHighlightToDocument(KTextEditor::SmartRange* topRange, bool supportDynamic);
     virtual const QList<KTextEditor::SmartRange*> documentHighlights() const;
     virtual void clearDocumentHighlights();
 
-    virtual void addHighlightToView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
+    virtual void addHighlightToView(KTextEditor::View* view, KTextEditor::SmartRange* topRange, bool supportDynamic);
     virtual void removeHighlightFromView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
     virtual const QList<KTextEditor::SmartRange*> viewHighlights(KTextEditor::View* view) const;
     virtual void clearViewHighlights(KTextEditor::View* view);
-    // END
 
-    // BEGIN Action binding extension
+    // Action association extension
     virtual void addActionsToDocument(KTextEditor::SmartRange* topRange);
-    virtual void removeActionsFromDocument(KTextEditor::SmartRange* topRange);
     virtual const QList<KTextEditor::SmartRange*> documentActions() const;
     virtual void clearDocumentActions();
 
@@ -516,9 +513,16 @@ class KateDocument : public KTextEditor::Document,
     virtual void removeActionsFromView(KTextEditor::View* view, KTextEditor::SmartRange* topRange);
     virtual const QList<KTextEditor::SmartRange*> viewActions(KTextEditor::View* view) const;
     virtual void clearViewActions(KTextEditor::View* view);
-    // END
 
     KateSmartManager* smartManager() const { return m_smartManager; }
+
+  signals:
+    void dynamicHighlightAdded(KateSmartRange* range);
+    void dynamicHighlightRemoved(KateSmartRange* range);
+
+  public slots:
+    virtual void removeHighlightFromDocument(KTextEditor::SmartRange* topRange);
+    virtual void removeActionsFromDocument(KTextEditor::SmartRange* topRange);
 
   protected:
     virtual void attributeDynamic(KTextEditor::Attribute* a);
@@ -527,6 +531,7 @@ class KateDocument : public KTextEditor::Document,
   private:
     KateSmartManager* m_smartManager;
     QList<KTextEditor::SmartRange*> m_documentHighlights;
+    QList<KTextEditor::SmartRange*> m_documentDynamicHighlights;
     QList<KTextEditor::SmartRange*> m_documentActions;
 
   //

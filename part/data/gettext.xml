@@ -23,12 +23,12 @@
   Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
   Boston, MA  02110-1301, USA.
  -->
-<language name="GNU Gettext" version="1.01" kateversion="2.4" section="Markup" extensions="*.po;*.pot" mimetype="application/x-gettext" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language name="GNU Gettext" version="1.02" kateversion="2.4" section="Markup" extensions="*.po;*.pot" mimetype="application/x-gettext" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
 
     <contexts>
       <context name = "Normal" attribute = "Normal Text" lineEndContext="#stay">
-        <RegExpr attribute = "Keyword" String = "^(msgid_plural|msgid|msgstr)" context="#stay"/>
+        <RegExpr attribute = "Keyword" String = "^(msgid_plural|msgid|msgstr|msgctxt)" context="#stay"/>
         <RegExpr attribute = "Automatic Comment" String = "#\..*$" context="#stay" column="0"/>
         <RegExpr attribute = "Reference" String = "#:.*$" context="#stay" column="0"/>
         <RegExpr attribute = "Flag" String = "#,.*$" context="#stay" column="0"/>

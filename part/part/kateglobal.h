@@ -178,7 +178,7 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * public accessor to the instance
      * @return instance
      */
-    KInstance *instance () { return &m_instance; };
+    KInstance *instance () { return &m_instance; }
 
     /**
      * register document at the factory
@@ -210,38 +210,38 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * return a list of all registered docs
      * @return all known documents
      */
-    QList<KateDocument*> &kateDocuments () { return m_documents; };
+    QList<KateDocument*> &kateDocuments () { return m_documents; }
 
     /**
      * return a list of all registered views
      * @return all known views
      */
-    QList<KateView*> &views () { return m_views; };
+    QList<KateView*> &views () { return m_views; }
 
     /**
      * on start detected plugins
      * @return list of all at launch detected ktexteditor::plugins
      */
-    KTrader::OfferList &plugins () { return m_plugins; };
+    const KTrader::OfferList &plugins () { return m_plugins; }
 
     /**
      * global dirwatch
      * @return dirwatch instance
      */
-    KDirWatch *dirWatch () { return m_dirWatch; };
+    KDirWatch *dirWatch () { return m_dirWatch; }
 
     /**
      * global filetype manager
      * used to manage the file types centrally
      * @return filetype manager
      */
-    KateFileTypeManager *fileTypeManager () { return m_fileTypeManager; };
+    KateFileTypeManager *fileTypeManager () { return m_fileTypeManager; }
 
     /**
      * manager for the katepart schemas
      * @return schema manager
      */
-    KateSchemaManager *schemaManager () { return m_schemaManager; };
+    KateSchemaManager *schemaManager () { return m_schemaManager; }
 
     /**
      * fallback document config

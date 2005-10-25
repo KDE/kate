@@ -43,7 +43,7 @@
 #include <klocale.h>
 #include <kshortcut.h>
 
-#include <q3intdict.h>
+#include <qlinkedlist.h>
 #include <qmap.h>
 #include <qdatetime.h>
 #include <QClipboard>

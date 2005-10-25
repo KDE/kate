@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="FreeBASIC" version="0.14" kateversion="2.3" section="Sources" extensions="*.bas" mimetype="text/x-freebasic" author="Chris Neugebauer (chrisjrn@gmail.com)" license="GPL">
+<language name="FreeBASIC" version="0.14" kateversion="2.3" section="Sources" extensions="*.bas;*.bi;*.BAS;*.BI" mimetype="text/x-freebasic" author="Chris Neugebauer (chrisjrn@gmail.com)" license="GPL">
   <highlighting>
     <list name="preproc">
     
@@ -84,6 +84,43 @@
       <item> DEFUBYTE </item>
       <item> DEFUINT </item>
       <item> DEFUSHORT </item>
+      
+      
+      
+      
+    </list>
+    
+    <list name="Assembly Operators">
+      <item> AH </item>
+      <item> AL </item>
+      <item> AX </item>
+      <item> BH </item>
+      <item> BL </item>
+      <item> BP </item>
+      <item> BX </item>
+      <item> CH </item>
+      <item> CL </item>
+      <item> CS </item>
+      <item> CX </item>
+      <item> DH </item>
+      <item> DI </item>
+      <item> DL </item>
+      <item> DS </item>
+      <item> DX </item>
+      <item> EAX </item>
+      <item> EBP </item>
+      <item> EBX </item>
+      <item> ECX </item>
+      <item> EDI </item>
+      <item> EDX </item>
+      <item> ES </item>
+      <item> ESI </item>
+      <item> ESP </item>
+      <item> FS </item>
+      <item> GS </item>
+      <item> SI </item>
+      <item> SP </item>
+      <item> SS </item>
     </list>
     
     <list name="Data Types">  
@@ -92,13 +129,25 @@
       <item> Single </item>
       <item> Double </item>
       <item> String </item>
+      <item> Byte PTR </item>
+      <item> Dword PTR </item>
+      <item> Qword PTR </item>
+      <item> Word PTR </item>
     </list>
         
     <list name="functions">
+      <item> AAA </item>
+      <item> AAD </item>
+      <item> AAM </item>
+      <item> AAS </item>
       <item> ABS </item>
       <item> ACOS </item>
+      <item> ADC </item>
+      <item> ADD </item>
       <item> ALLOCATE </item>
       <item> AND </item>
+      <item> AND </item>
+      <item> ARPL </item>
       <item> ASC </item>
       <item> ASIN </item>
       <item> ASM </item>
@@ -107,21 +156,43 @@
       <item> BEEP </item>
       <item> BIN$ </item>
       <item> BLOAD </item>
+      <item> BOUND </item>
+      <item> BREAK </item>
       <item> BSAVE </item>
+      <item> BSF </item>
+      <item> BSR </item>
+      <item> BSWAP </item>
+      <item> BT </item>
+      <item> BTC </item>
+      <item> BTR </item>
+      <item> BTS </item>
       <item> BYREF </item>
       <item> CALL </item>
       <item> CALLOCATE </item>
       <item> CALLS </item>
+      <item> CBW </item>
       <item> CBYTE </item>
       <item> CDBL </item>
+      <item> CDQ </item>
       <item> CHAIN </item>
       <item> CHDIR </item>
       <item> CHR$ </item>
       <item> CINT </item>
       <item> CIRCLE </item>
+      <item> CLC </item>
+      <item> CLD </item>
       <item> CLEAR </item>
+      <item> CLI </item>
       <item> CLNG </item>
       <item> CLOSE </item>
+      <item> CLTS </item>
+      <item> CMC </item>
+      <item> CMP </item>
+      <item> CMPS </item>
+      <item> CMPSB </item>
+      <item> CMPSD </item>
+      <item> CMPSW </item>
+      <item> CMPXCHG </item>
       <item> COLOR </item>
       <item> COMMAND$ </item>
       <item> COMMON </item>
@@ -137,14 +208,20 @@
       <item> CVI </item>
       <item> CVL </item>
       <item> CVS </item>
+      <item> CWD </item>
+      <item> CWDE </item>
+      <item> DAA </item>
+      <item> DAS </item>
       <item> DATA </item>
       <item> DATE$ </item>
       <item> DEALLOCATE </item>
-      
+      <item> DEC </item>
       <item> DIM </item>
       <item> DIR$ </item>
+      <item> DIV </item>
       <item> DRAW </item>
       <item> END </item>
+      <item> ENTER </item>
       <item> ENUM </item>
       <item> ENVIRON </item>
       <item> ENVIRON$ </item>
@@ -162,26 +239,110 @@
       <item> GETKEY </item>
       <item> GETMOUSE </item>
       <item> HEX$ </item>
+      <item> HLT </item>
+      <item> IDIV </item>
       <item> IMP </item>
+      <item> IMUL </item>
+      <item> IN </item>
+      <item> INC </item>
       <item> INKEY$ </item>
       <item> INP </item>
       <item> INPUT </item>
       <item> INPUT$ </item>
+      <item> INS </item>
+      <item> INSB </item>
+      <item> INSD </item>
       <item> INSTR </item>
       <item> INT </item>
+      <item> INT </item>
+      <item> INTO </item>
+      <item> INVD </item>
+      <item> INVLPG </item>
+      <item> IRET </item>
+      <item> IRETD </item>
+      <item> JA </item>
+      <item> JAE </item>
+      <item> JB </item>
+      <item> JBE </item>
+      <item> JC </item>
+      <item> JCXZ </item>
+      <item> JE </item>
+      <item> JECXZ </item>
+      <item> JG </item>
+      <item> JGE </item>
+      <item> JL </item>
+      <item> JLE </item>
+      <item> JMP </item>
+      <item> JNA </item>
+      <item> JNAE </item>
+      <item> JNB </item>
+      <item> JNBE </item>
+      <item> JNC </item>
+      <item> JNE </item>
+      <item> JNG </item>
+      <item> JNGE </item>
+      <item> JNL </item>
+      <item> JNLE </item>
+      <item> JNO </item>
+      <item> JNP </item>
+      <item> JNS </item>
+      <item> JNZ </item>
+      <item> JO </item>
+      <item> JP </item>
+      <item> JPE </item>
+      <item> JPO </item>
+      <item> JS </item>
+      <item> JUMP </item>
+      <item> JZ </item>
       <item> KILL </item>
+      <item> LAHF </item>
+      <item> LAR </item>
       <item> LBOUND </item>
       <item> LCASE$ </item>
+      <item> LDS </item>
+      <item> LEA </item>
+      <item> LEAVE </item>
+      <item> LEAVED </item>
+      <item> LEAVEW </item>
       <item> LEFT$ </item>
       <item> LEN </item>
+      <item> LES </item>
       <item> LET </item>
+      <item> LFS </item>
+      <item> LGDT </item>
+      <item> LGS </item>
       <item> LIB </item>
+      <item> LIDT </item>
       <item> LINE </item>
+      <item> LLDT </item>
+      <item> LMSW </item>
       <item> LOC </item>
       <item> LOCK </item>
+      <item> LOCK </item>
+      <item> LODS </item>
+      <item> LODSB </item>
+      <item> LODSD </item>
+      <item> LODSW </item>
       <item> LOF </item>
       <item> LOG </item>
+      <item> LOOPD </item>
+      <item> LOOPDE </item>
+      <item> LOOPDNE </item>
+      <item> LOOPDNZ </item>
+      <item> LOOPDZ </item>
+      <item> LOOPE </item>
+      <item> LOOPNE </item>
+      <item> LOOPNZ </item>
+      <item> LOOPW </item>
+      <item> LOOPWE </item>
+      <item> LOOPWNE </item>
+      <item> LOOPWNZ </item>
+      <item> LOOPWZ </item>
+      <item> LOOPZ </item>
       <item> LSET </item>
+      <item> LSL </item>
+      <item> LSS </item>
+      <item> LTR </item>
       <item> LTRIM$ </item>
       <item> MID$ </item>
       <item> MKD$ </item>
@@ -190,14 +351,29 @@
       <item> MKL$ </item>
       <item> MKS$ </item>
       <item> MOD </item>
+      <item> MOV </item>
+      <item> MOVS </item>
+      <item> MOVSB </item>
+      <item> MOVSD </item>
+      <item> MOVSW </item>
+      <item> MOVSX </item>
+      <item> MOVZX </item>
+      <item> MUL </item>
       <item> MULTIKEY </item>
       <item> NAME </item>
+      <item> NEG </item>
+      <item> NOP </item>
       <item> NOT </item>
+      <item> NOTHING </item>
       <item> OCT$ </item>
       <item> OPTION BASE </item>
       <item> OPTION PRIVATE </item>
       <item> OR </item>
       <item> OUT </item>
+      <item> OUTS </item>
+      <item> OUTSB </item>
+      <item> OUTSD </item>
+      <item> OUTSW </item>
       <item> PAINT </item>
       <item> PALETTE </item>
       <item> PCOPY </item>
@@ -209,6 +385,11 @@
       <item> POKE </item>
       <item> POKEI </item>
       <item> POKES </item>
+      <item> POP </item>
+      <item> POPA </item>
+      <item> POPAD </item>
+      <item> POPF </item>
+      <item> POPFD </item>
       <item> POS </item>
       <item> PRESERVE </item>
       <item> PRESET </item>
@@ -218,21 +399,44 @@
       <item> PSET </item>
       <item> PTR </item>
       <item> PUBLIC </item>
+      <item> PUSH </item>
+      <item> PUSHA </item>
+      <item> PUSHAD </item>
+      <item> PUSHF </item>
+      <item> PUSHFD </item>
       <item> PUT </item>
       <item> RANDOMIZE </item>
+      <item> RCL </item>
+      <item> RCR </item>
       <item> REALLOCATE </item>
       <item> REDIM </item>
       <item> REM </item>
+      <item> REP </item>
+      <item> REPE </item>
+      <item> REPNE </item>
+      <item> REPNZ </item>
+      <item> REPZ </item>
       <item> RESET </item>
+      <item> RET </item>
       <item> RETURN </item>
       <item> RGB </item>
       <item> RIGHT$ </item>
       <item> RMDIR </item>
       <item> RND </item>
+      <item> ROL </item>
+      <item> ROR </item>
       <item> RSET </item>
       <item> RTRIM$ </item>
       <item> RUN </item>
       <item> SADD </item>
+      <item> SAHF </item>
+      <item> SAL </item>
+      <item> SAR </item>
+      <item> SBB </item>
+      <item> SCAS </item>
+      <item> SCASB </item>
+      <item> SCASD </item>
+      <item> SCASW </item>
       <item> SCREEN </item>
       <item> SCREENCOPY </item>
       <item> SCREENINFO </item>
@@ -241,24 +445,68 @@
       <item> SCREENSET </item>
       <item> SCREENUNLOCK </item>
       <item> SEEK </item>
+      <item> SETA </item>
+      <item> SETAE </item>
+      <item> SETB </item>
+      <item> SETBE </item>
+      <item> SETC </item>
       <item> SETDATE </item>
+      <item> SETE </item>
       <item> SETENVIRON </item>
+      <item> SETG </item>
+      <item> SETGE </item>
+      <item> SETL </item>
+      <item> SETLE </item>
+      <item> SETNA </item>
+      <item> SETNAE </item>
+      <item> SETNB </item>
+      <item> SETNBE </item>
+      <item> SETNC </item>
+      <item> SETNE </item>
+      <item> SETNG </item>
+      <item> SETNGE </item>
+      <item> SETNL </item>
+      <item> SETNLE </item>
+      <item> SETNO </item>
+      <item> SETNP </item>
+      <item> SETNS </item>
+      <item> SETNZ </item>
+      <item> SETO </item>
+      <item> SETP </item>
+      <item> SETPE </item>
+      <item> SETPO </item>
+      <item> SETS </item>
+      <item> SETZ </item>
+      <item> SGDT </item>
       <item> SGN </item>
       <item> SHARED </item>
       <item> SHELL </item>
       <item> SHL </item>
+      <item> SHLD </item>
       <item> SHR </item>
+      <item> SHRD </item>
+      <item> SIDT </item>
       <item> SIN </item>
+      <item> SLDT </item>
       <item> SLEEP </item>
+      <item> SMSW </item>
       <item> SPACE$ </item>
       <item> SQR </item>
       <item> STATIC </item>
+      <item> STC </item>
+      <item> STD </item>
+      <item> STI </item>
       <item> STOP </item>
+      <item> STOS </item>
+      <item> STOSB </item>
+      <item> STOSD </item>
+      <item> STOSW </item>
+      <item> STR </item>
       <item> STR$ </item>
       <item> STRING$ </item>
       <item> SWAP </item>
       <item> TAN </item>
-      <item> TIME$ </item>
+      <item> TEST </item>
       <item> TIME$ </item>
       <item> TIMER </item>
       <item> TRIM$ </item>
@@ -269,11 +517,18 @@
       <item> UNLOCK </item>
       <item> VAL </item>
       <item> VARPTR </item>
+      <item> VERR </item>
+      <item> VERW </item>
       <item> VIEW </item>
       <item> WAIT </item>
       <item> WINDOWTITLE </item>
       <item> WRITE </item>
+      <item> XADD </item>
+      <item> XCHG </item>
+      <item> XLAT </item>
+      <item> XLATB </item>
       <item> XOR </item>
+    
     </list>
 
     <contexts>

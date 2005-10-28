@@ -178,7 +178,7 @@ Attribute::Effects KTextEditor::Attribute::effects( ) const
 
 void KTextEditor::Attribute::setEffects( Effects effects )
 {
-  setProperty(AttributeDynamicEffect, static_cast<int>(effects));
+  setProperty(AttributeDynamicEffect, QVariant(effects));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -113,7 +113,7 @@ Range::~Range()
 
 bool Range::isValid( ) const
 {
-  return start().line() >= 0 && start().column() >= 0;
+  return start().isValid() && end().isValid();
 }
 
 const Range& Range::invalid()

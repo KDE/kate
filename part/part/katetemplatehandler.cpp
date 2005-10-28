@@ -57,7 +57,7 @@ KateTemplateHandler::KateTemplateHandler(
   hlr->setUnderline(true);
   hlr->setOverline(true);
   l->append(hlr);*/
-  Q3ValueList<KateTemplateHandlerPlaceHolderInfo> buildList;
+  QList<KateTemplateHandlerPlaceHolderInfo> buildList;
   QRegExp rx( "([$%])\\{([^}\\s]+)\\}" );
   rx.setMinimal( true );
   int pos = 0;

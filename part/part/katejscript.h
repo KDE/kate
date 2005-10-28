@@ -26,7 +26,7 @@
 
 #include <kdebug.h>
 
-#include <q3dict.h>
+#include <QHash>
 
 /**
  * Some common stuff
@@ -190,7 +190,7 @@ class KateJScriptManager : public KTextEditor::Command
     /**
      * we need to know somewhere which scripts are around
      */
-    Q3Dict<KateJScriptManager::Script> m_scripts;
+    QHash<QString, KateJScriptManager::Script*> m_scripts;
 };
 
 class KateIndentJScriptImpl: public KateIndentScriptImplAbstract {
@@ -229,7 +229,7 @@ class KateIndentJScriptManager: public KateIndentScriptManagerAbstract
     void collectScripts (bool force = false);
     void parseScriptHeader(const QString &filePath,
         QString *niceName,QString *copyright,double *version);
-    Q3Dict<KateIndentJScriptImpl> m_scripts;
+    QHash<QString, KateIndentJScriptImpl*> m_scripts;
 };
 
 #endif

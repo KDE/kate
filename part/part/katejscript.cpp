@@ -620,12 +620,12 @@ void KateJSView::putValueProperty(KJS::ExecState *exec, int token, const KJS::Va
 
 KateJScriptManager::KateJScriptManager ()
 {
-  m_scripts.setAutoDelete (true);
   collectScripts ();
 }
 
 KateJScriptManager::~KateJScriptManager ()
 {
+  qDeleteAll(m_scripts);
 }
 
 void KateJScriptManager::collectScripts (bool force)
@@ -787,10 +787,9 @@ const QStringList &KateJScriptManager::cmds()
 {
    static QStringList l;
 
-  l.clear ();
-   Q3DictIterator<KateJScriptManager::Script> it( m_scripts );
-   for( ; it.current(); ++it )
-     l << it.current()->name;
+  l.clear();
+  foreach (KateJScriptManager::Script* script, m_scripts)
+    l << script->name;
 
    return l;
 }
@@ -996,12 +995,12 @@ bool KateIndentJScriptImpl::processNewline( class KateView *view, const KateDocC
 //BEGIN KateIndentJScriptManager
 KateIndentJScriptManager::KateIndentJScriptManager():KateIndentScriptManagerAbstract()
 {
-  m_scripts.setAutoDelete (true);
   collectScripts ();
 }
 
 KateIndentJScriptManager::~KateIndentJScriptManager ()
 {
+  qDeleteAll(m_scripts);
 }
 
 void KateIndentJScriptManager::collectScripts (bool force)

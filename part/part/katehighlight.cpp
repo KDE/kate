@@ -1179,7 +1179,6 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
   noHl = false;
   m_foldingIndentationSensitive = false;
   folding=false;
-  internalIDList.setAutoDelete(true);
 
   if (def == 0)
   {
@@ -1226,6 +1225,7 @@ void KateHighlighting::cleanup ()
   qDeleteAll (m_attributeArrays);
   m_attributeArrays.clear ();
   
+  qDeleteAll(internalIDList);
   internalIDList.clear();
 }
 
@@ -1677,11 +1677,14 @@ void KateHighlighting::getKateHlItemDataList (uint schema, KateHlItemDataList &l
   KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName + " - Schema " + KateGlobal::self()->schemaManager()->name(schema));
 
+  qDeleteAll(list);
   list.clear();
   createKateHlItemData(list);
 
-  for (KateHlItemData *p = list.first(); p != 0L; p = list.next())
+  foreach (KateHlItemData *p, list)
   {
+    Q_ASSERT(p);
+
     QStringList s = config->readListEntry(p->name);
 
 //    kdDebug(13010)<<p->name<<s.count()<<endl;
@@ -1733,8 +1736,10 @@ void KateHighlighting::setKateHlItemDataList(uint schema, KateHlItemDataList &li
 
   QStringList settings;
 
-  for (KateHlItemData *p = list.first(); p != 0L; p = list.next())
+  foreach (KateHlItemData *p, list)
   {
+    Q_ASSERT(p);
+
     settings.clear();
     settings<<QString::number(p->defStyleNum,10);
     settings<<(p->hasProperty(QTextFormat::ForegroundBrush)?QString::number(p->foreground().color().rgb(),16):"");
@@ -1882,7 +1887,7 @@ void KateHighlighting::addToKateHlItemDataList()
  */
 int  KateHighlighting::lookupAttrName(const QString& name, KateHlItemDataList &iDl)
 {
-  for (uint i = 0; i < iDl.count(); i++)
+  for (int i = 0; i < iDl.count(); i++)
     if (iDl.at(i)->name == buildPrefix+name)
       return i;
 
@@ -2955,9 +2960,9 @@ void KateHighlighting::getKateHlItemDataListCopy (uint schema, KateHlItemDataLis
   KateHlItemDataList itemDataList;
   getKateHlItemDataList(schema, itemDataList);
 
+  qDeleteAll(outlist);
   outlist.clear ();
-  outlist.setAutoDelete (true);
-  for (uint z=0; z < itemDataList.count(); z++)
+  for (int z=0; z < itemDataList.count(); z++)
     outlist.append (new KateHlItemData (*itemDataList.at(z)));
 }
 

@@ -72,7 +72,7 @@ class KateEmbeddedHlInfo
 // some typedefs
 typedef Q3PtrList<KTextEditor::Attribute> KateAttributeList;
 typedef Q3ValueList<KateHlIncludeRule*> KateHlIncludeRules;
-typedef Q3PtrList<KateHlItemData> KateHlItemDataList;
+typedef QList<KateHlItemData*> KateHlItemDataList;
 typedef QMap<QString,KateEmbeddedHlInfo> KateEmbeddedHlInfos;
 typedef QMap<int*,QString> KateHlUnresolvedCtxRefs;
 

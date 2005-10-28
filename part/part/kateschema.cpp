@@ -779,10 +779,13 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   m_styles->viewport()->setPalette( p );
 
   Q3Dict<KateStyleListCaption> prefixes;
-  for ( KateHlItemData *itemData = m_hlDict[m_schema][m_hl]->last();
-        itemData != 0L;
-        itemData = m_hlDict[m_schema][m_hl]->prev())
+  KateHlItemDataList::ConstIterator it = m_hlDict[m_schema][m_hl]->end();
+  while (it != m_hlDict[m_schema][m_hl]->begin())
   {
+    --it;
+    KateHlItemData *itemData = *it;
+    Q_ASSERT(itemData);
+
     kdDebug(13030) << "insert items " << itemData->name << endl;
 
     // All stylenames have their language mode prefixed, e.g. HTML:Comment

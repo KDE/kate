@@ -46,6 +46,7 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
     , m_showSelections(true)
     , m_showTabs(true)
     , m_printerFriendly(false)
+    , m_dynamicRegion(doc)
 {
   m_config = new KateRendererConfig (this);
 
@@ -271,9 +272,9 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
 
   if (range->textLine()->attributesList().count() || m_view->externalHighlights().count() || m_view->internalHighlights().count() || m_doc->documentHighlights().count()) {
     RenderRangeList renderRanges;
-    renderRanges.appendRanges(m_view->internalHighlights());
-    renderRanges.appendRanges(m_view->externalHighlights());
-    renderRanges.appendRanges(m_doc->documentHighlights());
+    renderRanges.appendRanges(m_view->internalHighlights(), selectionsOnly, view());
+    renderRanges.appendRanges(m_view->externalHighlights(), selectionsOnly, view());
+    renderRanges.appendRanges(m_doc->documentHighlights(), selectionsOnly, view());
 
     NormalRenderRange* inbuiltHighlight = new NormalRenderRange();
     const QVector<int> &al = range->textLine()->attributesList();
@@ -294,8 +295,12 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
     KTextEditor::Cursor currentPosition, endPosition;
 
     if (selectionsOnly) {
-      currentPosition = qMax(range->start(), m_view->selectionRange().start());
-      endPosition = qMin(KTextEditor::Cursor(range->line() + 1, 0), m_view->selectionRange().end());
+      KTextEditor::Range rangeNeeded = m_view->selectionRange();
+      rangeNeeded = rangeNeeded.encompass(m_dynamicRegion.boundingRange());
+      rangeNeeded &= KTextEditor::Range(range->line(), 0, range->line() + 1, 0);
+
+      currentPosition = qMax(range->start(), rangeNeeded.start());
+      endPosition = qMin(KTextEditor::Cursor(range->line() + 1, 0), rangeNeeded.end());
     } else {
       currentPosition = range->start();
       endPosition = KTextEditor::Cursor(range->line() + 1, 0);
@@ -376,7 +381,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     if (range->length() > 0) {
       // Draw the text :)
       // FIXME toVector() may be a performance issue
-      if (m_view->selection() && showSelections() && m_view->selectionRange().overlapsLine(range->line()))
+      if (m_dynamicRegion.boundingRange().isValid() || (m_view->selection() && showSelections() && m_view->selectionRange().overlapsLine(range->line())))
         range->layout()->draw(&paint, QPoint(-xStart,0), decorationsForLine(range, true).toVector());
       else
         range->layout()->draw(&paint, QPoint(-xStart,0));

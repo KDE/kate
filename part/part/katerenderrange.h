@@ -27,6 +27,7 @@
 #include <QPair>
 
 class KateSmartRange;
+class KateView;
 
 class RenderRange
 {
@@ -40,7 +41,7 @@ class RenderRange
 class SmartRenderRange : public RenderRange
 {
   public:
-    SmartRenderRange(KateSmartRange* range);
+    SmartRenderRange(KateSmartRange* range, bool useDynamic, KateView* view);
 
     virtual KTextEditor::Cursor nextBoundary() const;
     virtual bool advanceTo(const KTextEditor::Cursor& pos) const;
@@ -52,6 +53,8 @@ class SmartRenderRange : public RenderRange
     mutable KTextEditor::SmartRange* m_currentRange;
     mutable KTextEditor::Cursor m_currentPos;
     mutable QStack<KTextEditor::Attribute> m_attribs;
+    const KateView* m_view;
+    const bool m_useDynamic;
 };
 
 typedef QPair<KTextEditor::Range*,KTextEditor::Attribute*> pairRA;
@@ -77,7 +80,7 @@ class NormalRenderRange : public RenderRange
 class RenderRangeList : public QList<RenderRange*>
 {
   public:
-    void appendRanges(const QList<KTextEditor::SmartRange*>& startingRanges);
+    void appendRanges(const QList<KTextEditor::SmartRange*>& startingRanges, bool useDynamic, KateView* view);
     KTextEditor::Cursor nextBoundary() const;
     bool advanceTo(const KTextEditor::Cursor& pos) const;
     bool hasAttribute() const;

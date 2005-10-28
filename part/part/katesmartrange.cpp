@@ -24,6 +24,7 @@
 #include "katerangetype.h"
 #include "katesmartmanager.h"
 #include "kateviewinternal.h"
+#include "katedynamicanimation.h"
 
 #include <kdebug.h>
 
@@ -32,6 +33,7 @@ KateSmartRange::KateSmartRange(const KTextEditor::Range& range, KateDocument* do
   , m_notifier(0L)
   , m_watcher(0L)
 //  , m_feedbackLevel(NoFeedback)
+  , m_dynamicDoc(0L)
   , m_mouseOver(false)
   , m_caretOver(false)
   , m_isInternal(false)
@@ -43,6 +45,7 @@ KateSmartRange::KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* paren
   , m_notifier(0L)
   , m_watcher(0L)
 //  , m_feedbackLevel(NoFeedback)
+  , m_dynamicDoc(0L)
   , m_mouseOver(false)
   , m_caretOver(false)
   , m_isInternal(false)
@@ -54,6 +57,7 @@ KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, 
   , m_notifier(0L)
   , m_watcher(0L)
 //  , m_feedbackLevel(NoFeedback)
+  , m_dynamicDoc(0L)
   , m_mouseOver(false)
   , m_caretOver(false)
   , m_isInternal(false)
@@ -64,11 +68,6 @@ KateSmartRange::~KateSmartRange()
 {
   if (m_start)
     kateDocument()->smartManager()->rangeDeleted(this);
-}
-
-bool KateSmartRange::isValid() const
-{
-  return start() <= end();
 }
 
 void KateSmartRange::checkFeedback( )
@@ -251,6 +250,30 @@ void KateSmartRangeNotifier::setConnectedInternally( )
 bool KateSmartRangeNotifier::connectedInternally( ) const
 {
   return m_connectedInternally;
+}
+
+/*KateDynamicAnimation * KateSmartRange::dynamicForView( const KateView * const view) const
+{
+  foreach (KateDynamicAnimation* anim, m_dynamic)
+    if (anim->view() == view)
+      return anim;
+
+  return 0L;
+}*/
+
+void KateSmartRange::addDynamic( KateDynamicAnimation * anim )
+{
+  m_dynamic.append(anim);
+}
+
+void KateSmartRange::removeDynamic( KateDynamicAnimation * anim )
+{
+  m_dynamic.removeAll(anim);
+}
+
+const QList<KateDynamicAnimation*> & KateSmartRange::dynamicAnimations( ) const
+{
+  return m_dynamic;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

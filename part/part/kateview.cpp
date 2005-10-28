@@ -108,7 +108,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_hasWrap( false )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
-    , m_selection(m_doc)
+    , m_selection(KTextEditor::Range::invalid(), m_doc)
     , blockSelect (false)
     , m_imComposeEvent( false )
 {

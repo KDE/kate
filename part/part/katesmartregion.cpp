@@ -30,30 +30,29 @@ void KateSmartRegion::addRange( KateSmartRange * range )
 {
   m_source.append(range);
 
-  if (m_bounding->isValid()) {
-    if (range->contains(*m_bounding)) {
-      *m_bounding = *range;
-
-    } else {
-      if (range->start() < m_bounding->start())
-        m_bounding->start() = range->start();
-      if (range->end() > m_bounding->end())
-        m_bounding->end() = range->end();
-    }
-
-  } else {
-    *m_bounding = *range;
-  }
+  calculateBounds();
 }
 
 void KateSmartRegion::removeRange( KateSmartRange * range )
 {
-  m_source.remove(range);
+  if (m_source.removeAll(range))
+    calculateBounds();
+}
 
-  if (m_source.count()) {
-    KTextEditor::Range process = KTextEditor::Range::invalid();
-  } else {
-    *m_bounding = KTextEditor::Range::invalid();
+const KTextEditor::Range& KateSmartRegion::boundingRange( ) const
+{
+  return *m_bounding;
+}
+
+void KateSmartRegion::calculateBounds( )
+{
+  *m_bounding = KTextEditor::Range::invalid();
+
+  foreach (KateSmartRange* range, m_source) {
+    if (!m_bounding->isValid())
+      *m_bounding = *range;
+    else
+      *m_bounding = m_bounding->encompass(*range);
   }
 }
 

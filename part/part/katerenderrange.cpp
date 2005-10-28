@@ -21,9 +21,12 @@
 #include <limits.h>
 
 #include "katesmartrange.h"
+#include "katedynamicanimation.h"
 
-SmartRenderRange::SmartRenderRange(KateSmartRange* range)
+SmartRenderRange::SmartRenderRange(KateSmartRange* range, bool useDynamic, KateView* view)
   : m_currentRange(0L)
+  , m_view(view)
+  , m_useDynamic(useDynamic)
 {
   Q_ASSERT(range);
   if (range) {
@@ -94,8 +97,14 @@ void SmartRenderRange::addTo(KTextEditor::SmartRange* range) const
     a = m_attribs.top();
 
   while (reverseStack.count()) {
-    if (KTextEditor::Attribute* a2 = reverseStack.top()->attribute())
+    KateSmartRange* r2 = static_cast<KateSmartRange*>(reverseStack.top());
+    if (KTextEditor::Attribute* a2 = r2->attribute())
       a += *a2;
+
+    if (m_useDynamic && r2->hasDynamic())
+      foreach (KateDynamicAnimation* anim, r2->dynamicAnimations())
+        anim->mergeToAttribute(a);
+
     m_attribs.append(a);
     reverseStack.pop();
   }
@@ -164,10 +173,10 @@ KTextEditor::Attribute* NormalRenderRange::currentAttribute() const
   return 0L;
 }
 
-void RenderRangeList::appendRanges(const QList<KTextEditor::SmartRange*>& startingRanges)
+void RenderRangeList::appendRanges(const QList<KTextEditor::SmartRange*>& startingRanges, bool useDynamic, KateView* view)
 {
   foreach (KTextEditor::SmartRange* range, startingRanges)
-    append(new SmartRenderRange(static_cast<KateSmartRange*>(range)));
+    append(new SmartRenderRange(static_cast<KateSmartRange*>(range), useDynamic, view));
 }
 
 KTextEditor::Cursor RenderRangeList::nextBoundary() const

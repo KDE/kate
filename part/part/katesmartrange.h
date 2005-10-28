@@ -25,6 +25,7 @@
 #include "kateedit.h"
 
 class KateSmartRange;
+class KateDynamicAnimation;
 
 /**
  * Internal Implementation of KTextEditor::SmartRangeNotifier.
@@ -97,11 +98,6 @@ class KateSmartRange : public KTextEditor::SmartRange
       Redraw      = 0x2
     };
 
-    /**
-     * Start and end must be valid.
-     */
-    virtual bool isValid() const;
-
     virtual bool hasNotifier() const;
     virtual KTextEditor::SmartRangeNotifier* notifier();
     virtual void deleteNotifier();
@@ -109,6 +105,11 @@ class KateSmartRange : public KTextEditor::SmartRange
     virtual void setWatcher(KTextEditor::SmartRangeWatcher* watcher);
 
     virtual void setParentRange(SmartRange* r);
+
+    inline bool hasDynamic() { return m_dynamic.count(); }
+    const QList<KateDynamicAnimation*>& dynamicAnimations() const;
+    void addDynamic(KateDynamicAnimation* anim);
+    void removeDynamic(KateDynamicAnimation* anim);
 
     /**
      * Implementation detail. Defines the level of feedback required for any connected
@@ -146,6 +147,8 @@ class KateSmartRange : public KTextEditor::SmartRange
 
     KateSmartRangeNotifier* m_notifier;
     KTextEditor::SmartRangeWatcher* m_watcher;
+    KateDynamicAnimation* m_dynamicDoc;
+    QList<KateDynamicAnimation*> m_dynamic;
 
     bool  m_mouseOver   :1,
           m_caretOver   :1,

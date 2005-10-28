@@ -363,13 +363,13 @@ void KateLayoutCache::updateCache( int fromLine, int toLine, int shiftAmount )
         m_lineLayouts.insert(it.key(), it.value());
       else
         //gets deleted when oldMap goes but invalidate it just in case
-        const_cast<KateLineLayout*>(it.value().data())->invalidateLayout();
+        const_cast<KateLineLayoutPtr&>(it.value())->invalidateLayout();
     }
 
   } else {
     for (int i = fromLine; i < toLine; --i)
       if (m_lineLayouts.contains(i)) {
-        const_cast<KateLineLayout*>(m_lineLayouts[i].data())->invalidateLayout();
+        const_cast<KateLineLayoutPtr&>(m_lineLayouts[i])->invalidateLayout();
         m_lineLayouts.remove(i);
       }
   }
@@ -393,21 +393,21 @@ void KateLayoutCache::setViewWidth( int width )
 
   // Only get rid of layouts that we have to
   if (wider) {
-    QMutableMapIterator<int, KateLineLayoutPtr> it = m_lineLayouts;
+    QMapIterator<int, KateLineLayoutPtr> it = m_lineLayouts;
     while (it.hasNext()) {
       it.next();
 
       if (it.value()->viewLineCount() > 1)
-        const_cast<KateLineLayout*>(it.value().data())->invalidateLayout();
+        const_cast<KateLineLayoutPtr&>(it.value())->invalidateLayout();
     }
 
   } else {
-    QMutableMapIterator<int, KateLineLayoutPtr> it = m_lineLayouts;
+    QMapIterator<int, KateLineLayoutPtr> it = m_lineLayouts;
     while (it.hasNext()) {
       it.next();
 
       if (it.value()->viewLineCount() > 1 || it.value()->width() > m_viewWidth)
-        const_cast<KateLineLayout*>(it.value().data())->invalidateLayout();
+        const_cast<KateLineLayoutPtr&>(it.value())->invalidateLayout();
     }
   }
 }

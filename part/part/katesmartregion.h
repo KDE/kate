@@ -21,6 +21,8 @@
 
 #include <QList>
 
+#include <ktexteditor/range.h>
+
 class KateSmartRange;
 class KateDocument;
 
@@ -38,9 +40,11 @@ class KateSmartRegion
     void addRange(KateSmartRange* range);
     void removeRange(KateSmartRange* range);
 
-    KateSmartRange* boundingRange() const;
+    const KTextEditor::Range& boundingRange() const;
 
   private:
+    void calculateBounds();
+
     KateSmartRange* m_bounding;
     QList<KateSmartRange*> m_source;
 };

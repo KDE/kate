@@ -391,19 +391,33 @@ class KateViewInternal : public QWidget
 
   // Dynamic highlighting
   private:
+    // FIXME - have to solve the dangling pointer problem
+    // childDeleted signal?
+    struct DynamicRangeHL {
+      DynamicRangeHL(KateSmartRange* top);
+      ~DynamicRangeHL();
+
+      KateSmartRange* top;
+      bool isView;
+      KateSmartRange* caretOver;
+      KateSmartRange* mouseOver;
+      QHash<KateSmartRange*, class KateDynamicAnimation*> caretAnimations;
+      QHash<KateSmartRange*, KateDynamicAnimation*> mouseAnimations;
+    };
+
     void mouseMoved();
-    void startDynamic(KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
-    void endDynamic(KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
+    void startDynamic(DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
+    void endDynamic(DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
 
   public slots:
     void dynamicHighlightAdded(KateSmartRange* range);
     void dynamicHighlightRemoved(KateSmartRange* range);
     void rangeDeleted(KateSmartRange* range);
 
+    void updateRange(KateSmartRange* range);
+
   private:
-    QList<KateSmartRange*> m_dynamicHighlights;
-    QSet<KateSmartRange*> m_currentCaretRanges;
-    QSet<KateSmartRange*> m_currentMouseRanges;
+    QHash<KateSmartRange*, DynamicRangeHL*> m_dynamicHighlights;
 };
 
 #endif

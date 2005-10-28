@@ -64,7 +64,9 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
 
     Attribute* dyn = new Attribute();
     dyn->setBackground(Qt::blue);
+    dyn->setForeground(Qt::white);
     ranges[2]->setDynamicAttribute(Attribute::ActivateMouseIn, dyn, true);
+    ranges[2]->setEffects(Attribute::EffectFadeIn);
 
     //ranges[3]->setFontUnderline(true);
     //ranges[3]->setSelectedForeground(Qt::magenta);

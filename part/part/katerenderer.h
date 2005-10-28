@@ -26,6 +26,7 @@
 #include <ktexteditor/attribute.h>
 #include "katetextline.h"
 #include "katelinerange.h"
+#include "katesmartregion.h"
 
 #include <qfont.h>
 #include <qfontmetrics.h>
@@ -183,7 +184,16 @@ public:
      * Text width & height calculation functions...
      */
     void layoutLine(KateLineLayoutPtr line, int maxwidth = -1, bool cacheLayout = false) const;
+
+    /**
+     * The ultimate decoration creation function.
+     *
+     * \param range line to return decoration for
+     * \param selectionsOnly return decorations for selections and/or dynamic highlighting.
+     */
     QList<QTextLayout::FormatRange> decorationsForLine(KateLineLayoutPtr range, bool selectionsOnly = false) const;
+
+    KateSmartRegion& dynamicRegion() { return m_dynamicRegion; }
 
     // Width calculators
     uint spaceWidth() const;
@@ -292,6 +302,8 @@ public:
 
   private:
     KateRendererConfig *m_config;
+
+    KateSmartRegion m_dynamicRegion;
 };
 
 #endif

@@ -4298,14 +4298,6 @@ unsigned int KateDocument::wordWrapAt ()
   return config()->wordWrapAt ();
 }
 
-void KateDocument::applyWordWrap ()
-{
-  /*if (selection())
-    wrapText (selectStart.line(), selectEnd.line());
-  else
-  wrapText (0, lastLine()); */
-}
-
 void KateDocument::setPageUpDownMovesCursor (bool on)
 {
   config()->setPageUpDownMovesCursor (on);

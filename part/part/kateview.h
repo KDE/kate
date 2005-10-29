@@ -101,10 +101,16 @@ class KateView : public KTextEditor::View,
     void cut();
     void copy() const;
 
+  private slots:
     /**
      * internal use, copy text as HTML to clipboard
      */
     void copyHTML();
+
+    /**
+     * internal use, apply word wrap
+     */
+    void applyWordWrap ();
 
   // helper to export text as html stuff
   private:

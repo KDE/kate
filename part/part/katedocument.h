@@ -789,9 +789,6 @@ class KateDocument : public KTextEditor::Document,
     void setPageUpDownMovesCursor(bool on);
     bool pageUpDownMovesCursor();
 
-  public slots:
-     void applyWordWrap ();
-
    // code folding
   public:
     inline uint getRealLine(unsigned int virtualLine)

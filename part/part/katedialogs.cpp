@@ -353,7 +353,7 @@ void KateIndentConfigTab::reload ()
 //END KateIndentConfigTab
 
 //BEGIN KateSelectConfigTab
-const int KateSelectConfigTab::flags[] = {KateDocumentConfig::cfSmartHome, KateDocumentConfig::cfWrapCursor};
+const int KateSelectConfigTab::flags[] = {};
 
 KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   : KateConfigPage(parent)
@@ -367,12 +367,12 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   QGroupBox *gbCursor = new QGroupBox( i18n("Text Cursor Movement"), this);
   QVBoxLayout *layout1=new QVBoxLayout(gbCursor);
   opt[0] = new QCheckBox(i18n("Smart ho&me"), gbCursor);
-  opt[0]->setChecked(configFlags & flags[3]);
+  opt[0]->setChecked(configFlags & KateDocumentConfig::cfSmartHome);
   connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   layout1->addWidget(opt[0]);
 
   opt[1] = new QCheckBox(i18n("Wrap c&ursor"), gbCursor);
-  opt[1]->setChecked(configFlags & flags[4]);
+  opt[1]->setChecked(configFlags & KateDocumentConfig::cfWrapCursor);
   connect(opt[1], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   layout1->addWidget(opt[1]);
   
@@ -442,11 +442,14 @@ void KateSelectConfigTab::apply ()
   KateViewConfig::global()->configStart ();
   KateDocumentConfig::global()->configStart ();
 
-  int configFlags = KateDocumentConfig::global()->configFlags();
-  for (int z = 1; z < numFlags; z++) {
-    configFlags &= ~flags[z];
-    if (opt[z]->isChecked()) configFlags |= flags[z];
-  }
+ int configFlags = KateDocumentConfig::global()->configFlags();
+
+  configFlags &= ~KateDocumentConfig::cfSmartHome;
+  configFlags &= ~KateDocumentConfig::cfWrapCursor;
+
+  if (opt[0]->isChecked()) configFlags |= KateDocumentConfig::cfSmartHome;
+  if (opt[1]->isChecked()) configFlags |= KateDocumentConfig::cfWrapCursor;
+  
   KateDocumentConfig::global()->setConfigFlags(configFlags);
 
   KateViewConfig::global()->setAutoCenterLines(qMax(0, e4->value()));

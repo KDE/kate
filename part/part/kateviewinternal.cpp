@@ -2443,8 +2443,8 @@ void KateViewInternal::updateDirty( )
 
 void KateViewInternal::paintEvent(QPaintEvent *e)
 {
-  //kdDebug (13030) << "GOT PAINT EVENT: x: " << e->rect().x() << " y: " << e->rect().y()
-  //  << " width: " << e->rect().width() << " height: " << e->rect().height() << endl;
+  kdDebug (13030) << "GOT PAINT EVENT: x: " << e->rect().x() << " y: " << e->rect().y()
+    << " width: " << e->rect().width() << " height: " << e->rect().height() << endl;
 
   int xStart = startX() + e->rect().x();
   int xEnd = xStart + e->rect().width();

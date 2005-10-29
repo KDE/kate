@@ -597,24 +597,26 @@ class KTEXTEDITOR_EXPORT Range
     Range(Cursor* start, Cursor* end);
 
     /**
-     * \internal
-     *
      * Notify this range that one or both of the cursors' position has changed directly.
      *
      * \param cursor the cursor that changed. If 0L, both cursors have changed.
      * \param from the previous position of this range
+     *
+     * \internal
      */
     virtual void rangeChanged(Cursor* cursor, const Range& from);
 
     /**
-     * \internal
      * This range's start cursor pointer.
+     *
+     * \internal
      */
     Cursor* m_start;
 
     /**
-     * \internal
      * This range's end cursor pointer.
+     *
+     * \internal
      */
     Cursor* m_end;
 };

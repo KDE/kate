@@ -42,7 +42,7 @@ class CompletionProvider;
  * An item for the code completion box contains
  *  - a text() which is used to complete the string
  *  - a prefix() which appears in front of the text()
- *  - a suffix() which appears after the text()
+ *  - a postfix() which appears after the text()
  *  - an icon() which appears before the prefix()
  *  - a type() that does not appear in the completion list
  *  - a comment() which appears in a tooltip right to the completion box
@@ -62,20 +62,39 @@ class KTEXTEDITOR_EXPORT CompletionItem
 {
   public:
     CompletionItem();
+    /** Constructor that takes all the data values.
+     *
+     * @param _text     Text used to complete the string.
+     * @param _prefix   String that appears before the string
+     * @param _postfix  String that appears after the string
+     * @param _comment  String describing this completion, for tooltip
+     * @param _icon     An icon that is shown before _prefix
+     * @param _provider The completion provider that this particular
+     *                  completion item belongs to.
+     * @param _userdata Some user data.
+     * @param _type     A type for this item.
+     *
+     * @todo What is @p _type for? What about _userdata?
+     */
     CompletionItem(const QString& _text,
-                   const QIcon &_icon=QIcon(),
+                   const QIcon& _icon=QIcon(),
                    CompletionProvider* _provider=0,
-                   const QString &_prefix=QString(),
+                   const QString& _prefix=QString(),
                    const QString& _postfix=QString(),
                    const QString& _comment=QString(),
-                   const QVariant &_userdata=QVariant(),
-                   const QString &_type=QString());
+                   const QVariant& _userdata=QVariant(),
+                   const QString& _type=QString());
     ~CompletionItem();
+    /** Returns the icon for this item. */
     const QIcon&    icon() const;
+    /** Returns the completion text for this item. */
     const QString&  text() const;
     const QString&  markupText() const; ///< @todo ???
+    /** Returns the prefix text for this item. */
     const QString&  prefix() const;
+    /** Returns the postfix (suffix) text for this item. */
     const QString&  postfix() const;
+    /** Returns the comment (for use in tooltips) for this item. */
     const QString&  comment() const;
     const QVariant& userdata() const;
     CompletionProvider *provider() const;//must not be set to a provider, instead of 0, if the provider doesn't support the doComplete method or doesn't want to handle the item itself

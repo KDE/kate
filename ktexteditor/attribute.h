@@ -153,7 +153,7 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
      *
      * Use \p clearProperty(SelectedForeground) to clear.
      *
-     * \param brush brush to be used to draw selected text.
+     * \param foreground brush to be used to draw selected text.
      */
     void setSelectedForeground(const QBrush& foreground);
 
@@ -255,12 +255,16 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
       ActivateCaretIn
     };
 
+    /**
+     * Dynamic effects for display.
+     * @todo Pulse and CycleGradient are unclear.
+     */
     enum Effect {
-      EffectNone          = 0x0,
-      EffectFadeIn        = 0x1,
-      EffectFadeOut       = 0x2,
-      EffectPulse         = 0x4,
-      EffectCycleGradient = 0x8
+      EffectNone          = 0x0 /**< No effect. Just display. */,
+      EffectFadeIn        = 0x1 /**< Fade in and stay there. */,
+      EffectFadeOut       = 0x2 /**< Fade out to vanish. */,
+      EffectPulse         = 0x4 /**< Pulse (throb); change weight. */,
+      EffectCycleGradient = 0x8 /**< Cycle colors. */
     };
     Q_DECLARE_FLAGS(Effects, Effect)
     /**

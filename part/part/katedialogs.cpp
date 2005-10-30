@@ -375,7 +375,7 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   opt[1]->setChecked(configFlags & KateDocumentConfig::cfWrapCursor);
   connect(opt[1], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   layout1->addWidget(opt[1]);
-  
+
   e6 = new QCheckBox(i18n("&PageUp/PageDown moves cursor"), gbCursor);
   e6->setChecked(KateDocumentConfig::global()->pageUpDownMovesCursor());
   connect(e6, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -449,7 +449,7 @@ void KateSelectConfigTab::apply ()
 
   if (opt[0]->isChecked()) configFlags |= KateDocumentConfig::cfSmartHome;
   if (opt[1]->isChecked()) configFlags |= KateDocumentConfig::cfWrapCursor;
-  
+
   KateDocumentConfig::global()->setConfigFlags(configFlags);
 
   KateViewConfig::global()->setAutoCenterLines(qMax(0, e4->value()));
@@ -980,7 +980,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
 
   removeSpaces->setWhatsThis(i18n(
         "The editor will automatically eliminate extra spaces at the ends of "
-        "lines of text while loading/saving the file."));
+        "lines of text while loading/saving the file. This change is only visible after a save if you reload the file."));
   gb->setWhatsThis(i18n(
         "<p>Backing up on save will cause Kate to copy the disk file to "
         "'&lt;prefix&gt;&lt;filename&gt;&lt;suffix&gt;' before saving changes."
@@ -1315,7 +1315,7 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
 
   QGroupBox *gbProps = new QGroupBox(i18n("Properties"), this );
   layout->addWidget (gbProps);
- 
+
   QGridLayout *gl=new QGridLayout(gbProps);
 
   // file & mime types
@@ -1437,7 +1437,7 @@ void KateHlConfigPage::writeback()
 {
   if (m_currentHlData!=-1)
   {
-    KateHlData &hlData=hlDataDict[m_currentHlData];    
+    KateHlData &hlData=hlDataDict[m_currentHlData];
     hlData.wildcards = wildcards->text();
     hlData.mimetypes = mimetypes->text();
     hlData.priority = priority->value();

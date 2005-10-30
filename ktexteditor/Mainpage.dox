@@ -18,28 +18,26 @@ or any later version published by the Free Software Foundation;
 The KTextEditor interfaces - also called KTE interfaces - are a set of
 well-defined interfaces that can be implemented by an application/library.
 It is possible to substitute an implementation of the editor component with
-another. The two popular implementations right now are
- - the Kate Editor Component or in short Kate Part and
- - the yzis vim-like editor.
+another. The two popular implementations right now are the Kate Editor Component (Kate Part) and the yzis (vim-like) editor.
 
-General:
+<b>General</b>:
  - @ref kte_design
  - @ref kte_embedding
  - @ref kte_port_to_kde4
  - <a href="http://www.kate-editor.org/index.php/Contacts">Contact/Mailing Lists</a>
 
 
-Implementation Notes:
+<b>Implementation Notes</b>:
  - @ref kte_guidelines
 
-Extension Interfaces:
+<b>Extension Interfaces</b>:
  - @ref kte_group_doc_extensions
  - @ref kte_group_view_extensions
  - @ref kte_group_editor_extensions
  - @ref kte_group_plugin_extensions
  - @ref kte_group_command_extensions
 
-API Reference:
+<b>API Reference</b>:
  - <a href="classes.html">All Classes</a>
  - <a href="annotated.html">Annotated Classes</a>
  - <a href="hierarchy.html">Inheritance Hierarchy</a>

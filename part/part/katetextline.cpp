@@ -154,7 +154,7 @@ bool KateTextLine::stringAtPos(int pos, const QString& match) const
   return true;
 }
 
-int KateTextLine::cursorX (int pos, int tabChars) const
+int KateTextLine::positionWithTabs (int pos, int tabChars) const
 {
   if (pos < 0)
     pos = 0;

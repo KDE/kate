@@ -185,13 +185,12 @@ class KateTextLine : public KShared
     int indentDepth (int tabwidth) const;
 
     /**
-     * Returns the x position of the cursor at the given position, which
-     * depends on the number of tab characters
+     * Calculate the position if we expand the tabs in the string
      * @param pos position in chars
      * @param tabChars tabulator width in chars
      * @return position with tabulators calculated
      */
-    int cursorX (int pos, int tabChars) const;
+    int positionWithTabs (int pos, int tabChars) const;
 
     /**
      * Returns the text length with tabs calced in

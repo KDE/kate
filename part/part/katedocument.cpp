@@ -2745,7 +2745,7 @@ uint KateDocument::currentColumn( const KTextEditor::Cursor& cursor )
   KateTextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
 
   if (textLine)
-    return textLine->cursorX(cursor.column(), config()->tabWidth());
+    return textLine->positionWithTabs(cursor.column(), config()->tabWidth());
   else
     return 0;
 }
@@ -2966,10 +2966,10 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
       if (!textLine)
         return;
 
-      int colX = textLine->cursorX(col, config()->tabWidth());
+      int colX = textLine->positionWithTabs(col, config()->tabWidth());
       int pos = textLine->firstChar();
       if (pos > 0)
-        pos = textLine->cursorX(pos, config()->tabWidth());
+        pos = textLine->positionWithTabs(pos, config()->tabWidth());
 
       if (pos < 0 || pos >= (int)colX)
       {
@@ -2985,7 +2985,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
 
           if (pos >= 0)
           {
-            pos = textLine->cursorX(pos, config()->tabWidth());
+            pos = textLine->positionWithTabs(pos, config()->tabWidth());
             if (pos < (int)colX)
             {
               replaceWithOptimizedSpace(line, col, pos, config()->configFlags());
@@ -3132,7 +3132,7 @@ void KateDocument::indent ( KateView *v, uint line, int change)
         KateTextLine::Ptr textLine = m_buffer->plainLine(line);
         int firstChar = textLine->firstChar();
         if (firstChar >= 0 && (v->lineSelected(line) || v->lineHasSelected(line))) {
-          int maxUnindent = textLine->cursorX(firstChar, config()->tabWidth()) / config()->indentationWidth();
+          int maxUnindent = textLine->positionWithTabs(firstChar, config()->tabWidth()) / config()->indentationWidth();
           if (maxUnindent < adjustedChange)
             adjustedChange = maxUnindent;
         }
@@ -3196,7 +3196,7 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
   if (first_char < 0)
     first_char = textline->length();
 
-  int space =  textline->cursorX(first_char, config()->tabWidth()) + change * w;
+  int space =  textline->positionWithTabs(first_char, config()->tabWidth()) + change * w;
   if (space < 0)
     space = 0;
 

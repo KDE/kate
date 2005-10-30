@@ -347,7 +347,7 @@ uint KateNormalIndent::measureIndent (KateDocCursor &cur) const
   if (useSpaces && !mixedIndent)
     return cur.column();
 
-  return doc->plainKateTextLine(cur.line())->cursorX(cur.column(), tabWidth);
+  return doc->plainKateTextLine(cur.line())->positionWithTabs(cur.column(), tabWidth);
 }
 
 QString KateNormalIndent::tabString(uint pos) const
@@ -1077,7 +1077,7 @@ void KatePythonIndent::processNewline (KateDocCursor &begin, bool /*newline*/)
   int prevBlockPos = prevPos;
   int extraIndent = calcExtra (prevBlock, prevBlockPos, begin);
 
-  int indent = doc->plainKateTextLine(prevBlock)->cursorX(prevBlockPos, tabWidth);
+  int indent = doc->plainKateTextLine(prevBlock)->positionWithTabs(prevBlockPos, tabWidth);
   if (extraIndent == 0)
   {
     if (!stopStmt.exactMatch(doc->plainKateTextLine(prevLine)->string()))
@@ -1085,7 +1085,7 @@ void KatePythonIndent::processNewline (KateDocCursor &begin, bool /*newline*/)
       if (endWithColon.exactMatch(doc->plainKateTextLine(prevLine)->string()))
         indent += indentWidth;
       else
-        indent = doc->plainKateTextLine(prevLine)->cursorX(prevPos, tabWidth);
+        indent = doc->plainKateTextLine(prevLine)->positionWithTabs(prevPos, tabWidth);
     }
   }
   else
@@ -1236,7 +1236,7 @@ void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
     }
     break;
   }
-  prevIndent = prevLine->cursorX(prevLine->firstChar(), tabWidth);
+  prevIndent = prevLine->positionWithTabs(prevLine->firstChar(), tabWidth);
   QString text = prevLine->string();
 
   // special case:
@@ -1313,7 +1313,7 @@ void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
       lastCh = text.at(++attrCol).unicode();
     }
 
-    attrCol = prevLine->cursorX(attrCol, tabWidth);
+    attrCol = prevLine->positionWithTabs(attrCol, tabWidth);
   }
 }
 
@@ -2064,7 +2064,7 @@ void KateVarIndent::processLine ( KateDocCursor &line )
   if ( pos < 0 )
     pos = 0;
   else
-    pos = ktl->cursorX( pos, tabWidth );
+    pos = ktl->positionWithTabs( pos, tabWidth );
 
   int adjustment = 0;
 

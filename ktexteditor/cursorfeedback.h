@@ -89,8 +89,8 @@ class KTEXTEDITOR_EXPORT SmartCursorWatcher
      * If both characters are simultaneously deleted, positionDeleted() is called instead.
      *
      * \param cursor pointer to the cursor which generated the notification.
-     * \param deletedBefore @c true if the character immediately before was deleted,
-     *                      @c false if the character immediately after was deleted.
+     * \param deletedBefore \c true if the character immediately before was deleted,
+     *                      \c false if the character immediately after was deleted.
      */
     virtual void characterDeleted(SmartCursor* cursor, bool deletedBefore);
 
@@ -176,8 +176,8 @@ class KTEXTEDITOR_EXPORT SmartCursorNotifier : public QObject
      * If both characters are simultaneously deleted, positionDeleted() is called instead.
      *
      * \param cursor pointer to the cursor which generated the notification.
-     * \param deletedBefore @c true if the character immediately before was deleted,
-     *                      @c false if the character immediately after was deleted.
+     * \param deletedBefore \c true if the character immediately before was deleted,
+     *                      \c false if the character immediately after was deleted.
      */
     void characterDeleted(KTextEditor::SmartCursor* cursor, bool deletedBefore);
 

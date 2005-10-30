@@ -9,66 +9,66 @@ under the terms of the GNU Free Documentation License, Version 1.2
 or any later version published by the Free Software Foundation;
 */
 
-/** @file Mainpage.dox
-    @brief Mainpage of the KTextEditor Interface Documentation.
+/** \file Mainpage.dox
+    \brief Mainpage of the KTextEditor Interface Documentation.
 */
-/** @mainpage The KTextEditor Interfaces.
+/** \mainpage The KTextEditor Interfaces.
 
-@section Introduction
+\section Introduction
 The KTextEditor interfaces - also called KTE interfaces - are a set of
 well-defined interfaces that can be implemented by an application/library.
 It is possible to substitute an implementation of the editor component with
 another. The two popular implementations right now are the Kate Editor Component (Kate Part) and the yzis (vim-like) editor.
 
-<b>General</b>:
- - @ref kte_design
- - @ref kte_embedding
- - @ref kte_port_to_kde4
+\secion general General
+ - \ref kte_design
+ - \ref kte_embedding
+ - \ref kte_port_to_kde4
  - <a href="http://www.kate-editor.org/index.php/Contacts">Contact/Mailing Lists</a>
 
 
-<b>Implementation Notes</b>:
- - @ref kte_guidelines
+\section notes Implementation Notes
+ - \ref kte_guidelines
 
-<b>Extension Interfaces</b>:
- - @ref kte_group_doc_extensions
- - @ref kte_group_view_extensions
- - @ref kte_group_editor_extensions
- - @ref kte_group_plugin_extensions
- - @ref kte_group_command_extensions
+\section extensions Extension Interfaces
+ - \ref kte_group_doc_extensions
+ - \ref kte_group_view_extensions
+ - \ref kte_group_editor_extensions
+ - \ref kte_group_plugin_extensions
+ - \ref kte_group_command_extensions
 
-<b>API Reference</b>:
+\section apiref API Reference
  - <a href="classes.html">All Classes</a>
  - <a href="annotated.html">Annotated Classes</a>
  - <a href="hierarchy.html">Inheritance Hierarchy</a>
 <!-- grouped classes -> TODO Grouping -->
 
-@author Dominik Haumann \<dhdev@gmx.de\>
-@author Christoph Cullmann \<cullmann@kde.org\>
+\author Dominik Haumann \<dhdev@gmx.de\>
+\author Christoph Cullmann \<cullmann@kde.org\>
 */
 
 
 
 
 
-/** @page kte_design General Design of the Core Interfaces
+/** \page kte_design General Design of the Core Interfaces
 The core of the KTextEditor interfaces consists of several main interfaces:
-- @p KTextEditor::Factory - The Factory is an interface for the factory of
+- \p KTextEditor::Factory - The Factory is an interface for the factory of
   any KTextEditor part and provides access to the editor object of this part.
-- @p KTextEditor::Editor - The Editor interface describes the interface for
+- \p KTextEditor::Editor - The Editor interface describes the interface for
   for the editor part and provides methods to create documents, get a
   document list and a signal that informs about when a new document was
   created.
-- @p KTextEditor::Document - The Document interface represents a document
+- \p KTextEditor::Document - The Document interface represents a document
   itself and allows to create views and access the document contents.
-- @p KTextEditor::View - The View interface provides a widget to view the
+- \p KTextEditor::View - The View interface provides a widget to view the
   contents of a Document.
 
 So the hierarchy looks as follows
-@image html ktexteditorhierarchy.png "Basic KTextEditor Hierarchy"
+\image html ktexteditorhierarchy.png "Basic KTextEditor Hierarchy"
 
 The Factory provides access to the chosen Editor (selected with
-@p KTextEditor::EditorChooser). The Editor has a list of all opened documents
+\p KTextEditor::EditorChooser). The Editor has a list of all opened documents
 and can create new documents. A Document's content is visualized by a View.
 A Document can have multiple views (or none) and all views of the same
 document are synchronized.
@@ -84,7 +84,7 @@ argument. In other words: You would never want to have two factories around
 solves this by using a static accessor in the Editor derived class KateGlobal
 that returns the Editor* object.
 
-@see KTextEditor::Factory, KTextEditor::Editor, KTextEditor::Document,
+\see KTextEditor::Factory, KTextEditor::Editor, KTextEditor::Document,
      KTextEditor::View
 */
 
@@ -92,20 +92,20 @@ that returns the Editor* object.
 
 
 
-/** @page kte_guidelines Coding Guidelines and API Conventions
+/** \page kte_guidelines Coding Guidelines and API Conventions
 The whole KTextEditor interfaces have a consistent design.
 - naming should follow Qt style. Do not use Java style getters like getBla()
   for example,
-- core interfaces (see @ref kte_design) which inherit QObject must declare all
+- core interfaces (see \ref kte_design) which inherit QObject must declare all
   signals as real signals,
 - all other interfaces, which do not subclass QObject, must declare their
   signals as virtual private member functions. An implementation must
   reimplement this virtual member function as a real signal.
 - all signals must have the sender object as first parameter, for example
   all document signals should look like this:
-  @code
+  \code
   void signalFromDocument (KTextEditor::Document *doc, .....);
-  @endcode
+  \endcode
   This allows easy and consistent query which object did send the signal,
   which is important for most applications, as they listen to multiple
   documents/views/editors/...
@@ -113,12 +113,12 @@ The whole KTextEditor interfaces have a consistent design.
   overwrite them, most members should even be pure virtual, beside
   additional convenience/helper functions.
 
-The interface @p KTextEditor::Cursor represents a cursorposition, i.e. a
-line/column tuple. The same holds for @p KTextEditor::Range. As both of this
+The interface \p KTextEditor::Cursor represents a cursorposition, i.e. a
+line/column tuple. The same holds for \p KTextEditor::Range. As both of this
 concepts are much cleaner than tuples, please keep the following guidelines:
 - never use line/column tuples in parameter lists, use
-  @p KTextEditor::Cursor instead,
-- never use Cursor/Cursor tuples for ranges, use a @p KTextEditor::Range
+  \p KTextEditor::Cursor instead,
+- never use Cursor/Cursor tuples for ranges, use a \p KTextEditor::Range
   instead of two Cursors.
 */
 
@@ -126,15 +126,15 @@ concepts are much cleaner than tuples, please keep the following guidelines:
 
 
 
-/** @defgroup kte_group_doc_extensions Document Extension Interfaces
+/** \defgroup kte_group_doc_extensions Document Extension Interfaces
 A KTextEditor implementation may implement a Document extension interface, but
-it does not @e need to. So as a KTextEditor user you have to cast the Document
+it does not \e need to. So as a KTextEditor user you have to cast the Document
 to the desired interface and then check, whether the cast returns NULL or the
 valid interface.
 
-Use qobject_cast to cast a Document @e doc into the
-@e DesiredExtensionInterface, example:
-@code
+Use qobject_cast to cast a Document \e doc into the
+\e DesiredExtensionInterface, example:
+\code
   // doc is of type KTextEditor::Document*
   KTextEditor::DesiredExtensionInterface *iface =
       qobject_cast<KTextEditor::DesiredExtensionInterface*>( doc );
@@ -147,27 +147,27 @@ Use qobject_cast to cast a Document @e doc into the
   {
       // the implementation does not support the interface
   }
-@endcode
+\endcode
 
-@see KTextEditor::Document
+\see KTextEditor::Document
 
 The following classes are a list of all available Document extension interfaces.
-<!-- The classes are defined by the @ingroup doxygen command -->
+<!-- The classes are defined by the \ingroup doxygen command -->
 */
 
 
 
 
 
-/** @defgroup kte_group_view_extensions View Extension Interfaces
+/** \defgroup kte_group_view_extensions View Extension Interfaces
 A KTextEditor implementation may implement a View extension interface, but
-it does not @e need to. So as a KTextEditor user you have to cast the View
+it does not \e need to. So as a KTextEditor user you have to cast the View
 to the desired interface and then check, whether the cast returns NULL or the
 valid interface.
 
-Use qobject_cast to cast a View @e view into the
-@e DesiredExtensionInterface, example:
-@code
+Use qobject_cast to cast a View \e view into the
+\e DesiredExtensionInterface, example:
+\code
   // view is of type KTextEditor::View*
   KTextEditor::DesiredExtensionInterface *iface =
       qobject_cast<KTextEditor::DesiredExtensionInterface*>( view );
@@ -180,27 +180,27 @@ Use qobject_cast to cast a View @e view into the
 {
       // the implementation does not support the interface
 }
-@endcode
+\endcode
 
-@see KTextEditor::View
+\see KTextEditor::View
 
 The following classes are a list of all available View extension interfaces.
-<!-- The classes are defined by the @ingroup doxygen command -->
+<!-- The classes are defined by the \ingroup doxygen command -->
 */
 
 
 
 
 
-/** @defgroup kte_group_editor_extensions Editor Extension Interfaces
+/** \defgroup kte_group_editor_extensions Editor Extension Interfaces
 A KTextEditor implementation may implement an Editor extension interface, but
-it does not @e need to. So as a KTextEditor user you have to cast the Editor
+it does not \e need to. So as a KTextEditor user you have to cast the Editor
 to the desired interface and then check, whether the cast returns NULL or the
 valid interface.
 
-Use qobject_cast to cast a Editor @e editor into the
-@e DesiredExtensionInterface, example:
-@code
+Use qobject_cast to cast a Editor \e editor into the
+\e DesiredExtensionInterface, example:
+\code
   // editor is of type KTextEditor::Editor*
   KTextEditor::DesiredExtensionInterface *iface =
       qobject_cast<KTextEditor::DesiredExtensionInterface*>( view );
@@ -213,26 +213,26 @@ Use qobject_cast to cast a Editor @e editor into the
 {
       // the implementation does not support the interface
 }
-@endcode
+\endcode
 
-@see KTextEditor::Editor
+\see KTextEditor::Editor
 
 The following classes are a list of all available Editor extension interfaces.
-<!-- The classes are defined by the @ingroup doxygen command -->
+<!-- The classes are defined by the \ingroup doxygen command -->
 */
 
 
 
 
 
-/** @defgroup kte_group_plugin_extensions Plugin Extension Interfaces
-A KTextEditor Plugin can use extension interfaces, but it does not @e need
+/** \defgroup kte_group_plugin_extensions Plugin Extension Interfaces
+A KTextEditor Plugin can use extension interfaces, but it does not \e need
 to. So as a KTextEditor implementator you have to cast the Plugin to the desired
 interface and then check, whether the cast returns NULL or the valid interface.
 
-Use qobject_cast to cast a Plugin @e plugin into the
-@e DesiredExtensionInterface, example:
-@code
+Use qobject_cast to cast a Plugin \e plugin into the
+\e DesiredExtensionInterface, example:
+\code
   // plugin is of type KTextEditor::Plugin*
   KTextEditor::DesiredExtensionInterface *iface =
       qobject_cast<KTextEditor::DesiredExtensionInterface*>( plugin );
@@ -245,27 +245,27 @@ Use qobject_cast to cast a Plugin @e plugin into the
   {
       // the implementation does not support the interface
   }
-@endcode
+\endcode
 
-@see KTextEditor::Plugin
+\see KTextEditor::Plugin
 
 The following classes are a list of all available Plugin extension interfaces.
-<!-- The classes are defined by the @ingroup doxygen command -->
+<!-- The classes are defined by the \ingroup doxygen command -->
 */
 
 
 
 
 
-/** @defgroup kte_group_command_extensions Command Extension Interfaces
+/** \defgroup kte_group_command_extensions Command Extension Interfaces
 A KTextEditor command-line Command can use extension interfaces, but it does not
-@e need to. So as a KTextEditor implementator you have to cast the Plugin to the
+\e need to. So as a KTextEditor implementator you have to cast the Plugin to the
 desired interface and then check, whether the cast returns NULL or the valid
 interface.
 
-Use qobject_cast to cast a Command @e cmd into the
-@e DesiredExtensionInterface, example:
-@code
+Use qobject_cast to cast a Command \e cmd into the
+\e DesiredExtensionInterface, example:
+\code
   // cmd is of type KTextEditor::Command*
   KTextEditor::DesiredExtensionInterface *iface =
       qobject_cast<KTextEditor::DesiredExtensionInterface*>( cmd );
@@ -278,19 +278,19 @@ Use qobject_cast to cast a Command @e cmd into the
   {
       // the implementation does not support the interface
   }
-@endcode
+\endcode
 
-@see KTextEditor::Command
+\see KTextEditor::Command
 
 The following classes are a list of all available Command extension interfaces.
-<!-- The classes are defined by the @ingroup doxygen command -->
+<!-- The classes are defined by the \ingroup doxygen command -->
 */
 
 
 
 
 
-/** @page kte_port_to_kde4 Porting to KDE 4
+/** \page kte_port_to_kde4 Porting to KDE 4
 
 This document describes porting applications using the KTextEditor interfaces
 from KDE 3 to KDE 4. This page does not try to be complete; its main goal is
@@ -312,89 +312,89 @@ already mentioned in the mainpage, all line/column tuples were replaced with a
 KTextEditor::Cursor, and all Cursor/Cursor tuples with a KTextEditor::Range.
 
 A KTextEditor::Factory class was introduced to access a specific Editor
-implementation, read @ref kte_design for detailed information.
+implementation, read \ref kte_design for detailed information.
 
-@section kte_port_remove Removed Interfaces
+\section kte_port_remove Removed Interfaces
 Some interfaces were removed mainly because they described user actions which
 implementation and support is up to the KTextEditor part itself, like
 printing, copy & paste and word wrapping. Entirely removed interfaces are, in
 order:
  - all DCOP interfaces
- - @p ClipboardInterface
- - @p CursorInterface
- - @p DynWordWrapInterface
- - @p PrintInterface
- - @p SelectionExtDCOPInterface
- - @p UndoInterface
- - @p ViewStatusMsgInterface
- - @p WordWrapInterface
+ - \p ClipboardInterface
+ - \p CursorInterface
+ - \p DynWordWrapInterface
+ - \p PrintInterface
+ - \p SelectionExtDCOPInterface
+ - \p UndoInterface
+ - \p ViewStatusMsgInterface
+ - \p WordWrapInterface
 
-@section kte_port_merge Merged Interfaces
+\section kte_port_merge Merged Interfaces
 The following interfaces were merged, in order:
- - @p BlockSelectionInterface, @p SelectionInterface and
-   @p SelectionInterfaceExt were merged into the @p View, so that a
-   @p Document alone does not provide any selection methods anymore.
- - @p DocumentInfoInterface was merged into the @p Document
- - @p EditInterface was merged into the @p Document
- - @p EditInterfaceExt was merged into the @p Document
- - @p EncodingInterface was merged into the @p Document
- - @p MarkInterfaceExtension was merged into the @p MarkInterface
- - @p PluginViewInterface was merged into the @p Plugin
- - @p PopupMenuInterface was merged into the @p View
- - @p ViewCursorInterface was merged into the @p View
+ - \p BlockSelectionInterface, \p SelectionInterface and
+   \p SelectionInterfaceExt were merged into the \p View, so that a
+   \p Document alone does not provide any selection methods anymore.
+ - \p DocumentInfoInterface was merged into the \p Document
+ - \p EditInterface was merged into the \p Document
+ - \p EditInterfaceExt was merged into the \p Document
+ - \p EncodingInterface was merged into the \p Document
+ - \p MarkInterfaceExtension was merged into the \p MarkInterface
+ - \p PluginViewInterface was merged into the \p Plugin
+ - \p PopupMenuInterface was merged into the \p View
+ - \p ViewCursorInterface was merged into the \p View
 
-@section kte_port_rename Interface Changes
+\section kte_port_rename Interface Changes
 The following interfaces were renamed, in order:
- - @p KTextEditor::CodeCompletionInterface was changed to support several clients at once.
-   A client registers a so-called @p KTextEditor::CompletionProvider that provides its own
+ - \p KTextEditor::CodeCompletionInterface was changed to support several clients at once.
+   A client registers a so-called \p KTextEditor::CompletionProvider that provides its own
    completion and argument hint da.
- - @p CompletionEntry was renamed to @p KTextEditor::CompletionItem
- - signal @p modifiedOnDisc() was renamed to @p KTextEditor::ModificationInterface::modifiedOnDisk()
+ - \p CompletionEntry was renamed to \p KTextEditor::CompletionItem
+ - signal \p modifiedOnDisc() was renamed to \p KTextEditor::ModificationInterface::modifiedOnDisk()
 
-@section kte_port_new New Interfaces
+\section kte_port_new New Interfaces
 The following interfaces are new:
- - @p KTextEditor::ModificationInterface, support for handling external modified files
- - @p KTextEditor::CommandInterface, support for command-line commands
- - @p KTextEditor::SmartInterface, support for smart cursors + ranges, plus their uses such as
+ - \p KTextEditor::ModificationInterface, support for handling external modified files
+ - \p KTextEditor::CommandInterface, support for command-line commands
+ - \p KTextEditor::SmartInterface, support for smart cursors + ranges, plus their uses such as
       arbitrary highlighting and action association
 
-@section kte_port_enhanced_classes Significantly Enhanced Classes
+\section kte_port_enhanced_classes Significantly Enhanced Classes
 The following classes have been significantly enhanced:
- - @p KTextEditor::Cursor has been upgraded for greatly increased convenience, and now forms a cornerstone of the interface.
+ - \p KTextEditor::Cursor has been upgraded for greatly increased convenience, and now forms a cornerstone of the interface.
 
-@section kte_port_new_classes New Classes
+\section kte_port_new_classes New Classes
 The following classes are new:
- - @p KTextEditor::SmartCursor, a Cursor which is bound to a specific Document, and maintains its position.
- - @p KTextEditor::SmartCursorWatcher and @p KTextEditor::SmartCursorNotifier, classes for providing notifications of changes to a SmartCursor
- - @p KTextEditor::Range, a tuple of start + end cursors with many convenience methods
- - @p KTextEditor::SmartRange, a Range which is bound to a specific Document, and maintains its position.
- - @p KTextEditor::SmartRangeWatcher and @p KTextEditor::SmartRangeNotifier, classes for providing notifications of changes to a SmartRange
+ - \p KTextEditor::SmartCursor, a Cursor which is bound to a specific Document, and maintains its position.
+ - \p KTextEditor::SmartCursorWatcher and \p KTextEditor::SmartCursorNotifier, classes for providing notifications of changes to a SmartCursor
+ - \p KTextEditor::Range, a tuple of start + end cursors with many convenience methods
+ - \p KTextEditor::SmartRange, a Range which is bound to a specific Document, and maintains its position.
+ - \p KTextEditor::SmartRangeWatcher and \p KTextEditor::SmartRangeNotifier, classes for providing notifications of changes to a SmartRange
 
-@section kte_port_plugins Plugin Architecture Changes
+\section kte_port_plugins Plugin Architecture Changes
 The Plugin interface changed to support more than only one Document at a time.
 A plugin in a KDE 4 KTextEditor implementation no longer is bound to a single
-document (i.e. for @e every document a single instance of the plugin existed).
+document (i.e. for \e every document a single instance of the plugin existed).
 Now a plugin can handle several documents and views. Also a plugin now is able
 to load and save session related config settings if desired.
 
-@see KTextEditor::Plugin
+\see KTextEditor::Plugin
 
-@author Dominik Haumann \<dhdev@gmx.de\>
-@author Hamish Rodda \<rodda@kde.org\>
+\author Dominik Haumann \<dhdev@gmx.de\>
+\author Hamish Rodda \<rodda@kde.org\>
 */
 
 
 
 
 
-/** @page kte_embedding How to use the KTextEditor Interfaces
+/** \page kte_embedding How to use the KTextEditor Interfaces
 
-@todo everything
+\todo everything
 
 Actually KWrite is THE example... just convert it into a howto.
 link: -lktexteditor hint or \$(LIB_KTEXTEDITOR) in the KDE build framework.
 
 <code>This page is under construction</code>
 
-@author Dominik Haumann \<dhdev@gmx.de\>
+\author Dominik Haumann \<dhdev@gmx.de\>
 */

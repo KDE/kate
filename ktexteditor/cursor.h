@@ -66,8 +66,8 @@ class KTEXTEDITOR_EXPORT Cursor
     /**
      * This constructor creates a cursor initialized with \p line
      * and \p column.
-     * @param line line for cursor
-     * @param column column for cursor
+     * \param line line for cursor
+     * \param column column for cursor
      */
     Cursor(int line, int column);
 
@@ -121,62 +121,62 @@ class KTEXTEDITOR_EXPORT Cursor
      * \{
      */
     /**
-     * Set the current cursor position to @e position.
+     * Set the current cursor position to \e position.
      *
-     * @param position new cursor position
+     * \param position new cursor position
      */
     virtual void setPosition(const Cursor& position);
 
     /**
      * \overload
      *
-     * Set the cursor position to @e line and @e column.
+     * Set the cursor position to \e line and \e column.
      *
-     * @param line new cursor line
-     * @param column new cursor column
+     * \param line new cursor line
+     * \param column new cursor column
      */
     inline void setPosition(int line, int column) { setPosition(Cursor(line, column)); }
 
     /**
      * Retrieve the line on which this cursor is situated.
-     * @return line number, where 0 is the first line.
+     * \return line number, where 0 is the first line.
      */
     virtual int line() const;
 
     /**
-     * Set the cursor line to @e line.
-     * @param line new cursor line
+     * Set the cursor line to \e line.
+     * \param line new cursor line
      */
     virtual void setLine(int line);
 
     /**
      * Retrieve the column on which this cursor is situated.
-     * @return column number, where 0 is the first column.
+     * \return column number, where 0 is the first column.
      */
     inline int column() const { return m_column; }
 
     /**
-     * Set the cursor column to @e column.
-     * @param column new cursor column
+     * Set the cursor column to \e column.
+     * \param column new cursor column
      */
     virtual void setColumn(int column);
 
     /**
      * Determine if this cursor is located at the start of a line.
-     * @return \e true if the cursor is situated at the start of the line, \e false if it isn't.
+     * \return \e true if the cursor is situated at the start of the line, \e false if it isn't.
      */
     bool atStartOfLine() const;
 
     /**
      * Determine if this cursor is located at the start of a document.
-     * @return \e true if the cursor is situated at the start of the document, \e false if it isn't.
+     * \return \e true if the cursor is situated at the start of the document, \e false if it isn't.
      */
     bool atStartOfDocument() const;
 
     /**
      * Get both the line and column of the cursor position.
-     * @param line will be filled with current cursor line
-     * @param column will be filled with current cursor column
+     * \param line will be filled with current cursor line
+     * \param column will be filled with current cursor column
      */
     void position (int &line, int &column) const;
     //!\}
@@ -239,58 +239,58 @@ class KTEXTEDITOR_EXPORT Cursor
      * \note comparison between two invalid cursors is undefined.
      *       comparison between and invalid and a valid cursor will always be \e false.
      *
-     * @param c1 first cursor to compare
-     * @param c2 second cursor to compare
-     * @return @e true, if c1's and c2's line and column are @e equal.
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's and c2's line and column are \e equal.
      */
     inline friend bool operator==(const Cursor& c1, const Cursor& c2)
       { return c1.line() == c2.line() && c1.column() == c2.column(); }
 
     /**
      * Inequality operator.
-     * @param c1 first cursor to compare
-     * @param c2 second cursor to compare
-     * @return @e true, if c1's and c2's line and column are @e not equal.
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's and c2's line and column are \e not equal.
      */
     inline friend bool operator!=(const Cursor& c1, const Cursor& c2)
       { return !(c1 == c2); }
 
     /**
      * Greater than operator.
-     * @param c1 first cursor to compare
-     * @param c2 second cursor to compare
-     * @return @e true, if c1's position is greater than c2's position,
-     *         otherwise @e false.
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's position is greater than c2's position,
+     *         otherwise \e false.
      */
     inline friend bool operator>(const Cursor& c1, const Cursor& c2)
       { return c1.line() > c2.line() || (c1.line() == c2.line() && c1.m_column > c2.m_column); }
 
     /**
      * Greater than or equal to operator.
-     * @param c1 first cursor to compare
-     * @param c2 second cursor to compare
-     * @return @e true, if c1's position is greater than or equal to c2's
-     *         position, otherwise @e false.
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's position is greater than or equal to c2's
+     *         position, otherwise \e false.
      */
     inline friend bool operator>=(const Cursor& c1, const Cursor& c2)
       { return c1.line() > c2.line() || (c1.line() == c2.line() && c1.m_column >= c2.m_column); }
 
     /**
      * Less than operator.
-     * @param c1 first cursor to compare
-     * @param c2 second cursor to compare
-     * @return @e true, if c1's position is greater than or equal to c2's
-     *         position, otherwise @e false.
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's position is greater than or equal to c2's
+     *         position, otherwise \e false.
      */
     inline friend bool operator<(const Cursor& c1, const Cursor& c2)
       { return !(c1 >= c2); }
 
     /**
      * Less than or equal to operator.
-     * @param c1 first cursor to compare
-     * @param c2 second cursor to compare
-     * @return @e true, if c1's position is lesser than or equal to c2's
-     *         position, otherwise @e false.
+     * \param c1 first cursor to compare
+     * \param c2 second cursor to compare
+     * \return \e true, if c1's position is lesser than or equal to c2's
+     *         position, otherwise \e false.
      */
     inline friend bool operator<=(const Cursor& c1, const Cursor& c2)
       { return !(c1 > c2); }

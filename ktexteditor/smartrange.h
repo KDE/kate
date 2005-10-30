@@ -195,9 +195,9 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     /**
      * Replace text in this range with \p text
      *
-     * @param text text to use as a replacement
-     * @param block insert this text as a visual block of text rather than a linear sequence
-     * @return @e true on success, otherwise @e false
+     * \param text text to use as a replacement
+     * \param block insert this text as a visual block of text rather than a linear sequence
+     * \return \e true on success, otherwise \e false
      */
     virtual bool replaceText(const QStringList &text, bool block = false);
 
@@ -507,11 +507,11 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * \note The assignment will be performed even if the provided range belongs to
      *       another Document.
      *
-     * @param rhs range to assign to this range.
+     * \param rhs range to assign to this range.
      *
-     * @return a reference to this range, after assignment has occurred.
+     * \return a reference to this range, after assignment has occurred.
      *
-     * @see setRange()
+     * \see setRange()
      */
     inline SmartRange& operator=(const SmartRange& rhs)
       { setRange(rhs); return *this; }

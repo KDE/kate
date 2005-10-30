@@ -38,7 +38,7 @@ namespace KTextEditor
 class Document;
 
 /**
- * @brief A text widget with KXMLGUIClient that represents a Document.
+ * \brief A text widget with KXMLGUIClient that represents a Document.
  *
  * Topics:
  *  - \ref intro
@@ -63,7 +63,7 @@ class Document;
  *
  * \section selection Text Selection
  *
- * As the view is a graphical text editor it provides @e normal and @e block
+ * As the view is a graphical text editor it provides \e normal and \e block
  * text selection. You can check with selection() whether a selection exists.
  * removeSelection() will remove the selection without removing the text,
  * whereas removeSelectionText() also removes both, the selection and the
@@ -74,9 +74,9 @@ class Document;
  * \section cursors Cursor Positions
  *
  * A view has one Cursor which represents a line/column tuple. Two different
- * kinds of cursor positions are supported: first is the @e real cursor
- * position where a @e tab character only counts one character. Second is the
- * @e virtual cursor position, where a @e tab character counts as many
+ * kinds of cursor positions are supported: first is the \e real cursor
+ * position where a \e tab character only counts one character. Second is the
+ * \e virtual cursor position, where a \e tab character counts as many
  * spaces as defined. Get the real position with cursorPosition() and the
  * virtual position with cursorPositionVirtual(). Set the real cursor
  * position with setCursorPosition(). You can even get the screen coordinates
@@ -87,10 +87,10 @@ class Document;
  * \section modes Edit Modes
  *
  * A view supports several edit modes (EditMode). Common edit modes are
- * @e insert-mode (INS) and @e overwrite-mode (OVR). Which edit modes the
+ * \e insert-mode (INS) and \e overwrite-mode (OVR). Which edit modes the
  * editor supports depends on the implementation, another well-known mode is
- * the @e command-mode for example in vim and yzis. The getter viewMode()
- * returns a string like @p INS or @p OVR and is represented in the user
+ * the \e command-mode for example in vim and yzis. The getter viewMode()
+ * returns a string like \p INS or \p OVR and is represented in the user
  * interface for example in the status bar. Further you can get the edit
  * mode as enum by using viewEditMode(). Whenever the edit mode changed the
  * signals viewModeChanged() and viewEditModeChanged() are emitted.
@@ -105,12 +105,12 @@ class Document;
  * inheritance is used.
  *
  * More information about interfaces for the view can be found in
- * @ref kte_group_view_extensions.
+ * \ref kte_group_view_extensions.
  *
- * @see KTextEditor::Document, KTextEditor::TemplateInterface,
+ * \see KTextEditor::Document, KTextEditor::TemplateInterface,
  *      KTextEditor::CodeCompletionInterface,
  *      KTextEditor::SessionConfigInterface, KTextEditor::TemplateInterface
- * @author Christoph Cullmann \<cullmann@kde.org\>
+ * \author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT View : public KDocument::View
 {
@@ -120,9 +120,9 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
     /**
      * Constructor.
      *
-     * Create a view attached to the widget @p parent.
-     * @param parent parent widget
-     * @see KDocument::createView()
+     * Create a view attached to the widget \p parent.
+     * \param parent parent widget
+     * \see KDocument::createView()
      */
     View ( QWidget *parent ) : KDocument::View( parent ) {}
 
@@ -136,9 +136,9 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    */
   public:
     /**
-     * Get the view's @e document, that means the view is a view of the
+     * Get the view's \e document, that means the view is a view of the
      * returned document.
-     * @return the view's document
+     * \return the view's document
      */
     virtual Document *document () = 0;
 
@@ -149,12 +149,12 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
     /**
      * Get the current view mode/state.
      * This can be used to visually indicate the view's current mode, for
-     * example @e INSERT mode, @e OVERWRITE mode or @e COMMAND mode - or
+     * example \e INSERT mode, \e OVERWRITE mode or \e COMMAND mode - or
      * whatever other edit modes are supported. The string should be
      * translated (i18n), as this is a user aimed representation of the view
      * state, which should be shown in the GUI, for example in the status bar.
-     * @return
-     * @see viewModeChanged()
+     * \return
+     * \see viewModeChanged()
      */
     virtual QString viewMode () const = 0;
 
@@ -169,12 +169,12 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
 
     /**
      * Get the view's current edit mode.
-     * The current mode can be @e insert mode, @e replace mode or any other
-     * the editor supports, e.g. a vim like @e command mode. If in doubt
+     * The current mode can be \e insert mode, \e replace mode or any other
+     * the editor supports, e.g. a vim like \e command mode. If in doubt
      * return EditInsert.
      *
-     * @return the current edit mode of this view
-     * @see viewEditModeChanged()
+     * \return the current edit mode of this view
+     * \see viewEditModeChanged()
      */
     virtual enum EditMode viewEditMode() const = 0;
 
@@ -184,49 +184,49 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    */
   signals:
     /**
-     * This signal is emitted whenever the @p view gets the focus.
-     * @param view view which gets focus
-     * @see focusOut()
+     * This signal is emitted whenever the \p view gets the focus.
+     * \param view view which gets focus
+     * \see focusOut()
      */
     void focusIn ( KTextEditor::View *view );
 
     /**
-     * This signal is emitted whenever the @p view looses the focus.
-     * @param view view which looses focus
-     * @see focusIn()
+     * This signal is emitted whenever the \p view looses the focus.
+     * \param view view which looses focus
+     * \see focusIn()
      */
     void focusOut ( KTextEditor::View *view );
 
     /**
-     * This signal is emitted whenever the view mode of @p view changes.
-     * @param view the view which changed its mode
-     * @see viewMode()
+     * This signal is emitted whenever the view mode of \p view changes.
+     * \param view the view which changed its mode
+     * \see viewMode()
      */
     void viewModeChanged ( KTextEditor::View *view );
 
     /**
-     * This signal is emitted whenever the @p view's edit @p mode changed from
+     * This signal is emitted whenever the \p view's edit \p mode changed from
      * either EditInsert to EditOverwrite or vice versa.
-     * @param view view which changed its edit mode
-     * @param mode new edit mode
-     * @see viewEditMode()
+     * \param view view which changed its edit mode
+     * \param mode new edit mode
+     * \see viewEditMode()
      */
     void viewEditModeChanged ( KTextEditor::View *view, enum KTextEditor::View::EditMode mode );
 
     /**
      * information message
-     * @param view view which sends out information
-     * @param message information message
+     * \param view view which sends out information
+     * \param message information message
      */
     void informationMessage ( KTextEditor::View *view, const QString &message );
 
     /**
-     * This signal is emitted from @p view whenever the users inserts @p text
-     * at @p position, that means the user typed/pasted text.
-     * @param view view in which the text was inserted
-     * @param position position where the text was inserted
-     * @param text the text the user has typed into the editor
-     * @see insertText()
+     * This signal is emitted from \p view whenever the users inserts \p text
+     * at \p position, that means the user typed/pasted text.
+     * \param view view in which the text was inserted
+     * \param position position where the text was inserted
+     * \param text the text the user has typed into the editor
+     * \see insertText()
      */
     void textInserted ( KTextEditor::View *view, const KTextEditor::Cursor &position, const QString &text );
 
@@ -235,17 +235,17 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    */
   public:
     /**
-     * Set a context menu for this view to @p menu.
-     * @param menu new context menu object for this view
-     * @see contextMenu()
+     * Set a context menu for this view to \p menu.
+     * \param menu new context menu object for this view
+     * \see contextMenu()
      */
     virtual void setContextMenu ( QMenu *menu ) = 0;
 
     /**
      * Get the context menu for this view. The return value can be NULL
      * if no context menu object was set.
-     * @return context menu object
-     * @see setContextMenu()
+     * \return context menu object
+     * \see setContextMenu()
      */
     virtual QMenu *contextMenu () = 0;
 
@@ -254,37 +254,37 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    */
   public:
     /**
-     * Set the view's new cursor to @p position. A @e TAB character
+     * Set the view's new cursor to \p position. A \e TAB character
      * is handeled as only on character.
-     * @param position new cursor position
-     * @return @e true on success, otherwise @e false
-     * @see cursorPosition()
+     * \param position new cursor position
+     * \return \e true on success, otherwise \e false
+     * \see cursorPosition()
      */
     virtual bool setCursorPosition (const Cursor &position) = 0;
 
     /**
-     * Get the view's current cursor position. A @e TAB character is
+     * Get the view's current cursor position. A \e TAB character is
      * handeled as only one character.
-     * @return current cursor position
-     * @see setCursorPosition()
+     * \return current cursor position
+     * \see setCursorPosition()
      */
     virtual const Cursor &cursorPosition () const = 0;
 
     /**
-     * Get the current @e virtual cursor position, @e virtual means the
-     * tabulator character (TAB) counts @e multiple characters, as configured
+     * Get the current \e virtual cursor position, \e virtual means the
+     * tabulator character (TAB) counts \e multiple characters, as configured
      * by the user (e.g. one TAB is 8 spaces). The virtual cursor
      * position provides access to the user visible values of the current
      * cursor position.
      *
-     * @return virtual cursor position
-     * @see cursorPosition()
+     * \return virtual cursor position
+     * \see cursorPosition()
      */
     virtual Cursor cursorPositionVirtual () const = 0;
 
     /**
      * Get the screen coordinates (x/y) of the cursor position in pixels.
-     * @return cursor screen coordinates
+     * \return cursor screen coordinates
      */
     virtual QPoint cursorPositionCoordinates () const = 0;
 
@@ -295,9 +295,9 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    */
   signals:
     /**
-     * This signal is emitted whenever the @p view's cursor position changed.
-     * @param view view which emitted the signal
-     * @see cursorPosition(), cursorPositionVirtual()
+     * This signal is emitted whenever the \p view's cursor position changed.
+     * \param view view which emitted the signal
+     * \see cursorPosition(), cursorPositionVirtual()
      */
     void cursorPositionChanged (KTextEditor::View *view);
 
@@ -307,12 +307,12 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    */
   public:
     /**
-     * Set the view's selection to the range @p selection.
+     * Set the view's selection to the range \p selection.
      * The old selection will be discarded.
-     * @param range the range of the new selection
-     * @return @e true on success, otherwise @e false (e.g. when the cursor
+     * \param range the range of the new selection
+     * \return \e true on success, otherwise \e false (e.g. when the cursor
      *         range is invalid)
-     * @see selectionRange(), selection()
+     * \see selectionRange(), selection()
      */
     virtual bool setSelection ( const Range &range ) = 0;
 
@@ -321,50 +321,50 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * differs from the above function only in what argument(s) it accepts.
      * An existing old selection will be discarded. If possible you should
      * reimplement the default implementation with a more efficient one.
-     * @param position start or end position of the selection, depending
-     *        on the @p length parameter
-     * @param length if >0 @p position defines the start of the selection,
-     *        if <0 @p position specifies the end
-     * @param wrap if @e false the selection does not wrap lines and reaches
-     *        only to start/end of the cursors line. Default: @e true
-     * @see selectionRange(), selection()
+     * \param position start or end position of the selection, depending
+     *        on the \p length parameter
+     * \param length if >0 \p position defines the start of the selection,
+     *        if <0 \p position specifies the end
+     * \param wrap if \e false the selection does not wrap lines and reaches
+     *        only to start/end of the cursors line. Default: \e true
+     * \see selectionRange(), selection()
      */
     virtual bool setSelection ( const Cursor &position, int length, bool wrap = true );
 
     /**
      * Query the view whether it has selected text, i.e. whether a selection
      * exists.
-     * @return @e true if a text selection exists
-     * @see setSelection(), selectionRange()
+     * \return \e true if a text selection exists
+     * \see setSelection(), selectionRange()
      */
     virtual bool selection() const = 0;
 
     /**
      * Get the range occupied by the current selection.
-     * @return selection range, valid only if a selection currently exists.
-     * @see setSelection()
+     * \return selection range, valid only if a selection currently exists.
+     * \see setSelection()
      */
     virtual const Range &selectionRange() const = 0;
 
     /**
      * Get the view's selected text.
-     * @return the selected text
-     * @see setSelection()
+     * \return the selected text
+     * \see setSelection()
      */
     virtual QString selectionText () const = 0;
 
     /**
-     * Remove the view's current selection, @e without deleting the selected
+     * Remove the view's current selection, \e without deleting the selected
      * text.
-     * @return @e true on success, otherwise @e false
-     * @see removeSelectionText()
+     * \return \e true on success, otherwise \e false
+     * \see removeSelectionText()
      */
     virtual bool removeSelection () = 0;
 
     /**
-     * Remove the view's current selection @e including the selected text.
-     * @return @e true on success, otherwise @e false
-     * @see removeSelection()
+     * Remove the view's current selection \e including the selected text.
+     * \return \e true on success, otherwise \e false
+     * \see removeSelection()
      */
     virtual bool removeSelectionText () = 0;
 
@@ -373,20 +373,20 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    */
   public:
    /**
-    * Set block selection mode to state @p on.
-    * @param on if @e true, block selection mode is turned on, otherwise off
-    * @return @e true on success, otherwise @e false
-    * @see blockSelection()
+    * Set block selection mode to state \p on.
+    * \param on if \e true, block selection mode is turned on, otherwise off
+    * \return \e true on success, otherwise \e false
+    * \see blockSelection()
     */
     virtual bool setBlockSelection (bool on) = 0;
 
    /**
-    * Get the status of the selection mode. @e true indicates that block
-    * selection mode is on. If this is @e true, selections applied via the
+    * Get the status of the selection mode. \e true indicates that block
+    * selection mode is on. If this is \e true, selections applied via the
     * SelectionInterface are handled as block selections and the Copy&Paste
     * functions work on rectangular blocks of text rather than normal.
-    * @return @e true, if block selection mode is enabled, otherwise @e false
-    * @see setBlockSelection()
+    * \return \e true, if block selection mode is enabled, otherwise \e false
+    * \see setBlockSelection()
     */
     virtual bool blockSelection () const = 0;
 
@@ -397,22 +397,22 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    */
   signals:
     /**
-     * This signal is emitted whenever the @p view's selection changes.
-     * @note If the mode switches from block selection to normal selection
+     * This signal is emitted whenever the \p view's selection changes.
+     * \note If the mode switches from block selection to normal selection
      *       or vice versa this signal should also be emitted.
-     * @param view view in which the selection changed
-     * @see selection(), selectionRange(), selectionText()
+     * \param view view in which the selection changed
+     * \see selection(), selectionRange(), selectionText()
      */
     void selectionChanged (KTextEditor::View *view);
 
   public:
     /**
-     * This is a convenience function which inserts @p text at the view's
+     * This is a convenience function which inserts \p text at the view's
      * current cursor position. You do not necessarily need to reimplement
      * it, except you want to do some special things.
-     * @param text Text to be inserted
-     * @return @e true on success of insertion, otherwise @e false
-     * @see textInserted()
+     * \param text Text to be inserted
+     * \return \e true on success of insertion, otherwise \e false
+     * \see textInserted()
      */
     virtual bool insertText (const QString &text);
 };

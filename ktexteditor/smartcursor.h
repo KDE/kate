@@ -107,14 +107,14 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     /**
      * Determine if this cursor is located at the end of the current line.
      *
-     * @return @e true if the cursor is situated at the end of the line, otherwise @e false.
+     * \return \e true if the cursor is situated at the end of the line, otherwise \e false.
      */
     virtual bool atEndOfLine() const;
 
     /**
      * Determine if this cursor is located at the end of the document.
      *
-     * @return @e true if the cursor is situated at the end of the document, otherwise @e false.
+     * \return \e true if the cursor is situated at the end of the document, otherwise \e false.
      */
     virtual bool atEndOfDocument() const;
 
@@ -131,12 +131,12 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     QChar character() const;
 
     /**
-     * Insert @p text into the associated Document.
+     * Insert \p text into the associated Document.
      *
-     * @param text text to insert
-     * @param block insert this text as a visual block of text rather than a linear sequence
+     * \param text text to insert
+     * \param block insert this text as a visual block of text rather than a linear sequence
      *
-     * @return @e true on success, otherwise @e false
+     * \return \e true on success, otherwise \e false
      */
     virtual bool insertText(const QStringList &text, bool block = false);
     // END
@@ -159,7 +159,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     /**
      * Change the behavior of the cursor when text is inserted at the cursor.
      *
-     * If @p moveOnInsert is true, the cursor will end up at the end of the insert.
+     * If \p moveOnInsert is true, the cursor will end up at the end of the insert.
      */
     void setMoveOnInsert(bool moveOnInsert);
     // END

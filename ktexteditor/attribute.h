@@ -257,7 +257,7 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
 
     /**
      * Dynamic effects for display.
-     * @todo Pulse and CycleGradient are unclear.
+     * \todo Pulse and CycleGradient are unclear.
      */
     enum Effect {
       EffectNone          = 0x0 /**< No effect. Just display. */,

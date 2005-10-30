@@ -36,7 +36,7 @@ class View;
 /**
  * This is an interface for inserting template strings with user editable
  * fields into a document.
- * @ingroup kte_group_view_extensions
+ * \ingroup kte_group_view_extensions
  */
 class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInterface, but for consistency with the other classes it is not (for the 3.x release series)
 {
@@ -44,14 +44,14 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
     virtual ~TemplateInterface() {}
 
     /**
-     * Parses @p templateString for macros in the form [$%]{NAME} and finds
+     * Parses \p templateString for macros in the form [$%]{NAME} and finds
      * the value corresponding to NAME if any. The NAME string may contain
      * any non-whitespace character execpt '}'
-     * @param initialValues a map with the keys for the macros to expand.
+     * \param initialValues a map with the keys for the macros to expand.
      * keys with a value are ignored.
-     * @param parentWindow is used if dialogs have to be shown
-     * @return true if all macros was sucessfully expanded
-     * @see insertTemplateText for a list of supported macros
+     * \param parentWindow is used if dialogs have to be shown
+     * \return true if all macros was sucessfully expanded
+     * \see insertTemplateText for a list of supported macros
      */
     static bool expandMacros( QMap<QString, QString> &initialValues, QWidget *parentWindow );
 
@@ -59,7 +59,7 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
 
     /**
      * Inserts an interactive ediable template text at line "line", column "col".
-     * @return true if inserting the string succeeded
+     * \return true if inserting the string succeeded
      *
      * Use insertTemplateText(numLines(), ...) to append text at end of document
      * Template  strings look like
@@ -106,7 +106,7 @@ protected:
      * default values are inserted. If you are implementing this interface,
      * this method should work as described in the documentation for
      * insertTemplateText above.
-     * @return true if any text was inserted.
+     * \return true if any text was inserted.
      */
     virtual bool insertTemplateTextImplementation ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues)=0;
 };

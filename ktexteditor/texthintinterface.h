@@ -29,7 +29,7 @@ namespace KTextEditor
 
 /**
  * This is an interface for the KTextEditor::View class.
- * @ingroup kte_group_view_extensions
+ * \ingroup kte_group_view_extensions
  */
 class KTEXTEDITOR_EXPORT TextHintInterface
 {

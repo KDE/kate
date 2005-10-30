@@ -29,9 +29,9 @@ namespace KTextEditor {
 class Document;
 
 /**
- * @brief Variable/Modeline extension interface for the Document.
+ * \brief Variable/Modeline extension interface for the Document.
  *
- * @ingroup kte_group_doc_extensions
+ * \ingroup kte_group_doc_extensions
  *
  * \section intro Introduction
  *
@@ -47,16 +47,16 @@ class Document;
  * must emit the signal variableChanged() whenever a variable/value pair was
  * set, changed or removed.
  *
- * @note Implementations should check the document variables whenever the
+ * \note Implementations should check the document variables whenever the
  *       document was saved or loaded.
  *
  * \section access Accessing the VariableInterface
  *
  * The VariableInterface is supposed to be an extension interface for a
- * Document, i.e. the Document inherits the interface @e provided that the
+ * Document, i.e. the Document inherits the interface \e provided that the
  * used KTextEditor library implements the interface. Use qobject_cast to
  * access the interface:
- * @code
+ * \code
  *   // doc is of type KTextEditor::Document*
  *   KTextEditor::VariableInterface *iface =
  *       qobject_cast<KTextEditor::VariableInterface*>( doc );
@@ -65,10 +65,10 @@ class Document;
  *       // the implementation supports the interface
  *       // do stuff
  *   }
- * @endcode
+ * \endcode
  *
- * @see KTextEditor::Document, KTextEditor::Plugin
- * @author Anders Lund \<anders@alweb.dk\>
+ * \see KTextEditor::Document, KTextEditor::Plugin
+ * \author Anders Lund \<anders@alweb.dk\>
  */
 class KTEXTEDITOR_EXPORT VariableInterface
 {
@@ -79,8 +79,8 @@ class KTEXTEDITOR_EXPORT VariableInterface
     virtual ~VariableInterface() {}
 
     /**
-     * Get the value of the variable @p name.
-     * @return the value or an empty string if the variable is not set or has
+     * Get the value of the variable \p name.
+     * \return the value or an empty string if the variable is not set or has
      *         no value.
      */
     virtual QString variable( const QString &name ) const = 0;
@@ -90,12 +90,12 @@ class KTEXTEDITOR_EXPORT VariableInterface
   //
   public:
     /**
-     * The @p document emits this signal whenever the @p value of the
-     * @p variable changed, this includes when a variable was initially set.
-     * @param document document that emitted the signal
-     * @param variable variable that changed
-     * @param value new value for @e variable
-     * @see variable()
+     * The \p document emits this signal whenever the \p value of the
+     * \p variable changed, this includes when a variable was initially set.
+     * \param document document that emitted the signal
+     * \param variable variable that changed
+     * \param value new value for \e variable
+     * \see variable()
      */
     virtual void variableChanged( Document* document, const QString &variable, const QString &value ) = 0;
 };

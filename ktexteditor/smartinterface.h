@@ -83,7 +83,7 @@ class SmartCursor;
  * \section access Accessing the interface
  *
  * The SmartInterface is supposed to be an extension interface for a Document,
- * i.e. the Document inherits the interface @e provided that the 
+ * i.e. the Document inherits the interface \e provided that the 
  * KTextEditor library in use implements the interface. Use dynamic_cast to access
  * the interface:
  * \code

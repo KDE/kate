@@ -64,11 +64,11 @@ class KTEXTEDITOR_EXPORT Range
     Range();
 
     /**
-     * Constructor which creates a range from @e start to @e end.
+     * Constructor which creates a range from \e start to \e end.
      * If start is after end, they will be swapped.
      *
-     * @param start start position
-     * @param end end position
+     * \param start start position
+     * \param end end position
      */
     Range(const Cursor& start, const Cursor& end);
 
@@ -91,12 +91,12 @@ class KTEXTEDITOR_EXPORT Range
     Range(const Cursor& start, int endLine, int endColumn);
 
     /**
-     * Constructor which creates a range from @e startLine, @e startColumn to @e endLine, @e endColumn.
+     * Constructor which creates a range from \e startLine, \e startColumn to \e endLine, \e endColumn.
      *
-     * @param startLine start line
-     * @param startColumn start column
-     * @param endLine end line
-     * @param endColumn end column
+     * \param startLine start line
+     * \param startColumn start column
+     * \param endLine end line
+     * \param endColumn end column
      */
     Range(int startLine, int startColumn, int endLine, int endColumn);
 
@@ -216,21 +216,21 @@ class KTEXTEDITOR_EXPORT Range
     void setBothColumns(int column);
 
     /**
-     * Set the start and end cursors to @e range.start() and @e range.end() respectively.
+     * Set the start and end cursors to \e range.start() and \e range.end() respectively.
      *
-     * @param range range to assign to this range
+     * \param range range to assign to this range
      */
     virtual void setRange(const Range& range);
 
     /**
-     * @overload
+     * \overload
      * \n \n
-     * Set the start and end cursors to @e start and @e end respectively.
+     * Set the start and end cursors to \e start and \e end respectively.
      *
-     * @note If @e start is after @e end, they will be reversed.
+     * \note If \e start is after \e end, they will be reversed.
      *
-     * @param start start cursor
-     * @param end end cursor
+     * \param start start cursor
+     * \param end end cursor
      */
     void setRange(const Cursor& start, const Cursor& end);
 
@@ -256,8 +256,8 @@ class KTEXTEDITOR_EXPORT Range
      * Check whether this range is wholly contained within one line, ie. if
      * the start() and end() positions are on the same line.
      *
-     * \return @e true if both the start and end positions are on the same
-     *         line, otherwise @e false
+     * \return \e true if both the start and end positions are on the same
+     *         line, otherwise \e false
      */
     bool onSingleLine() const;
 
@@ -281,7 +281,7 @@ class KTEXTEDITOR_EXPORT Range
      * Returns true if this range contains no characters, ie. the start() and
      * end() positions are the same.
      *
-     * \returns @e true if the range contains no characters, otherwise @e false
+     * \returns \e true if the range contains no characters, otherwise \e false
      */
     bool isEmpty() const;
 
@@ -296,11 +296,11 @@ class KTEXTEDITOR_EXPORT Range
      * \{
      */
     /**
-     * Check whether the this range wholly encompasses @e range.
+     * Check whether the this range wholly encompasses \e range.
      *
-     * @param range range to check
+     * \param range range to check
      *
-     * @return @e true, if this range contains @e range, otherwise @e false
+     * \return \e true, if this range contains \e range, otherwise \e false
      */
     bool contains(const Range& range) const;
 
@@ -323,29 +323,29 @@ class KTEXTEDITOR_EXPORT Range
     bool containsLine(int line) const;
 
     /**
-     * Check whether the range contains @e column.
+     * Check whether the range contains \e column.
      *
-     * @param column column to check
+     * \param column column to check
      *
-     * @return @e true if the range contains @e column, otherwise @e false
+     * \return \e true if the range contains \e column, otherwise \e false
      */
     bool containsColumn(int column) const;
 
     /**
-     * Check whether the this range overlaps with @e range.
+     * Check whether the this range overlaps with \e range.
      *
-     * @param range range to check against
+     * \param range range to check against
      *
-     * @return @e true, if this range overlaps with @e range, otherwise @e false
+     * \return \e true, if this range overlaps with \e range, otherwise \e false
      */
     bool overlaps(const Range& range) const;
 
     /**
-     * Check whether the range overlaps at least part of @e line.
+     * Check whether the range overlaps at least part of \e line.
      *
-     * @param line line to check
+     * \param line line to check
      *
-     * @return @e true, if the range overlaps at least part of @e line, otherwise @e false
+     * \return \e true, if the range overlaps at least part of \e line, otherwise \e false
      */
     bool overlapsLine(int line) const;
 
@@ -368,11 +368,11 @@ class KTEXTEDITOR_EXPORT Range
      * line which is also partially occupied by this range, but the position
      * may not be eqivalent.  For overlap checking, use positionRelativeToLine().
      *
-     * @param cursor position to check
+     * \param cursor position to check
      *
-     * @return \e -1 if before, \e +1 if after, and \e 0 if \p cursor is contained within the range.
+     * \return \e -1 if before, \e +1 if after, and \e 0 if \p cursor is contained within the range.
      *
-     * @see positionRelativeToLine()
+     * \see positionRelativeToLine()
      */
     int positionRelativeToCursor(const Cursor& cursor) const;
 
@@ -382,11 +382,11 @@ class KTEXTEDITOR_EXPORT Range
      * within the range, not when \e contained - i.e., this range may not cover an entire line,
      * but \p line's position will still be eqivalent.  For containment checking, use positionRelativeToCursor().
      *
-     * @param line line to check
+     * \param line line to check
      *
-     * @return \e -1 if before, \e +1 if after, and \e 0 if \p line is overlapped by this range.
+     * \return \e -1 if before, \e +1 if after, and \e 0 if \p line is overlapped by this range.
      *
-     * @see positionRelativeToCursor()
+     * \see positionRelativeToCursor()
      */
     int positionRelativeToLine(int line) const;
 
@@ -394,10 +394,10 @@ class KTEXTEDITOR_EXPORT Range
      * Check whether \p cursor is located at either of the start() or end()
      * boundaries.
      *
-     * @param cursor cursor to check
+     * \param cursor cursor to check
      *
-     * @return @e true if the cursor is equal to @p start() or @p end(),
-     *         otherwise @e false.
+     * \return \e true if the cursor is equal to \p start() or \p end(),
+     *         otherwise \e false.
      */
     bool boundaryAtCursor(const Cursor& cursor) const;
 
@@ -405,10 +405,10 @@ class KTEXTEDITOR_EXPORT Range
      * Check whether \p line is on the same line as either of the start() or
      * end() boundaries.
      *
-     * @param line line to check
+     * \param line line to check
      *
-     * @return @e true if \p line is on the same line as either of the
-     *         boundaries, otherwise @e false
+     * \return \e true if \p line is on the same line as either of the
+     *         boundaries, otherwise \e false
      */
     bool boundaryOnLine(int line) const;
 
@@ -416,10 +416,10 @@ class KTEXTEDITOR_EXPORT Range
      * Check whether \p column is on the same column as either of the start()
      * or end() boundaries.
      *
-     * @param column column to check
+     * \param column column to check
      *
-     * @return @e true if \p column is on the same column as either of the
-     *         boundaries, otherwise @e false
+     * \return \e true if \p column is on the same column as either of the
+     *         boundaries, otherwise \e false
      */
     bool boundaryOnColumn(int column) const;
     //!\}
@@ -448,11 +448,11 @@ class KTEXTEDITOR_EXPORT Range
     /**
      * Assignment operator. Same as setRange().
      *
-     * @param rhs range to assign to this range.
+     * \param rhs range to assign to this range.
      *
-     * @return a reference to this range, after assignment has occurred.
+     * \return a reference to this range, after assignment has occurred.
      *
-     * @see setRange()
+     * \see setRange()
      */
     inline Range& operator=(const Range& rhs)
       { setRange(rhs); return *this; }
@@ -526,10 +526,10 @@ class KTEXTEDITOR_EXPORT Range
     /**
      * Equality operator.
      *
-     * @param r1 first range to compare
-     * @param r2 second range to compare
+     * \param r1 first range to compare
+     * \param r2 second range to compare
      *
-     * @return @e true if @e r1 and @e r2 equal, otherwise @e false
+     * \return \e true if \e r1 and \e r2 equal, otherwise \e false
      */
     inline friend bool operator==(const Range& r1, const Range& r2)
       { return r1.start() == r2.start() && r1.end() == r2.end(); }
@@ -537,10 +537,10 @@ class KTEXTEDITOR_EXPORT Range
     /**
      * Inequality operator.
      *
-     * @param r1 first range to compare
-     * @param r2 second range to compare
+     * \param r1 first range to compare
+     * \param r2 second range to compare
      *
-     * @return @e true if @e r1 and @e r2 do @e not equal, otherwise @e false
+     * \return \e true if \e r1 and \e r2 do \e not equal, otherwise \e false
      */
     inline friend bool operator!=(const Range& r1, const Range& r2)
       { return r1.start() != r2.start() || r1.end() != r2.end(); }
@@ -549,10 +549,10 @@ class KTEXTEDITOR_EXPORT Range
      * Greater than operator.  Looks only at the position of the two ranges,
      * does not consider their size.
      *
-     * @param r1 first range to compare
-     * @param r2 second range to compare
+     * \param r1 first range to compare
+     * \param r2 second range to compare
      *
-     * @return @e true if @e r1 starts after where @e r2 ends, otherwise @e false
+     * \return \e true if \e r1 starts after where \e r2 ends, otherwise \e false
      */
     inline friend bool operator>(const Range& r1, const Range& r2)
       { return r1.start() > r2.end(); }
@@ -561,10 +561,10 @@ class KTEXTEDITOR_EXPORT Range
      * Less than operator.  Looks only at the position of the two ranges,
      * does not consider their size.
      *
-     * @param r1 first range to compare
-     * @param r2 second range to compare
+     * \param r1 first range to compare
+     * \param r2 second range to compare
      *
-     * @return @e true if @e r1 ends before @e r2 begins, otherwise @e false
+     * \return \e true if \e r1 ends before \e r2 begins, otherwise \e false
      */
     inline friend bool operator<(const Range& r1, const Range& r2)
       { return r1.end() < r2.start(); }
@@ -588,8 +588,8 @@ class KTEXTEDITOR_EXPORT Range
   protected:
     /**
      * Constructor for advanced cursor types.
-     * Creates a range from @e start to @e end.
-     * Takes ownership of @e start and @e end.
+     * Creates a range from \e start to \e end.
+     * Takes ownership of \e start and \e end.
      *
      * \param start the start cursor.
      * \param end the end cursor.

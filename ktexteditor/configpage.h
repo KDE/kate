@@ -28,19 +28,19 @@ namespace KTextEditor
 {
 
 /**
- * @brief Config page interface for the Editor.
+ * \brief Config page interface for the Editor.
  *
  * \section intro Introduction
  *
  * The class ConfigPage represents a config page of the KTextEditor::Editor.
  * The Editor's config pages are usually embedded into a dialog that shows
- * buttons like @e Defaults, @e Reset and @e Apply. If one of the buttons is
+ * buttons like \e Defaults, \e Reset and \e Apply. If one of the buttons is
  * clicked and the condig page sent the signal changed() beforehand the
  * Editor will call the corresponding slot, either defaults(), reset() or
  * apply().
  *
- * @see KTextEditor::Editor
- * @author Christoph Cullmann \<cullmann@kde.org\>
+ * \see KTextEditor::Editor
+ * \author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT ConfigPage : public QWidget
 {
@@ -50,8 +50,8 @@ class KTEXTEDITOR_EXPORT ConfigPage : public QWidget
     /**
      * Constructor.
      *
-     * Create a new config page with @p parent.
-     * @param parent parent widget
+     * Create a new config page with \p parent.
+     * \param parent parent widget
      */
     ConfigPage ( QWidget *parent ) : QWidget (parent) {}
     /**
@@ -61,20 +61,20 @@ class KTEXTEDITOR_EXPORT ConfigPage : public QWidget
 
   public slots:
     /**
-     * This slot is called whenever the button @e Apply or @e OK was clicked.
+     * This slot is called whenever the button \e Apply or \e OK was clicked.
      * Apply the changed settings made in the config page now.
      */
     virtual void apply () = 0;
 
     /**
-     * This slot is called whenever the button @e Reset was clicked.
+     * This slot is called whenever the button \e Reset was clicked.
      * Reset the config page settings to the initial state.
      */
     virtual void reset () = 0;
 
     /**
      * Sets default options
-     * This slot is called whenever the button @e Defaults was clicked.
+     * This slot is called whenever the button \e Defaults was clicked.
      * Set the config page settings to the default values.
      */
     virtual void defaults () = 0;

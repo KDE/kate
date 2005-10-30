@@ -33,7 +33,7 @@ class Document;
 class View;
 
 /**
- * @brief KTextEditor Plugin interface.
+ * \brief KTextEditor Plugin interface.
  *
  * Topics:
  *  - \ref intro
@@ -51,12 +51,12 @@ class View;
  * \section config Configuration Management
  *
  * If your plugin supports a config dialog overwrite configDialogSupported()
- * and return @e true (The default implementation returns @e false and
+ * and return \e true (The default implementation returns \e false and
  * indicates that the plugin does not support a config dialog). The config
  * dialog can be shown by calling configDialog(), it can also be called from
  * a KTextEditor implementation (e.g. the KTextEditor implementation might
  * have a listview that shows all available plugins along with a
- * @e Configure... button). To save or load plugin settings writeConfig() and
+ * \e Configure... button). To save or load plugin settings writeConfig() and
  * readConfig() is called by the Editor part. Usually you do not have to call
  * readConfig() and writeConfig() yourself.
  *
@@ -66,7 +66,7 @@ class View;
  * interface provides functions to read and write session related settings.
  * If you have session dependant data additionally derive your Plugin from
  * this interface and implement the session related functions, for example:
- * @code
+ * \code
  *   class MyPlugin : public KTextEditor::Plugin,
  *                    public KTextEditor::SessionConfigInterface
  *   {
@@ -74,7 +74,7 @@ class View;
  *     virtual void readSessionConfig (KConfig *config);
  *     virtual void writeSessionConfig (KConfig *config);
  *   };
- * @endcode
+ * \endcode
  *
  * \section arch Plugin Architecture
  *
@@ -82,7 +82,7 @@ class View;
  * readConfig() with a given KConfig object. After this it will call
  * addDocument() and addView() for all documents and views the plugin should
  * handle. If your plugin has a GUI it is common to add an extra class, like:
- * @code
+ * \code
  *   class PluginView : public QObject, public KXMLGUIClient
  *   {
  *       Q_OBJECT
@@ -95,16 +95,16 @@ class View;
  *   private:
  *       KTextEditor::View* m_view;
  *   };
- * @endcode
+ * \endcode
  * Your KTextEditor::Plugin derived class then will create a new PluginView
  * for every View, i.e. for every call of addView().
  *
  * The method removeView() will be called whenever a View is removed/closed.
  * If you have a PluginView for every view this is the place to remove it.
  *
- * @see KTextEditor::Editor, KTextEditor::Document, KTextEditor::View,
+ * \see KTextEditor::Editor, KTextEditor::Document, KTextEditor::View,
  *      KTextEditor::SessionConfigInterface
- * @author Christoph Cullmann \<cullmann@kde.org\>
+ * \author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT Plugin : public QObject
 {
@@ -115,7 +115,7 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
      * Constructor.
      *
      * Create a new plugin.
-     * @param parent parent object
+     * \param parent parent object
      */
     Plugin ( QObject *parent ) : QObject (parent) {}
 
@@ -130,61 +130,61 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
    */
   public:
     /**
-     * Add a new @p document to the plugin.
+     * Add a new \p document to the plugin.
      * This method is called whenever the plugin should handle another
-     * @p document.
+     * \p document.
      *
      * For every call of addDocument() will finally follow a call of
      * removeDocument(), i.e. the number of calls are identic.
      *
-     * @param document new document to handle
-     * @see removeDocument(), addView()
+     * \param document new document to handle
+     * \see removeDocument(), addView()
      */
     virtual void addDocument (Document *document) { Q_UNUSED(document); }
 
     /**
-     * Remove the @p document from the plugin.
+     * Remove the \p document from the plugin.
      * This method is called whenever the plugin should stop handling
-     * the @p document.
+     * the \p document.
      *
      * For every call of addDocument() will finally follow a call of
      * removeDocument(), i.e. the number of calls are identic.
      *
-     * @param document document to hang the gui out from
-     * @see addDocument(), removeView()
+     * \param document document to hang the gui out from
+     * \see addDocument(), removeView()
      */
     virtual void removeDocument (Document *document) { Q_UNUSED(document); }
 
     /**
      * This method is called whenever the plugin should add its GUI to
-     * @p view.
+     * \p view.
      * The process for the Editor can be roughly described as follows:
      *   - add documents the plugin should handle via addDocument()
-     *   - for every document @e doc call addView() for @e every view for
-     *     @e doc.
+     *   - for every document \e doc call addView() for \e every view for
+     *     \e doc.
      *
      * For every call of addView() will finally follow a call of
      * removeView(), i.e. the number of calls are identic.
      *
-     * @note As addView() is called for @e every view in which the plugin's
-     *       GUI should be visible you must @e not add the the GUI by
+     * \note As addView() is called for \e every view in which the plugin's
+     *       GUI should be visible you must \e not add the the GUI by
      *       iterating over all Document::views() yourself neither use the
      *       signal Document::viewCreated().
      *
-     * @param view view to hang the gui in
-     * @see removeView(), addDocument()
+     * \param view view to hang the gui in
+     * \see removeView(), addDocument()
      */
     virtual void addView (View *view) { Q_UNUSED(view); }
 
     /**
      * This method is called whenever the plugin should remove its GUI from
-     * @p view.
+     * \p view.
      *
      * For every call of addView() will finally follow a call of
      * removeView(), i.e. the number of calls are identic.
      *
-     * @param view view to hang the gui out from
-     * @see addView(), removeDocument()
+     * \param view view to hang the gui out from
+     * \see addView(), removeDocument()
      */
     virtual void removeView (View *view) { Q_UNUSED(view); }
 
@@ -195,31 +195,31 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
    */
   public:
     /**
-     * Read the editor configuration from the KConfig @p config.
-     * If @p config is NULL you can kapp->config() as fallback solution.
+     * Read the editor configuration from the KConfig \p config.
+     * If \p config is NULL you can kapp->config() as fallback solution.
      * readConfig() is called from the Editor implementation, so you
      * never have to call it yourself.
      *
-     * @param config config object
-     * @see writeConfig()
+     * \param config config object
+     * \see writeConfig()
      */
     virtual void readConfig (KConfig *config = 0) { Q_UNUSED(config); }
 
     /**
-     * Write the editor configuration to the KConfig @p config.
-     * If @p config is NULL you can kapp->config() as fallback solution.
+     * Write the editor configuration to the KConfig \p config.
+     * If \p config is NULL you can kapp->config() as fallback solution.
      * writeConfig() is called from the Editor implementation, so you
      * never have to call it yourself.
      *
-     * @param config config object
-     * @see readConfig()
+     * \param config config object
+     * \see readConfig()
      */
     virtual void writeConfig (KConfig *config = 0) { Q_UNUSED(config); }
 
     /**
      * Check, whether the plugin has support for a config dialog.
-     * @return @e true, if the plugin has a config dialog, otherwise @e false
-     * @see configDialog()
+     * \return \e true, if the plugin has a config dialog, otherwise \e false
+     * \see configDialog()
      */
     virtual bool configDialogSupported () const { return false; }
 
@@ -229,15 +229,15 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
      * immediately. writeConfig() is called by the Editor implementation to
      * save the plugin's settings, e.g. when a plugin is unloaded.
      *
-     * @param parent parent widget
-     * @see configDialogSupported()
+     * \param parent parent widget
+     * \see configDialogSupported()
      */
     virtual void configDialog (QWidget *parent) { Q_UNUSED(parent); }
 };
 
 /**
- * Create a plugin called @p libname with parent object @p parent.
- * @return the plugin or NULL if it could not be loaded
+ * Create a plugin called \p libname with parent object \p parent.
+ * \return the plugin or NULL if it could not be loaded
  */
 KTEXTEDITOR_EXPORT Plugin *createPlugin ( const char *libname, QObject *parent );
 

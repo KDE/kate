@@ -29,9 +29,9 @@ namespace KTextEditor
 {
 
 /**
- * @brief Highlighting extension interface for the Document.
+ * \brief Highlighting extension interface for the Document.
  *
- * @ingroup kte_group_doc_extensions
+ * \ingroup kte_group_doc_extensions
  *
  * \section intro Introduction
  *
@@ -46,10 +46,10 @@ namespace KTextEditor
  * \section access Accessing the HighlightingInterface
  *
  * The HighlightingInterface is supposed to be an extension interface for a
- * Document, i.e. the Document inherits the interface @e provided that the
+ * Document, i.e. the Document inherits the interface \e provided that the
  * used KTextEditor library implements the interface. Use qobject_cast to
  * access the interface:
- * @code
+ * \code
  *   // doc is of type KTextEditor::Document*
  *   KTextEditor::HighlightingInterface *iface =
  *       qobject_cast<KTextEditor::HighlightingInterface*>( doc );
@@ -58,10 +58,10 @@ namespace KTextEditor
  *       // the implementation supports the interface
  *       // do stuff
  *   }
- * @endcode
+ * \endcode
  *
- * @see KTextEditor::Document
- * @author Christoph Cullmann \<cullmann@kde.org\>
+ * \see KTextEditor::Document
+ * \author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT HighlightingInterface
 {
@@ -77,36 +77,36 @@ class KTEXTEDITOR_EXPORT HighlightingInterface
   public:
     /**
      * Get the current active syntax highlighting mode.
-     * @return current active mode
-     * @see setHlMode()
+     * \return current active mode
+     * \see setHlMode()
      */
     virtual unsigned int hlMode () = 0;
 
     /**
-     * Set the syntax highlighting mode to @p mode.
-     * @param mode new highlighting mode
-     * @see hlMode()
+     * Set the syntax highlighting mode to \p mode.
+     * \param mode new highlighting mode
+     * \see hlMode()
      */
     virtual bool setHlMode (unsigned int mode) = 0;
 
     /**
      * Get the number of available syntax highlighting modes.
-     * @return number of available modes
+     * \return number of available modes
      */
     virtual unsigned int hlModeCount () = 0;
 
     /**
-     * Get the name of the syntax highlighting mode with number @p mode.
-     * @return name of @p mode
-     * @see hlModeSectionName()
+     * Get the name of the syntax highlighting mode with number \p mode.
+     * \return name of \p mode
+     * \see hlModeSectionName()
      */
     virtual QString hlModeName (unsigned int mode) = 0;
 
     /**
      * Get the name of the section to which the syntax highlighting mode
-     * with number @p mode belongs to.
-     * @return section name
-     * @see hlModeName()
+     * with number \p mode belongs to.
+     * \return section name
+     * \see hlModeName()
      */
     virtual QString hlModeSectionName (unsigned int mode) = 0;
 
@@ -117,7 +117,7 @@ class KTEXTEDITOR_EXPORT HighlightingInterface
     /**
      * This signal is emitted whenever the document's syntax highlighting
      * mode changed.
-     * @see hlMode(), setHlMode()
+     * \see hlMode(), setHlMode()
      */
     virtual void hlChanged () = 0;
 };

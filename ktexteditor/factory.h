@@ -35,7 +35,7 @@ namespace KTextEditor
 class Editor;
 
 /**
- * @brief Accessor to the Editor implementation.
+ * \brief Accessor to the Editor implementation.
  *
  * \section intro Introduction
  *
@@ -48,8 +48,8 @@ class Editor;
  * Each KTextEditor implementation must reimplement this factory to allow
  * access to the editor object.
  *
- * @see KParts::Factory, KTextEditor::Editor
- * @author Christoph Cullmann \<cullmann@kde.org\>
+ * \see KParts::Factory, KTextEditor::Editor
+ * \author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT Factory : public KParts::Factory
 {
@@ -59,8 +59,8 @@ class KTEXTEDITOR_EXPORT Factory : public KParts::Factory
     /**
      * Constructor.
      *
-     * Create a new Factory with @p parent.
-     * @param parent parent object
+     * Create a new Factory with \p parent.
+     * \param parent parent object
      */
     Factory ( QObject *parent );
 
@@ -70,10 +70,10 @@ class KTEXTEDITOR_EXPORT Factory : public KParts::Factory
     virtual ~Factory ();
 
     /**
-     * Get the global Editor object. The editor part implementation @e must
+     * Get the global Editor object. The editor part implementation \e must
      * ensure that this object lives as long as any factory or document
      * object exists.
-     * @return global KTextEditor::Editor object
+     * \return global KTextEditor::Editor object
      */
     virtual Editor *editor () = 0;
 };

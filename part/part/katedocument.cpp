@@ -613,10 +613,10 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
       if ( !block )
       {
         // Only perform the text insert if there is text to insert
-        if (currentLineStart < pos - currentLineStart)
+        if (pos > currentLineStart)
           editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart));
 
-        editWrapLine(currentLine, pos + insertColumn);
+        editWrapLine(currentLine, insertColumn + pos - currentLineStart);
 
         insertColumn = 0;
       }

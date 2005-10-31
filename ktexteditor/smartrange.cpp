@@ -124,8 +124,8 @@ void SmartRange::insertChildRange( SmartRange * newChild )
   while (it.hasPrevious()) {
     if (it.peekPrevious()->end() <= newChild->start()) {
       it.insert(newChild);
-      if (it.hasNext() && it.next()->start() < newChild->end())
-          it.next()->start() = newChild->end();
+      if (it.hasNext() && it.peekNext()->start() < newChild->end())
+          it.peekNext()->start() = newChild->end();
       return;
 
     } else if (it.peekPrevious()->start() >= newChild->start()) {

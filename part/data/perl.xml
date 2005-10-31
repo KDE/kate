@@ -15,7 +15,7 @@
 
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 
    *** NOTICE ***
@@ -39,7 +39,7 @@
 
    Enhance tr/// and y/// support.
 -->
-<language name="Perl" version="1.18" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
+<language name="Perl" version="1.20" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> if </item>
@@ -364,9 +364,9 @@
 
         <RegExpr attribute="Operator" context="find_quoted" String="\bq(?=[qwx]?\s*[^\w\s])" />
         <RegExpr attribute="Operator" context="find_subst" String="\bs(?=\s*[^\w\s])" />
-        <RegExpr attribute="Operator" context="tr" String="\b(?:tr|y)\s*(?=[^\w\s])" />
+        <RegExpr attribute="Operator" context="tr" String="\b(?:tr|y)\s*(?=[^\w\s\]})])" />
 
-        <RegExpr attribute="Operator" context="find_pattern" String="\b(?:m|qr)(?=\s*[^\w\s])" />
+        <RegExpr attribute="Operator" context="find_pattern" String="\b(?:m|qr)(?=\s*[^\w\s\]})])" />
 
         <RegExpr attribute="Normal Text" context="#stay" String="[\w_]+\s*/" />
         <RegExpr attribute="Normal Text" context="#stay" String="[&lt;&gt;&quot;':]/" />
@@ -445,38 +445,43 @@
 
       <context name="string" attribute="String" lineEndContext="#stay">
         <DetectIdentifier />
-        <Detect2Chars attribute="String" context="#stay" char="\" char1="'" />
+        <Detect2Chars attribute="String Special Character" context="#stay" char="\" char1="'" />
+        <Detect2Chars attribute="String Special Character" context="#stay" char="\" char1="\" />
         <DetectChar attribute="Operator" context="#pop" char="'" endRegion="String" />
       </context>
       <context name="string_2" attribute="String" lineEndContext="#stay">
         <DetectIdentifier />
-        <Detect2Chars attribute="String" context="#stay" char="\" char1=")" />
+        <Detect2Chars attribute="String Special Character" context="#stay" char="\" char1=")" />
+        <Detect2Chars attribute="String Special Character" context="#stay" char="\" char1="\" />
         <RangeDetect attribute="String" context="#stay" char="(" char1=")" />
         <DetectChar attribute="Operator" context="#pop#pop" char=")" endRegion="String" />
       </context>
       <context name="string_3" attribute="String" lineEndContext="#stay">
         <DetectIdentifier />
-        <Detect2Chars attribute="String" context="#stay" char="\" char1="}" />
+        <Detect2Chars attribute="String Special Character" context="#stay" char="\" char1="}" />
+        <Detect2Chars attribute="String Special Character" context="#stay" char="\" char1="\" />
         <RangeDetect attribute="String" context="#stay" char="{" char1="}" />
         <DetectChar attribute="Operator" context="#pop#pop" char="}" endRegion="String" />
       </context>
       <context name="string_4" attribute="String" lineEndContext="#stay">
         <DetectIdentifier />
-        <Detect2Chars attribute="String" context="#stay" char="\" char1="]" />
+        <Detect2Chars attribute="String Special Character" context="#stay" char="\" char1="]" />
+        <Detect2Chars attribute="String Special Character" context="#stay" char="\" char1="\" />
         <RangeDetect attribute="String" context="#stay" char="[" char1="]" />
         <DetectChar attribute="Operator" context="#pop#pop" char="]" endRegion="String" />
       </context>
       <context name="string_5" attribute="String" lineEndContext="#stay">
         <DetectIdentifier />
-        <Detect2Chars attribute="String" context="#stay" char="\" char1="&lt;" />
+        <Detect2Chars attribute="String Special Character" context="#stay" char="\" char1="&lt;" />
+        <Detect2Chars attribute="String Special Character" context="#stay" char="\" char1="\" />
         <Detect2Chars attribute="String" context="#stay" char="\" char1="&gt;" />
         <RangeDetect attribute="String" context="#stay" char="&lt;" char1="&gt;" />
         <DetectChar attribute="Operator" context="#pop#pop" char="&gt;" endRegion="String" />
       </context>
       <context name="string_6" attribute="String" lineEndContext="#stay" dynamic="true">
         <DetectIdentifier />
-        <Detect2Chars attribute="String" context="#stay" char="\" char1="\" />
-        <RegExpr attribute="String" context="#stay" String="\%1" dynamic="true"/>
+        <Detect2Chars attribute="String Special Character" context="#stay" char="\" char1="\" />
+        <RegExpr attribute="String Special Character" context="#stay" String="\%1" dynamic="true"/>
         <DetectChar attribute="Operator" context="#pop#pop" char="1" dynamic="true" endRegion="String" />
       </context>
 

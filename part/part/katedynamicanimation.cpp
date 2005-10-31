@@ -121,16 +121,31 @@ void KateDynamicAnimation::mergeToAttribute( KTextEditor::Attribute & attrib ) c
 
   //kdDebug() << k_funcinfo << m_sequence << "Effects: " << effects << endl;
 
-  if (effects & Attribute::EffectFadeIn) {
-    if (m_sequence > 0 && m_sequence < 100) {
-
+  if (m_sequence > 0 && m_sequence < 100) {
+    if (effects & Attribute::EffectFadeIn) {
       QMapIterator<int, QVariant> it = dynamicAttribute()->properties();
       while (it.hasNext()) {
         it.next();
         if (attrib.hasProperty(it.key())) {
-          attrib.setProperty(it.key(), mergeWith(attrib.property(it.key()), it.value()));
+          attrib.setProperty(it.key(), mergeWith(attrib.property(it.key()), it.value(), m_sequence));
         } else {
-          attrib.setProperty(it.key(), mergeWith(QVariant(), it.value()));
+          attrib.setProperty(it.key(), mergeWith(QVariant(), it.value(), m_sequence));
+        }
+      }
+
+    } else {
+      attrib.merge(*dynamicAttribute());
+    }
+
+  } else if (m_sequence > 200 && m_sequence < 300) {
+    if (effects & Attribute::EffectFadeOut) {
+      QMapIterator<int, QVariant> it = dynamicAttribute()->properties();
+      while (it.hasNext()) {
+        it.next();
+        if (attrib.hasProperty(it.key())) {
+          attrib.setProperty(it.key(), mergeWith(attrib.property(it.key()), it.value(), 300 - m_sequence));
+        } else {
+          attrib.setProperty(it.key(), mergeWith(QVariant(), it.value(), 300 - m_sequence));
         }
       }
 
@@ -149,12 +164,12 @@ void KateDynamicAnimation::finish( )
   m_timer->start();
 }
 
-QVariant KateDynamicAnimation::mergeWith( const QVariant & baseVariant, const QVariant & dynamicVariant ) const
+QVariant KateDynamicAnimation::mergeWith( const QVariant & baseVariant, const QVariant & dynamicVariant, int percent ) const
 {
   //Q_ASSERT(baseVariant.type() == dynamicVariant.type());
 
-  double baseFactor = double(100 - m_sequence) / 100;
-  double addFactor = double(m_sequence) / 100;
+  double baseFactor = double(100 - percent) / 100;
+  double addFactor = double(percent) / 100;
 
   switch (dynamicVariant.type()) {
     case QVariant::Brush: {

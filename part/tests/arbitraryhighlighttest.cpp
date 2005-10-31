@@ -66,7 +66,7 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
     dyn->setBackground(Qt::blue);
     dyn->setForeground(Qt::white);
     ranges[2]->setDynamicAttribute(Attribute::ActivateMouseIn, dyn, true);
-    ranges[2]->setEffects(Attribute::EffectFadeIn);
+    ranges[2]->setEffects(Attribute::EffectFadeIn | Attribute::EffectFadeOut);
 
     //ranges[3]->setFontUnderline(true);
     //ranges[3]->setSelectedForeground(Qt::magenta);
@@ -112,7 +112,7 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
     current.setPosition(current.line() + 1, 0);
   }
 
-  outputRange(range, mostSpecificChild);
+  //outputRange(range, mostSpecificChild);
 }
 
 void ArbitraryHighlightTest::outputRange( KTextEditor::SmartRange * range, KTextEditor::SmartRange * mostSpecific )

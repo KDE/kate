@@ -66,7 +66,7 @@ class KateDynamicAnimation : public QObject
     void redraw(KateSmartRange* range);
 
   private:
-    QVariant mergeWith(const QVariant& base, const QVariant& dynamic) const;
+    QVariant mergeWith(const QVariant& base, const QVariant& dynamic, int percent) const;
 
     KateSmartRange* m_range;
     KTextEditor::Attribute::ActivationType m_type;

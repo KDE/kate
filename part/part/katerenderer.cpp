@@ -295,8 +295,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
     KTextEditor::Cursor currentPosition, endPosition;
 
     if (selectionsOnly) {
-      KTextEditor::Range rangeNeeded = m_view->selectionRange();
-      rangeNeeded = rangeNeeded.encompass(m_dynamicRegion.boundingRange());
+      KTextEditor::Range rangeNeeded = m_view->selectionRange().encompass(m_dynamicRegion.boundingRange());
       rangeNeeded &= KTextEditor::Range(range->line(), 0, range->line() + 1, 0);
 
       currentPosition = qMax(range->start(), rangeNeeded.start());

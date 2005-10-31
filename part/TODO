@@ -2,6 +2,10 @@ TODO:
   A current todo list is available on:
     http://kate.babylon2k.com/index.php/Work_todo
 
+**** Bugs ****
+* access of deleted cursors by the dynamic hl stuff
+
+
 **** Refactoring/Cleanups ****
 
 * KateViewInternal to be completely hidden from view for almost everything but

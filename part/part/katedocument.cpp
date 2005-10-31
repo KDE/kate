@@ -635,11 +635,11 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
     {
       if ( replacetabs && ch == tabChar )
       {
-        int spacesRequired = tabWidth - ( (insertColumn + pos - currentLineStart) % tabWidth ); //###
+        int spacesRequired = tabWidth - ( ((block ? position.column() : insertColumn) + pos - currentLineStart) % tabWidth );
         editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart) + QString(spacesRequired, spaceChar));
 
-        currentLineStart = pos - currentLineStart + spacesRequired;
-        insertColumn = pos - currentLineStart;
+        insertColumn += pos - currentLineStart + spacesRequired;
+        currentLineStart = pos + 1;
       }
     }
   }

@@ -4897,7 +4897,7 @@ void KateDocument::addHighlightToDocument( KTextEditor::SmartRange * topRange, b
   m_documentHighlights.append(topRange);
 
   // Deal with the range being deleted externally
-  connect(topRange->notifier(), SIGNAL(rangeDeleted(KTextEditor::SmartRange*)), SLOT(removeHighlightFromDocument(KTextEditor::SmartRange*)));
+  connect(topRange->notifier(), SIGNAL(deleted(KTextEditor::SmartRange*)), SLOT(removeHighlightFromDocument(KTextEditor::SmartRange*)));
   static_cast<KateSmartRangeNotifier*>(topRange->notifier())->setConnectedInternally();
 
   if (supportDynamic) {
@@ -4941,7 +4941,7 @@ void KateDocument::addActionsToDocument( KTextEditor::SmartRange * topRange )
   m_documentActions.append(topRange);
 
   // Deal with the range being deleted externally
-  connect(topRange->notifier(), SIGNAL(rangeDeleted(KTextEditor::SmartRange*)), SLOT(removeActionsFromDocument(KTextEditor::SmartRange*)));
+  connect(topRange->notifier(), SIGNAL(deleted(KTextEditor::SmartRange*)), SLOT(removeActionsFromDocument(KTextEditor::SmartRange*)));
   static_cast<KateSmartRangeNotifier*>(topRange->notifier())->setConnectedInternally();
 }
 

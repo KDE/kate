@@ -377,22 +377,41 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   }
 
   if (range->layout()) {
+    QVector<QTextLayout::FormatRange> additionalFormats;
     if (range->length() > 0) {
       // Draw the text :)
-      // FIXME toVector() may be a performance issue
-      if (m_dynamicRegion.boundingRange().isValid() || (m_view->selection() && showSelections() && m_view->selectionRange().overlapsLine(range->line())))
-        range->layout()->draw(&paint, QPoint(-xStart,0), decorationsForLine(range, true).toVector());
-      else
+      if (m_dynamicRegion.boundingRange().isValid() || (m_view->selection() && showSelections() && m_view->selectionRange().overlapsLine(range->line()))) {
+        // FIXME toVector() may be a performance issue
+        additionalFormats = decorationsForLine(range, true).toVector();
+        range->layout()->draw(&paint, QPoint(-xStart,0), additionalFormats);
+
+      } else {
         range->layout()->draw(&paint, QPoint(-xStart,0));
+      }
     }
 
     // Loop each individual line for additional text decoration etc.
     QListIterator<QTextLayout::FormatRange> it = range->layout()->additionalFormats();
+    QVectorIterator<QTextLayout::FormatRange> it2 = additionalFormats;
     for (int i = 0; i < range->viewLineCount(); ++i) {
       KateTextLayout line = range->viewLine(i);
 
       // Determine the background color to use, if any, for the end of this view line
       QColor backgroundColor;
+      while (it2.hasNext()) {
+        const QTextLayout::FormatRange& fr = it2.peekNext();
+        if (fr.start > line.endCol())
+          goto backgroundFound;
+
+        if (fr.start + fr.length > line.endCol()) {
+          if (fr.format.hasProperty(QTextFormat::BackgroundBrush))
+            backgroundColor = fr.format.background().color();
+          goto backgroundFound;
+        }
+
+        it2.next();
+      }
+
       while (it.hasNext()) {
         const QTextLayout::FormatRange& fr = it.peekNext();
         if (fr.start > line.endCol())
@@ -406,6 +425,8 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
         it.next();
       }
+
+      backgroundFound:
 
       // Draw selection outside of areas where text is rendered
       if (m_view->selection() && m_view->lineEndSelected(line.end())) {

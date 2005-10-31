@@ -304,7 +304,7 @@ Range KTextEditor::Range::encompass( const Range & range ) const
       return range;
     else
       return invalid();
-  else if (range.isValid())
+  else if (!range.isValid())
     return *this;
   else
     return Range(qMin(start(), range.start()), qMax(end(), range.end()));

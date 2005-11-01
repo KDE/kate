@@ -27,7 +27,6 @@
 
 #include <math.h>
 
-#include <kapplication.h>
 #include <kconfig.h>
 #include <kglobalsettings.h>
 #include <kcharsets.h>
@@ -113,7 +112,7 @@ KateDocumentConfig::KateDocumentConfig ()
   m_pluginsSet.fill (true);
 
   // init with defaults from config or really hardcoded ones
-  KConfig *config = kapp->config();
+  KConfig *config = KGlobal::config();
   config->setGroup("Kate Document Defaults");
   readConfig (config);
 }
@@ -627,7 +626,7 @@ KateViewConfig::KateViewConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfig *config = kapp->config();
+  KConfig *config = KGlobal::config();
   config->setGroup("Kate View Defaults");
   readConfig (config);
 }
@@ -1016,7 +1015,7 @@ KateRendererConfig::KateRendererConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfig *config = kapp->config();
+  KConfig *config = KGlobal::config();
   config->setGroup("Kate Renderer Defaults");
   readConfig (config);
 }

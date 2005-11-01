@@ -31,7 +31,6 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/variableinterface.h>
 
-#include <kapplication.h>
 #include <kconfig.h>
 #include <kdialog.h>
 #include <kgenericfactory.h>
@@ -116,18 +115,16 @@ void DocWordCompletionPlugin::configDialog (QWidget *parent)
 
 void DocWordCompletionPlugin::readConfig()
 {
-  KConfig *config = kapp->config();
-  config->setGroup( "DocWordCompletion Plugin" );
-    m_treshold = config->readNumEntry( "treshold", 3 );
-  m_autopopup = config->readBoolEntry( "autopopup", true );
+  KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin" );
+  m_treshold = cg.readNumEntry( "treshold", 3 );
+  m_autopopup = cg.readBoolEntry( "autopopup", true );
 }
 
 void DocWordCompletionPlugin::writeConfig()
 {
-  KConfig *config = kapp->config();
-  config->setGroup("DocWordCompletion Plugin");
-  config->writeEntry("autopopup", m_autopopup );
-  config->writeEntry("treshold", m_treshold );
+  KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin" );
+  cg.writeEntry("autopopup", m_autopopup );
+  cg.writeEntry("treshold", m_treshold );
 }
 
 void DocWordCompletionPlugin::addView(KTextEditor::View *view)

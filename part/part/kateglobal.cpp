@@ -37,7 +37,6 @@
 #include <klocale.h>
 #include <kdirwatch.h>
 #include <kdebug.h>
-#include <kapplication.h>
 #include <kwin.h>
 #include <kiconloader.h>
 
@@ -203,7 +202,7 @@ const QList<KTextEditor::Document*> &KateGlobal::documents ()
 void KateGlobal::readConfig(KConfig *config)
 {
   if( !config )
-    config = kapp->config();
+    config = KGlobal::config();
 
   config->setGroup("Kate Document Defaults");
 
@@ -222,7 +221,7 @@ void KateGlobal::readConfig(KConfig *config)
 void KateGlobal::writeConfig(KConfig *config)
 {
   if( !config )
-    config = kapp->config();
+    config = KGlobal::config();
 
   config->setGroup("Kate Document Defaults");
 

@@ -27,7 +27,7 @@
 #include <kconfig.h>
 #include <kservice.h>
 #include <klocale.h>
-#include <kapplication.h>
+#include <kglobal.h>
 
 #include "editorchooser_ui.h"
 
@@ -89,13 +89,8 @@ EditorChooser:: ~EditorChooser(){
 }
 
 void EditorChooser::readAppSetting(const QString& postfix){
-	KConfig *cfg=kapp->config();
-	QString previousGroup=cfg->group();
-        if (postfix.isEmpty())
-		cfg->setGroup("KTEXTEDITOR:");
-	else
-		cfg->setGroup("KTEXTEDITOR:"+postfix);
-	QString editor=cfg->readPathEntry("editor");
+        KConfigGroup cg(KGlobal::config(), postfix.isEmpty() ? "KTEXTEDITOR:" : "KTEXTEDITOR:"+postfix);
+	QString editor=cg.readPathEntry("editor");
 	if (editor.isEmpty()) d->chooser->editorCombo->setCurrentIndex(0);
 	else
 	{
@@ -103,42 +98,26 @@ void EditorChooser::readAppSetting(const QString& postfix){
 		idx=idx+1;
 		d->chooser->editorCombo->setCurrentIndex(idx);
 	}
-	cfg->setGroup(previousGroup);
 }
 
 void EditorChooser::writeAppSetting(const QString& postfix){
-	KConfig *cfg=kapp->config();
-	QString previousGroup=cfg->group();
-	if (postfix.isEmpty())
-		cfg->setGroup("KTEXTEDITOR:");
-	else
-		cfg->setGroup("KTEXTEDITOR:"+postfix);
-	cfg->writeEntry("DEVELOPER_INFO","NEVER TRY TO USE VALUES FROM THAT GROUP, THEY ARE SUBJECT TO CHANGES");
-	cfg->writePathEntry("editor", (d->chooser->editorCombo->currentIndex()==0) ?
+	KConfigGroup cg(KGlobal::config(), postfix.isEmpty() ? "KTEXTEDITOR:" : "KTEXTEDITOR:"+postfix);
+	cg.writeEntry("DEVELOPER_INFO","NEVER TRY TO USE VALUES FROM THAT GROUP, THEY ARE SUBJECT TO CHANGES");
+	cg.writePathEntry("editor", (d->chooser->editorCombo->currentIndex()==0) ?
 		QString() : QString(d->elements.at(d->chooser->editorCombo->currentIndex()-1)));
-	cfg->sync();
-	cfg->setGroup(previousGroup);
-
 }
 
 KTextEditor::Editor *EditorChooser::editor(const QString& postfix,bool fallBackToKatePart){
 
 	KTextEditor::Editor *tmpEd=0;
 
-	KConfig *cfg=kapp->config();
-        QString previousGroup=cfg->group();
-	if (postfix.isEmpty())
-	        cfg->setGroup("KTEXTEDITOR:");
-	else
-        	cfg->setGroup("KTEXTEDITOR:"+postfix);
-        QString editor=cfg->readPathEntry("editor");
-	cfg->setGroup(previousGroup);
+	KConfigGroup cg(KGlobal::config(), postfix.isEmpty() ? "KTEXTEDITOR:" : "KTEXTEDITOR:"+postfix);
+        QString editor=cg.readPathEntry("editor");
 	if (editor.isEmpty())
 	{
-		KConfig *config=new KConfig("default_components");
-  		config->setGroup("KTextEditor");
-	  	editor = config->readPathEntry("embeddedEditor", "katepart");
-		delete config;
+		KConfig config("default_components");
+  		config.setGroup("KTextEditor");
+	  	editor = config.readPathEntry("embeddedEditor", "katepart");
 	}
 
 	KService::Ptr serv=KService::serviceByDesktopName(editor);

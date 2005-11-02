@@ -39,6 +39,16 @@ KateSmartManager::KateSmartManager(KateDocument* parent)
 
 KateSmartManager::~KateSmartManager()
 {
+  clear(true);
+
+  KateSmartGroup* smartGroup = m_firstGroup;
+  while (smartGroup) {
+    KateSmartGroup* toDelete = smartGroup;
+    smartGroup = smartGroup->next();
+    delete toDelete;
+  }
+
+  delete m_invalidGroup;
 }
 
 KateDocument * KateSmartManager::doc( ) const

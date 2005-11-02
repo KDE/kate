@@ -252,6 +252,8 @@ KateDocument::~KateDocument()
     delete i.value();
   m_marks.clear();
 
+  delete m_smartManager;
+
   delete m_config;
   delete m_indenter;
   KateGlobal::self()->deregisterDocument (this);
@@ -2266,6 +2268,8 @@ bool KateDocument::openFile(KIO::Job * job)
   //
   foreach (KateView * view, m_views)
   {
+    // This is needed here because inserting the text moves the view's start position (it is a SmartCursor)
+    view->setCursorPosition(KTextEditor::Cursor());
     view->updateView(true);
   }
 

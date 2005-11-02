@@ -406,6 +406,8 @@ class KateViewInternal : public QWidget
     };
 
     void mouseMoved();
+    void cursorMoved();
+    void dynamicMoved(bool mouse);
     void startDynamic(DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
     void endDynamic(DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
 

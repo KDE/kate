@@ -37,6 +37,7 @@
 #include "katelayoutcache.h"
 #include "katefont.h"
 #include "katedynamicanimation.h"
+#include "katesmartmanager.h"
 
 #include <kcursor.h>
 #include <kdebug.h>
@@ -204,6 +205,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   connect(m_doc, SIGNAL(dynamicHighlightRemoved(KateSmartRange*)), SLOT(dynamicHighlightRemoved(KateSmartRange*)));
   connect(m_view, SIGNAL(dynamicHighlightAdded(KateSmartRange*)), SLOT(dynamicHighlightAdded(KateSmartRange*)));
   connect(m_view, SIGNAL(dynamicHighlightRemoved(KateSmartRange*)), SLOT(dynamicHighlightRemoved(KateSmartRange*)));
+  connect(m_doc->smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), SLOT(rangeDeleted(KateSmartRange*)));
 
   // update is called in KateView, after construction and layout is over
   // but before any other kateviewinternal call
@@ -1711,7 +1713,7 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 
   KTextEditor::Cursor oldDisplayCursor = m_displayCursor;
 
-  m_cursor.setPosition (newCursor);
+  m_cursor = newCursor;
   m_displayCursor = toVirtualCursor(m_cursor);
 
   m_cursorX = renderer()->cursorToX(cache()->textLayout(m_cursor), m_cursor);
@@ -1740,6 +1742,8 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 
   //kdDebug(13030) << "m_currentMaxX: " << m_currentMaxX << " (was "<< oldmaxx << "), m_cursorX: " << m_cursorX << endl;
   //kdDebug(13030) << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << m_displayCursor.line << ", " << m_displayCursor.col << "; Top is " << startLine() << ", " << startPos().col <<  endl;
+
+  cursorMoved();
 
   updateDirty(); //paintText(0, 0, width(), height(), true);
 
@@ -2928,14 +2932,32 @@ void KateViewInternal::dynamicHighlightRemoved( KateSmartRange * range )
 
 void KateViewInternal::rangeDeleted( KateSmartRange * range )
 {
-  if (m_dynamicHighlights.contains(range))
+  if (m_dynamicHighlights.contains(range)) {
     delete m_dynamicHighlights.take(range);
+    return;
+  }
+
+  foreach (DynamicRangeHL* hl, m_dynamicHighlights) {
+    if (hl->mouseOver == range) {
+      hl->mouseOver = static_cast<KateSmartRange*>(hl->mouseOver->parentRange());
+      if (hl->mouseAnimations.contains(range))
+        delete hl->mouseAnimations.take(range);
+    }
+
+    if (hl->caretOver == range) {
+      hl->caretOver = static_cast<KateSmartRange*>(hl->caretOver->parentRange());
+      if (hl->caretAnimations.contains(range))
+        delete hl->caretAnimations.take(range);
+    }
+  }
 }
 
 void KateViewInternal::startDynamic( DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type )
 {
-  //kdDebug() << k_funcinfo << "Starting dynamic highlighting on " << *range << endl;
-  range->setMouseOver(true);
+  if (type == KTextEditor::Attribute::ActivateMouseIn)
+    range->setMouseOver(true);
+  else
+    range->setCaretOver(true);
 
   if (!range->attribute() || !range->attribute()->dynamicAttribute(type))
     return;
@@ -2958,8 +2980,10 @@ void KateViewInternal::startDynamic( DynamicRangeHL* hl, KateSmartRange* range, 
 
 void KateViewInternal::endDynamic( DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type )
 {
-  //kdDebug() << k_funcinfo << "Ending dynamic highlighting on " << *range << endl;
-  range->setMouseOver(false);
+  if (type == KTextEditor::Attribute::ActivateMouseIn)
+    range->setMouseOver(false);
+  else
+    range->setCaretOver(false);
 
   if (!range->attribute() || !range->attribute()->dynamicAttribute(type))
     return;
@@ -2989,26 +3013,39 @@ void KateViewInternal::updateRange(KateSmartRange* range)
   updateDirty();
 }
 
+void KateViewInternal::dynamicMoved( bool mouse )
+{
+  foreach (DynamicRangeHL* hl, m_dynamicHighlights) {
+    QStack<KTextEditor::SmartRange*> enterStack, exitStack;
+    KTextEditor::SmartRange* newRange;
+    if (mouse)
+      newRange = (hl->mouseOver ? hl->mouseOver : hl->top)->deepestRangeContaining(m_mouse, &enterStack, &exitStack);
+    else
+      newRange = (hl->caretOver ? hl->caretOver : hl->top)->deepestRangeContaining(m_cursor, &enterStack, &exitStack);
+
+    if (newRange != (mouse ? hl->mouseOver : hl->caretOver)) {
+      if (newRange && !(mouse ? hl->mouseOver : hl->caretOver))
+        enterStack.prepend(newRange);
+
+      foreach (KTextEditor::SmartRange* exitedRange, exitStack)
+        endDynamic(hl, static_cast<KateSmartRange*>(exitedRange), mouse ? KTextEditor::Attribute::ActivateMouseIn : KTextEditor::Attribute::ActivateCaretIn);
+
+      foreach (KTextEditor::SmartRange* enteredRange, enterStack)
+        startDynamic(hl, static_cast<KateSmartRange*>(enteredRange), mouse ? KTextEditor::Attribute::ActivateMouseIn : KTextEditor::Attribute::ActivateCaretIn);
+
+      if (mouse)
+        hl->mouseOver = static_cast<KateSmartRange*>(newRange);
+      else
+        hl->caretOver = static_cast<KateSmartRange*>(newRange);
+    }
+  }
+}
+
 void KateViewInternal::mouseMoved( )
 {
   //kdDebug() << k_funcinfo << m_mouse << endl;
 
-  foreach (DynamicRangeHL* hl, m_dynamicHighlights) {
-    QStack<KTextEditor::SmartRange*> enterStack, exitStack;
-    KTextEditor::SmartRange* newRange = (hl->mouseOver ? hl->mouseOver : hl->top)->deepestRangeContaining(m_mouse, &enterStack, &exitStack);
-    if (newRange != hl->mouseOver) {
-      if (newRange && !hl->mouseOver)
-        enterStack.prepend(newRange);
-
-      foreach (KTextEditor::SmartRange* exitedRange, exitStack)
-        endDynamic(hl, static_cast<KateSmartRange*>(exitedRange), KTextEditor::Attribute::ActivateMouseIn);
-
-      foreach (KTextEditor::SmartRange* enteredRange, enterStack)
-        startDynamic(hl, static_cast<KateSmartRange*>(enteredRange), KTextEditor::Attribute::ActivateMouseIn);
-
-      hl->mouseOver = static_cast<KateSmartRange*>(newRange);
-    }
-  }
+  dynamicMoved(true);
 }
 
 KateViewInternal::DynamicRangeHL::DynamicRangeHL(KateSmartRange* _top)
@@ -3023,6 +3060,11 @@ KateViewInternal::DynamicRangeHL::~ DynamicRangeHL( )
 {
   qDeleteAll(caretAnimations);
   qDeleteAll(mouseAnimations);
+}
+
+void KateViewInternal::cursorMoved( )
+{
+  dynamicMoved(false);
 }
 
 #if 0

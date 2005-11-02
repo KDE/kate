@@ -37,8 +37,8 @@ class AttributePrivate
 
     //QSet<SmartRange*> usingRanges;
     QList<KAction*> associatedActions;
-    Attribute* dynamicAttributes[Attribute::ActivateCaretIn];
-    bool ownsDynamicAttributes[Attribute::ActivateCaretIn];
+    Attribute* dynamicAttributes[2];
+    bool ownsDynamicAttributes[2];
 };
 
 }

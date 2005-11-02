@@ -118,19 +118,18 @@ SmartRange * SmartRange::childAfter( const SmartRange * range ) const
 
 void SmartRange::insertChildRange( SmartRange * newChild )
 {
-  Q_ASSERT(newChild->parentRange() == this);
+  // This function is backwards because it's most likely the new child will go onto the end
+  // of the child list
+  Q_ASSERT(newChild->parentRange() == this && contains(*newChild));
+
   QMutableListIterator<SmartRange*> it = m_childRanges;
   it.toBack();
+
   while (it.hasPrevious()) {
     if (it.peekPrevious()->end() <= newChild->start()) {
       it.insert(newChild);
       if (it.hasNext() && it.peekNext()->start() < newChild->end())
           it.peekNext()->start() = newChild->end();
-      return;
-
-    } else if (it.peekPrevious()->start() >= newChild->start()) {
-      it.peekPrevious()->end() = newChild->start();
-      it.insert(newChild);
       return;
     }
 

@@ -24,7 +24,7 @@ using namespace KTextEditor;
 
 AttributePrivate::AttributePrivate()
 {
-  for (int i = 0; i < Attribute::ActivateCaretIn; ++i) {
+  for (int i = 0; i < 2; ++i) {
     dynamicAttributes[i] = 0L;
     ownsDynamicAttributes[i] = false;
   }

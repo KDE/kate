@@ -213,6 +213,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
 KateViewInternal::~KateViewInternal ()
 {
+  // crashes on close without
+  disconnect(m_doc->smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), this, SLOT(rangeDeleted(KateSmartRange*)));
 }
 
 void KateViewInternal::prepareForDynWrapChange()

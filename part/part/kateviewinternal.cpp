@@ -2940,14 +2940,15 @@ void KateViewInternal::rangeDeleted( KateSmartRange * range )
   }
 
   foreach (DynamicRangeHL* hl, m_dynamicHighlights) {
-    if (hl->mouseOver == range) {
-      hl->mouseOver = static_cast<KateSmartRange*>(hl->mouseOver->parentRange());
+    // FIXME if deletion signal was emitted in proper order, the hasParent hack would not be required
+    if (hl->mouseOver && (hl->mouseOver == range || hl->mouseOver->hasParent(range))) {
+      hl->mouseOver = static_cast<KateSmartRange*>(range->parentRange());
       if (hl->mouseAnimations.contains(range))
         delete hl->mouseAnimations.take(range);
     }
 
-    if (hl->caretOver == range) {
-      hl->caretOver = static_cast<KateSmartRange*>(hl->caretOver->parentRange());
+    if (hl->caretOver && (hl->caretOver == range || hl->caretOver->hasParent(range))) {
+      hl->caretOver = static_cast<KateSmartRange*>(range->parentRange());
       if (hl->caretAnimations.contains(range))
         delete hl->caretAnimations.take(range);
     }

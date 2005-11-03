@@ -38,10 +38,11 @@ SmartRange::SmartRange(SmartCursor* start, SmartCursor* end, SmartRange * parent
 {
   setInsertBehaviour(insertBehaviour);
 
-  if (m_parentRange) {
-    m_parentRange->expandToRange(*this);
+  // Not calling setParentRange here...:
+  // 1) subclasses are not yet constructed
+  // 2) it would otherwise give the wrong impression
+  if (m_parentRange)
     m_parentRange->insertChildRange(this);
-  }
 }
 
 SmartRange::~SmartRange( )
@@ -120,7 +121,10 @@ void SmartRange::insertChildRange( SmartRange * newChild )
 {
   // This function is backwards because it's most likely the new child will go onto the end
   // of the child list
-  Q_ASSERT(newChild->parentRange() == this && contains(*newChild));
+  Q_ASSERT(newChild->parentRange() == this);
+
+  // A new child has been added, so expand this range if required.
+  expandToRange(*newChild);
 
   QMutableListIterator<SmartRange*> it = m_childRanges;
   it.toBack();
@@ -141,7 +145,9 @@ void SmartRange::insertChildRange( SmartRange * newChild )
 
 void SmartRange::removeChildRange(SmartRange* newChild)
 {
-  m_childRanges.remove(newChild);
+  int index = m_childRanges.lastIndexOf(newChild);
+  if (index != -1)
+    m_childRanges.removeAt(index);
 }
 
 SmartRange * SmartRange::mostSpecificRange( const Range & input ) const
@@ -180,7 +186,7 @@ SmartRange * SmartRange::firstRangeContaining( const Cursor & pos ) const
       if (!parentRange())
         return 0L;
 
-      if (!parentRange()->contains(pos))
+      if (parentRange()->contains(pos))
         return parentRange()->firstRangeContaining(pos);
 
       if (SmartRange* r = parentRange()->childAfter(this))
@@ -192,7 +198,7 @@ SmartRange * SmartRange::firstRangeContaining( const Cursor & pos ) const
       if (!parentRange())
         return 0L;
 
-      if (!parentRange()->contains(pos))
+      if (parentRange()->contains(pos))
         return parentRange()->firstRangeContaining(pos);
 
       if (const SmartRange* r = parentRange()->childBefore(this))
@@ -290,7 +296,7 @@ void SmartRange::dissociateAction( KAction * action )
     checkFeedback();
 }
 
-void KTextEditor::SmartRange::clearAssociatedActions( )
+void SmartRange::clearAssociatedActions( )
 {
   m_associatedActions.clear();
   checkFeedback();
@@ -322,7 +328,7 @@ void SmartRange::deleteChildRanges()
   m_childRanges.clear();
 }
 
-void KTextEditor::SmartRange::clearAndDeleteChildRanges( )
+void SmartRange::clearAndDeleteChildRanges( )
 {
   // FIXME: Probably more efficient to prevent them from unlinking themselves?
   foreach (SmartRange* r, m_childRanges)
@@ -354,6 +360,7 @@ void SmartRange::setAttribute( Attribute * attribute, bool ownsAttribute )
 
   m_attribute = attribute;
   m_ownsAttribute = ownsAttribute;
+
   //if (m_attribute)
     //m_attribute->addRange(this);
 }
@@ -386,13 +393,27 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
   if (parentRange() && (start() < from.start() || end() > from.end()))
     parentRange()->expandToRange(*this);
 
+  // Adjust sibling ranges if required
+  if (parentRange()) {
+    if (SmartRange* beforeRange = parentRange()->childBefore(this)) {
+      if (beforeRange->end() > start())
+        beforeRange->end() = start();
+    }
+
+    if (SmartRange* afterRange = parentRange()->childAfter(this)) {
+      if (afterRange->start() < end())
+        afterRange->start() = end();
+    }
+  }
+
+  // Contract child ranges if required
   if (childRanges().count()) {
     SmartRange* r;
     QList<SmartRange*>::ConstIterator it;
 
-    // Start has contracted - adjust from the start of the child ranges
     int i = 0;
     if (start() > from.start()) {
+      // Start has contracted - adjust from the start of the child ranges
       for (; i < childRanges().count(); ++i) {
         r = childRanges().at(i);
         if (r->start() < start())
@@ -402,8 +423,8 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
       }
     }
 
-    // End has contracted - adjust from the start of the child ranges, if they haven't already been adjusted above
     if (end() < from.end()) {
+      // End has contracted - adjust from the start of the child ranges, if they haven't already been adjusted above
       for (int j = childRanges().count() - 1; j >= i; --j) {
         r = childRanges().at(j);
         if (r->end() > end())
@@ -432,17 +453,17 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
   }
 }
 
-bool KTextEditor::SmartRange::isSmartRange( ) const
+bool SmartRange::isSmartRange( ) const
 {
   return true;
 }
 
-SmartRange* KTextEditor::SmartRange::toSmartRange( ) const
+SmartRange* SmartRange::toSmartRange( ) const
 {
   return const_cast<SmartRange*>(this);
 }
 
-bool KTextEditor::SmartRange::hasParent( SmartRange * parent ) const
+bool SmartRange::hasParent( SmartRange * parent ) const
 {
   if (parentRange() == parent)
     return true;

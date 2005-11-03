@@ -263,7 +263,13 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * Set this range's parent range.
      *
      * At all times, this range will be contained within parentRange().  So, if it is outside of the
-     * new parent to begin with, it will be constrained automatically.
+     * new parent to begin with, it will be expanded automatically.
+     *
+     * When being inserted into the parent range, the parent range will be fit in between any other
+     * pre-existing child ranges, and may resize them so as not to overlap.  However, once insertion
+     * has occurred, changing this range directly will only resize the others, it will \e not change
+     * the order of the ranges.  To change the order, unset the parent range, change the range, and
+     * re-set the parent range.
      *
      * \param r range to become the new parent of this range
      */
@@ -514,6 +520,18 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * \see setRange()
      */
     inline SmartRange& operator=(const SmartRange& rhs)
+      { setRange(rhs); return *this; }
+
+    /**
+     * Assignment operator. Assigns the current position of the provided range, \p rhs.
+     *
+     * \param rhs range to assign to this range.
+     *
+     * \return a reference to this range, after assignment has occurred.
+     *
+     * \see setRange()
+     */
+    inline SmartRange& operator=(const Range& rhs)
       { setRange(rhs); return *this; }
 
   protected:

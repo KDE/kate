@@ -51,7 +51,7 @@
 #include "variableinterface.h"
 #include "smartinterface.h"
 
-#include <kaction.h>
+//#include <kaction.h>
 #include <kparts/factory.h>
 #include <klibloader.h>
 #include <kdebug.h>
@@ -72,7 +72,7 @@ namespace KTextEditor
       QString postfix;
       QString comment;
       QVariant userdata;
-      CompletionProvider *provider; 
+      CompletionProvider *provider;
 
       bool cmp(const Private* c) const {
         return ( c->type == type &&

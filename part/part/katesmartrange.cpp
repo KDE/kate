@@ -66,6 +66,14 @@ KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, 
 
 KateSmartRange::~KateSmartRange()
 {
+  if (m_notifier) {
+    emit m_notifier->deleted(this);
+    delete m_notifier;
+  }
+
+  if (m_watcher)
+    m_watcher->deleted(this);
+
   if (m_start)
     kateDocument()->smartManager()->rangeDeleted(this);
 }
@@ -241,6 +249,8 @@ void KateSmartRange::unbindAndDelete( )
 void KateSmartRange::setInternal( )
 {
   m_isInternal = true;
+  kStart().setInternal();
+  kEnd().setInternal();
 }
 
 void KateSmartRangeNotifier::setConnectedInternally( )

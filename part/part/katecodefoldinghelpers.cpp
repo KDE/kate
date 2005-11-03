@@ -1141,7 +1141,6 @@ void KateCodeFoldingTree::findAndMarkAllNodesforRemovalOpenedOrClosedAt(unsigned
 #warning "FIXME:  make this multiple region changes per line save";
 #endif
 //  return;
-  qDeleteAll(markedForDeleting);
   markedForDeleting.clear();
   KateCodeFoldingNode *node = findNodeForLine(line);
   if (node->type == 0)

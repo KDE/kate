@@ -101,14 +101,24 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   }
 
   m_bm.setAttribute(&bracketOutline, false);
+  m_bm.setInternal();
+
   m_bmStart.setAttribute(&bracketFill, false);
+  m_bmStart.setInternal();
+
   m_bmEnd.setAttribute(&bracketFill, false);
+  m_bmEnd.setInternal();
 
   setMinimumSize (0,0);
 
   // cursor
   m_cursor.setMoveOnInsert (true);
+  m_cursor.setInternal();
+
   m_mouse.setIgnoreTranslation();
+  m_mouse.setInternal();
+
+  m_startPos.setInternal();
 
   // invalidate m_selectionCached.start(), or keyb selection is screwed initially
   m_selectionCached = KTextEditor::Range::invalid();

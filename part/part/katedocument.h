@@ -350,8 +350,8 @@ class KateDocument : public KTextEditor::Document,
     //
     // some internals for undo/redo
     //
-    Q3PtrList<KateUndoGroup> undoItems;
-    Q3PtrList<KateUndoGroup> redoItems;
+    QList<KateUndoGroup*> undoItems;
+    QList<KateUndoGroup*> redoItems;
     bool m_undoDontMerge; //create a setter later on and remove the friend declaration
     bool m_undoIgnoreCancel;
     QTimer* m_undoMergeTimer;

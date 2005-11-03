@@ -120,6 +120,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   m_viewInternal = new KateViewInternal( this, doc );
 
+  m_selection.setInternal();
+
   // layouting ;)
 
   m_vBox = new QVBoxLayout (this);

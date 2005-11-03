@@ -241,7 +241,7 @@ KateDocument::~KateDocument()
   delete m_editCurrentUndo;
 
   // cleanup the undo items, very important, truee :/
-  undoItems.setAutoDelete(true);
+  qDeleteAll(undoItems);
   undoItems.clear();
 
   // clean up plugins
@@ -922,9 +922,7 @@ void KateDocument::undoStart()
   // Make sure the buffer doesn't get bigger than requested
   if ((config()->undoSteps() > 0) && (undoItems.count() > config()->undoSteps()))
   {
-    undoItems.setAutoDelete(true);
-    undoItems.removeFirst();
-    undoItems.setAutoDelete(false);
+    delete undoItems.takeFirst();
     docWasSavedWhenUndoWasEmpty = false;
   }
 
@@ -1144,9 +1142,8 @@ void KateDocument::editAddUndo (KateUndoGroup::UndoType type, uint line, uint co
 
     // Clear redo buffer
     if (redoItems.count()) {
-      redoItems.setAutoDelete(true);
+      qDeleteAll(redoItems);
       redoItems.clear();
-      redoItems.setAutoDelete(false);
     }
   }
 }
@@ -1570,9 +1567,8 @@ void KateDocument::updateModified()
 
 void KateDocument::clearUndo()
 {
-  undoItems.setAutoDelete (true);
+  qDeleteAll(undoItems);
   undoItems.clear ();
-  undoItems.setAutoDelete (false);
 
   lastUndoGroupWhenSaved = 0;
   docWasSavedWhenUndoWasEmpty = false;
@@ -1582,9 +1578,8 @@ void KateDocument::clearUndo()
 
 void KateDocument::clearRedo()
 {
-  redoItems.setAutoDelete (true);
+  qDeleteAll(redoItems);
   redoItems.clear ();
-  redoItems.setAutoDelete (false);
 
   emit undoChanged ();
 }

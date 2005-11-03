@@ -45,7 +45,6 @@
 
 #include <qfile.h>
 #include <qfileinfo.h>
-#include <q3popupmenu.h>
 #include <qregexp.h>
 #include <qtextstream.h>
 

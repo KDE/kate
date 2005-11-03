@@ -40,13 +40,11 @@
 #include <qcombobox.h>
 #include <QGroupBox>
 
-#include <q3header.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qtoolbutton.h>
-#include <q3widgetstack.h>
 #include <kvbox.h>
 
 #define KATE_FT_HOWMANY 1024

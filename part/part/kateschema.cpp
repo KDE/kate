@@ -43,18 +43,12 @@
 #include <ktexteditor/markinterface.h>
 #include <khbox.h>
 
-#include <q3buttongroup.h>
 #include <qcheckbox.h>
-#include <q3ptrcollection.h>
 #include <qdialog.h>
-#include <q3grid.h>
-#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qtextcodec.h>
 #include <qlayout.h>
 #include <qlineedit.h>
-#include <q3header.h>
-#include <q3listbox.h>
 #include <qpainter.h>
 #include <qobject.h>
 #include <qpixmap.h>
@@ -63,8 +57,8 @@
 #include <qspinbox.h>
 #include <qstringlist.h>
 #include <qtabwidget.h>
-#include <q3vbox.h>
 #include <QPolygon>
+#include <QGroupBox>
 //END
 
 //BEGIN KateStyleListViewItem decl
@@ -275,29 +269,39 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
 
   QVBoxLayout *blay=new QVBoxLayout(this, 0, KDialog::spacingHint());
 
-  QGroupBox *gbTextArea = new Q3GroupBox(1, Qt::Horizontal, i18n("Text Area Background"), this);
+  QGroupBox *gbTextArea = new QGroupBox(this);
+  gbTextArea->setTitle(i18n("Text Area Background"));
+  QVBoxLayout* vbLayout = new QVBoxLayout(gbTextArea);
 
   b = new KHBox (gbTextArea);
+  vbLayout->addWidget(b);
   b->setSpacing(KDialog::spacingHint());
+  b->setMargin(0);
   label = new QLabel( i18n("Normal text:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_back = new KColorButton(b);
 
   b = new KHBox (gbTextArea);
+  vbLayout->addWidget(b);
   b->setSpacing(KDialog::spacingHint());
+  b->setMargin(0);
   label = new QLabel( i18n("Selected text:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_selected = new KColorButton(b);
 
   b = new KHBox (gbTextArea);
+  vbLayout->addWidget(b);
   b->setSpacing(KDialog::spacingHint());
+  b->setMargin(0);
   label = new QLabel( i18n("Current line:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_current = new KColorButton(b);
 
   // Markers from kdelibs/interfaces/ktextinterface/markinterface.h
   b = new KHBox (gbTextArea);
+  vbLayout->addWidget(b);
   b->setSpacing(KDialog::spacingHint());
+  b->setMargin(0);
   m_combobox = new KComboBox(b);
   // add the predefined mark types as defined in markinterface.h
   m_combobox->addItem(i18n("Bookmark"));            // markType01
@@ -313,34 +317,46 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
 
   blay->addWidget(gbTextArea);
 
-  QGroupBox *gbBorder = new Q3GroupBox(1, Qt::Horizontal, i18n("Additional Elements"), this);
+  QGroupBox *gbBorder = new QGroupBox(this);
+  gbBorder->setTitle(i18n("Additional Elements"));
+  vbLayout = new QVBoxLayout(gbBorder);
 
   b = new KHBox (gbBorder);
+  vbLayout->addWidget(b);
   b->setSpacing(KDialog::spacingHint());
+  b->setMargin(0);
   label = new QLabel( i18n("Left border background:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_iconborder = new KColorButton(b);
 
   b = new KHBox (gbBorder);
+  vbLayout->addWidget(b);
   b->setSpacing(KDialog::spacingHint());
+  b->setMargin(0);
   label = new QLabel( i18n("Line numbers:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_linenumber = new KColorButton(b);
 
   b = new KHBox (gbBorder);
+  vbLayout->addWidget(b);
   b->setSpacing(KDialog::spacingHint());
+  b->setMargin(0);
   label = new QLabel( i18n("Bracket highlight:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_bracket = new KColorButton(b);
 
   b = new KHBox (gbBorder);
+  vbLayout->addWidget(b);
   b->setSpacing(KDialog::spacingHint());
+  b->setMargin(0);
   label = new QLabel( i18n("Word wrap markers:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_wwmarker = new KColorButton(b);
 
   b = new KHBox (gbBorder);
+  vbLayout->addWidget(b);
   b->setSpacing(KDialog::spacingHint());
+  b->setMargin(0);
   label = new QLabel( i18n("Tab markers:"), b);
   label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
   m_tmarker = new KColorButton(b);

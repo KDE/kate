@@ -20,8 +20,6 @@
 #define __kate_filetype_h__
 
 #include <qstringlist.h>
-#include <q3ptrlist.h>
-#include <q3popupmenu.h> // for QPtrList<QPopupMenu>, compile with gcc 3.4
 #include <qpointer.h>
 
 #include "katedialogs.h"

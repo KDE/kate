@@ -24,9 +24,7 @@
 #include "katedialogs.h"
 
 #include <qstringlist.h>
-#include <q3intdict.h>
 #include <qmap.h>
-#include <q3listview.h>
 #include <qfont.h>
 
 #include <kconfig.h>

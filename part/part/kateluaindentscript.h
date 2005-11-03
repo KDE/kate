@@ -23,7 +23,6 @@
 #define _KATELUAINDENTSCRIPT_H_
 
 #include "kateindentscriptabstracts.h"
-#include <q3dict.h>
 
 struct lua_State;
 

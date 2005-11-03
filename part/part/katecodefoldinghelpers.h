@@ -20,7 +20,6 @@
 #define _KATE_CODEFOLDING_HELPERS_
 
 //BEGIN INCLUDES + FORWARDS
-#include <q3ptrlist.h>
 #include <qobject.h>
 #include <QHash>
 #include <QList>

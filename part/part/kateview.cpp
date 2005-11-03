@@ -73,7 +73,6 @@
 #include <qfileinfo.h>
 #include <qstyle.h>
 #include <qevent.h>
-#include <q3popupmenu.h>
 #include <qlayout.h>
 #include <qclipboard.h>
 #include <qtextdocument.h>

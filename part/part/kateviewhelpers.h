@@ -73,7 +73,7 @@ class KateScrollBar : public QScrollBar
 
   private:
     void redrawMarks();
-    void recomputeMarksPositions(bool forceFullUpdate = false);
+    void recomputeMarksPositions();
     void watchScrollBarSize();
 
   bool m_middleMouseDown;
@@ -181,7 +181,7 @@ class KateIconBorder : public QWidget
 
     mutable QPixmap m_arrow;
     mutable QColor m_oldBackgroundColor;
-    
+
     QPixmap minus_px;
     QPixmap plus_px;
 };

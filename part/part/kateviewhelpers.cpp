@@ -101,8 +101,34 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 
 void KateScrollBar::paintEvent(QPaintEvent *e)
 {
+  QPainter painter(this);
+
   QScrollBar::paintEvent(e);
-  redrawMarks();
+
+  QStyleOptionSlider opt;
+  opt.init(this);
+  opt.subControls = QStyle::SC_None;
+  opt.activeSubControls = QStyle::SC_None;
+  opt.orientation = orientation();
+  opt.minimum = minimum();
+  opt.maximum = maximum();
+  opt.sliderPosition = sliderPosition();
+  opt.sliderValue = value();
+  opt.singleStep = singleStep();
+  opt.pageStep = pageStep();
+
+  QRect rect = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSlider, this);
+
+  QHashIterator<int, QColor> it = m_lines;
+  while (it.hasNext())
+  {
+    it.next();
+    if (it.key() < rect.top() || it.key() > rect.bottom())
+    {
+      painter.setPen(it.value());
+      painter.drawLine(0, it.key(), width(), it.key());
+    }
+  }
 }
 
 void KateScrollBar::resizeEvent(QResizeEvent *e)
@@ -135,7 +161,7 @@ void KateScrollBar::sliderChange ( SliderChange change )
 
 void KateScrollBar::marksChanged()
 {
-  recomputeMarksPositions(true);
+  recomputeMarksPositions();
 }
 
 void KateScrollBar::redrawMarks()
@@ -143,23 +169,10 @@ void KateScrollBar::redrawMarks()
   if (!m_showMarks)
     return;
 
-#ifdef __GNUC__
-#warning port this to QT 4
-#endif
-/*
-  QPainter painter(this);
-  QRect rect = sliderRect();
-  for (Q3IntDictIterator<QColor> it(m_lines); it.current(); ++it)
-  {
-    if (it.currentKey() < rect.top() || it.currentKey() > rect.bottom())
-    {
-      painter.setPen(*it.current());
-      painter.drawLine(0, it.currentKey(), width(), it.currentKey());
-    }
-  }*/
+  update();
 }
 
-void KateScrollBar::recomputeMarksPositions(bool forceFullUpdate)
+void KateScrollBar::recomputeMarksPositions()
 {
   if (m_topMargin == -1)
     watchScrollBarSize();
@@ -197,10 +210,9 @@ void KateScrollBar::recomputeMarksPositions(bool forceFullUpdate)
                    QColor(KateRendererConfig::global()->lineMarkerColor((KTextEditor::MarkInterface::MarkTypes)mark->type)));
   }
 
-  if (forceFullUpdate)
-    update();
-  else
-    redrawMarks();
+  // with Qt4 we don't have the luxury of painting outside a paint event
+  // and a paint event wipes the widget... so just update
+  update();
 }
 
 void KateScrollBar::watchScrollBarSize()
@@ -1199,7 +1211,7 @@ KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_vi
 {
   m_actions=new QActionGroup(this);
   m_actions->setExclusive(true);
-  
+
   QStringList modes (KGlobal::charsets()->descriptiveEncodingNames());
   for (int z=0; z<modes.size(); ++z)
   {

@@ -419,8 +419,10 @@ class KateHlManager : public QObject
   private:
     friend class KateHighlighting;
 
+    // This list owns objects it holds, thus they should be deleted when the object is removed
     Q3PtrList<KateHighlighting> hlList;
-    Q3Dict<KateHighlighting> hlDict;
+    // This hash does not own the objects it holds, thus they should not be deleted
+    QHash<QString, KateHighlighting*> hlDict;
 
     KConfig m_config;
     QStringList commonSuffixes;

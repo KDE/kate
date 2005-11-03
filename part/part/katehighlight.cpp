@@ -2980,7 +2980,6 @@ KateHlManager::KateHlManager()
   , forceNoDCReset(false)
 {
   hlList.setAutoDelete(true);
-  hlDict.setAutoDelete(false);
 
   KateSyntaxModeList modeList = syntax->modeList();
   for (int i=0; i < modeList.count(); i++)

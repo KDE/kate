@@ -22,7 +22,7 @@
 #include "katekeyinterceptorfunctor.h"
 #include <qobject.h>
 #include <qmap.h>
-#include <q3dict.h>
+#include <QHash>
 #include <q3ptrlist.h>
 #include <qstring.h>
 #include <QList>
@@ -53,7 +53,10 @@ class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 		class KateRangeList *m_ranges;
 		class KateDocument *m_doc;
 		Q3PtrList<KateTemplatePlaceHolder> m_tabOrder;
-		Q3Dict<KateTemplatePlaceHolder> m_dict;
+
+                // looks like this is leaking objects (was before too)
+                QHash<QString, KateTemplatePlaceHolder*> m_dict;
+
 		void generateRangeTable(const KTextEditor::Cursor& insertPosition, const QString& insertString, const QList<KateTemplateHandlerPlaceHolderInfo> &buildList);
 		int m_currentTabStop;
 		KateSmartRange *m_currentRange;

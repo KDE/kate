@@ -27,7 +27,6 @@
 
 #include <qregexp.h>
 #include <kdebug.h>
-#include <q3valuelist.h>
 
 KateTemplateHandler::KateTemplateHandler(
   KateDocument *doc,

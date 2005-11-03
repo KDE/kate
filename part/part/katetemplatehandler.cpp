@@ -21,7 +21,6 @@
 #include "katedocument.h"
 #include "katesmartcursor.h"
 #include "kateview.h"
-#include "katerangetype.h"
 
 #include <ktexteditor/attribute.h>
 
@@ -42,7 +41,6 @@ KateTemplateHandler::KateTemplateHandler(
     , m_recursion( false )
 {
   connect( m_doc, SIGNAL( destroyed() ), this, SLOT( slotDocumentDestroyed() ) );
-    //m_ranges = new KateRangeList( false, this ); //false/*,this*/);
 
   if ( !m_doc->setTabInterceptor( this ) )
   {
@@ -153,9 +151,7 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
       KTextEditor::Attribute* attrib = new KTextEditor::Attribute();
       attrib->setFontUnderline( true );
       attrib->setFontOverline( true );
-      KateRangeType* rt = new KateRangeType();
-      rt->addAttribute(attrib, KateRangeType::activateNone, true);
-        //ph->ranges.setRangeType(rt);
+      // FIXME use attribute
 
       ph->isInitialValue = true;
       ph->isCursor = ( info.placeholder == "cursor" );

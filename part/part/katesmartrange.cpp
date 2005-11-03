@@ -21,7 +21,6 @@
 #include "katedocument.h"
 #include "kateview.h"
 #include <ktexteditor/attribute.h>
-#include "katerangetype.h"
 #include "katesmartmanager.h"
 #include "kateviewinternal.h"
 #include "katedynamicanimation.h"

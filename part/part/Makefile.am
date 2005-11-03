@@ -1,16 +1,16 @@
 kde_module_LTLIBRARIES = katepart.la
 
 katepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmds.cpp kateundo.cpp \
-						katecursor.cpp katedialogs.cpp katedocument.cpp katefactory.cpp katehighlight.cpp \
-						katesyntaxdocument.cpp katetextline.cpp kateview.cpp kateconfig.cpp kateviewhelpers.cpp \
-						katecodecompletion.cpp katedocumenthelpers.cpp katecodefoldinghelpers.cpp kateviewinternal.cpp \
-						katebookmarks.cpp katefont.cpp katelinerange.cpp katesmartcursor.cpp 			katerenderer.cpp \
-			kateautoindent.cpp katefiletype.cpp kateschema.cpp 			katedocument.skel \
-			katetemplatehandler.cpp katejscript.cpp katespell.cpp kateprinter.cpp \
-						kateindentscriptabstracts.cpp kateluaindentscript.cpp katerange.cpp katerangetype.cpp \
-						katesmartrange.cpp kateglobal.cpp katecmd.cpp katelayoutcache.cpp katetextlayout.cpp \
-					katesmartmanager.cpp kateedit.cpp katesmartcursornotifier.cpp katerenderrange.cpp \
-		katesmartregion.cpp katedynamicanimation.cpp
+	katecursor.cpp katedialogs.cpp katedocument.cpp katefactory.cpp katehighlight.cpp \
+	katesyntaxdocument.cpp katetextline.cpp kateview.cpp kateconfig.cpp kateviewhelpers.cpp \
+	katecodecompletion.cpp katedocumenthelpers.cpp katecodefoldinghelpers.cpp kateviewinternal.cpp \
+	katebookmarks.cpp katefont.cpp katelinerange.cpp katesmartcursor.cpp katerenderer.cpp \
+	kateautoindent.cpp katefiletype.cpp kateschema.cpp katedocument.skel \
+	katetemplatehandler.cpp katejscript.cpp katespell.cpp kateprinter.cpp \
+	kateindentscriptabstracts.cpp kateluaindentscript.cpp katerange.cpp katesmartrange.cpp kateglobal.cpp \
+	katecmd.cpp katelayoutcache.cpp katetextlayout.cpp katesmartmanager.cpp \
+	kateedit.cpp katesmartcursornotifier.cpp katerenderrange.cpp katesmartregion.cpp \
+	katedynamicanimation.cpp
 
 katepart_la_LIBADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la $(top_builddir)/kdeprint/libkdeprint.la $(top_builddir)/kutils/libkutils.la $(top_builddir)/kjs/libkjs.la $(LUA_LIBS)
 

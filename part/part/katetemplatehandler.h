@@ -49,7 +49,6 @@ class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 				uint len;
 				QString placeholder;
 		};
-		class KateRangeList *m_ranges;
 		class KateDocument *m_doc;
 
                 // looks like this is leaking objects (was before too)

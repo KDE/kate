@@ -359,6 +359,7 @@ KateLUAIndentScriptManager::KateLUAIndentScriptManager():KateIndentScriptManager
 
 KateLUAIndentScriptManager::~KateLUAIndentScriptManager ()
 {
+  qDeleteAll(m_scripts);
 }
 
 void KateLUAIndentScriptManager::collectScripts (bool force)

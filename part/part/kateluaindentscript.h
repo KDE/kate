@@ -33,7 +33,7 @@ class KateLUAIndentScriptImpl: public KateIndentScriptImplAbstract {
         const QString  &filePath, const QString &niceName,
         const QString &copyright, double version);
     ~KateLUAIndentScriptImpl();
-    
+
     virtual bool processChar( class KateView *view, QChar c, QString &errorMsg );
     virtual bool processLine( class KateView *view, const KateDocCursor &line, QString &errorMsg );
     virtual bool processNewline( class KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg );
@@ -60,7 +60,7 @@ class KateLUAIndentScriptManager: public KateIndentScriptManagerAbstract
     void collectScripts (bool force = false);
     void parseScriptHeader(const QString &filePath,
         QString *niceName,QString *copyright,double *version);
-    Q3Dict<KateLUAIndentScriptImpl> m_scripts;
+    QHash<QString, KateLUAIndentScriptImpl*> m_scripts;
 };
 
 #endif

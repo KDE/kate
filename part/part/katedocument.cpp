@@ -285,7 +285,7 @@ void KateDocument::loadPlugin (uint pluginIndex)
   kdDebug(13020)<<"loadPlugin (loading plugin)"<<endl;
   m_plugins[pluginIndex] = KTextEditor::createPlugin (QFile::encodeName((KateGlobal::self()->plugins())[pluginIndex]->library()), this);
 
-  // TODO: call Plugin::readConfig with right KConfig* 
+  // TODO: call Plugin::readConfig with right KConfig*
   enablePluginGUI (m_plugins[pluginIndex]);
 }
 
@@ -294,7 +294,7 @@ void KateDocument::unloadPlugin (uint pluginIndex)
   if (!m_plugins[pluginIndex]) return;
 
   disablePluginGUI (m_plugins[pluginIndex]);
-  // TODO: call Plugin::writeConfig with right KConfig* 
+  // TODO: call Plugin::writeConfig with right KConfig*
 
   delete m_plugins[pluginIndex];
   m_plugins[pluginIndex] = 0L;
@@ -512,10 +512,10 @@ bool KateDocument::setText(const QString &s)
   if (!isReadWrite())
     return false;
 
-  Q3ValueList<KTextEditor::Mark> msave;
+  QList<KTextEditor::Mark> msave;
 
-  for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
-    msave.append (*i.value());
+  foreach (KTextEditor::Mark* mark, m_marks)
+    msave.append(*mark);
 
   editStart ();
 
@@ -527,8 +527,8 @@ bool KateDocument::setText(const QString &s)
 
   editEnd ();
 
-  for (int i=0; i < msave.count(); i++)
-    setMark (msave[i].line, msave[i].type);
+  foreach (const KTextEditor::Mark& mark, msave)
+    setMark (mark.line, mark.type);
 
   return true;
 }
@@ -538,10 +538,10 @@ bool KateDocument::setText( const QStringList & text )
   if (!isReadWrite())
     return false;
 
-  Q3ValueList<KTextEditor::Mark> msave;
+  QList<KTextEditor::Mark> msave;
 
-  for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
-    msave.append (*i.value());
+  foreach (KTextEditor::Mark* mark, m_marks)
+    msave.append(*mark);
 
   editStart ();
 
@@ -553,8 +553,8 @@ bool KateDocument::setText( const QStringList & text )
 
   editEnd ();
 
-  for (int i=0; i < msave.count(); i++)
-    setMark (msave[i].line, msave[i].type);
+  foreach (const KTextEditor::Mark& mark, msave)
+    setMark (mark.line, mark.type);
 
   return true;
 }
@@ -1033,7 +1033,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
 
   if (!isReadWrite())
     return false;
- 
+
   int col = config()->wordWrapAt();
 
   if (col == 0)
@@ -1852,7 +1852,7 @@ void KateDocument::writeSessionConfig(KConfig *kconfig)
   // Save Bookmarks
   QList<int> marks;
   for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
-    if (i.value()->type & KTextEditor::MarkInterface::markType01) 
+    if (i.value()->type & KTextEditor::MarkInterface::markType01)
      marks << i.value()->line;
 
   kconfig->writeEntry( "Bookmarks", marks );
@@ -1970,7 +1970,7 @@ void KateDocument::clearMarks()
     QHash<int, KTextEditor::Mark*>::iterator it = m_marks.begin();
     KTextEditor::Mark mark = *it.value();
     delete it.value();
-    m_marks.erase (it);    
+    m_marks.erase (it);
 
     emit markChanged( this, mark, MarkRemoved );
     tagLines( mark.line, mark.line );

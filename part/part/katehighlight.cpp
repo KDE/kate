@@ -2979,14 +2979,12 @@ KateHlManager::KateHlManager()
   , dynamicCtxsCount(0)
   , forceNoDCReset(false)
 {
-  hlList.setAutoDelete(true);
-
   KateSyntaxModeList modeList = syntax->modeList();
   for (int i=0; i < modeList.count(); i++)
   {
     KateHighlighting *hl = new KateHighlighting(modeList[i]);
 
-    uint insert = 0;
+    int insert = 0;
     for (; insert <= hlList.count(); insert++)
     {
       if (insert == hlList.count())
@@ -3012,6 +3010,7 @@ KateHlManager::KateHlManager()
 KateHlManager::~KateHlManager()
 {
   delete syntax;
+  qDeleteAll(hlList);
 }
 
 KateHlManager *KateHlManager::self()
@@ -3073,17 +3072,16 @@ int KateHlManager::realWildcardFind(const QString &fileName)
 {
   static QRegExp sep("\\s*;\\s*");
 
-  Q3PtrList<KateHighlighting> highlights;
+  QList<KateHighlighting*> highlights;
 
-  for (KateHighlighting *highlight = hlList.first(); highlight != 0L; highlight = hlList.next()) {
+  foreach (KateHighlighting *highlight, hlList) {
     highlight->loadWildcards();
 
-    for (QStringList::Iterator it = highlight->getPlainExtensions().begin(); it != highlight->getPlainExtensions().end(); ++it)
-      if (fileName.endsWith((*it)))
+    foreach (QString extension, highlight->getPlainExtensions())
+      if (fileName.endsWith(extension))
         highlights.append(highlight);
 
-    for (int i = 0; i < highlight->getRegexpExtensions().size(); i++) {
-      QRegExp re = highlight->getRegexpExtensions()[i];
+    foreach (QRegExp re, highlight->getRegexpExtensions()) {
       if (re.exactMatch(fileName))
         highlights.append(highlight);
     }
@@ -3094,12 +3092,12 @@ int KateHlManager::realWildcardFind(const QString &fileName)
     int pri = -1;
     int hl = -1;
 
-    for (KateHighlighting *highlight = highlights.first(); highlight != 0L; highlight = highlights.next())
+    foreach (KateHighlighting *highlight, highlights)
     {
       if (highlight->priority() > pri)
       {
         pri = highlight->priority();
-        hl = hlList.findRef (highlight);
+        hl = hlList.indexOf(highlight);
       }
     }
     return hl;
@@ -3114,15 +3112,13 @@ int KateHlManager::mimeFind( KateDocument *doc )
 
   KMimeType::Ptr mt = doc->mimeTypeForContent();
 
-  Q3PtrList<KateHighlighting> highlights;
+  QList<KateHighlighting*> highlights;
 
-  for (KateHighlighting *highlight = hlList.first(); highlight != 0L; highlight = hlList.next())
+  foreach (KateHighlighting *highlight, hlList)
   {
-    QStringList l = QStringList::split( sep, highlight->getMimetypes() );
-
-    for( QStringList::Iterator it = l.begin(); it != l.end(); ++it )
+    foreach (QString mimeType, QStringList::split( sep, highlight->getMimetypes() ))
     {
-      if ( *it == mt->name() ) // faster than a regexp i guess?
+      if ( mimeType == mt->name() ) // faster than a regexp i guess?
         highlights.append (highlight);
     }
   }
@@ -3132,12 +3128,12 @@ int KateHlManager::mimeFind( KateDocument *doc )
     int pri = -1;
     int hl = -1;
 
-    for (KateHighlighting *highlight = highlights.first(); highlight != 0L; highlight = highlights.next())
+    foreach (KateHighlighting *highlight, highlights)
     {
       if (highlight->priority() > pri)
       {
         pri = highlight->priority();
-        hl = hlList.findRef (highlight);
+        hl = hlList.indexOf(highlight);
       }
     }
 
@@ -3397,8 +3393,7 @@ bool KateHlManager::resetDynamicCtxs()
   if (lastCtxsReset.elapsed() < KATE_DYNAMIC_CONTEXTS_RESET_DELAY)
     return false;
 
-  KateHighlighting *hl;
-  for (hl = hlList.first(); hl; hl = hlList.next())
+  foreach (KateHighlighting *hl, hlList)
     hl->dropDynamicContexts();
 
   dynamicCtxsCount = 0;

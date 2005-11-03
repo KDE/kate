@@ -385,7 +385,7 @@ class KateHlManager : public QObject
 
     int detectHighlighting (class KateDocument *doc);
 
-    int findHl(KateHighlighting *h) {return hlList.find(h);}
+    int findHl(KateHighlighting *h) {return hlList.indexOf(h);}
     QString identifierForName(const QString&);
 
     // methodes to get the default style count + names
@@ -420,7 +420,7 @@ class KateHlManager : public QObject
     friend class KateHighlighting;
 
     // This list owns objects it holds, thus they should be deleted when the object is removed
-    Q3PtrList<KateHighlighting> hlList;
+    QList<KateHighlighting*> hlList;
     // This hash does not own the objects it holds, thus they should not be deleted
     QHash<QString, KateHighlighting*> hlDict;
 

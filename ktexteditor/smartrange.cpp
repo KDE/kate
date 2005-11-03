@@ -175,40 +175,17 @@ SmartRange * SmartRange::firstRangeContaining( const Cursor & pos ) const
   if (!pos.isValid())
     return 0L;
 
-  switch (positionRelativeToCursor(pos)) {
-    case 0:
-      if (parentRange() && parentRange()->contains(pos))
-        return parentRange()->firstRangeContaining(pos);
+  if (contains(pos)) {
+    if (parentRange() && parentRange()->contains(pos))
+      return parentRange()->firstRangeContaining(pos);
 
-      return const_cast<SmartRange*>(this);
+    return const_cast<SmartRange*>(this);
 
-    case -1:
-      if (!parentRange())
-        return 0L;
-
-      if (parentRange()->contains(pos))
-        return parentRange()->firstRangeContaining(pos);
-
-      if (SmartRange* r = parentRange()->childAfter(this))
-        return r->firstRangeContaining(pos);
-
+  } else {
+    if (!parentRange())
       return 0L;
 
-    case 1:
-      if (!parentRange())
-        return 0L;
-
-      if (parentRange()->contains(pos))
-        return parentRange()->firstRangeContaining(pos);
-
-      if (const SmartRange* r = parentRange()->childBefore(this))
-        return r->firstRangeContaining(pos);
-
-      return 0L;
-
-    default:
-      Q_ASSERT(false);
-      return 0L;
+    return parentRange()->firstRangeContaining(pos);
   }
 }
 
@@ -222,50 +199,29 @@ SmartRange * SmartRange::deepestRangeContaining( const Cursor & pos, QStack<Smar
 
 SmartRange * SmartRange::deepestRangeContainingInternal( const Cursor & pos, QStack<SmartRange*>* rangesEntered, QStack<SmartRange*>* rangesExited, bool first ) const
 {
-  switch (positionRelativeToCursor(pos)) {
-    case 0:
-      if (!first && rangesEntered)
-        rangesEntered->push(const_cast<SmartRange*>(this));
+  if (contains(pos)) {
+    if (!first && rangesEntered)
+      rangesEntered->push(const_cast<SmartRange*>(this));
 
-      foreach (SmartRange* r, m_childRanges)
-        if (r->contains(pos))
-          return r->deepestRangeContainingInternal(pos, rangesEntered, rangesExited);
-
-      return const_cast<SmartRange*>(this);
-
-    case -1:
-      if (rangesExited)
-        rangesExited->push(const_cast<SmartRange*>(this));
-
-      if (!parentRange())
-        return 0L;
-
-      if (!parentRange()->contains(pos))
-        return parentRange()->deepestRangeContainingInternal(pos, rangesEntered, rangesExited);
-
-      if (const SmartRange* r = parentRange()->childAfter(this))
+    foreach (SmartRange* r, m_childRanges) {
+      int result = r->positionRelativeToCursor(pos);
+      if (result == 0)
         return r->deepestRangeContainingInternal(pos, rangesEntered, rangesExited);
+      else if (result == 1)
+        break;
+    }
 
+    return const_cast<SmartRange*>(this);
+
+  } else {
+    if (rangesExited)
+      rangesExited->push(const_cast<SmartRange*>(this));
+
+    if (!parentRange())
       return 0L;
 
-    case 1:
-      if (rangesExited)
-        rangesExited->push(const_cast<SmartRange*>(this));
-
-      if (!parentRange())
-        return 0L;
-
-      if (!parentRange()->contains(pos))
-        return parentRange()->deepestRangeContainingInternal(pos, rangesEntered, rangesExited);
-
-      if (const SmartRange* r = parentRange()->childBefore(this))
-        return r->deepestRangeContainingInternal(pos, rangesEntered, rangesExited);
-
-      return 0L;
-
-    default:
-      Q_ASSERT(false);
-      return 0L;
+    // first is true, because the parentRange won't be "entered" on first descent
+    return parentRange()->deepestRangeContainingInternal(pos, rangesEntered, rangesExited, true);
   }
 }
 

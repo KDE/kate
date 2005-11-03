@@ -254,10 +254,10 @@ bool KTextEditor::Range::isEmpty( ) const
 
 int Range::positionRelativeToCursor( const Cursor & cursor ) const
 {
-  if (cursor < start())
+  if (end() <= cursor)
     return -1;
 
-  if (cursor > end())
+  if (start() > cursor)
     return +1;
 
   return 0;
@@ -265,10 +265,10 @@ int Range::positionRelativeToCursor( const Cursor & cursor ) const
 
 int Range::positionRelativeToLine( int line ) const
 {
-  if (line < start().line())
+  if (end().line() < line)
     return -1;
 
-  if (line > end().line())
+  if (start().line() > line)
     return +1;
 
   return 0;

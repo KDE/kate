@@ -658,7 +658,7 @@ int KateHlKeyword::checkHgl(const QString& text, int offset, int len)
     if (dict[wordLen]->contains(QConstString(text.unicode() + offset, wordLen).string().toLower()) )
       return offset2;
   }
-  
+
   return 0;
 }
 //END
@@ -1215,16 +1215,18 @@ KateHighlighting::~KateHighlighting()
 {
   // cleanup ;)
   cleanup ();
+
+  qDeleteAll(m_additionalData);
 }
 
 void KateHighlighting::cleanup ()
 {
   qDeleteAll (m_contexts);
   m_contexts.clear ();
-  
+
   qDeleteAll (m_attributeArrays);
   m_attributeArrays.clear ();
-  
+
   qDeleteAll(internalIDList);
   internalIDList.clear();
 }
@@ -1346,7 +1348,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 {
   if (!textLine)
     return;
-    
+
   // in all cases, remove old hl, or we will grow to infinite ;)
   textLine->clearAttributes ();
 
@@ -1557,11 +1559,11 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       continue;
     }
     else
-    {   
-      // set attribute if any   
+    {
+      // set attribute if any
       if (context->attr > 0)
         textLine->addAttribute (offset, 1, context->attr);
-      
+
       lastChar = text[offset];
       offset++;
     }

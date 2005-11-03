@@ -122,7 +122,7 @@ class KateHighlighting
   public:
     KateHighlighting(const KateSyntaxModeListItem *def);
     ~KateHighlighting();
-    
+
   private:
     /**
      * this method frees mem ;)
@@ -350,7 +350,7 @@ class KateHighlighting
      * Highlight properties for each included highlight definition.
      * The key is the identifier
      */
-    Q3Dict<HighlightPropertyBag> m_additionalData;
+    QHash<QString, HighlightPropertyBag*> m_additionalData;
 
     /**
      * Fast lookup of hl properties, based on attribute index

@@ -2892,7 +2892,7 @@ void KateHighlighting::clearAttributeArrays ()
   {
     // k, schema correct, let create the data
     KateAttributeList defaultStyleList;
-    defaultStyleList.setAutoDelete(true);
+
     KateHlManager::self()->getDefaults(it.key(), defaultStyleList);
 
     KateHlItemDataList itemDataList;
@@ -2912,6 +2912,8 @@ void KateHighlighting::clearAttributeArrays ()
 
       (*array)[z] = n;
     }
+
+    qDeleteAll(defaultStyleList);
   }
 }
 
@@ -2932,7 +2934,7 @@ QVector<KTextEditor::Attribute> *KateHighlighting::attributes (uint schema)
 
   // k, schema correct, let create the data
   KateAttributeList defaultStyleList;
-  defaultStyleList.setAutoDelete(true);
+
   KateHlManager::self()->getDefaults(schema, defaultStyleList);
 
   KateHlItemDataList itemDataList;
@@ -2953,6 +2955,8 @@ QVector<KTextEditor::Attribute> *KateHighlighting::attributes (uint schema)
   }
 
   m_attributeArrays.insert(schema, array);
+
+  qDeleteAll(defaultStyleList);
 
   return array;
 }
@@ -3195,8 +3199,6 @@ QString KateHlManager::defaultStyleName(int n, bool translateNames)
 
 void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
 {
-  list.setAutoDelete(true);
-
   KTextEditor::Attribute* normal = new KTextEditor::Attribute();
   normal->setForeground(Qt::black);
   normal->setSelectedForeground(Qt::white);

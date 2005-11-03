@@ -70,7 +70,9 @@ class KateEmbeddedHlInfo
 };
 
 // some typedefs
-typedef Q3PtrList<KTextEditor::Attribute> KateAttributeList;
+// TODO: porting: can switch to non-pointer version?
+typedef QList<KTextEditor::Attribute*> KateAttributeList;
+
 typedef Q3ValueList<KateHlIncludeRule*> KateHlIncludeRules;
 typedef QList<KateHlItemData*> KateHlItemDataList;
 typedef QMap<QString,KateEmbeddedHlInfo> KateEmbeddedHlInfos;

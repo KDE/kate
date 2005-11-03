@@ -324,6 +324,16 @@ void KateRegression::testRangeTree( )
   COMPARE(*childR2, range2);
   COMPARE(*childR3, range3);
 
+  range3 = Range(Cursor(1,3),5);
+  *child3 = range3;
+
+  range1.end() = range3.start();
+
+  COMPARE(childList, top->childRanges());
+  COMPARE(*childR1, range1);
+  COMPARE(*childR2, range2);
+  COMPARE(*childR3, range3);
+
   top->deleteChildRanges();
   delete top;
 }

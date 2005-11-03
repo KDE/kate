@@ -293,17 +293,36 @@ void KateRegression::testRangeTree( )
   VERIFY(!top->childRanges().count());
 
   // Test out-of-order creation
-  SmartRange* child1 = smart()->newSmartRange(Range(Cursor(1,2),2), static_cast<SmartRange*>(top));
-  SmartRange* child2 = smart()->newSmartRange(Range(Cursor(1,6),3), static_cast<SmartRange*>(top));
-  SmartRange* child3 = smart()->newSmartRange(Range(Cursor(1,5),1), static_cast<SmartRange*>(top));
+  Range range1(Cursor(1,2),2);
+  Range range2(Cursor(1,6),3);
+  Range range3(Cursor(1,5),1);
+  SmartRange* child1 = smart()->newSmartRange(range1, static_cast<SmartRange*>(top));
+  Range* childR1 = child1;
+
+  SmartRange* child2 = smart()->newSmartRange(range2, static_cast<SmartRange*>(top));
+  Range* childR2 = child2;
+
+  SmartRange* child3 = smart()->newSmartRange(range3, static_cast<SmartRange*>(top));
+  Range* childR3 = child3;
 
   QList<SmartRange*> childList;
   childList << child1 << child3 << child2;
 
-  kdDebug() << top->childRanges() << endl;
-  kdDebug() << childList << endl;
+  COMPARE(childList, top->childRanges());
+  COMPARE(*childR1, range1);
+  COMPARE(*childR2, range2);
+  COMPARE(*childR3, range3);
+
+  // Test moving child ranges
+  range3 = Range(Cursor(1,5),3);
+  *child3 = range3;
+
+  range2.start() = range3.end();
 
   COMPARE(childList, top->childRanges());
+  COMPARE(*childR1, range1);
+  COMPARE(*childR2, range2);
+  COMPARE(*childR3, range3);
 
   top->deleteChildRanges();
   delete top;

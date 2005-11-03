@@ -33,8 +33,8 @@
 #include "katefont.h"
 
 #include <kdebug.h>
+#include <kvbox.h>
 
-#include <q3vbox.h>
 #include <q3listbox.h>
 #include <qtimer.h>
 #include <qtooltip.h>
@@ -117,8 +117,9 @@ KateCodeCompletion::KateCodeCompletion( KateView* view )
   , m_commentLabel( 0 )
   , m_blockEvents(false)
 {
-  m_completionPopup = new Q3VBox( 0, 0, Qt::WType_Popup );
-  m_completionPopup->setFrameStyle( Q3Frame::Box | Q3Frame::Plain );
+  m_completionPopup = new KVBox(0L);
+  m_completionPopup->setWindowFlags(Qt::WType_Popup);
+  m_completionPopup->setFrameStyle( QFrame::Box | QFrame::Plain );
   m_completionPopup->setLineWidth( 1 );
 
   m_completionListBox = new KateCCListBox( m_completionPopup );
@@ -218,7 +219,7 @@ void KateCodeCompletion::showCompletionBox(
 
   updateBox( true );
 }
-#endif 
+#endif
 
 bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
 {
@@ -226,14 +227,14 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
   if ( o != m_completionPopup &&
        o != m_completionListBox &&
        o != m_completionListBox->viewport()
-       #if 0 
+       #if 0
        && o != m_view /*TEST*/ &&
        o != m_view->m_viewInternal /*TEST*/
  #endif
     )
     return false;
 
-/* Is this really needed? abortCompletion will hide this thing, 
+/* Is this really needed? abortCompletion will hide this thing,
    aborting here again will send abort signal even on successfull completion */
 /* JOWENN: Yes it is, for mouse click triggered aborting of code completion*/
    if( (e->type() == QEvent::Hide) && (m_completionPopup==o) )
@@ -254,13 +255,13 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
     return false;
    }
 
-  if ((e->type()==QEvent::KeyPress) || (e->type()==QEvent::KeyRelease)) 
+  if ((e->type()==QEvent::KeyPress) || (e->type()==QEvent::KeyRelease))
   {
     QApplication::sendEvent(m_view->m_viewInternal,e);
     if (!e->isAccepted()) QApplication::sendEvent(m_view->window(),e);
   }
   if ((e->type()==QEvent::Shortcut) || (e->type()==QEvent::ShortcutOverride) ||
-	(e->type()==QEvent::Accel) )  
+	(e->type()==QEvent::Accel) )
   {
     QApplication::sendEvent(m_view->window(),e);
   }
@@ -370,7 +371,7 @@ void KateCodeCompletion::updateBox( bool )
     m_view->setFocus();
     return;
   }
-#endif 
+#endif
   m_completionListBox->clear();
   kdDebug(13035)<<"m_items.size():"<<m_items.size()<<endl;;
   if (m_items.size()==0)
@@ -418,7 +419,7 @@ void KateCodeCompletion::updateBox( bool )
     }
   }
 
-  if( m_completionListBox->count() == 0 ) 
+  if( m_completionListBox->count() == 0 )
 #warning fixme
 /*||
 
@@ -515,9 +516,10 @@ void KateCodeCompletion::showComment()
   m_commentLabel->show();
 }
 
-KateArgHint::KateArgHint( KateView* parent, const char* name )
-    : Q3Frame( parent, name, Qt::WType_Popup )
+KateArgHint::KateArgHint( KateView* parent )
+    : QFrame( parent )
 {
+    setWindowFlags(Qt::WType_Popup);
     setBackgroundColor( Qt::black );
     setPaletteForegroundColor( Qt::black );
 
@@ -651,7 +653,7 @@ void KateArgHint::setCurrentFunction( int currentFunction )
 
 void KateArgHint::show()
 {
-    Q3Frame::show();
+    QFrame::show();
     adjustSize();
 }
 
@@ -680,7 +682,7 @@ void KateArgHint::adjustSize( )
 {
     QRect screen = QApplication::desktop()->screenGeometry( pos() );
 
-    Q3Frame::adjustSize();
+    QFrame::adjustSize();
     if( width() > screen.width() )
         resize( screen.width(), height() );
 

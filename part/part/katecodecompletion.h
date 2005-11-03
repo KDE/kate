@@ -34,19 +34,18 @@
 #include <QLinkedList>
 #include <qstringlist.h>
 #include <qlabel.h>
-#include <q3frame.h>
+#include <QFrame>
 #include <qmap.h>
 #include <QHash>
+
 #include <kdebug.h>
 
 class KateView;
 class KateArgHint;
 class KateCCListBox;
 
+class KVBox;
 class QLayout;
-class Q3VBox;
-
-
 
 class KateCodeCompletionCommentLabel : public QLabel
 {
@@ -59,7 +58,7 @@ class KateCodeCompletionCommentLabel : public QLabel
         setMargin(1);
         setIndent(0);
        // setAutoMask( false );
-        setFrameStyle( Q3Frame::Plain | Q3Frame::Box );
+        setFrameStyle( QFrame::Plain | QFrame::Box );
         setLineWidth( 1 );
         setAlignment( Qt::AlignLeft | Qt::AlignTop );
         ensurePolished();
@@ -105,7 +104,7 @@ class KateCodeCompletion : public QObject
 
     KateArgHint*    m_pArgHint;
     KateView*       m_view;
-    Q3VBox*          m_completionPopup;
+    KVBox*          m_completionPopup;
     KateCCListBox*       m_completionListBox;
     //QList<KTextEditor::CompletionItem> m_complList;
     int            m_lineCursor;
@@ -133,7 +132,7 @@ class KateCodeCompletion : public QObject
       };
       inline CompletionItem& operator=(const CompletionItem& c) {data=c.data;index=c.index; return *this;} //FIXME
       inline const QString& text() const {
-#if 0        
+#if 0
         kdDebug(13035)<<"data="<<data<<endl;
         kdDebug(13035)<<"data->items().size()="<<data->items().size()<<endl;
 #endif
@@ -153,12 +152,12 @@ class KateCodeCompletion : public QObject
     bool m_blockEvents;
 };
 
-class KateArgHint: public Q3Frame
+class KateArgHint: public QFrame
 {
   Q_OBJECT
 
   public:
-      KateArgHint( KateView* =0, const char* =0 );
+      KateArgHint( KateView* =0 );
       virtual ~KateArgHint();
 
       virtual void setCurrentFunction( int );

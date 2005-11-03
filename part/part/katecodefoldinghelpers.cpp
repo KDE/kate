@@ -221,7 +221,7 @@ void KateCodeFoldingTree::getLineInfo(KateLineInfo *info, unsigned int line)
       info->topLevel = false; //we are definitly not toplevel
       findAllNodesOpenedOrClosedAt(line); //lookup all nodes, which start or and at the given line
 
-      for ( KateCodeFoldingNode *node = nodesForLine.first(); node; node = nodesForLine.next() )
+      foreach (KateCodeFoldingNode* node, nodesForLine)
       {
         uint startLine = getStartLine(node);
 
@@ -1141,6 +1141,7 @@ void KateCodeFoldingTree::findAndMarkAllNodesforRemovalOpenedOrClosedAt(unsigned
 #warning "FIXME:  make this multiple region changes per line save";
 #endif
 //  return;
+  qDeleteAll(markedForDeleting);
   markedForDeleting.clear();
   KateCodeFoldingNode *node = findNodeForLine(line);
   if (node->type == 0)
@@ -1325,7 +1326,7 @@ void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
     KateCodeFoldingNode *node=nodesForLine.at(i);
     if ( (!node->startLineValid) || (getStartLine(node) != line) )
     {
-      nodesForLine.remove(i);
+      delete nodesForLine.takeAt(i);
       i--;
     }
   }

@@ -158,8 +158,8 @@ class KateCodeFoldingTree : public QObject
     QHash<int,unsigned int> lineMapping;
     QHash<int,bool>         dontIgnoreUnchangedLines;
 
-    Q3PtrList<KateCodeFoldingNode> markedForDeleting;
-    Q3PtrList<KateCodeFoldingNode> nodesForLine;
+    QList<KateCodeFoldingNode*> markedForDeleting;
+    QList<KateCodeFoldingNode*> nodesForLine;
     QList<KateHiddenLineBlock>   hiddenLines;
 
     unsigned int hiddenLinesCountCache;

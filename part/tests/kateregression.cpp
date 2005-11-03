@@ -294,19 +294,19 @@ void KateRegression::testRangeTree( )
 
   // Test out-of-order creation
   Range range1(Cursor(1,2),2);
-  Range range2(Cursor(1,6),3);
-  Range range3(Cursor(1,5),1);
+  Range range2(Cursor(1,5),1);
+  Range range3(Cursor(1,6),3);
   SmartRange* child1 = smart()->newSmartRange(range1, static_cast<SmartRange*>(top));
   Range* childR1 = child1;
-
-  SmartRange* child2 = smart()->newSmartRange(range2, static_cast<SmartRange*>(top));
-  Range* childR2 = child2;
 
   SmartRange* child3 = smart()->newSmartRange(range3, static_cast<SmartRange*>(top));
   Range* childR3 = child3;
 
+  SmartRange* child2 = smart()->newSmartRange(range2, static_cast<SmartRange*>(top));
+  Range* childR2 = child2;
+
   QList<SmartRange*> childList;
-  childList << child1 << child3 << child2;
+  childList << child1 << child2 << child3;
 
   COMPARE(childList, top->childRanges());
   COMPARE(*childR1, range1);
@@ -314,25 +314,33 @@ void KateRegression::testRangeTree( )
   COMPARE(*childR3, range3);
 
   // Test moving child ranges
-  range3 = Range(Cursor(1,5),3);
-  *child3 = range3;
+  range2 = Range(Cursor(1,5),3);
+  *child2 = range2;
 
-  range2.start() = range3.end();
+  range3.start() = range2.end();
+
+  COMPARE(childList, top->childRanges());
+  COMPARE(*childR1, range1);
+  COMPARE(*childR2, range2);
+  COMPARE(*childR3, range3);
+
+  range2 = Range(Cursor(1,3),5);
+  *child2 = range2;
+
+  range1.end() = range2.start();
 
   COMPARE(childList, top->childRanges());
   COMPARE(*childR1, range1);
   COMPARE(*childR2, range2);
   COMPARE(*childR3, range3);
 
-  range3 = Range(Cursor(1,3),5);
-  *child3 = range3;
-
-  range1.end() = range3.start();
-
-  COMPARE(childList, top->childRanges());
-  COMPARE(*childR1, range1);
-  COMPARE(*childR2, range2);
-  COMPARE(*childR3, range3);
+  // Test childBefore / childAfter
+  COMPARE(top->childBefore(child1), (SmartRange*)0L);
+  COMPARE(top->childBefore(child2), child1);
+  COMPARE(top->childBefore(child3), child2);
+  COMPARE(top->childAfter(child1), child2);
+  COMPARE(top->childAfter(child2), child3);
+  COMPARE(top->childAfter(child3), (SmartRange*)0L);
 
   top->deleteChildRanges();
   delete top;

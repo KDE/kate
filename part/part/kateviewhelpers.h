@@ -74,9 +74,8 @@ class KateScrollBar : public QScrollBar
   private:
     void redrawMarks();
     void recomputeMarksPositions();
-    void watchScrollBarSize();
 
-  bool m_middleMouseDown;
+    bool m_middleMouseDown;
 
     KateView *m_view;
     KateDocument *m_doc;

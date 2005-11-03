@@ -63,13 +63,15 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
   , m_view(parent->m_view)
   , m_doc(parent->m_doc)
   , m_viewInternal(parent)
-  , m_topMargin(-1)
-  , m_bottomMargin(-1)
+  , m_topMargin(0)
+  , m_bottomMargin(0)
   , m_savVisibleLines(0)
   , m_showMarks(false)
 {
   connect(this, SIGNAL(valueChanged(int)), this, SLOT(sliderMaybeMoved(int)));
   connect(m_doc, SIGNAL(marksChanged(KTextEditor::Document*)), this, SLOT(marksChanged()));
+
+  styleChange(*style());
 }
 
 void KateScrollBar::mousePressEvent(QMouseEvent* e)
@@ -140,7 +142,24 @@ void KateScrollBar::resizeEvent(QResizeEvent *e)
 void KateScrollBar::styleChange(QStyle &s)
 {
   QScrollBar::styleChange(s);
-  m_topMargin = -1;
+
+  // Calculate height of buttons
+  QStyleOptionSlider opt;
+  opt.init(this);
+  opt.subControls = QStyle::SC_None;
+  opt.activeSubControls = QStyle::SC_None;
+  opt.orientation = this->orientation();
+  opt.minimum = minimum();
+  opt.maximum = maximum();
+  opt.sliderPosition = sliderPosition();
+  opt.sliderValue = value();
+  opt.singleStep = singleStep();
+  opt.pageStep = pageStep();
+
+  m_topMargin = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSubLine, this).height() + 2;
+  m_bottomMargin = m_topMargin + style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarAddLine, this).height() + 1;
+  kdDebug() << k_funcinfo << m_topMargin << " " << m_bottomMargin << endl;
+
   recomputeMarksPositions();
 }
 
@@ -174,9 +193,6 @@ void KateScrollBar::redrawMarks()
 
 void KateScrollBar::recomputeMarksPositions()
 {
-  if (m_topMargin == -1)
-    watchScrollBarSize();
-
   m_lines.clear();
   m_savVisibleLines = m_doc->visibleLines();
 
@@ -213,22 +229,6 @@ void KateScrollBar::recomputeMarksPositions()
   // with Qt4 we don't have the luxury of painting outside a paint event
   // and a paint event wipes the widget... so just update
   update();
-}
-
-void KateScrollBar::watchScrollBarSize()
-{
-#ifdef __GNUC__
-#warning port this to QT 4
-#endif
-/*
-  int savMax = maxValue();
-  setMaxValue(0);
-  QRect rect = sliderRect();
-  setMaxValue(savMax);
-
-  m_topMargin = rect.top();
-  m_bottomMargin = frameGeometry().height() - rect.bottom();
-*/
 }
 
 void KateScrollBar::sliderMaybeMoved(int value)

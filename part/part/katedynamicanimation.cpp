@@ -20,6 +20,7 @@
 
 #include "kateview.h"
 #include "katedocument.h"
+#include "katerenderer.h"
 
 #include <QTimer>
 
@@ -49,6 +50,12 @@ KateDynamicAnimation::KateDynamicAnimation(KateView* view, KateSmartRange* range
 KateDynamicAnimation::~KateDynamicAnimation()
 {
   m_range->removeDynamic(this);
+
+  if (view())
+    view()->renderer()->dynamicRegion().removeRange(m_range);
+  else
+    foreach (KDocument::View* view, document()->views())
+      static_cast<KateView*>(view)->renderer()->dynamicRegion().removeRange(m_range);
 }
 
 void KateDynamicAnimation::init( )
@@ -69,7 +76,8 @@ void KateDynamicAnimation::init( )
 
   m_range->addDynamic(this);
 
-  m_timer->start(25);
+  m_timer->setInterval(25);
+  m_timer->start();
 }
 
 KateSmartRange * KateDynamicAnimation::range( ) const
@@ -137,7 +145,7 @@ void KateDynamicAnimation::mergeToAttribute( KTextEditor::Attribute & attrib ) c
       attrib.merge(*dynamicAttribute());
     }
 
-  } else if (m_sequence > 200 && m_sequence < 300) {
+  } else if (m_sequence > 200 && m_sequence <= 300) {
     if (effects & Attribute::EffectFadeOut) {
       QMapIterator<int, QVariant> it = dynamicAttribute()->properties();
       while (it.hasNext()) {
@@ -160,7 +168,12 @@ void KateDynamicAnimation::mergeToAttribute( KTextEditor::Attribute & attrib ) c
 
 void KateDynamicAnimation::finish( )
 {
-  m_sequence = 200;
+  if (m_sequence < 100)
+    // if the animation didn't make it through the intro, make the outro the same length
+    m_sequence = 300 - m_sequence;
+  else
+    m_sequence = 200;
+
   m_timer->start();
 }
 

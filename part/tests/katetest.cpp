@@ -148,7 +148,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
   setAutoSaveSettings ("MainWindow Settings");
 
   // init with more usefull size, stolen from konq :)
-  if ( !initialGeometrySet() && !kapp->config()->hasGroup("MainWindow Settings"))
+  if ( !initialGeometrySet() && !KGlobal::config()->hasGroup("MainWindow Settings"))
     resize( 700, 480 );
 
   readConfig ();
@@ -171,7 +171,7 @@ KWrite::~KWrite()
     delete m_view->document();
   }
 
-  kapp->config()->sync ();
+  KGlobal::config()->sync ();
 }
 
 void KWrite::setupActions()
@@ -443,13 +443,13 @@ void KWrite::writeConfig(KConfig *config)
 //config file
 void KWrite::readConfig()
 {
-  KConfig *config = kapp->config();
+  KConfig *config = KGlobal::config();
   readConfig(config);
 }
 
 void KWrite::writeConfig()
 {
-  KConfig *config = kapp->config();
+  KConfig *config = KGlobal::config();
   writeConfig(config);
 }
 

@@ -18,6 +18,8 @@
 
 #include "kateregression.h"
 
+#include <QStack>
+
 #include <ktexteditor/editorchooser.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/document.h>
@@ -51,6 +53,17 @@ namespace QtTest {
 
   template<>
   char* toString(const Range& range)
+  {
+    QByteArray ba = "Range[(";
+    ba += QByteArray::number(range.start().line()) + ", " + QByteArray::number(range.start().column());
+    ba += ") -> (";
+    ba += QByteArray::number(range.end().line()) + ", " + QByteArray::number(range.end().column());
+    ba += ")]";
+    return qstrdup(ba.data());
+  }
+
+  template<>
+  char* toString(const SmartRange& range)
   {
     QByteArray ba = "Range[(";
     ba += QByteArray::number(range.start().line()) + ", " + QByteArray::number(range.start().column());
@@ -341,6 +354,57 @@ void KateRegression::testRangeTree( )
   COMPARE(top->childAfter(child1), child2);
   COMPARE(top->childAfter(child2), child3);
   COMPARE(top->childAfter(child3), (SmartRange*)0L);
+
+  // Test firstRangeContaining
+  Range range11(range1.start(), 1);
+  SmartRange* child11 = smart()->newSmartRange(range11, child1);
+
+  Range range111(range11.end(), 0);
+  SmartRange* child111 = smart()->newSmartRange(range111, child11);
+
+  COMPARE(top->firstRangeContaining(range11.start()), top);
+
+  QStack<SmartRange*> enterStack, exitStack;
+  QStack<SmartRange*> expectedEnterStack, expectedExitStack;
+  expectedEnterStack << child1 << child11;
+
+  // Test deepestRangeContaining - straight descent
+  COMPARE(top->deepestRangeContaining(range11.start(), &enterStack, &exitStack), child11);
+  COMPARE(enterStack, expectedEnterStack);
+  COMPARE(exitStack, expectedExitStack);
+
+  enterStack.clear();
+  expectedExitStack << child2;
+
+  // Test deepestRangeContaining - exit + descent backwards
+  COMPARE(child2->deepestRangeContaining(range11.start(), &enterStack, &exitStack), child11);
+  COMPARE(enterStack, expectedEnterStack);
+  COMPARE(exitStack, expectedExitStack);
+
+  enterStack.clear();
+  exitStack.clear();
+  expectedExitStack.clear();
+  expectedEnterStack.clear();
+  expectedExitStack << child11 << child1;
+  expectedEnterStack << child2;
+
+  // Test deepestRangeContaining - exit + descent forwards
+  COMPARE(*child11->deepestRangeContaining(range2.start(), &enterStack, &exitStack), *child2);
+  COMPARE(enterStack, expectedEnterStack);
+  COMPARE(exitStack, expectedExitStack);
+
+  enterStack.clear();
+  exitStack.clear();
+  expectedExitStack.clear();
+  expectedEnterStack.clear();
+  expectedExitStack << child111 << child11 << child1;
+
+  // Test deepestRangeContaining - exit + descent not past a certain point
+  child3->start() = Cursor(1,10);
+
+  COMPARE(child111->deepestRangeContaining(Cursor(1,9), &enterStack, &exitStack), top);
+  COMPARE(enterStack, expectedEnterStack);
+  COMPARE(exitStack, expectedExitStack);
 
   top->deleteChildRanges();
   delete top;

@@ -2003,7 +2003,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
 void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
-  
+
   KKey key(e);
 
   bool codeComp = m_view->m_codeCompletion->codeCompletionVisible ();
@@ -3006,7 +3006,8 @@ void KateViewInternal::endDynamic( DynamicRangeHL* hl, KateSmartRange* range, KT
   // it deletes itself
   //delete anim;
 
-  renderer()->dynamicRegion().removeRange(range);
+  // The animation object does this on deletion
+  // renderer()->dynamicRegion().removeRange(range);
 }
 
 void KateViewInternal::updateRange(KateSmartRange* range)

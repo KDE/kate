@@ -138,15 +138,15 @@ KateTemplateHandler::~KateTemplateHandler()
 
 void KateTemplateHandler::slotDocumentDestroyed() {m_doc = 0;}
 
-void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertPosition, const QString& insertString, const Q3ValueList<KateTemplateHandlerPlaceHolderInfo> &buildList )
+void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertPosition, const QString& insertString, const QList<KateTemplateHandlerPlaceHolderInfo> &buildList )
 {
   uint line = insertPosition.line();
   uint col = insertPosition.column();
   uint colInText = 0;
 
-  for ( Q3ValueList<KateTemplateHandlerPlaceHolderInfo>::const_iterator it = buildList.begin();it != buildList.end();++it )
+  foreach (const KateTemplateHandlerPlaceHolderInfo& info, buildList)
   {
-    KateTemplatePlaceHolder *ph = m_dict[ ( *it ).placeholder ];
+    KateTemplatePlaceHolder *ph = m_dict[ info.placeholder ];
 
     if ( !ph )
     {
@@ -159,14 +159,14 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
         //ph->ranges.setRangeType(rt);
 
       ph->isInitialValue = true;
-      ph->isCursor = ( ( *it ).placeholder == "cursor" );
-      m_dict.insert( ( *it ).placeholder, ph );
+      ph->isCursor = ( info.placeholder == "cursor" );
+      m_dict.insert( info.placeholder, ph );
 
       if ( !ph->isCursor ) m_tabOrder.append( ph );
     }
 
     // FIXME handle space/tab replacement correctly make it use of the indenter
-    while ( colInText < ( *it ).begin )
+    while ( colInText < info.begin )
     {
       ++col;
 
@@ -181,8 +181,8 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
 
       //KateSmartRange *hlr = new KateSmartRange( m_doc, KTextEditor::Cursor( line, col ),
       //KTextEditor::Cursor( line, ( *it ).len + col ), ph->ranges.topRange() );
-    colInText += ( *it ).len;
-    col += ( *it ).len;
+    colInText += info.len;
+    col += info.len;
       //hlr->allowZeroLength();
     //hlr->setBehaviour(KateSmartRange::ExpandRight);
   }

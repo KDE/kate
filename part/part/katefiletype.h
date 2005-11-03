@@ -100,7 +100,7 @@ class KateFileTypeConfigTab : public KateConfigPage
     void save ();
 
   private:
-    class Q3GroupBox *gbProps;
+    class QGroupBox *gbProps;
     class QPushButton *btndel;
     class QComboBox *typeCombo;
     class QLineEdit *wildcards;

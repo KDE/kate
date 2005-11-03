@@ -38,7 +38,7 @@
 #include <qregexp.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <q3groupbox.h>
+#include <QGroupBox>
 
 #include <q3header.h>
 #include <qlabel.h>
@@ -284,31 +284,44 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   hbHl->addWidget(btndel);
   connect( btndel, SIGNAL(clicked()), this, SLOT(deleteType()) );
 
-  gbProps = new Q3GroupBox( 2, Qt::Horizontal, i18n("Properties"), this );
+  gbProps = new QGroupBox( this );
+  gbProps->setTitle(i18n("Properties"));
+  QGridLayout* grid = new QGridLayout(gbProps);
   layout->add (gbProps);
 
   // file & mime types
   QLabel *lname = new QLabel( i18n("N&ame:"), gbProps );
+  grid->addWidget(lname, 0, 0);
   name  = new QLineEdit( gbProps );
+  grid->addWidget(name, 0, 1);
   lname->setBuddy( name );
 
   // file & mime types
   QLabel *lsec = new QLabel( i18n("&Section:"), gbProps );
+  grid->addWidget(lsec, 1, 0);
   section  = new QLineEdit( gbProps );
+  grid->addWidget(section, 1, 1);
   lsec->setBuddy( section );
 
   // file & mime types
   QLabel *lvar = new QLabel( i18n("&Variables:"), gbProps );
+  grid->addWidget(lvar, 2, 0);
   varLine  = new QLineEdit( gbProps );
+  grid->addWidget(varLine, 2, 1);
   lvar->setBuddy( varLine );
 
   // file & mime types
   QLabel *lFileExts = new QLabel( i18n("File e&xtensions:"), gbProps );
+  grid->addWidget(lFileExts, 3, 0);
   wildcards  = new QLineEdit( gbProps );
+  grid->addWidget(wildcards, 3, 1);
   lFileExts->setBuddy( wildcards );
 
   QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), gbProps);
+  grid->addWidget(lMimeTypes, 4, 0);
   KHBox *hbMT = new KHBox (gbProps);
+  hbMT->setMargin(0);
+  grid->addWidget(hbMT, 4, 1);
   mimetypes = new QLineEdit( hbMT );
   lMimeTypes->setBuddy( mimetypes );
 
@@ -317,7 +330,9 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
 
   QLabel *lprio = new QLabel( i18n("Prio&rity:"), gbProps);
+  grid->addWidget(lprio, 5, 0);
   priority = new KIntNumInput( gbProps );
+  grid->addWidget(priority, 5, 1);
   lprio->setBuddy( priority );
 
   layout->addStretch();
@@ -564,7 +579,7 @@ void KateViewFileTypeAction::slotAboutToShow()
 
   for (int i=0;i<subMenus.count();i++)
   {
-    for (int i2=0;i2<subMenus.at(i)->count();i2++)
+    for (int i2=0;i2<(int)subMenus.at(i)->count();i2++)
       subMenus.at(i)->setItemChecked(subMenus.at(i)->idAt(i2),false);
   }
   popupMenu()->setItemChecked (0, false);

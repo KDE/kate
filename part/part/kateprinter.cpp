@@ -45,7 +45,7 @@
 #include <q3paintdevicemetrics.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <q3groupbox.h>
+#include <QGroupBox>
 
 #include <qlabel.h>
 #include <qlayout.h>
@@ -727,25 +727,36 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter * /*printer*/, QWidget *p
   QHBoxLayout *lo2 = new QHBoxLayout( lo );
   lo2->addWidget( new QLabel( i18n("Header/footer font:"), this ) );
   lFontPreview = new QLabel( this );
-  lFontPreview->setFrameStyle( Q3Frame::Panel|Q3Frame::Sunken );
+  lFontPreview->setFrameStyle( QFrame::Panel|QFrame::Sunken );
   lo2->addWidget( lFontPreview );
   lo2->setStretchFactor( lFontPreview, 1 );
   QPushButton *btnChooseFont = new QPushButton( i18n("Choo&se Font..."), this );
   lo2->addWidget( btnChooseFont );
   connect( btnChooseFont, SIGNAL(clicked()), this, SLOT(setHFFont()) );
+
   // header
-  gbHeader = new Q3GroupBox( 2, Qt::Horizontal, i18n("Header Properties"), this );
+  gbHeader = new QGroupBox( this );
+  gbHeader->setTitle(i18n("Header Properties"));
+  QGridLayout* grid = new QGridLayout(gbHeader);
   lo->addWidget( gbHeader );
 
   QLabel *lHeaderFormat = new QLabel( i18n("&Format:"), gbHeader );
+  grid->addWidget(lHeaderFormat, 0, 0);
+
   KHBox *hbHeaderFormat = new KHBox( gbHeader );
+  grid->addWidget(lHeaderFormat, 0, 1);
+
   hbHeaderFormat->setSpacing( sp );
   leHeaderLeft = new QLineEdit( hbHeaderFormat );
   leHeaderCenter = new QLineEdit( hbHeaderFormat );
   leHeaderRight = new QLineEdit( hbHeaderFormat );
   lHeaderFormat->setBuddy( leHeaderLeft );
-  new QLabel( i18n("Colors:"), gbHeader );
+
+  grid->addWidget(new QLabel( i18n("Colors:"), gbHeader ), 1, 0);
+
   KHBox *hbHeaderColors = new KHBox( gbHeader );
+  grid->addWidget(hbHeaderColors, 1, 1);
+
   hbHeaderColors->setSpacing( sp );
   QLabel *lHeaderFgCol = new QLabel( i18n("Foreground:"), hbHeaderColors );
   kcbtnHeaderFg = new KColorButton( hbHeaderColors );
@@ -753,21 +764,30 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter * /*printer*/, QWidget *p
   cbHeaderEnableBgColor = new QCheckBox( i18n("Bac&kground"), hbHeaderColors );
   kcbtnHeaderBg = new KColorButton( hbHeaderColors );
 
-  gbFooter = new Q3GroupBox( 2, Qt::Horizontal, i18n("Footer Properties"), this );
+  gbFooter = new QGroupBox( this );
+  gbFooter->setTitle(i18n("Footer Properties"));
+  grid = new QGridLayout(gbFooter);
   lo->addWidget( gbFooter );
 
   // footer
   QLabel *lFooterFormat = new QLabel( i18n("For&mat:"), gbFooter );
+  grid->addWidget(lFooterFormat, 0, 0);
+
   KHBox *hbFooterFormat = new KHBox( gbFooter );
+  grid->addWidget(hbFooterFormat, 0, 1);
+
   hbFooterFormat->setSpacing( sp );
   leFooterLeft = new QLineEdit( hbFooterFormat );
   leFooterCenter = new QLineEdit( hbFooterFormat );
   leFooterRight = new QLineEdit( hbFooterFormat );
   lFooterFormat->setBuddy( leFooterLeft );
 
-  new QLabel( i18n("Colors:"), gbFooter );
+  grid->addWidget(new QLabel( i18n("Colors:"), gbFooter ), 1, 0);
+
   KHBox *hbFooterColors = new KHBox( gbFooter );
+  grid->addWidget(hbFooterColors, 1, 1);
   hbFooterColors->setSpacing( sp );
+
   QLabel *lFooterBgCol = new QLabel( i18n("Foreground:"), hbFooterColors );
   kcbtnFooterFg = new KColorButton( hbFooterColors );
   lFooterBgCol->setBuddy( kcbtnFooterFg );
@@ -935,19 +955,27 @@ KatePrintLayout::KatePrintLayout( KPrinter * /*printer*/, QWidget *parent)
   cbEnableBox = new QCheckBox( i18n("Draw &boxes"), this );
   lo->addWidget( cbEnableBox );
 
-  gbBoxProps = new Q3GroupBox( 2, Qt::Horizontal, i18n("Box Properties"), this );
+  gbBoxProps = new QGroupBox( this );
+  gbBoxProps->setTitle(i18n("Box Properties"));
+  QGridLayout* grid = new QGridLayout(gbBoxProps);
   lo->addWidget( gbBoxProps );
 
   QLabel *lBoxWidth = new QLabel( i18n("W&idth:"), gbBoxProps );
+  grid->addWidget(lBoxWidth, 0, 0);
   sbBoxWidth = new QSpinBox( 1, 100, 1, gbBoxProps );
+  grid->addWidget(sbBoxWidth, 0, 1);
   lBoxWidth->setBuddy( sbBoxWidth );
 
   QLabel *lBoxMargin = new QLabel( i18n("&Margin:"), gbBoxProps );
+  grid->addWidget(lBoxWidth, 1, 0);
   sbBoxMargin = new QSpinBox( 0, 100, 1, gbBoxProps );
+  grid->addWidget(sbBoxMargin, 1, 1);
   lBoxMargin->setBuddy( sbBoxMargin );
 
   QLabel *lBoxColor = new QLabel( i18n("Co&lor:"), gbBoxProps );
+  grid->addWidget(lBoxColor, 2, 0);
   kcbtnBoxColor = new KColorButton( gbBoxProps );
+  grid->addWidget(lBoxWidth, 2, 1);
   lBoxColor->setBuddy( kcbtnBoxColor );
 
   connect( cbEnableBox, SIGNAL(toggled(bool)), gbBoxProps, SLOT(setEnabled(bool)) );

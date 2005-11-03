@@ -526,7 +526,7 @@ QString DocWordCompletionPluginView::word()
 QList<KTextEditor::CompletionItem> DocWordCompletionPluginView::allMatches( const QString &word )
 {
   QList<KTextEditor::CompletionItem> l;
-  uint i( 0 );
+  int i( 0 );
   int pos( 0 );
   d->re.setPattern( "\\b("+word+"\\w+)" );
   QString s, m;

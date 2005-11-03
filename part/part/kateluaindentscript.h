@@ -23,7 +23,7 @@
 #define _KATELUAINDENTSCRIPT_H_
 
 #include "kateindentscriptabstracts.h"
-
+#include <QHash>
 struct lua_State;
 
 class KateLUAIndentScriptImpl: public KateIndentScriptImplAbstract {

@@ -104,7 +104,7 @@ const QList<SmartRange*>& SmartRange::childRanges() const
 SmartRange * SmartRange::childBefore( const SmartRange * range ) const
 {
   int index = m_childRanges.indexOf(const_cast<SmartRange*>(range));
-  if (index != -1 && --index > 0)
+  if (--index >= 0)
     return m_childRanges[index];
   return 0L;
 }

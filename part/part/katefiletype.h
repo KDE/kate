@@ -51,7 +51,7 @@ class KateFileTypeManager
      */
     void update ();
 
-    void save (Q3PtrList<KateFileType> *v);
+    void save (const QList<KateFileType>& v);
 
     /**
      * get the right fileType for the given document
@@ -59,21 +59,23 @@ class KateFileTypeManager
      */
     int fileType (KateDocument *doc);
 
+    bool isValidType(int number) const;
+
     /**
      * Don't store the pointer somewhere longer times, won't be valid after the next update()
      */
-    const KateFileType *fileType (uint number);
+    const KateFileType& fileType (int number) const;
 
     /**
      * Don't modify
      */
-    Q3PtrList<KateFileType> *list () { return &m_types; }
+    const QList<KateFileType>& list() const { return m_types; }
 
   private:
     int wildcardsFind (const QString &fileName);
 
   private:
-    Q3PtrList<KateFileType> m_types;
+    QList<KateFileType> m_types;
 };
 
 class KateFileTypeConfigTab : public KateConfigPage
@@ -108,8 +110,8 @@ class KateFileTypeConfigTab : public KateConfigPage
     class QLineEdit *section;
     class QLineEdit *varLine;
 
-    Q3PtrList<KateFileType> m_types;
-    KateFileType *m_lastType;
+    QList<KateFileType> m_types;
+    int m_lastType;
 };
 
 class KateViewFileTypeAction : public KActionMenu

@@ -2691,9 +2691,8 @@ void KateDocument::addView(KTextEditor::View *view) {
   m_textEditViews.append( view );
 
   // apply the view & renderer vars from the file type
-  const KateFileType *t = 0;
-  if ((m_fileType > -1) && (t = KateGlobal::self()->fileTypeManager()->fileType(m_fileType)))
-    readVariableLine (t->varLine, true);
+  if (KateGlobal::self()->fileTypeManager()->isValidType(m_fileType))
+      readVariableLine(KateGlobal::self()->fileTypeManager()->fileType(m_fileType).varLine, true);
 
   // apply the view & renderer vars from the file
   readVariables (true);
@@ -4745,12 +4744,11 @@ void KateDocument::updateFileType (int newType, bool user)
 {
   if (user || !m_fileTypeSetByUser)
   {
-    const KateFileType *t = 0;
-    if ((newType == -1) || (t = KateGlobal::self()->fileTypeManager()->fileType (newType)))
+    if (newType == -1 || KateGlobal::self()->fileTypeManager()->isValidType(newType))
     {
       m_fileType = newType;
 
-      if (t)
+      if (KateGlobal::self()->fileTypeManager()->isValidType(newType))
       {
         m_config->configStart();
         // views!
@@ -4761,7 +4759,7 @@ void KateDocument::updateFileType (int newType, bool user)
           v->renderer()->config()->configStart();
         }
 
-        readVariableLine( t->varLine );
+        readVariableLine( KateGlobal::self()->fileTypeManager()->fileType(newType).varLine );
 
         m_config->configEnd();
         foreach (v,m_views)

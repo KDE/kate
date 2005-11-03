@@ -513,11 +513,15 @@ void KateFileTypeConfigTab::showMTDlg()
 void KateViewFileTypeAction::init()
 {
   m_doc = 0;
-  subMenus.setAutoDelete( true );
 
   popupMenu()->insertItem ( i18n("None"), this, SLOT(setType(int)), 0,  0);
 
   connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+}
+
+KateViewFileTypeAction::~ KateViewFileTypeAction( )
+{
+  qDeleteAll(subMenus);
 }
 
 void KateViewFileTypeAction::updateMenu (KTextEditor::Document *doc)
@@ -558,9 +562,9 @@ void KateViewFileTypeAction::slotAboutToShow()
 
   if (!doc) return;
 
-  for (uint i=0;i<subMenus.count();i++)
+  for (int i=0;i<subMenus.count();i++)
   {
-    for (uint i2=0;i2<subMenus.at(i)->count();i2++)
+    for (int i2=0;i2<subMenus.at(i)->count();i2++)
       subMenus.at(i)->setItemChecked(subMenus.at(i)->idAt(i2),false);
   }
   popupMenu()->setItemChecked (0, false);

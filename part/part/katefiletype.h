@@ -122,7 +122,7 @@ class KateViewFileTypeAction : public KActionMenu
     KateViewFileTypeAction(const QString& text, KActionCollection* parent = 0, const char* name = 0)
        : KActionMenu(text, parent, name) { init(); };
 
-    ~KateViewFileTypeAction(){;};
+    ~KateViewFileTypeAction();
 
     void updateMenu (KTextEditor::Document *doc);
 
@@ -132,7 +132,7 @@ class KateViewFileTypeAction : public KActionMenu
     QPointer<KateDocument> m_doc;
     QStringList subMenusName;
     QStringList names;
-    Q3PtrList<QMenu> subMenus;
+    QList<QMenu*> subMenus;
 
   public  slots:
     void slotAboutToShow();

@@ -68,6 +68,11 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
     ranges[2]->setDynamicAttribute(Attribute::ActivateMouseIn, dyn, true);
     ranges[2]->setEffects(Attribute::EffectFadeIn | Attribute::EffectFadeOut);
 
+    Attribute* dyn2 = new Attribute();
+    dyn2->setBackground(Qt::green);
+    dyn2->setForeground(Qt::white);
+    ranges[2]->setDynamicAttribute(Attribute::ActivateCaretIn, dyn2, true);
+
     //ranges[3]->setFontUnderline(true);
     //ranges[3]->setSelectedForeground(Qt::magenta);
     //ranges[4]->setFontStrikeOut(true);
@@ -134,7 +139,7 @@ void ArbitraryHighlightTest::slotCreateTopRange( )
   smart()->addHighlightToDocument(m_topRange, true);
   m_topRange->setInsertBehaviour(SmartRange::ExpandRight);
   connect(m_topRange->notifier(), SIGNAL(contentsChanged(KTextEditor::SmartRange*, KTextEditor::SmartRange*)), SLOT(slotRangeChanged(KTextEditor::SmartRange*, KTextEditor::SmartRange*)));
-  connect(m_topRange->notifier(), SIGNAL(rangeDeleted(KTextEditor::SmartRange*)), SLOT(slotRangeDeleted(KTextEditor::SmartRange*)));
+  connect(m_topRange->notifier(), SIGNAL(deleted(KTextEditor::SmartRange*)), SLOT(slotRangeDeleted(KTextEditor::SmartRange*)));
 
   slotRangeChanged(m_topRange, m_topRange);
 }

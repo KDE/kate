@@ -32,6 +32,7 @@ KateSmartManager::KateSmartManager(KateDocument* parent)
   : QObject(parent)
   , m_firstGroup(new KateSmartGroup(0, 0, 0L, 0L))
   , m_invalidGroup(new KateSmartGroup(-1, -1, 0L, 0L))
+  , m_clearing(false)
 {
   connect(doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(slotTextChanged(KateEditInfo*)));
   //connect(doc(), SIGNAL(textChanged(KTextEditor::Document*)), SLOT(verifyCorrect()));
@@ -447,9 +448,10 @@ void KateSmartGroup::deleteCursors( bool includingInternal )
 {
   if (includingInternal) {
     qDeleteAll(m_feedbackCursors);
+    m_feedbackCursors.clear();
+
     qDeleteAll(m_normalCursors);
-    Q_ASSERT(!m_feedbackCursors.count());
-    Q_ASSERT(!m_normalCursors.count());
+    m_normalCursors.clear();
 
   } else {
     deleteCursorsInternal(m_feedbackCursors);
@@ -459,36 +461,37 @@ void KateSmartGroup::deleteCursors( bool includingInternal )
 
 void KateSmartGroup::deleteCursorsInternal( QSet< KateSmartCursor * > & set )
 {
-  QSet<KateSmartCursor*>::ConstIterator it = set.constBegin();
-  while (it != set.constEnd()) {
-    KateSmartCursor* c = *it;
-    ++it;
+  foreach (KateSmartCursor* c, set.toList()) {
     if (!c->range() && !c->isInternal()) {
-      m_feedbackCursors.remove(c);
+      set.remove(c);
       delete c;
-      // Removing from set is already taken care of
     }
   }
 }
 
 void KateSmartManager::deleteRanges( bool includingInternal )
 {
-  QSet<KateSmartRange*>::ConstIterator it = m_topRanges.constBegin();
-  while (it != m_topRanges.constEnd()) {
-    KateSmartRange* range = *it;
-    ++it;
+  foreach (KateSmartRange* range, m_topRanges.toList()) {
     if (includingInternal || !range->isInternal()) {
       range->deleteChildRanges();
       delete range;
-      // Removing from m_topRanges is already taken care of
+
+      if (!includingInternal)
+        m_topRanges.remove(range);
     }
   }
+
+  if (includingInternal)
+    m_topRanges.clear();
 }
 
 void KateSmartManager::clear( bool includingInternal )
 {
-  deleteCursors(includingInternal);
   deleteRanges(includingInternal);
+
+  m_clearing = true;
+  deleteCursors(includingInternal);
+  m_clearing = false;
 }
 
 #include "katesmartmanager.moc"

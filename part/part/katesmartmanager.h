@@ -48,6 +48,18 @@ class KateSmartManager : public QObject
 
     KateDocument* doc() const;
 
+    /**
+     * The process of clearing works as follows:
+     * - SmartCursors and SmartRanges emit the relevant signals as usual
+     * - The smart manager takes care of deleting the ranges and the cursors
+     *   which are not bound to ranges (those cursors get deleted by the ranges
+     *   themselves)
+     * - isClearing() is set to true while cursors only are being deleted (not cursors as part of a range)
+     * - The smart manager takes care of cleaning its internal lists of cursors it deletes
+     *   (deleted SmartCursors should not tell the smart manager that they have
+     *   been deleted, ie when isClearing() is true)
+     */
+    inline bool isClearing() const { return m_clearing; }
     void clear(bool includingInternal);
 
     KateSmartCursor* newSmartCursor(const KTextEditor::Cursor& position, bool moveOnInsert = true, bool internal = true);
@@ -60,6 +72,7 @@ class KateSmartManager : public QObject
 
     void rangeGotParent(KateSmartRange* range);
     void rangeLostParent(KateSmartRange* range);
+    /// This is called regardless of whether a range was deleted via clear(), or deleteRanges(), or otherwise.
     void rangeDeleted(KateSmartRange* range);
 
     KateSmartGroup* groupForLine(int line) const;
@@ -79,6 +92,7 @@ class KateSmartManager : public QObject
     KateSmartGroup* m_firstGroup;
     QSet<KateSmartRange*> m_topRanges;
     KateSmartGroup* m_invalidGroup;
+    bool m_clearing;
 };
 
 /**

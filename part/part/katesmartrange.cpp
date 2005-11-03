@@ -81,6 +81,7 @@ KateDocument * KateSmartRange::kateDocument( ) const
 
 KateSmartRangeNotifier::KateSmartRangeNotifier(KateSmartRange* owner)
   : m_owner(owner)
+  , m_connectedInternally(false)
 {
 }
 

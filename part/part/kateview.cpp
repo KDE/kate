@@ -1927,6 +1927,7 @@ bool KateView::tagLines( KTextEditor::Range range, bool realRange )
 void KateView::addInternalHighlight( KTextEditor::SmartRange * topRange )
 {
   m_internalHighlights.append(topRange);
+  tagRange(*topRange, true);
 }
 
 void KateView::removeInternalHighlight( KTextEditor::SmartRange * topRange )
@@ -1951,6 +1952,8 @@ void KateView::addExternalHighlight( KTextEditor::SmartRange * topRange, bool su
     m_externalHighlightsDynamic.append(topRange);
     emit dynamicHighlightAdded(static_cast<KateSmartRange*>(topRange));
   }
+
+  tagRange(*topRange, true);
 }
 
 void KateView::removeExternalHighlight( KTextEditor::SmartRange * topRange )

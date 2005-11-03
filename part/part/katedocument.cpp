@@ -252,8 +252,6 @@ KateDocument::~KateDocument()
     delete i.value();
   m_marks.clear();
 
-  delete m_smartManager;
-
   delete m_config;
   delete m_indenter;
   KateGlobal::self()->deregisterDocument (this);
@@ -4908,6 +4906,9 @@ void KateDocument::addHighlightToDocument( KTextEditor::SmartRange * topRange, b
     m_documentDynamicHighlights.append(topRange);
     emit dynamicHighlightAdded(static_cast<KateSmartRange*>(topRange));
   }
+
+  foreach (KateView * view, m_views)
+    view->tagRange(*topRange, true);
 }
 
 void KateDocument::removeHighlightFromDocument( KTextEditor::SmartRange * topRange )

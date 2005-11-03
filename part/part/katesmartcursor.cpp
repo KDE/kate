@@ -71,7 +71,8 @@ KateSmartCursor::~KateSmartCursor()
   if (m_watcher)
     m_watcher->deleted(this);
 
-  m_smartGroup->leaving(this);
+  if (!kateDocument()->smartManager()->isClearing())
+    m_smartGroup->leaving(this);
 }
 
 KateSmartCursor::operator QString()

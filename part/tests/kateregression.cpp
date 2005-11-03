@@ -247,10 +247,10 @@ void KateRegression::checkRange( Range & valid )
 
 void KateRegression::testRangeTree( )
 {
-  Range* top = smart()->newSmartRange(m_doc->documentRange());
+  SmartRange* top = smart()->newSmartRange(m_doc->documentRange());
 
   Range second(1, 2, 1, 10);
-  Range* secondLevel = smart()->newSmartRange(second, static_cast<SmartRange*>(top));
+  Range* secondLevel = smart()->newSmartRange(second, top);
   COMPARE(*secondLevel, second);
 
   // Check creation restriction
@@ -287,6 +287,26 @@ void KateRegression::testRangeTree( )
   secondLevel->end() = second.end();
   COMPARE(secondLevel->end(), second.end());
   COMPARE(*thirdLevel, *secondLevel);
+
+  top->deleteChildRanges();
+
+  VERIFY(!top->childRanges().count());
+
+  // Test out-of-order creation
+  SmartRange* child1 = smart()->newSmartRange(Range(Cursor(1,2),2), static_cast<SmartRange*>(top));
+  SmartRange* child2 = smart()->newSmartRange(Range(Cursor(1,6),3), static_cast<SmartRange*>(top));
+  SmartRange* child3 = smart()->newSmartRange(Range(Cursor(1,5),1), static_cast<SmartRange*>(top));
+
+  QList<SmartRange*> childList;
+  childList << child1 << child3 << child2;
+
+  kdDebug() << top->childRanges() << endl;
+  kdDebug() << childList << endl;
+
+  COMPARE(childList, top->childRanges());
+
+  top->deleteChildRanges();
+  delete top;
 }
 
 SmartInterface * KateRegression::smart( ) const

@@ -20,6 +20,8 @@ TODO:
       * config classes already in place
       * selection moved to KateView
 
+* Memory usage and leak auditing
+
 **** new features ****
 
 * Fix EOL whitespace cleaning finally by removing whitespace at load-time and
@@ -47,6 +49,12 @@ TODO:
     * fix passive changes to cursors/ranges
       * extra regression testing needed to check that notifications work across SmartGroup boundaries
       * implement feedback requirement tree
+    * consider a custom pointer type for Smart* objects
+    * properly tag view when arbitrary highlighting changes
+      * add childInserted feedback?
+      * figure out how it's working currently (!)
+    * dynamic highlighting
+      * catch highlighting being created where the mouse or caret already occupies
     * add a QVariant as data store for 3rd party apps
     * D-pointer consideration
     * move back any excessively exposed parts of the smart ranges and cursors

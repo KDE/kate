@@ -2577,15 +2577,15 @@ void KateHighlighting::handleKateHlIncludeRules()
   //  In that case we have to handle context 2 first, then 1, 0
   //TODO: catch circular references: eg 0->1->2->3->1
   while (!includeRules.isEmpty())
-    handleKateHlIncludeRulesRecursive(includeRules.begin(),&includeRules);
+    handleKateHlIncludeRulesRecursive(0, &includeRules);
 }
 
-void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::iterator it, KateHlIncludeRules *list)
+void KateHighlighting::handleKateHlIncludeRulesRecursive(int index, KateHlIncludeRules *list)
 {
-  if (it==list->end()) return;  //invalid iterator, shouldn't happen, but better have a rule prepared ;)
+  if (index < 0 || index >= list->count()) return;  //invalid iterator, shouldn't happen, but better have a rule prepared ;)
 
-  KateHlIncludeRules::iterator it1=it;
-  int ctx=(*it1)->ctx;
+  int index1 = index;
+  int ctx = list->at(index1)->ctx;
 
   // find the last entry for the given context in the KateHlIncludeRules list
   // this is need if one context includes more than one. This saves us from
@@ -2595,25 +2595,25 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::ite
   // pos 5 - include context 3
   // During the building of the includeRules list the items are inserted in
   // ascending order, now we need it descending to make our life easier.
-  while ((it!=list->end()) && ((*it)->ctx==ctx))
+  while (index < list->count() && list->at(index)->ctx == ctx)
   {
-    it1=it;
-    ++it;
+    index1 = index;
+    ++index;
   }
 
   // iterate over each include rule for the context the function has been called for.
-  while ((it1!=list->end()) && ((*it1)->ctx==ctx))
+  while (index1 >= 0 && index1 < list->count() && list->at(index1)->ctx == ctx)
   {
-    int ctx1=(*it1)->incCtx;
+    int ctx1 = list->at(index1)->incCtx;
 
     //let's see, if the the included context includes other contexts
-    for (KateHlIncludeRules::iterator it2=list->begin();it2!=list->end();++it2)
+    for (int index2 = 0; index2 < list->count(); ++index2)
     {
-      if ((*it2)->ctx==ctx1)
+      if (list->at(index2)->ctx == ctx1)
       {
         //yes it does, so first handle that include rules, since we want to
         // include those subincludes too
-        handleKateHlIncludeRulesRecursive(it2,list);
+        handleKateHlIncludeRulesRecursive(index2, list);
         break;
       }
     }
@@ -2626,11 +2626,11 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::ite
     // If so desired, change the dest attribute to the one of the src.
     // Required to make commenting work, if text matched by the included context
     // is a different highlight than the host context.
-    if ( (*it1)->includeAttrib )
+    if ( list->at(index1)->includeAttrib )
       dest->attr = src->attr;
 
     // insert the included context's rules starting at position p
-    int p=(*it1)->pos;
+    int p = list->at(index1)->pos;
 
     // remember some stuff
     int oldLen = dest->items.size();
@@ -2647,10 +2647,9 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::ite
     for (uint i=0; i < itemsToInsert; ++i  )
       dest->items[p+i] = src->items[i];
 
-    it=it1; //backup the iterator
-    --it1;  //move to the next entry, which has to be take care of
-    delete (*it); //free the already handled data structure
-    list->remove(it); // remove it from the list
+    index = index1; //backup the iterator
+    --index1;  //move to the next entry, which has to be take care of
+    delete list->takeAt(index); //free + remove the already handled data structure
   }
 }
 

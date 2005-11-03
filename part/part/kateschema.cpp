@@ -778,7 +778,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   p.setColor( QColorGroup::Text, _c );
   m_styles->viewport()->setPalette( p );
 
-  Q3Dict<KateStyleListCaption> prefixes;
+  QHash<QString, KateStyleListCaption*> prefixes;
   KateHlItemDataList::ConstIterator it = m_hlDict[m_schema][m_hl]->end();
   while (it != m_hlDict[m_schema][m_hl]->begin())
   {
@@ -795,7 +795,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
       QString prefix = itemData->name.left(c);
       QString name   = itemData->name.mid(c+1);
 
-      KateStyleListCaption *parent = prefixes.find( prefix );
+      KateStyleListCaption *parent = prefixes[prefix];
       if ( ! parent )
       {
         parent = new KateStyleListCaption( m_styles, prefix );

@@ -32,12 +32,7 @@
 #include <QHash>
 #include <QMap>
 
-#include <q3ptrlist.h>
-#include <q3valuelist.h>
-#include <q3valuevector.h>
 #include <qregexp.h>
-#include <q3dict.h>
-#include <q3intdict.h>
 #include <qobject.h>
 #include <qstringlist.h>
 #include <qpointer.h>
@@ -72,8 +67,7 @@ class KateEmbeddedHlInfo
 // some typedefs
 // TODO: porting: can switch to non-pointer version?
 typedef QList<KTextEditor::Attribute*> KateAttributeList;
-
-typedef Q3ValueList<KateHlIncludeRule*> KateHlIncludeRules;
+typedef QList<KateHlIncludeRule*> KateHlIncludeRules;
 typedef QList<KateHlItemData*> KateHlItemDataList;
 typedef QMap<QString,KateEmbeddedHlInfo> KateEmbeddedHlInfos;
 typedef QMap<int*,QString> KateHlUnresolvedCtxRefs;
@@ -258,7 +252,7 @@ class KateHighlighting
     void makeContextList ();
     int makeDynamicContext(KateHlContext *model, const QStringList *args);
     void handleKateHlIncludeRules ();
-    void handleKateHlIncludeRulesRecursive(KateHlIncludeRules::iterator it, KateHlIncludeRules *list);
+    void handleKateHlIncludeRulesRecursive(int index, KateHlIncludeRules *list);
     int addToContextList(const QString &ident, int ctx0);
     void addToKateHlItemDataList();
     void createKateHlItemData (KateHlItemDataList &list);

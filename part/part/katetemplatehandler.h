@@ -23,7 +23,6 @@
 #include <qobject.h>
 #include <qmap.h>
 #include <QHash>
-#include <q3ptrlist.h>
 #include <qstring.h>
 #include <QList>
 
@@ -52,7 +51,9 @@ class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 		};
 		class KateRangeList *m_ranges;
 		class KateDocument *m_doc;
-		Q3PtrList<KateTemplatePlaceHolder> m_tabOrder;
+
+                // looks like this is leaking objects (was before too)
+		QList<KateTemplatePlaceHolder*> m_tabOrder;
 
                 // looks like this is leaking objects (was before too)
                 QHash<QString, KateTemplatePlaceHolder*> m_dict;

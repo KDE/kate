@@ -158,7 +158,6 @@ void KateScrollBar::styleChange(QStyle &s)
 
   m_topMargin = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSubLine, this).height() + 2;
   m_bottomMargin = m_topMargin + style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarAddLine, this).height() + 1;
-  kdDebug() << k_funcinfo << m_topMargin << " " << m_bottomMargin << endl;
 
   recomputeMarksPositions();
 }

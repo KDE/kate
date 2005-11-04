@@ -1826,7 +1826,7 @@ void KateDocument::readSessionConfig(KConfig *kconfig)
   config()->setIndentationMode( (uint)kconfig->readNumEntry("Indentation Mode", config()->indentationMode() ) );
 
   // Restore Bookmarks
-  Q3ValueList<int> marks = kconfig->readIntListEntry("Bookmarks");
+  QList<int> marks = kconfig->readIntListEntry("Bookmarks");
   for( int i = 0; i < marks.count(); i++ )
     addMark( marks[i], KateDocument::markType01 );
 }

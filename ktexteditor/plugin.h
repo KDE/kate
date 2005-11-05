@@ -70,6 +70,9 @@ class View;
  *   class MyPlugin : public KTextEditor::Plugin,
  *                    public KTextEditor::SessionConfigInterface
  *   {
+ *     Q_OBJECT
+ *     Q_INTERFACES(KTextEditor::SessionConfigInterface)
+ *
  *     // ...
  *     virtual void readSessionConfig (KConfig *config);
  *     virtual void writeSessionConfig (KConfig *config);

@@ -30,13 +30,13 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/configpage.h>
 
-#include <klistview.h>
 #include <kdialogbase.h>
 #include <kmimetype.h>
 
 #include <qstringlist.h>
 #include <qcolor.h>
 #include <qtabwidget.h>
+#include <QTreeWidget>
 
 class KatePartPluginListItem;
 
@@ -70,8 +70,6 @@ class QLineEdit;
 class QPushButton;
 class QRadioButton;
 class QSpinBox;
-class Q3ListBoxItem;
-class Q3ListViewItem;
 class QCheckBox;
 
 class KateConfigPage : public KTextEditor::ConfigPage
@@ -265,7 +263,7 @@ class KateSaveConfigTab : public KateConfigPage
 
 class KatePartPluginListItem;
 
-class KatePartPluginListView : public KListView
+class KatePartPluginListView : public QTreeWidget
 {
   Q_OBJECT
 
@@ -281,7 +279,6 @@ class KatePartPluginListView : public KListView
     void stateChanged(KatePartPluginListItem *, bool);
 };
 
-class Q3ListViewItem;
 class KatePartPluginConfigPage : public KateConfigPage
 {
   Q_OBJECT
@@ -297,13 +294,13 @@ class KatePartPluginConfigPage : public KateConfigPage
     void defaults () {}
 
   private slots:
-    void slotCurrentChanged( Q3ListViewItem * );
+    void slotCurrentChanged( QTreeWidgetItem* );
     void slotConfigure();
     void slotStateChanged( KatePartPluginListItem *, bool );
 
   private:
     KatePartPluginListView *listView;
-    Q3PtrList<KatePartPluginListItem> m_items;
+    QList<KatePartPluginListItem*> m_items;
     class QPushButton *btnConfigure;
 };
 
@@ -348,7 +345,7 @@ class KateHlDownloadDialog: public KDialogBase
     ~KateHlDownloadDialog();
 
   private:
-    class Q3ListView  *list;
+    class QTreeWidget  *list;
     class QString listData;
     KIO::TransferJob *transferJob;
 

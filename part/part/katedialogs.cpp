@@ -72,13 +72,14 @@
 #include <kstandarddirs.h>
 #include <ktempfile.h>
 #include <kpushbutton.h>
+#include <kvbox.h>
+
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qdialog.h>
 #include <qdom.h>
 #include <qfile.h>
 #include <qgroupbox.h>
-#include <q3header.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qlineedit.h>
@@ -87,7 +88,6 @@
 #include <qmap.h>
 #include <qobject.h>
 #include <qpainter.h>
-#include <kpushbutton.h>
 #include <qradiobutton.h>
 #include <qslider.h>
 #include <qspinbox.h>
@@ -96,8 +96,6 @@
 #include <qtextcodec.h>
 #include <qtextstream.h>
 #include <qtoolbutton.h>
-#include <kvbox.h>
-
 
 // trailing slash is important
 #define HLDOWNLOADPATH "http://kate.kde.org/syntax/"
@@ -1127,10 +1125,10 @@ void KateSaveConfigTab::defaults()
 //END KateSaveConfigTab
 
 //BEGIN PluginListItem
-class KatePartPluginListItem : public Q3CheckListItem
+class KatePartPluginListItem : public QTreeWidgetItem
 {
   public:
-    KatePartPluginListItem(bool checked, uint i, const QString &name, Q3ListView *parent);
+    KatePartPluginListItem(bool checked, uint i, const QString &name, QTreeWidget *parent);
     uint pluginIndex () const { return index; }
 
   protected:
@@ -1141,26 +1139,27 @@ class KatePartPluginListItem : public Q3CheckListItem
     bool silentStateChange;
 };
 
-KatePartPluginListItem::KatePartPluginListItem(bool checked, uint i, const QString &name, Q3ListView *parent)
-  : Q3CheckListItem(parent, name, CheckBox)
+KatePartPluginListItem::KatePartPluginListItem(bool checked, uint i, const QString &name, QTreeWidget *parent)
+  : QTreeWidgetItem(parent)
   , index(i)
   , silentStateChange(false)
 {
+  setText(0, name);
   silentStateChange = true;
-  setOn(checked);
+  setCheckState(0, checked ? Qt::Checked : Qt::Unchecked);
   silentStateChange = false;
 }
 
 void KatePartPluginListItem::stateChange(bool b)
 {
   if(!silentStateChange)
-    static_cast<KatePartPluginListView *>(listView())->stateChanged(this, b);
+    static_cast<KatePartPluginListView *>(treeWidget())->stateChanged(this, b);
 }
 //END
 
 //BEGIN PluginListView
 KatePartPluginListView::KatePartPluginListView(QWidget *parent)
-  : KListView(parent)
+  : QTreeWidget(parent)
 {
 }
 
@@ -1178,10 +1177,10 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfi
   grid->setSpacing( KDialogBase::spacingHint() );
 
   listView = new KatePartPluginListView(this);
-  listView->addColumn(i18n("Name"));
-  listView->addColumn(i18n("Comment"));
+  listView->setColumnCount(2);
+  listView->setHeaderLabels(QStringList() << i18n("Name") << i18n("Comment"));
 
-  grid->addWidget( listView, 0, 0);
+  grid->addWidget(listView, 0, 0);
 
   for (int i=0; i<KateGlobal::self()->plugins().count(); i++)
   {
@@ -1199,7 +1198,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfi
   grid->addWidget( btnConfigure, 1, 0, Qt::AlignRight );
   connect( btnConfigure, SIGNAL(clicked()), this, SLOT(slotConfigure()) );
 
-  connect( listView, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotCurrentChanged(Q3ListViewItem*)) );
+  connect( listView, SIGNAL(selectionChanged(QTreeWidgetItem*)), this, SLOT(slotCurrentChanged(QTreeWidgetItem*)) );
   connect( listView, SIGNAL(stateChange(KatePartPluginListItem *, bool)),
     this, SLOT(slotStateChanged(KatePartPluginListItem *, bool)));
   connect(listView, SIGNAL(stateChange(KatePartPluginListItem *, bool)), this, SLOT(slotChanged()));
@@ -1207,6 +1206,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfi
 
 KatePartPluginConfigPage::~KatePartPluginConfigPage ()
 {
+  qDeleteAll(m_items);
 }
 
 void KatePartPluginConfigPage::apply ()
@@ -1222,7 +1222,7 @@ void KatePartPluginConfigPage::apply ()
   KateDocumentConfig::global()->configStart ();
 
   for (uint i=0; i < m_items.count(); i++)
-    KateDocumentConfig::global()->setPlugin (m_items.at(i)->pluginIndex(), m_items.at(i)->isOn());
+    KateDocumentConfig::global()->setPlugin (m_items.at(i)->pluginIndex(), m_items.at(i)->checkState(0) == Qt::Checked);
 
   KateDocumentConfig::global()->configEnd ();
 }
@@ -1230,16 +1230,16 @@ void KatePartPluginConfigPage::apply ()
 void KatePartPluginConfigPage::slotStateChanged( KatePartPluginListItem *item, bool b )
 {
   if ( b )
-    slotCurrentChanged( (Q3ListViewItem*)item );
+    slotCurrentChanged( (QTreeWidgetItem*)item );
 }
 
-void KatePartPluginConfigPage::slotCurrentChanged( Q3ListViewItem* i )
+void KatePartPluginConfigPage::slotCurrentChanged( QTreeWidgetItem* i )
 {
   KatePartPluginListItem *item = static_cast<KatePartPluginListItem *>(i);
   if ( ! item ) return;
 
     bool b = false;
-  if ( item->isOn() )
+  if ( item->checkState(0) == Qt::Checked )
   {
     // load this plugin, and see if it has config pages
     KTextEditor::Plugin *plugin = KTextEditor::createPlugin(QFile::encodeName((KateGlobal::self()->plugins())[item->pluginIndex()]->library()), 0);
@@ -1474,13 +1474,12 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   setMainWidget(vbox);
   vbox->setSpacing(spacingHint());
   new QLabel(i18n("Select the syntax highlighting files you want to update:"), vbox);
-  list = new Q3ListView(vbox);
-  list->addColumn("");
-  list->addColumn(i18n("Name"));
-  list->addColumn(i18n("Installed"));
-  list->addColumn(i18n("Latest"));
-  list->setSelectionMode(Q3ListView::Multi);
-  list->setAllColumnsShowFocus(true);
+  list = new QTreeWidget(vbox);
+  list->setColumnCount(4);
+  list->setHeaderLabels(QStringList() << "" << i18n("Name") << i18n("Installed") << i18n("Latest"));
+  list->setSelectionMode(QAbstractItemView::MultiSelection);
+  // KDE4 replacement?
+  //list->setAllColumnsShowFocus(true);
 
   new QLabel(i18n("<b>Note:</b> New versions are selected automatically."), vbox);
   actionButton (User1)->setIcon(SmallIconSet("ok"));
@@ -1546,13 +1545,17 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
         }
 
         // autoselect entry if new or updated.
-        Q3ListViewItem* entry = new Q3ListViewItem(
-          list, "", e.attribute("name"), installedVersion,
-          e.attribute("version"),e.attribute("url"));
+        QTreeWidgetItem* entry = new QTreeWidgetItem(list);
+        entry->setText(0, "");
+        entry->setText(1, e.attribute("name"));
+        entry->setText(2, installedVersion);
+        entry->setText(3, e.attribute("version"));
+        entry->setText(4, e.attribute("url"));
+
         if (!hl || hl->version() < e.attribute("version"))
         {
-          entry->setSelected(true);
-          entry->setPixmap(0, SmallIcon(("knewstuff")));
+          entry->treeWidget()->setItemSelected(entry, true);
+          entry->setIcon(0, SmallIcon(("knewstuff")));
         }
       }
     }
@@ -1562,16 +1565,13 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
 void KateHlDownloadDialog::slotUser1()
 {
   QString destdir=KGlobal::dirs()->saveLocation("data","katepart/syntax/");
-  for (Q3ListViewItem *it=list->firstChild();it;it=it->nextSibling())
+  foreach (QTreeWidgetItem *it, list->selectedItems())
   {
-    if (list->isSelected(it))
-    {
-      KURL src(it->text(4));
-      QString filename=src.fileName(false);
-      QString dest = destdir+filename;
+    KURL src(it->text(4));
+    QString filename=src.fileName(false);
+    QString dest = destdir+filename;
 
-      KIO::NetAccess::download(src,dest, this);
-    }
+    KIO::NetAccess::download(src,dest, this);
   }
 
   // update Config !!

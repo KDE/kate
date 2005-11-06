@@ -131,7 +131,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   // bottom corner box
   m_dummy = new QWidget(m_view);
-  m_dummy->setFixedHeight(m_lineScroll->width());
+  m_dummy->setFixedSize(m_lineScroll->width(), m_lineScroll->width());
   m_dummy->setSizePolicy( QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 
   if (m_view->dynWordWrap())

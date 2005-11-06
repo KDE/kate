@@ -122,7 +122,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   m_selection.setInternal();
 
   // layouting ;)
-
   m_vBox = new QVBoxLayout (this);
   m_vBox->setMargin (0);
   m_vBox->setSpacing (0);
@@ -133,22 +132,16 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   hbox->setSpacing (0);
 
   hbox->addWidget (m_viewInternal->m_leftBorder);
+  hbox->addWidget (m_viewInternal);
+  hbox->addWidget (m_viewInternal->m_lineScroll);
+  
+  hbox = new QHBoxLayout ();
+  m_vBox->addLayout (hbox);
+  hbox->setMargin (0);
+  hbox->setSpacing (0);
 
-  QVBoxLayout *vbox = new QVBoxLayout ();
-  hbox->addLayout (vbox);
-  vbox->setMargin (0);
-  vbox->setSpacing (0);
-
-  vbox->addWidget (m_viewInternal);
-  vbox->addWidget (m_viewInternal->m_columnScroll);
-
-  vbox = new QVBoxLayout ();
-  hbox->addLayout (vbox);
-  vbox->setMargin (0);
-  vbox->setSpacing (0);
-
-  vbox->addWidget (m_viewInternal->m_lineScroll);
-  vbox->addWidget (m_viewInternal->m_dummy);
+  hbox->addWidget (m_viewInternal->m_columnScroll);
+  hbox->addWidget (m_viewInternal->m_dummy);
 
   // this really is needed :)
   m_viewInternal->updateView ();

@@ -284,7 +284,6 @@ class KateViewInternal : public QWidget
     // column scrollbar + x position
     //
     QScrollBar *m_columnScroll;
-    bool m_columnScrollDisplayed;
     int m_startX;
     int m_oldStartX;
 
@@ -299,9 +298,11 @@ class KateViewInternal : public QWidget
     // They get set in the event of a double click, and is used with mouse move + leftbutton
     KTextEditor::Range m_selectionCached;
 
-    // Used to determine if the scrollbar will appear/disappear in non-wrapped mode
-    bool scrollbarVisible(uint startLine);
+    // maximal lenght of textlines visible from given startLine
     int maxLen(uint startLine);
+    
+    // are we allowed to scroll columns?
+    bool columnScrollingPossible ();
 
     // returns the maximum X value / col value a cursor can take for a specific line range
     int lineMaxCursorX(const KateTextLayout& line);
@@ -356,8 +357,9 @@ class KateViewInternal : public QWidget
     static const int s_scrollTime = 30;
     static const int s_scrollMargin = 16;
 
-    // needed to stop the column scroll bar from hiding / unhiding during a dragScroll.
-    bool m_suppressColumnScrollBar;
+    // dyn wrap mode:
+    // used to set the lineScroll to the max value
+    bool m_maximizeLineScroll;
 
   private slots:
     void scrollTimeout ();

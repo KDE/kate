@@ -71,7 +71,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_madeVisible(false)
   , m_shiftKeyPressed (false)
   , m_autoCenterLines (false)
-  , m_columnScrollDisplayed(false)
   , m_selChangedByUser (false)
   , m_selectAnchor (-1, -1)
   , m_selectionMode( Default )
@@ -85,7 +84,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_scrollTimer (this)
   , m_cursorTimer (this)
   , m_textHintTimer (this)
-  , m_suppressColumnScrollBar(false)
+  , m_maximizeLineScroll(false)
   , m_textHintEnabled(false)
   , m_textHintMouseX(-1)
   , m_textHintMouseY(-1)
@@ -130,14 +129,15 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   m_lineScroll->setTracking (true);
   m_lineScroll->setSizePolicy( QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding));
 
-  if (!m_view->dynWordWrap())
-  {
-    // bottom corner box
-    m_dummy = new QWidget(m_view);
-    m_dummy->setFixedHeight(m_lineScroll->width());
-    m_dummy->setSizePolicy( QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+  // bottom corner box
+  m_dummy = new QWidget(m_view);
+  m_dummy->setFixedHeight(m_lineScroll->width());
+  m_dummy->setSizePolicy( QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+
+  if (m_view->dynWordWrap())
+    m_dummy->hide();
+  else
     m_dummy->show();
-  }
 
   cache()->setWrap(m_view->dynWordWrap());
 
@@ -152,7 +152,12 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   // scrollbar for columns
   //
   m_columnScroll = new QScrollBar(Qt::Horizontal,m_view);
-  m_columnScroll->hide();
+  
+  if (m_view->dynWordWrap())
+    m_columnScroll->hide();
+  else
+    m_columnScroll->show();
+  
   m_columnScroll->setTracking(true);
   m_startX = 0;
   m_oldStartX = 0;
@@ -237,14 +242,14 @@ void KateViewInternal::dynWrapChanged()
 {
   if (m_view->dynWordWrap())
   {
-    m_dummy->hide();
     m_columnScroll->hide();
-    m_columnScrollDisplayed = false;
+    m_dummy->hide();
 
   }
   else
   {
-    // bottom corner box
+    // column scrollbar + bottom corner box
+    m_columnScroll->show();
     m_dummy->show();
   }
 
@@ -257,18 +262,6 @@ void KateViewInternal::dynWrapChanged()
   // Determine where the cursor should be to get the cursor on the same view line
   if (m_wrapChangeViewLine != -1) {
     KTextEditor::Cursor newStart = viewLineOffset(m_displayCursor, -m_wrapChangeViewLine);
-
-    // Account for the scrollbar in non-dyn-word-wrap mode
-    if (!m_view->dynWordWrap() && scrollbarVisible(newStart.line())) {
-      int lines = linesDisplayed() - 1;
-
-      if (m_view->height() != height())
-        lines++;
-
-      if (newStart.line() + lines == m_displayCursor.line())
-        newStart = viewLineOffset(m_displayCursor, 1 - m_wrapChangeViewLine);
-    }
-
     makeVisible(newStart, newStart.column(), true);
 
   } else {
@@ -414,14 +407,6 @@ KTextEditor::Cursor KateViewInternal::maxStartPos(bool changed)
     m_cachedMaxStartPos = viewLineOffset(end, -((int)linesDisplayed() - 1));
   }
 
-  // If we're not dynamic word-wrapping, the horizontal scrollbar is hidden and will appear, increment the maxStart by 1
-  if (!m_view->dynWordWrap() && m_columnScroll->isHidden() && scrollbarVisible(m_cachedMaxStartPos.line()))
-  {
-    KTextEditor::Cursor end(m_doc->numVisLines() - 1, m_doc->lineLength(m_doc->getRealLine(m_doc->numVisLines() - 1)));
-
-    return viewLineOffset(end, -(int)linesDisplayed());
-  }
-
   m_usePlainLines = false;
 
   return m_cachedMaxStartPos;
@@ -443,7 +428,7 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
     // overloading this variable, it's not used in non-word wrap
     // used to set the lineScroll to the max value
     if (m_view->dynWordWrap())
-      m_suppressColumnScrollBar = true;
+      m_maximizeLineScroll = true;
 
     // Re-check we're not just scrolling to the same place
     if (!force && ((!m_view->dynWordWrap() && c.line() == (int)startLine()) || c == startPos()))
@@ -546,8 +531,8 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     maxLineScrollRange++;
   m_lineScroll->setRange(0, maxLineScrollRange);
 
-  if (m_view->dynWordWrap() && m_suppressColumnScrollBar) {
-    m_suppressColumnScrollBar = false;
+  if (m_view->dynWordWrap() && m_maximizeLineScroll) {
+    m_maximizeLineScroll = false;
     m_lineScroll->setValue(maxStart.line());
   } else {
     m_lineScroll->setValue(startPos().line());
@@ -557,34 +542,23 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 
   if (!m_view->dynWordWrap())
   {
-    if (scrollbarVisible(startLine()))
-    {
-      m_columnScroll->blockSignals(true);
+    m_columnScroll->blockSignals(true);
 
-      int max = maxLen(startLine()) - width();
-      if (max < 0)
-        max = 0;
+    int max = maxLen(startLine()) - width();
+    if (max < 0)
+      max = 0;
+      
+    // disable scrollbar
+    m_columnScroll->setDisabled (max == 0);
 
-      m_columnScroll->setRange(0, max);
+    m_columnScroll->setRange(0, max);
 
-      m_columnScroll->setValue(m_startX);
+    m_columnScroll->setValue(m_startX);
 
-      // Approximate linescroll
-      m_columnScroll->setSteps(renderer()->config()->fontMetrics()->width('a'), width());
+    // Approximate linescroll
+    m_columnScroll->setSteps(renderer()->config()->fontMetrics()->width('a'), width());
 
-      m_columnScroll->blockSignals(false);
-
-      if (!m_columnScroll->isVisible ()  && !m_suppressColumnScrollBar)
-      {
-        m_columnScroll->show();
-        m_columnScrollDisplayed = true;
-      }
-    }
-    else if (!m_suppressColumnScrollBar && (startX() == 0))
-    {
-      m_columnScroll->hide();
-      m_columnScrollDisplayed = false;
-    }
+    m_columnScroll->blockSignals(false);
   }
 
   m_updatingView = false;
@@ -617,11 +591,6 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, uint endCol, b
   else if ( c > viewLineOffset(endPos(), -m_minLinesVisible) )
   {
     KTextEditor::Cursor scroll = viewLineOffset(c, -((int)linesDisplayed() - m_minLinesVisible - 1));
-
-    if (!m_view->dynWordWrap() && m_columnScroll->isHidden())
-      if (scrollbarVisible(scroll.line()))
-        scroll.setLine(scroll.line() + 1);
-
     scrollPos(scroll, false, calledExternally);
   }
   else if ( c < viewLineOffset(startPos(), m_minLinesVisible) )
@@ -1427,19 +1396,6 @@ void KateViewInternal::pageUp( bool sel )
   int linesToScroll = -qMax( ((int)linesDisplayed() - 1) - lineadj, 0 );
   m_preserveMaxX = true;
 
-  // don't scroll the full view in case the scrollbar appears
-  if (!m_view->dynWordWrap()) {
-    if (scrollbarVisible(startLine() + linesToScroll + viewLine)) {
-      if (!m_columnScrollDisplayed) {
-        linesToScroll++;
-      }
-    } else {
-      if (m_columnScrollDisplayed) {
-        linesToScroll--;
-      }
-    }
-  }
-
   if (!m_doc->pageUpDownMovesCursor () && !atTop) {
     m_cursorX = renderer()->cursorToX(currentLayout(), m_cursor);
 
@@ -1486,19 +1442,6 @@ void KateViewInternal::pageDown( bool sel )
   int linesToScroll = qMax( ((int)linesDisplayed() - 1) - lineadj, 0 );
   m_preserveMaxX = true;
 
-  // don't scroll the full view in case the scrollbar appears
-  if (!m_view->dynWordWrap()) {
-    if (scrollbarVisible(startLine() + linesToScroll + viewLine - (linesDisplayed() - 1))) {
-      if (!m_columnScrollDisplayed) {
-        linesToScroll--;
-      }
-    } else {
-      if (m_columnScrollDisplayed) {
-        linesToScroll--;
-      }
-    }
-  }
-
   if (!m_doc->pageUpDownMovesCursor () && !atEnd) {
     m_cursorX = renderer()->cursorToX(currentLayout(), m_cursor);
 
@@ -1524,11 +1467,6 @@ void KateViewInternal::pageDown( bool sel )
   }
 }
 
-bool KateViewInternal::scrollbarVisible(uint startLine)
-{
-  return maxLen(startLine) > width() - 8;
-}
-
 int KateViewInternal::maxLen(uint startLine)
 {
   Q_ASSERT(!m_view->dynWordWrap());
@@ -1547,6 +1485,11 @@ int KateViewInternal::maxLen(uint startLine)
   }
 
   return maxLen;
+}
+
+bool KateViewInternal::columnScrollingPossible ()
+{
+  return !m_view->dynWordWrap() && m_columnScroll->isEnabled() && (m_columnScroll->maxValue() > 0);
 }
 
 void KateViewInternal::top( bool sel )
@@ -2757,7 +2700,7 @@ void KateViewInternal::wheelEvent(QWheelEvent* e)
       m_leftBorder->update();
     }
 
-  } else if (!m_columnScroll->isHidden()) {
+  } else if (columnScrollingPossible()) {
     QWheelEvent copy = *e;
     QApplication::sendEvent(m_columnScroll, &copy);
 
@@ -2769,14 +2712,12 @@ void KateViewInternal::wheelEvent(QWheelEvent* e)
 void KateViewInternal::startDragScroll()
 {
   if ( !m_dragScrollTimer.isActive() ) {
-    m_suppressColumnScrollBar = true;
     m_dragScrollTimer.start( s_scrollTime );
   }
 }
 
 void KateViewInternal::stopDragScroll()
 {
-  m_suppressColumnScrollBar = false;
   m_dragScrollTimer.stop();
   updateView();
 }
@@ -2803,7 +2744,7 @@ void KateViewInternal::doDragScroll()
   if (dy)
     scrollLines(startPos().line() + dy);
 
-  if (!m_view->dynWordWrap() && m_columnScrollDisplayed && dx)
+  if (columnScrollingPossible () && dx)
     scrollColumns(qMin (m_startX + dx, m_columnScroll->maxValue()));
 
   if (!dy && !dx)

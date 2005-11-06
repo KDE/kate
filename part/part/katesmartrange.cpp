@@ -75,6 +75,9 @@ KateSmartRange::~KateSmartRange()
 
   if (m_start)
     kateDocument()->smartManager()->rangeDeleted(this);
+
+  foreach (KateSmartRangePtr* ptr, m_pointers)
+    ptr->deleted();
 }
 
 void KateSmartRange::checkFeedback( )
@@ -284,6 +287,16 @@ void KateSmartRange::removeDynamic( KateDynamicAnimation * anim )
 const QList<KateDynamicAnimation*> & KateSmartRange::dynamicAnimations( ) const
 {
   return m_dynamic;
+}
+
+void KateSmartRange::registerPointer( KateSmartRangePtr * ptr )
+{
+  m_pointers.append(ptr);
+}
+
+void KateSmartRange::deregisterPointer( KateSmartRangePtr * ptr )
+{
+  m_pointers.removeAll(ptr);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

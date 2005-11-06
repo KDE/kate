@@ -26,6 +26,7 @@
 #include <qstringlist.h>
 #include <qmap.h>
 #include <qfont.h>
+#include <QTreeWidget>
 
 #include <kconfig.h>
 #include <kaction.h>
@@ -37,6 +38,7 @@ class KateStyleListCaption;
 class KColorButton;
 
 class QMenu;
+
 class KComboBox;
 
 class KateSchemaManager
@@ -123,7 +125,7 @@ class KateViewSchemaAction : public KActionMenu
     popup menu and a slot to edit a style using the keyboard.
     Added by anders, jan 23 2002.
 */
-class KateStyleListView : public Q3ListView
+class KateStyleListView : public QTreeWidget
 {
   Q_OBJECT
 
@@ -143,9 +145,9 @@ class KateStyleListView : public Q3ListView
 
   private slots:
     /* Display a popupmenu for item i at item position */
-    void showPopupMenu( Q3ListViewItem *i, const QPoint &globalPos );
+    void showPopupMenu( QTreeWidgetItem *i, const QPoint &globalPos );
     /* call item to change a property, or display a menu */
-    void slotMousePressed( int, Q3ListViewItem*, const QPoint&, int );
+    //void slotMousePressed( int, QTreeWidgetItem*, int column );
     /* asks item to change the property in q */
     void mSlotPopupHandler( int z );
     void unsetColor( int );
@@ -248,7 +250,7 @@ class KateSchemaConfigFontColorTab : public QWidget
     KateAttributeList *attributeList (uint schema);
 
   private:
-    KateStyleListView *m_defaultStyles;
+    QTreeWidget* m_defaultStyles;
     QHash<int,KateAttributeList*> m_defaultStyleLists;
 };
 
@@ -277,7 +279,7 @@ class KateSchemaConfigHighlightTab : public QWidget
     int m_schema;
     int m_hl;
 
-    QHash<int, QHash<int, KateHlItemDataList*> > m_hlDict;
+    QHash<int, QHash<int, KateExtendedAttributeList*> > m_hlDict;
 };
 
 class KateSchemaConfigPage : public KateConfigPage

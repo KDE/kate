@@ -31,6 +31,7 @@
 #include "kateglobal.h"
 #include "kateschema.h"
 #include "kateconfig.h"
+#include "kateextendedattribute.h"
 
 #include <kconfig.h>
 #include <kglobal.h>
@@ -373,28 +374,6 @@ class KateHlDetectIdentifier : public KateHlItem
 
 //BEGIN STATICS
 static const QString stdDeliminator = QString (" \t.():!+,-<=>%&*/;?[]^{|}~\\");
-//END
-
-//BEGIN NON MEMBER FUNCTIONS
-static KateHlItemData::ItemStyles getDefStyleNum(QString name)
-{
-  if (name=="dsNormal") return KateHlItemData::dsNormal;
-  else if (name=="dsKeyword") return KateHlItemData::dsKeyword;
-  else if (name=="dsDataType") return KateHlItemData::dsDataType;
-  else if (name=="dsDecVal") return KateHlItemData::dsDecVal;
-  else if (name=="dsBaseN") return KateHlItemData::dsBaseN;
-  else if (name=="dsFloat") return KateHlItemData::dsFloat;
-  else if (name=="dsChar") return KateHlItemData::dsChar;
-  else if (name=="dsString") return KateHlItemData::dsString;
-  else if (name=="dsComment") return KateHlItemData::dsComment;
-  else if (name=="dsOthers")  return KateHlItemData::dsOthers;
-  else if (name=="dsAlert") return KateHlItemData::dsAlert;
-  else if (name=="dsFunction") return KateHlItemData::dsFunction;
-  else if (name=="dsRegionMarker") return KateHlItemData::dsRegionMarker;
-  else if (name=="dsError") return KateHlItemData::dsError;
-
-  return KateHlItemData::dsNormal;
-}
 //END
 
 //BEGIN KateHlItem
@@ -1114,10 +1093,6 @@ KateHl2CharDetect::KateHl2CharDetect(int attribute, int context, signed char reg
   }
 //END KateHl2CharDetect
 
-KateHlItemData::KateHlItemData(const QString  name, int defStyleNum)
-  : name(name), defStyleNum(defStyleNum) {
-}
-
 KateHlData::KateHlData(const QString &wildcards, const QString &mimetypes, const QString &identifier, int priority)
   : wildcards(wildcards), mimetypes(mimetypes), identifier(identifier), priority(priority)
 {
@@ -1674,20 +1649,20 @@ void KateHighlighting::setData(const KateHlData &hlData)
   config->writeEntry("Priority",hlData.priority);
 }
 
-void KateHighlighting::getKateHlItemDataList (uint schema, KateHlItemDataList &list)
+void KateHighlighting::getKateExtendedAttributeList (uint schema, KateExtendedAttributeList &list)
 {
   KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName + " - Schema " + KateGlobal::self()->schemaManager()->name(schema));
 
   qDeleteAll(list);
   list.clear();
-  createKateHlItemData(list);
+  createKateExtendedAttribute(list);
 
-  foreach (KateHlItemData *p, list)
+  foreach (KateExtendedAttribute *p, list)
   {
     Q_ASSERT(p);
 
-    QStringList s = config->readListEntry(p->name);
+    QStringList s = config->readListEntry(p->name());
 
 //    kdDebug(13010)<<p->name<<s.count()<<endl;
     if (s.count()>0)
@@ -1696,7 +1671,7 @@ void KateHighlighting::getKateHlItemDataList (uint schema, KateHlItemDataList &l
       while(s.count()<9) s<<"";
       p->clear();
 
-      QString tmp=s[0]; if (!tmp.isEmpty()) p->defStyleNum=tmp.toInt();
+      QString tmp=s[0]; if (!tmp.isEmpty()) p->setDefaultStyleIndex(tmp.toInt());
 
       QRgb col;
 
@@ -1728,9 +1703,9 @@ void KateHighlighting::getKateHlItemDataList (uint schema, KateHlItemDataList &l
  * Saves the KateHlData attribute definitions to the config file.
  *
  * @param schema The id of the schema group to save
- * @param list KateHlItemDataList containing the data to be used
+ * @param list KateExtendedAttributeList containing the data to be used
  */
-void KateHighlighting::setKateHlItemDataList(uint schema, KateHlItemDataList &list)
+void KateHighlighting::setKateExtendedAttributeList(uint schema, KateExtendedAttributeList &list)
 {
   KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName + " - Schema "
@@ -1738,12 +1713,12 @@ void KateHighlighting::setKateHlItemDataList(uint schema, KateHlItemDataList &li
 
   QStringList settings;
 
-  foreach (KateHlItemData *p, list)
+  foreach (KateExtendedAttribute *p, list)
   {
     Q_ASSERT(p);
 
     settings.clear();
-    settings<<QString::number(p->defStyleNum,10);
+    settings<<QString::number(p->defaultStyleIndex(),10);
     settings<<(p->hasProperty(QTextFormat::ForegroundBrush)?QString::number(p->foreground().color().rgb(),16):"");
     settings<<(p->hasProperty(KTextEditor::Attribute::SelectedForeground)?QString::number(p->selectedForeground().color().rgb(),16):"");
     settings<<(p->hasProperty(QTextFormat::FontWeight)?(p->fontBold()?"1":"0"):"");
@@ -1753,7 +1728,7 @@ void KateHighlighting::setKateHlItemDataList(uint schema, KateHlItemDataList &li
     settings<<(p->hasProperty(QTextFormat::BackgroundBrush)?QString::number(p->background().color().rgb(),16):"");
     settings<<(p->hasProperty(KTextEditor::Attribute::SelectedBackground)?QString::number(p->selectedBackground().color().rgb(),16):"");
     settings<<"---";
-    config->writeEntry(p->name,settings);
+    config->writeEntry(p->name(),settings);
   }
 }
 
@@ -1810,18 +1785,18 @@ void KateHighlighting::done()
 }
 
 /**
- * KateHighlighting - createKateHlItemData
+ * KateHighlighting - createKateExtendedAttribute
  * This function reads the itemData entries from the config file, which specifies the
  * default attribute styles for matched items/contexts.
  *
  * @param list A reference to the internal list containing the parsed default config
  */
-void KateHighlighting::createKateHlItemData(KateHlItemDataList &list)
+void KateHighlighting::createKateExtendedAttribute(KateExtendedAttributeList &list)
 {
   // If no highlighting is selected we need only one default.
   if (noHl)
   {
-    list.append(new KateHlItemData(i18n("Normal Text"), KateHlItemData::dsNormal));
+    list.append(new KateExtendedAttribute(i18n("Normal Text"), KateExtendedAttribute::dsNormal));
     return;
   }
 
@@ -1835,7 +1810,7 @@ void KateHighlighting::createKateHlItemData(KateHlItemDataList &list)
 /**
  * Adds the styles of the currently parsed highlight to the itemdata list
  */
-void KateHighlighting::addToKateHlItemDataList()
+void KateHighlighting::addToKateExtendedAttributeList()
 {
   //Tell the syntax document class which file we want to parse and which data group
   KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
@@ -1854,9 +1829,9 @@ void KateHighlighting::addToKateHlItemDataList()
     QString bgColor = KateHlManager::self()->syntax->groupData(data,QString("backgroundColor"));
     QString selBgColor = KateHlManager::self()->syntax->groupData(data,QString("selBackgroundColor"));
 
-    KateHlItemData* newData = new KateHlItemData(
+    KateExtendedAttribute* newData = new KateExtendedAttribute(
             buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("name")).simplified(),
-            getDefStyleNum(KateHlManager::self()->syntax->groupData(data,QString("defStyleNum"))));
+            KateExtendedAttribute::indexForStyleName(KateHlManager::self()->syntax->groupData(data,QString("defStyleNum"))));
 
     /* here the custom style overrides are specified, if needed */
     if (!color.isEmpty()) newData->setForeground(QColor(color));
@@ -1887,10 +1862,10 @@ void KateHighlighting::addToKateHlItemDataList()
  *
  * @return The index of the attribute, or 0 if the attribute isn't found
  */
-int  KateHighlighting::lookupAttrName(const QString& name, KateHlItemDataList &iDl)
+int  KateHighlighting::lookupAttrName(const QString& name, KateExtendedAttributeList &iDl)
 {
   for (int i = 0; i < iDl.count(); i++)
-    if (iDl.at(i)->name == buildPrefix+name)
+    if (iDl.at(i)->name() == buildPrefix+name)
       return i;
 
   kdDebug(13010)<<"Couldn't resolve itemDataName:"<<name<<endl;
@@ -1911,7 +1886,7 @@ int  KateHighlighting::lookupAttrName(const QString& name, KateHlItemDataList &i
  * @return A pointer to the newly created item object
  */
 KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
-                                               KateHlItemDataList &iDl,
+                                               KateExtendedAttributeList &iDl,
                                                QStringList *RegionList,
                                                QStringList *ContextNameList)
 {
@@ -2701,8 +2676,8 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
   // This list is needed for the translation of the attribute parameter,
   // if the itemData name is given instead of the index
-  addToKateHlItemDataList();
-  KateHlItemDataList iDl = internalIDList;
+  addToKateExtendedAttributeList();
+  KateExtendedAttributeList iDl = internalIDList;
 
   createContextNameList(&ContextNameList,ctx0);
 
@@ -2816,13 +2791,13 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
       }
       // TODO -- can we remove the block below??
 #if 0
-                QString tag = KateHlManager::self()->syntax->groupKateHlItemData(data,QString(""));
+                QString tag = KateHlManager::self()->syntax->groupKateExtendedAttribute(data,QString(""));
                 if ( tag == "IncludeRules" ) {
                   // attrib context: the index (jowenn, i think using names here
                   // would be a cool feat, goes for mentioning the context in
                   // any item. a map or dict?)
                   int ctxId = getIdFromString(&ContextNameList,
-                                               KateHlManager::self()->syntax->groupKateHlItemData( data, QString("context")),dummy); // the index is *required*
+                                               KateHlManager::self()->syntax->groupKateExtendedAttribute( data, QString("context")),dummy); // the index is *required*
                   if ( ctxId > -1) { // we can even reuse rules of 0 if we want to:)
                     kdDebug(13010)<<"makeContextList["<<i<<"]: including all items of context "<<ctxId<<endl;
                     if ( ctxId < (int) i ) { // must be defined
@@ -2894,8 +2869,8 @@ void KateHighlighting::clearAttributeArrays ()
 
     KateHlManager::self()->getDefaults(it.key(), defaultStyleList);
 
-    KateHlItemDataList itemDataList;
-    getKateHlItemDataList(it.key(), itemDataList);
+    KateExtendedAttributeList itemDataList;
+    getKateExtendedAttributeList(it.key(), itemDataList);
 
     uint nAttribs = itemDataList.count();
     QVector<KTextEditor::Attribute> *array = it.value();
@@ -2903,8 +2878,8 @@ void KateHighlighting::clearAttributeArrays ()
 
     for (uint z = 0; z < nAttribs; z++)
     {
-      KateHlItemData *itemData = itemDataList.at(z);
-      KTextEditor::Attribute n = *defaultStyleList.at(itemData->defStyleNum);
+      KateExtendedAttribute *itemData = itemDataList.at(z);
+      KTextEditor::Attribute n = *defaultStyleList.at(itemData->defaultStyleIndex());
 
       if (itemData && itemData->hasAnyProperty())
         n += *itemData;
@@ -2936,16 +2911,16 @@ QVector<KTextEditor::Attribute> *KateHighlighting::attributes (uint schema)
 
   KateHlManager::self()->getDefaults(schema, defaultStyleList);
 
-  KateHlItemDataList itemDataList;
-  getKateHlItemDataList(schema, itemDataList);
+  KateExtendedAttributeList itemDataList;
+  getKateExtendedAttributeList(schema, itemDataList);
 
   uint nAttribs = itemDataList.count();
   array = new QVector<KTextEditor::Attribute> (nAttribs);
 
   for (uint z = 0; z < nAttribs; z++)
   {
-    KateHlItemData *itemData = itemDataList.at(z);
-    KTextEditor::Attribute n = *defaultStyleList.at(itemData->defStyleNum);
+    KateExtendedAttribute *itemData = itemDataList.at(z);
+    KTextEditor::Attribute n = *defaultStyleList.at(itemData->defaultStyleIndex());
 
     if (itemData && itemData->hasAnyProperty())
       n += *itemData;
@@ -2960,15 +2935,16 @@ QVector<KTextEditor::Attribute> *KateHighlighting::attributes (uint schema)
   return array;
 }
 
-void KateHighlighting::getKateHlItemDataListCopy (uint schema, KateHlItemDataList &outlist)
+void KateHighlighting::getKateExtendedAttributeListCopy (uint schema, KateExtendedAttributeList &outlist)
 {
-  KateHlItemDataList itemDataList;
-  getKateHlItemDataList(schema, itemDataList);
+  KateExtendedAttributeList itemDataList;
+  getKateExtendedAttributeList(schema, itemDataList);
 
   qDeleteAll(outlist);
-  outlist.clear ();
-  for (int z=0; z < itemDataList.count(); z++)
-    outlist.append (new KateHlItemData (*itemDataList.at(z)));
+  outlist.clear();
+
+  foreach (KateExtendedAttribute* originalAttribute, itemDataList)
+    outlist.append(new KateExtendedAttribute(*originalAttribute));
 }
 
 //END
@@ -3484,11 +3460,6 @@ void KateViewHighlightAction::setHl ()
 
   if (doc)
     doc->setHlMode((uint)mode);
-}
-
-void KateHlItemData::clear( )
-{
-  (*static_cast<KTextEditor::Attribute*>(this)) = KTextEditor::Attribute();
 }
 
 //END KateViewHighlightAction

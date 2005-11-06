@@ -66,7 +66,7 @@ class KateViewInternal : public QWidget
   public:
     KateViewInternal ( KateView *view, KateDocument *doc );
     ~KateViewInternal ();
-    
+
     // Return the correct micro focus hint
     virtual QVariant inputMethodQuery(Qt::InputMethodQuery query) const;
 
@@ -393,8 +393,6 @@ class KateViewInternal : public QWidget
 
   // Dynamic highlighting
   private:
-    // FIXME - have to solve the dangling pointer problem
-    // childDeleted signal?
     struct DynamicRangeHL {
       DynamicRangeHL(KateSmartRange* top);
       ~DynamicRangeHL();

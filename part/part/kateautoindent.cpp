@@ -26,6 +26,7 @@
 #include "kateglobal.h"
 #include "katejscript.h"
 #include "kateview.h"
+#include "kateextendedattribute.h"
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -210,12 +211,12 @@ void KateNormalIndent::updateConfig ()
   normalAttrib = 255;
   extensionAttrib = 255;
 
-  KateHlItemDataList items;
-  doc->highlight()->getKateHlItemDataListCopy (0, items);
+  KateExtendedAttributeList items;
+  doc->highlight()->getKateExtendedAttributeListCopy (0, items);
 
   for (uint i=0; i<items.count(); i++)
   {
-    QString name = items.at(i)->name;
+    QString name = items.at(i)->name();
     if (name.find("Comment") != -1 && commentAttrib == 255)
     {
       commentAttrib = i;
@@ -2206,12 +2207,12 @@ void KateVarIndent::slotVariableChanged( KTextEditor::Document*, const QString &
   else if ( var == "var-indent-couple-attribute" )
   {
     //read a named attribute of the config.
-    KateHlItemDataList items;
-    doc->highlight()->getKateHlItemDataListCopy (0, items);
+    KateExtendedAttributeList items;
+    doc->highlight()->getKateExtendedAttributeListCopy (0, items);
 
-    for (uint i=0; i<items.count(); i++)
+    for (int i=0; i<items.count(); i++)
     {
-      if ( items.at(i)->name.section( ':', 1 ) == val )
+      if ( items.at(i)->name().section( ':', 1 ) == val )
       {
         d->coupleAttrib = i;
         break;

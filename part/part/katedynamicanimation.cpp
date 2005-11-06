@@ -49,13 +49,15 @@ KateDynamicAnimation::KateDynamicAnimation(KateView* view, KateSmartRange* range
 
 KateDynamicAnimation::~KateDynamicAnimation()
 {
-  m_range->removeDynamic(this);
+  if (m_range) {
+    m_range->removeDynamic(this);
 
-  if (view())
-    view()->renderer()->dynamicRegion().removeRange(m_range);
-  else
-    foreach (KDocument::View* view, document()->views())
-      static_cast<KateView*>(view)->renderer()->dynamicRegion().removeRange(m_range);
+    if (view())
+      view()->renderer()->dynamicRegion().removeRange(m_range);
+    else
+      foreach (KDocument::View* view, document()->views())
+        static_cast<KateView*>(view)->renderer()->dynamicRegion().removeRange(m_range);
+  }
 }
 
 void KateDynamicAnimation::init( )
@@ -102,6 +104,11 @@ KTextEditor::Attribute * KateDynamicAnimation::dynamicAttribute( ) const
 
 void KateDynamicAnimation::timeout()
 {
+  if (!m_range) {
+    delete this;
+    return;
+  }
+
   m_sequence += s_granularity;
 
   //kdDebug() << k_funcinfo << *m_range << " Seq " << m_sequence << endl;
@@ -168,7 +175,10 @@ void KateDynamicAnimation::mergeToAttribute( KTextEditor::Attribute & attrib ) c
 
 void KateDynamicAnimation::finish( )
 {
-  if (m_sequence < 100)
+  if (!(range()->attribute()->effects() & Attribute::EffectFadeOut))
+    m_sequence = 300;
+
+  else if (m_sequence < 100)
     // if the animation didn't make it through the intro, make the outro the same length
     m_sequence = 300 - m_sequence;
   else

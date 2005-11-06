@@ -22,7 +22,7 @@
 #define __KATE_HIGHLIGHT_H__
 
 #include "katetextline.h"
-#include <ktexteditor/attribute.h>
+#include "kateextendedattribute.h"
 
 #include <kconfig.h>
 #include <kaction.h>
@@ -43,7 +43,6 @@
 
 class KateHlContext;
 class KateHlItem;
-class KateHlItemData;
 class KateHlData;
 class KateHlIncludeRule;
 class KateSyntaxDocument;
@@ -65,41 +64,10 @@ class KateEmbeddedHlInfo
 };
 
 // some typedefs
-// TODO: porting: can switch to non-pointer version?
-typedef QList<KTextEditor::Attribute*> KateAttributeList;
 typedef QList<KateHlIncludeRule*> KateHlIncludeRules;
-typedef QList<KateHlItemData*> KateHlItemDataList;
 typedef QMap<QString,KateEmbeddedHlInfo> KateEmbeddedHlInfos;
 typedef QMap<int*,QString> KateHlUnresolvedCtxRefs;
 
-//Item Properties: name, Item Style, Item Font
-class KateHlItemData : public KTextEditor::Attribute
-{
-  public:
-    KateHlItemData(const QString  name, int defStyleNum);
-
-    enum ItemStyles {
-      dsNormal,
-      dsKeyword,
-      dsDataType,
-      dsDecVal,
-      dsBaseN,
-      dsFloat,
-      dsChar,
-      dsString,
-      dsComment,
-      dsOthers,
-      dsAlert,
-      dsFunction,
-      dsRegionMarker,
-      dsError };
-
-    void clear();
-
-  public:
-    const QString name;
-    int defStyleNum;
-};
 
 class KateHlData
 {
@@ -143,12 +111,12 @@ class KateHighlighting
     KateHlData getData();
     void setData(const KateHlData&);
 
-    void setKateHlItemDataList(uint schema, KateHlItemDataList &);
+    void setKateExtendedAttributeList(uint schema, KateExtendedAttributeList &);
 
     // both methodes return hard copies of the internal lists
     // the lists are cleared first + autodelete is set !
     // keep track that you delete them, or mem will be lost
-    void getKateHlItemDataListCopy (uint schema, KateHlItemDataList &);
+    void getKateExtendedAttributeListCopy (uint schema, KateExtendedAttributeList &);
 
     const QString &name() const {return iName;}
     const QString &nameTranslated() const {return iNameTranslated;}
@@ -245,7 +213,7 @@ class KateHighlighting
 
   private:
     // make this private, nobody should play with the internal data pointers
-    void getKateHlItemDataList(uint schema, KateHlItemDataList &);
+    void getKateExtendedAttributeList(uint schema, KateExtendedAttributeList &);
 
     void init();
     void done();
@@ -254,8 +222,8 @@ class KateHighlighting
     void handleKateHlIncludeRules ();
     void handleKateHlIncludeRulesRecursive(int index, KateHlIncludeRules *list);
     int addToContextList(const QString &ident, int ctx0);
-    void addToKateHlItemDataList();
-    void createKateHlItemData (KateHlItemDataList &list);
+    void addToKateExtendedAttributeList();
+    void createKateExtendedAttribute (KateExtendedAttributeList &list);
     void readGlobalKeywordConfig();
     void readWordWrapConfig();
     void readCommentConfig();
@@ -266,13 +234,13 @@ class KateHighlighting
     // manipulates the ctxs array directly ;)
     void generateContextStack(int *ctxNum, int ctx, QVector<short> *ctxs, int *posPrevLine);
 
-    KateHlItem *createKateHlItem(KateSyntaxContextData *data, KateHlItemDataList &iDl, QStringList *RegionList, QStringList *ContextList);
-    int lookupAttrName(const QString& name, KateHlItemDataList &iDl);
+    KateHlItem *createKateHlItem(KateSyntaxContextData *data, KateExtendedAttributeList &iDl, QStringList *RegionList, QStringList *ContextList);
+    int lookupAttrName(const QString& name, KateExtendedAttributeList &iDl);
 
     void createContextNameList(QStringList *ContextNameList, int ctx0);
     int getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext,/*NO CONST*/ QString &unres);
 
-    KateHlItemDataList internalIDList;
+    KateExtendedAttributeList internalIDList;
 
     QVector<KateHlContext*> m_contexts;
     inline KateHlContext *contextNum (int n) { if (n >= 0 && n < m_contexts.size()) return m_contexts[n]; return 0; }

@@ -150,10 +150,10 @@ bool KatePrinter::print (KateDocument *doc)
      uint lastline = doc->lastLine(); // nessecary to print selection only
      uint firstline( 0 );
 
-     KateHlItemDataList ilist;
+     KateExtendedAttributeList ilist;
 
      if (useGuide)
-       doc->highlight()->getKateHlItemDataListCopy (renderer.config()->schema(), ilist);
+       doc->highlight()->getKateExtendedAttributeListCopy (renderer.config()->schema(), ilist);
 
      /*
         Now on for preparations...
@@ -321,8 +321,8 @@ bool KatePrinter::print (KateDocument *doc)
          // see how many columns we can fit in
          int _widest( 0 );
 
-         Q3PtrListIterator<KateHlItemData> it( ilist );
-         KateHlItemData *_d;
+         Q3PtrListIterator<KateExtendedAttribute> it( ilist );
+         KateExtendedAttribute *_d;
 
          int _items ( 0 );
          while ( ( _d = it.current()) != 0 )
@@ -542,8 +542,8 @@ bool KatePrinter::print (KateDocument *doc)
              y += 1 + innerMargin;
              // draw attrib names using their styles
 
-             Q3PtrListIterator<KateHlItemData> _it( ilist );
-             KateHlItemData *_d;
+             Q3PtrListIterator<KateExtendedAttribute> _it( ilist );
+             KateExtendedAttribute *_d;
              int _cw = _w/guideCols;
              int _i(0);
 

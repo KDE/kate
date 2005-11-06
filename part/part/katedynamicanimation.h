@@ -23,9 +23,7 @@
 
 #include <ktexteditor/attribute.h>
 
-namespace KTextEditor {
-  class SmartRange;
-}
+#include "katesmartrange.h"
 
 class QTimer;
 
@@ -68,7 +66,7 @@ class KateDynamicAnimation : public QObject
   private:
     QVariant mergeWith(const QVariant& base, const QVariant& dynamic, int percent) const;
 
-    KateSmartRange* m_range;
+    KateSmartRangePtr m_range;
     KTextEditor::Attribute::ActivationType m_type;
     QTimer* m_timer;
 

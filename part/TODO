@@ -68,6 +68,7 @@ TODO:
 * Switch internal highlighting to use arbitrary highlighting api and thus be
   exposed (read-only)
   * only if the above cursors and ranges can be made to perform well enough
+  * would need to be able to dump syntax HL stacks to disk
 
 * Buffer reentrancy for multithreaded access
   * needed for potential:

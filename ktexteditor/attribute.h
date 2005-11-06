@@ -96,6 +96,8 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
       BackgroundFillWhitespace,
       /// Defined to allow storage of dynamic effect information
       AttributeDynamicEffect = 0x10A00,
+      /// Defined for internal usage of KTextEditor implementations
+      AttributeInternalProperty = 0x10E00,
       /// Defined to allow 3rd party code to create their own custom attributes - you may use values at or above this property.
       AttributeUserProperty = 0x110000
     };

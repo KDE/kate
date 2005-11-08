@@ -161,7 +161,7 @@ KWrite::~KWrite()
     delete m_view->document();
   }
 
-  kapp->config()->sync ();
+  KGlobal::config()->sync ();
 }
 
 void KWrite::setupActions()
@@ -431,13 +431,13 @@ void KWrite::writeConfig(KConfig *config)
 //config file
 void KWrite::readConfig()
 {
-  KConfig *config = kapp->config();
+  KConfig *config = KGlobal::config();
   readConfig(config);
 }
 
 void KWrite::writeConfig()
 {
-  KConfig *config = kapp->config();
+  KConfig *config = KGlobal::config();
   writeConfig(config);
 }
 

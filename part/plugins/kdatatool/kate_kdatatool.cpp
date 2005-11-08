@@ -93,8 +93,7 @@ void KDataToolPluginView::aboutToShow()
 	m_wordUnderCursor = QString::null;
 
 	// unplug old actions, if any:
-	KAction *ac;
-	for ( ac = m_actionList.first(); ac; ac = m_actionList.next() ) {
+	foreach (KAction *ac, m_actionList) {
 		m_menu->remove(ac);
 	}
 	if (m_notAvailable) {
@@ -153,7 +152,7 @@ void KDataToolPluginView::aboutToShow()
 
 	KInstance *inst=instance();
 
-	Q3ValueList<KDataToolInfo> tools;
+	QList<KDataToolInfo> tools;
 	tools += KDataToolInfo::query( "QString", "text/plain", inst );
 	if( m_singleWord )
 		tools += KDataToolInfo::query( "QString", "application/x-singleword", inst );
@@ -161,9 +160,8 @@ void KDataToolPluginView::aboutToShow()
 	m_actionList = KDataToolAction::dataToolActionList( tools, this,
 		SLOT( slotToolActivated( const KDataToolInfo &, const QString & ) ) );
 
-	for ( ac = m_actionList.first(); ac; ac = m_actionList.next() ) {
+	foreach (KAction* ac, m_actionList)
 		m_menu->insert(ac);
-	}
 
 	if( m_actionList.isEmpty() ) {
 		m_notAvailable = new KAction(i18n("(not available)"), QString::null, 0, this,

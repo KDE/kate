@@ -76,7 +76,7 @@ class DocWordCompletionPlugin
 
 
   private:
-    Q3PtrList<class DocWordCompletionPluginView> m_views;
+    QList<class DocWordCompletionPluginView*> m_views;
     uint m_treshold;
     bool m_autopopup;
 

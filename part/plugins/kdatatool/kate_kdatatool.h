@@ -1,6 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 Joseph Wenninger <jowenn@jowenn.at> and Daniel Naber <daniel.naber@t-online.de>
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
@@ -43,7 +43,7 @@ public:
 	void removeView (KTextEditor::View *view);
 
   private:
-	Q3PtrList<class KDataToolPluginView> m_views;
+	QList<class KDataToolPluginView*> m_views;
 };
 
 
@@ -60,7 +60,7 @@ private:
 	bool m_singleWord;
 	int m_singleWord_line, m_singleWord_start, m_singleWord_end;
 	QString m_wordUnderCursor;
-	Q3PtrList<KAction> m_actionList;
+	QList<KAction*> m_actionList;
 	QPointer<KActionMenu> m_menu;
 	KAction *m_notAvailable;
 protected slots:

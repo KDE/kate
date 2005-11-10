@@ -460,7 +460,7 @@ void KateLUAIndentScriptManager::parseScriptHeader(const QString &filePath,
 {
 #if 0
   QFile f(QFile::encodeName(filePath));
-  if (!f.open(IO_ReadOnly) ) {
+  if (!f.open(QIODevice::ReadOnly) ) {
     kdDebug(13050)<<"Header could not be parsed, because file could not be opened"<<endl;
     return;
   }

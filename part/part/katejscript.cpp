@@ -885,7 +885,7 @@ bool KateIndentJScriptImpl::setupInterpreter(QString &errorMsg)
     m_interpreter->globalObject().put(m_interpreter->globalExec(),"indenter",*m_indenter,KJS::DontDelete | KJS::ReadOnly);
     QFile file (filePath());
 
-    if ( !file.open( IO_ReadOnly ) )
+    if ( !file.open( QIODevice::ReadOnly ) )
       {
       errorMsg = i18n("JavaScript file not found");
       deleteInterpreter();
@@ -1097,7 +1097,7 @@ void KateIndentJScriptManager::parseScriptHeader(const QString &filePath,
         QString *niceName,QString *copyright,double *version)
 {
   QFile f(QFile::encodeName(filePath));
-  if (!f.open(IO_ReadOnly) ) {
+  if (!f.open(QIODevice::ReadOnly) ) {
     kdDebug(13050)<<"Header could not be parsed, because file could not be opened"<<endl;
     return;
   }

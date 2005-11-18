@@ -492,7 +492,7 @@ void KWrite::saveGlobalProperties(KConfig *config) //save documents
 //restore session
 void KWrite::restore()
 {
-  KConfig *config = kapp->sessionConfig();
+  KConfig *config = KGlobal::config();
 
   if (!config)
     return;

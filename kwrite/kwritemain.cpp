@@ -76,7 +76,6 @@
 #include <QVBoxLayout>
 #include <QList>
 #include <QDropEvent>
-#include <Q3PopupMenu>
 
 // StatusBar field IDs
 #define KWRITE_ID_GEN 1

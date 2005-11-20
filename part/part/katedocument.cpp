@@ -941,7 +941,7 @@ void KateDocument::undoEnd()
 
     if (m_editCurrentUndo->isEmpty())
       delete m_editCurrentUndo;
-    else if (!m_undoDontMerge && undoItems.last() && undoItems.last()->merge(m_editCurrentUndo,m_undoComplexMerge))
+    else if (!m_undoDontMerge && !undoItems.isEmpty() && undoItems.last() && undoItems.last()->merge(m_editCurrentUndo,m_undoComplexMerge))
       delete m_editCurrentUndo;
     else
     {

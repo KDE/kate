@@ -92,7 +92,7 @@ class View;
  *   public:
  *       // Constructor and other methods
  *       PluginView( KTextEditor::View* view )
- *         : QObject( view ), KXMLGUIClient( view )
+ *         : QObject( view ), KXMLGUIClient( view ), m_view( view )
  *       { ... }
  *       // ...
  *   private:

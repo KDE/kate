@@ -51,6 +51,12 @@
 #include <qpushbutton.h>
 #include <qtoolbutton.h>
 #include <qregexp.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 //#include <kdebug.h>
 //END includes
@@ -280,7 +286,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
                        KDialogBase::Ok|KDialogBase::Cancel ),
           e( e )
 {
-  Q3Frame *w = makeMainWidget();
+  QFrame *w = makeMainWidget();
   QGridLayout * lo = new QGridLayout( w, 5, 3 );
   lo->setSpacing( KDialogBase::spacingHint() );
 

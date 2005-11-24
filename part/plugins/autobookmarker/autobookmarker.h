@@ -30,11 +30,13 @@
 
 #include <q3ptrlist.h>
 #include <q3vbox.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 class AutoBookmarkEnt
 {
   public:
-  enum REFlags { Qt::CaseSensitive=1, MinimalMatching=2 };
+  enum REFlags { CaseSensitive=1, MinimalMatching=2 };
   AutoBookmarkEnt(const QString &p=QString::null,
                   const QStringList &f=QStringList(),
                   const QStringList &m=QStringList(),

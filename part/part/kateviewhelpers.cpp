@@ -103,9 +103,9 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 
 void KateScrollBar::paintEvent(QPaintEvent *e)
 {
-  QPainter painter(this);
-
   QScrollBar::paintEvent(e);
+
+  QPainter painter(this);
 
   QStyleOptionSlider opt;
   opt.init(this);

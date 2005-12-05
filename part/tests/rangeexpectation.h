@@ -36,7 +36,7 @@ class RangeExpectation : public QObject, public KTextEditor::SmartRangeWatcher
       Eliminated = 0x4
     };
     static const int numSignals = 3;
-    Q_DECLARE_FLAGS(RangeSignals, RangeSignal);
+    Q_DECLARE_FLAGS(RangeSignals, RangeSignal)
 
     RangeExpectation(KTextEditor::Range* range, RangeSignals signalsExpected = NoSignal, const KTextEditor::Range& rangeExpected = KTextEditor::Range::invalid());
     virtual ~RangeExpectation();
@@ -64,6 +64,6 @@ class RangeExpectation : public QObject, public KTextEditor::SmartRangeWatcher
     int m_watcherNotifications[numSignals];
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(RangeExpectation::RangeSignals);
+Q_DECLARE_OPERATORS_FOR_FLAGS(RangeExpectation::RangeSignals)
 
 #endif

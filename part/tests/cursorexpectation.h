@@ -35,10 +35,10 @@ class CursorExpectation : public QObject, public KTextEditor::SmartCursorWatcher
       CharacterInsertedBefore = 0x4,
       CharacterInsertedAfter = 0x8,
       PositionChanged = 0x10,
-      PositionDeleted = 0x20,
+      PositionDeleted = 0x20
     };
     static const int numSignals = 6;
-    Q_DECLARE_FLAGS(CursorSignals, CursorSignal);
+    Q_DECLARE_FLAGS(CursorSignals, CursorSignal)
 
     CursorExpectation(KTextEditor::Cursor* cursor, CursorSignals signalsExpected = NoSignal, const KTextEditor::Cursor& positionExpected = KTextEditor::Cursor::invalid());
     virtual ~CursorExpectation();
@@ -64,6 +64,6 @@ class CursorExpectation : public QObject, public KTextEditor::SmartCursorWatcher
     int m_watcherNotifications[numSignals];
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(CursorExpectation::CursorSignals);
+Q_DECLARE_OPERATORS_FOR_FLAGS(CursorExpectation::CursorSignals)
 
 #endif

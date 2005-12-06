@@ -56,12 +56,18 @@ void InsertFilePlugin::addView(KTextEditor::View *view)
 
 void InsertFilePlugin::removeView(KTextEditor::View *view)
 {
-  for (uint z=0; z < m_views.count(); z++)
-    if (m_views.at(z)->parentClient() == view)
+    int z=0;
+    // Loop written for the unlikely case of a view being added more than once
+    while (z < m_views.count())
     {
-       InsertFilePluginView *nview = m_views.at(z);
-       m_views.remove (nview);
-       delete nview;
+      InsertFilePluginView *nview = m_views.at(z);
+      if (nview->parentClient() == view)
+      {
+         m_views.remove (nview);
+         delete nview;
+      }
+      else
+         ++z;
     }
 }
 //END InsertFilePlugin

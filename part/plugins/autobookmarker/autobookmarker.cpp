@@ -54,7 +54,6 @@
 //Added by qt3to4:
 #include <QPixmap>
 #include <QGridLayout>
-#include <Q3Frame>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 

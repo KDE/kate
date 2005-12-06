@@ -1,5 +1,5 @@
 ;
-;	Decodeur de trame pulsadis EJP et préavis EJP
+;	Decodeur de trame pulsadis EJP et prÃ©avis EJP
 ;	(pic 12C508 ou 509)
 ;	Alain Gibaud, 20-2-2001
 ;

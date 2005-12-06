@@ -24,7 +24,7 @@ want to do  ;; this is NO comment
 with that?"
 
 ;; R5RS definiert diese beiden.
-"Das ist \"in Anführungszeichen\" und mit \\ Backslash."
+"Das ist \"in AnfÃ¼hrungszeichen\" und mit \\ Backslash."
 
 (let ((x (+ 1 2)) (y "blah")) ;; `let' highlighting.
   (and (number? x)            ;; `and' highlighting.

@@ -3,17 +3,17 @@
 ;*
 ;* NOTE: delay depends in the value of X, 1 is fast, 255 is slow
 ;*
-;* No copyright ©1998 RES® * FREEWARE *
+;* No copyright Â©1998 RESÂ® * FREEWARE *
 ;*
 ;* NOTE: Connect a low current LED with a 1k resistor in serie from 
 ;*	 Vdd to pin 11 of the MCU. (Or a normal LED with a 330ohm)
 ;*									   
-;* RES® can be reached by email: digitalaudio@mail.com		   
+;* RESÂ® can be reached by email: digitalaudio@mail.com		   
 ;* or visit the website: http://home.wanadoo.nl/electro1/avr
 ;*
 ;* Version           :1.0 					   
 ;* Date		     :12/26/98
-;* Author	     :Rob's ElectroSoft®
+;* Author	     :Rob's ElectroSoftÂ®
 ;* Target MCU        :AT90S1200-12PI@4MHz					   
 ;********************************************************************
 

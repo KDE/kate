@@ -29,7 +29,6 @@
 #include <kdialogbase.h>
 
 #include <q3ptrlist.h>
-#include <q3vbox.h>
 //Added by qt3to4:
 #include <QPixmap>
 

@@ -41,7 +41,6 @@
 #include <kuser.h> // for loginName
 
 #include <qpainter.h>
-#include <q3popupmenu.h>
 #include <q3paintdevicemetrics.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>

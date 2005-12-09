@@ -83,8 +83,6 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qlineedit.h>
-#include <q3listbox.h>
-#include <q3listview.h>
 #include <qmap.h>
 #include <qobject.h>
 #include <qpainter.h>

@@ -68,8 +68,6 @@
 #include <QMenu>
 #include <qpixmap.h>
 #include <qtimer.h>
-#include <q3dropsite.h>
-#include <q3dragobject.h>
 #include <qtextcodec.h>
 #include <qlayout.h>
 //Added by qt3to4:

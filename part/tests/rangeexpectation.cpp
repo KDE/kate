@@ -20,7 +20,7 @@
 
 #include <math.h>
 
-#include <QtTest/qttest_kde.h>
+#include <qttest_kde.h>
 #include <ktexteditor/smartrange.h>
 
 #include "kateregression.h"
@@ -60,22 +60,22 @@ void RangeExpectation::checkExpectationsFulfilled( ) const
     int j = 2 << (i - 1);
     if (m_expectations & j) {
       if (m_notifierNotifications[i] == 0)
-        FAIL(QString("Notifier: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
+        QFAIL(QString("Notifier: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
       else if (m_notifierNotifications[i] > 1)
-        FAIL(QString("Notifier: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
+        QFAIL(QString("Notifier: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
 
       if (m_watcherNotifications[i] == 0)
-        FAIL(QString("Watcher: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
+        QFAIL(QString("Watcher: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
       else if (m_watcherNotifications[i] > 1)
-        FAIL(QString("Watcher: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
+        QFAIL(QString("Watcher: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
     }
   }
 }
 
 void RangeExpectation::signalReceived( int signal )
 {
-  VERIFY(m_expectations & signal);
-  COMPARE(*static_cast<KTextEditor::Range*>(m_smartRange), m_expectedRange);
+  QVERIFY(m_expectations & signal);
+  QCOMPARE(*static_cast<KTextEditor::Range*>(m_smartRange), m_expectedRange);
 
   signal = int(log(signal) / log(2));
 
@@ -87,19 +87,19 @@ void RangeExpectation::signalReceived( int signal )
 
 void RangeExpectation::positionChanged( KTextEditor::SmartRange * range )
 {
-  COMPARE(range, m_smartRange);
+  QCOMPARE(range, m_smartRange);
   signalReceived(PositionChanged);
 }
 
 void RangeExpectation::contentsChanged( KTextEditor::SmartRange * range )
 {
-  COMPARE(range, m_smartRange);
+  QCOMPARE(range, m_smartRange);
   signalReceived(ContentsChanged);
 }
 
 /*void RangeExpectation::boundaryDeleted( KTextEditor::SmartRange * range, bool start )
 {
-  COMPARE(range, m_smartRange);
+  QCOMPARE(range, m_smartRange);
 
   if (start) {
     signalReceived(StartBoundaryDeleted);
@@ -111,19 +111,19 @@ void RangeExpectation::contentsChanged( KTextEditor::SmartRange * range )
 
 void RangeExpectation::eliminated( KTextEditor::SmartRange * range )
 {
-  COMPARE(range, m_smartRange);
+  QCOMPARE(range, m_smartRange);
   signalReceived(Eliminated);
 }
 
 /*void RangeExpectation::firstCharacterDeleted( KTextEditor::SmartRange * range )
 {
-  COMPARE(range, m_smartRange);
+  QCOMPARE(range, m_smartRange);
   signalReceived(FirstCharacterDeleted);
 }
 
 void RangeExpectation::lastCharacterDeleted( KTextEditor::SmartRange * range )
 {
-  COMPARE(range, m_smartRange);
+  QCOMPARE(range, m_smartRange);
   signalReceived(LastCharacterDeleted);
 }*/
 

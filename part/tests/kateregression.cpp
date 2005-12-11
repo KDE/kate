@@ -30,7 +30,7 @@
 #include <kapplication.h>
 #include <klocale.h>
 
-#include <QtTest/qttest_kde.h>
+#include <qttest_kde.h>
 
 #include "cursorexpectation.h"
 #include "rangeexpectation.h"
@@ -41,7 +41,7 @@ using namespace KTextEditor;
 
 KateRegression* KateRegression::s_self = 0L;
 
-namespace QtTest {
+namespace QTest {
   template<>
   char* toString(const Cursor& cursor)
   {
@@ -78,33 +78,33 @@ namespace QtTest {
 void KateRegression::testAll()
 {
   Editor* editor = EditorChooser::editor();
-  VERIFY(editor);
+  QVERIFY(editor);
 
   m_doc = editor->createDocument(this);
-  VERIFY(m_doc);
+  QVERIFY(m_doc);
 
-  VERIFY(smart());
+  QVERIFY(smart());
 
   // Multi-line insert
   Cursor* cursor1 = smart()->newSmartCursor(Cursor(), false);
   Cursor* cursor2 = smart()->newSmartCursor(Cursor(), true);
 
   m_doc->insertText(Cursor(), "Test Text\nMore Test Text");
-  COMPARE(m_doc->documentEnd(), Cursor(1,14));
+  QCOMPARE(m_doc->documentEnd(), Cursor(1,14));
 
   QString text = m_doc->text(Range(1,0,1,14));
-  COMPARE(text, QString("More Test Text"));
+  QCOMPARE(text, QString("More Test Text"));
 
   // Check cursors and ranges have moved properly
-  COMPARE(*cursor1, Cursor(0,0));
-  COMPARE(*cursor2, Cursor(1,14));
+  QCOMPARE(*cursor1, Cursor(0,0));
+  QCOMPARE(*cursor2, Cursor(1,14));
 
   Cursor cursor3 = m_doc->endOfLine(1);
 
   // Set up a few more lines
   m_doc->insertText(*cursor2, "\nEven More Test Text");
-  COMPARE(m_doc->documentEnd(), Cursor(2,19));
-  COMPARE(cursor3, m_doc->endOfLine(1));
+  QCOMPARE(m_doc->documentEnd(), Cursor(2,19));
+  QCOMPARE(cursor3, m_doc->endOfLine(1));
 
   // Intra-line insert
   Cursor* cursorStartOfLine = smart()->newSmartCursor(Cursor(1,0));
@@ -130,8 +130,8 @@ void KateRegression::testAll()
 
   m_doc->insertText(*cursorStartOfEdit, "Additional ");
 
-  COMPARE(*cursorEOL, m_doc->endOfLine(1));
-  COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
+  QCOMPARE(*cursorEOL, m_doc->endOfLine(1));
+  QCOMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
 
   checkSignalExpectations();
 
@@ -148,8 +148,8 @@ void KateRegression::testAll()
   // Intra-line remove
   m_doc->removeText(Range(*cursorStartOfEdit, 11));
 
-  COMPARE(*cursorEOL, m_doc->endOfLine(1));
-  COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
+  QCOMPARE(*cursorEOL, m_doc->endOfLine(1));
+  QCOMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
   checkSignalExpectations();
 
   Cursor oldEOL = *cursorEOL;
@@ -179,8 +179,8 @@ void KateRegression::testAll()
   // Remove line wrapping
   m_doc->removeText(Range(m_doc->endOfLine(1), Cursor(2, 0)));
 
-  COMPARE(*cursorEOL,m_doc->endOfLine(1));
-  COMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
+  QCOMPARE(*cursorEOL,m_doc->endOfLine(1));
+  QCOMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
 }
 
 void KateRegression::checkSignalExpectations( )
@@ -231,31 +231,31 @@ void KateRegression::testSmartRange( )
 
 void KateRegression::checkRange( Range & valid )
 {
-  VERIFY(valid.isValid() && valid.start() <= valid.end());
+  QVERIFY(valid.isValid() && valid.start() <= valid.end());
 
   Cursor before(0,1), start(0,2), end(1,4), after(1,10);
 
   Range result(start, end);
-  VERIFY(valid.isValid() && valid.start() <= valid.end());
+  QVERIFY(valid.isValid() && valid.start() <= valid.end());
 
   valid.setRange(start, end);
-  VERIFY(valid.isValid() && valid.start() <= valid.end());
-  COMPARE(valid, result);
+  QVERIFY(valid.isValid() && valid.start() <= valid.end());
+  QCOMPARE(valid, result);
 
   valid.setRange(end, start);
-  VERIFY(valid.isValid() && valid.start() <= valid.end());
-  COMPARE(valid, result);
+  QVERIFY(valid.isValid() && valid.start() <= valid.end());
+  QCOMPARE(valid, result);
 
   valid.start() = after;
-  VERIFY(valid.isValid() && valid.start() <= valid.end());
-  COMPARE(valid, Range(after, after));
+  QVERIFY(valid.isValid() && valid.start() <= valid.end());
+  QCOMPARE(valid, Range(after, after));
 
   valid = result;
-  COMPARE(valid, result);
+  QCOMPARE(valid, result);
 
   valid.end() = before;
-  VERIFY(valid.isValid() && valid.start() <= valid.end());
-  COMPARE(valid, Range(before, before));
+  QVERIFY(valid.isValid() && valid.start() <= valid.end());
+  QCOMPARE(valid, Range(before, before));
 }
 
 void KateRegression::testRangeTree( )
@@ -264,46 +264,46 @@ void KateRegression::testRangeTree( )
 
   Range second(1, 2, 1, 10);
   Range* secondLevel = smart()->newSmartRange(second, top);
-  COMPARE(*secondLevel, second);
+  QCOMPARE(*secondLevel, second);
 
   // Check creation restriction
   Range third(1, 1, 1, 11);
   Range* thirdLevel = smart()->newSmartRange(third, static_cast<SmartRange*>(secondLevel));
-  COMPARE(*thirdLevel, third);
-  COMPARE(*secondLevel, third);
+  QCOMPARE(*thirdLevel, third);
+  QCOMPARE(*secondLevel, third);
 
   Range fourth(1, 4, 1, 6);
   Range* fourthLevel = smart()->newSmartRange(fourth, static_cast<SmartRange*>(thirdLevel));
-  COMPARE(*fourthLevel, fourth);
+  QCOMPARE(*fourthLevel, fourth);
 
   Range fourth2(1, 7, 1, 8);
   Range* fourth2Level = smart()->newSmartRange(fourth2, static_cast<SmartRange*>(thirdLevel));
-  COMPARE(*fourthLevel, fourth);
-  COMPARE(*fourth2Level, fourth2);
+  QCOMPARE(*fourthLevel, fourth);
+  QCOMPARE(*fourth2Level, fourth2);
 
   // Check moving start before parent
   thirdLevel->start().setColumn(1);
-  COMPARE(thirdLevel->start(), Cursor(1,1));
-  COMPARE(*thirdLevel, *secondLevel);
+  QCOMPARE(thirdLevel->start(), Cursor(1,1));
+  QCOMPARE(*thirdLevel, *secondLevel);
 
   // Check moving end after parent
   thirdLevel->end().setColumn(11);
-  COMPARE(thirdLevel->end(), Cursor(1,11));
-  COMPARE(*thirdLevel, *secondLevel);
+  QCOMPARE(thirdLevel->end(), Cursor(1,11));
+  QCOMPARE(*thirdLevel, *secondLevel);
 
   // Check moving parent after child start
   secondLevel->start() = second.start();
-  COMPARE(secondLevel->start(), second.start());
-  COMPARE(*thirdLevel, *secondLevel);
+  QCOMPARE(secondLevel->start(), second.start());
+  QCOMPARE(*thirdLevel, *secondLevel);
 
   // Check moving parent before child end
   secondLevel->end() = second.end();
-  COMPARE(secondLevel->end(), second.end());
-  COMPARE(*thirdLevel, *secondLevel);
+  QCOMPARE(secondLevel->end(), second.end());
+  QCOMPARE(*thirdLevel, *secondLevel);
 
   top->deleteChildRanges();
 
-  VERIFY(!top->childRanges().count());
+  QVERIFY(!top->childRanges().count());
 
   // Test out-of-order creation
   Range range1(Cursor(1,2),2);
@@ -321,10 +321,10 @@ void KateRegression::testRangeTree( )
   QList<SmartRange*> childList;
   childList << child1 << child2 << child3;
 
-  COMPARE(childList, top->childRanges());
-  COMPARE(*childR1, range1);
-  COMPARE(*childR2, range2);
-  COMPARE(*childR3, range3);
+  QCOMPARE(childList, top->childRanges());
+  QCOMPARE(*childR1, range1);
+  QCOMPARE(*childR2, range2);
+  QCOMPARE(*childR3, range3);
 
   // Test moving child ranges
   range2 = Range(Cursor(1,5),3);
@@ -332,28 +332,28 @@ void KateRegression::testRangeTree( )
 
   range3.start() = range2.end();
 
-  COMPARE(childList, top->childRanges());
-  COMPARE(*childR1, range1);
-  COMPARE(*childR2, range2);
-  COMPARE(*childR3, range3);
+  QCOMPARE(childList, top->childRanges());
+  QCOMPARE(*childR1, range1);
+  QCOMPARE(*childR2, range2);
+  QCOMPARE(*childR3, range3);
 
   range2 = Range(Cursor(1,3),5);
   *child2 = range2;
 
   range1.end() = range2.start();
 
-  COMPARE(childList, top->childRanges());
-  COMPARE(*childR1, range1);
-  COMPARE(*childR2, range2);
-  COMPARE(*childR3, range3);
+  QCOMPARE(childList, top->childRanges());
+  QCOMPARE(*childR1, range1);
+  QCOMPARE(*childR2, range2);
+  QCOMPARE(*childR3, range3);
 
   // Test childBefore / childAfter
-  COMPARE(top->childBefore(child1), (SmartRange*)0L);
-  COMPARE(top->childBefore(child2), child1);
-  COMPARE(top->childBefore(child3), child2);
-  COMPARE(top->childAfter(child1), child2);
-  COMPARE(top->childAfter(child2), child3);
-  COMPARE(top->childAfter(child3), (SmartRange*)0L);
+  QCOMPARE(top->childBefore(child1), (SmartRange*)0L);
+  QCOMPARE(top->childBefore(child2), child1);
+  QCOMPARE(top->childBefore(child3), child2);
+  QCOMPARE(top->childAfter(child1), child2);
+  QCOMPARE(top->childAfter(child2), child3);
+  QCOMPARE(top->childAfter(child3), (SmartRange*)0L);
 
   // Test firstRangeContaining
   Range range11(range1.start(), 1);
@@ -362,24 +362,24 @@ void KateRegression::testRangeTree( )
   Range range111(range11.end(), 0);
   SmartRange* child111 = smart()->newSmartRange(range111, child11);
 
-  COMPARE(top->firstRangeContaining(range11.start()), top);
+  QCOMPARE(top->firstRangeContaining(range11.start()), top);
 
   QStack<SmartRange*> enterStack, exitStack;
   QStack<SmartRange*> expectedEnterStack, expectedExitStack;
   expectedEnterStack << child1 << child11;
 
   // Test deepestRangeContaining - straight descent
-  COMPARE(top->deepestRangeContaining(range11.start(), &enterStack, &exitStack), child11);
-  COMPARE(enterStack, expectedEnterStack);
-  COMPARE(exitStack, expectedExitStack);
+  QCOMPARE(top->deepestRangeContaining(range11.start(), &enterStack, &exitStack), child11);
+  QCOMPARE(enterStack, expectedEnterStack);
+  QCOMPARE(exitStack, expectedExitStack);
 
   enterStack.clear();
   expectedExitStack << child2;
 
   // Test deepestRangeContaining - exit + descent backwards
-  COMPARE(child2->deepestRangeContaining(range11.start(), &enterStack, &exitStack), child11);
-  COMPARE(enterStack, expectedEnterStack);
-  COMPARE(exitStack, expectedExitStack);
+  QCOMPARE(child2->deepestRangeContaining(range11.start(), &enterStack, &exitStack), child11);
+  QCOMPARE(enterStack, expectedEnterStack);
+  QCOMPARE(exitStack, expectedExitStack);
 
   enterStack.clear();
   exitStack.clear();
@@ -389,9 +389,9 @@ void KateRegression::testRangeTree( )
   expectedEnterStack << child2;
 
   // Test deepestRangeContaining - exit + descent forwards
-  COMPARE(*child11->deepestRangeContaining(range2.start(), &enterStack, &exitStack), *child2);
-  COMPARE(enterStack, expectedEnterStack);
-  COMPARE(exitStack, expectedExitStack);
+  QCOMPARE(*child11->deepestRangeContaining(range2.start(), &enterStack, &exitStack), *child2);
+  QCOMPARE(enterStack, expectedEnterStack);
+  QCOMPARE(exitStack, expectedExitStack);
 
   enterStack.clear();
   exitStack.clear();
@@ -402,9 +402,9 @@ void KateRegression::testRangeTree( )
   // Test deepestRangeContaining - exit + descent not past a certain point
   child3->start() = Cursor(1,10);
 
-  COMPARE(child111->deepestRangeContaining(Cursor(1,9), &enterStack, &exitStack), top);
-  COMPARE(enterStack, expectedEnterStack);
-  COMPARE(exitStack, expectedExitStack);
+  QCOMPARE(child111->deepestRangeContaining(Cursor(1,9), &enterStack, &exitStack), top);
+  QCOMPARE(enterStack, expectedEnterStack);
+  QCOMPARE(exitStack, expectedExitStack);
 
   top->deleteChildRanges();
   delete top;

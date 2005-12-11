@@ -20,7 +20,7 @@
 
 #include <math.h>
 
-#include <QtTest/qttest_kde.h>
+#include <qttest_kde.h>
 #include <kdebug.h>
 #include <ktexteditor/smartcursor.h>
 
@@ -58,7 +58,7 @@ CursorExpectation::~CursorExpectation()
 
 void CursorExpectation::characterDeleted( KTextEditor::SmartCursor * cursor, bool deletedBefore )
 {
-  COMPARE(cursor, m_smartCursor);
+  QCOMPARE(cursor, m_smartCursor);
 
   if (deletedBefore) {
     signalReceived(CharacterDeletedBefore);
@@ -70,7 +70,7 @@ void CursorExpectation::characterDeleted( KTextEditor::SmartCursor * cursor, boo
 
 void CursorExpectation::characterInserted( KTextEditor::SmartCursor * cursor, bool insertedBefore )
 {
-  COMPARE(cursor, m_smartCursor);
+  QCOMPARE(cursor, m_smartCursor);
 
   if (insertedBefore) {
     signalReceived(CharacterInsertedBefore);
@@ -82,13 +82,13 @@ void CursorExpectation::characterInserted( KTextEditor::SmartCursor * cursor, bo
 
 void CursorExpectation::positionChanged( KTextEditor::SmartCursor * cursor )
 {
-  COMPARE(cursor, m_smartCursor);
+  QCOMPARE(cursor, m_smartCursor);
   signalReceived(PositionChanged);
 }
 
 void CursorExpectation::positionDeleted( KTextEditor::SmartCursor * cursor )
 {
-  COMPARE(cursor, m_smartCursor);
+  QCOMPARE(cursor, m_smartCursor);
   signalReceived(PositionDeleted);
 }
 
@@ -118,23 +118,23 @@ void CursorExpectation::checkExpectationsFulfilled( ) const
     int j = 2 << (i - 1);
     if (m_expectations & j) {
       if (m_notifierNotifications[i] == 0)
-        FAIL(QString("Notifier: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
+        QFAIL(QString("Notifier: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
       else if (m_notifierNotifications[i] > 1)
-        FAIL(QString("Notifier: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
+        QFAIL(QString("Notifier: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
 
       if (m_watcherNotifications[i] == 0)
-        FAIL(QString("Watcher: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
+        QFAIL(QString("Watcher: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
       else if (m_watcherNotifications[i] > 1)
-        FAIL(QString("Watcher: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
+        QFAIL(QString("Watcher: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
     }
   }
 }
 
 void CursorExpectation::signalReceived( int signal )
 {
-  COMPARE(*static_cast<KTextEditor::Cursor*>(m_smartCursor), m_expectedCursor);
+  QCOMPARE(*static_cast<KTextEditor::Cursor*>(m_smartCursor), m_expectedCursor);
 
-  VERIFY(m_expectations & signal);
+  QVERIFY(m_expectations & signal);
 
   signal = int(log(signal) / log(2));
 

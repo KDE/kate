@@ -42,12 +42,12 @@ class ConfigPage;
  * \brief Accessor interface for Editor part.
  *
  * Topics:
- *  - \ref intro
- *  - \ref config
- *  - \ref notes
- *  - \ref extensions
+ *  - \ref editor_intro
+ *  - \ref editor_config
+ *  - \ref editor_notes
+ *  - \ref editor_extensions
  *
- * \section intro Introduction
+ * \section editor_intro Introduction
  *
  * The Editor part can be accessed via the KTextEditor::Factory and provides
  * general information and configuration methods for the Editor
@@ -58,7 +58,7 @@ class ConfigPage;
  * signal documentCreated() is emitted whenever the Editor created a new
  * document.
  *
- * \section config Editor Configuration
+ * \section editor_config Editor Configuration
  *
  * If the Editor implementation supports a config dialog
  * configDialogSupported() returns \e true, then the config dialog can be
@@ -72,7 +72,7 @@ class ConfigPage;
  * pages. The configuration can be saved and loaded with readConfig() and
  * writeConfig().
  *
- * \section notes Implementation Notes
+ * \section editor_notes Implementation Notes
  *
  * Usually only one instance of the Editor exists. The Kate Part
  * implementation internally uses a static accessor to make sure that only
@@ -83,12 +83,12 @@ class ConfigPage;
  * as well, see KTextEditor::Plugin::readConfig() and
  * KTextEditor::Plugin::writeConfig().
  *
- * \section extensions Editor Extension Interfaces
+ * \section editor_extensions Editor Extension Interfaces
  *
  * There is only a signle extension interface for the Editor: the
  * CommandInterface. With the CommandInterface it is possible to add and
  * remove new command line commands which are valid for all documents. Common
- * use cases are fox example commands like \e find or setting document
+ * use cases are for example commands like \e find or setting document
  * variables. For further details read the detailed descriptions in the class
  * KTextEditor::CommandInterface.
  *

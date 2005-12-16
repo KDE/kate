@@ -37,7 +37,7 @@ class KateFontMetrics : public QFontMetrics
 
     int width(QChar c);
 
-    int width(QString s) { return QFontMetrics::width(s); }
+    int width(const QString &s) { return QFontMetrics::width(s); }
 
   private:
     short *createRow (short *wa, uchar row);

@@ -20,7 +20,7 @@
 
 #include "kwritemain.h"
 #include "kwritemain.moc"
-
+#include <q3popupmenu.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/sessionconfiginterface.h>

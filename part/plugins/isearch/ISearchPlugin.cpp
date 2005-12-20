@@ -19,7 +19,7 @@
 #include <qlabel.h>
 #include <qregexp.h>
 #include <qstyle.h>
-#include <q3popupmenu.h>
+#include <qmenu.h>
 #include <kgenericfactory.h>
 #include <klocale.h>
 #include <kaction.h>

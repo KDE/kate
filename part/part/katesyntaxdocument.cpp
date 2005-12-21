@@ -439,7 +439,7 @@ void KateSyntaxDocument::setupModeList (bool force)
               config.writeEntry("hidden",mli->hidden);
 
               // modified time to keep cache in sync
-              config.writeEntry("lastModified", sbuf.st_mtime);
+              config.writeEntry("lastModified", int(sbuf.st_mtime));
 
               // Now that the data is in the config file, translate section
               mli->section    = i18n("Language Section",mli->section.toUtf8());

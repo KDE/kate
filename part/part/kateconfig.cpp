@@ -706,7 +706,7 @@ void KateViewConfig::writeConfig (KConfig *config)
 
   config->writeEntry( "Auto Center Lines", autoCenterLines() );
 
-  config->writeEntry("Search Config Flags", searchFlags());
+  config->writeEntry("Search Config Flags", int(searchFlags()));
 
   config->writeEntry("Command Line", cmdLine());
 

@@ -402,7 +402,8 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
     kdDebug(13060)<<"Lua script file:"<<(*it)<<endl;
     // If the group exist and we're not forced to read the .js file, let's build myModeList for katepartjscriptrc
     bool readnew=false;
-    if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readNumEntry("lastModified")))
+    if (!force && config.hasGroup(Group) &&
+        (sbuf.st_mtime == qvariant_cast<int>(config.readEntry("lastModified",0))))
     {
         config.setGroup(Group);
         QString filePath=*it;
@@ -412,7 +413,7 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
         {
           QString niceName=config.readEntry("niceName",internalName);
           QString copyright=config.readEntry("copyright",i18n("(Unknown)"));
-          double  version=config.readDoubleNumEntry("version",0.0);
+          double  version=qvariant_cast<double>(config.readEntry("version",0.0));
           KateLUAIndentScriptImpl *s=new KateLUAIndentScriptImpl(
             internalName,filePath,niceName,copyright,version);
           m_scripts.insert (internalName, s);
@@ -434,7 +435,7 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
         parseScriptHeader(filePath,&niceName,&copyright,&version);
         /*save the information for retrieval*/
         config.setGroup(Group);
-        config.writeEntry("lastModified",sbuf.st_mtime);
+        config.writeEntry("lastModified",int(sbuf.st_mtime));
         config.writeEntry("internalName",internalName);
         config.writeEntry("niceName",niceName);
         config.writeEntry("copyright",copyright);

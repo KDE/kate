@@ -1072,7 +1072,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
         parseScriptHeader(filePath,&niceName,&copyright,&version);
         /*save the information for retrieval*/
         config.setGroup(Group);
-        config.writeEntry("lastModified",sbuf.st_mtime);
+        config.writeEntry("lastModified",int(sbuf.st_mtime));
         config.writeEntry("internalName",internalName);
         config.writeEntry("niceName",niceName);
         config.writeEntry("copyright",copyright);

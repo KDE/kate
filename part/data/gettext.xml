@@ -20,7 +20,7 @@
 
   You should have received a copy of the GNU Library General Public
   License along with this library; if not, write to the
-  Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
+  Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
   Boston, MA  02110-1301, USA.
  -->
 <language name="GNU Gettext" version="1.03" kateversion="2.4" section="Markup" extensions="*.po;*.pot" mimetype="application/x-gettext" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">

@@ -40,14 +40,9 @@ dnl	Based on the lua check used by yzis-M3
         LDFLAGS="$LUA_LIBS $LDFLAGS"
 
         LUAH_FOUND=""
-        AC_CHECK_HEADER(lua.h,LUAH_FOUND="true",
-                        [ AC_MSG_RESULT([lua.h was not found or was not usable, Lua 5.0 headers are required !]) ]
-                        )
+        AC_CHECK_HEADER(lua.h,LUAH_FOUND="true")
 	LUALIBH_FOUND=""
-        AC_CHECK_HEADER(lualib.h,LUALIBH_FOUND="true",
-                        [ AC_MSG_RESULT([lualib.h was not found or was not usable, Lua 5.0 headers are required !]) ]
-                        )
-
+        AC_CHECK_HEADER(lualib.h,LUALIBH_FOUND="true")
 
         dnl find the libs name
 	if test -z "$LUALIBH_FOUND" -o -z "$LUAH_FOUND"; then

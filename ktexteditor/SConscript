@@ -1,5 +1,3 @@
-#! /usr/bin/env python
-#generated from Makefile.am by am2bksys.py
 Import('env')
 
 ktexteditor_sources = """
@@ -7,6 +5,10 @@ attribute.cpp cursor.cpp cursorfeedback.cpp editorchooser.cpp
 editorchooser_ui.ui ktexteditor.cpp range.cpp rangefeedback.cpp
 smartcursor.cpp smartrange.cpp templateinterface.cpp
 """
+
+for i in "configpage.h factory.h editor.h document.h view.h plugin.h".split():
+    env.Moc( i )
+
 
 ktexteditorkabcbridge_sources = """
 ktexteditorkabcbridge.cpp
@@ -26,26 +28,26 @@ noinst_headers = """
 attribute_p.h
 """
 
-includes = '#/kio #/interfaces #/interfaces #/kabc #/kabc '
+includes = '../../kio ../../interfaces ../../kabc ../../interfaces/ktexteditor '
 
 obj = env.kdeobj('shlib')
 #obj.it_is_a_kdelib()
 obj.target = 'ktexteditor'
 obj.source = ktexteditor_sources
 obj.includes = includes
-obj.libpaths = '##/interfaces/kdocument '
+obj.libpaths = '../kdocument '
 obj.libs = 'kdocument '
 obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4 KPARTS '
 obj.execute()
 
-obj = env.kdeobj('module')
-obj.target = 'ktexteditorkabcbridge'
-obj.source = ktexteditorkabcbridge_sources
-obj.includes = includes
-obj.libpaths = '##/kabc '
-obj.libs = 'kabc '
-obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4 KDECORE '
-obj.execute()
+#obj = env.kdeobj('module')
+#obj.target = 'ktexteditorkabcbridge'
+#obj.source = ktexteditorkabcbridge_sources
+#obj.includes = includes
+#obj.libpaths = '##/kabc '
+#obj.libs = 'kabc '
+#obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4 KDECORE '
+#obj.execute()
 
 env.bksys_insttype('KDEDATA', 'kcm_componentchooser', 'kcm_ktexteditor.desktop')
 

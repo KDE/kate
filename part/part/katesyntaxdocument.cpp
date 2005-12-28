@@ -376,7 +376,7 @@ void KateSyntaxDocument::setupModeList (bool force)
       mli->priority   = config.readEntry("priority");
       mli->author    = config.readEntry("author");
       mli->license   = config.readEntry("license");
-      mli->hidden   =  config.readBoolEntry("hidden");
+      mli->hidden   =  config.readEntry("hidden", QVariant(false)).toBool();
       mli->identifier = *it;
 
       // Apend the item to the list

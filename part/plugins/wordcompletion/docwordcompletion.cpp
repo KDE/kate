@@ -117,7 +117,7 @@ void DocWordCompletionPlugin::readConfig()
 {
   KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin" );
   m_treshold = cg.readNumEntry( "treshold", 3 );
-  m_autopopup = cg.readBoolEntry( "autopopup", true );
+  m_autopopup = cg.readEntry("autopopup", QVariant(true )).toBool();
 }
 
 void DocWordCompletionPlugin::writeConfig()

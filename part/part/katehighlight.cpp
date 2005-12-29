@@ -1624,7 +1624,7 @@ int KateHighlighting::priority()
   KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName);
 
-  return config->readNumEntry("Priority", m_priority);
+  return config->readEntry("Priority", QVariant(m_priority)).toInt();
 }
 
 KateHlData KateHighlighting::getData()
@@ -1636,7 +1636,7 @@ KateHlData KateHighlighting::getData()
   config->readEntry("Wildcards", iWildcards),
   config->readEntry("Mimetypes", iMimetypes),
   config->readEntry("Identifier", identifier),
-  config->readNumEntry("Priority", m_priority));
+  config->readEntry("Priority", QVariant(m_priority)).toInt());
 }
 
 void KateHighlighting::setData(const KateHlData &hlData)

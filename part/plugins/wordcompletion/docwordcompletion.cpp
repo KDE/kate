@@ -116,7 +116,7 @@ void DocWordCompletionPlugin::configDialog (QWidget *parent)
 void DocWordCompletionPlugin::readConfig()
 {
   KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin" );
-  m_treshold = cg.readNumEntry( "treshold", 3 );
+  m_treshold = cg.readEntry( "treshold", QVariant(3 )).toInt();
   m_autopopup = cg.readEntry("autopopup", QVariant(true )).toBool();
 }
 

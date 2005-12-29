@@ -212,7 +212,7 @@ void ABGlobal::readConfig()
     config->setGroup( QString("autobookmark%1").arg( n ) );
     QStringList filemask = config->readListEntry( "filemask", ';' );
     QStringList mimemask = config->readListEntry( "mimemask", ';' );
-    int flags = config->readNumEntry( "flags", 1 );
+    int flags = config->readEntry( "flags", QVariant(1 )).toInt();
     AutoBookmarkEnt *e = new AutoBookmarkEnt(
         config->readEntry( "pattern", "" ),
         filemask,

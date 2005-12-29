@@ -81,7 +81,7 @@ void KateFileTypeManager::update ()
     type.section = config.readEntry ("Section");
     type.wildcards = config.readListEntry ("Wildcards", ';');
     type.mimetypes = config.readListEntry ("Mimetypes", ';');
-    type.priority = config.readNumEntry ("Priority");
+    type.priority = config.readEntry ("Priority", QVariant(0)).toInt();
     type.varLine = config.readEntry ("Variables");
 
     m_types.append(type);

@@ -376,9 +376,9 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
 #if 0
   // figure out if the kate install is too new
   config.setGroup ("General");
-  if (config.readNumEntry ("Version") > config.readNumEntry ("CachedVersion"))
+  if (config.readEntry ("Version") > config.readNumEntry ("CachedVersion", QVariant(0)).toInt())
   {
-    config.writeEntry ("CachedVersion", config.readNumEntry ("Version"));
+    config.writeEntry ("CachedVersion", config.readEntry ("Version", QVariant(0)).toInt());
     force = true;
   }
 #endif

@@ -63,8 +63,8 @@ obj = env.kdeobj('module')
 obj.target = 'katepart'
 obj.source = sources
 obj.includes = includes
-obj.libs = 'kdeui kparts'
-obj.libpaths = '../kdeui ../kparts'
+obj.libs = 'kdeui kparts kdeprint kutils kjs'
+obj.libpaths = '../kdeui ../kparts ../kdeprint ../kutils ../kjs'
 obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4'
 
 

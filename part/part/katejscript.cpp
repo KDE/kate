@@ -1050,7 +1050,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
         {
           QString niceName=config.readEntry("niceName",internalName);
           QString copyright=config.readEntry("copyright",i18n("(Unknown)"));
-          double  version=config.readDoubleNumEntry("version",0.0);
+          double  version=config.readEntry("version", QVariant(0.0)).toDouble();
           KateIndentJScriptImpl *s=new KateIndentJScriptImpl(
             internalName,filePath,niceName,copyright,version);
           m_scripts.insert (internalName, s);

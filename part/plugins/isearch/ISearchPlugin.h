@@ -43,7 +43,7 @@ public:
 	void removeView (KTextEditor::View *view);
 
 private:
-	Q3PtrList<class ISearchPluginView> m_views;
+	QList<class ISearchPluginView*> m_views;
 };
 
 class ISearchPluginView : public QObject, public KXMLGUIClient

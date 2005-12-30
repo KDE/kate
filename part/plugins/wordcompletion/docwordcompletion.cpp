@@ -78,7 +78,7 @@ void DocWordCompletionPlugin::configDialog (QWidget *parent)
               KDialogBase::Ok,
               parent );
 
-  Q3PtrList<KTextEditor::ConfigPage> editorPages;
+  QList<KTextEditor::ConfigPage*> editorPages;
 
   for (uint i = 0; i < configPages (); i++)
   {
@@ -104,7 +104,7 @@ void DocWordCompletionPlugin::configDialog (QWidget *parent)
   if (kd->exec())
   {
 
-    for( uint i=0; i<editorPages.count(); i++ )
+    for( int i=0; i<editorPages.count(); i++ )
     {
       editorPages.at( i )->apply();
     }

@@ -370,7 +370,7 @@ void DocWordCompletionPluginView::complete( bool fw )
     d->cline = cline;
     d->ccol = ccol;
     d->last = wrd;
-    d->lastIns = QString::null;
+    d->lastIns.clear();
     d->line = d->cline;
     d->col = d->ccol - wrd.length();
     d->lilen = 0;
@@ -491,7 +491,7 @@ QString DocWordCompletionPluginView::word(int col, const QString& line)
 {
   //KTextEditor::Cursor end = m_view->cursorPosition();
 
-  if ( ! col) return QString::null; // no word
+  if ( ! col) return QString(); // no word
 
   //KTextEditor::Cursor start (end.line(), 0);
 
@@ -499,7 +499,7 @@ QString DocWordCompletionPluginView::word(int col, const QString& line)
   if ( d->re.searchRev(line.left(col)
         //m_view->document()->text( start, end )
         ) < 0 )
-    return QString::null; // no word
+    return QString(); // no word
   return d->re.cap( 1 );
 }
 
@@ -508,7 +508,7 @@ QString DocWordCompletionPluginView::word()
 {
   KTextEditor::Cursor end = m_view->cursorPosition();
 
-  if ( ! end.column()) return QString::null; // no word
+  if ( ! end.column()) return QString(); // no word
 
   KTextEditor::Cursor start (end.line(), 0);
 
@@ -516,7 +516,7 @@ QString DocWordCompletionPluginView::word()
   if ( d->re.searchRev(
         m_view->document()->text( KTextEditor::Range(start, end) )
         ) < 0 )
-    return QString::null; // no word
+    return QString(); // no word
   return d->re.cap( 1 );
 }
 

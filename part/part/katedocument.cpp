@@ -1237,7 +1237,7 @@ bool KateDocument::editMarkLineAutoWrapped ( int line, bool autowrapped )
 
   editStart ();
 
-  editAddUndo (KateUndoGroup::editMarkLineAutoWrapped, line, autowrapped ? 1 : 0, 0, QString::null);
+  editAddUndo (KateUndoGroup::editMarkLineAutoWrapped, line, autowrapped ? 1 : 0, 0, QString());
 
   l->setAutoWrapped (autowrapped);
 
@@ -2006,7 +2006,7 @@ QString KateDocument::markDescription( MarkInterface::MarkTypes type ) const
 {
   if( m_markDescriptions.contains(type) )
     return m_markDescriptions[type];
-  return QString::null;
+  return QString();
 }
 
 void KateDocument::setMarksUserChangable( uint markMask )
@@ -2274,7 +2274,7 @@ bool KateDocument::openFile(KIO::Job * job)
   //
   // set doc name, dummy value as arg, don't need it
   //
-  setDocName  (QString::null);
+  setDocName  (QString());
 
   //
   // to houston, we are not modified
@@ -2465,7 +2465,7 @@ bool KateDocument::saveAs( const KURL &u )
   if ( KParts::ReadWritePart::saveAs( u ) )
   {
     // null means base on fileName
-    setDocName( QString::null );
+    setDocName( QString() );
 
     if ( u.directory() != oldDir )
       readDirConfig();
@@ -2545,7 +2545,7 @@ void KateDocument::deactivateDirWatch ()
   if (!m_dirWatchFile.isEmpty())
     KateGlobal::self()->dirWatch ()->removeFile (m_dirWatchFile);
 
-  m_dirWatchFile = QString::null;
+  m_dirWatchFile.clear();
 }
 
 bool KateDocument::closeURL()
@@ -2584,7 +2584,7 @@ bool KateDocument::closeURL()
   // empty url + fileName
   //
   m_url = KURL ();
-  m_file = QString::null;
+  m_file.clear();
 
   // we are not modified
   if (m_modOnHd)
@@ -2623,7 +2623,7 @@ bool KateDocument::closeURL()
   emit documentUrlChanged (this);
 
   // update doc name
-  setDocName (QString::null);
+  setDocName (QString());
 
   // success
   return true;
@@ -4119,7 +4119,7 @@ void KateDocument::slotModifiedOnDisk( KTextEditor::View * /*v*/ )
       {
         m_modOnHd = false;
         KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
-            url().url(),QString::null,widget(),i18n("Save File"));
+            url().url(),QString(),widget(),i18n("Save File"));
 
         kdDebug(13020)<<"got "<<res.URLs.count()<<" URLs"<<endl;
         if( ! res.URLs.isEmpty() && ! res.URLs.first().isEmpty() && checkOverwrite( res.URLs.first() ) )
@@ -4264,7 +4264,7 @@ bool KateDocument::documentSave()
 bool KateDocument::documentSaveAs()
 {
   KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
-                url().url(),QString::null,0,i18n("Save File"));
+                url().url(),QString(),0,i18n("Save File"));
 
   if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first() ) )
     return false;
@@ -4778,7 +4778,7 @@ void KateDocument::slotQueryClose_save(bool *handled, bool* abortClosing) {
       if (m_url.isEmpty())
       {
         KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
-                QString::null,QString::null,0,i18n("Save File"));
+                QString(),QString(),0,i18n("Save File"));
 
         if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first() ) ) {
                 *abortClosing=true;

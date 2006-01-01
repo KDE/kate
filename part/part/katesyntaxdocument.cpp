@@ -152,7 +152,7 @@ bool KateSyntaxDocument::nextItem( KateSyntaxContextData* data)
  */
 QString KateSyntaxDocument::groupItemData( const KateSyntaxContextData* data, const QString& name){
   if(!data)
-    return QString::null;
+    return QString();
 
   // If there's no name just return the tag name of data->item
   if ( (!data->item.isNull()) && (name.isEmpty()))
@@ -166,14 +166,14 @@ QString KateSyntaxDocument::groupItemData( const KateSyntaxContextData* data, co
     return data->item.attribute(name);
   }
 
-  return QString::null;
+  return QString();
 
 }
 
 QString KateSyntaxDocument::groupData( const KateSyntaxContextData* data,const QString& name)
 {
   if(!data)
-    return QString::null;
+    return QString();
 
   if (!data->currentGroup.isNull())
   {
@@ -181,7 +181,7 @@ QString KateSyntaxDocument::groupData( const KateSyntaxContextData* data,const Q
   }
   else
   {
-    return QString::null;
+    return QString();
   }
 }
 

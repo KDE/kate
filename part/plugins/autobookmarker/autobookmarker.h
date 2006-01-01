@@ -36,7 +36,7 @@ class AutoBookmarkEnt
 {
   public:
   enum REFlags { CaseSensitive=1, MinimalMatching=2 };
-  AutoBookmarkEnt(const QString &p=QString::null,
+  AutoBookmarkEnt(const QString &p=QString(),
                   const QStringList &f=QStringList(),
                   const QStringList &m=QStringList(),
                   int flags=1 );

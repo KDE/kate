@@ -64,7 +64,7 @@ class KateCmdShellCompletion : public KCompletion
      * Finds completions to the given text.
      * The first match is returned and emitted in the signal match().
      * @param text the text to complete
-     * @return the first match, or QString::null if not found
+     * @return the first match, or QString() if not found
      */
     QString makeCompletion(const QString &text);
 

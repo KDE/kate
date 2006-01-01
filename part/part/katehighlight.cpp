@@ -2848,7 +2848,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
       errorsAndWarnings+=i18n(
           "<B>%1</B>: Specified multiline comment region (%2) could not be resolved<BR>"
                              ).arg(buildIdentifier).arg( m_additionalData[ ident ]->multiLineRegion );
-      m_additionalData[ ident ]->multiLineRegion = QString();
+      m_additionalData[ ident ]->multiLineRegion.clear();
       kdDebug(13010)<<"ERROR comment region attribute could not be resolved"<<endl;
 
     } else {

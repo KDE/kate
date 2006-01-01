@@ -214,7 +214,7 @@ bool ISearchPluginView::eventFilter( QObject* o, QEvent* e )
 	if( e->type() == QEvent::KeyPress ) {
 		QKeyEvent *keyEvent = (QKeyEvent*)e;
 		if( keyEvent->key() == Qt::Key_Escape )
-			quitToView( QString::null );
+			quitToView( QString() );
 	}
 
 	return false;

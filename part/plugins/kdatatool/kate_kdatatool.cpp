@@ -90,7 +90,7 @@ void KDataToolPluginView::aboutToShow()
 	kdDebug()<<"KTextEditor::KDataToolPluginView::aboutToShow"<<endl;
 	QString word;
 	m_singleWord = false;
-	m_wordUnderCursor = QString::null;
+	m_wordUnderCursor.clear();
 
 	// unplug old actions, if any:
 	foreach (KAction *ac, m_actionList) {
@@ -143,7 +143,7 @@ void KDataToolPluginView::aboutToShow()
 			m_singleWord = true;
 			m_singleWord_line = line;
 		} else {
-			m_notAvailable = new KAction(i18n("(not available)"), QString::null, 0, this,
+			m_notAvailable = new KAction(i18n("(not available)"), QString(), 0, this,
 					SLOT(slotNotAvailable()), actionCollection(),"dt_n_av");
 			m_menu->insert(m_notAvailable);
 			return;
@@ -164,7 +164,7 @@ void KDataToolPluginView::aboutToShow()
 		m_menu->insert(ac);
 
 	if( m_actionList.isEmpty() ) {
-		m_notAvailable = new KAction(i18n("(not available)"), QString::null, 0, this,
+		m_notAvailable = new KAction(i18n("(not available)"), QString(), 0, this,
 			SLOT(slotNotAvailable()), actionCollection(),"dt_n_av");
 		m_menu->insert(m_notAvailable);
 	}

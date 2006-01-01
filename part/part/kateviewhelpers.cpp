@@ -250,7 +250,7 @@ class KateCmdLineFlagCompletion : public KCompletion
 
     QString makeCompletion( const QString & /*s*/ )
     {
-      return QString::null;
+      return QString();
     }
 
 };

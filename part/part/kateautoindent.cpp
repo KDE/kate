@@ -1458,7 +1458,7 @@ QString KateCSAndSIndent::findOpeningCommentIndentation(const KateDocCursor &sta
 
   // should never happen.
   kdWarning( 13030 ) << " in a comment, but can't find the start of it" << endl;
-  return QString::null;
+  return QString();
 }
 
 bool KateCSAndSIndent::handleDoxygen (KateDocCursor &begin)
@@ -1720,7 +1720,7 @@ bool KateCSAndSIndent::inStatement( const KateDocCursor &begin )
 QString KateCSAndSIndent::continuationIndent( const KateDocCursor &begin )
 {
   if( !inStatement( begin ) )
-    return QString::null;
+    return QString();
   return indentString;
 }
 
@@ -1745,7 +1745,7 @@ QString KateCSAndSIndent::calcIndent (const KateDocCursor &begin)
   {
     if( !currLine->stringAtPos( currLineFirst+1, QLatin1String("region") ) &&
         !currLine->stringAtPos( currLineFirst+1, QLatin1String("endregion") ) )
-      return QString::null;
+      return QString();
   }
 
   /* Strategy:
@@ -1811,7 +1811,7 @@ QString KateCSAndSIndent::calcIndent (const KateDocCursor &begin)
   }
 
   // no active { in file.
-  return QString::null;
+  return QString();
 }
 
 QString KateCSAndSIndent::calcIndentInBracket(const KateDocCursor &indentCursor, const KateDocCursor &bracketCursor, int bracketPos)
@@ -1929,7 +1929,7 @@ QString KateCSAndSIndent::calcIndentInBrace(const KateDocCursor &indentCursor, c
     return whitespaceToOpenBrace;
 
   // the normal case: indent once for the brace, again if it's a continuation
-  QString continuationIndent = continuation ? indentString : QString::null;
+  QString continuationIndent = continuation ? indentString : QString();
   return indentString + continuationIndent + whitespaceToOpenBrace;
 }
 

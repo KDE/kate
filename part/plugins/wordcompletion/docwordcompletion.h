@@ -107,7 +107,7 @@ class DocWordCompletionPluginView
     void completeForwards();
     void shellComplete();
 
-    void popupCompletionList( QString word=QString::null );
+    void popupCompletionList( QString word=QString() );
     void autoPopupCompletionList();
     void toggleAutoPopup();
 

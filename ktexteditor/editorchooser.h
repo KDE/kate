@@ -75,13 +75,13 @@ class KTEXTEDITOR_EXPORT EditorChooser: public QWidget
      * \param postfix config group postfix string
      * \see writeAppSetting()
      */
-    void readAppSetting(const QString& postfix=QString::null);
+    void readAppSetting(const QString& postfix=QString());
     /**
      * Write the configuration to the application's config file.
      * \param postfix config group postfix string
      * \see readAppSetting()
      */
-    void writeAppSetting(const QString& postfix=QString::null);
+    void writeAppSetting(const QString& postfix=QString());
 
     /**
      * Static accessor to get the Editor instance of the currently used
@@ -92,7 +92,7 @@ class KTEXTEDITOR_EXPORT EditorChooser: public QWidget
      * \return Editor controller or NULL, if no editor component could be
      *        found
      */
-    static KTextEditor::Editor *editor (const QString& postfix=QString::null, bool fallBackToKatePart = true);
+    static KTextEditor::Editor *editor (const QString& postfix=QString(), bool fallBackToKatePart = true);
 
   signals:
     /**

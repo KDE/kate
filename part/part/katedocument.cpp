@@ -1439,8 +1439,15 @@ bool KateDocument::editInsertLine ( int line, const QString &s )
   if( !list.isEmpty() )
     emit marksChanged( this );
 
-  history()->doEdit( new KateEditInfo(this, KateEditInfo::ThirdParty, KTextEditor::Range(line, 0, line, 0), QStringList(), KTextEditor::Range(line, 0, line+1, 0), QStringList(s)) );
-  emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, 0, line+1, 0));
+  KTextEditor::Range rangeInserted(line, 0, line, tl->length());
+
+  if (line) {
+    KateTextLine::Ptr prevLine = plainKateTextLine(line - 1);
+    rangeInserted.start().setPosition(line - 1, prevLine->length());
+  }
+
+  history()->doEdit( new KateEditInfo(this, KateEditInfo::ThirdParty, KTextEditor::Range(rangeInserted.start(), rangeInserted.start()), QStringList(), rangeInserted, QStringList(s)) );
+  emit KTextEditor::Document::textInserted(this, rangeInserted);
 
   editEnd ();
 
@@ -1467,6 +1474,13 @@ bool KateDocument::editRemoveLine ( int line )
 
   editAddUndo (KateUndoGroup::editRemoveLine, line, 0, lineLength(line), this->line(line));
 
+  KTextEditor::Range rangeRemoved(line, 0, line, oldText.length());
+
+  if (line) {
+    KateTextLine::Ptr prevLine = plainKateTextLine(line - 1);
+    rangeRemoved.start().setPosition(line - 1, prevLine->length());
+  }
+
   m_buffer->removeLine(line);
 
   KTextEditor::Mark* rmark = 0;
@@ -1492,8 +1506,8 @@ bool KateDocument::editRemoveLine ( int line )
   if( !list.isEmpty() )
     emit marksChanged( this );
 
-  history()->doEdit( new KateEditInfo(this, KateEditInfo::ThirdParty, KTextEditor::Range(line, 0, line+1, 0), QStringList(QString(oldText)), KTextEditor::Range(line, 0, line, 0), QStringList()) );
-  emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, 0, line+1, 0));
+  history()->doEdit( new KateEditInfo(this, KateEditInfo::ThirdParty, rangeRemoved, QStringList(QString(oldText)), KTextEditor::Range(rangeRemoved.start(), rangeRemoved.start()), QStringList()) );
+  emit KTextEditor::Document::textRemoved(this, rangeRemoved);
 
   editEnd();
 
@@ -2717,16 +2731,12 @@ void KateDocument::setActiveView(KTextEditor::View* view)
   if ( m_activeView == view ) return;
 
   if (m_activeView) {
-    disconnect(m_activeView, SIGNAL(mousePositionChanged(const KTextEditor::Cursor&)), this, SIGNAL(activeViewMousePositionChanged(const KTextEditor::Cursor&)));
-    disconnect(m_activeView, SIGNAL(caretPositionChanged(const KTextEditor::Cursor&)), this, SIGNAL(activeViewCaretPositionChanged(const KTextEditor::Cursor&)));
     disconnect(m_activeView, SIGNAL(selectionChanged(KTextEditor::View*)), this, SIGNAL(activeViewSelectionChanged(KTextEditor::View*)));
   }
 
   m_activeView = (KateView*)view;
 
   if (m_activeView) {
-    connect(m_activeView, SIGNAL(mousePositionChanged(const KTextEditor::Cursor&)), SIGNAL(activeViewMousePositionChanged(const KTextEditor::Cursor&)));
-    connect(m_activeView, SIGNAL(caretPositionChanged(const KTextEditor::Cursor&)), SIGNAL(activeViewCaretPositionChanged(const KTextEditor::Cursor&)));
     connect(m_activeView, SIGNAL(selectionChanged(KTextEditor::View*)), SIGNAL(activeViewSelectionChanged(KTextEditor::View*)));
   }
 }

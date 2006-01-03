@@ -1,0 +1,47 @@
+#! /usr/bin/env python
+#generated from Makefile.am by am2bksys.py
+Import('env')
+
+kateregression_sources = """
+cursorexpectation.cpp kateregression.cpp rangeexpectation.cpp
+"""
+
+katetest_sources = """
+arbitraryhighlighttest.cpp katetest.cpp
+"""
+
+noinst_headers = """
+arbitraryhighlighttest.h cursorexpectation.h rangeexpectation.h
+"""
+
+includes = '../../interfaces/ktexteditor ../part #/kdeprint #/interfaces #/interfaces/kregexpeditor #/kdefx #/kutils #/kjs '
+
+obj = env.kdeobj('program')
+obj.env = env.Copy()
+obj.env['NOAUTOINSTALL'] = 1
+obj.target = 'katetest'
+obj.source = katetest_sources
+obj.includes = includes
+obj.uselib = 'QT QTCORE QTGUI QTEST QT3SUPPORT KDE4 '
+obj.libpaths = ' ../../dcop ../../kdecore ../../kdeui ../../kio  ../../kparts ../../interfaces/ktexteditor '
+obj.libs = 'DCOP kdecore kdeui kio ktexteditor kparts'
+obj.execute()
+
+obj = env.kdeobj('program')
+obj.env = env.Copy()
+obj.env['NOAUTOINSTALL'] = 1
+obj.target = 'kateregression'
+obj.source = kateregression_sources
+obj.includes = includes
+obj.uselib = 'QT QTCORE QTGUI QTEST QT3SUPPORT KDE4 '
+obj.libpaths = ' ../../dcop ../../kdecore ../../kdeui ../../kio ../../kparts ../../interfaces/ktexteditor '
+obj.libs = 'DCOP kdecore kdeui kio ktexteditor kparts'
+obj.execute()
+
+
+"""Unhandled Defines 
+kateregression_LDADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la -lQtTest_debug
+TESTS = kateregression
+katetest_LDADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la
+"""
+

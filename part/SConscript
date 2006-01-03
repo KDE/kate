@@ -1,5 +1,7 @@
 Import('env')
 
+env.subdirs('tests')
+
 sources = """
 part/katesearch.cpp
 part/katebuffer.cpp
@@ -59,13 +61,15 @@ tests
 ../kutils
 ../kjs"""
 
+libpaths = '../interfaces/ktexteditor ../interfaces/kdocument ../kdecore ../kdeui ../kparts ../kutils ../kjs ../kio ../dcop'
+libs = 'ktexteditor kdocument kdecore kdeui kparts kutils kjs kio DCOP'
 obj = env.kdeobj('module')
 obj.target = 'katepart'
 obj.source = sources
 obj.includes = includes
 obj.libs = 'kdeui kparts '
-obj.libpaths = '../interfaces/ktexteditor ../interfaces/kdocument ../kdecore ../kdeui ../kparts ../kjs ../kio ../dcop'
-obj.libs = 'ktexteditor kdocument kdecore kdeui kparts kjs kio DCOP'
+obj.libpaths = libpaths
+obj.libs = libs
 obj.uselib = 'QT QTCORE QTGUI QTXML QT3SUPPORT KDE4'
 
 
@@ -73,8 +77,8 @@ obj = env.kdeobj('program')
 obj.target = 'katetest'
 obj.source = 'tests/katetest.cpp tests/arbitraryhighlighttest.cpp'
 obj.includes = includes
-obj.libs = 'ktexteditor kdocument kparts'
-obj.libpaths = '../interfaces/ktexteditor ../interfaces/kdocument ../kparts'
+obj.libs = libs + ' katepart'
+obj.libpaths = libpaths + ' .'
 obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4'
 
 

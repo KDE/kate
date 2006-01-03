@@ -398,8 +398,8 @@ void KWrite::readConfig(KConfig *config)
 {
   config->setGroup("General Options");
 
-  m_paShowStatusBar->setChecked( config->readBoolEntry("ShowStatusBar") );
-  m_paShowPath->setChecked( config->readBoolEntry("ShowPath") );
+  m_paShowStatusBar->setChecked( config->readEntry("ShowStatusBar", QVariant(false)).toBool() );
+  m_paShowPath->setChecked( config->readEntry("ShowPath", QVariant(false)).toBool() );
 
   m_recentFiles->loadEntries(config, "Recent Files");
 

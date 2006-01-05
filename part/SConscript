@@ -71,7 +71,7 @@ obj.libs = 'kdeui kparts '
 obj.libpaths = libpaths
 obj.libs = libs
 obj.uselib = 'QT QTCORE QTGUI QTXML QT3SUPPORT KDE4'
-
+obj.execute()
 
 obj = env.kdeobj('program')
 obj.target = 'katetest'
@@ -80,7 +80,7 @@ obj.includes = includes
 obj.libs = libs + ' katepart'
 obj.libpaths = libpaths + ' .'
 obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4'
-
+obj.execute()
 
 # TODO move this to a more generic place
 env['BUILDERS']['Hash']    = Builder(action="perl kjs/create_hash_table $SOURCE -i > $TARGET" ,suffix='.lut.h',src_suffix='.cpp')

@@ -151,18 +151,18 @@ void KateDocumentConfig::readConfig (KConfig *config)
 {
   configStart ();
 
-  setTabWidth (config->readNumEntry("Tab Width", 8));
+  setTabWidth (config->readEntry("Tab Width", 8));
 
-  setIndentationWidth (config->readNumEntry("Indentation Width", 2));
+  setIndentationWidth (config->readEntry("Indentation Width", 2));
 
-  setIndentationMode (config->readNumEntry("Indentation Mode", KateDocumentConfig::imNone));
+  setIndentationMode (config->readEntry("Indentation Mode", int(KateDocumentConfig::imNone)));
 
   setWordWrap (config->readEntry("Word Wrap", false));
-  setWordWrapAt (config->readNumEntry("Word Wrap Column", 80));
+  setWordWrapAt (config->readEntry("Word Wrap Column", 80));
   setPageUpDownMovesCursor (config->readNumEntry("PageUp/PageDown Moves Cursor", false));
-  setUndoSteps(config->readNumEntry("Undo Steps", 0));
+  setUndoSteps(config->readEntry("Undo Steps", 0));
 
-  setConfigFlags (config->readNumEntry("Basic Config Flags", KateDocumentConfig::cfTabIndents
+  setConfigFlags (config->readEntry("Basic Config Flags", KateDocumentConfig::cfTabIndents
     | KateDocumentConfig::cfKeepIndentProfile
     | KateDocumentConfig::cfWrapCursor
     | KateDocumentConfig::cfShowTabs
@@ -170,12 +170,12 @@ void KateDocumentConfig::readConfig (KConfig *config)
 
   setEncoding (config->readEntry("Encoding", ""));
 
-  setEol (config->readNumEntry("End of Line", 0));
-  setAllowEolDetection (config->readNumEntry("Allow End of Line Detection", true));
+  setEol (config->readEntry("End of Line", 0));
+  setAllowEolDetection (config->readEntry("Allow End of Line Detection", true));
 
-  setBackupFlags (config->readNumEntry("Backup Config Flags", 1));
+  setBackupFlags (config->readEntry("Backup Config Flags", 1));
 
-  setSearchDirConfigDepth (config->readNumEntry("Search Dir Config Depth", -1));
+  setSearchDirConfigDepth (config->readEntry("Search Dir Config Depth", -1));
 
   setBackupPrefix (config->readEntry("Backup Prefix", QString ("")));
 
@@ -184,7 +184,7 @@ void KateDocumentConfig::readConfig (KConfig *config)
   // plugins
   const KTrader::OfferList& plugins = KateGlobal::self()->plugins();
   for (int i=0; i<plugins.count(); i++)
-    setPlugin (i, config->readBoolEntry("KTextEditor Plugin " + plugins[i]->library(), false));
+    setPlugin (i, config->readEntry("KTextEditor Plugin " + plugins[i]->library(), false));
 
   configEnd ();
 }
@@ -659,31 +659,31 @@ void KateViewConfig::readConfig (KConfig *config)
 {
   configStart ();
 
-  setDynWordWrap (config->readBoolEntry( "Dynamic Word Wrap", true ));
-  setDynWordWrapIndicators (config->readNumEntry( "Dynamic Word Wrap Indicators", 1 ));
-  setDynWordWrapAlignIndent (config->readNumEntry( "Dynamic Word Wrap Align Indent", 80 ));
+  setDynWordWrap (config->readEntry( "Dynamic Word Wrap", true ));
+  setDynWordWrapIndicators (config->readEntry( "Dynamic Word Wrap Indicators", 1 ));
+  setDynWordWrapAlignIndent (config->readEntry( "Dynamic Word Wrap Align Indent", 80 ));
 
-  setLineNumbers (config->readBoolEntry( "Line Numbers",  false));
+  setLineNumbers (config->readEntry( "Line Numbers",  false));
 
-  setScrollBarMarks (config->readBoolEntry( "Scroll Bar Marks",  false));
+  setScrollBarMarks (config->readEntry( "Scroll Bar Marks",  false));
 
-  setIconBar (config->readBoolEntry( "Icon Bar", false ));
+  setIconBar (config->readEntry( "Icon Bar", false ));
 
-  setFoldingBar (config->readBoolEntry( "Folding Bar", true));
+  setFoldingBar (config->readEntry( "Folding Bar", true));
 
-  setBookmarkSort (config->readNumEntry( "Bookmark Menu Sorting", 0 ));
+  setBookmarkSort (config->readEntry( "Bookmark Menu Sorting", 0 ));
 
-  setAutoCenterLines (config->readNumEntry( "Auto Center Lines", 0 ));
+  setAutoCenterLines (config->readEntry( "Auto Center Lines", 0 ));
 
-  setSearchFlags (config->readNumEntry("Search Config Flags", KFind::FromCursor | KFind::CaseSensitive | KReplaceDialog::PromptOnReplace));
+  setSearchFlags (config->readEntry("Search Config Flags", KFind::FromCursor | KFind::CaseSensitive | KReplaceDialog::PromptOnReplace));
 
-  setCmdLine (config->readBoolEntry( "Command Line", false));
+  setCmdLine (config->readEntry( "Command Line", false));
 
-  setDefaultMarkType (config->readNumEntry( "Default Mark Type", KTextEditor::MarkInterface::markType01 ));
+  setDefaultMarkType (config->readEntry( "Default Mark Type", int(KTextEditor::MarkInterface::markType01) ));
 
-  setPersistentSelection (config->readNumEntry( "Persistent Selection", false ));
+  setPersistentSelection (config->readEntry( "Persistent Selection", false ));
 
-  setTextToSearchMode (config->readNumEntry( "Text To Search Mode", KateViewConfig::SelectionWord));
+  setTextToSearchMode (config->readEntry( "Text To Search Mode", int(KateViewConfig::SelectionWord)));
 
   configEnd ();
 }
@@ -1053,9 +1053,9 @@ void KateRendererConfig::readConfig (KConfig *config)
 
   setSchema (KateGlobal::self()->schemaManager()->number (config->readEntry("Schema", KateSchemaManager::normalSchema())));
 
-  setWordWrapMarker (config->readBoolEntry("Word Wrap Marker", false ));
+  setWordWrapMarker (config->readEntry("Word Wrap Marker", false ));
 
-  setShowIndentationLines (config->readBoolEntry( "Show Indentation Lines", false));
+  setShowIndentationLines (config->readEntry( "Show Indentation Lines", false));
 
   configEnd ();
 }

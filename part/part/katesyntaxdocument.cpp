@@ -339,9 +339,9 @@ void KateSyntaxDocument::setupModeList (bool force)
 
   // figure our if the kate install is too new
   config.setGroup ("General");
-  if (config.readNumEntry ("Version") > config.readNumEntry ("CachedVersion"))
+  if (config.readEntry ("Version",0) > config.readEntry ("CachedVersion",0))
   {
-    config.writeEntry ("CachedVersion", config.readNumEntry ("Version"));
+    config.writeEntry ("CachedVersion", config.readEntry ("Version",0));
     force = true;
   }
 
@@ -363,7 +363,7 @@ void KateSyntaxDocument::setupModeList (bool force)
     stat(QFile::encodeName(*it), &sbuf);
 
     // If the group exist and we're not forced to read the xml file, let's build myModeList for katesyntax..rc
-    if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readNumEntry("lastModified")))
+    if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readEntry("lastModified",0)))
     {
       // Let's make a new KateSyntaxModeListItem to instert in myModeList from the information in katesyntax..rc
       KateSyntaxModeListItem *mli=new KateSyntaxModeListItem;

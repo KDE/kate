@@ -207,7 +207,7 @@ void KateGlobal::readConfig(KConfig *config)
   config->setGroup("Kate Document Defaults");
 
   // read max loadable blocks, more blocks will be swapped out
-  KateBuffer::setMaxLoadedBlocks (config->readNumEntry("Maximal Loaded Blocks", KateBuffer::maxLoadedBlocks()));
+  KateBuffer::setMaxLoadedBlocks (config->readEntry("Maximal Loaded Blocks", int(KateBuffer::maxLoadedBlocks())));
 
   KateDocumentConfig::global()->readConfig (config);
 

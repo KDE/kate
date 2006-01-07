@@ -212,7 +212,7 @@ void KateCodeFoldingTree::getLineInfo(KateLineInfo *info, unsigned int line)
     return;
 
   //let's look for some information
-  for ( uint i=0; i < m_root.childCount(); ++i )
+  for ( int i=0; i < m_root.childCount(); ++i )
   {
     KateCodeFoldingNode *node = m_root.child(i);
 
@@ -258,7 +258,7 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForLine(unsigned int line)
     return &m_root;
 
   // lets look, if given line is within a subnode range, and then return the deepest one.
-  for ( uint i=0; i < m_root.childCount(); ++i )
+  for ( int i=0; i < m_root.childCount(); ++i )
   {
     KateCodeFoldingNode *node = m_root.child(i);
 
@@ -282,7 +282,7 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForLineDescending ( KateCodeFo
   // calculate the offset, between a subnodes real start line and its relative start
   offset += node->startLineRel;
 
-  for ( uint i=0; i < node->childCount(); ++i )
+  for ( int i=0; i < node->childCount(); ++i )
   {
     KateCodeFoldingNode *subNode = node->child(i);
 
@@ -319,7 +319,7 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForPosition(unsigned int line,
                 else
                 {
                   tmp=node;
-                  for ( uint i=0; i < node->childCount(); ++i )
+                  for ( int i=0; i < node->childCount(); ++i )
                   {
                     KateCodeFoldingNode *subNode = node->child(i);
                     kdDebug(13000)<<"cmdPos(case0):calling"<<endl;
@@ -371,7 +371,7 @@ void KateCodeFoldingTree::dumpNode(KateCodeFoldingNode *node, const QString &pre
     return;
 
   QString newprefix(prefix + "   ");
-  for ( uint i=0; i < node->childCount(); ++i )
+  for ( int i=0; i < node->childCount(); ++i )
     dumpNode (node->child(i),newprefix);
 }
 
@@ -404,7 +404,7 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
   }
   else
   {
-    for (unsigned int i=0;i<regionChanges->size() / 4;i++)
+    for (int i=0;i<regionChanges->size() / 4;i++)
     {
         signed char tmp=(*regionChanges)[regionChanges->size()-2-i*2];
         uint tmppos=(*regionChanges)[regionChanges->size()-1-i*2];
@@ -428,7 +428,7 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
       {
         unsigned int tmpLine=line-getStartLine(node);
 
-        for ( uint i=0; i < node->childCount(); ++i )
+        for ( int i=0; i < node->childCount(); ++i )
         {
           if (node->child(i)->startLineRel >= tmpLine)
           {
@@ -449,7 +449,7 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
       }
       else
       {
-        for ( uint i=0; i < node->childCount(); ++i )
+        for ( int i=0; i < node->childCount(); ++i )
         {
           if (getStartLine(node->child(i))>=line)
           {
@@ -1070,7 +1070,7 @@ void KateCodeFoldingTree::decrementBy1(KateCodeFoldingNode *node, KateCodeFoldin
     node->endLineValid = false;
   node->endLineRel--;
 
-  for (uint i=node->findChild(after)+1; i < node->childCount(); ++i)
+  for (int i=node->findChild(after)+1; i < node->childCount(); ++i)
     node->child(i)->startLineRel--;
 
   if (node->parentNode)
@@ -1102,7 +1102,7 @@ void KateCodeFoldingTree::lineHasBeenInserted(unsigned int line)
     else
       node->endLineRel++;
 
-    for (uint i=0; i < node->childCount(); ++i)
+    for (int i=0; i < node->childCount(); ++i)
     {
       KateCodeFoldingNode *iter = node->child(i);
 
@@ -1127,7 +1127,7 @@ void KateCodeFoldingTree::incrementBy1(KateCodeFoldingNode *node, KateCodeFoldin
 {
   node->endLineRel++;
 
-  for (uint i=node->findChild(after)+1; i < node->childCount(); ++i)
+  for (int i=node->findChild(after)+1; i < node->childCount(); ++i)
     node->child(i)->startLineRel++;
 
   if (node->parentNode)
@@ -1354,7 +1354,7 @@ void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
 
 void KateCodeFoldingTree::updateHiddenSubNodes(KateCodeFoldingNode *node)
 {
-  for (uint i=0; i < node->childCount(); ++i)
+  for (int i=0; i < node->childCount(); ++i)
   {
     KateCodeFoldingNode *iter = node->child(i);
 
@@ -1507,7 +1507,7 @@ void KateCodeFoldingTree::collapseToplevelNodes()
   if (m_root.noChildren ())
     return;
 
-  for ( uint i=0; i < m_root.childCount(); ++i )
+  for ( int i=0; i < m_root.childCount(); ++i )
   {
     KateCodeFoldingNode *node = m_root.child(i);
 

@@ -242,7 +242,7 @@ void KateTemplateHandler::locateRange( const KTextEditor::Cursor& cursor )
 
    }*/
 
-  for ( uint i = 0;i < m_tabOrder.count();i++ )
+  for ( int i = 0;i < m_tabOrder.count();i++ )
   {
     KateTemplatePlaceHolder *ph = m_tabOrder.at( i );
 

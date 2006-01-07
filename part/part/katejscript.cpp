@@ -638,9 +638,9 @@ void KateJScriptManager::collectScripts (bool force)
 
   // figure out if the kate install is too new
   config.setGroup ("General");
-  if (config.readNumEntry ("Version") > config.readNumEntry ("CachedVersion"))
+  if (config.readEntry ("Version", 0) > config.readEntry ("CachedVersion",0))
   {
-    config.writeEntry ("CachedVersion", config.readNumEntry ("Version"));
+    config.writeEntry ("CachedVersion", config.readEntry ("Version",0));
     force = true;
   }
 
@@ -662,7 +662,7 @@ void KateJScriptManager::collectScripts (bool force)
     stat(QFile::encodeName(*it), &sbuf);
 
     // If the group exist and we're not forced to read the .js file, let's build myModeList for katepartjscriptrc
-    if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readNumEntry("lastModified")))
+    if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readEntry("lastModified",0)))
     {
     }
     else
@@ -1040,7 +1040,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
 
     // If the group exist and we're not forced to read the .js file, let's build myModeList for katepartjscriptrc
     bool readnew=false;
-    if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readNumEntry("lastModified")))
+    if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readEntry("lastModified",0)))
     {
         config.setGroup(Group);
         QString filePath=*it;

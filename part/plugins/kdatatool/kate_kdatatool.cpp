@@ -53,7 +53,7 @@ void KDataToolPlugin::addView(KTextEditor::View *view)
 
 void KDataToolPlugin::removeView(KTextEditor::View *view)
 {
-	for (uint z=0; z < m_views.count(); z++)
+	for (int z=0; z < m_views.count(); z++)
         {
 		if (m_views.at(z)->parentClient() == view)
 		{

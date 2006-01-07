@@ -858,7 +858,7 @@ void KateView::joinLines()
 
 void KateView::readSessionConfig(KConfig *config)
 {
-  setCursorPositionInternal(KTextEditor::Cursor(config->readNumEntry("CursorLine"), config->readNumEntry("CursorColumn")));
+  setCursorPositionInternal(KTextEditor::Cursor(config->readEntry("CursorLine",0), config->readEntry("CursorColumn",0)));
 }
 
 void KateView::writeSessionConfig(KConfig *config)

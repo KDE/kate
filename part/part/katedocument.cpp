@@ -1837,7 +1837,7 @@ void KateDocument::readSessionConfig(KConfig *kconfig)
     hlSetByUser = true;
 
   // indent mode
-  config()->setIndentationMode( (uint)kconfig->readNumEntry("Indentation Mode", config()->indentationMode() ) );
+  config()->setIndentationMode( (uint)kconfig->readEntry("Indentation Mode", config()->indentationMode() ) );
 
   // Restore Bookmarks
   QList<int> marks = kconfig->readIntListEntry("Bookmarks");

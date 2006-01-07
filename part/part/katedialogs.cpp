@@ -1219,7 +1219,7 @@ void KatePartPluginConfigPage::apply ()
 
   KateDocumentConfig::global()->configStart ();
 
-  for (uint i=0; i < m_items.count(); i++)
+  for (int i=0; i < m_items.count(); i++)
     KateDocumentConfig::global()->setPlugin (m_items.at(i)->pluginIndex(), m_items.at(i)->checkState(0) == Qt::Checked);
 
   KateDocumentConfig::global()->configEnd ();

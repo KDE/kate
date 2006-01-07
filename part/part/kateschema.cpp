@@ -809,7 +809,7 @@ void KateSchemaConfigFontTab::schemaChanged( int newSchema )
   QFont f (KGlobalSettings::fixedFont());
 
   m_fontchooser->disconnect ( this );
-  m_fontchooser->setFont ( KateGlobal::self()->schemaManager()->schema( newSchema )->readFontEntry("Font", &f) );
+  m_fontchooser->setFont ( KateGlobal::self()->schemaManager()->schema( newSchema )->readEntry("Font", f) );
   m_fonts[ newSchema ] = m_fontchooser->font();
   connect (m_fontchooser, SIGNAL (fontSelected( const QFont & )), this, SLOT (slotFontSelected( const QFont & )));
 }

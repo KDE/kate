@@ -1169,7 +1169,7 @@ void KateRendererConfig::setSchemaInternal( int schema )
     m_font = new KateFontStruct ();
   }
 
-  m_font->setFont(config->readFontEntry("Font", &f));
+  m_font->setFont(config->readEntry("Font", f));
 }
 
 KateFontStruct *KateRendererConfig::fontStruct ()

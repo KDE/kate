@@ -670,17 +670,17 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
     SchemaColors c;
     KConfig *config = KateGlobal::self()->schemaManager()->schema(newSchema);
 
-    c.back= config->readColorEntry("Color Background", &tmp0);
-    c.selected = config->readColorEntry("Color Selection", &tmp1);
-    c.current = config->readColorEntry("Color Highlighted Line", &tmp2);
-    c.bracket = config->readColorEntry("Color Highlighted Bracket", &tmp3);
-    c.wwmarker = config->readColorEntry("Color Word Wrap Marker", &tmp4);
-    c.tmarker = config->readColorEntry("Color Tab Marker", &tmp5);
-    c.iconborder = config->readColorEntry("Color Icon Bar", &tmp6);
-    c.linenumber = config->readColorEntry("Color Line Number", &tmp7);
+    c.back= config->readEntry("Color Background", tmp0);
+    c.selected = config->readEntry("Color Selection", tmp1);
+    c.current = config->readEntry("Color Highlighted Line", tmp2);
+    c.bracket = config->readEntry("Color Highlighted Bracket", tmp3);
+    c.wwmarker = config->readEntry("Color Word Wrap Marker", tmp4);
+    c.tmarker = config->readEntry("Color Tab Marker", tmp5);
+    c.iconborder = config->readEntry("Color Icon Bar", tmp6);
+    c.linenumber = config->readEntry("Color Line Number", tmp7);
 
     for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)
-      c.markerColors[i] =  config->readColorEntry( QString("Color MarkType%1").arg(i+1), &mark[i] );
+      c.markerColors[i] =  config->readEntry( QString("Color MarkType%1").arg(i+1), mark[i] );
 
      m_schemas[ newSchema ] = c;
   }
@@ -865,11 +865,11 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
   QColor _c ( KGlobalSettings::baseColor() );
   p.setColor( QColorGroup::Base,
     KateGlobal::self()->schemaManager()->schema(schema)->
-      readColorEntry( "Color Background", &_c ) );
+      readEntry( "Color Background", _c ) );
   _c = KGlobalSettings::highlightColor();
   p.setColor( QColorGroup::Highlight,
     KateGlobal::self()->schemaManager()->schema(schema)->
-      readColorEntry( "Color Selection", &_c ) );
+      readEntry( "Color Selection", _c ) );
   _c = l->at(0)->foreground(); // not quite as much of an assumption ;)
   p.setColor( QColorGroup::Text, _c );
   m_defaultStyles->viewport()->setPalette( p );
@@ -998,11 +998,11 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   QColor _c ( KGlobalSettings::baseColor() );
   p.setColor( QColorGroup::Base,
     KateGlobal::self()->schemaManager()->schema(m_schema)->
-      readColorEntry( "Color Background", &_c ) );
+      readEntry( "Color Background", _c ) );
   _c = KGlobalSettings::highlightColor();
   p.setColor( QColorGroup::Highlight,
     KateGlobal::self()->schemaManager()->schema(m_schema)->
-      readColorEntry( "Color Selection", &_c ) );
+      readEntry( "Color Selection", _c ) );
   _c = l->at(0)->foreground(); // not quite as much of an assumption ;)
   p.setColor( QColorGroup::Text, _c );
   m_styles->viewport()->setPalette( p );

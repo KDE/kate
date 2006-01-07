@@ -159,7 +159,7 @@ void KateDocumentConfig::readConfig (KConfig *config)
 
   setWordWrap (config->readEntry("Word Wrap", false));
   setWordWrapAt (config->readEntry("Word Wrap Column", 80));
-  setPageUpDownMovesCursor (config->readNumEntry("PageUp/PageDown Moves Cursor", false));
+  setPageUpDownMovesCursor (config->readEntry("PageUp/PageDown Moves Cursor", false));
   setUndoSteps(config->readEntry("Undo Steps", 0));
 
   setConfigFlags (config->readEntry("Basic Config Flags", KateDocumentConfig::cfTabIndents
@@ -1127,21 +1127,21 @@ void KateRendererConfig::setSchemaInternal( int schema )
   QColor tmp6 ( "#EAE9E8" );
   QColor tmp7 ( "#000000" );
 
-  m_backgroundColor = config->readColorEntry("Color Background", &tmp0);
+  m_backgroundColor = config->readEntry("Color Background", tmp0);
   m_backgroundColorSet = true;
-  m_selectionColor = config->readColorEntry("Color Selection", &tmp1);
+  m_selectionColor = config->readEntry("Color Selection", tmp1);
   m_selectionColorSet = true;
-  m_highlightedLineColor  = config->readColorEntry("Color Highlighted Line", &tmp2);
+  m_highlightedLineColor  = config->readEntry("Color Highlighted Line", tmp2);
   m_highlightedLineColorSet = true;
-  m_highlightedBracketColor = config->readColorEntry("Color Highlighted Bracket", &tmp3);
+  m_highlightedBracketColor = config->readEntry("Color Highlighted Bracket", tmp3);
   m_highlightedBracketColorSet = true;
-  m_wordWrapMarkerColor = config->readColorEntry("Color Word Wrap Marker", &tmp4);
+  m_wordWrapMarkerColor = config->readEntry("Color Word Wrap Marker", tmp4);
   m_wordWrapMarkerColorSet = true;
-  m_tabMarkerColor = config->readColorEntry("Color Tab Marker", &tmp5);
+  m_tabMarkerColor = config->readEntry("Color Tab Marker", tmp5);
   m_tabMarkerColorSet = true;
-  m_iconBarColor  = config->readColorEntry("Color Icon Bar", &tmp6);
+  m_iconBarColor  = config->readEntry("Color Icon Bar", tmp6);
   m_iconBarColorSet = true;
-  m_lineNumberColor = config->readColorEntry("Color Line Number", &tmp7);
+  m_lineNumberColor = config->readEntry("Color Line Number", tmp7);
   m_lineNumberColorSet = true;
 
     // same std colors like in KateDocument::markColor
@@ -1155,7 +1155,7 @@ void KateRendererConfig::setSchemaInternal( int schema )
   mark[6] = Qt::red;
 
   for (int i = 1; i <= KTextEditor::MarkInterface::reservedMarkersCount(); i++) {
-    QColor col = config->readColorEntry(QString("Color MarkType%1").arg(i), &mark[i - 1]);
+    QColor col = config->readEntry(QString("Color MarkType%1").arg(i), mark[i - 1]);
     int index = i-1;
     m_lineMarkerColorSet[index] = true;
     m_lineMarkerColor[index] = col;

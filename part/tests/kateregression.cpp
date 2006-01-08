@@ -30,12 +30,12 @@
 #include <kapplication.h>
 #include <klocale.h>
 
-#include <qttest_kde.h>
+#include <qtest_kde.h>
 
 #include "cursorexpectation.h"
 #include "rangeexpectation.h"
 
-QTTEST_KDEMAIN( KateRegression, GUI )
+QTEST_KDEMAIN( KateRegression, GUI )
 
 using namespace KTextEditor;
 

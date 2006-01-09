@@ -304,6 +304,24 @@ class KatePartPluginConfigPage : public KateConfigPage
     class QPushButton *btnConfigure;
 };
 
+class KateScriptNewStuff;
+
+class KateScriptConfigPage : public KateConfigPage
+{
+  Q_OBJECT
+  
+  public:
+    KateScriptConfigPage(QWidget *parent);
+    virtual ~KateScriptConfigPage();
+  public slots:
+    void apply ();
+    void reload ();
+    void reset () {}
+    void defaults () {}
+  private:
+    KateScriptNewStuff *m_newStuff;
+};
+
 class KateHlConfigPage : public KateConfigPage
 {
   Q_OBJECT
@@ -401,3 +419,4 @@ class KateModOnHdPrompt : public KDialogBase
 };
 
 #endif
+//kate: indent-spaces indent-width 2

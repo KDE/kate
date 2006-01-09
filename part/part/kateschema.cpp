@@ -1247,6 +1247,7 @@ void KateSchemaConfigPage::newCurrentPage (QWidget *w)
 //BEGIN SCHEMA ACTION -- the 'View->Schema' menu action
 void KateViewSchemaAction::init()
 {
+  m_group=0;
   m_view = 0;
   last = 0;
 
@@ -1263,6 +1264,12 @@ void KateViewSchemaAction::slotAboutToShow()
   KateView *view=m_view;
   int count = KateGlobal::self()->schemaManager()->list().count();
 
+  if (!m_group) {
+   m_group=new QActionGroup(popupMenu());
+   m_group->setExclusive(true);
+
+  }
+
   for (int z=0; z<count; z++)
   {
     QString hlName = KateGlobal::self()->schemaManager()->list().operator[](z);
@@ -1270,20 +1277,40 @@ void KateViewSchemaAction::slotAboutToShow()
     if (!names.contains(hlName))
     {
       names << hlName;
-      popupMenu()->insertItem ( hlName, this, SLOT(setSchema(int)), 0,  z+1);
+      QAction *a=popupMenu()->addAction ( hlName, this, SLOT(setSchema(QAction*)));
+      a->setData(z+1);
+      a->setCheckable(true);
+      a->setActionGroup(m_group);
+	//FIXME EXCLUSIVE
     }
   }
 
   if (!view) return;
 
+  int id=view->renderer()->config()->schema()+1;
+  if (popupMenu()->actions().at(id-1)->data().toInt()==id) {
+  	popupMenu()->actions().at(id-1)->setChecked(true);
+  } else {
+	foreach(QAction *a,popupMenu()->actions()) {
+		if (a->data().toInt()==id) {
+			a->setChecked(true);
+			break;
+		}
+	}
+  }
+//FIXME
+#if 0
   popupMenu()->setItemChecked (last, false);
   popupMenu()->setItemChecked (view->renderer()->config()->schema()+1, true);
 
   last = view->renderer()->config()->schema()+1;
+#endif
 }
 
-void KateViewSchemaAction::setSchema (int mode)
-{
+void KateViewSchemaAction::setSchema (QAction *action) {
+  if (!action) return;
+  int mode=action->data().toInt();
+
   KateView *view=m_view;
 
   if (view)
@@ -1687,23 +1714,23 @@ void KateStyleListItem::setColor( int column )
   QColor d; // default color
   if ( column == Foreground)
   {
-    c = currentStyle->foreground();
-    d = defaultStyle->foreground();
+    c = currentStyle->foreground().color();
+    d = defaultStyle->foreground().color();
   }
   else if ( column == SelectedForeground )
   {
-    c = currentStyle->selectedForeground();
-    d = currentStyle->selectedForeground();
+    c = currentStyle->selectedForeground().color();
+    d = currentStyle->selectedForeground().color();
   }
   else if ( column == Background )
   {
-    c = currentStyle->background();
-    d = defaultStyle->background();
+    c = currentStyle->background().color();
+    d = defaultStyle->background().color();
   }
   else if ( column == SelectedBackground )
   {
-    c = currentStyle->selectedBackground();
-    d = defaultStyle->selectedBackground();
+    c = currentStyle->selectedBackground().color();
+    d = defaultStyle->selectedBackground().color();
   }
 
   if ( KColorDialog::getColor( c, d, treeWidget() ) != QDialog::Accepted) return;

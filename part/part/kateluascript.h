@@ -28,9 +28,9 @@ struct lua_State;
 
 class KateLUAIndentScriptImpl: public KateIndentScriptImplAbstract {
   public:
-    KateLUAIndentScriptImpl(const QString& internalName,
+    KateLUAIndentScriptImpl(KateIndentScriptManagerAbstract *manager,const QString& internalName,
         const QString  &filePath, const QString &niceName,
-        const QString &copyright, double version);
+        const QString &license, bool hasCopyright, double version);
     ~KateLUAIndentScriptImpl();
 
     virtual bool processChar( class KateView *view, QChar c, QString &errorMsg );
@@ -51,6 +51,7 @@ class KateLUAIndentScriptManager: public KateIndentScriptManagerAbstract
     KateLUAIndentScriptManager ();
     virtual ~KateLUAIndentScriptManager ();
     virtual KateIndentScript script(const QString &scriptname);
+    virtual QString copyright(KateIndentScriptImplAbstract *script) {return QString("not implemented yet");}
   private:
     /**
      * go, search our scripts

@@ -20,13 +20,14 @@
 
 #include <kdebug.h>
 #include <qstring.h>
+#include <klocale.h>
 
 //BEGIN KateIndentScriptImplAbstractImpl
 
-KateIndentScriptImplAbstract::KateIndentScriptImplAbstract(const QString& internalName,
+KateIndentScriptImplAbstract::KateIndentScriptImplAbstract(KateIndentScriptManagerAbstract *manager, const QString& internalName,
         const QString  &filePath, const QString &niceName,
-        const QString &copyright, double version):m_refcount(0),m_filePath(filePath),m_niceName(niceName),
-            m_copyright(copyright),m_version(version)
+        const QString &license, bool hasCopyright, double version):m_refcount(0),m_manager(manager),m_internalName(internalName),m_filePath(filePath),m_niceName(niceName),
+            m_license(license),m_hasCopyright(hasCopyright),m_version(version)
 {
 }
 
@@ -45,5 +46,15 @@ void KateIndentScriptImplAbstract::decRef()
   kdDebug(13050)<<"KateIndentScriptImplAbstract::decRef()"<<endl;
   m_refcount--;
 }
+
+
+QString KateIndentScriptImplAbstract::internalName() { return m_internalName;}
+QString KateIndentScriptImplAbstract::filePath() { return m_filePath;}
+QString KateIndentScriptImplAbstract::niceName() { return m_niceName;}
+QString KateIndentScriptImplAbstract::license()  { if (!m_hasCopyright) return i18n("tainted, no copyright notice. license(%1)").arg(m_license); else return m_license;}
+QString KateIndentScriptImplAbstract::copyright() { if (!m_hasCopyright) return i18n("Script has no copyright notice"); else return m_manager->copyright(this);}
+double KateIndentScriptImplAbstract::version() { return m_version;}
+
+
 
 //END

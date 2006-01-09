@@ -81,7 +81,7 @@ const QStringList &KateCommands::CoreCommands::cmds()
     << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
     << "set-word-wrap" << "set-word-wrap-column"
     << "set-replace-tabs-save" << "set-remove-trailing-space-save"
-    << "set-highlight" << "run-myself" << "set-show-indent";
+    << "set-highlight" << "set-show-indent";
 
   return l;
 }
@@ -107,6 +107,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     v->indent();
     return true;
   }
+#if 0
   else if ( cmd == "run-myself" )
   {
 #ifndef Q_WS_WIN //todo
@@ -115,6 +116,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     return 0;
 #endif
   }
+#endif
   else if ( cmd == "unindent" )
   {
     v->unIndent();

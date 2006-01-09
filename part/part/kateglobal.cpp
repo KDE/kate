@@ -30,7 +30,7 @@
 #ifndef Q_WS_WIN //todo
 #include "katejscript.h"
 #endif
-#include "kateluaindentscript.h"
+#include "kateluascript.h"
 #include "katecmd.h"
 
 #include <kvmallocator.h>
@@ -53,7 +53,6 @@ KateGlobal::KateGlobal ()
              I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://kate.kde.org")
  , m_instance (&m_aboutData)
  , m_plugins (KTrader::self()->query("KTextEditor/Plugin"))
- , m_jscript (0)
 {
   // set s_self
   s_self = this;
@@ -174,9 +173,6 @@ KateGlobal::~KateGlobal()
   // cu ;)
   qDeleteAll (m_indentScriptManagers);
 
-  // cu jscript
-  delete m_jscript;
-
   delete m_hlManager;
 
   delete m_cmdManager;
@@ -288,7 +284,7 @@ void KateGlobal::configDialog(QWidget *parent)
 
 int KateGlobal::configPages () const
 {
-  return 10;
+  return 11;
 }
 
 KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
@@ -324,6 +320,9 @@ KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
 
     case 9:
       return new KatePartPluginConfigPage (parent);
+
+    case 10:
+      return new KateScriptConfigPage (parent);
 
     default:
       return 0;
@@ -366,6 +365,9 @@ QString KateGlobal::configPageName (int number) const
     case 9:
       return i18n ("Plugins");
 
+    case 10:
+      return i18n("Scripts");
+
     default:
       return QString ("");
   }
@@ -406,6 +408,9 @@ QString KateGlobal::configPageFullName (int number) const
 
     case 9:
       return i18n ("Plugin Manager");
+
+    case 10:
+      return i18n ("Script Manager");
 
     default:
       return QString ("");
@@ -448,6 +453,9 @@ QPixmap KateGlobal::configPagePixmap (int number, int size) const
     case 9:
       return BarIcon("connect_established", size);
 
+    case 10:
+      return BarIcon("edit",size);
+
     default:
       return BarIcon("edit", size);
   }
@@ -488,18 +496,6 @@ void KateGlobal::deregisterView ( KateView *view )
 {
   m_views.removeAll( view );
   KateGlobal::decRef ();
-}
-
-KateJScript *KateGlobal::jscript ()
-{
-#ifndef Q_WS_WIN //todo
-  if (m_jscript)
-    return m_jscript;
-
-  return m_jscript = new KateJScript ();
-#else
-  return 0;
-#endif
 }
 
 

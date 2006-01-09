@@ -199,18 +199,10 @@ class KateView : public KTextEditor::View,
     bool m_cc_cleanup;
     enum KTextEditor::CompletionType m_delayed_cc_type;
     KTextEditor::CompletionProvider* m_delayed_cc_provider;
+
 #if 0
   public slots:
     void showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 );
-    void showCompletionBox( Q3ValueList<KTextEditor::CompletionEntry> arg1, int offset = 0, bool cs = true );
-
-  signals:
-    void completionAborted();
-    void completionDone();
-    void argHintHidden();
-    void completionDone(KTextEditor::CompletionEntry);
-    void filterInsertString(KTextEditor::CompletionEntry*,QString *);
-    void aboutToShowCompletionBox();
 #endif
   //
   // KTextEditor::TextHintInterface

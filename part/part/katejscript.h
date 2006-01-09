@@ -53,18 +53,18 @@ namespace KJS {
  * Whole Kate Part scripting in one classs
  * Allow subclassing to allow specialized scripting engine for indenters
  */
-class KateJScript
+class KateJScriptInterpreterContext
 {
   public:
     /**
      * generate new global interpreter for part scripting
      */
-    KateJScript ();
+    KateJScriptInterpreterContext ();
 
     /**
      * be destructive
      */
-    virtual ~KateJScript ();
+    virtual ~KateJScriptInterpreterContext ();
 
     /**
      * creates a JS wrapper object for given KateDocument
@@ -158,6 +158,8 @@ class KateJScriptManager : public KTextEditor::Command
      */
     void collectScripts (bool force = false);
 
+    KateJScriptInterpreterContext *m_jscript;
+
   //
   // Here we deal with the KTextEditor::Command stuff
   //
@@ -195,9 +197,9 @@ class KateJScriptManager : public KTextEditor::Command
 
 class KateIndentJScriptImpl: public KateIndentScriptImplAbstract {
   public:
-    KateIndentJScriptImpl(const QString& internalName,
+    KateIndentJScriptImpl(KateIndentScriptManagerAbstract *manager, const QString& internalName,
         const QString  &filePath, const QString &niceName,
-        const QString &copyright, double version);
+        const QString &license, bool hasCopyright, double version);
     ~KateIndentJScriptImpl();
     
     virtual bool processChar( KateView *view, QChar c, QString &errorMsg );
@@ -221,6 +223,7 @@ class KateIndentJScriptManager: public KateIndentScriptManagerAbstract
     KateIndentJScriptManager ();
     virtual ~KateIndentJScriptManager ();
     virtual KateIndentScript script(const QString &scriptname);
+    virtual QString copyright(KateIndentScriptImplAbstract* script);
   private:
     /**
      * go, search our scripts
@@ -228,7 +231,7 @@ class KateIndentJScriptManager: public KateIndentScriptManagerAbstract
      */
     void collectScripts (bool force = false);
     void parseScriptHeader(const QString &filePath,
-        QString *niceName,QString *copyright,double *version);
+        QString *niceName,QString *license, bool *hasCopyright, QString *copyright,double *version);
     QHash<QString, KateIndentJScriptImpl*> m_scripts;
 };
 

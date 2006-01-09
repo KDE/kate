@@ -38,7 +38,8 @@ class KateStyleListCaption;
 class KColorButton;
 
 class QMenu;
-
+class QAction;
+class QActionGroup;
 class KComboBox;
 
 class KateSchemaManager
@@ -107,13 +108,14 @@ class KateViewSchemaAction : public KActionMenu
 
     QPointer<KateView> m_view;
     QStringList names;
+    QActionGroup *m_group;
     int last;
 
   public  slots:
     void slotAboutToShow();
 
   private slots:
-    void setSchema (int mode);
+    void setSchema (QAction *action);
 };
 
 //

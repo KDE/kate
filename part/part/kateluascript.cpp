@@ -19,10 +19,10 @@
 #include "config.h"
 #ifdef HAVE_LUA
 
-#include "kateluaindentscript.h"
+#include "kateluascript.h"
 #include "katedocument.h"
 #include "kateview.h"
-
+#include "katehighlight.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -120,6 +120,105 @@ static int katelua_indenter_register(lua_State *L) {
   return 0;
 }
 
+static int katelua_document_attribute(lua_State *L) {
+  if (lua_gettop(L)!=2) {
+      lua_pushstring(L,i18n("document.attribute:Two parameters needed (line, column)").toUtf8().data());
+      lua_error(L);
+  }
+  if ((!lua_isnumber(L,1)) || (!lua_isnumber(L,2)))  {
+      lua_pushstring(L,i18n("document.attribute:Two parameters needed (line, column) (2x number)").toUtf8().data());
+      lua_error(L);
+  }
+  lua_pushnumber(L,katelua_doc->kateTextLine(lua_tonumber(L,1))->attribute(lua_tonumber(L,2)));
+  return 1;
+}
+
+static int katelua_document_canBreakAt(lua_State *L) {
+  if (lua_gettop(L)!=2) {
+      lua_pushstring(L,i18n("document.canBreakAt:Two parameters needed (char, attribute)").toUtf8().data());
+      lua_error(L);
+  }
+  if ((!lua_isstring(L,1)) || (!lua_isnumber(L,2)))  {
+      lua_pushstring(L,i18n("document.canBreakAt:Two parameters needed (char, attribute) (string (one character), number").toUtf8().data());
+      lua_error(L);
+  }
+  QString str(QString::fromUtf8(lua_tostring(L,1)));
+  if (str.isEmpty())
+    lua_pushboolean(L,true);
+  else
+    lua_pushboolean(L,katelua_doc->highlight()->canBreakAt(str.at(0),lua_tonumber(L,2)));
+  return 1;
+}
+
+static int katelua_document_canComment(lua_State *L) {
+  if (lua_gettop(L)!=2) {
+      lua_pushstring(L,i18n("document.canComment:Two parameters needed (start_attribute, end_attribute)").toUtf8().data());
+      lua_error(L);
+  }
+  if ((!lua_isstring(L,1)) || (!lua_isnumber(L,2)))  {
+      lua_pushstring(L,i18n("document.canComment:Two parameters needed (start_attribute, end_attribute) (2xnumber)").toUtf8().data());
+      lua_error(L);
+  }
+    lua_pushboolean(L,katelua_doc->highlight()->canComment(lua_tonumber(L,1),lua_tonumber(L,2)));
+  return 1;
+}
+
+static int katelua_document_clear(lua_State *L) {
+  if (lua_gettop(L)!=0) {
+      lua_pushstring(L,i18n("document.clear:No parameters needed)").toUtf8().data());
+      lua_error(L);
+  }
+  katelua_doc->clear();
+  lua_pushboolean(L,true);
+  return 1;
+}
+
+static int katelua_document_commentStart(lua_State *L) {
+  if (lua_gettop(L)!=1) {
+      lua_pushstring(L,i18n("document.commentStart:One parameter needed (attribute)").toUtf8().data());
+      lua_error(L);
+  }
+  if (!lua_isstring(L,1))  {
+      lua_pushstring(L,i18n("document.commentStart:One parameters needed (attribute) (number)").toUtf8().data());
+      lua_error(L);
+  }
+  lua_pushstring(L,katelua_doc->highlight()->getCommentStart(lua_tonumber(L,1)).toUtf8().data());
+  return 1;
+}
+
+static int katelua_document_commentEnd(lua_State *L) {
+  if (lua_gettop(L)!=1) {
+      lua_pushstring(L,i18n("document.commentEnd:One parameter needed (attribute)").toUtf8().data());
+      lua_error(L);
+  }
+  if (!lua_isstring(L,1))  {
+      lua_pushstring(L,i18n("document.commentEnd:One parameters needed (attribute) (number)").toUtf8().data());
+      lua_error(L);
+  }
+  lua_pushstring(L,katelua_doc->highlight()->getCommentEnd(lua_tonumber(L,1)).toUtf8().data());
+  return 1;
+}
+
+static int katelua_document_editBegin(lua_State *L) {
+  if (lua_gettop(L)!=0) {
+      lua_pushstring(L,i18n("document.editBegin:No parameters needed)").toUtf8().data());
+      lua_error(L);
+  }
+  katelua_doc->editBegin();
+  lua_pushboolean(L,true);
+  return 1;
+}
+
+static int katelua_document_editEnd(lua_State *L) {
+  if (lua_gettop(L)!=0) {
+      lua_pushstring(L,i18n("document.editEnd:No parameters needed)").toUtf8().data());
+      lua_error(L);
+  }
+  katelua_doc->editEnd();
+  lua_pushboolean(L,true);
+  return 1;
+}
+
 
 static int katelua_document_textline(lua_State *L) {
   if (lua_gettop(L)!=1) {
@@ -178,8 +277,16 @@ static int katelua_view_setcursorpositionreal(lua_State *L) {
   return 0;
 }
 
-static const struct KATELUA_FUNCTIONS katelua_documenttable[4]= {
-{"line",katelua_document_textline},
+static const struct KATELUA_FUNCTIONS katelua_documenttable[12]= {
+{"attribute",katelua_document_attribute},
+{"canBreakAt",katelua_document_canBreakAt},
+{"canComment",katelua_document_canComment},
+{"clear",katelua_document_clear},
+{"commentStart",katelua_document_commentStart},
+{"commentEnd",katelua_document_commentEnd},
+{"editBegin",katelua_document_editBegin},
+{"editEnd",katelua_document_editEnd},
+{"textLine",katelua_document_textline},
 {"removeText",katelua_document_removeText},
 {"insertText",katelua_document_insertText},
 {0,0}
@@ -212,10 +319,10 @@ static void  kateregistertable(lua_State* m_interpreter,const KATELUA_FUNCTIONS 
 
 
 //BEGIN KateLUAIndentScriptImpl
-KateLUAIndentScriptImpl::KateLUAIndentScriptImpl(const QString& internalName,
+KateLUAIndentScriptImpl::KateLUAIndentScriptImpl(KateIndentScriptManagerAbstract *manager, const QString& internalName,
         const QString  &filePath, const QString &niceName,
-        const QString &copyright, double version):
-          KateIndentScriptImplAbstract(internalName,filePath,niceName,copyright,version),m_interpreter(0)/*,m_indenter(0)*/
+        const QString &license, bool hasCopyright, double version):
+          KateIndentScriptImplAbstract(manager,internalName,filePath,niceName,license,hasCopyright,version),m_interpreter(0)/*,m_indenter(0)*/
 {
 }
 
@@ -414,8 +521,10 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
           QString niceName=config.readEntry("niceName",internalName);
           QString copyright=config.readEntry("copyright",i18n("(Unknown)"));
           double  version=qvariant_cast<double>(config.readEntry("version",0.0));
-          KateLUAIndentScriptImpl *s=new KateLUAIndentScriptImpl(
-            internalName,filePath,niceName,copyright,version);
+          QString license=config.readEntry("license",i18n("(Unknown)"));
+          bool hasCopyright=config.readEntry("hasCopyright",false);
+          KateLUAIndentScriptImpl *s=new KateLUAIndentScriptImpl(this,
+            internalName,filePath,niceName,license,hasCopyright,version);
           m_scripts.insert (internalName, s);
         }
     }
@@ -430,7 +539,9 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
         QString internalName=fi.baseName();
         QString filePath=*it;
         QString niceName=internalName;
-        QString copyright=i18n("(Unknown)");
+        QString license=i18n("(Unknown)");
+	QString copyright;
+        bool hasCopyright=false;
         double   version=0.0;
         parseScriptHeader(filePath,&niceName,&copyright,&version);
         /*save the information for retrieval*/
@@ -438,10 +549,12 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
         config.writeEntry("lastModified",int(sbuf.st_mtime));
         config.writeEntry("internalName",internalName);
         config.writeEntry("niceName",niceName);
+        config.writeEntry("license",license);
+        config.writeEntry("hasCopyright",hasCopyright);
         config.writeEntry("copyright",copyright);
         config.writeEntry("version",version);
-        KateLUAIndentScriptImpl *s=new KateLUAIndentScriptImpl(
-          internalName,filePath,niceName,copyright,version);
+        KateLUAIndentScriptImpl *s=new KateLUAIndentScriptImpl(this,
+          internalName,filePath,niceName,license,hasCopyright,version);
         m_scripts.insert (internalName, s);
     }
   }

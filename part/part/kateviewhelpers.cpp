@@ -327,11 +327,14 @@ bool KateCmdLine::event(QEvent *e) {
 
 void KateCmdLine::slotReturnPressed ( const QString& text )
 {
-
+  if (text.isEmpty()) return;
   // silently ignore leading space
   uint n = 0;
-  while( text[n].isSpace() )
+  const uint textlen=text.length();
+  while( (n<textlen) &&text[n].isSpace() )
     n++;
+  
+  if (n>=textlen) return;
 
   QString cmd = text.mid( n );
 

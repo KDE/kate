@@ -1061,11 +1061,6 @@ void KateView::showArgHint( QStringList arg1, const QString& arg2, const QString
   m_codeCompletion->showArgHint( arg1, arg2, arg3 );
 }
 
-void KateView::showCompletionBox( Q3ValueList<KTextEditor::CompletionEntry> arg1, int offset, bool cs )
-{
-  emit aboutToShowCompletionBox();
-  m_codeCompletion->showCompletionBox( arg1, offset, cs );
-}
 #endif
 
 KateRenderer *KateView::renderer ()
@@ -1785,7 +1780,7 @@ void KateView::slotTextInserted ( KTextEditor::View *view, const KTextEditor::Cu
 {
   emit textInserted ( view, position, text);
   if (m_customComplete) return;
-  kdDebug(13030)<<"Checking if cc provider list is empty"<<endl;
+  //kdDebug(13030)<<"Checking if cc provider list is empty"<<endl;
   if (m_completionProviders.isEmpty()) return;
   QLinkedList<KTextEditor::CompletionData> newdata;
 

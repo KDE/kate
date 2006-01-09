@@ -44,7 +44,6 @@ class KateRendererConfig;
 class KateDocument;
 class KateRenderer;
 class KateView;
-class KateJScript;
 class KateJScriptManager;
 class KateIndentScriptManagerAbstract;
 class KDirWatch;
@@ -267,11 +266,6 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     KVMAllocator *vm () { return m_vm; }
 
     /**
-     * global interpreter, for nice js stuff
-     */
-    KateJScript *jscript ();
-
-    /**
      * Global javascript collection
      */
     KateJScriptManager *jscriptManager () { return m_jscriptManager; }
@@ -392,11 +386,6 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * internal commands
      */
     QList<KTextEditor::Command *> m_cmds;
-
-    /**
-     * js interpreter
-     */
-    KateJScript *m_jscript;
 
     /**
      * js script manager

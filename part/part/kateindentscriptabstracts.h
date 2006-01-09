@@ -25,18 +25,26 @@
 class KateView;
 class KateDocCursor;
 
+class KateIndentScriptManagerAbstract;
 
 class KateIndentScriptImplAbstract {
   public:
     friend class KateIndentScript;
-    KateIndentScriptImplAbstract(const QString& internalName,
+    KateIndentScriptImplAbstract(KateIndentScriptManagerAbstract *manager, const QString& internalName,
         const QString  &filePath, const QString &niceName,
-        const QString &copyright, double version);
+        const QString &license,bool hasCopyright, double version);
     virtual ~KateIndentScriptImplAbstract();
     
     virtual bool processChar( KateView *view, QChar c, QString &errorMsg )=0;
     virtual bool processLine( KateView *view, const KateDocCursor &line, QString &errorMsg )=0;
     virtual bool processNewline( KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg )=0;
+  public:
+    QString internalName();
+    QString filePath();
+    QString niceName();
+    QString license();
+    QString copyright();
+    double version();
   protected:
     virtual void decRef();
     long refCount() {return m_refcount;}
@@ -44,10 +52,12 @@ class KateIndentScriptImplAbstract {
   private:
     void incRef();
     long m_refcount;
+    KateIndentScriptManagerAbstract *m_manager;
     QString m_internalName;
     QString m_filePath;
     QString m_niceName;
-    QString m_copyright;
+    QString m_license;
+    bool m_hasCopyright;
     double m_version;
 };
 
@@ -79,6 +89,13 @@ class KateIndentScript {
       if (m_scr) return m_scr->processNewline(view,begin,needcontinue,errorMsg); else return true;
     }
 
+    QString internalName() {if (m_scr) return m_scr->internalName(); else return QString();}
+    QString filePath() {if (m_scr) return m_scr->filePath(); else return QString();}
+    QString niceName() {if (m_scr) return m_scr->niceName(); else return QString();}
+    QString license() {if (m_scr) return m_scr->license(); else return QString();}
+    QString copyright() {if (m_scr) return m_scr->copyright(); else return QString();}
+    double version() {if (m_scr) return m_scr->version(); else return -1;}
+
     bool isNull () const {return (m_scr==0);}
   private:
     KateIndentScriptImplAbstract *m_scr;
@@ -91,6 +108,7 @@ class KateIndentScriptManagerAbstract
     KateIndentScriptManagerAbstract () {}
     virtual ~KateIndentScriptManagerAbstract () {}
     virtual KateIndentScript script(const QString &scriptname)=0;
+    virtual QString copyright(KateIndentScriptImplAbstract* script)=0;
 };
 
 #endif

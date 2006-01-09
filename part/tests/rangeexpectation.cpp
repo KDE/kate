@@ -20,7 +20,7 @@
 
 #include <math.h>
 
-#include <qttest_kde.h>
+#include <qtest_kde.h>
 #include <ktexteditor/smartrange.h>
 
 #include "kateregression.h"

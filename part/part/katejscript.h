@@ -43,7 +43,6 @@ class KateDocCursor;
  * Cool, this is all we need here
  */
 namespace KJS {
-  class Object;
   class ObjectImp;
   class Interpreter;
   class ExecState;
@@ -97,7 +96,7 @@ class KateJScriptInterpreterContext
     /**
      * global object of interpreter
      */
-    KJS::Object *m_global;
+    KJS::ObjectImp *m_global;
 
     /**
      * js interpreter
@@ -107,12 +106,12 @@ class KateJScriptInterpreterContext
     /**
      * object for document
      */
-    KJS::Object *m_document;
+    KJS::ObjectImp *m_document;
 
     /**
      * object for view
      */
-    KJS::Object *m_view;
+    KJS::ObjectImp *m_view;
 };
 
 class KateJScriptManager : public KTextEditor::Command
@@ -210,7 +209,7 @@ class KateIndentJScriptImpl: public KateIndentScriptImplAbstract {
   private:
     KateJSView *m_viewWrapper;
     KateJSDocument *m_docWrapper;
-    KJS::Object *m_indenter;
+    KJS::ObjectImp *m_indenter;
     KJS::Interpreter *m_interpreter;
     bool setupInterpreter(QString &errorMsg);
     void deleteInterpreter();

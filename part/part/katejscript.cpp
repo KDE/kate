@@ -74,14 +74,15 @@ QConstString UString::qconststring() const
 {
   return QConstString((QChar*) data(), size());
 }
+}
 
 //BEGIN global methods
-class KateJSGlobalFunctions : public ObjectImp
+class KateJSGlobalFunctions : public KJS::ObjectImp
 {
   public:
     KateJSGlobalFunctions(int i, int length);
     virtual bool implementsCall() const { return true; }
-    virtual ValueImp *call(ExecState *exec, ObjectImp* thisObj, const List &args);
+    virtual KJS::ValueImp *call(KJS::ExecState *exec, KJS::ObjectImp* thisObj, const KJS::List &args);
 
     enum {
       Debug
@@ -90,25 +91,23 @@ class KateJSGlobalFunctions : public ObjectImp
   private:
     int id;
 };
-KateJSGlobalFunctions::KateJSGlobalFunctions(int i, int length) : ObjectImp(), id(i)
+KateJSGlobalFunctions::KateJSGlobalFunctions(int i, int length) : KJS::ObjectImp(), id(i)
 {
-  putDirect(lengthPropertyName,length,DontDelete|ReadOnly|DontEnum);
+  putDirect(KJS::lengthPropertyName,length,KJS::DontDelete|KJS::ReadOnly|KJS::DontEnum);
 }
-ValueImp *KateJSGlobalFunctions::call(ExecState *exec, ObjectImp * /*thisObj*/, const List &args)
+KJS::ValueImp *KateJSGlobalFunctions::call(KJS::ExecState *exec, KJS::ObjectImp * /*thisObj*/, const KJS::List &args)
 {
   switch (id) {
     case Debug:
       kdDebug(13051) << args[0]->toString(exec).ascii() << endl;
-      return Undefined();
+      return KJS::Undefined();
     default:
       break;
   }
 
-  return Undefined();
+  return KJS::Undefined();
 }
 //END global methods
-
-} // namespace KJS
 
 //BEGIN JS API STUFF
 
@@ -244,8 +243,7 @@ KateJScriptInterpreterContext::KateJScriptInterpreterContext ()
   // references to the inserted KJS::Objects, this should avoid any garbage collection
   m_interpreter->globalObject()->put(m_interpreter->globalExec(), "document", m_document);
   m_interpreter->globalObject()->put(m_interpreter->globalExec(), "view", m_view);
-  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "debug",
-        new KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1));
+  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "debug", new KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1));
 }
 
 KateJScriptInterpreterContext::~KateJScriptInterpreterContext ()
@@ -294,7 +292,7 @@ bool KateJScriptInterpreterContext::execute (KateView *view, const QString &scri
 
     if (exVal->type() == KJS::ObjectType)
     {
-      KJS::ValueImp *lineVal = exVal->toObject()->get(exec,"line");
+      KJS::ValueImp *lineVal = exVal->getObject()->get(exec,"line");
 
       if (lineVal->type() == KJS::NumberType)
         lineno = int(lineVal->toNumber(exec));
@@ -359,7 +357,7 @@ IMPLEMENT_PROTOTYPE(KateJSDocumentProto,KateJSDocumentProtoFunc)
 
 const KJS::ClassInfo KateJSDocument::info = { "KateJSDocument", 0, 0, 0 };
 
-ValueImp *KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::ObjectImp *thisObj, const KJS::List &args)
+KJS::ValueImp *KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::ObjectImp *thisObj, const KJS::List &args)
 {
   KJS_CHECK_THIS( KateJSDocument, thisObj );
 

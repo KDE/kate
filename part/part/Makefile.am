@@ -6,7 +6,7 @@ katepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmds.cpp kateundo.cpp \
 	katecodecompletion.cpp katedocumenthelpers.cpp katecodefoldinghelpers.cpp kateviewinternal.cpp \
 	katebookmarks.cpp katefont.cpp katelinerange.cpp katesmartcursor.cpp katerenderer.cpp \
 	kateautoindent.cpp katefiletype.cpp kateschema.cpp katedocument.skel \
-	katetemplatehandler.cpp katejscript.cpp katespell.cpp kateprinter.cpp \
+	katetemplatehandler.cpp katespell.cpp kateprinter.cpp \
 	kateindentscriptabstracts.cpp kateluascript.cpp katerange.cpp katesmartrange.cpp kateglobal.cpp \
 	katecmd.cpp katelayoutcache.cpp katetextlayout.cpp katesmartmanager.cpp \
 	kateedit.cpp katesmartcursornotifier.cpp katerenderrange.cpp katesmartregion.cpp \

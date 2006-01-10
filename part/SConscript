@@ -35,7 +35,7 @@ part/katejscript.cpp
 part/katespell.cpp
 part/kateprinter.cpp
 part/kateindentscriptabstracts.cpp
-part/kateluaindentscript.cpp
+part/kateluascript.cpp
 part/katerange.cpp
 part/katesmartrange.cpp
 part/kateglobal.cpp

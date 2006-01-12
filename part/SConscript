@@ -1,6 +1,6 @@
 Import('env')
 
-env.subdirs('tests')
+#env.subdirs('tests')
 
 sources = """
 part/katesearch.cpp
@@ -31,7 +31,6 @@ part/katefiletype.cpp
 part/kateschema.cpp
 part/katedocument.skel
 part/katetemplatehandler.cpp
-part/katejscript.cpp
 part/katespell.cpp
 part/kateprinter.cpp
 part/kateindentscriptabstracts.cpp

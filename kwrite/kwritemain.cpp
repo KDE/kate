@@ -509,8 +509,8 @@ void KWrite::restore()
   KWrite *t;
 
   config->setGroup("Number");
-  docs = config->readNumEntry("NumberOfDocuments");
-  windows = config->readNumEntry("NumberOfWindows");
+  docs = config->readEntry("NumberOfDocuments", 0);
+  windows = config->readEntry("NumberOfWindows", 0);
 
   for (int z = 1; z <= docs; z++)
   {
@@ -527,7 +527,7 @@ void KWrite::restore()
   {
     buf = QString("Window %1").arg(z);
     config->setGroup(buf);
-    t = new KWrite(docList.at(config->readNumEntry("DocumentNumber") - 1));
+    t = new KWrite(docList.at(config->readEntry("DocumentNumber", 0) - 1));
     t->restore(config,z);
   }
 }

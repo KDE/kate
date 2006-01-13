@@ -8,7 +8,7 @@
   * Updated for 16-bit devices, etc.: Laurence Withers <lwithers@users.sf.net>
 -->
 
-<language name="PicAsm" version="1.06" kateversion="2.3" section="Assembler" extensions="*.src;*.SRC;*.asm;*.ASM;*.pic;*.PIC" mimetype="text/x-PicSrc;text/x-PicHdr" author="Alain GIBAUD (alain.gibaud@univ-valenciennes.fr)" license="LGPL">
+<language name="PicAsm" version="1.07" kateversion="2.3" section="Assembler" extensions="*.src;*.SRC;*.asm;*.ASM;*.pic;*.PIC" mimetype="text/x-PicSrc;text/x-PicHdr" author="Alain GIBAUD (alain.gibaud@univ-valenciennes.fr)" license="LGPL">
   
   <highlighting>
     <list name="directives">
@@ -163,6 +163,7 @@
       <item> incfsz </item>
       <item> infsnz </item>
       <item> iorlw </item>
+      <item> iorwf </item>
       <item> lfsr </item>
       <item> movf </item>
       <item> movff </item>
@@ -182,8 +183,10 @@
       <item> retlw </item>
       <item> return </item>
       <item> rlcf </item>
+      <item> rlf </item>
       <item> rlncf </item>
       <item> rrcf </item>
+      <item> rrf </item>
       <item> rrncf </item>
       <item> setf </item>
       <item> sleep </item>
@@ -233,6 +236,7 @@
       <item> INCFSZ </item>
       <item> INFSNZ </item>
       <item> IORLW </item>
+      <item> IORWF </item>
       <item> LFSR </item>
       <item> MOVF </item>
       <item> MOVFF </item>
@@ -252,8 +256,10 @@
       <item> RETLW </item>
       <item> RETURN </item>
       <item> RLCF </item>
+      <item> RLF </item>
       <item> RLNCF </item>
       <item> RRCF </item>
+      <item> RRF </item>
       <item> RRNCF </item>
       <item> SETF </item>
       <item> SLEEP </item>

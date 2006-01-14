@@ -73,7 +73,7 @@
 #include <ktempfile.h>
 #include <kpushbutton.h>
 #include <kvbox.h>
-#include <knewstuff/knewstuff.h>
+//#include <knewstuff/knewstuff.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qdialog.h>
@@ -1264,7 +1264,9 @@ void KatePartPluginConfigPage::slotConfigure()
 }
 //END KatePartPluginConfigPage
 
+class KateScriptNewStuff {};
 
+/*
 class KateScriptNewStuff: public KNewStuff {
   public:
     KateScriptNewStuff(QWidget *parent):KNewStuff("kate/scripts",parent) {}
@@ -1272,11 +1274,11 @@ class KateScriptNewStuff: public KNewStuff {
     virtual bool install( const QString &fileName ) {return false;}
     virtual bool createUploadFile( const QString &fileName ) {return false;}
 };
-
+*/
 //BEGIN KateScriptConfigPage
-KateScriptConfigPage::KateScriptConfigPage(QWidget *parent): KateConfigPage(parent,""), m_newStuff(new KateScriptNewStuff(this))
+KateScriptConfigPage::KateScriptConfigPage(QWidget *parent): KateConfigPage(parent,""), m_newStuff(new KateScriptNewStuff())
 {    
-  m_newStuff->download();
+  //m_newStuff->download();
 }
 
 KateScriptConfigPage::~KateScriptConfigPage()

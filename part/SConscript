@@ -1,6 +1,6 @@
 Import('env')
 
-#env.subdirs('tests')
+env.subdirs('tests')
 
 sources = """
 part/katesearch.cpp
@@ -60,8 +60,8 @@ tests
 ../kutils
 ../kjs"""
 
-libpaths = '../interfaces/ktexteditor ../interfaces/kdocument ../kdecore ../kdeui ../kparts ../kutils ../kjs ../kio ../dcop'
-libs = 'ktexteditor kdocument kdecore kdeui kparts kutils kjs kio DCOP'
+libpaths = '../interfaces/ktexteditor ../interfaces/kdocument ../kdecore ../kdeui ../kparts ../kdeprint ../kutils ../kjs ../kio ../dcop'
+libs = 'ktexteditor kdocument kdecore kdeui kparts kdeprint kutils kjs kio DCOP'
 obj = env.kdeobj('module')
 obj.target = 'katepart'
 obj.source = sources

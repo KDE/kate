@@ -1986,9 +1986,8 @@ class KateVarIndentPrivate {
 };
 
 KateVarIndent::KateVarIndent( KateDocument *doc )
-: QObject( 0, "variable indenter"), KateNormalIndent( doc )
+: QObject( 0, "variable indenter"), KateNormalIndent( doc ),d(new KateVarIndentPrivate)
 {
-  d = new KateVarIndentPrivate;
   d->reIndentAfter = QRegExp( doc->variable( "var-indent-indent-after" ) );
   d->reIndent = QRegExp( doc->variable( "var-indent-indent" ) );
   d->reUnindent = QRegExp( doc->variable( "var-indent-unindent" ) );

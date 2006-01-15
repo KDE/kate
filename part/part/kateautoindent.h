@@ -514,7 +514,7 @@ class KateVarIndent :  public QObject, public KateNormalIndent
      */
     bool hasRelevantOpening( const KateDocCursor &end ) const;
 
-    class KateVarIndentPrivate *d;
+    class KateVarIndentPrivate* const d;
 };
 
 class KateScriptIndent : public KateNormalIndent

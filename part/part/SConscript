@@ -1,0 +1,76 @@
+Import('env')
+
+sources = """
+katesearch.cpp
+katebuffer.cpp
+katecmds.cpp
+kateundo.cpp
+katecursor.cpp
+katedialogs.cpp
+katedocument.cpp
+katefactory.cpp
+katehighlight.cpp
+katesyntaxdocument.cpp
+katetextline.cpp
+kateview.cpp
+kateconfig.cpp
+kateviewhelpers.cpp
+katecodecompletion.cpp
+katedocumenthelpers.cpp
+katecodefoldinghelpers.cpp
+kateviewinternal.cpp
+katebookmarks.cpp
+katefont.cpp
+katelinerange.cpp
+katesmartcursor.cpp
+katerenderer.cpp
+kateautoindent.cpp
+katefiletype.cpp
+kateschema.cpp
+katedocument.skel
+katetemplatehandler.cpp
+katespell.cpp
+kateprinter.cpp
+kateindentscriptabstracts.cpp
+kateluascript.cpp
+katerange.cpp
+katesmartrange.cpp
+kateglobal.cpp
+katecmd.cpp
+katelayoutcache.cpp
+katetextlayout.cpp
+katesmartmanager.cpp
+kateedit.cpp
+katesmartcursornotifier.cpp
+katerenderrange.cpp
+katesmartregion.cpp
+katedynamicanimation.cpp
+kateextendedattribute.cpp
+"""
+
+includes = """
+../../interfaces
+../../interfaces/kregexpeditor
+../../kdeprint
+../../kdefx
+../../kutils
+../../kjs
+"""
+
+# TODO move this to a more generic place
+env['BUILDERS']['Hash']    = Builder(action="perl kjs/create_hash_table $SOURCE -i > $TARGET" ,suffix='.lut.h',src_suffix='.cpp')
+
+for i in ["katejscript.cpp"]:
+    env.Hash(i)
+
+libpaths = '../../interfaces/ktexteditor ../../interfaces/kdocument ../../kdecore ../../kdeui ../../kparts ../../kdeprint ../../kutils ../../kjs ../../kio ../../dcop'
+libs = 'ktexteditor kdocument kdecore kdeui kparts kdeprint kutils kjs kio DCOP'
+obj = env.kdeobj('module')
+obj.target = 'katepart'
+obj.source = sources
+obj.includes = includes
+obj.libs = 'kdeui kparts '
+obj.libpaths = libpaths
+obj.libs = libs
+obj.uselib = 'QT QTCORE QTGUI QTXML QT3SUPPORT KDE4'
+obj.execute()

@@ -1048,7 +1048,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
     if (!force && config.hasGroup(Group))
     {
         config.setGroup(Group);
-	if (sbuf.st_mtime == config.readNumEntry("lastModified",0)) {
+	if (sbuf.st_mtime == config.readEntry("lastModified",0)) {
 	        QString filePath=*it;
 	        QString internalName=config.readEntry("internlName","KATE-ERROR");
 	        if (internalName=="KATE-ERROR") readnew=true;

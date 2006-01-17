@@ -2,7 +2,7 @@
 <!DOCTYPE language>
 <!-- Python syntax highlightning v0.9 by Per Wigren -->
 <!-- Python syntax highlighting v1.9 by Michael Bueker (improved keyword differentiation) -->
-<language name="Python" version="1.92" kateversion="2.4.1" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
+<language name="Python" version="1.93" kateversion="2.4.1" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -160,12 +160,14 @@
 
 			<context name="Tripple A-string" attribute="String" lineEndContext="#stay">
 				<HlCChar attribute="String" context="#stay"/>
+				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/> 
 				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String" String="'''" context="#pop"/>
 			</context>
 
 			<context name="Tripple Q-string" attribute="String" lineEndContext="#stay">
 				<HlCStringChar attribute="String" context="#stay"/>
+				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String" String="&quot;&quot;&quot;" context="#pop"/>
 			</context>
@@ -182,23 +184,29 @@
 
 			<context name="Single A-string" attribute="String" lineEndContext="#stay">
 				<HlCStringChar attribute="String" context="#stay"/>
+				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
 				<DetectChar attribute="String" char="'" context="#pop"/>
 			</context>
 
 			<context name="Single Q-string" attribute="String" lineEndContext="#stay">
 				<HlCStringChar attribute="String" context="#stay"/>
+				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
 				<DetectChar attribute="String" char="&quot;" context="#pop"/>
 			</context>
 
 			<context name="Raw A-string" attribute="Raw String" lineEndContext="#stay">
 				<HlCStringChar attribute="Raw String" context="#stay"/>
+				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
+				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
 				<DetectChar attribute="Raw String" char="'" context="#pop"/>
 			</context>
 
 			<context name="Raw Q-string" attribute="Raw String" lineEndContext="#stay">
 				<HlCStringChar attribute="Raw String" context="#stay"/>
+				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
+				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
 				<DetectChar attribute="Raw String" char="&quot;" context="#pop"/>
 			</context>
 

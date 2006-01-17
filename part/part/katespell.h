@@ -46,7 +46,7 @@ class KateSpell : public QObject
     void updateActions ();
 
   // spellcheck from cursor, selection
-  private slots:
+  private Q_SLOTS:
     void spellcheckFromCursor();
 
     // defined here in anticipation of pr view selections ;)

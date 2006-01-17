@@ -372,7 +372,7 @@ class KateHlManager : public QObject
     // be carefull: all documents hl should be invalidated after having successfully called this method!
     bool resetDynamicCtxs();
 
-  signals:
+  Q_SIGNALS:
     void changed();
 
   private:
@@ -418,10 +418,10 @@ class KateViewHighlightAction: public KActionMenu
     QStringList names;
     QList<QMenu*> subMenus;
     QList<QAction*> subActions;
-  public  slots:
+  public  Q_SLOTS:
     void slotAboutToShow();
 
-  private slots:
+  private Q_SLOTS:
     void setHl ();
 };
 

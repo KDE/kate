@@ -206,7 +206,7 @@ class KateCodeFoldingTree : public QObject
     void updateHiddenSubNodes (KateCodeFoldingNode *node);
     void moveSubNodesUp (KateCodeFoldingNode *node);
 
-  public slots:
+  public Q_SLOTS:
     void updateLine (unsigned int line,QVector<int>* regionChanges, bool *updated, bool changed,bool colschanged);
     void toggleRegionVisibility (unsigned int);
     void collapseToplevelNodes ();
@@ -218,7 +218,7 @@ class KateCodeFoldingTree : public QObject
     */
     void ensureVisible( uint line );
 
-  signals:
+  Q_SIGNALS:
     void regionVisibilityChangedAt  (unsigned int);
     void regionBeginEndAddedRemoved (unsigned int);
 };

@@ -57,10 +57,10 @@ class KateDynamicAnimation : public QObject
 
     void finish();
 
-  public slots:
+  public Q_SLOTS:
     void timeout();
 
-  signals:
+  Q_SIGNALS:
     void redraw(KateSmartRange* range);
 
   private:

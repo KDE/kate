@@ -103,7 +103,7 @@ class KateLayoutCache
     // Methods for invalidation of layouts
     // Methods for tagging layouts as dirty
 
-private slots:
+private Q_SLOTS:
     void slotTextInserted(KTextEditor::Document *document, const KTextEditor::Range& range);
     void slotTextRemoved(KTextEditor::Document *document, const KTextEditor::Range& range);
     void slotTextChanged(KTextEditor::Document *document, const KTextEditor::Range& oldRange, const KTextEditor::Range& newRange);

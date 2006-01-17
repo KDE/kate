@@ -45,7 +45,7 @@ class CursorExpectation : public QObject, public KTextEditor::SmartCursorWatcher
 
     void checkExpectationsFulfilled() const;
 
-  public slots:
+  public Q_SLOTS:
     virtual void positionChanged(KTextEditor::SmartCursor* cursor);
     virtual void positionDeleted(KTextEditor::SmartCursor* cursor);
     virtual void characterDeleted(KTextEditor::SmartCursor* cursor, bool deletedBefore);

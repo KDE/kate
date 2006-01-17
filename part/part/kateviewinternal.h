@@ -120,11 +120,11 @@ class KateViewInternal : public QWidget
 
     KateView *view () { return m_view; }
 
-  public slots:
+  public Q_SLOTS:
     void slotIncFontSizes();
     void slotDecFontSizes();
 
-  private slots:
+  private Q_SLOTS:
     void scrollLines(int line); // connected to the sliderMoved of the m_lineScroll
     void scrollViewLines(int offset);
     void scrollAction(int action);
@@ -190,14 +190,14 @@ class KateViewInternal : public QWidget
 
     void contextMenuEvent ( QContextMenuEvent * e );
 
-  private slots:
+  private Q_SLOTS:
     void tripleClickTimeout();
 
-  signals:
+  Q_SIGNALS:
     // emitted when KateViewInternal is not handling its own URI drops
     void dropEventPass(QDropEvent*);
 
-  private slots:
+  private Q_SLOTS:
     void slotRegionVisibilityChangedAt(unsigned int);
     void slotRegionBeginEndAddedRemoved(unsigned int);
     void slotCodeFoldingChanged();
@@ -342,7 +342,7 @@ class KateViewInternal : public QWidget
     int m_wrapChangeViewLine;
     KTextEditor::Cursor m_cachedMaxStartPos;
 
-  private slots:
+  private Q_SLOTS:
     void doDragScroll();
     void startDragScroll();
     void stopDragScroll();
@@ -361,7 +361,7 @@ class KateViewInternal : public QWidget
     // used to set the lineScroll to the max value
     bool m_maximizeLineScroll;
 
-  private slots:
+  private Q_SLOTS:
     void scrollTimeout ();
     void cursorTimeout ();
     void textHintTimeout ();
@@ -411,7 +411,7 @@ class KateViewInternal : public QWidget
     void startDynamic(DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
     void endDynamic(DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
 
-  public slots:
+  public Q_SLOTS:
     void dynamicHighlightAdded(KateSmartRange* range);
     void dynamicHighlightRemoved(KateSmartRange* range);
     void rangeDeleted(KateSmartRange* range);

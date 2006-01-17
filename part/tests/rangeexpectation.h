@@ -43,7 +43,7 @@ class RangeExpectation : public QObject, public KTextEditor::SmartRangeWatcher
 
     void checkExpectationsFulfilled() const;
 
-  public slots:
+  public Q_SLOTS:
     virtual void positionChanged(KTextEditor::SmartRange* range);
     virtual void contentsChanged(KTextEditor::SmartRange* range);
     //virtual void boundaryDeleted(KTextEditor::SmartRange* range, bool start);

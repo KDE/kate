@@ -58,13 +58,13 @@ public:
 
 	void setView( KTextEditor::View* view );
 
-public slots:
+public Q_SLOTS:
 	void setCaseSensitive( bool );
 	void setFromBeginning( bool );
 	void setRegExp( bool );
 	void setAutoWrap( bool );
 
-private slots:
+private Q_SLOTS:
 	void slotSearchForwardAction();
 	void slotSearchBackwardAction();
 	void slotSearchAction( bool reverse );

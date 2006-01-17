@@ -46,7 +46,7 @@ class KateRegression : public QObject
 
     KTextEditor::SmartInterface* smart() const;
 
-  private slots:
+  private Q_SLOTS:
     void testAll();
     void testRange();
     void testSmartRange();

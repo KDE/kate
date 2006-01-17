@@ -83,13 +83,13 @@ class KateFileTypeConfigTab : public KateConfigPage
   public:
     KateFileTypeConfigTab( QWidget *parent );
 
-  public slots:
+  public Q_SLOTS:
     void apply();
     void reload();
     void reset();
     void defaults();
 
-  private slots:
+  private Q_SLOTS:
     void update ();
     void deleteType ();
     void newType ();
@@ -132,10 +132,10 @@ class KateViewFileTypeAction : public KActionMenu
     QStringList names;
     QList<QMenu*> subMenus;
 
-  public  slots:
+  public  Q_SLOTS:
     void slotAboutToShow();
 
-  private slots:
+  private Q_SLOTS:
     void setType (int mode);
 };
 

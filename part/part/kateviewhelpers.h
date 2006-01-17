@@ -55,7 +55,7 @@ class KateScrollBar : public QScrollBar
     inline bool showMarks() { return m_showMarks; };
     inline void setShowMarks(bool b) { m_showMarks = b; update(); };
 
-  signals:
+  Q_SIGNALS:
     void sliderMMBMoved(int value);
 
   protected:
@@ -67,7 +67,7 @@ class KateScrollBar : public QScrollBar
     virtual void styleChange(QStyle &oldStyle);
     virtual void sliderChange ( SliderChange change );
 
-  protected slots:
+  protected Q_SLOTS:
     void sliderMaybeMoved(int value);
     void marksChanged();
 
@@ -97,7 +97,7 @@ class KateCmdLine : public KLineEdit
   public:
     KateCmdLine (KateView *view);
     virtual bool event(QEvent *e);
-  private slots:
+  private Q_SLOTS:
     void slotReturnPressed ( const QString& cmd );
     void hideMe ();
 
@@ -148,7 +148,7 @@ class KateIconBorder : public QWidget
     enum BorderArea { None, LineNumbers, IconBorder, FoldingMarkers };
     BorderArea positionToArea( const QPoint& ) const;
 
-  signals:
+  Q_SIGNALS:
     void toggleRegionVisibility( unsigned int );
 
   private:
@@ -199,7 +199,7 @@ class KateViewEncodingAction : public KActionMenu
     KateView *view;
     QActionGroup *m_actions;
 
-  private slots:
+  private Q_SLOTS:
     void setMode (QAction*);
     void slotAboutToShow();
 };

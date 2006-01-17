@@ -86,7 +86,7 @@ class KateSearch : public QObject
 
     void createActions( KActionCollection* );
 
-  public slots:
+  public Q_SLOTS:
     void find();
     /**
      * Search for @p pattern given @p flags
@@ -112,7 +112,7 @@ class KateSearch : public QObject
     void replace( const QString &pattern, const QString &replacement, long flags );
     void findAgain( bool back );
 
-  private slots:
+  private Q_SLOTS:
     void replaceSlot();
     void slotFindNext() { findAgain( false ); }
     void slotFindPrev() { findAgain( true );  }
@@ -170,13 +170,13 @@ class KateReplacePrompt : public KDialogBase
      */
     KateReplacePrompt(QWidget *parent);
 
-  signals:
+  Q_SIGNALS:
     /**
      * button clicked
      */
     void clicked();
 
-  protected slots:
+  protected Q_SLOTS:
     /**
      * ok pressed
      */

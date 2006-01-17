@@ -88,12 +88,12 @@ class KateCodeCompletion : public QObject
 
     void handleKey (QKeyEvent *e);
 
-  public slots:
+  public Q_SLOTS:
     void slotCursorPosChanged();
     void showComment();
     void updateBox () { updateBox(false); }
 
-  signals:
+  Q_SIGNALS:
     void argHintHidden();
 
   private:
@@ -172,16 +172,16 @@ class KateArgHint: public QFrame
       virtual void adjustSize();
       virtual bool eventFilter( QObject*, QEvent* );
 
-  signals:
+  Q_SIGNALS:
       void argHintHidden();
       void argHintCompleted();
       void argHintAborted();
 
-  public slots:
+  public Q_SLOTS:
       virtual void reset( int, int );
       virtual void cursorPositionChanged( KateView*, int, int );
 
-  private slots:
+  private Q_SLOTS:
       void slotDone(bool completed);
 
   private:

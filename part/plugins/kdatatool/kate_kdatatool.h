@@ -63,7 +63,7 @@ private:
 	QList<KAction*> m_actionList;
 	QPointer<KActionMenu> m_menu;
 	KAction *m_notAvailable;
-protected slots:
+protected Q_SLOTS:
 	void aboutToShow();
 	void slotToolActivated( const KDataToolInfo &datatoolinfo, const QString &string );
 	void slotNotAvailable();

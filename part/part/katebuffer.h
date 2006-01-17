@@ -610,7 +610,7 @@ class KateBuffer : public QObject
      */
     bool doHighlight (KateBufBlock *buf, int from, int to, bool invalidate);
     bool isEmptyLine(KateTextLine::Ptr textline);
-  signals:
+  Q_SIGNALS:
     /**
      * Emittend if codefolding returned with a changed list
      */

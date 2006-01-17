@@ -43,7 +43,7 @@ class ArbitraryHighlightTest : public QObject
     KTextEditor::Document* doc() const;
     KTextEditor::SmartInterface* smart() const;
 
-  private slots:
+  private Q_SLOTS:
     void slotRangeChanged(KTextEditor::SmartRange* range, KTextEditor::SmartRange* mostSpecificChild);
     void slotRangeDeleted(KTextEditor::SmartRange* range);
     void slotCreateTopRange();

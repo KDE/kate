@@ -63,7 +63,7 @@ class KWrite : public KParts::MainWindow
     void dragEnterEvent( QDragEnterEvent * );
     void dropEvent( QDropEvent * );
 
-  public slots:
+  public Q_SLOTS:
     void slotNew();
     void slotFlush ();
     void slotOpen();
@@ -75,7 +75,7 @@ class KWrite : public KParts::MainWindow
     void changeEditor();
     void aboutEditor();
 
-  public slots:
+  public Q_SLOTS:
     void slotDropEvent(QDropEvent *);
 
     void slotEnableActions( bool enable );
@@ -118,7 +118,7 @@ class KWrite : public KParts::MainWindow
   /**
    * Stuff for the status bar
    */
-  public slots:
+  public Q_SLOTS:
     void updateStatus ();
 
     void viewModeChanged ( KTextEditor::View *view );
@@ -153,7 +153,7 @@ class KWriteEditorChooser: public KDialogBase
   private:
     KTextEditor::EditorChooser *m_chooser;
 
-  protected slots:
+  protected Q_SLOTS:
     void slotOk();
 };
 

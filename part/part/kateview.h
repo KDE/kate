@@ -95,13 +95,13 @@ class KateView : public KTextEditor::View,
   //
   // KTextEditor::ClipboardInterface
   //
-  public slots:
+  public Q_SLOTS:
     // TODO: Factor out of m_viewInternal
     void paste()         {  m_doc->paste( this ); m_viewInternal->repaint(); }
     void cut();
     void copy() const;
 
-  private slots:
+  private Q_SLOTS:
     /**
      * internal use, copy text as HTML to clipboard
      */
@@ -133,7 +133,7 @@ class KateView : public KTextEditor::View,
      */
     void lineAsHTML (KateTextLine::Ptr line, int startCol, int length, QTextStream *outputStream);
 
-  public slots:
+  public Q_SLOTS:
     void exportAsHTML ();
 
   //
@@ -169,11 +169,11 @@ class KateView : public KTextEditor::View,
      */
     int cursorColumn() const;
 
-  signals:
+  Q_SIGNALS:
     void caretPositionChanged(const KTextEditor::Cursor& newPosition);
     void mousePositionChanged(const KTextEditor::Cursor& newPosition);
 
-  private slots:
+  private Q_SLOTS:
     void slotMousePositionChanged();
     void slotCaretPositionChanged();
 
@@ -201,7 +201,7 @@ class KateView : public KTextEditor::View,
     KTextEditor::CompletionProvider* m_delayed_cc_provider;
 
 #if 0
-  public slots:
+  public Q_SLOTS:
     void showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 );
 #endif
   //
@@ -211,7 +211,7 @@ class KateView : public KTextEditor::View,
     void enableTextHints(int timeout);
     void disableTextHints();
 
-  signals:
+  Q_SIGNALS:
     void needTextHint(const KTextEditor::Cursor& position, QString &text);
 
   public:
@@ -220,7 +220,7 @@ class KateView : public KTextEditor::View,
   //
   // KTextEditor::SelectionInterface stuff
   //
-  public slots:
+  public Q_SLOTS:
     virtual bool setSelection ( const KTextEditor::Range &selection );
 
     virtual bool setSelection ( const KTextEditor::Cursor &position, int length, bool wrap = true )
@@ -265,11 +265,11 @@ class KateView : public KTextEditor::View,
     const QList<KTextEditor::SmartRange*>& actions() const;
     void clearActions();
 
-  signals:
+  Q_SIGNALS:
     void dynamicHighlightAdded(KateSmartRange* range);
     void dynamicHighlightRemoved(KateSmartRange* range);
 
-  public slots:
+  public Q_SLOTS:
     void removeExternalHighlight(KTextEditor::SmartRange* topRange);
     void removeActions(KTextEditor::SmartRange* topRange);
 
@@ -301,7 +301,7 @@ class KateView : public KTextEditor::View,
   //
   // KTextEditor::BlockSelectionInterface stuff
   //
-  public slots:
+  public Q_SLOTS:
     bool blockSelectionMode () const;
     bool setBlockSelectionMode (bool on);
     bool toggleBlockSelectionMode ();
@@ -347,7 +347,7 @@ class KateView : public KTextEditor::View,
     QString currentWord()
         { return m_doc->getWord( cursorPosition() ); }
 
-  public slots:
+  public Q_SLOTS:
     void indent()             { m_doc->indent( this, cursorPosition().line(), 1 );  }
     void unIndent()           { m_doc->indent( this, cursorPosition().line(), -1 ); }
     void cleanIndent()        { m_doc->indent( this, cursorPosition().line(), 0 );  }
@@ -419,7 +419,7 @@ class KateView : public KTextEditor::View,
     void readSessionConfig(KConfig *);
     void writeSessionConfig(KConfig *);
 
-  public slots:
+  public Q_SLOTS:
     int getEol();
     void setEol( int eol );
     void find();
@@ -452,7 +452,7 @@ class KateView : public KTextEditor::View,
     int dynWrapIndicators();
     bool foldingMarkersOn();
 
-  private slots:
+  private Q_SLOTS:
     /**
      * used to update actions after selection changed
      */
@@ -467,7 +467,7 @@ class KateView : public KTextEditor::View,
 
     KActionCollection* editActionCollection() const { return m_editActions; }
 
-  public slots:
+  public Q_SLOTS:
     void slotNewUndo();
     void slotUpdate();
     void toggleInsert();
@@ -477,7 +477,7 @@ class KateView : public KTextEditor::View,
     void switchToCmdLine ();
     void slotReadWriteChanged ();
 
-  signals:
+  Q_SIGNALS:
     void dropEventPass(QDropEvent*);
 
   public:
@@ -486,7 +486,7 @@ class KateView : public KTextEditor::View,
   protected:
     void contextMenuEvent( QContextMenuEvent* );
 
-  private slots:
+  private Q_SLOTS:
     void slotGotFocus();
     void slotLostFocus();
     void slotDropEventPass( QDropEvent* ev );
@@ -545,7 +545,7 @@ class KateView : public KTextEditor::View,
 
     bool       m_hasWrap;
 
-  private slots:
+  private Q_SLOTS:
     void slotNeedTextHint(int line, int col, QString &text);
     void slotHlChanged();
 
@@ -561,7 +561,7 @@ class KateView : public KTextEditor::View,
 
     void updateRendererConfig();
 
-  private slots:
+  private Q_SLOTS:
     void updateFoldingConfig ();
 
   private:

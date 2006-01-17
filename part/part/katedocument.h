@@ -155,7 +155,7 @@ class KateDocument : public KTextEditor::Document,
     // Invalid covariant returns my a$$... for some reason gcc won't let me return a KateView above!
     KateView* activeKateView() const;
 
-  signals:
+  Q_SIGNALS:
     void activeViewCaretPositionChanged(const KTextEditor::Cursor& newPosition);
     void activeViewMousePositionChanged(const KTextEditor::Cursor& newPosition);
     void activeViewSelectionChanged(KTextEditor::View* view);
@@ -168,7 +168,7 @@ class KateDocument : public KTextEditor::Document,
   //
   // KTextEditor::EditInterface stuff
   //
-  public slots:
+  public Q_SLOTS:
     virtual QString text() const;
 
     virtual QString text ( const KTextEditor::Range &range, bool blockwise = false ) const;
@@ -199,7 +199,7 @@ class KateDocument : public KTextEditor::Document,
     int totalCharacters() const;
     int lineLength ( int line ) const;
 
-  signals:
+  Q_SIGNALS:
     void charactersSemiInteractivelyInserted(int ,int ,const QString&);
 
   public:
@@ -294,7 +294,7 @@ class KateDocument : public KTextEditor::Document,
     bool wrapText (int startLine, int endLine);
 //END LINE BASED INSERT/REMOVE STUFF
 
-  signals:
+  Q_SIGNALS:
     /**
      * Emmitted when text from @p line was wrapped at position pos onto line @p nextLine.
      */
@@ -310,7 +310,7 @@ class KateDocument : public KTextEditor::Document,
     void undoEnd();
     void undoSafePoint();
 
-  private slots:
+  private Q_SLOTS:
     void undoCancel();
 
   private:
@@ -326,7 +326,7 @@ class KateDocument : public KTextEditor::Document,
   //
   // KTextEditor::UndoInterface stuff
   //
-  public slots:
+  public Q_SLOTS:
     void undo ();
     void redo ();
     void clearUndo ();
@@ -363,14 +363,14 @@ class KateDocument : public KTextEditor::Document,
     // this sets
     void updateModified();
 
-  signals:
+  Q_SIGNALS:
     void undoChanged ();
     void textInserted(int line,int column);
 
   //
   // KTextEditor::SearchInterface stuff
   //
-  public slots:
+  public Q_SLOTS:
     KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
         const QString &text, bool casesensitive = true, bool backwards = false);
     KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
@@ -379,7 +379,7 @@ class KateDocument : public KTextEditor::Document,
   //
   // KTextEditor::HighlightingInterface stuff
   //
-  public slots:
+  public Q_SLOTS:
     uint hlMode ();
     bool setHlMode (uint mode);
     uint hlModeCount ();
@@ -392,7 +392,7 @@ class KateDocument : public KTextEditor::Document,
   private:
     void setDontChangeHlOnSave();
 
-  signals:
+  Q_SIGNALS:
     void hlChanged ();
 
   //
@@ -405,7 +405,7 @@ class KateDocument : public KTextEditor::Document,
   //
   // KTextEditor::MarkInterface and MarkInterfaceExtension
   //
-  public slots:
+  public Q_SLOTS:
     uint mark( int line );
 
     void setMark( int line, uint markType );
@@ -426,7 +426,7 @@ class KateDocument : public KTextEditor::Document,
     void setMarksUserChangable( uint markMask );
     uint editableMarks();
 
-  signals:
+  Q_SIGNALS:
     void marksChanged( KTextEditor::Document* );
     void markChanged( KTextEditor::Document*, KTextEditor::Mark, KTextEditor::MarkInterface::MarkChangeAction );
 
@@ -439,7 +439,7 @@ class KateDocument : public KTextEditor::Document,
   //
   // KTextEditor::PrintInterface
   //
-  public slots:
+  public Q_SLOTS:
     bool printDialog ();
     bool print ();
 
@@ -474,7 +474,7 @@ class KateDocument : public KTextEditor::Document,
   public:
     QString variable( const QString &name ) const;
 
-  signals:
+  Q_SIGNALS:
     void variableChanged( KTextEditor::Document*, const QString &, const QString & );
 
   private:
@@ -516,11 +516,11 @@ class KateDocument : public KTextEditor::Document,
 
     KateSmartManager* smartManager() const { return m_smartManager; }
 
-  signals:
+  Q_SIGNALS:
     void dynamicHighlightAdded(KateSmartRange* range);
     void dynamicHighlightRemoved(KateSmartRange* range);
 
-  public slots:
+  public Q_SLOTS:
     virtual void removeHighlightFromDocument(KTextEditor::SmartRange* topRange);
     virtual void removeActionsFromDocument(KTextEditor::SmartRange* topRange);
 
@@ -557,7 +557,7 @@ class KateDocument : public KTextEditor::Document,
 
     void setModified( bool m );
 
-  private slots:
+  private Q_SLOTS:
     void slotDataKate ( KIO::Job* kio_job, const QByteArray &data );
     void slotFinishedKate ( KIO::Job * job );
 
@@ -587,18 +587,18 @@ class KateDocument : public KTextEditor::Document,
 
     inline KateHighlighting *highlight () const { return m_buffer->highlight(); }
 
-  public slots:    //please keep prototypes and implementations in same order
+  public Q_SLOTS:    //please keep prototypes and implementations in same order
     void tagLines(int start, int end);
     void tagLines(KTextEditor::Cursor start, KTextEditor::Cursor end);
 
   //export feature, obsolute
-  public slots:
+  public Q_SLOTS:
      void exportAs(const QString&) { };
 
-  signals:
+  Q_SIGNALS:
     void preHighlightChanged(uint);
 
-  private slots:
+  private Q_SLOTS:
     void internalHlChanged();
 
   public:
@@ -744,7 +744,7 @@ class KateDocument : public KTextEditor::Document,
 
     void setModifiedOnDiskWarning ( bool on );
 
-  public slots:
+  public Q_SLOTS:
     /**
      * Ask the user what to do, if the file has been modified on disc.
      * Reimplemented from KTextEditor::Document.
@@ -761,7 +761,7 @@ class KateDocument : public KTextEditor::Document,
     bool documentSave ();
     bool documentSaveAs ();
 
-  signals:
+  Q_SIGNALS:
     /**
      * Indicate this file is modified on disk
      * @param doc the KTextEditor::Document object that represents the file on disk
@@ -778,14 +778,14 @@ class KateDocument : public KTextEditor::Document,
     bool setEncoding (const QString &e);
     const QString &encoding() const;
 
-  public slots:
+  public Q_SLOTS:
     void setWordWrap (bool on);
     bool wordWrap ();
 
     void setWordWrapAt (uint col);
     uint wordWrapAt ();
 
-  public slots:
+  public Q_SLOTS:
     void setPageUpDownMovesCursor(bool on);
     bool pageUpDownMovesCursor();
 
@@ -816,12 +816,12 @@ class KateDocument : public KTextEditor::Document,
       return m_buffer->plainLine (i);
     }
 
-  signals:
+  Q_SIGNALS:
     void codeFoldingUpdated();
     void aboutToRemoveText(const KTextEditor::Range&);
     void textRemoved();
 
-  private slots:
+  private Q_SLOTS:
     void slotModOnHdDirty (const QString &path);
     void slotModOnHdCreated (const QString &path);
     void slotModOnHdDeleted (const QString &path);
@@ -887,7 +887,7 @@ class KateDocument : public KTextEditor::Document,
      */
     bool m_reloading;
 
-  public slots:
+  public Q_SLOTS:
     void slotQueryClose_save(bool *handled, bool* abortClosing);
 
   public:
@@ -967,7 +967,7 @@ class KateDocument : public KTextEditor::Document,
   protected:
       KateKeyInterceptorFunctor *m_tabInterceptor;
 
-  protected slots:
+  protected Q_SLOTS:
       //void testTemplateCode();
       void dumpRegionTree();
 };

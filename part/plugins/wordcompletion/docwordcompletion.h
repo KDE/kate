@@ -102,7 +102,7 @@ class DocWordCompletionPluginView
         {return KTextEditor::ArgHintData::Null();};
     void doComplete(KTextEditor::View*, const KTextEditor::CompletionData&,const KTextEditor::CompletionItem&) {}
 
-  private slots:
+  private Q_SLOTS:
     void completeBackwards();
     void completeForwards();
     void shellComplete();

@@ -49,7 +49,7 @@ class KateBookmarks : public QObject
   protected:
     void insertBookmarks( QMenu& menu);
 
-  private slots:
+  private Q_SLOTS:
     void toggleBookmark();
     void clearBookmarks();
   

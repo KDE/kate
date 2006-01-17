@@ -51,10 +51,10 @@ class InsertFilePluginView : public QObject, public KXMLGUIClient
   public:
     InsertFilePluginView( KTextEditor::View *view, const char *name=0 );
     ~InsertFilePluginView() {}
-  public slots:
+  public Q_SLOTS:
     /* display a file dialog, and insert the chosen file */
     void slotInsertFile();
-  private slots:
+  private Q_SLOTS:
     void slotFinished( KIO::Job *job );
     //slotAborted( KIO::Job *job );
   private:

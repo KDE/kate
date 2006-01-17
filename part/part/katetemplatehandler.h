@@ -63,7 +63,7 @@ class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 		void locateRange(const KTextEditor::Cursor &cursor );
 		bool m_initOk;
 		bool m_recursion;
-	private slots:
+	private Q_SLOTS:
 		void slotTextInserted(int,int);
 		void slotDocumentDestroyed();
 		void slotAboutToRemoveText(const KTextEditor::Range& range);

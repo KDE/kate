@@ -111,10 +111,10 @@ class KateViewSchemaAction : public KActionMenu
     QActionGroup *m_group;
     int last;
 
-  public  slots:
+  public  Q_SLOTS:
     void slotAboutToShow();
 
-  private slots:
+  private Q_SLOTS:
     void setSchema (QAction *action);
 };
 
@@ -145,7 +145,7 @@ class KateStyleListView : public QTreeWidget
     void setSelCol( const QColor &c ) { selcol = c; }
     void setNormalCol( const QColor &c ) { normalcol = c; }
 
-  private slots:
+  private Q_SLOTS:
     /* Display a popupmenu for item i at item position */
     void showPopupMenu( QTreeWidgetItem *i, const QPoint &globalPos );
     /* call item to change a property, or display a menu */
@@ -154,7 +154,7 @@ class KateStyleListView : public QTreeWidget
     void mSlotPopupHandler( int z );
     void unsetColor( int );
 
-  signals:
+  Q_SIGNALS:
     void changed();
 
   private:
@@ -195,14 +195,14 @@ class KateSchemaConfigColorTab : public QWidget
     // current schema
     int m_schema;
 
-  public slots:
+  public Q_SLOTS:
     void apply();
     void schemaChanged( int newSchema );
 
-  signals:
+  Q_SIGNALS:
     void changed(); // connected to parentWidget()->parentWidget() SLOT(slotChanged)
 
-  protected slots:
+  protected Q_SLOTS:
     void slotMarkerColorChanged(const QColor&);
     void slotComboBoxChanged(int index);
 };
@@ -220,11 +220,11 @@ class KateSchemaConfigFontTab : public QWidget
   public:
     void readConfig (KConfig *config);
 
-  public slots:
+  public Q_SLOTS:
     void apply();
     void schemaChanged( int newSchema );
 
-  signals:
+  Q_SIGNALS:
     void changed(); // connected to parentWidget()->parentWidget() SLOT(slotChanged)
 
   private:
@@ -232,7 +232,7 @@ class KateSchemaConfigFontTab : public QWidget
     FontMap m_fonts;
     int m_schema;
 
-  private slots:
+  private Q_SLOTS:
     void slotFontSelected( const QFont &font );
 };
 
@@ -269,7 +269,7 @@ class KateSchemaConfigHighlightTab : public QWidget
     void reload ();
     void apply ();
 
-  protected slots:
+  protected Q_SLOTS:
     void hlChanged(int z);
 
   private:
@@ -292,13 +292,13 @@ class KateSchemaConfigPage : public KateConfigPage
     KateSchemaConfigPage ( QWidget *parent, class KateDocument *doc=0 );
     ~KateSchemaConfigPage ();
 
-  public slots:
+  public Q_SLOTS:
     void apply();
     void reload();
     void reset();
     void defaults();
 
-  private slots:
+  private Q_SLOTS:
     void update ();
     void deleteSchema ();
     void newSchema ();

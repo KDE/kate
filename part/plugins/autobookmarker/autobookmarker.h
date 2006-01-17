@@ -69,7 +69,7 @@ class AutoBookmarker
     QPixmap configPagePixmap( uint, int ) const;
     bool abDone;
 
-  private slots:
+  private Q_SLOTS:
     void slotCompleted();
     void applyEntity( AutoBookmarkEnt *e );
 };
@@ -106,7 +106,7 @@ class AutoBookmarkerConfigPage : public KTextEditor::ConfigPage
     virtual void reset();
     virtual void defaults();
 
-  private slots:
+  private Q_SLOTS:
     void slotNew();
     void slotDel();
     void slotEdit();
@@ -126,7 +126,7 @@ class AutoBookmarkerEntEditor : public KDialogBase
 
     void apply();
 
-  private slots:
+  private Q_SLOTS:
   void showMTDlg();
     void slotPatternChanged( const QString& );
   private:

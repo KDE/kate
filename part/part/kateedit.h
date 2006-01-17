@@ -171,7 +171,7 @@ class KateEditHistory : public QObject
     void undo();
     void redo();
 
-  signals:
+  Q_SIGNALS:
     void editDone(KateEditInfo* edit);
     void editUndone(KateEditInfo* edit);
 

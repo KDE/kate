@@ -83,10 +83,10 @@ class KateConfigPage : public KTextEditor::ConfigPage
   public:
     bool hasChanged () { return m_changed; }
 
-  protected slots:
+  protected Q_SLOTS:
     void slotChanged();
 
-  private slots:
+  private Q_SLOTS:
     void somethingHasChanged ();
 
   protected:
@@ -115,7 +115,7 @@ class KateIndentConfigTab : public KateConfigPage
   public:
     KateIndentConfigTab(QWidget *parent);
 
-  protected slots:
+  protected Q_SLOTS:
     void somethingToggled();
     void indenterSelected (int);
 
@@ -129,7 +129,7 @@ class KateIndentConfigTab : public KateConfigPage
     QPushButton *m_configPage;
     QRadioButton *rb1, *rb2, *rb3;
 
-  public slots:
+  public Q_SLOTS:
     void configPage();
 
     void apply ();
@@ -155,7 +155,7 @@ class KateSelectConfigTab : public KateConfigPage
     QCheckBox *e6;
     QRadioButton *rb1, *rb2;
 
-  public slots:
+  public Q_SLOTS:
     void apply ();
     void reload ();
     void reset () {}
@@ -180,7 +180,7 @@ class KateEditConfigTab : public KateConfigPage
     KComboBox *e5;
     QCheckBox *m_wwmarker;
 
-  public slots:
+  public Q_SLOTS:
     void apply ();
     void reload ();
     void reset () {}
@@ -208,7 +208,7 @@ class KateViewDefaultsConfig : public KateConfigPage
     KComboBox *m_dynwrapIndicatorsCombo;
     QGroupBox *m_bmSort;
 
-  public slots:
+  public Q_SLOTS:
   void apply ();
   void reload ();
   void reset ();
@@ -222,7 +222,7 @@ class KateEditKeyConfiguration: public KateConfigPage
   public:
     KateEditKeyConfiguration( QWidget* parent, KateDocument* doc );
 
-  public slots:
+  public Q_SLOTS:
     void apply();
     void reload()   {}
     void reset()    {}
@@ -244,7 +244,7 @@ class KateSaveConfigTab : public KateConfigPage
   public:
   KateSaveConfigTab( QWidget *parent );
 
-  public slots:
+  public Q_SLOTS:
   void apply();
   void reload();
   void reset();
@@ -272,7 +272,7 @@ class KatePartPluginListView : public QTreeWidget
   public:
     KatePartPluginListView (QWidget *parent = 0);
 
-  signals:
+  Q_SIGNALS:
     void stateChange(KatePartPluginListItem *, bool);
 
   private:
@@ -287,13 +287,13 @@ class KatePartPluginConfigPage : public KateConfigPage
     KatePartPluginConfigPage (QWidget *parent);
     ~KatePartPluginConfigPage ();
 
-  public slots:
+  public Q_SLOTS:
     void apply ();
     void reload () {}
     void reset () {}
     void defaults () {}
 
-  private slots:
+  private Q_SLOTS:
     void slotCurrentChanged( QTreeWidgetItem* );
     void slotConfigure();
     void slotStateChanged( KatePartPluginListItem *, bool );
@@ -313,7 +313,7 @@ class KateScriptConfigPage : public KateConfigPage
   public:
     KateScriptConfigPage(QWidget *parent);
     virtual ~KateScriptConfigPage();
-  public slots:
+  public Q_SLOTS:
     void apply ();
     void reload ();
     void reset () {}
@@ -330,13 +330,13 @@ class KateHlConfigPage : public KateConfigPage
     KateHlConfigPage (QWidget *parent);
     ~KateHlConfigPage ();
 
-  public slots:
+  public Q_SLOTS:
     void apply ();
     void reload ();
     void reset () {}
     void defaults () {}
 
-  protected slots:
+  protected Q_SLOTS:
     void hlChanged(int);
     void hlDownload();
     void showMTDlg();
@@ -367,10 +367,10 @@ class KateHlDownloadDialog: public KDialogBase
     class QString listData;
     KIO::TransferJob *transferJob;
 
-  private slots:
+  private Q_SLOTS:
     void listDataReceived(KIO::Job *, const QByteArray &data);
 
-  public slots:
+  public Q_SLOTS:
     void slotUser1();
 };
 
@@ -395,7 +395,7 @@ class KateModOnHdPrompt : public KDialogBase
     KateModOnHdPrompt( KateDocument *doc, int modtype, const QString &reason, QWidget *parent  );
     ~KateModOnHdPrompt();
 
-  public slots:
+  public Q_SLOTS:
     /**
      * Show a diff between the document text and the disk file.
      * This will not close the dialog, since we still need a
@@ -407,7 +407,7 @@ class KateModOnHdPrompt : public KDialogBase
     void slotApply();
     void slotUser1();
 
-  private slots:
+  private Q_SLOTS:
     void slotPRead(KProcIO*); ///< Read from the diff process
     void slotPDone(KProcess*); ///< Runs the diff file when done
 

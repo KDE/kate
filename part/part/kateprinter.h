@@ -85,7 +85,7 @@ class KatePrintHeaderFooter : public KPrintDialogPage
     void getOptions(QMap<QString,QString>& opts, bool incldef = false);
     void setOptions(const QMap<QString,QString>& opts);
 
-  public slots:
+  public Q_SLOTS:
     void setHFFont();
 
   private:

@@ -54,7 +54,7 @@ class IndenterConfigPage : public QWidget
     IndenterConfigPage ( QWidget *parent=0 ) : QWidget(parent) {}
     virtual ~IndenterConfigPage () {}
 
-  public slots:
+  public Q_SLOTS:
     /**
      * Apply the changes. Save options here, use @p kapp->config() and
      * group [Kate Indenter MyIndenter].
@@ -200,10 +200,10 @@ class KateViewIndentationAction : public KActionMenu
   private:
     KateDocument* doc;
 
-  public  slots:
+  public  Q_SLOTS:
     void slotAboutToShow();
 
-  private slots:
+  private Q_SLOTS:
     void setMode (int mode);
 };
 
@@ -494,7 +494,7 @@ class KateVarIndent :  public QObject, public KateNormalIndent
 
     virtual uint modeNumber () const { return KateDocumentConfig::imVarIndent; };
 
-  private slots:
+  private Q_SLOTS:
     void slotVariableChanged( KTextEditor::Document*, const QString&, const QString&);
 
   private:
@@ -544,7 +544,7 @@ class ScriptIndentConfigPage : public IndenterConfigPage
     ScriptIndentConfigPage ( QWidget *parent=0 );
     virtual ~ScriptIndentConfigPage ();
 
-  public slots:
+  public Q_SLOTS:
     /**
      * Apply changes.
      */

@@ -42,7 +42,7 @@ class KateBrowserExtension : public KParts::BrowserExtension
      */
     KateBrowserExtension( KateDocument* doc );
 
-  public slots:
+  public Q_SLOTS:
     /**
      * copy text to clipboard
      */

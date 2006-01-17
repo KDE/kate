@@ -77,10 +77,10 @@ class KateSmartManager : public QObject
 
     KateSmartGroup* groupForLine(int line) const;
 
-  signals:
+  Q_SIGNALS:
     void signalRangeDeleted(KateSmartRange* range);
 
-  private slots:
+  private Q_SLOTS:
     void slotTextChanged(KateEditInfo* edit);
     void verifyCorrect() const;
 

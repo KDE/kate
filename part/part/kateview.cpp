@@ -782,7 +782,7 @@ void KateView::slotNewUndo()
 
 void KateView::slotDropEventPass( QDropEvent * ev )
 {
-  const KURL::List lstDragURLs=KURL::List::fromMimeData(ev->mimeData());
+  const KUrl::List lstDragURLs=KUrl::List::fromMimeData(ev->mimeData());
   bool ok = !lstDragURLs.isEmpty();
 
   KParts::BrowserExtension * ext = KParts::BrowserExtension::childObject( doc() );
@@ -1660,7 +1660,7 @@ void KateView::lineAsHTML (KateTextLine::Ptr line, int startCol, int length, QTe
 
 void KateView::exportAsHTML ()
 {
-  KURL url = KFileDialog::getSaveURL(QString(),"text/html",0,i18n("Export File as HTML"));
+  KUrl url = KFileDialog::getSaveURL(QString(),"text/html",0,i18n("Export File as HTML"));
 
   if ( url.isEmpty() )
     return;

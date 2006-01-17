@@ -538,7 +538,7 @@ class KateDocument : public KTextEditor::Document,
   // KParts::ReadWrite stuff
   //
   public:
-    bool openURL( const KURL &url );
+    bool openURL( const KUrl &url );
 
     /* Anders:
       I reimplemented this, since i need to check if backup succeeded
@@ -546,7 +546,7 @@ class KateDocument : public KTextEditor::Document,
     bool save();
 
     /* Anders: Reimplemented to do kate specific stuff */
-    bool saveAs( const KURL &url );
+    bool saveAs( const KUrl &url );
 
     bool openFile (KIO::Job * job);
     bool openFile ();
@@ -893,7 +893,7 @@ class KateDocument : public KTextEditor::Document,
   public:
     void makeAttribs (bool needInvalidate = true);
 
-    static bool checkOverwrite( KURL u );
+    static bool checkOverwrite( KUrl u );
 
   /**
    * Configuration

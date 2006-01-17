@@ -59,7 +59,7 @@ class InsertFilePluginView : public QObject, public KXMLGUIClient
     //slotAborted( KIO::Job *job );
   private:
     void insertFile();
-    KURL _file;
+    KUrl _file;
     QString _tmpfile;
     KIO::FileCopyJob *_job;
 };

@@ -105,7 +105,7 @@ void InsertFilePluginView::slotInsertFile()
     KTempFile tempFile( QString::null );
     _tmpfile = tempFile.name();
 
-    KURL destURL;
+    KUrl destURL;
     destURL.setPath( _tmpfile );
     _job = KIO::file_copy( _file, destURL, 0600, true, false, true );
     connect( _job, SIGNAL( result( KIO::Job * ) ), this, SLOT( slotFinished ( KIO::Job * ) ) );
@@ -175,7 +175,7 @@ void InsertFilePluginView::insertFile()
   v->setCursorPosition ( KTextEditor::Cursor (line + numlines - 1, numlines > 1 ? len : col + len)  );
 
   // clean up
-  _file = KURL ();
+  _file = KUrl ();
   _tmpfile.truncate( 0 );
 }
 

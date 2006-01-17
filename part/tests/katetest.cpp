@@ -181,7 +181,7 @@ void KWrite::setupActions()
   KStdAction::openNew( this, SLOT(slotNew()), actionCollection(), "file_new" )->setWhatsThis(i18n("Use this command to create a new document"));
   KStdAction::open( this, SLOT( slotOpen() ), actionCollection(), "file_open" )->setWhatsThis(i18n("Use this command to open an existing document for editing"));
 
-  m_recentFiles = KStdAction::openRecent(this, SLOT(slotOpen(const KURL&)),
+  m_recentFiles = KStdAction::openRecent(this, SLOT(slotOpen(const KUrl&)),
                                          actionCollection());
   m_recentFiles->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
@@ -247,7 +247,7 @@ void KWrite::setupStatusBar()
 }
 
 // load on url
-void KWrite::loadURL(const KURL &url)
+void KWrite::loadURL(const KUrl &url)
 {
   m_view->document()->openURL(url);
 }
@@ -284,21 +284,21 @@ void KWrite::slotNew()
   if (m_view->document()->isModified() || !m_view->document()->url().isEmpty())
     new KWrite();
   else
-    m_view->document()->openURL(KURL());
+    m_view->document()->openURL(KUrl());
 }
 
 void KWrite::slotOpen()
 {
 	KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenURLsAndEncoding(m_view->document()->encoding(), m_view->document()->url().url(),QString(),this,i18n("Open File"));
 
-  for (KURL::List::Iterator i=r.URLs.begin(); i != r.URLs.end(); ++i)
+  for (KUrl::List::Iterator i=r.URLs.begin(); i != r.URLs.end(); ++i)
   {
     encoding = r.encoding;
     slotOpen ( *i );
   }
 }
 
-void KWrite::slotOpen( const KURL& url )
+void KWrite::slotOpen( const KUrl& url )
 {
   if (url.isEmpty()) return;
 
@@ -370,7 +370,7 @@ void KWrite::editToolbars()
 
 void KWrite::dragEnterEvent( QDragEnterEvent *event )
 {
-  event->accept(KURL::List::canDecode(event->mimeData()));
+  event->accept(KUrl::List::canDecode(event->mimeData()));
 }
 
 void KWrite::dropEvent( QDropEvent *event )
@@ -380,12 +380,12 @@ void KWrite::dropEvent( QDropEvent *event )
 
 void KWrite::slotDropEvent( QDropEvent *event )
 {
-  const KURL::List textlist = KURL::List::fromMimeData(event->mimeData());
+  const KUrl::List textlist = KUrl::List::fromMimeData(event->mimeData());
 
   if (textlist.isEmpty())
     return;
 
-  for (KURL::List::ConstIterator i=textlist.begin(); i != textlist.end(); ++i)
+  for (KUrl::List::ConstIterator i=textlist.begin(); i != textlist.end(); ++i)
     slotOpen (*i);
 }
 

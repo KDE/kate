@@ -2601,7 +2601,7 @@ void KateViewInternal::dragEnterEvent( QDragEnterEvent* event )
 {
   if (event->source()==this) event->setDropAction(Qt::MoveAction);
   event->accept( (event->mimeData()->hasText() && m_doc->isReadWrite()) ||
-                  KURL::List::canDecode(event->mimeData()) );
+                  KUrl::List::canDecode(event->mimeData()) );
 }
 
 void KateViewInternal::fixDropEvent(QDropEvent* event) {
@@ -2631,7 +2631,7 @@ void KateViewInternal::dragMoveEvent( QDragMoveEvent* event )
 
 void KateViewInternal::dropEvent( QDropEvent* event )
 {
-  if ( KURL::List::canDecode(event->mimeData()) ) {
+  if ( KUrl::List::canDecode(event->mimeData()) ) {
 
       emit dropEventPass(event);
 

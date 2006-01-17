@@ -1819,7 +1819,7 @@ void KateDocument::setDontChangeHlOnSave()
 void KateDocument::readSessionConfig(KConfig *kconfig)
 {
   // restore the url
-  KURL url (kconfig->readEntry("URL"));
+  KUrl url (kconfig->readEntry("URL"));
 
   // get the encoding
   QString tmpenc=kconfig->readEntry("Encoding");
@@ -2092,7 +2092,7 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
 
 //BEGIN KParts::ReadWrite stuff
 
-bool KateDocument::openURL( const KURL &url )
+bool KateDocument::openURL( const KUrl &url )
 {
 //   kdDebug(13020)<<"KateDocument::openURL( "<<url.prettyURL()<<")"<<endl;
   // no valid URL
@@ -2336,7 +2336,7 @@ bool KateDocument::save()
   if ( ( l && config()->backupFlags() & KateDocumentConfig::LocalFiles )
        || ( ! l && config()->backupFlags() & KateDocumentConfig::RemoteFiles ) )
   {
-    KURL u( url() );
+    KUrl u( url() );
     u.setFileName( config()->backupPrefix() + url().fileName(true) + config()->backupSuffix() );
 
     kdDebug () << "backup src file name: " << url() << endl;
@@ -2472,7 +2472,7 @@ bool KateDocument::saveFile()
   return success;
 }
 
-bool KateDocument::saveAs( const KURL &u )
+bool KateDocument::saveAs( const KUrl &u )
 {
   QString oldDir = url().directory();
 
@@ -2597,7 +2597,7 @@ bool KateDocument::closeURL()
   //
   // empty url + fileName
   //
-  m_url = KURL ();
+  m_url = KUrl ();
   m_file.clear();
 
   // we are not modified
@@ -4806,7 +4806,7 @@ void KateDocument::slotQueryClose_save(bool *handled, bool* abortClosing) {
 
 }
 
-bool KateDocument::checkOverwrite( KURL u )
+bool KateDocument::checkOverwrite( KUrl u )
 {
   if( !u.isLocalFile() )
     return true;

@@ -1513,7 +1513,7 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   actionButton (User1)->setIcon(SmallIconSet("ok"));
 
   transferJob = KIO::get(
-    KURL(QString(HLDOWNLOADPATH)
+    KUrl(QString(HLDOWNLOADPATH)
        + QString("update-")
        + QString(KATEPART_VERSION)
        + QString(".xml")), true, true );
@@ -1595,7 +1595,7 @@ void KateHlDownloadDialog::slotUser1()
   QString destdir=KGlobal::dirs()->saveLocation("data","katepart/syntax/");
   foreach (QTreeWidgetItem *it, list->selectedItems())
   {
-    KURL src(it->text(4));
+    KUrl src(it->text(4));
     QString filename=src.fileName(false);
     QString dest = destdir+filename;
 

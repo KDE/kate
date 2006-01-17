@@ -182,7 +182,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    * SIGNALS
    * following signals should be emitted by the editor view
    */
-  signals:
+  Q_SIGNALS:
     /**
      * This signal is emitted whenever the \p view gets the focus.
      * \param view view which gets focus
@@ -293,7 +293,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    * following signals should be emitted by the editor view
    * if the cursor position changes
    */
-  signals:
+  Q_SIGNALS:
     /**
      * This signal is emitted whenever the \p view's cursor position changed.
      * \param view view which emitted the signal
@@ -395,7 +395,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    * following signals should be emitted by the editor view for selection
    * handling.
    */
-  signals:
+  Q_SIGNALS:
     /**
      * This signal is emitted whenever the \p view's selection changes.
      * \note If the mode switches from block selection to normal selection

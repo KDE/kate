@@ -94,7 +94,7 @@ class KTEXTEDITOR_EXPORT EditorChooser: public QWidget
      */
     static KTextEditor::Editor *editor (const QString& postfix=QString(), bool fallBackToKatePart = true);
 
-  signals:
+  Q_SIGNALS:
     /**
      * This signal is emitted whenever the selected item in the combo box
      * changed.
@@ -119,7 +119,7 @@ public:
 	void readAppSetting(KConfig *cfg,const QString& postfix);
 	void writeAppSetting(KConfig *cfg,const QString& postfix);
 
-public slots:
+public Q_SLOTS:
 	virtual void madeChoice(int pos,const QString &choice);
 
 };

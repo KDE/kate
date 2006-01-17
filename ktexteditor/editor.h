@@ -235,7 +235,7 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
     virtual QPixmap configPagePixmap (int number,
                                       int size = KIcon::SizeSmall) const = 0;
 
-  signals:
+  Q_SIGNALS:
     /**
      * The \p editor emits this signal whenever a \p document was successfully
      * created.

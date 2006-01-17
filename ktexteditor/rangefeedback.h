@@ -69,7 +69,7 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
      */
     void setWantsDirectChanges(bool wantsDirectChanges);
 
-  signals:
+  Q_SIGNALS:
     /**
      * The range's position changed.
      *

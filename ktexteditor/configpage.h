@@ -59,7 +59,7 @@ class KTEXTEDITOR_EXPORT ConfigPage : public QWidget
      */
     virtual ~ConfigPage () {}
 
-  public slots:
+  public Q_SLOTS:
     /**
      * This slot is called whenever the button \e Apply or \e OK was clicked.
      * Apply the changed settings made in the config page now.
@@ -79,7 +79,7 @@ class KTEXTEDITOR_EXPORT ConfigPage : public QWidget
      */
     virtual void defaults () = 0;
 
-  signals:
+  Q_SIGNALS:
     /**
      * Emit this signal whenever a config option changed.
      */

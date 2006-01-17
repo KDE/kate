@@ -146,7 +146,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      */
     virtual View* activeView() const = 0;
 
-  signals:
+  Q_SIGNALS:
    /**
     * This signal is emitted whenever the \p document creates a new \p view.
     * It should be called for every view to help applications / plugins to
@@ -182,7 +182,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
    * SIGNALS
    * following signals should be emitted by the editor document.
    */
-  signals:
+  Q_SIGNALS:
     /**
      * This signal is emitted whenever the \p document name changes.
      * \param document document which changed its name
@@ -516,7 +516,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
    * Following signals should be emitted by the document if the text content
    * is changed.
    */
-  signals:
+  Q_SIGNALS:
     /**
      * The \p document emits this signal whenever its text changes.
      * \param document document which emitted this signal

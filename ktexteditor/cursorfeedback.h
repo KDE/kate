@@ -155,7 +155,7 @@ class KTEXTEDITOR_EXPORT SmartCursorNotifier : public QObject
      */
     void setWantsDirectChanges(bool wantsDirectChanges);
 
-  signals:
+  Q_SIGNALS:
     /**
      * The cursor's position was changed.
      *

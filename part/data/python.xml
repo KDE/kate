@@ -2,7 +2,7 @@
 <!DOCTYPE language>
 <!-- Python syntax highlightning v0.9 by Per Wigren -->
 <!-- Python syntax highlighting v1.9 by Michael Bueker (improved keyword differentiation) -->
-<language name="Python" version="1.91" kateversion="2.4.1" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
+<language name="Python" version="1.92" kateversion="2.4.1" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -150,8 +150,7 @@
 			</context>
 
 			<context name="Tripple A-comment" attribute="Comment" lineEndContext="#stay">
-				<HlCChar attribute="Comment" context="#stay"/>
-				<RegExpr attribute="Comment" String="'''" context="#pop"/>
+				<StringDetect attribute="Comment" String="'''" context="#pop"/>
 			</context>
 
 			<context name="Tripple Q-comment" attribute="Comment" lineEndContext="#stay">

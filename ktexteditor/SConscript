@@ -38,6 +38,7 @@ obj.libpaths = '../../kdecore ../../kdeui ../../kparts ../../kio ../kdocument '
 obj.libs = 'kdecore kdeui kparts kio kdocument'
 obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4 KPARTS '
 if env['WINDOWS']:
+	obj.libpaths += '../../win '
 	obj.libs += ' kdewin32'
 	
 obj.execute()

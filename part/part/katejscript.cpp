@@ -39,6 +39,7 @@
 #include <kmessagebox.h>
 #include <kconfig.h>
 
+#include <kjs/collector.h>
 #include <kjs/function_object.h>
 #include <kjs/interpreter.h>
 #include <kjs/lookup.h>
@@ -51,6 +52,20 @@
 
 namespace KJS {
 
+#warning "REMOVE ME once KJS headers get fixed"
+typedef InternalFunctionImp DOMFunction;
+  
+#define KJS_CHECK_THIS( ClassName, theObj ) \
+  if (!theObj || !theObj->inherits(&ClassName::info)) { \
+    KJS::UString errMsg = "Attempt at calling a function that expects a "; \
+    errMsg += ClassName::info.className; \
+    errMsg += " on a "; \
+    errMsg += theObj->className(); \
+    KJS::ObjectImp* err = KJS::Error::create(exec, KJS::TypeError, errMsg.ascii()); \
+    exec->setException(err); \
+    return err; \
+  }
+
 // taken from khtml
 // therefor thx to:
 // Copyright (C) 1999-2003 Harri Porten (porten@kde.org)
@@ -60,7 +75,7 @@ namespace KJS {
 UString::UString(const QString &d)
 {
   unsigned int len = d.length();
-  UChar *dat = new UChar[len];
+  UChar *dat = static_cast<UChar*>(fastMalloc(sizeof(UChar)*len));
   memcpy(dat, d.unicode(), len * sizeof(UChar));
   rep = UString::Rep::create(dat, len);
 }
@@ -74,16 +89,23 @@ QConstString UString::qconststring() const
 {
   return QConstString((QChar*) data(), size());
 }
+
 }
+
+//BEGIN JS API STUFF
+
+using namespace KJS;
 
 //BEGIN global methods
 class KateJSGlobalFunctions : public KJS::ObjectImp
 {
   public:
     KateJSGlobalFunctions(int i, int length);
+    
     virtual bool implementsCall() const { return true; }
-    virtual KJS::ValueImp *call(KJS::ExecState *exec, KJS::ObjectImp* thisObj, const KJS::List &args);
-
+    
+    virtual KJS::ValueImp* callAsFunction (KJS::ExecState *exec, KJS::ObjectImp *thisObj, const KJS::List &args);
+    
     enum {
       Debug
     };
@@ -91,11 +113,13 @@ class KateJSGlobalFunctions : public KJS::ObjectImp
   private:
     int id;
 };
+
 KateJSGlobalFunctions::KateJSGlobalFunctions(int i, int length) : KJS::ObjectImp(), id(i)
 {
   putDirect(KJS::lengthPropertyName,length,KJS::DontDelete|KJS::ReadOnly|KJS::DontEnum);
 }
-KJS::ValueImp *KateJSGlobalFunctions::call(KJS::ExecState *exec, KJS::ObjectImp * /*thisObj*/, const KJS::List &args)
+
+ValueImp* KateJSGlobalFunctions::callAsFunction (KJS::ExecState *exec, KJS::ObjectImp *thisObj, const KJS::List &args)
 {
   switch (id) {
     case Debug:
@@ -109,8 +133,6 @@ KJS::ValueImp *KateJSGlobalFunctions::call(KJS::ExecState *exec, KJS::ObjectImp 
 }
 //END global methods
 
-//BEGIN JS API STUFF
-
 class KateJSGlobal : public KJS::ObjectImp {
 public:
   virtual KJS::UString className() const { return "global"; }
@@ -121,13 +143,13 @@ class KateJSDocument : public KJS::ObjectImp
   public:
     KateJSDocument (KJS::ExecState *exec, KateDocument *_doc);
 
-    KJS::ValueImp *get( KJS::ExecState *exec, const  KJS::Identifier &propertyName) const;
+    bool getOwnPropertySlot( KJS::ExecState *exec, const KJS::Identifier &propertyName, KJS::PropertySlot &slot);
 
-    KJS::ValueImp *getValueProperty(KJS::ExecState *exec, int token) const;
+    KJS::ValueImp* getValueProperty(KJS::ExecState *exec, int token) const;
 
     void put(KJS::ExecState *exec, const KJS::Identifier &propertyName, KJS::ValueImp *value, int attr = KJS::None);
 
-    void putValueProperty(KJS::ExecState *exec, int token, KJS::ValueImp *value, int attr);
+    void putValueProperty(KJS::ExecState *exec, int token, KJS::ValueImp* value, int attr);
 
     const KJS::ClassInfo* classInfo() const { return &info; }
 
@@ -170,13 +192,13 @@ class KateJSView : public KJS::ObjectImp
   public:
     KateJSView (KJS::ExecState *exec, KateView *_view);
 
-    KJS::ValueImp *get( KJS::ExecState *exec, const  KJS::Identifier &propertyName) const;
+    bool getOwnPropertySlot( KJS::ExecState *exec, const KJS::Identifier &propertyName, KJS::PropertySlot &slot);
 
-    KJS::ValueImp *getValueProperty(KJS::ExecState *exec, int token) const;
+    KJS::ValueImp* getValueProperty(KJS::ExecState *exec, int token) const;
 
     void put(KJS::ExecState *exec, const KJS::Identifier &propertyName, KJS::ValueImp *value, int attr = KJS::None);
 
-    void putValueProperty(KJS::ExecState *exec, int token, KJS::ValueImp *value, int attr);
+    void putValueProperty(KJS::ExecState *exec, int token, KJS::ValueImp* value, int attr);
 
     const KJS::ClassInfo* classInfo() const { return &info; }
 
@@ -234,24 +256,22 @@ class KateJSIndenter : public KJS::ObjectImp
 //END
 
 KateJScriptInterpreterContext::KateJScriptInterpreterContext ()
- : m_global (new KJS::ObjectImp(new KateJSGlobal ()))
- , m_interpreter (new KJS::Interpreter(m_global))
- , m_document (new KJS::ObjectImp(wrapDocument(m_interpreter->globalExec(), 0)))
- , m_view (new KJS::ObjectImp(wrapView(m_interpreter->globalExec(), 0)))
+ : m_global (new KateJSGlobal ())
+ , m_interpreter (new KJS::Interpreter (m_global))
+ , m_document (wrapDocument(m_interpreter->globalExec(), 0))
+ , m_view (wrapView(m_interpreter->globalExec(), 0))
 {
-  // put some stuff into env., this should stay for all executions, as we keep external
-  // references to the inserted KJS::Objects, this should avoid any garbage collection
+  // put some stuff into env., this should stay for all executions.
   m_interpreter->globalObject()->put(m_interpreter->globalExec(), "document", m_document);
   m_interpreter->globalObject()->put(m_interpreter->globalExec(), "view", m_view);
-  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "debug", new KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1));
+  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "debug",
+        new KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1));
 }
 
 KateJScriptInterpreterContext::~KateJScriptInterpreterContext ()
 {
-  delete m_view;
-  delete m_document;
+  KJS::Collector::collect();
   delete m_interpreter;
-  delete m_global;
 }
 
 KJS::ObjectImp *KateJScriptInterpreterContext::wrapDocument (KJS::ExecState *exec, KateDocument *doc)
@@ -357,7 +377,7 @@ IMPLEMENT_PROTOTYPE(KateJSDocumentProto,KateJSDocumentProtoFunc)
 
 const KJS::ClassInfo KateJSDocument::info = { "KateJSDocument", 0, 0, 0 };
 
-KJS::ValueImp *KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::ObjectImp *thisObj, const KJS::List &args)
+ValueImp* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::ObjectImp *thisObj, const KJS::List &args)
 {
   KJS_CHECK_THIS( KateJSDocument, thisObj );
 
@@ -373,7 +393,7 @@ KJS::ValueImp *KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::ObjectIm
 
     case KateJSDocument::Text:
       return KJS::String (doc->text(KTextEditor::Range(args[0]->toUInt32(exec), args[1]->toUInt32(exec), args[2]->toUInt32(exec), args[3]->toUInt32(exec))));
-
+ 
     case KateJSDocument::TextLine:
       return KJS::String (doc->line (args[0]->toUInt32(exec)));
 
@@ -394,16 +414,16 @@ KJS::ValueImp *KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::ObjectIm
 
     case KateJSDocument::InsertText:
       return KJS::Boolean (doc->insertText (KTextEditor::Cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec)), args[2]->toString(exec).qstring()));
-
+ 
     case KateJSDocument::RemoveText:
       return KJS::Boolean (doc->removeText(KTextEditor::Range(args[0]->toUInt32(exec), args[1]->toUInt32(exec), args[2]->toUInt32(exec), args[3]->toUInt32(exec))));
-
+ 
     case KateJSDocument::InsertLine:
       return KJS::Boolean (doc->insertLine (args[0]->toUInt32(exec), args[1]->toString(exec).qstring()));
-
+ 
     case KateJSDocument::RemoveLine:
       return KJS::Boolean (doc->removeLine (args[0]->toUInt32(exec)));
-
+ 
     case KateJSDocument::EditBegin:
       doc->editBegin();
       return KJS::Null ();
@@ -414,22 +434,22 @@ KJS::ValueImp *KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::ObjectIm
 
     case KateJSDocument::IsInWord:
       return KJS::Boolean( doc->highlight()->isInWord( args[0]->toString(exec).qstring().at(0), args[1]->toUInt32(exec) ) );
-
+ 
     case KateJSDocument::CanBreakAt:
       return KJS::Boolean( doc->highlight()->canBreakAt( args[0]->toString(exec).qstring().at(0), args[1]->toUInt32(exec) ) );
-
+ 
     case KateJSDocument::CanComment:
       return KJS::Boolean( doc->highlight()->canComment( args[0]->toUInt32(exec), args[1]->toUInt32(exec) ) );
-
+ 
     case KateJSDocument::CommentMarker:
       return KJS::String( doc->highlight()->getCommentSingleLineStart( args[0]->toUInt32(exec) ) );
-
+ 
     case KateJSDocument::CommentStart:
       return KJS::String( doc->highlight()->getCommentStart( args[0]->toUInt32(exec) ) );
-
+ 
     case KateJSDocument::CommentEnd:
       return KJS::String( doc->highlight()->getCommentEnd(  args[0]->toUInt32(exec) ) );
-
+ 
     case KateJSDocument::Attribute:
       return KJS::Number( doc->kateTextLine(args[0]->toUInt32(exec))->attribute(args[1]->toUInt32(exec)) );
   }
@@ -437,12 +457,12 @@ KJS::ValueImp *KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::ObjectIm
   return KJS::Undefined();
 }
 
-KJS::ValueImp *KateJSDocument::get( KJS::ExecState *exec, const  KJS::Identifier &propertyName) const
+bool KateJSDocument::getOwnPropertySlot( KJS::ExecState *exec, const  KJS::Identifier &propertyName, KJS::PropertySlot &slot)
 {
-  return KJS::lookupGetValue<KateJSDocument,KJS::ObjectImp>(exec, propertyName, &KateJSDocumentTable, this );
+  return KJS::getStaticValueSlot<KateJSDocument,KJS::ObjectImp>(exec, &KateJSDocumentTable, this, propertyName, slot );
 }
 
-KJS::ValueImp *KateJSDocument::getValueProperty(KJS::ExecState *exec, int token) const
+KJS::ValueImp* KateJSDocument::getValueProperty(KJS::ExecState *exec, int token) const
 {
   if (!doc)
     return KJS::Undefined ();
@@ -472,7 +492,7 @@ void KateJSDocument::put(KJS::ExecState *exec, const KJS::Identifier &propertyNa
   KJS::lookupPut<KateJSDocument,KJS::ObjectImp>(exec, propertyName, value, attr, &KateJSDocumentTable, this );
 }
 
-void KateJSDocument::putValueProperty(KJS::ExecState *exec, int token, KJS::ValueImp *value, int attr)
+void KateJSDocument::putValueProperty(KJS::ExecState *exec, int token, KJS::ValueImp* value, int attr)
 {
   if (!doc)
     return;
@@ -519,7 +539,7 @@ IMPLEMENT_PROTOTYPE(KateJSViewProto,KateJSViewProtoFunc)
 
 const KJS::ClassInfo KateJSView::info = { "KateJSView", 0, &KateJSViewTable, 0 };
 
-ValueImp *KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::ObjectImp *thisObj, const KJS::List &args)
+ValueImp* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::ObjectImp *thisObj, const KJS::List &args)
 {
   KJS_CHECK_THIS( KateJSView, thisObj );
 
@@ -541,7 +561,7 @@ ValueImp *KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::ObjectImp *thisOb
 
     case KateJSView::SetCursorPosition:
       return KJS::Boolean( view->setCursorPosition( KTextEditor::Cursor (args[0]->toUInt32(exec), args[1]->toUInt32(exec)) ) );
-
+      
     // SelectionInterface goes in the view, in anticipation of the future
     case KateJSView::Selection:
       return KJS::String( view->selectionText() );
@@ -551,7 +571,7 @@ ValueImp *KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::ObjectImp *thisOb
 
     case KateJSView::SetSelection:
       return KJS::Boolean( view->setSelection(KTextEditor::Range(args[0]->toInt32(exec), args[1]->toInt32(exec), args[2]->toUInt32(exec), args[3]->toUInt32(exec))) );
-
+ 
     case KateJSView::RemoveSelectedText:
       return KJS::Boolean( view->removeSelectionText() );
 
@@ -571,12 +591,12 @@ KateJSView::KateJSView (KJS::ExecState *exec, KateView *_view)
 {
 }
 
-KJS::ValueImp *KateJSView::get( KJS::ExecState *exec, const  KJS::Identifier &propertyName) const
+bool KateJSView::getOwnPropertySlot( KJS::ExecState *exec, const  KJS::Identifier &propertyName, KJS::PropertySlot &slot)
 {
-  return KJS::lookupGetValue<KateJSView,KJS::ObjectImp>(exec, propertyName, &KateJSViewTable, this );
+  return KJS::getStaticValueSlot<KateJSView,KJS::ObjectImp>(exec, &KateJSViewTable, this, propertyName, slot );
 }
 
-KJS::ValueImp *KateJSView::getValueProperty(KJS::ExecState *exec, int token) const
+KJS::ValueImp* KateJSView::getValueProperty(KJS::ExecState *exec, int token) const
 {
   if (!view)
     return KJS::Undefined ();
@@ -598,12 +618,12 @@ KJS::ValueImp *KateJSView::getValueProperty(KJS::ExecState *exec, int token) con
   return KJS::Undefined ();
 }
 
-void KateJSView::put(KJS::ExecState *exec, const KJS::Identifier &propertyName, KJS::ValueImp *value, int attr)
+void KateJSView::put(KJS::ExecState *exec, const KJS::Identifier &propertyName, KJS::ValueImp* value, int attr)
 {
    KJS::lookupPut<KateJSView,KJS::ObjectImp>(exec, propertyName, value, attr, &KateJSViewTable, this );
 }
 
-void KateJSView::putValueProperty(KJS::ExecState *exec, int token, KJS::ValueImp *value, int attr)
+void KateJSView::putValueProperty(KJS::ExecState *exec, int token, KJS::ValueImp* value, int attr)
 {
   if (!view)
     return;
@@ -833,7 +853,7 @@ IMPLEMENT_PROTOTYPE(KateJSIndenterProto,KateJSIndenterProtoFunc)
 
 const KJS::ClassInfo KateJSIndenter::info = { "KateJSIndenter", 0, &KateJSIndenterTable, 0 };
 
-ValueImp *KateJSIndenterProtoFunc::call(KJS::ExecState *exec, KJS::ObjectImp *thisObj, const KJS::List &args)
+ValueImp* KateJSIndenterProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::ObjectImp *thisObj, const KJS::List &args)
 {
   KJS_CHECK_THIS( KateJSIndenter, thisObj );
 
@@ -885,8 +905,9 @@ bool KateIndentJScriptImpl::setupInterpreter(QString &errorMsg)
     m_viewWrapper=new KateJSView(m_interpreter->globalExec(),0);
     m_indenter=new KateJSIndenter(m_interpreter->globalExec());
     m_interpreter->globalObject()->put(m_interpreter->globalExec(),"document",m_docWrapper,KJS::DontDelete | KJS::ReadOnly);
-    m_interpreter->globalObject()->put(m_interpreter->globalExec(),"view",m_viewWrapper,KJS::DontDelete | KJS::ReadOnly);
-    m_interpreter->globalObject()->put(m_interpreter->globalExec(),"debug", new KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1));
+    m_interpreter->globalObject()->put(m_interpreter->globalExec(),"view", m_viewWrapper,KJS::DontDelete | KJS::ReadOnly);
+    m_interpreter->globalObject()->put(m_interpreter->globalExec(),"debug", new
+              KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1));
     m_interpreter->globalObject()->put(m_interpreter->globalExec(),"indenter",m_indenter,KJS::DontDelete | KJS::ReadOnly);
     QFile file (filePath());
 

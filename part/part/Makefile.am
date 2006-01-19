@@ -10,7 +10,7 @@ katepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmds.cpp kateundo.cpp \
 	kateindentscriptabstracts.cpp kateluascript.cpp katerange.cpp katesmartrange.cpp kateglobal.cpp \
 	katecmd.cpp katelayoutcache.cpp katetextlayout.cpp katesmartmanager.cpp \
 	kateedit.cpp katesmartcursornotifier.cpp katerenderrange.cpp katesmartregion.cpp \
-	katedynamicanimation.cpp kateextendedattribute.cpp
+	katedynamicanimation.cpp kateextendedattribute.cpp katejscript.cpp
 
 katepart_la_LIBADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la $(top_builddir)/kdeprint/libkdeprint.la $(top_builddir)/kutils/libkutils.la $(top_builddir)/kjs/libkjs.la $(top_builddir)/knewstuff/libknewstuff.la $(LUA_LIBS)
 

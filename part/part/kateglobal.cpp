@@ -129,15 +129,13 @@ KateGlobal::KateGlobal ()
 
 #ifndef Q_WS_WIN //todo
   // create script man (search scripts) + register commands
-#if 0
-  // Fix the script interface first
   m_jscriptManager = new KateJScriptManager ();
   KateCmd::self()->registerCommand (m_jscriptManager);
   m_indentScriptManagers.append(new KateIndentJScriptManager());
-#endif
 #else
   m_jscriptManager = 0;
 #endif
+
 #ifdef HAVE_LUA
   m_indentScriptManagers.append(new KateLUAIndentScriptManager());
 #endif

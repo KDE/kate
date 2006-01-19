@@ -40,7 +40,7 @@
 #include <kwin.h>
 #include <kiconloader.h>
 
-#include <kvbox.h>
+#include <QVBoxLayout>
 
 KateGlobal *KateGlobal::s_self = 0;
 
@@ -258,10 +258,15 @@ void KateGlobal::configDialog(QWidget *parent)
     QStringList path;
     path.clear();
     path << configPageName (i);
-    KVBox *page = kd->addVBoxPage(path, configPageFullName (i),
+    
+    QFrame *page = kd->addPage( path, configPageFullName (i),
                               configPagePixmap(i, KIcon::SizeMedium) );
-
-    editorPages.append (configPage(i, page));
+                              
+    QVBoxLayout *topLayout = new QVBoxLayout( page, 0, KDialog::spacingHint() );
+    
+    KTextEditor::ConfigPage *cp = configPage(i, page);
+    topLayout->addWidget( cp);
+    editorPages.append (cp);
   }
 
   if (kd->exec())

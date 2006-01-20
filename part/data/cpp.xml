@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.33" kateversion="2.4" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.H;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
+<language name="C++" version="1.34" kateversion="2.4" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.H;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
   <highlighting>
     <list name="keywords">
       <item> asm </item>
@@ -31,6 +31,7 @@
       <item> private </item>
       <item> protected </item>
       <item> public </item>
+      <item> qobject_cast </item>
       <item> reinterpret_cast </item>
       <item> return </item>
       <item> sizeof </item>
@@ -79,6 +80,9 @@
       <item> Q_OVERRIDE </item>
       <item> Q_PROPERTY </item>
       <item> Q_SETS </item>
+      <item> Q_SIGNALS </item>
+      <item> Q_SLOTS </item>
+      <item> Q_FOREACH </item>
       <item> TRUE </item>
       <item> FALSE </item>
       <item> connect </item>

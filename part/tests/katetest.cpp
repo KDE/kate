@@ -411,8 +411,8 @@ void KWrite::readConfig(KConfig *config)
 {
   config->setGroup("General Options");
 
-  m_paShowStatusBar->setChecked( config->readEntry("ShowStatusBar", QVariant(false)).toBool() );
-  m_paShowPath->setChecked( config->readEntry("ShowPath", QVariant(false)).toBool() );
+  m_paShowStatusBar->setChecked( config->readEntry("ShowStatusBar", false) );
+  m_paShowPath->setChecked( config->readEntry("ShowPath", false) );
 
   m_recentFiles->loadEntries(config, "Recent Files");
 
@@ -522,8 +522,8 @@ void KWrite::restore()
   KWrite *t;
 
   config->setGroup("Number");
-  docs = config->readEntry("NumberOfDocuments", QVariant(0)).toInt();
-  windows = config->readEntry("NumberOfWindows", QVariant(0)).toInt();
+  docs = config->readEntry("NumberOfDocuments", 0);
+  windows = config->readEntry("NumberOfWindows", 0);
 
   for (int z = 1; z <= docs; z++)
   {
@@ -540,7 +540,7 @@ void KWrite::restore()
   {
     buf = QString("Window %1").arg(z);
     config->setGroup(buf);
-    t = new KWrite(docList.at(config->readEntry("DocumentNumber", QVariant(0)).toInt() - 1));
+    t = new KWrite(docList.at(config->readEntry("DocumentNumber", 0) - 1));
     t->restore(config,z);
   }
 }

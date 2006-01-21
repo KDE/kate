@@ -1040,9 +1040,9 @@ void KateIndentJScriptManager::collectScripts (bool force)
 #if 0
   // figure out if the kate install is too new
   config.setGroup ("General");
-  if (config.readNumEntry ("Version") > config.readNumEntry ("CachedVersion"))
+  if (config.readEntry ("Version",0) > config.readEntry ("CachedVersion",0))
   {
-    config.writeEntry ("CachedVersion", config.readNumEntry ("Version"));
+    config.writeEntry ("CachedVersion", config.readEntry ("Version",0));
     force = true;
   }
 #endif
@@ -1078,7 +1078,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
 	          QString niceName=config.readEntry("niceName",internalName);
 	          QString license=config.readEntry("license",i18n("(Unknown)"));
 	          bool hasCopyright=config.readEntry("hasCopyright", false);
-	          double  version=config.readEntry("version", QVariant(0.0)).toDouble();
+	          double  version=config.readEntry("version", 0.0);
 	          KateIndentJScriptImpl *s=new KateIndentJScriptImpl(this,
 	            internalName,filePath,niceName,license,hasCopyright,version);
 	          m_scripts.insert (internalName, s);

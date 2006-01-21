@@ -1624,7 +1624,7 @@ int KateHighlighting::priority()
   KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName);
 
-  return config->readEntry("Priority", QVariant(m_priority)).toInt();
+  return config->readEntry("Priority", m_priority);
 }
 
 KateHlData KateHighlighting::getData()
@@ -1636,7 +1636,7 @@ KateHlData KateHighlighting::getData()
   config->readEntry("Wildcards", iWildcards),
   config->readEntry("Mimetypes", iMimetypes),
   config->readEntry("Identifier", identifier),
-  config->readEntry("Priority", QVariant(m_priority)).toInt());
+  config->readEntry("Priority", m_priority));
 }
 
 void KateHighlighting::setData(const KateHlData &hlData)
@@ -1662,7 +1662,7 @@ void KateHighlighting::getKateExtendedAttributeList (uint schema, KateExtendedAt
   {
     Q_ASSERT(p);
 
-    QStringList s = config->readListEntry(p->name());
+    QStringList s = config->readEntry(p->name(), QStringList());
 
 //    kdDebug(13010)<<p->name<<s.count()<<endl;
     if (s.count()>0)
@@ -3256,7 +3256,7 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
   for (uint z = 0; z < defaultStyles(); z++)
   {
     KTextEditor::Attribute *i = list.at(z);
-    QStringList s = config->readListEntry(defaultStyleName(z));
+    QStringList s = config->readEntry(defaultStyleName(z), QStringList());
     if (!s.isEmpty())
     {
       while( s.count()<8)

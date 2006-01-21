@@ -483,9 +483,9 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
 #if 0
   // figure out if the kate install is too new
   config.setGroup ("General");
-  if (config.readEntry ("Version") > config.readNumEntry ("CachedVersion", QVariant(0)).toInt())
+  if (config.readEntry ("Version", 0) > config.readEntry ("CachedVersion", 0))
   {
-    config.writeEntry ("CachedVersion", config.readEntry ("Version", QVariant(0)).toInt());
+    config.writeEntry ("CachedVersion", config.readEntry ("Version", 0));
     force = true;
   }
 #endif
@@ -510,7 +510,7 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
     // If the group exist and we're not forced to read the .js file, let's build myModeList for katepartjscriptrc
     bool readnew=false;
     if (!force && config.hasGroup(Group) &&
-        (sbuf.st_mtime == qvariant_cast<int>(config.readEntry("lastModified",0))))
+        (sbuf.st_mtime == config.readEntry("lastModified",0)))
     {
         config.setGroup(Group);
         QString filePath=*it;
@@ -520,7 +520,7 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
         {
           QString niceName=config.readEntry("niceName",internalName);
           QString copyright=config.readEntry("copyright",i18n("(Unknown)"));
-          double  version=qvariant_cast<double>(config.readEntry("version",0.0));
+          double  version=config.readEntry("version",0.0);
           QString license=config.readEntry("license",i18n("(Unknown)"));
           bool hasCopyright=config.readEntry("hasCopyright",false);
           KateLUAIndentScriptImpl *s=new KateLUAIndentScriptImpl(this,

@@ -79,9 +79,9 @@ void KateFileTypeManager::update ()
     type.number = z;
     type.name = g[z];
     type.section = config.readEntry ("Section");
-    type.wildcards = config.readListEntry ("Wildcards", ';');
-    type.mimetypes = config.readListEntry ("Mimetypes", ';');
-    type.priority = config.readEntry ("Priority", QVariant(0)).toInt();
+    type.wildcards = config.readEntry ("Wildcards", QStringList(), ';');
+    type.mimetypes = config.readEntry ("Mimetypes", QStringList(), ';');
+    type.priority = config.readEntry ("Priority", 0);
     type.varLine = config.readEntry ("Variables");
 
     m_types.append(type);

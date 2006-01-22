@@ -270,7 +270,7 @@ KateJScriptInterpreterContext::KateJScriptInterpreterContext ()
 
 KateJScriptInterpreterContext::~KateJScriptInterpreterContext ()
 {
-  KJS::Collector::collect();
+  KJS::Interpreter::collect();
   delete m_interpreter;
 }
 

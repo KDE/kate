@@ -50,6 +50,7 @@ install_targets(/lib/kde4 ktexteditorkabcbridge )
 
 
 ########### install files ###############
+install_files( /include/ktexteditor FILES factory.h editor.h document.h view.h plugin.h      cursor.h range.h configpage.h searchinterface.h highlightinginterface.h       codecompletioninterface.h markinterface.h sessionconfiginterface.h editorchooser.h              texthintinterface.h variableinterface.h templateinterface.h           modificationinterface.h      commandinterface.h smartinterface.h attribute.h cursorfeedback.h rangefeedback.h    smartcursor.h smartrange.h )
 
 install_files( ${KDE4_SERVICESTYPES_DIR} FILES ktexteditor.desktop ktexteditorplugin.desktop )
 install_files( ${KDE4_DATA_DIR}/kcm_componentchooser FILES kcm_ktexteditor.desktop )

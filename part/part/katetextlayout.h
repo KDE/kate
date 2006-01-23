@@ -79,7 +79,7 @@ class KateTextLayout
     void debugOutput() const;
 
   private:
-    KateTextLayout(KateLineLayoutPtr line = 0L, int viewLine = 0);
+    explicit KateTextLayout(KateLineLayoutPtr line = KateLineLayoutPtr(), int viewLine = 0);
 
     KateLineLayoutPtr m_lineLayout;
     QTextLine m_textLayout;

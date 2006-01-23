@@ -1274,7 +1274,7 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
 
   if (!nextLine || newLine)
   {
-    KateTextLine::Ptr textLine = new KateTextLine();
+    KateTextLine::Ptr textLine(new KateTextLine());
 
     textLine->insertText (0, pos, l->text()+col);
     l->truncate(col);
@@ -1415,7 +1415,7 @@ bool KateDocument::editInsertLine ( int line, const QString &s )
 
   removeTrailingSpace( line ); // old line
 
-  KateTextLine::Ptr tl = new KateTextLine();
+  KateTextLine::Ptr tl(new KateTextLine());
   tl->insertText (0, s.length(), s.unicode());
   m_buffer->insertLine(line, tl);
   m_buffer->changeLine(line);

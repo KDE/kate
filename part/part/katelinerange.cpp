@@ -171,7 +171,7 @@ KateTextLayout KateLineLayout::viewLine( int viewLine ) const
     viewLine += viewLineCount();
   Q_ASSERT(isValid());
   Q_ASSERT(viewLine >= 0 && viewLine < viewLineCount());
-  return KateTextLayout(const_cast<KateLineLayout*>(this), viewLine);
+  return KateTextLayout(KateLineLayoutPtr(const_cast<KateLineLayout*>(this)), viewLine);
 }
 
 int KateLineLayout::width( ) const

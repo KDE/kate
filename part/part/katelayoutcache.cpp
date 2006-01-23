@@ -154,9 +154,9 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine ) const
   }
 
   if (realLine < 0 || realLine >= m_renderer->doc()->lines())
-    return 0L;
+    return KateLineLayoutPtr();
 
-  KateLineLayoutPtr l = new KateLineLayout(m_renderer->doc());
+  KateLineLayoutPtr l(new KateLineLayout(m_renderer->doc()));
   l->setLine(realLine, virtualLine);
   m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
   Q_ASSERT(l->isValid());

@@ -1024,7 +1024,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
 
   // get the previous line, if we start at the beginning of this block
   // take the last line of the previous block
-  KateTextLine::Ptr prevLine = 0;
+  KateTextLine::Ptr prevLine;
 
   if ((startLine == buf->startLine()) && buf->prev() && (buf->prev()->lines() > 0))
     prevLine = buf->prev()->line (buf->prev()->lines() - 1);
@@ -1322,7 +1322,7 @@ KateBufBlock::KateBufBlock ( KateBuffer *parent, KateBufBlock *prev, KateBufBloc
   else // init the block if no stream given !
   {
     // fill in one empty line !
-    KateTextLine::Ptr textLine = new KateTextLine ();
+    KateTextLine::Ptr textLine (new KateTextLine ());
     m_stringList.push_back (textLine);
     m_lines++;
 
@@ -1414,7 +1414,7 @@ void KateBufBlock::fillBlock (KateFileLoader *stream)
     }
     else
     {
-      KateTextLine::Ptr textLine = new KateTextLine ();
+      KateTextLine::Ptr textLine (new KateTextLine ());
       textLine->insertText (0, length, unicodeData);
       m_stringList.push_back (textLine);
     }
@@ -1531,7 +1531,7 @@ void KateBufBlock::swapIn ()
   char *buf = rawData.data();
   for (int i=0; i < m_lines; i++)
   {
-    KateTextLine::Ptr textLine = new KateTextLine ();
+    KateTextLine::Ptr textLine (new KateTextLine ());
     buf = textLine->restore (buf);
     m_stringList.push_back (textLine);
   }

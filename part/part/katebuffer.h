@@ -486,7 +486,7 @@ class KateBuffer : public QObject
     {
       KateBufBlock *buf = findBlock(i);
       if (!buf)
-        return 0;
+        return KateTextLine::Ptr();
 
       if (i < m_lineHighlighted)
         return buf->line (i - buf->startLine());
@@ -511,7 +511,7 @@ class KateBuffer : public QObject
     {
       KateBufBlock *buf = findBlock(i);
       if (!buf)
-        return 0;
+        return KateTextLine::Ptr();
 
       return buf->line(i - buf->startLine());
     }

@@ -1226,7 +1226,7 @@ void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
 {
   prevIndent = 0;
   int firstChar;
-  KateTextLine::Ptr prevLine = 0;
+  KateTextLine::Ptr prevLine;
 
   // get the indentation of the first non-empty line
   while(true) {

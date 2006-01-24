@@ -24,7 +24,9 @@
 
 #include <QList>
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 template <class T> class QStack;
+#endif
 
 class KAction;
 

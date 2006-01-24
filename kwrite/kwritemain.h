@@ -48,7 +48,7 @@ class KWrite : public KParts::MainWindow
     KWrite(KTextEditor::Document * = 0L);
     ~KWrite();
 
-    void loadURL(const KURL &url);
+    void loadURL(const KUrl &url);
 
     KTextEditor::View *view() const { return m_view; }
 
@@ -67,7 +67,7 @@ class KWrite : public KParts::MainWindow
     void slotNew();
     void slotFlush ();
     void slotOpen();
-    void slotOpen( const KURL& url);
+    void slotOpen( const KUrl& url);
     void newView();
     void toggleStatusBar();
     void editKeys();

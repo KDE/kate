@@ -153,6 +153,16 @@ bool Document::cursorInText(const Cursor& cursor)
   return (cursor.column()>=0) && (cursor.column()<=lineLength(cursor.line())); // = because new line isn't usually contained in line length
 }
 
+bool KTextEditor::Document::replaceText( const Range & range, const QString & text, bool block )
+{
+  bool success = true;
+  startEditing();
+  success &= removeText(range, block);
+  success &= insertText(range.start(), text, block);
+  endEditing();
+  return success;
+}
+
 bool Document::replaceText( const Range & range, const QStringList & text, bool block )
 {
   bool success = true;

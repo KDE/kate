@@ -455,6 +455,16 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * \return \e true on success, otherwise \e false
      * \see setText(), removeText(), insertText()
      */
+    virtual bool replaceText ( const Range &range, const QString &text, bool block = false );
+
+    /**
+     * Replace text from \p range with specified \p text.
+     * \param range range of text to replace
+     * \param text text to replace with
+     * \param block replace text as a visual block of text rather than a linear sequence
+     * \return \e true on success, otherwise \e false
+     * \see setText(), removeText(), insertText()
+     */
     virtual bool replaceText ( const Range &range, const QStringList &text, bool block = false );
 
     /**

@@ -283,6 +283,16 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
     virtual Cursor cursorPositionVirtual () const = 0;
 
     /**
+     * Get the screen coordinates (x, y) of the supplied \a cursor relative
+     * to the view widget in pixels. Thus, 0,0 represents the top left hand of
+     * the view widget.
+     *
+     * \param cursor cursor to determine coordinate for.
+     * \return cursor screen coordinates relative to the view widget
+     */
+    virtual QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor) const = 0;
+
+    /**
      * Get the screen coordinates (x/y) of the cursor position in pixels.
      * \return cursor screen coordinates
      */
@@ -297,9 +307,40 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
     /**
      * This signal is emitted whenever the \p view's cursor position changed.
      * \param view view which emitted the signal
+     * \param newPosition new position of the mouse
      * \see cursorPosition(), cursorPositionVirtual()
      */
-    void cursorPositionChanged (KTextEditor::View *view);
+    void cursorPositionChanged (KTextEditor::View *view, const KTextEditor::Cursor& newPosition);
+
+  /*
+   * Mouse position
+   */
+  public:
+    /**
+     * Returns whether mouse tracking is currently enabled.
+     *
+     * Mouse tracking is required to have the mousePositionChanged signal emitted.
+     */
+    virtual bool mouseTrackingEnabled() const = 0;
+
+    /**
+     * Attempt to enable or disable mouse tracking. Returns the state of mouse tracking
+     * after the request.  Implementations are not required to support this, and should
+     * return false if they cannot.
+     *
+     * Mouse tracking is required to have the mousePositionChanged signal emitted.
+     */
+    virtual bool setMouseTrackingEnabled(bool enabled) = 0;
+
+  signals:
+    /**
+     * This signal is emitted whenever the position of the mouse changes over this \a view.
+     * If the mouse moves off the view, an invalid cursor position should be emitted.
+     *
+     * \param view view which emitted the signal
+     * \param newPosition new position of the mouse
+     */
+    void mousePositionChanged (KTextEditor::View *view, const KTextEditor::Cursor& newPosition);
 
   /*
    * Selection methodes.

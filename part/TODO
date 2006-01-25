@@ -4,7 +4,7 @@ TODO:
 
 **** Bugs ****
 * access of deleted cursors by the dynamic hl stuff
-
+* cursor position after undo
 
 **** Refactoring/Cleanups ****
 
@@ -34,6 +34,7 @@ TODO:
 * BiDi finally, using Scribe
   * just needs porting of deprecated calls, and testing
   * fix remaining redraw bugs while scrolling (grey, black areas)
+    * haven't seen for a while, fixed?
 
 * Fix word wrap indicators
 
@@ -78,6 +79,36 @@ TODO:
 * More robust history including cursor position history
 
 * More featureful code completion including syntax highlighted entries
+  * done:
+    * model based completion
+    * non-focused completion box (view passes on any interactions required)
+    * native highlighting of completion entries
+    * column resizing on scroll
+    * highlighting
+  * in progress:
+    * implement sorting of items based on metadata, and sorted group headers
+      * needs to react to model changes
+  * todo
+    * add a column to CodeCompletionModel to enable displaying an icon just before a completion's name
+    * implement column merging
+    * implement click-execution of completion entries based on KDE click policy
+    * implement filtering of items based on metadata
+    * implement configurability
+      * show/hide/reorder columns
+      * positioning retaining horizontal sync with text or not (alternative: reorganise columns, hide column(s))
+      * sorting list
+      * filtering list
+      * highlighting mode (native / custom / user / combination)
+      * consider embedding 3rd party cc config with the above
+    * make sure enough info is exported that the current completion's documentation can be retreived in a documentation browser;
+      * place basic documentation in an extended popup... positioning / design still to be worked out
+    * connect signals from source model to katecompletionmodel and vice-versa
+    * configurability of keyboard commands for cc
+    * refine keyboard control
+  * performance testing and optimisation
+    * test user-defined highlighting
+  * critical issues
+    * crash from visual index == -1 (? still present)
 
 * Custom widgets in between lines interface (eg. so kcachegrind could use
   katepart to display its cpu usage information etc)

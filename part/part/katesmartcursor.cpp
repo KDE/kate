@@ -87,7 +87,7 @@ KateDocument* KateSmartCursor::kateDocument() const
 
 bool KateSmartCursor::isValid( ) const
 {
-  return line() >= 0 && line() <= kateDocument()->lastLine() && column() >= 0 && column() <= kateDocument()->lineLength(line());
+  return line() >= 0 && column() >= 0 && line() <= kateDocument()->lastLine() && column() <= kateDocument()->lineLength(line());
 }
 
 bool KateSmartCursor::isValid(const Cursor& position) const

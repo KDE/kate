@@ -156,8 +156,6 @@ class KateDocument : public KTextEditor::Document,
     KateView* activeKateView() const;
 
   Q_SIGNALS:
-    void activeViewCaretPositionChanged(const KTextEditor::Cursor& newPosition);
-    void activeViewMousePositionChanged(const KTextEditor::Cursor& newPosition);
     void activeViewSelectionChanged(KTextEditor::View* view);
 
   private:
@@ -768,7 +766,7 @@ class KateDocument : public KTextEditor::Document,
      * @param isModified indicates the file was modified rather than created or deleted
      * @param reason the reason we are emitting the signal.
      */
-    void modifiedOnDisk (KTextEditor::Document *doc, bool isModified, ModifiedOnDiskReason reason);
+    void modifiedOnDisk (KTextEditor::Document *doc, bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
 
   private:
     int m_isasking; // don't reenter slotModifiedOnDisk when this is true

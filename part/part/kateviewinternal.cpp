@@ -38,6 +38,7 @@
 #include "katefont.h"
 #include "katedynamicanimation.h"
 #include "katesmartmanager.h"
+#include "katecompletionwidget.h"
 
 #include <kcursor.h>
 #include <kdebug.h>
@@ -152,12 +153,12 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   // scrollbar for columns
   //
   m_columnScroll = new QScrollBar(Qt::Horizontal,m_view);
-  
+
   if (m_view->dynWordWrap())
     m_columnScroll->hide();
   else
     m_columnScroll->show();
-  
+
   m_columnScroll->setTracking(true);
   m_startX = 0;
   m_oldStartX = 0;
@@ -549,7 +550,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     int max = maxLen(startLine()) - width();
     if (max < 0)
       max = 0;
-      
+
     // disable scrollbar
     m_columnScroll->setDisabled (max == 0);
 
@@ -666,17 +667,24 @@ int KateViewInternal::linesDisplayed() const
   return (h - (h % fh)) / fh;
 }
 
-QPoint KateViewInternal::cursorCoordinates() const
+QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor, bool realCursor ) const
 {
-  int viewLine = cache()->displayViewLine(m_displayCursor, true);
+  int viewLine = cache()->displayViewLine(realCursor ? toVirtualCursor(cursor) : cursor, true);
 
   if (viewLine < 0 || viewLine >= cache()->viewCacheLineCount())
     return QPoint(-1, -1);
 
-  uint y = viewLine * renderer()->fontHeight();
-  uint x = m_cursorX - m_startX - cache()->viewLine(viewLine).startX() + m_leftBorder->width() + cache()->viewLine(viewLine).xOffset();
+  int y = viewLine * renderer()->fontHeight();
+
+  KateTextLayout layout = cache()->viewLine(viewLine);
+  int x = (int)layout.lineLayout().cursorToX(cursor.column()) /*- layout.startX() */ + m_leftBorder->width() /*+ layout.xOffset()*/;
 
   return QPoint(x, y);
+}
+
+QPoint KateViewInternal::cursorCoordinates() const
+{
+  return cursorToCoordinate(m_displayCursor, false);
 }
 
 QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
@@ -1015,6 +1023,11 @@ void KateViewInternal::moveEdge( KateViewInternal::Bias bias, bool sel )
 
 void KateViewInternal::home( bool sel )
 {
+  if (m_view->isCompletionActive()) {
+    m_view->completionWidget()->top();
+    return;
+  }
+
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
     QKeyEvent e(QEvent::KeyPress, Qt::Key_Home, 0, 0);
     m_view->m_codeCompletion->handleKey(&e);
@@ -1051,12 +1064,16 @@ void KateViewInternal::home( bool sel )
 
 void KateViewInternal::end( bool sel )
 {
+  if (m_view->isCompletionActive()) {
+    view()->completionWidget()->bottom();
+    return;
+  }
+
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
     QKeyEvent e(QEvent::KeyPress, Qt::Key_End, 0, 0);
     m_view->m_codeCompletion->handleKey(&e);
     return;
   }
-
 
   if (m_view->dynWordWrap() && currentLayout().wrap()) {
     // Allow us to go to the real end if we're already at the end of the view line
@@ -1246,6 +1263,11 @@ int KateViewInternal::lineMaxCol(const KateTextLayout& range)
 
 void KateViewInternal::cursorUp(bool sel)
 {
+  if (m_view->isCompletionActive()) {
+    view()->completionWidget()->previousCompletion();
+    return;
+  }
+
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
     QKeyEvent e(QEvent::KeyPress, Qt::Key_Up, 0, 0);
     m_view->m_codeCompletion->handleKey(&e);
@@ -1280,6 +1302,11 @@ void KateViewInternal::cursorUp(bool sel)
 
 void KateViewInternal::cursorDown(bool sel)
 {
+  if (m_view->isCompletionActive()) {
+    view()->completionWidget()->nextCompletion();
+    return;
+  }
+
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
     QKeyEvent e(QEvent::KeyPress, Qt::Key_Down, 0, 0);
     m_view->m_codeCompletion->handleKey(&e);
@@ -1379,6 +1406,11 @@ void KateViewInternal::setAutoCenterLines(int viewLines, bool updateView)
 
 void KateViewInternal::pageUp( bool sel )
 {
+  if (m_view->isCompletionActive()) {
+    view()->completionWidget()->pageUp();
+    return;
+  }
+
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
     QKeyEvent e(QEvent::KeyPress, Qt::Key_PageUp, 0, 0);
     m_view->m_codeCompletion->handleKey(&e);
@@ -1425,6 +1457,11 @@ void KateViewInternal::pageUp( bool sel )
 
 void KateViewInternal::pageDown( bool sel )
 {
+  if (m_view->isCompletionActive()) {
+    view()->completionWidget()->pageDown();
+    return;
+  }
+
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
     QKeyEvent e(QEvent::KeyPress, Qt::Key_PageDown, 0, 0);
     m_view->m_codeCompletion->handleKey(&e);
@@ -1524,11 +1561,17 @@ void KateViewInternal::bottom( bool sel )
 
 void KateViewInternal::top_home( bool sel )
 {
+  if (m_view->isCompletionActive()) {
+    view()->completionWidget()->top();
+    return;
+  }
+
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
     QKeyEvent e(QEvent::KeyPress, Qt::Key_Home, 0, 0);
     m_view->m_codeCompletion->handleKey(&e);
     return;
   }
+
   KTextEditor::Cursor c( 0, 0 );
   updateSelection( c, sel );
   updateCursor( c );
@@ -1536,11 +1579,17 @@ void KateViewInternal::top_home( bool sel )
 
 void KateViewInternal::bottom_end( bool sel )
 {
+  if (m_view->isCompletionActive()) {
+    view()->completionWidget()->bottom();
+    return;
+  }
+
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
     QKeyEvent e(QEvent::KeyPress, Qt::Key_End, 0, 0);
     m_view->m_codeCompletion->handleKey(&e);
     return;
   }
+
   KTextEditor::Cursor c( m_doc->lastLine(), m_doc->lineLength( m_doc->lastLine() ) );
   updateSelection( c, sel );
   updateCursor( c );
@@ -1704,7 +1753,7 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 
   updateDirty(); //paintText(0, 0, width(), height(), true);
 
-  emit m_view->cursorPositionChanged(m_view);
+  emit m_view->cursorPositionChanged(m_view, m_cursor);
 }
 
 void KateViewInternal::updateBracketMarks()
@@ -1899,7 +1948,16 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
     {
       QKeyEvent *k = (QKeyEvent *)e;
 
-      if (m_view->m_codeCompletion->codeCompletionVisible ())
+
+      if (m_view->isCompletionActive())
+      {
+        kdDebug (13030) << "hint around" << endl;
+
+        if( k->key() == Qt::Key_Escape )
+          m_view->abortCompletion();
+      }
+
+      if( ! m_view->m_codeCompletion->codeCompletionVisible() )
       {
         kdDebug (13030) << "hint around" << endl;
 
@@ -1958,10 +2016,19 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
 void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
-
   KKey key(e);
 
   bool codeComp = m_view->m_codeCompletion->codeCompletionVisible ();
+
+  if (m_view->isCompletionActive())
+  {
+    if( e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return  ||
+    (key == Qt::SHIFT + Qt::Key_Return) || (key == Qt::SHIFT + Qt::Key_Enter)) {
+      m_view->completionWidget()->execute();
+      e->accept();
+      return;
+    }
+  }
 
   if (codeComp)
   {
@@ -2572,6 +2639,9 @@ void KateViewInternal::focusInEvent (QFocusEvent *)
 
 void KateViewInternal::focusOutEvent (QFocusEvent *)
 {
+  if (m_view->isCompletionActive())
+    m_view->abortCompletion();
+
   if( ! m_view->m_codeCompletion->codeCompletionVisible() )
   {
     m_cursorTimer.stop();
@@ -2641,8 +2711,8 @@ void KateViewInternal::dropEvent( QDropEvent* event )
 
     // is the source our own document?
     bool priv = false;
-    if (event->source() && event->source()->inherits("KateViewInternal"))
-      priv = m_doc->ownedView( ((KateViewInternal*)(event->source()))->m_view );
+    if (KateViewInternal* vi = qobject_cast<KateViewInternal*>(event->source()))
+      priv = m_doc->ownedView( vi->m_view );
 
     // dropped on a text selection area?
     bool selected = isTargetSelected( event->pos() );

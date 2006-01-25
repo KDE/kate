@@ -36,6 +36,7 @@
 class KateDocument;
 class KateView;
 class KateRendererConfig;
+class KateRenderRange;
 namespace  KTextEditor { class Range; }
 
 class KateLineLayout;
@@ -129,7 +130,7 @@ public:
     void setTabWidth(int tabWidth);
 
     /**
-     * @returns whether indent lines should be shown 
+     * @returns whether indent lines should be shown
      * @return indent lines should be shown
      */
     bool showIndentLines() const;
@@ -139,13 +140,13 @@ public:
      * @param showLines show the indent lines?
      */
     void setShowIndentLines(bool showLines);
-    
+
     /**
      * Sets the width of the tab. Helps performance.
      * @param indentWidth new indent width
      */
     void setIndentWidth(int indentWidth);
-    
+
     /**
      * Show the view's selection?
      * @return show sels?
@@ -191,7 +192,7 @@ public:
      * \param range line to return decoration for
      * \param selectionsOnly return decorations for selections and/or dynamic highlighting.
      */
-    QList<QTextLayout::FormatRange> decorationsForLine(KateLineLayoutPtr range, bool selectionsOnly = false) const;
+    QList<QTextLayout::FormatRange> decorationsForLine(const KateTextLine::Ptr& textLine, int line, bool selectionsOnly = false, KateRenderRange* completionHighlight = 0L, bool completionSelected = false) const;
 
     KateSmartRegion& dynamicRegion() { return m_dynamicRegion; }
 

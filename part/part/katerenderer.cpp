@@ -266,29 +266,40 @@ void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint row)
   paint.setPen( penBackup );
 }
 
-QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayoutPtr range, bool selectionsOnly ) const
+QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateTextLine::Ptr& textLine, int line, bool selectionsOnly, KateRenderRange* completionHighlight, bool completionSelected ) const
 {
   QList<QTextLayout::FormatRange> newHighlight;
 
-  if (range->textLine()->attributesList().count() || m_view->externalHighlights().count() || m_view->internalHighlights().count() || m_doc->documentHighlights().count()) {
+  if (textLine->attributesList().count() || m_view->externalHighlights().count() || m_view->internalHighlights().count() || m_doc->documentHighlights().count()) {
     RenderRangeList renderRanges;
-    renderRanges.appendRanges(m_view->internalHighlights(), selectionsOnly, view());
-    renderRanges.appendRanges(m_view->externalHighlights(), selectionsOnly, view());
-    renderRanges.appendRanges(m_doc->documentHighlights(), selectionsOnly, view());
+
+    if (!completionHighlight) {
+      renderRanges.appendRanges(m_view->internalHighlights(), selectionsOnly, view());
+      renderRanges.appendRanges(m_view->externalHighlights(), selectionsOnly, view());
+      renderRanges.appendRanges(m_doc->documentHighlights(), selectionsOnly, view());
+
+    } else {
+      renderRanges.append(completionHighlight);
+    }
 
     NormalRenderRange* inbuiltHighlight = new NormalRenderRange();
-    const QVector<int> &al = range->textLine()->attributesList();
+    const QVector<int> &al = textLine->attributesList();
     for (int i = 0; i+2 < al.count(); i += 3) {
-      inbuiltHighlight->addRange(new KTextEditor::Range(KTextEditor::Cursor(range->line(), al[i]), al[i+1]), specificAttribute(al[i+2]));
+      inbuiltHighlight->addRange(new KTextEditor::Range(KTextEditor::Cursor(line, al[i]), al[i+1]), specificAttribute(al[i+2]));
     }
     renderRanges.append(inbuiltHighlight);
 
     NormalRenderRange* selectionHighlight = 0L;
-    if (selectionsOnly && showSelections() && m_view->selection()) {
+    if ((selectionsOnly && showSelections() && m_view->selection()) || (completionHighlight && completionSelected)) {
       selectionHighlight = new NormalRenderRange();
       static KTextEditor::Attribute backgroundAttribute;
       backgroundAttribute.setBackground(config()->selectionColor());
-      selectionHighlight->addRange(new KTextEditor::Range(m_view->selectionRange()), &backgroundAttribute);
+
+      if (completionHighlight && completionSelected)
+        selectionHighlight->addRange(new KTextEditor::Range(line, 0, line + 1, 0), &backgroundAttribute);
+      else
+        selectionHighlight->addRange(new KTextEditor::Range(m_view->selectionRange()), &backgroundAttribute);
+
       renderRanges.append(selectionHighlight);
     }
 
@@ -296,13 +307,14 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
 
     if (selectionsOnly) {
       KTextEditor::Range rangeNeeded = m_view->selectionRange().encompass(m_dynamicRegion.boundingRange());
-      rangeNeeded &= KTextEditor::Range(range->line(), 0, range->line() + 1, 0);
+      rangeNeeded &= KTextEditor::Range(line, 0, line + 1, 0);
 
-      currentPosition = qMax(range->start(), rangeNeeded.start());
-      endPosition = qMin(KTextEditor::Cursor(range->line() + 1, 0), rangeNeeded.end());
+      currentPosition = qMax(KTextEditor::Cursor(line, 0), rangeNeeded.start());
+      endPosition = qMin(KTextEditor::Cursor(line + 1, 0), rangeNeeded.end());
+
     } else {
-      currentPosition = range->start();
-      endPosition = KTextEditor::Cursor(range->line() + 1, 0);
+      currentPosition = KTextEditor::Cursor(line, 0);
+      endPosition = KTextEditor::Cursor(line + 1, 0);
     }
 
     do {
@@ -322,9 +334,9 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( KateLineLayout
         fr.length = nextPosition.column() - currentPosition.column();
 
       } else {
-        if (endPosition.line() > range->line())
+        if (endPosition.line() > line)
           // +1 to force background drawing at the end of the line when it's warranted
-          fr.length = range->length() - currentPosition.column() + 1;
+          fr.length = textLine->length() - currentPosition.column() + 1;
         else
           fr.length = endPosition.column() - currentPosition.column();
       }
@@ -382,7 +394,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       // Draw the text :)
       if (m_dynamicRegion.boundingRange().isValid() || (m_view->selection() && showSelections() && m_view->selectionRange().overlapsLine(range->line()))) {
         // FIXME toVector() may be a performance issue
-        additionalFormats = decorationsForLine(range, true).toVector();
+        additionalFormats = decorationsForLine(range->textLine(), range->line(), true).toVector();
         range->layout()->draw(&paint, QPoint(-xStart,0), additionalFormats);
 
       } else {
@@ -706,7 +718,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   l->setTextOption(opt);
 
   // Syntax highlighting, inbuilt and arbitrary
-  l->setAdditionalFormats(decorationsForLine(lineLayout));
+  l->setAdditionalFormats(decorationsForLine(lineLayout->textLine(), lineLayout->line()));
 
   // Begin layouting
   l->beginLayout();

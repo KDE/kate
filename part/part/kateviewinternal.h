@@ -164,6 +164,7 @@ class KateViewInternal : public QWidget
     void bottom_end(bool sel=false);
 
     inline const KTextEditor::Cursor& getCursor() const { return m_cursor; }
+    QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor, bool realCursor = true) const;
     QPoint cursorCoordinates() const;
 
   // EVENT HANDLING STUFF - IMPORTANT
@@ -300,7 +301,7 @@ class KateViewInternal : public QWidget
 
     // maximal lenght of textlines visible from given startLine
     int maxLen(uint startLine);
-    
+
     // are we allowed to scroll columns?
     bool columnScrollingPossible ();
 

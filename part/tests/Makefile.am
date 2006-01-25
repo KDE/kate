@@ -12,11 +12,12 @@ kateregression_SOURCES = kateregression.cpp rangeexpectation.cpp \
 kateregression_LDADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la -lQtTest_debug
 kateregression_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 
-katetest_SOURCES = katetest.cpp arbitraryhighlighttest.cpp
+katetest_SOURCES = katetest.cpp arbitraryhighlighttest.cpp \
+	codecompletiontest.cpp
 katetest_LDADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la
 katetest_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 
 TESTS = kateregression
 
 noinst_HEADERS = rangeexpectation.h cursorexpectation.h \
-	arbitraryhighlighttest.h
+		arbitraryhighlighttest.h codecompletiontest.h

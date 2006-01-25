@@ -31,6 +31,7 @@
 #include <ktexteditor/texthintinterface.h>
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/codecompletioninterface.h>
+#include <ktexteditor/codecompletion2.h>
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/templateinterface.h>
 
@@ -50,6 +51,7 @@ class KateViewConfig;
 class KateViewSchemaAction;
 class KateRenderer;
 class KateSpell;
+class KateCompletionWidget;
 
 class KToggleAction;
 class KAction;
@@ -70,7 +72,8 @@ class KateView : public KTextEditor::View,
                  public KTextEditor::TextHintInterface,
                  public KTextEditor::CodeCompletionInterface,
                  public KTextEditor::SessionConfigInterface,
-                 public KTextEditor::TemplateInterface
+                 public KTextEditor::TemplateInterface,
+                 public KTextEditor::CodeCompletionInterface2
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::TextHintInterface)
@@ -156,6 +159,9 @@ class KateView : public KTextEditor::View,
     KTextEditor::Cursor cursorPositionVirtual () const
      { return KTextEditor::Cursor (m_viewInternal->getCursor().line(), cursorColumn()); }
 
+    QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor) const
+        { return m_viewInternal->cursorToCoordinate(cursor); }
+
     QPoint cursorPositionCoordinates() const
         { return m_viewInternal->cursorCoordinates(); }
 
@@ -169,13 +175,11 @@ class KateView : public KTextEditor::View,
      */
     int cursorColumn() const;
 
-  Q_SIGNALS:
-    void caretPositionChanged(const KTextEditor::Cursor& newPosition);
-    void mousePositionChanged(const KTextEditor::Cursor& newPosition);
+    virtual bool mouseTrackingEnabled() const;
+    virtual bool setMouseTrackingEnabled(bool enabled);
 
   private Q_SLOTS:
-    void slotMousePositionChanged();
-    void slotCaretPositionChanged();
+    void slotMousePositionChanged(KTextEditor::SmartCursor* mousePosition);
 
   // Internal
   public:
@@ -204,6 +208,21 @@ class KateView : public KTextEditor::View,
   public Q_SLOTS:
     void showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 );
 #endif
+
+  //
+  // KTextEditor::CodeCompletionInterface
+  //
+  public:
+    virtual bool isCompletionActive() const;
+    virtual void startCompletion(const KTextEditor::Range& word, KTextEditor::CodeCompletionModel* model);
+    virtual void abortCompletion();
+    virtual void forceCompletion();
+
+    inline KateCompletionWidget* completionWidget() const { return m_completionWidget; }
+
+  private:
+    KateCompletionWidget* m_completionWidget;
+
   //
   // KTextEditor::TextHintInterface
   //

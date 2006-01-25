@@ -1431,7 +1431,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       if (offset2 <= offset)
         continue;
 
-      if (item->region2)
+      if (item->region2 && foldingList)
       {
         // kdDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2)<<endl;
         if ( !foldingList->isEmpty() && ((item->region2 < 0) && (int)(*foldingList)[foldingList->size()-2] == -item->region2 ) )
@@ -1450,7 +1450,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
       }
 
-      if (item->region)
+      if (item->region && foldingList)
       {
         // kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
 

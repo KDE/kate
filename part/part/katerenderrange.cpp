@@ -183,7 +183,7 @@ KTextEditor::Cursor RenderRangeList::nextBoundary() const
 {
   KTextEditor::Cursor ret = m_currentPos;
   bool first = true;
-  foreach (RenderRange* r, *this) {
+  foreach (KateRenderRange* r, *this) {
     if (first) {
       ret = r->nextBoundary();
       first = false;
@@ -201,7 +201,7 @@ bool RenderRangeList::advanceTo(const KTextEditor::Cursor& pos) const
 {
   bool ret = false;
 
-  foreach (RenderRange* r, *this)
+  foreach (KateRenderRange* r, *this)
     ret |= r->advanceTo(pos);
 
   return ret;
@@ -209,7 +209,7 @@ bool RenderRangeList::advanceTo(const KTextEditor::Cursor& pos) const
 
 bool RenderRangeList::hasAttribute() const
 {
-  foreach (RenderRange* r, *this)
+  foreach (KateRenderRange* r, *this)
     if (r->currentAttribute())
       return true;
 
@@ -220,7 +220,7 @@ KTextEditor::Attribute RenderRangeList::generateAttribute() const
 {
   KTextEditor::Attribute a;
 
-  foreach (RenderRange* r, *this)
+  foreach (KateRenderRange* r, *this)
     if (KTextEditor::Attribute* a2 = r->currentAttribute())
       a += *a2;
 

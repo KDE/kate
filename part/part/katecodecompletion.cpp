@@ -133,10 +133,11 @@ KateCodeCompletion::KateCodeCompletion( KateView* view )
   m_completionPopup->setFocusProxy( m_view->m_viewInternal );
 
   m_pArgHint = new KateArgHint( m_view );
-  connect( m_pArgHint, SIGNAL(argHintHidden()),
-           this, SIGNAL(argHintHidden()) );
+  //rodda: no such signal
+  //connect( m_pArgHint, SIGNAL(argHintHidden()),
+  //         this, SIGNAL(argHintHidden()) );
 
-  connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*)),
+  connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)),
            this, SLOT(slotCursorPosChanged()) );
 }
 

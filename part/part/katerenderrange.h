@@ -29,16 +29,16 @@
 class KateSmartRange;
 class KateView;
 
-class RenderRange
+class KateRenderRange
 {
   public:
-    virtual ~RenderRange() {};
+    virtual ~KateRenderRange() {};
     virtual KTextEditor::Cursor nextBoundary() const = 0;
     virtual bool advanceTo(const KTextEditor::Cursor& pos) const = 0;
     virtual KTextEditor::Attribute* currentAttribute() const = 0;
 };
 
-class SmartRenderRange : public RenderRange
+class SmartRenderRange : public KateRenderRange
 {
   public:
     SmartRenderRange(KateSmartRange* range, bool useDynamic, KateView* view);
@@ -59,7 +59,7 @@ class SmartRenderRange : public RenderRange
 
 typedef QPair<KTextEditor::Range*,KTextEditor::Attribute*> pairRA;
 
-class NormalRenderRange : public RenderRange
+class NormalRenderRange : public KateRenderRange
 {
   public:
     NormalRenderRange();
@@ -77,7 +77,7 @@ class NormalRenderRange : public RenderRange
     mutable int m_currentRange;
 };
 
-class RenderRangeList : public QList<RenderRange*>
+class RenderRangeList : public QList<KateRenderRange*>
 {
   public:
     void appendRanges(const QList<KTextEditor::SmartRange*>& startingRanges, bool useDynamic, KateView* view);

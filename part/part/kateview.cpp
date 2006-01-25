@@ -45,8 +45,10 @@
 #include "katefiletype.h"
 #include "kateautoindent.h"
 #include "katespell.h"
+#include "katecompletionwidget.h"
 
 #include <ktexteditor/plugin.h>
+#include <ktexteditor/cursorfeedback.h>
 
 #include <kparts/event.h>
 
@@ -93,6 +95,7 @@ static void blockFix(KTextEditor::Range& range)
 KateView::KateView( KateDocument *doc, QWidget *parent )
     : KTextEditor::View( parent )
     , m_destructing(false)
+    , m_completionWidget(0L)
     , m_customComplete(false)
     , m_cc_cleanup(false)
     , m_delayed_cc_type(KTextEditor::CompletionNone)
@@ -134,7 +137,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   hbox->addWidget (m_viewInternal->m_leftBorder);
   hbox->addWidget (m_viewInternal);
   hbox->addWidget (m_viewInternal->m_lineScroll);
-  
+
   hbox = new QHBoxLayout ();
   m_vBox->addLayout (hbox);
   hbox->setMargin (0);
@@ -146,9 +149,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   // this really is needed :)
   m_viewInternal->updateView ();
 
-  // FIXME design + update to new api
-  //connect(&m_viewInternal->m_cursor, SIGNAL(positionChanged()), SLOT(slotCaretPositionChanged()));
-  //connect(&m_viewInternal->m_mouse, SIGNAL(positionChanged()), SLOT(slotMousePositionChanged()));
+  connect(m_viewInternal->m_mouse.notifier(), SIGNAL(positionChanged(KTextEditor::SmartCursor*)), SLOT(slotMousePositionChanged(KTextEditor::SmartCursor*)));
 
   setInstance( KateGlobal::self()->instance() );
   doc->addView( this );
@@ -681,6 +682,7 @@ void KateView::slotExpandLocal()
 void KateView::setupCodeCompletion()
 {
   m_codeCompletion = new KateCodeCompletion(this);
+  /* rodda: signals do not exist
   connect( m_codeCompletion, SIGNAL(completionAborted()),
            this,             SIGNAL(completionAborted()));
   connect( m_codeCompletion, SIGNAL(completionDone()),
@@ -690,7 +692,7 @@ void KateView::setupCodeCompletion()
   connect( m_codeCompletion, SIGNAL(completionDone(KTextEditor::CompletionEntry)),
            this,             SIGNAL(completionDone(KTextEditor::CompletionEntry)));
   connect( m_codeCompletion, SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString*)),
-           this,             SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString*)));
+           this,             SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString*)));*/
 }
 
 QString KateView::viewMode () const
@@ -1262,20 +1264,9 @@ int KateView::cursorColumn() const
   return r;
 }
 
-void KateView::slotMousePositionChanged( )
+void KateView::slotMousePositionChanged(KTextEditor::SmartCursor* mousePosition)
 {
-  /* FIXME design + update to new api
-  Q_ASSERT(sender() && sender()->inherits("KateSmartCursor"));
-  KateSmartCursor* mousePosition = static_cast<KateSmartCursor*>(const_cast<QObject*>(sender()));
-  emit mousePositionChanged(*mousePosition);*/
-}
-
-void KateView::slotCaretPositionChanged( )
-{
-  /* FIXME design + update to new api
-  Q_ASSERT(sender() && sender()->inherits("KateSmartCursor"));
-  KateSmartCursor* caretPosition = static_cast<KateSmartCursor*>(const_cast<QObject*>(sender()));
-  emit caretPositionChanged(*caretPosition);*/
+  emit mousePositionChanged(this, *mousePosition);
 }
 
 //BEGIN KTextEditor::SelectionInterface stuff
@@ -1989,6 +1980,40 @@ void KateView::clearActions( )
   m_actions.clear();
 }
 
+bool KateView::mouseTrackingEnabled( ) const
+{
+  // FIXME support
+  return true;
+}
+
+bool KateView::setMouseTrackingEnabled( bool )
+{
+  // FIXME support
+  return true;
+}
+
+bool KateView::isCompletionActive( ) const
+{
+  return m_completionWidget && m_completionWidget->isCompletionActive();
+}
+
+void KateView::startCompletion( const KTextEditor::Range & word, KTextEditor::CodeCompletionModel * model )
+{
+  if (!m_completionWidget)
+    m_completionWidget = new KateCompletionWidget(this);
+
+  m_completionWidget->startCompletion(word, model);
+}
+
+void KateView::abortCompletion( )
+{
+  m_completionWidget->abortCompletion();
+}
+
+void KateView::forceCompletion( )
+{
+  m_completionWidget->execute();
+}
 
 //END Code completion new
 

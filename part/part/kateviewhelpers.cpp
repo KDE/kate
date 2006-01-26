@@ -333,7 +333,7 @@ void KateCmdLine::slotReturnPressed ( const QString& text )
   const uint textlen=text.length();
   while( (n<textlen) &&text[n].isSpace() )
     n++;
-  
+
   if (n>=textlen) return;
 
   QString cmd = text.mid( n );
@@ -837,10 +837,10 @@ int KateIconBorder::lineNumberWidth() const
         h = m_view->renderer()->config()->fontMetrics()->ascent();
 
         p.setPen(m_view->renderer()->attribute(0)->foreground());
-        //p.drawLine(w/2, h/2, w/2, 0);
 
-#if 1
         QPainterPath path;
+        path.moveTo(w/2, h/2);
+        path.lineTo(w/2, 0);
         path.lineTo(w/4, h/4);
         path.lineTo(0, 0);
         path.lineTo(0, h/2);
@@ -849,18 +849,7 @@ int KateIconBorder::lineNumberWidth() const
         path.lineTo(w-1, h*3/4);
         path.lineTo(w*3/4, h/2);
         path.lineTo(0, h/2);
-
         p.drawPath(path);
-#else
-        path.lineTo(w*3/4, h/4);
-        path.lineTo(w-1,0);
-        path.lineTo(w-1, h/2);
-        path.lineTo(w/2, h-1);
-        path.lineTo(w/4,h-1);
-        path.lineTo(0, h*3/4);
-        path.lineTo(w/4, h/2);
-        path.lineTo(w-1, h/2);
-#endif
       }
     }
   }

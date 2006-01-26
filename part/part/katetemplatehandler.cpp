@@ -209,8 +209,8 @@ void KateTemplateHandler::slotTextInserted( int line, int col )
   QString sourceText = m_doc->text ( *m_currentRange );
 
   ph->isInitialValue = false;
-  bool undoDontMerge = m_doc->m_undoDontMerge;
-  Q_ASSERT( m_doc->editSessionNumber == 0 );
+  bool undoDontMerge = m_doc->undoDontMerge();
+  Q_ASSERT( !m_doc->isEditRunning() );
   m_recursion = true;
 
   m_doc->editStart( /*false*/ );
@@ -225,11 +225,11 @@ void KateTemplateHandler::slotTextInserted( int line, int col )
     m_doc->insertText( start.line(), start.column(), sourceText );
   }*/
 
-  m_doc->m_undoDontMerge = false;
-  m_doc->m_undoComplexMerge = true;
+  m_doc->setUndoDontMerge(false);
+  m_doc->setUndoDontMergeComplex(true);
   m_doc->undoSafePoint();
   m_doc->editEnd();
-  m_doc->m_undoDontMerge = undoDontMerge;
+  m_doc->setUndoDontMerge(undoDontMerge);
   m_recursion = false;
 
   if ( ph->isCursor ) deleteLater();

@@ -92,8 +92,6 @@ class KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::ModificationInterface)
   Q_INTERFACES(KTextEditor::SmartInterface)
 
-  friend class KateRenderer;
-
   public:
     KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
         QWidget *parentWidget = 0, const char *widgetName = 0, QObject * = 0, const char * = 0);
@@ -299,7 +297,17 @@ class KateDocument : public KTextEditor::Document,
   private:
     void undoStart();
     void undoEnd();
+
+  public:
     void undoSafePoint();
+
+    bool undoDontMerge() const;
+    void setUndoDontMerge(bool dontMerge);
+
+    bool undoDontMergeComplex() const;
+    void setUndoDontMergeComplex(bool dontMerge);
+
+    bool isEditRunning() const;
 
   private Q_SLOTS:
     void undoCancel();
@@ -328,9 +336,6 @@ class KateDocument : public KTextEditor::Document,
 
     uint undoSteps () const;
     void setUndoSteps ( uint steps );
-
-  private:
-    friend class KateTemplateHandler;
 
   public:
     class KateEditHistory* history() const { return m_editHistory; }

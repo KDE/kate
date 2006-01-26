@@ -5066,6 +5066,30 @@ KateTextLine::Ptr KateDocument::plainKateTextLine( uint i )
   return m_buffer->plainLine (i);
 }
 
+bool KateDocument::undoDontMerge( ) const
+{
+  return m_undoDontMerge;
+}
+
+void KateDocument::setUndoDontMergeComplex(bool dontMerge)
+{
+  m_undoComplexMerge = dontMerge;
+}
+
+bool KateDocument::undoDontMergeComplex( ) const
+{
+  return m_undoComplexMerge;
+}
+
+void KateDocument::setUndoDontMerge(bool dontMerge)
+{
+  m_undoDontMerge = dontMerge;
+}
+
+bool KateDocument::isEditRunning() const
+{
+  return editIsRunning;
+}
 
 //END KTextEditor::SmartInterface
 

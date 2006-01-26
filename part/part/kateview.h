@@ -22,8 +22,6 @@
 #ifndef kate_view_h
 #define kate_view_h
 
-#include "kateconfig.h"
-#include "katerange.h"
 #include "katetextline.h"
 
 #include <ktexteditor/view.h>

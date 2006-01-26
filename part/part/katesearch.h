@@ -41,8 +41,6 @@ class KateSearch : public QObject
 {
   Q_OBJECT
 
-  friend class KateDocument;
-
   private:
     class SearchFlags
     {

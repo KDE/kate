@@ -24,8 +24,6 @@
 #include "katesmartcursor.h"
 #include "katesmartrange.h"
 #include "katetextline.h"
-#include "kateundo.h"
-#include "katecodefoldinghelpers.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/sessionconfiginterface.h>
@@ -309,7 +307,7 @@ class KateDocument : public KTextEditor::Document,
     void undoCancel();
 
   private:
-    void editAddUndo (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text);
+    void editAddUndo (int type, uint line, uint col, uint len, const QString &text);
 
     uint editSessionNumber;
     bool editIsRunning;

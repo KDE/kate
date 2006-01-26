@@ -43,6 +43,7 @@
 #include <ktexteditor/plugin.h>
 #include "kateedit.h"
 #include "katebuffer.h"
+#include "kateundo.h"
 
 #include <kio/job.h>
 #include <kio/netaccess.h>
@@ -1136,10 +1137,10 @@ bool KateDocument::wrapText(int startLine, int endLine)
   return true;
 }
 
-void KateDocument::editAddUndo (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text)
+void KateDocument::editAddUndo (int type, uint line, uint col, uint len, const QString &text)
 {
   if (editIsRunning && editWithUndo && m_editCurrentUndo) {
-    m_editCurrentUndo->addItem(type, line, col, len, text);
+    m_editCurrentUndo->addItem(static_cast<KateUndoGroup::UndoType>(type), line, col, len, text);
 
     // Clear redo buffer
     if (redoItems.count()) {

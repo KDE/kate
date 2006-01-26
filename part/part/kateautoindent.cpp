@@ -1057,7 +1057,7 @@ uint KateCSmartIndent::findOpeningComment(KateDocCursor &start)
 
 QRegExp KatePythonIndent::endWithColon = QRegExp( "^[^#]*:\\s*(#.*)?$" );
 QRegExp KatePythonIndent::stopStmt = QRegExp( "^\\s*(break|continue|raise|return|pass)\\b.*" );
-QRegExp KatePythonIndent::blockBegin = QRegExp( "^\\s*(def|if|elif|else|for|while|try)\\b.*" );
+QRegExp KatePythonIndent::blockBegin = QRegExp( "^\\s*(class|def|if|elif|else|for|while|try)\\b.*" );
 
 KatePythonIndent::KatePythonIndent (KateDocument *doc)
 : KateNormalIndent (doc)

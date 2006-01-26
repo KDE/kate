@@ -20,6 +20,7 @@
 
 #include "katedocument.h"
 #include "katesmartmanager.h"
+#include "katesmartrange.h"
 
 KateSmartRegion::KateSmartRegion(KateDocument* document)
   : m_bounding(document->smartManager()->newSmartRange(KTextEditor::Range::invalid()))

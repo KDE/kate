@@ -3952,7 +3952,7 @@ inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isE
    to the right of the cursor is an ending bracket, match it. Otherwise, don't
    match anything.
 */
-void KateDocument::newBracketMark( const KTextEditor::Cursor& cursor, KateSmartRange& bm, int maxLines )
+void KateDocument::newBracketMark( const KTextEditor::Cursor& cursor, KTextEditor::Range& bm, int maxLines )
 {
   bm.start() = cursor;
 

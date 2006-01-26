@@ -21,8 +21,6 @@
 #ifndef _KATE_DOCUMENT_H_
 #define _KATE_DOCUMENT_H_
 
-#include "katesmartcursor.h"
-#include "katesmartrange.h"
 #include "katetextline.h"
 
 #include <ktexteditor/document.h>
@@ -708,7 +706,7 @@ class KateDocument : public KTextEditor::Document,
   public:
     void tagAll();
 
-    void newBracketMark( const KTextEditor::Cursor& start, KateSmartRange& bm, int maxLines = -1 );
+    void newBracketMark( const KTextEditor::Cursor& start, KTextEditor::Range& bm, int maxLines = -1 );
     bool findMatchingBracket( KTextEditor::Range& range, int maxLines = -1 );
 
   private:

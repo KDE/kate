@@ -21,6 +21,7 @@
 #include "katedocument.h"
 #include "katesmartmanager.h"
 #include "katesmartcursornotifier.h"
+#include "katesmartrange.h"
 
 #include <kdebug.h>
 

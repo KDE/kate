@@ -28,6 +28,7 @@
 #include <ktexteditor/attribute.h>
 
 #include "katesmartcursor.h"
+#include "katesmartrange.h"
 #include "katelinerange.h"
 #include "katetextline.h"
 #include "katedocument.h"

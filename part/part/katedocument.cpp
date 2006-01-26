@@ -42,6 +42,7 @@
 #include "katesmartmanager.h"
 #include <ktexteditor/plugin.h>
 #include "kateedit.h"
+#include "katebuffer.h"
 
 #include <kio/job.h>
 #include <kio/netaccess.h>
@@ -5032,6 +5033,36 @@ void KateDocument::clearViewActions( KTextEditor::View * view )
 void KateDocument::ignoreModifiedOnDiskOnce( )
 {
   m_isasking = -1;
+}
+
+KateHighlighting * KateDocument::highlight( ) const
+{
+  return m_buffer->highlight();
+}
+
+uint KateDocument::getRealLine( unsigned int virtualLine )
+{
+  return m_buffer->lineNumber (virtualLine);
+}
+
+uint KateDocument::getVirtualLine( unsigned int realLine )
+{
+  return m_buffer->lineVisibleNumber (realLine);
+}
+
+uint KateDocument::visibleLines( )
+{
+  return m_buffer->countVisible ();
+}
+
+KateTextLine::Ptr KateDocument::kateTextLine( uint i )
+{
+  return m_buffer->line (i);
+}
+
+KateTextLine::Ptr KateDocument::plainKateTextLine( uint i )
+{
+  return m_buffer->plainLine (i);
 }
 
 

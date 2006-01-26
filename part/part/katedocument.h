@@ -25,7 +25,6 @@
 #include "katesmartrange.h"
 #include "katetextline.h"
 #include "kateundo.h"
-#include "katebuffer.h"
 #include "katecodefoldinghelpers.h"
 
 #include <ktexteditor/document.h>
@@ -579,9 +578,7 @@ class KateDocument : public KTextEditor::Document,
     // Repaint all of all of the views
     void repaintViews(bool paintOnlyDirty = true);
 
-    inline KateHighlighting *highlight () { return m_buffer->highlight(); }
-
-    inline KateHighlighting *highlight () const { return m_buffer->highlight(); }
+    KateHighlighting *highlight () const;
 
   public Q_SLOTS:    //please keep prototypes and implementations in same order
     void tagLines(int start, int end);
@@ -790,30 +787,11 @@ class KateDocument : public KTextEditor::Document,
 
    // code folding
   public:
-    inline uint getRealLine(unsigned int virtualLine)
-    {
-      return m_buffer->lineNumber (virtualLine);
-    }
-
-    inline uint getVirtualLine(unsigned int realLine)
-    {
-      return m_buffer->lineVisibleNumber (realLine);
-    }
-
-    inline uint visibleLines ()
-    {
-      return m_buffer->countVisible ();
-    }
-
-    inline KateTextLine::Ptr kateTextLine(uint i)
-    {
-      return m_buffer->line (i);
-    }
-
-    inline KateTextLine::Ptr plainKateTextLine(uint i)
-    {
-      return m_buffer->plainLine (i);
-    }
+    uint getRealLine(unsigned int virtualLine);
+    uint getVirtualLine(unsigned int realLine);
+    uint visibleLines ();
+    KateTextLine::Ptr kateTextLine(uint i);
+    KateTextLine::Ptr plainKateTextLine(uint i);
 
   Q_SIGNALS:
     void codeFoldingUpdated();

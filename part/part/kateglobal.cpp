@@ -32,6 +32,7 @@
 #endif
 #include "kateluascript.h"
 #include "katecmd.h"
+#include "katebuffer.h"
 
 #include <kvmallocator.h>
 #include <klocale.h>
@@ -256,12 +257,12 @@ void KateGlobal::configDialog(QWidget *parent)
     QStringList path;
     path.clear();
     path << configPageName (i);
-    
+
     QFrame *page = kd->addPage( path, configPageFullName (i),
                               configPagePixmap(i, KIcon::SizeMedium) );
-                              
+
     QVBoxLayout *topLayout = new QVBoxLayout( page, 0, KDialog::spacingHint() );
-    
+
     KTextEditor::ConfigPage *cp = configPage(i, page);
     topLayout->addWidget( cp);
     editorPages.append (cp);

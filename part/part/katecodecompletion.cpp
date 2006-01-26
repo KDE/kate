@@ -31,6 +31,7 @@
 #include "katerenderer.h"
 #include "kateconfig.h"
 #include "katefont.h"
+#include "kateviewinternal.h"
 
 #include <kdebug.h>
 #include <kvbox.h>

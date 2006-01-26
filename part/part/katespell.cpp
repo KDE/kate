@@ -25,6 +25,7 @@
 #include "katespell.moc"
 
 #include "kateview.h"
+#include "katedocument.h"
 
 #include <kaction.h>
 #include <kstdaction.h>

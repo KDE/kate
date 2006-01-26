@@ -18,6 +18,8 @@
 
 #include "katecompletionmodel.h"
 
+#include <klocale.h>
+
 #include "katecompletionwidget.h"
 #include "kateview.h"
 #include "katerenderer.h"

@@ -716,7 +716,7 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
 void KateViewInternal::doReturn()
 {
   KTextEditor::Cursor c = m_cursor;
-  m_doc->newLine( c, this );
+  m_doc->newLine( c, view() );
   // TODO Might not be needed
   updateCursor( c );
   updateView();
@@ -2004,7 +2004,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
     case QEvent::WindowBlocked:
       // next focus originates from an internal dialog:
       // don't show the modonhd prompt
-      m_doc->m_isasking = -1;
+      m_doc->ignoreModifiedOnDiskOnce();
       break;
 
     default:
@@ -2900,7 +2900,7 @@ void KateViewInternal::viewSelectionChanged ()
 
 void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 {
-  if ( m_doc->m_bReadOnly ) {
+  if ( m_doc->readOnly() ) {
     e->ignore();
     return;
   }

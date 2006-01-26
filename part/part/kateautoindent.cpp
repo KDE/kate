@@ -27,6 +27,7 @@
 #include "katejscript.h"
 #include "kateview.h"
 #include "kateextendedattribute.h"
+#include "katedocument.h"
 
 #include <klocale.h>
 #include <kdebug.h>

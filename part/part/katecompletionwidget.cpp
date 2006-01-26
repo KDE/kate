@@ -36,6 +36,8 @@
 #include "katerenderer.h"
 #include "kateconfig.h"
 #include "katefont.h"
+#include "katedocument.h"
+
 #include "katecompletionmodel.h"
 #include "katecompletiontree.h"
 

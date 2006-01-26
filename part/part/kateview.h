@@ -22,10 +22,9 @@
 #ifndef kate_view_h
 #define kate_view_h
 
-#include "katedocument.h"
-#include "kateviewinternal.h"
 #include "kateconfig.h"
 #include "katerange.h"
+#include "katetextline.h"
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/texthintinterface.h>
@@ -52,6 +51,8 @@ class KateViewSchemaAction;
 class KateRenderer;
 class KateSpell;
 class KateCompletionWidget;
+class KateSmartRange;
+class KateViewInternal;
 
 class KToggleAction;
 class KAction;
@@ -88,7 +89,7 @@ class KateView : public KTextEditor::View,
     KateView( KateDocument* doc, QWidget* parent );
     ~KateView ();
 
-    KTextEditor::Document *document () { return m_doc; }
+    KTextEditor::Document *document ();
 
     QString viewMode () const;
 
@@ -100,7 +101,7 @@ class KateView : public KTextEditor::View,
   //
   public Q_SLOTS:
     // TODO: Factor out of m_viewInternal
-    void paste()         {  m_doc->paste( this ); m_viewInternal->repaint(); }
+    void paste();
     void cut();
     void copy() const;
 
@@ -150,23 +151,17 @@ class KateView : public KTextEditor::View,
   // KTextEditor::ViewCursorInterface
   //
   public:
-    bool setCursorPosition (const KTextEditor::Cursor &position)
-      { return setCursorPositionInternal( position, 1, true ); }
+    bool setCursorPosition (const KTextEditor::Cursor &position);
 
-    const KTextEditor::Cursor &cursorPosition () const
-     { return m_viewInternal->getCursor(); }
+    const KTextEditor::Cursor &cursorPosition () const;
 
-    KTextEditor::Cursor cursorPositionVirtual () const
-     { return KTextEditor::Cursor (m_viewInternal->getCursor().line(), cursorColumn()); }
+    KTextEditor::Cursor cursorPositionVirtual () const;
 
-    QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor) const
-        { return m_viewInternal->cursorToCoordinate(cursor); }
+    QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor) const;
 
-    QPoint cursorPositionCoordinates() const
-        { return m_viewInternal->cursorCoordinates(); }
+    QPoint cursorPositionCoordinates() const;
 
-    bool setCursorPositionVisual( const KTextEditor::Cursor& position )
-        { return setCursorPositionInternal( position, m_doc->config()->tabWidth(), true ); }
+    bool setCursorPositionVisual( const KTextEditor::Cursor& position );
 
     /**
      * calculate the virtual column position of the cursor
@@ -253,7 +248,7 @@ class KateView : public KTextEditor::View,
 
     virtual bool removeSelectionText () { return removeSelectedText(); }
 
-    virtual const KTextEditor::Range &selectionRange() const { return m_selection; }
+    virtual const KTextEditor::Range &selectionRange() const;
 
     virtual bool setBlockSelection (bool on) { return setBlockSelectionMode (on); }
 
@@ -361,75 +356,74 @@ class KateView : public KTextEditor::View,
     */
     bool isOverwriteMode() const;
     enum KTextEditor::View::EditMode viewEditMode() const {return isOverwriteMode() ? KTextEditor::View::EditOverwrite : KTextEditor::View::EditInsert;}
-    QString currentTextLine()
-        { return m_doc->line( cursorPosition().line() ); }
-    QString currentWord()
-        { return m_doc->getWord( cursorPosition() ); }
+    QString currentTextLine();
+    QString currentWord();
 
   public Q_SLOTS:
-    void indent()             { m_doc->indent( this, cursorPosition().line(), 1 );  }
-    void unIndent()           { m_doc->indent( this, cursorPosition().line(), -1 ); }
-    void cleanIndent()        { m_doc->indent( this, cursorPosition().line(), 0 );  }
-    void align()              { m_doc->align( this, cursorPosition().line() ); }
-    void comment()            { m_doc->comment( this, cursorPosition().line(), cursorPosition().column(), 1 );  }
-    void uncomment()          { m_doc->comment( this, cursorPosition().line(), cursorPosition().column(),-1 ); }
-    void killLine()           { m_doc->removeLine( cursorPosition().line() ); }
+    void indent();
+    void unIndent();
+    void cleanIndent();
+    void align();
+    void comment();
+    void uncomment();
+    void killLine();
 
     /**
       Uppercases selected text, or an alphabetic character next to the cursor.
     */
-    void uppercase() { m_doc->transform( this, m_viewInternal->m_cursor, KateDocument::Uppercase ); }
+    void uppercase();
     /**
       Lowercases selected text, or an alphabetic character next to the cursor.
     */
-    void lowercase() { m_doc->transform( this, m_viewInternal->m_cursor, KateDocument::Lowercase ); }
+    void lowercase();
     /**
       Capitalizes the selection (makes each word start with an uppercase) or
       the word under the cursor.
     */
-    void capitalize() { m_doc->transform( this, m_viewInternal->m_cursor, KateDocument::Capitalize ); }
+    void capitalize();
     /**
       Joins lines touched by the selection
     */
     void joinLines();
 
-    void backspace()          { m_viewInternal->doBackspace();       }
-    void deleteWordLeft()     { m_viewInternal->doDeleteWordLeft();  }
-    void keyDelete()          { m_viewInternal->doDelete();          }
-    void deleteWordRight()    { m_viewInternal->doDeleteWordRight(); }
-    void transpose()          { m_viewInternal->doTranspose();       }
-    void cursorLeft()         { m_viewInternal->cursorLeft();        }
-    void shiftCursorLeft()    { m_viewInternal->cursorLeft(true);    }
-    void cursorRight()        { m_viewInternal->cursorRight();       }
-    void shiftCursorRight()   { m_viewInternal->cursorRight(true);   }
-    void wordLeft()           { m_viewInternal->wordLeft();          }
-    void shiftWordLeft()      { m_viewInternal->wordLeft(true);      }
-    void wordRight()          { m_viewInternal->wordRight();         }
-    void shiftWordRight()     { m_viewInternal->wordRight(true);     }
-    void home()               { m_viewInternal->home();              }
-    void shiftHome()          { m_viewInternal->home(true);          }
-    void end()                { m_viewInternal->end();               }
-    void shiftEnd()           { m_viewInternal->end(true);           }
-    void up()                 { kdDebug(13030)<<"KateView::up()"<<endl;m_viewInternal->cursorUp();          }
-    void shiftUp()            { m_viewInternal->cursorUp(true);      }
-    void down()               { m_viewInternal->cursorDown();        }
-    void shiftDown()          { m_viewInternal->cursorDown(true);    }
-    void scrollUp()           { m_viewInternal->scrollUp();          }
-    void scrollDown()         { m_viewInternal->scrollDown();        }
-    void topOfView()          { m_viewInternal->topOfView();         }
-    void shiftTopOfView()     { m_viewInternal->topOfView(true);     }
-    void bottomOfView()       { m_viewInternal->bottomOfView();      }
-    void shiftBottomOfView()  { m_viewInternal->bottomOfView(true);  }
-    void pageUp()             { m_viewInternal->pageUp();            }
-    void shiftPageUp()        { m_viewInternal->pageUp(true);        }
-    void pageDown()           { m_viewInternal->pageDown();          }
-    void shiftPageDown()      { m_viewInternal->pageDown(true);      }
-    void top()                { m_viewInternal->top_home();          }
-    void shiftTop()           { m_viewInternal->top_home(true);      }
-    void bottom()             { m_viewInternal->bottom_end();        }
-    void shiftBottom()        { m_viewInternal->bottom_end(true);    }
-    void toMatchingBracket()  { m_viewInternal->cursorToMatchingBracket();}
-    void shiftToMatchingBracket()  { m_viewInternal->cursorToMatchingBracket(true);}
+    // Note - the following functions simply forward to KateViewInternal
+    void backspace();
+    void deleteWordLeft();
+    void keyDelete();
+    void deleteWordRight();
+    void transpose();
+    void cursorLeft();
+    void shiftCursorLeft();
+    void cursorRight();
+    void shiftCursorRight();
+    void wordLeft();
+    void shiftWordLeft();
+    void wordRight();
+    void shiftWordRight();
+    void home();
+    void shiftHome();
+    void end();
+    void shiftEnd();
+    void up();
+    void shiftUp();
+    void down();
+    void shiftDown();
+    void scrollUp();
+    void scrollDown();
+    void topOfView();
+    void shiftTopOfView();
+    void bottomOfView();
+    void shiftBottomOfView();
+    void pageUp();
+    void shiftPageUp();
+    void pageDown();
+    void shiftPageDown();
+    void top();
+    void shiftTop();
+    void bottom();
+    void shiftBottom();
+    void toMatchingBracket();
+    void shiftToMatchingBracket();
 
     void gotoLine();
 
@@ -589,7 +583,7 @@ class KateView : public KTextEditor::View,
     bool m_updatingDocumentConfig;
 
     // stores the current selection
-    KateSmartRange m_selection;
+    KateSmartRange* m_selection;
 
     // do we select normal or blockwise ?
     bool blockSelect;

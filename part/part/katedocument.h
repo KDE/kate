@@ -59,7 +59,6 @@ class KateAutoIndent;
 class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
-class KateViewInternal;
 class KateSmartRange;
 class KateLineInfo;
 class KateBrowserExtension;
@@ -98,7 +97,6 @@ class KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::ModificationInterface)
   Q_INTERFACES(KTextEditor::SmartInterface)
 
-  friend class KateViewInternal;
   friend class KateRenderer;
 
   public:
@@ -607,7 +605,7 @@ class KateDocument : public KTextEditor::Document,
     bool ownedView(KateView *);
 
     uint currentColumn( const KTextEditor::Cursor& );
-    void newLine(             KTextEditor::Cursor&, KateViewInternal * ); // Changes input
+    void newLine(             KTextEditor::Cursor&, KateView* ); // Changes input
     void backspace(     KateView *view, const KTextEditor::Cursor& );
     void del(           KateView *view, const KTextEditor::Cursor& );
     void transpose(     const KTextEditor::Cursor& );
@@ -767,6 +765,9 @@ class KateDocument : public KTextEditor::Document,
      * @param reason the reason we are emitting the signal.
      */
     void modifiedOnDisk (KTextEditor::Document *doc, bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
+
+  public:
+    void ignoreModifiedOnDiskOnce();
 
   private:
     int m_isasking; // don't reenter slotModifiedOnDisk when this is true

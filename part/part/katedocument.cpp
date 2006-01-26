@@ -2841,15 +2841,15 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   return true;
 }
 
-void KateDocument::newLine( KTextEditor::Cursor& c, KateViewInternal *v )
+void KateDocument::newLine( KTextEditor::Cursor& c, KateView *v )
 {
   editStart();
 
-  if( !v->view()->config()->persistentSelection() && v->view()->selection() )
-    v->view()->removeSelectedText();
+  if( !v->config()->persistentSelection() && v->selection() )
+    v->removeSelectedText();
 
   // temporary hack to get the cursor pos right !!!!!!!!!
-  c = v->getCursor ();
+  c = v->cursorPosition();
 
   if (c.line() > (int)lastLine())
    c.setLine(lastLine());
@@ -5027,6 +5027,11 @@ void KateDocument::clearDocumentActions( )
 void KateDocument::clearViewActions( KTextEditor::View * view )
 {
   static_cast<KateView*>(view)->clearActions();
+}
+
+void KateDocument::ignoreModifiedOnDiskOnce( )
+{
+  m_isasking = -1;
 }
 
 

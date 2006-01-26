@@ -46,6 +46,7 @@
 #include "kateautoindent.h"
 #include "katespell.h"
 #include "katecompletionwidget.h"
+#include "katesmartmanager.h"
 
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/cursorfeedback.h>
@@ -95,11 +96,11 @@ static void blockFix(KTextEditor::Range& range)
 KateView::KateView( KateDocument *doc, QWidget *parent )
     : KTextEditor::View( parent )
     , m_destructing(false)
-    , m_completionWidget(0L)
     , m_customComplete(false)
     , m_cc_cleanup(false)
     , m_delayed_cc_type(KTextEditor::CompletionNone)
     , m_delayed_cc_provider(0)
+    , m_completionWidget(0L)
     , m_editActions (0)
     , m_doc( doc )
     , m_search( new KateSearch( this ) )
@@ -110,7 +111,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_hasWrap( false )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
-    , m_selection(KTextEditor::Range::invalid(), m_doc)
+    , m_selection(m_doc->smartManager()->newSmartRange(KTextEditor::Range::invalid()))
     , blockSelect (false)
     , m_imComposeEvent( false )
 {
@@ -121,8 +122,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   m_renderer = new KateRenderer(doc, this);
 
   m_viewInternal = new KateViewInternal( this, doc );
-
-  m_selection.setInternal();
 
   // layouting ;)
   m_vBox = new QVBoxLayout (this);
@@ -199,6 +198,9 @@ KateView::~KateView()
 
     m_doc->removeView( this );
   }
+
+  delete m_selection;
+  m_selection = 0L;
 
   delete m_viewInternal;
   delete m_codeCompletion;
@@ -1273,8 +1275,8 @@ void KateView::slotMousePositionChanged(KTextEditor::SmartCursor* mousePosition)
 
 bool KateView::setSelection( const KTextEditor::Range &selection )
 {
-  KTextEditor::Range oldSelection = m_selection;
-  m_selection = selection;
+  KTextEditor::Range oldSelection = *m_selection;
+  *m_selection = selection;
 
   tagSelection(oldSelection);
 
@@ -1295,13 +1297,13 @@ bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
   if( !selection() )
     return false;
 
-  KTextEditor::Range oldSelection = m_selection;
+  KTextEditor::Range oldSelection = *m_selection;
 
-  m_selection = KTextEditor::Range::invalid();
+  *m_selection = KTextEditor::Range::invalid();
 
   tagSelection(oldSelection);
 
-  oldSelection = m_selection;
+  oldSelection = *m_selection;
 
   if (redraw)
     repaintText(true);
@@ -1314,12 +1316,12 @@ bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
 
 bool KateView::selection() const
 {
-  return m_selection.start() != m_selection.end();
+  return m_selection->start() != m_selection->end();
 }
 
 QString KateView::selectionText() const
 {
-  KTextEditor::Range range = m_selection;
+  KTextEditor::Range range = *m_selection;
 
   if ( blockSelect )
     blockFix(range);
@@ -1334,7 +1336,7 @@ bool KateView::removeSelectedText()
 
   m_doc->editStart ();
 
-  KTextEditor::Range range = m_selection;
+  KTextEditor::Range range = *m_selection;
 
   if ( blockSelect )
     blockFix(range);
@@ -1363,31 +1365,31 @@ bool KateView::cursorSelected(const KTextEditor::Cursor& cursor)
     ret.setColumn(0);
 
   if (blockSelect)
-    return cursor.line() >= m_selection.start().line() && ret.line() <= m_selection.end().line() && ret.column() >= m_selection.start().column() && ret.column() < m_selection.end().column();
+    return cursor.line() >= m_selection->start().line() && ret.line() <= m_selection->end().line() && ret.column() >= m_selection->start().column() && ret.column() < m_selection->end().column();
   else
-    return m_selection.contains(cursor);
+    return m_selection->contains(cursor);
 }
 
 bool KateView::lineSelected (int line)
 {
-  return !blockSelect && m_selection.containsLine(line);
+  return !blockSelect && m_selection->containsLine(line);
 }
 
 bool KateView::lineEndSelected (const KTextEditor::Cursor& lineEndPos)
 {
   return (!blockSelect)
-    && (lineEndPos.line() > m_selection.start().line() || (lineEndPos.line() == m_selection.start().line() && (m_selection.start().column() < lineEndPos.column() || lineEndPos.column() == -1)))
-    && (lineEndPos.line() < m_selection.end().line() || (lineEndPos.line() == m_selection.end().line() && (lineEndPos.column() <= m_selection.end().column() && lineEndPos.column() != -1)));
+    && (lineEndPos.line() > m_selection->start().line() || (lineEndPos.line() == m_selection->start().line() && (m_selection->start().column() < lineEndPos.column() || lineEndPos.column() == -1)))
+    && (lineEndPos.line() < m_selection->end().line() || (lineEndPos.line() == m_selection->end().line() && (lineEndPos.column() <= m_selection->end().column() && lineEndPos.column() != -1)));
 }
 
 bool KateView::lineHasSelected (int line)
 {
-  return selection() && m_selection.containsLine(line);
+  return selection() && m_selection->containsLine(line);
 }
 
 bool KateView::lineIsSelection (int line)
 {
-  return (line == m_selection.start().line() && line == m_selection.end().line());
+  return (line == m_selection->start().line() && line == m_selection->end().line());
 }
 
 void KateView::tagSelection(const KTextEditor::Range &oldSelection)
@@ -1397,26 +1399,26 @@ void KateView::tagSelection(const KTextEditor::Range &oldSelection)
       // We have to tag the whole lot if
       // 1) we have a selection, and:
       //  a) it's new; or
-      tagLines(m_selection, true);
+      tagLines(*m_selection, true);
 
-    } else if (blockSelectionMode() && (oldSelection.start().column() != m_selection.start().column() || oldSelection.end().column() != m_selection.end().column())) {
+    } else if (blockSelectionMode() && (oldSelection.start().column() != m_selection->start().column() || oldSelection.end().column() != m_selection->end().column())) {
       //  b) we're in block selection mode and the columns have changed
-      tagLines(m_selection, true);
+      tagLines(*m_selection, true);
       tagLines(oldSelection, true);
 
     } else {
-      if (oldSelection.start() != m_selection.start()) {
-        if (oldSelection.start() < m_selection.start())
-          tagLines(oldSelection.start(), m_selection.start(), true);
+      if (oldSelection.start() != m_selection->start()) {
+        if (oldSelection.start() < m_selection->start())
+          tagLines(oldSelection.start(), m_selection->start(), true);
         else
-          tagLines(m_selection.start(), oldSelection.start(), true);
+          tagLines(m_selection->start(), oldSelection.start(), true);
       }
 
-      if (oldSelection.end() != m_selection.end()) {
-        if (oldSelection.end() < m_selection.end())
-          tagLines(oldSelection.end(), m_selection.end(), true);
+      if (oldSelection.end() != m_selection->end()) {
+        if (oldSelection.end() < m_selection->end())
+          tagLines(oldSelection.end(), m_selection->end(), true);
         else
-          tagLines(m_selection.end(), oldSelection.end(), true);
+          tagLines(m_selection->end(), oldSelection.end(), true);
       }
     }
 
@@ -1487,7 +1489,7 @@ void KateView::copyHTML()
 
 QString KateView::selectionAsHtml()
 {
-  return textAsHtml(m_selection, blockSelect);
+  return textAsHtml(*m_selection, blockSelect);
 }
 
 QString KateView::textAsHtml ( KTextEditor::Range range, bool blockwise)
@@ -1716,7 +1718,7 @@ bool KateView::setBlockSelectionMode (bool on)
   {
     blockSelect = on;
 
-    KTextEditor::Range oldSelection = m_selection;
+    KTextEditor::Range oldSelection = *m_selection;
 
     clearSelection(false, false);
 
@@ -2013,6 +2015,297 @@ void KateView::abortCompletion( )
 void KateView::forceCompletion( )
 {
   m_completionWidget->execute();
+}
+
+void KateView::paste( )
+{
+  m_doc->paste( this );
+  m_viewInternal->repaint();
+}
+
+bool KateView::setCursorPosition( const KTextEditor::Cursor & position )
+{
+  return setCursorPositionInternal( position, 1, true );
+}
+
+const KTextEditor::Cursor & KateView::cursorPosition( ) const
+{
+  return m_viewInternal->getCursor();
+}
+
+KTextEditor::Cursor KateView::cursorPositionVirtual( ) const
+{
+  return KTextEditor::Cursor (m_viewInternal->getCursor().line(), cursorColumn());
+}
+
+QPoint KateView::cursorToCoordinate( const KTextEditor::Cursor & cursor ) const
+{
+  return m_viewInternal->cursorToCoordinate(cursor);
+}
+
+QPoint KateView::cursorPositionCoordinates( ) const
+{
+  return m_viewInternal->cursorCoordinates();
+}
+
+bool KateView::setCursorPositionVisual( const KTextEditor::Cursor & position )
+{
+  return setCursorPositionInternal( position, m_doc->config()->tabWidth(), true );
+}
+
+QString KateView::currentTextLine( )
+{
+  return m_doc->line( cursorPosition().line() );
+}
+
+QString KateView::currentWord( )
+{
+  return m_doc->getWord( cursorPosition() );
+}
+
+void KateView::indent( )
+{
+  m_doc->indent( this, cursorPosition().line(), 1 );
+}
+
+void KateView::unIndent( )
+{
+  m_doc->indent( this, cursorPosition().line(), -1 );
+}
+
+void KateView::cleanIndent( )
+{
+  m_doc->indent( this, cursorPosition().line(), 0 );
+}
+
+void KateView::align( )
+{
+  m_doc->align( this, cursorPosition().line() );
+}
+
+void KateView::comment( )
+{
+  m_doc->comment( this, cursorPosition().line(), cursorPosition().column(), 1 );
+}
+
+void KateView::uncomment( )
+{
+  m_doc->comment( this, cursorPosition().line(), cursorPosition().column(),-1 );
+}
+
+void KateView::uppercase( )
+{
+  m_doc->transform( this, m_viewInternal->m_cursor, KateDocument::Uppercase );
+}
+
+void KateView::killLine( )
+{
+  m_doc->removeLine( cursorPosition().line() );
+}
+
+void KateView::lowercase( )
+{
+  m_doc->transform( this, m_viewInternal->m_cursor, KateDocument::Lowercase );
+}
+
+void KateView::capitalize( )
+{
+  m_doc->transform( this, m_viewInternal->m_cursor, KateDocument::Capitalize );
+}
+
+void KateView::backspace( )
+{
+  m_viewInternal->doBackspace();
+}
+
+void KateView::deleteWordLeft( )
+{
+  m_viewInternal->doDeleteWordLeft();
+}
+
+void KateView::keyDelete( )
+{
+  m_viewInternal->doDelete();
+}
+
+void KateView::deleteWordRight( )
+{
+  m_viewInternal->doDeleteWordRight();
+}
+
+void KateView::transpose( )
+{
+  m_viewInternal->doTranspose();
+}
+
+void KateView::cursorLeft( )
+{
+  m_viewInternal->cursorLeft();
+}
+
+void KateView::shiftCursorLeft( )
+{
+  m_viewInternal->cursorLeft(true);
+}
+
+void KateView::cursorRight( )
+{
+  m_viewInternal->cursorRight();
+}
+
+void KateView::shiftCursorRight( )
+{
+  m_viewInternal->cursorRight(true);
+}
+
+void KateView::wordLeft( )
+{
+  m_viewInternal->wordLeft();
+}
+
+void KateView::shiftWordLeft( )
+{
+  m_viewInternal->wordLeft(true);
+}
+
+void KateView::wordRight( )
+{
+  m_viewInternal->wordRight();
+}
+
+void KateView::shiftWordRight( )
+{
+  m_viewInternal->wordRight(true);
+}
+
+void KateView::home( )
+{
+  m_viewInternal->home();
+}
+
+void KateView::shiftHome( )
+{
+  m_viewInternal->home(true);
+}
+
+void KateView::end( )
+{
+  m_viewInternal->end();
+}
+
+void KateView::shiftEnd( )
+{
+  m_viewInternal->end(true);
+}
+
+void KateView::up( )
+{
+  m_viewInternal->cursorUp();
+}
+
+void KateView::shiftUp( )
+{
+  m_viewInternal->cursorUp(true);
+}
+
+void KateView::down( )
+{
+  m_viewInternal->cursorDown();
+}
+
+void KateView::shiftDown( )
+{
+  m_viewInternal->cursorDown(true);
+}
+
+void KateView::scrollUp( )
+{
+  m_viewInternal->scrollUp();
+}
+
+void KateView::scrollDown( )
+{
+  m_viewInternal->scrollDown();
+}
+
+void KateView::topOfView( )
+{
+  m_viewInternal->topOfView();
+}
+
+void KateView::shiftTopOfView( )
+{
+  m_viewInternal->topOfView(true);
+}
+
+void KateView::bottomOfView( )
+{
+  m_viewInternal->bottomOfView();
+}
+
+void KateView::shiftBottomOfView( )
+{
+  m_viewInternal->bottomOfView(true);
+}
+
+void KateView::pageUp( )
+{
+  m_viewInternal->pageUp();
+}
+
+void KateView::shiftPageUp( )
+{
+  m_viewInternal->pageUp(true);
+}
+
+void KateView::pageDown( )
+{
+  m_viewInternal->pageDown();
+}
+
+void KateView::shiftPageDown( )
+{
+  m_viewInternal->pageDown(true);
+}
+
+void KateView::top( )
+{
+  m_viewInternal->top_home();
+}
+
+void KateView::shiftTop( )
+{
+  m_viewInternal->top_home(true);
+}
+
+void KateView::bottom( )
+{
+  m_viewInternal->bottom_end();
+}
+
+void KateView::shiftBottom( )
+{
+  m_viewInternal->bottom_end(true);
+}
+
+void KateView::toMatchingBracket( )
+{
+  m_viewInternal->cursorToMatchingBracket();
+}
+
+void KateView::shiftToMatchingBracket( )
+{
+  m_viewInternal->cursorToMatchingBracket(true);
+}
+
+const KTextEditor::Range & KateView::selectionRange( ) const
+{
+  return *m_selection;
+}
+
+KTextEditor::Document * KateView::document( )
+{
+  return m_doc;
 }
 
 //END Code completion new

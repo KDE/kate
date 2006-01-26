@@ -143,18 +143,12 @@ class KateTextLine : public KShared
      *   beyond the length of the string
      */
     inline QChar getChar (int pos) const
-    { 
+    {
       if (pos >= 0 && pos < m_text.length())
         return m_text[pos];
-      
-      return QChar(QChar::Null);
-    }
 
-    /**
-     * Gets the text as a unicode representation
-     * @return text of this line as QChar array
-     */
-    inline const QChar *text() const { return m_text.unicode(); }
+      return QChar();
+    }
 
     /**
      * Gets a QString
@@ -170,12 +164,6 @@ class KateTextLine : public KShared
      */
     inline QString string(int column, int length) const
     { return m_text.mid(column, length); }
-
-    /**
-     * Gets a null terminated pointer to first non space char
-     * @return array of QChars starting at first non-whitespace char
-     */
-    const QChar *firstNonSpace() const;
 
     /**
      * indentation depth of this line
@@ -299,7 +287,7 @@ class KateTextLine : public KShared
      * @param insLen insert length
      * @param insText text to insert
      */
-    void insertText (int pos, uint insLen, const QChar *insText);
+    void insertText (int pos, const QString& insText);
 
     /**
      * remove text at given position

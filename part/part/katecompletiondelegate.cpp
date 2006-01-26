@@ -66,13 +66,13 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
     QString startText = document()->text(KTextEditor::Range(completionStart.line(), 0, completionStart.line(), completionStart.column()));
 
     KateTextLine::Ptr thisLine(new KateTextLine());
-    thisLine->insertText(0, startText.length(), startText.constData());
+    thisLine->insertText(0, startText);
 
     int len = completionStart.column();
     for (int i = 0; i < KTextEditor::CodeCompletionModel::ColumnCount; ++i) {
       m_cachedColumnStarts.append(len);
       QString text = model->data(model->index(index.row(), i, index.parent()), Qt::DisplayRole).toString();
-      thisLine->insertText(thisLine->length(), text.length(), text.constData());
+      thisLine->insertText(thisLine->length(), text);
       len += text.length();
     }
 

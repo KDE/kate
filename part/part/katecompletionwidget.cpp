@@ -86,7 +86,7 @@ KateView * KateCompletionWidget::view( ) const
 
 void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTextEditor::CodeCompletionModel * model )
 {
-  kdDebug() << k_funcinfo << word << " " << model << endl;
+  //kdDebug() << k_funcinfo << word << " " << model << endl;
 
   if (!isCompletionActive())
     abortCompletion();
@@ -117,7 +117,12 @@ void KateCompletionWidget::updatePosition( )
   if (!isCompletionActive())
     return;
 
-  QPoint p = view()->mapToGlobal( view()->cursorToCoordinate(m_completionRange->start()) );
+  QPoint cursorPosition = view()->cursorToCoordinate(m_completionRange->start());
+  if (cursorPosition == QPoint(-1,-1))
+    // Start of completion range is now off-screen -> abort
+    return abortCompletion();
+
+  QPoint p = view()->mapToGlobal( cursorPosition );
   int x = p.x() - m_entryList->header()->sectionPosition(m_entryList->header()->visualIndex(KTextEditor::CodeCompletionModel::Name)) - 2;
   int y = p.y();
   if ( y + height() + view()->renderer()->config()->fontMetrics()->height() > QApplication::desktop()->height() )

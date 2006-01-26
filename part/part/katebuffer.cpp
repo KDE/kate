@@ -599,7 +599,7 @@ bool KateBuffer::saveFile (const QString &m_file)
 
       if (lastChar > -1)
       {
-        stream << QConstString (textline->text(), lastChar+1).string();
+        stream << textline->string().left(lastChar);
       }
     }
     else // simple, dump the line
@@ -1415,7 +1415,7 @@ void KateBufBlock::fillBlock (KateFileLoader *stream)
     else
     {
       KateTextLine::Ptr textLine (new KateTextLine ());
-      textLine->insertText (0, length, unicodeData);
+      textLine->insertText (0, QConstString(unicodeData, length));
       m_stringList.push_back (textLine);
     }
 

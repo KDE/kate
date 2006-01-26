@@ -1181,7 +1181,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &str )
 
   editAddUndo (KateUndoGroup::editInsertText, line, col, s.length(), s);
 
-  l->insertText (col, s.length(), s.unicode());
+  l->insertText (col, s);
 //   removeTrailingSpace(line); // ### nessecary?
 
   m_buffer->changeLine(line);
@@ -1278,7 +1278,7 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
   {
     KateTextLine::Ptr textLine(new KateTextLine());
 
-    textLine->insertText (0, pos, l->text()+col);
+    textLine->insertText (0, l->string().mid(col, pos));
     l->truncate(col);
 
     m_buffer->insertLine (line+1, textLine);
@@ -1310,7 +1310,7 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
   }
   else
   {
-    nextLine->insertText (0, pos, l->text()+col);
+    nextLine->insertText (0, l->string().mid(col, pos));
     l->truncate(col);
 
     m_buffer->changeLine(line);
@@ -1351,14 +1351,14 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
 
   if (removeLine)
   {
-    l->insertText (col, nextLine->length(), nextLine->text());
+    l->insertText (col, nextLine->string());
 
     m_buffer->changeLine(line);
     m_buffer->removeLine(line+1);
   }
   else
   {
-    l->insertText (col, (nextLine->length() < length) ? nextLine->length() : length, nextLine->text());
+    l->insertText (col, nextLine->string().left((nextLine->length() < length) ? nextLine->length() : length));
     nextLine->removeText (0, (nextLine->length() < length) ? nextLine->length() : length);
 
     m_buffer->changeLine(line);
@@ -1418,7 +1418,7 @@ bool KateDocument::editInsertLine ( int line, const QString &s )
   removeTrailingSpace( line ); // old line
 
   KateTextLine::Ptr tl(new KateTextLine());
-  tl->insertText (0, s.length(), s.unicode());
+  tl->insertText (0, s);
   m_buffer->insertLine(line, tl);
   m_buffer->changeLine(line);
 
@@ -3901,7 +3901,7 @@ QString KateDocument::getWord( const KTextEditor::Cursor& cursor ) {
   while (start > 0 && highlight()->isInWord(textLine->getChar(start - 1), textLine->attribute(start - 1))) start--;
   while (end < len && highlight()->isInWord(textLine->getChar(end), textLine->attribute(end))) end++;
   len = end - start;
-  return QString(&textLine->text()[start], len);
+  return textLine->string().mid(start, len);
 }
 
 void KateDocument::tagLines(int start, int end)

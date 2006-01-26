@@ -37,13 +37,13 @@ KateTextLine::~KateTextLine()
 {
 }
 
-void KateTextLine::insertText (int pos, uint insLen, const QChar *insText)
+void KateTextLine::insertText (int pos, const QString& insText)
 {
   // nothing to do
-  if (insLen == 0)
+  if (insText.length() == 0)
     return;
 
-  m_text.insert (pos, insText, insLen);
+  m_text.insert (pos, insText);
 }
 
 void KateTextLine::removeText (uint pos, uint delLen)
@@ -111,12 +111,6 @@ int KateTextLine::firstChar() const
 int KateTextLine::lastChar() const
 {
   return previousNonSpaceChar(m_text.length() - 1);
-}
-
-const QChar *KateTextLine::firstNonSpace() const
-{
-  int first = firstChar();
-  return (first > -1) ? ((QChar*)m_text.unicode())+first : m_text.unicode();
 }
 
 int KateTextLine::indentDepth (int tabwidth) const

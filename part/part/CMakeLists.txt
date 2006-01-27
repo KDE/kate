@@ -4,6 +4,23 @@ include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces
 
 
 ########### next target ###############
+#CREATE_HASH_TABLE = $(top_srcdir)/kjs/create_hash_table
+#
+#katejscript.lut.h : $(srcdir)/katejscript.cpp $(CREATE_HASH_TABLE)
+#	$(PERL) $(CREATE_HASH_TABLE) $(srcdir)/katejscript.cpp > $@
+#katejscript.lo: katejscript.lut.h
+
+set(CREATE_HASH_TABLE ${CMAKE_SOURCE_DIR}/kjs/create_hash_table )
+
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
+   COMMAND ${PERL_EXECUTABLE}
+   ARGS ${CREATE_HASH_TABLE} ${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp >
+   ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
+   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp
+)
+
+kde4_add_file_dependancy(${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
+
 
 set(katepart_PART_SRCS
 katesearch.cpp
@@ -50,6 +67,11 @@ katerenderrange.cpp
 katesmartregion.cpp
 katedynamicanimation.cpp
 kateextendedattribute.cpp
+katecompletionwidget.cpp
+katecompletionmodel.cpp
+katecompletiondelegate.cpp
+katecompletiontree.cpp
+katejscript.cpp
 )
 
 kde4_automoc(${katepart_PART_SRCS})

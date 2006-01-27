@@ -3,7 +3,7 @@ Import('env')
 ktexteditor_sources = """
 attribute.cpp cursor.cpp cursorfeedback.cpp editorchooser.cpp
 editorchooser_ui.ui ktexteditor.cpp range.cpp rangefeedback.cpp
-smartcursor.cpp smartrange.cpp templateinterface.cpp
+smartcursor.cpp smartrange.cpp codecompletion2.cpp templateinterface.cpp
 """
 
 for i in "configpage.h factory.h editor.h document.h view.h plugin.h".split():
@@ -20,7 +20,7 @@ cursor.h cursorfeedback.h document.h editor.h
 editorchooser.h factory.h highlightinginterface.h markinterface.h
 modificationinterface.h plugin.h range.h rangefeedback.h
 searchinterface.h sessionconfiginterface.h smartcursor.h smartinterface.h
-smartrange.h templateinterface.h texthintinterface.h variableinterface.h
+smartrange.h codecompletion2.h templateinterface.h texthintinterface.h variableinterface.h
 view.h
 """
 

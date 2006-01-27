@@ -242,8 +242,7 @@ class KateViewInternal : public QWidget
     Qt::CursorShape m_mouseCursor;
 
     KateSmartCursor m_cursor;
-    // FIXME probably a bug here, the mouse position shouldn't change just because text gets changed
-    KateSmartCursor m_mouse;
+    KTextEditor::Cursor m_mouse;
     KTextEditor::Cursor m_displayCursor;
     int m_cursorX;
 

@@ -62,7 +62,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_view (view)
   , m_doc (doc)
   , m_cursor(doc)
-  , m_mouse(doc)
+  , m_mouse()
   , m_possibleTripleClick (false)
   , m_bm(doc)
   , m_bmStart(doc, &m_bm)
@@ -114,9 +114,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   // cursor
   m_cursor.setMoveOnInsert (true);
   m_cursor.setInternal();
-
-  m_mouse.setIgnoreTranslation();
-  m_mouse.setInternal();
 
   m_startPos.setInternal();
 
@@ -3072,7 +3069,7 @@ void KateViewInternal::dynamicMoved( bool mouse )
 
 void KateViewInternal::mouseMoved( )
 {
-  //kdDebug() << k_funcinfo << m_mouse << endl;
+  view()->notifyMousePositionChanged(m_mouse);
 
   dynamicMoved(true);
 }

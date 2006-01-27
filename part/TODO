@@ -36,9 +36,6 @@ TODO:
   * fix remaining redraw bugs while scrolling (grey, black areas)
     * haven't seen for a while, fixed?
 
-* Test mouse smartcursor (in kateviewinternal)
-  * Probably better to remove in favour of a dumb cursor
-
 * Finally implement arbitrary highlighting and arbitrary input filtering
   * Smart Cursors and Ranges todo list:
     * change edit notification to come as KTextEditor::EditInfo or similar

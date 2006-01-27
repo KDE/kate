@@ -148,8 +148,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   // this really is needed :)
   m_viewInternal->updateView ();
 
-  connect(m_viewInternal->m_mouse.notifier(), SIGNAL(positionChanged(KTextEditor::SmartCursor*)), SLOT(slotMousePositionChanged(KTextEditor::SmartCursor*)));
-
   setInstance( KateGlobal::self()->instance() );
   doc->addView( this );
 
@@ -1266,9 +1264,9 @@ int KateView::cursorColumn() const
   return r;
 }
 
-void KateView::slotMousePositionChanged(KTextEditor::SmartCursor* mousePosition)
+void KateView::notifyMousePositionChanged(const KTextEditor::Cursor& newPosition)
 {
-  emit mousePositionChanged(this, *mousePosition);
+  emit mousePositionChanged(this, newPosition);
 }
 
 //BEGIN KTextEditor::SelectionInterface stuff

@@ -782,7 +782,7 @@ bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QSt
     //stream.setEncoding (QTextStream::UnicodeUTF8);
     stream.setCodec ("UTF-8");
 
-    QString source = stream.readAll ();
+    source = stream.readAll ();
 
     file.close();
   }

@@ -7,11 +7,11 @@ cursorexpectation.cpp kateregression.cpp rangeexpectation.cpp
 """
 
 katetest_sources = """
-arbitraryhighlighttest.cpp katetest.cpp
+arbitraryhighlighttest.cpp codecompletiontest.cpp katetest.cpp
 """
 
 noinst_headers = """
-arbitraryhighlighttest.h cursorexpectation.h rangeexpectation.h
+arbitraryhighlighttest.h cursorexpectation.h rangeexpectation.h codecompletiontest.h
 """
 
 includes = '../../interfaces/ktexteditor ../part #/kdeprint #/interfaces #/interfaces/kregexpeditor #/kdefx #/kutils #/kjs '

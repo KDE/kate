@@ -53,8 +53,14 @@
 namespace KJS {
 
 #warning "REMOVE ME once KJS headers get fixed"
-typedef InternalFunctionImp DOMFunction;
-  
+  class DOMFunction : public InternalFunctionImp {
+  protected:
+    DOMFunction() : InternalFunctionImp() {}
+  public:
+    virtual bool implementsCall() const { return true; }
+    virtual bool toBoolean(ExecState *) const { return true; }
+  };
+
 #define KJS_CHECK_THIS( ClassName, theObj ) \
   if (!theObj || !theObj->inherits(&ClassName::info)) { \
     KJS::UString errMsg = "Attempt at calling a function that expects a "; \

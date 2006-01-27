@@ -1,60 +1,62 @@
 Import('env')
 
 sources = """
-katesearch.cpp
+kateautoindent.cpp
+katebookmarks.cpp
 katebuffer.cpp
+katecmd.cpp
 katecmds.cpp
-kateundo.cpp
+katecodecompletion.cpp
+katecodefoldinghelpers.cpp
+katecompletiondelegate.cpp
+katecompletionmodel.cpp
+katecompletiontree.cpp
+katecompletionwidget.cpp
+kateconfig.cpp
 katecursor.cpp
 katedialogs.cpp
 katedocument.cpp
-katefactory.cpp
-katehighlight.cpp
-katesyntaxdocument.cpp
-katetextline.cpp
-kateview.cpp
-kateconfig.cpp
-kateviewhelpers.cpp
-katecodecompletion.cpp
-katedocumenthelpers.cpp
-katecodefoldinghelpers.cpp
-kateviewinternal.cpp
-katebookmarks.cpp
-katefont.cpp
-katelinerange.cpp
-katesmartcursor.cpp
-katerenderer.cpp
-kateautoindent.cpp
-katefiletype.cpp
-kateschema.cpp
 katedocument.skel
-katetemplatehandler.cpp
-katespell.cpp
-kateprinter.cpp
-kateindentscriptabstracts.cpp
-kateluascript.cpp
-katerange.cpp
-katesmartrange.cpp
-kateglobal.cpp
-katecmd.cpp
-katelayoutcache.cpp
-katetextlayout.cpp
-katesmartmanager.cpp
-kateedit.cpp
-katesmartcursornotifier.cpp
-katerenderrange.cpp
-katesmartregion.cpp
+katedocumenthelpers.cpp
 katedynamicanimation.cpp
+kateedit.cpp
 kateextendedattribute.cpp
+katefactory.cpp
+katefiletype.cpp
+katefont.cpp
+kateglobal.cpp
+katehighlight.cpp
+kateindentscriptabstracts.cpp
+katelayoutcache.cpp
+katelinerange.cpp
+kateluascript.cpp
+kateprinter.cpp
+katerange.cpp
+katerenderer.cpp
+katerenderrange.cpp
+kateschema.cpp
+katesearch.cpp
+katesmartcursor.cpp
+katesmartcursornotifier.cpp
+katesmartmanager.cpp
+katesmartrange.cpp
+katesmartregion.cpp
+katespell.cpp
+katesyntaxdocument.cpp
+katetemplatehandler.cpp
+katetextlayout.cpp
+katetextline.cpp
+kateundo.cpp
+kateview.cpp
+kateviewhelpers.cpp
+kateviewinternal.cpp
 """
 
 includes = """
 ../../interfaces
 ../../interfaces/kregexpeditor
 ../../kdeprint
-../../kdefx
 ../../kutils
-../../kjs
 """
 
 # TODO move this to a more generic place
@@ -63,14 +65,24 @@ env['BUILDERS']['Hash']    = Builder(action="perl kjs/create_hash_table $SOURCE 
 for i in ["katejscript.cpp"]:
     env.Hash(i)
 
-libpaths = '../../interfaces/ktexteditor ../../interfaces/kdocument ../../kdecore ../../kdeui ../../kparts ../../kdeprint ../../kutils ../../kjs ../../kio ../../dcop'
-libs = 'ktexteditor kdocument kdecore kdeui kparts kdeprint kutils kjs kio DCOP'
+libpaths = """
+../../interfaces/ktexteditor
+../../interfaces/kdocument
+../../kparts
+../../kdeprint
+../../kutils
+../../kjs
+../../kio
+../../dcop
+"""
+
+libs = 'ktexteditor kdocument kparts kdeprint kutils kjs kio DCOP'
+
 obj = env.kdeobj('module')
 obj.target = 'katepart'
 obj.source = sources
 obj.includes = includes
-obj.libs = 'kdeui kparts '
 obj.libpaths = libpaths
 obj.libs = libs
-obj.uselib = 'QT QTCORE QTGUI QTXML QT3SUPPORT KDE4'
+obj.uselib = 'QT QTCORE QTGUI QTXML QT3SUPPORT KDE4 KDECORE KDEUI'
 obj.execute()

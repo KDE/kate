@@ -2873,7 +2873,9 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
   }
   else //if ( m_view->isActive() )
   {
+#ifdef __GNUC__
 #warning fixme, this needs to be fixed app transparent to only be done if this view is the view where the editing did happen
+#endif
     makeVisible(m_displayCursor, m_displayCursor.column());
   }
 

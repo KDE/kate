@@ -422,7 +422,9 @@ void KateCodeCompletion::updateBox( bool )
   }
 
   if( m_completionListBox->count() == 0 )
+#ifdef __GNUC__
 #warning fixme
+#endif
 /*||
 
       ( m_completionListBox->count() == 1 && // abort if we equaled the last item

@@ -845,7 +845,9 @@ KateEditKeyConfiguration::KateEditKeyConfiguration( QWidget* parent, KateDocumen
 
 void KateEditKeyConfiguration::showEvent ( QShowEvent * )
 {
+#ifdef __GNUC__
 #warning fixme, to work without a document object, perhaps create some own internally
+#endif
   return ;
 
   if (!m_ready)
@@ -865,7 +867,9 @@ void KateEditKeyConfiguration::showEvent ( QShowEvent * )
 
 void KateEditKeyConfiguration::apply()
 {
+#ifdef __GNUC__
 #warning fixme, to work without a document object, perhaps create some own internally
+#endif
   return ;
 
   if ( ! hasChanged() )

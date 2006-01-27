@@ -43,7 +43,7 @@ KateCompletionDelegate::KateCompletionDelegate(KateCompletionWidget* parent)
 void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const
 {
   //kdDebug() << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected) << endl;
-  if (index.row() != m_cachedRow || option.state & QStyle::State_Selected != m_cachedRowSelected) {
+  if (index.row() != m_cachedRow || ( option.state & QStyle::State_Selected  ) != m_cachedRowSelected) {
     m_cachedColumnStarts.clear();
     m_cachedHighlights.clear();
 

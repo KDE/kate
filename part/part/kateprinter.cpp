@@ -65,7 +65,9 @@ bool KatePrinter::print (KateDocument *doc)
 
   KatePrintTextSettings *kpts = new KatePrintTextSettings(&printer, NULL);
 
+#ifdef __GNUC__
 #warning fixme later
+#endif
   //kpts->enableSelection( doc->hasSelection() );
 
   printer.addDialogPage( kpts );
@@ -100,7 +102,9 @@ bool KatePrinter::print (KateDocument *doc)
      // Text Settings Page
      bool selectionOnly = false;
 
+#ifdef __GNUC__
   #warning fixme later
+#endif
      //( doc->hasSelection() &&
        //                    ( printer.option("app-kate-printselection") == "true" ) );
 
@@ -162,7 +166,9 @@ bool KatePrinter::print (KateDocument *doc)
      {
        if ( selectionOnly )
        {
+#ifdef __GNUC__
 #warning fixme later
+#endif
          // set a line range from the first selected line to the last
     //     firstline = doc->selectionStartLine();
       //   selStartCol = doc->selectionStartColumn();
@@ -589,7 +595,9 @@ bool KatePrinter::print (KateDocument *doc)
          bool skip = false;
          if ( selectionOnly )
          {
+#ifdef __GNUC__
 #warning fixme later
+#endif
          /*
            bool inBlockSelection = ( doc->blockSelectionMode() && lineCount >= firstline && lineCount <= lastline );
            if ( lineCount == firstline || inBlockSelection )

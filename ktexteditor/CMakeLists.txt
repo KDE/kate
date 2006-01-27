@@ -16,6 +16,7 @@ cursorfeedback.cpp
 rangefeedback.cpp
 smartcursor.cpp
 smartrange.cpp
+codecompletion2.cpp
 )
 
 kde4_automoc(${ktexteditor_LIB_SRCS})

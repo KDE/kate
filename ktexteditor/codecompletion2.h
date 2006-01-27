@@ -95,6 +95,14 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
 
     /// Meta information is passed through extra {Qt::ItemDataRole}s.
     /// This information should be returned when requested on the Name column.
+#warning ********     HighlightMethod didnt compile with gcc 3.3.6, so I changed it to HighlightingMethod, Alex
+/* the error message was:
+In file included from /home/alex/src/kde4-svn/kdelibs/kate/part/kateview.h:31,
+                 from /home/alex/src/kde4-svn/kdelibs/kate/part/katesearch.cpp:27:
+/home/alex/src/kde4-svn/kdelibs/interfaces/ktexteditor/codecompletion2.h:89: error: duplicate field `enum KTextEditor::CodeCompletionModel::HighlightMethod' (as enum and non-enum)
+/home/alex/src/kde4-svn/kdelibs/kate/part/katesearch.cpp: In constructor ` KateReplacePrompt::KateReplacePrompt(QWidget*)':
+/home/alex/src/kde4-svn/kdelibs/kate/part/katesearch.cpp:628: warning: `  __base_ctor' is deprecated (declared at /home/alex/src/kde4-svn/kdelibs/kdeui/kdialogbase.h:194)
+*/
     enum ExtraItemDataRoles {
       /// The model should return a set of CompletionProperties.
       CompletionRole = Qt::UserRole,
@@ -120,7 +128,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        * - QVariant::Invalid - allows the editor to choose (usually internal highlighting)
        * - QVariant::Integer - highlight as specified by HighlightMethods.
        */
-      HighlightMethod,
+      HighlightingMethod,
 
       /**
        * Allows an item to provide custom highlighting.  Return a

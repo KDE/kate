@@ -32,7 +32,7 @@ kde4_automoc(${kateregression_SRCS})
 if(KDE4_BUILD_TESTS)
 kde4_add_executable(kateregression ${kateregression_SRCS})
 
-target_link_libraries(kateregression  ${QT_AND_KDECORE_LIBS} ktexteditor QtTest_debug )
+target_link_libraries(kateregression  ${QT_AND_KDECORE_LIBS} ktexteditor ${QT_QTTEST_LIBRARY} )
 
 endif(KDE4_BUILD_TESTS)
 

@@ -5,13 +5,23 @@ include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_D
 
 ########### install files ###############
 
-MACRO(GENERATE_PHP_XML srcFile targetFile)
-  EXEC_PROGRAM(${PERL_EXECUTABLE} ARGS ${CMAKE_CURRENT_SOURCE_DIR}/generate-php.pl < ${CMAKE_CURRENT_SOURCE_DIR}/${srcFile} > ${CMAKE_CURRENT_BINARY_DIR}/${targetFile} )
-ENDMACRO(GENERATE_PHP_XML)
+add_custom_target(GeneratePhpXmlFiles ALL DEPENDS
+ ${CMAKE_CURRENT_BINARY_DIR}/css-php.xml
+ ${CMAKE_CURRENT_BINARY_DIR}/html-php.xml
+ ${CMAKE_CURRENT_BINARY_DIR}/javascript-php.xml )
 
-GENERATE_PHP_XML(javascript.xml javascript-php.xml)
-GENERATE_PHP_XML(css.xml css-php.xml)
-GENERATE_PHP_XML(html.xml html-php.xml)
+
+macro(GENERATE_PHP_XML targetFile srcFile)
+  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${targetFile}
+  COMMAND ${PERL_EXECUTABLE} ARGS
+  ${CMAKE_CURRENT_SOURCE_DIR}/generate-php.pl < ${CMAKE_CURRENT_SOURCE_DIR}/${srcFile} > ${CMAKE_CURRENT_BINARY_DIR}/${targetFile}
+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${srcFile} )
+endmacro(GENERATE_PHP_XML)
+
+generate_php_xml(javascript-php.xml javascript.xml)
+generate_php_xml(css-php.xml css.xml)
+generate_php_xml(html-php.xml html.xml)
+
 
 install_files( ${KDE4_CONFIG_DIR} FILES katesyntaxhighlightingrc katefiletyperc )
 install_files( ${KDE4_DATA_DIR}/katepart FILES katepartui.rc katepartreadonlyui.rc )

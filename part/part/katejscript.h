@@ -43,7 +43,7 @@ class KateDocCursor;
  * Cool, this is all we need here
  */
 namespace KJS {
-  class ObjectImp;
+  class JSObject;
   class Interpreter;
   class ExecState;
 }
@@ -71,7 +71,7 @@ class KateJScriptInterpreterContext
      * @param doc document object to wrap
      * @return new js wrapper object
      */
-    KJS::ObjectImp *wrapDocument (KJS::ExecState *exec, KateDocument *doc);
+    KJS::JSObject *wrapDocument (KJS::ExecState *exec, KateDocument *doc);
 
     /**
      * creates a JS wrapper object for given KateView
@@ -79,7 +79,7 @@ class KateJScriptInterpreterContext
      * @param view view object to wrap
      * @return new js wrapper object
      */
-    KJS::ObjectImp *wrapView (KJS::ExecState *exec, KateView *view);
+    KJS::JSObject *wrapView (KJS::ExecState *exec, KateView *view);
 
     /**
      * execute given script
@@ -96,7 +96,7 @@ class KateJScriptInterpreterContext
     /**
      * global object of interpreter
      */
-    KJS::ObjectImp *m_global;
+    KJS::JSObject *m_global;
 
     /**
      * js interpreter
@@ -106,12 +106,12 @@ class KateJScriptInterpreterContext
     /**
      * object for document
      */
-    KJS::ObjectImp *m_document;
+    KJS::JSObject *m_document;
 
     /**
      * object for view
      */
-    KJS::ObjectImp *m_view;
+    KJS::JSObject *m_view;
 };
 
 class KateJScriptManager : public KTextEditor::Command
@@ -209,7 +209,7 @@ class KateIndentJScriptImpl: public KateIndentScriptImplAbstract {
   private:
     KateJSView *m_viewWrapper;
     KateJSDocument *m_docWrapper;
-    KJS::ObjectImp *m_indenter;
+    KJS::JSObject *m_indenter;
     KJS::Interpreter *m_interpreter;
     bool setupInterpreter(QString &errorMsg);
     void deleteInterpreter();

@@ -1,5 +1,7 @@
 kde4_header()
 
+if(KDE4_BUILD_TESTS) 
+
 include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kdefx ${CMAKE_SOURCE_DIR}/kutils ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  )
 
 
@@ -12,12 +14,10 @@ arbitraryhighlighttest.cpp
 
 kde4_automoc(${katetest_SRCS})
 
-if(KDE4_BUILD_TESTS)
 kde4_add_executable(katetest ${katetest_SRCS})
 
 target_link_libraries(katetest  ${QT_AND_KDECORE_LIBS} ktexteditor )
 
-endif(KDE4_BUILD_TESTS)
 
 ########### next target ###############
 
@@ -29,10 +29,8 @@ cursorexpectation.cpp
 
 kde4_automoc(${kateregression_SRCS})
 
-if(KDE4_BUILD_TESTS)
 kde4_add_executable(kateregression ${kateregression_SRCS})
 
-target_link_libraries(kateregression  ${QT_AND_KDECORE_LIBS} ktexteditor ${QT_QTTEST_LIBRARY} )
 
 endif(KDE4_BUILD_TESTS)
 

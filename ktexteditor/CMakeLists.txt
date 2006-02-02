@@ -32,7 +32,7 @@ kde4_add_library(ktexteditor SHARED ${ktexteditor_LIB_SRCS})
 target_link_libraries(ktexteditor  ${QT_AND_KDECORE_LIBS} kdocument kparts )
 
 set_target_properties(ktexteditor PROPERTIES VERSION 1.0.0 SOVERSION 1 )
-install_targets(/lib ktexteditor )
+install_targets(${KDE4_LIB_INSTALL_DIR} ktexteditor )
 
 
 ########### next target ###############
@@ -47,7 +47,7 @@ kde4_add_plugin(ktexteditorkabcbridge ${ktexteditorkabcbridge_PART_SRCS})
 
 target_link_libraries(ktexteditorkabcbridge  ${QT_AND_KDECORE_LIBS} kabc )
 
-install_targets(/lib/kde4 ktexteditorkabcbridge )
+install_targets(${KDE4_LIB_INSTALL_DIR}/kde4 ktexteditorkabcbridge )
 
 
 ########### install files ###############

@@ -168,7 +168,7 @@ class KTEXTEDITOR_EXPORT CompletionData
      * \param d comparison completion data item
      * \return \e true, d.id() == this->id(), otherwise \e false
      */
-    inline bool operator==( const CompletionData &d ) const { kdDebug()<<"Checking equality"<<endl;return m_id==d.m_id;}
+    inline bool operator==( const CompletionData &d ) const { kDebug()<<"Checking equality"<<endl;return m_id==d.m_id;}
 
     /**
      * Static accessor for an empty completion data list.

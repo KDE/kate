@@ -296,7 +296,7 @@ class KTEXTEDITOR_EXPORT Cursor
       { return !(c1 > c2); }
 
     /**
-     * kdDebug() stream operator.  Writes this cursor to the debug output in a nicely formatted way.
+     * kDebug() stream operator.  Writes this cursor to the debug output in a nicely formatted way.
      */
     inline friend kdbgstream& operator<< (kdbgstream& s, const Cursor& cursor) {
       if (&cursor)

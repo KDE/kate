@@ -570,7 +570,7 @@ class KTEXTEDITOR_EXPORT Range
       { return r1.end() < r2.start(); }
 
     /**
-     * kdDebug() stream operator.  Writes this range to the debug output in a nicely formatted way.
+     * kDebug() stream operator.  Writes this range to the debug output in a nicely formatted way.
      */
     inline friend kdbgstream& operator<< (kdbgstream& s, const Range& range) {
       if (&range)

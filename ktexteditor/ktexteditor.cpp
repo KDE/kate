@@ -186,7 +186,7 @@ bool View::setSelection(const Cursor& position, int length,bool wrap)
     if (col>doc->lineLength(end.line())) col=doc->lineLength(end.line());
     end.setColumn(col);
   } else {
-    kdDebug()<<"KTextEditor::View::setSelection(pos,len,true) not implemented yet"<<endl;
+    kDebug()<<"KTextEditor::View::setSelection(pos,len,true) not implemented yet"<<endl;
   }
   return setSelection(Range(position,end));
 }

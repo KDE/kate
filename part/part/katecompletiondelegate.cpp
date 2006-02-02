@@ -42,7 +42,7 @@ KateCompletionDelegate::KateCompletionDelegate(KateCompletionWidget* parent)
 
 void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const
 {
-  //kdDebug() << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected) << endl;
+  //kDebug() << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected) << endl;
   if (index.row() != m_cachedRow || ( option.state & QStyle::State_Selected  ) != m_cachedRowSelected) {
     m_cachedColumnStarts.clear();
     m_cachedHighlights.clear();
@@ -77,7 +77,7 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
       len += text.length();
     }
 
-    //kdDebug() << k_funcinfo << "About to highlight with mode " << highlightMethod << " text [" << thisLine->string() << "]" << endl;
+    //kDebug() << k_funcinfo << "About to highlight with mode " << highlightMethod << " text [" << thisLine->string() << "]" << endl;
 
     if (highlightMethod & KTextEditor::CodeCompletionModel::InternalHighlighting) {
       KateTextLine::Ptr previousLine;
@@ -95,7 +95,7 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
 
       for (int i = 0; i + 2 < customHighlights.count(); i += 3) {
         if (!customHighlights[i].canConvert(QVariant::Int) || !customHighlights[i+1].canConvert(QVariant::Int) || !customHighlights[i+2].canConvert<void*>()) {
-          kdWarning() << k_funcinfo << "Unable to convert triple to custom formatting." << endl;
+          kWarning() << k_funcinfo << "Unable to convert triple to custom formatting." << endl;
           continue;
         }
 
@@ -105,9 +105,9 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
 
     m_cachedHighlights = renderer()->decorationsForLine(thisLine, 0, false, &rr, option.state & QStyle::State_Selected);
 
-    /*kdDebug() << k_funcinfo << "Highlights for line [" << thisLine->string() << "]:" << endl;
+    /*kDebug() << k_funcinfo << "Highlights for line [" << thisLine->string() << "]:" << endl;
     foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
-      kdDebug() << k_funcinfo << fr.start << " len " << fr.length << " format " << endl;*/
+      kDebug() << k_funcinfo << fr.start << " len " << fr.length << " format " << endl;*/
 
     m_cachedRow = index.row();
     m_cachedRowSelected = option.state & QStyle::State_Selected;
@@ -149,9 +149,9 @@ void KateCompletionDelegate::drawDisplay( QPainter * painter, const QStyleOption
     additionalFormats.append(format);
   }
 
-  /*kdDebug() << k_funcinfo << "Highlights for text [" << text << "] col start " << m_cachedColumnStart << ":" << endl;
+  /*kDebug() << k_funcinfo << "Highlights for text [" << text << "] col start " << m_cachedColumnStart << ":" << endl;
   foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
-    kdDebug() << k_funcinfo << fr.start << " len " << fr.length << " format " << fr.format.fontWeight() << endl;*/
+    kDebug() << k_funcinfo << fr.start << " len " << fr.length << " format " << fr.format.fontWeight() << endl;*/
 
   layout.setAdditionalFormats(additionalFormats);
 

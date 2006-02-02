@@ -77,15 +77,15 @@ class KateIndentScript {
     }
     /*operator KateIndentJScript*() const { return m_scr; }*/
     bool processChar( KateView *view, QChar c, QString &errorMsg ) {
-      kdDebug(13050)<<"KateIndentScript::processChar: m_scr:"<<m_scr<<endl;
+      kDebug(13050)<<"KateIndentScript::processChar: m_scr:"<<m_scr<<endl;
       if (m_scr) return m_scr->processChar(view,c,errorMsg); else return true;
     }
     bool processLine( KateView *view, const KateDocCursor& line, QString &errorMsg ) {
-      kdDebug(13050)<<"KateIndentScript::processLine: m_scr:"<<m_scr<<endl;
+      kDebug(13050)<<"KateIndentScript::processLine: m_scr:"<<m_scr<<endl;
       if (m_scr) return m_scr->processLine(view,line,errorMsg); else return true;
     }
     bool processNewline( KateView *view, const KateDocCursor& begin, bool needcontinue, QString &errorMsg ) {
-      kdDebug(13050)<<"KateIndentScript::processNewLine: m_scr:"<<m_scr<<endl;
+      kDebug(13050)<<"KateIndentScript::processNewLine: m_scr:"<<m_scr<<endl;
       if (m_scr) return m_scr->processNewline(view,begin,needcontinue,errorMsg); else return true;
     }
 

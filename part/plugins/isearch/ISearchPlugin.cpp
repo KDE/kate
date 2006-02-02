@@ -347,7 +347,7 @@ void ISearchPluginView::startSearch()
 	m_combo->blockSignals( false );
 	m_combo->lineEdit()->selectAll();
 
-//	kdDebug() << "Starting search at " << m_startLine << ", " << m_startCol << endl;
+//	kDebug() << "Starting search at " << m_startLine << ", " << m_startCol << endl;
 }
 
 void ISearchPluginView::endSearch()
@@ -416,7 +416,7 @@ KTextEditor::Range ISearchPluginView::iSearch(
 {
 	if( !m_view ) return KTextEditor::Range::invalid();
 
-//	kdDebug() << "Searching for " << text << " at " << startLine << ", " << startCol << endl;
+//	kDebug() << "Searching for " << text << " at " << startLine << ", " << startCol << endl;
 	KTextEditor::Range match;
 
 	if( !m_regExp ) {
@@ -431,7 +431,7 @@ KTextEditor::Range ISearchPluginView::iSearch(
 	}
 
 	if( match.isValid() ) {
-//		kdDebug() << "Found '" << text << "' at " << m_matchLine << ", " << m_matchCol << endl;
+//		kDebug() << "Found '" << text << "' at " << m_matchLine << ", " << m_matchCol << endl;
 //		v->gotoLineNumber( m_matchLine );
 		m_view->setCursorPosition( match.end() );
 		m_view->setSelection( match );
@@ -441,7 +441,7 @@ KTextEditor::Range ISearchPluginView::iSearch(
 	}
 	// FIXME
 	bool overwrapped = m_wrapped && match.start() >= m_start;
-//	kdDebug() << "Overwrap = " << overwrapped << ". Start was " << m_startLine << ", " << m_startCol << endl;
+//	kDebug() << "Overwrap = " << overwrapped << ". Start was " << m_startLine << ", " << m_startCol << endl;
 	updateLabelText( !match.isValid(), reverse, m_wrapped, overwrapped );
 	return match;
 }

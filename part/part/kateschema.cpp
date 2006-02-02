@@ -720,9 +720,9 @@ void KateSchemaConfigColorTab::apply ()
   QMap<int,SchemaColors>::Iterator it;
   for ( it =  m_schemas.begin(); it !=  m_schemas.end(); ++it )
   {
-    kdDebug(13030)<<"APPLY scheme = "<<it.key()<<endl;
+    kDebug(13030)<<"APPLY scheme = "<<it.key()<<endl;
     KConfig *config = KateGlobal::self()->schemaManager()->schema( it.key() );
-    kdDebug(13030)<<"Using config group "<<config->group()<<endl;
+    kDebug(13030)<<"Using config group "<<config->group()<<endl;
     SchemaColors c = it.data();
 
     config->writeEntry("Color Background", c.back);
@@ -968,20 +968,20 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
 {
   m_schema = schema;
 
-  kdDebug(13030) << "NEW SCHEMA: " << m_schema << " NEW HL: " << m_hl << endl;
+  kDebug(13030) << "NEW SCHEMA: " << m_schema << " NEW HL: " << m_hl << endl;
 
   m_styles->clear ();
 
   if (!m_hlDict.contains(m_schema))
   {
-    kdDebug(13030) << "NEW SCHEMA, create dict" << endl;
+    kDebug(13030) << "NEW SCHEMA, create dict" << endl;
 
     m_hlDict.insert (schema, QHash<int, KateExtendedAttributeList*>());
   }
 
   if (!m_hlDict[m_schema].contains(m_hl))
   {
-    kdDebug(13030) << "NEW HL, create list" << endl;
+    kDebug(13030) << "NEW HL, create list" << endl;
 
     KateExtendedAttributeList *list = new KateExtendedAttributeList ();
     KateHlManager::self()->getHl( m_hl )->getKateExtendedAttributeListCopy (m_schema, *list);
@@ -1015,7 +1015,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
     KateExtendedAttribute *itemData = *it;
     Q_ASSERT(itemData);
 
-    kdDebug(13030) << "insert items " << itemData->name() << endl;
+    kDebug(13030) << "insert items " << itemData->name() << endl;
 
     // All stylenames have their language mode prefixed, e.g. HTML:Comment
     // split them and put them into nice substructures.

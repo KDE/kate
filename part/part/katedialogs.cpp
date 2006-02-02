@@ -120,7 +120,7 @@ void KateConfigPage::slotChanged()
 void KateConfigPage::somethingHasChanged ()
 {
   m_changed = true;
-  kdDebug (13000) << "TEST: something changed on the config page: " << this << endl;
+  kDebug (13000) << "TEST: something changed on the config page: " << this << endl;
 }
 //END KateConfigPage
 
@@ -1213,13 +1213,13 @@ KatePartPluginConfigPage::~KatePartPluginConfigPage ()
 
 void KatePartPluginConfigPage::apply ()
 {
-  kdDebug()<<"KatePartPluginConfigPage::apply (entered)"<<endl;
+  kDebug()<<"KatePartPluginConfigPage::apply (entered)"<<endl;
   // nothing changed, no need to apply stuff
   if (!hasChanged())
     return;
   m_changed = false;
 
-  kdDebug()<<"KatePartPluginConfigPage::apply (need to store configuration)"<<endl;
+  kDebug()<<"KatePartPluginConfigPage::apply (need to store configuration)"<<endl;
 
   KateDocumentConfig::global()->configStart ();
 
@@ -1538,9 +1538,9 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
   }
 
   listData+=QString(data);
-  kdDebug(13000)<<QString("CurrentListData: ")<<listData<<endl<<endl;
-  kdDebug(13000)<<QString("Data length: %1").arg(data.size())<<endl;
-  kdDebug(13000)<<QString("listData length: %1").arg(listData.length())<<endl;
+  kDebug(13000)<<QString("CurrentListData: ")<<listData<<endl<<endl;
+  kDebug(13000)<<QString("Data length: %1").arg(data.size())<<endl;
+  kDebug(13000)<<QString("listData length: %1").arg(listData.length())<<endl;
   if (data.size()==0)
   {
     if (listData.length()>0)
@@ -1553,14 +1553,14 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
       QDomNode n=DocElem.firstChild();
       KateHighlighting *hl = 0;
 
-      if (n.isNull()) kdDebug(13000)<<"There is no usable childnode"<<endl;
+      if (n.isNull()) kDebug(13000)<<"There is no usable childnode"<<endl;
       while (!n.isNull())
       {
         installedVersion="    --";
 
         QDomElement e=n.toElement();
         if (!e.isNull())
-        kdDebug(13000)<<QString("NAME: ")<<e.tagName()<<QString(" - ")<<e.attribute("name")<<endl;
+        kDebug(13000)<<QString("NAME: ")<<e.tagName()<<QString(" - ")<<e.attribute("name")<<endl;
         n=n.nextSibling();
 
         QString Name=e.attribute("name");

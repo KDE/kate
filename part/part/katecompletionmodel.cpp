@@ -183,20 +183,20 @@ QModelIndex KateCompletionModel::index( int row, int column, const QModelIndex &
     Group* g = groupForIndex(parent);
 
     if (row >= g->rows.count()) {
-      //kdWarning() << k_funcinfo << "Invalid index requested: row " << row << " beyond indivdual range in group " << g << endl;
+      //kWarning() << k_funcinfo << "Invalid index requested: row " << row << " beyond indivdual range in group " << g << endl;
       return QModelIndex();
     }
 
-    //kdDebug() << k_funcinfo << "Returning index for child " << row << " of group " << g << endl;
+    //kDebug() << k_funcinfo << "Returning index for child " << row << " of group " << g << endl;
     return createIndex(row, column, g);
   }
 
   if (row >= m_rowTable.count()) {
-    //kdWarning() << k_funcinfo << "Invalid index requested: row " << row << " beyond group range." << endl;
+    //kWarning() << k_funcinfo << "Invalid index requested: row " << row << " beyond group range." << endl;
     return QModelIndex();
   }
 
-  //kdDebug() << k_funcinfo << "Returning index for group " << m_rowTable[row] << endl;
+  //kDebug() << k_funcinfo << "Returning index for group " << m_rowTable[row] << endl;
   return createIndex(row, column, 0);
 }
 
@@ -381,15 +381,15 @@ int KateCompletionModel::rowCount( const QModelIndex & parent ) const
 {
   if (!parent.isValid())
     if (hasGroups()) {
-      //kdDebug() << k_funcinfo << "Returning row count for toplevel " << m_rowTable.count() << endl;
+      //kDebug() << k_funcinfo << "Returning row count for toplevel " << m_rowTable.count() << endl;
       return m_rowTable.count();
     } else {
-      //kdDebug() << k_funcinfo << "Returning ungrouped row count for toplevel " << m_ungrouped->rows.count() << endl;
+      //kDebug() << k_funcinfo << "Returning ungrouped row count for toplevel " << m_ungrouped->rows.count() << endl;
       return m_ungrouped->rows.count();
     }
 
   Group* g = groupForIndex(parent);
-  //kdDebug() << k_funcinfo << "Returning row count for group " << g << " as " << g->rows.count() << endl;
+  //kDebug() << k_funcinfo << "Returning row count for group " << g << " as " << g->rows.count() << endl;
   return g->rows.count();
 }
 
@@ -448,7 +448,7 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
     changeType = Narrow;
   }
 
-  //kdDebug() << k_funcinfo << "Old match: " << m_currentMatch << ", new: " << completion << ", type: " << changeType << endl;
+  //kDebug() << k_funcinfo << "Old match: " << m_currentMatch << ", new: " << completion << ", type: " << changeType << endl;
 
   if (!hasGroups())
     changeCompletions(m_ungrouped, completion, changeType);

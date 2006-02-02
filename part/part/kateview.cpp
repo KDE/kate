@@ -1492,7 +1492,7 @@ QString KateView::selectionAsHtml()
 
 QString KateView::textAsHtml ( KTextEditor::Range range, bool blockwise)
 {
-  kdDebug(13020) << "textAsHtml" << endl;
+  kDebug(13020) << "textAsHtml" << endl;
   if (blockwise)
     blockFix(range);
 
@@ -1512,7 +1512,7 @@ QString KateView::textAsHtml ( KTextEditor::Range range, bool blockwise)
 
   ts << "</body>" << endl;
   ts << "</html>" << endl;
-  kdDebug(13020) << "html is: " << s << endl;
+  kDebug(13020) << "html is: " << s << endl;
   return s;
 }
 
@@ -1771,13 +1771,13 @@ void KateView::slotTextInserted ( KTextEditor::View *view, const KTextEditor::Cu
 {
   emit textInserted ( view, position, text);
   if (m_customComplete) return;
-  //kdDebug(13030)<<"Checking if cc provider list is empty"<<endl;
+  //kDebug(13030)<<"Checking if cc provider list is empty"<<endl;
   if (m_completionProviders.isEmpty()) return;
   QLinkedList<KTextEditor::CompletionData> newdata;
 
   KTextEditor::Cursor c=cursorPosition();
   QString lineText=m_doc->line(c.line());
-  kdDebug(13030)<<"Checking state for all providers"<<endl;
+  kDebug(13030)<<"Checking state for all providers"<<endl;
   const KTextEditor::CompletionData nulldata=KTextEditor::CompletionData::Null();
   foreach (KTextEditor::CompletionProvider *provider, m_completionProviders)
   {
@@ -1789,18 +1789,18 @@ void KateView::slotTextInserted ( KTextEditor::View *view, const KTextEditor::Cu
 
 
 void KateView::invokeCompletion(enum KTextEditor::CompletionType type) {
-  kdDebug(13020)<<"KateView::invokeCompletion"<<endl;
+  kDebug(13020)<<"KateView::invokeCompletion"<<endl;
   if ((type==KTextEditor::CompletionAsYouType) || (type==KTextEditor::CompletionAsYouTypeBackspace))
   {
-    kdDebug(13020)<<"KateView::invokeCompletion: ignoring invalid call"<<endl;
+    kDebug(13020)<<"KateView::invokeCompletion: ignoring invalid call"<<endl;
     return;
   }
-  kdDebug(13020)<<"Before delay check"<<endl;
+  kDebug(13020)<<"Before delay check"<<endl;
   if (m_cc_cleanup) {m_delayed_cc_type=type; m_delayed_cc_provider=0; return;}
-  kdDebug(13020)<<"Before custom complete check"<<endl;
+  kDebug(13020)<<"Before custom complete check"<<endl;
   if (m_customComplete) return;
   if (m_completionProviders.isEmpty()) return;
-  kdDebug(13020)<<"About to iterate over provider list"<<endl;
+  kDebug(13020)<<"About to iterate over provider list"<<endl;
   QLinkedList<KTextEditor::CompletionData> newdata;
   KTextEditor::Cursor c=cursorPosition();
   QString lineText=m_doc->line(c.line());
@@ -1815,15 +1815,15 @@ void KateView::invokeCompletion(enum KTextEditor::CompletionType type) {
 }
 
 void KateView::invokeCompletion(KTextEditor::CompletionProvider* provider,enum KTextEditor::CompletionType type) {
-  kdDebug(13020)<<"KateView::invokeCompletion"<<endl;
+  kDebug(13020)<<"KateView::invokeCompletion"<<endl;
   if ((type==KTextEditor::CompletionAsYouType) || (type==KTextEditor::CompletionAsYouTypeBackspace))
   {
-    kdDebug(13020)<<"KateView::invokeCompletion: ignoring invalid call"<<endl;
+    kDebug(13020)<<"KateView::invokeCompletion: ignoring invalid call"<<endl;
     return;
   }
-  kdDebug(13020)<<"Before delay check"<<endl;
+  kDebug(13020)<<"Before delay check"<<endl;
   if (m_cc_cleanup) {m_delayed_cc_type=type; m_delayed_cc_provider=provider; return;}
-  kdDebug(13020)<<"Before custom complete check"<<endl;
+  kDebug(13020)<<"Before custom complete check"<<endl;
   if (m_customComplete) return;
   if (m_completionProviders.isEmpty()) return;
   if (!m_completionProviders.contains(provider)) return;
@@ -1841,14 +1841,14 @@ void KateView::invokeCompletion(KTextEditor::CompletionProvider* provider,enum K
 
 
 void KateView::completionDone(){
-  kdDebug(13030)<<"KateView::completionDone"<<endl;
+  kDebug(13030)<<"KateView::completionDone"<<endl;
   m_customComplete=false;
   m_cc_cleanup=true;
   foreach (KTextEditor::CompletionProvider *provider, m_completionProviders)
     provider->completionDone(this);
   m_cc_cleanup=false;
   if (m_delayed_cc_type!=KTextEditor::CompletionNone) {
-    kdDebug(13030)<<"delayed completion call"<<endl;
+    kDebug(13030)<<"delayed completion call"<<endl;
     enum KTextEditor::CompletionType t=m_delayed_cc_type;
     m_delayed_cc_type=KTextEditor::CompletionNone;
     if (m_delayed_cc_provider)
@@ -1859,7 +1859,7 @@ void KateView::completionDone(){
   }
 }
 void KateView::completionAborted(){
-  kdDebug(13030)<<"KateView::completionAborted"<<endl;
+  kDebug(13030)<<"KateView::completionAborted"<<endl;
   m_customComplete=false;
   m_cc_cleanup=true;
   foreach (KTextEditor::CompletionProvider *provider, m_completionProviders)
@@ -1884,7 +1884,7 @@ bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c, 
 //BEGIN Code completion new
 bool KateView::registerCompletionProvider(KTextEditor::CompletionProvider* provider)
 {
-  kdDebug(13030)<<"Registering completion provider:"<<provider<<endl;
+  kDebug(13030)<<"Registering completion provider:"<<provider<<endl;
   if (!provider) return false;
   if (m_completionProviders.contains(provider)) return false;
   m_completionProviders.append(provider);
@@ -1893,7 +1893,7 @@ bool KateView::registerCompletionProvider(KTextEditor::CompletionProvider* provi
 
 bool KateView::unregisterCompletionProvider(KTextEditor::CompletionProvider* provider)
 {
-  kdDebug(13030)<<"Unregistering completion provider:"<<provider<<endl;
+  kDebug(13030)<<"Unregistering completion provider:"<<provider<<endl;
   if (!provider) return false;
   m_completionProviderData.remove(provider);
   return m_completionProviders.removeAll(provider);

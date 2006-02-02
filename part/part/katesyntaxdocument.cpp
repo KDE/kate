@@ -206,7 +206,7 @@ KateSyntaxContextData* KateSyntaxDocument::getSubItems(KateSyntaxContextData* da
 
 bool KateSyntaxDocument::getElement (QDomElement &element, const QString &mainGroupName, const QString &config)
 {
-  kdDebug(13010) << "Looking for \"" << mainGroupName << "\" -> \"" << config << "\"." << endl;
+  kDebug(13010) << "Looking for \"" << mainGroupName << "\" -> \"" << config << "\"." << endl;
 
   QDomNodeList nodes = documentElement().childNodes();
 
@@ -231,12 +231,12 @@ bool KateSyntaxDocument::getElement (QDomElement &element, const QString &mainGr
         }
       }
 
-      kdDebug(13010) << "WARNING: \""<< config <<"\" wasn't found!" << endl;
+      kDebug(13010) << "WARNING: \""<< config <<"\" wasn't found!" << endl;
       return false;
     }
   }
 
-  kdDebug(13010) << "WARNING: \""<< mainGroupName <<"\" wasn't found!" << endl;
+  kDebug(13010) << "WARNING: \""<< mainGroupName <<"\" wasn't found!" << endl;
   return false;
 }
 
@@ -277,7 +277,7 @@ KateSyntaxContextData* KateSyntaxDocument::getGroupInfo(const QString& mainGroup
  */
 QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QString& type, bool clearList)
 {
-  kdDebug(13010)<<"Create a list of keywords \""<<type<<"\" from \""<<mainGroup<<"\"."<<endl;
+  kDebug(13010)<<"Create a list of keywords \""<<type<<"\" from \""<<mainGroup<<"\"."<<endl;
   if (clearList)
     m_data.clear();
 
@@ -286,14 +286,14 @@ QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QStrin
     QDomElement elem = node.toElement();
     if (elem.tagName() == mainGroup)
     {
-      kdDebug(13010)<<"\""<<mainGroup<<"\" found."<<endl;
+      kDebug(13010)<<"\""<<mainGroup<<"\" found."<<endl;
       QDomNodeList nodelist1 = elem.elementsByTagName("list");
 
       for (int l=0; l<nodelist1.count(); l++)
       {
         if (nodelist1.item(l).toElement().attribute("name") == type)
         {
-          kdDebug(13010)<<"List with attribute name=\""<<type<<"\" found."<<endl;
+          kDebug(13010)<<"List with attribute name=\""<<type<<"\" found."<<endl;
           QDomNodeList childlist = nodelist1.item(l).toElement().childNodes();
 
           for (int i=0; i<childlist.count(); i++)
@@ -304,11 +304,11 @@ QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QStrin
 #ifndef NDEBUG
             if (i<6)
             {
-              kdDebug(13010)<<"\""<<element<<"\" added to the list \""<<type<<"\""<<endl;
+              kDebug(13010)<<"\""<<element<<"\" added to the list \""<<type<<"\""<<endl;
             }
             else if(i==6)
             {
-              kdDebug(13010)<<"... The list continues ..."<<endl;
+              kDebug(13010)<<"... The list continues ..."<<endl;
             }
 #endif
             m_data += element;
@@ -384,7 +384,7 @@ void KateSyntaxDocument::setupModeList (bool force)
     }
     else
     {
-      kdDebug (13010) << "UPDATE hl cache for: " << *it << endl;
+      kDebug (13010) << "UPDATE hl cache for: " << *it << endl;
 
       // We're forced to read the xml files or the mode doesn't exist in the katesyntax...rc
       QFile f(*it);

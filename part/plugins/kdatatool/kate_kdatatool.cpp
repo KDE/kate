@@ -87,7 +87,7 @@ KDataToolPluginView::~KDataToolPluginView()
 
 void KDataToolPluginView::aboutToShow()
 {
-	kdDebug()<<"KTextEditor::KDataToolPluginView::aboutToShow"<<endl;
+	kDebug()<<"KTextEditor::KDataToolPluginView::aboutToShow"<<endl;
 	QString word;
 	m_singleWord = false;
 	m_wordUnderCursor.clear();
@@ -184,7 +184,7 @@ void KDataToolPluginView::slotToolActivated( const KDataToolInfo &info, const QS
 	KDataTool* tool = info.createTool( );
 	if ( !tool )
 	{
-		kdWarning() << "Could not create Tool !" << endl;
+		kWarning() << "Could not create Tool !" << endl;
 		return;
 	}
 
@@ -201,13 +201,13 @@ void KDataToolPluginView::slotToolActivated( const KDataToolInfo &info, const QS
 	if ( !info.mimeTypes().contains( mimetype ) && m_singleWord )
 		mimetype = "application/x-singleword";
 
-	kdDebug() << "Running tool with datatype=" << datatype << " mimetype=" << mimetype << endl;
+	kDebug() << "Running tool with datatype=" << datatype << " mimetype=" << mimetype << endl;
 
 	QString origText = text;
 
 	if ( tool->run( command, &text, datatype, mimetype) )
 	{
-		kdDebug() << "Tool ran. Text is now " << text << endl;
+		kDebug() << "Tool ran. Text is now " << text << endl;
 		if ( origText != text )
 		{
 			int line, col;

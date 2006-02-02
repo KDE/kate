@@ -134,7 +134,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
   if (KTextEditor::ModificationInterface* modiface = qobject_cast<KTextEditor::ModificationInterface*>(m_view->document()))
     connect(m_view->document(), SIGNAL(modifiedOnDisk(KTextEditor::Document*, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(modifiedChanged()) );
   else
-    kdWarning() << k_funcinfo << "Modification interface not supported." << endl;
+    kWarning() << k_funcinfo << "Modification interface not supported." << endl;
   connect(m_view->document(), SIGNAL(documentNameChanged(KTextEditor::Document *)), this, SLOT(documentNameChanged()));
 
   setAcceptDrops(true);

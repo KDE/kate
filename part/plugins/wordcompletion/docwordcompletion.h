@@ -49,7 +49,7 @@ class DocWordCompletionPlugin
     DocWordCompletionPlugin( QObject *parent = 0,
                             const char* name = 0,
                             const QStringList &args = QStringList() );
-    virtual ~DocWordCompletionPlugin(){kdDebug()<<"~DocWordCompletionPlugin"<<endl;};
+    virtual ~DocWordCompletionPlugin(){kDebug()<<"~DocWordCompletionPlugin"<<endl;};
 
     void addView (KTextEditor::View *view);
     void removeView (KTextEditor::View *view);

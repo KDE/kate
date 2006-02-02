@@ -86,7 +86,7 @@ KateView * KateCompletionWidget::view( ) const
 
 void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTextEditor::CodeCompletionModel * model )
 {
-  //kdDebug() << k_funcinfo << word << " " << model << endl;
+  //kDebug() << k_funcinfo << word << " " << model << endl;
 
   if (!isCompletionActive())
     abortCompletion();

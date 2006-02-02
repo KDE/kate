@@ -124,7 +124,7 @@ void KateSpell::ready(KSpell *)
 
   m_kspell->check( m_view->doc()->text( KTextEditor::Range(m_spellStart, m_spellEnd) ) );
 
-  kdDebug (13020) << "SPELLING READY STATUS: " << m_kspell->status () << endl;
+  kDebug (13020) << "SPELLING READY STATUS: " << m_kspell->status () << endl;
 }
 
 KTextEditor::Cursor KateSpell::locatePosition( int pos )
@@ -189,7 +189,7 @@ void KateSpell::spellCleanDone()
   delete m_kspell;
   m_kspell = 0;
 
-  kdDebug (13020) << "SPELLING END" << endl;
+  kDebug (13020) << "SPELLING END" << endl;
 }
 //END
 

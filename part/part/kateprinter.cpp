@@ -356,7 +356,7 @@ bool KatePrinter::print (KateDocument *doc)
        // if needed, that is if any header/footer tag contains "%P".
        if ( headerTagList.grep("%P").count() || footerTagList.grep("%P").count() )
        {
-         kdDebug(13020)<<"'%P' found! calculating number of pages..."<<endl;
+         kDebug(13020)<<"'%P' found! calculating number of pages..."<<endl;
          uint _pages = 0;
          uint _ph = maxHeight;
          if ( useHeader )
@@ -412,7 +412,7 @@ bool KatePrinter::print (KateDocument *doc)
        {
          if ( y + renderer.fontHeight() >= (uint)(maxHeight) )
          {
-           kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
+           kDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
            printer.newPage();
            currentPage++;
            pageStarted = true;
@@ -581,7 +581,7 @@ bool KatePrinter::print (KateDocument *doc)
 
          if ( endCol < startCol )
          {
-           //kdDebug(13020)<<"--- Skipping garbage, line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" real EndCol; "<< buffer->line(lineCount)->length()<< " !?"<<endl;
+           //kDebug(13020)<<"--- Skipping garbage, line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" real EndCol; "<< buffer->line(lineCount)->length()<< " !?"<<endl;
            lineCount++;
            continue; // strange case...
                      // Happens if the line fits exactly.

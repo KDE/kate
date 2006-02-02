@@ -384,7 +384,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
       if ( i )
         patterns[i].prepend("^");
 
-       kdDebug(13025)<<"patterns["<<i<<"] ="<<patterns[i]<<endl;
+       kDebug(13025)<<"patterns["<<i<<"] ="<<patterns[i]<<endl;
     }
   }
 
@@ -467,7 +467,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
 
 bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd, QString &msg)
 {
-   kdDebug(13025)<<"SedReplace::execCmd( "<<cmd<<" )"<<endl;
+   kDebug(13025)<<"SedReplace::execCmd( "<<cmd<<" )"<<endl;
 
   QRegExp delim("^[$%]?s\\s*([^\\w\\s])");
   if ( delim.indexIn( cmd ) < 0 ) return false;
@@ -478,17 +478,17 @@ bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd
   bool onlySelect=cmd[0]=='$';
 
   QString d = delim.cap(1);
-   kdDebug(13025)<<"SedReplace: delimiter is '"<<d<<"'"<<endl;
+   kDebug(13025)<<"SedReplace: delimiter is '"<<d<<"'"<<endl;
 
   QRegExp splitter( QString("^[$%]?s\\s*")  + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d +"((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d + "[ig]{0,2}$" );
   if (splitter.indexIn(cmd)<0) return false;
 
   QString find=splitter.cap(1);
-   kdDebug(13025)<< "SedReplace: find=" << find <<endl;
+   kDebug(13025)<< "SedReplace: find=" << find <<endl;
 
   QString replace=splitter.cap(2);
   exchangeAbbrevs(replace);
-   kdDebug(13025)<< "SedReplace: replace=" << replace <<endl;
+   kDebug(13025)<< "SedReplace: replace=" << replace <<endl;
 
   KateDocument *doc = ((KateView*)view)->doc();
   if ( ! doc ) return false;

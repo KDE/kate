@@ -129,7 +129,7 @@ void KateFileTypeManager::save (const QList<KateFileType>& v)
 
 int KateFileTypeManager::fileType (KateDocument *doc)
 {
-  kdDebug(13020)<<k_funcinfo<<endl;
+  kDebug(13020)<<k_funcinfo<<endl;
   if (!doc)
     return -1;
 
@@ -168,7 +168,7 @@ int KateFileTypeManager::fileType (KateDocument *doc)
   // created the document
   else if ( (result = wildcardsFind(doc->documentName())) != -1)
   {
-    kdDebug(13020)<<"KateFiletype::filetype(): got type "<<result<<" using docName '"<<doc->documentName()<<"'"<<endl;
+    kDebug(13020)<<"KateFiletype::filetype(): got type "<<result<<" using docName '"<<doc->documentName()<<"'"<<endl;
     return result;
   }
 

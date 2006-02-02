@@ -374,7 +374,7 @@ void KateSearch::replaceOne()
           replaceWith.replace( pos, br.matchedLength(), sc );
         }
         else {
-          kdDebug()<<"KateSearch::replaceOne(): you don't have "<<ccap<<" backreferences in regexp '"<<m_re.pattern()<<"'"<<endl;
+          kDebug()<<"KateSearch::replaceOne(): you don't have "<<ccap<<" backreferences in regexp '"<<m_re.pattern()<<"'"<<endl;
         }
       }
       pos = br.indexIn( replaceWith, pos + qMax(br.matchedLength(), (int)sc.length()) );
@@ -495,13 +495,13 @@ QString KateSearch::getSearchText()
   switch (getFrom)
   {
   case KateViewConfig::SelectionOnly: // (Windows)
-    //kdDebug() << "getSearchText(): SelectionOnly" << endl;
+    //kDebug() << "getSearchText(): SelectionOnly" << endl;
     if( m_view->selection() )
       str = m_view->selectionText();
     break;
 
   case KateViewConfig::SelectionWord: // (classic Kate behavior)
-    //kdDebug() << "getSearchText(): SelectionWord" << endl;
+    //kDebug() << "getSearchText(): SelectionWord" << endl;
     if( m_view->selection() )
       str = m_view->selectionText();
     else
@@ -509,19 +509,19 @@ QString KateSearch::getSearchText()
     break;
 
   case KateViewConfig::WordOnly: // (weird?)
-    //kdDebug() << "getSearchText(): WordOnly" << endl;
+    //kDebug() << "getSearchText(): WordOnly" << endl;
     str = view()->currentWord();
     break;
 
   case KateViewConfig::WordSelection: // (persistent selection lover)
-    //kdDebug() << "getSearchText(): WordSelection" << endl;
+    //kDebug() << "getSearchText(): WordSelection" << endl;
     str = view()->currentWord();
     if (str.isEmpty() && m_view->selection() )
       str = m_view->selectionText();
     break;
 
   default: // (nowhere)
-    //kdDebug() << "getSearchText(): Nowhere" << endl;
+    //kDebug() << "getSearchText(): Nowhere" << endl;
     break;
   }
 
@@ -544,7 +544,7 @@ bool KateSearch::doSearch( const QString& text )
   bool regExp = s.flags.regExp;
   bool wholeWords = s.flags.wholeWords;
   KTextEditor::Range match;
-  //kdDebug() << "Searching at " << line << ", " << col << endl;
+  //kDebug() << "Searching at " << line << ", " << col << endl;
 
   do {
       if( regExp ) {
@@ -607,7 +607,7 @@ bool KateSearch::doSearch( const QString& text )
     }
   }
 
-//   kdDebug() << "Found at " << s.cursor.line() << ", " << s.cursor.column() << endl;
+//   kDebug() << "Found at " << s.cursor.line() << ", " << s.cursor.column() << endl;
 
   return true;
 }
@@ -754,7 +754,7 @@ while ( (p = pattern.indexOf( '\\' + delim, p )) > -1 )\
       msg = i18n("Usage: replace[:[bceprsw]] PATTERN [REPLACEMENT]");
       return false;
     }
-    kdDebug()<<"replace '"<<pattern<<"' with '"<<replacement<<"'"<<endl;
+    kDebug()<<"replace '"<<pattern<<"' with '"<<replacement<<"'"<<endl;
 #undef unbackslash
   }
 

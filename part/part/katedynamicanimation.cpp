@@ -63,7 +63,7 @@ KateDynamicAnimation::~KateDynamicAnimation()
 void KateDynamicAnimation::init( )
 {
   if (!dynamicAttribute()) {
-    kdDebug() << k_funcinfo << "No dynamic attribute for range " << *m_range << endl;
+    kDebug() << k_funcinfo << "No dynamic attribute for range " << *m_range << endl;
     return;
   }
 
@@ -111,7 +111,7 @@ void KateDynamicAnimation::timeout()
 
   m_sequence += s_granularity;
 
-  //kdDebug() << k_funcinfo << *m_range << " Seq " << m_sequence << endl;
+  //kDebug() << k_funcinfo << *m_range << " Seq " << m_sequence << endl;
 
   emit redraw(m_range);
 
@@ -134,7 +134,7 @@ void KateDynamicAnimation::mergeToAttribute( KTextEditor::Attribute & attrib ) c
 
   Attribute::Effects effects = range()->attribute()->effects();
 
-  //kdDebug() << k_funcinfo << m_sequence << "Effects: " << effects << endl;
+  //kDebug() << k_funcinfo << m_sequence << "Effects: " << effects << endl;
 
   if (m_sequence > 0 && m_sequence < 100) {
     if (effects & Attribute::EffectFadeIn) {

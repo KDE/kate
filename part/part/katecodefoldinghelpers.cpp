@@ -94,11 +94,11 @@ bool KateCodeFoldingNode::getEnd(KateCodeFoldingTree *tree, KTextEditor::Cursor 
 int KateCodeFoldingNode::cmpPos(KateCodeFoldingTree *tree, uint line,uint col) {
     KTextEditor::Cursor cur(line,col);
     KTextEditor::Cursor start,end;
-    kdDebug(13000)<<"KateCodeFoldingNode::cmpPos (1)"<<endl;
+    kDebug(13000)<<"KateCodeFoldingNode::cmpPos (1)"<<endl;
     bool startValid=getBegin(tree, &start);
-    kdDebug(13000)<<"KateCodeFoldingNode::cmpPos (2)"<<endl;
+    kDebug(13000)<<"KateCodeFoldingNode::cmpPos (2)"<<endl;
     bool endValid=getEnd(tree, &end);
-    kdDebug(13000)<<"KateCodeFoldingNode::cmpPos (3)"<<endl;
+    kDebug(13000)<<"KateCodeFoldingNode::cmpPos (3)"<<endl;
     if ((!endValid) && startValid) {
       return ((start>cur)?-1:0);
     }
@@ -307,7 +307,7 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForPosition(unsigned int line,
 
   if (node==&m_root) return &m_root;
 
-  kdDebug(13000)<<"initial cmpPos"<<endl;
+  kDebug(13000)<<"initial cmpPos"<<endl;
 
   KateCodeFoldingNode *tmp;
   int leq=node->cmpPos(this, line,column);
@@ -322,9 +322,9 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForPosition(unsigned int line,
                   for ( int i=0; i < node->childCount(); ++i )
                   {
                     KateCodeFoldingNode *subNode = node->child(i);
-                    kdDebug(13000)<<"cmdPos(case0):calling"<<endl;
+                    kDebug(13000)<<"cmdPos(case0):calling"<<endl;
                     leq=subNode->cmpPos(this, line,column);
-                    kdDebug(13000)<<"cmdPos(case0):returned"<<endl;
+                    kDebug(13000)<<"cmdPos(case0):returned"<<endl;
                     if (leq==0) {
                         tmp=subNode;
                         break;
@@ -338,11 +338,11 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForPosition(unsigned int line,
       case -1:
       case 1:  {
                   if (!(node->parentNode)) return &m_root;
-                  kdDebug(13000)<<"current node type"<<node->type<<endl;
+                  kDebug(13000)<<"current node type"<<node->type<<endl;
                   node=node->parentNode;
-                  kdDebug(13000)<<"cmdPos(case-1/1):calling:"<<node<<endl;
+                  kDebug(13000)<<"cmdPos(case-1/1):calling:"<<node<<endl;
                   leq=node->cmpPos(this, line,column);
-                  kdDebug(13000)<<"cmdPos(case-1/1):returned"<<endl;
+                  kDebug(13000)<<"cmdPos(case-1/1):returned"<<endl;
                   break;
                 }
     }
@@ -355,14 +355,14 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForPosition(unsigned int line,
 void KateCodeFoldingTree::debugDump()
 {
   //dump all nodes for debugging
-  kdDebug(13000)<<"The parsed region/block tree for code folding"<<endl;
+  kDebug(13000)<<"The parsed region/block tree for code folding"<<endl;
   dumpNode(&m_root, "");
 }
 
 void KateCodeFoldingTree::dumpNode(KateCodeFoldingNode *node, const QString &prefix)
 {
   //output node properties
-  kdDebug(13000)<<prefix<<QString("Type: %1, startLineValid %2, startLineRel %3, endLineValid %4, endLineRel %5, visible %6").
+  kDebug(13000)<<prefix<<QString("Type: %1, startLineValid %2, startLineRel %3, endLineValid %4, endLineRel %5, visible %6").
       arg(node->type).arg(node->startLineValid).arg(node->startLineRel).arg(node->endLineValid).
       arg(node->endLineRel).arg(node->visible)<<endl;
 
@@ -494,7 +494,7 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
           }
           else
           {
-//              kdDebug(13000)<<"ADDING NODE "<<endl;
+//              kDebug(13000)<<"ADDING NODE "<<endl;
             KateCodeFoldingNode *newNode = new KateCodeFoldingNode (node,data,line-startLine);
             something_changed = true;
             node->insertChild(insertPos, newNode);
@@ -647,12 +647,12 @@ bool KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
 
 bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *node,unsigned int line,unsigned int endCol,int insertPos)
 {
-//  if (node->type==0) {kdError()<<"correct Ending should never be called with the root node"<<endl; return true;}
+//  if (node->type==0) {kError()<<"correct Ending should never be called with the root node"<<endl; return true;}
   uint startLine = getStartLine(node);
   if (data != -node->type)
   {
 #if JW_DEBUG
-    kdDebug(13000)<<"data!=-node->type (correctEndings)"<<endl;
+    kDebug(13000)<<"data!=-node->type (correctEndings)"<<endl;
 #endif
     //invalid close -> add to unopend list
     dontDeleteEnding(node);
@@ -693,7 +693,7 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
     else
     {
 #if JW_DEBUG
-      kdDebug(13000)<<"Closing a node which had already a valid end"<<endl;
+      kDebug(13000)<<"Closing a node which had already a valid end"<<endl;
 #endif
       // block has already an ending
       if (startLine+node->endLineRel == line)
@@ -701,7 +701,7 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
          node->endCol=endCol;
          // we won, just skip
 #if JW_DEBUG
-        kdDebug(13000)<< "We won, just skipping (correctEndings)"<<endl;
+        kDebug(13000)<< "We won, just skipping (correctEndings)"<<endl;
 #endif
       }
       else
@@ -712,8 +712,8 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
         node->endCol=endCol;
 
 #if JW_DEBUG
-        kdDebug(13000)<< "reclosed node had childnodes()"<<endl;
-        kdDebug(13000)<<"It could be, that childnodes() need to be moved up"<<endl;
+        kDebug(13000)<< "reclosed node had childnodes()"<<endl;
+        kDebug(13000)<<"It could be, that childnodes() need to be moved up"<<endl;
 #endif
   moveSubNodesUp(node);
 
@@ -743,12 +743,12 @@ void KateCodeFoldingTree::moveSubNodesUp(KateCodeFoldingNode *node)
             break;
           }
 #if JW_DEBUG
-        kdDebug(13000)<<QString("remove pos: %1").arg(removepos)<<endl;
+        kDebug(13000)<<QString("remove pos: %1").arg(removepos)<<endl;
 #endif
         if (removepos>-1)
         {
 #if JW_DEBUG
-          kdDebug(13000)<<"Children need to be moved"<<endl;
+          kDebug(13000)<<"Children need to be moved"<<endl;
 #endif
           KateCodeFoldingNode *moveNode;
           if (mypos == (int)node->parentNode->childCount()-1)
@@ -783,12 +783,12 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
   if ((startLine==line) && (node->type!=0))
   {
 #if JW_DEBUG
-    kdDebug(13000)<<"startLine equals line"<<endl;
+    kDebug(13000)<<"startLine equals line"<<endl;
 #endif
     if (nType == node->type)
     {
 #if JW_DEBUG
-      kdDebug(13000)<<"Node exists"<<endl;
+      kDebug(13000)<<"Node exists"<<endl;
 #endif
       node->deleteOpening = false;
       node->startCol=charPos;
@@ -951,7 +951,7 @@ void KateCodeFoldingTree::addOpening_further_iterations(KateCodeFoldingNode *nod
       if (data<0)
       {
 #if JW_DEBUG
-        kdDebug(13000)<<"An ending was found"<<endl;
+        kDebug(13000)<<"An ending was found"<<endl;
 #endif
 
         if (correctEndings(data,node,line,charPos,-1))
@@ -1023,7 +1023,7 @@ void KateCodeFoldingTree::lineHasBeenRemoved(unsigned int line)
   dontIgnoreUnchangedLines.insert(line+1, &trueVal);
   hiddenLinesCountCacheValid = false;
 #if JW_DEBUG
-  kdDebug(13000)<<QString("KateCodeFoldingTree::lineHasBeenRemoved: %1").arg(line)<<endl;
+  kDebug(13000)<<QString("KateCodeFoldingTree::lineHasBeenRemoved: %1").arg(line)<<endl;
 #endif
 
 //line ++;
@@ -1087,7 +1087,7 @@ void KateCodeFoldingTree::lineHasBeenInserted(unsigned int line)
   hiddenLinesCountCacheValid = false;
 //return;
 #if JW_DEBUG
-  kdDebug(13000)<<QString("KateCodeFoldingTree::lineHasBeenInserted: %1").arg(line)<<endl;
+  kDebug(13000)<<QString("KateCodeFoldingTree::lineHasBeenInserted: %1").arg(line)<<endl;
 #endif
 
 //  findAndMarkAllNodesforRemovalOpenedOrClosedAt(line);
@@ -1154,7 +1154,7 @@ void KateCodeFoldingTree::findAndMarkAllNodesforRemovalOpenedOrClosedAt(unsigned
     addNodeToRemoveList(node, line);
   }
 #if JW_DEBUG
-  kdDebug(13000)<<" added line to markedForDeleting list"<<endl;
+  kDebug(13000)<<" added line to markedForDeleting list"<<endl;
 #endif
 }
 
@@ -1205,7 +1205,7 @@ void KateCodeFoldingTree::findAllNodesOpenedOrClosedAt(unsigned int line)
     node = node->parentNode;
   }
 #if JW_DEBUG
-  kdDebug(13000)<<" added line to nodesForLine list"<<endl;
+  kDebug(13000)<<" added line to nodesForLine list"<<endl;
 #endif
 }
 
@@ -1237,7 +1237,7 @@ void KateCodeFoldingTree::addNodeToFoundList(KateCodeFoldingNode *node,unsigned 
 void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
 {
 #if JW_DEBUG
-  kdDebug(13000)<<"void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)"<<endl;
+  kDebug(13000)<<"void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)"<<endl;
 #endif
 
 //  return;
@@ -1248,14 +1248,14 @@ void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
   {
     KateCodeFoldingNode *node = markedForDeleting.at(i);
     if (node->deleteOpening)
-      kdDebug(13000)<<"DELETE OPENING SET"<<endl;
+      kDebug(13000)<<"DELETE OPENING SET"<<endl;
     if (node->deleteEnding)
-      kdDebug(13000)<<"DELETE ENDING SET"<<endl;
+      kDebug(13000)<<"DELETE ENDING SET"<<endl;
 
     if ((node->deleteOpening) && (node->deleteEnding))
     {
 #if JW_DEBUG
-      kdDebug(13000)<<"Deleting complete node"<<endl;
+      kDebug(13000)<<"Deleting complete node"<<endl;
 #endif
       if (node->endLineValid)    // just delete it, it has been opened and closed on this line
       {
@@ -1276,7 +1276,7 @@ void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
       if ((node->deleteOpening) && (node->startLineValid))
       {
 #if JW_DEBUG
-        kdDebug(13000)<<"calling removeOpening"<<endl;
+        kDebug(13000)<<"calling removeOpening"<<endl;
 #endif
         removeOpening(node, line);
         something_changed = true;
@@ -1317,7 +1317,7 @@ void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
 
   lineMapping.clear();
   hiddenLinesCountCacheValid = false;
-  kdDebug(13000)<<QString("KateCodeFoldingTree::toggleRegionVisibility() %1").arg(line)<<endl;
+  kDebug(13000)<<QString("KateCodeFoldingTree::toggleRegionVisibility() %1").arg(line)<<endl;
 
   findAllNodesOpenedOrClosedAt(line);
   for (int i=0; i<(int)nodesForLine.count(); i++)
@@ -1426,7 +1426,7 @@ unsigned int KateCodeFoldingTree::getRealLine(unsigned int virtualLine)
   if (hiddenLines.isEmpty())
     return virtualLine;
 
-  // kdDebug(13000)<<QString("VirtualLine %1").arg(virtualLine)<<endl;
+  // kDebug(13000)<<QString("VirtualLine %1").arg(virtualLine)<<endl;
 
   if (lineMapping.contains(virtualLine))
     return lineMapping[virtualLine];
@@ -1440,7 +1440,7 @@ unsigned int KateCodeFoldingTree::getRealLine(unsigned int virtualLine)
       break;
   }
 
-  // kdDebug(13000)<<QString("Real Line %1").arg(virtualLine)<<endl;
+  // kDebug(13000)<<QString("Real Line %1").arg(virtualLine)<<endl;
 
   lineMapping.insert(tmp, virtualLine);
   return virtualLine;
@@ -1455,7 +1455,7 @@ unsigned int KateCodeFoldingTree::getVirtualLine(unsigned int realLine)
   if (hiddenLines.isEmpty())
     return realLine;
 
-  // kdDebug(13000)<<QString("RealLine--> %1").arg(realLine)<<endl;
+  // kDebug(13000)<<QString("RealLine--> %1").arg(realLine)<<endl;
 
   for (int i = hiddenLines.size()-1; i >= 0; --i)
   {
@@ -1465,7 +1465,7 @@ unsigned int KateCodeFoldingTree::getVirtualLine(unsigned int realLine)
       // break;
   }
 
-  // kdDebug(13000)<<QString("-->virtual Line %1").arg(realLine)<<endl;
+  // kDebug(13000)<<QString("-->virtual Line %1").arg(realLine)<<endl;
 
   return realLine;
 }
@@ -1634,7 +1634,7 @@ void KateCodeFoldingTree::ensureVisible( uint line )
 
   if (!found) return;
 
-  kdDebug(13000)<<"line "<<line<<" is really hidden ->show block"<<endl;
+  kDebug(13000)<<"line "<<line<<" is really hidden ->show block"<<endl;
 
   // it looks like we really have to ensure visibility
   KateCodeFoldingNode *n = findNodeForLine( line );

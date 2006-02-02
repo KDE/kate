@@ -133,15 +133,15 @@ class KateCodeCompletion : public QObject
       inline CompletionItem& operator=(const CompletionItem& c) {data=c.data;index=c.index; return *this;} //FIXME
       inline const QString& text() const {
 #if 0
-        kdDebug(13035)<<"data="<<data<<endl;
-        kdDebug(13035)<<"data->items().size()="<<data->items().size()<<endl;
+        kDebug(13035)<<"data="<<data<<endl;
+        kDebug(13035)<<"data->items().size()="<<data->items().size()<<endl;
 #endif
         return data->items().at(index).text();
       }
       inline KTextEditor::CompletionItem item() const {
 #if 0
-        kdDebug(13035)<<"data="<<data<<endl;
-        kdDebug(13035)<<"data->items().size()="<<data->items().size()<<endl;
+        kDebug(13035)<<"data="<<data<<endl;
+        kDebug(13035)<<"data->items().size()="<<data->items().size()<<endl;
 #endif
         return data->items().at(index);
       }

@@ -148,38 +148,38 @@ bool KateCodeCompletion::codeCompletionVisible () {
 
 
 void KateCodeCompletion::buildItemList() {
-  kdDebug(13034)<<"buildItemList"<<endl;
+  kDebug(13034)<<"buildItemList"<<endl;
   m_items.clear();
   foreach (const KTextEditor::CompletionData& data,m_data) {
-//     //kdDebug(13034)<<"buildItemList:1"<<endl;
+//     //kDebug(13034)<<"buildItemList:1"<<endl;
     const QList<KTextEditor::CompletionItem>&  list=data.items();
     for(int i=0;i<list.count();i++) {
-      //kdDebug(13034)<<"buildItemList:2"<<endl;
+      //kDebug(13034)<<"buildItemList:2"<<endl;
       m_items.append(CompletionItem(&data,i));
     }
   }
   qSort(m_items);
 #if 0
-  kdDebug(13035)<<"------------"<<endl;
+  kDebug(13035)<<"------------"<<endl;
   foreach (const CompletionItem& item,m_items)
-    kdDebug(13035)<<item.text()<<endl;
-  kdDebug(13035)<<"------------"<<endl;
+    kDebug(13035)<<item.text()<<endl;
+  kDebug(13035)<<"------------"<<endl;
 #endif
 }
 
 
 void KateCodeCompletion::showCompletion(const KTextEditor::Cursor &position,const QLinkedList<KTextEditor::CompletionData> &data) {
-  kdDebug(13034)<<"KateCodeCompletion::showCompletion"<<endl;
-  kdDebug(13034)<<"data.size()=="<<data.size()<<endl;
+  kDebug(13034)<<"KateCodeCompletion::showCompletion"<<endl;
+  kDebug(13034)<<"data.size()=="<<data.size()<<endl;
   if (data.isEmpty() && m_data.isEmpty()) return;
   else if (m_data.isEmpty()) { // new completion
     m_data=data;
-    kdDebug(13035)<<"m_data was empty"<<endl;
+    kDebug(13035)<<"m_data was empty"<<endl;
     buildItemList();
     updateBox();
   } else if (data.isEmpty()) {  // abort completion, no providers anymore
     m_data.clear();
-    kdDebug(13035)<<"data is empty"<<endl;
+    kDebug(13035)<<"data is empty"<<endl;
     buildItemList();
     updateBox();
     return;
@@ -187,17 +187,17 @@ void KateCodeCompletion::showCompletion(const KTextEditor::Cursor &position,cons
   } else { //update completion
     if (data.size()!=m_data.size()) { // different provider count
       m_data=data;
-      kdDebug(13035)<<"different size"<<endl;
+      kDebug(13035)<<"different size"<<endl;
       buildItemList();
       updateBox();
     } else {
       bool equal=true;
       for (QLinkedList<KTextEditor::CompletionData>::const_iterator it1=data.constBegin(),
           it2=m_data.constBegin();it1!=data.constEnd();++it1,++it2) {
-          if (!((*it1)==(*it2))) {equal=false; kdDebug(13035)<<(*it1).id()<<" "<<(*it2).id()<<endl; break;}
+          if (!((*it1)==(*it2))) {equal=false; kDebug(13035)<<(*it1).id()<<" "<<(*it2).id()<<endl; break;}
       }
       if (equal) return;
-      kdDebug(13035)<<"not equal"<<endl;
+      kDebug(13035)<<"not equal"<<endl;
       m_data=data;
       buildItemList();
       updateBox();
@@ -209,7 +209,7 @@ void KateCodeCompletion::showCompletion(const KTextEditor::Cursor &position,cons
 void KateCodeCompletion::showCompletionBox(
     QList<KTextEditor::CompletionItem> complList, int offset, bool casesensitive )
 {
-  kdDebug(13035) << "showCompletionBox " << endl;
+  kDebug(13035) << "showCompletionBox " << endl;
 
   //if ( codeCompletionVisible() ) return;
 
@@ -225,7 +225,7 @@ void KateCodeCompletion::showCompletionBox(
 
 bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
 {
-  kdDebug(13035)<<"KateCodeCompletion::eventFilter"<<endl;
+  kDebug(13035)<<"KateCodeCompletion::eventFilter"<<endl;
   if ( o != m_completionPopup &&
        o != m_completionListBox &&
        o != m_completionListBox->viewport()
@@ -268,13 +268,13 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
     QApplication::sendEvent(m_view->window(),e);
   }
 
-  kdDebug(13035)<<"e->type()=="<<e->type()<<endl;
+  kDebug(13035)<<"e->type()=="<<e->type()<<endl;
   return false;
 }
 
 void KateCodeCompletion::handleKey (QKeyEvent *e)
 {
-  kdDebug(13035)<<"KateCodeCompletion::handleKey"<<endl;
+  kDebug(13035)<<"KateCodeCompletion::handleKey"<<endl;
   // close completion if you move out of range
   if ((e->key() == Qt::Key_Up) && (m_completionListBox->currentItem() == 0))
   {
@@ -301,12 +301,12 @@ void KateCodeCompletion::doComplete()
 {
 #if 0
   foreach (const KTextEditor::CompletionData& data,m_data) {
-    kdDebug(13035)<<"datalist="<<&data<<endl;
+    kDebug(13035)<<"datalist="<<&data<<endl;
   }
-  kdDebug(13035)<<"doComplete------------"<<endl;
+  kDebug(13035)<<"doComplete------------"<<endl;
   foreach (const CompletionItem& item,m_items)
-    kdDebug(13035)<<item.text()<<endl;
-  kdDebug(13035)<<"doComplete------------"<<endl;
+    kDebug(13035)<<item.text()<<endl;
+  kDebug(13035)<<"doComplete------------"<<endl;
 #endif
 
   KateCompletionItem* item = static_cast<KateCompletionItem*>(
@@ -347,7 +347,7 @@ void KateCodeCompletion::abortCompletion()
 
 void KateCodeCompletion::complete( KTextEditor::CompletionItem entry )
 {
-  kdDebug(13035)<<"KateCodeCompletion::completion=============about to close completion box"<<endl;
+  kDebug(13035)<<"KateCodeCompletion::completion=============about to close completion box"<<endl;
   m_blockEvents=true;
   m_completionPopup->hide();
   delete m_commentLabel;
@@ -367,15 +367,15 @@ void KateCodeCompletion::updateBox( bool )
 #if 0
   if( m_colCursor > m_view->cursorPosition().column() ) {
     // the cursor is too far left
-    kdDebug(13035) << "Aborting Codecompletion after sendEvent" << endl;
-    kdDebug(13035) << m_view->cursorPosition().column() << endl;
+    kDebug(13035) << "Aborting Codecompletion after sendEvent" << endl;
+    kDebug(13035) << m_view->cursorPosition().column() << endl;
     abortCompletion();
     m_view->setFocus();
     return;
   }
 #endif
   m_completionListBox->clear();
-  kdDebug(13035)<<"m_items.size():"<<m_items.size()<<endl;;
+  kDebug(13035)<<"m_items.size():"<<m_items.size()<<endl;;
   if (m_items.size()==0)
   {
     if (codeCompletionVisible())
@@ -433,7 +433,7 @@ void KateCodeCompletion::updateBox( bool )
     m_view->setFocus();
     return;
   }
-    kdDebug(13035)<<"KateCodeCompletion::updateBox: Resizing widget"<<endl;
+    kDebug(13035)<<"KateCodeCompletion::updateBox: Resizing widget"<<endl;
         m_completionPopup->resize(m_completionListBox->sizeHint() + QSize(2,2));
     QPoint p = m_view->mapToGlobal( m_view->cursorPositionCoordinates() );
         int x = p.x();
@@ -467,7 +467,7 @@ void KateCodeCompletion::showArgHint ( QStringList functionList, const QString& 
   QStringList::Iterator end(functionList.end());
   for( QStringList::Iterator it = functionList.begin(); it != end; ++it )
   {
-    kdDebug(13035) << "Insert function text: " << *it << endl;
+    kDebug(13035) << "Insert function text: " << *it << endl;
 
     m_pArgHint->addFunction( nNum, ( *it ) );
 

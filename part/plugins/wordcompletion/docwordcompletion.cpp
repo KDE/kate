@@ -189,8 +189,8 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold, bool au
   d->treshold = treshold;
   view->insertChildClient( this );
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
-  if (cci) {cci->registerCompletionProvider(this); kdDebug()<<"*******Completion provider registered"<<endl; }
-  else kdDebug()<<"****** No code completion interface available for view"<<endl;
+  if (cci) {cci->registerCompletionProvider(this); kDebug()<<"*******Completion provider registered"<<endl; }
+  else kDebug()<<"****** No code completion interface available for view"<<endl;
   setInstance( KGenericFactory<DocWordCompletionPlugin>::instance() );
 
   (void) new KAction( i18n("Reuse Word Above"), Qt::CTRL+Qt::Key_8, this,
@@ -276,17 +276,17 @@ void DocWordCompletionPluginView::toggleAutoPopup()
 const KTextEditor::CompletionData DocWordCompletionPluginView::completionData(KTextEditor::View*,enum KTextEditor::CompletionType comptype, const 
 	KTextEditor::Cursor&, const QString&,const KTextEditor::Cursor& pos , const QString& line)
 {
-  kdDebug()<<"Should we provide a completion list?"<<endl;
+  kDebug()<<"Should we provide a completion list?"<<endl;
   if ((!d->autopopup->isChecked()) && (comptype==KTextEditor::CompletionAsYouType)) return KTextEditor::CompletionData::Null();
   QString w=word(pos.column(),line);
-  kdDebug()<<"Checking word length"<<endl;
+  kDebug()<<"Checking word length"<<endl;
   if (w.length() >=d->treshold) {
     {  //showCompletionBox( allMatches( w ), w.length() );
-      kdDebug()<<"About to return a completion list"<<endl;
+      kDebug()<<"About to return a completion list"<<endl;
       KTextEditor::Cursor newCursor=KTextEditor::Cursor(pos.line(),pos.column()-w.length());
-      kdDebug()<<"newCursor"<<newCursor.line()<<"/"<<newCursor.column()<<" m_oldCursor"<<m_oldCursor.line()<<"/"<<m_oldCursor.column()<<endl;
-      kdDebug()<<"m_oldWord:"<<m_oldWord<<" w:"<<w<<endl;
-      kdDebug()<<"m_completionData.isValid()"<<m_completionData.isValid()<<endl;
+      kDebug()<<"newCursor"<<newCursor.line()<<"/"<<newCursor.column()<<" m_oldCursor"<<m_oldCursor.line()<<"/"<<m_oldCursor.column()<<endl;
+      kDebug()<<"m_oldWord:"<<m_oldWord<<" w:"<<w<<endl;
+      kDebug()<<"m_completionData.isValid()"<<m_completionData.isValid()<<endl;
       if ( ((!m_oldWord.isEmpty()) && (w.find(m_oldWord)==0)) && m_completionData.isValid() //perhaps there should be some kind of invalid cursor
         && (m_oldCursor==newCursor))
       return m_completionData;

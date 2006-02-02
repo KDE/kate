@@ -71,11 +71,11 @@ typedef struct KATELUA_FUNCTIONS {
 static int katelua_katedebug(lua_State *L) {
   int n=lua_gettop(L);
   for (int i=1;i<=n;i++) {
-    if (lua_isnil(L,i)) kdDebug(13060)<<"NIL VALUE"<<endl;
-    else if (lua_isstring(L,i)) kdDebug(13060)<<lua_tostring(L,i)<<endl;
-    else if (lua_isboolean(L,i)) kdDebug(13060)<<(bool)lua_toboolean(L,i)<<endl;
-    else if (lua_isnumber(L,i)) kdDebug(13060)<<lua_tonumber(L,i)<<endl;
-    else kdDebug(13060)<<"Invalid type for katedebug:"<<lua_type(L,i)<<endl;
+    if (lua_isnil(L,i)) kDebug(13060)<<"NIL VALUE"<<endl;
+    else if (lua_isstring(L,i)) kDebug(13060)<<lua_tostring(L,i)<<endl;
+    else if (lua_isboolean(L,i)) kDebug(13060)<<(bool)lua_toboolean(L,i)<<endl;
+    else if (lua_isnumber(L,i)) kDebug(13060)<<lua_tonumber(L,i)<<endl;
+    else kDebug(13060)<<"Invalid type for katedebug:"<<lua_type(L,i)<<endl;
   }
   return 0;
 }
@@ -88,9 +88,9 @@ static int katelua_indenter_register(lua_State *L) {
   }
   if ( (!lua_isfunction(L,2)) || (!lua_isnumber(L,1)))
   {
-    /*if (lua_isnumber(L,1)) kdDebug(13060)<<"A"<<endl;
-    if (lua_isfunction(L,2)) kdDebug(13060)<<"B"<<endl;
-    kdDebug(13060)<<lua_type(L,2)<<endl;*/
+    /*if (lua_isnumber(L,1)) kDebug(13060)<<"A"<<endl;
+    if (lua_isfunction(L,2)) kDebug(13060)<<"B"<<endl;
+    kDebug(13060)<<lua_type(L,2)<<endl;*/
     lua_pushstring(L,i18n("indenter.register requires 2 parameters (event id (number), function to call (function))").toUtf8().data());
     lua_error(L);
   }
@@ -116,7 +116,7 @@ static int katelua_indenter_register(lua_State *L) {
   lua_pop(L,1);
   lua_pushvalue(L,2);
   lua_settable(L,LUA_REGISTRYINDEX);
-  kdDebug(13060)<<"katelua_indenter_register: Success"<<endl;
+  kDebug(13060)<<"katelua_indenter_register: Success"<<endl;
   return 0;
 }
 
@@ -394,11 +394,11 @@ bool KateLUAIndentScriptImpl::setupInterpreter(QString &errorMsg)
   lua_pushstring(m_interpreter,fn.data());
   int execresult=lua_pcall(m_interpreter,1,1,0);
   if (execresult==0) {
-    kdDebug(13060)<<"Lua script has been loaded successfully. Lua interpreter version:"<<lua_version()<<endl;
+    kDebug(13060)<<"Lua script has been loaded successfully. Lua interpreter version:"<<lua_version()<<endl;
     return true;
   } else {
     errorMsg=i18n("Lua indenting script had errors: %1").arg(lua_tostring(m_interpreter,lua_gettop(m_interpreter)));
-    kdDebug(13060)<<errorMsg<<endl;
+    kDebug(13060)<<errorMsg<<endl;
     deleteInterpreter();
 
     return false;
@@ -421,7 +421,7 @@ bool KateLUAIndentScriptImpl::processChar(KateView *view, QChar c, QString &erro
     if (lua_pcall(m_interpreter,1,0,0)!=0)
     {
       errorMsg=i18n("Lua indenting script had errors: %1").arg(lua_tostring(m_interpreter,lua_gettop(m_interpreter)));
-      kdDebug(13060)<<errorMsg<<endl;
+      kDebug(13060)<<errorMsg<<endl;
       result=false;
     }
   }
@@ -449,7 +449,7 @@ bool KateLUAIndentScriptImpl::processNewline( KateView *view, const KateDocCurso
     if (lua_pcall(m_interpreter,0,0,0)!=0)
     {
       errorMsg=i18n("Lua indenting script had errors: %1").arg(lua_tostring(m_interpreter,lua_gettop(m_interpreter)));
-      kdDebug(13060)<<errorMsg<<endl;
+      kDebug(13060)<<errorMsg<<endl;
       result=false;
     }
   }
@@ -475,7 +475,7 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
   if (!m_scripts.isEmpty())
     return;
 
-  kdDebug(13060)<<"================================================="<<endl<<"Trying to find Lua scripts"<<endl
+  kDebug(13060)<<"================================================="<<endl<<"Trying to find Lua scripts"<<endl
       <<"================================================="<<endl;
 
   // We'll store the scripts list in this config
@@ -506,7 +506,7 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
     struct stat sbuf;
     memset (&sbuf, 0, sizeof(sbuf));
     stat(QFile::encodeName(*it), &sbuf);
-    kdDebug(13060)<<"Lua script file:"<<(*it)<<endl;
+    kDebug(13060)<<"Lua script file:"<<(*it)<<endl;
     // If the group exist and we're not forced to read the .js file, let's build myModeList for katepartjscriptrc
     bool readnew=false;
     if (!force && config.hasGroup(Group) &&
@@ -565,7 +565,7 @@ void KateLUAIndentScriptManager::collectScripts (bool force)
 
 KateIndentScript KateLUAIndentScriptManager::script(const QString &scriptname) {
   KateLUAIndentScriptImpl *s=m_scripts[scriptname];
-  kdDebug(13050)<<scriptname<<"=="<<s<<endl;
+  kDebug(13050)<<scriptname<<"=="<<s<<endl;
   return KateIndentScript(s);
 }
 
@@ -575,18 +575,18 @@ void KateLUAIndentScriptManager::parseScriptHeader(const QString &filePath,
 #if 0
   QFile f(QFile::encodeName(filePath));
   if (!f.open(QIODevice::ReadOnly) ) {
-    kdDebug(13050)<<"Header could not be parsed, because file could not be opened"<<endl;
+    kDebug(13050)<<"Header could not be parsed, because file could not be opened"<<endl;
     return;
   }
   QTextStream st(&f);
   st.setEncoding (QTextStream::UnicodeUTF8);
   if (!st.readLine().toUpper().startsWith("/**KATE")) {
-    kdDebug(13050)<<"No header found"<<endl;
+    kDebug(13050)<<"No header found"<<endl;
     f.close();
     return;
   }
   // here the real parsing begins
-  kdDebug(13050)<<"Parsing indent script header"<<endl;
+  kDebug(13050)<<"Parsing indent script header"<<endl;
   enum {NOTHING=0,COPYRIGHT=1} currentState=NOTHING;
   QString line;
   QString tmpblockdata="";
@@ -595,7 +595,7 @@ void KateLUAIndentScriptManager::parseScriptHeader(const QString &filePath,
   QRegExp blockContent("[\\s\\t]*\\*(.*)$");
   while (!(line=st.readLine()).isNull()) {
     if (endExpr.exactMatch(line)) {
-      kdDebug(13050)<<"end of config block"<<endl;
+      kDebug(13050)<<"end of config block"<<endl;
       if (currentState==NOTHING) break;
       if (currentState==COPYRIGHT) {
         *copyright=tmpblockdata;
@@ -607,8 +607,8 @@ void KateLUAIndentScriptManager::parseScriptHeader(const QString &filePath,
     {
       if (keyValue.exactMatch(line)) {
         QStringList sl=keyValue.capturedTexts();
-        kdDebug(13050)<<"key:"<<sl[1]<<endl<<"value:"<<sl[2]<<endl;
-        kdDebug(13050)<<"key-length:"<<sl[1].length()<<endl<<"value-length:"<<sl[2].length()<<endl;
+        kDebug(13050)<<"key:"<<sl[1]<<endl<<"value:"<<sl[2]<<endl;
+        kDebug(13050)<<"key-length:"<<sl[1].length()<<endl<<"value-length:"<<sl[2].length()<<endl;
         QString key=sl[1];
         QString value=sl[2];
         if (key=="NAME") (*niceName)=value.trimmed();
@@ -618,17 +618,17 @@ void KateLUAIndentScriptManager::parseScriptHeader(const QString &filePath,
           tmpblockdata="";
           if (value.trimmed().length()>0)  tmpblockdata=value;
           currentState=COPYRIGHT;
-        } else kdDebug(13050)<<"ignoring key"<<endl;
+        } else kDebug(13050)<<"ignoring key"<<endl;
       }
     } else {
       if (blockContent.exactMatch(line))
       {
         QString  bl=blockContent.capturedTexts()[1];
-        //kdDebug(13050)<<"block content line:"<<bl<<endl<<bl.length()<<" "<<bl.isEmpty()<<endl;
+        //kDebug(13050)<<"block content line:"<<bl<<endl<<bl.length()<<" "<<bl.isEmpty()<<endl;
         if (bl.isEmpty())
         {
           (*copyright)=tmpblockdata;
-          kdDebug(13050)<<"Copyright block:"<<endl<<(*copyright)<<endl;
+          kDebug(13050)<<"Copyright block:"<<endl<<(*copyright)<<endl;
           currentState=NOTHING;
         } else tmpblockdata=tmpblockdata+"\n"+bl;
       }

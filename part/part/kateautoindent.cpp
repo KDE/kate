@@ -400,7 +400,7 @@ KateCSmartIndent::KateCSmartIndent (KateDocument *doc)
     allowSemi (false),
     processingBlock (false)
 {
-  kdDebug(13030)<<"CREATING KATECSMART INTDETER"<<endl;
+  kDebug(13030)<<"CREATING KATECSMART INTDETER"<<endl;
 }
 
 KateCSmartIndent::~KateCSmartIndent ()
@@ -410,7 +410,7 @@ KateCSmartIndent::~KateCSmartIndent ()
 
 void KateCSmartIndent::processLine (KateDocCursor &line)
 {
-  kdDebug(13030)<<"PROCESSING LINE "<<line.line()<<endl;
+  kDebug(13030)<<"PROCESSING LINE "<<line.line()<<endl;
   KateTextLine::Ptr textLine = doc->plainKateTextLine(line.line());
 
   int firstChar = textLine->firstChar();
@@ -521,7 +521,7 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
 
 void KateCSmartIndent::processSection (const KateDocCursor &begin, const KateDocCursor &end)
 {
-  kdDebug(13030)<<"PROCESS SECTION"<<endl;
+  kDebug(13030)<<"PROCESS SECTION"<<endl;
   KateDocCursor cur = begin;
   QTime t;
   t.start();
@@ -536,7 +536,7 @@ void KateCSmartIndent::processSection (const KateDocCursor &begin, const KateDoc
   }
 
   processingBlock = false;
-  kdDebug(13030) << "+++ total: " << t.elapsed() << endl;
+  kDebug(13030) << "+++ total: " << t.elapsed() << endl;
 }
 
 bool KateCSmartIndent::handleDoxygen (KateDocCursor &begin)
@@ -669,7 +669,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
   bool found = false;
   bool isSpecial = false;
 
-  //kdDebug(13030) << "calcIndent begin line:" << begin.line() << " col:" << begin.column() << endl;
+  //kDebug(13030) << "calcIndent begin line:" << begin.line() << " col:" << begin.column() << endl;
 
   // Find Indent Anchor Point
   while (cur.gotoPreviousLine())
@@ -751,7 +751,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
       anchorPos = skip.column();
       anchorIndent = measureIndent(skip);
 
-      //kdDebug(13030) << "calcIndent anchorPos:" << anchorPos << " anchorIndent:" << anchorIndent << " at line:" << skip.line() << endl;
+      //kDebug(13030) << "calcIndent anchorPos:" << anchorPos << " anchorIndent:" << anchorIndent << " at line:" << skip.line() << endl;
 
       // Accept if it's before requested position or if it was special
       if (result && skip < begin)
@@ -779,7 +779,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
     return 0;
 
   uint continueIndent = (needContinue) ? calcContinue (cur, begin) : 0;
-  //kdDebug(13030) << "calcIndent continueIndent:" << continueIndent << endl;
+  //kDebug(13030) << "calcIndent continueIndent:" << continueIndent << endl;
 
   // Move forward from anchor and determine last known reference character
   // Braces take precedance over others ...
@@ -800,7 +800,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
       return 0;
 
     QChar tc = cur.currentChar();
-    //kdDebug(13030) << "  cur.line:" << cur.line() << " cur.col:" << cur.column() << " currentChar '" << tc << "' " << textLine->attribute(cur.column()) << endl;
+    //kDebug(13030) << "  cur.line:" << cur.line() << " cur.col:" << cur.column() << " currentChar '" << tc << "' " << textLine->attribute(cur.column()) << endl;
     if (cur == begin || tc.isNull())
       break;
 
@@ -820,7 +820,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
     lastChar = '{';
 
   uint indent = 0;
-  //kdDebug(13030) << "calcIndent lastChar '" << lastChar << "'" << endl;
+  //kDebug(13030) << "calcIndent lastChar '" << lastChar << "'" << endl;
 
   if (lastChar == '{' || (lastChar == ':' && isSpecial && needContinue))
   {
@@ -1414,7 +1414,7 @@ void KateCSAndSIndent::processSection (const KateDocCursor &begin, const KateDoc
     if (!cur.gotoNextLine())
       break;
   }
-  kdDebug(13030) << "+++ total: " << t.elapsed() << endl;
+  kDebug(13030) << "+++ total: " << t.elapsed() << endl;
 }
 
 /**
@@ -1458,7 +1458,7 @@ QString KateCSAndSIndent::findOpeningCommentIndentation(const KateDocCursor &sta
   } while (cur.gotoPreviousLine());
 
   // should never happen.
-  kdWarning( 13030 ) << " in a comment, but can't find the start of it" << endl;
+  kWarning( 13030 ) << " in a comment, but can't find the start of it" << endl;
   return QString();
 }
 
@@ -2027,7 +2027,7 @@ void KateVarIndent::processChar ( QChar c )
 
     KTextEditor::View *view = doc->activeView();
     KateDocCursor begin( view->cursorPosition().line(), 0, doc );
-    kdDebug(13030)<<"variable indenter: process char '"<<c<<", line "<<begin.line()<<endl;
+    kDebug(13030)<<"variable indenter: process char '"<<c<<", line "<<begin.line()<<endl;
     processLine( begin );
   }
 }
@@ -2095,7 +2095,7 @@ void KateVarIndent::processLine ( KateDocCursor &line )
     {
       QChar ch = tl->getChar( i );
       uchar at = tl->attribute( i );
-      kdDebug(13030)<<"attrib is "<<at<<endl;
+      kDebug(13030)<<"attrib is "<<at<<endl;
       if ( d->couples & Parens && ch == ')'
            && ( at == d->coupleAttrib
                 || (! at && hasRelevantOpening( KateDocCursor( line.line(), i, doc ) ))
@@ -2120,7 +2120,7 @@ void KateVarIndent::processLine ( KateDocCursor &line )
 #define ISCOMMENT (ISCOMMENTATTR(ktl->attribute(ktl->firstChar()))||ISCOMMENTATTR(ktl->attribute(matchpos)))
   // check if we should indent, unless the line starts with comment text,
   // or the match is in comment text
-  kdDebug(13030)<<"variable indenter: starting indent: "<<pos<<endl;
+  kDebug(13030)<<"variable indenter: starting indent: "<<pos<<endl;
   // check if the above line indicates that we shuld add indentation
   int matchpos = 0;
   if ( ktl && ! d->reIndentAfter.isEmpty()
@@ -2141,7 +2141,7 @@ void KateVarIndent::processLine ( KateDocCursor &line )
        && ! ISCOMMENT )
     adjustment--;
 
-  kdDebug(13030)<<"variable indenter: adjusting by "<<adjustment<<" units"<<endl;
+  kDebug(13030)<<"variable indenter: adjusting by "<<adjustment<<" units"<<endl;
 
   if ( adjustment > 0 )
     pos += indentWidth;
@@ -2233,7 +2233,7 @@ int KateVarIndent::coupleBalance ( int line, const QChar &open, const QChar &clo
     QChar c = ln->getChar( z );
     if ( ln->attribute(z) == d->coupleAttrib )
     {
-      kdDebug(13030)<<z<<", "<<c<<endl;
+      kDebug(13030)<<z<<", "<<c<<endl;
       if (c == open)
         r++;
       else if (c == close)
@@ -2290,7 +2290,7 @@ KateScriptIndent::~KateScriptIndent()
 
 void KateScriptIndent::processNewline( KateDocCursor &begin, bool needContinue )
 {
-  kdDebug(13030) << "processNewline" << endl;
+  kDebug(13030) << "processNewline" << endl;
   KateView *view = doc->activeKateView();
 
   if (view)
@@ -2299,18 +2299,18 @@ void KateScriptIndent::processNewline( KateDocCursor &begin, bool needContinue )
 
     QTime t;
     t.start();
-    kdDebug(13030)<<"calling m_script.processChar"<<endl;
+    kDebug(13030)<<"calling m_script.processChar"<<endl;
     if( !m_script.processNewline( view, begin, needContinue , errorMsg ) )
     {
-      kdDebug(13030) << "Error in script-indent: " << errorMsg << endl;
+      kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
     }
-    kdDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
+    kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
   }
 }
 
 void KateScriptIndent::processChar( QChar c)
 {
-  kdDebug(13030) << "processChar" << endl;
+  kDebug(13030) << "processChar" << endl;
   KateView *view = doc->activeKateView();
 
   if (view)
@@ -2319,18 +2319,18 @@ void KateScriptIndent::processChar( QChar c)
 
     QTime t;
     t.start();
-    kdDebug(13030)<<"calling m_script.processChar"<<endl;
+    kDebug(13030)<<"calling m_script.processChar"<<endl;
     if( !m_script.processChar( view, c , errorMsg ) )
     {
-      kdDebug(13030) << "Error in script-indent: " << errorMsg << endl;
+      kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
     }
-    kdDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
+    kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
   }
 }
 
 void KateScriptIndent::processLine (KateDocCursor &line)
 {
-  kdDebug(13030) << "processLine" << endl;
+  kDebug(13030) << "processLine" << endl;
   KateView *view = doc->activeKateView();
 
   if (view)
@@ -2339,12 +2339,12 @@ void KateScriptIndent::processLine (KateDocCursor &line)
 
     QTime t;
     t.start();
-    kdDebug(13030)<<"calling m_script.processLine"<<endl;
+    kDebug(13030)<<"calling m_script.processLine"<<endl;
     if( !m_script.processLine( view, line , errorMsg ) )
     {
-      kdDebug(13030) << "Error in script-indent: " << errorMsg << endl;
+      kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
     }
-    kdDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
+    kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
   }
 }
 //END KateScriptIndent
@@ -2364,7 +2364,7 @@ ScriptIndentConfigPage::~ScriptIndentConfigPage ()
 
 void ScriptIndentConfigPage::apply ()
 {
-  kdDebug(13030) << "ScriptIndentConfigPagE::apply() was called, save config options now!" << endl;
+  kDebug(13030) << "ScriptIndentConfigPagE::apply() was called, save config options now!" << endl;
 }
 //END ScriptIndentConfigPage
 

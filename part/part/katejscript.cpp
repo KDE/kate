@@ -129,7 +129,7 @@ JSValue* KateJSGlobalFunctions::callAsFunction (KJS::ExecState *exec, KJS::JSObj
 {
   switch (id) {
     case Debug:
-      kdDebug(13051) << args[0]->toString(exec).ascii() << endl;
+      kDebug(13051) << args[0]->toString(exec).ascii() << endl;
       return KJS::Undefined();
     default:
       break;
@@ -692,11 +692,11 @@ void KateJScriptManager::collectScripts (bool force)
     }
     else
     {
-      kdDebug (13050) << "add script: " << *it << endl;
+      kDebug (13050) << "add script: " << *it << endl;
 
       QString desktopFile =  (*it).left((*it).length()-2).append ("desktop");
 
-      kdDebug (13050) << "add script (desktop file): " << desktopFile << endl;
+      kDebug (13050) << "add script (desktop file): " << desktopFile << endl;
 
       QFileInfo dfi (desktopFile);
 
@@ -726,7 +726,7 @@ void KateJScriptManager::collectScripts (bool force)
       }
       else // no desktop file around, fall back to scriptfilename == commandname
       {
-        kdDebug (13050) << "add script: fallback, no desktop file around!" << endl;
+        kDebug (13050) << "add script: fallback, no desktop file around!" << endl;
 
         QFileInfo fi (*it);
 
@@ -764,7 +764,7 @@ bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QSt
   QString cmd ( args.first() );
   args.removeFirst();
 
-  kdDebug(13050) << "try to exec: " << cmd << endl;
+  kDebug(13050) << "try to exec: " << cmd << endl;
 
   QString source;
   if (cmd==QString("js-run-myself")) {
@@ -905,7 +905,7 @@ bool KateIndentJScriptImpl::setupInterpreter(QString &errorMsg)
 {
   if (!m_interpreter)
   {
-    kdDebug(13050)<<"Setting up interpreter"<<endl;
+    kDebug(13050)<<"Setting up interpreter"<<endl;
     m_interpreter=new KJS::Interpreter(new KateJSGlobal());
     m_docWrapper=new KateJSDocument(m_interpreter->globalExec(),0);
     m_viewWrapper=new KateJSView(m_interpreter->globalExec(),0);
@@ -977,7 +977,7 @@ inline static bool KateIndentJScriptCall(KateView *view, QString &errorMsg, Kate
   if (interpreter->globalExec()->hadException())
   {
     errorMsg=interpreter->globalExec()->exception()->toString(interpreter->globalExec()).qstring();
-    kdDebug(13050)<<"Exception(1):"<<errorMsg<<endl;
+    kDebug(13050)<<"Exception(1):"<<errorMsg<<endl;
     interpreter->globalExec()->clearException();
     return false;
   }
@@ -986,12 +986,12 @@ inline static bool KateIndentJScriptCall(KateView *view, QString &errorMsg, Kate
   docWrapper->doc = v->doc();
   viewWrapper->view = v;
 
-  /*kdDebug(13050)<<"Call Object:"<<o.toString(interpreter->globalExec()).ascii()<<endl;*/
+  /*kDebug(13050)<<"Call Object:"<<o.toString(interpreter->globalExec()).ascii()<<endl;*/
   o->call(interpreter->globalExec(),interpreter->globalObject(),params);
   if (interpreter->globalExec()->hadException())
   {
     errorMsg=interpreter->globalExec()->exception()->toString(interpreter->globalExec()).ascii();
-    kdDebug(13050)<<"Exception(2):"<<errorMsg<<endl;
+    kDebug(13050)<<"Exception(2):"<<errorMsg<<endl;
     interpreter->globalExec()->clearException();
     return false;
   }
@@ -1001,7 +1001,7 @@ inline static bool KateIndentJScriptCall(KateView *view, QString &errorMsg, Kate
 bool KateIndentJScriptImpl::processChar(KateView *view, QChar c, QString &errorMsg )
 {
 
-  kdDebug(13050)<<"KateIndentJScriptImpl::processChar"<<endl;
+  kDebug(13050)<<"KateIndentJScriptImpl::processChar"<<endl;
   if (!setupInterpreter(errorMsg)) return false;
   KJS::List params;
   params.append(KJS::String(QString(c)));
@@ -1010,14 +1010,14 @@ bool KateIndentJScriptImpl::processChar(KateView *view, QChar c, QString &errorM
 
 bool KateIndentJScriptImpl::processLine(KateView *view, const KateDocCursor &line, QString &errorMsg )
 {
-  kdDebug(13050)<<"KateIndentJScriptImpl::processLine"<<endl;
+  kDebug(13050)<<"KateIndentJScriptImpl::processLine"<<endl;
   if (!setupInterpreter(errorMsg)) return false;
   return KateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("online"),KJS::List());
 }
 
 bool KateIndentJScriptImpl::processNewline( class KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg )
 {
-  kdDebug(13050)<<"KateIndentJScriptImpl::processNewline"<<endl;
+  kDebug(13050)<<"KateIndentJScriptImpl::processNewline"<<endl;
   if (!setupInterpreter(errorMsg)) return false;
   return KateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("onnewline"),KJS::List());
 }
@@ -1128,7 +1128,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
 
 KateIndentScript KateIndentJScriptManager::script(const QString &scriptname) {
   KateIndentJScriptImpl *s=m_scripts[scriptname];
-  kdDebug(13050)<<scriptname<<"=="<<s<<endl;
+  kDebug(13050)<<scriptname<<"=="<<s<<endl;
   return KateIndentScript(s);
 }
 
@@ -1149,19 +1149,19 @@ void KateIndentJScriptManager::parseScriptHeader(const QString &filePath,
 {
   QFile f(QFile::encodeName(filePath));
   if (!f.open(QIODevice::ReadOnly) ) {
-    kdDebug(13050)<<"Header could not be parsed, because file could not be opened"<<endl;
+    kDebug(13050)<<"Header could not be parsed, because file could not be opened"<<endl;
     return;
   }
   QTextStream st(&f);
   //st.setEncoding (QTextStream::UnicodeUTF8);
   st.setCodec("UTF-8");
   if (!st.readLine().toUpper().startsWith("/**KATE")) {
-    kdDebug(13050)<<"No header found"<<endl;
+    kDebug(13050)<<"No header found"<<endl;
     f.close();
     return;
   }
   // here the real parsing begins
-  kdDebug(13050)<<"Parsing indent script header"<<endl;
+  kDebug(13050)<<"Parsing indent script header"<<endl;
   enum {NOTHING=0,COPYRIGHT=1} currentState=NOTHING;
   QString line;
   QString tmpblockdata="";
@@ -1170,7 +1170,7 @@ void KateIndentJScriptManager::parseScriptHeader(const QString &filePath,
   QRegExp blockContent("[\\s\\t]*\\*(.*)$");
   while (!(line=st.readLine()).isNull()) {
     if (endExpr.exactMatch(line)) {
-      kdDebug(13050)<<"end of config block"<<endl;
+      kDebug(13050)<<"end of config block"<<endl;
       if (currentState==NOTHING) break;
       if (currentState==COPYRIGHT) {
         *copyright=tmpblockdata;
@@ -1182,8 +1182,8 @@ void KateIndentJScriptManager::parseScriptHeader(const QString &filePath,
     {
       if (keyValue.exactMatch(line)) {
         QStringList sl=keyValue.capturedTexts();
-        kdDebug(13050)<<"key:"<<sl[1]<<endl<<"value:"<<sl[2]<<endl;
-        kdDebug(13050)<<"key-length:"<<sl[1].length()<<endl<<"value-length:"<<sl[2].length()<<endl;
+        kDebug(13050)<<"key:"<<sl[1]<<endl<<"value:"<<sl[2]<<endl;
+        kDebug(13050)<<"key-length:"<<sl[1].length()<<endl<<"value-length:"<<sl[2].length()<<endl;
         QString key=sl[1];
         QString value=sl[2];
         if (key=="NAME") (*niceName)=value.trimmed();
@@ -1194,19 +1194,19 @@ void KateIndentJScriptManager::parseScriptHeader(const QString &filePath,
           tmpblockdata="";
           if (value.trimmed().length()>0)  tmpblockdata=value;
           currentState=COPYRIGHT;
-        } else kdDebug(13050)<<"ignoring key"<<endl;
+        } else kDebug(13050)<<"ignoring key"<<endl;
       }
     } else {
       if (blockContent.exactMatch(line))
       {
         QString  bl=blockContent.capturedTexts()[1];
-        //kdDebug(13050)<<"block content line:"<<bl<<endl<<bl.length()<<" "<<bl.isEmpty()<<endl;
+        //kDebug(13050)<<"block content line:"<<bl<<endl<<bl.length()<<" "<<bl.isEmpty()<<endl;
         if (bl.isEmpty())
         {
 	  *hasCopyright=true;
-          kdDebug(13050)<<"Copyright block found"<<endl;
+          kDebug(13050)<<"Copyright block found"<<endl;
           (*copyright)=tmpblockdata;
-          kdDebug(13050)<<"Copyright block:"<<endl<<(*copyright)<<endl;
+          kDebug(13050)<<"Copyright block:"<<endl<<(*copyright)<<endl;
           currentState=NOTHING;
         } else tmpblockdata=tmpblockdata+"\n"+bl;
       }

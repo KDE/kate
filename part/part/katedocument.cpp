@@ -281,10 +281,10 @@ void KateDocument::disableAllPluginsGUI (KateView *view)
 
 void KateDocument::loadPlugin (uint pluginIndex)
 {
-  kdDebug(13020)<<"loadPlugin (entered)"<<endl;
+  kDebug(13020)<<"loadPlugin (entered)"<<endl;
   if (m_plugins[pluginIndex]) return;
 
-  kdDebug(13020)<<"loadPlugin (loading plugin)"<<endl;
+  kDebug(13020)<<"loadPlugin (loading plugin)"<<endl;
   m_plugins[pluginIndex] = KTextEditor::createPlugin (QFile::encodeName((KateGlobal::self()->plugins())[pluginIndex]->library()), this);
 
   // TODO: call Plugin::readConfig with right KConfig*
@@ -304,7 +304,7 @@ void KateDocument::unloadPlugin (uint pluginIndex)
 
 void KateDocument::enablePluginGUI (KTextEditor::Plugin *plugin, KateView *view)
 {
-  kdDebug(13020)<<"KateDocument::enablePluginGUI(plugin,view):"<<"plugin"<<endl;
+  kDebug(13020)<<"KateDocument::enablePluginGUI(plugin,view):"<<"plugin"<<endl;
   if (!plugin) return;
 
   KXMLGUIFactory *factory = view->factory();
@@ -319,7 +319,7 @@ void KateDocument::enablePluginGUI (KTextEditor::Plugin *plugin, KateView *view)
 
 void KateDocument::enablePluginGUI (KTextEditor::Plugin *plugin)
 {
-  kdDebug(13020)<<"KateDocument::enablePluginGUI(plugin):"<<"plugin"<<endl;
+  kDebug(13020)<<"KateDocument::enablePluginGUI(plugin):"<<"plugin"<<endl;
   if (!plugin) return;
 
   foreach(KateView *view,m_views)
@@ -1048,13 +1048,13 @@ bool KateDocument::wrapText(int startLine, int endLine)
     if (!l)
       return false;
 
-    kdDebug (13020) << "try wrap line: " << line << endl;
+    kDebug (13020) << "try wrap line: " << line << endl;
 
     if (l->lengthWithTabs(m_buffer->tabWidth()) > col)
     {
       KateTextLine::Ptr nextl = m_buffer->line(line+1);
 
-      kdDebug (13020) << "do wrap line: " << line << endl;
+      kDebug (13020) << "do wrap line: " << line << endl;
 
       int eolPosition = l->length()-1;
 
@@ -1577,7 +1577,7 @@ void KateDocument::updateModified()
        || ( undoItems.isEmpty() && docWasSavedWhenUndoWasEmpty ) )
   {
     setModified( false );
-    kdDebug(13020) << k_funcinfo << "setting modified to false!" << endl;
+    kDebug(13020) << k_funcinfo << "setting modified to false!" << endl;
   };
 }
 
@@ -1679,7 +1679,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Cursor& startPos
 
 KTextEditor::Range KateDocument::searchText (const KTextEditor::Cursor& startPosition, const QRegExp &regexp, bool backwards)
 {
-  kdDebug(13020)<<"KateDocument::searchText( "<<startPosition.line()<<", "<<startPosition.column()<<", "<<regexp.pattern()<<", "<<backwards<<" )"<<endl;
+  kDebug(13020)<<"KateDocument::searchText( "<<startPosition.line()<<", "<<startPosition.column()<<", "<<regexp.pattern()<<", "<<backwards<<" )"<<endl;
   if (regexp.isEmpty() || !regexp.isValid())
     return KTextEditor::Range::invalid();
 
@@ -2096,7 +2096,7 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
 
 bool KateDocument::openURL( const KUrl &url )
 {
-//   kdDebug(13020)<<"KateDocument::openURL( "<<url.prettyURL()<<")"<<endl;
+//   kDebug(13020)<<"KateDocument::openURL( "<<url.prettyURL()<<")"<<endl;
   // no valid URL
   if ( !url.isValid() )
     return false;
@@ -2159,7 +2159,7 @@ bool KateDocument::openURL( const KUrl &url )
 
 void KateDocument::slotDataKate ( KIO::Job *, const QByteArray &data )
 {
-//   kdDebug(13020) << "KateDocument::slotData" << endl;
+//   kDebug(13020) << "KateDocument::slotData" << endl;
 
   if (!m_tempFile || !m_tempFile->file())
     return;
@@ -2169,7 +2169,7 @@ void KateDocument::slotDataKate ( KIO::Job *, const QByteArray &data )
 
 void KateDocument::slotFinishedKate ( KIO::Job * job )
 {
-//   kdDebug(13020) << "KateDocument::slotJobFinished" << endl;
+//   kDebug(13020) << "KateDocument::slotJobFinished" << endl;
 
   if (!m_tempFile)
     return;
@@ -2192,7 +2192,7 @@ void KateDocument::abortLoadKate()
 {
   if ( m_job )
   {
-    kdDebug(13020) << "Aborting job " << m_job << endl;
+    kDebug(13020) << "Aborting job " << m_job << endl;
     m_job->kill();
     m_job = 0;
   }
@@ -2341,15 +2341,15 @@ bool KateDocument::save()
     KUrl u( url() );
     u.setFileName( config()->backupPrefix() + url().fileName(true) + config()->backupSuffix() );
 
-    kdDebug () << "backup src file name: " << url() << endl;
-    kdDebug () << "backup dst file name: " << u << endl;
+    kDebug () << "backup src file name: " << url() << endl;
+    kDebug () << "backup dst file name: " << u << endl;
 
     // get the right permissions, start with safe default
     mode_t  perms = 0600;
     KIO::UDSEntry fentry;
     if (KIO::NetAccess::stat (url(), fentry, kapp->mainWidget()))
     {
-      kdDebug () << "stating succesfull: " << url() << endl;
+      kDebug () << "stating succesfull: " << url() << endl;
       KFileItem item (fentry, url());
       perms = item.permissions();
     }
@@ -2359,11 +2359,11 @@ bool KateDocument::save()
     if ( (!KIO::NetAccess::exists( u, false, kapp->mainWidget() ) || KIO::NetAccess::del( u, kapp->mainWidget() ))
           && KIO::NetAccess::file_copy( url(), u, perms, true, false, kapp->mainWidget() ) )
     {
-      kdDebug(13020)<<"backing up successfull ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
+      kDebug(13020)<<"backing up successfull ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
     }
     else
     {
-      kdDebug(13020)<<"backing up failed ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
+      kDebug(13020)<<"backing up failed ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
       // FIXME: notify user for real ;)
     }
   }
@@ -2504,7 +2504,7 @@ void KateDocument::readDirConfig ()
     // only search as deep as specified or not at all ;)
     while (depth > -1)
     {
-      kdDebug (13020) << "search for config file in path: " << currentDir << endl;
+      kDebug (13020) << "search for config file in path: " << currentDir << endl;
 
       // try to open config file in this dir
       QFile f (currentDir + "/.kateconfig");
@@ -2805,7 +2805,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
               || nextChar.isLetterOrNumber()
               || (nextChar == end_ch && prevChar != ch) )
             {
-              kdDebug(13020) << "AutoBracket refused before: " << nextChar << "\n";
+              kDebug(13020) << "AutoBracket refused before: " << nextChar << "\n";
             }
             else
             {
@@ -3219,7 +3219,7 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
     }
   }
 
-  //kdDebug(13020)  << "replace With Op: " << line << " " << first_char << " " << space << endl;
+  //kDebug(13020)  << "replace With Op: " << line << " " << first_char << " " << space << endl;
   replaceWithOptimizedSpace(line, first_char, space, flags);
 }
 
@@ -3684,7 +3684,7 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
 
   if ( ! highlight()->canComment( startAttrib, endAttrib ) )
   {
-    kdDebug(13020)<<"canComment( "<<startAttrib<<", "<<endAttrib<<" ) returned false!"<<endl;
+    kDebug(13020)<<"canComment( "<<startAttrib<<", "<<endAttrib<<" ) returned false!"<<endl;
     return;
   }
 
@@ -3731,22 +3731,22 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
         || ( hasStartStopCommentMark
              && removeStartStopCommentFromSingleLine( line, startAttrib ) );
       if ((!removed) && foldingTree()) {
-        kdDebug(13020)<<"easy approach for uncommenting did not work, trying harder (folding tree)"<<endl;
+        kDebug(13020)<<"easy approach for uncommenting did not work, trying harder (folding tree)"<<endl;
         int commentRegion=(highlight()->commentRegion(startAttrib));
         if (commentRegion){
            KateCodeFoldingNode *n=foldingTree()->findNodeForPosition(line,column);
            if (n) {
             KTextEditor::Cursor start,end;
             if ((n->nodeType()==(int)commentRegion) && n->getBegin(foldingTree(), &start) && n->getEnd(foldingTree(), &end)) {
-                kdDebug(13020)<<"Enclosing region found:"<<start.column()<<"/"<<start.line()<<"-"<<end.column()<<"/"<<end.line()<<endl;
+                kDebug(13020)<<"Enclosing region found:"<<start.column()<<"/"<<start.line()<<"-"<<end.column()<<"/"<<end.line()<<endl;
                 removeStartStopCommentFromRegion(start,end,startAttrib);
              } else {
-                  kdDebug(13020)<<"Enclosing region found, but not valid"<<endl;
-                  kdDebug(13020)<<"Region found: "<<n->nodeType()<<" region needed: "<<commentRegion<<endl;
+                  kDebug(13020)<<"Enclosing region found, but not valid"<<endl;
+                  kDebug(13020)<<"Region found: "<<n->nodeType()<<" region needed: "<<commentRegion<<endl;
              }
             //perhaps nested regions should be hadled here too...
-          } else kdDebug(13020)<<"No enclosing region found"<<endl;
-        } else kdDebug(13020)<<"No comment region specified for current hl"<<endl;
+          } else kDebug(13020)<<"No enclosing region found"<<endl;
+        } else kDebug(13020)<<"No comment region specified for current hl"<<endl;
       }
     }
     else
@@ -4133,7 +4133,7 @@ void KateDocument::slotModifiedOnDisk( KTextEditor::View * /*v*/ )
         KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
             url().url(),QString(),widget(),i18n("Save File"));
 
-        kdDebug(13020)<<"got "<<res.URLs.count()<<" URLs"<<endl;
+        kDebug(13020)<<"got "<<res.URLs.count()<<" URLs"<<endl;
         if( ! res.URLs.isEmpty() && ! res.URLs.first().isEmpty() && checkOverwrite( res.URLs.first() ) )
         {
           setEncoding( res.encoding );

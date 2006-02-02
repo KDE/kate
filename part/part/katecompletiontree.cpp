@@ -90,7 +90,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent)
 
   if (!fromResizeEvent && oldIndentWidth != newIndentWidth) {
     int newWidth = widget()->width() - oldIndentWidth + newIndentWidth;
-    //kdDebug() << k_funcinfo << fromResizeEvent << " oldI " << oldIndentWidth << " newI " << newIndentWidth << " minw " << minWidth << " w " << widget()->width() << " newW " << newWidth << endl;
+    //kDebug() << k_funcinfo << fromResizeEvent << " oldI " << oldIndentWidth << " newI " << newIndentWidth << " minw " << minWidth << " w " << widget()->width() << " newW " << newWidth << endl;
     widget()->resize(newWidth, widget()->height());
   }
 

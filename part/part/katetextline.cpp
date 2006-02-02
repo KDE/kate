@@ -363,7 +363,7 @@ char *KateTextLine::restore (char *buf)
 
 void KateTextLine::addAttribute (int start, int length, int attribute)
 {
-//  kdDebug () << "addAttribute: " << start << " " << length << " " << attribute << endl;
+//  kDebug () << "addAttribute: " << start << " " << length << " " << attribute << endl;
 
   // try to append to previous range
   if ((m_attributesList.size() > 2) && (m_attributesList[m_attributesList.size()-1] == attribute)

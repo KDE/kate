@@ -101,7 +101,7 @@ class KateFileLoader
       , m_binary (false)
       , m_removeTrailingSpaces (removeTrailingSpaces)
     {
-      kdDebug (13020) << "OPEN USES ENCODING: " << m_codec->name() << endl;
+      kDebug (13020) << "OPEN USES ENCODING: " << m_codec->name() << endl;
     }
 
     ~KateFileLoader ()
@@ -534,7 +534,7 @@ bool KateBuffer::openFile (const QString &m_file)
   // binary?
   m_binary = file.binary ();
 
-  kdDebug (13020) << "LOADING DONE" << endl;
+  kDebug (13020) << "LOADING DONE" << endl;
 
   return !m_loadingBorked;
 }
@@ -543,7 +543,7 @@ bool KateBuffer::canEncode ()
 {
   QTextCodec *codec = m_doc->config()->codec();
 
-  kdDebug(13020) << "ENC NAME: " << codec->name() << endl;
+  kDebug(13020) << "ENC NAME: " << codec->name() << endl;
 
   // hardcode some unicode encodings which can encode all chars
   if ((QString(codec->name()) == "UTF-8") || (QString(codec->name()) == "ISO-10646-UCS-2"))
@@ -553,8 +553,8 @@ bool KateBuffer::canEncode ()
   {
     if (!codec->canEncode (plainLine(i)->string()))
     {
-      kdDebug(13020) << "STRING LINE: " << plainLine(i)->string() << endl;
-      kdDebug(13020) << "ENC WORKING: FALSE" << endl;
+      kDebug(13020) << "STRING LINE: " << plainLine(i)->string() << endl;
+      kDebug(13020) << "ENC WORKING: FALSE" << endl;
 
       return false;
     }
@@ -902,14 +902,14 @@ void KateBuffer::updatePreviousNotEmptyLine(KateBufBlock *blk,int current_line,b
       line--;
       blk=findBlock(line);
       if (!blk) {
-        kdDebug(13020)<<"updatePreviousNotEmptyLine: block not found, this must not happen"<<endl;
+        kDebug(13020)<<"updatePreviousNotEmptyLine: block not found, this must not happen"<<endl;
         return;
       }
       current_line=line-blk->startLine();
     }
     textLine = blk->line(current_line);
   } while (textLine->firstChar()==-1);
-  kdDebug(13020)<<"updatePreviousNotEmptyLine: updating line:"<<(blk->startLine()+current_line)<<endl;
+  kDebug(13020)<<"updatePreviousNotEmptyLine: updating line:"<<(blk->startLine()+current_line)<<endl;
   QVector<int> foldingList=textLine->foldingListArray();
   while ( (foldingList.size()>0)  && ( abs(foldingList[foldingList.size()-2])==1)) {
     foldingList.resize(foldingList.size()-2);
@@ -924,13 +924,13 @@ void KateBuffer::updatePreviousNotEmptyLine(KateBufBlock *blk,int current_line,b
 void KateBuffer::addIndentBasedFoldingInformation(QVector<int> &foldingList,bool addindent,int deindent)
 {
   if (addindent) {
-    //kdDebug(13020)<<"adding indent for line :"<<current_line + buf->startLine()<<"  textLine->noIndentBasedFoldingAtStart"<<textLine->noIndentBasedFoldingAtStart()<<endl;
-    kdDebug(13020)<<"adding ident"<<endl;
+    //kDebug(13020)<<"adding indent for line :"<<current_line + buf->startLine()<<"  textLine->noIndentBasedFoldingAtStart"<<textLine->noIndentBasedFoldingAtStart()<<endl;
+    kDebug(13020)<<"adding ident"<<endl;
     foldingList.resize (foldingList.size() + 2);
     foldingList[foldingList.size()-2] = 1;
     foldingList[foldingList.size()-1] = 0;
   }
-  kdDebug(13020)<<"DEINDENT: "<<deindent<<endl;
+  kDebug(13020)<<"DEINDENT: "<<deindent<<endl;
   if (deindent > 0)
   {
     foldingList.resize (foldingList.size() + (deindent*2));
@@ -948,14 +948,14 @@ bool KateBuffer::isEmptyLine(KateTextLine::Ptr textline)
 {
   QLinkedList<QRegExp> l;
   l=m_highlight->emptyLines(textline->attribute(0));
-  kdDebug(13020)<<"trying to find empty line data"<<endl;
+  kDebug(13020)<<"trying to find empty line data"<<endl;
   if (l.isEmpty()) return false;
   QString txt=textline->string();
-  kdDebug(13020)<<"checking empty line regexp"<<endl;
+  kDebug(13020)<<"checking empty line regexp"<<endl;
   foreach(QRegExp re,l) {
     if (re.exactMatch(txt)) return true;
   }
-  kdDebug(13020)<<"no matches"<<endl;
+  kDebug(13020)<<"no matches"<<endl;
   return false;
 }
 
@@ -977,9 +977,9 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
 
   //QTime t;
   //t.start();
-  //kdDebug (13020) << "HIGHLIGHTED START --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine << endl;
-  //kdDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax << endl;
-  //kdDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts << endl;
+  //kDebug (13020) << "HIGHLIGHTED START --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine << endl;
+  //kDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax << endl;
+  //kDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts << endl;
 
   // see if there are too many dynamic contexts; if yes, invalidate HL of all documents
   if (KateHlManager::self()->countDynamicCtxs() >= m_maxDynamicContexts)
@@ -987,7 +987,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
     {
       if (KateHlManager::self()->resetDynamicCtxs())
       {
-        kdDebug (13020) << "HL invalidated - too many dynamic contexts ( >= " << m_maxDynamicContexts << ")" << endl;
+        kDebug (13020) << "HL invalidated - too many dynamic contexts ( >= " << m_maxDynamicContexts << ")" << endl;
 
         // avoid recursive invalidation
         KateHlManager::self()->setForceNoDCReset(true);
@@ -1017,7 +1017,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
       else
       {
         m_maxDynamicContexts *= 2;
-        kdDebug (13020) << "New dynamic contexts limit: " << m_maxDynamicContexts << endl;
+        kDebug (13020) << "New dynamic contexts limit: " << m_maxDynamicContexts << endl;
       }
     }
   }
@@ -1057,15 +1057,15 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
     m_highlight->doHighlight (prevLine.data(), textLine.data(), &foldingList, &ctxChanged);
 
     // debug stuff
-    //kdDebug () << "current line to hl: " << current_line + buf->startLine() << endl;
-    //kdDebug () << "text length: " << textLine->length() << " attribute list size: " << textLine->attributesList().size() << endl;
+    //kDebug () << "current line to hl: " << current_line + buf->startLine() << endl;
+    //kDebug () << "text length: " << textLine->length() << " attribute list size: " << textLine->attributesList().size() << endl;
     /*
     const QVector<int> &ml (textLine->attributesList());
     for (int i=2; i < ml.size(); i+=3)
     {
-      kdDebug () << "start: " << ml[i-2] << " len: " << ml[i-1] << " at: " << ml[i] << " " << endl;
+      kDebug () << "start: " << ml[i-2] << " len: " << ml[i-1] << " at: " << ml[i] << " " << endl;
     }
-    kdDebug () << endl;
+    kDebug () << endl;
 */
     //
     // indentation sensitive folding
@@ -1086,23 +1086,23 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
 
       textLine->setNoIndentBasedFoldingAtStart(prevLine->noIndentBasedFolding());
       // this line is empty, beside spaces, or has indentaion based folding disabled, use indentation depth of the previous line !
-      kdDebug(13020)<<"current_line:"<<current_line + buf->startLine()<<" textLine->noIndentBasedFoldingAtStart"<<textLine->noIndentBasedFoldingAtStart()<<endl;
+      kDebug(13020)<<"current_line:"<<current_line + buf->startLine()<<" textLine->noIndentBasedFoldingAtStart"<<textLine->noIndentBasedFoldingAtStart()<<endl;
       if ( (textLine->firstChar() == -1) || textLine->noIndentBasedFoldingAtStart() || isEmptyLine(textLine) )
       {
         // do this to get skipped empty lines indent right, which was given in the indenation array
         if (!prevLine->indentationDepthArray().isEmpty())
         {
           iDepth = (prevLine->indentationDepthArray())[prevLine->indentationDepthArray().size()-1];
-          kdDebug(13020)<<"reusing old depth as current"<<endl;
+          kDebug(13020)<<"reusing old depth as current"<<endl;
         }
         else
         {
           iDepth = prevLine->indentDepth(m_tabWidth);
-          kdDebug(13020)<<"creating indentdepth for previous line"<<endl;
+          kDebug(13020)<<"creating indentdepth for previous line"<<endl;
         }
       }
 
-      kdDebug(13020)<<"iDepth:"<<iDepth<<endl;
+      kDebug(13020)<<"iDepth:"<<iDepth<<endl;
 
       // query the next line indentation, if we are at the end of the block
       // use the first line of the next buf block
@@ -1140,7 +1140,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
 
         if ((iDepth > 0) && (indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1] < iDepth)))
         {
-          kdDebug(13020)<<"adding depth to \"stack\":"<<iDepth<<endl;
+          kDebug(13020)<<"adding depth to \"stack\":"<<iDepth<<endl;
           indentDepth.append (iDepth);
         } else {
           if (!indentDepth.isEmpty())
@@ -1150,7 +1150,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
                 indentDepth.resize(z);
             if ((iDepth > 0) && (indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1] < iDepth)))
             {
-              kdDebug(13020)<<"adding depth to \"stack\":"<<iDepth<<endl;
+              kDebug(13020)<<"adding depth to \"stack\":"<<iDepth<<endl;
               indentDepth.append (iDepth);
               if (prevLine->firstChar()==-1) {
 
@@ -1166,29 +1166,29 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
         {
           //if (textLine->firstChar()!=-1)
           {
-            kdDebug(13020)<<"nextLineIndentation:"<<nextLineIndentation<<endl;
+            kDebug(13020)<<"nextLineIndentation:"<<nextLineIndentation<<endl;
             bool addindent=false;
             int deindent=0;
             if (!indentDepth.isEmpty())
-              kdDebug(13020)<<"indentDepth[indentDepth.size()-1]:"<<indentDepth[indentDepth.size()-1]<<endl;
+              kDebug(13020)<<"indentDepth[indentDepth.size()-1]:"<<indentDepth[indentDepth.size()-1]<<endl;
             if ((nextLineIndentation>0) && ( indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1]<nextLineIndentation)))
             {
-              kdDebug(13020)<<"addindent==true"<<endl;
+              kDebug(13020)<<"addindent==true"<<endl;
               addindent=true;
             } else {
             if ((!indentDepth.isEmpty()) && (indentDepth[indentDepth.size()-1]>nextLineIndentation))
               {
-                kdDebug(13020)<<"...."<<endl;
+                kDebug(13020)<<"...."<<endl;
                 for (int z=indentDepth.size()-1; z > -1; z--)
                 {
-                  kdDebug(13020)<<indentDepth[z]<<"  "<<nextLineIndentation<<endl;
+                  kDebug(13020)<<indentDepth[z]<<"  "<<nextLineIndentation<<endl;
                   if (indentDepth[z]>nextLineIndentation)
                     deindent++;
                 }
               }
             }
 /*        }
-        if (textLine->noIndentBasedFolding()) kdDebug(13020)<<"=============================indentation based folding disabled======================"<<endl;
+        if (textLine->noIndentBasedFolding()) kDebug(13020)<<"=============================indentation based folding disabled======================"<<endl;
         if (!textLine->noIndentBasedFolding()) {*/
             if ((textLine->firstChar()==-1)) {
               updatePreviousNotEmptyLine(buf,current_line,addindent,deindent);
@@ -1265,10 +1265,10 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, int startLine, int endLine, boo
   if (codeFoldingUpdate)
     emit codeFoldingUpdated();
 
-  //kdDebug (13020) << "HIGHLIGHTED END --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine << endl;
-  //kdDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax << endl;
-  //kdDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts << endl;
-  //kdDebug (13020) << "TIME TAKEN: " << t.elapsed() << endl;
+  //kDebug (13020) << "HIGHLIGHTED END --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine << endl;
+  //kDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax << endl;
+  //kDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts << endl;
+  //kDebug (13020) << "TIME TAKEN: " << t.elapsed() << endl;
 
   // if we are at the last line of the block + we still need to continue
   // return the need of that !
@@ -1451,7 +1451,7 @@ void KateBufBlock::fillBlock (KateFileLoader *stream)
     m_parent->m_loadedBlocks.append (this);
   }
 
-  kdDebug (13020) << "A BLOCK LOADED WITH LINES: " << m_lines << endl;
+  kDebug (13020) << "A BLOCK LOADED WITH LINES: " << m_lines << endl;
 }
 
 KateTextLine::Ptr KateBufBlock::line(int i)

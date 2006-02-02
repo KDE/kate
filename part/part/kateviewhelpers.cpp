@@ -451,11 +451,11 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
         m_command = KateCmd::self()->queryCommand( text().trimmed() );
         if ( m_command )
         {
-          //kdDebug(13025)<<"keypress in commandline: We have a command! "<<m_command<<". text is '"<<text()<<"'"<<endl;
+          //kDebug(13025)<<"keypress in commandline: We have a command! "<<m_command<<". text is '"<<text()<<"'"<<endl;
           // if the typed character is ":",
           // we try if the command has flag completions
           m_cmdend = cursorpos;
-          //kdDebug(13025)<<"keypress in commandline: Set m_cmdend to "<<m_cmdend<<endl;
+          //kDebug(13025)<<"keypress in commandline: Set m_cmdend to "<<m_cmdend<<endl;
         }
         else
           m_cmdend = 0;
@@ -463,11 +463,11 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
     }
     else // since cursor is inside the command name, we reconsider it
     {
-      kdDebug(13025)<<"keypress in commandline: \\W -- text is "<<text()<<endl;
+      kDebug(13025)<<"keypress in commandline: \\W -- text is "<<text()<<endl;
       m_command = KateCmd::self()->queryCommand( text().trimmed() );
       if ( m_command )
       {
-        //kdDebug(13025)<<"keypress in commandline: We have a command! "<<m_command<<endl;
+        //kDebug(13025)<<"keypress in commandline: We have a command! "<<m_command<<endl;
         QString t = text();
         m_cmdend = 0;
         bool b = false;
@@ -482,7 +482,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
         if ( c == ':' && cursorpos == m_cmdend )
         {
           // check if this command wants to complete flags
-          //kdDebug(13025)<<"keypress in commandline: Checking if flag completion is desired!"<<endl;
+          //kDebug(13025)<<"keypress in commandline: Checking if flag completion is desired!"<<endl;
         }
       }
       else
@@ -504,7 +504,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
     // if we got a command, check if it wants to do semething.
     if ( m_command )
     {
-      //kdDebug(13025)<<"Checking for CommandExtension.."<<endl;
+      //kDebug(13025)<<"Checking for CommandExtension.."<<endl;
       KTextEditor::CommandExtension *ce = dynamic_cast<KTextEditor::CommandExtension*>(m_command);
       if ( ce )
       {
@@ -514,7 +514,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
         // save the old completion object and use what the command provides
         // instead. We also need to prepend the current command name + flag string
         // when completion is done
-          //kdDebug(13025)<<"keypress in commandline: Setting completion object!"<<endl;
+          //kDebug(13025)<<"keypress in commandline: Setting completion object!"<<endl;
           if ( ! m_oldCompletionObject )
             m_oldCompletionObject = completionObject();
 
@@ -1231,7 +1231,7 @@ void KateViewEncodingAction::slotAboutToShow()
     i++;
   }
   popupMenu()->clear();
-  kdDebug()<<id<<endl<<m_actions->actions().size()<<endl;
+  kDebug()<<id<<endl<<m_actions->actions().size()<<endl;
   if ( (id<0) || (id>=m_actions->actions().size()) || (m_actions->actions()[id]->data().toInt()!=id)) {
     popupMenu()->addAction(i18n("Encoding management error"))->setEnabled(false);
   } else {
@@ -1242,7 +1242,7 @@ void KateViewEncodingAction::slotAboutToShow()
 
 void KateViewEncodingAction::setMode (QAction* a)
 {
-  kdDebug()<<"setMode"<<endl;
+  kDebug()<<"setMode"<<endl;
   QStringList modes (KGlobal::charsets()->descriptiveEncodingNames());
   doc->setEncoding( KGlobal::charsets()->encodingForName( modes[a->data().toInt()] ) );
   view->reloadFile();

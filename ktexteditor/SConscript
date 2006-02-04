@@ -28,19 +28,15 @@ noinst_headers = """
 attribute_p.h
 """
 
-includes = '../../kio ../../interfaces ../../kabc ../../interfaces/ktexteditor'
+includes = ' ../../interfaces ../../kabc ../../interfaces/ktexteditor'
 
 obj = env.kdeobj('shlib')
 obj.target = 'ktexteditor'
 obj.source = ktexteditor_sources
 obj.includes = includes
-obj.libpaths = '../../kdecore ../../kdeui ../../kparts ../../kio ../kdocument '
-obj.libs = 'kdecore kdeui kparts kio kdocument'
-obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4 KPARTS '
-if env['WINDOWS']:
-	obj.libpaths += '../../win '
-	obj.libs += ' kdewin32'
-	
+obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4 KDECORE KDEUI KIO '
+obj.libpaths += '../../kparts ../kdocument '
+obj.libs     += ' kparts kdocument '
 obj.execute()
 
 #obj = env.kdeobj('module')

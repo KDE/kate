@@ -95,7 +95,9 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
 
     /// Meta information is passed through extra {Qt::ItemDataRole}s.
     /// This information should be returned when requested on the Name column.
+#ifdef __GNUC__
 #warning ********     HighlightMethod didnt compile with gcc 3.3.6, so I changed it to HighlightingMethod, Alex
+#endif
 /* the error message was:
 In file included from /home/alex/src/kde4-svn/kdelibs/kate/part/kateview.h:31,
                  from /home/alex/src/kde4-svn/kdelibs/kate/part/katesearch.cpp:27:

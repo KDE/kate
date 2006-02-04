@@ -54,7 +54,9 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
     }
 
     // Which highlighting to use?
+#ifdef __GNUC__
 #warning with KTextEditor::CodeCompletionModel::HighlightMethod it didnt compile with gcc 3.3.6, so I changed it to KTextEditor::CodeCompletionModel::HighlightingMethod, Alex
+#endif
     QVariant highlight = model->data(model->index(index.row(), KTextEditor::CodeCompletionModel::Name, index.parent()), KTextEditor::CodeCompletionModel::HighlightingMethod);
 
     // TODO: config enable specifying no highlight as default

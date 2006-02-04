@@ -71,12 +71,12 @@ libpaths = """
 ../../kparts
 ../../kdeprint
 ../../kutils
-../../kjs
-../../kio
 ../../dcop
 """
 
-libs = 'ktexteditor kdocument kparts kdeprint kutils kjs kio DCOP'
+libs = 'ktexteditor kdocument kparts kutils kio DCOP'
+if not env['WINDOWS']:
+	libs += ' kdeprint kjs '
 
 obj = env.kdeobj('module')
 obj.target = 'katepart'
@@ -84,5 +84,5 @@ obj.source = sources
 obj.includes = includes
 obj.libpaths = libpaths
 obj.libs = libs
-obj.uselib = 'QT QTCORE QTGUI QTXML QT3SUPPORT KDE4 KDECORE KDEUI'
+obj.uselib = 'QT QTCORE QTGUI QTXML QT3SUPPORT KDE4 KDECORE KDEUI KIO '
 obj.execute()

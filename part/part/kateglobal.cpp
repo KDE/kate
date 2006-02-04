@@ -93,7 +93,7 @@ KateGlobal::KateGlobal ()
   m_aboutData.addCredit ("Carsten Pfeiffer", I18N_NOOP("Very nice help"), "");
   m_aboutData.addCredit (I18N_NOOP("All people who have contributed and I have forgotten to mention"),"","");
 
-  m_aboutData.setTranslator(I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"), I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"));
+  m_aboutData.setTranslator(I18N_NOOP2("NAME OF TRANSLATORS","Your names"), I18N_NOOP2("EMAIL OF TRANSLATORS","Your emails"));
 
   //
   // dir watch

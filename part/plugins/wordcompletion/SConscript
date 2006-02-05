@@ -1,0 +1,25 @@
+#! /usr/bin/env python
+#generated from Makefile.am by am2bksys.py
+Import('env')
+
+ktexteditor_docwordcompletion_sources = """
+docwordcompletion.cpp
+"""
+
+includes = '#/interfaces '
+
+obj = env.kdeobj('module')
+obj.target = 'ktexteditor_docwordcompletion'
+obj.source = ktexteditor_docwordcompletion_sources
+obj.includes = includes
+obj.libpaths = '##/interfaces/ktexteditor '
+obj.libs = 'ktexteditor '
+obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4 '
+obj.execute()
+
+env.bksys_insttype('KDEAPPS', 'ktexteditor_docwordcompletion', 'docwordcompletionui.rc')
+
+
+"""Unhandled Targets 
+messages = rc.cpp###$(XGETTEXT) *.cpp *.h -o $(podir)/ktexteditor_docwordcompletion.pot
+"""

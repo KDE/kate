@@ -1,0 +1,25 @@
+#! /usr/bin/env python
+#generated from Makefile.am by am2bksys.py
+Import('env')
+
+ktexteditor_kdatatool_sources = """
+kate_kdatatool.cpp
+"""
+
+includes = '#/interfaces #/kdefx '
+
+obj = env.kdeobj('module')
+obj.target = 'ktexteditor_kdatatool'
+obj.source = ktexteditor_kdatatool_sources
+obj.includes = includes
+obj.libpaths = '##/interfaces/ktexteditor '
+obj.libs = 'ktexteditor '
+obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4 '
+obj.execute()
+
+env.bksys_insttype('KDEAPPS', 'ktexteditor_kdatatool', 'ktexteditor_kdatatoolui.rc')
+
+
+"""Unhandled Targets 
+messages = rc.cpp###$(XGETTEXT) *.cpp *.h -o $(podir)/ktexteditor_kdatatool.pot
+"""

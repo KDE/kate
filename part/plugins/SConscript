@@ -1,0 +1,6 @@
+#! /usr/bin/env python
+#generated from Makefile.am by am2bksys.py
+Import('env')
+
+env.subdirs('isearch insertfile kdatatool wordcompletion')
+

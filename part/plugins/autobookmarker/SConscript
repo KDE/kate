@@ -1,0 +1,25 @@
+#! /usr/bin/env python
+#generated from Makefile.am by am2bksys.py
+Import('env')
+
+ktexteditor_autobookmarker_sources = """
+autobookmarker.cpp
+"""
+
+includes = '#/interfaces '
+
+obj = env.kdeobj('module')
+obj.target = 'ktexteditor_autobookmarker'
+obj.source = ktexteditor_autobookmarker_sources
+obj.includes = includes
+obj.libpaths = '##/interfaces/ktexteditor '
+obj.libs = 'ktexteditor '
+obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4 '
+obj.execute()
+
+env.bksys_insttype('KDECONF', '', 'ktexteditor_autobookmarkerrc')
+
+
+"""Unhandled Targets 
+messages = rc.cpp###$(XGETTEXT) *.cpp *.h -o $(podir)/ktexteditor_autobookmarker.pot
+"""

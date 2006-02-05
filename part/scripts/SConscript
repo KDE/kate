@@ -1,0 +1,8 @@
+#! /usr/bin/env python
+#generated from Makefile.am by am2bksys.py
+Import('env')
+
+env.bksys_insttype('KDEAPPS', 'katepart/scripts/indent', 'script-indent-c-test.js script-indent-c1-test.lua')
+
+env.bksys_insttype('KDEAPPS', 'katepart/scripts', 'jstest.desktop jstest.js script-indent-c-newline.js script-indent-c-char.js sort.js')
+

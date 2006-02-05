@@ -451,6 +451,18 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         paint.fillRect(area, backgroundColor);
       }
 
+      // Draw indent lines
+      if (showIndentLines() && i == 0)
+      {
+        const int w = spaceWidth();
+        const int lastIndentColumn = range->textLine()->indentDepth(m_tabWidth);
+        
+        for (int x = m_indentWidth; x < lastIndentColumn; x += m_indentWidth)
+        {
+          paintIndentMarker(paint, x * w + 1 - xStart, range->line());
+        }
+      }
+      
       // Draw tab stops
       if (showTabs()) {
         const QString& text = range->textLine()->string();

@@ -262,7 +262,7 @@ class KTEXTEDITOR_EXPORT MarkInterface
      * \param document document which emitted this signal
      * \see markChanged()
      */
-    virtual void marksChanged (Document* document) = 0;
+    virtual void marksChanged (KTextEditor::Document* document) = 0;
 
     /*
      * Methods to modify mark properties.
@@ -311,7 +311,7 @@ class KTEXTEDITOR_EXPORT MarkInterface
      * \param action action, either removed or added
      * \see marksChanged()
      */
-    virtual void markChanged ( Document* document, KTextEditor::Mark mark,
+    virtual void markChanged ( KTextEditor::Document* document, KTextEditor::Mark mark,
                                KTextEditor::MarkInterface::MarkChangeAction action) = 0;
 };
 

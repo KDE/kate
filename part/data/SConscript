@@ -30,9 +30,9 @@ apache.xml m3u.xml ini.xml pgn.xml freebasic.xml ansys.xml gap.xml
 
 env.bksys_insttype('KDECONF', '', config_files)
 
-env.bksys_insttype('KDEDATA', 'katepart/syntax', syntax_files)
+env.bksys_insttype('KDEAPPS', 'katepart/syntax', syntax_files)
 
-env.bksys_insttype('KDEDATA', 'katepart', 'katepartui.rc katepartreadonlyui.rc')
+env.bksys_insttype('KDEAPPS', 'katepart', 'katepartui.rc katepartreadonlyui.rc')
 
 
 """Unhandled Targets 

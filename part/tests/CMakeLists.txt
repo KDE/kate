@@ -10,6 +10,7 @@ include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces
 set(katetest_SRCS
 katetest.cpp
 arbitraryhighlighttest.cpp
+codecompletiontest.cpp
 )
 
 kde4_automoc(${katetest_SRCS})
@@ -31,6 +32,7 @@ kde4_automoc(${kateregression_SRCS})
 
 kde4_add_executable(kateregression ${kateregression_SRCS})
 
+target_link_libraries(kateregression  ${QT_AND_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ktexteditor )
 
 endif(KDE4_BUILD_TESTS)
 

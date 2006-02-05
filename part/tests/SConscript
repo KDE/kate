@@ -23,8 +23,8 @@ obj.target = 'katetest'
 obj.source = katetest_sources
 obj.includes = includes
 obj.uselib = 'QT QTCORE QTGUI QTEST QT3SUPPORT KDE4 '
-obj.libpaths = ' ../../dcop ../../kdecore ../../kdeui ../../kio  ../../kparts ../../interfaces/ktexteditor ../../interfaces/kdocument/ '
-obj.libs = 'DCOP kdecore kdeui kio ktexteditor kparts kdocument'
+obj.libpaths = ' ../../dcop ../../kdecore ../../kdeui ../../kio  ../../kparts ../../interfaces/ktexteditor ../../interfaces/kdocument/ ../../kdesu ../../kdefx '
+obj.libs = 'DCOP kdecore kdeui kio ktexteditor kparts kdocument kdesu kdefx'
 obj.execute()
 
 obj = env.kdeobj('program')
@@ -34,8 +34,8 @@ obj.target = 'kateregression'
 obj.source = kateregression_sources
 obj.includes = includes
 obj.uselib = 'QT QTCORE QTGUI QTEST QT3SUPPORT KDE4 '
-obj.libpaths = ' ../../dcop ../../kdecore ../../kdeui ../../kio ../../kparts ../../interfaces/ktexteditor ../../interfaces/kdocument/ '
-obj.libs = 'DCOP kdecore kdeui kio ktexteditor kparts kdocument'
+obj.libpaths = ' ../../dcop ../../kdecore ../../kdeui ../../kdesu ../../kio ../../kparts ../../interfaces/ktexteditor ../../interfaces/kdocument/ ../../kdefx '
+obj.libs = 'DCOP kdecore kdeui kio ktexteditor kdesu kparts kdocument kdefx'
 obj.execute()
 
 

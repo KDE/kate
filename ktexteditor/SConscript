@@ -48,7 +48,7 @@ obj.execute()
 #obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4 KDECORE '
 #obj.execute()
 
-env.bksys_insttype('KDEDATA', 'kcm_componentchooser', 'kcm_ktexteditor.desktop')
+env.bksys_insttype('KDEAPPS', 'kcm_componentchooser', 'kcm_ktexteditor.desktop')
 
 env.bksys_insttype('KDESERVTYPES', '', 'ktexteditor.desktop ktexteditorplugin.desktop')
 env.bksys_insttype('KDEINCLUDE', 'ktexteditor', ktexteditorinclude_headers)

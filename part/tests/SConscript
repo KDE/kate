@@ -37,8 +37,8 @@ obj.target = 'kateregression'
 obj.source = kateregression_sources
 obj.includes = includes
 obj.uselib = 'QT QTCORE QTGUI QTEST QT3SUPPORT KDE4 '
-obj.libpaths = ' ../../dcop ../../kdecore ../../kdeui  ../../kio ../../kparts ../../interfaces/ktexteditor ../../interfaces/kdocument ../../kdefx '
-obj.libs = 'DCOP kdecore kdeui kio ktexteditor kparts kdocument kdefx'
+obj.libpaths = ' ../../dcop ../../kdecore ../../kdeui  ../../kio ../../kparts ../../interfaces/ktexteditor ../../interfaces/kdocument ../../kdefx ../../kwallet/client '
+obj.libs = 'DCOP kdecore kdeui kio ktexteditor kparts kdocument kdefx kwalletclient'
 if not env['WINDOWS']:
     obj.libs += ' kdesu '
     obj.libpaths += ' ../../kdesu '

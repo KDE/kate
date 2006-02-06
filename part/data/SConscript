@@ -34,6 +34,7 @@ env.bksys_insttype('KDEAPPS', 'katepart/syntax', syntax_files)
 
 env.bksys_insttype('KDEAPPS', 'katepart', 'katepartui.rc katepartreadonlyui.rc')
 
+env.bksys_insttype('KDESERV', '', 'katepart.desktop')
 
 """Unhandled Targets 
 html-php.xml = $(srcdir)/html.xml $(srcdir)/generate-php.pl###$(PERL) $(srcdir)/generate-php.pl < $(srcdir)/html.xml > $@

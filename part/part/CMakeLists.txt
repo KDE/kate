@@ -19,7 +19,8 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp
 )
 
-kde4_add_file_dependancy(${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
+#kde4_add_file_dependancy(${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
+macro_append_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp PROPERTIES OBJECT_DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
 
 
 set(katepart_PART_SRCS

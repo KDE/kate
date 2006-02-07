@@ -49,6 +49,7 @@
 #include <qtextcodec.h>
 #include <QMouseEvent>
 #include <QPainterPath>
+#include <QStyleOption>
 
 #include <math.h>
 

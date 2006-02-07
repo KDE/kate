@@ -13,7 +13,7 @@ kde4_automoc(${ktexteditor_kdatatool_PART_SRCS})
 
 kde4_add_plugin(ktexteditor_kdatatool ${ktexteditor_kdatatool_PART_SRCS})
 
-kde4_create_libtool_file(ktexteditor_kdatatool / )
+kde4_create_libtool_file(ktexteditor_kdatatool /kde4/ )
 
 target_link_libraries(ktexteditor_kdatatool  ${QT_AND_KDECORE_LIBS} ktexteditor )
 

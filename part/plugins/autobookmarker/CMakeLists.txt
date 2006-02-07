@@ -13,7 +13,7 @@ kde4_automoc(${ktexteditor_autobookmarker_PART_SRCS})
 
 kde4_add_plugin(ktexteditor_autobookmarker ${ktexteditor_autobookmarker_PART_SRCS})
 
-kde4_create_libtool_file(ktexteditor_autobookmarker / )
+kde4_create_libtool_file(ktexteditor_autobookmarker /kde4/ )
 
 target_link_libraries(ktexteditor_autobookmarker  ${QT_AND_KDECORE_LIBS} ktexteditor )
 

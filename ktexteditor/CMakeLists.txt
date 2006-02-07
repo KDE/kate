@@ -45,6 +45,8 @@ kde4_automoc(${ktexteditorkabcbridge_PART_SRCS})
 
 kde4_add_plugin(ktexteditorkabcbridge ${ktexteditorkabcbridge_PART_SRCS})
 
+kde4_create_libtool_file(ktexteditorkabcbridge / )
+
 target_link_libraries(ktexteditorkabcbridge  ${QT_AND_KDECORE_LIBS} kabc )
 
 install_targets(${KDE4_LIB_INSTALL_DIR}/kde4 ktexteditorkabcbridge )

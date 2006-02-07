@@ -13,6 +13,8 @@ kde4_automoc(${ktexteditor_docwordcompletion_PART_SRCS})
 
 kde4_add_plugin(ktexteditor_docwordcompletion ${ktexteditor_docwordcompletion_PART_SRCS})
 
+kde4_create_libtool_file( ktexteditor_docwordcompletion / )
+
 target_link_libraries(ktexteditor_docwordcompletion  ${QT_AND_KDECORE_LIBS} ktexteditor )
 
 install_targets(${KDE4_LIB_INSTALL_DIR}/kde4 ktexteditor_docwordcompletion )

@@ -565,8 +565,8 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
               // input method edit area
               const QColorGroup& cg = m_view->colorGroup();
               int h1, s1, v1, h2, s2, v2;
-              cg.color( QColorGroup::Base ).hsv( &h1, &s1, &v1 );
-              cg.color( QColorGroup::Background ).hsv( &h2, &s2, &v2 );
+              cg.color( QColorGroup::Base ).getHsv( &h1, &s1, &v1 );
+              cg.color( QColorGroup::Background ).getHsv( &h2, &s2, &v2 );
               fillColor.setHsv( h1, s1, ( v1 + v2 ) / 2 );
             }
 

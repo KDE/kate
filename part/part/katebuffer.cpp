@@ -116,7 +116,7 @@ class KateFileLoader
     {
       if (m_file.open (QIODevice::ReadOnly))
       {
-        int c = m_file.readBlock (m_buffer.data(), m_buffer.size());
+        int c = m_file.read (m_buffer.data(), m_buffer.size());
 
         if (c > 0)
         {
@@ -190,7 +190,7 @@ class KateFileLoader
           // try to load more text if something is around
           if (!m_eof)
           {
-            int c = m_file.readBlock (m_buffer.data(), m_buffer.size());
+            int c = m_file.read (m_buffer.data(), m_buffer.size());
 
             int readString = 0;
             if (c > 0)

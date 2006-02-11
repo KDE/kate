@@ -79,14 +79,21 @@ class KateSmartRange : public KTextEditor::SmartRange
     KateSmartRange(KateSmartCursor* start, KateSmartCursor* end, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = DoNotExpand);
     virtual ~KateSmartRange();
 
+    /// Accessor for the document this range belongs to (set in constructor)
     KateDocument* kateDocument() const;
+    /// Accessor for the start of the range (set in constructor)
     KateSmartCursor& kStart() { return *static_cast<KateSmartCursor*>(m_start); }
+    /// Accessor for the end of the range (set in constructor)
     KateSmartCursor& kEnd() { return *static_cast<KateSmartCursor*>(m_end); }
 
     bool isInternal() const { return m_isInternal; }
     void setInternal();
 
+    /// Is the mouse over this range? Mouseover must be explicitly
+    /// set by setMouseOver().
     inline bool isMouseOver() { return m_mouseOver; }
+    /// Tell this range whether the mouse is somewhere over it.
+    /// @param mouseOver whether the mouse is over the range or not.
     inline void setMouseOver(bool mouseOver) { m_mouseOver = mouseOver; }
 
     inline bool isCaretOver() { return m_caretOver; }

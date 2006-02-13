@@ -1,5 +1,7 @@
 kde4_header()
 
+project(kate)
+
 add_subdirectory( part )
 add_subdirectory( data ) 
 add_subdirectory( scripts ) 

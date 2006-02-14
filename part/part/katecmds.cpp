@@ -553,7 +553,7 @@ bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd
 
   unsigned short int number=0;
   int base=10;
-  if (cmd[0]=='x' || cmd.left(2)=="0x")
+  if (cmd[0]=='x' || cmd.startsWith(QLatin1String("0x")))
   {
     cmd.replace(QRegExp("^0?x"), "");
     base=16;

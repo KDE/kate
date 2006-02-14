@@ -34,7 +34,7 @@
 -->
 
 <!-- Hold the "language" opening tag on a single line, as mentioned in "language.dtd". -->
-<language name="Ruby" version="1.16" kateversion="2.4" section="Scripts" extensions="*.rb" mimetype="application/x-ruby" author="Stefan Lang (langstefan@gmx.at), Sebastian Vuorinen (sebastian.vuorinen@helsinki.fi)" license="LGPL">
+<language name="Ruby" version="1.17" kateversion="2.4" section="Scripts" extensions="*.rb" mimetype="application/x-ruby" author="Stefan Lang (langstefan@gmx.at), Sebastian Vuorinen (sebastian.vuorinen@helsinki.fi)" license="LGPL">
 	
 	<highlighting>
 	
@@ -198,6 +198,7 @@
 				
 				<!-- "def" - "end" blocks -->
 				<!-- check for statement modifiers with regexes -->
+                <DetectChar attribute="Operator" char="{" context="Find closing block brace" beginRegion="def block"/>
 				<RegExpr attribute="Keyword" String="(\=|\(|\[|\{)\s*(if|unless|while|until)\b" context="#stay" beginRegion="def block"/>
 				<RegExpr attribute="Keyword" String="(while|until)\b(?!.*\bdo\b)" context="#stay" beginRegion="def block" firstNonSpace="true"/>
 				<RegExpr attribute="Keyword" String="\;\s*(while|until)\b(?!.*\bdo\b)" context="#stay" beginRegion="def block"/>
@@ -212,7 +213,7 @@
 				<RegExpr attribute="Keyword" String="\bdef\b" context="#stay" beginRegion="def block"/>
 				<RegExpr attribute="Keyword" String="\bend\b" context="#stay" endRegion="def block"/>
 				<!-- elsif/else close the current block and start a new one -->
-				<RegExpr attribute="Keyword" String="(\b|^\s*)(else|elsif|rescue|ensure)(\s+|$)" context="#stay" endRegion="def block" beginRegion="def block"/>
+				<RegExpr attribute="Keyword" String="(\b|^\s*)(else|elsif|rescue|ensure)(\b|$)" context="#stay" endRegion="def block" beginRegion="def block"/>
 				
 				<StringDetect attribute="Operator" String="..." context="#stay"/>
 				<Detect2Chars attribute="Operator" char="." char1="." context="#stay"/>
@@ -237,7 +238,7 @@
 				<RegExpr attribute="Global Variable" String="\$[a-zA-Z_0-9]+" context="#stay"/>
 				<RegExpr attribute="Global Variable" String="\$\-[a-zA-z_]\b" context="#stay"/>
 				<!-- special-character globals -->
-				<RegExpr attribute="Default globals" String="\$[\d_*`\!:?'/\\\-\&amp;]" context="#stay"/>
+				<RegExpr attribute="Default globals" String="\$[\d_*`\!:?'/\\\-\&amp;&quot;]" context="#stay"/>
 				<RegExpr attribute="Global Constant" String="\b[_A-Z]+[A-Z_0-9]+\b" context="#stay"/>
 				<!-- Generally a module or class name like "File", "MyModule_1", .. -->
 				<RegExpr attribute="Constant" String="\b[A-Z]+_*([0-9]|[a-z])[_a-zA-Z0-9]*\b" context="#stay"/>
@@ -285,7 +286,7 @@
 				<RegExpr attribute="Comment" String="#\s*BEGIN.*$"  context="#stay" beginRegion="marker" column="0"/>
 				<RegExpr attribute="Comment" String="#\s*END.*$"  context="#stay" endRegion="marker" column="0"/>
 				<RegExpr attribute="Comment" String="#"  context="Comment Line" firstNonSpace="true"/>
-				<RegExpr attribute="Comment" String="\s#"  context="General Comment"/>
+				<RegExpr attribute="Comment" String="(\b|\s)#"  context="General Comment"/>
 				
 				<RegExpr attribute="Delimiter" String="[\[\]]+"  context="#stay"/>
 				<DetectChar attribute="Delimiter" char="{" context="#stay" beginRegion="def block"/>
@@ -308,6 +309,11 @@
 				<RegExpr attribute="Keyword" String="(if|unless)\b" context="#stay" firstNonSpace="true"/>
 				<IncludeRules context="Normal"/>
 			</context>
+
+            <context name="Find closing block brace" attribute="Normal Text" lineEndContext="#stay">
+                <DetectChar attribute="Operator" char="}" context="#pop" endRegion="def block"/>
+                <IncludeRules context="Normal"/>
+            </context>
 			
 			<context name="Quoted String" attribute="String" lineEndContext="#stay">
 				<StringDetect attribute="String" String="\\" context="#stay"/>

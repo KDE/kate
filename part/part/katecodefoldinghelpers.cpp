@@ -1342,7 +1342,7 @@ void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
     for (QList<KateHiddenLineBlock>::iterator it=hiddenLines.begin(); it!=hiddenLines.end();++it)
       if ((*it).start == line+1)
       {
-        hiddenLines.remove(it);
+        hiddenLines.erase(it);
         break;
       }
 

@@ -589,7 +589,7 @@ void KateViewFileTypeAction::slotAboutToShow()
     if (KateGlobal::self()->fileTypeManager()->isValidType(doc->fileType()))
     {
       const KateFileType& t = KateGlobal::self()->fileTypeManager()->fileType(doc->fileType());
-      int i = subMenusName.findIndex (t.section);
+      int i = subMenusName.indexOf (t.section);
       if (i >= 0 && subMenus.at(i))
         subMenus.at(i)->setItemChecked (doc->fileType()+1, true);
       else

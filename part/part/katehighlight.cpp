@@ -1972,7 +1972,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
   // Get a second char parameter (char1) (eg Detect2Chars)
   char chr1;
   if (! KateHlManager::self()->syntax->groupItemData(data,QString("char1")).isEmpty())
-    chr1= (KateHlManager::self()->syntax->groupItemData(data,QString("char1")).latin1())[0];
+    chr1= (KateHlManager::self()->syntax->groupItemData(data,QString("char1")).toLatin1())[0];
   else
     chr1=0;
 
@@ -2384,7 +2384,7 @@ int KateHighlighting::getIdFromString(QStringList *ContextNameList, QString tmpL
 
   else
   {
-    context=ContextNameList->findIndex(buildPrefix+tmpLineEndContext);
+    context=ContextNameList->indexOf(buildPrefix+tmpLineEndContext);
     if (context==-1)
     {
       context=tmpLineEndContext.toInt();
@@ -2843,7 +2843,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
   //BEGIN Resolve multiline region if possible
   if (!m_additionalData[ ident ]->multiLineRegion.isEmpty()) {
-    long commentregionid=RegionList.findIndex( m_additionalData[ ident ]->multiLineRegion );
+    long commentregionid=RegionList.indexOf( m_additionalData[ ident ]->multiLineRegion );
     if (-1==commentregionid) {
       errorsAndWarnings+=i18n(
           "<B>%1</B>: Specified multiline comment region (%2) could not be resolved<BR>"
@@ -3417,7 +3417,7 @@ void KateViewHighlightAction::slotAboutToShow()
           popupMenu()->addMenu( menu);
         }
 
-        int m = subMenusName.findIndex (hlSection);
+        int m = subMenusName.indexOf (hlSection);
         names << hlName;
         QAction *a=subMenus.at(m)->addAction( '&' + hlName, this, SLOT(setHl()));
 	a->setData(z);

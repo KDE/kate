@@ -4918,10 +4918,10 @@ void KateDocument::addHighlightToDocument( KTextEditor::SmartRange * topRange, b
 
 void KateDocument::removeHighlightFromDocument( KTextEditor::SmartRange * topRange )
 {
-  m_documentHighlights.remove(topRange);
+  m_documentHighlights.removeAll(topRange);
 
   if (m_documentDynamicHighlights.contains(topRange)) {
-    m_documentDynamicHighlights.remove(topRange);
+    m_documentDynamicHighlights.removeAll(topRange);
     emit dynamicHighlightRemoved(static_cast<KateSmartRange*>(topRange));
   }
 }
@@ -4957,7 +4957,7 @@ void KateDocument::addActionsToDocument( KTextEditor::SmartRange * topRange )
 
 void KateDocument::removeActionsFromDocument( KTextEditor::SmartRange * topRange )
 {
-  m_documentActions.remove(topRange);
+  m_documentActions.removeAll(topRange);
 }
 
 const QList< KTextEditor::SmartRange * > KateDocument::documentActions( ) const

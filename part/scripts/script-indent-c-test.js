@@ -1,5 +1,6 @@
 /**KATE
  *NAME: C style indenter
+ *LICENSE: short name of the license
  *COPYRIGHT:
  *Based on work Copyright 2005 by Dominik Haumann
  *Copyright 2005 by Joseph Wenninger
@@ -12,12 +13,14 @@
  *ANUNKNOWNKEYWORD: Version has to be in the format major.minor (both numbers)
  *IGNOREALSO: All keywords, except COPYRIGHT are expected to have their data on one line
  *UNKNOWN: unknown keywords are simply ignored from the information parser
- *CURRENTLY_KNOWN_KEYWORDS: NAME,VERSION, COPYRIGHT
+ *CURRENTLY_KNOWN_KEYWORDS: NAME,VERSION, COPYRIGHT, LICENSE
  *INFORMATION: This block has to begin in the first line at the first character position
  *INFORMATION: It is optional, but at least all files within the kde cvs,
  *INFORMATION: which are ment for publishing are supposed to have at least the
  *INFORMATION: COPYRIGHT block
  *INFORMATION: These files have to be stored as UTF8
+ *INFORMATION: The copyright text should be in english
+ *INFORMATION: A localiced copyright statement could be put into a blah.desktop file
  **/
 
 /*

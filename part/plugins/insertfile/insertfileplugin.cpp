@@ -86,7 +86,7 @@ InsertFilePluginView::InsertFilePluginView( KTextEditor::View *view, const char 
 
 void InsertFilePluginView::slotInsertFile()
 {
-  KFileDialog dlg("::insertfile", "", (QWidget*)parent(), "filedialog", true);
+  KFileDialog dlg("::insertfile", "", (QWidget*)parent());
   dlg.setOperationMode( KFileDialog::Opening );
 
   dlg.setCaption(i18n("Choose File to Insert"));

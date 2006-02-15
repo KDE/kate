@@ -254,7 +254,9 @@ void DocWordCompletionPluginView::popupCompletionList( QString w )
     return;
 
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>( m_view );
+#ifdef __GNUC__
   #warning cci->showCompletionBox( allMatches( w ), w.length() );
+#endif
 }
 
 void DocWordCompletionPluginView::toggleAutoPopup()
@@ -315,7 +317,9 @@ void DocWordCompletionPluginView::autoPopupCompletionList()
 // Contributed by <brain@hdsnet.hu>
 void DocWordCompletionPluginView::shellComplete()
 {
+#ifdef __GNUC__
 #warning reimplement me
+#endif
 #if 0
     // find the word we are typing
   KTextEditor::Cursor pos = m_view->cursorPosition();

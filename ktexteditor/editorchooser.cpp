@@ -103,7 +103,7 @@ void EditorChooser::readAppSetting(const QString& postfix){
 void EditorChooser::writeAppSetting(const QString& postfix){
 	KConfigGroup cg(KGlobal::config(), postfix.isEmpty() ? "KTEXTEDITOR:" : "KTEXTEDITOR:"+postfix);
 	cg.writeEntry("DEVELOPER_INFO","NEVER TRY TO USE VALUES FROM THAT GROUP, THEY ARE SUBJECT TO CHANGES");
-	cg.writePathEntry("editor", (d->chooser->editorCombo->currentIndex()==0) ?
+	cg.writePathEntry("editor", (d->chooser->editorCombo->currentIndex()<=0) ? //< for broken installations, where editor list is empty
 		QString() : QString(d->elements.at(d->chooser->editorCombo->currentIndex()-1)));
 }
 

@@ -52,7 +52,9 @@
 
 namespace KJS {
 
+#ifdef __GNUC__
 #warning "REMOVE ME once KJS headers get fixed"
+#endif
   class DOMFunction : public InternalFunctionImp {
   protected:
     DOMFunction() : InternalFunctionImp() {}

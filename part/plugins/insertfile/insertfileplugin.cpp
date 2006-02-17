@@ -63,7 +63,7 @@ void InsertFilePlugin::removeView(KTextEditor::View *view)
       InsertFilePluginView *nview = m_views.at(z);
       if (nview->parentClient() == view)
       {
-         m_views.remove (nview);
+         m_views.removeAll (nview);
          delete nview;
       }
       else

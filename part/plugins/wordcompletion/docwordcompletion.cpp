@@ -139,7 +139,7 @@ void DocWordCompletionPlugin::removeView(KTextEditor::View *view)
     if (m_views.at(z)->parentClient() == view)
     {
        DocWordCompletionPluginView *nview = m_views.at(z);
-       m_views.remove (nview);
+       m_views.removeAll (nview);
        delete nview;
     }
 }
@@ -289,7 +289,7 @@ const KTextEditor::CompletionData DocWordCompletionPluginView::completionData(KT
       kDebug()<<"newCursor"<<newCursor.line()<<"/"<<newCursor.column()<<" m_oldCursor"<<m_oldCursor.line()<<"/"<<m_oldCursor.column()<<endl;
       kDebug()<<"m_oldWord:"<<m_oldWord<<" w:"<<w<<endl;
       kDebug()<<"m_completionData.isValid()"<<m_completionData.isValid()<<endl;
-      if ( ((!m_oldWord.isEmpty()) && (w.find(m_oldWord)==0)) && m_completionData.isValid() //perhaps there should be some kind of invalid cursor
+      if ( ((!m_oldWord.isEmpty()) && (w.indexOf(m_oldWord)==0)) && m_completionData.isValid() //perhaps there should be some kind of invalid cursor
         && (m_oldCursor==newCursor))
       return m_completionData;
       m_oldWord=w;
@@ -500,7 +500,7 @@ QString DocWordCompletionPluginView::word(int col, const QString& line)
   //KTextEditor::Cursor start (end.line(), 0);
 
   d->re.setPattern( "\\b(\\w+)$" );
-  if ( d->re.searchRev(line.left(col)
+  if ( d->re.lastIndexIn(line.left(col)
         //m_view->document()->text( start, end )
         ) < 0 )
     return QString(); // no word
@@ -517,7 +517,7 @@ QString DocWordCompletionPluginView::word()
   KTextEditor::Cursor start (end.line(), 0);
 
   d->re.setPattern( "\\b(\\w+)$" );
-  if ( d->re.searchRev(
+  if ( d->re.lastIndexIn(
         m_view->document()->text( KTextEditor::Range(start, end) )
         ) < 0 )
     return QString(); // no word
@@ -543,7 +543,7 @@ QList<KTextEditor::CompletionItem> DocWordCompletionPluginView::allMatches( cons
     pos = 0;
     while ( pos >= 0 )
     {
-      pos = d->re.search( s, pos );
+      pos = d->re.indexIn( s, pos );
       if ( pos >= 0 )
       {
         m = d->re.cap( 1 );

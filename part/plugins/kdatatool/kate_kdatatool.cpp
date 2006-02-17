@@ -58,7 +58,7 @@ void KDataToolPlugin::removeView(KTextEditor::View *view)
 		if (m_views.at(z)->parentClient() == view)
 		{
 			KDataToolPluginView *nview = m_views.at(z);
-			m_views.remove (nview);
+			m_views.removeAll (nview);
 			delete nview;
 		}
 	}
@@ -104,7 +104,7 @@ void KDataToolPluginView::aboutToShow()
 	if ( m_view->selection() )
 	{
 		word = m_view->selectionText();
-		if ( word.find(' ') == -1 && word.find('\t') == -1 && word.find('\n') == -1 )
+		if ( word.indexOf(' ') == -1 && word.indexOf('\t') == -1 && word.indexOf('\n') == -1 )
 			m_singleWord = true;
 		else
 			m_singleWord = false;

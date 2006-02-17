@@ -1122,7 +1122,7 @@ KateTextLayout KateViewInternal::nextLayout() const
 KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& virtualCursor, int offset, bool keepX)
 {
   if (!m_view->dynWordWrap()) {
-    KTextEditor::Cursor ret(QMIN((int)m_doc->visibleLines() - 1, virtualCursor.line() + offset), 0);
+    KTextEditor::Cursor ret(qMin((int)m_doc->visibleLines() - 1, virtualCursor.line() + offset), 0);
 
     if (ret.line() < 0)
       ret.setLine(0);
@@ -1396,7 +1396,7 @@ void KateViewInternal::scrollDown()
 void KateViewInternal::setAutoCenterLines(int viewLines, bool updateView)
 {
   m_autoCenterLines = viewLines;
-  m_minLinesVisible = QMIN(int((linesDisplayed() - 1)/2), m_autoCenterLines);
+  m_minLinesVisible = qMin(int((linesDisplayed() - 1)/2), m_autoCenterLines);
   if (updateView)
     KateViewInternal::updateView();
 }

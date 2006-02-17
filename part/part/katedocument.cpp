@@ -2829,7 +2829,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   KTextEditor::Cursor oldCur (view->cursorPosition());
 
   if (config()->configFlags()  & KateDocumentConfig::cfOvr)
-    removeText(KTextEditor::Range(view->cursorPosition(), QMIN(buf.length(), textLine->length() - view->cursorPosition().column())));
+    removeText(KTextEditor::Range(view->cursorPosition(), qMin(buf.length(), textLine->length() - view->cursorPosition().column())));
 
   insertText(view->cursorPosition(), buf);
   m_indenter->processChar(c);
@@ -3964,7 +3964,7 @@ void KateDocument::newBracketMark( const KTextEditor::Cursor& cursor, KTextEdito
  // const int tw = config()->tabWidth();
  // const int indentStart = m_buffer->plainLine(bm.start().line())->indentDepth(tw);
  // const int indentEnd = m_buffer->plainLine(bm.end().line())->indentDepth(tw);
-  //bm.setIndentMin(QMIN(indentStart, indentEnd));
+  //bm.setIndentMin(qMin(indentStart, indentEnd));
 }
 
 bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines )

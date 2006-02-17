@@ -185,7 +185,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 
       do {
         newStartLine = currentGroup->newEndLine() + 1;
-        newEndLine = QMIN(newStartLine + s_defaultGroupSize - 1, splitEndLine);
+        newEndLine = qMin(newStartLine + s_defaultGroupSize - 1, splitEndLine);
         currentGroup = new KateSmartGroup(newStartLine, newEndLine, currentGroup, endGroup);
 
       } while (newEndLine < splitEndLine);

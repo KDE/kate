@@ -86,7 +86,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent)
 
   int minWidth = 50;
   int newMinWidth = newIndentWidth + header()->sectionSize(visualIndexOfName) + verticalScrollBar()->width();
-  minWidth = QMAX(minWidth, newMinWidth);
+  minWidth = qMax(minWidth, newMinWidth);
 
   if (!fromResizeEvent && oldIndentWidth != newIndentWidth) {
     int newWidth = widget()->width() - oldIndentWidth + newIndentWidth;

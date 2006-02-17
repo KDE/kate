@@ -272,8 +272,8 @@ void KateSearch::wrapSearch()
     // recalc for block sel, to have start with lowest col, end with highest
     if (m_view->blockSelectionMode())
     {
-      start.setColumn (QMIN(s.selection.start().column(), s.selection.end().column()));
-      end.setColumn (QMAX(s.selection.start().column(), s.selection.end().column()));
+      start.setColumn (qMin(s.selection.start().column(), s.selection.end().column()));
+      end.setColumn (qMax(s.selection.start().column(), s.selection.end().column()));
     }
     
     s.cursor = s.flags.backward ? end : start;
@@ -565,8 +565,8 @@ bool KateSearch::doSearch( const QString& text )
       // recalc for block sel, to have start with lowest col, end with highest
       if (m_view->blockSelectionMode())
       {
-        start.setColumn (QMIN(s.selection.start().column(), s.selection.end().column()));
-        end.setColumn (QMAX(s.selection.start().column(), s.selection.end().column()));
+        start.setColumn (qMin(s.selection.start().column(), s.selection.end().column()));
+        end.setColumn (qMax(s.selection.start().column(), s.selection.end().column()));
       }
     
       if ( !s.flags.backward && match.start() >= end

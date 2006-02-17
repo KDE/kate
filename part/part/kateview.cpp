@@ -1912,7 +1912,7 @@ void KateView::addInternalHighlight( KTextEditor::SmartRange * topRange )
 
 void KateView::removeInternalHighlight( KTextEditor::SmartRange * topRange )
 {
-  m_internalHighlights.remove(topRange);
+  m_internalHighlights.removeAll(topRange);
 }
 
 const QList< KTextEditor::SmartRange * > & KateView::internalHighlights( ) const
@@ -1941,7 +1941,7 @@ void KateView::removeExternalHighlight( KTextEditor::SmartRange * topRange )
   m_externalHighlights.remove(topRange);
 
   if (m_externalHighlightsDynamic.contains(topRange)) {
-    m_externalHighlightsDynamic.remove(topRange);
+    m_externalHighlightsDynamic.removeAll(topRange);
     emit dynamicHighlightRemoved(static_cast<KateSmartRange*>(topRange));
   }
 }
@@ -1962,7 +1962,7 @@ void KateView::addActions( KTextEditor::SmartRange * topRange )
 
 void KateView::removeActions( KTextEditor::SmartRange * topRange )
 {
-  m_actions.remove(topRange);
+  m_actions.removeAll(topRange);
 }
 
 const QList< KTextEditor::SmartRange * > & KateView::actions( ) const

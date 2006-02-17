@@ -1962,7 +1962,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
   // Get the char parameter (eg DetectChar)
   char chr;
   if (! KateHlManager::self()->syntax->groupItemData(data,QString("char")).isEmpty())
-    chr= (KateHlManager::self()->syntax->groupItemData(data,QString("char")).latin1())[0];
+    chr= qPrintable((KateHlManager::self()->syntax->groupItemData(data,QString("char"))))[0];
   else
     chr=0;
 

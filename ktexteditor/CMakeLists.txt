@@ -32,7 +32,7 @@ kde4_add_library(ktexteditor SHARED ${ktexteditor_LIB_SRCS})
 target_link_libraries(ktexteditor  ${QT_AND_KDECORE_LIBS} kdocument kparts )
 
 set_target_properties(ktexteditor PROPERTIES VERSION 0.0.0 SOVERSION 0 )
-install_targets(${KDE4_LIB_INSTALL_DIR} ktexteditor )
+install_targets(${LIB_INSTALL_DIR} ktexteditor )
 
 
 ########### next target ###############
@@ -47,15 +47,15 @@ kde4_add_plugin(ktexteditorkabcbridge ${ktexteditorkabcbridge_PART_SRCS})
 
 target_link_libraries(ktexteditorkabcbridge  ${QT_AND_KDECORE_LIBS} kabc )
 
-kde4_install_libtool_file(${KDE4_PLUGIN_INSTALL_DIR} ktexteditorkabcbridge )
-install_targets(${KDE4_PLUGIN_INSTALL_DIR} ktexteditorkabcbridge )
+kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} ktexteditorkabcbridge )
+install_targets(${PLUGIN_INSTALL_DIR} ktexteditorkabcbridge )
 
 
 ########### install files ###############
 install_files( /include/ktexteditor FILES factory.h editor.h document.h view.h plugin.h      cursor.h range.h configpage.h searchinterface.h highlightinginterface.h       codecompletioninterface.h markinterface.h sessionconfiginterface.h editorchooser.h              texthintinterface.h variableinterface.h templateinterface.h           modificationinterface.h      commandinterface.h smartinterface.h attribute.h cursorfeedback.h rangefeedback.h    smartcursor.h smartrange.h codecompletion2.h )
 
-install_files( ${KDE4_SERVICETYPES_DIR} FILES ktexteditor.desktop ktexteditorplugin.desktop )
-install_files( ${KDE4_DATA_DIR}/kcm_componentchooser FILES kcm_ktexteditor.desktop )
+install_files( ${SERVICETYPES_INSTALL_DIR} FILES ktexteditor.desktop ktexteditorplugin.desktop )
+install_files( ${DATA_INSTALL_DIR}/kcm_componentchooser FILES kcm_ktexteditor.desktop )
 
 kde4_create_doxygen_docs( REFERENCES kdecore kdeui kparts  )
 

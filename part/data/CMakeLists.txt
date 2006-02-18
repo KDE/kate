@@ -23,10 +23,10 @@ generate_php_xml(css-php.xml css.xml)
 generate_php_xml(html-php.xml html.xml)
 
 
-install_files( ${KDE4_CONFIG_DIR} FILES katesyntaxhighlightingrc katefiletyperc )
-install_files( ${KDE4_DATA_DIR}/katepart FILES katepartui.rc katepartreadonlyui.rc )
-install_files( ${KDE4_SERVICES_DIR} FILES katepart.desktop )
-install_files( ${KDE4_DATA_DIR}/katepart/syntax FILES language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml objectivec.xml
+install_files( ${CONFIG_INSTALL_DIR} FILES katesyntaxhighlightingrc katefiletyperc )
+install_files( ${DATA_INSTALL_DIR}/katepart FILES katepartui.rc katepartreadonlyui.rc )
+install_files( ${SERVICES_INSTALL_DIR} FILES katepart.desktop )
+install_files( ${DATA_INSTALL_DIR}/katepart/syntax FILES language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml objectivec.xml
                changelog.xml ada.xml css.xml perl.xml php.xml xml.xml java.xml rpmspec.xml
                sql.xml sql-mysql.xml sql-postgresql.xml vhdl.xml diff.xml bash.xml latex.xml postscript.xml ruby.xml
                desktop.xml eiffel.xml pascal.xml sather.xml python.xml makefile.xml

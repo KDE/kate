@@ -1,6 +1,8 @@
 Name=Embedded Text Editor
+Name[fr]=Éditeur de texte intégré
 Name[x-test]=xxEmbedded Text Editorxx
 Comment=The text editor service provides applications with a text viewer and editor. KDE applications that provide text editing facilities should use this service.
+Comment[fr]=Le service d'édition de texte fournit des applications comportant un afficheur de texte et un éditeur. Les applications KDE qui fournissent des fonctions d'édition de texte devraient utiliser ce service.
 Comment[x-test]=xxThe text editor service provides applications with a text viewer and editor. KDE applications that provide text editing facilities should use this service.xx
 ServiceTypeToConfigure=KTextEditor/Document
 MimeTypeOfInterest=text/plain

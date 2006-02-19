@@ -4,4 +4,5 @@ Type=ServiceType
 X-KDE-ServiceType=KTextEditor/Document
 X-KDE-Derived=KParts/ReadWritePart
 Comment=Embeddable Text Editor Component (with Doc/View Separation)
+Comment[fr]=Composant d'édition de texte intégrable (avec séparation doc / vue)
 Comment[x-test]=xxEmbeddable Text Editor Component (with Doc/View Separation)xx

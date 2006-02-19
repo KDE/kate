@@ -1,8 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KTextEditor Insert File Plugin
+Name[fr]=Module externe du fichier d'insertion de KTextEditor
 Name[x-test]=xxKTextEditor Insert File Pluginxx
 Comment=Insert any readable file at cursor position
+Comment[fr]=Insérer tout fichier lisible à la position du curseur
 Comment[x-test]=xxInsert any readable file at cursor positionxx
 X-KDE-Library=ktexteditor_insertfile
 ServiceTypes=KTextEditor/Plugin

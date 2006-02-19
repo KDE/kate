@@ -1,8 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KTextEditor Autobookmarker
+Name[fr]=Signets automatiques KTextEditor
 Name[x-test]=xxKTextEditor Autobookmarkerxx
 Comment=Set bookmarks on lines matching a pattern when documents are loaded
+Comment[fr]=Positionne des signets sur les lignes qui correspondent à un motif quand les documents sont chargés
 Comment[x-test]=xxSet bookmarks on lines matching a pattern when documents are loadedxx
 X-KDE-Library=ktexteditor_autobookmarker
 ServiceTypes=KTextEditor/Plugin

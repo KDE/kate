@@ -1,8 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KTextEditor Word Completion Plugin
+Name[fr]=Module externe de complètement des mots de KTextEditor
 Name[x-test]=xxKTextEditor Word Completion Pluginxx
 Comment=Directional or popup-based completion from words in the document
+Comment[fr]=Complètement basé sur la direction ou un menu à partir des mots du document
 Comment[x-test]=xxDirectional or popup-based completion from words in the documentxx
 X-KDE-Library=ktexteditor_docwordcompletion
 ServiceTypes=KTextEditor/Plugin

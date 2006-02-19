@@ -1,8 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Kate Part JavaScript Test
+Name[fr]=Test du module JavaScript pour Kate
 Name[x-test]=xxKate Part JavaScript Testxx
 Comment=Script for testing kate part's scripting
+Comment[fr]=Script testant le module de scripting de Kate
 Comment[x-test]=xxScript for testing kate part's scriptingxx
 X-Kate-Command=jstest
 X-Kate-Help=<p>Usage: <code>jstest</code></p>

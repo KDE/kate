@@ -1,8 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KTextEditor Incremental Search Plugin
+Name[fr]=Module externe de recherche incrémentale pour KTextEditor
 Name[x-test]=xxKTextEditor Incremental Search Pluginxx
 Comment=Also known as "As you type search"
+Comment[fr]=Aussi connu comme « Recherche pendant la saisie »
 Comment[x-test]=xxAlso known as "As you type search"xx
 X-KDE-Library=ktexteditor_isearch
 ServiceTypes=KTextEditor/Plugin

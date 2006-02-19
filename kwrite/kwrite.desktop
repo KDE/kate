@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 GenericName=Text Editor
+GenericName[fr]=Éditeur de texte
 GenericName[x-test]=xxText Editorxx
 Name=KWrite
 Name[x-test]=xxKWritexx

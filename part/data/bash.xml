@@ -763,7 +763,7 @@
 	<RegExpr attribute="Redirection" context="HereDocQ"   String="(&lt;&lt;\s*&quot;(&word;)&quot;)" lookAhead="true" />
 	<RegExpr attribute="Redirection" context="HereDocQ"   String="(&lt;&lt;\s*'(&word;)')" lookAhead="true" />
 	<RegExpr attribute="Redirection" context="HereDocQ"   String="(&lt;&lt;\s*\\(&word;))" lookAhead="true" />
-	<RegExpr attribute="Redirection" context="HereDocNQ"  String="(&lt;&lt;\s*(&word;))" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocNQ"  String="(&lt;&lt;(?!-)\s*(&word;))" lookAhead="true" />
 	<RegExpr attribute="Redirection" context="HereDocIQ"  String="(&lt;&lt;-\s*&quot;(&word;)&quot;)" lookAhead="true" />
 	<RegExpr attribute="Redirection" context="HereDocIQ"  String="(&lt;&lt;-\s*'(&word;)')" lookAhead="true" />
 	<RegExpr attribute="Redirection" context="HereDocIQ"  String="(&lt;&lt;-\s*\\(&word;))" lookAhead="true" />

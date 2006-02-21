@@ -284,7 +284,6 @@ class KateTextLine : public KShared
     /**
      * insert text into line
      * @param pos insert position
-     * @param insLen insert length
      * @param insText text to insert
      */
     void insertText (int pos, const QString& insText);

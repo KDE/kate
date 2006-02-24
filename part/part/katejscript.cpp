@@ -55,13 +55,6 @@ namespace KJS {
 #ifdef __GNUC__
 #warning "REMOVE ME once KJS headers get fixed"
 #endif
-  class DOMFunction : public InternalFunctionImp {
-  protected:
-    DOMFunction() : InternalFunctionImp() {}
-  public:
-    virtual bool implementsCall() const { return true; }
-    virtual bool toBoolean(ExecState *) const { return true; }
-  };
 
 #define KJS_CHECK_THIS( ClassName, theObj ) \
   if (!theObj || !theObj->inherits(&ClassName::info)) { \

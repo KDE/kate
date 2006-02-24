@@ -72,6 +72,7 @@ libpaths = """
 ../../kdeprint
 ../../kutils
 ../../dcop
+../../kjs
 """
 
 libs = 'ktexteditor kdocument kparts kutils kio DCOP'

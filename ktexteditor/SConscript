@@ -35,7 +35,7 @@ obj.target = 'ktexteditor'
 obj.source = ktexteditor_sources
 obj.includes = includes
 obj.uselib = 'QT QTCORE QTGUI QT3SUPPORT KDE4 KDECORE KDEUI KIO '
-obj.libpaths += '../../kparts ../kdocument '
+obj.libpaths += '../../kparts ../kdocument ../../dcop'
 obj.libs     += ' kparts kdocument '
 obj.vnum     = '0.0.0'
 obj.execute()

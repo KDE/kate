@@ -450,7 +450,7 @@ uint KateSchemaManager::number (const QString &name)
     return 1;
 
   int i;
-  if ((i = m_schemas.findIndex(name)) > -1)
+  if ((i = m_schemas.indexOf(name)) > -1)
     return i;
 
   return 0;
@@ -1215,7 +1215,7 @@ void KateSchemaConfigPage::newSchema ()
 
   // soft update, no load from disk
   KateGlobal::self()->schemaManager()->update (false);
-  int i = KateGlobal::self()->schemaManager()->list ().findIndex (t);
+  int i = KateGlobal::self()->schemaManager()->list ().indexOf (t);
 
   update ();
   if (i > -1)

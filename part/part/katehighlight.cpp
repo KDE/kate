@@ -1906,12 +1906,12 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
 
   if (!beginRegionStr.isEmpty())
   {
-    regionId = RegionList->findIndex(beginRegionStr);
+    regionId = RegionList->indexOf(beginRegionStr);
 
     if (regionId==-1) // if the region name doesn't already exist, add it to the list
     {
       (*RegionList)<<beginRegionStr;
-      regionId = RegionList->findIndex(beginRegionStr);
+      regionId = RegionList->indexOf(beginRegionStr);
     }
 
     regionId++;
@@ -1921,12 +1921,12 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
 
   if (!endRegionStr.isEmpty())
   {
-    regionId2 = RegionList->findIndex(endRegionStr);
+    regionId2 = RegionList->indexOf(endRegionStr);
 
     if (regionId2==-1) // if the region name doesn't already exist, add it to the list
     {
       (*RegionList)<<endRegionStr;
-      regionId2 = RegionList->findIndex(endRegionStr);
+      regionId2 = RegionList->indexOf(endRegionStr);
     }
 
     regionId2 = -regionId2 - 1;

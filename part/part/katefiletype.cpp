@@ -118,7 +118,7 @@ void KateFileTypeManager::save (const QList<KateFileType>& v)
 
   for (int z=0; z < g.count(); z++)
   {
-    if (newg.findIndex (g[z]) == -1)
+    if (newg.indexOf (g[z]) == -1)
       config.deleteGroup (g[z]);
   }
 
@@ -179,7 +179,7 @@ int KateFileTypeManager::fileType (KateDocument *doc)
 
   foreach (const KateFileType& type, m_types)
   {
-    if (type.mimetypes.findIndex (mt->name()) > -1)
+    if (type.mimetypes.indexOf (mt->name()) > -1)
       types.append (type);
   }
 
@@ -562,7 +562,7 @@ void KateViewFileTypeAction::slotAboutToShow()
         popupMenu()->insertItem (hlSection, menu);
       }
 
-      int m = subMenusName.findIndex (hlSection);
+      int m = subMenusName.indexOf (hlSection);
       names << hlName;
       subMenus.at(m)->insertItem ( hlName, this, SLOT(setType(int)), 0,  z+1);
     }

@@ -11,7 +11,7 @@ kde4_automoc(${kwrite_KDEINIT_SRCS})
 
 kde4_add_kdeinit_executable( kwrite ${kwrite_KDEINIT_SRCS})
 
-target_link_libraries(kdeinit_kwrite  ${QT_AND_KDECORE_LIBS} ktexteditor )
+target_link_libraries(kdeinit_kwrite  ${QT_AND_KDECORE_LIBS} ktexteditor kparts  ${QT_QT3SUPPORT_LIBRARY} kdeui ${QT_QTGUI_LIBRARY} DCOP kio)
 
 install_targets(${LIB_INSTALL_DIR} kdeinit_kwrite )
 

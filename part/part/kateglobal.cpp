@@ -261,7 +261,9 @@ void KateGlobal::configDialog(QWidget *parent)
     QFrame *page = kd->addPage( path, configPageFullName (i),
                               configPagePixmap(i, KIcon::SizeMedium) );
 
-    QVBoxLayout *topLayout = new QVBoxLayout( page, 0, KDialog::spacingHint() );
+    QVBoxLayout *topLayout = new QVBoxLayout( page );
+    topLayout->setMargin( 0 );
+    topLayout->setSpacing( KDialog::spacingHint() );
 
     KTextEditor::ConfigPage *cp = configPage(i, page);
     topLayout->addWidget( cp);

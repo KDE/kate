@@ -537,7 +537,8 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
   } else {
     m_lineScroll->setValue(startPos().line());
   }
-  m_lineScroll->setSteps(1, height() / renderer()->fontHeight());
+  m_lineScroll->setSingleStep(1);
+  m_lineScroll->setPageStep(height() / renderer()->fontHeight());
   m_lineScroll->blockSignals(false);
 
   if (!m_view->dynWordWrap())
@@ -556,7 +557,8 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     m_columnScroll->setValue(m_startX);
 
     // Approximate linescroll
-    m_columnScroll->setSteps(renderer()->config()->fontMetrics()->width('a'), width());
+    m_columnScroll->setSingleStep(renderer()->config()->fontMetrics()->width('a'));
+    m_columnScroll->setPageStep(width());
 
     m_columnScroll->blockSignals(false);
   }
@@ -1525,7 +1527,7 @@ int KateViewInternal::maxLen(uint startLine)
 
 bool KateViewInternal::columnScrollingPossible ()
 {
-  return !m_view->dynWordWrap() && m_columnScroll->isEnabled() && (m_columnScroll->maxValue() > 0);
+  return !m_view->dynWordWrap() && m_columnScroll->isEnabled() && (m_columnScroll->maximum() > 0);
 }
 
 void KateViewInternal::top( bool sel )
@@ -1929,7 +1931,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
   if (obj == m_lineScroll)
   {
     // the second condition is to make sure a scroll on the vertical bar doesn't cause a horizontal scroll ;)
-    if (e->type() == QEvent::Wheel && m_lineScroll->minValue() != m_lineScroll->maxValue())
+    if (e->type() == QEvent::Wheel && m_lineScroll->minimum() != m_lineScroll->maximum())
     {
       wheelEvent((QWheelEvent*)e);
       return true;
@@ -2754,7 +2756,7 @@ void KateViewInternal::clear()
 
 void KateViewInternal::wheelEvent(QWheelEvent* e)
 {
-  if (m_lineScroll->minValue() != m_lineScroll->maxValue() && e->orientation() != Qt::Horizontal) {
+  if (m_lineScroll->minimum() != m_lineScroll->maximum() && e->orientation() != Qt::Horizontal) {
     // React to this as a vertical event
     if ( ( e->state() & Qt::ControlModifier ) || ( e->state() & Qt::ShiftModifier ) ) {
       if (e->delta() > 0)
@@ -2814,7 +2816,7 @@ void KateViewInternal::doDragScroll()
     scrollLines(startPos().line() + dy);
 
   if (columnScrollingPossible () && dx)
-    scrollColumns(qMin (m_startX + dx, m_columnScroll->maxValue()));
+    scrollColumns(qMin (m_startX + dx, m_columnScroll->maximum()));
 
   if (!dy && !dx)
     stopDragScroll();

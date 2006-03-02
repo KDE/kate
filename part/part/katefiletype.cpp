@@ -106,7 +106,7 @@ void KateFileTypeManager::save (const QList<KateFileType>& v)
     config.writeEntry ("Priority", type.priority);
 
     QString varLine = type.varLine;
-    if (QRegExp("kate:(.*)").search(varLine) < 0)
+    if (QRegExp("kate:(.*)").indexIn(varLine) < 0)
       varLine.prepend ("kate: ");
 
     config.writeEntry ("Variables", varLine);
@@ -215,7 +215,7 @@ int KateFileTypeManager::wildcardsFind (const QString &fileName)
       // anders: we need to be sure to match the end of string, as eg a css file
       // would otherwise end up with the c hl
       QRegExp re(wildcard, true, true);
-      if ( ( re.search( fileName ) > -1 ) && ( re.matchedLength() == (int)fileName.length() ) )
+      if ( ( re.indexIn( fileName ) > -1 ) && ( re.matchedLength() == (int)fileName.length() ) )
         types.append (type);
     }
   }
@@ -261,7 +261,9 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
 {
   m_lastType = -1;
 
-  QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+  QVBoxLayout *layout = new QVBoxLayout(this);
+  layout->setMargin(0);
+  layout->setSpacing(KDialog::spacingHint());
 
   // hl chooser
   QHBoxLayout *hbHl = new QHBoxLayout();
@@ -463,8 +465,8 @@ void KateFileTypeConfigTab::save ()
     m_types[m_lastType].name = name->text ();
     m_types[m_lastType].section = section->text ();
     m_types[m_lastType].varLine = varLine->text ();
-    m_types[m_lastType].wildcards = QStringList::split (";", wildcards->text ());
-    m_types[m_lastType].mimetypes = QStringList::split (";", mimetypes->text ());
+    m_types[m_lastType].wildcards = wildcards->text().split (";", QString::SkipEmptyParts);
+    m_types[m_lastType].mimetypes = mimetypes->text().split (";", QString::SkipEmptyParts);
     m_types[m_lastType].priority = priority->value();
   }
 }
@@ -511,7 +513,7 @@ void KateFileTypeConfigTab::showMTDlg()
 {
 
   QString text = i18n("Select the MimeTypes you want for this file type.\nPlease note that this will automatically edit the associated file extensions as well.");
-  QStringList list = QStringList::split( QRegExp("\\s*;\\s*"), mimetypes->text() );
+  QStringList list = mimetypes->text().split( QRegExp("\\s*;\\s*"), QString::SkipEmptyParts );
   KMimeTypeChooserDialog *d = new KMimeTypeChooserDialog( i18n("Select Mime Types"), text, list, "text", this );
   if ( d->exec() == KDialogBase::Accepted ) {
     // do some checking, warn user if mime types or patterns are removed.

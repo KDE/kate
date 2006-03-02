@@ -65,7 +65,8 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 		this, SLOT(slotSearchBackwardAction()),
 		actionCollection(), "edit_isearch_reverse" );
 
-	m_label = new QLabel( i18n("I-Search:"), 0L, "kde toolbar widget" );
+	m_label = new QLabel( i18n("I-Search:"), 0L );
+	m_label->setObjectName( QLatin1String( "kde toolbar widget" ) );
 	KWidgetAction* labelAction = new KWidgetAction(
 		m_label,
 		i18n("I-Search:"), 0, 0, 0,

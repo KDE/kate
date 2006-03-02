@@ -527,7 +527,9 @@ KateArgHint::KateArgHint( KateView* parent )
     setBackgroundColor( Qt::black );
     setPaletteForegroundColor( Qt::black );
 
-    layout = new QVBoxLayout( this, 1, 2 );
+    layout = new QVBoxLayout( this );
+    layout->setMargin( 1 );
+    layout->setSpacing( 2 );
     layout->setAutoAdd( true );
     editorView = parent;
 

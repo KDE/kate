@@ -63,7 +63,7 @@ KateTemplateHandler::KateTemplateHandler(
 
   while ( pos >= 0 )
   {
-    pos = rx.search( insertString, pos );
+    pos = rx.indexIn( insertString, pos );
 
     if ( pos > -1 )
     {

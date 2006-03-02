@@ -1019,7 +1019,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
 
     // All stylenames have their language mode prefixed, e.g. HTML:Comment
     // split them and put them into nice substructures.
-    int c = itemData->name().find(':');
+    int c = itemData->name().indexOf(':');
     if ( c > 0 ) {
       QString prefix = itemData->name().left(c);
       QString name   = itemData->name().mid(c+1);
@@ -1072,7 +1072,9 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   : KateConfigPage( parent ),
     m_lastSchema (-1)
 {
-  QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+  QVBoxLayout *layout = new QVBoxLayout(this);
+  layout->setMargin(0);
+  layout->setSpacing(KDialog::spacingHint());
 
   KHBox *hbHl = new KHBox( this );
   layout->add (hbHl);

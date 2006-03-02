@@ -58,8 +58,8 @@
 #include <QWhatsThis>
 
 //BEGIN KateScrollBar
-KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* parent, const char* name)
-  : QScrollBar (orientation, parent->m_view, name)
+KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* parent)
+  : QScrollBar (orientation, parent->m_view)
   , m_middleMouseDown (false)
   , m_view(parent->m_view)
   , m_doc(parent->m_doc)
@@ -283,7 +283,7 @@ QString KateCmdLine::helptext( const QPoint & ) const
 
       QString t = text();
       QRegExp re( "\\s*help\\s+(.*)" );
-      if ( re.search( t ) > -1 )
+      if ( re.indexIn( t ) > -1 )
       {
         QString s;
         // get help for command
@@ -566,7 +566,7 @@ void KateCmdLine::fromHistory( bool up )
     // Select the argument part of the command, so that it is easy to overwrite
     setText( s );
     static QRegExp reCmd = QRegExp(".*[\\w\\-]+(?:[^a-zA-Z0-9_-]|:\\w+)(.*)");
-    if ( reCmd.search( text() ) == 0 )
+    if ( reCmd.indexIn( text() ) == 0 )
       setSelection( text().length() - reCmd.cap(1).length(), reCmd.cap(1).length() );
   }
 }

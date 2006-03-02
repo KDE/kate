@@ -218,43 +218,43 @@ void KateNormalIndent::updateConfig ()
   for (uint i=0; i<items.count(); i++)
   {
     QString name = items.at(i)->name();
-    if (name.find("Comment") != -1 && commentAttrib == 255)
+    if (name.indexOf("Comment") != -1 && commentAttrib == 255)
     {
       commentAttrib = i;
     }
-    else if (name.find("Region Marker") != -1 && regionAttrib == 255)
+    else if (name.indexOf("Region Marker") != -1 && regionAttrib == 255)
     {
       regionAttrib = i;
     }
-    else if (name.find("Symbol") != -1 && symbolAttrib == 255)
+    else if (name.indexOf("Symbol") != -1 && symbolAttrib == 255)
     {
       symbolAttrib = i;
     }
-    else if (name.find("Alert") != -1)
+    else if (name.indexOf("Alert") != -1)
     {
       alertAttrib = i;
     }
-    else if (name.find("Comment") != -1 && commentAttrib != 255 && doxyCommentAttrib == 255)
+    else if (name.indexOf("Comment") != -1 && commentAttrib != 255 && doxyCommentAttrib == 255)
     {
       doxyCommentAttrib = i;
     }
-    else if (name.find("Tags") != -1 && tagAttrib == 255)
+    else if (name.indexOf("Tags") != -1 && tagAttrib == 255)
     {
       tagAttrib = i;
     }
-    else if (name.find("Word") != -1 && wordAttrib == 255)
+    else if (name.indexOf("Word") != -1 && wordAttrib == 255)
     {
       wordAttrib = i;
     }
-    else if (name.find("Keyword") != -1 && keywordAttrib == 255)
+    else if (name.indexOf("Keyword") != -1 && keywordAttrib == 255)
     {
       keywordAttrib = i;
     }
-    else if (name.find("Normal") != -1 && normalAttrib == 255)
+    else if (name.indexOf("Normal") != -1 && normalAttrib == 255)
     {
       normalAttrib = i;
     }
-    else if (name.find("Extensions") != -1 && extensionAttrib == 255)
+    else if (name.indexOf("Extensions") != -1 && extensionAttrib == 255)
     {
       extensionAttrib = i;
     }
@@ -623,7 +623,7 @@ void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
 void KateCSmartIndent::processChar(QChar c)
 {
   static const QString triggers("}{)/:;#n");
-  if (triggers.find(c) < 0)
+  if (triggers.indexOf(c) < 0)
     return;
 
   KateView *view = doc->activeKateView();
@@ -1039,7 +1039,7 @@ uint KateCSmartIndent::findOpeningComment(KateDocCursor &start)
   {
     KateTextLine::Ptr textLine = doc->plainKateTextLine(cur.line());
 
-    int pos = textLine->string().find("/*", false);
+    int pos = textLine->string().indexOf("/*", Qt::CaseInsensitive);
     if (pos >= 0)
     {
       KateDocCursor temp(cur.line(), pos, doc);
@@ -1200,7 +1200,7 @@ void KateXmlIndent::processChar (QChar c)
   // only alter lines that start with a close element
   KateView *view = doc->activeKateView();
   QString text = doc->plainKateTextLine(view->cursorPosition().line())->string();
-  if(text.find(startsWithCloseTag) == -1) return;
+  if(text.indexOf(startsWithCloseTag) == -1) return;
 
   // process it
   processLine(view->cursorPosition().line());
@@ -1245,7 +1245,7 @@ void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
   // <a>
   // </a>              <!-- indentation *already* decreased -->
   // requires that we discount the </a> from the number of closed tags
-  if(text.find(startsWithCloseTag) != -1) ++numTags;
+  if(text.indexOf(startsWithCloseTag) != -1) ++numTags;
 
   // count the number of open and close tags
   int lastCh = 0;
@@ -1286,10 +1286,10 @@ void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
           for(uint backLine = line; backLine; ) {
             // find first line with an open tag
             KateTextLine::Ptr x = doc->plainKateTextLine(--backLine);
-            if(x->string().find('<') == -1) continue;
+            if(x->string().indexOf('<') == -1) continue;
 
             // recalculate the indent
-            if(x->string().find(unclosedDoctype) != -1) --numTags;
+            if(x->string().indexOf(unclosedDoctype) != -1) --numTags;
             getLineInfo(backLine, prevIndent, numTags, attrCol, unclosedTag);
             break;
           }
@@ -1340,7 +1340,7 @@ uint KateXmlIndent::processLine (uint line)
   if(indent < 0) indent = 0;
 
   // unindent lines that start with a close tag
-  if(kateLine->string().find(startsWithCloseTag) != -1) {
+  if(kateLine->string().indexOf(startsWithCloseTag) != -1) {
     indent -= indentWidth;
   }
   if(indent < 0) indent = 0;
@@ -1587,7 +1587,7 @@ int KateCSAndSIndent::lastNonCommentChar( const KateDocCursor &line )
 
   // find a possible start-of-comment
   int p = -2; // so the first find starts at position 0
-  do p = str.find( "//", p + 2 );
+  do p = str.indexOf( "//", p + 2 );
   while ( p >= 0 && textLine->attribute(p) != commentAttrib && textLine->attribute(p) != doxyCommentAttrib );
 
   // no // found? use whole string
@@ -1938,7 +1938,7 @@ void KateCSAndSIndent::processChar(QChar c)
 {
   // 'n' trigger is for c# regions.
   static const QString triggers("}{)]/:;#n");
-  if (triggers.find(c) == -1)
+  if (triggers.indexOf(c) == -1)
     return;
 
   // for historic reasons, processChar doesn't get a cursor
@@ -2124,20 +2124,20 @@ void KateVarIndent::processLine ( KateDocCursor &line )
   // check if the above line indicates that we shuld add indentation
   int matchpos = 0;
   if ( ktl && ! d->reIndentAfter.isEmpty()
-       && (matchpos = d->reIndentAfter.search( doc->line( ln ) )) > -1
+       && (matchpos = d->reIndentAfter.indexIn( doc->line( ln ) )) > -1
        && ! ISCOMMENT )
     adjustment++;
 
   // else, check if this line should indent unless ...
   ktl = doc->plainKateTextLine( line.line() );
   if ( ! d->reIndent.isEmpty()
-         && (matchpos = d->reIndent.search( doc->line( line.line() ) )) > -1
+         && (matchpos = d->reIndent.indexIn( doc->line( line.line() ) )) > -1
          && ! ISCOMMENT )
     adjustment++;
 
   // else, check if the current line indicates if we should remove indentation unless ...
   if ( ! d->reUnindent.isEmpty()
-       && (matchpos = d->reUnindent.search( doc->line( line.line() ) )) > -1
+       && (matchpos = d->reUnindent.indexIn( doc->line( line.line() ) )) > -1
        && ! ISCOMMENT )
     adjustment--;
 
@@ -2199,7 +2199,7 @@ void KateVarIndent::slotVariableChanged( KTextEditor::Document*, const QString &
   else if ( var == "var-indent-handle-couples" )
   {
     d->couples = 0;
-    QStringList l = QStringList::split( " ", val );
+    QStringList l = val.split( " ", QString::SkipEmptyParts );
     if ( l.contains("parens") ) d->couples |= Parens;
     if ( l.contains("braces") ) d->couples |= Braces;
     if ( l.contains("brackets") ) d->couples |= Brackets;

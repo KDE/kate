@@ -52,9 +52,10 @@ class KateCodeCompletionCommentLabel : public QLabel
   Q_OBJECT
 
   public:
-    KateCodeCompletionCommentLabel( QWidget* parent, const QString& text) : QLabel( parent, "toolTipTip",
+    KateCodeCompletionCommentLabel( QWidget* parent, const QString& text) : QLabel( parent,
              Qt::WStyle_StaysOnTop | Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WStyle_Tool | Qt::WX11BypassWM )
     {
+        setObjectName( QLatin1String( "toolTipTip" ) );
         setMargin(1);
         setIndent(0);
        // setAutoMask( false );

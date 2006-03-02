@@ -50,7 +50,7 @@ class KateScrollBar : public QScrollBar
   Q_OBJECT
 
   public:
-    KateScrollBar(Qt::Orientation orientation, class KateViewInternal *parent, const char* name = 0L);
+    KateScrollBar(Qt::Orientation orientation, class KateViewInternal *parent);
 
     inline bool showMarks() { return m_showMarks; };
     inline void setShowMarks(bool b) { m_showMarks = b; update(); };

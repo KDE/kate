@@ -444,7 +444,7 @@ int KateHlCharDetect::checkHgl(const QString& text, int offset, int /*len*/)
 
 KateHlItem *KateHlCharDetect::clone(const QStringList *args)
 {
-  char c = sChar.latin1();
+  char c = sChar.toLatin1();
 
   if (c < '0' || c > '9' || (c - '0') >= args->size())
     return this;
@@ -473,8 +473,8 @@ int KateHl2CharDetect::checkHgl(const QString& text, int offset, int len)
 
 KateHlItem *KateHl2CharDetect::clone(const QStringList *args)
 {
-  char c1 = sChar1.latin1();
-  char c2 = sChar2.latin1();
+  char c1 = sChar1.toLatin1();
+  char c2 = sChar2.toLatin1();
 
   if (c1 < '0' || c1 > '9' || (c1 - '0') >= args->size())
     return this;
@@ -923,7 +923,7 @@ int KateHlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)
   if (offset && handlesLinestart)
     return 0;
 
-  int offset2 = Expr->search( text, offset, QRegExp::CaretAtOffset );
+  int offset2 = Expr->indexIn( text, offset, QRegExp::CaretAtOffset );
 
   if (offset2 == -1) return 0;
 
@@ -1589,7 +1589,7 @@ void KateHighlighting::loadWildcards()
 
     static QRegExp sep("\\s*;\\s*");
 
-    QStringList l = QStringList::split( sep, extensionSource );
+    QStringList l = extensionSource.split( sep, QString::SkipEmptyParts );
 
     static QRegExp boringExpression("\\*\\.[\\d\\w]+");
 
@@ -1597,7 +1597,7 @@ void KateHighlighting::loadWildcards()
       if (boringExpression.exactMatch(*it))
         plainExtensions.append((*it).mid(1));
       else
-        regexpExtensions.append(QRegExp((*it), true, true));
+        regexpExtensions.append(QRegExp((*it), Qt::CaseSensitive, QRegExp::Wildcard));
   }
 }
 
@@ -2062,13 +2062,13 @@ QString KateHighlighting::hlKeyForAttrib( int i ) const
 bool KateHighlighting::isInWord( QChar c, int attrib ) const
 {
   static const QString& sq = KGlobal::staticQString(" \"'");
-  return m_additionalData[ hlKeyForAttrib( attrib ) ]->deliminator.find(c) < 0 && sq.find(c) < 0;
+  return m_additionalData[ hlKeyForAttrib( attrib ) ]->deliminator.indexOf(c) < 0 && sq.indexOf(c) < 0;
 }
 
 bool KateHighlighting::canBreakAt( QChar c, int attrib ) const
 {
   static const QString& sq = KGlobal::staticQString("\"'");
-  return (m_additionalData[ hlKeyForAttrib( attrib ) ]->wordWrapDeliminator.find(c) != -1) && (sq.find(c) == -1);
+  return (m_additionalData[ hlKeyForAttrib( attrib ) ]->wordWrapDeliminator.indexOf(c) != -1) && (sq.indexOf(c) == -1);
 }
 
 QLinkedList<QRegExp> KateHighlighting::emptyLines(int attrib) const
@@ -2215,7 +2215,7 @@ void KateHighlighting::readGlobalKeywordConfig()
     // remove any weakDelimitars (if any) from the default list and store this list.
     for (int s=0; s < weakDeliminator.length(); s++)
     {
-      int f = deliminator.find (weakDeliminator[s]);
+      int f = deliminator.indexOf (weakDeliminator[s]);
 
       if (f > -1)
         deliminator.remove (f, 1);
@@ -3095,7 +3095,7 @@ int KateHlManager::mimeFind( KateDocument *doc )
 
   foreach (KateHighlighting *highlight, hlList)
   {
-    foreach (QString mimeType, QStringList::split( sep, highlight->getMimetypes() ))
+    foreach (QString mimeType, highlight->getMimetypes().split( sep, QString::SkipEmptyParts ))
     {
       if ( mimeType == mt->name() ) // faster than a regexp i guess?
         highlights.append (highlight);

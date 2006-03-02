@@ -391,8 +391,8 @@ void DocWordCompletionPluginView::complete( bool fw )
   while ( true )
   {
     pos = fw ?
-      d->re.search( ln, d->col ) :
-      d->re.searchRev( ln, d->col );
+      d->re.indexIn( ln, d->col ) :
+      d->re.lastIndexIn( ln, d->col );
 
     if ( pos > -1 ) // we matched a word
     {

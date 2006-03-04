@@ -292,7 +292,7 @@ class KateViewInternal : public QWidget
     bool m_selChangedByUser;
     KTextEditor::Cursor m_selectAnchor;
 
-    enum SelectionMode { Default=0, Word, Line }; ///< for drag selection. @since 2.3
+    enum SelectionMode { Default=0, Word, Line }; ///< for drag selection.
     uint m_selectionMode;
     // when drag selecting after double/triple click, keep the initial selected
     // word/line independant of direction.

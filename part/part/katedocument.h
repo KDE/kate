@@ -449,8 +449,6 @@ class KateDocument : public KTextEditor::Document,
      * This method is using KMimeType::findByURL, and if the pointer
      * is then still the default MimeType for a nonlocal or unsaved file,
      * uses mimeTypeForContent().
-     *
-     * @since Kate 2.3
      */
     QString mimeType();
 
@@ -459,8 +457,6 @@ class KateDocument : public KTextEditor::Document,
      * actual content.
      *
      * Note that this method is *not* part of the DocumentInfoInterface.
-     *
-     * @since Kate 2.3
      */
     KMimeType::Ptr mimeTypeForContent();
 
@@ -729,8 +725,6 @@ class KateDocument : public KTextEditor::Document,
   public:
     /**
      * @return wheather the document is modified on disc since last saved.
-     *
-     * @since 3.3
      */
     bool isModifiedOnDisc() { return m_modOnHd; };
 
@@ -742,8 +736,6 @@ class KateDocument : public KTextEditor::Document,
     /**
      * Ask the user what to do, if the file has been modified on disc.
      * Reimplemented from KTextEditor::Document.
-     *
-     * @since 3.3
      */
     void slotModifiedOnDisk( KTextEditor::View *v = 0 );
 
@@ -811,15 +803,11 @@ class KateDocument : public KTextEditor::Document,
      * This is using KMD5::hexDigest().
      *
      * @return wheather the operation was attempted and succeded.
-     *
-     * @since 3.3
      */
     bool createDigest ( QByteArray &result );
 
     /**
      * create a string for the modonhd warnings, giving the reason.
-     *
-     * @since 3.3
      */
     QString reasonedMOHString() const;
 
@@ -828,8 +816,6 @@ class KateDocument : public KTextEditor::Document,
      * the cfRemoveTrailingDyn confg flag is set,
      * and the active view cursor is not on line and behind
      * the last nonspace character.
-     *
-     * @since 3.3
      */
     void removeTrailingSpace( int line );
 

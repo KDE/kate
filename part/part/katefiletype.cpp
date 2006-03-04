@@ -214,7 +214,7 @@ int KateFileTypeManager::wildcardsFind (const QString &fileName)
     {
       // anders: we need to be sure to match the end of string, as eg a css file
       // would otherwise end up with the c hl
-      QRegExp re(wildcard, true, true);
+      QRegExp re(wildcard, Qt::CaseSensitive, QRegExp::Wildcard);
       if ( ( re.indexIn( fileName ) > -1 ) && ( re.matchedLength() == (int)fileName.length() ) )
         types.append (type);
     }

@@ -908,7 +908,9 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
   m_schema = 0;
   m_hl = 0;
 
-  QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+  QVBoxLayout *layout = new QVBoxLayout(this);
+  layout->setMargin(0);
+  layout->setSpacing(KDialog::spacingHint());
 
   // hl chooser
   KHBox *hbHl = new KHBox( this );

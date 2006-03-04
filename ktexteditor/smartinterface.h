@@ -33,18 +33,19 @@ class SmartCursor;
  * \ingroup kte_group_doc_extensions
  *
  * Topics:
- *  - \ref intro
- *  - \ref highlight
- *  - \ref action
- *  - \ref access
+ *  - \ref smartiface_intro
+ *  - \ref smartiface_creation
+ *  - \ref smartiface_highlight
+ *  - \ref smartiface_action
+ *  - \ref smartiface_access
  *
- * \section intro Introduction
+ * \section smartiface_intro Introduction
  * Use this interface to:
  * \li create new SmartCursors and SmartRanges;
  * \li create arbitrary highlighting; and
  * \li associate KActions to ranges of text
  *
- * \section creation Creation of SmartCursors and SmartRanges
+ * \section smartiface_creation Creation of SmartCursors and SmartRanges
  * These functions must be used to create SmartCursors and SmartRanges.  This
  * means that these objects cannot be derived from by third party applications.
  *
@@ -52,7 +53,7 @@ class SmartCursor;
  * the Document with which they were associated.  Alternatively, they are all
  * deleted with the deletion of the owning Document.
  *
- * \section highlight Arbitrary Highlighting
+ * \section smartiface_highlight Arbitrary Highlighting
  * Arbitrary highlighting of text can be achieved by creating SmartRanges in a
  * tree structure, and assigning appropriate Attributes to these ranges.
  *
@@ -61,7 +62,7 @@ class SmartCursor;
  * per tree; just supply the top range you want to have highlighted.  Calling
  * this function more than once with ranges from the same tree may give undefined results.
  *
- * \section action Action Binding
+ * \section smartiface_action Action Binding
  * Action binding can be used to associate KActions with specific ranges of text.
  * These bound actions are automatically enabled and disabled when the caret enters
  * their associated ranges, and context menus are automatically populated with the
@@ -80,7 +81,7 @@ class SmartCursor;
  * \todo extend this to provide a signal from the action indicating which range was
  *       used to activate it (if possible)
  *
- * \section access Accessing the interface
+ * \section smartiface_access Accessing the interface
  *
  * The SmartInterface is supposed to be an extension interface for a Document,
  * i.e. the Document inherits the interface \e provided that the 

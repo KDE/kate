@@ -30,7 +30,7 @@ namespace KTextEditor
 /**
  * \brief Config page interface for the Editor.
  *
- * \section intro Introduction
+ * \section configpage_intro Introduction
  *
  * The class ConfigPage represents a config page of the KTextEditor::Editor.
  * The Editor's config pages are usually embedded into a dialog that shows

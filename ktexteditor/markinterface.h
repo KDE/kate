@@ -36,7 +36,7 @@ class Document;
 /**
  * \brief Mark class containing line and mark types.
  *
- * \section intro Introduction
+ * \section mark_intro Introduction
  *
  * The class Mark represents a mark in a Document. It contains the \e line
  * and \e type. A line can have multiple marks, like a \e bookmark and a
@@ -61,7 +61,7 @@ class Mark
  *
  * \ingroup kte_group_doc_extensions
  *
- * \section intro Introduction
+ * \section markext_intro Introduction
  *
  * The MarkInterface provides methods to enable and disable marks in a
  * Document, a marked line can be visualized for example with a shaded
@@ -70,7 +70,7 @@ class Mark
  * reservedMarkersCount(). Additionally it is possible to add custom marks
  * and set custom pixmaps.
  *
- * \section access Accessing the MarkInterface
+ * \section markext_access Accessing the MarkInterface
  *
  * The MarkInterface is supposed to be an extension interface for a Document,
  * i.e. the Document inherits the interface \e provided that the
@@ -87,7 +87,7 @@ class Mark
  *   }
  * \endcode
  *
- * \section handling Handling Marks
+ * \section markext_handling Handling Marks
  *
  * Get all marks in the document by calling marks(). Use clearMarks() to
  * remove all marks in the entire document. A single mark can be retrieved
@@ -104,7 +104,7 @@ class Mark
  *     removeMark(), etc, the \e uint may contain \e multiple marks, i.e.
  *     you can add and remove multiple marks \e simultaneously.
  *
- * \section userdefined User Defined Marks
+ * \section markext_userdefined User Defined Marks
  *
  * All marks that should be changable by the user can be specified with a
  * mark mask via setMarksUserChangable(). To set a description and pixmap of

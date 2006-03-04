@@ -37,7 +37,7 @@ class CompletionProvider;
 /**
  * \brief A code completion item for the completion box.
  *
- * \section intro Introduction
+ * \section completionitem_intro Introduction
  *
  * An item for the code completion box contains
  *  - a text() which is used to complete the string
@@ -365,7 +365,7 @@ class KTEXTEDITOR_EXPORT ArgHintData
 /**
  * \brief Code completion provider.
  *
- * \section intro Introduction
+ * \section completion_provider_intro Introduction
  *
  * A CompletionProvider is supposed to provide the data for code completion
  * and argument hints.
@@ -384,7 +384,7 @@ class KTEXTEDITOR_EXPORT ArgHintData
  * completionAborted() is called for \e every provider, if it was done,
  * completionDone() is called.
  *
- * \section notes Implementation Notes
+ * \section completion_provider_notes Implementation Notes
  *
  * The provider should cache the completion data it initially created as long
  * as possible, i.e. as long as the word that was used to create the data did
@@ -486,7 +486,7 @@ class KTEXTEDITOR_EXPORT CompletionProvider
  *
  * \ingroup kte_group_view_extensions
  *
- * <b>Introduction</b>\n
+ * \section completion_iface_intro Introduction
  *
  * The idea of code completion basically is to provide methods to
  *  - complete a partially written string by popping up a small listbox at the
@@ -494,7 +494,7 @@ class KTEXTEDITOR_EXPORT CompletionProvider
  *    comment
  *  - show argument hints for functions.
  *
- * <b>Code Completion Architecture</b>\n
+ * \section completion_iface_architecture Code Completion Architecture
  *
  * It is possible that several clients want to access the code completion
  * interface, e.g. the Word completion Plugin and Quanta+. So it is important
@@ -509,7 +509,7 @@ class KTEXTEDITOR_EXPORT CompletionProvider
  * This is visualized in the following hierarchy:
  * \image html ktexteditorcodecompletion.png "Code Completion Hierarchy"
  *
- * <b>Accessing the CodeCompletionInterface</b>\n
+ * \section completion_iface_access Accessing the CodeCompletionInterface
  *
  * The CodeCompletionInterface is supposed to be an extension interface for a
  * View, i.e. the View inherits the interface \e provided that the
@@ -526,7 +526,7 @@ class KTEXTEDITOR_EXPORT CompletionProvider
  *   }
  * \endcode
  *
- * <b>Example Code</b>\n
+ * \section completion_iface_example Example Code
  *
  * Throughout the example we assume that we work on the \e view and that
  * \e this and \e provider is a class derived from CompletionProvider.

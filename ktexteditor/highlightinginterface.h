@@ -33,7 +33,7 @@ namespace KTextEditor
  *
  * \ingroup kte_group_doc_extensions
  *
- * \section intro Introduction
+ * \section hliface_intro Introduction
  *
  * The class HighlightingInterface provides only very general methods to get
  * information about syntax highlighting modes. Use hlMode() to get the
@@ -43,7 +43,7 @@ namespace KTextEditor
  * belongs use hlModeSectionName(). The signal hlChanged() is emitted
  * whenever the syntax highlighting mode changed.
  *
- * \section access Accessing the HighlightingInterface
+ * \section hliface_access Accessing the HighlightingInterface
  *
  * The HighlightingInterface is supposed to be an extension interface for a
  * Document, i.e. the Document inherits the interface \e provided that the

@@ -154,7 +154,7 @@ KWrite::~KWrite()
 
   if (m_view->document()->views().count() == 1)
   {
-    docList.remove(m_view->document());
+    docList.removeAll(m_view->document());
     delete m_view->document();
   }
 

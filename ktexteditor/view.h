@@ -307,8 +307,9 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
     /**
      * This signal is emitted whenever the \p view's cursor position changed.
      * \param view view which emitted the signal
-     * \param newPosition new \e virtual position of the cursor
-     * \see cursorPositionVirtual(), cursorPosition()
+     * \param newPosition new position of the cursor (Kate will pass the real
+     *        cursor potition, not the virtual)
+     * \see cursorPosition(), cursorPositionVirtual()
      */
     void cursorPositionChanged (KTextEditor::View *view,
                                 const KTextEditor::Cursor& newPosition);

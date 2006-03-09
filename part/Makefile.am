@@ -6,6 +6,6 @@ messages:
 	$(EXTRACTATTR) --attr=language,name,Language --attr="language,section,Language Section" data/*.xml >> rc.cpp
 	$(XGETTEXT) `find . -name "*.cpp"` part/*.h -o $(podir)/katepart.pot
 
-DOXYGEN_REFERENCES = kdecore dcop kio kdeui kparts
+DOXYGEN_REFERENCES = kdecore dcop kio kdeui kparts interfaces/ktexteditor
 include ../admin/Doxyfile.am
 

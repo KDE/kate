@@ -89,7 +89,6 @@ class SedReplace : public KTextEditor::Command
      */
     bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
-    /** Help? Unsupported, it seems. */
     bool help (class KTextEditor::View *, const QString &, QString &) { return false; };
 
     /**
@@ -144,7 +143,6 @@ class Character : public KTextEditor::Command
      */
     bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
-    /** @copydoc SedReplace::help */
     bool help (class KTextEditor::View *, const QString &, QString &) { return false; };
 
     /**
@@ -169,7 +167,6 @@ class Date : public KTextEditor::Command
      */
     bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
-    /** @copydoc SedReplace::help */
     bool help (class KTextEditor::View *, const QString &, QString &) { return false; };
 
     /**

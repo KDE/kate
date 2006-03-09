@@ -28,7 +28,7 @@
 
 #include <QHash>
 
-/**
+/*
  * Some common stuff
  */
 class KateDocument;
@@ -39,7 +39,7 @@ class KateJSView;
 class KateJSIndenter;
 class KateDocCursor;
 
-/**
+/*
  * Cool, this is all we need here
  */
 namespace KJS {

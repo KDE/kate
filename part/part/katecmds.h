@@ -28,6 +28,10 @@
 class KateDocument;
 class KCompletion;
 
+/**
+ * The KateCommands namespace collects subclasses of KTextEditor::Command
+ * for specific use in kate.
+ */
 namespace KateCommands
 {
 

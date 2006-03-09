@@ -72,14 +72,14 @@ class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExt
 };
 
 /**
- * -- Charles Samuels <charles@kde.org>
- * Support vim/sed find and replace
- * s/search/replace/ find search, replace with replace on this line
- * %s/search/replace/ do the same to the whole file
- * s/search/replace/i do the S. and R., but case insensitively
- * $s/search/replace/ do the search are replacement to the selection only
+ * Support vim/sed style search and replace
+ *   - s/search/replace/ find @c search, replace it with @c replace on this line
+ *   - %s/search/replace/ do the same to the whole file
+ *   - s/search/replace/i do the search and replace case insensitively
+ *   - $s/search/replace/ do the search are replacement to the selection only
  *
- * $s/// is currently unsupported
+ * @note   $s/// is currently unsupported
+ * @author Charles Samuels <charles@kde.org>
  **/
 class SedReplace : public KTextEditor::Command
 {

@@ -112,7 +112,7 @@ class AutoBookmarkerConfigPage : public KTextEditor::ConfigPage
     void slotEdit();
 
   private:
-    class KListView *lvPatterns;
+    class K3ListView *lvPatterns;
     class QPushButton *btnNew, *btnDel, *btnEdit;
     ABEntityList *m_ents;
 };

@@ -33,7 +33,7 @@
 #include <kconfig.h>
 #include <kgenericfactory.h>
 #include <kiconloader.h>
-#include <klistview.h>
+#include <k3listview.h>
 #include <klocale.h>
 #include <kmimetype.h>
 #include <kmimetypechooser.h>
@@ -258,7 +258,7 @@ void ABGlobal::writeConfig()
 class AutoBookmarkEntItem : public Q3ListViewItem
 {
   public:
-    AutoBookmarkEntItem( KListView *lv, AutoBookmarkEnt *e )
+    AutoBookmarkEntItem( K3ListView *lv, AutoBookmarkEnt *e )
         : Q3ListViewItem( lv ),
         ent( e )
       {
@@ -388,7 +388,7 @@ AutoBookmarkerConfigPage::AutoBookmarkerConfigPage( QWidget *parent, const char 
 
   QLabel *l = new QLabel( i18n("&Patterns"), this );
   lo->addWidget( l );
-  lvPatterns = new KListView( this );
+  lvPatterns = new K3ListView( this );
   lvPatterns->addColumn( i18n("Pattern") );
   lvPatterns->addColumn( i18n("Mime Types") );
   lvPatterns->addColumn( i18n("File Masks") );

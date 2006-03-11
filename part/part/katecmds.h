@@ -53,6 +53,7 @@ class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExt
      */
     bool exec( class KTextEditor::View *view, const QString &cmd, QString &errorMsg );
 
+    /** This command does not have help. @see KTextEditor::Command::help */
     bool help( class KTextEditor::View *, const QString &, QString & ) {return false;};
 
     /**
@@ -93,6 +94,7 @@ class SedReplace : public KTextEditor::Command
      */
     bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
+    /** This command does not have help. @see KTextEditor::Command::help */
     bool help (class KTextEditor::View *, const QString &, QString &) { return false; };
 
     /**
@@ -147,6 +149,7 @@ class Character : public KTextEditor::Command
      */
     bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
+    /** This command does not have help. @see KTextEditor::Command::help */
     bool help (class KTextEditor::View *, const QString &, QString &) { return false; };
 
     /**
@@ -171,6 +174,7 @@ class Date : public KTextEditor::Command
      */
     bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
+    /** This command does not have help. @see KTextEditor::Command::help */
     bool help (class KTextEditor::View *, const QString &, QString &) { return false; };
 
     /**

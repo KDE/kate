@@ -25,22 +25,26 @@
 #include <QStringList>
 
 /**
- * Information about each syntax hl Mode
+ * Information about each syntax hl Mode. This is documented in Kate's
+ * <a href="http://docs.kde.org/stable/en/kdebase/kate/katehighlight-xml-format.html">user guide</a>
+ * and repeated briefly here.
  */
 class KateSyntaxModeListItem
 {
   public:
-    QString name;
-    QString nameTranslated;
-    QString section;
-    QString mimetype;
-    QString extension;
+    QString name;           ///< Name of the mode (eg. Asm6502)
+    QString nameTranslated; ///< i18n of same, for display purposes
+    QString section;        ///< Submenu section (eg. Assembly)
+    QString mimetype;       ///< Mimetypes this mode applies to
+    QString extension;      ///< Semicolon-separated list of file extensions
     QString identifier;
     QString version;
-    QString priority;
-    QString author;
-    QString license;
-    bool hidden;
+    QString priority;       /**< Priority (mapped to an integer?) for conflict-
+			         resolution when the same file extension has
+			         multiple highlihgting definitions. */
+    QString author;         ///< Author's name
+    QString license;        ///< License; unclear if this is the entire license string or just a name
+    bool hidden;            ///< Hides the mode from Kate's menus
 };
 
 /**

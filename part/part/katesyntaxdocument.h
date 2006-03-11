@@ -40,10 +40,10 @@ class KateSyntaxModeListItem
     QString identifier;
     QString version;
     QString priority;       /**< Priority (mapped to an integer?) for conflict-
-			         resolution when the same file extension has
-			         multiple highlihgting definitions. */
+                                 resolution when the same file extension has
+                                 multiple highlihgting definitions. */
     QString author;         ///< Author's name
-    QString license;        ///< License; unclear if this is the entire license string or just a name
+    QString license;        ///< License; for example: "LGPL"
     bool hidden;            ///< Hides the mode from Kate's menus
 };
 

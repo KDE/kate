@@ -1281,7 +1281,7 @@ void KateViewSchemaAction::slotAboutToShow()
     if (!names.contains(hlName))
     {
       names << hlName;
-      QAction *a=popupMenu()->addAction ( hlName, this, SLOT(setSchema(QAction*)));
+      QAction *a=popupMenu()->addAction ( hlName, this, SLOT(setSchema()));
       a->setData(z+1);
       a->setCheckable(true);
       a->setActionGroup(m_group);
@@ -1311,7 +1311,9 @@ void KateViewSchemaAction::slotAboutToShow()
 #endif
 }
 
-void KateViewSchemaAction::setSchema (QAction *action) {
+void KateViewSchemaAction::setSchema () {
+  QAction *action = qobject_cast<QAction*>(sender());
+
   if (!action) return;
   int mode=action->data().toInt();
 

@@ -28,6 +28,7 @@
 #include <kxmlguiclient.h>
 #include <qobject.h>
 #include <qpointer.h>
+#include <Q3PtrList>
 
 class QLabel;
 

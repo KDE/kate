@@ -381,7 +381,7 @@ void KateView::setupActions()
     ac, "view_dynamic_word_wrap" );
   a->setWhatsThis(i18n("If this option is checked, the text lines will be wrapped at the view border on the screen."));
 
-  a= m_setDynWrapIndicators = new KSelectAction(i18n("Dynamic Word Wrap Indicators"), 0, ac, "dynamic_word_wrap_indicators");
+  a= m_setDynWrapIndicators = new KSelectAction(i18n("Dynamic Word Wrap Indicators"), ac, "dynamic_word_wrap_indicators");
   a->setWhatsThis(i18n("Choose when the Dynamic Word Wrap Indicators should be displayed"));
 
   connect(m_setDynWrapIndicators, SIGNAL(activated(int)), this, SLOT(setDynWrapIndicators(int)));
@@ -435,7 +435,7 @@ void KateView::setupActions()
      ac, "switch_to_cmd_line" );
   a->setWhatsThis(i18n("Show/hide the command line on the bottom of the view."));
 
-  a=m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
+  a=m_setEndOfLine = new KSelectAction(i18n("&End of Line"), ac, "set_eol");
   a->setWhatsThis(i18n("Choose which line endings should be used, when you save the document"));
   QStringList list;
   list.append("&UNIX");
@@ -464,8 +464,9 @@ void KateView::slotConfigDialog ()
 
 void KateView::setupEditActions()
 {
-  m_editActions = new KActionCollection( m_viewInternal, this );
+  m_editActions = new KActionCollection( static_cast<QObject*>(this) );
   m_editActions->setObjectName( "edit_actions" );
+  m_editActions->setAssociatedWidget(m_viewInternal);
   KActionCollection* ac = m_editActions;
 
   new KAction(
@@ -632,7 +633,8 @@ void KateView::setupEditActions()
                 ac, "backspace");
   }
 
-  m_editActions->readShortcutSettings( "Katepart Shortcuts" );
+  m_editActions->setConfigGroup("Katepart Shortcuts");
+  m_editActions->readSettings();
 
   if( hasFocus() )
     slotGotFocus();
@@ -705,17 +707,11 @@ QString KateView::viewMode () const
 
 void KateView::slotGotFocus()
 {
-  if (m_editActions)
-    m_editActions->accel()->setEnabled( true );
-
   emit focusIn ( this );
 }
 
 void KateView::slotLostFocus()
 {
-  if (m_editActions)
-    m_editActions->accel()->setEnabled( false );
-
   emit focusOut ( this );
 }
 
@@ -1075,7 +1071,7 @@ void KateView::updateConfig ()
   if (m_startingUp)
     return;
 
-  m_editActions->readShortcutSettings( "Katepart Shortcuts" );
+  m_editActions->readSettings();
 
   // dyn. word wrap & markers
   if (m_hasWrap != config()->dynWordWrap()) {

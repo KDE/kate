@@ -115,7 +115,7 @@ class KateViewSchemaAction : public KActionMenu
     void slotAboutToShow();
 
   private Q_SLOTS:
-    void setSchema (QAction *action);
+    void setSchema();
 };
 
 //

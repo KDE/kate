@@ -14,7 +14,8 @@ kateregression_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 
 katetest_SOURCES = katetest.cpp arbitraryhighlighttest.cpp \
 	codecompletiontest.cpp
-katetest_LDADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la
+katetest_LDADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la \
+	-lQtGui_debug -lQtCore_debug
 katetest_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 
 TESTS = kateregression

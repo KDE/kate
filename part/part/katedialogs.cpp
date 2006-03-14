@@ -879,7 +879,7 @@ void KateEditKeyConfiguration::apply()
   if (m_ready)
   {
     m_keyChooser->commitChanges();
-    m_ac->writeShortcutSettings( "Katepart Shortcuts" );
+    m_ac->writeSettings();
   }
 }
 //END KateEditKeyConfiguration
@@ -1281,7 +1281,7 @@ class KateScriptNewStuff: public KNewStuff {
 */
 //BEGIN KateScriptConfigPage
 KateScriptConfigPage::KateScriptConfigPage(QWidget *parent): KateConfigPage(parent,""), m_newStuff(new KateScriptNewStuff())
-{    
+{
   //m_newStuff->download();
 }
 

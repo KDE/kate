@@ -195,6 +195,38 @@ QVariant KateDynamicAnimation::mergeWith( const QVariant & baseVariant, const QV
   double addFactor = double(percent) / 100;
 
   switch (dynamicVariant.type()) {
+    case QVariant::Pen: {
+      QPen dynamic = qVariantValue<QPen>(dynamicVariant);
+
+      QColor ret;
+
+      if (baseVariant.type() == QVariant::Pen) {
+        QColor base = qVariantValue<QPen>(baseVariant).color();
+
+        int r1, g1, b1;
+        base.getRgb(&r1, &g1, &b1);
+
+        int r2, g2, b2;
+        dynamic.color().getRgb(&r2, &g2, &b2);
+
+        double r3, g3, b3;
+
+        r3 = r1 * baseFactor + addFactor * r2;
+        g3 = g1 * baseFactor + addFactor * g2;
+        b3 = b1 * baseFactor + addFactor * b2;
+
+        ret.setRgb((int)r3, (int)g3, (int)b3);
+
+      } else {
+        ret = dynamic.color();
+        ret.setAlpha(int(255 * addFactor));
+      }
+
+      dynamic.setColor(ret);
+
+      return dynamic;
+    }
+
     case QVariant::Brush: {
       QBrush dynamic = qVariantValue<QBrush>(dynamicVariant);
 
@@ -222,7 +254,9 @@ QVariant KateDynamicAnimation::mergeWith( const QVariant & baseVariant, const QV
         ret.setAlpha(int(255 * addFactor));
       }
 
-      return QBrush(ret);
+      dynamic.setColor(ret);
+
+      return dynamic;
     }
 
     default:

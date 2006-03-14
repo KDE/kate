@@ -75,6 +75,8 @@
 #include <QVBoxLayout>
 #include <Q3ValueList>
 #include <QDropEvent>
+#include <QTextIStream>
+
 #include <kxmlguifactory.h>
 
 #include "arbitraryhighlighttest.h"

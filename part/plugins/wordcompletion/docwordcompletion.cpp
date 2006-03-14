@@ -47,6 +47,7 @@
 #include <qspinbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
+#include <Q3PtrList>
 
 #include <kvbox.h>
 #include <qcheckbox.h>
@@ -275,7 +276,7 @@ void DocWordCompletionPluginView::toggleAutoPopup()
   }
 }
 
-const KTextEditor::CompletionData DocWordCompletionPluginView::completionData(KTextEditor::View*,enum KTextEditor::CompletionType comptype, const 
+const KTextEditor::CompletionData DocWordCompletionPluginView::completionData(KTextEditor::View*,enum KTextEditor::CompletionType comptype, const
 	KTextEditor::Cursor&, const QString&,const KTextEditor::Cursor& pos , const QString& line)
 {
   kDebug()<<"Should we provide a completion list?"<<endl;

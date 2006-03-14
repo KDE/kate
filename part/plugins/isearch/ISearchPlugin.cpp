@@ -87,7 +87,6 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 		m_combo,
 		i18n("Search"), 0, 0, 0,
 		actionCollection(), "isearch_combo" );
-	m_comboAction->setAutoSized( true );
 	m_comboAction->setShortcutConfigurable( false );
 
 	KActionMenu* optionMenu = new KActionMenu(
@@ -284,9 +283,9 @@ void ISearchPluginView::slotSearchBackwardAction()
 void ISearchPluginView::slotSearchAction( bool reverse )
 {
 	if( !m_combo->hasFocus() ) {
-		if( m_comboAction->container(0) && m_comboAction->container(0)->isHidden() ) {
+        if( m_comboAction->associatedWidgets().count() && m_comboAction->associatedWidgets()[0] && m_comboAction->associatedWidgets()[0]->isHidden() ) {
 			m_toolBarWasHidden = true;
-			m_comboAction->container(0)->setHidden( false );
+			m_comboAction->associatedWidgets()[0]->setHidden( false );
 		} else {
 			m_toolBarWasHidden = false;
 		}
@@ -358,8 +357,8 @@ void ISearchPluginView::endSearch()
 
 	updateLabelText();
 
-	if( m_toolBarWasHidden && m_comboAction->containerCount() > 0 ) {
-		m_comboAction->container(0)->setHidden( true );
+	if( m_toolBarWasHidden && m_comboAction->associatedWidgets().count() > 0 ) {
+		m_comboAction->associatedWidgets()[0]->setHidden( true );
 	}
 }
 

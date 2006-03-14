@@ -198,9 +198,9 @@ public:
 
     // Width calculators
     uint spaceWidth() const;
-    uint textWidth(const KateTextLine::Ptr &, int cursorCol) KDE_DEPRECATED;
-    uint textWidth(const KateTextLine::Ptr &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX = 0)  KDE_DEPRECATED;
-    uint textWidth(const KTextEditor::Cursor& cursor)  KDE_DEPRECATED;
+    KDE_DEPRECATED uint textWidth(const KateTextLine::Ptr &, int cursorCol);
+    KDE_DEPRECATED uint textWidth(const KateTextLine::Ptr &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX = 0);
+    KDE_DEPRECATED uint textWidth(const KTextEditor::Cursor& cursor);
 
     /**
      * Returns the x position of cursor \p col on the line \p range.

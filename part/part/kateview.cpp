@@ -1934,7 +1934,7 @@ void KateView::addExternalHighlight( KTextEditor::SmartRange * topRange, bool su
 
 void KateView::removeExternalHighlight( KTextEditor::SmartRange * topRange )
 {
-  m_externalHighlights.remove(topRange);
+  m_externalHighlights.removeAll(topRange);
 
   if (m_externalHighlightsDynamic.contains(topRange)) {
     m_externalHighlightsDynamic.removeAll(topRange);

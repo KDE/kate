@@ -2531,7 +2531,7 @@ void KateHighlighting::handleKateHlIncludeRules()
         KateHlIncludeRules::iterator it1=it;
         ++it1;
         delete (*it);
-        includeRules.remove(it);
+        includeRules.erase(it);
         it=it1;
       }
       else

@@ -469,7 +469,7 @@ void ISearchPlugin::removeView(KTextEditor::View *view)
 		if (m_views.at(z)->parentClient() == view)
 		{
 			ISearchPluginView *nview = m_views.at(z);
-			m_views.remove (nview);
+			m_views.removeAll (nview);
 			delete nview;
 		}
 	}

@@ -390,8 +390,8 @@ void KateSchemaManager::update (bool readfromfile)
   m_schemas = m_config.groupList();
   m_schemas.sort ();
 
-  m_schemas.remove (printingSchema());
-  m_schemas.remove (normalSchema());
+  m_schemas.removeAll (printingSchema());
+  m_schemas.removeAll (normalSchema());
   m_schemas.prepend (printingSchema());
   m_schemas.prepend (normalSchema());
 }

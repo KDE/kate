@@ -1378,7 +1378,7 @@ void KateCodeFoldingTree::addHiddenLineBlock(KateCodeFoldingNode *node,unsigned 
     {
       // the existing block can't have lines behind the new one, because a newly hidden
       //  block has to encapsulate already hidden ones
-      it=hiddenLines.remove(it);
+      it=hiddenLines.erase(it);
       --it;
     }
     else

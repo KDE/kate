@@ -767,7 +767,7 @@ KateSchemaConfigFontTab::KateSchemaConfigFontTab( QWidget *parent, const char * 
   : QWidget (parent)
 {
     // sizemanagment
-  QGridLayout *grid = new QGridLayout( this, 1, 1 );
+  QGridLayout *grid = new QGridLayout( this );
 
   m_fontchooser = new KFontChooser ( this, false, QStringList(), false );
   m_fontchooser->enableColumn(KFontChooser::StyleList, false);
@@ -820,7 +820,7 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab( QWidget *parent, con
   : QWidget (parent)
 {
   // sizemanagment
-  QGridLayout *grid = new QGridLayout( this, 1, 1 );
+  QGridLayout *grid = new QGridLayout( this );
 
   m_defaultStyles = new KateStyleListView( this );
   grid->addWidget( m_defaultStyles, 0, 0);

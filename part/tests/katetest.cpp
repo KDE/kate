@@ -668,7 +668,7 @@ extern "C" KDE_EXPORT int main(int argc, char **argv)
 
   KAboutData aboutData ( "kwrite",
                          I18N_NOOP("KWrite"),
-                         kWriteVersion.latin1(),
+                         kWriteVersion.toLatin1().constData(),
                          I18N_NOOP( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
                          I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://kate.kde.org" );
 

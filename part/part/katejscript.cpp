@@ -981,7 +981,7 @@ inline static bool KateIndentJScriptCall(KateView *view, QString &errorMsg, Kate
   docWrapper->doc = v->doc();
   viewWrapper->view = v;
 
-  /*kDebug(13050)<<"Call Object:"<<o.toString(interpreter->globalExec()).ascii()<<endl;*/
+  /*kDebug(13050)<<"Call Object:"<<o.toString(interpreter->globalExec()).toAscii().constData()<<endl;*/
   o->call(interpreter->globalExec(),interpreter->globalObject(),params);
   if (interpreter->globalExec()->hadException())
   {

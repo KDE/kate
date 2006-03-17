@@ -2077,7 +2077,7 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
       len = 1024 - bufpos;
 
     QString ld (line + QChar::fromAscii('\n'));
-    buf.replace(bufpos,len,ld.toLatin1()); //memcpy(buf.data() + bufpos, ld.latin1(), len);
+    buf.replace(bufpos,len,ld.toLatin1()); //memcpy(buf.data() + bufpos, ld.toLatin1().constData(), len);
 
     bufpos += len;
 
@@ -3548,7 +3548,7 @@ bool KateDocument::removeStartStopCommentFromSelection( KateView *view, int attr
   int startCommentLen = startComment.length();
   int endCommentLen = endComment.length();
 
-  // had this been perl or sed: s/^\s*$startComment(.+?)$endComment\s*/$1/
+  // had this been perl or sed: s/^\s*$startComment(.+?)$endComment\s*/$2/
 
   bool remove = nextNonSpaceCharPos(sl, sc)
       && m_buffer->plainLine(sl)->stringAtPos(sc, startComment)

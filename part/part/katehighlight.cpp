@@ -629,12 +629,12 @@ int KateHlKeyword::checkHgl(const QString& text, int offset, int len)
 
   if (_caseSensitive)
   {
-    if (dict[wordLen]->contains(QConstString(text.unicode() + offset, wordLen).string()) )
+    if (dict[wordLen]->contains(QString::fromRawData(text.unicode() + offset, wordLen)) )
       return offset2;
   }
   else
   {
-    if (dict[wordLen]->contains(QConstString(text.unicode() + offset, wordLen).string().toLower()) )
+    if (dict[wordLen]->contains(QString::fromRawData(text.unicode() + offset, wordLen).toLower()) )
       return offset2;
   }
 

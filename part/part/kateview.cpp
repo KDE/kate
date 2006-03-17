@@ -762,7 +762,7 @@ void KateView::slotReadWriteChanged ()
 
   KAction *a = 0;
   for (int z = 0; z < l.size(); z++)
-    if ((a = actionCollection()->action( l[z].ascii() )))
+    if ((a = actionCollection()->action( l[z].toAscii().constData() )))
       a->setEnabled (m_doc->isReadWrite());
 }
 
@@ -1167,7 +1167,7 @@ void KateView::updateFoldingConfig ()
 
   KAction *a = 0;
   for (int z = 0; z < l.size(); z++)
-    if ((a = actionCollection()->action( l[z].ascii() )))
+    if ((a = actionCollection()->action( l[z].toAscii().constData() )))
       a->setEnabled (m_doc->highlight() && m_doc->highlight()->allowsFolding());
 }
 

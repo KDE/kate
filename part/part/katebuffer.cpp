@@ -1415,7 +1415,7 @@ void KateBufBlock::fillBlock (KateFileLoader *stream)
     else
     {
       KateTextLine::Ptr textLine (new KateTextLine ());
-      textLine->insertText (0, QConstString(unicodeData, length));
+      textLine->insertText (0, QString::fromRawData(unicodeData, length));
       m_stringList.push_back (textLine);
     }
 

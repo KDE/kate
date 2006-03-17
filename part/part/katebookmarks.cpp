@@ -60,10 +60,11 @@ static void ssort( QVector<uint> &a, int max )
 // TODO add a insort() or bubble_sort - more efficient for aboutToShow() ?
 
 KateBookmarks::KateBookmarks( KateView* view, Sorting sort )
-  : QObject( view, "kate bookmarks" )
+  : QObject( view )
   , m_view( view )
   , m_sorting( sort )
 {
+  setObjectName( "kate bookmarks" );
   connect (view->doc(), SIGNAL( marksChanged( KTextEditor::Document* ) ), this, SLOT( marksChanged() ));
   _tries=0;
   m_bookmarksMenu = 0L;
@@ -100,7 +101,7 @@ void KateBookmarks::createActions( KActionCollection* ac )
     ac, "bookmarks_previous");
   m_goPrevious->setWhatsThis(i18n("Go to the previous bookmark."));
 
-  m_bookmarksMenu = (new KActionMenu(i18n("&Bookmarks"), ac, "bookmarks"))->popupMenu();
+  m_bookmarksMenu = (new KActionMenu(i18n("&Bookmarks"), ac, "bookmarks"))->kMenu();
 
   //connect the aboutToShow() and aboutToHide() signals with
   //the bookmarkMenuAboutToShow() and bookmarkMenuAboutToHide() slots

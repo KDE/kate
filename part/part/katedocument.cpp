@@ -2745,7 +2745,7 @@ void KateDocument::setActiveView(KTextEditor::View* view)
 
 bool KateDocument::ownedView(KateView *view) {
   // do we own the given view?
-  return (m_views.contains(view) > 0);
+  return (m_views.contains(view));
 }
 
 uint KateDocument::currentColumn( const KTextEditor::Cursor& cursor )

@@ -914,7 +914,7 @@ KateHlRegExpr::KateHlRegExpr( int attribute, int context, signed char regionId,s
   if (!handlesLinestart)
     regexp.prepend("^");
 
-  Expr = new QRegExp(regexp, !_insensitive);
+  Expr = new QRegExp(regexp, _insensitive ? Qt::CaseInsensitive : Qt::CaseSensitive );
   Expr->setMinimal(_minimal);
 }
 
@@ -3390,7 +3390,7 @@ void KateViewHighlightAction::init()
 {
   m_doc = 0;
 
-  connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+  connect(kMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
 void KateViewHighlightAction::updateMenu (KateDocument *doc)
@@ -3414,7 +3414,7 @@ void KateViewHighlightAction::slotAboutToShow()
           subMenusName << hlSection;
           QMenu *menu = new QMenu ('&'+hlSection);
           subMenus.append(menu);
-          popupMenu()->addMenu( menu);
+          kMenu()->addMenu( menu);
         }
 
         int m = subMenusName.indexOf (hlSection);
@@ -3427,7 +3427,7 @@ void KateViewHighlightAction::slotAboutToShow()
       else if (!names.contains(hlName))
       {
         names << hlName;
-        QAction *a=popupMenu()->addAction ( '&' + hlName, this, SLOT(setHl()));
+        QAction *a=kMenu()->addAction ( '&' + hlName, this, SLOT(setHl()));
 	a->setData(z);
 	a->setCheckable(true);
 	subActions.append(a);
@@ -3445,7 +3445,7 @@ void KateViewHighlightAction::slotAboutToShow()
   if ( (mode<0) || (mode>=subActions.count() ) )
     start=subActions.count()-1;
   for(;(start>0) && (subActions[start]->data().toInt()!=mode);start--);
-  if (start>=0);
+  if (start>=0)
     subActions[start]->setChecked(true);
 
 }

@@ -271,7 +271,8 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   hbHl->setSpacing( KDialog::spacingHint() );
   QLabel *lHl = new QLabel( i18n("&Filetype:"), this );
   hbHl->addWidget(lHl);
-  hbHl->addWidget(typeCombo = new QComboBox( false, this ));
+  hbHl->addWidget(typeCombo = new QComboBox( this ));
+  typeCombo->setEditable( false );
   lHl->setBuddy( typeCombo );
   connect( typeCombo, SIGNAL(activated(int)),
            this, SLOT(typeChanged(int)) );
@@ -287,7 +288,7 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   gbProps = new QGroupBox( this );
   gbProps->setTitle(i18n("Properties"));
   QGridLayout* grid = new QGridLayout(gbProps);
-  layout->add (gbProps);
+  layout->addWidget(gbProps);
 
   // file & mime types
   QLabel *lname = new QLabel( i18n("N&ame:"), gbProps );
@@ -529,9 +530,9 @@ void KateViewFileTypeAction::init()
 {
   m_doc = 0;
 
-  popupMenu()->insertItem ( i18n("None"), this, SLOT(setType(int)), 0,  0);
+  kMenu()->insertItem ( i18n("None"), this, SLOT(setType(int)), 0,  0);
 
-  connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+  connect(kMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
 KateViewFileTypeAction::~ KateViewFileTypeAction( )

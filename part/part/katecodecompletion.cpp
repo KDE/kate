@@ -113,11 +113,13 @@ class KateCompletionItem : public Q3ListBoxText
 
 
 KateCodeCompletion::KateCodeCompletion( KateView* view )
-  : QObject( view, "Kate Code Completion" )
+  : QObject( view )
   , m_view( view )
   , m_commentLabel( 0 )
   , m_blockEvents(false)
 {
+  setObjectName( "Kate Code Completion" );
+
   m_completionPopup = new KVBox(0L);
   m_completionPopup->setWindowFlags(Qt::WType_Popup);
   m_completionPopup->setFrameStyle( QFrame::Box | QFrame::Plain );

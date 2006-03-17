@@ -480,7 +480,9 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
   KHBox *b;
   QLabel *label;
 
-  QVBoxLayout *blay=new QVBoxLayout(this, 0, KDialog::spacingHint());
+  QVBoxLayout *blay=new QVBoxLayout(this)
+  blay->setMargin(0);
+  blay->setSpacing(KDialog::spacingHint());
 
   QGroupBox *gbTextArea = new QGroupBox(this);
   gbTextArea->setTitle(i18n("Text Area Background"));
@@ -524,7 +526,7 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
   m_combobox->addItem(i18n("Execution"));           // markType05
   m_combobox->addItem(i18n("Warning"));             // markType06
   m_combobox->addItem(i18n("Error"));               // markType07
-  m_combobox->setCurrentItem(0);
+  m_combobox->setCurrentIndex(0);
   m_markers = new KColorButton(b);
   connect( m_combobox, SIGNAL( activated( int ) ), SLOT( slotComboBoxChanged( int ) ) );
 
@@ -699,9 +701,9 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
   {
     QPixmap pix(16, 16);
     pix.fill( m_schemas [ newSchema ].markerColors[i]);
-    m_combobox->changeItem(pix, m_combobox->text(i), i);
+    m_combobox->setItemIcon(i, QIcon(pix));
   }
-  m_markers->setColor(  m_schemas [ newSchema ].markerColors[ m_combobox->currentItem() ] );
+  m_markers->setColor(  m_schemas [ newSchema ].markerColors[ m_combobox->currentIndex() ] );
 
   connect( m_back      , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
   connect( m_selected  , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
@@ -723,7 +725,7 @@ void KateSchemaConfigColorTab::apply ()
     kDebug(13030)<<"APPLY scheme = "<<it.key()<<endl;
     KConfig *config = KateGlobal::self()->schemaManager()->schema( it.key() );
     kDebug(13030)<<"Using config group "<<config->group()<<endl;
-    SchemaColors c = it.data();
+    SchemaColors c = it.value();
 
     config->writeEntry("Color Background", c.back);
     config->writeEntry("Color Selection", c.selected);
@@ -743,11 +745,11 @@ void KateSchemaConfigColorTab::apply ()
 
 void KateSchemaConfigColorTab::slotMarkerColorChanged( const QColor& color)
 {
-  int index = m_combobox->currentItem();
+  int index = m_combobox->currentIndex();
    m_schemas[ m_schema ].markerColors[ index ] = color;
   QPixmap pix(16, 16);
   pix.fill(color);
-  m_combobox->changeItem(pix, m_combobox->text(index), index);
+  m_combobox->setItemIcon(index, QIcon(pix));
 
   emit changed();
 }
@@ -795,7 +797,7 @@ void KateSchemaConfigFontTab::apply()
   FontMap::Iterator it;
   for ( it = m_fonts.begin(); it != m_fonts.end(); ++it )
   {
-    KateGlobal::self()->schemaManager()->schema( it.key() )->writeEntry( "Font", it.data() );
+    KateGlobal::self()->schemaManager()->schema( it.key() )->writeEntry( "Font", it.value() );
   }
 }
 
@@ -914,11 +916,12 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
 
   // hl chooser
   KHBox *hbHl = new KHBox( this );
-  layout->add (hbHl);
+  layout->addWidget (hbHl);
 
   hbHl->setSpacing( KDialog::spacingHint() );
   QLabel *lHl = new QLabel( i18n("H&ighlight:"), hbHl );
-  hlCombo = new QComboBox( false, hbHl );
+  hlCombo = new QComboBox( hbHl );
+  hlCombo->setEditable( false );
   lHl->setBuddy( hlCombo );
   connect( hlCombo, SIGNAL(activated(int)),
            this, SLOT(hlChanged(int)) );
@@ -929,13 +932,13 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
     else
       hlCombo->addItem(KateHlManager::self()->hlNameTranslated(i));
   }
-  hlCombo->setCurrentItem(0);
+  hlCombo->setCurrentIndex(0);
 
   // styles listview
   m_styles = new KateStyleListView( this, true );
   layout->addWidget (m_styles, 999);
 
-  hlCombo->setCurrentItem ( hl );
+  hlCombo->setCurrentIndex ( hl );
   hlChanged ( hl );
 
   m_styles->setWhatsThis(i18n(
@@ -1079,10 +1082,11 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   layout->setSpacing(KDialog::spacingHint());
 
   KHBox *hbHl = new KHBox( this );
-  layout->add (hbHl);
+  layout->addWidget(hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
   QLabel *lHl = new QLabel( i18n("&Schema:"), hbHl );
-  schemaCombo = new QComboBox( false, hbHl );
+  schemaCombo = new QComboBox( hbHl );
+  schemaCombo->setEditable( false );
   lHl->setBuddy( schemaCombo );
   connect( schemaCombo, SIGNAL(activated(int)),
            this, SLOT(schemaChanged(int)) );
@@ -1095,7 +1099,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
 
   m_tabWidget = new QTabWidget ( this );
   m_tabWidget->setMargin (KDialog::marginHint());
-  layout->add (m_tabWidget);
+  layout->addWidget (m_tabWidget);
 
   connect (m_tabWidget, SIGNAL (currentChanged (QWidget *)), this, SLOT (newCurrentPage (QWidget *)));
 
@@ -1113,10 +1117,11 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   m_tabWidget->addTab (m_highlightTab, i18n("Highlighting Text Styles"));
 
   hbHl = new KHBox( this );
-  layout->add (hbHl);
+  layout->addWidget (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
   lHl = new QLabel( i18n("&Default schema for %1:").arg(KApplication::kApplication()->aboutData()->programName ()), hbHl );
-  defaultSchemaCombo = new QComboBox( false, hbHl );
+  defaultSchemaCombo = new QComboBox( hbHl );
+  defaultSchemaCombo->setEditable( false );
   lHl->setBuddy( defaultSchemaCombo );
 
 
@@ -1151,7 +1156,7 @@ void KateSchemaConfigPage::apply()
     KateHlManager::self()->getHl (i)->clearAttributeArrays();
 
   // than reload the whole stuff
-  KateRendererConfig::global()->setSchema (defaultSchemaCombo->currentItem());
+  KateRendererConfig::global()->setSchema (defaultSchemaCombo->currentIndex());
   KateRendererConfig::global()->reloadSchema();
 
   // sync the hl config for real
@@ -1168,10 +1173,10 @@ void KateSchemaConfigPage::reload()
 
   update ();
 
-  defaultSchemaCombo->setCurrentItem (KateRendererConfig::global()->schema());
+  defaultSchemaCombo->setCurrentIndex (KateRendererConfig::global()->schema());
 
   // initialize to the schema in the current document, or default schema
-  schemaCombo->setCurrentItem( m_defaultSchema );
+  schemaCombo->setCurrentIndex( m_defaultSchema );
   schemaChanged( m_defaultSchema );
 }
 
@@ -1191,12 +1196,12 @@ void KateSchemaConfigPage::update ()
   KateGlobal::self()->schemaManager()->update (false);
 
   schemaCombo->clear ();
-  schemaCombo->insertStringList (KateGlobal::self()->schemaManager()->list ());
+  schemaCombo->addItems (KateGlobal::self()->schemaManager()->list ());
 
   defaultSchemaCombo->clear ();
-  defaultSchemaCombo->insertStringList (KateGlobal::self()->schemaManager()->list ());
+  defaultSchemaCombo->addItems (KateGlobal::self()->schemaManager()->list ());
 
-  schemaCombo->setCurrentItem (0);
+  schemaCombo->setCurrentIndex (0);
   schemaChanged (0);
 
   schemaCombo->setEnabled (schemaCombo->count() > 0);
@@ -1204,7 +1209,7 @@ void KateSchemaConfigPage::update ()
 
 void KateSchemaConfigPage::deleteSchema ()
 {
-  int t = schemaCombo->currentItem ();
+  int t = schemaCombo->currentIndex ();
 
   KateGlobal::self()->schemaManager()->removeSchema (t);
 
@@ -1224,7 +1229,7 @@ void KateSchemaConfigPage::newSchema ()
   update ();
   if (i > -1)
   {
-    schemaCombo->setCurrentItem (i);
+    schemaCombo->setCurrentIndex (i);
     schemaChanged (i);
   }
 }
@@ -1255,7 +1260,7 @@ void KateViewSchemaAction::init()
   m_view = 0;
   last = 0;
 
-  connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+  connect(kMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
 void KateViewSchemaAction::updateMenu (KateView *view)
@@ -1269,7 +1274,7 @@ void KateViewSchemaAction::slotAboutToShow()
   int count = KateGlobal::self()->schemaManager()->list().count();
 
   if (!m_group) {
-   m_group=new QActionGroup(popupMenu());
+   m_group=new QActionGroup(kMenu());
    m_group->setExclusive(true);
 
   }
@@ -1281,7 +1286,7 @@ void KateViewSchemaAction::slotAboutToShow()
     if (!names.contains(hlName))
     {
       names << hlName;
-      QAction *a=popupMenu()->addAction ( hlName, this, SLOT(setSchema()));
+      QAction *a=kMenu()->addAction ( hlName, this, SLOT(setSchema()));
       a->setData(z+1);
       a->setCheckable(true);
       a->setActionGroup(m_group);
@@ -1292,10 +1297,10 @@ void KateViewSchemaAction::slotAboutToShow()
   if (!view) return;
 
   int id=view->renderer()->config()->schema()+1;
-  if (popupMenu()->actions().at(id-1)->data().toInt()==id) {
-  	popupMenu()->actions().at(id-1)->setChecked(true);
+  if (kMenu()->actions().at(id-1)->data().toInt()==id) {
+  	kMenu()->actions().at(id-1)->setChecked(true);
   } else {
-	foreach(QAction *a,popupMenu()->actions()) {
+	foreach(QAction *a,kMenu()->actions()) {
 		if (a->data().toInt()==id) {
 			a->setChecked(true);
 			break;

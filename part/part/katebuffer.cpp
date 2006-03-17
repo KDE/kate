@@ -576,7 +576,7 @@ bool KateBuffer::saveFile (const QString &m_file)
   QTextCodec *codec = m_doc->config()->codec();
 
   // disable Unicode headers
-  stream.setEncoding(QTextStream::RawUnicode);
+  stream.setCodec(QTextCodec::codecForName("UTF-16"));
 
   // this line sets the mapper to the correct codec
   stream.setCodec(codec);
@@ -1519,7 +1519,7 @@ void KateBufBlock::swapIn ()
   if (m_state != KateBufBlock::stateSwapped)
     return;
 
-  QByteArray rawData (m_vmblockSize);
+  QByteArray rawData (m_vmblockSize, '\0');
 
   // what to do if that fails ?
   if (!KateGlobal::self()->vm()->copy(rawData.data(), m_vmblock, 0, rawData.size()))
@@ -1559,7 +1559,7 @@ void KateBufBlock::swapOut ()
     for (int i=0; i < m_lines; i++)
       size += m_stringList[i]->dumpSize (haveHl);
 
-    QByteArray rawData (size);
+    QByteArray rawData (size, '\0');
     char *buf = rawData.data();
 
     // Dump textlines

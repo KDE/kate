@@ -161,14 +161,14 @@ KateAutoIndent::~KateAutoIndent ()
 KateViewIndentationAction::KateViewIndentationAction(KateDocument *_doc, const QString& text, KActionCollection* parent, const char* name)
        : KActionMenu (text, parent, name), doc(_doc)
 {
-  connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+  connect(kMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
 void KateViewIndentationAction::slotAboutToShow()
 {
   QStringList modes = KateAutoIndent::listModes ();
 
-  popupMenu()->clear ();
+  kMenu()->clear ();
   for (int z=0; z<modes.size(); ++z)
     popupMenu()->insertItem ( '&' + KateAutoIndent::modeDescription(z), this, SLOT(setMode(int)), 0,  z);
 
@@ -215,7 +215,7 @@ void KateNormalIndent::updateConfig ()
   KateExtendedAttributeList items;
   doc->highlight()->getKateExtendedAttributeListCopy (0, items);
 
-  for (uint i=0; i<items.count(); i++)
+  for (int i=0; i<items.count(); i++)
   {
     QString name = items.at(i)->name();
     if (name.indexOf("Comment") != -1 && commentAttrib == 255)
@@ -1987,8 +1987,9 @@ class KateVarIndentPrivate {
 };
 
 KateVarIndent::KateVarIndent( KateDocument *doc )
-: QObject( 0, "variable indenter"), KateNormalIndent( doc ),d(new KateVarIndentPrivate)
+: QObject( 0), KateNormalIndent( doc ),d(new KateVarIndentPrivate)
 {
+  setObjectName( "variable indenter" );
   d->reIndentAfter = QRegExp( doc->variable( "var-indent-indent-after" ) );
   d->reIndent = QRegExp( doc->variable( "var-indent-indent" ) );
   d->reUnindent = QRegExp( doc->variable( "var-indent-unindent" ) );

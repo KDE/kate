@@ -480,7 +480,7 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
   KHBox *b;
   QLabel *label;
 
-  QVBoxLayout *blay=new QVBoxLayout(this)
+  QVBoxLayout *blay=new QVBoxLayout(this);
   blay->setMargin(0);
   blay->setSpacing(KDialog::spacingHint());
 

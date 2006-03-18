@@ -332,7 +332,7 @@ void KWrite::slotOpen( const KUrl& url )
 void KWrite::slotFileNameChanged()
 {
   if ( ! m_view->document()->url().isEmpty() )
-    m_recentFiles->addURL( m_view->document()->url() );
+    m_recentFiles->addUrl( m_view->document()->url() );
 }
 
 void KWrite::newView()

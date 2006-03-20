@@ -29,7 +29,7 @@ kde4_add_ui_files(ktexteditor_LIB_SRCS ${ktexteditor_UI} )
 
 kde4_add_library(ktexteditor SHARED ${ktexteditor_LIB_SRCS})
 
-target_link_libraries(ktexteditor  ${QT_AND_KDECORE_LIBS} kdocument kparts )
+target_link_libraries(ktexteditor  ${KDE4_KDECORE_LIBS} kdocument kparts )
 
 set_target_properties(ktexteditor PROPERTIES VERSION 0.0.0 SOVERSION 0 )
 install_targets(${LIB_INSTALL_DIR} ktexteditor )
@@ -45,7 +45,7 @@ kde4_automoc(${ktexteditorkabcbridge_PART_SRCS})
 
 kde4_add_plugin(ktexteditorkabcbridge ${ktexteditorkabcbridge_PART_SRCS})
 
-target_link_libraries(ktexteditorkabcbridge  ${QT_AND_KDECORE_LIBS} kabc )
+target_link_libraries(ktexteditorkabcbridge  ${KDE4_KDECORE_LIBS} kabc )
 
 kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} ktexteditorkabcbridge )
 install_targets(${PLUGIN_INSTALL_DIR} ktexteditorkabcbridge )

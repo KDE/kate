@@ -14,7 +14,7 @@ kde4_automoc(${ktexteditor_isearch_PART_SRCS})
 kde4_add_plugin(ktexteditor_isearch ${ktexteditor_isearch_PART_SRCS})
 
 
-target_link_libraries(ktexteditor_isearch  ${QT_AND_KDECORE_LIBS} ktexteditor )
+target_link_libraries(ktexteditor_isearch  ${KDE4_KDECORE_LIBS} ktexteditor )
 
 kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} ktexteditor_isearch )
 install_targets(${PLUGIN_INSTALL_DIR} ktexteditor_isearch )

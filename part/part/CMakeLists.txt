@@ -85,7 +85,7 @@ kde4_add_dcop_skels(katepart_PART_SRCS ${katepart_DCOP_SKEL_SRCS})
 kde4_add_plugin(katepart ${katepart_PART_SRCS})
 
 
-target_link_libraries(katepart  ${QT_AND_KDECORE_LIBS} ktexteditor kdeprint kutils kjs knewstuff )
+target_link_libraries(katepart  ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kutils kjs knewstuff )
 
 kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} katepart )
 install_targets(${PLUGIN_INSTALL_DIR} katepart )

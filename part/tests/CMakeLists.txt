@@ -17,7 +17,7 @@ kde4_automoc(${katetest_SRCS})
 
 kde4_add_executable(katetest ${katetest_SRCS})
 
-target_link_libraries(katetest  ${QT_AND_KDECORE_LIBS} ktexteditor )
+target_link_libraries(katetest  ${KDE4_KDECORE_LIBS} ktexteditor )
 
 
 ########### next target ###############
@@ -32,7 +32,7 @@ kde4_automoc(${kateregression_SRCS})
 
 kde4_add_executable(kateregression ${kateregression_SRCS})
 
-target_link_libraries(kateregression  ${QT_AND_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ktexteditor )
+target_link_libraries(kateregression  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ktexteditor )
 
 endif(KDE4_BUILD_TESTS)
 

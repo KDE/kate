@@ -233,7 +233,7 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
      * \see configPageName(), configPageFullName()
      */
     virtual QPixmap configPagePixmap (int number,
-                                      int size = KIcon::SizeSmall) const = 0;
+                                      int size = K3Icon::SizeSmall) const = 0;
 
   Q_SIGNALS:
     /**

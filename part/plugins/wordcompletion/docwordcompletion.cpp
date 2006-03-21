@@ -90,7 +90,7 @@ void DocWordCompletionPlugin::configDialog (QWidget *parent)
       path.clear();
       path << configPageName( i );
       page = kd->addVBoxPage( path, configPageFullName (i),
-                                configPagePixmap(i, KIcon::SizeMedium) );
+                                configPagePixmap(i, K3Icon::SizeMedium) );
     }
     else
     {

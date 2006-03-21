@@ -150,7 +150,7 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
 
     QString configPageFullName (int number) const;
 
-    QPixmap configPagePixmap (int number, int size = KIcon::SizeSmall) const;
+    QPixmap configPagePixmap (int number, int size = K3Icon::SizeSmall) const;
 
   /**
    * Kate Part Internal stuff ;)

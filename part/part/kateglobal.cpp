@@ -259,7 +259,7 @@ void KateGlobal::configDialog(QWidget *parent)
     path << configPageName (i);
 
     QFrame *page = kd->addPage( path, configPageFullName (i),
-                              configPagePixmap(i, KIcon::SizeMedium) );
+                              configPagePixmap(i, K3Icon::SizeMedium) );
 
     QVBoxLayout *topLayout = new QVBoxLayout( page );
     topLayout->setMargin( 0 );

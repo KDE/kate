@@ -90,7 +90,7 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	m_comboAction->setShortcutConfigurable( false );
 
 	KActionMenu* optionMenu = new KActionMenu(
-		i18n("Search Options"), "configure",
+		KIcon("configure"), i18n("Search Options"),
 		actionCollection(), "isearch_options" );
 	optionMenu->setDelayed( false );
 

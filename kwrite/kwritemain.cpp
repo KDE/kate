@@ -74,6 +74,7 @@
 #include <QVBoxLayout>
 #include <QList>
 #include <QDropEvent>
+#include <QTextIStream>
 
 // StatusBar field IDs
 #define KWRITE_ID_GEN 1
@@ -310,7 +311,7 @@ void KWrite::slotOpen( const KUrl& url )
 void KWrite::slotFileNameChanged()
 {
   if ( ! m_view->document()->url().isEmpty() )
-    m_recentFiles->addURL( m_view->document()->url() );
+    m_recentFiles->addUrl( m_view->document()->url() );
 }
 
 void KWrite::newView()

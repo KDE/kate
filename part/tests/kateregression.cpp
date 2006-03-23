@@ -29,6 +29,7 @@
 #include <kaboutdata.h>
 #include <kapplication.h>
 #include <klocale.h>
+#include <ksycoca.h>
 
 #include <qtest_kde.h>
 
@@ -77,6 +78,9 @@ namespace QTest {
 // TODO split it various functions
 void KateRegression::testAll()
 {
+  if ( !KSycoca::isAvailable() )
+    QSKIP( "ksycoca not available", SkipAll );
+
   Editor* editor = EditorChooser::editor();
   QVERIFY(editor);
 

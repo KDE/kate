@@ -1,8 +1,9 @@
 kde4_header()
 
-if(KDE4_BUILD_TESTS) 
+if(KDE4_BUILD_TESTS)
 
-include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kdefx ${CMAKE_SOURCE_DIR}/kutils ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  )
+# parent included kio already
+include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kutils ${QT_INCLUDES} )
 
 
 ########### next target ###############

@@ -6,26 +6,22 @@ include_directories( ${CMAKE_SOURCE_DIR}/kio ${CMAKE_SOURCE_DIR}/interfaces ${CM
 ########### next target ###############
 
 set(ktexteditor_LIB_SRCS
-ktexteditor.cpp
-range.cpp
-cursor.cpp
-templateinterface.cpp
-editorchooser.cpp
-attribute.cpp
-cursorfeedback.cpp
-rangefeedback.cpp
-smartcursor.cpp
-smartrange.cpp
-codecompletion2.cpp
-)
+   ktexteditor.cpp
+   range.cpp
+   cursor.cpp
+   templateinterface.cpp
+   editorchooser.cpp
+   attribute.cpp
+   cursorfeedback.cpp
+   rangefeedback.cpp
+   smartcursor.cpp
+   smartrange.cpp
+   codecompletion2.cpp
+   )
 
 kde4_automoc(${ktexteditor_LIB_SRCS})
 
-set( ktexteditor_UI
-editorchooser_ui.ui
-)
-
-kde4_add_ui_files(ktexteditor_LIB_SRCS ${ktexteditor_UI} )
+kde4_add_ui_files(ktexteditor_LIB_SRCS editorchooser_ui.ui )
 
 kde4_add_library(ktexteditor SHARED ${ktexteditor_LIB_SRCS})
 
@@ -37,9 +33,7 @@ install_targets(${LIB_INSTALL_DIR} ktexteditor )
 
 ########### next target ###############
 
-set(ktexteditorkabcbridge_PART_SRCS
-ktexteditorkabcbridge.cpp
-)
+set(ktexteditorkabcbridge_PART_SRCS ktexteditorkabcbridge.cpp )
 
 kde4_automoc(${ktexteditorkabcbridge_PART_SRCS})
 

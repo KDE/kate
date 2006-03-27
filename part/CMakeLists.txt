@@ -2,7 +2,7 @@ kde4_header()
 
 project(kate)
 
-macro_use_lib_kio()
+include_directories( ${KDE4_KIO_INCLUDES} )
 
 add_subdirectory( part )
 add_subdirectory( data ) 

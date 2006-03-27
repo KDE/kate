@@ -1,6 +1,5 @@
 kde4_header()
 
-include_directories( ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  )
 
 
 ########### install files ###############

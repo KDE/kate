@@ -1,6 +1,6 @@
 kde4_header()
 
-include_directories( ${CMAKE_SOURCE_DIR}/kio ${CMAKE_SOURCE_DIR}/interfaces ${CMAKE_SOURCE_DIR}/kabc ${QT_INCLUDES} ${CMAKE_BINARY_DIR}/kabc )
+include_directories( ${CMAKE_SOURCE_DIR}/kio ${CMAKE_SOURCE_DIR}/interfaces ${CMAKE_SOURCE_DIR}/kabc ${CMAKE_BINARY_DIR}/kabc )
 
 
 ########### next target ###############

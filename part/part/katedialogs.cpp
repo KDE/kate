@@ -1484,7 +1484,7 @@ void KateHlConfigPage::hlDownload()
 
 void KateHlConfigPage::showMTDlg()
 {
-  QString text = i18n("Select the MimeTypes you want highlighted using the '%1' syntax highlight rules.\nPlease note that this will automatically edit the associated file extensions as well.").arg( hlCombo->currentText() );
+  QString text = i18n("Select the MimeTypes you want highlighted using the '%1' syntax highlight rules.\nPlease note that this will automatically edit the associated file extensions as well.",  hlCombo->currentText() );
   //QStringList list = QStringList::split( QRegExp("\\s*;\\s*"), mimetypes->text() );
   QStringList list = mimetypes->text().split( QRegExp("\\s*;\\s*") );
   KMimeTypeChooserDialog *d = new KMimeTypeChooserDialog( i18n("Select Mime Types"), text, list, "text", this );

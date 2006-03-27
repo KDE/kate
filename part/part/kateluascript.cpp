@@ -397,7 +397,7 @@ bool KateLUAIndentScriptImpl::setupInterpreter(QString &errorMsg)
     kDebug(13060)<<"Lua script has been loaded successfully. Lua interpreter version:"<<lua_version()<<endl;
     return true;
   } else {
-    errorMsg=i18n("Lua indenting script had errors: %1").arg(lua_tostring(m_interpreter,lua_gettop(m_interpreter)));
+    errorMsg=i18n("Lua indenting script had errors: %1", lua_tostring(m_interpreter,lua_gettop(m_interpreter)));
     kDebug(13060)<<errorMsg<<endl;
     deleteInterpreter();
 
@@ -420,7 +420,7 @@ bool KateLUAIndentScriptImpl::processChar(KateView *view, QChar c, QString &erro
     lua_pushstring(m_interpreter,QString(c).toUtf8().data());
     if (lua_pcall(m_interpreter,1,0,0)!=0)
     {
-      errorMsg=i18n("Lua indenting script had errors: %1").arg(lua_tostring(m_interpreter,lua_gettop(m_interpreter)));
+      errorMsg=i18n("Lua indenting script had errors: %1", lua_tostring(m_interpreter,lua_gettop(m_interpreter)));
       kDebug(13060)<<errorMsg<<endl;
       result=false;
     }
@@ -448,7 +448,7 @@ bool KateLUAIndentScriptImpl::processNewline( KateView *view, const KateDocCurso
   {
     if (lua_pcall(m_interpreter,0,0,0)!=0)
     {
-      errorMsg=i18n("Lua indenting script had errors: %1").arg(lua_tostring(m_interpreter,lua_gettop(m_interpreter)));
+      errorMsg=i18n("Lua indenting script had errors: %1", lua_tostring(m_interpreter,lua_gettop(m_interpreter)));
       kDebug(13060)<<errorMsg<<endl;
       result=false;
     }

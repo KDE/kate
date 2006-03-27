@@ -74,7 +74,7 @@ bool KatePrinter::print (KateDocument *doc)
   printer.addDialogPage( new KatePrintHeaderFooter(&printer, NULL) );
   printer.addDialogPage( new KatePrintLayout(&printer, NULL) );
 
-   if ( printer.setup( kapp->mainWidget(), i18n("Print %1").arg(printer.docName()) ) )
+   if ( printer.setup( kapp->mainWidget(), i18n("Print %1", printer.docName()) ) )
    {
      KateRenderer renderer(doc);
      //renderer.config()->setSchema (1);
@@ -320,7 +320,7 @@ bool KatePrinter::print (KateDocument *doc)
          guideHeight = ( innerMargin * 4 ) + 1;
 
          // get a title and add the height required to draw it
-         QString _title = i18n("Typographical Conventions for %1").arg(doc->highlight()->name());
+         QString _title = i18n("Typographical Conventions for %1", doc->highlight()->name());
          guideHeight += paint.boundingRect( 0, 0, _w, 1000, Qt::AlignTop|Qt::AlignHCenter, _title ).height();
 
          // see how many columns we can fit in
@@ -539,7 +539,7 @@ bool KatePrinter::print (KateDocument *doc)
              QRect _r;
              paint.drawText( _marg, y, pdmWidth-(2*_marg), maxHeight - y,
                 Qt::AlignTop|Qt::AlignHCenter,
-                i18n("Typographical Conventions for %1").arg(doc->highlight()->name()), -1, &_r );
+                i18n("Typographical Conventions for %1", doc->highlight()->name()), -1, &_r );
              int _w = pdmWidth - (_marg*2) - (innerMargin*2);
              int _x = _marg + innerMargin;
              y += _r.height() + innerMargin;

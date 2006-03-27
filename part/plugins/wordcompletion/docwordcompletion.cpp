@@ -583,7 +583,7 @@ DocWordCompletionConfigPage::DocWordCompletionConfigPage( DocWordCompletionPlugi
   KHBox *hb = new KHBox( this );
   hb->setSpacing( KDialog::spacingHint() );
   lo->addWidget( hb );
-  QLabel *l = new QLabel( i18n(
+  QLabel *l = new QLabel( i18nc(
       "Translators: This is the first part of two strings wich will comprise the "
       "sentence 'Show completions when a word is at least N characters'. The first "
       "part is on the right side of the N, which is represented by a spinbox "
@@ -593,7 +593,7 @@ DocWordCompletionConfigPage::DocWordCompletionConfigPage( DocWordCompletionPlugi
       "Show completions &when a word is at least"), hb );
   sbAutoPopup = new QSpinBox( 1, 30, 1, hb );
   l->setBuddy( sbAutoPopup );
-  lSbRight = new QLabel( i18n(
+  lSbRight = new QLabel( i18nc(
       "This is the second part of two strings that will comprise teh sentence "
       "'Show completions when a word is at least N characters'",
       "characters long."), hb );

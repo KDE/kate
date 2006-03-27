@@ -319,7 +319,7 @@ bool KateJScriptInterpreterContext::execute (KateView *view, const QString &scri
         lineno = int(lineVal->toNumber(exec));
     }
 
-    errorMsg = i18n("Exception, line %1: %2").arg(lineno).arg(msg);
+    errorMsg = i18n("Exception, line %1: %2", lineno, msg);
     return false;
   }
 
@@ -946,7 +946,7 @@ bool KateIndentJScriptImpl::setupInterpreter(QString &errorMsg)
           lineno = int(lineVal->toNumber(exec));
       }
 
-      errorMsg = i18n("Exception, line %1: %2").arg(lineno).arg(msg);
+      errorMsg = i18n("Exception, line %1: %2", lineno, msg);
       deleteInterpreter();
       return false;
     } else {

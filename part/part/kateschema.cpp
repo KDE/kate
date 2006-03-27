@@ -1119,7 +1119,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   hbHl = new KHBox( this );
   layout->addWidget (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
-  lHl = new QLabel( i18n("&Default schema for %1:").arg(KApplication::kApplication()->aboutData()->programName ()), hbHl );
+  lHl = new QLabel( i18n("&Default schema for %1:", KApplication::kApplication()->aboutData()->programName ()), hbHl );
   defaultSchemaCombo = new QComboBox( hbHl );
   defaultSchemaCombo->setEditable( false );
   lHl->setBuddy( defaultSchemaCombo );

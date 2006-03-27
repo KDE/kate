@@ -167,7 +167,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
         return true;
       }
     }
-    KCC_ERR( i18n("No such highlight '%1'").arg( args.first() ) );
+    KCC_ERR( i18n("No such highlight '%1'",  args.first() ) );
   }
 
   // ALL commands that takes exactly one integer argument.
@@ -178,12 +178,12 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   {
     // find a integer value > 0
     if ( ! args.count() )
-      KCC_ERR( i18n("Missing argument. Usage: %1 <value>").arg( cmd ) );
+      KCC_ERR( i18n("Missing argument. Usage: %1 <value>",  cmd ) );
     bool ok;
     int val ( args.first().toInt( &ok ) );
     if ( !ok )
-      KCC_ERR( i18n("Failed to convert argument '%1' to integer.")
-                .arg( args.first() ) );
+      KCC_ERR( i18n("Failed to convert argument '%1' to integer.",
+                  args.first() ) );
 
     if ( cmd == "set-tab-width" )
     {
@@ -229,7 +229,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
             cmd == "set-show-indent" )
   {
     if ( ! args.count() )
-      KCC_ERR( i18n("Usage: %1 on|off|1|0|true|false").arg( cmd ) );
+      KCC_ERR( i18n("Usage: %1 on|off|1|0|true|false",  cmd ) );
     bool enable = false;
     if ( getBoolArg( args.first(), &enable ) )
     {
@@ -269,12 +269,12 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
       return true;
     }
     else
-      KCC_ERR( i18n("Bad argument '%1'. Usage: %2 on|off|1|0|true|false")
-               .arg( args.first() ).arg( cmd ) );
+      KCC_ERR( i18n("Bad argument '%1'. Usage: %2 on|off|1|0|true|false",
+                 args.first() ,  cmd ) );
   }
 
   // unlikely..
-  KCC_ERR( i18n("Unknown command '%1'").arg(cmd) );
+  KCC_ERR( i18n("Unknown command '%1'", cmd) );
 }
 
 KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *view, const QString &cmd )
@@ -530,7 +530,7 @@ bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd
     res += sedMagic(doc, line, find, replace, d, !noCase, repeat);
   }
 
-  msg = i18n("1 replacement done", "%n replacements done",res );
+  msg = i18np("1 replacement done", "%n replacements done",res );
 
   doc->editEnd();
 

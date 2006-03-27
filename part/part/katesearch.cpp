@@ -313,8 +313,8 @@ void KateSearch::findAgain()
   } else {
     if ( s.showNotFound )
       KMessageBox::sorry( view(),
-        i18n("Search string '%1' not found!")
-             .arg( KStringHandler::csqueeze(  s_pattern ) ),
+        i18n("Search string '%1' not found!",
+               KStringHandler::csqueeze(  s_pattern ) ),
         i18n("Find"));
   }
 }
@@ -335,7 +335,7 @@ void KateSearch::replaceAll()
     }
   } else {
     KMessageBox::information( view(),
-        i18n("%n replacement made.","%n replacements made.",replaces),
+        i18np("%n replacement made.","%n replacements made.",replaces),
         i18n("Replace") );
   }
 }
@@ -352,7 +352,7 @@ void KateSearch::promptReplace()
   } else {
     replacePrompt->hide();
     KMessageBox::information( view(),
-        i18n("%n replacement made.","%n replacements made.",replaces),
+        i18np("%n replacement made.","%n replacements made.",replaces),
         i18n("Replace") );
   }
 }
@@ -455,7 +455,7 @@ void KateSearch::replaceSlot() {
 bool KateSearch::askContinue()
 {
   QString made =
-     i18n( "%n replacement made.",
+     i18np( "%n replacement made.",
            "%n replacements made.",
            replaces );
 

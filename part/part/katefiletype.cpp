@@ -480,7 +480,7 @@ void KateFileTypeConfigTab::typeChanged (int type)
   {
     const KateFileType& t = m_types.at(type);
 
-    gbProps->setTitle (i18n("Properties of %1").arg (typeCombo->currentText()));
+    gbProps->setTitle (i18n("Properties of %1",  typeCombo->currentText()));
 
     gbProps->setEnabled (true);
     btndel->setEnabled (true);

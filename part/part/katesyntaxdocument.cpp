@@ -73,15 +73,15 @@ bool KateSyntaxDocument::setIdentifier(const QString& identifier)
 
       if (!success)
       {
-        KMessageBox::error(0L,i18n("<qt>The error <b>%4</b><br> has been detected in the file %1 at %2/%3</qt>").arg(identifier)
-            .arg(line).arg(col).arg(i18n("QXml",errorMsg.toUtf8())));
+        KMessageBox::error(0L,i18n("<qt>The error <b>%4</b><br> has been detected in the file %1 at %2/%3</qt>", identifier,
+             line, col, i18nc("QXml",errorMsg.toUtf8())));
         return false;
       }
     }
     else
     {
       // Oh o, we couldn't open the file.
-      KMessageBox::error( 0L, i18n("Unable to open %1").arg(identifier) );
+      KMessageBox::error( 0L, i18n("Unable to open %1", identifier) );
       return false;
     }
   }
@@ -368,8 +368,8 @@ void KateSyntaxDocument::setupModeList (bool force)
       // Let's make a new KateSyntaxModeListItem to instert in myModeList from the information in katesyntax..rc
       KateSyntaxModeListItem *mli=new KateSyntaxModeListItem;
       mli->name       = config.readEntry("name");
-      mli->nameTranslated = i18n("Language",mli->name.toUtf8());
-      mli->section    = i18n("Language Section",config.readEntry("section").toUtf8());
+      mli->nameTranslated = i18nc("Language",mli->name.toUtf8());
+      mli->section    = i18nc("Language Section",config.readEntry("section").toUtf8());
       mli->mimetype   = config.readEntry("mimetype");
       mli->extension  = config.readEntry("extension");
       mli->version    = config.readEntry("version");
@@ -442,8 +442,8 @@ void KateSyntaxDocument::setupModeList (bool force)
               config.writeEntry("lastModified", int(sbuf.st_mtime));
 
               // Now that the data is in the config file, translate section
-              mli->section    = i18n("Language Section",mli->section.toUtf8());
-              mli->nameTranslated = i18n("Language",mli->name.toUtf8());
+              mli->section    = i18nc("Language Section",mli->section.toUtf8());
+              mli->nameTranslated = i18nc("Language",mli->name.toUtf8());
 
               // Append the new item to the list.
               myModeList.append(mli);
@@ -459,7 +459,7 @@ void KateSyntaxDocument::setupModeList (bool force)
           emli->extension="invalid_file.invalid_file";
           emli->version="1.";
           emli->name=QString ("Error: %1").arg(*it); // internal
-          emli->nameTranslated=i18n("Error: %1").arg(*it); // translated
+          emli->nameTranslated=i18n("Error: %1", *it); // translated
           emli->identifier=(*it);
 
           myModeList.append(emli);

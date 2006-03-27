@@ -303,10 +303,10 @@ QString KateCmdLine::helptext( const QPoint & ) const
             if ( cmd->help( (KTextEditor::View*)parentWidget(), name, s ) )
               return beg + name + mid + s + end;
             else
-              return beg + name + mid + i18n("No help for '%1'").arg( name ) + end;
+              return beg + name + mid + i18n("No help for '%1'",  name ) + end;
           }
           else
-            return beg + mid + i18n("No such command <b>%1</b>").arg(name) + end;
+            return beg + mid + i18n("No such command <b>%1</b>", name) + end;
         }
       }
 
@@ -377,13 +377,13 @@ void KateCmdLine::slotReturnPressed ( const QString& text )
         if (msg.length() > 0)
           setText (i18n ("Error: ") + msg);
         else
-          setText (i18n ("Command \"%1\" failed.").arg (cmd));
+          setText (i18n ("Command \"%1\" failed.",  cmd));
         KNotifyClient::beep();
       }
     }
     else
     {
-      setText (i18n ("No such command: \"%1\"").arg (cmd));
+      setText (i18n ("No such command: \"%1\"",  cmd));
       KNotifyClient::beep();
     }
   }
@@ -1152,8 +1152,8 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
       mA=markMenu.addAction( m_doc->markDescription( markType ));
       dMA=selectDefaultMark.addAction( m_doc->markDescription( markType ));
     } else {
-      mA=markMenu.addAction( i18n("Mark Type %1").arg( bit + 1 ));
-      dMA=selectDefaultMark.addAction( i18n("Mark Type %1").arg( bit + 1 ));
+      mA=markMenu.addAction( i18n("Mark Type %1",  bit + 1 ));
+      dMA=selectDefaultMark.addAction( i18n("Mark Type %1",  bit + 1 ));
     }
     mA->setData(i);
     mA->setCheckable(true);

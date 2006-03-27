@@ -1944,8 +1944,8 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
     if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
     {
       errorsAndWarnings+=i18n(
-          "<B>%1</B>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<BR>").
-      arg(buildIdentifier).arg(tmpAttr);
+          "<B>%1</B>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<BR>", 
+      buildIdentifier, tmpAttr);
       attr=tmpAttr.toInt();
     }
     else
@@ -2345,7 +2345,7 @@ void  KateHighlighting::createContextNameList(QStringList *ContextNameList,int c
     if (tmpAttr.isEmpty())
     {
      tmpAttr=QString("!KATE_INTERNAL_DUMMY! %1").arg(id);
-     errorsAndWarnings +=i18n("<B>%1</B>: Deprecated syntax. Context %2 has no symbolic name<BR>").arg(buildIdentifier).arg(id-ctx0);
+     errorsAndWarnings +=i18n("<B>%1</B>: Deprecated syntax. Context %2 has no symbolic name<BR>", buildIdentifier, id-ctx0);
     }
           else tmpAttr=buildPrefix+tmpAttr;
     (*ContextNameList)<<tmpAttr;
@@ -2390,7 +2390,7 @@ int KateHighlighting::getIdFromString(QStringList *ContextNameList, QString tmpL
       context=tmpLineEndContext.toInt();
       errorsAndWarnings+=i18n(
         "<B>%1</B>:Deprecated syntax. Context %2 not addressed by a symbolic name"
-        ).arg(buildIdentifier).arg(tmpLineEndContext);
+        , buildIdentifier, tmpLineEndContext);
     }
 //#warning restructure this the name list storage.
 //    context=context+buildContext0Offset;
@@ -2847,7 +2847,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
     if (-1==commentregionid) {
       errorsAndWarnings+=i18n(
           "<B>%1</B>: Specified multiline comment region (%2) could not be resolved<BR>"
-                             ).arg(buildIdentifier).arg( m_additionalData[ ident ]->multiLineRegion );
+                             , buildIdentifier,  m_additionalData[ ident ]->multiLineRegion );
       m_additionalData[ ident ]->multiLineRegion.clear();
       kDebug(13010)<<"ERROR comment region attribute could not be resolved"<<endl;
 

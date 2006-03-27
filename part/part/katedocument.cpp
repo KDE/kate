@@ -2308,9 +2308,9 @@ bool KateDocument::openFile(KIO::Job * job)
   if (s_openErrorDialogsActivated)
   {
     if (!success && m_buffer->loadingBorked())
-      KMessageBox::error (widget(), i18n ("The file %1 could not be loaded completely, as there is not enough temporary disk storage for it.").arg(m_url.url()));
+      KMessageBox::error (widget(), i18n ("The file %1 could not be loaded completely, as there is not enough temporary disk storage for it.", m_url.url()));
     else if (!success)
-      KMessageBox::error (widget(), i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.").arg(m_url.url()));
+      KMessageBox::error (widget(), i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.", m_url.url()));
   }
 
   // warn -> opened binary file!!!!!!!
@@ -2320,7 +2320,7 @@ bool KateDocument::openFile(KIO::Job * job)
     setReadWrite( false );
 
     KMessageBox::information (widget()
-      , i18n ("The file %1 is a binary, saving it will result in a corrupt file.").arg(m_url.url())
+      , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", m_url.url())
       , i18n ("Binary File Opened")
       , "Binary File Opened Warning");
   }
@@ -2384,7 +2384,7 @@ bool KateDocument::saveFile()
   // warn -> try to save binary file!!!!!!!
   //
   if (m_buffer->binary() && (KMessageBox::warningContinueCancel (widget()
-        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.").arg(m_url.url())
+        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", m_url.url())
         , i18n ("Trying to Save Binary File")
         , i18n("Save Nevertheless"), "Binary File Save Warning") != KMessageBox::Continue))
     return false;
@@ -2466,7 +2466,7 @@ bool KateDocument::saveFile()
   // display errors
   //
   if (!success)
-    KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.").arg(m_url.url()));
+    KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", m_url.url()));
 
   //
   // return success
@@ -4716,13 +4716,13 @@ QString KateDocument::reasonedMOHString() const
   switch( m_modOnHdReason )
   {
     case OnDiskModified:
-      return i18n("The file '%1' was modified by another program.").arg( url().prettyURL() );
+      return i18n("The file '%1' was modified by another program.",  url().prettyURL() );
       break;
     case OnDiskCreated:
-      return i18n("The file '%1' was created by another program.").arg( url().prettyURL() );
+      return i18n("The file '%1' was created by another program.",  url().prettyURL() );
       break;
     case OnDiskDeleted:
-      return i18n("The file '%1' was deleted by another program.").arg( url().prettyURL() );
+      return i18n("The file '%1' was deleted by another program.",  url().prettyURL() );
       break;
     default:
       return QString();
@@ -4819,7 +4819,7 @@ bool KateDocument::checkOverwrite( KUrl u )
 
   return KMessageBox::Cancel != KMessageBox::warningContinueCancel( 0,
     i18n( "A file named \"%1\" already exists. "
-          "Are you sure you want to overwrite it?" ).arg( info.fileName() ),
+          "Are you sure you want to overwrite it?" ,  info.fileName() ),
     i18n( "Overwrite File?" ),
     i18n( "&Overwrite" ) );
 }

@@ -51,7 +51,7 @@ void KateIndentScriptImplAbstract::decRef()
 QString KateIndentScriptImplAbstract::internalName() { return m_internalName;}
 QString KateIndentScriptImplAbstract::filePath() { return m_filePath;}
 QString KateIndentScriptImplAbstract::niceName() { return m_niceName;}
-QString KateIndentScriptImplAbstract::license()  { if (!m_hasCopyright) return i18n("tainted, no copyright notice. license(%1)").arg(m_license); else return m_license;}
+QString KateIndentScriptImplAbstract::license()  { if (!m_hasCopyright) return i18n("tainted, no copyright notice. license(%1)", m_license); else return m_license;}
 QString KateIndentScriptImplAbstract::copyright() { if (!m_hasCopyright) return i18n("Script has no copyright notice"); else return m_manager->copyright(this);}
 double KateIndentScriptImplAbstract::version() { return m_version;}
 

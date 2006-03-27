@@ -69,7 +69,7 @@ EditorChooser::EditorChooser(QWidget *parent)
 	{
     		if ((*it)->desktopEntryName().contains(editor))
 		{
-			d->chooser->editorCombo->addItem(i18n("System Default (currently: %1)").arg((*it)->name()));
+			d->chooser->editorCombo->addItem(i18n("System Default (currently: %1)", (*it)->name()));
 			break;
 		}
   	}

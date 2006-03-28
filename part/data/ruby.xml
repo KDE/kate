@@ -34,7 +34,7 @@
 -->
 
 <!-- Hold the "language" opening tag on a single line, as mentioned in "language.dtd". -->
-<language name="Ruby" version="1.17" kateversion="2.4" section="Scripts" extensions="*.rb" mimetype="application/x-ruby" author="Stefan Lang (langstefan@gmx.at), Sebastian Vuorinen (sebastian.vuorinen@helsinki.fi)" license="LGPL">
+<language name="Ruby" version="1.17" kateversion="2.4" section="Scripts" extensions="*.rb;*.rjs;*.rxml" mimetype="application/x-ruby" author="Stefan Lang (langstefan@gmx.at), Sebastian Vuorinen (sebastian.vuorinen@helsinki.fi)" license="LGPL">
 	
 	<highlighting>
 	

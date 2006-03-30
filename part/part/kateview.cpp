@@ -20,8 +20,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#define DEBUGACCELS
-
 //BEGIN includes
 #include "kateview.h"
 #include "kateview.moc"
@@ -66,11 +64,11 @@
 #include <kaction.h>
 #include <kstdaction.h>
 #include <kxmlguifactory.h>
-#include <kaccel.h>
 #include <klibloader.h>
 #include <kencodingfiledialog.h>
 #include <ktempfile.h>
 #include <ksavefile.h>
+#include <kstdaccel.h>
 
 #include <qfont.h>
 #include <qfileinfo.h>
@@ -653,13 +651,6 @@ void KateView::setupCodeFolding()
        this,SLOT(slotCollapseLocal()),ac,"folding_collapselocal");
   new KAction( i18n("Expand One Local Level"), Qt::CTRL+Qt::Key_Plus,
        this,SLOT(slotExpandLocal()),ac,"folding_expandlocal");
-
-#ifdef DEBUGACCELS
-  KAccel* debugAccels = new KAccel(this,this);
-  debugAccels->insert("KATE_DUMP_REGION_TREE",i18n("Show the code folding region tree"),"","Ctrl+Shift+Alt+D",m_doc,SLOT(dumpRegionTree()));
-  debugAccels->insert("KATE_TEMPLATE_TEST",i18n("Basic template code test"),"","Ctrl+Shift+Alt+T",m_doc,SLOT(testTemplateCode()));
-  debugAccels->setEnabled(true);
-#endif
 }
 
 void KateView::slotExpandToplevel()

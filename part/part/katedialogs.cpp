@@ -40,7 +40,6 @@
 #include <kio/jobclasses.h>
 #include <kio/netaccess.h>
 
-#include <kaccel.h>
 #include <kapplication.h>
 #include <kbuttonbox.h>
 #include <kcharsets.h>

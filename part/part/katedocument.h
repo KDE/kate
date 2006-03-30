@@ -925,7 +925,7 @@ class KateDocument : public KTextEditor::Document,
   public:
       bool setTabInterceptor(KateKeyInterceptorFunctor *interceptor); /* perhaps make it moregeneral like an eventfilter*/
       bool removeTabInterceptor(KateKeyInterceptorFunctor *interceptor);
-      bool invokeTabInterceptor(KKey);
+      bool invokeTabInterceptor(int key);
       bool insertTemplateTextImplementation ( const KTextEditor::Cursor &c, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *); //PORT ME
 
   protected:

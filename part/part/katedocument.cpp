@@ -4836,7 +4836,7 @@ void KateDocument::testTemplateCode() {
 }
 #endif
 
-bool KateDocument::invokeTabInterceptor(KKey key) {
+bool KateDocument::invokeTabInterceptor(int key) {
   if (m_tabInterceptor) return (*m_tabInterceptor)(key);
   return false;
 }

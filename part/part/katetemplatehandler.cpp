@@ -268,7 +268,7 @@ void KateTemplateHandler::locateRange( const KTextEditor::Cursor& cursor )
 }
 
 
-bool KateTemplateHandler::operator() ( KKey key )
+bool KateTemplateHandler::operator() ( int key )
 {
   if ( key==Qt::Key_Tab )
   {

@@ -2015,13 +2015,13 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
 void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
-  KKey key(e);
+  int key = e->key() | e->modifiers();
 
   bool codeComp = m_view->m_codeCompletion->codeCompletionVisible ();
 
   if (m_view->isCompletionActive())
   {
-    if( e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return  ||
+    if( key == Qt::Key_Enter || key == Qt::Key_Return  ||
     (key == Qt::SHIFT + Qt::Key_Return) || (key == Qt::SHIFT + Qt::Key_Enter)) {
       m_view->completionWidget()->execute();
       e->accept();
@@ -2033,7 +2033,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   {
     kDebug (13030) << "hint around" << endl;
 
-    if( e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return  ||
+    if( key == Qt::Key_Enter || key == Qt::Key_Return  ||
     (key == Qt::SHIFT + Qt::Key_Return) || (key == Qt::SHIFT + Qt::Key_Enter)) {
       m_view->m_codeCompletion->doComplete();
       e->accept();
@@ -2146,9 +2146,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 
 void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
 {
-  KKey key(e);
-
-  if (key == Qt::SHIFT)
+  if (e->key() == Qt::SHIFT)
     m_shiftKeyPressed = true;
   else
   {

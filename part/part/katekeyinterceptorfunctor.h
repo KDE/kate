@@ -21,6 +21,6 @@
 class KateKeyInterceptorFunctor {
   public:
   virtual ~KateKeyInterceptorFunctor(){}
-  virtual bool operator()(KKey key)=0;
+  virtual bool operator()(int key)=0;
 };
 #endif

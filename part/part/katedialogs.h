@@ -51,7 +51,6 @@ namespace KIO
   class TransferJob;
 }
 
-class KAccel;
 class KColorButton;
 class KComboBox;
 class KIntNumInput;

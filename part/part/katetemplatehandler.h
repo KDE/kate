@@ -34,7 +34,7 @@ class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 		KateTemplateHandler(KateDocument *doc,const KTextEditor::Cursor& position, const QString &templateString, const QMap<QString,QString> &initialValues);
 		virtual ~KateTemplateHandler();
 		inline bool initOk() {return m_initOk;}
-		virtual bool operator()(KKey key);
+		virtual bool operator()(int key);
 	private:
 		struct KateTemplatePlaceHolder {
       KateTemplatePlaceHolder(KateDocument* doc) {}

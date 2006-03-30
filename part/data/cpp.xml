@@ -83,6 +83,28 @@
       <item> Q_SIGNALS </item>
       <item> Q_SLOTS </item>
       <item> Q_FOREACH </item>
+      <item> Q_DECLARE_FLAGS </item>
+      <item> Q_INIT_RESOURCE </item>
+      <item> Q_CLEANUP_RESOURCE </item>
+      <item> Q_GLOBAL_STATIC </item>
+      <item> Q_GLOBAL_STATIC_WITH_ARGS </item>
+      <item> Q_DECLARE_TYPEINFO </item>
+      <item> Q_DECLARE_SHARED </item>
+      <item> Q_DECLARE_FLAGS </item>
+      <item> Q_DECLARE_OPERATORS_FOR_FLAGS </item>
+      <item> Q_FOREVER </item>
+      <item> Q_DECLARE_PRIVATE </item>
+      <item> Q_DECLARE_PUBLIC </item>
+      <item> Q_D </item>
+      <item> Q_Q </item>
+      <item> Q_DISABLE_COPY </item>
+      <item> Q_INTERFACES </item>
+      <item> Q_FLAGS </item>
+      <item> Q_SCRIPTABLE </item>
+      <item> Q_INVOKABLE </item>
+      <item> Q_GADGET </item>
+      <item> Q_ARG </item>
+      <item> Q_RETURN_ARG </item>
       <item> TRUE </item>
       <item> FALSE </item>
       <item> connect </item>
@@ -91,6 +113,7 @@
       <item> signals </item>
       <item> slots </item>
       <item> foreach </item>
+      <item> forever </item>
     </list>
     <list name="types">
       <item> auto </item>

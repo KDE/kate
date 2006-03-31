@@ -51,8 +51,6 @@ install_files( /include/ktexteditor FILES factory.h editor.h document.h view.h p
 install_files( ${SERVICETYPES_INSTALL_DIR} FILES ktexteditor.desktop ktexteditorplugin.desktop )
 install_files( ${DATA_INSTALL_DIR}/kcm_componentchooser FILES kcm_ktexteditor.desktop )
 
-kde4_create_doxygen_docs( REFERENCES kdecore kdeui kparts  )
-
 kde4_footer()
 
 

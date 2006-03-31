@@ -170,7 +170,6 @@ class KateJSDocument : public KJS::JSObject
           EditEnd,
           IndentWidth,
           IndentMode,
-          MixedIndent,
           HighlightMode,
           IsInWord,
           CanBreakAt,
@@ -359,13 +358,12 @@ bool KateJScriptInterpreterContext::execute (KateView *view, const QString &scri
   attribute      KateJSDocument::Attribute        DontDelete|Function 2
 @end
 
-@begin KateJSDocumentTable 4
+@begin KateJSDocumentTable 3
 #
 # Configuration properties
 #
   indentWidth     KateJSDocument::IndentWidth   DontDelete|ReadOnly
   indentMode      KateJSDocument::IndentMode    DontDelete|ReadOnly
-  mixedIndent     KateJSDocument::MixedIndent   DontDelete|ReadOnly
   highlightMode   KateJSDocument::HighlightMode DontDelete|ReadOnly
 @end
 */
@@ -472,9 +470,6 @@ KJS::JSValue* KateJSDocument::getValueProperty(KJS::ExecState *exec, int token) 
 
     case KateJSDocument::IndentMode:
       return KJS::String( KateAutoIndent::modeName( doc->config()->indentationMode() ) );
-
-    case KateJSDocument::MixedIndent:
-      return KJS::Boolean( doc->config()->configFlags() & KateDocumentConfig::cfMixedIndent );
 
     case KateJSDocument::HighlightMode:
       return KJS::String( doc->hlModeName( doc->hlMode() ) );

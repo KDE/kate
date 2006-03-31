@@ -196,7 +196,6 @@ void KateNormalIndent::updateConfig ()
   KateDocumentConfig *config = doc->config();
 
   useSpaces   = config->configFlags() & KateDocumentConfig::cfReplaceTabsDyn;
-  mixedIndent = useSpaces && config->configFlags() & KateDocumentConfig::cfMixedIndent;
   keepProfile = config->configFlags() & KateDocumentConfig::cfKeepIndentProfile;
   tabWidth    = config->tabWidth();
   indentWidth = config->indentationWidth();
@@ -346,9 +345,6 @@ bool KateNormalIndent::skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool 
 
 uint KateNormalIndent::measureIndent (KateDocCursor &cur) const
 {
-  if (useSpaces && !mixedIndent)
-    return cur.column();
-
   return doc->plainKateTextLine(cur.line())->positionWithTabs(cur.column(), tabWidth);
 }
 
@@ -357,7 +353,7 @@ QString KateNormalIndent::tabString(uint pos) const
   QString s;
   pos = qMin (pos, (uint)80); // sanity check for large values of pos
 
-  if (!useSpaces || mixedIndent)
+  if (!useSpaces)
   {
     while (pos >= tabWidth)
     {

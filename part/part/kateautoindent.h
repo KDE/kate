@@ -328,7 +328,6 @@ protected:
   uchar extensionAttrib;
 
   bool  useSpaces;    //!< Should we use spaces or tabs to indent
-  bool  mixedIndent;  //!< Optimize indent by mixing spaces and tabs, ala emacs
   bool  keepProfile;  //!< Always try to honor the leading whitespace of lines already in the file
 };
 

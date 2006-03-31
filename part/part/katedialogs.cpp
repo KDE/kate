@@ -130,7 +130,6 @@ const int KateIndentConfigTab::flags[] = {
     KateDocumentConfig::cfTabIndents,
     KateDocumentConfig::cfBackspaceIndents,
     KateDocumentConfig::cfDoxygenAutoTyping,
-    KateDocumentConfig::cfMixedIndent
 };
 
 KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
@@ -161,8 +160,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
 
   QGroupBox *gbSpaces = new QGroupBox(i18n("Indentation with Spaces"), this);
   vb = new QVBoxLayout (gbSpaces);
-  opt[5] = new QCheckBox(i18n("Emacs style mixed mode"), gbSpaces);
-  vb->addWidget (opt[5]);
 
   indentationWidth = new KIntNumInput(KateDocumentConfig::global()->indentationWidth(),gbSpaces);
   indentationWidth->setRange(1, 16, 1, false);
@@ -191,7 +188,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   opt[2]->setChecked(configFlags & flags[2]);
   opt[3]->setChecked(configFlags & flags[3]);
   opt[4]->setChecked(configFlags & flags[4]);
-  opt[5]->setChecked(configFlags & flags[5]);
 
   layout->addWidget(gbAuto);
   layout->addWidget(gbSpaces);
@@ -215,8 +211,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   opt[4]->setWhatsThis( i18n(
         "Automatically inserts a leading \"*\" while typing within a Doxygen "
         "style comment."));
-  opt[5]->setWhatsThis( i18n(
-      "Use a mix of tab and space characters for indentation.") );
   indentationWidth->setWhatsThis( i18n("The number of spaces to indent with."));
 
   m_configPage->setWhatsThis( i18n(
@@ -242,7 +236,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   connect( opt[2], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[3], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[4], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect( opt[5], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   connect(indentationWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 

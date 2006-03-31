@@ -4462,8 +4462,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           m_config->setConfigFlags( KateDocumentConfig::cfRemoveSpaces, state );
         else if ( var == "auto-insert-doxygen" && checkBoolValue( val, &state) )
           m_config->setConfigFlags( KateDocumentConfig::cfDoxygenAutoTyping, state);
-        else if ( var == "mixed-indent" && checkBoolValue( val, &state ) )
-          m_config->setConfigFlags( KateDocumentConfig::cfMixedIndent, state );
 
         // INTEGER SETTINGS
         else if ( var == "tab-width" && checkIntValue( val, &n ) )

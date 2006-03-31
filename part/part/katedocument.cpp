@@ -605,6 +605,11 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
   static const QChar tabChar('\t');
   static const QChar spaceChar(' ');
 
+  int insertColumnExpanded = insertColumn;
+  KateTextLine::Ptr l = m_buffer->line( currentLine );
+  if (l)
+    insertColumnExpanded = l->positionWithTabs( insertColumn, tabWidth );
+
   int pos = 0;
   for (; pos < totalLength; pos++)
   {
@@ -612,42 +617,46 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
 
     if (ch == newLineChar)
     {
+      // Only perform the text insert if there is text to insert
+      if (currentLineStart < pos)
+        editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart));
+
       if ( !block )
       {
-        // Only perform the text insert if there is text to insert
-        if (pos > currentLineStart)
-          editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart));
-
         editWrapLine(currentLine, insertColumn + pos - currentLineStart);
-
         insertColumn = 0;
       }
       else
       {
-        editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart));
-
         if ( currentLine == lastLine() )
           editWrapLine(currentLine , insertColumn + pos - currentLineStart);
+        insertColumn = position.column(); // tab expansion might change this
       }
 
       currentLine++;
       currentLineStart = pos + 1;
+      l = m_buffer->line( currentLine );
+      if (l)
+        insertColumnExpanded = l->positionWithTabs( insertColumn, tabWidth );
     }
     else
     {
       if ( replacetabs && ch == tabChar )
       {
-        int spacesRequired = tabWidth - ( ((block ? position.column() : insertColumn) + pos - currentLineStart) % tabWidth );
+        int spacesRequired = tabWidth - ( (insertColumnExpanded + pos - currentLineStart) % tabWidth );
         editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart) + QString(spacesRequired, spaceChar));
 
         insertColumn += pos - currentLineStart + spacesRequired;
         currentLineStart = pos + 1;
+        l = m_buffer->line( currentLine );
+        if (l)
+          insertColumnExpanded = l->positionWithTabs( insertColumn, tabWidth );
       }
     }
   }
 
   // Only perform the text insert if there is text to insert
-  if (currentLineStart < pos - currentLineStart)
+  if (currentLineStart < pos)
     editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart));
 
   editEnd();
@@ -682,6 +691,11 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
   static const QChar tabChar('\t');
   static const QChar spaceChar(' ');
 
+  int insertColumnExpanded = insertColumn;
+  KateTextLine::Ptr l = m_buffer->line( currentLine );
+  if (l)
+    insertColumnExpanded = l->positionWithTabs( insertColumn, tabWidth );
+
   foreach (QString text, textLines)
   {
     int pos = 0;
@@ -691,36 +705,40 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
 
       if (ch == newLineChar)
       {
+        // Only perform the text insert if there is text to insert
+        if (currentLineStart < pos)
+          editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart));
+
         if ( !block )
         {
-          // Only perform the text insert if there is text to insert
-          if (currentLineStart < pos - currentLineStart)
-            editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart));
-
           editWrapLine(currentLine, pos + insertColumn);
-
           insertColumn = 0;
         }
         else
         {
-          editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart));
-
           if ( currentLine == lastLine() )
             editWrapLine(currentLine , insertColumn + pos - currentLineStart);
+          insertColumn = position.column(); // tab expansion might change this
         }
 
         currentLine++;
         currentLineStart = pos + 1;
+        l = m_buffer->line( currentLine );
+        if (l)
+          insertColumnExpanded = l->positionWithTabs( insertColumn, tabWidth );
       }
       else
       {
         if ( replacetabs && ch == tabChar )
         {
-          int spacesRequired = tabWidth - ( (insertColumn + pos - currentLineStart) % tabWidth ); //###
+          int spacesRequired = tabWidth - ( (insertColumnExpanded + pos - currentLineStart) % tabWidth );
           editInsertText(currentLine, insertColumn, text.mid(currentLineStart, pos - currentLineStart) + QString(spacesRequired, spaceChar));
 
-          currentLineStart = pos - currentLineStart + spacesRequired;
-          insertColumn = pos - currentLineStart;
+          insertColumn += pos - currentLineStart + spacesRequired;
+          l = m_buffer->line( currentLine );
+          if (l)
+            insertColumnExpanded = l->positionWithTabs( insertColumn, tabWidth );
+          currentLineStart = pos + 1;
         }
       }
     }

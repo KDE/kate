@@ -127,7 +127,6 @@ void KateConfigPage::somethingHasChanged ()
 const int KateIndentConfigTab::flags[] = {
     KateDocumentConfig::cfKeepIndentProfile,
     KateDocumentConfig::cfKeepExtraSpaces,
-    KateDocumentConfig::cfTabIndents,
     KateDocumentConfig::cfBackspaceIndents,
     KateDocumentConfig::cfDoxygenAutoTyping,
 };
@@ -155,8 +154,8 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   m_configPage = new QPushButton(SmallIconSet("configure"), i18n("Configure..."), gbAuto);
   indentLayout->addWidget(m_configPage);
 
-  opt[4] = new QCheckBox(i18n("Insert leading Doxygen \"*\" when typing"), gbAuto);
-  vb->addWidget (opt[4]);
+  opt[3] = new QCheckBox(i18n("Insert leading Doxygen \"*\" when typing"), gbAuto);
+  vb->addWidget (opt[3]);
 
   QGroupBox *gbSpaces = new QGroupBox(i18n("Indentation with Spaces"), this);
   vb = new QVBoxLayout (gbSpaces);
@@ -171,10 +170,8 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
 
   QGroupBox *keys = new QGroupBox(i18n("Keys to Use"), this);
   vb = new QVBoxLayout (keys);
-  opt[2] = new QCheckBox(i18n("&Tab key indents"), keys);
+  opt[2] = new QCheckBox(i18n("&Backspace key indents"), keys);
   vb->addWidget (opt[2]);
-  opt[3] = new QCheckBox(i18n("&Backspace key indents"), keys);
-  vb->addWidget (opt[3]);
 
   m_tabs = new QGroupBox(i18n("Tab Key Mode"), this );
   QVBoxLayout *tablayout=new QVBoxLayout(m_tabs);
@@ -187,7 +184,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   opt[1]->setChecked(configFlags & flags[1]);
   opt[2]->setChecked(configFlags & flags[2]);
   opt[3]->setChecked(configFlags & flags[3]);
-  opt[4]->setChecked(configFlags & flags[4]);
 
   layout->addWidget(gbAuto);
   layout->addWidget(gbSpaces);
@@ -203,12 +199,9 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
         "Indentations of more than the selected number of spaces will not be "
         "shortened."));
   opt[2]->setWhatsThis( i18n(
-        "This allows the <b>Tab</b> key to be used to increase the indentation "
-        "level."));
-  opt[3]->setWhatsThis( i18n(
         "This allows the <b>Backspace</b> key to be used to decrease the "
         "indentation level."));
-  opt[4]->setWhatsThis( i18n(
+  opt[3]->setWhatsThis( i18n(
         "Automatically inserts a leading \"*\" while typing within a Doxygen "
         "style comment."));
   indentationWidth->setWhatsThis( i18n("The number of spaces to indent with."));
@@ -259,7 +252,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   connect( opt[1], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[2], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[3], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect( opt[4], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   connect(indentationWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
@@ -273,9 +265,9 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
 void KateIndentConfigTab::indenterSelected (int index)
 {
   if (index == KateDocumentConfig::imCStyle || index == KateDocumentConfig::imCSAndS)
-    opt[4]->setEnabled(true);
+    opt[3]->setEnabled(true);
   else
-    opt[4]->setEnabled(false);
+    opt[3]->setEnabled(false);
 
   m_configPage->setEnabled( KateAutoIndent::hasConfigPage(index) );
 }

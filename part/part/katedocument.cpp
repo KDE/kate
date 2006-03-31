@@ -1165,18 +1165,6 @@ bool KateDocument::editInsertText ( int line, int col, const QString &str )
   if (!l)
     return false;
 
-    if ( config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn )
-    {
-      uint tw = config()->tabWidth();
-      int pos = 0;
-      uint l = 0;
-      while ( (pos = s.indexOf('\t')) > -1 )
-      {
-        l = tw - ( (col + pos)%tw );
-        s.replace( pos, 1, QString().fill( ' ', l ) );
-      }
-    }
-
   editStart ();
 
   editAddUndo (KateUndoGroup::editInsertText, line, col, s.length(), s);

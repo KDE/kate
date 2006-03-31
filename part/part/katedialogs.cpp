@@ -176,12 +176,12 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   opt[3] = new QCheckBox(i18n("&Backspace key indents"), keys);
   vb->addWidget (opt[3]);
 
-  m_tabs = new QGroupBox(i18n("Tab Key Mode if Nothing Selected"), this );
+  m_tabs = new QGroupBox(i18n("Tab Key Mode"), this );
   QVBoxLayout *tablayout=new QVBoxLayout(m_tabs);
 
-  tablayout->addWidget( rb1=new QRadioButton( i18n("Insert indent &characters"), m_tabs ));
-  tablayout->addWidget( rb2=new QRadioButton( i18n("I&nsert tab character"), m_tabs ));
-  tablayout->addWidget( rb3=new QRadioButton( i18n("Indent current &line"), m_tabs ));
+  tablayout->addWidget( rb1=new QRadioButton( i18n("Always advance to the next tab position"), m_tabs ));
+  tablayout->addWidget( rb2=new QRadioButton( i18n("Always indent current &line"), m_tabs ));
+  tablayout->addWidget( rb3=new QRadioButton( i18n("Indent if in leading blank space"), m_tabs ));
 
   opt[0]->setChecked(configFlags & flags[0]);
   opt[1]->setChecked(configFlags & flags[1]);
@@ -221,6 +221,30 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
         "The specified indentation mode will be used for all new documents. Be aware "
         "that it is also possible to set the indentation mode with document variables, "
         "filetypes or a .kateconfig file." ) );
+
+  rb1->setWhatsThis( i18n(
+        "If this option is selected, the <b>Tab</b> key always inserts "
+        "whitespace so that the next tab postion is reached. "
+        "If the option <b>Insert spaces instead of tabulators</b> "
+        "in the section <b>Editing</b> is enabled, spaces are inserted; "
+        "otherwise, a single tabulator is inserted.") );
+  rb2->setWhatsThis( i18n(
+        "If this option is selected, the <b>Tab</b> key always indents "
+        "the current line by the number of character positions specified "
+        "in <b>Number of spaces</b>.") );
+  rb3->setWhatsThis( i18n(
+        "If this option is selected, the <b>Tab</b> key either indents "
+        "the current line or advances to the next tab position.<p>"
+        "If the insertion point is at or before the first non-space "
+        "character in the line, or if there is a selection, "
+        "the current line is indented by the number of character "
+        "positions specified in <b>Number of spaces</b>.<p>"
+        "If the insertion point is located after the first non-space "
+        "character in the line and there is no selection, "
+        "whitespace is inserted so that the next tab postion is reached: "
+        "if the option <b>Insert spaces instead of tabulators</b> "
+        "in the section <b>Editing</b> is enabled, spaces are inserted; "
+        "otherwise, a single tabulator is inserted.") );
 
   reload ();
 
@@ -304,20 +328,21 @@ void KateIndentConfigTab::apply ()
 
   KateDocumentConfig::global()->setIndentationMode(m_indentMode->currentIndex());
 
-  KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabIndentsMode, rb3->isChecked());
-  KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabInsertsTab, rb2->isChecked());
+  if (rb1->isChecked())
+    KateDocumentConfig::global()->setTabHandling( KateDocumentConfig::tabInsertsTab );
+  else if (rb2->isChecked())
+    KateDocumentConfig::global()->setTabHandling( KateDocumentConfig::tabIndents );
+  else
+    KateDocumentConfig::global()->setTabHandling( KateDocumentConfig::tabSmart );
 
   KateDocumentConfig::global()->configEnd ();
 }
 
 void KateIndentConfigTab::reload ()
 {
-  if (KateDocumentConfig::global()->configFlags() & KateDocumentConfig::cfTabIndentsMode)
-    ((QRadioButton*)(m_tabs->layout()->itemAt(2)->widget()))->setChecked(true);
-  else if (KateDocumentConfig::global()->configFlags() & KateDocumentConfig::cfTabInsertsTab)
-    ((QRadioButton*)(m_tabs->layout()->itemAt(1)->widget()))->setChecked(true);
-  else
-    ((QRadioButton*)(m_tabs->layout()->itemAt(0)->widget()))->setChecked(true);
+  rb1->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabInsertsTab );
+  rb2->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabIndents );
+  rb3->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabSmart );
 
   m_indentMode->setCurrentIndex (KateDocumentConfig::global()->indentationMode());
 

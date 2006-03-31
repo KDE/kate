@@ -3077,24 +3077,6 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
   m_undoDontMerge = true;
 }
 
-void KateDocument::insertIndentChars ( KateView *view )
-{
-  editStart ();
-
-  QString s;
-  if ( config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn )
-  {
-    int width = config()->indentationWidth();
-    s.fill (' ', width - (view->cursorPosition().column() % width));
-  }
-  else
-    s.append (QChar::fromAscii ('\t'));
-
-  insertText (view->cursorPosition(), s);
-
-  editEnd ();
-}
-
 void KateDocument::indent ( KateView *v, uint line, int change)
 {
   editStart ();

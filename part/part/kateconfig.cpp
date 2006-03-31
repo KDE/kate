@@ -84,6 +84,7 @@ KateRendererConfig *KateRendererConfig::s_global = 0;
 KateDocumentConfig::KateDocumentConfig ()
  : m_tabWidth (8),
    m_indentationWidth (2),
+   m_tabHandling (tabSmart),
    m_wordWrapAt (80),
    m_configFlags (0),
    m_plugins (KateGlobal::self()->plugins().count()),
@@ -118,7 +119,8 @@ KateDocumentConfig::KateDocumentConfig ()
 }
 
 KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
- : m_configFlags (0),
+ : m_tabHandling (tabSmart),
+   m_configFlags (0),
    m_plugins (KateGlobal::self()->plugins().count()),
    m_tabWidthSet (false),
    m_indentationWidthSet (false),
@@ -156,6 +158,8 @@ void KateDocumentConfig::readConfig (KConfig *config)
   setIndentationWidth (config->readEntry("Indentation Width", 2));
 
   setIndentationMode (config->readEntry("Indentation Mode", int(KateDocumentConfig::imNone)));
+
+  setTabHandling (config->readEntry("Tab Handling", int(KateDocumentConfig::tabSmart)));
 
   setWordWrap (config->readEntry("Word Wrap", false));
   setWordWrapAt (config->readEntry("Word Wrap Column", 80));
@@ -195,6 +199,8 @@ void KateDocumentConfig::writeConfig (KConfig *config)
 
   config->writeEntry("Indentation Width", indentationWidth());
   config->writeEntry("Indentation Mode", indentationMode());
+
+  config->writeEntry("Tab Handling", tabHandling());
 
   config->writeEntry("Word Wrap", wordWrap());
   config->writeEntry("Word Wrap Column", wordWrapAt());
@@ -294,6 +300,25 @@ void KateDocumentConfig::setIndentationMode (uint indentationMode)
 
   m_indentationModeSet = true;
   m_indentationMode = indentationMode;
+
+  configEnd ();
+}
+
+uint KateDocumentConfig::tabHandling () const
+{
+  // This setting is purly a user preference,
+  // hence, there exists only the global setting.
+  if (isGlobal())
+    return m_tabHandling;
+
+  return s_global->tabHandling();
+}
+
+void KateDocumentConfig::setTabHandling (uint tabHandling)
+{
+  configStart ();
+
+  m_tabHandling = tabHandling;
 
   configEnd ();
 }

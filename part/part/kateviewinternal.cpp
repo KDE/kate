@@ -2098,36 +2098,54 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     if (m_doc->invokeTabInterceptor(key)) {
       e->accept();
       return;
-    } else
-    if (m_doc->config()->configFlags() & KateDocumentConfig::cfTabIndents)
+    }
+
+    if( key == Qt::Key_Tab )
     {
-      if( key == Qt::Key_Tab )
+      uint tabHandling = m_doc->config()->tabHandling();
+      // convert tabSmart into tabInsertsTab or tabIndents:
+      if (tabHandling == KateDocumentConfig::tabSmart)
       {
-        if (m_view->selection() || (m_doc->config()->configFlags() & KateDocumentConfig::cfTabIndentsMode))
-          m_doc->indent( m_view, m_cursor.line(), 1 );
-        else if (m_doc->config()->configFlags() & KateDocumentConfig::cfTabInsertsTab)
-          m_doc->typeChars ( m_view, QString ("\t") );
+        if (m_view->selection())
+        {
+          tabHandling = KateDocumentConfig::tabIndents;
+        }
         else
-          m_doc->insertIndentChars ( m_view );
-
-        e->accept();
-
-        if (codeComp)
-          m_view->m_codeCompletion->updateBox ();
-
-        return;
+        {
+          // if the cursor is at or before the first non-space character
+          // or on an empty line,
+          // Tab indents, otherwise it inserts a tab character.
+          KateTextLine::Ptr line = m_doc->kateTextLine( m_cursor.line() );
+          int first = line->firstChar();
+          if (first < 0 || m_cursor.column() <= first)
+            tabHandling = KateDocumentConfig::tabIndents;
+          else
+            tabHandling = KateDocumentConfig::tabInsertsTab;
+        }
       }
 
-      if (key == Qt::SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
-      {
-        m_doc->indent( m_view, m_cursor.line(), -1 );
-        e->accept();
+      if (tabHandling == KateDocumentConfig::tabInsertsTab)
+        m_doc->typeChars( m_view, QString("\t") );
+      else
+        m_doc->indent( m_view, m_cursor.line(), 1 );
 
-        if (codeComp)
-          m_view->m_codeCompletion->updateBox ();
+      e->accept();
 
-        return;
-      }
+      if (codeComp)
+        m_view->m_codeCompletion->updateBox ();
+
+      return;
+    }
+    else if (m_doc->config()->tabHandling() != KateDocumentConfig::tabInsertsTab)
+    {
+      // key == Qt::SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab
+      m_doc->indent( m_view, m_cursor.line(), -1 );
+      e->accept();
+
+      if (codeComp)
+        m_view->m_codeCompletion->updateBox ();
+
+      return;
     }
 }
   if ( !(e->state() & Qt::ControlModifier) && !(e->state() & Qt::AltModifier)

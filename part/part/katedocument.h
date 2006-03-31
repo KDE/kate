@@ -607,8 +607,6 @@ class KateDocument : public KTextEditor::Document,
     void paste ( KateView* view, QClipboard::Mode = QClipboard::Clipboard );
 
   public:
-    void insertIndentChars ( KateView *view );
-
     void indent ( KateView *view, uint line, int change );
     void comment ( KateView *view, uint line, uint column, int change );
     void align ( KateView *view, uint line );

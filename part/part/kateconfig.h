@@ -147,6 +147,16 @@ class KateDocumentConfig : public KateConfig
     uint indentationMode () const;
     void setIndentationMode (uint identationMode);
 
+    enum TabHandling
+    {
+      tabInsertsTab = 0,
+      tabIndents = 1,
+      tabSmart = 2,      //!< indents in leading space, otherwise inserts tab
+    };
+
+    uint tabHandling () const;
+    void setTabHandling (uint tabHandling);
+
     bool wordWrap () const;
     void setWordWrap (bool on);
 
@@ -236,6 +246,7 @@ class KateDocumentConfig : public KateConfig
     int m_tabWidth;
     int m_indentationWidth;
     uint m_indentationMode;
+    uint m_tabHandling;
     bool m_wordWrap;
     int m_wordWrapAt;
     uint m_undoSteps;

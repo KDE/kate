@@ -403,38 +403,17 @@ void KateNormalIndent::optimizeLeadingSpace(uint line, int change)
     }
   }
 
-  //kdDebug(13020)  << "replace With Op: " << line << " " << first_char << " " << space << endl;
-  replaceWithOptimizedSpace(line, first_char, space);
-}
+  QString new_space = tabString(space);
+  uint length = new_space.length();
 
-void KateNormalIndent::replaceWithOptimizedSpace(uint line, uint upto_column, uint space)
-{
-  uint length;
-  QString new_space;
-
-  if (useSpaces) {
-    length = space;
-    new_space.fill(' ', length);
-  }
-  else {
-    length = space / tabWidth;
-    new_space.fill('\t', length);
-
-    QString extra_space;
-    extra_space.fill(' ', space % tabWidth);
-    length += space % tabWidth;
-    new_space += extra_space;
-  }
-
-  KateTextLine::Ptr textline = doc->plainKateTextLine(line);
   uint change_from;
-  for (change_from = 0; change_from < upto_column && change_from < length; change_from++) {
+  for (change_from = 0; change_from < first_char && change_from < length; change_from++) {
     if (textline->getChar(change_from) != new_space[change_from])
       break;
   }
 
-  if (change_from < upto_column)
-    doc->removeText(KTextEditor::Range(line, change_from, line, upto_column));
+  if (change_from < first_char)
+    doc->removeText(KTextEditor::Range(line, change_from, line, first_char));
 
   if (change_from < length)
     doc->insertText(KTextEditor::Cursor(line, change_from), new_space.right(length - change_from));

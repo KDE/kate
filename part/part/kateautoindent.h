@@ -325,7 +325,6 @@ protected:
   QString tabString(uint length) const;
 
   void optimizeLeadingSpace( uint line, int change );
-  void replaceWithOptimizedSpace( uint line, uint upto_column, uint space );
 
   uint  tabWidth;     //!< The number of characters simulated for a tab
   uint  indentWidth;  //!< The number of characters used when tabs are replaced by spaces

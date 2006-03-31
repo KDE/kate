@@ -51,11 +51,7 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
   m_config = new KateRendererConfig (this);
 
   m_tabWidth = m_doc->config()->tabWidth();
-  m_indentWidth = m_tabWidth;
-  if (m_doc->config()->configFlags() & KateDocumentConfig::cfSpaceIndent)
-  {
-    m_indentWidth = m_doc->config()->indentationWidth();
-  }
+  m_indentWidth = m_doc->config()->indentationWidth();
 
   updateAttributes ();
 }
@@ -119,11 +115,7 @@ void KateRenderer::setShowIndentLines(bool showIndentLines)
 
 void KateRenderer::setIndentWidth(int indentWidth)
 {
-  m_indentWidth = m_tabWidth;
-  if (m_doc->config()->configFlags() & KateDocumentConfig::cfSpaceIndent)
-  {
-    m_indentWidth = indentWidth;
-  }
+  m_indentWidth = indentWidth;
 }
 
 void KateRenderer::setShowSelections(bool showSelections)

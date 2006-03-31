@@ -172,7 +172,6 @@ class KateDocumentConfig : public KateConfig
       cfKeepExtraSpaces= 0x10000,
       cfTabIndents= 0x80000,
       cfShowTabs= 0x200000,
-      cfSpaceIndent= 0x400000,
       cfSmartHome = 0x800000,
       cfTabInsertsTab = 0x1000000,
       cfReplaceTabsDyn=   0x2000000,

@@ -76,7 +76,7 @@ const QStringList &KateCommands::CoreCommands::cmds()
     << "comment" << "uncomment" << "goto" << "kill-line"
     << "set-tab-width" << "set-replace-tabs" << "set-show-tabs"
     << "set-remove-trailing-space"
-    << "set-indent-spaces" << "set-indent-width" << "set-mixed-indent"
+    << "set-indent-width" << "set-mixed-indent"
     << "set-indent-mode" << "set-auto-indent"
     << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
     << "set-word-wrap" << "set-word-wrap-column"
@@ -221,7 +221,6 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
             cmd == "set-replace-tabs" ||
             cmd == "set-remove-trailing-space" ||
             cmd == "set-show-tabs" ||
-            cmd == "set-indent-spaces" ||
             cmd == "set-mixed-indent" ||
             cmd == "set-word-wrap" ||
             cmd == "set-replace-tabs-save" ||
@@ -247,16 +246,11 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
         setDocFlag( KateDocumentConfig::cfRemoveTrailingDyn, enable, v->doc() );
       else if ( cmd == "set-show-tabs" )
         setDocFlag( KateDocumentConfig::cfShowTabs, enable, v->doc() );
-      else if ( cmd == "set-indent-spaces" )
-        setDocFlag( KateDocumentConfig::cfSpaceIndent, enable, v->doc() );
       else if ( cmd == "set-mixed-indent" )
       {
-        // this is special, in that everything is set up -- space-indent is enabled,
-        // and a indent-width is set if it is 0 (to tabwidth/2)
         setDocFlag( KateDocumentConfig::cfMixedIndent, enable, v->doc() );
         if ( enable )
         {
-          setDocFlag(  KateDocumentConfig::cfSpaceIndent, enable, v->doc() );
           if ( ! v->doc()->config()->indentationWidth() )
             v->doc()->config()->setIndentationWidth( v->doc()->config()->tabWidth()/2 );
         }

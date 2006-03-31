@@ -3082,7 +3082,7 @@ void KateDocument::insertIndentChars ( KateView *view )
   editStart ();
 
   QString s;
-  if (config()->configFlags() & KateDocumentConfig::cfSpaceIndent)
+  if ( config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn )
   {
     int width = config()->indentationWidth();
     s.fill (' ', width - (view->cursorPosition().column() % width));
@@ -3179,11 +3179,7 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
 
   int first_char = textline->firstChar();
 
-  int w = 0;
-  if (flags & KateDocumentConfig::cfSpaceIndent)
-    w = config()->indentationWidth();
-  else
-    w = config()->tabWidth();
+  int w = config()->indentationWidth();
 
   if (first_char < 0)
     first_char = textline->length();
@@ -3212,7 +3208,7 @@ void KateDocument::replaceWithOptimizedSpace(uint line, uint upto_column, uint s
   uint length;
   QString new_space;
 
-  if (flags & KateDocumentConfig::cfSpaceIndent && ! (flags & KateDocumentConfig::cfMixedIndent) ) {
+  if (flags & KateDocumentConfig::cfReplaceTabsDyn) {
     length = space;
     new_space.fill(' ', length);
   }
@@ -4460,8 +4456,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           m_config->setConfigFlags( KateDocumentConfig::cfTabIndents, state );
         else if ( var == "show-tabs" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfShowTabs, state );
-        else if ( var == "space-indent" && checkBoolValue( val, &state ) )
-          m_config->setConfigFlags( KateDocumentConfig::cfSpaceIndent, state );
         else if ( var == "smart-home" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfSmartHome, state );
         else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) )

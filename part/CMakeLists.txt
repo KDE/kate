@@ -13,8 +13,6 @@ add_subdirectory( tests )
 ########### install files ###############
 
 
-kde4_create_doxygen_docs( REFERENCES kdecore dcop kio kdeui kparts  )
-
 kde4_footer()
 
 

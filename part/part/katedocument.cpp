@@ -2988,29 +2988,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
       if (pos < 0 || pos >= (int)colX)
       {
         // only spaces on left side of cursor
-        // search a line with less spaces
-        int y = line;
-        while (--y >= 0)
-        {
-          // this is save, y <= line, and line was already success
-          textLine = m_buffer->plainLine(y);
-
-          pos = textLine->firstChar();
-
-          if (pos >= 0)
-          {
-            pos = textLine->positionWithTabs(pos, config()->tabWidth());
-            if (pos < (int)colX)
-            {
-              replaceWithOptimizedSpace(line, col, pos, config()->configFlags());
-              break;
-            }
-          }
-        }
-        if (y < 0) {
-          // FIXME: what shoud we do in this case?
-          removeText(KTextEditor::Range(line, 0, line, col+complement));
-        }
+        indent( view, line, -1);
       }
       else
         removeText(KTextEditor::Range(line, col-1, line, col+complement));

@@ -180,6 +180,12 @@ class KateAutoIndent
      */
     virtual uint modeNumber () const { return KateDocumentConfig::imNone; };
 
+    /**
+     * Indents the specified line by the number of levels
+     * specified by change.
+     */
+    virtual void indent ( KateView *view, uint line, int change ) { }
+
   protected:
     KateDocument *doc;
 };
@@ -266,6 +272,12 @@ public:
   virtual bool canProcessLine() const { return false; }
 
     /**
+     * Indents the specified line by the number of levels
+     * specified by change.
+     */
+  virtual void indent ( KateView *view, uint line, int change );
+
+    /**
      * Mode index of this mode
      * @return modeNumber
      */
@@ -312,6 +324,9 @@ protected:
      */
   QString tabString(uint length) const;
 
+  void optimizeLeadingSpace( uint line, int change );
+  void replaceWithOptimizedSpace( uint line, uint upto_column, uint space );
+
   uint  tabWidth;     //!< The number of characters simulated for a tab
   uint  indentWidth;  //!< The number of characters used when tabs are replaced by spaces
 
@@ -329,6 +344,7 @@ protected:
 
   bool  useSpaces;    //!< Should we use spaces or tabs to indent
   bool  keepProfile;  //!< Always try to honor the leading whitespace of lines already in the file
+  bool  keepExtra;    //!< Keep indentation that is not on indentation boundaries
 };
 
 class KateCSmartIndent : public KateNormalIndent

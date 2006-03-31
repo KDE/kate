@@ -197,6 +197,7 @@ void KateNormalIndent::updateConfig ()
 
   useSpaces   = config->configFlags() & KateDocumentConfig::cfReplaceTabsDyn;
   keepProfile = config->configFlags() & KateDocumentConfig::cfKeepIndentProfile;
+  keepExtra   = config->configFlags() & KateDocumentConfig::cfKeepExtraSpaces;
   tabWidth    = config->tabWidth();
   indentWidth = config->indentationWidth();
 
@@ -369,6 +370,76 @@ QString KateNormalIndent::tabString(uint pos) const
   return s;
 }
 
+/*
+  Optimize the leading whitespace for a single line.
+  If change is > 0, it adds indentation units (indentationChars)
+  if change is == 0, it only optimizes
+  If change is < 0, it removes indentation units
+  This will be used to indent, unindent, and optimal-fill a line.
+  If excess space is removed depends on the flag cfKeepExtraSpaces
+  which has to be set by the user
+*/
+void KateNormalIndent::optimizeLeadingSpace(uint line, int change)
+{
+  KateTextLine::Ptr textline = doc->plainKateTextLine(line);
+
+  int first_char = textline->firstChar();
+
+  if (first_char < 0)
+    first_char = textline->length();
+
+  int space =  textline->positionWithTabs(first_char, tabWidth) + change * indentWidth;
+  if (space < 0)
+    space = 0;
+
+  if (!keepExtra)
+  {
+    uint extra = space % indentWidth;
+
+    space -= extra;
+    if (extra && change < 0) {
+      // otherwise it unindents too much (e.g. 12 chars when indentation is 8 chars wide)
+      space += indentWidth;
+    }
+  }
+
+  //kdDebug(13020)  << "replace With Op: " << line << " " << first_char << " " << space << endl;
+  replaceWithOptimizedSpace(line, first_char, space);
+}
+
+void KateNormalIndent::replaceWithOptimizedSpace(uint line, uint upto_column, uint space)
+{
+  uint length;
+  QString new_space;
+
+  if (useSpaces) {
+    length = space;
+    new_space.fill(' ', length);
+  }
+  else {
+    length = space / tabWidth;
+    new_space.fill('\t', length);
+
+    QString extra_space;
+    extra_space.fill(' ', space % tabWidth);
+    length += space % tabWidth;
+    new_space += extra_space;
+  }
+
+  KateTextLine::Ptr textline = doc->plainKateTextLine(line);
+  uint change_from;
+  for (change_from = 0; change_from < upto_column && change_from < length; change_from++) {
+    if (textline->getChar(change_from) != new_space[change_from])
+      break;
+  }
+
+  if (change_from < upto_column)
+    doc->removeText(KTextEditor::Range(line, change_from, line, upto_column));
+
+  if (change_from < length)
+    doc->insertText(KTextEditor::Cursor(line, change_from), new_space.right(length - change_from));
+}
+
 void KateNormalIndent::processNewline (KateDocCursor &begin, bool /*needContinue*/)
 {
   int line = begin.line() - 1;
@@ -384,6 +455,50 @@ void KateNormalIndent::processNewline (KateDocCursor &begin, bool /*needContinue
     QString filler = doc->text(KTextEditor::Range(line, 0, line, pos));
     doc->insertText(begin, filler);
     begin.setColumn(filler.length());
+  }
+}
+
+void KateNormalIndent::indent ( KateView *v, uint line, int change)
+{
+  if (!v->selection())
+  {
+    // single line
+    optimizeLeadingSpace(line, change);
+  }
+  else
+  {
+    int sl = v->selectionRange().start().line();
+    int el = v->selectionRange().end().line();
+    int ec = v->selectionRange().end().column();
+
+    if ((ec == 0) && ((el-1) >= 0))
+    {
+      el--; /* */
+    }
+
+    if (keepProfile && change < 0) {
+      // unindent so that the existing indent profile doesn't get screwed
+      // if any line we may unindent is already full left, don't do anything
+      int adjustedChange = -change;
+
+      for (line = sl; (int) line <= el && adjustedChange > 0; line++) {
+        KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
+        int firstChar = textLine->firstChar();
+        if (firstChar >= 0 && (v->lineSelected(line) || v->lineHasSelected(line))) {
+          int maxUnindent = textLine->positionWithTabs(firstChar, tabWidth) / indentWidth;
+          if (maxUnindent < adjustedChange)
+            adjustedChange = maxUnindent;
+        }
+      }
+
+      change = -adjustedChange;
+    }
+
+    for (line = sl; (int) line <= el; line++) {
+      if (v->lineSelected(line) || v->lineHasSelected(line)) {
+        optimizeLeadingSpace(line, change);
+      }
+    }
   }
 }
 

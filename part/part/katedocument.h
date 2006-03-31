@@ -627,9 +627,6 @@ class KateDocument : public KTextEditor::Document,
     void joinLines( uint first, uint last );
 
   private:
-    void optimizeLeadingSpace( uint line, int flags, int change );
-    void replaceWithOptimizedSpace( uint line, uint upto_column, uint space, int flags );
-
     bool removeStringFromBegining(int line, QString &str);
     bool removeStringFromEnd(int line, QString &str);
 

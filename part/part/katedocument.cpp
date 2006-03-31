@@ -3080,48 +3080,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
 void KateDocument::indent ( KateView *v, uint line, int change)
 {
   editStart ();
-
-  if (!v->selection())
-  {
-    // single line
-    optimizeLeadingSpace(line, config()->configFlags(), change);
-  }
-  else
-  {
-    int sl = v->selectionRange().start().line();
-    int el = v->selectionRange().end().line();
-    int ec = v->selectionRange().end().column();
-
-    if ((ec == 0) && ((el-1) >= 0))
-    {
-      el--; /* */
-    }
-
-    if (config()->configFlags() & KateDocumentConfig::cfKeepIndentProfile && change < 0) {
-      // unindent so that the existing indent profile doesn't get screwed
-      // if any line we may unindent is already full left, don't do anything
-      int adjustedChange = -change;
-
-      for (line = sl; (int) line <= el && adjustedChange > 0; line++) {
-        KateTextLine::Ptr textLine = m_buffer->plainLine(line);
-        int firstChar = textLine->firstChar();
-        if (firstChar >= 0 && (v->lineSelected(line) || v->lineHasSelected(line))) {
-          int maxUnindent = textLine->positionWithTabs(firstChar, config()->tabWidth()) / config()->indentationWidth();
-          if (maxUnindent < adjustedChange)
-            adjustedChange = maxUnindent;
-        }
-      }
-
-      change = -adjustedChange;
-    }
-
-    for (line = sl; (int) line <= el; line++) {
-      if (v->lineSelected(line) || v->lineHasSelected(line)) {
-        optimizeLeadingSpace(line, config()->configFlags(), change);
-      }
-    }
-  }
-
+  m_indenter->indent( v, line, change );
   editEnd ();
 }
 
@@ -3144,82 +3103,6 @@ void KateDocument::align(KateView *view, uint line)
       editEnd ();
     }
   }
-}
-
-/*
-  Optimize the leading whitespace for a single line.
-  If change is > 0, it adds indentation units (indentationChars)
-  if change is == 0, it only optimizes
-  If change is < 0, it removes indentation units
-  This will be used to indent, unindent, and optimal-fill a line.
-  If excess space is removed depends on the flag cfKeepExtraSpaces
-  which has to be set by the user
-*/
-void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
-{
-  KateTextLine::Ptr textline = m_buffer->plainLine(line);
-
-  int first_char = textline->firstChar();
-
-  int w = config()->indentationWidth();
-
-  if (first_char < 0)
-    first_char = textline->length();
-
-  int space =  textline->positionWithTabs(first_char, config()->tabWidth()) + change * w;
-  if (space < 0)
-    space = 0;
-
-  if (!(flags & KateDocumentConfig::cfKeepExtraSpaces))
-  {
-    uint extra = space % w;
-
-    space -= extra;
-    if (extra && change < 0) {
-      // otherwise it unindents too much (e.g. 12 chars when indentation is 8 chars wide)
-      space += w;
-    }
-  }
-
-  //kDebug(13020)  << "replace With Op: " << line << " " << first_char << " " << space << endl;
-  replaceWithOptimizedSpace(line, first_char, space, flags);
-}
-
-void KateDocument::replaceWithOptimizedSpace(uint line, uint upto_column, uint space, int flags)
-{
-  uint length;
-  QString new_space;
-
-  if (flags & KateDocumentConfig::cfReplaceTabsDyn) {
-    length = space;
-    new_space.fill(' ', length);
-  }
-  else {
-    length = space / config()->tabWidth();
-    new_space.fill('\t', length);
-
-    QString extra_space;
-    extra_space.fill(' ', space % config()->tabWidth());
-    length += space % config()->tabWidth();
-    new_space += extra_space;
-  }
-
-  KateTextLine::Ptr textline = m_buffer->plainLine(line);
-  uint change_from;
-  for (change_from = 0; change_from < upto_column && change_from < length; change_from++) {
-    if (textline->getChar(change_from) != new_space[change_from])
-      break;
-  }
-
-  editStart();
-
-  if (change_from < upto_column)
-    removeText(KTextEditor::Range(line, change_from, line, upto_column));
-
-  if (change_from < length)
-    insertText(KTextEditor::Cursor(line, change_from), new_space.right(length - change_from));
-
-  editEnd();
 }
 
 /*

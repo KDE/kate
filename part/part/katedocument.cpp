@@ -4412,6 +4412,8 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         << "current-line-color" << "bracket-highlight-color"
         << "word-wrap-marker-color"
         << "font" << "font-size" << "scheme";
+    int spaceIndent = -1;  // for backward compatibility; see below
+    bool replaceTabsSet = false;
     int p( 0 );
     QString s = kvLine.cap(1);
     QString  var, val;
@@ -4439,7 +4441,10 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         else if ( var == "backspace-indents" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfBackspaceIndents, state );
         else if ( var == "replace-tabs" && checkBoolValue( val, &state ) )
+        {
           m_config->setConfigFlags( KateDocumentConfig::cfReplaceTabsDyn, state );
+          replaceTabsSet = true;  // for backward compatibility; see below
+        }
         else if ( var == "remove-trailing-space" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfRemoveTrailingDyn, state );
         else if ( var == "wrap-cursor" && checkBoolValue( val, &state ) )
@@ -4456,6 +4461,11 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           m_config->setConfigFlags( KateDocumentConfig::cfTabIndents, state );
         else if ( var == "show-tabs" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfShowTabs, state );
+        else if ( var == "space-indent" && checkBoolValue( val, &state ) )
+        {
+          // this is for backward compatibility; see below
+          spaceIndent = state;
+        }
         else if ( var == "smart-home" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfSmartHome, state );
         else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) )
@@ -4511,6 +4521,18 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           emit variableChanged( this, var, val );
         }
       }
+    }
+
+    // Backward compatibility
+    // If space-indent was set, but replace-tabs was not set, we assume
+    // that the user wants to replace tabulators and set that flag.
+    // If both were set, replace-tabs has precedence.
+    // At this point spaceIndent is -1 if it was never set,
+    // 0 if it was set to off, and 1 if it was set to on.
+    // Note that if onlyViewAndRenderer was requested, spaceIndent is -1.
+    if ( !replaceTabsSet && spaceIndent >= 0 )
+    {
+      m_config->setConfigFlags( KateDocumentConfig::cfReplaceTabsDyn, spaceIndent > 0 );
     }
   }
 }

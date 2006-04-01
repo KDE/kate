@@ -52,7 +52,7 @@ namespace KTextEditor
 
 EditorChooser::EditorChooser(QWidget *parent)
     : QWidget(parent)
-  {
+{
   d = new PrivateEditorChooser ();
 
   d->chooser = new Ui::EditorChooser();
@@ -89,7 +89,7 @@ EditorChooser:: ~EditorChooser(){
 }
 
 void EditorChooser::readAppSetting(const QString& postfix){
-        KConfigGroup cg(KGlobal::config(), postfix.isEmpty() ? "KTEXTEDITOR:" : "KTEXTEDITOR:"+postfix);
+        KConfigGroup cg(KGlobal::config(), "KTEXTEDITOR:" + postfix);
 	QString editor=cg.readPathEntry("editor");
 	if (editor.isEmpty()) d->chooser->editorCombo->setCurrentIndex(0);
 	else
@@ -101,7 +101,7 @@ void EditorChooser::readAppSetting(const QString& postfix){
 }
 
 void EditorChooser::writeAppSetting(const QString& postfix){
-	KConfigGroup cg(KGlobal::config(), postfix.isEmpty() ? "KTEXTEDITOR:" : "KTEXTEDITOR:"+postfix);
+	KConfigGroup cg(KGlobal::config(), "KTEXTEDITOR:" + postfix);
 	cg.writeEntry("DEVELOPER_INFO","NEVER TRY TO USE VALUES FROM THAT GROUP, THEY ARE SUBJECT TO CHANGES");
 	cg.writePathEntry("editor", (d->chooser->editorCombo->currentIndex()<=0) ? //< for broken installations, where editor list is empty
 		QString() : QString(d->elements.at(d->chooser->editorCombo->currentIndex()-1)));
@@ -111,7 +111,7 @@ KTextEditor::Editor *EditorChooser::editor(const QString& postfix,bool fallBackT
 
 	KTextEditor::Editor *tmpEd=0;
 
-	KConfigGroup cg(KGlobal::config(), postfix.isEmpty() ? "KTEXTEDITOR:" : "KTEXTEDITOR:"+postfix);
+	KConfigGroup cg(KGlobal::config(), "KTEXTEDITOR:" + postfix);
         QString editor=cg.readPathEntry("editor");
 	if (editor.isEmpty())
 	{

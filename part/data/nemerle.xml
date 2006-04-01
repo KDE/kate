@@ -1,122 +1,121 @@
-<?xml version="1.01" encoding="UTF-8"?><!DOCTYPE language>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
 <!-- Nemerle syntax highlighting v0.2 by caminoix, approved of and corrected by Kamil Skalski (Nazgul) -->
-<language name="Nemerle" version="0.3.2-1" kateversion="2.4" section="Sources" extensions="*.n" mimetype="text/x-nemerle" casesensitive="1" author="caminoix + Kamil Skalski (Nazgul)" license="">
+<language name="Nemerle" version="0.32" kateversion="2.4" section="Sources" extensions="*.n" mimetype="text/x-nemerle" casesensitive="1" author="caminoix + Kamil Skalski (Nazgul)" license="">
 	<highlighting>
-		<lists>
-			<list name="Attributes">
-				<item>abstract</item>
-				<item>def</item>
-				<item>delegate</item>
-				<item>event</item>
-				<item>extern</item>
-				<item>internal</item>
-				<item>mutable</item>
-				<item>override</item>
-				<item>public</item>
-				<item>private</item>
-				<item>protected</item>
-				<item>sealed</item>
-				<item>static</item>
-				<item>volatile</item>
-				<item>virtual</item>
-				<item>new</item>
-			</list>
+		<list name="Attributes">
+			<item>abstract</item>
+			<item>def</item>
+			<item>delegate</item>
+			<item>event</item>
+			<item>extern</item>
+			<item>internal</item>
+			<item>mutable</item>
+			<item>override</item>
+			<item>public</item>
+			<item>private</item>
+			<item>protected</item>
+			<item>sealed</item>
+			<item>static</item>
+			<item>volatile</item>
+			<item>virtual</item>
+			<item>new</item>
+		</list>
 
-			<list name="CompilationUnits">
-				<item>macro</item>
-				<item>namespace</item>
-				<item>using</item>
-				<item>\[Record\]</item>
-			</list>
+		<list name="CompilationUnits">
+			<item>macro</item>
+			<item>namespace</item>
+			<item>using</item>
+			<item>\[Record\]</item>
+		</list>
 
-			<list name="DataTypes">
-				<item>array</item>
-				<item>bool</item>
-				<item>byte</item>
-				<item>char</item>
-				<item>decimal</item>
-				<item>double</item>
-				<item>enum</item>
-				<item>float</item>
-				<item>int</item>
-				<item>list</item>
-				<item>long</item>
-				<item>object</item>
-				<item>sbyte</item>
-				<item>short</item>
-				<item>string</item>
-				<item>uint</item>
-				<item>ulong</item>
-				<item>ushort</item>
-				<item>variant</item>
-				<item>void</item>
-			</list>
+		<list name="DataTypes">
+			<item>array</item>
+			<item>bool</item>
+			<item>byte</item>
+			<item>char</item>
+			<item>decimal</item>
+			<item>double</item>
+			<item>enum</item>
+			<item>float</item>
+			<item>int</item>
+			<item>list</item>
+			<item>long</item>
+			<item>object</item>
+			<item>sbyte</item>
+			<item>short</item>
+			<item>string</item>
+			<item>uint</item>
+			<item>ulong</item>
+			<item>ushort</item>
+			<item>variant</item>
+			<item>void</item>
+		</list>
 
-			<list name="Keywords">
-				<item>_</item>
-				<item>as</item>
-				<item>assert</item>
-				<item>base</item>
-				<item>catch</item>
-				<item>checked</item>
-				<item>do</item>
-				<item>else</item>
-				<item>false</item>
-				<item>finally</item>
-				<item>for</item>
-				<item>foreach</item>
-				<item>fun</item>
-				<item>get</item>
-				<item>if</item>
-				<item>ignore</item>
-				<item>implements</item>
-				<item>in</item>
-				<item>is</item>
-				<item>lock</item>
-				<item>match</item>
-				<item>null</item>
-				<item>out</item>
-				<item>params</item>
-				<item>ref</item>
-				<item>repeat</item>
-				<item>set</item>
-				<item>syntax</item>
-				<item>this</item>
-				<item>throw</item>
-				<item>true</item>
-				<item>try</item>
-				<item>typeof</item>
-				<item>unchecked</item>
-				<item>unless</item>
-				<item>when</item>
-				<item>where</item>
-				<item>while</item>
-				<item>with</item>
-			</list>
+		<list name="Keywords">
+			<item>_</item>
+			<item>as</item>
+			<item>assert</item>
+			<item>base</item>
+			<item>catch</item>
+			<item>checked</item>
+			<item>do</item>
+			<item>else</item>
+			<item>false</item>
+			<item>finally</item>
+			<item>for</item>
+			<item>foreach</item>
+			<item>fun</item>
+			<item>get</item>
+			<item>if</item>
+			<item>ignore</item>
+			<item>implements</item>
+			<item>in</item>
+			<item>is</item>
+			<item>lock</item>
+			<item>match</item>
+			<item>null</item>
+			<item>out</item>
+			<item>params</item>
+			<item>ref</item>
+			<item>repeat</item>
+			<item>set</item>
+			<item>syntax</item>
+			<item>this</item>
+			<item>throw</item>
+			<item>true</item>
+			<item>try</item>
+			<item>typeof</item>
+			<item>unchecked</item>
+			<item>unless</item>
+			<item>when</item>
+			<item>where</item>
+			<item>while</item>
+			<item>with</item>
+		</list>
 
-			<list name="Preprocessing">
-				<item>#define</item>
-				<item>#elif</item>
-				<item>#else</item>
-				<item>#endif</item>
-				<item>#endregion</item>
-				<item>#error</item>
-				<item>#if</item>
-				<item>#line</item>
-				<item>#region</item>
-				<item>#undef</item>
-				<item>#warning</item>
-				<item>#pragma</item>
-			</list>
+		<list name="Preprocessing">
+			<item>#define</item>
+			<item>#elif</item>
+			<item>#else</item>
+			<item>#endif</item>
+			<item>#endregion</item>
+			<item>#error</item>
+			<item>#if</item>
+			<item>#line</item>
+			<item>#region</item>
+			<item>#undef</item>
+			<item>#warning</item>
+			<item>#pragma</item>
+		</list>
 
-			<list name="TypeDeclarations">
-				<item>class</item>
-				<item>interface</item>
-				<item>module</item>
-				<item>struct</item>
-				<item>type</item>
-			</list>
-		</lists>
+		<list name="TypeDeclarations">
+			<item>class</item>
+			<item>interface</item>
+			<item>module</item>
+			<item>struct</item>
+			<item>type</item>
+		</list>
 
 		<contexts>
 			<context name="Normal" attribute="Normal Text" lineEndContext="#stay">

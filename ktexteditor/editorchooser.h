@@ -32,17 +32,53 @@ namespace KTextEditor
 /**
  * \brief Editor Component Chooser.
  *
+ * Topics:
+ *  - \ref chooser_intro
+ *  - \ref chooser_gui
+ *  - \ref chooser_editor
+ *
  * \section chooser_intro Introduction
  *
- * The EditorChooser is a simple group box that contains an information
- * label and a combo box which lists all available KTextEditor
+ * The EditorChooser is responsible for two different tasks: It provides
+ *  - a GUI, with which the user can choose the preferred editor part
+ *  - a static accessor, with which the current selected editor part can be
+ *    obtained.
+ *
+ * \section chooser_gui The GUI Editor Chooser
+ * The EditorChooser is a simple widget with a group box containing an
+ * information label and a combo box which lists all available KTextEditor
  * implementations. To give the user the possibility to choose a text editor
- * implementation create an instance of this class and put it into the GUI.
+ * implementation, create an instance of this class and put it into the GUI:
+ * \code
+ *     KTextEditor::EditorChooser* ec = new KTextEditor::EditorChooser(parent);
+ *     // read the settings from the application's KConfig object
+ *     ec->readAppSetting();
+ *     // optionally connect the signal changed()
+ *     // plug the widget into a layout
+ *     layout->addWidget(ec);
+ * \endcode
+ * Later, for example when the user clicks the Apply-button:
+ * \code
+ *     // save the user's choice
+ *     ec->writeAppSetting();
+ * \endcode
+ * After this, the static accessor editor() will return the new editor part
+ * object. Now, either the application has to be restarted, or you need code
+ * that closes all current documents so that you can safely switch and use the
+ * new editor part. Restarting is probably much easier.
  *
- * Use EditorChooser::editor() to access the currently used Editor component.
+ * \note If you do not put the EditorChooser into the GUI, the default editor
+ *       component will be used. The default editor is configurable in KDE's
+ *       control center in
+ *       "KDE Components > Component Chooser > Embedded Text Editor".
  *
- * You can find this class in action in KDE's control center in
- * "KDE Components > Component Chooser > Embedded Text Editor".
+ * \section chooser_editor Accessing the Editor Part
+ * The call of editor() will return the currently used editor part, either the
+ * KDE default or the one configured with the EditorChooser's GUI
+ * (see \ref chooser_gui). Example:
+ * \code
+ *     KTextEditor::Editor* editor = KTextEditor::EditorChooser::editor();
+ * \endcode
  *
  * \see KTextEditor::Editor
  * \author Joseph Wenninger \<jowenn@kde.org\>

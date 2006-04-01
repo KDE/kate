@@ -16,9 +16,10 @@ or any later version published by the Free Software Foundation;
 
 \section kte_intro Introduction
 The KTextEditor interfaces - also called KTE interfaces - are a set of
-well-defined interfaces that can be implemented by an application/library.
+well-defined interfaces which an application or library can implement.
 It is possible to substitute an implementation of the editor component with
-another. The two popular implementations right now are the Kate Editor Component (Kate Part) and the yzis (vim-like) editor.
+another. The two popular implementations right now are the Kate Editor Component
+(Kate Part) and the yzis (vim-like) editor.
 
 \section kte_general General
  - \ref kte_design
@@ -53,22 +54,26 @@ another. The two popular implementations right now are the Kate Editor Component
 
 /** \page kte_design General Design of the Core Interfaces
 The core of the KTextEditor interfaces consists of several main interfaces:
-- \p KTextEditor::Factory - The Factory is an interface for the factory of
-  any KTextEditor part and provides access to the editor object of this part.
-- \p KTextEditor::Editor - The Editor interface describes the interface for
-  for the editor part and provides methods to create documents, get a
-  document list and a signal that informs about when a new document was
-  created.
-- \p KTextEditor::Document - The Document interface represents a document
-  itself and allows to create views and access the document contents.
-- \p KTextEditor::View - The View interface provides a widget to view the
-  contents of a Document.
+- KTextEditor::Factory \n
+  The Factory is an interface for the factory of any KTextEditor part and
+  provides access to the editor object of the implementation.
+- KTextEditor::Editor \n
+  The Editor interface describes the interface for the editor
+  implementation and provides methods to create documents, get a document list
+  and a signal that is emitted whenever a new document was created.
+- KTextEditor::Document \n
+  The Document interface represents a document itself and allows to create
+  views and access the document contents.
+- KTextEditor::View \n
+  The View interface provides a widget that displays the contents of a Document.
 
-So the hierarchy looks as follows
+The hierarchy can be illustrated as follows:
 \image html ktexteditorhierarchy.png "Basic KTextEditor Hierarchy"
 
+@todo dominik: the following text is very confusing imho
+
 The Factory provides access to the chosen Editor (selected with
-\p KTextEditor::EditorChooser). The Editor has a list of all opened documents
+KTextEditor::EditorChooser). The Editor has a list of all opened documents
 and can create new documents. A Document's content is visualized by a View.
 A Document can have multiple views (or none) and all views of the same
 document are synchronized.

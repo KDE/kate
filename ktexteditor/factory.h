@@ -37,6 +37,11 @@ class Editor;
 /**
  * \brief Accessor to the Editor implementation.
  *
+ * Topics:
+ *  - \ref factory_intro
+ *  - \ref factory_example
+ *  - \ref factory_notes
+ *
  * \section factory_intro Introduction
  *
  * The Factory provides access to the chosen Editor (selected with
@@ -47,6 +52,34 @@ class Editor;
  *
  * Each KTextEditor implementation must reimplement this factory to allow
  * access to the editor object.
+ * 
+ * \section factory_example Creating an Editor Part
+ * To get a kate part the following code snippet can be used:
+ * \code
+ *     KLibFactory* factory = KLibLoader::self()->factory("katepart");
+ *     KTextEditor::Factory* kte_factory = qobject_cast<KTextEditor::Factory*>(factory);
+ *
+ *     if(kte_factory) {
+ *         // valid editor factory, it is possible to access the editor now
+ *         KTextEditor::Editor* editor = kte_factory->editor();
+ *     } else {
+ *         // error
+ *     }
+ * \endcode
+ * If another editor part is desired substitue the string "katepart" with the
+ * corresponding library name.
+ *
+ * However, if you are only interested in getting the editor part (which is
+ * usually the case) a simple call of
+ * \code
+ *     KTextEditor::Editor* editor = KTextEditor::editor("katepart");
+ * \endcode
+ * is enough.
+ *
+ * \section factory_notes Notes
+ * It is recommend to use the EditorChooser to get the used editor part. This
+ * way the user can choose the editor implementation. The Factory itself is
+ * not needed to get the Editor with the help of the EditorChooser.
  *
  * \see KParts::Factory, KTextEditor::Editor
  * \author Christoph Cullmann \<cullmann@kde.org\>

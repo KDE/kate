@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Changes: version 1.25 -> 1.26
+	Date: 26/01/2006
+	Change author: Nicola Gigante
+		Added alternative syntax control structures and named logical operators (and or xor)
+-->
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.25" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.26" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -21,6 +27,11 @@
       <item>include</item>
       <item>require_once</item>
       <item>include_once</item>
+      <item>endif</item>
+      <item>endwhile</item>
+      <item>endfor</item>
+      <item>endforeach</item>
+      <item>endswitch</item>
     </list>
     <list name="keywords">
       <item> abstract </item>
@@ -42,6 +53,9 @@
       <item> public </item>
       <item> throw </item>
       <item> try </item>
+      <item> and </item>
+      <item> or </item>
+      <item> xor </item>
 	<item> var </item>
 	<item> __FILE__ </item>
 	<item> __LINE__ </item>

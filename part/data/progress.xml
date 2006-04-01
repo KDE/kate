@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="progress" version="1.08" kateversion="2.4" section="Database" extensions="*.p;*.w;*.i" author="Rares Stanciulescu (rstanciu@operamail.com)" license="GPL">
+<language name="progress" version="1.09" kateversion="2.4" section="Database" extensions="*.p;*.w;*.i;*.cls" author="Rares Stanciulescu (rstanciu@operamail.com)" license="GPL">
   
 <highlighting>
     
@@ -31,20 +31,11 @@
   <item> TEMP-TABLE </item>
   <item> BUFFER </item>
   <item> STREAM </item>
+  <item> SAX-WRITER </item>
   <item> MEMPTR </item>
 </list>
     
   <list  name="operators">
-    <item> + </item>
-    <item> - </item>
-    <item> * </item>
-    <item> / </item>
-    <item> = </item>
-    <item> &lt; </item>
-    <item> &gt; </item>
-    <item> &lt;= </item>
-    <item> &gt;= </item>
-    <item> &lt;&gt; </item>
     <item> AND </item>
     <item> OR </item>
     <item> NOT </item>
@@ -82,6 +73,8 @@
           
 <list name="phrases">
   <item> AS </item>
+  <item> WORD-INDEX </item>
+  <item> LIKE </item>
   <item> ALERT-BOX </item>
   <item> AT </item>
   <item> COLOR </item>
@@ -148,9 +141,17 @@
   <item> NO-ECHO </item>
   <item> NO-MAP </item>
   <item> PRIVATE </item>
+  <item> PUBLIC </item>
+  <item> PROTECTED </item>
 </list>
           
 <list name="functions">
+  <item> output-content-type </item>
+  <item> get-value </item>
+  <item> get-cgi </item>
+  <item> get-field </item>
+  <item> html-encode </item>
+  <item> url-encode </item>  
   <item> ABSOLUTE </item>
   <item> ACCUM </item>
   <item> ADD-INTERVAL </item>
@@ -577,6 +578,7 @@
   <item> DEFAULT-WINDOW </item>
   <item> ERROR-STATUS </item>
   <item> FILE-INFO </item>
+  <item> FIELD </item>
   <item> FOCUS </item>
   <item> FONT-TABLE </item>
   <item> LAST-EVENT </item>
@@ -611,7 +613,6 @@
   <item> HONORPROKEYS </item>
   <item> HONORRETURNKEY </item>
   <item> LEFT </item>
-  <item> NAME </item>
   <item> TOP </item>
   <item> WIDTH </item>
   <item> TAG </item>
@@ -934,7 +935,6 @@
   <item> MULTIPLE </item>
   <item> MULTITASKING-INTERVAL </item>
   <item> MUST-UNDERSTAND </item>
-  <item> NAME </item>
   <item> NAMESPACE-PREFIX </item>
   <item> NAMESPACE-URI </item>
   <item> NEEDS-APPSERVER-PROMPT </item>
@@ -1163,6 +1163,22 @@
   <item> XML-SUPPRESS-NAMESPACE-PROCESSING </item>
   <item> Y </item>
   <item> YEAR-OFFSET </item>
+  <item> WRITE-XMLSCHEMA </item>
+  <item> WRITE-XML </item>
+  <item> READ-XML </item>
+  <item> NESTED </item>
+  <item> XML-DATA-TYPE </item>
+  <item> XML-NODE-TYPE </item>
+  <item> FORMATTED </item>
+  <item> SET-OUTPUT-DESTINATION </item>
+  <item> START-DOCUMENT </item>
+  <item> START-ELEMENT </item>
+  <item> WRITE-CHARACTERS </item>
+  <item> END-ELEMENT </item>
+  <item> END-DOCUMENT </item>
+  <item> WRITE-DATA-ELEMENT </item>
+  <item> INSERT-ATTRIBUTE </item>
+  
 </list>
 
 <list name="methods">
@@ -1489,7 +1505,7 @@
     <DetectChar attribute="Comment" context="Identifier" char='"'/>
     <DetectChar attribute="String" context="#stay" char='"'/>
     <DetectChar attribute="String" context="#stay" char="'"/>
-    <AnyChar attribute="Symbol" context="#stay" String="{}[]()~:"/>
+    <AnyChar attribute="Symbol" context="#stay" String="+-*=/\?~{}[]():."/>
     
     <StringDetect attribute="Region Marker" context="#stay"
                   String="PROCEDURE" insensitive="TRUE"
@@ -1504,6 +1520,26 @@
     <StringDetect attribute="Region Marker" context="#stay"
                   String="END FUNCTION" insensitive="TRUE"
                   endRegion="F1" firstNonSpace="TRUE"/>
+
+    <StringDetect attribute="Region Marker" context="#stay"
+                  String="CLASS" insensitive="TRUE"
+                  beginRegion="C1" firstNonSpace="TRUE"/>
+    <StringDetect attribute="Region Marker" context="#stay"
+                  String="END CLASS" insensitive="TRUE"
+                  endRegion="C1" firstNonSpace="TRUE"/>
+    
+    <StringDetect attribute="Region Marker" context="#stay"
+                  String="METHOD" insensitive="TRUE"
+                  beginRegion="M1" firstNonSpace="TRUE"/>
+    <StringDetect attribute="Region Marker" context="#stay"
+                  String="END METHOD" insensitive="TRUE"
+                  endRegion="M1" firstNonSpace="TRUE"/>    
+    <StringDetect attribute="Region Marker" context="#stay"
+                  String="CONSTRUCTOR" insensitive="TRUE"
+                  beginRegion="CN1" firstNonSpace="TRUE"/>
+    <StringDetect attribute="Region Marker" context="#stay"
+                  String="END CONSTRUCTOR" insensitive="TRUE"
+                  endRegion="CN1" firstNonSpace="TRUE"/>    
     
     <StringDetect attribute="Function" context="#stay"
                   String="DO:" insensitive="TRUE"
@@ -1520,6 +1556,7 @@
     <StringDetect attribute="Function" context="#stay"
                   String="END" insensitive="TRUE"
                   endRegion="L1" firstNonSpace="TRUE"/>
+    
     
   </context>
   <context name="String" attribute="String" lineEndContext="#stay">

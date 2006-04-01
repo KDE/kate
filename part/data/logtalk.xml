@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 
-<language name="Logtalk" version="1.40" kateversion="2.4" section="Sources" extensions="*.lgt;*.config" mimetype="text/x-logtalk" author="Paulo Moura (pmoura@logtalk.org)" license="Artistic License 2.0">
+<language name="Logtalk" version="1.51" kateversion="2.4" section="Sources" extensions="*.lgt;*.config" mimetype="text/x-logtalk" author="Paulo Moura (pmoura@logtalk.org)" license="Artistic License 2.0">
 
 	<highlighting>
 
@@ -17,11 +17,11 @@
 				<!-- Reflection -->
 				<RegExpr String = "\b(current_predicate|predicate_property)(?=[(])" attribute = "Built-in" context = "#stay" />
 				<!-- DCGs -->
-				<RegExpr String = "\b(expand_term|phrase)(?=[(])" attribute = "Built-in" context = "#stay" />
+				<RegExpr String = "\b(expand_term|term_expansion|phrase)(?=[(])" attribute = "Built-in" context = "#stay" />
 				<!-- Entity -->
 				<RegExpr String = "\b(abolish|c(reate|urrent))_(object|protocol|category)(?=[(])" attribute = "Built-in" context = "#stay" />
 				<RegExpr String = "\b(object|protocol|category)_property(?=[(])" attribute = "Built-in" context = "#stay" />
-				<!-- Event handlers -->
+				<!-- Entity relations -->
 				<RegExpr String = "\bextends_(object|protocol)(?=[(])" attribute = "Built-in" context = "#stay" />
 				<RegExpr String = "\bimplements_protocol(?=[(])" attribute = "Built-in" context = "#stay" />
 				<RegExpr String = "\b(instantiates|specializes)_class(?=[(])" attribute = "Built-in" context = "#stay" />
@@ -48,7 +48,7 @@
 				<RegExpr String = "\b(rem|mod|abs|sign)(?=[(])" attribute = "Built-in" context = "#stay" />
 				<RegExpr String = "\bfloat(_(integer|fractional)_part)?(?=[(])" attribute = "Built-in" context = "#stay" />
 				<RegExpr String = "\b(floor|truncate|round|ceiling)(?=[(])" attribute = "Built-in" context = "#stay" />
-				<!-- Other arithemtic functors -->
+				<!-- Other arithmetic functors -->
 				<RegExpr String = "\b(cos|atan|exp|log|s(in|qrt))(?=[(])" attribute = "Built-in" context = "#stay" />
 				<!-- Term testing -->
 				<RegExpr String = "\b(var|atom(ic)?|integer|float|compound|n(onvar|umber))(?=[(])" attribute = "Built-in" context = "#stay" />
@@ -149,15 +149,16 @@
 				<!-- Entity directives -->
 				<RegExpr String = "\b(category|object|protocol)(?=[(])" attribute = "Directive" context = "entityrelations" beginRegion = "Entity"/>
 				<RegExpr String = "\bend_(category|object|protocol)[.]" attribute = "Directive" context = "#pop" endRegion = "Entity" />
+				<RegExpr String = "\bmodule(?=[(])" attribute = "Directive" context = "#pop"/>
  				<!-- Predicate scope directives -->
 				<RegExpr String = "\bp(ublic|r(otected|ivate))(?=[(])" attribute = "Directive" context = "#pop" />
 				<!-- Other directives -->
-				<RegExpr String = "\bencoding(?=[(])" attribute = "Directive" context = "#pop" />
+				<RegExpr String = "\be(ncoding|xport)(?=[(])" attribute = "Directive" context = "#pop" />
 			   	<RegExpr String = "\bin(fo|itialization)(?=[(])" attribute = "Directive" context = "#pop" />
 				<RegExpr String = "\bdynamic[.]" attribute = "Directive" context = "#pop" />
-				<RegExpr String = "\b(alias|d(ynamic|iscontiguous)|m(etapredicate|ode|ultifile))(?=[(])" attribute = "Directive" context = "#pop" />
+				<RegExpr String = "\b(alias|d(ynamic|iscontiguous)|meta_predicate|m(etapredicate|ode|ultifile))(?=[(])" attribute = "Directive" context = "#pop" />
 				<RegExpr String = "\bop(?=[(])" attribute = "Directive" context = "#pop" />
-				<RegExpr String = "\b(calls|uses)(?=[(])" attribute = "Directive" context = "#pop" />
+				<RegExpr String = "\b(calls|use(s|_module))(?=[(])" attribute = "Directive" context = "#pop" />
 			</context>
 
 			<context name = "entityrelations" attribute = "Normal" lineEndContext = "#stay" >

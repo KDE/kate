@@ -12,7 +12,7 @@
     - Know bugs:
     * None.
 -->
-<language name="PGN" version="2.0" kateversion="2.4" section="Other" extensions="*.pgn;*.PGN" priority="5" mimetype="" casesensitive="1" author="Ruben Carlo Benante (dr.beco@gmail.com)" license="GNU/GPL">
+<language name="PGN" version="2.01" kateversion="2.4" section="Other" extensions="*.pgn;*.PGN" priority="5" mimetype="" casesensitive="1" author="Ruben Carlo Benante (dr.beco@gmail.com)" license="GNU/GPL">
 <highlighting>
   <list name="keywords_list">
     <item> Event </item>
@@ -67,24 +67,24 @@
       <AnyChar attribute="Piece" context="#stay" String="KQBNRPODCTA"/>
       <DetectChar attribute="Commentp" context="Comment_p" char="("/>
       <DetectChar attribute="Commentc" context="Comment_c" char="{"/>
-      <DetectChar attribute="String" context="String" char="""/>
+      <DetectChar attribute="String" context="String" char="&quot;"/>
       <RegExpr attribute="Symbol" context="#stay" String="(\$\d*|1\-0|0\-1|1/2\-1/2|\*|#|\+|\?|!|=|x|\+\-|\-\+)"/>
       <RegExpr attribute="Number" context="#stay" String="\d*(\.|\.\.\.)( |$)"/>
     </context>
     <context attribute="Commentp" lineEndContext="#stay" name="Comment_p">
-      <DetectChar attribute="String" context="String" char="""/>
+      <DetectChar attribute="String" context="String" char="&quot;"/>
       <DetectChar attribute="Commentp" context="Comment_p" char="("/>
       <DetectChar attribute="Commentc" context="Comment_c" char="{"/>
       <DetectChar attribute="Commentp" context="#pop" char=")" endRegion="Comment_p"/>
     </context>
       <context attribute="Commentc" lineEndContext="#stay" name="Comment_c">
-      <DetectChar attribute="String" context="String" char="""/>
+      <DetectChar attribute="String" context="String" char="&quot;"/>
       <DetectChar attribute="Commentp" context="Comment_p" char="("/>
       <DetectChar attribute="Commentc" context="Comment_c" char="{"/>
       <DetectChar attribute="Commentc" context="#pop" char="}" endRegion="Comment_c"/>
     </context>
     <context attribute="String" lineEndContext="#stay" name="String">
-      <DetectChar attribute="String" context="#pop" char="""/>
+      <DetectChar attribute="String" context="#pop" char="&quot;"/>
     </context>
   </contexts>
   <itemDatas>
@@ -94,7 +94,7 @@
     <itemData name="Commentp" defStyleNum="dsComment"/>
     <itemData name="Commentc" defStyleNum="dsComment" bold="true"/>
     <itemData name="String" defStyleNum="dsString" bold="false"/>
-    <itemData name="Number" defStyleNum="dsNumber" color="#bb00bb"/>
+    <itemData name="Number" defStyleNum="dsDecVal" color="#bb00bb"/>
     <itemData name="Symbol" defStyleNum="dsOthers" color="#00bb00"/>
   </itemDatas>
 </highlighting>

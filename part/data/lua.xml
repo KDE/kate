@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Lua" version="0.22" kateversion="2.3" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
+<language name="Lua" version="0.23" kateversion="2.3" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
   <highlighting>
     <list name="keywords">
       <item> and </item>
@@ -19,7 +19,7 @@
       <item> else </item>
       <item> or </item>
       <item> while </item>
-      <item> elsif </item>
+      <item> elseif </item>
       <item> in </item>
       <item> repeat </item>
     </list>

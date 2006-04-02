@@ -111,7 +111,7 @@ class KTEXTEDITOR_EXPORT Command
  * process text as the user types the arguments, or that has flags, you can
  * have your command inherit this class.
  *
- * If your commands supports flags return them by reimplementing
+ * If your command supports flags return them by reimplementing
  * flagCompletions(). You can return your own KCompletion object if the
  * command has available completion data. If you want to interactively react
  * on changes return \e true in wantsToProcessText() for the given command

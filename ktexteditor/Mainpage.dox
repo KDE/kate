@@ -88,7 +88,8 @@ With the Factory the Editor instance can be accessed (the actually underlying
 Editor part) which gives access to the global services of the part. The
 Factory always \e should return the same Editor object (the same pointer), as
 it does not make sense to load the same editor implementation several times.
-You can solve this by using a static global accessor in your implementation.
+Further notes about the Editor implementation can be found in the
+\ref editor_notes.
 
 As applications can load different editor implementations via different
 factories (for example the kate-part and the yzis-part) the signal
@@ -97,6 +98,8 @@ first argument.
 
 \see KTextEditor::Factory, KTextEditor::Editor, KTextEditor::Document,
      KTextEditor::View
+
+\author Dominik Haumann \<dhdev@gmx.de\>
 */
 
 
@@ -104,18 +107,18 @@ first argument.
 
 
 /** \page kte_guidelines Coding Guidelines and API Conventions
-The whole KTextEditor interfaces have a consistent design.
-- naming should follow Qt style. Do not use Java style getters like getBla()
+All KTextEditor interfaces have a consistent design.
+- naming follows Qt style. Avoid Java style getters like getSomeData()
   for example,
-- core interfaces (see \ref kte_design) which inherit QObject must declare all
+- core interfaces (see \ref kte_design) which inherit QObject declare all
   signals as real signals,
 - all other interfaces, which do not subclass QObject, must declare their
   signals as virtual private member functions. An implementation must
   reimplement this virtual member function as a real signal.
-- all signals must have the sender object as first parameter, for example
-  all document signals should look like this:
+- all signals have the sender object as first parameter, for example
+  all document signals have to look like this:
   \code
-  void signalFromDocument (KTextEditor::Document *doc, .....);
+  void signalFromDocument (KTextEditor::Document *doc, ...);
   \endcode
   This allows easy and consistent query which object did send the signal,
   which is important for most applications, as they listen to multiple
@@ -124,13 +127,16 @@ The whole KTextEditor interfaces have a consistent design.
   overwrite them, most members should even be pure virtual, beside
   additional convenience/helper functions.
 
-The interface \p KTextEditor::Cursor represents a cursorposition, i.e. a
-line/column tuple. The same holds for \p KTextEditor::Range. As both of this
+The interface KTextEditor::Cursor represents a cursorposition, i.e. a
+line/column tuple. The same holds for KTextEditor::Range. As both of this
 concepts are much cleaner than tuples, please keep the following guidelines:
-- never use line/column tuples in parameter lists, use
-  \p KTextEditor::Cursor instead,
-- never use Cursor/Cursor tuples for ranges, use a \p KTextEditor::Range
+- never use line/column tuples in parameter lists, use KTextEditor::Cursor
+  instead,
+- never use Cursor/Cursor tuples for ranges, use KTextEditor::Range
   instead of two Cursors.
+
+\author Christoph Cullmann \<cullmann@kde.org\>
+\author Dominik Haumann \<dhdev@gmx.de\>
 */
 
 

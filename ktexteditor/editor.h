@@ -49,7 +49,8 @@ class ConfigPage;
  *
  * \section editor_intro Introduction
  *
- * The Editor part can be accessed via the KTextEditor::Factory and provides
+ * The Editor part can be accessed via the KTextEditor::Factory or the
+ * KTextEditor::EditorChooser and provides
  * general information and configuration methods for the Editor
  * implementation, for example KAboutData by using aboutData().
  *
@@ -67,7 +68,7 @@ class ConfigPage;
  * config pages the Editor implementation provides and configPage() returns
  * the requested page. Further a config page has a short descriptive name,
  * get it with configPageName(). You can get more detailed name by using
- * configPageFullName. Also evary config page has a pixmap, get it with
+ * configPageFullName(). Also every config page has a pixmap, get it with
  * configPagePixmap(). Use the config dialog only if there are no config
  * pages. The configuration can be saved and loaded with readConfig() and
  * writeConfig().
@@ -149,9 +150,10 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
   public:
     /**
      * Read editor configuration from KConfig \p config.
-     * If \p config is NULL you should use kapp->config() as a fallback
-     * solution. Additionally the readConfig() call should be forwarded to
-     * every loaded plugin.
+     *
+     * \note Implementation Notes: If \p config is NULL you should use
+     *       kapp->config() as a fallback solution. Additionally the
+     *       readConfig() call should be forwarded to every loaded plugin.
      * \param config config object
      * \see writeConfig()
      */
@@ -159,9 +161,10 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
 
     /**
      * Write editor configuration to KConfig \p config.
-     * If \p config is NULL you should use kapp->config() as a fallback
-     * solution. Additionally the writeConfig() call should be forwarded to
-     * every loaded plugin.
+     *
+     * \note Implementation Notes: If \p config is NULL you should use
+     *       kapp->config() as a fallback solution. Additionally the
+     *       writeConfig() call should be forwarded to every loaded plugin.
      * \param config config object
      * \see readConfig()
      */

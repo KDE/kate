@@ -27,6 +27,7 @@
 #include "kateview.h"
 #include "katerenderer.h"
 #include "kateextendedattribute.h"
+#include "katestyletreewidget.h"
 
 #include <klocale.h>
 #include <kdialogbase.h>
@@ -64,283 +65,6 @@
 #include <QItemDelegate>
 //END
 
-//BEGIN KateStyleListItem decl
-/*
-    QListViewItem subclass to display/edit a style, bold/italic is check boxes,
-    normal and selected colors are boxes, which will display a color chooser when
-    activated.
-    The context name for the style will be drawn using the editor default font and
-    the chosen colors.
-    This widget id designed to handle the default as well as the individual hl style
-    lists.
-    This widget is designed to work with the KateStyleListView class exclusively.
-    Added by anders, jan 23 2002.
-*/
-class KateStyleListItem : public QTreeWidgetItem
-{
-  public:
-    KateStyleListItem( QTreeWidgetItem *parent, const QString& styleName, KTextEditor::Attribute* defaultstyle, KateExtendedAttribute* data = 0L );
-    KateStyleListItem( QTreeWidget *parent, const QString& styleName, KTextEditor::Attribute* defaultstyle, KateExtendedAttribute* data = 0L );
-    ~KateStyleListItem() { if (actualStyle) delete currentStyle; };
-
-    enum columns {
-      Context = 0,
-      Bold,
-      Italic,
-      Underline,
-      StrikeOut,
-      Foreground,
-      SelectedForeground,
-      Background,
-      SelectedBackground,
-      UseDefaultStyle,
-      NumColumns
-    };
-
-    /* initializes the style from the default and the hldata */
-    void initStyle();
-    /* updates the hldata's style */
-    void updateStyle();
-    /* calls changeProperty() if it makes sense considering pos. */
-    void activate( int column, const QPoint &localPos );
-    /* For bool fields, toggles them, for color fields, display a color chooser */
-    void changeProperty( int p );
-    /** unset a color.
-     * c is 100 (BGColor) or 101 (SelectedBGColor) for now.
-     */
-    void unsetColor( int c );
-    /* style context name */
-    QString contextName() const { return text(0); };
-    /* only true for a hl mode item using it's default style */
-    bool defStyle() const;
-    /* true for default styles */
-    bool isDefault() const;
-    /* whichever style is active (currentStyle for hl mode styles not using
-       the default style, defaultStyle otherwise) */
-    KTextEditor::Attribute* style() const { return currentStyle; };
-
-    virtual QVariant data( int column, int role ) const;
-    virtual void setData( int column, int role, const QVariant& value );
-
-  private:
-    /* private methods to change properties */
-    void toggleDefStyle();
-    void setColor( int );
-    /* helper function to copy the default style into the KateExtendedAttribute,
-       when a property is changed and we are using default style. */
-
-    KTextEditor::Attribute *currentStyle, // the style currently in use (was "is")
-                           *defaultStyle; // default style for hl mode contexts and default styles (was "ds")
-    KateExtendedAttribute  *actualStyle;  // itemdata for hl mode contexts (was "st")
-};
-//END
-
-// BEGIN KateStyleListDelegate
-class KateStyleListDelegate : public QItemDelegate
-{
-  public:
-    KateStyleListDelegate(QWidget* widget);
-
-    virtual void paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const;
-
-  private:
-    QWidget* m_widget;
-};
-// END
-
-#if 0
-class KateAttributeGroup : public KateAttributeList
-{
-  public:
-    uint index;
-};
-
-class KateStyleListModel : public QAbstractItemModel
-{
-  public:
-    KateStyleListModel(QObject* parent)
-      : QAbstractItemModel(parent)
-      , m_defaultOnly(false)
-      // FIXME
-      , m_schemaIndex(0)
-    {
-    }
-
-    virtual ~KateStyleListModel()
-    {
-      //qDeleteAll(m_defaultStyleLists);
-    }
-
-    KateAttributeList* listForIndex(const QModelIndex& index) const
-    {
-      /*foreach (const QPair<int, KateAttributeList*>& pair, m_defaultStyleLists) {
-        if (pair.first == index.row())
-          return pair.second;
-      }
-
-      KateAttributeList *list = new KateAttributeList();
-      KateHlManager::self()->getDefaults(index.row(), *list);
-
-      m_defaultStyleLists.append(qMakePair(index.row(), list));
-
-      return list;*/
-    }
-
-    void setSchema(uint index)
-    {
-      m_schemaIndex = index;
-      reset();
-    }
-
-    enum columns {
-      Context = 0,
-      Bold,
-      Italic,
-      Underline,
-      StrikeOut,
-      NormalColor,
-      SelectedColor,
-      BackgroundColor,
-      BackgroundSelectedColor,
-      UseDefaultStyle,
-      NumColumns
-    };
-
-    virtual int columnCount(const QModelIndex&) const
-    {
-      return NumColumns;
-    }
-
-    virtual QVariant headerData ( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const
-    {
-      if (role == Qt::DisplayRole) {
-        if (section >= Bold && section <= StrikeOut)
-          return QVariant();
-
-      } else if (role == Qt::DecorationRole) {
-        if (section < Bold || section > StrikeOut)
-          return QVariant();
-
-      } else {
-        return QVariant();
-      }
-
-      switch (section) {
-        case Context:
-          return i18n("Context");
-        case Bold:
-          return SmallIconSet("text_bold");
-        case Italic:
-          return SmallIconSet("text_italic");
-        case Underline:
-          return SmallIconSet("text_under");
-        case StrikeOut:
-          return SmallIconSet("text_strike");
-        case NormalColor:
-          return i18n("Normal");
-        case SelectedColor:
-          return i18n("Selected");
-        case BackgroundColor:
-          return i18n("Background");
-        case BackgroundSelectedColor:
-          return i18n("Background Selected");
-        case UseDefaultStyle:
-          return i18n("Use Default Style");
-      }
-
-      return QVariant();
-    }
-
-    virtual QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const
-    {
-      if (role != Qt::DisplayRole)
-        return QVariant();
-
-      if (!m_defaultOnly || index.parent().isValid()) {
-        KTextEditor::Attribute* a = static_cast<KTextEditor::Attribute*>(index.internalPointer());
-        switch (index.column()) {
-          case Context:
-            return KateHlManager::self()->defaultStyleName(index.row(), true);
-          case Bold:
-            return a->fontBold();
-          case Italic:
-            return a->fontItalic();
-          case Underline:
-            return a->fontUnderline();
-          case StrikeOut:
-            return a->fontStrikeOut();
-          case NormalColor:
-            return a->foreground();
-          case SelectedColor:
-            return a->selectedForeground();
-          case BackgroundColor:
-            return a->background();
-          case BackgroundSelectedColor:
-            return a->selectedBackground();
-          case UseDefaultStyle:
-            return "FIXME-UseDefaultStyle";
-        }
-      } else {
-
-      }
-
-      return QVariant();
-    }
-
-    /**
-     * The indexes are as follows:
-     *
-     * Needs rethink
-     *
-     * For the parents
-     *   id = highlight index
-     * For the children
-     *   id = negative highlight index
-     */
-    virtual QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const
-    {
-      if (!m_defaultOnly || parent.isValid())
-        return createIndex(row, column, -1);
-
-      return createIndex(row, column, 0);
-    }
-
-    virtual QModelIndex parent ( const QModelIndex & index ) const
-    {
-      if (!m_defaultOnly || index.row() == 0)
-        return QModelIndex();
-
-      return createIndex(index.row(), index.column(), -1);
-    }
-
-    virtual int rowCount ( const QModelIndex & parent = QModelIndex() ) const
-    {
-      if (!m_defaultOnly || parent.isValid())
-        return listForIndex(parent)->count();
-
-      return 1;//schemaManager()->count();
-    }
-
-    virtual QSize span ( const QModelIndex & index ) const
-    {
-      if (index.parent().isValid())
-        return QSize(1, 1);
-
-      return QSize(NumColumns, 1);
-    }
-
-  private:
-    // Only showing the default styles
-    bool m_defaultOnly;
-
-    int m_schemaIndex;
-    int m_highlightIndex;
-
-    QList< QPair<int,KateAttributeList*> > m_defaultStyleLists;
-
-    QHash<int, QHash<int, KateExtendedAttributeList*> > m_hlDict;
-};
-#endif
 
 //BEGIN KateStyleListCaption decl
 /*
@@ -472,8 +196,7 @@ QString KateSchemaManager::name (uint number)
 //
 
 //BEGIN KateSchemaConfigColorTab -- 'Colors' tab
-KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char * )
-  : QWidget (parent)
+KateSchemaConfigColorTab::KateSchemaConfigColorTab()
 {
   m_schema = -1;
 
@@ -579,9 +302,6 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
   blay->addWidget(gbBorder);
 
   blay->addStretch();
-
-  // connect signal changed(); changed is emitted by a ColorButton change!
-  connect( this, SIGNAL( changed() ), parent->parentWidget(), SLOT( slotChanged() ) );
 
   // QWhatsThis help
   m_back->setWhatsThis(i18n("<p>Sets the background color of the editing area.</p>"));
@@ -765,8 +485,7 @@ void KateSchemaConfigColorTab::slotComboBoxChanged(int index)
 //END KateSchemaConfigColorTab
 
 //BEGIN FontConfig -- 'Fonts' tab
-KateSchemaConfigFontTab::KateSchemaConfigFontTab( QWidget *parent, const char * )
-  : QWidget (parent)
+KateSchemaConfigFontTab::KateSchemaConfigFontTab()
 {
     // sizemanagment
   QGridLayout *grid = new QGridLayout( this );
@@ -775,7 +494,6 @@ KateSchemaConfigFontTab::KateSchemaConfigFontTab( QWidget *parent, const char * 
   m_fontchooser->enableColumn(KFontChooser::StyleList, false);
   grid->addWidget( m_fontchooser, 0, 0);
 
-  connect (this, SIGNAL( changed()), parent->parentWidget(), SLOT (slotChanged()));
   m_schema = -1;
 }
 
@@ -818,16 +536,13 @@ void KateSchemaConfigFontTab::schemaChanged( int newSchema )
 //END FontConfig
 
 //BEGIN FontColorConfig -- 'Normal Text Styles' tab
-KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab( QWidget *parent, const char * )
-  : QWidget (parent)
+KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab()
 {
   // sizemanagment
   QGridLayout *grid = new QGridLayout( this );
 
-  m_defaultStyles = new KateStyleListView( this );
+  m_defaultStyles = new KateStyleTreeWidget( this );
   grid->addWidget( m_defaultStyles, 0, 0);
-
-  connect (m_defaultStyles, SIGNAL (changed()), parent->parentWidget(), SLOT (slotChanged()));
 
   m_defaultStyles->setWhatsThis(i18n(
       "This list displays the default styles for the current schema and "
@@ -872,14 +587,14 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
   p.setColor( QColorGroup::Highlight,
     KateGlobal::self()->schemaManager()->schema(schema)->
       readEntry( "Color Selection", _c ) );
-  _c = l->at(0)->foreground(); // not quite as much of an assumption ;)
+  _c = l->at(0)->foreground().color(); // not quite as much of an assumption ;)
   p.setColor( QColorGroup::Text, _c );
   m_defaultStyles->viewport()->setPalette( p );
 
   // insert the default styles backwards to get them in the right order
   for ( int i = KateHlManager::self()->defaultStyles() - 1; i >= 0; i-- )
   {
-    new KateStyleListItem( m_defaultStyles, KateHlManager::self()->defaultStyleName(i, true), l->at( i ) );
+    m_defaultStyles->addItem( KateHlManager::self()->defaultStyleName(i, true), l->at( i ) );
   }
 }
 
@@ -902,8 +617,7 @@ void KateSchemaConfigFontColorTab::apply ()
 //END FontColorConfig
 
 //BEGIN KateSchemaConfigHighlightTab -- 'Highlighting Text Styles' tab
-KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, const char *, KateSchemaConfigFontColorTab *page, uint hl )
-  : QWidget (parent)
+KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontColorTab *page, uint hl )
 {
   m_defaults = page;
 
@@ -935,7 +649,7 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
   hlCombo->setCurrentIndex(0);
 
   // styles listview
-  m_styles = new KateStyleListView( this, true );
+  m_styles = new KateStyleTreeWidget( this, true );
   layout->addWidget (m_styles, 999);
 
   hlCombo->setCurrentIndex ( hl );
@@ -949,8 +663,6 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
     "<p>To edit the colors, click the colored squares, or select the color "
     "to edit from the popup menu.<p>You can unset the Background and Selected "
     "Background colors from the context menu when appropriate.") );
-
-  connect (m_styles, SIGNAL (changed()), parent->parentWidget(), SLOT (slotChanged()));
 }
 
 KateSchemaConfigHighlightTab::~KateSchemaConfigHighlightTab()
@@ -1008,7 +720,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   p.setColor( QColorGroup::Highlight,
     KateGlobal::self()->schemaManager()->schema(m_schema)->
       readEntry( "Color Selection", _c ) );
-  _c = l->at(0)->foreground(); // not quite as much of an assumption ;)
+  _c = l->at(0)->foreground().color(); // not quite as much of an assumption ;)
   p.setColor( QColorGroup::Text, _c );
   m_styles->viewport()->setPalette( p );
 
@@ -1036,9 +748,9 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
         m_styles->expandItem(parent);
         prefixes.insert( prefix, parent );
       }
-      new KateStyleListItem( parent, name, l->at(itemData->defaultStyleIndex()), itemData );
+      m_styles->addItem( parent, name, l->at(itemData->defaultStyleIndex()), itemData );
     } else {
-      new KateStyleListItem( m_styles, itemData->name(), l->at(itemData->defaultStyleIndex()), itemData );
+      m_styles->addItem( itemData->name(), l->at(itemData->defaultStyleIndex()), itemData );
     }
   }
 }
@@ -1098,23 +810,26 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   connect( btndel, SIGNAL(clicked()), this, SLOT(deleteSchema()) );
 
   m_tabWidget = new QTabWidget ( this );
-  m_tabWidget->setMargin (KDialog::marginHint());
   layout->addWidget (m_tabWidget);
 
   connect (m_tabWidget, SIGNAL (currentChanged (QWidget *)), this, SLOT (newCurrentPage (QWidget *)));
 
-  m_colorTab = new KateSchemaConfigColorTab (m_tabWidget);
+  m_colorTab = new KateSchemaConfigColorTab();
   m_tabWidget->addTab (m_colorTab, i18n("Colors"));
+  connect(m_colorTab, SIGNAL(changed()), SLOT(slotChanged()));
 
-  m_fontTab = new KateSchemaConfigFontTab (m_tabWidget);
+  m_fontTab = new KateSchemaConfigFontTab();
   m_tabWidget->addTab (m_fontTab, i18n("Font"));
+  connect(m_fontTab, SIGNAL(changed()), SLOT(slotChanged()));
 
-  m_fontColorTab = new KateSchemaConfigFontColorTab (m_tabWidget);
+  m_fontColorTab = new KateSchemaConfigFontColorTab();
   m_tabWidget->addTab (m_fontColorTab, i18n("Normal Text Styles"));
+  connect(m_fontColorTab, SIGNAL(changed()), SLOT(slotChanged()));
 
   uint hl = doc ? doc->hlMode() : 0;
-  m_highlightTab = new KateSchemaConfigHighlightTab (m_tabWidget, "", m_fontColorTab, hl );
-  m_tabWidget->addTab (m_highlightTab, i18n("Highlighting Text Styles"));
+  m_highlightTab = new KateSchemaConfigHighlightTab(m_fontColorTab, hl );
+  m_tabWidget->addTab(m_highlightTab, i18n("Highlighting Text Styles"));
+  connect(m_highlightTab, SIGNAL(changed()), SLOT(slotChanged()));
 
   hbHl = new KHBox( this );
   layout->addWidget (hbHl);
@@ -1328,626 +1043,6 @@ void KateViewSchemaAction::setSchema () {
     view->renderer()->config()->setSchema (mode-1);
 }
 //END SCHEMA ACTION
-
-//BEGIN KateStyleListView
-KateStyleListView::KateStyleListView( QWidget *parent, bool showUseDefaults )
-    : QTreeWidget( parent )
-{
-  setItemDelegate(new KateStyleListDelegate(this));
-
-  setColumnCount( showUseDefaults ? 10 : 9 );
-  QStringList headers;
-  headers << i18n("Context") << QString() << QString() << QString() << QString() << i18n("Normal") << i18n("Selected") << i18n("Background") << i18n("Background Selected") << i18n("Use Default Style");
-  setHeaderLabels(headers);
-
-  headerItem()->setIcon(1, SmallIconSet("text_bold"));
-  headerItem()->setIcon(2, SmallIconSet("text_italic"));
-  headerItem()->setIcon(3, SmallIconSet("text_under"));
-  headerItem()->setIcon(4, SmallIconSet("text_strike"));
-
-  connect( this, SIGNAL(mouseButtonPressed(int, QTreeWidgetItem*, const QPoint&, int)),
-           this, SLOT(slotMousePressed(int, QTreeWidgetItem*, const QPoint&, int)) );
-  connect( this, SIGNAL(contextMenuRequested(QTreeWidgetItem*,const QPoint&, int)),
-           this, SLOT(showPopupMenu(QTreeWidgetItem*, const QPoint&)) );
-
-  // grap the bg color, selected color and default font
-  normalcol = KGlobalSettings::textColor();
-  bgcol = KateRendererConfig::global()->backgroundColor();
-  selcol = KateRendererConfig::global()->selectionColor();
-  docfont = *KateRendererConfig::global()->font();
-
-  viewport()->setPaletteBackgroundColor( bgcol );
-}
-
-void KateStyleListView::showPopupMenu( KateStyleListItem *i, const QPoint &globalPos, bool showtitle )
-{
-  if ( !dynamic_cast<KateStyleListItem*>(i) ) return;
-
-  KMenu m( this );
-  KTextEditor::Attribute *currentStyle = i->style();
-  int id;
-  // the title is used, because the menu obscures the context name when
-  // displayed on behalf of spacePressed().
-  QPixmap cl(16,16);
-  cl.fill( i->style()->foreground() );
-  QPixmap scl(16,16);
-  scl.fill( i->style()->selectedForeground() );
-  QPixmap bgcl(16,16);
-  bgcl.fill( i->style()->hasProperty(QTextFormat::BackgroundBrush) ? i->style()->background().color() : viewport()->colorGroup().base() );
-  QPixmap sbgcl(16,16);
-  sbgcl.fill( i->style()->hasProperty(KTextEditor::Attribute::SelectedBackground) ? i->style()->selectedBackground().color() : viewport()->colorGroup().base() );
-
-  if ( showtitle )
-    m.addTitle( i->contextName() );
-  id = m.insertItem( i18n("&Bold"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Bold );
-  m.setItemChecked( id, currentStyle->fontBold() );
-  id = m.insertItem( i18n("&Italic"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Italic );
-  m.setItemChecked( id, currentStyle->fontItalic() );
-  id = m.insertItem( i18n("&Underline"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Underline );
-  m.setItemChecked( id, currentStyle->fontUnderline() );
-  id = m.insertItem( i18n("S&trikeout"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::StrikeOut );
-  m.setItemChecked( id, currentStyle->fontStrikeOut() );
-
-  m.insertSeparator();
-
-  m.insertItem( QIcon(cl), i18n("Normal &Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Foreground );
-  m.insertItem( QIcon(scl), i18n("&Selected Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::SelectedForeground );
-  m.insertItem( QIcon(bgcl), i18n("&Background Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Background );
-  m.insertItem( QIcon(sbgcl), i18n("S&elected Background Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::SelectedBackground );
-
-  // Unset [some] colors. I could show one only if that button was clicked, but that
-  // would disable setting this with the keyboard (how many aren't doing just
-  // that every day? ;)
-  // ANY ideas for doing this in a nicer way will be warmly wellcomed.
-  KTextEditor::Attribute *style = i->style();
-  if ( style->hasProperty( QTextFormat::BackgroundBrush) || style->hasProperty( KTextEditor::Attribute::SelectedBackground ) )
-  {
-    m.insertSeparator();
-    if ( style->hasProperty( QTextFormat::BackgroundBrush) )
-      m.insertItem( i18n("Unset Background Color"), this, SLOT(unsetColor(int)), 0, 100 );
-    if ( style->hasProperty( KTextEditor::Attribute::SelectedBackground ) )
-      m.insertItem( i18n("Unset Selected Background Color"), this, SLOT(unsetColor(int)), 0, 101 );
-  }
-
-  if ( ! i->isDefault() && ! i->defStyle() ) {
-    m.insertSeparator();
-    id = m.insertItem( i18n("Use &Default Style"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::UseDefaultStyle );
-    m.setItemChecked( id, i->defStyle() );
-  }
-  m.exec( globalPos );
-}
-
-void KateStyleListView::showPopupMenu( QTreeWidgetItem *i, const QPoint &pos )
-{
-  if ( dynamic_cast<KateStyleListItem*>(i) )
-    showPopupMenu( (KateStyleListItem*)i, pos, true );
-}
-
-void KateStyleListView::mSlotPopupHandler( int z )
-{
-  ((KateStyleListItem*)currentItem())->changeProperty( z );
-}
-
-void KateStyleListView::unsetColor( int c )
-{
-  ((KateStyleListItem*)currentItem())->unsetColor( c );
-  emitChanged();
-}
-//END
-
-//BEGIN KateStyleListItem
-static const int BoxSize = 16;
-static const int ColorBtnWidth = 32;
-
-KateStyleListDelegate::KateStyleListDelegate(QWidget* widget)
-  : m_widget(widget)
-{
-}
-
-void KateStyleListDelegate::paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
-{
-  static QSet<int> columns;
-  if (!columns.count())
-    columns << KateStyleListItem::Foreground << KateStyleListItem::SelectedForeground << KateStyleListItem::Background << KateStyleListItem::SelectedBackground;
-
-  if (!columns.contains(index.column()))
-    return QItemDelegate::paint(painter, option, index);
-
-  QVariant displayData = index.model()->data(index);
-  Q_ASSERT(displayData.type() == QVariant::Brush);
-
-  QBrush brush = qVariantValue<QBrush>(displayData);
-
-  QStyleOptionButton opt;
-  opt.rect = option.rect;
-  opt.palette = m_widget->palette();
-
-  if (brush == QBrush()) {
-    opt.text = i18n("None set");
-    brush = Qt::white;
-  }
-
-  opt.palette.setBrush(QPalette::Background, brush);
-
-  m_widget->style()->drawControl(QStyle::CE_PushButton, &opt, painter, m_widget);
-}
-
-KateStyleListItem::KateStyleListItem( QTreeWidgetItem *parent, const QString & stylename,
-                              KTextEditor::Attribute *defaultAttribute, KateExtendedAttribute *actualAttribute )
-        : QTreeWidgetItem( parent ),
-          currentStyle( 0L ),
-          defaultStyle( defaultAttribute ),
-          actualStyle( actualAttribute )
-{
-  initStyle();
-  setText(0, stylename);
-}
-
-KateStyleListItem::KateStyleListItem( QTreeWidget *parent, const QString & stylename,
-                              KTextEditor::Attribute *defaultAttribute, KateExtendedAttribute *actualAttribute )
-        : QTreeWidgetItem( parent ),
-          currentStyle( 0L ),
-          defaultStyle( defaultAttribute ),
-          actualStyle( actualAttribute )
-{
-  initStyle();
-  setText(0, stylename);
-}
-
-void KateStyleListItem::initStyle()
-{
-  if (!actualStyle)
-  {
-    currentStyle = defaultStyle;
-  }
-  else
-  {
-    currentStyle = new KTextEditor::Attribute (*defaultStyle);
-
-    if (actualStyle->hasAnyProperty())
-      *currentStyle += *actualStyle;
-  }
-
-  setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-}
-
-QVariant KateStyleListItem::data( int column, int role ) const
-{
-  if (column == Context) {
-    switch (role) {
-      case Qt::TextColorRole:
-        if (style()->hasProperty(QTextFormat::ForegroundBrush))
-          return style()->foreground().color();
-        break;
-
-      case Qt::BackgroundColorRole:
-        if (style()->hasProperty(QTextFormat::BackgroundBrush))
-          return style()->background().color();
-        break;
-
-      case Qt::FontRole:
-        return style()->font();
-        break;
-    }
-  }
-
-  if (role == Qt::CheckStateRole) {
-    switch (column) {
-      case Bold:
-        return style()->fontBold();
-      case Italic:
-        return style()->fontItalic();
-      case Underline:
-        return style()->fontUnderline();
-      case StrikeOut:
-        return style()->fontStrikeOut();
-      case UseDefaultStyle:
-        return *currentStyle == *defaultStyle;
-    }
-  }
-
-  if (role == Qt::DisplayRole) {
-    switch (column) {
-      case Foreground:
-        return style()->foreground();
-      case SelectedForeground:
-        return style()->selectedForeground();
-      case Background:
-        return style()->background();
-      case SelectedBackground:
-        return style()->selectedBackground();
-    }
-  }
-
-  return QTreeWidgetItem::data(column, role);
-}
-
-void KateStyleListItem::setData( int column, int role, const QVariant& value )
-{
-  if (role == Qt::CheckStateRole) {
-    switch (column) {
-      case Bold:
-        style()->setFontBold(value.toBool());
-        break;
-
-      case Italic:
-        style()->setFontItalic(value.toBool());
-        break;
-
-      case Underline:
-        style()->setFontUnderline(value.toBool());
-        break;
-
-      case StrikeOut:
-        style()->setFontStrikeOut(value.toBool());
-        break;
-    }
-  }
-
-  QTreeWidgetItem::setData(column, role, value);
-}
-
-void KateStyleListItem::updateStyle()
-{
-  // nothing there, not update it, will crash
-  if (!actualStyle)
-    return;
-
-  if ( currentStyle->hasProperty(QTextFormat::FontWeight) )
-  {
-    if ( currentStyle->fontWeight() != actualStyle->fontWeight())
-      actualStyle->setFontWeight( currentStyle->fontWeight() );
-  }
-
-  if ( currentStyle->hasProperty(QTextFormat::FontItalic) )
-  {
-    if ( currentStyle->fontItalic() != actualStyle->fontItalic())
-      actualStyle->setFontItalic( currentStyle->fontItalic() );
-  }
-
-  if ( currentStyle->hasProperty(QTextFormat::FontStrikeOut) )
-  {
-    if ( currentStyle->fontStrikeOut() != actualStyle->fontStrikeOut())
-
-      actualStyle->setFontStrikeOut( currentStyle->fontStrikeOut() );
-  }
-
-  if ( currentStyle->hasProperty(QTextFormat::FontUnderline) )
-  {
-    if ( currentStyle->fontUnderline() != actualStyle->fontUnderline())
-      actualStyle->setFontUnderline( currentStyle->fontUnderline() );
-  }
-
-  if ( currentStyle->hasProperty(KTextEditor::Attribute::Outline) )
-  {
-    if ( currentStyle->outline() != actualStyle->outline())
-      actualStyle->setOutline( currentStyle->outline() );
-  }
-
-  if ( currentStyle->hasProperty(QTextFormat::ForegroundBrush) )
-  {
-    if ( currentStyle->foreground() != actualStyle->foreground())
-      actualStyle->setForeground( currentStyle->foreground() );
-  }
-
-  if ( currentStyle->hasProperty(KTextEditor::Attribute::SelectedForeground) )
-  {
-    if ( currentStyle->selectedForeground() != actualStyle->selectedForeground())
-      actualStyle->setSelectedForeground( currentStyle->selectedForeground() );
-  }
-
-  if ( currentStyle->hasProperty(QTextFormat::BackgroundBrush) )
-  {
-    if ( currentStyle->background() != actualStyle->background())
-      actualStyle->setBackground( currentStyle->background() );
-  }
-
-  if ( currentStyle->hasProperty(KTextEditor::Attribute::SelectedBackground) )
-  {
-    if ( currentStyle->selectedBackground() != actualStyle->selectedBackground())
-      actualStyle->setSelectedBackground( currentStyle->selectedBackground() );
-  }
-}
-
-/* only true for a hl mode item using it's default style */
-bool KateStyleListItem::defStyle() const { return actualStyle && actualStyle->properties() != defaultStyle->properties(); }
-
-/* true for default styles */
-bool KateStyleListItem::isDefault() const { return actualStyle ? false : true; }
-
-void KateStyleListItem::activate( int column, const QPoint &localPos )
-{
-  QTreeWidget *lv = treeWidget();
-  int x = 0;
-  for( int c = 0; c < column-1; c++ )
-    x += lv->columnWidth( c );
-  int w;
-  switch( column ) {
-    case Bold:
-    case Italic:
-    case Underline:
-    case StrikeOut:
-    case UseDefaultStyle:
-      w = BoxSize;
-      break;
-    case Foreground:
-    case SelectedForeground:
-    case Background:
-    case SelectedBackground:
-      w = ColorBtnWidth;
-      break;
-    default:
-      return;
-  }
-  if ( !QRect( x, 0, w, BoxSize ).contains( localPos ) )
-  changeProperty( column );
-}
-
-void KateStyleListItem::changeProperty( int p )
-{
-  if ( p == Bold )
-    currentStyle->setFontBold( ! currentStyle->fontBold() );
-  else if ( p == Italic )
-    currentStyle->setFontItalic( ! currentStyle->fontItalic() );
-  else if ( p == Underline )
-    currentStyle->setFontUnderline( ! currentStyle->fontUnderline() );
-  else if ( p == StrikeOut )
-    currentStyle->setFontStrikeOut( ! currentStyle->fontStrikeOut() );
-  else if ( p == UseDefaultStyle )
-    toggleDefStyle();
-  else
-    setColor( p );
-
-  updateStyle ();
-
-  ((KateStyleListView*)treeWidget())->emitChanged();
-}
-
-void KateStyleListItem::toggleDefStyle()
-{
-  if ( *currentStyle == *defaultStyle ) {
-    KMessageBox::information( treeWidget(),
-         i18n("\"Use Default Style\" will be automatically unset when you change any style properties."),
-         i18n("Kate Styles"),
-         "Kate hl config use defaults" );
-  }
-  else {
-    delete currentStyle;
-    currentStyle = new KTextEditor::Attribute( *defaultStyle );
-    //FIXME
-    //repaint();
-  }
-}
-
-void KateStyleListItem::setColor( int column )
-{
-  QColor c; // use this
-  QColor d; // default color
-  if ( column == Foreground)
-  {
-    c = currentStyle->foreground().color();
-    d = defaultStyle->foreground().color();
-  }
-  else if ( column == SelectedForeground )
-  {
-    c = currentStyle->selectedForeground().color();
-    d = currentStyle->selectedForeground().color();
-  }
-  else if ( column == Background )
-  {
-    c = currentStyle->background().color();
-    d = defaultStyle->background().color();
-  }
-  else if ( column == SelectedBackground )
-  {
-    c = currentStyle->selectedBackground().color();
-    d = defaultStyle->selectedBackground().color();
-  }
-
-  if ( KColorDialog::getColor( c, d, treeWidget() ) != QDialog::Accepted) return;
-
-  bool def = ! c.isValid();
-
-  // if set default, and the attrib is set in the default style use it
-  // else if set default, unset it
-  // else set the selected color
-  switch (column)
-  {
-    case Foreground:
-      if ( def )
-      {
-        if ( defaultStyle->hasProperty(QTextFormat::ForegroundBrush) )
-          currentStyle->setForeground( defaultStyle->foreground());
-        else
-          currentStyle->clearProperty(QTextFormat::ForegroundBrush);
-      }
-      else
-        currentStyle->setForeground( c );
-    break;
-    case SelectedForeground:
-      if ( def )
-      {
-        if ( defaultStyle->hasProperty(KTextEditor::Attribute::SelectedForeground) )
-          currentStyle->setSelectedForeground( defaultStyle->selectedForeground());
-        else
-          currentStyle->clearProperty(KTextEditor::Attribute::SelectedForeground);
-      }
-      else
-        currentStyle->setSelectedForeground( c );
-    break;
-    case Background:
-      if ( def )
-      {
-        if ( defaultStyle->hasProperty(QTextFormat::BackgroundBrush) )
-          currentStyle->setBackground( defaultStyle->background());
-        else
-          currentStyle->clearProperty(QTextFormat::BackgroundBrush);
-      }
-      else
-        currentStyle->setBackground( c );
-    break;
-    case SelectedBackground:
-      if ( def )
-      {
-        if ( defaultStyle->hasProperty(KTextEditor::Attribute::SelectedBackground) )
-          currentStyle->setSelectedBackground( defaultStyle->selectedBackground());
-        else
-          currentStyle->clearProperty(KTextEditor::Attribute::SelectedBackground);
-      }
-      else
-        currentStyle->setSelectedBackground( c );
-    break;
-  }
-
-  //FIXME
-  //repaint();
-}
-
-void KateStyleListItem::unsetColor( int c )
-{
-  if ( c == 100 && currentStyle->hasProperty(QTextFormat::BackgroundBrush) )
-    currentStyle->clearProperty(QTextFormat::BackgroundBrush);
-  else if ( c == 101 && currentStyle->hasProperty(KTextEditor::Attribute::SelectedBackground) )
-    currentStyle->clearProperty(KTextEditor::Attribute::SelectedBackground);
-}
-
-#if 0
-void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int col, int width, int align )
-{
-
-  if ( !p )
-    return;
-
-  QTreeWidget *lv = treeWidget();
-  if ( !lv )
-    return;
-  Q_ASSERT( lv ); //###
-
-  // use a private color group and set the text/highlighted text colors
-  QColorGroup mcg = lv->viewport()->colorGroup();
-
-  if ( col ) // col 0 is drawn by the superclass method
-    p->fillRect( 0, 0, width, height(), QBrush( mcg.base() ) );
-
-  int marg = lv->itemMargin();
-
-  QColor c;
-
-  switch ( col )
-  {
-    case ContextName:
-    {
-      mcg.setColor(QColorGroup::Text, currentStyle->foreground());
-      mcg.setColor(QColorGroup::HighlightedText, currentStyle->selectedForeground());
-      // text background color
-      c = currentStyle->background();
-      if ( c.isValid() && currentStyle->hasProperty(QTextFormat::BackgroundBrush) )
-        mcg.setColor( QColorGroup::Base, c );
-      if ( isSelected() && currentStyle->hasProperty(KTextEditor::Attribute::SelectedBackground) )
-      {
-        c = currentStyle->selectedBackground();
-        if ( c.isValid() )
-          mcg.setColor( QColorGroup::Highlight, c );
-      }
-      QFont f ( ((KateStyleListView*)lv)->docfont );
-      p->setFont( currentStyle->font() );
-      // FIXME FIXME port to new Attribute
-      // FIXME - repainting when text is cropped, and the column is enlarged is buggy.
-      // Maybe I need painting the string myself :(
-      // (wilbert) it depends on the font used
-      QTreeWidgetItem::paintCell( p, mcg, col, width, align );
-    }
-    break;
-    case Bold:
-    case Italic:
-    case TextUnderline:
-    case Strikeout:
-    case UseDefStyle:
-    {
-      // Bold/Italic/use default checkboxes
-      // code allmost identical to QCheckListItem
-      int x = 0;
-      int y = (height() - BoxSize) / 2;
-
-      if ( isEnabled() )
-        p->setPen( QPen( mcg.text(), 2 ) );
-      else
-        p->setPen( QPen( lv->palette().color( QPalette::Disabled, QColorGroup::Text ), 2 ) );
-
-      p->drawRect( x+marg, y+2, BoxSize-4, BoxSize-4 );
-      x++;
-      y++;
-      if ( (col == Bold && currentStyle->fontBold()) ||
-          (col == Italic && currentStyle->fontItalic()) ||
-          (col == TextUnderline && currentStyle->fontUnderline()) ||
-          (col == Strikeout && currentStyle->fontStrikeOut()) ||
-          (col == UseDefStyle && *is == *ds ) )
-      {
-        QPolygon a( 7*2 );
-        int i, xx, yy;
-        xx = x+1+marg;
-        yy = y+5;
-        for ( i=0; i<3; i++ ) {
-          a.setPoint( 2*i,   xx, yy );
-          a.setPoint( 2*i+1, xx, yy+2 );
-          xx++; yy++;
-        }
-        yy -= 2;
-        for ( i=3; i<7; i++ ) {
-          a.setPoint( 2*i,   xx, yy );
-          a.setPoint( 2*i+1, xx, yy+2 );
-          xx++; yy--;
-        }
-        p->drawLineSegments( a );
-      }
-    }
-    break;
-    case Color:
-    case SelColor:
-    case BgColor:
-    case SelBgColor:
-    {
-      bool set( false );
-      if ( col == Color)
-      {
-        c = currentStyle->foreground();
-        set = currentStyle->hasProperty(QTextFormat::ForegroundBrush);
-      }
-      else if ( col == SelColor )
-      {
-        c = currentStyle->selectedForeground();
-        set = currentStyle->hasProperty( KTextEditor::Attribute::SelectedForeground);
-      }
-      else if ( col == BgColor )
-      {
-        set = currentStyle->hasProperty(QTextFormat::BackgroundBrush);
-        c = set ? currentStyle->background().color() : mcg.base();
-      }
-      else if ( col == SelBgColor )
-      {
-        set = currentStyle->hasProperty(KTextEditor::Attribute::SelectedBackground);
-        c = set ? currentStyle->selectedBackground().color(): mcg.base();
-      }
-
-      // color "buttons"
-      int x = 0;
-      int y = (height() - BoxSize) / 2;
-      if ( isEnabled() )
-        p->setPen( QPen( mcg.text(), 2 ) );
-      else
-        p->setPen( QPen( lv->palette().color( QPalette::Disabled, QColorGroup::Text ), 2 ) );
-
-      p->drawRect( x+marg, y+2, ColorBtnWidth-4, BoxSize-4 );
-      p->fillRect( x+marg+1,y+3,ColorBtnWidth-7,BoxSize-7,QBrush( c ) );
-      // if this item is unset, draw a diagonal line over the button
-      if ( ! set )
-        p->drawLine( x+marg-1, BoxSize-3, ColorBtnWidth-4, y+1 );
-    }
-    //case default: // no warning...
-  }
-}
-#endif
-//END
 
 //BEGIN KateStyleListCaption
 KateStyleListCaption::KateStyleListCaption( QTreeWidget *parent, const QString & name )

@@ -1,17 +1,17 @@
 kde_module_LTLIBRARIES = katepart.la
 
 katepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmds.cpp kateundo.cpp \
-	katecursor.cpp katedialogs.cpp katedocument.cpp katefactory.cpp katehighlight.cpp \
-	katesyntaxdocument.cpp katetextline.cpp kateview.cpp kateconfig.cpp kateviewhelpers.cpp \
-	katecodecompletion.cpp katedocumenthelpers.cpp katecodefoldinghelpers.cpp kateviewinternal.cpp \
-	katebookmarks.cpp katefont.cpp katelinerange.cpp katesmartcursor.cpp katerenderer.cpp \
-	kateautoindent.cpp katefiletype.cpp kateschema.cpp katedocument.skel \
-	katetemplatehandler.cpp katespell.cpp kateprinter.cpp \
-	kateindentscriptabstracts.cpp kateluascript.cpp katerange.cpp katesmartrange.cpp kateglobal.cpp \
-	katecmd.cpp katelayoutcache.cpp katetextlayout.cpp katesmartmanager.cpp \
-	kateedit.cpp katesmartcursornotifier.cpp katerenderrange.cpp katesmartregion.cpp \
-	katedynamicanimation.cpp kateextendedattribute.cpp katejscript.cpp katecompletionwidget.cpp \
-	katecompletionmodel.cpp katecompletiondelegate.cpp katecompletiontree.cpp
+		katecursor.cpp katedialogs.cpp katedocument.cpp katefactory.cpp katehighlight.cpp \
+		katesyntaxdocument.cpp katetextline.cpp kateview.cpp kateconfig.cpp kateviewhelpers.cpp \
+		katecodecompletion.cpp katedocumenthelpers.cpp katecodefoldinghelpers.cpp kateviewinternal.cpp \
+		katebookmarks.cpp katefont.cpp katelinerange.cpp katesmartcursor.cpp katerenderer.cpp \
+		kateautoindent.cpp katefiletype.cpp kateschema.cpp katedocument.skel \
+		katetemplatehandler.cpp katespell.cpp kateprinter.cpp 	kateindentscriptabstracts.cpp \
+	kateluascript.cpp katerange.cpp katesmartrange.cpp kateglobal.cpp 	katecmd.cpp \
+	katelayoutcache.cpp katetextlayout.cpp katesmartmanager.cpp 	kateedit.cpp \
+	katesmartcursornotifier.cpp katerenderrange.cpp katesmartregion.cpp 	katedynamicanimation.cpp \
+	kateextendedattribute.cpp katejscript.cpp katecompletionwidget.cpp 	katecompletionmodel.cpp \
+	katecompletiondelegate.cpp katecompletiontree.cpp katestyletreewidget.cpp
 
 katepart_la_LIBADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la $(top_builddir)/kdeprint/libkdeprint.la $(top_builddir)/kutils/libkutils.la $(top_builddir)/kjs/libkjs.la $(top_builddir)/knewstuff/libknewstuff.la $(LUA_LIBS)
 
@@ -33,5 +33,5 @@ katejscript.lo: katejscript.lut.h
 
 CLEANFILES = $(LUT_FILES)
 noinst_HEADERS = katerenderrange.h katesmartregion.h katedynamicanimation.h \
-					kateextendedattribute.h katecompletionwidget.h katecompletionmodel.h katecompletiondelegate.h \
-	katecompletiontree.h
+						kateextendedattribute.h katecompletionwidget.h katecompletionmodel.h katecompletiondelegate.h \
+		katecompletiontree.h katestyletreewidget.h

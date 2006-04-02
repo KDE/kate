@@ -1194,7 +1194,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfi
   grid->addWidget( btnConfigure, 1, 0, Qt::AlignRight );
   connect( btnConfigure, SIGNAL(clicked()), this, SLOT(slotConfigure()) );
 
-  connect( listView, SIGNAL(selectionChanged(QTreeWidgetItem*)), this, SLOT(slotCurrentChanged(QTreeWidgetItem*)) );
+  connect( listView, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(slotCurrentChanged(QTreeWidgetItem*)) );
   connect( listView, SIGNAL(stateChange(KatePartPluginListItem *, bool)),
     this, SLOT(slotStateChanged(KatePartPluginListItem *, bool)));
   connect(listView, SIGNAL(stateChange(KatePartPluginListItem *, bool)), this, SLOT(slotChanged()));

@@ -2953,7 +2953,7 @@ void KateHighlighting::getKateExtendedAttributeListCopy (uint schema, KateExtend
 KateHlManager::KateHlManager()
   : QObject()
   , m_config ("katesyntaxhighlightingrc", false, false)
-  , commonSuffixes (QStringList::split(";", ".orig;.new;~;.bak;.BAK"))
+  , commonSuffixes (QString(".orig;.new;~;.bak;.BAK").split(';'))
   , syntax (new KateSyntaxDocument())
   , dynamicCtxsCount(0)
   , forceNoDCReset(false)

@@ -26,14 +26,13 @@
 #include <qstringlist.h>
 #include <qmap.h>
 #include <qfont.h>
-#include <QTreeWidget>
 
 #include <kconfig.h>
 #include <kaction.h>
 
 class KateView;
-class KateStyleListItem;
 class KateStyleListCaption;
+class KateStyleTreeWidget;
 
 class KColorButton;
 
@@ -99,8 +98,6 @@ class KateViewSchemaAction : public KActionMenu
     KateViewSchemaAction(const QString& text, KActionCollection* parent = 0, const char* name = 0)
        : KActionMenu(text, parent, name) { init(); };
 
-    ~KateViewSchemaAction(){;};
-
     void updateMenu (KateView *view);
 
   private:
@@ -122,52 +119,12 @@ class KateViewSchemaAction : public KActionMenu
 // DIALOGS
 //
 
-/*
-    QListView that automatically adds columns for KateStyleListItems and provides a
-    popup menu and a slot to edit a style using the keyboard.
-    Added by anders, jan 23 2002.
-*/
-class KateStyleListView : public QTreeWidget
-{
-  Q_OBJECT
-
-  friend class KateStyleListItem;
-
-  public:
-    KateStyleListView( QWidget *parent=0, bool showUseDefaults=false);
-    ~KateStyleListView() {}
-    /* Display a popupmenu for item i at the specified global position, eventually with a title,
-       promoting the context name of that item */
-    void showPopupMenu( KateStyleListItem *i, const QPoint &globalPos, bool showtitle=false );
-    void emitChanged() { emit changed(); };
-
-    void setBgCol( const QColor &c ) { bgcol = c; }
-    void setSelCol( const QColor &c ) { selcol = c; }
-    void setNormalCol( const QColor &c ) { normalcol = c; }
-
-  private Q_SLOTS:
-    /* Display a popupmenu for item i at item position */
-    void showPopupMenu( QTreeWidgetItem *i, const QPoint &globalPos );
-    /* call item to change a property, or display a menu */
-    //void slotMousePressed( int, QTreeWidgetItem*, int column );
-    /* asks item to change the property in q */
-    void mSlotPopupHandler( int z );
-    void unsetColor( int );
-
-  Q_SIGNALS:
-    void changed();
-
-  private:
-    QColor bgcol, selcol, normalcol;
-    QFont docfont;
-};
-
 class KateSchemaConfigColorTab : public QWidget
 {
   Q_OBJECT
 
   public:
-    KateSchemaConfigColorTab( QWidget *parent = 0, const char *name = 0 );
+    KateSchemaConfigColorTab();
     ~KateSchemaConfigColorTab();
 
   private:
@@ -214,7 +171,7 @@ class KateSchemaConfigFontTab : public QWidget
   Q_OBJECT
 
   public:
-    KateSchemaConfigFontTab( QWidget *parent = 0, const char *name = 0 );
+    KateSchemaConfigFontTab();
     ~KateSchemaConfigFontTab();
 
   public:
@@ -241,7 +198,7 @@ class KateSchemaConfigFontColorTab : public QWidget
   Q_OBJECT
 
   public:
-    KateSchemaConfigFontColorTab( QWidget *parent = 0, const char *name = 0 );
+    KateSchemaConfigFontColorTab();
     ~KateSchemaConfigFontColorTab();
 
   public:
@@ -252,7 +209,7 @@ class KateSchemaConfigFontColorTab : public QWidget
     KateAttributeList *attributeList (uint schema);
 
   private:
-    QTreeWidget* m_defaultStyles;
+    KateStyleTreeWidget* m_defaultStyles;
     QHash<int,KateAttributeList*> m_defaultStyleLists;
 };
 
@@ -261,7 +218,7 @@ class KateSchemaConfigHighlightTab : public QWidget
   Q_OBJECT
 
   public:
-    KateSchemaConfigHighlightTab( QWidget *parent = 0, const char *name = 0, KateSchemaConfigFontColorTab *page = 0, uint hl = 0 );
+    KateSchemaConfigHighlightTab(KateSchemaConfigFontColorTab *page = 0, uint hl = 0 );
     ~KateSchemaConfigHighlightTab();
 
   public:
@@ -276,7 +233,7 @@ class KateSchemaConfigHighlightTab : public QWidget
     KateSchemaConfigFontColorTab *m_defaults;
 
     QComboBox *hlCombo;
-    KateStyleListView *m_styles;
+    KateStyleTreeWidget *m_styles;
 
     int m_schema;
     int m_hl;

@@ -72,6 +72,7 @@ katecompletionmodel.cpp
 katecompletiondelegate.cpp
 katecompletiontree.cpp
 katejscript.cpp
+katestyletreewidget.cpp
 )
 
 kde4_automoc(${katepart_PART_SRCS})

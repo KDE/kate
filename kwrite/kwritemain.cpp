@@ -151,7 +151,9 @@ KWrite::KWrite (KTextEditor::Document *doc)
 
 KWrite::~KWrite()
 {
-  winList.remove (this);
+  int index = winList.indexOf(this);
+  if( (index > -1) && (index < winList.size()) )
+      winList.removeAt(index);
 
   if (m_view->document()->views().count() == 1)
   {
@@ -175,12 +177,12 @@ void KWrite::setupActions()
                                          actionCollection());
   m_recentFiles->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
-  KAction *a=new KAction(i18n("&New Window"), "window_new", 0, this, SLOT(newView()),
-              actionCollection(), "view_new_view");
+  KAction *a = new KAction( KIcon("window_new"), i18n("&New Window"), actionCollection(), "view_new_view" );
+  connect( a, SIGNAL(triggered()), this, SLOT(newView()) );
   a->setWhatsThis(i18n("Create another view containing the current document"));
 
-  a=new KAction(i18n("Choose Editor..."),0,this,SLOT(changeEditor()),
-		actionCollection(),"settings_choose_editor");
+  a = new KAction( i18n("Choose Editor..."), actionCollection(),"settings_choose_editor" );
+  connect( a, SIGNAL(triggered()), this, SLOT(changeEditor()) );
   a->setWhatsThis(i18n("Override the system wide setting for the default editing component"));
 
   KStdAction::quit(this, SLOT(close()), actionCollection())->setWhatsThis(i18n("Close the current document view"));
@@ -191,17 +193,18 @@ void KWrite::setupActions()
   m_paShowStatusBar = KStdAction::showStatusbar(this, SLOT(toggleStatusBar()), actionCollection(), "settings_show_statusbar");
   m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
-  m_paShowPath = new KToggleAction(i18n("Sho&w Path"), 0, this, SLOT(documentNameChanged()),
-                    actionCollection(), "set_showPath");
+  m_paShowPath = new KToggleAction( i18n("Sho&w Path"), actionCollection(), "set_showPath" );
+  connect( m_paShowPath, SIGNAL(triggered()), this, SLOT(documentNameChanged()) );
   m_paShowPath->setCheckedState(i18n("Hide Path"));
   m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
   a=KStdAction::keyBindings(this, SLOT(editKeys()), actionCollection());
   a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
 
-  a=KStdAction::configureToolbars(this, SLOT(editToolbars()), actionCollection(), "set_configure_toolbars");
+  a = KStdAction::configureToolbars(this, SLOT(editToolbars()), actionCollection(), "set_configure_toolbars");
   a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
 
-  a=new KAction(i18n("&About Editor Component"),0,this,SLOT(aboutEditor()),actionCollection(),"help_about_editor");
+  a = new KAction( i18n("&About Editor Component"), actionCollection(), "help_about_editor" );
+  connect( a, SIGNAL(triggered()), this, SLOT(aboutEditor()) );
 
 }
 
@@ -209,23 +212,23 @@ void KWrite::setupStatusBar()
 {
   // statusbar stuff
   m_lineColLabel = new QLabel( statusBar() );
-  statusBar()->addWidget( m_lineColLabel, 0, false );
+  statusBar()->addWidget( m_lineColLabel, 0 );
   m_lineColLabel->setAlignment( Qt::AlignCenter );
 
   m_modifiedLabel = new QLabel( QString("   "), statusBar() );
-  statusBar()->addWidget( m_modifiedLabel, 0, false );
+  statusBar()->addWidget( m_modifiedLabel, 0 );
   m_modifiedLabel->setAlignment( Qt::AlignCenter );
 
   m_insertModeLabel = new QLabel( i18n(" INS "), statusBar() );
-  statusBar()->addWidget( m_insertModeLabel, 0, false );
+  statusBar()->addWidget( m_insertModeLabel, 0 );
   m_insertModeLabel->setAlignment( Qt::AlignCenter );
 
   m_selectModeLabel = new QLabel( i18n(" NORM "), statusBar() );
-  statusBar()->addWidget( m_selectModeLabel, 0, false );
+  statusBar()->addWidget( m_selectModeLabel, 0 );
   m_selectModeLabel->setAlignment( Qt::AlignCenter );
 
   m_fileNameLabel=new KSqueezedTextLabel( statusBar() );
-  statusBar()->addWidget( m_fileNameLabel, 1, true );
+  statusBar()->addPermanentWidget( m_fileNameLabel, 1 );
   m_fileNameLabel->setMinimumSize( 0, 0 );
   m_fileNameLabel->setSizePolicy(QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Fixed ));
   m_fileNameLabel->setAlignment( /*Qt::AlignRight*/Qt::AlignLeft );
@@ -358,7 +361,8 @@ void KWrite::editToolbars()
 void KWrite::dragEnterEvent( QDragEnterEvent *event )
 {
   KUrl::List uriList = KUrl::List::fromMimeData( event->mimeData() );
-  event->accept(!uriList.isEmpty());
+  if(!uriList.isEmpty())
+      event->accept();
 }
 
 void KWrite::dropEvent( QDropEvent *event )
@@ -572,6 +576,8 @@ void KWrite::selectionChanged (KTextEditor::View *view)
 
 void KWrite::informationMessage (KTextEditor::View *view, const QString &message)
 {
+  Q_UNUSED(view)
+
   m_fileNameLabel->setText( message );
 
   // timer to reset this after 4 seconds
@@ -585,7 +591,7 @@ void KWrite::modifiedChanged()
    /* const KateDocumentInfo *info
       = KateDocManager::self()->documentInfo ( m_view->document() );
 */
-    bool modOnHD = false; //info && info->modifiedOnDisc;
+//    bool modOnHD = false; //info && info->modifiedOnDisc;
 
     m_modifiedLabel->setPixmap(
         mod ? m_modPm : m_noPm
@@ -648,7 +654,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 
   KAboutData aboutData ( "kwrite",
                          I18N_NOOP("KWrite"), 
-                         kWriteVersion.latin1(),
+                         kWriteVersion.toLatin1(),
                          I18N_NOOP( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
                          I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://kate.kde.org" );
 
@@ -795,19 +801,21 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 
 
 KWriteEditorChooser::KWriteEditorChooser(QWidget *):
-	KDialogBase(KDialogBase::Plain,i18n("Choose Editor Component"),KDialogBase::Ok | KDialogBase::Cancel, KDialogBase::Cancel)
+	KDialog(0, i18n("Choose Editor Component"), KDialog::Ok|KDialog::Cancel)
 {
-	(new QVBoxLayout(plainPage()))->setAutoAdd(true);
-	m_chooser=new KTextEditor::EditorChooser(plainPage());
-	setMainWidget(m_chooser);
-	m_chooser->readAppSetting();
+    setDefaultButton(KDialog::Cancel);
+    m_chooser = new KTextEditor::EditorChooser(this);
+    resizeLayout(m_chooser, 0, spacingHint());
+    setMainWidget(m_chooser);
+    m_chooser->readAppSetting();
 }
 
-KWriteEditorChooser::~KWriteEditorChooser() {
-;
+KWriteEditorChooser::~KWriteEditorChooser() 
+{
 }
 
-void KWriteEditorChooser::slotOk() {
-	m_chooser->writeAppSetting();
-	KDialogBase::slotOk();
+void KWriteEditorChooser::slotOk() 
+{
+    m_chooser->writeAppSetting();
+    slotButtonClicked(KDialog::Ok);
 }

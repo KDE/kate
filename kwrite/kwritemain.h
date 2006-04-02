@@ -26,6 +26,7 @@
 
 #include <kparts/mainwindow.h>
 
+#include <kdialog.h>
 #include <kdialogbase.h>
 //Added by qt3to4:
 #include <QDragEnterEvent>
@@ -142,7 +143,7 @@ class KWrite : public KParts::MainWindow
       QPixmap m_modPm, m_modDiscPm, m_modmodPm, m_noPm;
 };
 
-class KWriteEditorChooser: public KDialogBase
+class KWriteEditorChooser: public KDialog
 {
   Q_OBJECT
 

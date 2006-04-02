@@ -144,6 +144,9 @@ int KateTextLayout::endCol( ) const
   if (!isValid())
     return 0;
 
+  if (viewLine() == kateLineLayout()->viewLineCount() - 1)
+    return -1;
+
   return startCol() + m_textLayout.textLength();
 }
 

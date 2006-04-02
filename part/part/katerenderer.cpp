@@ -404,7 +404,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       QColor backgroundColor;
       while (it2.hasNext()) {
         const QTextLayout::FormatRange& fr = it2.peekNext();
-        if (fr.start > line.endCol())
+        if (fr.start >= line.endCol())
           goto backgroundFound;
 
         if (fr.start + fr.length > line.endCol()) {
@@ -418,7 +418,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
       while (it.hasNext()) {
         const QTextLayout::FormatRange& fr = it.peekNext();
-        if (fr.start > line.endCol())
+        if (fr.start >= line.endCol())
           break;
 
         if (fr.start + fr.length > line.endCol()) {

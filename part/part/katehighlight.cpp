@@ -1649,7 +1649,7 @@ void KateHighlighting::setData(const KateHlData &hlData)
   config->writeEntry("Priority",hlData.priority);
 }
 
-void KateHighlighting::getKateExtendedAttributeList (uint schema, KateExtendedAttributeList &list)
+void KateHighlighting::getKateExtendedAttributeList (uint schema, QList<KateExtendedAttribute*> &list)
 {
   KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName + " - Schema " + KateGlobal::self()->schemaManager()->name(schema));
@@ -1703,9 +1703,9 @@ void KateHighlighting::getKateExtendedAttributeList (uint schema, KateExtendedAt
  * Saves the KateHlData attribute definitions to the config file.
  *
  * @param schema The id of the schema group to save
- * @param list KateExtendedAttributeList containing the data to be used
+ * @param list QList<KateExtendedAttribute*> containing the data to be used
  */
-void KateHighlighting::setKateExtendedAttributeList(uint schema, KateExtendedAttributeList &list)
+void KateHighlighting::setKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute*> &list)
 {
   KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName + " - Schema "
@@ -1791,7 +1791,7 @@ void KateHighlighting::done()
  *
  * @param list A reference to the internal list containing the parsed default config
  */
-void KateHighlighting::createKateExtendedAttribute(KateExtendedAttributeList &list)
+void KateHighlighting::createKateExtendedAttribute(QList<KateExtendedAttribute*> &list)
 {
   // If no highlighting is selected we need only one default.
   if (noHl)
@@ -1862,7 +1862,7 @@ void KateHighlighting::addToKateExtendedAttributeList()
  *
  * @return The index of the attribute, or 0 if the attribute isn't found
  */
-int  KateHighlighting::lookupAttrName(const QString& name, KateExtendedAttributeList &iDl)
+int  KateHighlighting::lookupAttrName(const QString& name, QList<KateExtendedAttribute*> &iDl)
 {
   for (int i = 0; i < iDl.count(); i++)
     if (iDl.at(i)->name() == buildPrefix+name)
@@ -1886,7 +1886,7 @@ int  KateHighlighting::lookupAttrName(const QString& name, KateExtendedAttribute
  * @return A pointer to the newly created item object
  */
 KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
-                                               KateExtendedAttributeList &iDl,
+                                               QList<KateExtendedAttribute*> &iDl,
                                                QStringList *RegionList,
                                                QStringList *ContextNameList)
 {
@@ -2677,7 +2677,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   // This list is needed for the translation of the attribute parameter,
   // if the itemData name is given instead of the index
   addToKateExtendedAttributeList();
-  KateExtendedAttributeList iDl = internalIDList;
+  QList<KateExtendedAttribute*> iDl = internalIDList;
 
   createContextNameList(&ContextNameList,ctx0);
 
@@ -2869,7 +2869,7 @@ void KateHighlighting::clearAttributeArrays ()
 
     KateHlManager::self()->getDefaults(it.key(), defaultStyleList);
 
-    KateExtendedAttributeList itemDataList;
+    QList<KateExtendedAttribute*> itemDataList;
     getKateExtendedAttributeList(it.key(), itemDataList);
 
     uint nAttribs = itemDataList.count();
@@ -2911,7 +2911,7 @@ QVector<KTextEditor::Attribute> *KateHighlighting::attributes (uint schema)
 
   KateHlManager::self()->getDefaults(schema, defaultStyleList);
 
-  KateExtendedAttributeList itemDataList;
+  QList<KateExtendedAttribute*> itemDataList;
   getKateExtendedAttributeList(schema, itemDataList);
 
   uint nAttribs = itemDataList.count();
@@ -2935,9 +2935,9 @@ QVector<KTextEditor::Attribute> *KateHighlighting::attributes (uint schema)
   return array;
 }
 
-void KateHighlighting::getKateExtendedAttributeListCopy (uint schema, KateExtendedAttributeList &outlist)
+void KateHighlighting::getKateExtendedAttributeListCopy (uint schema, QList<KateExtendedAttribute*> &outlist)
 {
-  KateExtendedAttributeList itemDataList;
+  QList<KateExtendedAttribute*> itemDataList;
   getKateExtendedAttributeList(schema, itemDataList);
 
   qDeleteAll(outlist);

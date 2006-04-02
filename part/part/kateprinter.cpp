@@ -153,7 +153,7 @@ bool KatePrinter::print (KateDocument *doc)
      uint lastline = doc->lastLine(); // nessecary to print selection only
      uint firstline( 0 );
 
-     KateExtendedAttributeList ilist;
+     QList<KateExtendedAttribute*> ilist;
 
      if (useGuide)
        doc->highlight()->getKateExtendedAttributeListCopy (renderer.config()->schema(), ilist);

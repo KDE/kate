@@ -215,7 +215,7 @@ void KateNormalIndent::updateConfig ()
   normalAttrib = 255;
   extensionAttrib = 255;
 
-  KateExtendedAttributeList items;
+  QList<KateExtendedAttribute*> items;
   doc->highlight()->getKateExtendedAttributeListCopy (0, items);
 
   for (int i=0; i<items.count(); i++)
@@ -2301,7 +2301,7 @@ void KateVarIndent::slotVariableChanged( KTextEditor::Document*, const QString &
   else if ( var == "var-indent-couple-attribute" )
   {
     //read a named attribute of the config.
-    KateExtendedAttributeList items;
+    QList<KateExtendedAttribute*> items;
     doc->highlight()->getKateExtendedAttributeListCopy (0, items);
 
     for (int i=0; i<items.count(); i++)

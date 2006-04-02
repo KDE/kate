@@ -111,12 +111,12 @@ class KateHighlighting
     KateHlData getData();
     void setData(const KateHlData&);
 
-    void setKateExtendedAttributeList(uint schema, KateExtendedAttributeList &);
+    void setKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute*> &);
 
     // both methodes return hard copies of the internal lists
     // the lists are cleared first + autodelete is set !
     // keep track that you delete them, or mem will be lost
-    void getKateExtendedAttributeListCopy (uint schema, KateExtendedAttributeList &);
+    void getKateExtendedAttributeListCopy (uint schema, QList<KateExtendedAttribute*> &);
 
     const QString &name() const {return iName;}
     const QString &nameTranslated() const {return iNameTranslated;}
@@ -213,7 +213,7 @@ class KateHighlighting
 
   private:
     // make this private, nobody should play with the internal data pointers
-    void getKateExtendedAttributeList(uint schema, KateExtendedAttributeList &);
+    void getKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute*> &);
 
     void init();
     void done();
@@ -223,7 +223,7 @@ class KateHighlighting
     void handleKateHlIncludeRulesRecursive(int index, KateHlIncludeRules *list);
     int addToContextList(const QString &ident, int ctx0);
     void addToKateExtendedAttributeList();
-    void createKateExtendedAttribute (KateExtendedAttributeList &list);
+    void createKateExtendedAttribute (QList<KateExtendedAttribute*> &list);
     void readGlobalKeywordConfig();
     void readWordWrapConfig();
     void readCommentConfig();
@@ -234,13 +234,13 @@ class KateHighlighting
     // manipulates the ctxs array directly ;)
     void generateContextStack(int *ctxNum, int ctx, QVector<short> *ctxs, int *posPrevLine);
 
-    KateHlItem *createKateHlItem(KateSyntaxContextData *data, KateExtendedAttributeList &iDl, QStringList *RegionList, QStringList *ContextList);
-    int lookupAttrName(const QString& name, KateExtendedAttributeList &iDl);
+    KateHlItem *createKateHlItem(KateSyntaxContextData *data, QList<KateExtendedAttribute*> &iDl, QStringList *RegionList, QStringList *ContextList);
+    int lookupAttrName(const QString& name, QList<KateExtendedAttribute*> &iDl);
 
     void createContextNameList(QStringList *ContextNameList, int ctx0);
     int getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext,/*NO CONST*/ QString &unres);
 
-    KateExtendedAttributeList internalIDList;
+    QList<KateExtendedAttribute*> internalIDList;
 
     QVector<KateHlContext*> m_contexts;
     inline KateHlContext *contextNum (int n) { if (n >= 0 && n < m_contexts.size()) return m_contexts[n]; return 0; }

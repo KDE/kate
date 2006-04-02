@@ -66,22 +66,6 @@
 //END
 
 
-//BEGIN KateStyleListCaption decl
-/*
-    This is a simple subclass for drawing the language names in a nice treeview
-    with the styles.  It is needed because we do not like to mess with the default
-    palette of the containing ListView.  Only the paintCell method is overwritten
-    to use our own palette (that is set on the viewport rather than on the listview
-    itself).
-*/
-class KateStyleListCaption : public QTreeWidgetItem
-{
-  public:
-    KateStyleListCaption( QTreeWidget *parent, const QString & name );
-    ~KateStyleListCaption() {};
-};
-//END
-
 //BEGIN KateSchemaManager
 QString KateSchemaManager::normalSchema ()
 {
@@ -542,6 +526,7 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab()
   QGridLayout *grid = new QGridLayout( this );
 
   m_defaultStyles = new KateStyleTreeWidget( this );
+  connect(m_defaultStyles, SIGNAL(changed()), this, SIGNAL(changed()));
   grid->addWidget( m_defaultStyles, 0, 0);
 
   m_defaultStyles->setWhatsThis(i18n(
@@ -650,6 +635,7 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontC
 
   // styles listview
   m_styles = new KateStyleTreeWidget( this, true );
+  connect(m_styles, SIGNAL(changed()), this, SIGNAL(changed()));
   layout->addWidget (m_styles, 999);
 
   hlCombo->setCurrentIndex ( hl );
@@ -667,7 +653,7 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontC
 
 KateSchemaConfigHighlightTab::~KateSchemaConfigHighlightTab()
 {
-  QHashIterator<int, QHash<int, KateExtendedAttributeList*> > it = m_hlDict;
+  QHashIterator<int, QHash<int, QList<KateExtendedAttribute*>*> > it = m_hlDict;
   while (it.hasNext()) {
     it.next();
     qDeleteAll(it.value());
@@ -693,14 +679,14 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   {
     kDebug(13030) << "NEW SCHEMA, create dict" << endl;
 
-    m_hlDict.insert (schema, QHash<int, KateExtendedAttributeList*>());
+    m_hlDict.insert (schema, QHash<int, QList<KateExtendedAttribute*>*>());
   }
 
   if (!m_hlDict[m_schema].contains(m_hl))
   {
     kDebug(13030) << "NEW HL, create list" << endl;
 
-    KateExtendedAttributeList *list = new KateExtendedAttributeList ();
+    QList<KateExtendedAttribute*> *list = new QList<KateExtendedAttribute*> ();
     KateHlManager::self()->getHl( m_hl )->getKateExtendedAttributeListCopy (m_schema, *list);
     m_hlDict[m_schema].insert (m_hl, list);
   }
@@ -724,8 +710,8 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   p.setColor( QColorGroup::Text, _c );
   m_styles->viewport()->setPalette( p );
 
-  QHash<QString, KateStyleListCaption*> prefixes;
-  KateExtendedAttributeList::ConstIterator it = m_hlDict[m_schema][m_hl]->end();
+  QHash<QString, QTreeWidgetItem*> prefixes;
+  QList<KateExtendedAttribute*>::ConstIterator it = m_hlDict[m_schema][m_hl]->end();
   while (it != m_hlDict[m_schema][m_hl]->begin())
   {
     --it;
@@ -741,10 +727,10 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
       QString prefix = itemData->name().left(c);
       QString name   = itemData->name().mid(c+1);
 
-      KateStyleListCaption *parent = prefixes[prefix];
+      QTreeWidgetItem *parent = prefixes[prefix];
       if ( ! parent )
       {
-        parent = new KateStyleListCaption( m_styles, prefix );
+        parent = new QTreeWidgetItem( m_styles, QStringList() << prefix );
         m_styles->expandItem(parent);
         prefixes.insert( prefix, parent );
       }
@@ -759,7 +745,7 @@ void KateSchemaConfigHighlightTab::reload ()
 {
   m_styles->clear ();
 
-  QHashIterator<int, QHash<int, KateExtendedAttributeList*> > it = m_hlDict;
+  QHashIterator<int, QHash<int, QList<KateExtendedAttribute*>*> > it = m_hlDict;
   while (it.hasNext()) {
     it.next();
     qDeleteAll(it.value());
@@ -771,10 +757,10 @@ void KateSchemaConfigHighlightTab::reload ()
 
 void KateSchemaConfigHighlightTab::apply ()
 {
-  QHashIterator<int, QHash<int, KateExtendedAttributeList*> > it = m_hlDict;
+  QHashIterator<int, QHash<int, QList<KateExtendedAttribute*>*> > it = m_hlDict;
   while (it.hasNext()) {
     it.next();
-    QHashIterator<int, KateExtendedAttributeList*> it2 = it.value();
+    QHashIterator<int, QList<KateExtendedAttribute*>*> it2 = it.value();
     while (it2.hasNext()) {
       it2.next();
       KateHlManager::self()->getHl( it2.key() )->setKateExtendedAttributeList (it.key(), *(it2.value()));
@@ -1043,13 +1029,5 @@ void KateViewSchemaAction::setSchema () {
     view->renderer()->config()->setSchema (mode-1);
 }
 //END SCHEMA ACTION
-
-//BEGIN KateStyleListCaption
-KateStyleListCaption::KateStyleListCaption( QTreeWidget *parent, const QString & name )
-      :  QTreeWidgetItem( parent )
-{
-  setText(0, name);
-}
-//END
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -26,7 +26,6 @@
 class KateExtendedAttribute;
 
 typedef QList<KTextEditor::Attribute*> KateAttributeList;
-typedef QList<KateExtendedAttribute*> KateExtendedAttributeList;
 
 /**
  * An extension of the KTextEditor::Attribute class, with convenience functions

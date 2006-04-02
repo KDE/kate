@@ -20,14 +20,6 @@
 
 #include "katestyletreewidget.h"
 
-#if 0
-#include "kateconfig.h"
-#include "katedocument.h"
-#include "kateglobal.h"
-#include "kateview.h"
-#include "katerenderer.h"
-#endif
-
 #include <QPainter>
 #include <QContextMenuEvent>
 #include <QAction>
@@ -43,7 +35,7 @@
 #include "kateconfig.h"
 #include "kateextendedattribute.h"
 
-// BEGIN KateStyleTreeDelegate
+//BEGIN KateStyleTreeDelegate
 class KateStyleTreeDelegate : public QItemDelegate
 {
   public:
@@ -54,7 +46,7 @@ class KateStyleTreeDelegate : public QItemDelegate
   private:
     QWidget* m_widget;
 };
-// END
+//END
 
 //BEGIN KateStyleTreeWidgetItem decl
 /*
@@ -93,8 +85,6 @@ class KateStyleTreeWidgetItem : public QTreeWidgetItem
     void initStyle();
     /* updates the hldata's style */
     void updateStyle();
-    /* calls changeProperty() if it makes sense considering pos. */
-    void activate( int column, const QPoint &localPos );
     /* For bool fields, toggles them, for color fields, display a color chooser */
     void changeProperty( int p );
     /** unset a color.
@@ -309,7 +299,8 @@ void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem
     return QItemDelegate::paint(painter, option, index);
 
   QVariant displayData = index.model()->data(index);
-  Q_ASSERT(displayData.type() == QVariant::Brush);
+  if (displayData.type() != QVariant::Brush)
+    return QItemDelegate::paint(painter, option, index);
 
   QBrush brush = qVariantValue<QBrush>(displayData);
 
@@ -509,34 +500,6 @@ bool KateStyleTreeWidgetItem::defStyle() const { return actualStyle && actualSty
 
 /* true for default styles */
 bool KateStyleTreeWidgetItem::isDefault() const { return actualStyle ? false : true; }
-
-void KateStyleTreeWidgetItem::activate( int column, const QPoint &localPos )
-{
-  QTreeWidget *lv = treeWidget();
-  int x = 0;
-  for( int c = 0; c < column-1; c++ )
-    x += lv->columnWidth( c );
-  int w;
-  switch( column ) {
-    case Bold:
-    case Italic:
-    case Underline:
-    case StrikeOut:
-    case UseDefaultStyle:
-      w = BoxSize;
-      break;
-    case Foreground:
-    case SelectedForeground:
-    case Background:
-    case SelectedBackground:
-      w = ColorBtnWidth;
-      break;
-    default:
-      return;
-  }
-  if ( !QRect( x, 0, w, BoxSize ).contains( localPos ) )
-  changeProperty( column );
-}
 
 void KateStyleTreeWidgetItem::changeProperty( int p )
 {

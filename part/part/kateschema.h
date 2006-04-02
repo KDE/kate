@@ -157,7 +157,7 @@ class KateSchemaConfigColorTab : public QWidget
     void schemaChanged( int newSchema );
 
   Q_SIGNALS:
-    void changed(); // connected to parentWidget()->parentWidget() SLOT(slotChanged)
+    void changed();
 
   protected Q_SLOTS:
     void slotMarkerColorChanged(const QColor&);
@@ -182,7 +182,7 @@ class KateSchemaConfigFontTab : public QWidget
     void schemaChanged( int newSchema );
 
   Q_SIGNALS:
-    void changed(); // connected to parentWidget()->parentWidget() SLOT(slotChanged)
+    void changed();
 
   private:
     class KFontChooser *m_fontchooser;
@@ -200,6 +200,9 @@ class KateSchemaConfigFontColorTab : public QWidget
   public:
     KateSchemaConfigFontColorTab();
     ~KateSchemaConfigFontColorTab();
+
+  Q_SIGNALS:
+    void changed();
 
   public:
     void schemaChanged (uint schema);
@@ -221,10 +224,12 @@ class KateSchemaConfigHighlightTab : public QWidget
     KateSchemaConfigHighlightTab(KateSchemaConfigFontColorTab *page = 0, uint hl = 0 );
     ~KateSchemaConfigHighlightTab();
 
-  public:
     void schemaChanged (int schema);
     void reload ();
     void apply ();
+
+  Q_SIGNALS:
+    void changed();
 
   protected Q_SLOTS:
     void hlChanged(int z);
@@ -238,7 +243,7 @@ class KateSchemaConfigHighlightTab : public QWidget
     int m_schema;
     int m_hl;
 
-    QHash<int, QHash<int, KateExtendedAttributeList*> > m_hlDict;
+    QHash<int, QHash<int, QList<KateExtendedAttribute*>*> > m_hlDict;
 };
 
 class KateSchemaConfigPage : public KateConfigPage

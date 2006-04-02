@@ -58,36 +58,42 @@ The core of the KTextEditor interfaces consists of several main interfaces:
   The Factory is an interface for the factory of any KTextEditor part and
   provides access to the editor object of the implementation.
 - KTextEditor::Editor \n
-  The Editor interface describes the interface for the editor
-  implementation and provides methods to create documents, get a document list
+  The Editor interface provides access to the underlying editor
+  implementation and has methods to create documents, get a document list,
   and a signal that is emitted whenever a new document was created.
 - KTextEditor::Document \n
   The Document interface represents a document itself and allows to create
   views and access the document contents.
 - KTextEditor::View \n
-  The View interface provides a widget that displays the contents of a Document.
+  The View interface provides a widget that displays the contents of a
+  Document.
 
 The hierarchy can be illustrated as follows:
 \image html ktexteditorhierarchy.png "Basic KTextEditor Hierarchy"
 
-@todo dominik: the following text is very confusing imho
+\section kte_design_user Notes for KTextEditor Users
+To use a KTextEditor implementation you first have to get the
+KTextEditor::Editor object. This can be done in several ways and is described
+in detail in the following documentation:
+ - KTextEditor::Factory
+ - KTextEditor::EditorChooser
 
-The Factory provides access to the chosen Editor (selected with
-KTextEditor::EditorChooser). The Editor has a list of all opened documents
-and can create new documents. A Document's content is visualized by a View.
-A Document can have multiple views (or none) and all views of the same
-document are synchronized.
+\section kte_design_developer Notes for KTextEditor Developers
+The KTextEditor::Factory provides access to its KTextEditor::Editor. The
+Editor has a list of all opened documents and can create new documents. A
+Document's content is visualized by a View. A Document can have multiple
+views (or none) and all views of the same document are synchronized.
 
-So a KTextEditor implementation provides access to its Factory in its library.
-Via this Factory the Editor instance can be accessed (the actually underlying
-Editor part) which gives access to the global services of the part.
-If you want to load a Kate Part and a yzis part you need two different
-factories. This is also the reason why the signal
-KTextEditor::Editor::documentCreated() contains the Editor as first
-argument. In other words: You would never want to have two factories around
-(i.e. two Editor* instances) that both return Kate Parts, the Kate Part
-solves this by using a static accessor in the Editor derived class KateGlobal
-that returns the Editor* object.
+With the Factory the Editor instance can be accessed (the actually underlying
+Editor part) which gives access to the global services of the part. The
+Factory always \e should return the same Editor object (the same pointer), as
+it does not make sense to load the same editor implementation several times.
+You can solve this by using a static global accessor in your implementation.
+
+As applications can load different editor implementations via different
+factories (for example the kate-part and the yzis-part) the signal
+KTextEditor::Editor::documentCreated() contains the responsible Editor as
+first argument.
 
 \see KTextEditor::Factory, KTextEditor::Editor, KTextEditor::Document,
      KTextEditor::View

@@ -52,12 +52,13 @@ class Editor;
  *
  * Each KTextEditor implementation must reimplement this factory to allow
  * access to the editor object.
- * 
+ *
  * \section factory_example Creating an Editor Part
  * To get a kate part the following code snippet can be used:
  * \code
  *     KLibFactory* factory = KLibLoader::self()->factory("katepart");
- *     KTextEditor::Factory* kte_factory = qobject_cast<KTextEditor::Factory*>(factory);
+ *     KTextEditor::Factory* kte_factory =
+ *         qobject_cast<KTextEditor::Factory*>(factory);
  *
  *     if(kte_factory) {
  *         // valid editor factory, it is possible to access the editor now

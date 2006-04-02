@@ -250,8 +250,10 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
 
 /**
  * Helper function for the EditorChooser.
- * \param libname library name
- * \return Editor object or NULL if not available
+ * Usually you do not have to use this function. Instead, use
+ * KTextEditor::EditorChooser::editor().
+ * \param libname library name, for example "katepart"
+ * \return the Editor object on success, otherwise NULL
  * \see KTextEditor::EditorChooser::editor()
  */
 KTEXTEDITOR_EXPORT Editor *editor ( const char *libname );

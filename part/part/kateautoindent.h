@@ -184,7 +184,7 @@ class KateAutoIndent
      * Indents the specified line by the number of levels
      * specified by change.
      */
-    virtual void indent ( KateView *view, uint line, int change ) { }
+    virtual void indent ( KateView *view, uint line, int change );
 
   protected:
     KateDocument *doc;

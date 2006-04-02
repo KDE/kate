@@ -155,6 +155,9 @@ KateAutoIndent::~KateAutoIndent ()
 {
 }
 
+void KateAutoIndent::indent( KateView * , uint , int  )
+{
+}
 //END KateAutoIndent
 
 //BEGIN KateViewIndentAction
@@ -2457,6 +2460,7 @@ void ScriptIndentConfigPage::apply ()
 {
   kDebug(13030) << "ScriptIndentConfigPagE::apply() was called, save config options now!" << endl;
 }
+
 //END ScriptIndentConfigPage
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

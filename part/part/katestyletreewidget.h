@@ -52,6 +52,8 @@ class KateStyleTreeWidget : public QTreeWidget
     void addItem( QTreeWidgetItem *parent, const QString& styleName, KTextEditor::Attribute* defaultstyle, KateExtendedAttribute* data = 0L );
     void addItem( const QString& styleName, KTextEditor::Attribute* defaultstyle, KateExtendedAttribute* data = 0L );
 
+    void resizeColumns();
+
   Q_SIGNALS:
     void changed();
 

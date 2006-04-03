@@ -56,21 +56,17 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 
 	setInstance( KGenericFactory<ISearchPlugin>::instance() );
 
-	m_searchForwardAction = new KAction(
-		i18n("Search Incrementally"), Qt::CTRL+Qt::ALT+Qt::Key_F,
-		this, SLOT(slotSearchForwardAction()),
-		actionCollection(), "edit_isearch" );
-	m_searchBackwardAction = new KAction(
-		i18n("Search Incrementally Backwards"), Qt::CTRL+Qt::ALT+Qt::SHIFT+Qt::Key_F,
-		this, SLOT(slotSearchBackwardAction()),
-		actionCollection(), "edit_isearch_reverse" );
+	KAction* a = m_searchForwardAction = new KAction( i18n("Search Incrementally"), actionCollection(), "edit_isearch" );
+	a->setShortcut(Qt::CTRL+Qt::ALT+Qt::Key_F);
+	connect(a, SIGNAL(triggered(bool)), SLOT(slotSearchForwardAction()));
+
+	a = m_searchBackwardAction = new KAction( i18n("Search Incrementally Backwards"), actionCollection(), "edit_isearch_reverse" );
+	a->setShortcut(Qt::CTRL+Qt::ALT+Qt::SHIFT+Qt::Key_F);
+	connect(a, SIGNAL(triggered(bool)), SLOT(slotSearchBackwardAction()));
 
 	m_label = new QLabel( i18n("I-Search:"), 0L );
 	m_label->setObjectName( QLatin1String( "kde toolbar widget" ) );
-	KWidgetAction* labelAction = new KWidgetAction(
-		m_label,
-		i18n("I-Search:"), 0, 0, 0,
-		actionCollection(), "isearch_label" );
+	KWidgetAction* labelAction = new KWidgetAction( m_label, i18n("I-Search:"), actionCollection(), "isearch_label" );
 	labelAction->setShortcutConfigurable( false );
 
 	m_combo = new KHistoryCombo();
@@ -83,10 +79,7 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	         this, SLOT(slotReturnPressed(const QString&)) );
 	connect( m_combo, SIGNAL(aboutToShowContextMenu(QMenu*)),
 		 this, SLOT(slotAddContextMenuItems(QMenu*)) );
-	m_comboAction = new KWidgetAction(
-		m_combo,
-		i18n("Search"), 0, 0, 0,
-		actionCollection(), "isearch_combo" );
+	m_comboAction = new KWidgetAction( m_combo, i18n("Search"), actionCollection(), "isearch_combo" );
 	m_comboAction->setShortcutConfigurable( false );
 
 	KActionMenu* optionMenu = new KActionMenu(
@@ -98,26 +91,19 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 		i18n("Case Sensitive"), KShortcut(),
 		actionCollection(), "isearch_case_sensitive" );
 	action->setShortcutConfigurable( false );
-	connect( action, SIGNAL(toggled(bool)),
-	         this, SLOT(setCaseSensitive(bool)) );
+	connect( action, SIGNAL(toggled(bool)), SLOT(setCaseSensitive(bool)) );
 	action->setChecked( m_caseSensitive );
 	optionMenu->insert( action );
 
-	action = new KToggleAction(
-		i18n("From Beginning"), KShortcut(),
-		actionCollection(), "isearch_from_beginning" );
+	action = new KToggleAction( i18n("From Beginning"), actionCollection(), "isearch_from_beginning" );
 	action->setShortcutConfigurable( false );
-	connect( action, SIGNAL(toggled(bool)),
-	         this, SLOT(setFromBeginning(bool)) );
+	connect( action, SIGNAL(toggled(bool)), SLOT(setFromBeginning(bool)) );
 	action->setChecked( m_fromBeginning );
 	optionMenu->insert( action );
 
-	action = new KToggleAction(
-		i18n("Regular Expression"), KShortcut(),
-		actionCollection(), "isearch_reg_exp" );
+	action = new KToggleAction( i18n("Regular Expression"), actionCollection(), "isearch_reg_exp" );
 	action->setShortcutConfigurable( false );
-	connect( action, SIGNAL(toggled(bool)),
-	         this, SLOT(setRegExp(bool)) );
+	connect( action, SIGNAL(toggled(bool)), SLOT(setRegExp(bool)) );
 	action->setChecked( m_regExp );
 	optionMenu->insert( action );
 

@@ -104,6 +104,8 @@ class KateStyleTreeWidgetItem : public QTreeWidgetItem
     virtual QVariant data( int column, int role ) const;
     virtual void setData( int column, int role, const QVariant& value );
 
+    KateStyleTreeWidget* treeWidget() const;
+
   private:
     /* private methods to change properties */
     void toggleDefStyle();
@@ -164,27 +166,28 @@ bool KateStyleTreeWidget::edit( const QModelIndex & index, EditTrigger trigger, 
   if (!i)
     return QTreeWidget::edit(index, trigger, event);
 
-  if (index.column() >= 5 && index.column() <= 8) {
-    switch (trigger) {
-      case QAbstractItemView::DoubleClicked:
-      case QAbstractItemView::SelectedClicked:
-      case QAbstractItemView::EditKeyPressed:
-        i->changeProperty(index.column());
-        return false;
-      default:
-        break;
-    }
+  switch (trigger) {
+    case QAbstractItemView::DoubleClicked:
+    case QAbstractItemView::SelectedClicked:
+    case QAbstractItemView::EditKeyPressed:
+      i->changeProperty(index.column());
+      return false;
+    default:
+      return QTreeWidget::edit(index, trigger, event);
   }
+}
 
-  return QTreeWidget::edit(index, trigger, event);
+void KateStyleTreeWidget::resizeColumns()
+{
+  for (int i = 0; i < columnCount(); ++i)
+    resizeColumnToContents(i);
 }
 
 void KateStyleTreeWidget::showEvent( QShowEvent * event )
 {
   QTreeWidget::showEvent(event);
 
-  for (int i = 0; i < columnCount(); ++i)
-    resizeColumnToContents(i);
+  resizeColumns();
 }
 
 void KateStyleTreeWidget::contextMenuEvent( QContextMenuEvent * event )
@@ -276,7 +279,21 @@ void KateStyleTreeWidget::changeProperty()
 void KateStyleTreeWidget::unsetColor()
 {
   ((KateStyleTreeWidgetItem*)currentItem())->unsetColor( static_cast<QAction*>(sender())->data().toInt() );
-  emitChanged();
+}
+
+void KateStyleTreeWidget::emitChanged( )
+{
+  emit changed();
+}
+
+void KateStyleTreeWidget::addItem( const QString & styleName, KTextEditor::Attribute * defaultstyle, KateExtendedAttribute * data )
+{
+  new KateStyleTreeWidgetItem(this, styleName, defaultstyle, data);
+}
+
+void KateStyleTreeWidget::addItem( QTreeWidgetItem * parent, const QString & styleName, KTextEditor::Attribute * defaultstyle, KateExtendedAttribute * data )
+{
+  new KateStyleTreeWidgetItem(parent, styleName, defaultstyle, data);
 }
 //END
 
@@ -313,7 +330,9 @@ void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem
     brush = Qt::white;
   }
 
-  opt.palette.setBrush(QPalette::Background, brush);
+  opt.palette.setBrush(QPalette::Window, brush);
+  //opt.palette.setBrush(QPalette::Button, brush);
+  //opt.palette.setBrush(QPalette::ButtonText, brush);
 
   m_widget->style()->drawControl(QStyle::CE_PushButton, &opt, painter, m_widget);
 }
@@ -454,7 +473,6 @@ void KateStyleTreeWidgetItem::updateStyle()
   if ( currentStyle->hasProperty(QTextFormat::FontStrikeOut) )
   {
     if ( currentStyle->fontStrikeOut() != actualStyle->fontStrikeOut())
-
       actualStyle->setFontStrikeOut( currentStyle->fontStrikeOut() );
   }
 
@@ -518,7 +536,7 @@ void KateStyleTreeWidgetItem::changeProperty( int p )
 
   updateStyle ();
 
-  ((KateStyleTreeWidget*)treeWidget())->emitChanged();
+  treeWidget()->emitChanged();
 }
 
 void KateStyleTreeWidgetItem::toggleDefStyle()
@@ -628,22 +646,11 @@ void KateStyleTreeWidgetItem::unsetColor( int c )
   else if ( c == 101 && currentStyle->hasProperty(KTextEditor::Attribute::SelectedBackground) )
     currentStyle->clearProperty(KTextEditor::Attribute::SelectedBackground);
 }
+
+KateStyleTreeWidget* KateStyleTreeWidgetItem::treeWidget() const
+{
+  return static_cast<KateStyleTreeWidget*>(QTreeWidgetItem::treeWidget());
+}
 //END
-
-
-void KateStyleTreeWidget::emitChanged( )
-{
-  emit changed();
-}
-
-void KateStyleTreeWidget::addItem( const QString & styleName, KTextEditor::Attribute * defaultstyle, KateExtendedAttribute * data )
-{
-  new KateStyleTreeWidgetItem(this, styleName, defaultstyle, data);
-}
-
-void KateStyleTreeWidget::addItem( QTreeWidgetItem * parent, const QString & styleName, KTextEditor::Attribute * defaultstyle, KateExtendedAttribute * data )
-{
-  new KateStyleTreeWidgetItem(parent, styleName, defaultstyle, data);
-}
 
 #include "katestyletreewidget.moc"

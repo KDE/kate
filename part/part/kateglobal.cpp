@@ -244,11 +244,9 @@ bool KateGlobal::configDialogSupported () const
 
 void KateGlobal::configDialog(QWidget *parent)
 {
-  KDialogBase *kd = new KDialogBase ( KDialogBase::IconList,
-                                      i18n("Configure"),
-                                      KDialogBase::Ok | KDialogBase::Cancel | KDialogBase::Help,
-                                      KDialogBase::Ok,
-                                      parent );
+  KDialog *kd = new KDialog(parent, i18n("Configure"), KDialog::Ok | KDialog::Cancel | KDialog::Help);
+  KJanusWidget* janus = new KJanusWidget(kd, KJanusWidget::IconList);
+  kd->setMainWidget(janus);
 
   QList<KTextEditor::ConfigPage*> editorPages;
 
@@ -258,7 +256,7 @@ void KateGlobal::configDialog(QWidget *parent)
     path.clear();
     path << configPageName (i);
 
-    QFrame *page = kd->addPage( path, configPageFullName (i),
+    QFrame *page = janus->addPage( path, configPageFullName (i),
                               configPagePixmap(i, K3Icon::SizeMedium) );
 
     QVBoxLayout *topLayout = new QVBoxLayout( page );
@@ -269,6 +267,8 @@ void KateGlobal::configDialog(QWidget *parent)
     topLayout->addWidget( cp);
     editorPages.append (cp);
   }
+
+  janus->unfoldTreeList(true);
 
   if (kd->exec())
   {

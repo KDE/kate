@@ -739,6 +739,8 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
       m_styles->addItem( itemData->name(), l->at(itemData->defaultStyleIndex()), itemData );
     }
   }
+
+  m_styles->resizeColumns();
 }
 
 void KateSchemaConfigHighlightTab::reload ()

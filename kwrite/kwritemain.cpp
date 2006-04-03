@@ -151,9 +151,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
 
 KWrite::~KWrite()
 {
-  int index = winList.indexOf(this);
-  if( (index > -1) && (index < winList.size()) )
-      winList.removeAt(index);
+  winList.removeAll(this);
 
   if (m_view->document()->views().count() == 1)
   {

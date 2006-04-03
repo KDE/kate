@@ -76,30 +76,28 @@ KateBookmarks::~KateBookmarks()
 
 void KateBookmarks::createActions( KActionCollection* ac )
 {
-  m_bookmarkToggle = new KToggleAction(
-    i18n("Set &Bookmark"), "bookmark", Qt::CTRL+Qt::Key_B,
-    this, SLOT(toggleBookmark()),
-    ac, "bookmarks_toggle" );
+  m_bookmarkToggle = new KToggleAction( i18n("Set &Bookmark"), ac, "bookmarks_toggle" );
+  m_bookmarkToggle->setIcon( KIcon( "bookmark" ) );
+  m_bookmarkToggle->setShortcut( Qt::CTRL+Qt::Key_B );
   m_bookmarkToggle->setWhatsThis(i18n("If a line has no bookmark then add one, otherwise remove it."));
   m_bookmarkToggle->setCheckedState( i18n("Clear &Bookmark") );
+  connect( m_bookmarkToggle, SIGNAL( triggered() ), this, SLOT(toggleBookmark()) );
 
-  m_bookmarkClear = new KAction(
-    i18n("Clear &All Bookmarks"), 0,
-    this, SLOT(clearBookmarks()),
-    ac, "bookmarks_clear");
+  m_bookmarkClear = new KAction( i18n("Clear &All Bookmarks"), ac, "bookmarks_clear");
   m_bookmarkClear->setWhatsThis(i18n("Remove all bookmarks of the current document."));
+  connect( m_bookmarkClear, SIGNAL( triggered() ), this, SLOT(clearBookmarks()) );
 
-  m_goNext = new KAction(
-    i18n("Next Bookmark"), "next", Qt::ALT + Qt::Key_PageDown,
-    this, SLOT(goNext()),
-    ac, "bookmarks_next");
+  m_goNext = new KAction( i18n("Next Bookmark"), ac, "bookmarks_next");
+  m_goNext->setIcon( KIcon( "next" ) );
+  m_goNext->setShortcut( Qt::ALT + Qt::Key_PageDown );
   m_goNext->setWhatsThis(i18n("Go to the next bookmark."));
+  connect( m_goNext, SIGNAL( triggered() ), this, SLOT(goNext()) );
 
-  m_goPrevious = new KAction(
-    i18n("Previous Bookmark"), "previous", Qt::ALT + Qt::Key_PageUp,
-    this, SLOT(goPrevious()),
-    ac, "bookmarks_previous");
+  m_goPrevious = new KAction( i18n("Previous Bookmark"), ac, "bookmarks_previous");
+  m_goPrevious->setIcon( KIcon( "previous" ) );
+  m_goPrevious->setShortcut( Qt::ALT + Qt::Key_PageUp );
   m_goPrevious->setWhatsThis(i18n("Go to the previous bookmark."));
+  connect( m_goPrevious, SIGNAL( triggered() ), this, SLOT(goPrevious()) );
 
   m_bookmarksMenu = (new KActionMenu(i18n("&Bookmarks"), ac, "bookmarks"))->kMenu();
 
@@ -154,7 +152,7 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
   int line = m_view->cursorPosition().line();
   const QRegExp re("&(?!&)");
   int idx( -1 );
-  int old_menu_count = menu.count();
+  int old_menu_count = menu.actions().count();
   KTextEditor::Mark *next = 0;
   KTextEditor::Mark *prev = 0;
 
@@ -183,7 +181,7 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
 
         for (int i=0; i < sortArray.size(); ++i)
         {
-          if (sortArray[i] == it.value()->line)
+          if ((int)sortArray[i] == it.value()->line)
           {
             idx = i + 3;
             if (idx>=menu.actions().size()) before=0;
@@ -233,7 +231,7 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
     idx++;
   }
   if ( next || prev )
-    menu.insertSeparator( idx );
+    menu.addSeparator();
 
 }
 

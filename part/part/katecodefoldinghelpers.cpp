@@ -187,7 +187,7 @@ bool KateCodeFoldingTree::isTopLevel(unsigned int line)
     return true; // no childs
 
   // look if a given lines belongs to a sub node
-  for ( uint i=0; i < m_root.childCount(); ++i )
+  for ( int i=0; i < m_root.childCount(); ++i )
   {
     KateCodeFoldingNode *node = m_root.child(i);
 

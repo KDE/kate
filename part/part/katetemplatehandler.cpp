@@ -235,7 +235,7 @@ void KateTemplateHandler::slotTextInserted( int line, int col )
   if ( ph->isCursor ) deleteLater();
 }
 
-void KateTemplateHandler::locateRange( const KTextEditor::Cursor& cursor )
+void KateTemplateHandler::locateRange( const KTextEditor::Cursor& /*cursor*/ )
 {
   /* if (m_currentRange) {
     m_doc->tagLines(m_currentRange->start().line(),m_currentRange->end().line());
@@ -245,6 +245,7 @@ void KateTemplateHandler::locateRange( const KTextEditor::Cursor& cursor )
   for ( int i = 0;i < m_tabOrder.count();i++ )
   {
     KateTemplatePlaceHolder *ph = m_tabOrder.at( i );
+    Q_UNUSED( ph );
 
       /*foreach ( KateSmartRange* range, ph->ranges.topRange()->childRanges() )
     {

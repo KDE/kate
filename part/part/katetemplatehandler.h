@@ -37,7 +37,7 @@ class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 		virtual bool operator()(int key);
 	private:
 		struct KateTemplatePlaceHolder {
-      KateTemplatePlaceHolder(KateDocument* doc) {}
+      KateTemplatePlaceHolder(KateDocument*) {}
 			bool isCursor;
 			bool isInitialValue;
 		};

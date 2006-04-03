@@ -148,7 +148,7 @@ void KateCompletionModel::setCaseSensitivity( Qt::CaseSensitivity cs )
   m_caseSensitive = cs;
 }
 
-int KateCompletionModel::columnCount( const QModelIndex & parent ) const
+int KateCompletionModel::columnCount( const QModelIndex& ) const
 {
   return m_columnCount;
 }
@@ -609,11 +609,11 @@ bool KateCompletionModel::indexIsCompletion( const QModelIndex & index ) const
   return false;
 }
 
-void KateCompletionModel::slotRowsInserted( const QModelIndex & parent, int start, int end )
+void KateCompletionModel::slotRowsInserted( const QModelIndex & /*parent*/, int /*start*/, int /*end*/ )
 {
 }
 
-void KateCompletionModel::slotRowsRemoved( const QModelIndex & parent, int start, int end )
+void KateCompletionModel::slotRowsRemoved( const QModelIndex & /*parent*/, int /*start*/, int /*end*/ )
 {
 }
 

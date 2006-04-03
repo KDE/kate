@@ -42,6 +42,7 @@ K_EXPORT_COMPONENT_FACTORY( ktexteditor_insertfile, KGenericFactory<InsertFilePl
 InsertFilePlugin::InsertFilePlugin( QObject *parent, const char* name, const QStringList& )
 	: KTextEditor::Plugin ( parent )
 {
+  setObjectName( name );
 }
 
 InsertFilePlugin::~InsertFilePlugin()
@@ -74,13 +75,18 @@ void InsertFilePlugin::removeView(KTextEditor::View *view)
 
 //BEGIN InsertFilePluginView
 InsertFilePluginView::InsertFilePluginView( KTextEditor::View *view, const char *name )
-  : QObject( view, name ),
+  : QObject( view ),
     KXMLGUIClient( view )
 {
+  setObjectName( name );
+
   view->insertChildClient( this );
   setInstance( KGenericFactory<InsertFilePlugin>::instance() );
   _job = 0;
-  (void) new KAction( i18n("Insert File..."), 0, this, SLOT(slotInsertFile()), actionCollection(), "tools_insert_file" );
+
+  KAction *action = new KAction( i18n("Insert File..."), actionCollection(), "tools_insert_file" );
+  connect( action, SIGNAL( triggered( bool ) ), this, SLOT(slotInsertFile()) );
+
   setXMLFile( "ktexteditor_insertfileui.rc" );
 }
 

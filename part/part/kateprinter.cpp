@@ -54,7 +54,7 @@
 #include <kvbox.h>
 
 //BEGIN KatePrinter
-bool KatePrinter::print (KateDocument *doc)
+bool KatePrinter::print (KateDocument * /*doc*/)
 {
 #if 0
 #ifndef Q_WS_WIN //TODO: reenable
@@ -724,14 +724,16 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter * /*printer*/, QWidget *p
   lo->setSpacing( sp );
 
   // enable
-  QHBoxLayout *lo1 = new QHBoxLayout ( lo );
+  QHBoxLayout *lo1 = new QHBoxLayout ();
+  lo->addLayout( lo1 );
   cbEnableHeader = new QCheckBox( i18n("Pr&int header"), this );
   lo1->addWidget( cbEnableHeader );
   cbEnableFooter = new QCheckBox( i18n("Pri&nt footer"), this );
   lo1->addWidget( cbEnableFooter );
 
   // font
-  QHBoxLayout *lo2 = new QHBoxLayout( lo );
+  QHBoxLayout *lo2 = new QHBoxLayout();
+  lo->addLayout( lo2 );
   lo2->addWidget( new QLabel( i18n("Header/footer font:"), this ) );
   lFontPreview = new QLabel( this );
   lFontPreview->setFrameStyle( QFrame::Panel|QFrame::Sunken );
@@ -894,7 +896,7 @@ void KatePrintHeaderFooter::setOptions( const QMap<QString,QString>& opts )
   if ( ! v.isEmpty() )
     kcbtnHeaderBg->setColor( QColor( v ) );
 
-  QStringList tags = QStringList::split('|', opts["app-kate-headerformat"], "true");
+  QStringList tags = opts["app-kate-headerformat"].split('|');
   if (tags.count() == 3)
   {
     leHeaderLeft->setText(tags[0]);
@@ -915,7 +917,7 @@ void KatePrintHeaderFooter::setOptions( const QMap<QString,QString>& opts )
   if ( ! v.isEmpty() )
     kcbtnFooterBg->setColor( QColor( v ) );
 
-  tags = QStringList::split('|', opts["app-kate-footerformat"], "true");
+  tags = opts["app-kate-footerformat"].split('|');
   if (tags.count() == 3)
   {
     leFooterLeft->setText(tags[0]);
@@ -953,7 +955,8 @@ KatePrintLayout::KatePrintLayout( KPrinter * /*printer*/, QWidget *parent)
   KHBox *hb = new KHBox( this );
   lo->addWidget( hb );
   QLabel *lSchema = new QLabel( i18n("&Schema:"), hb );
-  cmbSchema = new QComboBox( false, hb );
+  cmbSchema = new QComboBox( hb );
+  cmbSchema->setEditable( false );
   lSchema->setBuddy( cmbSchema );
 
   cbDrawBackground = new QCheckBox( i18n("Draw bac&kground color"), this );
@@ -969,13 +972,17 @@ KatePrintLayout::KatePrintLayout( KPrinter * /*printer*/, QWidget *parent)
 
   QLabel *lBoxWidth = new QLabel( i18n("W&idth:"), gbBoxProps );
   grid->addWidget(lBoxWidth, 0, 0);
-  sbBoxWidth = new QSpinBox( 1, 100, 1, gbBoxProps );
+  sbBoxWidth = new QSpinBox( gbBoxProps );
+  sbBoxWidth->setRange( 1, 100 );
+  sbBoxWidth->setSingleStep( 1 );
   grid->addWidget(sbBoxWidth, 0, 1);
   lBoxWidth->setBuddy( sbBoxWidth );
 
   QLabel *lBoxMargin = new QLabel( i18n("&Margin:"), gbBoxProps );
   grid->addWidget(lBoxWidth, 1, 0);
-  sbBoxMargin = new QSpinBox( 0, 100, 1, gbBoxProps );
+  sbBoxMargin = new QSpinBox( gbBoxProps );
+  sbBoxMargin->setRange( 0, 100 );
+  sbBoxMargin->setSingleStep( 1 );
   grid->addWidget(sbBoxMargin, 1, 1);
   lBoxMargin->setBuddy( sbBoxMargin );
 
@@ -991,8 +998,8 @@ KatePrintLayout::KatePrintLayout( KPrinter * /*printer*/, QWidget *parent)
   // set defaults:
   sbBoxMargin->setValue( 6 );
   gbBoxProps->setEnabled( false );
-  cmbSchema->insertStringList (KateGlobal::self()->schemaManager()->list ());
-  cmbSchema->setCurrentItem( 1 );
+  cmbSchema->addItems (KateGlobal::self()->schemaManager()->list ());
+  cmbSchema->setCurrentIndex( 1 );
 
   // whatsthis
   // FIXME uncomment when string freeze is over
@@ -1028,7 +1035,7 @@ void KatePrintLayout::setOptions( const QMap<QString,QString>& opts )
   QString v;
   v = opts["app-kate-colorscheme"];
   if ( ! v.isEmpty() )
-    cmbSchema->setCurrentItem( KateGlobal::self()->schemaManager()->number( v ) );
+    cmbSchema->setCurrentIndex( KateGlobal::self()->schemaManager()->number( v ) );
   v = opts["app-kate-usebackground"];
   if ( ! v.isEmpty() )
     cbDrawBackground->setChecked( v == "true" );

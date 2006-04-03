@@ -277,7 +277,7 @@ void KateIndentConfigTab::configPage()
   uint index = m_indentMode->currentIndex();
   if ( KateAutoIndent::hasConfigPage(index) )
   {
-    KDialogBase dlg(this, "indenter_config_dialog", true, i18n("Configure Indenter"),
+    KDialogBase dlg(KDialogBase::Swallow, 0, this, "indenter_config_dialog", true, i18n("Configure Indenter"),
       KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Cancel, true);
 
     KVBox *box = new KVBox(&dlg);
@@ -1607,7 +1607,7 @@ void KateHlDownloadDialog::slotUser1()
 
 //BEGIN KateGotoLineDialog
 KateGotoLineDialog::KateGotoLineDialog(QWidget *parent, int line, int max)
-  : KDialogBase(parent, 0L, true, i18n("Go to Line"), Ok | Cancel, Ok) {
+  : KDialogBase(Swallow, 0, parent, 0L, true, i18n("Go to Line"), Ok | Cancel, Ok) {
 
   QWidget *page = new QWidget(this);
   setMainWidget(page);
@@ -1638,7 +1638,7 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
                                       int modtype,
                                       const QString &reason,
                                       QWidget *parent )
-  : KDialogBase( parent, "", true, "", Ok|Apply|Cancel|User1 ),
+  : KDialogBase( Swallow, 0, parent, "", true, "", Ok|Apply|Cancel|User1 ),
     m_doc( doc ),
     m_modtype ( modtype ),
     m_tmpfile( 0 )

@@ -86,11 +86,6 @@ QString UString::qstring() const
   return QString((QChar*) data(), size());
 }
 
-QConstString UString::qconststring() const
-{
-  return QConstString((QChar*) data(), size());
-}
-
 }
 
 //BEGIN JS API STUFF

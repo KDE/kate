@@ -1028,7 +1028,7 @@ void KateViewInternal::home( bool sel )
   }
 
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_Home, 0, 0);
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_Home, 0);
     m_view->m_codeCompletion->handleKey(&e);
     return;
   }
@@ -1069,7 +1069,7 @@ void KateViewInternal::end( bool sel )
   }
 
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_End, 0, 0);
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_End, 0);
     m_view->m_codeCompletion->handleKey(&e);
     return;
   }
@@ -1268,7 +1268,7 @@ void KateViewInternal::cursorUp(bool sel)
   }
 
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_Up, 0, 0);
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_Up, 0);
     m_view->m_codeCompletion->handleKey(&e);
     return;
   }
@@ -1307,7 +1307,7 @@ void KateViewInternal::cursorDown(bool sel)
   }
 
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_Down, 0, 0);
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_Down, 0);
     m_view->m_codeCompletion->handleKey(&e);
     return;
   }
@@ -1411,7 +1411,7 @@ void KateViewInternal::pageUp( bool sel )
   }
 
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_PageUp, 0, 0);
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_PageUp, 0);
     m_view->m_codeCompletion->handleKey(&e);
     return;
   }
@@ -1462,7 +1462,7 @@ void KateViewInternal::pageDown( bool sel )
   }
 
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_PageDown, 0, 0);
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_PageDown, 0);
     m_view->m_codeCompletion->handleKey(&e);
     return;
   }
@@ -1566,7 +1566,7 @@ void KateViewInternal::top_home( bool sel )
   }
 
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_Home, 0, 0);
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_Home, 0);
     m_view->m_codeCompletion->handleKey(&e);
     return;
   }
@@ -1584,7 +1584,7 @@ void KateViewInternal::bottom_end( bool sel )
   }
 
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_End, 0, 0);
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_End, 0);
     m_view->m_codeCompletion->handleKey(&e);
     return;
   }
@@ -1969,7 +1969,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
         m_view->clearSelection();
         return true;
       }
-      else if ( !((k->state() & Qt::ControlModifier) || (k->state() & Qt::AltModifier)) )
+      else if ( !((k->modifiers() & Qt::ControlModifier) || (k->modifiers() & Qt::AltModifier)) )
       {
         keyPressEvent( k );
         return k->isAccepted();
@@ -2148,7 +2148,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
       return;
     }
 }
-  if ( !(e->state() & Qt::ControlModifier) && !(e->state() & Qt::AltModifier)
+  if ( !(e->modifiers() & Qt::ControlModifier) && !(e->modifiers() & Qt::AltModifier)
        && m_doc->typeChars ( m_view, e->text() ) )
   {
     e->accept();
@@ -2226,7 +2226,7 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
 
           m_selectionMode = Line;
 
-          if ( e->state() & Qt::ShiftModifier )
+          if ( e->modifiers() & Qt::ShiftModifier )
           {
             updateSelection( m_cursor, true );
           }
@@ -2245,7 +2245,7 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
           return;
         }
 
-        if ( e->state() & Qt::ShiftModifier )
+        if ( e->modifiers() & Qt::ShiftModifier )
         {
           m_selectionCached = m_view->selectionRange();
         }
@@ -2261,7 +2261,7 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
         {
           m_dragInfo.state = diNone;
 
-          placeCursor( e->pos(), e->state() & Qt::ShiftModifier );
+          placeCursor( e->pos(), e->modifiers() & Qt::ShiftModifier );
 
           m_scrollX = 0;
           m_scrollY = 0;
@@ -2285,7 +2285,7 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
     case Qt::LeftButton:
       m_selectionMode = Word;
 
-      if ( e->state() & Qt::ShiftModifier )
+      if ( e->modifiers() & Qt::ShiftModifier )
       {
         m_selectionCached = m_view->selectionRange();
         updateSelection( m_cursor, true );
@@ -2342,7 +2342,7 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
       }
 
       if (m_dragInfo.state == diPending)
-        placeCursor( e->pos(), e->state() & Qt::ShiftModifier );
+        placeCursor( e->pos(), e->modifiers() & Qt::ShiftModifier );
       else if (m_dragInfo.state == diNone)
         m_scrollTimer.stop ();
 
@@ -2381,7 +2381,7 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
     }
   }
 
-  if( e->state() & Qt::LeftButton )
+  if( e->buttons() & Qt::LeftButton )
   {
     if (m_dragInfo.state == diPending)
     {
@@ -2685,7 +2685,7 @@ void KateViewInternal::doDrag()
 void KateViewInternal::dragEnterEvent( QDragEnterEvent* event )
 {
   if (event->source()==this) event->setDropAction(Qt::MoveAction);
-  event->accept( (event->mimeData()->hasText() && m_doc->isReadWrite()) ||
+  event->setAccepted( (event->mimeData()->hasText() && m_doc->isReadWrite()) ||
                   KUrl::List::canDecode(event->mimeData()) );
 }
 
@@ -2753,7 +2753,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
 
     placeCursor( event->pos() );
 
-    event->acceptAction();
+    event->acceptProposedAction();
     updateView();
   }
 
@@ -2774,7 +2774,7 @@ void KateViewInternal::wheelEvent(QWheelEvent* e)
 {
   if (m_lineScroll->minimum() != m_lineScroll->maximum() && e->orientation() != Qt::Horizontal) {
     // React to this as a vertical event
-    if ( ( e->state() & Qt::ControlModifier ) || ( e->state() & Qt::ShiftModifier ) ) {
+    if ( ( e->modifiers() & Qt::ControlModifier ) || ( e->modifiers() & Qt::ShiftModifier ) ) {
       if (e->delta() > 0)
         scrollPrevPage();
       else

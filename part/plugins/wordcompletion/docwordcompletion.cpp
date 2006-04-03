@@ -62,6 +62,8 @@ DocWordCompletionPlugin::DocWordCompletionPlugin( QObject *parent,
                             const QStringList& /*args*/ )
 	: KTextEditor::Plugin ( parent )
 {
+  setObjectName( name );
+
   readConfig();
 }
 
@@ -181,12 +183,14 @@ struct DocWordCompletionPluginViewPrivate
 };
 
 DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold, bool autopopup, KTextEditor::View *view, const char *name )
-  : QObject( view, name ),
+  : QObject( view ),
     KXMLGUIClient( view ),
     KTextEditor::CompletionProvider(),
     m_view( view ),
     d( new DocWordCompletionPluginViewPrivate )
 {
+  setObjectName( name );
+
   d->treshold = treshold;
   view->insertChildClient( this );
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
@@ -194,16 +198,22 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold, bool au
   else kDebug()<<"****** No code completion interface available for view"<<endl;
   setInstance( KGenericFactory<DocWordCompletionPlugin>::instance() );
 
-  (void) new KAction( i18n("Reuse Word Above"), Qt::CTRL+Qt::Key_8, this,
-    SLOT(completeBackwards()), actionCollection(), "doccomplete_bw" );
-  (void) new KAction( i18n("Reuse Word Below"), Qt::CTRL+Qt::Key_9, this,
-    SLOT(completeForwards()), actionCollection(), "doccomplete_fw" );
-  (void) new KAction( i18n("Pop Up Completion List"), 0, this,
-    SLOT(popupCompletionList()), actionCollection(), "doccomplete_pu" );
-  (void) new KAction( i18n("Shell Completion"), 0, this,
-    SLOT(shellComplete()), actionCollection(), "doccomplete_sh" );
-  d->autopopup = new KToggleAction( i18n("Automatic Completion Popup"), 0, this,
-    SLOT(toggleAutoPopup()), actionCollection(), "enable_autopopup" );
+  KAction *action = new KAction( i18n("Reuse Word Above"), actionCollection(), "doccomplete_bw" );
+  action->setShortcut( Qt::CTRL+Qt::Key_8 );
+  connect( action, SIGNAL( triggered() ), this, SLOT(completeBackwards()) );
+
+  action = new KAction( i18n("Reuse Word Below"), actionCollection(), "doccomplete_fw" );
+  action->setShortcut( Qt::CTRL+Qt::Key_9 );
+  connect( action, SIGNAL( triggered() ), this, SLOT(completeForwards()) );
+
+  action = new KAction( i18n("Pop Up Completion List"), actionCollection(), "doccomplete_pu" );
+  connect( action, SIGNAL( triggered() ), this, SLOT(popupCompletionList()) );
+
+  action = new KAction( i18n("Shell Completion"), actionCollection(), "doccomplete_sh" );
+  connect( action, SIGNAL( triggered() ), this, SLOT(shellComplete()) );
+
+  d->autopopup = new KToggleAction( i18n("Automatic Completion Popup"), actionCollection(), "enable_autopopup" );
+  connect( d->autopopup, SIGNAL( triggered() ), this, SLOT(toggleAutoPopup()) );
 
   d->autopopup->setChecked( autopopup );
   toggleAutoPopup();
@@ -255,6 +265,7 @@ void DocWordCompletionPluginView::popupCompletionList( QString w )
     return;
 
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>( m_view );
+  Q_UNUSED( cci );
 #ifdef __GNUC__
   #warning cci->showCompletionBox( allMatches( w ), w.length() );
 #endif
@@ -283,7 +294,7 @@ const KTextEditor::CompletionData DocWordCompletionPluginView::completionData(KT
   if ((!d->autopopup->isChecked()) && (comptype==KTextEditor::CompletionAsYouType)) return KTextEditor::CompletionData::Null();
   QString w=word(pos.column(),line);
   kDebug()<<"Checking word length"<<endl;
-  if (w.length() >=d->treshold) {
+  if (w.length() >= (int)d->treshold) {
     {  //showCompletionBox( allMatches( w ), w.length() );
       kDebug()<<"About to return a completion list"<<endl;
       KTextEditor::Cursor newCursor=KTextEditor::Cursor(pos.line(),pos.column()-w.length());
@@ -309,7 +320,7 @@ void DocWordCompletionPluginView::autoPopupCompletionList()
 {
   if ( ! m_view->hasFocus() ) return;
   QString w = word();
-  if ( w.length() >= d->treshold )
+  if ( w.length() >= (int)d->treshold )
   {
       popupCompletionList( w );
   }
@@ -362,7 +373,7 @@ void DocWordCompletionPluginView::complete( bool fw )
      AND the lastinsertedlength last characters of the word is
           equal to the last inserted string
           */
-  if ( cline == d-> cline &&
+  if ( cline == (int)d-> cline &&
           ccol - d->lilen == d->ccol &&
           wrd.endsWith( d->lastIns ) )
   {
@@ -450,7 +461,7 @@ void DocWordCompletionPluginView::complete( bool fw )
         KNotifyClient::beep();
         return;
       }
-      else if ( fw && d->line >= m_view->document()->lines() )
+      else if ( fw && d->line >= (uint)m_view->document()->lines() )
       {
         KNotifyClient::beep();
         return;
@@ -591,7 +602,9 @@ DocWordCompletionConfigPage::DocWordCompletionConfigPage( DocWordCompletionPlugi
       "ingeger number between and including 1 and 30. Feel free to leave the "
       "second part of the sentence blank if it suits your language better. ",
       "Show completions &when a word is at least"), hb );
-  sbAutoPopup = new QSpinBox( 1, 30, 1, hb );
+  sbAutoPopup = new QSpinBox( hb );
+  sbAutoPopup->setRange( 1, 30 );
+  sbAutoPopup->setSingleStep( 1 );
   l->setBuddy( sbAutoPopup );
   lSbRight = new QLabel( i18nc(
       "This is the second part of two strings that will comprise teh sentence "

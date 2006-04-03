@@ -170,7 +170,7 @@ void KateCodeCompletion::buildItemList() {
 }
 
 
-void KateCodeCompletion::showCompletion(const KTextEditor::Cursor &position,const QLinkedList<KTextEditor::CompletionData> &data) {
+void KateCodeCompletion::showCompletion(const KTextEditor::Cursor&,const QLinkedList<KTextEditor::CompletionData> &data) {
   kDebug(13034)<<"KateCodeCompletion::showCompletion"<<endl;
   kDebug(13034)<<"data.size()=="<<data.size()<<endl;
   if (data.isEmpty() && m_data.isEmpty()) return;
@@ -347,7 +347,7 @@ void KateCodeCompletion::abortCompletion()
 /*  emit completionAborted();*/
 }
 
-void KateCodeCompletion::complete( KTextEditor::CompletionItem entry )
+void KateCodeCompletion::complete( KTextEditor::CompletionItem /*entry*/ )
 {
   kDebug(13035)<<"KateCodeCompletion::completion=============about to close completion box"<<endl;
   m_blockEvents=true;
@@ -526,13 +526,14 @@ KateArgHint::KateArgHint( KateView* parent )
     : QFrame( parent )
 {
     setWindowFlags(Qt::WType_Popup);
-    setBackgroundColor( Qt::black );
-    setPaletteForegroundColor( Qt::black );
+    QPalette palette;
+    palette.setColor( backgroundRole(), Qt::black );
+    palette.setColor( foregroundRole(), Qt::black );
+    setPalette( palette );
 
     layout = new QVBoxLayout( this );
     layout->setMargin( 1 );
     layout->setSpacing( 2 );
-    layout->setAutoAdd( true );
     editorView = parent;
 
     m_markCurrentFunction = true;
@@ -623,9 +624,12 @@ void KateArgHint::addFunction( int id, const QString& prot )
 {
     m_functionMap[ id ] = prot;
     QLabel* label = new QLabel( prot.trimmed().simplified(), this );
-    label->setBackgroundColor( QColor(255, 255, 238) );
+    QPalette palette;
+    palette.setColor( label->backgroundRole(), QColor(255, 255, 238) );
+    label->setPalette( palette );
     label->show();
     labelDict.insert( id, label );
+    layout->addWidget( label );
 
     if( m_currentFunction < 0 )
         setCurrentFunction( id );
@@ -669,14 +673,14 @@ bool KateArgHint::eventFilter( QObject*, QEvent* e )
 {
     if( isVisible() && e->type() == QEvent::KeyPress ){
         QKeyEvent* ke = static_cast<QKeyEvent*>( e );
-        if( (ke->state() & Qt::ControlModifier) && ke->key() == Qt::Key_Left ){
+        if( (ke->modifiers() & Qt::ControlModifier) && ke->key() == Qt::Key_Left ){
             setCurrentFunction( currentFunction() - 1 );
             ke->accept();
             return true;
         } else if( ke->key() == Qt::Key_Escape ){
             slotDone(false);
             return false;
-        } else if( (ke->state() & Qt::ControlModifier) && ke->key() == Qt::Key_Right ){
+        } else if( (ke->modifiers() & Qt::ControlModifier) && ke->key() == Qt::Key_Right ){
             setCurrentFunction( currentFunction() + 1 );
             ke->accept();
             return true;

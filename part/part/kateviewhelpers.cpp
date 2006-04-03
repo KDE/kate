@@ -98,7 +98,7 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 {
   QScrollBar::mouseMoveEvent(e);
 
-  if (e->state() | Qt::LeftButton)
+  if (e->buttons() | Qt::LeftButton)
     redrawMarks();
 }
 
@@ -830,14 +830,14 @@ int KateIconBorder::lineNumberWidth() const
 
       QSize newSize(w, h);
       if ((m_arrow.size() != newSize || m_oldBackgroundColor != m_view->renderer()->config()->iconBarColor()) && !newSize.isEmpty()) {
-        m_arrow.resize(newSize);
+        m_arrow = QPixmap(newSize);
 
         QPainter p(&m_arrow);
         p.fillRect( 0, 0, w, h, m_view->renderer()->config()->iconBarColor() );
 
         h = m_view->renderer()->config()->fontMetrics()->ascent();
 
-        p.setPen(m_view->renderer()->attribute(0)->foreground());
+        p.setPen(m_view->renderer()->attribute(0)->foreground().color());
 
         QPainterPath path;
         path.moveTo(w/2, h/2);

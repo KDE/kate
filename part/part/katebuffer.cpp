@@ -88,7 +88,7 @@ class KateFileLoader
   public:
     KateFileLoader (const QString &filename, QTextCodec *codec, bool removeTrailingSpaces)
       : m_file (filename)
-      , m_buffer (qMin (m_file.size(), KATE_FILE_LOADER_BS))
+      , m_buffer (qMin (m_file.size(), KATE_FILE_LOADER_BS), 0)
       , m_codec (codec)
       , m_decoder (m_codec->makeDecoder())
       , m_position (0)

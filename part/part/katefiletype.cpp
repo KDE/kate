@@ -144,7 +144,7 @@ int KateFileTypeManager::fileType (KateDocument *doc)
   // Try wildcards
   if ( ! fileName.isEmpty() )
   {
-    static QStringList commonSuffixes = QStringList::split (";", ".orig;.new;~;.bak;.BAK");
+    static QStringList commonSuffixes = QString(".orig;.new;~;.bak;.BAK").split (";");
 
     if ((result = wildcardsFind(fileName)) != -1)
       return result;
@@ -530,7 +530,10 @@ void KateViewFileTypeAction::init()
 {
   m_doc = 0;
 
-  kMenu()->insertItem ( i18n("None"), this, SLOT(setType(int)), 0,  0);
+  connect( kMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
+  QAction *action = kMenu()->addAction ( i18n("None") );
+  action->setData( 0 );
+  action->setCheckable( true );
 
   connect(kMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
@@ -560,19 +563,28 @@ void KateViewFileTypeAction::slotAboutToShow()
       if (!subMenusName.contains(hlSection))
       {
         subMenusName << hlSection;
-        QMenu *menu = new QMenu ();
+        QMenu *menu = new QMenu (hlSection);
+        connect( menu, SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
         subMenus.append(menu);
-        popupMenu()->insertItem (hlSection, menu);
+        popupMenu()->addMenu (menu);
       }
 
       int m = subMenusName.indexOf (hlSection);
       names << hlName;
-      subMenus.at(m)->insertItem ( hlName, this, SLOT(setType(int)), 0,  z+1);
+      QAction *action = subMenus.at(m)->addAction ( hlName );
+      action->setCheckable( true );
+      action->setData( z+1 );
     }
     else if (!names.contains(hlName))
     {
       names << hlName;
-      popupMenu()->insertItem ( hlName, this, SLOT(setType(int)), 0,  z+1);
+
+      disconnect( popupMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
+      connect( popupMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
+
+      QAction *action = popupMenu()->addAction ( hlName );
+      action->setCheckable( true );
+      action->setData( z+1 );
     }
   }
 
@@ -580,33 +592,50 @@ void KateViewFileTypeAction::slotAboutToShow()
 
   for (int i=0;i<subMenus.count();i++)
   {
-    for (int i2=0;i2<(int)subMenus.at(i)->count();i2++)
-      subMenus.at(i)->setItemChecked(subMenus.at(i)->idAt(i2),false);
+    QList<QAction*> actions = subMenus.at( i )->actions();
+    for ( int j = 0; j < actions.count(); ++j )
+      actions[ j ]->setChecked( false );
   }
-  popupMenu()->setItemChecked (0, false);
 
-  if (doc->fileType() == -1)
-    popupMenu()->setItemChecked (0, true);
-  else
-  {
+  QList<QAction*> actions = popupMenu()->actions();
+  for ( int i = 0; i < actions.count(); ++i )
+    actions[ i ]->setChecked( false );
+
+  if (doc->fileType() == -1) {
+    for ( int i = 0; i < actions.count(); ++i ) {
+      if ( actions[ i ]->data().toInt() == 0 )
+        actions[ i ]->setChecked( true );
+    }
+  } else {
     if (KateGlobal::self()->fileTypeManager()->isValidType(doc->fileType()))
     {
       const KateFileType& t = KateGlobal::self()->fileTypeManager()->fileType(doc->fileType());
       int i = subMenusName.indexOf (t.section);
-      if (i >= 0 && subMenus.at(i))
-        subMenus.at(i)->setItemChecked (doc->fileType()+1, true);
-      else
-        popupMenu()->setItemChecked (0, true);
+      if (i >= 0 && subMenus.at(i)) {
+        QList<QAction*> actions = subMenus.at( i )->actions();
+        for ( int j = 0; j < actions.count(); ++j ) {
+          if ( actions[ j ]->data().toInt() == (doc->fileType()+1) )
+            actions[ j ]->setChecked( true );
+        }
+      } else {
+        QList<QAction*> actions = popupMenu()->actions();
+        for ( int j = 0; j < actions.count(); ++j ) {
+          if ( actions[ j ]->data().toInt() == 0 )
+            actions[ j ]->setChecked( true );
+        }
+      }
     }
   }
 }
 
-void KateViewFileTypeAction::setType (int mode)
+void KateViewFileTypeAction::setType (QAction *action)
 {
   KateDocument *doc=m_doc;
 
-  if (doc)
+  if (doc) {
+    int mode = action->data().toInt();
     doc->updateFileType(mode-1, true);
+  }
 }
 
 //END KateViewFileTypeAction

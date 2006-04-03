@@ -210,7 +210,7 @@ class KateViewIndentationAction : public KActionMenu
     void slotAboutToShow();
 
   private Q_SLOTS:
-    void setMode (int mode);
+    void setMode (QAction*);
 };
 
 /**

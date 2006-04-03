@@ -37,6 +37,7 @@ namespace KTextEditor {
 KDataToolPlugin::KDataToolPlugin( QObject *parent, const char* name, const QStringList& )
 	: KTextEditor::Plugin ( parent )
 {
+  setObjectName( name );
 }
 
 
@@ -143,8 +144,8 @@ void KDataToolPluginView::aboutToShow()
 			m_singleWord = true;
 			m_singleWord_line = line;
 		} else {
-			m_notAvailable = new KAction(i18n("(not available)"), QString(), 0, this,
-					SLOT(slotNotAvailable()), actionCollection(),"dt_n_av");
+			m_notAvailable = new KAction(i18n("(not available)"), actionCollection(),"dt_n_av");
+      connect( m_notAvailable, SIGNAL( triggered( bool ) ), this, SLOT(slotNotAvailable()) );
 			m_menu->insert(m_notAvailable);
 			return;
 		}
@@ -164,8 +165,8 @@ void KDataToolPluginView::aboutToShow()
 		m_menu->insert(ac);
 
 	if( m_actionList.isEmpty() ) {
-		m_notAvailable = new KAction(i18n("(not available)"), QString(), 0, this,
-			SLOT(slotNotAvailable()), actionCollection(),"dt_n_av");
+		m_notAvailable = new KAction(i18n("(not available)"), actionCollection(),"dt_n_av");
+    connect( m_notAvailable, SIGNAL( triggered( bool ) ), this, SLOT(slotNotAvailable()) );
 		m_menu->insert(m_notAvailable);
 	}
 }

@@ -940,7 +940,7 @@ void KateDocument::undoStart()
   if (m_editCurrentUndo || (m_activeView && activeKateView()->imComposeEvent())) return;
 
   // Make sure the buffer doesn't get bigger than requested
-  if ((config()->undoSteps() > 0) && (undoItems.count() > config()->undoSteps()))
+  if ((config()->undoSteps() > 0) && (undoItems.count() > (int)config()->undoSteps()))
   {
     delete undoItems.takeFirst();
     docWasSavedWhenUndoWasEmpty = false;
@@ -2353,7 +2353,7 @@ bool KateDocument::save()
     // get the right permissions, start with safe default
     mode_t  perms = 0600;
     KIO::UDSEntry fentry;
-    if (KIO::NetAccess::stat (url(), fentry, kapp->mainWidget()))
+    if (KIO::NetAccess::stat (url(), fentry, kapp->activeWindow()))
     {
       kDebug () << "stating succesfull: " << url() << endl;
       KFileItem item (fentry, url());
@@ -2362,8 +2362,8 @@ bool KateDocument::save()
 
     // first del existing file if any, than copy over the file we have
     // failure if a: the existing file could not be deleted, b: the file could not be copied
-    if ( (!KIO::NetAccess::exists( u, false, kapp->mainWidget() ) || KIO::NetAccess::del( u, kapp->mainWidget() ))
-          && KIO::NetAccess::file_copy( url(), u, perms, true, false, kapp->mainWidget() ) )
+    if ( (!KIO::NetAccess::exists( u, false, kapp->activeWindow() ) || KIO::NetAccess::del( u, kapp->activeWindow() ))
+          && KIO::NetAccess::file_copy( url(), u, perms, true, false, kapp->activeWindow() ) )
     {
       kDebug(13020)<<"backing up successfull ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
     }

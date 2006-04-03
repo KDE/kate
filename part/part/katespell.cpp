@@ -54,11 +54,15 @@ KateSpell::~KateSpell()
 void KateSpell::createActions( KActionCollection* ac )
 {
    KStdAction::spelling( this, SLOT(spellcheck()), ac );
-   KAction *a = new KAction( i18n("Spelling (from cursor)..."), "spellcheck", 0, this, SLOT(spellcheckFromCursor()), ac, "tools_spelling_from_cursor" );
+   KAction *a = new KAction( i18n("Spelling (from cursor)..."), ac, "tools_spelling_from_cursor" );
+   a->setIcon( KIcon( "spellcheck" ) );
    a->setWhatsThis(i18n("Check the document's spelling from the cursor and forward"));
+   connect( a, SIGNAL( triggered() ), this, SLOT(spellcheckFromCursor()) );
 
-   m_spellcheckSelection = new KAction( i18n("Spellcheck Selection..."), "spellcheck", 0, this, SLOT(spellcheckSelection()), ac, "tools_spelling_selection" );
+   m_spellcheckSelection = new KAction( i18n("Spellcheck Selection..."), ac, "tools_spelling_selection" );
+   m_spellcheckSelection->setIcon( KIcon( "spellcheck" ) );
    m_spellcheckSelection->setWhatsThis(i18n("Check spelling of the selected text"));
+   connect( m_spellcheckSelection, SIGNAL( triggered() ), this, SLOT(spellcheckSelection()) );
 }
 
 void KateSpell::updateActions ()
@@ -131,7 +135,7 @@ KTextEditor::Cursor KateSpell::locatePosition( int pos )
 {
   uint remains;
 
-  while ( m_spellLastPos < pos )
+  while ( m_spellLastPos < (uint)pos )
   {
     remains = pos - m_spellLastPos;
     uint l = m_view->doc()->lineLength( m_spellPosCursor.line() ) - m_spellPosCursor.column();

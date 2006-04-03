@@ -136,7 +136,7 @@ class KateViewFileTypeAction : public KActionMenu
     void slotAboutToShow();
 
   private Q_SLOTS:
-    void setType (int mode);
+    void setType (QAction*);
 };
 
 #endif

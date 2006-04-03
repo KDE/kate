@@ -622,7 +622,7 @@ void KateSearch::exposeFound( KTextEditor::Cursor &cursor, int slen )
 //BEGIN KateReplacePrompt
 // this dialog is not modal
 KateReplacePrompt::KateReplacePrompt ( QWidget *parent )
-  : KDialogBase ( parent, 0L, false, i18n( "Replace Confirmation" ),
+  : KDialogBase ( Swallow, 0, parent, 0L, false, i18n( "Replace Confirmation" ),
                   User3 | User2 | User1 | Close | Ok , Ok, true,
                   i18n("Replace &All"), i18n("Re&place && Close"), i18n("&Replace") )
 {

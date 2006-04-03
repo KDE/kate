@@ -131,7 +131,7 @@ uint KateAutoIndent::modeNumber (const QString &name)
   return KateDocumentConfig::imNone;
 }
 
-bool KateAutoIndent::hasConfigPage (uint mode)
+bool KateAutoIndent::hasConfigPage (uint /*mode*/)
 {
 //  if ( mode == KateDocumentConfig::imScriptIndent )
 //    return true;
@@ -139,7 +139,7 @@ bool KateAutoIndent::hasConfigPage (uint mode)
   return false;
 }
 
-IndenterConfigPage* KateAutoIndent::configPage(QWidget *parent, uint mode)
+IndenterConfigPage* KateAutoIndent::configPage(QWidget * /*parent*/, uint /*mode*/)
 {
 //  if ( mode == KateDocumentConfig::imScriptIndent )
 //    return new ScriptIndentConfigPage(parent, "script_indent_config_page");
@@ -165,6 +165,7 @@ KateViewIndentationAction::KateViewIndentationAction(KateDocument *_doc, const Q
        : KActionMenu (text, parent, name), doc(_doc)
 {
   connect(kMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+
 }
 
 void KateViewIndentationAction::slotAboutToShow()
@@ -172,15 +173,22 @@ void KateViewIndentationAction::slotAboutToShow()
   QStringList modes = KateAutoIndent::listModes ();
 
   kMenu()->clear ();
-  for (int z=0; z<modes.size(); ++z)
-    popupMenu()->insertItem ( '&' + KateAutoIndent::modeDescription(z), this, SLOT(setMode(int)), 0,  z);
+  for (int z=0; z<modes.size(); ++z) {
+    QAction *action = popupMenu()->addAction( '&' + KateAutoIndent::modeDescription(z));
+    action->setCheckable( true );
 
-  popupMenu()->setItemChecked (doc->config()->indentationMode(), true);
+    if ( doc->config()->indentationMode() == (uint)z )
+      action->setChecked( true );
+  }
+
+  disconnect( popupMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
+  connect( popupMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
 }
 
-void KateViewIndentationAction::setMode (int mode)
+void KateViewIndentationAction::setMode (QAction *action)
 {
-  doc->config()->setIndentationMode((uint)mode);
+  uint mode = action->data().toUInt();
+  doc->config()->setIndentationMode(mode);
 }
 //END KateViewIndentationAction
 
@@ -407,9 +415,9 @@ void KateNormalIndent::optimizeLeadingSpace(uint line, int change)
   }
 
   QString new_space = tabString(space);
-  uint length = new_space.length();
+  int length = new_space.length();
 
-  uint change_from;
+  int change_from;
   for (change_from = 0; change_from < first_char && change_from < length; change_from++) {
     if (textline->getChar(change_from) != new_space[change_from])
       break;

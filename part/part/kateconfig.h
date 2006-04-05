@@ -151,7 +151,7 @@ class KateDocumentConfig : public KateConfig
     {
       tabInsertsTab = 0,
       tabIndents = 1,
-      tabSmart = 2,      //!< indents in leading space, otherwise inserts tab
+      tabSmart = 2      //!< indents in leading space, otherwise inserts tab
     };
 
     uint tabHandling () const;

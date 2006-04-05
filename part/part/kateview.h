@@ -169,7 +169,7 @@ class KateView : public KTextEditor::View,
     int cursorColumn() const;
 
     virtual bool mouseTrackingEnabled() const;
-    virtual bool setMouseTrackingEnabled(bool enabled);
+    virtual bool setMouseTrackingEnabled(bool enable);
 
   private:
     void notifyMousePositionChanged(const KTextEditor::Cursor& newPosition);

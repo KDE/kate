@@ -176,6 +176,28 @@ The following classes are a list of all available Document extension interfaces.
 
 
 
+/** \defgroup kte_group_smart_classes Smart Cursor and Smart Ranges
+\ingroup kte_group_doc_extensions
+
+If the KTextEditor implementation supports the KTextEditor::SmartInterface,
+there are several \e smart classes available.
+
+@todo try to add general information about SmartCurosr and SmartRange, and
+      what can be done with it. No detailed description, as it can be found
+      in the class documentation.
+        - SmartCursors maintain their position when modifying text before the cursor
+        - same for SmartRanges
+        - attach arbitrary highlighting, also mention KTextEditor::Attribute
+
+The following is a list of all classes that are only available, if the document
+can be casted into a KTextEditor::SmartInterface.
+<!-- The classes are defined by the \ingroup doxygen command -->
+*/
+
+
+
+
+
 /** \defgroup kte_group_view_extensions View Extension Interfaces
 A KTextEditor implementation may implement a View extension interface, but
 it does not \e need to. So as a KTextEditor user you have to cast the View
@@ -290,11 +312,11 @@ Use qobject_cast to cast a Command \e cmd into the
   if( iface ) {
       // the implementation supports the interface
       // do stuff
-  }
+}
   else
-  {
+{
       // the implementation does not support the interface
-  }
+}
 \endcode
 
 \see KTextEditor::Command
@@ -415,3 +437,4 @@ link: -lktexteditor hint or \$(LIB_KTEXTEDITOR) in the KDE build framework.
 
 \author Dominik Haumann \<dhdev@gmx.de\>
 */
+

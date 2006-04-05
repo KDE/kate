@@ -81,7 +81,7 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
      */
     void changed() const;
 
-    // BEGIN custom properties
+    //BEGIN custom properties
     /**
      * Custom property types, which may or may not be supported by implementations.
      */
@@ -203,9 +203,9 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
      * \return \e true if any properties are set, otherwise \e false
      */
     bool hasAnyProperty() const;
-    // END
+    //END
 
-    // BEGIN Action association
+    //BEGIN Action association
     /**
      * \}
      * \name Action association
@@ -242,9 +242,9 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
      */
     void clearAssociatedActions();
     //!\}
-    // END
+    //END
 
-    // BEGIN Dynamic highlighting
+    //BEGIN Dynamic highlighting
     /**
      * Several automatic activation mechanisms exist for associated attributes.
      * Using this you can conveniently have your ranges highlighted when either
@@ -302,7 +302,7 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
     Effects effects() const;
     void setEffects(Effects effects);
     //!\}
-    // END
+    //END
 
     /**
      * Addition assignment operator.  Use this to merge another Attribute with this Attribute.

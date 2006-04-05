@@ -90,7 +90,7 @@ class SmartCursor;
  * \code
  *   // doc is of type KTextEditor::Document*
  *   KTextEditor::SmartInterface *iface =
- *       dynamic_cast<KTextEditor::SmartInterface*>( doc );
+ *       qobject_cast<KTextEditor::SmartInterface*>( doc );
  *
  *   if( iface ) {
  *       // the implementation supports the interface

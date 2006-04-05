@@ -33,22 +33,24 @@ class SmartCursorNotifier;
 /**
  * \short A Cursor which is bound to a specific Document, and maintains its position.
  *
+ * \ingroup kte_group_smart_classes
+ *
  * A SmartCursor is an extension of the basic Cursor class. It maintains its
  * position in the document and provides a number of convenience methods,
  * including those for accessing and manipulating the content of the associated
  * Document.  As a result of this, SmartCursors may not be copied, as they need
- * to maintain a connection to the assicated Document.
+ * to maintain a connection to the associated Document.
  *
  * To receive notifications when the position of the cursor changes, or other
  * similar notifications, see either SmartCursorNotifier for QObject signal
  * notification via notifier(), or SmartCursorWatcher for virtual inheritance
  * notification via setWatcher().
  *
- * To create a new SmartCursor:
+ * Create a new SmartCursor like this:
  * \code
  *   // Retrieve the SmartInterface
  *   KTextEditor::SmartInterface* smart =
- *                   dynamic_cast<KTextEditor::SmartInterface*>( yourDocument );
+ *       qobject_cast<KTextEditor::SmartInterface*>( yourDocument );
  *
  *   if ( smart ) {
  *       KTextEditor::SmartCursor* cursor = smart->newSmartCursor();

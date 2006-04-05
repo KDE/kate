@@ -107,23 +107,26 @@ void EditorChooser::writeAppSetting(const QString& postfix){
 		QString() : QString(d->elements.at(d->chooser->editorCombo->currentIndex()-1)));
 }
 
-KTextEditor::Editor *EditorChooser::editor(const QString& postfix,bool fallBackToKatePart){
-
-	KTextEditor::Editor *tmpEd=0;
-
-	KConfigGroup cg(KGlobal::config(), "KTEXTEDITOR:" + postfix);
-        QString editor=cg.readPathEntry("editor");
+KTextEditor::Editor *EditorChooser::editor(const QString& postfix,
+                                           bool fallBackToKatePart)
+{
+    // try to read the used library from the application's config
+    KConfigGroup cg(KGlobal::config(), "KTEXTEDITOR:" + postfix);
+    QString editor = cg.readPathEntry("editor");
 	if (editor.isEmpty())
 	{
-		KConfig config("default_components");
-  		config.setGroup("KTextEditor");
-	  	editor = config.readPathEntry("embeddedEditor", "katepart");
-	}
-
-	KService::Ptr serv=KService::serviceByDesktopName(editor);
-	if (serv)
-	{
-		tmpEd=KTextEditor::editor(serv->library().toLatin1());
+        // there is no library set in the application's config,
+        // fall back to KDE's system default
+        KConfig config("default_components");
+        config.setGroup("KTextEditor");
+        editor = config.readPathEntry("embeddedEditor", "katepart");
+    }
+	
+    KService::Ptr serv = KService::serviceByDesktopName(editor);
+    if (serv)
+    {
+        KTextEditor::Editor *tmpEd = 
+            KTextEditor::editor(serv->library().toLatin1());
 		if (tmpEd) return tmpEd;
 	}
 	if (fallBackToKatePart)
@@ -132,3 +135,4 @@ KTextEditor::Editor *EditorChooser::editor(const QString& postfix,bool fallBackT
 	return 0;
 }
 
+// kate: space-indent on; indent-width 2; replace-tabs on;

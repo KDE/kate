@@ -30,6 +30,8 @@ class SmartCursor;
 /**
  * \short A class which provides notifications of state changes to a SmartCursor via virtual inheritance.
  *
+ * \ingroup kte_group_smart_classes
+ *
  * This class provides notifications of changes to a SmartCursor such as the
  * position in the document, and deletion or insertion of text immediately
  * before or after the cursor.
@@ -118,6 +120,8 @@ class KTEXTEDITOR_EXPORT SmartCursorWatcher
 
 /**
  * \short A class which provides notifications of state changes to a SmartCursor via QObject signals.
+ *
+ * \ingroup kte_group_smart_classes
  *
  * This class provides notifications of changes to a SmartCursor such as the
  * position in the document, and deletion or insertion of text immediately

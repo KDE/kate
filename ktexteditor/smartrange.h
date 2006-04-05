@@ -39,6 +39,8 @@ class SmartRangeWatcher;
 /**
  * \short A Range which is bound to a specific Document, and maintains its position.
  *
+ * \ingroup kte_group_smart_classes
+ *
  * A SmartRange is an extension of the basic Range class. It maintains its
  * position in the document and provides extra functionality,
  * including:
@@ -58,11 +60,11 @@ class SmartRangeWatcher;
  * start or end of the range beyond the respective end or start will result in
  * both values being set to the specified position.
  *
- * To create a new SmartRange:
+ * Create a new SmartRange like this:
  * \code
  *   // Retrieve the SmartInterface
  *   KTextEditor::SmartInterface* smart =
- *                   dynamic_cast<KTextEditor::SmartInterface*>( yourDocument );
+ *       qobject_cast<KTextEditor::SmartInterface*>( yourDocument );
  *
  *   if ( smart ) {
  *       KTextEditor::SmartRange* range = smart->newSmartRange();
@@ -169,7 +171,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      */
     virtual bool expandToRange(const Range& range);
 
-    // BEGIN Functionality present from having this range associated with a Document
+    //BEGIN Functionality present from having this range associated with a Document
     /**
      * \}
      *
@@ -211,9 +213,9 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      *              than all the text within the range.
      */
     virtual bool removeText(bool block = false);
-    // END
+    //END
 
-    // BEGIN Behaviour
+    //BEGIN Behaviour
     /**
      * \}
      *
@@ -240,9 +242,9 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * \sa InsertBehaviour
      */
     void setInsertBehaviour(InsertBehaviours behaviour);
-    // END
+    //END
 
-    // BEGIN Relationships to other ranges
+    //BEGIN Relationships to other ranges
     /**
      * \}
      *
@@ -385,10 +387,12 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * \return the deepest range (from and including this range) which
      *         contains \p pos, or null if no ranges contain this position.
      */
-    SmartRange* deepestRangeContaining(const Cursor& pos, QStack<SmartRange*>* rangesEntered = 0L, QStack<SmartRange*>* rangesExited = 0L) const;
-    // END
+    SmartRange* deepestRangeContaining(const Cursor& pos,
+                                       QStack<SmartRange*>* rangesEntered = 0L,
+                                       QStack<SmartRange*>* rangesExited = 0L) const;
+    //END
 
-    // BEGIN Arbitrary highlighting
+    //BEGIN Arbitrary highlighting
     /**
      * \}
      *
@@ -414,9 +418,9 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      *                      deleted when this range is deleted.
      */
     virtual void setAttribute(Attribute* attribute, bool takeOwnership = false);
-    // END
+    //END
 
-    // BEGIN Action binding
+    //BEGIN Action binding
     /**
      * \}
      *
@@ -455,9 +459,9 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * Clears all associations between KActions and this range.
      */
     void clearAssociatedActions();
-    // END
+    //END
 
-    // BEGIN Notification methods
+    //BEGIN Notification methods
     /**
      * \}
      *
@@ -506,7 +510,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      */
     virtual void setWatcher(SmartRangeWatcher* watcher) = 0;
     //!\}
-    // END
+    //END
 
     /**
      * Assignment operator. Assigns the current position of the provided range, \p rhs, only;
@@ -581,7 +585,10 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * \internal
      * Implementation of deepestRangeContaining().
      */
-    SmartRange* deepestRangeContainingInternal(const Cursor& pos, QStack<SmartRange*>* rangesEntered, QStack<SmartRange*>* rangesExited, bool first = false) const;
+    SmartRange* deepestRangeContainingInternal(const Cursor& pos,
+                                               QStack<SmartRange*>* rangesEntered,
+                                               QStack<SmartRange*>* rangesExited,
+                                               bool first = false) const;
 
     /**
      * \internal

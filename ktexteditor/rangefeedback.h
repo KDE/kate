@@ -31,6 +31,8 @@ class View;
 /**
  * \short A class which provides notifications of state changes to a SmartRange via QObject signals.
  *
+ * \ingroup kte_group_smart_classes
+ *
  * This class provides notifications of changes to the position or contents of
  * a SmartRange via QObject signals.
  *
@@ -164,6 +166,8 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
 
 /**
  * \short A class which provides notifications of state changes to a SmartRange via virtual inheritance.
+ *
+ * \ingroup kte_group_smart_classes
  *
  * This class provides notifications of changes to the position or contents of
  * a SmartRange via virtual inheritance.

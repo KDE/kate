@@ -29,7 +29,7 @@
 #include <klocale.h>
 #include <kglobal.h>
 
-#include "editorchooser_ui.h"
+#include "ui_editorchooser_ui.h"
 
 using namespace KTextEditor;
 

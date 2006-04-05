@@ -65,9 +65,9 @@ KateSmartCursor * KateSmartManager::newSmartCursor( const KTextEditor::Cursor & 
   return c;
 }
 
-KateSmartRange * KateSmartManager::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour, bool internal )
+KateSmartRange * KateSmartManager::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior, bool internal )
 {
-  KateSmartRange* newRange = new KateSmartRange(range, doc(), parent, insertBehaviour);
+  KateSmartRange* newRange = new KateSmartRange(range, doc(), parent, insertBehavior);
   if (internal)
     newRange->setInternal();
   if (!parent)
@@ -75,9 +75,9 @@ KateSmartRange * KateSmartManager::newSmartRange( const KTextEditor::Range & ran
   return newRange;
 }
 
-KateSmartRange * KateSmartManager::newSmartRange( KateSmartCursor * start, KateSmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour, bool internal )
+KateSmartRange * KateSmartManager::newSmartRange( KateSmartCursor * start, KateSmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior, bool internal )
 {
-  KateSmartRange* newRange = new KateSmartRange(start, end, parent, insertBehaviour);
+  KateSmartRange* newRange = new KateSmartRange(start, end, parent, insertBehavior);
   if (internal)
     newRange->setInternal();
   if (!parent)

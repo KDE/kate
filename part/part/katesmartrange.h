@@ -72,11 +72,11 @@ class KateSmartRange : public KTextEditor::SmartRange
     /**
      * Constructors.  Take posession of @p start and @p end.
      */
-    KateSmartRange(const KTextEditor::Range& range, KateDocument* doc, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = DoNotExpand);
+    KateSmartRange(const KTextEditor::Range& range, KateDocument* doc, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviors insertBehavior = DoNotExpand);
     /// overload
     KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* parent = 0L);
 
-    KateSmartRange(KateSmartCursor* start, KateSmartCursor* end, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = DoNotExpand);
+    KateSmartRange(KateSmartCursor* start, KateSmartCursor* end, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviors insertBehavior = DoNotExpand);
     virtual ~KateSmartRange();
 
     /// Accessor for the document this range belongs to (set in constructor)

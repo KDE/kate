@@ -65,8 +65,8 @@ class KateSmartManager : public QObject
     KateSmartCursor* newSmartCursor(const KTextEditor::Cursor& position, bool moveOnInsert = true, bool internal = true);
     void deleteCursors(bool includingInternal);
 
-    KateSmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand, bool internal = true);
-    KateSmartRange* newSmartRange(KateSmartCursor* start, KateSmartCursor* end, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviours insertBehaviour = KTextEditor::SmartRange::DoNotExpand, bool internal = true);
+    KateSmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviors insertBehavior = KTextEditor::SmartRange::DoNotExpand, bool internal = true);
+    KateSmartRange* newSmartRange(KateSmartCursor* start, KateSmartCursor* end, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviors insertBehavior = KTextEditor::SmartRange::DoNotExpand, bool internal = true);
     void unbindSmartRange(KTextEditor::SmartRange* range);
     void deleteRanges(bool includingInternal);
 

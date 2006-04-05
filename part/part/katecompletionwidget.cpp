@@ -94,7 +94,7 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   m_sourceModel = model;
 
   m_completionRange = view()->doc()->smartManager()->newSmartRange(word);
-  m_completionRange->setInsertBehaviour(KTextEditor::SmartRange::ExpandRight);
+  m_completionRange->setInsertBehavior(KTextEditor::SmartRange::ExpandRight);
 
   connect(m_completionRange->smartStart().notifier(), SIGNAL(characterDeleted(KTextEditor::SmartCursor*, bool)), SLOT(startCharactedDeleted(KTextEditor::SmartCursor*, bool)));
 

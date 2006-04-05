@@ -179,7 +179,7 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
     colInText += info.len;
     col += info.len;
       //hlr->allowZeroLength();
-    //hlr->setBehaviour(KateSmartRange::ExpandRight);
+    //hlr->setBehavior(KateSmartRange::ExpandRight);
   }
 
   KateTemplatePlaceHolder *cursor = m_dict[ "cursor" ];

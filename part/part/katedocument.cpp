@@ -3703,7 +3703,7 @@ void KateDocument::joinLines( uint first, uint last )
     // Normalize the whitespace in the joined lines by making sure there's
     // always exactly one space between the joined lines
     // This cannot be done in editUnwrapLine, because we do NOT want this
-    // behaviour when deleting from the start of a line, just when explicitly
+    // behavior when deleting from the start of a line, just when explicitly
     // calling the join command
     KateTextLine::Ptr l = m_buffer->line( line );
     KateTextLine::Ptr tl = m_buffer->line( line + 1 );
@@ -4733,12 +4733,12 @@ KTextEditor::SmartCursor* KateDocument::newSmartCursor( const KTextEditor::Curso
   return m_smartManager->newSmartCursor(position, moveOnInsert, false);
 }
 
-KTextEditor::SmartRange * KateDocument::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour )
+KTextEditor::SmartRange * KateDocument::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior )
 {
-  return m_smartManager->newSmartRange( range, parent, insertBehaviour, false );
+  return m_smartManager->newSmartRange( range, parent, insertBehavior, false );
 }
 
-KTextEditor::SmartRange * KateDocument::newSmartRange( KTextEditor::SmartCursor * start, KTextEditor::SmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour )
+KTextEditor::SmartRange * KateDocument::newSmartRange( KTextEditor::SmartCursor * start, KTextEditor::SmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior )
 {
   KateSmartCursor* kstart = dynamic_cast<KateSmartCursor*>(start);
   KateSmartCursor* kend = dynamic_cast<KateSmartCursor*>(end);
@@ -4746,7 +4746,7 @@ KTextEditor::SmartRange * KateDocument::newSmartRange( KTextEditor::SmartCursor 
     return 0L;
   if (kstart->range() || kend->range())
     return 0L;
-  return m_smartManager->newSmartRange(kstart, kend, parent, insertBehaviour, false);
+  return m_smartManager->newSmartRange(kstart, kend, parent, insertBehavior, false);
 }
 
 void KateDocument::unbindSmartRange( KTextEditor::SmartRange * range )

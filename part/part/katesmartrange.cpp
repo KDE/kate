@@ -26,8 +26,8 @@
 
 #include <kdebug.h>
 
-KateSmartRange::KateSmartRange(const KTextEditor::Range& range, KateDocument* doc, KTextEditor::SmartRange* parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour)
-  : KTextEditor::SmartRange(new KateSmartCursor(range.start(), doc), new KateSmartCursor(range.end(), doc), parent, insertBehaviour)
+KateSmartRange::KateSmartRange(const KTextEditor::Range& range, KateDocument* doc, KTextEditor::SmartRange* parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior)
+  : KTextEditor::SmartRange(new KateSmartCursor(range.start(), doc), new KateSmartCursor(range.end(), doc), parent, insertBehavior)
   , m_notifier(0L)
   , m_watcher(0L)
 //  , m_feedbackLevel(NoFeedback)
@@ -50,8 +50,8 @@ KateSmartRange::KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* paren
 {
 }
 
-KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviours insertBehaviour )
-  : KTextEditor::SmartRange(start, end, parent, insertBehaviour)
+KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior )
+  : KTextEditor::SmartRange(start, end, parent, insertBehavior)
   , m_notifier(0L)
   , m_watcher(0L)
 //  , m_feedbackLevel(NoFeedback)

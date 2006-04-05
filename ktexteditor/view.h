@@ -363,7 +363,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
     /**
      * Try to enable or disable mouse tracking according to \p enable.
      * The return value contains the state of mouse tracking \e after the
-     * request. Mouse tracking is required to have the mousePositionChanged
+     * request. Mouse tracking is required to have the mousePositionChanged()
      * signal emitted.
      *
      * \note Implementation Notes: An implementation is not forced to support

@@ -334,7 +334,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      */
     virtual bool setMouseTrackingEnabled(bool enabled) = 0;
 
-  signals:
+  Q_SIGNALS:
     /**
      * This signal is emitted whenever the position of the mouse changes over this \a view.
      * If the mouse moves off the view, an invalid cursor position should be emitted.

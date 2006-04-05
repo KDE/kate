@@ -285,7 +285,7 @@ class KTEXTEDITOR_EXPORT Range
      */
     bool isEmpty() const;
 
-    // BEGIN comparison functions
+    //BEGIN comparison functions
     /**
      * \}
      *
@@ -423,7 +423,7 @@ class KTEXTEDITOR_EXPORT Range
      */
     bool boundaryOnColumn(int column) const;
     //!\}
-    // END
+    //END
 
     /**
      * Intersects this range with another, returning the shared area of

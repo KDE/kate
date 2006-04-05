@@ -30,13 +30,13 @@
 
 using namespace KTextEditor;
 
-SmartRange::SmartRange(SmartCursor* start, SmartCursor* end, SmartRange * parent, InsertBehaviours insertBehaviour )
+SmartRange::SmartRange(SmartCursor* start, SmartCursor* end, SmartRange * parent, InsertBehaviors insertBehavior )
   : Range(start, end)
   , m_attribute(0L)
   , m_parentRange(parent)
   , m_ownsAttribute(false)
 {
-  setInsertBehaviour(insertBehaviour);
+  setInsertBehavior(insertBehavior);
 
   // Not calling setParentRange here...:
   // 1) subclasses are not yet constructed
@@ -258,15 +258,15 @@ void SmartRange::clearAssociatedActions( )
   checkFeedback();
 }
 
-SmartRange::InsertBehaviours SmartRange::insertBehaviour( ) const
+SmartRange::InsertBehaviors SmartRange::insertBehavior( ) const
 {
   return (smartStart().moveOnInsert() ? DoNotExpand : ExpandLeft) | (smartEnd().moveOnInsert() ? ExpandRight : DoNotExpand);
 }
 
-void SmartRange::setInsertBehaviour(SmartRange::InsertBehaviours behaviour)
+void SmartRange::setInsertBehavior(SmartRange::InsertBehaviors behavior)
 {
-  static_cast<SmartCursor*>(m_start)->setMoveOnInsert(behaviour & ExpandLeft);
-  static_cast<SmartCursor*>(m_end)->setMoveOnInsert(behaviour & ExpandRight);
+  static_cast<SmartCursor*>(m_start)->setMoveOnInsert(behavior & ExpandLeft);
+  static_cast<SmartCursor*>(m_end)->setMoveOnInsert(behavior & ExpandRight);
 }
 
 void SmartRange::clearChildRanges()
@@ -380,7 +380,8 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
     }
 
     if (end() < from.end()) {
-      // End has contracted - adjust from the start of the child ranges, if they haven't already been adjusted above
+      // end has contracted - adjust from the start of the child ranges, if they
+      // haven't already been adjusted above
       for (int j = childRanges().count() - 1; j >= i; --j) {
         r = childRanges().at(j);
         if (r->end() > end())
@@ -391,7 +392,8 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
     }
   }
 
-  // SmartCursor and its subclasses take care of adjusting ranges if the tree structure is being used.
+  // SmartCursor and its subclasses take care of adjusting ranges if the tree
+  // structure is being used.
   if (hasNotifier() && notifier()->wantsDirectChanges()) {
     emit notifier()->positionChanged(this);
     emit notifier()->contentsChanged(this);

@@ -390,7 +390,7 @@ class KTEXTEDITOR_EXPORT ArgHintData
  * as possible, i.e. as long as the word that was used to create the data did
  * not change.
  *
- * Similiar behaviour if a word part is removed would be desirable, but is at
+ * Similiar behavior if a word part is removed would be desirable, but is at
  * least for kate not needed, since it doesn't support the
  * CompleteAsYouTypeBackspace. If a completion type greater than
  * CompleteReinvokeAsYouType is active, no further requests are sent out from

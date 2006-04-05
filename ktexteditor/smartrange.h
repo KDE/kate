@@ -46,7 +46,7 @@ class SmartRangeWatcher;
  * including:
  * \li convenience functions for accessing and manipulating the content
  * of the associated document,
- * \li adjusting behaviour in response to text edits,
+ * \li adjusting behavior in response to text edits,
  * \li forming a tree structure out of multiple SmartRanges,
  * \li providing attribute information for the arbitrary highlighting extension,
  * \li allowing KActions to be bound to the range, and
@@ -83,7 +83,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
   public:
     /// Determine how the range reacts to characters inserted immediately outside the range.
-    enum InsertBehaviour {
+    enum InsertBehavior {
       /// Don't expand to encapsulate new characters in either direction. This is the default.
       DoNotExpand = 0,
       /// Expand to encapsulate new characters to the left of the range.
@@ -91,7 +91,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
       /// Expand to encapsulate new characters to the right of the range.
       ExpandRight = 0x2
     };
-    Q_DECLARE_FLAGS(InsertBehaviours, InsertBehaviour)
+    Q_DECLARE_FLAGS(InsertBehaviors, InsertBehavior)
 
     virtual ~SmartRange();
 
@@ -215,13 +215,13 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     virtual bool removeText(bool block = false);
     //END
 
-    //BEGIN Behaviour
+    //BEGIN Behavior
     /**
      * \}
      *
-     * \name Behaviour
+     * \name Behavior
      *
-     * The following functions relate to the behaviour of this SmartRange.
+     * The following functions relate to the behavior of this SmartRange.
      * \{
      */
     /**
@@ -229,7 +229,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      *
      * \return the current insert behavior.
      */
-    InsertBehaviours insertBehaviour() const;
+    InsertBehaviors insertBehavior() const;
 
     /**
      * Determine how the range should react to characters inserted immediately outside the range.
@@ -237,11 +237,11 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * \todo does this need a custom function to enable determining of the behavior based on the
      * text that is inserted / deleted?
      *
-     * \param behaviour the insertion behaviour to use for future edits
+     * \param behavior the insertion behavior to use for future edits
      *
-     * \sa InsertBehaviour
+     * \sa InsertBehavior
      */
-    void setInsertBehaviour(InsertBehaviours behaviour);
+    void setInsertBehavior(InsertBehaviors behavior);
     //END
 
     //BEGIN Relationships to other ranges
@@ -514,7 +514,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     /**
      * Assignment operator. Assigns the current position of the provided range, \p rhs, only;
-     * does not assign watchers, notifiers, behaviour etc.
+     * does not assign watchers, notifiers, behavior etc.
      *
      * \note The assignment will be performed even if the provided range belongs to
      *       another Document.
@@ -552,10 +552,10 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      *
      * \param start the start cursor to use - ownership is taken
      * \param end the end cursor to use - ownership is taken
-     * \param insertBehaviour the behaviour of this range when an insert happens
+     * \param insertBehavior the behavior of this range when an insert happens
      *                        immediately outside the range.
      */
-    SmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, InsertBehaviours insertBehaviour = DoNotExpand);
+    SmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, InsertBehaviors insertBehavior = DoNotExpand);
 
     /**
      * \internal
@@ -640,7 +640,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     bool m_ownsAttribute :1;
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(SmartRange::InsertBehaviours)
+Q_DECLARE_OPERATORS_FOR_FLAGS(SmartRange::InsertBehaviors)
 
 }
 

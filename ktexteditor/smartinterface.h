@@ -135,7 +135,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      */
     void setClearOnDocumentReload(bool clearOnReload);
 
-    // BEGIN New cursor methods
+    //BEGIN New cursor methods
     /**
      * \name Smart Cursors
      *
@@ -190,9 +190,9 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * cursors currently bound to ranges.
      */
     virtual void deleteCursors() = 0;
-    // END
+    //END
 
-    // BEGIN New range methods
+    //BEGIN New range methods
     /**
      * \}
      *
@@ -205,9 +205,11 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * Creates a new SmartRange.
      * \param range The initial text range assumed by the new range.
      * \param parent The parent SmartRange, if this is to be the child of an existing range.
-     * \param insertBehaviour Define whether the range should expand when text is inserted adjacent to the range.
+     * \param insertBehavior Define whether the range should expand when text is inserted adjacent to the range.
      */
-    virtual SmartRange* newSmartRange(const Range& range = Range(), SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand) = 0;
+    virtual SmartRange* newSmartRange(const Range& range = Range(),
+                                      SmartRange* parent = 0L,
+                                      SmartRange::InsertBehaviors insertBehavior = SmartRange::DoNotExpand) = 0;
 
     /**
      * \overload
@@ -216,10 +218,13 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * \param startPosition The start position assumed by the new range.
      * \param endPosition The end position assumed by the new range.
      * \param parent The parent SmartRange, if this is to be the child of an existing range.
-     * \param insertBehaviour Define whether the range should expand when text is inserted adjacent to the range.
+     * \param insertBehavior Define whether the range should expand when text is inserted adjacent to the range.
      */
-    inline SmartRange* newSmartRange(const Cursor& startPosition, const Cursor& endPosition, SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand)
-      { return newSmartRange(Range(startPosition, endPosition), parent, insertBehaviour); }
+    inline SmartRange* newSmartRange(const Cursor& startPosition,
+                                     const Cursor& endPosition,
+                                     SmartRange* parent = 0L,
+                                     SmartRange::InsertBehaviors insertBehavior = SmartRange::DoNotExpand)
+      { return newSmartRange(Range(startPosition, endPosition), parent, insertBehavior); }
 
     /**
      * \overload
@@ -230,10 +235,10 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * \param endLine The end line assumed by the new range.
      * \param endColumn The end column assumed by the new range.
      * \param parent The parent SmartRange, if this is to be the child of an existing range.
-     * \param insertBehaviour Define whether the range should expand when text is inserted adjacent to the range.
+     * \param insertBehavior Define whether the range should expand when text is inserted adjacent to the range.
      */
-    inline SmartRange* newSmartRange(int startLine, int startColumn, int endLine, int endColumn, SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand)
-      { return newSmartRange(Range(startLine, startColumn, endLine, endColumn), parent, insertBehaviour); }
+    inline SmartRange* newSmartRange(int startLine, int startColumn, int endLine, int endColumn, SmartRange* parent = 0L, SmartRange::InsertBehaviors insertBehavior = SmartRange::DoNotExpand)
+      { return newSmartRange(Range(startLine, startColumn, endLine, endColumn), parent, insertBehavior); }
 
     /**
      * Creates a new SmartRange from pre-existing SmartCursors.  The cursors must not be part of any other range.
@@ -241,9 +246,9 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * \param start Start SmartCursor
      * \param end End SmartCursor
      * \param parent The parent SmartRange, if this is to be the child of an existing range.
-     * \param insertBehaviour Define whether the range should expand when text is inserted at ends of the range.
+     * \param insertBehavior Define whether the range should expand when text is inserted at ends of the range.
      */
-    virtual SmartRange* newSmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, SmartRange::InsertBehaviours insertBehaviour = SmartRange::DoNotExpand) = 0;
+    virtual SmartRange* newSmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, SmartRange::InsertBehaviors insertBehavior = SmartRange::DoNotExpand) = 0;
 
     /**
      * Delete a SmartRange without deleting the SmartCursors which make up its start() and end().
@@ -267,9 +272,9 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * This will not affect any underlying text.
      */
     virtual void deleteRanges() = 0;
-    // END
+    //END
 
-    // BEGIN Syntax highlighting extension
+    //BEGIN Syntax highlighting extension
     /**
      * \}
      *
@@ -350,9 +355,9 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * \param view view to clear highlights from
      */
     virtual void clearViewHighlights(View* view) = 0;
-    // END
+    //END
 
-    // BEGIN Action binding extension
+    //BEGIN Action binding extension
     /**
      * \}
      *
@@ -429,7 +434,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      */
     virtual void clearViewActions(View* view) = 0;
     //!\}
-    // END
+    //END
 
   protected:
     /**

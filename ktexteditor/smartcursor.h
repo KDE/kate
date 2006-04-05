@@ -93,7 +93,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      */
     SmartRange* smartRange() const;
 
-    // BEGIN Functionality present from having this cursor associated with a Document
+    //BEGIN Functionality present from having this cursor associated with a Document
     /**
      * \name Document-related functions
      *
@@ -141,15 +141,15 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      * \return \e true on success, otherwise \e false
      */
     virtual bool insertText(const QStringList &text, bool block = false);
-    // END
+    //END
 
-    // BEGIN Behaviour methods
+    //BEGIN Behavior methods
     /**
      * \}
      *
-     * \name Behaviour
+     * \name Behavior
      *
-     * The following functions relate to the behaviour of this SmartCursor.
+     * The following functions relate to the behavior of this SmartCursor.
      * \{
      */
     /**
@@ -164,9 +164,9 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      * If \p moveOnInsert is true, the cursor will end up at the end of the insert.
      */
     void setMoveOnInsert(bool moveOnInsert);
-    // END
+    //END
 
-    // BEGIN Notification methods
+    //BEGIN Notification methods
     /**
      * \}
      *
@@ -220,11 +220,11 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      */
     virtual void setWatcher(SmartCursorWatcher* watcher = 0L) = 0;
     //!\}
-    // END
+    //END
 
     /**
      * Assignment operator. Assigns the current position of the provided cursor, \p c, only;
-     * does not assign watchers, notifiers, behaviour, etc.
+     * does not assign watchers, notifiers, behavior, etc.
      *
      * \note The assignment will be performed even if the provided cursor belongs to
      *       another Document.
@@ -250,7 +250,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      *
      * \param position the cursor position to assign
      * \param doc the Document this cursor is associated with
-     * \param moveOnInsert the behaviour of this cursor when on the position of an insert.
+     * \param moveOnInsert the behavior of this cursor when on the position of an insert.
      *        If \e true, move with the insert; if \e false, retain the current position.
      */
     SmartCursor(const Cursor& position, Document* doc, bool moveOnInsert);
@@ -272,7 +272,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     /**
      * \internal
      *
-     * Retains the behaviour of the cursor when an insert takes place at the cursor's position.
+     * Retains the behavior of the cursor when an insert takes place at the cursor's position.
      */
     bool m_moveOnInsert : 1;
 };

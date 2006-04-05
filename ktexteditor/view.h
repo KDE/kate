@@ -42,8 +42,10 @@ class Document;
  *
  * Topics:
  *  - \ref view_intro
+ *  - \ref view_hook_into_gui
  *  - \ref view_selection
  *  - \ref view_cursors
+ *  - \ref view_mouse_tracking
  *  - \ref view_modes
  *  - \ref view_extensions
  *
@@ -60,6 +62,22 @@ class Document;
  * Usually a view is created by using KDocument::createView().
  * Furthermore a view can have a context menu. Set it with setContextMenu()
  * and get it with contextMenu().
+ *
+ * \section view_hook_into_gui Merging the View's GUI
+ *
+ * A View is derived from the class KXMLGUIClient, so its GUI elements (like
+ * menu entries and toolbar items) can be merged into the application's GUI
+ * (or into a KXMLGUIFactory) by calling
+ * \code
+ *   // view is of type KTextEditor::View*
+ *   mainWindow()->guiFactory()->addClient( view );
+ * \endcode
+ * You can add only one view as client, so if you have several views, you first
+ * have to remove the current view, and then add the new one, like this
+ * \code
+ *   mainWindow()->guiFactory()->removeClient( currentView );
+ *   mainWindow()->guiFactory()->addClient( newView );
+ * \endcode
  *
  * \section view_selection Text Selection
  *
@@ -83,6 +101,14 @@ class Document;
  * of the current cursor position in pixel by using
  * cursorPositionCoordinates(). The signal cursorPositionChanged() is emitted
  * whenever the cursor position changed.
+ * 
+ * \section view_mouse_tracking Mouse Tracking
+ *
+ * It is possible to get notified via the signal mousePositionChanged() for
+ * mouse move events, if mouseTrackingEnabled() returns \e true. Mouse tracking
+ * can be turned on/off by calling setMouseTrackingEnabled(). If an editor
+ * implementation does not support mouse tracking, mouseTrackingEnabled() will
+ * always return \e false.
  *
  * \section view_modes Edit Modes
  *
@@ -109,7 +135,8 @@ class Document;
  *
  * \see KTextEditor::Document, KTextEditor::TemplateInterface,
  *      KTextEditor::CodeCompletionInterface,
- *      KTextEditor::SessionConfigInterface, KTextEditor::TemplateInterface
+ *      KTextEditor::SessionConfigInterface, KTextEditor::TemplateInterface,
+ *      KXMLGUIClient
  * \author Christoph Cullmann \<cullmann@kde.org\>
  */
 class KTEXTEDITOR_EXPORT View : public KDocument::View
@@ -211,10 +238,13 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * \param mode new edit mode
      * \see viewEditMode()
      */
-    void viewEditModeChanged ( KTextEditor::View *view, enum KTextEditor::View::EditMode mode );
+    void viewEditModeChanged ( KTextEditor::View *view,
+                               enum KTextEditor::View::EditMode mode );
 
     /**
-     * information message
+     * This signal is emitted whenever the \p view wants to display a
+     * information \p message. The \p message can be displayed in the status bar
+     * for example.
      * \param view view which sends out information
      * \param message information message
      */
@@ -228,7 +258,9 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * \param text the text the user has typed into the editor
      * \see insertText()
      */
-    void textInserted ( KTextEditor::View *view, const KTextEditor::Cursor &position, const QString &text );
+    void textInserted ( KTextEditor::View *view,
+                        const KTextEditor::Cursor &position,
+                        const QString &text );
 
   /*
    * Context menu handling
@@ -319,30 +351,46 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
    */
   public:
     /**
-     * Returns whether mouse tracking is currently enabled.
+     * Check, whether mouse tracking is enabled.
      *
-     * Mouse tracking is required to have the mousePositionChanged signal emitted.
+     * Mouse tracking is required to have the signal mousePositionChanged()
+     * emitted.
+     * \return \e true, if mouse tracking is enabled, otherwise \e false
+     * \see setMouseTrackingEnabled(), mousePositionChanged()
      */
     virtual bool mouseTrackingEnabled() const = 0;
 
     /**
-     * Attempt to enable or disable mouse tracking. Returns the state of mouse tracking
-     * after the request.  Implementations are not required to support this, and should
-     * return false if they cannot.
+     * Try to enable or disable mouse tracking according to \p enable.
+     * The return value contains the state of mouse tracking \e after the
+     * request. Mouse tracking is required to have the mousePositionChanged
+     * signal emitted.
      *
-     * Mouse tracking is required to have the mousePositionChanged signal emitted.
+     * \note Implementation Notes: An implementation is not forced to support
+     *       this, and should always return \e false if it does not have
+     *       support.
+     *
+     * \param enable if \e true, try to enable mouse tracking, otherwise disable
+     *        it.
+     * \return the current state of mouse tracking
+     * \see mouseTrackingEnabled(), mousePositionChanged()
      */
-    virtual bool setMouseTrackingEnabled(bool enabled) = 0;
+    virtual bool setMouseTrackingEnabled(bool enable) = 0;
 
   Q_SIGNALS:
     /**
-     * This signal is emitted whenever the position of the mouse changes over this \a view.
-     * If the mouse moves off the view, an invalid cursor position should be emitted.
-     *
+     * This signal is emitted whenever the position of the mouse changes over
+     * this \a view. If the mouse moves off the view, an invalid cursor position
+     * should be emitted, i.e. Cursor::invalid().
+     * \note If mouseTrackingEnabled() returns \e false, this signal is never
+     *       emitted.
      * \param view view which emitted the signal
-     * \param newPosition new position of the mouse
+     * \param newPosition new position of the mouse or Cursor::invalid(), if the
+     *        mouse moved out of the \p view.
+     * \see mouseTrackingEnabled()
      */
-    void mousePositionChanged (KTextEditor::View *view, const KTextEditor::Cursor& newPosition);
+    void mousePositionChanged (KTextEditor::View *view,
+                               const KTextEditor::Cursor& newPosition);
 
   /*
    * Selection methodes.
@@ -372,12 +420,14 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      *        only to start/end of the cursors line. Default: \e true
      * \see selectionRange(), selection()
      */
-    virtual bool setSelection ( const Cursor &position, int length, bool wrap = true );
+    virtual bool setSelection ( const Cursor &position,
+                                int length,
+                                bool wrap = true );
 
     /**
      * Query the view whether it has selected text, i.e. whether a selection
      * exists.
-     * \return \e true if a text selection exists
+     * \return \e true if a text selection exists, otherwise \e false
      * \see setSelection(), selectionRange()
      */
     virtual bool selection() const = 0;

@@ -26,6 +26,7 @@
 
 #include "katehighlight.h"
 #include <ktexteditor/attribute.h>
+#include <ktexteditor/modificationinterface.h>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/configpage.h>
@@ -70,6 +71,11 @@ class QPushButton;
 class QRadioButton;
 class QSpinBox;
 class QCheckBox;
+
+namespace Ui
+{
+  class ModOnHdWidget;
+}
 
 class KateConfigPage : public KTextEditor::ConfigPage
 {
@@ -380,18 +386,22 @@ class KProcess;
  * If the file wasn't deleted, it has a 'diff' button, which will create
  * a diff file (uing diff(1)) and launch that using KRun.
  */
-class KateModOnHdPrompt : public KDialogBase
+class KateModOnHdPrompt : public KDialog
 {
   Q_OBJECT
   public:
     enum Status {
-      Reload=1, // 0 is KDialogBase::Cancel
+      Delay = 0,
+      Reload,
       Save,
       Overwrite,
       Ignore
     };
-    KateModOnHdPrompt( KateDocument *doc, int modtype, const QString &reason, QWidget *parent  );
+    KateModOnHdPrompt( KateDocument *doc,
+                       KTextEditor::ModificationInterface::ModifiedOnDiskReason modtype,
+                       const QString &reason, QWidget *parent  );
     ~KateModOnHdPrompt();
+    Status decision() const { return m_returnCode; }
 
   public Q_SLOTS:
     /**
@@ -410,11 +420,13 @@ class KateModOnHdPrompt : public KDialogBase
     void slotPDone(KProcess*); ///< Runs the diff file when done
 
   private:
+    Status m_returnCode;
+    Ui::ModOnHdWidget* ui;
     KateDocument *m_doc;
-    int m_modtype;
+    KTextEditor::ModificationInterface::ModifiedOnDiskReason m_modtype;
     class KTempFile *m_tmpfile; ///< The diff file. Deleted by KRun when the viewer is exited.
 
 };
 
 #endif
-//kate: indent-spaces indent-width 2
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -3970,7 +3970,8 @@ void KateDocument::slotModifiedOnDisk( KTextEditor::View * /*v*/ )
     m_isasking = 1;
 
     KateModOnHdPrompt p( this, m_modOnHdReason, reasonedMOHString(), widget() );
-    switch ( p.exec() )
+    p.exec(); // return code of exec() not important. Solved via decision()
+    switch ( p.decision() )
     {
       case KateModOnHdPrompt::Save:
       {
@@ -4020,8 +4021,8 @@ void KateDocument::slotModifiedOnDisk( KTextEditor::View * /*v*/ )
         save();
         break;
 
-      default:               // cancel: ignore next focus event
-        m_isasking = -1;
+      default: // Delay: cancel: ignore next focus event
+          m_isasking = -1;
     }
   }
 }

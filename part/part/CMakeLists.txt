@@ -84,6 +84,12 @@ katedocument.h
 remove_definitions(-DQT3_SUPPORT_WARNINGS)
 remove_definitions(-DQT3_SUPPORT)
 
+set( katepart_PART_UI
+modonhdwidget.ui
+)
+
+kde4_add_ui_files(katepart_PART_SRCS ui/${katepart_PART_UI} )
+
 kde4_add_dcop_skels(katepart_PART_SRCS ${katepart_DCOP_SKEL_SRCS})
 
 kde4_add_plugin(katepart ${katepart_PART_SRCS})

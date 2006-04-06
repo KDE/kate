@@ -34,6 +34,8 @@
 #include "katesyntaxdocument.h"
 #include "kateview.h"
 
+#include "modonhdwidget.h"
+
 #include <ktexteditor/plugin.h>
 
 #include <kio/job.h>
@@ -1634,16 +1636,17 @@ int KateGotoLineDialog::getLine() {
 
 //BEGIN KateModOnHdPrompt
 KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
-                                      int modtype,
+                                      KTextEditor::ModificationInterface::ModifiedOnDiskReason modtype,
                                       const QString &reason,
                                       QWidget *parent )
-  : KDialogBase( Swallow, 0, parent, "", true, "", Ok|Apply|Cancel|User1 ),
+  : KDialog( parent, "", Ok|Apply|Cancel|User1 ),
+    m_returnCode( Delay ),
     m_doc( doc ),
     m_modtype ( modtype ),
     m_tmpfile( 0 )
 {
   QString title, btnOK, whatisok;
-  if ( modtype == 3 ) // deleted
+  if ( modtype == KTextEditor::ModificationInterface::OnDiskDeleted )
   {
     title = i18n("File Was Deleted on Disk");
     btnOK = i18n("&Save File As...");
@@ -1655,7 +1658,7 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
         "they will be lost.");
   }
 
-  setButtonText( Ok, btnOK);
+  setButtonText( Ok, btnOK );
   setButtonText( Apply, i18n("&Ignore") );
 
   setButtonWhatsThis( Ok, whatisok );
@@ -1666,34 +1669,31 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
   enableButtonSeparator( true );
   setCaption( title );
 
-  QFrame *w = makeMainWidget();
-  QVBoxLayout *lo = new QVBoxLayout( w );
-  QHBoxLayout *lo1 = new QHBoxLayout();
-  lo->addItem(lo1);
-  QLabel *icon = new QLabel( w );
-  icon->setPixmap( DesktopIcon("messagebox_warning" ) );
-  lo1->addWidget( icon );
-  lo1->addWidget( new QLabel( reason + "\n\n" + i18n("What do you want to do?"), w ) );
+  QWidget *w = new QWidget(this);
+  ui = new Ui::ModOnHdWidget();
+  ui->setupUi( w );
+  setMainWidget( w );
+
+  ui->lblIcon->setPixmap( DesktopIcon("messagebox_warning" ) );
+  ui->lblText->setText( reason + "\n\n" + i18n("What do you want to do?") );
 
   // If the file isn't deleted, present a diff button, and a overwrite action.
-  if ( modtype != 3 )
+  if ( modtype != KTextEditor::ModificationInterface::OnDiskDeleted )
   {
-    QHBoxLayout *lo2 = new QHBoxLayout();
-    lo->addItem(lo2);
-    QPushButton *btnDiff = new QPushButton( i18n("&View Difference"), w );
-    lo2->addStretch( 1 );
-    lo2->addWidget( btnDiff );
-    connect( btnDiff, SIGNAL(clicked()), this, SLOT(slotDiff()) );
-    btnDiff->setWhatsThis(i18n(
-        "Calculates the difference between the editor contents and the disk "
-        "file using diff(1) and opens the diff file with the default application "
-        "for that.") );
-
     setButtonText( User1, i18n("Overwrite") );
     setButtonWhatsThis( User1, i18n("Overwrite the disk file with the editor content.") );
+    connect( this, SIGNAL(user1Clicked()), this, SLOT(slotUser1()) );
+    connect( ui->btnDiff, SIGNAL(clicked()), this, SLOT(slotDiff()) );
   }
   else
+  {
+    ui->chkIgnoreWhiteSpaces->setVisible( false );
+    ui->btnDiff->setVisible( false );
     showButton( User1, false );
+  }
+
+  connect( this, SIGNAL(okClicked()), this, SLOT(slotOk()) );
+  connect( this, SIGNAL(applyClicked()), this, SLOT(slotApply()) );
 }
 
 KateModOnHdPrompt::~KateModOnHdPrompt()
@@ -1705,11 +1705,15 @@ void KateModOnHdPrompt::slotDiff()
   // Start a KProcess that creates a diff
   KProcIO *p = new KProcIO();
   p->setComm( KProcess::All );
-  *p << "diff" << "-ub" << "-" <<  m_doc->url().path();
+  *p << "diff" << QString(ui->chkIgnoreWhiteSpaces->isChecked() ? "-ub" : "-u")
+     << "-" <<  m_doc->url().path();
   connect( p, SIGNAL(processExited(KProcess*)), this, SLOT(slotPDone(KProcess*)) );
   connect( p, SIGNAL(readReady(KProcIO*)), this, SLOT(slotPRead(KProcIO*)) );
 
   setCursor( Qt::WaitCursor );
+  // disable the button and checkbox, to hinder the user to run it twice.
+  ui->chkIgnoreWhiteSpaces->setEnabled( false );
+  ui->btnDiff->setEnabled( false );
 
   p->start( KProcess::NotifyOnExit, true );
 
@@ -1743,6 +1747,9 @@ void KateModOnHdPrompt::slotPRead( KProcIO *p)
 void KateModOnHdPrompt::slotPDone( KProcess *p )
 {
   setCursor( Qt::ArrowCursor );
+  ui->chkIgnoreWhiteSpaces->setEnabled( true );
+  ui->btnDiff->setEnabled( true );
+
   // dominik: whitespace changes lead to diff with 0 bytes, so that slotPRead is
   // never called. Thus, m_tmpfile can be NULL
   if( m_tmpfile )
@@ -1760,12 +1767,12 @@ void KateModOnHdPrompt::slotPDone( KProcess *p )
   if ( ! m_tmpfile )
   {
     KMessageBox::information( this,
-                              i18n("Besides white space changes the files are identical."),
+                              i18n("Besides white space changes, the files are identical."),
                               i18n("Diff Output") );
     return;
   }
 
-  KRun::runURL( m_tmpfile->name(), "text/x-diff", true );
+  KRun::runURL( KUrl::fromPathOrURL(m_tmpfile->name()), "text/x-diff", true );
   delete m_tmpfile;
   m_tmpfile = 0;
 }
@@ -1783,17 +1790,21 @@ void KateModOnHdPrompt::slotApply()
        "kate_ignore_modonhd" ) != KMessageBox::Continue )
     return;
 
-  done(Ignore);
+  m_returnCode = Ignore;
+  done( Accepted );
 }
 
 void KateModOnHdPrompt::slotOk()
 {
-  done( m_modtype == 3 ? Save : Reload );
+  m_returnCode = (m_modtype == KTextEditor::ModificationInterface::OnDiskDeleted) ?
+      Save : Reload;
+  done( Accepted );
 }
 
 void KateModOnHdPrompt::slotUser1()
 {
-  done( Overwrite );
+  m_returnCode = Overwrite;
+  done( Accepted );
 }
 
 //END KateModOnHdPrompt

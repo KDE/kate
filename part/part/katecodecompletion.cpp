@@ -121,7 +121,7 @@ KateCodeCompletion::KateCodeCompletion( KateView* view )
   setObjectName( "Kate Code Completion" );
 
   m_completionPopup = new KVBox(0L);
-  m_completionPopup->setWindowFlags(Qt::WType_Popup);
+  m_completionPopup->setWindowFlags(Qt::Popup);
   m_completionPopup->setFrameStyle( QFrame::Box | QFrame::Plain );
   m_completionPopup->setLineWidth( 1 );
 
@@ -264,8 +264,7 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
     QApplication::sendEvent(m_view->m_viewInternal,e);
     if (!e->isAccepted()) QApplication::sendEvent(m_view->window(),e);
   }
-  if ((e->type()==QEvent::Shortcut) || (e->type()==QEvent::ShortcutOverride) ||
-	(e->type()==QEvent::Accel) )
+  if ((e->type()==QEvent::Shortcut) || (e->type()==QEvent::ShortcutOverride))
   {
     QApplication::sendEvent(m_view->window(),e);
   }
@@ -523,9 +522,8 @@ void KateCodeCompletion::showComment()
 }
 
 KateArgHint::KateArgHint( KateView* parent )
-    : QFrame( parent )
+    : QFrame( parent, Qt::Popup )
 {
-    setWindowFlags(Qt::WType_Popup);
     QPalette palette;
     palette.setColor( backgroundRole(), Qt::black );
     palette.setColor( foregroundRole(), Qt::black );

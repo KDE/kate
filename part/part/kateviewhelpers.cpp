@@ -711,7 +711,7 @@ const int iconPaneWidth = 16;
 const int halfIPW = 8;
 
 KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent )
-  : QWidget(parent, Qt::WStaticContents | Qt::WNoAutoErase | Qt::WResizeNoErase )
+  : QWidget(parent)
   , m_view( internalView->m_view )
   , m_doc( internalView->m_doc )
   , m_viewInternal( internalView )
@@ -725,6 +725,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , minus_px ((const char**)minus_xpm)
   , plus_px ((const char**)plus_xpm)
 {
+  setAttribute( Qt::WA_StaticContents );
   setSizePolicy( QSizePolicy(  QSizePolicy::Fixed, QSizePolicy::Minimum ) );
 
   m_doc->setMarkDescription( MarkInterface::markType01, i18n("Bookmark") );

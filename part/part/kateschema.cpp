@@ -565,15 +565,15 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
   // set colors
   QPalette p ( m_defaultStyles->palette() );
   QColor _c ( KGlobalSettings::baseColor() );
-  p.setColor( QColorGroup::Base,
+  p.setColor( QPalette::Base,
     KateGlobal::self()->schemaManager()->schema(schema)->
       readEntry( "Color Background", _c ) );
   _c = KGlobalSettings::highlightColor();
-  p.setColor( QColorGroup::Highlight,
+  p.setColor( QPalette::Highlight,
     KateGlobal::self()->schemaManager()->schema(schema)->
       readEntry( "Color Selection", _c ) );
   _c = l->at(0)->foreground().color(); // not quite as much of an assumption ;)
-  p.setColor( QColorGroup::Text, _c );
+  p.setColor( QPalette::Text, _c );
   m_defaultStyles->viewport()->setPalette( p );
 
   // insert the default styles backwards to get them in the right order
@@ -699,15 +699,15 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   // the color tab is fixed.
   QPalette p ( m_styles->palette() );
   QColor _c ( KGlobalSettings::baseColor() );
-  p.setColor( QColorGroup::Base,
+  p.setColor( QPalette::Base,
     KateGlobal::self()->schemaManager()->schema(m_schema)->
       readEntry( "Color Background", _c ) );
   _c = KGlobalSettings::highlightColor();
-  p.setColor( QColorGroup::Highlight,
+  p.setColor( QPalette::Highlight,
     KateGlobal::self()->schemaManager()->schema(m_schema)->
       readEntry( "Color Selection", _c ) );
   _c = l->at(0)->foreground().color(); // not quite as much of an assumption ;)
-  p.setColor( QColorGroup::Text, _c );
+  p.setColor( QPalette::Text, _c );
   m_styles->viewport()->setPalette( p );
 
   QHash<QString, QTreeWidgetItem*> prefixes;

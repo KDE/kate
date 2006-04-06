@@ -56,7 +56,6 @@
 #include <kkeybutton.h>
 #include <kkeydialog.h>
 #include <klineedit.h>
-#include <k3listview.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmimetypechooser.h>

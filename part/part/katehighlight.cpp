@@ -406,7 +406,7 @@ void KateHlItem::dynamicSubstitute(QString &str, const QStringList *args)
   {
     if (str[i] == '%')
     {
-      char c = str[i + 1].latin1();
+      char c = str[i + 1].toLatin1();
       if (c == '%')
         str.replace(i, 1, "");
       else if (c >= '0' && c <= '9')
@@ -1944,7 +1944,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
     if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
     {
       errorsAndWarnings+=i18n(
-          "<B>%1</B>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<BR>", 
+          "<B>%1</B>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<BR>",
       buildIdentifier, tmpAttr);
       attr=tmpAttr.toInt();
     }

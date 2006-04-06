@@ -53,7 +53,7 @@ class KateCodeCompletionCommentLabel : public QLabel
 
   public:
     KateCodeCompletionCommentLabel( QWidget* parent, const QString& text) : QLabel( parent,
-             Qt::WStyle_StaysOnTop | Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WStyle_Tool | Qt::WX11BypassWM )
+             Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint | Qt::Tool | Qt::X11BypassWindowManagerHint )
     {
         setObjectName( QLatin1String( "toolTipTip" ) );
         setMargin(1);

@@ -79,6 +79,7 @@
 #include <qtextdocument.h>
 #include <qtextstream.h>
 #include <qmimedata.h>
+#include <QTextCodec>
 //END includes
 
 static void blockFix(KTextEditor::Range& range)

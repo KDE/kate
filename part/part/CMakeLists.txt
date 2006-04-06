@@ -81,6 +81,9 @@ set( katepart_DCOP_SKEL_SRCS
 katedocument.h
 )
 
+remove_definitions(-DQT3_SUPPORT_WARNINGS)
+remove_definitions(-DQT3_SUPPORT)
+
 kde4_add_dcop_skels(katepart_PART_SRCS ${katepart_DCOP_SKEL_SRCS})
 
 kde4_add_plugin(katepart ${katepart_PART_SRCS})

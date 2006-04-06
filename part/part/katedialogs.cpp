@@ -1716,7 +1716,7 @@ void KateModOnHdPrompt::slotDiff()
 
   int lastln =  m_doc->lines();
   for ( int l = 0; l <  lastln; ++l )
-    p->writeStdin(  m_doc->line( l ), l < lastln );
+    p->writeStdin(  m_doc->line( l ) );
 
   p->closeWhenDone();
 }
@@ -1728,16 +1728,26 @@ void KateModOnHdPrompt::slotPRead( KProcIO *p)
     m_tmpfile = new KTempFile();
   // put all the data we have in it
   QString stmp;
+  bool readData = false;
   while ( p->readln( stmp, false ) > -1 )
+  {
     *m_tmpfile->textStream() << stmp << endl;
+    readData = true;
+  }
 
-  p->ackRead();
+  // dominik: only ackRead(), when we *really* read data, otherwise, this slot
+  // is called initity times, which leads to a crash
+  if( readData )
+    p->ackRead();
 }
 
 void KateModOnHdPrompt::slotPDone( KProcess *p )
 {
   setCursor( Qt::ArrowCursor );
-  m_tmpfile->close();
+  // dominik: whitespace changes lead to diff with 0 bytes, so that slotPRead is
+  // never called. Thus, m_tmpfile can be NULL
+  if( m_tmpfile )
+    m_tmpfile->close();
 
   if ( ! p->normalExit() /*|| p->exitStatus()*/ )
   {
@@ -1745,6 +1755,14 @@ void KateModOnHdPrompt::slotPDone( KProcess *p )
                         i18n("The diff command failed. Please make sure that "
                              "diff(1) is installed and in your PATH."),
                         i18n("Error Creating Diff") );
+    return;
+  }
+
+  if ( ! m_tmpfile )
+  {
+    KMessageBox::information( this,
+                              i18n("Besides white space changes the files are identical."),
+                              i18n("Diff Output") );
     return;
   }
 

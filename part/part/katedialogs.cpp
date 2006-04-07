@@ -1640,7 +1640,6 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
                                       const QString &reason,
                                       QWidget *parent )
   : KDialog( parent, "", Ok|Apply|Cancel|User1 ),
-    m_returnCode( Delay ),
     m_doc( doc ),
     m_modtype ( modtype ),
     m_tmpfile( 0 )
@@ -1682,7 +1681,6 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
   {
     setButtonText( User1, i18n("Overwrite") );
     setButtonWhatsThis( User1, i18n("Overwrite the disk file with the editor content.") );
-    connect( this, SIGNAL(user1Clicked()), this, SLOT(slotUser1()) );
     connect( ui->btnDiff, SIGNAL(clicked()), this, SLOT(slotDiff()) );
   }
   else
@@ -1691,9 +1689,6 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
     ui->btnDiff->setVisible( false );
     showButton( User1, false );
   }
-
-  connect( this, SIGNAL(okClicked()), this, SLOT(slotOk()) );
-  connect( this, SIGNAL(applyClicked()), this, SLOT(slotApply()) );
 }
 
 KateModOnHdPrompt::~KateModOnHdPrompt()
@@ -1777,34 +1772,36 @@ void KateModOnHdPrompt::slotPDone( KProcess *p )
   m_tmpfile = 0;
 }
 
-void KateModOnHdPrompt::slotApply()
+void KateModOnHdPrompt::slotButtonClicked(int button)
 {
-  if ( KMessageBox::warningContinueCancel(
-       this,
-       i18n("Ignoring means that you will not be warned again (unless "
-            "the disk file changes once more): if you save the document, you "
-            "will overwrite the file on disk; if you do not save then the disk file "
-            "(if present) is what you have."),
-       i18n("You Are on Your Own"),
-       KStdGuiItem::cont(),
-       "kate_ignore_modonhd" ) != KMessageBox::Continue )
-    return;
-
-  m_returnCode = Ignore;
-  done( Accepted );
-}
-
-void KateModOnHdPrompt::slotOk()
-{
-  m_returnCode = (m_modtype == KTextEditor::ModificationInterface::OnDiskDeleted) ?
-      Save : Reload;
-  done( Accepted );
-}
-
-void KateModOnHdPrompt::slotUser1()
-{
-  m_returnCode = Overwrite;
-  done( Accepted );
+  switch(button)
+  {
+    case Default:
+    case Ok:
+      done( (m_modtype == KTextEditor::ModificationInterface::OnDiskDeleted) ?
+            Save : Reload );
+      break;
+    case Apply:
+    {
+      if ( KMessageBox::warningContinueCancel(
+           this,
+           i18n("Ignoring means that you will not be warned again (unless "
+           "the disk file changes once more): if you save the document, you "
+           "will overwrite the file on disk; if you do not save then the disk "
+           "file (if present) is what you have."),
+           i18n("You Are on Your Own"),
+           KStdGuiItem::cont(),
+           "kate_ignore_modonhd" ) != KMessageBox::Continue )
+        return;
+      done( Ignore );
+      break;
+    }
+    case User1:
+      done( Overwrite );
+      break;
+    default:
+      KDialog::slotButtonClicked(button);
+  }
 }
 
 //END KateModOnHdPrompt

@@ -391,8 +391,7 @@ class KateModOnHdPrompt : public KDialog
   Q_OBJECT
   public:
     enum Status {
-      Delay = 0,
-      Reload,
+      Reload = 1, // 0 is QDialog::Rejected
       Save,
       Overwrite,
       Ignore
@@ -401,7 +400,6 @@ class KateModOnHdPrompt : public KDialog
                        KTextEditor::ModificationInterface::ModifiedOnDiskReason modtype,
                        const QString &reason, QWidget *parent  );
     ~KateModOnHdPrompt();
-    Status decision() const { return m_returnCode; }
 
   public Q_SLOTS:
     /**
@@ -410,17 +408,15 @@ class KateModOnHdPrompt : public KDialog
      * decision from the user.
      */
     void slotDiff();
-
-    void slotOk();
-    void slotApply();
-    void slotUser1();
+  
+  protected Q_SLOTS:
+    virtual void slotButtonClicked(int button);
 
   private Q_SLOTS:
     void slotPRead(KProcIO*); ///< Read from the diff process
     void slotPDone(KProcess*); ///< Runs the diff file when done
 
   private:
-    Status m_returnCode;
     Ui::ModOnHdWidget* ui;
     KateDocument *m_doc;
     KTextEditor::ModificationInterface::ModifiedOnDiskReason m_modtype;

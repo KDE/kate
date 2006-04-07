@@ -34,7 +34,7 @@
 #include "katesyntaxdocument.h"
 #include "kateview.h"
 
-#include "modonhdwidget.h"
+#include "ui_modonhdwidget.h"
 
 #include <ktexteditor/plugin.h>
 

@@ -19,7 +19,8 @@ MACRO(ECOS_ADD_EXECUTABLE _exe_NAME )
 #special parameters are italic, see the STATIC in the next line
 ADD_LIBRARY(${_exe_NAME} STATIC ${ARGN})
 #but not in the following line ?
-   ADD_LIBRARY(${_exe_NAME} STATIC ${ARGN})
+  ADD_LIBRARY(${_exe_NAME} STATIC ${ARGN})
+# it seems the kate highlighting file could need some love, Alex
 
 
 #another command with a bunch of variables and special parameters   

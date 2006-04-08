@@ -169,11 +169,11 @@ KWrite::KWrite (KTextEditor::Document *doc)
 
 KWrite::~KWrite()
 {
-  winList.remove (this);
+  winList.removeAll(this);
 
   if (m_view->document()->views().count() == 1)
   {
-    docList.remove(m_view->document());
+    docList.removeAll(m_view->document());
     delete m_view->document();
   }
 
@@ -227,23 +227,23 @@ void KWrite::setupStatusBar()
 {
   // statusbar stuff
   m_lineColLabel = new QLabel( statusBar() );
-  statusBar()->addWidget( m_lineColLabel, 0, false );
+  statusBar()->addWidget( m_lineColLabel, 0 );
   m_lineColLabel->setAlignment( Qt::AlignCenter );
 
   m_modifiedLabel = new QLabel( QString("   "), statusBar() );
-  statusBar()->addWidget( m_modifiedLabel, 0, false );
+  statusBar()->addWidget( m_modifiedLabel, 0 );
   m_modifiedLabel->setAlignment( Qt::AlignCenter );
 
   m_insertModeLabel = new QLabel( i18n(" INS "), statusBar() );
-  statusBar()->addWidget( m_insertModeLabel, 0, false );
+  statusBar()->addWidget( m_insertModeLabel, 0 );
   m_insertModeLabel->setAlignment( Qt::AlignCenter );
 
   m_selectModeLabel = new QLabel( i18n(" NORM "), statusBar() );
-  statusBar()->addWidget( m_selectModeLabel, 0, false );
+  statusBar()->addWidget( m_selectModeLabel, 0 );
   m_selectModeLabel->setAlignment( Qt::AlignCenter );
 
   m_fileNameLabel=new KSqueezedTextLabel( statusBar() );
-  statusBar()->addWidget( m_fileNameLabel, 1, true );
+  statusBar()->addPermanentWidget( m_fileNameLabel, 1 );
   m_fileNameLabel->setMinimumSize( 0, 0 );
   m_fileNameLabel->setSizePolicy(QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Fixed ));
   m_fileNameLabel->setAlignment( /*Qt::AlignRight*/Qt::AlignLeft );
@@ -378,7 +378,7 @@ void KWrite::editToolbars()
 
 void KWrite::dragEnterEvent( QDragEnterEvent *event )
 {
-  event->accept(KUrl::List::canDecode(event->mimeData()));
+  event->setAccepted(KUrl::List::canDecode(event->mimeData()));
 }
 
 void KWrite::dropEvent( QDropEvent *event )
@@ -750,7 +750,7 @@ extern "C" KDE_EXPORT int main(int argc, char **argv)
 
         if( args->isSet( "stdin" ) )
         {
-          QTextIStream input(stdin);
+          QTextStream input(stdin);
 
           // set chosen codec
           if (codec)

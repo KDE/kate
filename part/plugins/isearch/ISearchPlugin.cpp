@@ -328,7 +328,7 @@ void ISearchPluginView::startSearch()
 	QString text = m_view->selectionText();
 	if( text.isEmpty() )
 		text = m_lastString;
-	m_combo->setCurrentText( text );
+	m_combo->setItemText( m_combo->currentIndex(), text );
 
 	m_combo->blockSignals( false );
 	m_combo->lineEdit()->selectAll();
@@ -352,7 +352,7 @@ void ISearchPluginView::quitToView( const QString &text )
 {
 	if( !text.isNull() && !text.isEmpty() ) {
 		m_combo->addToHistory( text );
-		m_combo->insertItem( text );
+		m_combo->addItem( text );
 		m_lastString = text;
 	}
 
@@ -383,14 +383,14 @@ void ISearchPluginView::slotReturnPressed( const QString& text )
 void ISearchPluginView::slotAddContextMenuItems( QMenu *menu )
 {
 	if( menu ) {
-		menu->insertSeparator();
-		menu->insertItem( i18n("Case Sensitive"), this,
+		menu->addSeparator();
+		menu->addAction( i18n("Case Sensitive"), this,
 				  SLOT(setCaseSensitive(bool)));
-		menu->insertItem( i18n("From Beginning"), this,
+		menu->addAction( i18n("From Beginning"), this,
 				  SLOT(setFromBeginning(bool)));
-		menu->insertItem( i18n("Regular Expression"), this,
+		menu->addAction( i18n("Regular Expression"), this,
 				  SLOT(setRegExp(bool)));
-		//menu->insertItem( i18n("Auto-Wrap Search"), this,
+		//menu->addAction( i18n("Auto-Wrap Search"), this,
 		//		  SLOT(setAutoWrap(bool)));
 	}
 }

@@ -563,8 +563,8 @@ void KWrite::cursorPositionChanged ( KTextEditor::View *view )
   KTextEditor::Cursor position (view->cursorPositionVirtual());
 
   m_lineColLabel->setText(
-    i18n(" Line: %1 Col: %2 ").arg(KGlobal::locale()->formatNumber(position.line()+1, 0))
-                              .arg(KGlobal::locale()->formatNumber(position.column()+1, 0)) );
+    i18n(" Line: %1 Col: %2 ", KGlobal::locale()->formatNumber(position.line()+1, 0),
+                               KGlobal::locale()->formatNumber(position.column()+1, 0)) );
 }
 
 void KWrite::selectionChanged (KTextEditor::View *view)
@@ -635,11 +635,11 @@ void KWrite::documentNameChanged ()
 
 static KCmdLineOptions options[] =
 {
-  { "stdin",    I18N_NOOP("Read the contents of stdin"), 0},
-  { "encoding <argument>",      I18N_NOOP("Set encoding for the file to open"), 0 },
-  { "line <argument>",      I18N_NOOP("Navigate to this line"), 0 },
-  { "column <argument>",      I18N_NOOP("Navigate to this column"), 0 },
-  { "+[URL]",   I18N_NOOP("Document to open"), 0 },
+  { "stdin",   I18N_NOOP("Read the contents of stdin"), 0},
+  { "encoding <argument>",     I18N_NOOP("Set encoding for the file to open"), 0 },
+  { "line <argument>",     I18N_NOOP("Navigate to this line"), 0 },
+  { "column <argument>",     I18N_NOOP("Navigate to this column"), 0 },
+  { "+[URL]",  I18N_NOOP("Document to open"), 0 },
   KCmdLineLastOption
 };
 
@@ -784,7 +784,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
             t->view()->setCursorPosition (KTextEditor::Cursor (line, column));
         }
         else
-          KMessageBox::sorry( t, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.").arg(args->url(z).url()) );
+          KMessageBox::sorry( t, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", args->url(z).url()) );
       }
     }
   }

@@ -1,7 +1,6 @@
 kde4_header()
 
-include_directories( ${CMAKE_SOURCE_DIR}/kio ${CMAKE_SOURCE_DIR}/interfaces ${CMAKE_SOURCE_DIR}/kabc ${CMAKE_BINARY_DIR}/kabc )
-
+include_directories( ${KDE4_KPARTS_INCLUDES} )
 
 ########### next target ###############
 
@@ -32,6 +31,8 @@ install_targets(${LIB_INSTALL_DIR} ktexteditor )
 
 
 ########### next target ###############
+
+include_directories( ${CMAKE_SOURCE_DIR}/kabc ${CMAKE_BINARY_DIR}/kabc )
 
 set(ktexteditorkabcbridge_PART_SRCS ktexteditorkabcbridge.cpp )
 

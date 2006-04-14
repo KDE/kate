@@ -21,6 +21,7 @@ TODO:
       * selection moved to KateView
 
 * Memory usage and leak auditing
+  * KateHlContext::items needs to be implicitly shared + autodelete
 
 **** new features ****
 

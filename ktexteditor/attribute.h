@@ -210,7 +210,7 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
      * \}
      * \name Action association
      *
-     * The following functions allow for KActions to be associated with attributes,
+     * The following functions allow for KAction%s to be associated with attributes,
      * and thus with ranges which use this attribute.
      * \{
      */
@@ -233,12 +233,12 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
     void dissociateAction(KAction* action);
 
     /**
-     * Returns a list of currently associated KActions.
+     * Returns a list of currently associated KAction%s.
      */
     const QList<KAction*>& associatedActions() const;
 
     /**
-     * Clears all associations between KActions and this attribute.
+     * Clears all associations between KAction%s and this attribute.
      */
     void clearAssociatedActions();
     //!\}

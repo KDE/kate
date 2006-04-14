@@ -28,7 +28,7 @@ class View;
 class SmartCursor;
 
 /**
- * \brief A Document extension interface for handling SmartCursors and SmartRanges.
+ * \brief A Document extension interface for handling SmartCursor%s and SmartRange%s.
  *
  * \ingroup kte_group_doc_extensions
  *
@@ -41,12 +41,12 @@ class SmartCursor;
  *
  * \section smartiface_intro Introduction
  * Use this interface to:
- * \li create new SmartCursors and SmartRanges;
+ * \li create new SmartCursor%s and SmartRange%s;
  * \li create arbitrary highlighting; and
- * \li associate KActions to ranges of text
+ * \li associate KAction%s with ranges of text
  *
- * \section smartiface_creation Creation of SmartCursors and SmartRanges
- * These functions must be used to create SmartCursors and SmartRanges.  This
+ * \section smartiface_creation Creation of SmartCursor%s and SmartRange%s
+ * These functions must be used to create SmartCursor%s and SmartRange%s.  This
  * means that these objects cannot be derived from by third party applications.
  *
  * You then own these objects; upon deletion they de-register themselves from
@@ -54,7 +54,7 @@ class SmartCursor;
  * deleted with the deletion of the owning Document.
  *
  * \section smartiface_highlight Arbitrary Highlighting
- * Arbitrary highlighting of text can be achieved by creating SmartRanges in a
+ * Arbitrary highlighting of text can be achieved by creating SmartRange%s in a
  * tree structure, and assigning appropriate Attributes to these ranges.
  *
  * To highlight all views, use addHighlightToDocument(); to highlight one or some
@@ -63,7 +63,7 @@ class SmartCursor;
  * this function more than once with ranges from the same tree may give undefined results.
  *
  * \section smartiface_action Action Binding
- * Action binding can be used to associate KActions with specific ranges of text.
+ * Action binding can be used to associate KAction%s with specific ranges of text.
  * These bound actions are automatically enabled and disabled when the caret enters
  * their associated ranges, and context menus are automatically populated with the
  * relevant actions.
@@ -110,8 +110,8 @@ class KTEXTEDITOR_EXPORT SmartInterface
 
     /**
      * Clears or deletes all instances of smart objects, ie:
-     * \li deletes all SmartCursors
-     * \li deletes all SmartRanges
+     * \li deletes all SmartCursor%s
+     * \li deletes all SmartRange%s
      * \li clears all arbitrary highlight ranges
      * \li clears all action binding
      *
@@ -139,7 +139,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
     /**
      * \name Smart Cursors
      *
-     * The following functions allow for creation and deletion of SmartCursors.
+     * The following functions allow for creation and deletion of SmartCursor%s.
      * \{
      */
     /**
@@ -186,7 +186,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
       { return newSmartCursor(Cursor(line, column), moveOnInsert); }
 
     /**
-     * Delete all SmartCursors from this document, with the exception of those
+     * Delete all SmartCursor%s from this document, with the exception of those
      * cursors currently bound to ranges.
      */
     virtual void deleteCursors() = 0;
@@ -198,7 +198,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      *
      * \name Smart Ranges
      *
-     * The following functions allow for creation of new SmartRanges.
+     * The following functions allow for creation of new SmartRange%s.
      * \{
      */
     /**
@@ -241,7 +241,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
       { return newSmartRange(Range(startLine, startColumn, endLine, endColumn), parent, insertBehavior); }
 
     /**
-     * Creates a new SmartRange from pre-existing SmartCursors.  The cursors must not be part of any other range.
+     * Creates a new SmartRange from pre-existing SmartCursor%s.  The cursors must not be part of any other range.
      *
      * \param start Start SmartCursor
      * \param end End SmartCursor
@@ -251,7 +251,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
     virtual SmartRange* newSmartRange(SmartCursor* start, SmartCursor* end, SmartRange* parent = 0L, SmartRange::InsertBehaviors insertBehavior = SmartRange::DoNotExpand) = 0;
 
     /**
-     * Delete a SmartRange without deleting the SmartCursors which make up its start() and end().
+     * Delete a SmartRange without deleting the SmartCursor%s which make up its start() and end().
      *
      * First, extract the cursors yourself using:
      * \code
@@ -266,7 +266,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
     virtual void unbindSmartRange(SmartRange* range) = 0;
 
     /**
-     * Delete all SmartRanges from this document. This will also delete all
+     * Delete all SmartRange%s from this document. This will also delete all
      * cursors currently bound to ranges.
      *
      * This will not affect any underlying text.
@@ -280,7 +280,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      *
      * \name Arbitrary Highlighting
      *
-     * The following functions enable highlighting processing for SmartRanges with arbitrary
+     * The following functions enable highlighting processing for SmartRange%s with arbitrary
      * highlighting information.
      * \{
      */
@@ -302,7 +302,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
     virtual void removeHighlightFromDocument(SmartRange* topRange) = 0;
 
     /**
-     * Return a list of SmartRanges which are currently registered as
+     * Return a list of SmartRange%s which are currently registered as
      * providing arbitrary highlighting information to all of the views of a
      * document.
      */
@@ -337,7 +337,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
     virtual void removeHighlightFromView(View* view, SmartRange* topRange) = 0;
 
     /**
-     * Return a list of SmartRanges which are currently registered as
+     * Return a list of SmartRange%s which are currently registered as
      * providing arbitrary highlighting information to a specific view of a
      * document.
      *
@@ -363,7 +363,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      *
      * \name Action Binding
      *
-     * The following functions allow for the processing of KActions bound to SmartRanges.
+     * The following functions allow for the processing of KAction%s bound to SmartRange%s.
      * \{
      */
     /**
@@ -383,13 +383,13 @@ class KTEXTEDITOR_EXPORT SmartInterface
     virtual void removeActionsFromDocument(SmartRange* topRange) = 0;
 
     /**
-     * Return a list of SmartRanges which are currently registered as
+     * Return a list of SmartRange%s which are currently registered as
      * providing bound actions to all of the views of a document.
      */
     virtual const QList<SmartRange*> documentActions() const = 0;
 
     /**
-     * Remove all bound SmartRanges which provide actions to the document.
+     * Remove all bound SmartRange%s which provide actions to the document.
      */
     virtual void clearDocumentActions() = 0;
 
@@ -416,7 +416,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
     virtual void removeActionsFromView(View* view, SmartRange* topRange) = 0;
 
     /**
-     * Return a list of SmartRanges which are currently registered as
+     * Return a list of SmartRange%s which are currently registered as
      * providing bound actions to the specified \p view.
      *
      * \note implementations should not take into account document-bound
@@ -428,7 +428,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
     virtual const QList<SmartRange*> viewActions(View* view) const = 0;
 
     /**
-     * Remove all bound SmartRanges which provide actions to the specified \p view.
+     * Remove all bound SmartRange%s which provide actions to the specified \p view.
      *
      * \param view view from which to remove actions
      */

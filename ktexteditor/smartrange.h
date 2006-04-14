@@ -47,9 +47,9 @@ class SmartRangeWatcher;
  * \li convenience functions for accessing and manipulating the content
  * of the associated document,
  * \li adjusting behavior in response to text edits,
- * \li forming a tree structure out of multiple SmartRanges,
+ * \li forming a tree structure out of multiple SmartRange%s,
  * \li providing attribute information for the arbitrary highlighting extension,
- * \li allowing KActions to be bound to the range, and
+ * \li allowing KAction%s to be bound to the range, and
  * \li providing notification of changes to 3rd party software.
  *
  * As a result of a smart range's close association with a document, and the processing
@@ -121,7 +121,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     /**
      * Get the start point of this range. This version returns a casted
-     * version of start(), as SmartRanges always use SmartCursors as
+     * version of start(), as SmartRange%s always use SmartCursor%s as
      * the start() and end().
      *
      * \returns a reference to the start of this range.
@@ -131,7 +131,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     /**
      * Get the start point of this range. This version returns a casted
-     * version of start(), as SmartRanges always use SmartCursors as
+     * version of start(), as SmartRange%s always use SmartCursor%s as
      * the start() and end().
      *
      * \returns a const reference to the start of this range.
@@ -141,7 +141,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     /**
      * Get the end point of this range. This version returns a casted
-     * version of end(), as SmartRanges always use SmartCursors as
+     * version of end(), as SmartRange%s always use SmartCursor%s as
      * the start() and end().
      *
      * \returns a reference to the end of this range.
@@ -151,7 +151,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
     /**
      * Get the end point of this range. This version returns a casted
-     * version of end(), as SmartRanges always use SmartCursors as
+     * version of end(), as SmartRange%s always use SmartCursor%s as
      * the start() and end().
      *
      * \returns a const reference to the end of this range.
@@ -448,7 +448,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     void dissociateAction(KAction* action);
 
     /**
-     * Access the list of currently associated KActions.
+     * Access the list of currently associated KAction%s.
      *
      * \return the list of associated actions
      */
@@ -456,7 +456,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
       { return m_associatedActions; }
 
     /**
-     * Clears all associations between KActions and this range.
+     * Clears all associations between KAction%s and this range.
      */
     void clearAssociatedActions();
     //END
@@ -628,7 +628,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
     /**
      * \internal
      *
-     * The list of this range's associated KActions.
+     * The list of this range's associated KAction%s.
      */
     QList<KAction*> m_associatedActions;
 

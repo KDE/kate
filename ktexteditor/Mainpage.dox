@@ -10,15 +10,16 @@ or any later version published by the Free Software Foundation;
 */
 
 /** \file Mainpage.dox
-    \brief Mainpage of the KTextEditor Interface Documentation.
+    \brief Introduction to the KTextEditor Interface
 */
-/** \mainpage The KTextEditor Interfaces.
+/** \mainpage Introduction to the KTextEditor Interface
 
 \section kte_intro Introduction
 The KTextEditor interfaces - also called KTE interfaces - are a set of
-well-defined interfaces which an application or library can implement.
-It is possible to substitute an implementation of the editor component with
-another. The two popular implementations right now are the Kate Editor Component
+well-defined interfaces which an application or library can implement to provide
+advanced plain text editing services.  Applications which utilise this interface
+can thus allow the user to choose which implementation of the editor component
+to use. The two popular implementations right now are the Kate Editor Component
 (Kate Part) and the yzis (vim-like) editor.
 
 \section kte_general General
@@ -52,21 +53,22 @@ another. The two popular implementations right now are the Kate Editor Component
 
 
 
-/** \page kte_design General Design of the Core Interfaces
+/** \page kte_design Overview of the Core Interface Design
 The core of the KTextEditor interfaces consists of several main interfaces:
 - KTextEditor::Factory \n
-  The Factory is an interface for the factory of any KTextEditor part and
-  provides access to the editor object of the implementation.
+  The Factory provides access to the editor object.
 - KTextEditor::Editor \n
-  The Editor interface provides access to the underlying editor
-  implementation and has methods to create documents, get a document list,
-  and a signal that is emitted whenever a new document was created.
+  The Editor interface allows you to create documents, get a document list,
+  and a be informed when a new document is created.
 - KTextEditor::Document \n
-  The Document interface represents a document itself and allows to create
-  views and access the document contents.
+  The Document interface represents a single document and enables the creation of
+  views, access to and manipulation of document contents, and access to document
+  extension interfaces.
 - KTextEditor::View \n
-  The View interface provides a widget that displays the contents of a
-  Document.
+  The View provides a widget that displays the contents of a Document, and its
+  interface allows for manipulation of text selection, position of the cursor and mouse,
+  text selections, and behaviour of the view.  Additionally it provides access to 
+  the view extension interfaces.
 
 The hierarchy can be illustrated as follows:
 \image html ktexteditorhierarchy.png "Basic KTextEditor Hierarchy"
@@ -81,12 +83,11 @@ in detail in the following documentation:
 \section kte_design_developer Notes for KTextEditor Developers
 The KTextEditor::Factory provides access to its KTextEditor::Editor. The
 Editor has a list of all opened documents and can create new documents. A
-Document's content is visualized by a View. A Document can have multiple
-views (or none) and all views of the same document are synchronized.
+Document's content is visualized by a View. A Document can have any number of
+views (or none).  When the contents of the document are changed, the change
+is reflected in all views.
 
-With the Factory the Editor instance can be accessed (the actually underlying
-Editor part) which gives access to the global services of the part. The
-Factory always \e should return the same Editor object (the same pointer), as
+The Factory \e should always return the same Editor object, as
 it does not make sense to load the same editor implementation several times.
 Further notes about the Editor implementation can be found in the
 \ref editor_notes.
@@ -176,21 +177,20 @@ The following classes are a list of all available Document extension interfaces.
 
 
 
-/** \defgroup kte_group_smart_classes Smart Cursor and Smart Ranges
+/** \defgroup kte_group_smart_classes Smart Cursors and Ranges
 \ingroup kte_group_doc_extensions
 
 If the KTextEditor implementation supports the KTextEditor::SmartInterface,
 there are several \e smart classes available.
 
-@todo try to add general information about SmartCurosr and SmartRange, and
-      what can be done with it. No detailed description, as it can be found
-      in the class documentation.
-        - SmartCursors maintain their position when modifying text before the cursor
-        - same for SmartRanges
-        - attach arbitrary highlighting, also mention KTextEditor::Attribute
+In general, instances of the \e smart classes are bound to a specific document, and maintain their
+position in that document regardless of changes to the text.  They also provide:
+- feedback on changes to their position and changes to text related to their position,
+- support for the other \e smart interfaces, such as arbitrary highlighting, action binding, etc.
 
-The following is a list of all classes that are only available, if the document
-can be casted into a KTextEditor::SmartInterface.
+The following is a list of all classes that are available when the document
+supports the KTextEditor::SmartInterface:
+
 <!-- The classes are defined by the \ingroup doxygen command -->
 */
 

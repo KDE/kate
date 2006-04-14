@@ -87,6 +87,7 @@ EditorChooser::EditorChooser(QWidget *parent)
 
 EditorChooser:: ~EditorChooser()
 {
+  delete d->chooser;
   delete d;
 }
 

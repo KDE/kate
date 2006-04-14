@@ -38,7 +38,7 @@ class SmartCursorNotifier;
  * A SmartCursor is an extension of the basic Cursor class. It maintains its
  * position in the document and provides a number of convenience methods,
  * including those for accessing and manipulating the content of the associated
- * Document.  As a result of this, SmartCursors may not be copied, as they need
+ * Document.  As a result of this, SmartCursor%s may not be copied, as they need
  * to maintain a connection to the associated Document.
  *
  * To receive notifications when the position of the cursor changes, or other

@@ -164,7 +164,7 @@ class KTEXTEDITOR_EXPORT Range
      *
      * \returns a const reference to the start position of this range.
      *
-     * \internal this function is virtual to allow for covariant return of SmartCursors.
+     * \internal this function is virtual to allow for covariant return of SmartCursor%s.
      */
     inline const Cursor& start() const
       { return *m_start; }
@@ -186,7 +186,7 @@ class KTEXTEDITOR_EXPORT Range
      *
      * \returns a reference to the end position of this range.
      *
-     * \internal this function is virtual to allow for covariant return of SmartCursors.
+     * \internal this function is virtual to allow for covariant return of SmartCursor%s.
      */
     inline Cursor& end()
       { return *m_end; }
@@ -196,7 +196,7 @@ class KTEXTEDITOR_EXPORT Range
      *
      * \returns a const reference to the end position of this range.
      *
-     * \internal this function is virtual to allow for covariant return of SmartCursors.
+     * \internal this function is virtual to allow for covariant return of SmartCursor%s.
      */
     inline const Cursor& end() const
       { return *m_end; }

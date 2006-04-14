@@ -45,6 +45,8 @@ Attribute::Attribute()
 
 Attribute::~Attribute()
 {
+  // FIXME - need to fix ownsDynamicAttributes sharing first
+  //delete d;
 }
 
 Attribute& Attribute::operator+=(const Attribute& a)

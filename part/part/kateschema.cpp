@@ -540,6 +540,9 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab()
 
 KateSchemaConfigFontColorTab::~KateSchemaConfigFontColorTab()
 {
+  foreach (KateAttributeList* list, m_defaultStyleLists)
+    qDeleteAll(*list);
+
   qDeleteAll(m_defaultStyleLists);
 }
 

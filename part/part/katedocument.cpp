@@ -2634,12 +2634,7 @@ bool KateDocument::closeURL()
 
   // update all our views
   foreach (KateView * view, m_views )
-  {
-    // Explicitly call the internal version because we don't want this to look like
-    // an external request (and thus have the view not QWidget::scroll()ed.
-    view->setCursorPositionInternal(KTextEditor::Cursor(0,0), 1, false);
-    view->updateView(true);
-  }
+    view->clear();
 
   // uh, fileName changed
   emit documentUrlChanged (this);

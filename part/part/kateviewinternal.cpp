@@ -2766,8 +2766,8 @@ void KateViewInternal::dropEvent( QDropEvent* event )
 
 void KateViewInternal::clear()
 {
-  m_cursor.setPosition(KTextEditor::Cursor(0, 0));
-  m_displayCursor.setPosition(0, 0);
+  m_startPos = m_displayCursor = m_cursor = KTextEditor::Cursor(0, 0);
+  updateView(true);
 }
 
 void KateViewInternal::wheelEvent(QWheelEvent* e)

@@ -25,6 +25,8 @@
 #include "kateview.h"
 #include "kateglobal.h"
 
+#include "ui_filetypeconfigwidget.h"
+
 #include <kconfig.h>
 #include <kmimemagic.h>
 #include <kmimetype.h>
@@ -261,117 +263,23 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
 {
   m_lastType = -1;
 
-  QVBoxLayout *layout = new QVBoxLayout(this);
-  layout->setMargin(0);
-  layout->setSpacing(KDialog::spacingHint());
+  ui = new Ui::FileTypeConfigWidget();
+  ui->setupUi( this );
 
-  // hl chooser
-  QHBoxLayout *hbHl = new QHBoxLayout();
-  layout->addLayout (hbHl);
-  hbHl->setSpacing( KDialog::spacingHint() );
-  QLabel *lHl = new QLabel( i18n("&Filetype:"), this );
-  hbHl->addWidget(lHl);
-  hbHl->addWidget(typeCombo = new QComboBox( this ));
-  typeCombo->setEditable( false );
-  lHl->setBuddy( typeCombo );
-  connect( typeCombo, SIGNAL(activated(int)),
-           this, SLOT(typeChanged(int)) );
-
-  QPushButton *btnnew = new QPushButton( i18n("&New"), this );
-  hbHl->addWidget(btnnew);
-  connect( btnnew, SIGNAL(clicked()), this, SLOT(newType()) );
-
-  btndel = new QPushButton( i18n("&Delete"), this );
-  hbHl->addWidget(btndel);
-  connect( btndel, SIGNAL(clicked()), this, SLOT(deleteType()) );
-
-  gbProps = new QGroupBox( this );
-  gbProps->setTitle(i18n("Properties"));
-  QGridLayout* grid = new QGridLayout(gbProps);
-  layout->addWidget(gbProps);
-
-  // file & mime types
-  QLabel *lname = new QLabel( i18n("N&ame:"), gbProps );
-  grid->addWidget(lname, 0, 0);
-  name  = new QLineEdit( gbProps );
-  grid->addWidget(name, 0, 1);
-  lname->setBuddy( name );
-
-  // file & mime types
-  QLabel *lsec = new QLabel( i18n("&Section:"), gbProps );
-  grid->addWidget(lsec, 1, 0);
-  section  = new QLineEdit( gbProps );
-  grid->addWidget(section, 1, 1);
-  lsec->setBuddy( section );
-
-  // file & mime types
-  QLabel *lvar = new QLabel( i18n("&Variables:"), gbProps );
-  grid->addWidget(lvar, 2, 0);
-  varLine  = new QLineEdit( gbProps );
-  grid->addWidget(varLine, 2, 1);
-  lvar->setBuddy( varLine );
-
-  // file & mime types
-  QLabel *lFileExts = new QLabel( i18n("File e&xtensions:"), gbProps );
-  grid->addWidget(lFileExts, 3, 0);
-  wildcards  = new QLineEdit( gbProps );
-  grid->addWidget(wildcards, 3, 1);
-  lFileExts->setBuddy( wildcards );
-
-  QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), gbProps);
-  grid->addWidget(lMimeTypes, 4, 0);
-  KHBox *hbMT = new KHBox (gbProps);
-  hbMT->setMargin(0);
-  grid->addWidget(hbMT, 4, 1);
-  mimetypes = new QLineEdit( hbMT );
-  lMimeTypes->setBuddy( mimetypes );
-
-  QToolButton *btnMTW = new QToolButton(hbMT);
-  btnMTW->setIcon(QIcon(SmallIcon("wizard")));
-  connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
-
-  QLabel *lprio = new QLabel( i18n("Prio&rity:"), gbProps);
-  grid->addWidget(lprio, 5, 0);
-  priority = new KIntNumInput( gbProps );
-  grid->addWidget(priority, 5, 1);
-  lprio->setBuddy( priority );
-
-  layout->addStretch();
+  connect( ui->cmbFiletypes, SIGNAL(activated(int)), this, SLOT(typeChanged(int)) );
+  connect( ui->btnNew, SIGNAL(clicked()), this, SLOT(newType()) );
+  connect( ui->btnDelete, SIGNAL(clicked()), this, SLOT(deleteType()) );
+  ui->btnMimeTypes->setIcon(QIcon(SmallIcon("wizard")));
+  connect(ui->btnMimeTypes, SIGNAL(clicked()), this, SLOT(showMTDlg()));
 
   reload();
 
-  connect( name, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( section, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( varLine, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( wildcards, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( mimetypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( priority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
-
-  btnnew->setWhatsThis(i18n("Create a new file type.") );
-  btndel->setWhatsThis(i18n("Delete the current file type.") );
-  name->setWhatsThis(i18n(
-      "The name of the filetype will be the text of the corresponding menu item.") );
-  section->setWhatsThis(i18n(
-      "The section name is used to organize the file types in menus.") );
-  varLine->setWhatsThis(i18n(
-      "<p>This string allows you to configure Kate's settings for the files "
-      "selected by this mimetype using Kate variables. You can set almost any "
-      "configuration option, such as highlight, indent-mode, encoding, etc.</p>"
-      "<p>For a full list of known variables, see the manual.</p>") );
-  wildcards->setWhatsThis(i18n(
-      "The wildcards mask allows you to select files by filename. A typical "
-      "mask uses an asterisk and the file extension, for example "
-      "<code>*.txt; *.text</code>. The string is a semicolon-separated list "
-      "of masks.") );
-  mimetypes->setWhatsThis(i18n(
-      "The mime type mask allows you to select files by mimetype. The string is "
-      "a semicolon-separated list of mimetypes, for example "
-      "<code>text/plain; text/english</code>.") );
-  btnMTW->setWhatsThis(i18n(
-      "Displays a wizard that helps you easily select mimetypes.") );
-  priority->setWhatsThis(i18n(
-      "Sets a priority for this file type. If more than one file type selects the same "
-      "file, the one with the highest priority will be used." ) );
+  connect( ui->edtName, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( ui->edtSection, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( ui->edtVariables, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( ui->edtFileExtensions, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( ui->edtMimeTypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( ui->sbPriority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
 }
 
 void KateFileTypeConfigTab::apply()
@@ -409,29 +317,29 @@ void KateFileTypeConfigTab::update ()
 {
   m_lastType = -1;
 
-  typeCombo->clear ();
+  ui->cmbFiletypes->clear ();
 
   foreach (const KateFileType& type, m_types) {
     if (type.section.length() > 0)
-      typeCombo->addItem(type.section + QString ("/") + type.name);
+      ui->cmbFiletypes->addItem(type.section + QString ("/") + type.name);
     else
-      typeCombo->addItem(type.name);
+      ui->cmbFiletypes->addItem(type.name);
   }
 
-  typeCombo->setCurrentIndex (0);
+  ui->cmbFiletypes->setCurrentIndex (0);
 
   typeChanged (0);
 
-  typeCombo->setEnabled (typeCombo->count() > 0);
+  ui->cmbFiletypes->setEnabled (ui->cmbFiletypes->count() > 0);
 }
 
 void KateFileTypeConfigTab::deleteType ()
 {
-  int type = typeCombo->currentIndex ();
+  int type = ui->cmbFiletypes->currentIndex ();
 
   if (type > -1 && type < m_types.count())
   {
-    m_types.takeAt(type);
+    m_types.removeAt(type);
     update ();
   }
 }
@@ -444,7 +352,7 @@ void KateFileTypeConfigTab::newType ()
     const KateFileType& type = m_types.at(i);
     if (type.name == newN)
     {
-      typeCombo->setCurrentIndex (i);
+      ui->cmbFiletypes->setCurrentIndex (i);
       typeChanged (i);
       return;
     }
@@ -463,12 +371,12 @@ void KateFileTypeConfigTab::save ()
 {
   if (m_lastType != -1)
   {
-    m_types[m_lastType].name = name->text ();
-    m_types[m_lastType].section = section->text ();
-    m_types[m_lastType].varLine = varLine->text ();
-    m_types[m_lastType].wildcards = wildcards->text().split (";", QString::SkipEmptyParts);
-    m_types[m_lastType].mimetypes = mimetypes->text().split (";", QString::SkipEmptyParts);
-    m_types[m_lastType].priority = priority->value();
+    m_types[m_lastType].name = ui->edtName->text ();
+    m_types[m_lastType].section = ui->edtSection->text ();
+    m_types[m_lastType].varLine = ui->edtVariables->text ();
+    m_types[m_lastType].wildcards = ui->edtFileExtensions->text().split (";", QString::SkipEmptyParts);
+    m_types[m_lastType].mimetypes = ui->edtMimeTypes->text().split (";", QString::SkipEmptyParts);
+    m_types[m_lastType].priority = ui->sbPriority->value();
   }
 }
 
@@ -480,31 +388,31 @@ void KateFileTypeConfigTab::typeChanged (int type)
   {
     const KateFileType& t = m_types.at(type);
 
-    gbProps->setTitle (i18n("Properties of %1",  typeCombo->currentText()));
+    ui->gbProperties->setTitle (i18n("Properties of %1",  ui->cmbFiletypes->currentText()));
 
-    gbProps->setEnabled (true);
-    btndel->setEnabled (true);
+    ui->gbProperties->setEnabled (true);
+    ui->btnDelete->setEnabled (true);
 
-    name->setText(t.name);
-    section->setText(t.section);
-    varLine->setText(t.varLine);
-    wildcards->setText(t.wildcards.join (";"));
-    mimetypes->setText(t.mimetypes.join (";"));
-    priority->setValue(t.priority);
+    ui->edtName->setText(t.name);
+    ui->edtSection->setText(t.section);
+    ui->edtVariables->setText(t.varLine);
+    ui->edtFileExtensions->setText(t.wildcards.join (";"));
+    ui->edtMimeTypes->setText(t.mimetypes.join (";"));
+    ui->sbPriority->setValue(t.priority);
   }
   else
   {
-    gbProps->setTitle (i18n("Properties"));
+    ui->gbProperties->setTitle (i18n("Properties"));
 
-    gbProps->setEnabled (false);
-    btndel->setEnabled (false);
+    ui->gbProperties->setEnabled (false);
+    ui->btnDelete->setEnabled (false);
 
-    name->clear();
-    section->clear();
-    varLine->clear();
-    wildcards->clear();
-    mimetypes->clear();
-    priority->setValue(0);
+    ui->edtName->clear();
+    ui->edtSection->clear();
+    ui->edtVariables->clear();
+    ui->edtFileExtensions->clear();
+    ui->edtMimeTypes->clear();
+    ui->sbPriority->setValue(0);
   }
 
   m_lastType = type;
@@ -512,15 +420,14 @@ void KateFileTypeConfigTab::typeChanged (int type)
 
 void KateFileTypeConfigTab::showMTDlg()
 {
-
   QString text = i18n("Select the MimeTypes you want for this file type.\nPlease note that this will automatically edit the associated file extensions as well.");
-  QStringList list = mimetypes->text().split( QRegExp("\\s*;\\s*"), QString::SkipEmptyParts );
+  QStringList list = ui->edtMimeTypes->text().split( QRegExp("\\s*;\\s*"), QString::SkipEmptyParts );
   KMimeTypeChooserDialog *d = new KMimeTypeChooserDialog( i18n("Select Mime Types"), text, list, "text", this );
   if ( d->exec() == KDialogBase::Accepted ) {
     // do some checking, warn user if mime types or patterns are removed.
     // if the lists are empty, and the fields not, warn.
-    wildcards->setText( d->chooser()->patterns().join(";") );
-    mimetypes->setText( d->chooser()->mimeTypes().join(";") );
+    ui->edtFileExtensions->setText( d->chooser()->patterns().join(";") );
+    ui->edtMimeTypes->setText( d->chooser()->mimeTypes().join(";") );
   }
 }
 //END KateFileTypeConfigTab

@@ -85,10 +85,15 @@ remove_definitions(-DQT3_SUPPORT_WARNINGS)
 remove_definitions(-DQT3_SUPPORT)
 
 set( katepart_PART_UI
-modonhdwidget.ui
+ui//appearanceconfigwidget.ui
+ui//cursorconfigwidget.ui
+ui//editconfigwidget.ui
+ui//filetypeconfigwidget.ui
+ui//opensaveconfigwidget.ui
+ui//modonhdwidget.ui
 )
 
-kde4_add_ui_files(katepart_PART_SRCS ui/${katepart_PART_UI} )
+kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 
 kde4_add_dcop_skels(katepart_PART_SRCS ${katepart_DCOP_SKEL_SRCS})
 

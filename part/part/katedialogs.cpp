@@ -34,7 +34,12 @@
 #include "katesyntaxdocument.h"
 #include "kateview.h"
 
+// auto generated ui files
 #include "ui_modonhdwidget.h"
+#include "ui_appearanceconfigwidget.h"
+#include "ui_cursorconfigwidget.h"
+#include "ui_editconfigwidget.h"
+#include "ui_opensaveconfigwidget.h"
 
 #include <ktexteditor/plugin.h>
 
@@ -344,73 +349,49 @@ void KateIndentConfigTab::reload ()
 //END KateIndentConfigTab
 
 //BEGIN KateSelectConfigTab
-const int KateSelectConfigTab::flags[] = {};
-
 KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
   int configFlags = KateDocumentConfig::global()->configFlags();
 
-  QVBoxLayout *layout = new QVBoxLayout(this);
-  layout->setMargin(0);
-  layout->setSpacing(KDialog::spacingHint() );
+  ui = new Ui::CursorConfigWidget();
+  ui->setupUi( this );
 
-  QGroupBox *gbCursor = new QGroupBox( i18n("Text Cursor Movement"), this);
-  QVBoxLayout *layout1=new QVBoxLayout(gbCursor);
-  opt[0] = new QCheckBox(i18n("Smart ho&me"), gbCursor);
-  opt[0]->setChecked(configFlags & KateDocumentConfig::cfSmartHome);
-  connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  layout1->addWidget(opt[0]);
+  ui->chkSmartHome->setChecked(configFlags & KateDocumentConfig::cfSmartHome);
+  connect(ui->chkSmartHome, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  opt[1] = new QCheckBox(i18n("Wrap c&ursor"), gbCursor);
-  opt[1]->setChecked(configFlags & KateDocumentConfig::cfWrapCursor);
-  connect(opt[1], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  layout1->addWidget(opt[1]);
+  ui->chkWrapCursor->setChecked(configFlags & KateDocumentConfig::cfWrapCursor);
+  connect(ui->chkWrapCursor, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  e6 = new QCheckBox(i18n("&PageUp/PageDown moves cursor"), gbCursor);
-  e6->setChecked(KateDocumentConfig::global()->pageUpDownMovesCursor());
-  connect(e6, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  layout1->addWidget(e6);
+  ui->chkPagingMovesCursor->setChecked(KateDocumentConfig::global()->pageUpDownMovesCursor());
+  connect(ui->chkPagingMovesCursor, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  e4 = new KIntNumInput(KateViewConfig::global()->autoCenterLines(),gbCursor);
-  e4->setRange(0, 1000000, 1, false);
-  e4->setLabel(i18n("Autocenter cursor (lines):"), Qt::AlignVCenter);
-  connect(e4, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  layout1->addWidget(e4);
+  ui->sbAutoCenterCursor->setValue(KateViewConfig::global()->autoCenterLines());
+  connect(ui->sbAutoCenterCursor, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
-  layout->addWidget(gbCursor);
 
-  m_tabs = new QGroupBox(i18n("Selection Mode"), this );
-  layout->addWidget (m_tabs);
-  QVBoxLayout *tablayout=new QVBoxLayout(m_tabs);
-
-  tablayout->addWidget( rb1=new QRadioButton( i18n("&Normal"), m_tabs ));
-  tablayout->addWidget( rb2=new QRadioButton( i18n("&Persistent"), m_tabs ));
-
-  layout->addStretch();
-
-  rb1->setWhatsThis(i18n(
+  ui->rbNormal->setWhatsThis(i18n(
         "Selections will be overwritten by typed text and will be lost on "
         "cursor movement."));
-  rb2->setWhatsThis(i18n(
+  ui->rbPersistent->setWhatsThis(i18n(
         "Selections will stay even after cursor movement and typing."));
 
-  e4->setWhatsThis(i18n(
+  ui->sbAutoCenterCursor->setWhatsThis(i18n(
         "Sets the number of lines to maintain visible above and below the "
         "cursor when possible."));
 
-  opt[0]->setWhatsThis(i18n(
+  ui->chkSmartHome->setWhatsThis(i18n(
         "When selected, pressing the home key will cause the cursor to skip "
         "whitespace and go to the start of a line's text."));
 
-    opt[1]->setWhatsThis(i18n(
+  ui->chkWrapCursor->setWhatsThis(i18n(
         "When on, moving the insertion cursor using the <b>Left</b> and "
         "<b>Right</b> keys will go on to previous/next line at beginning/end of "
         "the line, similar to most editors.<p>When off, the insertion cursor "
         "cannot be moved left of the line start, but it can be moved off the "
         "line end, which can be very handy for programmers."));
 
-  e6->setWhatsThis(i18n("Selects whether the PageUp and PageDown keys should alter the vertical position of the cursor relative to the top of the view."));
+  ui->chkPagingMovesCursor->setWhatsThis(i18n("Selects whether the PageUp and PageDown keys should alter the vertical position of the cursor relative to the top of the view."));
 
 
   reload ();
@@ -419,8 +400,8 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   // after initial reload, connect the stuff for the changed () signal
   //
 
-  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->rbNormal, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->rbPersistent, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
 void KateSelectConfigTab::apply ()
@@ -438,15 +419,15 @@ void KateSelectConfigTab::apply ()
   configFlags &= ~KateDocumentConfig::cfSmartHome;
   configFlags &= ~KateDocumentConfig::cfWrapCursor;
 
-  if (opt[0]->isChecked()) configFlags |= KateDocumentConfig::cfSmartHome;
-  if (opt[1]->isChecked()) configFlags |= KateDocumentConfig::cfWrapCursor;
+  if (ui->chkSmartHome->isChecked()) configFlags |= KateDocumentConfig::cfSmartHome;
+  if (ui->chkWrapCursor->isChecked()) configFlags |= KateDocumentConfig::cfWrapCursor;
 
   KateDocumentConfig::global()->setConfigFlags(configFlags);
 
-  KateViewConfig::global()->setAutoCenterLines(qMax(0, e4->value()));
-  KateDocumentConfig::global()->setPageUpDownMovesCursor(e6->isChecked());
+  KateViewConfig::global()->setAutoCenterLines(qMax(0, ui->sbAutoCenterCursor->value()));
+  KateDocumentConfig::global()->setPageUpDownMovesCursor(ui->chkPagingMovesCursor->isChecked());
 
-  KateViewConfig::global()->setPersistentSelection (rb2->isChecked());
+  KateViewConfig::global()->setPersistentSelection (ui->rbPersistent->isChecked());
 
   KateDocumentConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
@@ -454,104 +435,59 @@ void KateSelectConfigTab::apply ()
 
 void KateSelectConfigTab::reload ()
 {
-  if (KateViewConfig::global()->persistentSelection())
-    ((QRadioButton*)(m_tabs->layout()->itemAt(0)->widget()))->setChecked(true);
-  else
-    ((QRadioButton*)(m_tabs->layout()->itemAt(1)->widget()))->setChecked(true);
+  ui->rbNormal->setChecked( ! KateViewConfig::global()->persistentSelection() );
+  ui->rbPersistent->setChecked( KateViewConfig::global()->persistentSelection() );
 }
 //END KateSelectConfigTab
 
 //BEGIN KateEditConfigTab
-const int KateEditConfigTab::flags[] = {KateDocumentConfig::cfWordWrap,
-  KateDocumentConfig::cfAutoBrackets, KateDocumentConfig::cfShowTabs,
-  KateDocumentConfig::cfReplaceTabsDyn, KateDocumentConfig::cfRemoveTrailingDyn};
-
 KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
-  QVBoxLayout *mainLayout = new QVBoxLayout(this);
-  mainLayout->setMargin( 0);
-  mainLayout->setSpacing(KDialog::spacingHint() );
   int configFlags = KateDocumentConfig::global()->configFlags();
 
-  QGroupBox *gbWhiteSpace = new QGroupBox(i18n("Tabulators"), this);
-  QVBoxLayout *layout1=new QVBoxLayout(gbWhiteSpace);
-  opt[3] = new QCheckBox( i18n("&Insert spaces instead of tabulators"), gbWhiteSpace );
-  opt[3]->setChecked( configFlags & KateDocumentConfig::cfReplaceTabsDyn );
-  connect( opt[3], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
-  layout1->addWidget(opt[3]);
+  ui = new Ui::EditConfigWidget();
+  ui->setupUi( this );
 
-  opt[2] = new QCheckBox(i18n("&Show tabulators"), gbWhiteSpace);
-  opt[2]->setChecked(configFlags & flags[2]);
-  connect(opt[2], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  layout1->addWidget(opt[2]);
+  ui->chkReplaceTabs->setChecked( configFlags & KateDocumentConfig::cfReplaceTabsDyn );
+  connect( ui->chkReplaceTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
 
-  e2 = new KIntNumInput(KateDocumentConfig::global()->tabWidth(),gbWhiteSpace);
-  e2->setRange(1, 16, 1, false);
-  e2->setLabel(i18n("Tab width:"), Qt::AlignVCenter);
-  connect(e2, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  layout1->addWidget(e2);
+  ui->chkShowTabs->setChecked( configFlags & KateDocumentConfig::cfShowTabs );
+  connect(ui->chkShowTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  mainLayout->addWidget(gbWhiteSpace);
-
-  QGroupBox *gbWordWrap = new QGroupBox(i18n("Static Word Wrap"), this);
-  layout1=new QVBoxLayout(gbWordWrap);
-
-  opt[0] = new QCheckBox(i18n("Enable static &word wrap"), gbWordWrap);
-  opt[0]->setChecked(KateDocumentConfig::global()->wordWrap());
-  connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  layout1->addWidget(opt[0]);
-
-  m_wwmarker = new QCheckBox( i18n("&Show static word wrap marker (if applicable)"), gbWordWrap );
-  m_wwmarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
-  connect(m_wwmarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  layout1->addWidget(m_wwmarker);
+  ui->sbTabWidth->setValue( KateDocumentConfig::global()->tabWidth() );
+  connect(ui->sbTabWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
 
-  e1 = new KIntNumInput(KateDocumentConfig::global()->wordWrapAt(),gbWordWrap);
-  e1->setRange(20, 200, 1, false);
-  e1->setLabel(i18n("Wrap words at:"), Qt::AlignVCenter);
-  connect(e1, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  layout1->addWidget(e1);
+  ui->chkStaticWordWrap->setChecked(KateDocumentConfig::global()->wordWrap());
+  connect(ui->chkStaticWordWrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  mainLayout->addWidget(gbWordWrap);
+  ui->chkShowStaticWordWrapMarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
+  connect(ui->chkShowStaticWordWrapMarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  opt[4] = new QCheckBox( i18n("Remove &trailing spaces"), this );
-  mainLayout->addWidget( opt[4] );
-  opt[4]->setChecked( configFlags & KateDocumentConfig::cfRemoveTrailingDyn );
-  connect( opt[4], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
+  ui->sbWordWrap->setValue( KateDocumentConfig::global()->wordWrapAt() );
+  connect(ui->sbWordWrap, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
-  opt[1] = new QCheckBox(i18n("Auto &brackets"), this);
-  mainLayout->addWidget(opt[1]);
-  opt[1]->setChecked(configFlags & flags[1]);
-  connect(opt[1], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  e3 = new KIntNumInput(e2, KateDocumentConfig::global()->undoSteps(),this);
-  e3->setRange(0, 1000000, 1, false);
-  e3->setSpecialValueText( i18n("Unlimited") );
-  e3->setLabel(i18n("Maximum undo steps:"), Qt::AlignVCenter);
-  mainLayout->addWidget(e3);
-  connect(e3, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  ui->chkRemoveTrailingSpaces->setChecked( configFlags & KateDocumentConfig::cfRemoveTrailingDyn );
+  connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
 
-  QHBoxLayout *e5Layout = new QHBoxLayout();
-  mainLayout->addItem(e5Layout);
-  QLabel *e5Label = new QLabel(i18n("Smart search t&ext from:"), this);
-  e5Layout->addWidget(e5Label);
-  e5 = new KComboBox (this);
-  e5->addItem( i18n("Nowhere") );
-  e5->addItem( i18n("Selection Only") );
-  e5->addItem( i18n("Selection, then Current Word") );
-  e5->addItem( i18n("Current Word Only") );
-  e5->addItem( i18n("Current Word, then Selection") );
-  e5->setCurrentIndex(KateViewConfig::global()->textToSearchMode());
-  e5Layout->addWidget(e5);
-  e5Label->setBuddy(e5);
-  connect(e5, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  ui->chkAutoBrackets->setChecked( configFlags & KateDocumentConfig::cfAutoBrackets );
+  connect(ui->chkAutoBrackets, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  mainLayout->addStretch();
+  ui->sbMaxUndos->setValue( KateDocumentConfig::global()->undoSteps() );
+  connect(ui->sbMaxUndos, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+
+  ui->cmbSmartSearch->addItem( i18n("Nowhere") );
+  ui->cmbSmartSearch->addItem( i18n("Selection Only") );
+  ui->cmbSmartSearch->addItem( i18n("Selection, then Current Word") );
+  ui->cmbSmartSearch->addItem( i18n("Current Word Only") );
+  ui->cmbSmartSearch->addItem( i18n("Current Word, then Selection") );
+  ui->cmbSmartSearch->setCurrentIndex(KateViewConfig::global()->textToSearchMode());
+  connect(ui->cmbSmartSearch, SIGNAL(activated(int)), this, SLOT(slotChanged()));
 
   // What is this? help
-  opt[0]->setWhatsThis(i18n(
+  ui->chkStaticWordWrap->setWhatsThis(i18n(
         "Automatically start a new line of text when the current line exceeds "
         "the length specified by the <b>Wrap words at:</b> option."
         "<p>This option does not wrap existing lines of text - use the <b>Apply "
@@ -559,17 +495,17 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
         "<p>If you want lines to be <i>visually wrapped</i> instead, according "
         "to the width of the view, enable <b>Dynamic Word Wrap</b> in the "
         "<b>View Defaults</b> config page."));
-  e1->setWhatsThis(i18n(
+  ui->sbWordWrap->setWhatsThis(i18n(
         "If the Word Wrap option is selected this entry determines the length "
         "(in characters) at which the editor will automatically start a new line."));
-  opt[1]->setWhatsThis(i18n(
+  ui->chkAutoBrackets->setWhatsThis(i18n(
         "When the user types a left bracket ([,(, or {) KateView automatically "
         "enters the right bracket (}, ), or ]) to the right of the cursor."));
-  opt[2]->setWhatsThis(i18n(
+  ui->chkShowTabs->setWhatsThis(i18n(
         "The editor will display a symbol to indicate the presence of a tab in "
         "the text."));
 
-  e3->setWhatsThis(i18n(
+  ui->sbMaxUndos->setWhatsThis(i18n(
         "Sets the number of undo/redo steps to record. More steps uses more memory."));
 
   QString gstfwt = i18n(
@@ -595,16 +531,16 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
         "Note that, in all the above modes, if a search string has "
         "not been or cannot be determined, then the Find Text Dialog "
         "will fall back to the last search text.");
-  e5Label->setWhatsThis(gstfwt);
-  e5->setWhatsThis(gstfwt);
-  opt[3]->setWhatsThis(i18n(
+  ui->lblSmartSearch->setWhatsThis(gstfwt);
+  ui->cmbSmartSearch->setWhatsThis(gstfwt);
+  ui->chkReplaceTabs->setWhatsThis(i18n(
       "If this is enabled, the editor will calculate the number of spaces up to "
       "the next tab position as defined by the tab width, and insert that number "
       "of spaces instead of a TAB character." ) );
-  opt[4]->setWhatsThis(i18n(
+  ui->chkRemoveTrailingSpaces->setWhatsThis(i18n(
       "If this is enabled, the editor will remove any trailing whitespace on "
       "lines when they are left by the insertion cursor.") );
-  m_wwmarker->setWhatsThis(i18n(
+  ui->chkShowStaticWordWrapMarker->setWhatsThis(i18n(
         "<p>If this option is checked, a vertical line will be drawn at the word "
         "wrap column as defined in the <strong>Editing</strong> properties."
         "<p>Note that the word wrap marker is only drawn if you use a fixed "
@@ -621,27 +557,29 @@ void KateEditConfigTab::apply ()
   KateViewConfig::global()->configStart ();
   KateDocumentConfig::global()->configStart ();
 
-  int configFlags, z;
+  int configFlags = KateDocumentConfig::global()->configFlags();
 
-  configFlags = KateDocumentConfig::global()->configFlags();
-  for (z = 1; z < numFlags; z++) {
-    configFlags &= ~flags[z];
-    if (opt[z]->isChecked()) configFlags |= flags[z];
-  }
+  configFlags &= ~KateDocumentConfig::cfAutoBrackets;
+  configFlags &= ~KateDocumentConfig::cfShowTabs;
+  configFlags &= ~KateDocumentConfig::cfReplaceTabsDyn;
+  configFlags &= ~KateDocumentConfig::cfRemoveTrailingDyn;
+  
+  if (ui->chkAutoBrackets->isChecked()) configFlags |= KateDocumentConfig::cfAutoBrackets;
+  if (ui->chkShowTabs->isChecked()) configFlags |= KateDocumentConfig::cfShowTabs;
+  if (ui->chkReplaceTabs->isChecked()) configFlags |= KateDocumentConfig::cfReplaceTabsDyn;
+  if (ui->chkRemoveTrailingSpaces->isChecked()) configFlags |= KateDocumentConfig::cfRemoveTrailingDyn;
+
   KateDocumentConfig::global()->setConfigFlags(configFlags);
 
-  KateDocumentConfig::global()->setWordWrapAt(e1->value());
-  KateDocumentConfig::global()->setWordWrap (opt[0]->isChecked());
-  KateDocumentConfig::global()->setTabWidth(e2->value());
+  KateDocumentConfig::global()->setWordWrapAt(ui->sbWordWrap->value());
+  KateDocumentConfig::global()->setWordWrap(ui->chkStaticWordWrap->isChecked());
+  KateDocumentConfig::global()->setTabWidth(ui->sbTabWidth->value());
 
-  if (e3->value() <= 0)
-    KateDocumentConfig::global()->setUndoSteps(0);
-  else
-    KateDocumentConfig::global()->setUndoSteps(e3->value());
+  KateDocumentConfig::global()->setUndoSteps( qMax(0,ui->sbMaxUndos->value()) );
 
-  KateViewConfig::global()->setTextToSearchMode(e5->currentIndex());
+  KateViewConfig::global()->setTextToSearchMode(ui->cmbSmartSearch->currentIndex());
 
-  KateRendererConfig::global()->setWordWrapMarker (m_wwmarker->isChecked());
+  KateRendererConfig::global()->setWordWrapMarker (ui->chkShowStaticWordWrapMarker->isChecked());
 
   KateDocumentConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
@@ -656,106 +594,54 @@ void KateEditConfigTab::reload ()
 KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   :KateConfigPage(parent)
 {
-  QRadioButton *rb1;
-  QRadioButton *rb2;
+  ui = new Ui::AppearanceConfigWidget();
+  ui->setupUi( this );
 
-  QVBoxLayout *blay=new QVBoxLayout(this);
-  blay->setMargin(0);
-  blay->setSpacing(KDialog::spacingHint());
+  ui->cmbDynamicWordWrapIndicator->addItem( i18n("Off") );
+  ui->cmbDynamicWordWrapIndicator->addItem( i18n("Follow Line Numbers") );
+  ui->cmbDynamicWordWrapIndicator->addItem( i18n("Always On") );
 
-  QGroupBox *gbWordWrap = new QGroupBox(i18n("Word Wrap"), this);
-  QVBoxLayout *layout=new QVBoxLayout(gbWordWrap);
-  m_dynwrap=new QCheckBox(i18n("&Dynamic word wrap"),gbWordWrap);
-  layout->addWidget(m_dynwrap);
+  ui->chkShowIndentationLines->setChecked(KateRendererConfig::global()->showIndentationLines());
 
-  QHBoxLayout *sublayout=new QHBoxLayout();
-  m_dynwrapIndicatorsLabel = new QLabel( i18n("Dynamic word wrap indicators (if applicable):"),this);
-  m_dynwrapIndicatorsCombo = new KComboBox( this);
-  m_dynwrapIndicatorsCombo->addItem( i18n("Off") );
-  m_dynwrapIndicatorsCombo->addItem( i18n("Follow Line Numbers") );
-  m_dynwrapIndicatorsCombo->addItem( i18n("Always On") );
-  m_dynwrapIndicatorsLabel->setBuddy(m_dynwrapIndicatorsCombo);
-  layout->addItem(sublayout);
-  sublayout->addWidget(m_dynwrapIndicatorsLabel);
-  sublayout->addWidget(m_dynwrapIndicatorsCombo);
-
-  m_dynwrapAlignLevel = new KIntNumInput(gbWordWrap);
-  m_dynwrapAlignLevel->setLabel(i18n("Vertically align dynamically wrapped lines to indentation depth:"));
-  m_dynwrapAlignLevel->setRange(0, 80, 10);
-  // xgettext:no-c-format
-  m_dynwrapAlignLevel->setSuffix(i18n("% of View Width"));
-  m_dynwrapAlignLevel->setSpecialValueText(i18n("Disabled"));
-  layout->addWidget(m_dynwrapAlignLevel);
-  blay->addWidget(gbWordWrap);
-
-  QGroupBox *gbFold = new QGroupBox(i18n("Code Folding"), this);
-  QVBoxLayout *gbFoldLayout=new QVBoxLayout(gbFold);
-  gbFoldLayout->addWidget(m_folding=new QCheckBox(i18n("Show &folding markers (if available)"), gbFold ));
-  gbFoldLayout->addWidget(m_collapseTopLevel = new QCheckBox( i18n("Collapse toplevel folding nodes"), gbFold ));
-  m_collapseTopLevel->hide ();
-
-  blay->addWidget(gbFold);
-
-  QGroupBox *gbBar = new QGroupBox( i18n("Borders"), this);
-  QVBoxLayout *gbBarLayout=new QVBoxLayout(gbBar);
-  gbBarLayout->addWidget(m_icons=new QCheckBox(i18n("Show &icon border"),gbBar));
-  gbBarLayout->addWidget(m_line=new QCheckBox(i18n("Show &line numbers"),gbBar));
-  gbBarLayout->addWidget(m_scrollBarMarks=new QCheckBox(i18n("Show &scrollbar marks"),gbBar));
-
-  blay->addWidget(gbBar);
-
-  m_bmSort = new QGroupBox(i18n("Sort Bookmarks Menu"), this );
-  QVBoxLayout *bmSortLayout=new QVBoxLayout(m_bmSort);
-
-  bmSortLayout->addWidget( rb1=new QRadioButton( i18n("By &position"), m_bmSort ));
-  bmSortLayout->addWidget( rb2=new QRadioButton( i18n("By c&reation"), m_bmSort ));
-
-  blay->addWidget(m_bmSort, 0 );
-
-  m_showIndentLines = new QCheckBox(i18n("Show indentation lines"), this);
-  m_showIndentLines->setChecked(KateRendererConfig::global()->showIndentationLines());
-  blay->addWidget(m_showIndentLines);
-
-  blay->addStretch(1000);
-
-  m_dynwrap->setWhatsThis(i18n(
+  // What's This help
+  ui->chkDynamicWordWrap->setWhatsThis(i18n(
         "If this option is checked, the text lines will be wrapped at the view "
         "border on the screen."));
   QString wtstr = i18n("Choose when the Dynamic Word Wrap Indicators should be displayed");
-  m_dynwrapIndicatorsLabel->setWhatsThis(wtstr);
-  m_dynwrapIndicatorsCombo->setWhatsThis(wtstr);
+  ui->lblDynamicWordWrapIndicators->setWhatsThis(wtstr);
+  ui->cmbDynamicWordWrapIndicator->setWhatsThis(wtstr);
   // xgettext:no-c-format
-  m_dynwrapAlignLevel->setWhatsThis(i18n(
+  ui->sbDynamicWordWrapDepth->setWhatsThis(i18n(
         "<p>Enables the start of dynamically wrapped lines to be aligned "
         "vertically to the indentation level of the first line.  This can help "
         "to make code and markup more readable.</p><p>Additionally, this allows "
         "you to set a maximum width of the screen, as a percentage, after which "
         "dynamically wrapped lines will no longer be vertically aligned.  For "
-        "example, at 50%, lines whose indentation levels are deeper than 50% of "
+        "example, at 50%%, lines whose indentation levels are deeper than 50% of "
         "the width of the screen will not have vertical alignment applied to "
         "subsequent wrapped lines.</p>"));
-  m_line->setWhatsThis(i18n(
+  ui->chkLineNumbers->setWhatsThis(i18n(
         "If this option is checked, every new view will display line numbers "
         "on the left hand side."));
-  m_icons->setWhatsThis(i18n(
+  ui->chkIconBorder->setWhatsThis(i18n(
         "If this option is checked, every new view will display an icon border "
         "on the left hand side.<br><br>The icon border shows bookmark signs, "
         "for instance."));
-  m_scrollBarMarks->setWhatsThis(i18n(
+  ui->chkScrollbarMarks->setWhatsThis(i18n(
         "If this option is checked, every new view will show marks on the "
         "vertical scrollbar.<br><br>These marks will, for instance, show "
         "bookmarks."));
-  m_folding->setWhatsThis(i18n(
+  ui->chkShowFoldingMarkers->setWhatsThis(i18n(
         "If this option is checked, every new view will display marks for code "
         "folding, if code folding is available."));
-  m_bmSort->setWhatsThis(i18n(
+  ui->gbSortBookmarks->setWhatsThis(i18n(
         "Choose how the bookmarks should be ordered in the <b>Bookmarks</b> menu."));
-  rb1->setWhatsThis(i18n(
+  ui->rbSortBookmarksByPosition->setWhatsThis(i18n(
         "The bookmarks will be ordered by the line numbers they are placed at."));
-  rb2->setWhatsThis(i18n(
+  ui->rbSortBookmarksByCreation->setWhatsThis(i18n(
         "Each new bookmark will be added to the bottom, independently from "
         "where it is placed in the document."));
-  m_showIndentLines->setWhatsThis(i18n(
+  ui->chkShowIndentationLines->setWhatsThis(i18n(
         "If this is enabled, the editor will display vertical lines to help "
         "identify indent lines.") );
 
@@ -765,17 +651,16 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   // after initial reload, connect the stuff for the changed () signal
   //
 
-  connect(m_dynwrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_dynwrapIndicatorsCombo, SIGNAL(activated(int)), this, SLOT(slotChanged()));
-  connect(m_dynwrapAlignLevel, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  connect(m_icons, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_scrollBarMarks, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_line, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_folding, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_collapseTopLevel, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
-  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_showIndentLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkDynamicWordWrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->cmbDynamicWordWrapIndicator, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect(ui->sbDynamicWordWrapDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  connect(ui->chkIconBorder, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkScrollbarMarks, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkLineNumbers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkShowFoldingMarkers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->rbSortBookmarksByPosition, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->rbSortBookmarksByCreation, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkShowIndentationLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
 KateViewDefaultsConfig::~KateViewDefaultsConfig()
@@ -792,17 +677,16 @@ void KateViewDefaultsConfig::apply ()
   KateViewConfig::global()->configStart ();
   KateRendererConfig::global()->configStart ();
 
-  KateViewConfig::global()->setDynWordWrap (m_dynwrap->isChecked());
-  KateViewConfig::global()->setDynWordWrapIndicators (m_dynwrapIndicatorsCombo->currentIndex ());
-  KateViewConfig::global()->setDynWordWrapAlignIndent(m_dynwrapAlignLevel->value());
-  KateViewConfig::global()->setLineNumbers (m_line->isChecked());
-  KateViewConfig::global()->setIconBar (m_icons->isChecked());
-  KateViewConfig::global()->setScrollBarMarks (m_scrollBarMarks->isChecked());
-  KateViewConfig::global()->setFoldingBar (m_folding->isChecked());
+  KateViewConfig::global()->setDynWordWrap (ui->chkDynamicWordWrap->isChecked());
+  KateViewConfig::global()->setDynWordWrapIndicators (ui->cmbDynamicWordWrapIndicator->currentIndex ());
+  KateViewConfig::global()->setDynWordWrapAlignIndent(ui->sbDynamicWordWrapDepth->value());
+  KateViewConfig::global()->setLineNumbers (ui->chkLineNumbers->isChecked());
+  KateViewConfig::global()->setIconBar (ui->chkIconBorder->isChecked());
+  KateViewConfig::global()->setScrollBarMarks (ui->chkScrollbarMarks->isChecked());
+  KateViewConfig::global()->setFoldingBar (ui->chkShowFoldingMarkers->isChecked());
 
-  KateViewConfig::global()->setBookmarkSort (
-((QRadioButton*)(m_bmSort->layout()->itemAt(0)->widget()))->isChecked()?0:1);
-  KateRendererConfig::global()->setShowIndentationLines(m_showIndentLines->isChecked());
+  KateViewConfig::global()->setBookmarkSort (ui->rbSortBookmarksByPosition->isChecked()?0:1);
+  KateRendererConfig::global()->setShowIndentationLines(ui->chkShowIndentationLines->isChecked());
 
   KateRendererConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
@@ -810,18 +694,16 @@ void KateViewDefaultsConfig::apply ()
 
 void KateViewDefaultsConfig::reload ()
 {
-  m_dynwrap->setChecked(KateViewConfig::global()->dynWordWrap());
-  m_dynwrapIndicatorsCombo->setCurrentIndex( KateViewConfig::global()->dynWordWrapIndicators() );
-  m_dynwrapAlignLevel->setValue(KateViewConfig::global()->dynWordWrapAlignIndent());
-  m_line->setChecked(KateViewConfig::global()->lineNumbers());
-  m_icons->setChecked(KateViewConfig::global()->iconBar());
-  m_scrollBarMarks->setChecked(KateViewConfig::global()->scrollBarMarks());
-  m_folding->setChecked(KateViewConfig::global()->foldingBar());
-  //m_bmSort->setButton( KateViewConfig::global()->bookmarkSort() );
-  QLayoutItem* bookmarkItem = m_bmSort->layout()->itemAt(KateViewConfig::global()->bookmarkSort());
-  if (bookmarkItem)
-    static_cast<QRadioButton*>(bookmarkItem->widget())->setChecked(true);
-  m_showIndentLines->setChecked(KateRendererConfig::global()->showIndentationLines());
+  ui->chkDynamicWordWrap->setChecked(KateViewConfig::global()->dynWordWrap());
+  ui->cmbDynamicWordWrapIndicator->setCurrentIndex( KateViewConfig::global()->dynWordWrapIndicators() );
+  ui->sbDynamicWordWrapDepth->setValue(KateViewConfig::global()->dynWordWrapAlignIndent());
+  ui->chkLineNumbers->setChecked(KateViewConfig::global()->lineNumbers());
+  ui->chkIconBorder->setChecked(KateViewConfig::global()->iconBar());
+  ui->chkScrollbarMarks->setChecked(KateViewConfig::global()->scrollBarMarks());
+  ui->chkShowFoldingMarkers->setChecked(KateViewConfig::global()->foldingBar());
+  ui->rbSortBookmarksByPosition->setChecked(KateViewConfig::global()->bookmarkSort()==0);
+  ui->rbSortBookmarksByCreation->setChecked(KateViewConfig::global()->bookmarkSort()==1);
+  ui->chkShowIndentationLines->setChecked(KateRendererConfig::global()->showIndentationLines());
 }
 
 void KateViewDefaultsConfig::reset () {;}
@@ -884,140 +766,31 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   : KateConfigPage( parent )
 {
   int configFlags = KateDocumentConfig::global()->configFlags();
-  QVBoxLayout *layout = new QVBoxLayout(this);
-  layout->setMargin( 0);
-  layout->setSpacing( KDialog::spacingHint() );
+  ui = new Ui::OpenSaveConfigWidget();
+  ui->setupUi( this );
+//  layout->setSpacing( KDialog::spacingHint() );
 
-  QGroupBox *gbEnc = new QGroupBox(i18n("File Format"), this);
-  layout->addWidget( gbEnc );
+  ui->sbBlockCount->setValue (KateBuffer::maxLoadedBlocks());
+  ui->chkRemoveTrailingSpaces->setChecked(configFlags & KateDocumentConfig::cfRemoveSpaces);
+  ui->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
 
-  QVBoxLayout *gbEncLayout=new QVBoxLayout(gbEnc);
-
-  QHBoxLayout *e5Layout = new QHBoxLayout();
-  QLabel *e5Label = new QLabel(i18n("&Encoding:"), gbEnc);
-  m_encoding = new KComboBox (gbEnc);
-  e5Label->setBuddy(m_encoding);
-  e5Layout->addWidget(e5Label);
-  e5Layout->addWidget(m_encoding);
-  gbEncLayout->addLayout(e5Layout);
-
-  e5Layout = new QHBoxLayout();
-  e5Label = new QLabel(i18n("End &of line:"), gbEnc);
-  m_eol = new KComboBox (gbEnc);
-  e5Label->setBuddy(m_eol);
-  e5Layout->addWidget(e5Label);
-  e5Layout->addWidget(m_eol);
-  gbEncLayout->addLayout(e5Layout);
-
-  allowEolDetection = new QCheckBox(i18n("&Automatic end of line detection"), gbEnc);
-  gbEncLayout->addWidget(allowEolDetection);
-
-  m_eol->addItem (i18n("UNIX"));
-  m_eol->addItem (i18n("DOS/Windows"));
-  m_eol->addItem (i18n("Macintosh"));
-
-  QGroupBox *gbMem = new QGroupBox(i18n("Memory Usage"), this);
-  layout->addWidget( gbMem );
-
-  e5Layout = new QHBoxLayout(gbMem);
-  e5Layout->setSpacing (32);
-  blockCountLabel = new QLabel(i18n("Maximum loaded &blocks per file:"), gbMem);
-  blockCount = new QSpinBox (gbMem);
-  blockCount->setRange(4, 512);
-  blockCount->setSingleStep( 4);
-  blockCount->setValue (KateBuffer::maxLoadedBlocks());
-  blockCountLabel->setBuddy(blockCount);
-
-  e5Layout->addWidget(blockCountLabel);
-  e5Layout->addWidget(blockCount);
-
-  QGroupBox *gbWhiteSpace = new QGroupBox( i18n("Automatic Cleanups on Load/Save"), this);
-  layout->addWidget( gbWhiteSpace );
-
-  removeSpaces = new QCheckBox(i18n("Re&move trailing spaces"), gbWhiteSpace);
-  (new QVBoxLayout(gbWhiteSpace))->addWidget(removeSpaces);
-  removeSpaces->setChecked(configFlags & KateDocumentConfig::cfRemoveSpaces);
-
-  QGroupBox *dirConfigBox = new QGroupBox(i18n("Folder Config File"), this);
-  layout->addWidget( dirConfigBox );
-  QVBoxLayout *dirConfigBoxLayout=new QVBoxLayout(dirConfigBox);
-  dirSearchDepth = new KIntNumInput(KateDocumentConfig::global()->searchDirConfigDepth(),dirConfigBox);
-  dirSearchDepth->setRange(-1, 64, 1, false);
-  dirSearchDepth->setSpecialValueText( i18n("Do not use config file") );
-  dirSearchDepth->setLabel(i18n("Se&arch depth for config file:"), Qt::AlignVCenter);
-  dirConfigBoxLayout->addWidget(dirSearchDepth);
-
-  QGroupBox *gb = new QGroupBox(i18n("Backup on Save"), this );
-  layout->addWidget( gb );
-  QVBoxLayout *gbLayout=new QVBoxLayout(gb);
-  cbLocalFiles = new QCheckBox( i18n("&Local files"), gb );
-  cbRemoteFiles = new QCheckBox( i18n("&Remote files"), gb );
-  gbLayout->addWidget(cbLocalFiles);
-  gbLayout->addWidget(cbRemoteFiles);
-
-  QHBoxLayout *hbBuPrefix = new QHBoxLayout();
-  QLabel *lBuPrefix = new QLabel( i18n("&Prefix:"), gb );
-  leBuPrefix = new QLineEdit( gb);
-  lBuPrefix->setBuddy( leBuPrefix );
-  hbBuPrefix->addWidget(lBuPrefix);
-  hbBuPrefix->addWidget(leBuPrefix);
-  gbLayout->addLayout(hbBuPrefix);
-
-  QHBoxLayout *hbBuSuffix = new QHBoxLayout();
-  QLabel *lBuSuffix = new QLabel( i18n("&Suffix:"), gb );
-  leBuSuffix = new QLineEdit( gb );
-  lBuSuffix->setBuddy( leBuSuffix );
-  hbBuSuffix->addWidget(lBuSuffix);
-  hbBuSuffix->addWidget(leBuSuffix);
-  gbLayout->addLayout(hbBuSuffix);
-
-  layout->addStretch();
-
-  removeSpaces->setWhatsThis(i18n(
-        "The editor will automatically eliminate extra spaces at the ends of "
-        "lines of text while loading/saving the file. This change is only visible after a save if you reload the file."));
-  gb->setWhatsThis(i18n(
-        "<p>Backing up on save will cause Kate to copy the disk file to "
-        "'&lt;prefix&gt;&lt;filename&gt;&lt;suffix&gt;' before saving changes."
-        "<p>The suffix defaults to <strong>~</strong> and prefix is empty by default" ) );
-  allowEolDetection->setWhatsThis(i18n(
-        "Check this if you want the editor to autodetect the end of line type."
-        "The first found end of line type will be used for the whole file.") );
-  cbLocalFiles->setWhatsThis(i18n(
-        "Check this if you want backups of local files when saving") );
-  cbRemoteFiles->setWhatsThis(i18n(
-        "Check this if you want backups of remote files when saving") );
-  leBuPrefix->setWhatsThis(i18n(
-        "Enter the prefix to prepend to the backup file names" ) );
-  leBuSuffix->setWhatsThis(i18n(
-        "Enter the suffix to add to the backup file names" ) );
-  dirSearchDepth->setWhatsThis(i18n(
-        "The editor will search the given number of folder levels upwards for .kateconfig file"
-        " and load the settings line from it." ));
-  blockCount->setWhatsThis(i18n(
-        "The editor will load given number of blocks (of around 2048 lines) of text into memory;"
-        " if the filesize is bigger than this the other blocks are swapped "
-        " to disk and loaded transparently as-needed.<br>"
-        " This can cause little delays while navigating in the document; a larger block count"
-        " increases the editing speed at the cost of memory. <br>For normal usage, just choose the highest possible"
-        " block count: limit it only if you have problems with the memory usage."));
-
+  // What's this help is added in ui/opensaveconfigwidget.ui
   reload();
 
   //
   // after initial reload, connect the stuff for the changed () signal
   //
 
-  connect(m_encoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
-  connect(m_eol, SIGNAL(activated(int)), this, SLOT(slotChanged()));
-  connect( allowEolDetection, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect(blockCount, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  connect(removeSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect( cbLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect( cbRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect(dirSearchDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  connect( leBuPrefix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( leBuSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( ui->cmbEncoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect( ui->cmbEOL, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect( ui->chkDetectEOL, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( ui->sbBlockCount, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect( ui->chkBackupLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( ui->chkBackupRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( ui->sbConfigFileSearchDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  connect( ui->edtBackupPrefix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( ui->edtBackupSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 }
 
 void KateSaveConfigTab::apply()
@@ -1027,42 +800,42 @@ void KateSaveConfigTab::apply()
     return;
   m_changed = false;
 
-  KateBuffer::setMaxLoadedBlocks (blockCount->value());
+  KateBuffer::setMaxLoadedBlocks (ui->sbBlockCount->value());
 
   KateDocumentConfig::global()->configStart ();
 
-  if ( leBuSuffix->text().isEmpty() && leBuPrefix->text().isEmpty() ) {
+  if ( ui->edtBackupSuffix->text().isEmpty() && ui->edtBackupPrefix->text().isEmpty() ) {
     KMessageBox::information(
                 this,
                 i18n("You did not provide a backup suffix or prefix. Using default suffix: '~'"),
                 i18n("No Backup Suffix or Prefix")
                         );
-    leBuSuffix->setText( "~" );
+    ui->edtBackupSuffix->setText( "~" );
   }
 
   uint f( 0 );
-  if ( cbLocalFiles->isChecked() )
+  if ( ui->chkBackupLocalFiles->isChecked() )
     f |= KateDocumentConfig::LocalFiles;
-  if ( cbRemoteFiles->isChecked() )
+  if ( ui->chkBackupRemoteFiles->isChecked() )
     f |= KateDocumentConfig::RemoteFiles;
 
   KateDocumentConfig::global()->setBackupFlags(f);
-  KateDocumentConfig::global()->setBackupPrefix(leBuPrefix->text());
-  KateDocumentConfig::global()->setBackupSuffix(leBuSuffix->text());
+  KateDocumentConfig::global()->setBackupPrefix(ui->edtBackupPrefix->text());
+  KateDocumentConfig::global()->setBackupSuffix(ui->edtBackupSuffix->text());
 
-  KateDocumentConfig::global()->setSearchDirConfigDepth(dirSearchDepth->value());
+  KateDocumentConfig::global()->setSearchDirConfigDepth(ui->sbConfigFileSearchDepth->value());
 
   int configFlags = KateDocumentConfig::global()->configFlags();
 
   configFlags &= ~KateDocumentConfig::cfRemoveSpaces; // clear flag
-  if (removeSpaces->isChecked()) configFlags |= KateDocumentConfig::cfRemoveSpaces; // set flag if checked
+  if (ui->chkRemoveTrailingSpaces->isChecked()) configFlags |= KateDocumentConfig::cfRemoveSpaces; // set flag if checked
 
   KateDocumentConfig::global()->setConfigFlags(configFlags);
 
-  KateDocumentConfig::global()->setEncoding((m_encoding->currentIndex() == 0) ? "" : KGlobal::charsets()->encodingForName(m_encoding->currentText()));
+  KateDocumentConfig::global()->setEncoding((ui->cmbEncoding->currentIndex() == 0) ? "" : KGlobal::charsets()->encodingForName(ui->cmbEncoding->currentText()));
 
-  KateDocumentConfig::global()->setEol(m_eol->currentIndex());
-  KateDocumentConfig::global()->setAllowEolDetection(allowEolDetection->isChecked());
+  KateDocumentConfig::global()->setEol(ui->cmbEOL->currentIndex());
+  KateDocumentConfig::global()->setAllowEolDetection(ui->chkDetectEOL->isChecked());
 
   KateDocumentConfig::global()->configEnd ();
 }
@@ -1070,9 +843,9 @@ void KateSaveConfigTab::apply()
 void KateSaveConfigTab::reload()
 {
   // encoding
-  m_encoding->clear ();
-  m_encoding->addItem (i18n("KDE Default"));
-  m_encoding->setCurrentIndex(0);
+  ui->cmbEncoding->clear ();
+  ui->cmbEncoding->addItem (i18n("KDE Default"));
+  ui->cmbEncoding->setCurrentIndex(0);
   QStringList encodings (KGlobal::charsets()->descriptiveEncodingNames());
   int insert = 1;
   for (int i=0; i < encodings.count(); i++)
@@ -1082,11 +855,11 @@ void KateSaveConfigTab::reload()
 
     if (found)
     {
-      m_encoding->addItem (encodings[i]);
+      ui->cmbEncoding->addItem (encodings[i]);
 
       if ( codecForEnc->name() == KateDocumentConfig::global()->encoding() )
       {
-        m_encoding->setCurrentIndex(insert);
+        ui->cmbEncoding->setCurrentIndex(insert);
       }
 
       insert++;
@@ -1094,17 +867,17 @@ void KateSaveConfigTab::reload()
   }
 
   // eol
-  m_eol->setCurrentIndex(KateDocumentConfig::global()->eol());
-  allowEolDetection->setChecked(KateDocumentConfig::global()->allowEolDetection());
+  ui->cmbEOL->setCurrentIndex(KateDocumentConfig::global()->eol());
+  ui->chkDetectEOL->setChecked(KateDocumentConfig::global()->allowEolDetection());
 
-  dirSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
+  ui->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
 
   // other stuff
   uint f ( KateDocumentConfig::global()->backupFlags() );
-  cbLocalFiles->setChecked( f & KateDocumentConfig::LocalFiles );
-  cbRemoteFiles->setChecked( f & KateDocumentConfig::RemoteFiles );
-  leBuPrefix->setText( KateDocumentConfig::global()->backupPrefix() );
-  leBuSuffix->setText( KateDocumentConfig::global()->backupSuffix() );
+  ui->chkBackupLocalFiles->setChecked( f & KateDocumentConfig::LocalFiles );
+  ui->chkBackupRemoteFiles->setChecked( f & KateDocumentConfig::RemoteFiles );
+  ui->edtBackupPrefix->setText( KateDocumentConfig::global()->backupPrefix() );
+  ui->edtBackupSuffix->setText( KateDocumentConfig::global()->backupSuffix() );
 }
 
 void KateSaveConfigTab::reset()
@@ -1113,10 +886,10 @@ void KateSaveConfigTab::reset()
 
 void KateSaveConfigTab::defaults()
 {
-  cbLocalFiles->setChecked( true );
-  cbRemoteFiles->setChecked( false );
-  leBuPrefix->setText( "" );
-  leBuSuffix->setText( "~" );
+  ui->chkBackupLocalFiles->setChecked( true );
+  ui->chkBackupRemoteFiles->setChecked( false );
+  ui->edtBackupPrefix->setText( "" );
+  ui->edtBackupSuffix->setText( "~" );
 }
 
 //END KateSaveConfigTab
@@ -1734,7 +1507,7 @@ void KateModOnHdPrompt::slotPRead( KProcIO *p)
   }
 
   // dominik: only ackRead(), when we *really* read data, otherwise, this slot
-  // is called initity times, which leads to a crash
+  // is called initity times, which leads to a crash (#123887)
   if( readData )
     p->ackRead();
 }

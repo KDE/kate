@@ -75,6 +75,10 @@ class QCheckBox;
 namespace Ui
 {
   class ModOnHdWidget;
+  class AppearanceConfigWidget;
+  class CursorConfigWidget;
+  class EditConfigWidget;
+  class OpenSaveConfigWidget;
 }
 
 class KateConfigPage : public KTextEditor::ConfigPage
@@ -146,77 +150,52 @@ class KateSelectConfigTab : public KateConfigPage
 {
   Q_OBJECT
 
-  public:
-    KateSelectConfigTab(QWidget *parent);
+public:
+  KateSelectConfigTab(QWidget *parent);
 
-  protected:
-    enum { numFlags = 2 };
-    static const int flags[numFlags];
-    QCheckBox *opt[numFlags];
+private:
+  Ui::CursorConfigWidget *ui;
 
-    QGroupBox *m_tabs;
-    KIntNumInput *e4;
-    QCheckBox *e6;
-    QRadioButton *rb1, *rb2;
-
-  public Q_SLOTS:
-    void apply ();
-    void reload ();
-    void reset () {}
-    void defaults () {}
+public Q_SLOTS:
+  void apply ();
+  void reload ();
+  void reset () {}
+  void defaults () {}
 };
 
 class KateEditConfigTab : public KateConfigPage
 {
-    Q_OBJECT
+  Q_OBJECT
 
-  public:
-    KateEditConfigTab(QWidget *parent);
+public:
+  KateEditConfigTab(QWidget *parent);
 
-  protected:
-    enum { numFlags = 5 };
-    static const int flags[numFlags];
-    QCheckBox *opt[numFlags];
+protected:
+  Ui::EditConfigWidget *ui;
 
-    KIntNumInput *e1;
-    KIntNumInput *e2;
-    KIntNumInput *e3;
-    KComboBox *e5;
-    QCheckBox *m_wwmarker;
-
-  public Q_SLOTS:
-    void apply ();
-    void reload ();
-    void reset () {}
-    void defaults () {}
+public Q_SLOTS:
+  void apply ();
+  void reload ();
+  void reset () {}
+  void defaults () {}
 };
 
 class KateViewDefaultsConfig : public KateConfigPage
 {
   Q_OBJECT
 
-  public:
-    KateViewDefaultsConfig( QWidget *parent );
-    ~KateViewDefaultsConfig();
+public:
+  KateViewDefaultsConfig( QWidget *parent );
+  ~KateViewDefaultsConfig();
 
-  private:
-    QCheckBox *m_line;
-    QCheckBox *m_folding;
-    QCheckBox *m_collapseTopLevel;
-    QCheckBox *m_icons;
-    QCheckBox *m_scrollBarMarks;
-    QCheckBox *m_dynwrap;
-	QCheckBox *m_showIndentLines;
-    KIntNumInput *m_dynwrapAlignLevel;
-    QLabel *m_dynwrapIndicatorsLabel;
-    KComboBox *m_dynwrapIndicatorsCombo;
-    QGroupBox *m_bmSort;
-
-  public Q_SLOTS:
+public Q_SLOTS:
   void apply ();
   void reload ();
   void reset ();
   void defaults ();
+  
+private:
+  Ui::AppearanceConfigWidget *ui;
 };
 
 class KateEditKeyConfiguration: public KateConfigPage
@@ -245,16 +224,16 @@ class KateEditKeyConfiguration: public KateConfigPage
 class KateSaveConfigTab : public KateConfigPage
 {
   Q_OBJECT
-  public:
+public:
   KateSaveConfigTab( QWidget *parent );
 
-  public Q_SLOTS:
+public Q_SLOTS:
   void apply();
   void reload();
   void reset();
   void defaults();
 
-  protected:
+protected:
   KComboBox *m_encoding, *m_eol;
   QCheckBox *cbLocalFiles, *cbRemoteFiles;
   QCheckBox *replaceTabs, *removeSpaces, *allowEolDetection;
@@ -263,6 +242,9 @@ class KateSaveConfigTab : public KateConfigPage
   KIntNumInput *dirSearchDepth;
   class QSpinBox *blockCount;
   class QLabel *blockCountLabel;
+  
+private:
+  Ui::OpenSaveConfigWidget* ui;
 };
 
 class KatePartPluginListItem;

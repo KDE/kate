@@ -26,6 +26,11 @@
 
 class KateDocument;
 
+namespace Ui
+{
+  class FileTypeConfigWidget;
+}
+
 class KateFileType
 {
   public:
@@ -98,15 +103,7 @@ class KateFileTypeConfigTab : public KateConfigPage
     void save ();
 
   private:
-    class QGroupBox *gbProps;
-    class QPushButton *btndel;
-    class QComboBox *typeCombo;
-    class QLineEdit *wildcards;
-    class QLineEdit *mimetypes;
-    class KIntNumInput *priority;
-    class QLineEdit *name;
-    class QLineEdit *section;
-    class QLineEdit *varLine;
+    Ui::FileTypeConfigWidget *ui;
 
     QList<KateFileType> m_types;
     int m_lastType;
@@ -140,3 +137,4 @@ class KateViewFileTypeAction : public KActionMenu
 };
 
 #endif
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -1,0 +1,348 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>OpenSaveConfigWidget</class>
+ <widget class="QWidget" name="OpenSaveConfigWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>364</width>
+    <height>496</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="margin" >
+    <number>0</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item>
+    <widget class="QGroupBox" name="gbFileFormat" >
+     <property name="title" >
+      <string>File Format</string>
+     </property>
+     <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item rowspan="2" row="0" column="2" >
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>161</width>
+            <height>51</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0" >
+         <widget class="QLabel" name="lblEncoding" >
+          <property name="text" >
+           <string>Encoding:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>cmbEncoding</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" >
+         <widget class="QLabel" name="lblEOL" >
+          <property name="text" >
+           <string>End of line:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>cmbEOL</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" >
+         <widget class="QComboBox" name="cmbEOL" >
+          <item>
+           <property name="text" >
+            <string>UNIX</string>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>DOS/Windows</string>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>Macintosh</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="0" column="1" >
+         <widget class="QComboBox" name="cmbEncoding" />
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkDetectEOL" >
+        <property name="whatsThis" >
+         <string>If this option is enabled the editor will autodetect the end of line type. The first found end of line type will be used for the whole file.</string>
+        </property>
+        <property name="text" >
+         <string>Automatic end of line detection</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbMemoryUsage" >
+     <property name="title" >
+      <string>Memory Usage</string>
+     </property>
+     <layout class="QHBoxLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="lblBlocks" >
+        <property name="text" >
+         <string>Maximum loaded blocks per file:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>sbBlockCount</cstring>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="sbBlockCount" >
+        <property name="whatsThis" >
+         <string>The editor will load given number of blocks (of around 2048 lines) of text into memory; if the filesize is bigger than this the other blocks are swapped to disk and loaded transparently as-needed.&lt;br> This can cause little delays while navigating in the document; a larger block count increases the editing speed at the cost of memory. &lt;br>For normal usage, just choose the highest possible block count: limit it only if you have problems with the memory usage.</string>
+        </property>
+        <property name="maximum" >
+         <number>512</number>
+        </property>
+        <property name="minimum" >
+         <number>4</number>
+        </property>
+        <property name="singleStep" >
+         <number>4</number>
+        </property>
+        <property name="value" >
+         <number>16</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>16</width>
+          <height>23</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbCleanups" >
+     <property name="title" >
+      <string>Automatic Cleanups on Load/Save</string>
+     </property>
+     <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QCheckBox" name="chkRemoveTrailingSpaces" >
+        <property name="whatsThis" >
+         <string>The editor will automatically eliminate extra spaces at the ends of lines of text while loading/saving the file. This change is only visible after a save if you reload the file.</string>
+        </property>
+        <property name="text" >
+         <string>Remove trailing spaces</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbConfigFile" >
+     <property name="title" >
+      <string>Folder Config File</string>
+     </property>
+     <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label" >
+          <property name="text" >
+           <string>Se&amp;arch depth for config file:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>sbConfigFileSearchDepth</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="sbConfigFileSearchDepth" >
+          <property name="whatsThis" >
+           <string>The editor will search the given number of folder levels upwards for a .kateconfig file and load the settings line from it.</string>
+          </property>
+          <property name="specialValueText" >
+           <string>Do not use config file</string>
+          </property>
+          <property name="maximum" >
+           <number>64</number>
+          </property>
+          <property name="minimum" >
+           <number>-1</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>21</width>
+            <height>23</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbBackup" >
+     <property name="whatsThis" >
+      <string>&lt;p>Backing up on save will cause Kate to copy the disk file to '&amp;lt;prefix&amp;gt;&amp;lt;filename&amp;gt;&amp;lt;suffix&amp;gt;' before saving changes.&lt;p>The suffix defaults to &lt;strong>~&lt;/strong> and prefix is empty by default.</string>
+     </property>
+     <property name="title" >
+      <string>Backup on Save</string>
+     </property>
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item row="3" column="1" >
+       <widget class="QLineEdit" name="edtBackupSuffix" >
+        <property name="whatsThis" >
+         <string>Enter the suffix to append to the backup file names.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QLineEdit" name="edtBackupPrefix" >
+        <property name="whatsThis" >
+         <string>Enter the prefix to prepend to the backup file names.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2" >
+       <widget class="QCheckBox" name="chkBackupRemoteFiles" >
+        <property name="whatsThis" >
+         <string>If this option is enabled, backups for remote files will be created when saving.</string>
+        </property>
+        <property name="text" >
+         <string>Remote files</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QLabel" name="label_5" >
+        <property name="text" >
+         <string>Prefix:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>edtBackupPrefix</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" >
+       <widget class="QLabel" name="label_6" >
+        <property name="text" >
+         <string>Suffix:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>edtBackupSuffix</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2" >
+       <widget class="QCheckBox" name="chkBackupLocalFiles" >
+        <property name="whatsThis" >
+         <string>If this option is enabled, backups for local files will be created when saving.</string>
+        </property>
+        <property name="text" >
+         <string>Local files</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>241</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <resources/>
+ <connections/>
+</ui>

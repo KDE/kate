@@ -360,7 +360,7 @@ KDocument::View *KateDocument::createView( QWidget *parent )
   return newView;
 }
 
-const QList<KDocument::View*> &KateDocument::views ()
+const QList<KDocument::View*> &KateDocument::views () const
 {
   return m_textEditViews;
 }

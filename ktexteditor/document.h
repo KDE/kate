@@ -146,6 +146,11 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      */
     virtual View* activeView() const = 0;
 
+    /**
+     * Returns the views pre-casted to KTextEditor::View%s
+     */
+    QList<View*> textViews() const;
+
   Q_SIGNALS:
    /**
     * This signal is emitted whenever the \p document creates a new \p view.

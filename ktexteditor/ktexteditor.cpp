@@ -173,6 +173,14 @@ bool Document::replaceText( const Range & range, const QStringList & text, bool 
   return success;
 }
 
+QList< View * > Document::textViews( ) const
+{
+  QList< View * > v;
+  foreach (KDocument::View* view, views())
+    v << static_cast<View*>(view);
+  return v;
+}
+
 bool View::setSelection(const Cursor& position, int length,bool wrap)
 {
   KTextEditor::Document *doc=document();

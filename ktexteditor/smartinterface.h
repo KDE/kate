@@ -74,9 +74,10 @@ class SmartCursor;
  * each of these branches instead (but this is unlikely unless the tree is complex).
  *
  * Note that actions can be bound either directly to the range via
- * SmartRange::attachAction(), or indirectly via Attribute::attachAction().  Using
- * attributes may be more convenient when you want all ranges of a specific type to have
- * the same action associated with them.
+ * SmartRange::associateAction(), or indirectly via
+ * Attribute::associateAction(). Using attributes may be more convenient when
+ * you want all ranges of a specific type to have the same action associated
+ * with them.
  *
  * \todo extend this to provide a signal from the action indicating which range was
  *       used to activate it (if possible)

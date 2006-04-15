@@ -185,6 +185,7 @@ class KTEXTEDITOR_EXPORT MarkInterface
      * Clear all marks in the entire document.
      * \see clearMark(), removeMark()
      */
+    /// TODO: dominik: add argument unit mask = 0
     virtual void clearMarks () = 0;
 
     /**

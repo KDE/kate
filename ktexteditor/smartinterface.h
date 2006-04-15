@@ -45,7 +45,7 @@ class SmartCursor;
  * \li create arbitrary highlighting; and
  * \li associate KAction%s with ranges of text
  *
- * \section smartiface_creation Creation of SmartCursor%s and SmartRange%s
+ * \section smartiface_creation Creation of SmartCursors and SmartRanges
  * These functions must be used to create SmartCursor%s and SmartRange%s.  This
  * means that these objects cannot be derived from by third party applications.
  *
@@ -81,7 +81,7 @@ class SmartCursor;
  * \todo extend this to provide a signal from the action indicating which range was
  *       used to activate it (if possible)
  *
- * \section smartiface_access Accessing the interface
+ * \section smartiface_access Accessing the Interface
  *
  * The SmartInterface is supposed to be an extension interface for a Document,
  * i.e. the Document inherits the interface \e provided that the 

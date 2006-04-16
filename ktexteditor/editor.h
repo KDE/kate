@@ -63,15 +63,20 @@ class ConfigPage;
  *
  * If the Editor implementation supports a config dialog
  * configDialogSupported() returns \e true, then the config dialog can be
- * shown with configDialog(). Additionally config pages can be embedded into
- * the application's config dialog. configPages() returns the number of
+ * shown with configDialog(). Instead of using the config dialog, the config
+ * pages can be embedded into the application's config dialog. To do this,
+ * configPages() returns the number of
  * config pages the Editor implementation provides and configPage() returns
- * the requested page. Further a config page has a short descriptive name,
+ * the requested page. Further, a config page has a short descriptive name,
  * get it with configPageName(). You can get more detailed name by using
  * configPageFullName(). Also every config page has a pixmap, get it with
- * configPagePixmap(). Use the config dialog only if there are no config
- * pages. The configuration can be saved and loaded with readConfig() and
- * writeConfig().
+ * configPagePixmap(). The configuration can be saved and loaded with
+ * readConfig() and writeConfig().
+ *
+ * \note We recommend to embedd the config pages into the main application's
+ *       config dialog instead of using a separate config dialog, if the config
+ *       dialog does not look cluttered then. This way, all settings are grouped
+ *       together in one place.
  *
  * \section editor_notes Implementation Notes
  *
@@ -182,6 +187,10 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
      * Show the editor's config dialog, changes will be applied to the
      * editor, but not saved anywhere automagically, call \p writeConfig()
      * to save them.
+     *
+     * \note Instead of using the config dialog, the config pages can be
+     *       embedded into your own config dialog by using configPages() and
+     *       configPage().
      * \param parent parent widget
      * \see configDialogSupported()
      */

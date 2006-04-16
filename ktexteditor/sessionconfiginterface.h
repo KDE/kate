@@ -42,6 +42,10 @@ namespace KTextEditor
  * read from the given KConfig* and writeSessionConfig() whenever they are to
  * be written, for example when a session changed or was closed.
  *
+ * \note A \e session does not have anything to do with an X-session under Unix.
+ *       What is meant is rather a context, think of sessions in Kate or
+ *       projects in KDevelop for example.
+ *
  * \section sessionconfig_support Adding Session Support
  *
  * To add support for sessions a KTextEditor implementation has to derive the

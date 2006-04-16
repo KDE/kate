@@ -298,8 +298,8 @@ The following classes are a list of all available Plugin extension interfaces.
 
 /** \defgroup kte_group_command_extensions Command Extension Interfaces
 A KTextEditor command-line Command can use extension interfaces, but it does not
-\e need to. So as a KTextEditor implementator you have to cast the Plugin to the
-desired interface and then check, whether the cast returns NULL or the valid
+\e need to. So as a KTextEditor implementator you have to cast the Command to
+the desired interface and then check, whether the cast returns NULL or the valid
 interface.
 
 Use qobject_cast to cast a Command \e cmd into the

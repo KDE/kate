@@ -33,6 +33,9 @@
       </property>
       <item>
        <widget class="QCheckBox" name="chkReplaceTabs" >
+        <property name="whatsThis" >
+         <string>If this is enabled, the editor will calculate the number of spaces up to the next tab position as defined by the tab width, and insert that number of spaces instead of a TAB character.</string>
+        </property>
         <property name="text" >
          <string>&amp;Insert spaces instead of tabulators</string>
         </property>
@@ -40,6 +43,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="chkShowTabs" >
+        <property name="whatsThis" >
+         <string>The editor will display a symbol to indicate the presence of a tab in the text.</string>
+        </property>
         <property name="text" >
          <string>&amp;Show tabulators</string>
         </property>
@@ -111,6 +117,9 @@
       </property>
       <item>
        <widget class="QCheckBox" name="chkStaticWordWrap" >
+        <property name="whatsThis" >
+         <string>&lt;p>Automatically start a new line of text when the current line exceeds the length specified by the &lt;b>Wrap words at:&lt;/b> option.&lt;/p>&lt;p>This option does not wrap existing lines of text - use the &lt;b>Apply Static Word Wrap&lt;/b> option in the &lt;b>Tools&lt;/b> menu for that purpose.&lt;/p>&lt;p>If you want lines to be &lt;i>visually wrapped&lt;/i> instead, according to the width of the view, enable &lt;b>Dynamic Word Wrap&lt;/b> in the &lt;b>View Defaults&lt;/b> config page.&lt;/p></string>
+        </property>
         <property name="text" >
          <string>Enable static &amp;word wrap</string>
         </property>
@@ -118,6 +127,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="chkShowStaticWordWrapMarker" >
+        <property name="whatsThis" >
+         <string>&lt;p>If this option is checked, a vertical line will be drawn at the word wrap column as defined in the &lt;strong>Editing&lt;/strong> properties.&lt;/p>&lt;p>Note that the word wrap marker is only drawn if you use a fixed pitch font.&lt;/p></string>
+        </property>
         <property name="text" >
          <string>Show static word wra&amp;p marker (if applicable)</string>
         </property>
@@ -143,6 +155,9 @@
         </item>
         <item>
          <widget class="QSpinBox" name="sbWordWrap" >
+          <property name="whatsThis" >
+           <string>If the Word Wrap option is selected this entry determines the length (in characters) at which the editor will automatically start a new line.</string>
+          </property>
           <property name="suffix" >
            <string> characters</string>
           </property>
@@ -189,6 +204,9 @@
       </property>
       <item>
        <widget class="QCheckBox" name="chkRemoveTrailingSpaces" >
+        <property name="whatsThis" >
+         <string>If this is enabled, the editor will remove any trailing whitespace on lines when they are left by the insertion cursor.</string>
+        </property>
         <property name="text" >
          <string>Remove &amp;trailing spaces while editing</string>
         </property>
@@ -196,6 +214,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="chkAutoBrackets" >
+        <property name="whatsThis" >
+         <string>When the user types a left bracket ([,(, or {) KateView automatically enters the right bracket (}, ), or ]) to the right of the cursor.</string>
+        </property>
         <property name="text" >
          <string>Auto &amp;brackets</string>
         </property>
@@ -221,6 +242,9 @@
         </item>
         <item>
          <widget class="QSpinBox" name="sbMaxUndos" >
+          <property name="whatsThis" >
+           <string>Sets the number of undo/redo steps to record. More steps uses more memory.</string>
+          </property>
           <property name="specialValueText" >
            <string>Unlimited</string>
           </property>
@@ -263,7 +287,36 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="cmbSmartSearch" />
+         <widget class="QComboBox" name="cmbSmartSearch" >
+          <property name="whatsThis" >
+           <string>&lt;p>This determines where a view will get the search text from 
+(this will be automatically entered into the Find Text dialog): 
+&lt;/p>
+&lt;p>
+&lt;ul>
+&lt;li>&lt;b>Nowhere:&lt;/b> Don't guess the search text.
+&lt;/li>
+&lt;li>&lt;b>Selection Only:&lt;/b> Use the current text selection, 
+if available.
+&lt;/li>
+&lt;li>&lt;b>Selection, then Current Word:&lt;/b> Use the current 
+selection if available, otherwise use the current word.
+&lt;/li>
+&lt;li>&lt;b>Current Word Only:&lt;/b> Use the word that the cursor 
+is currently resting on, if available.
+&lt;/li>
+&lt;li>&lt;b>Current Word, then Selection:&lt;/b> Use the current 
+word if available, otherwise use the current selection.
+&lt;/li>
+&lt;/ul>
+&lt;/p>
+&lt;p>
+Note that, in all the above modes, if a search string has 
+not been or cannot be determined, then the Find Text Dialog 
+will fall back to the last search text.
+&lt;/p></string>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer>

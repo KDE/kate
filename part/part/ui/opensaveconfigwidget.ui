@@ -55,7 +55,7 @@
         <item row="0" column="0" >
          <widget class="QLabel" name="lblEncoding" >
           <property name="text" >
-           <string>Encoding:</string>
+           <string>&amp;Encoding:</string>
           </property>
           <property name="buddy" >
            <cstring>cmbEncoding</cstring>
@@ -65,7 +65,7 @@
         <item row="1" column="0" >
          <widget class="QLabel" name="lblEOL" >
           <property name="text" >
-           <string>End of line:</string>
+           <string>E&amp;nd of line:</string>
           </property>
           <property name="buddy" >
            <cstring>cmbEOL</cstring>
@@ -102,7 +102,7 @@
          <string>If this option is enabled the editor will autodetect the end of line type. The first found end of line type will be used for the whole file.</string>
         </property>
         <property name="text" >
-         <string>Automatic end of line detection</string>
+         <string>A&amp;utomatic end of line detection</string>
         </property>
        </widget>
       </item>
@@ -124,7 +124,7 @@
       <item>
        <widget class="QLabel" name="lblBlocks" >
         <property name="text" >
-         <string>Maximum loaded blocks per file:</string>
+         <string>Maximum loaded &amp;blocks per file:</string>
         </property>
         <property name="buddy" >
          <cstring>sbBlockCount</cstring>
@@ -184,7 +184,7 @@
          <string>The editor will automatically eliminate extra spaces at the ends of lines of text while loading/saving the file. This change is only visible after a save if you reload the file.</string>
         </property>
         <property name="text" >
-         <string>Remove trailing spaces</string>
+         <string>Re&amp;move trailing spaces</string>
         </property>
        </widget>
       </item>
@@ -214,7 +214,7 @@
         <item>
          <widget class="QLabel" name="label" >
           <property name="text" >
-           <string>Se&amp;arch depth for config file:</string>
+           <string>Search &amp;depth for config file:</string>
           </property>
           <property name="buddy" >
            <cstring>sbConfigFileSearchDepth</cstring>
@@ -290,14 +290,14 @@
          <string>If this option is enabled, backups for remote files will be created when saving.</string>
         </property>
         <property name="text" >
-         <string>Remote files</string>
+         <string>&amp;Remote files</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0" >
        <widget class="QLabel" name="label_5" >
         <property name="text" >
-         <string>Prefix:</string>
+         <string>&amp;Prefix:</string>
         </property>
         <property name="buddy" >
          <cstring>edtBackupPrefix</cstring>
@@ -307,7 +307,7 @@
       <item row="3" column="0" >
        <widget class="QLabel" name="label_6" >
         <property name="text" >
-         <string>Suffix:</string>
+         <string>&amp;Suffix:</string>
         </property>
         <property name="buddy" >
          <cstring>edtBackupSuffix</cstring>
@@ -320,7 +320,7 @@
          <string>If this option is enabled, backups for local files will be created when saving.</string>
         </property>
         <property name="text" >
-         <string>Local files</string>
+         <string>&amp;Local files</string>
         </property>
        </widget>
       </item>

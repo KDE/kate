@@ -33,6 +33,9 @@
       </property>
       <item>
        <widget class="QCheckBox" name="chkDynamicWordWrap" >
+        <property name="whatsThis" >
+         <string>If this option is checked, the text lines will be wrapped at the view border on the screen.</string>
+        </property>
         <property name="text" >
          <string>&amp;Dynamic word wrap</string>
         </property>
@@ -57,7 +60,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="cmbDynamicWordWrapIndicator" />
+         <widget class="QComboBox" name="cmbDynamicWordWrapIndicator" >
+          <property name="whatsThis" >
+           <string>Choose when the Dynamic Word Wrap Indicators should be displayed.</string>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer>
@@ -94,6 +101,9 @@
         </item>
         <item>
          <widget class="QSpinBox" name="sbDynamicWordWrapDepth" >
+          <property name="whatsThis" >
+           <string>&lt;p>Enables the start of dynamically wrapped lines to be aligned vertically to the indentation level of the first line. This can help to make code and markup more readable.&lt;/p>&lt;p>Additionally, this allows you to set a maximum width of the screen, as a percentage, after which dynamically wrapped lines will no longer be vertically aligned. For example, at 50%, lines whose indentation levels are deeper than 50% of the width of the screen will not have vertical alignment applied to subsequent wrapped lines.&lt;/p></string>
+          </property>
           <property name="specialValueText" >
            <string>Disabled</string>
           </property>
@@ -140,6 +150,9 @@
       </property>
       <item>
        <widget class="QCheckBox" name="chkShowFoldingMarkers" >
+        <property name="whatsThis" >
+         <string>If this option is checked, every new view will display marks for code folding, if code folding is available.</string>
+        </property>
         <property name="text" >
          <string>Show &amp;folding markers (if available)</string>
         </property>
@@ -162,6 +175,9 @@
       </property>
       <item>
        <widget class="QCheckBox" name="chkIconBorder" >
+        <property name="whatsThis" >
+         <string>&lt;p>If this option is checked, every new view will display an icon border on the left hand side.&lt;/p>&lt;p>The icon border shows bookmark signs, for instance.&lt;/p></string>
+        </property>
         <property name="text" >
          <string>Show &amp;icon border</string>
         </property>
@@ -169,6 +185,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="chkLineNumbers" >
+        <property name="whatsThis" >
+         <string>If this option is checked, every new view will display line numbers on the left hand side.</string>
+        </property>
         <property name="text" >
          <string>Show &amp;line numbers</string>
         </property>
@@ -176,6 +195,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="chkScrollbarMarks" >
+        <property name="whatsThis" >
+         <string>&lt;p>If this option is checked, every new view will show marks on the vertical scrollbar.&lt;/p>&lt;p>These marks will, for instance, show bookmarks.&lt;/p></string>
+        </property>
         <property name="text" >
          <string>Show &amp;scrollbar marks</string>
         </property>
@@ -186,6 +208,9 @@
    </item>
    <item>
     <widget class="QGroupBox" name="gbSortBookmarks" >
+     <property name="whatsThis" >
+      <string>Choose how the bookmarks should be ordered in the &lt;b>Bookmarks&lt;/b> menu.</string>
+     </property>
      <property name="title" >
       <string>Sort Bookmarks Menu</string>
      </property>
@@ -198,6 +223,9 @@
       </property>
       <item>
        <widget class="QRadioButton" name="rbSortBookmarksByPosition" >
+        <property name="whatsThis" >
+         <string>The bookmarks will be ordered by the line numbers they are placed at.</string>
+        </property>
         <property name="text" >
          <string>By &amp;position</string>
         </property>
@@ -205,6 +233,9 @@
       </item>
       <item>
        <widget class="QRadioButton" name="rbSortBookmarksByCreation" >
+        <property name="whatsThis" >
+         <string>Each new bookmark will be added to the bottom, independently from where it is placed in the document.</string>
+        </property>
         <property name="text" >
          <string>By c&amp;reation</string>
         </property>
@@ -215,6 +246,9 @@
    </item>
    <item>
     <widget class="QCheckBox" name="chkShowIndentationLines" >
+     <property name="whatsThis" >
+      <string>If this is enabled, the editor will display vertical lines to help identify indent lines.</string>
+     </property>
      <property name="text" >
       <string>Show i&amp;ndentation lines</string>
      </property>

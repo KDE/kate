@@ -33,6 +33,9 @@
       </property>
       <item>
        <widget class="QCheckBox" name="chkSmartHome" >
+        <property name="whatsThis" >
+         <string>When selected, pressing the home key will cause the cursor to skip whitespace and go to the start of a line's text.</string>
+        </property>
         <property name="text" >
          <string>Smart ho&amp;me</string>
         </property>
@@ -40,6 +43,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="chkWrapCursor" >
+        <property name="whatsThis" >
+         <string>&lt;p>When on, moving the insertion cursor using the &lt;b>Left&lt;/b> and &lt;b>Right&lt;/b> keys will go on to previous/next line at beginning/end of the line, similar to most editors.&lt;/p>&lt;p>When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers.&lt;/p></string>
+        </property>
         <property name="text" >
          <string>Wrap c&amp;ursor</string>
         </property>
@@ -47,6 +53,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="chkPagingMovesCursor" >
+        <property name="whatsThis" >
+         <string>Selects whether the PageUp and PageDown keys should alter the vertical position of the cursor relative to the top of the view.</string>
+        </property>
         <property name="text" >
          <string>&amp;PageUp/PageDown moves cursor</string>
         </property>
@@ -72,6 +81,9 @@
         </item>
         <item>
          <widget class="QSpinBox" name="sbAutoCenterCursor" >
+          <property name="whatsThis" >
+           <string>Sets the number of lines to maintain visible above and below the cursor when possible.</string>
+          </property>
           <property name="specialValueText" >
            <string>Disabled</string>
           </property>
@@ -109,6 +121,9 @@
       </property>
       <item>
        <widget class="QRadioButton" name="rbNormal" >
+        <property name="whatsThis" >
+         <string>Selections will be overwritten by typed text and will be lost on cursor movement.</string>
+        </property>
         <property name="text" >
          <string>&amp;Normal</string>
         </property>
@@ -116,6 +131,9 @@
       </item>
       <item>
        <widget class="QRadioButton" name="rbPersistent" >
+        <property name="whatsThis" >
+         <string>Selections will stay even after cursor movement and typing.</string>
+        </property>
         <property name="text" >
          <string>P&amp;ersistent</string>
         </property>

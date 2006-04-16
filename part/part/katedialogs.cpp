@@ -369,30 +369,7 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   ui->sbAutoCenterCursor->setValue(KateViewConfig::global()->autoCenterLines());
   connect(ui->sbAutoCenterCursor, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
-
-  ui->rbNormal->setWhatsThis(i18n(
-        "Selections will be overwritten by typed text and will be lost on "
-        "cursor movement."));
-  ui->rbPersistent->setWhatsThis(i18n(
-        "Selections will stay even after cursor movement and typing."));
-
-  ui->sbAutoCenterCursor->setWhatsThis(i18n(
-        "Sets the number of lines to maintain visible above and below the "
-        "cursor when possible."));
-
-  ui->chkSmartHome->setWhatsThis(i18n(
-        "When selected, pressing the home key will cause the cursor to skip "
-        "whitespace and go to the start of a line's text."));
-
-  ui->chkWrapCursor->setWhatsThis(i18n(
-        "When on, moving the insertion cursor using the <b>Left</b> and "
-        "<b>Right</b> keys will go on to previous/next line at beginning/end of "
-        "the line, similar to most editors.<p>When off, the insertion cursor "
-        "cannot be moved left of the line start, but it can be moved off the "
-        "line end, which can be very handy for programmers."));
-
-  ui->chkPagingMovesCursor->setWhatsThis(i18n("Selects whether the PageUp and PageDown keys should alter the vertical position of the cursor relative to the top of the view."));
-
+  // What's This? Help is in the ui-files
 
   reload ();
 
@@ -486,65 +463,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   ui->cmbSmartSearch->setCurrentIndex(KateViewConfig::global()->textToSearchMode());
   connect(ui->cmbSmartSearch, SIGNAL(activated(int)), this, SLOT(slotChanged()));
 
-  // What is this? help
-  ui->chkStaticWordWrap->setWhatsThis(i18n(
-        "Automatically start a new line of text when the current line exceeds "
-        "the length specified by the <b>Wrap words at:</b> option."
-        "<p>This option does not wrap existing lines of text - use the <b>Apply "
-        "Static Word Wrap</b> option in the <b>Tools</b> menu for that purpose."
-        "<p>If you want lines to be <i>visually wrapped</i> instead, according "
-        "to the width of the view, enable <b>Dynamic Word Wrap</b> in the "
-        "<b>View Defaults</b> config page."));
-  ui->sbWordWrap->setWhatsThis(i18n(
-        "If the Word Wrap option is selected this entry determines the length "
-        "(in characters) at which the editor will automatically start a new line."));
-  ui->chkAutoBrackets->setWhatsThis(i18n(
-        "When the user types a left bracket ([,(, or {) KateView automatically "
-        "enters the right bracket (}, ), or ]) to the right of the cursor."));
-  ui->chkShowTabs->setWhatsThis(i18n(
-        "The editor will display a symbol to indicate the presence of a tab in "
-        "the text."));
-
-  ui->sbMaxUndos->setWhatsThis(i18n(
-        "Sets the number of undo/redo steps to record. More steps uses more memory."));
-
-  QString gstfwt = i18n(
-        "This determines where KateView will get the search text from "
-        "(this will be automatically entered into the Find Text dialog): "
-        "<br>"
-        "<ul>"
-        "<li><b>Nowhere:</b> Don't guess the search text."
-        "</li>"
-        "<li><b>Selection Only:</b> Use the current text selection, "
-        "if available."
-        "</li>"
-        "<li><b>Selection, then Current Word:</b> Use the current "
-        "selection if available, otherwise use the current word."
-        "</li>"
-        "<li><b>Current Word Only:</b> Use the word that the cursor "
-        "is currently resting on, if available."
-        "</li>"
-        "<li><b>Current Word, then Selection:</b> Use the current "
-        "word if available, otherwise use the current selection."
-        "</li>"
-        "</ul>"
-        "Note that, in all the above modes, if a search string has "
-        "not been or cannot be determined, then the Find Text Dialog "
-        "will fall back to the last search text.");
-  ui->lblSmartSearch->setWhatsThis(gstfwt);
-  ui->cmbSmartSearch->setWhatsThis(gstfwt);
-  ui->chkReplaceTabs->setWhatsThis(i18n(
-      "If this is enabled, the editor will calculate the number of spaces up to "
-      "the next tab position as defined by the tab width, and insert that number "
-      "of spaces instead of a TAB character." ) );
-  ui->chkRemoveTrailingSpaces->setWhatsThis(i18n(
-      "If this is enabled, the editor will remove any trailing whitespace on "
-      "lines when they are left by the insertion cursor.") );
-  ui->chkShowStaticWordWrapMarker->setWhatsThis(i18n(
-        "<p>If this option is checked, a vertical line will be drawn at the word "
-        "wrap column as defined in the <strong>Editing</strong> properties."
-        "<p>Note that the word wrap marker is only drawn if you use a fixed "
-        "pitch font." ));
+  // What is this? help is in the ui-file
 }
 
 void KateEditConfigTab::apply ()
@@ -603,47 +522,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
 
   ui->chkShowIndentationLines->setChecked(KateRendererConfig::global()->showIndentationLines());
 
-  // What's This help
-  ui->chkDynamicWordWrap->setWhatsThis(i18n(
-        "If this option is checked, the text lines will be wrapped at the view "
-        "border on the screen."));
-  QString wtstr = i18n("Choose when the Dynamic Word Wrap Indicators should be displayed");
-  ui->lblDynamicWordWrapIndicators->setWhatsThis(wtstr);
-  ui->cmbDynamicWordWrapIndicator->setWhatsThis(wtstr);
-  // xgettext:no-c-format
-  ui->sbDynamicWordWrapDepth->setWhatsThis(i18n(
-        "<p>Enables the start of dynamically wrapped lines to be aligned "
-        "vertically to the indentation level of the first line.  This can help "
-        "to make code and markup more readable.</p><p>Additionally, this allows "
-        "you to set a maximum width of the screen, as a percentage, after which "
-        "dynamically wrapped lines will no longer be vertically aligned.  For "
-        "example, at 50%%, lines whose indentation levels are deeper than 50% of "
-        "the width of the screen will not have vertical alignment applied to "
-        "subsequent wrapped lines.</p>"));
-  ui->chkLineNumbers->setWhatsThis(i18n(
-        "If this option is checked, every new view will display line numbers "
-        "on the left hand side."));
-  ui->chkIconBorder->setWhatsThis(i18n(
-        "If this option is checked, every new view will display an icon border "
-        "on the left hand side.<br><br>The icon border shows bookmark signs, "
-        "for instance."));
-  ui->chkScrollbarMarks->setWhatsThis(i18n(
-        "If this option is checked, every new view will show marks on the "
-        "vertical scrollbar.<br><br>These marks will, for instance, show "
-        "bookmarks."));
-  ui->chkShowFoldingMarkers->setWhatsThis(i18n(
-        "If this option is checked, every new view will display marks for code "
-        "folding, if code folding is available."));
-  ui->gbSortBookmarks->setWhatsThis(i18n(
-        "Choose how the bookmarks should be ordered in the <b>Bookmarks</b> menu."));
-  ui->rbSortBookmarksByPosition->setWhatsThis(i18n(
-        "The bookmarks will be ordered by the line numbers they are placed at."));
-  ui->rbSortBookmarksByCreation->setWhatsThis(i18n(
-        "Each new bookmark will be added to the bottom, independently from "
-        "where it is placed in the document."));
-  ui->chkShowIndentationLines->setWhatsThis(i18n(
-        "If this is enabled, the editor will display vertical lines to help "
-        "identify indent lines.") );
+  // What's This? help is in the ui-file
 
   reload();
 

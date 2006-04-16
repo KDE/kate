@@ -70,7 +70,7 @@ class Mark
  * reservedMarkersCount(). Additionally it is possible to add custom marks
  * and set custom pixmaps.
  *
- * \section markext_access Accessing the MarkInterface
+ * \section markext_access Accessing the Interface
  *
  * The MarkInterface is supposed to be an extension interface for a Document,
  * i.e. the Document inherits the interface \e provided that the
@@ -106,9 +106,9 @@ class Mark
  *
  * \section markext_userdefined User Defined Marks
  *
- * All marks that should be changable by the user can be specified with a
- * mark mask via setMarksUserChangable(). To set a description and pixmap of
- * a mark type call setMarkDescription() and setMarkPixmap().
+ * All marks that should be editable by the user can be specified with a mark
+ * mask via setEditableMarks(). To set a description and pixmap of a mark type
+ * call setMarkDescription() and setMarkPixmap().
  *
  * \see KTextEditor::Document, KTextEditor::Mark
  * \author Christoph Cullmann \<cullmann@kde.org\>
@@ -271,30 +271,70 @@ class KTEXTEDITOR_EXPORT MarkInterface
   public:
     /**
      * Set the \p mark's pixmap to \p pixmap.
-     * \param mark mark to change
+     * \param mark mark to which the pixmap will be attached
      * \param pixmap new pixmap
      * \see setMarkDescription()
      */
     virtual void setMarkPixmap( MarkTypes mark, const QPixmap &pixmap ) = 0;
 
     /**
+     * Get the \p mark's pixmap.
+     * \param mark mark type. If the pixmap does not exist the resulting is null
+     *        (check with QPixmap::isNull()).
+     * \see setMarkDescription()
+     */
+    virtual QPixmap markPixmap( MarkTypes mark ) const = 0;
+
+    /**
      * Set the \p mark's description to \p text.
      * \param mark mark to set the description
      * \param text new descriptive text
-     * \see setMarkPixmap()
+     * \see markDescription(), setMarkPixmap()
      */
     virtual void setMarkDescription( MarkTypes mark, const QString &text ) = 0;
 
     /**
-     * Set the marks user changable pattern to \p markMask, i.e. concatenate
-     * all changable marks with a logical OR.
-     * \param markMask bitmap pattern
-     * \see setMarkPixmap(), setMarkDescription()
+     * Get the \p mark's description to text.
+     * \param mark mark to set the description
+     * \return text of the given \p mark or QString(), if the entry does not
+     *         exist
+     * \see setMarkDescription(), setMarkPixmap()
      */
-    virtual void setMarksUserChangable( uint markMask ) = 0;
+    virtual QString markDescription( MarkTypes mark ) const = 0;
+
+    /**
+     * Set the mark mask the user is allowed to toggle to \p markMask.
+     * I.e. concatenate all editable marks with a logical OR. If the user should
+     * be able to add a bookmark and set a breakpoint with the context menu in
+     * the icon pane, you have to call
+     * \code
+     *   // iface is of Type KTextEditor::MarkInterface*
+     *   // only make bookmark and breakpoint editable
+     *   iface->setEditableMarks( MarkInterface::Bookmark |
+     *                            MarkInterface::BreakpointActive );
+     *
+     *   // or preserve last settings, and add bookmark and breakpoint
+     *   iface->setEditableMarks( iface->editableMarks() |
+     *                            MarkInterface::Bookmark |
+     *                            MarkInterface::BreakpointActive );
+     * \endcode
+     * \param markMask bitmap pattern
+     * \see editableMarks(), setMarkPixmap(), setMarkDescription()
+     */
+    virtual void setEditableMarks( uint markMask ) = 0;
+
+    /**
+     * Get, which marks can be toggled by the user.
+     * The returned value is a mark mask containing all editable marks combined
+     * with a logical OR.
+     * \return mark mask containing all editable marks
+     * \see setEditableMarks()
+     */
+    virtual uint editableMarks() const = 0;
 
     /**
      * Possible actions on a mark.
+     * \see markChanged()
      */
     enum MarkChangeAction {
       MarkAdded=0,    /**< action: a mark was added.  */

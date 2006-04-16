@@ -156,7 +156,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_bBrowserView = bBrowserView;
   m_bReadOnly = bReadOnly;
 
-  setMarksUserChangable( markType01 );
+  setEditableMarks( markType01 );
 
   m_undoMergeTimer = new QTimer(this);
   m_undoMergeTimer->setSingleShot(true);
@@ -2011,7 +2011,8 @@ void KateDocument::setMarkDescription( MarkInterface::MarkTypes type, const QStr
 
 QPixmap KateDocument::markPixmap( MarkInterface::MarkTypes type ) const
 {
-  return m_markPixmaps[type];
+  return m_markPixmaps.contains(type) ?
+         m_markPixmaps[type] : QPixmap();
 }
 
 QColor KateDocument::markColor( MarkInterface::MarkTypes type ) const
@@ -2026,17 +2027,16 @@ QColor KateDocument::markColor( MarkInterface::MarkTypes type ) const
 
 QString KateDocument::markDescription( MarkInterface::MarkTypes type ) const
 {
-  if( m_markDescriptions.contains(type) )
-    return m_markDescriptions[type];
-  return QString();
+  return m_markDescriptions.contains(type) ?
+         m_markDescriptions[type] : QString();
 }
 
-void KateDocument::setMarksUserChangable( uint markMask )
+void KateDocument::setEditableMarks( uint markMask )
 {
   m_editableMarks = markMask;
 }
 
-uint KateDocument::editableMarks()
+uint KateDocument::editableMarks() const
 {
   return m_editableMarks;
 }

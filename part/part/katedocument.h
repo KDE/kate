@@ -399,7 +399,7 @@ class KateDocument : public KTextEditor::Document,
     void writeSessionConfig (KConfig *);
 
   //
-  // KTextEditor::MarkInterface and MarkInterfaceExtension
+  // KTextEditor::MarkInterface
   //
   public Q_SLOTS:
     uint mark( int line );
@@ -414,13 +414,14 @@ class KateDocument : public KTextEditor::Document,
     void clearMarks();
 
     void setMarkPixmap( MarkInterface::MarkTypes, const QPixmap& );
+    QPixmap markPixmap( MarkInterface::MarkTypes ) const;
+
     void setMarkDescription( MarkInterface::MarkTypes, const QString& );
     QString markDescription( MarkInterface::MarkTypes ) const;
-    QPixmap markPixmap( MarkInterface::MarkTypes ) const;
     QColor markColor( MarkInterface::MarkTypes ) const;
 
-    void setMarksUserChangable( uint markMask );
-    uint editableMarks();
+    void setEditableMarks( uint markMask );
+    uint editableMarks() const;
 
   Q_SIGNALS:
     void marksChanged( KTextEditor::Document* );

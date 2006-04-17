@@ -357,8 +357,8 @@ void AutoBookmarkerEntEditor::apply()
   if ( lePattern->text().isEmpty() ) return;
 
   e->pattern = lePattern->text();
-  e->filemask = QStringList::split( QRegExp("\\s*;\\s*"), leFileMask->text() );
-  e->mimemask = QStringList::split( QRegExp("\\s*;\\s*"), leMimeTypes->text() );
+  e->filemask = leFileMask->text().split( QRegExp("\\s*;\\s*"), QString::SkipEmptyParts );
+  e->mimemask = leMimeTypes->text().split( QRegExp("\\s*;\\s*"), QString::SkipEmptyParts );
   e->flags = 0;
   if ( cbCS->isOn() ) e->flags |= AutoBookmarkEnt::CaseSensitive;
   if ( cbMM->isOn() ) e->flags |= AutoBookmarkEnt::MinimalMatching;
@@ -367,7 +367,7 @@ void AutoBookmarkerEntEditor::apply()
 void AutoBookmarkerEntEditor::showMTDlg()
 {
   QString text = i18n("Select the MimeTypes for this pattern.\nPlease note that this will automatically edit the associated file extensions as well.");
-  QStringList list = QStringList::split( QRegExp("\\s*;\\s*"), leMimeTypes->text() );
+  QStringList list = leMimeTypes->text().split( QRegExp("\\s*;\\s*"), QString::SkipEmptyParts );
   KMimeTypeChooserDialog *d = new KMimeTypeChooserDialog( i18n("Select Mime Types"), text, list, "text", this );
   if ( d->exec() == KDialogBase::Accepted ) {
     // do some checking, warn user if mime types or patterns are removed.

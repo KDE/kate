@@ -239,7 +239,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
              pos += rep.length();
              pos = reTags.search( headerTags, pos );
            }
-           headerTagList = QStringList::split('|', headerTags, true);
+           headerTagList = headerTags.split('|');
 
            if (!headerBgColor.isValid())
              headerBgColor = Qt::lightGray;
@@ -267,7 +267,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
              pos = reTags.search( footerTags, pos );
            }
 
-           footerTagList = QStringList::split('|', footerTags, true);
+           footerTagList = footerTags.split('|');
            if (!footerBgColor.isValid())
              footerBgColor = Qt::lightGray;
            if (!footerFgColor.isValid())

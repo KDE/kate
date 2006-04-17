@@ -454,4 +454,4 @@ link: -lktexteditor hint or \$(LIB_KTEXTEDITOR) in the KDE build framework.
 \author Dominik Haumann \<dhdev@gmx.de\>
 */
 
-// DOXYGEN_REFERENCES = kdecore kdeui kparts
+// DOXYGEN_REFERENCES = kdecore kdeui kparts kdocument

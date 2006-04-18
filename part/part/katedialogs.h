@@ -78,6 +78,7 @@ namespace Ui
   class AppearanceConfigWidget;
   class CursorConfigWidget;
   class EditConfigWidget;
+  class HlConfigWidget;
   class OpenSaveConfigWidget;
 }
 
@@ -330,11 +331,7 @@ class KateHlConfigPage : public KateConfigPage
   private:
     void writeback ();
 
-    QComboBox *hlCombo;
-    QLineEdit *wildcards;
-    QLineEdit *mimetypes;
-    class KIntNumInput *priority;
-    class QLabel *author, *license;
+    Ui::HlConfigWidget *ui;
 
     QHash<int,KateHlData> hlDataDict;
     int m_currentHlData;

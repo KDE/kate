@@ -91,6 +91,7 @@ ui//appearanceconfigwidget.ui
 ui//cursorconfigwidget.ui
 ui//editconfigwidget.ui
 ui//filetypeconfigwidget.ui
+ui//hlconfigwidget.ui
 ui//opensaveconfigwidget.ui
 ui//modonhdwidget.ui
 )

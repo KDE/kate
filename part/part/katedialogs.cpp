@@ -39,6 +39,7 @@
 #include "ui_appearanceconfigwidget.h"
 #include "ui_cursorconfigwidget.h"
 #include "ui_editconfigwidget.h"
+#include "ui_hlconfigwidget.h"
 #include "ui_opensaveconfigwidget.h"
 
 #include <ktexteditor/plugin.h>
@@ -950,114 +951,31 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
  : KateConfigPage (parent, "")
  , m_currentHlData (-1)
 {
-  QVBoxLayout *layout = new QVBoxLayout(this);
-  layout->setMargin( 0);
-  layout->setSpacing( KDialog::spacingHint() );
-
-  // hl chooser
-  QHBoxLayout *hbl=new QHBoxLayout();
-  layout->addItem(hbl);
-
-  hbl->setSpacing( KDialog::spacingHint() );
-  QLabel *lHl = new QLabel( i18n("H&ighlight:"), this);
-  hbl->addWidget(lHl);
-  hlCombo = new QComboBox(this);
-  hlCombo->setEditable(false);
-  hbl->addWidget(hlCombo);
-  lHl->setBuddy( hlCombo );
-  connect( hlCombo, SIGNAL(activated(int)),
-           this, SLOT(hlChanged(int)) );
+  ui = new Ui::HlConfigWidget();
+  ui->setupUi( this );
 
   for( int i = 0; i < KateHlManager::self()->highlights(); i++) {
     if (KateHlManager::self()->hlSection(i).length() > 0)
-      hlCombo->addItem(KateHlManager::self()->hlSection(i) + QString ("/") + KateHlManager::self()->hlNameTranslated(i));
+      ui->cmbHl->addItem(KateHlManager::self()->hlSection(i) + QString ("/")
+          + KateHlManager::self()->hlNameTranslated(i));
     else
-      hlCombo->addItem(KateHlManager::self()->hlNameTranslated(i));
+      ui->cmbHl->addItem(KateHlManager::self()->hlNameTranslated(i));
   }
-  hlCombo->setCurrentIndex(0);
+  ui->cmbHl->setCurrentIndex(0);
 
-  QGroupBox *gbInfo = new QGroupBox(i18n("Information"), this );
-  layout->addWidget (gbInfo);
-  QVBoxLayout *subLayout=new QVBoxLayout(gbInfo);
-  // author
-  hbl = new QHBoxLayout();
-  subLayout->addItem(hbl);
-  hbl->addWidget(new QLabel( i18n("Author:"), gbInfo ));
-  hbl->addWidget(author  = new QLabel (gbInfo));
-  author->setTextFormat (Qt::RichText);
+  ui->btnMimeTypes->setIcon(QIcon(SmallIcon("wizard")));
+  connect( ui->btnMimeTypes, SIGNAL(clicked()), this, SLOT(showMTDlg()) );
+  connect( ui->btnDownload, SIGNAL(clicked()), this, SLOT(hlDownload()) );
+  connect( ui->cmbHl, SIGNAL(activated(int)), this, SLOT(hlChanged(int)) );
 
-  // license
-  QHBoxLayout *hb2 = new QHBoxLayout();
-  subLayout->addItem(hb2);
-  hb2->addWidget(new QLabel( i18n("License:"), gbInfo));
-  hb2->addWidget(license  = new QLabel (gbInfo));
-
-  QGroupBox *gbProps = new QGroupBox(i18n("Properties"), this );
-  layout->addWidget (gbProps);
-
-  QGridLayout *gl=new QGridLayout(gbProps);
-
-  // file & mime types
-  QLabel *lFileExts = new QLabel( i18n("File e&xtensions:"), gbProps);
-  gl->addWidget(lFileExts,0,0);
-  gl->addWidget(wildcards  = new QLineEdit(gbProps ),0,1);
-  lFileExts->setBuddy( wildcards );
-
-  QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), gbProps);
-  gl->addWidget(lMimeTypes,1,0);
-  QHBoxLayout *hbx=new QHBoxLayout();
-  gl->addItem(hbx,1,1);
-  hbx->addWidget(mimetypes = new QLineEdit( gbProps));
-  lMimeTypes->setBuddy( mimetypes );
-
-  QToolButton *btnMTW = new QToolButton(gbProps);
-  hbx->addWidget(btnMTW);
-  btnMTW->setIcon(QIcon(SmallIcon("wizard")));
-  connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
-
-  QLabel *lprio = new QLabel( i18n("Prio&rity:"), gbProps);
-  gl->addWidget(lprio,2,0);
-  priority = new KIntNumInput( gbProps);
-  gl->addWidget(priority,2,1);
-  lprio->setBuddy( priority );
-
-
-  // download/new buttons
-  QHBoxLayout *hbBtns = new QHBoxLayout();
-  layout->addItem (hbBtns);
-
-  hbBtns->addStretch(1); // hmm.
-  hbBtns->setSpacing( KDialog::spacingHint() );
-  QPushButton *btnDl = new QPushButton(i18n("Do&wnload..."), this);
-  hbBtns->addWidget(btnDl);
-  connect( btnDl, SIGNAL(clicked()), this, SLOT(hlDownload()) );
-
-  hlCombo->setCurrentIndex( 0 );
+  ui->cmbHl->setCurrentIndex( 0 );
   hlChanged(0);
 
-  hlCombo->setWhatsThis(i18n(
-        "Choose a <em>Syntax Highlight mode</em> from this list to view its "
-        "properties below.") );
-  wildcards->setWhatsThis(i18n(
-        "The list of file extensions used to determine which files to highlight "
-        "using the current syntax highlight mode.") );
-  mimetypes->setWhatsThis(i18n(
-        "The list of Mime Types used to determine which files to highlight "
-        "using the current highlight mode.<p>Click the wizard button on the "
-        "left of the entry field to display the MimeType selection dialog.") );
-  btnMTW->setWhatsThis(i18n(
-        "Display a dialog with a list of all available mime types to choose from."
-        "<p>The <strong>File Extensions</strong> entry will automatically be "
-        "edited as well.") );
-  btnDl->setWhatsThis(i18n(
-        "Click this button to download new or updated syntax highlight "
-        "descriptions from the Kate website.") );
+  // What's This? help is in the ui-file
 
-  layout->addStretch ();
-
-  connect( wildcards, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( mimetypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( priority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
+  connect( ui->edtFileExtensions, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( ui->edtMimeTypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( ui->sbPriority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
 }
 
 KateHlConfigPage::~KateHlConfigPage ()
@@ -1081,6 +999,7 @@ void KateHlConfigPage::apply ()
 
 void KateHlConfigPage::reload ()
 {
+  // TODO: implement me
 }
 
 void KateHlConfigPage::hlChanged(int z)
@@ -1100,16 +1019,15 @@ void KateHlConfigPage::hlChanged(int z)
 
   m_currentHlData = z;
   const KateHlData& hlData=hlDataDict[ z ];
-  wildcards->setText(hlData.wildcards);
-  mimetypes->setText(hlData.mimetypes);
-  priority->setValue(hlData.priority);
+  ui->edtFileExtensions->setText(hlData.wildcards);
+  ui->edtMimeTypes->setText(hlData.mimetypes);
+  ui->sbPriority->setValue(hlData.priority);
 
   // split author string if needed into multiple lines !
-  //QStringList l= QStringList::split (QRegExp("[,;]"), hl->author());
   QStringList l= hl->author().split (QRegExp("[,;]"));
-  author->setText (l.join ("<br>"));
+  ui->txtAuthor->setText (l.join ("<br>"));
 
-  license->setText (hl->license());
+  ui->txtLicense->setText (hl->license());
 }
 
 void KateHlConfigPage::writeback()
@@ -1117,9 +1035,9 @@ void KateHlConfigPage::writeback()
   if (m_currentHlData!=-1)
   {
     KateHlData &hlData=hlDataDict[m_currentHlData];
-    hlData.wildcards = wildcards->text();
-    hlData.mimetypes = mimetypes->text();
-    hlData.priority = priority->value();
+    hlData.wildcards = ui->edtFileExtensions->text();
+    hlData.mimetypes = ui->edtMimeTypes->text();
+    hlData.priority = ui->sbPriority->value();
   }
 }
 
@@ -1131,16 +1049,15 @@ void KateHlConfigPage::hlDownload()
 
 void KateHlConfigPage::showMTDlg()
 {
-  QString text = i18n("Select the MimeTypes you want highlighted using the '%1' syntax highlight rules.\nPlease note that this will automatically edit the associated file extensions as well.",  hlCombo->currentText() );
-  //QStringList list = QStringList::split( QRegExp("\\s*;\\s*"), mimetypes->text() );
-  QStringList list = mimetypes->text().split( QRegExp("\\s*;\\s*") );
+  QString text = i18n("Select the MimeTypes you want highlighted using the '%1' syntax highlight rules.\nPlease note that this will automatically edit the associated file extensions as well.",  ui->cmbHl->currentText() );
+  QStringList list = ui->edtMimeTypes->text().split( QRegExp("\\s*;\\s*") );
   KMimeTypeChooserDialog *d = new KMimeTypeChooserDialog( i18n("Select Mime Types"), text, list, "text", this );
 
   if ( d->exec() == KDialogBase::Accepted ) {
     // do some checking, warn user if mime types or patterns are removed.
     // if the lists are empty, and the fields not, warn.
-    wildcards->setText(d->chooser()->patterns().join(";"));
-    mimetypes->setText(d->chooser()->mimeTypes().join(";"));
+    ui->edtFileExtensions->setText(d->chooser()->patterns().join(";"));
+    ui->edtMimeTypes->setText(d->chooser()->mimeTypes().join(";"));
   }
 }
 //END KateHlConfigPage

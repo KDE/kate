@@ -1573,8 +1573,7 @@ void KateBufBlock::swapOut ()
     {
       if (!KateGlobal::self()->vm()->copy(m_vmblock, rawData.data(), 0, rawData.size()))
       {
-        if (m_vmblock)
-          KateGlobal::self()->vm()->free(m_vmblock);
+        KateGlobal::self()->vm()->free(m_vmblock);
 
         m_vmblock = 0;
         m_vmblockSize = 0;

@@ -16,7 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "config.h"
+#include <config-lua.h>
+
 #ifdef HAVE_LUA
 
 #ifndef _KATELUAINDENTSCRIPT_H_

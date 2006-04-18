@@ -1,5 +1,7 @@
 kde4_header()
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-lua.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-lua.h )
+
 include_directories( BEFORE ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kdefx ${CMAKE_SOURCE_DIR}/kutils ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  )
 
 

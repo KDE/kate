@@ -16,10 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "config.h"
+#include "kateluascript.h"
+
 #ifdef HAVE_LUA
 
-#include "kateluascript.h"
 #include "katedocument.h"
 #include "kateview.h"
 #include "katehighlight.h"

@@ -802,15 +802,14 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 
 // EXPERIMENTAL TEST BEGIN
 // move this afte the test for unopened, but closed regions within the parent node, or if there are no siblings, bubble up
-        if (parent)
-          if (parent->type == node->type)
+        if (parent->type == node->type)
+        {
+          if (parent->endLineValid)
           {
-            if (parent->endLineValid)
-            {
-              removeEnding(parent, line);
-              node->endLineValid = true;
-            }
+            removeEnding(parent, line);
+            node->endLineValid = true;
           }
+        }
 
 // EXPERIMENTAL TEST BEGIN
 

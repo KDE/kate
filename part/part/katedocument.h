@@ -552,7 +552,7 @@ class KateDocument : public KTextEditor::Document,
 
   private Q_SLOTS:
     void slotDataKate ( KIO::Job* kio_job, const QByteArray &data );
-    void slotFinishedKate ( KIO::Job * job );
+    void slotFinishedKate ( KJob * job );
 
   private:
     void abortLoadKate();

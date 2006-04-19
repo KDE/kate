@@ -2147,8 +2147,8 @@ bool KateDocument::openURL( const KUrl &url )
     connect( m_job, SIGNAL( data( KIO::Job*, const QByteArray& ) ),
            SLOT( slotDataKate( KIO::Job*, const QByteArray& ) ) );
 
-    connect( m_job, SIGNAL( result( KIO::Job* ) ),
-           SLOT( slotFinishedKate( KIO::Job* ) ) );
+    connect( m_job, SIGNAL( result( KJob* ) ),
+           SLOT( slotFinishedKate( KJob* ) ) );
 
     QWidget *w = widget ();
     if (!w && !m_views.isEmpty ())
@@ -2173,7 +2173,7 @@ void KateDocument::slotDataKate ( KIO::Job *, const QByteArray &data )
   m_tempFile->file()->write (data);
 }
 
-void KateDocument::slotFinishedKate ( KIO::Job * job )
+void KateDocument::slotFinishedKate ( KJob * job )
 {
 //   kDebug(13020) << "KateDocument::slotJobFinished" << endl;
 
@@ -2188,7 +2188,7 @@ void KateDocument::slotFinishedKate ( KIO::Job * job )
     emit canceled( job->errorString() );
   else
   {
-    if ( openFile(job) )
+      if ( openFile( dynamic_cast<KIO::Job*>( job )) )
       emit setWindowCaption( m_url.prettyURL() );
     emit completed();
   }

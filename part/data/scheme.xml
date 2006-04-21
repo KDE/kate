@@ -40,7 +40,7 @@
    guile procedures (cause then almost everything would be highlighted) I
    removed some to have a rather small but "senseful" list of highlighted words.
 -->
-<language version="1.11" kateversion="2.4" name="Scheme" section="Scripts" extensions="*.scm;*.ss;*.scheme;*.guile" mimetype="text/x-scheme" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language version="1.12" kateversion="2.4" name="Scheme" section="Scripts" extensions="*.scm;*.ss;*.scheme;*.guile" mimetype="text/x-scheme" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <list name="operators">
       <item> &lt;= </item>
@@ -360,11 +360,8 @@
       <context name="MultiLineComment" attribute="Comment" lineEndContext="#stay">
         <RegExpr attribute="Comment" context="#pop" String="!#\s*$" endRegion="region" column="0"/>
       </context>
-      <context name="SpecialNumber" attribute="Normal" lineEndContext="#pop">
-        <Float attribute="Float" context="#pop"/>
-        <Int attribute="Decimal" context="#pop"/>
-        <HlCOct attribute="BaseN" context="#pop"/>
-        <HlCHex attribute="Float" context="#pop"/>
+      <context name="SpecialNumber" attribute="Normal" fallthrough="true" lineEndContext="#pop">
+        <RegExpr attribute="Decimal" context="#pop" String="\d*(\.\d+)?"/>
       </context>
       <context name="String" attribute="String" lineEndContext="#stay">
         <keyword attribute="Char" context="#stay" String="characters"/>

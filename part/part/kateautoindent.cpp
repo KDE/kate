@@ -174,15 +174,15 @@ void KateViewIndentationAction::slotAboutToShow()
 
   kMenu()->clear ();
   for (int z=0; z<modes.size(); ++z) {
-    QAction *action = popupMenu()->addAction( '&' + KateAutoIndent::modeDescription(z));
+    QAction *action = kMenu()->addAction( '&' + KateAutoIndent::modeDescription(z));
     action->setCheckable( true );
 
     if ( doc->config()->indentationMode() == (uint)z )
       action->setChecked( true );
   }
 
-  disconnect( popupMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
-  connect( popupMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
+  disconnect( kMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
+  connect( kMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
 }
 
 void KateViewIndentationAction::setMode (QAction *action)

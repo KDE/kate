@@ -325,16 +325,17 @@ void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem
   opt.rect = option.rect;
   opt.palette = m_widget->palette();
 
-  if (brush == QBrush()) {
-    opt.text = i18n("None set");
+  bool set = brush != QBrush();
+
+  if (!set) {
+    opt.text = i18nc("No text or background colour set", "None set");
     brush = Qt::white;
   }
 
-  opt.palette.setBrush(QPalette::Window, brush);
-  //opt.palette.setBrush(QPalette::Button, brush);
-  //opt.palette.setBrush(QPalette::ButtonText, brush);
-
   m_widget->style()->drawControl(QStyle::CE_PushButton, &opt, painter, m_widget);
+
+  if (set)
+    painter->fillRect(m_widget->style()->subElementRect(QStyle::SE_PushButtonContents, &opt,m_widget), brush);
 }
 
 KateStyleTreeWidgetItem::KateStyleTreeWidgetItem( QTreeWidgetItem *parent, const QString & stylename,

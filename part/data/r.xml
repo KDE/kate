@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
   <!-- Kate 2.0 (KDE 3.0) highlighting module for R
-       version 0.2: (c) 2002 E.L. Willighagen, GPL v2 license
+       based on an earlier version by E.L. Willighagen.
+       version 0.3: (c) 2006 Thomas Friedrichsmeier and the RKWard Team, GPL v2 license
 
-       Kate: http://www.kde.org/kate
-       R   : http://www.r-project.org/
+       Kate   : http://www.kde.org/kate
+       R      : http://www.r-project.org/
+       RKWard : http://rkward.sourceforge.net/
     -->
-<language version="1.04" kateversion="2.1" name="R Script" section="Scripts" extensions="*.R" mimetype="" author="E.L. Willighagen" license="GPL">
+<language version="1.05" kateversion="2.1" name="R Script" section="Scripts" extensions="*.R" mimetype="" author="RKWard Team" license="GPL">
   <highlighting>
     <list name="controls">
       <item> for </item>
@@ -34,9 +36,10 @@
          <keyword attribute="Control Structure" context="#stay" String="controls"/>
          <keyword attribute="Reserved Words" context="#stay" String="words"/>
          <DetectChar attribute="String" context="ctx1" char="&quot;"/>
-         <RegExpr attribute="Keyword" context="#stay" String="[a-zA-Z_]+ *\("/>
-         <DetectChar attribute="Keyword" context="#stay" char="("/>
-         <DetectChar attribute="Keyword" context="#stay" char=")"/>
+         <RegExpr attribute="Keyword" context="#stay" String="[a-zA-Z_]+[a-zA-Z_\.0-9]* *(?=[\s]*[(])"/>
+         <RegExpr attribute="Keyword" context="#stay" String="\.[a-zA-Z_\.]+[a-zA-Z_\.0-9]* *(?=[\s]*[(])"/>
+         <Float attribute="Float" context="#stay"/>
+         <Int attribute="Int" context="#stay"/>
          <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
          <AnyChar attribute="Operators" context="#stay" String="+-*/^:$~!&amp;|=&gt;&lt;@"/>
          <RegExpr attribute="Operators" context="#stay" String="%[a-zA-Z_]*%"/>
@@ -44,19 +47,22 @@
    
        <context attribute="String" lineEndContext="#stay" name="ctx1">
          <DetectChar attribute="String" context="#pop" char="&quot;"/>
+         <HlCStringChar attribute="String Char" context="#stay"/>
        </context>
-
+   
     </contexts>
     
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Keyword" defStyleNum="dsKeyword" bold="0" italic="1"/>
+      <itemData name="Keyword" defStyleNum="dsKeyword" italic="1"/>
       <itemData name="String" defStyleNum="dsString"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Control Structure" defStyleNum="dsNormal" color="#0000ff" selColor="#00ff00"/>
       <itemData name="Reserved Words" defStyleNum="dsOthers"/>
       <itemData name="Operators" defStyleNum="dsNormal" color="#aa5500" selColor="#000077"/>
-      <itemData name="Infix" defStyleNum="dsNormal" color="#aa5500" selColor="#000077"/>
+      <itemData name="String Char"  defStyleNum="dsChar"/>
+      <itemData name="Float" defStyleNum="dsFloat"/>
+      <itemData name="Int" defStyleNum="dsDecVal"/>
     </itemDatas>
   </highlighting>
   
@@ -67,4 +73,3 @@
     <keywords casesensitive="1" />
   </general>
 </language>
-<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

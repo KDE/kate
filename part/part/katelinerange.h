@@ -85,6 +85,9 @@ class KateLineLayout : public KShared
     void setLayout(QTextLayout* layout);
     void invalidateLayout();
 
+    bool isLayoutDirty() const;
+    void setLayoutDirty(bool dirty = true);
+
 private:
     // Disable copy
     KateLineLayout(const KateLineLayout& copy);
@@ -99,6 +102,8 @@ private:
 
     QTextLayout* m_layout;
     QList<bool> m_dirtyList;
+
+    bool m_layoutDirty;
 };
 
 typedef KSharedPtr<KateLineLayout> KateLineLayoutPtr;

@@ -222,6 +222,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   // update is called in KateView, after construction and layout is over
   // but before any other kateviewinternal call
+
+  // Thread-safe updateView() mechanism
+  connect(this, SIGNAL(requestViewUpdate()), this, SLOT(updateView()), Qt::QueuedConnection);
 }
 
 KateViewInternal::~KateViewInternal ()
@@ -3111,6 +3114,56 @@ KateViewInternal::DynamicRangeHL::~ DynamicRangeHL( )
 void KateViewInternal::cursorMoved( )
 {
   dynamicMoved(false);
+}
+
+void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool realCursors )
+{
+  int startLine = realCursors ? range.start().line() : toRealCursor(range.start()).line();
+  int endLine = realCursors ? range.end().line() : toRealCursor(range.end()).line();
+  cache()->relayoutLines(startLine, endLine);
+  emit requestViewUpdate();
+}
+
+void KateViewInternal::rangePositionChanged( KTextEditor::SmartRange * range )
+{
+  relayoutRange(*range);
+}
+
+void KateViewInternal::rangeDeleted( KTextEditor::SmartRange * range )
+{
+  relayoutRange(*range);
+}
+
+void KateViewInternal::childRangeInserted( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
+{
+  relayoutRange(*child);
+  child->addWatcher(this);
+}
+
+void KateViewInternal::rangeAttributeChanged( KTextEditor::SmartRange * range, KTextEditor::Attribute * currentAttribute, KTextEditor::Attribute * previousAttribute )
+{
+  if (currentAttribute != previousAttribute)
+    relayoutRange(*range);
+}
+
+void KateViewInternal::childRangeRemoved( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
+{
+  relayoutRange(*child);
+  child->removeWatcher(this);
+}
+
+void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
+{
+  range->addWatcher(this);
+  foreach (KTextEditor::SmartRange* child, range->childRanges())
+    addHighlightRange(child);
+}
+
+void KateViewInternal::removeHighlightRange(KTextEditor::SmartRange* range)
+{
+  range->removeWatcher(this);
+  foreach (KTextEditor::SmartRange* child, range->childRanges())
+    removeHighlightRange(child);
 }
 
 #if 0

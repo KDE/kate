@@ -4759,11 +4759,13 @@ bool KateDocument::replaceText( const KTextEditor::Range & range, const QString 
 
 void KateDocument::addHighlightToDocument( KTextEditor::SmartRange * topRange, bool supportDynamic )
 {
+  if (m_documentHighlights.contains(topRange))
+    return;
+
   m_documentHighlights.append(topRange);
 
   // Deal with the range being deleted externally
-  connect(topRange->notifier(), SIGNAL(deleted(KTextEditor::SmartRange*)), SLOT(removeHighlightFromDocument(KTextEditor::SmartRange*)));
-  static_cast<KateSmartRangeNotifier*>(topRange->notifier())->setConnectedInternally();
+  topRange->addWatcher(this);
 
   if (supportDynamic) {
     m_documentDynamicHighlights.append(topRange);
@@ -4771,12 +4773,19 @@ void KateDocument::addHighlightToDocument( KTextEditor::SmartRange * topRange, b
   }
 
   foreach (KateView * view, m_views)
-    view->tagRange(*topRange, true);
+    view->addHighlightRange(topRange);
 }
 
 void KateDocument::removeHighlightFromDocument( KTextEditor::SmartRange * topRange )
 {
+  if (!m_documentHighlights.contains(topRange))
+    return;
+
+  foreach (KateView * view, m_views)
+    view->removeHighlightRange(topRange);
+
   m_documentHighlights.removeAll(topRange);
+  topRange->removeWatcher(this);
 
   if (m_documentDynamicHighlights.contains(topRange)) {
     m_documentDynamicHighlights.removeAll(topRange);
@@ -4806,16 +4815,22 @@ const QList< KTextEditor::SmartRange * > KateDocument::viewHighlights( KTextEdit
 
 void KateDocument::addActionsToDocument( KTextEditor::SmartRange * topRange )
 {
+  if (m_documentActions.contains(topRange))
+    return;
+
   m_documentActions.append(topRange);
 
   // Deal with the range being deleted externally
-  connect(topRange->notifier(), SIGNAL(deleted(KTextEditor::SmartRange*)), SLOT(removeActionsFromDocument(KTextEditor::SmartRange*)));
-  static_cast<KateSmartRangeNotifier*>(topRange->notifier())->setConnectedInternally();
+  topRange->addWatcher(this);
 }
 
 void KateDocument::removeActionsFromDocument( KTextEditor::SmartRange * topRange )
 {
+  if (!m_documentActions.contains(topRange))
+    return;
+
   m_documentActions.removeAll(topRange);
+  topRange->removeWatcher(this);
 }
 
 const QList< KTextEditor::SmartRange * > KateDocument::documentActions( ) const
@@ -4947,6 +4962,12 @@ void KateDocument::setUndoDontMerge(bool dontMerge)
 bool KateDocument::isEditRunning() const
 {
   return editIsRunning;
+}
+
+void KateDocument::rangeDeleted( KTextEditor::SmartRange * range )
+{
+  removeHighlightFromDocument(range);
+  removeActionsFromDocument(range);
 }
 
 //END KTextEditor::SmartInterface

@@ -28,8 +28,6 @@
 
 KateSmartRange::KateSmartRange(const KTextEditor::Range& range, KateDocument* doc, KTextEditor::SmartRange* parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior)
   : KTextEditor::SmartRange(new KateSmartCursor(range.start(), doc), new KateSmartCursor(range.end(), doc), parent, insertBehavior)
-  , m_notifier(0L)
-  , m_watcher(0L)
 //  , m_feedbackLevel(NoFeedback)
   , m_dynamicDoc(0L)
   , m_mouseOver(false)
@@ -40,8 +38,6 @@ KateSmartRange::KateSmartRange(const KTextEditor::Range& range, KateDocument* do
 
 KateSmartRange::KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* parent)
   : KTextEditor::SmartRange(new KateSmartCursor(doc), new KateSmartCursor(doc), parent)
-  , m_notifier(0L)
-  , m_watcher(0L)
 //  , m_feedbackLevel(NoFeedback)
   , m_dynamicDoc(0L)
   , m_mouseOver(false)
@@ -52,8 +48,6 @@ KateSmartRange::KateSmartRange(KateDocument* doc, KTextEditor::SmartRange* paren
 
 KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior )
   : KTextEditor::SmartRange(start, end, parent, insertBehavior)
-  , m_notifier(0L)
-  , m_watcher(0L)
 //  , m_feedbackLevel(NoFeedback)
   , m_dynamicDoc(0L)
   , m_mouseOver(false)
@@ -64,23 +58,19 @@ KateSmartRange::KateSmartRange( KateSmartCursor * start, KateSmartCursor * end, 
 
 KateSmartRange::~KateSmartRange()
 {
-  if (m_notifier) {
-    emit m_notifier->deleted(this);
-    delete m_notifier;
+  foreach (KTextEditor::SmartRangeNotifier* n, notifiers()) {
+    emit static_cast<KateSmartRangeNotifier*>(n)->rangeDeleted(this);
+    // FIXME delete the notifier
   }
 
-  if (m_watcher)
-    m_watcher->deleted(this);
+  foreach (KTextEditor::SmartRangeWatcher* w, watchers())
+    w->rangeDeleted(this);
 
   if (m_start)
     kateDocument()->smartManager()->rangeDeleted(this);
 
   foreach (KateSmartRangePtr* ptr, m_pointers)
     ptr->deleted();
-}
-
-void KateSmartRange::checkFeedback( )
-{
 }
 
 KateDocument * KateSmartRange::kateDocument( ) const
@@ -90,7 +80,6 @@ KateDocument * KateSmartRange::kateDocument( ) const
 
 KateSmartRangeNotifier::KateSmartRangeNotifier(KateSmartRange* owner)
   : m_owner(owner)
-  , m_connectedInternally(false)
 {
 }
 
@@ -110,39 +99,9 @@ void KateSmartRangeNotifier::disconnectNotify(const char* signal)
       m_owner->checkFeedback();
 }
 
-bool KateSmartRange::hasNotifier( ) const
+KTextEditor::SmartRangeNotifier* KateSmartRange::createNotifier()
 {
-  return m_notifier;
-}
-
-KTextEditor::SmartRangeNotifier* KateSmartRange::notifier()
-{
-  if (!m_notifier) {
-    m_notifier = new KateSmartRangeNotifier(this);
-    checkFeedback();
-  }
-  return m_notifier;
-}
-
-void KateSmartRange::deleteNotifier()
-{
-  if (m_notifier && m_notifier->connectedInternally())
-    return;
-
-  delete m_notifier;
-  m_notifier = 0L;
-  checkFeedback();
-}
-
-KTextEditor::SmartRangeWatcher * KateSmartRange::watcher( ) const
-{
-  return m_watcher;
-}
-
-void KateSmartRange::setWatcher(KTextEditor::SmartRangeWatcher* watcher)
-{
-  m_watcher = watcher;
-  checkFeedback();
+  return new KateSmartRangeNotifier(this);
 }
 
 void KateSmartRange::translated(const KateEditInfo& edit)
@@ -155,42 +114,42 @@ void KateSmartRange::translated(const KateEditInfo& edit)
 
   if (kStart().lastPosition() != kStart()) {
     // position changed
-    if (m_notifier)
-      emit m_notifier->positionChanged(this);
-    if (m_watcher)
-      m_watcher->positionChanged(this);
+    foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
+      emit static_cast<KateSmartRangeNotifier*>(n)->rangePositionChanged(this);
+    foreach (KTextEditor::SmartRangeWatcher* w, watchers())
+      w->rangePositionChanged(this);
   }
 
   if (kStart().lastPosition() <= edit.oldRange().end()) {
     // contents changed
-    if (m_notifier)
-      emit m_notifier->contentsChanged(this);
-    if (m_watcher)
-      m_watcher->contentsChanged(this);
+    foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
+      emit static_cast<KateSmartRangeNotifier*>(n)->rangeContentsChanged(this);
+    foreach (KTextEditor::SmartRangeWatcher* w, watchers())
+      w->rangeContentsChanged(this);
 
     /*if (kStart().lastPosition() >= edit.start() && kStart().lastPosition() < edit.oldRange().end()) {
       // first character deleted
-      if (m_notifier)
-        emit m_notifier->firstCharacterDeleted(this);
-      if (m_watcher)
-        m_watcher->firstCharacterDeleted(this);
+      foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
+        emit static_cast<KateSmartRangeNotifier*>(n)->firstCharacterDeleted(this);
+      foreach (KTextEditor::SmartRangeWatcher* w, watchers())
+        w->firstCharacterDeleted(this);
     }
 
     if (kEnd().lastPosition() >= edit.start() && kEnd().lastPosition() <= edit.oldRange().end()) {
       // last character deleted
-      if (m_notifier)
-        emit m_notifier->lastCharacterDeleted(this);
-      if (m_watcher)
-        m_watcher->lastCharacterDeleted(this);
+      foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
+        emit static_cast<KateSmartRangeNotifier*>(n)->lastCharacterDeleted(this);
+      foreach (KTextEditor::SmartRangeWatcher* w, watchers())
+        w->lastCharacterDeleted(this);
     }*/
   }
 
   if (start() == end() && kStart().lastPosition() != kEnd().lastPosition()) {
     // range eliminated
-    if (m_notifier)
-      emit m_notifier->eliminated(this);
-    if (m_watcher)
-      m_watcher->eliminated(this);
+    foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
+      emit static_cast<KateSmartRangeNotifier*>(n)->rangeEliminated(this);
+    foreach (KTextEditor::SmartRangeWatcher* w, watchers())
+      w->rangeEliminated(this);
   }
 
   kStart().resetLastPosition();
@@ -200,20 +159,20 @@ void KateSmartRange::translated(const KateEditInfo& edit)
 void KateSmartRange::feedbackMostSpecific( KateSmartRange * mostSpecific )
 {
   // most specific range feedback
-  if (m_notifier)
-    emit m_notifier->contentsChanged(this, mostSpecific);
-  if (m_watcher)
-    m_watcher->contentsChanged(this, mostSpecific);
+  foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
+    emit static_cast<KateSmartRangeNotifier*>(n)->rangeContentsChanged(this, mostSpecific);
+  foreach (KTextEditor::SmartRangeWatcher* w, watchers())
+    w->rangeContentsChanged(this, mostSpecific);
 }
 
 void KateSmartRange::shifted( )
 {
   if (kStart().lastPosition() != kStart()) {
     // position changed
-    if (m_notifier)
-      emit m_notifier->positionChanged(this);
-    if (m_watcher)
-      m_watcher->positionChanged(this);
+    foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
+      emit static_cast<KateSmartRangeNotifier*>(n)->rangePositionChanged(this);
+    foreach (KTextEditor::SmartRangeWatcher* w, watchers())
+      w->rangePositionChanged(this);
   }
 
   kStart().resetLastPosition();
@@ -252,16 +211,6 @@ void KateSmartRange::setInternal( )
   m_isInternal = true;
   kStart().setInternal();
   kEnd().setInternal();
-}
-
-void KateSmartRangeNotifier::setConnectedInternally( )
-{
-  m_connectedInternally = true;
-}
-
-bool KateSmartRangeNotifier::connectedInternally( ) const
-{
-  return m_connectedInternally;
 }
 
 /*KateDynamicAnimation * KateSmartRange::dynamicForView( const KateView * const view) const

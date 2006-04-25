@@ -44,16 +44,12 @@ class KateSmartRangeNotifier : public KTextEditor::SmartRangeNotifier
      */
     bool needsPositionChanges() const;
 
-    bool connectedInternally() const;
-    void setConnectedInternally();
-
   protected:
     virtual void connectNotify(const char* signal);
     virtual void disconnectNotify(const char* signal);
 
   private:
     KateSmartRange* m_owner;
-    bool m_connectedInternally;
 };
 
 class KateSmartRangePtr;
@@ -107,12 +103,6 @@ class KateSmartRange : public KTextEditor::SmartRange
       Redraw      = 0x2
     };
 
-    virtual bool hasNotifier() const;
-    virtual KTextEditor::SmartRangeNotifier* notifier();
-    virtual void deleteNotifier();
-    virtual KTextEditor::SmartRangeWatcher* watcher() const;
-    virtual void setWatcher(KTextEditor::SmartRangeWatcher* watcher);
-
     virtual void setParentRange(SmartRange* r);
 
     inline bool hasDynamic() { return m_dynamic.count(); }
@@ -136,7 +126,7 @@ class KateSmartRange : public KTextEditor::SmartRange
     };
     Q_DECLARE_FLAGS(FeedbackLevels, FeedbackLevel);*/
 
-    bool feedbackEnabled() const { return m_notifier || m_watcher; }
+    bool feedbackEnabled() const { return notifiers().count() || watchers().count(); }
     // request is internal!! Only KateSmartGroup gets to set it to false.
     /*void setFeedbackLevel(int feedbackLevel, bool request = true);*/
 
@@ -152,13 +142,11 @@ class KateSmartRange : public KTextEditor::SmartRange
     inline KateSmartRange& operator=(const KTextEditor::Range& r) { setRange(r); return *this; }
 
   protected:
-    virtual void checkFeedback();
+    virtual KTextEditor::SmartRangeNotifier* createNotifier();
 
   private:
     void init();
 
-    KateSmartRangeNotifier* m_notifier;
-    KTextEditor::SmartRangeWatcher* m_watcher;
     KateDynamicAnimation* m_dynamicDoc;
     QList<KateDynamicAnimation*> m_dynamic;
     QList<KateSmartRangePtr*> m_pointers;

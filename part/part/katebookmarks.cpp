@@ -152,7 +152,6 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
   int line = m_view->cursorPosition().line();
   const QRegExp re("&(?!&)");
   int idx( -1 );
-  int old_menu_count = menu.actions().count();
   KTextEditor::Mark *next = 0;
   KTextEditor::Mark *prev = 0;
 
@@ -161,8 +160,9 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
 
   if ( !m.isEmpty() )
     menu.addSeparator();
-  
+
   int i = 0;
+  QAction* firstNewAction = 0L;
   for (QHash<int, KTextEditor::Mark*>::const_iterator it = m.constBegin(); it != m.constEnd(); ++it, ++i)
   {
     if( it.value()->type & KTextEditor::MarkInterface::markType01 )
@@ -196,10 +196,13 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
         menu.insertAction(before,a);
         connect(a,SIGNAL(activated()),this,SLOT(gotoLine()));
         a->setData(it.value()->line);
-      }else
-        menu.addAction(
-          QString("%1 - \"%2\"").arg( it.value()->line+1 ).arg( bText ),
-          this, SLOT(gotoLine()))->setData(it.value()->line);
+        if (!firstNewAction) firstNewAction = a;
+
+      } else {
+        QAction* a = menu.addAction(QString("%1 - \"%2\"").arg( it.value()->line+1 ).arg( bText ), this, SLOT(gotoLine()));
+        a->setData(it.value()->line);
+        if (!firstNewAction) firstNewAction = a;
+      }
 
       if ( it.value()->line < line )
       {
@@ -215,24 +218,23 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
     }
   }
 
-  idx = ++old_menu_count;
   if ( next )
   {
     m_goNext->setText( i18n("&Next: %1 - \"%2\"",  next->line + 1 ,
           KStringHandler::rsqueeze( m_view->doc()->line( next->line ), 24 ) ) );
-    m_goNext->plug( &menu, idx );
-    idx++;
+    menu.insertAction(firstNewAction, m_goNext);
+    firstNewAction = m_goNext;
   }
   if ( prev )
   {
     m_goPrevious->setText( i18n("&Previous: %1 - \"%2\"", prev->line + 1 ,
           KStringHandler::rsqueeze( m_view->doc()->line( prev->line ), 24 ) ) );
-    m_goPrevious->plug( &menu, idx );
-    idx++;
+    menu.insertAction(firstNewAction, m_goPrevious);
+    firstNewAction = m_goPrevious;
   }
-  if ( next || prev )
-    menu.addSeparator();
 
+  if ( next || prev )
+    menu.insertSeparator(firstNewAction);
 }
 
 void KateBookmarks::gotoLine()
@@ -251,8 +253,8 @@ void KateBookmarks::bookmarkMenuAboutToShow()
   m_bookmarksMenu->clear();
   m_bookmarkToggle->setChecked( m_view->doc()->mark( m_view->cursorPosition().line() )
                                 & KTextEditor::MarkInterface::markType01 );
-  m_bookmarkToggle->plug( m_bookmarksMenu );
-  m_bookmarkClear->plug( m_bookmarksMenu );
+  m_bookmarksMenu->addAction(m_bookmarkToggle);
+  m_bookmarksMenu->addAction(m_bookmarkClear);
 
   insertBookmarks(*m_bookmarksMenu);
 }
@@ -262,12 +264,12 @@ void KateBookmarks::bookmarkMenuAboutToShow()
 */
 void KateBookmarks::bookmarkMenuAboutToHide()
 {
-  m_bookmarkToggle->plug( m_bookmarksMenu );
-  m_bookmarkClear->plug( m_bookmarksMenu );
+  m_bookmarksMenu->addAction(m_bookmarkToggle);
+  m_bookmarksMenu->addAction(m_bookmarkClear);
   m_goNext->setText( i18n("Next Bookmark") );
-  m_goNext->plug( m_bookmarksMenu );
+  m_bookmarksMenu->addAction(m_goNext);
   m_goPrevious->setText( i18n("Previous Bookmark") );
-  m_goPrevious->plug( m_bookmarksMenu );
+  m_bookmarksMenu->addAction(m_goPrevious);
 }
 
 void KateBookmarks::goNext()

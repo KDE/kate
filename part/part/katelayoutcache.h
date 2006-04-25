@@ -91,6 +91,8 @@ class KateLayoutCache
     KTextEditor::Cursor viewCacheEnd() const;
     void updateViewCache(const KTextEditor::Cursor& startPos, int newViewLineCount = -1, int viewLinesScrolled = 0);
 
+    void relayoutLines(int startRealLine, int endRealLine);
+
     // find the index of the last view line for a specific line
     int lastViewLine(int realLine) const;
     // find the view line of cursor c (0 = same line, 1 = down one, etc.)

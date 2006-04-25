@@ -31,6 +31,7 @@
 #include <ktexteditor/variableinterface.h>
 #include <ktexteditor/modificationinterface.h>
 #include <ktexteditor/smartinterface.h>
+#include <ktexteditor/rangefeedback.h>
 
 #include <dcopobject.h>
 
@@ -80,6 +81,7 @@ class KateDocument : public KTextEditor::Document,
                      public KTextEditor::VariableInterface,
                      public KTextEditor::ModificationInterface,
                      public KTextEditor::SmartInterface,
+                     private KTextEditor::SmartRangeWatcher,
                      public DCOPObject
 {
   K_DCOP
@@ -522,6 +524,9 @@ class KateDocument : public KTextEditor::Document,
     virtual void attributeNotDynamic(KTextEditor::Attribute* a);
 
   private:
+    // Smart range watcher overrides
+    virtual void rangeDeleted(KTextEditor::SmartRange* range);
+
     KateSmartManager* m_smartManager;
     QList<KTextEditor::SmartRange*> m_documentHighlights;
     QList<KTextEditor::SmartRange*> m_documentDynamicHighlights;

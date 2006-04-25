@@ -31,6 +31,7 @@
 #include <ktexteditor/codecompletion2.h>
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/templateinterface.h>
+#include <ktexteditor/rangefeedback.h>
 
 #include <qpointer.h>
 #include <QMenu>
@@ -72,7 +73,8 @@ class KateView : public KTextEditor::View,
                  public KTextEditor::CodeCompletionInterface,
                  public KTextEditor::SessionConfigInterface,
                  public KTextEditor::TemplateInterface,
-                 public KTextEditor::CodeCompletionInterface2
+                 public KTextEditor::CodeCompletionInterface2,
+                 private KTextEditor::SmartRangeWatcher
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::TextHintInterface)
@@ -277,6 +279,10 @@ class KateView : public KTextEditor::View,
     const QList<KTextEditor::SmartRange*>& actions() const;
     void clearActions();
 
+    // For the document to pass new document-level highlighting ranges in
+    void addHighlightRange(KTextEditor::SmartRange* range);
+    void removeHighlightRange(KTextEditor::SmartRange* range);
+
   Q_SIGNALS:
     void dynamicHighlightAdded(KateSmartRange* range);
     void dynamicHighlightRemoved(KateSmartRange* range);
@@ -286,6 +292,9 @@ class KateView : public KTextEditor::View,
     void removeActions(KTextEditor::SmartRange* topRange);
 
   private:
+    // Smart range watcher overrides
+    virtual void rangeDeleted(KTextEditor::SmartRange* range);
+
     QList<KTextEditor::SmartRange*> m_externalHighlights;
     QList<KTextEditor::SmartRange*> m_externalHighlightsDynamic;
     QList<KTextEditor::SmartRange*> m_internalHighlights;
@@ -337,6 +346,8 @@ class KateView : public KTextEditor::View,
     bool tagLines (KTextEditor::Range range, bool realRange = false);
 
     void tagAll ();
+
+    void relayoutRange(const KTextEditor::Range& range, bool realLines = false);
 
     void clear ();
 

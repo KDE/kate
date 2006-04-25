@@ -26,6 +26,7 @@
 #define _KATE_VIEW_INTERNAL_
 
 #include <ktexteditor/attribute.h>
+#include <ktexteditor/rangefeedback.h>
 
 #include "katesmartcursor.h"
 #include "katesmartrange.h"
@@ -45,7 +46,7 @@ class KateScrollBar;
 
 class QScrollBar;
 
-class KateViewInternal : public QWidget
+class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 {
     Q_OBJECT
 
@@ -96,13 +97,20 @@ class KateViewInternal : public QWidget
 
     void tagAll ();
 
+    void relayoutRange(const KTextEditor::Range& range, bool realCursors = true);
+
     void updateDirty();
 
     void clear ();
+
+  signals:
+    // Trigger this signal whenever you want to call updateView() and may not be in the same thread.
+    void requestViewUpdate();
   //END
 
-  private:
+  private slots:
     void updateView (bool changed = false, int viewLinesScrolled = 0);
+  private:
     void makeVisible (const KTextEditor::Cursor& c, uint endCol, bool force = false, bool center = false, bool calledExternally = false);
 
   public:
@@ -392,8 +400,13 @@ class KateViewInternal : public QWidget
     KTextEditor::Range m_imPreedit;
     KTextEditor::Cursor m_imPreeditSelStart;
 
-  // Dynamic highlighting
+  // Arbitrary highlighting
+  public:
+    void addHighlightRange(KTextEditor::SmartRange* range);
+    void removeHighlightRange(KTextEditor::SmartRange* range);
+
   private:
+    // Dynamic highlighting
     struct DynamicRangeHL {
       DynamicRangeHL(KateSmartRange* top);
       ~DynamicRangeHL();
@@ -411,6 +424,14 @@ class KateViewInternal : public QWidget
     void dynamicMoved(bool mouse);
     void startDynamic(DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
     void endDynamic(DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type);
+
+  private:
+    // Overrides for watched highlighting ranges
+    void rangePositionChanged(KTextEditor::SmartRange* range);
+    void rangeDeleted(KTextEditor::SmartRange* range);
+    void childRangeInserted(KTextEditor::SmartRange* range, KTextEditor::SmartRange* child);
+    void childRangeRemoved(KTextEditor::SmartRange* range, KTextEditor::SmartRange* child);
+    void rangeAttributeChanged(KTextEditor::SmartRange* range, KTextEditor::Attribute* currentAttribute, KTextEditor::Attribute* previousAttribute);
 
   public Q_SLOTS:
     void dynamicHighlightAdded(KateSmartRange* range);

@@ -710,7 +710,10 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   Q_ASSERT(lineLayout->textLine());
   Q_ASSERT(currentFont());
 
-  QTextLayout* l = new QTextLayout(lineLayout->textLine()->string(), config()->fontStruct()->font(false, false));
+  QTextLayout* l = lineLayout->layout();
+  if (!l)
+    l = new QTextLayout(lineLayout->textLine()->string(), config()->fontStruct()->font(false, false));
+
   l->setCacheEnabled(cacheLayout);
 
   // Initial setup of the QTextLayout.

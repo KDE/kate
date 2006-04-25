@@ -32,6 +32,7 @@ KateLineLayout::KateLineLayout(KateDocument* doc)
   , m_virtualLine(-1)
   , m_shiftX(0)
   , m_layout(0L)
+  , m_layoutDirty(true)
 {
   Q_ASSERT(doc);
 }
@@ -50,6 +51,7 @@ void KateLineLayout::clear()
   // not touching dirty
   delete m_layout;
   m_layout = 0L;
+  // not touching layout dirty
 }
 
 bool KateLineLayout::includesCursor(const KTextEditor::Cursor& realCursor) const
@@ -124,8 +126,12 @@ QTextLayout* KateLineLayout::layout() const
 
 void KateLineLayout::setLayout(QTextLayout* layout)
 {
-  delete m_layout;
-  m_layout = layout;
+  if (m_layout != layout) {
+    delete m_layout;
+    m_layout = layout;
+  }
+
+  m_layoutDirty = !m_layout;
   m_dirtyList.clear();
   if (m_layout)
     for (int i = 0; i < qMax(1, m_layout->lineCount()); ++i)
@@ -204,6 +210,16 @@ int KateLineLayout::viewLineForColumn( int column ) const
       return i;
   }
   return i;
+}
+
+bool KateLineLayout::isLayoutDirty( ) const
+{
+  return m_layoutDirty;
+}
+
+void KateLineLayout::setLayoutDirty( bool dirty )
+{
+  m_layoutDirty = dirty;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

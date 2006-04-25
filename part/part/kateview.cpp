@@ -1226,6 +1226,11 @@ void KateView::tagAll ()
   m_viewInternal->tagAll ();
 }
 
+void KateView::relayoutRange( const KTextEditor::Range & range, bool realLines )
+{
+  return m_viewInternal->relayoutRange(range, realLines);
+}
+
 void KateView::clear ()
 {
   m_viewInternal->clear ();
@@ -1915,7 +1920,7 @@ bool KateView::tagLines( KTextEditor::Range range, bool realRange )
 void KateView::addInternalHighlight( KTextEditor::SmartRange * topRange )
 {
   m_internalHighlights.append(topRange);
-  tagRange(*topRange, true);
+  relayoutRange(*topRange, true);
 }
 
 void KateView::removeInternalHighlight( KTextEditor::SmartRange * topRange )
@@ -1928,30 +1933,48 @@ const QList< KTextEditor::SmartRange * > & KateView::internalHighlights( ) const
   return m_internalHighlights;
 }
 
+void KateView::rangeDeleted( KTextEditor::SmartRange * range )
+{
+  removeExternalHighlight(range);
+  removeActions(range);
+}
+
 void KateView::addExternalHighlight( KTextEditor::SmartRange * topRange, bool supportDynamic )
 {
+  if (m_externalHighlights.contains(topRange))
+    return;
+
   m_externalHighlights.append(topRange);
 
   // Deal with the range being deleted externally
-  connect(topRange->notifier(), SIGNAL(deleted(KTextEditor::SmartRange*)), SLOT(removeExternalHighlight(KTextEditor::SmartRange*)));
-  static_cast<KateSmartRangeNotifier*>(topRange->notifier())->setConnectedInternally();
+  topRange->addWatcher(this);
 
   if (supportDynamic) {
     m_externalHighlightsDynamic.append(topRange);
     emit dynamicHighlightAdded(static_cast<KateSmartRange*>(topRange));
   }
 
-  tagRange(*topRange, true);
+  relayoutRange(*topRange, true);
+
+  addHighlightRange(topRange);
 }
 
 void KateView::removeExternalHighlight( KTextEditor::SmartRange * topRange )
 {
+  if (!m_externalHighlights.contains(topRange))
+    return;
+
   m_externalHighlights.removeAll(topRange);
+
+  if (!m_actions.contains(topRange))
+    topRange->removeWatcher(this);
 
   if (m_externalHighlightsDynamic.contains(topRange)) {
     m_externalHighlightsDynamic.removeAll(topRange);
     emit dynamicHighlightRemoved(static_cast<KateSmartRange*>(topRange));
   }
+
+  removeHighlightRange(topRange);
 }
 
 const QList< KTextEditor::SmartRange * > & KateView::externalHighlights( ) const
@@ -1959,18 +1982,36 @@ const QList< KTextEditor::SmartRange * > & KateView::externalHighlights( ) const
   return m_externalHighlights;
 }
 
+void KateView::addHighlightRange( KTextEditor::SmartRange * range )
+{
+  m_viewInternal->addHighlightRange(range);
+}
+
+void KateView::removeHighlightRange( KTextEditor::SmartRange * range )
+{
+  m_viewInternal->removeHighlightRange(range);
+}
+
 void KateView::addActions( KTextEditor::SmartRange * topRange )
 {
+  if (m_actions.contains(topRange))
+    return;
+
   m_actions.append(topRange);
 
   // Deal with the range being deleted externally
-  connect(topRange->notifier(), SIGNAL(deleted(KTextEditor::SmartRange*)), SLOT(removeActions(KTextEditor::SmartRange*)));
-  static_cast<KateSmartRangeNotifier*>(topRange->notifier())->setConnectedInternally();
+  topRange->addWatcher(this);
 }
 
 void KateView::removeActions( KTextEditor::SmartRange * topRange )
 {
+  if (!m_actions.contains(topRange))
+    return;
+
   m_actions.removeAll(topRange);
+
+  if (!m_externalHighlights.contains(topRange))
+    topRange->removeWatcher(this);
 }
 
 const QList< KTextEditor::SmartRange * > & KateView::actions( ) const

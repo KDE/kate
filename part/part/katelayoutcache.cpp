@@ -119,8 +119,8 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
     Q_ASSERT(_viewLine < l->viewLineCount());
 
     if (i < m_textLayouts.count()) {
-      if (m_textLayouts[i].line() != realLine || m_textLayouts[i].viewLine() != _viewLine || !m_textLayouts[i].isValid())
-        m_textLayouts[i] = l->viewLine(_viewLine);
+      //if (m_textLayouts[i].line() != realLine || m_textLayouts[i].viewLine() != _viewLine || !m_textLayouts[i].isValid())
+      m_textLayouts[i] = l->viewLine(_viewLine);
 
     } else {
       m_textLayouts.append(l->viewLine(_viewLine));
@@ -150,7 +150,9 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine ) const
       l->setVirtualLine(virtualLine);
     if (!l->isValid())
       m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
-    Q_ASSERT(l->isValid());
+    else if (l->isLayoutDirty())
+      m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
+    Q_ASSERT(l->isValid() && !l->isLayoutDirty());
     return l;
   }
 
@@ -422,4 +424,11 @@ void KateLayoutCache::setWrap( bool wrap )
 {
   m_wrap = wrap;
   clear();
+}
+
+void KateLayoutCache::relayoutLines( int startRealLine, int endRealLine )
+{
+  for (int i = startRealLine; i <= endRealLine; ++i)
+    if (m_lineLayouts.contains(i))
+      m_lineLayouts[i]->setLayoutDirty();
 }

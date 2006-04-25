@@ -139,20 +139,21 @@ KTextEditor::Cursor KateTextLayout::start( ) const
   return KTextEditor::Cursor(line(), startCol());
 }
 
-int KateTextLayout::endCol( ) const
+int KateTextLayout::endCol(bool indicateEOL) const
 {
   if (!isValid())
     return 0;
 
-  if (viewLine() == kateLineLayout()->viewLineCount() - 1)
-    return -1;
+  if (indicateEOL)
+    if (viewLine() == kateLineLayout()->viewLineCount() - 1)
+      return -1;
 
   return startCol() + m_textLayout.textLength();
 }
 
-KTextEditor::Cursor KateTextLayout::end( ) const
+KTextEditor::Cursor KateTextLayout::end(bool indicateEOL) const
 {
-  return KTextEditor::Cursor(line(), endCol());
+  return KTextEditor::Cursor(line(), endCol(indicateEOL));
 }
 
 int KateTextLayout::length( ) const

@@ -1820,27 +1820,29 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
     end = toVirtualCursor(end);
   }
 
-  if (end.line() < (int)startLine())
+  if (end.line() < startLine())
   {
     //kDebug(13030)<<"end<startLine"<<endl;
     return false;
   }
-  if (start.line() > (int)endLine())
+  if (start.line() > endLine())
   {
     //kDebug(13030)<<"start> endLine"<<start<<" "<<((int)endLine())<<endl;
     return false;
   }
 
-  //kDebug(13030) << "tagLines( [" << start.line << "," << start.col << "], [" << end.line << "," << end.col << "] )\n";
+  //kDebug(13030) << "tagLines( [" << start << "], [" << end << "] )" << endl;
 
   bool ret = false;
 
   for (int z = 0; z < cache()->viewCacheLineCount(); z++)
   {
-    if ((cache()->viewLine(z).virtualLine() > start.line() || (cache()->viewLine(z).virtualLine() == start.line() && cache()->viewLine(z).endCol() >= start.column() && start.column() != -1)) && (cache()->viewLine(z).virtualLine() < end.line() || (cache()->viewLine(z).virtualLine() == end.line() && (cache()->viewLine(z).startCol() <= end.column() || end.column() == -1)))) {
+    KateTextLayout& line = cache()->viewLine(z);
+    if ((line.virtualLine() > start.line() || (line.virtualLine() == start.line() && line.endCol() >= start.column() && start.column() != -1)) &&
+        (line.virtualLine() < end.line() || (line.virtualLine() == end.line() && (line.startCol() <= end.column() || end.column() == -1)))) {
       ret = true;
-      cache()->viewLine(z).setDirty();
-      //kDebug(13030) << "Tagged line " << cache()->viewLine(z).line << endl;
+      line.setDirty();
+      //kDebug(13030) << "Tagged line " << line.line() << endl;
     }
   }
 

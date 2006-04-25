@@ -32,6 +32,11 @@ class KateDocument;
 class KateLineLayout;
 typedef KSharedPtr<KateLineLayout> KateLineLayoutPtr;
 
+/**
+ * This class represents one visible line of text; with dynamic wrapping,
+ * many KateTextLayouts can be needed to represent one actual line of text
+ * (ie. one KateLineLayout)
+ */
 class KateTextLayout
 {
   friend class KateLineLayout;
@@ -52,8 +57,21 @@ class KateTextLayout
     int startCol() const;
     KTextEditor::Cursor start() const;
 
-    int endCol() const;
-    KTextEditor::Cursor end() const;
+    /**
+     * Return the end column of this text line.
+     *
+     * \param indicateEOL set to true to return -1 if this layout is the
+     *        end of the line, otherwise false to return the end column number
+     */
+    int endCol(bool indicateEOL = false) const;
+
+    /**
+     * Return the end position of this text line.
+     *
+     * \param indicateEOL set to true to return -1 if this layout is the
+     *        end of the line, otherwise false to return the end column number
+     */
+    KTextEditor::Cursor end(bool indicateEOL = false) const;
 
     int length() const;
     bool isEmpty() const;

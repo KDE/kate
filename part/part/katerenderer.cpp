@@ -433,7 +433,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       backgroundFound:
 
       // Draw selection outside of areas where text is rendered
-      if (m_view->selection() && m_view->lineEndSelected(line.end())) {
+      if (m_view->selection() && m_view->lineEndSelected(line.end(true))) {
         QRect area(line.endX() + line.xOffset() - xStart, fs->fontHeight * i, xEnd - xStart, fs->fontHeight * (i + 1));
         paint.fillRect(area, config()->selectionColor());
 

@@ -244,10 +244,10 @@ public:
     /**
      * Called every time a newline character is inserted in the document.
      *
-     * @param cur The position to start processing. Contains the new cursor position after the indention.
+     * @param begin The position to start processing. Contains the new cursor position after the indention.
      * @param needContinue Used to determine whether to calculate a continue indent or not.
      */
-  virtual void processNewline (KateDocCursor &cur, bool needContinue);
+  virtual void processNewline (KateDocCursor &begin, bool needContinue);
 
     /**
      * Called every time a character is inserted into the document.

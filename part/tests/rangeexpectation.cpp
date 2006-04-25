@@ -36,22 +36,23 @@ RangeExpectation::RangeExpectation(KTextEditor::Range* range, RangeSignals signa
     m_watcherNotifications[i] = 0;
   }
 
-  connect(m_smartRange->notifier(), SIGNAL(positionChanged(KTextEditor::SmartRange*)),        SLOT(positionChanged(KTextEditor::SmartRange*)));
-  connect(m_smartRange->notifier(), SIGNAL(contentsChanged(KTextEditor::SmartRange*)),        SLOT(contentsChanged(KTextEditor::SmartRange*)));
-  //connect(m_smartRange->notifier(), SIGNAL(boundaryDeleted(KTextEditor::SmartRange*,bool)),   SLOT(boundaryDeleted(KTextEditor::SmartRange*,bool)));
-  connect(m_smartRange->notifier(), SIGNAL(eliminated(KTextEditor::SmartRange*)),             SLOT(eliminated(KTextEditor::SmartRange*)));
-  //connect(m_smartRange->notifier(), SIGNAL(firstCharacterDeleted(KTextEditor::SmartRange*)),  SLOT(firstCharacterDeleted(KTextEditor::SmartRange*)));
-  //connect(m_smartRange->notifier(), SIGNAL(lastCharacterDeleted(KTextEditor::SmartRange*)),   SLOT(lastCharacterDeleted(KTextEditor::SmartRange*)));
+  // TODO could switch to auto connection
+  connect(m_smartRange->primaryNotifier(), SIGNAL(rangePositionChanged(KTextEditor::SmartRange*)),        SLOT(rangePositionChanged(KTextEditor::SmartRange*)));
+  connect(m_smartRange->primaryNotifier(), SIGNAL(rangeContentsChanged(KTextEditor::SmartRange*)),        SLOT(rangeContentsChanged(KTextEditor::SmartRange*)));
+  //connect(m_smartRange->primaryNotifier(), SIGNAL(boundaryDeleted(KTextEditor::SmartRange*,bool)),   SLOT(boundaryDeleted(KTextEditor::SmartRange*,bool)));
+  connect(m_smartRange->primaryNotifier(), SIGNAL(rangeEliminated(KTextEditor::SmartRange*)),             SLOT(rangeEliminated(KTextEditor::SmartRange*)));
+  //connect(m_smartRange->primaryNotifier(), SIGNAL(firstCharacterDeleted(KTextEditor::SmartRange*)),  SLOT(firstCharacterDeleted(KTextEditor::SmartRange*)));
+  //connect(m_smartRange->primaryNotifier(), SIGNAL(lastCharacterDeleted(KTextEditor::SmartRange*)),   SLOT(lastCharacterDeleted(KTextEditor::SmartRange*)));
 
-  m_smartRange->setWatcher(this);
+  m_smartRange->addWatcher(this);
 
   KateRegression::self()->addRangeExpectation(this);
 }
 
 RangeExpectation::~ RangeExpectation( )
 {
-  m_smartRange->setWatcher(0L);
-  m_smartRange->deleteNotifier();
+  m_smartRange->removeWatcher(this);
+  m_smartRange->deletePrimaryNotifier();
 }
 
 void RangeExpectation::checkExpectationsFulfilled( ) const
@@ -85,13 +86,13 @@ void RangeExpectation::signalReceived( int signal )
     m_notifierNotifications[signal]++;
 }
 
-void RangeExpectation::positionChanged( KTextEditor::SmartRange * range )
+void RangeExpectation::rangePositionChanged( KTextEditor::SmartRange * range )
 {
   QCOMPARE(range, m_smartRange);
   signalReceived(PositionChanged);
 }
 
-void RangeExpectation::contentsChanged( KTextEditor::SmartRange * range )
+void RangeExpectation::rangeContentsChanged( KTextEditor::SmartRange * range )
 {
   QCOMPARE(range, m_smartRange);
   signalReceived(ContentsChanged);
@@ -109,7 +110,7 @@ void RangeExpectation::contentsChanged( KTextEditor::SmartRange * range )
   }
 }*/
 
-void RangeExpectation::eliminated( KTextEditor::SmartRange * range )
+void RangeExpectation::rangeEliminated( KTextEditor::SmartRange * range )
 {
   QCOMPARE(range, m_smartRange);
   signalReceived(Eliminated);

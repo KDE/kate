@@ -139,8 +139,8 @@ void ArbitraryHighlightTest::slotCreateTopRange( )
   m_topRange = smart()->newSmartRange(static_cast<Document*>(parent())->documentRange());
   smart()->addHighlightToDocument(m_topRange, true);
   m_topRange->setInsertBehavior(SmartRange::ExpandRight);
-  connect(m_topRange->notifier(), SIGNAL(contentsChanged(KTextEditor::SmartRange*, KTextEditor::SmartRange*)), SLOT(slotRangeChanged(KTextEditor::SmartRange*, KTextEditor::SmartRange*)));
-  connect(m_topRange->notifier(), SIGNAL(deleted(KTextEditor::SmartRange*)), SLOT(slotRangeDeleted(KTextEditor::SmartRange*)));
+  connect(m_topRange->primaryNotifier(), SIGNAL(rangeContentsChanged(KTextEditor::SmartRange*, KTextEditor::SmartRange*)), SLOT(slotRangeChanged(KTextEditor::SmartRange*, KTextEditor::SmartRange*)));
+  connect(m_topRange->primaryNotifier(), SIGNAL(rangeDeleted(KTextEditor::SmartRange*)), SLOT(slotRangeDeleted(KTextEditor::SmartRange*)));
 
   slotRangeChanged(m_topRange, m_topRange);
 }

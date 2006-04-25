@@ -44,10 +44,10 @@ class RangeExpectation : public QObject, public KTextEditor::SmartRangeWatcher
     void checkExpectationsFulfilled() const;
 
   public Q_SLOTS:
-    virtual void positionChanged(KTextEditor::SmartRange* range);
-    virtual void contentsChanged(KTextEditor::SmartRange* range);
+    virtual void rangePositionChanged(KTextEditor::SmartRange* range);
+    virtual void rangeContentsChanged(KTextEditor::SmartRange* range);
     //virtual void boundaryDeleted(KTextEditor::SmartRange* range, bool start);
-    virtual void eliminated(KTextEditor::SmartRange* range);
+    virtual void rangeEliminated(KTextEditor::SmartRange* range);
     //virtual void firstCharacterDeleted(KTextEditor::SmartRange* range);
     //virtual void lastCharacterDeleted(KTextEditor::SmartRange* range);
 

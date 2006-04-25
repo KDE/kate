@@ -58,6 +58,7 @@ TODO:
     * move back any excessively exposed parts of the smart ranges and cursors
     * testcases
     * performances testing suite
+      * need to implement edit merging to reduce changes to cursors with large single edits
     * cachegrinding
     * make a translation snapshot feature where you can translate any cursor from a certain point in time - would be very cool :)
     * code cleanup

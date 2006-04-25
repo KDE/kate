@@ -20,24 +20,7 @@
 
 using namespace KTextEditor;
 
-
 SmartRangeWatcher::~ SmartRangeWatcher( )
-{
-}
-
-void SmartRangeWatcher::positionChanged( SmartRange * )
-{
-}
-
-void SmartRangeWatcher::contentsChanged( SmartRange * )
-{
-}
-
-void SmartRangeWatcher::eliminated( SmartRange * )
-{
-}
-
-void SmartRangeWatcher::contentsChanged( SmartRange * , SmartRange *  )
 {
 }
 
@@ -71,23 +54,51 @@ void SmartRangeWatcher::setWantsDirectChanges( bool wantsDirectChanges )
   m_wantDirectChanges = wantsDirectChanges;
 }
 
-void SmartRangeWatcher::deleted( SmartRange * )
+void SmartRangeWatcher::rangePositionChanged( SmartRange* )
 {
 }
 
-void SmartRangeWatcher::mouseEntered( KTextEditor::SmartRange * , KTextEditor::View * )
+void SmartRangeWatcher::rangeContentsChanged( SmartRange* )
 {
 }
 
-void SmartRangeWatcher::mouseExited( KTextEditor::SmartRange * , KTextEditor::View * )
+void SmartRangeWatcher::rangeContentsChanged( SmartRange*, SmartRange* )
 {
 }
 
-void SmartRangeWatcher::caretEntered( KTextEditor::SmartRange * , KTextEditor::View * )
+void SmartRangeWatcher::mouseEnteredRange( SmartRange*, View* )
 {
 }
 
-void SmartRangeWatcher::caretExited( KTextEditor::SmartRange * , KTextEditor::View * )
+void SmartRangeWatcher::mouseExitedRange( SmartRange*, View* )
+{
+}
+
+void SmartRangeWatcher::caretEnteredRange( SmartRange*, View* )
+{
+}
+
+void SmartRangeWatcher::caretExitedRange( SmartRange*, View* )
+{
+}
+
+void SmartRangeWatcher::rangeEliminated( SmartRange* )
+{
+}
+
+void SmartRangeWatcher::rangeDeleted( SmartRange* )
+{
+}
+
+void SmartRangeWatcher::childRangeInserted( SmartRange*, SmartRange* )
+{
+}
+
+void SmartRangeWatcher::childRangeRemoved( SmartRange*, SmartRange* )
+{
+}
+
+void SmartRangeWatcher::rangeAttributeChanged( SmartRange*, Attribute*, Attribute* )
 {
 }
 

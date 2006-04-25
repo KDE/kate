@@ -129,25 +129,45 @@ void SmartRange::insertChildRange( SmartRange * newChild )
   QMutableListIterator<SmartRange*> it = m_childRanges;
   it.toBack();
 
+  bool done = false;
   while (it.hasPrevious()) {
     if (it.peekPrevious()->end() <= newChild->start()) {
       it.insert(newChild);
       if (it.hasNext() && it.peekNext()->start() < newChild->end())
           it.peekNext()->start() = newChild->end();
-      return;
+
+      done = true;
+      break;
     }
 
     it.previous();
   }
 
-  m_childRanges.prepend(newChild);
+  if (!done) {
+    if (m_childRanges.count() && m_childRanges.first()->start() < newChild->end())
+        m_childRanges.first()->start() = newChild->end();
+    m_childRanges.prepend(newChild);
+  }
+
+  foreach (SmartRangeNotifier* n, m_notifiers)
+    emit n->childRangeInserted(this, newChild);
+
+  foreach (SmartRangeWatcher* w, m_watchers)
+    w->childRangeInserted(this, newChild);
 }
 
-void SmartRange::removeChildRange(SmartRange* newChild)
+void SmartRange::removeChildRange(SmartRange* child)
 {
-  int index = m_childRanges.lastIndexOf(newChild);
-  if (index != -1)
+  int index = m_childRanges.lastIndexOf(child);
+  if (index != -1) {
     m_childRanges.removeAt(index);
+
+    foreach (SmartRangeNotifier* n, m_notifiers)
+      emit n->childRangeInserted(this, child);
+
+    foreach (SmartRangeWatcher* w, m_watchers)
+      w->childRangeInserted(this, child);
+  }
 }
 
 SmartRange * SmartRange::mostSpecificRange( const Range & input ) const
@@ -309,16 +329,25 @@ void SmartRange::setParentRange( SmartRange * r )
 
 void SmartRange::setAttribute( Attribute * attribute, bool ownsAttribute )
 {
-  //if (m_attribute)
-    //m_attribute->removeRange(this);
+  if (attribute == m_attribute) {
+    m_ownsAttribute = ownsAttribute;
+    return;
+  }
 
-  if (m_ownsAttribute) delete m_attribute;
+  Attribute * prev = m_attribute;
+  bool ownedAttribute = m_ownsAttribute;
 
   m_attribute = attribute;
   m_ownsAttribute = ownsAttribute;
 
-  //if (m_attribute)
-    //m_attribute->addRange(this);
+  foreach (SmartRangeNotifier* n, m_notifiers)
+    emit n->rangeAttributeChanged(this, attribute, prev);
+
+  foreach (SmartRangeWatcher* w, m_watchers)
+    w->rangeAttributeChanged(this, attribute, prev);
+
+  if (ownedAttribute)
+    delete prev;
 }
 
 Attribute * SmartRange::attribute( ) const
@@ -394,21 +423,23 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
 
   // SmartCursor and its subclasses take care of adjusting ranges if the tree
   // structure is being used.
-  if (hasNotifier() && notifier()->wantsDirectChanges()) {
-    emit notifier()->positionChanged(this);
-    emit notifier()->contentsChanged(this);
+  foreach (SmartRangeNotifier* n, m_notifiers)
+    if (n->wantsDirectChanges()) {
+      emit n->rangePositionChanged(this);
+      emit n->rangeContentsChanged(this);
 
-    if (start() == end())
-      emit notifier()->eliminated(this);
-  }
+      if (start() == end())
+        emit n->rangeEliminated(this);
+    }
 
-  if (watcher() && watcher()->wantsDirectChanges()) {
-    watcher()->positionChanged(this);
-    notifier()->contentsChanged(this);
+  foreach (SmartRangeWatcher* w, m_watchers)
+    if (w->wantsDirectChanges()) {
+      w->rangePositionChanged(this);
+      w->rangeContentsChanged(this);
 
-    if (start() == end())
-      notifier()->eliminated(this);
-  }
+      if (start() == end())
+        w->rangeEliminated(this);
+    }
 }
 
 bool SmartRange::isSmartRange( ) const
@@ -430,6 +461,66 @@ bool SmartRange::hasParent( SmartRange * parent ) const
     return parentRange()->hasParent(parent);
 
   return false;
+}
+
+const QList< SmartRangeWatcher * > & SmartRange::watchers( ) const
+{
+  return m_watchers;
+}
+
+void SmartRange::addWatcher( SmartRangeWatcher * watcher )
+{
+  if (!m_watchers.contains(watcher))
+    m_watchers.append(watcher);
+
+  checkFeedback();
+}
+
+void SmartRange::removeWatcher( SmartRangeWatcher * watcher )
+{
+  m_watchers.removeAll(watcher);
+  checkFeedback();
+}
+
+SmartRangeNotifier * SmartRange::primaryNotifier( )
+{
+  if (m_notifiers.isEmpty())
+    m_notifiers.append(createNotifier());
+
+  return m_notifiers.first();
+}
+
+const QList< SmartRangeNotifier * > SmartRange::notifiers( ) const
+{
+  return m_notifiers;
+}
+
+void SmartRange::addNotifier( SmartRangeNotifier * notifier )
+{
+  if (!m_notifiers.contains(notifier))
+    m_notifiers.append(notifier);
+
+  checkFeedback();
+}
+
+void SmartRange::removeNotifier( SmartRangeNotifier * notifier )
+{
+  m_notifiers.removeAll(notifier);
+  checkFeedback();
+}
+
+void SmartRange::deletePrimaryNotifier( )
+{
+  if (m_notifiers.isEmpty())
+    return;
+
+  SmartRangeNotifier* n = m_notifiers.first();
+  removeNotifier(n);
+  delete n;
+}
+
+void SmartRange::checkFeedback( )
+{
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

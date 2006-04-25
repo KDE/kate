@@ -417,7 +417,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      *                      of \p attribute. If \e true, \p attribute will be
      *                      deleted when this range is deleted.
      */
-    virtual void setAttribute(Attribute* attribute, bool takeOwnership = false);
+    void setAttribute(Attribute* attribute, bool takeOwnership = false);
     //END
 
     //BEGIN Action binding
@@ -472,43 +472,70 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * \{
      */
     /**
-     * Connect to the notifier to receive signals indicating change of state of this range.
-     * The notifier is created at the time it is first requested.  If you have finished with
-     * notifications for a reasonable period of time you can save memory by calling deleteNotifier().
-     */
-    virtual bool hasNotifier() const = 0;
-
-    /**
-     * Connect to the notifier to receive signals indicating change of state of this range.
-     * The notifier is created at the time it is first requested.  If you have finished with
-     * notifications for a reasonable period of time you can save memory by calling deleteNotifier().
-     */
-    virtual SmartRangeNotifier* notifier() = 0;
-
-    /**
-     * When finished with a notifier(), call this method to save memory by
-     * having the SmartRangeNotifier deleted.
-     */
-    virtual void deleteNotifier() = 0;
-
-    /**
-     * Returns a pointer to the current SmartRangeWatcher, if one has been set.
+     * Connect to a notifier to receive signals indicating change of state of this range.
+     * This function creates a notifier if none is already bound to this range; if one has
+     * already been assigned this will return the first notifier.
      *
-     * \return the current watcher if one exists, otherwise null.
+     * If you have finished with notifications for a reasonable period of time you can
+     * save memory by calling deleteNotifier().
      */
-    virtual SmartRangeWatcher* watcher() const = 0;
+    SmartRangeNotifier* primaryNotifier();
 
     /**
-     * Provide a SmartRangeWatcher to receive calls indicating change of state
-     * of this range. To finish receiving notifications, call this function with
-     * \p watcher set to null.
+     * Returns a list of notifiers which are receiving signals indicating change of state
+     * of this range.  These notifiers may be receiving signals from other ranges as well.
+     */
+    const QList<SmartRangeNotifier*> notifiers() const;
+
+    /**
+     * Register a notifier to receive signals indicating change of state of this range.
+     *
+     * \param notifier notifier to register. Ownership is not transferred.
+     */
+    void addNotifier(SmartRangeNotifier* notifier);
+
+    /**
+     * Deregister a notifier and no longer deliver signals indicating change of state of this range.
+     *
+     * \param notifier notifier to deregister.
+     */
+    void removeNotifier(SmartRangeNotifier* notifier);
+
+    /**
+     * When finished with the primaryNotifier(), call this method to save memory by
+     * having the SmartRangeNotifier deleted.
+     *
+     * \note If a notifier was first registered via addNotifier() rather than created inside
+     *       primaryNotifier(), this method will delete that notifier.  Text editor implementations
+     *       should not use notifiers for internal purposes, instead use watchers (faster and
+     *       has documentation to this effect)
+     */
+    void deletePrimaryNotifier();
+
+    /**
+     * Returns a list of registered SmartRangeWatchers.
+     *
+     * \note this function may return watchers internal to the text editor's implementation,
+     *       eg. in the case of arbitrary highlighting and kate part.  Removing these watchers
+     *       with removeWatcher() will result in malfunction.
+     */
+    const QList<SmartRangeWatcher*>& watchers() const;
+
+    /**
+     * Register a SmartRangeWatcher to receive calls indicating change of state
+     * of this range. To finish receiving notifications, call removeWatcher().
      *
      * \param watcher the instance of a class which is to receive
-     *                notifications about changes to this range, or null to
-     *                stop delivering notifications to a previously assigned
-     *                instance.
+     *                notifications about changes to this range.
      */
-    virtual void setWatcher(SmartRangeWatcher* watcher) = 0;
+    void addWatcher(SmartRangeWatcher* watcher);
+
+    /**
+     * Stop delivery of notifications to a SmartRangeWatcher.
+     *
+     * \param watcher the watcher that no longer wants notifications.
+     */
+    void removeWatcher(SmartRangeWatcher* watcher);
     //!\}
     //END
 
@@ -572,7 +599,14 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      *
      * This routine is called when the range changes how much feedback it may need, eg. if it adds an action.
      */
-    virtual void checkFeedback() = 0;
+    virtual void checkFeedback();
+
+    /**
+     * \internal
+     *
+     * Called to request creation of a new SmartRangeNotifier for this object.
+     */
+    virtual SmartRangeNotifier* createNotifier() = 0;
 
   private:
     /**
@@ -631,6 +665,20 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * The list of this range's associated KAction%s.
      */
     QList<KAction*> m_associatedActions;
+
+    /**
+     * \internal
+     *
+     * The list of registered SmartRangeNotifiers.
+     */
+    QList<SmartRangeNotifier*> m_notifiers;
+
+    /**
+     * \internal
+     *
+     * The list of registered SmartRangeWatchers.
+     */
+    QList<SmartRangeWatcher*> m_watchers;
 
     /**
      * \internal

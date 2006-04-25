@@ -722,6 +722,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   QTextOption opt;
   opt.setFlags(QTextOption::IncludeTrailingSpaces);
   opt.setTabStop(m_tabWidth * config()->fontStruct()->width(spaceChar, false, false, m_tabWidth));
+  opt.setWrapMode(QTextOption::WrapAnywhere);//QTextOption::WrapAtWordBoundaryOrAnywhere);
   l->setTextOption(opt);
 
   // Syntax highlighting, inbuilt and arbitrary

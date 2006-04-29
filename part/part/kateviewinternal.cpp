@@ -1061,7 +1061,7 @@ void KateViewInternal::home( bool sel )
   }
 
   updateSelection( c, sel );
-  updateCursor( c );
+  updateCursor( c, true );
 }
 
 void KateViewInternal::end( bool sel )

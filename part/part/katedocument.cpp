@@ -2634,7 +2634,10 @@ bool KateDocument::closeURL()
 
   // update all our views
   foreach (KateView * view, m_views )
+  {
+    view->clearSelection(); // fix bug #118588
     view->clear();
+  }
 
   // uh, fileName changed
   emit documentUrlChanged (this);

@@ -338,21 +338,17 @@ void KWrite::editKeys()
 
 void KWrite::editToolbars()
 {
+  saveMainWindowSettings( KGlobal::config(), "MainWindow" );
   KEditToolbar *dlg = new KEditToolbar(guiFactory());
 
-  if (dlg->exec())
-  {
-    KParts::GUIActivateEvent ev1( false );
-    QApplication::sendEvent( m_view, &ev1 );
-    guiFactory()->removeClient( m_view );
-    createShellGUI( false );
-    createShellGUI( true );
-    guiFactory()->addClient( m_view );
-    KParts::GUIActivateEvent ev2( true );
-    QApplication::sendEvent( m_view, &ev2 );
-  }
-
+  connect( dlg, SIGNAL(newToolbarConfig()), this, SLOT(slotNewToolbarConfig()) );
+  dlg->exec();
   delete dlg;
+}
+
+void KWrite::slotNewToolbarConfig()
+{
+    applyMainWindowSettings( KGlobal::config(), "MainWindow" );
 }
 
 void KWrite::dragEnterEvent( QDragEnterEvent *event )
@@ -816,3 +812,5 @@ void KWriteEditorChooser::slotOk()
     m_chooser->writeAppSetting();
     slotButtonClicked(KDialog::Ok);
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

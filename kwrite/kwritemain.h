@@ -76,6 +76,9 @@ class KWrite : public KParts::MainWindow
     void changeEditor();
     void aboutEditor();
 
+  private Q_SLOTS:
+    void slotNewToolbarConfig();
+    
   public Q_SLOTS:
     void slotDropEvent(QDropEvent *);
 
@@ -159,3 +162,4 @@ class KWriteEditorChooser: public KDialog
 };
 
 #endif
+// kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

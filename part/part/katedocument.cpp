@@ -4567,6 +4567,7 @@ bool KateDocument::createDigest( QByteArray &result )
       ret = md5.update( f );
       md5.hexDigest( result );
       f.close();
+      ret = true;
     }
   }
   return ret;

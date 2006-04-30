@@ -167,7 +167,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * returned document.
      * \return the view's document
      */
-    virtual Document *document () = 0;
+    virtual Document *document () const = 0;
 
   /*
    * General information about this view
@@ -268,6 +268,10 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
   public:
     /**
      * Set a context menu for this view to \p menu.
+     *
+     * \note any previously assigned menu is not deleted.  If you are finished
+     *       with the previous menu, you may delete it.
+     *
      * \param menu new context menu object for this view
      * \see contextMenu()
      */
@@ -279,7 +283,26 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * \return context menu object
      * \see setContextMenu()
      */
-    virtual QMenu *contextMenu () = 0;
+    virtual QMenu *contextMenu () const = 0;
+
+    /**
+     * Populate \a menu with default text editor actions.  If \a menu is
+     * null, a menu will be created with the view as its parent.
+     *
+     * \note to use this menu, you will next need to call setContextMenu(),
+     *       as this does not assign the new context menu.
+     *
+     * \param menu the menu to be populated, or null to create a new menu
+     * \return the menu, whether created or passed initially
+     */
+    virtual QMenu* defaultContextMenu(QMenu* menu = 0L) const = 0;
+
+  Q_SIGNALS:
+    /**
+     * Signal which is emitted immediately prior to showing the current
+     * context \a menu.
+     */
+    void contextMenuAboutToShow(KTextEditor::View* view, QMenu* menu);
 
   /*
    * Cursor handling

@@ -549,7 +549,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
             if (isIMSel && !isTab)
             {
               // input method selection
-              fillColor = m_view->colorGroup().color(QColorGroup::Foreground);
+              fillColor = m_view->colorGroup().color(QPalette::Foreground);
             }
             else if (isIMEdit && !isTab)
             {
@@ -557,15 +557,15 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
               // input method edit area
               const QColorGroup& cg = m_view->colorGroup();
               int h1, s1, v1, h2, s2, v2;
-              cg.color( QColorGroup::Base ).getHsv( &h1, &s1, &v1 );
-              cg.color( QColorGroup::Background ).getHsv( &h2, &s2, &v2 );
+              cg.color( QPalette::Base ).getHsv( &h1, &s1, &v1 );
+              cg.color( QPalette::Background ).getHsv( &h2, &s2, &v2 );
               fillColor.setHsv( h1, s1, ( v1 + v2 ) / 2 );
             }
 
             if (isIMSel && paintBackground && !isTab)
             {
               paint.save();
-              paint.setPen( m_view->colorGroup().color( QColorGroup::BrightText ) );
+              paint.setPen( m_view->colorGroup().color( QPalette::BrightText ) );
             }
 
             // Draw indentation markers.

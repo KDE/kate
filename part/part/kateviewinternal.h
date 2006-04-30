@@ -111,7 +111,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
   private slots:
     void updateView (bool changed = false, int viewLinesScrolled = 0);
   private:
-    void makeVisible (const KTextEditor::Cursor& c, uint endCol, bool force = false, bool center = false, bool calledExternally = false);
+    void makeVisible (const KTextEditor::Cursor& c, int endCol, bool force = false, bool center = false, bool calledExternally = false);
 
   public:
     // Start Position is a virtual cursor
@@ -120,7 +120,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     inline int startX () const { return m_startX; }
 
     KTextEditor::Cursor endPos () const;
-    uint endLine () const;
+    int endLine () const;
 
     KateTextLayout yToKateTextLayout(int y) const;
 
@@ -222,7 +222,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
     int linesDisplayed() const;
 
-    int lineToY(uint viewLine) const;
+    int lineToY(int viewLine) const;
 
     void updateSelection( const KTextEditor::Cursor&, bool keepSel );
     void updateCursor( const KTextEditor::Cursor& newCursor, bool force = false, bool center = false, bool calledExternally = false );
@@ -308,7 +308,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     KTextEditor::Range m_selectionCached;
 
     // maximal lenght of textlines visible from given startLine
-    int maxLen(uint startLine);
+    int maxLen(int startLine);
 
     // are we allowed to scroll columns?
     bool columnScrollingPossible ();

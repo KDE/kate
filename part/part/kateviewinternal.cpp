@@ -296,7 +296,7 @@ KTextEditor::Cursor KateViewInternal::endPos() const
   return KTextEditor::Cursor(-1, -1);
 }
 
-uint KateViewInternal::endLine() const
+int KateViewInternal::endLine() const
 {
   return endPos().line();
 }
@@ -315,7 +315,7 @@ KateTextLayout KateViewInternal::yToKateTextLayout(int y) const
   return KateTextLayout::invalid();
 }
 
-int KateViewInternal::lineToY(uint viewLine) const
+int KateViewInternal::lineToY(int viewLine) const
 {
   return (viewLine-startLine()) * renderer()->fontHeight();
 }
@@ -576,7 +576,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
  * this function ensures a certain location is visible on the screen.
  * if endCol is -1, ignore making the columns visible.
  */
-void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, uint endCol, bool force, bool center, bool calledExternally)
+void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bool force, bool center, bool calledExternally)
 {
   //kDebug(13030) << "MakeVisible start " << startPos() << " end " << endPos() << " -> request: " << c << endl;// , new start [" << scroll.line << "," << scroll.col << "] lines " << (linesDisplayed() - 1) << " height " << height() << endl;
     // if the line is in a folded region, unfold all the way up
@@ -612,7 +612,7 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, uint endCol, b
     }
   }
 
-  if (!m_view->dynWordWrap() && endCol != (uint)-1)
+  if (!m_view->dynWordWrap() && endCol != -1)
   {
     int sX = renderer()->cursorToX(cache()->textLayout(c), c);
 
@@ -780,7 +780,7 @@ public:
   }
 
   // This one constrains its arguments to valid positions
-  CalculatingCursor(KateViewInternal* vi, uint line, uint col)
+  CalculatingCursor(KateViewInternal* vi, int line, int col)
     : KTextEditor::Cursor(line, col)
     , m_vi(vi)
   {
@@ -837,7 +837,7 @@ public:
     : CalculatingCursor( vi ) {};
   BoundedCursor(KateViewInternal* vi, const KTextEditor::Cursor& c )
     : CalculatingCursor( vi, c ) {};
-  BoundedCursor(KateViewInternal* vi, uint line, uint col )
+  BoundedCursor(KateViewInternal* vi, int line, int col )
     : CalculatingCursor( vi, line, col ) {};
   virtual CalculatingCursor& operator+=( int n ) {
     KateLineLayoutPtr thisLine = m_vi->cache()->line(line());
@@ -876,7 +876,7 @@ public:
     : CalculatingCursor( vi) {};
   WrappingCursor(KateViewInternal* vi, const KTextEditor::Cursor& c )
     : CalculatingCursor( vi, c ) {};
-  WrappingCursor(KateViewInternal* vi, uint line, uint col )
+  WrappingCursor(KateViewInternal* vi, int line, int col )
     : CalculatingCursor( vi, line, col ) {};
 
   virtual CalculatingCursor& operator+=( int n ) {
@@ -1149,7 +1149,7 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
   KTextEditor::Cursor realCursor = virtualCursor;
   realCursor.setLine(m_doc->getRealLine(virtualCursor.line()));
 
-  uint cursorViewLine = cache()->viewLine(realCursor);
+  int cursorViewLine = cache()->viewLine(realCursor);
 
   int currentOffset = 0;
   int virtualLine = 0;
@@ -1508,7 +1508,7 @@ void KateViewInternal::pageDown( bool sel )
   }
 }
 
-int KateViewInternal::maxLen(uint startLine)
+int KateViewInternal::maxLen(int startLine)
 {
   Q_ASSERT(!m_view->dynWordWrap());
 
@@ -2061,7 +2061,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 
   if ((key == Qt::SHIFT + Qt::Key_Return) || (key == Qt::SHIFT + Qt::Key_Enter))
   {
-    uint ln = m_cursor.line();
+    int ln = m_cursor.line();
     int col = m_cursor.column();
     KateTextLine::Ptr line = m_doc->kateTextLine( ln );
     int pos = line->firstChar();

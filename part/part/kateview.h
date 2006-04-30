@@ -89,7 +89,7 @@ class KateView : public KTextEditor::View,
     KateView( KateDocument* doc, QWidget* parent );
     ~KateView ();
 
-    KTextEditor::Document *document ();
+    KTextEditor::Document *document () const;
 
     QString viewMode () const;
 
@@ -144,8 +144,15 @@ class KateView : public KTextEditor::View,
   // KTextEditor::PopupMenuInterface
   //
   public:
-    void setContextMenu( QMenu* menu ) { m_rmbMenu = menu; }
-    QMenu* contextMenu()              { return m_rmbMenu; }
+    void setContextMenu( QMenu* menu );
+    QMenu* contextMenu() const;
+    QMenu* defaultContextMenu(QMenu* menu = 0L) const;
+
+  private Q_SLOTS:
+    void aboutToShowContextMenu();
+
+  private:
+    QPointer<QMenu> m_contextMenu;
 
   //
   // KTextEditor::ViewCursorInterface
@@ -557,7 +564,6 @@ class KateView : public KTextEditor::View,
     KateSearch*            m_search;
     KateSpell             *m_spell;
     KateBookmarks*         m_bookmarks;
-    QPointer<QMenu>        m_rmbMenu;
     KateCodeCompletion*    m_codeCompletion;
 
     KateCmdLine *m_cmdLine;

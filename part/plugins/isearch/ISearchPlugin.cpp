@@ -27,6 +27,7 @@
 #include <kconfig.h>
 #include <kdebug.h>
 #include <QFocusEvent>
+#include <ktoolbarlabelaction.h>
 
 #include "ISearchPlugin.h"
 #include "ISearchPlugin.moc"
@@ -64,11 +65,6 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	a->setShortcut(Qt::CTRL+Qt::ALT+Qt::SHIFT+Qt::Key_F);
 	connect(a, SIGNAL(triggered(bool)), SLOT(slotSearchBackwardAction()));
 
-	m_label = new QLabel( i18n("I-Search:"), 0L );
-	m_label->setObjectName( QLatin1String( "kde toolbar widget" ) );
-	KWidgetAction* labelAction = new KWidgetAction( m_label, i18n("I-Search:"), actionCollection(), "isearch_label" );
-	labelAction->setShortcutConfigurable( false );
-
 	m_combo = new KHistoryCombo();
 	m_combo->setDuplicatesEnabled( false );
 	m_combo->setMaximumWidth( 300 );
@@ -81,6 +77,9 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 		 this, SLOT(slotAddContextMenuItems(QMenu*)) );
 	m_comboAction = new KWidgetAction( m_combo, i18n("Search"), actionCollection(), "isearch_combo" );
 	m_comboAction->setShortcutConfigurable( false );
+
+        KToolBarLabelAction* labelAction = new KToolBarLabelAction( m_comboAction, i18n("I-Search:"), 0, 0, 0, actionCollection(), "isearch_label" );
+        labelAction->setShortcutConfigurable( false );
 
 	KActionMenu* optionMenu = new KActionMenu(
 		KIcon("configure"), i18n("Search Options"),

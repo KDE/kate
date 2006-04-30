@@ -64,11 +64,13 @@
 #include <kaction.h>
 #include <kstdaction.h>
 #include <kxmlguifactory.h>
+#include <kxmlguiclient.h>
 #include <klibloader.h>
 #include <kencodingfiledialog.h>
 #include <ktempfile.h>
 #include <ksavefile.h>
 #include <kstdaccel.h>
+#include <kmenu.h>
 
 #include <qfont.h>
 #include <qfileinfo.h>
@@ -2350,9 +2352,65 @@ const KTextEditor::Range & KateView::selectionRange( ) const
   return *m_selection;
 }
 
-KTextEditor::Document * KateView::document( )
+KTextEditor::Document * KateView::document( ) const
 {
   return m_doc;
+}
+
+void KateView::setContextMenu( QMenu * menu )
+{
+  if (m_contextMenu)
+    disconnect(m_contextMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowContextMenu()));
+
+  m_contextMenu = menu;
+
+  if (m_contextMenu)
+    connect(m_contextMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowContextMenu()));
+}
+
+QMenu * KateView::contextMenu( ) const
+{
+  return m_contextMenu;
+}
+
+QMenu * KateView::defaultContextMenu(QMenu* menu) const
+{
+  if (!menu)
+    menu = new KMenu(const_cast<KateView*>(this));
+
+  // Find top client
+  KXMLGUIClient* client = const_cast<KateView*>(this);
+  while (client->parentClient())
+    client = client->parentClient();
+
+  if (QWidget* popupwidget = client->factory()->container("ktexteditor_popup", client)) {
+    menu->addActions(popupwidget->actions());
+
+  } else {
+    kDebug() << k_funcinfo << "no ktexteditor_popup container found; populating manually" << endl;
+    menu->addAction(m_editUndo);
+    menu->addAction(m_editRedo);
+    menu->addSeparator();
+    menu->addAction(m_cut);
+    menu->addAction(m_copy);
+    menu->addAction(m_paste);
+    menu->addSeparator();
+    menu->addAction(m_selectAll);
+    menu->addAction(m_deSelect);
+    if (KAction* bookmark = actionCollection()->action("bookmarks")) {
+      menu->addSeparator();
+      menu->addAction(bookmark);
+    }
+  }
+
+  return menu;
+}
+
+void KateView::aboutToShowContextMenu( )
+{
+  QMenu* menu = qobject_cast<QMenu*>(sender());
+  if (menu)
+    emit contextMenuAboutToShow(this, menu);
 }
 
 //END Code completion new

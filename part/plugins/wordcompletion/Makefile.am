@@ -13,5 +13,3 @@ docwordcompletiondata_DATA = docwordcompletionui.rc
 
 kde_services_DATA = ktexteditor_docwordcompletion.desktop
 
-messages: rc.cpp
-	$(XGETTEXT) *.cpp *.h -o $(podir)/ktexteditor_docwordcompletion.pot

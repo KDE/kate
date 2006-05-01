@@ -13,7 +13,5 @@ kdatatooldata_DATA = ktexteditor_kdatatoolui.rc
 
 kde_services_DATA = ktexteditor_kdatatool.desktop
 
-messages: rc.cpp
-	$(XGETTEXT) *.cpp *.h -o $(podir)/ktexteditor_kdatatool.pot
 
 

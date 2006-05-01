@@ -13,6 +13,4 @@ isearchdata_DATA = ktexteditor_isearchui.rc
 
 kde_services_DATA = ktexteditor_isearch.desktop
 
-messages: rc.cpp
-	$(XGETTEXT) *.cpp *.h -o $(podir)/ktexteditor_isearch.pot
 

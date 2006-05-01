@@ -2,7 +2,7 @@ kde4_header()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-lua.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-lua.h )
 
-include_directories( BEFORE ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kdefx ${CMAKE_SOURCE_DIR}/kutils ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  )
+include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kutils )
 
 
 ########### next target ###############
@@ -15,8 +15,7 @@ include_directories( BEFORE ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/int
 set(CREATE_HASH_TABLE ${CMAKE_SOURCE_DIR}/kjs/create_hash_table )
 
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
-   COMMAND ${PERL_EXECUTABLE}
-   ARGS ${CREATE_HASH_TABLE} ${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp >
+   COMMAND ${PERL_EXECUTABLE} ${CREATE_HASH_TABLE} ${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp >
    ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp
 )

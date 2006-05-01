@@ -12,8 +12,7 @@ add_custom_target(GeneratePhpXmlFiles ALL DEPENDS
 
 macro(GENERATE_PHP_XML targetFile srcFile)
   add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${targetFile}
-  COMMAND ${PERL_EXECUTABLE} ARGS
-  ${CMAKE_CURRENT_SOURCE_DIR}/generate-php.pl < ${CMAKE_CURRENT_SOURCE_DIR}/${srcFile} > ${CMAKE_CURRENT_BINARY_DIR}/${targetFile}
+  COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/generate-php.pl < ${CMAKE_CURRENT_SOURCE_DIR}/${srcFile} > ${CMAKE_CURRENT_BINARY_DIR}/${targetFile}
   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${srcFile} )
 endmacro(GENERATE_PHP_XML)
 

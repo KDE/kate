@@ -1,13 +1,8 @@
 kde4_header()
 
-include_directories( ${CMAKE_SOURCE_DIR}/interfaces ${CMAKE_SOURCE_DIR}/kdefx ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  )
-
-
 ########### next target ###############
 
-set(ktexteditor_kdatatool_PART_SRCS
-kate_kdatatool.cpp
-)
+set(ktexteditor_kdatatool_PART_SRCS kate_kdatatool.cpp )
 
 kde4_automoc(${ktexteditor_kdatatool_PART_SRCS})
 

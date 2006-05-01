@@ -1,13 +1,8 @@
 kde4_header()
 
-include_directories( ${CMAKE_SOURCE_DIR}/interfaces ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  )
-
-
 ########### next target ###############
 
-set(ktexteditor_autobookmarker_PART_SRCS
-autobookmarker.cpp
-)
+set(ktexteditor_autobookmarker_PART_SRCS autobookmarker.cpp )
 
 kde4_automoc(${ktexteditor_autobookmarker_PART_SRCS})
 

@@ -1,13 +1,8 @@
 kde4_header()
 
-include_directories( ${CMAKE_SOURCE_DIR}/interfaces ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  )
-
-
 ########### next target ###############
 
-set(ktexteditor_isearch_PART_SRCS
-ISearchPlugin.cpp
-)
+set(ktexteditor_isearch_PART_SRCS ISearchPlugin.cpp )
 
 kde4_automoc(${ktexteditor_isearch_PART_SRCS})
 

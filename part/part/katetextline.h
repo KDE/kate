@@ -67,6 +67,8 @@ class KateTextLine : public KShared
      * context
      */
     KateTextLine ();
+    
+    KateTextLine (const QChar *data, int length);
 
     /**
      * Destructor

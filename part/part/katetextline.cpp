@@ -33,6 +33,11 @@ KateTextLine::KateTextLine ()
 {
 }
 
+KateTextLine::KateTextLine (const QChar *data, int length)
+  : m_text (data, length), m_flags(0)
+{
+}
+
 KateTextLine::~KateTextLine()
 {
 }

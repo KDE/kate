@@ -2345,7 +2345,7 @@ bool KateDocument::save()
        || ( ! l && config()->backupFlags() & KateDocumentConfig::RemoteFiles ) )
   {
     KUrl u( url() );
-    u.setFileName( config()->backupPrefix() + url().fileName(true) + config()->backupSuffix() );
+    u.setFileName( config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
 
     kDebug () << "backup src file name: " << url() << endl;
     kDebug () << "backup dst file name: " << u << endl;
@@ -3925,7 +3925,7 @@ void KateDocument::setDocName (QString name )
   }
 
   // if the name is set, and starts with FILENAME, it should not be changed!
-  if ( ! url().isEmpty() && m_docName.startsWith( url().fileName(true) ) ) return;
+  if ( ! url().isEmpty() && m_docName.startsWith( url().fileName() ) ) return;
 
   int count = -1;
 
@@ -3933,14 +3933,14 @@ void KateDocument::setDocName (QString name )
   {
     KateDocument *doc = (KateGlobal::self()->kateDocuments())[z];
 
-    if ( (doc != this) && (doc->url().fileName(true) == url().fileName(true)) )
+    if ( (doc != this) && (doc->url().fileName() == url().fileName()) )
       if ( doc->m_docNameNumber > count )
         count = doc->m_docNameNumber;
   }
 
   m_docNameNumber = count + 1;
 
-  m_docName = url().fileName(true);
+  m_docName = url().fileName();
 
   if (m_docName.isEmpty())
     m_docName = i18n ("Untitled");

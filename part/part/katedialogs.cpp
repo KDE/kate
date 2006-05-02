@@ -1164,7 +1164,7 @@ void KateHlDownloadDialog::slotUser1()
   foreach (QTreeWidgetItem *it, list->selectedItems())
   {
     KUrl src(it->text(4));
-    QString filename=src.fileName(false);
+    QString filename=src.fileName(KUrl::ObeyTrailingSlash);
     QString dest = destdir+filename;
 
     KIO::NetAccess::download(src,dest, this);

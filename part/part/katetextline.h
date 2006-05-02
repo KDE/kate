@@ -357,48 +357,6 @@ class KateTextLine : public KShared
     inline void setIndentationDepth (QVector<unsigned short> &val) { m_indentationDepth = val; }
 
   /**
-   * Methodes for dump/restore of the line in the buffer
-   */
-  public:
-    /**
-     * Dumpsize in bytes
-     * @param withHighlighting should we dump the hl, too?
-     * @return size of line for dumping
-     */
-    inline uint dumpSize (bool withHighlighting) const
-    {
-      return ( sizeof(uchar) // the cool flags
-               + sizeof(uint) // textlen
-               + (m_text.length() * sizeof(QChar)) // the TEXT, important, I guess
-               + ( withHighlighting ?
-                     ( (4 * sizeof(uint)) // 4 lenghts of the following arrays
-                       + (m_attributesList.size() * sizeof(int)) // attributes
-                       + (m_ctx.size() * sizeof(short)) // context stack
-                       + (m_foldingList.size() * sizeof(int)) // folding list
-                       + (m_indentationDepth.size() * sizeof(unsigned short)) // indentation depth
-                     ) : 0
-                 )
-             );
-    }
-
-    /**
-     * Dumps the line to *buf and counts buff dumpSize bytes up
-     * as return value
-     * @param buf buffer to dump to
-     * @param withHighlighting dump hl data, too?
-     * @return buffer index after dumping
-     */
-    char *dump (char *buf, bool withHighlighting) const;
-
-    /**
-     * Restores the line from *buf and counts buff dumpSize bytes up
-     * as return value
-     * @param buf buffer to restore from
-     * @return buffer index after restoring
-     */
-    char *restore (char *buf);
-
-  /**
    * methodes to manipulate the attribute list
    */
   public:

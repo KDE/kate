@@ -650,7 +650,6 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   ui->setupUi( this );
 //  layout->setSpacing( KDialog::spacingHint() );
 
-  ui->sbBlockCount->setValue (KateBuffer::maxLoadedBlocks());
   ui->chkRemoveTrailingSpaces->setChecked(configFlags & KateDocumentConfig::cfRemoveSpaces);
   ui->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
 
@@ -664,7 +663,6 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect( ui->cmbEncoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->cmbEOL, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->chkDetectEOL, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect( ui->sbBlockCount, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect( ui->chkBackupLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( ui->chkBackupRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
@@ -679,8 +677,6 @@ void KateSaveConfigTab::apply()
   if (!hasChanged())
     return;
   m_changed = false;
-
-  KateBuffer::setMaxLoadedBlocks (ui->sbBlockCount->value());
 
   KateDocumentConfig::global()->configStart ();
 

@@ -52,12 +52,11 @@ class KateTextLine : public KShared
      */
     enum Flags
     {
-      flagNoOtherData = 1, // ONLY INTERNAL USE, NEVER EVER SET THAT !!!!
-      flagHlContinue = 2,
-      flagAutoWrapped = 4,
-      flagFoldingColumnsOutdated = 8,
-      flagNoIndentationBasedFolding = 16,
-      flagNoIndentationBasedFoldingAtStart = 32
+      flagHlContinue = 1,
+      flagAutoWrapped = 2,
+      flagFoldingColumnsOutdated = 4,
+      flagNoIndentationBasedFolding = 6,
+      flagNoIndentationBasedFoldingAtStart = 16
     };
 
   public:

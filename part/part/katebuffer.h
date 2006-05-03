@@ -46,19 +46,6 @@ class KateBuffer : public QObject
 
   public:
     /**
-     * maximal loaded block count
-     * @return max loaded blocks
-     */
-    inline static int maxLoadedBlocks () { return 0; }
-
-    /**
-     * modifier for max loaded blocks limit
-     * @param count new limit
-     */
-    static void setMaxLoadedBlocks (int ) { }
-
-  public:
-    /**
      * Create an empty buffer.
      * @param doc parent document
      */
@@ -178,45 +165,38 @@ class KateBuffer : public QObject
   public:
     /**
      * Return line @p line
+     * Highlighting will be updated, if needed
+     * Only use this function if you really need the highlighting information,
+     * otherwise use for better speed @ref plainLine
      */
-    inline KateTextLine::Ptr line(int line)
-    {
-      if (line >= m_lines.size())
-        return KateTextLine::Ptr();
-
-      if (line < m_lineHighlighted)
-        return m_lines[line];
-
-      return line_internal (line);
-    }
-
-  private:
+    KateTextLine::Ptr line(int line);
+    
     /**
-     * line needs hl
-     */
-     KateTextLine::Ptr line_internal (int line);
-
-     inline void addIndentBasedFoldingInformation(QVector<int> &foldingList,bool addindent,int deindent);
-     inline void updatePreviousNotEmptyLine(int current_line,bool addindent,int deindent);
-
-  public:
-    /**
-     * Return line @p line without triggering highlighting
+     * Return line @p line
+     * Highlighting won't be triggered, use this, if you need only 
+     * the text of the line for example, in search/replace or other
+     * pure text manipulation functions
      */
     inline KateTextLine::Ptr plainLine(int line)
     {
-      if (line >= m_lines.size())
+      // valid line at all?
+      if (line < 0 || line >= m_lines.size())
         return KateTextLine::Ptr();
 
+      // return requested line
       return m_lines[line];
     }
-
+    
     /**
      * Return the total number of lines in the buffer.
      */
     inline int count() const { return m_lines.size(); }
+    
+    /**
+     * Return the total number of lines in the buffer.
+     */
+    inline int lines() const { return m_lines.size(); }
 
-  public:
     /**
      * Mark line @p i as changed !
      */
@@ -231,6 +211,10 @@ class KateBuffer : public QObject
      * Remove line @p i
      */
     void removeLine(int i);
+  
+  private:
+     inline void addIndentBasedFoldingInformation(QVector<int> &foldingList,bool addindent,int deindent);
+     inline void updatePreviousNotEmptyLine(int current_line,bool addindent,int deindent);
 
   public:
     inline int countVisible () { return m_lines.size() - m_regionTree.getHiddenLinesCount(m_lines.size()); }

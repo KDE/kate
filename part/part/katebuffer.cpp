@@ -568,10 +568,18 @@ bool KateBuffer::saveFile (const QString &m_file)
   return (file.error() == QFile::NoError);
 }
 
-KateTextLine::Ptr KateBuffer::line_internal (int i)
+KateTextLine::Ptr KateBuffer::line (int line)
 {
+  // valid line at all?
+  if (line < 0 || line >= m_lines.size())
+    return KateTextLine::Ptr();
+
+  // already hl up-to-date for this line?
+  if (line < m_lineHighlighted)
+    return m_lines[line];
+
   // update hl until this line + max KATE_HL_LOOKAHEAD
-  int end = qMin(i + KATE_HL_LOOKAHEAD, m_lines.size()-1);
+  int end = qMin(line + KATE_HL_LOOKAHEAD, m_lines.size()-1);
 
   doHighlight ( m_lineHighlighted, end, false );
 
@@ -581,12 +589,12 @@ KateTextLine::Ptr KateBuffer::line_internal (int i)
   if (m_lineHighlighted > m_lineHighlightedMax)
     m_lineHighlightedMax = m_lineHighlighted;
 
-  return m_lines[i];
+  return m_lines[line];
 }
 
 void KateBuffer::changeLine(int i)
 {
-  if (i >= m_lines.size())
+  if (i < 0 || i >= m_lines.size())
     return;
 
   // mark buffer changed
@@ -602,7 +610,7 @@ void KateBuffer::changeLine(int i)
 
 void KateBuffer::insertLine(int i, KateTextLine::Ptr line)
 {
-  if (i > m_lines.size())
+  if (i < 0 || i > m_lines.size())
     return;
 
   m_lines.insert (i, line);
@@ -634,7 +642,7 @@ void KateBuffer::insertLine(int i, KateTextLine::Ptr line)
 
 void KateBuffer::removeLine(int i)
 {
-  if (i >= m_lines.size())
+  if (i < 0 || i >= m_lines.size())
     return;
 
   m_lines.remove (i);
@@ -716,35 +724,27 @@ void KateBuffer::invalidateHighlighting()
 
 void KateBuffer::updatePreviousNotEmptyLine(int current_line,bool addindent,int deindent)
 {
-#if 0
   KateTextLine::Ptr textLine;
   do {
-    if (current_line>0) current_line--;
-    else
-    {
-      int line=blk->startLine()+current_line;
-      if (line==0) return;
-      line--;
-      blk=findBlock(line);
-      if (!blk) {
-        kDebug(13020)<<"updatePreviousNotEmptyLine: block not found, this must not happen"<<endl;
-        return;
-      }
-      current_line=line-blk->startLine();
-    }
-    textLine = blk->line(current_line);
+    if (current_line == 0) return;
+    
+    --current_line;
+   
+    textLine = m_lines[current_line];
   } while (textLine->firstChar()==-1);
-  kDebug(13020)<<"updatePreviousNotEmptyLine: updating line:"<<(blk->startLine()+current_line)<<endl;
+  
+  kDebug(13020)<<"updatePreviousNotEmptyLine: updating line:"<<current_line<<endl;
   QVector<int> foldingList=textLine->foldingListArray();
   while ( (foldingList.size()>0)  && ( abs(foldingList[foldingList.size()-2])==1)) {
     foldingList.resize(foldingList.size()-2);
   }
   addIndentBasedFoldingInformation(foldingList,addindent,deindent);
   textLine->setFoldingList(foldingList);
+  
   bool retVal_folding = false;
-  m_regionTree.updateLine (current_line + blk->startLine(), &foldingList, &retVal_folding, true,false);
-  emit tagLines (blk->startLine()+current_line, blk->startLine()+current_line);
-#endif
+  m_regionTree.updateLine (current_line, &foldingList, &retVal_folding, true,false);
+  
+  emit tagLines (current_line, current_line);
 }
 
 void KateBuffer::addIndentBasedFoldingInformation(QVector<int> &foldingList,bool addindent,int deindent)

@@ -110,63 +110,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="gbMemoryUsage" >
-     <property name="title" >
-      <string>Memory Usage</string>
-     </property>
-     <layout class="QHBoxLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="lblBlocks" >
-        <property name="text" >
-         <string>Maximum loaded &amp;blocks per file:</string>
-        </property>
-        <property name="buddy" >
-         <cstring>sbBlockCount</cstring>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QSpinBox" name="sbBlockCount" >
-        <property name="whatsThis" >
-         <string>The editor will load given number of blocks (of around 2048 lines) of text into memory; if the filesize is bigger than this the other blocks are swapped to disk and loaded transparently as-needed.&lt;br> This can cause little delays while navigating in the document; a larger block count increases the editing speed at the cost of memory. &lt;br>For normal usage, just choose the highest possible block count: limit it only if you have problems with the memory usage.</string>
-        </property>
-        <property name="maximum" >
-         <number>512</number>
-        </property>
-        <property name="minimum" >
-         <number>4</number>
-        </property>
-        <property name="singleStep" >
-         <number>4</number>
-        </property>
-        <property name="value" >
-         <number>16</number>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>16</width>
-          <height>23</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
     <widget class="QGroupBox" name="gbCleanups" >
      <property name="title" >
       <string>Automatic Cleanups on Load/Save</string>

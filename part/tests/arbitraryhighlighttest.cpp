@@ -63,22 +63,22 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
     //ranges[2]->setForeground(Qt::red);
 
     Attribute* dyn = new Attribute();
-    //dyn->setBackground(Qt::blue);
-    //dyn->setForeground(Qt::white);
-    dyn->setTextOutline(QPen(Qt::yellow));
+    dyn->setBackground(Qt::blue);
+    dyn->setForeground(Qt::white);
+    //dyn->setTextOutline(QPen(Qt::yellow));
+    dyn->setEffects(Attribute::EffectFadeIn | Attribute::EffectFadeOut);
     ranges[1]->setDynamicAttribute(Attribute::ActivateMouseIn, dyn, true);
-    ranges[1]->setEffects(Attribute::EffectFadeIn | Attribute::EffectFadeOut);
 
     Attribute* dyn2 = new Attribute();
     dyn2->setBackground(Qt::green);
     dyn2->setForeground(Qt::white);
     ranges[1]->setDynamicAttribute(Attribute::ActivateCaretIn, dyn2, true);
 
-    //ranges[3]->setFontUnderline(true);
-    //ranges[3]->setSelectedForeground(Qt::magenta);
-    //ranges[4]->setFontStrikeOut(true);
-    //ranges[5]->setOutline(Qt::blue);
-    //ranges[5]->setForeground(Qt::white);
+    ranges[3]->setFontUnderline(true);
+    ranges[3]->setSelectedForeground(Qt::magenta);
+    ranges[4]->setFontStrikeOut(true);
+    ranges[5]->setOutline(Qt::blue);
+    ranges[5]->setForeground(Qt::white);
   }
 
   SmartRange* currentRange = mostSpecificChild;

@@ -35,6 +35,7 @@ KateDynamicAnimation::KateDynamicAnimation(KateDocument* doc, KateSmartRange * r
  , m_timer(new QTimer(this))
  , m_sequence(0)
 {
+  Q_ASSERT(dynamicAttribute());
   init();
 }
 
@@ -43,7 +44,9 @@ KateDynamicAnimation::KateDynamicAnimation(KateView* view, KateSmartRange* range
  , m_range(range)
  , m_type(type)
  , m_timer(new QTimer(this))
+ , m_sequence(0)
 {
+  Q_ASSERT(dynamicAttribute());
   init();
 }
 
@@ -69,7 +72,7 @@ void KateDynamicAnimation::init( )
 
   connect(m_timer, SIGNAL(timeout()), SLOT(timeout()));
 
-  Attribute::Effects effects = range()->attribute()->effects();
+  Attribute::Effects effects = dynamicAttribute()->effects();
   if (effects & Attribute::EffectFadeIn) {
     // Sequence starts at 0
   } else {
@@ -99,7 +102,7 @@ KateView* KateDynamicAnimation::view( ) const
 
 KTextEditor::Attribute * KateDynamicAnimation::dynamicAttribute( ) const
 {
-  return m_range->attribute() ? m_range->attribute()->dynamicAttribute(m_type) : 0L;
+  return m_range && m_range->attribute() ? m_range->attribute()->dynamicAttribute(m_type) : 0L;
 }
 
 void KateDynamicAnimation::timeout()
@@ -132,7 +135,7 @@ void KateDynamicAnimation::mergeToAttribute( KTextEditor::Attribute & attrib ) c
     return;
   }
 
-  Attribute::Effects effects = range()->attribute()->effects();
+  Attribute::Effects effects = dynamicAttribute()->effects();
 
   //kDebug() << k_funcinfo << m_sequence << "Effects: " << effects << endl;
 
@@ -175,7 +178,7 @@ void KateDynamicAnimation::mergeToAttribute( KTextEditor::Attribute & attrib ) c
 
 void KateDynamicAnimation::finish( )
 {
-  if (!(range()->attribute()->effects() & Attribute::EffectFadeOut))
+  if (!(dynamicAttribute()->effects() & Attribute::EffectFadeOut))
     m_sequence = 300;
 
   else if (m_sequence < 100)

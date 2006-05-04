@@ -66,13 +66,13 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
     //dyn->setBackground(Qt::blue);
     //dyn->setForeground(Qt::white);
     dyn->setTextOutline(QPen(Qt::yellow));
-    ranges[2]->setDynamicAttribute(Attribute::ActivateMouseIn, dyn, true);
-    ranges[2]->setEffects(Attribute::EffectFadeIn | Attribute::EffectFadeOut);
+    ranges[1]->setDynamicAttribute(Attribute::ActivateMouseIn, dyn, true);
+    ranges[1]->setEffects(Attribute::EffectFadeIn | Attribute::EffectFadeOut);
 
     Attribute* dyn2 = new Attribute();
     dyn2->setBackground(Qt::green);
     dyn2->setForeground(Qt::white);
-    ranges[2]->setDynamicAttribute(Attribute::ActivateCaretIn, dyn2, true);
+    ranges[1]->setDynamicAttribute(Attribute::ActivateCaretIn, dyn2, true);
 
     //ranges[3]->setFontUnderline(true);
     //ranges[3]->setSelectedForeground(Qt::magenta);

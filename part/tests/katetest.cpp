@@ -60,6 +60,8 @@
 #include <kconfig.h>
 #include <kdebug.h>
 #include <kstringhandler.h>
+#include <krecentfilesaction.h>
+#include <kactioncollection.h>
 
 #include <QStackedWidget>
 #include <qpainter.h>

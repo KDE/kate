@@ -2384,6 +2384,11 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
       m_mouse = newPosition;
       mouseMoved();
     }
+  } else {
+    if (m_mouse.isValid()) {
+      m_mouse = KTextEditor::Cursor::invalid();
+      mouseMoved();
+    }
   }
 
   if( e->buttons() & Qt::LeftButton )
@@ -2967,9 +2972,9 @@ void KateViewInternal::dynamicHighlightAdded( KateSmartRange * range )
 
   if (m_mouse.isValid())
     // Could be more efficient when there are several ranges around
-    mouseMoved();
+    dynamicMoved(true);
 
-  // FIXME cursor here
+  dynamicMoved(false);
 }
 
 void KateViewInternal::dynamicHighlightRemoved( KateSmartRange * range )
@@ -3068,14 +3073,15 @@ void KateViewInternal::dynamicMoved( bool mouse )
 {
   foreach (DynamicRangeHL* hl, m_dynamicHighlights) {
     QStack<KTextEditor::SmartRange*> enterStack, exitStack;
+    KTextEditor::SmartRange* oldRange = mouse ? hl->mouseOver : hl->caretOver;
     KTextEditor::SmartRange* newRange;
     if (mouse)
       newRange = (hl->mouseOver ? hl->mouseOver : hl->top)->deepestRangeContaining(m_mouse, &enterStack, &exitStack);
     else
       newRange = (hl->caretOver ? hl->caretOver : hl->top)->deepestRangeContaining(m_cursor, &enterStack, &exitStack);
 
-    if (newRange != (mouse ? hl->mouseOver : hl->caretOver)) {
-      if (newRange && !(mouse ? hl->mouseOver : hl->caretOver))
+    if (newRange != oldRange) {
+      if (newRange && !oldRange)
         enterStack.prepend(newRange);
 
       foreach (KTextEditor::SmartRange* exitedRange, exitStack)

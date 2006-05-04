@@ -137,13 +137,6 @@ class KateBuffer : public QObject
     bool openFile (const QString &m_file);
 
     /**
-     * was the last loading broken because of not enough tmp disk space ?
-     * (will be reseted on successful save of the file, user gets warning if he really wants to do it)
-     * @return was loading borked?
-     */
-    bool loadingBorked () const { return m_loadingBorked; }
-
-    /**
      * is this file a binary?
      * @return binary file?
      */
@@ -285,18 +278,6 @@ class KateBuffer : public QObject
      * current line count
      */
     QVector<KateTextLine::Ptr> m_lines;
-
-    /**
-     * status of the cache read/write errors
-     * write errors get handled, read errors not really atm
-     */
-    bool m_cacheReadError;
-    bool m_cacheWriteError;
-
-    /**
-     * had we cache error while loading ?
-     */
-    bool m_loadingBorked;
 
     /**
      * binary file loaded ?

@@ -2313,9 +2313,7 @@ bool KateDocument::openFile(KIO::Job * job)
   //
   if (s_openErrorDialogsActivated)
   {
-    if (!success && m_buffer->loadingBorked())
-      KMessageBox::error (widget(), i18n ("The file %1 could not be loaded completely, as there is not enough temporary disk storage for it.", m_url.url()));
-    else if (!success)
+    if (!success)
       KMessageBox::error (widget(), i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.", m_url.url()));
   }
 
@@ -2379,13 +2377,6 @@ bool KateDocument::save()
 
 bool KateDocument::saveFile()
 {
-  //
-  // we really want to save this file ?
-  //
-  if (m_buffer->loadingBorked() && (KMessageBox::warningContinueCancel(widget(),
-      i18n("This file could not be loaded correctly due to lack of temporary disk space. Saving it could cause data loss.\n\nDo you really want to save it?"),i18n("Possible Data Loss"),i18n("Save Nevertheless")) != KMessageBox::Continue))
-    return false;
-
   //
   // warn -> try to save binary file!!!!!!!
   //

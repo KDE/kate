@@ -310,9 +310,6 @@ KateBuffer::KateBuffer(KateDocument *doc)
    editTagLineFrom (false),
    editChangesDone (false),
    m_doc (doc),
-   m_cacheReadError(false),
-   m_cacheWriteError(false),
-   m_loadingBorked (false),
    m_binary (false),
    m_highlight (0),
    m_regionTree (this),
@@ -404,9 +401,6 @@ void KateBuffer::clear()
   m_lines.push_back (textLine);
 
   // reset the state
-  m_cacheWriteError = false;
-  m_cacheReadError = false;
-  m_loadingBorked = false;
   m_binary = false;
 
   m_lineHighlightedMax = 0;
@@ -488,7 +482,7 @@ bool KateBuffer::openFile (const QString &m_file)
 
   kDebug (13020) << "LOADING DONE " << t.elapsed() << endl;
 
-  return !m_loadingBorked;
+  return true;
 }
 
 bool KateBuffer::canEncode ()
@@ -562,8 +556,6 @@ bool KateBuffer::saveFile (const QString &m_file)
   }
 
   file.close ();
-
-  m_loadingBorked = false;
 
   return (file.error() == QFile::NoError);
 }

@@ -211,8 +211,17 @@ SmartRange * SmartRange::firstRangeContaining( const Cursor & pos ) const
 
 SmartRange * SmartRange::deepestRangeContaining( const Cursor & pos, QStack<SmartRange*>* rangesEntered, QStack<SmartRange*>* rangesExited ) const
 {
-  if (!pos.isValid())
+  if (!pos.isValid()) {
+    // Just leave all ranges
+    if (rangesExited) {
+      SmartRange* range = const_cast<SmartRange*>(this);
+      while (range) {
+        rangesExited->append(range);
+        range = range->parentRange();
+      }
+    }
     return 0L;
+  }
 
   return deepestRangeContainingInternal(pos, rangesEntered, rangesExited, true);
 }

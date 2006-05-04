@@ -27,6 +27,7 @@
 #include <ktexteditor/document.h>
 #include <kmenu.h>
 #include <kmessagebox.h>
+#include <kactionmenu.h>
 //END includes
 
 

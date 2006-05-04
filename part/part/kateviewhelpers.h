@@ -21,7 +21,7 @@
 #ifndef __KATE_VIEW_HELPERS_H__
 #define __KATE_VIEW_HELPERS_H__
 
-#include <kaction.h>
+#include <kactionmenu.h>
 #include <klineedit.h>
 
 #include <QPixmap>

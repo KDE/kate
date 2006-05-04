@@ -23,11 +23,14 @@
 #include <kgenericfactory.h>
 #include <klocale.h>
 #include <kaction.h>
+#include <k3widgetaction.h>
 #include <kcombobox.h>
 #include <kconfig.h>
 #include <kdebug.h>
 #include <QFocusEvent>
 #include <ktoolbarlabelaction.h>
+#include <kactionmenu.h>
+#include <ktoggleaction.h>
 
 #include "ISearchPlugin.h"
 #include "ISearchPlugin.moc"
@@ -75,7 +78,7 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	         this, SLOT(slotReturnPressed(const QString&)) );
 	connect( m_combo, SIGNAL(aboutToShowContextMenu(QMenu*)),
 		 this, SLOT(slotAddContextMenuItems(QMenu*)) );
-	m_comboAction = new KWidgetAction( m_combo, i18n("Search"), actionCollection(), "isearch_combo" );
+	m_comboAction = new K3WidgetAction( m_combo, i18n("Search"), actionCollection(), "isearch_combo" );
 	m_comboAction->setShortcutConfigurable( false );
 
         KToolBarLabelAction* labelAction = new KToolBarLabelAction( m_comboAction, i18n("I-Search:"), 0, 0, 0, actionCollection(), "isearch_label" );

@@ -79,6 +79,7 @@
 #include <ktempfile.h>
 #include <kpushbutton.h>
 #include <kvbox.h>
+#include <kactioncollection.h>
 //#include <knewstuff/knewstuff.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
@@ -100,6 +101,7 @@
 #include <qtextcodec.h>
 #include <qtextstream.h>
 #include <qtoolbutton.h>
+#include <QComboBox>
 
 // trailing slash is important
 #define HLDOWNLOADPATH "http://kate.kde.org/syntax/"

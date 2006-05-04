@@ -40,6 +40,7 @@ class QMenu;
 class QAction;
 class QActionGroup;
 class KComboBox;
+class QComboBox;
 
 class KateSchemaManager
 {

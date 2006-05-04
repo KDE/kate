@@ -71,6 +71,9 @@
 #include <ksavefile.h>
 #include <kstdaccel.h>
 #include <kmenu.h>
+#include <ktoggleaction.h>
+#include <kselectaction.h>
+#include <kactioncollection.h>
 
 #include <qfont.h>
 #include <qfileinfo.h>

@@ -29,6 +29,8 @@
 #include <kstringhandler.h>
 #include <kxmlguiclient.h>
 #include <kxmlguifactory.h>
+#include <ktoggleaction.h>
+#include <kactionmenu.h>
 
 #include <QRegExp>
 #include <QEvent>

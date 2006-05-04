@@ -25,7 +25,7 @@
 #include "kateextendedattribute.h"
 
 #include <kconfig.h>
-#include <kaction.h>
+#include <kactionmenu.h>
 
 #include <QVector>
 #include <QList>
@@ -39,7 +39,6 @@
 #include <qdatetime.h>
 #include <QLinkedList>
 #include <QRegExp>
-#include <QAction>
 
 class KateHlContext;
 class KateHlItem;

@@ -95,7 +95,7 @@ static int dummy = 0;
 //
 KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
                              bool bReadOnly, QWidget *parentWidget,
-                             const char *, QObject *parent, const char *name)
+                             QObject *parent)
 : KTextEditor::Document (parent),
   m_plugins (KateGlobal::self()->plugins().count()),
   m_activeView(0L),
@@ -110,7 +110,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   s_fileChangedDialogsActivated (false),
   m_tabInterceptor(0)
 {
-  setObjectName(name);
   m_undoComplexMerge=false;
 
   QByteArray num;

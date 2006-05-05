@@ -37,7 +37,7 @@ class ISearchPlugin : public KTextEditor::Plugin
 	Q_OBJECT
 
 public:
-	ISearchPlugin( QObject *parent = 0, const char* name = 0, const QStringList &args = QStringList() );
+	ISearchPlugin( QObject *parent = 0, const QStringList &args = QStringList() );
 	virtual ~ISearchPlugin();
 
 	void addView (KTextEditor::View *view);

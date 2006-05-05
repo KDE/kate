@@ -33,8 +33,7 @@ class InsertFilePlugin : public KTextEditor::Plugin
 
   public:
     InsertFilePlugin( QObject *parent = 0,
-                            const char* name = 0,
-                            const QStringList &args = QStringList() );
+                      const QStringList &args = QStringList() );
     virtual ~InsertFilePlugin();
 
     void addView (KTextEditor::View *view);

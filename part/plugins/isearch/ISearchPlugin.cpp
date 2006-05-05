@@ -434,7 +434,7 @@ KTextEditor::Range ISearchPluginView::iSearch(
 	return match;
 }
 
-ISearchPlugin::ISearchPlugin( QObject *parent, const char* name, const QStringList& )
+ISearchPlugin::ISearchPlugin( QObject *parent,  const QStringList& )
 	: KTextEditor::Plugin ( parent )
 {
 }

@@ -35,10 +35,9 @@ K_EXPORT_COMPONENT_FACTORY( ktexteditor_kdatatool, KGenericFactory<KTextEditor::
 
 namespace KTextEditor {
 
-KDataToolPlugin::KDataToolPlugin( QObject *parent, const char* name, const QStringList& )
+KDataToolPlugin::KDataToolPlugin( QObject *parent, const QStringList& )
 	: KTextEditor::Plugin ( parent )
 {
-  setObjectName( name );
 }
 
 
@@ -160,7 +159,8 @@ void KDataToolPluginView::aboutToShow()
 		tools += KDataToolInfo::query( "QString", "application/x-singleword", inst );
 
 	m_actionList = KDataToolAction::dataToolActionList( tools, this,
-		SLOT( slotToolActivated( const KDataToolInfo &, const QString & ) ) );
+		SLOT( slotToolActivated( const KDataToolInfo &, const QString & ) ),
+                                                            actionCollection());
 
 	foreach (KAction* ac, m_actionList)
 		m_menu->insert(ac);

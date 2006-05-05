@@ -53,20 +53,18 @@ class KateFactory : public KTextEditor::Factory
     /**
      * reimplemented create object method
      * @param parentWidget parent widget
-     * @param widgetName widget name
      * @param parent QObject parent
-     * @param name object name
      * @param args additional arguments
      * @return constructed part object
      */
-    KParts::Part *createPartObject ( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *_classname, const QStringList & )
+    KParts::Part *createPartObject ( QWidget *parentWidget, QObject *parent, const char *_classname, const QStringList & )
     {
       QByteArray classname( _classname );
       bool bWantSingleView = ( classname != "KTextEditor::Document" && classname != "KTextEditor::Document" );
       bool bWantBrowserView = ( classname == "Browser/View" );
       bool bWantReadOnly = (bWantBrowserView || ( classname == "KParts::ReadOnlyPart" ));
 
-      KParts::ReadWritePart *part = new KateDocument (bWantSingleView, bWantBrowserView, bWantReadOnly, parentWidget, widgetName, parent, name);
+      KParts::ReadWritePart *part = new KateDocument (bWantSingleView, bWantBrowserView, bWantReadOnly, parentWidget, parent);
       part->setReadWrite( !bWantReadOnly );
 
       return part;

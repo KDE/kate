@@ -47,7 +47,6 @@ class DocWordCompletionPlugin
 
   public:
     DocWordCompletionPlugin( QObject *parent = 0,
-                            const char* name = 0,
                             const QStringList &args = QStringList() );
     virtual ~DocWordCompletionPlugin(){kDebug()<<"~DocWordCompletionPlugin"<<endl;};
 

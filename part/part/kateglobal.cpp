@@ -184,7 +184,7 @@ KateGlobal::~KateGlobal()
 
 KTextEditor::Document *KateGlobal::createDocument ( QObject *parent )
 {
-  KateDocument *doc = new KateDocument (false, false, false, 0, "", parent, "");
+  KateDocument *doc = new KateDocument (false, false, false, 0, parent);
 
   emit documentCreated (this, doc);
 

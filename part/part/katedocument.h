@@ -96,7 +96,7 @@ class KateDocument : public KTextEditor::Document,
 
   public:
     KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
-        QWidget *parentWidget = 0, const char *widgetName = 0, QObject * = 0, const char * = 0);
+                  QWidget *parentWidget = 0, QObject * = 0);
     ~KateDocument ();
 
     bool closeURL();

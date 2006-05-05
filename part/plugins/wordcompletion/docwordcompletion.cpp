@@ -36,7 +36,7 @@
 #include <kgenericfactory.h>
 #include <klocale.h>
 #include <kaction.h>
-#include <knotifyclient.h>
+#include <knotification.h>
 #include <kparts/part.h>
 #include <kiconloader.h>
 #include <kdialogbase.h>
@@ -442,7 +442,7 @@ void DocWordCompletionPluginView::complete( bool fw )
             }
             else
             {
-              KNotifyClient::beep();
+              KNotification::beep();
               return;
             }
           }
@@ -456,12 +456,12 @@ void DocWordCompletionPluginView::complete( bool fw )
     {
       if ( ! fw && d->line == 0)
       {
-        KNotifyClient::beep();
+        KNotification::beep();
         return;
       }
       else if ( fw && d->line >= (uint)m_view->document()->lines() )
       {
-        KNotifyClient::beep();
+        KNotification::beep();
         return;
       }
 

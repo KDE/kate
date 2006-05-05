@@ -35,7 +35,7 @@
 #include <kapplication.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
-#include <knotifyclient.h>
+#include <knotification.h>
 #include <kglobal.h>
 #include <kcharsets.h>
 #include <kmenu.h>
@@ -378,13 +378,13 @@ void KateCmdLine::slotReturnPressed ( const QString& text )
           setText (i18n ("Error: ") + msg);
         else
           setText (i18n ("Command \"%1\" failed.",  cmd));
-        KNotifyClient::beep();
+        KNotification::beep();
       }
     }
     else
     {
       setText (i18n ("No such command: \"%1\"",  cmd));
-      KNotifyClient::beep();
+      KNotification::beep();
     }
   }
 

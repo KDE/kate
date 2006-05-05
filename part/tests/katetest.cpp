@@ -195,8 +195,8 @@ void KWrite::setupActions()
                                          actionCollection());
   m_recentFiles->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
-  KAction *a=new KAction(i18n("&New Window"), "window_new", 0, this, SLOT(newView()),
-              actionCollection(), "view_new_view");
+  KAction *a = new KAction(KIcon("window_new"), i18n("&New Window"), actionCollection(), "view_new_view");
+  connect(a, SIGNAL(triggered(bool)), SLOT(newView()));
   a->setWhatsThis(i18n("Create another view containing the current document"));
 
   a=new KAction(i18n("Choose Editor..."),0,this,SLOT(changeEditor()),

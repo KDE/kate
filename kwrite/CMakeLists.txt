@@ -15,7 +15,7 @@ target_link_libraries(kdeinit_kwrite  ${KDE4_KDECORE_LIBS} ktexteditor kparts  $
 install_targets(${LIB_INSTALL_DIR} kdeinit_kwrite )
 
 target_link_libraries( kwrite kdeinit_kwrite )
-install_targets(/bin kwrite )
+install(TARGETS kwrite DESTINATION bin)
 
 ########### install files ###############
 

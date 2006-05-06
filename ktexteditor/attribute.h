@@ -19,9 +19,10 @@
 #ifndef KDELIBS_KTEXTEDITOR_ATTRIBUTE_H
 #define KDELIBS_KTEXTEDITOR_ATTRIBUTE_H
 
-#include <kdelibs_export.h>
-
 #include <QTextCharFormat>
+
+#include <ksharedptr.h>
+#include <kdelibs_export.h>
 
 class KAction;
 
@@ -57,11 +58,13 @@ class SmartRange;
  *
  * \author Hamish Rodda \<rodda@kde.org\>
  */
-class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
+class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat, public KShared
 {
   friend class SmartRange;
 
   public:
+    typedef KSharedPtr<Attribute> Ptr;
+
     /**
      * Default constructor.  The resulting Attribute has no properties set to begin with.
      */
@@ -284,7 +287,7 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
      *
      * \returns the attribute to be used for events specified by \a type, or null if none is set.
      */
-    Attribute* dynamicAttribute(ActivationType type) const;
+    Attribute::Ptr dynamicAttribute(ActivationType type) const;
 
     /**
      * Set the attribute to use when the event referred to by \a type occurs.
@@ -292,12 +295,9 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
      * \note Nested dynamic attributes are ignored.
      *
      * \param type the activation type to set the attribute for
-     * \param attribute the attribute to assign
-     * \param takeOwnership Set to true when this object should take ownership
-     *                      of \a attribute. If \e true, \a attribute will be
-     *                      deleted when this attribute is deleted.
+     * \param attribute the attribute to assign. As attribute is refcounted, ownership is not an issue.
      */
-    void setDynamicAttribute(ActivationType type, Attribute* attribute, bool takeOwnership = false);
+    void setDynamicAttribute(ActivationType type, Attribute::Ptr attribute);
 
     Effects effects() const;
     void setEffects(Effects effects);
@@ -312,6 +312,13 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
      * \param a attribute to merge into this attribute.
      */
     Attribute& operator+=(const Attribute& a);
+
+    /**
+     * Replacement assignment operator.  Use this to overwrite this Attribute with another Attribute.
+     *
+     * \param a attribute to assign to this attribute.
+     */
+    Attribute& operator=(const Attribute& a);
 
   protected:
     /**
@@ -328,10 +335,11 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat
     void removeRange(SmartRange* range);*/
 
   private:
-    class AttributePrivate* d;
+    class AttributePrivate* const d;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Attribute::Effects)
+
 }
 
 #endif

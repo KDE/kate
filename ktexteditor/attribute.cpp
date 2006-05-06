@@ -18,25 +18,20 @@
 
 #include "attribute.h"
 
-#include "attribute_p.h"
-
 using namespace KTextEditor;
 
-AttributePrivate::AttributePrivate()
+class KTextEditor::AttributePrivate
 {
-  for (int i = 0; i < 2; ++i) {
-    dynamicAttributes[i] = 0L;
-    ownsDynamicAttributes[i] = false;
-  }
-}
+  public:
+    AttributePrivate()
+    {
+      dynamicAttributes.append(Attribute::Ptr());
+      dynamicAttributes.append(Attribute::Ptr());
+    }
 
-AttributePrivate::~AttributePrivate()
-{
-  for (int i = 0; i < Attribute::ActivateCaretIn; ++i) {
-    if (ownsDynamicAttributes[i])
-      delete dynamicAttributes[i];
-  }
-}
+    QList<KAction*> associatedActions;
+    QList<Attribute::Ptr> dynamicAttributes;
+};
 
 Attribute::Attribute()
   : d(new AttributePrivate())
@@ -45,8 +40,7 @@ Attribute::Attribute()
 
 Attribute::~Attribute()
 {
-  // FIXME - need to fix ownsDynamicAttributes sharing first
-  //delete d;
+  delete d;
 }
 
 Attribute& Attribute::operator+=(const Attribute& a)
@@ -55,37 +49,28 @@ Attribute& Attribute::operator+=(const Attribute& a)
 
   d->associatedActions += a.associatedActions();
 
+  if (a.d->dynamicAttributes[0])
+    d->dynamicAttributes[0] = a.d->dynamicAttributes[0];
+  if (a.d->dynamicAttributes[1])
+    d->dynamicAttributes[1] = a.d->dynamicAttributes[1];
+
   return *this;
 }
 
-/*void Attribute::addRange( SmartRange * range )
+Attribute::Ptr Attribute::dynamicAttribute(ActivationType type) const
 {
-  d->usingRanges.insert(range);
-}
-
-void Attribute::removeRange( SmartRange * range )
-{
-  d->usingRanges.remove(range);
-}*/
-
-Attribute * Attribute::dynamicAttribute(ActivationType type) const
-{
-  if (type < 0 || type > ActivateCaretIn)
-    return 0L;
+  if (type < 0 || type >= d->dynamicAttributes.count())
+    return Ptr();
 
   return d->dynamicAttributes[type];
 }
 
-void Attribute::setDynamicAttribute( ActivationType type, Attribute * attribute, bool takeOwnership )
+void Attribute::setDynamicAttribute( ActivationType type, Attribute::Ptr attribute )
 {
   if (type < 0 || type > ActivateCaretIn)
     return;
 
-  if (d->ownsDynamicAttributes[type])
-    delete d->dynamicAttributes[type];
-
   d->dynamicAttributes[type] = attribute;
-  d->ownsDynamicAttributes[type] = takeOwnership;
 }
 
 QBrush Attribute::outline( ) const
@@ -142,7 +127,12 @@ void Attribute::setSelectedBackground( const QBrush & brush )
 
 void Attribute::clear( )
 {
-  *this = Attribute();
+  static_cast<QTextCharFormat>(*this) = QTextCharFormat();
+
+  d->associatedActions.clear();
+  d->dynamicAttributes.clear();
+  d->dynamicAttributes.append(Ptr());
+  d->dynamicAttributes.append(Ptr());
 }
 
 bool Attribute::fontBold( ) const
@@ -181,6 +171,16 @@ Attribute::Effects KTextEditor::Attribute::effects( ) const
 void KTextEditor::Attribute::setEffects( Effects effects )
 {
   setProperty(AttributeDynamicEffect, QVariant(effects));
+}
+
+Attribute & KTextEditor::Attribute::operator =( const Attribute & a )
+{
+  static_cast<QTextCharFormat>(*this) = QTextCharFormat();
+
+  d->associatedActions = a.d->associatedActions;
+  d->dynamicAttributes = a.d->dynamicAttributes;
+
+  return *this;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

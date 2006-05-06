@@ -98,7 +98,11 @@ void SmartRangeWatcher::childRangeRemoved( SmartRange*, SmartRange* )
 {
 }
 
-void SmartRangeWatcher::rangeAttributeChanged( SmartRange*, Attribute*, Attribute* )
+void SmartRangeWatcher::rangeAttributeChanged( SmartRange*, Attribute::Ptr, Attribute::Ptr )
+{
+}
+
+void SmartRangeWatcher::parentRangeChanged( SmartRange *, SmartRange *, SmartRange * )
 {
 }
 

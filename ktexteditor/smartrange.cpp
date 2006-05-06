@@ -50,7 +50,6 @@ SmartRange::~SmartRange( )
   deleteChildRanges();
 
   setParentRange(0L);
-  setAttribute(0L);
 
   /*if (!m_deleteCursors)
   {
@@ -330,36 +329,37 @@ void SmartRange::setParentRange( SmartRange * r )
   if (m_parentRange)
     m_parentRange->removeChildRange(this);
 
+  SmartRange* oldParent = m_parentRange;
+
   m_parentRange = r;
 
   if (m_parentRange)
     m_parentRange->insertChildRange(this);
+
+  foreach (SmartRangeNotifier* n, m_notifiers)
+    emit n->parentRangeChanged(this, m_parentRange, oldParent);
+
+  foreach (SmartRangeWatcher* w, m_watchers)
+    w->parentRangeChanged(this, m_parentRange, oldParent);
 }
 
-void SmartRange::setAttribute( Attribute * attribute, bool ownsAttribute )
+void SmartRange::setAttribute( Attribute::Ptr attribute )
 {
-  if (attribute == m_attribute) {
-    m_ownsAttribute = ownsAttribute;
+  if (attribute == m_attribute)
     return;
-  }
 
-  Attribute * prev = m_attribute;
-  bool ownedAttribute = m_ownsAttribute;
+  Attribute::Ptr prev = m_attribute;
 
   m_attribute = attribute;
-  m_ownsAttribute = ownsAttribute;
 
   foreach (SmartRangeNotifier* n, m_notifiers)
     emit n->rangeAttributeChanged(this, attribute, prev);
 
   foreach (SmartRangeWatcher* w, m_watchers)
     w->rangeAttributeChanged(this, attribute, prev);
-
-  if (ownedAttribute)
-    delete prev;
 }
 
-Attribute * SmartRange::attribute( ) const
+Attribute::Ptr SmartRange::attribute( ) const
 {
   return m_attribute;
 }

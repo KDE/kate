@@ -444,14 +444,14 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * a dynamic component and needs to be included in mouse and/or cursor
      * tracking.
      */
-    virtual void attributeDynamic(Attribute* a) = 0;
+    virtual void attributeDynamic(Attribute::Ptr a) = 0;
     /**
      * \internal
      * Used to notify implementations that an Attribute has lost
      * all dynamic components and no longer needs to be included in mouse and cursor
      * tracking.
      */
-    virtual void attributeNotDynamic(Attribute* a) = 0;
+    virtual void attributeNotDynamic(Attribute::Ptr a) = 0;
 
   private:
     bool m_clearOnDocumentReload;

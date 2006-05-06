@@ -19,9 +19,9 @@
 #ifndef KDELIBS_KTEXTEDITOR_RANGEFEEDBACK_H
 #define KDELIBS_KTEXTEDITOR_RANGEFEEDBACK_H
 
-#include <kdelibs_export.h>
-
 #include <QObject>
+
+#include <ktexteditor/attribute.h>
 
 // TODO: Should SmartRangeWatcher become a base class for SmartRangeNotifier?
 
@@ -29,7 +29,6 @@ namespace KTextEditor
 {
 class SmartRange;
 class View;
-class Attribute;
 
 /**
  * \short A class which provides notifications of state changes to a SmartRange via QObject signals.
@@ -164,6 +163,15 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
     void rangeDeleted(KTextEditor::SmartRange* range);
 
     /**
+     * The range's parent was changed.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param newParent pointer to the range which was is now the parent range.
+     * \param oldParent pointer to the range which used to be the parent range.
+     */
+    void parentRangeChanged(KTextEditor::SmartRange* range, KTextEditor::SmartRange* newParent, KTextEditor::SmartRange* oldParent);
+
+    /**
      * The range \a child was inserted as a child range into the current \a range.
      *
      * \param range pointer to the range which generated the notification.
@@ -187,7 +195,7 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
      * \param currentAttribute the attribute newly assigned to this range
      * \param previousAttribute the attribute previously assigned to this range
      */
-    void rangeAttributeChanged(KTextEditor::SmartRange* range, KTextEditor::Attribute* currentAttribute, KTextEditor::Attribute* previousAttribute);
+    void rangeAttributeChanged(KTextEditor::SmartRange* range, KTextEditor::Attribute::Ptr currentAttribute, KTextEditor::Attribute::Ptr previousAttribute);
 
   private:
     bool m_wantDirectChanges;
@@ -273,7 +281,7 @@ class KTEXTEDITOR_EXPORT SmartRangeWatcher
      * \param range pointer to the range which generated the notification.
      * \param view view over which the mouse moved to generate the notification
      */
-    virtual void mouseEnteredRange(KTextEditor::SmartRange* range, KTextEditor::View* view);
+    virtual void mouseEnteredRange(SmartRange* range, View* view);
 
     /**
      * The mouse cursor on \a view exited \p range.
@@ -285,7 +293,7 @@ class KTEXTEDITOR_EXPORT SmartRangeWatcher
      * \param range pointer to the range which generated the notification.
      * \param view view over which the mouse moved to generate the notification
      */
-    virtual void mouseExitedRange(KTextEditor::SmartRange* range, KTextEditor::View* view);
+    virtual void mouseExitedRange(SmartRange* range, View* view);
 
     /**
      * The caret on \a view entered \p range.
@@ -297,7 +305,7 @@ class KTEXTEDITOR_EXPORT SmartRangeWatcher
      * \param range pointer to the range which generated the notification.
      * \param view view over which the mouse moved to generate the notification
      */
-    virtual void caretEnteredRange(KTextEditor::SmartRange* range, KTextEditor::View* view);
+    virtual void caretEnteredRange(SmartRange* range, View* view);
 
     /**
      * The caret on \a view exited \p range.
@@ -309,7 +317,7 @@ class KTEXTEDITOR_EXPORT SmartRangeWatcher
      * \param range pointer to the range which generated the notification.
      * \param view view over which the mouse moved to generate the notification
      */
-    virtual void caretExitedRange(KTextEditor::SmartRange* range, KTextEditor::View* view);
+    virtual void caretExitedRange(SmartRange* range, View* view);
 
     /**
      * The range now contains no characters (ie. the start and end cursors are the same).
@@ -327,20 +335,29 @@ class KTEXTEDITOR_EXPORT SmartRangeWatcher
     virtual void rangeDeleted(SmartRange* range);
 
     /**
+     * The range's parent was changed.
+     *
+     * \param range pointer to the range which generated the notification.
+     * \param newParent pointer to the range which was is now the parent range.
+     * \param oldParent pointer to the range which used to be the parent range.
+     */
+    virtual void parentRangeChanged(SmartRange* range, SmartRange* newParent, SmartRange* oldParent);
+
+    /**
      * The range \a child was inserted as a child range into the current \a range.
      *
      * \param range pointer to the range which generated the notification.
-     * \param range pointer to the range which was inserted as a child range.
+     * \param child pointer to the range which was inserted as a child range.
      */
-    virtual void childRangeInserted(KTextEditor::SmartRange* range, KTextEditor::SmartRange* child);
+    virtual void childRangeInserted(SmartRange* range, SmartRange* child);
 
     /**
      * The child range \a child was removed from the current \a range.
      *
      * \param range pointer to the range which generated the notification.
-     * \param range pointer to the child range which was removed.
+     * \param child pointer to the child range which was removed.
      */
-    virtual void childRangeRemoved(KTextEditor::SmartRange* range, KTextEditor::SmartRange* child);
+    virtual void childRangeRemoved(SmartRange* range, SmartRange* child);
 
     /**
      * The highlighting attribute of \a range was changed from \a previousAttribute to
@@ -350,7 +367,7 @@ class KTEXTEDITOR_EXPORT SmartRangeWatcher
      * \param currentAttribute the attribute newly assigned to this range
      * \param previousAttribute the attribute previously assigned to this range
      */
-    virtual void rangeAttributeChanged(KTextEditor::SmartRange* range, KTextEditor::Attribute* currentAttribute, KTextEditor::Attribute* previousAttribute);
+    virtual void rangeAttributeChanged(SmartRange* range, Attribute::Ptr currentAttribute, Attribute::Ptr previousAttribute);
 
   private:
     bool m_wantDirectChanges;

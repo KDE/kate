@@ -21,6 +21,7 @@
 
 #include <ktexteditor/range.h>
 #include <ktexteditor/smartcursor.h>
+#include <ktexteditor/attribute.h>
 
 #include <QList>
 
@@ -32,7 +33,6 @@ class KAction;
 
 namespace KTextEditor
 {
-class Attribute;
 class SmartRangeNotifier;
 class SmartRangeWatcher;
 
@@ -406,18 +406,15 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      *
      * \return a pointer to the active attribute
      */
-    Attribute* attribute() const;
+    Attribute::Ptr attribute() const;
 
     /**
      * Sets the currently active attribute for this range.
      *
      * \param attribute Attribute to assign to this range. If null, simply
      *                  removes the previous Attribute.
-     * \param takeOwnership Set to true when this object should take ownership
-     *                      of \p attribute. If \e true, \p attribute will be
-     *                      deleted when this range is deleted.
      */
-    void setAttribute(Attribute* attribute, bool takeOwnership = false);
+    void setAttribute(Attribute::Ptr attribute);
     //END
 
     //BEGIN Action binding
@@ -643,7 +640,7 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      *
      * This range's current attribute.
      */
-    Attribute* m_attribute;
+    Attribute::Ptr m_attribute;
 
     /**
      * \internal

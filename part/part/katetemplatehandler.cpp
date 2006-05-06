@@ -148,7 +148,7 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
     if ( !ph )
     {
       ph = new KateTemplatePlaceHolder(m_doc);
-      KTextEditor::Attribute* attrib = new KTextEditor::Attribute();
+      KTextEditor::Attribute::Ptr attrib(new KTextEditor::Attribute());
       attrib->setFontUnderline( true );
       attrib->setFontOverline( true );
       // FIXME use attribute

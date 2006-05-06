@@ -35,7 +35,7 @@ class KateRenderRange
     virtual ~KateRenderRange() {};
     virtual KTextEditor::Cursor nextBoundary() const = 0;
     virtual bool advanceTo(const KTextEditor::Cursor& pos) const = 0;
-    virtual KTextEditor::Attribute* currentAttribute() const = 0;
+    virtual KTextEditor::Attribute::Ptr currentAttribute() const = 0;
 };
 
 class SmartRenderRange : public KateRenderRange
@@ -45,19 +45,19 @@ class SmartRenderRange : public KateRenderRange
 
     virtual KTextEditor::Cursor nextBoundary() const;
     virtual bool advanceTo(const KTextEditor::Cursor& pos) const;
-    virtual KTextEditor::Attribute* currentAttribute() const;
+    virtual KTextEditor::Attribute::Ptr currentAttribute() const;
 
   private:
     void addTo(KTextEditor::SmartRange* range) const;
 
     mutable KTextEditor::SmartRange* m_currentRange;
     mutable KTextEditor::Cursor m_currentPos;
-    mutable QStack<KTextEditor::Attribute> m_attribs;
+    mutable QStack<KTextEditor::Attribute::Ptr> m_attribs;
     const KateView* m_view;
     const bool m_useDynamic;
 };
 
-typedef QPair<KTextEditor::Range*,KTextEditor::Attribute*> pairRA;
+typedef QPair<KTextEditor::Range*,KTextEditor::Attribute::Ptr> pairRA;
 
 class NormalRenderRange : public KateRenderRange
 {
@@ -65,11 +65,11 @@ class NormalRenderRange : public KateRenderRange
     NormalRenderRange();
     virtual ~NormalRenderRange();
 
-    void addRange(KTextEditor::Range* range, KTextEditor::Attribute* attribute);
+    void addRange(KTextEditor::Range* range, KTextEditor::Attribute::Ptr attribute);
 
     virtual KTextEditor::Cursor nextBoundary() const;
     virtual bool advanceTo(const KTextEditor::Cursor& pos) const;
-    virtual KTextEditor::Attribute* currentAttribute() const;
+    virtual KTextEditor::Attribute::Ptr currentAttribute() const;
 
   private:
     mutable QList<pairRA> m_ranges;

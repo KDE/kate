@@ -98,7 +98,7 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
           continue;
         }
 
-        rr.addRange(new KTextEditor::Range(completionStart.start() + KTextEditor::Cursor(0, customHighlights[i].toInt()), completionStart.start() + KTextEditor::Cursor(0, customHighlights[i+1].toInt())), static_cast<KTextEditor::Attribute*>(customHighlights[i+2].value<void*>()));
+        rr.addRange(new KTextEditor::Range(completionStart.start() + KTextEditor::Cursor(0, customHighlights[i].toInt()), completionStart.start() + KTextEditor::Cursor(0, customHighlights[i+1].toInt())), KTextEditor::Attribute::Ptr(static_cast<KTextEditor::Attribute*>(customHighlights[i+2].value<void*>())));
       }
     }
 

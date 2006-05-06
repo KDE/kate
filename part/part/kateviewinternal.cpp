@@ -91,22 +91,25 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_textHintMouseY(-1)
 {
   // Set up bracket marking
-  static KTextEditor::Attribute bracketOutline, bracketFill;
-  if (!bracketOutline.hasAnyProperty())
-    bracketOutline.setOutline(m_view->m_renderer->config()->highlightedBracketColor());
-  if (!bracketFill.hasAnyProperty()) {
-    bracketFill.setBackground(m_view->m_renderer->config()->highlightedBracketColor());
-    bracketFill.setBackgroundFillWhitespace(false);
-    bracketFill.setFontBold();
+  static KTextEditor::Attribute::Ptr bracketOutline, bracketFill;
+  if (!bracketOutline) {
+    bracketOutline = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
+    bracketOutline->setOutline(m_view->m_renderer->config()->highlightedBracketColor());
+  }
+  if (!bracketFill) {
+    bracketFill = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
+    bracketFill->setBackground(m_view->m_renderer->config()->highlightedBracketColor());
+    bracketFill->setBackgroundFillWhitespace(false);
+    bracketFill->setFontBold();
   }
 
-  m_bm.setAttribute(&bracketOutline, false);
+  m_bm.setAttribute(bracketOutline);
   m_bm.setInternal();
 
-  m_bmStart.setAttribute(&bracketFill, false);
+  m_bmStart.setAttribute(bracketFill);
   m_bmStart.setInternal();
 
-  m_bmEnd.setAttribute(&bracketFill, false);
+  m_bmEnd.setAttribute(bracketFill);
   m_bmEnd.setInternal();
 
   setMinimumSize (0,0);
@@ -3053,7 +3056,8 @@ void KateViewInternal::endDynamic( DynamicRangeHL* hl, KateSmartRange* range, KT
     anim = hl->caretAnimations.take(range);
   }
 
-  anim->finish();
+  if (anim)
+    anim->finish();
 
   // it deletes itself
   //delete anim;
@@ -3148,7 +3152,7 @@ void KateViewInternal::childRangeInserted( KTextEditor::SmartRange *, KTextEdito
   child->addWatcher(this);
 }
 
-void KateViewInternal::rangeAttributeChanged( KTextEditor::SmartRange * range, KTextEditor::Attribute * currentAttribute, KTextEditor::Attribute * previousAttribute )
+void KateViewInternal::rangeAttributeChanged( KTextEditor::SmartRange * range, KTextEditor::Attribute::Ptr currentAttribute, KTextEditor::Attribute::Ptr previousAttribute )
 {
   if (currentAttribute != previousAttribute)
     relayoutRange(*range);

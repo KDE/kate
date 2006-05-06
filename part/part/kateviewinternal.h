@@ -39,6 +39,7 @@
 #include <QDrag>
 #include <QWidget>
 #include <QSet>
+#include <QPointer>
 
 class KateView;
 class KateIconBorder;
@@ -415,8 +416,8 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
       bool isView;
       KateSmartRange* caretOver;
       KateSmartRange* mouseOver;
-      QHash<KateSmartRange*, class KateDynamicAnimation*> caretAnimations;
-      QHash<KateSmartRange*, KateDynamicAnimation*> mouseAnimations;
+      QHash<KateSmartRange*, QPointer<class KateDynamicAnimation> > caretAnimations;
+      QHash<KateSmartRange*, QPointer<KateDynamicAnimation> > mouseAnimations;
     };
 
     void mouseMoved();
@@ -431,7 +432,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     void rangeDeleted(KTextEditor::SmartRange* range);
     void childRangeInserted(KTextEditor::SmartRange* range, KTextEditor::SmartRange* child);
     void childRangeRemoved(KTextEditor::SmartRange* range, KTextEditor::SmartRange* child);
-    void rangeAttributeChanged(KTextEditor::SmartRange* range, KTextEditor::Attribute* currentAttribute, KTextEditor::Attribute* previousAttribute);
+    void rangeAttributeChanged(KTextEditor::SmartRange* range, KTextEditor::Attribute::Ptr currentAttribute, KTextEditor::Attribute::Ptr previousAttribute);
 
   public Q_SLOTS:
     void dynamicHighlightAdded(KateSmartRange* range);

@@ -100,15 +100,15 @@ KateView* KateDynamicAnimation::view( ) const
   return qobject_cast<KateView*>(const_cast<QObject*>(parent()));
 }
 
-KTextEditor::Attribute * KateDynamicAnimation::dynamicAttribute( ) const
+KTextEditor::Attribute::Ptr KateDynamicAnimation::dynamicAttribute( ) const
 {
-  return m_range && m_range->attribute() ? m_range->attribute()->dynamicAttribute(m_type) : 0L;
+  return m_range && m_range->attribute() ? m_range->attribute()->dynamicAttribute(m_type) : KTextEditor::Attribute::Ptr();
 }
 
 void KateDynamicAnimation::timeout()
 {
   if (!m_range) {
-    delete this;
+    deleteLater();
     return;
   }
 
@@ -124,11 +124,11 @@ void KateDynamicAnimation::timeout()
 
   if (m_sequence >= 300) {
     m_timer->stop();
-    delete this;
+    deleteLater();
   }
 }
 
-void KateDynamicAnimation::mergeToAttribute( KTextEditor::Attribute & attrib ) const
+void KateDynamicAnimation::mergeToAttribute( KTextEditor::Attribute::Ptr attrib ) const
 {
   if (!dynamicAttribute()) {
     m_timer->stop();
@@ -144,15 +144,15 @@ void KateDynamicAnimation::mergeToAttribute( KTextEditor::Attribute & attrib ) c
       QMapIterator<int, QVariant> it = dynamicAttribute()->properties();
       while (it.hasNext()) {
         it.next();
-        if (attrib.hasProperty(it.key())) {
-          attrib.setProperty(it.key(), mergeWith(attrib.property(it.key()), it.value(), m_sequence));
+        if (attrib->hasProperty(it.key())) {
+          attrib->setProperty(it.key(), mergeWith(attrib->property(it.key()), it.value(), m_sequence));
         } else {
-          attrib.setProperty(it.key(), mergeWith(QVariant(), it.value(), m_sequence));
+          attrib->setProperty(it.key(), mergeWith(QVariant(), it.value(), m_sequence));
         }
       }
 
     } else {
-      attrib.merge(*dynamicAttribute());
+      attrib->merge(*dynamicAttribute());
     }
 
   } else if (m_sequence > 200 && m_sequence <= 300) {
@@ -160,19 +160,19 @@ void KateDynamicAnimation::mergeToAttribute( KTextEditor::Attribute & attrib ) c
       QMapIterator<int, QVariant> it = dynamicAttribute()->properties();
       while (it.hasNext()) {
         it.next();
-        if (attrib.hasProperty(it.key())) {
-          attrib.setProperty(it.key(), mergeWith(attrib.property(it.key()), it.value(), 300 - m_sequence));
+        if (attrib->hasProperty(it.key())) {
+          attrib->setProperty(it.key(), mergeWith(attrib->property(it.key()), it.value(), 300 - m_sequence));
         } else {
-          attrib.setProperty(it.key(), mergeWith(QVariant(), it.value(), 300 - m_sequence));
+          attrib->setProperty(it.key(), mergeWith(QVariant(), it.value(), 300 - m_sequence));
         }
       }
 
     } else {
-      attrib.merge(*dynamicAttribute());
+      attrib->merge(*dynamicAttribute());
     }
 
   } else {
-    attrib.merge(*dynamicAttribute());
+    attrib->merge(*dynamicAttribute());
   }
 }
 

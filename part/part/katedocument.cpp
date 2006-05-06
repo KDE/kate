@@ -4847,12 +4847,12 @@ const QList< KTextEditor::SmartRange * > KateDocument::viewActions( KTextEditor:
   return static_cast<KateView*>(view)->actions();
 }
 
-void KateDocument::attributeDynamic( KTextEditor::Attribute * )
+void KateDocument::attributeDynamic( KTextEditor::Attribute::Ptr )
 {
   // TODO link in with cursor + mouse tracking
 }
 
-void KateDocument::attributeNotDynamic( KTextEditor::Attribute * )
+void KateDocument::attributeNotDynamic( KTextEditor::Attribute::Ptr )
 {
   // TODO de-link cursor + mouse tracking
 }

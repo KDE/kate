@@ -262,8 +262,8 @@ public:
      *
      *   attribute(myktextline->attribute(position));
      */
-    KTextEditor::Attribute* attribute(uint pos) const;
-    KTextEditor::Attribute* specificAttribute(int context) const;
+    KTextEditor::Attribute::Ptr attribute(uint pos) const;
+    KTextEditor::Attribute::Ptr specificAttribute(int context) const;
 
   private:
     /**
@@ -291,7 +291,7 @@ public:
     bool m_showTabs;
     bool m_printerFriendly;
 
-    QVector<KTextEditor::Attribute> *m_attributes;
+    QList<KTextEditor::Attribute::Ptr> m_attributes;
 
   /**
    * Configuration

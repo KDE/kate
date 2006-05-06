@@ -23,9 +23,7 @@
 
 #include <QTreeWidget>
 
-namespace KTextEditor {
-  class Attribute;
-}
+#include "kateextendedattribute.h"
 
 class KateExtendedAttribute;
 
@@ -49,8 +47,8 @@ class KateStyleTreeWidget : public QTreeWidget
     void setSelCol( const QColor &c ) { selcol = c; }
     void setNormalCol( const QColor &c ) { normalcol = c; }
 
-    void addItem( QTreeWidgetItem *parent, const QString& styleName, KTextEditor::Attribute* defaultstyle, KateExtendedAttribute* data = 0L );
-    void addItem( const QString& styleName, KTextEditor::Attribute* defaultstyle, KateExtendedAttribute* data = 0L );
+    void addItem( QTreeWidgetItem *parent, const QString& styleName, KTextEditor::Attribute::Ptr defaultstyle, KateExtendedAttribute::Ptr data = KateExtendedAttribute::Ptr() );
+    void addItem( const QString& styleName, KTextEditor::Attribute::Ptr defaultstyle, KateExtendedAttribute::Ptr data = KateExtendedAttribute::Ptr() );
 
     void resizeColumns();
 

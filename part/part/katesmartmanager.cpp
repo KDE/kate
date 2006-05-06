@@ -424,7 +424,7 @@ void KateSmartManager::rangeLostParent( KateSmartRange * range )
   m_topRanges.insert(range);
 }
 
-void KateSmartManager::rangeDeleted( KateSmartRange * range )
+void KateSmartManager::rangeDeleted( KateSmartRange* range )
 {
   emit signalRangeDeleted(range);
 

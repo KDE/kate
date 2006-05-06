@@ -63,9 +63,9 @@ class KateStyleTreeDelegate : public QItemDelegate
 class KateStyleTreeWidgetItem : public QTreeWidgetItem
 {
   public:
-    KateStyleTreeWidgetItem( QTreeWidgetItem *parent, const QString& styleName, KTextEditor::Attribute* defaultstyle, KateExtendedAttribute* data = 0L );
-    KateStyleTreeWidgetItem( QTreeWidget *parent, const QString& styleName, KTextEditor::Attribute* defaultstyle, KateExtendedAttribute* data = 0L );
-    ~KateStyleTreeWidgetItem() { if (actualStyle) delete currentStyle; };
+    KateStyleTreeWidgetItem( QTreeWidgetItem *parent, const QString& styleName, KTextEditor::Attribute::Ptr defaultstyle, KateExtendedAttribute::Ptr data = KateExtendedAttribute::Ptr() );
+    KateStyleTreeWidgetItem( QTreeWidget *parent, const QString& styleName, KTextEditor::Attribute::Ptr defaultstyle, KateExtendedAttribute::Ptr data = KateExtendedAttribute::Ptr() );
+    ~KateStyleTreeWidgetItem() {};
 
     enum columns {
       Context = 0,
@@ -99,7 +99,7 @@ class KateStyleTreeWidgetItem : public QTreeWidgetItem
     bool isDefault() const;
     /* whichever style is active (currentStyle for hl mode styles not using
        the default style, defaultStyle otherwise) */
-    KTextEditor::Attribute* style() const { return currentStyle; };
+    KTextEditor::Attribute::Ptr style() const { return currentStyle; };
 
     virtual QVariant data( int column, int role ) const;
     virtual void setData( int column, int role, const QVariant& value );
@@ -113,9 +113,9 @@ class KateStyleTreeWidgetItem : public QTreeWidgetItem
     /* helper function to copy the default style into the KateExtendedAttribute,
        when a property is changed and we are using default style. */
 
-    KTextEditor::Attribute *currentStyle, // the style currently in use (was "is")
-                           *defaultStyle; // default style for hl mode contexts and default styles (was "ds")
-    KateExtendedAttribute  *actualStyle;  // itemdata for hl mode contexts (was "st")
+    KTextEditor::Attribute::Ptr currentStyle, // the style currently in use (was "is")
+                                defaultStyle; // default style for hl mode contexts and default styles (was "ds")
+    KateExtendedAttribute::Ptr  actualStyle;  // itemdata for hl mode contexts (was "st")
 };
 //END
 
@@ -196,7 +196,7 @@ void KateStyleTreeWidget::contextMenuEvent( QContextMenuEvent * event )
   if (!i) return;
 
   KMenu m( this );
-  KTextEditor::Attribute *currentStyle = i->style();
+  KTextEditor::Attribute::Ptr currentStyle = i->style();
   // the title is used, because the menu obscures the context name when
   // displayed on behalf of spacePressed().
   QPainter p;
@@ -247,7 +247,7 @@ void KateStyleTreeWidget::contextMenuEvent( QContextMenuEvent * event )
   // would disable setting this with the keyboard (how many aren't doing just
   // that every day? ;)
   // ANY ideas for doing this in a nicer way will be warmly wellcomed.
-  KTextEditor::Attribute *style = i->style();
+  KTextEditor::Attribute::Ptr style = i->style();
   if ( style->hasProperty( QTextFormat::BackgroundBrush) || style->hasProperty( KTextEditor::Attribute::SelectedBackground ) )
   {
     m.addSeparator();
@@ -286,12 +286,12 @@ void KateStyleTreeWidget::emitChanged( )
   emit changed();
 }
 
-void KateStyleTreeWidget::addItem( const QString & styleName, KTextEditor::Attribute * defaultstyle, KateExtendedAttribute * data )
+void KateStyleTreeWidget::addItem( const QString & styleName, KTextEditor::Attribute::Ptr  defaultstyle, KateExtendedAttribute::Ptr  data )
 {
   new KateStyleTreeWidgetItem(this, styleName, defaultstyle, data);
 }
 
-void KateStyleTreeWidget::addItem( QTreeWidgetItem * parent, const QString & styleName, KTextEditor::Attribute * defaultstyle, KateExtendedAttribute * data )
+void KateStyleTreeWidget::addItem( QTreeWidgetItem * parent, const QString & styleName, KTextEditor::Attribute::Ptr  defaultstyle, KateExtendedAttribute::Ptr  data )
 {
   new KateStyleTreeWidgetItem(parent, styleName, defaultstyle, data);
 }
@@ -339,7 +339,7 @@ void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem
 }
 
 KateStyleTreeWidgetItem::KateStyleTreeWidgetItem( QTreeWidgetItem *parent, const QString & stylename,
-                              KTextEditor::Attribute *defaultAttribute, KateExtendedAttribute *actualAttribute )
+                              KTextEditor::Attribute::Ptr defaultAttribute, KateExtendedAttribute::Ptr actualAttribute )
         : QTreeWidgetItem( parent ),
           currentStyle( 0L ),
           defaultStyle( defaultAttribute ),
@@ -350,7 +350,7 @@ KateStyleTreeWidgetItem::KateStyleTreeWidgetItem( QTreeWidgetItem *parent, const
 }
 
 KateStyleTreeWidgetItem::KateStyleTreeWidgetItem( QTreeWidget *parent, const QString & stylename,
-                              KTextEditor::Attribute *defaultAttribute, KateExtendedAttribute *actualAttribute )
+                              KTextEditor::Attribute::Ptr defaultAttribute, KateExtendedAttribute::Ptr actualAttribute )
         : QTreeWidgetItem( parent ),
           currentStyle( 0L ),
           defaultStyle( defaultAttribute ),
@@ -549,8 +549,7 @@ void KateStyleTreeWidgetItem::toggleDefStyle()
          "Kate hl config use defaults" );
   }
   else {
-    delete currentStyle;
-    currentStyle = new KTextEditor::Attribute( *defaultStyle );
+    currentStyle = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute( *defaultStyle ));
     //FIXME
     //repaint();
   }

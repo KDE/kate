@@ -110,12 +110,7 @@ class KateHighlighting
     KateHlData getData();
     void setData(const KateHlData&);
 
-    void setKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute*> &);
-
-    // both methodes return hard copies of the internal lists
-    // the lists are cleared first + autodelete is set !
-    // keep track that you delete them, or mem will be lost
-    void getKateExtendedAttributeListCopy (uint schema, QList<KateExtendedAttribute*> &);
+    void setKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute::Ptr> &);
 
     const QString &name() const {return iName;}
     const QString &nameTranslated() const {return iNameTranslated;}
@@ -201,7 +196,7 @@ class KateHighlighting
 
     void clearAttributeArrays ();
 
-    QVector<KTextEditor::Attribute> *attributes (uint schema);
+    QList<KTextEditor::Attribute::Ptr> attributes (uint schema);
 
     inline bool noHighlighting () const { return noHl; };
 
@@ -210,10 +205,10 @@ class KateHighlighting
 
     QString indentation () { return m_indentation; }
 
-  private:
-    // make this private, nobody should play with the internal data pointers
-    void getKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute*> &);
+    void getKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute::Ptr> &);
+    void getKateExtendedAttributeListCopy(uint schema, QList<KateExtendedAttribute::Ptr> &);
 
+  private:
     void init();
     void done();
     void makeContextList ();
@@ -222,7 +217,7 @@ class KateHighlighting
     void handleKateHlIncludeRulesRecursive(int index, KateHlIncludeRules *list);
     int addToContextList(const QString &ident, int ctx0);
     void addToKateExtendedAttributeList();
-    void createKateExtendedAttribute (QList<KateExtendedAttribute*> &list);
+    void createKateExtendedAttribute (QList<KateExtendedAttribute::Ptr> &list);
     void readGlobalKeywordConfig();
     void readWordWrapConfig();
     void readCommentConfig();
@@ -233,13 +228,13 @@ class KateHighlighting
     // manipulates the ctxs array directly ;)
     void generateContextStack(int *ctxNum, int ctx, QVector<short> *ctxs, int *posPrevLine);
 
-    KateHlItem *createKateHlItem(KateSyntaxContextData *data, QList<KateExtendedAttribute*> &iDl, QStringList *RegionList, QStringList *ContextList);
-    int lookupAttrName(const QString& name, QList<KateExtendedAttribute*> &iDl);
+    KateHlItem *createKateHlItem(KateSyntaxContextData *data, QList<KateExtendedAttribute::Ptr> &iDl, QStringList *RegionList, QStringList *ContextList);
+    int lookupAttrName(const QString& name, QList<KateExtendedAttribute::Ptr> &iDl);
 
     void createContextNameList(QStringList *ContextNameList, int ctx0);
     int getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext,/*NO CONST*/ QString &unres);
 
-    QList<KateExtendedAttribute*> internalIDList;
+    QList<KateExtendedAttribute::Ptr> internalIDList;
 
     QVector<KateHlContext*> m_contexts;
     inline KateHlContext *contextNum (int n) { if (n >= 0 && n < m_contexts.size()) return m_contexts[n]; return 0; }
@@ -282,7 +277,7 @@ class KateHighlighting
     KateHlIncludeRules includeRules;
     bool m_foldingIndentationSensitive;
 
-    QHash< int, QVector<KTextEditor::Attribute> * > m_attributeArrays;
+    QHash< int, QList<KTextEditor::Attribute::Ptr> > m_attributeArrays;
 
 
     /**

@@ -50,7 +50,7 @@ KTextEditor::SmartInterface * ArbitraryHighlightTest::smart( ) const
 
 void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mostSpecificChild)
 {
-  static Attribute* ranges[10] = {0,0,0,0,0,0,0,0,0,0};
+  static Attribute::Ptr ranges[10] = {Attribute::Ptr(),Attribute::Ptr(),Attribute::Ptr(),Attribute::Ptr(),Attribute::Ptr(),Attribute::Ptr(),Attribute::Ptr(),Attribute::Ptr(),Attribute::Ptr(),Attribute::Ptr()};
   static const QChar openBrace = QChar('{');
   static const QChar closeBrace = QChar('}');
 
@@ -62,17 +62,17 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
     //ranges[2]->setFontBold();
     //ranges[2]->setForeground(Qt::red);
 
-    Attribute* dyn = new Attribute();
+    Attribute::Ptr dyn(new Attribute());
     dyn->setBackground(Qt::blue);
     dyn->setForeground(Qt::white);
     //dyn->setTextOutline(QPen(Qt::yellow));
     dyn->setEffects(Attribute::EffectFadeIn | Attribute::EffectFadeOut);
-    ranges[1]->setDynamicAttribute(Attribute::ActivateMouseIn, dyn, true);
+    ranges[1]->setDynamicAttribute(Attribute::ActivateMouseIn, dyn);
 
-    Attribute* dyn2 = new Attribute();
+    Attribute::Ptr dyn2(new Attribute());
     dyn2->setBackground(Qt::green);
     dyn2->setForeground(Qt::white);
-    ranges[1]->setDynamicAttribute(Attribute::ActivateCaretIn, dyn2, true);
+    ranges[1]->setDynamicAttribute(Attribute::ActivateCaretIn, dyn2);
 
     ranges[3]->setFontUnderline(true);
     ranges[3]->setSelectedForeground(Qt::magenta);

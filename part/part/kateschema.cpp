@@ -540,9 +540,6 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab()
 
 KateSchemaConfigFontColorTab::~KateSchemaConfigFontColorTab()
 {
-  foreach (KateAttributeList* list, m_defaultStyleLists)
-    qDeleteAll(*list);
-
   qDeleteAll(m_defaultStyleLists);
 }
 
@@ -656,11 +653,6 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontC
 
 KateSchemaConfigHighlightTab::~KateSchemaConfigHighlightTab()
 {
-  QHashIterator<int, QHash<int, QList<KateExtendedAttribute*>*> > it = m_hlDict;
-  while (it.hasNext()) {
-    it.next();
-    qDeleteAll(it.value());
-  }
 }
 
 void KateSchemaConfigHighlightTab::hlChanged(int z)
@@ -682,15 +674,15 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   {
     kDebug(13030) << "NEW SCHEMA, create dict" << endl;
 
-    m_hlDict.insert (schema, QHash<int, QList<KateExtendedAttribute*>*>());
+    m_hlDict.insert (schema, QHash<int, QList<KateExtendedAttribute::Ptr> >());
   }
 
   if (!m_hlDict[m_schema].contains(m_hl))
   {
     kDebug(13030) << "NEW HL, create list" << endl;
 
-    QList<KateExtendedAttribute*> *list = new QList<KateExtendedAttribute*> ();
-    KateHlManager::self()->getHl( m_hl )->getKateExtendedAttributeListCopy (m_schema, *list);
+    QList<KateExtendedAttribute::Ptr> list;
+    KateHlManager::self()->getHl( m_hl )->getKateExtendedAttributeListCopy(m_schema, list);
     m_hlDict[m_schema].insert (m_hl, list);
   }
 
@@ -714,11 +706,11 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   m_styles->viewport()->setPalette( p );
 
   QHash<QString, QTreeWidgetItem*> prefixes;
-  QList<KateExtendedAttribute*>::ConstIterator it = m_hlDict[m_schema][m_hl]->end();
-  while (it != m_hlDict[m_schema][m_hl]->begin())
+  QList<KateExtendedAttribute::Ptr>::ConstIterator it = m_hlDict[m_schema][m_hl].end();
+  while (it != m_hlDict[m_schema][m_hl].begin())
   {
     --it;
-    KateExtendedAttribute *itemData = *it;
+    KateExtendedAttribute::Ptr itemData = *it;
     Q_ASSERT(itemData);
 
     kDebug(13030) << "insert items " << itemData->name() << endl;
@@ -750,11 +742,6 @@ void KateSchemaConfigHighlightTab::reload ()
 {
   m_styles->clear ();
 
-  QHashIterator<int, QHash<int, QList<KateExtendedAttribute*>*> > it = m_hlDict;
-  while (it.hasNext()) {
-    it.next();
-    qDeleteAll(it.value());
-  }
   m_hlDict.clear ();
 
   hlChanged (0);
@@ -762,13 +749,13 @@ void KateSchemaConfigHighlightTab::reload ()
 
 void KateSchemaConfigHighlightTab::apply ()
 {
-  QHashIterator<int, QHash<int, QList<KateExtendedAttribute*>*> > it = m_hlDict;
+  QMutableHashIterator<int, QHash<int, QList<KateExtendedAttribute::Ptr> > > it = m_hlDict;
   while (it.hasNext()) {
     it.next();
-    QHashIterator<int, QList<KateExtendedAttribute*>*> it2 = it.value();
+    QMutableHashIterator<int, QList<KateExtendedAttribute::Ptr> > it2 = it.value();
     while (it2.hasNext()) {
       it2.next();
-      KateHlManager::self()->getHl( it2.key() )->setKateExtendedAttributeList (it.key(), *(it2.value()));
+      KateHlManager::self()->getHl( it2.key() )->setKateExtendedAttributeList (it.key(), it2.value());
     }
   }
 }

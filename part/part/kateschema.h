@@ -244,7 +244,7 @@ class KateSchemaConfigHighlightTab : public QWidget
     int m_schema;
     int m_hl;
 
-    QHash<int, QHash<int, QList<KateExtendedAttribute*>*> > m_hlDict;
+    QHash<int, QHash<int, QList<KateExtendedAttribute::Ptr> > > m_hlDict;
 };
 
 class KateSchemaConfigPage : public KateConfigPage

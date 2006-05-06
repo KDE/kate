@@ -76,11 +76,11 @@ bool SmartRenderRange::advanceTo(const KTextEditor::Cursor& pos) const
   return ret;
 }
 
-KTextEditor::Attribute* SmartRenderRange::currentAttribute() const
+KTextEditor::Attribute::Ptr SmartRenderRange::currentAttribute() const
 {
   if (m_attribs.count())
-    return const_cast<KTextEditor::Attribute*>(&m_attribs.top());
-  return 0L;
+    return m_attribs.top();
+  return KTextEditor::Attribute::Ptr();
 }
 
 void SmartRenderRange::addTo(KTextEditor::SmartRange* range) const
@@ -92,14 +92,14 @@ void SmartRenderRange::addTo(KTextEditor::SmartRange* range) const
     r = r->parentRange();
   }
 
-  KTextEditor::Attribute a;
+  KTextEditor::Attribute::Ptr a(new KTextEditor::Attribute());
   if (m_attribs.count())
-    a = m_attribs.top();
+    *a = *m_attribs.top();
 
   while (reverseStack.count()) {
     KateSmartRange* r2 = static_cast<KateSmartRange*>(reverseStack.top());
-    if (KTextEditor::Attribute* a2 = r2->attribute())
-      a += *a2;
+    if (KTextEditor::Attribute::Ptr a2 = r2->attribute())
+      *a += *a2;
 
     if (m_useDynamic && r2->hasDynamic())
       foreach (KateDynamicAnimation* anim, r2->dynamicAnimations())
@@ -124,7 +124,7 @@ NormalRenderRange::~NormalRenderRange()
     delete it.next().first;
 }
 
-void NormalRenderRange::addRange(KTextEditor::Range* range, KTextEditor::Attribute* attribute)
+void NormalRenderRange::addRange(KTextEditor::Range* range, KTextEditor::Attribute::Ptr attribute)
 {
   m_ranges.append(pairRA(range, attribute));
 }
@@ -165,12 +165,12 @@ bool NormalRenderRange::advanceTo(const KTextEditor::Cursor& pos) const
   return false;
 }
 
-KTextEditor::Attribute* NormalRenderRange::currentAttribute() const
+KTextEditor::Attribute::Ptr NormalRenderRange::currentAttribute() const
 {
   if (m_currentRange < m_ranges.count() && m_ranges[m_currentRange].first->contains(m_currentPos))
     return m_ranges[m_currentRange].second;
 
-  return 0L;
+  return KTextEditor::Attribute::Ptr();
 }
 
 void RenderRangeList::appendRanges(const QList<KTextEditor::SmartRange*>& startingRanges, bool useDynamic, KateView* view)
@@ -221,7 +221,7 @@ KTextEditor::Attribute RenderRangeList::generateAttribute() const
   KTextEditor::Attribute a;
 
   foreach (KateRenderRange* r, *this)
-    if (KTextEditor::Attribute* a2 = r->currentAttribute())
+    if (KTextEditor::Attribute::Ptr a2 = r->currentAttribute())
       a += *a2;
 
   return a;

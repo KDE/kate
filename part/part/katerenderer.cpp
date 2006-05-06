@@ -67,20 +67,20 @@ void KateRenderer::updateAttributes ()
   m_attributes = m_doc->highlight()->attributes (m_schema);
 }
 
-KTextEditor::Attribute* KateRenderer::attribute(uint pos) const
+KTextEditor::Attribute::Ptr KateRenderer::attribute(uint pos) const
 {
-  if (pos < (uint)m_attributes->size())
-    return &(*m_attributes)[pos];
+  if (pos < (uint)m_attributes.count())
+    return m_attributes[pos];
 
-  return &(*m_attributes)[0];
+  return m_attributes[0];
 }
 
-KTextEditor::Attribute * KateRenderer::specificAttribute( int context ) const
+KTextEditor::Attribute::Ptr KateRenderer::specificAttribute( int context ) const
 {
-  if (context >= 0 && context < m_attributes->count())
-    return &(*m_attributes)[context];
+  if (context >= 0 && context < m_attributes.count())
+    return m_attributes[context];
 
-  return &(*m_attributes)[0];
+  return m_attributes[0];
 }
 
 void KateRenderer::setDrawCaret(bool drawCaret)
@@ -284,13 +284,16 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
     NormalRenderRange* selectionHighlight = 0L;
     if ((selectionsOnly && showSelections() && m_view->selection()) || (completionHighlight && completionSelected)) {
       selectionHighlight = new NormalRenderRange();
-      static KTextEditor::Attribute backgroundAttribute;
-      backgroundAttribute.setBackground(config()->selectionColor());
+      static KTextEditor::Attribute::Ptr backgroundAttribute;
+      if (!backgroundAttribute) {
+        backgroundAttribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
+        backgroundAttribute->setBackground(config()->selectionColor());
+      }
 
       if (completionHighlight && completionSelected)
-        selectionHighlight->addRange(new KTextEditor::Range(line, 0, line + 1, 0), &backgroundAttribute);
+        selectionHighlight->addRange(new KTextEditor::Range(line, 0, line + 1, 0), backgroundAttribute);
       else
-        selectionHighlight->addRange(new KTextEditor::Range(m_view->selectionRange()), &backgroundAttribute);
+        selectionHighlight->addRange(new KTextEditor::Range(m_view->selectionRange()), backgroundAttribute);
 
       renderRanges.append(selectionHighlight);
     }

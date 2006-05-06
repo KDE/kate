@@ -50,10 +50,10 @@ class KateDynamicAnimation : public QObject
     KateDocument* document() const;
     KateView* view() const;
     KateSmartRange* range() const;
-    KTextEditor::Attribute* dynamicAttribute() const;
+    KTextEditor::Attribute::Ptr dynamicAttribute() const;
 
     // The magic... add the dynamic highlight to the static highlight at this position
-    void mergeToAttribute(KTextEditor::Attribute& attrib) const;
+    void mergeToAttribute(KTextEditor::Attribute::Ptr attrib) const;
 
     void finish();
 

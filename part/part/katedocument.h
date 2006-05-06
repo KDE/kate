@@ -520,8 +520,8 @@ class KateDocument : public KTextEditor::Document,
     virtual void removeActionsFromDocument(KTextEditor::SmartRange* topRange);
 
   protected:
-    virtual void attributeDynamic(KTextEditor::Attribute* a);
-    virtual void attributeNotDynamic(KTextEditor::Attribute* a);
+    virtual void attributeDynamic(KTextEditor::Attribute::Ptr a);
+    virtual void attributeNotDynamic(KTextEditor::Attribute::Ptr a);
 
   private:
     // Smart range watcher overrides

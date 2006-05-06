@@ -25,7 +25,7 @@
 
 class KateExtendedAttribute;
 
-typedef QList<KTextEditor::Attribute*> KateAttributeList;
+typedef QList<KTextEditor::Attribute::Ptr> KateAttributeList;
 
 /**
  * An extension of the KTextEditor::Attribute class, with convenience functions
@@ -35,6 +35,8 @@ typedef QList<KTextEditor::Attribute*> KateAttributeList;
 class KateExtendedAttribute : public KTextEditor::Attribute
 {
   public:
+    typedef KSharedPtr<KateExtendedAttribute> Ptr;
+
     KateExtendedAttribute(const QString& name, int defaultStyleIndex = -1);
 
     enum DefaultStyle {

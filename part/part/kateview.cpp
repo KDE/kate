@@ -1596,9 +1596,7 @@ void KateView::lineAsHTML (KateTextLine::Ptr line, int startCol, int length, QTe
   // for each character of the line : (curPos is the position in the line)
   for (int curPos=startCol;curPos<(length+startCol);curPos++)
     {
-      KTextEditor::Attribute* charAttributes = 0;
-
-      charAttributes = m_renderer->attribute(line->attribute(curPos));
+      KTextEditor::Attribute::Ptr charAttributes = m_renderer->attribute(line->attribute(curPos));
 
       //ASSERT(charAttributes != NULL);
       // let's give the color for that character :

@@ -332,9 +332,9 @@ void KateSchemaConfigColorTab::slotMarkerColorChanged( const QColor& color)
 void KateSchemaConfigColorTab::slotComboBoxChanged(int index)
 {
   // temporarily block signals because setColor emits changed as well
-  blockSignals(true);
+  m_markers->blockSignals(true);
   m_markers->setColor( m_schemas[m_schema].markerColors[index] );
-  blockSignals(false);
+  m_markers->blockSignals(false);
 }
 
 //END KateSchemaConfigColorTab

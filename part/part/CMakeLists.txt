@@ -93,6 +93,7 @@ ui//filetypeconfigwidget.ui
 ui//hlconfigwidget.ui
 ui//opensaveconfigwidget.ui
 ui//modonhdwidget.ui
+ui//kateschemaconfigcolortab.ui
 )
 
 kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )

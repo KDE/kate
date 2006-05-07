@@ -23,6 +23,8 @@
 #include "katehighlight.h"
 #include "katedialogs.h"
 
+#include "ui_kateschemaconfigcolortab.h"
+
 #include <qstringlist.h>
 #include <qmap.h>
 #include <qfont.h>
@@ -120,7 +122,7 @@ class KateViewSchemaAction : public KActionMenu
 // DIALOGS
 //
 
-class KateSchemaConfigColorTab : public QWidget
+class KateSchemaConfigColorTab : public QWidget, public Ui::KateSchemaConfigColorTab
 {
   Q_OBJECT
 
@@ -129,18 +131,6 @@ class KateSchemaConfigColorTab : public QWidget
     ~KateSchemaConfigColorTab();
 
   private:
-    KColorButton *m_back;
-    KColorButton *m_selected;
-    KColorButton *m_current;
-    KColorButton *m_bracket;
-    KColorButton *m_wwmarker;
-    KColorButton *m_iconborder;
-    KColorButton *m_tmarker;
-    KColorButton *m_linenumber;
-
-    KColorButton *m_markers;           // bg color for current selected marker
-    KComboBox* m_combobox;             // switch marker type
-
     // Class for storing the properties on 1 schema.
     class SchemaColors {
       public:

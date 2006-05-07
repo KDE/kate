@@ -184,47 +184,9 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab()
 {
   m_schema = -1;
 
-  KHBox *b;
-  QLabel *label;
-
-  QVBoxLayout *blay=new QVBoxLayout(this);
-  blay->setMargin(0);
-  blay->setSpacing(KDialog::spacingHint());
-
-  QGroupBox *gbTextArea = new QGroupBox(this);
-  gbTextArea->setTitle(i18n("Text Area Background"));
-  QVBoxLayout* vbLayout = new QVBoxLayout(gbTextArea);
-
-  b = new KHBox (gbTextArea);
-  vbLayout->addWidget(b);
-  b->setSpacing(KDialog::spacingHint());
-  b->setMargin(0);
-  label = new QLabel( i18n("Normal text:"), b);
-  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
-  m_back = new KColorButton(b);
-
-  b = new KHBox (gbTextArea);
-  vbLayout->addWidget(b);
-  b->setSpacing(KDialog::spacingHint());
-  b->setMargin(0);
-  label = new QLabel( i18n("Selected text:"), b);
-  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
-  m_selected = new KColorButton(b);
-
-  b = new KHBox (gbTextArea);
-  vbLayout->addWidget(b);
-  b->setSpacing(KDialog::spacingHint());
-  b->setMargin(0);
-  label = new QLabel( i18n("Current line:"), b);
-  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
-  m_current = new KColorButton(b);
+  setupUi(this);
 
   // Markers from kdelibs/interfaces/ktextinterface/markinterface.h
-  b = new KHBox (gbTextArea);
-  vbLayout->addWidget(b);
-  b->setSpacing(KDialog::spacingHint());
-  b->setMargin(0);
-  m_combobox = new KComboBox(b);
   // add the predefined mark types as defined in markinterface.h
   m_combobox->addItem(i18n("Bookmark"));            // markType01
   m_combobox->addItem(i18n("Active Breakpoint"));   // markType02
@@ -234,84 +196,7 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab()
   m_combobox->addItem(i18n("Warning"));             // markType06
   m_combobox->addItem(i18n("Error"));               // markType07
   m_combobox->setCurrentIndex(0);
-  m_markers = new KColorButton(b);
   connect( m_combobox, SIGNAL( activated( int ) ), SLOT( slotComboBoxChanged( int ) ) );
-
-  blay->addWidget(gbTextArea);
-
-  QGroupBox *gbBorder = new QGroupBox(this);
-  gbBorder->setTitle(i18n("Additional Elements"));
-  vbLayout = new QVBoxLayout(gbBorder);
-
-  b = new KHBox (gbBorder);
-  vbLayout->addWidget(b);
-  b->setSpacing(KDialog::spacingHint());
-  b->setMargin(0);
-  label = new QLabel( i18n("Left border background:"), b);
-  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
-  m_iconborder = new KColorButton(b);
-
-  b = new KHBox (gbBorder);
-  vbLayout->addWidget(b);
-  b->setSpacing(KDialog::spacingHint());
-  b->setMargin(0);
-  label = new QLabel( i18n("Line numbers:"), b);
-  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
-  m_linenumber = new KColorButton(b);
-
-  b = new KHBox (gbBorder);
-  vbLayout->addWidget(b);
-  b->setSpacing(KDialog::spacingHint());
-  b->setMargin(0);
-  label = new QLabel( i18n("Bracket highlight:"), b);
-  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
-  m_bracket = new KColorButton(b);
-
-  b = new KHBox (gbBorder);
-  vbLayout->addWidget(b);
-  b->setSpacing(KDialog::spacingHint());
-  b->setMargin(0);
-  label = new QLabel( i18n("Word wrap markers:"), b);
-  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
-  m_wwmarker = new KColorButton(b);
-
-  b = new KHBox (gbBorder);
-  vbLayout->addWidget(b);
-  b->setSpacing(KDialog::spacingHint());
-  b->setMargin(0);
-  label = new QLabel( i18n("Tab markers:"), b);
-  label->setAlignment( Qt::AlignLeft|Qt::AlignVCenter);
-  m_tmarker = new KColorButton(b);
-
-  blay->addWidget(gbBorder);
-
-  blay->addStretch();
-
-  // QWhatsThis help
-  m_back->setWhatsThis(i18n("<p>Sets the background color of the editing area.</p>"));
-  m_selected->setWhatsThis(i18n("<p>Sets the background color of the selection.</p>"
-        "<p>To set the text color for selected text, use the \"<b>Configure "
-        "Highlighting</b>\" dialog.</p>"));
-  m_markers->setWhatsThis(i18n("<p>Sets the background color of the selected "
-        "marker type.</p><p><b>Note</b>: The marker color is displayed lightly because "
-        "of transparency.</p>"));
-  m_combobox->setWhatsThis(i18n("<p>Select the marker type you want to change.</p>"));
-  m_current->setWhatsThis(i18n("<p>Sets the background color of the currently "
-        "active line, which means the line where your cursor is positioned.</p>"));
-  m_linenumber->setWhatsThis(i18n(
-        "<p>This color will be used to draw the line numbers (if enabled) and the "
-        "lines in the code-folding pane.</p>" ) );
-  m_bracket->setWhatsThis(i18n("<p>Sets the bracket matching color. This means, "
-        "if you place the cursor e.g. at a <b>(</b>, the matching <b>)</b> will "
-        "be highlighted with this color.</p>"));
-  m_wwmarker->setWhatsThis(i18n(
-        "<p>Sets the color of Word Wrap-related markers:</p>"
-        "<dl><dt>Static Word Wrap</dt><dd>A vertical line which shows the column where "
-        "text is going to be wrapped</dd>"
-        "<dt>Dynamic Word Wrap</dt><dd>An arrow shown to the left of "
-        "visually-wrapped lines</dd></dl>"));
-  m_tmarker->setWhatsThis(i18n(
-        "<p>Sets the color of the tabulator marks:</p>"));
 }
 
 KateSchemaConfigColorTab::~KateSchemaConfigColorTab()

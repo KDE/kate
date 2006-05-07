@@ -23,8 +23,6 @@
 #include "katehighlight.h"
 #include "katedialogs.h"
 
-#include "ui_kateschemaconfigcolortab.h"
-
 #include <qstringlist.h>
 #include <qmap.h>
 #include <qfont.h>
@@ -43,6 +41,8 @@ class QAction;
 class QActionGroup;
 class KComboBox;
 class QComboBox;
+
+namespace Ui { class SchemaConfigColorTab; }
 
 class KateSchemaManager
 {
@@ -122,7 +122,7 @@ class KateViewSchemaAction : public KActionMenu
 // DIALOGS
 //
 
-class KateSchemaConfigColorTab : public QWidget, public Ui::KateSchemaConfigColorTab
+class KateSchemaConfigColorTab : public QWidget
 {
   Q_OBJECT
 
@@ -142,6 +142,8 @@ class KateSchemaConfigColorTab : public QWidget, public Ui::KateSchemaConfigColo
     QMap<int,SchemaColors> m_schemas;
     // current schema
     int m_schema;
+
+    Ui::SchemaConfigColorTab* ui;
 
   public Q_SLOTS:
     void apply();

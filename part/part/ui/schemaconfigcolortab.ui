@@ -2,14 +2,14 @@
  <author></author>
  <comment></comment>
  <exportmacro></exportmacro>
- <class>KateSchemaConfigColorTab</class>
- <widget class="QWidget" name="KateSchemaConfigColorTab" >
+ <class>SchemaConfigColorTab</class>
+ <widget class="QWidget" name="SchemaConfigColorTab" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>369</height>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,7 +17,7 @@
   </property>
   <layout class="QVBoxLayout" >
    <property name="margin" >
-    <number>0</number>
+    <number>9</number>
    </property>
    <property name="spacing" >
     <number>6</number>
@@ -38,35 +38,35 @@
        <number>6</number>
       </property>
       <item row="3" column="1" >
-       <widget class="KColorButton" name="m_markers" >
+       <widget class="KColorButton" name="markers" >
         <property name="whatsThis" >
          <string>&lt;p>Sets the background color of the selected marker type.&lt;/p>&lt;p>&lt;b>Note&lt;/b>: The marker color is displayed lightly because of transparency.&lt;/p></string>
         </property>
        </widget>
       </item>
       <item row="2" column="1" >
-       <widget class="KColorButton" name="m_current" >
+       <widget class="KColorButton" name="current" >
         <property name="whatsThis" >
          <string>&lt;p>Sets the background color of the currently active line, which means the line where your cursor is positioned.&lt;/p></string>
         </property>
        </widget>
       </item>
       <item row="1" column="1" >
-       <widget class="KColorButton" name="m_selected" >
+       <widget class="KColorButton" name="selected" >
         <property name="whatsThis" >
          <string>&lt;p>Sets the background color of the selection.&lt;/p>&lt;p>To set the text color for selected text, use the "&lt;b>Configure Highlighting&lt;/b>" dialog.&lt;/p></string>
         </property>
        </widget>
       </item>
       <item row="0" column="1" >
-       <widget class="KColorButton" name="m_back" >
+       <widget class="KColorButton" name="back" >
         <property name="whatsThis" >
          <string>&lt;p>Sets the background color of the editing area.&lt;/p></string>
         </property>
        </widget>
       </item>
       <item row="3" column="0" >
-       <widget class="KComboBox" name="m_combobox" >
+       <widget class="KComboBox" name="combobox" >
         <property name="whatsThis" >
          <string>&lt;p>Select the marker type you want to change.&lt;/p></string>
         </property>
@@ -112,35 +112,35 @@
        <number>6</number>
       </property>
       <item row="4" column="1" >
-       <widget class="KColorButton" name="m_tmarker" >
+       <widget class="KColorButton" name="tmarker" >
         <property name="whatsThis" >
          <string>&lt;p>Sets the color of the tabulator marks.&lt;/p></string>
         </property>
        </widget>
       </item>
       <item row="3" column="1" >
-       <widget class="KColorButton" name="m_wwmarker" >
+       <widget class="KColorButton" name="wwmarker" >
         <property name="whatsThis" >
          <string>&lt;p>Sets the color of Word Wrap-related markers:&lt;/p>&lt;dl>&lt;dt>Static Word Wrap&lt;/dt>&lt;dd>A vertical line which shows the column where text is going to be wrapped&lt;/dd>&lt;dt>Dynamic Word Wrap&lt;/dt>&lt;dd>An arrow shown to the left of visually-wrapped lines&lt;/dd>&lt;/dl></string>
         </property>
        </widget>
       </item>
       <item row="2" column="1" >
-       <widget class="KColorButton" name="m_bracket" >
+       <widget class="KColorButton" name="bracket" >
         <property name="whatsThis" >
          <string>&lt;p>Sets the bracket matching color. This means, if you place the cursor e.g. at a &lt;b>(&lt;/b>, the matching &lt;b>)&lt;/b> will be highlighted with this color.&lt;/p></string>
         </property>
        </widget>
       </item>
       <item row="1" column="1" >
-       <widget class="KColorButton" name="m_linenumber" >
+       <widget class="KColorButton" name="linenumber" >
         <property name="whatsThis" >
          <string>&lt;p>This color will be used to draw the line numbers (if enabled) and the lines in the code-folding pane.&lt;/p></string>
         </property>
        </widget>
       </item>
       <item row="0" column="1" >
-       <widget class="KColorButton" name="m_iconborder" />
+       <widget class="KColorButton" name="iconborder" />
       </item>
       <item row="4" column="0" >
        <widget class="QLabel" name="label_8" >
@@ -179,6 +179,19 @@
       </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>

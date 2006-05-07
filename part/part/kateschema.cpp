@@ -29,6 +29,8 @@
 #include "kateextendedattribute.h"
 #include "katestyletreewidget.h"
 
+#include "ui_schemaconfigcolortab.h"
+
 #include <klocale.h>
 #include <kdialogbase.h>
 #include <kcolorbutton.h>
@@ -181,36 +183,38 @@ QString KateSchemaManager::name (uint number)
 
 //BEGIN KateSchemaConfigColorTab -- 'Colors' tab
 KateSchemaConfigColorTab::KateSchemaConfigColorTab()
+  : ui(new Ui::SchemaConfigColorTab())
 {
   m_schema = -1;
 
-  setupUi(this);
+  ui->setupUi(this);
 
   // Markers from kdelibs/interfaces/ktextinterface/markinterface.h
   // add the predefined mark types as defined in markinterface.h
-  m_combobox->addItem(i18n("Bookmark"));            // markType01
-  m_combobox->addItem(i18n("Active Breakpoint"));   // markType02
-  m_combobox->addItem(i18n("Reached Breakpoint"));  // markType03
-  m_combobox->addItem(i18n("Disabled Breakpoint")); // markType04
-  m_combobox->addItem(i18n("Execution"));           // markType05
-  m_combobox->addItem(i18n("Warning"));             // markType06
-  m_combobox->addItem(i18n("Error"));               // markType07
-  m_combobox->setCurrentIndex(0);
+  ui->combobox->addItem(i18n("Bookmark"));            // markType01
+  ui->combobox->addItem(i18n("Active Breakpoint"));   // markType02
+  ui->combobox->addItem(i18n("Reached Breakpoint"));  // markType03
+  ui->combobox->addItem(i18n("Disabled Breakpoint")); // markType04
+  ui->combobox->addItem(i18n("Execution"));           // markType05
+  ui->combobox->addItem(i18n("Warning"));             // markType06
+  ui->combobox->addItem(i18n("Error"));               // markType07
+  ui->combobox->setCurrentIndex(0);
 
-  connect( m_combobox, SIGNAL( activated( int ) ), SLOT( slotComboBoxChanged( int ) ) );
-  connect( m_back      , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_selected  , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_current   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_bracket   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_wwmarker  , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_iconborder, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_tmarker   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_linenumber, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_markers   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
+  connect( ui->combobox  , SIGNAL( activated( int ) )        , SLOT( slotComboBoxChanged( int ) ) );
+  connect( ui->back      , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( ui->selected  , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( ui->current   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( ui->bracket   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( ui->wwmarker  , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( ui->iconborder, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( ui->tmarker   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( ui->linenumber, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( ui->markers   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
 }
 
 KateSchemaConfigColorTab::~KateSchemaConfigColorTab()
 {
+  delete ui;
 }
 
 void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
@@ -218,14 +222,14 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
   // save curent schema
   if ( m_schema > -1 )
   {
-    m_schemas[ m_schema ].back = m_back->color();
-    m_schemas[ m_schema ].selected = m_selected->color();
-    m_schemas[ m_schema ].current = m_current->color();
-    m_schemas[ m_schema ].bracket = m_bracket->color();
-    m_schemas[ m_schema ].wwmarker = m_wwmarker->color();
-    m_schemas[ m_schema ].iconborder = m_iconborder->color();
-    m_schemas[ m_schema ].tmarker = m_tmarker->color();
-    m_schemas[ m_schema ].linenumber = m_linenumber->color();
+    m_schemas[ m_schema ].back = ui->back->color();
+    m_schemas[ m_schema ].selected = ui->selected->color();
+    m_schemas[ m_schema ].current = ui->current->color();
+    m_schemas[ m_schema ].bracket = ui->bracket->color();
+    m_schemas[ m_schema ].wwmarker = ui->wwmarker->color();
+    m_schemas[ m_schema ].iconborder = ui->iconborder->color();
+    m_schemas[ m_schema ].tmarker = ui->tmarker->color();
+    m_schemas[ m_schema ].linenumber = ui->linenumber->color();
   }
 
   if ( newSchema == m_schema ) return;
@@ -278,23 +282,23 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
      m_schemas[ newSchema ] = c;
   }
 
-  m_back->setColor(  m_schemas[ newSchema ].back);
-  m_selected->setColor(  m_schemas [ newSchema ].selected );
-  m_current->setColor(  m_schemas [ newSchema ].current );
-  m_bracket->setColor(  m_schemas [ newSchema ].bracket );
-  m_wwmarker->setColor(  m_schemas [ newSchema ].wwmarker );
-  m_tmarker->setColor(  m_schemas [ newSchema ].tmarker );
-  m_iconborder->setColor(  m_schemas [ newSchema ].iconborder );
-  m_linenumber->setColor(  m_schemas [ newSchema ].linenumber );
+  ui->back->setColor(  m_schemas[ newSchema ].back);
+  ui->selected->setColor(  m_schemas [ newSchema ].selected );
+  ui->current->setColor(  m_schemas [ newSchema ].current );
+  ui->bracket->setColor(  m_schemas [ newSchema ].bracket );
+  ui->wwmarker->setColor(  m_schemas [ newSchema ].wwmarker );
+  ui->tmarker->setColor(  m_schemas [ newSchema ].tmarker );
+  ui->iconborder->setColor(  m_schemas [ newSchema ].iconborder );
+  ui->linenumber->setColor(  m_schemas [ newSchema ].linenumber );
 
   // map from 0..reservedMarkersCount()-1 - the same index as in markInterface
   for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)
   {
     QPixmap pix(16, 16);
     pix.fill( m_schemas [ newSchema ].markerColors[i]);
-    m_combobox->setItemIcon(i, QIcon(pix));
+    ui->combobox->setItemIcon(i, QIcon(pix));
   }
-  m_markers->setColor(  m_schemas [ newSchema ].markerColors[ m_combobox->currentIndex() ] );
+  ui->markers->setColor(  m_schemas [ newSchema ].markerColors[ ui->combobox->currentIndex() ] );
 
   blockSignals(false);
 }
@@ -328,11 +332,11 @@ void KateSchemaConfigColorTab::apply ()
 
 void KateSchemaConfigColorTab::slotMarkerColorChanged( const QColor& color)
 {
-  int index = m_combobox->currentIndex();
+  int index = ui->combobox->currentIndex();
    m_schemas[ m_schema ].markerColors[ index ] = color;
   QPixmap pix(16, 16);
   pix.fill(color);
-  m_combobox->setItemIcon(index, QIcon(pix));
+  ui->combobox->setItemIcon(index, QIcon(pix));
 
   emit changed();
 }
@@ -340,9 +344,9 @@ void KateSchemaConfigColorTab::slotMarkerColorChanged( const QColor& color)
 void KateSchemaConfigColorTab::slotComboBoxChanged(int index)
 {
   // temporarily block signals because setColor emits changed as well
-  m_markers->blockSignals(true);
-  m_markers->setColor( m_schemas[m_schema].markerColors[index] );
-  m_markers->blockSignals(false);
+  ui->markers->blockSignals(true);
+  ui->markers->setColor( m_schemas[m_schema].markerColors[index] );
+  ui->markers->blockSignals(false);
 }
 
 //END KateSchemaConfigColorTab

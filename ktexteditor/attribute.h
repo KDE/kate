@@ -71,6 +71,11 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat, public KShared
     Attribute();
 
     /**
+     * Copy constructor.
+     */
+    Attribute(const Attribute& a);
+
+    /**
      * Virtual destructor.
      */
     virtual ~Attribute();

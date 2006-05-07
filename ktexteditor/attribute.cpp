@@ -38,6 +38,12 @@ Attribute::Attribute()
 {
 }
 
+Attribute::Attribute( const Attribute & a )
+  : d(new AttributePrivate())
+{
+  *this = a;
+}
+
 Attribute::~Attribute()
 {
   delete d;
@@ -49,10 +55,13 @@ Attribute& Attribute::operator+=(const Attribute& a)
 
   d->associatedActions += a.associatedActions();
 
-  if (a.d->dynamicAttributes[0])
-    d->dynamicAttributes[0] = a.d->dynamicAttributes[0];
-  if (a.d->dynamicAttributes[1])
-    d->dynamicAttributes[1] = a.d->dynamicAttributes[1];
+  for (int i = 0; i < a.d->dynamicAttributes.count(); ++i)
+    if (i < d->dynamicAttributes.count()) {
+      if (a.d->dynamicAttributes[i])
+        d->dynamicAttributes[i] = a.d->dynamicAttributes[i];
+    } else {
+      d->dynamicAttributes.append(a.d->dynamicAttributes[i]);
+    }
 
   return *this;
 }

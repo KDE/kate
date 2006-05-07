@@ -197,6 +197,8 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab()
   m_combobox->addItem(i18n("Error"));               // markType07
   m_combobox->setCurrentIndex(0);
   connect( m_combobox, SIGNAL( activated( int ) ), SLOT( slotComboBoxChanged( int ) ) );
+
+  connect( m_markers   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
 }
 
 KateSchemaConfigColorTab::~KateSchemaConfigColorTab()
@@ -223,16 +225,8 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
   // switch
   m_schema = newSchema;
 
-  // first disconnect all signals otherwise setColor emits changed
-  m_back      ->disconnect( SIGNAL( changed( const QColor & ) ) );
-  m_selected  ->disconnect( SIGNAL( changed( const QColor & ) ) );
-  m_current   ->disconnect( SIGNAL( changed( const QColor & ) ) );
-  m_bracket   ->disconnect( SIGNAL( changed( const QColor & ) ) );
-  m_wwmarker  ->disconnect( SIGNAL( changed( const QColor & ) ) );
-  m_iconborder->disconnect( SIGNAL( changed( const QColor & ) ) );
-  m_tmarker   ->disconnect( SIGNAL( changed( const QColor & ) ) );
-  m_markers   ->disconnect( SIGNAL( changed( const QColor & ) ) );
-  m_linenumber->disconnect( SIGNAL( changed( const QColor & ) ) );
+  // first block signals otherwise setColor emits changed
+  blockSignals(true);
 
   // If we havent this schema, read in from config file
   if ( ! m_schemas.contains( newSchema ) )
@@ -294,15 +288,7 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
   }
   m_markers->setColor(  m_schemas [ newSchema ].markerColors[ m_combobox->currentIndex() ] );
 
-  connect( m_back      , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_selected  , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_current   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_bracket   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_wwmarker  , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_iconborder, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_tmarker   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_linenumber, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
-  connect( m_markers   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
+  blockSignals(false);
 }
 
 void KateSchemaConfigColorTab::apply ()
@@ -345,10 +331,10 @@ void KateSchemaConfigColorTab::slotMarkerColorChanged( const QColor& color)
 
 void KateSchemaConfigColorTab::slotComboBoxChanged(int index)
 {
-  // temporarily disconnect the changed-signal because setColor emits changed as well
-  m_markers->disconnect( SIGNAL( changed( const QColor& ) ) );
+  // temporarily block signals because setColor emits changed as well
+  blockSignals(true);
   m_markers->setColor( m_schemas[m_schema].markerColors[index] );
-  connect( m_markers, SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
+  blockSignals(false);
 }
 
 //END KateSchemaConfigColorTab

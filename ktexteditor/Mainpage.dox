@@ -399,7 +399,7 @@ The following interfaces are new:
  - KTextEditor::CommandInterface, support for command-line commands
  - KTextEditor::ModificationInterface, support for handling external modified
    files
- - KTextEditor::SessionConfig, support for session specific settings
+ - KTextEditor::SessionConfigInterface, support for session specific settings
  - KTextEditor::SmartInterface, support for smart cursors + ranges, plus their
    uses such as arbitrary highlighting and action association
 

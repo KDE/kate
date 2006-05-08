@@ -81,7 +81,7 @@ class ConfigPage;
  * \section editor_notes Implementation Notes
  *
  * Usually only one instance of the Editor exists. The Kate Part
- * implementation internally uses a static accessor to make sure that only
+ * implementation internally uses a static accessor to make sure that only one
  * Kate Part Editor object exists. So several factories still use the same
  * Editor.
  *

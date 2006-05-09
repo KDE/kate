@@ -984,6 +984,10 @@ void KateDocument::undoEnd()
 
 void KateDocument::undoCancel()
 {
+  // Don't worry about this when an edit is in progress
+  if (editIsRunning)
+    return;
+
   if (m_undoIgnoreCancel) {
     m_undoIgnoreCancel = false;
     return;

@@ -2993,7 +2993,7 @@ KateHlManager *KateHlManager::self()
 
 KateHighlighting *KateHlManager::getHl(int n)
 {
-  if (n < 0 || n >= (int) hlList.count())
+  if (n < 0 || n >= hlList.count())
     n = 0;
 
   return hlList.at(n);

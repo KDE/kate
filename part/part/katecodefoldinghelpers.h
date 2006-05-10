@@ -22,6 +22,7 @@
 //BEGIN INCLUDES + FORWARDS
 #include <qobject.h>
 #include <QHash>
+#include <QSet>
 #include <QList>
 #include <QVector>
 
@@ -155,7 +156,7 @@ class KateCodeFoldingTree : public QObject
     KateBuffer *m_buffer;
 
     QHash<int,unsigned int> lineMapping;
-    QHash<int,bool>         dontIgnoreUnchangedLines;
+    QSet<int>         dontIgnoreUnchangedLines;
 
     QList<KateCodeFoldingNode*> markedForDeleting;
     QList<KateCodeFoldingNode*> nodesForLine;

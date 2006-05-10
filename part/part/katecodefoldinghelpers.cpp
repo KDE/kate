@@ -386,7 +386,7 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
     if (dontIgnoreUnchangedLines.isEmpty())
       return;
 
-    if (dontIgnoreUnchangedLines[line])
+    if (dontIgnoreUnchangedLines.contains(line))
       dontIgnoreUnchangedLines.remove(line);
     else
       return;
@@ -1017,9 +1017,9 @@ unsigned int KateCodeFoldingTree::getStartLine(KateCodeFoldingNode *node)
 void KateCodeFoldingTree::lineHasBeenRemoved(unsigned int line)
 {
   lineMapping.clear();
-  dontIgnoreUnchangedLines.insert(line, &trueVal);
-  dontIgnoreUnchangedLines.insert(line-1, &trueVal);
-  dontIgnoreUnchangedLines.insert(line+1, &trueVal);
+  dontIgnoreUnchangedLines.insert(line);
+  dontIgnoreUnchangedLines.insert(line-1);
+  dontIgnoreUnchangedLines.insert(line+1);
   hiddenLinesCountCacheValid = false;
 #if JW_DEBUG
   kDebug(13000)<<QString("KateCodeFoldingTree::lineHasBeenRemoved: %1").arg(line)<<endl;
@@ -1080,9 +1080,9 @@ void KateCodeFoldingTree::decrementBy1(KateCodeFoldingNode *node, KateCodeFoldin
 void KateCodeFoldingTree::lineHasBeenInserted(unsigned int line)
 {
   lineMapping.clear();
-  dontIgnoreUnchangedLines.insert(line, &trueVal);
-  dontIgnoreUnchangedLines.insert(line-1, &trueVal);
-  dontIgnoreUnchangedLines.insert(line+1, &trueVal);
+  dontIgnoreUnchangedLines.insert(line);
+  dontIgnoreUnchangedLines.insert(line-1l);
+  dontIgnoreUnchangedLines.insert(line+1);
   hiddenLinesCountCacheValid = false;
 //return;
 #if JW_DEBUG

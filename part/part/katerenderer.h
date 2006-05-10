@@ -165,8 +165,8 @@ public:
      */
     void increaseFontSizes();
     void decreaseFontSizes();
-    const QFont* currentFont() const;
-    const QFontMetrics* currentFontMetrics() const;
+    const QFont& currentFont() const;
+    const QFontMetrics& currentFontMetrics() const;
 
     /**
      * @return whether the renderer is configured to paint in a

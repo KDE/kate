@@ -35,7 +35,6 @@
 #include "katesmartmanager.h"
 #include "katerenderer.h"
 #include "kateconfig.h"
-#include "katefont.h"
 #include "katedocument.h"
 #include "katesmartrange.h"
 
@@ -125,10 +124,10 @@ void KateCompletionWidget::updatePosition( )
   QPoint p = view()->mapToGlobal( cursorPosition );
   int x = p.x() - m_entryList->header()->sectionPosition(m_entryList->header()->visualIndex(KTextEditor::CodeCompletionModel::Name)) - 2;
   int y = p.y();
-  if ( y + height() + view()->renderer()->config()->fontMetrics()->height() > QApplication::desktop()->height() )
+  if ( y + height() + view()->renderer()->config()->fontMetrics().height() > QApplication::desktop()->height() )
     y -= height();
   else
-    y += view()->renderer()->config()->fontMetrics()->height();
+    y += view()->renderer()->config()->fontMetrics().height();
 
   if (x + width() > QApplication::desktop()->width())
     x = QApplication::desktop()->width() - width();

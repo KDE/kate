@@ -43,7 +43,6 @@ katedocumenthelpers.cpp
 katecodefoldinghelpers.cpp
 kateviewinternal.cpp
 katebookmarks.cpp
-katefont.cpp
 katelinerange.cpp
 katesmartcursor.cpp
 katerenderer.cpp

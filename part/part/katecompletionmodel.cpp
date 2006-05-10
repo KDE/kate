@@ -24,7 +24,6 @@
 #include "kateview.h"
 #include "katerenderer.h"
 #include "kateconfig.h"
-#include "katefont.h"
 
 using namespace KTextEditor;
 
@@ -66,8 +65,11 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
         break;
 
       case Qt::FontRole:
-        if (!index.column())
-          return view()->renderer()->config()->fontStruct()->font(true, false);
+        if (!index.column()) {
+          QFont f = view()->renderer()->config()->font();
+          f.setBold(true);
+          return f;
+        }
         break;
 
       case Qt::TextColorRole:

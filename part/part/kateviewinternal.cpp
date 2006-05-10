@@ -35,7 +35,6 @@
 #include "katecodecompletion.h"
 #include "kateconfig.h"
 #include "katelayoutcache.h"
-#include "katefont.h"
 #include "katedynamicanimation.h"
 #include "katesmartmanager.h"
 #include "katecompletionwidget.h"
@@ -563,7 +562,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     m_columnScroll->setValue(m_startX);
 
     // Approximate linescroll
-    m_columnScroll->setSingleStep(renderer()->config()->fontMetrics()->width('a'));
+    m_columnScroll->setSingleStep(renderer()->config()->fontMetrics().width('a'));
     m_columnScroll->setPageStep(width());
 
     m_columnScroll->blockSignals(false);
@@ -1250,7 +1249,7 @@ int KateViewInternal::lineMaxCursorX(const KateTextLayout& range)
 
   if (maxX && range.wrap()) {
     QChar lastCharInLine = textLine(range.line())->getChar(range.endCol() - 1);
-    maxX -= renderer()->config()->fontMetrics()->width(lastCharInLine);
+    maxX -= renderer()->config()->fontMetrics().width(lastCharInLine);
   }
 
   return maxX;

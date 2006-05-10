@@ -25,16 +25,14 @@
 #include <QColor>
 #include <QObject>
 #include <QVector>
+#include <QFontMetrics>
 
 class KateView;
 class KateDocument;
 class KateRenderer;
-class KateFontStruct;
-class KateFontMetrics;
 
 class KConfig;
 
-class QFont;
 class QTextCodec;
 
 /**
@@ -460,10 +458,8 @@ class KateRendererConfig : public KateConfig
      */
     void reloadSchema();
 
-    KateFontStruct *fontStruct ();
-    QFont *font();
-    KateFontMetrics *fontMetrics();
-
+    const QFont& font() const;
+    const QFontMetrics& fontMetrics() const;
     void setFont(const QFont &font);
 
     bool wordWrapMarker () const;
@@ -508,7 +504,8 @@ class KateRendererConfig : public KateConfig
     void setSchemaInternal(int schema);
 
     uint m_schema;
-    KateFontStruct *m_font;
+    QFont m_font;
+    QFontMetrics m_fontMetrics;
     bool m_wordWrapMarker;
     bool m_showIndentationLines;
     QColor m_backgroundColor;

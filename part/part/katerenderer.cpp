@@ -26,7 +26,6 @@
 #include "kateconfig.h"
 #include "katehighlight.h"
 #include "kateview.h"
-#include "katefont.h"
 #include "katerenderrange.h"
 
 #include <limits.h>
@@ -125,7 +124,7 @@ void KateRenderer::setShowSelections(bool showSelections)
 
 void KateRenderer::increaseFontSizes()
 {
-  QFont f ( *config()->font () );
+  QFont f ( config()->font () );
   f.setPointSize (f.pointSize ()+1);
 
   config()->setFont (f);
@@ -133,7 +132,7 @@ void KateRenderer::increaseFontSizes()
 
 void KateRenderer::decreaseFontSizes()
 {
-  QFont f ( *config()->font () );
+  QFont f ( config()->font () );
 
   if ((f.pointSize ()-1) > 0)
     f.setPointSize (f.pointSize ()-1);
@@ -158,9 +157,6 @@ void KateRenderer::paintTextLineBackground(QPainter& paint, KateLineLayoutPtr la
 {
   if (isPrinterFriendly())
     return;
-
-  // font data
-  KateFontStruct *fs = config()->fontStruct();
 
   // Normal background color
   QColor backgroundColor( config()->backgroundColor() );
@@ -204,7 +200,7 @@ void KateRenderer::paintTextLineBackground(QPainter& paint, KateLineLayoutPtr la
   }
 
   // Draw line background
-  paint.fillRect(0, 0, xEnd - xStart, fs->fontHeight * layout->viewLineCount(), backgroundColor);
+  paint.fillRect(0, 0, xEnd - xStart, config()->fontMetrics().height() * layout->viewLineCount(), backgroundColor);
 
   // paint the current line background if we're on the current line
   if (currentViewLine != -1) {
@@ -219,7 +215,7 @@ void KateRenderer::paintTextLineBackground(QPainter& paint, KateLineLayoutPtr la
       );
     }
 
-    paint.fillRect(0, fs->fontHeight * currentViewLine, xEnd - xStart, fs->fontHeight, currentLineColor);
+    paint.fillRect(0, config()->fontMetrics().height() * currentViewLine, xEnd - xStart, config()->fontMetrics().height(), currentLineColor);
   }
 }
 
@@ -238,7 +234,7 @@ void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint row)
   QPen penBackup( paint.pen() );
   paint.setPen( config()->tabMarkerColor() );
 
-  const int height = config()->fontStruct()->fontHeight;
+  const int height = config()->fontMetrics().height();
   const int top = 0;
   const int bottom = height-1;
   const int h = bottom - top + 1;
@@ -365,7 +361,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   Q_ASSERT(range->isValid());
 
   // font data
-  KateFontStruct* fs = config()->fontStruct();
+  const QFontMetrics& fm = config()->fontMetrics();
 
   // Paint selection background as the whole line is selected
   // selection startcol/endcol calc
@@ -380,7 +376,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   // Draws the dashed underline at the start of a folded block of text.
   if (range->startsInvisibleBlock()) {
     paint.setPen(QPen(config()->wordWrapMarkerColor(), 1, Qt::DashLine));
-    paint.drawLine(0, (fs->fontHeight * range->viewLineCount()) - 1, xEnd - xStart, (fs->fontHeight * range->viewLineCount()) - 1);
+    paint.drawLine(0, (config()->fontMetrics().height() * range->viewLineCount()) - 1, xEnd - xStart, (config()->fontMetrics().height() * range->viewLineCount()) - 1);
   }
 
   if (range->layout()) {
@@ -437,12 +433,12 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
       // Draw selection outside of areas where text is rendered
       if (m_view->selection() && m_view->lineEndSelected(line.end(true))) {
-        QRect area(line.endX() + line.xOffset() - xStart, fs->fontHeight * i, xEnd - xStart, fs->fontHeight * (i + 1));
+        QRect area(line.endX() + line.xOffset() - xStart, config()->fontMetrics().height() * i, xEnd - xStart, config()->fontMetrics().height() * (i + 1));
         paint.fillRect(area, config()->selectionColor());
 
       } else if (backgroundColor.isValid()) {
         // Draw text background outside of areas where text is rendered.
-        QRect area(line.endX() + line.xOffset() - xStart, fs->fontHeight * i, xEnd - xStart, fs->fontHeight * (i + 1));
+        QRect area(line.endX() + line.xOffset() - xStart, config()->fontMetrics().height() * i, xEnd - xStart, config()->fontMetrics().height() * (i + 1));
         paint.fillRect(area, backgroundColor);
       }
 
@@ -462,7 +458,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       if (showTabs()) {
         const QString& text = range->textLine()->string();
         int tabIndex = text.indexOf(tabChar);
-        int y = (fs->fontHeight * i) + fs->fontAscent;
+        int y = (config()->fontMetrics().height() * i) + fm.ascent();
         while (tabIndex != -1) {
           paintWhitespaceMarker(paint, (int)line.lineLayout().cursorToX(tabIndex) - xStart, y);
           tabIndex = text.indexOf(tabChar, tabIndex + 1);
@@ -480,7 +476,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     // draw word-wrap-honor-indent filling
     if (range->viewLineCount() > 1 && range->shiftX() && range->shiftX() > xStart)
     {
-      paint.fillRect(0, fs->fontHeight, range->shiftX() - xStart, fs->fontHeight * (range->viewLineCount() - 1),
+      paint.fillRect(0, config()->fontMetrics().height(), range->shiftX() - xStart, config()->fontMetrics().height() * (range->viewLineCount() - 1),
         QBrush(config()->wordWrapMarkerColor(), Qt::DiagCrossPattern));
     }
 
@@ -512,7 +508,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       paint.setPen(QPen(c, caretWidth));
 
       // Clip the caret - Qt's caret has a habit of intruding onto other lines
-      paint.setClipRect(0, line.lineNumber() * fs->fontHeight, xEnd - xStart, fs->fontHeight);
+      paint.setClipRect(0, line.lineNumber() * config()->fontMetrics().height(), xEnd - xStart, config()->fontMetrics().height());
 
       // Draw the cursor, start drawing in the middle as the above sets the width from the centre of the line
       range->layout()->drawCursor(&paint, QPoint(caretWidth/2 - xStart,0), cursor->column());
@@ -597,7 +593,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
             // Draw preedit's underline
             if (isIMEdit) {
-              QRect r( oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight );
+              QRect r( oldXPos - xStart, 0, xPosAfter - oldXPos, config()->fontMetrics().height() );
               paint.drawLine( r.bottomLeft(), r.bottomRight() );
             }
 
@@ -617,27 +613,27 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   */
 
   // show word wrap marker if desirable
-  if (!isPrinterFriendly() && config()->wordWrapMarker() && fs->fixedPitch())
+  if (!isPrinterFriendly() && config()->wordWrapMarker() && config()->font().fixedPitch())
   {
     paint.setPen( config()->wordWrapMarkerColor() );
-    int _x = m_doc->config()->wordWrapAt() * fs->myFontMetrics.width('x') - xStart;
-    paint.drawLine( _x,0,_x,fs->fontHeight );
+    int _x = m_doc->config()->wordWrapAt() * fm.width('x') - xStart;
+    paint.drawLine( _x,0,_x,fm.height() );
   }
 }
 
-const QFont *KateRenderer::currentFont() const
+const QFont& KateRenderer::currentFont() const
 {
   return config()->font();
 }
 
-const QFontMetrics* KateRenderer::currentFontMetrics() const
+const QFontMetrics& KateRenderer::currentFontMetrics() const
 {
   return config()->fontMetrics();
 }
 
 uint KateRenderer::fontHeight()
 {
-  return config()->fontStruct ()->fontHeight;
+  return config()->fontMetrics().height();
 }
 
 uint KateRenderer::documentHeight()
@@ -703,7 +699,7 @@ void KateRenderer::updateConfig ()
 
 uint KateRenderer::spaceWidth() const
 {
-  return config()->fontStruct()->myFontMetrics.width(spaceChar);
+  return config()->fontMetrics().width(spaceChar);
 }
 
 void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool cacheLayout) const
@@ -711,11 +707,14 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   // if maxwidth == -1 we have no wrap
 
   Q_ASSERT(lineLayout->textLine());
-  Q_ASSERT(currentFont());
 
   QTextLayout* l = lineLayout->layout();
-  if (!l)
-    l = new QTextLayout(lineLayout->textLine()->string(), config()->fontStruct()->font(false, false));
+  if (!l) {
+    l = new QTextLayout(lineLayout->textLine()->string(), config()->font());
+  } else {
+    l->setText(lineLayout->textLine()->string());
+    l->setFont(config()->font());
+  }
 
   l->setCacheEnabled(cacheLayout);
 
@@ -724,7 +723,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   // Tab width
   QTextOption opt;
   opt.setFlags(QTextOption::IncludeTrailingSpaces);
-  opt.setTabStop(m_tabWidth * config()->fontStruct()->width(spaceChar, false, false, m_tabWidth));
+  opt.setTabStop(m_tabWidth * config()->fontMetrics().width(spaceChar));
   opt.setWrapMode(QTextOption::WrapAnywhere);//QTextOption::WrapAtWordBoundaryOrAnywhere);
   l->setTextOption(opt);
 
@@ -766,7 +765,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
       lineLayout->setShiftX(shiftX);
     }
 
-    height += config()->fontStruct()->fontHeight;
+    height += config()->fontMetrics().height();
   }
 
   l->endLayout();

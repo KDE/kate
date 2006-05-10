@@ -26,7 +26,6 @@
 #include "kateview.h"
 #include "katerenderer.h"
 #include "kateconfig.h"
-#include "katefont.h"
 
 #include "katecompletionwidget.h"
 #include "katecompletiondelegate.h"
@@ -106,7 +105,7 @@ QStyleOptionViewItem KateCompletionTree::viewOptions( ) const
 {
   QStyleOptionViewItem opt = QTreeView::viewOptions();
 
-  opt.font = widget()->view()->renderer()->config()->fontStruct()->font(false, false);
+  opt.font = widget()->view()->renderer()->config()->font();
 
   return opt;
 }

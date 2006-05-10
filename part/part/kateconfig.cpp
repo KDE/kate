@@ -22,7 +22,6 @@
 #include "katerenderer.h"
 #include "kateview.h"
 #include "katedocument.h"
-#include "katefont.h"
 #include "kateschema.h"
 
 #include <math.h>
@@ -1016,8 +1015,7 @@ void KateViewConfig::setTextToSearchMode (int mode)
 
 //BEGIN KateRendererConfig
 KateRendererConfig::KateRendererConfig ()
- :
-   m_font (new KateFontStruct ()),
+ : m_fontMetrics(QFont()),
    m_lineMarkerColor (KTextEditor::MarkInterface::reservedMarkersCount()),
    m_schemaSet (true),
    m_fontSet (true),
@@ -1046,7 +1044,7 @@ KateRendererConfig::KateRendererConfig ()
 }
 
 KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
- : m_font (0),
+ : m_fontMetrics(QFont()),
    m_lineMarkerColor (KTextEditor::MarkInterface::reservedMarkersCount()),
    m_schemaSet (false),
    m_fontSet (false),
@@ -1069,7 +1067,6 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
 
 KateRendererConfig::~KateRendererConfig ()
 {
-  delete m_font;
 }
 
 void KateRendererConfig::readConfig (KConfig *config)
@@ -1129,8 +1126,8 @@ void KateRendererConfig::setSchema (uint schema)
 void KateRendererConfig::reloadSchema()
 {
   if ( isGlobal() )
-    for ( int z=0; z < KateGlobal::self()->views().size(); ++z )
-      (KateGlobal::self()->views())[z]->renderer()->config()->reloadSchema();
+    foreach (KateView* view, KateGlobal::self()->views() )
+      view->renderer()->config()->reloadSchema();
 
   else if ( m_renderer && m_schemaSet )
     setSchemaInternal( m_schema );
@@ -1188,44 +1185,34 @@ void KateRendererConfig::setSchemaInternal( int schema )
 
   QFont f (KGlobalSettings::fixedFont());
 
-  if (!m_fontSet)
-  {
-    m_fontSet = true;
-    m_font = new KateFontStruct ();
-  }
-
-  m_font->setFont(config->readEntry("Font", f));
+  m_font = config->readEntry("Font", f);
+  m_fontMetrics = QFontMetrics(m_font);
+  m_fontSet = true;
 }
 
-KateFontStruct *KateRendererConfig::fontStruct ()
+const QFont& KateRendererConfig::font() const
 {
   if (m_fontSet || isGlobal())
     return m_font;
 
-  return s_global->fontStruct ();
+  return s_global->font();
 }
 
-QFont *KateRendererConfig::font()
+const QFontMetrics& KateRendererConfig::fontMetrics() const
 {
-  return &(fontStruct ()->myFont);
-}
+  if (m_fontSet || isGlobal())
+    return m_fontMetrics;
 
-KateFontMetrics *KateRendererConfig::fontMetrics()
-{
-  return &(fontStruct ()->myFontMetrics);
+  return s_global->fontMetrics();
 }
 
 void KateRendererConfig::setFont(const QFont &font)
 {
   configStart ();
 
-  if (!m_fontSet)
-  {
-    m_fontSet = true;
-    m_font = new KateFontStruct ();
-  }
-
-  m_font->setFont(font);
+  m_fontSet = true;
+  m_font = font;
+  m_fontMetrics = QFontMetrics(m_font);
 
   configEnd ();
 }

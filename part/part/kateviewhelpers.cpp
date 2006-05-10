@@ -30,7 +30,6 @@
 #include "kateview.h"
 #include "kateviewinternal.h"
 #include "katelayoutcache.h"
-#include "katefont.h"
 
 #include <kapplication.h>
 #include <kglobalsettings.h>
@@ -807,12 +806,12 @@ QSize KateIconBorder::sizeHint() const
 // for graceful handling of variable-width fonts as the linenumber font.
 void KateIconBorder::updateFont()
 {
-  const QFontMetrics *fm = m_view->renderer()->config()->fontMetrics();
+  QFontMetrics fm = m_view->renderer()->config()->fontMetrics();
   m_maxCharWidth = 0;
   // Loop to determine the widest numeric character in the current font.
   // 48 is ascii '0'
   for (int i = 48; i < 58; i++) {
-    int charWidth = fm->width( QChar(i) );
+    int charWidth = fm.width( QChar(i) );
     m_maxCharWidth = qMax(m_maxCharWidth, charWidth);
   }
 }
@@ -827,7 +826,7 @@ int KateIconBorder::lineNumberWidth() const
 
     if (m_cachedLNWidth != width || m_oldBackgroundColor != m_view->renderer()->config()->iconBarColor()) {
       int w = 16;// HACK: 16 == style().scrollBarExtent().width() style().scrollBarExtent().width();
-      int h = m_view->renderer()->config()->fontMetrics()->height();
+      int h = m_view->renderer()->config()->fontMetrics().height();
 
       QSize newSize(w, h);
       if ((m_arrow.size() != newSize || m_oldBackgroundColor != m_view->renderer()->config()->iconBarColor()) && !newSize.isEmpty()) {
@@ -836,7 +835,7 @@ int KateIconBorder::lineNumberWidth() const
         QPainter p(&m_arrow);
         p.fillRect( 0, 0, w, h, m_view->renderer()->config()->iconBarColor() );
 
-        h = m_view->renderer()->config()->fontMetrics()->ascent();
+        h = m_view->renderer()->config()->fontMetrics().ascent();
 
         p.setPen(m_view->renderer()->attribute(0)->foreground().color());
 
@@ -866,7 +865,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 
 void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 {
-  uint h = m_view->renderer()->config()->fontStruct()->fontHeight;
+  uint h = m_view->renderer()->config()->fontMetrics().height();
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = m_viewInternal->cache()->viewCacheLineCount();
@@ -897,7 +896,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   int w( this->width() );                     // sane value/calc only once
 
   QPainter p ( this );
-  p.setFont ( *m_view->renderer()->config()->font() ); // for line numbers
+  p.setFont ( m_view->renderer()->config()->font() ); // for line numbers
   // the line number color is for the line numbers, vertical separator lines
   // and for for the code folding lines.
   p.setPen ( m_view->renderer()->config()->lineNumberColor() );

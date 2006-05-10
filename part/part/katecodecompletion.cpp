@@ -30,7 +30,6 @@
 #include "kateview.h"
 #include "katerenderer.h"
 #include "kateconfig.h"
-#include "katefont.h"
 #include "kateviewinternal.h"
 
 #include <kdebug.h>
@@ -439,10 +438,10 @@ void KateCodeCompletion::updateBox( bool )
     QPoint p = m_view->mapToGlobal( m_view->cursorPositionCoordinates() );
         int x = p.x();
         int y = p.y() ;
-        if ( y + m_completionPopup->height() + m_view->renderer()->config()->fontMetrics( )->height() > QApplication::desktop()->height() )
+        if ( y + m_completionPopup->height() + m_view->renderer()->config()->fontMetrics( ).height() > QApplication::desktop()->height() )
                 y -= (m_completionPopup->height() );
         else
-                y += m_view->renderer()->config()->fontMetrics( )->height();
+                y += m_view->renderer()->config()->fontMetrics().height();
 
         if (x + m_completionPopup->width() > QApplication::desktop()->width())
                 x = QApplication::desktop()->width() - m_completionPopup->width();
@@ -475,7 +474,7 @@ void KateCodeCompletion::showArgHint ( QStringList functionList, const QString& 
     nNum++;
   }
 
-  m_pArgHint->move(m_view->mapToGlobal(m_view->cursorPositionCoordinates() + QPoint(0,m_view->renderer()->config()->fontMetrics( )->height())) );
+  m_pArgHint->move(m_view->mapToGlobal(m_view->cursorPositionCoordinates() + QPoint(0,m_view->renderer()->config()->fontMetrics().height())) );
   m_pArgHint->show();
 }
 

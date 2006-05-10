@@ -4432,7 +4432,7 @@ void KateDocument::setViewVariable( QString var, QString val )
       v->renderer()->config()->setWordWrapMarkerColor( c );
     else if ( var == "font" || ( var == "font-size" && checkIntValue( val, &n ) ) )
     {
-      QFont _f( *v->renderer()->config()->font(  ) );
+      QFont _f( v->renderer()->config()->font() );
 
       if ( var == "font" )
       {

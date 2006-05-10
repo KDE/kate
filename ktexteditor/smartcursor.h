@@ -141,6 +141,39 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      * \return \e true on success, otherwise \e false
      */
     virtual bool insertText(const QStringList &text, bool block = false);
+
+    /**
+     * Defines the ways in which the cursor can be advanced.
+     * Important for languages where multiple characters are required to
+     * form one letter.
+     */
+    enum AdvanceMode {
+      /// Movement is calculated on the basis of absolute numbers of characters
+      ByCharacter,
+      /// Movement takes into account valid cursor positions only (as defined by bidirectional processing)
+      ByCursorPosition
+    };
+
+    /**
+     * Move cursor by specified \a distance along the document buffer.
+     *
+     * E.g.:
+     * \code
+     *   cursor.advance(1);
+     * \code
+     * will move the cursor forward by one character, or, if the cursor is already
+     * on the end of the line, will move it to the start of the next line.
+     *
+     * \note Negative numbers should be accepted, and move backwards.
+     * \note Not all \a mode%s are required to be supported.
+     *
+     * \param distance distance to advance (or go back if \a distance is negative)
+     * \param mode whether to move by character, or by number of valid cursor positions
+     *
+     * \return true if the position could be reached within the document, otherwise false 
+     *         (the cursor should not move if \distance is beyond the end of the document).
+     */
+    virtual bool advance(int distance, AdvanceMode mode = ByCharacter);
     //END
 
     //BEGIN Behavior methods

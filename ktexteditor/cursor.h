@@ -124,6 +124,8 @@ class KTEXTEDITOR_EXPORT Cursor
      * Set the current cursor position to \e position.
      *
      * \param position new cursor position
+     *
+     * \todo add bool to indicate success or not, for smart cursors?
      */
     virtual void setPosition(const Cursor& position);
 

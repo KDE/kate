@@ -442,6 +442,9 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * \param wrap if \e false the selection does not wrap lines and reaches
      *        only to start/end of the cursors line. Default: \e true
      * \see selectionRange(), selection()
+     *
+     * \todo rodda - is this really needed? it can now be accomplished with
+     *       SmartCursor::advance()
      */
     virtual bool setSelection ( const Cursor &position,
                                 int length,

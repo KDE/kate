@@ -35,7 +35,7 @@ SmartCursor::~ SmartCursor( )
 {
 }
 
-bool KTextEditor::SmartCursor::isValid( ) const
+bool SmartCursor::isValid( ) const
 {
   return m_doc->cursorInText(*this);
 }
@@ -70,19 +70,68 @@ bool SmartCursor::atEndOfLine( ) const
   return column() == m_doc->lineLength(line());
 }
 
-bool KTextEditor::SmartCursor::moveOnInsert( ) const
+bool SmartCursor::moveOnInsert( ) const
 {
   return m_moveOnInsert;
 }
 
-void KTextEditor::SmartCursor::setMoveOnInsert( bool moveOnInsert )
+void SmartCursor::setMoveOnInsert( bool moveOnInsert )
 {
   m_moveOnInsert = moveOnInsert;
 }
 
-SmartCursor * KTextEditor::SmartCursor::toSmartCursor( ) const
+SmartCursor * SmartCursor::toSmartCursor( ) const
 {
   return const_cast<SmartCursor*>(this);
+}
+
+bool SmartCursor::advance(int distance, AdvanceMode mode)
+{
+  Cursor c = *this;
+  if (mode == ByCharacter) {
+    while (distance) {
+      int lineLength = document()->lineLength(c.line());
+
+      if (distance > 0) {
+        int advance = qMax(lineLength - c.column(), distance);
+
+        if (distance > advance) {
+          if (c.line() + 1 >= document()->lines())
+            return false;
+
+          c.setPosition(c.line() + 1, 0);
+          // Account for end of line advancement
+          distance -= advance + 1;
+
+        } else {
+          c.setColumn(c.column() + distance);
+          distance = 0;
+        }
+
+      } else {
+        int back = qMax(c.column(), -distance);
+        if (-distance > back) {
+          if (c.line() - 1 < 0)
+            return false;
+
+          c.setPosition(c.line() - 1, document()->lineLength(c.line() - 1));
+          // Account for end of line advancement
+          distance += back + 1;
+
+        } else {
+          c.setColumn(c.column() + distance);
+          distance = 0;
+        }
+      }
+    }
+
+  } else {
+    // Not supported by the interface alone
+    return false;
+  }
+
+  setPosition(c);
+  return true;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

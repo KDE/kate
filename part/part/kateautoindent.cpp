@@ -1964,8 +1964,9 @@ QString KateCSAndSIndent::calcIndentAfterKeyword(const KateDocCursor &indentCurs
   KateTextLine::Ptr indentLine = doc->plainKateTextLine(indentCursor.line());
 
   QString whitespaceToKeyword = initialWhitespace( keywordLine, keywordPos, false );
-  if( blockKeyword )
-    ; // FIXME: we could add the open brace and subsequent newline here since they're definitely needed.
+  if( blockKeyword ) {
+    // FIXME: we could add the open brace and subsequent newline here since they're definitely needed.
+  }
 
   // If the line starts with an open brace, don't indent...
   int first = indentLine->firstChar();

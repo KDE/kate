@@ -456,7 +456,7 @@ void KateView::setupActions()
   list.append("&Macintosh");
   m_setEndOfLine->setItems(list);
   m_setEndOfLine->setCurrentItem (m_doc->config()->eol());
-  connect(m_setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
+  connect(m_setEndOfLine, SIGNAL(triggered(int)), this, SLOT(setEol(int)));
 
   // encoding menu
   new KateViewEncodingAction (m_doc, this, i18n("E&ncoding"), ac, "set_encoding");
@@ -1459,7 +1459,7 @@ void KateView::selectWord( const KTextEditor::Cursor& cursor )
   while (end < len && m_doc->highlight()->isInWord(textLine->getChar(end), textLine->attribute(start - 1))) end++;
   if (end <= start) return;
 
-  setSelection (KTextEditor::Cursor(cursor.line(), start), end-start);
+  setSelection (KTextEditor::Range(cursor.line(), start, cursor.line(), end));
 }
 
 void KateView::selectLine( const KTextEditor::Cursor& cursor )

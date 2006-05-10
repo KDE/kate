@@ -62,14 +62,20 @@ KateSearch::~KateSearch()
 
 void KateSearch::createActions( KActionCollection* ac )
 {
-  KStdAction::find( this, SLOT(find()), ac )->setWhatsThis(
-    i18n("Look up the first occurrence of a piece of text or regular expression."));
-  KStdAction::findNext( this, SLOT(slotFindNext()), ac )->setWhatsThis(
-    i18n("Look up the next occurrence of the search phrase."));
-  KStdAction::findPrev( this, SLOT(slotFindPrev()), ac, "edit_find_prev" )->setWhatsThis(
-    i18n("Look up the previous occurrence of the search phrase."));
-  KStdAction::replace( this, SLOT(replace()), ac )->setWhatsThis(
-    i18n("Look up a piece of text or regular expression and replace the result with some given text."));
+  KAction* a = KStdAction::find( this, SLOT(find()), ac );
+  a->setWhatsThis(i18n("Look up the first occurrence of a piece of text or regular expression."));
+  m_view->addAction(a);
+
+  a = KStdAction::findNext( this, SLOT(slotFindNext()), ac );
+  a->setWhatsThis(i18n("Look up the next occurrence of the search phrase."));
+  m_view->addAction(a);
+
+  a = KStdAction::findPrev( this, SLOT(slotFindPrev()), ac, "edit_find_prev" );
+  a->setWhatsThis(i18n("Look up the previous occurrence of the search phrase."));
+  m_view->addAction(a);
+
+  a = KStdAction::replace( this, SLOT(replace()), ac );
+  a->setWhatsThis(i18n("Look up a piece of text or regular expression and replace the result with some given text."));
 }
 
 void KateSearch::addToList( QStringList& list, const QString& s )
@@ -615,7 +621,7 @@ bool KateSearch::doSearch( const QString& text )
 void KateSearch::exposeFound( KTextEditor::Cursor &cursor, int slen )
 {
   view()->setCursorPositionInternal ( KTextEditor::Cursor(cursor.line(), cursor.column() + slen), 1 );
-  view()->setSelection( cursor, slen );
+  view()->setSelection( KTextEditor::Range(cursor, slen) );
 }
 //END KateSearch
 

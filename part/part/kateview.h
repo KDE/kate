@@ -244,9 +244,6 @@ class KateView : public KTextEditor::View,
   public Q_SLOTS:
     virtual bool setSelection ( const KTextEditor::Range &selection );
 
-    virtual bool setSelection ( const KTextEditor::Cursor &position, int length, bool wrap = true )
-    { return KTextEditor::View::setSelection (position, length, wrap); }
-
     virtual bool selection() const;
 
     virtual QString selectionText () const;

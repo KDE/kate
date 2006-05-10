@@ -55,12 +55,8 @@ class KateBookmarks : public QObject
   
     void gotoLine();
     void gotoLine (int line);
-  
-    void slotViewGotFocus( KDocument::View * );
-    void slotViewLostFocus( KDocument::View * );
 
     void bookmarkMenuAboutToShow();
-    void bookmarkMenuAboutToHide();
 
     void goNext();
     void goPrevious();

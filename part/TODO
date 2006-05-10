@@ -86,14 +86,16 @@ TODO:
     * implement sorting of items based on metadata, and sorted group headers
       * needs to react to model changes
   * todo
+    * api improvement: generic way to detect when a completion could be offered, and possibly replaceable with a plugin, so that multiple model completion can be offered
+      * multiple model merging
     * add a column to CodeCompletionModel to enable displaying an icon just before a completion's name
     * extend metadata to include inheritance depth of an item
     * implement column merging
     * implement click-execution of completion entries based on KDE click policy
     * implement filtering of items based on metadata
     * implement configurability
-      * show/hide/reorder columns
-      * positioning retaining horizontal sync with text or not (alternative: reorganise columns, hide column(s))
+      * show/hide/reorder/merge columns
+      * positioning retaining horizontal sync with text when it would mean the completion box going outside the screen or not (alternative: reorganise columns, hide column(s))
       * sorting list
       * filtering list
       * highlighting mode (native / custom / user / combination)
@@ -105,6 +107,7 @@ TODO:
     * refine keyboard control
   * performance testing and optimisation
     * test user-defined highlighting
+    * test for thread safety
   * critical issues
     * crash from visual index == -1 (? still present)
 

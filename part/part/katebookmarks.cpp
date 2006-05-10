@@ -103,16 +103,15 @@ void KateBookmarks::createActions( KActionCollection* ac )
 
   m_bookmarksMenu = (new KActionMenu(i18n("&Bookmarks"), ac, "bookmarks"))->kMenu();
 
-  //connect the aboutToShow() and aboutToHide() signals with
-  //the bookmarkMenuAboutToShow() and bookmarkMenuAboutToHide() slots
   connect( m_bookmarksMenu, SIGNAL(aboutToShow()), this, SLOT(bookmarkMenuAboutToShow()));
-  connect( m_bookmarksMenu, SIGNAL(aboutToHide()), this, SLOT(bookmarkMenuAboutToHide()) );
 
   marksChanged ();
-  bookmarkMenuAboutToHide();
 
-  connect( m_view, SIGNAL( focusIn( KDocument::View * ) ), this, SLOT( slotViewGotFocus( KDocument::View * ) ) );
-  connect( m_view, SIGNAL( focusOut( KDocument::View * ) ), this, SLOT( slotViewLostFocus( KDocument::View * ) ) );
+  // Always want the actions with shortcuts plugged into something so their shortcuts can work
+  m_view->addAction(m_bookmarkToggle);
+  m_view->addAction(m_bookmarkClear);
+  m_view->addAction(m_goNext);
+  m_view->addAction(m_goPrevious);
 }
 
 void KateBookmarks::toggleBookmark ()
@@ -135,18 +134,6 @@ void KateBookmarks::clearBookmarks ()
   // just to be sure ;)
   // dominik: the following line can be deleted afaics, as Document::removeMark emits this signal.
   marksChanged ();
-}
-
-void KateBookmarks::slotViewGotFocus( KDocument::View *v )
-{
-  if ( v == m_view )
-    bookmarkMenuAboutToHide();
-}
-
-void KateBookmarks::slotViewLostFocus( KDocument::View *v )
-{
-  if ( v == m_view )
-    m_bookmarksMenu->clear();
 }
 
 void KateBookmarks::insertBookmarks( QMenu& menu )
@@ -258,20 +245,10 @@ void KateBookmarks::bookmarkMenuAboutToShow()
   m_bookmarksMenu->addAction(m_bookmarkToggle);
   m_bookmarksMenu->addAction(m_bookmarkClear);
 
-  insertBookmarks(*m_bookmarksMenu);
-}
-
-/*
-   Make sure next/prev actions are plugged, and have a clean text
-*/
-void KateBookmarks::bookmarkMenuAboutToHide()
-{
-  m_bookmarksMenu->addAction(m_bookmarkToggle);
-  m_bookmarksMenu->addAction(m_bookmarkClear);
   m_goNext->setText( i18n("Next Bookmark") );
-  m_bookmarksMenu->addAction(m_goNext);
   m_goPrevious->setText( i18n("Previous Bookmark") );
-  m_bookmarksMenu->addAction(m_goPrevious);
+
+  insertBookmarks(*m_bookmarksMenu);
 }
 
 void KateBookmarks::goNext()

@@ -3168,7 +3168,7 @@ void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
 {
   if (highlight()->getCommentSingleLinePosition(attrib)==KateHighlighting::CSLPosColumn0)
   {
-    QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + " ";
+    QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + ' ';
     insertText (KTextEditor::Cursor(line, 0), commentLineMark);
   }
   else
@@ -3188,7 +3188,7 @@ void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
 bool KateDocument::removeStartLineCommentFromSingleLine( int line, int attrib )
 {
   QString shortCommentMark = highlight()->getCommentSingleLineStart( attrib );
-  QString longCommentMark = shortCommentMark + " ";
+  QString longCommentMark = shortCommentMark + ' ';
 
   editStart();
 
@@ -3207,8 +3207,8 @@ bool KateDocument::removeStartLineCommentFromSingleLine( int line, int attrib )
 */
 void KateDocument::addStartStopCommentToSingleLine( int line, int attrib )
 {
-  QString startCommentMark = highlight()->getCommentStart( attrib ) + " ";
-  QString stopCommentMark = " " + highlight()->getCommentEnd( attrib );
+  QString startCommentMark = highlight()->getCommentStart( attrib ) + ' ';
+  QString stopCommentMark = ' ' + highlight()->getCommentEnd( attrib );
 
   editStart();
 
@@ -3231,9 +3231,9 @@ void KateDocument::addStartStopCommentToSingleLine( int line, int attrib )
 bool KateDocument::removeStartStopCommentFromSingleLine( int line, int attrib )
 {
   QString shortStartCommentMark = highlight()->getCommentStart( attrib );
-  QString longStartCommentMark = shortStartCommentMark + " ";
+  QString longStartCommentMark = shortStartCommentMark + ' ';
   QString shortStopCommentMark = highlight()->getCommentEnd( attrib );
-  QString longStopCommentMark = " " + shortStopCommentMark;
+  QString longStopCommentMark = ' ' + shortStopCommentMark;
 
   editStart();
 
@@ -3290,7 +3290,7 @@ void KateDocument::addStartStopCommentToSelection( KateView *view, int attrib )
 */
 void KateDocument::addStartLineCommentToSelection( KateView *view, int attrib )
 {
-  QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + " ";
+  QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + ' ';
 
   int sl = view->selectionRange().start().line();
   int el = view->selectionRange().end().line();
@@ -3435,7 +3435,7 @@ bool KateDocument::removeStartStopCommentFromRegion(const KTextEditor::Cursor &s
 bool KateDocument::removeStartLineCommentFromSelection( KateView *view, int attrib )
 {
   QString shortCommentMark = highlight()->getCommentSingleLineStart( attrib );
-  QString longCommentMark = shortCommentMark + " ";
+  QString longCommentMark = shortCommentMark + ' ';
 
   int sl = view->selectionRange().start().line();
   int el = view->selectionRange().end().line();

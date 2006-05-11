@@ -1594,7 +1594,7 @@ bool KateCSAndSIndent::handleDoxygen (KateDocCursor &begin)
 
   // starts with *: indent one space more to line up *s
   if ( textLine->stringAtPos(first, "*") )
-    indent = indent + " ";
+    indent = indent + ' ';
   // does not start with *: insert one if user wants that
   else if ( doxygenAutoInsert )
     indent = indent + " * ";

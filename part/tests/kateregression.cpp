@@ -48,7 +48,7 @@ namespace QTest {
   {
     QByteArray ba = "Cursor(";
     ba += QByteArray::number(cursor.line()) + ", " + QByteArray::number(cursor.column());
-    ba += ")";
+    ba += ')';
     return qstrdup(ba.data());
   }
 

@@ -263,7 +263,7 @@ KateSyntaxContextData* KateSyntaxDocument::getConfig(const QString& mainGroupNam
 KateSyntaxContextData* KateSyntaxDocument::getGroupInfo(const QString& mainGroupName, const QString &group)
 {
   QDomElement element;
-  if (getElement(element, mainGroupName, group+"s"))
+  if (getElement(element, mainGroupName, group+'s'))
   {
     KateSyntaxContextData *data = new KateSyntaxContextData;
     data->parent = element;

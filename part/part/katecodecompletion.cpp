@@ -101,9 +101,9 @@ class KateCompletionItem : public Q3ListBoxText
       , m_item( item )
     {
       if( item.item().postfix() == "()" ) { // should be configurable
-        setText( item.item().prefix() + " " + item.text() + item.item().postfix() );
+        setText( item.item().prefix() + ' ' + item.text() + item.item().postfix() );
       } else {
-        setText( item.item().prefix() + " " + item.text() + " " + item.item().postfix());
+        setText( item.item().prefix() + ' ' + item.text() + ' ' + item.item().postfix());
       }
     }
 
@@ -326,7 +326,7 @@ void KateCodeCompletion::doComplete()
     //QString currentComplText = currentLine.mid(m_colCursor,len);
     QString add = text.mid(alreadyThere);
     if( item->m_item.item().postfix() == "()" )
-      add += "(";
+      add += '(';
 
     m_view->insertText(add);
   }

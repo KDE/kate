@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -43,7 +42,6 @@ install_files( ${DATA_INSTALL_DIR}/katepart/syntax FILES language.dtd syntax.tem
                ${CMAKE_CURRENT_BINARY_DIR}/html-php.xml ${CMAKE_CURRENT_BINARY_DIR}/css-php.xml ${CMAKE_CURRENT_BINARY_DIR}/javascript-php.xml
                )
 
-kde4_footer()
 
 
 

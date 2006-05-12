@@ -1,4 +1,3 @@
-kde4_header()
 
 ########### next target ###############
 
@@ -19,7 +18,6 @@ install_targets(${PLUGIN_INSTALL_DIR}  ktexteditor_insertfile )
 install_files( ${SERVICES_INSTALL_DIR} FILES ktexteditor_insertfile.desktop )
 install_files( ${DATA_INSTALL_DIR}/ktexteditor_insertfile FILES ktexteditor_insertfileui.rc )
 
-kde4_footer()
 
 
 

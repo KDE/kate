@@ -1,4 +1,3 @@
-kde4_header()
 
 ########### next target ###############
 
@@ -19,7 +18,6 @@ install_targets(${PLUGIN_INSTALL_DIR} ktexteditor_autobookmarker )
 install_files( ${CONFIG_INSTALL_DIR} FILES ktexteditor_autobookmarkerrc )
 install_files( ${SERVICES_INSTALL_DIR} FILES ktexteditor_autobookmarker.desktop )
 
-kde4_footer()
 
 
 

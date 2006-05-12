@@ -1,4 +1,3 @@
-kde4_header()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-lua.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-lua.h )
 
@@ -111,7 +110,6 @@ install_targets(${PLUGIN_INSTALL_DIR} katepart )
 ########### install files ###############
 
 
-kde4_footer()
 
 
 

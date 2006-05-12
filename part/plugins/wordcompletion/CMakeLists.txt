@@ -1,4 +1,3 @@
-kde4_header()
 
 ########### next target ###############
 
@@ -19,7 +18,6 @@ install_targets(${PLUGIN_INSTALL_DIR} ktexteditor_docwordcompletion )
 install_files( ${DATA_INSTALL_DIR}/ktexteditor_docwordcompletion FILES docwordcompletionui.rc )
 install_files( ${SERVICES_INSTALL_DIR} FILES ktexteditor_docwordcompletion.desktop )
 
-kde4_footer()
 
 
 

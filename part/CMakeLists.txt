@@ -1,4 +1,3 @@
-kde4_header()
 
 project(kate)
 
@@ -13,7 +12,6 @@ add_subdirectory( tests )
 ########### install files ###############
 
 
-kde4_footer()
 
 
 

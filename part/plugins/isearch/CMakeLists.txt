@@ -1,4 +1,3 @@
-kde4_header()
 
 ########### next target ###############
 
@@ -20,7 +19,6 @@ install_targets(${PLUGIN_INSTALL_DIR} ktexteditor_isearch )
 install_files( ${SERVICES_INSTALL_DIR} FILES ktexteditor_isearch.desktop )
 install_files( ${DATA_INSTALL_DIR}/ktexteditor_isearch FILES ktexteditor_isearchui.rc )
 
-kde4_footer()
 
 
 

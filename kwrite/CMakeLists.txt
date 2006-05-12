@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -22,7 +21,6 @@ install(TARGETS kwrite DESTINATION bin)
 install_files( ${XDG_APPS_DIR} FILES kwrite.desktop )
 install_files( ${DATA_INSTALL_DIR}/kwrite FILES kwriteui.rc )
 
-kde4_footer()
 
 
 

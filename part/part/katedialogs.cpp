@@ -485,7 +485,7 @@ void KateEditConfigTab::apply ()
   configFlags &= ~KateDocumentConfig::cfShowTabs;
   configFlags &= ~KateDocumentConfig::cfReplaceTabsDyn;
   configFlags &= ~KateDocumentConfig::cfRemoveTrailingDyn;
-  
+
   if (ui->chkAutoBrackets->isChecked()) configFlags |= KateDocumentConfig::cfAutoBrackets;
   if (ui->chkShowTabs->isChecked()) configFlags |= KateDocumentConfig::cfShowTabs;
   if (ui->chkReplaceTabs->isChecked()) configFlags |= KateDocumentConfig::cfReplaceTabsDyn;
@@ -1334,7 +1334,7 @@ void KateModOnHdPrompt::slotPDone( KProcess *p )
     return;
   }
 
-  KRun::runURL( KUrl::fromPathOrURL(m_tmpfile->name()), "text/x-diff", true );
+  KRun::runURL( KUrl::fromPathOrURL(m_tmpfile->name()), "text/x-diff", this, true );
   delete m_tmpfile;
   m_tmpfile = 0;
 }

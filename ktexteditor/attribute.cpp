@@ -39,9 +39,12 @@ Attribute::Attribute()
 }
 
 Attribute::Attribute( const Attribute & a )
-  : d(new AttributePrivate())
+  : QTextCharFormat(a)
+  , QSharedData()
+  , d(new AttributePrivate())
 {
-  *this = a;
+  d->associatedActions = a.d->associatedActions;
+  d->dynamicAttributes = a.d->dynamicAttributes;
 }
 
 Attribute::~Attribute()
@@ -184,7 +187,8 @@ void KTextEditor::Attribute::setEffects( Effects effects )
 
 Attribute & KTextEditor::Attribute::operator =( const Attribute & a )
 {
-  static_cast<QTextCharFormat>(*this) = QTextCharFormat();
+  static_cast<QTextCharFormat>(*this) = a;
+  Q_ASSERT(static_cast<QTextCharFormat>(*this) == a);
 
   d->associatedActions = a.d->associatedActions;
   d->dynamicAttributes = a.d->dynamicAttributes;

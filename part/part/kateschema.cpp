@@ -409,6 +409,7 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab()
   QGridLayout *grid = new QGridLayout( this );
 
   m_defaultStyles = new KateStyleTreeWidget( this );
+  m_defaultStyles->setRootIsDecorated(false);
   connect(m_defaultStyles, SIGNAL(changed()), this, SIGNAL(changed()));
   grid->addWidget( m_defaultStyles, 0, 0);
 

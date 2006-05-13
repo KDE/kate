@@ -58,13 +58,13 @@
 #include <kxmlguifactory.h>
 
 #include <QStackedWidget>
-#include <qpainter.h>
+#include <QPainter>
 #include <QLabel>
-#include <qcursor.h>
+#include <QCursor>
 #include <QMenu>
-#include <qpixmap.h>
+#include <QPixmap>
 #include <QTimer>
-#include <qtextcodec.h>
+#include <QTextCodec>
 #include <QLayout>
 //Added by qt3to4:
 #include <QDragEnterEvent>

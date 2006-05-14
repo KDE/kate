@@ -44,6 +44,10 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
 
     enum Columns {
       Prefix,
+      /// Icon representing the type of completion. We have a separate icon field
+      /// so that names remain aligned where only some completions have icons,
+      /// and so that they can be rearranged by the user.
+      Icon,
       Scope,
       Name,
       Arguments,
@@ -132,9 +136,16 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        * Repeat this triplet as many times as required, however each column must be >= the previous,
        * and startColumn != endColumn.
        */
-      CustomHighlight
+      CustomHighlight,
+
+      /**
+       * Returns the inheritance depth of the completion.  For example, a completion
+       * which comes from the base class would have depth 0, one from a parent class
+       * would have depth 1, one from that class' parent 2, etc.
+       */
+      InheritanceDepth
     };
-    static const int LastItemDataRole = CustomHighlight;
+    static const int LastItemDataRole = InheritanceDepth;
 
     void setRowCount(int rowCount);
 

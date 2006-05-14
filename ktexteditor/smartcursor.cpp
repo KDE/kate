@@ -23,10 +23,10 @@
 
 using namespace KTextEditor;
 
-SmartCursor::SmartCursor( const Cursor & position, Document * doc, bool moveOnInsert )
+SmartCursor::SmartCursor( const Cursor & position, Document * doc, InsertBehaviour insertBehaviour )
   : Cursor(position)
   , m_doc(doc)
-  , m_moveOnInsert(moveOnInsert)
+  , m_moveOnInsert(insertBehaviour == MoveOnInsert)
 {
   Q_ASSERT(m_doc);
 }
@@ -70,14 +70,14 @@ bool SmartCursor::atEndOfLine( ) const
   return column() == m_doc->lineLength(line());
 }
 
-bool SmartCursor::moveOnInsert( ) const
+SmartCursor::InsertBehaviour SmartCursor::insertBehaviour( ) const
 {
-  return m_moveOnInsert;
+  return m_moveOnInsert ? MoveOnInsert : StayOnInsert;
 }
 
-void SmartCursor::setMoveOnInsert( bool moveOnInsert )
+void SmartCursor::setInsertBehaviour( InsertBehaviour insertBehaviour )
 {
-  m_moveOnInsert = moveOnInsert;
+  m_moveOnInsert = insertBehaviour == MoveOnInsert;
 }
 
 SmartCursor * SmartCursor::toSmartCursor( ) const
@@ -93,7 +93,7 @@ bool SmartCursor::advance(int distance, AdvanceMode mode)
       int lineLength = document()->lineLength(c.line());
 
       if (distance > 0) {
-        int advance = qMax(lineLength - c.column(), distance);
+        int advance = qMin(lineLength - c.column(), distance);
 
         if (distance > advance) {
           if (c.line() + 1 >= document()->lines())
@@ -109,7 +109,7 @@ bool SmartCursor::advance(int distance, AdvanceMode mode)
         }
 
       } else {
-        int back = qMax(c.column(), -distance);
+        int back = qMin(c.column(), -distance);
         if (-distance > back) {
           if (c.line() - 1 < 0)
             return false;

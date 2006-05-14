@@ -185,18 +185,22 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      * The following functions relate to the behavior of this SmartCursor.
      * \{
      */
+    enum InsertBehaviour {
+      StayOnInsert = 0,
+      MoveOnInsert
+    };
     /**
      * Returns how this cursor behaves when text is inserted at the cursor.
      * Defaults to moving on insert.
      */
-    bool moveOnInsert() const;
+    InsertBehaviour insertBehaviour() const;
 
     /**
      * Change the behavior of the cursor when text is inserted at the cursor.
      *
      * If \p moveOnInsert is true, the cursor will end up at the end of the insert.
      */
-    void setMoveOnInsert(bool moveOnInsert);
+    void setInsertBehaviour(InsertBehaviour insertBehaviour);
     //END
 
     //BEGIN Notification methods
@@ -283,10 +287,9 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      *
      * \param position the cursor position to assign
      * \param doc the Document this cursor is associated with
-     * \param moveOnInsert the behavior of this cursor when on the position of an insert.
-     *        If \e true, move with the insert; if \e false, retain the current position.
+     * \param insertBehaviour the behavior of this cursor when on the position of an insert.
      */
-    SmartCursor(const Cursor& position, Document* doc, bool moveOnInsert);
+    SmartCursor(const Cursor& position, Document* doc, InsertBehaviour insertBehaviour);
 
   private:
     /**

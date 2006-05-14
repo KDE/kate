@@ -152,23 +152,9 @@ class KTEXTEDITOR_EXPORT SmartInterface
      *
      * \param position The initial cursor position assumed by the new cursor.
      *                 If not specified, it will start at position (0, 0).
-     * \param moveOnInsert Define whether the cursor should move when text is inserted at the cursor position.
+     * \param insertBehaviour Define whether the cursor should move when text is inserted at the cursor position.
      */
-    virtual SmartCursor* newSmartCursor(const Cursor& position = Cursor::start(), bool moveOnInsert = true) = 0;
-
-    /**
-     * \overload
-     * \n \n
-     * Creates a new SmartCursor.
-     *
-     * You own this object, and may delete it when you are finished with it.
-     * Alternatively, you may call the various clear methods, or wait for the Document
-     * to be destroyed.
-     *
-     * \param moveOnInsert Define whether the cursor should move when text is inserted at the cursor position.
-     */
-    inline SmartCursor* newSmartCursor(bool moveOnInsert = true)
-      { return newSmartCursor(Cursor::start(), moveOnInsert); }
+    virtual SmartCursor* newSmartCursor(const Cursor& position = Cursor::start(), SmartCursor::InsertBehaviour insertBehaviour = SmartCursor::MoveOnInsert) = 0;
 
     /**
      * \overload
@@ -181,10 +167,10 @@ class KTEXTEDITOR_EXPORT SmartInterface
      *
      * \param line the line number of the cursor's initial position
      * \param column the line number of the cursor's initial position
-     * \param moveOnInsert Define whether the cursor should move when text is inserted at the cursor position.
+     * \param insertBehaviour Define whether the cursor should move when text is inserted at the cursor position.
      */
-    inline SmartCursor* newSmartCursor(int line, int column, bool moveOnInsert = true)
-      { return newSmartCursor(Cursor(line, column), moveOnInsert); }
+    inline SmartCursor* newSmartCursor(int line, int column, SmartCursor::InsertBehaviour insertBehaviour = SmartCursor::MoveOnInsert)
+      { return newSmartCursor(Cursor(line, column), insertBehaviour); }
 
     /**
      * Delete all SmartCursor%s from this document, with the exception of those

@@ -288,13 +288,13 @@ void SmartRange::clearAssociatedActions( )
 
 SmartRange::InsertBehaviors SmartRange::insertBehavior( ) const
 {
-  return (smartStart().moveOnInsert() ? DoNotExpand : ExpandLeft) | (smartEnd().moveOnInsert() ? ExpandRight : DoNotExpand);
+  return ((smartStart().insertBehaviour() == SmartCursor::MoveOnInsert) ? DoNotExpand : ExpandLeft) | ((smartEnd().insertBehaviour() == SmartCursor::MoveOnInsert) ? ExpandRight : DoNotExpand);
 }
 
 void SmartRange::setInsertBehavior(SmartRange::InsertBehaviors behavior)
 {
-  static_cast<SmartCursor*>(m_start)->setMoveOnInsert(behavior & ExpandLeft);
-  static_cast<SmartCursor*>(m_end)->setMoveOnInsert(behavior & ExpandRight);
+  static_cast<SmartCursor*>(m_start)->setInsertBehaviour((behavior & ExpandLeft) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
+  static_cast<SmartCursor*>(m_end)->setInsertBehaviour((behavior & ExpandRight) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
 }
 
 void SmartRange::clearChildRanges()

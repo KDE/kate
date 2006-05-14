@@ -57,9 +57,9 @@ KateDocument * KateSmartManager::doc( ) const
   return static_cast<KateDocument*>(parent());
 }
 
-KateSmartCursor * KateSmartManager::newSmartCursor( const KTextEditor::Cursor & position, bool moveOnInsert, bool internal )
+KateSmartCursor * KateSmartManager::newSmartCursor( const KTextEditor::Cursor & position, KTextEditor::SmartCursor::InsertBehaviour insertBehaviour, bool internal )
 {
-  KateSmartCursor* c = new KateSmartCursor(position, doc(), moveOnInsert);
+  KateSmartCursor* c = new KateSmartCursor(position, doc(), insertBehaviour);
   if (internal)
     c->setInternal();
   return c;

@@ -109,8 +109,7 @@ class KateCompletionModel : public QAbstractProxyModel
     bool m_hasCompletionModel;
 
     // Column merging
-    int m_columnCount;
-    QMap<int, QPair<int,int> > m_columnMerges;
+    QList< QList<int> > m_columnMerges;
 
     Group* m_ungrouped;
     bool m_ungroupedDisplayed;

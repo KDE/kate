@@ -90,8 +90,8 @@ void KateRegression::testAll()
   QVERIFY(smart());
 
   // Multi-line insert
-  Cursor* cursor1 = smart()->newSmartCursor(Cursor(), false);
-  Cursor* cursor2 = smart()->newSmartCursor(Cursor(), true);
+  Cursor* cursor1 = smart()->newSmartCursor(Cursor(), SmartCursor::StayOnInsert);
+  Cursor* cursor2 = smart()->newSmartCursor(Cursor(), SmartCursor::MoveOnInsert);
 
   m_doc->insertText(Cursor(), "Test Text\nMore Test Text");
   QCOMPARE(m_doc->documentEnd(), Cursor(1,14));
@@ -113,14 +113,14 @@ void KateRegression::testAll()
   // Intra-line insert
   Cursor* cursorStartOfLine = smart()->newSmartCursor(Cursor(1,0));
 
-  Cursor* cursorStartOfEdit = smart()->newSmartCursor(Cursor(1,5), false);
-  Cursor* cursorEndOfEdit = smart()->newSmartCursor(Cursor(1,5), true);
+  Cursor* cursorStartOfEdit = smart()->newSmartCursor(Cursor(1,5), SmartCursor::StayOnInsert);
+  Cursor* cursorEndOfEdit = smart()->newSmartCursor(Cursor(1,5), SmartCursor::MoveOnInsert);
 
   Range* rangeEdit = smart()->newSmartRange(*cursorStartOfEdit, *cursorEndOfEdit, 0L, SmartRange::ExpandRight);
 
   Cursor* cursorPastEdit = smart()->newSmartCursor(Cursor(1,6));
-  Cursor* cursorEOL = smart()->newSmartCursor(m_doc->endOfLine(1), false);
-  Cursor* cursorEOLMoves = smart()->newSmartCursor(m_doc->endOfLine(1), true);
+  Cursor* cursorEOL = smart()->newSmartCursor(m_doc->endOfLine(1), SmartCursor::StayOnInsert);
+  Cursor* cursorEOLMoves = smart()->newSmartCursor(m_doc->endOfLine(1), SmartCursor::MoveOnInsert);
 
   Cursor* cursorNextLine = smart()->newSmartCursor(Cursor(2,0));
 
@@ -185,6 +185,28 @@ void KateRegression::testAll()
 
   QCOMPARE(*cursorEOL,m_doc->endOfLine(1));
   QCOMPARE(*cursorEOLMoves, m_doc->endOfLine(1));
+}
+
+void KateRegression::testSmartCursor( )
+{
+  // Test advancing over the current document
+  int line = 0;
+  int lineLength = m_doc->lineLength(line);
+  Cursor* advanceCursor = smart()->newSmartCursor();
+  Cursor c;
+  do {
+    QCOMPARE(*advanceCursor, c);
+
+    if (c.column() == lineLength) {
+      c.setPosition(c.line() + 1, 0);
+      lineLength = m_doc->lineLength(++line);
+    } else {
+      c.setColumn(c.column() + 1);
+    }
+
+  } while (static_cast<SmartCursor*>(advanceCursor)->advance(1));
+
+  QCOMPARE(*advanceCursor, m_doc->documentRange().end());
 }
 
 void KateRegression::checkSignalExpectations( )

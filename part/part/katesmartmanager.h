@@ -63,7 +63,7 @@ class KateSmartManager : public QObject, private KTextEditor::SmartRangeWatcher
     inline bool isClearing() const { return m_clearing; }
     void clear(bool includingInternal);
 
-    KateSmartCursor* newSmartCursor(const KTextEditor::Cursor& position, bool moveOnInsert = true, bool internal = true);
+    KateSmartCursor* newSmartCursor(const KTextEditor::Cursor& position, KTextEditor::SmartCursor::InsertBehaviour insertBehaviour = KTextEditor::SmartCursor::MoveOnInsert, bool internal = true);
     void deleteCursors(bool includingInternal);
 
     KateSmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviors insertBehavior = KTextEditor::SmartRange::DoNotExpand, bool internal = true);

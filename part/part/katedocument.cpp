@@ -4721,9 +4721,9 @@ KTextEditor::Cursor KateDocument::documentEnd( ) const
 //END KTextEditor::TemplateInterface
 
 //BEGIN KTextEditor::SmartInterface
-KTextEditor::SmartCursor* KateDocument::newSmartCursor( const KTextEditor::Cursor & position, bool moveOnInsert )
+KTextEditor::SmartCursor* KateDocument::newSmartCursor( const KTextEditor::Cursor & position, KTextEditor::SmartCursor::InsertBehaviour insertBehaviour )
 {
-  return m_smartManager->newSmartCursor(position, moveOnInsert, false);
+  return m_smartManager->newSmartCursor(position, insertBehaviour, false);
 }
 
 KTextEditor::SmartRange * KateDocument::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior )

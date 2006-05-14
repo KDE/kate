@@ -49,6 +49,7 @@ class KateRegression : public QObject
   private Q_SLOTS:
     void testAll();
     void testRange();
+    void testSmartCursor();
     void testSmartRange();
     void testRangeTree();
 

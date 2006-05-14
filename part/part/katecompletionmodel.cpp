@@ -31,7 +31,6 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   : QAbstractProxyModel(parent)
   , m_caseSensitive(Qt::CaseInsensitive)
   , m_hasCompletionModel(false)
-  , m_columnCount(KTextEditor::CodeCompletionModel::ColumnCount)
   , m_ungrouped(new Group())
   , m_ungroupedDisplayed(false)
 {
@@ -152,7 +151,7 @@ void KateCompletionModel::setCaseSensitivity( Qt::CaseSensitivity cs )
 
 int KateCompletionModel::columnCount( const QModelIndex& ) const
 {
-  return m_columnCount;
+  return m_columnMerges.isEmpty() ? KTextEditor::CodeCompletionModel::ColumnCount : m_columnMerges.count();
 }
 
 bool KateCompletionModel::hasChildren( const QModelIndex & parent ) const
@@ -178,7 +177,7 @@ bool KateCompletionModel::hasChildren( const QModelIndex & parent ) const
 
 QModelIndex KateCompletionModel::index( int row, int column, const QModelIndex & parent ) const
 {
-  if (row < 0 || column < 0 || column >= m_columnCount)
+  if (row < 0 || column < 0 || column >= columnCount(QModelIndex()))
     return QModelIndex();
 
   if (parent.isValid()) {
@@ -204,7 +203,7 @@ QModelIndex KateCompletionModel::index( int row, int column, const QModelIndex &
 
 QModelIndex KateCompletionModel::sibling( int row, int column, const QModelIndex & index ) const
 {
-  if (!index.isValid() || row < 0 || column < 0 || column >= m_columnCount)
+  if (!index.isValid() || row < 0 || column < 0 || column >= columnCount(QModelIndex()))
     return QModelIndex();
 
   if (Group* g = groupOfParent(index)) {
@@ -225,7 +224,7 @@ QModelIndex KateCompletionModel::sibling( int row, int column, const QModelIndex
 
 bool KateCompletionModel::hasIndex( int row, int column, const QModelIndex & parent ) const
 {
-  if (row < 0 || column < 0 || column >= m_columnCount)
+  if (row < 0 || column < 0 || column >= columnCount(QModelIndex()))
     return false;
 
   if (parent.isValid()) {

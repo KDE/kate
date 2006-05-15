@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
    Copyright (C) 2005 Christoph Cullmann (cullmann@kde.org)
-   Copyright (C) 2005 Dominik Haumann (dhdev@gmx.de) (documentation)
+   Copyright (C) 2005-2006 Dominik Haumann (dhdev@gmx.de)
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -96,6 +96,22 @@ class KTEXTEDITOR_EXPORT Command
      * \return \e true if your command has a help text, otherwise \e false
      */
     virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg) = 0;
+
+    /**
+     * Get the \p cmd's readable name that can be put into a menu for
+     * example. The string should be translated.
+     * \param cmd command line string to get the name for
+     * \see description()
+     */
+    virtual QString name (const QString& cmd) const = 0;
+
+    /**
+     * Get the \p cmd's description that can be put into a status bar for
+     * example. The string should be translated.
+     * \param cmd command line string to get the description for
+     * \see name()
+     */
+    virtual QString description (const QString& cmd) const = 0;
 };
 
 /**
@@ -153,7 +169,8 @@ class KTEXTEDITOR_EXPORT CommandExtension
      * \return the completion object or NULL, if you do not support a
      *         completion object
      */
-    virtual KCompletion *completionObject( KTextEditor::View *view, const QString & cmdname ) = 0;
+    virtual KCompletion *completionObject( KTextEditor::View *view,
+                                           const QString & cmdname ) = 0;
 
     /**
      * Check, whether the command wants to process text interactively for the
@@ -250,7 +267,21 @@ class KTEXTEDITOR_EXPORT CommandInterface
      * \param cmd name of command to query for
      * \return the found command or NULL if no such command exists
      */
-    virtual Command *queryCommand (const QString &cmd) = 0;
+    virtual Command *queryCommand (const QString &cmd) const = 0;
+
+    /**
+     * Get a list of all registered commands.
+     * \return list of all commands
+     * \see queryCommand(), commandList()
+     */
+    virtual QList<Command*> commands() const = 0;
+
+    /**
+     * Get a list of available command line strings.
+     * \return command line strings
+     * \see commands()
+     */
+    virtual QStringList commandList() const = 0;
 };
 
 }

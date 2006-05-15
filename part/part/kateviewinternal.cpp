@@ -229,10 +229,20 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   connect(this, SIGNAL(requestViewUpdate()), this, SLOT(updateView()), Qt::QueuedConnection);
 }
 
+void removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
+{
+  range->removeWatcher(watcher);
+  foreach (KTextEditor::SmartRange* child, range->childRanges())
+    removeWatcher(child, watcher);
+}
+
 KateViewInternal::~KateViewInternal ()
 {
   // crashes on close without
   disconnect(m_doc->smartManager(), SIGNAL(signalRangeDeleted(KateSmartRange*)), this, SLOT(rangeDeleted(KateSmartRange*)));
+
+  foreach (DynamicRangeHL* dynamic, m_dynamicHighlights)
+    removeWatcher(dynamic->top, this);
 
   qDeleteAll(m_dynamicHighlights);
 }

@@ -68,7 +68,7 @@ bool KateCmd::unregisterCommand (KTextEditor::Command *cmd)
   return true;
 }
 
-KTextEditor::Command *KateCmd::queryCommand (const QString &cmd)
+KTextEditor::Command *KateCmd::queryCommand (const QString &cmd) const
 {
   // a command can be named ".*[\w\-]+" with the constrain that it must
   // contain at least one letter.
@@ -84,7 +84,12 @@ KTextEditor::Command *KateCmd::queryCommand (const QString &cmd)
   return m_dict.value(cmd.left(f));
 }
 
-QStringList KateCmd::cmds ()
+QList<KTextEditor::Command*> KateCmd::commands() const
+{
+    return m_dict.values();
+}
+
+QStringList KateCmd::commandList () const
 {
   return m_cmds;
 }
@@ -219,4 +224,4 @@ void KateCmdShellCompletion::splitText(const QString &text, QString &text_start,
 
 //END KateCmdShellCompletion
 
-
+// kate: space-indent on; indent-width 2; replace-tabs on;

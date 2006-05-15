@@ -36,6 +36,7 @@
 #define KATEPART_VERSION "3.0"
 
 class KateCmd;
+class KateCmdActionManager;
 class KateFileTypeManager;
 class KateSchemaManager;
 class KateDocumentConfig;
@@ -289,6 +290,12 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     KateCmd *cmdManager () { return m_cmdManager; }
 
     /**
+     * command manager, that contians all KTextEditor::Commands that
+     * have an attached gui action
+     */
+    KateCmdActionManager *cmdActionManager() { return m_cmdActionManager; }
+
+    /**
      * register given command
      * this works global, for all documents
      * @param cmd command to register
@@ -309,7 +316,19 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * @param cmd name of command to query for
      * @return found command or 0
      */
-    KTextEditor::Command *queryCommand (const QString &cmd);
+    KTextEditor::Command *queryCommand (const QString &cmd) const;
+
+    /**
+     * Get a list of all registered commands.
+     * \return list of all commands
+     */
+    QList<KTextEditor::Command*> commands() const;
+
+    /**
+     * Get a list of available commandline strings.
+     * \return commandline strings
+     */
+    QStringList commandList() const;
 
   private:
     /**
@@ -406,6 +425,11 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * command manager
      */
     KateCmd *m_cmdManager;
+
+    /**
+     * command action manager
+     */
+    KateCmdActionManager* m_cmdActionManager;
 
     QList<KTextEditor::Document*> m_docs;
 };

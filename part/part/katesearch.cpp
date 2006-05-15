@@ -179,8 +179,8 @@ void KateSearch::replace()
 void KateSearch::replace( const QString& pattern, const QString &replacement, long flags )
 {
   if (!doc()->isReadWrite()) return;
-
   addToList( s_searchList, pattern );
+
    s_pattern = pattern;
   addToList( s_replaceList, replacement );
   m_replacement = replacement;
@@ -835,6 +835,26 @@ const QStringList &SearchCommand::cmds()
     l << "find" << "replace" << "ifind";
 
   return l;
+}
+
+QString SearchCommand::name (const QString& cmd) const
+{
+  if( cmd == "find" )
+    return i18n("Search");
+  else if( cmd == "repace" )
+    return i18n("Replace");
+  else
+    return i18n("Incremental Find");
+}
+
+QString SearchCommand::description (const QString& cmd) const
+{
+  if( cmd == "find" )
+    return i18n("Search.");
+  else if( cmd == "repace" )
+    return i18n("Replace.");
+  else
+    return i18n("Search for text while typing.");
 }
 
 bool SearchCommand::wantsToProcessText( const QString &cmdname )

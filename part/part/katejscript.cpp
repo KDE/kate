@@ -698,11 +698,15 @@ void KateJScriptManager::collectScripts (bool force)
 
         KateJScriptManager::Script *s = new KateJScriptManager::Script ();
 
-        s->name = cmdname;
+        s->command = cmdname;
+        s->name = df.readEntry ("Name");
+        s->description = df.readEntry ("Comment");
         s->filename = *it;
         s->desktopFileExists = true;
 
-        m_scripts.insert (s->name, s);
+        kDebug() << s->name << ":: " << s->description << endl;
+        
+        m_scripts.insert (s->command, s);
       }
       else // no desktop file around, fall back to scriptfilename == commandname
       {
@@ -715,11 +719,13 @@ void KateJScriptManager::collectScripts (bool force)
 
         KateJScriptManager::Script *s = new KateJScriptManager::Script ();
 
-        s->name = fi.baseName();
+        s->command = fi.baseName();
         s->filename = *it;
         s->desktopFileExists = false;
+        s->name = i18n("Unnamed");
+        s->description = i18n("No description available.");
 
-        m_scripts.insert (s->name, s);
+        m_scripts.insert (s->command, s);
       }
     }
   }
@@ -795,14 +801,24 @@ bool KateJScriptManager::help( KTextEditor::View *, const QString &cmd, QString 
 
 const QStringList &KateJScriptManager::cmds()
 {
-   static QStringList l;
+  static QStringList l;
 
   l.clear();
   l<<"js-run-myself";
   foreach (KateJScriptManager::Script* script, m_scripts)
-    l << script->name;
+    l << script->command;
 
    return l;
+}
+
+QString KateJScriptManager::name (const QString& cmd) const
+{
+  return m_scripts.contains( cmd ) ? m_scripts[cmd]->name : QString();
+}
+
+QString KateJScriptManager::description (const QString& cmd) const
+{
+  return m_scripts.contains( cmd ) ? m_scripts[cmd]->description : QString();
 }
 
 //END

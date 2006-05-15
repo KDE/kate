@@ -269,7 +269,7 @@ KateCmdLine::KateCmdLine (KateView *view)
   connect (this, SIGNAL(returnPressed(const QString &)),
            this, SLOT(slotReturnPressed(const QString &)));
 
-  completionObject()->insertItems (KateCmd::self()->cmds());
+  completionObject()->insertItems (KateCmd::self()->commandList());
   setAutoDeleteCompletionObject( false );
 }
 
@@ -290,7 +290,7 @@ QString KateCmdLine::helptext( const QPoint & ) const
         if ( name == "list" )
         {
           return beg + i18n("Available Commands") + mid
-              + KateCmd::self()->cmds().join(" ")
+              + KateCmd::self()->commandList().join(" ")
               + i18n("<p>For help on individual commands, do <code>'help &lt;command&gt;'</code></p>")
               + end;
         }

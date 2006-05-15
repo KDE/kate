@@ -45,6 +45,7 @@
 #include "katespell.h"
 #include "katecompletionwidget.h"
 #include "katesmartmanager.h"
+#include "katecmdactionmanager.h"
 
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/cursorfeedback.h>
@@ -366,6 +367,9 @@ void KateView::setupActions()
 
   // indentation menu
   new KateViewIndentationAction (m_doc, i18n("&Indentation"),ac,"tools_indentation");
+
+  // command action menu
+  new KateCmdActionMenu( this, i18n("Commands"), ac, "tools_commands" );
 
   // html export
   a = new KAction(i18n("E&xport as HTML..."), ac, "file_export_html");

@@ -130,19 +130,19 @@ class KateJScriptManager : public KTextEditor::Command
         inline QString desktopFilename () { return filename.left(filename.length()-2).append ("desktop"); }
 
       public:
-        /**
-         * command name, as used for command line and more
-         */
+        /** command name, as used for command line and more */
+        QString command;
+
+        /** translated gui name, can be used for e.g. menu entries */
         QString name;
 
-        /**
-         * filename of the script
-         */
+        /** translated description, can be used for e.g. status bars */
+        QString description;
+
+        /** filename of the script */
         QString filename;
 
-        /**
-         * has it a desktop file?
-         */
+        /** has it a desktop file? */
         bool desktopFileExists;
     };
 
@@ -186,6 +186,20 @@ class KateJScriptManager : public KTextEditor::Command
      * @return prefix list
      */
     const QStringList &cmds();
+
+    /**
+     * Get the \p cmd's readable name that can be put into a menu for
+     * example. The string should be translated.
+     * \param cmd command line string to get the name for
+     */
+    QString name (const QString& cmd) const;
+
+    /**
+     * Get the \p cmd's description that can be put into a status bar for
+     * example. The string should be translated.
+     * \param cmd command line string to get the description for
+     */
+    QString description (const QString& cmd) const;
 
   private:
     /**

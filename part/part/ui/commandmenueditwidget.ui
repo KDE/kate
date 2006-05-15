@@ -1,0 +1,178 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>CommandMenuEditWidget</class>
+ <widget class="QWidget" name="CommandMenuEditWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>405</width>
+    <height>242</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="margin" >
+    <number>0</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item>
+    <widget class="QGroupBox" name="gbEdit" >
+     <property name="title" >
+      <string>Edit Command</string>
+     </property>
+     <property name="flat" >
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lblCommand" >
+          <property name="text" >
+           <string>&amp;Associated command:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>cmbCommand</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="KComboBox" name="cmbCommand" >
+          <property name="editable" >
+           <bool>true</bool>
+          </property>
+          <property name="autoCompletionCaseSensitivity" >
+           <enum>Qt::CaseSensitive</enum>
+          </property>
+          <property name="autoCompletion" >
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item row="0" column="0" >
+         <widget class="QLabel" name="lblName" >
+          <property name="text" >
+           <string>&amp;Name:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>edtName</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" >
+         <widget class="QLabel" name="lblDescription" >
+          <property name="text" >
+           <string>&amp;Description:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>edtDescription</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" >
+         <widget class="QLineEdit" name="edtName" />
+        </item>
+        <item row="1" column="1" >
+         <widget class="QLineEdit" name="edtDescription" />
+        </item>
+        <item row="2" column="1" >
+         <widget class="KComboBox" name="cmbCategory" >
+          <property name="editable" >
+           <bool>true</bool>
+          </property>
+          <property name="autoCompletionCaseSensitivity" >
+           <enum>Qt::CaseSensitive</enum>
+          </property>
+          <property name="autoCompletion" >
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" >
+         <widget class="QLabel" name="lblCategory" >
+          <property name="text" >
+           <string>&amp;Category:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>cmbCategory</cstring>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends></extends>
+   <header>kcombobox.h</header>
+   <container>0</container>
+   <pixmap></pixmap>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>edtName</tabstop>
+  <tabstop>edtDescription</tabstop>
+  <tabstop>cmbCategory</tabstop>
+  <tabstop>cmbCommand</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

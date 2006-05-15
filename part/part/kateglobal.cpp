@@ -32,6 +32,7 @@
 #endif
 #include "kateluascript.h"
 #include "katecmd.h"
+#include "katecmdactionmanager.h"
 #include "katebuffer.h"
 
 #include <kvmallocator.h>
@@ -104,6 +105,11 @@ KateGlobal::KateGlobal ()
   // command manager
   //
   m_cmdManager = new KateCmd ();
+
+  //
+  // command action manager
+  //
+  m_cmdActionManager = new KateCmdActionManager();
 
   //
   // hl manager
@@ -196,7 +202,7 @@ const QList<KTextEditor::Document*> &KateGlobal::documents ()
   return m_docs;
 }
 
-//BEGIN KTextEditor::ConfigInterfaceExtension stuff
+//BEGIN KTextEditor::Editor config stuff
 void KateGlobal::readConfig(KConfig *config)
 {
   if( !config )
@@ -210,6 +216,9 @@ void KateGlobal::readConfig(KConfig *config)
 
   config->setGroup("Kate Renderer Defaults");
   KateRendererConfig::global()->readConfig (config);
+
+  config->setGroup("Kate Command Bindings");
+  cmdActionManager()->readConfig(config);
 }
 
 void KateGlobal::writeConfig(KConfig *config)
@@ -226,8 +235,12 @@ void KateGlobal::writeConfig(KConfig *config)
   config->setGroup("Kate Renderer Defaults");
   KateRendererConfig::global()->writeConfig (config);
 
+  config->setGroup("Kate Command Bindings");
+  cmdActionManager()->writeConfig(config);
+
   config->sync();
 }
+//END KTextEditor::Editor config stuff
 
 bool KateGlobal::configDialogSupported () const
 {
@@ -285,7 +298,7 @@ void KateGlobal::configDialog(QWidget *parent)
 
 int KateGlobal::configPages () const
 {
-  return 11;
+  return 12;
 }
 
 KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
@@ -324,6 +337,9 @@ KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
 
     case 10:
       return new KateScriptConfigPage (parent);
+
+    case 11:
+      return new KateCommandMenuConfigPage (parent);
 
     default:
       return 0;
@@ -369,6 +385,9 @@ QString KateGlobal::configPageName (int number) const
     case 10:
       return i18n("Scripts");
 
+    case 11:
+      return i18n("Commands");
+
     default:
       return QString ("");
   }
@@ -413,6 +432,9 @@ QString KateGlobal::configPageFullName (int number) const
     case 10:
       return i18n ("Script Manager");
 
+    case 11:
+      return i18n ("Command Menu Bindings");
+
     default:
       return QString ("");
   }
@@ -456,6 +478,9 @@ QPixmap KateGlobal::configPagePixmap (int number, int size) const
 
     case 10:
       return BarIcon("edit",size);
+
+    case 11:
+      return BarIcon("menu", size);
 
     default:
       return BarIcon("edit", size);
@@ -511,9 +536,22 @@ KateIndentScript KateGlobal::indentScript (const QString &scriptname)
   return result;
 }
 
-bool KateGlobal::registerCommand (KTextEditor::Command *cmd) {return m_cmdManager->registerCommand(cmd);}
-bool KateGlobal::unregisterCommand (KTextEditor::Command *cmd) {return m_cmdManager->unregisterCommand(cmd);}
-KTextEditor::Command *KateGlobal::queryCommand (const QString &cmd) {return m_cmdManager->queryCommand(cmd);}
+//BEGIN command interface
+bool KateGlobal::registerCommand (KTextEditor::Command *cmd)
+{return m_cmdManager->registerCommand(cmd);}
+
+bool KateGlobal::unregisterCommand (KTextEditor::Command *cmd)
+{return m_cmdManager->unregisterCommand(cmd);}
+
+KTextEditor::Command *KateGlobal::queryCommand (const QString &cmd) const
+{return m_cmdManager->queryCommand(cmd);}
+
+QList<KTextEditor::Command*> KateGlobal::commands() const
+{return m_cmdManager->commands();}
+    
+QStringList KateGlobal::commandList() const
+{return m_cmdManager->commandList();}
+//END command interface
 
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

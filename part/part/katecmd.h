@@ -36,7 +36,9 @@ class KateCmd
 
     bool registerCommand (KTextEditor::Command *cmd);
     bool unregisterCommand (KTextEditor::Command *cmd);
-    KTextEditor::Command *queryCommand (const QString &cmd);
+    KTextEditor::Command *queryCommand (const QString &cmd) const;
+    QList<KTextEditor::Command*> commands() const;
+    QStringList commandList() const;
 
     QStringList cmds ();
     void appendHistory( const QString &cmd );
@@ -94,3 +96,5 @@ class KateCmdShellCompletion : public KCompletion
 };
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

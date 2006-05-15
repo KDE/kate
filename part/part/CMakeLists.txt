@@ -57,6 +57,7 @@ katerange.cpp
 katesmartrange.cpp
 kateglobal.cpp
 katecmd.cpp
+katecmdactionmanager.cpp
 katelayoutcache.cpp
 katetextlayout.cpp
 katesmartmanager.cpp
@@ -85,6 +86,8 @@ remove_definitions(-DQT3_SUPPORT)
 
 set( katepart_PART_UI
 ui//appearanceconfigwidget.ui
+ui//commandmenuconfigwidget.ui
+ui//commandmenueditwidget.ui
 ui//cursorconfigwidget.ui
 ui//editconfigwidget.ui
 ui//filetypeconfigwidget.ui

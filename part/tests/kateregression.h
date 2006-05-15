@@ -32,6 +32,19 @@ namespace KTextEditor {
   class SmartInterface;
 }
 
+#ifdef Q_CC_MSVC
+
+#include <QtTest/QtTest>
+namespace QTest {
+  template<>
+  char* toString(const KTextEditor::Cursor& cursor);
+
+  template<>
+  char* toString(const KTextEditor::Range& r);
+}  
+
+#endif 
+
 class KateRegression : public QObject
 {
   Q_OBJECT

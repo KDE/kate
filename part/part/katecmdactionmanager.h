@@ -39,30 +39,31 @@ namespace KTextEditor
 
 namespace Ui
 {
-  class CommandMenuConfigWidget;
-  class CommandMenuEditWidget;
+  class CmdBindingConfigWidget;
+  class CmdBindingEditWidget;
 }
 
 /**
- * A Command Action has the following infos:
+ * A Command binding has the following infos:
  * - name
  * - description
  * - command line string
  * - category
- * - global flag: if true, all apps using kate part will show the command
  * - key sequence/shortcut
  */
-class KateCmdAction
+class KateCmdBinding
 {
   public:
     QString name;
     QString description;
     QString command;
     QString category;
-    bool global;
     QKeySequence shortcut;
 };
 
+/**
+ * Action Menu, that will be hooked into the Tools menu. Its name is "Commands".
+ */
 class KateCmdActionMenu : public KActionMenu
 {
   Q_OBJECT
@@ -76,6 +77,7 @@ class KateCmdActionMenu : public KActionMenu
     /** Reload action menu. */
     void reload();
 
+    /** return own action collection */
     KActionCollection *actionCollection() { return m_actionCollection; }
 
   private:
@@ -83,35 +85,66 @@ class KateCmdActionMenu : public KActionMenu
     KTextEditor::View *m_view;
 };
 
-class KateCmdActionManager
+/**
+ * A KAction, which contains a pointer to the corresponding KateCmdBinding.
+ * If triggered, it will run the associated command.
+ */
+class KateCmdAction : public KAction
+{
+  Q_OBJECT
+  public:
+    KateCmdAction( const QString& text, KActionCollection* parent,
+                   const QString& name, KTextEditor::View* view,
+                   const KateCmdBinding* binding );
+    ~KateCmdAction();
+
+  private Q_SLOTS:
+    void slotRun();
+
+  public:
+    KTextEditor::View* m_view;
+    const KateCmdBinding* m_binding;
+};
+
+/**
+ * The Command Action Manager contains a list of all bindings.
+ * Additionally, it loads and saves the list.
+ */
+class KateCmdBindingManager
 {
   public:
-    KateCmdActionManager();
-    ~KateCmdActionManager();
+    KateCmdBindingManager();
+    ~KateCmdBindingManager();
 
-    static KateCmdActionManager *self();
+    static KateCmdBindingManager *self();
 
     void readConfig( KConfig* config );
     void writeConfig( KConfig* config );
 
   public:
-    const QVector<KateCmdAction>& actions() const;
-    void setActions( const QVector<KateCmdAction>& actions );
+    const QVector<KateCmdBinding>& actions() const;
+    void setActions( const QVector<KateCmdBinding>& actions );
 
   protected:
+    /** iterate all KateViews and reload the action menu*/
     void updateViews();
 
   private:
-    QVector<KateCmdAction> m_actions;
+    QVector<KateCmdBinding> m_actions;
 };
 
-class KateCommandMenuConfigPage : public KateConfigPage
+/**
+ * Config page for the Command Action Manager.
+ * It provides functions to add/remove/edit bindings. If the changes are applied
+ * KateCmdBindingManager itself will call KateCmdBindingManager::updateViews();
+ */
+class KateCmdBindingConfigPage : public KateConfigPage
 {
   Q_OBJECT
 
   public:
-    KateCommandMenuConfigPage( QWidget *parent );
-    ~KateCommandMenuConfigPage();
+    KateCmdBindingConfigPage( QWidget *parent );
+    ~KateCmdBindingConfigPage();
 
   protected Q_SLOTS:
     void addEntry();
@@ -121,8 +154,8 @@ class KateCommandMenuConfigPage : public KateConfigPage
                              class QTreeWidgetItem* previous );
 
   protected:
-    Ui::CommandMenuConfigWidget* ui;
-    QList<KateCmdAction*> m_actions;
+    Ui::CmdBindingConfigWidget* ui;
+    QList<KateCmdBinding*> m_actions;
 
   public Q_SLOTS:
     void apply ();
@@ -131,18 +164,22 @@ class KateCommandMenuConfigPage : public KateConfigPage
     void defaults ();
 };
 
-class KateCmdMenuEditDialog : public KDialog
+/**
+ * Dialog to modify a single KateCmdBinding.
+ */
+class KateCmdBindingEditDialog : public KDialog
 {
   Q_OBJECT
   public:
-    KateCmdMenuEditDialog( QWidget *parent );
-    virtual ~KateCmdMenuEditDialog();
+    KateCmdBindingEditDialog( QWidget *parent );
+    virtual ~KateCmdBindingEditDialog();
 
   public:
-    Ui::CommandMenuEditWidget* ui;
+    Ui::CmdBindingEditWidget* ui;
 
   protected Q_SLOTS:
     void commandChanged( const QString& text );
+    void slotOk();
 };
 
 

@@ -201,6 +201,13 @@ class KateJScriptManager : public KTextEditor::Command
      */
     QString description (const QString& cmd) const;
 
+    /**
+     * Get the \p cmd's category under which the command can be put into a menu
+     * for example. The returned string should be translated.
+     * \param cmd command line string to get the description for
+     */
+    QString category (const QString& cmd) const;
+
   private:
     /**
      * we need to know somewhere which scripts are around

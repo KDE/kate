@@ -72,6 +72,11 @@ class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExt
     QString description (const QString& cmd) const;
 
     /**
+     * Get the \p cmd's category
+     */
+    QString category (const QString& cmd) const;
+
+    /**
     * override completionObject from interfaces/document.h .
     */
     KCompletion *completionObject( KTextEditor::View *, const QString & );
@@ -116,7 +121,7 @@ class SedReplace : public KTextEditor::Command
     
     QString name (const QString& cmd) const;
     QString description (const QString& cmd) const;
-
+    QString category (const QString& cmd) const;
 
   private:
     /**
@@ -175,6 +180,7 @@ class Character : public KTextEditor::Command
 
     QString name (const QString& cmd) const;
     QString description (const QString& cmd) const;
+    QString category (const QString& cmd) const;
 };
 
 /**
@@ -202,6 +208,7 @@ class Date : public KTextEditor::Command
     const QStringList &cmds () { static QStringList test("date"); return test; }
     QString name (const QString& cmd) const;
     QString description (const QString& cmd) const;
+    QString category (const QString& cmd) const;
 };
 
 

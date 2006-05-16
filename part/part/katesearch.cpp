@@ -857,6 +857,11 @@ QString SearchCommand::description (const QString& cmd) const
     return i18n("Search for text while typing.");
 }
 
+QString SearchCommand::category (const QString& cmd) const
+{
+  return i18n("Edit");
+}
+
 bool SearchCommand::wantsToProcessText( const QString &cmdname )
 {
   return  cmdname == "ifind";

@@ -821,6 +821,11 @@ QString KateJScriptManager::description (const QString& cmd) const
   return m_scripts.contains( cmd ) ? m_scripts[cmd]->description : QString();
 }
 
+QString KateJScriptManager::category (const QString& cmd) const
+{
+  return i18n("Scripts");
+}
+
 //END
 
 

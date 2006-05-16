@@ -216,6 +216,7 @@ class SearchCommand : public KTextEditor::Command, public KTextEditor::CommandEx
     const QStringList &cmds();
     QString name (const QString& cmd) const;
     QString description (const QString& cmd) const;
+    QString category (const QString& cmd) const;
     bool wantsToProcessText( const QString &/*cmdname*/ );
     void processText( KTextEditor::View *, const QString& );
 

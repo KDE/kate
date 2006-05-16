@@ -2,8 +2,8 @@
  <author></author>
  <comment></comment>
  <exportmacro></exportmacro>
- <class>CommandMenuConfigWidget</class>
- <widget class="QWidget" name="CommandMenuConfigWidget" >
+ <class>CmdBindingConfigWidget</class>
+ <widget class="QWidget" name="CmdBindingConfigWidget" >
   <property name="geometry" >
    <rect>
     <x>0</x>

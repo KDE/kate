@@ -109,7 +109,7 @@ KateGlobal::KateGlobal ()
   //
   // command action manager
   //
-  m_cmdActionManager = new KateCmdActionManager();
+  m_cmdBindingManager = new KateCmdBindingManager();
 
   //
   // hl manager
@@ -183,6 +183,8 @@ KateGlobal::~KateGlobal()
 
   delete m_hlManager;
 
+  delete m_cmdBindingManager;
+
   delete m_cmdManager;
 
   s_self = 0;
@@ -218,7 +220,7 @@ void KateGlobal::readConfig(KConfig *config)
   KateRendererConfig::global()->readConfig (config);
 
   config->setGroup("Kate Command Bindings");
-  cmdActionManager()->readConfig(config);
+  cmdBindingManager()->readConfig(config);
 }
 
 void KateGlobal::writeConfig(KConfig *config)
@@ -236,7 +238,7 @@ void KateGlobal::writeConfig(KConfig *config)
   KateRendererConfig::global()->writeConfig (config);
 
   config->setGroup("Kate Command Bindings");
-  cmdActionManager()->writeConfig(config);
+  cmdBindingManager()->writeConfig(config);
 
   config->sync();
 }
@@ -339,7 +341,7 @@ KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
       return new KateScriptConfigPage (parent);
 
     case 11:
-      return new KateCommandMenuConfigPage (parent);
+      return new KateCmdBindingConfigPage (parent);
 
     default:
       return 0;

@@ -2,8 +2,8 @@
  <author></author>
  <comment></comment>
  <exportmacro></exportmacro>
- <class>CommandMenuEditWidget</class>
- <widget class="QWidget" name="CommandMenuEditWidget" >
+ <class>CmdBindingEditWidget</class>
+ <widget class="QWidget" name="CmdBindingEditWidget" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -98,6 +98,29 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="1" >
+         <layout class="QHBoxLayout" >
+          <property name="margin" >
+           <number>0</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QLineEdit" name="edtName" />
+          </item>
+          <item>
+           <widget class="QToolButton" name="btnIcon" >
+            <property name="toolTip" >
+             <string>Choose an icon.</string>
+            </property>
+            <property name="whatsThis" >
+             <string>&lt;p>The icon will be displayed along with the menu entry. Only if an icon is chosen, it is possible to put the item into a toolbar.&lt;/p></string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
         <item row="1" column="0" >
          <widget class="QLabel" name="lblDescription" >
           <property name="text" >
@@ -108,11 +131,15 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1" >
-         <widget class="QLineEdit" name="edtName" />
-        </item>
-        <item row="1" column="1" >
-         <widget class="QLineEdit" name="edtDescription" />
+        <item row="2" column="0" >
+         <widget class="QLabel" name="lblCategory" >
+          <property name="text" >
+           <string>&amp;Category:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>cmbCategory</cstring>
+          </property>
+         </widget>
         </item>
         <item row="2" column="1" >
          <widget class="KComboBox" name="cmbCategory" >
@@ -127,15 +154,8 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0" >
-         <widget class="QLabel" name="lblCategory" >
-          <property name="text" >
-           <string>&amp;Category:</string>
-          </property>
-          <property name="buddy" >
-           <cstring>cmbCategory</cstring>
-          </property>
-         </widget>
+        <item row="1" column="1" >
+         <widget class="QLineEdit" name="edtDescription" />
         </item>
        </layout>
       </item>

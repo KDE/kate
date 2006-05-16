@@ -39,18 +39,8 @@
 
 #include <QTime>
 
-// bool cmpKateCmdActions(const KateCmdAction& a, const KateCmdAction& b)
-// {
-//   if( (a.category.isEmpty() && b.category.isEmpty())
-//     ||(!a.category.isEmpty() && !b.category.isEmpty()) ) {
-//     return a.name < b.name;
-//   } else if( a.category.isEmpty() || b.category.isEmpty() ) {
-//     return a.category.isEmpty();
-//   }
-// }
-
 // used for qSort
-bool operator<(const KateCmdAction& a, const KateCmdAction& b)
+bool operator<( const KateCmdBinding& a, const KateCmdBinding& b )
 {
   return QString::localeAwareCompare(a.name, b.name) == -1;
 }
@@ -61,12 +51,12 @@ class KateCmdActionItem : public QTreeWidgetItem
   public:
     KateCmdActionItem( QTreeWidget* parent, const QString& text )
       : QTreeWidgetItem( parent, QStringList() << text ), m_action( 0 ) {}
-    KateCmdActionItem( QTreeWidgetItem* parent, const QStringList& strings, KateCmdAction* action )
+    KateCmdActionItem( QTreeWidgetItem* parent, const QStringList& strings, KateCmdBinding* action )
       : QTreeWidgetItem( parent, strings ), m_action( action ) {}
     virtual ~KateCmdActionItem() {}
 
   public:
-    KateCmdAction* m_action;
+    KateCmdBinding* m_action;
 };
 //END KateCmdActionItem
 
@@ -86,96 +76,102 @@ KateCmdActionMenu::KateCmdActionMenu( KTextEditor::View* view,
 
 KateCmdActionMenu::~KateCmdActionMenu()
 {
-  delete m_actionCollection;
+  // FIXME: do I have to delete it myself?
+//   delete m_actionCollection;
 }
 
 void KateCmdActionMenu::reload()
 {
-  kDebug() << "___ reload KateCmdActionMenu" << endl;
-  kMenu()->clear();
+  // 1. clear actions / action collection
+  // 2. iterate actions from action manager
+  // 3. add new actions, along with a category
+  // 4. add (sorted) submenus
+//   kDebug() << "___ reload KateCmdActionMenu" << endl;
+//   kMenu()->clear();
   m_actionCollection->clear();
 
-  QHash<QString, KActionMenu*> hashmap;
-  const QVector<KateCmdAction>& actions = KateCmdActionManager::self()->actions();
+  QMap<QString, KActionMenu*> menumap;
+  const QVector<KateCmdBinding>& actions = KateCmdBindingManager::self()->actions();
 
-  for( QVector<KateCmdAction>::const_iterator it = actions.begin();
+  for( QVector<KateCmdBinding>::const_iterator it = actions.begin();
        it != actions.end();
        ++it )
   {
-    // TODO: insert into action collection?
-    const KateCmdAction& cmd = (*it);
-    if( cmd.category.isEmpty() )
-    {
-      QAction* a = new QAction( cmd.name, this );
-      a->setShortcut( cmd.shortcut );
-      a->setStatusTip( cmd.description );
-      a->setData( QVariant::fromValue( cmd.command ) );
+    const KateCmdBinding& cmd = (*it);
+    if( !menumap.contains( cmd.category ) )
+      menumap[cmd.category] = new KActionMenu( cmd.category, m_actionCollection, cmd.category );
+    KActionMenu* submenu = menumap[cmd.category];
 
-      addAction( a );
-    }
-    else
-    {
-      if( !hashmap.contains( cmd.category ) )
-        hashmap[cmd.category] = new KActionMenu( cmd.category, m_actionCollection, cmd.category );
-      KActionMenu* submenu = hashmap[cmd.category];
-      addAction( submenu );
+    KateCmdAction* a = new KateCmdAction( cmd.name, m_actionCollection,
+                                          cmd.command, m_view, &cmd );
+    a->setShortcut( cmd.shortcut );
+    a->setStatusTip( cmd.description );
+    a->setData( QVariant::fromValue( cmd.command ) );
 
-      QAction* a = new QAction( cmd.name, submenu );
-      a->setShortcut( cmd.shortcut );
-      a->setStatusTip( cmd.description );
-      a->setData( QVariant::fromValue( cmd.command ) );
+    submenu->addAction( a );
+  }
 
-      submenu->addAction( a );
-    }
+  // now insert the submenus, as they are automatically sorted by QMap
+  QMap<QString, KActionMenu*>::const_iterator it = menumap.constBegin();
+  while( it != menumap.constEnd() )
+  {
+    addAction( it.value() );
+    ++it;
   }
 }
 //END KateCmdActionMenu
 
-//BEGIN KateCmdActionManager
-KateCmdActionManager::KateCmdActionManager()
+//BEGIN KateCmdAction
+KateCmdAction::KateCmdAction( const QString& text, KActionCollection* parent,
+                              const QString& name, KTextEditor::View* view,
+                              const KateCmdBinding* binding )
+  : KAction( text, parent, name), m_view( view ), m_binding( binding) 
 {
-//   QList<KTextEditor::Command*> cmds = KateCmd::self()->commands();
-//   for( QList<KTextEditor::Command*>::iterator it = cmds.begin();
-//        it != cmds.end();
-//        ++it )
-//   {
-//     KTextEditor::Command* cmd = *it;
-//     QStringList l = cmd->cmds();
-//     
-//     for( int i = 0; i < l.size(); ++i )
-//     {
-//       m_actions.append( KateCmdAction() );
-//       KateCmdAction& a = m_actions.last();
-// 
-//       a.name = cmd->name( l[i] );
-//       a.description = cmd->description( l[i] );
-//       a.command = l[i];
-//       a.category = "Test";
-//     }
-//   }
+  connect( this, SIGNAL( triggered( bool ) ), this, SLOT( slotRun() ) );
 }
 
-KateCmdActionManager::~KateCmdActionManager()
+KateCmdAction::~KateCmdAction() {}
+
+void KateCmdAction::slotRun()
+{
+  KTextEditor::Command* command = KateGlobal::self()->queryCommand( m_binding->command );
+  if( command )
+  {
+    QString returnMessage;
+    command->exec( m_view, m_binding->command, returnMessage );
+    kDebug() << "executed command, return code: " << returnMessage << endl;
+  }
+}
+//END KateCmdAction
+
+//BEGIN KateCmdBindingManager
+KateCmdBindingManager::KateCmdBindingManager()
 {
 }
 
-KateCmdActionManager *KateCmdActionManager::self()
+KateCmdBindingManager::~KateCmdBindingManager()
 {
-  return KateGlobal::self()->cmdActionManager ();
 }
 
-const QVector<KateCmdAction>& KateCmdActionManager::actions() const
+KateCmdBindingManager *KateCmdBindingManager::self()
+{
+  return KateGlobal::self()->cmdBindingManager ();
+}
+
+const QVector<KateCmdBinding>& KateCmdBindingManager::actions() const
 {
   return m_actions;
 }
 
-void KateCmdActionManager::setActions( const QVector<KateCmdAction>& actions )
+void KateCmdBindingManager::setActions( const QVector<KateCmdBinding>& actions )
 {
+  // 1. assign new actions
+  // 2. update all KateViews to reflect the changes
   m_actions = actions;
   updateViews();
 }
 
-void KateCmdActionManager::readConfig( KConfig* config )
+void KateCmdBindingManager::readConfig( KConfig* config )
 {
   if( !config ) return;
   m_actions.clear();
@@ -188,8 +184,8 @@ void KateCmdActionManager::readConfig( KConfig* config )
   {
     config->setGroup( QString("Kate Command Binding %1").arg( i ) );
 
-    m_actions.append( KateCmdAction() );
-    KateCmdAction& a = m_actions.last();
+    m_actions.append( KateCmdBinding() );
+    KateCmdBinding& a = m_actions.last();
 
     a.name = config->readEntry( "Name", i18n("Unnamed") );
     a.description = config->readEntry( "Description", i18n("No description available.") );
@@ -206,7 +202,7 @@ void KateCmdActionManager::readConfig( KConfig* config )
   updateViews();
 }
 
-void KateCmdActionManager::writeConfig( KConfig* config )
+void KateCmdBindingManager::writeConfig( KConfig* config )
 {
   if( !config ) return;
   const QString oldGroup = config->group();
@@ -214,11 +210,11 @@ void KateCmdActionManager::writeConfig( KConfig* config )
   config->writeEntry( "Commands", m_actions.size() );
 
   int i = 0;
-  QVector<KateCmdAction>::const_iterator it = m_actions.begin();
+  QVector<KateCmdBinding>::const_iterator it = m_actions.begin();
   for( ; it != m_actions.end(); ++it )
   {
     config->setGroup( QString("Kate Command Binding %1").arg( i ) );
-    const KateCmdAction& a = *it;
+    const KateCmdBinding& a = *it;
 
     config->writeEntry( "Name", a.name );
     config->writeEntry( "Description", a.description );
@@ -230,10 +226,11 @@ void KateCmdActionManager::writeConfig( KConfig* config )
   config->setGroup( oldGroup );
 }
 
-void KateCmdActionManager::updateViews()
+void KateCmdBindingManager::updateViews()
 {
   QList<KateView*>& views = KateGlobal::self()->views();
 
+  // force every view to reload the command bindings
   for( QList<KateView*>::iterator it = views.begin();
        it != views.end(); ++it )
   {
@@ -244,26 +241,26 @@ void KateCmdActionManager::updateViews()
       menu->reload();
   }
 }
-//END KateCmdActionManager
+//END KateCmdBindingManager
 
-//BEGIN KateCommandMenuConfigPage
-KateCommandMenuConfigPage::KateCommandMenuConfigPage( QWidget *parent )
+//BEGIN KateCmdBindingConfigPage
+KateCmdBindingConfigPage::KateCmdBindingConfigPage( QWidget *parent )
   : KateConfigPage( parent )
 {
-  setObjectName("kate-command-menu-config-page");
-  ui = new Ui::CommandMenuConfigWidget();
+  setObjectName( "kate-command-binding-config-page" );
+  ui = new Ui::CmdBindingConfigWidget();
   ui->setupUi( this );
 
   ui->lblIcon->setPixmap( BarIcon("idea", 22 ) );
 
-  const QVector<KateCmdAction>& actions = KateCmdActionManager::self()->actions();
+  const QVector<KateCmdBinding>& actions = KateCmdBindingManager::self()->actions();
 
   // populate tree widget
   QHash<QString, KateCmdActionItem*> hashmap; // contains toplevel items
-  for( QVector<KateCmdAction>::const_iterator it = actions.begin();
+  for( QVector<KateCmdBinding>::const_iterator it = actions.begin();
        it != actions.end(); ++it )
   {
-    KateCmdAction* a = new KateCmdAction();
+    KateCmdBinding* a = new KateCmdBinding();
     *a = *it;
     m_actions.append( a );
     KateCmdActionItem* top = 0;
@@ -285,15 +282,16 @@ KateCommandMenuConfigPage::KateCommandMenuConfigPage( QWidget *parent )
   m_changed = false;
 }
 
-KateCommandMenuConfigPage::~KateCommandMenuConfigPage()
+KateCmdBindingConfigPage::~KateCmdBindingConfigPage()
 {
   qDeleteAll( m_actions );
   m_actions.clear();
 }
 
-void KateCommandMenuConfigPage::currentItemChanged( QTreeWidgetItem* current,
-                                                    QTreeWidgetItem* previous )
+void KateCmdBindingConfigPage::currentItemChanged( QTreeWidgetItem* current,
+                                                     QTreeWidgetItem* previous )
 {
+  // if selection changed, enable/disable buttons accordingly
   Q_UNUSED( previous );
   KateCmdActionItem* item = static_cast<KateCmdActionItem*>( current );
   ui->btnEditEntry->setEnabled( item->m_action != 0 );
@@ -301,47 +299,49 @@ void KateCommandMenuConfigPage::currentItemChanged( QTreeWidgetItem* current,
 }
 
 
-void KateCommandMenuConfigPage::apply()
+void KateCmdBindingConfigPage::apply()
 {
   // nothing changed, no need to apply stuff
   if (!hasChanged())
     return;
   m_changed = false;
 
-  QVector<KateCmdAction> actions;
-  for( QList<KateCmdAction*>::iterator it = m_actions.begin();
+  // convert QList into QVector
+  QVector<KateCmdBinding> actions;
+  for( QList<KateCmdBinding*>::iterator it = m_actions.begin();
        it != m_actions.end(); ++it )
   {
     actions.append( **it );
   }
 
-  KateCmdActionManager::self()->setActions( actions );
+  // finally set the new actions
+  KateCmdBindingManager::self()->setActions( actions );
 }
 
-void KateCommandMenuConfigPage::reload()
+void KateCmdBindingConfigPage::reload()
 {
 }
 
-void KateCommandMenuConfigPage::reset()
+void KateCmdBindingConfigPage::reset()
 {
 }
 
-void KateCommandMenuConfigPage::defaults()
+void KateCmdBindingConfigPage::defaults()
 {
 }
 
-void KateCommandMenuConfigPage::addEntry()
+void KateCmdBindingConfigPage::addEntry()
 {
   // collect autocompletion infos
   QStringList categories;
-  const QVector<KateCmdAction>& actions = KateCmdActionManager::self()->actions();
+  const QVector<KateCmdBinding>& actions = KateCmdBindingManager::self()->actions();
   for( int i = 0; i < actions.size(); ++i )
     categories.append( actions[i].category );
   categories.sort(); // duplicate entries will be removed by the combo box
   QStringList commands = KateCmd::self()->commandList();
   commands.sort();
 
-  KateCmdMenuEditDialog dlg( this );
+  KateCmdBindingEditDialog dlg( this );
   dlg.ui->cmbCategory->addItems( categories );
   dlg.ui->cmbCategory->clearEditText();
   dlg.ui->cmbCommand->addItems( commands );
@@ -349,8 +349,7 @@ void KateCommandMenuConfigPage::addEntry()
 
   if( dlg.exec() == KDialog::Accepted)
   {
-    const QString category = dlg.ui->cmbCategory->currentText().isEmpty() ?
-      i18n("Other") : dlg.ui->cmbCategory->currentText();
+    const QString category = dlg.ui->cmbCategory->currentText();
 
     // find new category, maybe it already exists
     KateCmdActionItem* top = 0;
@@ -363,7 +362,7 @@ void KateCommandMenuConfigPage::addEntry()
     }
     if( !top ) top = new KateCmdActionItem( ui->treeWidget, category );
     ui->treeWidget->expandItem( top );
-    KateCmdAction* a = new KateCmdAction();
+    KateCmdBinding* a = new KateCmdBinding();
     a->name = dlg.ui->edtName->text();
     a->description = dlg.ui->edtDescription->text();
     a->command = dlg.ui->cmbCommand->currentText();
@@ -375,7 +374,7 @@ void KateCommandMenuConfigPage::addEntry()
   }
 }
 
-void KateCommandMenuConfigPage::editEntry()
+void KateCmdBindingConfigPage::editEntry()
 {
   KateCmdActionItem* item =
       static_cast<KateCmdActionItem*>( ui->treeWidget->currentItem() );
@@ -383,14 +382,14 @@ void KateCommandMenuConfigPage::editEntry()
 
   // collect autocompletion infos
   QStringList categories;
-  const QVector<KateCmdAction>& actions = KateCmdActionManager::self()->actions();
+  const QVector<KateCmdBinding>& actions = KateCmdBindingManager::self()->actions();
   for( int i = 0; i < actions.size(); ++i )
     categories.append( actions[i].category );
   categories.sort(); // duplicate entries will be removed by the combo box
   QStringList commands = KateCmd::self()->commandList();
   commands.sort();
 
-  KateCmdMenuEditDialog dlg( this );
+  KateCmdBindingEditDialog dlg( this );
   dlg.ui->cmbCategory->addItems( categories );
   dlg.ui->cmbCommand->addItems( commands );
 
@@ -404,8 +403,7 @@ void KateCommandMenuConfigPage::editEntry()
     QTreeWidgetItem* oldParent = item->parent();
     oldParent->takeChild( oldParent->indexOfChild( item ) );
 
-    const QString category = dlg.ui->cmbCategory->currentText().isEmpty() ?
-        i18n("Other") : dlg.ui->cmbCategory->currentText();
+    const QString category = dlg.ui->cmbCategory->currentText();
 
     // find new category, maybe it already exists
     KateCmdActionItem* top = 0;
@@ -425,8 +423,8 @@ void KateCommandMenuConfigPage::editEntry()
     item->m_action->command = dlg.ui->cmbCommand->currentText();
     item->m_action->category = dlg.ui->cmbCategory->currentText();
     item->setText( 0, item->m_action->name );
-    item->setText( 0, item->m_action->description );
-    item->setText( 0, item->m_action->command );
+    item->setText( 1, item->m_action->description );
+    item->setText( 2, item->m_action->command );
 
     if( oldParent->childCount() == 0 )
       delete oldParent;
@@ -435,7 +433,7 @@ void KateCommandMenuConfigPage::editEntry()
   }
 }
 
-void KateCommandMenuConfigPage::removeEntry()
+void KateCmdBindingConfigPage::removeEntry()
 {
   KateCmdActionItem* item =
     static_cast<KateCmdActionItem*>( ui->treeWidget->currentItem() );
@@ -447,37 +445,49 @@ void KateCommandMenuConfigPage::removeEntry()
   if( top && top->childCount() == 0 ) delete top;
   slotChanged();
 }
-//END KateCommandMenuConfigPage
+//END KateCmdBindingConfigPage
 
-//BEGIN CommandMenuEditWidget
-KateCmdMenuEditDialog::KateCmdMenuEditDialog( QWidget *parent )
+//BEGIN KateCmdBindingEditDialog
+KateCmdBindingEditDialog::KateCmdBindingEditDialog( QWidget *parent )
   : KDialog( parent, i18n("Edit Entry"), Ok | Cancel )
 {
   enableButtonSeparator( true );
 
   QWidget *w = new QWidget( this );
-  ui = new Ui::CommandMenuEditWidget();
+  ui = new Ui::CmdBindingEditWidget();
   ui->setupUi( w );
   setMainWidget( w );
 
+  connect( this, SIGNAL( okClicked() ), this, SLOT( slotOk() ) );
   connect( ui->cmbCommand, SIGNAL( activated( const QString& ) ),
            this, SLOT( commandChanged( const QString& ) ) );
 }
 
-KateCmdMenuEditDialog::~KateCmdMenuEditDialog()
+KateCmdBindingEditDialog::~KateCmdBindingEditDialog()
 {
 }
 
-void KateCmdMenuEditDialog::commandChanged( const QString& text )
+void KateCmdBindingEditDialog::commandChanged( const QString& text )
 {
   KTextEditor::Command* cmd = KateCmd::self()->queryCommand( text );
   if( cmd )
   {
-    ui->edtName->setText( cmd->name( text ) );
-    ui->edtDescription->setText( cmd->description( text ) );
+    if( !cmd->name( text ).isEmpty() )
+      ui->edtName->setText( cmd->name( text ) );
+    if( !cmd->description( text ).isEmpty() )
+      ui->edtDescription->setText( cmd->description( text ) );
+    if( !cmd->category( text ).isEmpty() )
+      ui->cmbCategory->setEditText( cmd->category( text ) );
   }
 }
-//END CommandMenuEditWidget
+
+void KateCmdBindingEditDialog::slotOk()
+{
+  // prevent empty category
+  if( ui->cmbCategory->currentText().isEmpty() )
+    ui->cmbCategory->setEditText( i18n("Other") );
+}
+//END KateCmdBindingEditDialog
 
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -101,6 +101,14 @@ QString KateCommands::CoreCommands::description(const QString& cmd) const
   return QString();
 }
 
+QString KateCommands::CoreCommands::category(const QString& cmd) const
+{
+  // TODO: return meaningful descriptions, like
+  // "Increase indentation level.", "Decrease indentation level.",
+  // "Remove indentation."
+  return QString();
+}
+
 bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
                             const QString &_cmd,
                             QString &errorMsg)
@@ -547,6 +555,12 @@ QString KateCommands::SedReplace::description (const QString& cmd) const
   Q_UNUSED(cmd);
   return i18n("Support for sed-like search and replace.");
 }
+
+QString KateCommands::SedReplace::category (const QString& cmd) const
+{
+  Q_UNUSED(cmd);
+  return i18n("Edit");
+}
 //END SedReplace
 
 //BEGIN Character
@@ -603,6 +617,12 @@ QString KateCommands::Character::description (const QString& cmd) const
   Q_UNUSED(cmd);
   return i18n("Insert a unicode or ASCII character.");
 }
+
+QString KateCommands::Character::category (const QString& cmd) const
+{
+  Q_UNUSED(cmd);
+  return i18n("Edit");
+}
 //END Character
 
 //BEGIN Date
@@ -629,6 +649,12 @@ QString KateCommands::Date::description (const QString& cmd) const
 {
   Q_UNUSED(cmd);
   return i18n("Insert the current Date and time.");
+}
+
+QString KateCommands::Date::category (const QString& cmd) const
+{
+  Q_UNUSED(cmd);
+  return i18n("Edit");
 }
 //END Date
 

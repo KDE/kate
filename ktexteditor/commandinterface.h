@@ -47,6 +47,16 @@ class View;
  * to implement the \e reaction in exec(). Whenever the user needs help for
  * a command help() is called.
  *
+ * \section cmd_information Command Information
+ * To provide reasonable information about a specific command there are the
+ * following accessor functions for a given command string:
+ *  - name() returns a label
+ *  - description() returns a descriptive text
+ *  - category() returns a category into which the command fits.
+ *
+ * These getters allow KTextEditor implementations to plug commands into menus
+ * and toolbars, so that a user can assign shortcuts.
+ *
  * \section cmd_extension Command Extensions
  *
  * If your command needs to interactively react on changes while the user is
@@ -98,20 +108,32 @@ class KTEXTEDITOR_EXPORT Command
     virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg) = 0;
 
     /**
-     * Get the \p cmd's readable name that can be put into a menu for
-     * example. The string should be translated.
+     * Get the \p cmd's readable label that can be put into a menu.
+     * Common examples are "Insert Line", "Indent" or "Comment".
+     * The returned string should be translated.
      * \param cmd command line string to get the name for
-     * \see description()
+     * \see description(), category()
      */
     virtual QString name (const QString& cmd) const = 0;
 
     /**
      * Get the \p cmd's description that can be put into a status bar for
-     * example. The string should be translated.
+     * example. For the name "Insert Line" a text like "Insert a new line at
+     * the current cursor position." should be returned.
+     * The returned string should be translated.
      * \param cmd command line string to get the description for
-     * \see name()
+     * \see name(), category()
      */
     virtual QString description (const QString& cmd) const = 0;
+
+    /**
+     * Get the \p cmd's category under which the command can be put into a menu
+     * for example. Categories like "View", "Edit", "Insert" are good examples.
+     * The returned string should be translated.
+     * \param cmd command line string to get the description for
+     * \see name(), description()
+     */
+    virtual QString category (const QString& cmd) const = 0;
 };
 
 /**

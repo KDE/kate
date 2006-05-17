@@ -253,7 +253,7 @@ void ISearchPluginView::updateLabelText(
 	} else if ( failing && reverse && overwrapped ) {
 		text = i18n("Failing Overwrapped I-Search Backward:");
 	} else {
-		text = i18n("Error: unknown i-search state!");
+		text = i18n("Error: unknown i-search state.");
 	}
 	m_label->setText( text );
 }

@@ -319,7 +319,7 @@ void KateSearch::findAgain()
   } else {
     if ( s.showNotFound )
       KMessageBox::sorry( view(),
-        i18n("Search string '%1' not found!",
+        i18n("Search string '%1' not found.",
                KStringHandler::csqueeze(  s_pattern ) ),
         i18n("Find"));
   }

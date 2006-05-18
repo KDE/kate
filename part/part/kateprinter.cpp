@@ -210,7 +210,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
          tags["y"] =  KGlobal::locale()->formatDate(dt.date(), true);
          tags["Y"] =  KGlobal::locale()->formatDate(dt.date(), false);
          tags["f"] =  doc->url().fileName();
-         tags["U"] =  doc->url().prettyURL();
+         tags["U"] =  doc->url().prettyUrl();
          if ( selectionOnly )
          {
            QString s( i18n("(Selection of) ") );

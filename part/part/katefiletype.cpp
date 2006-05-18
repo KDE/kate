@@ -138,8 +138,8 @@ int KateFileTypeManager::fileType (KateDocument *doc)
   if (m_types.isEmpty())
     return -1;
 
-  QString fileName = doc->url().prettyURL();
-  int length = doc->url().prettyURL().length();
+  QString fileName = doc->url().prettyUrl();
+  int length = doc->url().prettyUrl().length();
 
   int result;
 

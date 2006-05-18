@@ -1859,7 +1859,7 @@ void KateDocument::readSessionConfig(KConfig *kconfig)
 void KateDocument::writeSessionConfig(KConfig *kconfig)
 {
   // save url
-  kconfig->writeEntry("URL", m_url.prettyURL() );
+  kconfig->writeEntry("URL", m_url.prettyUrl() );
 
   // save encoding
   kconfig->writeEntry("Encoding",encoding());
@@ -2105,7 +2105,7 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
 
 bool KateDocument::openURL( const KUrl &url )
 {
-//   kDebug(13020)<<"KateDocument::openURL( "<<url.prettyURL()<<")"<<endl;
+//   kDebug(13020)<<"KateDocument::openURL( "<<url.prettyUrl()<<")"<<endl;
   // no valid URL
   if ( !url.isValid() )
     return false;
@@ -2128,7 +2128,7 @@ bool KateDocument::openURL( const KUrl &url )
     if (openFile())
     {
       emit completed();
-      emit setWindowCaption( m_url.prettyURL() );
+      emit setWindowCaption( m_url.prettyUrl() );
 
       return true;
     }
@@ -2192,7 +2192,7 @@ void KateDocument::slotFinishedKate ( KJob * job )
   else
   {
       if ( openFile( dynamic_cast<KIO::Job*>( job )) )
-      emit setWindowCaption( m_url.prettyURL() );
+      emit setWindowCaption( m_url.prettyUrl() );
     emit completed();
   }
 }
@@ -2366,11 +2366,11 @@ bool KateDocument::save()
     if ( (!KIO::NetAccess::exists( u, false, kapp->activeWindow() ) || KIO::NetAccess::del( u, kapp->activeWindow() ))
           && KIO::NetAccess::file_copy( url(), u, perms, true, false, kapp->activeWindow() ) )
     {
-      kDebug(13020)<<"backing up successfull ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
+      kDebug(13020)<<"backing up successfull ("<<url().prettyUrl()<<" -> "<<u.prettyUrl()<<")"<<endl;
     }
     else
     {
-      kDebug(13020)<<"backing up failed ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
+      kDebug(13020)<<"backing up failed ("<<url().prettyUrl()<<" -> "<<u.prettyUrl()<<")"<<endl;
       // FIXME: notify user for real ;)
     }
   }
@@ -4572,13 +4572,13 @@ QString KateDocument::reasonedMOHString() const
   switch( m_modOnHdReason )
   {
     case OnDiskModified:
-      return i18n("The file '%1' was modified by another program.",  url().prettyURL() );
+      return i18n("The file '%1' was modified by another program.",  url().prettyUrl() );
       break;
     case OnDiskCreated:
-      return i18n("The file '%1' was created by another program.",  url().prettyURL() );
+      return i18n("The file '%1' was created by another program.",  url().prettyUrl() );
       break;
     case OnDiskDeleted:
-      return i18n("The file '%1' was deleted by another program.",  url().prettyURL() );
+      return i18n("The file '%1' was deleted by another program.",  url().prettyUrl() );
       break;
     default:
       return QString();

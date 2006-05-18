@@ -187,7 +187,7 @@ void KTextEditor::Attribute::setEffects( Effects effects )
 
 Attribute & KTextEditor::Attribute::operator =( const Attribute & a )
 {
-  static_cast<QTextCharFormat>(*this) = a;
+  QTextCharFormat::operator=(a);
   Q_ASSERT(static_cast<QTextCharFormat>(*this) == a);
 
   d->associatedActions = a.d->associatedActions;

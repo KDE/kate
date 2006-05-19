@@ -185,7 +185,7 @@ void KateDocumentConfig::readConfig (KConfig *config)
   setBackupSuffix (config->readEntry("Backup Suffix", QString ("~")));
 
   // plugins
-  const KTrader::OfferList& plugins = KateGlobal::self()->plugins();
+  const KService::List& plugins = KateGlobal::self()->plugins();
   for (int i=0; i<plugins.count(); i++)
     setPlugin (i, config->readEntry("KTextEditor Plugin " + plugins[i]->library(), false));
 

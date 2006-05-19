@@ -23,7 +23,7 @@
 
 #include <ktexteditor/editor.h>
 
-#include <ktrader.h>
+#include <kservice.h>
 #include <kinstance.h>
 #include <kaboutdata.h>
 #include <ktexteditor/commandinterface.h>
@@ -221,7 +221,7 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * on start detected plugins
      * @return list of all at launch detected ktexteditor::plugins
      */
-    const KTrader::OfferList &plugins () { return m_plugins; }
+    const KService::List &plugins () { return m_plugins; }
 
     /**
      * global dirwatch
@@ -379,7 +379,7 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     /**
      * at start found plugins
      */
-    KTrader::OfferList m_plugins;
+    KService::List m_plugins;
 
     /**
      * fallback document config

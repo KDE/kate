@@ -37,6 +37,7 @@
 
 #include <kvmallocator.h>
 #include <klocale.h>
+#include <ktrader.h>
 #include <kdirwatch.h>
 #include <kdebug.h>
 #include <kwin.h>
@@ -550,7 +551,7 @@ KTextEditor::Command *KateGlobal::queryCommand (const QString &cmd) const
 
 QList<KTextEditor::Command*> KateGlobal::commands() const
 {return m_cmdManager->commands();}
-    
+
 QStringList KateGlobal::commandList() const
 {return m_cmdManager->commandList();}
 //END command interface

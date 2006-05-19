@@ -23,9 +23,8 @@
 #include <qlabel.h>
 #include <qlayout.h>
 
-#include <ktrader.h>
+#include <kmimetypetrader.h>
 #include <kconfig.h>
-#include <kservice.h>
 #include <klocale.h>
 #include <kglobal.h>
 
@@ -57,7 +56,7 @@ EditorChooser::EditorChooser(QWidget *parent)
   d->chooser = new Ui::EditorChooser();
   d->chooser->setupUi(this);
 
-  KTrader::OfferList offers = KTrader::self()->query("text/plain", "'KTextEditor/Document' in ServiceTypes");
+  KService::List offers = KMimeTypeTrader::self()->query("text/plain", "KTextEditor/Document");
   KConfig *config = new KConfig("default_components");
   config->setGroup("KTextEditor");
   QString editor = config->readPathEntry("embeddedEditor");
@@ -65,7 +64,7 @@ EditorChooser::EditorChooser(QWidget *parent)
   if (editor.isEmpty()) editor = "katepart";
 
   // search default component
-  for (KTrader::OfferList::Iterator it = offers.begin(); it != offers.end(); ++it)
+  for (KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
   {
     if ((*it)->desktopEntryName().contains(editor))
     {
@@ -75,7 +74,7 @@ EditorChooser::EditorChooser(QWidget *parent)
   }
 
   // add list of all available components
-  for (KTrader::OfferList::Iterator it = offers.begin(); it != offers.end(); ++it)
+  for (KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
   {
     d->chooser->editorCombo->addItem((*it)->name());
     d->elements.append((*it)->desktopEntryName());

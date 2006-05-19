@@ -1334,7 +1334,7 @@ void KateModOnHdPrompt::slotPDone( KProcess *p )
     return;
   }
 
-  KRun::runURL( KUrl::fromPath(m_tmpfile->name()), "text/x-diff", this, true );
+  KRun::runUrl( KUrl::fromPath(m_tmpfile->name()), "text/x-diff", this, true );
   delete m_tmpfile;
   m_tmpfile = 0;
 }

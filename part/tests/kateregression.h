@@ -32,7 +32,7 @@ namespace KTextEditor {
   class SmartInterface;
 }
 
-#ifdef Q_CC_MSVC
+#ifdef Q_OS_WIN
 
 #include <QtTest/QtTest>
 namespace QTest {

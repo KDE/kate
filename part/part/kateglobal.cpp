@@ -37,7 +37,7 @@
 
 #include <kvmallocator.h>
 #include <klocale.h>
-#include <ktrader.h>
+#include <kservicetypetrader.h>
 #include <kdirwatch.h>
 #include <kdebug.h>
 #include <kwin.h>
@@ -55,7 +55,7 @@ KateGlobal::KateGlobal ()
              I18N_NOOP( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
              I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://kate.kde.org")
  , m_instance (&m_aboutData)
- , m_plugins (KTrader::self()->query("KTextEditor/Plugin"))
+ , m_plugins (KServiceTypeTrader::self()->query("KTextEditor/Plugin"))
 {
   // set s_self
   s_self = this;

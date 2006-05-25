@@ -82,13 +82,13 @@ TODO:
     * native highlighting of completion entries
     * column resizing on scroll
     * highlighting
+    * add a column to CodeCompletionModel to enable displaying an icon just before a completion's name
   * in progress:
     * implement sorting of items based on metadata, and sorted group headers
       * needs to react to model changes
   * todo
     * api improvement: generic way to detect when a completion could be offered, and possibly replaceable with a plugin, so that multiple model completion can be offered
       * multiple model merging
-    * add a column to CodeCompletionModel to enable displaying an icon just before a completion's name
     * extend metadata to include inheritance depth of an item
     * implement column merging
     * implement click-execution of completion entries based on KDE click policy

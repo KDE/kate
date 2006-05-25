@@ -68,6 +68,10 @@ class KateCompletionModel : public QAbstractProxyModel
     virtual QModelIndex mapToSource(const QModelIndex &proxyIndex) const;
     virtual QModelIndex mapFromSource(const QModelIndex &sourceIndex) const;
 
+  public slots:
+    void setSortingEnabled(bool enable);
+    void setFilteringEnabled(bool enable);
+
   private slots:
     void slotRowsInserted( const QModelIndex & parent, int start, int end );
     void slotRowsRemoved( const QModelIndex & parent, int start, int end );
@@ -114,6 +118,9 @@ class KateCompletionModel : public QAbstractProxyModel
     Group* m_ungrouped;
     bool m_ungroupedDisplayed;
     QList<Group*> m_rowTable;
+
+    // Configurable state
+    bool m_sortingEnabled, m_filteringEnabled;
 };
 
 #endif

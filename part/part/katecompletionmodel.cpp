@@ -33,6 +33,8 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   , m_hasCompletionModel(false)
   , m_ungrouped(new Group())
   , m_ungroupedDisplayed(false)
+  , m_sortingEnabled(false)
+  , m_filteringEnabled(false)
 {
   m_ungrouped->attribute = 0;
   m_ungrouped->title = i18n("Other");
@@ -40,7 +42,7 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
 
 QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
 {
-  if (!hasCompletionModel())
+  if (!hasCompletionModel() || !index.isValid())
     return QVariant();
 
   if (!hasGroups() || groupOfParent(index)) {
@@ -49,6 +51,17 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
         if (index.column() == CodeCompletionModel::Scope)
           return Qt::AlignRight;
         break;
+    }
+
+    // Merge text for column merging
+    if (role == Qt::DisplayRole && m_columnMerges.count()) {
+      QString text;
+      foreach (int column, m_columnMerges[index.column()]) {
+        if (!text.isEmpty())
+          text.append(" ");
+        text.append(sourceModel()->data(mapToSource(createIndex(index.row(), column, index.internalPointer())), role).toString());
+      }
+      return text;
     }
 
     return sourceModel()->data(mapToSource(index), role);
@@ -631,6 +644,18 @@ KateCompletionModel::Group * KateCompletionModel::ungrouped( )
   }
 
   return m_ungrouped;
+}
+
+void KateCompletionModel::setFilteringEnabled( bool enable )
+{
+  if (m_filteringEnabled != enable)
+    m_filteringEnabled = enable;
+}
+
+void KateCompletionModel::setSortingEnabled( bool enable )
+{
+  if (m_sortingEnabled != enable)
+    m_sortingEnabled = enable;
 }
 
 #include "katecompletionmodel.moc"

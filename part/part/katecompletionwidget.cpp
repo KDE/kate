@@ -18,15 +18,18 @@
 
 #include "katecompletionwidget.h"
 
-#include <QStatusBar>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QHeaderView>
 #include <QTimer>
+#include <QLabel>
+#include <QToolButton>
+#include <QSizeGrip>
+#include <QPushButton>
 
-#include <QTreeWidget>
-#include <QSortFilterProxyModel>
+#include <kicon.h>
 
 #include <ktexteditor/codecompletion2.h>
 #include <ktexteditor/cursorfeedback.h>
@@ -44,6 +47,7 @@
 KateCompletionWidget::KateCompletionWidget(KateView* parent)
   : QFrame(parent, Qt::ToolTip)
   , m_sourceModel(0L)
+  , m_presentationModel(new KateCompletionModel(this))
   , m_completionRange(0L)
 {
   setFrameStyle( QFrame::Box | QFrame::Plain );
@@ -51,17 +55,49 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   //setWindowOpacity(0.8);
 
   m_entryList = new KateCompletionTree(this);
+  m_entryList->setModel(m_presentationModel);
 
-  m_statusBar = new QStatusBar(this);
-  m_statusBar->setSizeGripEnabled(true);
+  m_statusBar = new QWidget(this);
+  m_statusBar->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed));
+
+  m_sortButton = new QToolButton(m_statusBar);
+  m_sortButton->setIcon(KIcon("sort"));
+  m_sortButton->setCheckable(true);
+  connect(m_sortButton, SIGNAL(toggled(bool)), m_presentationModel, SLOT(setSortingEnabled(bool)));
+
+  m_sortText = new QLabel(i18n("Sort: None"), m_statusBar);
+
+  m_filterButton = new QToolButton(m_statusBar);
+  m_filterButton->setIcon(KIcon("filter"));
+  m_filterButton->setCheckable(true);
+  connect(m_filterButton, SIGNAL(toggled(bool)), m_presentationModel, SLOT(setFilteringEnabled(bool)));
+
+  m_filterText = new QLabel(i18n("Filter: None"), m_statusBar);
+
+  m_configButton = new QPushButton(KIcon("configure"), i18n("Setup"), m_statusBar);
+
+  QSizeGrip* sg = new QSizeGrip(m_statusBar);
+
+  QHBoxLayout* statusLayout = new QHBoxLayout(m_statusBar);
+  statusLayout->addWidget(m_sortButton);
+  statusLayout->addWidget(m_sortText);
+  statusLayout->addSpacing(8);
+  statusLayout->addWidget(m_filterButton);
+  statusLayout->addWidget(m_filterText);
+  statusLayout->addSpacing(8);
+  statusLayout->addStretch();
+  QVBoxLayout* gripLayout = new QVBoxLayout();
+  gripLayout->addStretch();
+  statusLayout->addWidget(m_configButton);
+  gripLayout->addWidget(sg);
+  statusLayout->addLayout(gripLayout);
+  statusLayout->setMargin(0);
+  statusLayout->setSpacing(2);
 
   QVBoxLayout* vl = new QVBoxLayout(this);
   vl->addWidget(m_entryList);
   vl->addWidget(m_statusBar);
   vl->setMargin(0);
-
-  m_presentationModel = new KateCompletionModel(this);
-  m_entryList->setModel(m_presentationModel);
 
   // Keep branches expanded
   connect(m_presentationModel, SIGNAL(modelReset()), SLOT(modelReset()));

@@ -19,13 +19,12 @@
 #define KATECOMPLETIONWIDGET_H
 
 #include <QFrame>
-#include <QModelIndex>
 
 #include <ktexteditor/range.h>
 
-class QTreeView;
-class QStatusBar;
-class QSortFilterProxyModel;
+class QToolButton;
+class QPushButton;
+class QLabel;
 
 class KateView;
 class KateSmartRange;
@@ -86,8 +85,13 @@ class KateCompletionWidget : public QFrame
     KTextEditor::Cursor m_lastCursorPosition;
 
     KateCompletionTree* m_entryList;
-    QStatusBar* m_statusBar;
-    QTreeView* m_testTree;
+
+    QWidget* m_statusBar;
+    QToolButton* m_sortButton;
+    QLabel* m_sortText;
+    QToolButton* m_filterButton;
+    QLabel* m_filterText;
+    QPushButton* m_configButton;
 };
 
 #endif

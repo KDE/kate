@@ -30,6 +30,7 @@
 #include <QPushButton>
 
 #include <kicon.h>
+#include <kdialog.h>
 
 #include <ktexteditor/codecompletion2.h>
 #include <ktexteditor/cursorfeedback.h>
@@ -43,6 +44,7 @@
 
 #include "katecompletionmodel.h"
 #include "katecompletiontree.h"
+#include "katecompletionconfig.h"
 
 KateCompletionWidget::KateCompletionWidget(KateView* parent)
   : QFrame(parent, Qt::ToolTip)
@@ -75,6 +77,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_filterText = new QLabel(i18n("Filter: None"), m_statusBar);
 
   m_configButton = new QPushButton(KIcon("configure"), i18n("Setup"), m_statusBar);
+  connect(m_configButton, SIGNAL(pressed()), SLOT(showConfig()));
 
   QSizeGrip* sg = new QSizeGrip(m_statusBar);
 
@@ -142,7 +145,6 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   if (isCompletionActive()) {
     show();
     m_entryList->expandAll();
-    m_entryList->hideColumn(KTextEditor::CodeCompletionModel::Scope);
     m_entryList->resizeColumns();
   }
 }
@@ -232,8 +234,6 @@ void KateCompletionWidget::hideEvent( QHideEvent * event )
 {
   QWidget::hideEvent(event);
 
-  //m_entryList->showColumn(KTextEditor::CodeCompletionModel::Scope);
-
   if (isCompletionActive())
     abortCompletion();
 }
@@ -294,6 +294,15 @@ void KateCompletionWidget::top( )
 void KateCompletionWidget::bottom( )
 {
   m_entryList->bottom();
+}
+
+void KateCompletionWidget::showConfig( )
+{
+  KDialog config(this, i18n("Code Completion Configuration"), KDialog::Ok | KDialog::Cancel);
+  KateCompletionConfig* cc = new KateCompletionConfig(m_presentationModel, &config);
+  config.setMainWidget(cc);
+  if (config.exec() == QDialog::Accepted)
+    cc->apply();
 }
 
 #include "katecompletionwidget.moc"

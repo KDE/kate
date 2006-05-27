@@ -67,6 +67,7 @@ class KateCompletionWidget : public QFrame
 
   public slots:
     void abortCompletion();
+    void showConfig();
 
   protected:
     virtual void resizeEvent ( QResizeEvent * event );

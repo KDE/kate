@@ -35,6 +35,8 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   , m_ungroupedDisplayed(false)
   , m_sortingEnabled(false)
   , m_filteringEnabled(false)
+  , m_groupingEnabled(false)
+  , m_columnMergingEnabled(false)
 {
   m_ungrouped->attribute = 0;
   m_ungrouped->title = i18n("Other");
@@ -48,19 +50,34 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
   if (!hasGroups() || groupOfParent(index)) {
     switch (role) {
       case Qt::TextAlignmentRole:
-        if (index.column() == CodeCompletionModel::Scope)
+        if (isColumnMergingEnabled() && m_columnMerges.count()) {
+          int c = 0;
+          foreach (const QList<int>& list, m_columnMerges) {
+            foreach (int column, list) {
+              if (c++ == index.column()) {
+                if (column == CodeCompletionModel::Scope)
+                  if (list.count() == 1)
+                    return Qt::AlignRight;
+
+                goto dontalign;
+              }
+            }
+          }
+
+        } else if ((!isColumnMergingEnabled() || m_columnMerges.isEmpty()) && index.column() == CodeCompletionModel::Scope) {
           return Qt::AlignRight;
+        }
+
+        dontalign:
         break;
     }
 
     // Merge text for column merging
     if (role == Qt::DisplayRole && m_columnMerges.count()) {
       QString text;
-      foreach (int column, m_columnMerges[index.column()]) {
-        if (!text.isEmpty())
-          text.append(" ");
+      foreach (int column, m_columnMerges[index.column()])
         text.append(sourceModel()->data(mapToSource(createIndex(index.row(), column, index.internalPointer())), role).toString());
-      }
+
       return text;
     }
 
@@ -164,7 +181,7 @@ void KateCompletionModel::setCaseSensitivity( Qt::CaseSensitivity cs )
 
 int KateCompletionModel::columnCount( const QModelIndex& ) const
 {
-  return m_columnMerges.isEmpty() ? KTextEditor::CodeCompletionModel::ColumnCount : m_columnMerges.count();
+  return isColumnMergingEnabled() && !m_columnMerges.isEmpty() ? m_columnMerges.count() : KTextEditor::CodeCompletionModel::ColumnCount;
 }
 
 bool KateCompletionModel::hasChildren( const QModelIndex & parent ) const
@@ -656,6 +673,69 @@ void KateCompletionModel::setSortingEnabled( bool enable )
 {
   if (m_sortingEnabled != enable)
     m_sortingEnabled = enable;
+}
+
+void KateCompletionModel::setGroupingEnabled(bool enable)
+{
+  if (m_groupingEnabled != enable)
+    m_groupingEnabled = enable;
+}
+
+void KateCompletionModel::setColumnMergingEnabled(bool enable)
+{
+  if (m_columnMergingEnabled != enable)
+    m_columnMergingEnabled = enable;
+}
+
+bool KateCompletionModel::isColumnMergingEnabled( ) const
+{
+  return m_columnMergingEnabled;
+}
+
+bool KateCompletionModel::isGroupingEnabled( ) const
+{
+  return m_groupingEnabled;
+}
+
+bool KateCompletionModel::isFilteringEnabled( ) const
+{
+  return m_filteringEnabled;
+}
+
+bool KateCompletionModel::isSortingEnabled( ) const
+{
+  return m_sortingEnabled;
+}
+
+QString KateCompletionModel::columnName( int column )
+{
+  switch (column) {
+    case KTextEditor::CodeCompletionModel::Prefix:
+      return i18n("Prefix");
+    case KTextEditor::CodeCompletionModel::Icon:
+      return i18n("Icon");
+    case KTextEditor::CodeCompletionModel::Scope:
+      return i18n("Scope");
+    case KTextEditor::CodeCompletionModel::Name:
+      return i18n("Name");
+    case KTextEditor::CodeCompletionModel::Arguments:
+      return i18n("Arguments");
+    case KTextEditor::CodeCompletionModel::Postfix:
+      return i18n("Postfix");
+  }
+
+  return QString();
+}
+
+const QList< QList < int > > & KateCompletionModel::columnMerges( ) const
+{
+  return m_columnMerges;
+}
+
+void KateCompletionModel::setColumnMerges( const QList< QList < int > > & columnMerges )
+{
+  m_columnMerges = columnMerges;
+  reset();
 }
 
 #include "katecompletionmodel.moc"

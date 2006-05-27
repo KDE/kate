@@ -71,6 +71,7 @@ katecompletionwidget.cpp
 katecompletionmodel.cpp
 katecompletiondelegate.cpp
 katecompletiontree.cpp
+katecompletionconfig.cpp
 katejscript.cpp
 katestyletreewidget.cpp
 )
@@ -95,6 +96,7 @@ ui//hlconfigwidget.ui
 ui//opensaveconfigwidget.ui
 ui//modonhdwidget.ui
 ui//schemaconfigcolortab.ui
+ui//completionconfigwidget.ui
 )
 
 kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )

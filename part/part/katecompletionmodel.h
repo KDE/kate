@@ -50,6 +50,8 @@ class KateCompletionModel : public QAbstractProxyModel
     void setCurrentCompletion(const QString& completion);
     void setCaseSensitivity(Qt::CaseSensitivity cs);
 
+    static QString columnName(int column);
+
     bool indexIsCompletion(const QModelIndex& index) const;
 
     virtual int columnCount ( const QModelIndex & parent = QModelIndex() ) const;
@@ -68,9 +70,19 @@ class KateCompletionModel : public QAbstractProxyModel
     virtual QModelIndex mapToSource(const QModelIndex &proxyIndex) const;
     virtual QModelIndex mapFromSource(const QModelIndex &sourceIndex) const;
 
+    bool isSortingEnabled() const;
+    bool isFilteringEnabled() const;
+    bool isGroupingEnabled() const;
+    bool isColumnMergingEnabled() const;
+
+    const QList< QList<int> >& columnMerges() const;
+    void setColumnMerges(const QList< QList<int> >& columnMerges);
+
   public slots:
     void setSortingEnabled(bool enable);
     void setFilteringEnabled(bool enable);
+    void setGroupingEnabled(bool enable);
+    void setColumnMergingEnabled(bool enable);
 
   private slots:
     void slotRowsInserted( const QModelIndex & parent, int start, int end );
@@ -120,7 +132,7 @@ class KateCompletionModel : public QAbstractProxyModel
     QList<Group*> m_rowTable;
 
     // Configurable state
-    bool m_sortingEnabled, m_filteringEnabled;
+    bool m_sortingEnabled, m_filteringEnabled, m_groupingEnabled, m_columnMergingEnabled;
 };
 
 #endif

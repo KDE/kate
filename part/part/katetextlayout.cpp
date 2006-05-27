@@ -198,7 +198,7 @@ int KateTextLayout::endX( ) const
   if (!isValid())
     return 0;
 
-  return m_startX + (int)m_textLayout.naturalTextWidth();
+  return startX() + (int)m_textLayout.naturalTextWidth();
 }
 
 int KateTextLayout::width( ) const

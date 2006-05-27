@@ -64,6 +64,7 @@ class KateLineLayout : public KShared
     bool setDirty(int viewLine, bool dirty = true);
 
     int width() const;
+    int widthOfLastLine() const;
 
     int viewLineCount() const;
     KateTextLayout viewLine(int viewLine) const;

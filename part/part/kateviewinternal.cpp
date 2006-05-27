@@ -858,19 +858,42 @@ public:
       return *this;
     }
 
+    const bool blockSelectionMode = m_vi->view()->blockSelection();
+    int maxColumn = -1;
     if (n >= 0) {
       for (int i = 0; i < n; i++) {
-        if (m_column == thisLine->length())
-          break;
+        if (m_column >= thisLine->length()) {
+          if (!blockSelectionMode) {
+            break;
 
-        m_column = thisLine->layout()->nextCursorPosition(m_column);
+          } else if (m_vi->view()->dynWordWrap()) {
+            // Don't go past the edge of the screen in dynamic wrapping mode
+            if (maxColumn == -1)
+              maxColumn = thisLine->length() + ((m_vi->width() - thisLine->widthOfLastLine()) / m_vi->renderer()->spaceWidth()) - 1;
+
+            if (m_column >= maxColumn) {
+              m_column = maxColumn;
+              break;
+            }
+
+            ++m_column;
+
+          } else {
+            ++m_column;
+          }
+
+        } else {
+          m_column = thisLine->layout()->nextCursorPosition(m_column);
+        }
       }
     } else {
       for (int i = 0; i > n; i--) {
-        if (m_column == 0)
+        if (m_column >= thisLine->length())
+          --m_column;
+        else if (m_column == 0)
           break;
-
-        m_column = thisLine->layout()->previousCursorPosition(m_column);
+        else
+          m_column = thisLine->layout()->previousCursorPosition(m_column);
       }
     }
 
@@ -2603,7 +2626,7 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
         if (m_cursor.column() > m_doc->lineLength(m_cursor.line())) {
           KateTextLayout thisLine = currentLayout();
 
-          KTextEditor::Cursor newCursor(m_cursor.line(), thisLine.endCol() + ((width() - thisLine.xOffset() - (thisLine.endX() - thisLine.startX())) / renderer()->spaceWidth()) - 1);
+          KTextEditor::Cursor newCursor(m_cursor.line(), thisLine.endCol() + ((width() - thisLine.xOffset() - thisLine.width()) / renderer()->spaceWidth()) - 1);
           updateCursor(newCursor);
         }
       }

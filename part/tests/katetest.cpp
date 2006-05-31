@@ -32,7 +32,6 @@
 
 #include <kdeversion.h>
 #include <kaboutapplication.h>
-#include <dcopclient.h>
 #include <kurl.h>
 #include <kencodingfiledialog.h>
 #include <kdiroperator.h>
@@ -713,14 +712,14 @@ extern "C" KDE_EXPORT int main(int argc, char **argv)
   KApplication a;
 
   KGlobal::locale()->insertCatalog("katepart");
-
+#if 0 
   DCOPClient *client = KApplication::dcopClient();
   if (!client->isRegistered())
   {
     client->attach();
     client->registerAs("kwrite");
   }
-
+#endif
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
   if (qApp->isSessionRestored())

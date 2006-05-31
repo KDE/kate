@@ -131,7 +131,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
   // install a working kate part popup dialog thingy
   m_view->setContextMenu ((QMenu*)(factory()->container("ktexteditor_popup", this)) );
 
-  // init with more usefull size, stolen from konq :)
+  // init with more useful size, stolen from konq :)
   if (!initialGeometrySet())
     resize( QSize(700, 480).expandedTo(minimumSizeHint()));
 
@@ -739,7 +739,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
           do
           {
             line = input.readLine();
-            text.append( line + "\n" );
+            text.append( line + '\n' );
           } while( !line.isNull() );
 
 

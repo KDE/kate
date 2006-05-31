@@ -33,8 +33,6 @@
 #include <ktexteditor/smartinterface.h>
 #include <ktexteditor/rangefeedback.h>
 
-#include <dcopobject.h>
-
 #include <kmimetype.h>
 #include <klocale.h>
 #include <kshortcut.h>
@@ -81,10 +79,8 @@ class KateDocument : public KTextEditor::Document,
                      public KTextEditor::VariableInterface,
                      public KTextEditor::ModificationInterface,
                      public KTextEditor::SmartInterface,
-                     private KTextEditor::SmartRangeWatcher,
-                     public DCOPObject
+                     private KTextEditor::SmartRangeWatcher
 {
-  K_DCOP
   Q_OBJECT
   Q_INTERFACES(KTextEditor::SessionConfigInterface)
   Q_INTERFACES(KTextEditor::SearchInterface)

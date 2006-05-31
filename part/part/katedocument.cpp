@@ -69,6 +69,7 @@
 #include <ktempfile.h>
 #include <kcodecs.h>
 
+#include <dbus/qdbus.h>
 #include <qtimer.h>
 #include <qfile.h>
 #include <qclipboard.h>
@@ -112,11 +113,11 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 {
   m_undoComplexMerge=false;
 
-  QByteArray num;
-  num.setNum (++dummy);
+  QString pathName ("/Kate/Document/%1");
+  pathName = pathName.arg (++dummy);
 
-  // my dcop object
-  setObjId ("KateDocument#"+num);
+  // my dbus object
+  QDBus::sessionBus().registerObject (pathName, this);
 
   // init local plugin array
   m_plugins.fill (0);

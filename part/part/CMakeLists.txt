@@ -3,6 +3,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-lua.h.cmake ${CMAKE_CURRENT_BI
 
 include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kutils )
 
+add_definitions( ${QDBUS_DEFINITIONS} )
 
 ########### next target ###############
 #CREATE_HASH_TABLE = $(top_srcdir)/kjs/create_hash_table
@@ -78,10 +79,6 @@ katestyletreewidget.cpp
 
 kde4_automoc(${katepart_PART_SRCS})
 
-set( katepart_DCOP_SKEL_SRCS
-katedocument.h
-)
-
 remove_definitions(-DQT3_SUPPORT_WARNINGS)
 remove_definitions(-DQT3_SUPPORT)
 
@@ -100,8 +97,6 @@ ui//completionconfigwidget.ui
 )
 
 kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
-
-kde4_add_dcop_skels(katepart_PART_SRCS ${katepart_DCOP_SKEL_SRCS})
 
 kde4_add_plugin(katepart ${katepart_PART_SRCS})
 

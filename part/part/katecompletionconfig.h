@@ -23,6 +23,7 @@
 
 namespace Ui { class CompletionConfigWidget; }
 
+class QTreeWidgetItem;
 class KateCompletionModel;
 
 /**
@@ -41,10 +42,19 @@ class KateCompletionConfig : public QWidget
   private slots:
     void moveColumnUp();
     void moveColumnDown();
+    void moveGroupingUp();
+    void moveGroupingDown();
+    void moveGroupingOrderUp();
+    void moveGroupingOrderDown();
 
   private:
     Ui::CompletionConfigWidget* ui;
     KateCompletionModel* m_model;
+
+    QTreeWidgetItem* m_groupingScopeType;
+    QTreeWidgetItem* m_groupingScope;
+    QTreeWidgetItem* m_groupingAccessType;
+    QTreeWidgetItem* m_groupingItemType;
 };
 
 #endif

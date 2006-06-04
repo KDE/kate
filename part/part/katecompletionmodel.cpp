@@ -29,7 +29,7 @@ using namespace KTextEditor;
 
 KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   : QAbstractProxyModel(parent)
-  , m_caseSensitive(Qt::CaseInsensitive)
+  , m_matchCaseSensitivity(Qt::CaseInsensitive)
   , m_hasCompletionModel(false)
   , m_ungrouped(new Group())
   , m_ungroupedDisplayed(false)
@@ -143,6 +143,7 @@ void KateCompletionModel::clearGroups( )
 
   qDeleteAll(m_rowTable);
   m_rowTable.clear();
+  m_groupHash.clear();
 }
 
 void KateCompletionModel::setSourceModel( QAbstractItemModel* sm )
@@ -159,14 +160,9 @@ void KateCompletionModel::setSourceModel( QAbstractItemModel* sm )
 
   m_hasCompletionModel = sm;
 
-  //m_columnCount = 0;
-
   if (hasCompletionModel()) {
     connect(sourceModel(), SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(slotRowsInserted(const QModelIndex&, int, int)));
     connect(sourceModel(), SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT(slotRowsRemoved(const QModelIndex&, int, int)));
-
-    //if (sourceModel()->rowCount())
-      //m_columnCount = sourceModel()->columnCount(sourceModel()->index(0, 0, QModelIndex()));
 
     createGroups();
   }
@@ -174,9 +170,9 @@ void KateCompletionModel::setSourceModel( QAbstractItemModel* sm )
   reset();
 }
 
-void KateCompletionModel::setCaseSensitivity( Qt::CaseSensitivity cs )
+void KateCompletionModel::setMatchCaseSensitivity( Qt::CaseSensitivity cs )
 {
-  m_caseSensitive = cs;
+  m_matchCaseSensitivity = cs;
 }
 
 int KateCompletionModel::columnCount( const QModelIndex& ) const
@@ -300,67 +296,109 @@ void KateCompletionModel::createGroups( )
   for (int i = 0; i < sourceModel()->rowCount(); ++i) {
     QModelIndex sourceIndex = sourceModel()->index(i, CodeCompletionModel::Name, QModelIndex());
     int completionFlags = sourceModel()->data(sourceIndex, CodeCompletionModel::CompletionRole).toInt();
+    QString scopeIfNeeded = (groupingMethod() & Scope) ? sourceModel()->data(sourceModel()->index(i, CodeCompletionModel::Scope, QModelIndex()), Qt::DisplayRole).toString() : QString();
 
-    Group* g = 0L;
+    Group* g = fetchGroup(completionFlags, scopeIfNeeded);
 
-    for (int j = CodeCompletionModel::Namespace; j <= CodeCompletionModel::Enum; j *= 2) {
-      if (completionFlags & j) {
-        g = fetchGroup(j);
-        break;
-      }
-    }
-
-    if (!g)
-      g = ungrouped();
-
-    if (sourceModel()->data(sourceIndex, Qt::DisplayRole).toString().startsWith(m_currentMatch, m_caseSensitive))
+    if (sourceModel()->data(sourceIndex, Qt::DisplayRole).toString().startsWith(m_currentMatch, m_matchCaseSensitivity))
       g->rows.append(i);
 
     g->prefilter.append(i);
   }
 }
 
-KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute )
+KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, const QString& scope )
 {
-  foreach (Group* g, m_rowTable)
-    if (g->attribute == attribute)
-      return g;
+  if (!groupingMethod())
+    return ungrouped();
+
+  int groupingAttribute = groupingAttributes(attribute);
+  kDebug() << attribute << " " << groupingAttribute << endl;
+
+  if (m_groupHash.contains(groupingAttribute))
+    if (groupingMethod() & Scope) {
+      for (QHash<int, Group*>::ConstIterator it = m_groupHash.find(groupingAttribute); it != m_groupHash.constEnd() && it.key() == groupingAttribute; ++it)
+        if (it.value()->scope == scope)
+          return it.value();
+    } else {
+      return m_groupHash.value(groupingAttribute);
+    }
 
   Group* ret = new Group();
 
   ret->attribute = attribute;
+  ret->scope = scope;
 
-  switch (attribute) {
-    case CodeCompletionModel::Namespace:
-      ret->title = i18n("Namespaces");
-      break;
+  QString st, at, it;
 
-    case CodeCompletionModel::Class:
-      ret->title = i18n("Classes");
-      break;
+  if (groupingMethod() & ScopeType) {
+    if (attribute & KTextEditor::CodeCompletionModel::GlobalScope)
+      st = "Global Scope";
+    else if (attribute & KTextEditor::CodeCompletionModel::NamespaceScope)
+      st = "Namespace Scope";
+    else if (attribute & KTextEditor::CodeCompletionModel::LocalScope)
+      st = "Local Scope";
+    else
+      st = i18n("Unspecified Scope");
 
-    case CodeCompletionModel::Struct:
-      ret->title = i18n("Structs");
-      break;
+    ret->title = st;
+  }
 
-    case CodeCompletionModel::Union:
-      ret->title = i18n("Unions");
-      break;
+  if (groupingMethod() & Scope) {
+    if (!ret->title.isEmpty())
+      ret->title.append(" ");
 
-    case CodeCompletionModel::Function:
-      ret->title = i18n("Functions");
-      break;
+    ret->title.append(scope);
+  }
 
-    case CodeCompletionModel::Variable:
-      ret->title = i18n("Variables");
-      break;
+  if (groupingMethod() & AccessType) {
+    if (attribute & KTextEditor::CodeCompletionModel::Public)
+      at = "Public";
+    else if (attribute & KTextEditor::CodeCompletionModel::Protected)
+      at = "Protected";
+    else if (attribute & KTextEditor::CodeCompletionModel::Private)
+      at = "Private";
+    else
+      at = i18n("Unspecified Access");
 
-    case CodeCompletionModel::Enum:
-      ret->title = i18n("Enumerations");
-      break;
+    if (accessIncludeStatic() && attribute & KTextEditor::CodeCompletionModel::Static)
+      at.append(i18n(" Static"));
+
+    if (accessIncludeConst() && attribute & KTextEditor::CodeCompletionModel::Const)
+      at.append(" Const");
+
+    if (!ret->title.isEmpty())
+      ret->title.append(", ");
+
+    ret->title.append(at);
+  }
+
+  if (groupingMethod() & ItemType) {
+    if (attribute & CodeCompletionModel::Namespace)
+      it = i18n("Namespaces");
+    else if (attribute & CodeCompletionModel::Class)
+      it = i18n("Classes");
+    else if (attribute & CodeCompletionModel::Struct)
+      it = i18n("Structs");
+    else if (attribute & CodeCompletionModel::Union)
+      it = i18n("Unions");
+    else if (attribute & CodeCompletionModel::Function)
+      it = i18n("Functions");
+    else if (attribute & CodeCompletionModel::Variable)
+      it = i18n("Variables");
+    else if (attribute & CodeCompletionModel::Enum)
+      it = i18n("Enumerations");
+    else
+      it = i18n("Unspecified Item Type");
+
+    if (!ret->title.isEmpty())
+      ret->title.append(" ");
+
+    ret->title.append(it);
   }
 
   m_rowTable.append(ret);
+  m_groupHash.insert(groupingAttribute, ret);
 
   return ret;
 }
@@ -470,11 +508,11 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
 
   changeTypes changeType = Change;
 
-  if (m_currentMatch.length() > completion.length() && m_currentMatch.startsWith(completion, m_caseSensitive)) {
+  if (m_currentMatch.length() > completion.length() && m_currentMatch.startsWith(completion, m_matchCaseSensitivity)) {
     // Filter has been broadened
     changeType = Broaden;
 
-  } else if (m_currentMatch.length() < completion.length() && completion.startsWith(m_currentMatch, m_caseSensitive)) {
+  } else if (m_currentMatch.length() < completion.length() && completion.startsWith(m_currentMatch, m_matchCaseSensitivity)) {
     // Filter has been narrowed
     changeType = Narrow;
   }
@@ -506,7 +544,7 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
 #define DO_COMPARISON \
   QModelIndex sourceIndex = sourceModel()->index(prefilter.peekNext(), CodeCompletionModel::Name, QModelIndex()); \
   QString comp = sourceModel()->data(sourceIndex, Qt::DisplayRole).toString(); \
-  bool toDisplay = comp.startsWith(newCompletion, m_caseSensitive);
+  bool toDisplay = comp.startsWith(newCompletion, m_matchCaseSensitivity);
 
 void KateCompletionModel::changeCompletions( Group * g, const QString & newCompletion, changeTypes changeType )
 {
@@ -736,6 +774,162 @@ void KateCompletionModel::setColumnMerges( const QList< QList < int > > & column
 {
   m_columnMerges = columnMerges;
   reset();
+}
+
+int KateCompletionModel::translateColumn( int sourceColumn ) const
+{
+  int c = 0;
+  foreach (const QList<int>& list, m_columnMerges) {
+    foreach (int column, list) {
+      if (column == sourceColumn)
+        return c;
+      c++;
+    }
+  }
+  return -1;
+}
+
+int KateCompletionModel::groupingAttributes( int attribute ) const
+{
+  int ret = 0;
+
+  if (m_groupingMethod & ScopeType) {
+    if (countBits(attribute & ScopeTypeMask) > 1)
+      kWarning() << k_funcinfo << "Invalid completion model metadata: more than one scope type modifier provided." << endl;
+
+    if (attribute & KTextEditor::CodeCompletionModel::GlobalScope)
+      ret |= KTextEditor::CodeCompletionModel::GlobalScope;
+    else if (attribute & KTextEditor::CodeCompletionModel::NamespaceScope)
+      ret |= KTextEditor::CodeCompletionModel::NamespaceScope;
+    else if (attribute & KTextEditor::CodeCompletionModel::LocalScope)
+      ret |= KTextEditor::CodeCompletionModel::LocalScope;
+  }
+
+  if (m_groupingMethod & AccessType) {
+    if (countBits(attribute & AccessTypeMask) > 1)
+      kWarning() << k_funcinfo << "Invalid completion model metadata: more than one access type modifier provided." << endl;
+
+    if (attribute & KTextEditor::CodeCompletionModel::Public)
+      ret |= KTextEditor::CodeCompletionModel::Public;
+    else if (attribute & KTextEditor::CodeCompletionModel::Protected)
+      ret |= KTextEditor::CodeCompletionModel::Protected;
+    else if (attribute & KTextEditor::CodeCompletionModel::Private)
+      ret |= KTextEditor::CodeCompletionModel::Private;
+
+    if (accessIncludeStatic() && attribute & KTextEditor::CodeCompletionModel::Static)
+      ret |= KTextEditor::CodeCompletionModel::Static;
+
+    if (accessIncludeConst() && attribute & KTextEditor::CodeCompletionModel::Const)
+      ret |= KTextEditor::CodeCompletionModel::Const;
+  }
+
+  if (m_groupingMethod & ItemType) {
+    if (countBits(attribute & ItemTypeMask) > 1)
+      kWarning() << k_funcinfo << "Invalid completion model metadata: more than one item type modifier provided." << endl;
+
+    if (attribute & KTextEditor::CodeCompletionModel::Namespace)
+      ret |= KTextEditor::CodeCompletionModel::Namespace;
+    else if (attribute & KTextEditor::CodeCompletionModel::Class)
+      ret |= KTextEditor::CodeCompletionModel::Class;
+    else if (attribute & KTextEditor::CodeCompletionModel::Struct)
+      ret |= KTextEditor::CodeCompletionModel::Struct;
+    else if (attribute & KTextEditor::CodeCompletionModel::Union)
+      ret |= KTextEditor::CodeCompletionModel::Union;
+    else if (attribute & KTextEditor::CodeCompletionModel::Function)
+      ret |= KTextEditor::CodeCompletionModel::Function;
+    else if (attribute & KTextEditor::CodeCompletionModel::Variable)
+      ret |= KTextEditor::CodeCompletionModel::Variable;
+    else if (attribute & KTextEditor::CodeCompletionModel::Enum)
+      ret |= KTextEditor::CodeCompletionModel::Enum;
+
+    /*
+    if (itemIncludeTemplate() && attribute & KTextEditor::CodeCompletionModel::Template)
+      ret |= KTextEditor::CodeCompletionModel::Template;*/
+  }
+
+  return ret;
+}
+
+void KateCompletionModel::setGroupingMethod( GroupingMethods m )
+{
+  m_groupingMethod = m;
+
+  createGroups();
+}
+
+bool KateCompletionModel::accessIncludeConst( ) const
+{
+  return m_accessConst;
+}
+
+void KateCompletionModel::setAccessIncludeConst( bool include )
+{
+  if (m_accessConst != include) {
+    m_accessConst = include;
+
+    if (groupingMethod() & AccessType)
+      createGroups();
+  }
+}
+
+bool KateCompletionModel::accessIncludeStatic( ) const
+{
+  return m_accessStatic;
+}
+
+void KateCompletionModel::setAccessIncludeStatic( bool include )
+{
+  if (m_accessStatic != include) {
+    m_accessStatic = include;
+
+    if (groupingMethod() & AccessType)
+      createGroups();
+  }
+}
+
+bool KateCompletionModel::accessIncludeSignalSlot( ) const
+{
+  return m_accesSignalSlot;
+}
+
+void KateCompletionModel::setAccessIncludeSignalSlot( bool include )
+{
+  if (m_accesSignalSlot != include) {
+    m_accesSignalSlot = include;
+
+    if (groupingMethod() & AccessType)
+      createGroups();
+  }
+}
+
+int KateCompletionModel::countBits( int value ) const
+{
+  int count;
+  for (int i = 0; i; i <<= 1)
+    if (i & value)
+      count++;
+
+  return count;
+}
+
+KateCompletionModel::GroupingMethods KateCompletionModel::groupingMethod( ) const
+{
+  return m_groupingMethod;
+}
+
+bool KateCompletionModel::isSortingAlphabetical( ) const
+{
+  return m_sortingAlphabetical;
+}
+
+bool KateCompletionModel::isSortingReverse( ) const
+{
+  return m_sortingReverse;
+}
+
+Qt::CaseSensitivity KateCompletionModel::sortingCaseSensitivity( ) const
+{
+  return m_sortingCaseSensitivity;
 }
 
 #include "katecompletionmodel.moc"

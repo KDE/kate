@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>593</width>
-    <height>639</height>
+    <width>687</width>
+    <height>853</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -33,7 +33,7 @@
      <property name="checkable" >
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" >
+     <layout class="QHBoxLayout" >
       <property name="margin" >
        <number>9</number>
       </property>
@@ -41,31 +41,7 @@
        <number>6</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="checkBox" >
-        <property name="text" >
-         <string>Alphabetical</string>
-        </property>
-        <property name="checked" >
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="checkBox_2" >
-        <property name="text" >
-         <string>Reverse</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="checkBox_4" >
-        <property name="text" >
-         <string>Sort based on metadata</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" >
+       <layout class="QVBoxLayout" >
         <property name="margin" >
          <number>0</number>
         </property>
@@ -73,20 +49,61 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLabel" name="label_3" >
+         <widget class="QCheckBox" name="sortingAlphabetical" >
           <property name="text" >
-           <string>Available:</string>
+           <string>Alphabetical</string>
           </property>
-          <property name="alignment" >
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          <property name="checked" >
+           <bool>true</bool>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QListWidget" name="listWidget_2" />
+         <widget class="QCheckBox" name="sortingReverse" >
+          <property name="text" >
+           <string>Reverse</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" >
+         <widget class="QCheckBox" name="sortingCaseSensitive" >
+          <property name="text" >
+           <string>Case Sensitive</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_2" >
+          <property name="text" >
+           <string>Order of groupings (select a grouping method to configure):</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" >
           <property name="margin" >
            <number>0</number>
           </property>
@@ -94,27 +111,10 @@
            <number>6</number>
           </property>
           <item>
-           <widget class="QLabel" name="label_4" >
-            <property name="text" >
-             <string>Selected:</string>
-            </property>
-           </widget>
+           <widget class="QListWidget" name="sortGroupingOrder" />
           </item>
           <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" >
+           <layout class="QVBoxLayout" >
             <property name="margin" >
              <number>0</number>
             </property>
@@ -122,60 +122,20 @@
              <number>6</number>
             </property>
             <item>
-             <widget class="QToolButton" name="toolButton" >
+             <widget class="QToolButton" name="groupingOrderUp" >
               <property name="text" >
-               <string>&lt;-</string>
+               <string>^</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="toolButton_2" >
+             <widget class="QToolButton" name="groupingOrderDown" >
               <property name="text" >
-               <string>-></string>
+               <string>\/</string>
               </property>
              </widget>
             </item>
            </layout>
-          </item>
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QListWidget" name="listWidget_3" />
-        </item>
-        <item>
-         <layout class="QVBoxLayout" >
-          <property name="margin" >
-           <number>0</number>
-          </property>
-          <property name="spacing" >
-           <number>6</number>
-          </property>
-          <item>
-           <widget class="QToolButton" name="toolButton_3" >
-            <property name="text" >
-             <string>^</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="toolButton_4" >
-            <property name="text" >
-             <string>\/</string>
-            </property>
-           </widget>
           </item>
          </layout>
         </item>
@@ -206,6 +166,13 @@
        <number>6</number>
       </property>
       <item>
+       <widget class="QCheckBox" name="checkBox" >
+        <property name="text" >
+         <string>Suitable context matches only</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="checkBox_3" >
         <property name="text" >
          <string>Hide completions with the following attributes:</string>
@@ -225,6 +192,9 @@
         </property>
         <property name="maximum" >
          <number>20</number>
+        </property>
+        <property name="referencePoint" >
+         <number>0</number>
         </property>
         <property name="specialValueText" >
          <string>Infinity</string>
@@ -248,6 +218,175 @@
      <property name="checked" >
       <bool>false</bool>
      </property>
+     <layout class="QHBoxLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QTreeWidget" name="groupingMethods" >
+        <property name="rootIsDecorated" >
+         <bool>false</bool>
+        </property>
+        <column>
+         <property name="text" >
+          <string>Grouping method</string>
+         </property>
+        </column>
+        <item>
+         <property name="text" >
+          <string>Scope type (local, namespace, global)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>Scope (eg. per class)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>Access type (public etc.)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>Item type (function etc.)</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="groupingUp" >
+          <property name="text" >
+           <string>^</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="groupingDown" >
+          <property name="text" >
+           <string>\/</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QStackedWidget" name="stackedWidget" >
+          <property name="currentIndex" >
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="accessGrouping" >
+           <layout class="QVBoxLayout" >
+            <property name="margin" >
+             <number>0</number>
+            </property>
+            <property name="spacing" >
+             <number>8</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label" >
+              <property name="text" >
+               <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;/head>&lt;body style=" white-space: pre-wrap; font-family:Sans Serif; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Access Grouping properties&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="accessConst" >
+              <property name="text" >
+               <string>Include const in grouping</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="accessStatic" >
+              <property name="text" >
+               <string>Include static in grouping</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="accessSignalSlot" >
+              <property name="text" >
+               <string>Include signals and slots in grouping</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_2" >
+           <layout class="QVBoxLayout" >
+            <property name="margin" >
+             <number>9</number>
+            </property>
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_3" >
+              <property name="text" >
+               <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;/head>&lt;body style=" white-space: pre-wrap; font-family:Sans Serif; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Item Grouping properties&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="itemTemplate" >
+              <property name="text" >
+               <string>Include templates in grouping</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -280,6 +419,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="rootIsDecorated" >
+         <bool>false</bool>
         </property>
         <column>
          <property name="text" >

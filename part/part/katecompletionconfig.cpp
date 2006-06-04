@@ -20,6 +20,8 @@
 
 #include <QTreeWidgetItem>
 
+#include <kicon.h>
+
 #include <ktexteditor/codecompletion2.h>
 
 #include "katecompletionmodel.h"
@@ -33,12 +35,52 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
 {
   ui->setupUi(this);
 
+  // Sorting
   ui->sorting->setChecked(m_model->isSortingEnabled());
+  ui->sortingAlphabetical->setChecked(m_model->isSortingAlphabetical());
+  ui->sortingReverse->setChecked(m_model->isSortingReverse());
+  ui->sortingCaseSensitive->setChecked(m_model->sortingCaseSensitivity() == Qt::CaseSensitive);
+  ui->groupingOrderUp->setIcon(KIcon("up"));
+  ui->groupingOrderDown->setIcon(KIcon("down"));
+  connect(ui->groupingOrderUp, SIGNAL(pressed()), SLOT(moveGroupingOrderUp()));
+  connect(ui->groupingOrderDown, SIGNAL(pressed()), SLOT(moveGroupingOrderDown()));
+
+  // Filtering
   ui->filtering->setChecked(m_model->isFilteringEnabled());
+
+  // Grouping
   ui->grouping->setChecked(m_model->isGroupingEnabled());
+  ui->groupingUp->setIcon(KIcon("up"));
+  ui->groupingDown->setIcon(KIcon("down"));
+
+  m_groupingScopeType = ui->groupingMethods->topLevelItem(0);
+  m_groupingScopeType->setCheckState(0, (m_model->groupingMethod() & KateCompletionModel::ScopeType) ? Qt::Checked : Qt::Unchecked);
+
+  m_groupingScope = ui->groupingMethods->topLevelItem(1);
+  m_groupingScope->setCheckState(0, (m_model->groupingMethod() & KateCompletionModel::Scope) ? Qt::Checked : Qt::Unchecked);
+
+  m_groupingAccessType = ui->groupingMethods->topLevelItem(2);
+  m_groupingAccessType->setCheckState(0, (m_model->groupingMethod() & KateCompletionModel::AccessType) ? Qt::Checked : Qt::Unchecked);
+
+  m_groupingItemType = ui->groupingMethods->topLevelItem(3);
+  m_groupingItemType->setCheckState(0, (m_model->groupingMethod() & KateCompletionModel::ItemType) ? Qt::Checked : Qt::Unchecked);
+
+  ui->accessConst->setChecked(m_model->accessIncludeConst());
+  ui->accessStatic->setChecked(m_model->accessIncludeStatic());
+  ui->accessSignalSlot->setChecked(m_model->accessIncludeSignalSlot());
+
+  for (int i = 0; i < 4; ++i)
+    ui->groupingMethods->topLevelItem(i)->setCheckState(0, Qt::Unchecked);
+  connect(ui->groupingUp, SIGNAL(pressed()), SLOT(moveGroupingUp()));
+  connect(ui->groupingDown, SIGNAL(pressed()), SLOT(moveGroupingDown()));
+
+  // Column merging
   ui->columnMerging->setChecked(m_model->isColumnMergingEnabled());
+  ui->columnUp->setIcon(KIcon("up"));
+  ui->columnDown->setIcon(KIcon("down"));
   connect(ui->columnUp, SIGNAL(pressed()), SLOT(moveColumnUp()));
   connect(ui->columnDown, SIGNAL(pressed()), SLOT(moveColumnDown()));
+
 
   QList<int> mergedColumns;
   if (!m_model->columnMerges().isEmpty()) {
@@ -107,7 +149,26 @@ void KateCompletionConfig::apply( )
 {
   m_model->setSortingEnabled(ui->sorting->isChecked());
   m_model->setFilteringEnabled(ui->filtering->isChecked());
+
+  // Grouping
   m_model->setGroupingEnabled(ui->grouping->isChecked());
+
+  KateCompletionModel::GroupingMethods groupingMethod = 0;
+  if (m_groupingScopeType->checkState(0) == Qt::Checked)
+    groupingMethod = KateCompletionModel::ScopeType;
+  if (m_groupingScope->checkState(0) == Qt::Checked)
+    groupingMethod |= KateCompletionModel::Scope;
+  if (m_groupingAccessType->checkState(0) == Qt::Checked)
+    groupingMethod |= KateCompletionModel::AccessType;
+  if (m_groupingItemType->checkState(0) == Qt::Checked)
+    groupingMethod |= KateCompletionModel::ItemType;
+  m_model->setGroupingMethod(groupingMethod);
+
+  m_model->setAccessIncludeConst(ui->accessConst->isChecked());
+  m_model->setAccessIncludeStatic(ui->accessStatic->isChecked());
+  m_model->setAccessIncludeSignalSlot(ui->accessSignalSlot->isChecked());
+
+  // Column merging
   m_model->setColumnMergingEnabled(ui->columnMerging->isChecked());
 
   QList< QList<int> > mergedColumns;
@@ -130,6 +191,54 @@ void KateCompletionConfig::apply( )
     mergedColumns.append(oneMerge);
 
   m_model->setColumnMerges(mergedColumns);
+}
+
+void KateCompletionConfig::moveGroupingUp( )
+{
+  QTreeWidgetItem* item = ui->groupingMethods->currentItem();
+  if (item) {
+    int index = ui->groupingMethods->indexOfTopLevelItem(item);
+    if (index > 0) {
+      ui->groupingMethods->takeTopLevelItem(index);
+      ui->groupingMethods->insertTopLevelItem(index - 1, item);
+      ui->groupingMethods->setCurrentItem(item);
+    }
+  }
+}
+
+void KateCompletionConfig::moveGroupingDown( )
+{
+  QTreeWidgetItem* item = ui->groupingMethods->currentItem();
+  if (item) {
+    int index = ui->groupingMethods->indexOfTopLevelItem(item);
+    if (index < ui->groupingMethods->topLevelItemCount() - 1) {
+      ui->groupingMethods->takeTopLevelItem(index);
+      ui->groupingMethods->insertTopLevelItem(index + 1, item);
+      ui->groupingMethods->setCurrentItem(item);
+    }
+  }
+}
+
+void KateCompletionConfig::moveGroupingOrderUp( )
+{
+  QListWidgetItem* item = ui->sortGroupingOrder->currentItem();
+  int index = ui->sortGroupingOrder->currentRow();
+  if (index > 0) {
+    ui->sortGroupingOrder->takeItem(index);
+    ui->sortGroupingOrder->insertItem(index - 1, item);
+    ui->sortGroupingOrder->setCurrentItem(item);
+  }
+}
+
+void KateCompletionConfig::moveGroupingOrderDown( )
+{
+  QListWidgetItem* item = ui->sortGroupingOrder->currentItem();
+  int index = ui->sortGroupingOrder->currentRow();
+  if (index < ui->sortGroupingOrder->count() - 1) {
+    ui->sortGroupingOrder->takeItem(index);
+    ui->sortGroupingOrder->insertItem(index + 1, item);
+    ui->sortGroupingOrder->setCurrentItem(item);
+  }
 }
 
 #include "katecompletionconfig.moc"

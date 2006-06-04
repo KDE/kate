@@ -22,6 +22,7 @@
 #include <QAbstractProxyModel>
 #include <QPair>
 #include <QMutableListIterator>
+#include <QHash>
 
 class KateCompletionWidget;
 class KateView;
@@ -48,9 +49,10 @@ class KateCompletionModel : public QAbstractProxyModel
     virtual void setSourceModel( QAbstractItemModel* sourceModel );
 
     void setCurrentCompletion(const QString& completion);
-    void setCaseSensitivity(Qt::CaseSensitivity cs);
+    void setMatchCaseSensitivity( Qt::CaseSensitivity cs );
 
     static QString columnName(int column);
+    int translateColumn(int sourceColumn) const;
 
     bool indexIsCompletion(const QModelIndex& index) const;
 
@@ -70,9 +72,46 @@ class KateCompletionModel : public QAbstractProxyModel
     virtual QModelIndex mapToSource(const QModelIndex &proxyIndex) const;
     virtual QModelIndex mapFromSource(const QModelIndex &sourceIndex) const;
 
+    // Sorting
     bool isSortingEnabled() const;
+    bool isSortingAlphabetical() const;
+    void setSortingAlphabetical(bool alphabetical);
+
+    Qt::CaseSensitivity sortingCaseSensitivity() const;
+    void setSortingCaseSensitivity(Qt::CaseSensitivity cs);
+
+    bool isSortingReverse() const;
+    void setSortingReverse(bool reverse) const;
+
+    // Filtering
     bool isFilteringEnabled() const;
+
+    // Grouping
     bool isGroupingEnabled() const;
+
+    enum gm {
+      ScopeType     = 0x1,
+      Scope         = 0x2,
+      AccessType    = 0x4,
+      ItemType      = 0x8
+    };
+    Q_DECLARE_FLAGS(GroupingMethods, gm)
+
+    static const int ScopeTypeMask = 0x380000;
+    static const int AccessTypeMask = 0x7;
+    static const int ItemTypeMask = 0xfe0;
+
+    GroupingMethods groupingMethod() const;
+    void setGroupingMethod(GroupingMethods m);
+
+    bool accessIncludeConst() const;
+    void setAccessIncludeConst(bool include);
+    bool accessIncludeStatic() const;
+    void setAccessIncludeStatic(bool include);
+    bool accessIncludeSignalSlot() const;
+    void setAccessIncludeSignalSlot(bool include);
+
+    // Column merging
     bool isColumnMergingEnabled() const;
 
     const QList< QList<int> >& columnMerges() const;
@@ -92,7 +131,7 @@ class KateCompletionModel : public QAbstractProxyModel
     // Grouping and sorting of rows
     struct Group {
       int attribute;
-      QString title;
+      QString title, scope;
       QList<int> rows;
       QList<int> prefilter;
     };
@@ -100,7 +139,7 @@ class KateCompletionModel : public QAbstractProxyModel
     void createGroups();
     void clearGroups();
     Group* ungrouped();
-    Group* fetchGroup(int attribute);
+    Group* fetchGroup(int attribute, const QString& scope = QString());
     Group* groupForIndex(const QModelIndex& index) const;
     inline Group* groupOfParent(const QModelIndex& child) const { return static_cast<Group*>(child.internalPointer()); }
     QModelIndex indexForRow(Group* g, int row) const;
@@ -119,8 +158,14 @@ class KateCompletionModel : public QAbstractProxyModel
     bool hasGroups() const;
     bool hasCompletionModel() const;
 
+    /// Removes attributes not used in grouping from the input \a attribute
+    int groupingAttributes(int attribute) const;
+    int countBits(int value) const;
+
+    // ### Runtime state
+    // General
     QString m_currentMatch;
-    Qt::CaseSensitivity m_caseSensitive;
+    Qt::CaseSensitivity m_matchCaseSensitivity;
 
     bool m_hasCompletionModel;
 
@@ -129,10 +174,32 @@ class KateCompletionModel : public QAbstractProxyModel
 
     Group* m_ungrouped;
     bool m_ungroupedDisplayed;
-    QList<Group*> m_rowTable;
 
-    // Configurable state
-    bool m_sortingEnabled, m_filteringEnabled, m_groupingEnabled, m_columnMergingEnabled;
+    // Storing the sorted order
+    QList<Group*> m_rowTable;
+    // Quick access to each specific group (if it exists)
+    QMultiHash<int, Group*> m_groupHash;
+
+    // ### Configurable state
+    // Sorting
+    bool m_sortingEnabled;
+    bool m_sortingAlphabetical;
+    Qt::CaseSensitivity m_sortingCaseSensitivity;
+    bool m_sortingReverse;
+    QHash< int, QList<int> > m_sortingGroupingOrder;
+
+    // Filtering
+    bool m_filteringEnabled;
+
+    // Grouping
+    bool m_groupingEnabled;
+    GroupingMethods m_groupingMethod;
+    bool m_accessConst, m_accessStatic, m_accesSignalSlot;
+
+    // Column merging
+    bool m_columnMergingEnabled;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(KateCompletionModel::GroupingMethods)
 
 #endif

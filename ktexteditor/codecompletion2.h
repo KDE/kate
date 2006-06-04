@@ -58,14 +58,16 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
     enum CompletionProperty {
       NoProperty  = 0x0,
 
-      // Access specifiers
+      // Access specifiers - no more than 1 per item
       Public      = 0x1,
       Protected   = 0x2,
       Private     = 0x4,
+
+      // Extra access specifiers - any number per item
       Static      = 0x8,
       Const       = 0x10,
 
-      // Type
+      // Type - no more than 1 per item (except for Template)
       Namespace   = 0x20,
       Class       = 0x40,
       Struct      = 0x80,
@@ -75,7 +77,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
       Enum        = 0x800,
       Template    = 0x1000,
 
-      // Special attributes
+      // Special attributes - any number per item
       Virtual     = 0x2000,
       Override    = 0x4000,
       Inline      = 0x8000,
@@ -83,7 +85,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
       Signal      = 0x20000,
       Slot        = 0x40000,
 
-      // Scope
+      // Scope - no more than 1 per item
       LocalScope      = 0x80000,
       NamespaceScope  = 0x100000,
       GlobalScope     = 0x200000

@@ -29,7 +29,6 @@
 
 #include <kio/netaccess.h>
 
-#include <dcopclient.h>
 #include <kaboutapplication.h>
 #include <kaboutdata.h>
 #include <kaction.h>
@@ -688,14 +687,14 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   KApplication a;
 
   KGlobal::locale()->insertCatalog("katepart");
-
+#if 0
   DCOPClient *client = kapp->dcopClient();
   if (!client->isRegistered())
   {
     client->attach();
     client->registerAs("kwrite");
   }
-
+#endif
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
   if (a.isSessionRestored())

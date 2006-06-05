@@ -2070,8 +2070,9 @@ QString KateHighlighting::hlKeyForAttrib( int i ) const
 
 bool KateHighlighting::isInWord( QChar c, int attrib ) const
 {
-  static const QString& sq = KGlobal::staticQString(" \"'");
-  return m_additionalData[ hlKeyForAttrib( attrib ) ]->deliminator.indexOf(c) < 0 && sq.indexOf(c) < 0;
+  return m_additionalData[ hlKeyForAttrib( attrib ) ]->deliminator.indexOf(c) < 0
+      && !c.isSpace()
+      && c != QChar::fromLatin1('"') && c != QChar::fromLatin1('\'');
 }
 
 bool KateHighlighting::canBreakAt( QChar c, int attrib ) const

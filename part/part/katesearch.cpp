@@ -653,31 +653,31 @@ KateReplacePrompt::KateReplacePrompt ( QWidget *parent )
 void KateReplacePrompt::slotOk ()
 { // Search Next
   done(KateSearch::srNo);
-  button(Ok)->setFocus();
+  setButtonFocus(Ok);
 }
 
 void KateReplacePrompt::slotClose ()
 { // Close
   done(KateSearch::srCancel);
-  button(Close)->setFocus();
+  setButtonFocus(Close);
 }
 
 void KateReplacePrompt::slotUser1 ()
 { // Replace All
   done(KateSearch::srAll);
-  button(User1)->setFocus();
+  setButtonFocus(User1);
 }
 
 void KateReplacePrompt::slotUser2 ()
 { // Replace & Close
   done(KateSearch::srLast);
-  button(User2)->setFocus();
+  setButtonFocus(User2);
 }
 
 void KateReplacePrompt::slotUser3 ()
 { // Replace
   done(KateSearch::srYes);
-  button(User3)->setFocus();
+  setButtonFocus(User3);
 }
 
 void KateReplacePrompt::done (int result)

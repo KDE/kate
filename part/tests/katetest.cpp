@@ -815,12 +815,17 @@ extern "C" KDE_EXPORT int main(int argc, char **argv)
 }
 
 
-KWriteEditorChooser::KWriteEditorChooser(QWidget *):
-	KDialogBase(KDialogBase::Plain,i18n("Choose Editor Component"),KDialogBase::Ok | KDialogBase::Cancel, KDialogBase::Cancel)
+KWriteEditorChooser::KWriteEditorChooser(QWidget *parent):
+	KDialog(parent)
 {
-	(new QVBoxLayout(plainPage()))->setAutoAdd(true);
-	m_chooser=new KTextEditor::EditorChooser(plainPage());
-	setMainWidget(m_chooser);
+  setCaption( i18n("Choose Editor Component") );
+  setButtons( KDialog::Ok | KDialog::Cancel );
+  setDefaultButton( KDialog::Cancel );
+
+  QWidget *widget = new QWidget();
+	(new QVBoxLayout(widget))->setAutoAdd(true);
+	m_chooser=new KTextEditor::EditorChooser(widget);
+	setMainWidget(widget);
 	m_chooser->readAppSetting();
 }
 
@@ -830,5 +835,5 @@ KWriteEditorChooser::~KWriteEditorChooser() {
 
 void KWriteEditorChooser::slotOk() {
 	m_chooser->writeAppSetting();
-	KDialogBase::slotOk();
+	KDialog::slotButtonClicked( Ok );
 }

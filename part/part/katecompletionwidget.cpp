@@ -298,7 +298,9 @@ void KateCompletionWidget::bottom( )
 
 void KateCompletionWidget::showConfig( )
 {
-  KDialog config(this, i18n("Code Completion Configuration"), KDialog::Ok | KDialog::Cancel);
+  KDialog config(this);
+  config.setCaption( i18n("Code Completion Configuration") );
+  config.setButtons( KDialog::Ok | KDialog::Cancel );
   KateCompletionConfig* cc = new KateCompletionConfig(m_presentationModel, &config);
   config.setMainWidget(cc);
   if (config.exec() == QDialog::Accepted)

@@ -449,8 +449,10 @@ void KateCmdBindingConfigPage::removeEntry()
 
 //BEGIN KateCmdBindingEditDialog
 KateCmdBindingEditDialog::KateCmdBindingEditDialog( QWidget *parent )
-  : KDialog( parent, i18n("Edit Entry"), Ok | Cancel )
+  : KDialog( parent )
 {
+  setCaption( i18n("Edit Entry") );
+  setButtons( Ok | Cancel );
   enableButtonSeparator( true );
 
   QWidget *w = new QWidget( this );

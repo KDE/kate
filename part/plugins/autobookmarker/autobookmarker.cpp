@@ -280,14 +280,19 @@ class AutoBookmarkEntItem : public Q3ListViewItem
 // * edit the pattern
 // * set the file/mime type masks
 AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkEnt *e )
-        : KDialogBase( parent, "autobookmark_ent_editor",
-                       true, i18n("Edit Entry"),
-                       KDialogBase::Ok|KDialogBase::Cancel ),
+        : KDialog( parent ),
           e( e )
 {
-  QFrame *w = makeMainWidget();
+  setObjectName( "autobookmark_ent_editor" );
+  setModal( true );
+  setCaption( i18n("Edit Entry") );
+  setButtons( KDialog::Ok | KDialog::Cancel );
+
+  QFrame *w = new QFrame( this );
+  setMainWidget( w );
+
   QGridLayout * lo = new QGridLayout( w, 5, 3 );
-  lo->setSpacing( KDialogBase::spacingHint() );
+  lo->setSpacing( KDialog::spacingHint() );
 
   QLabel *l = new QLabel( i18n("&Pattern:"), w );
   lePattern = new QLineEdit( e->pattern, w );
@@ -369,7 +374,7 @@ void AutoBookmarkerEntEditor::showMTDlg()
   QString text = i18n("Select the MimeTypes for this pattern.\nPlease note that this will automatically edit the associated file extensions as well.");
   QStringList list = leMimeTypes->text().split( QRegExp("\\s*;\\s*"), QString::SkipEmptyParts );
   KMimeTypeChooserDialog *d = new KMimeTypeChooserDialog( i18n("Select Mime Types"), text, list, "text", this );
-  if ( d->exec() == KDialogBase::Accepted ) {
+  if ( d->exec() == KDialog::Accepted ) {
     // do some checking, warn user if mime types or patterns are removed.
     // if the lists are empty, and the fields not, warn.
     leFileMask->setText(d->chooser()->patterns().join("; "));
@@ -384,7 +389,7 @@ AutoBookmarkerConfigPage::AutoBookmarkerConfigPage( QWidget *parent, const char 
   : KTextEditor::ConfigPage( parent, name )
 {
   QVBoxLayout *lo = new QVBoxLayout( this );
-  lo->setSpacing( KDialogBase::spacingHint() );
+  lo->setSpacing( KDialog::spacingHint() );
 
   QLabel *l = new QLabel( i18n("&Patterns"), this );
   lo->addWidget( l );
@@ -405,7 +410,7 @@ AutoBookmarkerConfigPage::AutoBookmarkerConfigPage( QWidget *parent, const char 
       "<p>Use the buttons below to manage your collection of entities.</p>") );
 
   QHBoxLayout *lo1 = new QHBoxLayout ( lo );
-  lo1->setSpacing( KDialogBase::spacingHint() );
+  lo1->setSpacing( KDialog::spacingHint() );
 
   btnNew = new QPushButton( i18n("&New..."), this );
   lo1->addWidget( btnNew );

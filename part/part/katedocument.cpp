@@ -60,7 +60,6 @@
 #include <kmessagebox.h>
 #include <kstdaction.h>
 #include <kxmlguifactory.h>
-#include <kdialogbase.h>
 #include <kdebug.h>
 #include <kglobalsettings.h>
 #include <klibloader.h>

@@ -39,7 +39,7 @@
 #include <knotification.h>
 #include <kparts/part.h>
 #include <kiconloader.h>
-#include <kdialogbase.h>
+#include <kpagedialog.h>
 #include <ktoggleaction.h>
 
 #include <qregexp.h>
@@ -68,36 +68,28 @@ DocWordCompletionPlugin::DocWordCompletionPlugin( QObject *parent,
 void DocWordCompletionPlugin::configDialog (QWidget *parent)
 {
  // If we have only one page, we use a simple dialog, else an icon list type
-  KDialogBase::DialogType dt =
-    configPages() > 1 ?
-      KDialogBase::IconList :     // still untested
-      KDialogBase::Plain;
+  KPageDialog::FaceType ft = configPages() > 1 ? KPageDialog::List :     // still untested
+                                                 KPageDialog::Plain;
 
-  KDialogBase *kd = new KDialogBase ( dt,
-              i18n("Configure"),
-              KDialogBase::Ok | KDialogBase::Cancel | KDialogBase::Help,
-              KDialogBase::Ok,
-              parent );
+  KPageDialog *kd = new KPageDialog ( parent );
+  kd->setFaceType( ft );
+  kd->setCaption( i18n("Configure") );
+  kd->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Help );
+  kd->setDefaultButton( KDialog::Ok );
 
   QList<KTextEditor::ConfigPage*> editorPages;
 
   for (uint i = 0; i < configPages (); i++)
   {
     QWidget *page;
-    if ( dt == KDialogBase::IconList )
-    {
-      QStringList path;
-      path.clear();
-      path << configPageName( i );
-      page = kd->addVBoxPage( path, configPageFullName (i),
-                                configPagePixmap(i, K3Icon::SizeMedium) );
-    }
-    else
-    {
-      page = kd->plainPage();
-      QVBoxLayout *_l = new QVBoxLayout( page );
-      _l->setAutoAdd( true );
-    }
+    QVBoxLayout *_l = new QVBoxLayout( page );
+    _l->setAutoAdd( true );
+
+    KPageWidgetItem *item = new KPageWidgetItem( page, configPageName( i ) );
+    item->setHeader( configPageFullName( i ) );
+// FIXME: set the icon here      item->setIcon();
+
+    kd->addPage( item );
 
     editorPages.append( configPage( i, page, "" ) );
   }

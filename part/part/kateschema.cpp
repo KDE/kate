@@ -32,7 +32,7 @@
 #include "ui_schemaconfigcolortab.h"
 
 #include <klocale.h>
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <kcolorbutton.h>
 #include <kcombobox.h>
 #include <kinputdialog.h>

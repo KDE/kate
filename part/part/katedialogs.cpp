@@ -286,8 +286,13 @@ void KateIndentConfigTab::configPage()
   uint index = m_indentMode->currentIndex();
   if ( KateAutoIndent::hasConfigPage(index) )
   {
-    KDialogBase dlg(KDialogBase::Swallow, 0, this, "indenter_config_dialog", true, i18n("Configure Indenter"),
-      KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Cancel, true);
+    KDialog dlg( this );
+    dlg.setObjectName( "indenter_config_dialog" );
+    dlg.setModal( true );
+    dlg.setCaption( i18n("Configure Indenter") );
+    dlg.setButtons( KDialog::Ok | KDialog::Cancel );
+    dlg.setDefaultButton( KDialog::Cancel );
+    dlg.enableButtonSeparator( true );
 
     KVBox *box = new KVBox(&dlg);
     box->setSpacing( KDialog::spacingHint() );
@@ -822,7 +827,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfi
 {
   // sizemanagment
   QGridLayout *grid = new QGridLayout( this); //, 1, 1 );
-  grid->setSpacing( KDialogBase::spacingHint() );
+  grid->setSpacing( KDialog::spacingHint() );
 
   listView = new KatePartPluginListView(this);
   listView->setColumnCount(2);
@@ -1051,7 +1056,7 @@ void KateHlConfigPage::showMTDlg()
   QStringList list = ui->edtMimeTypes->text().split( QRegExp("\\s*;\\s*") );
   KMimeTypeChooserDialog *d = new KMimeTypeChooserDialog( i18n("Select Mime Types"), text, list, "text", this );
 
-  if ( d->exec() == KDialogBase::Accepted ) {
+  if ( d->exec() == KDialog::Accepted ) {
     // do some checking, warn user if mime types or patterns are removed.
     // if the lists are empty, and the fields not, warn.
     ui->edtFileExtensions->setText(d->chooser()->patterns().join(";"));
@@ -1062,8 +1067,16 @@ void KateHlConfigPage::showMTDlg()
 
 //BEGIN KateHlDownloadDialog
 KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bool modal)
-  :KDialogBase(KDialogBase::Swallow, i18n("Highlight Download"), User1|Close, User1, parent, name, modal, true, i18n("&Install"))
+  : KDialog( parent )
 {
+  setCaption( i18n("Highlight Download") );
+  setButtons( User1 | Close );
+  setButtonGuiItem( User1, i18n("&Install") );
+  setDefaultButton( User1 );
+  setObjectName( name );
+  setModal( modal );
+  enableButtonSeparator( true );
+
   KVBox* vbox = new KVBox(this);
   setMainWidget(vbox);
   vbox->setSpacing(spacingHint());
@@ -1076,7 +1089,7 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   //list->setAllColumnsShowFocus(true);
 
   new QLabel(i18n("<b>Note:</b> New versions are selected automatically."), vbox);
-  actionButton (User1)->setIcon(SmallIconSet("ok"));
+  button (User1)->setIcon(SmallIconSet("ok"));
 
   transferJob = KIO::get(
     KUrl(QString(HLDOWNLOADPATH)
@@ -1095,7 +1108,7 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
 {
   if (!transferJob || transferJob->isErrorPage())
   {
-    actionButton(User1)->setEnabled(false);
+    button(User1)->setEnabled(false);
     return;
   }
 
@@ -1175,7 +1188,12 @@ void KateHlDownloadDialog::slotUser1()
 
 //BEGIN KateGotoLineDialog
 KateGotoLineDialog::KateGotoLineDialog(QWidget *parent, int line, int max)
-  : KDialogBase(Swallow, 0, parent, 0L, true, i18n("Go to Line"), Ok | Cancel, Ok) {
+  : KDialog( parent )
+{
+  setModal( true );
+  setCaption( i18n("Go to Line") );
+  setButtons( Ok | Cancel );
+  setDefaultButton( Ok );
 
   QWidget *page = new QWidget(this);
   setMainWidget(page);
@@ -1206,11 +1224,13 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
                                       KTextEditor::ModificationInterface::ModifiedOnDiskReason modtype,
                                       const QString &reason,
                                       QWidget *parent )
-  : KDialog( parent, "", Ok|Apply|Cancel|User1 ),
+  : KDialog( parent ),
     m_doc( doc ),
     m_modtype ( modtype ),
     m_tmpfile( 0 )
 {
+  setButtons( Ok | Apply | Cancel | User1 );
+
   QString title, btnOK, whatisok;
   if ( modtype == KTextEditor::ModificationInterface::OnDiskDeleted )
   {

@@ -26,7 +26,7 @@
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/configinterfaceextension.h>
 
-#include <kdialogbase.h>
+#include <kdialog.h>
 
 #include <q3ptrlist.h>
 //Added by qt3to4:
@@ -117,7 +117,7 @@ class AutoBookmarkerConfigPage : public KTextEditor::ConfigPage
     ABEntityList *m_ents;
 };
 
-class AutoBookmarkerEntEditor : public KDialogBase
+class AutoBookmarkerEntEditor : public KDialog
 {
   Q_OBJECT
   public:

@@ -26,7 +26,7 @@
 #include <ktexteditor/range.h>
 #include <ktexteditor/commandinterface.h>
 
-#include <kdialogbase.h>
+#include <kdialog.h>
 
 #include <qstring.h>
 #include <qregexp.h>
@@ -71,11 +71,11 @@ class KateSearch : public QObject
 
   public:
     enum Dialog_results {
-      srCancel = KDialogBase::Cancel,
-      srAll = KDialogBase::User1,
-      srLast = KDialogBase::User2,
-      srNo = KDialogBase::User3,
-      srYes = KDialogBase::Ok
+      srCancel = KDialog::Cancel,
+      srAll = KDialog::User1,
+      srLast = KDialog::User2,
+      srNo = KDialog::User3,
+      srYes = KDialog::Ok
     };
 
   public:
@@ -157,7 +157,7 @@ class KateSearch : public QObject
 /**
  * simple replace prompt dialog
  */
-class KateReplacePrompt : public KDialogBase
+class KateReplacePrompt : public KDialog
 {
   Q_OBJECT
 

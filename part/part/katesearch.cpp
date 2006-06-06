@@ -628,11 +628,18 @@ void KateSearch::exposeFound( KTextEditor::Cursor &cursor, int slen )
 //BEGIN KateReplacePrompt
 // this dialog is not modal
 KateReplacePrompt::KateReplacePrompt ( QWidget *parent )
-  : KDialogBase ( Swallow, 0, parent, 0L, false, i18n( "Replace Confirmation" ),
-                  User3 | User2 | User1 | Close | Ok , Ok, true,
-                  i18n("Replace &All"), i18n("Re&place && Close"), i18n("&Replace") )
+  : KDialog( parent )
 {
-  setButtonGuiItem( KDialogBase::Ok, i18n("&Find Next") );
+  setModal( false );
+  setCaption( i18n( "Replace Confirmation" ) );
+  setButtons( User3 | User2 | User1 | Close | Ok );
+  setButtonGuiItem( User1, i18n("Replace &All") );
+  setButtonGuiItem( User2, i18n("Re&place && Close") );
+  setButtonGuiItem( User3, i18n("&Replace") );
+  setDefaultButton( Ok );
+  enableButtonSeparator( true );
+  setButtonGuiItem( Ok, i18n("&Find Next") );
+
   QWidget *page = new QWidget(this);
   setMainWidget(page);
 
@@ -646,31 +653,31 @@ KateReplacePrompt::KateReplacePrompt ( QWidget *parent )
 void KateReplacePrompt::slotOk ()
 { // Search Next
   done(KateSearch::srNo);
-  actionButton(Ok)->setFocus();
+  button(Ok)->setFocus();
 }
 
 void KateReplacePrompt::slotClose ()
 { // Close
   done(KateSearch::srCancel);
-  actionButton(Close)->setFocus();
+  button(Close)->setFocus();
 }
 
 void KateReplacePrompt::slotUser1 ()
 { // Replace All
   done(KateSearch::srAll);
-  actionButton(User1)->setFocus();
+  button(User1)->setFocus();
 }
 
 void KateReplacePrompt::slotUser2 ()
 { // Replace & Close
   done(KateSearch::srLast);
-  actionButton(User2)->setFocus();
+  button(User2)->setFocus();
 }
 
 void KateReplacePrompt::slotUser3 ()
 { // Replace
   done(KateSearch::srYes);
-  actionButton(User3)->setFocus();
+  button(User3)->setFocus();
 }
 
 void KateReplacePrompt::done (int result)

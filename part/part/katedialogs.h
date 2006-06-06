@@ -31,7 +31,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/configpage.h>
 
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <kmimetype.h>
 
 #include <qstringlist.h>
@@ -103,7 +103,7 @@ class KateConfigPage : public KTextEditor::ConfigPage
     bool m_changed;
 };
 
-class KateGotoLineDialog : public KDialogBase
+class KateGotoLineDialog : public KDialog
 {
   Q_OBJECT
 
@@ -337,7 +337,7 @@ class KateHlConfigPage : public KateConfigPage
     int m_currentHlData;
 };
 
-class KateHlDownloadDialog: public KDialogBase
+class KateHlDownloadDialog: public KDialog
 {
   Q_OBJECT
 

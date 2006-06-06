@@ -21,16 +21,16 @@
 #ifndef __KWRITE_MAIN_H__
 #define __KWRITE_MAIN_H__
 
-#include <ktexteditor/view.h>
-#include <ktexteditor/document.h>
-
-#include <kparts/mainwindow.h>
-
-#include <kdialogbase.h>
-//Added by qt3to4:
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QList>
+
+#include <kdialog.h>
+#include <ktexteditor/document.h>
+#include <ktexteditor/view.h>
+#include <kparts/mainwindow.h>
+
+class QLabel;
 
 namespace KTextEditor { class EditorChooser; }
 
@@ -142,7 +142,7 @@ class KWrite : public KParts::MainWindow
       QPixmap m_modPm, m_modDiscPm, m_modmodPm, m_noPm;
 };
 
-class KWriteEditorChooser: public KDialogBase
+class KWriteEditorChooser: public KDialog
 {
   Q_OBJECT
 

@@ -40,6 +40,7 @@
 #include <kservicetypetrader.h>
 #include <kdirwatch.h>
 #include <kdebug.h>
+#include <kpagedialog.h>
 #include <kwin.h>
 #include <kiconloader.h>
 
@@ -252,20 +253,22 @@ bool KateGlobal::configDialogSupported () const
 
 void KateGlobal::configDialog(QWidget *parent)
 {
-  KDialog *kd = new KDialog(parent, i18n("Configure"), KDialog::Ok | KDialog::Cancel | KDialog::Help);
-  KJanusWidget* janus = new KJanusWidget(kd, KJanusWidget::IconList);
-  kd->setMainWidget(janus);
+  KPageDialog *kd = new KPageDialog(parent);
+  kd->setCaption( i18n("Configure") );
+  kd->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Help );
+  kd->setFaceType( KPageDialog::List );
 
   QList<KTextEditor::ConfigPage*> editorPages;
 
   for (int i = 0; i < configPages (); ++i)
   {
-    QStringList path;
-    path.clear();
-    path << configPageName (i);
+    const QString name = configPageName (i);
 
-    QFrame *page = janus->addPage( path, configPageFullName (i),
-                              configPagePixmap(i, K3Icon::SizeMedium) );
+    QFrame *page = new QFrame();
+
+    KPageWidgetItem *item = kd->addPage( page, name );
+    item->setHeader( configPageFullName (i) );
+    //item->setIcon( KIcon( configPageIcon(i, K3Icon::SizeMedium) ) );
 
     QVBoxLayout *topLayout = new QVBoxLayout( page );
     topLayout->setMargin( 0 );
@@ -275,8 +278,6 @@ void KateGlobal::configDialog(QWidget *parent)
     topLayout->addWidget( cp);
     editorPages.append (cp);
   }
-
-  janus->unfoldTreeList(true);
 
   if (kd->exec())
   {

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Verilog" version="1.07" kateversion="2.4" section="Hardware" extensions="*.v;*.V;*.vl" mimetype="text/x-verilog-src" author="Yevgen Voronenko (ysv22@drexel.edu)" license="">
+<language name="Verilog" version="1.08" kateversion="2.4" section="Hardware" extensions="*.v;*.V;*.vl" mimetype="text/x-verilog-src" author="Yevgen Voronenko (ysv22@drexel.edu)" license="">
   <highlighting>
     <list name="keywords">
-      <item> module </item>
       <item> macromodule </item>
-      <item> endmodule </item>
       <item> task </item>
       <item> endtask </item>
       <item> function </item>
@@ -24,8 +22,6 @@
 
       <item> defparam </item>
       <item> default </item>
-      <item> begin </item>
-      <item> end </item>
       <item> if </item>
       <item> ifnone </item>
       <item> else </item>
@@ -124,9 +120,26 @@
       <item> event </item>
     </list>
 
+    <list name="begin">
+    <item>begin</item>
+    </list>
+    <list name="end">
+    <item>end</item>
+    </list>
+    <list name="module">
+    <item>module</item>
+    </list>
+    <list name="endmodule">
+    <item>endmodule</item>
+    </list>
+
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <RegExpr attribute="Keyword" context="Block name" String="begin\ *:"/>
+        <RegExpr attribute="Keyword" context="Block name" String="begin\ *:" beginRegion="beginend"/>
+        <keyword  attribute="Keyword" context="#stay" String="begin" beginRegion="beginend"/>
+        <keyword attribute="Keyword" context="#stay" String="end" endRegion="beginend"/>
+        <keyword  attribute="Keyword" context="#stay" String="module" beginRegion="moduleEndmodule"/>
+        <keyword attribute="Keyword" context="#stay" String="endmodule" endRegion="moduleEndmodule"/>
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Data Type" context="#stay" String="types" />
         <keyword attribute="Drive/charge strength" context="#stay" String="strength" />
@@ -146,7 +159,7 @@
 
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
-        <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*"/>
+        <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="comment"/>
         <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=+/:;&gt;?[]^{|}~@"/>
 
         <StringDetect attribute="Comment" context="Some Context2" String="#if 0" insensitive="FALSE" firstNonSpace="true"/>
@@ -166,7 +179,7 @@
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
         <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
-        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"/>
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="comment"/>
       </context>
       <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
         <LineContinue attribute="Preprocessor" context="Some Context"/>

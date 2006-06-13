@@ -32,7 +32,7 @@
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QList>
-
+#include <QLabel>
 namespace KTextEditor { class EditorChooser; }
 
 class KAction;

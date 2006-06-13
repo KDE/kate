@@ -1013,42 +1013,89 @@ void KateViewInternal::cursorRight( bool sel )
   }
 }
 
-void KateViewInternal::moveWord( KateViewInternal::Bias bias, bool sel )
+void KateViewInternal::wordLeft ( bool sel )
 {
-  // This matches the word-moving in QTextEdit, QLineEdit etc.
-
   WrappingCursor c( this, m_cursor );
-  if( !c.atEdge( bias ) ) {
-    KateHighlighting* h = m_doc->highlight();
 
-    bool moved = false;
-    while( !c.atEdge( bias ) && !h->isInWord( m_doc->line( c.line() )[ c.column() - (bias == left ? 1 : 0) ] ) )
+  // First we skip backwards all space.
+  // Then we look up into which category the current position falls:
+  // 1. a "word" character
+  // 2. a "non-word" character (except space)
+  // 3. the beginning of the line
+  // and skip all preceding characters that fall into this class.
+  // The code assumes that space is never part of the word character class.
+
+  KateHighlighting* h = m_doc->highlight();
+  if( !c.atEdge( left ) ) {
+
+    while( !c.atEdge( left ) && m_doc->line( c.line() )[ c.column() - 1 ].isSpace() )
+      --c;
+  }
+  if( c.atEdge( left ) )
+  {
+    --c;
+  }
+  else if( h->isInWord( m_doc->line( c.line() )[ c.column() - 1 ] ) )
+  {
+    while( !c.atEdge( left ) && h->isInWord( m_doc->line( c.line() )[ c.column() - 1 ] ) )
+      --c;
+  }
+  else
+  {
+    while( !c.atEdge( left )
+           && !h->isInWord( m_doc->line( c.line() )[ c.column() - 1 ] )
+           // in order to stay symmetric to wordLeft()
+           // we must not skip space preceding a non-word sequence
+           && !m_doc->line( c.line() )[ c.column() - 1 ].isSpace() )
     {
-      c += bias;
-      moved = true;
+      --c;
     }
-
-    if ( bias != right || !moved )
-    {
-      while( !c.atEdge( bias ) &&  h->isInWord( m_doc->line( c.line() )[ c.column() - (bias == left ? 1 : 0) ] ) )
-        c += bias;
-      if ( bias == right )
-      {
-        while ( !c.atEdge( bias ) && m_doc->line( c.line() )[ c.column() ].isSpace() )
-          c+= bias;
-      }
-    }
-
-  } else {
-    c += bias;
   }
 
   updateSelection( c, sel );
   updateCursor( c );
 }
 
-void KateViewInternal::wordLeft ( bool sel ) { moveWord( left,  sel ); }
-void KateViewInternal::wordRight( bool sel ) { moveWord( right, sel ); }
+void KateViewInternal::wordRight( bool sel )
+{
+  WrappingCursor c( this, m_cursor );
+
+  // We look up into which category the current position falls:
+  // 1. a "word" character
+  // 2. a "non-word" character (except space)
+  // 3. the end of the line
+  // and skip all following characters that fall into this class.
+  // If the skipped characters are followed by space, we skip that too.
+  // The code assumes that space is never part of the word character class.
+
+  KateHighlighting* h = m_doc->highlight();
+  if( c.atEdge( right ) )
+  {
+    ++c;
+  }
+  else if( h->isInWord( m_doc->line( c.line() )[ c.column() ] ) )
+  {
+    while( !c.atEdge( right ) && h->isInWord( m_doc->line( c.line() )[ c.column() ] ) )
+      ++c;
+  }
+  else
+  {
+    while( !c.atEdge( right )
+           && !h->isInWord( m_doc->line( c.line() )[ c.column() ] )
+           // we must not skip space, because if that space is followed
+           // by more non-word characters, we would skip them, too
+           && !m_doc->line( c.line() )[ c.column() ].isSpace() )
+    {
+      ++c;
+    }
+  }
+
+  while( !c.atEdge( right ) && m_doc->line( c.line() )[ c.column() ].isSpace() )
+    ++c;
+
+  updateSelection( c, sel );
+  updateCursor( c );
+}
 
 void KateViewInternal::moveEdge( KateViewInternal::Bias bias, bool sel )
 {

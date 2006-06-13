@@ -215,7 +215,6 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
   private:
     void moveChar( Bias bias, bool sel );
-    void moveWord( Bias bias, bool sel );
     void moveEdge( Bias bias, bool sel );
     KTextEditor::Cursor maxStartPos(bool changed = false);
     void scrollPos(KTextEditor::Cursor& c, bool force = false, bool calledExternally = false);

@@ -178,7 +178,7 @@ int KateFileTypeManager::fileType (KateDocument *doc)
   KMimeType::Ptr mt = doc->mimeTypeForContent();
   
   if (!mt)
-    return;
+    return -1;
 
   QList<KateFileType> types;
 

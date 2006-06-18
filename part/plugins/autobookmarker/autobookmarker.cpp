@@ -47,7 +47,6 @@
 #include <qlayout.h>
 #include <qlineedit.h>
 #include <q3listview.h>
-#include <q3popupmenu.h>
 #include <qpushbutton.h>
 #include <qtoolbutton.h>
 #include <qregexp.h>

@@ -294,7 +294,7 @@ protected:
      * @param open The open character.
      * @param close The closing character which should be matched against @p open.
      * @param pos Contains the position of the first @p open character in the line.
-     * @return True if @p open and @p close have an equal number of occurances between @p begin and @p end. False otherwise.
+     * @return True if @p open and @p close have an equal number of occurrences between @p begin and @p end. False otherwise.
      */
   bool isBalanced (KateDocCursor &begin, const KateDocCursor &end, QChar open, QChar close, uint &pos) const;
 

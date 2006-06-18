@@ -516,7 +516,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         // Clip the caret - Qt's caret has a habit of intruding onto other lines
         paint.setClipRect(0, line.lineNumber() * config()->fontMetrics().height(), xEnd - xStart, config()->fontMetrics().height());
 
-        // Draw the cursor, start drawing in the middle as the above sets the width from the centre of the line
+        // Draw the cursor, start drawing in the middle as the above sets the width from the center of the line
         range->layout()->drawCursor(&paint, QPoint(caretWidth/2 - xStart,0), cursor->column());
 
         paint.restore();

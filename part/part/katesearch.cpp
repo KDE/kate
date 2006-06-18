@@ -294,7 +294,7 @@ void KateSearch::wrapSearch()
     }
   }
 
-  // oh, we wrapped around one time allready now !
+  // oh, we wrapped around one time already now !
   // only check that on replace
   s.wrapped = s.flags.replace;
 
@@ -596,7 +596,7 @@ bool KateSearch::doSearch( const QString& text )
   s.cursor.setPosition(match.start());
   s.matchedLength = match.end().column() - match.start().column();
 
-  // we allready wrapped around one time
+  // we already wrapped around one time
   if (s.wrapped)
   {
     if (s.flags.backward)

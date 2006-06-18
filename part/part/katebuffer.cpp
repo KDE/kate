@@ -185,7 +185,7 @@ class KateFileLoader
             else
               m_text = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
 
-            // is file completly read ?
+            // is file completely read ?
             m_eof = (c == -1) || (c == 0) || (readString == 0) || m_file.atEnd();
 
             // recalc current pos and last pos

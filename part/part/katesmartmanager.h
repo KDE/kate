@@ -36,8 +36,8 @@ class KateSmartGroup;
 /**
  * Manages SmartCursors and SmartRanges.
  *
- * \todo potential performance optimisation: use separate sets for internal and non-internal cursors + ranges
- * \todo potential performance optimisation: bypass unhooking routines when clearing
+ * \todo potential performance optimization: use separate sets for internal and non-internal cursors + ranges
+ * \todo potential performance optimization: bypass unhooking routines when clearing
  */
 class KateSmartManager : public QObject, private KTextEditor::SmartRangeWatcher
 {

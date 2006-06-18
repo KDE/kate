@@ -2137,7 +2137,7 @@ void KateVarIndent::processChar ( QChar c )
 
 void KateVarIndent::processLine ( KateDocCursor &line )
 {
-  updateConfig(); // ### is it really nessecary *each time* ??
+  updateConfig(); // ### is it really necessary *each time* ??
 
   QString indent; // store the indent string here
 
@@ -2253,7 +2253,7 @@ void KateVarIndent::processLine ( KateDocCursor &line )
 
   fc = doc->plainKateTextLine( line.line() )->firstChar();
 
-  // dont change if there is no change.
+  // don't change if there is no change.
   // ### should I actually compare the strings?
   // FIXME for some odd reason, the document gets marked as changed
   //       even if we don't change it !?

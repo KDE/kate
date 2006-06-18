@@ -848,7 +848,7 @@ void KateView::toggleInsert()
 
 void KateView::slotSaveCanceled( const QString& error )
 {
-  if ( !error.isEmpty() ) // happens when cancelling a job
+  if ( !error.isEmpty() ) // happens when canceling a job
     KMessageBox::error( this, error );
 }
 

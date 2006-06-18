@@ -1106,7 +1106,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
       // We are not interested in breaking at the first char
       // of the line (if it is a space), but we are at the second
       // anders: if we can't find a space, try breaking on a word
-      // boundry, using KateHighlight::canBreakAt().
+      // boundary, using KateHighlight::canBreakAt().
       // This could be a priority (setting) in the hl/filetype/document
       int z = 0;
       int nw = 0; // alternative position, a non word character
@@ -1191,7 +1191,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &str )
   editAddUndo (KateUndoGroup::editInsertText, line, col, s.length(), s);
 
   l->insertText (col, s);
-//   removeTrailingSpace(line); // ### nessecary?
+//   removeTrailingSpace(line); // ### necessary?
 
   m_buffer->changeLine(line);
 
@@ -2366,7 +2366,7 @@ bool KateDocument::save()
     if ( (!KIO::NetAccess::exists( u, false, kapp->activeWindow() ) || KIO::NetAccess::del( u, kapp->activeWindow() ))
           && KIO::NetAccess::file_copy( url(), u, perms, true, false, kapp->activeWindow() ) )
     {
-      kDebug(13020)<<"backing up successfull ("<<url().prettyUrl()<<" -> "<<u.prettyUrl()<<")"<<endl;
+      kDebug(13020)<<"backing up successful ("<<url().prettyUrl()<<" -> "<<u.prettyUrl()<<")"<<endl;
     }
     else
     {
@@ -3098,7 +3098,7 @@ void KateDocument::align(KateView *view, uint line)
 }
 
 /*
-  Remove a given string at the begining
+  Remove a given string at the beginning
   of the current line.
 */
 bool KateDocument::removeStringFromBegining(int line, QString &str)
@@ -3162,7 +3162,7 @@ bool KateDocument::removeStringFromEnd(int line, QString &str)
 
 /*
   Add to the current line a comment line mark at
-  the begining.
+  the beginning.
 */
 void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
 {
@@ -3183,7 +3183,7 @@ void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
 
 /*
   Remove from the current line a comment line mark at
-  the begining if there is one.
+  the beginning if there is one.
 */
 bool KateDocument::removeStartLineCommentFromSingleLine( int line, int attrib )
 {
@@ -3203,7 +3203,7 @@ bool KateDocument::removeStartLineCommentFromSingleLine( int line, int attrib )
 
 /*
   Add to the current line a start comment mark at the
- begining and a stop comment mark at the end.
+ beginning and a stop comment mark at the end.
 */
 void KateDocument::addStartStopCommentToSingleLine( int line, int attrib )
 {
@@ -3226,7 +3226,7 @@ void KateDocument::addStartStopCommentToSingleLine( int line, int attrib )
 
 /*
   Remove from the current line a start comment mark at
-  the begining and a stop comment mark at the end.
+  the beginning and a stop comment mark at the end.
 */
 bool KateDocument::removeStartStopCommentFromSingleLine( int line, int attrib )
 {
@@ -3259,7 +3259,7 @@ bool KateDocument::removeStartStopCommentFromSingleLine( int line, int attrib )
 
 /*
   Add to the current selection a start comment
- mark at the begining and a stop comment mark
+ mark at the beginning and a stop comment mark
  at the end.
 */
 void KateDocument::addStartStopCommentToSelection( KateView *view, int attrib )
@@ -3286,7 +3286,7 @@ void KateDocument::addStartStopCommentToSelection( KateView *view, int attrib )
 
 /*
   Add to the current selection a comment line
- mark at the begining of each line.
+ mark at the beginning of each line.
 */
 void KateDocument::addStartLineCommentToSelection( KateView *view, int attrib )
 {
@@ -3360,7 +3360,7 @@ bool KateDocument::previousNonSpaceCharPos(int &line, int &col)
 
 /*
   Remove from the selection a start comment mark at
-  the begining and a stop comment mark at the end.
+  the beginning and a stop comment mark at the end.
 */
 bool KateDocument::removeStartStopCommentFromSelection( KateView *view, int attrib )
 {
@@ -3429,7 +3429,7 @@ bool KateDocument::removeStartStopCommentFromRegion(const KTextEditor::Cursor &s
 }
 
 /*
-  Remove from the begining of each line of the
+  Remove from the beginning of each line of the
   selection a start comment line mark.
 */
 bool KateDocument::removeStartLineCommentFromSelection( KateView *view, int attrib )
@@ -3983,7 +3983,7 @@ void KateDocument::slotModifiedOnDisk( KTextEditor::View * /*v*/ )
           else
             emit modifiedOnDisk( this, false, OnDiskUnmodified );
         }
-        else // the save as dialog was cancelled, we are still modified on disk
+        else // the save as dialog was canceled, we are still modified on disk
         {
           m_modOnHd = true;
         }

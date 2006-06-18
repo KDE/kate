@@ -43,7 +43,7 @@ namespace KTextEditor {
  * really supposed to be a sliderDragged() signal... so this way we can capture
  * MMB slider moves as well
  *
- * Also, it adds some usefull indicators on the scrollbar.
+ * Also, it adds some useful indicators on the scrollbar.
  */
 class KateScrollBar : public QScrollBar
 {

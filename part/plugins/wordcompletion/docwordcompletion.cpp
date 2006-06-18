@@ -422,7 +422,7 @@ void DocWordCompletionPluginView::complete( bool fw )
         d->col = pos; // for next try
         if ( fw )
           d->col += m.length();
-        else // FIXME figure out if all of that is really nessecary
+        else // FIXME figure out if all of that is really necessary
         {
           if ( pos == 0 )
           {
@@ -527,7 +527,7 @@ QString DocWordCompletionPluginView::word()
 }
 
 
-// Scan throught the entire document for possible completions,
+// Scan throughout the entire document for possible completions,
 // ignoring any dublets
 QList<KTextEditor::CompletionItem> DocWordCompletionPluginView::allMatches( const QString &word )
 {
@@ -585,7 +585,7 @@ DocWordCompletionConfigPage::DocWordCompletionConfigPage( DocWordCompletionPlugi
   hb->setSpacing( KDialog::spacingHint() );
   lo->addWidget( hb );
   QLabel *l = new QLabel( i18nc(
-      "Translators: This is the first part of two strings wich will comprise the "
+      "Translators: This is the first part of two strings which will comprise the "
       "sentence 'Show completions when a word is at least N characters'. The first "
       "part is on the right side of the N, which is represented by a spinbox "
       "widget, followed by the second part: 'characters long'. Characters is a "

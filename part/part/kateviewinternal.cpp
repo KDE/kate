@@ -452,7 +452,7 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
 
   int viewLinesScrolled = 0;
 
-  // only calculate if this is really used and usefull, could be wrong here, please recheck
+  // only calculate if this is really used and useful, could be wrong here, please recheck
   // for larger scrolls this makes 2-4 seconds difference on my xeon with dyn. word wrap on
   // try to get it really working ;)
   bool viewLinesScrolledUsable = !force
@@ -1745,7 +1745,7 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
           else // same line, ignore
             doSelect = false;
         break;
-        default: // *allways* keep original selection for mouse
+        default: // *always* keep original selection for mouse
         {
           if ( m_selectionCached.start().line() < 0 ) // invalid
             break;
@@ -2851,7 +2851,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
 
   // finally finish drag and drop mode
   m_dragInfo.state = diNone;
-  // important, because the eventFilter`s DragLeave does not occure
+  // important, because the eventFilter`s DragLeave does not occur
   stopDragScroll();
 }
 //END EVENT HANDLING STUFF

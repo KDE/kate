@@ -132,7 +132,7 @@ class KateTextLine : public KShared
     /**
      * Find the position of the previous char that is not a space.
      * @param pos Column of the character which is examined first.
-     * @return The position of the first none-whitespace character preceeding pos,
+     * @return The position of the first non-whitespace character preceding pos,
      *   or -1 if none is found.
      */
     int previousNonSpaceChar(int pos) const;

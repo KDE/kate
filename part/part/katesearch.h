@@ -63,7 +63,7 @@ class KateSearch : public QObject
         SearchFlags flags;
         KTextEditor::Cursor cursor;
         KTextEditor::Cursor wrappedEnd; // after wraping around, search/replace until here
-        bool wrapped; // have we allready wrapped around ?
+        bool wrapped; // have we already wrapped around ?
         bool showNotFound; // pop up annoying dialogs?
         int matchedLength;
         KTextEditor::Range selection;

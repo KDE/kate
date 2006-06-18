@@ -184,7 +184,7 @@ KateCodeFoldingTree::~KateCodeFoldingTree()
 bool KateCodeFoldingTree::isTopLevel(unsigned int line)
 {
   if (m_root.noChildren())
-    return true; // no childs
+    return true; // no children
 
   // look if a given lines belongs to a sub node
   for ( int i=0; i < m_root.childCount(); ++i )
@@ -1546,7 +1546,7 @@ int KateCodeFoldingTree::collapseOne(int realLine)
     getLineInfo(&line, i);
 
     if (line.topLevel && !line.endsBlock)
-      // optimisation
+      // optimization
       break;
 
     if (line.endsBlock  && ( line.invalidBlockEnd ) && (i != realLine)) {

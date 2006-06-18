@@ -1308,7 +1308,7 @@ void KateModOnHdPrompt::slotDiff()
 
 void KateModOnHdPrompt::slotPRead( KProcIO *p)
 {
-  // create a file for the diff if we haven't one allready
+  // create a file for the diff if we haven't one already
   if ( ! m_tmpfile )
     m_tmpfile = new KTempFile();
   // put all the data we have in it

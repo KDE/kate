@@ -35,7 +35,7 @@
      * @param type undo item type
      * @param line line affected
      * @param col start column
-     * @param len lenght of change
+     * @param len length of change
      * @param text text removed/inserted
      */
     KateUndo (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text);

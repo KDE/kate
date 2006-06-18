@@ -166,7 +166,7 @@ int KateFileTypeManager::fileType (KateDocument *doc)
   }
 
   // Even try the document name, if the URL is empty
-  // This is usefull if the document name is set for example by a plugin which
+  // This is useful if the document name is set for example by a plugin which
   // created the document
   else if ( (result = wildcardsFind(doc->documentName())) != -1)
   {

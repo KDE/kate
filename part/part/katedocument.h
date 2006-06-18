@@ -690,7 +690,7 @@ class KateDocument : public KTextEditor::Document,
     * Removes comment markers relevant to the language providing
     * the attribuge @p attrib from each line in the selection.
     *
-    * @return whether the operation succeded.
+    * @return whether the operation succeeded.
     */
     bool removeStartStopCommentFromSelection( KateView *view, int attrib=0 );
     /**
@@ -799,7 +799,7 @@ class KateDocument : public KTextEditor::Document,
      * and fill it into the string @p result.
      * This is using KMD5::hexDigest().
      *
-     * @return wheather the operation was attempted and succeded.
+     * @return wheather the operation was attempted and succeeded.
      */
     bool createDigest ( QByteArray &result );
 

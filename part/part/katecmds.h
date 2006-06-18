@@ -136,7 +136,7 @@ class SedReplace : public KTextEditor::Command
      * @param replace a template for replacement. Backspaced integers are
      * replaced with captured texts from the regular expression.
      * @param delim the delimiter character from the command. In the replacement
-     * text backsplashes preceeding this character are removed.
+     * text backsplashes preceding this character are removed.
      * @param nocase parameter for matching the reqular expression.
      * @param repeat If false, the search is stopped after the first match.
      * @param startcol The position in the line to start the search.

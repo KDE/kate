@@ -154,7 +154,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
   // call it as last thing, must be sure everything is already set up ;)
   setAutoSaveSettings ("MainWindow Settings");
 
-  // init with more usefull size, stolen from konq :)
+  // init with more useful size, stolen from konq :)
   if ( !initialGeometrySet() && !KGlobal::config()->hasGroup("MainWindow Settings"))
     resize( 700, 480 );
 

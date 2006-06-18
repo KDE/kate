@@ -303,11 +303,11 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     enum SelectionMode { Default=0, Word, Line }; ///< for drag selection.
     uint m_selectionMode;
     // when drag selecting after double/triple click, keep the initial selected
-    // word/line independant of direction.
+    // word/line independent of direction.
     // They get set in the event of a double click, and is used with mouse move + leftbutton
     KTextEditor::Range m_selectionCached;
 
-    // maximal lenght of textlines visible from given startLine
+    // maximal length of textlines visible from given startLine
     int maxLen(int startLine);
 
     // are we allowed to scroll columns?

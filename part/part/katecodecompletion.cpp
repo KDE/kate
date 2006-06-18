@@ -238,7 +238,7 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
     return false;
 
 /* Is this really needed? abortCompletion will hide this thing,
-   aborting here again will send abort signal even on successfull completion */
+   aborting here again will send abort signal even on successful completion */
 /* JOWENN: Yes it is, for mouse click triggered aborting of code completion*/
    if( (e->type() == QEvent::Hide) && (m_completionPopup==o) )
    {

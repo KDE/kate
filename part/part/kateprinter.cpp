@@ -150,7 +150,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
      // Post initialization
      uint maxHeight = (useBox ? pdm.height()-innerMargin : pdm.height());
      uint currentPage( 1 );
-     uint lastline = doc->lastLine(); // nessecary to print selection only
+     uint lastline = doc->lastLine(); // necessary to print selection only
      uint firstline( 0 );
 
      QList<KateExtendedAttribute::Ptr> ilist;

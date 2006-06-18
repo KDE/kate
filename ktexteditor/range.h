@@ -45,7 +45,7 @@ class SmartRange;
  * both values being set to the specified position.  In the constructor, the
  * start and end will be swapped if necessary.
  *
- * If you want additional functionality such as the ability to maintain positon
+ * If you want additional functionality such as the ability to maintain position
  * in a document, see SmartRange.
  *
  * \sa SmartRange

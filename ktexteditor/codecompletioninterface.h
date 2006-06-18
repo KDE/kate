@@ -337,7 +337,7 @@ class KTEXTEDITOR_EXPORT ArgHintData
       CompletionAsYouTypeBackspace=CompletionType2,
       /**
        * \todo ???
-       * There does not have to be a CompleteAsYouType before an invokation of
+       * There does not have to be a CompleteAsYouType before an invocation of
        * that kind.
        */
       CompletionReinvokeAsYouType=CompletionType3,
@@ -355,7 +355,7 @@ class KTEXTEDITOR_EXPORT ArgHintData
        * it is the only one who shows completion entries in the listbox.
        *
        * \note It should never be used with the multiple provider enabled
-       *       invokation call.
+       *       invocation call.
        */
       CompletionGenericSingleProvider=CompletionType6
     };
@@ -370,11 +370,11 @@ class KTEXTEDITOR_EXPORT ArgHintData
  * A CompletionProvider is supposed to provide the data for code completion
  * and argument hints.
  *
- * Every provider is queried for completion data \e everytime a character
+ * Every provider is queried for completion data \e every \e time a character
  * was inserted into the view, the type in completionData() is set to
  * \p CompletionAsYouType. If the type for example is
  * \p CompletionGenericSingleProvider you can be sure that you are the only
- * provider, i.e. a provider knows that the invokation was forced.
+ * provider, i.e. a provider knows that the invocation was forced.
  *
  * There are several other completion types, look into the
  * KTextEditor::CompletionType list for further details.

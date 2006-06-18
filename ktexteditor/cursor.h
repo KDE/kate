@@ -39,7 +39,7 @@ class SmartCursor;
  * in a Document. It is very lightweight and maintains no affiliation with a
  * particular Document.
  *
- * If you want additional functionality such as the ability to maintain positon
+ * If you want additional functionality such as the ability to maintain position
  * in a document, see SmartCursor.
  *
  * \note The Cursor class is designed to be passed via value, while SmartCursor

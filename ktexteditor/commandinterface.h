@@ -91,7 +91,7 @@ class KTEXTEDITOR_EXPORT Command
      * Return the success value and a \p msg for status. As example we
      * consider a replace command. The replace command would return the number
      * of replaced strings as \p msg, like "16 replacements made." If an error
-     * occured in the usage it would return \e false and set the \p msg to
+     * occurred in the usage it would return \e false and set the \p msg to
      * something like "missing argument." or such.
      *
      * \return \e true on success, otherwise \e false
@@ -182,7 +182,7 @@ class KTEXTEDITOR_EXPORT CommandExtension
     /**
      * Return a KCompletion object that will substitute the command line
      * default one while typing the first argument of the command \p cmdname.
-     * The text will be added to the command seperated by one space character.
+     * The text will be added to the command separated by one space character.
      *
      * Implement this method if your command can provide a completion object.
      *

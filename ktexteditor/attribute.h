@@ -32,14 +32,14 @@ namespace KTextEditor
 class SmartRange;
 
 /**
- * \brief A class which provides customised text decorations.
+ * \brief A class which provides customized text decorations.
  *
  * The Attribute class extends QTextCharFormat, the class which Qt
  * uses internally to provide formatting information to characters
  * in a text document.
  *
  * In addition to its inherited properties, it provides support for:
- * \li several customised text formatting properties
+ * \li several customized text formatting properties
  * \li dynamic highlighting of associated ranges of text
  * \li binding of actions with associated ranges of text
  *

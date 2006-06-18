@@ -50,7 +50,7 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * \param initialValues a map with the keys for the macros to expand.
      * keys with a value are ignored.
      * \param parentWindow is used if dialogs have to be shown
-     * \return true if all macros was sucessfully expanded
+     * \return true if all macros was successfully expanded
      * \see insertTemplateText for a list of supported macros
      */
     static bool expandMacros( QMap<QString, QString> &initialValues, QWidget *parentWindow );
@@ -66,7 +66,7 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * "for( int ${index}=0;${index}<10;${index}++) { ${cursor} };"
      * or "%{date}"
      *
-     * This syntax is somewhat similiar to the one found in the Eclipse editor.
+     * This syntax is somewhat similar to the one found in the Eclipse editor.
      *
      * There are certain common placeholders (macros), which get assigned a
      * default initialValue, If the second parameter does not a given value.
@@ -80,7 +80,7 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * - firstname: The current user's first name retrieved from kabc
      * - lastname: The current user's last name retrieved from kabc
      * - fullname: The current user's first and last name retrieved from kabc
-     * - email: The current user's primary email adress  retrieved from kabc
+     * - email: The current user's primary email address retrieved from kabc
      * - date: current date
      * - time: current time
      * - year: current year

@@ -353,7 +353,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
 
 void AutoBookmarkerEntEditor::slotPatternChanged( const QString&_pattern )
 {
-    enableButtonOK( !_pattern.isEmpty() );
+    enableButtonOk( !_pattern.isEmpty() );
 }
 
 void AutoBookmarkerEntEditor::apply()

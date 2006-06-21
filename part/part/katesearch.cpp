@@ -637,7 +637,7 @@ KateReplacePrompt::KateReplacePrompt ( QWidget *parent )
   setButtonGuiItem( User2, i18n("Re&place && Close") );
   setButtonGuiItem( User3, i18n("&Replace") );
   setDefaultButton( Ok );
-  enableButtonSeparator( true );
+  showButtonSeparator( true );
   setButtonGuiItem( Ok, i18n("&Find Next") );
 
   QWidget *page = new QWidget(this);

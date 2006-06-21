@@ -453,7 +453,7 @@ KateCmdBindingEditDialog::KateCmdBindingEditDialog( QWidget *parent )
 {
   setCaption( i18n("Edit Entry") );
   setButtons( Ok | Cancel );
-  enableButtonSeparator( true );
+  showButtonSeparator( true );
 
   QWidget *w = new QWidget( this );
   ui = new Ui::CmdBindingEditWidget();

@@ -292,7 +292,7 @@ void KateIndentConfigTab::configPage()
     dlg.setCaption( i18n("Configure Indenter") );
     dlg.setButtons( KDialog::Ok | KDialog::Cancel );
     dlg.setDefaultButton( KDialog::Cancel );
-    dlg.enableButtonSeparator( true );
+    dlg.showButtonSeparator( true );
 
     KVBox *box = new KVBox(&dlg);
     box->setSpacing( KDialog::spacingHint() );
@@ -1075,7 +1075,7 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   setDefaultButton( User1 );
   setObjectName( name );
   setModal( modal );
-  enableButtonSeparator( true );
+  showButtonSeparator( true );
 
   KVBox* vbox = new KVBox(this);
   setMainWidget(vbox);
@@ -1252,7 +1252,7 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
   setButtonWhatsThis( Cancel, i18n("Do nothing. Next time you focus the file, "
       "or try to save it or close it, you will be prompted again.") );
 
-  enableButtonSeparator( true );
+  showButtonSeparator( true );
   setCaption( title );
 
   QWidget *w = new QWidget(this);

@@ -28,6 +28,7 @@
 #include "katedocument.h"
 
 #include <kaction.h>
+#include <kicon.h>
 #include <kstdaction.h>
 #include <kspell.h>
 #include <kdebug.h>

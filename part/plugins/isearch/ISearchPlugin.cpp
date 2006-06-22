@@ -17,10 +17,12 @@
  */
 
 #include <qlabel.h>
+#include <qlineedit.h>
 #include <qregexp.h>
 #include <qstyle.h>
 #include <qmenu.h>
 #include <kgenericfactory.h>
+#include <kicon.h>
 #include <klocale.h>
 #include <kaction.h>
 #include <k3widgetaction.h>

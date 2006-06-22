@@ -58,6 +58,7 @@
 #include <kdebug.h>
 #include <kapplication.h>
 #include <kcursor.h>
+#include <kicon.h>
 #include <klocale.h>
 #include <kglobal.h>
 #include <kcharsets.h>

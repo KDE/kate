@@ -32,7 +32,7 @@
 
 #include <kdeversion.h>
 #include <kaboutapplication.h>
-#include <kurl.h>
+#include <kicon.h>
 #include <kencodingfiledialog.h>
 #include <kdiroperator.h>
 #include <kiconloader.h>

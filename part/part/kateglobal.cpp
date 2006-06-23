@@ -41,6 +41,7 @@
 #include <kdirwatch.h>
 #include <kdebug.h>
 #include <kpagedialog.h>
+#include <kpagewidgetmodel.h>
 #include <kwin.h>
 #include <kiconloader.h>
 

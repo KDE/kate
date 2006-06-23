@@ -40,6 +40,7 @@
 #include <kparts/part.h>
 #include <kiconloader.h>
 #include <kpagedialog.h>
+#include <kpagewidgetmodel.h>
 #include <ktoggleaction.h>
 
 #include <qregexp.h>

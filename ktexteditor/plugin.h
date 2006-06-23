@@ -228,7 +228,7 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
 
     /**
      * Show the config dialog for the plugin.
-     * Changes should be applied to the plugin, but not saved anywhere
+     * Changes should be applied to the plugin, but not saved to the disk
      * immediately. writeConfig() is called by the Editor implementation to
      * save the plugin's settings, e.g. when a plugin is unloaded.
      *

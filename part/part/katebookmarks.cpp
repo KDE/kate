@@ -25,6 +25,7 @@
 
 #include <klocale.h>
 #include <kaction.h>
+#include <kguiitem.h>
 #include <kicon.h>
 #include <kmenu.h>
 #include <kstringhandler.h>

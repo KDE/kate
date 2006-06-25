@@ -692,6 +692,10 @@ void KateBuffer::setHighlight(int hlMode)
 
     h->use();
 
+    // Clear code folding tree (see bug #124102)
+    m_regionTree.clear();
+    m_regionTree.fixRoot(m_lines.size());
+
     // try to set indentation
     if (!h->indentation().isEmpty())
       m_doc->config()->setIndentationMode (KateAutoIndent::modeNumber(h->indentation()));

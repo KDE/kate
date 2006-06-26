@@ -366,10 +366,6 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     static const int s_scrollTime = 30;
     static const int s_scrollMargin = 16;
 
-    // dyn wrap mode:
-    // used to set the lineScroll to the max value
-    bool m_maximizeLineScroll;
-
   private Q_SLOTS:
     void scrollTimeout ();
     void cursorTimeout ();

@@ -647,6 +647,12 @@ KateReplacePrompt::KateReplacePrompt ( QWidget *parent )
   topLayout->setSpacing(spacingHint() );
   QLabel *label = new QLabel(i18n("Found an occurrence of your search term. What do you want to do?"),page);
   topLayout->addWidget(label );
+
+  connect( this, SIGNAL( closeClicked() ), this, SLOT( slotClose() ) );
+  connect( this, SIGNAL( okClicked() ), this, SLOT( slotOk() ) );
+  connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotUser1() ) );
+  connect( this, SIGNAL( user2Clicked() ), this, SLOT( slotUser2() ) );
+  connect( this, SIGNAL( user3Clicked() ), this, SLOT( slotUser3() ) );
 }
 
 void KateReplacePrompt::slotOk ()

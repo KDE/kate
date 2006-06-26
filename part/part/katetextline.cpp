@@ -82,9 +82,12 @@ void KateTextLine::truncate(int newLen)
 
 int KateTextLine::nextNonSpaceChar(uint pos) const
 {
-  for(int i = pos; i < m_text.length(); i++)
+  const int len = m_text.length();
+  const QChar *unicode = m_text.unicode();
+
+  for(int i = pos; i < len; i++)
   {
-    if(!m_text[i].isSpace())
+    if(!unicode[i].isSpace())
       return i;
   }
 
@@ -93,15 +96,18 @@ int KateTextLine::nextNonSpaceChar(uint pos) const
 
 int KateTextLine::previousNonSpaceChar(int pos) const
 {
+  const int len = m_text.length();
+  const QChar *unicode = m_text.unicode();
+
   if (pos < 0)
     pos = 0;
 
-  if (pos >= m_text.length())
-    pos = m_text.length() - 1;
+  if (pos >= len)
+    pos = len - 1;
 
   for(int i = pos; i >= 0; i--)
   {
-    if(!m_text[i].isSpace())
+    if(!unicode[i].isSpace())
       return i;
   }
 
@@ -121,12 +127,14 @@ int KateTextLine::lastChar() const
 int KateTextLine::indentDepth (int tabwidth) const
 {
   int d = 0;
+  const int len = m_text.length();
+  const QChar *unicode = m_text.unicode();
 
-  for(int i = 0; i < m_text.length(); ++i)
+  for(int i = 0; i < len; ++i)
   {
-    if(m_text[i].isSpace())
+    if(unicode[i].isSpace())
     {
-      if (m_text[i] == QChar('\t'))
+      if (unicode[i] == QChar('\t'))
         d += tabwidth - (d % tabwidth);
       else
         d++;
@@ -143,11 +151,17 @@ bool KateTextLine::stringAtPos(int pos, const QString& match) const
   if (pos < 0)
     return false;
 
-  if ((pos+match.length()) > m_text.length())
+  const int len = m_text.length();
+  const int matchlen = match.length();
+
+  if ((pos+matchlen) > len)
     return false;
 
-  for (int i=0; i < match.length(); ++i)
-    if (m_text[i+pos] != match[i])
+  const QChar *unicode = m_text.unicode();
+  const QChar *matchUnicode = match.unicode();
+
+  for (int i=0; i < matchlen; ++i)
+    if (unicode[i+pos] != matchUnicode[i])
       return false;
 
   return true;
@@ -158,11 +172,13 @@ int KateTextLine::positionWithTabs (int pos, int tabChars) const
   if (pos < 0)
     pos = 0;
 
-  uint x = 0;
+  int x = 0;
+  const int zmax = qMin(pos, m_text.length());
+  const QChar *unicode = m_text.unicode();
 
-  for ( int z = 0; z < qMin (pos, m_text.length()); ++z)
+  for ( int z = 0; z < zmax; ++z)
   {
-    if (m_text[z] == QChar('\t'))
+    if (unicode[z] == QChar('\t'))
       x += tabChars - (x % tabChars);
     else
       x++;
@@ -174,10 +190,12 @@ int KateTextLine::positionWithTabs (int pos, int tabChars) const
 int KateTextLine::lengthWithTabs (int tabChars) const
 {
   int x = 0;
+  const int len = m_text.length();
+  const QChar *unicode = m_text.unicode();
 
-  for ( int z = 0; z < m_text.length(); ++z)
+  for ( int z = 0; z < len; ++z)
   {
-    if (m_text[z] == QChar('\t'))
+    if (unicode[z] == QChar('\t'))
       x += tabChars - (x % tabChars);
     else
       x++;

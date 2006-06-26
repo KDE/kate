@@ -168,8 +168,7 @@ void KateSearch::replace()
     s_searchList = replaceDialog->findHistory () ;
     s_replaceList = replaceDialog->replacementHistory () ;
 
-    // Do *not* remove the QString() wrapping, it fixes a nasty crash
-    replace( QString(s_searchList.first()), m_replacement, opts );
+    replace( replaceDialog->pattern(), m_replacement, opts );
   }
 
   delete replaceDialog;

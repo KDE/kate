@@ -83,7 +83,7 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	m_comboAction = new K3WidgetAction( m_combo, i18n("Search"), actionCollection(), "isearch_combo" );
 	m_comboAction->setShortcutConfigurable( false );
 
-        KToolBarLabelAction* labelAction = new KToolBarLabelAction( m_comboAction, i18n("I-Search:"), 0, 0, 0, actionCollection(), "isearch_label" );
+        KToolBarLabelAction* labelAction = new KToolBarLabelAction( m_comboAction, i18n("I-Search:"), actionCollection(), "isearch_label" );
         labelAction->setShortcutConfigurable( false );
 
 	KActionMenu* optionMenu = new KActionMenu(

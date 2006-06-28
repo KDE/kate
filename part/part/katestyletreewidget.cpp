@@ -464,54 +464,63 @@ void KateStyleTreeWidgetItem::updateStyle()
     if ( currentStyle->fontWeight() != actualStyle->fontWeight())
       actualStyle->setFontWeight( currentStyle->fontWeight() );
   }
+  else actualStyle->clearProperty( QTextFormat::FontWeight );
 
   if ( currentStyle->hasProperty(QTextFormat::FontItalic) )
   {
     if ( currentStyle->fontItalic() != actualStyle->fontItalic())
       actualStyle->setFontItalic( currentStyle->fontItalic() );
   }
+  else actualStyle->clearProperty( QTextFormat::FontItalic );
 
   if ( currentStyle->hasProperty(QTextFormat::FontStrikeOut) )
   {
     if ( currentStyle->fontStrikeOut() != actualStyle->fontStrikeOut())
       actualStyle->setFontStrikeOut( currentStyle->fontStrikeOut() );
   }
+  else actualStyle->clearProperty( QTextFormat::FontStrikeOut );
 
   if ( currentStyle->hasProperty(QTextFormat::FontUnderline) )
   {
     if ( currentStyle->fontUnderline() != actualStyle->fontUnderline())
       actualStyle->setFontUnderline( currentStyle->fontUnderline() );
   }
+  else actualStyle->clearProperty( QTextFormat::FontUnderline );
 
   if ( currentStyle->hasProperty(KTextEditor::Attribute::Outline) )
   {
     if ( currentStyle->outline() != actualStyle->outline())
       actualStyle->setOutline( currentStyle->outline() );
   }
+  else actualStyle->clearProperty( KTextEditor::Attribute::Outline );
 
   if ( currentStyle->hasProperty(QTextFormat::ForegroundBrush) )
   {
     if ( currentStyle->foreground() != actualStyle->foreground())
       actualStyle->setForeground( currentStyle->foreground() );
   }
+  else actualStyle->clearProperty( QTextFormat::ForegroundBrush );
 
   if ( currentStyle->hasProperty(KTextEditor::Attribute::SelectedForeground) )
   {
     if ( currentStyle->selectedForeground() != actualStyle->selectedForeground())
       actualStyle->setSelectedForeground( currentStyle->selectedForeground() );
   }
+  else actualStyle->clearProperty( KTextEditor::Attribute::SelectedForeground );
 
   if ( currentStyle->hasProperty(QTextFormat::BackgroundBrush) )
   {
     if ( currentStyle->background() != actualStyle->background())
       actualStyle->setBackground( currentStyle->background() );
   }
+  else actualStyle->clearProperty( QTextFormat::BackgroundBrush );
 
   if ( currentStyle->hasProperty(KTextEditor::Attribute::SelectedBackground) )
   {
     if ( currentStyle->selectedBackground() != actualStyle->selectedBackground())
       actualStyle->setSelectedBackground( currentStyle->selectedBackground() );
   }
+  else actualStyle->clearProperty( KTextEditor::Attribute::SelectedBackground );
 }
 
 /* only true for a hl mode item using it's default style */
@@ -550,6 +559,7 @@ void KateStyleTreeWidgetItem::toggleDefStyle()
   }
   else {
     currentStyle = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute( *defaultStyle ));
+    updateStyle();
     //FIXME
     //repaint();
   }
@@ -645,6 +655,7 @@ void KateStyleTreeWidgetItem::unsetColor( int c )
     currentStyle->clearProperty(QTextFormat::BackgroundBrush);
   else if ( c == 101 && currentStyle->hasProperty(KTextEditor::Attribute::SelectedBackground) )
     currentStyle->clearProperty(KTextEditor::Attribute::SelectedBackground);
+  updateStyle();
 }
 
 KateStyleTreeWidget* KateStyleTreeWidgetItem::treeWidget() const

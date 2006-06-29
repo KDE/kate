@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Makefile syntaxfile v0.9 by Per Wigren <wigren@home.se> -->
 <!-- Modified by Joseph Wenninger <jowenn@kde.org> -->
-<language name="Makefile" version="1.07" kateversion="2.4" section="Other" extensions="*makefile*;*Makefile*" mimetype="text/x-makefile" author="Per Wigren (wigren@home.se)" license="">
+<language name="Makefile" version="1.08" kateversion="2.4" section="Other" extensions="*makefile*;*Makefile*" mimetype="text/x-makefile" author="Per Wigren (wigren@home.se)" license="">
   <highlighting>
     <list name = "keywords">
       <item> include </item>
@@ -24,9 +24,10 @@
         <RegExpr attribute="Section" context="#stay" String="^[.].*:"/>
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <RegExpr attribute="Operator" context="VarFromNormal" String="[$][\({]"/>
-        <AnyChar attribute="Operator" context="#stay" String="+*=%$():\\&#059;" />
-        <RegExpr attribute="Operator" context="Commands" String="[@-]" firstNonSpace="true"/>
-        <RegExpr attribute="Comment" context="#stay" String="(?:^|[^\\])#.*$"/>
+        <Detect2Chars attribute="Special" context="#stay" char="\" char1="#"/>
+        <AnyChar attribute="Operator" context="#stay" String="+*=%$():\\&#059;"/>
+        <AnyChar attribute="Operator" context="Commands" String="@-" firstNonSpace="true"/>
+        <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
       </context>
 
       <context attribute="String" lineEndContext="#pop" name="String">
@@ -49,7 +50,7 @@
       </context>
 
       <context name="VarFromNormal" attribute="Variable" lineEndContext="#stay">
-        <RegExpr attribute="Operator" String="[\)}]" context="#pop"/>
+        <AnyChar attribute="Operator" String=")}" context="#pop"/>
       </context>
 
       <context name="Commands" attribute="Normal Text" lineEndContext="#pop">

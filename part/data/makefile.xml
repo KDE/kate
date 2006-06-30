@@ -25,7 +25,8 @@
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <RegExpr attribute="Operator" context="VarFromNormal" String="[$][\({]"/>
         <Detect2Chars attribute="Special" context="#stay" char="\" char1="#"/>
-        <AnyChar attribute="Operator" context="#stay" String="+*=%$():\\&#059;"/>
+        <Detect2Chars attribute="Special" context="#stay" char="\" char1="\"/>
+        <AnyChar attribute="Operator" context="#stay" String="+*=%$():\&#059;"/>
         <AnyChar attribute="Operator" context="Commands" String="@-" firstNonSpace="true"/>
         <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
       </context>

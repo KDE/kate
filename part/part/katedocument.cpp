@@ -68,7 +68,7 @@
 #include <ktempfile.h>
 #include <kcodecs.h>
 
-#include <dbus/qdbus.h>
+#include <QtDBus/QtDBus>
 #include <qtimer.h>
 #include <qfile.h>
 #include <qclipboard.h>

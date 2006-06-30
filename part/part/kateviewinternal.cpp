@@ -2321,7 +2321,8 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
           m_selectionCached = m_view->selectionRange();
 
           m_cursor.setColumn(0);
-          updateCursor( m_cursor );
+          updateCursor( m_cursor, true );
+          e->accept();
           return;
         }
 
@@ -2372,6 +2373,9 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
       }
       else
       {
+        // first clear the selection, otherweise we run into bug #106402
+        // Parameters: don't redraw, and don't emit selectionChanged signal yet
+        m_view->clearSelection( false, false );
         m_view->selectWord( m_cursor );
         m_selectAnchor = m_view->selectionRange().end();
         m_selectionCached = m_view->selectionRange();
@@ -2383,7 +2387,7 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
         QApplication::clipboard()->setText(m_view->selectionText (), QClipboard::Selection);
 
         m_cursor.setPosition(m_view->selectionRange().end());
-        updateCursor( m_cursor );
+        updateCursor( m_cursor, true );
 
         m_selectionCached = m_view->selectionRange();
       }

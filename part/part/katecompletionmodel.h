@@ -24,10 +24,10 @@
 #include <QMutableListIterator>
 #include <QHash>
 
+#include <ktexteditor/codecompletion2.h>
+
 class KateCompletionWidget;
 class KateView;
-
-namespace KTextEditor { class CodeCompletionModel; }
 
 /**
  * This class has the responsibility for filtering, sorting, and manipulating
@@ -48,11 +48,16 @@ class KateCompletionModel : public QAbstractProxyModel
 
     virtual void setSourceModel( QAbstractItemModel* sourceModel );
 
+    const QString& currentCompletion() const;
     void setCurrentCompletion(const QString& completion);
+
+    Qt::CaseSensitivity matchCaseSensitivity() const;
     void setMatchCaseSensitivity( Qt::CaseSensitivity cs );
 
     static QString columnName(int column);
     int translateColumn(int sourceColumn) const;
+
+    static QString propertyName(KTextEditor::CodeCompletionModel::CompletionProperty property);
 
     bool indexIsCompletion(const QModelIndex& index) const;
 
@@ -81,10 +86,23 @@ class KateCompletionModel : public QAbstractProxyModel
     void setSortingCaseSensitivity(Qt::CaseSensitivity cs);
 
     bool isSortingReverse() const;
-    void setSortingReverse(bool reverse) const;
+    void setSortingReverse(bool reverse);
 
     // Filtering
     bool isFilteringEnabled() const;
+
+    bool filterContextMatchesOnly() const;
+    void setFilterContextMatchesOnly(bool filter);
+
+    bool filterByAttribute() const;
+    void setFilterByAttribute(bool filter);
+
+    KTextEditor::CodeCompletionModel::CompletionProperties filterAttributes() const;
+    void setFilterAttributes(KTextEditor::CodeCompletionModel::CompletionProperties attributes);
+
+    // A maximum depth of <= 0 equals don't filter by inheritance depth (i.e. infinity) and is default
+    int maximumInheritanceDepth() const;
+    void setMaximumInheritanceDepth(int maxDepth);
 
     // Grouping
     bool isGroupingEnabled() const;
@@ -128,12 +146,54 @@ class KateCompletionModel : public QAbstractProxyModel
     void slotRowsRemoved( const QModelIndex & parent, int start, int end );
 
   private:
+    // Represents a source row; provides sorting method
+    class Item {
+      public:
+        Item(KateCompletionModel* model, int sourceRow);
+
+        bool isValid() const;
+        // Returns true if the item is not filtered and matches the current completion string
+        bool isVisible() const;
+        // Returns whether the item is filtered or not
+        bool isFiltered() const;
+        // Returns whether the item matches the current completion string
+        bool isMatching() const;
+
+        bool filter();
+        bool match(const QString& newCompletion = QString());
+
+        int sourceRow() const;
+
+        // Sorting operator
+        bool operator<(const Item& rhs) const;
+
+      private:
+        KateCompletionModel* model;
+        int m_sourceRow;
+
+        // True when currently matching completion string
+        bool matchCompletion;
+        // True when passes all active filters
+        bool matchFilters;
+
+        QString completionName() const;
+    };
+
     // Grouping and sorting of rows
-    struct Group {
-      int attribute;
-      QString title, scope;
-      QList<int> rows;
-      QList<int> prefilter;
+    class Group {
+      public:
+        Group(KateCompletionModel* model);
+
+        void addItem(Item i);
+        void resort();
+        void refilter();
+        void clear();
+
+        KateCompletionModel* model;
+        int attribute;
+        QString title, scope;
+        QList<int> rows;
+        QList<Item> prefilter;
     };
 
     void createGroups();
@@ -161,6 +221,9 @@ class KateCompletionModel : public QAbstractProxyModel
     /// Removes attributes not used in grouping from the input \a attribute
     int groupingAttributes(int attribute) const;
     int countBits(int value) const;
+
+    void resort();
+    void refilter();
 
     // ### Runtime state
     // General
@@ -190,6 +253,10 @@ class KateCompletionModel : public QAbstractProxyModel
 
     // Filtering
     bool m_filteringEnabled;
+    bool m_filterContextMatchesOnly;
+    bool m_filterByAttribute;
+    KTextEditor::CodeCompletionModel::CompletionProperties m_filterAttributes;
+    int m_maximumInheritanceDepth;
 
     // Grouping
     bool m_groupingEnabled;

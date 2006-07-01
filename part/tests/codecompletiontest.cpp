@@ -63,7 +63,7 @@ QVariant CodeCompletionTest::data( const QModelIndex & index, int role ) const
           }
 
         case Name:
-          return m_startText + QString("%1%2%3").arg(QChar('a' + index.row())).arg(QChar('a' + (index.row() % 3))).arg(index.row());
+          return m_startText + QString("%1%2%3").arg(QChar('a' + (index.row() % 3))).arg(QChar('a' + index.row())).arg(index.row());
 
         case Arguments:
           switch (index.row() % 5) {
@@ -112,7 +112,7 @@ QVariant CodeCompletionTest::data( const QModelIndex & index, int role ) const
           }
 
         case Name:
-          return m_startText + QString("%1%2%3").arg(QChar('a' + index.row())).arg(QChar('a' + (index.row() % 3))).arg(index.row());
+          return m_startText + QString("%1%2%3").arg(QChar('a' + (index.row() % 3))).arg(QChar('a' + index.row())).arg(index.row());
 
         default:
           return "";
@@ -130,7 +130,14 @@ QVariant CodeCompletionTest::data( const QModelIndex & index, int role ) const
         p |= Variable;
       switch (index.row() % 3) {
         case 0:
-          p |= Const;
+          p |= Const | Public;
+          break;
+        case 1:
+          p |= Protected;
+          break;
+        case 2:
+          p |= Private;
+          break;
       }
       return (int)p;
     }

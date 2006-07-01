@@ -19,7 +19,7 @@
 #ifndef KATECOMPLETIONCONFIG_H
 #define KATECOMPLETIONCONFIG_H
 
-#include <QWidget>
+#include <kdialog.h>
 
 namespace Ui { class CompletionConfigWidget; }
 
@@ -29,7 +29,7 @@ class KateCompletionModel;
 /**
  * @author Hamish Rodda <rodda@kde.org>
  */
-class KateCompletionConfig : public QWidget
+class KateCompletionConfig : public KDialog
 {
   Q_OBJECT
 
@@ -37,6 +37,7 @@ class KateCompletionConfig : public QWidget
     KateCompletionConfig(KateCompletionModel* model, QWidget* parent = 0L);
     virtual ~KateCompletionConfig();
 
+  public slots:
     void apply();
 
   private slots:

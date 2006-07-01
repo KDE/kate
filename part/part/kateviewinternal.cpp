@@ -2030,7 +2030,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
       if (m_view->isCompletionActive())
       {
-        kDebug (13030) << "hint around" << endl;
+        //kDebug (13030) << "hint around" << endl;
 
         if( k->key() == Qt::Key_Escape )
           m_view->abortCompletion();
@@ -2038,7 +2038,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
       if( ! m_view->m_codeCompletion->codeCompletionVisible() )
       {
-        kDebug (13030) << "hint around" << endl;
+        //kDebug (13030) << "hint around" << endl;
 
         if( k->key() == Qt::Key_Escape )
           m_view->m_codeCompletion->abortCompletion();
@@ -2111,7 +2111,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 
   if (codeComp)
   {
-    kDebug (13030) << "hint around" << endl;
+    //kDebug (13030) << "hint around" << endl;
 
     if( key == Qt::Key_Enter || key == Qt::Key_Return  ||
     (key == Qt::SHIFT + Qt::Key_Return) || (key == Qt::SHIFT + Qt::Key_Enter)) {
@@ -2743,8 +2743,8 @@ void KateViewInternal::focusInEvent (QFocusEvent *)
 
 void KateViewInternal::focusOutEvent (QFocusEvent *)
 {
-  if (m_view->isCompletionActive())
-    m_view->abortCompletion();
+  //if (m_view->isCompletionActive())
+    //m_view->abortCompletion();
 
   if( ! m_view->m_codeCompletion->codeCompletionVisible() )
   {

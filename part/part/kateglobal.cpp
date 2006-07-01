@@ -447,51 +447,51 @@ QString KateGlobal::configPageFullName (int number) const
   return QString ("");
 }
 
-QPixmap KateGlobal::configPagePixmap (int number, int size) const
+KIcon KateGlobal::configPageIcon (int number) const
 {
   switch( number )
   {
     case 0:
-      return BarIcon("view_text",size);
+      return KIcon("view_text");
 
     case 1:
-      return BarIcon("colorize", size);
+      return KIcon("colorize");
 
     case 2:
-        return BarIcon("frame_edit", size);
+        return KIcon("frame_edit");
 
     case 3:
-      return BarIcon("edit", size);
+      return KIcon("edit");
 
     case 4:
-      return BarIcon("rightjust", size);
+      return KIcon("rightjust");
 
     case 5:
-      return BarIcon("filesave", size);
+      return KIcon("filesave");
 
     case 6:
-      return BarIcon("source", size);
+      return KIcon("source");
 
     case 7:
-      return BarIcon("edit", size);
+      return KIcon("edit");
 
     case 8:
-      return BarIcon("key_enter", size);
+      return KIcon("key_enter");
 
     case 9:
-      return BarIcon("connect_established", size);
+      return KIcon("connect_established");
 
     case 10:
-      return BarIcon("edit",size);
+      return KIcon("edit");
 
     case 11:
-      return BarIcon("menu", size);
+      return KIcon("menu");
 
     default:
-      return BarIcon("edit", size);
+      return KIcon("edit");
   }
 
-  return BarIcon("edit", size);
+  return KIcon("edit");
 }
 
 KateGlobal *KateGlobal::self ()

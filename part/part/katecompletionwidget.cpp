@@ -160,7 +160,7 @@ void KateCompletionWidget::updatePosition( )
     return abortCompletion();
 
   QPoint p = view()->mapToGlobal( cursorPosition );
-  int x = p.x() - m_entryList->header()->sectionPosition(m_entryList->header()->visualIndex(KTextEditor::CodeCompletionModel::Name)) - 2;
+  int x = p.x() - m_entryList->header()->sectionPosition(m_entryList->header()->visualIndex(m_presentationModel->translateColumn(KTextEditor::CodeCompletionModel::Name))) - 2;
   int y = p.y();
   if ( y + height() + view()->renderer()->config()->fontMetrics().height() > QApplication::desktop()->height() )
     y -= height();
@@ -298,13 +298,11 @@ void KateCompletionWidget::bottom( )
 
 void KateCompletionWidget::showConfig( )
 {
-  KDialog config(this);
-  config.setCaption( i18n("Code Completion Configuration") );
-  config.setButtons( KDialog::Ok | KDialog::Cancel );
-  KateCompletionConfig* cc = new KateCompletionConfig(m_presentationModel, &config);
-  config.setMainWidget(cc);
-  if (config.exec() == QDialog::Accepted)
-    cc->apply();
+  abortCompletion();
+
+  KateCompletionConfig* config = new KateCompletionConfig(m_presentationModel, view());
+  config->exec();
+  delete config;
 }
 
 #include "katecompletionwidget.moc"

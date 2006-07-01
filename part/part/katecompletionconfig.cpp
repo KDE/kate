@@ -28,12 +28,22 @@
 
 #include "ui_completionconfigwidget.h"
 
+using namespace KTextEditor;
+
 KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* parent)
-  : QWidget(parent)
+  : KDialog(parent)
   , ui(new Ui::CompletionConfigWidget())
   , m_model(model)
 {
-  ui->setupUi(this);
+  //setAttribute(Qt::WA_DestructiveClose);
+  setCaption(i18n("Code Completion Configuration"));
+  setButtons(KDialog::Ok | KDialog::Cancel);
+  setDefaultButton(KDialog::Ok);
+  connect(this, SIGNAL(okClicked()), SLOT(apply()));
+
+  QWidget* mw = new QWidget(this);
+  ui->setupUi(mw);
+  setMainWidget(mw);
 
   // Sorting
   ui->sorting->setChecked(m_model->isSortingEnabled());
@@ -47,6 +57,15 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
 
   // Filtering
   ui->filtering->setChecked(m_model->isFilteringEnabled());
+  ui->filteringContextMatchOnly->setChecked(m_model->filterContextMatchesOnly());
+  ui->filteringHideAttributes->setChecked(m_model->filterByAttribute());
+
+  for (CodeCompletionModel::CompletionProperty i = CodeCompletionModel::FirstProperty; i <= CodeCompletionModel::LastProperty; i = static_cast<CodeCompletionModel::CompletionProperty>(i << 1)) {
+    QListWidgetItem* item = new QListWidgetItem(m_model->propertyName(i), ui->filteringAttributesList, i);
+    item->setCheckState((m_model->filterAttributes() & i) ? Qt::Checked : Qt::Unchecked);
+  }
+
+  ui->filteringMaximumInheritanceDepth->setValue(m_model->maximumInheritanceDepth());
 
   // Grouping
   ui->grouping->setChecked(m_model->isGroupingEnabled());
@@ -88,28 +107,41 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
       bool first = true;
       foreach (int column, list) {
         QTreeWidgetItem* item = new QTreeWidgetItem(ui->columnMergeTree, column);
-        item->setText(0, KateCompletionModel::columnName(column));
+        item->setText(0, KateCompletionModel::columnName(column) + QString(" %1").arg(column));
         item->setCheckState(1, first ? Qt::Unchecked : Qt::Checked);
-        item->setCheckState(2, Qt::Checked);
+
+        if (column == KTextEditor::CodeCompletionModel::Name)
+          item->setText(2, i18n("Always"));
+        else
+          item->setCheckState(2, Qt::Checked);
+
         first = false;
         mergedColumns << column;
       }
     }
 
-    for (int i = 0; i < KTextEditor::CodeCompletionModel::ColumnCount; ++i)
-      if (!mergedColumns.contains(i)) {
-        QTreeWidgetItem* item = new QTreeWidgetItem(ui->columnMergeTree, i);
-        item->setText(0, KateCompletionModel::columnName(i));
+    for (int column = 0; column < KTextEditor::CodeCompletionModel::ColumnCount; ++column) {
+      if (!mergedColumns.contains(column)) {
+        QTreeWidgetItem* item = new QTreeWidgetItem(ui->columnMergeTree, column);
+        item->setText(0, KateCompletionModel::columnName(column) + QString(" %1").arg(column));
         item->setCheckState(1, Qt::Unchecked);
+
+        Q_ASSERT(column != KTextEditor::CodeCompletionModel::Name);
+
         item->setCheckState(2, Qt::Unchecked);
       }
+    }
 
   } else {
-    for (int i = 0; i < KTextEditor::CodeCompletionModel::ColumnCount; ++i) {
-      QTreeWidgetItem* item = new QTreeWidgetItem(ui->columnMergeTree, i);
-      item->setText(0, KateCompletionModel::columnName(i));
+    for (int column = 0; column < KTextEditor::CodeCompletionModel::ColumnCount; ++column) {
+      QTreeWidgetItem* item = new QTreeWidgetItem(ui->columnMergeTree, column);
+      item->setText(0, KateCompletionModel::columnName(column) + QString(" %1").arg(column));
       item->setCheckState(1, Qt::Unchecked);
-      item->setCheckState(2, Qt::Checked);
+
+      if (column == KTextEditor::CodeCompletionModel::Name)
+        item->setText(2, i18n("Always"));
+      else
+        item->setCheckState(2, Qt::Checked);
     }
   }
 }
@@ -147,8 +179,27 @@ void KateCompletionConfig::moveColumnDown( )
 
 void KateCompletionConfig::apply( )
 {
+  // Sorting
   m_model->setSortingEnabled(ui->sorting->isChecked());
+  m_model->setSortingAlphabetical(ui->sortingAlphabetical->isChecked());
+  m_model->setSortingReverse(ui->sortingReverse->isChecked());
+  m_model->setSortingCaseSensitivity(ui->sortingCaseSensitive->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
+
+  // Filtering
   m_model->setFilteringEnabled(ui->filtering->isChecked());
+
+  m_model->setFilterContextMatchesOnly(ui->filteringContextMatchOnly->isChecked());
+  m_model->setFilterByAttribute(ui->filteringHideAttributes->isChecked());
+
+  CodeCompletionModel::CompletionProperties attributes = 0;
+  for (int i = 0; i < ui->filteringAttributesList->count(); ++i) {
+    QListWidgetItem* item = ui->filteringAttributesList->item(i);
+    if (item->checkState() == Qt::Checked)
+      attributes |= static_cast<CodeCompletionModel::CompletionProperty>(item->type());
+  }
+  m_model->setFilterAttributes(attributes);
+
+  m_model->setMaximumInheritanceDepth(ui->filteringMaximumInheritanceDepth->value());
 
   // Grouping
   m_model->setGroupingEnabled(ui->grouping->isChecked());
@@ -175,7 +226,8 @@ void KateCompletionConfig::apply( )
   QList<int> oneMerge;
   for (int i = 0; i < ui->columnMergeTree->topLevelItemCount(); ++i) {
     QTreeWidgetItem* item = ui->columnMergeTree->topLevelItem(i);
-    if (item->checkState(2) == Qt::Unchecked)
+
+    if (item->type() != KTextEditor::CodeCompletionModel::Name && item->checkState(2) == Qt::Unchecked)
       continue;
 
     if (item->checkState(1) == Qt::Unchecked) {

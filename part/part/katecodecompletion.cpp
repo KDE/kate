@@ -226,7 +226,7 @@ void KateCodeCompletion::showCompletionBox(
 
 bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
 {
-  kDebug(13035)<<"KateCodeCompletion::eventFilter"<<endl;
+  //kDebug(13035)<<"KateCodeCompletion::eventFilter"<<endl;
   if ( o != m_completionPopup &&
        o != m_completionListBox &&
        o != m_completionListBox->viewport()
@@ -268,7 +268,7 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
     QApplication::sendEvent(m_view->window(),e);
   }
 
-  kDebug(13035)<<"e->type()=="<<e->type()<<endl;
+  //kDebug(13035)<<"e->type()=="<<e->type()<<endl;
   return false;
 }
 

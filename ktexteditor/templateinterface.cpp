@@ -33,19 +33,6 @@
 
 using namespace KTextEditor;
 
-#define INITKABC do { \
-  if (addrBook==0) { \
-    addrBook=KABC::StdAddressBook::self(); \
-    userAddress=addrBook->whoAmI(); \
-    if (userAddress.isEmpty()) { \
-      /*instead of sorry add he possibility to launch kaddressbook here*/ \
-      KMessageBox::sorry(parentWindow,i18n("The template needs information about you, please set your identity in your addressbook"));\
-      return false; \
-    } \
-  } \
-} while(false)
-
-
 bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *parentWindow)
 {
   QDateTime datetime = QDateTime::currentDateTime();

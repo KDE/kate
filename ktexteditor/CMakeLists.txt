@@ -29,22 +29,6 @@ set_target_properties(ktexteditor PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVE
 install_targets(${LIB_INSTALL_DIR} ktexteditor )
 
 
-########### next target ###############
-
-include_directories( ${CMAKE_SOURCE_DIR}/kabc ${CMAKE_BINARY_DIR}/kabc )
-
-set(ktexteditorkabcbridge_PART_SRCS ktexteditorkabcbridge.cpp )
-
-kde4_automoc(${ktexteditorkabcbridge_PART_SRCS})
-
-kde4_add_plugin(ktexteditorkabcbridge ${ktexteditorkabcbridge_PART_SRCS})
-
-target_link_libraries(ktexteditorkabcbridge  ${KDE4_KDECORE_LIBS} kabc )
-
-kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} ktexteditorkabcbridge )
-install_targets(${PLUGIN_INSTALL_DIR} ktexteditorkabcbridge )
-
-
 ########### install files ###############
 install_files( /include/ktexteditor FILES factory.h editor.h document.h view.h plugin.h      cursor.h range.h configpage.h searchinterface.h highlightinginterface.h       codecompletioninterface.h markinterface.h sessionconfiginterface.h editorchooser.h              texthintinterface.h variableinterface.h templateinterface.h           modificationinterface.h      commandinterface.h smartinterface.h attribute.h cursorfeedback.h rangefeedback.h    smartcursor.h smartrange.h codecompletion2.h )
 

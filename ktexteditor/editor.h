@@ -23,11 +23,7 @@
 // our main baseclass of the KTextEditor::Editor
 #include <QObject>
 
-// pixmap of config page
-#include <QPixmap>
-
-// icon size enum
-#include <kicontheme.h>
+#include <kicon.h>
 
 class KAboutData;
 class KConfig;
@@ -244,8 +240,7 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
      * \return pixmap for the given page index
      * \see configPageName(), configPageFullName()
      */
-    virtual QPixmap configPagePixmap (int number,
-                                      int size = K3Icon::SizeSmall) const = 0;
+    virtual KIcon configPageIcon (int number) const = 0;
 
   Q_SIGNALS:
     /**

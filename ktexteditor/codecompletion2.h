@@ -43,7 +43,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
     CodeCompletionModel(QObject* parent);
 
     enum Columns {
-      Prefix,
+      Prefix = 0,
       /// Icon representing the type of completion. We have a separate icon field
       /// so that names remain aligned where only some completions have icons,
       /// and so that they can be rearranged by the user.
@@ -57,6 +57,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
 
     enum CompletionProperty {
       NoProperty  = 0x0,
+      FirstProperty = 0x1,
 
       // Access specifiers - no more than 1 per item
       Public      = 0x1,
@@ -88,7 +89,10 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
       // Scope - no more than 1 per item
       LocalScope      = 0x80000,
       NamespaceScope  = 0x100000,
-      GlobalScope     = 0x200000
+      GlobalScope     = 0x200000,
+
+      // Keep this in sync so the code knows when to stop
+      LastProperty    = GlobalScope
     };
     Q_DECLARE_FLAGS(CompletionProperties, CompletionProperty)
 

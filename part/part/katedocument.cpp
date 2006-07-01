@@ -2096,7 +2096,8 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
   buf.resize( bufpos );
 
   int accuracy = 0;
-  return KMimeType::findByContent( buf, &accuracy );
+  KMimeType::Ptr mt = KMimeType::findByContent(buf, &accuracy);
+  return mt ? mt : KMimeType::defaultMimeTypePtr();
 }
 //END KTextEditor::DocumentInfoInterface
 

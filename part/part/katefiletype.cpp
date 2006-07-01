@@ -177,9 +177,6 @@ int KateFileTypeManager::fileType (KateDocument *doc)
   // Try content-based mimetype
   KMimeType::Ptr mt = doc->mimeTypeForContent();
   
-  if (!mt)
-    return -1;
-
   QList<KateFileType> types;
 
   foreach (const KateFileType& type, m_types)

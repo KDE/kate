@@ -1162,6 +1162,19 @@ void KateViewInternal::end( bool sel )
     }
   }
 
+  // "Smart" EOL jumping as requested in bug #78258
+  // If we're already at the end, jump to last non-space character
+  if (m_cursor.column() == currentLayout().endCol() - 1 && m_cursor.column() != currentLayout().startCol()) {
+    KateTextLine::Ptr text = textLine( m_cursor.line() );
+    if (text) {
+      int col = text->lastChar() + 1;
+      KTextEditor::Cursor c( m_cursor.line(), col );
+      updateSelection( c, sel );
+      updateCursor( c );
+      return;
+    }
+  }
+
   moveEdge( right, sel );
 }
 

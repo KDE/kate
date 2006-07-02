@@ -12,7 +12,3 @@ add_subdirectory( wordcompletion )
 
 
 
-#original Makefile.am contents follow:
-
-#SUBDIRS = isearch insertfile kdatatool wordcompletion
-#

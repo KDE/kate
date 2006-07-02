@@ -21,24 +21,3 @@ install_files( ${SERVICES_INSTALL_DIR} FILES ktexteditor_kdatatool.desktop )
 
 
 
-#original Makefile.am contents follow:
-
-#INCLUDES    = -I$(top_srcdir)/interfaces -I$(top_srcdir)/kdefx $(all_includes)
-#METASOURCES = AUTO
-#
-## Install this plugin in the KDE modules directory
-#kde_module_LTLIBRARIES = ktexteditor_kdatatool.la
-#
-#ktexteditor_kdatatool_la_SOURCES = kate_kdatatool.cpp
-#ktexteditor_kdatatool_la_LIBADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la
-#ktexteditor_kdatatool_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
-#
-#kdatatooldatadir = $(kde_datadir)/ktexteditor_kdatatool
-#kdatatooldata_DATA = ktexteditor_kdatatoolui.rc
-#
-#kde_services_DATA = ktexteditor_kdatatool.desktop
-#
-#messages: rc.cpp
-#	$(XGETTEXT) *.cpp *.h -o $(podir)/ktexteditor_kdatatool.pot
-#
-#

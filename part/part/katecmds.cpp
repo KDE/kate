@@ -497,6 +497,13 @@ bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd
   exchangeAbbrevs(replace);
    kDebug(13025)<< "SedReplace: replace=" << replace <<endl;
 
+  if ( find.contains("\\n") )
+  {
+    // FIXME: make replacing newlines work
+    msg = i18n("Sorry, but Kate is not able to replace newlines, yet");
+    return false;
+  }
+
   KateDocument *doc = ((KateView*)view)->doc();
   if ( ! doc ) return false;
 

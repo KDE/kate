@@ -3,7 +3,6 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-lua.h.cmake ${CMAKE_CURRENT_BI
 
 include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kutils ${CMAKE_SOURCE_DIR}/kde3support/kdeui)
 
-add_definitions( ${QDBUS_DEFINITIONS} )
 
 ########### next target ###############
 #CREATE_HASH_TABLE = $(top_srcdir)/kjs/create_hash_table

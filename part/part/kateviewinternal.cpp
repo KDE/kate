@@ -1126,7 +1126,7 @@ void KateViewInternal::home( bool sel )
     return;
   }
 
-  KateTextLine::Ptr l = textLine( cursor.line() );
+  KateTextLine::Ptr l = textLine( m_cursor.line() );
 
   if (!l)
     return;
@@ -1172,7 +1172,7 @@ void KateViewInternal::end( bool sel )
     return;
   }
 
-  KateTextLine::Ptr l = textLine( cursor.line() );
+  KateTextLine::Ptr l = textLine( m_cursor.line() );
   if (!l)
     return;
 
@@ -2768,8 +2768,8 @@ void KateViewInternal::focusInEvent (QFocusEvent *)
 
 void KateViewInternal::focusOutEvent (QFocusEvent *)
 {
-  //if (m_view->isCompletionActive())
-    //m_view->abortCompletion();
+  if (m_view->isCompletionActive())
+    m_view->abortCompletion();
 
   if( ! m_view->m_codeCompletion->codeCompletionVisible() )
   {

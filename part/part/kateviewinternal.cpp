@@ -1162,20 +1162,23 @@ void KateViewInternal::end( bool sel )
     }
   }
 
-  // "Smart" EOL jumping as requested in bug #78258
-  // If we're already at the end, jump to last non-space character
-  if (m_cursor.column() == currentLayout().endCol() - 1 && m_cursor.column() != currentLayout().startCol()) {
-    KateTextLine::Ptr text = textLine( m_cursor.line() );
-    if (text) {
-      int col = text->lastChar() + 1;
-      KTextEditor::Cursor c( m_cursor.line(), col );
-      updateSelection( c, sel );
-      updateCursor( c );
-      return;
-    }
+  if( !(m_doc->config()->configFlags() & KateDocumentConfig::cfSmartHome) ) {
+    moveEdge( right, sel );
+    return;
   }
 
-  moveEdge( right, sel );
+  // "Smart End", as requested in bugs #78258 and #106970
+  KTextEditor::Cursor c = m_cursor;
+  int lc = textLine( c.line() )->lastChar();
+
+  if (lc < 0 || c.column() == (lc + 1)) {
+    c.setColumn(currentLayout().endCol() - 1);
+  } else {
+    c.setColumn(lc + 1);
+  }
+
+  updateSelection( c, sel );
+  updateCursor( c, true );
 }
 
 KateTextLayout KateViewInternal::currentLayout() const

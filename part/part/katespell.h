@@ -31,7 +31,7 @@ class KateView;
 
 class KAction;
 class KActionCollection;
-class KSpell;
+class K3Spell;
 
 class KateSpell : public QObject
 {
@@ -62,7 +62,7 @@ class KateSpell : public QObject
       */
     void spellcheck( const KTextEditor::Cursor &from, const KTextEditor::Cursor &to=KTextEditor::Cursor() );
 
-    void ready(KSpell *);
+    void ready(K3Spell *);
     void misspelling( const QString&, const QStringList&, unsigned int );
     void corrected  ( const QString&, const QString&, unsigned int);
     void spellResult( const QString& );
@@ -74,7 +74,7 @@ class KateSpell : public QObject
     KateView *m_view;
     KAction *m_spellcheckSelection;
 
-    KSpell *m_kspell;
+    K3Spell *m_kspell;
 
     // define the part of the text to check
     KTextEditor::Cursor m_spellStart, m_spellEnd;

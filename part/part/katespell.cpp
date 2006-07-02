@@ -30,7 +30,7 @@
 #include <kaction.h>
 #include <kicon.h>
 #include <kstdaction.h>
-#include <kspell.h>
+#include <k3spell.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
 
@@ -103,14 +103,14 @@ void KateSpell::spellcheck( const KTextEditor::Cursor &from, const KTextEditor::
 
   QString mt = m_view->doc()->mimeType()/*->name()*/;
 
-  KSpell::SpellerType type = KSpell::Text;
+  K3Spell::SpellerType type = K3Spell::Text;
   if ( mt == "text/x-tex" || mt == "text/x-latex" )
-    type = KSpell::TeX;
+    type = K3Spell::TeX;
   else if ( mt == "text/html" || mt == "text/xml" )
-    type = KSpell::HTML;
+    type = K3Spell::HTML;
 
-  m_kspell = new KSpell( 0, i18n("Spellcheck"),
-                         this, SLOT(ready(KSpell *)), 0, true, false, type );
+  m_kspell = new K3Spell( 0, i18n("Spellcheck"),
+                         this, SLOT(ready(K3Spell *)), 0, true, false, type );
 
   connect( m_kspell, SIGNAL(death()),
            this, SLOT(spellCleanDone()) );
@@ -123,7 +123,7 @@ void KateSpell::spellcheck( const KTextEditor::Cursor &from, const KTextEditor::
            this, SLOT(spellResult(const QString&)) );
 }
 
-void KateSpell::ready(KSpell *)
+void KateSpell::ready(K3Spell *)
 {
   m_kspell->setProgressResolution( 1 );
 
@@ -179,14 +179,14 @@ void KateSpell::spellResult( const QString& )
 
 void KateSpell::spellCleanDone()
 {
-  KSpell::spellStatus status = m_kspell->status();
+  K3Spell::spellStatus status = m_kspell->status();
 
-  if( status == KSpell::Error ) {
+  if( status == K3Spell::Error ) {
     KMessageBox::sorry( 0,
       i18n("The spelling program could not be started. "
            "Please make sure you have set the correct spelling program "
            "and that it is properly configured and in your PATH."));
-  } else if( status == KSpell::Crashed ) {
+  } else if( status == K3Spell::Crashed ) {
     KMessageBox::sorry( 0,
       i18n("The spelling program seems to have crashed."));
   }

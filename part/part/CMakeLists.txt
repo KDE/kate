@@ -1,7 +1,7 @@
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-lua.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-lua.h )
 
-include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kutils )
+include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kutils ${CMAKE_SOURCE_DIR}/kde3support/kdeui)
 
 add_definitions( ${QDBUS_DEFINITIONS} )
 
@@ -101,7 +101,8 @@ kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 kde4_add_plugin(katepart ${katepart_PART_SRCS})
 
 
-target_link_libraries(katepart  ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kutils kjs knewstuff )
+target_link_libraries(katepart  ${KDE4_KDECORE_LIBS} ktexteditor
+kdeprint kutils kjs knewstuff kde3support )
 
 kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} katepart )
 install_targets(${PLUGIN_INSTALL_DIR} katepart )

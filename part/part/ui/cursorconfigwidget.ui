@@ -34,10 +34,10 @@
       <item>
        <widget class="QCheckBox" name="chkSmartHome" >
         <property name="whatsThis" >
-         <string>When selected, pressing the home key will cause the cursor to skip whitespace and go to the start of a line's text.</string>
+         <string>When selected, pressing the home key will cause the cursor to skip whitespace and go to the start of a line's text. The same applies for the end key.</string>
         </property>
         <property name="text" >
-         <string>Smart ho&amp;me</string>
+         <string>Smart ho&amp;me and smart end</string>
         </property>
        </widget>
       </item>

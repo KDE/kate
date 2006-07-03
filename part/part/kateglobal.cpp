@@ -329,7 +329,7 @@ KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
       return new KateSaveConfigTab (parent);
 
     case 6:
-      return new KateHlConfigPage (parent);
+      return new KateHlConfigPage (parent, 0);
 
     case 7:
       return new KateFileTypeConfigTab (parent);

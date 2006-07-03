@@ -314,7 +314,7 @@ class KateHlConfigPage : public KateConfigPage
   Q_OBJECT
 
   public:
-    KateHlConfigPage (QWidget *parent);
+    KateHlConfigPage (QWidget *parent, KateDocument *doc);
     ~KateHlConfigPage ();
 
   public Q_SLOTS:
@@ -335,6 +335,8 @@ class KateHlConfigPage : public KateConfigPage
 
     QHash<int,KateHlData> hlDataDict;
     int m_currentHlData;
+
+    KateDocument *m_doc;
 };
 
 class KateHlDownloadDialog: public KDialog

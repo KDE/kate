@@ -950,9 +950,10 @@ void KateScriptConfigPage::reload () {
 //END KateScriptConfigPage
 
 //BEGIN KateHlConfigPage
-KateHlConfigPage::KateHlConfigPage (QWidget *parent)
+KateHlConfigPage::KateHlConfigPage (QWidget *parent, KateDocument *doc)
  : KateConfigPage (parent, "")
  , m_currentHlData (-1)
+ , m_doc (doc)
 {
   ui = new Ui::HlConfigWidget();
   ui->setupUi( this );
@@ -964,15 +965,15 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
     else
       ui->cmbHl->addItem(KateHlManager::self()->hlNameTranslated(i));
   }
-  ui->cmbHl->setCurrentIndex(0);
 
   ui->btnMimeTypes->setIcon(QIcon(SmallIcon("wizard")));
   connect( ui->btnMimeTypes, SIGNAL(clicked()), this, SLOT(showMTDlg()) );
   connect( ui->btnDownload, SIGNAL(clicked()), this, SLOT(hlDownload()) );
   connect( ui->cmbHl, SIGNAL(activated(int)), this, SLOT(hlChanged(int)) );
 
-  ui->cmbHl->setCurrentIndex( 0 );
-  hlChanged(0);
+  int currentHl = m_doc ? m_doc->hlMode() : 0;
+  ui->cmbHl->setCurrentIndex( currentHl );
+  hlChanged( currentHl );
 
   // What's This? help is in the ui-file
 

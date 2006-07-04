@@ -99,7 +99,7 @@ void InsertFilePluginView::slotInsertFile()
   dlg.setMode( KFile::File );
   dlg.exec();
 
-  _file = dlg.selectedURL().url();
+  _file = dlg.selectedUrl().url();
   if ( _file.isEmpty() ) return;
 
   if ( _file.isLocalFile() ) {

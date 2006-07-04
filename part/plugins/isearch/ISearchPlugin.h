@@ -91,7 +91,7 @@ private:
 	KTextEditor::SearchInterface* m_searchIF;
 	KAction*               m_searchForwardAction;
 	KAction*               m_searchBackwardAction;
-	K3WidgetAction*         m_comboAction;
+	KAction*               m_comboAction;
 	QPointer<QLabel>    m_label;
 	QPointer<KHistoryCombo> m_combo;
 	QString        m_lastString;

@@ -20,10 +20,10 @@ generate_php_xml(css-php.xml css.xml)
 generate_php_xml(html-php.xml html.xml)
 
 
-install_files( ${CONFIG_INSTALL_DIR} FILES katesyntaxhighlightingrc katefiletyperc )
-install_files( ${DATA_INSTALL_DIR}/katepart FILES katepartui.rc katepartreadonlyui.rc )
-install_files( ${SERVICES_INSTALL_DIR} FILES katepart.desktop )
-install_files( ${DATA_INSTALL_DIR}/katepart/syntax FILES language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml objectivec.xml
+install( FILES katesyntaxhighlightingrc katefiletyperc  DESTINATION  ${CONFIG_INSTALL_DIR} )
+install( FILES katepartui.rc katepartreadonlyui.rc  DESTINATION  ${DATA_INSTALL_DIR}/katepart )
+install( FILES katepart.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( FILES language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml objectivec.xml
                changelog.xml ada.xml css.xml perl.xml php.xml xml.xml java.xml rpmspec.xml
                sql.xml sql-mysql.xml sql-postgresql.xml vhdl.xml diff.xml bash.xml latex.xml postscript.xml ruby.xml
                desktop.xml eiffel.xml pascal.xml sather.xml python.xml makefile.xml
@@ -40,7 +40,7 @@ install_files( ${DATA_INSTALL_DIR}/katepart/syntax FILES language.dtd syntax.tem
                lilypond.xml abc.xml asp.xml asm-avr.xml rib.xml cmake.xml octave.xml javadoc.xml cgis.xml
                spice.xml nasm.xml mediawiki.xml apache.xml m3u.xml ini.xml pgn.xml freebasic.xml ansys.xml gap.xml
                ${CMAKE_CURRENT_BINARY_DIR}/html-php.xml ${CMAKE_CURRENT_BINARY_DIR}/css-php.xml ${CMAKE_CURRENT_BINARY_DIR}/javascript-php.xml
-               )
+               DESTINATION ${DATA_INSTALL_DIR}/katepart/syntax)
 
 
 

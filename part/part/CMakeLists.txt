@@ -104,7 +104,7 @@ target_link_libraries(katepart  ${KDE4_KDECORE_LIBS} ktexteditor
 kdeprint kutils kjs knewstuff kde3support )
 
 kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} katepart )
-install_targets(${PLUGIN_INSTALL_DIR} katepart )
+install(TARGETS katepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 
 ########### install files ###############

@@ -10,13 +10,13 @@ kde4_add_plugin(ktexteditor_docwordcompletion ${ktexteditor_docwordcompletion_PA
 target_link_libraries(ktexteditor_docwordcompletion  ${KDE4_KDECORE_LIBS} ktexteditor )
 
 kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} ktexteditor_docwordcompletion )
-install_targets(${PLUGIN_INSTALL_DIR} ktexteditor_docwordcompletion )
+install(TARGETS ktexteditor_docwordcompletion  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/ktexteditor_docwordcompletion FILES docwordcompletionui.rc )
-install_files( ${SERVICES_INSTALL_DIR} FILES ktexteditor_docwordcompletion.desktop )
+install( FILES docwordcompletionui.rc  DESTINATION  ${DATA_INSTALL_DIR}/ktexteditor_docwordcompletion )
+install( FILES ktexteditor_docwordcompletion.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 
 
 

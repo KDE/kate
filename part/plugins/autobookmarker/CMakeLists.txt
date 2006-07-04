@@ -10,13 +10,13 @@ kde4_add_plugin(ktexteditor_autobookmarker ${ktexteditor_autobookmarker_PART_SRC
 target_link_libraries(ktexteditor_autobookmarker  ${KDE4_KDECORE_LIBS} ktexteditor )
 
 kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} ktexteditor_autobookmarker )
-install_targets(${PLUGIN_INSTALL_DIR} ktexteditor_autobookmarker )
+install(TARGETS ktexteditor_autobookmarker  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 
 ########### install files ###############
 
-install_files( ${CONFIG_INSTALL_DIR} FILES ktexteditor_autobookmarkerrc )
-install_files( ${SERVICES_INSTALL_DIR} FILES ktexteditor_autobookmarker.desktop )
+install( FILES ktexteditor_autobookmarkerrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
+install( FILES ktexteditor_autobookmarker.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 
 
 

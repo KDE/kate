@@ -10,13 +10,13 @@ kde4_add_plugin(ktexteditor_kdatatool ${ktexteditor_kdatatool_PART_SRCS})
 target_link_libraries(ktexteditor_kdatatool  ${KDE4_KDECORE_LIBS} ktexteditor )
 
 kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} ktexteditor_kdatatool )
-install_targets(${PLUGIN_INSTALL_DIR} ktexteditor_kdatatool )
+install(TARGETS ktexteditor_kdatatool  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/ktexteditor_kdatatool FILES ktexteditor_kdatatoolui.rc )
-install_files( ${SERVICES_INSTALL_DIR} FILES ktexteditor_kdatatool.desktop )
+install( FILES ktexteditor_kdatatoolui.rc  DESTINATION  ${DATA_INSTALL_DIR}/ktexteditor_kdatatool )
+install( FILES ktexteditor_kdatatool.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 
 
 

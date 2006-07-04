@@ -46,6 +46,7 @@
 #include "kateundo.h"
 
 #include <kio/job.h>
+#include <kio/jobuidelegate.h>
 #include <kio/netaccess.h>
 #include <kio/kfileitem.h>
 
@@ -2159,7 +2160,7 @@ bool KateDocument::openURL( const KUrl &url )
       w = m_views.first();
 
     if (w)
-      m_job->setWindow (w->topLevelWidget());
+      m_job->ui()->setWindow (w->topLevelWidget());
 
     emit started( m_job );
 

@@ -26,14 +26,14 @@ kde4_add_library(ktexteditor SHARED ${ktexteditor_LIB_SRCS})
 target_link_libraries(ktexteditor  ${KDE4_KDECORE_LIBS} kdocument kparts )
 
 set_target_properties(ktexteditor PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
-install_targets(${LIB_INSTALL_DIR} ktexteditor )
+install(TARGETS ktexteditor  DESTINATION ${LIB_INSTALL_DIR} )
 
 
 ########### install files ###############
 install_files( /include/ktexteditor FILES factory.h editor.h document.h view.h plugin.h      cursor.h range.h configpage.h searchinterface.h highlightinginterface.h       codecompletioninterface.h markinterface.h sessionconfiginterface.h editorchooser.h              texthintinterface.h variableinterface.h templateinterface.h           modificationinterface.h      commandinterface.h smartinterface.h attribute.h cursorfeedback.h rangefeedback.h    smartcursor.h smartrange.h codecompletion2.h )
 
-install_files( ${SERVICETYPES_INSTALL_DIR} FILES ktexteditor.desktop ktexteditorplugin.desktop )
-install_files( ${DATA_INSTALL_DIR}/kcm_componentchooser FILES kcm_ktexteditor.desktop )
+install( FILES ktexteditor.desktop ktexteditorplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )
+install( FILES kcm_ktexteditor.desktop  DESTINATION  ${DATA_INSTALL_DIR}/kcm_componentchooser )
 
 
 

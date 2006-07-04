@@ -11,15 +11,15 @@ kde4_add_kdeinit_executable( kwrite ${kwrite_KDEINIT_SRCS})
 
 target_link_libraries(kdeinit_kwrite  ${KDE4_KDECORE_LIBS} ktexteditor kparts  ${QT_QT3SUPPORT_LIBRARY} kdeui ${QT_QTGUI_LIBRARY} kio)
 
-install_targets(${LIB_INSTALL_DIR} kdeinit_kwrite )
+install(TARGETS kdeinit_kwrite  DESTINATION ${LIB_INSTALL_DIR} )
 
 target_link_libraries( kwrite kdeinit_kwrite )
 install(TARGETS kwrite DESTINATION bin)
 
 ########### install files ###############
 
-install_files( ${XDG_APPS_DIR} FILES kwrite.desktop )
-install_files( ${DATA_INSTALL_DIR}/kwrite FILES kwriteui.rc )
+install( FILES kwrite.desktop  DESTINATION  ${XDG_APPS_DIR} )
+install( FILES kwriteui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kwrite )
 
 
 

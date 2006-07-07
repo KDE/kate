@@ -199,10 +199,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // if single view mode, like in the konqui embedding, create a default view ;)
   if ( m_bSingleViewMode )
   {
-    KTextEditor::View *view = (KTextEditor::View*)createView( parentWidget );
-    insertChildClient( view );
-    view->show();
-    setWidget( view );
+    createView( parentWidget );
   }
 
   connect(this,SIGNAL(sigQueryClose(bool *, bool*)),this,SLOT(slotQueryClose_save(bool *, bool*)));
@@ -225,19 +222,16 @@ KateDocument::~KateDocument()
   // remove file from dirwatch
   deactivateDirWatch ();
 
-  if (!singleViewMode())
+  // clean up remaining views
+  //m_views.setAutoDelete( true );
+  //m_views.clear();
+  while (m_views.count()>0)
   {
-    // clean up remaining views
-    //m_views.setAutoDelete( true );
-    //m_views.clear();
-    while (m_views.count()>0)
-       delete m_views.takeFirst();
-  }
-  else
-  {
-    if (m_views.count())
-      // Tell the view it's no longer allowed to access the document.
-      m_views.first()->setDestructing();
+    KateView *view = m_views.takeFirst();
+    if (view != widget())
+      delete view;
+    else
+      view->setDestructing();
   }
 
   delete m_editCurrentUndo;
@@ -356,6 +350,9 @@ KDocument::View *KateDocument::createView( QWidget *parent )
     connect( newView, SIGNAL(focusIn( KTextEditor::View * )), this, SLOT(slotModifiedOnDisk()) );
 
   emit viewCreated (this, newView);
+  insertChildClient( newView );
+  newView->show();
+  setWidget( newView );
 
   return newView;
 }

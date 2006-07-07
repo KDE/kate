@@ -545,8 +545,6 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 
   if (!m_view->dynWordWrap())
   {
-    m_columnScroll->blockSignals(true);
-
     int max = maxLen(startLine()) - width();
     if (max < 0)
       max = 0;
@@ -554,8 +552,10 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     // if we lose the ability to scroll horizontally, move view to the far-left
     if (max == 0)
     {
-      m_startX = 0;
+      scrollColumns(0);
     }
+
+    m_columnScroll->blockSignals(true);
 
     // disable scrollbar
     m_columnScroll->setDisabled (max == 0);

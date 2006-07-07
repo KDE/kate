@@ -64,15 +64,6 @@ static const int KATE_DYNAMIC_CONTEXTS_RESET_DELAY = 30 * 1000;
 
 //BEGIN  Prviate HL classes
 
-inline bool kateInsideString (const QString &str, QChar ch)
-{
-  for (int i=0; i < str.length(); i++)
-    if (*(str.unicode()+i) == ch)
-      return true;
-
-  return false;
-}
-
 class KateHlItem
 {
   public:
@@ -617,7 +608,7 @@ int KateHlKeyword::checkHgl(const QString& text, int offset, int len)
   int offset2 = offset;
   int wordLen = 0;
 
-  while ((len > wordLen) && !kateInsideString (deliminators, text[offset2]))
+  while ((len > wordLen) && !deliminators.contains(text[offset2]))
   {
     offset2++;
     wordLen++;
@@ -896,7 +887,7 @@ KateHlAnyChar::KateHlAnyChar(int attribute, int context, signed char regionId,si
 
 int KateHlAnyChar::checkHgl(const QString& text, int offset, int)
 {
-  if (kateInsideString (_charList, text[offset]))
+  if (_charList.contains(text[offset]))
     return ++offset;
 
   return 0;
@@ -1410,14 +1401,14 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       {
         if (item->customStartEnable)
         {
-            if (customStartEnableDetermined || kateInsideString (m_additionalData[context->hlId]->deliminator, lastChar))
+            if (customStartEnableDetermined || m_additionalData[context->hlId]->deliminator.contains(lastChar))
             customStartEnableDetermined = true;
           else
             continue;
         }
         else
         {
-          if (standardStartEnableDetermined || kateInsideString (stdDeliminator, lastChar))
+          if (standardStartEnableDetermined || stdDeliminator.contains(lastChar))
             standardStartEnableDetermined = true;
           else
             continue;

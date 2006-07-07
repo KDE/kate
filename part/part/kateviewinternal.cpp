@@ -1181,7 +1181,7 @@ void KateViewInternal::end( bool sel )
   int lc = l->lastChar();
 
   if (lc < 0 || c.column() == (lc + 1)) {
-    c.setColumn(currentLayout().endCol() - 1);
+    c.setColumn(currentLayout().endCol());
   } else {
     c.setColumn(lc + 1);
   }
@@ -1801,8 +1801,6 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
 
 void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool force, bool center, bool calledExternally )
 {
-  KateTextLine::Ptr l = textLine( newCursor.line() );
-
   if ( !force && (m_cursor == newCursor) )
   {
     if ( !m_madeVisible )

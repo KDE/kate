@@ -1181,7 +1181,7 @@ void KateViewInternal::end( bool sel )
   int lc = l->lastChar();
 
   if (lc < 0 || c.column() == (lc + 1)) {
-    c.setColumn(currentLayout().endCol());
+    c.setColumn(currentLayout().endCol() - 1);
   } else {
     c.setColumn(lc + 1);
   }

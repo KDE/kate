@@ -103,7 +103,7 @@ void KateBookmarks::createActions( KActionCollection* ac )
   m_goPrevious->setWhatsThis(i18n("Go to the previous bookmark."));
   connect( m_goPrevious, SIGNAL( triggered() ), this, SLOT(goPrevious()) );
 
-  m_bookmarksMenu = (new KActionMenu(i18n("&Bookmarks"), ac, "bookmarks"))->kMenu();
+  m_bookmarksMenu = (new KActionMenu(i18n("&Bookmarks"), ac, "bookmarks"))->menu();
 
   connect( m_bookmarksMenu, SIGNAL(aboutToShow()), this, SLOT(bookmarkMenuAboutToShow()));
 

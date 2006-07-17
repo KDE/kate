@@ -97,19 +97,19 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	action->setShortcutConfigurable( false );
 	connect( action, SIGNAL(toggled(bool)), SLOT(setCaseSensitive(bool)) );
 	action->setChecked( m_caseSensitive );
-	optionMenu->insert( action );
+	optionMenu->addAction( action );
 
 	action = new KToggleAction( i18n("From Beginning"), actionCollection(), "isearch_from_beginning" );
 	action->setShortcutConfigurable( false );
 	connect( action, SIGNAL(toggled(bool)), SLOT(setFromBeginning(bool)) );
 	action->setChecked( m_fromBeginning );
-	optionMenu->insert( action );
+	optionMenu->addAction( action );
 
 	action = new KToggleAction( i18n("Regular Expression"), actionCollection(), "isearch_reg_exp" );
 	action->setShortcutConfigurable( false );
 	connect( action, SIGNAL(toggled(bool)), SLOT(setRegExp(bool)) );
 	action->setChecked( m_regExp );
-	optionMenu->insert( action );
+	optionMenu->addAction( action );
 
 // 	optionMenu->insert( new KActionSeparator() );
 //

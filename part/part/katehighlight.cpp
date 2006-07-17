@@ -3376,7 +3376,7 @@ void KateViewHighlightAction::init()
 {
   m_doc = 0;
 
-  connect(kMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+  connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
 void KateViewHighlightAction::updateMenu (KateDocument *doc)
@@ -3398,9 +3398,9 @@ void KateViewHighlightAction::slotAboutToShow()
         if (!subMenusName.contains(hlSection))
         {
           subMenusName << hlSection;
-          QMenu *menu = new QMenu ('&'+hlSection);
-          subMenus.append(menu);
-          kMenu()->addMenu( menu);
+          QMenu *qmenu = new QMenu ('&'+hlSection);
+          subMenus.append(qmenu);
+          menu()->addMenu( qmenu );
         }
 
         int m = subMenusName.indexOf (hlSection);
@@ -3413,7 +3413,7 @@ void KateViewHighlightAction::slotAboutToShow()
       else if (!names.contains(hlName))
       {
         names << hlName;
-        QAction *a=kMenu()->addAction ( '&' + hlName, this, SLOT(setHl()));
+        QAction *a=menu()->addAction ( '&' + hlName, this, SLOT(setHl()));
 	a->setData(z);
 	a->setCheckable(true);
 	subActions.append(a);

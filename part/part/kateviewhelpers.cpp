@@ -1211,9 +1211,9 @@ KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_vi
     a->setCheckable(true);
     a->setData(z);
   }
-  kMenu()->addActions(m_actions->actions());
+  menu()->addActions(m_actions->actions());
   connect(m_actions,SIGNAL(triggered(QAction*)),this,SLOT(setMode(QAction*)));
-  connect(kMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+  connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
 void KateViewEncodingAction::slotAboutToShow()
@@ -1231,12 +1231,12 @@ void KateViewEncodingAction::slotAboutToShow()
     }
     i++;
   }
-  kMenu()->clear();
+  menu()->clear();
   kDebug()<<id<<endl<<m_actions->actions().size()<<endl;
   if ( (id<0) || (id>=m_actions->actions().size()) || (m_actions->actions()[id]->data().toInt()!=id)) {
-    kMenu()->addAction(i18n("Encoding management error"))->setEnabled(false);
+    menu()->addAction(i18n("Encoding management error"))->setEnabled(false);
   } else {
-    kMenu()->addActions(m_actions->actions());
+    menu()->addActions(m_actions->actions());
     m_actions->actions()[id]->setChecked(true);
   }
 }

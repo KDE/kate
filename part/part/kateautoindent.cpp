@@ -164,7 +164,7 @@ void KateAutoIndent::indent( KateView * , uint , int  )
 KateViewIndentationAction::KateViewIndentationAction(KateDocument *_doc, const QString& text, KActionCollection* parent, const char* name)
        : KActionMenu (text, parent, name), doc(_doc)
 {
-  connect(kMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+  connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 
 }
 
@@ -172,17 +172,17 @@ void KateViewIndentationAction::slotAboutToShow()
 {
   QStringList modes = KateAutoIndent::listModes ();
 
-  kMenu()->clear ();
+  menu()->clear ();
   for (int z=0; z<modes.size(); ++z) {
-    QAction *action = kMenu()->addAction( '&' + KateAutoIndent::modeDescription(z));
+    QAction *action = menu()->addAction( '&' + KateAutoIndent::modeDescription(z));
     action->setCheckable( true );
 
     if ( doc->config()->indentationMode() == (uint)z )
       action->setChecked( true );
   }
 
-  disconnect( kMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
-  connect( kMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
+  disconnect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
+  connect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
 }
 
 void KateViewIndentationAction::setMode (QAction *action)

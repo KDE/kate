@@ -145,8 +145,8 @@ void KDataToolPluginView::aboutToShow()
 			m_singleWord_line = line;
 		} else {
 			m_notAvailable = new KAction(i18n("(not available)"), actionCollection(),"dt_n_av");
-      connect( m_notAvailable, SIGNAL( triggered( bool ) ), this, SLOT(slotNotAvailable()) );
-			m_menu->insert(m_notAvailable);
+                        connect( m_notAvailable, SIGNAL( triggered( bool ) ), this, SLOT(slotNotAvailable()) );
+			m_menu->addAction(m_notAvailable);
 			return;
 		}
 	}
@@ -163,12 +163,12 @@ void KDataToolPluginView::aboutToShow()
                                                             actionCollection());
 
 	foreach (KAction* ac, m_actionList)
-		m_menu->insert(ac);
+		m_menu->addAction(ac);
 
 	if( m_actionList.isEmpty() ) {
 		m_notAvailable = new KAction(i18n("(not available)"), actionCollection(),"dt_n_av");
     connect( m_notAvailable, SIGNAL( triggered( bool ) ), this, SLOT(slotNotAvailable()) );
-		m_menu->insert(m_notAvailable);
+		m_menu->addAction(m_notAvailable);
 	}
 }
 

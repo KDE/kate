@@ -837,7 +837,7 @@ void KateViewSchemaAction::init()
   m_view = 0;
   last = 0;
 
-  connect(kMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+  connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
 void KateViewSchemaAction::updateMenu (KateView *view)
@@ -851,7 +851,7 @@ void KateViewSchemaAction::slotAboutToShow()
   int count = KateGlobal::self()->schemaManager()->list().count();
 
   if (!m_group) {
-   m_group=new QActionGroup(kMenu());
+   m_group=new QActionGroup(menu());
    m_group->setExclusive(true);
 
   }
@@ -863,7 +863,7 @@ void KateViewSchemaAction::slotAboutToShow()
     if (!names.contains(hlName))
     {
       names << hlName;
-      QAction *a=kMenu()->addAction ( hlName, this, SLOT(setSchema()));
+      QAction *a=menu()->addAction ( hlName, this, SLOT(setSchema()));
       a->setData(z+1);
       a->setCheckable(true);
       a->setActionGroup(m_group);
@@ -874,10 +874,10 @@ void KateViewSchemaAction::slotAboutToShow()
   if (!view) return;
 
   int id=view->renderer()->config()->schema()+1;
-  if (kMenu()->actions().at(id-1)->data().toInt()==id) {
-  	kMenu()->actions().at(id-1)->setChecked(true);
+  if (menu()->actions().at(id-1)->data().toInt()==id) {
+  	menu()->actions().at(id-1)->setChecked(true);
   } else {
-	foreach(QAction *a,kMenu()->actions()) {
+	foreach(QAction *a,menu()->actions()) {
 		if (a->data().toInt()==id) {
 			a->setChecked(true);
 			break;

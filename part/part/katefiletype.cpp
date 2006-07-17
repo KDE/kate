@@ -437,12 +437,12 @@ void KateViewFileTypeAction::init()
 {
   m_doc = 0;
 
-  connect( kMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
-  QAction *action = kMenu()->addAction ( i18n("None") );
+  connect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
+  QAction *action = menu()->addAction ( i18n("None") );
   action->setData( 0 );
   action->setCheckable( true );
 
-  connect(kMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+  connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
 KateViewFileTypeAction::~ KateViewFileTypeAction( )
@@ -470,10 +470,10 @@ void KateViewFileTypeAction::slotAboutToShow()
       if (!subMenusName.contains(hlSection))
       {
         subMenusName << hlSection;
-        QMenu *menu = new QMenu (hlSection);
-        connect( menu, SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
-        subMenus.append(menu);
-        kMenu()->addMenu (menu);
+        QMenu *qmenu = new QMenu (hlSection);
+        connect( qmenu, SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
+        subMenus.append(qmenu);
+        menu()->addMenu (qmenu);
       }
 
       int m = subMenusName.indexOf (hlSection);
@@ -486,10 +486,10 @@ void KateViewFileTypeAction::slotAboutToShow()
     {
       names << hlName;
 
-      disconnect( kMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
-      connect( kMenu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
+      disconnect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
+      connect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
 
-      QAction *action = kMenu()->addAction ( hlName );
+      QAction *action = menu()->addAction ( hlName );
       action->setCheckable( true );
       action->setData( z+1 );
     }
@@ -504,7 +504,7 @@ void KateViewFileTypeAction::slotAboutToShow()
       actions[ j ]->setChecked( false );
   }
 
-  QList<QAction*> actions = kMenu()->actions();
+  QList<QAction*> actions = menu()->actions();
   for ( int i = 0; i < actions.count(); ++i )
     actions[ i ]->setChecked( false );
 
@@ -525,7 +525,7 @@ void KateViewFileTypeAction::slotAboutToShow()
             actions[ j ]->setChecked( true );
         }
       } else {
-        QList<QAction*> actions = kMenu()->actions();
+        QList<QAction*> actions = menu()->actions();
         for ( int j = 0; j < actions.count(); ++j ) {
           if ( actions[ j ]->data().toInt() == 0 )
             actions[ j ]->setChecked( true );

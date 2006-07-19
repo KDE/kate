@@ -255,6 +255,7 @@ KateJScriptInterpreterContext::KateJScriptInterpreterContext ()
  , m_document (wrapDocument(m_interpreter->globalExec(), 0))
  , m_view (wrapView(m_interpreter->globalExec(), 0))
 {
+  m_interpreter->ref();
   // put some stuff into env., this should stay for all executions.
   m_interpreter->globalObject()->put(m_interpreter->globalExec(), "document", m_document);
   m_interpreter->globalObject()->put(m_interpreter->globalExec(), "view", m_view);
@@ -265,7 +266,7 @@ KateJScriptInterpreterContext::KateJScriptInterpreterContext ()
 KateJScriptInterpreterContext::~KateJScriptInterpreterContext ()
 {
   KJS::Interpreter::collect();
-  delete m_interpreter;
+  m_interpreter->deref();
 }
 
 KJS::JSObject *KateJScriptInterpreterContext::wrapDocument (KJS::ExecState *exec, KateDocument *doc)
@@ -898,7 +899,7 @@ void KateIndentJScriptImpl::deleteInterpreter()
     m_viewWrapper=0;
     delete m_indenter;
     m_indenter=0;
-    delete m_interpreter;
+    m_interpreter->deref();
     m_interpreter=0;
 }
 

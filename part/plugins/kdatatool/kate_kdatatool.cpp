@@ -74,7 +74,7 @@ KDataToolPluginView::KDataToolPluginView( KTextEditor::View *view )
 	setInstance( KGenericFactory<KDataToolPlugin>::instance() );
 
 	m_menu = new KActionMenu(i18n("Data Tools"), actionCollection(), "popup_dataTool");
-	connect(m_menu->popupMenu(), SIGNAL(aboutToShow()), this, SLOT(aboutToShow()));
+	connect(m_menu->menu(), SIGNAL(aboutToShow()), this, SLOT(aboutToShow()));
 	setXMLFile("ktexteditor_kdatatoolui.rc");
 
 	m_view = view;

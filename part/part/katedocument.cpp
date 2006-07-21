@@ -197,9 +197,14 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setDocName ("");
 
   // if single view mode, like in the konqui embedding, create a default view ;)
-  if ( m_bSingleViewMode )
+  // be lazy, only create it now, if any parentWidget is given, otherwise widget()
+  // will create it on demand...
+  if ( m_bSingleViewMode && parentWidget )
   {
-    createView( parentWidget );
+    KTextEditor::View *view = (KTextEditor::View*)createView( parentWidget );
+    insertChildClient( view );
+    view->show();
+    setWidget( view );
   }
 
   connect(this,SIGNAL(sigQueryClose(bool *, bool*)),this,SLOT(slotQueryClose_save(bool *, bool*)));
@@ -223,15 +228,16 @@ KateDocument::~KateDocument()
   deactivateDirWatch ();
 
   // clean up remaining views
-  //m_views.setAutoDelete( true );
-  //m_views.clear();
-  while (m_views.count()>0)
+  if (!singleViewMode())
   {
-    KateView *view = m_views.takeFirst();
-    if (view != widget())
-      delete view;
-    else
-      view->setDestructing();
+    while (m_views.count()>0)
+      delete m_views.takeFirst();
+  }
+  else
+  {
+    // Tell the view it's no longer allowed to access the document.
+    if (m_views.count())
+      m_views.first()->setDestructing();
   }
 
   delete m_editCurrentUndo;
@@ -253,6 +259,24 @@ KateDocument::~KateDocument()
   KateGlobal::self()->deregisterDocument (this);
 }
 //END
+
+// on-demand view creation
+QWidget *KateDocument::widget()
+{
+  // no singleViewMode -> no widget()...
+  if (!singleViewMode())
+    return 0;
+
+  // does a widget exist alreay? use it!
+  if (KTextEditor::Document::widget())
+    return KTextEditor::Document::widget();
+
+  // create and return one...
+  KTextEditor::View *view = (KTextEditor::View*)createView(0);
+  insertChildClient( view );
+  setWidget( view );
+  return view;
+}
 
 //BEGIN Plugins
 void KateDocument::unloadAllPlugins ()
@@ -350,9 +374,6 @@ KDocument::View *KateDocument::createView( QWidget *parent )
     connect( newView, SIGNAL(focusIn( KTextEditor::View * )), this, SLOT(slotModifiedOnDisk()) );
 
   emit viewCreated (this, newView);
-  insertChildClient( newView );
-  newView->show();
-  setWidget( newView );
 
   return newView;
 }

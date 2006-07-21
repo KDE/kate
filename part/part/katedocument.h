@@ -99,6 +99,15 @@ class KateDocument : public KTextEditor::Document,
 
     KTextEditor::Editor *editor ();
 
+  /*
+   * Overload this to have on-demand view creation
+   */
+  public:
+    /**
+     * @return The widget defined by this part, set by setWidget().
+     */
+    virtual QWidget *widget();
+
   //
   // Plugins section
   //

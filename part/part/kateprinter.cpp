@@ -41,7 +41,6 @@
 #include <kuser.h> // for loginName
 
 #include <qpainter.h>
-#include <q3paintdevicemetrics.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <QGroupBox>
@@ -81,14 +80,13 @@ bool KatePrinter::print (KateDocument * /*doc*/)
      renderer.setPrinterFriendly(true);
 
      QPainter paint( &printer );
-     Q3PaintDeviceMetrics pdm( &printer );
      /*
         We work in tree cycles:
         1) initialize variables and retrieve print settings
         2) prepare data according to those settings
         3) draw to the printer
      */
-     uint pdmWidth = pdm.width();
+     uint pdmWidth = printer->width();
      uint y = 0;
      uint xstart = 0; // beginning point for painting lines
      uint lineCount = 0;

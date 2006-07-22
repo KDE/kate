@@ -32,6 +32,7 @@
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/templateinterface.h>
 #include <ktexteditor/rangefeedback.h>
+#include <ktexteditor/configinterface.h>
 
 #include <qpointer.h>
 #include <QMenu>
@@ -74,13 +75,15 @@ class KateView : public KTextEditor::View,
                  public KTextEditor::SessionConfigInterface,
                  public KTextEditor::TemplateInterface,
                  public KTextEditor::CodeCompletionInterface2,
-                 private KTextEditor::SmartRangeWatcher
+                 public KTextEditor::ConfigInterface,
+		 private KTextEditor::SmartRangeWatcher
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::TextHintInterface)
     Q_INTERFACES(KTextEditor::CodeCompletionInterface)
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
     Q_INTERFACES(KTextEditor::TemplateInterface)
+    Q_INTERFACES(KTextEditor::ConfigInterface)
     friend class KateViewInternal;
     friend class KateIconBorder;
     friend class KateCodeCompletion;
@@ -186,6 +189,14 @@ class KateView : public KTextEditor::View,
   // Internal
   public:
     bool setCursorPositionInternal( const KTextEditor::Cursor& position, uint tabwidth = 1, bool calledExternally = false );
+
+  //
+  // KTextEditor::ConfigInterface
+  //
+  public:
+     QStringList configKeys() const;
+     QVariant configValue(const QString &key);
+     void setConfigValue(const QString &key, const QVariant &value);
 
   //
   // KTextEditor::CodeCompletionInterface

@@ -2422,4 +2422,42 @@ void KateView::aboutToShowContextMenu( )
 
 //END Code completion new
 
+// BEGIN ConfigInterface stuff
+QStringList KateView::configKeys() const
+{
+  return QStringList() << "IconBar" << "LineNumbers" << "DynamicWordWrap";
+}
+
+QVariant KateView::configValue(const QString &key)
+{
+  if (key == "IconBar")
+    return config()->iconBar(); 
+  else if (key == "LineNumbers")
+    return config()->lineNumbers();
+  else if (key == "DynamicWordWrap")
+    return config()->dynWordWrap();
+}
+
+void KateView::setConfigValue(const QString &key, const QVariant &value)
+{
+  // We can only get away with this right now because there are no
+  // non-bool functions here.. change this later if you are adding
+  // a config option which uses variables other than bools..
+  bool toggle = value.toBool();
+
+  if (key == "IconBar")
+    config()->setIconBar(toggle);
+  else if (key == "LineNumbers")
+    config()->setLineNumbers(toggle);
+  else if (key == "DynamicWordWrap")
+    config()->setDynWordWrap(toggle);
+}
+
+// END ConfigInterface
+
+
+
+
+
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

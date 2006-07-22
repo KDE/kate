@@ -2425,16 +2425,16 @@ void KateView::aboutToShowContextMenu( )
 // BEGIN ConfigInterface stuff
 QStringList KateView::configKeys() const
 {
-  return QStringList() << "IconBar" << "LineNumbers" << "DynamicWordWrap";
+  return QStringList() << "icon-bar" << "line-numbers" << "dynamic-word-wrap";
 }
 
 QVariant KateView::configValue(const QString &key)
 {
-  if (key == "IconBar")
+  if (key == "icon-bar")
     return config()->iconBar(); 
-  else if (key == "LineNumbers")
+  else if (key == "line-numbers")
     return config()->lineNumbers();
-  else if (key == "DynamicWordWrap")
+  else if (key == "dynamic-word-wrap")
     return config()->dynWordWrap();
 }
 
@@ -2445,11 +2445,11 @@ void KateView::setConfigValue(const QString &key, const QVariant &value)
   // a config option which uses variables other than bools..
   bool toggle = value.toBool();
 
-  if (key == "IconBar")
+  if (key == "icon-bar")
     config()->setIconBar(toggle);
-  else if (key == "LineNumbers")
+  else if (key == "line-numbers")
     config()->setLineNumbers(toggle);
-  else if (key == "DynamicWordWrap")
+  else if (key == "dynamic-word-wrap")
     config()->setDynWordWrap(toggle);
 }
 

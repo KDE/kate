@@ -29,17 +29,16 @@ class Document;
 
 
 /**
- * \brief Config Interface for the View.
+ * \brief Config interface extension for the View.
  *
- * \ingroup kte_group_doc_extensions
+ * \ingroup kte_group_view_extensions
  *
  * \section config_intro Introduction
  *
- * The ConfigInterface provides methods to access to low level config 
- * information for a given View. Examples of this config data can be
- * displaying the icon bar, showing line numbers, etc. This generally
- * allows access to settings that otherwise are only accesible during
- * runtime.
+ * The ConfigInterface provides methods to access and modify the low level
+ * config information for a given View. Examples of this config data can be
+ * displaying the icon bar, showing line numbers, etc. This generally allows
+ * access to settings that otherwise are only accessible during runtime.
  *
  * \section config_access Accessing the Interface
  *
@@ -59,14 +58,21 @@ class Document;
  *   }
  * \endcode
  *
- * \section config_accessing Accessing Data
+ * \section config_data Accessing Data
  *
- * Once you access the interface you can query what config variables are
- * provided by calling configKeys(). Once you have these keys, you can 
- * check to see if the variable you want access to is provided in the keys
- * and then use setConfigValue() to change the data, or simply configValue()
- * to check the current setting. Currently only line-numbers, icon-bar, and
- * dynamic-word-wrap are implemented. 
+ * A list of available config variables (or keys) can be optained by calling
+ * configKeys(). For all available keys configValue() returns the corresponding
+ * value as QVariant. A value for a given key can be set by calling
+ * setConfigValue(). Right now KatePart has support for the following
+ * tuples:
+ *  - line-numbers [bool], show/hide line numbers
+ *  - icon-bar [bool], show/hide icon bar
+ *  - dynamic-word-wrap [bool], enable/disable dynamic word wrap
+ *
+ * As a small example, if you want to enable dynamic word wrap simply call
+ * \code
+ *   iface->setConfigValue("dynamic-word-wrap", true);
+ * \endcode
  *
  * \see KTextEditor::View
  * \author Matt Broadstone \<mbroadst@gmail.com\>
@@ -80,8 +86,17 @@ class KTEXTEDITOR_EXPORT ConfigInterface
     virtual ~ConfigInterface () {}
 
   public:
+    /**
+     * Get a list of all available keys.
+     */
     virtual QStringList configKeys() const = 0;
+    /**
+     * Get a value for the \p key.
+     */
     virtual QVariant configValue(const QString &key) = 0;
+    /**
+     * Set a the \p key's value to \p value.
+     */
     virtual void setConfigValue(const QString &key, const QVariant &value) = 0; 
 };
 

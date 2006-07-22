@@ -26,7 +26,7 @@ to use. The two popular implementations right now are the Kate Editor Component
  - \ref kte_design
  - \ref kte_embedding
  - \ref kte_port_to_kde4
- - <a href="http://www.kate-editor.org/index.php/Contacts">Contact/Mailing Lists</a>
+ - <a href="http://www.kate-editor.org/support">Contact/Mailing Lists</a>
 
 
 \section kte_notes Implementation Notes
@@ -372,9 +372,11 @@ order:
 The following interfaces were merged, in order:
  - \p BlockSelectionInterface, \p SelectionInterface and
    \p SelectionInterfaceExt were merged into the KTextEditor::View, so that a
-   KTextEditor::Document alone does not provide any selection methods anymore.
- - \p ConfigInterface was partly merged into the KTextEditor::Editor and also
-   builds a new interface called KTextEditor::SessionConfigInterface
+   KTextEditor::Document itself does not provide any selection methods anymore.
+ - \p ConfigInterface was partly merged into the KTextEditor::Editor and now
+   only contains very basic functions to set/get properties. Session related
+   config options can be configured in a new interface called
+   KTextEditor::SessionConfigInterface
  - \p DocumentInfoInterface was merged into the KTextEditor::Document
  - \p EditInterface was merged into the KTextEditor::Document
  - \p EditInterfaceExt was merged into the KTextEditor::Document

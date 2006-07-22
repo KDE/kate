@@ -52,7 +52,7 @@ class Document;
  *
  * \section variface_access Accessing the VariableInterface
  *
- * The VariableInterface is supposed to be an extension interface for a
+ * The VariableInterface is an extension interface for a
  * Document, i.e. the Document inherits the interface \e provided that the
  * used KTextEditor library implements the interface. Use qobject_cast to
  * access the interface:

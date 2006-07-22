@@ -65,8 +65,8 @@ class Document;
  * provided by calling configKeys(). Once you have these keys, you can 
  * check to see if the variable you want access to is provided in the keys
  * and then use setConfigValue() to change the data, or simply configValue()
- * to check the current setting. Currently only LineNumbers, IconBar, and
- * DynamicWordWrap are implemented. 
+ * to check the current setting. Currently only line-numbers, icon-bar, and
+ * dynamic-word-wrap are implemented. 
  *
  * \see KTextEditor::View
  * \author Matt Broadstone \<mbroadst@gmail.com\>

@@ -657,9 +657,6 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   ui->setupUi( this );
 //  layout->setSpacing( KDialog::spacingHint() );
 
-  ui->chkRemoveTrailingSpaces->setChecked(configFlags & KateDocumentConfig::cfRemoveSpaces);
-  ui->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
-
   // What's this help is added in ui/opensaveconfigwidget.ui
   reload();
 
@@ -753,6 +750,8 @@ void KateSaveConfigTab::reload()
   ui->cmbEOL->setCurrentIndex(KateDocumentConfig::global()->eol());
   ui->chkDetectEOL->setChecked(KateDocumentConfig::global()->allowEolDetection());
 
+  const int configFlags = KateDocumentConfig::global()->configFlags();
+  ui->chkRemoveTrailingSpaces->setChecked(configFlags & KateDocumentConfig::cfRemoveSpaces);
   ui->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
 
   // other stuff

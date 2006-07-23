@@ -18,6 +18,13 @@
    Boston, MA 02110-1301, USA.
 */
 
+// remove when QVBoxLayout::setAutoAdd is ported
+#define QT3_SUPPORT
+#define QT3_SUPPORT_WARNINGS
+#ifdef __GNUC__
+#warning TODO: remove QT3_SUPPORT
+#endif
+
 #include "katetest.h"
 #include "katetest.moc"
 

@@ -78,9 +78,6 @@ katestyletreewidget.cpp
 
 kde4_automoc(${katepart_PART_SRCS})
 
-remove_definitions(-DQT3_SUPPORT_WARNINGS)
-remove_definitions(-DQT3_SUPPORT)
-
 set( katepart_PART_UI
 ui//appearanceconfigwidget.ui
 ui//commandmenuconfigwidget.ui

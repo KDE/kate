@@ -919,7 +919,12 @@ class KateDocument : public KTextEditor::Document,
     */
     static bool checkColorValue( QString value, QColor &col );
 
+    /**
+     * helper regex to capture the document variables
+     */
     static QRegExp kvLine;
+    static QRegExp kvLineWildcard;
+    static QRegExp kvLineMime;
     static QRegExp kvVar;
 
     KIO::TransferJob *m_job;

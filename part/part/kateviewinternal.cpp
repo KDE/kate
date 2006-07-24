@@ -2343,8 +2343,6 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
 
           m_selectionCached = m_view->selectionRange();
 
-          m_cursor.setColumn(0);
-          updateCursor( m_cursor, true );
           e->accept();
           return;
         }
@@ -2408,9 +2406,6 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
       if (m_view->selection())
       {
         QApplication::clipboard()->setText(m_view->selectionText (), QClipboard::Selection);
-
-        m_cursor.setPosition(m_view->selectionRange().end());
-        updateCursor( m_cursor, true );
 
         m_selectionCached = m_view->selectionRange();
       }

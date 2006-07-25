@@ -113,7 +113,7 @@ function indentNewLine()
     //         addIndent = "\t";
     // }
     // else
-  //  {
+   {
         var intCurrentLine = intStartLine;
         var openParenCount = 0;
         var openBraceCount = 0;
@@ -176,7 +176,7 @@ function indentNewLine()
     }
 
     document.insertText( intStartLine, 0, strIndentFiller );
-    view.setCursorPosition( intStartLine, document.textLine( intStartLine ).length );*/
+    view.setCursorPosition( intStartLine, document.line( intStartLine ).length );
 }
 
 indenter.onchar=indentChar

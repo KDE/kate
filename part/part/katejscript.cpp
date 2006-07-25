@@ -97,11 +97,11 @@ class KateJSGlobalFunctions : public KJS::JSObject
 {
   public:
     KateJSGlobalFunctions(int i, int length);
-    
+
     virtual bool implementsCall() const { return true; }
-    
+
     virtual KJS::JSValue* callAsFunction (KJS::ExecState *exec, KJS::JSObject *thisObj, const KJS::List &args);
-    
+
     enum {
       Debug
     };
@@ -386,7 +386,7 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
 
     case KateJSDocument::Text:
       return KJS::String (doc->text(KTextEditor::Range(args[0]->toUInt32(exec), args[1]->toUInt32(exec), args[2]->toUInt32(exec), args[3]->toUInt32(exec))));
- 
+
     case KateJSDocument::TextLine:
       return KJS::String (doc->line (args[0]->toUInt32(exec)));
 
@@ -407,16 +407,16 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
 
     case KateJSDocument::InsertText:
       return KJS::Boolean (doc->insertText (KTextEditor::Cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec)), args[2]->toString(exec).qstring()));
- 
+
     case KateJSDocument::RemoveText:
       return KJS::Boolean (doc->removeText(KTextEditor::Range(args[0]->toUInt32(exec), args[1]->toUInt32(exec), args[2]->toUInt32(exec), args[3]->toUInt32(exec))));
- 
+
     case KateJSDocument::InsertLine:
       return KJS::Boolean (doc->insertLine (args[0]->toUInt32(exec), args[1]->toString(exec).qstring()));
- 
+
     case KateJSDocument::RemoveLine:
       return KJS::Boolean (doc->removeLine (args[0]->toUInt32(exec)));
- 
+
     case KateJSDocument::EditBegin:
       doc->editBegin();
       return KJS::Null ();
@@ -427,22 +427,22 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
 
     case KateJSDocument::IsInWord:
       return KJS::Boolean( doc->highlight()->isInWord( args[0]->toString(exec).qstring().at(0), args[1]->toUInt32(exec) ) );
- 
+
     case KateJSDocument::CanBreakAt:
       return KJS::Boolean( doc->highlight()->canBreakAt( args[0]->toString(exec).qstring().at(0), args[1]->toUInt32(exec) ) );
- 
+
     case KateJSDocument::CanComment:
       return KJS::Boolean( doc->highlight()->canComment( args[0]->toUInt32(exec), args[1]->toUInt32(exec) ) );
- 
+
     case KateJSDocument::CommentMarker:
       return KJS::String( doc->highlight()->getCommentSingleLineStart( args[0]->toUInt32(exec) ) );
- 
+
     case KateJSDocument::CommentStart:
       return KJS::String( doc->highlight()->getCommentStart( args[0]->toUInt32(exec) ) );
- 
+
     case KateJSDocument::CommentEnd:
       return KJS::String( doc->highlight()->getCommentEnd(  args[0]->toUInt32(exec) ) );
- 
+
     case KateJSDocument::Attribute:
       return KJS::Number( doc->kateTextLine(args[0]->toUInt32(exec))->attribute(args[1]->toUInt32(exec)) );
   }
@@ -548,7 +548,7 @@ JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSObject
 
     case KateJSView::SetCursorPosition:
       return KJS::Boolean( view->setCursorPosition( KTextEditor::Cursor (args[0]->toUInt32(exec), args[1]->toUInt32(exec)) ) );
-      
+
     // SelectionInterface goes in the view, in anticipation of the future
     case KateJSView::Selection:
       return KJS::String( view->selectionText() );
@@ -558,7 +558,7 @@ JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSObject
 
     case KateJSView::SetSelection:
       return KJS::Boolean( view->setSelection(KTextEditor::Range(args[0]->toInt32(exec), args[1]->toInt32(exec), args[2]->toUInt32(exec), args[3]->toUInt32(exec))) );
- 
+
     case KateJSView::RemoveSelectedText:
       return KJS::Boolean( view->removeSelectionText() );
 
@@ -706,7 +706,7 @@ void KateJScriptManager::collectScripts (bool force)
         s->desktopFileExists = true;
 
         kDebug() << s->name << ":: " << s->description << endl;
-        
+
         m_scripts.insert (s->command, s);
       }
       else // no desktop file around, fall back to scriptfilename == commandname
@@ -918,6 +918,7 @@ bool KateIndentJScriptImpl::setupInterpreter(QString &errorMsg)
               KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1));
     m_interpreter->globalObject()->put(m_interpreter->globalExec(),"indenter",m_indenter,KJS::DontDelete | KJS::ReadOnly);
     QFile file (filePath());
+    kDebug(13050)<<"Setting up sfdsfds"<<endl;
 
     if ( !file.open( QIODevice::ReadOnly ) )
       {
@@ -935,6 +936,7 @@ bool KateIndentJScriptImpl::setupInterpreter(QString &errorMsg)
     file.close();
 
     KJS::Completion comp (m_interpreter->evaluate("", 0, source));
+
     if (comp.complType() == KJS::Throw)
     {
       KJS::ExecState *exec = m_interpreter->globalExec();
@@ -954,16 +956,17 @@ bool KateIndentJScriptImpl::setupInterpreter(QString &errorMsg)
       }
 
       errorMsg = i18n("Exception, line %1: %2", lineno, msg);
-      deleteInterpreter();
+      //deleteInterpreter();
       return false;
     } else {
       return true;
     }
-  } else return true;
+  }
+
+  return true;
 }
 
-
-inline static bool KateIndentJScriptCall(KateView *view, QString &errorMsg, KateJSDocument *docWrapper, KateJSView *viewWrapper,
+inline static bool kateIndentJScriptCall(KateView *view, QString &errorMsg, KateJSDocument *docWrapper, KateJSView *viewWrapper,
         KJS::Interpreter *interpreter, KJS::JSObject *lookupobj,const KJS::Identifier& func,KJS::List params)
 {
  // no view, no fun
@@ -1007,21 +1010,22 @@ bool KateIndentJScriptImpl::processChar(KateView *view, QChar c, QString &errorM
   if (!setupInterpreter(errorMsg)) return false;
   KJS::List params;
   params.append(KJS::String(QString(c)));
-  return KateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("onchar"),params);
+  return kateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("onchar"),params);
 }
 
 bool KateIndentJScriptImpl::processLine(KateView *view, const KateDocCursor &line, QString &errorMsg )
 {
   kDebug(13050)<<"KateIndentJScriptImpl::processLine"<<endl;
   if (!setupInterpreter(errorMsg)) return false;
-  return KateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("online"),KJS::List());
+  return kateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("online"),KJS::List());
 }
 
 bool KateIndentJScriptImpl::processNewline( class KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg )
 {
   kDebug(13050)<<"KateIndentJScriptImpl::processNewline"<<endl;
   if (!setupInterpreter(errorMsg)) return false;
-  return KateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("onnewline"),KJS::List());
+  kDebug(13050)<<"setup done"<<endl;
+  return kateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("onnewline"),KJS::List());
 }
 //END
 
@@ -1143,7 +1147,7 @@ QString KateIndentJScriptManager::copyright(KateIndentScriptImplAbstract* script
 		return config.readEntry("copyright",i18n("tainted script, no copyright text specified"));
 	}
 	return i18n("Invalid cache");
-	
+
 }
 
 void KateIndentJScriptManager::parseScriptHeader(const QString &filePath,

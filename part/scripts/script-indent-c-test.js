@@ -6,7 +6,7 @@
  *Copyright 2005 by Joseph Wenninger
  *Here will be the license text, Dominik has to choose
  * The following line is not empty
- * 
+ *
  *An empty line ends this block
  *
  *VERSION: 0.1
@@ -33,12 +33,12 @@ function indentChar(c)
     var spaceIndent = true;
     var indentWidth = 4;
 
-    
+
     var line = view.cursorLine();
     var col = view.cursorColumn();
 
-    var textLine = document.textLine( line );
-    var prevLine = document.textLine( line - 1 );
+    var textLine = document.line( line );
+    var prevLine = document.line( line - 1 );
 
     var prevIndent = prevLine.match(/^\s*/);
     var addIndent = "";
@@ -56,7 +56,7 @@ function indentChar(c)
             if ( textLine.search(/^\s\s\s\s/) != -1)
             {
                document.removeText( line, 0, line, tabWidth );
-               view.setCursorPositionReal( line, col - tabWidth );
+               view.setCursorPosition( line, col - tabWidth );
           }
        }
     }
@@ -100,8 +100,8 @@ function indentNewLine()
 	var intStartLine = view.cursorLine();
 	var intStartColumn = view.cursorColumn();
 
-	var strTextLine = document.textLine( intStartLine  );
-	var strPrevLine = document.textLine( intStartLine  - 1 );
+	var strTextLine = document.line( intStartLine  );
+	var strPrevLine = document.line( intStartLine  - 1 );
 
 	var addIndent = "";
     // if previous line ends with a '{' increase indent level
@@ -113,7 +113,7 @@ function indentNewLine()
     //         addIndent = "\t";
     // }
     // else
-    {
+  //  {
         var intCurrentLine = intStartLine;
         var openParenCount = 0;
         var openBraceCount = 0;
@@ -123,7 +123,7 @@ function indentNewLine()
         {
             intCurrentLine--;
 
-            strCurrentLine = document.textLine( intCurrentLine );
+            strCurrentLine = document.line( intCurrentLine );
             intLastChar = lastNonSpace( strCurrentLine );
             intFirstChar = firstNonSpace( strCurrentLine ) ;
 
@@ -176,7 +176,7 @@ function indentNewLine()
     }
 
     document.insertText( intStartLine, 0, strIndentFiller );
-    view.setCursorPositionReal( intStartLine, document.textLine( intStartLine ).length );
+    view.setCursorPosition( intStartLine, document.textLine( intStartLine ).length );*/
 }
 
 indenter.onchar=indentChar

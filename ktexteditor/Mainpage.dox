@@ -529,6 +529,7 @@ document and a view and plug it into the mainwindow.
       delete m_document;
     }
   }
+\endcode
 
 \section kte_howto_notes Notes
 In order to compile link agains the following libraries:

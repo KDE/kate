@@ -236,7 +236,6 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
     /**
      * Get a pixmap with \p size for the config page \p number.
      * \param number index of config page
-     * \param size size of pixmap
      * \return pixmap for the given page index
      * \see configPageName(), configPageFullName()
      */

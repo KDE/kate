@@ -1,7 +1,7 @@
 /*
 This file is part of the KDE project
 
-Copyright (c) 2005 by Dominik Haumann <dhdev@gmx.de>
+Copyright (c) 2005-2006 by Dominik Haumann <dhdev@gmx.de>
 Copyright (c) 2005 by Christoph Cullmann <cullmann@kde.org>
 
 Permission is granted to copy, distribute and/or modify this document
@@ -24,7 +24,7 @@ to use. The two popular implementations right now are the Kate Editor Component
 
 \section kte_general General
  - \ref kte_design
- - \ref kte_embedding
+ - \ref kte_howto
  - \ref kte_port_to_kde4
  - <a href="http://www.kate-editor.org/support">Contact/Mailing Lists</a>
 
@@ -444,14 +444,97 @@ settings if desired.
 
 
 
-/** \page kte_embedding How to use the KTextEditor Interfaces
+/** \page kte_howto How to use the KTextEditor Interfaces
 
-\todo everything
+This HOWTO will explain step by step how to load a KTextEditor component and
+plug a single View into a KMainWindow.
 
-Actually KWrite is THE example... just convert it into a howto.
-link: -lktexteditor hint or \$(LIB_KTEXTEDITOR) in the KDE build framework.
+Tobics:
+  - \ref kte_howto_header
+  - \ref kte_howto_source
+  - \ref kte_howto_notes
 
-<code>This page is under construction</code>
+\section kte_howto_header The Header File
+
+The following class only contains two pointers to a Document and its View.
+
+\code
+  #include <kmainwindow.h>
+
+  namespace KTextEditor
+  {
+    class Document;
+    class View;
+  }
+
+  class MainWindow : public KMainWindow
+  {
+  Q_OBJECT
+
+  public:
+    MainWindow();
+    ~MainWindow();
+
+  private:
+    KTextEditor::View *m_view;
+    KTextEditor::Document *m_document;
+  };
+\endcode
+
+\section kte_howto_source The Mainwindow Implementation
+
+The following source code queries for a Editor part by using the EditorChooser.
+If the returned Editor is invalid, we simply quit, otherwise we create a new
+document and a view and plug it into the mainwindow.
+
+\code
+  #include <ktexteditor/document.h>
+  #include <ktexteditor/view.h>
+  #include <ktexteditor/editor.h>
+  #include <ktexteditor/editorchooser.h>
+
+  #include <kxmlguifactory.h>
+  #include <kmessagebox.h>
+
+  MainWindow::MainWindow ()
+    : KMainWindow(),
+      m_view(0),
+      m_document(0)
+  {
+    KTextEditor::Editor *editor = KTextEditor::EditorChooser::editor();
+
+    if (!editor) {
+      KMessageBox::error(this, i18n("A KDE text-editor component could not be found;\n"
+                                    "please check your KDE installation."));
+      kapp->exit(1);
+    }
+
+    m_document = editor->createDocument(0);
+    m_view = qobject_cast<KTextEditor::View*>(doc->createView(this));
+
+    setCentralWidget(m_view);
+
+    setXMLFile("mainwindowui.rc");
+    guiFactory()->addClient(m_view);
+
+    show ();
+  }
+
+  MainWindow::~MainWindow()
+  {
+    if (m_document) {
+      guiFactory()->removeClient(m_view);
+
+      // the document deletes its views itself
+      delete m_document;
+    }
+  }
+
+\section kte_howto_notes Notes
+In order to compile link agains the following libraries:
+ - kdocument
+ - ktexteditor
+ - kdeui
 
 \author Dominik Haumann \<dhdev@gmx.de\>
 */

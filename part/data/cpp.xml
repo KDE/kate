@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.37" kateversion="2.4" section="Sources" extensions="*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
+<language name="C++" version="1.38" kateversion="2.4" section="Sources" extensions="*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
   <highlighting>
     <list name="keywords">
       <item> asm </item>
@@ -88,6 +88,7 @@
       <item> Q_CLEANUP_RESOURCE </item>
       <item> Q_GLOBAL_STATIC </item>
       <item> Q_GLOBAL_STATIC_WITH_ARGS </item>
+      <item> Q_DECLARE_INTERFACE </item>
       <item> Q_DECLARE_TYPEINFO </item>
       <item> Q_DECLARE_SHARED </item>
       <item> Q_DECLARE_FLAGS </item>

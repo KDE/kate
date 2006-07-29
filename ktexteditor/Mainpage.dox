@@ -532,7 +532,7 @@ document and a view and plug it into the mainwindow.
 \endcode
 
 \section kte_howto_notes Notes
-In order to compile link agains the following libraries:
+In order to compile link against the following libraries:
  - kdocument
  - ktexteditor
  - kdeui

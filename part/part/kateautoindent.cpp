@@ -176,6 +176,7 @@ void KateViewIndentationAction::slotAboutToShow()
   for (int z=0; z<modes.size(); ++z) {
     QAction *action = menu()->addAction( '&' + KateAutoIndent::modeDescription(z));
     action->setCheckable( true );
+    action->setData( z );
 
     if ( doc->config()->indentationMode() == (uint)z )
       action->setChecked( true );

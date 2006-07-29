@@ -2436,6 +2436,9 @@ QVariant KateView::configValue(const QString &key)
     return config()->lineNumbers();
   else if (key == "dynamic-word-wrap")
     return config()->dynWordWrap();
+
+  // return invalid variant
+  return QVariant();
 }
 
 void KateView::setConfigValue(const QString &key, const QVariant &value)
@@ -2451,9 +2454,6 @@ void KateView::setConfigValue(const QString &key, const QVariant &value)
     config()->setLineNumbers(toggle);
   else if (key == "dynamic-word-wrap")
     config()->setDynWordWrap(toggle);
-
-  // return invalid variant
-  return QVariant();
 }
 
 // END ConfigInterface

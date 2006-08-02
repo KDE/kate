@@ -141,16 +141,18 @@
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Default">
-        <RegExpr attribute="Keyword" context="#stay" String="if " insensitive="TRUE" beginRegion="Region1" firstNonSpace="true"/>
-        <StringDetect attribute="Keyword" context="#stay" String="end if" insensitive="TRUE" endRegion="Region1"/>
-        <RegExpr attribute="Keyword" context="#stay" String="\sloop\s+" insensitive="TRUE" beginRegion="Region3"/>
-        <RegExpr attribute="Keyword" context="#stay" String="\sloop$" insensitive="TRUE" beginRegion="Region3"/>
-        <StringDetect attribute="Keyword" context="#stay" String="end loop;" insensitive="TRUE" endRegion="Region3"/>
-        <RegExpr attribute="Keyword" context="#stay" String="\sselect\s+" insensitive="TRUE" beginRegion="Region4"/>
-        <RegExpr attribute="Keyword" context="#stay" String="\sselect$" insensitive="TRUE" beginRegion="Region4"/>
-        <StringDetect attribute="Keyword" context="#stay" String="end select;" insensitive="TRUE" endRegion="Region4"/>
-        <RegExpr attribute="Keyword" context="#stay" String="\b(begin|case|record)\b" insensitive="true" beginRegion="Region5"/>
-        <RegExpr attribute="Keyword" context="#stay" String="\bend(?=((\{[^}]*(\}|$)|\(\*.*(\*\)|$))*)([.;\s]|$)|//|$)" insensitive="true" endRegion="Region5"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\brecord\b"       insensitive="true" beginRegion="RecordRegion"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bend\s+record\b" insensitive="true"   endRegion="RecordRegion"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bcase\b"         insensitive="true" beginRegion="CaseRegion"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bend\s+case\b"   insensitive="true"   endRegion="CaseRegion"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bif\b"           insensitive="true" beginRegion="IfRegion"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bend\s+if\b"     insensitive="true"   endRegion="IfRegion"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bloop\b"         insensitive="true" beginRegion="LoopRegion"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bend\s+loop\b"   insensitive="true"   endRegion="LoopRegion"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bselect\b"       insensitive="true" beginRegion="SelectRegion"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bend\s+select\b" insensitive="true"   endRegion="SelectRegion"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bbegin\b"        insensitive="true" beginRegion="BeginRegion"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bend\b"          insensitive="true"   endRegion="BeginRegion"/>
         <StringDetect attribute="Region Marker" context="Region Marker" String="--  BEGIN" beginRegion="RegionMarker" firstNonSpace="true" />
         <StringDetect attribute="Region Marker" context="Region Marker" String="--  END" endRegion="RegionMarker" firstNonSpace="true" />
         <keyword attribute="Keyword" context="#stay" String="keywords"/>

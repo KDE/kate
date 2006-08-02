@@ -21,6 +21,8 @@
 #define KDELIBS_KTEXTEDITOR_CONFIGINTERFACE_H
 
 #include <kdelibs_export.h>
+#include <qstringlist.h>
+#include <qvariant.h>
 
 namespace KTextEditor
 {
@@ -83,7 +85,7 @@ class KTEXTEDITOR_EXPORT ConfigInterface
     /**
      * Virtual destructor.
      */
-    virtual ~ConfigInterface () {}
+    virtual ~ConfigInterface ();
 
   public:
     /**

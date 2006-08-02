@@ -2414,6 +2414,9 @@ void KateScriptIndent::processNewline( KateDocCursor &begin, bool needContinue )
     {
       kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
     }
+    // FIXME: set begin to the position at which the script set the cursor
+    //        ugly hack, needs a clean fix.
+    begin.setPosition(view->cursorPosition());
     kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
   }
 }

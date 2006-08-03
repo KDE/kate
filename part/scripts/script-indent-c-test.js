@@ -23,6 +23,29 @@
  *INFORMATION: A localiced copyright statement could be put into a blah.desktop file
  **/
 
+//BEGIN global variables and functions
+// maximum number of lines we look backwards/forward to find out the indentation
+// level (the bigger the number, the longer might be the delay)
+var gLineDelimiter = 40;     // number
+
+// default settings. To read from current view/document, call readSettings()
+var gTabWidth = 8;           // number
+var gExpandTab = false;      // bool
+var gIndentWidth = 4;        // number
+var gTabFiller = "        "; // tab as whitespaces, example: if gTabWidth is 4,
+                             // then this is "    "
+
+/**
+ * call in indentNewLine and indentChar to read document/view variables like
+ * tab width, indent width, expand tabs etc.
+ */
+function readSettings()
+{
+    // todo
+    gIndentWidth = document.indentWidth;
+}
+//END global variables and functions
+
 /*
 function indentChar() // also possible
 {*/
@@ -144,7 +167,7 @@ function inString(_line)
  * return its leading white spaces + ' *' + the white spaces after the *
  * return: filler string or -1, if not in a star comment
  */
-function inStarComment(_line)
+function tryCComment(_line)
 {
     var _currentLine = _line - 1;
     if (_currentLine < 0)
@@ -152,23 +175,60 @@ function inStarComment(_line)
 
     var _currentString = document.line(_currentLine);
     var _lastChar = lastNonSpace(_currentString);
+    var _indentation = -1;
 
+    var _notInCComment = false;
     if (_lastChar == -1)
-        return -1;
+    {
+        var _lineDelimiter = gLineDelimiter;
+        // empty line: now do the following
+        // 1. search for non-empty line
+        // 2. then break and continue with the check for "*/"
+        _notInCComment = true;
+        // search non-empty line, then return leading white spaces
+        while (_currentLine >= 0 && _lineDelimiter > 0) {
+            _currentString = document.line(_currentLine);
+            _lastChar = lastNonSpace(_currentString);
+            if (_lastChar != -1) {
+                break;
+            }
+            --_currentLine;
+            --_lineDelimiter;
+        }
+    }
 
+    // we found a */, search the opening /* and return its indentation level
     if (_currentString.charAt(_lastChar) == "/"
         && _currentString.charAt(_lastChar - 1) == "*")
+    {
+        var _startOfComment;
+        var _lineDelimiter = gLineDelimiter;
+        while (_currentLine >= 0 && _lineDelimiter > 0) {
+            _currentString = document.line(_currentLine);
+            _startOfComment = _currentString.indexOf("/*");
+            if (_startOfComment != -1) {
+                _indentation = _currentString.substring(0, firstNonSpace(_currentString));
+                break;
+            }
+            --_currentLine;
+            --_lineDelimiter;
+        }
+        return _indentation;
+    }
+
+    // there previously was an empty line, in this case we honor the circumstances
+    if (_notInCComment)
         return -1;
 
     var _firstChar = firstNonSpace(_currentString);
     var _char1 = _currentString.charAt(_firstChar);
     var _char2 = _currentString.charAt(_firstChar + 1);
-    var _indentation = -1;
+    var _endOfComment = _currentString.indexOf("*/");
 
     if (_char1 == "/" && _char2 == "*") {
-        _indentation = _currentString.match(/^\s*\/\*+\s*/);
+        _indentation = _currentString.match(/^\s*\/\*+/);
         _indentation = _indentation[0];
-        _indentation = _indentation.replace(/\//, " "); // replace / by " "
+        _indentation = _indentation.replace(/\//, " ") + " "; // replace / by " "
         if (_firstChar + 1 != lastNonSpace(_indentation)) {
             // more than just one star -> replace them and return 1 trailing space
             _indentation = _indentation.substring(0, _firstChar + 1) + "* ";
@@ -176,6 +236,10 @@ function inStarComment(_line)
     } else if (_char1 == "*" && (_char2 == "" || _char2 == ' ' || _char2 == '\t')) {
         _indentation = _currentString.match(/^\s*[*]\s*/);
         _indentation = _indentation[0];
+        if (_firstChar + 1 == _indentation.length) {
+            // append a trailing " "
+            _indentation += " ";
+        }
     }
 
     return _indentation;
@@ -187,7 +251,7 @@ function inStarComment(_line)
  * //, ///, //! ///<, //!< and ////...
  * return: filler string or -1, if not in a star comment
  */
-function inCppComment(_line)
+function tryCppComment(_line)
 {
     var _currentLine = _line - 1;
     if (_currentLine < 0)
@@ -226,39 +290,102 @@ function inCppComment(_line)
     return _indentation;
 }
 
+/**
+ * If the last non-empty line ends with a {, take its indentation level and
+ * return it increased by 1 indetation level. If not found, return -1.
+ */
+function tryBrace(_line)
+{
+    var _currentLine = _line - 1;
+    if (_currentLine < 0)
+        return -1;
+
+    var _currentString;
+    var _lastChar = -1;
+    var _indentation = -1;
+    var _lineDelimiter = gLineDelimiter;
+
+    // search non-empty line
+    while (_currentLine >= 0 && _lineDelimiter > 0) {
+        _currentString = document.line(_currentLine);
+        _lastChar = lastNonSpace(_currentString);
+        if (_lastChar != -1) {
+            break;
+        }
+        --_currentLine;
+        --_lineDelimiter;
+    }
+    
+    if (_lastChar == -1)
+        return -1;
+
+    var _char = _currentString.charAt(_lastChar);
+    if (_char == "{") {
+        // take its indentation and add one indentation level
+        var _firstChar = firstNonSpace(_currentString);
+        _indentation = _currentString.substring(0, _firstChar);
+        _indentation = increaseIndent(_indentation);
+    }
+
+    return _indentation;
+}
 
 /**
- * Check, whether the beginning of _line is inside a multiline comment
- * return: true or false
+ * Return by one indentation level increased filler string.
  */
-// function inMultilineComment(_line)
-// {
-//     var _currentLine = _line - 1;
-// 
-//     if (_currentLine < 0)
-//         return false;
-// 
-//     var _currentString = document.line(_line);
-//     if (currentString)
-// 
-//     return false;
-// }
+function increaseIndent(_text)
+{
+    // todo: honor tabs vs spaces
+    return _text + gTabFiller;
+}
+
+/**
+ * Search non-empty line and return its indentation string or -1, if not found
+ */
+function keepIndentation(_line)
+{
+    var _currentLine = _line - 1;
+
+    if (_currentLine < 0)
+        return -1;
+
+    var _currentString;
+    var _indentation = -1;
+    var _firstChar;
+    var _lineDelimiter = gLineDelimiter;
+
+    // search non-empty line, then return leading white spaces
+    while (_currentLine >= 0 && _lineDelimiter > 0) {
+        _currentString = document.line(_currentLine);
+        _firstChar = firstNonSpace(_currentString);
+        if (_firstChar != -1) {
+            _indentation = _currentString.substring(0, _firstChar);
+            break;
+        }
+        --_currentLine;
+        --_lineDelimiter;
+    }
+
+    return _indentation;
+}
 
 function indentNewLine()
 {
-	var tabWidth = 4;
-	var spaceIndent = true;
-    var indentWidth = document.indentWidth;
-
 	var intStartLine = view.cursorLine();
 	var intStartColumn = view.cursorColumn();
 
     var filler = -1;
 
     if (filler == -1)
-        filler = inStarComment(intStartLine);
+        filler = tryCComment(intStartLine);
     if (filler == -1)
-        filler = inCppComment(intStartLine);
+        filler = tryCppComment(intStartLine);
+    if (filler == -1)
+        filler = tryBrace(intStartLine);
+
+    // we don't know what to do, let's simply keep the indentation
+    if (filler == -1)
+        filler = keepIndentation(intStartLine);
 
     if (filler != -1) {
         var _currentString = document.line(intStartLine);

@@ -105,10 +105,12 @@ function indentChar(c)
  */
 function firstNonSpace(_text)
 {
+    debug("entered firstNonSpace");
     if (_text && _text.search(/^(\s*)/) != -1) {
-        if (RegExp.$1.length != _text.length)
-            return RegExp.$1.length;
+        debug("search: regexp successfully: " + RegExp.$1);
+        return RegExp.$1.length;
     }
+    debug( "after regexp...");
     return -1;
 }
 
@@ -225,7 +227,10 @@ function tryCComment(_line)
     if (_notInCComment)
         return -1;
 
+    debug("kjs: " + _currentString + ", length: " + _currentString.length);
     var _firstPos = firstNonSpace(_currentString);
+    debug("AFTER BUG");
+
     var _char1 = _currentString.charAt(_firstPos);
     var _char2 = _currentString.charAt(_firstPos + 1);
     var _endOfComment = _currentString.indexOf("*/");
@@ -235,7 +240,7 @@ function tryCComment(_line)
         _indentation = indentString(RegExp.$1);
         _indentation += " * ";
     } else if (_char1 == "*" && (_char2 == "" || _char2 == ' ' || _char2 == '\t')) {
-        _currentString.search(/^(\s*)[*](\s*)/);
+        _currentString.search(/^(\s*)\*(\s*)/);
         // in theory, we could search for opening /*, and use its indentation
         // and then one alignment character. Let's not do this for now, though.
         var end = RegExp.$2;

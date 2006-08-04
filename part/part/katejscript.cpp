@@ -152,6 +152,8 @@ class KateJSDocument : public KJS::JSObject
     enum { FullText,
           Text,
           TextLine,
+          FirstChar,
+          LastChar,
           Lines,
           Length,
           LineLength,
@@ -324,12 +326,14 @@ bool KateJScriptInterpreterContext::execute (KateView *view, const QString &scri
 
 // -------------------------------------------------------------------------
 /* Source for KateJSDocumentProtoTable.
-@begin KateJSDocumentProtoTable 21
+@begin KateJSDocumentProtoTable 23
 #
 # edit interface stuff + editBegin/End, this is nice start
 #
   textFull       KateJSDocument::FullText      DontDelete|Function 0
   textRange      KateJSDocument::Text          DontDelete|Function 4
+  firstChar      KateJSDocument::FirstChar     DontDelete|Function 1
+  lastChar       KateJSDocument::LastChar      DontDelete|Function 1
   line           KateJSDocument::TextLine      DontDelete|Function 1
   lines          KateJSDocument::Lines         DontDelete|Function 0
   length         KateJSDocument::Length        DontDelete|Function 0
@@ -386,6 +390,16 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
 
     case KateJSDocument::Text:
       return KJS::String (doc->text(KTextEditor::Range(args[0]->toUInt32(exec), args[1]->toUInt32(exec), args[2]->toUInt32(exec), args[3]->toUInt32(exec))));
+    
+    case KateJSDocument::FirstChar: {
+      KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
+      return KJS::Number(textLine ? textLine->firstChar() : -1);
+    }
+    
+    case KateJSDocument::LastChar: {
+      KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
+      return KJS::Number(textLine ? textLine->lastChar() : -1);
+    }
 
     case KateJSDocument::TextLine:
       return KJS::String (doc->line (args[0]->toUInt32(exec)));

@@ -105,12 +105,9 @@ function indentChar(c)
  */
 function firstNonSpace(_text)
 {
-    debug("entered firstNonSpace");
-    if (_text && _text.search(/^(\s*)/) != -1) {
-        debug("search: regexp successfully: " + RegExp.$1);
+    if (_text && _text.search(/^(\s*)\S/) != -1)
         return RegExp.$1.length;
-    }
-    debug( "after regexp...");
+
     return -1;
 }
 
@@ -120,10 +117,9 @@ function firstNonSpace(_text)
  */
 function lastNonSpace(_text)
 {
-    if (_text && _text.search(/(\S\s*)$/) != -1) {
-        if (RegExp.$1.length != _text.length)
-        return _text.length - RegExp.$1.length;
-    }
+    if (_text && _text.search(/(.*)\S\s*$/) != -1)
+        return RegExp.$1.length;
+
     return -1;
 }
 
@@ -227,10 +223,7 @@ function tryCComment(_line)
     if (_notInCComment)
         return -1;
 
-    debug("kjs: " + _currentString + ", length: " + _currentString.length);
     var _firstPos = firstNonSpace(_currentString);
-    debug("AFTER BUG");
-
     var _char1 = _currentString.charAt(_firstPos);
     var _char2 = _currentString.charAt(_firstPos + 1);
     var _endOfComment = _currentString.indexOf("*/");

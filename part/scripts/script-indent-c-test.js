@@ -105,10 +105,7 @@ function indentChar(c)
  */
 function firstNonSpace(_text)
 {
-    if (!_text)
-        return -1;
-
-    if (_text.search(/^(\s*)/) != -1) {
+    if (_text && _text.search(/^(\s*)/) != -1) {
         if (RegExp.$1.length != _text.length)
             return RegExp.$1.length;
     }
@@ -121,12 +118,9 @@ function firstNonSpace(_text)
  */
 function lastNonSpace(_text)
 {
-    if (!_text)
-        return -1;
-
-    if (_text.search(/(\s*)$/) != -1) {
+    if (_text && _text.search(/(\S\s*)$/) != -1) {
         if (RegExp.$1.length != _text.length)
-        return _text.length - RegExp.$1.length - 1;
+        return _text.length - RegExp.$1.length;
     }
     return -1;
 }
@@ -224,7 +218,7 @@ function tryCComment(_line)
             --_currentLine;
             --_lineDelimiter;
         }
-        return _indentation;
+        return indentString(_indentation);
     }
 
     // there previously was an empty line, in this case we honor the circumstances
@@ -237,20 +231,17 @@ function tryCComment(_line)
     var _endOfComment = _currentString.indexOf("*/");
 
     if (_char1 == "/" && _char2 == "*") {
-        _indentation = _currentString.match(/^\s*\/\*+/);
-        _indentation = _indentation[0];
-        _indentation = _indentation.replace(/\//, " ") + " "; // replace / by " "
-        if (_firstPos + 1 != lastNonSpace(_indentation)) {
-            // more than just one star -> replace them and return 1 trailing space
-            _indentation = _indentation.substring(0, _firstPos + 1) + "* ";
-        }
+        _currentString.search(/^(\s*)/);
+        _indentation = indentString(RegExp.$1);
+        _indentation += " * ";
     } else if (_char1 == "*" && (_char2 == "" || _char2 == ' ' || _char2 == '\t')) {
-        _indentation = _currentString.match(/^\s*[*]\s*/);
-        _indentation = _indentation[0];
-        if (_firstPos + 1 == _indentation.length) {
-            // append a trailing " "
+        _currentString.search(/^(\s*)[*](\s*)/);
+        // in theory, we could search for opening /*, and use its indentation
+        // and then one alignment character. Let's not do this for now, though.
+        var end = RegExp.$2;
+        _indentation = indentString(RegExp.$1) + "*" + end;
+        if (_indentation.charAt(_indentation.length - 1) == '*')
             _indentation += " ";
-        }
     }
 
     return _indentation;
@@ -285,15 +276,16 @@ function tryCppComment(_line)
 
         if (_char3 == "/" && _char4 == "/") {
             // match ////... and replace by only two: //
-            _indentation = _currentString.match(/^\s*\/\//);
+            _currentString.search(/^(\s*)(\/\/)/);
         } else if (_char3 == "/" || _char3 == "!") {
             // match ///, //!, ///< and //!
-            _indentation = _currentString.match(/^\s*\/\/[/!][<]?\s*/);
+            _currentString.search(/^(\s*)(\/\/[/!][<]?\s*)/);
         } else {
             // only //, nothing else
-            _indentation = _currentString.match(/^\s*\/\/\s*/);
+            _currentString.search(/^(\s*)(\/\/\s*)/);
         }
-        _indentation = _indentation[0];
+        var _ending = RegExp.$2;
+        _indentation = indentString(RegExp.$1) + _ending;
         if (lastNonSpace(_indentation) == _indentation.length - 1)
             _indentation += " ";
     }
@@ -323,41 +315,73 @@ function tryBrace(_line)
         --_currentLine;
         --_lineDelimiter;
     }
-    
+
     if (_lastPos == -1)
         return -1;
 
+    // found non-empty line
     var _currentString = document.line(_currentLine);
     var _indentation = -1;
     var _char = _currentString.charAt(_lastPos);
     if (_char == "{") {
         // take its indentation and add one indentation level
-        var _firstPos = firstNonSpace(_currentString);
-        _indentation = _currentString.substring(0, _firstPos);
-        _indentation = increaseIndent(_indentation);
+        var _firstPos = document.firstChar(_currentLine);
+        _indentation = incIndent(_currentString.substring(0, _firstPos));
     }
 
     return _indentation;
 }
 
 /**
- * Return by one indentation level increased filler string.
- * Note: Right now "indentation + alignment" is not supported. 
+ * Return indentation filler string.
+ * If expandTab is true, the returned filler only contains spaces.
+ * If expandTab is false, the returned filler contains tabs upto _alignment
+ * if possible, and from _alignment to the end of _text spaces. This implements
+ * mixed indentation, i.e. indentation+alignment.
  */
-function increaseIndent(_text)
+function indentString(_text, _alignment)
 {
-    var _indentation = _text.replace(/\t/, gTabFiller) + gIndentFiller;
+    if (_text == -1)
+        return -1;
+
+    var _indentation = _text.replace(/\t/g, gTabFiller);
     if (!gExpandTab) {
+        var i;
+        var _alignFiller = "";
+        if (_alignment && _alignment >= 0 && _alignment < _indentation.length) {
+            for (i = _alignment; i < _indentation.length; ++i)
+                _alignFiller += " ";
+
+            _indentation = _indentation.substring(0, _alignment);
+        }
+
         var _spaceCount = _indentation.length % gTabWidth;
         var _tabCount = (_indentation.length - _spaceCount) / gTabWidth;
         _indentation = "";
-        var i;
         for (i = 0; i < _tabCount; ++i)
             _indentation += "\t";
         for (i = 0; i < _spaceCount; ++i)
             _indentation += " ";
+        _indentation += _alignFiller;
     }
+
     return _indentation;
+}
+
+/**
+ * Adds _levels times an indentation level. If _alignment is valid, mixed
+ * indentation is turned on, see indentString() for further details.
+ */
+function incIndent(_text, _levels, _alignment)
+{
+    if (!_levels)
+        _levels = 1;
+
+    var i;
+    for (i = 0; i < _levels; ++i)
+        _text += gIndentFiller;
+
+    return indentString(_text, _alignment);
 }
 
 /**
@@ -379,7 +403,7 @@ function keepIndentation(_line)
         _firstPos = document.firstChar(_currentLine);
         if (_firstPos != -1) {
             var _currentString = document.line(_currentLine);
-            _indentation = _currentString.substring(0, _firstPos);
+            _indentation = indentString(_currentString.substring(0, _firstPos));
             break;
         }
         --_currentLine;

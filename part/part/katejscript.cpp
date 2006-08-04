@@ -119,7 +119,7 @@ JSValue* KateJSGlobalFunctions::callAsFunction (KJS::ExecState *exec, KJS::JSObj
 {
   switch (id) {
     case Debug:
-      kDebug(13051) << args[0]->toString(exec).ascii() << endl;
+      kDebug(13051) << args[0]->toString(exec).qstring() << endl;
       return KJS::Undefined();
     default:
       break;

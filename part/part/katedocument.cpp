@@ -603,18 +603,22 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
   if (text.isEmpty())
     return true;
 
-  if (position.line() > lines())
-    return false;
-
   editStart();
-
-  if (position.line() > lines())
-    editInsertLine(position.line(),"");
 
   int currentLine = position.line();
   int currentLineStart = 0;
   int totalLength = text.length();
   int insertColumn = position.column();
+
+  if (position.line() > lines())
+  {
+    int line = lines();
+    while (line != position.line() + totalLength + 1)
+    {
+      editInsertLine(line,"");
+      line++;
+    }
+  }
 
   bool replacetabs = ( config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn );
   int tabWidth = config()->tabWidth();

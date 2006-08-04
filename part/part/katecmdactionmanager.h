@@ -58,6 +58,7 @@ class KateCmdBinding
     QString description;
     QString command;
     QString category;
+    QString icon;
     QKeySequence shortcut;
 };
 

@@ -29,6 +29,7 @@
 #include <kactionmenu.h>
 #include <kactioncollection.h>
 #include <kconfig.h>
+#include <kicon.h>
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kmenu.h>
@@ -76,8 +77,7 @@ KateCmdActionMenu::KateCmdActionMenu( KTextEditor::View* view,
 
 KateCmdActionMenu::~KateCmdActionMenu()
 {
-  // FIXME: do I have to delete it myself?
-//   delete m_actionCollection;
+  // the action collection is deleted automatically
 }
 
 void KateCmdActionMenu::reload()
@@ -86,8 +86,6 @@ void KateCmdActionMenu::reload()
   // 2. iterate actions from action manager
   // 3. add new actions, along with a category
   // 4. add (sorted) submenus
-//   kDebug() << "___ reload KateCmdActionMenu" << endl;
-//   kMenu()->clear();
   m_actionCollection->clear();
 
   QMap<QString, KActionMenu*> menumap;
@@ -106,7 +104,9 @@ void KateCmdActionMenu::reload()
                                           cmd.command, m_view, &cmd );
     a->setShortcut( cmd.shortcut );
     a->setStatusTip( cmd.description );
-    a->setData( QVariant::fromValue( cmd.command ) );
+    a->setWhatsThis( cmd.description );
+    if( !cmd.icon.isEmpty() )
+      a->setIcon( KIcon( cmd.icon ) );
 
     submenu->addAction( a );
   }
@@ -118,6 +118,7 @@ void KateCmdActionMenu::reload()
     addAction( it.value() );
     ++it;
   }
+  setEnabled( menumap.size() != 0 );
 }
 //END KateCmdActionMenu
 
@@ -178,21 +179,22 @@ void KateCmdBindingManager::readConfig( KConfig* config )
 
   const QString oldGroup = config->group();
   const int size = config->readEntry( "Commands", 0 );
+  m_actions.resize( size );
 
   // read every entry from its own group
   for( int i = 0; i < size; ++i )
   {
     config->setGroup( QString("Kate Command Binding %1").arg( i ) );
 
-    m_actions.append( KateCmdBinding() );
-    KateCmdBinding& a = m_actions.last();
+    KateCmdBinding& a = m_actions[i];
 
-    a.name = config->readEntry( "Name", i18n("Unnamed") );
-    a.description = config->readEntry( "Description", i18n("No description available.") );
-    a.command = config->readEntry( "Command", QString() );
-    a.category = config->readEntry( "Category", QString() );
+    a.name = config->readEntry( "name", i18n("Unnamed") );
+    a.description = config->readEntry( "description", i18n("No description available.") );
+    a.command = config->readEntry( "command", QString() );
+    a.category = config->readEntry( "category", QString() );
+    a.icon = config->readEntry( "icon", QString() );
     a.shortcut = QKeySequence::fromString(
-        config->readEntry( "Shortcut", QString() ) );
+        config->readEntry( "shortcut", QString() ) );
   }
   config->setGroup( oldGroup );
 
@@ -216,11 +218,12 @@ void KateCmdBindingManager::writeConfig( KConfig* config )
     config->setGroup( QString("Kate Command Binding %1").arg( i ) );
     const KateCmdBinding& a = *it;
 
-    config->writeEntry( "Name", a.name );
-    config->writeEntry( "Description", a.description );
-    config->writeEntry( "Command", a.command );
-    config->writeEntry( "Category", a.category );
-    config->writeEntry( "Shortcut", a.shortcut.toString() );
+    config->writeEntry( "name", a.name );
+    config->writeEntry( "description", a.description );
+    config->writeEntry( "command", a.command );
+    config->writeEntry( "category", a.category );
+    config->writeEntry( "icon", a.icon );
+    config->writeEntry( "shortcut", a.shortcut.toString() );
     ++i;
   }
   config->setGroup( oldGroup );
@@ -294,8 +297,8 @@ void KateCmdBindingConfigPage::currentItemChanged( QTreeWidgetItem* current,
   // if selection changed, enable/disable buttons accordingly
   Q_UNUSED( previous );
   KateCmdActionItem* item = static_cast<KateCmdActionItem*>( current );
-  ui->btnEditEntry->setEnabled( item->m_action != 0 );
-  ui->btnRemoveEntry->setEnabled( item->m_action != 0 );
+  ui->btnEditEntry->setEnabled( item && item->m_action != 0 );
+  ui->btnRemoveEntry->setEnabled( item && item->m_action != 0 );
 }
 
 
@@ -422,6 +425,10 @@ void KateCmdBindingConfigPage::editEntry()
     item->m_action->description = dlg.ui->edtDescription->text();
     item->m_action->command = dlg.ui->cmbCommand->currentText();
     item->m_action->category = dlg.ui->cmbCategory->currentText();
+    item->m_action->icon = dlg.ui->btnIcon->icon();
+
+    if( !dlg.ui->btnIcon->icon().isEmpty() )
+      item->setIcon( 0, KGlobal::iconLoader()->loadIcon( item->m_action->icon, K3Icon::Small ) );
     item->setText( 0, item->m_action->name );
     item->setText( 1, item->m_action->description );
     item->setText( 2, item->m_action->command );
@@ -459,6 +466,7 @@ KateCmdBindingEditDialog::KateCmdBindingEditDialog( QWidget *parent )
   ui = new Ui::CmdBindingEditWidget();
   ui->setupUi( w );
   setMainWidget( w );
+  ui->btnIcon->setIconSize( K3Icon::SizeSmall );
 
   connect( this, SIGNAL( okClicked() ), this, SLOT( slotOk() ) );
   connect( ui->cmbCommand, SIGNAL( activated( const QString& ) ),

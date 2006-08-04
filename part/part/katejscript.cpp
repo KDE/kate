@@ -149,32 +149,40 @@ class KateJSDocument : public KJS::JSObject
 
     const KJS::ClassInfo* classInfo() const { return &info; }
 
-    enum { FullText,
-          Text,
-          TextLine,
-          FirstChar,
-          LastChar,
-          Lines,
-          Length,
-          LineLength,
-          SetText,
-          Clear,
-          InsertText,
-          RemoveText,
-          InsertLine,
-          RemoveLine,
-          EditBegin,
-          EditEnd,
-          IndentWidth,
-          IndentMode,
-          HighlightMode,
-          IsInWord,
-          CanBreakAt,
-          CanComment,
-          CommentMarker,
-          CommentStart,
-          CommentEnd,
-          Attribute
+    enum {
+      // document manipulation
+      FullText,
+      Text,
+      TextLine,
+      FirstChar,
+      LastChar,
+      Lines,
+      Length,
+      LineLength,
+      SetText,
+      Clear,
+      InsertText,
+      RemoveText,
+      InsertLine,
+      RemoveLine,
+      EditBegin,
+      EditEnd,
+
+      // config settings
+      IndentWidth,
+      IndentMode,
+      HighlightMode,
+      ReplaceTabs,
+      TabWidth,
+
+      // highlighting
+      IsInWord,
+      CanBreakAt,
+      CanComment,
+      CommentMarker,
+      CommentStart,
+      CommentEnd,
+      Attribute
     };
 
   public:
@@ -358,13 +366,15 @@ bool KateJScriptInterpreterContext::execute (KateView *view, const QString &scri
   attribute      KateJSDocument::Attribute        DontDelete|Function 2
 @end
 
-@begin KateJSDocumentTable 3
+@begin KateJSDocumentTable 5
 #
 # Configuration properties
 #
   indentWidth     KateJSDocument::IndentWidth   DontDelete|ReadOnly
   indentMode      KateJSDocument::IndentMode    DontDelete|ReadOnly
   highlightMode   KateJSDocument::HighlightMode DontDelete|ReadOnly
+  replaceTabs     KateJSDocument::ReplaceTabs   DontDelete|ReadOnly
+  tabWidth        KateJSDocument::TabWidth      DontDelete|ReadOnly
 @end
 */
 
@@ -483,6 +493,12 @@ KJS::JSValue* KateJSDocument::getValueProperty(KJS::ExecState *exec, int token) 
 
     case KateJSDocument::HighlightMode:
       return KJS::String( doc->hlModeName( doc->hlMode() ) );
+
+    case KateJSDocument::ReplaceTabs:
+      return KJS::Boolean( doc->config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn );
+
+    case KateJSDocument::TabWidth:
+      return KJS::Number( doc->config()->tabWidth() );
   }
 
   return KJS::Undefined ();

@@ -32,6 +32,7 @@ var gLineDelimiter = 50;     // number
 var gTabWidth = 8;           // number
 var gExpandTab = false;      // bool
 var gIndentWidth = 4;        // number
+var gIndentFiller = "    ";  // gIndentWidth many whitespaces
 var gTabFiller = "        "; // tab as whitespaces, example: if gTabWidth is 4,
                              // then this is "    "
 
@@ -41,8 +42,19 @@ var gTabFiller = "        "; // tab as whitespaces, example: if gTabWidth is 4,
  */
 function readSettings()
 {
-    // todo
+    gTabWidth = document.tabWidth;
     gIndentWidth = document.indentWidth;
+    gExpandTab = document.replaceTabs;
+
+    var i;
+
+    gIndentFiller = "";
+    for (i = 0; i < gIndentWidth; ++i)
+        gIndentFiller += " ";
+
+    gTabFiller = "";
+    for (i = 0; i < gTabWidth; ++i)
+        gTabFiller += " ";
 }
 //END global variables and functions
 
@@ -143,12 +155,12 @@ function inString(_line)
     while (_currentLine < _line) {
         _currentString = document.line(_currentLine);
         var _char1;
-        var _i;
+        var i;
         var _length = document.lineLength(_currentLine);
-        for (_i = 0; _i < _length; ++_i) {
-            _char1 = _currentString.charAt(_i);
+        for (i = 0; i < _length; ++i) {
+            _char1 = _currentString.charAt(i);
             if (_char1 == "\\") {
-                ++_i;
+                ++i;
             } else if (_char1 == "\"") {
                 _inString = !_inString;
                 if (_inString)
@@ -330,11 +342,22 @@ function tryBrace(_line)
 
 /**
  * Return by one indentation level increased filler string.
+ * Note: Right now "indentation + alignment" is not supported. 
  */
 function increaseIndent(_text)
 {
-    // todo: honor tabs vs spaces
-    return _text + gTabFiller;
+    var _indentation = _text.replace(/\t/, gTabFiller) + gIndentFiller;
+    if (!gExpandTab) {
+        var _spaceCount = _indentation.length % gTabWidth;
+        var _tabCount = (_indentation.length - _spaceCount) / gTabWidth;
+        _indentation = "";
+        var i;
+        for (i = 0; i < _tabCount; ++i)
+            _indentation += "\t";
+        for (i = 0; i < _spaceCount; ++i)
+            _indentation += " ";
+    }
+    return _indentation;
 }
 
 /**
@@ -368,6 +391,8 @@ function keepIndentation(_line)
 
 function indentNewLine()
 {
+    readSettings();
+
     var intStartLine = view.cursorLine();
     var intStartColumn = view.cursorColumn();
 

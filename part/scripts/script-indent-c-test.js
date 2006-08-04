@@ -26,7 +26,7 @@
 //BEGIN global variables and functions
 // maximum number of lines we look backwards/forward to find out the indentation
 // level (the bigger the number, the longer might be the delay)
-var gLineDelimiter = 40;     // number
+var gLineDelimiter = 50;     // number
 
 // default settings. To read from current view/document, call readSettings()
 var gTabWidth = 8;           // number
@@ -132,9 +132,9 @@ function inString(_line)
     var _currentString;
 
     // go line up as long as the previous line ends with an escape character '\'
-    while (_currentLine > 0) {
-        _currentString = document.line(_currentLine - 1);
-        if (_currentString.charAt(lastNonSpace(_currentString)) != '\\')
+    while (_currentLine >= 0) {
+        _currentString = document.line(_currentLine -1 );
+        if (_currentString.charAt(document.lastChar(_currentLine - 1)) != '\\')
             break;
         --_currentLine;
     }
@@ -146,14 +146,15 @@ function inString(_line)
         _currentString = document.line(_currentLine);
         var _char1;
         var _i;
-        for (_i = 0; _i < document.lineLength(_currentLine); ++_i) {
+        var _length = document.lineLength(_currentLine);
+        for (_i = 0; _i < _length; ++_i) {
             _char1 = _currentString.charAt(_i);
             if (_char1 == "\\") {
                 ++_i;
             } else if (_char1 == "\"") {
                 _inString = !_inString;
                 if (_inString)
-                    _indentation = _currentString.substring(0, firstNonSpace(_currentString) + 1);
+                    _indentation = _currentString.substring(0, document.firstChar(_currentLine) + 1);
             }
         }
         ++_currentLine;
@@ -165,7 +166,7 @@ function inString(_line)
 /**
  * C comment checking. If the previous line begins with a "/*" or a "* ", then
  * return its leading white spaces + ' *' + the white spaces after the *
- * return: filler string or -1, if not in a star comment
+ * return: filler string or -1, if not in a C comment
  */
 function tryCComment(_line)
 {
@@ -174,12 +175,11 @@ function tryCComment(_line)
         return -1;
 
     var _currentString = document.line(_currentLine);
-    var _lastChar = lastNonSpace(_currentString);
+    var _lastPos = document.lastChar(_currentLine);
     var _indentation = -1;
 
     var _notInCComment = false;
-    if (_lastChar == -1)
-    {
+    if (_lastPos == -1) {
         var _lineDelimiter = gLineDelimiter;
         // empty line: now do the following
         // 1. search for non-empty line
@@ -187,19 +187,20 @@ function tryCComment(_line)
         _notInCComment = true;
         // search non-empty line, then return leading white spaces
         while (_currentLine >= 0 && _lineDelimiter > 0) {
-            _currentString = document.line(_currentLine);
-            _lastChar = lastNonSpace(_currentString);
-            if (_lastChar != -1) {
+            _lastPos = document.lastChar(_currentLine);
+            if (_lastPos != -1) {
                 break;
             }
             --_currentLine;
             --_lineDelimiter;
         }
+
+        _currentString = document.line(_currentLine);
     }
 
     // we found a */, search the opening /* and return its indentation level
-    if (_currentString.charAt(_lastChar) == "/"
-        && _currentString.charAt(_lastChar - 1) == "*")
+    if (_currentString.charAt(_lastPos) == "/"
+        && _currentString.charAt(_lastPos - 1) == "*")
     {
         var _startOfComment;
         var _lineDelimiter = gLineDelimiter;
@@ -207,7 +208,7 @@ function tryCComment(_line)
             _currentString = document.line(_currentLine);
             _startOfComment = _currentString.indexOf("/*");
             if (_startOfComment != -1) {
-                _indentation = _currentString.substring(0, firstNonSpace(_currentString));
+                _indentation = _currentString.substring(0, document.firstChar(_currentLine));
                 break;
             }
             --_currentLine;
@@ -220,23 +221,23 @@ function tryCComment(_line)
     if (_notInCComment)
         return -1;
 
-    var _firstChar = firstNonSpace(_currentString);
-    var _char1 = _currentString.charAt(_firstChar);
-    var _char2 = _currentString.charAt(_firstChar + 1);
+    var _firstPos = firstNonSpace(_currentString);
+    var _char1 = _currentString.charAt(_firstPos);
+    var _char2 = _currentString.charAt(_firstPos + 1);
     var _endOfComment = _currentString.indexOf("*/");
 
     if (_char1 == "/" && _char2 == "*") {
         _indentation = _currentString.match(/^\s*\/\*+/);
         _indentation = _indentation[0];
         _indentation = _indentation.replace(/\//, " ") + " "; // replace / by " "
-        if (_firstChar + 1 != lastNonSpace(_indentation)) {
+        if (_firstPos + 1 != lastNonSpace(_indentation)) {
             // more than just one star -> replace them and return 1 trailing space
-            _indentation = _indentation.substring(0, _firstChar + 1) + "* ";
+            _indentation = _indentation.substring(0, _firstPos + 1) + "* ";
         }
     } else if (_char1 == "*" && (_char2 == "" || _char2 == ' ' || _char2 == '\t')) {
         _indentation = _currentString.match(/^\s*[*]\s*/);
         _indentation = _indentation[0];
-        if (_firstChar + 1 == _indentation.length) {
+        if (_firstPos + 1 == _indentation.length) {
             // append a trailing " "
             _indentation += " ";
         }
@@ -257,20 +258,20 @@ function tryCppComment(_line)
     if (_currentLine < 0)
         return -1;
 
-    var _currentString = document.line(_currentLine);
-    var _firstChar = firstNonSpace(_currentString);
+    var _firstPos = document.firstChar(_currentLine);
 
-    if (_firstChar == -1)
+    if (_firstPos == -1)
         return -1;
 
-    var _char1 = _currentString.charAt(_firstChar);
-    var _char2 = _currentString.charAt(_firstChar + 1);
+    var _currentString = document.line(_currentLine);
+    var _char1 = _currentString.charAt(_firstPos);
+    var _char2 = _currentString.charAt(_firstPos + 1);
     var _indentation = -1;
 
-    // allowed are: //, ///, //! ///<, //!< and /////////...
+    // allowed are: //, ///, //! ///<, //!< and ////...
     if (_char1 == "/" && _char2 == "/") {
-        var _char3 = _currentString.charAt(_firstChar + 2);
-        var _char4 = _currentString.charAt(_firstChar + 3);
+        var _char3 = _currentString.charAt(_firstPos + 2);
+        var _char4 = _currentString.charAt(_firstPos + 3);
 
         if (_char3 == "/" && _char4 == "/") {
             // match ////... and replace by only two: //
@@ -300,30 +301,29 @@ function tryBrace(_line)
     if (_currentLine < 0)
         return -1;
 
-    var _currentString;
-    var _lastChar = -1;
-    var _indentation = -1;
+    var _lastPos = -1;
     var _lineDelimiter = gLineDelimiter;
 
     // search non-empty line
     while (_currentLine >= 0 && _lineDelimiter > 0) {
-        _currentString = document.line(_currentLine);
-        _lastChar = lastNonSpace(_currentString);
-        if (_lastChar != -1) {
+        _lastPos = document.lastChar(_currentLine);
+        if (_lastPos != -1) {
             break;
         }
         --_currentLine;
         --_lineDelimiter;
     }
     
-    if (_lastChar == -1)
+    if (_lastPos == -1)
         return -1;
 
-    var _char = _currentString.charAt(_lastChar);
+    var _currentString = document.line(_currentLine);
+    var _indentation = -1;
+    var _char = _currentString.charAt(_lastPos);
     if (_char == "{") {
         // take its indentation and add one indentation level
-        var _firstChar = firstNonSpace(_currentString);
-        _indentation = _currentString.substring(0, _firstChar);
+        var _firstPos = firstNonSpace(_currentString);
+        _indentation = _currentString.substring(0, _firstPos);
         _indentation = increaseIndent(_indentation);
     }
 
@@ -349,17 +349,16 @@ function keepIndentation(_line)
     if (_currentLine < 0)
         return -1;
 
-    var _currentString;
     var _indentation = -1;
-    var _firstChar;
+    var _firstPos;
     var _lineDelimiter = gLineDelimiter;
 
     // search non-empty line, then return leading white spaces
     while (_currentLine >= 0 && _lineDelimiter > 0) {
-        _currentString = document.line(_currentLine);
-        _firstChar = firstNonSpace(_currentString);
-        if (_firstChar != -1) {
-            _indentation = _currentString.substring(0, _firstChar);
+        _firstPos = document.firstChar(_currentLine);
+        if (_firstPos != -1) {
+            var _currentString = document.line(_currentLine);
+            _indentation = _currentString.substring(0, _firstPos);
             break;
         }
         --_currentLine;
@@ -371,8 +370,8 @@ function keepIndentation(_line)
 
 function indentNewLine()
 {
-	var intStartLine = view.cursorLine();
-	var intStartColumn = view.cursorColumn();
+    var intStartLine = view.cursorLine();
+    var intStartColumn = view.cursorColumn();
 
     var filler = -1;
 

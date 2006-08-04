@@ -93,14 +93,13 @@ function indentChar(c)
  */
 function firstNonSpace(_text)
 {
-    var _i;
-    var _char;
-    for (_i = 0; _i < _text.length; ++_i) {
-        _char = _text.charAt(_i);
-        if (_char != ' ' && _char != '\t')
-            return _i;
-    }
+    if (!_text)
+        return -1;
 
+    if (_text.search(/^(\s*)/) != -1) {
+        if (RegExp.$1.length != _text.length)
+            return RegExp.$1.length;
+    }
     return -1;
 }
 
@@ -110,14 +109,13 @@ function firstNonSpace(_text)
  */
 function lastNonSpace(_text)
 {
-    var _i;
-    var _char;
-    for (_i = _text.length - 1; _i >= 0; --_i) {
-        _char = _text.charAt(_i);
-        if( _char != ' ' && _char != '\t' )
-            return _i;
-    }
+    if (!_text)
+        return -1;
 
+    if (_text.search(/(\s*)$/) != -1) {
+        if (RegExp.$1.length != _text.length)
+        return _text.length - RegExp.$1.length - 1;
+    }
     return -1;
 }
 

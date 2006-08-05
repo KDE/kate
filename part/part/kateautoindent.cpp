@@ -2410,6 +2410,9 @@ void KateScriptIndent::processNewline( KateDocCursor &begin, bool needContinue )
     QTime t;
     t.start();
     kDebug(13030)<<"calling m_script.processChar"<<endl;
+    // FIXME: set view cursor to begin, as scripts can only access the cursor
+    //        from the view.
+    view->setCursorPosition(begin);
     if( !m_script.processNewline( view, begin, needContinue , errorMsg ) )
     {
       kDebug(13030) << "Error in script-indent: " << errorMsg << endl;

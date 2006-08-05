@@ -26,7 +26,7 @@
 //BEGIN global variables and functions
 // maximum number of lines we look backwards/forward to find out the indentation
 // level (the bigger the number, the longer might be the delay)
-var gLineDelimiter = 50;     // number
+var gLineDelimiter = 100;    // number
 
 // default settings. To read from current view/document, call readSettings()
 var gTabWidth = 8;           // number
@@ -35,6 +35,10 @@ var gIndentWidth = 4;        // number
 var gIndentFiller = "    ";  // gIndentWidth many whitespaces
 var gTabFiller = "        "; // tab as whitespaces, example: if gTabWidth is 4,
                              // then this is "    "
+
+// dummy variables, 50 spaces, 20 tabs
+var g50spaces = "                                                  ";
+var g25tabs = "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
 
 /**
  * call in indentNewLine and indentChar to read document/view variables like
@@ -46,15 +50,9 @@ function readSettings()
     gIndentWidth = document.indentWidth;
     gExpandTab = document.replaceTabs;
 
-    var i;
-
-    gIndentFiller = "";
-    for (i = 0; i < gIndentWidth; ++i)
-        gIndentFiller += " ";
-
-    gTabFiller = "";
-    for (i = 0; i < gTabWidth; ++i)
-        gTabFiller += " ";
+    // fill in fillers
+    gIndentFiller = g50spaces.substring(0, gIndentWidth);
+    gTabFiller = g50spaces.substring(0, gTabWidth);
 }
 //END global variables and functions
 
@@ -70,45 +68,34 @@ function readSettings()
 function indentString(text, alignment)
 {
     if (text == -1)
-    return -1;
+        return -1;
 
     var indentation = text.replace(/\t/g, gTabFiller);
     if (!gExpandTab) {
         var i;
-        var _alignFiller = "";
+        var alignFiller = "";
         if (alignment && alignment >= 0 && alignment < indentation.length) {
-            for (i = alignment; i < indentation.length; ++i)
-            _alignFiller += " ";
-
+            alignFiller += g50spaces.substring(0, indentation.length - alignment);
             indentation = indentation.substring(0, alignment);
         }
 
-        var _spaceCount = indentation.length % gTabWidth;
-        var _tabCount = (indentation.length - _spaceCount) / gTabWidth;
-        indentation = "";
-        for (i = 0; i < _tabCount; ++i)
-        indentation += "\t";
-        for (i = 0; i < _spaceCount; ++i)
-        indentation += " ";
-        indentation += _alignFiller;
+        var spaceCount = indentation.length % gTabWidth;
+        var tabCount = (indentation.length - spaceCount) / gTabWidth;
+        indentation = g25tabs.substring(0, tabCount);
+        indentation += g50spaces.substring(0, spaceCount);
+        indentation += alignFiller;
     }
 
     return indentation;
 }
 
 /**
- * Adds _levels times an indentation level. If alignment is valid, mixed
+ * Adds one indentation level. If alignment is valid, mixed
  * indentation is turned on, see indentString() for further details.
  */
-function incIndent(text, _levels, alignment)
+function incIndent(text, alignment)
 {
-    if (!_levels)
-    _levels = 1;
-
-    var i;
-    for (i = 0; i < _levels; ++i)
     text += gIndentFiller;
-
     return indentString(text, alignment);
 }
 //END indentation functions
@@ -116,6 +103,10 @@ function incIndent(text, _levels, alignment)
 //BEGIN process character
 function indentChar(c)
 {
+    // todo: add maybe ":", for "public:, private:" etc
+    if (c != '{' || c != '}')
+        return;
+
     readSettings();
 
     var line = view.cursorLine();
@@ -124,9 +115,11 @@ function indentChar(c)
 
     debug("firstPos: " + firstPos);
     debug("column..: " + column);
-    if (firstPos == column - 1 && c == "{") {
+    if (firstPos == column - 1 && c == '{') {
         // todo: look for if etc.
         var filler = tryBrace(line);
+        if (filler == -1)
+            filler = tryCComment(line); // checks, whether we had a "*/"
         if (filler == -1)
             filer = keepIndentation(line);
 
@@ -140,7 +133,7 @@ function indentChar(c)
             view.setCursorPosition(line, newColumn);
             document.editEnd();
         }
-    } else if (firstPos == column - 1 && c == "}") {
+    } else if (firstPos == column - 1 && c == '}') {
         var filler = findOpeningBrace(line, column);
         if (filler != -1) {
             var newColumn = column - (firstPos - filler.length);
@@ -171,27 +164,28 @@ function findOpeningBrace(line, column)
     var lastChar;
     var indentation = -1;
 
-    // note: no delimiter in this case
+    // note: no delimiter in this case, yet
     while (currentLine > 0 && count > 0) {
         --currentLine;
         firstPos = document.firstChar(currentLine);
 
+        // skip empty lines
         if (firstPos == -1)
             continue; 
 
         currentString = document.line(currentLine);
         firstChar = currentString.charAt(firstPos);
         // idea: ignore // and c comments and also preprocessor
-        if (firstChar != "/" && firstChar != "*" && firstChar != "#") {
-            lastPos = document.lastChar(currentLine);
+        if (firstChar != '/' && firstChar != '*' && firstChar != '#') {
+            var braces = currentString.replace(/[^{}]+/g, "");
             var i;
-            for (i = lastPos; i >= firstPos; --i) {
-                var currentChar = currentString.charAt(i);
+            for (i = braces.length - 1; i >= 0; --i) {
+                var currentChar = braces.charAt(i);
                 if (currentChar == "{" ) {
                     --count;
                     if (count == 0)
                         break;
-                } else if (currentChar == "}") {
+                } else {
                     ++count;
                 }
             }
@@ -250,28 +244,28 @@ function inString(line)
         --currentLine;
     }
 
-    // iterate through all lines and toggle bool _inString everytime we hit a "
-    var _inString = false;
+    // iterate through all lines and toggle bool insideString everytime we hit a "
+    var insideString = false;
     var indentation = "";
     while (currentLine < line) {
         currentString = document.line(currentLine);
         var char1;
         var i;
-        var _length = document.lineLength(currentLine);
-        for (i = 0; i < _length; ++i) {
+        var lineLength = document.lineLength(currentLine);
+        for (i = 0; i < lineLength; ++i) {
             char1 = currentString.charAt(i);
             if (char1 == "\\") {
                 ++i;
             } else if (char1 == "\"") {
-                _inString = !_inString;
-                if (_inString)
+                insideString = !insideString;
+                if (insideString)
                     indentation = currentString.substring(0, document.firstChar(currentLine) + 1);
             }
         }
         ++currentLine;
     }
 
-    return _inString ? indentation : -1;
+    return insideString ? indentation : -1;
 }
 
 //BEGIN process newline
@@ -290,13 +284,13 @@ function tryCComment(line)
     var lastPos = document.lastChar(currentLine);
     var indentation = -1;
 
-    var _notInCComment = false;
+    var notInCComment = false;
     if (lastPos == -1) {
         var lineDelimiter = gLineDelimiter;
         // empty line: now do the following
         // 1. search for non-empty line
         // 2. then break and continue with the check for "*/"
-        _notInCComment = true;
+        notInCComment = true;
         // search non-empty line, then return leading white spaces
         while (currentLine >= 0 && lineDelimiter > 0) {
             lastPos = document.lastChar(currentLine);
@@ -311,15 +305,15 @@ function tryCComment(line)
     }
 
     // we found a */, search the opening /* and return its indentation level
-    if (currentString.charAt(lastPos) == "/"
-        && currentString.charAt(lastPos - 1) == "*")
+    if (currentString.charAt(lastPos) == '/'
+        && currentString.charAt(lastPos - 1) == '*')
     {
-        var _startOfComment;
+        var startOfComment;
         var lineDelimiter = gLineDelimiter;
         while (currentLine >= 0 && lineDelimiter > 0) {
             currentString = document.line(currentLine);
-            _startOfComment = currentString.indexOf("/*");
-            if (_startOfComment != -1) {
+            startOfComment = currentString.indexOf("/*");
+            if (startOfComment != -1) {
                 indentation = currentString.substring(0, document.firstChar(currentLine));
                 break;
             }
@@ -330,25 +324,25 @@ function tryCComment(line)
     }
 
     // there previously was an empty line, in this case we honor the circumstances
-    if (_notInCComment)
+    if (notInCComment)
         return -1;
 
     var firstPos = firstNonSpace(currentString);
     var char1 = currentString.charAt(firstPos);
     var char2 = currentString.charAt(firstPos + 1);
 
-    if (char1 == "/" && char2 == "*") {
+    if (char1 == '/' && char2 == '*') {
         currentString.search(/^(\s*)/);
         indentation = indentString(RegExp.$1);
         indentation += " * ";
-    } else if (char1 == "*" && (char2 == "" || char2 == ' ' || char2 == '\t')) {
+    } else if (char1 == '*' && (char2 == '' || char2 == ' ' || char2 == '\t')) {
         currentString.search(/^(\s*)\*(\s*)/);
         // in theory, we could search for opening /*, and use its indentation
         // and then one alignment character. Let's not do this for now, though.
         var end = RegExp.$2;
-        indentation = indentString(RegExp.$1) + "*" + end;
+        indentation = indentString(RegExp.$1) + '*' + end;
         if (indentation.charAt(indentation.length - 1) == '*')
-            indentation += " ";
+            indentation += ' ';
     }
 
     return indentation;
@@ -377,14 +371,14 @@ function tryCppComment(line)
     var indentation = -1;
 
     // allowed are: //, ///, //! ///<, //!< and ////...
-    if (char1 == "/" && char2 == "/") {
+    if (char1 == '/' && char2 == '/') {
         var char3 = currentString.charAt(firstPos + 2);
         var char4 = currentString.charAt(firstPos + 3);
 
-        if (char3 == "/" && char4 == "/") {
+        if (char3 == '/' && char4 == '/') {
             // match ////... and replace by only two: //
             currentString.search(/^(\s*)(\/\/)/);
-        } else if (char3 == "/" || char3 == "!") {
+        } else if (char3 == '/' || char3 == '!') {
             // match ///, //!, ///< and //!
             currentString.search(/^(\s*)(\/\/[/!][<]?\s*)/);
         } else {
@@ -394,7 +388,7 @@ function tryCppComment(line)
         var ending = RegExp.$2;
         indentation = indentString(RegExp.$1) + ending;
         if (lastNonSpace(indentation) == indentation.length - 1)
-            indentation += " ";
+            indentation += ' ';
     }
 
     return indentation;
@@ -430,7 +424,7 @@ function tryBrace(line)
     var currentString = document.line(currentLine);
     var indentation = -1;
 
-    if (currentString.charAt(lastPos) == "{") {
+    if (currentString.charAt(lastPos) == '{') {
         // take its indentation and add one indentation level
         var firstPos = document.firstChar(currentLine);
         indentation = incIndent(currentString.substring(0, firstPos));
@@ -481,7 +475,7 @@ function indentNewLine()
 
     var filler = -1;
 
-    if (filler == -1 && firstChar == "}")
+    if (filler == -1 && firstChar == '}')
         filler = findOpeningBrace(line, column);
     if (filler == -1)
         filler = tryCComment(line);
@@ -508,4 +502,7 @@ function indentNewLine()
 //END process newline
 
 indenter.onchar=indentChar
+indenter.online=indentNewLine
 indenter.onnewline=indentNewLine
+
+// kate: space-indent on; indent-width 4; replace-tabs on;

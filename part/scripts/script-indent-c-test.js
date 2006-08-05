@@ -121,7 +121,7 @@ function indentChar(c)
         if (filler == -1)
             filler = tryCComment(line); // checks, whether we had a "*/"
         if (filler == -1)
-            filer = keepIndentation(line);
+            filler = keepIndentation(line);
 
         if (filler != -1) {
             var newColumn = column - (firstPos - filler.length);
@@ -181,7 +181,7 @@ function findOpeningBrace(line, column)
             var i;
             for (i = braces.length - 1; i >= 0; --i) {
                 var currentChar = braces.charAt(i);
-                if (currentChar == "{" ) {
+                if (currentChar == '{' ) {
                     --count;
                     if (count == 0)
                         break;
@@ -434,6 +434,50 @@ function tryBrace(line)
 }
 
 /**
+ * Check for "if" and "else" keywords, as we want to indent then.
+ * Note: The code is written to be called *after* tryCComment and tryCppComment!
+ */
+function tryCKeywords(line)
+{
+    var currentLine = line - 1;
+    if (currentLine < 0)
+        return -1;
+
+    var lastPos = -1;
+    var lineDelimiter = gLineDelimiter;
+
+    // search non-empty line
+    while (currentLine >= 0 && lineDelimiter > 0) {
+        lastPos = document.lastChar(currentLine);
+        if (lastPos != -1) {
+            break;
+        }
+        --currentLine;
+        --lineDelimiter;
+    }
+
+    if (lastPos == -1)
+        return -1;
+
+    // found non-empty line
+    var currentString = document.line(currentLine);
+    if (currentString.search(/^\s*(if|for|do|while|switch|[}]?\s*else)/) == -1)
+        return -1;
+//    var firstWord = RegExp.$1;
+//    debug("Found first word: " + firstWord);
+    var lastChar = currentString.charAt(lastPos);
+    var indentation = -1;
+
+    if (lastChar != ';') {
+        // take its indentation and add one indentation level
+        var firstPos = document.firstChar(currentLine);
+        indentation = incIndent(currentString.substring(0, firstPos));
+    }
+
+    return indentation;
+}
+
+/**
  * Search non-empty line and return its indentation string or -1, if not found
  */
 function keepIndentation(line)
@@ -483,6 +527,8 @@ function indentNewLine()
         filler = tryCppComment(line);
     if (filler == -1)
         filler = tryBrace(line);
+    if (filler == -1 && firstChar != '{')
+        filler = tryCKeywords(line);
 
     // we don't know what to do, let's simply keep the indentation
     if (filler == -1)

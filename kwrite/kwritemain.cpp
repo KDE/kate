@@ -112,7 +112,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
   setupStatusBar();
 
   // signals for the statusbar
-  connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *)), this, SLOT(cursorPositionChanged(KTextEditor::View *)));
+  connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *, const KTextEditor::Cursor &)), this, SLOT(cursorPositionChanged(KTextEditor::View *)));
   connect(m_view, SIGNAL(viewModeChanged(KTextEditor::View *)), this, SLOT(viewModeChanged(KTextEditor::View *)));
   connect(m_view, SIGNAL(selectionChanged (KTextEditor::View *)), this, SLOT(selectionChanged (KTextEditor::View *)));
   connect(m_view, SIGNAL(informationMessage (KTextEditor::View *, const QString &)), this, SLOT(informationMessage (KTextEditor::View *, const QString &)));

@@ -104,7 +104,7 @@ function incIndent(text, alignment)
 function indentChar(c)
 {
     // todo: add maybe ":", for "public:, private:" etc
-    if (c != '{' || c != '}')
+    if (c != '{' && c != '}')
         return;
 
     readSettings();

@@ -37,14 +37,14 @@ KateIndentScriptImplAbstract::~KateIndentScriptImplAbstract()
 
 void KateIndentScriptImplAbstract::incRef()
 {
-  kDebug(13050)<<"KateIndentScriptImplAbstract::incRef()"<<endl;
-  m_refcount++;
+  ++m_refcount;
+  kDebug(13050)<<"KateIndentScriptImplAbstract::incRef(), now: "<<m_refcount<<endl;
 }
 
 void KateIndentScriptImplAbstract::decRef()
 {
-  kDebug(13050)<<"KateIndentScriptImplAbstract::decRef()"<<endl;
-  m_refcount--;
+  --m_refcount;
+  kDebug(13050)<<"KateIndentScriptImplAbstract::decRef(), now: "<<m_refcount<<endl;
 }
 
 

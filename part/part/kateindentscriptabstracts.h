@@ -64,15 +64,13 @@ class KateIndentScriptImplAbstract {
 
 class KateIndentScript {
   public:
-    KateIndentScript(KateIndentScriptImplAbstract *scr):m_scr(scr) { if (scr) scr->incRef(); }
-    ~KateIndentScript() {if (m_scr) m_scr->decRef();}
+    KateIndentScript(KateIndentScriptImplAbstract *scr):m_scr(scr) { }
+    ~KateIndentScript() {}
     KateIndentScript():m_scr(0) {}
-    KateIndentScript(const KateIndentScript &p):m_scr(p.m_scr){if (m_scr) m_scr->incRef();}
+    KateIndentScript(const KateIndentScript &p):m_scr(p.m_scr){}
     KateIndentScript &operator=(const KateIndentScript &p) {
       if (m_scr==p.m_scr) return *this;
-      if (m_scr) m_scr->decRef();
       m_scr=p.m_scr;
-      if (m_scr) m_scr->incRef();
       return *this;
     }
     /*operator KateIndentJScript*() const { return m_scr; }*/

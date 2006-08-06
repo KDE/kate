@@ -26,7 +26,7 @@
 //BEGIN global variables and functions
 // maximum number of lines we look backwards/forward to find out the indentation
 // level (the bigger the number, the longer might be the delay)
-var gLineDelimiter = 100;    // number
+var gLineDelimiter = 50;     // number
 
 // default settings. To read from current view/document, call readSettings()
 var gTabWidth = 8;           // number
@@ -56,6 +56,12 @@ function readSettings()
 }
 //END global variables and functions
 
+
+//BEGIN global variables to remember state
+// remember previous line and column (note: only set in indentNewLine)
+var gLastLine = -1;
+var gLastColumn = -1;
+//END global variables to remember state
 
 //BEGIN indentation functions
 /**
@@ -103,20 +109,21 @@ function incIndent(text, alignment)
 //BEGIN process character
 function indentChar(c)
 {
-    // todo: add maybe ":", for "public:, private:" etc
-    if (c != '{' && c != '}')
+    if (c != '{' && c != '}' && c != '/' && c != ':')
         return;
 
     readSettings();
 
     var line = view.cursorLine();
     var column = view.cursorColumnReal();
-    var firstPos = document.firstChar(line);
+    var firstPos = document.firstCharPos(line);
+    var lastPos = document.lastCharPos(line);
 
     debug("firstPos: " + firstPos);
     debug("column..: " + column);
+
     if (firstPos == column - 1 && c == '{') {
-        // todo: look for if etc.
+        // todo: maybe look for if etc.
         var filler = tryBrace(line);
         if (filler == -1)
             filler = tryCComment(line); // checks, whether we had a "*/"
@@ -124,26 +131,46 @@ function indentChar(c)
             filler = keepIndentation(line);
 
         if (filler != -1) {
-            var newColumn = column - (firstPos - filler.length);
-
             document.editBegin();
             if (firstPos > 0)
                 document.removeText(line, 0, line, firstPos);
             document.insertText(line, 0, filler);
-            view.setCursorPosition(line, newColumn);
+            view.setCursorPosition(line, filler.length + 1);
             document.editEnd();
         }
     } else if (firstPos == column - 1 && c == '}') {
         var filler = findOpeningBrace(line, column);
         if (filler != -1) {
-            var newColumn = column - (firstPos - filler.length);
-
             document.editBegin();
             if (firstPos > 0)
                 document.removeText(line, 0, line, firstPos);
             document.insertText(line, 0, filler);
-            view.setCursorPosition(line, newColumn);
+            view.setCursorPosition(line, filler.length + 1);
             document.editEnd();
+        }
+    } else if (c == '/' && lastPos == column - 1 && gLastLine == line && gLastColumn == column - 1) {
+        // try to snap the string "* /" to "*/"
+        var currentString = document.line(line);
+        if (currentString.search(/^(\s*)\*\s+\/\s*$/) != -1) {
+            currentString = RegExp.$1 + "*/";
+            document.editBegin();
+            document.removeLine(line);
+            document.insertLine(line, currentString);
+            view.setCursorPosition(line, currentString.length);
+            document.editEnd();
+        }
+    } else if (firstPos == column - 1 && c == ':') {
+        // todo: handle case, default, signals, private, public, protected, Q_SIGNALS
+        var filler = tryColon(line, column);
+        if (filler != -1) {
+//             var newColumn = column - (firstPos - filler.length);
+// 
+//             document.editBegin();
+//             if (firstPos > 0)
+//                 document.removeText(line, 0, line, firstPos);
+//             document.insertText(line, 0, filler);
+//             view.setCursorPosition(line, newColumn);
+//             document.editEnd();
         }
     }
 }
@@ -167,7 +194,7 @@ function findOpeningBrace(line, column)
     // note: no delimiter in this case, yet
     while (currentLine > 0 && count > 0) {
         --currentLine;
-        firstPos = document.firstChar(currentLine);
+        firstPos = document.firstCharPos(currentLine);
 
         // skip empty lines
         if (firstPos == -1)
@@ -195,9 +222,10 @@ function findOpeningBrace(line, column)
     if (count == 0)
     {
         debug("found matching { in line: " + currentLine);
-        indentation = indentString(currentString.substring(0, firstPos));
+        indentation = indentString(g50spaces.substring(0, document.firstCharPosVirtual(currentLine)));
     }
 
+    if (indentation != -1) debug("findOpeningBrace: success");
     return indentation;
 }
 //END process character
@@ -239,7 +267,7 @@ function inString(line)
     // go line up as long as the previous line ends with an escape character '\'
     while (currentLine >= 0) {
         currentString = document.line(currentLine -1 );
-        if (currentString.charAt(document.lastChar(currentLine - 1)) != '\\')
+        if (currentString.charAt(document.lastCharPos(currentLine - 1)) != '\\')
             break;
         --currentLine;
     }
@@ -259,7 +287,7 @@ function inString(line)
             } else if (char1 == "\"") {
                 insideString = !insideString;
                 if (insideString)
-                    indentation = currentString.substring(0, document.firstChar(currentLine) + 1);
+                    indentation = currentString.substring(0, document.firstCharPos(currentLine) + 1);
             }
         }
         ++currentLine;
@@ -281,7 +309,7 @@ function tryCComment(line)
         return -1;
 
     var currentString = document.line(currentLine);
-    var lastPos = document.lastChar(currentLine);
+    var lastPos = document.lastCharPos(currentLine);
     var indentation = -1;
 
     var notInCComment = false;
@@ -293,7 +321,7 @@ function tryCComment(line)
         notInCComment = true;
         // search non-empty line, then return leading white spaces
         while (currentLine >= 0 && lineDelimiter > 0) {
-            lastPos = document.lastChar(currentLine);
+            lastPos = document.lastCharPos(currentLine);
             if (lastPos != -1) {
                 break;
             }
@@ -314,13 +342,14 @@ function tryCComment(line)
             currentString = document.line(currentLine);
             startOfComment = currentString.indexOf("/*");
             if (startOfComment != -1) {
-                indentation = currentString.substring(0, document.firstChar(currentLine));
+                indentation = indentString(g50spaces.substring(0, document.firstCharPosVirtual(currentLine)));
                 break;
             }
             --currentLine;
             --lineDelimiter;
         }
-        return indentString(indentation);
+        if (indentation != -1) debug("tryCComment: success (1)");
+        return indentation;
     }
 
     // there previously was an empty line, in this case we honor the circumstances
@@ -332,19 +361,20 @@ function tryCComment(line)
     var char2 = currentString.charAt(firstPos + 1);
 
     if (char1 == '/' && char2 == '*') {
-        currentString.search(/^(\s*)/);
-        indentation = indentString(RegExp.$1);
+        indentation = indentString(g50spaces.substring(0, document.firstCharPosVirtual(currentLine)));
         indentation += " * ";
     } else if (char1 == '*' && (char2 == '' || char2 == ' ' || char2 == '\t')) {
-        currentString.search(/^(\s*)\*(\s*)/);
+        currentString.search(/^\s*\*(\s*)/);
         // in theory, we could search for opening /*, and use its indentation
         // and then one alignment character. Let's not do this for now, though.
-        var end = RegExp.$2;
-        indentation = indentString(RegExp.$1) + '*' + end;
+        var end = RegExp.$1;
+        indentation =
+            indentString(g50spaces.substring(0, document.firstCharPosVirtual(currentLine))) + '*' + end;
         if (indentation.charAt(indentation.length - 1) == '*')
             indentation += ' ';
     }
 
+    if (indentation != -1) debug("tryCComment: success (2)");
     return indentation;
 }
 
@@ -360,7 +390,7 @@ function tryCppComment(line)
     if (currentLine < 0)
         return -1;
 
-    var firstPos = document.firstChar(currentLine);
+    var firstPos = document.firstCharPos(currentLine);
 
     if (firstPos == -1)
         return -1;
@@ -387,10 +417,12 @@ function tryCppComment(line)
         }
         var ending = RegExp.$2;
         indentation = indentString(RegExp.$1) + ending;
-        if (lastNonSpace(indentation) == indentation.length - 1)
-            indentation += ' ';
+// if we want to force a space after //, remove the comments
+//        if (lastNonSpace(indentation) == indentation.length - 1)
+//            indentation += ' ';
     }
 
+    if (indentation != -1) debug("tryCppComment: success");
     return indentation;
 }
 
@@ -409,7 +441,7 @@ function tryBrace(line)
 
     // search non-empty line
     while (currentLine >= 0 && lineDelimiter > 0) {
-        lastPos = document.lastChar(currentLine);
+        lastPos = document.lastCharPos(currentLine);
         if (lastPos != -1) {
             break;
         }
@@ -426,15 +458,17 @@ function tryBrace(line)
 
     if (currentString.charAt(lastPos) == '{') {
         // take its indentation and add one indentation level
-        var firstPos = document.firstChar(currentLine);
-        indentation = incIndent(currentString.substring(0, firstPos));
+        var firstPosVirtual = document.firstCharPosVirtual(currentLine);
+        indentation = incIndent(g50spaces.substring(0, firstPosVirtual));
     }
 
+    if (indentation != -1) debug("tryBrace: success");
     return indentation;
 }
 
 /**
- * Check for "if" and "else" keywords, as we want to indent then.
+ * Check for if, else, while, do, switch, private, public, protected, signals,
+ * default, case etc... keywords, as we want to indent then.
  * Note: The code is written to be called *after* tryCComment and tryCppComment!
  */
 function tryCKeywords(line)
@@ -448,7 +482,7 @@ function tryCKeywords(line)
 
     // search non-empty line
     while (currentLine >= 0 && lineDelimiter > 0) {
-        lastPos = document.lastChar(currentLine);
+        lastPos = document.lastCharPos(currentLine);
         if (lastPos != -1) {
             break;
         }
@@ -461,17 +495,84 @@ function tryCKeywords(line)
 
     // found non-empty line
     var currentString = document.line(currentLine);
-    if (currentString.search(/^\s*(if|for|do|while|switch|[}]?\s*else)/) == -1)
+    if (currentString.search(/^\s*(if|for|do|while|switch|[}]?\s*else|((private|public|protected|case|default|signals|Q_SIGNALS).*:))/) == -1)
         return -1;
 //    var firstWord = RegExp.$1;
 //    debug("Found first word: " + firstWord);
     var lastChar = currentString.charAt(lastPos);
     var indentation = -1;
 
-    if (lastChar != ';') {
+    // try to ignore lines like: if (a) b; or if (a) { b; }
+    if (lastChar != ';' && lastChar != '}') {
         // take its indentation and add one indentation level
-        var firstPos = document.firstChar(currentLine);
-        indentation = incIndent(currentString.substring(0, firstPos));
+        var firstPosVirtual = document.firstCharPosVirtual(currentLine);
+        indentation = incIndent(g50spaces.substring(0, firstPosVirtual));
+    }
+
+    if (indentation != -1) debug("tryCKeywords: success");
+    return indentation;
+}
+
+/**
+ * Search for if, do, while, for, ... as we want to indent then.
+ * Return -1, if nothing useful found.
+ * Note: The code is written to be called *after* tryCComment and tryCppComment!
+ */
+function tryCondition(line)
+{
+    var currentLine = line - 1;
+    if (currentLine < 0)
+        return -1;
+
+    var lastPos = -1;
+    var lineDelimiter = gLineDelimiter;
+
+    // search non-empty line
+    while (currentLine >= 0 && lineDelimiter > 0) {
+        lastPos = document.lastCharPos(currentLine);
+        if (lastPos != -1) {
+            break;
+        }
+        --currentLine;
+        --lineDelimiter;
+    }
+
+    if (lastPos == -1)
+        return -1;
+
+    // found non-empty line
+    var currentString = document.line(currentLine);
+    var lastChar = currentString.charAt(lastPos);
+    var indentation = -1;
+
+    if (lastChar == ';'
+        && currentString.search(/^\s*(if\b|do\b|while\b|for)/) == -1)
+    {
+        // idea: we had something like:
+        //   if/while/for (expression)
+        //       statement();  <-- we catch this trailing ';'
+        // Now, look for a line that starts with if/for/while, that has one
+        // indent level less.
+        var indentLevel = document.firstCharPosVirtual(currentLine);
+        if (indentLevel == 0)
+            return -1;
+
+        var lineDelimiter = 10; // 10 limit search, hope this is a sane value
+        while (currentLine > 0 && lineDelimiter > 0) {
+            --currentLine;
+            --lineDelimiter;
+
+            var firstPos = document.firstCharPosVirtual(currentLine);
+            if (firstPos == -1)
+                continue;
+
+            if (firstPos < indentLevel) {
+                currentString = document.line(currentLine);
+                if (currentString.search(/^\s*(if\b|do\b|while\b|for)/) != -1)
+                    indentation = indentString(g50spaces.substring(0, firstPos));
+                break;
+            }
+        }
     }
 
     return indentation;
@@ -488,21 +589,21 @@ function keepIndentation(line)
         return -1;
 
     var indentation = -1;
-    var firstPos;
+    var firstPosVirtual;
     var lineDelimiter = gLineDelimiter;
 
     // search non-empty line, then return leading white spaces
     while (currentLine >= 0 && lineDelimiter > 0) {
-        firstPos = document.firstChar(currentLine);
-        if (firstPos != -1) {
-            var currentString = document.line(currentLine);
-            indentation = indentString(currentString.substring(0, firstPos));
+        firstPosVirtual = document.firstCharPosVirtual(currentLine);
+        if (firstPosVirtual != -1) {
+            indentation = indentString(g50spaces.substring(0, firstPosVirtual));
             break;
         }
         --currentLine;
         --lineDelimiter;
     }
 
+    if (indentation != -1) debug("keepIndentation: success");
     return indentation;
 }
 
@@ -514,7 +615,7 @@ function indentNewLine()
     var column = view.cursorColumnReal();
 
     var currentString = document.line(line);
-    var firstChar = currentString.charAt(document.firstChar(line));
+    var firstChar = currentString.charAt(document.firstCharPos(line));
 
 
     var filler = -1;
@@ -529,13 +630,15 @@ function indentNewLine()
         filler = tryBrace(line);
     if (filler == -1 && firstChar != '{')
         filler = tryCKeywords(line);
+    if (filler == -1)
+        filler = tryCondition(line);
 
     // we don't know what to do, let's simply keep the indentation
     if (filler == -1)
         filler = keepIndentation(line);
 
     if (filler != -1) {
-        var firstPos = document.firstChar(line);
+        var firstPos = document.firstCharPos(line);
 
         document.editBegin();
         if (firstPos > 0)
@@ -543,6 +646,13 @@ function indentNewLine()
         document.insertText(line, 0, filler);
         view.setCursorPosition(line, filler.length);
         document.editEnd();
+
+        // remember position of last action
+        gLastLine = line;
+        gLastColumn = filler.length;
+    } else {
+        gLastLine = -1;
+        gLastColumn = -1;
     }
 }
 //END process newline

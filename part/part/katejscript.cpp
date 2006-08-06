@@ -334,7 +334,7 @@ bool KateJScriptInterpreterContext::execute (KateView *view, const QString &scri
 
 // -------------------------------------------------------------------------
 /* Source for KateJSDocumentProtoTable.
-@begin KateJSDocumentProtoTable 23
+@begin KateJSDocumentProtoTable 25
 #
 # edit interface stuff + editBegin/End, this is nice start
 #

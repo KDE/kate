@@ -550,7 +550,7 @@ function tryCondition(line)
     var indentation = -1;
 
     if (lastChar == ';'
-        && currentString.search(/^\s*(if\b|do\b|while\b|for)/) == -1)
+        && currentString.search(/^\s*(if\b|[}]?\s*else|do\b|while\b|for)/) == -1)
     {
         // idea: we had something like:
         //   if/while/for (expression)
@@ -572,7 +572,7 @@ function tryCondition(line)
 
             if (firstPosVirtual < indentLevelVirtual) {
                 currentString = document.line(currentLine);
-                if (currentString.search(/^\s*(if\b|do\b|while\b|for)[^{]*$/) != -1)
+                if (currentString.search(/^\s*(if\b|[}]?\s*else|do\b|while\b|for)[^{]*$/) != -1)
                     indentation = indentString(firstPosVirtual);
                 break;
             }

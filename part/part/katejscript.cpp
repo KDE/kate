@@ -152,8 +152,10 @@ class KateJSDocument : public KJS::JSObject
       FullText,
       Text,
       TextLine,
-      FirstChar,
-      LastChar,
+      FirstCharPos,
+      FirstCharPosVirtual,
+      LastCharPos,
+      LastCharPosVirtual,
       Lines,
       Length,
       LineLength,
@@ -336,22 +338,24 @@ bool KateJScriptInterpreterContext::execute (KateView *view, const QString &scri
 #
 # edit interface stuff + editBegin/End, this is nice start
 #
-  textFull       KateJSDocument::FullText      DontDelete|Function 0
-  textRange      KateJSDocument::Text          DontDelete|Function 4
-  firstChar      KateJSDocument::FirstChar     DontDelete|Function 1
-  lastChar       KateJSDocument::LastChar      DontDelete|Function 1
-  line           KateJSDocument::TextLine      DontDelete|Function 1
-  lines          KateJSDocument::Lines         DontDelete|Function 0
-  length         KateJSDocument::Length        DontDelete|Function 0
-  lineLength     KateJSDocument::LineLength    DontDelete|Function 1
-  setText        KateJSDocument::SetText       DontDelete|Function 1
-  clear          KateJSDocument::Clear         DontDelete|Function 0
-  insertText     KateJSDocument::InsertText    DontDelete|Function 3
-  removeText     KateJSDocument::RemoveText    DontDelete|Function 4
-  insertLine     KateJSDocument::InsertLine    DontDelete|Function 2
-  removeLine     KateJSDocument::RemoveLine    DontDelete|Function 1
-  editBegin      KateJSDocument::EditBegin     DontDelete|Function 0
-  editEnd        KateJSDocument::EditEnd       DontDelete|Function 0
+  textFull             KateJSDocument::FullText             DontDelete|Function 0
+  textRange            KateJSDocument::Text                 DontDelete|Function 4
+  firstCharPos         KateJSDocument::FirstCharPos         DontDelete|Function 1
+  firstCharPosVirtual  KateJSDocument::FirstCharPosVirtual  DontDelete|Function 1
+  lastCharPos          KateJSDocument::LastCharPos          DontDelete|Function 1
+  lastCharPosVirtual   KateJSDocument::LastCharPosVirtual   DontDelete|Function 1
+  line                 KateJSDocument::TextLine             DontDelete|Function 1
+  lines                KateJSDocument::Lines                DontDelete|Function 0
+  length               KateJSDocument::Length               DontDelete|Function 0
+  lineLength           KateJSDocument::LineLength           DontDelete|Function 1
+  setText              KateJSDocument::SetText              DontDelete|Function 1
+  clear                KateJSDocument::Clear                DontDelete|Function 0
+  insertText           KateJSDocument::InsertText           DontDelete|Function 3
+  removeText           KateJSDocument::RemoveText           DontDelete|Function 4
+  insertLine           KateJSDocument::InsertLine           DontDelete|Function 2
+  removeLine           KateJSDocument::RemoveLine           DontDelete|Function 1
+  editBegin            KateJSDocument::EditBegin            DontDelete|Function 0
+  editEnd              KateJSDocument::EditEnd              DontDelete|Function 0
 #
 # methods from highlight (and around)
 #
@@ -399,14 +403,28 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     case KateJSDocument::Text:
       return KJS::String (doc->text(KTextEditor::Range(args[0]->toUInt32(exec), args[1]->toUInt32(exec), args[2]->toUInt32(exec), args[3]->toUInt32(exec))));
 
-    case KateJSDocument::FirstChar: {
+    case KateJSDocument::FirstCharPos: {
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       return KJS::Number(textLine ? textLine->firstChar() : -1);
     }
 
-    case KateJSDocument::LastChar: {
+    case KateJSDocument::LastCharPos: {
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       return KJS::Number(textLine ? textLine->lastChar() : -1);
+    }
+
+    case KateJSDocument::FirstCharPosVirtual: {
+      KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
+      int firstPos = textLine ? textLine->firstChar() : -1;
+      if (!textLine || firstPos == -1) return KJS::Number(-1);
+      return KJS::Number(textLine->positionWithTabs(firstPos, doc->config()->tabWidth()));
+    }
+
+    case KateJSDocument::LastCharPosVirtual: {
+      KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
+      int lastPos = textLine ? textLine->lastChar() : -1;
+      if (!textLine || lastPos == -1) return KJS::Number(-1);
+      return KJS::Number(textLine->positionWithTabs(lastPos, doc->config()->tabWidth()));
     }
 
     case KateJSDocument::TextLine:

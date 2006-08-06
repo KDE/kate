@@ -74,7 +74,7 @@ var gLastColumn = -1;
  */
 function indentString(count, alignment)
 {
-    if (!count || count < 0)
+    if (count == null || count < 0)
         return -1;
 
     // create indentation string
@@ -364,7 +364,7 @@ function tryCComment(line)
     var char2 = currentString.charAt(firstPos + 1);
 
     if (char1 == '/' && char2 == '*') {
-        indentation = indentString(0, document.firstCharPosVirtual(currentLine));
+        indentation = indentString(document.firstCharPosVirtual(currentLine));
         indentation += " * ";
     } else if (char1 == '*' && (char2 == '' || char2 == ' ' || char2 == '\t')) {
         currentString.search(/^\s*\*(\s*)/);

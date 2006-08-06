@@ -28,6 +28,7 @@
 #include <kactionmenu.h>
 
 class KateDocument;
+class KateIndentJScript;
 
 /**
  * This widget will be embedded into a modal dialog when clicking
@@ -547,7 +548,7 @@ class KateScriptIndent : public KateNormalIndent
 
     virtual uint modeNumber () const { return KateDocumentConfig::imScriptIndent; };
   private:
-    KateIndentScript m_script;
+    KateIndentJScript *m_script;
 };
 
 class ScriptIndentConfigPage : public IndenterConfigPage

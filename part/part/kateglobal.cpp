@@ -136,14 +136,11 @@ KateGlobal::KateGlobal ()
   // vm allocator
   m_vm = new KVMAllocator ();
 
-#ifndef Q_WS_WIN //todo
   // create script man (search scripts) + register commands
   m_jscriptManager = new KateJScriptManager ();
   KateCmd::self()->registerCommand (m_jscriptManager);
-  m_indentScriptManagers.append(new KateIndentJScriptManager());
-#else
-  m_jscriptManager = 0;
-#endif
+  m_indentScriptManager = new KateIndentJScriptManager();
+
   //
   // init the cmds
   //
@@ -174,10 +171,8 @@ KateGlobal::~KateGlobal()
   qDeleteAll (m_cmds);
 
   // cu manager
+  delete m_indentScriptManager;
   delete m_jscriptManager;
-
-  // cu ;)
-  qDeleteAll (m_indentScriptManagers);
 
   delete m_hlManager;
 
@@ -522,18 +517,6 @@ void KateGlobal::deregisterView ( KateView *view )
 {
   m_views.removeAll( view );
   KateGlobal::decRef ();
-}
-
-
-KateIndentScript KateGlobal::indentScript (const QString &scriptname)
-{
-  KateIndentScript result;
-  for (int i=0;i<m_indentScriptManagers.count();i++)
-  {
-    result=m_indentScriptManagers.at(i)->script(scriptname);
-    if (!result.isNull()) return result;
-  }
-  return result;
 }
 
 //BEGIN command interface

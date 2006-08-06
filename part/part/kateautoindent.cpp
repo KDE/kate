@@ -2391,7 +2391,8 @@ bool KateVarIndent::hasRelevantOpening( const KateDocCursor &end ) const
 KateScriptIndent::KateScriptIndent( KateDocument *doc )
   : KateNormalIndent( doc )
 {
-    m_script=KateGlobal::self()->indentScript ("script-indent-c-test");
+  // get pointer to script, never delete this...
+  m_script = KateGlobal::self()->indentScriptManager()->script ("script-indent-c-test");
 }
 
 KateScriptIndent::~KateScriptIndent()
@@ -2413,7 +2414,7 @@ void KateScriptIndent::processNewline( KateDocCursor &begin, bool needContinue )
     // FIXME: set view cursor to begin, as scripts can only access the cursor
     //        from the view.
     view->setCursorPosition(begin);
-    if( !m_script.processNewline( view, begin, needContinue , errorMsg ) )
+    if( !m_script->processNewline( view, begin, needContinue , errorMsg ) )
     {
       kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
     }
@@ -2436,7 +2437,7 @@ void KateScriptIndent::processChar( QChar c)
     QTime t;
     t.start();
     kDebug(13030)<<"calling m_script.processChar"<<endl;
-    if( !m_script.processChar( view, c , errorMsg ) )
+    if( !m_script->processChar( view, c , errorMsg ) )
     {
       kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
     }
@@ -2456,7 +2457,7 @@ void KateScriptIndent::processLine (KateDocCursor &line)
     QTime t;
     t.start();
     kDebug(13030)<<"calling m_script.processLine"<<endl;
-    if( !m_script.processLine( view, line , errorMsg ) )
+    if( !m_script->processLine( view, line , errorMsg ) )
     {
       kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
     }

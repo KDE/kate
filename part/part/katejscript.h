@@ -20,8 +20,6 @@
 #ifndef __kate_jscript_h__
 #define __kate_jscript_h__
 
-#include "kateindentscriptabstracts.h"
-
 #include <ktexteditor/commandinterface.h>
 
 #include <kdebug.h>
@@ -215,18 +213,36 @@ class KateJScriptManager : public KTextEditor::Command
     QHash<QString, KateJScriptManager::Script*> m_scripts;
 };
 
-class KateIndentJScriptImpl: public KateIndentScriptImplAbstract {
+class KateIndentJScriptManager;
+
+class KateIndentJScript {
   public:
-    KateIndentJScriptImpl(KateIndentScriptManagerAbstract *manager, const QString& internalName,
+    KateIndentJScript(KateIndentJScriptManager *manager, const QString& internalName,
         const QString  &filePath, const QString &niceName,
         const QString &license, bool hasCopyright, double version);
-    ~KateIndentJScriptImpl();
-    
-    virtual bool processChar( KateView *view, QChar c, QString &errorMsg );
-    virtual bool processLine( KateView *view, const KateDocCursor &line, QString &errorMsg );
-    virtual bool processNewline( KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg );
+    ~KateIndentJScript();
+
+    bool processChar( KateView *view, QChar c, QString &errorMsg );
+    bool processLine( KateView *view, const KateDocCursor &line, QString &errorMsg );
+    bool processNewline( KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg );
+
+  public:
+    QString internalName();
+    QString filePath();
+    QString niceName();
+    QString license();
+    QString copyright();
+    double version();
   protected:
-    virtual void decRef();
+    QString filePath() const {return m_filePath;}
+  private:
+    KateIndentJScriptManager *m_manager;
+    QString m_internalName;
+    QString m_filePath;
+    QString m_niceName;
+    QString m_license;
+    bool m_hasCopyright;
+    double m_version;
   private:
     KateJSView *m_viewWrapper;
     KateJSDocument *m_docWrapper;
@@ -236,14 +252,14 @@ class KateIndentJScriptImpl: public KateIndentScriptImplAbstract {
     void deleteInterpreter();
 };
 
-class KateIndentJScriptManager: public KateIndentScriptManagerAbstract
+class KateIndentJScriptManager
 {
 
   public:
     KateIndentJScriptManager ();
     virtual ~KateIndentJScriptManager ();
-    virtual KateIndentScript script(const QString &scriptname);
-    virtual QString copyright(KateIndentScriptImplAbstract* script);
+    virtual KateIndentJScript *script(const QString &scriptname) { return m_scripts[scriptname]; }
+    virtual QString copyright(KateIndentJScript* script);
   private:
     /**
      * go, search our scripts
@@ -252,8 +268,15 @@ class KateIndentJScriptManager: public KateIndentScriptManagerAbstract
     void collectScripts (bool force = false);
     void parseScriptHeader(const QString &filePath,
         QString *niceName,QString *license, bool *hasCopyright, QString *copyright,double *version);
-    QHash<QString, KateIndentJScriptImpl*> m_scripts;
+
+  private:
+    /**
+     * hash of all existing indenter scripts
+     */
+    QHash<QString, KateIndentJScript*> m_scripts;
 };
+
+
 
 #endif
 

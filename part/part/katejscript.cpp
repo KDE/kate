@@ -27,8 +27,6 @@
 #include "katehighlight.h"
 #include "katetextline.h"
 
-#include "kateindentscriptabstracts.h"
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -400,12 +398,12 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
 
     case KateJSDocument::Text:
       return KJS::String (doc->text(KTextEditor::Range(args[0]->toUInt32(exec), args[1]->toUInt32(exec), args[2]->toUInt32(exec), args[3]->toUInt32(exec))));
-    
+
     case KateJSDocument::FirstChar: {
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       return KJS::Number(textLine ? textLine->firstChar() : -1);
     }
-    
+
     case KateJSDocument::LastChar: {
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       return KJS::Number(textLine ? textLine->lastChar() : -1);
@@ -900,30 +898,29 @@ JSValue* KateJSIndenterProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
 
 //END
 
-//BEGIN KateIndentJScriptImpl
-KateIndentJScriptImpl::KateIndentJScriptImpl(KateIndentScriptManagerAbstract *manager,const QString& internalName,
+//BEGIN KateIndentJScript
+KateIndentJScript::KateIndentJScript(KateIndentJScriptManager *manager,const QString& internalName,
         const QString  &filePath, const QString &niceName,
         const QString &license, bool hasCopyright, double version):
-          KateIndentScriptImplAbstract(manager, internalName,filePath,niceName,license,hasCopyright,version),m_indenter(0),m_interpreter(0)
+        m_manager(manager),
+        m_internalName (internalName),
+        m_filePath (filePath),
+        m_niceName(niceName),
+        m_license(license),
+        m_hasCopyright (hasCopyright),
+        m_version(version),
+        m_indenter(0),
+        m_interpreter(0)
 {
 }
 
 
-KateIndentJScriptImpl::~KateIndentJScriptImpl()
+KateIndentJScript::~KateIndentJScript()
 {
   deleteInterpreter();
 }
 
-void KateIndentJScriptImpl::decRef()
-{
-  KateIndentScriptImplAbstract::decRef();
-  if (refCount()==0)
-  {
-    deleteInterpreter();
-  }
-}
-
-void KateIndentJScriptImpl::deleteInterpreter()
+void KateIndentJScript::deleteInterpreter()
 {
     m_docWrapper=0;
     m_viewWrapper=0;
@@ -933,7 +930,7 @@ void KateIndentJScriptImpl::deleteInterpreter()
     m_interpreter=0;
 }
 
-bool KateIndentJScriptImpl::setupInterpreter(QString &errorMsg)
+bool KateIndentJScript::setupInterpreter(QString &errorMsg)
 {
   if (!m_interpreter)
   {
@@ -1033,34 +1030,42 @@ inline static bool kateIndentJScriptCall(KateView *view, QString &errorMsg, Kate
   return true;
 }
 
-bool KateIndentJScriptImpl::processChar(KateView *view, QChar c, QString &errorMsg )
+bool KateIndentJScript::processChar(KateView *view, QChar c, QString &errorMsg )
 {
 
-  kDebug(13050)<<"KateIndentJScriptImpl::processChar"<<endl;
+  kDebug(13050)<<"KateIndentJScript::processChar"<<endl;
   if (!setupInterpreter(errorMsg)) return false;
   KJS::List params;
   params.append(KJS::String(QString(c)));
   return kateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("onchar"),params);
 }
 
-bool KateIndentJScriptImpl::processLine(KateView *view, const KateDocCursor &line, QString &errorMsg )
+bool KateIndentJScript::processLine(KateView *view, const KateDocCursor &line, QString &errorMsg )
 {
-  kDebug(13050)<<"KateIndentJScriptImpl::processLine"<<endl;
+  kDebug(13050)<<"KateIndentJScript::processLine"<<endl;
   if (!setupInterpreter(errorMsg)) return false;
   return kateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("online"),KJS::List());
 }
 
-bool KateIndentJScriptImpl::processNewline( class KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg )
+bool KateIndentJScript::processNewline( class KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg )
 {
-  kDebug(13050)<<"KateIndentJScriptImpl::processNewline"<<endl;
+  kDebug(13050)<<"KateIndentJScript::processNewline"<<endl;
   if (!setupInterpreter(errorMsg)) return false;
   kDebug(13050)<<"setup done"<<endl;
   return kateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("onnewline"),KJS::List());
 }
+
+QString KateIndentJScript::internalName() { return m_internalName;}
+QString KateIndentJScript::filePath() { return m_filePath;}
+QString KateIndentJScript::niceName() { return m_niceName;}
+QString KateIndentJScript::license()  { if (!m_hasCopyright) return i18n("tainted, no copyright notice. license(%1)", m_license); else return m_license;}
+QString KateIndentJScript::copyright() { if (!m_hasCopyright) return i18n("Script has no copyright notice"); else return m_manager->copyright(this);}
+double KateIndentJScript::version() { return m_version;}
+
 //END
 
 //BEGIN KateIndentJScriptManager
-KateIndentJScriptManager::KateIndentJScriptManager():KateIndentScriptManagerAbstract()
+KateIndentJScriptManager::KateIndentJScriptManager()
 {
   collectScripts ();
 }
@@ -1113,7 +1118,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
         config.setGroup(Group);
 	if (sbuf.st_mtime == config.readEntry("lastModified",0)) {
 	        QString filePath=*it;
-	        QString internalName=config.readEntry("internlName","KATE-ERROR");
+	        QString internalName=config.readEntry("internalName","KATE-ERROR");
 	        if (internalName=="KATE-ERROR") readnew=true;
 	        else
 	        {
@@ -1121,7 +1126,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
 	          QString license=config.readEntry("license",i18n("(Unknown)"));
 	          bool hasCopyright=config.readEntry("hasCopyright", false);
 	          double  version=config.readEntry("version", 0.0);
-	          KateIndentJScriptImpl *s=new KateIndentJScriptImpl(this,
+	          KateIndentJScript *s=new KateIndentJScript(this,
 	            internalName,filePath,niceName,license,hasCopyright,version);
 	          m_scripts.insert (internalName, s);
 	        }
@@ -1152,7 +1157,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
         config.writeEntry("hasCopyright",hasCopyright);
         config.writeEntry("copyright",copyright);
         config.writeEntry("version",version);
-        KateIndentJScriptImpl *s=new KateIndentJScriptImpl(this,
+        KateIndentJScript *s=new KateIndentJScript(this,
           internalName,filePath,niceName,license,hasCopyright,version);
         m_scripts.insert (internalName, s);
     }
@@ -1162,13 +1167,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
   config.sync();
 }
 
-KateIndentScript KateIndentJScriptManager::script(const QString &scriptname) {
-  KateIndentJScriptImpl *s=m_scripts[scriptname];
-  kDebug(13050)<<scriptname<<"=="<<s<<endl;
-  return KateIndentScript(s);
-}
-
-QString KateIndentJScriptManager::copyright(KateIndentScriptImplAbstract* script) {
+QString KateIndentJScriptManager::copyright(KateIndentJScript* script) {
 	if (!script) return i18n("Error, no script object specified");
 	QString Group="Cache "+ script->filePath();
 	KConfig config("katepartindentjscriptrc", false, false);

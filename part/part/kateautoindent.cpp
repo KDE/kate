@@ -35,23 +35,27 @@
 
 //BEGIN KateAutoIndent
 
-KateAutoIndent *KateAutoIndent::createIndenter (KateDocument *doc, uint mode)
+KateAutoIndent *KateAutoIndent::createIndenter (KateDocument *doc, const QString &name)
 {
-  if (mode == KateDocumentConfig::imNormal)
+  if ( name == QString ("normal") )
     return new KateNormalIndent (doc);
-  else if (mode == KateDocumentConfig::imCStyle)
+  else if ( name == QString ("cstyle") )
     return new KateCSmartIndent (doc);
-  else if (mode == KateDocumentConfig::imPythonStyle)
+  else if ( name == QString ("python") )
     return new KatePythonIndent (doc);
-  else if (mode == KateDocumentConfig::imXmlStyle)
+  else if ( name == QString ("xml") )
     return new KateXmlIndent (doc);
-  else if (mode == KateDocumentConfig::imCSAndS)
+  else if ( name == QString ("csands") )
     return new KateCSAndSIndent (doc);
-  else if ( mode == KateDocumentConfig::imVarIndent )
+  else if ( name  == QString( "varindent" ) )
     return new KateVarIndent ( doc );
-  else if ( mode == KateDocumentConfig::imScriptIndent)
-    return new KateScriptIndent ( doc );
 
+  // handle script indenters
+  KateIndentJScript *script = KateGlobal::self()->indentScriptManager()->script(name);
+  if ( script )
+    return new KateScriptIndent ( script, doc );
+
+  // none
   return new KateAutoIndent (doc);
 }
 
@@ -59,76 +63,68 @@ QStringList KateAutoIndent::listModes ()
 {
   QStringList l;
 
-  l << modeDescription(KateDocumentConfig::imNone);
-  l << modeDescription(KateDocumentConfig::imNormal);
-  l << modeDescription(KateDocumentConfig::imCStyle);
-  l << modeDescription(KateDocumentConfig::imPythonStyle);
-  l << modeDescription(KateDocumentConfig::imXmlStyle);
-  l << modeDescription(KateDocumentConfig::imCSAndS);
-  l << modeDescription(KateDocumentConfig::imVarIndent);
-  l << modeDescription(KateDocumentConfig::imScriptIndent);
+  for (int i = 0; i < modeCount(); ++i)
+    l << modeDescription(i);
 
   return l;
 }
 
+int KateAutoIndent::modeCount ()
+{
+  // inbuild modes + scripts
+  return 7 +  KateGlobal::self()->indentScriptManager()->scripts();
+}
+
+
 QString KateAutoIndent::modeName (uint mode)
 {
-  if (mode == KateDocumentConfig::imNormal)
-    return QString ("normal");
-  else if (mode == KateDocumentConfig::imCStyle)
-    return QString ("cstyle");
-  else if (mode == KateDocumentConfig::imPythonStyle)
-    return QString ("python");
-  else if (mode == KateDocumentConfig::imXmlStyle)
-    return QString ("xml");
-  else if (mode == KateDocumentConfig::imCSAndS)
-    return QString ("csands");
-  else if ( mode  == KateDocumentConfig::imVarIndent )
-    return QString( "varindent" );
-  else if ( mode  == KateDocumentConfig::imScriptIndent )
-    return QString( "scriptindent" );
+  if (mode == 0 || mode >= modeCount ())
+    return QString ("none");
 
-  return QString ("none");
+  if (mode == 1)
+    return QString ("normal");
+  else if (mode == 2)
+    return QString ("cstyle");
+  else if (mode == 3)
+    return QString ("python");
+  else if (mode == 4)
+    return QString ("xml");
+  else if (mode == 5)
+    return QString ("csands");
+  else if ( mode  == 6)
+    return QString( "varindent" );
+
+  return KateGlobal::self()->indentScriptManager()->scriptByIndex(mode-7)->internalName ();
 }
 
 QString KateAutoIndent::modeDescription (uint mode)
 {
-  if (mode == KateDocumentConfig::imNormal)
-    return i18n ("Normal");
-  else if (mode == KateDocumentConfig::imCStyle)
-    return i18n ("C Style");
-  else if (mode == KateDocumentConfig::imPythonStyle)
-    return i18n ("Python Style");
-  else if (mode == KateDocumentConfig::imXmlStyle)
-    return i18n ("XML Style");
-  else if (mode == KateDocumentConfig::imCSAndS)
-    return i18n ("S&S C Style");
-  else if ( mode == KateDocumentConfig::imVarIndent )
-    return i18n("Variable Based Indenter");
-  else if ( mode == KateDocumentConfig::imScriptIndent )
-    return i18n("JavaScript Indenter");
+  if (mode == 0 || mode >= modeCount ())
+    return i18n ("None");
 
-  return i18n ("None");
+  if (mode == 1)
+    return i18n ("Normal");
+  else if (mode == 2)
+    return i18n ("C Style");
+  else if (mode == 3)
+    return i18n ("Python Style");
+  else if (mode == 4)
+    return i18n ("XML Style");
+  else if (mode == 5)
+    return i18n ("S&S C Style");
+  else if ( mode == 6 )
+    return i18n("Variable Based Indenter");
+
+  return KateGlobal::self()->indentScriptManager()->scriptByIndex(mode-7)->niceName ();
 }
 
 uint KateAutoIndent::modeNumber (const QString &name)
 {
-  if (modeName(KateDocumentConfig::imNormal) == name)
-    return KateDocumentConfig::imNormal;
-  else if (modeName(KateDocumentConfig::imCStyle) == name)
-    return KateDocumentConfig::imCStyle;
-  else if (modeName(KateDocumentConfig::imPythonStyle) == name)
-    return KateDocumentConfig::imPythonStyle;
-  else if (modeName(KateDocumentConfig::imXmlStyle) == name)
-    return KateDocumentConfig::imXmlStyle;
-  else if (modeName(KateDocumentConfig::imCSAndS) == name)
-    return KateDocumentConfig::imCSAndS;
-  else if ( modeName( KateDocumentConfig::imVarIndent ) == name )
-    return KateDocumentConfig::imVarIndent;
-  else if ( modeName( KateDocumentConfig::imScriptIndent ) == name )
-    return KateDocumentConfig::imScriptIndent;
+  for (int i = 0; i < modeCount(); ++i)
+    if (modeName(i) == name)
+      return i;
 
-  return KateDocumentConfig::imNone;
+  return 0;
 }
 
 bool KateAutoIndent::hasConfigPage (uint /*mode*/)
@@ -178,7 +174,7 @@ void KateViewIndentationAction::slotAboutToShow()
     action->setCheckable( true );
     action->setData( z );
 
-    if ( doc->config()->indentationMode() == (uint)z )
+    if ( doc->config()->indentationMode() == KateAutoIndent::modeName (z) )
       action->setChecked( true );
   }
 
@@ -188,8 +184,8 @@ void KateViewIndentationAction::slotAboutToShow()
 
 void KateViewIndentationAction::setMode (QAction *action)
 {
-  uint mode = action->data().toUInt();
-  doc->config()->setIndentationMode(mode);
+  // set new mode
+  doc->config()->setIndentationMode(KateAutoIndent::modeName (action->data().toInt()));
 }
 //END KateViewIndentationAction
 
@@ -2388,11 +2384,9 @@ bool KateVarIndent::hasRelevantOpening( const KateDocCursor &end ) const
 //END KateVarIndent
 
 //BEGIN KateScriptIndent
-KateScriptIndent::KateScriptIndent( KateDocument *doc )
-  : KateNormalIndent( doc )
+KateScriptIndent::KateScriptIndent( KateIndentJScript *script, KateDocument *doc )
+  : KateNormalIndent( doc ), m_script (script)
 {
-  // get pointer to script, never delete this...
-  m_script = KateGlobal::self()->indentScriptManager()->script ("script-indent-c-test");
 }
 
 KateScriptIndent::~KateScriptIndent()

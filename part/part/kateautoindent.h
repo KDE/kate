@@ -77,10 +77,10 @@ class KateAutoIndent
     /**
      * Create an indenter
      * @param doc document for the indenter
-     * @param mode indention mode wanted
+     * @param name indention mode wanted
      * @return created autoindention object
      */
-    static KateAutoIndent *createIndenter (KateDocument *doc, uint mode);
+    static KateAutoIndent *createIndenter (KateDocument *doc, const QString &name);
 
     /**
      * List all possible modes by name
@@ -108,6 +108,12 @@ class KateAutoIndent
      * @return mode index
      */
     static uint modeNumber (const QString &name);
+
+    /**
+     * count of modes
+     * @return number of existing modes
+     */
+    static int modeCount ();
 
     /**
      * Config page support
@@ -176,16 +182,15 @@ class KateAutoIndent
     virtual bool canProcessLine() const { return false; }
 
     /**
-     * Mode index of this mode
-     * @return modeNumber
-     */
-    virtual uint modeNumber () const { return KateDocumentConfig::imNone; };
-
-    /**
      * Indents the specified line by the number of levels
      * specified by change.
      */
     virtual void indent ( KateView *view, uint line, int change );
+
+    /**
+     * mode name
+     */
+    virtual QString modeName () { return QString (""); }
 
   protected:
     KateDocument *doc;
@@ -279,10 +284,9 @@ public:
   virtual void indent ( KateView *view, uint line, int change );
 
     /**
-     * Mode index of this mode
-     * @return modeNumber
+     * mode name
      */
-  virtual uint modeNumber () const { return KateDocumentConfig::imNormal; };
+    virtual QString modeName () { return QString ("normal"); }
 
 protected:
 
@@ -361,7 +365,10 @@ class KateCSmartIndent : public KateNormalIndent
 
     virtual bool canProcessLine() const { return true; }
 
-    virtual uint modeNumber () const { return KateDocumentConfig::imCStyle; };
+    /**
+     * mode name
+     */
+    virtual QString modeName () { return QString ("cstyle"); }
 
   private:
     uint calcIndent (KateDocCursor &begin, bool needContinue);
@@ -384,7 +391,10 @@ class KatePythonIndent : public KateNormalIndent
 
     virtual void processNewline (KateDocCursor &begin, bool needContinue);
 
-    virtual uint modeNumber () const { return KateDocumentConfig::imPythonStyle; };
+    /**
+     * mode name
+     */
+    virtual QString modeName () { return QString ("python"); }
 
   private:
     int calcExtra (int &prevBlock, int &pos, KateDocCursor &end);
@@ -400,12 +410,16 @@ class KateXmlIndent : public KateNormalIndent
     KateXmlIndent (KateDocument *doc);
     ~KateXmlIndent ();
 
-    virtual uint modeNumber () const { return KateDocumentConfig::imXmlStyle; }
     virtual void processNewline (KateDocCursor &begin, bool needContinue);
     virtual void processChar (QChar c);
     virtual void processLine (KateDocCursor &line);
     virtual bool canProcessLine() const { return true; }
     virtual void processSection (const KateDocCursor &begin, const KateDocCursor &end);
+
+    /**
+     * mode name
+     */
+    virtual QString modeName () { return QString ("xml"); }
 
   private:
     // sets the indentation of a single line based on previous line
@@ -435,7 +449,10 @@ class KateCSAndSIndent : public KateNormalIndent
 
     virtual bool canProcessLine() const { return true; }
 
-    virtual uint modeNumber () const { return KateDocumentConfig::imCSAndS; };
+    /**
+     * mode name
+     */
+    virtual QString modeName () { return QString ("csands"); }
 
   private:
     void updateIndentString();
@@ -507,7 +524,10 @@ class KateVarIndent :  public QObject, public KateNormalIndent
 
     virtual bool canProcessLine() const { return true; }
 
-    virtual uint modeNumber () const { return KateDocumentConfig::imVarIndent; };
+    /**
+     * mode name
+     */
+    virtual QString modeName () { return QString ("varindent"); }
 
   private Q_SLOTS:
     void slotVariableChanged( KTextEditor::Document*, const QString&, const QString&);
@@ -535,7 +555,7 @@ class KateVarIndent :  public QObject, public KateNormalIndent
 class KateScriptIndent : public KateNormalIndent
 {
   public:
-    KateScriptIndent( KateDocument *doc );
+    KateScriptIndent( KateIndentJScript *script, KateDocument *doc );
     ~KateScriptIndent();
 
     virtual void processNewline( KateDocCursor &begin, bool needContinue );
@@ -546,7 +566,11 @@ class KateScriptIndent : public KateNormalIndent
 
     virtual bool canProcessLine() const { return true; }
 
-    virtual uint modeNumber () const { return KateDocumentConfig::imScriptIndent; };
+    /**
+     * mode name
+     */
+    virtual QString modeName () { return QString ("scriptindent"); }
+
   private:
     KateIndentJScript *m_script;
 };

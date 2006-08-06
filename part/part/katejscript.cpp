@@ -505,7 +505,7 @@ KJS::JSValue* KateJSDocument::getValueProperty(KJS::ExecState *exec, int token) 
       return KJS::Number( doc->config()->indentationWidth() );
 
     case KateJSDocument::IndentMode:
-      return KJS::String( KateAutoIndent::modeName( doc->config()->indentationMode() ) );
+      return KJS::String( doc->config()->indentationMode() );
 
     case KateJSDocument::HighlightMode:
       return KJS::String( doc->hlModeName( doc->hlMode() ) );
@@ -1147,6 +1147,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
 	          KateIndentJScript *s=new KateIndentJScript(this,
 	            internalName,filePath,niceName,license,hasCopyright,version);
 	          m_scripts.insert (internalName, s);
+                  m_scriptsList.append (s);
 	        }
 	} else readnew=true;
     }
@@ -1178,6 +1179,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
         KateIndentJScript *s=new KateIndentJScript(this,
           internalName,filePath,niceName,license,hasCopyright,version);
         m_scripts.insert (internalName, s);
+        m_scriptsList.append (s);
     }
   }
 

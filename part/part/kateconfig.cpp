@@ -156,7 +156,7 @@ void KateDocumentConfig::readConfig (KConfig *config)
 
   setIndentationWidth (config->readEntry("Indentation Width", 2));
 
-  setIndentationMode (config->readEntry("Indentation Mode", int(KateDocumentConfig::imNone)));
+  setIndentationMode (config->readEntry("Indentation Mode", ""));
 
   setTabHandling (config->readEntry("Tab Handling", int(KateDocumentConfig::tabSmart)));
 
@@ -285,7 +285,7 @@ void KateDocumentConfig::setIndentationWidth (int indentationWidth)
   configEnd ();
 }
 
-uint KateDocumentConfig::indentationMode () const
+const QString &KateDocumentConfig::indentationMode () const
 {
   if (m_indentationModeSet || isGlobal())
     return m_indentationMode;
@@ -293,7 +293,7 @@ uint KateDocumentConfig::indentationMode () const
   return s_global->indentationMode();
 }
 
-void KateDocumentConfig::setIndentationMode (uint indentationMode)
+void KateDocumentConfig::setIndentationMode (const QString &indentationMode)
 {
   configStart ();
 

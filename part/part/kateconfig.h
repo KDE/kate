@@ -130,20 +130,8 @@ class KateDocumentConfig : public KateConfig
     int indentationWidth () const;
     void setIndentationWidth (int indentationWidth);
 
-    enum IndentationMode
-    {
-      imNone = 0,
-      imNormal = 1,
-      imCStyle = 2,
-      imPythonStyle = 3,
-      imXmlStyle = 4,
-      imCSAndS = 5,
-      imVarIndent = 6,
-      imScriptIndent = 7
-    };
-
-    uint indentationMode () const;
-    void setIndentationMode (uint identationMode);
+    const QString &indentationMode () const;
+    void setIndentationMode (const QString &identationMode);
 
     enum TabHandling
     {
@@ -243,7 +231,7 @@ class KateDocumentConfig : public KateConfig
   private:
     int m_tabWidth;
     int m_indentationWidth;
-    uint m_indentationMode;
+    QString m_indentationMode;
     uint m_tabHandling;
     bool m_wordWrap;
     int m_wordWrapAt;

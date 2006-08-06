@@ -465,7 +465,7 @@ bool KateBuffer::openFile (const QString &m_file)
     KateTextLine::Ptr textLine (new KateTextLine ());
     m_lines.push_back (textLine);
   }
-  
+
   // fix region tree
   m_regionTree.fixRoot (m_lines.size());
 
@@ -698,7 +698,7 @@ void KateBuffer::setHighlight(int hlMode)
 
     // try to set indentation
     if (!h->indentation().isEmpty())
-      m_doc->config()->setIndentationMode (KateAutoIndent::modeNumber(h->indentation()));
+      m_doc->config()->setIndentationMode (h->indentation());
 
     m_highlight = h;
 
@@ -723,12 +723,12 @@ void KateBuffer::updatePreviousNotEmptyLine(int current_line,bool addindent,int 
   KateTextLine::Ptr textLine;
   do {
     if (current_line == 0) return;
-    
+
     --current_line;
-   
+
     textLine = m_lines[current_line];
   } while (textLine->firstChar()==-1);
-  
+
   kDebug(13020)<<"updatePreviousNotEmptyLine: updating line:"<<current_line<<endl;
   QVector<int> foldingList=textLine->foldingListArray();
   while ( (foldingList.size()>0)  && ( abs(foldingList[foldingList.size()-2])==1)) {
@@ -736,10 +736,10 @@ void KateBuffer::updatePreviousNotEmptyLine(int current_line,bool addindent,int 
   }
   addIndentBasedFoldingInformation(foldingList,addindent,deindent);
   textLine->setFoldingList(foldingList);
-  
+
   bool retVal_folding = false;
   m_regionTree.updateLine (current_line, &foldingList, &retVal_folding, true,false);
-  
+
   emit tagLines (current_line, current_line);
 }
 

@@ -4215,7 +4215,7 @@ void KateDocument::updateConfig ()
   }
 
   // switch indenter if needed
-  if (m_indenter->modeNumber() != m_config->indentationMode())
+  if (m_indenter->modeName() != m_config->indentationMode())
   {
     delete m_indenter;
     m_indenter = KateAutoIndent::createIndenter ( this, m_config->indentationMode() );
@@ -4415,10 +4415,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         m_config->setIndentationWidth( n );
       else if ( var == "indent-mode" )
       {
-        if ( checkIntValue( val, &n ) )
-          m_config->setIndentationMode( n );
-        else
-          m_config->setIndentationMode( KateAutoIndent::modeNumber( val) );
+        m_config->setIndentationMode( val );
       }
       else if ( var == "word-wrap-column" && n > 0  && checkIntValue( val, &n ) ) // uint, but hard word wrap at 0 will be no fun ;)
         m_config->setWordWrapAt( n );

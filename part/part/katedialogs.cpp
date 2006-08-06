@@ -273,11 +273,14 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
 
 void KateIndentConfigTab::indenterSelected (int index)
 {
-  if (index == KateDocumentConfig::imCStyle || index == KateDocumentConfig::imCSAndS)
+#ifdef __GNUC__
+#warning fixme
+#endif
+  /*if (index == KateDocumentConfig::imCStyle || index == KateDocumentConfig::imCSAndS)
     opt[3]->setEnabled(true);
   else
     opt[3]->setEnabled(false);
-
+*/
   m_configPage->setEnabled( KateAutoIndent::hasConfigPage(index) );
 }
 
@@ -332,7 +335,7 @@ void KateIndentConfigTab::apply ()
   KateDocumentConfig::global()->setConfigFlags(configFlags);
   KateDocumentConfig::global()->setIndentationWidth(indentationWidth->value());
 
-  KateDocumentConfig::global()->setIndentationMode(m_indentMode->currentIndex());
+  KateDocumentConfig::global()->setIndentationMode(KateAutoIndent::modeName(m_indentMode->currentIndex()));
 
   if (rb1->isChecked())
     KateDocumentConfig::global()->setTabHandling( KateDocumentConfig::tabInsertsTab );
@@ -350,7 +353,7 @@ void KateIndentConfigTab::reload ()
   rb2->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabIndents );
   rb3->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabSmart );
 
-  m_indentMode->setCurrentIndex (KateDocumentConfig::global()->indentationMode());
+  m_indentMode->setCurrentIndex (KateAutoIndent::modeNumber (KateDocumentConfig::global()->indentationMode()));
 
   indenterSelected (m_indentMode->currentIndex());
 }
@@ -652,7 +655,6 @@ void KateEditKeyConfiguration::apply()
 KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   : KateConfigPage( parent )
 {
-  int configFlags = KateDocumentConfig::global()->configFlags();
   ui = new Ui::OpenSaveConfigWidget();
   ui->setupUi( this );
 //  layout->setSpacing( KDialog::spacingHint() );

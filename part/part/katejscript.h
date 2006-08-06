@@ -25,6 +25,7 @@
 #include <kdebug.h>
 
 #include <QHash>
+#include <QList>
 
 /*
  * Some common stuff
@@ -258,7 +259,11 @@ class KateIndentJScriptManager
   public:
     KateIndentJScriptManager ();
     virtual ~KateIndentJScriptManager ();
-    virtual KateIndentJScript *script(const QString &scriptname) { return m_scripts[scriptname]; }
+    virtual KateIndentJScript *script(const QString &scriptname) { return m_scripts.value(scriptname); }
+
+    int scripts () { return m_scriptsList.size(); }
+    KateIndentJScript *scriptByIndex (int index) { return m_scriptsList[index]; }
+
     virtual QString copyright(KateIndentJScript* script);
   private:
     /**
@@ -274,6 +279,7 @@ class KateIndentJScriptManager
      * hash of all existing indenter scripts
      */
     QHash<QString, KateIndentJScript*> m_scripts;
+    QList<KateIndentJScript*> m_scriptsList;
 };
 
 

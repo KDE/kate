@@ -1,16 +1,7 @@
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-lua.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-lua.h )
-
+# includes
 include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kutils ${CMAKE_SOURCE_DIR}/kde3support/kdeui)
 
-
-########### next target ###############
-#CREATE_HASH_TABLE = $(top_srcdir)/kjs/create_hash_table
-#
-#katejscript.lut.h : $(srcdir)/katejscript.cpp $(CREATE_HASH_TABLE)
-#	$(PERL) $(CREATE_HASH_TABLE) $(srcdir)/katejscript.cpp > $@
-#katejscript.lo: katejscript.lut.h
-
+# kjs hash stuff
 set(CREATE_HASH_TABLE ${CMAKE_SOURCE_DIR}/kjs/create_hash_table )
 
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
@@ -21,7 +12,7 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
 
 macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
 
-
+# our sources
 set(katepart_PART_SRCS
 katesearch.cpp
 katebuffer.cpp
@@ -52,7 +43,6 @@ katetemplatehandler.cpp
 katespell.cpp
 kateprinter.cpp
 kateindentscriptabstracts.cpp
-kateluascript.cpp
 katerange.cpp
 katesmartrange.cpp
 kateglobal.cpp
@@ -96,17 +86,9 @@ kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 
 kde4_add_plugin(katepart ${katepart_PART_SRCS})
 
+# linking
+target_link_libraries(katepart ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kutils kjs knewstuff kde3support )
 
-target_link_libraries(katepart  ${KDE4_KDECORE_LIBS} ktexteditor
-kdeprint kutils kjs knewstuff kde3support )
-
+# install the stuff
 kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} katepart )
 install(TARGETS katepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
-
-
-########### install files ###############
-
-
-
-
-

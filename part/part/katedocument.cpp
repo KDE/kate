@@ -44,6 +44,7 @@
 #include "kateedit.h"
 #include "katebuffer.h"
 #include "kateundo.h"
+#include "katejscript.h"
 
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>

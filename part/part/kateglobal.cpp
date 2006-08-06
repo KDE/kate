@@ -30,7 +30,6 @@
 #ifndef Q_WS_WIN //todo
 #include "katejscript.h"
 #endif
-#include "kateluascript.h"
 #include "katecmd.h"
 #include "katecmdactionmanager.h"
 #include "katebuffer.h"
@@ -144,10 +143,6 @@ KateGlobal::KateGlobal ()
   m_indentScriptManagers.append(new KateIndentJScriptManager());
 #else
   m_jscriptManager = 0;
-#endif
-
-#ifdef HAVE_LUA
-  m_indentScriptManagers.append(new KateLUAIndentScriptManager());
 #endif
   //
   // init the cmds

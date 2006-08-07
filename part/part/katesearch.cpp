@@ -104,7 +104,8 @@ void KateSearch::find()
   if( findDialog->exec() == QDialog::Accepted ) {
     s_searchList =  findDialog->findHistory () ;
     // Do *not* remove the QString() wrapping, it fixes a nasty crash
-    find( QString(s_searchList.first()), findDialog->options(), true, true );
+    if (!s_searchList.isEmpty())
+      find( QString(s_searchList.first()), findDialog->options(), true, true );
   }
 
   delete findDialog;

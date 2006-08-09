@@ -1460,8 +1460,8 @@ void KateView::selectWord( const KTextEditor::Cursor& cursor )
 
   len = textLine->length();
   start = end = cursor.column();
-  while (start > 0 && m_doc->highlight()->isInWord(textLine->getChar(start - 1), textLine->attribute(start - 1))) start--;
-  while (end < len && m_doc->highlight()->isInWord(textLine->getChar(end), textLine->attribute(start - 1))) end++;
+  while (start > 0 && m_doc->highlight()->isInWord(textLine->at(start - 1), textLine->attribute(start - 1))) start--;
+  while (end < len && m_doc->highlight()->isInWord(textLine->at(end), textLine->attribute(start - 1))) end++;
   if (end <= start) return;
 
   setSelection (KTextEditor::Range(cursor.line(), start, cursor.line(), end));
@@ -1652,7 +1652,7 @@ void KateView::lineAsHTML (KateTextLine::Ptr line, int startCol, int length, QTe
         (*outputStream) << "</i>";
 
       // write the actual character :
-      (*outputStream) << Qt::escape(QString(line->getChar(curPos)));
+      (*outputStream) << Qt::escape(QString(line->at(curPos)));
 
       // save status for the next character :
       previousCharacterWasItalic = charAttributes->fontItalic();

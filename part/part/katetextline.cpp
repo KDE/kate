@@ -124,7 +124,7 @@ int KateTextLine::lastChar() const
   return previousNonSpaceChar(m_text.length() - 1);
 }
 
-int KateTextLine::indentDepth (int tabwidth) const
+int KateTextLine::indentDepth (int tabWidth) const
 {
   int d = 0;
   const int len = m_text.length();
@@ -135,7 +135,7 @@ int KateTextLine::indentDepth (int tabwidth) const
     if(unicode[i].isSpace())
     {
       if (unicode[i] == QChar('\t'))
-        d += tabwidth - (d % tabwidth);
+        d += tabWidth - (d % tabWidth);
       else
         d++;
     }
@@ -146,40 +146,40 @@ int KateTextLine::indentDepth (int tabwidth) const
   return d;
 }
 
-bool KateTextLine::stringAtPos(int pos, const QString& match) const
+bool KateTextLine::matchesAt(int column, const QString& match) const
 {
-  if (pos < 0)
+  if (column < 0)
     return false;
 
   const int len = m_text.length();
   const int matchlen = match.length();
 
-  if ((pos+matchlen) > len)
+  if ((column + matchlen) > len)
     return false;
 
   const QChar *unicode = m_text.unicode();
   const QChar *matchUnicode = match.unicode();
 
   for (int i=0; i < matchlen; ++i)
-    if (unicode[i+pos] != matchUnicode[i])
+    if (unicode[i+column] != matchUnicode[i])
       return false;
 
   return true;
 }
 
-int KateTextLine::positionWithTabs (int pos, int tabChars) const
+int KateTextLine::virtualColumn (int column, int tabWidth) const
 {
-  if (pos < 0)
-    pos = 0;
+  if (column < 0)
+    return 0;
 
   int x = 0;
-  const int zmax = qMin(pos, m_text.length());
+  const int zmax = qMin(column, m_text.length());
   const QChar *unicode = m_text.unicode();
 
   for ( int z = 0; z < zmax; ++z)
   {
     if (unicode[z] == QChar('\t'))
-      x += tabChars - (x % tabChars);
+      x += tabWidth - (x % tabWidth);
     else
       x++;
   }
@@ -187,7 +187,7 @@ int KateTextLine::positionWithTabs (int pos, int tabChars) const
   return x;
 }
 
-int KateTextLine::lengthWithTabs (int tabChars) const
+int KateTextLine::virtualLength (int tabWidth) const
 {
   int x = 0;
   const int len = m_text.length();
@@ -196,7 +196,7 @@ int KateTextLine::lengthWithTabs (int tabChars) const
   for ( int z = 0; z < len; ++z)
   {
     if (unicode[z] == QChar('\t'))
-      x += tabChars - (x % tabChars);
+      x += tabWidth - (x % tabWidth);
     else
       x++;
   }
@@ -212,14 +212,14 @@ bool KateTextLine::searchText (uint startCol, const QString &text, uint *foundAt
   if (backwards)
   {
     int col = startCol;
-    uint l = text.length();
+    int l = text.length();
     // allow finding the string ending at eol
-    if ( col == (int) m_text.length() ) ++startCol;
+    if ( col == m_text.length() ) ++startCol;
 
     do {
       index = m_text.lastIndexOf( text, col, casesensitive?Qt::CaseSensitive:Qt::CaseInsensitive);
       col--;
-    } while ( col >= 0 && l + index >= startCol );
+    } while ( col >= 0 && l + index >= (int)startCol );
   }
   else
     index = m_text.indexOf (text, startCol, casesensitive?Qt::CaseSensitive:Qt::CaseInsensitive);

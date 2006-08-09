@@ -1356,7 +1356,7 @@ int KateViewInternal::lineMaxCursorX(const KateTextLayout& range)
   int maxX = range.endX();
 
   if (maxX && range.wrap()) {
-    QChar lastCharInLine = textLine(range.line())->getChar(range.endCol() - 1);
+    QChar lastCharInLine = textLine(range.line())->at(range.endCol() - 1);
     maxX -= renderer()->config()->fontMetrics().width(lastCharInLine);
   }
 
@@ -1736,7 +1736,7 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
             KateTextLine::Ptr l = m_doc->kateTextLine( newCursor.line() );
 
             for ( c = newCursor.column(); c < l->length(); c++ )
-              if ( !m_doc->highlight()->isInWord( l->getChar( c ) ) )
+              if ( !m_doc->highlight()->isInWord( l->at( c ) ) )
                 break;
 
             newCursor.setColumn( c );
@@ -1749,7 +1749,7 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
             KateTextLine::Ptr l = m_doc->kateTextLine( newCursor.line() );
 
             for ( c = newCursor.column(); c > 0; c-- )
-              if ( !m_doc->highlight()->isInWord( l->getChar( c ) ) )
+              if ( !m_doc->highlight()->isInWord( l->at( c ) ) )
                 break;
 
             newCursor.setColumn( c+1 );
@@ -2176,7 +2176,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     if (pos > m_cursor.column()) pos = m_cursor.column();
     if (pos != -1) {
       while ((int)line->length() > pos &&
-             !line->getChar(pos).isLetterOrNumber() &&
+             !line->at(pos).isLetterOrNumber() &&
              pos < m_cursor.column()) ++pos;
     } else {
       pos = line->length(); // stay indented

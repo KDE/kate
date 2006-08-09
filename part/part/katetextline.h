@@ -55,7 +55,7 @@ class KateTextLine : public KShared
       flagHlContinue = 1,
       flagAutoWrapped = 2,
       flagFoldingColumnsOutdated = 4,
-      flagNoIndentationBasedFolding = 6,
+      flagNoIndentationBasedFolding = 8,
       flagNoIndentationBasedFoldingAtStart = 16
     };
 
@@ -85,27 +85,25 @@ class KateTextLine : public KShared
                                                       (~KateTextLine::flagFoldingColumnsOutdated);}
 
     /**
-     * folding columns outdated ?
-     * @return folding columns outdated?
+     * Returns \e true, if the folding colums are outdated, otherwise returns \e false.
      */
      inline bool foldingColumnsOutdated() { return m_flags & KateTextLine::flagFoldingColumnsOutdated; }
 
 
     /**
-     * Returns the length
-     * @return length of text in line
+     * Returns the line's length.
      */
     inline int length() const { return m_text.length(); }
 
     /**
-     * has the line the hl continue flag set
-     * @return hl continue set?
+     * Returns \e true, if the line's hl-continue flag is set, otherwise returns
+     * \e false. The hl-continue flag is set in the hl-definition files.
      */
     inline bool hlLineContinue () const { return m_flags & KateTextLine::flagHlContinue; }
 
     /**
-     * was this line automagically wrapped
-     * @return line auto-wrapped
+     * Returns \e true, if the line was automagically wrapped, otherwise returns
+     * \e false.
      */
     inline bool isAutoWrapped () const { return m_flags & KateTextLine::flagAutoWrapped; }
 
@@ -138,77 +136,69 @@ class KateTextLine : public KShared
     int previousNonSpaceChar(int pos) const;
 
     /**
-     * Gets the char at the given position
-     * @param pos position
-     * @return character at the given position or QChar::null if position is
-     *   beyond the length of the string
+     * Returns the character at the given \e column. If \e column is out of
+     * range, the return value is QChar().
      */
-    inline QChar getChar (int pos) const
+    inline QChar at (int column) const
     {
-      if (pos >= 0 && pos < m_text.length())
-        return m_text[pos];
+      if (column >= 0 && column < m_text.length())
+        return m_text[column];
 
       return QChar();
     }
 
     /**
-     * Gets a QString
-     * @return text of line as QString reference
+     * Same as at().
+     */
+    inline QChar operator[](int column) const
+    {
+      if (column >= 0 && column < m_text.length())
+        return m_text[column];
+
+      return QChar();
+    }
+
+    /**
+     * Returns the complete text line (as a QString reference).
      */
     inline const QString& string() const { return m_text; }
 
     /**
-     * Gets a substring.
-     * @param column start column of substring
-     * @param length length of substring
-     * @return wanted substring
+     * Returns the substring with \e length beginning at the given \e column.
      */
     inline QString string(int column, int length) const
     { return m_text.mid(column, length); }
 
     /**
-     * indentation depth of this line
-     * @param tabwidth width of the tabulators
-     * @return indentation width
+     * Returns the indentation depth with each tab expanded into \e tabWidth characters.
      */
-    int indentDepth (int tabwidth) const;
+    int indentDepth (int tabWidth) const;
 
     /**
-     * Calculate the position if we expand the tabs in the string
-     * @param pos position in chars
-     * @param tabChars tabulator width in chars
-     * @return position with tabulators calculated
+     * Returns the \e column with each tab expanded into \e tabWidth characters.
      */
-    int positionWithTabs (int pos, int tabChars) const;
+    int virtualColumn (int column, int tabWidth) const;
 
     /**
-     * Returns the text length with tabs calced in
-     * @param tabChars tabulator width in chars
-     * @return text length
+     * Returns the text length with each tab expanded into \e tabWidth characters.
      */
-    int lengthWithTabs (int tabChars) const;
+    int virtualLength (int tabWidth) const;
 
     /**
-     * Can we find the given string at the given position
-     * @param pos startpostion of given string
-     * @param match string to match at given pos
-     * @return did the string match?
+     * Returns \e true, if \e match equals to the text at position \e column,
+     * otherwise returns \e false.
      */
-    bool stringAtPos(int pos, const QString& match) const;
+    bool matchesAt(int column, const QString& match) const;
 
     /**
-     * Is the line starting with the given string
-     * @param match string to test
-     * @return does line start with given string?
+     * Returns \e true, if the line starts with \e match, otherwise returns \e false.
      */
-    inline bool startingWith(const QString& match) const { return m_text.startsWith (match); }
+    inline bool startsWith(const QString& match) const { return m_text.startsWith (match); }
 
     /**
-     * Is the line ending with the given string
-     * @param match string to test
-     * @return does the line end with given string?
+     * Returns \e true, if the line ends with \e match, otherwise returns \e false.
      */
-    inline bool endingWith(const QString& match) const { return m_text.endsWith (match); }
+    inline bool endsWith(const QString& match) const { return m_text.endsWith (match); }
 
     /**
      * search given string

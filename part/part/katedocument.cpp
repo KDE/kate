@@ -631,7 +631,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
   int insertColumnExpanded = insertColumn;
   KateTextLine::Ptr l = m_buffer->line( currentLine );
   if (l)
-    insertColumnExpanded = l->positionWithTabs( insertColumn, tabWidth );
+    insertColumnExpanded = l->virtualColumn( insertColumn, tabWidth );
 
   int pos = 0;
   for (; pos < totalLength; pos++)
@@ -660,7 +660,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
       currentLineStart = pos + 1;
       l = m_buffer->line( currentLine );
       if (l)
-        insertColumnExpanded = l->positionWithTabs( insertColumn, tabWidth );
+        insertColumnExpanded = l->virtualColumn( insertColumn, tabWidth );
     }
     else
     {
@@ -673,7 +673,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
         currentLineStart = pos + 1;
         l = m_buffer->line( currentLine );
         if (l)
-          insertColumnExpanded = l->positionWithTabs( insertColumn, tabWidth );
+          insertColumnExpanded = l->virtualColumn( insertColumn, tabWidth );
       }
     }
   }
@@ -717,7 +717,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
   int insertColumnExpanded = insertColumn;
   KateTextLine::Ptr l = m_buffer->line( currentLine );
   if (l)
-    insertColumnExpanded = l->positionWithTabs( insertColumn, tabWidth );
+    insertColumnExpanded = l->virtualColumn( insertColumn, tabWidth );
 
   foreach (QString text, textLines)
   {
@@ -748,7 +748,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
         currentLineStart = pos + 1;
         l = m_buffer->line( currentLine );
         if (l)
-          insertColumnExpanded = l->positionWithTabs( insertColumn, tabWidth );
+          insertColumnExpanded = l->virtualColumn( insertColumn, tabWidth );
       }
       else
       {
@@ -760,7 +760,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
           insertColumn += pos - currentLineStart + spacesRequired;
           l = m_buffer->line( currentLine );
           if (l)
-            insertColumnExpanded = l->positionWithTabs( insertColumn, tabWidth );
+            insertColumnExpanded = l->virtualColumn( insertColumn, tabWidth );
           currentLineStart = pos + 1;
         }
       }
@@ -1095,7 +1095,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
 
     kDebug (13020) << "try wrap line: " << line << endl;
 
-    if (l->lengthWithTabs(m_buffer->tabWidth()) > col)
+    if (l->virtualLength(m_buffer->tabWidth()) > col)
     {
       KateTextLine::Ptr nextl = m_buffer->line(line+1);
 
@@ -1164,7 +1164,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
       }
       else
       {
-        if (nextl && (nextl->length() > 0) && !nextl->getChar(0).isSpace() && ((l->length() < 1) || !l->getChar(l->length()-1).isSpace()))
+        if (nextl && (nextl->length() > 0) && !nextl->at(0).isSpace() && ((l->length() < 1) || !l->at(l->length()-1).isSpace()))
           editInsertText (line+1, 0, QString (" "));
 
         bool newLineAdded = false;
@@ -2776,7 +2776,7 @@ uint KateDocument::currentColumn( const KTextEditor::Cursor& cursor )
   KateTextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
 
   if (textLine)
-    return textLine->positionWithTabs(cursor.column(), config()->tabWidth());
+    return textLine->virtualColumn(cursor.column(), config()->tabWidth());
   else
     return 0;
 }
@@ -2803,8 +2803,8 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
       {
         QChar end_ch;
         bool complete = true;
-        QChar prevChar = textLine->getChar(view->cursorColumn()-1);
-        QChar nextChar = textLine->getChar(view->cursorColumn());
+        QChar prevChar = textLine->at(view->cursorColumn()-1);
+        QChar nextChar = textLine->at(view->cursorColumn());
         switch(ch.toAscii()) {
           case '(': end_ch = ')'; break;
           case '[': end_ch = ']'; break;
@@ -2938,8 +2938,8 @@ void KateDocument::transpose( const KTextEditor::Cursor& cursor)
 
   //clever swap code if first character on the line swap right&left
   //otherwise left & right
-  s.append (textLine->getChar(col+1));
-  s.append (textLine->getChar(col));
+  s.append (textLine->at(col+1));
+  s.append (textLine->at(col));
   //do the swap
 
   // do it right, never ever manipulate a textline
@@ -2970,8 +2970,8 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
       // if inside empty (), {}, [], '', "" delete both
       KateTextLine::Ptr tl = m_buffer->plainLine(line);
       if(!tl) return;
-      QChar prevChar = tl->getChar(col-1);
-      QChar nextChar = tl->getChar(col);
+      QChar prevChar = tl->at(col-1);
+      QChar nextChar = tl->at(col);
 
       if ( (prevChar == '"' && nextChar == '"') ||
            (prevChar == '\'' && nextChar == '\'') ||
@@ -2997,10 +2997,10 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
       if (!textLine)
         return;
 
-      int colX = textLine->positionWithTabs(col, config()->tabWidth());
+      int colX = textLine->virtualColumn(col, config()->tabWidth());
       int pos = textLine->firstChar();
       if (pos > 0)
-        pos = textLine->positionWithTabs(pos, config()->tabWidth());
+        pos = textLine->virtualColumn(pos, config()->tabWidth());
 
       if (pos < 0 || pos >= (int)colX)
       {
@@ -3022,7 +3022,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
       if (!textLine)
         return;
 
-      if (config()->wordWrap() && textLine->endingWith(QLatin1String(" ")))
+      if (config()->wordWrap() && textLine->endsWith(QLatin1String(" ")))
       {
         // gg: in hard wordwrap mode, backspace must also eat the trailing space
         removeText (KTextEditor::Range(line-1, textLine->length()-1, line, 0));
@@ -3133,7 +3133,7 @@ bool KateDocument::removeStringFromBegining(int line, QString &str)
   KTextEditor::Cursor cursor (line, 0);
   bool there = false;
 
-  if (textline->startingWith(str))
+  if (textline->startsWith(str))
     there = true;
   else
   {
@@ -3163,7 +3163,7 @@ bool KateDocument::removeStringFromEnd(int line, QString &str)
   KTextEditor::Cursor cursor (line, 0);
   bool there = false;
 
-  if(textline->endingWith(str))
+  if(textline->endsWith(str))
   {
     cursor.setColumn(textline->length() - str.length());
     there = true;
@@ -3413,10 +3413,10 @@ bool KateDocument::removeStartStopCommentFromSelection( KateView *view, int attr
   // had this been perl or sed: s/^\s*$startComment(.+?)$endComment\s*/$2/
 
   bool remove = nextNonSpaceCharPos(sl, sc)
-      && m_buffer->plainLine(sl)->stringAtPos(sc, startComment)
+      && m_buffer->plainLine(sl)->matchesAt(sc, startComment)
       && previousNonSpaceCharPos(el, ec)
       && ( (ec - endCommentLen + 1) >= 0 )
-      && m_buffer->plainLine(el)->stringAtPos(ec - endCommentLen + 1, endComment);
+      && m_buffer->plainLine(el)->matchesAt(ec - endCommentLen + 1, endComment);
 
   if (remove) {
     editStart();
@@ -3441,9 +3441,9 @@ bool KateDocument::removeStartStopCommentFromRegion(const KTextEditor::Cursor &s
   int startCommentLen = startComment.length();
   int endCommentLen = endComment.length();
 
-    bool remove = m_buffer->plainLine(start.line())->stringAtPos(start.column(), startComment)
+    bool remove = m_buffer->plainLine(start.line())->matchesAt(start.column(), startComment)
       && ( (end.column() - endCommentLen ) >= 0 )
-      && m_buffer->plainLine(end.line())->stringAtPos(end.column() - endCommentLen , endComment);
+      && m_buffer->plainLine(end.line())->matchesAt(end.column() - endCommentLen , endComment);
       if (remove)  {
         editStart();
           removeText(KTextEditor::Range(end.line(), end.column() - endCommentLen, end.line(), end.column()));
@@ -3472,9 +3472,9 @@ bool KateDocument::removeStartLineCommentFromSelection( KateView *view, int attr
 
   // Find out how many char will be removed from the last line
   int removeLength = 0;
-  if (m_buffer->plainLine(el)->startingWith(longCommentMark))
+  if (m_buffer->plainLine(el)->startsWith(longCommentMark))
     removeLength = longCommentMark.length();
-  else if (m_buffer->plainLine(el)->startingWith(shortCommentMark))
+  else if (m_buffer->plainLine(el)->startsWith(shortCommentMark))
     removeLength = shortCommentMark.length();
 
   bool removed = false;
@@ -3664,7 +3664,7 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
           // 3. if p-1 is not in a word, upper.
           if ( ( ! range.start().column() && ! p ) ||
                    ( ( range.start().line() == v->selectionRange().start().line() || v->blockSelectionMode() ) &&
-                   ! p && ! highlight()->isInWord( l->getChar( range.start().column() - 1 )) ) ||
+                   ! p && ! highlight()->isInWord( l->at( range.start().column() - 1 )) ) ||
                    ( p && ! highlight()->isInWord( s.at( p-1 ) ) )
              )
             s[p] = s.at(p).toUpper();
@@ -3693,7 +3693,7 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
       case Capitalize:
       {
         KateTextLine::Ptr l = m_buffer->plainLine( cursor.line() );
-        while ( cursor.column() > 0 && highlight()->isInWord( l->getChar( cursor.column() - 1 ), l->attribute( cursor.column() - 1 ) ) )
+        while ( cursor.column() > 0 && highlight()->isInWord( l->at( cursor.column() - 1 ), l->attribute( cursor.column() - 1 ) ) )
           cursor.setColumn(cursor.column() - 1);
         s = text( KTextEditor::Range(cursor, 1) ).toUpper();
       }
@@ -3736,7 +3736,7 @@ void KateDocument::joinLines( uint first, uint last )
     {
       if (pos != 0)
         editRemoveText( line + 1, 0, pos );
-      if ( !( l->length() == 0 || l->getChar( l->length() - 1 ).isSpace() ) )
+      if ( !( l->length() == 0 || l->at( l->length() - 1 ).isSpace() ) )
         editInsertText( line + 1, 0, " " );
     }
     else
@@ -3760,8 +3760,8 @@ QString KateDocument::getWord( const KTextEditor::Cursor& cursor ) {
   if (start > len)        // Probably because of non-wrapping cursor mode.
     return QString("");
 
-  while (start > 0 && highlight()->isInWord(textLine->getChar(start - 1), textLine->attribute(start - 1))) start--;
-  while (end < len && highlight()->isInWord(textLine->getChar(end), textLine->attribute(end))) end++;
+  while (start > 0 && highlight()->isInWord(textLine->at(start - 1), textLine->attribute(start - 1))) start--;
+  while (end < len && highlight()->isInWord(textLine->at(end), textLine->attribute(end))) end++;
   len = end - start;
   return textLine->string().mid(start, len);
 }
@@ -3835,8 +3835,8 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   if( !textLine )
     return false;
 
-  QChar right = textLine->getChar( range.start().column() );
-  QChar left  = textLine->getChar( range.start().column() - 1 );
+  QChar right = textLine->at( range.start().column() );
+  QChar left  = textLine->at( range.start().column() - 1 );
   QChar bracket;
 
   if ( config()->configFlags() & KateDocumentConfig::cfOvr ) {
@@ -3911,7 +3911,7 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
       continue;
 
     /* Check for match */
-    QChar c = textLine->getChar( range.end().column() );
+    QChar c = textLine->at( range.end().column() );
     if( c == bracket ) {
       count++;
     } else if( c == opposite ) {

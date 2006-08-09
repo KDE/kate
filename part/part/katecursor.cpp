@@ -142,7 +142,7 @@ bool KateDocCursor::removeText(uint nbChar)
 
 QChar KateDocCursor::currentChar() const
 {
-  return m_doc->plainKateTextLine(line())->getChar(column());
+  return m_doc->plainKateTextLine(line())->at(column());
 }
 
 uchar KateDocCursor::currentAttrib() const

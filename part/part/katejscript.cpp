@@ -417,14 +417,14 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       int firstPos = textLine ? textLine->firstChar() : -1;
       if (!textLine || firstPos == -1) return KJS::Number(-1);
-      return KJS::Number(textLine->positionWithTabs(firstPos, doc->config()->tabWidth()));
+      return KJS::Number(textLine->indentDepth(doc->config()->tabWidth()));
     }
 
     case KateJSDocument::LastCharPosVirtual: {
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       int lastPos = textLine ? textLine->lastChar() : -1;
       if (!textLine || lastPos == -1) return KJS::Number(-1);
-      return KJS::Number(textLine->positionWithTabs(lastPos, doc->config()->tabWidth()));
+      return KJS::Number(textLine->virtualColumn(lastPos, doc->config()->tabWidth()));
     }
 
     case KateJSDocument::TextLine:

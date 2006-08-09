@@ -909,7 +909,7 @@ void KateCompletionModel::setAccessIncludeSignalSlot( bool include )
 
 int KateCompletionModel::countBits( int value ) const
 {
-  int count;
+  int count = 0;
   for (int i = 0; i; i <<= 1)
     if (i & value)
       count++;

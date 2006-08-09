@@ -91,11 +91,11 @@ void KateCmdActionMenu::reload()
   QMap<QString, KActionMenu*> menumap;
   const QVector<KateCmdBinding>& actions = KateCmdBindingManager::self()->actions();
 
-  for( QVector<KateCmdBinding>::const_iterator it = actions.begin();
-       it != actions.end();
-       ++it )
+  for( QVector<KateCmdBinding>::const_iterator it2 = actions.begin();
+       it2 != actions.end();
+       ++it2 )
   {
-    const KateCmdBinding& cmd = (*it);
+    const KateCmdBinding& cmd = (*it2);
     if( !menumap.contains( cmd.category ) )
       menumap[cmd.category] = new KActionMenu( cmd.category, m_actionCollection, cmd.category );
     KActionMenu* submenu = menumap[cmd.category];

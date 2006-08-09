@@ -23,6 +23,11 @@
  *INFORMATION: A localiced copyright statement could be put into a blah.desktop file
  **/
 
+//BEGIN USER CONFIGURATION
+// indent 'case' and 'default' in a switch?
+var cfgIndentCase = true;
+//END USER CONFIGURATION
+
 //BEGIN global variables and functions
 // maximum number of lines we look backwards/forward to find out the indentation
 // level (the bigger the number, the longer might be the delay)
@@ -162,18 +167,18 @@ function indentChar(c)
             view.setCursorPosition(line, currentString.length);
             document.editEnd();
         }
-    } else if (firstPos == column - 1 && c == ':') {
+    } else if (c == ':') {
         // todo: handle case, default, signals, private, public, protected, Q_SIGNALS
-        var filler = tryColon(line, column);
+        var filler = trySwitchStatement(line);
         if (filler != -1) {
-//             var newColumn = column - (firstPos - filler.length);
-// 
-//             document.editBegin();
-//             if (firstPos > 0)
-//                 document.removeText(line, 0, line, firstPos);
-//             document.insertText(line, 0, filler);
-//             view.setCursorPosition(line, newColumn);
-//             document.editEnd();
+            var newColumn = column - (firstPos - filler.length);
+
+            document.editBegin();
+            if (firstPos > 0)
+                document.removeText(line, 0, line, firstPos);
+            document.insertText(line, 0, filler);
+            view.setCursorPosition(line, newColumn);
+            document.editEnd();
         }
     }
 }
@@ -228,9 +233,50 @@ function findOpeningBrace(line, column)
         indentation = indentString(document.firstCharPosVirtual(currentLine));
     }
 
-    if (indentation != -1) debug("findOpeningBrace: success");
+    if (indentation != -1) debug("findOpeningBrace: success in line " + currentLine);
     return indentation;
 }
+
+/**
+ * Check for default and case keywords and assume we are in a switch statement.
+ * Try to find a previous default or case or { or switch and return its
+ * indentation or -1 if not found.
+ */
+function trySwitchStatement(line)
+{
+    var currentString = document.line(line);
+    if (currentString.search(/^\s*(default\s*|case\b.*):/) == -1)
+        return -1;
+
+    var indentation = -1;
+    var lineDelimiter = gLineDelimiter;
+    var currentLine = line;
+
+    while (currentLine > 0 && lineDelimiter > 0) {
+        --currentLine;
+        --lineDelimiter;
+        if (document.firstCharPos(currentLine) == -1)
+            continue;
+
+        currentString = document.line(currentLine);
+        if (currentString.search(/^\s*(default\s*|case\b.*):/) != -1) {
+            indentation = indentString(document.firstCharPosVirtual(currentLine));
+            break;
+        } else if (currentString.search(/^\s*switch\b/) != -1) {
+            if (cfgIndentCase) {
+                indentation = incIndent(document.firstCharPosVirtual(currentLine));
+            } else {
+                indentation = indentString(document.firstCharPosVirtual(currentLine));
+            }
+
+            break;
+        }
+    }
+
+    if (indentation != -1) debug("trySwitchStatement: success in line " + currentLine);
+    return indentation;
+}
+
 //END process character
 
 /**
@@ -325,9 +371,9 @@ function tryCComment(line)
         // search non-empty line, then return leading white spaces
         while (currentLine >= 0 && lineDelimiter > 0) {
             lastPos = document.lastCharPos(currentLine);
-            if (lastPos != -1) {
+            if (lastPos != -1)
                 break;
-            }
+
             --currentLine;
             --lineDelimiter;
         }
@@ -351,7 +397,7 @@ function tryCComment(line)
             --currentLine;
             --lineDelimiter;
         }
-        if (indentation != -1) debug("tryCComment: success (1)");
+        if (indentation != -1) debug("tryCComment: success (1) in line " + currentLine);
         return indentation;
     }
 
@@ -377,7 +423,7 @@ function tryCComment(line)
             indentation += ' ';
     }
 
-    if (indentation != -1) debug("tryCComment: success (2)");
+    if (indentation != -1) debug("tryCComment: success (2) in line " + currentLine);
     return indentation;
 }
 
@@ -426,7 +472,7 @@ function tryCppComment(line)
 //            indentation += ' ';
     }
 
-    if (indentation != -1) debug("tryCppComment: success");
+    if (indentation != -1) debug("tryCppComment: success in line " + currentLine);
     return indentation;
 }
 
@@ -446,9 +492,9 @@ function tryBrace(line)
     // search non-empty line
     while (currentLine >= 0 && lineDelimiter > 0) {
         lastPos = document.lastCharPos(currentLine);
-        if (lastPos != -1) {
+        if (lastPos != -1)
             break;
-        }
+
         --currentLine;
         --lineDelimiter;
     }
@@ -466,7 +512,7 @@ function tryBrace(line)
         indentation = incIndent(firstPosVirtual);
     }
 
-    if (indentation != -1) debug("tryBrace: success");
+    if (indentation != -1) debug("tryBrace: success in line " + currentLine);
     return indentation;
 }
 
@@ -487,9 +533,9 @@ function tryCKeywords(line)
     // search non-empty line
     while (currentLine >= 0 && lineDelimiter > 0) {
         lastPos = document.lastCharPos(currentLine);
-        if (lastPos != -1) {
+        if (lastPos != -1)
             break;
-        }
+
         --currentLine;
         --lineDelimiter;
     }
@@ -513,7 +559,7 @@ function tryCKeywords(line)
         indentation = incIndent(firstPosVirtual);
     }
 
-    if (indentation != -1) debug("tryCKeywords: success");
+    if (indentation != -1) debug("tryCKeywords: success in line " + currentLine);
     return indentation;
 }
 
@@ -534,9 +580,9 @@ function tryCondition(line)
     // search non-empty line
     while (currentLine >= 0 && lineDelimiter > 0) {
         lastPos = document.lastCharPos(currentLine);
-        if (lastPos != -1) {
+        if (lastPos != -1)
             break;
-        }
+
         --currentLine;
         --lineDelimiter;
     }
@@ -579,7 +625,7 @@ function tryCondition(line)
         }
     }
 
-    if (indentation != -1) debug("tryCondition: success");
+    if (indentation != -1) debug("tryCondition: success in line " + currentLine);
     return indentation;
 }
 
@@ -608,7 +654,11 @@ function keepIndentation(line)
         --lineDelimiter;
     }
 
-    if (indentation != -1) debug("keepIndentation: success");
+    // on line delimiter interrupt take previous line
+    if (lineDelimiter == 0)
+        indentation = indentString(document.lineLength(line - 1));
+
+    if (indentation != -1) debug("keepIndentation: success in line " + currentLine);
     return indentation;
 }
 
@@ -631,6 +681,8 @@ function indentNewLine()
         filler = tryCComment(line);
     if (filler == -1)
         filler = tryCppComment(line);
+    if (filler == -1)
+        filler = trySwitchStatement(line);
     if (filler == -1)
         filler = tryBrace(line);
     if (filler == -1 && firstChar != '{')

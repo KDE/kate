@@ -887,7 +887,7 @@ void KateView::writeSessionConfig(KConfig *config)
   config->writeEntry("CursorColumn",m_viewInternal->m_cursor.column());
 }
 
-int KateView::getEol()
+int KateView::getEol() const
 {
   return m_doc->config()->eol();
 }

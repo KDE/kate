@@ -165,15 +165,6 @@ class KateDocument : public KTextEditor::Document,
   // KTextEditor::EditInterface stuff
   //
   public Q_SLOTS:
-    virtual QString text() const;
-
-    virtual QString text ( const KTextEditor::Range &range, bool blockwise = false ) const;
-    virtual QStringList textLines ( const KTextEditor::Range& range, bool block = false ) const;
-
-    virtual QString line ( int line ) const;
-
-    virtual QChar character( const KTextEditor::Cursor& position ) const;
-
     virtual bool setText(const QString &);
     virtual bool setText(const QStringList& text);
     virtual bool clear ();
@@ -189,11 +180,17 @@ class KateDocument : public KTextEditor::Document,
 
     bool replaceText ( const KTextEditor::Range &range, const QString &s, bool block = false );
 
+  public:
+    virtual QString text ( const KTextEditor::Range &range, bool blockwise = false ) const;
+    virtual QStringList textLines ( const KTextEditor::Range& range, bool block = false ) const;
+    virtual QString text() const;
+    virtual QString line(int line) const;
+    virtual QChar character(const KTextEditor::Cursor& position) const;
     int lines() const;
     virtual KTextEditor::Cursor documentEnd() const;
     int numVisLines() const;
     int totalCharacters() const;
-    int lineLength ( int line ) const;
+    int lineLength(int line) const;
 
   Q_SIGNALS:
     void charactersSemiInteractivelyInserted(int ,int ,const QString&);
@@ -338,13 +335,12 @@ class KateDocument : public KTextEditor::Document,
     void clearUndo ();
     void clearRedo ();
 
-    uint undoCount () const;
-    uint redoCount () const;
-
-    uint undoSteps () const;
     void setUndoSteps ( uint steps );
 
   public:
+    uint undoCount () const;
+    uint redoCount () const;
+    uint undoSteps () const;
     class KateEditHistory* history() const { return m_editHistory; }
 
   private:
@@ -383,14 +379,14 @@ class KateDocument : public KTextEditor::Document,
   // KTextEditor::HighlightingInterface stuff
   //
   public Q_SLOTS:
-    uint hlMode ();
     bool setHlMode (uint mode);
-    uint hlModeCount ();
-    QString hlModeName (uint mode);
-    QString hlModeSectionName (uint mode);
 
   public:
-    void bufferHlChanged ();
+    uint hlMode();
+    uint hlModeCount();
+    QString hlModeName(uint mode);
+    QString hlModeSectionName(uint mode);
+    void bufferHlChanged();
 
   private:
     void setDontChangeHlOnSave();
@@ -409,26 +405,27 @@ class KateDocument : public KTextEditor::Document,
   // KTextEditor::MarkInterface
   //
   public Q_SLOTS:
-    uint mark( int line );
-
     void setMark( int line, uint markType );
     void clearMark( int line );
 
     void addMark( int line, uint markType );
     void removeMark( int line, uint markType );
 
-    const QHash<int, KTextEditor::Mark*> &marks ();
     void clearMarks();
 
     void setMarkPixmap( MarkInterface::MarkTypes, const QPixmap& );
-    QPixmap markPixmap( MarkInterface::MarkTypes ) const;
 
     void setMarkDescription( MarkInterface::MarkTypes, const QString& );
-    QString markDescription( MarkInterface::MarkTypes ) const;
-    QColor markColor( MarkInterface::MarkTypes ) const;
 
     void setEditableMarks( uint markMask );
-    uint editableMarks() const;
+
+  public:
+    uint mark( int line );
+    const QHash<int, KTextEditor::Mark*> &marks ();
+    QPixmap markPixmap( MarkInterface::MarkTypes ) const;
+    QString markDescription( MarkInterface::MarkTypes ) const;
+    QColor markColor( MarkInterface::MarkTypes ) const;
+	uint editableMarks() const;
 
   Q_SIGNALS:
     void marksChanged( KTextEditor::Document* );
@@ -775,14 +772,17 @@ class KateDocument : public KTextEditor::Document,
 
   public Q_SLOTS:
     void setWordWrap (bool on);
-    bool wordWrap ();
-
     void setWordWrapAt (uint col);
-    uint wordWrapAt ();
+
+  public:
+    bool wordWrap() const;
+    uint wordWrapAt() const;
 
   public Q_SLOTS:
     void setPageUpDownMovesCursor(bool on);
-    bool pageUpDownMovesCursor();
+
+  public:
+    bool pageUpDownMovesCursor() const;
 
    // code folding
   public:
@@ -869,7 +869,8 @@ class KateDocument : public KTextEditor::Document,
    * Configuration
    */
   public:
-    inline KateDocumentConfig *config () { return m_config; };
+    KateDocumentConfig *config() { return m_config; }
+    KateDocumentConfig *config() const { return m_config; }
 
     void updateConfig ();
 

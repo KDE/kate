@@ -255,19 +255,11 @@ class KateView : public KTextEditor::View,
   public Q_SLOTS:
     virtual bool setSelection ( const KTextEditor::Range &selection );
 
-    virtual bool selection() const;
-
-    virtual QString selectionText () const;
-
     virtual bool removeSelection () { return clearSelection(); }
 
     virtual bool removeSelectionText () { return removeSelectedText(); }
 
-    virtual const KTextEditor::Range &selectionRange() const;
-
     virtual bool setBlockSelection (bool on) { return setBlockSelectionMode (on); }
-
-    virtual bool blockSelection () const { return blockSelectionMode (); }
 
     bool clearSelection ();
     bool clearSelection (bool redraw, bool finishedChangingSelection = true);
@@ -275,6 +267,12 @@ class KateView : public KTextEditor::View,
     bool removeSelectedText ();
 
     bool selectAll();
+
+  public:
+    virtual bool selection() const;
+    virtual QString selectionText() const;
+    virtual bool blockSelection() const { return blockSelectionMode(); }
+    virtual const KTextEditor::Range &selectionRange() const;
 
   //
   // Arbitrary Syntax HL + Action extensions
@@ -338,9 +336,11 @@ class KateView : public KTextEditor::View,
   // KTextEditor::BlockSelectionInterface stuff
   //
   public Q_SLOTS:
-    bool blockSelectionMode () const;
     bool setBlockSelectionMode (bool on);
     bool toggleBlockSelectionMode ();
+
+  public:
+    bool blockSelectionMode() const;
 
 
   //BEGIN EDIT STUFF
@@ -457,7 +457,6 @@ class KateView : public KTextEditor::View,
     void writeSessionConfig(KConfig *);
 
   public Q_SLOTS:
-    int getEol();
     void setEol( int eol );
     void find();
     void find( const QString&, long, bool add=true ); ///< proxy for KateSearch
@@ -479,6 +478,9 @@ class KateView : public KTextEditor::View,
     void toggleDynWordWrap ();
     void toggleCmdLine ();
     void setDynWrapIndicators(int mode);
+
+  public:
+    int getEol() const;
 
   public:
     KateRenderer *renderer ();

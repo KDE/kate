@@ -4153,7 +4153,7 @@ void KateDocument::setWordWrap (bool on)
   config()->setWordWrap (on);
 }
 
-bool KateDocument::wordWrap ()
+bool KateDocument::wordWrap () const
 {
   return config()->wordWrap ();
 }
@@ -4163,7 +4163,7 @@ void KateDocument::setWordWrapAt (uint col)
   config()->setWordWrapAt (col);
 }
 
-unsigned int KateDocument::wordWrapAt ()
+unsigned int KateDocument::wordWrapAt () const
 {
   return config()->wordWrapAt ();
 }
@@ -4173,7 +4173,7 @@ void KateDocument::setPageUpDownMovesCursor (bool on)
   config()->setPageUpDownMovesCursor (on);
 }
 
-bool KateDocument::pageUpDownMovesCursor ()
+bool KateDocument::pageUpDownMovesCursor () const
 {
   return config()->pageUpDownMovesCursor ();
 }

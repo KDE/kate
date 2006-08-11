@@ -2855,7 +2855,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
     removeText(KTextEditor::Range(view->cursorPosition(), qMin(buf.length(), textLine->length() - view->cursorPosition().column())));
 
   insertText(view->cursorPosition(), buf);
-  m_indenter->processChar(c);
+  m_indenter->processChar(view, c);
 
   editEnd ();
 
@@ -2903,7 +2903,7 @@ void KateDocument::newLine( KTextEditor::Cursor& c, KateView *v )
     editWrapLine (c.line(), c.column());
 
     KateDocCursor cursor (c.line() + 1, pos, this);
-    m_indenter->processNewline(cursor, true);
+    m_indenter->processNewline(v, cursor, true);
 
     c.setPosition(cursor);
   }
@@ -3085,7 +3085,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
     KateDocCursor begin(pos.line(), 0, this);
     KateDocCursor end(pos.line() + lines, 0, this);
 
-    m_indenter->processSection (begin, end);
+    m_indenter->processSection (view, begin, end);
 
     editEnd();
   }
@@ -3110,13 +3110,13 @@ void KateDocument::align(KateView *view, uint line)
     if (!view->selection())
     {
       KateDocCursor curLine(line, 0, this);
-      m_indenter->processLine (curLine);
+      m_indenter->processLine (view, curLine);
       editEnd ();
       activeView()->setCursorPosition(curLine);
     }
     else
     {
-      m_indenter->processSection (KateDocCursor (view->selectionRange().start(), this), KateDocCursor (view->selectionRange().end(), this));
+      m_indenter->processSection (view, KateDocCursor (view->selectionRange().start(), this), KateDocCursor (view->selectionRange().end(), this));
       editEnd ();
     }
   }

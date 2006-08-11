@@ -427,7 +427,7 @@ void KateNormalIndent::optimizeLeadingSpace(uint line, int change)
     doc->insertText(KTextEditor::Cursor(line, change_from), new_space.right(length - change_from));
 }
 
-void KateNormalIndent::processNewline (KateDocCursor &begin, bool /*needContinue*/)
+void KateNormalIndent::processNewline (KateView *view, KateDocCursor &begin, bool /*needContinue*/)
 {
   int line = begin.line() - 1;
   int pos = begin.column();
@@ -506,7 +506,7 @@ KateCSmartIndent::~KateCSmartIndent ()
 
 }
 
-void KateCSmartIndent::processLine (KateDocCursor &line)
+void KateCSmartIndent::processLine (KateView *view, KateDocCursor &line)
 {
   kDebug(13030)<<"PROCESSING LINE "<<line.line()<<endl;
   KateTextLine::Ptr textLine = doc->plainKateTextLine(line.line());
@@ -604,7 +604,7 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
     indent = calcIndent(temp, true);
     if (indent == 0)
     {
-      KateNormalIndent::processNewline(line, true);
+      KateNormalIndent::processNewline(view, line, true);
       return;
     }
   }
@@ -619,7 +619,7 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
   }
 }
 
-void KateCSmartIndent::processSection (const KateDocCursor &begin, const KateDocCursor &end)
+void KateCSmartIndent::processSection (KateView *view, const KateDocCursor &begin, const KateDocCursor &end)
 {
   kDebug(13030)<<"PROCESS SECTION"<<endl;
   KateDocCursor cur = begin;
@@ -630,7 +630,7 @@ void KateCSmartIndent::processSection (const KateDocCursor &begin, const KateDoc
 
   while (cur.line() <= end.line())
   {
-    processLine (cur);
+    processLine (view, cur);
     if (!cur.gotoNextLine())
       break;
   }
@@ -687,7 +687,7 @@ bool KateCSmartIndent::handleDoxygen (KateDocCursor &begin)
   return false;
 }
 
-void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
+void KateCSmartIndent::processNewline (KateView *view, KateDocCursor &begin, bool needContinue)
 {
   if (!handleDoxygen (begin))
   {
@@ -706,13 +706,13 @@ void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
       // Handles cases where user hits enter at the beginning or middle of text
       if (inMiddle)
       {
-        processLine(begin);
+        processLine(view, begin);
         begin.setColumn(textLine->firstChar());
       }
     }
     else
     {
-      KateNormalIndent::processNewline (begin, needContinue);
+      KateNormalIndent::processNewline (view, begin, needContinue);
     }
 
     if (begin.column() < 0)
@@ -720,13 +720,12 @@ void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
   }
 }
 
-void KateCSmartIndent::processChar(QChar c)
+void KateCSmartIndent::processChar(KateView *view, QChar c)
 {
   static const QString triggers("}{)/:;#n");
   if (triggers.indexOf(c) < 0)
     return;
 
-  KateView *view = doc->activeKateView();
   KateDocCursor begin(view->cursorPosition().line(), 0, doc);
 
   KateTextLine::Ptr textLine = doc->plainKateTextLine(begin.line());
@@ -754,7 +753,7 @@ void KateCSmartIndent::processChar(QChar c)
     return;
   }
 
-  processLine(begin);
+  processLine(view, begin);
 }
 
 
@@ -1171,7 +1170,7 @@ KatePythonIndent::~KatePythonIndent ()
 {
 }
 
-void KatePythonIndent::processNewline (KateDocCursor &begin, bool /*newline*/)
+void KatePythonIndent::processNewline (KateView *view, KateDocCursor &begin, bool /*newline*/)
 {
   int prevLine = begin.line() - 1;
   int prevPos = begin.column();
@@ -1292,17 +1291,16 @@ KateXmlIndent::~KateXmlIndent ()
 {
 }
 
-void KateXmlIndent::processNewline (KateDocCursor &begin, bool /*newline*/)
+void KateXmlIndent::processNewline (KateView *view, KateDocCursor &begin, bool /*newline*/)
 {
   begin.setColumn(processLine(begin.line()));
 }
 
-void KateXmlIndent::processChar (QChar c)
+void KateXmlIndent::processChar (KateView *view, QChar c)
 {
   if(c != '/') return;
 
   // only alter lines that start with a close element
-  KateView *view = doc->activeKateView();
   QString text = doc->plainKateTextLine(view->cursorPosition().line())->string();
   if(text.indexOf(startsWithCloseTag) == -1) return;
 
@@ -1310,12 +1308,12 @@ void KateXmlIndent::processChar (QChar c)
   processLine(view->cursorPosition().line());
 }
 
-void KateXmlIndent::processLine (KateDocCursor &line)
+void KateXmlIndent::processLine (KateView *view, KateDocCursor &line)
 {
   processLine (line.line());
 }
 
-void KateXmlIndent::processSection (const KateDocCursor &start, const KateDocCursor &end)
+void KateXmlIndent::processSection (KateView *view, const KateDocCursor &start, const KateDocCursor &end)
 {
   KateDocCursor cur (start);
   int endLine = end.line();
@@ -1479,7 +1477,7 @@ KateCSAndSIndent::~KateCSAndSIndent ()
 {
 }
 
-void KateCSAndSIndent::processLine (KateDocCursor &line)
+void KateCSAndSIndent::processLine (KateView *view, KateDocCursor &line)
 {
   KateTextLine::Ptr textLine = doc->plainKateTextLine(line.line());
 
@@ -1509,12 +1507,12 @@ void KateCSAndSIndent::processLine (KateDocCursor &line)
     line.setColumn( oldCol + whitespace.length() - oldIndent );
 }
 
-void KateCSAndSIndent::processSection (const KateDocCursor &begin, const KateDocCursor &end)
+void KateCSAndSIndent::processSection (KateView *view, const KateDocCursor &begin, const KateDocCursor &end)
 {
   QTime t; t.start();
   for( KateDocCursor cur = begin; cur.line() <= end.line(); )
   {
-    processLine (cur);
+    processLine (view, cur);
     if (!cur.gotoNextLine())
       break;
   }
@@ -1618,7 +1616,7 @@ bool KateCSAndSIndent::handleDoxygen (KateDocCursor &begin)
  *              non-whitespace char was on the previous line, and the document.
  * @param needContinue Something to do with indenting the current line; always true.
  */
-void KateCSAndSIndent::processNewline (KateDocCursor &begin, bool /*needContinue*/)
+void KateCSAndSIndent::processNewline (KateView *view, KateDocCursor &begin, bool /*needContinue*/)
 {
   // in a comment, add a * doxygen-style.
   if( handleDoxygen(begin) )
@@ -1633,7 +1631,7 @@ void KateCSAndSIndent::processNewline (KateDocCursor &begin, bool /*needContinue
     cursorPos = doc->lineLength( begin.line() );
   begin.setColumn( cursorPos );
 
-  processLine( begin );
+  processLine( view, begin );
 }
 
 /**
@@ -2039,7 +2037,7 @@ QString KateCSAndSIndent::calcIndentInBrace(const KateDocCursor &indentCursor, c
   return indentString + continuationIndent + whitespaceToOpenBrace;
 }
 
-void KateCSAndSIndent::processChar(QChar c)
+void KateCSAndSIndent::processChar(KateView *view, QChar c)
 {
   // 'n' trigger is for c# regions.
   static const QString triggers("}{)]/:;#n");
@@ -2048,7 +2046,6 @@ void KateCSAndSIndent::processChar(QChar c)
 
   // for historic reasons, processChar doesn't get a cursor
   // to work on. so fabricate one.
-  KateView *view = doc->activeKateView();
   KateDocCursor begin(view->cursorPosition().line(), 0, doc);
 
   KateTextLine::Ptr textLine = doc->plainKateTextLine(begin.line());
@@ -2077,7 +2074,7 @@ void KateCSAndSIndent::processChar(QChar c)
     return;
   }
 
-  processLine(begin);
+  processLine(view, begin);
 }
 
 //END
@@ -2114,15 +2111,15 @@ KateVarIndent::~KateVarIndent()
   delete d;
 }
 
-void KateVarIndent::processNewline ( KateDocCursor &begin, bool /*needContinue*/ )
+void KateVarIndent::processNewline ( KateView *view, KateDocCursor &begin, bool /*needContinue*/ )
 {
   // process the line left, as well as the one entered
   KateDocCursor left( begin.line()-1, 0, doc );
-  processLine( left );
-  processLine( begin );
+  processLine( view, left );
+  processLine( view, begin );
 }
 
-void KateVarIndent::processChar ( QChar c )
+void KateVarIndent::processChar ( KateView *view, QChar c )
 {
   // process line if the c is in our list, and we are not in comment text
   if ( d->triggers.contains( c ) )
@@ -2131,14 +2128,13 @@ void KateVarIndent::processChar ( QChar c )
     if ( ln->attribute( doc->activeView()->cursorPosition().column()-1 ) == commentAttrib )
       return;
 
-    KTextEditor::View *view = doc->activeView();
     KateDocCursor begin( view->cursorPosition().line(), 0, doc );
     kDebug(13030)<<"variable indenter: process char '"<<c<<", line "<<begin.line()<<endl;
-    processLine( begin );
+    processLine( view, begin );
   }
 }
 
-void KateVarIndent::processLine ( KateDocCursor &line )
+void KateVarIndent::processLine ( KateView *view, KateDocCursor &line )
 {
   updateConfig(); // ### is it really necessary *each time* ??
 
@@ -2278,12 +2274,12 @@ void KateVarIndent::processLine ( KateDocCursor &line )
   line.setColumn( pos );
 }
 
-void KateVarIndent::processSection (const KateDocCursor &begin, const KateDocCursor &end)
+void KateVarIndent::processSection (KateView *view, const KateDocCursor &begin, const KateDocCursor &end)
 {
   KateDocCursor cur = begin;
   while (cur.line() <= end.line())
   {
-    processLine (cur);
+    processLine (view, cur);
     if (!cur.gotoNextLine())
       break;
   }
@@ -2393,70 +2389,57 @@ KateScriptIndent::~KateScriptIndent()
 {
 }
 
-void KateScriptIndent::processNewline( KateDocCursor &begin, bool needContinue )
+void KateScriptIndent::processNewline( KateView *view, KateDocCursor &begin, bool needContinue )
 {
-  kDebug(13030) << "processNewline" << endl;
-  KateView *view = doc->activeKateView();
-
-  if (view)
-  {
+//   kDebug(13030) << "processNewline" << endl;
     QString errorMsg;
 
-    QTime t;
-    t.start();
-    kDebug(13030)<<"calling m_script.processChar"<<endl;
+//     QTime t;
+//     t.start();
+//     kDebug(13030)<<"calling m_script.processChar"<<endl;
     // FIXME: set view cursor to begin, as scripts can only access the cursor
     //        from the view.
-    view->setCursorPosition(begin);
-    if( !m_script->processNewline( view, begin, needContinue , errorMsg ) )
-    {
-      kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
-    }
+
+  view->setCursorPosition(begin);
+  if( !m_script->processNewline( view, begin, needContinue , errorMsg ) )
+  {
+    kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
+  }
+
     // FIXME: set begin to the position at which the script set the cursor
     //        ugly hack, needs a clean fix.
-    begin.setPosition(view->cursorPosition());
-    kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
-  }
+  begin.setPosition(view->cursorPosition());
+//     kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
 }
 
-void KateScriptIndent::processChar( QChar c)
+void KateScriptIndent::processChar( KateView *view, QChar c)
 {
-  kDebug(13030) << "processChar" << endl;
-  KateView *view = doc->activeKateView();
-
-  if (view)
-  {
+//   kDebug(13030) << "processChar" << endl;
     QString errorMsg;
 
-    QTime t;
-    t.start();
-    kDebug(13030)<<"calling m_script.processChar"<<endl;
-    if( !m_script->processChar( view, c , errorMsg ) )
-    {
-      kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
-    }
-    kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
+//     QTime t;
+//     t.start();
+//     kDebug(13030)<<"calling m_script.processChar"<<endl;
+  if( !m_script->processChar( view, c , errorMsg ) )
+  {
+    kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
   }
+//     kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
 }
 
-void KateScriptIndent::processLine (KateDocCursor &line)
+void KateScriptIndent::processLine (KateView *view, KateDocCursor &line)
 {
-  kDebug(13030) << "processLine" << endl;
-  KateView *view = doc->activeKateView();
+//   kDebug(13030) << "processLine" << endl;
+  QString errorMsg;
 
-  if (view)
+//     QTime t;
+//     t.start();
+//     kDebug(13030)<<"calling m_script.processLine"<<endl;
+  if( !m_script->processLine( view, line , errorMsg ) )
   {
-    QString errorMsg;
-
-    QTime t;
-    t.start();
-    kDebug(13030)<<"calling m_script.processLine"<<endl;
-    if( !m_script->processLine( view, line , errorMsg ) )
-    {
-      kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
-    }
-    kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
+    kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
   }
+//     kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
 }
 //END KateScriptIndent
 

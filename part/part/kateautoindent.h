@@ -154,26 +154,30 @@ class KateAutoIndent
     /**
      * Called every time a newline character is inserted in the document.
      *
+     * @param view the current active view
      * @param cur The position to start processing. Contains the new cursor position after the indention.
      * @param needContinue Used to determine whether to calculate a continue indent or not.
      */
-    virtual void processNewline (KateDocCursor &cur, bool needContinue) { Q_UNUSED(cur); Q_UNUSED(needContinue); }
+    virtual void processNewline (KateView *view, KateDocCursor &cur, bool needContinue) { Q_UNUSED(cur); Q_UNUSED(needContinue); }
 
     /**
+     * @param view the current active view
      * Called every time a character is inserted into the document.
      * @param c character inserted
      */
-    virtual void processChar (QChar c) { Q_UNUSED(c); }
+    virtual void processChar (KateView *view, QChar c) { Q_UNUSED(c); }
 
     /**
+     * @param view the current active view
      * Aligns/indents the given line to the proper indent position.
      */
-    virtual void processLine (KateDocCursor &/*line*/) { }
+    virtual void processLine (KateView *view, KateDocCursor &/*line*/) { }
 
     /**
+     * @param view the current active view
      * Processes a section of text, indenting each line in between.
      */
-    virtual void processSection (const KateDocCursor &/*begin*/, const KateDocCursor &/*end*/) { }
+    virtual void processSection (KateView *view, const KateDocCursor &/*begin*/, const KateDocCursor &/*end*/) { }
 
     /**
      * Set to true if an actual implementation of 'processLine' is present.
@@ -182,6 +186,7 @@ class KateAutoIndent
     virtual bool canProcessLine() const { return false; }
 
     /**
+     * @param view the current active view
      * Indents the specified line by the number of levels
      * specified by change.
      */
@@ -253,23 +258,23 @@ public:
      * @param begin The position to start processing. Contains the new cursor position after the indention.
      * @param needContinue Used to determine whether to calculate a continue indent or not.
      */
-  virtual void processNewline (KateDocCursor &begin, bool needContinue);
+  virtual void processNewline (KateView *view, KateDocCursor &begin, bool needContinue);
 
     /**
      * Called every time a character is inserted into the document.
      * @param c character inserted
      */
-  virtual void processChar (QChar c) { Q_UNUSED(c); }
+  virtual void processChar (KateView *view, QChar c) { Q_UNUSED(c); }
 
     /**
      * Aligns/indents the given line to the proper indent position.
      */
-  virtual void processLine (KateDocCursor &/*line*/) { }
+  virtual void processLine (KateView *view, KateDocCursor &/*line*/) { }
 
     /**
      * Processes a section of text, indenting each line in between.
      */
-  virtual void processSection (const KateDocCursor &/*begin*/, const KateDocCursor &/*end*/) { }
+  virtual void processSection (KateView *view, const KateDocCursor &/*begin*/, const KateDocCursor &/*end*/) { }
 
     /**
      * Set to true if an actual implementation of 'processLine' is present.
@@ -357,11 +362,11 @@ class KateCSmartIndent : public KateNormalIndent
     KateCSmartIndent (KateDocument *doc);
     ~KateCSmartIndent ();
 
-    virtual void processNewline (KateDocCursor &begin, bool needContinue);
-    virtual void processChar (QChar c);
+    virtual void processNewline (KateView *view, KateDocCursor &begin, bool needContinue);
+    virtual void processChar (KateView *view, QChar c);
 
-    virtual void processLine (KateDocCursor &line);
-    virtual void processSection (const KateDocCursor &begin, const KateDocCursor &end);
+    virtual void processLine (KateView *view, KateDocCursor &line);
+    virtual void processSection (KateView *view, const KateDocCursor &begin, const KateDocCursor &end);
 
     virtual bool canProcessLine() const { return true; }
 
@@ -389,7 +394,7 @@ class KatePythonIndent : public KateNormalIndent
     KatePythonIndent (KateDocument *doc);
     ~KatePythonIndent ();
 
-    virtual void processNewline (KateDocCursor &begin, bool needContinue);
+    virtual void processNewline (KateView *view, KateDocCursor &begin, bool needContinue);
 
     /**
      * mode name
@@ -410,11 +415,11 @@ class KateXmlIndent : public KateNormalIndent
     KateXmlIndent (KateDocument *doc);
     ~KateXmlIndent ();
 
-    virtual void processNewline (KateDocCursor &begin, bool needContinue);
-    virtual void processChar (QChar c);
-    virtual void processLine (KateDocCursor &line);
+    virtual void processNewline (KateView *view, KateDocCursor &begin, bool needContinue);
+    virtual void processChar (KateView *view, QChar c);
+    virtual void processLine (KateView *view, KateDocCursor &line);
     virtual bool canProcessLine() const { return true; }
-    virtual void processSection (const KateDocCursor &begin, const KateDocCursor &end);
+    virtual void processSection (KateView *view, const KateDocCursor &begin, const KateDocCursor &end);
 
     /**
      * mode name
@@ -441,11 +446,11 @@ class KateCSAndSIndent : public KateNormalIndent
     KateCSAndSIndent (KateDocument *doc);
     ~KateCSAndSIndent ();
 
-    virtual void processNewline (KateDocCursor &begin, bool needContinue);
-    virtual void processChar (QChar c);
+    virtual void processNewline (KateView *view, KateDocCursor &begin, bool needContinue);
+    virtual void processChar (KateView *view, QChar c);
 
-    virtual void processLine (KateDocCursor &line);
-    virtual void processSection (const KateDocCursor &begin, const KateDocCursor &end);
+    virtual void processLine (KateView *view, KateDocCursor &line);
+    virtual void processSection (KateView *view, const KateDocCursor &begin, const KateDocCursor &end);
 
     virtual bool canProcessLine() const { return true; }
 
@@ -516,11 +521,11 @@ class KateVarIndent :  public QObject, public KateNormalIndent
     KateVarIndent( KateDocument *doc );
     virtual ~KateVarIndent();
 
-    virtual void processNewline (KateDocCursor &cur, bool needContinue);
-    virtual void processChar (QChar c);
+    virtual void processNewline (KateView *view, KateDocCursor &cur, bool needContinue);
+    virtual void processChar (KateView *view, QChar c);
 
-    virtual void processLine (KateDocCursor &line);
-    virtual void processSection (const KateDocCursor &begin, const KateDocCursor &end);
+    virtual void processLine (KateView *view, KateDocCursor &line);
+    virtual void processSection (KateView *view, const KateDocCursor &begin, const KateDocCursor &end);
 
     virtual bool canProcessLine() const { return true; }
 
@@ -558,10 +563,10 @@ class KateScriptIndent : public KateNormalIndent
     KateScriptIndent( KateIndentJScript *script, KateDocument *doc );
     ~KateScriptIndent();
 
-    virtual void processNewline( KateDocCursor &begin, bool needContinue );
-    virtual void processChar( QChar c );
+    virtual void processNewline( KateView *view, KateDocCursor &begin, bool needContinue );
+    virtual void processChar( KateView *view, QChar c );
 
-    virtual void processLine (KateDocCursor &line);
+    virtual void processLine (KateView *view, KateDocCursor &line);
 //     virtual void processSection (const KateDocCursor &begin, const KateDocCursor &end);
 
     virtual bool canProcessLine() const { return true; }

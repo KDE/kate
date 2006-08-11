@@ -1069,7 +1069,6 @@ bool KateIndentJScript::processNewline( class KateView *view, const KateDocCurso
 {
   kDebug(13050)<<"KateIndentJScript::processNewline"<<endl;
   if (!setupInterpreter(errorMsg)) return false;
-  kDebug(13050)<<"setup done"<<endl;
   return kateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("onnewline"),KJS::List());
 }
 

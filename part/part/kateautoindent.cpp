@@ -2124,8 +2124,8 @@ void KateVarIndent::processChar ( KateView *view, QChar c )
   // process line if the c is in our list, and we are not in comment text
   if ( d->triggers.contains( c ) )
   {
-    KateTextLine::Ptr ln = doc->plainKateTextLine( doc->activeView()->cursorPosition().line() );
-    if ( ln->attribute( doc->activeView()->cursorPosition().column()-1 ) == commentAttrib )
+    KateTextLine::Ptr ln = doc->plainKateTextLine( view->cursorPosition().line() );
+    if ( ln->attribute( view->cursorPosition().column()-1 ) == commentAttrib )
       return;
 
     KateDocCursor begin( view->cursorPosition().line(), 0, doc );
@@ -2148,8 +2148,7 @@ void KateVarIndent::processLine ( KateView *view, KateDocCursor &line )
   if ( ! ktl ) return; // no line!?
 
   // skip blank lines, except for the cursor line
-  KTextEditor::View *v = doc->activeView();
-  if ( (ktl->firstChar() < 0) && (!v || (int)v->cursorPosition().line() != ln ) )
+  if ( (ktl->firstChar() < 0) && (view->cursorPosition().line() != ln ) )
     return;
 
   int fc;

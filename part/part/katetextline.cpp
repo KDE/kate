@@ -167,7 +167,7 @@ bool KateTextLine::matchesAt(int column, const QString& match) const
   return true;
 }
 
-int KateTextLine::virtualColumn (int column, int tabWidth) const
+int KateTextLine::toVirtualColumn (int column, int tabWidth) const
 {
   if (column < 0)
     return 0;
@@ -185,6 +185,29 @@ int KateTextLine::virtualColumn (int column, int tabWidth) const
   }
 
   return x;
+}
+
+int KateTextLine::fromVirtualColumn (int column, int tabWidth) const
+{
+  if (column < 0)
+    return 0;
+
+  const int zmax = qMin(m_text.length(), column);
+  const QChar *unicode = m_text.unicode();
+
+  int x = 0;
+  int z = 0;
+  for (; z < zmax; ++z)
+  {
+    if (unicode[z] == QChar('\t'))
+      x += tabWidth - (x % tabWidth);
+    else
+      ++x;
+    if (x == column)
+      break;
+  }
+
+  return z;
 }
 
 int KateTextLine::virtualLength (int tabWidth) const

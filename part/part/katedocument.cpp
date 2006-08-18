@@ -631,7 +631,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
   int insertColumnExpanded = insertColumn;
   KateTextLine::Ptr l = m_buffer->line( currentLine );
   if (l)
-    insertColumnExpanded = l->virtualColumn( insertColumn, tabWidth );
+    insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
 
   int pos = 0;
   for (; pos < totalLength; pos++)
@@ -660,7 +660,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
       currentLineStart = pos + 1;
       l = m_buffer->line( currentLine );
       if (l)
-        insertColumnExpanded = l->virtualColumn( insertColumn, tabWidth );
+        insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
     }
     else
     {
@@ -673,7 +673,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
         currentLineStart = pos + 1;
         l = m_buffer->line( currentLine );
         if (l)
-          insertColumnExpanded = l->virtualColumn( insertColumn, tabWidth );
+          insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
       }
     }
   }
@@ -717,7 +717,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
   int insertColumnExpanded = insertColumn;
   KateTextLine::Ptr l = m_buffer->line( currentLine );
   if (l)
-    insertColumnExpanded = l->virtualColumn( insertColumn, tabWidth );
+    insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
 
   foreach (QString text, textLines)
   {
@@ -748,7 +748,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
         currentLineStart = pos + 1;
         l = m_buffer->line( currentLine );
         if (l)
-          insertColumnExpanded = l->virtualColumn( insertColumn, tabWidth );
+          insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
       }
       else
       {
@@ -760,7 +760,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
           insertColumn += pos - currentLineStart + spacesRequired;
           l = m_buffer->line( currentLine );
           if (l)
-            insertColumnExpanded = l->virtualColumn( insertColumn, tabWidth );
+            insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
           currentLineStart = pos + 1;
         }
       }
@@ -2776,7 +2776,7 @@ uint KateDocument::currentColumn( const KTextEditor::Cursor& cursor )
   KateTextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
 
   if (textLine)
-    return textLine->virtualColumn(cursor.column(), config()->tabWidth());
+    return textLine->toVirtualColumn(cursor.column(), config()->tabWidth());
   else
     return 0;
 }
@@ -2997,10 +2997,10 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
       if (!textLine)
         return;
 
-      int colX = textLine->virtualColumn(col, config()->tabWidth());
+      int colX = textLine->toVirtualColumn(col, config()->tabWidth());
       int pos = textLine->firstChar();
       if (pos > 0)
-        pos = textLine->virtualColumn(pos, config()->tabWidth());
+        pos = textLine->toVirtualColumn(pos, config()->tabWidth());
 
       if (pos < 0 || pos >= (int)colX)
       {

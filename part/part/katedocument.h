@@ -576,7 +576,7 @@ class KateDocument : public KTextEditor::Document,
     bool typeChars ( KateView *type, const QString &chars );
 
     /**
-     * gets the last line number (numLines() -1)
+     * gets the last line number (lines() - 1)
      */
     inline int lastLine() const { return lines()-1; }
 

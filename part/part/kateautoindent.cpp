@@ -354,7 +354,7 @@ bool KateNormalIndent::skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool 
 
 uint KateNormalIndent::measureIndent (KateDocCursor &cur) const
 {
-  return doc->plainKateTextLine(cur.line())->virtualColumn(cur.column(), tabWidth);
+  return doc->plainKateTextLine(cur.line())->toVirtualColumn(cur.column(), tabWidth);
 }
 
 QString KateNormalIndent::tabString(uint pos) const
@@ -396,7 +396,7 @@ void KateNormalIndent::optimizeLeadingSpace(uint line, int change)
   if (first_char < 0)
     first_char = textline->length();
 
-  int space =  textline->virtualColumn(first_char, tabWidth) + change * indentWidth;
+  int space =  textline->toVirtualColumn(first_char, tabWidth) + change * indentWidth;
   if (space < 0)
     space = 0;
 
@@ -472,7 +472,7 @@ void KateNormalIndent::indent ( KateView *v, uint line, int change)
         KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
         int firstChar = textLine->firstChar();
         if (firstChar >= 0 && (v->lineSelected(line) || v->lineHasSelected(line))) {
-          int maxUnindent = textLine->virtualColumn(firstChar, tabWidth) / indentWidth;
+          int maxUnindent = textLine->toVirtualColumn(firstChar, tabWidth) / indentWidth;
           if (maxUnindent < adjustedChange)
             adjustedChange = maxUnindent;
         }
@@ -1182,7 +1182,7 @@ void KatePythonIndent::processNewline (KateView *view, KateDocCursor &begin, boo
   int prevBlockPos = prevPos;
   int extraIndent = calcExtra (prevBlock, prevBlockPos, begin);
 
-  int indent = doc->plainKateTextLine(prevBlock)->virtualColumn(prevBlockPos, tabWidth);
+  int indent = doc->plainKateTextLine(prevBlock)->toVirtualColumn(prevBlockPos, tabWidth);
   if (extraIndent == 0)
   {
     if (!stopStmt.exactMatch(doc->plainKateTextLine(prevLine)->string()))
@@ -1190,7 +1190,7 @@ void KatePythonIndent::processNewline (KateView *view, KateDocCursor &begin, boo
       if (endWithColon.exactMatch(doc->plainKateTextLine(prevLine)->string()))
         indent += indentWidth;
       else
-        indent = doc->plainKateTextLine(prevLine)->virtualColumn(prevPos, tabWidth);
+        indent = doc->plainKateTextLine(prevLine)->toVirtualColumn(prevPos, tabWidth);
     }
   }
   else
@@ -1340,7 +1340,7 @@ void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
     }
     break;
   }
-  prevIndent = prevLine->virtualColumn(prevLine->firstChar(), tabWidth);
+  prevIndent = prevLine->toVirtualColumn(prevLine->firstChar(), tabWidth);
   QString text = prevLine->string();
 
   // special case:
@@ -1417,7 +1417,7 @@ void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
       lastCh = text.at(++attrCol).unicode();
     }
 
-    attrCol = prevLine->virtualColumn(attrCol, tabWidth);
+    attrCol = prevLine->toVirtualColumn(attrCol, tabWidth);
   }
 }
 
@@ -2166,7 +2166,7 @@ void KateVarIndent::processLine ( KateView *view, KateDocCursor &line )
   if ( pos < 0 )
     pos = 0;
   else
-    pos = ktl->virtualColumn( pos, tabWidth );
+    pos = ktl->toVirtualColumn( pos, tabWidth );
 
   int adjustment = 0;
 
@@ -2391,13 +2391,12 @@ KateScriptIndent::~KateScriptIndent()
 void KateScriptIndent::processNewline( KateView *view, KateDocCursor &begin, bool needContinue )
 {
 //   kDebug(13030) << "processNewline" << endl;
-    QString errorMsg;
+  QString errorMsg;
 
-//     QTime t;
-//     t.start();
-//     kDebug(13030)<<"calling m_script.processChar"<<endl;
-    // FIXME: set view cursor to begin, as scripts can only access the cursor
-    //        from the view.
+  QTime t;
+  t.start();
+  // FIXME: set view cursor to begin, as scripts can only access the cursor
+  //        from the view.
 
   view->setCursorPosition(begin);
   if( !m_script->processNewline( view, begin, needContinue , errorMsg ) )
@@ -2405,10 +2404,10 @@ void KateScriptIndent::processNewline( KateView *view, KateDocCursor &begin, boo
     kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
   }
 
-    // FIXME: set begin to the position at which the script set the cursor
-    //        ugly hack, needs a clean fix.
+  // FIXME: set begin to the position at which the script set the cursor
+  //        ugly hack, needs a clean fix.
   begin.setPosition(view->cursorPosition());
-//     kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
+  kDebug(13030) << "ScriptIndent::processNewline - TIME/ms: " << t.elapsed() << endl;
 }
 
 void KateScriptIndent::processChar( KateView *view, QChar c)

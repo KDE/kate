@@ -1,6 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2005 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2005 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2006 Dominik Haumann <dhdev@gmx.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -219,8 +220,9 @@ class KateIndentJScriptManager;
 class KateIndentJScript {
   public:
     KateIndentJScript(KateIndentJScriptManager *manager, const QString& internalName,
-        const QString  &filePath, const QString &niceName,
-        const QString &license, bool hasCopyright, double version);
+        const QString &filePath, const QString &niceName,
+        const QString &license, const QString &author,
+        int version, double kateVersion);
     ~KateIndentJScript();
 
     bool processChar( KateView *view, QChar c, QString &errorMsg );
@@ -228,12 +230,13 @@ class KateIndentJScript {
     bool processNewline( KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg );
 
   public:
-    QString internalName();
-    QString filePath();
-    QString niceName();
-    QString license();
-    QString copyright();
-    double version();
+    const QString& internalName();
+    const QString& filePath();
+    const QString& niceName();
+    const QString& license();
+    const QString& author();
+    int version();
+    double kateVersion();
   protected:
     QString filePath() const {return m_filePath;}
   private:
@@ -242,8 +245,9 @@ class KateIndentJScript {
     QString m_filePath;
     QString m_niceName;
     QString m_license;
-    bool m_hasCopyright;
-    double m_version;
+    QString m_author;
+    int m_version;
+    double m_kateVersion;
   private:
     KateJSView *m_viewWrapper;
     KateJSDocument *m_docWrapper;
@@ -255,7 +259,6 @@ class KateIndentJScript {
 
 class KateIndentJScriptManager
 {
-
   public:
     KateIndentJScriptManager ();
     virtual ~KateIndentJScriptManager ();
@@ -264,15 +267,15 @@ class KateIndentJScriptManager
     int scripts () { return m_scriptsList.size(); }
     KateIndentJScript *scriptByIndex (int index) { return m_scriptsList[index]; }
 
-    virtual QString copyright(KateIndentJScript* script);
   private:
     /**
      * go, search our scripts
      * @param force force cache updating?
      */
     void collectScripts (bool force = false);
-    void parseScriptHeader(const QString &filePath,
-        QString *niceName,QString *license, bool *hasCopyright, QString *copyright,double *version);
+    bool parseScriptHeader(const QString &filePath, QString &niceName,
+                           QString &license, QString &author,
+                           int &version, double &kateversion);
 
   private:
     /**

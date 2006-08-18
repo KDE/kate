@@ -177,7 +177,13 @@ class KateTextLine : public KShared
     /**
      * Returns the \e column with each tab expanded into \e tabWidth characters.
      */
-    int virtualColumn (int column, int tabWidth) const;
+    int toVirtualColumn (int column, int tabWidth) const;
+
+    /**
+     * Returns the "real" column where each tab only counts one character.
+     * The conversion calculates with \e tabWidth characters for each tab.
+     */
+    int fromVirtualColumn (int column, int tabWidth) const;
 
     /**
      * Returns the text length with each tab expanded into \e tabWidth characters.

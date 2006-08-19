@@ -90,7 +90,7 @@ void DocWordCompletionPlugin::configDialog (QWidget *parent)
 
   for (uint i = 0; i < configPages (); i++)
   {
-    QWidget *page;
+    QWidget *page = new QWidget(this);
     QVBoxLayout *_l = new QVBoxLayout( page );
     _l->setAutoAdd( true );
 

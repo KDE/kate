@@ -563,13 +563,14 @@ class KateScriptIndent : public KateNormalIndent
     KateScriptIndent( KateIndentJScript *script, KateDocument *doc );
     ~KateScriptIndent();
 
-    virtual void processNewline( KateView *view, KateDocCursor &begin, bool needContinue );
     virtual void processChar( KateView *view, QChar c );
-
-    virtual void processLine (KateView *view, KateDocCursor &line);
-//     virtual void processSection (const KateDocCursor &begin, const KateDocCursor &end);
+    virtual void processNewline( KateView *view, KateDocCursor &begin, bool needContinue );
 
     virtual bool canProcessLine() const { return true; }
+    virtual void processLine (KateView *view, KateDocCursor &line);
+    virtual void processSection (KateView *view, const KateDocCursor &begin, const KateDocCursor &end);
+
+    virtual void indent( KateView *view, uint line, int levels );
 
     /**
      * mode name

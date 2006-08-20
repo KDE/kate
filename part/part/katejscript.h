@@ -226,8 +226,12 @@ class KateIndentJScript {
     ~KateIndentJScript();
 
     bool processChar( KateView *view, QChar c, QString &errorMsg );
+    bool processNewline( KateView *view, const KateDocCursor &begin,
+                         bool needcontinue, QString &errorMsg );
     bool processLine( KateView *view, const KateDocCursor &line, QString &errorMsg );
-    bool processNewline( KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg );
+    bool processSection( KateView *view, const KateDocCursor &begin,
+                         const KateDocCursor &end, QString &errorMsg );
+    bool processIndent( KateView *view, uint line, int levels, QString &errorMsg );
 
   public:
     const QString& internalName();

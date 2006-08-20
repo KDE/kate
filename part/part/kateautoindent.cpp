@@ -2390,7 +2390,6 @@ KateScriptIndent::~KateScriptIndent()
 
 void KateScriptIndent::processNewline( KateView *view, KateDocCursor &begin, bool needContinue )
 {
-//   kDebug(13030) << "processNewline" << endl;
   QString errorMsg;
 
   QTime t;
@@ -2412,13 +2411,11 @@ void KateScriptIndent::processNewline( KateView *view, KateDocCursor &begin, boo
 
 void KateScriptIndent::processChar( KateView *view, QChar c)
 {
-//   kDebug(13030) << "processChar" << endl;
     QString errorMsg;
 
 //     QTime t;
 //     t.start();
-//     kDebug(13030)<<"calling m_script.processChar"<<endl;
-  if( !m_script->processChar( view, c , errorMsg ) )
+  if( !m_script->processChar( view, c, errorMsg ) )
   {
     kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
   }
@@ -2427,17 +2424,36 @@ void KateScriptIndent::processChar( KateView *view, QChar c)
 
 void KateScriptIndent::processLine (KateView *view, KateDocCursor &line)
 {
-//   kDebug(13030) << "processLine" << endl;
   QString errorMsg;
 
 //     QTime t;
 //     t.start();
-//     kDebug(13030)<<"calling m_script.processLine"<<endl;
-  if( !m_script->processLine( view, line , errorMsg ) )
+  if( !m_script->processLine( view, line, errorMsg ) )
   {
     kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
   }
 //     kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
+}
+
+void KateScriptIndent::processSection (KateView *view, const KateDocCursor &begin,
+                                       const KateDocCursor &end)
+{
+  QString errorMsg;
+
+//     QTime t;
+//     t.start();
+  if( !m_script->processSection( view, begin, end, errorMsg ) )
+  {
+    kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
+  }
+//     kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
+}
+
+void KateScriptIndent::indent( KateView *view, uint line, int levels )
+{
+  QString errorMsg;
+  if( !m_script->processIndent( view, line, levels, errorMsg ) )
+    kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
 }
 //END KateScriptIndent
 

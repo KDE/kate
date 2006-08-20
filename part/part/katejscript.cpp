@@ -154,6 +154,7 @@ class KateJSDocument : public KJS::JSObject
       TextRange,            // (line, column, line, column)
       TextLine,             // (line)
       CharAt,               // (line, column)
+      IndexOf,              // (line, string)
       IsSpace,              // (line, column)
       StartsWith,           // (line, string), idea: add bool: ignore leating spaces
       EndsWith,             // (line, string), idea: add bool: ignore trailing spaces
@@ -188,6 +189,7 @@ class KateJSDocument : public KJS::JSObject
 
       FindLeftBrace,        // (line, column)
       FindLeftParenthesis,  // (line, column)
+      FindStartOfCComment,  // (line, column)
 
       // highlighting
       IsInWord,             // (char, attribute)
@@ -271,10 +273,13 @@ class KateJSIndenter : public KJS::JSObject
     */
     const KJS::ClassInfo* classInfo() const { return &info; }
 
-    enum { OnChar,
-          OnLine,
-          OnNewline,
-          Dummy
+    enum {
+      ProcessChar,
+      ProcessNewLine,
+      ProcessLine,
+      ProcessSection,
+      ProcessIndent,
+      Dummy
     };
 
   public:
@@ -369,6 +374,7 @@ bool KateJScriptInterpreterContext::execute (KateView *view, const QString &scri
   textRange            KateJSDocument::TextRange         DontDelete|Function 4
   line                 KateJSDocument::TextLine          DontDelete|Function 1
   charAt               KateJSDocument::CharAt            DontDelete|Function 2
+  indexOf              KateJSDocument::IndexOf           DontDelete|Function 2
   isSpace              KateJSDocument::IsSpace           DontDelete|Function 2
   startsWith           KateJSDocument::StartsWith        DontDelete|Function 3
   endsWith             KateJSDocument::EndsWith          DontDelete|Function 3
@@ -404,6 +410,7 @@ bool KateJScriptInterpreterContext::execute (KateView *view, const QString &scri
 
   findLeftBrace        KateJSDocument::FindLeftBrace       DontDelete|Function 2
   findLeftParenthesis  KateJSDocument::FindLeftParenthesis DontDelete|Function 2
+  findStartOfCComment  KateJSDocument::FindStartOfCComment DontDelete|Function 2
 #
 # methods from highlight (and around)
 #
@@ -461,18 +468,17 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     case KateJSDocument::CharAt:
       return KJS::String (QString(doc->character (KTextEditor::Cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec)))));
 
+    case KateJSDocument::IndexOf:
+      return KJS::Number (doc->line(args[0]->toUInt32(exec)).indexOf(args[1]->toUInt32(exec)));
+
     case KateJSDocument::IsSpace:
       return KJS::Boolean (doc->character (KTextEditor::Cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec))).isSpace());
 
-    case KateJSDocument::StartsWith: {
-      KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
-      return KJS::Boolean (textLine ? textLine->startsWith(args[1]->toString(exec).qstring()) : false);
-    }
+    case KateJSDocument::StartsWith:
+      return KJS::Boolean(doc->line(args[0]->toUInt32(exec)).startsWith(args[1]->toString(exec).qstring()));
 
-    case KateJSDocument::EndsWith: {
-      KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
-      return KJS::Boolean (textLine ? textLine->endsWith(args[1]->toString(exec).qstring()) : false);
-    }
+    case KateJSDocument::EndsWith:
+      return KJS::Boolean(doc->line(args[0]->toUInt32(exec)).endsWith(args[1]->toString(exec).qstring()));
 
     case KateJSDocument::MatchesAt: {
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
@@ -516,7 +522,7 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
       const uint line = args[0]->toUInt32(exec);
       KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
       if (!textLine) return KJS::Number(-1);
-      return KJS::Number (textLine->toVirtualColumn(doc->lineLength(line), args[1]->toUInt32(exec)));
+      return KJS::Number (textLine->virtualLength(args[1]->toUInt32(exec)));
     }
 
     case KateJSDocument::EditBegin:
@@ -592,12 +598,17 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
 
     case KateJSDocument::FindLeftBrace: {
       KateDocCursor cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec), doc);
+      // use highlighting information, if available (assume, { and } have same attribute)
+      bool hasAttribute = (cursor.currentChar() == '}' || cursor.currentChar() == '{');
+      // force highlighting of current line
+      if (hasAttribute)
+        doc->kateTextLine(cursor.line());
+      int attribute = cursor.currentAttrib();
       int count = 1;
 
       // Move backwards char by char and find the opening brace
       while (cursor.moveBackward(1)) {
-// TODO: use highlighting information, if available!
-//         if (cursor.currentAttrib() == symbolAttrib) {
+        if (!hasAttribute || cursor.currentAttrib() == attribute) {
           QChar ch = cursor.currentChar();
           if (ch == '{') {
             --count;
@@ -611,15 +622,64 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
             object->put(exec, "column", KJS::Number(cursor.column()));
             return object;
           }
-//         }
+        }
       }
 
       return KJS::Null();
     }
 
-    case KateJSDocument::FindLeftParenthesis:
-      return KJS::Number(-1);
+    case KateJSDocument::FindLeftParenthesis: {
+      KateDocCursor cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec), doc);
+      // use highlighting information, if available
+      bool hasAttribute = (cursor.currentChar() == ')');
+      // force highlighting of current line
+      if (hasAttribute)
+        doc->kateTextLine(cursor.line());
+      int attribute = cursor.currentAttrib();
+      int count = 1;
 
+      // Move backwards char by char and find the opening brace
+      while (cursor.moveBackward(1)) {
+        if (!hasAttribute || cursor.currentAttrib() == attribute) {
+          QChar ch = cursor.currentChar();
+          if (ch == '(') {
+            --count;
+          } else if (ch == ')') {
+            ++count;
+          }
+  
+          if (count == 0) {
+            KJS::JSObject *object = exec->lexicalInterpreter()->builtinObject()->construct(exec, KJS::List::empty());
+            object->put(exec, "line", KJS::Number(cursor.line()));
+            object->put(exec, "column", KJS::Number(cursor.column()));
+            return object;
+          }
+        }
+      }
+
+      return KJS::Null();
+    }
+
+    case KateJSDocument::FindStartOfCComment: {
+      KateDocCursor cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec), doc);
+
+      // find the line with the opening "/*"
+      do {
+        KateTextLine::Ptr textLine = doc->plainKateTextLine(cursor.line());
+        if (!textLine)
+          break;
+
+        int column = textLine->string().indexOf("/*");
+        if (column >= 0) {
+          KJS::JSObject *object = exec->lexicalInterpreter()->builtinObject()->construct(exec, KJS::List::empty());
+          object->put(exec, "line", KJS::Number(cursor.line()));
+          object->put(exec, "column", KJS::Number(column));
+          return object;
+        }
+      } while (cursor.gotoPreviousLine());
+
+      return KJS::Null();
+    }
 
     case KateJSDocument::IsInWord:
       return KJS::Boolean( doc->highlight()->isInWord( args[0]->toString(exec).qstring().at(0), args[1]->toUInt32(exec) ) );
@@ -1069,7 +1129,7 @@ const QStringList &KateJScriptManager::cmds()
   static QStringList l;
 
   l.clear();
-  l<<"js-run-myself";
+  l << "js-run-myself";
   foreach (KateJScriptManager::Script* script, m_scripts)
     l << script->command;
 
@@ -1106,11 +1166,12 @@ QString KateJScriptManager::category (const QString& cmd) const
 */
 
 /* Source for KateJSIndenterTable.
-@begin KateJSIndenterTable 3
-  onchar                KateJSIndenter::OnChar            DontDelete
-  onnewline             KateJSIndenter::OnNewline         DontDelete
-  online                KateJSIndenter::OnLine            DontDelete
-
+@begin KateJSIndenterTable 5
+  processChar           KateJSIndenter::ProcessChar       DontDelete
+  processNewLine        KateJSIndenter::ProcessNewLine    DontDelete
+  processLine           KateJSIndenter::ProcessLine       DontDelete
+  processSection        KateJSIndenter::ProcessSection    DontDelete
+  processIndent         KateJSIndenter::ProcessIndent     DontDelete
 @end
 */
 
@@ -1121,7 +1182,7 @@ KateJSIndenter::KateJSIndenter (KJS::ExecState *exec)
 
 KJS_DEFINE_PROTOTYPE(KateJSIndenterProto)
 KJS_IMPLEMENT_PROTOFUNC(KateJSIndenterProtoFunc)
-KJS_IMPLEMENT_PROTOTYPE("KateJSIndenter",KateJSIndenterProto,KateJSIndenterProtoFunc)
+KJS_IMPLEMENT_PROTOTYPE("KateJSIndenter", KateJSIndenterProto, KateJSIndenterProtoFunc)
 
 const KJS::ClassInfo KateJSIndenter::info = { "KateJSIndenter", 0, &KateJSIndenterTable, 0 };
 
@@ -1270,25 +1331,72 @@ inline static bool kateIndentJScriptCall(KateView *view, QString &errorMsg, Kate
 bool KateIndentJScript::processChar(KateView *view, QChar c, QString &errorMsg )
 {
 
-  kDebug(13050)<<"KateIndentJScript::processChar"<<endl;
+  kDebug(13050) << "KateIndentJScript::processChar" << endl;
   if (!setupInterpreter(errorMsg)) return false;
   KJS::List params;
   params.append(KJS::String(QString(c)));
-  return kateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("onchar"),params);
+  return kateIndentJScriptCall(view, errorMsg,
+                               m_docWrapper, m_viewWrapper,
+                               m_interpreter, m_indenter,
+                               KJS::Identifier("processChar"),
+                               params);
 }
 
 bool KateIndentJScript::processLine(KateView *view, const KateDocCursor &line, QString &errorMsg )
 {
-  kDebug(13050)<<"KateIndentJScript::processLine"<<endl;
+  kDebug(13050) << "KateIndentJScript::processLine" << endl;
   if (!setupInterpreter(errorMsg)) return false;
-  return kateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("online"),KJS::List());
+  KJS::List params;
+  params.append(KJS::Number(line.line()));
+  return kateIndentJScriptCall(view, errorMsg,
+                               m_docWrapper, m_viewWrapper,
+                               m_interpreter, m_indenter,
+                               KJS::Identifier("processLine"),
+                               params);
 }
 
-bool KateIndentJScript::processNewline( class KateView *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg )
+bool KateIndentJScript::processNewline(KateView *view, const KateDocCursor &begin,
+                                       bool needcontinue, QString &errorMsg )
 {
-  kDebug(13050)<<"KateIndentJScript::processNewline"<<endl;
+  kDebug(13050) << "KateIndentJScript::processNewline" << endl;
   if (!setupInterpreter(errorMsg)) return false;
-  return kateIndentJScriptCall(view,errorMsg,m_docWrapper,m_viewWrapper,m_interpreter,m_indenter,KJS::Identifier("onnewline"),KJS::List());
+  KJS::List params;
+  params.append(KJS::Number(begin.line()));
+  params.append(KJS::Number(begin.column()));
+  return kateIndentJScriptCall(view, errorMsg,
+                               m_docWrapper, m_viewWrapper,
+                               m_interpreter, m_indenter,
+                               KJS::Identifier("processNewLine"),
+                               params);
+}
+
+bool KateIndentJScript::processSection( KateView *view, const KateDocCursor &begin,
+                                        const KateDocCursor &end, QString &errorMsg )
+{
+  kDebug(13050) << "KateIndentJScript::processSection" << endl; 
+  if (!setupInterpreter(errorMsg)) return false;
+  KJS::List params;
+  params.append(KJS::Number(begin.line()));
+  params.append(KJS::Number(end.line()));
+  return kateIndentJScriptCall(view, errorMsg,
+                               m_docWrapper, m_viewWrapper,
+                               m_interpreter, m_indenter,
+                               KJS::Identifier("processSection"),
+                               params);
+}
+
+bool KateIndentJScript::processIndent( KateView *view, uint line, int levels, QString &errorMsg )
+{
+  kDebug(13050) << "KateIndentJScript::processIndent" << endl; 
+  if (!setupInterpreter(errorMsg)) return false;
+  KJS::List params;
+  params.append(KJS::Number(line));
+  params.append(KJS::Number(levels));
+  return kateIndentJScriptCall(view, errorMsg,
+                               m_docWrapper, m_viewWrapper,
+                               m_interpreter, m_indenter,
+                               KJS::Identifier("processIndent"),
+                               params);
 }
 
 const QString& KateIndentJScript::internalName()

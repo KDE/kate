@@ -23,14 +23,19 @@
  * Boston, MA 02110-1301, USA.
  */
 
-indenter.onchar=indentChar
-indenter.online=indentNewLine
-indenter.onnewline=indentNewLine
-
 //BEGIN USER CONFIGURATION
 // indent 'case' and 'default' in a switch?
 var cfgIndentCase = true;
+
+// indent after 'namespace'?
+var cfgIndentNamespace = true;
 //END USER CONFIGURATION
+
+indenter.processChar = processChar
+indenter.processNewLine = processNewLine
+indenter.processLine = processLine
+indenter.processSection = processSection
+indenter.processIndent = processIndent
 
 //BEGIN global variables and functions
 // maximum number of lines we look backwards/forward to find out the indentation
@@ -118,81 +123,6 @@ function incIndent(count, alignment)
 }
 //END indentation functions
 
-//BEGIN process character
-function indentChar(c)
-{
-    if (c != '{' && c != '}' && c != '/' && c != ':')
-        return;
-
-    readSettings();
-
-    var cursor = view.cursorPosition();
-    if (!cursor)
-        return;
-
-    var line = cursor.line;
-    var column = cursor.column;
-    var firstPos = document.firstColumn(line);
-    var lastPos = document.lastColumn(line);
-
-    debug("firstPos: " + firstPos);
-    debug("column..: " + column);
-
-    if (firstPos == column - 1 && c == '{') {
-        // todo: maybe look for if etc.
-        var filler = tryBrace(line);
-        if (filler == null)
-            filler = tryCComment(line); // checks, whether we had a "*/"
-        if (filler == null)
-            filler = keepIndentation(line);
-
-        if (filler != null) {
-            document.editBegin();
-            if (firstPos > 0)
-                document.removeText(line, 0, line, firstPos);
-            document.insertText(line, 0, filler);
-            view.setCursorPosition(line, filler.length + 1);
-            document.editEnd();
-        }
-    } else if (firstPos == column - 1 && c == '}') {
-        var filler = findLeftBrace(line, 0);
-        if (filler != null) {
-            document.editBegin();
-            if (firstPos > 0)
-                document.removeText(line, 0, line, firstPos);
-            document.insertText(line, 0, filler);
-            view.setCursorPosition(line, filler.length + 1);
-            document.editEnd();
-        }
-    } else if (c == '/' && lastPos == column - 1 && gLastLine == line && gLastColumn == column - 1) {
-        // try to snap the string "* /" to "*/"
-        var currentString = document.line(line);
-        if (currentString.search(/^(\s*)\*\s+\/\s*$/) != -1) {
-            currentString = RegExp.$1 + "*/";
-            document.editBegin();
-            document.removeLine(line);
-            document.insertLine(line, currentString);
-            view.setCursorPosition(line, currentString.length);
-            document.editEnd();
-        }
-    } else if (c == ':') {
-        // todo: handle case, default, signals, private, public, protected, Q_SIGNALS
-        var filler = trySwitchStatement(line);
-        if (filler == null)
-            filler = tryAccessModifiers(line);
-        if (filler != null) {
-            var newColumn = column - (firstPos - filler.length);
-
-            document.editBegin();
-            if (firstPos > 0)
-                document.removeText(line, 0, line, firstPos);
-            document.insertText(line, 0, filler);
-            view.setCursorPosition(line, newColumn);
-            document.editEnd();
-        }
-    }
-}
-
 /**
  * Search for a corresponding '{' and return its indentation level. If not found
  * return null; (line/column) are the start of the search.
@@ -277,7 +207,6 @@ function tryAccessModifiers(line)
 }
 
 
-//END process character
 
 /**
  * Get the position of the first non-space character
@@ -346,7 +275,6 @@ function inString(line)
     return insideString ? indentation : null;
 }
 
-//BEGIN process newline
 /**
  * C comment checking. If the previous line begins with a "/*" or a "* ", then
  * return its leading white spaces + ' *' + the white spaces after the *
@@ -363,19 +291,11 @@ function tryCComment(line)
 
     // we found a */, search the opening /* and return its indentation level
     if (document.matchesAt(currentLine, lastPos - 1, "*/")) {
-        var startOfComment;
-        var lineDelimiter = gLineDelimiter;
-        while (currentLine >= 0 && lineDelimiter > 0) {
-            currentString = document.line(currentLine);
-            startOfComment = currentString.indexOf("/*");
-            if (startOfComment != -1) {
-                indentation = indentString(document.firstVirtualColumn(currentLine, gTabWidth));
-                break;
-            }
-            --currentLine;
-            --lineDelimiter;
-        }
-        if (indentation != null) debug("tryCComment: success (1) in line " + currentLine);
+        var cursor = document.findStartOfCComment(currentLine, lastPos);
+        if (cursor)
+            indentation = indentString(document.firstVirtualColumn(cursor.line, gTabWidth));
+
+        if (indentation != null) debug("tryCComment: success (1) in line " + cursor.line);
         return indentation;
     }
 
@@ -390,14 +310,20 @@ function tryCComment(line)
 
     if (char1 == '/' && char2 == '*') {
         indentation = indentString(document.firstVirtualColumn(currentLine, gTabWidth));
-        indentation += " * ";
+        indentation += ' ';
+        // only add '*', if there is none yet.
+        if (document.charAt(line, document.firstColumn(line)) != '*')
+            indentation += "* ";
     } else if (char1 == '*' && (firstPos == lastPos || document.isSpace(currentLine, firstPos + 1))) {
         var currentString = document.line(currentLine);
         currentString.search(/^\s*\*(\s*)/);
         // in theory, we could search for opening /*, and use its indentation
         // and then one alignment character. Let's not do this for now, though.
         var end = RegExp.$1;
-        indentation = indentString(document.firstVirtualColumn(currentLine, gTabWidth)) + '*' + end;
+        indentation = indentString(document.firstVirtualColumn(currentLine, gTabWidth));
+        // only add '*', if there is none yet.
+        if (document.charAt(line, document.firstColumn(line)) != '*')
+            indentation += "* ";
         if (indentation.charAt(indentation.length - 1) == '*')
             indentation += ' ';
     }
@@ -461,20 +387,29 @@ function tryCppComment(line)
  */
 function tryBrace(line)
 {
+    function isNamespace(line, column)
+    {
+        if (document.firstColumn(line) == column && line > 0)
+            --line;
+        var currentString = document.line(line);
+        return (currentString.search(/^\s*namespace\b/) != -1);
+    }
+
     var currentLine = document.prevNonEmptyLine(line - 1);
     if (currentLine < 0)
         return null;
 
     var lastPos = document.lastColumn(currentLine);
-    if (lastPos == -1)
-        return null;
-
     var indentation = null;
 
     if (document.charAt(currentLine, lastPos) == '{') {
-        // take its indentation and add one indentation level
         var firstPosVirtual = document.firstVirtualColumn(currentLine, gTabWidth);
-        indentation = incIndent(firstPosVirtual);
+        if (cfgIndentNamespace || !isNamespace(currentLine, lastPos)) {
+            // take its indentation and add one indentation level
+            indentation = incIndent(firstPosVirtual);
+        } else {
+            indentation = indentString(firstPosVirtual);
+        }
     }
 
     if (indentation != null) debug("tryBrace: success in line " + currentLine);
@@ -492,15 +427,12 @@ function tryCKeywords(line)
     if (currentLine < 0)
         return null;
 
-    var lastPos = document.lastColumn(currentLine);
-    if (lastPos == -1)
-        return null;
-
     // found non-empty line
     var currentString = document.line(currentLine);
     if (currentString.search(/^\s*(if\b|for|do\b|while|switch|[}]?\s*else|((private|public|protected|case|default|signals|Q_SIGNALS).*:))/) == -1)
         return null;
 //    debug("Found first word: " + RegExp.$1);
+    var lastPos = document.lastColumn(currentLine);
     var lastChar = currentString.charAt(lastPos);
     var indentation = null;
 
@@ -525,12 +457,9 @@ function tryCondition(line)
     if (currentLine < 0)
         return null;
 
-    var lastPos = document.lastColumn(currentLine);
-    if (lastPos == -1)
-        return null;
-
     // found non-empty line
     var currentString = document.line(currentLine);
+    var lastPos = document.lastColumn(currentLine);
     var lastChar = currentString.charAt(lastPos);
     var indentation = null;
 
@@ -581,8 +510,13 @@ function keepIndentation(line)
     return indentString(document.firstVirtualColumn(currentLine, gTabWidth));
 }
 
-function indentNewLine()
+
+//BEGIN main/entry functions
+function processChar(c)
 {
+    if (c != '{' && c != '}' && c != '/' && c != ':')
+        return;
+
     readSettings();
 
     var cursor = view.cursorPosition();
@@ -591,16 +525,89 @@ function indentNewLine()
 
     var line = cursor.line;
     var column = cursor.column;
+    var firstPos = document.firstColumn(line);
+    var lastPos = document.lastColumn(line);
+
+    debug("firstPos: " + firstPos);
+    debug("column..: " + column);
+
+    if (firstPos == column - 1 && c == '{') {
+        // todo: maybe look for if etc.
+        var filler = tryBrace(line);
+        if (filler == null)
+            filler = tryCComment(line); // checks, whether we had a "*/"
+        if (filler == null)
+            filler = keepIndentation(line);
+
+        if (filler != null) {
+            document.editBegin();
+            if (firstPos > 0)
+                document.removeText(line, 0, line, firstPos);
+            document.insertText(line, 0, filler);
+            view.setCursorPosition(line, filler.length + 1);
+            document.editEnd();
+        }
+    } else if (firstPos == column - 1 && c == '}') {
+        var filler = findLeftBrace(line, firstPos);
+        if (filler != null) {
+            document.editBegin();
+            if (firstPos > 0)
+                document.removeText(line, 0, line, firstPos);
+            document.insertText(line, 0, filler);
+            view.setCursorPosition(line, filler.length + 1);
+            document.editEnd();
+        }
+    } else if (c == '/' && lastPos == column - 1 && gLastLine == line && gLastColumn == column - 1) {
+        // try to snap the string "* /" to "*/"
+        var currentString = document.line(line);
+        if (currentString.search(/^(\s*)\*\s+\/\s*$/) != -1) {
+            currentString = RegExp.$1 + "*/";
+            document.editBegin();
+            document.removeLine(line);
+            document.insertLine(line, currentString);
+            view.setCursorPosition(line, currentString.length);
+            document.editEnd();
+        }
+    } else if (c == ':') {
+        // todo: handle case, default, signals, private, public, protected, Q_SIGNALS
+        var filler = trySwitchStatement(line);
+        if (filler == null)
+            filler = tryAccessModifiers(line);
+        if (filler != null) {
+            var newColumn = column - (firstPos - filler.length);
+
+            document.editBegin();
+            if (firstPos > 0)
+                document.removeText(line, 0, line, firstPos);
+            document.insertText(line, 0, filler);
+            view.setCursorPosition(line, newColumn);
+            document.editEnd();
+        }
+    }
+}
+
+/**
+ * Process a newline character.
+ * This function is called whenever the user hits <return/enter>, but it
+ * also is called by processLine (and processSection). If called by processLine,
+ * indentOnly is true, which means the user did not hit <return/enter> himself,
+ * instead he aligns the code through Tools > Align or via Edit > Paste. In
+ * this case, we for example do not want to insert '//' automatically.
+ */
+function processNewLine(line, column, indentOnly)
+{
+    readSettings();
 
     var firstChar = document.charAt(line, document.firstColumn(line));
+    var lastChar = document.charAt(line, document.lastColumn(line));
 
     var filler = null;
 
     if (filler == null && firstChar == '}')
-        filler = findLeftBrace(line, 0);
+        filler = findLeftBrace(line, document.firstColumn(line));
     if (filler == null)
         filler = tryCComment(line);
-    if (filler == null)
+    if (filler == null && !indentOnly)
         filler = tryCppComment(line);
     if (filler == null)
         filler = trySwitchStatement(line);
@@ -635,6 +642,70 @@ function indentNewLine()
         gLastColumn = -1;
     }
 }
-//END process newline
+
+function processLine(line)
+{
+    document.editBegin();
+    processNewLine(line, document.firstColumn(line), true);
+    if (document.firstColumn(line) == -1)
+        document.truncate(line, 0);
+    document.editEnd();
+}
+
+function processSection(startLine, endLine)
+{
+    document.editBegin();
+    while (startLine <= endLine)
+        processLine(startLine++);
+    document.editEnd();
+}
+
+function processIndent(line, levels)
+{
+    function localProcessIndent(line, levels)
+    {
+        var firstVirtualColumn = document.firstVirtualColumn(line, gTabWidth);
+        var column = firstVirtualColumn;
+        if (column < 0)
+            column = document.virtualLineLength(line, gTabWidth);
+        column += levels * gIndentWidth;
+        if (column < 0)
+            column = 0;
+
+        var diff = column % gIndentWidth;
+        column -= diff;
+        if (diff > 0 && levels < 0) {
+            // do not unindent too much
+            column += gIndentWidth;
+        }
+
+        var filler = indentString(column);
+        var firstPos = document.firstColumn(line);
+        if (firstPos == -1)
+            firstPos = document.lineLength();
+
+        document.editBegin();
+        if (firstPos > 0)
+            document.removeText(line, 0, line, firstPos);
+        document.insertText(line, 0, filler);
+        document.editEnd();
+    }
+
+    readSettings();
+
+    if (!view.hasSelection()) {
+        localProcessIndent(line, levels);
+    } else {
+        var currentLine = view.startOfSelection().line;
+        var end = view.endOfSelection().line;
+        document.editBegin();
+        for (; currentLine <= end; ++currentLine) {
+            if (document.firstColumn(currentLine) != -1)
+                localProcessIndent(currentLine, levels);
+        }
+        document.editEnd();
+    }
+}
+//END main/entry functions
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

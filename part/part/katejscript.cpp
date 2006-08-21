@@ -469,7 +469,7 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
       return KJS::String (QString(doc->character (KTextEditor::Cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec)))));
 
     case KateJSDocument::IndexOf:
-      return KJS::Number (doc->line(args[0]->toUInt32(exec)).indexOf(args[1]->toUInt32(exec)));
+      return KJS::Number (doc->line(args[0]->toUInt32(exec)).indexOf(QChar((uint)args[1]->toUInt32(exec))));
 
     case KateJSDocument::IsSpace:
       return KJS::Boolean (doc->character (KTextEditor::Cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec))).isSpace());

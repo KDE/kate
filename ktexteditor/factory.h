@@ -110,6 +110,9 @@ class KTEXTEDITOR_EXPORT Factory : public KParts::Factory
      * \return global KTextEditor::Editor object
      */
     virtual Editor *editor () = 0;
+
+  private:
+    class FactoryPrivate* const d;
 };
 
 }

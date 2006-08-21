@@ -21,6 +21,8 @@
 
 #include <ktexteditor/smartrange.h>
 
+class QMutex;
+
 namespace KTextEditor
 {
 class Document;
@@ -85,7 +87,7 @@ class SmartCursor;
  * \section smartiface_access Accessing the Interface
  *
  * The SmartInterface is supposed to be an extension interface for a Document,
- * i.e. the Document inherits the interface \e provided that the 
+ * i.e. the Document inherits the interface \e provided that the
  * KTextEditor library in use implements the interface. Use dynamic_cast to access
  * the interface:
  * \code
@@ -99,6 +101,13 @@ class SmartCursor;
  *   }
  * \endcode
  *
+ * \section smartiface_threadsafety Thread safety
+ * The smart interface is designed to be usable in multithreaded environments.
+ * If you use the interface from threads other than the main thread, you must
+ * lock the smartMutex() whenever you are making a non-const call to a smart object.
+ * This allows the text editor to guarantee that the objects will not change
+ * when it locks the mutex (for example, when performing layout or rendering).
+ *
  * \author Hamish Rodda \<rodda@kde.org\>
  */
 class KTEXTEDITOR_EXPORT SmartInterface
@@ -108,6 +117,14 @@ class KTEXTEDITOR_EXPORT SmartInterface
   public:
     SmartInterface();
     virtual ~SmartInterface();
+
+    /**
+     * Provides access to the recursive mutex used to protect write access to
+     * smart interface objects (cursors + ranges and their associated properties).
+     * If you use this interface  from a thread other than the main thread,
+     * you must lock this mutex whenever you call a non-const function on a smart object.
+     */
+    QMutex* smartMutex() const;
 
     /**
      * Clears or deletes all instances of smart objects, ie:
@@ -440,7 +457,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
     virtual void attributeNotDynamic(Attribute::Ptr a) = 0;
 
   private:
-    bool m_clearOnDocumentReload;
+    class SmartInterfacePrivate* const d;
 };
 
 }

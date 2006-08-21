@@ -16,6 +16,7 @@ set(ktexteditor_LIB_SRCS
    smartrange.cpp
    codecompletion2.cpp
    configinterface.cpp
+   smartinterface.cpp
    )
 
 kde4_automoc(${ktexteditor_LIB_SRCS})

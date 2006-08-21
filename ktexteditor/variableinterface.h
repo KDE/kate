@@ -73,10 +73,12 @@ class Document;
 class KTEXTEDITOR_EXPORT VariableInterface
 {
   public:
+    VariableInterface();
+
     /**
      * Virtual destructor.
      */
-    virtual ~VariableInterface() {}
+    virtual ~VariableInterface();
 
     /**
      * Get the value of the variable \p name.
@@ -98,6 +100,9 @@ class KTEXTEDITOR_EXPORT VariableInterface
      * \see variable()
      */
     virtual void variableChanged( Document* document, const QString &variable, const QString &value ) = 0;
+
+  private:
+    class VariableInterfacePrivate* const d;
 };
 
 

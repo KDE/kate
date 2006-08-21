@@ -101,7 +101,7 @@ class Document;
  * of the current cursor position in pixel by using
  * cursorPositionCoordinates(). The signal cursorPositionChanged() is emitted
  * whenever the cursor position changed.
- * 
+ *
  * \section view_mouse_tracking Mouse Tracking
  *
  * It is possible to get notified via the signal mousePositionChanged() for
@@ -151,12 +151,12 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * \param parent parent widget
      * \see KDocument::createView()
      */
-    View ( QWidget *parent ) : KDocument::View( parent ) {}
+    View ( QWidget *parent );
 
     /**
      * Virtual destructor.
      */
-    virtual ~View () {}
+    virtual ~View ();
 
   /*
    * Accessor for the document
@@ -534,6 +534,9 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * \see textInserted()
      */
     virtual bool insertText (const QString &text);
+
+  private:
+    class ViewPrivate* const d;
 };
 
 }

@@ -66,10 +66,12 @@ namespace KTextEditor
 class KTEXTEDITOR_EXPORT HighlightingInterface
 {
   public:
+    HighlightingInterface ();
+
     /**
      * Virtual destructor.
      */
-    virtual ~HighlightingInterface () {}
+    virtual ~HighlightingInterface ();
 
   //
   // SLOTS !!!
@@ -120,6 +122,9 @@ class KTEXTEDITOR_EXPORT HighlightingInterface
      * \see hlMode(), setHlMode()
      */
     virtual void hlChanged () = 0;
+
+  private:
+    class HighlightingInterfacePrivate* const d;
 };
 
 }

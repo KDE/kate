@@ -77,10 +77,12 @@ namespace KTextEditor
 class KTEXTEDITOR_EXPORT SessionConfigInterface
 {
   public:
+    SessionConfigInterface();
+
     /**
      * Virtual destructor.
      */
-    virtual ~SessionConfigInterface() {}
+    virtual ~SessionConfigInterface();
 
   //
   // SLOTS !!!
@@ -108,6 +110,9 @@ class KTEXTEDITOR_EXPORT SessionConfigInterface
      * \see readSessionConfig()
      */
     virtual void writeSessionConfig (KConfig *config) = 0;
+
+  private:
+    class SessionConfigInterfacePrivate* const d;
 };
 
 }

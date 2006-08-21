@@ -580,6 +580,9 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * \param document the document being closed
      */
     void aboutToClose(KTextEditor::Document *document);
+
+  private:
+    class DocumentPrivate* const d;
 };
 
 }

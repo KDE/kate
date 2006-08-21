@@ -65,10 +65,12 @@ class Document;
 class KTEXTEDITOR_EXPORT SearchInterface
 {
   public:
+    SearchInterface();
+
     /**
      * Virtual destructor.
      */
-    virtual ~SearchInterface() {}
+    virtual ~SearchInterface();
 
   public:
     /**
@@ -106,6 +108,9 @@ class KTEXTEDITOR_EXPORT SearchInterface
     virtual KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
                                            const QRegExp &regexp,
                                            bool backwards = false) = 0;
+
+  private:
+    class SearchInterfacePrivate* const d;
 };
 
 }

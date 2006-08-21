@@ -116,10 +116,12 @@ class Mark
 class KTEXTEDITOR_EXPORT MarkInterface
 {
   public:
+    MarkInterface ();
+
     /**
      * Virtual destructor.
      */
-    virtual ~MarkInterface () {}
+    virtual ~MarkInterface ();
 
   //
   // slots !!!
@@ -354,6 +356,9 @@ class KTEXTEDITOR_EXPORT MarkInterface
      */
     virtual void markChanged ( KTextEditor::Document* document, KTextEditor::Mark mark,
                                KTextEditor::MarkInterface::MarkChangeAction action) = 0;
+
+  private:
+    class MarkInterfacePrivate* const d;
 };
 
 }

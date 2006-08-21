@@ -22,10 +22,25 @@
 
 using namespace KTextEditor;
 
+class KTextEditor::CodeCompletionModelPrivate
+{
+public:
+  CodeCompletionModelPrivate()
+    : rowCount(0)
+  {}
+
+  int rowCount;
+};
+
 CodeCompletionModel::CodeCompletionModel(QObject* parent)
   : QAbstractItemModel(parent)
-  , m_rowCount(0)
+  , d(new CodeCompletionModelPrivate)
 {
+}
+
+CodeCompletionModel::~ CodeCompletionModel()
+{
+  delete d;
 }
 
 int KTextEditor::CodeCompletionModel::columnCount( const QModelIndex & ) const
@@ -35,7 +50,7 @@ int KTextEditor::CodeCompletionModel::columnCount( const QModelIndex & ) const
 
 QModelIndex KTextEditor::CodeCompletionModel::index( int row, int column, const QModelIndex & parent ) const
 {
-  if (row < 0 || row >= m_rowCount || column < 0 || column >= ColumnCount || parent.isValid())
+  if (row < 0 || row >= d->rowCount || column < 0 || column >= ColumnCount || parent.isValid())
     return QModelIndex();
 
   return createIndex(row, column, 0);
@@ -61,7 +76,7 @@ QModelIndex KTextEditor::CodeCompletionModel::parent( const QModelIndex & ) cons
 
 void KTextEditor::CodeCompletionModel::setRowCount( int rowCount )
 {
-  m_rowCount = rowCount;
+  d->rowCount = rowCount;
 }
 
 int KTextEditor::CodeCompletionModel::rowCount( const QModelIndex & parent ) const
@@ -69,7 +84,7 @@ int KTextEditor::CodeCompletionModel::rowCount( const QModelIndex & parent ) con
   if (parent.isValid())
     return 0;
 
-  return m_rowCount;
+  return d->rowCount;
 }
 
 KTextEditor::CodeCompletionInterface2::~ CodeCompletionInterface2( )

@@ -68,10 +68,12 @@ class View;
 class KTEXTEDITOR_EXPORT ModificationInterface
 {
   public:
+    ModificationInterface ();
+
     /**
      * Virtual destructor.
      */
-    virtual ~ModificationInterface () {}
+    virtual ~ModificationInterface ();
 
   public:
     /**
@@ -134,6 +136,9 @@ class KTEXTEDITOR_EXPORT ModificationInterface
     virtual void modifiedOnDisk (KTextEditor::Document *document,
                                  bool isModified,
                                  KTextEditor::ModificationInterface::ModifiedOnDiskReason reason) = 0;
+
+  private:
+    class ModificationInterfacePrivate* const d;
 };
 
 }

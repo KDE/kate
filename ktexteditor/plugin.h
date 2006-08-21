@@ -120,12 +120,12 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
      * Create a new plugin.
      * \param parent parent object
      */
-    Plugin ( QObject *parent ) : QObject (parent) {}
+    Plugin ( QObject *parent );
 
     /**
      * Virtual destructor.
      */
-    virtual ~Plugin () {}
+    virtual ~Plugin ();
 
   /*
    * Following methodes allow the plugin to react on view and document
@@ -236,6 +236,9 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
      * \see configDialogSupported()
      */
     virtual void configDialog (QWidget *parent) { Q_UNUSED(parent); }
+
+  private:
+    class PluginPrivate* const d;
 };
 
 /**

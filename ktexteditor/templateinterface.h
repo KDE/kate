@@ -41,7 +41,8 @@ class View;
 class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInterface, but for consistency with the other classes it is not (for the 3.x release series)
 {
   public:
-    virtual ~TemplateInterface() {}
+    TemplateInterface();
+    virtual ~TemplateInterface();
 
     /**
      * Parses \p templateString for macros in the form [$%]{NAME} and finds
@@ -109,6 +110,9 @@ protected:
      * \return true if any text was inserted.
      */
     virtual bool insertTemplateTextImplementation ( const Cursor &insertPosition, const QString &templateString, const QMap<QString,QString> &initialValues)=0;
+
+  private:
+    class TemplateInterfacePrivate* const d;
 };
 
 }

@@ -54,7 +54,7 @@ class Document;
  *       qobject_cast<KTextEditor::ConfigInterface*>( view );
  *
  *   if( iface ) {
- *   
+ *
  *       // the implementation supports the interface
  *       // do stuff
  *   }
@@ -82,6 +82,8 @@ class Document;
 class KTEXTEDITOR_EXPORT ConfigInterface
 {
   public:
+    ConfigInterface ();
+
     /**
      * Virtual destructor.
      */
@@ -99,7 +101,10 @@ class KTEXTEDITOR_EXPORT ConfigInterface
     /**
      * Set a the \p key's value to \p value.
      */
-    virtual void setConfigValue(const QString &key, const QVariant &value) = 0; 
+    virtual void setConfigValue(const QString &key, const QVariant &value) = 0;
+
+  private:
+    class ConfigInterfacePrivate* const d;
 };
 
 }

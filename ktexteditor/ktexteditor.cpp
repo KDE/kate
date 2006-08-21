@@ -49,7 +49,6 @@
 #include "templateinterface.h"
 #include "texthintinterface.h"
 #include "variableinterface.h"
-#include "smartinterface.h"
 
 //#include <kaction.h>
 #include <kparts/factory.h>
@@ -122,6 +121,7 @@ CompletionProvider *CompletionItem::provider() const {return d->provider;}
 
 Factory::Factory( QObject *parent )
  : KParts::Factory( parent )
+ , d(0)
 {
 }
 
@@ -131,6 +131,7 @@ Factory::~Factory()
 
 Editor::Editor( QObject *parent )
  : QObject ( parent )
+ , d(0)
 {
 }
 
@@ -140,6 +141,7 @@ Editor::~Editor()
 
 Document::Document( QObject *parent)
  : KDocument::Document( parent)
+ , d(0)
 {
 }
 
@@ -222,25 +224,6 @@ Editor *KTextEditor::editor(const char *libname)
   return ef->editor();
 }
 
-SmartInterface::SmartInterface()
-  : m_clearOnDocumentReload(true)
-{
-}
-
-SmartInterface::~ SmartInterface( )
-{
-}
-
-bool SmartInterface::clearOnDocumentReload() const
-{
-  return m_clearOnDocumentReload;
-}
-
-void SmartInterface::setClearOnDocumentReload(bool clearOnReload)
-{
-  m_clearOnDocumentReload = clearOnReload;
-}
-
 bool Document::isEmpty( ) const
 {
   return documentEnd() == Cursor::start();
@@ -248,5 +231,85 @@ bool Document::isEmpty( ) const
 
 long ArgHintData::s_id=0;
 long CompletionData::s_id=0;
+
+ConfigPage::ConfigPage ( QWidget *parent )
+  : QWidget (parent)
+  , d(0)
+{}
+
+ConfigPage::~ConfigPage ()
+{}
+
+View::View ( QWidget *parent )
+  : KDocument::View( parent )
+  , d(0)
+{}
+
+View::~View ()
+{}
+
+Plugin::Plugin ( QObject *parent )
+  : QObject (parent)
+  , d(0)
+{}
+
+Plugin::~Plugin ()
+{}
+
+HighlightingInterface::HighlightingInterface ()
+  : d(0)
+{}
+
+HighlightingInterface::~HighlightingInterface ()
+{}
+
+MarkInterface::MarkInterface ()
+  : d(0)
+{}
+
+MarkInterface::~MarkInterface ()
+{}
+
+ModificationInterface::ModificationInterface ()
+  : d(0)
+{}
+
+ModificationInterface::~ModificationInterface ()
+{}
+
+SearchInterface::SearchInterface()
+  : d(0)
+{}
+
+SearchInterface::~SearchInterface()
+{}
+
+SessionConfigInterface::SessionConfigInterface()
+  : d(0)
+{}
+
+SessionConfigInterface::~SessionConfigInterface()
+{}
+
+TemplateInterface::TemplateInterface()
+  : d(0)
+{}
+
+TemplateInterface::~TemplateInterface()
+{}
+
+TextHintInterface::TextHintInterface()
+  : d(0)
+{}
+
+TextHintInterface::~TextHintInterface()
+{}
+
+VariableInterface::VariableInterface()
+  : d(0)
+{}
+
+VariableInterface::~VariableInterface()
+{}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

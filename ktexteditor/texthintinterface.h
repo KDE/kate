@@ -34,7 +34,8 @@ namespace KTextEditor
 class KTEXTEDITOR_EXPORT TextHintInterface
 {
   public:
-    virtual ~TextHintInterface() {}
+    TextHintInterface();
+    virtual ~TextHintInterface();
 
     /**
      * enable Texthints. If they are enabled a signal needTextHint is emitted, if the mouse
@@ -56,6 +57,9 @@ class KTEXTEDITOR_EXPORT TextHintInterface
      * otherwise set text to the string you want the editor to display
      */
 	virtual void needTextHint(const KTextEditor::Cursor& position, QString &text)=0;
+
+  private:
+    class TextHintInterfacePrivate* const d;
 };
 
 }

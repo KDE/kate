@@ -251,6 +251,9 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
      */
     void documentCreated (KTextEditor::Editor *editor,
                           KTextEditor::Document *document);
+
+  private:
+    class EditorPrivate* const d;
 };
 
 

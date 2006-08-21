@@ -41,6 +41,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
 
   public:
     CodeCompletionModel(QObject* parent);
+    virtual ~CodeCompletionModel();
 
     enum Columns {
       Prefix = 0,
@@ -165,7 +166,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
     virtual int rowCount ( const QModelIndex & parent = QModelIndex() ) const;
 
   private:
-    int m_rowCount;
+    class CodeCompletionModelPrivate* const d;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(CodeCompletionModel::CompletionProperties)

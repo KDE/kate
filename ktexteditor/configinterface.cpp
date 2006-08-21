@@ -19,10 +19,13 @@
 
 #include <configinterface.h>
 
+using namespace KTextEditor;
 
-namespace KTextEditor
+ConfigInterface::ConfigInterface ()
+  : d(0)
 {
-	ConfigInterface::~ConfigInterface()
-	{
-	}
+}
+
+ConfigInterface::~ConfigInterface()
+{
 }

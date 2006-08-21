@@ -53,11 +53,11 @@ class KTEXTEDITOR_EXPORT ConfigPage : public QWidget
      * Create a new config page with \p parent.
      * \param parent parent widget
      */
-    ConfigPage ( QWidget *parent ) : QWidget (parent) {}
+    ConfigPage ( QWidget *parent );
     /**
      * Virtual destructor.
      */
-    virtual ~ConfigPage () {}
+    virtual ~ConfigPage ();
 
   public Q_SLOTS:
     /**
@@ -84,6 +84,9 @@ class KTEXTEDITOR_EXPORT ConfigPage : public QWidget
      * Emit this signal whenever a config option changed.
      */
     void changed();
+
+  private:
+    class ConfigPagePrivate* const d;
 };
 
 }

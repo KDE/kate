@@ -647,7 +647,7 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
           } else if (ch == ')') {
             ++count;
           }
-  
+
           if (count == 0) {
             KJS::JSObject *object = exec->lexicalInterpreter()->builtinObject()->construct(exec, KJS::List::empty());
             object->put(exec, "line", KJS::Number(cursor.line()));
@@ -1224,8 +1224,10 @@ void KateIndentJScript::deleteInterpreter()
     m_viewWrapper=0;
     delete m_indenter;
     m_indenter=0;
-    m_interpreter->deref();
-    m_interpreter=0;
+    if (m_interpreter) {
+      m_interpreter->deref();
+      m_interpreter=0;
+    }
 }
 
 bool KateIndentJScript::setupInterpreter(QString &errorMsg)
@@ -1373,7 +1375,7 @@ bool KateIndentJScript::processNewline(KateView *view, const KateDocCursor &begi
 bool KateIndentJScript::processSection( KateView *view, const KateDocCursor &begin,
                                         const KateDocCursor &end, QString &errorMsg )
 {
-  kDebug(13050) << "KateIndentJScript::processSection" << endl; 
+  kDebug(13050) << "KateIndentJScript::processSection" << endl;
   if (!setupInterpreter(errorMsg)) return false;
   KJS::List params;
   params.append(KJS::Number(begin.line()));
@@ -1387,7 +1389,7 @@ bool KateIndentJScript::processSection( KateView *view, const KateDocCursor &beg
 
 bool KateIndentJScript::processIndent( KateView *view, uint line, int levels, QString &errorMsg )
 {
-  kDebug(13050) << "KateIndentJScript::processIndent" << endl; 
+  kDebug(13050) << "KateIndentJScript::processIndent" << endl;
   if (!setupInterpreter(errorMsg)) return false;
   KJS::List params;
   params.append(KJS::Number(line));
@@ -1404,12 +1406,12 @@ const QString& KateIndentJScript::internalName()
    return m_internalName;
 }
 
-const QString& KateIndentJScript::filePath() 
+const QString& KateIndentJScript::filePath()
 {
    return m_filePath;
 }
 
-const QString& KateIndentJScript::niceName() 
+const QString& KateIndentJScript::niceName()
 {
   return m_niceName;
 }
@@ -1424,12 +1426,12 @@ const QString& KateIndentJScript::author()
   return m_author;
 }
 
-int KateIndentJScript::version() 
+int KateIndentJScript::version()
 {
   return m_version;
 }
 
-double KateIndentJScript::kateVersion() 
+double KateIndentJScript::kateVersion()
 {
   return m_kateVersion;
 }
@@ -1521,7 +1523,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
       QString author;
       int version = 0;
       double kateVersion = 0.0;
-      bool success = parseScriptHeader(filePath, niceName, license, author, 
+      bool success = parseScriptHeader(filePath, niceName, license, author,
                                        version, kateVersion);
       // save the information for retrieval
       config.setGroup(Group);

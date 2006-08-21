@@ -54,6 +54,7 @@
 #include <QClipboard>
 #include <QStack>
 #include <QMutex>
+#include <QThread>
 
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view)
@@ -534,7 +535,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
 {
 #ifndef KTEXTEDITOR_NO_SMART_THREADSAFE
-  Q_ASSERT(m_doc->isSmartLocked());
+  Q_ASSERT(m_doc->isSmartLocked() || thread() == QThread::currentThread());
 #endif
 
   m_updatingView = true;
@@ -3269,7 +3270,7 @@ void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool rea
   int endLine = realCursors ? range.end().line() : toRealCursor(range.end()).line();
   cache()->relayoutLines(startLine, endLine);
 #ifndef KTEXTEDITOR_NO_SMART_THREADSAFE
-  Q_ASSERT(m_doc->isSmartLocked());
+  Q_ASSERT(m_doc->isSmartLocked() || thread() == QThread::currentThread());
   if (!m_smartDirty) {
     m_smartDirty = true;
     emit requestViewUpdate();

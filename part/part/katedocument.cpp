@@ -5049,9 +5049,6 @@ void KateDocument::rangeDeleted( KTextEditor::SmartRange * range )
 
 bool KateDocument::isSmartLocked() const
 {
-  //if (thread() == QThread::currentThread())
-    //return true;
-
   bool smartLocked = true;
   if (smartMutex()->tryLock()) {
     smartMutex()->unlock();

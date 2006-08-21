@@ -119,7 +119,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   pathName = pathName.arg (++dummy);
 
   // my dbus object
-  QDBus::sessionBus().registerObject (pathName, this);
+  QDBusConnection::sessionBus().registerObject (pathName, this);
 
   // init local plugin array
   m_plugins.fill (0);

@@ -110,8 +110,12 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
   //END
 
   private slots:
+    // Updates the view and requests a redraw.
     void updateView (bool changed = false, int viewLinesScrolled = 0);
+
   private:
+    // Actually performs the updating, but doesn't call update().
+    void doUpdateView(bool changed = false, int viewLinesScrolled = 0);
     void makeVisible (const KTextEditor::Cursor& c, int endCol, bool force = false, bool center = false, bool calledExternally = false);
 
   public:
@@ -437,6 +441,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
   private:
     QHash<KateSmartRange*, DynamicRangeHL*> m_dynamicHighlights;
+    bool m_smartDirty;
 };
 
 #endif

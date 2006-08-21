@@ -35,7 +35,7 @@ KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEdito
   , m_watcher(0L)
 {
   if (position.line() > kateDocument()->lastLine()) {
-    kWarning() << k_funcinfo << "Attempted to set cursor position past end of document." << endl;
+    kWarning() << k_funcinfo << "Attempted to set cursor position " << position << " past end of document " << doc->documentRange() << endl;
     m_line = -1;
     m_column = -1;
   }
@@ -316,7 +316,7 @@ void KateSmartCursor::migrate( KateSmartGroup * newGroup )
 void KateSmartCursor::setPosition( const KTextEditor::Cursor & pos )
 {
   if (pos.line() > kateDocument()->lastLine()) {
-    kWarning() << k_funcinfo << "Attempted to set cursor position past end of document." << endl;
+    kWarning() << k_funcinfo << "Attempted to set cursor position " << pos << " past end of document " << document()->documentRange() << endl;
     setPositionInternal(invalid(), false);
     return;
   }

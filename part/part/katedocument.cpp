@@ -77,6 +77,7 @@
 #include <qtextstream.h>
 #include <qtextcodec.h>
 #include <qmap.h>
+#include <QMutex>
 //END  includes
 
 static bool s_openErrorDialogsActivated = true;
@@ -5045,3 +5046,16 @@ void KateDocument::rangeDeleted( KTextEditor::SmartRange * range )
 //END KTextEditor::SmartInterface
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
+
+bool KateDocument::isSmartLocked() const
+{
+  //if (thread() == QThread::currentThread())
+    //return true;
+
+  bool smartLocked = true;
+  if (smartMutex()->tryLock()) {
+    smartMutex()->unlock();
+    smartLocked = false;
+  }
+  return smartLocked;
+}

@@ -296,6 +296,8 @@ void KateRegression::testRangeTree( )
   Range third(1, 1, 1, 11);
   Range* thirdLevel = smart()->newSmartRange(third, static_cast<SmartRange*>(secondLevel));
   QCOMPARE(*thirdLevel, third);
+
+  // Ensure second level has expanded
   QCOMPARE(*secondLevel, third);
 
   Range fourth(1, 4, 1, 6);
@@ -326,6 +328,17 @@ void KateRegression::testRangeTree( )
   secondLevel->end() = second.end();
   QCOMPARE(secondLevel->end(), second.end());
   QCOMPARE(*thirdLevel, *secondLevel);
+
+  // Check moving parent before child start
+  Range largerSecond(1, 0, 1, 20);
+  secondLevel->start() = largerSecond.start();
+  QCOMPARE(secondLevel->start(), largerSecond.start());
+  QCOMPARE(*thirdLevel, second);
+
+  // Check moving parent after child end
+  secondLevel->end() = largerSecond.end();
+  QCOMPARE(*secondLevel, largerSecond);
+  QCOMPARE(*thirdLevel, second);
 
   top->deleteChildRanges();
 

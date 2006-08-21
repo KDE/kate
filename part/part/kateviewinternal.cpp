@@ -53,6 +53,7 @@
 #include <QMouseEvent>
 #include <QClipboard>
 #include <QStack>
+#include <QMutex>
 
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view)
@@ -87,6 +88,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_textHintEnabled(false)
   , m_textHintMouseX(-1)
   , m_textHintMouseY(-1)
+  , m_smartDirty(false)
 {
   // Set up bracket marking
   static KTextEditor::Attribute::Ptr bracketOutline, bracketFill;
@@ -519,6 +521,22 @@ void KateViewInternal::scrollColumns ( int x )
 // If changed is true, the lines that have been set dirty have been updated.
 void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 {
+#ifndef KTEXTEDITOR_NO_SMART_THREADSAFE
+  QMutexLocker lock(m_doc->smartMutex());
+#endif
+
+  doUpdateView(changed, viewLinesScrolled);
+
+  if (changed)
+    updateDirty(); //paintText(0, 0, width(), height(), true);
+}
+
+void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
+{
+#ifndef KTEXTEDITOR_NO_SMART_THREADSAFE
+  Q_ASSERT(m_doc->isSmartLocked());
+#endif
+
   m_updatingView = true;
 
   if (changed)
@@ -571,10 +589,10 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     m_columnScroll->blockSignals(false);
   }
 
-  m_updatingView = false;
+  if (m_smartDirty)
+    m_smartDirty = false;
 
-  if (changed)
-    updateDirty(); //paintText(0, 0, width(), height(), true);
+  m_updatingView = false;
 }
 
 /**
@@ -2608,6 +2626,13 @@ void KateViewInternal::updateDirty( )
 
 void KateViewInternal::paintEvent(QPaintEvent *e)
 {
+#ifndef KTEXTEDITOR_NO_SMART_THREADSAFE
+  QMutexLocker lock(m_doc->smartMutex());
+
+  if (m_smartDirty)
+    doUpdateView();
+#endif
+
   //kDebug (13030) << "GOT PAINT EVENT: x: " << e->rect().x() << " y: " << e->rect().y()
   //  << " width: " << e->rect().width() << " height: " << e->rect().height() << endl;
 
@@ -3239,10 +3264,19 @@ void KateViewInternal::cursorMoved( )
 
 void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool realCursors )
 {
+
   int startLine = realCursors ? range.start().line() : toRealCursor(range.start()).line();
   int endLine = realCursors ? range.end().line() : toRealCursor(range.end()).line();
   cache()->relayoutLines(startLine, endLine);
+#ifndef KTEXTEDITOR_NO_SMART_THREADSAFE
+  Q_ASSERT(m_doc->isSmartLocked());
+  if (!m_smartDirty) {
+    m_smartDirty = true;
+    emit requestViewUpdate();
+  }
+#else
   emit requestViewUpdate();
+#endif
 }
 
 void KateViewInternal::rangePositionChanged( KTextEditor::SmartRange * range )
@@ -3275,6 +3309,7 @@ void KateViewInternal::childRangeRemoved( KTextEditor::SmartRange *, KTextEditor
 
 void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
 {
+  relayoutRange(*range);
   range->addWatcher(this);
   foreach (KTextEditor::SmartRange* child, range->childRanges())
     addHighlightRange(child);
@@ -3282,6 +3317,7 @@ void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
 
 void KateViewInternal::removeHighlightRange(KTextEditor::SmartRange* range)
 {
+  relayoutRange(*range);
   range->removeWatcher(this);
   foreach (KTextEditor::SmartRange* child, range->childRanges())
     removeHighlightRange(child);

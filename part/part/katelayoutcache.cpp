@@ -18,6 +18,8 @@
 
 #include "katelayoutcache.h"
 
+#include <QMutexLocker>
+
 #include "katerenderer.h"
 #include "kateview.h"
 #include "katedocument.h"

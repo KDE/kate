@@ -225,8 +225,14 @@ class KateHighlighting
     void readIndentationConfig ();
     void readFoldingConfig ();
 
-    // manipulates the ctxs array directly ;)
-    void generateContextStack(int *ctxNum, int ctx, QVector<short> *ctxs, int *posPrevLine);
+    /**
+     * update given context stack
+     * @param contextStack context stack to manipulate
+     * @param modificationContext new context to handle, this triggers the update
+     * @param indexLastContextPreviousLine index of the last context from the previous line which still is in the stack
+     * @return current active context, last one of the stack or default context 0 for empty stack
+     */
+    KateHlContext *generateContextStack(QVector<short> &contextStack, int modificationContext, int &indexLastContextPreviousLine);
 
     KateHlItem *createKateHlItem(KateSyntaxContextData *data, QList<KateExtendedAttribute::Ptr> &iDl, QStringList *RegionList, QStringList *ContextList);
     int lookupAttrName(const QString& name, QList<KateExtendedAttribute::Ptr> &iDl);

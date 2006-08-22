@@ -106,7 +106,7 @@ class KateHlItem
 class KateHlContext
 {
   public:
-    KateHlContext(const QString &_hlId, int attribute, int lineEndContext,int _lineBeginContext,
+    KateHlContext(const QString &_hlId, int attribute, int _lineEndContext,int _lineBeginContext,
                   bool _fallthrough, int _fallthroughContext, bool _dynamic,bool _noIndentationBasedFolding);
     virtual ~KateHlContext();
     KateHlContext *clone(const QStringList *args);
@@ -114,7 +114,7 @@ class KateHlContext
     QVector<KateHlItem*> items;
     QString hlId; ///< A unique highlight identifier. Used to look up correct properties.
     int attr;
-    int ctx;
+    int lineEndContext;
     int lineBeginContext;
     /** @internal anders: possible escape if no rules matches.
        false unless 'fallthrough="1|true"' (insensitive)
@@ -1092,12 +1092,12 @@ KateHlData::KateHlData(const QString &wildcards, const QString &mimetypes, const
 KateHlData::KateHlData() {}
 
 //BEGIN KateHlContext
-KateHlContext::KateHlContext (const QString &_hlId, int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough,
+KateHlContext::KateHlContext (const QString &_hlId, int attribute, int _lineEndContext, int _lineBeginContext, bool _fallthrough,
 	int _fallthroughContext, bool _dynamic, bool _noIndentationBasedFolding)
 {
   hlId = _hlId;
   attr = attribute;
-  ctx = lineEndContext;
+  lineEndContext = _lineEndContext;
   lineBeginContext = _lineBeginContext;
   fallthrough = _fallthrough;
   ftctx = _fallthroughContext;
@@ -1110,7 +1110,7 @@ KateHlContext::KateHlContext (const QString &_hlId, int attribute, int lineEndCo
 
 KateHlContext *KateHlContext::clone(const QStringList *args)
 {
-  KateHlContext *ret = new KateHlContext(hlId, attr, ctx, lineBeginContext, fallthrough, ftctx, false,noIndentationBasedFolding);
+  KateHlContext *ret = new KateHlContext(hlId, attr, lineEndContext, lineBeginContext, fallthrough, ftctx, false,noIndentationBasedFolding);
 
   for (int n=0; n < items.size(); ++n)
   {
@@ -1195,63 +1195,63 @@ void KateHighlighting::cleanup ()
   internalIDList.clear();
 }
 
-void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QVector<short>* ctxs, int *prevLine)
+KateHlContext *KateHighlighting::generateContextStack(QVector<short> &contextStack, int modificationContext, int &indexLastContextPreviousLine)
 {
-  //kDebug(13010)<<QString("Entering generateContextStack with %1").arg(ctx)<<endl;
   while (true)
   {
-    if (ctx >= 0)
+    /**
+     * stay, do nothing, just return the last context
+     * in the stack or 0
+     */
+    if (modificationContext == -1)
     {
-      (*ctxNum) = ctx;
-
-      ctxs->append (*ctxNum);
-
-      return;
+      return contextNum (contextStack.isEmpty() ? 0 : contextStack.last());
     }
-    else
+
+    /**
+     * just add a new context to the stack
+     * and return this one
+     */
+    if (modificationContext >= 0)
     {
-      if (ctx == -1)
-      {
-        (*ctxNum)=( (ctxs->isEmpty() ) ? 0 : (*ctxs)[ctxs->size()-1]);
-      }
-      else
-      {
-        int size = ctxs->size() + ctx + 1;
-
-        if (size > 0)
-        {
-          ctxs->resize (size);
-          (*ctxNum)=(*ctxs)[size-1];
-        }
-        else
-        {
-          ctxs->resize (0);
-          (*ctxNum)=0;
-        }
-
-        ctx = 0;
-
-        if ((*prevLine) >= (int)(ctxs->size()-1))
-        {
-          *prevLine=ctxs->size()-1;
-
-          if ( ctxs->isEmpty() )
-            return;
-
-          KateHlContext *c = contextNum((*ctxs)[ctxs->size()-1]);
-          if (c && (c->ctx != -1))
-          {
-            //kDebug(13010)<<"PrevLine > size()-1 and ctx!=-1)"<<endl;
-            ctx = c->ctx;
-
-            continue;
-          }
-        }
-      }
-
-      return;
+      contextStack.append (modificationContext);
+      return contextNum (modificationContext);
     }
+
+    // one or multiple pops
+    // number of pops == -ctx - 1
+    int size = contextStack.size() + modificationContext + 1;
+
+    // resize stack
+    contextStack.resize ((size < 0) ? 0 : size);
+
+    // handling of context of previous line....
+    if (indexLastContextPreviousLine >= (contextStack.size()-1))
+    {
+      // set new index, if stack is empty, this is -1, done for eternity...
+      indexLastContextPreviousLine = contextStack.size() - 1;
+
+      // stack already empty, nothing to do...
+      if ( contextStack.isEmpty() )
+        return contextNum (0);
+
+      KateHlContext *c = contextNum(contextStack.last());
+
+      // this must be a valid context, or our context stack is borked....
+      Q_ASSERT (c);
+
+      // handle line end context as new modificationContext
+      modificationContext = c->lineEndContext;
+      continue;
+    }
+
+    return contextNum (contextStack.isEmpty() ? 0 : contextStack.last());
   }
+
+  // should never be reached
+  Q_ASSERT (false);
+
+  return contextNum (0);
 }
 
 /**
@@ -1323,30 +1323,24 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   // duplicate the ctx stack, only once !
   QVector<short> ctx (prevLine->ctxArray());
 
-  int ctxNum = 0;
   int previousLine = -1;
   KateHlContext *context;
 
   if (ctx.isEmpty())
   {
     // If the stack is empty, we assume to be in Context 0 (Normal)
-    context = contextNum(ctxNum);
+    context = contextNum(0);
   }
   else
   {
-    // There does an old context stack exist -> find the context at the line start
-    ctxNum = ctx[ctx.size()-1]; //context ID of the last character in the previous line
-
     //kDebug(13010) << "\t\tctxNum = " << ctxNum << " contextList[ctxNum] = " << contextList[ctxNum] << endl; // ellis
 
     //if (lineContinue)   kDebug(13010)<<QString("The old context should be %1").arg((int)ctxNum)<<endl;
-
-    if (!(context = contextNum(ctxNum)))
-      context = contextNum(0);
+    context = contextNum(ctx.last());
 
     //kDebug(13010)<<"test1-2-1-text2"<<endl;
 
-    previousLine=ctx.size()-1; //position of the last context ID of th previous line within the stack
+    previousLine = ctx.size()-1; //position of the last context ID of th previous line within the stack
 
     // hl continue set or not ???
     if (prevLine->hlLineContinue())
@@ -1355,10 +1349,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     }
     else
     {
-      generateContextStack(&ctxNum, context->ctx, &ctx, &previousLine); //get stack ID to use
-
-      if (!(context = contextNum(ctxNum)))
-        context = contextNum(0);
+      context = generateContextStack(ctx, context->lineEndContext, previousLine); //get stack ID to use
     }
 
     //kDebug(13010)<<"test1-2-1-text4"<<endl;
@@ -1462,8 +1453,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       // regenerate context stack if needed
       if (item->ctx != -1)
       {
-        generateContextStack (&ctxNum, item->ctx, &ctx, &previousLine);
-        context = contextNum(ctxNum);
+        context = generateContextStack (ctx, item->ctx, previousLine);
       }
 
       // dynamic context: substitute the model with an 'instance'
@@ -1476,8 +1466,8 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
           int newctx = makeDynamicContext(context, lst);
           if (ctx.size() > 0)
             ctx[ctx.size() - 1] = newctx;
-          ctxNum = newctx;
-          context = contextNum(ctxNum);
+
+          context = contextNum(newctx);
         }
         delete lst;
       }
@@ -1510,8 +1500,8 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     if ( context->fallthrough )
     {
     // set context to context->ftctx.
-      generateContextStack(&ctxNum, context->ftctx, &ctx, &previousLine);  //regenerate context stack
-      context=contextNum(ctxNum);
+      context=generateContextStack(ctx, context->ftctx, previousLine);  //regenerate context stack
+
     //kDebug(13010)<<"context num after fallthrough at col "<<z<<": "<<ctxNum<<endl;
     // the next is necessary, as otherwise keyword (or anything using the std delimitor check)
     // immediately after fallthrough fails. Is it bad?

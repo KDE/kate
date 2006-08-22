@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2003-2005 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2003-2006 Hamish Rodda <rodda@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -58,7 +58,7 @@ bool SmartRenderRange::advanceTo(const KTextEditor::Cursor& pos) const
   bool ret = false;
 
   while (m_currentRange && !m_currentRange->contains(pos)) {
-    m_attribs.pop();
+    KTextEditor::Attribute::Ptr a = m_attribs.pop();
     m_currentRange = m_currentRange->parentRange();
     ret = true;
   }
@@ -88,16 +88,16 @@ void SmartRenderRange::addTo(KTextEditor::SmartRange* range) const
   KTextEditor::SmartRange* r = range;
   QStack<KTextEditor::SmartRange*> reverseStack;
   while (r != m_currentRange) {
-    reverseStack.append(r);
+    reverseStack.push(r);
     r = r->parentRange();
   }
 
-  KTextEditor::Attribute::Ptr a(new KTextEditor::Attribute());
-  if (m_attribs.count())
-    *a = *m_attribs.top();
-
   while (reverseStack.count()) {
-    KateSmartRange* r2 = static_cast<KateSmartRange*>(reverseStack.top());
+    KTextEditor::Attribute::Ptr a(new KTextEditor::Attribute());
+    if (!m_attribs.isEmpty())
+      *a = *m_attribs.top();
+
+    KateSmartRange* r2 = static_cast<KateSmartRange*>(reverseStack.pop());
     if (KTextEditor::Attribute::Ptr a2 = r2->attribute())
       *a += *a2;
 
@@ -105,8 +105,7 @@ void SmartRenderRange::addTo(KTextEditor::SmartRange* range) const
       foreach (KateDynamicAnimation* anim, r2->dynamicAnimations())
         anim->mergeToAttribute(a);
 
-    m_attribs.append(a);
-    reverseStack.pop();
+    m_attribs.push(a);
   }
 
   m_currentRange = range;

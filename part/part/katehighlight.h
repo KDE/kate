@@ -51,6 +51,33 @@ class KateSyntaxContextData;
 
 class QMenu;
 
+/**
+ * describe a modification of the context stack
+ */
+class KateHlContextModification
+{
+  public:
+    /**
+     * Constructor
+     * @param _newcontext new context to push on stack
+     * @param _pops number of contexts to remove from stack in advance
+     */
+    KateHlContextModification (int _newContext = -1, int _pops = 0) : newContext (_newContext), pops (_pops) {}
+
+  public:
+    /**
+    * new context to push on the stack
+    * if this is < 0, push nothing on the stack
+    */
+    int newContext;
+
+    /**
+    * number of contexts to pop from the stack
+    * before pushing a new context on it
+    */
+    int pops;
+};
+
 class KateEmbeddedHlInfo
 {
   public:
@@ -228,11 +255,11 @@ class KateHighlighting
     /**
      * update given context stack
      * @param contextStack context stack to manipulate
-     * @param modificationContext new context to handle, this triggers the update
+     * @param modification description of the modification of the stack to execute
      * @param indexLastContextPreviousLine index of the last context from the previous line which still is in the stack
      * @return current active context, last one of the stack or default context 0 for empty stack
      */
-    KateHlContext *generateContextStack(QVector<short> &contextStack, int modificationContext, int &indexLastContextPreviousLine);
+    KateHlContext *generateContextStack(QVector<short> &contextStack, KateHlContextModification modification, int &indexLastContextPreviousLine);
 
     KateHlItem *createKateHlItem(KateSyntaxContextData *data, QList<KateExtendedAttribute::Ptr> &iDl, QStringList *RegionList, QStringList *ContextList);
     int lookupAttrName(const QString& name, QList<KateExtendedAttribute::Ptr> &iDl);

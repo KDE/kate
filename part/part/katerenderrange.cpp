@@ -58,7 +58,7 @@ bool SmartRenderRange::advanceTo(const KTextEditor::Cursor& pos) const
   bool ret = false;
 
   while (m_currentRange && !m_currentRange->contains(pos)) {
-    KTextEditor::Attribute::Ptr a = m_attribs.pop();
+    m_attribs.pop();
     m_currentRange = m_currentRange->parentRange();
     ret = true;
   }

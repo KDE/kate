@@ -65,9 +65,11 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_cursor(doc)
   , m_mouse()
   , m_possibleTripleClick (false)
+#if 0
   , m_bm(doc->smartManager()->newSmartRange())
-  , m_bmStart(doc->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
-  , m_bmEnd(doc->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
+  , m_bmStart(doc->smartManager()->newSmartRange(KTextEditor::Range()/*, m_bm*/))
+  , m_bmEnd(doc->smartManager()->newSmartRange(KTextEditor::Range()/*, m_bm*/))
+#endif
   , m_dummy (0)
   , m_startPos(doc)
   , m_madeVisible(false)
@@ -91,6 +93,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_textHintMouseY(-1)
   , m_smartDirty(false)
 {
+#if 0
   // Set up bracket marking
   static KTextEditor::Attribute::Ptr bracketOutline, bracketFill;
   if (!bracketOutline) {
@@ -107,6 +110,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   m_bm->setAttribute(bracketOutline);
   m_bmStart->setAttribute(bracketFill);
   m_bmEnd->setAttribute(bracketFill);
+#endif
 
   setMinimumSize (0,0);
 
@@ -232,6 +236,13 @@ void removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatche
     removeWatcher(child, watcher);
 }
 
+void addWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
+{
+  range->addWatcher(watcher);
+  foreach (KTextEditor::SmartRange* child, range->childRanges())
+    addWatcher(child, watcher);
+}
+
 KateViewInternal::~KateViewInternal ()
 {
   // crashes on close without
@@ -242,9 +253,10 @@ KateViewInternal::~KateViewInternal ()
 
   qDeleteAll(m_dynamicHighlights);
 
+  // FIXME
   //delete m_bmEnd;
   //delete m_bmStart;
-  delete m_bm;
+  //delete m_bm;
 }
 
 void KateViewInternal::prepareForDynWrapChange()
@@ -1886,6 +1898,7 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 
 void KateViewInternal::updateBracketMarks()
 {
+#if 0
   if ( m_bm->isValid() ) {
     tagRange(*m_bm, true);
     tagRange(*m_bmStart, true);
@@ -1914,6 +1927,7 @@ void KateViewInternal::updateBracketMarks()
     tagRange(*m_bmStart, true);
     tagRange(*m_bmEnd, true);
   }
+#endif
 }
 
 bool KateViewInternal::tagLine(const KTextEditor::Cursor& virtualCursor)
@@ -3105,6 +3119,8 @@ void KateViewInternal::dynamicHighlightAdded( KateSmartRange * range )
   DynamicRangeHL* hl = new DynamicRangeHL(range);
   hl->isView = view() == sender();
 
+  addWatcher(range, this);
+
   m_dynamicHighlights.insert(range, hl);
 
   if (m_mouse.isValid())
@@ -3116,6 +3132,8 @@ void KateViewInternal::dynamicHighlightAdded( KateSmartRange * range )
 
 void KateViewInternal::dynamicHighlightRemoved( KateSmartRange * range )
 {
+  removeWatcher(range, this);
+
   delete m_dynamicHighlights.take(range);
 }
 
@@ -3292,6 +3310,7 @@ void KateViewInternal::rangeDeleted( KTextEditor::SmartRange * range )
 void KateViewInternal::childRangeInserted( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
 {
   relayoutRange(*child);
+  // This is already a dynamically highlighted range if we're watching it, thus add a watcher
   child->addWatcher(this);
 }
 
@@ -3304,13 +3323,15 @@ void KateViewInternal::rangeAttributeChanged( KTextEditor::SmartRange * range, K
 void KateViewInternal::childRangeRemoved( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
 {
   relayoutRange(*child);
+  // This is already a dynamically highlighted range if we're watching it, thus remove the watcher
   child->removeWatcher(this);
 }
 
 void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
 {
   relayoutRange(*range);
-  range->addWatcher(this);
+  // Watchers are only added for dynamicly highlighted ranges
+  //range->addWatcher(this);
   foreach (KTextEditor::SmartRange* child, range->childRanges())
     addHighlightRange(child);
 }
@@ -3318,7 +3339,8 @@ void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
 void KateViewInternal::removeHighlightRange(KTextEditor::SmartRange* range)
 {
   relayoutRange(*range);
-  range->removeWatcher(this);
+  // Watchers are only removed for dynamicly highlighted ranges
+  //range->removeWatcher(this);
   foreach (KTextEditor::SmartRange* child, range->childRanges())
     removeHighlightRange(child);
 }

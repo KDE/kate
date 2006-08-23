@@ -46,6 +46,7 @@
 #include "katecompletionwidget.h"
 #include "katesmartmanager.h"
 #include "katecmdactionmanager.h"
+#include "katesmartrange.h"
 
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/cursorfeedback.h>
@@ -2431,7 +2432,7 @@ QStringList KateView::configKeys() const
 QVariant KateView::configValue(const QString &key)
 {
   if (key == "icon-bar")
-    return config()->iconBar(); 
+    return config()->iconBar();
   else if (key == "line-numbers")
     return config()->lineNumbers();
   else if (key == "dynamic-word-wrap")

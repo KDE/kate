@@ -30,7 +30,7 @@
 #include "katecodefoldinghelpers.h"
 #include "kateviewhelpers.h"
 #include "katehighlight.h"
-#include "katesmartcursor.h"
+#include "katesmartrange.h"
 #include "katerenderer.h"
 #include "katecodecompletion.h"
 #include "kateconfig.h"
@@ -65,9 +65,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_cursor(doc)
   , m_mouse()
   , m_possibleTripleClick (false)
-  , m_bm(doc)
-  , m_bmStart(doc, &m_bm)
-  , m_bmEnd(doc, &m_bm)
+  , m_bm(doc->smartManager()->newSmartRange())
+  , m_bmStart(doc->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
+  , m_bmEnd(doc->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
   , m_dummy (0)
   , m_startPos(doc)
   , m_madeVisible(false)
@@ -104,14 +104,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
     bracketFill->setFontBold();
   }
 
-  m_bm.setAttribute(bracketOutline);
-  m_bm.setInternal();
-
-  m_bmStart.setAttribute(bracketFill);
-  m_bmStart.setInternal();
-
-  m_bmEnd.setAttribute(bracketFill);
-  m_bmEnd.setInternal();
+  m_bm->setAttribute(bracketOutline);
+  m_bmStart->setAttribute(bracketFill);
+  m_bmEnd->setAttribute(bracketFill);
 
   setMinimumSize (0,0);
 
@@ -246,6 +241,10 @@ KateViewInternal::~KateViewInternal ()
     removeWatcher(dynamic->top, this);
 
   qDeleteAll(m_dynamicHighlights);
+
+  //delete m_bmEnd;
+  //delete m_bmStart;
+  delete m_bm;
 }
 
 void KateViewInternal::prepareForDynWrapChange()
@@ -1887,33 +1886,33 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 
 void KateViewInternal::updateBracketMarks()
 {
-  if ( m_bm.isValid() ) {
-    tagRange(m_bm, true);
-    tagRange(m_bmStart, true);
-    tagRange(m_bmEnd, true);
+  if ( m_bm->isValid() ) {
+    tagRange(*m_bm, true);
+    tagRange(*m_bmStart, true);
+    tagRange(*m_bmEnd, true);
   }
 
-  //m_bmStart.setValid(false);
-  //m_bmEnd.setValid(false);
+  //m_bmStart->setValid(false);
+  //m_bmEnd->setValid(false);
 
   // add some limit to this, this is really endless on big files without limit
   int maxLines = linesDisplayed () * 3;
-  m_doc->newBracketMark( m_cursor, m_bm, maxLines );
+  m_doc->newBracketMark( m_cursor, *m_bm, maxLines );
 
-  if ( m_bm.isValid() ) {
-    m_bmStart.start() = m_bm.start();
-    m_bmStart.end().setPosition(m_bm.start().line(), m_bm.start().column() + 1);
-    //m_bmStart.setValid(true);
+  if ( m_bm->isValid() ) {
+    m_bmStart->start() = m_bm->start();
+    m_bmStart->end().setPosition(m_bm->start().line(), m_bm->start().column() + 1);
+    //m_bmStart->setValid(true);
 
-    m_bmEnd.start() = m_bm.end();
-    m_bmEnd.end().setPosition(m_bm.end().line(), m_bmEnd.end().column() + 1);
-    //m_bmEnd.setValid(true);
+    m_bmEnd->start() = m_bm->end();
+    m_bmEnd->end().setPosition(m_bm->end().line(), m_bmEnd->end().column() + 1);
+    //m_bmEnd->setValid(true);
 
-    m_bm.end().setColumn(m_bm.end().column() + 1);
+    m_bm->end().setColumn(m_bm->end().column() + 1);
 
-    tagRange(m_bm, true);
-    tagRange(m_bmStart, true);
-    tagRange(m_bmEnd, true);
+    tagRange(*m_bm, true);
+    tagRange(*m_bmStart, true);
+    tagRange(*m_bmEnd, true);
   }
 }
 

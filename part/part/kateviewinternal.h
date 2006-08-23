@@ -29,7 +29,6 @@
 #include <ktexteditor/rangefeedback.h>
 
 #include "katesmartcursor.h"
-#include "katesmartrange.h"
 #include "katelinerange.h"
 #include "katetextline.h"
 #include "katedocument.h"
@@ -44,6 +43,7 @@
 class KateView;
 class KateIconBorder;
 class KateScrollBar;
+class KateSmartRange;
 
 class QScrollBar;
 
@@ -261,7 +261,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     bool m_possibleTripleClick;
 
     // Bracket mark and corresponding decorative ranges
-    KateSmartRange m_bm, m_bmStart, m_bmEnd;
+    KateSmartRange *m_bm, *m_bmStart, *m_bmEnd;
 
     enum DragState { diNone, diPending, diDragging };
 

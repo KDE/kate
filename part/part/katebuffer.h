@@ -304,7 +304,7 @@ class KateBuffer : public QObject
     int m_lineHighlightedMax;
     int m_lineHighlighted;
 
-  /**
+    /**
      * number of dynamic contexts causing a full invalidation
      */
     int m_maxDynamicContexts;

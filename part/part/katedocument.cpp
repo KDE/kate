@@ -1072,6 +1072,20 @@ void KateDocument::editEnd ()
   editIsRunning = false;
 }
 
+void KateDocument::pushEditState ()
+{
+  editStateStack.push(editSessionNumber);
+}
+
+void KateDocument::popEditState ()
+{
+  if (editStateStack.isEmpty()) return;
+
+  int count = editStateStack.pop() - editSessionNumber;
+  while (count < 0) { ++count; editEnd(); }
+  while (count > 0) { --count; editStart(); }
+}
+
 bool KateDocument::wrapText(int startLine, int endLine)
 {
   if (startLine < 0 || endLine < 0)
@@ -3752,7 +3766,8 @@ void KateDocument::joinLines( uint first, uint last )
   editEnd();
 }
 
-QString KateDocument::getWord( const KTextEditor::Cursor& cursor ) {
+QString KateDocument::getWord( const KTextEditor::Cursor& cursor )
+{
   int start, end, len;
 
   KateTextLine::Ptr textLine = m_buffer->plainLine(cursor.line());

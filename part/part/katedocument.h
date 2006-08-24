@@ -41,6 +41,7 @@
 #include <qmap.h>
 #include <qdatetime.h>
 #include <QClipboard>
+#include <QStack>
 
 namespace KTextEditor { class Plugin; }
 
@@ -211,6 +212,9 @@ class KateDocument : public KTextEditor::Document,
      */
     void editEnd ();
 
+    void pushEditState();
+    void popEditState();
+
     bool startEditing (KTextEditor::View *view = 0) { editStart (true, view); return true; }
     bool endEditing () { editEnd (); return true; }
 
@@ -319,7 +323,8 @@ class KateDocument : public KTextEditor::Document,
   private:
     void editAddUndo (int type, uint line, uint col, uint len, const QString &text);
 
-    uint editSessionNumber;
+    int editSessionNumber;
+    QStack<int> editStateStack;
     bool editIsRunning;
     bool editWithUndo;
     KateView *editView;
@@ -425,7 +430,7 @@ class KateDocument : public KTextEditor::Document,
     QPixmap markPixmap( MarkInterface::MarkTypes ) const;
     QString markDescription( MarkInterface::MarkTypes ) const;
     QColor markColor( MarkInterface::MarkTypes ) const;
-	uint editableMarks() const;
+    uint editableMarks() const;
 
   Q_SIGNALS:
     void marksChanged( KTextEditor::Document* );
@@ -688,22 +693,22 @@ class KateDocument : public KTextEditor::Document,
      * Add a comment marker as defined by the language providing the attribute
      * @p attrib to each line in the selection.
      */
-           void addStartStopCommentToSelection( KateView *view, int attrib=0 );
+    void addStartStopCommentToSelection( KateView *view, int attrib=0 );
     /**
-    * @see addStartStopCommentToSelection.
-    */
-          void addStartLineCommentToSelection( KateView *view, int attrib=0 );
+     * @see addStartStopCommentToSelection.
+     */
+    void addStartLineCommentToSelection( KateView *view, int attrib=0 );
 
     /**
-    * Removes comment markers relevant to the language providing
-    * the attribuge @p attrib from each line in the selection.
-    *
-    * @return whether the operation succeeded.
-    */
+     * Removes comment markers relevant to the language providing
+     * the attribuge @p attrib from each line in the selection.
+     *
+     * @return whether the operation succeeded.
+     */
     bool removeStartStopCommentFromSelection( KateView *view, int attrib=0 );
     /**
-    * @see removeStartStopCommentFromSelection.
-    */
+     * @see removeStartStopCommentFromSelection.
+     */
     bool removeStartLineCommentFromSelection( KateView *view, int attrib=0 );
 
   public:

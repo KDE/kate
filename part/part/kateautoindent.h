@@ -93,14 +93,14 @@ class KateAutoIndent
      * @param mode mode index
      * @return name for this mode index
      */
-    static QString modeName (uint mode);
+    static QString modeName (int mode);
 
     /**
      * Return the mode description
      * @param mode mode index
      * @return mode index
      */
-    static QString modeDescription (uint mode);
+    static QString modeDescription (int mode);
 
     /**
      * Maps name -> index
@@ -120,13 +120,13 @@ class KateAutoIndent
      * @param mode mode index
      * @return true, if the indenter @p mode has a configuration page
      */
-    static bool hasConfigPage (uint mode);
+    static bool hasConfigPage (int mode);
 
     /**
      * Support for a config page.
      * @return config page or 0 if not available.
      */
-    static IndenterConfigPage* configPage(QWidget *parent, uint mode);
+    static IndenterConfigPage* configPage(QWidget *parent, int mode);
 
   public:
     /**
@@ -158,26 +158,30 @@ class KateAutoIndent
      * @param cur The position to start processing. Contains the new cursor position after the indention.
      * @param needContinue Used to determine whether to calculate a continue indent or not.
      */
-    virtual void processNewline (KateView *view, KateDocCursor &cur, bool needContinue) { Q_UNUSED(cur); Q_UNUSED(needContinue); }
+    virtual void processNewline (KateView *view, KateDocCursor &cur, bool needContinue)
+    { Q_UNUSED(cur); Q_UNUSED(view); Q_UNUSED(needContinue); }
 
     /**
      * @param view the current active view
      * Called every time a character is inserted into the document.
      * @param c character inserted
      */
-    virtual void processChar (KateView *view, QChar c) { Q_UNUSED(c); }
+    virtual void processChar (KateView *view, QChar c)
+    { Q_UNUSED(view); Q_UNUSED(c); }
 
     /**
      * @param view the current active view
      * Aligns/indents the given line to the proper indent position.
      */
-    virtual void processLine (KateView *view, KateDocCursor &/*line*/) { }
+    virtual void processLine (KateView *view, KateDocCursor &line)
+    { Q_UNUSED(view); Q_UNUSED(line); }
 
     /**
      * @param view the current active view
      * Processes a section of text, indenting each line in between.
      */
-    virtual void processSection (KateView *view, const KateDocCursor &/*begin*/, const KateDocCursor &/*end*/) { }
+    virtual void processSection (KateView *view, const KateDocCursor &begin, const KateDocCursor &end)
+    { Q_UNUSED(view); Q_UNUSED(begin); Q_UNUSED(end); }
 
     /**
      * Set to true if an actual implementation of 'processLine' is present.
@@ -264,17 +268,20 @@ public:
      * Called every time a character is inserted into the document.
      * @param c character inserted
      */
-  virtual void processChar (KateView *view, QChar c) { Q_UNUSED(c); }
+  virtual void processChar (KateView *view, QChar c)
+  { Q_UNUSED(view); Q_UNUSED(c); }
 
     /**
      * Aligns/indents the given line to the proper indent position.
      */
-  virtual void processLine (KateView *view, KateDocCursor &/*line*/) { }
+  virtual void processLine (KateView *view, KateDocCursor &line)
+  { Q_UNUSED(view); Q_UNUSED(line); }
 
     /**
      * Processes a section of text, indenting each line in between.
      */
-  virtual void processSection (KateView *view, const KateDocCursor &/*begin*/, const KateDocCursor &/*end*/) { }
+  virtual void processSection (KateView *view, const KateDocCursor &begin, const KateDocCursor &end)
+  { Q_UNUSED(view); Q_UNUSED(begin); Q_UNUSED(end); }
 
     /**
      * Set to true if an actual implementation of 'processLine' is present.

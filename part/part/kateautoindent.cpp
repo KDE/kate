@@ -76,7 +76,7 @@ int KateAutoIndent::modeCount ()
 }
 
 
-QString KateAutoIndent::modeName (uint mode)
+QString KateAutoIndent::modeName (int mode)
 {
   if (mode == 0 || mode >= modeCount ())
     return QString ("none");
@@ -97,7 +97,7 @@ QString KateAutoIndent::modeName (uint mode)
   return KateGlobal::self()->indentScriptManager()->scriptByIndex(mode-7)->internalName ();
 }
 
-QString KateAutoIndent::modeDescription (uint mode)
+QString KateAutoIndent::modeDescription (int mode)
 {
   if (mode == 0 || mode >= modeCount ())
     return i18n ("None");
@@ -127,7 +127,7 @@ uint KateAutoIndent::modeNumber (const QString &name)
   return 0;
 }
 
-bool KateAutoIndent::hasConfigPage (uint /*mode*/)
+bool KateAutoIndent::hasConfigPage (int /*mode*/)
 {
 //  if ( mode == KateDocumentConfig::imScriptIndent )
 //    return true;
@@ -135,7 +135,7 @@ bool KateAutoIndent::hasConfigPage (uint /*mode*/)
   return false;
 }
 
-IndenterConfigPage* KateAutoIndent::configPage(QWidget * /*parent*/, uint /*mode*/)
+IndenterConfigPage* KateAutoIndent::configPage(QWidget * /*parent*/, int /*mode*/)
 {
 //  if ( mode == KateDocumentConfig::imScriptIndent )
 //    return new ScriptIndentConfigPage(parent, "script_indent_config_page");
@@ -170,7 +170,7 @@ void KateViewIndentationAction::slotAboutToShow()
 
   menu()->clear ();
   for (int z=0; z<modes.size(); ++z) {
-    QAction *action = menu()->addAction( '&' + KateAutoIndent::modeDescription(z));
+    QAction *action = menu()->addAction( '&' + KateAutoIndent::modeDescription(z).replace('&', "&&") );
     action->setCheckable( true );
     action->setData( z );
 
@@ -2394,45 +2394,32 @@ void KateScriptIndent::processNewline( KateView *view, KateDocCursor &begin, boo
 
   QTime t;
   t.start();
-  // FIXME: set view cursor to begin, as scripts can only access the cursor
-  //        from the view.
-
-  view->setCursorPosition(begin);
   if( !m_script->processNewline( view, begin, needContinue , errorMsg ) )
-  {
     kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
-  }
 
   // FIXME: set begin to the position at which the script set the cursor
-  //        ugly hack, needs a clean fix.
+  //        ugly hack, is there any clean fix? :)
   begin.setPosition(view->cursorPosition());
   kDebug(13030) << "ScriptIndent::processNewline - TIME/ms: " << t.elapsed() << endl;
 }
 
-void KateScriptIndent::processChar( KateView *view, QChar c)
+void KateScriptIndent::processChar( KateView *view, QChar c )
 {
-    QString errorMsg;
+  QString errorMsg;
 
-//     QTime t;
-//     t.start();
+//   QTime t;
+//   t.start();
   if( !m_script->processChar( view, c, errorMsg ) )
-  {
     kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
-  }
-//     kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
+//   kDebug(13030) << "ScriptIndent::processChar - TIME in ms: " << t.elapsed() << endl;
 }
 
 void KateScriptIndent::processLine (KateView *view, KateDocCursor &line)
 {
   QString errorMsg;
 
-//     QTime t;
-//     t.start();
   if( !m_script->processLine( view, line, errorMsg ) )
-  {
     kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
-  }
-//     kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
 }
 
 void KateScriptIndent::processSection (KateView *view, const KateDocCursor &begin,
@@ -2440,13 +2427,11 @@ void KateScriptIndent::processSection (KateView *view, const KateDocCursor &begi
 {
   QString errorMsg;
 
-//     QTime t;
-//     t.start();
+//   QTime t;
+//   t.start();
   if( !m_script->processSection( view, begin, end, errorMsg ) )
-  {
     kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
-  }
-//     kDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
+//   kDebug(13030) << "ScriptIndent::processSection - TIME in ms: " << t.elapsed() << endl;
 }
 
 void KateScriptIndent::indent( KateView *view, uint line, int levels )

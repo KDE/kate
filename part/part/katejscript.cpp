@@ -260,7 +260,7 @@ class KateJSView : public KJS::JSObject
       SelectAll,
       ClearSelection,
       StartOfSelection,
-      EndOfSelection,
+      EndOfSelection
     };
 
   public:

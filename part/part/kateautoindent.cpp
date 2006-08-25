@@ -745,8 +745,8 @@ void KateCSmartIndent::processChar(KateView *view, QChar c)
       // is already the just typed '/', concatenate it to "*/".
       if ( first != -1
            && textLine->at( first ) == '*'
-           && textLine->nextNonSpaceChar( first+1 ) == (int)view->cursorColumn()-1 )
-        doc->removeText( KTextEditor::Range(view->cursorPosition().line(), first+1, view->cursorPosition().line(), view->cursorColumn()-1));
+           && textLine->nextNonSpaceChar( first+1 ) == view->cursorPosition().column()-1 )
+        doc->removeText( KTextEditor::Range(view->cursorPosition().line(), first+1, view->cursorPosition().line(), view->cursorPosition().column()-1));
     }
 
     // anders: don't change the indent of doxygen lines here.
@@ -2066,8 +2066,8 @@ void KateCSAndSIndent::processChar(KateView *view, QChar c)
       // is already the just typed '/', concatenate it to "*/".
       if ( first != -1
            && textLine->at( first ) == '*'
-           && textLine->nextNonSpaceChar( first+1 ) == (int)view->cursorColumn()-1 )
-        doc->removeText( KTextEditor::Range(view->cursorPosition().line(), first+1, view->cursorPosition().line(), view->cursorColumn()-1));
+           && textLine->nextNonSpaceChar( first+1 ) == view->cursorPosition().column()-1 )
+        doc->removeText( KTextEditor::Range(view->cursorPosition().line(), first+1, view->cursorPosition().line(), view->cursorPosition().column()-1));
     }
 
     // anders: don't change the indent of doxygen lines here.

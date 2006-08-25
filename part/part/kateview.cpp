@@ -696,7 +696,7 @@ void KateView::slotCollapseLocal()
   if (realLine != -1)
     // TODO rodda: fix this to only set line and allow internal view to chose column
     // Explicitly call internal because we want this to be registered as an internal call
-    setCursorPositionInternal(KTextEditor::Cursor(realLine, cursorColumn()), m_doc->config()->tabWidth());
+    setCursorPositionInternal(KTextEditor::Cursor(realLine, virtualCursorColumn()), m_doc->config()->tabWidth());
 }
 
 void KateView::slotExpandLocal()
@@ -751,14 +751,14 @@ bool KateView::isOverwriteMode() const
 void KateView::reloadFile()
 {
   // save cursor position
-  KTextEditor::Cursor cursor(cursorPosition().line(), cursorColumn());
+  KTextEditor::Cursor backupCursor(cursorPositionVirtual());
 
   // save bookmarks
   m_doc->documentReload();
 
-  if (m_doc->lines() >= cursor.line())
+  if (m_doc->lines() >= backupCursor.line())
     // Explicitly call internal function because we want this to be registered as a non-external call
-    setCursorPositionInternal( cursor, m_doc->config()->tabWidth(), false );
+    setCursorPositionInternal( backupCursor, m_doc->config()->tabWidth(), false );
 }
 
 void KateView::slotUpdate()
@@ -1278,9 +1278,9 @@ void KateView::slotHlChanged()
   updateFoldingConfig ();
 }
 
-int KateView::cursorColumn() const
+int KateView::virtualCursorColumn() const
 {
-  uint r = m_doc->currentColumn(m_viewInternal->getCursor());
+  int r = m_doc->toVirtualColumn(m_viewInternal->getCursor());
   if ( !( m_doc->config()->configFlags() & KateDocumentConfig::cfWrapCursor ) &&
        m_viewInternal->getCursor().column() > m_doc->line( m_viewInternal->getCursor().line() ).length()  )
     r += m_viewInternal->getCursor().column() - m_doc->line( m_viewInternal->getCursor().line() ).length();
@@ -2092,7 +2092,7 @@ const KTextEditor::Cursor & KateView::cursorPosition( ) const
 
 KTextEditor::Cursor KateView::cursorPositionVirtual( ) const
 {
-  return KTextEditor::Cursor (m_viewInternal->getCursor().line(), cursorColumn());
+  return KTextEditor::Cursor (m_viewInternal->getCursor().line(), virtualCursorColumn());
 }
 
 QPoint KateView::cursorToCoordinate( const KTextEditor::Cursor & cursor ) const

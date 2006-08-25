@@ -174,11 +174,11 @@ class KateView : public KTextEditor::View,
     bool setCursorPositionVisual( const KTextEditor::Cursor& position );
 
     /**
-     * calculate the virtual column position of the cursor
-     * one tab maybe multiple columns
-     * @return virtual cursor column
+     * Return the virtual cursor column, each tab is expanded into the
+     * document's tabWidth characters. If word wrap is off, the cursor may be
+     * behind the line's length.
      */
-    int cursorColumn() const;
+    int virtualCursorColumn() const;
 
     virtual bool mouseTrackingEnabled() const;
     virtual bool setMouseTrackingEnabled(bool enable);

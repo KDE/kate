@@ -2786,7 +2786,7 @@ bool KateDocument::ownedView(KateView *view) {
   return (m_views.contains(view));
 }
 
-uint KateDocument::currentColumn( const KTextEditor::Cursor& cursor )
+uint KateDocument::toVirtualColumn( const KTextEditor::Cursor& cursor )
 {
   KateTextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
 
@@ -2818,8 +2818,8 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
       {
         QChar end_ch;
         bool complete = true;
-        QChar prevChar = textLine->at(view->cursorColumn()-1);
-        QChar nextChar = textLine->at(view->cursorColumn());
+        QChar prevChar = textLine->at(view->cursorPosition().column()-1);
+        QChar nextChar = textLine->at(view->cursorPosition().column());
         switch(ch.toAscii()) {
           case '(': end_ch = ')'; break;
           case '[': end_ch = ']'; break;

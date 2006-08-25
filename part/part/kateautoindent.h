@@ -68,8 +68,10 @@ class IndenterConfigPage : public QWidget
  * This baseclass is a real dummy, does nothing beside remembering the document it belongs too,
  * only to have the object around
  */
-class KateAutoIndent
+class KateAutoIndent : public QObject
 {
+  Q_OBJECT
+
   /**
    * Static methods to create and list indention modes
    */
@@ -140,11 +142,13 @@ class KateAutoIndent
      */
     virtual ~KateAutoIndent ();
 
+  public Q_SLOTS:
     /**
      * Update indenter's configuration (indention width, attributes etc.)
      */
     virtual void updateConfig () {}
 
+  public:
     /**
      * does this indenter support processNewLine
      * @return can you do it?
@@ -233,6 +237,8 @@ class KateViewIndentationAction : public KActionMenu
  */
 class KateNormalIndent : public KateAutoIndent
 {
+  Q_OBJECT
+
 public:
     /**
      * Constructor
@@ -245,11 +251,13 @@ public:
      */
   virtual ~KateNormalIndent ();
 
+public Q_SLOTS:
     /**
      * Update indenter's configuration (indention width, attributes etc.)
      */
   virtual void updateConfig ();
 
+public:
     /**
      * does this indenter support processNewLine
      * @return can you do it?
@@ -365,6 +373,8 @@ protected:
 
 class KateCSmartIndent : public KateNormalIndent
 {
+  Q_OBJECT
+
   public:
     KateCSmartIndent (KateDocument *doc);
     ~KateCSmartIndent ();
@@ -397,6 +407,8 @@ class KateCSmartIndent : public KateNormalIndent
 
 class KatePythonIndent : public KateNormalIndent
 {
+  Q_OBJECT
+
   public:
     KatePythonIndent (KateDocument *doc);
     ~KatePythonIndent ();
@@ -418,6 +430,8 @@ class KatePythonIndent : public KateNormalIndent
 
 class KateXmlIndent : public KateNormalIndent
 {
+  Q_OBJECT
+
   public:
     KateXmlIndent (KateDocument *doc);
     ~KateXmlIndent ();
@@ -449,6 +463,8 @@ class KateXmlIndent : public KateNormalIndent
 
 class KateCSAndSIndent : public KateNormalIndent
 {
+  Q_OBJECT
+
   public:
     KateCSAndSIndent (KateDocument *doc);
     ~KateCSAndSIndent ();
@@ -511,9 +527,10 @@ class KateCSAndSIndent : public KateNormalIndent
  * The idea is to provide a somewhat intelligent indentation for perl, php,
  * bash, scheme and in general formats with humble indentation needs.
  */
-class KateVarIndent :  public QObject, public KateNormalIndent
+class KateVarIndent : public KateNormalIndent
 {
   Q_OBJECT
+
   public:
     /**
      * Purely for readability, couples we know and love
@@ -566,6 +583,8 @@ class KateVarIndent :  public QObject, public KateNormalIndent
 
 class KateScriptIndent : public KateNormalIndent
 {
+  Q_OBJECT
+
   public:
     KateScriptIndent( KateIndentJScript *script, KateDocument *doc );
     ~KateScriptIndent();
@@ -579,9 +598,6 @@ class KateScriptIndent : public KateNormalIndent
 
     virtual void indent( KateView *view, uint line, int levels );
 
-    /**
-     * mode name
-     */
     virtual QString modeName () { return QString ("scriptindent"); }
 
   private:
@@ -590,7 +606,7 @@ class KateScriptIndent : public KateNormalIndent
 
 class ScriptIndentConfigPage : public IndenterConfigPage
 {
-    Q_OBJECT
+  Q_OBJECT
 
   public:
     ScriptIndentConfigPage ( QWidget *parent=0 );

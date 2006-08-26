@@ -1,18 +1,17 @@
-if( view.hasSelection() )
-{
-    start = view.selectionStartLine;
-    end = view.selectionEndLine;
+if (view.hasSelection()) {
+    var start = view.startOfSelection().line;
+    var end = view.endOfSelection().line;
 
-    txt = document.textRange( start, 0, end, document.lineLength( end ) );
+    var text = document.textRange(start, 0, end, document.lineLength(end));
 
-    repl = txt.split("\n");
-    repl.sort();
-    txt = repl.join("\n");
+    var lines = text.split("\n");
+    lines.sort();
+    text = lines.join("\n");
 
     view.clearSelection();
 
     document.editBegin();
-    document.removeText( start, 0, end, document.lineLength( end ) );
-    document.insertText( start, 0, txt );
+    document.removeText(start, 0, end, document.lineLength(end));
+    document.insertText(start, 0, text);
     document.editEnd();
 }

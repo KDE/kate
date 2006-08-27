@@ -640,11 +640,11 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   KLocale::setMainCatalog("kate");         //lukas: set this to have the kwritepart translated using kate message catalog
 
   // here we go, construct the KWrite version
-  QString kWriteVersion  = QString ("%1.%2.%3").arg(KDE::versionMajor() + 1).arg(KDE::versionMinor()).arg(KDE::versionRelease());
+  QByteArray kWriteVersion  = QString ("%1.%2.%3").arg(KDE::versionMajor() + 1).arg(KDE::versionMinor()).arg(KDE::versionRelease()).toLatin1();
 
   KAboutData aboutData ( "kwrite",
                          I18N_NOOP("KWrite"), 
-                         kWriteVersion.toLatin1(),
+                         kWriteVersion,
                          I18N_NOOP( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
                          I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://kate.kde.org" );
 

@@ -2293,8 +2293,8 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
       return;
     }
 }
-  if ( !(e->modifiers() & Qt::ControlModifier) && !(e->modifiers() & Qt::AltModifier)
-       && m_doc->typeChars ( m_view, e->text() ) )
+
+  if ( !(e->modifiers() & Qt::ControlModifier) && !e->text().isEmpty() && m_doc->typeChars ( m_view, e->text() ) )
   {
     e->accept();
 

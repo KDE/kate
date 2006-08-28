@@ -1878,7 +1878,7 @@ void KateDocument::readSessionConfig(KConfig *kconfig)
 
   // open the file if url valid
   if (!url.isEmpty() && url.isValid())
-    openURL (url);
+    openUrl (url);
 
   // restore the hl stuff
   m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig->readEntry("Highlighting")));
@@ -2103,7 +2103,7 @@ QString KateDocument::mimeType()
 
   // if the document has a URL, try KMimeType::findByURL
   if ( ! m_url.isEmpty() )
-    result = KMimeType::findByURL( m_url );
+    result = KMimeType::findByUrl( m_url );
 
   else if ( m_url.isEmpty() || ! m_url.isLocalFile() )
     result = mimeTypeForContent();
@@ -2143,7 +2143,7 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
 
 //BEGIN KParts::ReadWrite stuff
 
-bool KateDocument::openURL( const KUrl &url )
+bool KateDocument::openUrl( const KUrl &url )
 {
 //   kDebug(13020)<<"KateDocument::openURL( "<<url.prettyUrl()<<")"<<endl;
   // no valid URL
@@ -2151,7 +2151,7 @@ bool KateDocument::openURL( const KUrl &url )
     return false;
 
   // could not close old one
-  if ( !closeURL() )
+  if ( !closeUrl() )
     return false;
 
   // set my url
@@ -2604,7 +2604,7 @@ void KateDocument::deactivateDirWatch ()
   m_dirWatchFile.clear();
 }
 
-bool KateDocument::closeURL()
+bool KateDocument::closeUrl()
 {
   abortLoadKate();
 
@@ -2627,7 +2627,7 @@ bool KateDocument::closeURL()
   //
   // first call the normal kparts implementation
   //
-  if (!KParts::ReadWritePart::closeURL ())
+  if (!KParts::ReadWritePart::closeUrl ())
     return false;
 
   // Tell the world that we're about to go ahead with the close
@@ -4008,7 +4008,7 @@ void KateDocument::slotModifiedOnDisk( KTextEditor::View * /*v*/ )
       case KateModOnHdPrompt::Save:
       {
         m_modOnHd = false;
-        KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
+        KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
             url().url(),QString(),widget(),i18n("Save File"));
 
         kDebug(13020)<<"got "<<res.URLs.count()<<" URLs"<<endl;
@@ -4122,7 +4122,7 @@ bool KateDocument::documentReload()
     m_storedVariables.clear();
 
     m_reloading = true;
-    KateDocument::openURL( url() );
+    KateDocument::openUrl( url() );
     m_reloading = false;
 
     for (int z=0; z < tmp.size(); z++)
@@ -4153,7 +4153,7 @@ bool KateDocument::documentSave()
 
 bool KateDocument::documentSaveAs()
 {
-  KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
+  KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
                 url().url(),QString(),0,i18n("Save File"));
 
   if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first() ) )
@@ -4735,7 +4735,7 @@ void KateDocument::slotQueryClose_save(bool *handled, bool* abortClosing) {
       *abortClosing=true;
       if (m_url.isEmpty())
       {
-        KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
+        KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
                 QString(),QString(),0,i18n("Save File"));
 
         if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first() ) ) {

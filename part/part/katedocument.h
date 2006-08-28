@@ -96,7 +96,7 @@ class KateDocument : public KTextEditor::Document,
                   QWidget *parentWidget = 0, QObject * = 0);
     ~KateDocument ();
 
-    bool closeURL();
+    bool closeUrl();
 
     KTextEditor::Editor *editor ();
 
@@ -456,7 +456,7 @@ class KateDocument : public KTextEditor::Document,
     /**
      * @return the name of the mimetype for the document.
      *
-     * This method is using KMimeType::findByURL, and if the pointer
+     * This method is using KMimeType::findByUrl, and if the pointer
      * is then still the default MimeType for a nonlocal or unsaved file,
      * uses mimeTypeForContent().
      */
@@ -545,7 +545,7 @@ class KateDocument : public KTextEditor::Document,
   // KParts::ReadWrite stuff
   //
   public:
-    bool openURL( const KUrl &url );
+    bool openUrl( const KUrl &url );
 
     /* Anders:
       I reimplemented this, since i need to check if backup succeeded

@@ -808,7 +808,7 @@ void KateView::slotDropEventPass( QDropEvent * ev )
 
   KParts::BrowserExtension * ext = KParts::BrowserExtension::childObject( doc() );
   if ( ok && ext )
-    emit ext->openURLRequest( lstDragURLs.first() );
+    emit ext->openUrlRequest( lstDragURLs.first() );
 }
 
 void KateView::contextMenuEvent( QContextMenuEvent *ev )

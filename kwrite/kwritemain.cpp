@@ -236,7 +236,7 @@ void KWrite::setupStatusBar()
 // load on url
 void KWrite::loadURL(const KUrl &url)
 {
-  m_view->document()->openURL(url);
+  m_view->document()->openUrl(url);
 }
 
 // is closing the window wanted by user ?
@@ -263,7 +263,7 @@ void KWrite::changeEditor()
 
 void KWrite::slotFlush ()
 {
-   m_view->document()->closeURL();
+   m_view->document()->closeUrl();
 }
 
 void KWrite::slotNew()
@@ -273,7 +273,7 @@ void KWrite::slotNew()
 
 void KWrite::slotOpen()
 {
-	KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenURLsAndEncoding(m_view->document()->encoding(), m_view->document()->url().url(),QString(),this,i18n("Open File"));
+	KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenUrlsAndEncoding(m_view->document()->encoding(), m_view->document()->url().url(),QString(),this,i18n("Open File"));
 
   for (KUrl::List::Iterator i=r.URLs.begin(); i != r.URLs.end(); ++i)
   {

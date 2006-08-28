@@ -1073,7 +1073,7 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
 {
   setCaption( i18n("Highlight Download") );
   setButtons( User1 | Close );
-  setButtonGuiItem( User1, i18n("&Install") );
+  setButtonGuiItem( User1, KGuiItem(i18n("&Install")) );
   setDefaultButton( User1 );
   setObjectName( name );
   setModal( modal );

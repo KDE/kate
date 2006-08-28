@@ -486,7 +486,7 @@ bool KateSearch::askContinue()
 
   return KMessageBox::Yes == KMessageBox::questionYesNo(
      view(), text, s.flags.replace ? i18n("Replace") : i18n("Find"),
-     KStdGuiItem::cont(), i18n("&Stop") );
+     KStdGuiItem::cont(), KGuiItem(i18n("&Stop")) );
 }
 
 QString KateSearch::getSearchText()
@@ -633,12 +633,12 @@ KateReplacePrompt::KateReplacePrompt ( QWidget *parent )
   setModal( false );
   setCaption( i18n( "Replace Confirmation" ) );
   setButtons( User3 | User2 | User1 | Close | Ok );
-  setButtonGuiItem( User1, i18n("Replace &All") );
-  setButtonGuiItem( User2, i18n("Re&place && Close") );
-  setButtonGuiItem( User3, i18n("&Replace") );
+  setButtonGuiItem( User1, KGuiItem(i18n("Replace &All")) );
+  setButtonGuiItem( User2, KGuiItem(i18n("Re&place && Close")) );
+  setButtonGuiItem( User3, KGuiItem(i18n("&Replace")) );
   setDefaultButton( Ok );
   showButtonSeparator( true );
-  setButtonGuiItem( Ok, i18n("&Find Next") );
+  setButtonGuiItem( Ok, KGuiItem(i18n("&Find Next")) );
 
   QWidget *page = new QWidget(this);
   setMainWidget(page);

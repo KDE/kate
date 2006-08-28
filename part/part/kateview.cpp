@@ -422,31 +422,31 @@ void KateView::setupActions()
   a= toggleAction=m_toggleFoldingMarkers = new KToggleAction(i18n("Show Folding &Markers"), ac, "view_folding_markers");
   a->setShortcut(Qt::Key_F9);
   a->setWhatsThis(i18n("You can choose if the codefolding marks should be shown, if codefolding is possible."));
-  toggleAction->setCheckedState(i18n("Hide Folding &Markers"));
+  toggleAction->setCheckedState(KGuiItem(i18n("Hide Folding &Markers")));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleFoldingMarkers()));
 
   a = m_toggleIconBar = toggleAction = new KToggleAction(i18n("Show &Icon Border"), ac, "view_border");
   a->setShortcut(Qt::Key_F6);
   a->setWhatsThis(i18n("Show/hide the icon border.<BR><BR> The icon border shows bookmark symbols, for instance."));
-  toggleAction->setCheckedState(i18n("Hide &Icon Border"));
+  toggleAction->setCheckedState(KGuiItem(i18n("Hide &Icon Border")));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleIconBorder()));
 
   a = toggleAction = m_toggleLineNumbers = new KToggleAction(i18n("Show &Line Numbers"), ac, "view_line_numbers");
   a->setShortcut(Qt::Key_F11);
   a->setWhatsThis(i18n("Show/hide the line numbers on the left hand side of the view."));
-  toggleAction->setCheckedState(i18n("Hide &Line Numbers"));
+  toggleAction->setCheckedState(KGuiItem(i18n("Hide &Line Numbers")));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleLineNumbersOn()));
 
   a= m_toggleScrollBarMarks = toggleAction = new KToggleAction(i18n("Show Scroll&bar Marks"), ac, "view_scrollbar_marks");
   a->setWhatsThis(i18n("Show/hide the marks on the vertical scrollbar.<BR><BR>The marks, for instance, show bookmarks."));
-  toggleAction->setCheckedState(i18n("Hide Scroll&bar Marks"));
+  toggleAction->setCheckedState(KGuiItem(i18n("Hide Scroll&bar Marks")));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleScrollBarMarks()));
 
   a = toggleAction = m_toggleWWMarker = new KToggleAction(i18n("Show Static &Word Wrap Marker"), ac, "view_word_wrap_marker");
   a->setWhatsThis( i18n(
         "Show/hide the Word Wrap Marker, a vertical line drawn at the word "
         "wrap column as defined in the editing properties" ));
-  toggleAction->setCheckedState(i18n("Hide Static &Word Wrap Marker"));
+  toggleAction->setCheckedState(KGuiItem(i18n("Hide Static &Word Wrap Marker")));
   connect(a, SIGNAL(triggered(bool)), SLOT( toggleWWMarker() ));
 
   a = m_switchCmdLine = new KAction(i18n("Switch to Command Line"), ac, "switch_to_cmd_line");

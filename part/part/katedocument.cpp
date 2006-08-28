@@ -2426,7 +2426,7 @@ bool KateDocument::saveFile()
   if (m_buffer->binary() && (KMessageBox::warningContinueCancel (widget()
         , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", m_url.url())
         , i18n ("Trying to Save Binary File")
-        , i18n("Save Nevertheless"), "Binary File Save Warning") != KMessageBox::Continue))
+        , KGuiItem(i18n("Save Nevertheless")), "Binary File Save Warning") != KMessageBox::Continue))
     return false;
 
   if ( !url().isEmpty() )
@@ -2438,13 +2438,13 @@ bool KateDocument::saveFile()
       if (!isModified())
       {
         if (KMessageBox::warningContinueCancel(0,
-               str + i18n("Do you really want to save this unmodified file? You could overwrite changed data in the file on disk."),i18n("Trying to Save Unmodified File"),i18n("Save Nevertheless")) != KMessageBox::Continue)
+               str + i18n("Do you really want to save this unmodified file? You could overwrite changed data in the file on disk."),i18n("Trying to Save Unmodified File"),KGuiItem(i18n("Save Nevertheless"))) != KMessageBox::Continue)
           return false;
       }
       else
       {
         if (KMessageBox::warningContinueCancel(0,
-               str + i18n("Do you really want to save this file? Both your open file and the file on disk were changed. There could be some data lost."),i18n("Possible Data Loss"),i18n("Save Nevertheless")) != KMessageBox::Continue)
+               str + i18n("Do you really want to save this file? Both your open file and the file on disk were changed. There could be some data lost."),i18n("Possible Data Loss"),KGuiItem(i18n("Save Nevertheless"))) != KMessageBox::Continue)
           return false;
       }
     }
@@ -2455,7 +2455,7 @@ bool KateDocument::saveFile()
   //
   if (!m_buffer->canEncode ()
        && (KMessageBox::warningContinueCancel(0,
-           i18n("The selected encoding cannot encode every unicode character in this document. Do you really want to save it? There could be some data lost."),i18n("Possible Data Loss"),i18n("Save Nevertheless")) != KMessageBox::Continue))
+           i18n("The selected encoding cannot encode every unicode character in this document. Do you really want to save it? There could be some data lost."),i18n("Possible Data Loss"),KGuiItem(i18n("Save Nevertheless"))) != KMessageBox::Continue))
   {
     return false;
   }
@@ -2618,7 +2618,7 @@ bool KateDocument::closeUrl()
       if (!(KMessageBox::warningContinueCancel(
             widget(),
             reasonedMOHString() + "\n\n" + i18n("Do you really want to continue to close this file? Data loss may occur."),
-            i18n("Possible Data Loss"), i18n("Close Nevertheless"),
+            i18n("Possible Data Loss"), KGuiItem(i18n("Close Nevertheless")),
             QString("kate_close_modonhd_%1").arg( m_modOnHdReason ) ) == KMessageBox::Continue))
         return false;
     }
@@ -4086,7 +4086,7 @@ bool KateDocument::documentReload()
     {
       int i = KMessageBox::warningYesNoCancel
                 (0, reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
-                i18n("File Was Changed on Disk"), i18n("&Reload File"), i18n("&Ignore Changes"));
+                i18n("File Was Changed on Disk"), KGuiItem(i18n("&Reload File")), KGuiItem(i18n("&Ignore Changes")));
 
       if ( i != KMessageBox::Yes)
       {
@@ -4767,7 +4767,7 @@ bool KateDocument::checkOverwrite( KUrl u )
     i18n( "A file named \"%1\" already exists. "
           "Are you sure you want to overwrite it?" ,  info.fileName() ),
     i18n( "Overwrite File?" ),
-    i18n( "&Overwrite" ) );
+    KGuiItem(i18n( "&Overwrite" )) );
 }
 
 

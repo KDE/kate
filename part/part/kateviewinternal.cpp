@@ -145,6 +145,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   // Hijack the line scroller's controls, so we can scroll nicely for word-wrap
   connect(m_lineScroll, SIGNAL(actionTriggered(int)), SLOT(scrollAction(int)));
   connect(m_lineScroll, SIGNAL(sliderMoved(int)), SLOT(scrollLines(int)));
+  connect(m_lineScroll, SIGNAL(sliderMMBMoved(int)), SLOT(scrollLines(int)));
 
   // catch wheel events, completing the hijack
   //m_lineScroll->installEventFilter(this);
@@ -376,7 +377,7 @@ void KateViewInternal::scrollViewLines(int offset)
 
 void KateViewInternal::scrollAction( int action )
 {
-  switch (action) {
+  switch  (action) {
     case QAbstractSlider::SliderSingleStepAdd:
       scrollNextLine();
       break;
@@ -394,11 +395,11 @@ void KateViewInternal::scrollAction( int action )
       break;
 
     case QAbstractSlider::SliderToMinimum:
-      topOfView();
+      top_home();
       break;
 
     case QAbstractSlider::SliderToMaximum:
-      bottomOfView();
+      bottom_end();
       break;
   }
 }

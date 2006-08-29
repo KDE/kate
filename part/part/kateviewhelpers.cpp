@@ -232,8 +232,13 @@ void KateScrollBar::recomputeMarksPositions()
 
 void KateScrollBar::sliderMaybeMoved(int value)
 {
-  if (m_middleMouseDown)
+  if (m_middleMouseDown) {
+    // we only need to emit this signal once, as for the following slider
+    // movements the signal sliderMoved() is already emitted.
+    // Thus, set m_middleMouseDown to false right away.
+    m_middleMouseDown = false;
     emit sliderMMBMoved(value);
+  }
 }
 //END
 

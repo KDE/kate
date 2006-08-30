@@ -2417,12 +2417,12 @@ void KateScriptIndent::processNewline( KateView *view, KateDocCursor &begin, boo
   QTime t;
   t.start();
   if( !m_script->processNewline( view, begin, needContinue , errorMsg ) )
-    kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
+    kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
 
   // FIXME: set begin to the position at which the script set the cursor
   //        ugly hack, is there any clean fix? :)
   begin.setPosition(view->cursorPosition());
-  kDebug(13030) << "ScriptIndent::processNewline - TIME/ms: " << t.elapsed() << endl;
+  kDebug(13050) << "ScriptIndent::processNewline - TIME/ms: " << t.elapsed() << endl;
 }
 
 void KateScriptIndent::processChar( KateView *view, QChar c )
@@ -2432,8 +2432,8 @@ void KateScriptIndent::processChar( KateView *view, QChar c )
 //   QTime t;
 //   t.start();
   if( !m_script->processChar( view, c, errorMsg ) )
-    kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
-//   kDebug(13030) << "ScriptIndent::processChar - TIME in ms: " << t.elapsed() << endl;
+    kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
+//   kDebug(13050) << "ScriptIndent::processChar - TIME in ms: " << t.elapsed() << endl;
 }
 
 void KateScriptIndent::processLine (KateView *view, KateDocCursor &line)
@@ -2441,7 +2441,7 @@ void KateScriptIndent::processLine (KateView *view, KateDocCursor &line)
   QString errorMsg;
 
   if( !m_script->processLine( view, line, errorMsg ) )
-    kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
+    kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
 }
 
 void KateScriptIndent::processSection (KateView *view, const KateDocCursor &begin,
@@ -2452,15 +2452,15 @@ void KateScriptIndent::processSection (KateView *view, const KateDocCursor &begi
 //   QTime t;
 //   t.start();
   if( !m_script->processSection( view, begin, end, errorMsg ) )
-    kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
-//   kDebug(13030) << "ScriptIndent::processSection - TIME in ms: " << t.elapsed() << endl;
+    kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
+//   kDebug(13050) << "ScriptIndent::processSection - TIME in ms: " << t.elapsed() << endl;
 }
 
 void KateScriptIndent::indent( KateView *view, uint line, int levels )
 {
   QString errorMsg;
   if( !m_script->processIndent( view, line, levels, errorMsg ) )
-    kDebug(13030) << "Error in script-indent: " << errorMsg << endl;
+    kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
 }
 //END KateScriptIndent
 

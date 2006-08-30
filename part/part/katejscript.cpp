@@ -42,6 +42,10 @@
 #include <kjs/function_object.h>
 #include <kjs/interpreter.h>
 #include <kjs/lookup.h>
+#include <kjs/context.h>
+#include <kjs/nodes.h>
+#include <kjs/function.h>
+#include <kjs/PropertyNameArray.h>
 
 #include <qfile.h>
 #include <qfileinfo.h>
@@ -85,7 +89,46 @@ QString UString::qstring() const
   return QString((QChar*) data(), size());
 }
 
+QString Identifier::qstring() const
+{
+  return QString((QChar*) data(), size());
 }
+
+}
+
+//BEGIN js exception handling
+QString mapIdToName(const KJS::HashTable& t, int id)
+{
+  for (int i = 0; i < t.size; ++i)
+    if (id == t.entries[i].value)
+      return QString(t.entries[i].s);
+  return i18n("unknown");
+}
+
+KateJSExceptionTranslator::KateJSExceptionTranslator(KJS::ExecState *exec,
+                                                     const KJS::HashTable& hashTable,
+                                                     int id,
+                                                     const KJS::List& args)
+  : m_exec(exec), m_hashTable(hashTable), m_id(id), m_args(args.size()), m_trigger(false)
+{}
+
+bool KateJSExceptionTranslator::invalidArgs(int min, int max)
+{
+  m_trigger = m_args < min || (max != -1 && m_args > max);
+  return m_trigger;
+}
+
+KateJSExceptionTranslator::~KateJSExceptionTranslator()
+{
+  if (!m_trigger || m_exec->hadException())
+    return;
+  const int line = m_exec->context()->currentBody()->lineNo();
+  const QString func = (m_exec->context()->function() == 0) ? i18n("unknown") : m_exec->context()->function()->functionName().qstring();
+  QString error = i18n("Context '%1': Incorrect number of arguments in '%2'", func, mapIdToName(m_hashTable, m_id));
+
+  throwError(m_exec, KJS::GeneralError, error, line, m_exec->context()->currentBody()->sourceId(), m_exec->context()->currentBody()->sourceURL());
+}
+//END js exception handling
 
 //BEGIN JS API STUFF
 
@@ -405,7 +448,10 @@ bool KateJScriptInterpreterContext::execute (KateView *view, const QString &scri
   matchesAt            KateJSDocument::MatchesAt         DontDelete|Function 3
 # FIXME: add
 #        search(start-line, start-col, text, bool case-sensitive)
+#        searchBackwards(start-line, start-col, text, bool case-sensitive)
 #        replaceText(line, column, line, column, string)
+#        lastIndexOf(line, string)
+#        isBalanced(line, column, line, column, open, close)
 
   setText              KateJSDocument::SetText           DontDelete|Function 1
   clear                KateJSDocument::Clear             DontDelete|Function 0
@@ -484,41 +530,54 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
   if (!doc)
     return KJS::Undefined();
 
+  KateJSExceptionTranslator exception(exec, KateJSDocumentProtoTable, id, args);
+
   switch (id)
   {
     case KateJSDocument::FileName:
+      if (exception.invalidArgs(0)) break;
       return KJS::String (doc->documentName());
 
     case KateJSDocument::Url:
+      if (exception.invalidArgs(0)) break;
       return KJS::String (doc->url().prettyUrl());
 
     case KateJSDocument::MimeType:
+      if (exception.invalidArgs(0)) break;
       return KJS::String (doc->mimeType());
 
     case KateJSDocument::Encoding:
+      if (exception.invalidArgs(0)) break;
       return KJS::String (doc->encoding());
 
     case KateJSDocument::IsModified:
+      if (exception.invalidArgs(0)) break;
       return KJS::Boolean (doc->isModified());
 
     case KateJSDocument::Text:
+      if (exception.invalidArgs(0)) break;
       return KJS::String (doc->text());
 
     case KateJSDocument::TextRange:
+      if (exception.invalidArgs(4)) break;
       return KJS::String (doc->text(KTextEditor::Range(args[0]->toUInt32(exec), args[1]->toUInt32(exec), args[2]->toUInt32(exec), args[3]->toUInt32(exec))));
 
     case KateJSDocument::TextLine:
+      if (exception.invalidArgs(1)) break;
       return KJS::String (doc->line (args[0]->toUInt32(exec)));
 
     case KateJSDocument::WordAt:
+      if (exception.invalidArgs(2)) break;
       return KJS::String (doc->getWord(KTextEditor::Cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec))));
 
     case KateJSDocument::CharAt: {
+      if (exception.invalidArgs(2)) break;
       QChar c = doc->character (KTextEditor::Cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec)));
       return KJS::String (c.isNull() ? "" : QString(c));
     }
 
     case KateJSDocument::FirstChar: {
+      if (exception.invalidArgs(1)) break;
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       if (!textLine) return KJS::String("");
       // check for isNull(), as the returned character then would be "\0"
@@ -527,6 +586,7 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
 
     case KateJSDocument::LastChar: {
+      if (exception.invalidArgs(1)) break;
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       if (!textLine) return KJS::String("");
       // check for isNull(), as the returned character then would be "\0"
@@ -535,13 +595,16 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
 
     case KateJSDocument::IndexOf:
+      if (exception.invalidArgs(2)) break;
       return KJS::Number (doc->line(args[0]->toUInt32(exec)).indexOf(QChar((uint)args[1]->toUInt32(exec))));
 
     case KateJSDocument::IsSpace:
+      if (exception.invalidArgs(2)) break;
       return KJS::Boolean (doc->character (KTextEditor::Cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec))).isSpace());
 
     case KateJSDocument::StartsWith: {
-      if (args.size() >= 3 && args[2]->toBoolean(exec)) {
+      if (exception.invalidArgs(2, 3)) break;
+      if (args.size() == 3 && args[2]->toBoolean(exec)) {
         KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
         return KJS::Boolean(textLine && textLine->matchesAt(textLine->firstChar(), args[1]->toString(exec).qstring()));
       } else {
@@ -550,7 +613,8 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
 
     case KateJSDocument::EndsWith: {
-      if (args.size() >= 3 && args[2]->toBoolean(exec)) {
+      if (exception.invalidArgs(2, 3)) break;
+      if (args.size() == 3 && args[2]->toBoolean(exec)) {
         KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
         const QString match = args[1]->toString(exec).qstring();
         return KJS::Boolean( textLine && textLine->matchesAt(textLine->lastChar() - match.length() + 1, match) );
@@ -560,49 +624,62 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
 
     case KateJSDocument::MatchesAt: {
+      if (exception.invalidArgs(3)) break;
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       return KJS::Boolean (textLine ? textLine->matchesAt(args[1]->toUInt32(exec), args[2]->toString(exec).qstring()) : false);
     }
 
     case KateJSDocument::SetText:
+      if (exception.invalidArgs(1)) break;
       return KJS::Boolean (doc->setText(args[0]->toString(exec).qstring()));
 
     case KateJSDocument::Clear:
+      if (exception.invalidArgs(0)) break;
       return KJS::Boolean (doc->clear());
 
     case KateJSDocument::Truncate: {
+      if (exception.invalidArgs(2)) break;
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       if (textLine) textLine->truncate(args[1]->toUInt32(exec));
       return KJS::Boolean (static_cast<bool>(textLine));
     }
 
     case KateJSDocument::InsertText:
+      if (exception.invalidArgs(3)) break;
       return KJS::Boolean (doc->insertText (KTextEditor::Cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec)), args[2]->toString(exec).qstring()));
 
     case KateJSDocument::RemoveText:
+      if (exception.invalidArgs(4)) break;
       return KJS::Boolean (doc->removeText(KTextEditor::Range(args[0]->toUInt32(exec), args[1]->toUInt32(exec), args[2]->toUInt32(exec), args[3]->toUInt32(exec))));
 
     case KateJSDocument::InsertLine:
+      if (exception.invalidArgs(2)) break;
       return KJS::Boolean (doc->insertLine (args[0]->toUInt32(exec), args[1]->toString(exec).qstring()));
 
     case KateJSDocument::RemoveLine:
+      if (exception.invalidArgs(1)) break;
       return KJS::Boolean (doc->removeLine (args[0]->toUInt32(exec)));
       
     case KateJSDocument::JoinLines:
+      if (exception.invalidArgs(2)) break;
       doc->joinLines (args[0]->toUInt32(exec), args[1]->toUInt32(exec));
       return KJS::Null();
 
     case KateJSDocument::Lines:
+      if (exception.invalidArgs(0)) break;
       return KJS::Number (doc->lines());
 
     case KateJSDocument::Length:
+      if (exception.invalidArgs(0)) break;
       return KJS::Number (doc->totalCharacters());
 
     case KateJSDocument::LineLength:
+      if (exception.invalidArgs(1)) break;
       return KJS::Number (doc->lineLength(args[0]->toUInt32(exec)));
 
     case KateJSDocument::VirtualLineLength: {
-      const int tabWidth = (args.size() >= 2) ? args[1]->toUInt32(exec) : doc->config()->tabWidth();
+      if (exception.invalidArgs(1, 2)) break;
+      const int tabWidth = (args.size() == 2) ? args[1]->toUInt32(exec) : doc->config()->tabWidth();
       const uint line = args[0]->toUInt32(exec);
       KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
       if (!textLine) return KJS::Number(-1);
@@ -610,20 +687,24 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
 
     case KateJSDocument::EditBegin:
+      if (exception.invalidArgs(0)) break;
       doc->editBegin();
       return KJS::Null ();
 
     case KateJSDocument::EditEnd:
+      if (exception.invalidArgs(0)) break;
       doc->editEnd ();
       return KJS::Null ();
 
     case KateJSDocument::FirstColumn: {
+      if (exception.invalidArgs(0)) break;
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       return KJS::Number(textLine ? textLine->firstChar() : -1);
     }
 
     case KateJSDocument::FirstVirtualColumn: {
-      const int tabWidth = (args.size() >= 2) ? args[1]->toUInt32(exec) : doc->config()->tabWidth();
+      if (exception.invalidArgs(1, 2)) break;
+      const int tabWidth = (args.size() == 2) ? args[1]->toUInt32(exec) : doc->config()->tabWidth();
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       const int firstPos = textLine ? textLine->firstChar() : -1;
       if (!textLine || firstPos == -1) return KJS::Number(-1);
@@ -631,12 +712,14 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
 
     case KateJSDocument::LastColumn: {
+      if (exception.invalidArgs(1)) break;
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       return KJS::Number(textLine ? textLine->lastChar() : -1);
     }
 
     case KateJSDocument::LastVirtualColumn: {
-      const int tabWidth = (args.size() >= 2) ? args[1]->toUInt32(exec) : doc->config()->tabWidth();
+      if (exception.invalidArgs(1, 2)) break;
+      const int tabWidth = (args.size() == 2) ? args[1]->toUInt32(exec) : doc->config()->tabWidth();
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       const int lastPos = textLine ? textLine->lastChar() : -1;
       if (!textLine || lastPos == -1) return KJS::Number(-1);
@@ -644,7 +727,8 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
 
     case KateJSDocument::ToVirtualColumn: {
-      const int tabWidth = (args.size() >= 3) ? args[2]->toUInt32(exec) : doc->config()->tabWidth();
+      if (exception.invalidArgs(2, 3)) break;
+      const int tabWidth = (args.size() == 3) ? args[2]->toUInt32(exec) : doc->config()->tabWidth();
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       const int column = args[1]->toUInt32(exec);
       if (!textLine || column < 0 || column > textLine->length()) return KJS::Number(-1);
@@ -652,7 +736,8 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
 
     case KateJSDocument::FromVirtualColumn: {
-      const int tabWidth = (args.size() >= 3) ? args[2]->toUInt32(exec) : doc->config()->tabWidth();
+      if (exception.invalidArgs(2, 3)) break;
+      const int tabWidth = (args.size() == 3) ? args[2]->toUInt32(exec) : doc->config()->tabWidth();
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       const int vcolumn = args[1]->toUInt32(exec);
       if (!textLine || vcolumn < 0 || vcolumn > textLine->virtualLength(tabWidth)) return KJS::Number(-1);
@@ -660,18 +745,21 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
     
     case KateJSDocument::PrevNonSpaceColumn: {
+      if (exception.invalidArgs(2)) break;
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       if (!textLine) return KJS::Number(-1);
       return KJS::Number(textLine->previousNonSpaceChar(args[1]->toUInt32(exec)));
     }
 
     case KateJSDocument::NextNonSpaceColumn: {
+      if (exception.invalidArgs(2)) break;
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
       if (!textLine) return KJS::Number(-1);
       return KJS::Number(textLine->nextNonSpaceChar(args[1]->toUInt32(exec)));
     }
 
     case KateJSDocument::PrevNonEmptyLine: {
+      if (exception.invalidArgs(1)) break;
       const int startLine = args[0]->toUInt32(exec);
       for (int currentLine = startLine; currentLine >= 0; --currentLine) {
         KateTextLine::Ptr textLine = doc->plainKateTextLine(currentLine);
@@ -684,6 +772,7 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
 
     case KateJSDocument::NextNonEmptyLine: {
+      if (exception.invalidArgs(1)) break;
       const int startLine = args[0]->toUInt32(exec);
       for (int currentLine = startLine; currentLine < doc->lines(); ++currentLine) {
         KateTextLine::Ptr textLine = doc->plainKateTextLine(currentLine);
@@ -696,6 +785,7 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
 
     case KateJSDocument::FindLeftBrace: {
+      if (exception.invalidArgs(2)) break;
       KateDocCursor cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec), doc);
       // use highlighting information, if available (assume, { and } have same attribute)
       bool hasAttribute = (cursor.currentChar() == '}' || cursor.currentChar() == '{');
@@ -728,6 +818,7 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
 
     case KateJSDocument::FindLeftParenthesis: {
+      if (exception.invalidArgs(2)) break;
       KateDocCursor cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec), doc);
       // use highlighting information, if available
       bool hasAttribute = (cursor.currentChar() == ')' || cursor.currentChar() == '(');
@@ -760,6 +851,7 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
 
     case KateJSDocument::FindStartOfCComment: {
+      if (exception.invalidArgs(2)) break;
       KateDocCursor cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec), doc);
 
       // find the line with the opening "/*"
@@ -781,31 +873,42 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     }
 
     case KateJSDocument::IsInWord:
+      if (exception.invalidArgs(2)) break;
       return KJS::Boolean( doc->highlight()->isInWord( args[0]->toString(exec).qstring().at(0), args[1]->toUInt32(exec) ) );
 
     case KateJSDocument::CanBreakAt:
+      if (exception.invalidArgs(2)) break;
       return KJS::Boolean( doc->highlight()->canBreakAt( args[0]->toString(exec).qstring().at(0), args[1]->toUInt32(exec) ) );
 
     case KateJSDocument::CanComment:
+      if (exception.invalidArgs(2)) break;
       return KJS::Boolean( doc->highlight()->canComment( args[0]->toUInt32(exec), args[1]->toUInt32(exec) ) );
 
     case KateJSDocument::CommentMarker:
+      if (exception.invalidArgs(1)) break;
       return KJS::String( doc->highlight()->getCommentSingleLineStart( args[0]->toUInt32(exec) ) );
 
     case KateJSDocument::CommentStart:
+      if (exception.invalidArgs(1)) break;
       return KJS::String( doc->highlight()->getCommentStart( args[0]->toUInt32(exec) ) );
 
     case KateJSDocument::CommentEnd:
-      return KJS::String( doc->highlight()->getCommentEnd(  args[0]->toUInt32(exec) ) );
+      if (exception.invalidArgs(1)) break;
+      return KJS::String( doc->highlight()->getCommentEnd( args[0]->toUInt32(exec) ) );
 
     case KateJSDocument::Attribute: {
+      if (exception.invalidArgs(2)) break;
       KateTextLine::Ptr textLine = doc->kateTextLine(args[0]->toUInt32(exec));
       if (!textLine) return KJS::Number(0);
       return KJS::Number( textLine->attribute(args[1]->toUInt32(exec)) );
     }
 
     case KateJSDocument::Variable:
+      if (exception.invalidArgs(1)) break;
       return KJS::String( doc->variable(args[0]->toString(exec).qstring()) );
+
+    default:
+      kDebug(13051) << "Document: Unknown function id: " << id << endl;
   }
 
   return KJS::Undefined();
@@ -836,6 +939,9 @@ KJS::JSValue* KateJSDocument::getValueProperty(KJS::ExecState *exec, int token) 
 
     case KateJSDocument::ExpandTabs:
       return KJS::Boolean( doc->config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn );
+
+    default:
+      kDebug(13051) << "Document: Unknown property id: " << token << endl;
   }
 
   return KJS::Undefined ();
@@ -911,9 +1017,12 @@ JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSObject
   if (!view)
     return KJS::Undefined();
 
+  KateJSExceptionTranslator exception(exec, KateJSViewProtoTable, id, args);
+
   switch (id)
   {
     case KateJSView::CursorPosition: {
+      if (exception.invalidArgs(0)) break;
       KJS::JSObject *object = exec->lexicalInterpreter()->builtinObject()->construct(exec, KJS::List::empty());
       object->put(exec, "line", KJS::Number(view->cursorPosition().line()));
       object->put(exec, "column", KJS::Number(view->cursorPosition().column()));
@@ -921,9 +1030,11 @@ JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSObject
     }
 
     case KateJSView::SetCursorPosition:
+      if (exception.invalidArgs(2)) break;
       return KJS::Boolean( view->setCursorPosition( KTextEditor::Cursor (args[0]->toUInt32(exec), args[1]->toUInt32(exec)) ) );
 
     case KateJSView::VirtualCursorPosition: {
+      if (exception.invalidArgs(0)) break;
       KJS::JSObject *object = exec->lexicalInterpreter()->builtinObject()->construct(exec, KJS::List::empty());
       object->put(exec, "line", KJS::Number(view->cursorPosition().line()));
       object->put(exec, "column", KJS::Number(view->cursorPositionVirtual().column()));
@@ -931,27 +1042,35 @@ JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSObject
     }
 
     case KateJSView::SetVirtualCursorPosition:
+      if (exception.invalidArgs(0)) break;
       return KJS::Boolean( view->setCursorPositionVisual( KTextEditor::Cursor (args[0]->toUInt32(exec), args[1]->toUInt32(exec)) ) );
 
     case KateJSView::Selection:
+      if (exception.invalidArgs(0)) break;
       return KJS::String( view->selectionText() );
 
     case KateJSView::HasSelection:
+      if (exception.invalidArgs(0)) break;
       return KJS::Boolean( view->selection() );
 
     case KateJSView::SetSelection:
+      if (exception.invalidArgs(4)) break;
       return KJS::Boolean( view->setSelection(KTextEditor::Range(args[0]->toInt32(exec), args[1]->toInt32(exec), args[2]->toUInt32(exec), args[3]->toUInt32(exec))) );
 
     case KateJSView::RemoveSelection:
+      if (exception.invalidArgs(0)) break;
       return KJS::Boolean( view->removeSelectionText() );
 
     case KateJSView::SelectAll:
+      if (exception.invalidArgs(0)) break;
       return KJS::Boolean( view->selectAll() );
 
     case KateJSView::ClearSelection:
+      if (exception.invalidArgs(0)) break;
       return KJS::Boolean( view->clearSelection() );
 
     case KateJSView::StartOfSelection: {
+      if (exception.invalidArgs(0)) break;
       if (!view->selection())
         return KJS::Null();
 
@@ -962,6 +1081,7 @@ JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSObject
     }
 
     case KateJSView::EndOfSelection: {
+      if (exception.invalidArgs(0)) break;
       if (!view->selection())
         return KJS::Null();
 
@@ -970,8 +1090,11 @@ JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSObject
       object->put(exec, "column", KJS::Number(view->selectionRange().end().column()));
       return object;
     }
-  }
 
+    default:
+      kDebug(13051) << "View: Unknown function id: " << id << endl;
+  }
+ 
   return KJS::Undefined();
 }
 
@@ -993,7 +1116,7 @@ KJS::JSValue* KateJSView::getValueProperty(KJS::ExecState *exec, int token) cons
 
   switch (token) {
     default:
-      return KJS::Undefined();
+      kDebug(13051) << "View: Unknown property id: " << token << endl;
   }
 
   return KJS::Undefined ();
@@ -1008,8 +1131,6 @@ void KateJSView::putValueProperty(KJS::ExecState *exec, int token, KJS::JSValue*
 {
   if (!view)
     return;
-
-
 }
 
 //END
@@ -1302,62 +1423,53 @@ void KateIndentJScript::deleteInterpreter()
 
 bool KateIndentJScript::setupInterpreter(QString &errorMsg)
 {
-  if (!m_interpreter)
+  if (m_interpreter)
+    return true;
+
+  kDebug(13050)<<"Setting up interpreter"<<endl;
+  m_interpreter = new KJS::Interpreter(new KateJSGlobal());
+  KJS::ExecState *exec = m_interpreter->globalExec();
+  m_docWrapper = new KateJSDocument(exec, 0);
+  m_viewWrapper = new KateJSView(exec, 0);
+  m_indenter = new KateJSIndenter(exec);
+  m_interpreter->globalObject()->put(exec, "document", m_docWrapper, KJS::DontDelete | KJS::ReadOnly);
+  m_interpreter->globalObject()->put(exec, "view", m_viewWrapper, KJS::DontDelete | KJS::ReadOnly);
+  m_interpreter->globalObject()->put(exec, "debug", new KateJSGlobalFunctions(KateJSGlobalFunctions::Debug, 1));
+  m_interpreter->globalObject()->put(exec, "indenter", m_indenter, KJS::DontDelete | KJS::ReadOnly);
+  QFile file (filePath());
+
+  if ( !file.open( QIODevice::ReadOnly ) )
   {
-    kDebug(13050)<<"Setting up interpreter"<<endl;
-    m_interpreter=new KJS::Interpreter(new KateJSGlobal());
-    m_docWrapper=new KateJSDocument(m_interpreter->globalExec(),0);
-    m_viewWrapper=new KateJSView(m_interpreter->globalExec(),0);
-    m_indenter=new KateJSIndenter(m_interpreter->globalExec());
-    m_interpreter->globalObject()->put(m_interpreter->globalExec(),"document",m_docWrapper,KJS::DontDelete | KJS::ReadOnly);
-    m_interpreter->globalObject()->put(m_interpreter->globalExec(),"view", m_viewWrapper,KJS::DontDelete | KJS::ReadOnly);
-    m_interpreter->globalObject()->put(m_interpreter->globalExec(),"debug", new
-              KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1));
-    m_interpreter->globalObject()->put(m_interpreter->globalExec(),"indenter",m_indenter,KJS::DontDelete | KJS::ReadOnly);
-    QFile file (filePath());
-    kDebug(13050)<<"Setting up sfdsfds"<<endl;
+    errorMsg = i18n("File not found: %1", filePath());
+    deleteInterpreter();
+    return false;
+  }
 
-    if ( !file.open( QIODevice::ReadOnly ) )
-      {
-      errorMsg = i18n("JavaScript file not found");
-      deleteInterpreter();
-      return false;
-    }
+  QTextStream stream( &file );
+  stream.setCodec("UTF-8");
+  QString source = stream.readAll ();
+  file.close();
 
-    QTextStream stream( &file );
-    //stream.setEncoding (QTextStream::UnicodeUTF8);
-    stream.setCodec("UTF-8");
+  KJS::Completion comp (m_interpreter->evaluate("", 0, source));
 
-    QString source = stream.readAll ();
+  if (comp.complType() == KJS::Throw)
+  {
+    KJS::ExecState *exec = exec;
+    KJS::JSValue *exVal = comp.value();
+    char *msg = exVal->toString(exec).ascii();
 
-    file.close();
-
-    KJS::Completion comp (m_interpreter->evaluate("", 0, source));
-
-    if (comp.complType() == KJS::Throw)
+    int lineno = -1;
+    if (exVal->type() == KJS::ObjectType)
     {
-      KJS::ExecState *exec = m_interpreter->globalExec();
+      KJS::JSValue *lineVal = exVal->getObject()->get(exec,"line");
 
-      KJS::JSValue *exVal = comp.value();
-
-      char *msg = exVal->toString(exec).ascii();
-
-      int lineno = -1;
-
-      if (exVal->type() == KJS::ObjectType)
-      {
-        KJS::JSValue *lineVal = exVal->getObject()->get(exec,"line");
-
-        if (lineVal->type() == KJS::NumberType)
-          lineno = int(lineVal->toNumber(exec));
-      }
-
-      errorMsg = i18n("Exception, line %1: %2", lineno, msg);
-      //deleteInterpreter();
-      return false;
-    } else {
-      return true;
+      if (lineVal->type() == KJS::NumberType)
+        lineno = int(lineVal->toNumber(exec));
     }
+
+    errorMsg = i18n("Exception, line %1: %2", lineno, msg);
+    //deleteInterpreter();
+    return false;
   }
 
   return true;
@@ -1373,28 +1485,36 @@ inline static bool kateIndentJScriptCall(KateView *view, QString &errorMsg, Kate
     return false;
   }
 
-  KateView *v=(KateView*)view;
+  KJS::ExecState *exec = interpreter->globalExec();
 
-  KJS::JSObject *o=lookupobj->get(interpreter->globalExec(),func)->toObject(interpreter->globalExec());
-  if (interpreter->globalExec()->hadException())
+  // lookup function
+  KJS::JSObject *o = lookupobj->get(exec, func)->toObject(exec);
+  if (exec->hadException())
   {
-    errorMsg=interpreter->globalExec()->exception()->toString(interpreter->globalExec()).qstring();
-    kDebug(13050)<<"Exception(1):"<<errorMsg<<endl;
-    interpreter->globalExec()->clearException();
+    KJS::JSObject *error = exec->exception()->toObject(exec);
+    QString message = error->get(exec, "message")->toString(exec).qstring();
+    errorMsg = i18n("Exception: Unable to find function '%1': %2", func.qstring(), message);
+    exec->clearException();
     return false;
   }
 
   // init doc & view with new pointers!
-  docWrapper->doc = v->doc();
-  viewWrapper->view = v;
+  docWrapper->doc = view->doc();
+  viewWrapper->view = view;
 
-  /*kDebug(13050)<<"Call Object:"<<o.toString(interpreter->globalExec()).toAscii().constData()<<endl;*/
-  o->call(interpreter->globalExec(),interpreter->globalObject(),params);
-  if (interpreter->globalExec()->hadException())
+  o->call(exec, interpreter->globalObject(), params);
+  if (exec->hadException())
   {
-    errorMsg=interpreter->globalExec()->exception()->toString(interpreter->globalExec()).ascii();
-    kDebug(13050)<<"Exception(2):"<<errorMsg<<endl;
-    interpreter->globalExec()->clearException();
+    KJS::JSObject *error = exec->exception()->toObject(exec);
+    QString message = error->get(exec, "message")->toString(exec).qstring();
+
+    int lineno = -1;
+    KJS::JSValue *lineVal = error->get(exec, "line");
+    if (lineVal->type() == KJS::NumberType)
+      lineno = int(lineVal->toNumber(exec));
+
+    errorMsg = i18n("Exception in line %1: %2", lineno, message);
+    exec->clearException();
     return false;
   }
   return true;

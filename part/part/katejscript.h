@@ -46,6 +46,8 @@ namespace KJS {
   class JSObject;
   class Interpreter;
   class ExecState;
+  class HashTable;
+  class List;
 }
 
 /**
@@ -289,6 +291,25 @@ class KateIndentJScriptManager
     QList<KateIndentJScript*> m_scriptsList;
 };
 
+class KateJSExceptionTranslator
+{
+  public:
+    explicit KateJSExceptionTranslator(KJS::ExecState *exec, 
+                                       const KJS::HashTable& hashTable, 
+                                       int id, 
+                                       const KJS::List& args);
+    ~KateJSExceptionTranslator();
+
+    bool invalidArgs(int min, int max = -1);
+
+
+  private:
+    KJS::ExecState *m_exec;
+    const KJS::HashTable& m_hashTable;
+    int m_id;
+    int m_args;
+    bool m_trigger;
+};
 
 
 #endif

@@ -93,7 +93,7 @@ KTextEditor::CodeCompletionInterface2::~ CodeCompletionInterface2( )
 
 void KTextEditor::CodeCompletionModel::executeCompletionItem(Document* document, const Range& word, int row)
 {
-  document->replaceText(word, data(createIndex(row, Name, 0)).toString());
+  document->replaceText(word, data(index(row, Name, QModelIndex())).toString());
 }
 
 #include "codecompletion2.moc"

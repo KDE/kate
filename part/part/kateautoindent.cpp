@@ -340,9 +340,12 @@ bool KateNormalIndent::skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool 
         break;
     }
 
-    // Make sure col is 0 if we spill into next line  i.e. count the '\n' as a character
     if (!cur.moveForward(1))
+    {
+      cur = max;
       break;
+    }
+    // Make sure col is 0 if we spill into next line  i.e. count the '\n' as a character
     if (curLine != cur.line())
     {
       if (!newline)

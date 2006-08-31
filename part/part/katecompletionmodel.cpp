@@ -291,12 +291,18 @@ void KateCompletionModel::clearGroups( )
 {
   if (m_ungroupedDisplayed) {
     m_ungrouped->clear();
-    m_rowTable.removeAll(m_ungrouped);
+    if (!m_ungrouped->isEmpty)
+      m_rowTable.removeAll(m_ungrouped);
+    else
+      m_emptyGroups.removeAll(m_ungrouped);
     m_ungroupedDisplayed = false;
+    m_ungrouped->isEmpty = false;
   }
 
   qDeleteAll(m_rowTable);
+  qDeleteAll(m_emptyGroups);
   m_rowTable.clear();
+  m_emptyGroups.clear();
   m_groupHash.clear();
 }
 
@@ -504,6 +510,13 @@ QModelIndex KateCompletionModel::mapFromSource( const QModelIndex & sourceIndex 
       return index(row, sourceIndex.column(), QModelIndex());
   }
 
+  // Copied from above
+  foreach (Group* g, m_emptyGroups) {
+    int row = g->rows.indexOf(sourceIndex.row());
+    if (row != -1)
+      return index(row, sourceIndex.column(), QModelIndex());
+  }
+
   return QModelIndex();
 }
 
@@ -532,22 +545,27 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
 
   if (!hasGroups())
     changeCompletions(m_ungrouped, completion, changeType);
-  else
+  else {
     foreach (Group* g, m_rowTable)
       changeCompletions(g, completion, changeType);
+    foreach (Group* g, m_emptyGroups)
+      changeCompletions(g, completion, changeType);
+  }
 
   m_currentMatch = completion;
 }
 
 #define COMPLETE_DELETE \
   if (rowDeleteStart != -1) { \
-    deleteRows(g, filtered, index - rowDeleteStart + 1, rowDeleteStart); \
+    if (!g->isEmpty) \
+      deleteRows(g, filtered, index - rowDeleteStart + 1, rowDeleteStart); \
     rowDeleteStart = -1; \
   }
 
 #define COMPLETE_ADD \
   if (rowAddStart != -1) { \
-    addRows(g, filtered, rowAddStart, rowAdd); \
+    if (!g->isEmpty) \
+      addRows(g, filtered, rowAddStart, rowAdd); \
     rowAddStart = -1; \
     rowAdd.clear(); \
   }
@@ -642,6 +660,43 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
     ++index;
     prefilter.next();
   }
+
+  hideOrShowGroup(g);
+}
+
+void KateCompletionModel::hideOrShowGroup(Group* g)
+{
+  if (!g->isEmpty) {
+    if (g->rows.isEmpty()) {
+      // Move to empty group list
+      g->isEmpty = true;
+      int row = m_rowTable.indexOf(g);
+      if (row != -1) {
+        beginRemoveRows(QModelIndex(), row, row);
+        m_rowTable.removeAt(row);
+        endRemoveRows();
+        m_emptyGroups.append(g);
+      } else {
+        kWarning() << k_funcinfo << "Group " << g << " not found in row table!!" << endl;
+      }
+    }
+
+  } else {
+    if (!g->rows.isEmpty()) {
+      // Move off empty group list
+      // FIXME insert into correctly sorted location
+      g->isEmpty = false;
+      int row = m_rowTable.count();
+      beginInsertRows(QModelIndex(), row, row);
+      m_rowTable.append(g);
+      endInsertRows();
+      m_emptyGroups.removeAll(g);
+
+      // Cheating a bit here... we already display these rows
+      beginInsertRows(indexForGroup(g), 0, g->rows.count() - 1);
+      endInsertRows();
+    }
+  }
 }
 
 void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<int> & filtered, int countBackwards, int startRow )
@@ -694,6 +749,7 @@ bool KateCompletionModel::hasCompletionModel( ) const
 KateCompletionModel::Group * KateCompletionModel::ungrouped( )
 {
   if (!m_ungroupedDisplayed) {
+    beginInsertRows(QModelIndex(), m_rowTable.count(), m_rowTable.count());
     m_rowTable.append(m_ungrouped);
     m_ungroupedDisplayed = true;
   }
@@ -1003,6 +1059,7 @@ void KateCompletionModel::Group::addItem( Item i )
 
 KateCompletionModel::Group::Group( KateCompletionModel * m )
   : model(m)
+  , isEmpty(false)
 {
 }
 
@@ -1022,6 +1079,8 @@ void KateCompletionModel::Group::resort( )
   foreach (const Item& i, prefilter)
     if (i.isVisible())
       rows.append(i.sourceRow());
+
+  model->hideOrShowGroup(this);
 
   //Q_ASSERT(rows.count() == oldRowCount);
 }
@@ -1047,7 +1106,10 @@ void KateCompletionModel::resort( )
   foreach (Group* g, m_rowTable)
     g->resort();
 
-  if (m_ungrouped)
+  foreach (Group* g, m_emptyGroups)
+    g->resort();
+
+  if (m_ungrouped && m_ungroupedDisplayed)
     m_ungrouped->resort();
 }
 
@@ -1116,10 +1178,13 @@ void KateCompletionModel::setMaximumInheritanceDepth( int maxDepth )
 
 void KateCompletionModel::refilter( )
 {
-  if (m_ungrouped)
+  if (m_ungrouped && m_ungroupedDisplayed)
     m_ungrouped->refilter();
 
   foreach (Group* g, m_rowTable)
+    g->refilter();
+
+  foreach (Group* g, m_emptyGroups)
     g->refilter();
 }
 

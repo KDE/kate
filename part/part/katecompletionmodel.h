@@ -194,10 +194,12 @@ class KateCompletionModel : public QAbstractProxyModel
         QString title, scope;
         QList<int> rows;
         QList<Item> prefilter;
+        bool isEmpty;
     };
 
     void createGroups();
     void clearGroups();
+    void hideOrShowGroup(Group* g);
     Group* ungrouped();
     Group* fetchGroup(int attribute, const QString& scope = QString());
     Group* groupForIndex(const QModelIndex& index) const;
@@ -240,6 +242,7 @@ class KateCompletionModel : public QAbstractProxyModel
 
     // Storing the sorted order
     QList<Group*> m_rowTable;
+    QList<Group*> m_emptyGroups;
     // Quick access to each specific group (if it exists)
     QMultiHash<int, Group*> m_groupHash;
 

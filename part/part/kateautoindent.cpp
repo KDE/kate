@@ -675,12 +675,13 @@ bool KateCSmartIndent::handleDoxygen (KateDocCursor &begin)
       int indent = findOpeningComment(begin);
       QString filler = tabString (indent);
 
-      bool doxygenAutoInsert = doc->config()->configFlags() & KateDocumentConfig::cfDoxygenAutoTyping;
-      if ( doxygenAutoInsert &&
-           (!textLine->matchesAt(first, "*/") && !textLine->matchesAt(first, "*")))
-      {
-        filler = filler + " * ";
-      }
+      // dominik: TODO FIXME
+//       bool doxygenAutoInsert = doc->config()->configFlags() & KateDocumentConfig::cfDoxygenAutoTyping;
+//       if ( doxygenAutoInsert &&
+//            (!textLine->matchesAt(first, "*/") && !textLine->matchesAt(first, "*")))
+//       {
+//         filler = filler + " * ";
+//       }
 
       begin.setColumn(0);
       doc->replaceText(KTextEditor::Range(begin, first), filler);
@@ -1597,7 +1598,8 @@ bool KateCSAndSIndent::handleDoxygen (KateDocCursor &begin)
   first = textLine->firstChar();
   QString indent = findOpeningCommentIndentation(begin);
 
-  bool doxygenAutoInsert = doc->config()->configFlags() & KateDocumentConfig::cfDoxygenAutoTyping;
+  // dominik: TODO FIXME
+  bool doxygenAutoInsert = true; //doc->config()->configFlags() & KateDocumentConfig::cfDoxygenAutoTyping;
 
   // starts with *: indent one space more to line up *s
   if ( textLine->matchesAt(first, "*") )

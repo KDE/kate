@@ -75,6 +75,7 @@ ui//cursorconfigwidget.ui
 ui//editconfigwidget.ui
 ui//filetypeconfigwidget.ui
 ui//hlconfigwidget.ui
+ui//indentationconfigwidget.ui
 ui//opensaveconfigwidget.ui
 ui//modonhdwidget.ui
 ui//schemaconfigcolortab.ui

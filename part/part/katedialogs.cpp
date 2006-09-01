@@ -2,6 +2,7 @@
    Copyright (C) 2002, 2003 Anders Lund <anders.lund@lund.tdcadsl.dk>
    Copyright (C) 2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2006 Dominik Haumann <dhdev@gmx.de>
 
    Based on work of:
      Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -40,6 +41,7 @@
 #include "ui_cursorconfigwidget.h"
 #include "ui_editconfigwidget.h"
 #include "ui_hlconfigwidget.h"
+#include "ui_indentationconfigwidget.h"
 #include "ui_opensaveconfigwidget.h"
 
 #include <ktexteditor/plugin.h>
@@ -133,120 +135,16 @@ void KateConfigPage::somethingHasChanged ()
 //END KateConfigPage
 
 //BEGIN KateIndentConfigTab
-const int KateIndentConfigTab::flags[] = {
-    KateDocumentConfig::cfKeepIndentProfile,
-    KateDocumentConfig::cfKeepExtraSpaces,
-    KateDocumentConfig::cfBackspaceIndents,
-    KateDocumentConfig::cfDoxygenAutoTyping,
-};
-
 KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
-  QVBoxLayout *layout = new QVBoxLayout(this);
-  layout->setMargin(0);
-  layout->setSpacing( KDialog::spacingHint() );
-  int configFlags = KateDocumentConfig::global()->configFlags();
+  ui = new Ui::IndentationConfigWidget();
+  ui->setupUi( this );
 
-  QGroupBox *gbAuto = new QGroupBox(i18n("Automatic Indentation"), this);
-  QVBoxLayout *vb = new QVBoxLayout (gbAuto);
+  ui->cmbMode->addItems (KateAutoIndent::listModes());
+  ui->btnConfigure->setIcon(QIcon(SmallIcon("configure")));
 
-  QHBoxLayout *indentLayout = new QHBoxLayout();
-  vb->addItem(indentLayout);
-  indentLayout->setSpacing(KDialog::spacingHint());
-  QLabel *indentLabel = new QLabel(i18n("Default &Indentation mode:"),gbAuto);
-  indentLayout->addWidget(indentLabel);
-  m_indentMode = new KComboBox (gbAuto);
-  indentLayout->addWidget(m_indentMode);
-  m_indentMode->addItems (KateAutoIndent::listModes());
-  indentLabel->setBuddy(m_indentMode);
-  m_configPage = new QPushButton(SmallIconSet("configure"), i18n("Configure..."), gbAuto);
-  indentLayout->addWidget(m_configPage);
-
-  opt[3] = new QCheckBox(i18n("Insert leading Doxygen \"*\" when typing"), gbAuto);
-  vb->addWidget (opt[3]);
-
-  QGroupBox *gbSpaces = new QGroupBox(i18n("Indentation with Spaces"), this);
-  vb = new QVBoxLayout (gbSpaces);
-
-  indentationWidth = new KIntNumInput(KateDocumentConfig::global()->indentationWidth(),gbSpaces);
-  indentationWidth->setRange(1, 16, 1, false);
-  indentationWidth->setLabel(i18n("Number of spaces:"), Qt::AlignVCenter);
-  vb->addWidget (indentationWidth);
-
-  opt[0] = new QCheckBox(i18n("Keep indent &profile"), this);
-  opt[1] = new QCheckBox(i18n("&Keep extra spaces"), this);
-
-  QGroupBox *keys = new QGroupBox(i18n("Keys to Use"), this);
-  vb = new QVBoxLayout (keys);
-  opt[2] = new QCheckBox(i18n("&Backspace key indents"), keys);
-  vb->addWidget (opt[2]);
-
-  m_tabs = new QGroupBox(i18n("Tab Key Mode"), this );
-  QVBoxLayout *tablayout=new QVBoxLayout(m_tabs);
-
-  tablayout->addWidget( rb1=new QRadioButton( i18n("Always advance to the next tab position"), m_tabs ));
-  tablayout->addWidget( rb2=new QRadioButton( i18n("Always indent current &line"), m_tabs ));
-  tablayout->addWidget( rb3=new QRadioButton( i18n("Indent if in leading blank space"), m_tabs ));
-
-  opt[0]->setChecked(configFlags & flags[0]);
-  opt[1]->setChecked(configFlags & flags[1]);
-  opt[2]->setChecked(configFlags & flags[2]);
-  opt[3]->setChecked(configFlags & flags[3]);
-
-  layout->addWidget(gbAuto);
-  layout->addWidget(gbSpaces);
-  layout->addWidget(opt[0]);
-  layout->addWidget(opt[1]);
-  layout->addWidget(keys);
-  layout->addWidget(m_tabs, 0);
-
-  layout->addStretch();
-
-  // What is this? help
-  opt[1]->setWhatsThis( i18n(
-        "Indentations of more than the selected number of spaces will not be "
-        "shortened."));
-  opt[2]->setWhatsThis( i18n(
-        "This allows the <b>Backspace</b> key to be used to decrease the "
-        "indentation level."));
-  opt[3]->setWhatsThis( i18n(
-        "Automatically inserts a leading \"*\" while typing within a Doxygen "
-        "style comment."));
-  indentationWidth->setWhatsThis( i18n("The number of spaces to indent with."));
-
-  m_configPage->setWhatsThis( i18n(
-        "If this button is enabled, additional indenter specific options are "
-        "available and can be configured in an extra dialog.") );
-
-  m_indentMode->setWhatsThis( i18n(
-        "The specified indentation mode will be used for all new documents. Be aware "
-        "that it is also possible to set the indentation mode with document variables, "
-        "filetypes or a .kateconfig file." ) );
-
-  rb1->setWhatsThis( i18n(
-        "If this option is selected, the <b>Tab</b> key always inserts "
-        "whitespace so that the next tab postion is reached. "
-        "If the option <b>Insert spaces instead of tabulators</b> "
-        "in the section <b>Editing</b> is enabled, spaces are inserted; "
-        "otherwise, a single tabulator is inserted.") );
-  rb2->setWhatsThis( i18n(
-        "If this option is selected, the <b>Tab</b> key always indents "
-        "the current line by the number of character positions specified "
-        "in <b>Number of spaces</b>.") );
-  rb3->setWhatsThis( i18n(
-        "If this option is selected, the <b>Tab</b> key either indents "
-        "the current line or advances to the next tab position.<p>"
-        "If the insertion point is at or before the first non-space "
-        "character in the line, or if there is a selection, "
-        "the current line is indented by the number of character "
-        "positions specified in <b>Number of spaces</b>.<p>"
-        "If the insertion point is located after the first non-space "
-        "character in the line and there is no selection, "
-        "whitespace is inserted so that the next tab postion is reached: "
-        "if the option <b>Insert spaces instead of tabulators</b> "
-        "in the section <b>Editing</b> is enabled, spaces are inserted; "
-        "otherwise, a single tabulator is inserted.") );
+  // What's This? help can be found in the ui file
 
   reload ();
 
@@ -254,39 +152,31 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   // after initial reload, connect the stuff for the changed () signal
   //
 
-  connect(m_indentMode, SIGNAL(activated(int)), this, SLOT(slotChanged()));
-  connect(m_indentMode, SIGNAL(activated(int)), this, SLOT(indenterSelected(int)));
+  connect(ui->cmbMode, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect(ui->cmbMode, SIGNAL(activated(int)), this, SLOT(indenterSelected(int)));
 
-  connect( opt[0], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect( opt[1], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect( opt[2], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect( opt[3], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect(ui->chkKeepIndentProfile, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkKeepExtraSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkIndentPaste, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkBackspaceUnindents, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  connect(indentationWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  connect(ui->sbIndentWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
-  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(rb3, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->rbTabAdvances, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->rbTabIndents, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->rbTabSmart, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  connect(m_configPage, SIGNAL(clicked()), this, SLOT(configPage()));
+  connect(ui->btnConfigure, SIGNAL(clicked()), this, SLOT(configPage()));
 }
 
 void KateIndentConfigTab::indenterSelected (int index)
 {
-#ifdef __GNUC__
-#warning fixme
-#endif
-  /*if (index == KateDocumentConfig::imCStyle || index == KateDocumentConfig::imCSAndS)
-    opt[3]->setEnabled(true);
-  else
-    opt[3]->setEnabled(false);
-*/
-  m_configPage->setEnabled( KateAutoIndent::hasConfigPage(index) );
+  ui->btnConfigure->setEnabled( KateAutoIndent::hasConfigPage(index) );
 }
 
 void KateIndentConfigTab::configPage()
 {
-  uint index = m_indentMode->currentIndex();
+  uint index = ui->cmbMode->currentIndex();
   if ( KateAutoIndent::hasConfigPage(index) )
   {
     KDialog dlg( this );
@@ -324,22 +214,19 @@ void KateIndentConfigTab::apply ()
 
   KateDocumentConfig::global()->configStart ();
 
-  int configFlags, z;
-
-  configFlags = KateDocumentConfig::global()->configFlags();
-  for (z = 0; z < numFlags; z++) {
-    configFlags &= ~flags[z];
-    if (opt[z]->isChecked()) configFlags |= flags[z];
-  }
+  uint configFlags = KateDocumentConfig::global()->configFlags();
+  if (ui->chkKeepIndentProfile->isChecked()) configFlags |= KateDocumentConfig::cfKeepIndentProfile;
+  if (ui->chkKeepExtraSpaces->isChecked()) configFlags |= KateDocumentConfig::cfKeepExtraSpaces;
+  if (ui->chkIndentPaste->isChecked()) configFlags |= KateDocumentConfig::cfIndentPastedText;
+  if (ui->chkBackspaceUnindents->isChecked()) configFlags |= KateDocumentConfig::cfBackspaceIndents;
 
   KateDocumentConfig::global()->setConfigFlags(configFlags);
-  KateDocumentConfig::global()->setIndentationWidth(indentationWidth->value());
+  KateDocumentConfig::global()->setIndentationWidth(ui->sbIndentWidth->value());
+  KateDocumentConfig::global()->setIndentationMode(KateAutoIndent::modeName(ui->cmbMode->currentIndex()));
 
-  KateDocumentConfig::global()->setIndentationMode(KateAutoIndent::modeName(m_indentMode->currentIndex()));
-
-  if (rb1->isChecked())
+  if (ui->rbTabAdvances->isChecked())
     KateDocumentConfig::global()->setTabHandling( KateDocumentConfig::tabInsertsTab );
-  else if (rb2->isChecked())
+  else if (ui->rbTabIndents->isChecked())
     KateDocumentConfig::global()->setTabHandling( KateDocumentConfig::tabIndents );
   else
     KateDocumentConfig::global()->setTabHandling( KateDocumentConfig::tabSmart );
@@ -349,13 +236,21 @@ void KateIndentConfigTab::apply ()
 
 void KateIndentConfigTab::reload ()
 {
-  rb1->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabInsertsTab );
-  rb2->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabIndents );
-  rb3->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabSmart );
+  uint configFlags = KateDocumentConfig::global()->configFlags();
 
-  m_indentMode->setCurrentIndex (KateAutoIndent::modeNumber (KateDocumentConfig::global()->indentationMode()));
+  ui->sbIndentWidth->setValue(KateDocumentConfig::global()->indentationWidth());
+  ui->chkKeepIndentProfile->setChecked(configFlags & KateDocumentConfig::cfKeepIndentProfile);
+  ui->chkKeepExtraSpaces->setChecked(configFlags & KateDocumentConfig::cfKeepExtraSpaces);
+  ui->chkIndentPaste->setChecked(configFlags & KateDocumentConfig::cfIndentPastedText);
+  ui->chkBackspaceUnindents->setChecked(configFlags & KateDocumentConfig::cfBackspaceIndents);
 
-  indenterSelected (m_indentMode->currentIndex());
+  ui->rbTabAdvances->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabInsertsTab );
+  ui->rbTabIndents->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabIndents );
+  ui->rbTabSmart->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabSmart );
+
+  ui->cmbMode->setCurrentIndex (KateAutoIndent::modeNumber (KateDocumentConfig::global()->indentationMode()));
+
+  indenterSelected (ui->cmbMode->currentIndex());
 }
 //END KateIndentConfigTab
 
@@ -363,7 +258,7 @@ void KateIndentConfigTab::reload ()
 KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
-  int configFlags = KateDocumentConfig::global()->configFlags();
+  uint configFlags = KateDocumentConfig::global()->configFlags();
 
   ui = new Ui::CursorConfigWidget();
   ui->setupUi( this );
@@ -402,7 +297,7 @@ void KateSelectConfigTab::apply ()
   KateViewConfig::global()->configStart ();
   KateDocumentConfig::global()->configStart ();
 
- int configFlags = KateDocumentConfig::global()->configFlags();
+  uint configFlags = KateDocumentConfig::global()->configFlags();
 
   configFlags &= ~KateDocumentConfig::cfSmartHome;
   configFlags &= ~KateDocumentConfig::cfWrapCursor;
@@ -432,7 +327,7 @@ void KateSelectConfigTab::reload ()
 KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
-  int configFlags = KateDocumentConfig::global()->configFlags();
+  uint configFlags = KateDocumentConfig::global()->configFlags();
 
   ui = new Ui::EditConfigWidget();
   ui->setupUi( this );
@@ -487,7 +382,7 @@ void KateEditConfigTab::apply ()
   KateViewConfig::global()->configStart ();
   KateDocumentConfig::global()->configStart ();
 
-  int configFlags = KateDocumentConfig::global()->configFlags();
+  uint configFlags = KateDocumentConfig::global()->configFlags();
 
   configFlags &= ~KateDocumentConfig::cfAutoBrackets;
   configFlags &= ~KateDocumentConfig::cfShowTabs;
@@ -707,7 +602,7 @@ void KateSaveConfigTab::apply()
 
   KateDocumentConfig::global()->setSearchDirConfigDepth(ui->sbConfigFileSearchDepth->value());
 
-  int configFlags = KateDocumentConfig::global()->configFlags();
+  uint configFlags = KateDocumentConfig::global()->configFlags();
 
   configFlags &= ~KateDocumentConfig::cfRemoveSpaces; // clear flag
   if (ui->chkRemoveTrailingSpaces->isChecked()) configFlags |= KateDocumentConfig::cfRemoveSpaces; // set flag if checked
@@ -752,7 +647,7 @@ void KateSaveConfigTab::reload()
   ui->cmbEOL->setCurrentIndex(KateDocumentConfig::global()->eol());
   ui->chkDetectEOL->setChecked(KateDocumentConfig::global()->allowEolDetection());
 
-  const int configFlags = KateDocumentConfig::global()->configFlags();
+  const uint configFlags = KateDocumentConfig::global()->configFlags();
   ui->chkRemoveTrailingSpaces->setChecked(configFlags & KateDocumentConfig::cfRemoveSpaces);
   ui->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
 

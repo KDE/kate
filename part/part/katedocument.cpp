@@ -3093,7 +3093,8 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
   if (view->blockSelectionMode())
     view->setCursorPositionInternal(pos + KTextEditor::Cursor(lines, 0));
 
-  if (m_indenter->canProcessLine())
+  if (m_indenter->canProcessLine()
+      && config()->configFlags() & KateDocumentConfig::cfIndentPastedText)
   {
     editStart();
 
@@ -4421,8 +4422,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         m_config->setConfigFlags( KateDocumentConfig::cfSmartHome, state );
       else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) )
         m_config->setConfigFlags( KateDocumentConfig::cfRemoveSpaces, state );
-      else if ( var == "auto-insert-doxygen" && checkBoolValue( val, &state) )
-        m_config->setConfigFlags( KateDocumentConfig::cfDoxygenAutoTyping, state);
 
       // INTEGER SETTINGS
       else if ( var == "tab-width" && checkIntValue( val, &n ) )

@@ -2,6 +2,7 @@
    Copyright (C) 2002, 2003 Anders Lund <anders.lund@lund.tdcadsl.dk>
    Copyright (C) 2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2006 Dominik Haumann <dhdev@gmx.de>
 
    Based on work of:
      Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -79,6 +80,7 @@ namespace Ui
   class CursorConfigWidget;
   class EditConfigWidget;
   class HlConfigWidget;
+  class IndentationConfigWidget;
   class OpenSaveConfigWidget;
 }
 
@@ -129,14 +131,7 @@ class KateIndentConfigTab : public KateConfigPage
     void indenterSelected (int);
 
   protected:
-    enum { numFlags = 4 };
-    static const int flags[numFlags];
-    QCheckBox *opt[numFlags];
-    KIntNumInput *indentationWidth;
-    QGroupBox *m_tabs;
-    KComboBox *m_indentMode;
-    QPushButton *m_configPage;
-    QRadioButton *rb1, *rb2, *rb3;
+    Ui::IndentationConfigWidget *ui;
 
   public Q_SLOTS:
     void configPage();

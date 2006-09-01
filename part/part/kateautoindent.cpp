@@ -35,6 +35,26 @@
 
 #include <cctype>
 
+// helper function
+inline bool insertLeadingAsterisk(KateDocument *doc, int line)
+{
+  KateTextLine::Ptr textLine = doc->plainKateTextLine(line - 1);
+  if (!textLine)
+    return false;
+
+  int first = textLine->firstChar();
+  if (textLine->at(first) == QChar('*') || textLine->matchesAt(first, "/*")) {
+    textLine = doc->plainKateTextLine(line);
+    if (!textLine)
+      return false;
+
+    first = textLine->firstChar();
+    if (textLine->at(first) != QChar('*'))
+      return true;
+  }
+  return false;
+}
+
 //BEGIN KateAutoIndent
 
 KateAutoIndent *KateAutoIndent::createIndenter (KateDocument *doc, const QString &name)
@@ -675,13 +695,8 @@ bool KateCSmartIndent::handleDoxygen (KateDocCursor &begin)
       int indent = findOpeningComment(begin);
       QString filler = tabString (indent);
 
-      // dominik: TODO FIXME
-//       bool doxygenAutoInsert = doc->config()->configFlags() & KateDocumentConfig::cfDoxygenAutoTyping;
-//       if ( doxygenAutoInsert &&
-//            (!textLine->matchesAt(first, "*/") && !textLine->matchesAt(first, "*")))
-//       {
-//         filler = filler + " * ";
-//       }
+      if (insertLeadingAsterisk(doc, begin.line()))
+        filler = filler + " * ";
 
       begin.setColumn(0);
       doc->replaceText(KTextEditor::Range(begin, first), filler);
@@ -1598,8 +1613,7 @@ bool KateCSAndSIndent::handleDoxygen (KateDocCursor &begin)
   first = textLine->firstChar();
   QString indent = findOpeningCommentIndentation(begin);
 
-  // dominik: TODO FIXME
-  bool doxygenAutoInsert = true; //doc->config()->configFlags() & KateDocumentConfig::cfDoxygenAutoTyping;
+  bool doxygenAutoInsert = insertLeadingAsterisk(doc, begin.line());
 
   // starts with *: indent one space more to line up *s
   if ( textLine->matchesAt(first, "*") )

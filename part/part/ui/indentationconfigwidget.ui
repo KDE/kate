@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>554</width>
-    <height>446</height>
+    <width>511</width>
+    <height>376</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
@@ -17,9 +17,59 @@
     <number>6</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="gbIndentation" >
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="lblMode" >
+       <property name="text" >
+        <string>Default indentation mode:</string>
+       </property>
+       <property name="buddy" >
+        <cstring>cmbMode</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KComboBox" name="cmbMode" >
+       <property name="whatsThis" >
+        <string>This is a list of available indentation modes. The specified indentation mode will be used for all new documents. Be aware that it is also possible to set the indentation mode with document variables, filetypes or a .kateconfig file.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="btnConfigure" >
+       <property name="whatsThis" >
+        <string>If this button is enabled, additional indenter specific options are available and can be configured in an extra dialog.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbProperties" >
      <property name="title" >
-      <string>Automatic Indentation</string>
+      <string>Indentation Properties</string>
+     </property>
+     <property name="flat" >
+      <bool>true</bool>
      </property>
      <layout class="QVBoxLayout" >
       <property name="margin" >
@@ -37,26 +87,31 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLabel" name="lblMode" >
+         <widget class="QLabel" name="lblIndentWidth" >
           <property name="text" >
-           <string>Default indentation mode:</string>
+           <string>Indentation width:</string>
           </property>
           <property name="buddy" >
-           <cstring>cmbMode</cstring>
+           <cstring>sbIndentWidth</cstring>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="KComboBox" name="cmbMode" >
+         <widget class="KIntSpinBox" name="sbIndentWidth" >
           <property name="whatsThis" >
-           <string>This is a list of available indentation modes. The specified indentation mode will be used for all new documents. Be aware that it is also possible to set the indentation mode with document variables, filetypes or a .kateconfig file.</string>
+           <string>The indentation width is the number of spaces which is used to indent a line. If the option &lt;b>Insert spaces instead of tabulators&lt;/b> in the section &lt;b>Editing&lt;/b> is disabled, a &lt;b>Tab&lt;/b> character is inserted if the indentation is divisible by the tab width.</string>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="btnConfigure" >
-          <property name="whatsThis" >
-           <string>If this button is enabled, additional indenter specific options are available and can be configured in an extra dialog.</string>
+          <property name="suffix" >
+           <string>characters</string>
+          </property>
+          <property name="maximum" >
+           <number>16</number>
+          </property>
+          <property name="minimum" >
+           <number>1</number>
+          </property>
+          <property name="value" >
+           <number>4</number>
           </property>
          </widget>
         </item>
@@ -67,7 +122,7 @@
           </property>
           <property name="sizeHint" >
            <size>
-            <width>40</width>
+            <width>301</width>
             <height>20</height>
            </size>
           </property>
@@ -76,221 +131,138 @@
        </layout>
       </item>
       <item>
-       <widget class="QGroupBox" name="gbProperties" >
-        <property name="title" >
-         <string>Indentation Properties</string>
+       <widget class="QCheckBox" name="chkKeepIndentProfile" >
+        <property name="whatsThis" >
+         <string>If this option is selected, unindenting code blocks is possible only if no line starts at the first column</string>
         </property>
-        <property name="flat" >
-         <bool>true</bool>
+        <property name="text" >
+         <string>Keep indentation profile while unindenting</string>
         </property>
-        <layout class="QVBoxLayout" >
-         <property name="margin" >
-          <number>9</number>
-         </property>
-         <property name="spacing" >
-          <number>6</number>
-         </property>
-         <item>
-          <layout class="QHBoxLayout" >
-           <property name="margin" >
-            <number>0</number>
-           </property>
-           <property name="spacing" >
-            <number>6</number>
-           </property>
-           <item>
-            <widget class="QLabel" name="lblIndentWidth" >
-             <property name="text" >
-              <string>Indentation width:</string>
-             </property>
-             <property name="buddy" >
-              <cstring>sbIndentWidth</cstring>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="KIntSpinBox" name="sbIndentWidth" >
-             <property name="whatsThis" >
-              <string>The indentation width is the number of spaces which is used to indent a line. If the option &lt;b>Insert spaces instead of tabulators&lt;/b> in the section &lt;b>Editing&lt;/b> is disabled, a &lt;b>Tab&lt;/b> character is inserted if the indentation is divisible by the tab width.</string>
-             </property>
-             <property name="suffix" >
-              <string>characters</string>
-             </property>
-             <property name="maximum" >
-              <number>16</number>
-             </property>
-             <property name="minimum" >
-              <number>1</number>
-             </property>
-             <property name="value" >
-              <number>4</number>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" >
-              <size>
-               <width>301</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="chkKeepIndentProfile" >
-           <property name="whatsThis" >
-            <string>If this option is selected, unindenting code blocks is possible only if no line starts at the first column</string>
-           </property>
-           <property name="text" >
-            <string>Keep indentation profile while unindenting</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="chkKeepExtraSpaces" >
-           <property name="whatsThis" >
-            <string>Indentations of more than the selected number of spaces will not be shortened.</string>
-           </property>
-           <property name="text" >
-            <string>Keep extra spaces</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="chkIndentPaste" >
-           <property name="whatsThis" >
-            <string>If this option is selected, pasted code from clipboard is indented. Triggering the &lt;b>undo&lt;/b>-action removes the indentation.</string>
-           </property>
-           <property name="text" >
-            <string>Indent code pasted from clipboard</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="gbKeys" >
-        <property name="title" >
-         <string>Indentation Actions</string>
+       <widget class="QCheckBox" name="chkKeepExtraSpaces" >
+        <property name="whatsThis" >
+         <string>Indentations of more than the selected number of spaces will not be shortened.</string>
         </property>
-        <property name="flat" >
-         <bool>true</bool>
+        <property name="text" >
+         <string>Keep extra spaces</string>
         </property>
-        <layout class="QVBoxLayout" >
-         <property name="margin" >
-          <number>9</number>
-         </property>
-         <property name="spacing" >
-          <number>6</number>
-         </property>
-         <item>
-          <widget class="QCheckBox" name="chkBackspaceUnindents" >
-           <property name="whatsThis" >
-            <string>If this option is selected, the &lt;b>Backspace&lt;/b> key decreases the indentation level if the cursor is located in the leading blank space of a line.</string>
-           </property>
-           <property name="text" >
-            <string>Backspace key in leading blak space unindents</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lblTabKey" >
-           <property name="text" >
-            <string>Tab key action (if no selection exists)</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" >
-           <property name="margin" >
-            <number>0</number>
-           </property>
-           <property name="spacing" >
-            <number>6</number>
-           </property>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType" >
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" >
-              <size>
-               <width>20</width>
-               <height>71</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" >
-             <property name="margin" >
-              <number>0</number>
-             </property>
-             <property name="spacing" >
-              <number>6</number>
-             </property>
-             <item>
-              <widget class="QRadioButton" name="rbTabAdvances" >
-               <property name="whatsThis" >
-                <string>If this option is selected, the &lt;b>Tab&lt;/b> key always inserts white space so that the next tab postion is reached. If the option &lt;b>Insert spaces instead of tabulators&lt;/b> in the section &lt;b>Editing&lt;/b> is enabled, spaces are inserted; otherwise, a single tabulator is inserted.</string>
-               </property>
-               <property name="text" >
-                <string>Always advance to the next tab position</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="rbTabIndents" >
-               <property name="whatsThis" >
-                <string>If this option is selected, the &lt;b>Tab&lt;/b> key always indents the current line by the number of character positions specified in &lt;b>Indentation width&lt;/b>.</string>
-               </property>
-               <property name="text" >
-                <string>Always indent current line</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="rbTabSmart" >
-               <property name="whatsThis" >
-                <string>If this option is selected, the &lt;b>Tab&lt;/b> key either indents the current line or advances to the next tab position.&lt;p> If the insertion point is at or before the first non-space character in the line, or if there is a selection, the current line is indented by the number of character positions specified in &lt;b>Indentation width&lt;/b>.&lt;p> If the insertion point is located after the first non-space character in the line and there is no selection, white space is inserted so that the next tab postion is reached: if the option &lt;b>Insert spaces instead of tabulators&lt;/b> in the section &lt;b>Editing&lt;/b> is enabled, spaces are inserted; otherwise, a single tabulator is inserted.</string>
-               </property>
-               <property name="text" >
-                <string>Indent if in leading blank space</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType" >
-              <enum>QSizePolicy::Expanding</enum>
-             </property>
-             <property name="sizeHint" >
-              <size>
-               <width>21</width>
-               <height>71</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-        </layout>
        </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkIndentPaste" >
+        <property name="whatsThis" >
+         <string>If this option is selected, pasted code from clipboard is indented. Triggering the &lt;b>undo&lt;/b>-action removes the indentation.</string>
+        </property>
+        <property name="text" >
+         <string>Indent code pasted from clipboard</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbKeys" >
+     <property name="title" >
+      <string>Indentation Actions</string>
+     </property>
+     <property name="flat" >
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>9</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QCheckBox" name="chkBackspaceUnindents" >
+        <property name="whatsThis" >
+         <string>If this option is selected, the &lt;b>Backspace&lt;/b> key decreases the indentation level if the cursor is located in the leading blank space of a line.</string>
+        </property>
+        <property name="text" >
+         <string>Backspace key in leading blak space unindents</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="KActiveLabel" name="kactivelabel" >
+        <property name="html" >
+         <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:Sans Serif; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Tab key action (if no selection exists) &lt;a href="whatsthis:If you want &lt;b>Tab&lt;/b> to align the current line in the current code block like in emacs, make &lt;b>Tab&lt;/b> a shortcut to the action &lt;b>Align&lt;/b>.">&lt;span style=" text-decoration: underline; color:#0000ff;">More ...&lt;/span>&lt;/a>&lt;/p>&lt;/body>&lt;/html></string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType" >
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>20</width>
+            <height>71</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" >
+          <property name="margin" >
+           <number>0</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QRadioButton" name="rbTabAdvances" >
+            <property name="whatsThis" >
+             <string>If this option is selected, the &lt;b>Tab&lt;/b> key always inserts white space so that the next tab postion is reached. If the option &lt;b>Insert spaces instead of tabulators&lt;/b> in the section &lt;b>Editing&lt;/b> is enabled, spaces are inserted; otherwise, a single tabulator is inserted.</string>
+            </property>
+            <property name="text" >
+             <string>Always advance to the next tab position</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="rbTabIndents" >
+            <property name="whatsThis" >
+             <string>If this option is selected, the &lt;b>Tab&lt;/b> key always indents the current line by the number of character positions specified in &lt;b>Indentation width&lt;/b>.</string>
+            </property>
+            <property name="text" >
+             <string>Always increase indentation level</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="rbTabSmart" >
+            <property name="whatsThis" >
+             <string>If this option is selected, the &lt;b>Tab&lt;/b> key either indents the current line or advances to the next tab position.&lt;p> If the insertion point is at or before the first non-space character in the line, or if there is a selection, the current line is indented by the number of character positions specified in &lt;b>Indentation width&lt;/b>.&lt;p> If the insertion point is located after the first non-space character in the line and there is no selection, white space is inserted so that the next tab postion is reached: if the option &lt;b>Insert spaces instead of tabulators&lt;/b> in the section &lt;b>Editing&lt;/b> is enabled, spaces are inserted; otherwise, a single tabulator is inserted.</string>
+            </property>
+            <property name="text" >
+             <string>Indent if in leading blank space</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -302,7 +274,7 @@
      </property>
      <property name="sizeHint" >
       <size>
-       <width>20</width>
+       <width>511</width>
        <height>16</height>
       </size>
      </property>
@@ -311,6 +283,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KActiveLabel</class>
+   <extends>KTextBrowser</extends>
+   <header>kactivelabel.h</header>
+  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

@@ -4840,8 +4840,10 @@ void KateDocument::unbindSmartRange( KTextEditor::SmartRange * range )
 bool KateDocument::replaceText( const KTextEditor::Range & range, const QString & s, bool block )
 {
   // TODO more efficient?
+  editStart();
   bool changed = removeText(range, block);
   changed |= insertText(range.start(), s, block);
+  editEnd();
   return changed;
 }
 

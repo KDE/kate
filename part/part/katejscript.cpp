@@ -1471,12 +1471,12 @@ bool KateIndentJScript::setupInterpreter(QString &errorMsg)
   {
     KJS::ExecState *exec = exec;
     KJS::JSValue *exVal = comp.value();
-    char *msg = exVal->toString(exec).ascii();
+    QString msg = exVal->toString(exec).qstring();
 
     int lineno = -1;
     if (exVal->type() == KJS::ObjectType)
     {
-      KJS::JSValue *lineVal = exVal->getObject()->get(exec,"line");
+      KJS::JSValue *lineVal = exVal->getObject()->get(exec, "line");
 
       if (lineVal->type() == KJS::NumberType)
         lineno = int(lineVal->toNumber(exec));
@@ -1575,6 +1575,53 @@ bool KateIndentJScript::processNewline(KateView *view, const KateDocCursor &begi
                                m_interpreter, m_indenter,
                                KJS::Identifier("processNewLine"),
                                params);
+}
+
+bool KateIndentJScript::canProcessNewLine()
+{
+  QString errorMsg;
+  if (!setupInterpreter(errorMsg)) {
+    kDebug(13050) << "canProcessNewLine: " << errorMsg << endl;
+    return false;
+  }
+
+  KJS::ExecState *exec = m_interpreter->globalExec();
+
+  m_indenter->get(exec, "processNewLine")->toObject(exec);
+  if (exec->hadException()) {
+    kDebug(13050) << "canProcessNewLine: Unable to lookup 'processNewLine'" << endl;
+    exec->clearException();
+    return false;
+  }
+
+  return true;
+}
+
+bool KateIndentJScript::canProcessLine()
+{
+  QString errorMsg;
+  if (!setupInterpreter(errorMsg)) {
+    kDebug(13050) << "canProcessLine: " << errorMsg << endl;
+    return false;
+  }
+
+  KJS::ExecState *exec = m_interpreter->globalExec();
+
+  m_indenter->get(exec, "processLine")->toObject(exec);
+  if (exec->hadException()) {
+    kDebug(13050) << "canProcessLine: Unable to lookup 'processLine'" << endl;
+    exec->clearException();
+    return false;
+  }
+
+  m_indenter->get(exec, "processSection")->toObject(exec);
+  if (exec->hadException()) {
+    kDebug(13050) << "canProcessLine: Unable to lookup 'processSection'" << endl;
+    exec->clearException();
+    return false;
+  }
+
+  return true;
 }
 
 bool KateIndentJScript::processSection( KateView *view, const KateDocCursor &begin,

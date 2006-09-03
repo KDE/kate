@@ -590,18 +590,25 @@ class KateScriptIndent : public KateNormalIndent
     ~KateScriptIndent();
 
     virtual void processChar( KateView *view, QChar c );
+
+    virtual bool canProcessNewLine() const;
     virtual void processNewline( KateView *view, KateDocCursor &begin, bool needContinue );
 
-    virtual bool canProcessLine() const { return true; }
+    virtual bool canProcessLine() const;
     virtual void processLine (KateView *view, KateDocCursor &line);
     virtual void processSection (KateView *view, const KateDocCursor &begin, const KateDocCursor &end);
 
     virtual void indent( KateView *view, uint line, int levels );
 
+    // TODO: return sth. like m_script->internalName(); (which is the filename)
     virtual QString modeName () { return QString ("scriptindent"); }
 
   private:
     KateIndentJScript *m_script;
+    mutable bool m_canProcessNewLineSet : 1;
+    mutable bool m_canProcessNewLine : 1;
+    mutable bool m_canProcessLineSet : 1;
+    mutable bool m_canProcessLine : 1;
 };
 
 class ScriptIndentConfigPage : public IndenterConfigPage

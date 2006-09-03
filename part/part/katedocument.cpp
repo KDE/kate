@@ -3128,7 +3128,7 @@ void KateDocument::align(KateView *view, uint line)
       KateDocCursor curLine(line, 0, this);
       m_indenter->processLine (view, curLine);
       editEnd ();
-      activeView()->setCursorPosition(curLine);
+      view->setCursorPosition(curLine);
     }
     else
     {

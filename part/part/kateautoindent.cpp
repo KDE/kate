@@ -2420,8 +2420,10 @@ bool KateVarIndent::hasRelevantOpening( const KateDocCursor &end ) const
 //END KateVarIndent
 
 //BEGIN KateScriptIndent
-KateScriptIndent::KateScriptIndent( KateIndentJScript *script, KateDocument *doc )
-  : KateNormalIndent( doc ), m_script (script)
+KateScriptIndent::KateScriptIndent(KateIndentJScript *script, KateDocument *doc)
+  : KateNormalIndent(doc), m_script(script),
+    m_canProcessNewLineSet(false), m_canProcessNewLine(false),
+    m_canProcessLineSet(false), m_canProcessLine(false)
 {
 }
 
@@ -2429,19 +2431,37 @@ KateScriptIndent::~KateScriptIndent()
 {
 }
 
+bool KateScriptIndent::canProcessNewLine() const
+{
+  if (m_canProcessNewLineSet)
+    return m_canProcessNewLine;
+
+  m_canProcessNewLine = m_script->canProcessNewLine();
+  m_canProcessNewLineSet = true;
+  return m_canProcessNewLine;
+}
+
+bool KateScriptIndent::canProcessLine() const
+{
+  if (m_canProcessLineSet)
+    return m_canProcessLine;
+
+  m_canProcessLine = m_script->canProcessLine();
+  m_canProcessLineSet = true;
+  return m_canProcessLine;
+}
+
 void KateScriptIndent::processNewline( KateView *view, KateDocCursor &begin, bool needContinue )
 {
   QString errorMsg;
 
-  QTime t;
-  t.start();
+//   QTime t;
+//   t.start();
   if( !m_script->processNewline( view, begin, needContinue , errorMsg ) )
     kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
-
-  // FIXME: set begin to the position at which the script set the cursor
-  //        ugly hack, is there any clean fix? :)
+  // set cursor to the position at which the script set the cursor
   begin.setPosition(view->cursorPosition());
-  kDebug(13050) << "ScriptIndent::processNewline - TIME/ms: " << t.elapsed() << endl;
+//   kDebug(13050) << "ScriptIndent::processNewline - TIME/ms: " << t.elapsed() << endl;
 }
 
 void KateScriptIndent::processChar( KateView *view, QChar c )
@@ -2461,6 +2481,8 @@ void KateScriptIndent::processLine (KateView *view, KateDocCursor &line)
 
   if( !m_script->processLine( view, line, errorMsg ) )
     kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
+  // set cursor to the position at which the script set the cursor
+  line.setPosition(view->cursorPosition());
 }
 
 void KateScriptIndent::processSection (KateView *view, const KateDocCursor &begin,
@@ -2468,11 +2490,8 @@ void KateScriptIndent::processSection (KateView *view, const KateDocCursor &begi
 {
   QString errorMsg;
 
-//   QTime t;
-//   t.start();
   if( !m_script->processSection( view, begin, end, errorMsg ) )
     kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
-//   kDebug(13050) << "ScriptIndent::processSection - TIME in ms: " << t.elapsed() << endl;
 }
 
 void KateScriptIndent::indent( KateView *view, uint line, int levels )

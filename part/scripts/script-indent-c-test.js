@@ -762,7 +762,7 @@ function processIndent(line, levels)
         var filler = indentString(column);
         var firstPos = document.firstColumn(line);
         if (firstPos == -1)
-            firstPos = document.lineLength();
+            firstPos = document.lineLength(line);
 
         if (firstPos > 0)
             document.removeText(line, 0, line, firstPos);

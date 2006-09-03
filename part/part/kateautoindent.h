@@ -603,12 +603,17 @@ class KateScriptIndent : public KateNormalIndent
     // TODO: return sth. like m_script->internalName(); (which is the filename)
     virtual QString modeName () { return QString ("scriptindent"); }
 
+  protected:
+    bool canProcessIndent() const;
+
   private:
     KateIndentJScript *m_script;
     mutable bool m_canProcessNewLineSet : 1;
     mutable bool m_canProcessNewLine : 1;
     mutable bool m_canProcessLineSet : 1;
     mutable bool m_canProcessLine : 1;
+    mutable bool m_canProcessIndentSet : 1;
+    mutable bool m_canProcessIndent : 1;
 };
 
 class ScriptIndentConfigPage : public IndenterConfigPage

@@ -1624,6 +1624,26 @@ bool KateIndentJScript::canProcessLine()
   return true;
 }
 
+bool KateIndentJScript::canProcessIndent()
+{
+  QString errorMsg;
+  if (!setupInterpreter(errorMsg)) {
+    kDebug(13050) << "canProcessIndent: " << errorMsg << endl;
+    return false;
+  }
+
+  KJS::ExecState *exec = m_interpreter->globalExec();
+
+  m_indenter->get(exec, "processIndent")->toObject(exec);
+  if (exec->hadException()) {
+    kDebug(13050) << "canProcessIndent: Unable to lookup 'processIndent'" << endl;
+    exec->clearException();
+    return false;
+  }
+
+  return true;
+}
+
 bool KateIndentJScript::processSection( KateView *view, const KateDocCursor &begin,
                                         const KateDocCursor &end, QString &errorMsg )
 {

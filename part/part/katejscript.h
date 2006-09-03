@@ -232,6 +232,7 @@ class KateIndentJScript {
                          bool needcontinue, QString &errorMsg );
     bool canProcessNewLine();
     bool canProcessLine();
+    bool canProcessIndent();
     bool processLine( KateView *view, const KateDocCursor &line, QString &errorMsg );
     bool processSection( KateView *view, const KateDocCursor &begin,
                          const KateDocCursor &end, QString &errorMsg );

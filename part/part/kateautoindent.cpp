@@ -2450,6 +2450,16 @@ bool KateScriptIndent::canProcessLine() const
   m_canProcessLineSet = true;
   return m_canProcessLine;
 }
+    
+bool KateScriptIndent::canProcessIndent() const
+{
+  if (m_canProcessIndentSet)
+    return m_canProcessIndent;
+
+  m_canProcessIndent = m_script->canProcessIndent();
+  m_canProcessIndentSet = true;
+  return m_canProcessIndent;
+}
 
 void KateScriptIndent::processNewline( KateView *view, KateDocCursor &begin, bool needContinue )
 {
@@ -2496,9 +2506,13 @@ void KateScriptIndent::processSection (KateView *view, const KateDocCursor &begi
 
 void KateScriptIndent::indent( KateView *view, uint line, int levels )
 {
-  QString errorMsg;
-  if( !m_script->processIndent( view, line, levels, errorMsg ) )
-    kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
+  if (canProcessIndent()) {
+    QString errorMsg;
+    if( !m_script->processIndent( view, line, levels, errorMsg ) )
+      kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
+  } else {
+    KateNormalIndent::indent(view, line, levels);
+  }
 }
 //END KateScriptIndent
 

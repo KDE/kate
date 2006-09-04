@@ -1469,7 +1469,6 @@ bool KateIndentJScript::setupInterpreter(QString &errorMsg)
 
   if (comp.complType() == KJS::Throw)
   {
-    KJS::ExecState *exec = exec;
     KJS::JSValue *exVal = comp.value();
     QString msg = exVal->toString(exec).qstring();
 

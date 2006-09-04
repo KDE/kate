@@ -2145,7 +2145,7 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
 
 bool KateDocument::openUrl( const KUrl &url )
 {
-//   kDebug(13020)<<"KateDocument::openURL( "<<url.prettyUrl()<<")"<<endl;
+//   kDebug(13020)<<"KateDocument::openUrl( "<<url.prettyUrl()<<")"<<endl;
   // no valid URL
   if ( !url.isValid() )
     return false;

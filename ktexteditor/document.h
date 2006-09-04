@@ -54,7 +54,7 @@ class View;
  * synchronized. Support for text selection is handeled by a View and text
  * format attribues by the Attribute class.
  *
- * To load a document call KParts::ReadOnlyPart::openURL().
+ * To load a document call KParts::ReadOnlyPart::openUrl().
  * To reload a document from a file call documentReload(), to save the
  * document call documentSave() or documentSaveAs(). Whenever the modified
  * state of the document changes the signal modifiedChanged() is emitted.

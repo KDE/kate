@@ -940,6 +940,9 @@ void KateDocument::editStart (bool withUndo, KTextEditor::View *view)
   if (editSessionNumber > 1)
     return;
 
+  // Unlocked in editEnd
+  smartMutex()->lock();
+
   editIsRunning = true;
   editWithUndo = withUndo;
 
@@ -1057,6 +1060,9 @@ void KateDocument::editEnd ()
 
   if (editWithUndo)
     undoEnd();
+
+  // Was locked in editStart
+  smartMutex()->unlock();
 
   // edit end for all views !!!!!!!!!
   foreach(KateView *view, m_views)

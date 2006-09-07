@@ -153,7 +153,7 @@
       <item>
        <widget class="QCheckBox" name="chkIndentPaste" >
         <property name="whatsThis" >
-         <string>If this option is selected, pasted code from clipboard is indented. Triggering the &lt;b>undo&lt;/b>-action removes the indentation.</string>
+         <string>If this option is selected, pasted code from the clipboard is indented. Triggering the &lt;b>undo&lt;/b>-action removes the indentation.</string>
         </property>
         <property name="text" >
          <string>Adjust indentation of code pasted from the clipboard</string>

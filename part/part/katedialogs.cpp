@@ -1240,6 +1240,8 @@ void KateModOnHdPrompt::slotPDone( KProcess *p )
                         i18n("The diff command failed. Please make sure that "
                              "diff(1) is installed and in your PATH."),
                         i18n("Error Creating Diff") );
+    delete m_tmpfile;
+    m_tmpfile = 0;
     return;
   }
 

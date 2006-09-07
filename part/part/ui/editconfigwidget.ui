@@ -1,7 +1,4 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>EditConfigWidget</class>
  <widget class="QWidget" name="EditConfigWidget" >
   <property name="geometry" >
@@ -351,7 +348,6 @@ will fall back to the last search text.
    </item>
   </layout>
  </widget>
- <pixmapfunction></pixmapfunction>
  <resources/>
  <connections/>
 </ui>

@@ -174,8 +174,11 @@ KateAutoIndent::~KateAutoIndent ()
 {
 }
 
-void KateAutoIndent::indent( KateView * , uint , int  )
+void KateAutoIndent::indent( KateView *view, uint /*line*/, int change )
 {
+  // no intenter means simply insert tab-character.
+  if ( change > 0 )
+    doc->typeChars(view, QString("\t"));
 }
 //END KateAutoIndent
 
@@ -2423,7 +2426,8 @@ bool KateVarIndent::hasRelevantOpening( const KateDocCursor &end ) const
 KateScriptIndent::KateScriptIndent(KateIndentJScript *script, KateDocument *doc)
   : KateNormalIndent(doc), m_script(script),
     m_canProcessNewLineSet(false), m_canProcessNewLine(false),
-    m_canProcessLineSet(false), m_canProcessLine(false)
+    m_canProcessLineSet(false), m_canProcessLine(false),
+    m_canProcessIndentSet(false), m_canProcessIndent(false)
 {
 }
 

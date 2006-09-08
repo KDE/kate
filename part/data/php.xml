@@ -11,6 +11,7 @@
     <list name="control structures">
       <item>as</item>
       <item>case</item>
+      <item>default</item>
       <item>if</item>
       <item>else</item>
       <item>elseif</item>
@@ -38,7 +39,6 @@
       <item> catch </item>
       <item> class </item>
       <item> const </item>
-      <item> default </item>
       <item> extends </item>
       <item> final </item>
       <item> function </item>

@@ -3087,12 +3087,21 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
   if ( m_view->selection() )
     m_view->removeSelectedText();
 
+  if ( !e->commitString().isEmpty() ) {
+      m_doc->insertText( m_cursor, e->commitString() );
+  }
+
+#if 0
+  if ( m_view->selection() )
+    m_view->removeSelectedText();
+
   m_imPreedit.setRange(m_cursor, m_cursor);
   m_imPreeditSelStart = m_cursor;
 
   m_view->setIMSelectionValue( m_imPreedit, m_imPreedit, true );
 
   QWidget::inputMethodEvent(e);
+#endif
 }
 
 KateLayoutCache* KateViewInternal::cache( ) const

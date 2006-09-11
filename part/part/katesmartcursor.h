@@ -51,9 +51,9 @@ class KateSmartCursor : public KTextEditor::SmartCursor
   friend class KateSmartRange;
 
   public:
-    KateSmartCursor(const KTextEditor::Cursor& position, KTextEditor::Document* doc, KTextEditor::SmartCursor::InsertBehaviour insertBehaviour = KTextEditor::SmartCursor::MoveOnInsert);
+    KateSmartCursor(const KTextEditor::Cursor& position, KTextEditor::Document* doc, KTextEditor::SmartCursor::InsertBehavior insertBehavior = KTextEditor::SmartCursor::MoveOnInsert);
     /// \overload
-    KateSmartCursor(KTextEditor::Document* doc, KTextEditor::SmartCursor::InsertBehaviour insertBehaviour = KTextEditor::SmartCursor::MoveOnInsert);
+    KateSmartCursor(KTextEditor::Document* doc, KTextEditor::SmartCursor::InsertBehavior insertBehavior = KTextEditor::SmartCursor::MoveOnInsert);
     virtual ~KateSmartCursor();
 
     void unbindFromRange();

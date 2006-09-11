@@ -25,6 +25,7 @@ KateEditInfo::KateEditInfo(KateDocument* doc, int source, const KTextEditor::Ran
   , m_oldText(oldText)
   , m_newRange(newRange)
   , m_newText(newText)
+  , m_revisionTokenCounter(0)
 {
   m_translate = (m_newRange.end() - m_newRange.start()) - (m_oldRange.end() - m_oldRange.start());
 }
@@ -100,8 +101,9 @@ QStringList KateEditInfo::newText( const KTextEditor::Range & range ) const
 
 KateEditHistory::KateEditHistory( KateDocument * doc )
   : m_doc(doc)
-  , m_undo(new KateEditInfoGroup())
-  , m_redo(new KateEditInfoGroup())
+  , m_buffer(new KateEditInfoGroup())
+//  , m_redo(new KateEditInfoGroup())
+  , m_revision(0)
 {
 }
 
@@ -112,6 +114,81 @@ void KateEditInfoGroup::addEdit( KateEditInfo * edit )
 
 KateEditInfoGroup::KateEditInfoGroup( )
 {
+}
+
+int KateEditHistory::revision()
+{
+  if (!m_buffer->edits().isEmpty()) {
+    KateEditInfo* edit = buffer()->edits().last();
+    if (!edit->isReferenced())
+      m_revisions.insert(++m_revision, edit);
+
+    edit->referenceRevision();
+    return m_revision;
+  }
+
+  return 0;
+}
+
+void KateEditHistory::releaseRevision(int revision)
+{
+  if (m_revisions.contains(revision)) {
+    KateEditInfo* edit = m_revisions[revision];
+    edit->dereferenceRevision();
+    if (!edit->isReferenced())
+      m_revisions.remove(revision);
+    return;
+  }
+
+  kWarning() << k_funcinfo << "Unknown revision token " << revision << endl;
+}
+
+QList<KateEditInfo*> KateEditHistory::editsBetweenRevisions(int from, int to) const
+{
+  QList<KateEditInfo*> ret;
+
+  if (from == -1)
+    return ret;
+
+  if (buffer()->edits().isEmpty())
+    return ret;
+
+  if (to != -1) {
+    Q_ASSERT(from <= to);
+    Q_ASSERT(m_revisions.contains(to));
+  }
+
+  Q_ASSERT(m_revisions.contains(from));
+
+  KateEditInfo* fromEdit = m_revisions[from];
+  KateEditInfo* toEdit = to == -1 ? buffer()->edits().last() : m_revisions[to];
+  Q_ASSERT(fromEdit && toEdit);
+
+  int fromIndex = buffer()->edits().indexOf(fromEdit);
+  int toIndex = buffer()->edits().indexOf(fromEdit);
+  Q_ASSERT(fromIndex != -1);
+  Q_ASSERT(toIndex != -1);
+  Q_ASSERT(fromIndex > toIndex);
+
+  for (int i = fromIndex; i <= toIndex; ++i)
+    ret.append(buffer()->edits().at(i));
+
+  return ret;
+}
+
+bool KateEditInfo::isReferenced() const
+{
+  return m_revisionTokenCounter;
+}
+
+void KateEditInfo::dereferenceRevision()
+{
+  --m_revisionTokenCounter;
+}
+
+void KateEditInfo::referenceRevision()
+{
+  ++m_revisionTokenCounter;
 }
 
 #include "kateedit.moc"

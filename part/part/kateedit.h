@@ -22,6 +22,7 @@
 #include <ktexteditor/range.h>
 #include <QStringList>
 #include <QObject>
+#include <QMap>
 
 class KateDocument;
 
@@ -118,6 +119,10 @@ class KateEditInfo
 
     inline const KTextEditor::Cursor& translate() const { return m_translate; }
 
+    void referenceRevision();
+    void dereferenceRevision();
+    bool isReferenced() const;
+
   private:
     void undo();
     void redo();
@@ -130,6 +135,7 @@ class KateEditInfo
     KTextEditor::Range m_newRange;
     QStringList m_newText;
     KTextEditor::Cursor m_translate;
+    int m_revisionTokenCounter;
 };
 
 /**
@@ -146,7 +152,7 @@ class KateEditInfoGroup
     void removeEdit(int indexTo = -1);
     KateEditInfo* takeEdit(int indexTo = -1);
 
-    const QList<KateEditInfo*>& edits() const;
+    inline const QList<KateEditInfo*>& edits() const { return m_edits; }
 
     QList<KateEditInfo> summariseEdits(int from = -1, int to = -1, bool destructiveCollapse = false) const;
 
@@ -164,12 +170,17 @@ class KateEditHistory : public QObject
   public:
     KateEditHistory(KateDocument* doc);
 
-    KateEditInfoGroup* undoBuffer() const { return m_undo; }
-    KateEditInfoGroup* redoBuffer() const { return m_redo; }
+    inline KateEditInfoGroup* buffer() const { return m_buffer; }
+    //KateEditInfoGroup* redoBuffer() const { return m_redo; }
 
-    void doEdit(KateEditInfo* edit) { undoBuffer()->addEdit(edit); emit editDone(edit); }
-    void undo();
-    void redo();
+    int revision();
+    void releaseRevision(int revision);
+
+    QList<KateEditInfo*> editsBetweenRevisions(int from, int to = -1) const;
+
+    void doEdit(KateEditInfo* edit) { buffer()->addEdit(edit); emit editDone(edit); }
+    //void undo();
+    //void redo();
 
   Q_SIGNALS:
     void editDone(KateEditInfo* edit);
@@ -177,8 +188,11 @@ class KateEditHistory : public QObject
 
   private:
     KateDocument* m_doc;
-    KateEditInfoGroup* m_undo;
-    KateEditInfoGroup* m_redo;
+    KateEditInfoGroup* m_buffer;
+    //KateEditInfoGroup* m_redo;
+
+    QMap<int, KateEditInfo*> m_revisions;
+    int m_revision;
 };
 
 #endif

@@ -25,8 +25,8 @@
 
 #include <kdebug.h>
 
-KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEditor::Document* doc, KTextEditor::SmartCursor::InsertBehaviour insertBehaviour)
-  : KTextEditor::SmartCursor(position, doc, insertBehaviour)
+KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEditor::Document* doc, KTextEditor::SmartCursor::InsertBehavior insertBehavior)
+  : KTextEditor::SmartCursor(position, doc, insertBehavior)
   , m_feedbackEnabled(false)
   , m_oldGroupLineStart(-1)
   , m_lastPosition(position)
@@ -46,8 +46,8 @@ KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEdito
   m_smartGroup->joined(this);
 }
 
-KateSmartCursor::KateSmartCursor( KTextEditor::Document * doc, KTextEditor::SmartCursor::InsertBehaviour insertBehaviour )
-  : KTextEditor::SmartCursor(KTextEditor::Cursor(), doc, insertBehaviour)
+KateSmartCursor::KateSmartCursor( KTextEditor::Document * doc, KTextEditor::SmartCursor::InsertBehavior insertBehavior )
+  : KTextEditor::SmartCursor(KTextEditor::Cursor(), doc, insertBehavior)
   , m_feedbackEnabled(false)
   , m_oldGroupLineStart(-1)
   , m_isInternal(false)
@@ -189,14 +189,14 @@ bool KateSmartCursor::translate( const KateEditInfo & edit )
     // If this cursor is at the start of the edit
     if (*this == edit.start()) {
       // And it doesn't need to move, no action is required
-      if (insertBehaviour() == KTextEditor::SmartCursor::StayOnInsert)
+      if (insertBehavior() == KTextEditor::SmartCursor::StayOnInsert)
         return false;
     }
 
     // Calculate the new position
     KTextEditor::Cursor newPos;
     if (edit.oldRange().contains(*this)) {
-      if (insertBehaviour() == KTextEditor::SmartCursor::MoveOnInsert)
+      if (insertBehavior() == KTextEditor::SmartCursor::MoveOnInsert)
         newPos = edit.newRange().end();
       else
         newPos = edit.start();

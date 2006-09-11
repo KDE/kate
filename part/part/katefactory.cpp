@@ -63,7 +63,7 @@ class KateFactory : public KTextEditor::Factory
 
       // match both :: and /
 
-      // default to the kparts::* behaviour of having one single widget() if the user don't requested a pure document
+      // default to the kparts::* behavior of having one single widget() if the user don't requested a pure document
       bool bWantSingleView = !(( classname == "KTextEditor/Document" ) || ( classname == "KTextEditor::Document" )
                                || ( classname == "KDocument/Document" ) || ( classname == "KDocument::Document" ));
 

@@ -115,7 +115,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   setMinimumSize (0,0);
 
   // cursor
-  m_cursor.setInsertBehaviour (KTextEditor::SmartCursor::MoveOnInsert);
+  m_cursor.setInsertBehavior (KTextEditor::SmartCursor::MoveOnInsert);
   m_cursor.setInternal();
 
   m_startPos.setInternal();
@@ -180,7 +180,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
            this, SLOT(slotCodeFoldingChanged()) );
 
   m_displayCursor.setPosition(0, 0);
-  m_cursor.setInsertBehaviour(KTextEditor::SmartCursor::MoveOnInsert);
+  m_cursor.setInsertBehavior(KTextEditor::SmartCursor::MoveOnInsert);
   m_cursorX = 0;
 
   setAcceptDrops( true );

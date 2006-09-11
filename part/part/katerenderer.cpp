@@ -277,14 +277,13 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
     }
     renderRanges.append(inbuiltHighlight);
 
-    NormalRenderRange* selectionHighlight = 0L;
     if ((selectionsOnly && showSelections() && m_view->selection()) || (completionHighlight && completionSelected)) {
-      selectionHighlight = new NormalRenderRange();
+      NormalRenderRange* selectionHighlight = new NormalRenderRange();
       static KTextEditor::Attribute::Ptr backgroundAttribute;
-      if (!backgroundAttribute) {
+      if (!backgroundAttribute)
         backgroundAttribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
-        backgroundAttribute->setBackground(config()->selectionColor());
-      }
+      backgroundAttribute->setBackground(config()->selectionColor());
+
 
       if (completionHighlight && completionSelected)
         selectionHighlight->addRange(new KTextEditor::Range(line, 0, line + 1, 0), backgroundAttribute);
@@ -343,8 +342,11 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
 
     } while (currentPosition < endPosition);
 
-    delete inbuiltHighlight;
-    delete selectionHighlight;
+    if (completionHighlight)
+      // Don't delete external completion render range
+      renderRanges.removeAll(completionHighlight);
+
+    qDeleteAll(renderRanges);
   }
 
   return newHighlight;

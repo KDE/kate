@@ -4816,9 +4816,34 @@ KTextEditor::Cursor KateDocument::documentEnd( ) const
 //END KTextEditor::TemplateInterface
 
 //BEGIN KTextEditor::SmartInterface
-KTextEditor::SmartCursor* KateDocument::newSmartCursor( const KTextEditor::Cursor & position, KTextEditor::SmartCursor::InsertBehaviour insertBehaviour )
+int KateDocument::currentRevision() const
 {
-  return m_smartManager->newSmartCursor(position, insertBehaviour, false);
+  return m_smartManager->currentRevision();
+}
+
+void KateDocument::releaseRevision(int revision) const
+{
+  m_smartManager->releaseRevision(revision);
+}
+
+void KateDocument::useRevision(int revision)
+{
+  m_smartManager->useRevision(revision);
+}
+
+KTextEditor::Cursor KateDocument::translateFromRevision(const KTextEditor::Cursor& cursor, KTextEditor::SmartCursor::InsertBehavior insertBehavior) const
+{
+  return m_smartManager->translateFromRevision(cursor, insertBehavior);
+}
+
+KTextEditor::Range KateDocument::translateFromRevision(const KTextEditor::Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior) const
+{
+  return m_smartManager->translateFromRevision(range, insertBehavior);
+}
+
+KTextEditor::SmartCursor* KateDocument::newSmartCursor( const KTextEditor::Cursor & position, KTextEditor::SmartCursor::InsertBehavior insertBehavior )
+{
+  return m_smartManager->newSmartCursor(position, insertBehavior, false);
 }
 
 KTextEditor::SmartRange * KateDocument::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior )

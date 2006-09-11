@@ -225,3 +225,4 @@ KTextEditor::Attribute RenderRangeList::generateAttribute() const
 
   return a;
 }
+

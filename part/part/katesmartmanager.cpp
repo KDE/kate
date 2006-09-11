@@ -28,14 +28,17 @@ static const int s_defaultGroupSize = 40;
 static const int s_minimumGroupSize = 20;
 static const int s_maximumGroupSize = 60;
 
+using namespace KTextEditor;
+
 KateSmartManager::KateSmartManager(KateDocument* parent)
   : QObject(parent)
   , m_firstGroup(new KateSmartGroup(0, 0, 0L, 0L))
   , m_invalidGroup(new KateSmartGroup(-1, -1, 0L, 0L))
   , m_clearing(false)
+  , m_usingRevision(-1)
 {
   connect(doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(slotTextChanged(KateEditInfo*)));
-  //connect(doc(), SIGNAL(textChanged(KTextEditor::Document*)), SLOT(verifyCorrect()));
+  //connect(doc(), SIGNAL(textChanged(Document*)), SLOT(verifyCorrect()));
 }
 
 KateSmartManager::~KateSmartManager()
@@ -57,17 +60,28 @@ KateDocument * KateSmartManager::doc( ) const
   return static_cast<KateDocument*>(parent());
 }
 
-KateSmartCursor * KateSmartManager::newSmartCursor( const KTextEditor::Cursor & position, KTextEditor::SmartCursor::InsertBehaviour insertBehaviour, bool internal )
+KateSmartCursor * KateSmartManager::newSmartCursor( const Cursor & position, SmartCursor::InsertBehavior insertBehavior, bool internal )
 {
-  KateSmartCursor* c = new KateSmartCursor(position, doc(), insertBehaviour);
+  KateSmartCursor* c;
+  if (m_usingRevision != -1)
+    c = new KateSmartCursor(translateFromRevision(position), doc(), insertBehavior);
+  else
+    c = new KateSmartCursor(position, doc(), insertBehavior);
+
   if (internal)
     c->setInternal();
   return c;
 }
 
-KateSmartRange * KateSmartManager::newSmartRange( const KTextEditor::Range & range, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior, bool internal )
+KateSmartRange * KateSmartManager::newSmartRange( const Range & range, SmartRange * parent, SmartRange::InsertBehaviors insertBehavior, bool internal )
 {
-  KateSmartRange* newRange = new KateSmartRange(range, doc(), parent, insertBehavior);
+  KateSmartRange* newRange;
+
+  if (m_usingRevision != -1)
+    newRange = new KateSmartRange(translateFromRevision(range), doc(), parent, insertBehavior);
+  else
+    newRange = new KateSmartRange(range, doc(), parent, insertBehavior);
+
   if (internal)
     newRange->setInternal();
   if (!parent)
@@ -75,8 +89,13 @@ KateSmartRange * KateSmartManager::newSmartRange( const KTextEditor::Range & ran
   return newRange;
 }
 
-KateSmartRange * KateSmartManager::newSmartRange( KateSmartCursor * start, KateSmartCursor * end, KTextEditor::SmartRange * parent, KTextEditor::SmartRange::InsertBehaviors insertBehavior, bool internal )
+KateSmartRange * KateSmartManager::newSmartRange( KateSmartCursor * start, KateSmartCursor * end, SmartRange * parent, SmartRange::InsertBehaviors insertBehavior, bool internal )
 {
+  if (m_usingRevision != -1) {
+    *start = translateFromRevision(*start, (insertBehavior & SmartRange::ExpandLeft) ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
+    *end = translateFromRevision(*end, (insertBehavior & SmartRange::ExpandRight) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
+  }
+
   KateSmartRange* newRange = new KateSmartRange(start, end, parent, insertBehavior);
   if (internal)
     newRange->setInternal();
@@ -251,7 +270,7 @@ KateSmartRange* KateSmartManager::feedbackRange( const KateEditInfo& edit, KateS
   if (range->end() < edit.start())
     return mostSpecific;
 
-  foreach (KTextEditor::SmartRange* child, range->childRanges())
+  foreach (SmartRange* child, range->childRanges())
     if (!mostSpecific)
       mostSpecific = feedbackRange(edit, static_cast<KateSmartRange*>(child));
     else
@@ -432,7 +451,7 @@ void KateSmartManager::rangeDeleted( KateSmartRange* range )
     m_topRanges.remove(range);
 }
 
-void KateSmartManager::unbindSmartRange( KTextEditor::SmartRange * range )
+void KateSmartManager::unbindSmartRange( SmartRange * range )
 {
   static_cast<KateSmartRange*>(range)->unbindAndDelete();
 }
@@ -492,6 +511,78 @@ void KateSmartManager::clear( bool includingInternal )
   m_clearing = true;
   deleteCursors(includingInternal);
   m_clearing = false;
+}
+
+void KateSmartManager::useRevision(int revision)
+{
+  m_usingRevision = revision;
+}
+
+void KateSmartManager::releaseRevision(int revision) const
+{
+  doc()->history()->releaseRevision(revision);
+}
+
+int KateSmartManager::currentRevision() const
+{
+  return doc()->history()->revision();
+}
+
+static void translate(KateEditInfo* edit, Cursor& ret, SmartCursor::InsertBehavior insertBehavior)
+{
+  // NOTE: copied from KateSmartCursor::translate()
+  // If this cursor is before the edit, no action is required
+  if (ret < edit->start())
+    return;
+
+  // If this cursor is on a line affected by the edit
+  if (edit->oldRange().overlapsLine(ret.line())) {
+    // If this cursor is at the start of the edit
+    if (ret == edit->start()) {
+      // And it doesn't need to move, no action is required
+      if (insertBehavior == SmartCursor::StayOnInsert)
+        return;
+    }
+
+    // Calculate the new position
+    Cursor newPos;
+    if (edit->oldRange().contains(ret)) {
+      if (insertBehavior == SmartCursor::MoveOnInsert)
+        ret = edit->newRange().end();
+      else
+        ret = edit->start();
+
+    } else {
+      ret += edit->translate();
+    }
+
+    return;
+  }
+
+  // just need to adjust line number
+  ret.setLine(ret.line() + edit->translate().line());
+}
+
+Cursor KateSmartManager::translateFromRevision(const Cursor& cursor, SmartCursor::InsertBehavior insertBehavior) const
+{
+  Cursor ret = cursor;
+
+  foreach (KateEditInfo* edit, doc()->history()->editsBetweenRevisions(m_usingRevision))
+    translate(edit, ret, insertBehavior);
+
+  return ret;
+}
+
+Range KateSmartManager::translateFromRevision(const Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior) const
+{
+  Range ret = range;
+
+  foreach (KateEditInfo* edit, doc()->history()->editsBetweenRevisions(m_usingRevision)) {
+    translate(edit, ret.start(), insertBehavior & KTextEditor::SmartRange::ExpandLeft ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
+    translate(edit, ret.end(), insertBehavior & KTextEditor::SmartRange::ExpandRight ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
+  }
+
+  return ret;
 }
 
 #include "katesmartmanager.moc"

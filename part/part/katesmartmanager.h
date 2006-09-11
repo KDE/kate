@@ -63,7 +63,13 @@ class KateSmartManager : public QObject, private KTextEditor::SmartRangeWatcher
     inline bool isClearing() const { return m_clearing; }
     void clear(bool includingInternal);
 
-    KateSmartCursor* newSmartCursor(const KTextEditor::Cursor& position = KTextEditor::Cursor(), KTextEditor::SmartCursor::InsertBehaviour insertBehaviour = KTextEditor::SmartCursor::MoveOnInsert, bool internal = true);
+    int currentRevision() const;
+    void releaseRevision(int revision) const;
+    void useRevision(int revision = -1);
+    KTextEditor::Cursor translateFromRevision(const KTextEditor::Cursor& cursor, KTextEditor::SmartCursor::InsertBehavior insertBehavior = KTextEditor::SmartCursor::StayOnInsert) const;
+    KTextEditor::Range translateFromRevision(const KTextEditor::Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior = KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight) const;
+
+    KateSmartCursor* newSmartCursor(const KTextEditor::Cursor& position = KTextEditor::Cursor(), KTextEditor::SmartCursor::InsertBehavior insertBehavior = KTextEditor::SmartCursor::MoveOnInsert, bool internal = true);
     void deleteCursors(bool includingInternal);
 
     KateSmartRange* newSmartRange(const KTextEditor::Range& range = KTextEditor::Range(), KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviors insertBehavior = KTextEditor::SmartRange::DoNotExpand, bool internal = true);
@@ -94,6 +100,7 @@ class KateSmartManager : public QObject, private KTextEditor::SmartRangeWatcher
     QSet<KateSmartRange*> m_topRanges;
     KateSmartGroup* m_invalidGroup;
     bool m_clearing;
+    int m_usingRevision;
 };
 
 /**

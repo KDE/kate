@@ -488,7 +488,13 @@ class KateDocument : public KTextEditor::Document,
   public:
     virtual void clearSmartInterface();
 
-    virtual KTextEditor::SmartCursor* newSmartCursor(const KTextEditor::Cursor& position, KTextEditor::SmartCursor::InsertBehaviour insertBehaviour = KTextEditor::SmartCursor::MoveOnInsert);
+    virtual int currentRevision() const;
+    virtual void releaseRevision(int revision) const;
+    virtual void useRevision(int revision = -1);
+    virtual KTextEditor::Cursor translateFromRevision(const KTextEditor::Cursor& cursor, KTextEditor::SmartCursor::InsertBehavior insertBehavior = KTextEditor::SmartCursor::StayOnInsert) const;
+    virtual KTextEditor::Range translateFromRevision(const KTextEditor::Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior = KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight) const;
+
+    virtual KTextEditor::SmartCursor* newSmartCursor(const KTextEditor::Cursor& position, KTextEditor::SmartCursor::InsertBehavior insertBehavior = KTextEditor::SmartCursor::MoveOnInsert);
     virtual void deleteCursors();
 
     virtual KTextEditor::SmartRange* newSmartRange(const KTextEditor::Range& range, KTextEditor::SmartRange* parent = 0L, KTextEditor::SmartRange::InsertBehaviors insertBehavior = KTextEditor::SmartRange::DoNotExpand);

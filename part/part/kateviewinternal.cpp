@@ -1188,19 +1188,16 @@ void KateViewInternal::end( bool sel )
     return;
   }
 
-  // FIXME: Both "smart end" and "smart home" use the current range's last/first character
-  //        when jumping to the "absolute" extreme. For 4.0 and 3.5.5 (kling)
-  bool alreadyAtEndOfLine = false;
+  KateTextLayout layout = currentLayout();
 
-  if (m_view->dynWordWrap() && currentLayout().wrap()) {
+  if (m_view->dynWordWrap() && layout.wrap()) {
     // Allow us to go to the real end if we're already at the end of the view line
-    if (m_cursor.column() < currentLayout().endCol() - 1) {
-      KTextEditor::Cursor c(m_cursor.line(), currentLayout().endCol() - 1);
+    if (m_cursor.column() < layout.endCol() - 1) {
+      KTextEditor::Cursor c(m_cursor.line(), layout.endCol() - 1);
       updateSelection( c, sel );
       updateCursor( c );
       return;
     }
-    alreadyAtEndOfLine = true;
   }
 
   if( !(m_doc->config()->configFlags() & KateDocumentConfig::cfSmartHome) ) {
@@ -1214,21 +1211,14 @@ void KateViewInternal::end( bool sel )
     return;
 
   // "Smart End", as requested in bugs #78258 and #106970
-  KTextEditor::Cursor c = m_cursor;
-  int lc = l->lastChar();
-
-  if (lc < 0 || c.column() == (lc + 1)) {
-    if (alreadyAtEndOfLine) {
-      moveEdge(right, sel);
-      return;
-    }
-    c.setColumn(currentLayout().endCol());
+  if (m_cursor.column() == m_doc->lineLength(m_cursor.line())) {
+    KTextEditor::Cursor c = m_cursor;
+    c.setColumn(l->lastChar() + 1);
+    updateSelection(c, sel);
+    updateCursor(c, true);
   } else {
-    c.setColumn(lc + 1);
+    moveEdge(right, sel);
   }
-
-  updateSelection( c, sel );
-  updateCursor( c, true );
 }
 
 KateTextLayout KateViewInternal::currentLayout() const

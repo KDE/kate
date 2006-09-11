@@ -170,7 +170,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      * \param distance distance to advance (or go back if \a distance is negative)
      * \param mode whether to move by character, or by number of valid cursor positions
      *
-     * \return true if the position could be reached within the document, otherwise false 
+     * \return true if the position could be reached within the document, otherwise false
      *         (the cursor should not move if \distance is beyond the end of the document).
      */
     virtual bool advance(int distance, AdvanceMode mode = ByCharacter);
@@ -185,7 +185,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      * The following functions relate to the behavior of this SmartCursor.
      * \{
      */
-    enum InsertBehaviour {
+    enum InsertBehavior {
       StayOnInsert = 0,
       MoveOnInsert
     };
@@ -193,14 +193,14 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      * Returns how this cursor behaves when text is inserted at the cursor.
      * Defaults to moving on insert.
      */
-    InsertBehaviour insertBehaviour() const;
+    InsertBehavior insertBehavior() const;
 
     /**
      * Change the behavior of the cursor when text is inserted at the cursor.
      *
      * If \p moveOnInsert is true, the cursor will end up at the end of the insert.
      */
-    void setInsertBehaviour(InsertBehaviour insertBehaviour);
+    void setInsertBehavior(InsertBehavior insertBehavior);
     //END
 
     //BEGIN Notification methods
@@ -287,9 +287,9 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      *
      * \param position the cursor position to assign
      * \param doc the Document this cursor is associated with
-     * \param insertBehaviour the behavior of this cursor when on the position of an insert.
+     * \param insertBehavior the behavior of this cursor when on the position of an insert.
      */
-    SmartCursor(const Cursor& position, Document* doc, InsertBehaviour insertBehaviour);
+    SmartCursor(const Cursor& position, Document* doc, InsertBehavior insertBehavior);
 
   private:
     /**

@@ -57,9 +57,26 @@ void SmartInterface::setClearOnDocumentReload(bool clearOnReload)
   d->clearOnDocumentReload = clearOnReload;
 }
 
-QMutex * KTextEditor::SmartInterface::smartMutex() const
+QMutex * SmartInterface::smartMutex() const
 {
   return &d->mutex;
+}
+
+void SmartInterface::clearRevision()
+{
+  useRevision(-1);
+}
+
+Cursor SmartInterface::translateFromRevision(const Cursor& cursor, SmartCursor::InsertBehavior insertBehavior) const
+{
+  Q_UNUSED(insertBehavior);
+  return cursor;
+}
+
+Range SmartInterface::translateFromRevision(const Range& range, SmartRange::InsertBehaviors insertBehavior) const
+{
+  Q_UNUSED(insertBehavior);
+  return range;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

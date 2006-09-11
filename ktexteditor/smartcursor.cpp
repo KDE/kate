@@ -23,10 +23,10 @@
 
 using namespace KTextEditor;
 
-SmartCursor::SmartCursor( const Cursor & position, Document * doc, InsertBehaviour insertBehaviour )
+SmartCursor::SmartCursor( const Cursor & position, Document * doc, InsertBehavior insertBehavior )
   : Cursor(position)
   , m_doc(doc)
-  , m_moveOnInsert(insertBehaviour == MoveOnInsert)
+  , m_moveOnInsert(insertBehavior == MoveOnInsert)
 {
   Q_ASSERT(m_doc);
 }
@@ -70,14 +70,14 @@ bool SmartCursor::atEndOfLine( ) const
   return column() == m_doc->lineLength(line());
 }
 
-SmartCursor::InsertBehaviour SmartCursor::insertBehaviour( ) const
+SmartCursor::InsertBehavior SmartCursor::insertBehavior( ) const
 {
   return m_moveOnInsert ? MoveOnInsert : StayOnInsert;
 }
 
-void SmartCursor::setInsertBehaviour( InsertBehaviour insertBehaviour )
+void SmartCursor::setInsertBehavior( InsertBehavior insertBehavior )
 {
-  m_moveOnInsert = insertBehaviour == MoveOnInsert;
+  m_moveOnInsert = insertBehavior == MoveOnInsert;
 }
 
 SmartCursor * SmartCursor::toSmartCursor( ) const

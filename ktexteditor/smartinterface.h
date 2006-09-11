@@ -133,8 +133,6 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * \li clears all arbitrary highlight ranges
      * \li clears all action binding
      *
-     * This method is likely to be noticably faster than deleting and clearing each instance yourself.
-     *
      * Deletion occurs without modification to the underlying text.
      */
     virtual void clearSmartInterface() = 0;
@@ -155,6 +153,50 @@ class KTEXTEDITOR_EXPORT SmartInterface
 
     //BEGIN New cursor methods
     /**
+     * Retrieve a token representing the current version of the document. This can
+     * be used later to create cursors and ranges as they would have been at this revision.
+     *
+     * Once you have finished with the token, release it with releaseRevision();
+     */
+    virtual int currentRevision() const = 0;
+
+    /**
+     * Release a revision token provided by currentRevision().  You will no longer be able to
+     * create cursors and ranges agaist this revision.
+     */
+    virtual void releaseRevision(int revision) const = 0;
+
+    /**
+     * Tell the smart interface to work against the given \a revision when creating cursors and
+     * ranges.
+     *
+     * \param revision the token representing a revision retrieved by currentRevision(), or -1 to
+     *                 clear any previous setting and use the current document revision.
+     */
+    virtual void useRevision(int revision) = 0;
+
+    /**
+     * Clear any previous setting to use a specific revision.
+     */
+    void clearRevision();
+
+    /**
+     * Translate the given \a cursor against the revision specified through useRevision(),
+     * using the given \a insertBehavior.
+     *
+     * If no revision is set, simply returns the cursor.
+     */
+    virtual KTextEditor::Cursor translateFromRevision(const KTextEditor::Cursor& cursor, KTextEditor::SmartCursor::InsertBehavior insertBehavior = KTextEditor::SmartCursor::StayOnInsert) const;
+
+    /**
+     * Translate the given \a range against the revision specified through useRevision(),
+     * using the given \a insertBehavior.
+     *
+     * If no revision is set, simply returns the range.
+     */
+    virtual KTextEditor::Range translateFromRevision(const KTextEditor::Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior = KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight) const;
+
+    /**
      * \name Smart Cursors
      *
      * The following functions allow for creation and deletion of SmartCursor%s.
@@ -169,9 +211,9 @@ class KTEXTEDITOR_EXPORT SmartInterface
      *
      * \param position The initial cursor position assumed by the new cursor.
      *                 If not specified, it will start at position (0, 0).
-     * \param insertBehaviour Define whether the cursor should move when text is inserted at the cursor position.
+     * \param insertBehavior Define whether the cursor should move when text is inserted at the cursor position.
      */
-    virtual SmartCursor* newSmartCursor(const Cursor& position = Cursor::start(), SmartCursor::InsertBehaviour insertBehaviour = SmartCursor::MoveOnInsert) = 0;
+    virtual SmartCursor* newSmartCursor(const Cursor& position = Cursor::start(), SmartCursor::InsertBehavior insertBehavior = SmartCursor::MoveOnInsert) = 0;
 
     /**
      * \overload
@@ -184,10 +226,10 @@ class KTEXTEDITOR_EXPORT SmartInterface
      *
      * \param line the line number of the cursor's initial position
      * \param column the line number of the cursor's initial position
-     * \param insertBehaviour Define whether the cursor should move when text is inserted at the cursor position.
+     * \param insertBehavior Define whether the cursor should move when text is inserted at the cursor position.
      */
-    inline SmartCursor* newSmartCursor(int line, int column, SmartCursor::InsertBehaviour insertBehaviour = SmartCursor::MoveOnInsert)
-      { return newSmartCursor(Cursor(line, column), insertBehaviour); }
+    inline SmartCursor* newSmartCursor(int line, int column, SmartCursor::InsertBehavior insertBehavior = SmartCursor::MoveOnInsert)
+      { return newSmartCursor(Cursor(line, column), insertBehavior); }
 
     /**
      * Delete all SmartCursor%s from this document, with the exception of those

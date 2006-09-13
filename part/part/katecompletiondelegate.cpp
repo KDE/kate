@@ -85,7 +85,9 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
       else
         previousLine = new KateTextLine();
 
-      document()->highlight()->doHighlight(previousLine.data(), thisLine.data(), 0L, 0L);
+      QVector<int> foldingList;
+      bool ctxChanged = false;
+      document()->highlight()->doHighlight(previousLine.data(), thisLine.data(), foldingList, ctxChanged);
     }
 
     NormalRenderRange rr;

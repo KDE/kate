@@ -858,7 +858,7 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     QVector<int> foldingList;
     bool ctxChanged = false;
 
-    m_highlight->doHighlight (prevLine.data(), textLine.data(), &foldingList, &ctxChanged);
+    m_highlight->doHighlight (prevLine.data(), textLine.data(), foldingList, ctxChanged);
 
     // debug stuff
     //kDebug () << "current line to hl: " << current_line + buf->startLine() << endl;

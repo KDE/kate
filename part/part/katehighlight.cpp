@@ -145,7 +145,7 @@ class KateHlIncludeRule
   public:
     int ctx;
     uint pos;
-    int incCtx;
+    KateHlContextModification incCtx;
     QString incCtxN;
     bool includeAttrib;
 };
@@ -1201,53 +1201,67 @@ KateHlContext *KateHighlighting::generateContextStack (QVector<short> &contextSt
 {
   while (true)
   {
-    /**
-     * stay, do nothing, just return the last context
-     * in the stack or 0
-     */
-    if (modification.newContext == -1)
+    switch (modification.type)
     {
-      return contextNum (contextStack.isEmpty() ? 0 : contextStack.last());
+      /**
+       * stay, do nothing, just return the last context
+       * in the stack or 0
+       */
+      case KateHlContextModification::doNothing:
+        return contextNum (contextStack.isEmpty() ? 0 : contextStack.last());
+
+      /**
+       * just add a new context to the stack
+       * and return this one
+       */
+      case KateHlContextModification::doPush:
+        contextStack.append (modification.newContext);
+        return contextNum (modification.newContext);
+
+      /**
+       * pop some contexts + add a new one afterwards, immediate....
+       */
+      case KateHlContextModification::doPopsAndPush:
+        // resize stack
+        contextStack.resize ((modification.pops >= contextStack.size()) ? 0 : (contextStack.size() - modification.pops));
+
+        // push imediate the new context....
+        // don't handle the previous line stuff at all....
+        // ### TODO ### think about this
+        contextStack.append (modification.newContext);
+        return contextNum (modification.newContext);
+
+      /**
+       * do only pops...
+       */
+      default:
+      {
+        // resize stack
+        contextStack.resize ((modification.pops >= contextStack.size()) ? 0 : (contextStack.size() - modification.pops));
+
+        // handling of context of previous line....
+        if (indexLastContextPreviousLine >= (contextStack.size()-1))
+        {
+          // set new index, if stack is empty, this is -1, done for eternity...
+          indexLastContextPreviousLine = contextStack.size() - 1;
+
+          // stack already empty, nothing to do...
+          if ( contextStack.isEmpty() )
+            return contextNum (0);
+
+          KateHlContext *c = contextNum(contextStack.last());
+
+          // this must be a valid context, or our context stack is borked....
+          Q_ASSERT (c);
+
+          // handle line end context as new modificationContext
+          modification = c->lineEndContext;
+          continue;
+        }
+
+        return contextNum (contextStack.isEmpty() ? 0 : contextStack.last());
+      }
     }
-
-    /**
-     * just add a new context to the stack
-     * and return this one
-     */
-    if (modification.newContext >= 0)
-    {
-      contextStack.append (modification.newContext);
-      return contextNum (modification.newContext);
-    }
-
-    // one or multiple pops
-    // number of pops == -ctx - 1
-    int size = contextStack.size() + modification.newContext + 1;
-
-    // resize stack
-    contextStack.resize ((size < 0) ? 0 : size);
-
-    // handling of context of previous line....
-    if (indexLastContextPreviousLine >= (contextStack.size()-1))
-    {
-      // set new index, if stack is empty, this is -1, done for eternity...
-      indexLastContextPreviousLine = contextStack.size() - 1;
-
-      // stack already empty, nothing to do...
-      if ( contextStack.isEmpty() )
-        return contextNum (0);
-
-      KateHlContext *c = contextNum(contextStack.last());
-
-      // this must be a valid context, or our context stack is borked....
-      Q_ASSERT (c);
-
-      // handle line end context as new modificationContext
-      modification = c->lineEndContext;
-      continue;
-    }
-
-    return contextNum (contextStack.isEmpty() ? 0 : contextStack.last());
   }
 
   // should never be reached
@@ -1309,8 +1323,8 @@ void KateHighlighting::dropDynamicContexts()
  */
 void KateHighlighting::doHighlight ( KateTextLine *prevLine,
                                      KateTextLine *textLine,
-                                     QVector<int>* foldingList,
-                                     bool *ctxChanged )
+                                     QVector<int> &foldingList,
+                                     bool &ctxChanged )
 {
   if (!textLine)
     return;
@@ -1413,26 +1427,26 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       if (offset2 <= offset)
         continue;
 
-      if (item->region2 && foldingList)
+      if (item->region2)
       {
         // kDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2)<<endl;
-        if ( !foldingList->isEmpty() && ((item->region2 < 0) && (int)(*foldingList)[foldingList->size()-2] == -item->region2 ) )
+        if ( !foldingList.isEmpty() && ((item->region2 < 0) && (int)foldingList[foldingList.size()-2] == -item->region2 ) )
         {
-          foldingList->resize (foldingList->size()-2);
+          foldingList.resize (foldingList.size()-2);
         }
         else
         {
-          foldingList->resize (foldingList->size()+2);
-          (*foldingList)[foldingList->size()-2] = (uint)item->region2;
+          foldingList.resize (foldingList.size()+2);
+          foldingList[foldingList.size()-2] = (uint)item->region2;
           if (item->region2<0) //check not really needed yet
-            (*foldingList)[foldingList->size()-1] = offset2;
+            foldingList[foldingList.size()-1] = offset2;
           else
-          (*foldingList)[foldingList->size()-1] = offset;
+            foldingList[foldingList.size()-1] = offset;
         }
 
       }
 
-      if (item->region && foldingList)
+      if (item->region)
       {
         // kDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
 
@@ -1442,12 +1456,12 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
         }
         else*/
         {
-          foldingList->resize (foldingList->size()+2);
-          (*foldingList)[foldingList->size()-2] = item->region;
+          foldingList.resize (foldingList.size()+2);
+          foldingList[foldingList.size()-2] = item->region;
           if (item->region<0) //check not really needed yet
-            (*foldingList)[foldingList->size()-1] = offset2;
+            foldingList[foldingList.size()-1] = offset2;
           else
-            (*foldingList)[foldingList->size()-1] = offset;
+            foldingList[foldingList.size()-1] = offset;
         }
 
       }
@@ -1525,13 +1539,11 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   // has the context stack changed ?
   if (ctx == textLine->ctxArray())
   {
-    if (ctxChanged)
-      (*ctxChanged) = false;
+    ctxChanged = false;
   }
   else
   {
-    if (ctxChanged)
-      (*ctxChanged) = true;
+    ctxChanged = true;
 
     // assign ctx stack !
     textLine->setContext(ctx);
@@ -1942,11 +1954,11 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
   }
 
   // Info about context switch
-  int context = -1;
+  KateHlContextModification context = -1;
   QString unresolvedContext;
   QString tmpcontext=KateHlManager::self()->syntax->groupItemData(data,QString("context"));
   if (!tmpcontext.isEmpty())
-    context=getIdFromString(ContextNameList, tmpcontext,unresolvedContext);
+    context=getContextModificationFromString(ContextNameList, tmpcontext,unresolvedContext);
 
   // Get the char parameter (eg DetectChar)
   char chr;
@@ -2026,7 +2038,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
 
   if (!unresolvedContext.isEmpty())
   {
-    unresolvedContextReferences.insert(&(tmpItem->ctx.newContext),unresolvedContext);
+    unresolvedContextReferences.insert(&(tmpItem->ctx),unresolvedContext);
   }
 
   return tmpItem;
@@ -2347,24 +2359,55 @@ void  KateHighlighting::createContextNameList(QStringList *ContextNameList,int c
 
 }
 
-int KateHighlighting::getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext, /*NO CONST*/ QString &unres)
+KateHlContextModification KateHighlighting::getContextModificationFromString(QStringList *ContextNameList, QString tmpLineEndContext, /*NO CONST*/ QString &unres)
 {
-  unres="";
-  int context;
-  if ((tmpLineEndContext=="#stay") || (tmpLineEndContext.simplified().isEmpty()))
-    context=-1;
+  // nothing unresolved
+  unres = "";
 
-  else if (tmpLineEndContext.startsWith("#pop"))
+  // context to push on stack
+  int context = -1;
+
+  // number of contexts to pop
+  int pops = 0;
+
+  // we allow arbitary #stay and #pop at the start
+  bool anyFound = false;
+  while (tmpLineEndContext.startsWith("#stay") || tmpLineEndContext.startsWith("#pop"))
   {
-    context=-1;
-    for(;tmpLineEndContext.startsWith("#pop");context--)
+    // ignore stay
+    if (tmpLineEndContext.startsWith("#stay"))
     {
-      tmpLineEndContext.remove(0,4);
-      kDebug(13010)<<"#pop found"<<endl;
+      tmpLineEndContext.remove (0, 5);
     }
+    else // count the pops
+    {
+      ++pops;
+      tmpLineEndContext.remove (0, 4);
+    }
+
+    anyFound = true;
   }
 
-  else if ( tmpLineEndContext.startsWith("##"))
+  /**
+   * we want a ! if we have found any pop or push and still have stuff in the string...
+   */
+  if (anyFound && !tmpLineEndContext.isEmpty())
+  {
+    if (tmpLineEndContext.startsWith("!"))
+      tmpLineEndContext.remove (0, 1);
+  }
+
+  /**
+   * empty string, done
+   */
+  if (tmpLineEndContext.isEmpty())
+    return KateHlContextModification (context, pops);
+
+  /**
+   * handle the remaining string, this might be a ##contextname
+   * or a normal contextname....
+   */
+  if ( tmpLineEndContext.startsWith("##"))
   {
     QString tmp=tmpLineEndContext.right(tmpLineEndContext.length()-2);
     if (!embeddedHls.contains(tmp))  embeddedHls.insert(tmp,KateEmbeddedHlInfo());
@@ -2385,7 +2428,8 @@ int KateHighlighting::getIdFromString(QStringList *ContextNameList, QString tmpL
 //#warning restructure this the name list storage.
 //    context=context+buildContext0Offset;
   }
-  return context;
+
+  return KateHlContextModification (context, pops);
 }
 
 /**
@@ -2511,7 +2555,7 @@ void KateHighlighting::handleKateHlIncludeRules()
   //resolove context names
   for (KateHlIncludeRules::iterator it=includeRules.begin(); it!=includeRules.end(); )
   {
-    if ((*it)->incCtx==-1) // context unresolved ?
+    if ((*it)->incCtx.newContext==-1) // context unresolved ?
     {
 
       if ((*it)->incCtxN.isEmpty())
@@ -2527,8 +2571,8 @@ void KateHighlighting::handleKateHlIncludeRules()
       else
       {
         // resolve name to id
-        (*it)->incCtx=getIdFromString(&ContextNameList,(*it)->incCtxN,dummy);
-        kDebug(13010)<<"Resolved "<<(*it)->incCtxN<< " to "<<(*it)->incCtx<<" for include rule"<<endl;
+        (*it)->incCtx=getContextModificationFromString(&ContextNameList,(*it)->incCtxN,dummy).newContext;
+        kDebug(13010)<<"Resolved "<<(*it)->incCtxN<< " to "<<(*it)->incCtx.newContext<<" for include rule"<<endl;
         // It would be good to look here somehow, if the result is valid
       }
     }
@@ -2569,12 +2613,12 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(int index, KateHlInclud
   // iterate over each include rule for the context the function has been called for.
   while (index1 >= 0 && index1 < list->count() && list->at(index1)->ctx == ctx)
   {
-    int ctx1 = list->at(index1)->incCtx;
+    KateHlContextModification ctx1 = list->at(index1)->incCtx;
 
     //let's see, if the the included context includes other contexts
     for (int index2 = 0; index2 < list->count(); ++index2)
     {
-      if (list->at(index2)->ctx == ctx1)
+      if (list->at(index2)->ctx == ctx1.newContext)
       {
         //yes it does, so first handle that include rules, since we want to
         // include those subincludes too
@@ -2585,7 +2629,7 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(int index, KateHlInclud
 
     // if the context we want to include had sub includes, they are already inserted there.
     KateHlContext *dest=m_contexts[ctx];
-    KateHlContext *src=m_contexts[ctx1];
+    KateHlContext *src=m_contexts[ctx1.newContext];
 //     kDebug(3010)<<"linking included rules from "<<ctx<<" to "<<ctx1<<endl;
 
     // If so desired, change the dest attribute to the one of the src.
@@ -2693,16 +2737,16 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
       ctxName=buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplified();
 
       QString tmpLineEndContext=KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplified();
-      int context;
+      KateHlContextModification context;
 
-      context=getIdFromString(&ContextNameList, tmpLineEndContext,dummy);
+      context=getContextModificationFromString(&ContextNameList, tmpLineEndContext,dummy);
 
       QString tmpNIBF = KateHlManager::self()->syntax->groupData(data, QString("noIndentationBasedFolding") );
       bool noIndentationBasedFolding=IS_TRUE(tmpNIBF);
 
       //BEGIN get fallthrough props
       bool ft = false;
-      int ftc = 0; // fallthrough context
+      KateHlContextModification ftc = 0; // fallthrough context
       if ( i > 0 )  // fallthrough is not smart in context 0
       {
         QString tmpFt = KateHlManager::self()->syntax->groupData(data, QString("fallthrough") );
@@ -2712,10 +2756,12 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         {
           QString tmpFtc = KateHlManager::self()->syntax->groupData( data, QString("fallthroughContext") );
 
-          ftc=getIdFromString(&ContextNameList, tmpFtc,dummy);
-          if (ftc == -1) ftc =0;
+          ftc=getContextModificationFromString(&ContextNameList, tmpFtc,dummy);
 
-          kDebug(13010)<<"Setting fall through context (context "<<i<<"): "<<ftc<<endl;
+          // stay is not allowed, we need to #pop or push some context...
+          if (ftc.type == KateHlContextModification::doNothing) ftc = 0;
+
+          kDebug(13010)<<"Setting fall through context (context "<<i<<"): "<<ftc.newContext<<endl;
         }
       }
       //END falltrhough props

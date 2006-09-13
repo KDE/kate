@@ -57,24 +57,42 @@ class QMenu;
 class KateHlContextModification
 {
   public:
+    enum modType {
+      doNothing = 0,
+      doPush = 1,
+      doPops = 2,
+      doPopsAndPush = 3
+    };
+
     /**
      * Constructor
      * @param _newcontext new context to push on stack
      * @param _pops number of contexts to remove from stack in advance
      */
-    KateHlContextModification (int _newContext = -1, int _pops = 0) : newContext (_newContext), pops (_pops) {}
+    KateHlContextModification (int _newContext = -1, int _pops = 0) : type (doNothing), newContext (_newContext), pops (_pops)
+    {
+      if (newContext >= 0 && pops == 0) type = doPush;
+      else if (newContext < 0 && pops > 0) type = doPops;
+      else if (newContext >= 0 && pops > 0) type = doPopsAndPush;
+      else type = doNothing;
+    }
 
   public:
     /**
-    * new context to push on the stack
-    * if this is < 0, push nothing on the stack
-    */
+     * indicates what this modification does, for speed
+     */
+    char type;
+
+    /**
+     * new context to push on the stack
+     * if this is < 0, push nothing on the stack
+     */
     int newContext;
 
     /**
-    * number of contexts to pop from the stack
-    * before pushing a new context on it
-    */
+     * number of contexts to pop from the stack
+     * before pushing a new context on it
+     */
     int pops;
 };
 
@@ -92,7 +110,7 @@ class KateEmbeddedHlInfo
 // some typedefs
 typedef QList<KateHlIncludeRule*> KateHlIncludeRules;
 typedef QMap<QString,KateEmbeddedHlInfo> KateEmbeddedHlInfos;
-typedef QMap<int*,QString> KateHlUnresolvedCtxRefs;
+typedef QMap<KateHlContextModification*,QString> KateHlUnresolvedCtxRefs;
 
 
 class KateHlData
@@ -125,8 +143,8 @@ class KateHighlighting
   public:
     void doHighlight ( KateTextLine *prevLine,
                        KateTextLine *textLine,
-                       QVector<int> *foldingList,
-                       bool *ctxChanged );
+                       QVector<int> &foldingList,
+                       bool &ctxChanged );
 
     void loadWildcards();
     QList<QRegExp>& getRegexpExtensions();
@@ -265,12 +283,12 @@ class KateHighlighting
     int lookupAttrName(const QString& name, QList<KateExtendedAttribute::Ptr> &iDl);
 
     void createContextNameList(QStringList *ContextNameList, int ctx0);
-    int getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext,/*NO CONST*/ QString &unres);
+    KateHlContextModification getContextModificationFromString(QStringList *ContextNameList, QString tmpLineEndContext,/*NO CONST*/ QString &unres);
 
     QList<KateExtendedAttribute::Ptr> internalIDList;
 
     QVector<KateHlContext*> m_contexts;
-    inline KateHlContext *contextNum (int n) { if (n >= 0 && n < m_contexts.size()) return m_contexts[n]; return 0; }
+    inline KateHlContext *contextNum (int n) { if (n >= 0 && n < m_contexts.size()) return m_contexts[n]; Q_ASSERT (0); return m_contexts[0]; }
 
     QMap< QPair<KateHlContext *, QString>, short> dynamicCtxs;
 

@@ -189,7 +189,7 @@ void KWrite::setupActions()
 
   m_paShowPath = new KToggleAction( i18n("Sho&w Path"), actionCollection(), "set_showPath" );
   connect( m_paShowPath, SIGNAL(triggered()), this, SLOT(documentNameChanged()) );
-  m_paShowPath->setCheckedState(i18n("Hide Path"));
+  m_paShowPath->setCheckedState(KGuiItem(i18n("Hide Path")));
   m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
   a=KStdAction::keyBindings(this, SLOT(editKeys()), actionCollection());
   a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));

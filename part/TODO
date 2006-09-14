@@ -1,12 +1,11 @@
 TODO:
-  A current todo list is available on:
-    http://kate.babylon2k.com/index.php/Work_todo
 
 **** Bugs ****
 * access of deleted cursors by the dynamic hl stuff
 * cursor position after undo
 
 **** Refactoring/Cleanups ****
+* code cleanups wherever needed ;)
 
 * KateViewInternal to be completely hidden from view for almost everything but
   the view itself.
@@ -31,6 +30,7 @@ TODO:
   -> DONE ;) whitespaces are no cleaned at load time, the magic clean on save stuff is gone
   Ah, but there are bugs:
   * indenting a block of text will create whitespace on lines that were empty to start with
+    -> could be fixed by adapting KateNormalIndent::indent()
 
 * BiDi finally, using Scribe
   * just needs porting of deprecated calls, and testing
@@ -123,6 +123,7 @@ TODO:
 * Splitting a view over multiple columns
 
 * Modular input subsystem, to support emulation of other editors in a clean way
+  -> see also scripting and idea with extending the command line
 
 * Improved input modes especially in block selection
 
@@ -134,12 +135,13 @@ TODO:
 * Whatever else is needed for multiuser editing (and perhaps put most of it
   inside the part, so eg. kate, kdevelop, quanta etc. could all use it)
 
-* Scripting (we don't have any yet do we?)
+* Scripting using kjs (in progress)
 
-  -> in progress, part gets kjs support, already working, but API needs to be
-     finished and a clever way to let scripts register for the katecmdline needs to
-     be implemented, with caching and all other cool things the world doesn'T or does
-     need
+  * finish API
+    * KateJSDocument: search, searchBackward, etc
+    * add API so that scripts can save&load data (remember: we don't have persistent loaded scripts right now)
+    * add mode to command line, where every keystroke executes a script (vim like command mode)
+      * idea: F7 -> command mode, if you hit ':' you can use the cmd line just like now and type eg. set-highlight c++;
 
 * Cursor position restriction extension
   * export enough api to allow 3rd party apps to provide a cursor that

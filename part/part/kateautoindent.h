@@ -369,7 +369,6 @@ protected:
   bool  useSpaces;    //!< Should we use spaces or tabs to indent
   bool  keepProfile;  //!< Always try to honor the leading whitespace of lines already in the file
   bool  keepExtra;    //!< Keep indentation that is not on indentation boundaries
-  bool  removeTrailingSpaces; //!< Remove trailing spaces option
 };
 
 class KateCSmartIndent : public KateNormalIndent

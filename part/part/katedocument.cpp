@@ -173,6 +173,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // normal hl
   m_buffer->setHighlight (0);
 
+  m_blockRemoveTrailingSpaces = false;
   m_extension = new KateBrowserExtension( this );
   m_indenter = KateAutoIndent::createIndenter ( this, 0 );
 
@@ -2898,14 +2899,14 @@ void KateDocument::newLine( KTextEditor::Cursor& c, KateView *v )
   c = v->cursorPosition();
 
   if (c.line() > (int)lastLine())
-   c.setLine(lastLine());
+    c.setLine(lastLine());
 
-  if ( c.line() < 0 )
-    c.setLine( 0 );
+  if (c.line() < 0)
+    c.setLine(0);
 
   uint ln = c.line();
 
-  KateTextLine::Ptr textLine = kateTextLine(c.line());
+  KateTextLine::Ptr textLine = plainKateTextLine(ln);
 
   if (c.column() > (int)textLine->length())
     c.setColumn(textLine->length());
@@ -3089,7 +3090,12 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
 
   KTextEditor::Cursor pos = view->cursorPosition();
 
-  insertText (pos, s, view->blockSelectionMode() );
+  blockRemoveTrailingSpaces(true);
+  insertText(pos, s, view->blockSelectionMode());
+
+  blockRemoveTrailingSpaces(false);
+  for (int i = pos.line(); i < pos.line() + lines; ++i)
+    removeTrailingSpace(i);
 
   editEnd();
 
@@ -3118,9 +3124,22 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
 
 void KateDocument::indent ( KateView *v, uint line, int change)
 {
-  editStart ();
-  m_indenter->indent( v, line, change );
-  editEnd ();
+  // dominik: if there is a selection, iterate afterwards over all lines and
+  // remove trailing spaces
+  const bool hasSelection = v->selection();
+  int start = v->selectionRange().start().line();
+  const int end = v->selectionRange().end().line();
+
+  editStart();
+  blockRemoveTrailingSpaces(true);
+  m_indenter->indent(v, line, change);
+  blockRemoveTrailingSpaces(false);
+
+  if (hasSelection) {
+    for (; start <= end; ++start)
+      removeTrailingSpace(start);
+  }
+  editEnd();
 }
 
 void KateDocument::align(KateView *view, uint line)
@@ -3133,13 +3152,21 @@ void KateDocument::align(KateView *view, uint line)
     {
       KateDocCursor curLine(line, 0, this);
       m_indenter->processLine (view, curLine);
+      removeTrailingSpace(curLine.line());
       editEnd ();
       view->setCursorPosition(curLine);
     }
     else
     {
-      m_indenter->processSection (view, KateDocCursor (view->selectionRange().start(), this), KateDocCursor (view->selectionRange().end(), this));
-      editEnd ();
+      int start = view->selectionRange().start().line();
+      const int end = view->selectionRange().end().line();
+      blockRemoveTrailingSpaces(true);
+      m_indenter->processSection(view, KateDocCursor (view->selectionRange().start(), this),
+                                 KateDocCursor (view->selectionRange().end(), this));
+      blockRemoveTrailingSpaces(false);
+      for (; start <= end; ++start)
+        removeTrailingSpace(start);
+      editEnd();
     }
   }
 }
@@ -4680,26 +4707,28 @@ QString KateDocument::reasonedMOHString() const
   }
 }
 
-void KateDocument::removeTrailingSpace( int line )
+void KateDocument::removeTrailingSpace(int line)
 {
   // remove trailing spaces from left line if required
-  if ( config()->configFlags() & KateDocumentConfig::cfRemoveTrailingDyn )
-  {
-    KateTextLine::Ptr ln = kateTextLine( line );
+  if (m_blockRemoveTrailingSpaces
+      || !config()->configFlags() & KateDocumentConfig::cfRemoveTrailingDyn)
+    return;
 
-    if ( ! ln ) return;
+  KateTextLine::Ptr ln = plainKateTextLine(line);
 
-    if ( line == activeView()->cursorPosition().line()
-         && activeView()->cursorPosition().column() >= qMax(0,ln->lastChar()) )
-      return;
+  if (!ln || ln->length() == 0)
+    return;
 
-    if ( ln->length() )
-    {
-      int p = ln->lastChar() + 1;
-      int l = ln->length() - p;
-      if ( l )
-        editRemoveText( line, p, l);
-    }
+  if (line == activeView()->cursorPosition().line()
+      && activeView()->cursorPosition().column() >= qMax(0, ln->lastChar()))
+    return;
+
+  const int p = ln->lastChar() + 1;
+  const int l = ln->length() - p;
+  if (l > 0) {
+    m_blockRemoveTrailingSpaces = true;
+    editRemoveText(line, p, l);
+    m_blockRemoveTrailingSpaces = false;
   }
 }
 

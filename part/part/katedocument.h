@@ -836,7 +836,13 @@ class KateDocument : public KTextEditor::Document,
      * and the active view cursor is not on line and behind
      * the last nonspace character.
      */
-    void removeTrailingSpace( int line );
+    void removeTrailingSpace(int line);
+    inline void blockRemoveTrailingSpaces(bool block)
+    { m_blockRemoveTrailingSpaces = block; }
+
+  private:
+    /// if true, removeTrailingSpace() returns immediately.
+    bool m_blockRemoveTrailingSpaces;
 
   public:
     void updateFileType (int newType, bool user = false);

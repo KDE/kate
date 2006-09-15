@@ -1237,7 +1237,6 @@ bool KateDocument::editInsertText ( int line, int col, const QString &str )
   editAddUndo (KateUndoGroup::editInsertText, line, col, s.length(), s);
 
   l->insertText (col, s);
-//   removeTrailingSpace(line); // ### necessary?
 
   m_buffer->changeLine(line);
 

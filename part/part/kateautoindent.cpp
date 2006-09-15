@@ -1268,6 +1268,26 @@ int KatePythonIndent::calcExtra (int &prevBlock, int &pos, KateDocCursor &end)
       extraIndent -= indentWidth;
     else if (c == ':')
       break;
+    else if (c == '\'')
+    {
+      cur.moveForward(1);
+      c = cur.currentChar();
+      while ( c != '\'' && cur.line() < end.line() )
+      {
+        cur.moveForward(1);
+        c = cur.currentChar();
+      }
+    }
+    else if (c == '"')
+    {
+      cur.moveForward(1);
+      c = cur.currentChar();
+      while ( c != '"' && cur.line() < end.line() )
+      {
+        cur.moveForward(1);
+        c = cur.currentChar();
+      }
+    }
 
     if (c.isNull() || c == '#')
       cur.gotoNextLine();

@@ -234,6 +234,7 @@ void KateNormalIndent::updateConfig ()
   useSpaces   = config->configFlags() & KateDocumentConfig::cfReplaceTabsDyn;
   keepProfile = config->configFlags() & KateDocumentConfig::cfKeepIndentProfile;
   keepExtra   = config->configFlags() & KateDocumentConfig::cfKeepExtraSpaces;
+  removeTrailingSpaces = config->configFlags() & KateDocumentConfig::cfRemoveTrailingDyn;
   tabWidth    = config->tabWidth();
   indentWidth = config->indentationWidth();
 
@@ -513,7 +514,8 @@ void KateNormalIndent::indent ( KateView *v, uint line, int change)
     }
 
     for (line = sl; (int) line <= el; line++) {
-      if (v->lineSelected(line) || v->lineHasSelected(line)) {
+      if ((v->lineSelected(line) || v->lineHasSelected(line))
+           && (!removeTrailingSpaces || doc->lineLength(line) > 0)) {
         optimizeLeadingSpace(line, change);
       }
     }

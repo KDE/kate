@@ -270,7 +270,7 @@ QWidget *KateDocument::widget()
   if (!singleViewMode())
     return 0;
 
-  // does a widget exist alreay? use it!
+  // does a widget exist already? use it!
   if (KTextEditor::Document::widget())
     return KTextEditor::Document::widget();
 

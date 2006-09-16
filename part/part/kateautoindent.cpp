@@ -1689,13 +1689,13 @@ bool KateCSAndSIndent::startsWithLabel( int line )
   // Get the current line.
   KateTextLine::Ptr indentLine = doc->plainKateTextLine(line);
   const int indentFirst = indentLine->firstChar();
-  
+
   // This kind of messes up Q_OBJECT\n public: but I'll leave it for now.
   // Otherwise it messes up other cases.
   int attrib = indentLine->attribute(indentFirst);
   if (attrib != 0 && attrib != keywordAttrib && attrib != normalAttrib && attrib != extensionAttrib)
     return false;
-  
+
   // Get the line text.
   const QString lineContents = indentLine->string();
   const int indentLast = indentLine->lastChar();
@@ -1718,7 +1718,7 @@ bool KateCSAndSIndent::startsWithLabel( int line )
           continue;
         }
       }
-      // Right this is the relevent ':'.
+      // Right this is the relevant ':'.
       if ( n == indentFirst)
       {
         // Just a line with a : on it.
@@ -2475,7 +2475,7 @@ bool KateScriptIndent::canProcessLine() const
   m_canProcessLineSet = true;
   return m_canProcessLine;
 }
-    
+
 bool KateScriptIndent::canProcessIndent() const
 {
   if (m_canProcessIndentSet)

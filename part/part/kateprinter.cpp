@@ -857,13 +857,13 @@ void KatePrintHeaderFooter::getOptions(QMap<QString,QString>& opts, bool )
   opts["app-kate-headerfg"] = kcbtnHeaderFg->color().name();
   opts["app-kate-headerusebg"] = (cbHeaderEnableBgColor->isChecked() ? "true" : "false");
   opts["app-kate-headerbg"] = kcbtnHeaderBg->color().name();
-  opts["app-kate-headerformat"] = leHeaderLeft->text() + "|" + leHeaderCenter->text() + '|' + leHeaderRight->text();
+  opts["app-kate-headerformat"] = leHeaderLeft->text() + '|' + leHeaderCenter->text() + '|' + leHeaderRight->text();
 
   opts["app-kate-usefooter"] = (cbEnableFooter->isChecked() ? "true" : "false");
   opts["app-kate-footerfg"] = kcbtnFooterFg->color().name();
   opts["app-kate-footerusebg"] = (cbFooterEnableBgColor->isChecked() ? "true" : "false");
   opts["app-kate-footerbg"] = kcbtnFooterBg->color().name();
-  opts["app-kate-footerformat"] = leFooterLeft->text() + "|" + leFooterCenter->text() + '|' + leFooterRight->text();
+  opts["app-kate-footerformat"] = leFooterLeft->text() + '|' + leFooterCenter->text() + '|' + leFooterRight->text();
 }
 
 void KatePrintHeaderFooter::setOptions( const QMap<QString,QString>& opts )

@@ -719,7 +719,7 @@ extern "C" KDE_EXPORT int main(int argc, char **argv)
   KApplication a;
 
   KGlobal::locale()->insertCatalog("katepart");
-#if 0 
+#if 0
   DCOPClient *client = KApplication::dcopClient();
   if (!client->isRegistered())
   {
@@ -770,7 +770,7 @@ extern "C" KDE_EXPORT int main(int argc, char **argv)
           do
           {
             line = input.readLine();
-            text.append( line + "\n" );
+            text.append( line + '\n' );
           } while( !line.isNull() );
 
 

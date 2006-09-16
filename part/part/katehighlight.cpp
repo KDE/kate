@@ -2370,7 +2370,7 @@ KateHlContextModification KateHighlighting::getContextModificationFromString(QSt
   // number of contexts to pop
   int pops = 0;
 
-  // we allow arbitary #stay and #pop at the start
+  // we allow arbitrary #stay and #pop at the start
   bool anyFound = false;
   while (tmpLineEndContext.startsWith("#stay") || tmpLineEndContext.startsWith("#pop"))
   {

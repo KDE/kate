@@ -2205,7 +2205,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
       pos = line->length(); // stay indented
     }
     m_doc->editStart();
-    m_doc->insertText( KTextEditor::Cursor(m_cursor.line(), line->length()), "\n" +  line->string(0, pos)
+    m_doc->insertText( KTextEditor::Cursor(m_cursor.line(), line->length()), '\n' +  line->string(0, pos)
       + line->string().right( line->length() - m_cursor.column() ) );
     m_cursor.setPosition(KTextEditor::Cursor(ln + 1, pos));
     if (col < int(line->length()))
@@ -3330,7 +3330,7 @@ void KateViewInternal::childRangeRemoved( KTextEditor::SmartRange *, KTextEditor
 void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
 {
   relayoutRange(*range);
-  // Watchers are only added for dynamicly highlighted ranges
+  // Watchers are only added for dynamically highlighted ranges
   //range->addWatcher(this);
   foreach (KTextEditor::SmartRange* child, range->childRanges())
     addHighlightRange(child);
@@ -3339,7 +3339,7 @@ void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
 void KateViewInternal::removeHighlightRange(KTextEditor::SmartRange* range)
 {
   relayoutRange(*range);
-  // Watchers are only removed for dynamicly highlighted ranges
+  // Watchers are only removed for dynamically highlighted ranges
   //range->removeWatcher(this);
   foreach (KTextEditor::SmartRange* child, range->childRanges())
     removeHighlightRange(child);

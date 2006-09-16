@@ -154,7 +154,7 @@ void InsertFilePluginView::insertFile()
   uint len = 0;
   while (!stream.atEnd()) {
     if ( numlines )
-      str += "\n";
+      str += '\n';
     tmp = stream.readLine();
     str += tmp;
     len = tmp.length();

@@ -271,17 +271,17 @@ void KateSearch::search( SearchFlags flags )
 void KateSearch::wrapSearch()
 {
   if( s.flags.selected )
-  {      
+  {
     KTextEditor::Cursor start (s.selection.start());
     KTextEditor::Cursor end (s.selection.end());
-      
+
     // recalc for block sel, to have start with lowest col, end with highest
     if (m_view->blockSelectionMode())
     {
       start.setColumn (qMin(s.selection.start().column(), s.selection.end().column()));
       end.setColumn (qMax(s.selection.start().column(), s.selection.end().column()));
     }
-    
+
     s.cursor = s.flags.backward ? end : start;
   }
   else
@@ -481,8 +481,8 @@ bool KateSearch::askContinue()
      i18n( "Continue from the end?" );
 
   QString text = s.flags.replace ?
-     made + "\n" + reached + "\n" + question :
-     reached + "\n" + question;
+     made + '\n' + reached + '\n' + question :
+     reached + '\n' + question;
 
   return KMessageBox::Yes == KMessageBox::questionYesNo(
      view(), text, s.flags.replace ? i18n("Replace") : i18n("Find"),
@@ -567,14 +567,14 @@ bool KateSearch::doSearch( const QString& text )
     {
       KTextEditor::Cursor start (s.selection.start());
       KTextEditor::Cursor end (s.selection.end());
-        
+
       // recalc for block sel, to have start with lowest col, end with highest
       if (m_view->blockSelectionMode())
       {
         start.setColumn (qMin(s.selection.start().column(), s.selection.end().column()));
         end.setColumn (qMax(s.selection.start().column(), s.selection.end().column()));
       }
-    
+
       if ( !s.flags.backward && match.start() >= end
         ||  s.flags.backward && match.start() < start )
         match = KTextEditor::Range::invalid();
@@ -589,7 +589,7 @@ bool KateSearch::doSearch( const QString& text )
   }
   while (s.flags.selected && m_view->blockSelectionMode() && match.isValid());
   // in the case we want to search in selection + blockselection we need to loop
-  
+
   if( !match.isValid() ) return false;
 
   // save the search result

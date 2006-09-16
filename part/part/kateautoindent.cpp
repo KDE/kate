@@ -1268,26 +1268,8 @@ int KatePythonIndent::calcExtra (int &prevBlock, int &pos, KateDocCursor &end)
       extraIndent -= indentWidth;
     else if (c == ':')
       break;
-    else if (c == '\'')
-    {
-      cur.moveForward(1);
-      c = cur.currentChar();
-      while ( c != '\'' && cur.line() < end.line() )
-      {
-        cur.moveForward(1);
-        c = cur.currentChar();
-      }
-    }
-    else if (c == '"')
-    {
-      cur.moveForward(1);
-      c = cur.currentChar();
-      while ( c != '"' && cur.line() < end.line() )
-      {
-        cur.moveForward(1);
-        c = cur.currentChar();
-      }
-    }
+    else if (c == '\'' || c == '"' )
+      traverseString( c, cur, end );
 
     if (c.isNull() || c == '#')
       cur.gotoNextLine();
@@ -1296,6 +1278,25 @@ int KatePythonIndent::calcExtra (int &prevBlock, int &pos, KateDocCursor &end)
   }
 
   return extraIndent;
+}
+
+void KatePythonIndent::traverseString( const QChar &stringChar, KateDocCursor &cur, KateDocCursor &end )
+{
+    QChar c;
+    bool escape = false;
+
+    cur.moveForward(1);
+    c = cur.currentChar();
+    while ( ( c != stringChar || escape ) && cur.line() < end.line() )
+    {
+      if ( escape )
+        escape = false;
+      else if ( c == '\\' )
+        escape = !escape;
+
+      cur.moveForward(1);
+      c = cur.currentChar();
+    }
 }
 
 //END

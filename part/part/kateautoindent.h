@@ -422,6 +422,7 @@ class KatePythonIndent : public KateNormalIndent
 
   private:
     int calcExtra (int &prevBlock, int &pos, KateDocCursor &end);
+    void traverseString( const QChar &stringChar, KateDocCursor &cur, KateDocCursor &end );
 
     static QRegExp endWithColon;
     static QRegExp stopStmt;

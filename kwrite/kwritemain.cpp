@@ -646,12 +646,13 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
                          I18N_NOOP("KWrite"), 
                          kWriteVersion,
                          I18N_NOOP( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
-                         I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://kate.kde.org" );
+                         I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://www.kate-editor.org" );
 
   aboutData.addAuthor ("Christoph Cullmann", I18N_NOOP("Maintainer"), "cullmann@kde.org", "http://www.babylon2k.de");
   aboutData.addAuthor ("Anders Lund", I18N_NOOP("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
   aboutData.addAuthor ("Joseph Wenninger", I18N_NOOP("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
   aboutData.addAuthor ("Hamish Rodda",I18N_NOOP("Core Developer"), "rodda@kde.org");
+  aboutData.addAuthor ("Dominik Haumann", I18N_NOOP("Developer & Highlight wizard"), "dhdev@gmx.de");
   aboutData.addAuthor ("Waldo Bastian", I18N_NOOP( "The cool buffersystem" ), "bastian@kde.org" );
   aboutData.addAuthor ("Charles Samuels", I18N_NOOP("The Editing Commands"), "charles@kde.org");
   aboutData.addAuthor ("Matt Newell", I18N_NOOP("Testing, ..."), "newellm@proaxis.com");

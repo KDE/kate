@@ -191,6 +191,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   this,SLOT(slotNeedTextHint(int, int, QString &)));
   enableTextHints(1000);
   test texthint*/
+  setFocus();
 }
 
 KateView::~KateView()

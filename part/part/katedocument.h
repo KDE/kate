@@ -965,6 +965,15 @@ class KateDocument : public KTextEditor::Document,
   protected Q_SLOTS:
       //void testTemplateCode();
       void dumpRegionTree();
+  public:
+      class LoadSaveFilterCheckPlugins;
+  private:
+      void setPreSavePostDialogFilterChecks(QStringList plugins) {m_preSavePostDialogFilterChecks=plugins;}
+      QStringList m_preSavePostDialogFilterChecks;
+      void setPostLoadFilterChecks(QStringList plugins) {m_postLoadFilterChecks=plugins;}
+      QStringList m_postLoadFilterChecks;
+      static LoadSaveFilterCheckPlugins *s_loadSaveFilterCheckPlugins;
+      static LoadSaveFilterCheckPlugins* loadSaveFilterCheckPlugins();
 };
 
 #endif

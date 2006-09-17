@@ -69,6 +69,7 @@
 #include <kencodingfiledialog.h>
 #include <ktempfile.h>
 #include <kcodecs.h>
+#include <kstaticdeleter.h>
 
 #include <QtDBus/QtDBus>
 #include <qtimer.h>
@@ -91,6 +92,93 @@ class KatePartPluginItem
 //END PRIVATE CLASSES
 
 static int dummy = 0;
+
+#ifdef __GNUC__
+#warning consider moving this to KTextEditor
+#endif
+class LoadSaveFilterCheckPlugin {
+  public:
+    LoadSaveFilterCheckPlugin() {}
+    virtual ~LoadSaveFilterCheckPlugin(){}
+    /*this one should be called once everything is set up for saving (especially the encoding has been determind (example: used for checking python source encoding headers))*/
+    virtual bool preSavePostDialogFilterCheck(KTextEditor::Document *document) =0;
+    /*this one should be called once the document has been completely loaded and configured (encoding,highlighting, ...))*/
+    virtual void postLoadFilter(KTextEditor::Document *document) =0;
+};
+
+class KatePythonEncodingCheck: public LoadSaveFilterCheckPlugin {
+  public:
+    KatePythonEncodingCheck():LoadSaveFilterCheckPlugin(){interpreterLine=QRegExp(QString("#!.*$"));}
+    virtual ~KatePythonEncodingCheck(){}
+    virtual bool preSavePostDialogFilterCheck(KTextEditor::Document *document)
+    {
+      kDebug(13020)<<"KatePythonEncodingCheck::preSavePostDialogCheck"<<endl;
+      //QString codec=document->config()->codec()->name().toLower();
+      QString codec=document->encoding().toLower();
+      codec.replace(" ","-");
+//	"#\s*-\*\-\s*coding[:=]\s*([-\w.]+)\s*-\*-\s*$"
+      QRegExp encoding_regex(QString("#\\s*-\\*\\-\\s*coding[:=]\\s*%1\\s*-\\*-\\s*$").arg(codec));
+      bool correctencoding=false;
+      if (document->lines()>0)
+      {
+        if (encoding_regex.exactMatch(document->line(0))) correctencoding=true;
+        else if (document->lines()>1) {
+          if (interpreterLine.exactMatch(document->line(0)))
+            if (encoding_regex.exactMatch(document->line(1))) correctencoding=true;
+        }
+      }
+      if (!correctencoding) {
+        return (KMessageBox::warningContinueCancel (document->activeView()
+        , i18n ("You are trying to save a python file as non ASCII, without specifiying a correct source encoding line for encoding \"%1\"", codec)
+        , i18n ("Wrong encoding")
+        , KGuiItem(i18n("Save Nevertheless")), "Python Save Encoding Warning") == KMessageBox::Continue);
+      }
+      return true;
+    }
+    virtual void postLoadFilter(KTextEditor::Document*){    }
+    private:
+      QRegExp interpreterLine;
+};
+
+class KateDocument::LoadSaveFilterCheckPlugins
+{
+  public:
+    LoadSaveFilterCheckPlugins() { m_plugins["python-encoding"]=new KatePythonEncodingCheck();}
+    ~LoadSaveFilterCheckPlugins() {
+      QHashIterator<QString,LoadSaveFilterCheckPlugin*>i(m_plugins);
+        while (i.hasNext())
+          i.next();
+          delete i.value();
+      m_plugins.clear();
+    }
+    bool preSavePostDialogFilterCheck(const QString& pluginName,KateDocument *document) {
+      LoadSaveFilterCheckPlugin *plug=getPlugin(pluginName);
+      if (!plug) return false;
+      return plug->preSavePostDialogFilterCheck(document);
+    }
+    void postLoadFilter(const QString& pluginName,KateDocument *document) {
+      LoadSaveFilterCheckPlugin *plug=getPlugin(pluginName);
+      if (!plug) return;
+      plug->postLoadFilter(document);
+    }
+  private:
+    LoadSaveFilterCheckPlugin *getPlugin(const QString & pluginName)
+    {
+      if (!m_plugins.contains(pluginName))
+      {
+#ifdef __GNUC__
+#warning implement dynamic loading here
+#endif
+      }
+      if (!m_plugins.contains(pluginName)) return 0;
+      return m_plugins[pluginName];
+    }
+    QHash <QString,LoadSaveFilterCheckPlugin*> m_plugins;
+};
+
+KateDocument::LoadSaveFilterCheckPlugins* KateDocument::s_loadSaveFilterCheckPlugins = 0L;
+static KStaticDeleter<KateDocument::LoadSaveFilterCheckPlugins> loadSaveFilterCheckPluginsSD;
+
 
 //BEGIN d'tor, c'tor
 //
@@ -2325,6 +2413,15 @@ bool KateDocument::openFile(KIO::Job * job)
 
     // update the md5 digest
     createDigest( m_digest );
+
+    if (!m_postLoadFilterChecks.isEmpty())
+    {
+      LoadSaveFilterCheckPlugins *lscps=loadSaveFilterCheckPlugins();
+      foreach(const QString& checkplugin, m_postLoadFilterChecks)
+      {
+         lscps->postLoadFilter(checkplugin,this);
+      } 	
+    }
   }
 
   //
@@ -2464,6 +2561,16 @@ bool KateDocument::saveFile()
            i18n("The selected encoding cannot encode every unicode character in this document. Do you really want to save it? There could be some data lost."),i18n("Possible Data Loss"),KGuiItem(i18n("Save Nevertheless"))) != KMessageBox::Continue))
   {
     return false;
+  }
+  
+  if (!m_preSavePostDialogFilterChecks.isEmpty())
+  {
+    LoadSaveFilterCheckPlugins *lscps=loadSaveFilterCheckPlugins();
+    foreach(const QString& checkplugin, m_preSavePostDialogFilterChecks)
+    {
+       if (lscps->preSavePostDialogFilterCheck(checkplugin,this)==false)
+         return false;
+    } 	
   }
 
   // remove file from dirwatch
@@ -4479,6 +4586,10 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
       }
       else if ( var == "encoding" )
         m_config->setEncoding( val );
+      else if (var == "presave-postdialog")
+        setPreSavePostDialogFilterChecks(val.split(','));
+      else if (var == "postload")
+        setPostLoadFilterChecks(val.split(','));
       else if ( var == "syntax" || var == "hl" )
       {
         for ( uint i=0; i < hlModeCount(); i++ )
@@ -5130,4 +5241,12 @@ bool KateDocument::isSmartLocked() const
     smartLocked = false;
   }
   return smartLocked;
+}
+
+
+KateDocument::LoadSaveFilterCheckPlugins* KateDocument::loadSaveFilterCheckPlugins()
+{
+  if (s_loadSaveFilterCheckPlugins) return s_loadSaveFilterCheckPlugins;
+  s_loadSaveFilterCheckPlugins=loadSaveFilterCheckPluginsSD.setObject(s_loadSaveFilterCheckPlugins,new LoadSaveFilterCheckPlugins);
+  return s_loadSaveFilterCheckPlugins;	
 }

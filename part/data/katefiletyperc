@@ -23,7 +23,7 @@ Wildcards=*Makefile*;*makefile*
 Mimetypes=application/x-python
 Priority=1
 Section=Scripts
-Variables=kate: indent-mode python;
+Variables=kate: indent-mode python; presave-postdialog python-encoding;
 Wildcards=*.py
 
 [XML]

@@ -99,7 +99,7 @@ static int dummy = 0;
 KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
                              bool bReadOnly, QWidget *parentWidget,
                              QObject *parent)
-: KTextEditor::Document (parent),
+: KTextEditor::Document (parent), KTextEditor::HighlightingInterface(this),
   m_plugins (KateGlobal::self()->plugins().count()),
   m_activeView(0L),
   m_undoDontMerge(false),

@@ -66,7 +66,7 @@ namespace KTextEditor
 class KTEXTEDITOR_EXPORT HighlightingInterface
 {
   public:
-    HighlightingInterface ();
+    HighlightingInterface (QObject *myself);
 
     /**
      * Virtual destructor.

@@ -50,6 +50,12 @@
 #include "texthintinterface.h"
 #include "variableinterface.h"
 
+#include "documentadaptor_p.h"
+#include "documentadaptor_p.moc"
+#include "highlightinginterfaceadaptor_p.h"
+#include "highlightinginterfaceadaptor_p.moc"
+
+
 //#include <kaction.h>
 #include <kparts/factory.h>
 #include <klibloader.h>
@@ -143,6 +149,7 @@ Document::Document( QObject *parent)
  : KDocument::Document( parent)
  , d(0)
 {
+	new DocumentAdaptor(this);
 }
 
 Document::~Document()
@@ -256,9 +263,9 @@ Plugin::Plugin ( QObject *parent )
 Plugin::~Plugin ()
 {}
 
-HighlightingInterface::HighlightingInterface ()
+HighlightingInterface::HighlightingInterface (QObject *myself)
   : d(0)
-{}
+{ new HighlightingInterfaceAdaptor(myself,this);}
 
 HighlightingInterface::~HighlightingInterface ()
 {}
@@ -312,4 +319,121 @@ VariableInterface::VariableInterface()
 VariableInterface::~VariableInterface()
 {}
 
+DocumentAdaptor::DocumentAdaptor(Document *document):
+  QDBusAbstractAdaptor(document),m_document(document) {
+}
+
+DocumentAdaptor::~DocumentAdaptor() {}
+
+bool DocumentAdaptor::clear() {
+  return m_document->clear();
+}
+
+bool DocumentAdaptor::reload() {
+  return m_document->documentReload();
+}
+
+bool DocumentAdaptor::save() {
+  return m_document->documentSave();
+}
+
+bool DocumentAdaptor::saveAs() {
+  return m_document->documentSaveAs();
+}
+
+bool DocumentAdaptor::setTextLines(const QStringList &text) {
+  return m_document->setText(text);
+}
+
+bool DocumentAdaptor::isEmpty() const {
+  return m_document->isEmpty();
+}
+
+bool DocumentAdaptor::setEncoding(const QString &encoding) {
+  return m_document->setEncoding(encoding);
+}
+
+const QString &DocumentAdaptor::encoding() const {
+  return m_document->encoding();
+}
+
+bool DocumentAdaptor::setText(const QString &text) {
+  return m_document->setText(text);
+}
+
+QString DocumentAdaptor::text() const {
+  return m_document->text();
+}
+
+int DocumentAdaptor::lines() const {
+  return m_document->lines();
+}
+
+int DocumentAdaptor::totalCharacters() const {
+  return m_document->totalCharacters();
+}
+
+int DocumentAdaptor::lineLength(int line) const {
+  return m_document->lineLength(line);
+}
+                        
+QPoint DocumentAdaptor::endOfLine(int line) const {
+  Cursor c=m_document->endOfLine(line);
+  return QPoint(c.column(),c.line());
+}
+
+
+bool DocumentAdaptor::insertText(const QPoint& cursor,const QString& text, bool block) {
+  return m_document->insertText(Cursor(cursor.y(),cursor.x()),text,block);
+}
+
+bool DocumentAdaptor::insertTextLines(const QPoint& cursor,const QStringList& text, bool block) {
+  return m_document->insertText(Cursor(cursor.y(),cursor.x()),text,block);
+}
+
+bool DocumentAdaptor::cursorInText(const QPoint& cursor) {
+  return m_document->cursorInText(Cursor(cursor.y(),cursor.x()));
+}
+
+bool DocumentAdaptor::insertLine(int line, const QString& text) {
+  return m_document->insertLine(line,text);
+}
+
+bool DocumentAdaptor::insertLines(int line, const QStringList& text) {
+  return m_document->insertLines(line,text);
+}
+
+bool DocumentAdaptor::removeLine(int line) {
+  return m_document->removeLine(line);
+}
+
+HighlightingInterfaceAdaptor::HighlightingInterfaceAdaptor (QObject *obj,HighlightingInterface *iface):
+  QDBusAbstractAdaptor(obj),m_iface(iface) {
+  connect(obj,SIGNAL(hlChanged()),this,SIGNAL(modeChanged()));
+}
+
+HighlightingInterfaceAdaptor::~HighlightingInterfaceAdaptor () {}
+
+unsigned int HighlightingInterfaceAdaptor::mode () {
+  return m_iface->hlMode();
+}
+
+bool HighlightingInterfaceAdaptor::setMode (unsigned int mode) {
+  return m_iface->setHlMode(mode);
+}
+
+unsigned int HighlightingInterfaceAdaptor::modeCount () {
+  return m_iface->hlModeCount();
+}
+
+QString HighlightingInterfaceAdaptor::modeName (unsigned int mode) {
+  return m_iface->hlModeName(mode);
+}
+QString HighlightingInterfaceAdaptor::sectionName (unsigned int mode) {
+  return m_iface->hlModeSectionName(mode);
+}
+
+
+
 // kate: space-indent on; indent-width 2; replace-tabs on;
+

@@ -25,7 +25,7 @@ kde4_add_ui_files(ktexteditor_LIB_SRCS editorchooser_ui.ui )
 
 kde4_add_library(ktexteditor SHARED ${ktexteditor_LIB_SRCS})
 
-target_link_libraries(ktexteditor  ${KDE4_KDECORE_LIBS} kdocument kparts )
+target_link_libraries(ktexteditor  ${KDE4_KDECORE_LIBS} ${QT_QTDBUS_LIBRARY} kdocument kparts )
 
 set_target_properties(ktexteditor PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install(TARGETS ktexteditor  DESTINATION ${LIB_INSTALL_DIR} )

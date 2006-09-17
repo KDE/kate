@@ -31,7 +31,7 @@ class HighlightingInterface;
 class HighlightingInterfaceAdaptor: public QDBusAbstractAdaptor
 {
   Q_OBJECT
-  Q_CLASSINFO("D-Bus Interface","org.kde.KTexteditor.Highlighting")
+  Q_CLASSINFO("D-Bus Interface","org.kde.KTextEditor.Highlighting")
   Q_PROPERTY(unsigned int mode READ mode WRITE setMode)
   Q_PROPERTY(unsigned int modeCount READ modeCount)
 

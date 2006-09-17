@@ -26,7 +26,7 @@ namespace KTextEditor {
 	/// For documentation see Document
 	class DocumentAdaptor: public QDBusAbstractAdaptor {
 		Q_OBJECT
-		Q_CLASSINFO("D-Bus Interface","org.kde.KTexteditor.Document")
+		Q_CLASSINFO("D-Bus Interface","org.kde.KTextEditor.Document")
 		Q_PROPERTY(const QString& encoding READ encoding WRITE setEncoding)
 		Q_PROPERTY(const QString& text READ text WRITE setText)
 		Q_PROPERTY(int lines READ lines)

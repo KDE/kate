@@ -54,7 +54,7 @@ KateGlobal::KateGlobal ()
  : KTextEditor::Editor (0)
  , m_aboutData ("katepart", I18N_NOOP("Kate Part"), KATEPART_VERSION,
              I18N_NOOP( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
-             I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://kate.kde.org")
+             I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://www.kate-editor.org")
  , m_instance (&m_aboutData)
  , m_plugins (KServiceTypeTrader::self()->query("KTextEditor/Plugin"))
 {

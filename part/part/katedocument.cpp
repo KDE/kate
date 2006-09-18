@@ -117,6 +117,7 @@ class KatePythonEncodingCheck: public LoadSaveFilterCheckPlugin {
       QString codec=document->encoding().toLower();
       codec.replace(" ","-");
 //	"#\s*-\*\-\s*coding[:=]\s*([-\w.]+)\s*-\*-\s*$"
+      bool firstIsInterpreter=false;
       QRegExp encoding_regex(QString("#\\s*-\\*\\-\\s*coding[:=]\\s*%1\\s*-\\*-\\s*$").arg(codec));
       bool correctencoding=false;
       if (document->lines()>0)
@@ -124,14 +125,36 @@ class KatePythonEncodingCheck: public LoadSaveFilterCheckPlugin {
         if (encoding_regex.exactMatch(document->line(0))) correctencoding=true;
         else if (document->lines()>1) {
           if (interpreterLine.exactMatch(document->line(0)))
+          {
+            firstIsInterpreter=true;
             if (encoding_regex.exactMatch(document->line(1))) correctencoding=true;
+          }
         }
       }
       if (!correctencoding) {
-        return (KMessageBox::warningContinueCancel (document->activeView()
+        QString addLine(QString("# -*- coding: %1 -*-").arg(codec));
+        int what=KMessageBox::warningYesNoCancel (document->activeView()
         , i18n ("You are trying to save a python file as non ASCII, without specifiying a correct source encoding line for encoding \"%1\"", codec)
-        , i18n ("Wrong encoding")
-        , KGuiItem(i18n("Save Nevertheless")), "Python Save Encoding Warning") == KMessageBox::Continue);
+        , i18n ("No encoding header")
+        , KGuiItem(i18n("Insert: %1",addLine))
+        , KGuiItem(i18n("Save Nevertheless")),"OnSave-WrongPythonEncodingHeader");
+        switch (what) {
+          case KMessageBox::Yes:
+          {
+            int line=firstIsInterpreter?1:0;
+            QRegExp checkReplace_regex(QString("#\\s*-\\*\\-\\s*coding[:=]\\s*[-\\w]+\\s*-\\*-\\s*$"));
+            if (checkReplace_regex.exactMatch(document->line(line)))
+              document->removeLine(line);
+            document->insertLine(line,addLine);
+            break;
+          }
+          case KMessageBox::No:
+            return true;
+            break;
+          default:
+            return false;
+            break;
+        }
       }
       return true;
     }

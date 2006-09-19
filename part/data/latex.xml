@@ -1,6 +1,6 @@
 <?xml version="1.01" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.22" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@t-online.de)+Michel Ludwig (michel.ludwig@kdemail.net)" license="LGPL" >
+<language name="LaTeX" version="1.23" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@t-online.de)+Michel Ludwig (michel.ludwig@kdemail.net)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
@@ -70,11 +70,24 @@
       </context>
 
       <!-- label -->
-      <context name="Label" attribute="Normal Text" lineEndContext="#pop#pop" fallthrough="true" fallthroughContext="#pop#pop">
-        <RegExpr String="\s*\{\s*" attribute="Normal Text" context="#stay"/>
+      <context name="Label" attribute="Normal Text" lineEndContext="#stay">
+        <RegExpr String="\s*\{\s*" attribute="Normal Text" context="LabelParameter"/>
+        <RegExpr String="\s*\[\s*" attribute="Normal Text" context="LabelOption"/>
+        <RegExpr String="[^\[\{]+" attribute="Error" context="#stay"/>
+      </context>
+
+      <context name="LabelOption" attribute="Normal Text" lineEndContext="#stay">
+        <StringDetect String="\(" attribute="Math" context="MathMode" beginRegion="mathMode" />
+        <DetectChar char="\" attribute="Keyword" context="ContrSeq"/>
+        <DetectChar char="$" attribute="Math" context="MathMode" beginRegion="mathMode" />
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
-        <RegExpr String="[^\}\{\xd7]+" attribute="Environment" context="#stay"/>
-        <RegExpr String="\s*\}\s*" attribute="Normal Text" context="#pop"/>
+        <RegExpr String="\s*\]\s*" attribute="Normal Text" context="#pop"/>
+      </context>
+
+      <context name="LabelParameter" attribute="Environment" lineEndContext="#stay">
+        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+        <RegExpr String="\s*\}\s*" attribute="Normal Text" context="#pop#pop"/>
       </context>
 
       <!-- start of an environment -->

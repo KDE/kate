@@ -145,16 +145,8 @@ TODO:
 
 * Good interface for JavaScript indentation scripts
   It is a good idea to look how other editors deal with indentation, I think vim & emacs are good
-  references.
-  
-  Here a list or URL's which describe how these editors handle indentation:
-  
-    * http://www.jasspa.com/me/m2cmd033.html (bit about emacs stuff)
-    * http://www.vim.org/htmldoc/indent.html (bit about vim stuff)
-    * http://psy.swan.ac.uk/staff/carter/unix/vim_indent.htm (how to write a simple vim indenter)
-    
-  I think the vim way is a good idea to take, register keys which trigger the indent actions and such,
-  look at the third link to have a reference.
+  references...
+  The INDENTATION file in this directory describes the general concepts.
 
 * Cursor position restriction extension
   * export enough api to allow 3rd party apps to provide a cursor that

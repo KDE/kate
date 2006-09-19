@@ -1,0 +1,51 @@
+#
+# Indentation for Dummies
+#
+
+This file should is aimed to describe how the KatePart in KDE 4 is designed to allow
+flexible indentation based on JavaScripts.
+
+As references, a good read is the way VIM handles this all, Emacs is out of scope I think,
+as it's just to mangled together there with the mighty lisp engine.
+
+VIM seems to have a fairly simple way to integrate indentation scripts, I guess a similar
+approach is no bad idea...
+
+What tell the VIM docs about indentation?
+http://www.vim.org/htmldoc/indent.html
+
+Some little HOWTO showing a simple Pascal indenter:
+http://psy.swan.ac.uk/staff/carter/unix/vim_indent.htm
+
+In short, how does scripted indentation work in VIM?
+
+ - you must write a functions which returns for a given line the wanted indentation level.
+ - you specify some keywords/char which trigger indentation, inserting a linebreak always triggers it
+ - if indentation is triggered, VIM evaluates the function for the line and reindents the line to the
+   returned level or keeps the current indentation level if -1 is returned
+   
+This sounds fairly simple, but seems to be enough for normal world usage, given that VIM is
+very popular....
+
+KatePart's current indentation scripts work similar, but are triggered on each keystroke.
+I guess only calling them for linebreaks + special chars would increase performance already
+a lot. Next part is that the scripts atm indent theirself, I guess letting them just return the
+needed level and let the C++ code really indent the line would be faster and easier for the script
+writers, too.
+
+One bad thing with the VIM way is that mixed indentation won't work correct, you can't return in one
+int that the first 4 chars can be replaced with tabs, if tab indentation is enabled but the remaining 4
+chars should stay single spaces, as it is useful in this example (given tabwidth is 4):
+
+int test ()
+{
+    if (hello ||
+        muhh) // this line should be indented with tab + 4 spaces
+        return 1; // this line should be indented with 2 tabs
+
+    return 0;
+}
+
+I think we should have a interface in which the script indicates which normal indentation is wanted
+and which further amount of spaces should be inserted to align with other words/keywords whatever...
+

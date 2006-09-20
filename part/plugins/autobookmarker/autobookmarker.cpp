@@ -37,7 +37,6 @@
 #include <klocale.h>
 #include <kmimetype.h>
 #include <kmimetypechooser.h>
-#include <kprocess.h>
 #include <krun.h>
 #include <kstaticdeleter.h>
 #include <kurl.h>

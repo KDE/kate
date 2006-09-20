@@ -49,3 +49,41 @@ int test ()
 I think we should have a interface in which the script indicates which normal indentation is wanted
 and which further amount of spaces should be inserted to align with other words/keywords whatever...
 
+#
+# Idea: Extending itemData (=attribute information)
+#
+Scripts would benefit if they could access highlighting information in a -reliable- way, i.e. -not-
+what we have now in KateNormalIndent::updateConfig().
+
+Possible solution: extend itemData to have another attribute 'type'.
+Example: <itemData defStyleNum="dsNormal" ... type="default"/>
+What types do indentation scripts need? C/C++ like languages need:
+ * default = everything that is not of the following types
+ * comment = single and multiline comments, and #if 0ed code
+ * string  = "..." and '...' strings
+ * pp      = all preprocessor macros (#ifdef etc.)
+ * symbol  = characters like: {}[](),; (and more)
+
+This is actually everything we need for C like languages. Though, some further thoughts:
+ * number  = all kind of numbers: int, double, float
+ * keyword = keywords like: void, int, while, class
+Those two maybe would be a nice addon, but they are not necessarily needed for indentation.
+
+Shortcomings:
+We need a good set of 'types', as they will be hard coded in the Kate Part.
+-> Todo: Think of other languages, what types do we need?
+
+In what way are those types useful?
+Indenters (and scripts) can for example query doc.findOfType("{", "symbol");
+This will skip all { in comments and strings.
+Indenters can check 'where are we?': if (doc.typeAt(cursor) == "comment") ...
+-> Todo: Find good API.
+
+How to make it work with our .xml files?
+To be backward compatible, the default type would be "default", if not defined otherwise.
+To make it work with our .xml files, we would need to adapt C++/Java/Php/... files to set the types
+correctly.
+Implementation: Extend KateExtendedAttribute to contain the type (besides the defaultStyle). To make
+it fast, use an integer (enum) just like the defaultStyles.
+
+Thoughts welcome.

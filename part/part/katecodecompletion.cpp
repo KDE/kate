@@ -143,6 +143,10 @@ KateCodeCompletion::KateCodeCompletion( KateView* view )
            this, SLOT(slotCursorPosChanged()) );
 }
 
+KateCodeCompletion::~KateCodeCompletion() {
+  delete m_completionPopup;
+}
+
 bool KateCodeCompletion::codeCompletionVisible () {
   return m_completionPopup->isVisible();
 }

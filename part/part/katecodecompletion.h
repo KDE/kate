@@ -76,6 +76,7 @@ class KateCodeCompletion : public QObject
 
   public:
     KateCodeCompletion(KateView *view);
+    ~KateCodeCompletion();
 
     bool codeCompletionVisible ();
 

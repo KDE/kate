@@ -209,7 +209,6 @@ KateView::~KateView()
   m_selection = 0L;
 
   delete m_viewInternal;
-  delete m_codeCompletion;
 
   delete m_renderer;
 

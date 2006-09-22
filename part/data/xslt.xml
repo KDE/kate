@@ -15,7 +15,7 @@
   
     - Is qname - entity correct ??
   
-    - Integrate latest XML highlighting, that supports !DOCTYPE, ![CDATA[, Processing Instructions, ...
+    - Integrate latest XML highlighting, that supports ...
       This version is mainly based on kate 2.1 XML highlighting file
     
     - highlight functions only if they are followed by a '('. (How to do that ??)
@@ -28,7 +28,9 @@
     
     - Highlight also XPath keywords, such as 'cast as'
       
-      
+
+    DONE: !DOCTYPE, ![CDATA[, Processing Instructions support copied from latest XML-highlighting
+    
     DONE: Added XSLT 2.0 tag- and XPath2.0 and XSLT2.0 function keywords
     
     FIXED: axis highlighting does not work, if identifier continues directly behind axis: (self::someWord)
@@ -248,12 +250,64 @@
 
        <context name="normalText" attribute="Normal Text" lineEndContext="#stay">
          <StringDetect attribute="Comment" context="comment" String="&lt;!--" beginRegion="comment"/>
+         
+         <StringDetect attribute="CDATA" context="CDATA" String="&lt;![CDATA[" beginRegion="cdata" />
+         <RegExpr attribute="Doctype" context="Doctype" String="&lt;!DOCTYPE\s+" beginRegion="doctype" />
+         <RegExpr attribute="Processing Instruction" context="PI" String="&lt;\?[\w:_-]*" beginRegion="pi" />
+
          <DetectChar attribute="Tag" context="tagname" char="&lt;" />
          <RegExpr attribute="Entity Reference" context="#stay" String="&entref;" />
        </context>
 
+
+       
+       <context name="CDATA" attribute="Normal Text" lineEndContext="#stay">
+         <DetectSpaces />
+         <DetectIdentifier />
+         <StringDetect attribute="CDATA" context="#pop" String="]]&gt;" endRegion="cdata" />
+         <StringDetect attribute="Entity Reference" context="#stay" String="]]&amp;gt;" />
+       </context>
+       
+       <context name="PI" attribute="Normal Text" lineEndContext="#stay">
+         <Detect2Chars attribute="Processing Instruction" context="#pop" char="?" char1="&gt;" endRegion="pi" />
+       </context>
+       
+       <context name="Doctype" attribute="Normal Text" lineEndContext="#stay">
+         <DetectChar attribute="Doctype" context="#pop" char="&gt;" endRegion="doctype" />
+         <DetectChar attribute="Doctype" context="Doctype Internal Subset" char="[" beginRegion="int_subset" />
+       </context>
+       
+       <context name="Doctype Internal Subset" attribute="Normal Text" lineEndContext="#stay">
+         <DetectChar attribute="Doctype" context="#pop" char="]" endRegion="int_subset" />
+         <RegExpr attribute="Doctype" context="Doctype Markupdecl" String="&lt;!(ELEMENT|ENTITY|ATTLIST|NOTATION)\b" />
+         <StringDetect attribute="Comment" context="comment" String="&lt;!--" beginRegion="comment" />
+         <RegExpr attribute="Processing Instruction" context="PI" String="&lt;\?[\w:_-]*" beginRegion="pi" />
+         <IncludeRules context="FindPEntityRefs" />
+       </context>
+       
+       <context name="Doctype Markupdecl" attribute="Normal Text" lineEndContext="#stay">
+         <DetectChar attribute="Doctype" context="#pop" char="&gt;" />
+         <DetectChar attribute="Value" context="Doctype Markupdecl DQ" char="&quot;" />
+         <DetectChar attribute="Value" context="Doctype Markupdecl SQ" char="&apos;" />
+       </context>
+       
+       <context name="Doctype Markupdecl DQ" attribute="Value" lineEndContext="#stay">
+         <DetectChar attribute="Value" context="#pop" char="&quot;" />
+         <IncludeRules context="FindPEntityRefs" />
+       </context>
+       
+       <context name="Doctype Markupdecl SQ" attribute="Value" lineEndContext="#stay">
+         <DetectChar attribute="Value" context="#pop" char="&apos;" />
+         <IncludeRules context="FindPEntityRefs" />
+       </context>
+       
        <context name="detectEntRef" attribute="Normal Text" lineEndContext="#stay">
          <RegExpr attribute="Entity Reference" context="#stay" String="&entref;" />
+       </context>
+       <context name="FindPEntityRefs" attribute="Normal Text" lineEndContext="#stay">
+         <RegExpr attribute="Entity Reference" context="#stay" String="&entref;" />
+         <RegExpr attribute="PEntity Reference" context="#stay" String="%&qname;;" />
+         <AnyChar attribute="Error" context="#stay" String="&amp;%" />
        </context>
        
        <context name="tagname" attribute="Tag" lineEndContext="#stay">
@@ -368,6 +422,12 @@
       <itemData name="XSLT Tag" defStyleNum="dsKeyword" color="#000080" selColor="#ffffff" bold="1" italic="0" />
       <itemData name="XSLT 2.0 Tag" defStyleNum="dsKeyword" color="#000080" selColor="#ffffff" bold="1" italic="0" />
       <itemData name="Entity Reference" defStyleNum="dsDecVal" />
+
+      <itemData name="CDATA" defStyleNum="dsBaseN" bold="1" />
+      <itemData name="Processing Instruction" defStyleNum="dsKeyword" />
+      <itemData name="Doctype" defStyleNum="dsDataType" bold="1" />
+      <itemData name="PEntity Reference" defStyleNum="dsDecVal" />
+      
     </itemDatas>
   </highlighting>
   <general>

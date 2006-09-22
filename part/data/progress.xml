@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="progress" version="1.09" kateversion="2.4" section="Database" extensions="*.p;*.w;*.i;*.cls" author="Rares Stanciulescu (rstanciu@operamail.com)" license="GPL">
-  
+<language name="progress" version="1.10" kateversion="2.4" section="Database" extensions="*.p;*.w;*.i;*.cls;" author="Rares Stanciulescu (rstanciu@operamail.com)" license="GPL">
+
 <highlighting>
-    
+
 <list name="mytypes">
   <item> CHAR </item>
   <item> CHARACTER </item>
@@ -22,19 +22,25 @@
   <item> WIDGET-HANDLE </item>
   <item> RAW </item>
   <item> LONG </item>
+  <item> BYTE </item>
   <item> SHORT </item>
   <item> BLOB </item>
+  <item> UNSIGNED-SHORT </item>
+  <item> FLOAT </item>
+  <item> DOUBLE </item>
   <item> CLOB </item>
   <item> LONGCHAR </item>
   <item> DATETIME </item>
   <item> DATETIME-TZ </item>
   <item> TEMP-TABLE </item>
+  <item> DATASET </item>
+  <item> DATASET-HANDLE </item>
   <item> BUFFER </item>
   <item> STREAM </item>
   <item> SAX-WRITER </item>
   <item> MEMPTR </item>
 </list>
-    
+
   <list  name="operators">
     <item> AND </item>
     <item> OR </item>
@@ -53,7 +59,7 @@
     <item> YES </item>
     <item> NO </item>
 </list>
-          
+
 <list name="preprocvar">
   <item> OUT </item>
   <item> BATCH-MODE </item>
@@ -70,8 +76,13 @@
   <item> ANALYZE-SUSPEND </item>
   <item> WEBSTREAM </item>
 </list>
-          
+
 <list name="phrases">
+  <item> VOID </item>
+  <item> IMPLEMENTS </item>
+  <item> OVERRIDE </item>
+  <item> FINAL </item>
+  <item> INHERITS </item>
   <item> AS </item>
   <item> WORD-INDEX </item>
   <item> LIKE </item>
@@ -79,7 +90,6 @@
   <item> AT </item>
   <item> COLOR </item>
   <item> COMBO-BOX </item>
-  <item> EDITING </item>
   <item> EDITOR </item>
   <item> FORMAT </item>
   <item> FRAME </item>
@@ -144,14 +154,24 @@
   <item> PUBLIC </item>
   <item> PROTECTED </item>
 </list>
-          
+
 <list name="functions">
+  <item> ROW-UPDATE </item>
+  <item> VALID-OBJECT </item>
+  <item> TYPE-OF </item>
+  <item> CAST </item>
+  <item> AUDIT-ENABLED </item>
+  <item> GENERATE-UUID </item>
+  <item> GUID </item>
+  <item> HEX-DECODE </item>
+  <item> HEX-ENCODE </item>
+  <item> SET-DB-CLIENT </item>
   <item> output-content-type </item>
   <item> get-value </item>
   <item> get-cgi </item>
   <item> get-field </item>
   <item> html-encode </item>
-  <item> url-encode </item>  
+  <item> url-encode </item>
   <item> ABSOLUTE </item>
   <item> ACCUM </item>
   <item> ADD-INTERVAL </item>
@@ -216,7 +236,6 @@
   <item> FRAME-NAME </item>
   <item> FRAME-ROW </item>
   <item> FRAME-VALUE </item>
-  <item> GATEWAYS </item>
   <item> GENERATE-PBE-KEY </item>
   <item> GENERATE-PBE-SALT </item>
   <item> GENERATE-RANDOM-KEY </item>
@@ -236,11 +255,9 @@
   <item> GET-SIZE </item>
   <item> GET-STRING </item>
   <item> GET-UNSIGNED-SHORT </item>
-  <item> GO-PENDING </item>
   <item> INDEX </item>
   <item> INTEGER </item>
   <item> INTERVAL </item>
-  <item> IS-ATTR-SPACE </item>
   <item> IS-CODEPAGE-FIXED </item>
   <item> IS-COLUMN-CODEPAGE </item>
   <item> IS-LEAD-BYTE </item>
@@ -341,7 +358,7 @@
   <item> WIDGET-HANDLE </item>
   <item> YEAR </item>
 </list>
-          
+
 <list name="statements">
   <item> IF </item>
   <item> THEN </item>
@@ -354,7 +371,6 @@
   <item> BELL </item>
   <item> BUFFER-COMPARE </item>
   <item> BUFFER-COPY </item>
-  <item> CHOOSE </item>
   <item> CLEAR </item>
   <item> CLOSE </item>
   <item> QUERY </item>
@@ -364,12 +380,12 @@
   <item> CONNECT </item>
   <item> COPY-LOB </item>
   <item> CREATE </item>
+  <item> CLIENT-PRINCIPAL </item>
   <item> ALIAS </item>
   <item> BROWSE </item>
   <item> BUFFER </item>
   <item> CALL </item>
   <item> DATABASE </item>
-  <item> DATASET </item>
   <item> DATA-SOURCE </item>
   <item> QUERY </item>
   <item> SAX-READER </item>
@@ -400,7 +416,6 @@
   <item> BROWSE </item>
   <item> BUFFER </item>
   <item> BUTTON </item>
-  <item> DATASET </item>
   <item> DATA-SOURCE </item>
   <item> FRAME </item>
   <item> IMAGE </item>
@@ -476,7 +491,6 @@
   <item> PUBLISH </item>
   <item> CURSOR </item>
   <item> PUT </item>
-  <item> SCREEN </item>
   <item> PUT-BITS </item>
   <item> PUT-BYTE </item>
   <item> PUT-BYTES </item>
@@ -507,7 +521,6 @@
   <item> SET-BYTE-ORDER </item>
   <item> SET-POINTER-VALUE </item>
   <item> SET-SIZE </item>
-  <item> SCROLL </item>
   <item> SHOW-STATS </item>
   <item> STATUS </item>
   <item> STOP </item>
@@ -562,6 +575,10 @@
 </list>
 
 <list name="handles">
+  <item> THIS-OBJECT </item>
+  <item> AUDIT-CONTROL </item>
+  <item> AUDIT-POLICY </item>
+  <item> SECURITY-POLICY </item>
   <item> ACTIVE-WINDOW </item>
   <item> BUFFER </item>
   <item> BUFFER-FIELD </item>
@@ -617,8 +634,44 @@
   <item> WIDTH </item>
   <item> TAG </item>
 </list>
-          
+
 <list name="attributes">
+  <item> ANYWHERE </item>
+  <item> SCHEMA-MARSHAL </item>
+  <item> ATTACHED-PAIRLIST </item>
+  <item> DATA-SOURCE-COMPLETE-MAP </item>
+  <item> KEYS </item>
+  <item> NEXT-ROWID </item>
+  <item> NUM-REFERENCES </item>
+  <item> RESTART-ROWID </item>
+  <item> CLASS-TYPE </item>
+  <item> FIRST-OBJECT </item>
+  <item> LAST-OBJECT </item>
+  <item> MULTI-COMPILE </item>
+  <item> WIDGET-ID </item>
+  <item> SCHEMA-LOCATION </item>
+  <item> STANDALONE </item>
+  <item> STRICT </item>
+  <item> VERSION </item>
+  <item> WRITE-STATUS </item>
+  <item> NONAMESPACE-SCHEMA-LOCATION </item>
+  <item> FRAGMENT </item>
+  <item> APPL-CONTEXT-ID </item>
+  <item> AUDIT-EVENT-CONTEXT </item>
+  <item> CLIENT-TTY </item>
+  <item> CLIENT-WORKSTATION </item>
+  <item> DOMAIN-DESCRIPTION </item>
+  <item> DOMAIN-NAME </item>
+  <item> DOMAIN-TYPE </item>
+  <item> EVENT-GROUP-ID </item>
+  <item> LOGIN-EXPIRATION-TIMESTAMP </item>
+  <item> LOGIN-HOST </item>
+  <item> LOGIN-STATE </item>
+  <item> ROLES </item>
+  <item> SEAL-TIMESTAMP </item>
+  <item> SESSION-ID </item>
+  <item> STATE-DETAIL </item>
+  <item> USER-ID </item>
   <item> ACCELERATOR </item>
   <item> ACTIVE </item>
   <item> ACTOR </item>
@@ -1164,6 +1217,7 @@
   <item> Y </item>
   <item> YEAR-OFFSET </item>
   <item> WRITE-XMLSCHEMA </item>
+  <item> READ-XMLSCHEMA </item>
   <item> WRITE-XML </item>
   <item> READ-XML </item>
   <item> NESTED </item>
@@ -1178,10 +1232,47 @@
   <item> END-DOCUMENT </item>
   <item> WRITE-DATA-ELEMENT </item>
   <item> INSERT-ATTRIBUTE </item>
-  
 </list>
 
 <list name="methods">
+  <item> COPY-DATASET </item>
+  <item> COPY-TEMP-TABLE </item>
+  <item> GET-CALLBACK-PROC-CONTEXT </item>
+  <item> GET-CALLBACK-PROC-NAME </item>
+  <item> GET-BINARY-DATA </item>
+  <item> ADD-SCHEMA-LOCATION </item>
+  <item> DECLARE-NAMESPACE </item>
+  <item> RESET </item>
+  <item> WRITE-CDATA </item>
+  <item> WRITE-COMMENT </item>
+  <item> WRITE-EMPTY-ELEMENT </item>
+  <item> WRITE-ENTITY-REF </item>
+  <item> WRITE-EXTERNAL-DTD </item>
+  <item> WRITE-FRAGMENT </item>
+  <item> WRITE-PROCESSING-INSTRUCTION </item>
+  <item> CLEAR-LOG </item>
+  <item> CLOSE-LOG </item>
+  <item> WRITE-MESSAGE </item>
+  <item> AUTHENTICATION-FAILED </item>
+  <item> BEGIN-EVENT-GROUP </item>
+  <item> CLEAR-APPL-CONTEXT </item>
+  <item> ENCRYPT-AUDIT-MAC-KEY </item>
+  <item> END-EVENT-GROUP </item>
+  <item> EXPORT-PRINCIPAL </item>
+  <item> GET-PROPERTY </item>
+  <item> IMPORT-PRINCIPAL </item>
+  <item> LIST-PROPERTY-NAMES </item>
+  <item> LOAD-DOMAINS </item>
+  <item> LOCK-REGISTRATION </item>
+  <item> LOG-AUDIT-EVENT </item>
+  <item> LOGOUT </item>
+  <item> REFRESH-AUDIT-POLICY </item>
+  <item> REGISTER-DOMAIN </item>
+  <item> SEAL </item>
+  <item> SET-APPL-CONTEXT </item>
+  <item> SET-CLIENT </item>
+  <item> SET-PROPERTY </item>
+  <item> VALIDATE-SEAL </item>
   <item> ACCEPT-CHANGES </item>
   <item> ACCEPT-ROW-CHANGES </item>
   <item> ADD-BUFFER </item>
@@ -1421,9 +1512,8 @@
   <item> WRITE </item>
   <item> MAX-HEIGHT </item>
   <item> MAX-WIDTH </item>
-  
 </list>
-          
+
 <list name="envvariables">
   <item> CLASSPATH </item>
   <item> DLC </item>
@@ -1480,7 +1570,6 @@
   <item> APPPROGRAM </item>
   <item> OUTPUT-CONTENT-TYPE </item>
   <item> WEB_SRC_PATH </item>
-  
 </list>
 
 
@@ -1506,14 +1595,14 @@
     <DetectChar attribute="String" context="#stay" char='"'/>
     <DetectChar attribute="String" context="#stay" char="'"/>
     <AnyChar attribute="Symbol" context="#stay" String="+-*=/\?~{}[]():."/>
-    
+
     <StringDetect attribute="Region Marker" context="#stay"
                   String="PROCEDURE" insensitive="TRUE"
                   beginRegion="P1" firstNonSpace="TRUE"/>
     <StringDetect attribute="Region Marker" context="#stay"
                   String="END PROCEDURE" insensitive="TRUE"
                   endRegion="P1" firstNonSpace="TRUE"/>
-    
+
     <StringDetect attribute="Region Marker" context="#stay"
                   String="FUNCTION" insensitive="TRUE"
                   beginRegion="F1" firstNonSpace="TRUE"/>
@@ -1527,20 +1616,32 @@
     <StringDetect attribute="Region Marker" context="#stay"
                   String="END CLASS" insensitive="TRUE"
                   endRegion="C1" firstNonSpace="TRUE"/>
-    
+
     <StringDetect attribute="Region Marker" context="#stay"
                   String="METHOD" insensitive="TRUE"
                   beginRegion="M1" firstNonSpace="TRUE"/>
     <StringDetect attribute="Region Marker" context="#stay"
                   String="END METHOD" insensitive="TRUE"
-                  endRegion="M1" firstNonSpace="TRUE"/>    
+                  endRegion="M1" firstNonSpace="TRUE"/>
     <StringDetect attribute="Region Marker" context="#stay"
                   String="CONSTRUCTOR" insensitive="TRUE"
                   beginRegion="CN1" firstNonSpace="TRUE"/>
     <StringDetect attribute="Region Marker" context="#stay"
                   String="END CONSTRUCTOR" insensitive="TRUE"
-                  endRegion="CN1" firstNonSpace="TRUE"/>    
-    
+                  endRegion="CN1" firstNonSpace="TRUE"/>
+    <StringDetect attribute="Region Marker" context="#stay"
+                  String="DESTRUCTOR" insensitive="TRUE"
+                  beginRegion="DS1" firstNonSpace="TRUE"/>
+    <StringDetect attribute="Region Marker" context="#stay"
+                  String="END DESTRUCTOR" insensitive="TRUE"
+                  endRegion="DS1" firstNonSpace="TRUE"/>
+    <StringDetect attribute="Region Marker" context="#stay"
+                  String="INTERFACE" insensitive="TRUE"
+                  beginRegion="IF1" firstNonSpace="TRUE"/>
+    <StringDetect attribute="Region Marker" context="#stay"
+                  String="END INTERFACE" insensitive="TRUE"
+                  endRegion="IF1" firstNonSpace="TRUE"/>
+
     <StringDetect attribute="Function" context="#stay"
                   String="DO:" insensitive="TRUE"
                   beginRegion="L1" firstNonSpace="FALSE"/>
@@ -1556,15 +1657,15 @@
     <StringDetect attribute="Function" context="#stay"
                   String="END" insensitive="TRUE"
                   endRegion="L1" firstNonSpace="TRUE"/>
-    
-    
+
+
   </context>
   <context name="String" attribute="String" lineEndContext="#stay">
     <LineContinue attribute="String" context="#pop"/>
     <HlCStringChar attribute="String Char" context="#stay"/>
     <DetectChar attribute="String" context="#pop" char="'"/>
   </context>
-  <context name="MultiLineComment" attribute="Comment" 
+  <context name="MultiLineComment" attribute="Comment"
             lineEndContext="#stay">
     <LineContinue attribute="Comment" context="#pop"/>
     <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"

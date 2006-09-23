@@ -50,8 +50,10 @@ namespace KTextEditor {
 			bool insertLine(int line, const QString& text);
 			bool insertLines(int line, const QStringList& text);
 			bool removeLine(int line);
+#ifdef __GNUC__
 #warning "Implement/fix functions with cursor/range parameters / return values"
 #warning "fix katepart text manipulation deadlocks"
+#endif
 		//public:
 			bool setEncoding(const QString &encoding);
 			const QString &encoding() const;

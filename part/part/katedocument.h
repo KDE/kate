@@ -963,7 +963,7 @@ class KateDocument : public KTextEditor::Document,
       KateKeyInterceptorFunctor *m_tabInterceptor;
 
   protected Q_SLOTS:
-      //void testTemplateCode();
+      void testTemplateCode();
       void dumpRegionTree();
   public:
       class LoadSaveFilterCheckPlugins;

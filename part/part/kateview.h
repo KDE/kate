@@ -161,9 +161,9 @@ class KateView : public KTextEditor::View,
   // KTextEditor::ViewCursorInterface
   //
   public:
-    bool setCursorPosition (const KTextEditor::Cursor &position);
+    bool setCursorPosition (KTextEditor::Cursor position);
 
-    const KTextEditor::Cursor &cursorPosition () const;
+    KTextEditor::Cursor cursorPosition () const;
 
     KTextEditor::Cursor cursorPositionVirtual () const;
 

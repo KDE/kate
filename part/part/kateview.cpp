@@ -654,6 +654,13 @@ void KateView::setupEditActions()
     a = new KAction(i18n("Backspace"), ac, "backspace");
     a->setShortcut(Qt::Key_Backspace);
     connect(a, SIGNAL(triggered(bool)), SLOT(backspace()));
+
+
+#warning REMOVE THIS IN THE RELEASE
+    a = new KAction(i18n("Debug TemplateCode"), ac, "debug_template_code");
+    a->setShortcut(Qt::CTRL+Qt::Key_1);
+    connect(a, SIGNAL(triggered(bool)), m_doc,SLOT(testTemplateCode()));
+
   }
 
   m_editActions->setConfigGroup("Katepart Shortcuts");
@@ -2082,12 +2089,12 @@ void KateView::paste( )
   m_viewInternal->repaint();
 }
 
-bool KateView::setCursorPosition( const KTextEditor::Cursor & position )
+bool KateView::setCursorPosition( KTextEditor::Cursor position )
 {
   return setCursorPositionInternal( position, 1, true );
 }
 
-const KTextEditor::Cursor & KateView::cursorPosition( ) const
+KTextEditor::Cursor KateView::cursorPosition( ) const
 {
   return m_viewInternal->getCursor();
 }

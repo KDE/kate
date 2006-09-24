@@ -315,7 +315,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * \return \e true on success, otherwise \e false
      * \see cursorPosition()
      */
-    virtual bool setCursorPosition (const Cursor &position) = 0;
+    virtual bool setCursorPosition (Cursor position) = 0;
 
     /**
      * Get the view's current cursor position. A \e TAB character is
@@ -323,7 +323,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * \return current cursor position
      * \see setCursorPosition()
      */
-    virtual const Cursor &cursorPosition () const = 0;
+    virtual Cursor cursorPosition () const = 0;
 
     /**
      * Get the current \e virtual cursor position, \e virtual means the

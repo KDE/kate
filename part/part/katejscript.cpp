@@ -304,7 +304,10 @@ class KateJSView : public KJS::JSObject
       SelectAll,
       ClearSelection,
       StartOfSelection,
-      EndOfSelection
+      EndOfSelection,
+      
+      // indentation
+      Indent
     };
 
   public:
@@ -1004,6 +1007,10 @@ KateJSDocument::KateJSDocument (KJS::ExecState *exec, KateDocument *_doc)
   clearSelection           KateJSView::ClearSelection           DontDelete|Function 0
   startOfSelection         KateJSView::StartOfSelection         DontDelete|Function 0
   endOfSelection           KateJSView::EndOfSelection           DontDelete|Function 0
+#
+# indentation
+#
+  indent                   KateJSView::Indent                   DontDelete|Function 3
 @end
 */
 
@@ -1105,6 +1112,10 @@ JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSObject
       object->put(exec, "column", KJS::Number(view->selectionRange().end().column()));
       return object;
     }
+    
+    case KateJSView::Indent:
+      if (exception.invalidArgs(3)) break;
+      //return KJS::Boolean( view->indent (args[0]->toInt32(exec), args[1]->toInt32(exec), args[2]->toUInt32(exec) )) );
 
     default:
       kDebug(13051) << "View: Unknown function id: " << id << endl;
@@ -1414,14 +1425,42 @@ KateIndentJScript::KateIndentJScript(KateIndentJScriptManager *manager,
     m_version(version),
     m_kateVersion(kateVersion),
     m_indenter(0),
-    m_interpreter(0)
+    m_interpreter(0),
+    m_triggerCharactersInitialized (false)
 {
 }
-
 
 KateIndentJScript::~KateIndentJScript()
 {
   deleteInterpreter();
+}
+
+const QString &KateIndentJScript::triggerCharacters ()
+{
+  // already inited, perfect, just return...
+  if (m_triggerCharactersInitialized)
+    return m_triggerCharacters;
+    
+  // oh,oh, evil world, call js to init the chars...
+  QString errorMsg;
+  if (!setupInterpreter(errorMsg)) {
+    kDebug(13050) << "triggerCharacters: " << errorMsg << endl;
+    return false;
+  }
+
+  KJS::ExecState *exec = m_interpreter->globalExec();
+
+  QString triggers = m_indenter->get(exec, "triggerCharacters")->toString(exec).qstring();
+  if (exec->hadException()) {
+    kDebug(13050) << "triggerCharacters: Unable to lookup 'indenter.triggerCharacters'" << endl;
+    exec->clearException();
+  }
+  else
+    m_triggerCharacters = triggers;
+    
+  kDebug () << "trigger chars: '" << triggers << "'" << endl;
+    
+  return m_triggerCharacters;
 }
 
 void KateIndentJScript::deleteInterpreter()
@@ -1489,8 +1528,8 @@ bool KateIndentJScript::setupInterpreter(QString &errorMsg)
   return true;
 }
 
-inline static bool kateIndentJScriptCall(KateView *view, QString &errorMsg, KateJSDocument *docWrapper, KateJSView *viewWrapper,
-        KJS::Interpreter *interpreter, KJS::JSObject *lookupobj,const KJS::Identifier& func,KJS::List params)
+inline static KJS::JSValue *kateIndentJScriptCall(KateView *view, QString &errorMsg, KateJSDocument *docWrapper, KateJSView *viewWrapper,
+        KJS::Interpreter *interpreter, KJS::JSObject *lookupobj,const KJS::Identifier& func, KJS::List params)
 {
  // no view, no fun
   if (!view)
@@ -1516,7 +1555,7 @@ inline static bool kateIndentJScriptCall(KateView *view, QString &errorMsg, Kate
   docWrapper->doc = view->doc();
   viewWrapper->view = view;
 
-  o->call(exec, interpreter->globalObject(), params);
+  KJS::JSValue *retval = o->call(exec, interpreter->globalObject(), params);
   if (exec->hadException())
   {
     KJS::JSObject *error = exec->exception()->toObject(exec);
@@ -1529,23 +1568,31 @@ inline static bool kateIndentJScriptCall(KateView *view, QString &errorMsg, Kate
 
     errorMsg = i18n("Exception in line %1: %2", lineno, message);
     exec->clearException();
-    return false;
+    return 0;
   }
-  return true;
+  return retval;
 }
 
 bool KateIndentJScript::processChar(KateView *view, QChar c, QString &errorMsg )
 {
-
-  kDebug(13050) << "KateIndentJScript::processChar" << endl;
+  triggerCharacters ();
+  
+  kDebug(13050) << "KateIndentJScript::calculateIndentation" << endl;
+  
   if (!setupInterpreter(errorMsg)) return false;
+  
   KJS::List params;
-  params.append(KJS::String(QString(c)));
-  return kateIndentJScriptCall(view, errorMsg,
+  params.append(KJS::Number(5));
+  
+  KJS::JSValue *val = kateIndentJScriptCall(view, errorMsg,
                                m_docWrapper, m_viewWrapper,
                                m_interpreter, m_indenter,
-                               KJS::Identifier("processChar"),
+                               KJS::Identifier("calculateIndentation"),
                                params);
+                               
+  kDebug() << "new indentation: " << val->toUInt32(m_interpreter->globalExec()) << endl;
+                               
+                        
 }
 
 bool KateIndentJScript::processLine(KateView *view, const KateDocCursor &line, QString &errorMsg )

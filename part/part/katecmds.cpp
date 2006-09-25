@@ -172,15 +172,9 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   }
   else if ( cmd == "set-highlight" )
   {
-    QString val = _cmd.section( ' ', 1 ).toLower();
-    for ( uint i=0; i < v->doc()->hlModeCount(); i++ )
-    {
-      if ( v->doc()->hlModeName( i ).toLower() == val )
-      {
-        v->doc()->setHlMode( i );
-        return true;
-      }
-    }
+    if ( v->doc()->setHighlighting( args.first()) )
+      return true;
+      
     KCC_ERR( i18n("No such highlight '%1'",  args.first() ) );
   }
 

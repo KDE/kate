@@ -1940,9 +1940,9 @@ uint KateDocument::hlMode ()
   return KateHlManager::self()->findHl(highlight());
 }
 
-bool KateDocument::setHlMode (uint mode)
+bool KateDocument::setHighlighting (const QString &name)
 {
-  m_buffer->setHighlight (mode);
+  m_buffer->setHighlight (KateHlManager::self()->nameFind(name));
 
   if (true)
   {
@@ -1953,27 +1953,38 @@ bool KateDocument::setHlMode (uint mode)
   return false;
 }
 
+QString KateDocument::highlighting () const
+{
+  return KateHlManager::self()->hlName (KateHlManager::self()->findHl(highlight()));
+}
+
+QStringList KateDocument::highlightings () const
+{
+  QStringList hls;
+  
+  for (int i = 0; i < hlModeCount(); ++i)
+    hls << hlModeName (i);
+    
+  return hls;
+}
+
+
 void KateDocument::bufferHlChanged ()
 {
   // update all views
   makeAttribs(false);
 
-  emit hlChanged();
+  emit highlightingChanged(this);
 }
 
-uint KateDocument::hlModeCount ()
+uint KateDocument::hlModeCount () const
 {
   return KateHlManager::self()->highlights();
 }
 
-QString KateDocument::hlModeName (uint mode)
+QString KateDocument::hlModeName (uint mode) const
 {
   return KateHlManager::self()->hlName (mode);
-}
-
-QString KateDocument::hlModeSectionName (uint mode)
-{
-  return KateHlManager::self()->hlSection (mode);
 }
 
 void KateDocument::setDontChangeHlOnSave()
@@ -3006,7 +3017,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
     removeText(KTextEditor::Range(view->cursorPosition(), qMin(buf.length(), textLine->length() - view->cursorPosition().column())));
 
   insertText(view->cursorPosition(), buf);
-  m_indenter->processChar(view, c);
+  m_indenter->userTypedChar (view, view->cursorPosition(), c);
 
   editEnd ();
 
@@ -3040,29 +3051,10 @@ void KateDocument::newLine( KTextEditor::Cursor& c, KateView *v )
   if (c.column() > (int)textLine->length())
     c.setColumn(textLine->length());
 
-  if (m_indenter->canProcessNewLine ())
-  {
-    int pos = textLine->firstChar();
+  editWrapLine (c.line(), c.column());
+  c.setPosition(c.line() + 1, 0);
 
-    // length should do the job better
-    if (pos < 0)
-      pos = textLine->length();
-
-    if (c.column() < pos)
-      c.setColumn(pos); // place cursor on first char if before
-
-    editWrapLine (c.line(), c.column());
-
-    KateDocCursor cursor (c.line() + 1, pos, this);
-    m_indenter->processNewline(v, cursor, true);
-
-    c.setPosition(cursor);
-  }
-  else
-  {
-    editWrapLine (c.line(), c.column());
-    c.setPosition(c.line() + 1, 0);
-  }
+  m_indenter->userWrappedLine(v, c);
 
   removeTrailingSpace( ln );
 
@@ -3233,7 +3225,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
   // mode !
   if (view->blockSelectionMode())
     view->setCursorPositionInternal(pos + KTextEditor::Cursor(lines, 0));
-
+/*
   if (m_indenter->canProcessLine()
       && config()->configFlags() & KateDocumentConfig::cfIndentPastedText)
   {
@@ -3246,7 +3238,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
 
     editEnd();
   }
-
+*/
   if (!view->blockSelectionMode()) emit charactersSemiInteractivelyInserted (pos.line(), pos.column(), s);
   m_undoDontMerge = true;
 }
@@ -3261,7 +3253,7 @@ void KateDocument::indent ( KateView *v, uint line, int change)
 
   editStart();
   blockRemoveTrailingSpaces(true);
-  m_indenter->indent(v, line, change);
+  m_indenter->changeIndent(v, line, change);
   blockRemoveTrailingSpaces(false);
 
   if (hasSelection) {
@@ -3273,7 +3265,7 @@ void KateDocument::indent ( KateView *v, uint line, int change)
 
 void KateDocument::align(KateView *view, uint line)
 {
-  if (m_indenter->canProcessLine())
+  /*if (m_indenter->canProcessLine())
   {
     editStart ();
 
@@ -3297,7 +3289,7 @@ void KateDocument::align(KateView *view, uint line)
         removeTrailingSpace(start);
       editEnd();
     }
-  }
+  }*/
 }
 
 /*
@@ -4279,7 +4271,7 @@ bool KateDocument::documentReload()
       tmp.append (m);
     }
 
-    uint mode = hlMode ();
+    QString mode = highlighting ();
     bool byUser = hlSetByUser;
 
     m_storedVariables.clear();
@@ -4298,7 +4290,7 @@ bool KateDocument::documentReload()
     }
 
     if (byUser)
-      setHlMode (mode);
+      setHighlighting (mode);
 
     return true;
   }
@@ -4615,14 +4607,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         setPostLoadFilterChecks(val.split(','));
       else if ( var == "syntax" || var == "hl" )
       {
-        for ( uint i=0; i < hlModeCount(); i++ )
-        {
-          if ( hlModeName( i ).toLower() == val.toLower() )
-          {
-            setHlMode( i );
-            break;
-          }
-        }
+        setHighlighting( val );
       }
 
       // VIEW SETTINGS

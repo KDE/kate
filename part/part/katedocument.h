@@ -383,21 +383,47 @@ class KateDocument : public KTextEditor::Document,
   //
   // KTextEditor::HighlightingInterface stuff
   //
-  public Q_SLOTS:
-    bool setHlMode (uint mode);
+  public:
+    /**
+     * Return the name of the currently used highlighting
+     * \return name of the used highlighting
+     * 
+     */
+    virtual QString highlighting() const;
+    
+    /**
+     * Return a list of the names of all possible highlighting
+     * \return list of highlighting names
+     */
+    virtual QStringList highlightings() const;
+    
+    /**
+     * Set the current highlighting of the document by giving it's name
+     * \param name name of the highlighting to use for this document
+     * \return \e true on success, otherwise \e false
+     */
+    virtual bool setHighlighting(const QString &name);
 
+  Q_SIGNALS:
+    /**
+     * Warn anyone listening that the current document's highlighting has
+     * changed.
+     * 
+     * \param document the document which's highlighting has changed
+     */
+    virtual void highlightingChanged(KTextEditor::Document *document);
+
+  /*
+   * Helpers....
+   */
   public:
     uint hlMode();
-    uint hlModeCount();
-    QString hlModeName(uint mode);
-    QString hlModeSectionName(uint mode);
+    uint hlModeCount() const;
+    QString hlModeName(uint mode) const;
     void bufferHlChanged();
 
   private:
     void setDontChangeHlOnSave();
-
-  Q_SIGNALS:
-    void hlChanged ();
 
   //
   // KTextEditor::ConfigInterface stuff

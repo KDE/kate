@@ -237,6 +237,8 @@ class KateIndentJScript {
     bool processSection( KateView *view, const KateDocCursor &begin,
                          const KateDocCursor &end, QString &errorMsg );
     bool processIndent( KateView *view, uint line, int levels, QString &errorMsg );
+    
+    const QString &triggerCharacters ();
 
   public:
     const QString& internalName();
@@ -264,6 +266,8 @@ class KateIndentJScript {
     KJS::Interpreter *m_interpreter;
     bool setupInterpreter(QString &errorMsg);
     void deleteInterpreter();
+    bool m_triggerCharactersInitialized;
+    QString m_triggerCharacters;
 };
 
 class KateIndentJScriptManager

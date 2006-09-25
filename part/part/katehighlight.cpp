@@ -3480,7 +3480,7 @@ void KateViewHighlightAction::setHl ()
   KateDocument *doc=m_doc;
 
   if (doc)
-    doc->setHlMode((uint)mode);
+    doc->setHighlighting(KateHlManager::self()->hlName (mode));
 }
 
 //END KateViewHighlightAction

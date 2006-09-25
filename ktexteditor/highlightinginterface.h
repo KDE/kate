@@ -28,6 +28,8 @@ class QString;
 namespace KTextEditor
 {
 
+class Document;
+
 /**
  * \brief Highlighting extension interface for the Document.
  *

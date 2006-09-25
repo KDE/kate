@@ -49,6 +49,11 @@ int test ()
 I think we should have a interface in which the script indicates which normal indentation is wanted
 and which further amount of spaces should be inserted to align with other words/keywords whatever...
 
+As it shows up, if we want to support both mixed-indentation and alignment, indent/unindent functions can't
+be generic, as there is no way to tell, if for example 8 spaces are actually one tab, as they are 2 indent levels
+or just one indent level + 4 alignment spaces. Therefor will take the vim way of things, where alignment is not
+possible...
+
 #
 # Built-in indenters
 #

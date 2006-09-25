@@ -401,16 +401,20 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     for (int i = 0; i < range->viewLineCount(); ++i) {
       KateTextLayout line = range->viewLine(i);
 
-      // Determine the background color to use, if any, for the end of this view line
-      QColor backgroundColor;
+      // Determine the background to use, if any, for the end of this view line
+      QBrush backgroundBrush;
+      bool backgroundBrushSet = false;
       while (it2.hasNext()) {
         const QTextLayout::FormatRange& fr = it2.peekNext();
         if (fr.start >= line.endCol())
           goto backgroundFound;
 
         if (fr.start + fr.length > line.endCol()) {
-          if (fr.format.hasProperty(QTextFormat::BackgroundBrush))
-            backgroundColor = fr.format.background().color();
+          if (fr.format.hasProperty(QTextFormat::BackgroundBrush)) {
+            backgroundBrushSet = true;
+            backgroundBrush = fr.format.background();
+          }
+
           goto backgroundFound;
         }
 
@@ -423,8 +427,11 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
           break;
 
         if (fr.start + fr.length > line.endCol()) {
-          if (fr.format.hasProperty(QTextFormat::BackgroundBrush))
-            backgroundColor = fr.format.background().color();
+          if (fr.format.hasProperty(QTextFormat::BackgroundBrush)) {
+            backgroundBrushSet = true;
+            backgroundBrush = fr.format.background();
+          }
+
           break;
         }
 
@@ -438,10 +445,10 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         QRect area(line.endX() + line.xOffset() - xStart, config()->fontMetrics().height() * i, xEnd - xStart, config()->fontMetrics().height() * (i + 1));
         paint.fillRect(area, config()->selectionColor());
 
-      } else if (backgroundColor.isValid()) {
+      } else if (backgroundBrushSet) {
         // Draw text background outside of areas where text is rendered.
         QRect area(line.endX() + line.xOffset() - xStart, config()->fontMetrics().height() * i, xEnd - xStart, config()->fontMetrics().height() * (i + 1));
-        paint.fillRect(area, backgroundColor);
+        paint.fillRect(area, backgroundBrush);
       }
 
       // Draw indent lines

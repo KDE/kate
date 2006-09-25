@@ -753,10 +753,7 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
 
 void KateViewInternal::doReturn()
 {
-  KTextEditor::Cursor c = m_cursor;
-  m_doc->newLine( c, view() );
-  // TODO Might not be needed
-  updateCursor( c );
+  m_doc->newLine( view() );
   updateView();
 }
 

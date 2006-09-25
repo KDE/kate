@@ -646,7 +646,7 @@ class KateDocument : public KTextEditor::Document,
     bool ownedView(KateView *);
 
     uint toVirtualColumn( const KTextEditor::Cursor& );
-    void newLine(             KTextEditor::Cursor&, KateView* ); // Changes input
+    void newLine( KateView*view ); // Changes input
     void backspace(     KateView *view, const KTextEditor::Cursor& );
     void del(           KateView *view, const KTextEditor::Cursor& );
     void transpose(     const KTextEditor::Cursor& );

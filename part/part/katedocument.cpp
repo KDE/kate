@@ -3017,7 +3017,8 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
     removeText(KTextEditor::Range(view->cursorPosition(), qMin(buf.length(), textLine->length() - view->cursorPosition().column())));
 
   insertText(view->cursorPosition(), buf);
-  m_indenter->userTypedChar (view, view->cursorPosition(), c);
+ KTextEditor::Cursor b(view->cursorPosition());
+  m_indenter->userTypedChar (view, b, c);
 
   editEnd ();
 
@@ -3028,15 +3029,15 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   return true;
 }
 
-void KateDocument::newLine( KTextEditor::Cursor& c, KateView *v )
+void KateDocument::newLine( KateView *v )
 {
   editStart();
 
   if( !v->config()->persistentSelection() && v->selection() )
     v->removeSelectedText();
 
-  // temporary hack to get the cursor pos right !!!!!!!!!
-  c = v->cursorPosition();
+  // query cursor position
+  KTextEditor::Cursor c = v->cursorPosition();
 
   if (c.line() > (int)lastLine())
     c.setLine(lastLine());
@@ -3052,9 +3053,8 @@ void KateDocument::newLine( KTextEditor::Cursor& c, KateView *v )
     c.setColumn(textLine->length());
 
   editWrapLine (c.line(), c.column());
-  c.setPosition(c.line() + 1, 0);
 
-  m_indenter->userWrappedLine(v, c);
+  m_indenter->userWrappedLine(v, v->cursorPosition());
 
   removeTrailingSpace( ln );
 

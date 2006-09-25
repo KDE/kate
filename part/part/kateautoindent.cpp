@@ -135,15 +135,70 @@ void KateAutoIndent::updateConfig ()
   indentWidth = config->indentationWidth();
 }
 
-void KateAutoIndent::fullIndent ( KateView *view, int line, int indentationLevel, int alignmentSpaces )
+QString KateAutoIndent::tabString (int length) const
 {
+  QString s;
+  length = qMin (length, 256); // sanity check for large values of pos
+
+  if (!useSpaces)
+  {
+    while (length >= tabWidth)
+    {
+      s += '\t';
+      length -= tabWidth;
+    }
+  }
+  while (length > 0)
+  {
+    s += ' ';
+    length--;
+  }
+  return s;
+}
+
+void KateAutoIndent::fullIndent ( KateView *view, int line, int indentation )
+{
+  kDebug () << "fullIndent: line: " << line << " level: " << indentation << endl;
+
+  KateTextLine::Ptr textline = doc->plainKateTextLine(line);
+
+  // textline not found, cu
+  if (!textline)
+    return;
+
+  if (indentation < 0)
+    indentation = 0;
+
+  int first_char = textline->firstChar();
+
+  if (first_char < 0)
+    first_char = textline->length();
+
+  doc->editStart (view);
+  
+  // remove the trailing spaces
+  doc->editRemoveText (line, 0, first_char);
+
+  // insert replacement stuff..
+  doc->editInsertText (line, 0, tabString (indentation));
+
+  doc->editEnd ();
 }
 
 void KateAutoIndent::changeIndent ( KateView *view, int line, int change )
 {
-  // no intenter means simply insert tab-character.
-  if ( change > 0 )
-    doc->typeChars(view, QString("\t"));
+  // no change, no work...
+  if (change == 0)
+    return;
+
+  KateTextLine::Ptr textline = doc->plainKateTextLine(line);
+
+  // textline not found, cu
+  if (!textline)
+    return;
+
+  // reindent...
+  fullIndent (view, line, textline->indentDepth(tabWidth) + change * indentWidth);
 }
 //END KateAutoIndent
 
@@ -191,6 +246,31 @@ KateNormalIndent::KateNormalIndent (KateDocument *_doc)
 KateNormalIndent::~KateNormalIndent ()
 {
 }
+
+void KateNormalIndent::userWrappedLine (KateView *view, const KTextEditor::Cursor &position)
+{
+  kDebug () << "MUHHHHHHHHHH" << endl;
+
+ // no change, no work...
+  if (position.line() <= 0)
+  {
+    fullIndent (view, position.line(), 0);
+  }
+
+  KateTextLine::Ptr textline = doc->plainKateTextLine(position.line()-1);
+
+  // textline not found, cu
+  if (!textline)
+    return;
+
+  doc->editStart (view);
+
+  // insert the new initial indentation....
+  doc->editInsertText (position.line(), 0, tabString (textline->indentDepth (tabWidth)));
+
+  doc->editEnd ();
+}
+
 # if 0
 bool KateNormalIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end, QChar open, QChar close, uint &pos) const
 {
@@ -283,26 +363,7 @@ uint KateNormalIndent::measureIndent (KateDocCursor &cur) const
   return doc->plainKateTextLine(cur.line())->toVirtualColumn(cur.column(), tabWidth);
 }
 
-QString KateNormalIndent::tabString(uint pos) const
-{
-  QString s;
-  pos = qMin (pos, (uint)80); // sanity check for large values of pos
 
-  if (!useSpaces)
-  {
-    while (pos >= tabWidth)
-    {
-      s += '\t';
-      pos -= tabWidth;
-    }
-  }
-  while (pos > 0)
-  {
-    s += ' ';
-    pos--;
-  }
-  return s;
-}
 
 /*
   Optimize the leading whitespace for a single line.

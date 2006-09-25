@@ -192,13 +192,20 @@ class KateAutoIndent : public QObject
    */
   public:
     /**
+     * Produces a string with the proper indentation characters for its length.
+     *
+     * @param length The length of the indention in characters.
+     * @return A QString representing @p length characters (factoring in tabs and spaces)
+     */
+    QString tabString (int length) const;
+
+    /**
      * Indent the content of the given line to the given level/alignment
      * \param view the current active view
      * \param line line to indent
-     * \param indentationLevel new indentation level
-     * \param alignmentSpaces number to alignment spaces to insert
+     * \param indentation new indentation level
      */
-    void fullIndent ( KateView *view, int line, int indentationLevel, int alignmentSpaces );
+    void fullIndent ( KateView *view, int line, int indentation );
 
     /**
      * Change the indent of the specified line by the number of levels
@@ -262,6 +269,8 @@ public:
   virtual ~KateNormalIndent ();
 
 public:
+  virtual void userWrappedLine (KateView *view, const KTextEditor::Cursor &position);
+
     /**
      * does this indenter support processNewLine
      * @return can you do it?
@@ -344,14 +353,6 @@ protected:
      * @return The length of the indention in characters.
      */
   uint measureIndent (KateDocCursor &cur) const;
-
-    /**
-     * Produces a string with the proper indentation characters for its length.
-     *
-     * @param length The length of the indention in characters.
-     * @return A QString representing @p length characters (factoring in tabs and spaces)
-     */
-  QString tabString(uint length) const;
 
   void optimizeLeadingSpace( uint line, int change );
 #endif

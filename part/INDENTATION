@@ -50,6 +50,13 @@ I think we should have a interface in which the script indicates which normal in
 and which further amount of spaces should be inserted to align with other words/keywords whatever...
 
 #
+# Built-in indenters
+#
+Right now we removed all built-in indenters due to refactoring and new indentation system. If it turns
+out that js indentation for complex stuff like c/c++ is too slow, we maybe have to reintroduce the
+built-in indenters. Interesting reference might be in vim, see: vim/src/misc1.c, function get_c_indent.
+
+#
 # Idea: Extending itemData (=attribute information)
 #
 Scripts would benefit if they could access highlighting information in a -reliable- way, i.e. -not-
@@ -85,5 +92,9 @@ To make it work with our .xml files, we would need to adapt C++/Java/Php/... fil
 correctly.
 Implementation: Extend KateExtendedAttribute to contain the type (besides the defaultStyle). To make
 it fast, use an integer (enum) just like the defaultStyles.
+
+Another approach: Instead of putting a type into a KateExtendedAttribute, we also can put the type
+into the KTextEditor::Attribute. Then overlay highlighting like it probably will be done by KDevelop
+can also provide the needed type information (otherwise indentation might not work).
 
 Thoughts welcome.

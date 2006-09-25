@@ -456,6 +456,7 @@ bool KateJScriptInterpreterContext::execute (KateView *view, const QString &scri
 #        searchBackwards(start-line, start-col, text, bool case-sensitive)
 #        replaceText(line, column, line, column, string)
 #        isBalanced(line, column, line, column, open, close)
+#        add case-sensitiv parameter to StartsWith, EndsWith, MatchesAt
 
   setText              KateJSDocument::SetText           DontDelete|Function 1
   clear                KateJSDocument::Clear             DontDelete|Function 0

@@ -382,7 +382,6 @@ QPoint DocumentAdaptor::endOfLine(int line) const {
   return QPoint(c.column(),c.line());
 }
 
-
 bool DocumentAdaptor::insertText(const QPoint& cursor,const QString& text, bool block) {
   return m_document->insertText(Cursor(cursor.y(),cursor.x()),text,block);
 }
@@ -406,34 +405,6 @@ bool DocumentAdaptor::insertLines(int line, const QStringList& text) {
 bool DocumentAdaptor::removeLine(int line) {
   return m_document->removeLine(line);
 }
-
-HighlightingInterfaceAdaptor::HighlightingInterfaceAdaptor (QObject *obj,HighlightingInterface *iface):
-  QDBusAbstractAdaptor(obj),m_iface(iface) {
-  connect(obj,SIGNAL(hlChanged()),this,SIGNAL(modeChanged()));
-}
-
-HighlightingInterfaceAdaptor::~HighlightingInterfaceAdaptor () {}
-
-unsigned int HighlightingInterfaceAdaptor::mode () {
-  return m_iface->hlMode();
-}
-
-bool HighlightingInterfaceAdaptor::setMode (unsigned int mode) {
-  return m_iface->setHlMode(mode);
-}
-
-unsigned int HighlightingInterfaceAdaptor::modeCount () {
-  return m_iface->hlModeCount();
-}
-
-QString HighlightingInterfaceAdaptor::modeName (unsigned int mode) {
-  return m_iface->hlModeName(mode);
-}
-QString HighlightingInterfaceAdaptor::sectionName (unsigned int mode) {
-  return m_iface->hlModeSectionName(mode);
-}
-
-
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

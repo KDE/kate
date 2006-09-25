@@ -22,31 +22,67 @@
 
 #include <QtDBus/QtDBus>
 
+#include "highlightinginterface.h"
+#include "document.h"
+
 namespace KTextEditor
 {
-
-class HighlightingInterface;
 
 /// For documentation see HighlightingInterface
 class HighlightingInterfaceAdaptor: public QDBusAbstractAdaptor
 {
   Q_OBJECT
   Q_CLASSINFO("D-Bus Interface","org.kde.KTextEditor.Highlighting")
-  Q_PROPERTY(unsigned int mode READ mode WRITE setMode)
-  Q_PROPERTY(unsigned int modeCount READ modeCount)
+  Q_PROPERTY(QString highlighting READ highlighting WRITE setHighlighting)
+  Q_PROPERTY(QStringList highlightings READ highlightings)
 
   public:
-    HighlightingInterfaceAdaptor (QObject *obj,HighlightingInterface *iface);
-    virtual ~HighlightingInterfaceAdaptor ();
+    HighlightingInterfaceAdaptor (QObject *obj, HighlightingInterface *iface)
+      : QDBusAbstractAdaptor(obj), m_iface(iface)
+    {
+      connect(obj,SIGNAL(highlightingChanged(KTextEditor::Document *)),this,SIGNAL(highlightingChanged(KTextEditor::Document *)));
+    }
+
+    ~HighlightingInterfaceAdaptor () {}
+    
+  /*
+   * Access to the highlighting subsystem
+   */
   public Q_SLOTS:
-    unsigned int mode ();
-    bool setMode (unsigned int mode);
-    unsigned int modeCount ();
-    QString modeName (unsigned int mode);
-    QString sectionName (unsigned int mode);
+    /**
+     * Return the name of the currently used highlighting
+     * \return name of the used highlighting
+     * 
+     */
+    QString highlighting() const { return m_iface->highlighting (); }
+    
+    /**
+     * Set the current highlighting of the document by giving it's name
+     * \param name name of the highlighting to use for this document
+     * \return \e true on success, otherwise \e false
+     */
+    bool setHighlighting(const QString &name) { return m_iface->setHighlighting (name); }
+    
+    /**
+     * Return a list of the names of all possible highlighting
+     * \return list of highlighting names
+     */
+    QStringList highlightings() const { return m_iface->highlightings (); }
+
+  /*
+   * Important signals which are emited from the highlighting system
+   */
   Q_SIGNALS:
-    void modeChanged ();
-  private: HighlightingInterface *m_iface;
+    /**
+     * Warn anyone listening that the current document's highlighting has
+     * changed.
+     * 
+     * \param document the document which's highlighting has changed
+     */
+    void highlightingChanged(KTextEditor::Document *document);
+    
+  private:
+    HighlightingInterface *m_iface;
 };
 
 }

@@ -73,55 +73,41 @@ class KTEXTEDITOR_EXPORT HighlightingInterface
      */
     virtual ~HighlightingInterface ();
 
-  //
-  // SLOTS !!!
-  //
+  /*
+   * Access to the highlighting subsystem
+   */
   public:
     /**
-     * Get the current active syntax highlighting mode.
-     * \return current active mode
-     * \see setHlMode()
+     * Return the name of the currently used highlighting
+     * \return name of the used highlighting
+     * 
      */
-    virtual unsigned int hlMode () = 0;
-
+    virtual QString highlighting() const = 0;
+    
     /**
-     * Set the syntax highlighting mode to \p mode.
-     * \param mode new highlighting mode
-     * \see hlMode()
+     * Return a list of the names of all possible highlighting
+     * \return list of highlighting names
      */
-    virtual bool setHlMode (unsigned int mode) = 0;
-
+    virtual QStringList highlightings() const = 0;
+    
     /**
-     * Get the number of available syntax highlighting modes.
-     * \return number of available modes
+     * Set the current highlighting of the document by giving it's name
+     * \param name name of the highlighting to use for this document
+     * \return \e true on success, otherwise \e false
      */
-    virtual unsigned int hlModeCount () = 0;
+    virtual bool setHighlighting(const QString &name) = 0;
 
-    /**
-     * Get the name of the syntax highlighting mode with number \p mode.
-     * \return name of \p mode
-     * \see hlModeSectionName()
-     */
-    virtual QString hlModeName (unsigned int mode) = 0;
-
-    /**
-     * Get the name of the section to which the syntax highlighting mode
-     * with number \p mode belongs to.
-     * \return section name
-     * \see hlModeName()
-     */
-    virtual QString hlModeSectionName (unsigned int mode) = 0;
-
-  //
-  // SIGNALS !!!
-  //
+  /*
+   * Important signals which are emited from the highlighting system
+   */
   public:
     /**
-     * This signal is emitted whenever the document's syntax highlighting
-     * mode changed.
-     * \see hlMode(), setHlMode()
+     * Warn anyone listening that the current document's highlighting has
+     * changed.
+     * 
+     * \param document the document which's highlighting has changed
      */
-    virtual void hlChanged () = 0;
+    virtual void highlightingChanged(KTextEditor::Document *document) = 0;
 
   private:
     class HighlightingInterfacePrivate* const d;

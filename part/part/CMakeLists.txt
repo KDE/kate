@@ -92,3 +92,26 @@ target_link_libraries(katepart ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kutils 
 # install the stuff
 kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} katepart )
 install(TARGETS katepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
+
+
+########### tests ###############
+
+# Tests don't need to go into toplevel/bin, they are fine in the current dir.
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
+
+# This can be used for finding data files in the source dir, without installing them
+#add_definitions( -DKDESRCDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\" )
+
+#include_directories( ${KDE4_KDECORE_INCLUDES} )
+
+set(testkateregression_SRCS ${katepart_PART_SRCS} test_regression.cpp test_regression.h )
+
+kde4_automoc(${testkateregression_SRCS})
+
+kde4_add_executable(testkateregression NOGUI RUN_UNINSTALLED ${testkateregression_SRCS})
+
+target_link_libraries(testkateregression  ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kutils kjs knewstuff kde3support )
+
+#add_dependencies(check testkateregression)
+
+add_custom_target(check ${CMAKE_CURRENT_BINARY_DIR}/testkateregression DEPENDS testkateregression WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )

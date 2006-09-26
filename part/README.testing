@@ -1,0 +1,241 @@
+ Testing Kate
+==============
+
+Author: Leo Savernik
+
+Kate contains regression tests to ensure that fixed bugs do not reappear in
+newer versions. To facilitate regression testing, a dedicated application
+testkateregression will execute the regression tests and compare them to the
+expecting results, indicating passed as well as failed testcases.
+
+
+1. Using testkateregression
+  --------------------------
+
+We tried to make regression testing for Kate as easy as possible such that you
+can run it before each commit and find out regressions caused by your changes
+before they are shipped as part of a release.
+
+Running all regression tests works by simply invoking
+
+	> make check
+
+in your kate-part build directory. While executing, testkateregression prints a line
+for each executed testcase, prefixed with "PASS" if it passed, and "FAIL" if it
+failed. Furthermore, testkateregression stores a comprehensive output log under
+<katetests-directory>/output/index.html. The output log is invaluable for
+determining why a certain testcase failed.
+
+If you invoke testkateregression the first time, it will print instructions on
+how to fetch the testsuite and pointing testkateregression to it. This setup
+has only to be done once per branch.
+
+
+2. Discriminating your regressions against existing regressions
+  --------------------------------------------------------------
+
+In an ideal universe, all testcases always pass. In this universe, however,
+some testcases fail, be it because of anticipating future features not
+implemented yet, be it because of nasty bugs which cannot be repaired easily.
+
+This means if you've hacked on kate for quite some while and then fire up
+"make check", you are likely to see many failed tests pass by, most of them
+*not* caused by your very changes, as they failed already before.
+
+To discriminate the failed tests caused by your changes against the unaffected
+failures, testkateregression provides the option --save-failures=<name>, which
+runs the regression tests and stores all failures under a failure snapshot
+identified by <name>.
+
+The next time you run "make check", testkateregression automatically picks up
+the most recently stored failure snapshot and compares the failures and passes
+with the one stored in the snapshot. Each failure not listed in the failure
+snapshot will be prefixed with "FAIL (new)", indicating that this is a new
+failure. Testcases which failed in the snapshot but do pass now are prefixed
+with "PASS (new)", indicating that this testcase seems to be fixed now.
+
+
+3. Using testkateregression efficiently
+  --------------------------------------
+
+Therefore, to get the most out of regression testing, we suggest the following
+development approach:
+
+   1. Before you change Kate, update and run testkateregression in the part-
+      subdirectory.
+
+	> make testkateregression && ./testkateregression --save-failures=last
+
+      This will produce a failure snapshot called "last".
+   
+   2. Hack on Kate.
+
+   3. Before you commit, run
+
+	> make check
+
+      It will automatically pick up the failure snapshot "last" (provided you
+      didn't generate a newer one in the meantime) and compare all results with
+      the previously stored ones.
+      
+      If you inspect <katetests-directory>/output/index.html, the new failures
+      are marked red. Those are of interest to you, because they have been
+      caused by your changes.
+      
+      New passes are marked green. These were former failures which started
+      working due to your changes.
+      
+      Goto 2 while there are any new failures.
+      
+   4. Commit.
+
+
+4. Invoking testkateregression directly
+  --------------------------------------
+  
+While make check is handy and simple enough for the common case, you might
+sometimes need more control over regression testing.
+
+testkateregression features a broad range of options, enabling you to run
+dedicated testcases only, specifying an alternate output directory for the
+logs, etc.
+
+	> ./testregression --help
+
+will provide you with a complete list of options.
+
+
+5. Structure of the regression test suite
+  ----------------------------------------
+
+Kate's regression testsuite is located in the KDE repository under
+
+	trunk/tests/katetests/regression
+
+and consists of two subdirectories
+
+	baseline
+	tests
+
+The latter, tests, contains a directory hierarchy for all testcases to be run
+by testkateregression. The former, baseline, contains results as they are
+expected by correct operation. Mismatch between the output of a test and its
+baseline is considered to be a failure.
+
+Each directory under tests may optionally contain one of the following files.
+
+	.kateconfig
+	.kateconfig-commands
+	ignore
+	KNOWN_FAILURES
+
+.kateconfig: This file works exactly like .kateconfig as supported by the kate
+and kwrite editors. It may contain any kate line variable necessary to set up
+the testcases proper. Note that .kateconfig files from parent directories are
+not merged with .kateconfig files from child directories.
+
+.kateconfig-commands: This file may contain all commands that can be entered by
+kate's command line (F7). Each line will be interpreted as one command. To the
+contrary of .kateconfig, .kateconfig-commands files are merged with
+.kateconfig-commands files from parent directories. Nearer ancestors' commands
+take precedence over farther ancestors'.
+
+ignore: This file specifies on each line a file to be ignored in the directory
+the ignore-file is located. This enables you to mark any helper files which
+otherwise would be interpreted as testcases. Note that hidden files (.*) are
+ignored by default, and cannot be "unignored".
+
+KNOWN_FAILURES: This file specifies on each line a file name of a testcase
+which is known to fail. Such known failures are counted towards the total count
+of failures but they don't cause testkateregression to return a failure code.
+
+
+6. Structure of a testcase
+  -------------------------
+
+A testcase is comprised of a simple plain text file <testcase>.txt which may
+be located in any subdirectory under tests. This file contains the *initial*
+content the testcase operates on.
+
+Each <testcase>.txt must be accompanied with a <testcase>.txt-script which
+contains the actual tests to be performed on the testcase. It consists of
+simple JavaScript-statements for direct interfacing with Kate.
+
+Last but not least, a <testcase>.txt-result exists under the baseline
+subdirectory, which contains a mirrored directory hierarchy of tests. This very
+file contains the expected *result* of the performed tests.
+
+
+7. Writing a simple testcase
+  ---------------------------
+
+Writing your own testcases is easy once you know how to get started. Let's
+test how Kate's C-Style indenter fares with indenting after opening braces.
+
+First, we create the new initial content under tests/indent/csmart/openbrc.txt
+and fill it with (the dashed lines are not part of the content)
+---------------------------
+
+int main() {
+
+---------------------------
+
+Now, we need to write a script performing some actions. We therefore create
+a file tests/indent/csmart/openbrc.txt-script and fill it with
+---------------------------
+v.setCursorPosition(1,12);
+v.enter();
+v.type("good");
+---------------------------
+
+Here, we set the initial cursor position to line 2 (the coordinates are zero-
+based) and column 13 which happens to be just after the opening brace. Then
+v.enter() simulates pressing the return key in the editor, thus inserting a
+new line. v.type simulates typing of the word "good" at the current position
+of the cursor.
+
+The options under .kateconfig specify the C-Style indenter to be applied to the
+testcases and an indent width of two. With this information, we know what we
+expect as a result.
+
+What we are still missing is the expected result itself which we create under
+baseline/indent/csmart/openbrc.txt-result and fill it with
+---------------------------
+
+int main() {
+  good
+
+---------------------------
+
+You can see that "good" is indented by two spaces, even though we didn't
+specify those with v.type. We expect from the indenter to provide them for us.
+
+Last but not least we test the testcase by invoking in kate's part directory
+
+	> ./testkateregression indent/csmart/openbrc.txt
+
+and checking whether it works the way we intended it.
+
+
+7. The JavaScript-interface to the testcases
+  -------------------------------------------
+  
+testkateregression provides you with the following global objects for each
+testcase:
+
+	v - object of view
+	d - object of document
+
+Each object provides the same methods and fields as the respective JavaScript-
+interfaces built in to Kate, like v.setCursorPosition.
+
+Additionally, v provides the following methods unique to testkateregression.
+
+type(<string>)
+	Inserts <string> into the current cursor position as if <string> had
+	been typed by the keyboard. Contrary to insert(<string>), it will
+	trigger indentation and other checks.
+enter(), returnKey()
+	Inserts a new line as if the return key had been pressed. This will
+	trigger special indentation rules.
+

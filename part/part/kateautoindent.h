@@ -121,7 +121,7 @@ class KateAutoIndent
     static IndenterConfigPage* configPage(QWidget *parent, int mode);
 
   /*
-   * Stuff this class provides to all it's children..
+   * Construction + Destruction
    */
   public:
     /**
@@ -134,37 +134,6 @@ class KateAutoIndent
      * Virtual Destructor for the baseclass
      */
     ~KateAutoIndent ();
-
-    /**
-     * Switch indenter
-     * Nop if already set to given mode
-     * Otherwise switch to given indenter or to "None" if no suitable found...
-     * @param name indention mode wanted
-     */
-    void setMode (const QString &name);
-
-    /**
-     * mode name
-     */
-    QString modeName () { return m_mode; }
-
-    /**
-     * Update indenter's configuration (indention width, etc.)
-     * Is called in the updateConfig() of the document and after creation of the indenter...
-     */
-    void updateConfig ();
-
-    /**
-     * Function to provide the common indent/unindent/clean indent functionality to the document
-     * This should be generic for all indenters, internally it uses the doIndent function,
-     * in advance it keeps the "keep indent profile" option in mind
-     * \param view view to work on
-     * \param range range of text to change indent for
-     * \param change level of indents to add or remove, zero will still trigger cleaning of indentation
-     * and removal of extra spaces, if option set
-     * \return \e true on success, otherwise \e false
-     */
-    bool changeIndent (KateView *view, const KTextEditor::Range &range, int change);
 
   /*
    * Internal helper for the subclasses and itself
@@ -191,10 +160,49 @@ class KateAutoIndent
      */
     bool doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces = false );
 
-  /*
-   * Functions which vary from indenter to indenter
-   */
   public:
+    /**
+     * Switch indenter
+     * Nop if already set to given mode
+     * Otherwise switch to given indenter or to "None" if no suitable found...
+     * @param name indention mode wanted
+     */
+    void setMode (const QString &name);
+
+    /**
+     * mode name
+     */
+    QString modeName () { return m_mode; }
+
+    /**
+     * Update indenter's configuration (indention width, etc.)
+     * Is called in the updateConfig() of the document and after creation of the indenter...
+     */
+    void updateConfig ();
+
+    /**
+     * Function to provide the common indent/unindent/clean indent functionality to the document
+     * This should be generic for all indenters, internally it uses the doIndent function,
+     * in advance it keeps the "keep indent profile" option in mind
+     * This works equal for all indenters, even for "none" or the scripts
+     * \param view view to work on
+     * \param range range of text to change indent for
+     * \param change level of indents to add or remove, zero will still trigger cleaning of indentation
+     * and removal of extra spaces, if option set
+     * \return \e true on success, otherwise \e false
+     */
+    bool changeIndent (KateView *view, const KTextEditor::Range &range, int change);
+
+    /**
+     * The document requests the indenter to indent the given range of existing text.
+     * This may happen to indent text pasted or to reindent existing text.
+     * For "none" and "normal" this is a nop, for the scripts, the expression
+     * will be asked for indent level for each line
+     * \param view the view the user work at
+     * \param range the range of text to indent...
+     */
+    void indent (KateView *view, const KTextEditor::Range &range);
+
     /**
      * The user typed some char, the indenter can react on this
      * '\n' will be send as char if the user wraps a line
@@ -204,13 +212,8 @@ class KateAutoIndent
      */
     void userTypedChar (KateView *view, const KTextEditor::Cursor &position, QChar typedChar);
 
-    /**
-     * The KatePart requests the indenter to indent the given range of existing text.
-     * This may happen to indent text pasted by the user or to reindent existing text.
-     * \param view the view the user work at
-     * \param range the range of text to indent...
-     */
-    void userWantsReIndent (KateView *view, const KTextEditor::Range &range);
+  protected:
+    void scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar);
 
   /*
    * needed data

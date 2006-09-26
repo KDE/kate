@@ -153,40 +153,6 @@ void KateAutoIndent::updateConfig ()
   indentWidth = config->indentationWidth();
 }
 
-bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &range, int change)
-{
-  // loop over all lines given...
-  if (keepProfile && change < 0)
-  {
-    for (int line = range.start().line () < 0 ? 0 : range.start().line (); line <= qMin (range.end().line (), doc->lines()-1); ++line)
-    {
-      KateTextLine::Ptr textline = doc->plainKateTextLine(line);
-  
-      // textline not found, cu
-      if (!textline)
-        return false;
-  
-      // get indent width of current line
-      int currentIndentInSpaces = textline->indentDepth (tabWidth);
-  
-      // oh oh, too less indent....
-      if (currentIndentInSpaces < (indentWidth * (-change)))
-      {
-        kDebug () << "oh oh, can't unindent" << endl;
-        return false;
-      }
-    }
-  }
-
-  // loop over all lines given...
-  for (int line = range.start().line () < 0 ? 0 : range.start().line (); line <= qMin (range.end().line (), doc->lines()-1); ++line)
-  {
-    doIndent (view, line, change, true, keepExtra);
-  }
-
-  return true;
-}
-
 QString KateAutoIndent::tabString (int length) const
 {
   QString s;
@@ -260,6 +226,54 @@ bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relat
   return true;
 }
 
+bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &range, int change)
+{
+  // loop over all lines given...
+  if (keepProfile && change < 0)
+  {
+    for (int line = range.start().line () < 0 ? 0 : range.start().line (); line <= qMin (range.end().line (), doc->lines()-1); ++line)
+    {
+      KateTextLine::Ptr textline = doc->plainKateTextLine(line);
+  
+      // textline not found, cu
+      if (!textline)
+        return false;
+  
+      // get indent width of current line
+      int currentIndentInSpaces = textline->indentDepth (tabWidth);
+  
+      // oh oh, too less indent....
+      if (currentIndentInSpaces < (indentWidth * (-change)))
+      {
+        kDebug () << "oh oh, can't unindent" << endl;
+        return false;
+      }
+    }
+  }
+
+  // loop over all lines given...
+  for (int line = range.start().line () < 0 ? 0 : range.start().line (); line <= qMin (range.end().line (), doc->lines()-1); ++line)
+  {
+    doIndent (view, line, change, true, keepExtra);
+  }
+
+  return true;
+}
+
+void KateAutoIndent::indent (KateView *view, const KTextEditor::Range &range)
+{
+  // no script, do nothing...
+  if (!m_script)
+    return;
+
+  // loop over all lines given...
+  for (int line = range.start().line () < 0 ? 0 : range.start().line (); line <= qMin (range.end().line (), doc->lines()-1); ++line)
+  {
+    // let the script indent for us...
+    scriptIndent (view, KTextEditor::Cursor (line, 0), '\n');
+  }
+}
+
 void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
 {
   // normal mode
@@ -292,13 +306,18 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
   // no script, do nothing...
   if (!m_script)
     return;
+
+  // does the script allow this char as trigger?
+  if (typedChar != '\n' && !m_script->triggerCharacters().contains(typedChar))
+    return;
+
+  // let the script indent for us...
+  scriptIndent (view, position, typedChar);
 }
 
-void KateAutoIndent::userWantsReIndent (KateView *view, const KTextEditor::Range &range)
+void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
 {
-  // no script, do nothing...
-  if (!m_script)
-    return;
+  // todo: query the script for the indentation, in spaces, and do the indent than....
 }
 //END KateAutoIndent
 

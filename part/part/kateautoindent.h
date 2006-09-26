@@ -152,6 +152,15 @@ class KateAutoIndent : public QObject
     void updateConfig ();
 
   /*
+   * Interface for the document
+   * Only generic stuff which needs no overwriting in childclasses
+   */
+  public:
+    bool changeIndent (KateView *view, const KTextEditor::Range &range, int change);
+
+    bool cleanIndent (KateView *view, const KTextEditor::Range &range);
+
+  /*
    * Real interfaces...
    * Subclasses can overwrite them....
    */
@@ -184,13 +193,9 @@ class KateAutoIndent : public QObject
      * \param view the view the user work at
      * \param range the range of text to indent...
      */
-    virtual void indent (KateView *view, const KTextEditor::Range &range) {}
+    virtual void userWantsReIndent (KateView *view, const KTextEditor::Range &range) {}
 
-  /*
-   * Helper functions
-   * Stuff which should be generic enough to need no overwriting in the different implementations
-   */
-  public:
+  protected:
     /**
      * Produces a string with the proper indentation characters for its length.
      *
@@ -200,23 +205,18 @@ class KateAutoIndent : public QObject
     QString tabString (int length) const;
 
     /**
-     * Indent the content of the given line to the given level/alignment
-     * \param view the current active view
-     * \param line line to indent
-     * \param indentation new indentation level
-     */
-    void fullIndent ( KateView *view, int line, int indentation );
-
-    /**
      * Change the indent of the specified line by the number of levels
      * specified by change.
      * positive values will indent more, negative values will unindent...
+     * if relative is not true, the change will be used to set the indent level of the line
      * \param view the current active view
      * \param line line to change indent for
      * \param change change the indentation level by change levels
+     * \param relative is the change a relative change to the current indent level or should
+     * the indent of the given line be set to the given indentation level
      */
-    void changeIndent ( KateView *view, int line, int change );
-
+    bool doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces = false, bool dontDestroyProfile = false );
+   
   protected:
     KateDocument *doc; //!< the document the indenter works on
     int  tabWidth;     //!< The number of characters simulated for a tab
@@ -272,90 +272,9 @@ public:
   virtual void userWrappedLine (KateView *view, const KTextEditor::Cursor &position);
 
     /**
-     * does this indenter support processNewLine
-     * @return can you do it?
-     */
-  virtual bool canProcessNewLine () const { return true; }
-
-    /**
-     * Called every time a newline character is inserted in the document.
-     *
-     * @param begin The position to start processing. Contains the new cursor position after the indention.
-     * @param needContinue Used to determine whether to calculate a continue indent or not.
-     */
-  virtual void processNewline (KateView *view, KateDocCursor &begin, bool needContinue);
-
-    /**
-     * Called every time a character is inserted into the document.
-     * @param c character inserted
-     */
-  virtual void processChar (KateView *view, QChar c)
-  { Q_UNUSED(view); Q_UNUSED(c); }
-
-    /**
-     * Aligns/indents the given line to the proper indent position.
-     */
-  virtual void processLine (KateView *view, KateDocCursor &line)
-  { Q_UNUSED(view); Q_UNUSED(line); }
-
-    /**
-     * Processes a section of text, indenting each line in between.
-     */
-  virtual void processSection (KateView *view, const KateDocCursor &begin, const KateDocCursor &end)
-  { Q_UNUSED(view); Q_UNUSED(begin); Q_UNUSED(end); }
-
-    /**
-     * Set to true if an actual implementation of 'processLine' is present.
-     * This is used to prevent a needless Undo action from being created.
-     */
-  virtual bool canProcessLine() const { return false; }
-
-    /**
-     * Indents the specified line by the number of levels
-     * specified by change.
-     */
-  virtual void indent ( KateView *view, uint line, int change );
-
-    /**
      * mode name
      */
     virtual QString modeName () { return QString ("normal"); }
-
-protected:
-#if 0
-    /**
-     * Determines if the characters open and close are balanced between @p begin and @p end
-     * Fills in @p pos with the column position of first opened character if found.
-     *
-     * @param begin Beginning cursor position.
-     * @param end Ending cursor position where the processing will stop.
-     * @param open The open character.
-     * @param close The closing character which should be matched against @p open.
-     * @param pos Contains the position of the first @p open character in the line.
-     * @return True if @p open and @p close have an equal number of occurrences between @p begin and @p end. False otherwise.
-     */
-  bool isBalanced (KateDocCursor &begin, const KateDocCursor &end, QChar open, QChar close, uint &pos) const;
-
-    /**
-     * Skip all whitespace starting at @p cur and ending at @p max. Spans lines if @p newline is set.
-     * @p cur is set to the current position afterwards.
-     *
-     * @param cur The current cursor position to start from.
-     * @param max The furthest cursor position that will be used for processing
-     * @param newline Whether we are allowed to span multiple lines when skipping blanks
-     * @return True if @p cur < @p max after processing.  False otherwise.
-     */
-  bool skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool newline) const;
-
-    /**
-     * Measures the indention of the current textline marked by cur
-     * @param cur The cursor position to measure the indent to.
-     * @return The length of the indention in characters.
-     */
-  uint measureIndent (KateDocCursor &cur) const;
-
-  void optimizeLeadingSpace( uint line, int change );
-#endif
 };
 
 class KateScriptIndent : public KateNormalIndent

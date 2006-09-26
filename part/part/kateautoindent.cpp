@@ -135,6 +135,14 @@ void KateAutoIndent::updateConfig ()
   indentWidth = config->indentationWidth();
 }
 
+bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &range, int change)
+{
+}
+  
+bool KateAutoIndent::cleanIndent (KateView *view, const KTextEditor::Range &range)
+{
+}
+
 QString KateAutoIndent::tabString (int length) const
 {
   QString s;
@@ -156,18 +164,43 @@ QString KateAutoIndent::tabString (int length) const
   return s;
 }
 
-void KateAutoIndent::fullIndent ( KateView *view, int line, int indentation )
+bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces, bool dontDestroyProfile )
 {
-  kDebug () << "fullIndent: line: " << line << " level: " << indentation << endl;
+  kDebug () << "doIndent: line: " << line << " change: " << change << " relative: " << relative << endl;
 
   KateTextLine::Ptr textline = doc->plainKateTextLine(line);
 
   // textline not found, cu
   if (!textline)
-    return;
+    return false;
 
-  if (indentation < 0)
-    indentation = 0;
+  int indentlevel = change;
+  int spacesToKeep = 0;
+
+  // get indent width of current line
+  int currentIndentInSpaces = textline->indentDepth (tabWidth);
+
+  if (dontDestroyProfile && relative)
+  {
+    if (currentIndentInSpaces < (indentWidth * (-change)))
+      return false;
+  }
+
+  // calc the spaces to keep
+  if (keepExtraSpaces)
+    spacesToKeep = currentIndentInSpaces % indentWidth;
+
+  // adjust indent level
+  if (relative)
+    indentlevel += currentIndentInSpaces / indentWidth;
+
+  if (indentlevel < 0)
+    indentlevel = 0;
+
+  QString indentString = tabString (indentlevel * indentWidth);
+
+  if (spacesToKeep > 0)
+    indentString.append (QString (spacesToKeep, ' '));
 
   int first_char = textline->firstChar();
 
@@ -180,25 +213,11 @@ void KateAutoIndent::fullIndent ( KateView *view, int line, int indentation )
   doc->editRemoveText (line, 0, first_char);
 
   // insert replacement stuff..
-  doc->editInsertText (line, 0, tabString (indentation));
+  doc->editInsertText (line, 0, indentString);
 
   doc->editEnd ();
-}
 
-void KateAutoIndent::changeIndent ( KateView *view, int line, int change )
-{
-  // no change, no work...
-  if (change == 0)
-    return;
-
-  KateTextLine::Ptr textline = doc->plainKateTextLine(line);
-
-  // textline not found, cu
-  if (!textline)
-    return;
-
-  // reindent...
-  fullIndent (view, line, textline->indentDepth(tabWidth) + change * indentWidth);
+  return true;
 }
 //END KateAutoIndent
 
@@ -236,7 +255,6 @@ void KateViewIndentationAction::setMode (QAction *action)
 //END KateViewIndentationAction
 
 //BEGIN KateNormalIndent
-
 KateNormalIndent::KateNormalIndent (KateDocument *_doc)
  : KateAutoIndent (_doc)
 {
@@ -253,9 +271,7 @@ void KateNormalIndent::userWrappedLine (KateView *view, const KTextEditor::Curso
 
  // no change, no work...
   if (position.line() <= 0)
-  {
-    fullIndent (view, position.line(), 0);
-  }
+    return;
 
   KateTextLine::Ptr textline = doc->plainKateTextLine(position.line()-1);
 
@@ -270,216 +286,6 @@ void KateNormalIndent::userWrappedLine (KateView *view, const KTextEditor::Curso
 
   doc->editEnd ();
 }
-
-# if 0
-bool KateNormalIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end, QChar open, QChar close, uint &pos) const
-{
-  int parenOpen = 0;
-  bool atLeastOne = false;
-  bool getNext = false;
-
-  pos = doc->plainKateTextLine(begin.line())->firstChar();
-
-  // Iterate one-by-one finding opening and closing chars
-  // Assume that open and close are 'Symbol' characters
-  while (begin < end)
-  {
-    QChar c = begin.currentChar();
-    if (begin.currentAttrib() == symbolAttrib)
-    {
-      if (c == open)
-      {
-        if (!atLeastOne)
-        {
-          atLeastOne = true;
-          getNext = true;
-          pos = measureIndent(begin) + 1;
-        }
-        parenOpen++;
-      }
-      else if (c == close)
-      {
-        parenOpen--;
-      }
-    }
-    else if (getNext && !c.isSpace())
-    {
-      getNext = false;
-      pos = measureIndent(begin);
-    }
-
-    if (atLeastOne && parenOpen <= 0)
-      return true;
-
-    begin.moveForward(1);
-  }
-
-  return (atLeastOne) ? false : true;
-}
-
-bool KateNormalIndent::skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool newline) const
-{
-  int curLine = cur.line();
-  if (newline)
-    cur.moveForward(1);
-
-  if (cur >= max)
-    return false;
-
-  do
-  {
-    uchar attrib = cur.currentAttrib();
-    const QString hlFile = doc->highlight()->hlKeyForAttrib( attrib );
-
-    if (attrib != commentAttrib && attrib != regionAttrib && attrib != alertAttrib && !hlFile.endsWith("doxygen.xml"))
-    {
-      QChar c = cur.currentChar();
-      if (!c.isNull() && !c.isSpace())
-        break;
-    }
-
-    if (!cur.moveForward(1))
-    {
-      cur = max;
-      break;
-    }
-    // Make sure col is 0 if we spill into next line  i.e. count the '\n' as a character
-    if (curLine != cur.line())
-    {
-      if (!newline)
-        break;
-      curLine = cur.line();
-      cur.setColumn(0);
-    }
-  } while (cur < max);
-
-  if (cur > max)
-    cur = max;
-  return true;
-}
-
-uint KateNormalIndent::measureIndent (KateDocCursor &cur) const
-{
-  return doc->plainKateTextLine(cur.line())->toVirtualColumn(cur.column(), tabWidth);
-}
-
-
-
-/*
-  Optimize the leading whitespace for a single line.
-  If change is > 0, it adds indentation units (indentationChars)
-  if change is == 0, it only optimizes
-  If change is < 0, it removes indentation units
-  This will be used to indent, unindent, and optimal-fill a line.
-  If excess space is removed depends on the flag cfKeepExtraSpaces
-  which has to be set by the user
-*/
-void KateNormalIndent::optimizeLeadingSpace(uint line, int change)
-{
-  KateTextLine::Ptr textline = doc->plainKateTextLine(line);
-
-  int first_char = textline->firstChar();
-
-  if (first_char < 0)
-    first_char = textline->length();
-
-  int space =  textline->toVirtualColumn(first_char, tabWidth) + change * indentWidth;
-  if (space < 0)
-    space = 0;
-
-  if (!keepExtra)
-  {
-    uint extra = space % indentWidth;
-
-    space -= extra;
-    if (extra && change < 0) {
-      // otherwise it unindents too much (e.g. 12 chars when indentation is 8 chars wide)
-      space += indentWidth;
-    }
-  }
-
-  QString new_space = tabString(space);
-  int length = new_space.length();
-
-  int change_from;
-  for (change_from = 0; change_from < first_char && change_from < length; change_from++) {
-    if (textline->at(change_from) != new_space[change_from])
-      break;
-  }
-
-  if (change_from < first_char)
-    doc->removeText(KTextEditor::Range(line, change_from, line, first_char));
-
-  if (change_from < length)
-    doc->insertText(KTextEditor::Cursor(line, change_from), new_space.right(length - change_from));
-}
-#endif
-void KateNormalIndent::processNewline (KateView *view, KateDocCursor &begin, bool /*needContinue*/)
-{
-#if 0
-  int line = begin.line() - 1;
-  int pos = begin.column();
-
-  while ((line > 0) && (pos < 0)) // search a not empty text line
-    pos = doc->plainKateTextLine(--line)->firstChar();
-
-  begin.setColumn(0);
-
-  if (pos > 0)
-  {
-    QString filler = doc->text(KTextEditor::Range(line, 0, line, pos));
-    doc->insertText(begin, filler);
-    begin.setColumn(filler.length());
-  }
-#endif
-}
-
-void KateNormalIndent::indent ( KateView *v, uint line, int change)
-{
-#if 0
-  if (!v->selection())
-  {
-    // single line
-    optimizeLeadingSpace(line, change);
-  }
-  else
-  {
-    int sl = v->selectionRange().start().line();
-    int el = v->selectionRange().end().line();
-    int ec = v->selectionRange().end().column();
-
-    if ((ec == 0) && ((el-1) >= 0))
-    {
-      el--; /* */
-    }
-
-    if (keepProfile && change < 0) {
-      // unindent so that the existing indent profile doesn't get screwed
-      // if any line we may unindent is already full left, don't do anything
-      int adjustedChange = -change;
-
-      for (line = sl; (int) line <= el && adjustedChange > 0; line++) {
-        KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
-        int firstChar = textLine->firstChar();
-        if (firstChar >= 0 && (v->lineSelected(line) || v->lineHasSelected(line))) {
-          int maxUnindent = textLine->toVirtualColumn(firstChar, tabWidth) / indentWidth;
-          if (maxUnindent < adjustedChange)
-            adjustedChange = maxUnindent;
-        }
-      }
-
-      change = -adjustedChange;
-    }
-
-    for (line = sl; (int) line <= el; line++) {
-      if (v->lineSelected(line) || v->lineHasSelected(line)) {
-        optimizeLeadingSpace(line, change);
-      }
-    }
-  }
-#endif
-}
-
 //END
 
 //BEGIN KateScriptIndent
@@ -575,7 +381,7 @@ void KateScriptIndent::indent( KateView *view, uint line, int levels )
     if( !m_script->processIndent( view, line, levels, errorMsg ) )
       kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
   } else {
-    KateNormalIndent::indent(view, line, levels);
+    //KateNormalIndent::indent(view, line, levels);
   }
 }
 

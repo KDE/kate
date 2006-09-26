@@ -3052,7 +3052,11 @@ void KateDocument::newLine( KateView *v )
   if (c.column() > (int)textLine->length())
     c.setColumn(textLine->length());
 
+  KTextEditor::Cursor c1 = v->cursorPosition();
+  kDebug() << "cursor pos before wrap: " << c1 << endl;
   editWrapLine (c.line(), c.column());
+  KTextEditor::Cursor c2 = v->cursorPosition();
+  kDebug() << "cursor pos after wrap: " << c2 << endl;
 
   m_indenter->userWrappedLine(v, v->cursorPosition());
 
@@ -3253,7 +3257,7 @@ void KateDocument::indent ( KateView *v, uint line, int change)
 
   editStart();
   blockRemoveTrailingSpaces(true);
-  m_indenter->changeIndent(v, line, change);
+  m_indenter->changeIndent(v, hasSelection ? v->selectionRange() : KTextEditor::Range (KTextEditor::Cursor (line,0), KTextEditor::Cursor (line,0)), change);
   blockRemoveTrailingSpaces(false);
 
   if (hasSelection) {

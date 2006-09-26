@@ -154,7 +154,7 @@ class KateAutoIndent
      * if relative is not true, the change will be used to set the indent level of the line
      * \param view the current active view
      * \param line line to change indent for
-     * \param change change the indentation level by change levels
+     * \param change change the indentation by given number of SPACES
      * \param relative is the change a relative change to the current indent level or should
      * the indent of the given line be set to the given indentation level
      */

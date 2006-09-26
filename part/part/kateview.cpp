@@ -655,8 +655,10 @@ void KateView::setupEditActions()
     a->setShortcut(Qt::Key_Backspace);
     connect(a, SIGNAL(triggered(bool)), SLOT(backspace()));
 
-
+#ifdef __GNUC__
 #warning REMOVE THIS IN THE RELEASE
+#endif
+
     a = new KAction(i18n("Debug TemplateCode"), ac, "debug_template_code");
     a->setShortcut(Qt::CTRL+Qt::Key_1);
     connect(a, SIGNAL(triggered(bool)), m_doc,SLOT(testTemplateCode()));

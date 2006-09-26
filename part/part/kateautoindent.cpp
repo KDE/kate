@@ -196,12 +196,12 @@ bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relat
 
   // adjust indent level
   if (relative)
-    indentlevel += currentIndentInSpaces / indentWidth;
+    indentlevel += currentIndentInSpaces;
 
   if (indentlevel < 0)
     indentlevel = 0;
 
-  QString indentString = tabString (indentlevel * indentWidth);
+  QString indentString = tabString (indentlevel);
 
   if (spacesToKeep > 0)
     indentString.append (QString (spacesToKeep, ' '));
@@ -254,7 +254,7 @@ bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &ran
   // loop over all lines given...
   for (int line = range.start().line () < 0 ? 0 : range.start().line (); line <= qMin (range.end().line (), doc->lines()-1); ++line)
   {
-    doIndent (view, line, change, true, keepExtra);
+    doIndent (view, line, change * indentWidth, true, keepExtra);
   }
 
   return true;
@@ -292,13 +292,8 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
     // textline not found, cu
     if (!textline)
       return;
-  
-    doc->editStart (view);
-  
-    // insert the new initial indentation....
-    doc->editInsertText (position.line(), 0, tabString (textline->indentDepth (tabWidth)));
-  
-    doc->editEnd ();
+
+    doIndent (view, position.line(), textline->indentDepth (tabWidth), false);
    
     return;
   }

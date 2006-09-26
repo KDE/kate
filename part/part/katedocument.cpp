@@ -3252,9 +3252,11 @@ void KateDocument::indent ( KateView *v, uint line, int change)
   int start = v->selectionRange().start().line();
   const int end = v->selectionRange().end().line();
 
+  KTextEditor::Range range = hasSelection ? v->selectionRange() : KTextEditor::Range (KTextEditor::Cursor (line,0), KTextEditor::Cursor (line,0));
+
   editStart();
   blockRemoveTrailingSpaces(true);
-  m_indenter.changeIndent(v, hasSelection ? v->selectionRange() : KTextEditor::Range (KTextEditor::Cursor (line,0), KTextEditor::Cursor (line,0)), change);
+  m_indenter.changeIndent(v, range, change);
   blockRemoveTrailingSpaces(false);
 
   if (hasSelection) {
@@ -3266,31 +3268,20 @@ void KateDocument::indent ( KateView *v, uint line, int change)
 
 void KateDocument::align(KateView *view, uint line)
 {
-  /*if (m_indenter->canProcessLine())
-  {
-    editStart ();
+  const bool hasSelection = view->selection();
+  KTextEditor::Range range = hasSelection ? view->selectionRange() : KTextEditor::Range (KTextEditor::Cursor (line,0), KTextEditor::Cursor (line,0));
 
-    if (!view->selection())
-    {
-      KateDocCursor curLine(line, 0, this);
-      m_indenter->processLine (view, curLine);
-      removeTrailingSpace(curLine.line());
-      editEnd ();
-      view->setCursorPosition(curLine);
-    }
-    else
-    {
-      int start = view->selectionRange().start().line();
-      const int end = view->selectionRange().end().line();
-      blockRemoveTrailingSpaces(true);
-      m_indenter->processSection(view, KateDocCursor (view->selectionRange().start(), this),
-                                 KateDocCursor (view->selectionRange().end(), this));
-      blockRemoveTrailingSpaces(false);
-      for (; start <= end; ++start)
-        removeTrailingSpace(start);
-      editEnd();
-    }
-  }*/
+  int start = view->selectionRange().start().line();
+  const int end = view->selectionRange().end().line();
+
+  blockRemoveTrailingSpaces(true);
+  m_indenter.indent(view,range);
+  blockRemoveTrailingSpaces(false);
+
+  for (; start <= end; ++start)
+  removeTrailingSpace(start);
+
+  editEnd();
 }
 
 /*

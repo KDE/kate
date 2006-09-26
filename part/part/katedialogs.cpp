@@ -142,7 +142,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   ui->setupUi( this );
 
   ui->cmbMode->addItems (KateAutoIndent::listModes());
-  ui->btnConfigure->setIcon(QIcon(SmallIcon("configure")));
 
   // What's This? help can be found in the ui file
 
@@ -153,7 +152,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   //
 
   connect(ui->cmbMode, SIGNAL(activated(int)), this, SLOT(slotChanged()));
-  connect(ui->cmbMode, SIGNAL(activated(int)), this, SLOT(indenterSelected(int)));
 
   connect(ui->chkKeepIndentProfile, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkKeepExtraSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -165,44 +163,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   connect(ui->rbTabAdvances, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->rbTabIndents, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->rbTabSmart, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  connect(ui->btnConfigure, SIGNAL(clicked()), this, SLOT(configPage()));
-}
-
-void KateIndentConfigTab::indenterSelected (int index)
-{
-  ui->btnConfigure->setEnabled( KateAutoIndent::hasConfigPage(index) );
-}
-
-void KateIndentConfigTab::configPage()
-{
-  uint index = ui->cmbMode->currentIndex();
-  if ( KateAutoIndent::hasConfigPage(index) )
-  {
-    KDialog dlg( this );
-    dlg.setObjectName( "indenter_config_dialog" );
-    dlg.setModal( true );
-    dlg.setCaption( i18n("Configure Indenter") );
-    dlg.setButtons( KDialog::Ok | KDialog::Cancel );
-    dlg.setDefaultButton( KDialog::Cancel );
-    dlg.showButtonSeparator( true );
-
-    KVBox *box = new KVBox(&dlg);
-    box->setSpacing( KDialog::spacingHint() );
-    dlg.setMainWidget(box);
-    new QLabel("<qt><b>" + KateAutoIndent::modeDescription(index) + "</b></qt>", box);
-    new KSeparator(box);
-
-    IndenterConfigPage* page = KateAutoIndent::configPage(box, index);
-
-    if (!page) return;
-    box->setStretchFactor(page, 1);
-
-    connect( &dlg, SIGNAL(okClicked()), page, SLOT(apply()) );
-
-    dlg.resize(400, 300);
-    dlg.exec();
-  }
 }
 
 void KateIndentConfigTab::apply ()
@@ -255,8 +215,6 @@ void KateIndentConfigTab::reload ()
   ui->rbTabSmart->setChecked( KateDocumentConfig::global()->tabHandling() == KateDocumentConfig::tabSmart );
 
   ui->cmbMode->setCurrentIndex (KateAutoIndent::modeNumber (KateDocumentConfig::global()->indentationMode()));
-
-  indenterSelected (ui->cmbMode->currentIndex());
 }
 //END KateIndentConfigTab
 

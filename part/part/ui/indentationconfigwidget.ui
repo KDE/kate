@@ -42,13 +42,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="btnConfigure" >
-       <property name="whatsThis" >
-        <string>If this button is enabled, additional indenter specific options are available and can be configured in an extra dialog.</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <spacer>
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
@@ -284,6 +277,11 @@ p, li { white-space: pre-wrap; }
  </widget>
  <customwidgets>
   <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
@@ -292,11 +290,6 @@ p, li { white-space: pre-wrap; }
    <class>KActiveLabel</class>
    <extends>KTextBrowser</extends>
    <header>kactivelabel.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

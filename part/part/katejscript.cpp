@@ -1446,7 +1446,7 @@ const QString &KateIndentJScript::triggerCharacters ()
   QString errorMsg;
   if (!setupInterpreter(errorMsg)) {
     kDebug(13050) << "triggerCharacters: " << errorMsg << endl;
-    return false;
+    return m_triggerCharacters;
   }
 
   KJS::ExecState *exec = m_interpreter->globalExec();

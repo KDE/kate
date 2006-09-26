@@ -85,22 +85,6 @@ uint KateAutoIndent::modeNumber (const QString &name)
   return 0;
 }
 
-bool KateAutoIndent::hasConfigPage (int /*mode*/)
-{
-//  if ( mode == KateDocumentConfig::imScriptIndent )
-//    return true;
-
-  return false;
-}
-
-IndenterConfigPage* KateAutoIndent::configPage(QWidget * /*parent*/, int /*mode*/)
-{
-//  if ( mode == KateDocumentConfig::imScriptIndent )
-//    return new ScriptIndentConfigPage(parent, "script_indent_config_page");
-
-  return 0;
-}
-
 KateAutoIndent::KateAutoIndent (KateDocument *_doc)
   : doc(_doc), m_normal (false), m_script (0)
 {
@@ -348,25 +332,5 @@ void KateViewIndentationAction::setMode (QAction *action)
   doc->config()->setIndentationMode(KateAutoIndent::modeName (action->data().toInt()));
 }
 //END KateViewIndentationAction
-
-//BEGIN ScriptIndentConfigPage, THIS IS ONLY A TEST! :)
-#include <qlabel.h>
-ScriptIndentConfigPage::ScriptIndentConfigPage ( QWidget *parent)
-    : IndenterConfigPage(parent)
-{
-  QLabel* hello = new QLabel("Hello world! Dummy for testing purpose.", this);
-  hello->show();
-}
-
-ScriptIndentConfigPage::~ScriptIndentConfigPage ()
-{
-}
-
-void ScriptIndentConfigPage::apply ()
-{
-  kDebug(13030) << "ScriptIndentConfigPagE::apply() was called, save config options now!" << endl;
-}
-
-//END ScriptIndentConfigPage
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

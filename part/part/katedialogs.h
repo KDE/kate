@@ -127,15 +127,10 @@ class KateIndentConfigTab : public KateConfigPage
   public:
     KateIndentConfigTab(QWidget *parent);
 
-  protected Q_SLOTS:
-    void indenterSelected (int);
-
   protected:
     Ui::IndentationConfigWidget *ui;
 
   public Q_SLOTS:
-    void configPage();
-
     void apply ();
     void reload ();
     void reset () {}

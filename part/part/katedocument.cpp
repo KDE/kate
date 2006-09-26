@@ -211,12 +211,13 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
                              bool bReadOnly, QWidget *parentWidget,
                              QObject *parent)
 : KTextEditor::Document (parent), KTextEditor::HighlightingInterface(this),
-  m_plugins (KateGlobal::self()->plugins().count()), m_indenter (this),
+  m_plugins (KateGlobal::self()->plugins().count()),
   m_activeView(0L),
   m_undoDontMerge(false),
   m_undoIgnoreCancel(false),
   lastUndoGroupWhenSaved( 0 ),
   docWasSavedWhenUndoWasEmpty( true ),
+  m_indenter(this),
   m_modOnHd (false),
   m_modOnHdReason (OnDiskUnmodified),
   m_job (0),
@@ -1961,7 +1962,7 @@ QStringList KateDocument::highlightings () const
 {
   QStringList hls;
   
-  for (int i = 0; i < hlModeCount(); ++i)
+  for (uint i = 0; i < hlModeCount(); ++i)
     hls << hlModeName (i);
     
   return hls;

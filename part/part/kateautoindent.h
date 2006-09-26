@@ -31,39 +31,6 @@ class KateDocument;
 class KateIndentJScript;
 
 /**
- * This widget will be embedded into a modal dialog when clicking
- * the "Configure..." button in the indentation config page.
- * To add a config page for an indenter there are several todos:
- * - Derive a class from this class. This widget will be embedded into
- *   the config dialog.
- * - Override the slot @p apply(), which is called when the configuration
- *   needs to be saved.
- * - Override @p KateAutoIndent::configPage() to return an instance of
- *   this dialog.
- * - Return @p true in @p KateAutoIndent::hasConfigPage() for the
- *   corresponding indenter id.
- */
-class IndenterConfigPage : public QWidget
-{
-  Q_OBJECT
-
-  public:
-    /**
-     * Standard constructor
-     * @param parent parent widget
-     */
-    IndenterConfigPage ( QWidget *parent=0 ) : QWidget(parent) {}
-    virtual ~IndenterConfigPage () {}
-
-  public Q_SLOTS:
-    /**
-     * Apply the changes. Save options here, use @p kapp->config() and
-     * group [Kate Indenter MyIndenter].
-     */
-    virtual void apply () = 0;
-};
-
-/**
  * Provides Auto-Indent functionality for katepart.
  * This baseclass is a real dummy, does nothing beside remembering the document it belongs too,
  * only to have the object around
@@ -106,19 +73,6 @@ class KateAutoIndent
      * @return number of existing modes
      */
     static int modeCount ();
-
-    /**
-     * Config page support
-     * @param mode mode index
-     * @return true, if the indenter @p mode has a configuration page
-     */
-    static bool hasConfigPage (int mode);
-
-    /**
-     * Support for a config page.
-     * @return config page or 0 if not available.
-     */
-    static IndenterConfigPage* configPage(QWidget *parent, int mode);
 
   /*
    * Construction + Destruction
@@ -251,21 +205,6 @@ class KateViewIndentationAction : public KActionMenu
 
   private Q_SLOTS:
     void setMode (QAction*);
-};
-
-class ScriptIndentConfigPage : public IndenterConfigPage
-{
-  Q_OBJECT
-
-  public:
-    ScriptIndentConfigPage ( QWidget *parent=0 );
-    virtual ~ScriptIndentConfigPage ();
-
-  public Q_SLOTS:
-    /**
-     * Apply changes.
-     */
-    virtual void apply ();
 };
 
 #endif

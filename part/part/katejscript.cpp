@@ -1590,10 +1590,10 @@ bool KateIndentJScript::processChar(KateView *view, QChar c, QString &errorMsg )
                                m_interpreter, m_indenter,
                                KJS::Identifier("calculateIndentation"),
                                params);
-                               
+
   kDebug() << "new indentation: " << val->toUInt32(m_interpreter->globalExec()) << endl;
-                               
-                        
+
+  return true;
 }
 
 bool KateIndentJScript::processLine(KateView *view, const KateDocCursor &line, QString &errorMsg )

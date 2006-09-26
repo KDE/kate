@@ -3017,7 +3017,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
     removeText(KTextEditor::Range(view->cursorPosition(), qMin(buf.length(), textLine->length() - view->cursorPosition().column())));
 
   insertText(view->cursorPosition(), buf);
- KTextEditor::Cursor b(view->cursorPosition());
+  KTextEditor::Cursor b(view->cursorPosition());
   m_indenter->userTypedChar (view, b, c);
 
   editEnd ();

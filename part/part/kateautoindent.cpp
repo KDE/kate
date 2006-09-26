@@ -116,7 +116,7 @@ IndenterConfigPage* KateAutoIndent::configPage(QWidget * /*parent*/, int /*mode*
 }
 
 KateAutoIndent::KateAutoIndent (KateDocument *_doc)
-  : QObject(), doc(_doc)
+  : doc(_doc)
 {
 }
 
@@ -241,47 +241,8 @@ bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relat
 }
 //END KateAutoIndent
 
-//BEGIN KateViewIndentAction
-KateViewIndentationAction::KateViewIndentationAction(KateDocument *_doc, const QString& text, KActionCollection* parent, const char* name)
-       : KActionMenu (text, parent, name), doc(_doc)
-{
-  connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
-
-}
-
-void KateViewIndentationAction::slotAboutToShow()
-{
-  QStringList modes = KateAutoIndent::listModes ();
-
-  menu()->clear ();
-  for (int z=0; z<modes.size(); ++z) {
-    QAction *action = menu()->addAction( '&' + KateAutoIndent::modeDescription(z).replace('&', "&&") );
-    action->setCheckable( true );
-    action->setData( z );
-
-    if ( doc->config()->indentationMode() == KateAutoIndent::modeName (z) )
-      action->setChecked( true );
-  }
-
-  disconnect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
-  connect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
-}
-
-void KateViewIndentationAction::setMode (QAction *action)
-{
-  // set new mode
-  doc->config()->setIndentationMode(KateAutoIndent::modeName (action->data().toInt()));
-}
-//END KateViewIndentationAction
-
 //BEGIN KateNormalIndent
-KateNormalIndent::KateNormalIndent (KateDocument *_doc)
- : KateAutoIndent (_doc)
-{
-  connect(_doc, SIGNAL(highlightingChanged()), this, SLOT(updateConfig()));
-}
-
-KateNormalIndent::~KateNormalIndent ()
+KateNormalIndent::KateNormalIndent (KateDocument *_doc) : KateAutoIndent (_doc)
 {
 }
 
@@ -408,6 +369,39 @@ void KateScriptIndent::indent( KateView *view, uint line, int levels )
 // TODO: return sth. like m_script->internalName(); (which is the filename)
 QString KateScriptIndent::modeName () { return m_script->internalName (); }
 //END KateScriptIndent
+
+//BEGIN KateViewIndentAction
+KateViewIndentationAction::KateViewIndentationAction(KateDocument *_doc, const QString& text, KActionCollection* parent, const char* name)
+       : KActionMenu (text, parent, name), doc(_doc)
+{
+  connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+
+}
+
+void KateViewIndentationAction::slotAboutToShow()
+{
+  QStringList modes = KateAutoIndent::listModes ();
+
+  menu()->clear ();
+  for (int z=0; z<modes.size(); ++z) {
+    QAction *action = menu()->addAction( '&' + KateAutoIndent::modeDescription(z).replace('&', "&&") );
+    action->setCheckable( true );
+    action->setData( z );
+
+    if ( doc->config()->indentationMode() == KateAutoIndent::modeName (z) )
+      action->setChecked( true );
+  }
+
+  disconnect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
+  connect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setMode( QAction* ) ) );
+}
+
+void KateViewIndentationAction::setMode (QAction *action)
+{
+  // set new mode
+  doc->config()->setIndentationMode(KateAutoIndent::modeName (action->data().toInt()));
+}
+//END KateViewIndentationAction
 
 //BEGIN ScriptIndentConfigPage, THIS IS ONLY A TEST! :)
 #include <qlabel.h>

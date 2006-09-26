@@ -68,10 +68,8 @@ class IndenterConfigPage : public QWidget
  * This baseclass is a real dummy, does nothing beside remembering the document it belongs too,
  * only to have the object around
  */
-class KateAutoIndent : public QObject
+class KateAutoIndent
 {
-  Q_OBJECT
-
   /*
    * Static methods to create and list indention modes
    */
@@ -136,7 +134,7 @@ class KateAutoIndent : public QObject
   public:
     /**
      * Constructor
-     * @param doc parent document
+     * \param doc parent document
      */
     KateAutoIndent (KateDocument *doc);
 
@@ -145,17 +143,23 @@ class KateAutoIndent : public QObject
      */
     virtual ~KateAutoIndent ();
 
-  public Q_SLOTS:
+  public:
     /**
      * Update indenter's configuration (indention width, etc.)
+     * Is called in the updateConfig() of the document and after creation of the indenter...
      */
     void updateConfig ();
 
-  /*
-   * Interface for the document
-   * Only generic stuff which needs no overwriting in childclasses
-   */
-  public:
+    /**
+     * Function to provide the common indent/unindent/clean indent functionality to the document
+     * This should be generic for all indenters, internally it uses the doIndent function,
+     * in advance it keeps the "keep indent profile" option in mind
+     * \param view view to work on
+     * \param range range of text to change indent for
+     * \param change level of indents to add or remove, zero will still trigger cleaning of indentation
+     * and removal of extra spaces, if option set
+     * \return \e true on success, otherwise \e false
+     */
     bool changeIndent (KateView *view, const KTextEditor::Range &range, int change);
 
   /*
@@ -193,6 +197,9 @@ class KateAutoIndent : public QObject
      */
     virtual void userWantsReIndent (KateView *view, const KTextEditor::Range &range) {}
 
+  /*
+   * Internal helper for the subclasses and itself
+   */
   protected:
     /**
      * Produces a string with the proper indentation characters for its length.
@@ -215,6 +222,9 @@ class KateAutoIndent : public QObject
      */
     bool doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces = false );
    
+  /*
+   * needed data
+   */
   protected:
     KateDocument *doc; //!< the document the indenter works on
     int  tabWidth;     //!< The number of characters simulated for a tab
@@ -225,60 +235,27 @@ class KateAutoIndent : public QObject
 };
 
 /**
- * This action provides a list of available indenters and gets plugged
- * into the KateView's KActionCollection.
- */
-class KateViewIndentationAction : public KActionMenu
-{
-  Q_OBJECT
-
-  public:
-    KateViewIndentationAction(KateDocument *_doc, const QString& text, KActionCollection* parent = 0, const char* name = 0);
-
-    ~KateViewIndentationAction(){;};
-
-  private:
-    KateDocument* doc;
-
-  public  Q_SLOTS:
-    void slotAboutToShow();
-
-  private Q_SLOTS:
-    void setMode (QAction*);
-};
-
-/**
  * Provides Auto-Indent functionality for katepart.
  */
 class KateNormalIndent : public KateAutoIndent
 {
-  Q_OBJECT
-
-public:
+  public:
     /**
      * Constructor
      * @param doc parent document
      */
-  KateNormalIndent (KateDocument *doc);
-
-    /**
-     * Virtual Destructor for the baseclass
-     */
-  virtual ~KateNormalIndent ();
-
-public:
-  virtual void userWrappedLine (KateView *view, const KTextEditor::Cursor &position);
+    KateNormalIndent (KateDocument *doc);
 
     /**
      * mode name
      */
-    virtual QString modeName () { return QString ("normal"); }
+    QString modeName () { return QString ("normal"); }
+
+    void userWrappedLine (KateView *view, const KTextEditor::Cursor &position);
 };
 
 class KateScriptIndent : public KateNormalIndent
 {
-  Q_OBJECT
-
   public:
     KateScriptIndent( KateIndentJScript *script, KateDocument *doc );
     ~KateScriptIndent();
@@ -307,6 +284,29 @@ class KateScriptIndent : public KateNormalIndent
     mutable bool m_canProcessLine : 1;
     mutable bool m_canProcessIndentSet : 1;
     mutable bool m_canProcessIndent : 1;
+};
+
+/**
+ * This action provides a list of available indenters and gets plugged
+ * into the KateView's KActionCollection.
+ */
+class KateViewIndentationAction : public KActionMenu
+{
+  Q_OBJECT
+
+  public:
+    KateViewIndentationAction(KateDocument *_doc, const QString& text, KActionCollection* parent = 0, const char* name = 0);
+
+    ~KateViewIndentationAction(){;};
+
+  private:
+    KateDocument* doc;
+
+  public  Q_SLOTS:
+    void slotAboutToShow();
+
+  private Q_SLOTS:
+    void setMode (QAction*);
 };
 
 class ScriptIndentConfigPage : public IndenterConfigPage

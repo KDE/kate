@@ -37,20 +37,6 @@
 
 //BEGIN KateAutoIndent
 
-KateAutoIndent *KateAutoIndent::createIndenter (KateDocument *doc, const QString &name)
-{
-  if ( name == QString ("normal") )
-    return new KateNormalIndent (doc);
-
-  // handle script indenters
-  KateIndentJScript *script = KateGlobal::self()->indentScriptManager()->script(name);
-  if ( script )
-    return new KateScriptIndent ( script, doc );
-
-  // none
-  return new KateAutoIndent (doc);
-}
-
 QStringList KateAutoIndent::listModes ()
 {
   QStringList l;
@@ -116,12 +102,44 @@ IndenterConfigPage* KateAutoIndent::configPage(QWidget * /*parent*/, int /*mode*
 }
 
 KateAutoIndent::KateAutoIndent (KateDocument *_doc)
-  : doc(_doc)
+  : doc(_doc), m_normal (false), m_script (0)
 {
+  // don't call updateConfig() here, document might is not ready for that....
 }
 
 KateAutoIndent::~KateAutoIndent ()
 {
+}
+
+void KateAutoIndent::setMode (const QString &name)
+{
+  // bail out, already set correct mode...
+  if (m_mode == name)
+    return;
+
+  // cleanup
+  m_script = 0;
+  m_normal = false;
+
+  // first, catch easy stuff... normal mode and none, easy...
+  if ( name.isEmpty() || name == QString ("none") || name == QString ("normal") )
+  {
+    m_normal = (name == QString ("normal"));
+    m_mode = (name == QString ("normal")) ? QString ("normal") : QString ("none");
+    return;
+  }
+
+  // handle script indenters, if any for this name...
+  KateIndentJScript *script = KateGlobal::self()->indentScriptManager()->script(name);
+  if ( script )
+  {
+    m_script = script;
+    m_mode = name;
+    return;
+  }
+
+  // default: none
+  m_mode = QString ("none");
 }
 
 void KateAutoIndent::updateConfig ()
@@ -239,136 +257,51 @@ bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relat
 
   return true;
 }
-//END KateAutoIndent
 
-//BEGIN KateNormalIndent
-KateNormalIndent::KateNormalIndent (KateDocument *_doc) : KateAutoIndent (_doc)
+void KateAutoIndent::userWrappedLine (KateView *view, const KTextEditor::Cursor &position)
 {
-}
-
-void KateNormalIndent::userWrappedLine (KateView *view, const KTextEditor::Cursor &position)
-{
-  kDebug () << "MUHHHHHHHHHH" << endl;
-
- // no change, no work...
-  if (position.line() <= 0)
+  // normal mode
+  if (m_normal)
+  {
+    // no line in front, no work...
+    if (position.line() <= 0)
+      return;
+  
+    KateTextLine::Ptr textline = doc->plainKateTextLine(position.line()-1);
+  
+    // textline not found, cu
+    if (!textline)
+      return;
+  
+    doc->editStart (view);
+  
+    // insert the new initial indentation....
+    doc->editInsertText (position.line(), 0, tabString (textline->indentDepth (tabWidth)));
+  
+    doc->editEnd ();
+   
     return;
-
-  KateTextLine::Ptr textline = doc->plainKateTextLine(position.line()-1);
-
-  // textline not found, cu
-  if (!textline)
-    return;
-
-  doc->editStart (view);
-
-  // insert the new initial indentation....
-  doc->editInsertText (position.line(), 0, tabString (textline->indentDepth (tabWidth)));
-
-  doc->editEnd ();
-}
-//END
-
-//BEGIN KateScriptIndent
-KateScriptIndent::KateScriptIndent(KateIndentJScript *script, KateDocument *doc)
-  : KateNormalIndent(doc), m_script(script),
-    m_canProcessNewLineSet(false), m_canProcessNewLine(false),
-    m_canProcessLineSet(false), m_canProcessLine(false),
-    m_canProcessIndentSet(false), m_canProcessIndent(false)
-{
-}
-
-KateScriptIndent::~KateScriptIndent()
-{
-}
-
-bool KateScriptIndent::canProcessNewLine() const
-{
-  if (m_canProcessNewLineSet)
-    return m_canProcessNewLine;
-
-  m_canProcessNewLine = m_script->canProcessNewLine();
-  m_canProcessNewLineSet = true;
-  return m_canProcessNewLine;
-}
-
-bool KateScriptIndent::canProcessLine() const
-{
-  if (m_canProcessLineSet)
-    return m_canProcessLine;
-
-  m_canProcessLine = m_script->canProcessLine();
-  m_canProcessLineSet = true;
-  return m_canProcessLine;
-}
-
-bool KateScriptIndent::canProcessIndent() const
-{
-  if (m_canProcessIndentSet)
-    return m_canProcessIndent;
-
-  m_canProcessIndent = m_script->canProcessIndent();
-  m_canProcessIndentSet = true;
-  return m_canProcessIndent;
-}
-
-void KateScriptIndent::processNewline( KateView *view, KateDocCursor &begin, bool needContinue )
-{
-  QString errorMsg;
-
-//   QTime t;
-//   t.start();
-  if( !m_script->processNewline( view, begin, needContinue , errorMsg ) )
-    kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
-  // set cursor to the position at which the script set the cursor
-  begin.setPosition(view->cursorPosition());
-//   kDebug(13050) << "ScriptIndent::processNewline - TIME/ms: " << t.elapsed() << endl;
-}
-
-void KateScriptIndent::processChar( KateView *view, QChar c )
-{
-  QString errorMsg;
-
-//   QTime t;
-//   t.start();
-  if( !m_script->processChar( view, c, errorMsg ) )
-    kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
-//   kDebug(13050) << "ScriptIndent::processChar - TIME in ms: " << t.elapsed() << endl;
-}
-
-void KateScriptIndent::processLine (KateView *view, KateDocCursor &line)
-{
-  QString errorMsg;
-
-  if( !m_script->processLine( view, line, errorMsg ) )
-    kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
-  // set cursor to the position at which the script set the cursor
-  line.setPosition(view->cursorPosition());
-}
-
-void KateScriptIndent::processSection (KateView *view, const KateDocCursor &begin,
-                                       const KateDocCursor &end)
-{
-  QString errorMsg;
-
-  if( !m_script->processSection( view, begin, end, errorMsg ) )
-    kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
-}
-
-void KateScriptIndent::indent( KateView *view, uint line, int levels )
-{
-  if (canProcessIndent()) {
-    QString errorMsg;
-    if( !m_script->processIndent( view, line, levels, errorMsg ) )
-      kDebug(13051) << m_script->filePath() << ":" << endl << errorMsg << endl;
-  } else {
-    //KateNormalIndent::indent(view, line, levels);
   }
+
+  // not normal + no script, do nothing...
+  if (!m_script)
+    return;
 }
 
-// TODO: return sth. like m_script->internalName(); (which is the filename)
-QString KateScriptIndent::modeName () { return m_script->internalName (); }
-//END KateScriptIndent
+void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
+{
+  // no script, do nothing...
+  if (!m_script)
+    return;
+}
+
+void KateAutoIndent::userWantsReIndent (KateView *view, const KTextEditor::Range &range)
+{
+  // no script, do nothing...
+  if (!m_script)
+    return;
+}
+//END KateAutoIndent
 
 //BEGIN KateViewIndentAction
 KateViewIndentationAction::KateViewIndentationAction(KateDocument *_doc, const QString& text, KActionCollection* parent, const char* name)

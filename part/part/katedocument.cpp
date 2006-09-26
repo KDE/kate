@@ -211,7 +211,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
                              bool bReadOnly, QWidget *parentWidget,
                              QObject *parent)
 : KTextEditor::Document (parent), KTextEditor::HighlightingInterface(this),
-  m_plugins (KateGlobal::self()->plugins().count()),
+  m_plugins (KateGlobal::self()->plugins().count()), m_indenter (this),
   m_activeView(0L),
   m_undoDontMerge(false),
   m_undoIgnoreCancel(false),
@@ -286,9 +286,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   m_blockRemoveTrailingSpaces = false;
   m_extension = new KateBrowserExtension( this );
-  m_indenter = KateAutoIndent::createIndenter ( this, 0 );
-
-  m_indenter->updateConfig ();
+  
+  // important, fill in the config into the indenter we use...
+  m_indenter.updateConfig ();
 
   // some nice signals from the buffer
   connect(m_buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
@@ -369,7 +369,6 @@ KateDocument::~KateDocument()
   m_marks.clear();
 
   delete m_config;
-  delete m_indenter;
   KateGlobal::self()->deregisterDocument (this);
 }
 //END
@@ -3018,7 +3017,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
 
   insertText(view->cursorPosition(), buf);
   KTextEditor::Cursor b(view->cursorPosition());
-  m_indenter->userTypedChar (view, b, c);
+  m_indenter.userTypedChar (view, b, c);
 
   editEnd ();
 
@@ -3058,7 +3057,7 @@ void KateDocument::newLine( KateView *v )
   KTextEditor::Cursor c2 = v->cursorPosition();
   kDebug() << "cursor pos after wrap: " << c2 << endl;
 
-  m_indenter->userWrappedLine(v, v->cursorPosition());
+  m_indenter.userWrappedLine(v, v->cursorPosition());
 
   removeTrailingSpace( ln );
 
@@ -3257,7 +3256,7 @@ void KateDocument::indent ( KateView *v, uint line, int change)
 
   editStart();
   blockRemoveTrailingSpaces(true);
-  m_indenter->changeIndent(v, hasSelection ? v->selectionRange() : KTextEditor::Range (KTextEditor::Cursor (line,0), KTextEditor::Cursor (line,0)), change);
+  m_indenter.changeIndent(v, hasSelection ? v->selectionRange() : KTextEditor::Range (KTextEditor::Cursor (line,0), KTextEditor::Cursor (line,0)), change);
   blockRemoveTrailingSpaces(false);
 
   if (hasSelection) {
@@ -4389,14 +4388,9 @@ void KateDocument::updateConfig ()
     view->updateDocumentConfig ();
   }
 
-  // switch indenter if needed
-  if (m_indenter->modeName() != m_config->indentationMode())
-  {
-    delete m_indenter;
-    m_indenter = KateAutoIndent::createIndenter ( this, m_config->indentationMode() );
-  }
-
-  m_indenter->updateConfig();
+  // switch indenter if needed and update config....
+  m_indenter.setMode (m_config->indentationMode());
+  m_indenter.updateConfig();
 
   m_buffer->setTabWidth (config()->tabWidth());
 

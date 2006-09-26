@@ -71,17 +71,9 @@ class IndenterConfigPage : public QWidget
 class KateAutoIndent
 {
   /*
-   * Static methods to create and list indention modes
+   * Static methods to list indention modes
    */
   public:
-    /**
-     * Create an indenter
-     * @param doc document for the indenter
-     * @param name indention mode wanted
-     * @return created autoindention object
-     */
-    static KateAutoIndent *createIndenter (KateDocument *doc, const QString &name);
-
     /**
      * List all possible modes by name
      * @return list of modes
@@ -133,7 +125,7 @@ class KateAutoIndent
    */
   public:
     /**
-     * Constructor
+     * Constructor, creates dummy indenter "None"
      * \param doc parent document
      */
     KateAutoIndent (KateDocument *doc);
@@ -141,9 +133,21 @@ class KateAutoIndent
     /**
      * Virtual Destructor for the baseclass
      */
-    virtual ~KateAutoIndent ();
+    ~KateAutoIndent ();
 
-  public:
+    /**
+     * Switch indenter
+     * Nop if already set to given mode
+     * Otherwise switch to given indenter or to "None" if no suitable found...
+     * @param name indention mode wanted
+     */
+    void setMode (const QString &name);
+
+    /**
+     * mode name
+     */
+    QString modeName () { return m_mode; }
+
     /**
      * Update indenter's configuration (indention width, etc.)
      * Is called in the updateConfig() of the document and after creation of the indenter...
@@ -161,41 +165,6 @@ class KateAutoIndent
      * \return \e true on success, otherwise \e false
      */
     bool changeIndent (KateView *view, const KTextEditor::Range &range, int change);
-
-  /*
-   * Real interfaces...
-   * Subclasses can overwrite them....
-   */
-  public:
-    /**
-     * mode name
-     */
-    virtual QString modeName () { return QString (""); }
-
-    /**
-     * The user wrapped a line, by pressing return normally
-     * Script can react on this by giving the new line some initial indentation
-     * \param view the view the user work at
-     * \param position current cursor position, in this case beginning of the new insert line
-     * which was created by the wrapping
-     */
-    virtual void userWrappedLine (KateView *view, const KTextEditor::Cursor &position) {}
-
-    /**
-     * The user typed some char, the indenter can react on this
-     * \param view the view the user work at
-     * \param position current cursor position, after the inserted char...
-     * \param typedChar the inserted char
-     */
-    virtual void userTypedChar (KateView *view, const KTextEditor::Cursor &position, QChar typedChar) {}
-
-    /**
-     * The KatePart requests the indenter to indent the given range of existing text.
-     * This may happen to indent text pasted by the user or to reindent existing text.
-     * \param view the view the user work at
-     * \param range the range of text to indent...
-     */
-    virtual void userWantsReIndent (KateView *view, const KTextEditor::Range &range) {}
 
   /*
    * Internal helper for the subclasses and itself
@@ -221,7 +190,37 @@ class KateAutoIndent
      * the indent of the given line be set to the given indentation level
      */
     bool doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces = false );
-   
+
+  /*
+   * Functions which vary from indenter to indenter
+   */
+  public:
+
+    /**
+     * The user wrapped a line, by pressing return normally
+     * Script can react on this by giving the new line some initial indentation
+     * \param view the view the user work at
+     * \param position current cursor position, in this case beginning of the new insert line
+     * which was created by the wrapping
+     */
+    void userWrappedLine (KateView *view, const KTextEditor::Cursor &position);
+
+    /**
+     * The user typed some char, the indenter can react on this
+     * \param view the view the user work at
+     * \param position current cursor position, after the inserted char...
+     * \param typedChar the inserted char
+     */
+    void userTypedChar (KateView *view, const KTextEditor::Cursor &position, QChar typedChar);
+
+    /**
+     * The KatePart requests the indenter to indent the given range of existing text.
+     * This may happen to indent text pasted by the user or to reindent existing text.
+     * \param view the view the user work at
+     * \param range the range of text to indent...
+     */
+    void userWantsReIndent (KateView *view, const KTextEditor::Range &range);
+
   /*
    * needed data
    */
@@ -232,58 +231,9 @@ class KateAutoIndent
     bool  useSpaces;    //!< Should we use spaces or tabs to indent
     bool  keepProfile;  //!< Always try to honor the leading whitespace of lines already in the file
     bool  keepExtra;    //!< Keep indentation that is not on indentation boundaries
-};
-
-/**
- * Provides Auto-Indent functionality for katepart.
- */
-class KateNormalIndent : public KateAutoIndent
-{
-  public:
-    /**
-     * Constructor
-     * @param doc parent document
-     */
-    KateNormalIndent (KateDocument *doc);
-
-    /**
-     * mode name
-     */
-    QString modeName () { return QString ("normal"); }
-
-    void userWrappedLine (KateView *view, const KTextEditor::Cursor &position);
-};
-
-class KateScriptIndent : public KateNormalIndent
-{
-  public:
-    KateScriptIndent( KateIndentJScript *script, KateDocument *doc );
-    ~KateScriptIndent();
-
-    virtual void processChar( KateView *view, QChar c );
-
-    virtual bool canProcessNewLine() const;
-    virtual void processNewline( KateView *view, KateDocCursor &begin, bool needContinue );
-
-    virtual bool canProcessLine() const;
-    virtual void processLine (KateView *view, KateDocCursor &line);
-    virtual void processSection (KateView *view, const KateDocCursor &begin, const KateDocCursor &end);
-
-    virtual void indent( KateView *view, uint line, int levels );
-
-    virtual QString modeName ();
-
-  protected:
-    bool canProcessIndent() const;
-
-  private:
+    QString m_mode;
+    bool m_normal;
     KateIndentJScript *m_script;
-    mutable bool m_canProcessNewLineSet : 1;
-    mutable bool m_canProcessNewLine : 1;
-    mutable bool m_canProcessLineSet : 1;
-    mutable bool m_canProcessLine : 1;
-    mutable bool m_canProcessIndentSet : 1;
-    mutable bool m_canProcessIndent : 1;
 };
 
 /**

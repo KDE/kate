@@ -22,6 +22,7 @@
 #define _KATE_DOCUMENT_H_
 
 #include "katetextline.h"
+#include "kateautoindent.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/sessionconfiginterface.h>
@@ -43,14 +44,12 @@
 #include <QClipboard>
 #include <QStack>
 
-namespace KTextEditor { class Plugin; }
+namespace KTextEditor { class Plugin; class Attribute; }
 
 namespace KIO { class TransferJob; }
 
 class KateUndoGroup;
 class KateCmd;
-class KTextEditor::Attribute;
-class KateAutoIndent;
 class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
@@ -882,7 +881,8 @@ class KateDocument : public KTextEditor::Document,
     // text buffer
     KateBuffer *m_buffer;
 
-    KateAutoIndent *m_indenter;
+    // indenter
+    KateAutoIndent m_indenter;
 
     bool hlSetByUser;
 

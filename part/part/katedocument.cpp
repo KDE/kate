@@ -3051,13 +3051,11 @@ void KateDocument::newLine( KateView *v )
   if (c.column() > (int)textLine->length())
     c.setColumn(textLine->length());
 
-  KTextEditor::Cursor c1 = v->cursorPosition();
-  kDebug() << "cursor pos before wrap: " << c1 << endl;
+  // first: wrap line
   editWrapLine (c.line(), c.column());
-  KTextEditor::Cursor c2 = v->cursorPosition();
-  kDebug() << "cursor pos after wrap: " << c2 << endl;
 
-  m_indenter.userWrappedLine(v, v->cursorPosition());
+  // second: indent the new line, if needed...
+  m_indenter.userTypedChar(v, v->cursorPosition(), '\n');
 
   removeTrailingSpace( ln );
 

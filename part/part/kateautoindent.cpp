@@ -255,14 +255,20 @@ bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relat
 
   doc->editEnd ();
 
+  kDebug () << "DONE doIndent: line: " << line << " change: " << change << " relative: " << relative << endl;
+
   return true;
 }
 
-void KateAutoIndent::userWrappedLine (KateView *view, const KTextEditor::Cursor &position)
+void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
 {
   // normal mode
   if (m_normal)
   {
+    // only indent on new line, per default
+    if (typedChar != '\n')
+      return;
+
     // no line in front, no work...
     if (position.line() <= 0)
       return;
@@ -283,13 +289,6 @@ void KateAutoIndent::userWrappedLine (KateView *view, const KTextEditor::Cursor 
     return;
   }
 
-  // not normal + no script, do nothing...
-  if (!m_script)
-    return;
-}
-
-void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
-{
   // no script, do nothing...
   if (!m_script)
     return;

@@ -195,18 +195,9 @@ class KateAutoIndent
    * Functions which vary from indenter to indenter
    */
   public:
-
-    /**
-     * The user wrapped a line, by pressing return normally
-     * Script can react on this by giving the new line some initial indentation
-     * \param view the view the user work at
-     * \param position current cursor position, in this case beginning of the new insert line
-     * which was created by the wrapping
-     */
-    void userWrappedLine (KateView *view, const KTextEditor::Cursor &position);
-
     /**
      * The user typed some char, the indenter can react on this
+     * '\n' will be send as char if the user wraps a line
      * \param view the view the user work at
      * \param position current cursor position, after the inserted char...
      * \param typedChar the inserted char

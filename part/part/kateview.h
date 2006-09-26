@@ -411,6 +411,7 @@ class KateView : public KTextEditor::View,
     void joinLines();
 
     // Note - the following functions simply forward to KateViewInternal
+    void keyReturn();
     void backspace();
     void deleteWordLeft();
     void keyDelete();

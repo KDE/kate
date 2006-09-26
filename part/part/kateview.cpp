@@ -2181,6 +2181,11 @@ void KateView::capitalize( )
   m_doc->transform( this, m_viewInternal->m_cursor, KateDocument::Capitalize );
 }
 
+void KateView::keyReturn( )
+{
+  m_viewInternal->doReturn();
+}
+
 void KateView::backspace( )
 {
   m_viewInternal->doBackspace();

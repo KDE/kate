@@ -20,6 +20,7 @@
 
 #include "katesmartrange.h"
 #include "katekeyinterceptorfunctor.h"
+#include <QPointer>
 #include <qobject.h>
 #include <qmap.h>
 #include <QHash>
@@ -27,6 +28,10 @@
 #include <QList>
 
 class KateDocument;
+
+namespace KTextEditor {
+  class SmartRange;
+}
 
 class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 		Q_OBJECT
@@ -36,10 +41,17 @@ class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 		inline bool initOk() {return m_initOk;}
 		virtual bool operator()(int key);
 	private:
-		struct KateTemplatePlaceHolder {
-      KateTemplatePlaceHolder(KateDocument*) {}
+		class KateTemplatePlaceHolder {
+                public:
+                        KateTemplatePlaceHolder(bool isCursor,bool isInitialValue, bool isReplacableSpace) {
+                          this->isCursor=isCursor;
+                          this->isInitialValue=isInitialValue;
+                          this->isReplacableSpace=isReplacableSpace;
+                        }
+                        QList<KTextEditor::SmartRange*> ranges;
 			bool isCursor;
 			bool isInitialValue;
+                        bool isReplacableSpace;
 		};
 		class KateTemplateHandlerPlaceHolderInfo{
 			public:
@@ -59,14 +71,16 @@ class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 
 		void generateRangeTable(const KTextEditor::Cursor& insertPosition, const QString& insertString, const QList<KateTemplateHandlerPlaceHolderInfo> &buildList);
 		int m_currentTabStop;
-		KateSmartRange *m_currentRange;
+		KTextEditor::SmartRange *m_currentRange;
 		void locateRange(const KTextEditor::Cursor &cursor );
 		bool m_initOk;
 		bool m_recursion;
+                KTextEditor::SmartRange* m_templateRange;
 	private Q_SLOTS:
-		void slotTextInserted(int,int);
+		void slotTextInserted(KTextEditor::Document*, const KTextEditor::Range&);
 		void slotDocumentDestroyed();
 		void slotAboutToRemoveText(const KTextEditor::Range& range);
 		void slotTextRemoved();
+                void slotRangeDeleted(KTextEditor::SmartRange*);
 };
 #endif

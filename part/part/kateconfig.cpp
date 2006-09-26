@@ -1029,6 +1029,7 @@ KateRendererConfig::KateRendererConfig ()
    m_tabMarkerColorSet(true),
    m_iconBarColorSet (true),
    m_lineNumberColorSet (true),
+   m_templateColorsSet(true),
    m_lineMarkerColorSet (m_lineMarkerColor.size()),
    m_renderer (0)
 {
@@ -1058,6 +1059,7 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_tabMarkerColorSet(false),
    m_iconBarColorSet (false),
    m_lineNumberColorSet (false),
+   m_templateColorsSet(false),
    m_lineMarkerColorSet (m_lineMarkerColor.size()),
    m_renderer (renderer)
 {
@@ -1188,6 +1190,14 @@ void KateRendererConfig::setSchemaInternal( int schema )
   m_font = config->readEntry("Font", f);
   m_fontMetrics = QFontMetrics(m_font);
   m_fontSet = true;
+
+  kDebug()<<"Loading template colors "<<this<<endl;
+  m_templateBackgroundColor=config->readEntry(QString("Color Template Background"),QColor(0xcc,0xcc,0xcc));
+  m_templateEditablePlaceholderColor = config->readEntry(QString("Color Template Editable Placeholder"),QColor(0xcc,0xff,0xcc));
+  m_templateFocusedEditablePlaceholderColor=config->readEntry(QString("Color Template Focused Editable Placeholder"),QColor(0x66,0xff,0x66));
+  m_templateNotEditablePlaceholderColor=config->readEntry(QString("Color Template Not Editable Placeholder"),QColor(0xff,0xcc,0xcc));
+
+  m_templateColorsSet=true;
 }
 
 const QFont& KateRendererConfig::font() const
@@ -1390,6 +1400,33 @@ void KateRendererConfig::setIconBarColor (const QColor &col)
 
   configEnd ();
 }
+
+
+const QColor &KateRendererConfig::templateBackgroundColor() const {
+  if (m_templateColorsSet || isGlobal())
+    return m_templateBackgroundColor;
+
+  return s_global->templateBackgroundColor();
+}
+const QColor &KateRendererConfig::templateEditablePlaceholderColor() const {
+  if (m_templateColorsSet || isGlobal())  
+    return m_templateEditablePlaceholderColor;
+
+  return s_global->templateEditablePlaceholderColor();
+}
+const QColor &KateRendererConfig::templateFocusedEditablePlaceholderColor() const {
+  if (m_templateColorsSet || isGlobal())  
+    return m_templateFocusedEditablePlaceholderColor;
+
+  return s_global->templateFocusedEditablePlaceholderColor();
+}
+const QColor &KateRendererConfig::templateNotEditablePlaceholderColor() const {
+  if (m_templateColorsSet || isGlobal())  
+    return m_templateNotEditablePlaceholderColor;
+  
+  return s_global->templateNotEditablePlaceholderColor();
+}
+
 
 const QColor& KateRendererConfig::lineNumberColor() const
 {

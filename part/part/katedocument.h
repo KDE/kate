@@ -315,7 +315,7 @@ class KateDocument : public KTextEditor::Document,
     void setUndoDontMergeComplex(bool dontMerge);
 
     bool isEditRunning() const;
-
+    bool isWithUndo() const {return editWithUndo;}
   private Q_SLOTS:
     void undoCancel();
 
@@ -368,7 +368,6 @@ class KateDocument : public KTextEditor::Document,
 
   Q_SIGNALS:
     void undoChanged ();
-    void textInserted(int line,int column);
 
   //
   // KTextEditor::SearchInterface stuff

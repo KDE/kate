@@ -198,6 +198,10 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab()
   ui->combobox->addItem(i18n("Execution"));           // markType05
   ui->combobox->addItem(i18n("Warning"));             // markType06
   ui->combobox->addItem(i18n("Error"));               // markType07
+  ui->combobox->addItem(i18n("Template Background"));
+  ui->combobox->addItem(i18n("Template Editable Placeholder"));
+  ui->combobox->addItem(i18n("Template Focused Editable Placeholder"));
+  ui->combobox->addItem(i18n("Template Not Editable Placeholder"));
   ui->combobox->setCurrentIndex(0);
 
   connect( ui->combobox  , SIGNAL( activated( int ) )        , SLOT( slotComboBoxChanged( int ) ) );
@@ -279,7 +283,12 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
     for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)
       c.markerColors[i] =  config->readEntry( QString("Color MarkType%1").arg(i+1), mark[i] );
 
-     m_schemas[ newSchema ] = c;
+    c.templateColors[0] = config->readEntry(QString("Color Template Background"),QColor(0xcc,0xcc,0xcc));
+    c.templateColors[1] = config->readEntry(QString("Color Template Editable Placeholder"),QColor(0xcc,0xff,0xcc));
+    c.templateColors[2] = config->readEntry(QString("Color Template Focused Editable Placeholder"),QColor(0x66,0xff,0x66));
+    c.templateColors[3] = config->readEntry(QString("Color Template Not Editable Placeholder"),QColor(0xff,0xcc,0xcc));
+
+    m_schemas[ newSchema ] = c;
   }
 
   ui->back->setColor(  m_schemas[ newSchema ].back);
@@ -327,13 +336,23 @@ void KateSchemaConfigColorTab::apply ()
     {
       config->writeEntry(QString("Color MarkType%1").arg(i + 1), c.markerColors[i]);
     }
+
+    config->writeEntry(QString("Color Template Background"),c.templateColors[0]);
+    config->writeEntry(QString("Color Template Editable Placeholder"),c.templateColors[1]);
+    config->writeEntry(QString("Color Template Focused Editable Placeholder"),c.templateColors[2]);
+    config->writeEntry(QString("Color Template Not Editable Placeholder"),c.templateColors[3]);
+
+
   }
 }
 
 void KateSchemaConfigColorTab::slotMarkerColorChanged( const QColor& color)
 {
   int index = ui->combobox->currentIndex();
+  if (index<7)
    m_schemas[ m_schema ].markerColors[ index ] = color;
+  else
+   m_schemas[m_schema].templateColors[index-7] = color;
   QPixmap pix(16, 16);
   pix.fill(color);
   ui->combobox->setItemIcon(index, QIcon(pix));
@@ -345,7 +364,10 @@ void KateSchemaConfigColorTab::slotComboBoxChanged(int index)
 {
   // temporarily block signals because setColor emits changed as well
   ui->markers->blockSignals(true);
-  ui->markers->setColor( m_schemas[m_schema].markerColors[index] );
+  if (index<7)
+    ui->markers->setColor( m_schemas[m_schema].markerColors[index] );
+  else
+    ui->markers->setColor( m_schemas[m_schema].templateColors[index-7] );
   ui->markers->blockSignals(false);
 }
 

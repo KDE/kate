@@ -485,6 +485,12 @@ class KateRendererConfig : public KateConfig
     bool showIndentationLines () const;
     void setShowIndentationLines (bool on);
 
+    const QColor &templateBackgroundColor() const;
+    const QColor &templateEditablePlaceholderColor() const;
+    const QColor &templateFocusedEditablePlaceholderColor() const;
+    const QColor &templateNotEditablePlaceholderColor() const;
+
+
   private:
     /**
      * Read the schema properties from the config file.
@@ -506,6 +512,12 @@ class KateRendererConfig : public KateConfig
     QColor m_lineNumberColor;
     QVector<QColor> m_lineMarkerColor;
 
+    QColor m_templateBackgroundColor;
+    QColor m_templateEditablePlaceholderColor;
+    QColor m_templateFocusedEditablePlaceholderColor;
+    QColor m_templateNotEditablePlaceholderColor;
+
+
     bool m_schemaSet : 1;
     bool m_fontSet : 1;
     bool m_wordWrapMarkerSet : 1;
@@ -518,6 +530,7 @@ class KateRendererConfig : public KateConfig
     bool m_tabMarkerColorSet : 1;
     bool m_iconBarColorSet : 1;
     bool m_lineNumberColorSet : 1;
+    bool m_templateColorsSet : 1;
     QBitArray m_lineMarkerColorSet;
 
   private:

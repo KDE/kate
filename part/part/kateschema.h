@@ -136,6 +136,7 @@ class KateSchemaConfigColorTab : public QWidget
       public:
         QColor back, selected, current, bracket, wwmarker, iconborder, tmarker, linenumber;
         QMap<int, QColor> markerColors;  // stores all markerColors
+        QMap<int, QColor> templateColors;
     };
 
     // schemaid=data, created when a schema is entered

@@ -227,7 +227,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
       smartGroup->translateShifted(*edit);
 
   // Translate affected groups
-  for (KateSmartGroup* smartGroup = currentGroup; smartGroup; smartGroup = smartGroup->next()) {
+  for (KateSmartGroup* smartGroup = firstSmartGroup; smartGroup; smartGroup = smartGroup->next()) {
     if (smartGroup->startLine() > edit->oldRange().end().line())
       break;
 

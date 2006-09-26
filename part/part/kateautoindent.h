@@ -158,8 +158,6 @@ class KateAutoIndent : public QObject
   public:
     bool changeIndent (KateView *view, const KTextEditor::Range &range, int change);
 
-    bool cleanIndent (KateView *view, const KTextEditor::Range &range);
-
   /*
    * Real interfaces...
    * Subclasses can overwrite them....
@@ -215,7 +213,7 @@ class KateAutoIndent : public QObject
      * \param relative is the change a relative change to the current indent level or should
      * the indent of the given line be set to the given indentation level
      */
-    bool doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces = false, bool dontDestroyProfile = false );
+    bool doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces = false );
    
   protected:
     KateDocument *doc; //!< the document the indenter works on

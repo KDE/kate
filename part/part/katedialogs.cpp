@@ -215,6 +215,12 @@ void KateIndentConfigTab::apply ()
   KateDocumentConfig::global()->configStart ();
 
   uint configFlags = KateDocumentConfig::global()->configFlags();
+
+  configFlags &= ~KateDocumentConfig::cfKeepIndentProfile;
+  configFlags &= ~KateDocumentConfig::cfKeepExtraSpaces;
+  configFlags &= ~KateDocumentConfig::cfIndentPastedText;
+  configFlags &= ~KateDocumentConfig::cfBackspaceIndents;
+
   if (ui->chkKeepIndentProfile->isChecked()) configFlags |= KateDocumentConfig::cfKeepIndentProfile;
   if (ui->chkKeepExtraSpaces->isChecked()) configFlags |= KateDocumentConfig::cfKeepExtraSpaces;
   if (ui->chkIndentPaste->isChecked()) configFlags |= KateDocumentConfig::cfIndentPastedText;

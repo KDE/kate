@@ -137,10 +137,36 @@ void KateAutoIndent::updateConfig ()
 
 bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &range, int change)
 {
-}
+  // loop over all lines given...
+  if (keepProfile && change < 0)
+  {
+    for (int line = range.start().line () < 0 ? 0 : range.start().line (); line <= qMin (range.end().line (), doc->lines()-1); ++line)
+    {
+      KateTextLine::Ptr textline = doc->plainKateTextLine(line);
   
-bool KateAutoIndent::cleanIndent (KateView *view, const KTextEditor::Range &range)
-{
+      // textline not found, cu
+      if (!textline)
+        return false;
+  
+      // get indent width of current line
+      int currentIndentInSpaces = textline->indentDepth (tabWidth);
+  
+      // oh oh, too less indent....
+      if (currentIndentInSpaces < (indentWidth * (-change)))
+      {
+        kDebug () << "oh oh, can't unindent" << endl;
+        return false;
+      }
+    }
+  }
+
+  // loop over all lines given...
+  for (int line = range.start().line () < 0 ? 0 : range.start().line (); line <= qMin (range.end().line (), doc->lines()-1); ++line)
+  {
+    doIndent (view, line, change, true, keepExtra);
+  }
+
+  return true;
 }
 
 QString KateAutoIndent::tabString (int length) const
@@ -164,7 +190,7 @@ QString KateAutoIndent::tabString (int length) const
   return s;
 }
 
-bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces, bool dontDestroyProfile )
+bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces )
 {
   kDebug () << "doIndent: line: " << line << " change: " << change << " relative: " << relative << endl;
 
@@ -178,13 +204,7 @@ bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relat
   int spacesToKeep = 0;
 
   // get indent width of current line
-  int currentIndentInSpaces = textline->indentDepth (tabWidth);
-
-  if (dontDestroyProfile && relative)
-  {
-    if (currentIndentInSpaces < (indentWidth * (-change)))
-      return false;
-  }
+  int currentIndentInSpaces = (relative || keepExtraSpaces) ? textline->indentDepth (tabWidth) : 0;
 
   // calc the spaces to keep
   if (keepExtraSpaces)

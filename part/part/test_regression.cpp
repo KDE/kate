@@ -417,7 +417,7 @@ static KCmdLineOptions options[] =
     { "base <base_dir>", "Directory containing tests, basedir and output directories.", 0},
     { "cmp-failures <snapshot>", "Compare failures of this testrun against snapshot <snapshot>. Defaults to the most recently captured failure snapshot or none if none exists.", 0 },
     { "d", 0, 0 },
-    { "debug", "Do not supress debug output", 0},
+    { "debug", "Do not suppress debug output", 0},
     { "g", 0, 0 } ,
     { "genoutput", "Regenerate baseline (instead of checking)", 0 } ,
     { "keep-output", "Keep output files even on success", 0 },

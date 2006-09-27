@@ -42,6 +42,8 @@ namespace KParts {
   struct URLArgs;
 }
 
+class OutputObject;
+
 /**
  * @internal
  * The backbone of Kate's automatic regression tests.
@@ -60,6 +62,11 @@ class TestJScriptEnv : public KateJScriptInterpreterContext
     KJS::JSObject *document() const { return m_document; }
     /** returns the view scope */
     KJS::JSObject *view() const { return m_view; }
+    /** returns the output object */
+    OutputObject *output() const { return m_output; }
+
+  protected:
+    OutputObject *m_output;
 };
 
 /**
@@ -96,9 +103,60 @@ class KateViewFunction : public KJS::JSObject
     bool implementsCall() const;
     virtual KJS::JSValue *callAsFunction(KJS::ExecState *exec, KJS::JSObject *thisObj, const KJS::List &args);
 
-    enum { KeyReturn, Type };
+    enum { KeyReturn, Type, Backspace, DeleteWordLeft, KeyDelete,
+      DeleteWordRight, Transpose, CursorLeft, ShiftCursorLeft, CursorRight,
+      ShiftCursorRight, WordLeft, ShiftWordLeft, WordRight, ShiftWordRight,
+      Home, ShiftHome, End, ShiftEnd, Up, ShiftUp, Down, ShiftDown, ScrollUp,
+      ScrollDown, TopOfView, ShiftTopOfView, BottomOfView, ShiftBottomOfView,
+      PageUp, ShiftPageUp, PageDown, ShiftPageDown, Top, ShiftTop, Bottom,
+      ShiftBottom, ToMatchingBracket, ShiftToMatchingBracket };
   private:
     KateView *m_view;
+    int id;
+};
+
+class OutputFunction;
+
+/**
+ * Customizing output to result-files. Writing any output into result files
+ * inhibits outputting the content of the katepart after script execution, enabling one to check for coordinates and the like.
+ * @internal
+ */
+class OutputObject : public KJS::JSObject
+{
+  public:
+    OutputObject(KJS::ExecState *exec, KateDocument *d, KateView *v);
+    virtual ~OutputObject();
+
+    virtual KJS::UString className() const;
+
+    void setChangedFlag(bool *flag) { changed = flag; }
+    void setOutputFile(const QString &filename) { this->filename = filename; }
+
+  private:
+    KateDocument *doc;
+    KateView *view;
+    bool *changed;
+    QString filename;
+
+    friend class OutputFunction;
+};
+
+/**
+ * Customizing output to result-files.
+ * @internal
+ */
+class OutputFunction : public KJS::JSObject
+{
+  public:
+    OutputFunction(KJS::ExecState *exec, OutputObject *obj, int _id, int length);
+
+    bool implementsCall() const;
+    virtual KJS::JSValue *callAsFunction(KJS::ExecState *exec, KJS::JSObject *thisObj, const KJS::List &args);
+
+    enum { Write, Writeln, WriteCursorPosition, WriteCursorPositionln };
+  private:
+    OutputObject *o;
     int id;
 };
 
@@ -122,7 +180,7 @@ public:
     bool runTests(QString relPath = QString::null, bool mustExist = false, int known_failure = NoFailure);
     bool reportResult( bool passed, const QString & description = QString::null, bool *newfailure = 0 );
     bool reportResult(CheckResult result, const QString & description = QString::null, bool *newfailure = 0 );
-    void createMissingDirs(const QString &path);
+    static void createMissingDirs(const QString &path);
 
     void setFailureSnapshotConfig(KConfig *cfg, const QString &snapshotname);
     void setFailureSnapshotSaver(KConfig *cfg, const QString &snapshotname);
@@ -156,6 +214,7 @@ public:
     bool saw_failure;
     bool ignore_errors;
     int m_known_failures;
+    bool m_outputCustomised;
 
     static RegressionTest *curr;
 

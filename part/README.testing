@@ -221,10 +221,11 @@ and checking whether it works the way we intended it.
   -------------------------------------------
   
 testkateregression provides you with the following global objects for each
-testcase:
+testcase (parenthesis contain aliases):
 
-	v - object of view
-	d - object of document
+	view (v)          - object of view
+	document (doc, d) - object of document
+	output (out, o)   - object of direct output to result file
 
 Each object provides the same methods and fields as the respective JavaScript-
 interfaces built in to Kate, like v.setCursorPosition.
@@ -235,7 +236,28 @@ type(<string>)
 	Inserts <string> into the current cursor position as if <string> had
 	been typed by the keyboard. Contrary to insert(<string>), it will
 	trigger indentation and other checks.
-enter(), returnKey()
-	Inserts a new line as if the return key had been pressed. This will
-	trigger special indentation rules.
+enter([n]), returnKey([n])
+	Inserts <n> new lines as if the return key had been pressed <n> times.
+	This will trigger special indentation rules. Omitting <n> defaults to 1.
+up([n])
+down([n])
+prev([n]), left([n])
+next([n]), right([n])
+	Moves up/down/prev/next the cursor by <n> characters/lines. Omitting
+	<n> defaults to 1.
 
+o provides the following methods:
+
+write(<msg>), print(<msg>)
+	Writes out <msg> to the result file instead of copying the content of
+	the editor at end of the testcase. The first invocation of an output
+	method will generate a new empty result file containing <msg>,
+	whereas consecutive calls to output routines will append to the
+	result file.
+writeln(<msg>), println(<msg>)
+	Like write, but appends a newline to <msg>.
+writeCursorPosition(<prompt>), cursorPosition(<prompt>), pos(<prompt>)
+	Writes out <prompt>, followed by the current cursor position in the
+	format "(line,col)". The coordinates are zero-based.
+writeCursorPositionln(<prompt>), cursorPositionln(<prompt>), posln(<prompt>)
+	Like the above, but append an additional newline.

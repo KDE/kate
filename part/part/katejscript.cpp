@@ -1666,7 +1666,7 @@ void KateIndentJScriptManager::collectScripts (bool force)
 #endif
 
   // Let's get a list of all the .js files
-  QStringList list = KGlobal::dirs()->findAllResources("data","katepart/scripts/indent/*.js",false,true);
+  QStringList list = KGlobal::dirs()->findAllResources("data","katepart/indent/*.js",false,true);
 
   // Let's iterate through the list and build the Mode List
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )

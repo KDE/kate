@@ -30,11 +30,8 @@ var cfgIndentCase = true;
 var cfgIndentNamespace = true;
 //END USER CONFIGURATION
 
-indenter.processChar = processChar
-indenter.processNewLine = processNewLine
-indenter.processLine = processLine
-indenter.processSection = processSection
-indenter.processIndent = processIndent
+indenter.indent = indent;
+indenter.triggerCharacters = "{};";
 
 //BEGIN global variables and functions
 // maximum number of lines we look backwards/forward to find out the indentation

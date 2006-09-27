@@ -168,8 +168,9 @@ class RegressionTest : public QObject
   Q_OBJECT
 public:
 
-    RegressionTest(KateDocument *part, const QString &baseDir,
-                   const QString &outputDir, bool _genOutput);
+    RegressionTest(KateDocument *part, KConfig *baseConfig,
+                   const QString &baseDir, const QString &outputDir,
+                   bool _genOutput);
     ~RegressionTest();
 
     enum OutputType { ResultDocument };
@@ -180,6 +181,7 @@ public:
     bool runTests(QString relPath = QString::null, bool mustExist = false, int known_failure = NoFailure);
     bool reportResult( bool passed, const QString & description = QString::null, bool *newfailure = 0 );
     bool reportResult(CheckResult result, const QString & description = QString::null, bool *newfailure = 0 );
+    void rereadConfig();
     static void createMissingDirs(const QString &path);
 
     void setFailureSnapshotConfig(KConfig *cfg, const QString &snapshotname);
@@ -190,6 +192,7 @@ public:
 
     KateDocument *m_part;
     KateView *m_view;
+    KConfig *m_baseConfig;
     QString m_baseDir;
     QString m_outputDir;
     bool m_genOutput;

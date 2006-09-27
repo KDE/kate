@@ -161,6 +161,10 @@ Each <testcase>.txt must be accompanied with a <testcase>.txt-script which
 contains the actual tests to be performed on the testcase. It consists of
 simple JavaScript-statements for direct interfacing with Kate.
 
+Optionally, a <testcase>.txt can also be accompanied by a
+<testcase>.txt-commands containing a list of valid kate-commands to be executed
+before the testcase is run.
+
 Last but not least, a <testcase>.txt-result exists under the baseline
 subdirectory, which contains a mirrored directory hierarchy of tests. This very
 file contains the expected *result* of the performed tests.

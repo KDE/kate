@@ -558,7 +558,6 @@ int main(int argc, char *argv[])
                                           /*bReadOnly*/false,
                                           /*parentWidget*/toplevel);
     part->setObjectName("testkate");
-    KateGlobal::self()->readConfig(&cfg);
 
     toplevel->setCentralWidget( part->widget() );
 
@@ -582,6 +581,7 @@ int main(int argc, char *argv[])
 
     // run the tests
     RegressionTest *regressionTest = new RegressionTest(part,
+                                                        &cfg,
                                                         baseDir,
                                                         args->getOption("output"),
                                                         args->isSet("genoutput"));
@@ -686,12 +686,14 @@ int main(int argc, char *argv[])
 
 RegressionTest *RegressionTest::curr = 0;
 
-RegressionTest::RegressionTest(KateDocument *part, const QString &baseDir,
+RegressionTest::RegressionTest(KateDocument *part, KConfig *baseConfig,
+                               const QString &baseDir,
                                const QString &outputDir, bool _genOutput)
   : QObject(part)
 {
     m_part = part;
     m_view = static_cast<KateView *>(m_part->widget());
+    m_baseConfig = baseConfig;
     m_baseDir = baseDir;
     m_baseDir = m_baseDir.replace( "//", "/" );
     if ( m_baseDir.endsWith( "/" ) )
@@ -833,8 +835,13 @@ bool RegressionTest::runTests(QString relPath, bool mustExist, int known_failure
         m_known_failures = known_failure;
         m_outputCustomised = false;
         // gather commands
+        // directory-specific commands
         QStringList commands = concatListFiles(relPath, ".kateconfig-commands");
-	if ( filename.endsWith(".txt") ) {
+        // testcase-specific commands
+        commands += readListFile(m_currentBase + "/" + filename + "-commands");
+
+        rereadConfig(); // reset options to default
+        if ( filename.endsWith(".txt") ) {
 #if 0
             if ( relPath.startsWith( "domts/" ) && !m_runJS )
                 return true;
@@ -1074,6 +1081,7 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
     // inject commands
     for (QStringList::ConstIterator cit = commands.begin(); cit != commands.end(); ++cit) {
         QString str = (*cit).trimmed();
+        kDebug() << "command: " << str << endl;
         if (str.isEmpty() || str.startsWith("#")) continue;
         KTextEditor::Command *cmd = KateCmd::self()->queryCommand(str);
         if (cmd) {
@@ -1230,6 +1238,14 @@ RegressionTest::CheckResult RegressionTest::checkOutput(const QString &againstFi
         printf("Generated %s\n", outputFilename.toLatin1().constData());
 
     return result;
+}
+
+void RegressionTest::rereadConfig()
+{
+    m_baseConfig->setGroup("Kate Document Defaults");
+    m_part->config()->readConfig(m_baseConfig);
+    m_baseConfig->setGroup("Kate View Defaults");
+    m_view->config()->readConfig(m_baseConfig);
 }
 
 bool RegressionTest::reportResult(CheckResult result, const QString & description, bool *newfail)

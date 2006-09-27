@@ -79,6 +79,7 @@ const QStringList &KateCommands::CoreCommands::cmds()
     << "set-indent-width"
     << "set-indent-mode" << "set-auto-indent"
     << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
+    << "set-wrap-cursor"
     << "set-word-wrap" << "set-word-wrap-column"
     << "set-replace-tabs-save" << "set-remove-trailing-space-save"
     << "set-highlight" << "set-show-indent";
@@ -230,6 +231,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
             cmd == "set-remove-trailing-space" ||
             cmd == "set-show-tabs" ||
             cmd == "set-word-wrap" ||
+            cmd == "set-wrap-cursor" ||
             cmd == "set-replace-tabs-save" ||
             cmd == "set-remove-trailing-space-save" ||
             cmd == "set-show-indent" )
@@ -257,6 +259,8 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
         v->doc()->setWordWrap( enable );
       else if ( cmd == "set-remove-trailing-space-save" )
         setDocFlag( KateDocumentConfig::cfRemoveSpaces, enable, v->doc() );
+      else if ( cmd == "set-wrap-cursor" )
+        setDocFlag( KateDocumentConfig::cfWrapCursor, enable, v->doc() );
 
       return true;
     }

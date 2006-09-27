@@ -367,7 +367,7 @@ KJS::JSValue *OutputFunction::callAsFunction(KJS::ExecState *exec, KJS::JSObject
             }
 
             if (id == Writeln)
-                res += "\n";
+                res += '\n';
 
             buffer = res.toUtf8();
             break;
@@ -382,10 +382,10 @@ KJS::JSValue *OutputFunction::callAsFunction(KJS::ExecState *exec, KJS::JSObject
 
             // Append cursor position
             KTextEditor::Cursor c = o->view->cursorPosition();
-            res += "(" + QString::number(c.line()) + "," + QString::number(c.column()) + ")";
+            res += '(' + QString::number(c.line()) + ',' + QString::number(c.column()) + ')';
 
             if (id == WriteCursorPositionln)
-                res += "\n";
+                res += '\n';
 
             buffer = res.toUtf8();
             break;
@@ -779,7 +779,7 @@ QStringList RegressionTest::concatListFiles(const QString &relPath, const QStrin
     int pos = relPath.lastIndexOf('/');
     if (pos >= 0)
         cmds += concatListFiles(relPath.left(pos), filename);
-    cmds += readListFile(m_baseDir + "/tests/" + relPath + "/" + filename);
+    cmds += readListFile(m_baseDir + "/tests/" + relPath + '/' + filename);
     return cmds;
 }
 
@@ -813,7 +813,7 @@ bool RegressionTest::runTests(QString relPath, bool mustExist, int known_failure
 	QDir sourceDir(m_baseDir + "/tests/"+relPath);
 	for (uint fileno = 0; fileno < sourceDir.count(); fileno++) {
 	    QString filename = sourceDir[fileno];
-	    QString relFilename = relPath.isEmpty() ? filename : relPath+"/"+filename;
+	    QString relFilename = relPath.isEmpty() ? filename : relPath+'/'+filename;
 
             if (filename.startsWith(".") || ignoreFiles.contains(filename) )
                 continue;
@@ -877,10 +877,10 @@ void RegressionTest::createLink( const QString& test, int failures )
     link += "</a> ";
     if (failures & NewFailure)
         link += "<span style=\"font-weight:bold;color:red\">";
-    link += "[";
+    link += '[';
     if ( failures & ResultFailure )
-        link += "R";
-    link += "]";
+        link += 'R';
+    link += ']';
     if (failures & NewFailure)
         link += "</span>";
     link += "<br>\n";
@@ -929,7 +929,7 @@ static QString makeRelativePath(const QString &base, const QString &path)
             for (int i = relBase.count('/'); i > 0; --i)
                 rel += "../";
             rel += "..";
-            if (relPath.length() > 0) rel += "/";
+            if (relPath.length() > 0) rel += '/';
         }
         rel += relPath;
     }
@@ -983,7 +983,7 @@ void RegressionTest::doFailureReport( const QString& test, int failures )
             QString l = is->readLine();
             l = l.replace( '<', "&lt;" );
             l = l.replace( '>', "&gt;" );
-            domDiff += l  + "\n";
+            domDiff += l  + '\n';
         }
         delete is;
         domDiff += "</pre>";
@@ -1267,7 +1267,7 @@ bool RegressionTest::reportResult(bool passed, const QString & description, bool
 
     QString filename(m_currentTest + "-" + description);
     if (!m_currentCategory.isEmpty())
-        filename = m_currentCategory + "/" + filename;
+        filename = m_currentCategory + '/' + filename;
 
     const bool oldfailed = m_failureComp && m_failureComp->readNumEntry(filename);
     if (passed) {

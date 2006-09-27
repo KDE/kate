@@ -114,6 +114,13 @@ class KateAutoIndent
      */
     bool doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces = false );
 
+    /**
+     * Reuse the indent of the previous line
+     * \param view the current active view
+     * \param line line to change indent for
+     */
+    void keepIndent ( KateView *view, int line );
+
   public:
     /**
      * Switch indenter

@@ -210,6 +210,21 @@ bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relat
   return true;
 }
 
+void KateAutoIndent::keepIndent ( KateView *view, int line )
+{
+  // no line in front, no work...
+  if (line <= 0)
+    return;
+  
+  KateTextLine::Ptr textline = doc->plainKateTextLine(line-1);
+  
+  // textline not found, cu
+  if (!textline)
+    return;
+
+  doIndent (view, line, textline->indentDepth (tabWidth), false);
+}
+
 bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &range, int change)
 {
   // loop over all lines given...
@@ -267,17 +282,8 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
     if (typedChar != '\n')
       return;
 
-    // no line in front, no work...
-    if (position.line() <= 0)
-      return;
-  
-    KateTextLine::Ptr textline = doc->plainKateTextLine(position.line()-1);
-  
-    // textline not found, cu
-    if (!textline)
-      return;
-
-    doIndent (view, position.line(), textline->indentDepth (tabWidth), false);
+    // keep indent of previous line
+    keepIndent (view, position.line());
    
     return;
   }
@@ -296,7 +302,23 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
 
 void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
 {
-  // todo: query the script for the indentation, in spaces, and do the indent than....
+  int newIndentInChars = m_script->indent (view, position, typedChar);
+
+  // handle negative values special
+  if (newIndentInChars < -1)
+    return;
+
+  // reuse indentation of the previous line, just like the "normal" indenter
+  if (newIndentInChars == -1)
+  {
+    // keep indent of previous line
+    keepIndent (view, position.line());
+   
+    return;
+  }
+
+  // we got a positive or zero indent to use...
+  doIndent (view, position.line(), newIndentInChars, false);
 }
 //END KateAutoIndent
 

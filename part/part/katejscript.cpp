@@ -1574,150 +1574,29 @@ inline static KJS::JSValue *kateIndentJScriptCall(KateView *view, QString &error
   return retval;
 }
 
-bool KateIndentJScript::processChar(KateView *view, QChar c, QString &errorMsg )
+int KateIndentJScript::indent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
 {
-  triggerCharacters ();
+  kDebug(13050) << "KateIndentJScript::indent" << endl;
   
-  kDebug(13050) << "KateIndentJScript::calculateIndentation" << endl;
-  
-  if (!setupInterpreter(errorMsg)) return false;
+  QString errorMsg;
+
+  if (!setupInterpreter(errorMsg)) return -2;
   
   KJS::List params;
-  params.append(KJS::Number(5));
-  
+  params.append(KJS::Number(position.line()));
+  params.append(KJS::String(QString(typedChar)));
+
   KJS::JSValue *val = kateIndentJScriptCall(view, errorMsg,
                                m_docWrapper, m_viewWrapper,
                                m_interpreter, m_indenter,
-                               KJS::Identifier("calculateIndentation"),
+                               KJS::Identifier("indent"),
                                params);
+
+  if (!val) return -2;
 
   kDebug() << "new indentation: " << val->toUInt32(m_interpreter->globalExec()) << endl;
 
-  return true;
-}
-
-bool KateIndentJScript::processLine(KateView *view, const KateDocCursor &line, QString &errorMsg )
-{
-  kDebug(13050) << "KateIndentJScript::processLine" << endl;
-  if (!setupInterpreter(errorMsg)) return false;
-  KJS::List params;
-  params.append(KJS::Number(line.line()));
-  return kateIndentJScriptCall(view, errorMsg,
-                               m_docWrapper, m_viewWrapper,
-                               m_interpreter, m_indenter,
-                               KJS::Identifier("processLine"),
-                               params);
-}
-
-bool KateIndentJScript::processNewline(KateView *view, const KateDocCursor &begin,
-                                       bool needcontinue, QString &errorMsg )
-{
-  kDebug(13050) << "KateIndentJScript::processNewline" << endl;
-  if (!setupInterpreter(errorMsg)) return false;
-  KJS::List params;
-  params.append(KJS::Number(begin.line()));
-  params.append(KJS::Number(begin.column()));
-  return kateIndentJScriptCall(view, errorMsg,
-                               m_docWrapper, m_viewWrapper,
-                               m_interpreter, m_indenter,
-                               KJS::Identifier("processNewLine"),
-                               params);
-}
-
-bool KateIndentJScript::canProcessNewLine()
-{
-  QString errorMsg;
-  if (!setupInterpreter(errorMsg)) {
-    kDebug(13050) << "canProcessNewLine: " << errorMsg << endl;
-    return false;
-  }
-
-  KJS::ExecState *exec = m_interpreter->globalExec();
-
-  m_indenter->get(exec, "processNewLine")->toObject(exec);
-  if (exec->hadException()) {
-    kDebug(13050) << "canProcessNewLine: Unable to lookup 'processNewLine'" << endl;
-    exec->clearException();
-    return false;
-  }
-
-  return true;
-}
-
-bool KateIndentJScript::canProcessLine()
-{
-  QString errorMsg;
-  if (!setupInterpreter(errorMsg)) {
-    kDebug(13050) << "canProcessLine: " << errorMsg << endl;
-    return false;
-  }
-
-  KJS::ExecState *exec = m_interpreter->globalExec();
-
-  m_indenter->get(exec, "processLine")->toObject(exec);
-  if (exec->hadException()) {
-    kDebug(13050) << "canProcessLine: Unable to lookup 'processLine'" << endl;
-    exec->clearException();
-    return false;
-  }
-
-  m_indenter->get(exec, "processSection")->toObject(exec);
-  if (exec->hadException()) {
-    kDebug(13050) << "canProcessLine: Unable to lookup 'processSection'" << endl;
-    exec->clearException();
-    return false;
-  }
-
-  return true;
-}
-
-bool KateIndentJScript::canProcessIndent()
-{
-  QString errorMsg;
-  if (!setupInterpreter(errorMsg)) {
-    kDebug(13050) << "canProcessIndent: " << errorMsg << endl;
-    return false;
-  }
-
-  KJS::ExecState *exec = m_interpreter->globalExec();
-
-  m_indenter->get(exec, "processIndent")->toObject(exec);
-  if (exec->hadException()) {
-    kDebug(13050) << "canProcessIndent: Unable to lookup 'processIndent'" << endl;
-    exec->clearException();
-    return false;
-  }
-
-  return true;
-}
-
-bool KateIndentJScript::processSection( KateView *view, const KateDocCursor &begin,
-                                        const KateDocCursor &end, QString &errorMsg )
-{
-  kDebug(13050) << "KateIndentJScript::processSection" << endl;
-  if (!setupInterpreter(errorMsg)) return false;
-  KJS::List params;
-  params.append(KJS::Number(begin.line()));
-  params.append(KJS::Number(end.line()));
-  return kateIndentJScriptCall(view, errorMsg,
-                               m_docWrapper, m_viewWrapper,
-                               m_interpreter, m_indenter,
-                               KJS::Identifier("processSection"),
-                               params);
-}
-
-bool KateIndentJScript::processIndent( KateView *view, uint line, int levels, QString &errorMsg )
-{
-  kDebug(13050) << "KateIndentJScript::processIndent" << endl;
-  if (!setupInterpreter(errorMsg)) return false;
-  KJS::List params;
-  params.append(KJS::Number(line));
-  params.append(KJS::Number(levels));
-  return kateIndentJScriptCall(view, errorMsg,
-                               m_docWrapper, m_viewWrapper,
-                               m_interpreter, m_indenter,
-                               KJS::Identifier("processIndent"),
-                               params);
+  return val->toUInt32(m_interpreter->globalExec());
 }
 
 const QString& KateIndentJScript::internalName()

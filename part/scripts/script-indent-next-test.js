@@ -34,9 +34,9 @@ indenter.triggerCharacters = "{};\t";
  * if possible, and from alignment to the end of text spaces. This implements
  * mixed indentation, i.e. indentation+alignment.
  */
-function indent(line)
+function indent(line, typedChar)
 {
-  view.indent (line, level, align);
+  return 5;
 }
 
 //END main/entry functions

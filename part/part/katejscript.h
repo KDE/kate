@@ -22,6 +22,7 @@
 #define __kate_jscript_h__
 
 #include <ktexteditor/commandinterface.h>
+#include <ktexteditor/cursor.h>
 
 #include <kdebug.h>
 
@@ -227,16 +228,7 @@ class KateIndentJScript {
         int version, double kateVersion);
     ~KateIndentJScript();
 
-    bool processChar( KateView *view, QChar c, QString &errorMsg );
-    bool processNewline( KateView *view, const KateDocCursor &begin,
-                         bool needcontinue, QString &errorMsg );
-    bool canProcessNewLine();
-    bool canProcessLine();
-    bool canProcessIndent();
-    bool processLine( KateView *view, const KateDocCursor &line, QString &errorMsg );
-    bool processSection( KateView *view, const KateDocCursor &begin,
-                         const KateDocCursor &end, QString &errorMsg );
-    bool processIndent( KateView *view, uint line, int levels, QString &errorMsg );
+    int indent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar);
     
     const QString &triggerCharacters ();
 

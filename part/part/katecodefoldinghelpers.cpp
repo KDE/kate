@@ -207,7 +207,7 @@ void KateCodeFoldingTree::getLineInfo(KateLineInfo *info, unsigned int line)
   info->startsInVisibleBlock = false;
   info->endsBlock = false;
   info->invalidBlockEnd = false;
-
+  info->depth=0;
   if (m_root.noChildren())
     return;
 
@@ -243,7 +243,15 @@ void KateCodeFoldingTree::getLineInfo(KateLineInfo *info, unsigned int line)
           }
         }
       }
-
+      KateCodeFoldingNode *node = findNodeForLine(line);
+      int depth=0;
+      while (node)
+      {
+        node = node->getParentNode();
+        depth++;
+      }
+      if (depth>0) depth--;
+      info->depth=depth;
       return;
     }
   }
@@ -254,7 +262,7 @@ void KateCodeFoldingTree::getLineInfo(KateLineInfo *info, unsigned int line)
 
 KateCodeFoldingNode *KateCodeFoldingTree::findNodeForLine(unsigned int line)
 {
-  if (m_root.noChildren()) // does we have child list + nodes ?
+  if (m_root.noChildren()) // do we have child list + nodes ?
     return &m_root;
 
   // lets look, if given line is within a subnode range, and then return the deepest one.

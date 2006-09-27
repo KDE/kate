@@ -728,15 +728,54 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_maxCharWidth( 0 )
   , minus_px ((const char**)minus_xpm)
   , plus_px ((const char**)plus_xpm)
+  , m_blockRange(0)
+  , m_lastBlockLine(-1)
 {
+
+        for (int i=0;i<MAXFOLDINGCOLORS;i++) {
+          int r,g,b;
+  /*
+          if (info.depth<16) {
+            r=0xff;
+            g=0xff;
+            b=0xff-0x10*info.depth;
+          } else if (info.depth<32) {
+            r=0xff-0x10*(info.depth-16); g=0xff;b=0;
+          } else if (info.depth<48) {
+            //r=0;g=0xff;b=0x10*(info.depth-32);
+            r=0;g=0xff-0x10*(info.depth-32);b=0;
+          } else {
+            //r=0;g=0xff;b=0xff;
+            r=0;g=0;b=0;
+          }
+  */
+          if (i<4) {
+            r=0xff;
+            g=0xff;
+            b=0xff-0x40*i;
+          } else if (i<8) {
+            r=0xff-0x40*(i-4); g=0xff;b=0;
+          } else if (i<16) {
+            //r=0;g=0xff;b=0x10*(info.depth-32);
+            r=0;g=0xff-0x40*(i-8);b=0;
+          } else {
+            //r=0;g=0xff;b=0xff;
+            r=0;g=0;b=0;
+          }
+          m_foldingColors[i]=QBrush(QColor(r,g,b),Qt::Dense4Pattern);
+          m_foldingColorsSolid[i]=QBrush(QColor(r,g,b),Qt::SolidPattern);
+       }
+
   setAttribute( Qt::WA_StaticContents );
   setSizePolicy( QSizePolicy(  QSizePolicy::Fixed, QSizePolicy::Minimum ) );
-
+  setMouseTracking(true);
   m_doc->setMarkDescription( MarkInterface::markType01, i18n("Bookmark") );
   m_doc->setMarkPixmap( MarkInterface::markType01, QPixmap((const char**)bookmark_xpm) );
 
   updateFont();
 }
+
+KateIconBorder::~KateIconBorder() {delete m_blockRange;}
 
 void KateIconBorder::setIconBorderOn( bool enable )
 {
@@ -862,6 +901,30 @@ int KateIconBorder::lineNumberWidth() const
 
   return width;
 }
+
+const QBrush& KateIconBorder::foldingColor(KateLineInfo *info,int realLine, bool solid) {
+  int depth;
+  if (info!=0) {
+    depth=info->depth;
+  } else {
+    KateLineInfo tmp;
+    m_doc->lineInfo(&tmp,realLine);
+    depth=tmp.depth;
+  }
+  
+  if (solid) {
+    if (depth<MAXFOLDINGCOLORS)
+      return m_foldingColorsSolid[depth];
+    else
+      return m_foldingColorsSolid[MAXFOLDINGCOLORS-1];
+  } else {
+    if (depth<MAXFOLDINGCOLORS)
+      return m_foldingColors[depth];
+    else
+      return m_foldingColors[MAXFOLDINGCOLORS-1];
+  }
+
+} 
 
 void KateIconBorder::paintEvent(QPaintEvent* e)
 {
@@ -991,6 +1054,8 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         KateLineInfo info;
         m_doc->lineInfo(&info,realLine);
 
+        p.fillRect(lnX,y,lnX+2*halfIPW,y+h-1,foldingColor(&info,realLine,true));
+
         if (!info.topLevel)
         {
           if (info.startsVisibleBlock && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
@@ -1064,7 +1129,6 @@ void KateIconBorder::mousePressEvent( QMouseEvent* e )
   const KateTextLayout& t = m_viewInternal->yToKateTextLayout(e->y());
   if (t.isValid()) {
     m_lastClickedLine = t.line();
-
     if ( positionToArea( e->pos() ) != IconBorder )
     {
       QMouseEvent forward( QEvent::MouseButtonPress,
@@ -1077,10 +1141,41 @@ void KateIconBorder::mousePressEvent( QMouseEvent* e )
   QWidget::mousePressEvent(e);
 }
 
+void KateIconBorder::showBlock(int line) {
+  //kDebug()<<"showBlock: 1"<<endl;
+  if (line==m_lastBlockLine) return;
+  //kDebug()<<"showBlock: 2"<<endl;
+  m_lastBlockLine=line;
+  delete m_blockRange;
+  m_blockRange=0;
+  KateCodeFoldingTree *tree=m_doc->foldingTree();
+  if (tree) {
+    //kDebug()<<"showBlock: 3"<<endl;
+    KateCodeFoldingNode *node = tree->findNodeForLine(line);
+    KTextEditor::Cursor beg;
+    KTextEditor::Cursor end;
+    if (node->getBegin(tree,&beg) && node->getEnd(tree,&end)) {
+      m_blockRange=m_doc->newSmartRange(KTextEditor::Range(beg,end));
+      KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
+      attr->setBackground(foldingColor(0,line,false));
+      m_blockRange->setAttribute(attr);
+      m_doc->addHighlightToView(m_view,m_blockRange,false);
+    }
+  }
+}
+
+void KateIconBorder::hideBlock() {
+  m_lastBlockLine=-1;
+  delete m_blockRange;
+  m_blockRange=0;
+}
+
 void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
 {
   const KateTextLayout& t = m_viewInternal->yToKateTextLayout(e->y());
   if (t.isValid()) {
+    if ( positionToArea( e->pos() ) == FoldingMarkers) showBlock(t.line());
+    else hideBlock();
     if ( positionToArea( e->pos() ) != IconBorder )
     {
       QMouseEvent forward( QEvent::MouseMove,

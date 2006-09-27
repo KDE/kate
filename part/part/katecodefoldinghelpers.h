@@ -48,6 +48,7 @@ class KateLineInfo
     bool startsInVisibleBlock;
     bool endsBlock;
     bool invalidBlockEnd;
+    int depth;
 };
 
 class KateCodeFoldingNode

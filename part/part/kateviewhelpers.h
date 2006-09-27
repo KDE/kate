@@ -34,8 +34,13 @@ class KateView;
 class KateViewInternal;
 class QActionGroup;
 
+#define MAXFOLDINGCOLORS 16
+
+class KateLineInfo;
+
 namespace KTextEditor {
   class Command;
+  class SmartRange;
 }
 
 /**
@@ -125,7 +130,7 @@ class KateIconBorder : public QWidget
 
   public:
     KateIconBorder( KateViewInternal* internalView, QWidget *parent );
-
+    virtual ~KateIconBorder();
     // VERY IMPORTANT ;)
     virtual QSize sizeHint() const;
 
@@ -183,6 +188,15 @@ class KateIconBorder : public QWidget
 
     QPixmap minus_px;
     QPixmap plus_px;
+
+    KTextEditor::SmartRange *m_blockRange;
+    int m_lastBlockLine;
+    void showBlock(int line);
+    void hideBlock();
+
+    QBrush m_foldingColors[MAXFOLDINGCOLORS];
+    QBrush m_foldingColorsSolid[MAXFOLDINGCOLORS];
+    const QBrush &foldingColor(KateLineInfo *, int,bool solid);
 };
 
 class KateViewEncodingAction : public KActionMenu

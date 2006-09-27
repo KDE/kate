@@ -973,10 +973,10 @@ void RegressionTest::doFailureReport( const QString& test, int failures )
         QByteArray out = diff.readAllStandardOutput();
         QTextStream *is = new QTextStream( out, QFile::ReadOnly );
         for ( int line = 0; line < 100 && !is->atEnd(); ++line ) {
-            QString line = is->readLine();
-            line = line.replace( '<', "&lt;" );
-            line = line.replace( '>', "&gt;" );
-            domDiff += line  + "\n";
+            QString l = is->readLine();
+            l = l.replace( '<', "&lt;" );
+            l = l.replace( '>', "&gt;" );
+            domDiff += l  + "\n";
         }
         delete is;
         domDiff += "</pre>";

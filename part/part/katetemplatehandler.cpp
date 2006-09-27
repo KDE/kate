@@ -139,7 +139,9 @@ KateTemplateHandler::~KateTemplateHandler()
     m_doc->removeTabInterceptor( this );
   }
   delete m_templateRange;
+#ifdef __GNUC__
   #warning delete placeholder infos here
+#endif
 }
 
 void KateTemplateHandler::slotRangeDeleted(KTextEditor::SmartRange* range) {

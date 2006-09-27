@@ -182,12 +182,10 @@ class KateIconBorder : public QWidget
     int m_cachedLNWidth;
 
     int m_maxCharWidth;
+    int iconPaneWidth;
 
     mutable QPixmap m_arrow;
     mutable QColor m_oldBackgroundColor;
-
-    QPixmap minus_px;
-    QPixmap plus_px;
 
     KTextEditor::SmartRange *m_blockRange;
     int m_lastBlockLine;

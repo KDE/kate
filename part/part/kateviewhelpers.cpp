@@ -49,6 +49,8 @@
 #include <QMouseEvent>
 #include <QPainterPath>
 #include <QStyleOption>
+#include <QPalette>
+#include <QPen>
 
 #include <math.h>
 
@@ -579,40 +581,6 @@ void KateCmdLine::fromHistory( bool up )
 //BEGIN KateIconBorder
 using namespace KTextEditor;
 
-static const char* const plus_xpm[] = {
-"11 11 3 1",
-"       c None",
-".      c #000000",
-"+      c #FFFFFF",
-"...........",
-".+++++++++.",
-".+++++++++.",
-".++++.++++.",
-".++++.++++.",
-".++.....++.",
-".++++.++++.",
-".++++.++++.",
-".+++++++++.",
-".+++++++++.",
-"..........."};
-
-static const char* const minus_xpm[] = {
-"11 11 3 1",
-"       c None",
-".      c #000000",
-"+      c #FFFFFF",
-"...........",
-".+++++++++.",
-".+++++++++.",
-".+++++++++.",
-".+++++++++.",
-".++.....++.",
-".+++++++++.",
-".+++++++++.",
-".+++++++++.",
-".+++++++++.",
-"..........."};
-
 static const char * bookmark_xpm[] = {
 "14 13 82 1",
 "   c None",
@@ -711,7 +679,6 @@ static const char * bookmark_xpm[] = {
 "   JKL  MNO   ",
 "   P      Q   "};
 
-const int iconPaneWidth = 16;
 const int halfIPW = 8;
 
 KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent )
@@ -726,8 +693,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_dynWrapIndicators( 0 )
   , m_cachedLNWidth( 0 )
   , m_maxCharWidth( 0 )
-  , minus_px ((const char**)minus_xpm)
-  , plus_px ((const char**)plus_xpm)
+  , iconPaneWidth (16)
   , m_blockRange(0)
   , m_lastBlockLine(-1)
 {
@@ -863,6 +829,13 @@ void KateIconBorder::updateFont()
     int charWidth = fm.width( QChar(i) );
     m_maxCharWidth = qMax(m_maxCharWidth, charWidth);
   }
+
+  // the icon pane scales with the font...
+  iconPaneWidth = fm.height();
+
+  updateGeometry();
+
+  QTimer::singleShot( 0, this, SLOT(update()) );
 }
 
 int KateIconBorder::lineNumberWidth() const
@@ -936,6 +909,43 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   paintBorder(e->rect().x(), e->rect().y(), e->rect().width(), e->rect().height());
 }
 
+static void paintTriangle (QPainter &painter, QColor baseColor, int xOffset, int yOffset, int width, int height, bool open)
+{
+  float size = qMin (width, height);
+
+  QColor c = baseColor.dark ();
+
+  // just test if that worked, else use light..., black on black is evil...
+  if (c == baseColor)
+    c = baseColor.light ();
+
+  QPen pen;
+  pen.setJoinStyle (Qt::RoundJoin);
+  pen.setColor (c);
+  pen.setWidth (1.5);
+  painter.setPen ( pen );
+ 
+  painter.setBrush ( c );
+
+  // let some border, if possible
+  size *= 0.6;
+
+  float halfSize = size / 2;
+  float halfSizeP = halfSize * 0.6;
+  QPointF middle (xOffset + (float)width / 2, yOffset + (float)height / 2);
+
+  if (open)
+  {
+    QPointF points[3] = { middle+QPointF(-halfSize, -halfSizeP), middle+QPointF(halfSize, -halfSizeP), middle+QPointF(0, halfSizeP) };
+    painter.drawConvexPolygon(points, 3);
+  }
+  else
+  {
+    QPointF points[3] = { middle+QPointF(-halfSizeP, -halfSize), middle+QPointF(-halfSizeP, halfSize), middle+QPointF(halfSizeP, 0) };
+    painter.drawConvexPolygon(points, 3);
+  }
+}
+
 void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 {
   uint h = m_view->renderer()->config()->fontMetrics().height();
@@ -969,10 +979,12 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   int w( this->width() );                     // sane value/calc only once
 
   QPainter p ( this );
+  p.setRenderHints (QPainter::Antialiasing);
   p.setFont ( m_view->renderer()->config()->font() ); // for line numbers
   // the line number color is for the line numbers, vertical separator lines
   // and for for the code folding lines.
   p.setPen ( m_view->renderer()->config()->lineNumberColor() );
+  p.setBrush ( m_view->renderer()->config()->lineNumberColor() );
 
   KateLineInfo oldInfo;
   if (startz < lineRangesSize)
@@ -999,6 +1011,9 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     // icon pane
     if( m_iconBorderOn )
     {
+      p.setPen ( m_view->renderer()->config()->lineNumberColor() );
+      p.setBrush ( m_view->renderer()->config()->lineNumberColor() );
+
       p.drawLine(lnX+iconPaneWidth, y, lnX+iconPaneWidth, y+h);
 
       if( (realLine > -1) && (m_viewInternal->cache()->viewLine(z).startCol() == 0) )
@@ -1059,44 +1074,25 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         KateLineInfo info;
         m_doc->lineInfo(&info,realLine);
 
-        p.fillRect(lnX,y,lnX+2*halfIPW,y+h-1,foldingColor(&info,realLine,true));
+        QBrush brush (foldingColor(&info,realLine,true));
+        p.fillRect(lnX, y, iconPaneWidth, h, brush);
 
         if (!info.topLevel)
         {
           if (info.startsVisibleBlock && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
           {
-            if (oldInfo.topLevel)
-              p.drawLine(lnX+halfIPW,y+m_px,lnX+halfIPW,y+h-1);
-            else
-              p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
-
-            p.drawPixmap(lnX+3,y+m_px,minus_px);
+            paintTriangle (p, brush.color(), lnX, y, iconPaneWidth, h, true);
           }
-          else if (info.startsInVisibleBlock)
+          else if (info.startsInVisibleBlock && m_viewInternal->cache()->viewLine(z).startCol() == 0)
           {
-            if (m_viewInternal->cache()->viewLine(z).startCol() == 0)
-            {
-              if (oldInfo.topLevel)
-                p.drawLine(lnX+halfIPW,y+m_px,lnX+halfIPW,y+h-1);
-              else
-                p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
-
-              p.drawPixmap(lnX+3,y+m_px,plus_px);
-            }
-            else
-            {
-              p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
-            }
-
-            if (!m_viewInternal->cache()->viewLine(z).wrap())
-              p.drawLine(lnX+halfIPW,y+h-1,lnX+iconPaneWidth-2,y+h-1);
+            paintTriangle (p, brush.color(), lnX, y, iconPaneWidth, h, false);
           }
           else
           {
-            p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
+           // p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
 
-            if (info.endsBlock && !m_viewInternal->cache()->viewLine(z).wrap())
-              p.drawLine(lnX+halfIPW,y+h-1,lnX+iconPaneWidth-2,y+h-1);
+           // if (info.endsBlock && !m_viewInternal->cache()->viewLine(z).wrap())
+            //  p.drawLine(lnX+halfIPW,y+h-1,lnX+iconPaneWidth-2,y+h-1);
           }
         }
 

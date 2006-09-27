@@ -67,7 +67,7 @@ class KateFileLoader
   public:
     KateFileLoader (const QString &filename, QTextCodec *codec, bool removeTrailingSpaces)
       : m_file (filename)
-      , m_buffer (qMin (m_file.size(), KATE_FILE_LOADER_BS), 0)
+      , m_buffer (qMin (m_file.size() == 0 ? KATE_FILE_LOADER_BS : m_file.size(), KATE_FILE_LOADER_BS), 0) // handle zero sized files special, like in /proc
       , m_codec (codec)
       , m_decoder (m_codec->makeDecoder())
       , m_position (0)
@@ -111,7 +111,7 @@ class KateFileLoader
           m_text = m_decoder->toUnicode (m_buffer, c);
         }
 
-        m_eof = (c == -1) || (c == 0) || (m_text.length() == 0) || m_file.atEnd();
+        m_eof = (c == -1) || (c == 0);
 
         for (int i=0; i < m_text.length(); i++)
         {
@@ -186,7 +186,7 @@ class KateFileLoader
               m_text = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
 
             // is file completely read ?
-            m_eof = (c == -1) || (c == 0) || (readString == 0) || m_file.atEnd();
+            m_eof = (c == -1) || (c == 0);
 
             // recalc current pos and last pos
             m_position -= m_lastLineStart;

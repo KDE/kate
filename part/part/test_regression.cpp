@@ -457,7 +457,8 @@ int main(int argc, char *argv[])
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs( );
 
     QByteArray baseDir = args->getOption("base");
-    QByteArray baseDirConfigFile(QByteArray(::getenv("HOME")) + QByteArray(BASE_DIR_CONFIG));
+    QByteArray homeDir = ::getenv("HOME");
+    QByteArray baseDirConfigFile(homeDir + QByteArray(BASE_DIR_CONFIG));
     {
         QFile baseDirConfig(baseDirConfigFile);
         if (baseDirConfig.open(QFile::ReadOnly)) {

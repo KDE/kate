@@ -85,14 +85,14 @@ class KateAutoIndent
     KateAutoIndent (KateDocument *doc);
 
     /**
-     * Virtual Destructor for the baseclass
+     * Destructor
      */
     ~KateAutoIndent ();
 
   /*
    * Internal helper for the subclasses and itself
    */
-  protected:
+  private:
     /**
      * Produces a string with the proper indentation characters for its length.
      *
@@ -121,6 +121,14 @@ class KateAutoIndent
      */
     void keepIndent ( KateView *view, int line );
 
+    /**
+     * Call the indentation script, this is a helper to be used in userTypedChar and indent
+     * \param view the view the user work at
+     * \param position current cursor position, after the inserted char...
+     * \param typedChar the inserted char, indent will just give the script '\n'
+     */
+    void scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar);
+
   public:
     /**
      * Switch indenter
@@ -133,7 +141,7 @@ class KateAutoIndent
     /**
      * mode name
      */
-    QString modeName () { return m_mode; }
+    const QString &modeName () const { return m_mode; }
 
     /**
      * Update indenter's configuration (indention width, etc.)
@@ -173,13 +181,10 @@ class KateAutoIndent
      */
     void userTypedChar (KateView *view, const KTextEditor::Cursor &position, QChar typedChar);
 
-  protected:
-    void scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar);
-
   /*
    * needed data
    */
-  protected:
+  private:
     KateDocument *doc; //!< the document the indenter works on
     int  tabWidth;     //!< The number of characters simulated for a tab
     int  indentWidth;  //!< The number of characters used when tabs are replaced by spaces
@@ -201,8 +206,6 @@ class KateViewIndentationAction : public KActionMenu
 
   public:
     KateViewIndentationAction(KateDocument *_doc, const QString& text, KActionCollection* parent = 0, const char* name = 0);
-
-    ~KateViewIndentationAction(){;};
 
   private:
     KateDocument* doc;

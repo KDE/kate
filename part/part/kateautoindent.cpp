@@ -95,48 +95,6 @@ KateAutoIndent::~KateAutoIndent ()
 {
 }
 
-void KateAutoIndent::setMode (const QString &name)
-{
-  // bail out, already set correct mode...
-  if (m_mode == name)
-    return;
-
-  // cleanup
-  m_script = 0;
-  m_normal = false;
-
-  // first, catch easy stuff... normal mode and none, easy...
-  if ( name.isEmpty() || name == QString ("none") || name == QString ("normal") )
-  {
-    m_normal = (name == QString ("normal"));
-    m_mode = (name == QString ("normal")) ? QString ("normal") : QString ("none");
-    return;
-  }
-
-  // handle script indenters, if any for this name...
-  KateIndentJScript *script = KateGlobal::self()->indentScriptManager()->script(name);
-  if ( script )
-  {
-    m_script = script;
-    m_mode = name;
-    return;
-  }
-
-  // default: none
-  m_mode = QString ("none");
-}
-
-void KateAutoIndent::updateConfig ()
-{
-  KateDocumentConfig *config = doc->config();
-
-  useSpaces   = config->configFlags() & KateDocumentConfig::cfReplaceTabsDyn;
-  keepProfile = config->configFlags() & KateDocumentConfig::cfKeepIndentProfile;
-  keepExtra   = config->configFlags() & KateDocumentConfig::cfKeepExtraSpaces;
-  tabWidth    = config->tabWidth();
-  indentWidth = config->indentationWidth();
-}
-
 QString KateAutoIndent::tabString (int length) const
 {
   QString s;
@@ -223,6 +181,70 @@ void KateAutoIndent::keepIndent ( KateView *view, int line )
   doIndent (view, line, textline->indentDepth (tabWidth), false);
 }
 
+void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
+{
+  int newIndentInChars = m_script->indent (view, position, typedChar);
+
+  // handle negative values special
+  if (newIndentInChars < -1)
+    return;
+
+  // reuse indentation of the previous line, just like the "normal" indenter
+  if (newIndentInChars == -1)
+  {
+    // keep indent of previous line
+    keepIndent (view, position.line());
+   
+    return;
+  }
+
+  // we got a positive or zero indent to use...
+  doIndent (view, position.line(), newIndentInChars, false);
+}
+
+void KateAutoIndent::setMode (const QString &name)
+{
+  // bail out, already set correct mode...
+  if (m_mode == name)
+    return;
+
+  // cleanup
+  m_script = 0;
+  m_normal = false;
+
+  // first, catch easy stuff... normal mode and none, easy...
+  if ( name.isEmpty() || name == QString ("none") || name == QString ("normal") )
+  {
+    m_normal = (name == QString ("normal"));
+    m_mode = (name == QString ("normal")) ? QString ("normal") : QString ("none");
+    return;
+  }
+
+  // handle script indenters, if any for this name...
+  KateIndentJScript *script = KateGlobal::self()->indentScriptManager()->script(name);
+  if ( script )
+  {
+    m_script = script;
+    m_mode = name;
+    return;
+  }
+
+  // default: none
+  m_mode = QString ("none");
+}
+
+void KateAutoIndent::updateConfig ()
+{
+  KateDocumentConfig *config = doc->config();
+
+  useSpaces   = config->configFlags() & KateDocumentConfig::cfReplaceTabsDyn;
+  keepProfile = config->configFlags() & KateDocumentConfig::cfKeepIndentProfile;
+  keepExtra   = config->configFlags() & KateDocumentConfig::cfKeepExtraSpaces;
+  tabWidth    = config->tabWidth();
+  indentWidth = config->indentationWidth();
+}
+
+
 bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &range, int change)
 {
   // loop over all lines given...
@@ -296,27 +318,6 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
 
   // let the script indent for us...
   scriptIndent (view, position, typedChar);
-}
-
-void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
-{
-  int newIndentInChars = m_script->indent (view, position, typedChar);
-
-  // handle negative values special
-  if (newIndentInChars < -1)
-    return;
-
-  // reuse indentation of the previous line, just like the "normal" indenter
-  if (newIndentInChars == -1)
-  {
-    // keep indent of previous line
-    keepIndent (view, position.line());
-   
-    return;
-  }
-
-  // we got a positive or zero indent to use...
-  doIndent (view, position.line(), newIndentInChars, false);
 }
 //END KateAutoIndent
 

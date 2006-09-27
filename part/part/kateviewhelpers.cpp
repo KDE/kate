@@ -922,7 +922,7 @@ static void paintTriangle (QPainter &painter, QColor baseColor, int xOffset, int
   QPen pen;
   pen.setJoinStyle (Qt::RoundJoin);
   pen.setColor (c);
-  pen.setWidth (1.5);
+  pen.setWidthF (1.5);
   painter.setPen ( pen );
  
   painter.setBrush ( c );

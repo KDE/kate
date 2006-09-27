@@ -42,7 +42,6 @@ kateschema.cpp
 katetemplatehandler.cpp
 katespell.cpp
 kateprinter.cpp
-katerange.cpp
 katesmartrange.cpp
 kateglobal.cpp
 katecmd.cpp

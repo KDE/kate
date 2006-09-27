@@ -119,6 +119,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
   connect(m_view->document(), SIGNAL(modifiedChanged(KTextEditor::Document *)), this, SLOT(modifiedChanged()));
   connect(m_view->document(), SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(modifiedChanged()) );
   connect(m_view->document(), SIGNAL(documentNameChanged(KTextEditor::Document *)), this, SLOT(documentNameChanged()));
+  connect(m_view->document(),SIGNAL(documentUrlChanged(KTextEditor::Document *)), this, SLOT(urlChanged()));
 
   setAcceptDrops(true);
   connect(m_view,SIGNAL(dropEventPass(QDropEvent *)),this,SLOT(slotDropEvent(QDropEvent *)));
@@ -305,7 +306,7 @@ void KWrite::slotOpen( const KUrl& url )
   }
 }
 
-void KWrite::slotFileNameChanged()
+void KWrite::urlChanged()
 {
   if ( ! m_view->document()->url().isEmpty() )
     m_recentFiles->addUrl( m_view->document()->url() );

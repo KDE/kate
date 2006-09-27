@@ -87,7 +87,7 @@ class KWrite : public KParts::MainWindow
     /**
      * adds a changed URL to the recent files
      */
-    void slotFileNameChanged();
+    void urlChanged();
 
   //config file functions
   public:

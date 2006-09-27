@@ -749,15 +749,20 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
             r=0;g=0;b=0;
           }
   */
-          if (i<4) {
+          if (i==0) {
             r=0xff;
             g=0xff;
-            b=0xff-0x40*i;
-          } else if (i<8) {
-            r=0xff-0x40*(i-4); g=0xff;b=0;
-          } else if (i<16) {
+            b=0xff;
+          } else
+          if (i<3) {
+            r=0xff;
+            g=0xff;
+            b=0xff-0x40-0x40*i;
+          } else if (i<7) {
+            r=0xff-0x40*(i-3); g=0xff;b=0;
+          } else if (i<15) {
             //r=0;g=0xff;b=0x10*(info.depth-32);
-            r=0;g=0xff-0x40*(i-8);b=0;
+            r=0;g=0xff-0x40*(i-7);b=0;
           } else {
             //r=0;g=0xff;b=0xff;
             r=0;g=0;b=0;
@@ -1155,6 +1160,7 @@ void KateIconBorder::showBlock(int line) {
     KTextEditor::Cursor beg;
     KTextEditor::Cursor end;
     if (node->getBegin(tree,&beg) && node->getEnd(tree,&end)) {
+      kDebug()<<"BEGIN"<<beg<<"END"<<end<<endl;
       m_blockRange=m_doc->newSmartRange(KTextEditor::Range(beg,end));
       KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
       attr->setBackground(foldingColor(0,line,false));

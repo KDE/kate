@@ -111,10 +111,10 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
         }
         break;
 
-      case Qt::TextColorRole:
+      case Qt::ForegroundRole:
         return QColor(Qt::white);
 
-      case Qt::BackgroundColorRole:
+      case Qt::BackgroundRole:
         return QColor(Qt::black);
     }
   }

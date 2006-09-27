@@ -381,12 +381,12 @@ QVariant KateStyleTreeWidgetItem::data( int column, int role ) const
 {
   if (column == Context) {
     switch (role) {
-      case Qt::TextColorRole:
+      case Qt::ForegroundRole:
         if (style()->hasProperty(QTextFormat::ForegroundBrush))
           return style()->foreground().color();
         break;
 
-      case Qt::BackgroundColorRole:
+      case Qt::BackgroundRole:
         if (style()->hasProperty(QTextFormat::BackgroundBrush))
           return style()->background().color();
         break;

@@ -160,7 +160,7 @@ QString KateAutoIndent::tabString (int length) const
 
 bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces )
 {
-  kDebug () << "doIndent: line: " << line << " change: " << change << " relative: " << relative << endl;
+  kDebug (13060) << "doIndent: line: " << line << " change: " << change << " relative: " << relative << endl;
 
   KateTextLine::Ptr textline = doc->plainKateTextLine(line);
 
@@ -205,8 +205,6 @@ bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relat
 
   doc->editEnd ();
 
-  kDebug () << "DONE doIndent: line: " << line << " change: " << change << " relative: " << relative << endl;
-
   return true;
 }
 
@@ -244,7 +242,7 @@ bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &ran
       // oh oh, too less indent....
       if (currentIndentInSpaces < (indentWidth * (-change)))
       {
-        kDebug () << "oh oh, can't unindent" << endl;
+        kDebug (13060) << "oh oh, can't unindent" << endl;
         return false;
       }
     }

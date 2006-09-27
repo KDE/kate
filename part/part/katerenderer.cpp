@@ -258,7 +258,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
 {
   QList<QTextLayout::FormatRange> newHighlight;
 
-  if (textLine->attributesList().count() || m_view->externalHighlights().count() || m_view->internalHighlights().count() || m_doc->documentHighlights().count()) {
+  if (selectionsOnly || textLine->attributesList().count() || m_view->externalHighlights().count() || m_view->internalHighlights().count() || m_doc->documentHighlights().count()) {
     RenderRangeList renderRanges;
 
     if (!completionHighlight) {

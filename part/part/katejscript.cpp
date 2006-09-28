@@ -1585,7 +1585,7 @@ int KateIndentJScript::indent (KateView *view, const KTextEditor::Cursor &positi
   KJS::List params;
   params.append(KJS::Number(position.line()));
   params.append(KJS::Number(indentWidth));
-  params.append(KJS::String(QString(typedChar)));
+  params.append(KJS::String(typedChar == '\0' ? QString("") : QString(typedChar)));
 
   KJS::JSValue *val = kateIndentJScriptCall(view, errorMsg,
                                m_docWrapper, m_viewWrapper,
@@ -1595,7 +1595,7 @@ int KateIndentJScript::indent (KateView *view, const KTextEditor::Cursor &positi
 
   if (!val) return -2;
 
-  kDebug() << "new indentation: " << val->toUInt32(m_interpreter->globalExec()) << endl;
+  kDebug() << "new indentation: " << val->toInt32(m_interpreter->globalExec()) << endl;
 
   return val->toUInt32(m_interpreter->globalExec());
 }

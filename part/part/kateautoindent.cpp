@@ -289,7 +289,7 @@ void KateAutoIndent::indent (KateView *view, const KTextEditor::Range &range)
   for (int line = range.start().line () < 0 ? 0 : range.start().line (); line <= qMin (range.end().line (), doc->lines()-1); ++line)
   {
     // let the script indent for us...
-    scriptIndent (view, KTextEditor::Cursor (line, 0), '\n');
+    scriptIndent (view, KTextEditor::Cursor (line, 0), '\0');
   }
 }
 

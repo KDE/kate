@@ -258,18 +258,22 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
 {
   QList<QTextLayout::FormatRange> newHighlight;
 
+  // Don't compute the highlighting if there isn't going to be any highlighting
   if (selectionsOnly || textLine->attributesList().count() || m_view->externalHighlights().count() || m_view->internalHighlights().count() || m_doc->documentHighlights().count()) {
     RenderRangeList renderRanges;
 
     if (!completionHighlight) {
+      // Add arbitrary highlighting ranges to the list
       renderRanges.appendRanges(m_view->internalHighlights(), selectionsOnly, view());
       renderRanges.appendRanges(m_view->externalHighlights(), selectionsOnly, view());
       renderRanges.appendRanges(m_doc->documentHighlights(), selectionsOnly, view());
 
     } else {
+      // Add the code completion arbitrary highlight to the list
       renderRanges.append(completionHighlight);
     }
 
+    // Add the inbuilt highlighting to the list
     NormalRenderRange* inbuiltHighlight = new NormalRenderRange();
     const QVector<int> &al = textLine->attributesList();
     for (int i = 0; i+2 < al.count(); i += 3) {
@@ -277,14 +281,18 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
     }
     renderRanges.append(inbuiltHighlight);
 
+    // Add selection highlighting if we're creating the selection decorations
     if ((selectionsOnly && showSelections() && m_view->selection()) || (completionHighlight && completionSelected)) {
       NormalRenderRange* selectionHighlight = new NormalRenderRange();
+
+      // Set up the selection background attribute TODO: move this elsewhere, eg. into the config?
       static KTextEditor::Attribute::Ptr backgroundAttribute;
       if (!backgroundAttribute)
         backgroundAttribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
+
       backgroundAttribute->setBackground(config()->selectionColor());
 
-
+      // Create a range for the current selection
       if (completionHighlight && completionSelected)
         selectionHighlight->addRange(new KTextEditor::Range(line, 0, line + 1, 0), backgroundAttribute);
       else
@@ -295,6 +303,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
 
     KTextEditor::Cursor currentPosition, endPosition;
 
+    // Calculate the range which we need to iterate in order to get the highlighting for just this line
     if (selectionsOnly) {
       KTextEditor::Range rangeNeeded = m_view->selectionRange().encompass(m_dynamicRegion.boundingRange());
       rangeNeeded &= KTextEditor::Range(line, 0, line + 1, 0);
@@ -307,16 +316,20 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
       endPosition = KTextEditor::Cursor(line + 1, 0);
     }
 
+    // Main iterative loop.  This walks through each set of highlighting ranges, and stops each
+    // time the highlighting changes.  It then creates the corresponding QTextLayout::FormatRanges.
     do {
       renderRanges.advanceTo(currentPosition);
 
       if (!renderRanges.hasAttribute()) {
+        // No attribute, don't need to create a FormatRange for this text range
         currentPosition = renderRanges.nextBoundary();
         continue;
       }
 
       KTextEditor::Cursor nextPosition = renderRanges.nextBoundary();
 
+      // Create the format range and populate with the correct start, length and format info
       QTextLayout::FormatRange fr;
       fr.start = currentPosition.column();
 

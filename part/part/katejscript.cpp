@@ -1574,7 +1574,7 @@ inline static KJS::JSValue *kateIndentJScriptCall(KateView *view, QString &error
   return retval;
 }
 
-int KateIndentJScript::indent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
+int KateIndentJScript::indent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar, int indentWidth)
 {
   kDebug(13050) << "KateIndentJScript::indent" << endl;
   
@@ -1584,6 +1584,7 @@ int KateIndentJScript::indent (KateView *view, const KTextEditor::Cursor &positi
   
   KJS::List params;
   params.append(KJS::Number(position.line()));
+  params.append(KJS::Number(indentWidth));
   params.append(KJS::String(QString(typedChar)));
 
   KJS::JSValue *val = kateIndentJScriptCall(view, errorMsg,

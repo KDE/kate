@@ -228,7 +228,7 @@ class KateIndentJScript {
         int version, double kateVersion);
     ~KateIndentJScript();
 
-    int indent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar);
+    int indent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar, int indentWidth);
     
     const QString &triggerCharacters ();
 

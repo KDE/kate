@@ -183,7 +183,7 @@ void KateAutoIndent::keepIndent ( KateView *view, int line )
 
 void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
 {
-  int newIndentInChars = m_script->indent (view, position, typedChar);
+  int newIndentInChars = m_script->indent (view, position, typedChar, indentWidth);
 
   // handle negative values special
   if (newIndentInChars < -1)

@@ -830,10 +830,11 @@ KWriteEditorChooser::KWriteEditorChooser(QWidget *parent):
   setDefaultButton( KDialog::Cancel );
 
   QWidget *widget = new QWidget();
-	(new QVBoxLayout(widget))->setAutoAdd(true);
-	m_chooser=new KTextEditor::EditorChooser(widget);
-	setMainWidget(widget);
-	m_chooser->readAppSetting();
+  QVBoxLayout* layout = new QVBoxLayout(widget);
+  m_chooser=new KTextEditor::EditorChooser(widget);
+  layout->addWidget(m_chooser);
+  setMainWidget(widget);
+  m_chooser->readAppSetting();
 }
 
 KWriteEditorChooser::~KWriteEditorChooser() {

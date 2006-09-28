@@ -91,8 +91,6 @@ void DocWordCompletionPlugin::configDialog (QWidget *parent)
   for (uint i = 0; i < configPages (); i++)
   {
     QWidget *page = new QWidget(0);
-    QVBoxLayout *_l = new QVBoxLayout( page );
-    _l->setAutoAdd( true );
 
     KPageWidgetItem *item = new KPageWidgetItem( page, configPageName( i ) );
     item->setHeader( configPageFullName( i ) );

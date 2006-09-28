@@ -1270,7 +1270,7 @@ bool RegressionTest::reportResult(bool passed, const QString & description, bool
     if (!m_currentCategory.isEmpty())
         filename = m_currentCategory + '/' + filename;
 
-    const bool oldfailed = m_failureComp && m_failureComp->readNumEntry(filename);
+    const bool oldfailed = m_failureComp && m_failureComp->readEntry(filename, int(0));
     if (passed) {
         if ( m_known_failures & AllFailure ) {
             printf("PASS (unexpected!)");

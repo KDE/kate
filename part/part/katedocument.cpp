@@ -2517,8 +2517,10 @@ bool KateDocument::openFile(KIO::Job * job)
 
 bool KateDocument::save()
 {
+  // local file or not is here the question
   bool l ( url().isLocalFile() );
 
+  // does the user want any backup, if not, not our problem?
   if ( ( l && config()->backupFlags() & KateDocumentConfig::LocalFiles )
        || ( ! l && config()->backupFlags() & KateDocumentConfig::RemoteFiles ) )
   {
@@ -2528,27 +2530,47 @@ bool KateDocument::save()
     kDebug () << "backup src file name: " << url() << endl;
     kDebug () << "backup dst file name: " << u << endl;
 
-    // get the right permissions, start with safe default
-    mode_t  perms = 0600;
-    KIO::UDSEntry fentry;
-    if (KIO::NetAccess::stat (url(), fentry, kapp->activeWindow()))
+    // handle the backup...
+    bool backupSuccess = false;
+
+    // local file mode, no kio
+    if (u.isLocalFile ())
     {
-      kDebug () << "stating succesfull: " << url() << endl;
-      KFileItem item (fentry, url());
-      perms = item.permissions();
+      // first: check if backupFile is already there, if true, unlink it
+      QFile backupFile (u.toLocalFile ());
+      if (backupFile.exists()) backupFile.remove ();
+
+      backupSuccess = QFile::copy (url().toLocalFile (), u.toLocalFile ());
+    }
+    else // remote file mode, kio
+    {
+      QWidget *w = widget ();
+      if (!w && !m_views.isEmpty ())
+        w = m_views.first();
+
+      // get the right permissions, start with safe default
+      mode_t  perms = 0600;
+      KIO::UDSEntry fentry;
+      if (KIO::NetAccess::stat (url(), fentry, kapp->activeWindow()))
+      {
+        kDebug () << "stating succesfull: " << url() << endl;
+        KFileItem item (fentry, url());
+        perms = item.permissions();
+      }
+
+      // do a evil copy which will overwrite target if possible
+      backupSuccess = KIO::NetAccess::file_copy ( url(), u, -1, true, false, w );
     }
 
-    // first del existing file if any, than copy over the file we have
-    // failure if a: the existing file could not be deleted, b: the file could not be copied
-    if ( (!KIO::NetAccess::exists( u, false, kapp->activeWindow() ) || KIO::NetAccess::del( u, kapp->activeWindow() ))
-          && KIO::NetAccess::file_copy( url(), u, perms, true, false, kapp->activeWindow() ) )
+    // backup has failed, ask user how to proceed
+    if (!backupSuccess && (KMessageBox::warningContinueCancel (widget()
+        , i18n ("For file %1 no backup copy could be created before saving."
+                " If the there occurs an error while saving, you might loose the data of this file."
+                " A reason could be, that the media you write to is full or the directory of the file is read-only for you.", url().url())
+        , i18n ("Failed to create backup copy.")
+        , KGuiItem(i18n("Try to Save Nevertheless")), "Backup Failed Warning") != KMessageBox::Continue))
     {
-      kDebug(13020)<<"backing up successful ("<<url().prettyUrl()<<" -> "<<u.prettyUrl()<<")"<<endl;
-    }
-    else
-    {
-      kDebug(13020)<<"backing up failed ("<<url().prettyUrl()<<" -> "<<u.prettyUrl()<<")"<<endl;
-      // FIXME: notify user for real ;)
+      return false;
     }
   }
 

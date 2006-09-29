@@ -124,6 +124,16 @@ public:
     void setShowTabs(bool showTabs);
 
     /**
+     * @returns whether trailing spaces should be shown.
+     */
+    inline bool showTrailingSpaces() const { return m_showSpaces; }
+
+    /**
+     * Set whether a mark should be painted for trailing spaces.
+     */
+    void setShowTrailingSpaces(bool showSpaces);
+
+    /**
      * Sets the width of the tab. Helps performance.
      * @param tabWidth new tab width
      */
@@ -267,11 +277,13 @@ public:
 
   private:
     /**
-     * Paint a whitespace marker on position (x, y).
-     *
-     * Currently only used by the tabs, but it will also be used for highlighting trailing whitespace
+     * Paint a trailing space on position (x, y).
      */
-    void paintWhitespaceMarker(QPainter &paint, uint x, uint y);
+    void paintTrailingSpace(QPainter &paint, qreal x, qreal y);
+    /**
+     * Paint a tab stop marker on position (x, y).
+     */
+    void paintTabstop(QPainter &paint, qreal x, qreal y);
 
     /** Paint a SciTE-like indent marker. */
     void paintIndentMarker(QPainter &paint, uint x, uint y);
@@ -289,6 +301,7 @@ public:
     bool m_drawCaret;
     bool m_showSelections;
     bool m_showTabs;
+    bool m_showSpaces;
     bool m_printerFriendly;
 
     QList<KTextEditor::Attribute::Ptr> m_attributes;

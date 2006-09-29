@@ -44,6 +44,7 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
     , m_drawCaret(true)
     , m_showSelections(true)
     , m_showTabs(true)
+    , m_showSpaces(true)
     , m_printerFriendly(false)
     , m_dynamicRegion(doc)
 {
@@ -95,6 +96,11 @@ void KateRenderer::setCaretStyle(KateRenderer::caretStyles style)
 void KateRenderer::setShowTabs(bool showTabs)
 {
   m_showTabs = showTabs;
+}
+
+void KateRenderer::setShowTrailingSpaces(bool showSpaces)
+{
+  m_showSpaces = showSpaces;
 }
 
 void KateRenderer::setTabWidth(int tabWidth)
@@ -149,6 +155,7 @@ void KateRenderer::setPrinterFriendly(bool printerFriendly)
 {
   m_printerFriendly = printerFriendly;
   setShowTabs(false);
+  setShowTrailingSpaces(false);
   setShowSelections(false);
   setDrawCaret(false);
 }
@@ -219,13 +226,39 @@ void KateRenderer::paintTextLineBackground(QPainter& paint, KateLineLayoutPtr la
   }
 }
 
-void KateRenderer::paintWhitespaceMarker(QPainter &paint, uint x, uint y)
+void KateRenderer::paintTabstop(QPainter &paint, qreal x, qreal y)
 {
   QPen penBackup( paint.pen() );
-  paint.setPen( config()->tabMarkerColor() );
-  paint.drawPoint(x,     y);
-  paint.drawPoint(x + 1, y);
-  paint.drawPoint(x,     y - 1);
+  QPen pen( config()->tabMarkerColor() );
+  pen.setWidthF(qMax(0.5, spaceWidth() * .1));
+  pen.setCapStyle(Qt::RoundCap);
+  paint.setPen( pen );
+
+  // FIXME: optimize for speed!
+  qreal dist = spaceWidth() * 0.3;
+  QPointF points[8];
+  points[0] = QPointF(x - dist, y - dist);
+  points[1] = QPointF(x, y);
+  points[2] = QPointF(x, y);
+  points[3] = QPointF(x - dist, y + dist);
+  x += spaceWidth() / 3.0;
+  points[4] = QPointF(x - dist, y - dist);
+  points[5] = QPointF(x, y);
+  points[6] = QPointF(x, y);
+  points[7] = QPointF(x - dist, y + dist);
+  paint.drawLines(points, 4);
+  paint.setPen( penBackup );
+}
+
+void KateRenderer::paintTrailingSpace(QPainter &paint, qreal x, qreal y)
+{
+  QPen penBackup( paint.pen() );
+  QPen pen( config()->tabMarkerColor() );
+  pen.setWidthF(spaceWidth() / 3.5);
+  pen.setCapStyle(Qt::RoundCap);
+  paint.setPen( pen );
+  
+  paint.drawPoint( QPointF(x, y) );
   paint.setPen( penBackup );
 }
 
@@ -391,7 +424,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   // Draws the dashed underline at the start of a folded block of text.
   if (range->startsInvisibleBlock()) {
     paint.setPen(QPen(config()->wordWrapMarkerColor(), 1, Qt::DashLine));
-    paint.drawLine(0, (config()->fontMetrics().height() * range->viewLineCount()) - 1, xEnd - xStart, (config()->fontMetrics().height() * range->viewLineCount()) - 1);
+    paint.drawLine(0, (fm.height() * range->viewLineCount()) - 1, xEnd - xStart, (fm.height() * range->viewLineCount()) - 1);
   }
 
   if (range->layout()) {
@@ -455,12 +488,12 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
       // Draw selection outside of areas where text is rendered
       if (m_view->selection() && m_view->lineEndSelected(line.end(true))) {
-        QRect area(line.endX() + line.xOffset() - xStart, config()->fontMetrics().height() * i, xEnd - xStart, config()->fontMetrics().height() * (i + 1));
+        QRect area(line.endX() + line.xOffset() - xStart, fm.height() * i, xEnd - xStart, fm.height() * (i + 1));
         paint.fillRect(area, config()->selectionColor());
 
       } else if (backgroundBrushSet) {
         // Draw text background outside of areas where text is rendered.
-        QRect area(line.endX() + line.xOffset() - xStart, config()->fontMetrics().height() * i, xEnd - xStart, config()->fontMetrics().height() * (i + 1));
+        QRect area(line.endX() + line.xOffset() - xStart, fm.height() * i, xEnd - xStart, fm.height() * (i + 1));
         paint.fillRect(area, backgroundBrush);
       }
 
@@ -477,20 +510,23 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       }
 
       // Draw tab stops
-      if (showTabs()) {
+      if (showTabs() || showTrailingSpaces()) {
         const QString& text = range->textLine()->string();
         int tabIndex = text.indexOf(tabChar);
-        int y = (config()->fontMetrics().height() * i) + fm.ascent();
-        while (tabIndex != -1) {
-          paintWhitespaceMarker(paint, (int)line.lineLayout().cursorToX(tabIndex) - xStart, y);
-          tabIndex = text.indexOf(tabChar, tabIndex + 1);
+        int y = fm.height() * i + fm.ascent() - fm.strikeOutPos();
+        if (showTabs()) {
+          while (tabIndex != -1) {
+            paintTabstop(paint, (int)line.lineLayout().cursorToX(tabIndex) - xStart + spaceWidth()/2, y);
+            tabIndex = text.indexOf(tabChar, tabIndex + 1);
+          }
         }
 
-        // FIXME need to add config option for draw trailing spaces
-        int spaceIndex = text.count() - 1;
-        while (spaceIndex >= 0 && text.at(spaceIndex).isSpace()) {
-          paintWhitespaceMarker(paint, (int)line.lineLayout().cursorToX(spaceIndex) - xStart, y);
-          --spaceIndex;
+        if (showTrailingSpaces()) {
+          int spaceIndex = text.count() - 1;
+          while (spaceIndex >= 0 && text.at(spaceIndex).isSpace() && text.at(spaceIndex) != '\t') {
+            paintTrailingSpace(paint, (int)line.lineLayout().cursorToX(spaceIndex) - xStart + spaceWidth()/2, y);
+            --spaceIndex;
+          }
         }
       }
     }
@@ -498,7 +534,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     // draw word-wrap-honor-indent filling
     if (range->viewLineCount() > 1 && range->shiftX() && range->shiftX() > xStart)
     {
-      paint.fillRect(0, config()->fontMetrics().height(), range->shiftX() - xStart, config()->fontMetrics().height() * (range->viewLineCount() - 1),
+      paint.fillRect(0, fm.height(), range->shiftX() - xStart, fm.height() * (range->viewLineCount() - 1),
         QBrush(config()->wordWrapMarkerColor(), Qt::DiagCrossPattern));
     }
 
@@ -536,7 +572,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         paint.setPen(QPen(c, caretWidth));
 
         // Clip the caret - Qt's caret has a habit of intruding onto other lines
-        paint.setClipRect(0, line.lineNumber() * config()->fontMetrics().height(), xEnd - xStart, config()->fontMetrics().height());
+        paint.setClipRect(0, line.lineNumber() * fm.height(), xEnd - xStart, fm.height());
 
         // Draw the cursor, start drawing in the middle as the above sets the width from the center of the line
         range->layout()->drawCursor(&paint, QPoint(caretWidth/2 - xStart,0), cursor->column());
@@ -548,7 +584,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         const KateTextLayout& lastLine = range->viewLine(range->viewLineCount() - 1);
         int x = range->widthOfLastLine() + spaceWidth() * (cursor->column() - range->length());
         if (x >= xStart && x <= xEnd)
-          paint.fillRect(x, (int)lastLine.lineLayout().y(), caretWidth, config()->fontMetrics().height(), c);
+          paint.fillRect(x, (int)lastLine.lineLayout().y(), caretWidth, fm.height(), c);
       }
     }
   }

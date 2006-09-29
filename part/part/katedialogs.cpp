@@ -298,6 +298,9 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   ui->chkShowTabs->setChecked( configFlags & KateDocumentConfig::cfShowTabs );
   connect(ui->chkShowTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
+  ui->chkShowSpaces->setChecked( configFlags & KateDocumentConfig::cfShowSpaces );
+  connect(ui->chkShowSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
   ui->sbTabWidth->setValue( KateDocumentConfig::global()->tabWidth() );
   connect(ui->sbTabWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
@@ -346,11 +349,13 @@ void KateEditConfigTab::apply ()
 
   configFlags &= ~KateDocumentConfig::cfAutoBrackets;
   configFlags &= ~KateDocumentConfig::cfShowTabs;
+  configFlags &= ~KateDocumentConfig::cfShowSpaces;
   configFlags &= ~KateDocumentConfig::cfReplaceTabsDyn;
   configFlags &= ~KateDocumentConfig::cfRemoveTrailingDyn;
 
   if (ui->chkAutoBrackets->isChecked()) configFlags |= KateDocumentConfig::cfAutoBrackets;
   if (ui->chkShowTabs->isChecked()) configFlags |= KateDocumentConfig::cfShowTabs;
+  if (ui->chkShowSpaces->isChecked()) configFlags |= KateDocumentConfig::cfShowSpaces;
   if (ui->chkReplaceTabs->isChecked()) configFlags |= KateDocumentConfig::cfReplaceTabsDyn;
   if (ui->chkRemoveTrailingSpaces->isChecked()) configFlags |= KateDocumentConfig::cfRemoveTrailingDyn;
 

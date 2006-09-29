@@ -255,6 +255,8 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
         setDocFlag( KateDocumentConfig::cfRemoveTrailingDyn, enable, v->doc() );
       else if ( cmd == "set-show-tabs" )
         setDocFlag( KateDocumentConfig::cfShowTabs, enable, v->doc() );
+      else if ( cmd == "set-show-trailing-spaces" )
+        setDocFlag( KateDocumentConfig::cfShowSpaces, enable, v->doc() );
       else if ( cmd == "set-word-wrap" )
         v->doc()->setWordWrap( enable );
       else if ( cmd == "set-remove-trailing-space-save" )

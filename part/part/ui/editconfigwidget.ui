@@ -44,7 +44,7 @@
          <string>The editor will display a symbol to indicate the presence of a tab in the text.</string>
         </property>
         <property name="text" >
-         <string>&amp;Show tabulators</string>
+         <string>&amp;Highlight tabulators</string>
         </property>
        </widget>
       </item>
@@ -206,6 +206,13 @@
         </property>
         <property name="text" >
          <string>Remove &amp;trailing spaces while editing</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkShowSpaces" >
+        <property name="text" >
+         <string>Highlight trailing &amp;spaces</string>
         </property>
        </widget>
       </item>

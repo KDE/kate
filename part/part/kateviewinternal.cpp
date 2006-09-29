@@ -2649,10 +2649,12 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
   uint lineRangesSize = cache()->viewCacheLineCount();
 
   QPainter paint(this);
+  paint.setRenderHints (QPainter::Antialiasing);
 
   // TODO put in the proper places
   renderer()->setCaretStyle(m_view->isOverwriteMode() ? KateRenderer::Replace : KateRenderer::Insert);
   renderer()->setShowTabs(m_doc->config()->configFlags() & KateDocumentConfig::cfShowTabs);
+  renderer()->setShowTrailingSpaces(m_doc->config()->configFlags() & KateDocumentConfig::cfShowSpaces);
 
   int sy = startz * h;
   paint.translate(e->rect().x(), startz * h);

@@ -4589,6 +4589,8 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         m_config->setConfigFlags( KateDocumentConfig::cfTabIndents, state );
       else if ( var == "show-tabs" && checkBoolValue( val, &state ) )
         m_config->setConfigFlags( KateDocumentConfig::cfShowTabs, state );
+      else if ( var == "show-trailing-spaces" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfShowSpaces, state );
       else if ( var == "space-indent" && checkBoolValue( val, &state ) )
       {
         // this is for backward compatibility; see below

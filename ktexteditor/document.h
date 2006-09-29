@@ -29,7 +29,8 @@
 #include <kparts/part.h>
 
 // the list of views
-#include <QList>
+#include <QtCore/QList>
+#include <QtCore/QMetaType>
 
 namespace KTextEditor
 {
@@ -586,6 +587,8 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
 };
 
 }
+
+Q_DECLARE_METATYPE(KTextEditor::Document*)
 
 #endif
 

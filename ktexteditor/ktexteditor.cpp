@@ -149,6 +149,7 @@ Document::Document( QObject *parent)
  : KDocument::Document( parent)
  , d(0)
 {
+        qRegisterMetaType<KTextEditor::Document*>("KTextEditor::Document*");
 	new DocumentAdaptor(this);
 }
 

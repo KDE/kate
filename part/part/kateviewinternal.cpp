@@ -71,7 +71,10 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_bmEnd(doc->smartManager()->newSmartRange(KTextEditor::Range()/*, m_bm*/))
 #endif
   , m_dummy (0)
-  , m_startPos(doc)
+
+  // stay on cursor will avoid that the view scroll around on press return at beginning
+  , m_startPos(doc, KTextEditor::SmartCursor::StayOnInsert)
+
   , m_madeVisible(false)
   , m_shiftKeyPressed (false)
   , m_autoCenterLines (false)

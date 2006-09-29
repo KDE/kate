@@ -307,6 +307,13 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
     pix.fill( m_schemas [ newSchema ].markerColors[i]);
     ui->combobox->setItemIcon(i, QIcon(pix));
   }
+  for (int i = 0; i < 4; i++)
+  {
+    QPixmap pix(16, 16);
+    pix.fill( m_schemas [ newSchema ].templateColors[i]);
+    ui->combobox->setItemIcon(i+KTextEditor::MarkInterface::reservedMarkersCount(), QIcon(pix));
+  }
+
   ui->markers->setColor(  m_schemas [ newSchema ].markerColors[ ui->combobox->currentIndex() ] );
 
   blockSignals(false);

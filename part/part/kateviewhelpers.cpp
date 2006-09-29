@@ -733,7 +733,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
             //r=0;g=0xff;b=0xff;
             r=0;g=0;b=0;
           }
-          m_foldingColors[i]=QBrush(QColor(r,g,b),Qt::Dense4Pattern);
+          m_foldingColors[i]=QBrush(QColor(r,g,b,0x88),Qt::SolidPattern /*Qt::Dense4Pattern*/);
           m_foldingColorsSolid[i]=QBrush(QColor(r,g,b),Qt::SolidPattern);
        }
 

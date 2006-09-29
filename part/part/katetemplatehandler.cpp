@@ -156,7 +156,7 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
   KateRendererConfig *config=m_doc->activeKateView()->renderer()->config();
   kDebug(13020)<<config->templateEditablePlaceholderColor()<<config->templateBackgroundColor()<<config->templateFocusedEditablePlaceholderColor()<<config->templateNotEditablePlaceholderColor()<<endl;
   //editable/master placeholder
-  KTextEditor::Attribute::Ptr attributeEditableElement(new KTextEditor::Attribute());
+/*  KTextEditor::Attribute::Ptr attributeEditableElement(new KTextEditor::Attribute());
   attributeEditableElement->setBackground(QBrush(config->templateEditablePlaceholderColor(),Qt::Dense4Pattern));
   KTextEditor::Attribute::Ptr attributeEditableElementFocus(new KTextEditor::Attribute());
   attributeEditableElementFocus->setBackground(QBrush(config->templateFocusedEditablePlaceholderColor(),Qt::Dense4Pattern));
@@ -166,7 +166,27 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
   attributeNotEditableElement->setBackground(QBrush(config->templateNotEditablePlaceholderColor(),Qt::Dense4Pattern));
   //template background
   KTextEditor::Attribute::Ptr attributeTemplateBackground(new KTextEditor::Attribute());
-  attributeTemplateBackground->setBackground(QBrush(config->templateBackgroundColor(),Qt::Dense7Pattern));
+  attributeTemplateBackground->setBackground(QBrush(config->templateBackgroundColor(),Qt::Dense7Pattern));*/
+  QColor color;
+  color=config->templateEditablePlaceholderColor();
+  color.setAlpha(0x88);
+  KTextEditor::Attribute::Ptr attributeEditableElement(new KTextEditor::Attribute());
+  attributeEditableElement->setBackground(QBrush(color));
+  KTextEditor::Attribute::Ptr attributeEditableElementFocus(new KTextEditor::Attribute());
+  color=config->templateFocusedEditablePlaceholderColor();
+  color.setAlpha(0x88);
+  attributeEditableElementFocus->setBackground(QBrush(color));
+  attributeEditableElement->setDynamicAttribute(KTextEditor::Attribute::ActivateCaretIn,attributeEditableElementFocus);
+  //not editable/slave placeholder
+  KTextEditor::Attribute::Ptr attributeNotEditableElement(new KTextEditor::Attribute());
+  color=config->templateNotEditablePlaceholderColor();
+  color.setAlpha(0x88);
+  attributeNotEditableElement->setBackground(QBrush(color));
+  //template background
+  KTextEditor::Attribute::Ptr attributeTemplateBackground(new KTextEditor::Attribute());
+  color=config->templateBackgroundColor();
+  color.setAlpha(0x88);
+  attributeTemplateBackground->setBackground(QBrush(color));
 
 //  m_doc->insertText(insertPosition,insertString);
   KTextEditor::SmartCursor *endC= m_doc->newSmartCursor(insertPosition);

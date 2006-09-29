@@ -1441,6 +1441,8 @@ const QString &KateIndentJScript::triggerCharacters ()
   // already inited, perfect, just return...
   if (m_triggerCharactersInitialized)
     return m_triggerCharacters;
+
+  m_triggerCharactersInitialized = true;    
     
   // oh,oh, evil world, call js to init the chars...
   QString errorMsg;
@@ -1460,7 +1462,7 @@ const QString &KateIndentJScript::triggerCharacters ()
     m_triggerCharacters = triggers;
     
   kDebug () << "trigger chars: '" << triggers << "'" << endl;
-    
+
   return m_triggerCharacters;
 }
 

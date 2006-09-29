@@ -62,6 +62,15 @@ static const int KATE_HL_LOOKAHEAD = 64;
  */
 static const int KATE_MAX_DYNAMIC_CONTEXTS = 512;
 
+/**
+ * Static vars to get utf8 tested...
+ */
+static const unsigned char highest1Bits = 0x80;
+static const unsigned char highest2Bits = 0xC0;
+static const unsigned char highest3Bits = 0xE0;
+static const unsigned char highest4Bits = 0xF0;
+static const unsigned char highest5Bits = 0xF8;
+
 class KateFileLoader
 {
   public:
@@ -79,6 +88,9 @@ class KateFileLoader
       , m_twoByteEncoding (QString(codec->name()) == "ISO-10646-UCS-2")
       , m_binary (false)
       , m_removeTrailingSpaces (removeTrailingSpaces)
+      , m_utf8 (QString(codec->name()) == "UTF-8")
+      , m_utf8Borked (false)
+      , m_multiByte (0)
     {
       kDebug (13020) << "OPEN USES ENCODING: " << m_codec->name() << endl;
     }
@@ -108,6 +120,8 @@ class KateFileLoader
           }
 
           processNull (c);
+          processUtf8 (c);
+
           m_text = m_decoder->toUnicode (m_buffer, c);
         }
 
@@ -150,6 +164,9 @@ class KateFileLoader
     // binary ?
     inline bool binary () const { return m_binary; }
 
+    // broken utf8?
+    inline bool brokenUTF8 () const { return m_utf8Borked; }
+
     // should spaces be ignored at end of line?
     inline bool removeTrailingSpaces () const { return m_removeTrailingSpaces; }
 
@@ -175,6 +192,7 @@ class KateFileLoader
             if (c > 0)
             {
               processNull (c);
+              processUtf8 (c);
 
               QString str (m_decoder->toUnicode (m_buffer, c));
               readString = str.length();
@@ -281,6 +299,59 @@ class KateFileLoader
       }
     }
 
+    // check if we are really utf8
+    // please somebody read http://de.wikipedia.org/wiki/UTF-8 and check this code...
+    void processUtf8 (int length)
+    {
+      if (!m_utf8 || m_utf8Borked)
+        return;
+
+      for (int i=0; i < length; i++)
+      {
+        unsigned char c = m_buffer[i];
+
+        if (m_multiByte > 0)
+        {
+          if ((c & highest2Bits) == 0x80)
+          {
+            --m_multiByte;
+            continue;
+          }
+
+          m_utf8Borked = true;
+          return;
+        }
+      
+        // most significant bit zero, single char
+        if ((c & highest1Bits) == 0x00)
+          continue;
+      
+        // 110xxxxx => init 1 following bytes
+        if ((c & highest3Bits) == 0xC0)
+        {
+          m_multiByte = 1;
+          continue;
+        }
+      
+        // 1110xxxx => init 2 following bytes
+        if ((c & highest4Bits) == 0xE0)
+        {
+          m_multiByte = 2;
+          continue;
+        }
+      
+        // 11110xxx => init 3 following bytes
+        if ((c & highest5Bits) == 0xF0)
+        {
+          m_multiByte = 3;
+          continue;
+        }
+  
+        m_utf8Borked = true;
+        return;
+      }
+    }
+
   private:
     QFile m_file;
     QByteArray m_buffer;
@@ -296,6 +367,9 @@ class KateFileLoader
     bool m_twoByteEncoding;
     bool m_binary;
     bool m_removeTrailingSpaces;
+    bool m_utf8;
+    bool m_utf8Borked;
+    int m_multiByte;
 };
 
 /**
@@ -311,6 +385,7 @@ KateBuffer::KateBuffer(KateDocument *doc)
    editChangesDone (false),
    m_doc (doc),
    m_binary (false),
+   m_brokenUTF8 (false),
    m_highlight (0),
    m_regionTree (this),
    m_tabWidth (8),
@@ -402,6 +477,7 @@ void KateBuffer::clear()
 
   // reset the state
   m_binary = false;
+  m_brokenUTF8 = false;
 
   m_lineHighlightedMax = 0;
   m_lineHighlighted = 0;
@@ -479,6 +555,11 @@ bool KateBuffer::openFile (const QString &m_file)
 
   // binary?
   m_binary = file.binary ();
+
+  // broken utf-8?
+  m_brokenUTF8 = file.brokenUTF8();
+  
+  kDebug (13020) << "Broken UTF-8: " << m_brokenUTF8 << endl;
 
   kDebug (13020) << "LOADING DONE " << t.elapsed() << endl;
 

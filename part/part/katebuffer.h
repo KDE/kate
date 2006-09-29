@@ -143,6 +143,13 @@ class KateBuffer : public QObject
     bool binary () const { return m_binary; }
 
     /**
+     * is this file a broken utf-8?
+     * this means: was it opened as utf-8 but contained invalid chars?
+     * @return binary file?
+     */
+    bool brokenUTF8 () const { return m_brokenUTF8; }
+
+    /**
      * Can the current codec handle all chars
      * @return chars can be encoded
      */
@@ -283,6 +290,11 @@ class KateBuffer : public QObject
      * binary file loaded ?
      */
     bool m_binary;
+
+    /**
+     * binary file loaded ?
+     */
+    bool m_brokenUTF8;
 
   /**
    * highlighting & folding relevant stuff

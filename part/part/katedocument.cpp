@@ -2509,6 +2509,20 @@ bool KateDocument::openFile(KIO::Job * job)
       , "Binary File Opened Warning");
   }
 
+  // warn: opened broken utf-8 file...
+  if (m_buffer->brokenUTF8())
+  {
+    // this file can't be saved again without killing it
+    setReadWrite( false );
+
+    KMessageBox::information (widget()
+      , i18n ("The file %1 was opened with UTF-8 encoding but contained invalid characters."
+              " It is set to read-only mode, as saving might destroy it's content."
+              " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", m_url.url())
+      , i18n ("Broken UTF-8 File Opened")
+      , "Broken UTF-8 File Opened Warning");
+  }
+
   //
   // return the success
   //

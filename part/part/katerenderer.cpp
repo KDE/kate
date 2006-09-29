@@ -525,7 +525,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         if (showTrailingSpaces()) {
           int spaceIndex = text.count() - 1;
           while (spaceIndex >= 0 && text.at(spaceIndex).isSpace()) {
-            if (text.at(spaceIndex) != '\t')
+            if (text.at(spaceIndex) != '\t' || !showTabs())
               paintTrailingSpace(paint, line.lineLayout().cursorToX(spaceIndex) - xStart + spaceWidth()/2.0, y);
             --spaceIndex;
           }

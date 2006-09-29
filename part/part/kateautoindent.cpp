@@ -140,6 +140,8 @@ bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relat
       else
         indentDepth -= extraSpaces;
     }
+  } else {
+    indentDepth = change;
   }
 
   // sanity check

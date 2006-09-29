@@ -153,7 +153,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
 
   connect(ui->cmbMode, SIGNAL(activated(int)), this, SLOT(slotChanged()));
 
-  connect(ui->chkKeepIndentProfile, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkKeepExtraSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkIndentPaste, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkBackspaceUnindents, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -176,12 +175,10 @@ void KateIndentConfigTab::apply ()
 
   uint configFlags = KateDocumentConfig::global()->configFlags();
 
-  configFlags &= ~KateDocumentConfig::cfKeepIndentProfile;
   configFlags &= ~KateDocumentConfig::cfKeepExtraSpaces;
   configFlags &= ~KateDocumentConfig::cfIndentPastedText;
   configFlags &= ~KateDocumentConfig::cfBackspaceIndents;
 
-  if (ui->chkKeepIndentProfile->isChecked()) configFlags |= KateDocumentConfig::cfKeepIndentProfile;
   if (ui->chkKeepExtraSpaces->isChecked()) configFlags |= KateDocumentConfig::cfKeepExtraSpaces;
   if (ui->chkIndentPaste->isChecked()) configFlags |= KateDocumentConfig::cfIndentPastedText;
   if (ui->chkBackspaceUnindents->isChecked()) configFlags |= KateDocumentConfig::cfBackspaceIndents;
@@ -205,7 +202,6 @@ void KateIndentConfigTab::reload ()
   uint configFlags = KateDocumentConfig::global()->configFlags();
 
   ui->sbIndentWidth->setValue(KateDocumentConfig::global()->indentationWidth());
-  ui->chkKeepIndentProfile->setChecked(configFlags & KateDocumentConfig::cfKeepIndentProfile);
   ui->chkKeepExtraSpaces->setChecked(configFlags & KateDocumentConfig::cfKeepExtraSpaces);
   ui->chkIndentPaste->setChecked(configFlags & KateDocumentConfig::cfIndentPastedText);
   ui->chkBackspaceUnindents->setChecked(configFlags & KateDocumentConfig::cfBackspaceIndents);

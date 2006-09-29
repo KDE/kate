@@ -4569,8 +4569,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         m_config->setConfigFlags( KateDocumentConfig::cfAutoBrackets, state );
       else if ( var == "overwrite-mode" && checkBoolValue( val, &state ) )
         m_config->setConfigFlags( KateDocumentConfig::cfOvr, state );
-      else if ( var == "keep-indent-profile" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfKeepIndentProfile, state );
       else if ( var == "keep-extra-spaces" && checkBoolValue( val, &state ) )
         m_config->setConfigFlags( KateDocumentConfig::cfKeepExtraSpaces, state );
       else if ( var == "tab-indents" && checkBoolValue( val, &state ) )

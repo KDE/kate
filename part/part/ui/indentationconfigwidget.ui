@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>511</width>
-    <height>376</height>
+    <height>347</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
@@ -122,16 +122,6 @@
          </spacer>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="chkKeepIndentProfile" >
-        <property name="whatsThis" >
-         <string>If this option is selected, unindenting code blocks is possible only if no line starts at the first column</string>
-        </property>
-        <property name="text" >
-         <string>Keep indentation profile while unindenting</string>
-        </property>
-       </widget>
       </item>
       <item>
        <widget class="QCheckBox" name="chkKeepExtraSpaces" >
@@ -277,9 +267,9 @@ p, li { white-space: pre-wrap; }
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
+   <class>KActiveLabel</class>
+   <extends>KTextBrowser</extends>
+   <header>kactivelabel.h</header>
   </customwidget>
   <customwidget>
    <class>KComboBox</class>
@@ -287,9 +277,9 @@ p, li { white-space: pre-wrap; }
    <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
-   <class>KActiveLabel</class>
-   <extends>KTextBrowser</extends>
-   <header>kactivelabel.h</header>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

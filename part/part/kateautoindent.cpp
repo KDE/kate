@@ -102,17 +102,11 @@ QString KateAutoIndent::tabString (int length) const
 
   if (!useSpaces)
   {
-    while (length >= tabWidth)
-    {
-      s += '\t';
-      length -= tabWidth;
-    }
+    s.append (QString (length / tabWidth, '\t'));
+    length = length % tabWidth;
   }
-  while (length > 0)
-  {
-    s += ' ';
-    length--;
-  }
+  s.append (QString (length, ' '));
+
   return s;
 }
 
@@ -126,41 +120,43 @@ bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relat
   if (!textline)
     return false;
 
-  int indentlevel = change;
-  int spacesToKeep = 0;
+  int extraSpaces = 0;
 
   // get indent width of current line
-  int currentIndentInSpaces = (relative || keepExtraSpaces) ? textline->indentDepth (tabWidth) : 0;
+  int indentDepth = (relative || keepExtraSpaces) ? textline->indentDepth (tabWidth) : 0;
 
-  // calc the spaces to keep
-  if (keepExtraSpaces)
-    spacesToKeep = currentIndentInSpaces % indentWidth;
-
-  // adjust indent level
+  // for relative change, check for extra spaces
   if (relative)
-    indentlevel += currentIndentInSpaces;
+  {
+    extraSpaces = indentDepth % indentWidth;
 
-  if (indentlevel < 0)
-    indentlevel = 0;
+    indentDepth += change;
 
-  QString indentString = tabString (indentlevel);
+    // if keepExtraSpaces is off, snap to a multiple of the indentWidth
+    if (!keepExtraSpaces && extraSpaces > 0)
+    {
+      if (change < 0)
+        indentDepth += indentWidth - extraSpaces;
+      else
+        indentDepth -= extraSpaces;
+    }
+  }
 
-  if (spacesToKeep > 0)
-    indentString.append (QString (spacesToKeep, ' '));
+  // sanity check
+  if (indentDepth < 0)
+    indentDepth = 0;
+
+  QString indentString = tabString (indentDepth);
 
   int first_char = textline->firstChar();
 
   if (first_char < 0)
     first_char = textline->length();
 
+  // remove trailing spaces, then insert the leading indentation
   doc->editStart (view);
-  
-  // remove the trailing spaces
   doc->editRemoveText (line, 0, first_char);
-
-  // insert replacement stuff..
   doc->editInsertText (line, 0, indentString);
-
   doc->editEnd ();
 
   return true;
@@ -238,7 +234,6 @@ void KateAutoIndent::updateConfig ()
   KateDocumentConfig *config = doc->config();
 
   useSpaces   = config->configFlags() & KateDocumentConfig::cfReplaceTabsDyn;
-  keepProfile = config->configFlags() & KateDocumentConfig::cfKeepIndentProfile;
   keepExtra   = config->configFlags() & KateDocumentConfig::cfKeepExtraSpaces;
   tabWidth    = config->tabWidth();
   indentWidth = config->indentationWidth();
@@ -248,30 +243,8 @@ void KateAutoIndent::updateConfig ()
 bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &range, int change)
 {
   // loop over all lines given...
-  if (keepProfile && change < 0)
-  {
-    for (int line = range.start().line () < 0 ? 0 : range.start().line (); line <= qMin (range.end().line (), doc->lines()-1); ++line)
-    {
-      KateTextLine::Ptr textline = doc->plainKateTextLine(line);
-  
-      // textline not found, cu
-      if (!textline)
-        return false;
-  
-      // get indent width of current line
-      int currentIndentInSpaces = textline->indentDepth (tabWidth);
-  
-      // oh oh, too less indent....
-      if (currentIndentInSpaces < (indentWidth * (-change)))
-      {
-        kDebug (13060) << "oh oh, can't unindent" << endl;
-        return false;
-      }
-    }
-  }
-
-  // loop over all lines given...
-  for (int line = range.start().line () < 0 ? 0 : range.start().line (); line <= qMin (range.end().line (), doc->lines()-1); ++line)
+  for (int line = range.start().line () < 0 ? 0 : range.start().line ();
+       line <= qMin (range.end().line (), doc->lines()-1); ++line)
   {
     doIndent (view, line, change * indentWidth, true, keepExtra);
   }

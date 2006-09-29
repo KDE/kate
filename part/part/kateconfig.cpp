@@ -166,7 +166,6 @@ void KateDocumentConfig::readConfig (KConfig *config)
   setUndoSteps(config->readEntry("Undo Steps", 0));
 
   setConfigFlags (config->readEntry("Basic Config Flags", KateDocumentConfig::cfTabIndents
-    | KateDocumentConfig::cfKeepIndentProfile
     | KateDocumentConfig::cfWrapCursor
     | KateDocumentConfig::cfShowTabs
     | KateDocumentConfig::cfSmartHome));

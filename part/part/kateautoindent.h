@@ -151,8 +151,7 @@ class KateAutoIndent
 
     /**
      * Function to provide the common indent/unindent/clean indent functionality to the document
-     * This should be generic for all indenters, internally it uses the doIndent function,
-     * in advance it keeps the "keep indent profile" option in mind
+     * This should be generic for all indenters, internally it uses the doIndent function.
      * This works equal for all indenters, even for "none" or the scripts
      * \param view view to work on
      * \param range range of text to change indent for
@@ -189,7 +188,6 @@ class KateAutoIndent
     int  tabWidth;     //!< The number of characters simulated for a tab
     int  indentWidth;  //!< The number of characters used when tabs are replaced by spaces
     bool  useSpaces;    //!< Should we use spaces or tabs to indent
-    bool  keepProfile;  //!< Always try to honor the leading whitespace of lines already in the file
     bool  keepExtra;    //!< Keep indentation that is not on indentation boundaries
     QString m_mode;
     bool m_normal;

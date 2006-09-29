@@ -164,7 +164,6 @@ class KateDocumentConfig : public KateConfig
       cfAutoBrackets= 0x40,
       cfTabIndentsMode = 0x200,
       cfOvr= 0x1000,
-      cfKeepIndentProfile= 0x8000,
       cfKeepExtraSpaces= 0x10000,
       cfTabIndents= 0x80000,
       cfShowTabs= 0x200000,

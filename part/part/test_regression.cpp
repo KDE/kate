@@ -516,7 +516,6 @@ int main(int argc, char *argv[])
 //       | KateDocumentConfig::cfAutoBrackets
 //       | KateDocumentConfig::cfTabIndentsMode
 //       | KateDocumentConfig::cfOvr
-      | KateDocumentConfig::cfKeepIndentProfile
       | KateDocumentConfig::cfKeepExtraSpaces
       | KateDocumentConfig::cfTabIndents
       | KateDocumentConfig::cfShowTabs

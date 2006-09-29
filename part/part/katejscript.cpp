@@ -1536,7 +1536,7 @@ inline static KJS::JSValue *kateIndentJScriptCall(KateView *view, QString &error
   if (!view)
   {
     errorMsg = i18n("Could not access view");
-    return false;
+    return 0;
   }
 
   KJS::ExecState *exec = interpreter->globalExec();
@@ -1549,7 +1549,7 @@ inline static KJS::JSValue *kateIndentJScriptCall(KateView *view, QString &error
     QString message = error->get(exec, "message")->toString(exec).qstring();
     errorMsg = i18n("Exception: Unable to find function '%1': %2", func.qstring(), message);
     exec->clearException();
-    return false;
+    return 0;
   }
 
   // init doc & view with new pointers!
@@ -1597,7 +1597,7 @@ int KateIndentJScript::indent (KateView *view, const KTextEditor::Cursor &positi
 
   kDebug() << "new indentation: " << val->toInt32(m_interpreter->globalExec()) << endl;
 
-  return val->toUInt32(m_interpreter->globalExec());
+  return val->toInt32(m_interpreter->globalExec());
 }
 
 const QString& KateIndentJScript::internalName()

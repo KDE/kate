@@ -1,7 +1,4 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>SchemaConfigColorTab</class>
  <widget class="QWidget" name="SchemaConfigColorTab" >
   <property name="geometry" >
@@ -145,7 +142,7 @@
       <item row="4" column="0" >
        <widget class="QLabel" name="label_8" >
         <property name="text" >
-         <string>Tab markers:</string>
+         <string>Tab and space markers:</string>
         </property>
        </widget>
       </item>
@@ -195,21 +192,16 @@
    </item>
   </layout>
  </widget>
- <pixmapfunction></pixmapfunction>
  <customwidgets>
   <customwidget>
    <class>KColorButton</class>
    <extends>QPushButton</extends>
    <header>kcolorbutton.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
   </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
   </customwidget>
  </customwidgets>
  <resources/>

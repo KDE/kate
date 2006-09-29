@@ -512,19 +512,21 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       // Draw tab stops
       if (showTabs() || showTrailingSpaces()) {
         const QString& text = range->textLine()->string();
-        int tabIndex = text.indexOf(tabChar);
         int y = fm.height() * i + fm.ascent() - fm.strikeOutPos();
+
         if (showTabs()) {
+          int tabIndex = text.indexOf(tabChar);
           while (tabIndex != -1) {
-            paintTabstop(paint, (int)line.lineLayout().cursorToX(tabIndex) - xStart + spaceWidth()/2, y);
+            paintTabstop(paint, line.lineLayout().cursorToX(tabIndex) - xStart + spaceWidth()/2.0, y);
             tabIndex = text.indexOf(tabChar, tabIndex + 1);
           }
         }
 
         if (showTrailingSpaces()) {
           int spaceIndex = text.count() - 1;
-          while (spaceIndex >= 0 && text.at(spaceIndex).isSpace() && text.at(spaceIndex) != '\t') {
-            paintTrailingSpace(paint, (int)line.lineLayout().cursorToX(spaceIndex) - xStart + spaceWidth()/2, y);
+          while (spaceIndex >= 0 && text.at(spaceIndex).isSpace()) {
+            if (text.at(spaceIndex) != '\t')
+              paintTrailingSpace(paint, line.lineLayout().cursorToX(spaceIndex) - xStart + spaceWidth()/2.0, y);
             --spaceIndex;
           }
         }

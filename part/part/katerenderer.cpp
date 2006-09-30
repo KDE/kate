@@ -509,25 +509,30 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         }
       }
 
-      // Draw tab stops
+      // Draw tab stops and trailing spaces
       if (showTabs() || showTrailingSpaces()) {
         const QString& text = range->textLine()->string();
         int y = fm.height() * i + fm.ascent() - fm.strikeOutPos();
 
         if (showTabs()) {
-          int tabIndex = text.indexOf(tabChar);
-          while (tabIndex != -1) {
+          int tabIndex = text.indexOf(tabChar, line.startCol());
+          while (tabIndex != -1 && tabIndex < line.endCol()) {
             paintTabstop(paint, line.lineLayout().cursorToX(tabIndex) - xStart + spaceWidth()/2.0, y);
             tabIndex = text.indexOf(tabChar, tabIndex + 1);
           }
         }
 
         if (showTrailingSpaces()) {
-          int spaceIndex = text.count() - 1;
-          while (spaceIndex >= 0 && text.at(spaceIndex).isSpace()) {
-            if (text.at(spaceIndex) != '\t' || !showTabs())
-              paintTrailingSpace(paint, line.lineLayout().cursorToX(spaceIndex) - xStart + spaceWidth()/2.0, y);
-            --spaceIndex;
+          int spaceIndex = line.endCol() - 1;
+          int trailingPos = range->textLine()->lastChar();
+          if (trailingPos < 0)
+            trailingPos = 0;
+          if (spaceIndex >= trailingPos) {
+            while (spaceIndex >= line.startCol() && text.at(spaceIndex).isSpace()) {
+              if (text.at(spaceIndex) != '\t' || !showTabs())
+                paintTrailingSpace(paint, line.lineLayout().cursorToX(spaceIndex) - xStart + spaceWidth()/2.0, y);
+              --spaceIndex;
+            }
           }
         }
       }

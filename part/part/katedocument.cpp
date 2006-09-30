@@ -2550,11 +2550,16 @@ bool KateDocument::save()
     // local file mode, no kio
     if (u.isLocalFile ())
     {
-      // first: check if backupFile is already there, if true, unlink it
-      QFile backupFile (u.toLocalFile ());
-      if (backupFile.exists()) backupFile.remove ();
+      if (QFile::exists (url().toLocalFile ()))
+      {
+        // first: check if backupFile is already there, if true, unlink it
+        QFile backupFile (u.toLocalFile ());
+        if (backupFile.exists()) backupFile.remove ();
 
-      backupSuccess = QFile::copy (url().toLocalFile (), u.toLocalFile ());
+        backupSuccess = QFile::copy (url().toLocalFile (), u.toLocalFile ());
+      }
+      else
+        backupSuccess = true;
     }
     else // remote file mode, kio
     {
@@ -2570,10 +2575,12 @@ bool KateDocument::save()
         kDebug () << "stating succesfull: " << url() << endl;
         KFileItem item (fentry, url());
         perms = item.permissions();
+      
+        // do a evil copy which will overwrite target if possible
+	backupSuccess = KIO::NetAccess::file_copy ( url(), u, -1, true, false, w );
       }
-
-      // do a evil copy which will overwrite target if possible
-      backupSuccess = KIO::NetAccess::file_copy ( url(), u, -1, true, false, w );
+      else
+        backupSuccess = true;
     }
 
     // backup has failed, ask user how to proceed

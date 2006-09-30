@@ -3316,7 +3316,7 @@ void KateDocument::align(KateView *view, uint line)
   blockRemoveTrailingSpaces(false);
 
   for (; start <= end; ++start)
-  removeTrailingSpace(start);
+    removeTrailingSpace(start);
 
   editEnd();
 }

@@ -260,12 +260,17 @@ void KateAutoIndent::indent (KateView *view, const KTextEditor::Range &range)
   if (!m_script)
     return;
 
+  doc->pushEditState();
+  doc->editStart (view);
   // loop over all lines given...
-  for (int line = range.start().line () < 0 ? 0 : range.start().line (); line <= qMin (range.end().line (), doc->lines()-1); ++line)
+  for (int line = range.start().line () < 0 ? 0 : range.start().line ();
+       line <= qMin (range.end().line (), doc->lines()-1); ++line)
   {
     // let the script indent for us...
-    scriptIndent (view, KTextEditor::Cursor (line, 0), '\0');
+    scriptIndent (view, KTextEditor::Cursor (line, 0), QChar());
   }
+  doc->editEnd ();
+  doc->popEditState();
 }
 
 void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)

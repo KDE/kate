@@ -1590,7 +1590,7 @@ int KateIndentJScript::indent (KateView *view, const KTextEditor::Cursor &positi
   KJS::List params;
   params.append(KJS::Number(position.line()));
   params.append(KJS::Number(indentWidth));
-  params.append(KJS::String(typedChar == '\0' ? QString("") : QString(typedChar)));
+  params.append(KJS::String(typedChar.isNull() ? QString("") : QString(typedChar)));
 
   KJS::JSValue *val = kateIndentJScriptCall(view, errorMsg,
                                m_docWrapper, m_viewWrapper,

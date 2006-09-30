@@ -256,10 +256,11 @@ function tryCComment(line)
         var end = RegExp.$1;
         indentation = document.firstVirtualColumn(currentLine);
         // only add '*', if there is none yet.
-        if (document.firstChar(line) != '*')
+        if (document.firstChar(line) != '*') {
             document.insertText(line, view.cursorPosition().column, '*');
-        if (!document.isSpace(line, document.firstColumn(line) + 1))
-            document.insertText(line, document.firstColumn(line) + 1, ' ');
+            if (!document.isSpace(line, document.firstColumn(line) + 1))
+                document.insertText(line, document.firstColumn(line) + 1, ' ');
+        }
     }
 
     if (indentation != -1) debug("tryCComment: success (2) in line " + currentLine);
@@ -477,7 +478,7 @@ function tryStatement(line)
  * Indent line.
  * Return filler or null.
  */
-function indentLine(line, indentOnly)
+function indentLine(line, alignOnly)
 {
     var firstChar = document.firstChar(line);
     var lastChar = document.lastChar(line);
@@ -488,7 +489,7 @@ function indentLine(line, indentOnly)
         filler = findLeftBrace(line, document.firstColumn(line));
     if (filler == -1)
         filler = tryCComment(line);
-    if (filler == -1 && !indentOnly)
+    if (filler == -1 && !alignOnly)
         filler = tryCppComment(line);
     if (filler == -1)
         filler = trySwitchStatement(line);
@@ -571,11 +572,12 @@ function processChar(line, c)
 function indent(line, indentWidth, ch)
 {
     gIndentWidth = indentWidth;
+    var alignOnly = (ch == "");
 
-    if (ch != '\n' && ch != '\0')
+    if (ch != '\n' && !alignOnly)
         return processChar(line, ch);
 
-    return indentLine(line, ch == '\0');
+    return indentLine(line, alignOnly);
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

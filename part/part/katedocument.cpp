@@ -3251,8 +3251,8 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
 
   blockRemoveTrailingSpaces(true);
   insertText(pos, s, view->blockSelectionMode());
-
   blockRemoveTrailingSpaces(false);
+
   for (int i = pos.line(); i < pos.line() + lines; ++i)
     removeTrailingSpace(i);
 
@@ -3263,20 +3263,27 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
   // mode !
   if (view->blockSelectionMode())
     view->setCursorPositionInternal(pos + KTextEditor::Cursor(lines, 0));
-/*
-  if (m_indenter->canProcessLine()
-      && config()->configFlags() & KateDocumentConfig::cfIndentPastedText)
+
+  if (config()->configFlags() & KateDocumentConfig::cfIndentPastedText)
   {
+    KTextEditor::Range range = KTextEditor::Range(KTextEditor::Cursor(pos.line(), 0),
+                                                  KTextEditor::Cursor(pos.line() + lines, 0));
+
+    int start = view->selectionRange().start().line();
+    const int end = view->selectionRange().end().line();
+
     editStart();
 
-    KateDocCursor begin(pos.line(), 0, this);
-    KateDocCursor end(pos.line() + lines, 0, this);
+    blockRemoveTrailingSpaces(true);
+    m_indenter.indent(view, range);
+    blockRemoveTrailingSpaces(false);
 
-    m_indenter->processSection (view, begin, end);
+    for (; start <= end; ++start)
+      removeTrailingSpace(start);
 
     editEnd();
   }
-*/
+
   if (!view->blockSelectionMode()) emit charactersSemiInteractivelyInserted (pos.line(), pos.column(), s);
   m_undoDontMerge = true;
 }

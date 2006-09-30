@@ -244,8 +244,10 @@ function tryCComment(line)
     if (char1 == '/' && char2 == '*') {
         indentation = document.firstVirtualColumn(currentLine) + 1;
         // only add '*', if there is none yet.
-        if (document.charAt(line, document.firstColumn(line)) != '*')
-            document.insertText(line, document.firstColumn(line), "* ");
+        if (document.firstChar(line) != '*')
+            document.insertText(line, view.cursorPosition().column, '*');
+        if (!document.isSpace(line, document.firstColumn(line) + 1))
+            document.insertText(line, document.firstColumn(line) + 1, ' ');
     } else if (char1 == '*' && (firstPos == lastPos || document.isSpace(currentLine, firstPos + 1))) {
         var currentString = document.line(currentLine);
         currentString.search(/^\s*\*(\s*)/);
@@ -254,9 +256,9 @@ function tryCComment(line)
         var end = RegExp.$1;
         indentation = document.firstVirtualColumn(currentLine);
         // only add '*', if there is none yet.
-        if (document.charAt(line, document.firstColumn(line)) != '*')
-            document.insertText(line, document.firstColumn(line), '*');
-        if (indentation.charAt(indentation.length - 1) == '*')
+        if (document.firstChar(line) != '*')
+            document.insertText(line, view.cursorPosition().column, '*');
+        if (!document.isSpace(line, document.firstColumn(line) + 1))
             document.insertText(line, document.firstColumn(line) + 1, ' ');
     }
 
@@ -298,7 +300,7 @@ function tryCppComment(line)
             // only //, nothing else
             currentString.search(/^\s*(\/\/\s*)/);
         }
-        document.insertText(line, document.firstColumn(line), RegExp.$1);
+        document.insertText(line, view.cursorPosition().column, RegExp.$1);
     }
 
     if (indentation != -1) debug("tryCppComment: success in line " + currentLine);
@@ -559,6 +561,7 @@ function processChar(line, c)
             filler = -2;
         return filler;
     }
+    return -2;
 }
 
 /**

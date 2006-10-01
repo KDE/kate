@@ -257,7 +257,7 @@ void KateRenderer::paintTrailingSpace(QPainter &paint, qreal x, qreal y)
   pen.setWidthF(spaceWidth() / 3.5);
   pen.setCapStyle(Qt::RoundCap);
   paint.setPen( pen );
-  
+
   paint.drawPoint( QPointF(x, y) );
   paint.setPen( penBackup );
 }
@@ -805,6 +805,35 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   opt.setFlags(QTextOption::IncludeTrailingSpaces);
   opt.setTabStop(m_tabWidth * config()->fontMetrics().width(spaceChar));
   opt.setWrapMode(QTextOption::WrapAnywhere);//QTextOption::WrapAtWordBoundaryOrAnywhere);
+
+  // Find the first strong character in the string.
+  // If it is an RTL character, set the base layout direction of the string to RTL.
+  //
+  // See http://www.unicode.org/reports/tr9/#The_Paragraph_Level (Sections P2 & P3).
+  // Qt's text renderer ("scribe") version 4.2 assumes a "higher-level protocol"
+  // (such as KatePart) will specify the paragraph level, so it does not apply P2 & P3
+  // by itself. If this ever change in Qt, the next code block could be removed.
+  for (int i=0; i < lineLayout->textLine()->string().length(); i++) {
+    switch (lineLayout->textLine()->string().at(i).direction()) {
+      case QChar::DirL:
+      case QChar::DirLRO:
+      case QChar::DirLRE:
+        goto end;
+
+      case QChar::DirR:
+      case QChar::DirAL:
+      case QChar::DirRLO:
+      case QChar::DirRLE:
+        opt.setTextDirection(Qt::RightToLeft);
+        goto end;
+
+      default:
+        break;
+    }
+  }
+
+  end:
+
   l->setTextOption(opt);
 
   // Syntax highlighting, inbuilt and arbitrary

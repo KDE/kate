@@ -1783,20 +1783,14 @@ void KateView::setIMSelectionValue( const KTextEditor::Range& imRange, const KTe
   m_imComposeEvent = imComposeEvent;
 }
 
-bool KateView::isIMSelection( const KTextEditor::Cursor& pos )
+const KTextEditor::Range& KateView::imSelection() const
 {
-  return m_imSelection.contains(pos);
+  return m_imSelection;
 }
 
-bool KateView::isIMEdit( const KTextEditor::Cursor& pos )
+const KTextEditor::Range& KateView::imEdit() const
 {
-  return m_imRange.contains(pos);
-}
-
-void KateView::getIMSelectionValue( KTextEditor::Range* imRange, KTextEditor::Range* imSelection )
-{
-  *imRange = m_imRange;
-  *imSelection = m_imSelection;
+  return m_imRange;
 }
 //END IM INPUT STUFF
 

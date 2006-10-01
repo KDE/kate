@@ -619,9 +619,8 @@ class KateView : public KTextEditor::View,
    */
   public:
     void setIMSelectionValue( const KTextEditor::Range& imRange, const KTextEditor::Range& imSelection, bool imComposeEvent );
-    void getIMSelectionValue( KTextEditor::Range* imRange, KTextEditor::Range* imSelection );
-    bool isIMSelection( const KTextEditor::Cursor& pos );
-    bool isIMEdit( const KTextEditor::Cursor& pos );
+    const KTextEditor::Range& imSelection() const;
+    const KTextEditor::Range& imEdit() const;
     bool imComposeEvent () const { return m_imComposeEvent; }
 
   ///Template stuff

@@ -615,10 +615,6 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
           // indentation lines OR
           || (showIndentLines() && curCol < lastIndentColumn)
 
-          // the next char is a tab (removed the "and this isn't" because that's dealt with above)
-          // i.e. we have to draw the current text so the tab can be rendered as above.
-          || (textLine->string()[nextCol] == tabChar)
-
           // input method edit area
           || ( m_view && (isIMEdit != m_view->isIMEdit( line, nextCol )) )
 
@@ -647,30 +643,6 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
               paint.setPen( m_view->colorGroup().color( QPalette::BrightText ) );
             }
 
-            // Draw indentation markers.
-            if (showIndentLines() && curCol < lastIndentColumn)
-            {
-              // Draw multiple guides when tab width greater than indent width.
-              const int charWidth = isTab ? m_tabWidth - curPos % m_tabWidth : 1;
-
-              // Do not draw indent guides on the first line.
-              int i = 0;
-              if (curPos == 0 || curPos % m_indentWidth > 0)
-                i = m_indentWidth - curPos % m_indentWidth;
-
-              for (; i < charWidth; i += m_indentWidth)
-              {
-                // In most cases this is done one or zero times.
-                paintIndentMarker(paint, xPos - xStart + i * spaceWidth, line);
-
-                // Draw highlighted line.
-                if (curPos+i == minIndent)
-                {
-                  paintIndentMarker(paint, xPos - xStart + 1 + i * spaceWidth, line+1);
-                }
-              }
-            }
-
             // Draw preedit's underline
             if (isIMEdit) {
               QRect r( oldXPos - xStart, 0, xPosAfter - oldXPos, config()->fontMetrics().height() );
@@ -679,16 +651,6 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
             // Put pen color back
             if (isIMSel) paint.restore();
-
-      // Update the current indentation pos.
-      if (isTab)
-      {
-        curPos += m_tabWidth - (curPos % m_tabWidth);
-      }
-      else
-      {
-        curPos++;
-      }
     }
   */
 
@@ -813,26 +775,8 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   // Qt's text renderer ("scribe") version 4.2 assumes a "higher-level protocol"
   // (such as KatePart) will specify the paragraph level, so it does not apply P2 & P3
   // by itself. If this ever change in Qt, the next code block could be removed.
-  for (int i=0; i < lineLayout->textLine()->string().length(); i++) {
-    switch (lineLayout->textLine()->string().at(i).direction()) {
-      case QChar::DirL:
-      case QChar::DirLRO:
-      case QChar::DirLRE:
-        goto end;
-
-      case QChar::DirR:
-      case QChar::DirAL:
-      case QChar::DirRLO:
-      case QChar::DirRLE:
-        opt.setTextDirection(Qt::RightToLeft);
-        goto end;
-
-      default:
-        break;
-    }
-  }
-
-  end:
+  if (lineLayout->textLine()->string().isRightToLeft())
+    opt.setTextDirection(Qt::RightToLeft);
 
   l->setTextOption(opt);
 

@@ -9,7 +9,6 @@ kde4_add_plugin(ktexteditor_insertfile ${ktexteditor_insertfile_PART_SRCS})
 
 target_link_libraries(ktexteditor_insertfile  ${KDE4_KDECORE_LIBS} ktexteditor )
 
-kde4_install_libtool_file(${PLUGIN_INSTALL_DIR} ktexteditor_insertfile )
 install(TARGETS  ktexteditor_insertfile  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 

@@ -15,6 +15,7 @@ macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp ${CMAKE_
 # our sources
 set(katepart_PART_SRCS
 katesearch.cpp
+katesearchbar.cpp
 katebuffer.cpp
 katecmds.cpp
 kateundo.cpp

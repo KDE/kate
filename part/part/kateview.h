@@ -53,6 +53,7 @@ class KateSpell;
 class KateCompletionWidget;
 class KateSmartRange;
 class KateViewInternal;
+class KateSearchBar;
 
 class KToggleAction;
 class KAction;
@@ -87,6 +88,7 @@ class KateView : public KTextEditor::View,
     friend class KateViewInternal;
     friend class KateIconBorder;
     friend class KateCodeCompletion;
+    friend class KateSearchBar;
 
   public:
     KateView( KateDocument* doc, QWidget* parent );
@@ -463,9 +465,8 @@ class KateView : public KTextEditor::View,
     void find( const QString&, long, bool add=true ); ///< proxy for KateSearch
     void replace();
     void replace( const QString&, const QString &, long ); ///< proxy for KateSearch
-    void findAgain( bool back );
-    void findAgain()              { findAgain( false );          }
-    void findPrev()               { findAgain( true );           }
+    void findNext();
+    void findPrevious();
 
     void setFoldingMarkersOn( bool enable ); // Not in KTextEditor::View, but should be
     void setIconBorder( bool enable );
@@ -535,6 +536,7 @@ class KateView : public KTextEditor::View,
     void slotCollapseLocal();
     void slotExpandLocal();
     void slotConfigDialog ();
+    void slotHideSearchBar();
 
   private:
     void setupConnections();
@@ -578,6 +580,7 @@ class KateView : public KTextEditor::View,
     KateCodeCompletion*    m_codeCompletion;
 
     KateCmdLine *m_cmdLine;
+    KateSearchBar *m_searchBar;
     bool m_cmdLineOn;
 
     QVBoxLayout *m_vBox;

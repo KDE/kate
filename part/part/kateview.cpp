@@ -47,6 +47,7 @@
 #include "katesmartmanager.h"
 #include "katecmdactionmanager.h"
 #include "katesmartrange.h"
+#include "katesearchbar.h"
 
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/cursorfeedback.h>
@@ -181,6 +182,11 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   // update the enabled state of the undo/redo actions...
   slotNewUndo();
+  
+  m_searchBar = new KateSearchBar(this);
+  m_searchBar->hide();
+  connect(m_searchBar, SIGNAL(hidden()), this, SLOT(slotHideSearchBar()));
+  m_vBox->addWidget(m_searchBar);
 
   m_startingUp = false;
   updateConfig ();
@@ -467,7 +473,22 @@ void KateView::setupActions()
   // encoding menu
   new KateViewEncodingAction (m_doc, this, i18n("E&ncoding"), ac, "set_encoding");
 
-  m_search->createActions( ac );
+  a = KStdAction::find(this, SLOT(find()), ac);
+  a->setWhatsThis(i18n("Look up the first occurrence of a piece of text or regular expression."));
+  addAction(a);
+
+  a = KStdAction::findNext(this, SLOT(findNext()), ac);
+  a->setWhatsThis(i18n("Look up the next occurrence of the search phrase."));
+  addAction(a);
+
+  a = KStdAction::findPrev(this, SLOT(findPrevious()), ac, "edit_find_prev");
+  a->setWhatsThis(i18n("Look up the previous occurrence of the search phrase."));
+  addAction(a);
+
+  // TODO: something about "replace" (kling)
+  a = KStdAction::replace(m_search, SLOT(replace()), ac);
+  a->setWhatsThis(i18n("Look up a piece of text or regular expression and replace the result with some given text."));
+
   m_spell->createActions( ac );
   m_bookmarks->createActions( ac );
 
@@ -1034,14 +1055,22 @@ void KateView::slotNeedTextHint(int line, int col, QString &text)
   text=QString("test %1 %2").arg(line).arg(col);
 }
 
+void KateView::slotHideSearchBar()
+{
+  m_searchBar->hide();
+  setFocus();
+}
+
 void KateView::find()
 {
-  m_search->find();
+  m_searchBar->show();
+  m_searchBar->setFocus();
 }
 
 void KateView::find( const QString& pattern, long flags, bool add )
 {
-  m_search->find( pattern, flags, add );
+  // TODO: something like the old thing (kling)
+  //m_search->find( pattern, flags, add );
 }
 
 void KateView::replace()
@@ -1054,9 +1083,14 @@ void KateView::replace( const QString &pattern, const QString &replacement, long
   m_search->replace( pattern, replacement, flags );
 }
 
-void KateView::findAgain( bool back )
+void KateView::findNext()
 {
-  m_search->findAgain( back );
+  m_searchBar->findNext();
+}
+
+void KateView::findPrevious()
+{
+  m_searchBar->findPrevious();
 }
 
 void KateView::slotSelectionChanged ()
@@ -1085,7 +1119,6 @@ void KateView::switchToCmdLine ()
   }
   m_cmdLine->setFocus ();
 }
-
 
 #if 0
 void KateView::showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 )

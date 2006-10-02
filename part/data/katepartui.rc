@@ -67,7 +67,6 @@
     <Action name="set_encoding" group="tools_operations" />
     <Action name="set_eol" group="tools_operations" />
     <Separator group="tools_operations" />
-    <Action name="tools_commands" />
     <Separator group="tools_operations" />
     <Action name="tools_spelling" group="tools_operations" />
     <Action name="tools_spelling_from_cursor" group="tools_operations" />

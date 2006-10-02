@@ -46,7 +46,6 @@ kateprinter.cpp
 katesmartrange.cpp
 kateglobal.cpp
 katecmd.cpp
-katecmdactionmanager.cpp
 katelayoutcache.cpp
 katetextlayout.cpp
 katesmartmanager.cpp

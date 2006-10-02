@@ -36,7 +36,6 @@
 #define KATEPART_VERSION "3.0"
 
 class KateCmd;
-class KateCmdBindingManager;
 class KateFileTypeManager;
 class KateSchemaManager;
 class KateDocumentConfig;
@@ -291,12 +290,6 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     KateCmd *cmdManager () { return m_cmdManager; }
 
     /**
-     * command manager, that contians all KTextEditor::Commands that
-     * have an attached gui action
-     */
-    KateCmdBindingManager *cmdBindingManager() { return m_cmdBindingManager; }
-
-    /**
      * register given command
      * this works global, for all documents
      * @param cmd command to register
@@ -426,11 +419,6 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * command manager
      */
     KateCmd *m_cmdManager;
-
-    /**
-     * command action manager
-     */
-    KateCmdBindingManager* m_cmdBindingManager;
 
     QList<KTextEditor::Document*> m_docs;
 };

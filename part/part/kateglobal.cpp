@@ -31,7 +31,6 @@
 #include "katejscript.h"
 #endif
 #include "katecmd.h"
-#include "katecmdactionmanager.h"
 #include "katebuffer.h"
 
 #include <kvmallocator.h>
@@ -110,11 +109,6 @@ KateGlobal::KateGlobal ()
   m_cmdManager = new KateCmd ();
 
   //
-  // command action manager
-  //
-  m_cmdBindingManager = new KateCmdBindingManager();
-
-  //
   // hl manager
   //
   m_hlManager = new KateHlManager ();
@@ -177,8 +171,6 @@ KateGlobal::~KateGlobal()
 
   delete m_hlManager;
 
-  delete m_cmdBindingManager;
-
   delete m_cmdManager;
 
   s_self = 0;
@@ -212,9 +204,6 @@ void KateGlobal::readConfig(KConfig *config)
 
   config->setGroup("Kate Renderer Defaults");
   KateRendererConfig::global()->readConfig (config);
-
-  config->setGroup("Kate Command Bindings");
-  cmdBindingManager()->readConfig(config);
 }
 
 void KateGlobal::writeConfig(KConfig *config)
@@ -230,9 +219,6 @@ void KateGlobal::writeConfig(KConfig *config)
 
   config->setGroup("Kate Renderer Defaults");
   KateRendererConfig::global()->writeConfig (config);
-
-  config->setGroup("Kate Command Bindings");
-  cmdBindingManager()->writeConfig(config);
 
   config->sync();
 }
@@ -294,7 +280,7 @@ void KateGlobal::configDialog(QWidget *parent)
 
 int KateGlobal::configPages () const
 {
-  return 12;
+  return 11;
 }
 
 KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
@@ -333,9 +319,6 @@ KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
 
     case 10:
       return new KateScriptConfigPage (parent);
-
-    case 11:
-      return new KateCmdBindingConfigPage (parent);
 
     default:
       return 0;
@@ -381,9 +364,6 @@ QString KateGlobal::configPageName (int number) const
     case 10:
       return i18n("Scripts");
 
-    case 11:
-      return i18n("Commands");
-
     default:
       return QString ("");
   }
@@ -428,9 +408,6 @@ QString KateGlobal::configPageFullName (int number) const
     case 10:
       return i18n ("Script Manager");
 
-    case 11:
-      return i18n ("Command Menu Bindings");
-
     default:
       return QString ("");
   }
@@ -474,9 +451,6 @@ KIcon KateGlobal::configPageIcon (int number) const
 
     case 10:
       return KIcon("edit");
-
-    case 11:
-      return KIcon("menu");
 
     default:
       return KIcon("edit");

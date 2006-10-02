@@ -806,30 +806,22 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     case KateJSDocument::FindLeftBrace: {
       if (exception.invalidArgs(2)) break;
       KateDocCursor cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec), doc);
-      // use highlighting information, if available (assume, { and } have same attribute)
-      bool hasAttribute = (cursor.currentChar() == '}' || cursor.currentChar() == '{');
-      // force highlighting of current line
-      if (hasAttribute)
-        doc->kateTextLine(cursor.line());
-      int attribute = cursor.currentAttrib();
       int count = 1;
 
       // Move backwards char by char and find the opening brace
       while (cursor.moveBackward(1)) {
-        if (!hasAttribute || cursor.currentAttrib() == attribute) {
-          QChar ch = cursor.currentChar();
-          if (ch == '{') {
-            --count;
-          } else if (ch == '}') {
-            ++count;
-          }
+        QChar ch = cursor.currentChar();
+        if (ch == '{') {
+          --count;
+        } else if (ch == '}') {
+          ++count;
+        }
 
-          if (count == 0) {
-            KJS::JSObject *object = exec->lexicalInterpreter()->builtinObject()->construct(exec, KJS::List::empty());
-            object->put(exec, "line", KJS::Number(cursor.line()));
-            object->put(exec, "column", KJS::Number(cursor.column()));
-            return object;
-          }
+        if (count == 0) {
+          KJS::JSObject *object = exec->lexicalInterpreter()->builtinObject()->construct(exec, KJS::List::empty());
+          object->put(exec, "line", KJS::Number(cursor.line()));
+          object->put(exec, "column", KJS::Number(cursor.column()));
+          return object;
         }
       }
 
@@ -839,30 +831,22 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
     case KateJSDocument::FindLeftParenthesis: {
       if (exception.invalidArgs(2)) break;
       KateDocCursor cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec), doc);
-      // use highlighting information, if available
-      bool hasAttribute = (cursor.currentChar() == ')' || cursor.currentChar() == '(');
-      // force highlighting of current line
-      if (hasAttribute)
-        doc->kateTextLine(cursor.line());
-      int attribute = cursor.currentAttrib();
       int count = 1;
 
       // Move backwards char by char and find the opening parenthesis
       while (cursor.moveBackward(1)) {
-        if (!hasAttribute || cursor.currentAttrib() == attribute) {
-          QChar ch = cursor.currentChar();
-          if (ch == '(') {
-            --count;
-          } else if (ch == ')') {
-            ++count;
-          }
+        QChar ch = cursor.currentChar();
+        if (ch == '(') {
+          --count;
+        } else if (ch == ')') {
+          ++count;
+        }
 
-          if (count == 0) {
-            KJS::JSObject *object = exec->lexicalInterpreter()->builtinObject()->construct(exec, KJS::List::empty());
-            object->put(exec, "line", KJS::Number(cursor.line()));
-            object->put(exec, "column", KJS::Number(cursor.column()));
-            return object;
-          }
+        if (count == 0) {
+          KJS::JSObject *object = exec->lexicalInterpreter()->builtinObject()->construct(exec, KJS::List::empty());
+          object->put(exec, "line", KJS::Number(cursor.line()));
+          object->put(exec, "column", KJS::Number(cursor.column()));
+          return object;
         }
       }
 

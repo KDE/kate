@@ -1165,100 +1165,31 @@ void KateJScriptManager::collectScripts (bool force)
   if (!m_scripts.isEmpty())
     return;
 
-  // We'll store the scripts list in this config
-  KConfig config("katepartjscriptrc", false, false);
-
-  // figure out if the kate install is too new
-  config.setGroup ("General");
-  if (config.readEntry ("Version", 0) > config.readEntry ("CachedVersion",0))
-  {
-    config.writeEntry ("CachedVersion", config.readEntry ("Version",0));
-    force = true;
-  }
-
-  // Let's get a list of all the .js files
-  QStringList list = KGlobal::dirs()->findAllResources("data","katepart/scripts/*.js",false,true);
+  QStringList keys(QStringList() << "help");
+  QVector<KateJScriptHeader> scripts;
+  scripts = KateJScriptHelpers::findScripts(QString("katepartjscriptrc"),
+                                            QString("katepart/scripts/*.js"), keys);
 
   // Let's iterate through the list and build the Mode List
-  for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
+  for (QVector<KateJScriptHeader>::iterator it = scripts.begin();
+       it != scripts.end(); ++it)
   {
-    // Each file has a group called:
-    QString Group="Cache "+ *it;
+    kDebug (13050) << "add script: " << (*it).filename << endl;
+    QFileInfo fi((*it).filename);
 
-    // Let's go to this group
-    config.setGroup(Group);
+    if (m_scripts.contains(fi.baseName()))
+      continue;
 
-    // stat the file
-    struct stat sbuf;
-    memset (&sbuf, 0, sizeof(sbuf));
-    stat(QFile::encodeName(*it), &sbuf);
+    KateJScriptManager::Script *s = new KateJScriptManager::Script ();
 
-    // If the group exist and we're not forced to read the .js file, let's build myModeList for katepartjscriptrc
-    if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readEntry("lastModified",0)))
-    {
-    }
-    else
-    {
-      kDebug (13050) << "add script: " << *it << endl;
+    s->command = fi.baseName();
+    s->filename = (*it).filename;
+    s->name = "dominik: delete me";
+    if ((*it).pairs.contains("help"))
+      s->help = (*it).pairs["help"];
 
-      QString desktopFile =  (*it).left((*it).length()-2).append ("desktop");
-
-      kDebug (13050) << "add script (desktop file): " << desktopFile << endl;
-
-      QFileInfo dfi (desktopFile);
-
-      if (dfi.exists())
-      {
-        KConfig df (desktopFile, true, false);
-        df.setDesktopGroup ();
-
-        // get cmdname, fallback to baseName, if it is empty, therefor not use the kconfig fallback
-        QString cmdname = df.readEntry ("X-Kate-Command");
-        if (cmdname.isEmpty())
-        {
-          QFileInfo fi (*it);
-          cmdname = fi.baseName();
-        }
-
-        if (m_scripts[cmdname])
-          continue;
-
-        KateJScriptManager::Script *s = new KateJScriptManager::Script ();
-
-        s->command = cmdname;
-        s->name = df.readEntry ("Name");
-        s->description = df.readEntry ("Comment");
-        s->filename = *it;
-        s->desktopFileExists = true;
-
-        kDebug() << s->name << ":: " << s->description << endl;
-
-        m_scripts.insert (s->command, s);
-      }
-      else // no desktop file around, fall back to scriptfilename == commandname
-      {
-        kDebug (13050) << "add script: fallback, no desktop file around!" << endl;
-
-        QFileInfo fi (*it);
-
-        if (m_scripts[fi.baseName()])
-          continue;
-
-        KateJScriptManager::Script *s = new KateJScriptManager::Script ();
-
-        s->command = fi.baseName();
-        s->filename = *it;
-        s->desktopFileExists = false;
-        s->name = i18n("Unnamed");
-        s->description = i18n("No description available.");
-
-        m_scripts.insert (s->command, s);
-      }
-    }
+    m_scripts.insert (s->command, s);
   }
-
-  // Syncronize with the file katepartjscriptrc
-  config.sync();
 }
 
 bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QString &errorMsg )
@@ -1311,19 +1242,17 @@ bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QSt
 
 bool KateJScriptManager::help( KTextEditor::View *, const QString &cmd, QString &msg )
 {
-  if (cmd=="js-run-myself") {msg=i18n("This executes the current document as a javascript within kate"); return true;}
-  if (!m_scripts[cmd] || !m_scripts[cmd]->desktopFileExists)
+  if (cmd == "js-run-myself") {
+    msg = i18n("This executes the current document as a javascript within kate");
+    return true;
+  }
+
+  if (!m_scripts.contains(cmd))
     return false;
 
-  KConfig df (m_scripts[cmd]->desktopFilename(), true, false);
-  df.setDesktopGroup ();
+  msg = m_scripts[cmd]->help;
 
-  msg = df.readEntry ("X-Kate-Help");
-
-  if (msg.isEmpty())
-    return false;
-
-  return true;
+  return !msg.isEmpty();
 }
 
 const QStringList &KateJScriptManager::cmds()
@@ -1345,7 +1274,7 @@ QString KateJScriptManager::name (const QString& cmd) const
 
 QString KateJScriptManager::description (const QString& cmd) const
 {
-  return m_scripts.contains( cmd ) ? m_scripts[cmd]->description : QString();
+  return m_scripts.contains( cmd ) ? m_scripts[cmd]->help : QString();
 }
 
 QString KateJScriptManager::category (const QString& cmd) const
@@ -1399,12 +1328,13 @@ JSValue* KateJSIndenterProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
 
 //BEGIN KateIndentJScript
 KateIndentJScript::KateIndentJScript(KateIndentJScriptManager *manager,
-    const QString& internalName, const QString  &filePath, const QString &niceName,
-    const QString &license, const QString &author, int version, double kateVersion)
+    const QString& internalName, const QString& filePath, const QString& name,
+    const QString& license, const QString& author, const QString& version,
+    const QString& kateVersion)
   : m_manager(manager),
     m_internalName (internalName),
     m_filePath (filePath),
-    m_niceName(niceName),
+    m_name(name),
     m_license(license),
     m_author(author),
     m_version(version),
@@ -1602,9 +1532,9 @@ const QString& KateIndentJScript::filePath()
    return m_filePath;
 }
 
-const QString& KateIndentJScript::niceName()
+const QString& KateIndentJScript::name()
 {
-  return m_niceName;
+  return m_name;
 }
 
 const QString& KateIndentJScript::license()
@@ -1617,12 +1547,12 @@ const QString& KateIndentJScript::author()
   return m_author;
 }
 
-int KateIndentJScript::version()
+const QString& KateIndentJScript::version()
 {
   return m_version;
 }
 
-double KateIndentJScript::kateVersion()
+const QString& KateIndentJScript::kateVersion()
 {
   return m_kateVersion;
 }
@@ -1641,144 +1571,148 @@ KateIndentJScriptManager::~KateIndentJScriptManager ()
 
 void KateIndentJScriptManager::collectScripts (bool force)
 {
-// If there's something in myModeList the Mode List was already built so, don't do it again
   if (!m_scripts.isEmpty())
     return;
 
-
-  // We'll store the scripts list in this config
-  KConfig config("katepartindentjscriptrc", false, false);
-#if 0
-  // figure out if the kate install is too new
-  config.setGroup ("General");
-  if (config.readEntry ("Version",0) > config.readEntry ("CachedVersion",0))
-  {
-    config.writeEntry ("CachedVersion", config.readEntry ("Version",0));
-    force = true;
-  }
-#endif
-
   // Let's get a list of all the .js files
-  QStringList list = KGlobal::dirs()->findAllResources("data","katepart/indent/*.js",false,true);
+  QStringList keys(QStringList() << "name" << "license" << "author"
+                                 << "version" << "kate-version");
+  QVector<KateJScriptHeader> scripts;
+  scripts = KateJScriptHelpers::findScripts(QString("katepartindentscriptrc"),
+                                            QString("katepart/indent/*.js"), keys);
 
   // Let's iterate through the list and build the Mode List
-  for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
+  for (QVector<KateJScriptHeader>::iterator it = scripts.begin();
+       it != scripts.end(); ++it )
   {
-    // Each file has a group ed:
-    QString Group="Cache "+ *it;
+    kDebug (13050) << "add indent-script: " << (*it).filename << endl;
+    KateJScriptHeader &header = *it;
 
-    // Let's go to this group
-    config.setGroup(Group);
+    QFileInfo fi(header.filename);
+    QString internalName = fi.baseName();
 
-    // stat the file
-    struct stat sbuf;
-    memset (&sbuf, 0, sizeof(sbuf));
-    stat(QFile::encodeName(*it), &sbuf);
-
-    // If the group exist and we're not forced to read the .js file, let's
-    // build myModeList for katepartjscriptrc
-    bool readnew=false;
-    if (!force && config.hasGroup(Group))
-    {
-      config.setGroup(Group);
-      if (sbuf.st_mtime == config.readEntry("lastModified", 0)) {
-        QString filePath = *it;
-        QString internalName = config.readEntry("internalName", "KATE-ERROR");
-        if (internalName == "KATE-ERROR") readnew = true;
-        else
-        {
-          QString niceName = config.readEntry("niceName", internalName);
-          QString license = config.readEntry("license", i18n("(Unknown)"));
-          QString author = config.readEntry("author", i18n("(Unknown)"));
-          int version = config.readEntry("version", 0);
-          double kateVersion = config.readEntry("kateVersion", 0.0);
-          KateIndentJScript *s = new KateIndentJScript(this, internalName,
-              filePath, niceName, license, author, version, kateVersion);
-          m_scripts.insert (internalName, s);
-          m_scriptsList.append(s);
-        }
-      } else readnew=true;
-    }
-    else readnew=true;
-    if (readnew)
-    {
-      QFileInfo fi (*it);
-
-      if (m_scripts[fi.baseName()])
-        continue;
-
-      QString internalName = fi.baseName();
-      QString filePath = *it;
-      QString niceName = internalName;
-      QString license;
-      QString author;
-      int version = 0;
-      double kateVersion = 0.0;
-      bool success = parseScriptHeader(filePath, niceName, license, author,
-                                       version, kateVersion);
-      // save the information for retrieval
-      config.setGroup(Group);
-      config.writeEntry("lastModified", int(sbuf.st_mtime));
-      config.writeEntry("internalName", internalName);
-      config.writeEntry("niceName", niceName);
-      config.writeEntry("license", license);
-      config.writeEntry("author", author);
-      config.writeEntry("version", version);
-      config.writeEntry("kateVersion", kateVersion);
-
-      if (success) {
-        KateIndentJScript *s = new KateIndentJScript(this,
-          internalName, filePath, niceName, license, author, version, kateVersion);
-        m_scripts.insert(internalName, s);
-        m_scriptsList.append(s);
-      }
-    }
+    QString name = header.pairs["name"];
+    QString license = header.pairs["license"];
+    QString author = header.pairs["author"];
+    QString version = header.pairs["version"];
+    QString kateVersion = header.pairs["kate-version"];
+    KateIndentJScript *s = new KateIndentJScript(this, internalName,
+        header.filename, name, license, author, version, kateVersion);
+    m_scripts.insert (internalName, s);
+    m_scriptsList.append(s);
   }
-
-  // Syncronize with the file katepartjscriptrc
-  config.sync();
-}
-
-bool KateIndentJScriptManager::parseScriptHeader(const QString &filePath,
-    QString &niceName, QString &license, QString &author, int &version, double &kateversion)
-{
-  QFile f(QFile::encodeName(filePath));
-  if (!f.open(QIODevice::ReadOnly) ) {
-    kDebug(13050)<<"Header could not be parsed, because file could not be opened"<<endl;
-    return false;
-  }
-  QTextStream st(&f);
-  st.setCodec("UTF-8");
-  if (!st.readLine().toLower().startsWith("/** kate-js-indenter")) {
-    kDebug(13050) << "No header found" << endl;
-    f.close();
-    return false;
-  }
-  // here the real parsing begins
-  QString line;
-  QRegExp endExpr("^\\s*\\*[/]?\\s*$");
-  QRegExp keyValue("^\\s*\\*\\s*(.+):(.*)$");
-
-  while (!(line = st.readLine()).isNull()) {
-    if (endExpr.exactMatch(line)) {
-      kDebug(13050) << "end of config block" << endl;
-      break;
-    }
-    if (keyValue.exactMatch(line)) {
-      QStringList sl = keyValue.capturedTexts();
-      kDebug(13050) << "key:" << sl[1] << endl << "value:" << sl[2] << endl;
-
-      QString key = sl[1].trimmed().toLower();
-      QString value = sl[2].trimmed();
-      if (key == "name") niceName = value;
-      else if (key == "license") license = value;
-      else if (key == "author") author = value;
-      else if (key == "kateversion") kateversion = value.toDouble(0);
-      else if (key == "version") version = value.toInt();
-    }
-  }
-  f.close();
-  return true;
 }
 //END
+
+//BEGIN KateJScriptHelpers
+bool KateJScriptHelpers::parseScriptHeader(const QString& filename,
+                                           KateJScriptHeader& scriptHeader)
+{
+  // a valid script file -must- have the following format:
+  // The first line must contain the string 'kate-script'.
+  // All following lines have to have the format 'key : value'. So the value
+  // is separated by a colon. Leading non-letter characters are ignored, that
+  // include C and C++ comments for example.
+  // Parsing the header stops at the first line with no ':'.
+
+  QFile file(QFile::encodeName(filename));
+  if (!file.open(QIODevice::ReadOnly)) {
+    kDebug(13050) << "Script parse error: Cannot open file " << filename << endl;
+    return false;
+  }
+
+  kDebug(13050) << "Update script: " << filename << endl;
+  QTextStream ts(&file);
+  ts.setCodec("UTF-8");
+  if (!ts.readLine().contains("kate-script")) {
+    kDebug(13050) << "Script parse error: No header found in " << filename << endl;
+    file.close();
+    return false;
+  }
+
+  QString line;
+  while (!(line = ts.readLine()).isNull()) {
+    int colon = line.indexOf(':');
+    if (colon <= 0)
+      break; // no colon -> end of header found
+
+    // if -1 then 0. if >= 0, move after star.
+    int start = 0; // start points to first letter. idea: skip '*' and '//'
+    while (start < line.length() && !line.at(start).isLetter())
+      ++start;
+
+    QString key = line.mid(start, colon - start).trimmed();
+    QString value = line.right(line.length() - (colon + 1)).trimmed();
+    scriptHeader.pairs[key] = value;
+
+    kDebug(13050) << "found pair: (" << key << " | " << value << ")" << endl;
+  }
+  file.close();
+  return true;
+}
+
+QVector <KateJScriptHeader> KateJScriptHelpers::findScripts(const QString& rcFile,
+                                                            const QString& resourceDir,
+                                                            const QStringList &keys)
+{
+  KConfig config(rcFile, false, false);
+
+  bool force = false;
+  // For every major Katepart version bump, re-read list
+  config.setGroup ("General");
+  if (QString(KATEPART_VERSION) > config.readEntry ("kate-version", QString("0.0"))) {
+    config.writeEntry("kate-version", QString(KATEPART_VERSION));
+    force = true;
+  }
+
+  // get a list of all .js files (false: not recursive, true: no duplicates)
+  QStringList list = KGlobal::dirs()->findAllResources("data", resourceDir, false, true);
+  QVector <KateJScriptHeader> files;
+  files.reserve(list.size());
+
+  // iterate through the files and read info out of cache or file
+  for (QStringList::ConstIterator fileit = list.begin(); fileit != list.end(); ++fileit)
+  {
+    // each file has a group
+    QString group = "Cache "+ *fileit;
+    config.setGroup(group);
+
+    // stat the file to get the last-modified-time
+    struct stat sbuf;
+    memset (&sbuf, 0, sizeof(sbuf));
+    stat(QFile::encodeName(*fileit), &sbuf);
+
+    // check whether file is already cached
+    bool useCache = false;
+    if (!force && config.hasGroup(group)) {
+      config.setGroup(group);
+      useCache = (sbuf.st_mtime == config.readEntry("last-modified", 0));
+    }
+
+    // read key/value pairs from the cached file if possible
+    // otherwise, parse it and then save the needed infos to the cache
+    KateJScriptHeader scriptHeader;
+    scriptHeader.filename = *fileit;
+    if (useCache) {
+      for (QStringList::ConstIterator keyit = keys.begin(); keyit != keys.end(); ++keyit) {
+        QString value = config.readEntry(*keyit, QString("unset"));
+        if (value != "unset")
+          scriptHeader.pairs[*keyit] = value;
+      }
+      files.push_back(scriptHeader);
+    } else if (parseScriptHeader(*fileit, scriptHeader)) {
+      config.setGroup(group);
+      config.writeEntry("last-modified", int(sbuf.st_mtime));
+      // iterate keys and save cache
+      for (QStringList::ConstIterator keyit = keys.begin(); keyit != keys.end(); ++keyit)
+        if (scriptHeader.pairs.contains(*keyit))
+          config.writeEntry(*keyit, scriptHeader.pairs[*keyit]);
+      files.push_back(scriptHeader);
+    }
+  }
+
+  config.sync();
+  return files;
+}
+//END KateJScriptHelpers
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -1,9 +1,9 @@
-/** kate-js-indenter
+/** kate-script
  * name: C++ Indenter
  * license: LGPL
  * author: Dominik Haumann <dhdev@gmx.de>
  * version: 1
- * kateversion: 3.0
+ * kate-version: 3.0
  *
  * This file is part of the Kate Project.
  *
@@ -459,7 +459,7 @@ function tryStatement(line)
         if (cursor) {
             if (comma) {
                 currentLine = cursor.line;
-                column = cursor.column;
+                column = cursor.column + 1;
                 var lastColumn = document.lastColumn(currentLine);
                 while (column < lastColumn && document.isSpace(currentLine, ++column));
                 indentation = document.toVirtualColumn(currentLine, column);

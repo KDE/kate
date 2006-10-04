@@ -1,3 +1,5 @@
+// kate-script
+// help: Sort the selection text.
 if (view.hasSelection()) {
     var start = view.startOfSelection().line;
     var end = view.endOfSelection().line;

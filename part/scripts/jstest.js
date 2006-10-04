@@ -1,3 +1,5 @@
+// kate-script
+// help: Test the selection interface.
 // If you select some text before running the script, this line will be overwritten.
 if ( view.hasSelection() )
 {

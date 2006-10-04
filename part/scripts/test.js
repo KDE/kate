@@ -1,3 +1,5 @@
+// kate-script
+// help: Stupid test script.
 var test = 1;
 var start = document.lines();
 

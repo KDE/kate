@@ -52,6 +52,41 @@ namespace KJS {
 }
 
 /**
+ * Helper class which includes a filename and the header information. The header
+ * information is available as key/values (hash).
+ */
+class KateJScriptHeader
+{
+  public:
+    QString filename;
+    QHash<QString, QString> pairs;
+};
+
+/**
+ * Kate jscript helper functions.
+ */
+class KateJScriptHelpers
+{
+  public:
+    /**
+     * Get a list of all files matching the wildcard \p resourceDir. The file
+     * \p rcFile is used for caching. The returned vector contains a list of all
+     * files as KateJScriptHeader. Every item has a hash, that includes all
+     * key/value pairs. Only the given \p keys are read from the script header.
+     */
+    static QVector <KateJScriptHeader> findScripts(const QString& rcFile,
+                                                   const QString& resourceDir,
+                                                   const QStringList &keys);
+  private:
+    /** helper function used by findScripts() */
+    static bool parseScriptHeader(const QString& filename, KateJScriptHeader& scriptHeader);
+
+  private:
+    explicit KateJScriptHelpers() {}
+    explicit KateJScriptHelpers(const KateJScriptHelpers&) {}
+};
+
+/**
  * Whole Kate Part scripting in one classs
  * Allow subclassing to allow specialized scripting engine for indenters
  */
@@ -126,13 +161,6 @@ class KateJScriptManager : public KTextEditor::Command
     class Script
     {
       public:
-        /**
-         * get desktop filename
-         * @return desktop filename
-         */
-        inline QString desktopFilename () { return filename.left(filename.length()-2).append ("desktop"); }
-
-      public:
         /** command name, as used for command line and more */
         QString command;
 
@@ -140,13 +168,10 @@ class KateJScriptManager : public KTextEditor::Command
         QString name;
 
         /** translated description, can be used for e.g. status bars */
-        QString description;
+        QString help;
 
         /** filename of the script */
         QString filename;
-
-        /** has it a desktop file? */
-        bool desktopFileExists;
     };
 
   public:
@@ -158,7 +183,7 @@ class KateJScriptManager : public KTextEditor::Command
      * go, search our scripts
      * @param force force cache updating?
      */
-    void collectScripts (bool force = false);
+    void collectScripts(bool force = false);
 
     KateJScriptInterpreterContext *m_jscript;
 
@@ -223,34 +248,34 @@ class KateIndentJScriptManager;
 class KateIndentJScript {
   public:
     KateIndentJScript(KateIndentJScriptManager *manager, const QString& internalName,
-        const QString &filePath, const QString &niceName,
+        const QString &filePath, const QString &name,
         const QString &license, const QString &author,
-        int version, double kateVersion);
+        const QString& version, const QString& kateVersion);
     ~KateIndentJScript();
 
     int indent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar, int indentWidth);
-    
+
     const QString &triggerCharacters ();
 
   public:
     const QString& internalName();
     const QString& filePath();
-    const QString& niceName();
+    const QString& name();
     const QString& license();
     const QString& author();
-    int version();
-    double kateVersion();
+    const QString& version();
+    const QString& kateVersion();
   protected:
-    QString filePath() const {return m_filePath;}
+    const QString& filePath() const {return m_filePath;}
   private:
     KateIndentJScriptManager *m_manager;
     QString m_internalName;
     QString m_filePath;
-    QString m_niceName;
+    QString m_name;
     QString m_license;
     QString m_author;
-    int m_version;
-    double m_kateVersion;
+    QString m_version;
+    QString m_kateVersion;
   private:
     KateJSView *m_viewWrapper;
     KateJSDocument *m_docWrapper;
@@ -277,10 +302,7 @@ class KateIndentJScriptManager
      * go, search our scripts
      * @param force force cache updating?
      */
-    void collectScripts (bool force = false);
-    bool parseScriptHeader(const QString &filePath, QString &niceName,
-                           QString &license, QString &author,
-                           int &version, double &kateversion);
+    void collectScripts(bool force = false);
 
   private:
     /**

@@ -70,7 +70,7 @@
 #include <kxmlguiclient.h>
 #include <klibloader.h>
 #include <kencodingfiledialog.h>
-#include <ktempfile.h>
+#include <ktemporaryfile.h>
 #include <ksavefile.h>
 #include <kstdaccel.h>
 #include <kmenu.h>
@@ -1720,12 +1720,15 @@ void KateView::exportAsHTML ()
     return;
 
   QString filename;
-  KTempFile tmp; // ### only used for network export
 
   if ( url.isLocalFile() )
     filename = url.path();
-  else
-    filename = tmp.name();
+  else {
+    KTemporaryFile tmp; // ### only used for network export
+    tmp.setAutoRemove(false);
+    tmp.open();
+    filename = tmp.fileName();
+  }
 
   KSaveFile *savefile=new KSaveFile(filename);
   if (!savefile->status())

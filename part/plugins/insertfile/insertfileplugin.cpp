@@ -29,7 +29,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kpushbutton.h>
-#include <ktempfile.h>
+#include <ktemporaryfile.h>
 #include <kurl.h>
 
 #include <qfile.h>
@@ -107,8 +107,10 @@ void InsertFilePluginView::slotInsertFile()
     insertFile();
   }
   else {
-    KTempFile tempFile( QString::null );
-    _tmpfile = tempFile.name();
+    KTemporaryFile tempFile;
+    tempFile.setAutoRemove(false);
+    tempFile.open();
+    _tmpfile = tempFile.fileName();
 
     KUrl destURL;
     destURL.setPath( _tmpfile );

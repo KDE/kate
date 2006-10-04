@@ -78,7 +78,7 @@
 #include <krun.h>
 #include <kseparator.h>
 #include <kstandarddirs.h>
-#include <ktempfile.h>
+#include <ktemporaryfile.h>
 #include <kpushbutton.h>
 #include <kvbox.h>
 #include <kactioncollection.h>
@@ -1171,19 +1171,26 @@ void KateModOnHdPrompt::slotDiff()
 void KateModOnHdPrompt::slotPRead( KProcIO *p)
 {
   // create a file for the diff if we haven't one already
-  if ( ! m_tmpfile )
-    m_tmpfile = new KTempFile();
+  if ( ! m_tmpfile ) {
+    m_tmpfile = new KTemporaryFile();
+    m_tmpfile->setAutoRemove(false);
+    m_tmpfile->open();
+  }
+
+  QTextStream stream(m_tmpfile);
+
   // put all the data we have in it
   QString stmp;
   bool readData = false;
   while ( p->readln( stmp, false ) > -1 )
   {
-    *m_tmpfile->textStream() << stmp << endl;
+    stream << stmp << endl;
     readData = true;
   }
+  stream.flush();
 
   // dominik: only ackRead(), when we *really* read data, otherwise, this slot
-  // is called initity times, which leads to a crash (#123887)
+  // is called infinity times, which leads to a crash (#123887)
   if( readData )
     p->ackRead();
 }
@@ -1218,7 +1225,7 @@ void KateModOnHdPrompt::slotPDone( KProcess *p )
     return;
   }
 
-  KRun::runUrl( KUrl::fromPath(m_tmpfile->name()), "text/x-diff", this, true );
+  KRun::runUrl( KUrl::fromPath(m_tmpfile->fileName()), "text/x-diff", this, true );
   delete m_tmpfile;
   m_tmpfile = 0;
 }

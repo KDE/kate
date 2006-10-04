@@ -62,7 +62,7 @@ class KatePartPluginItem;
 class KatePartPluginInfo;
 class KateSmartManager;
 
-class KTempFile;
+class KTemporaryFile;
 
 class QTimer;
 
@@ -973,7 +973,7 @@ class KateDocument : public KTextEditor::Document,
     static QRegExp kvVar;
 
     KIO::TransferJob *m_job;
-    KTempFile *m_tempFile;
+    KTemporaryFile *m_tempFile;
 
     bool s_fileChangedDialogsActivated;
 

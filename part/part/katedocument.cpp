@@ -67,7 +67,7 @@
 #include <klibloader.h>
 #include <kdirwatch.h>
 #include <kencodingfiledialog.h>
-#include <ktempfile.h>
+#include <ktemporaryfile.h>
 #include <kcodecs.h>
 #include <kstaticdeleter.h>
 
@@ -2309,8 +2309,10 @@ bool KateDocument::openUrl( const KUrl &url )
 
     m_bTemp = true;
 
-    m_tempFile = new KTempFile ();
-    m_file = m_tempFile->name();
+    m_tempFile = new KTemporaryFile ();
+    m_tempFile->setAutoRemove(false);
+    m_tempFile->open();
+    m_file = m_tempFile->fileName();
 
     m_job = KIO::get ( url, false, isProgressInfoEnabled() );
 
@@ -2338,10 +2340,10 @@ void KateDocument::slotDataKate ( KIO::Job *, const QByteArray &data )
 {
 //   kDebug(13020) << "KateDocument::slotData" << endl;
 
-  if (!m_tempFile || !m_tempFile->file())
+  if (!m_tempFile)
     return;
 
-  m_tempFile->file()->write (data);
+  m_tempFile->write (data);
 }
 
 void KateDocument::slotFinishedKate ( KJob * job )

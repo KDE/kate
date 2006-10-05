@@ -38,7 +38,7 @@ install( FILES language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml ob
                cg.xml ahdl.xml ansic89.xml tibasic.xml nemerle.xml sisu.xml
                purebasic.xml mips.xml logtalk.xml txt2tags.xml xslt.xml stata.xml glsl.xml
                lilypond.xml abc.xml asp.xml asm-avr.xml rib.xml cmake.xml octave.xml javadoc.xml cgis.xml
-               spice.xml nasm.xml mediawiki.xml apache.xml m3u.xml ini.xml pgn.xml freebasic.xml ansys.xml gap.xml
+               spice.xml nasm.xml mediawiki.xml apache.xml m3u.xml ini.xml pgn.xml freebasic.xml ansys.xml gap.xml djangotemplate.xml
                ${CMAKE_CURRENT_BINARY_DIR}/html-php.xml ${CMAKE_CURRENT_BINARY_DIR}/css-php.xml ${CMAKE_CURRENT_BINARY_DIR}/javascript-php.xml
                DESTINATION ${DATA_INSTALL_DIR}/katepart/syntax)
 

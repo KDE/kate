@@ -33,7 +33,6 @@
 #include "katecmd.h"
 #include "katebuffer.h"
 
-#include <kvmallocator.h>
 #include <klocale.h>
 #include <kservicetypetrader.h>
 #include <kdirwatch.h>
@@ -128,9 +127,6 @@ KateGlobal::KateGlobal ()
   m_viewConfig = new KateViewConfig ();
   m_rendererConfig = new KateRendererConfig ();
 
-  // vm allocator
-  m_vm = new KVMAllocator ();
-
   // create script man (search scripts) + register commands
   m_jscriptManager = new KateJScriptManager ();
   KateCmd::self()->registerCommand (m_jscriptManager);
@@ -159,8 +155,6 @@ KateGlobal::~KateGlobal()
   delete m_schemaManager;
 
   delete m_dirWatch;
-
-  delete m_vm;
 
   // you too
   qDeleteAll (m_cmds);

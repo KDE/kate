@@ -23,8 +23,6 @@
 #include "katetextline.h"
 #include "katecodefoldinghelpers.h"
 
-#include <kvmallocator.h>
-
 #include <QObject>
 
 class KateLineInfo;

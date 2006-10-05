@@ -48,7 +48,6 @@ class KateJScriptManager;
 class KateIndentJScriptManager;
 class KateIndentScriptManagerAbstract;
 class KDirWatch;
-class KVMAllocator;
 class KateHlManager;
 class KateCmd;
 
@@ -261,12 +260,6 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     KateRendererConfig *rendererConfig () { return m_rendererConfig; }
 
     /**
-     * Global allocator for swapping
-     * @return allocator
-     */
-    KVMAllocator *vm () { return m_vm; }
-
-    /**
      * Global javascript collection
      */
     KateJScriptManager *jscriptManager () { return m_jscriptManager; }
@@ -389,11 +382,6 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * fallback renderer config
      */
     KateRendererConfig *m_rendererConfig;
-
-    /**
-     * vm allocator
-     */
-    KVMAllocator *m_vm;
 
     /**
      * internal commands

@@ -4626,9 +4626,9 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
       {
         m_config->setIndentationMode( val );
       }
-      else if ( var == "word-wrap-column" && n > 0  && checkIntValue( val, &n ) ) // uint, but hard word wrap at 0 will be no fun ;)
+      else if ( var == "word-wrap-column" && checkIntValue( val, &n ) && n > 0 ) // uint, but hard word wrap at 0 will be no fun ;)
         m_config->setWordWrapAt( n );
-      else if ( var == "undo-steps"  && n >= 0  && checkIntValue( val, &n ) )
+      else if ( var == "undo-steps" && checkIntValue( val, &n ) && n >= 0 )
         setUndoSteps( n );
 
       // STRING SETTINGS

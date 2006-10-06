@@ -170,7 +170,7 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     /**
      * decrement reference counter
      */
-    static void decRef () { if (s_ref > 0) --s_ref; if (s_ref == 0) { s_self->deleteLater(); s_self = 0L; } }
+    static void decRef () { if (s_ref > 0) --s_ref; if (s_ref == 0) { delete s_self; s_self = 0L; } }
 
     /**
      * public accessor to the instance

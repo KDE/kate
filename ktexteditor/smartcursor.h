@@ -160,7 +160,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      * E.g.:
      * \code
      *   cursor.advance(1);
-     * \code
+     * \endcode
      * will move the cursor forward by one character, or, if the cursor is already
      * on the end of the line, will move it to the start of the next line.
      *

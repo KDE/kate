@@ -4869,7 +4869,7 @@ void KateDocument::removeTrailingSpace(int line)
 {
   // remove trailing spaces from left line if required
   if (m_blockRemoveTrailingSpaces
-      || !config()->configFlags() & KateDocumentConfig::cfRemoveTrailingDyn)
+      || !(config()->configFlags() & KateDocumentConfig::cfRemoveTrailingDyn))
     return;
 
   KateTextLine::Ptr ln = plainKateTextLine(line);

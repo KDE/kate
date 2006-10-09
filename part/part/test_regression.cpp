@@ -547,7 +547,7 @@ int main(int argc, char *argv[])
         }
         dc.sync();
 
-        kdClearDebugConfig();
+        kClearDebugConfig();
     }
 
     // create widgets

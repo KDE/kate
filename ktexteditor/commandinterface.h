@@ -106,34 +106,6 @@ class KTEXTEDITOR_EXPORT Command
      * \return \e true if your command has a help text, otherwise \e false
      */
     virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg) = 0;
-
-    /**
-     * Get the \p cmd's readable label that can be put into a menu.
-     * Common examples are "Insert Line", "Indent" or "Comment".
-     * The returned string should be translated.
-     * \param cmd command line string to get the name for
-     * \see description(), category()
-     */
-    virtual QString name (const QString& cmd) const = 0;
-
-    /**
-     * Get the \p cmd's description that can be put into a status bar for
-     * example. For the name "Insert Line" a text like "Insert a new line at
-     * the current cursor position." should be returned.
-     * The returned string should be translated.
-     * \param cmd command line string to get the description for
-     * \see name(), category()
-     */
-    virtual QString description (const QString& cmd) const = 0;
-
-    /**
-     * Get the \p cmd's category under which the command can be put into a menu
-     * for example. Categories like "View", "Edit", "Insert" are good examples.
-     * The returned string should be translated.
-     * \param cmd command line string to get the description for
-     * \see name(), description()
-     */
-    virtual QString category (const QString& cmd) const = 0;
 };
 
 /**

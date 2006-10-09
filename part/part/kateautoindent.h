@@ -23,7 +23,6 @@
 
 #include "katecursor.h"
 #include "kateconfig.h"
-#include "katejscript.h"
 
 #include <kactionmenu.h>
 

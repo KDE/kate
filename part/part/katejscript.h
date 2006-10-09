@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2005 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2005 Joseph Wenninger <jowenn@kde.org>
-   Copyright (C) 2006 Dominik Haumann <dhdev@gmx.de>
+   Copyright (C) 2006 Dominik Haumann <dhaumann@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -18,8 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __kate_jscript_h__
-#define __kate_jscript_h__
+#ifndef KATE_JSCRIPT_H
+#define KATE_JSCRIPT_H
 
 #include <ktexteditor/commandinterface.h>
 #include <ktexteditor/cursor.h>
@@ -34,7 +34,7 @@
  */
 class KateDocument;
 class KateView;
-class QString;
+class KateJSGlobal;
 class KateJSDocument;
 class KateJSView;
 class KateJSIndenter;
@@ -45,8 +45,10 @@ class KateDocCursor;
  */
 namespace KJS {
   class JSObject;
+  class JSValue;
   class Interpreter;
   class ExecState;
+  class Identifier;
   class HashTable;
   class List;
 }
@@ -58,7 +60,7 @@ namespace KJS {
 class KateJScriptHeader
 {
   public:
-    QString filename;
+    QString url;
     QHash<QString, QString> pairs;
 };
 
@@ -90,32 +92,23 @@ class KateJScriptHelpers
  * Whole Kate Part scripting in one classs
  * Allow subclassing to allow specialized scripting engine for indenters
  */
-class KateJScriptInterpreterContext
+class KateJSInterpreterContext
 {
   public:
-    /**
-     * generate new global interpreter for part scripting
-     */
-    KateJScriptInterpreterContext ();
+    /** generate new global interpreter for part scripting */
+    KateJSInterpreterContext();
+
+    /** be destructive */
+    virtual ~KateJSInterpreterContext ();
 
     /**
-     * be destructive
-     */
-    virtual ~KateJScriptInterpreterContext ();
-
-    /**
-     * creates a JS wrapper object for given KateDocument
-     * @param exec execution state, to find out interpreter to use
-     * @param doc document object to wrap
-     * @return new js wrapper object
+     * create a js-wrapper for a given KateDocument @p doc. @p exec is the
+     * KJS::ExecState. The return value is a instance of KateJSDocument.
      */
     KJS::JSObject *wrapDocument (KJS::ExecState *exec, KateDocument *doc);
-
     /**
-     * creates a JS wrapper object for given KateView
-     * @param exec execution state, to find out interpreter to use
-     * @param view view object to wrap
-     * @return new js wrapper object
+     * create a js-wrapper for a given KateView @p view. @p exec is the
+     * KJS::ExecState. The return value is a instance of KateJSView.
      */
     KJS::JSObject *wrapView (KJS::ExecState *exec, KateView *view);
 
@@ -128,29 +121,118 @@ class KateJScriptInterpreterContext
      * @param errorMsg error to return if no success
      * @return success or not?
      */
-    bool execute (KateView *view, const QString &script, QString &errorMsg);
+    bool evalSource(KateView *view, const QString &script, QString &errorMsg);
+    bool evalFile(KateView* view, const QString& url, QString &errorMsg);
 
   protected:
     /**
-     * global object of interpreter
+     * Call @p function for the object @p lookupObj. The @p view is the KateView
+     * the script operates on. @p parameter contains the list of parameters.
+     * If the return value is 0, @p error contains an error message.
+     *
+     * Note: Use this function after a script is loaded.
      */
+    KJS::JSValue* callFunction(KateView* view, KJS::JSObject* lookupObj,
+                               const KJS::Identifier& function,
+                               KJS::List parameter, QString& error);
+
+  protected:
+    /** global object of interpreter */
     KJS::JSObject *m_global;
 
-    /**
-     * js interpreter
-     */
+    /** js interpreter */
     KJS::Interpreter *m_interpreter;
 
-    /**
-     * object for document
-     */
+    /** object for document */
     KJS::JSObject *m_document;
 
-    /**
-     * object for view
-     */
+    /** object for view */
     KJS::JSObject *m_view;
 };
+
+/**
+ * Interpreter class for indentation.
+ */
+class KateJSIndentInterpreter : public KateJSInterpreterContext
+{
+  public:
+    /**
+     * Constructor. Creates a new interpreter context and loads the script
+     * @p url. @p view is the current active KateView.
+     */
+    KateJSIndentInterpreter(KateView* view, const QString& url);
+    /** destructor. The interpreter is alrady deleted in KateJSInterpreterContext */
+    virtual ~KateJSIndentInterpreter();
+
+    /** Get a list of trigger characters the indetner can process. */
+    QString triggerCharacters();
+
+    /**
+     * Get the indentation level for the line in @p position. @p indentWidth is
+     * the indentation with (per indent level) in spaces. @p typedChar contains
+     * one of the following characters:
+     * - the typed char (includes '\n')
+     * - empty ("") for the action "Tools > Align"
+     */
+    int indent(KateView* view,
+               const KTextEditor::Cursor& position,
+               QChar typedChar,
+               int indentWidth);
+
+  protected:
+    /** additional js indenter object */
+    KateJSIndenter *m_indenter;
+};
+
+/**
+ * JS indentation class representing one indenter.
+ */
+class KateIndentJScript
+{
+  public:
+    /** create new indenter object. parameters are self-explaining. Beat dominik if you disagree. */
+    KateIndentJScript(const QString& basename, const QString& url, const QString& name,
+                      const QString& license, const QString& author, const QString& version,
+                      const QString& kateVersion);
+    ~KateIndentJScript();
+
+    /** get the supported characters the indenter wants to process */
+    const QString &triggerCharacters(KateView* view);
+
+    /** get new indent level. See KateJSIndentInterpreter::indent() for further information */
+    int indent(KateView* view, const KTextEditor::Cursor& position,
+               QChar typedChar, int indentWidth);
+
+  public:
+    inline const QString& basename() const { return m_basename; }
+    inline const QString& url() const { return m_url; }
+    inline const QString& name() const { return m_name; }
+    inline const QString& license() const { return m_license; }
+    inline const QString& author() const { return m_author; }
+    inline const QString& version() const { return m_version; }
+    inline const QString& kateVersion() const { return m_kateVersion; }
+
+  protected:
+    /** loads the interpreter */
+    void loadInterpreter(KateView* view);
+    /** free the interpreter */
+    void unloadInterpreter();
+
+  private:
+    KateJSIndentInterpreter *m_script; ///< interpreter object
+
+    QString m_basename;          ///< filename without extension (use-case: command line: set-indent-mode c)
+    QString m_url;               ///< full qualified location to the file
+    QString m_name;              ///< indenter's name, like 'C++' or 'Python'
+    QString m_author;            ///< FirstName LastName <email-address>
+    QString m_license;           ///< license, like GPL, LPGL, Artistic, ...
+    QString m_version;           ///< indenter version
+    QString m_kateVersion;       ///< minimum required kate version
+
+    QString m_triggerCharacters; ///< trigger characters the indenter supports
+    bool m_triggerCharactersSet; ///< helper. if true, trigger characters are already read
+};
+
 
 class KateJScriptManager : public KTextEditor::Command
 {
@@ -164,14 +246,11 @@ class KateJScriptManager : public KTextEditor::Command
         /** command name, as used for command line and more */
         QString command;
 
-        /** translated gui name, can be used for e.g. menu entries */
-        QString name;
-
         /** translated description, can be used for e.g. status bars */
         QString help;
 
         /** filename of the script */
-        QString filename;
+        QString url;
     };
 
   public:
@@ -185,7 +264,7 @@ class KateJScriptManager : public KTextEditor::Command
      */
     void collectScripts(bool force = false);
 
-    KateJScriptInterpreterContext *m_jscript;
+    KateJSInterpreterContext *m_jscript;
 
   //
   // Here we deal with the KTextEditor::Command stuff
@@ -215,76 +294,11 @@ class KateJScriptManager : public KTextEditor::Command
      */
     const QStringList &cmds();
 
-    /**
-     * Get the \p cmd's readable name that can be put into a menu for
-     * example. The string should be translated.
-     * \param cmd command line string to get the name for
-     */
-    QString name (const QString& cmd) const;
-
-    /**
-     * Get the \p cmd's description that can be put into a status bar for
-     * example. The string should be translated.
-     * \param cmd command line string to get the description for
-     */
-    QString description (const QString& cmd) const;
-
-    /**
-     * Get the \p cmd's category under which the command can be put into a menu
-     * for example. The returned string should be translated.
-     * \param cmd command line string to get the description for
-     */
-    QString category (const QString& cmd) const;
-
   private:
     /**
      * we need to know somewhere which scripts are around
      */
     QHash<QString, KateJScriptManager::Script*> m_scripts;
-};
-
-class KateIndentJScriptManager;
-
-class KateIndentJScript {
-  public:
-    KateIndentJScript(KateIndentJScriptManager *manager, const QString& internalName,
-        const QString &filePath, const QString &name,
-        const QString &license, const QString &author,
-        const QString& version, const QString& kateVersion);
-    ~KateIndentJScript();
-
-    int indent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar, int indentWidth);
-
-    const QString &triggerCharacters ();
-
-  public:
-    const QString& internalName();
-    const QString& filePath();
-    const QString& name();
-    const QString& license();
-    const QString& author();
-    const QString& version();
-    const QString& kateVersion();
-  protected:
-    const QString& filePath() const {return m_filePath;}
-  private:
-    KateIndentJScriptManager *m_manager;
-    QString m_internalName;
-    QString m_filePath;
-    QString m_name;
-    QString m_license;
-    QString m_author;
-    QString m_version;
-    QString m_kateVersion;
-  private:
-    KateJSView *m_viewWrapper;
-    KateJSDocument *m_docWrapper;
-    KJS::JSObject *m_indenter;
-    KJS::Interpreter *m_interpreter;
-    bool setupInterpreter(QString &errorMsg);
-    void deleteInterpreter();
-    bool m_triggerCharactersInitialized;
-    QString m_triggerCharacters;
 };
 
 class KateIndentJScriptManager
@@ -315,14 +329,13 @@ class KateIndentJScriptManager
 class KateJSExceptionTranslator
 {
   public:
-    explicit KateJSExceptionTranslator(KJS::ExecState *exec, 
-                                       const KJS::HashTable& hashTable, 
-                                       int id, 
+    explicit KateJSExceptionTranslator(KJS::ExecState *exec,
+                                       const KJS::HashTable& hashTable,
+                                       int id,
                                        const KJS::List& args);
     ~KateJSExceptionTranslator();
 
     bool invalidArgs(int min, int max = -1);
-
 
   private:
     KJS::ExecState *m_exec;

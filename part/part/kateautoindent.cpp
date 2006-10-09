@@ -62,7 +62,7 @@ QString KateAutoIndent::modeName (int mode)
   if (mode == 1)
     return QString ("normal");
 
-  return KateGlobal::self()->indentScriptManager()->scriptByIndex(mode-2)->internalName ();
+  return KateGlobal::self()->indentScriptManager()->scriptByIndex(mode-2)->basename ();
 }
 
 QString KateAutoIndent::modeDescription (int mode)
@@ -293,7 +293,7 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
     return;
 
   // does the script allow this char as trigger?
-  if (typedChar != '\n' && !m_script->triggerCharacters().contains(typedChar))
+  if (typedChar != '\n' && !m_script->triggerCharacters(view).contains(typedChar))
     return;
 
   // let the script indent for us...

@@ -87,29 +87,6 @@ const QStringList &KateCommands::CoreCommands::cmds()
   return l;
 }
 
-QString KateCommands::CoreCommands::name(const QString& cmd) const
-{
-  // TODO: return meaningful names, like "Indent", "Unindent",
-  // "Clean Indentation", "Comment", "Uncomment", "Goto", "Kill line",
-  return QString();
-}
-
-QString KateCommands::CoreCommands::description(const QString& cmd) const
-{
-  // TODO: return meaningful descriptions, like
-  // "Increase indentation level.", "Decrease indentation level.",
-  // "Remove indentation."
-  return QString();
-}
-
-QString KateCommands::CoreCommands::category(const QString& cmd) const
-{
-  // TODO: return meaningful descriptions, like
-  // "Increase indentation level.", "Decrease indentation level.",
-  // "Remove indentation."
-  return QString();
-}
-
 bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
                             const QString &_cmd,
                             QString &errorMsg)
@@ -542,23 +519,6 @@ bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd
   return true;
 }
 
-QString KateCommands::SedReplace::name (const QString& cmd) const
-{
-  Q_UNUSED(cmd);
-  return i18n("Sed Replace");
-}
-
-QString KateCommands::SedReplace::description (const QString& cmd) const
-{
-  Q_UNUSED(cmd);
-  return i18n("Support for sed-like search and replace.");
-}
-
-QString KateCommands::SedReplace::category (const QString& cmd) const
-{
-  Q_UNUSED(cmd);
-  return i18n("Edit");
-}
 //END SedReplace
 
 //BEGIN Character
@@ -604,23 +564,6 @@ bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd
   return true;
 }
 
-QString KateCommands::Character::name (const QString& cmd) const
-{
-  Q_UNUSED(cmd);
-  return i18n("Insert Character");
-}
-
-QString KateCommands::Character::description (const QString& cmd) const
-{
-  Q_UNUSED(cmd);
-  return i18n("Insert a unicode or ASCII character.");
-}
-
-QString KateCommands::Character::category (const QString& cmd) const
-{
-  Q_UNUSED(cmd);
-  return i18n("Edit");
-}
 //END Character
 
 //BEGIN Date
@@ -637,23 +580,6 @@ bool KateCommands::Date::exec (KTextEditor::View *view, const QString &cmd, QStr
   return true;
 }
 
-QString KateCommands::Date::name (const QString& cmd) const
-{
-  Q_UNUSED(cmd);
-  return i18n("Insert Date/Time");
-}
-
-QString KateCommands::Date::description (const QString& cmd) const
-{
-  Q_UNUSED(cmd);
-  return i18n("Insert the current Date and time.");
-}
-
-QString KateCommands::Date::category (const QString& cmd) const
-{
-  Q_UNUSED(cmd);
-  return i18n("Edit");
-}
 //END Date
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

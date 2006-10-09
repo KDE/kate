@@ -850,31 +850,6 @@ const QStringList &SearchCommand::cmds()
   return l;
 }
 
-QString SearchCommand::name (const QString& cmd) const
-{
-  if( cmd == "find" )
-    return i18n("Search");
-  else if( cmd == "repace" )
-    return i18n("Replace");
-  else
-    return i18n("Incremental Find");
-}
-
-QString SearchCommand::description (const QString& cmd) const
-{
-  if( cmd == "find" )
-    return i18n("Search.");
-  else if( cmd == "repace" )
-    return i18n("Replace.");
-  else
-    return i18n("Search for text while typing.");
-}
-
-QString SearchCommand::category (const QString& cmd) const
-{
-  return i18n("Edit");
-}
-
 bool SearchCommand::wantsToProcessText( const QString &cmdname )
 {
   return  cmdname == "ifind";

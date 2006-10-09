@@ -48,7 +48,7 @@ class OutputObject;
  * @internal
  * The backbone of Kate's automatic regression tests.
  */
-class TestJScriptEnv : public KateJScriptInterpreterContext
+class TestJScriptEnv : public KateJSInterpreterContext
 {
   public:
     TestJScriptEnv(KateDocument *part);

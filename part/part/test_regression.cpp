@@ -90,7 +90,7 @@ TestJScriptEnv::TestJScriptEnv(KateDocument *part) {
 
   KJS::JSObject *wd = wrapDocument(exec, part);
   KateView *v = static_cast<KateView *>(part->widget());
-  KJS::JSObject *wv = new KateViewObject(exec, v, wrapView(m_interpreter->globalExec(), v));
+  KJS::JSObject *wv = new KateViewObject(exec, v, wrapView(exec, v));
 
   // remove properties pointing to stale objects
   m_interpreter->globalObject()->deleteProperty(exec, "document");

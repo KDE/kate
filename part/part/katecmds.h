@@ -61,20 +61,6 @@ class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExt
      * @return prefix list
      */
     const QStringList &cmds();
-    /**
-     * Get the \p cmd's readable name that can e.g. be put into a menu
-     */
-    QString name (const QString& cmd) const;
-
-    /**
-     * Get the \p cmd's description that can e.g. be put into a status bar
-     */
-    QString description (const QString& cmd) const;
-
-    /**
-     * Get the \p cmd's category
-     */
-    QString category (const QString& cmd) const;
 
     /**
     * override completionObject from interfaces/document.h .
@@ -118,10 +104,6 @@ class SedReplace : public KTextEditor::Command
      * @return prefix list
      */
     const QStringList &cmds () { static QStringList l("s"); if (l.isEmpty()) l << "%s" << "$s"; return l; };
-    
-    QString name (const QString& cmd) const;
-    QString description (const QString& cmd) const;
-    QString category (const QString& cmd) const;
 
   private:
     /**
@@ -177,10 +159,6 @@ class Character : public KTextEditor::Command
      * @return prefix list
      */
     const QStringList &cmds () { static QStringList test("char"); return test; };
-
-    QString name (const QString& cmd) const;
-    QString description (const QString& cmd) const;
-    QString category (const QString& cmd) const;
 };
 
 /**
@@ -206,9 +184,6 @@ class Date : public KTextEditor::Command
      * @return prefix list
      */
     const QStringList &cmds () { static QStringList test("date"); return test; }
-    QString name (const QString& cmd) const;
-    QString description (const QString& cmd) const;
-    QString category (const QString& cmd) const;
 };
 
 

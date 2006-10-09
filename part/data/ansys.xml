@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Ansys" version="1.0" section="Script" extensions="*.ans" author="Giovanni Bacci (giovanni@castellodilari.it)" license="LGPL" >
+<language name="Ansys" version="1.1" section="Scientific" extensions="*.ans" author="Giovanni Bacci (giovanni@castellodilari.it)" license="LGPL" >
 <highlighting>
 	<list name="session_cmds">
 		<item>/BATCH</item>
@@ -1420,7 +1420,7 @@
 		<item>FCDELE</item>
 		<item>FCLIST</item>
 	</list>
-	<list name="POST26_cmds">
+	<list name="POST26_commands">
 		<item>ANSOL</item>
 		<item>DATA</item>
 		<item>EDREAD</item>
@@ -1948,20 +1948,38 @@
 		<item>AX</item>
 		<item>AYAZ</item>
 	</list>
+	<list name="antype_flag">
+		<item>STATIC</item>
+		<item>BUCKLE</item>
+		<item>MODAL</item>
+		<item>HARMIC</item>
+		<item>TRANS</item>
+		<item>SUBSTR</item>
+		<item>SPECTR</item>
+	</list>
 	<list name="various_labels">
 		<!-- possibili etichette varie, tipo SMISC per ETABLE -->
+		<!-- abbreviazioni del comando *GET,param,NODE,node_num,LOC,{x,y,z} -->
+		<!--<item>NODE</item> ToDO: PER QUESTO BISOGNA DISTINGUERE TRA NODE e NODE(x,y,z) -->
+		<item>NX</item>
+		<item>NY</item>
+		<item>NZ</item>
 	</list>
 
 	<contexts>
 		<context attribute="Normal Text" lineEndContext="#pop" name="Normal Text" >
 			<StringDetect attribute="comment" context="comment" String="C***" insensitive="true" firstNonSpace="true" />
 			<DetectChar attribute ="comment" context="comment" char="!" />
+			<keyword attribute="MatProp" context="#stay" String="various_labels" />
+			<RangeDetect attribute="Normal Text" context="#stay" char="(" char1=")" />
+			<DetectChar attribute="error" context="open_parentesis" char="(" />
 			<!-- the next one highlight variable assignements as normal text, to avoid F,,FY,1 been highlighted as F=10 -->
 			<RegExpr attribute="Normal Text" context="#stay" String="^[A-Za-Z0-9]+\=" />
 			<keyword attribute="Keyword" context="#stay" String="elements" />
 			<keyword attribute="MatProp" context="#stay" String="material_properties" />
 			<keyword attribute="Labels" context="#stay" String="force-displacement-labels" />
-			<keyword attribute="Commands" context="functions_arg" String="parametric_functions" />
+			<keyword attribute="Labels" context="#stay" String="antype_flag" />
+			<keyword attribute="Commands" context="#stay" String="parametric_functions" />
 			<keyword attribute="SESSIONcmd" context="#stay" String="session_cmds" firstNonSpace="true" />
 			<keyword attribute="DBcmd" context="#stay" String="database_cmds" firstNonSpace="true" />
 			<keyword attribute="GRPH_cmds" context="#stay" String="graphic_cmds" firstNonSpace="true" />
@@ -1980,6 +1998,7 @@
 			<keyword attribute="DISPLAYcmds" context="#stay" String="display_cmds" firstNonSpace="true" />
 			<keyword attribute="REDUORDERcmds" context="#stay" String="reduced_order_cmds" firstNonSpace="true" />
 			<DetectChar attribute="String" context="doublequotestring" char="&quot;" />
+			<RangeDetect attribute="String" context="#stay" char="'" char1="'" />
 			<RangeDetect attribute="variable" context="#stay" char="%" char1="%" />
 			<keyword attribute="MatProp" context="#stay" String="APDL_commands" />
 			<Float attribute="NumFloat" context="#stay" />
@@ -1989,6 +2008,13 @@
 		</context>
 		<context attribute="String" name="doublequotestring" lineEndContext="#stay" >
 			<DetectChar attribute="String" context="#pop" char="&quot;" />
+		</context>
+		<context attribute="Normal Text" name="functions" lineEndContext="#pop" >
+			<RangeDetect attribute="Normal Text" context="#pop" char="(" char1=")" />
+			<DetectChar attribute="error" context="open_parentesis" char="(" />
+		</context>
+		<context attribute="parentesis_not_closed" name="open_parentesis" lineEndContext="#pop" >
+			<DetectChar attribute="Normal Text" context="#pop" char=")" />
 		</context>
 		<context attribute="comment" name="comment" lineEndContext="#pop" />
 		<context attribute="NumFloat" name="functions_arg" lineEndContext="#pop" >
@@ -2025,6 +2051,7 @@
 		<itemData name="NumFloat" defStyleNum="dsFloat" />
 		<itemData name="functions_arg" defStyleNum="dsKeyword" />
 		<itemData name="comment" defStyleNum="dsComment" />
+		<itemData name="parentesis_not_closed" defStyleNum="dsRegionMarker" />
 		<itemData name="error" defStyleNum="dsError" />
 	</itemDatas>
 </highlighting>

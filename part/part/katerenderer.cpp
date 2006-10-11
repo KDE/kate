@@ -455,7 +455,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         if (fr.start >= line.endCol())
           goto backgroundFound;
 
-        if (fr.start + fr.length > line.endCol()) {
+        if ( (fr.start + fr.length) >= line.endCol()) {
           if (fr.format.hasProperty(QTextFormat::BackgroundBrush)) {
             backgroundBrushSet = true;
             backgroundBrush = fr.format.background();
@@ -472,7 +472,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         if (fr.start >= line.endCol())
           break;
 
-        if (fr.start + fr.length > line.endCol()) {
+        if ((fr.start + fr.length) >= line.endCol()) {
           if (fr.format.hasProperty(QTextFormat::BackgroundBrush)) {
             backgroundBrushSet = true;
             backgroundBrush = fr.format.background();
@@ -539,7 +539,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     }
 
     // draw word-wrap-honor-indent filling
-    if (range->viewLineCount() > 1 && range->shiftX() && range->shiftX() > xStart)
+    if ( (range->viewLineCount() > 1)  && range->shiftX() && (range->shiftX() > xStart) )
     {
       paint.fillRect(0, fm.height(), range->shiftX() - xStart, fm.height() * (range->viewLineCount() - 1),
         QBrush(config()->wordWrapMarkerColor(), Qt::DiagCrossPattern));
@@ -564,7 +564,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       QColor c;
       // Could actually use the real highlighting system for this... would be slower but more accurate for corner cases
       foreach (QTextLayout::FormatRange r, range->layout()->additionalFormats())
-        if (r.start <= cursor->column() && r.start + r.length > cursor->column()) {
+        if ( (r.start <= cursor->column() ) && ( (r.start + r.length)  > cursor->column()) ) {
           c = r.format.foreground().color();
           break;
         }
@@ -590,7 +590,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         // Off the end of the line... must be block mode. Draw the caret ourselves.
         const KateTextLayout& lastLine = range->viewLine(range->viewLineCount() - 1);
         int x = range->widthOfLastLine() + spaceWidth() * (cursor->column() - range->length());
-        if (x >= xStart && x <= xEnd)
+        if ( (x >= xStart) && (x <= xEnd))
           paint.fillRect(x, (int)lastLine.lineLayout().y(), caretWidth, fm.height(), c);
       }
     }
@@ -655,7 +655,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   */
 
   // show word wrap marker if desirable
-  if (!isPrinterFriendly() && config()->wordWrapMarker() && config()->font().fixedPitch())
+  if ((!isPrinterFriendly()) && config()->wordWrapMarker() && config()->font().fixedPitch())
   {
     paint.setPen( config()->wordWrapMarkerColor() );
     int _x = m_doc->config()->wordWrapAt() * fm.width('x') - xStart;

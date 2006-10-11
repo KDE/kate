@@ -22,6 +22,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <time.h>
+#include <sys/time.h>
 
 #include <kdebug.h>
 #include <kstandarddirs.h>
@@ -330,6 +332,11 @@ QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QStrin
 */
 void KateSyntaxDocument::setupModeList (bool force)
 {
+  struct timeval time_start;
+  struct timeval time_end;
+
+  gettimeofday(&time_start,0);
+//  kDebug()<<"setupModeList-time-enter:"<<time(0)<<endl;
   // If there's something in myModeList the Mode List was already built so, don't do it again
   if (!myModeList.isEmpty())
     return;
@@ -470,6 +477,11 @@ void KateSyntaxDocument::setupModeList (bool force)
 
   // Syncronize with the file katesyntax...rc
   config.sync();
+//  kDebug()<<"setupModeList-time-leave:"<<time(0)<<endl;
+  gettimeofday(&time_end,0);
+  kDebug()<<"time-start:"<<time_start.tv_sec % 60<<";;"<<time_start.tv_usec<<endl;
+  kDebug()<<"time-end:"<<time_end.tv_sec % 60<<";;"<<time_end.tv_usec<<endl;
+
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

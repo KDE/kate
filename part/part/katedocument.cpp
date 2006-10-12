@@ -2295,9 +2295,10 @@ bool KateDocument::openUrl( const KUrl &url )
     emit started( 0 );
 
     bool ret=openFile();
-    if (ret)
+    if (ret) {
       emit setWindowCaption( m_url.prettyUrl() );
-    emit completed();
+      emit completed();
+    } else emit canceled(QString());
     return ret;
   }
   else
@@ -2358,9 +2359,10 @@ void KateDocument::slotFinishedKate ( KJob * job )
     emit canceled( job->errorString() );
   else
   {
-      if ( openFile( dynamic_cast<KIO::Job*>( job )) )
-      emit setWindowCaption( m_url.prettyUrl() );
-    emit completed();
+      if ( openFile( dynamic_cast<KIO::Job*>( job )) ) {
+        emit setWindowCaption( m_url.prettyUrl() );
+        emit completed();
+      } else emit canceled(QString());
   }
 }
 

@@ -145,9 +145,18 @@ Editor::~Editor()
 {
 }
 
+class KTextEditor::DocumentPrivate {
+  public:
+    DocumentPrivate():openingError(false),suppressOpeningErrorDialogs(false) {
+    }
+    bool openingError;
+    bool suppressOpeningErrorDialogs;
+    QString openingErrorMessage;
+};
+
 Document::Document( QObject *parent)
  : KDocument::Document( parent)
- , d(0)
+ , d(new DocumentPrivate())
 {
         qRegisterMetaType<KTextEditor::Document*>("KTextEditor::Document*");
 	new DocumentAdaptor(this);
@@ -155,6 +164,31 @@ Document::Document( QObject *parent)
 
 Document::~Document()
 {
+  delete d;
+}
+
+void Document::setSuppressOpeningErrorDialogs(bool suppress) {
+  d->suppressOpeningErrorDialogs=suppress;
+}
+
+bool Document::suppressOpeningErrorDialogs() const {
+  return d->suppressOpeningErrorDialogs;
+}
+
+bool Document::openingError() const {
+  return d->openingError;
+}
+
+QString Document::openingErrorMessage() const {
+  return d->openingErrorMessage;
+}
+
+void Document::setOpeningError(bool errors) {
+  d->openingError=errors;
+}
+
+void Document::setOpeningErrorMessage(const QString& message) {
+  d->openingErrorMessage=message;
 }
 
 bool Document::cursorInText(const Cursor& cursor)

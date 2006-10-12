@@ -96,7 +96,9 @@ class KTEXTEDITOR_EXPORT SessionConfigInterface
      *  - a View should scroll to the last position and restore the cursor
      *    position etc...
      *  - a Plugin should restore session specific settings
-     *
+     *  - If no file is being loaded, because an empty new document is going to be displayed,
+     *    this function should emit ReadOnlyPart::completed
+     * 
      * \param config read the session settings from this KConfig
      * \see writeSessionConfig()
      */

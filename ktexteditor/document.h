@@ -584,6 +584,26 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
 
   private:
     class DocumentPrivate* const d;
+
+  public:
+    /**
+     * by default dialogs should be displayed. 
+     * In any case (dialog shown or suppressed)
+     * openingErrors and openingErrorMessage should have meaningfull values
+     * 
+     * \param suppress true/false value if dialogs should be displayed
+     */
+    void setSuppressOpeningErrorDialogs(bool suppress);
+    bool suppressOpeningErrorDialogs() const;
+    /**
+     * True, eg if the file for opening could not be read
+     * This doesn't have to handle the KPart job cancled cases
+     */
+    bool openingError() const;
+    QString openingErrorMessage() const;
+  protected:
+    void setOpeningError(bool errors);
+    void setOpeningErrorMessage(const QString& message);
 };
 
 }

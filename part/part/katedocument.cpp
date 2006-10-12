@@ -2007,7 +2007,7 @@ void KateDocument::readSessionConfig(KConfig *kconfig)
   // open the file if url valid
   if (!url.isEmpty() && url.isValid())
     openUrl (url);
-
+  else completed(); //perhaps this should be emitted at the end of this function
   // restore the hl stuff
   m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig->readEntry("Highlighting")));
 
@@ -2273,6 +2273,7 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
 
 bool KateDocument::openUrl( const KUrl &url )
 {
+  setOpeningError(false);
 //   kDebug(13020)<<"KateDocument::openUrl( "<<url.prettyUrl()<<")"<<endl;
   // no valid URL
   if ( !url.isValid() )
@@ -2293,15 +2294,11 @@ bool KateDocument::openUrl( const KUrl &url )
 
     emit started( 0 );
 
-    if (openFile())
-    {
-      emit completed();
+    bool ret=openFile();
+    if (ret)
       emit setWindowCaption( m_url.prettyUrl() );
-
-      return true;
-    }
-
-    return false;
+    emit completed();
+    return ret;
   }
   else
   {
@@ -2387,6 +2384,7 @@ bool KateDocument::openFile()
 
 bool KateDocument::openFile(KIO::Job * job)
 {
+  bool showDialog=!suppressOpeningErrorDialogs();
   // add new m_file to dirwatch
   activateDirWatch ();
 
@@ -2493,10 +2491,15 @@ bool KateDocument::openFile(KIO::Job * job)
   //
   // display errors
   //
-  if (s_openErrorDialogsActivated)
+  if (s_openErrorDialogsActivated && showDialog)
   {
     if (!success)
       KMessageBox::error (widget(), i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.", m_url.url()));
+  }
+
+  if (!success) {
+    setOpeningError(true);
+    setOpeningErrorMessage(i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.",m_url.url()));
   }
 
   // warn -> opened binary file!!!!!!!
@@ -2505,10 +2508,14 @@ bool KateDocument::openFile(KIO::Job * job)
     // this file can't be saved again without killing it
     setReadWrite( false );
 
-    KMessageBox::information (widget()
-      , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", m_url.url())
-      , i18n ("Binary File Opened")
-      , "Binary File Opened Warning");
+    if(showDialog)
+      KMessageBox::information (widget()
+        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", m_url.url())
+        , i18n ("Binary File Opened")
+        , "Binary File Opened Warning");
+
+    setOpeningError(true);
+    setOpeningErrorMessage(i18n ("The file %1 is a binary, saving it will result in a corrupt file.", m_url.url()));
   }
 
   // warn: opened broken utf-8 file...
@@ -2517,12 +2524,17 @@ bool KateDocument::openFile(KIO::Job * job)
     // this file can't be saved again without killing it
     setReadWrite( false );
 
-    KMessageBox::information (widget()
-      , i18n ("The file %1 was opened with UTF-8 encoding but contained invalid characters."
+    if (showDialog)
+      KMessageBox::information (widget()
+        , i18n ("The file %1 was opened with UTF-8 encoding but contained invalid characters."
+                " It is set to read-only mode, as saving might destroy it's content."
+                " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", m_url.url())
+        , i18n ("Broken UTF-8 File Opened")
+        , "Broken UTF-8 File Opened Warning");
+    setOpeningError(true);
+    setOpeningErrorMessage(i18n ("The file %1 was opened with UTF-8 encoding but contained invalid characters."
               " It is set to read-only mode, as saving might destroy it's content."
-              " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", m_url.url())
-      , i18n ("Broken UTF-8 File Opened")
-      , "Broken UTF-8 File Opened Warning");
+              " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", m_url.url()));
   }
 
   //

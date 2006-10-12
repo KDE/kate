@@ -225,7 +225,7 @@ void KateView::setupConnections()
 {
   connect( m_doc, SIGNAL(undoChanged()),
            this, SLOT(slotNewUndo()) );
-  connect( m_doc, SIGNAL(highlightingChanged()),
+  connect( m_doc, SIGNAL(highlightingChanged(KTextEditor::Document *)),
            this, SLOT(slotHlChanged()) );
   connect( m_doc, SIGNAL(canceled(const QString&)),
            this, SLOT(slotSaveCanceled(const QString&)) );

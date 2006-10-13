@@ -5,7 +5,7 @@
 
 set(kwrite_KDEINIT_SRCS kwritemain.cpp )
 
-kde4_automoc(${kwrite_KDEINIT_SRCS})
+kde4_automoc(kwrite ${kwrite_KDEINIT_SRCS})
 
 kde4_add_kdeinit_executable( kwrite ${kwrite_KDEINIT_SRCS})
 

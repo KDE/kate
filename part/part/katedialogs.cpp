@@ -104,6 +104,7 @@
 #include <qtextstream.h>
 #include <qtoolbutton.h>
 #include <QComboBox>
+#include <QWhatsThis>
 
 // trailing slash is important
 #define HLDOWNLOADPATH "http://kate.kde.org/syntax/"
@@ -143,6 +144,9 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
 
   ui->cmbMode->addItems (KateAutoIndent::listModes());
 
+  ui->label->setTextInteractionFlags(Qt::LinksAccessibleByMouse | Qt::LinksAccessibleByKeyboard);
+  connect(ui->label, SIGNAL(linkActivated(const QString&)), this, SLOT(showWhatsThis(const QString&)));
+
   // What's This? help can be found in the ui file
 
   reload ();
@@ -162,6 +166,11 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   connect(ui->rbTabAdvances, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->rbTabIndents, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->rbTabSmart, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+}
+
+void KateIndentConfigTab::showWhatsThis(const QString& text)
+{
+  QWhatsThis::showText(QCursor::pos(), text);
 }
 
 void KateIndentConfigTab::apply ()

@@ -135,6 +135,9 @@ class KateIndentConfigTab : public KateConfigPage
     void reload ();
     void reset () {}
     void defaults () {}
+
+  private Q_SLOTS:
+    void showWhatsThis(const QString& text);
 };
 
 class KateSelectConfigTab : public KateConfigPage

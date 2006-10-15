@@ -405,7 +405,7 @@ const char failureSnapshotPrefix[] = "testkateregressionrc-FS.";
 
 static QString findMostRecentFailureSnapshot() {
     QDir dir(kapp->dirs()->saveLocation("config"),
-             QString(failureSnapshotPrefix)+"*",
+             QString(failureSnapshotPrefix) + '*',
              QDir::Time, QDir::Files);
     QStringList entries = dir.entryList();
     return entries.isEmpty() ? QString() : dir[0].mid(sizeof failureSnapshotPrefix - 1);
@@ -495,7 +495,7 @@ int main(int argc, char *argv[])
 
     const char *subdirs[] = {"tests", "baseline", "output", "resources"};
     for ( int i = 0; i < 2; i++ ) {
-        QFileInfo sourceDir(QFile::encodeName( baseDir ) + "/" + subdirs[i]);
+        QFileInfo sourceDir(QFile::encodeName( baseDir ) + '/' + subdirs[i]);
         if ( !sourceDir.exists() || !sourceDir.isDir() ) {
             fprintf(stderr,"ERROR: Source directory \"%s/%s\": no such directory.\n", (const char *)baseDir, subdirs[i]);
             exit(1);
@@ -702,7 +702,7 @@ RegressionTest::RegressionTest(KateDocument *part, KConfig *baseConfig,
         m_outputDir = m_baseDir + "/output";
     else
         m_outputDir = outputDir;
-    createMissingDirs(m_outputDir + "/");
+    createMissingDirs(m_outputDir + '/');
     m_keepOutput = false;
     m_genOutput = _genOutput;
     m_failureComp = 0;
@@ -838,7 +838,7 @@ bool RegressionTest::runTests(QString relPath, bool mustExist, int known_failure
         // directory-specific commands
         QStringList commands = concatListFiles(relPath, ".kateconfig-commands");
         // testcase-specific commands
-        commands += readListFile(m_currentBase + "/" + filename + "-commands");
+        commands += readListFile(m_currentBase + '/' + filename + "-commands");
 
         rereadConfig(); // reset options to default
         if ( filename.endsWith(".txt") ) {
@@ -865,7 +865,7 @@ bool RegressionTest::runTests(QString relPath, bool mustExist, int known_failure
 
 void RegressionTest::createLink( const QString& test, int failures )
 {
-    createMissingDirs( m_outputDir + "/" + test + "-compare.html" );
+    createMissingDirs( m_outputDir + '/' + test + "-compare.html" );
 
     QFile list( m_outputDir + "/links.html" );
     list.open( QFile::WriteOnly|QFile::Append );
@@ -949,13 +949,13 @@ static void pause(int msec)
 void RegressionTest::doFailureReport( const QString& test, int failures )
 {
     if ( failures == NoFailure ) {
-        ::unlink( QFile::encodeName( m_outputDir + "/" + test + "-compare.html" ) );
+        ::unlink( QFile::encodeName( m_outputDir + '/' + test + "-compare.html" ) );
         return;
     }
 
     createLink( test, failures );
 
-    QFile compare( m_outputDir + "/" + test + "-compare.html" );
+    QFile compare( m_outputDir + '/' + test + "-compare.html" );
 
     QString testFile = QFileInfo(test).fileName();
 
@@ -992,7 +992,7 @@ void RegressionTest::doFailureReport( const QString& test, int failures )
     chdir( pwd );
 
     // create a relative path so that it works via web as well. ugly
-    QString relpath = makeRelativePath(m_outputDir + "/"
+    QString relpath = makeRelativePath(m_outputDir + '/'
             + QFileInfo(test).dir().path(), m_baseDir);
 
     compare.open( QFile::WriteOnly|QFile::Truncate );
@@ -1100,7 +1100,7 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
         // Execute script
         TestJScriptEnv jsenv(m_part);
         jsenv.output()->setChangedFlag(&m_outputCustomised);
-        jsenv.output()->setOutputFile((m_genOutput ? m_baseDir + "/baseline/" : m_outputDir + "/")+filename+"-result");
+        jsenv.output()->setOutputFile( ( m_genOutput ? m_baseDir + "/baseline/" : m_outputDir + '/' ) + filename + "-result" );
         script_error = evalJS(jsenv.interpreter(), m_baseDir + "/tests/"+QFileInfo(filename).dir().path()+"/.kateconfig-script", true)
             && evalJS(jsenv.interpreter(), m_baseDir + "/tests/"+filename+"-script");
     }
@@ -1183,7 +1183,7 @@ RegressionTest::CheckResult RegressionTest::checkOutput(const QString &againstFi
     CheckResult result = Success;
 
     // compare result to existing file
-    QString outputFilename = QFileInfo(m_outputDir + "/" + againstFilename).absoluteFilePath();
+    QString outputFilename = QFileInfo(m_outputDir + '/' + againstFilename).absoluteFilePath();
     bool kf = false;
     if ( m_known_failures & AllFailure )
         kf = true;
@@ -1265,7 +1265,7 @@ bool RegressionTest::reportResult(bool passed, const QString & description, bool
     if (m_genOutput)
 	return true;
 
-    QString filename(m_currentTest + "-" + description);
+    QString filename(m_currentTest + '-' + description);
     if (!m_currentCategory.isEmpty())
         filename = m_currentCategory + '/' + filename;
 

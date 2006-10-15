@@ -161,7 +161,7 @@ class KateJSIndentInterpreter : public KateJSInterpreterContext
      * @p url. @p view is the current active KateView.
      */
     KateJSIndentInterpreter(KateView* view, const QString& url);
-    /** destructor. The interpreter is alrady deleted in KateJSInterpreterContext */
+    /** destructor. The interpreter is already deleted in KateJSInterpreterContext */
     virtual ~KateJSIndentInterpreter();
 
     /** Get a list of trigger characters the indetner can process. */

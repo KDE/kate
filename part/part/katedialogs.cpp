@@ -925,13 +925,13 @@ void KateHlConfigPage::showMTDlg()
 {
   QString text = i18n("Select the MimeTypes you want highlighted using the '%1' syntax highlight rules.\nPlease note that this will automatically edit the associated file extensions as well.",  ui->cmbHl->currentText() );
   QStringList list = ui->edtMimeTypes->text().split( QRegExp("\\s*;\\s*") );
-  KMimeTypeChooserDialog *d = new KMimeTypeChooserDialog( i18n("Select Mime Types"), text, list, "text", this );
+  KMimeTypeChooserDialog d( i18n("Select Mime Types"), text, list, "text", this );
 
-  if ( d->exec() == KDialog::Accepted ) {
+  if ( d.exec() == KDialog::Accepted ) {
     // do some checking, warn user if mime types or patterns are removed.
     // if the lists are empty, and the fields not, warn.
-    ui->edtFileExtensions->setText(d->chooser()->patterns().join(";"));
-    ui->edtMimeTypes->setText(d->chooser()->mimeTypes().join(";"));
+    ui->edtFileExtensions->setText(d.chooser()->patterns().join(";"));
+    ui->edtMimeTypes->setText(d.chooser()->mimeTypes().join(";"));
   }
 }
 //END KateHlConfigPage

@@ -1730,37 +1730,35 @@ void KateView::exportAsHTML ()
     filename = tmp.fileName();
   }
 
-  KSaveFile *savefile=new KSaveFile(filename);
-  if (!savefile->status())
+  KSaveFile savefile(filename);
+  if (savefile.open())
   {
-    QTextStream *outputStream = savefile->textStream();
+    QTextStream outputStream ( &savefile );
 
-    //outputStream->setEncoding(QTextStream::UnicodeUTF8);
-    outputStream->setCodec(QTextCodec::codecForName("UTF-8"));
+    //outputStream.setEncoding(QTextStream::UnicodeUTF8);
+    outputStream.setCodec(QTextCodec::codecForName("UTF-8"));
     // let's write the HTML header :
-    (*outputStream) << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
-    (*outputStream) << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;
-    (*outputStream) << "<html xmlns=\"http://www.w3.org/1999/xhtml\">" << endl;
-    (*outputStream) << "<head>" << endl;
-    (*outputStream) << "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" << endl;
-    (*outputStream) << "<meta name=\"Generator\" content=\"Kate, the KDE Advanced Text Editor\" />" << endl;
+    outputStream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
+    outputStream << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;
+    outputStream << "<html xmlns=\"http://www.w3.org/1999/xhtml\">" << endl;
+    outputStream << "<head>" << endl;
+    outputStream << "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" << endl;
+    outputStream << "<meta name=\"Generator\" content=\"Kate, the KDE Advanced Text Editor\" />" << endl;
     // for the title, we write the name of the file (/usr/local/emmanuel/myfile.cpp -> myfile.cpp)
-    (*outputStream) << "<title>" << m_doc->documentName () << "</title>" << endl;
-    (*outputStream) << "</head>" << endl;
-    (*outputStream) << "<body>" << endl;
+    outputStream << "<title>" << m_doc->documentName () << "</title>" << endl;
+    outputStream << "</head>" << endl;
+    outputStream << "<body>" << endl;
 
-    textAsHtmlStream(m_doc->documentRange(), false, outputStream);
+    textAsHtmlStream(m_doc->documentRange(), false, &outputStream);
 
-    (*outputStream) << "</body>" << endl;
-    (*outputStream) << "</html>" << endl;
+    outputStream << "</body>" << endl;
+    outputStream << "</html>" << endl;
+    outputStream.flush();
 
-
-    savefile->close();
-    //if (!savefile->status()) --> Error
+    savefile.finalize(); //check error?
   }
 //     else
 //       {/*ERROR*/}
-  delete savefile;
 
   if ( url.isLocalFile() )
       return;

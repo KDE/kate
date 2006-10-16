@@ -79,7 +79,7 @@ class KatePrintHeaderFooter : public KPrintDialogPage
 {
   Q_OBJECT
   public:
-    KatePrintHeaderFooter( KPrinter *printer, QWidget *parent=0 );
+    explicit KatePrintHeaderFooter( KPrinter *printer, QWidget *parent=0 );
     ~KatePrintHeaderFooter(){}
 
     void getOptions(QMap<QString,QString>& opts, bool incldef = false);

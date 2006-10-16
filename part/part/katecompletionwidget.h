@@ -43,7 +43,7 @@ class KateCompletionWidget : public QFrame
   Q_OBJECT
 
   public:
-    KateCompletionWidget(KateView* parent);
+    explicit KateCompletionWidget(KateView* parent);
 
     KateView* view() const;
 

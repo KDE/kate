@@ -81,7 +81,7 @@ class KateAutoIndent
      * Constructor, creates dummy indenter "None"
      * \param doc parent document
      */
-    KateAutoIndent (KateDocument *doc);
+    explicit KateAutoIndent (KateDocument *doc);
 
     /**
      * Destructor

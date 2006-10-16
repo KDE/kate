@@ -37,7 +37,7 @@ class KateUndoGroup
      * Constructor
      * @param doc document to belong to
      */
-    KateUndoGroup (KateDocument *doc);
+    explicit KateUndoGroup (KateDocument *doc);
 
     /**
      * Destructor

@@ -283,7 +283,7 @@ class KateViewConfig : public KateConfig
     /**
      * Construct a DocumentConfig
      */
-    KateViewConfig (KateView *view);
+    explicit KateViewConfig (KateView *view);
 
     /**
      * Cu DocumentConfig

@@ -36,7 +36,7 @@ class KateSmartRangeNotifier : public KTextEditor::SmartRangeNotifier
   friend class KateSmartRange;
 
   public:
-    KateSmartRangeNotifier(KateSmartRange* owner);
+    explicit KateSmartRangeNotifier(KateSmartRange* owner);
 
     /**
      * Implementation detail. Returns whether the positionChanged() signal
@@ -162,7 +162,7 @@ class KateSmartRange : public KTextEditor::SmartRange
 class KateSmartRangePtr
 {
   public:
-    KateSmartRangePtr(KateSmartRange* range)
+    explicit KateSmartRangePtr(KateSmartRange* range)
       : m_range(range)
     {
       if (m_range)

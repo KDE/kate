@@ -182,7 +182,7 @@ class KateCompletionModel : public QAbstractProxyModel
     // Grouping and sorting of rows
     class Group {
       public:
-        Group(KateCompletionModel* model);
+        explicit Group(KateCompletionModel* model);
 
         void addItem(Item i);
         void resort();

@@ -40,7 +40,7 @@ class KateBrowserExtension : public KParts::BrowserExtension
      * Constructor
      * @param doc parent document
      */
-    KateBrowserExtension( KateDocument* doc );
+    explicit KateBrowserExtension( KateDocument* doc );
 
   public Q_SLOTS:
     /**

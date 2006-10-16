@@ -47,7 +47,7 @@ class KateBuffer : public QObject
      * Create an empty buffer.
      * @param doc parent document
      */
-    KateBuffer (KateDocument *doc);
+    explicit KateBuffer (KateDocument *doc);
 
     /**
      * Goodbye buffer

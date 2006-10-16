@@ -63,7 +63,7 @@ public:
      * @param doc document to render
      * @param view view which is output (0 for example for rendering to print)
      */
-    KateRenderer(KateDocument* doc, KateView *view = 0);
+    explicit KateRenderer(KateDocument* doc, KateView *view = 0);
 
     /**
      * Destructor

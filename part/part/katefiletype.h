@@ -86,7 +86,7 @@ class KateFileTypeConfigTab : public KateConfigPage
   Q_OBJECT
 
   public:
-    KateFileTypeConfigTab( QWidget *parent );
+    explicit KateFileTypeConfigTab( QWidget *parent );
 
   public Q_SLOTS:
     void apply();

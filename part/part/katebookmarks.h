@@ -38,7 +38,7 @@ class KateBookmarks : public QObject
 
   public:
     enum Sorting { Position, Creation };
-    KateBookmarks( KateView* parent, Sorting sort=Position );
+    explicit KateBookmarks( KateView* parent, Sorting sort=Position );
     virtual ~KateBookmarks();
 
     void createActions( KActionCollection* );

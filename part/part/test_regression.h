@@ -51,7 +51,7 @@ class OutputObject;
 class TestJScriptEnv : public KateJSInterpreterContext
 {
   public:
-    TestJScriptEnv(KateDocument *part);
+    explicit TestJScriptEnv(KateDocument *part);
     virtual ~TestJScriptEnv();
 
     /** returns the global scope */

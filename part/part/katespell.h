@@ -38,7 +38,7 @@ class KateSpell : public QObject
   Q_OBJECT
 
   public:
-    KateSpell( KateView* );
+    explicit KateSpell( KateView* );
     ~KateSpell();
 
     void createActions( KActionCollection* );

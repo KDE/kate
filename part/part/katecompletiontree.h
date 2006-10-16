@@ -29,7 +29,7 @@ class KateCompletionTree : public QTreeView
   Q_OBJECT
 
   public:
-    KateCompletionTree(KateCompletionWidget* parent);
+    explicit KateCompletionTree(KateCompletionWidget* parent);
 
     KateCompletionWidget* widget() const;
     KateCompletionModel* kateModel() const;

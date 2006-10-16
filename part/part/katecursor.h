@@ -35,7 +35,7 @@ namespace KTextEditor { class Attribute; }
 class KateDocCursor : public KTextEditor::Cursor
 {
   public:
-    KateDocCursor(KateDocument *doc);
+    explicit KateDocCursor(KateDocument *doc);
     KateDocCursor(const KTextEditor::Cursor &position, KateDocument *doc);
     KateDocCursor(int line, int col, KateDocument *doc);
     virtual ~KateDocCursor() {}

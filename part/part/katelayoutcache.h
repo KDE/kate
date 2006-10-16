@@ -43,7 +43,7 @@ namespace KTextEditor { class Document; }
 class KateLayoutCache
 {
   public:
-    KateLayoutCache(KateRenderer* renderer);
+    explicit KateLayoutCache(KateRenderer* renderer);
 
     void clear();
 

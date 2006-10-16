@@ -44,7 +44,7 @@ class KateSmartManager : public QObject, private KTextEditor::SmartRangeWatcher
   Q_OBJECT
 
   public:
-    KateSmartManager(KateDocument* parent);
+    explicit KateSmartManager(KateDocument* parent);
     virtual ~KateSmartManager();
 
     KateDocument* doc() const;

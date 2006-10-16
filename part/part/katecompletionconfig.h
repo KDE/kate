@@ -34,7 +34,7 @@ class KateCompletionConfig : public KDialog
   Q_OBJECT
 
   public:
-    KateCompletionConfig(KateCompletionModel* model, QWidget* parent = 0L);
+    explicit KateCompletionConfig(KateCompletionModel* model, QWidget* parent = 0L);
     virtual ~KateCompletionConfig();
 
   public slots:

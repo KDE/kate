@@ -35,7 +35,7 @@ class KateDocument;
 class KateSmartRegion
 {
   public:
-    KateSmartRegion(KateDocument* document);
+    explicit KateSmartRegion(KateDocument* document);
 
     void addRange(KateSmartRange* range);
     void removeRange(KateSmartRange* range);

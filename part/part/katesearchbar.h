@@ -29,7 +29,7 @@ class KateSearchBar : public QWidget
     Q_OBJECT
 
 public:
-    KateSearchBar(KateView *view);
+    explicit KateSearchBar(KateView *view);
     ~KateSearchBar();
 
 public Q_SLOTS:

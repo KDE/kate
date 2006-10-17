@@ -349,9 +349,8 @@ KateJSInterpreterContext::KateJSInterpreterContext ()
 
 KateJSInterpreterContext::~KateJSInterpreterContext ()
 {
-  KJS::Interpreter::collect();
   m_interpreter->deref();
-  delete m_global;
+//   delete m_global;
 }
 
 KJS::JSObject *KateJSInterpreterContext::wrapDocument(KJS::ExecState *exec, KateDocument *doc)
@@ -1279,12 +1278,12 @@ void KateJScriptManager::collectScripts (bool force)
     return;
 
   QStringList keys(QStringList() << "help");
-  QVector<KateJScriptHeader> scripts;
+  KateJScriptHeaderVector scripts;
   scripts = KateJScriptHelpers::findScripts(QString("katepartjscriptrc"),
                                             QString("katepart/scripts/*.js"), keys);
 
   // Let's iterate through the list and build the Mode List
-  for (QVector<KateJScriptHeader>::iterator it = scripts.begin();
+  for (KateJScriptHeaderVector::iterator it = scripts.begin();
        it != scripts.end(); ++it)
   {
     kDebug (13050) << "add script: " << (*it).url << endl;
@@ -1379,12 +1378,12 @@ void KateIndentJScriptManager::collectScripts (bool force)
   // Let's get a list of all the .js files
   QStringList keys(QStringList() << "name" << "license" << "author"
                                  << "version" << "kate-version");
-  QVector<KateJScriptHeader> scripts;
+  KateJScriptHeaderVector scripts;
   scripts = KateJScriptHelpers::findScripts(QString("katepartindentscriptrc"),
                                             QString("katepart/indent/*.js"), keys);
 
   // Let's iterate through the list and build the Mode List
-  for (QVector<KateJScriptHeader>::iterator it = scripts.begin();
+  for (KateJScriptHeaderVector::iterator it = scripts.begin();
        it != scripts.end(); ++it )
   {
     kDebug (13050) << "add indent-script: " << (*it).url << endl;
@@ -1578,23 +1577,23 @@ bool KateJScriptHelpers::parseScriptHeader(const QString& url,
   return true;
 }
 
-QVector <KateJScriptHeader> KateJScriptHelpers::findScripts(const QString& rcFile,
-                                                            const QString& resourceDir,
-                                                            const QStringList &keys)
+KateJScriptHeaderVector KateJScriptHelpers::findScripts(const QString& rcFile,
+                                                        const QString& resourceDir,
+                                                        const QStringList &keys)
 {
   KConfig config(rcFile, false, false);
 
   bool force = false;
-  // For every major Katepart version bump, re-read list
+  // If KatePart version does not match, better force a true reload
   config.setGroup ("General");
-  if (QString(KATEPART_VERSION) > config.readEntry ("kate-version", QString("0.0"))) {
+  if (QString(KATEPART_VERSION) != config.readEntry ("kate-version", QString("0.0"))) {
     config.writeEntry("kate-version", QString(KATEPART_VERSION));
     force = true;
   }
 
   // get a list of all .js files (false: not recursive, true: no duplicates)
   QStringList list = KGlobal::dirs()->findAllResources("data", resourceDir, false, true);
-  QVector <KateJScriptHeader> files;
+  KateJScriptHeaderVector files;
   files.reserve(list.size());
 
   // iterate through the files and read info out of cache or file

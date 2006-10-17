@@ -85,7 +85,9 @@ static KMainWindow *toplevel;
 
 //BEGIN TestJScriptEnv
 
-TestJScriptEnv::TestJScriptEnv(KateDocument *part) {
+TestJScriptEnv::TestJScriptEnv(KateDocument *part)
+    : KateJSInterpreterContext()
+{
   ExecState *exec = m_interpreter->globalExec();
 
   KJS::JSObject *wd = wrapDocument(exec, part);

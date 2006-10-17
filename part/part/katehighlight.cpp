@@ -3070,8 +3070,6 @@ int KateHlManager::wildcardFind(const QString &fileName)
 
 int KateHlManager::realWildcardFind(const QString &fileName)
 {
-  static QRegExp sep("\\s*;\\s*");
-
   QList<KateHighlighting*> highlights;
 
   foreach (KateHighlighting *highlight, hlList) {

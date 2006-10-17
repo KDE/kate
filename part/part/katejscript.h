@@ -64,6 +64,8 @@ class KateJScriptHeader
     QHash<QString, QString> pairs;
 };
 
+typedef QVector<KateJScriptHeader> KateJScriptHeaderVector;
+
 /**
  * Kate jscript helper functions.
  */
@@ -90,7 +92,8 @@ class KateJScriptHelpers
 
 /**
  * Whole Kate Part scripting in one classs
- * Allow subclassing to allow specialized scripting engine for indenters
+ * Allow subclassing to allow specialized scripting engine for indenters.
+ * Subclasses *have to* call this constructur in their constructor.
  */
 class KateJSInterpreterContext
 {

@@ -2,4 +2,4 @@
  * 
  * Not much to say.
 */
-// DOXYGEN_REFERENCES = kdecore kio kdeui kparts interfaces/kdocument interfaces/ktexteditor
+// DOXYGEN_REFERENCES = kdecore kio kdeui kparts interfaces/kdocument interfaces/ktexteditor kjs

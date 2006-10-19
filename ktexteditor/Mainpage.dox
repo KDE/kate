@@ -540,4 +540,4 @@ In order to compile link against the following libraries:
 \author Dominik Haumann \<dhdev@gmx.de\>
 */
 
-// DOXYGEN_REFERENCES = kdecore kdeui kparts interfaces/kdocument
+// DOXYGEN_REFERENCES = kdecore kdeui kio kparts interfaces/kdocument

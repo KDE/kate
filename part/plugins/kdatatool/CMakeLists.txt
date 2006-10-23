@@ -3,7 +3,7 @@
 
 set(ktexteditor_kdatatool_PART_SRCS kate_kdatatool.cpp )
 
-kde4_automoc(ktexteditor_kdatatool ${ktexteditor_kdatatool_PART_SRCS})
+kde4_automoc(${ktexteditor_kdatatool_PART_SRCS})
 
 kde4_add_plugin(ktexteditor_kdatatool ${ktexteditor_kdatatool_PART_SRCS})
 

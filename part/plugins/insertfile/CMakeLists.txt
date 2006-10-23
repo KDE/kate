@@ -3,7 +3,7 @@
 
 set(ktexteditor_insertfile_PART_SRCS insertfileplugin.cpp )
 
-kde4_automoc(ktexteditor_insertfile ${ktexteditor_insertfile_PART_SRCS})
+kde4_automoc(${ktexteditor_insertfile_PART_SRCS})
 
 kde4_add_plugin(ktexteditor_insertfile ${ktexteditor_insertfile_PART_SRCS})
 

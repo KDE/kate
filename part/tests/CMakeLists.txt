@@ -13,7 +13,7 @@ arbitraryhighlighttest.cpp
 codecompletiontest.cpp
 )
 
-kde4_automoc(katetest ${katetest_SRCS})
+kde4_automoc(${katetest_SRCS})
 
 kde4_add_executable(katetest ${katetest_SRCS})
 
@@ -28,7 +28,7 @@ rangeexpectation.cpp
 cursorexpectation.cpp
 )
 
-kde4_automoc(kateregression ${kateregression_SRCS})
+kde4_automoc(${kateregression_SRCS})
 
 kde4_add_executable(kateregression ${kateregression_SRCS})
 

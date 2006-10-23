@@ -3,7 +3,7 @@
 
 set(ktexteditor_isearch_PART_SRCS ISearchPlugin.cpp )
 
-kde4_automoc(ktexteditor_isearch ${ktexteditor_isearch_PART_SRCS})
+kde4_automoc(${ktexteditor_isearch_PART_SRCS})
 
 kde4_add_plugin(ktexteditor_isearch ${ktexteditor_isearch_PART_SRCS})
 

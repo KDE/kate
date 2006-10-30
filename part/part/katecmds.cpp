@@ -569,7 +569,7 @@ bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd
 //BEGIN Date
 bool KateCommands::Date::exec (KTextEditor::View *view, const QString &cmd, QString &)
 {
-  if (cmd.left(4) != "date")
+  if (!cmd.startsWith(QLatin1String("date")))
     return false;
 
   if (QDateTime::currentDateTime().toString(cmd.mid(5, cmd.length()-5)).length() > 0)

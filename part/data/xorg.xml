@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="x.org Configuration" section="Configuration" extensions="xorg.conf" mimetype="" version="1.01" author="Jan Janssen (medhefgo@web.de)" license="LGPL">
+<language name="x.org Configuration" section="Configuration" extensions="xorg.conf" mimetype="" version="1.01" kateversion="2.0" author="Jan Janssen (medhefgo@web.de)" license="LGPL">
 
 <highlighting>
 <contexts>

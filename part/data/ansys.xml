@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Ansys" version="1.1" section="Scientific" extensions="*.ans" author="Giovanni Bacci (giovanni@castellodilari.it)" license="LGPL" >
+<language name="Ansys" version="1.1" kateversion="2.0" section="Scientific" extensions="*.ans" author="Giovanni Bacci (giovanni@castellodilari.it)" license="LGPL" >
 <highlighting>
 	<list name="session_cmds">
 		<item>/BATCH</item>
@@ -851,7 +851,7 @@
 		<item>FSSTAT</item>
 		<item>FSTI</item>
 		<item>FSTR</item>
-	</list>	
+	</list>
 	<list name="solution_commands">
 		<item>ABEXTRACT</item>
 		<item>ADAMS</item>
@@ -1218,7 +1218,7 @@
 		<item>MFTIME</item>
 		<item>MFTOL</item>
 		<item>MFVOLUME</item>
-	</list>	
+	</list>
 	<list name="POST1_commands">
 		<item>APPEND</item>
 		<item>DETAB</item>

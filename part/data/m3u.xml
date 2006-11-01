@@ -11,7 +11,7 @@ v1.0:
 -first Release
 -->
 
-<language name="M3U" section="Other" extensions="*.m3u" mimetype="audio/mpegurl" version="1.10" author="Jan Janssen (medhefgo@web.de)" license="LGPL" >
+<language name="M3U" section="Other" extensions="*.m3u" mimetype="audio/mpegurl" version="1.10" kateversion="2.0" author="Jan Janssen (medhefgo@web.de)" license="LGPL" >
 
 <highlighting>
 <contexts>

@@ -12,7 +12,7 @@ v1.0:
 - first Release
 -->
 
-<language name="Apache Configuration" section="Configuration" extensions="httpd.conf;httpd2.conf;apache.conf;apache2.conf;.ht*" mimetype="" version="1.10" author="Jan Janssen (medhefgo@googlemail.com)" license="LGPL">
+<language name="Apache Configuration" section="Configuration" extensions="httpd.conf;httpd2.conf;apache.conf;apache2.conf;.ht*" mimetype="" version="1.10" kateversion="2.0" author="Jan Janssen (medhefgo@googlemail.com)" license="LGPL">
 
 <highlighting>
 <list name="String Directives">

@@ -3,9 +3,14 @@
 
 Changes:
 
+[ Version 1.28 (2006-11-02) ]
+
+- Moved the special method names to a dedicated section (the coloration will default to the coloration of functions, but it can be customized independently, to revert to the previous coloration styles, that is, black, and bold).
+
 [ Version 1.27 (2006-11-01) ]
 
 - Added new special method names, from PHP 5.
+- Moved the special method names to the function list.
 
 [  Version 1.26 (2006-01-26) ]
 
@@ -13,7 +18,7 @@ Changes:
 
 -->
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.27" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.28" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -3373,20 +3378,24 @@ Changes:
 
 
     </list>
+
+    <list name="special_methods">
+	<item> __autoload </item>
+	<item> __call </item>
+	<item> __clone </item>
+	<item> __construct </item>
+	<item> __destruct </item>
+	<item> __get </item>
+	<item> __isset </item>
+	<item> __set </item>
+	<item> __set_state </item>
+	<item> __sleep </item>
+	<item> __toString </item>
+	<item> __unset </item>
+	<item> __wakeup </item> 
+    </list>
+
     <list name="functions">
-	    <item> __autoload </item>
-	    <item> __call </item>
-	    <item> __clone </item>
-	    <item> __construct </item>
-	    <item> __destruct </item>
-	    <item> __get </item>
-	    <item> __isset </item>
-	    <item> __set </item>
-	    <item> __set_state </item>
-	    <item> __sleep </item>
-	    <item> __toString </item>
-	    <item> __unset </item>
-	    <item> __wakeup </item>
 	    <item> abs </item>
 	    <item> acos </item>
 	    <item> acosh </item>
@@ -6458,6 +6467,7 @@ Changes:
         <keyword attribute="Control Structures" context="#stay" String="control structures" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Function" context="#stay" String="functions" />
+        <keyword attribute="Special method" context="#stay" String="special_methods" />
         <DetectIdentifier />
         <DetectChar attribute="String" context="doblequotestring" char="&quot;" />
         <DetectChar attribute="String" context="singlequotestring" char="&#39;" />
@@ -6510,6 +6520,7 @@ Changes:
       <itemData name="PHP Text" defStyleNum="dsNormal" />
       <itemData name="Keyword" defStyleNum="dsKeyword" />
       <itemData name="Function" defStyleNum="dsFunction" />
+      <itemData name="Special method" defStyleNum="dsFunction" />
       <itemData name="Decimal" defStyleNum="dsDecVal" />
       <itemData name="Octal" defStyleNum="dsBaseN" />
       <itemData name="Hex" defStyleNum="dsBaseN" />

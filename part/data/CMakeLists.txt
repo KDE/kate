@@ -35,7 +35,7 @@ install( FILES language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml ob
                vrml.xml rexx.xml cue.xml progress.xml e.xml sieve.xml modula-2.xml awk.xml cisco.xml
                doxygen.xml lua.xml pike.xml debianchangelog.xml debiancontrol.xml fgl-4gl.xml fgl-per.xml alert.xml
                gettext.xml commonlisp.xml clipper.xml povray.xml euphoria.xml mup.xml jsp.xml ocaml.xml lex.xml yacc.xml
-               cg.xml ahdl.xml ansic89.xml tibasic.xml nemerle.xml sisu.xml
+               cg.xml ahdl.xml ansic89.xml tibasic.xml nemerle.xml sisu.xml rapidq.xml
                purebasic.xml mips.xml logtalk.xml txt2tags.xml xslt.xml stata.xml glsl.xml
                lilypond.xml abc.xml asp.xml asm-avr.xml rib.xml cmake.xml octave.xml javadoc.xml cgis.xml
                spice.xml nasm.xml mediawiki.xml apache.xml m3u.xml ini.xml pgn.xml freebasic.xml ansys.xml gap.xml djangotemplate.xml

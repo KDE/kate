@@ -401,14 +401,14 @@
 	<keyword attribute="Object" context="#stay" String="objects"/>
 	<keyword attribute="Directive" context="#stay" String="directives"/>
 	<keyword attribute="Propormeth" context="#stay" String="propsandmeths"/>
-        <DetectChar attribute="String" context="String" char="doublequot;"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
         <DetectChar attribute="Comment" context="Comment" char="'"/>
 	<Float attribute="Float" context="#stay" />
 	<Int attribute="Decimal" context="#stay" />
         </context>
         <context name="Comment" attribute="Comment" lineEndContext="#pop"/>
         <context name="String" attribute="String" lineEndContext="#pop">
-        <DetectChar attribute="String" context="#pop" char="'"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
         </context>
         </contexts>
         <itemDatas>

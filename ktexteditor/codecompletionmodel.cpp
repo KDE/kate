@@ -87,8 +87,9 @@ int CodeCompletionModel::rowCount( const QModelIndex & parent ) const
   return d->rowCount;
 }
 
-void CodeCompletionModel::completionInvoked(const Range& range, InvocationType invocationType)
+void CodeCompletionModel::completionInvoked(KTextEditor::View* view, const Range& range, InvocationType invocationType)
 {
+  Q_UNUSED(view)
   Q_UNUSED(range)
   Q_UNUSED(invocationType)
 }

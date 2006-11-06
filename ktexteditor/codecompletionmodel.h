@@ -26,6 +26,7 @@
 namespace KTextEditor {
 
 class Document;
+class View;
 
 /**
  * \short An item model for providing code completion, and meta information for
@@ -162,7 +163,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
       ManualInvocation
     };
 
-    virtual void completionInvoked(const KTextEditor::Range& range, InvocationType invocationType);
+    virtual void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
     virtual void executeCompletionItem(Document* document, const Range& word, int row);
 
     // Reimplementations

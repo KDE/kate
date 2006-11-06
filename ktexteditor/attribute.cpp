@@ -175,7 +175,7 @@ const QList< KAction * > & Attribute::associatedActions( ) const
 Attribute::Effects KTextEditor::Attribute::effects( ) const
 {
   if (hasProperty(AttributeDynamicEffect))
-    return static_cast<Effects>(intProperty(AttributeDynamicEffect));
+    return Effects(intProperty(AttributeDynamicEffect));
 
   return EffectNone;
 }

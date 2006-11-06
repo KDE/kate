@@ -294,16 +294,11 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
      * If the texteditor part does not support these transactions,
      * both calls just do nothing.
      *
-     * \param view here you can optional give a view which does the editing
-     *        this can cause the editor part implementation to do some
-     *        special cursor handling in this view. Important: this only will
-     *        work if you pass here a view which parent document is this
-     *        document, otherwise the view is just ignored.
      * \return \e true on success, otherwise \e false. Parts not supporting
      *         it should return \e false
      * \see endEditing()
      */
-    virtual bool startEditing (View *view = 0) = 0;
+    virtual bool startEditing () = 0;
 
     /**
      * End an editing sequence.
@@ -587,10 +582,10 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
 
   public:
     /**
-     * by default dialogs should be displayed. 
+     * by default dialogs should be displayed.
      * In any case (dialog shown or suppressed)
      * openingErrors and openingErrorMessage should have meaningfull values
-     * 
+     *
      * \param suppress true/false value if dialogs should be displayed
      */
     void setSuppressOpeningErrorDialogs(bool suppress);

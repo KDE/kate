@@ -14,7 +14,8 @@ set(ktexteditor_LIB_SRCS
    rangefeedback.cpp
    smartcursor.cpp
    smartrange.cpp
-   codecompletion2.cpp
+   codecompletioninterface.cpp
+   codecompletionmodel.cpp
    configinterface.cpp
    smartinterface.cpp
    )
@@ -57,7 +58,8 @@ install( FILES
     rangefeedback.h
     smartcursor.h
     smartrange.h
-    codecompletion2.h
+    codecompletioninterface.h
+    codecompletionmodel.h
     configinterface.h
     DESTINATION  ${INCLUDE_INSTALL_DIR}/ktexteditor )
 

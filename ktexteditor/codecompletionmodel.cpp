@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2005 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2005-2006 Hamish Rodda <rodda@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "codecompletion2.h"
+#include "codecompletionmodel.h"
 
 #include "document.h"
 
@@ -43,12 +43,12 @@ CodeCompletionModel::~ CodeCompletionModel()
   delete d;
 }
 
-int KTextEditor::CodeCompletionModel::columnCount( const QModelIndex & ) const
+int CodeCompletionModel::columnCount( const QModelIndex & ) const
 {
   return ColumnCount;
 }
 
-QModelIndex KTextEditor::CodeCompletionModel::index( int row, int column, const QModelIndex & parent ) const
+QModelIndex CodeCompletionModel::index( int row, int column, const QModelIndex & parent ) const
 {
   if (row < 0 || row >= d->rowCount || column < 0 || column >= ColumnCount || parent.isValid())
     return QModelIndex();
@@ -56,7 +56,7 @@ QModelIndex KTextEditor::CodeCompletionModel::index( int row, int column, const 
   return createIndex(row, column, 0);
 }
 
-QMap< int, QVariant > KTextEditor::CodeCompletionModel::itemData( const QModelIndex & index ) const
+QMap< int, QVariant > CodeCompletionModel::itemData( const QModelIndex & index ) const
 {
   QMap<int, QVariant> ret = QAbstractItemModel::itemData(index);
 
@@ -69,17 +69,17 @@ QMap< int, QVariant > KTextEditor::CodeCompletionModel::itemData( const QModelIn
   return ret;
 }
 
-QModelIndex KTextEditor::CodeCompletionModel::parent( const QModelIndex & ) const
+QModelIndex CodeCompletionModel::parent( const QModelIndex & ) const
 {
   return QModelIndex();
 }
 
-void KTextEditor::CodeCompletionModel::setRowCount( int rowCount )
+void CodeCompletionModel::setRowCount( int rowCount )
 {
   d->rowCount = rowCount;
 }
 
-int KTextEditor::CodeCompletionModel::rowCount( const QModelIndex & parent ) const
+int CodeCompletionModel::rowCount( const QModelIndex & parent ) const
 {
   if (parent.isValid())
     return 0;
@@ -87,13 +87,15 @@ int KTextEditor::CodeCompletionModel::rowCount( const QModelIndex & parent ) con
   return d->rowCount;
 }
 
-KTextEditor::CodeCompletionInterface2::~ CodeCompletionInterface2( )
+void CodeCompletionModel::completionInvoked(const Range& range, InvocationType invocationType)
 {
+  Q_UNUSED(range)
+  Q_UNUSED(invocationType)
 }
 
-void KTextEditor::CodeCompletionModel::executeCompletionItem(Document* document, const Range& word, int row)
+void CodeCompletionModel::executeCompletionItem(Document* document, const Range& word, int row)
 {
   document->replaceText(word, data(index(row, Name, QModelIndex())).toString());
 }
 
-#include "codecompletion2.moc"
+#include "codecompletionmodel.moc"

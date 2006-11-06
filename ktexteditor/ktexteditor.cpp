@@ -39,7 +39,6 @@
 #include "plugin.h"
 #include "plugin.moc"
 
-#include "codecompletioninterface.h"
 #include "commandinterface.h"
 #include "highlightinginterface.h"
 #include "markinterface.h"
@@ -62,68 +61,6 @@
 #include <kdebug.h>
 
 using namespace KTextEditor;
-
-namespace KTextEditor
-{
-    class CompletionItem::Private: public QSharedData { //implicitly shared data, I can't move it into a private header file or the implementation, since the QSharedDataPointer causes compile problems, perhaps I should make it a QSharedDataPointer* ....
-      public:
-        Private():icon(QIcon()),type(QString()),text(QString()),prefix(QString()),postfix(QString()),comment(QString()),userdata(QVariant()),provider(0){}
-        Private(const QString& _text, const QIcon &_icon=QIcon(), CompletionProvider* _provider=0, const QString &_prefix=QString(), const QString& _postfix=QString(), const QString& _comment=QString(), const QVariant &_userdata=QVariant(), const QString &_type=QString()):icon(_icon),type(_type),text(_text),prefix(_prefix),postfix(_postfix),comment(_comment),userdata(_userdata),provider(_provider) {}
-
-      QIcon icon;
-      QString type;
-      QString text;
-      QString prefix;
-      QString postfix;
-      QString comment;
-      QVariant userdata;
-      CompletionProvider *provider;
-
-      bool cmp(const Private* c) const {
-        return ( c->type == type &&
-                 c->text == text &&
-                 c->postfix == postfix &&
-                 c->prefix == prefix &&
-                 c->comment == comment &&
-                 c->userdata == userdata &&
-                 c->provider==provider &&
-                 c->icon.serialNumber()==icon.serialNumber());
-      }
-    };
-
-
-}
-
-
-CompletionItem::CompletionItem() {
-  d=new CompletionItem::Private();
-}
-
-CompletionItem::CompletionItem(const QString& _text, const QIcon &_icon, CompletionProvider* _provider, const QString &_prefix, const QString& _postfix, const QString& _comment, const QVariant &_userdata, const QString &_type)
-{
-  d=new CompletionItem::Private(_text,_icon,_provider,_prefix,_postfix,_comment,_userdata,_type);
-}
-
-CompletionItem::~CompletionItem() {}
-
-CompletionItem CompletionItem::operator=(const CompletionItem &c) {d=c.d; return *this; }
-
-CompletionItem::CompletionItem (const CompletionItem &c) {d=c.d;}
-
-
-bool CompletionItem::operator==( const CompletionItem &c ) const {
-      return d->cmp(c.d);
-}
-
-
-const QIcon&    CompletionItem::icon() const {return d->icon;}
-const QString&  CompletionItem::text() const {return d->text;}
-const QString&  CompletionItem::markupText() const {return d->text;}
-const QString&  CompletionItem::prefix() const {return d->prefix;}
-const QString&  CompletionItem::postfix() const{return d->postfix;}
-const QString&  CompletionItem::comment() const {return d->comment;}
-const QVariant& CompletionItem::userdata() const {return d->userdata;}
-CompletionProvider *CompletionItem::provider() const {return d->provider;}
 
 Factory::Factory( QObject *parent )
  : KParts::Factory( parent )
@@ -271,9 +208,6 @@ bool Document::isEmpty( ) const
   return documentEnd() == Cursor::start();
 }
 
-long ArgHintData::s_id=0;
-long CompletionData::s_id=0;
-
 ConfigPage::ConfigPage ( QWidget *parent )
   : QWidget (parent)
   , d(0)
@@ -411,7 +345,7 @@ int DocumentAdaptor::totalCharacters() const {
 int DocumentAdaptor::lineLength(int line) const {
   return m_document->lineLength(line);
 }
-                        
+
 QPoint DocumentAdaptor::endOfLine(int line) const {
   Cursor c=m_document->endOfLine(line);
   return QPoint(c.column(),c.line());

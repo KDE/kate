@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2005 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2005-2006 Hamish Rodda <rodda@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -16,10 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef CODECOMPLETION2_H
-#define CODECOMPLETION2_H
+#ifndef KDELIBS_KTEXTEDITOR_CODECOMPLETIONMODEL_H
+#define KDELIBS_KTEXTEDITOR_CODECOMPLETIONMODEL_H
 
-#include <QAbstractItemModel>
+#include <QtCore/QAbstractItemModel>
 
 #include <ktexteditor/range.h>
 
@@ -156,6 +156,13 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
 
     void setRowCount(int rowCount);
 
+    enum InvocationType {
+      AutomaticInvocation,
+      UserInvocation,
+      ManualInvocation
+    };
+
+    virtual void completionInvoked(const KTextEditor::Range& range, InvocationType invocationType);
     virtual void executeCompletionItem(Document* document, const Range& word, int row);
 
     // Reimplementations
@@ -172,25 +179,6 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
 Q_DECLARE_OPERATORS_FOR_FLAGS(CodeCompletionModel::CompletionProperties)
 Q_DECLARE_OPERATORS_FOR_FLAGS(CodeCompletionModel::HighlightMethods)
 
-class KTEXTEDITOR_EXPORT CodeCompletionInterface2
-{
-  public:
-    virtual ~CodeCompletionInterface2();
-
-    virtual bool isCompletionActive() const = 0;
-    virtual void startCompletion(const Range& word, CodeCompletionModel* model) = 0;
-    virtual void abortCompletion() = 0;
-
-    /**
-     * Force execution of the currently selected completion.
-     */
-    virtual void forceCompletion() = 0;
-
-  //signals:
-    //void completionExecuted(const Cursor& position, CodeCompletionModel* model, int row);
-    //void completionAborted();
-};
-
 }
 
-#endif
+#endif // KDELIBS_KTEXTEDITOR_CODECOMPLETIONMODEL_H

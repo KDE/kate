@@ -2,6 +2,7 @@
    Copyright (C) 2001-2004 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
+   Copyright (C) 2006 Hamish Rodda <rodda@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -21,8 +22,15 @@
 #ifndef _KATE_DOCUMENT_H_
 #define _KATE_DOCUMENT_H_
 
-#include "katetextline.h"
-#include "kateautoindent.h"
+#include <QLinkedList>
+#include <QMap>
+#include <QDateTime>
+#include <QClipboard>
+#include <QStack>
+
+#include <kmimetype.h>
+#include <klocale.h>
+#include <kshortcut.h>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/sessionconfiginterface.h>
@@ -34,15 +42,9 @@
 #include <ktexteditor/smartinterface.h>
 #include <ktexteditor/rangefeedback.h>
 
-#include <kmimetype.h>
-#include <klocale.h>
-#include <kshortcut.h>
-
-#include <qlinkedlist.h>
-#include <qmap.h>
-#include <qdatetime.h>
-#include <QClipboard>
-#include <QStack>
+#include "katetextline.h"
+#include "kateautoindent.h"
+#include "katenamespace.h"
 
 namespace KTextEditor { class Plugin; class Attribute; }
 
@@ -193,7 +195,7 @@ class KateDocument : public KTextEditor::Document,
     int lineLength(int line) const;
 
   Q_SIGNALS:
-    void charactersSemiInteractivelyInserted(int ,int ,const QString&);
+    void charactersSemiInteractivelyInserted(const KTextEditor::Cursor& position, const QString& text);
 
   public:
 //BEGIN editStart/editEnd (start, end, undo, cursor update, view update)
@@ -202,9 +204,9 @@ class KateDocument : public KTextEditor::Document,
      * them.
      * @param withUndo if true, add undo history
      */
-    void editStart (bool withUndo = true, KTextEditor::View *view = 0);
+    void editStart (bool withUndo = true, Kate::EditSource editSource = Kate::NoEditSource);
     /** Same as editStart() with undo */
-    void editBegin (KTextEditor::View *view = 0) { editStart(true, view); }
+    void editBegin (Kate::EditSource editSource = Kate::NoEditSource) { editStart(true, editSource); }
     /**
      * End a editor operation.
      * @see editStart()
@@ -214,7 +216,7 @@ class KateDocument : public KTextEditor::Document,
     void pushEditState();
     void popEditState();
 
-    bool startEditing (KTextEditor::View *view = 0) { editStart (true, view); return true; }
+    bool startEditing () { editStart (Kate::ThirdPartyEdit); return true; }
     bool endEditing () { editEnd (); return true; }
 
 //END editStart/editEnd
@@ -227,7 +229,7 @@ class KateDocument : public KTextEditor::Document,
      * @param s string to be inserted
      * @return true on success
      */
-    bool editInsertText ( int line, int col, const QString &s );
+    bool editInsertText ( int line, int col, const QString &s, Kate::EditSource editSource = Kate::NoEditSource );
     /**
      * Remove a string in the given line/column
      * @param line line number
@@ -235,7 +237,7 @@ class KateDocument : public KTextEditor::Document,
      * @param len length of text to be removed
      * @return true on success
      */
-    bool editRemoveText ( int line, int col, int len );
+    bool editRemoveText ( int line, int col, int len, Kate::EditSource editSource = Kate::NoEditSource );
 
     /**
      * Mark @p line as @p autowrapped. This is necessary if static word warp is
@@ -273,13 +275,13 @@ class KateDocument : public KTextEditor::Document,
      * @param s string to insert
      * @return true on success
      */
-    bool editInsertLine ( int line, const QString &s );
+    bool editInsertLine ( int line, const QString &s, Kate::EditSource editSource = Kate::NoEditSource );
     /**
      * Remove a line
      * @param line line number
      * @return true on success
      */
-    bool editRemoveLine ( int line );
+    bool editRemoveLine ( int line, Kate::EditSource editSource = Kate::NoEditSource );
 
     /**
      * Remove a line
@@ -324,9 +326,9 @@ class KateDocument : public KTextEditor::Document,
 
     int editSessionNumber;
     QStack<int> editStateStack;
+    QStack<Kate::EditSource> m_editSources;
     bool editIsRunning;
     bool editWithUndo;
-    KateView *editView;
     bool m_undoComplexMerge;
     KateUndoGroup* m_editCurrentUndo;
 
@@ -385,16 +387,16 @@ class KateDocument : public KTextEditor::Document,
     /**
      * Return the name of the currently used highlighting
      * \return name of the used highlighting
-     * 
+     *
      */
     virtual QString highlighting() const;
-    
+
     /**
      * Return a list of the names of all possible highlighting
      * \return list of highlighting names
      */
     virtual QStringList highlightings() const;
-    
+
     /**
      * Set the current highlighting of the document by giving it's name
      * \param name name of the highlighting to use for this document
@@ -406,7 +408,7 @@ class KateDocument : public KTextEditor::Document,
     /**
      * Warn anyone listening that the current document's highlighting has
      * changed.
-     * 
+     *
      * \param document the document which's highlighting has changed
      */
     virtual void highlightingChanged(KTextEditor::Document *document);

@@ -18,7 +18,7 @@
 
 #include "kateedit.h"
 
-KateEditInfo::KateEditInfo(KateDocument* doc, int source, const KTextEditor::Range& oldRange, const QStringList& oldText, const KTextEditor::Range& newRange, const QStringList& newText)
+KateEditInfo::KateEditInfo(KateDocument* doc, Kate::EditSource source, const KTextEditor::Range& oldRange, const QStringList& oldText, const KTextEditor::Range& newRange, const QStringList& newText)
   : m_doc(doc)
   , m_editSource(source)
   , m_oldRange(oldRange)
@@ -32,6 +32,11 @@ KateEditInfo::KateEditInfo(KateDocument* doc, int source, const KTextEditor::Ran
 
 KateEditInfo::~KateEditInfo()
 {
+}
+
+Kate::EditSource KateEditInfo::editSource() const
+{
+  return m_editSource;
 }
 
 const KTextEditor::Range & KateEditInfo::oldRange( ) const
@@ -189,6 +194,16 @@ void KateEditInfo::dereferenceRevision()
 void KateEditInfo::referenceRevision()
 {
   ++m_revisionTokenCounter;
+}
+
+const QStringList & KateEditInfo::newText() const
+{
+  return m_newText;
+}
+
+bool KateEditInfo::isRemoval() const
+{
+  return !m_oldRange.isEmpty() && m_newRange.isEmpty();
 }
 
 #include "kateedit.moc"

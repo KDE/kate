@@ -19,10 +19,13 @@
 #ifndef KATEEDIT_H
 #define KATEEDIT_H
 
-#include <ktexteditor/range.h>
 #include <QStringList>
 #include <QObject>
 #include <QMap>
+
+#include <ktexteditor/range.h>
+
+#include "katenamespace.h"
 
 class KateDocument;
 
@@ -36,21 +39,7 @@ class KateEditInfo
   friend class KateEditHistory;
 
   public:
-    enum EditSources {
-      OpenFile,
-      CloseFile,
-      UserInput,
-      CutCopyPaste,
-      SearchReplace,
-      AutomaticIndentation,
-      CodeCompletion,
-      ScriptAction,
-      CommandLine,
-      Plugin,
-      ThirdParty
-    };
-
-    KateEditInfo(KateDocument* doc, int source, const KTextEditor::Range& oldRange, const QStringList& oldText, const KTextEditor::Range& newRange, const QStringList& newText);
+    KateEditInfo(KateDocument* doc, Kate::EditSource source, const KTextEditor::Range& oldRange, const QStringList& oldText, const KTextEditor::Range& newRange, const QStringList& newText);
     virtual ~KateEditInfo();
 
     KateDocument* document() const;
@@ -70,7 +59,7 @@ class KateEditInfo
      * Returns how this edit was generated.
      * \sa EditSources
      */
-    int editSource() const;
+    Kate::EditSource editSource() const;
 
     bool merge(KateEditInfo* edit);
 
@@ -128,7 +117,7 @@ class KateEditInfo
     void redo();
 
     KateDocument* m_doc;
-    int m_editSource;
+    Kate::EditSource m_editSource;
     bool m_editBoundary;
     KTextEditor::Range m_oldRange;
     QStringList m_oldText;

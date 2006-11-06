@@ -28,7 +28,7 @@
 using namespace KTextEditor;
 
 KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
-  : QAbstractProxyModel(parent)
+  : QAbstractItemModel(parent)
   , m_matchCaseSensitivity(Qt::CaseInsensitive)
   , m_hasCompletionModel(false)
   , m_ungrouped(new Group(this))
@@ -85,13 +85,15 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
     // Merge text for column merging
     if (role == Qt::DisplayRole && m_columnMerges.count()) {
       QString text;
-      foreach (int column, m_columnMerges[index.column()])
-        text.append(sourceModel()->data(mapToSource(createIndex(index.row(), column, index.internalPointer())), role).toString());
+      foreach (int column, m_columnMerges[index.column()]) {
+        QModelIndex sourceIndex = mapToSource(createIndex(index.row(), column, index.internalPointer()));
+        text.append(sourceIndex.data(role).toString());
+      }
 
       return text;
     }
 
-    return sourceModel()->data(mapToSource(index), role);
+    return mapToSource(index).data(role);
   }
 
   Group* g = groupForIndex(index);
@@ -134,38 +136,9 @@ Qt::ItemFlags KateCompletionModel::flags( const QModelIndex & index ) const
   return Qt::ItemIsEnabled;
 }
 
-CodeCompletionModel * KateCompletionModel::completionModel( ) const
-{
-  return static_cast<CodeCompletionModel*>(sourceModel());
-}
-
 KateView * KateCompletionModel::view( ) const
 {
   return static_cast<const KateCompletionWidget*>(QObject::parent())->view();
-}
-
-void KateCompletionModel::setSourceModel( QAbstractItemModel* sm )
-{
-  if (sourceModel() == sm)
-    return;
-
-  clearGroups();
-
-  if (hasCompletionModel())
-    sourceModel()->disconnect(this);
-
-  QAbstractProxyModel::setSourceModel(sm);
-
-  m_hasCompletionModel = sm;
-
-  if (hasCompletionModel()) {
-    connect(sourceModel(), SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(slotRowsInserted(const QModelIndex&, int, int)));
-    connect(sourceModel(), SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT(slotRowsRemoved(const QModelIndex&, int, int)));
-
-    createGroups();
-  }
-
-  reset();
 }
 
 void KateCompletionModel::setMatchCaseSensitivity( Qt::CaseSensitivity cs )
@@ -176,6 +149,11 @@ void KateCompletionModel::setMatchCaseSensitivity( Qt::CaseSensitivity cs )
 int KateCompletionModel::columnCount( const QModelIndex& ) const
 {
   return isColumnMergingEnabled() && !m_columnMerges.isEmpty() ? m_columnMerges.count() : KTextEditor::CodeCompletionModel::ColumnCount;
+}
+
+KateCompletionModel::ModelRow KateCompletionModel::modelRowPair(const QModelIndex& index) const
+{
+  return qMakePair(static_cast<CodeCompletionModel*>(const_cast<QAbstractItemModel*>(index.model())), index.row());
 }
 
 bool KateCompletionModel::hasChildren( const QModelIndex & parent ) const
@@ -310,16 +288,17 @@ void KateCompletionModel::createGroups( )
 {
   clearGroups();
 
-  for (int i = 0; i < sourceModel()->rowCount(); ++i) {
-    QModelIndex sourceIndex = sourceModel()->index(i, CodeCompletionModel::Name, QModelIndex());
+  foreach (CodeCompletionModel* sourceModel, m_completionModels)
+    for (int i = 0; i < sourceModel->rowCount(); ++i) {
+      QModelIndex sourceIndex = sourceModel->index(i, CodeCompletionModel::Name, QModelIndex());
 
-    int completionFlags = sourceModel()->data(sourceIndex, CodeCompletionModel::CompletionRole).toInt();
-    QString scopeIfNeeded = (groupingMethod() & Scope) ? sourceModel()->data(sourceModel()->index(i, CodeCompletionModel::Scope, QModelIndex()), Qt::DisplayRole).toString() : QString();
+      int completionFlags = sourceIndex.data(CodeCompletionModel::CompletionRole).toInt();
+      QString scopeIfNeeded = (groupingMethod() & Scope) ? sourceModel->index(i, CodeCompletionModel::Scope, QModelIndex()).data(Qt::DisplayRole).toString() : QString();
 
-    Group* g = fetchGroup(completionFlags, scopeIfNeeded);
+      Group* g = fetchGroup(completionFlags, scopeIfNeeded);
 
-    g->addItem(Item(this, i));
-  }
+      g->addItem(Item(this, ModelRow(sourceModel, i)));
+    }
 
   resort();
 }
@@ -444,10 +423,13 @@ KateCompletionModel::Group* KateCompletionModel::groupForIndex( const QModelInde
 
 QMap< int, QVariant > KateCompletionModel::itemData( const QModelIndex & index ) const
 {
-  if (!hasGroups() || groupOfParent(index))
-    return sourceModel()->itemData(mapToSource(index));
+  if (!hasGroups() || groupOfParent(index)) {
+    QModelIndex index = mapToSource(index);
+    if (index.isValid())
+      return index.model()->itemData(index);
+  }
 
-  return QAbstractProxyModel::itemData(index);
+  return QAbstractItemModel::itemData(index);
 }
 
 QModelIndex KateCompletionModel::parent( const QModelIndex & index ) const
@@ -490,8 +472,10 @@ QModelIndex KateCompletionModel::mapToSource( const QModelIndex & proxyIndex ) c
   if (!proxyIndex.isValid())
     return QModelIndex();
 
-  if (Group* g = groupOfParent(proxyIndex))
-    return sourceModel()->index(g->rows[proxyIndex.row()], proxyIndex.column());
+  if (Group* g = groupOfParent(proxyIndex)) {
+    ModelRow source = g->rows[proxyIndex.row()];
+    return source.first->index(source.second, proxyIndex.column());
+  }
 
   return QModelIndex();
 }
@@ -502,17 +486,17 @@ QModelIndex KateCompletionModel::mapFromSource( const QModelIndex & sourceIndex 
     return QModelIndex();
 
   if (!hasGroups())
-    return index(m_ungrouped->rows.indexOf(sourceIndex.row()), sourceIndex.column(), QModelIndex());
+    return index(m_ungrouped->rows.indexOf(modelRowPair(sourceIndex)), sourceIndex.column(), QModelIndex());
 
   foreach (Group* g, m_rowTable) {
-    int row = g->rows.indexOf(sourceIndex.row());
+    int row = g->rows.indexOf(modelRowPair(sourceIndex));
     if (row != -1)
       return index(row, sourceIndex.column(), QModelIndex());
   }
 
   // Copied from above
   foreach (Group* g, m_emptyGroups) {
-    int row = g->rows.indexOf(sourceIndex.row());
+    int row = g->rows.indexOf(modelRowPair(sourceIndex));
     if (row != -1)
       return index(row, sourceIndex.column(), QModelIndex());
   }
@@ -572,12 +556,12 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
 
 void KateCompletionModel::changeCompletions( Group * g, const QString & newCompletion, changeTypes changeType )
 {
-  QMutableListIterator<int> filtered = g->rows;
+  QMutableListIterator<ModelRow> filtered = g->rows;
   QMutableListIterator<Item> prefilter = g->prefilter;
 
   int rowDeleteStart = -1;
   int rowAddStart = -1;
-  QList<int> rowAdd;
+  QList<ModelRow> rowAdd;
 
   int index = 0;
   while (prefilter.hasNext()) {
@@ -699,7 +683,7 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
   }
 }
 
-void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<int> & filtered, int countBackwards, int startRow )
+void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<ModelRow> & filtered, int countBackwards, int startRow )
 {
   beginRemoveRows(indexForGroup(g), startRow, startRow + countBackwards - 1);
 
@@ -712,7 +696,7 @@ void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<int> & filt
 }
 
 
-void KateCompletionModel::addRows( Group * g, QMutableListIterator<int> & filtered, int startRow, const QList< int > & newItems )
+void KateCompletionModel::addRows( Group * g, QMutableListIterator<ModelRow> & filtered, int startRow, const QList<ModelRow> & newItems )
 {
   beginInsertRows(indexForGroup(g), startRow, startRow + newItems.count() - 1);
 
@@ -993,7 +977,7 @@ Qt::CaseSensitivity KateCompletionModel::sortingCaseSensitivity( ) const
   return m_sortingCaseSensitivity;
 }
 
-KateCompletionModel::Item::Item( KateCompletionModel* m, int sr )
+KateCompletionModel::Item::Item( KateCompletionModel* m, ModelRow sr )
   : model(m)
   , m_sourceRow(sr)
   , matchCompletion(true)
@@ -1021,7 +1005,8 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
     //kDebug() << k_funcinfo << c1 << " c/w " << c2 << " -> " << (model->isSortingReverse() ? ret > 0 : ret < 0) << " (" << ret << ")" << endl;
 
   } else {
-    ret = m_sourceRow - rhs.m_sourceRow;
+    // FIXME need to define a better default ordering for multiple model display
+    ret = m_sourceRow.second - rhs.m_sourceRow.second;
   }
 
   return model->isSortingReverse() ? ret > 0 : ret < 0;
@@ -1029,7 +1014,7 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
 
 QString KateCompletionModel::Item::completionName( ) const
 {
-  return model->sourceModel()->data(model->sourceModel()->index(m_sourceRow, CodeCompletionModel::Name, QModelIndex()), Qt::DisplayRole).toString();
+  return m_sourceRow.first->index(m_sourceRow.second, CodeCompletionModel::Name, QModelIndex()).data(Qt::DisplayRole).toString();
 }
 
 void KateCompletionModel::Group::addItem( Item i )
@@ -1115,7 +1100,7 @@ void KateCompletionModel::resort( )
 
 bool KateCompletionModel::Item::isValid( ) const
 {
-  return model && m_sourceRow >= 0;
+  return model && m_sourceRow.first && m_sourceRow.second >= 0;
 }
 
 void KateCompletionModel::Group::clear( )
@@ -1201,22 +1186,22 @@ bool KateCompletionModel::Item::filter( )
   matchFilters = false;
 
   if (model->isFilteringEnabled()) {
-    QModelIndex sourceIndex = model->sourceModel()->index(m_sourceRow, CodeCompletionModel::Name, QModelIndex());
+    QModelIndex sourceIndex = m_sourceRow.first->index(m_sourceRow.second, CodeCompletionModel::Name, QModelIndex());
 
     if (model->filterContextMatchesOnly()) {
-      QVariant contextMatch = model->sourceModel()->data(sourceIndex, CodeCompletionModel::MatchType);
+      QVariant contextMatch = sourceIndex.data(CodeCompletionModel::MatchType);
       if (contextMatch.canConvert(QVariant::Bool) && !contextMatch.toBool())
         goto filter;
     }
 
     if (model->filterByAttribute()) {
-      int completionFlags = model->sourceModel()->data(sourceIndex, CodeCompletionModel::CompletionRole).toInt();
+      int completionFlags = sourceIndex.data(CodeCompletionModel::CompletionRole).toInt();
       if (model->filterAttributes() & completionFlags)
         goto filter;
     }
 
     if (model->maximumInheritanceDepth() > 0) {
-      int inheritanceDepth = model->sourceModel()->data(sourceIndex, CodeCompletionModel::InheritanceDepth).toInt();
+      int inheritanceDepth = sourceIndex.data(CodeCompletionModel::InheritanceDepth).toInt();
       if (inheritanceDepth > model->maximumInheritanceDepth())
         goto filter;
     }
@@ -1231,13 +1216,13 @@ bool KateCompletionModel::Item::filter( )
 bool KateCompletionModel::Item::match(const QString& newCompletion)
 {
   // Check to see if the item is matched by the current completion string
-  QModelIndex sourceIndex = model->sourceModel()->index(m_sourceRow, CodeCompletionModel::Name, QModelIndex());
+  QModelIndex sourceIndex = m_sourceRow.first->index(m_sourceRow.second, CodeCompletionModel::Name, QModelIndex());
 
   QString match = newCompletion;
   if (match.isEmpty())
     match = model->currentCompletion();
 
-  matchCompletion = model->sourceModel()->data(sourceIndex, Qt::DisplayRole).toString().startsWith(match, model->matchCaseSensitivity());
+  matchCompletion = sourceIndex.data(Qt::DisplayRole).toString().startsWith(match, model->matchCaseSensitivity());
   return matchCompletion;
 }
 
@@ -1330,7 +1315,7 @@ bool KateCompletionModel::Item::isMatching( ) const
   return matchFilters;
 }
 
-int KateCompletionModel::Item::sourceRow( ) const
+KateCompletionModel::ModelRow KateCompletionModel::Item::sourceRow( ) const
 {
   return m_sourceRow;
 }
@@ -1345,5 +1330,76 @@ Qt::CaseSensitivity KateCompletionModel::matchCaseSensitivity( ) const
   return m_matchCaseSensitivity;
 }
 
+void KateCompletionModel::addCompletionModel(KTextEditor::CodeCompletionModel * model)
+{
+  if (m_completionModels.contains(model))
+    return;
+
+  m_completionModels.append(model);
+
+  connect(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(slotRowsInserted(const QModelIndex&, int, int)));
+  connect(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT(slotRowsRemoved(const QModelIndex&, int, int)));
+
+  createGroups();
+
+  reset();
+}
+
+void KateCompletionModel::setCompletionModel(KTextEditor::CodeCompletionModel* model)
+{
+  clearCompletionModels();
+  addCompletionModel(model);
+}
+
+void KateCompletionModel::setCompletionModels(const QList<KTextEditor::CodeCompletionModel*>& models)
+{
+  if (m_completionModels == models)
+    return;
+
+  clearCompletionModels();
+
+  m_completionModels = models;
+
+  foreach (KTextEditor::CodeCompletionModel* model, models) {
+    connect(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(slotRowsInserted(const QModelIndex&, int, int)));
+    connect(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT(slotRowsRemoved(const QModelIndex&, int, int)));
+  }
+
+  createGroups();
+  reset();
+}
+
+QList< KTextEditor::CodeCompletionModel * > KateCompletionModel::completionModels() const
+{
+  return m_completionModels;
+}
+
+void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
+{
+  if (!model || m_completionModels.contains(model))
+    return;
+
+  clearGroups();
+
+  model->disconnect(this);
+
+  m_completionModels.removeAll(model);
+
+  if (!m_completionModels.isEmpty())
+    createGroups();
+
+  reset();
+}
+
+void KateCompletionModel::clearCompletionModels()
+{
+  foreach (CodeCompletionModel * model, m_completionModels)
+    model->disconnect(this);
+
+  m_completionModels.clear();
+
+  clearGroups();
+  reset();
+}
 
 #include "katecompletionmodel.moc"

@@ -18,13 +18,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-// remove when QVBoxLayout::setAutoAdd is ported
-#define QT3_SUPPORT
-#define QT3_SUPPORT_WARNINGS
-#ifdef __GNUC__
-#warning TODO: remove QT3_SUPPORT
-#endif
-
 #include "katetest.h"
 #include "katetest.moc"
 
@@ -124,7 +117,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
     docList.append(doc);
   }
 
-  new ArbitraryHighlightTest(doc);
+  //new ArbitraryHighlightTest(doc);
 
   m_view = qobject_cast<KTextEditor::View*>(doc->createView (this));
 

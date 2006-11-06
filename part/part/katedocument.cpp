@@ -2,6 +2,7 @@
    Copyright (C) 2001-2004 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
+   Copyright (C) 2006 Hamish Rodda <rodda@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -261,7 +262,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   editIsRunning = false;
   m_editCurrentUndo = 0L;
   editWithUndo = false;
-  editView = 0;
 
   m_docNameNumber = 0;
   m_docName = "need init";
@@ -287,7 +287,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   m_blockRemoveTrailingSpaces = false;
   m_extension = new KateBrowserExtension( this );
-  
+
   // important, fill in the config into the indenter we use...
   m_indenter.updateConfig ();
 
@@ -1045,9 +1045,14 @@ int KateDocument::lineLength ( int line ) const
 //
 // Starts an edit session with (or without) undo, update of view disabled during session
 //
-void KateDocument::editStart (bool withUndo, KTextEditor::View *view)
+void KateDocument::editStart (bool withUndo, Kate::EditSource editSource)
 {
   editSessionNumber++;
+
+  if (editSource == Kate::NoEditSource)
+    m_editSources.push(m_editSources.isEmpty() ? Kate::UserInputEdit : m_editSources.top());
+  else
+    m_editSources.push(editSource);
 
   if (editSessionNumber > 1)
     return;
@@ -1057,9 +1062,6 @@ void KateDocument::editStart (bool withUndo, KTextEditor::View *view)
 
   editIsRunning = true;
   editWithUndo = withUndo;
-
-  if (view && view->document() == static_cast<KTextEditor::Document*>(this))
-    editView = qobject_cast<KateView*>(view);
 
   if (editWithUndo)
     undoStart();
@@ -1163,6 +1165,8 @@ void KateDocument::editEnd ()
 
   editSessionNumber--;
 
+  m_editSources.pop();
+
   if (editSessionNumber > 0)
     return;
 
@@ -1186,7 +1190,6 @@ void KateDocument::editEnd ()
     emit textChanged (this);
   }
 
-  editView = 0;
   editIsRunning = false;
 }
 
@@ -1328,7 +1331,7 @@ void KateDocument::editAddUndo (int type, uint line, uint col, uint len, const Q
   }
 }
 
-bool KateDocument::editInsertText ( int line, int col, const QString &str )
+bool KateDocument::editInsertText ( int line, int col, const QString &str, Kate::EditSource editSource )
 {
   if (line < 0 || col < 0)
     return false;
@@ -1343,7 +1346,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &str )
   if (!l)
     return false;
 
-  editStart ();
+  editStart (editSource);
 
   editAddUndo (KateUndoGroup::editInsertText, line, col, s.length(), s);
 
@@ -1351,7 +1354,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &str )
 
   m_buffer->changeLine(line);
 
-  history()->doEdit( new KateEditInfo(this, KateEditInfo::ThirdParty, KTextEditor::Range(line, col, line, col), QStringList(), KTextEditor::Range(line, col, line, col + s.length()), QStringList(str)) );
+  history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(line, col, line, col), QStringList(), KTextEditor::Range(line, col, line, col + s.length()), QStringList(str)) );
   emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col, line, col + s.length()));
 
   editEnd();
@@ -1359,7 +1362,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &str )
   return true;
 }
 
-bool KateDocument::editRemoveText ( int line, int col, int len )
+bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource editSource )
 {
   if (line < 0 || col < 0 || len < 0)
     return false;
@@ -1372,7 +1375,7 @@ bool KateDocument::editRemoveText ( int line, int col, int len )
   if (!l)
     return false;
 
-  editStart ();
+  editStart (editSource);
 
   editAddUndo (KateUndoGroup::editRemoveText, line, col, len, l->string().mid(col, len));
 
@@ -1381,7 +1384,7 @@ bool KateDocument::editRemoveText ( int line, int col, int len )
 
   m_buffer->changeLine(line);
 
-  history()->doEdit( new KateEditInfo(this, KateEditInfo::ThirdParty, KTextEditor::Range(line, col, line, col + len), QStringList(l->string().mid(col, len)), KTextEditor::Range(line, col, line, col), QStringList()) );
+  history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(line, col, line, col + len), QStringList(l->string().mid(col, len)), KTextEditor::Range(line, col, line, col), QStringList()) );
   emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line, col + len));
 
   editEnd ();
@@ -1486,7 +1489,7 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
       (*newLineAdded) = false;
   }
 
-  history()->doEdit( new KateEditInfo(this, KateEditInfo::ThirdParty, KTextEditor::Range(line, col, line, col), QStringList(), KTextEditor::Range(line, col, line+1, 0), QStringList(QString())) );
+  history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(line, col, line, col), QStringList(), KTextEditor::Range(line, col, line+1, 0), QStringList(QString())) );
   emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col, line+1, 0));
 
   editEnd ();
@@ -1557,7 +1560,7 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
   if( !list.isEmpty() )
     emit marksChanged( this );
 
-  history()->doEdit( new KateEditInfo(this, KateEditInfo::ThirdParty, KTextEditor::Range(line, col, line+1, 0), QStringList(QString()), KTextEditor::Range(line, col, line, col), QStringList()) );
+  history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(line, col, line+1, 0), QStringList(QString()), KTextEditor::Range(line, col, line, col), QStringList()) );
   emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line+1, 0));
 
   editEnd ();
@@ -1565,7 +1568,7 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
   return true;
 }
 
-bool KateDocument::editInsertLine ( int line, const QString &s )
+bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource editSource )
 {
   if (line < 0)
     return false;
@@ -1576,7 +1579,7 @@ bool KateDocument::editInsertLine ( int line, const QString &s )
   if ( line > lines() )
     return false;
 
-  editStart ();
+  editStart (editSource);
 
   editAddUndo (KateUndoGroup::editInsertLine, line, 0, s.length(), s);
 
@@ -1613,7 +1616,7 @@ bool KateDocument::editInsertLine ( int line, const QString &s )
     rangeInserted.start().setPosition(line - 1, prevLine->length());
   }
 
-  history()->doEdit( new KateEditInfo(this, KateEditInfo::ThirdParty, KTextEditor::Range(rangeInserted.start(), rangeInserted.start()), QStringList(), rangeInserted, QStringList(s)) );
+  history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(rangeInserted.start(), rangeInserted.start()), QStringList(), rangeInserted, QStringList(s)) );
   emit KTextEditor::Document::textInserted(this, rangeInserted);
 
   editEnd ();
@@ -1621,7 +1624,7 @@ bool KateDocument::editInsertLine ( int line, const QString &s )
   return true;
 }
 
-bool KateDocument::editRemoveLine ( int line )
+bool KateDocument::editRemoveLine ( int line, Kate::EditSource editSource )
 {
   if (line < 0)
     return false;
@@ -1635,7 +1638,7 @@ bool KateDocument::editRemoveLine ( int line )
   if ( lines() == 1 )
     return editRemoveText (0, 0, m_buffer->line(0)->length());
 
-  editStart ();
+  editStart (editSource);
 
   QString oldText = this->line(line);
 
@@ -1673,7 +1676,7 @@ bool KateDocument::editRemoveLine ( int line )
   if( !list.isEmpty() )
     emit marksChanged( this );
 
-  history()->doEdit( new KateEditInfo(this, KateEditInfo::ThirdParty, rangeRemoved, QStringList(QString(oldText)), KTextEditor::Range(rangeRemoved.start(), rangeRemoved.start()), QStringList()) );
+  history()->doEdit( new KateEditInfo(this, m_editSources.top(), rangeRemoved, QStringList(QString(oldText)), KTextEditor::Range(rangeRemoved.start(), rangeRemoved.start()), QStringList()) );
   emit KTextEditor::Document::textRemoved(this, rangeRemoved);
 
   editEnd();
@@ -1961,10 +1964,10 @@ QString KateDocument::highlighting () const
 QStringList KateDocument::highlightings () const
 {
   QStringList hls;
-  
+
   for (uint i = 0; i < hlModeCount(); ++i)
     hls << hlModeName (i);
-    
+
   return hls;
 }
 
@@ -2412,7 +2415,7 @@ bool KateDocument::openFile(KIO::Job * job)
 
   // do we have success ?
   emit KTextEditor::Document::textRemoved(this, documentRange());
-  history()->doEdit( new KateEditInfo(this, KateEditInfo::CloseFile, documentRange(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
+  history()->doEdit( new KateEditInfo(this, Kate::CloseFileEdit, documentRange(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
 
   bool success = m_buffer->openFile (m_file);
 
@@ -2422,7 +2425,7 @@ bool KateDocument::openFile(KIO::Job * job)
   if (success)
   {
     emit KTextEditor::Document::textInserted(this, documentRange());
-    history()->doEdit( new KateEditInfo(this, KateEditInfo::CloseFile, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
+    history()->doEdit( new KateEditInfo(this, Kate::OpenFileEdit, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
 
     /*if (highlight() && !m_url.isLocalFile()) {
       // The buffer's highlighting gets nuked by KateBuffer::clear()
@@ -2456,7 +2459,7 @@ bool KateDocument::openFile(KIO::Job * job)
       foreach(const QString& checkplugin, m_postLoadFilterChecks)
       {
          lscps->postLoadFilter(checkplugin,this);
-      } 	
+      }
     }
   }
 
@@ -2591,7 +2594,7 @@ bool KateDocument::save()
         kDebug () << "stating succesfull: " << url() << endl;
         KFileItem item (fentry, url());
         perms = item.permissions();
-      
+
         // do a evil copy which will overwrite target if possible
 	backupSuccess = KIO::NetAccess::file_copy ( url(), u, -1, true, false, w );
       }
@@ -2655,7 +2658,7 @@ bool KateDocument::saveFile()
   {
     return false;
   }
-  
+
   if (!m_preSavePostDialogFilterChecks.isEmpty())
   {
     LoadSaveFilterCheckPlugins *lscps=loadSaveFilterCheckPlugins();
@@ -2663,7 +2666,7 @@ bool KateDocument::saveFile()
     {
        if (lscps->preSavePostDialogFilterCheck(checkplugin,this)==false)
          return false;
-    } 	
+    }
   }
 
   // remove file from dirwatch
@@ -2855,6 +2858,9 @@ bool KateDocument::closeUrl()
     m_modOnHdReason = OnDiskUnmodified;
     emit modifiedOnDisk (this, m_modOnHd, m_modOnHdReason);
   }
+
+  emit KTextEditor::Document::textRemoved(this, documentRange());
+  history()->doEdit( new KateEditInfo(this, Kate::CloseFileEdit, documentRange(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
 
   // clear the buffer
   m_buffer->clear();
@@ -3265,7 +3271,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
 
   m_undoDontMerge = true;
 
-  editStart ();
+  editStart (Kate::CutCopyPasteEdit);
 
   if (!view->config()->persistentSelection() && view->selection() )
     view->removeSelectedText();
@@ -3307,7 +3313,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
     editEnd();
   }
 
-  if (!view->blockSelectionMode()) emit charactersSemiInteractivelyInserted (pos.line(), pos.column(), s);
+  if (!view->blockSelectionMode()) emit charactersSemiInteractivelyInserted (pos, s);
   m_undoDontMerge = true;
 }
 
@@ -5310,5 +5316,5 @@ KateDocument::LoadSaveFilterCheckPlugins* KateDocument::loadSaveFilterCheckPlugi
 {
   if (s_loadSaveFilterCheckPlugins) return s_loadSaveFilterCheckPlugins;
   s_loadSaveFilterCheckPlugins=loadSaveFilterCheckPluginsSD.setObject(s_loadSaveFilterCheckPlugins,new LoadSaveFilterCheckPlugins);
-  return s_loadSaveFilterCheckPlugins;	
+  return s_loadSaveFilterCheckPlugins;
 }

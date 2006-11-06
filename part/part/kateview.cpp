@@ -34,7 +34,6 @@
 #include "katedialogs.h"
 #include "katetextline.h"
 #include "katecodefoldinghelpers.h"
-#include "katecodecompletion.h"
 #include "katesearch.h"
 #include "kateschema.h"
 #include "katebookmarks.h"
@@ -103,11 +102,7 @@ static void blockFix(KTextEditor::Range& range)
 KateView::KateView( KateDocument *doc, QWidget *parent )
     : KTextEditor::View( parent )
     , m_destructing(false)
-    , m_customComplete(false)
-    , m_cc_cleanup(false)
-    , m_delayed_cc_type(KTextEditor::CompletionNone)
-    , m_delayed_cc_provider(0)
-    , m_completionWidget(0L)
+    , m_completionWidget(0)
     , m_editActions (0)
     , m_doc( doc )
     , m_search( new KateSearch( this ) )
@@ -174,14 +169,13 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   setupActions();
   setupEditActions();
   setupCodeFolding();
-  setupCodeCompletion();
 
   // enable the plugins of this view
   m_doc->enableAllPluginsGUI (this);
 
   // update the enabled state of the undo/redo actions...
   slotNewUndo();
-  
+
   m_searchBar = new KateSearchBar(this);
   m_searchBar->hide();
   connect(m_searchBar, SIGNAL(hidden()), this, SLOT(slotHideSearchBar()));
@@ -335,6 +329,11 @@ void KateView::setupActions()
     a = new KAction( i18n("Join Lines"), ac, "tools_join_lines" );
     a->setShortcut(Qt::CTRL + Qt::Key_J);
     connect(a, SIGNAL(triggered(bool)), SLOT( joinLines() ));
+
+    a = new KAction(i18n("Invoke Code Completion"), ac, "tools_invoke_code_completion");
+    a->setWhatsThis(i18n("Manually invoke command completion, usually by using a shortcut bound to this action."));
+    a->setShortcut(Qt::CTRL + Qt::Key_Space);
+    connect(a, SIGNAL(triggered(bool)), SLOT(userInvokedCompletion()));
   }
   else
   {
@@ -728,22 +727,6 @@ void KateView::slotCollapseLocal()
 void KateView::slotExpandLocal()
 {
   m_doc->foldingTree()->expandOne(cursorPosition().line(), m_doc->lines());
-}
-
-void KateView::setupCodeCompletion()
-{
-  m_codeCompletion = new KateCodeCompletion(this);
-  /* rodda: signals do not exist
-  connect( m_codeCompletion, SIGNAL(completionAborted()),
-           this,             SIGNAL(completionAborted()));
-  connect( m_codeCompletion, SIGNAL(completionDone()),
-           this,             SIGNAL(completionDone()));
-  connect( m_codeCompletion, SIGNAL(argHintHidden()),
-           this,             SIGNAL(argHintHidden()));
-  connect( m_codeCompletion, SIGNAL(completionDone(KTextEditor::CompletionEntry)),
-           this,             SIGNAL(completionDone(KTextEditor::CompletionEntry)));
-  connect( m_codeCompletion, SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString*)),
-           this,             SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString*)));*/
 }
 
 QString KateView::viewMode () const
@@ -1396,7 +1379,7 @@ bool KateView::removeSelectedText()
   if (!selection())
     return false;
 
-  m_doc->editStart ();
+  m_doc->editStart (Kate::CutCopyPasteEdit);
 
   KTextEditor::Range range = *m_selection;
 
@@ -1824,137 +1807,13 @@ const KTextEditor::Range& KateView::imEdit() const
 }
 //END IM INPUT STUFF
 
-// merge the following two functions
 void KateView::slotTextInserted ( KTextEditor::View *view, const KTextEditor::Cursor &position, const QString &text)
 {
   emit textInserted ( view, position, text);
-  if (m_customComplete) return;
-  //kDebug(13030)<<"Checking if cc provider list is empty"<<endl;
-  if (m_completionProviders.isEmpty()) return;
-  QLinkedList<KTextEditor::CompletionData> newdata;
-
-  KTextEditor::Cursor c=cursorPosition();
-  QString lineText=m_doc->line(c.line());
-  kDebug(13030)<<"Checking state for all providers"<<endl;
-  const KTextEditor::CompletionData nulldata=KTextEditor::CompletionData::Null();
-  foreach (KTextEditor::CompletionProvider *provider, m_completionProviders)
-  {
-    const KTextEditor::CompletionData &nd=provider->completionData(view,KTextEditor::CompletionAsYouType,position,text,c,lineText);
-    if (nd.isValid()) newdata.append(nd);
-  }
-  m_codeCompletion->showCompletion(position,newdata);
-}
-
-
-void KateView::invokeCompletion(enum KTextEditor::CompletionType type) {
-  kDebug(13020)<<"KateView::invokeCompletion"<<endl;
-  if ((type==KTextEditor::CompletionAsYouType) || (type==KTextEditor::CompletionAsYouTypeBackspace))
-  {
-    kDebug(13020)<<"KateView::invokeCompletion: ignoring invalid call"<<endl;
-    return;
-  }
-  kDebug(13020)<<"Before delay check"<<endl;
-  if (m_cc_cleanup) {m_delayed_cc_type=type; m_delayed_cc_provider=0; return;}
-  kDebug(13020)<<"Before custom complete check"<<endl;
-  if (m_customComplete) return;
-  if (m_completionProviders.isEmpty()) return;
-  kDebug(13020)<<"About to iterate over provider list"<<endl;
-  QLinkedList<KTextEditor::CompletionData> newdata;
-  KTextEditor::Cursor c=cursorPosition();
-  QString lineText=m_doc->line(c.line());
-  foreach (KTextEditor::CompletionProvider *provider, m_completionProviders)
-  {
-    const KTextEditor::CompletionData& nd=provider->completionData(this,type,KTextEditor::Cursor(),"",c,lineText);
-    if (nd.isValid()) newdata.append(nd);
-  }
-  m_codeCompletion->showCompletion(c,newdata);
-  if (newdata.size()!=0)
-  if (type>KTextEditor::CompletionReinvokeAsYouType) m_customComplete=true;
-}
-
-void KateView::invokeCompletion(KTextEditor::CompletionProvider* provider,enum KTextEditor::CompletionType type) {
-  kDebug(13020)<<"KateView::invokeCompletion"<<endl;
-  if ((type==KTextEditor::CompletionAsYouType) || (type==KTextEditor::CompletionAsYouTypeBackspace))
-  {
-    kDebug(13020)<<"KateView::invokeCompletion: ignoring invalid call"<<endl;
-    return;
-  }
-  kDebug(13020)<<"Before delay check"<<endl;
-  if (m_cc_cleanup) {m_delayed_cc_type=type; m_delayed_cc_provider=provider; return;}
-  kDebug(13020)<<"Before custom complete check"<<endl;
-  if (m_customComplete) return;
-  if (m_completionProviders.isEmpty()) return;
-  if (!m_completionProviders.contains(provider)) return;
-
-  QLinkedList<KTextEditor::CompletionData> newdata;
-  KTextEditor::Cursor c=cursorPosition();
-  QString lineText=m_doc->line(c.line());
-
-  const KTextEditor::CompletionData& nd=provider->completionData(this,type,KTextEditor::Cursor(),"",c,lineText);
-  if (nd.isValid()) newdata.append(nd);
-  m_codeCompletion->showCompletion(c,newdata);
-  if (newdata.size()!=0)
-    m_customComplete=true;
-}
-
-
-void KateView::completionDone(){
-  kDebug(13030)<<"KateView::completionDone"<<endl;
-  m_customComplete=false;
-  m_cc_cleanup=true;
-  foreach (KTextEditor::CompletionProvider *provider, m_completionProviders)
-    provider->completionDone(this);
-  m_cc_cleanup=false;
-  if (m_delayed_cc_type!=KTextEditor::CompletionNone) {
-    kDebug(13030)<<"delayed completion call"<<endl;
-    enum KTextEditor::CompletionType t=m_delayed_cc_type;
-    m_delayed_cc_type=KTextEditor::CompletionNone;
-    if (m_delayed_cc_provider)
-      invokeCompletion(m_delayed_cc_provider,t);
-    else
-      invokeCompletion(t);
-    m_delayed_cc_provider=0;
-  }
-}
-void KateView::completionAborted(){
-  kDebug(13030)<<"KateView::completionAborted"<<endl;
-  m_customComplete=false;
-  m_cc_cleanup=true;
-  foreach (KTextEditor::CompletionProvider *provider, m_completionProviders)
-    provider->completionAborted(this);
-  m_cc_cleanup=false;
-  if (m_delayed_cc_type!=KTextEditor::CompletionNone) {
-    enum KTextEditor::CompletionType t=m_delayed_cc_type;
-    m_delayed_cc_type=KTextEditor::CompletionNone;
-    if (m_delayed_cc_provider)
-      invokeCompletion(m_delayed_cc_provider,t);
-    else
-      invokeCompletion(t);
-    m_delayed_cc_provider=0;
-  }
 }
 
 bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c, const QString &templateString, const QMap<QString,QString> &initialValues) {
   return m_doc->insertTemplateTextImplementation(c,templateString,initialValues,this);
-}
-
-
-//BEGIN Code completion new
-bool KateView::registerCompletionProvider(KTextEditor::CompletionProvider* provider)
-{
-  kDebug(13030)<<"Registering completion provider:"<<provider<<endl;
-  if (!provider) return false;
-  if (m_completionProviders.contains(provider)) return false;
-  m_completionProviders.append(provider);
-  return true;
-}
-
-bool KateView::unregisterCompletionProvider(KTextEditor::CompletionProvider* provider)
-{
-  kDebug(13030)<<"Unregistering completion provider:"<<provider<<endl;
-  if (!provider) return false;
-  m_completionProviderData.remove(provider);
-  return m_completionProviders.removeAll(provider);
 }
 
 bool KateView::tagLines( KTextEditor::Range range, bool realRange )
@@ -2088,25 +1947,50 @@ bool KateView::setMouseTrackingEnabled( bool )
 
 bool KateView::isCompletionActive( ) const
 {
-  return m_completionWidget && m_completionWidget->isCompletionActive();
+  return completionWidget()->isCompletionActive();
+}
+
+KateCompletionWidget* KateView::completionWidget() const
+{
+  if (!m_completionWidget)
+    m_completionWidget = new KateCompletionWidget(const_cast<KateView*>(this));
+
+  return m_completionWidget;
 }
 
 void KateView::startCompletion( const KTextEditor::Range & word, KTextEditor::CodeCompletionModel * model )
 {
-  if (!m_completionWidget)
-    m_completionWidget = new KateCompletionWidget(this);
-
-  m_completionWidget->startCompletion(word, model);
+  completionWidget()->startCompletion(word, model);
 }
 
 void KateView::abortCompletion( )
 {
-  m_completionWidget->abortCompletion();
+  completionWidget()->abortCompletion();
 }
 
 void KateView::forceCompletion( )
 {
-  m_completionWidget->execute();
+  completionWidget()->execute();
+}
+
+void KateView::registerCompletionModel(KTextEditor::CodeCompletionModel* model)
+{
+  completionWidget()->registerCompletionModel(model);
+}
+
+void KateView::unregisterCompletionModel(KTextEditor::CodeCompletionModel* model)
+{
+  completionWidget()->unregisterCompletionModel(model);
+}
+
+bool KateView::isAutomaticInvocationEnabled() const
+{
+  return completionWidget()->isAutomaticInvocationEnabled();
+}
+
+void KateView::setAutomaticInvocationEnabled(bool enabled)
+{
+  completionWidget()->setAutomaticInvocationEnabled(enabled);
 }
 
 void KateView::paste( )
@@ -2500,3 +2384,8 @@ void KateView::setConfigValue(const QString &key, const QVariant &value)
 // END ConfigInterface
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
+
+void KateView::userInvokedCompletion()
+{
+  completionWidget()->userInvokedCompletion();
+}

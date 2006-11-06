@@ -32,7 +32,6 @@
 #include "katehighlight.h"
 #include "katesmartrange.h"
 #include "katerenderer.h"
-#include "katecodecompletion.h"
 #include "kateconfig.h"
 #include "katelayoutcache.h"
 #include "katedynamicanimation.h"
@@ -763,17 +762,11 @@ void KateViewInternal::doReturn()
 void KateViewInternal::doDelete()
 {
   m_doc->del( m_view, m_cursor );
-  if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    m_view->m_codeCompletion->updateBox();
-  }
 }
 
 void KateViewInternal::doBackspace()
 {
   m_doc->backspace( m_view, m_cursor );
-  if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    m_view->m_codeCompletion->updateBox();
-  }
 }
 
 void KateViewInternal::doTranspose()
@@ -1024,17 +1017,11 @@ void KateViewInternal::cursorLeft(  bool sel )
     return;
 
   moveChar( KateViewInternal::left, sel );
-  if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    m_view->m_codeCompletion->updateBox();
-  }
 }
 
 void KateViewInternal::cursorRight( bool sel )
 {
   moveChar( KateViewInternal::right, sel );
-  if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    m_view->m_codeCompletion->updateBox();
-  }
 }
 
 void KateViewInternal::wordLeft ( bool sel )
@@ -1131,17 +1118,6 @@ void KateViewInternal::moveEdge( KateViewInternal::Bias bias, bool sel )
 
 void KateViewInternal::home( bool sel )
 {
-  if (m_view->isCompletionActive()) {
-    m_view->completionWidget()->top();
-    return;
-  }
-
-  if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_Home, 0);
-    m_view->m_codeCompletion->handleKey(&e);
-    return;
-  }
-
   if (m_view->dynWordWrap() && currentLayout().startCol()) {
     // Allow us to go to the real start if we're already at the start of the view line
     if (m_cursor.column() != currentLayout().startCol()) {
@@ -1179,12 +1155,6 @@ void KateViewInternal::end( bool sel )
 {
   if (m_view->isCompletionActive()) {
     view()->completionWidget()->bottom();
-    return;
-  }
-
-  if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_End, 0);
-    m_view->m_codeCompletion->handleKey(&e);
     return;
   }
 
@@ -1401,12 +1371,6 @@ void KateViewInternal::cursorUp(bool sel)
     return;
   }
 
-  if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_Up, 0);
-    m_view->m_codeCompletion->handleKey(&e);
-    return;
-  }
-
   if (m_displayCursor.line() == 0 && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == 0))
     return;
 
@@ -1437,12 +1401,6 @@ void KateViewInternal::cursorDown(bool sel)
 {
   if (m_view->isCompletionActive()) {
     view()->completionWidget()->nextCompletion();
-    return;
-  }
-
-  if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_Down, 0);
-    m_view->m_codeCompletion->handleKey(&e);
     return;
   }
 
@@ -1544,12 +1502,6 @@ void KateViewInternal::pageUp( bool sel )
     return;
   }
 
-  if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_PageUp, 0);
-    m_view->m_codeCompletion->handleKey(&e);
-    return;
-  }
-
   // remember the view line and x pos
   int viewLine = cache()->displayViewLine(m_displayCursor);
   bool atTop = startPos().atStartOfDocument();
@@ -1592,12 +1544,6 @@ void KateViewInternal::pageDown( bool sel )
 {
   if (m_view->isCompletionActive()) {
     view()->completionWidget()->pageDown();
-    return;
-  }
-
-  if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_PageDown, 0);
-    m_view->m_codeCompletion->handleKey(&e);
     return;
   }
 
@@ -1699,12 +1645,6 @@ void KateViewInternal::top_home( bool sel )
     return;
   }
 
-  if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_Home, 0);
-    m_view->m_codeCompletion->handleKey(&e);
-    return;
-  }
-
   KTextEditor::Cursor c( 0, 0 );
   updateSelection( c, sel );
   updateCursor( c );
@@ -1714,12 +1654,6 @@ void KateViewInternal::bottom_end( bool sel )
 {
   if (m_view->isCompletionActive()) {
     view()->completionWidget()->bottom();
-    return;
-  }
-
-  if (m_view->m_codeCompletion->codeCompletionVisible()) {
-    QKeyEvent e(QEvent::KeyPress, Qt::Key_End, 0);
-    m_view->m_codeCompletion->handleKey(&e);
     return;
   }
 
@@ -2092,14 +2026,6 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
           m_view->abortCompletion();
       }
 
-      if( ! m_view->m_codeCompletion->codeCompletionVisible() )
-      {
-        //kDebug (13030) << "hint around" << endl;
-
-        if( k->key() == Qt::Key_Escape )
-          m_view->m_codeCompletion->abortCompletion();
-      }
-
       if ((k->key() == Qt::Key_Escape) && !m_view->config()->persistentSelection() )
       {
         m_view->clearSelection();
@@ -2153,25 +2079,11 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
   int key = e->key() | e->modifiers();
 
-  bool codeComp = m_view->m_codeCompletion->codeCompletionVisible ();
-
   if (m_view->isCompletionActive())
   {
     if( key == Qt::Key_Enter || key == Qt::Key_Return  ||
     (key == Qt::SHIFT + Qt::Key_Return) || (key == Qt::SHIFT + Qt::Key_Enter)) {
       m_view->completionWidget()->execute();
-      e->accept();
-      return;
-    }
-  }
-
-  if (codeComp)
-  {
-    //kDebug (13030) << "hint around" << endl;
-
-    if( key == Qt::Key_Enter || key == Qt::Key_Return  ||
-    (key == Qt::SHIFT + Qt::Key_Return) || (key == Qt::SHIFT + Qt::Key_Enter)) {
-      m_view->m_codeCompletion->doComplete();
       e->accept();
       return;
     }
@@ -2223,9 +2135,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     //m_view->backspace();
     e->accept();
 
-    if (codeComp)
-      m_view->m_codeCompletion->updateBox ();
-
     return;
   }
 
@@ -2267,9 +2176,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 
       e->accept();
 
-      if (codeComp)
-        m_view->m_codeCompletion->updateBox ();
-
       return;
     }
     else if (m_doc->config()->tabHandling() != KateDocumentConfig::tabInsertsTab)
@@ -2278,9 +2184,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
       m_doc->indent( m_view, m_cursor.line(), -1 );
       e->accept();
 
-      if (codeComp)
-        m_view->m_codeCompletion->updateBox ();
-
       return;
     }
   }
@@ -2288,9 +2191,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   if ( !(e->modifiers() & Qt::ControlModifier) && !e->text().isEmpty() && m_doc->typeChars ( m_view, e->text() ) )
   {
     e->accept();
-
-    if (codeComp)
-      m_view->m_codeCompletion->updateBox ();
 
     return;
   }
@@ -2810,18 +2710,6 @@ void KateViewInternal::focusOutEvent (QFocusEvent *)
 {
   if (m_view->isCompletionActive())
     m_view->abortCompletion();
-
-  if( ! m_view->m_codeCompletion->codeCompletionVisible() )
-  {
-    m_cursorTimer.stop();
-
-    renderer()->setDrawCaret(true);
-
-    paintCursor();
-
-    // this will handle focus stuff in kateview
-    m_view->slotLostFocus ();
-  }
 
   m_textHintTimer.stop();
 }

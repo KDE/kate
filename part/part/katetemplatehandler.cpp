@@ -123,8 +123,8 @@ KateTemplateHandler::KateTemplateHandler(
 
   /* connect(doc,SIGNAL(charactersInteractivelyInserted(int ,int ,const QString&)),this,
    SLOT(slotCharactersInteractivlyInserted(int,int,const QString&)));
-   connect(doc,SIGNAL(charactersSemiInteractivelyInserted(int ,int ,const QString&)),this,
-   SLOT(slotCharactersInteractivlyInserted(int,int,const QString&)));*/
+   connect(doc,SIGNAL(charactersSemiInteractivelyInserted(const KTextEditor::Cursor& ,const QString&)),this,
+   SLOT(slotCharactersInteractivlyInserted(const KTextEditor::Cursor&,const QString&)));*/
   connect( doc, SIGNAL( textInserted(KTextEditor::Document*, const KTextEditor::Range& ) ), this, SLOT( slotTextInserted(KTextEditor::Document*, const KTextEditor::Range& ) ) );
   connect( doc, SIGNAL( aboutToRemoveText( const KTextEditor::Range& ) ), this, SLOT( slotAboutToRemoveText( const KTextEditor::Range& ) ) );
   connect( doc, SIGNAL( textRemoved() ), this, SLOT( slotTextRemoved() ) );
@@ -196,7 +196,7 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
   kDebug(13020)<<insertPosition.line()<<"/"<<insertPosition.column()<<"--"<<endC->line()<<"/"<<endC->column()<<"++++"<<m_templateRange<<endl;
   delete endC;
   m_templateRange->setAttribute(attributeTemplateBackground);
-  
+
   uint line = insertPosition.line();
   uint col = insertPosition.column();
   uint colInText = 0;
@@ -292,7 +292,7 @@ void KateTemplateHandler::slotTextInserted(KTextEditor::Document*, const KTextEd
    ph->isReplacableSpace = false;
   }
   ph->isInitialValue = false;
-  
+
   bool undoDontMerge = m_doc->undoDontMerge();
   //Q_ASSERT( !m_doc->isEditRunning() );
 
@@ -395,7 +395,7 @@ void KateTemplateHandler::slotAboutToRemoveText( const KTextEditor::Range& range
   if (m_currentRange) {
     KTextEditor::Cursor cur=range.start();
     kDebug(13020)<<cur.line()<<"/"<<cur.column()<<"---"<<m_currentRange->start().line()<<"/"<<m_currentRange->start().column()<<"+++"<<m_currentRange->end().line()<<"/"<<m_currentRange->end().column()<<endl;
-  } 
+  }
   if ( m_currentRange && ( !m_currentRange->contains( range.start() ) ) ) {
     kDebug(13020)<<"KateTemplateHandler::slotAboutToRemoveText: about to locate range"<<endl;
     locateRange( range.start() );

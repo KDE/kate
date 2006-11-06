@@ -22,8 +22,6 @@
 
 #include <kicon.h>
 
-#include <ktexteditor/codecompletion2.h>
-
 #include "katecompletionmodel.h"
 
 #include "ui_completionconfigwidget.h"

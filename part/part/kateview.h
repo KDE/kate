@@ -28,7 +28,6 @@
 #include <ktexteditor/texthintinterface.h>
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/codecompletioninterface.h>
-#include <ktexteditor/codecompletion2.h>
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/templateinterface.h>
 #include <ktexteditor/rangefeedback.h>
@@ -45,7 +44,6 @@ class KateDocument;
 class KateBookmarks;
 class KateSearch;
 class KateCmdLine;
-class KateCodeCompletion;
 class KateViewConfig;
 class KateViewSchemaAction;
 class KateRenderer;
@@ -72,22 +70,20 @@ namespace KTextEditor
 //
 class KateView : public KTextEditor::View,
                  public KTextEditor::TextHintInterface,
-                 public KTextEditor::CodeCompletionInterface,
                  public KTextEditor::SessionConfigInterface,
                  public KTextEditor::TemplateInterface,
-                 public KTextEditor::CodeCompletionInterface2,
+                 public KTextEditor::CodeCompletionInterface,
                  public KTextEditor::ConfigInterface,
 		 private KTextEditor::SmartRangeWatcher
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::TextHintInterface)
-    Q_INTERFACES(KTextEditor::CodeCompletionInterface)
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
     Q_INTERFACES(KTextEditor::TemplateInterface)
     Q_INTERFACES(KTextEditor::ConfigInterface)
+    Q_INTERFACES(KTextEditor::CodeCompletionInterface)
     friend class KateViewInternal;
     friend class KateIconBorder;
-    friend class KateCodeCompletion;
     friend class KateSearchBar;
 
   public:
@@ -201,42 +197,24 @@ class KateView : public KTextEditor::View,
      void setConfigValue(const QString &key, const QVariant &value);
 
   //
-  // KTextEditor::CodeCompletionInterface
-  //
-  public:
-    bool registerCompletionProvider(KTextEditor::CompletionProvider*);
-    bool unregisterCompletionProvider(KTextEditor::CompletionProvider*);
-    void invokeCompletion(enum KTextEditor::CompletionType type);
-    void invokeCompletion(KTextEditor::CompletionProvider*,enum KTextEditor::CompletionType);
-    void completionAborted();
-    void completionDone();
-    void completingInProgress(bool val) {m_cc_cleanup=val;}
-  private:
-    QLinkedList<KTextEditor::CompletionProvider*> m_completionProviders;
-    QHash<KTextEditor::CompletionProvider*,KTextEditor::CompletionData> m_completionProviderData;
-    bool m_customComplete;
-    bool m_cc_cleanup;
-    enum KTextEditor::CompletionType m_delayed_cc_type;
-    KTextEditor::CompletionProvider* m_delayed_cc_provider;
-
-#if 0
-  public Q_SLOTS:
-    void showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 );
-#endif
-
-  //
-  // KTextEditor::CodeCompletionInterface
+  // KTextEditor::CodeCompletionInterface2
   //
   public:
     virtual bool isCompletionActive() const;
     virtual void startCompletion(const KTextEditor::Range& word, KTextEditor::CodeCompletionModel* model);
     virtual void abortCompletion();
     virtual void forceCompletion();
+    virtual void registerCompletionModel(KTextEditor::CodeCompletionModel* model);
+    virtual void unregisterCompletionModel(KTextEditor::CodeCompletionModel* model);
+    virtual bool isAutomaticInvocationEnabled() const;
+    virtual void setAutomaticInvocationEnabled(bool enabled = true);
 
-    inline KateCompletionWidget* completionWidget() const { return m_completionWidget; }
+  public Q_SLOTS:
+    void userInvokedCompletion();
 
   private:
-    KateCompletionWidget* m_completionWidget;
+    KateCompletionWidget* completionWidget() const;
+    mutable KateCompletionWidget* m_completionWidget;
 
   //
   // KTextEditor::TextHintInterface
@@ -543,7 +521,6 @@ class KateView : public KTextEditor::View,
     void setupActions();
     void setupEditActions();
     void setupCodeFolding();
-    void setupCodeCompletion();
 
     KActionCollection*     m_editActions;
     KAction*               m_editUndo;
@@ -577,7 +554,6 @@ class KateView : public KTextEditor::View,
     KateSearch*            m_search;
     KateSpell             *m_spell;
     KateBookmarks*         m_bookmarks;
-    KateCodeCompletion*    m_codeCompletion;
 
     KateCmdLine *m_cmdLine;
     KateSearchBar *m_searchBar;

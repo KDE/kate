@@ -20,15 +20,18 @@
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/codecompletioninterface.h>
 
 CodeCompletionTest::CodeCompletionTest(KTextEditor::View* parent)
   : KTextEditor::CodeCompletionModel(parent)
 {
   setRowCount(40);
 
-  connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(cursorPositionChanged()));
+  //connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(cursorPositionChanged()));
 
   Q_ASSERT(cc());
+  cc()->setAutomaticInvocationEnabled(true);
+  cc()->registerCompletionModel(this);
 }
 
 // Fake a series of completions
@@ -184,9 +187,17 @@ KTextEditor::View* CodeCompletionTest::view( ) const
   return static_cast<KTextEditor::View*>(const_cast<QObject*>(QObject::parent()));
 }
 
-KTextEditor::CodeCompletionInterface2 * CodeCompletionTest::cc( ) const
+KTextEditor::CodeCompletionInterface * CodeCompletionTest::cc( ) const
 {
-  return dynamic_cast<KTextEditor::CodeCompletionInterface2*>(const_cast<QObject*>(QObject::parent()));
+  return dynamic_cast<KTextEditor::CodeCompletionInterface*>(const_cast<QObject*>(QObject::parent()));
+}
+
+void CodeCompletionTest::completionInvoked(const KTextEditor::Range& range, InvocationType invocationType)
+{
+  Q_UNUSED(invocationType)
+
+  m_startText = view()->document()->text(range);
+  kDebug() << k_funcinfo << m_startText << endl;
 }
 
 #include "codecompletiontest.moc"

@@ -21,8 +21,6 @@
 #include <QHeaderView>
 #include <QScrollBar>
 
-#include <ktexteditor/codecompletion2.h>
-
 #include "kateview.h"
 #include "katerenderer.h"
 #include "kateconfig.h"

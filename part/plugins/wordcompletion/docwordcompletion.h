@@ -82,7 +82,7 @@ class DocWordCompletionPlugin
 };
 
 class DocWordCompletionPluginView
-   : public QObject, public KXMLGUIClient,public KTextEditor::CompletionProvider
+   : public QObject, public KXMLGUIClient//,public KTextEditor::CompletionProvider
 {
   Q_OBJECT
 
@@ -92,14 +92,6 @@ class DocWordCompletionPluginView
     ~DocWordCompletionPluginView();
 
     void settreshold( uint treshold );
-
-
-    const KTextEditor::CompletionData completionData(KTextEditor::View*, enum KTextEditor::CompletionType, const KTextEditor::Cursor&, const QString&,const KTextEditor::Cursor&, const QString&);
-    void completionDone(KTextEditor::View*) {m_completionData=KTextEditor::CompletionData::Null();}
-    void completionAborted(KTextEditor::View*) {m_completionData=KTextEditor::CompletionData::Null();}
-    const KTextEditor::ArgHintData argHintData(KTextEditor::View *,const KTextEditor::Cursor&, const QString&)
-        {return KTextEditor::ArgHintData::Null();};
-    void doComplete(KTextEditor::View*, const KTextEditor::CompletionData&,const KTextEditor::CompletionItem&) {}
 
   private Q_SLOTS:
     void completeBackwards();
@@ -117,11 +109,8 @@ class DocWordCompletionPluginView
 
     QString word();
     QString word(int col, const QString& line);
-    QList<KTextEditor::CompletionItem> allMatches( const QString &word );
-    QString findLongestUnique(const Q3ValueList < KTextEditor::CompletionItem > &matches);
     KTextEditor::View *m_view;
     struct DocWordCompletionPluginViewPrivate *d;
-    KTextEditor::CompletionData m_completionData;
     QString m_oldWord;
     KTextEditor::Cursor m_oldCursor;
 };

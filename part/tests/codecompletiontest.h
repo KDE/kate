@@ -19,10 +19,11 @@
 #ifndef CODECOMPLETIONTEST_H
 #define CODECOMPLETIONTEST_H
 
-#include <ktexteditor/codecompletion2.h>
+#include <ktexteditor/codecompletionmodel.h>
 
 namespace KTextEditor {
   class View;
+  class CodeCompletionInterface;
 }
 
 class CodeCompletionTest : public KTextEditor::CodeCompletionModel
@@ -33,8 +34,9 @@ class CodeCompletionTest : public KTextEditor::CodeCompletionModel
     CodeCompletionTest(KTextEditor::View* parent = 0L);
 
     KTextEditor::View* view() const;
-    KTextEditor::CodeCompletionInterface2* cc() const;
+    KTextEditor::CodeCompletionInterface* cc() const;
 
+    virtual void completionInvoked(const KTextEditor::Range& range, InvocationType invocationType);
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
   private slots:

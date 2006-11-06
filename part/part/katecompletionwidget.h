@@ -21,6 +21,8 @@
 #include <QFrame>
 
 #include <ktexteditor/range.h>
+#include <ktexteditor/codecompletioninterface.h>
+#include <ktexteditor/codecompletionmodel.h>
 
 class QToolButton;
 class QPushButton;
@@ -30,12 +32,12 @@ class KateView;
 class KateSmartRange;
 class KateCompletionModel;
 class KateCompletionTree;
-
-namespace KTextEditor {
-  class CodeCompletionModel;
-}
+class KateEditInfo;
 
 /**
+ * This is the code completion's main widget, and also contains the
+ * core interface logic.
+ *
  * @author Hamish Rodda <rodda@kde.org>
  */
 class KateCompletionWidget : public QFrame
@@ -48,8 +50,15 @@ class KateCompletionWidget : public QFrame
     KateView* view() const;
 
     bool isCompletionActive() const;
-    void startCompletion(const KTextEditor::Range& word, KTextEditor::CodeCompletionModel* model);
+    void startCompletion(const KTextEditor::Range& word, KTextEditor::CodeCompletionModel* model, KTextEditor::CodeCompletionModel::InvocationType invocationType = KTextEditor::CodeCompletionModel::ManualInvocation);
+    void userInvokedCompletion();
+
     void execute();
+
+    void registerCompletionModel(KTextEditor::CodeCompletionModel* model);
+    void unregisterCompletionModel(KTextEditor::CodeCompletionModel* model);
+    bool isAutomaticInvocationEnabled() const;
+    void setAutomaticInvocationEnabled(bool enabled = true);
 
     KateSmartRange* completionRange() const;
 
@@ -75,11 +84,14 @@ class KateCompletionWidget : public QFrame
 
   private slots:
     void cursorPositionChanged();
+    void editDone(KateEditInfo* edit);
     void modelReset();
     void startCharactedDeleted(KTextEditor::SmartCursor* cursor, bool deletedBefore);
 
   private:
-    KTextEditor::CodeCompletionModel* m_sourceModel;
+    KTextEditor::Range determineRange() const;
+
+    QList<KTextEditor::CodeCompletionModel*> m_sourceModels;
     KateCompletionModel* m_presentationModel;
 
     KateSmartRange* m_completionRange;
@@ -93,6 +105,9 @@ class KateCompletionWidget : public QFrame
     QToolButton* m_filterButton;
     QLabel* m_filterText;
     QPushButton* m_configButton;
+
+    bool m_automaticInvocation;
+    bool m_filterInstalled;
 };
 
 #endif

@@ -24,7 +24,7 @@
 #include <QMutableListIterator>
 #include <QHash>
 
-#include <ktexteditor/codecompletion2.h>
+#include <ktexteditor/codecompletionmodel.h>
 
 class KateCompletionWidget;
 class KateView;
@@ -35,18 +35,21 @@ class KateView;
  *
  * @author Hamish Rodda <rodda@kde.org>
  */
-class KateCompletionModel : public QAbstractProxyModel
+class KateCompletionModel : public QAbstractItemModel
 {
   Q_OBJECT
 
   public:
     KateCompletionModel(KateCompletionWidget* parent = 0L);
 
-    KTextEditor::CodeCompletionModel* completionModel() const;
+    QList<KTextEditor::CodeCompletionModel*> completionModels() const;
+    void clearCompletionModels();
+    void addCompletionModel(KTextEditor::CodeCompletionModel* model);
+    void setCompletionModel(KTextEditor::CodeCompletionModel* model);
+    void setCompletionModels(const QList<KTextEditor::CodeCompletionModel*>& models);
+    void removeCompletionModel(KTextEditor::CodeCompletionModel* model);
 
     KateView* view() const;
-
-    virtual void setSourceModel( QAbstractItemModel* sourceModel );
 
     const QString& currentCompletion() const;
     void setCurrentCompletion(const QString& completion);
@@ -146,10 +149,13 @@ class KateCompletionModel : public QAbstractProxyModel
     void slotRowsRemoved( const QModelIndex & parent, int start, int end );
 
   private:
+    typedef QPair<KTextEditor::CodeCompletionModel*, int> ModelRow;
+    ModelRow modelRowPair(const QModelIndex& index) const;
+
     // Represents a source row; provides sorting method
     class Item {
       public:
-        Item(KateCompletionModel* model, int sourceRow);
+        Item(KateCompletionModel* model, ModelRow sourceRow);
 
         bool isValid() const;
         // Returns true if the item is not filtered and matches the current completion string
@@ -162,14 +168,14 @@ class KateCompletionModel : public QAbstractProxyModel
         bool filter();
         bool match(const QString& newCompletion = QString());
 
-        int sourceRow() const;
+        ModelRow sourceRow() const;
 
         // Sorting operator
         bool operator<(const Item& rhs) const;
 
       private:
         KateCompletionModel* model;
-        int m_sourceRow;
+        ModelRow m_sourceRow;
 
         // True when currently matching completion string
         bool matchCompletion;
@@ -192,7 +198,7 @@ class KateCompletionModel : public QAbstractProxyModel
         KateCompletionModel* model;
         int attribute;
         QString title, scope;
-        QList<int> rows;
+        QList<ModelRow> rows;
         QList<Item> prefilter;
         bool isEmpty;
     };
@@ -214,8 +220,8 @@ class KateCompletionModel : public QAbstractProxyModel
     };
     void changeCompletions(Group* g, const QString& newCompletion, changeTypes changeType);
 
-    void deleteRows(Group* g, QMutableListIterator<int>& filtered, int countBackwards, int startRow);
-    void addRows(Group* g, QMutableListIterator<int>& filtered, int startRow, const QList<int>& newItems);
+    void deleteRows(Group* g, QMutableListIterator<ModelRow>& filtered, int countBackwards, int startRow);
+    void addRows(Group* g, QMutableListIterator<ModelRow>& filtered, int startRow, const QList<ModelRow>& newItems);
 
     bool hasGroups() const;
     bool hasCompletionModel() const;
@@ -229,6 +235,7 @@ class KateCompletionModel : public QAbstractProxyModel
 
     // ### Runtime state
     // General
+    QList<KTextEditor::CodeCompletionModel*> m_completionModels;
     QString m_currentMatch;
     Qt::CaseSensitivity m_matchCaseSensitivity;
 

@@ -52,7 +52,7 @@ namespace Kate
     NoEditSource
   };
 
-};
+}
 
 #endif // KATE_NAMESPACE_H
 

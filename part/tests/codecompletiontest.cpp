@@ -192,11 +192,11 @@ KTextEditor::CodeCompletionInterface * CodeCompletionTest::cc( ) const
   return dynamic_cast<KTextEditor::CodeCompletionInterface*>(const_cast<QObject*>(QObject::parent()));
 }
 
-void CodeCompletionTest::completionInvoked(const KTextEditor::Range& range, InvocationType invocationType)
+void CodeCompletionTest::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType)
 {
   Q_UNUSED(invocationType)
 
-  m_startText = view()->document()->text(range);
+  m_startText = view->document()->text(range);
   kDebug() << k_funcinfo << m_startText << endl;
 }
 

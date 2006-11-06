@@ -36,7 +36,7 @@ class CodeCompletionTest : public KTextEditor::CodeCompletionModel
     KTextEditor::View* view() const;
     KTextEditor::CodeCompletionInterface* cc() const;
 
-    virtual void completionInvoked(const KTextEditor::Range& range, InvocationType invocationType);
+    virtual void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
   private slots:

@@ -158,7 +158,7 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
     m_entryList->resizeColumns();
 
     foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels())
-      model->completionInvoked(word, invocationType);
+      model->completionInvoked(view(), word, invocationType);
   }
 }
 

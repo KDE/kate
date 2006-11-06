@@ -94,7 +94,7 @@ void CodeCompletionModel::completionInvoked(KTextEditor::View* view, const Range
   Q_UNUSED(invocationType)
 }
 
-void CodeCompletionModel::executeCompletionItem(Document* document, const Range& word, int row)
+void CodeCompletionModel::executeCompletionItem(Document* document, const Range& word, int row) const
 {
   document->replaceText(word, data(index(row, Name, QModelIndex())).toString());
 }

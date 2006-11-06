@@ -164,7 +164,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
     };
 
     virtual void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
-    virtual void executeCompletionItem(Document* document, const Range& word, int row);
+    virtual void executeCompletionItem(Document* document, const Range& word, int row) const;
 
     // Reimplementations
     virtual int columnCount ( const QModelIndex & parent = QModelIndex() ) const;

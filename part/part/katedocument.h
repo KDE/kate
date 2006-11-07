@@ -216,7 +216,7 @@ class KateDocument : public KTextEditor::Document,
     void pushEditState();
     void popEditState();
 
-    bool startEditing () { editStart (Kate::ThirdPartyEdit); return true; }
+    bool startEditing () { editStart (true, Kate::ThirdPartyEdit); return true; }
     bool endEditing () { editEnd (); return true; }
 
 //END editStart/editEnd

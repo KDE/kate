@@ -1363,6 +1363,7 @@ KateViewBarWidget::KateViewBarWidget (KateViewBar *viewBar, QWidget *child)
     layout->setMargin(2);
 
     QToolButton *hideButton = new QToolButton();
+    hideButton->setAutoRaise(true);
     hideButton->setIcon(QIcon(SmallIcon("cancel")));
     connect(hideButton, SIGNAL(clicked()), this, SLOT(hideMe()));
 

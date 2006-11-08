@@ -65,12 +65,14 @@ KateSearchBar::KateSearchBar(KateView *view)
     layout->setMargin(2);
 
     QToolButton *nextButton = new QToolButton();
+    nextButton->setAutoRaise(true);
     nextButton->setIcon(QIcon(SmallIcon("next")));
     nextButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     nextButton->setText(i18n("Find &Next"));
     connect(nextButton, SIGNAL(clicked()), this, SLOT(findNext()));
 
     QToolButton *prevButton = new QToolButton();
+    prevButton->setAutoRaise(true);
     prevButton->setIcon(QIcon(SmallIcon("previous")));
     prevButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     prevButton->setText(i18n("Find &Previous"));

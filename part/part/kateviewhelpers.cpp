@@ -51,6 +51,7 @@
 #include <QStyleOption>
 #include <QPalette>
 #include <QPen>
+#include <QVBoxLayout>
 
 #include <math.h>
 
@@ -889,7 +890,7 @@ const QBrush& KateIconBorder::foldingColor(KateLineInfo *info,int realLine, bool
     m_doc->lineInfo(&tmp,realLine);
     depth=tmp.depth;
   }
-  
+
   if (solid) {
     if (depth<MAXFOLDINGCOLORS)
       return m_foldingColorsSolid[depth];
@@ -902,7 +903,7 @@ const QBrush& KateIconBorder::foldingColor(KateLineInfo *info,int realLine, bool
       return m_foldingColors[MAXFOLDINGCOLORS-1];
   }
 
-} 
+}
 
 void KateIconBorder::paintEvent(QPaintEvent* e)
 {
@@ -924,7 +925,7 @@ static void paintTriangle (QPainter &painter, QColor baseColor, int xOffset, int
   pen.setColor (c);
   pen.setWidthF (1.5);
   painter.setPen ( pen );
- 
+
   painter.setBrush ( c );
 
   // let some border, if possible
@@ -1349,6 +1350,66 @@ void KateViewEncodingAction::setMode (QAction* a)
   QStringList modes (KGlobal::charsets()->descriptiveEncodingNames());
   doc->setEncoding( KGlobal::charsets()->encodingForName( modes[a->data().toInt()] ) );
   view->reloadFile();
+}
+
+KateViewBarWidget::KateViewBarWidget (KateViewBar *viewBar, QWidget *child)
+ : QWidget ()
+{
+  QVBoxLayout *layout = new QVBoxLayout (this);
+  layout->addWidget(child);
+  layout->setMargin(2);
+}
+
+KateViewBar::KateViewBar (KateView *view)
+ : QStackedWidget (view), m_view (view), m_activeViews (0)
+{
+  hide ();
+}
+
+void KateViewBar::addBarWidget (QWidget *newBarWidget)
+{
+  // add new widget, invisible...
+  m_widgets[newBarWidget] = new KateViewBarWidget (this, newBarWidget);
+  addWidget (m_widgets[newBarWidget]);
+  m_widgets[newBarWidget]->hide ();
+
+  kDebug(13025)<<"add barwidget " << newBarWidget <<endl;
+}
+
+void KateViewBar::showBarWidget (QWidget *barWidget)
+{
+  // not there
+  if (!m_widgets.value(barWidget))
+    return;
+
+  // ok, around, show it...
+  if (m_widgets.value(barWidget)->isHidden())
+  {
+    setCurrentWidget (m_widgets.value(barWidget));
+    m_widgets.value(barWidget)->show ();
+
+    kDebug(13025)<<"show barwidget " << barWidget <<endl;
+    m_activeViews++;
+    show ();
+  }
+}
+
+void KateViewBar::hideBarWidget (QWidget *barWidget)
+{
+  // not there
+  if (!m_widgets.value(barWidget))
+    return;
+
+  // hide it...
+  if (!m_widgets.value(barWidget)->isHidden())
+  {
+    m_widgets.value(barWidget)->hide ();
+    m_activeViews--;
+  }
+
+  if (!m_activeViews)
+    hide ();
+  kDebug(13025)<<"hide barwidget " << barWidget <<endl;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

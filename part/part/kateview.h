@@ -52,6 +52,7 @@ class KateCompletionWidget;
 class KateSmartRange;
 class KateViewInternal;
 class KateSearchBar;
+class KateViewBar;
 
 class KToggleAction;
 class KAction;
@@ -609,6 +610,8 @@ class KateView : public KTextEditor::View,
   private:
     KTextEditor::Range m_imRange, m_imSelection;
     bool m_imComposeEvent;
+
+    KateViewBar *m_viewBar;
 };
 
 #endif

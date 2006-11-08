@@ -131,7 +131,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   m_vBox->setSpacing (0);
 
   QHBoxLayout *hbox = new QHBoxLayout ();
-  m_vBox->addLayout (hbox);
+  m_vBox->addLayout (hbox, 100);
   hbox->setMargin (0);
   hbox->setSpacing (0);
 
@@ -176,10 +176,11 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   // update the enabled state of the undo/redo actions...
   slotNewUndo();
 
+  m_viewBar = new KateViewBar (this);
+  m_vBox->addWidget(m_viewBar);
+
   m_searchBar = new KateSearchBar(this);
-  m_searchBar->hide();
-  connect(m_searchBar, SIGNAL(hidden()), this, SLOT(slotHideSearchBar()));
-  m_vBox->addWidget(m_searchBar);
+  m_viewBar->addBarWidget (m_searchBar);
 
   m_startingUp = false;
   updateConfig ();
@@ -1042,7 +1043,7 @@ void KateView::slotHideSearchBar()
 
 void KateView::find()
 {
-  m_searchBar->show();
+  m_viewBar->showBarWidget (m_searchBar);
   m_searchBar->setFocus();
 }
 

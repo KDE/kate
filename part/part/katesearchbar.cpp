@@ -41,7 +41,7 @@ public:
 };
 
 KateSearchBar::KateSearchBar(KateView *view)
-    : QWidget(view),
+    : QWidget(),
       m_view(view),
       d(new Private)
 {

@@ -28,6 +28,8 @@
 #include <QColor>
 #include <QScrollBar>
 #include <QHash>
+#include <QStackedWidget>
+#include <QMap>
 
 class KateDocument;
 class KateView;
@@ -214,6 +216,33 @@ class KateViewEncodingAction : public KActionMenu
   private Q_SLOTS:
     void setMode (QAction*);
     void slotAboutToShow();
+};
+
+class KateViewBar;
+
+class KateViewBarWidget : public QWidget
+{
+  Q_OBJECT
+
+  public:
+    KateViewBarWidget (KateViewBar *viewBar, QWidget *child);
+};
+
+class KateViewBar : public QStackedWidget
+{
+  Q_OBJECT
+
+  public:
+    KateViewBar (KateView *view);
+
+    void addBarWidget (QWidget *newBarWidget);
+    void showBarWidget (QWidget *barWidget);
+    void hideBarWidget (QWidget *barWidget);
+
+  private:
+    KateView *m_view;
+    QMap<QWidget *, KateViewBarWidget *> m_widgets;
+    int m_activeViews;
 };
 
 #endif

@@ -226,6 +226,13 @@ class KateViewBarWidget : public QWidget
 
   public:
     KateViewBarWidget (KateViewBar *viewBar, QWidget *child);
+
+  private Q_SLOTS:
+    void hideMe ();
+
+  private:
+    KateViewBar *m_viewBar;
+    QWidget *m_barWidget;
 };
 
 class KateViewBar : public QStackedWidget

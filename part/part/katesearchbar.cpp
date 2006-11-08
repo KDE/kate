@@ -64,10 +64,6 @@ KateSearchBar::KateSearchBar(KateView *view)
     // NOTE: Here be cosmetics.
     layout->setMargin(2);
 
-    QToolButton *hideButton = new QToolButton();
-    hideButton->setIcon(QIcon(SmallIcon("cancel")));
-    connect(hideButton, SIGNAL(clicked()), this, SLOT(hide()));
-
     QToolButton *nextButton = new QToolButton();
     nextButton->setIcon(QIcon(SmallIcon("next")));
     nextButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
@@ -80,7 +76,6 @@ KateSearchBar::KateSearchBar(KateView *view)
     prevButton->setText(i18n("Find &Previous"));
     connect(prevButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
 
-    layout->addWidget(hideButton);
     layout->addWidget(d->expressionEdit);
     layout->addWidget(nextButton);
     layout->addWidget(prevButton);

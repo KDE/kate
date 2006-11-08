@@ -39,11 +39,12 @@
 #include <kcharsets.h>
 #include <kmenu.h>
 #include <kmenu.h>
+#include <kiconloader.h>
 
 #include <qcursor.h>
 #include <qpainter.h>
 #include <qstyle.h>
-#include <qtimer.h>
+#include <QTimer>
 #include <qregexp.h>
 #include <qtextcodec.h>
 #include <QMouseEvent>
@@ -52,6 +53,7 @@
 #include <QPalette>
 #include <QPen>
 #include <QVBoxLayout>
+#include <QToolButton>
 
 #include <math.h>
 
@@ -1353,11 +1355,26 @@ void KateViewEncodingAction::setMode (QAction* a)
 }
 
 KateViewBarWidget::KateViewBarWidget (KateViewBar *viewBar, QWidget *child)
- : QWidget ()
+ : QWidget (), m_viewBar (viewBar), m_barWidget (child)
 {
-  QVBoxLayout *layout = new QVBoxLayout (this);
-  layout->addWidget(child);
-  layout->setMargin(2);
+   QHBoxLayout *layout = new QHBoxLayout;
+
+    // NOTE: Here be cosmetics.
+    layout->setMargin(2);
+
+    QToolButton *hideButton = new QToolButton();
+    hideButton->setIcon(QIcon(SmallIcon("cancel")));
+    connect(hideButton, SIGNAL(clicked()), this, SLOT(hideMe()));
+
+    layout->addWidget(hideButton);
+    layout->addWidget(child);
+
+    setLayout(layout);
+}
+
+void KateViewBarWidget::hideMe ()
+{
+  m_viewBar->hideBarWidget (m_barWidget);
 }
 
 KateViewBar::KateViewBar (KateView *view)

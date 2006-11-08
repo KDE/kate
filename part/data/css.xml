@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="CSS" version="1.99" kateversion="2.4" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="CSS" version="2.00" kateversion="2.4" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
   <highlighting>
     <list name="properties">
@@ -243,6 +243,7 @@
       <item> hiragana-iroha </item>
       <item> katakana-iroha </item>
       <item> inline </item>
+      <item> inline-block </item>
       <item> block </item>
       <item> list-item </item>
       <item> run-in </item>
@@ -448,6 +449,11 @@
       <item> disabled </item>
       <item> checked </item>
       <item> indeterminate </item>
+      <item> nth-child </item>
+      <item> nth-last-child </item>
+      <item> nth-of-type </item>
+      <item> nth-last-of-type </item>
+      <item> not </item>
     </list>
 
     <contexts>

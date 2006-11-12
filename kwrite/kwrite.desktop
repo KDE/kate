@@ -14,5 +14,5 @@ DocPath=kwrite/index.html
 Type=Application
 Terminal=false
 InitialPreference=8
-X-DCOP-ServiceType=Multi
+X-DBUS-StartupType=Multi
 Categories=Qt;KDE;TextEditor;

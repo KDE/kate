@@ -387,7 +387,7 @@ void KateSearch::replaceOne()
     }
   }
 
-  doc()->editStart(Kate::SearchReplaceEdit);
+  doc()->editStart(true, Kate::SearchReplaceEdit);
 
   doc()->removeText( KTextEditor::Range(s.cursor, s.cursor + KTextEditor::Cursor(0,s.matchedLength)) );
   doc()->insertText( s.cursor, replaceWith );

@@ -3271,7 +3271,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode )
 
   m_undoDontMerge = true;
 
-  editStart (Kate::CutCopyPasteEdit);
+  editStart (true, Kate::CutCopyPasteEdit);
 
   if (!view->config()->persistentSelection() && view->selection() )
     view->removeSelectedText();

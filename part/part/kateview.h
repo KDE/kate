@@ -53,6 +53,7 @@ class KateSmartRange;
 class KateViewInternal;
 class KateSearchBar;
 class KateViewBar;
+class KateGotoBar;
 
 class KToggleAction;
 class KAction;
@@ -558,6 +559,7 @@ class KateView : public KTextEditor::View,
 
     KateCmdLine *m_cmdLine;
     KateSearchBar *m_searchBar;
+    KateGotoBar *m_gotoBar;
     bool m_cmdLineOn;
 
     QVBoxLayout *m_vBox;

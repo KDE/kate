@@ -26,9 +26,10 @@
 #define __KATE_DIALOGS_H__
 
 #include "katehighlight.h"
+#include "kateviewhelpers.h"
+
 #include <ktexteditor/attribute.h>
 #include <ktexteditor/modificationinterface.h>
-
 #include <ktexteditor/document.h>
 #include <ktexteditor/configpage.h>
 
@@ -105,17 +106,15 @@ class KateConfigPage : public KTextEditor::ConfigPage
     bool m_changed;
 };
 
-class KateGotoLineDialog : public KDialog
+class KateGotoBar : public KateViewBarWidget
 {
   Q_OBJECT
 
   public:
-
-    KateGotoLineDialog(QWidget *parent, int line, int max);
+    KateGotoBar(KateViewBar *parent, int line, int max);
     int getLine();
 
   protected:
-
     KIntNumInput *e1;
     QPushButton *btnOK;
 };
@@ -187,7 +186,7 @@ public Q_SLOTS:
   void reload ();
   void reset ();
   void defaults ();
-  
+
 private:
   Ui::AppearanceConfigWidget *ui;
 };
@@ -236,7 +235,7 @@ protected:
   KIntNumInput *dirSearchDepth;
   class QSpinBox *blockCount;
   class QLabel *blockCountLabel;
-  
+
 private:
   Ui::OpenSaveConfigWidget* ui;
 };
@@ -289,7 +288,7 @@ class KateScriptNewStuff;
 class KateScriptConfigPage : public KateConfigPage
 {
   Q_OBJECT
-  
+
   public:
     KateScriptConfigPage(QWidget *parent);
     virtual ~KateScriptConfigPage();
@@ -382,7 +381,7 @@ class KateModOnHdPrompt : public KDialog
      * decision from the user.
      */
     void slotDiff();
-  
+
   protected Q_SLOTS:
     virtual void slotButtonClicked(int button);
 

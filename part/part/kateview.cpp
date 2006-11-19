@@ -109,6 +109,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_spell( new KateSpell( this ) )
     , m_bookmarks( new KateBookmarks( this ) )
     , m_cmdLine (0)
+    , m_searchBar (0)
+    , m_gotoBar (0)
     , m_cmdLineOn (false)
     , m_hasWrap( false )
     , m_startingUp (true)
@@ -868,12 +870,20 @@ void KateView::slotSaveCanceled( const QString& error )
 
 void KateView::gotoLine()
 {
-  KateGotoLineDialog *dlg = new KateGotoLineDialog (this, m_viewInternal->getCursor().line() + 1, m_doc->lines());
+  // no around, create one...
+  if (!m_gotoBar)
+    m_gotoBar = new KateGotoBar (m_viewBar, 0, 1000);
 
-  if (dlg->exec() == QDialog::Accepted)
-    setCursorPositionInternal( KTextEditor::Cursor(dlg->getLine() - 1, 0) );
+//  KateGotoLineDialog *dlg = new KateGotoLineDialog (this, m_viewInternal->getCursor().line() + 1, m_doc->lines());
 
-  delete dlg;
+  // show it
+  m_gotoBar->showMe();
+
+  // focus
+  m_gotoBar->setFocus ();
+
+  //if (dlg->exec() == QDialog::Accepted)
+    //setCursorPositionInternal( KTextEditor::Cursor(dlg->getLine() - 1, 0) );
 }
 
 void KateView::joinLines()

@@ -1058,34 +1058,26 @@ void KateHlDownloadDialog::slotUser1()
 //END KateHlDownloadDialog
 
 //BEGIN KateGotoLineDialog
-KateGotoLineDialog::KateGotoLineDialog(QWidget *parent, int line, int max)
-  : KDialog( parent )
+KateGotoBar::KateGotoBar(KateViewBar *parent, int line, int max)
+  : KateViewBarWidget( parent )
 {
-  setModal( true );
-  setCaption( i18n("Go to Line") );
-  setButtons( Ok | Cancel );
-  setDefaultButton( Ok );
-
-  QWidget *page = new QWidget(this);
-  setMainWidget(page);
-
-  QVBoxLayout *topLayout = new QVBoxLayout( page);
+  QVBoxLayout *topLayout = new QVBoxLayout( centralWidget() );
   topLayout->setMargin( 0);
-  topLayout->setSpacing(spacingHint());
-  e1 = new KIntNumInput(line,page);
+  //topLayout->setSpacing(spacingHint());
+  e1 = new KIntNumInput(line,centralWidget());
   e1->setRange(1, max);
   e1->setEditFocus(true);
 
-  QLabel *label = new QLabel(i18n("&Go to line:"), page );
+  QLabel *label = new QLabel(i18n("&Go to line:"), centralWidget() );
   label->setBuddy(e1);
   topLayout->addWidget(label);
   topLayout->addWidget(e1);
-  topLayout->addSpacing(spacingHint()); // A little bit extra space
+  //topLayout->addSpacing(spacingHint()); // A little bit extra space
   topLayout->addStretch(10);
   e1->setFocus();
 }
 
-int KateGotoLineDialog::getLine() {
+int KateGotoBar::getLine() {
   return e1->value();
 }
 //END KateGotoLineDialog

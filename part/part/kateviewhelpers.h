@@ -225,30 +225,42 @@ class KateViewBarWidget : public QWidget
   Q_OBJECT
 
   public:
-    KateViewBarWidget (KateViewBar *viewBar, QWidget *child);
+    KateViewBarWidget (KateViewBar *viewBar);
 
-  private Q_SLOTS:
+    KateViewBar *viewBar () { return m_viewBar; }
+    QWidget *centralWidget () { return m_centralWidget; }
+
+  public Q_SLOTS:
+    void showMe ();
     void hideMe ();
+
+  protected:
+    // allow subclass to avoid hidding...
+    virtual bool hideIsTriggered () { return true; }
 
   private:
     KateViewBar *m_viewBar;
-    QWidget *m_barWidget;
+    QWidget *m_centralWidget;
 };
 
 class KateViewBar : public QStackedWidget
 {
   Q_OBJECT
 
+  friend class KateViewBarWidget;
+
   public:
     KateViewBar (KateView *view);
 
-    void addBarWidget (QWidget *newBarWidget);
-    void showBarWidget (QWidget *barWidget);
-    void hideBarWidget (QWidget *barWidget);
+    KateView *view () { return m_view; }
+
+  private:
+    void addBarWidget (KateViewBarWidget *newBarWidget);
+    void showBarWidget (KateViewBarWidget *barWidget);
+    void hideBarWidget (KateViewBarWidget *barWidget);
 
   private:
     KateView *m_view;
-    QMap<QWidget *, KateViewBarWidget *> m_widgets;
     int m_activeViews;
 };
 

@@ -21,15 +21,16 @@
 
 #include <QWidget>
 #include <klineedit.h>
+#include <kateviewhelpers.h>
 
 class KateView;
 
-class KateSearchBar : public QWidget
+class KateSearchBar : public KateViewBarWidget
 {
     Q_OBJECT
 
 public:
-    explicit KateSearchBar(KateView *view);
+    explicit KateSearchBar(KateViewBar *viewBar);
     ~KateSearchBar();
 
 public Q_SLOTS:

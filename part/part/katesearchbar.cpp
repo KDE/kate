@@ -40,12 +40,12 @@ public:
     bool wrapAround;
 };
 
-KateSearchBar::KateSearchBar(KateView *view)
-    : QWidget(),
-      m_view(view),
+KateSearchBar::KateSearchBar(KateViewBar *viewBar)
+    : KateViewBarWidget (viewBar),
+      m_view(viewBar->view()),
       d(new Private)
 {
-    setFont(KGlobalSettings::toolBarFont());
+    centralWidget()->setFont(KGlobalSettings::toolBarFont());
 
     d->searching = false;
     d->wrapAround = true;
@@ -83,9 +83,8 @@ KateSearchBar::KateSearchBar(KateView *view)
     layout->addWidget(prevButton);
     layout->addWidget(d->caseSensitiveBox);
 
-    setLayout(layout);
-
-    setFocusProxy(d->expressionEdit);
+    centralWidget()->setLayout(layout);
+    centralWidget()->setFocusProxy(d->expressionEdit);
 }
 
 KateSearchBar::~KateSearchBar()

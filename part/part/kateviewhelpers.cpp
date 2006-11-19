@@ -1354,28 +1354,43 @@ void KateViewEncodingAction::setMode (QAction* a)
   view->reloadFile();
 }
 
-KateViewBarWidget::KateViewBarWidget (KateViewBar *viewBar, QWidget *child)
- : QWidget (), m_viewBar (viewBar), m_barWidget (child)
+KateViewBarWidget::KateViewBarWidget (KateViewBar *viewBar)
+ : QWidget (), m_viewBar (viewBar)
 {
+  m_viewBar->addBarWidget (this);
+
    QHBoxLayout *layout = new QHBoxLayout;
 
     // NOTE: Here be cosmetics.
     layout->setMargin(2);
 
+    // hide button
     QToolButton *hideButton = new QToolButton();
     hideButton->setAutoRaise(true);
     hideButton->setIcon(QIcon(SmallIcon("cancel")));
     connect(hideButton, SIGNAL(clicked()), this, SLOT(hideMe()));
-
     layout->addWidget(hideButton);
-    layout->addWidget(child);
+
+    // widget to be used as parent for the real content
+    m_centralWidget = new QWidget ();
+    layout->addWidget(m_centralWidget);
 
     setLayout(layout);
+    setFocusProxy(m_centralWidget);
+}
+
+void KateViewBarWidget::showMe ()
+{
+  m_viewBar->showBarWidget (this);
 }
 
 void KateViewBarWidget::hideMe ()
 {
-  m_viewBar->hideBarWidget (m_barWidget);
+  // let the barwidget do some stuff on hide, perhaps even say: no, don't hide me...
+  if (!hideIsTriggered ())
+    return;
+
+  m_viewBar->hideBarWidget (this);
 }
 
 KateViewBar::KateViewBar (KateView *view)
@@ -1384,49 +1399,42 @@ KateViewBar::KateViewBar (KateView *view)
   hide ();
 }
 
-void KateViewBar::addBarWidget (QWidget *newBarWidget)
+void KateViewBar::addBarWidget (KateViewBarWidget *newBarWidget)
 {
   // add new widget, invisible...
-  m_widgets[newBarWidget] = new KateViewBarWidget (this, newBarWidget);
-  addWidget (m_widgets[newBarWidget]);
-  m_widgets[newBarWidget]->hide ();
+  addWidget (newBarWidget);
+  newBarWidget->hide ();
 
   kDebug(13025)<<"add barwidget " << newBarWidget <<endl;
 }
 
-void KateViewBar::showBarWidget (QWidget *barWidget)
+void KateViewBar::showBarWidget (KateViewBarWidget *barWidget)
 {
-  // not there
-  if (!m_widgets.value(barWidget))
-    return;
-
   // ok, around, show it...
-  if (m_widgets.value(barWidget)->isHidden())
+  if (barWidget->isHidden())
   {
-    setCurrentWidget (m_widgets.value(barWidget));
-    m_widgets.value(barWidget)->show ();
+    setCurrentWidget (barWidget);
+    barWidget->show ();
 
     kDebug(13025)<<"show barwidget " << barWidget <<endl;
+
     m_activeViews++;
     show ();
   }
 }
 
-void KateViewBar::hideBarWidget (QWidget *barWidget)
+void KateViewBar::hideBarWidget (KateViewBarWidget *barWidget)
 {
-  // not there
-  if (!m_widgets.value(barWidget))
-    return;
-
   // hide it...
-  if (!m_widgets.value(barWidget)->isHidden())
+  if (!barWidget->isHidden())
   {
-    m_widgets.value(barWidget)->hide ();
+    barWidget->hide ();
     m_activeViews--;
   }
 
   if (!m_activeViews)
     hide ();
+
   kDebug(13025)<<"hide barwidget " << barWidget <<endl;
 }
 

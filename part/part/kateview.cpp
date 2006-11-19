@@ -179,8 +179,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   m_viewBar = new KateViewBar (this);
   m_vBox->addWidget(m_viewBar);
 
-  m_searchBar = new KateSearchBar(this);
-  m_viewBar->addBarWidget (m_searchBar);
+  // create the searchbar...
+  m_searchBar = new KateSearchBar(m_viewBar);
 
   m_startingUp = false;
   updateConfig ();
@@ -1037,13 +1037,13 @@ void KateView::slotNeedTextHint(int line, int col, QString &text)
 
 void KateView::slotHideSearchBar()
 {
-  m_searchBar->hide();
+  m_searchBar->hideMe();
   setFocus();
 }
 
 void KateView::find()
 {
-  m_viewBar->showBarWidget (m_searchBar);
+  m_searchBar->showMe();
   m_searchBar->setFocus();
 }
 

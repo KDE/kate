@@ -3361,21 +3361,17 @@ void KateDocument::align(KateView *view, uint line)
   Remove a given string at the beginning
   of the current line.
 */
-bool KateDocument::removeStringFromBegining(int line, QString &str)
+bool KateDocument::removeStringFromBeginning(int line, const QString &str)
 {
   KateTextLine::Ptr textline = m_buffer->plainLine(line);
 
   KTextEditor::Cursor cursor (line, 0);
-  bool there = false;
+  bool there = textline->startsWith(str);
 
-  if (textline->startsWith(str))
-    there = true;
-  else
+  if (!there)
   {
     cursor.setColumn(textline->firstChar());
-
-    if ((cursor.column() >= 0) && ((int)textline->length() >= (cursor.column() + str.length())) && (textline->string(cursor.column(), str.length()) == str))
-      there = true;
+    there = textline->matchesAt(cursor.column(), str);
   }
 
   if (there)
@@ -3391,24 +3387,21 @@ bool KateDocument::removeStringFromBegining(int line, QString &str)
   Remove a given string at the end
   of the current line.
 */
-bool KateDocument::removeStringFromEnd(int line, QString &str)
+bool KateDocument::removeStringFromEnd(int line, const QString &str)
 {
   KateTextLine::Ptr textline = m_buffer->plainLine(line);
 
   KTextEditor::Cursor cursor (line, 0);
-  bool there = false;
+  bool there = textline->endsWith(str);
 
-  if(textline->endsWith(str))
+  if (there)
   {
     cursor.setColumn(textline->length() - str.length());
-    there = true;
   }
   else
   {
     cursor.setColumn(textline->lastChar() - str.length() + 1);
-
-    if ((cursor.column() >= 0) && ((int)textline->length() >= (cursor.column() + str.length())) && (textline->string(cursor.column(), str.length()) == str))
-      there = true;
+    there = textline->matchesAt(cursor.column(), str);
   }
 
   if (there)
@@ -3421,24 +3414,24 @@ bool KateDocument::removeStringFromEnd(int line, QString &str)
 }
 
 /*
-  Add to the current line a comment line mark at
-  the beginning.
+  Add to the current line a comment line mark at the beginning.
 */
 void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
 {
-  if (highlight()->getCommentSingleLinePosition(attrib)==KateHighlighting::CSLPosColumn0)
+  QString commentLineMark = highlight()->getCommentSingleLineStart(attrib);
+  int pos = -1;
+
+  if (highlight()->getCommentSingleLinePosition(attrib) == KateHighlighting::CSLPosColumn0)
   {
-    QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + ' ';
-    insertText (KTextEditor::Cursor(line, 0), commentLineMark);
+    pos = 0;
+    commentLineMark += ' ';
+  } else {
+    const KateTextLine::Ptr l = m_buffer->line(line);
+    pos = l->firstChar();
   }
-  else
-  {
-    QString commentLineMark=highlight()->getCommentSingleLineStart(attrib);
-    KateTextLine::Ptr l = m_buffer->line(line);
-    int pos=l->firstChar();
-    if (pos >=0)
-      insertText(KTextEditor::Cursor(line, pos), commentLineMark);
-  }
+
+  if (pos >= 0)
+    insertText (KTextEditor::Cursor(line, pos), commentLineMark);
 }
 
 /*
@@ -3447,14 +3440,14 @@ void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
 */
 bool KateDocument::removeStartLineCommentFromSingleLine( int line, int attrib )
 {
-  QString shortCommentMark = highlight()->getCommentSingleLineStart( attrib );
-  QString longCommentMark = shortCommentMark + ' ';
+  const QString shortCommentMark = highlight()->getCommentSingleLineStart( attrib );
+  const QString longCommentMark = shortCommentMark + ' ';
 
   editStart();
 
   // Try to remove the long comment mark first
-  bool removed = (removeStringFromBegining(line, longCommentMark)
-                  || removeStringFromBegining(line, shortCommentMark));
+  bool removed = (removeStringFromBeginning(line, longCommentMark)
+               || removeStringFromBeginning(line, shortCommentMark));
 
   editEnd();
 
@@ -3463,12 +3456,12 @@ bool KateDocument::removeStartLineCommentFromSingleLine( int line, int attrib )
 
 /*
   Add to the current line a start comment mark at the
- beginning and a stop comment mark at the end.
+  beginning and a stop comment mark at the end.
 */
 void KateDocument::addStartStopCommentToSingleLine( int line, int attrib )
 {
-  QString startCommentMark = highlight()->getCommentStart( attrib ) + ' ';
-  QString stopCommentMark = ' ' + highlight()->getCommentEnd( attrib );
+  const QString startCommentMark = highlight()->getCommentStart( attrib ) + ' ';
+  const QString stopCommentMark = ' ' + highlight()->getCommentEnd( attrib );
 
   editStart();
 
@@ -3476,7 +3469,7 @@ void KateDocument::addStartStopCommentToSingleLine( int line, int attrib )
   insertText (KTextEditor::Cursor(line, 0), startCommentMark);
 
   // Go to the end of the line
-  int col = m_buffer->plainLine(line)->length();
+  const int col = m_buffer->plainLine(line)->length();
 
   // Add the stop comment mark
   insertText (KTextEditor::Cursor(line, col), stopCommentMark);
@@ -3501,15 +3494,15 @@ bool KateDocument::removeStartStopCommentFromSingleLine( int line, int attrib )
 #warning "that's a bad idea, can lead to stray endings, FIXME"
 #endif
   // Try to remove the long start comment mark first
-  bool removedStart = (removeStringFromBegining(line, longStartCommentMark)
-                       || removeStringFromBegining(line, shortStartCommentMark));
+  bool removedStart = (removeStringFromBeginning(line, longStartCommentMark)
+                    || removeStringFromBeginning(line, shortStartCommentMark));
 
   bool removedStop = false;
   if (removedStart)
   {
     // Try to remove the long stop comment mark first
     removedStop = (removeStringFromEnd(line, longStopCommentMark)
-                      || removeStringFromEnd(line, shortStopCommentMark));
+                || removeStringFromEnd(line, shortStopCommentMark));
   }
 
   editEnd();
@@ -3518,18 +3511,17 @@ bool KateDocument::removeStartStopCommentFromSingleLine( int line, int attrib )
 }
 
 /*
-  Add to the current selection a start comment
- mark at the beginning and a stop comment mark
- at the end.
+  Add to the current selection a start comment mark at the beginning
+  and a stop comment mark at the end.
 */
 void KateDocument::addStartStopCommentToSelection( KateView *view, int attrib )
 {
-  QString startComment = highlight()->getCommentStart( attrib );
-  QString endComment = highlight()->getCommentEnd( attrib );
+  const QString startComment = highlight()->getCommentStart( attrib );
+  const QString endComment = highlight()->getCommentEnd( attrib );
 
   KTextEditor::Range range = view->selectionRange();
 
-  if ((range.end().column() == 0) && ((range.end().line() - 1) >= 0))
+  if ((range.end().column() == 0) && (range.end().line() > 0))
     range.end().setPosition(range.end().line() - 1, lineLength(range.end().line() - 1));
 
   editStart();
@@ -3538,24 +3530,21 @@ void KateDocument::addStartStopCommentToSelection( KateView *view, int attrib )
   insertText (range.start(), startComment);
 
   editEnd ();
-
-  // Set the new selection
-  range.end().setColumn(range.end().column() + endComment.length() + ( range.onSingleLine() ? startComment.length() : 0 ));
-  view->setSelection(range);
+  // selection automatically updated (KateSmartRange)
 }
 
 /*
-  Add to the current selection a comment line
- mark at the beginning of each line.
+  Add to the current selection a comment line mark at the beginning of each line.
 */
 void KateDocument::addStartLineCommentToSelection( KateView *view, int attrib )
 {
-  QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + ' ';
+  const QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + ' ';
 
   int sl = view->selectionRange().start().line();
   int el = view->selectionRange().end().line();
 
-  if ((view->selectionRange().end().column() == 0) && ((el-1) >= 0))
+  // if end of selection is in column 0 in last line, omit the last line
+  if ((view->selectionRange().end().column() == 0) && (el > 0))
   {
     el--;
   }
@@ -3569,13 +3558,7 @@ void KateDocument::addStartLineCommentToSelection( KateView *view, int attrib )
   }
 
   editEnd ();
-
-  // Set the new selection
-
-  KateDocCursor end (view->selectionRange().end(), this);
-  end.setColumn(view->selectionRange().end().column() + ((el == view->selectionRange().end().line()) ? commentLineMark.length() : 0) );
-
-  view->setSelection(KTextEditor::Range(view->selectionRange().start().line(), 0, end.line(), end.column()));
+  // selection automatically updated (KateSmartRange)
 }
 
 bool KateDocument::nextNonSpaceCharPos(int &line, int &col)
@@ -3611,7 +3594,7 @@ bool KateDocument::previousNonSpaceCharPos(int &line, int &col)
     if(line == 0) return false;
     --line;
     col = textLine->length();
-}
+  }
   // No non-space char found
   line = -1;
   col = -1;
@@ -3624,8 +3607,8 @@ bool KateDocument::previousNonSpaceCharPos(int &line, int &col)
 */
 bool KateDocument::removeStartStopCommentFromSelection( KateView *view, int attrib )
 {
-  QString startComment = highlight()->getCommentStart( attrib );
-  QString endComment = highlight()->getCommentEnd( attrib );
+  const QString startComment = highlight()->getCommentStart( attrib );
+  const QString endComment = highlight()->getCommentEnd( attrib );
 
   int sl = qMax<int> (0, view->selectionRange().start().line());
   int el = qMin<int>  (view->selectionRange().end().line(), lastLine());
@@ -3634,16 +3617,14 @@ bool KateDocument::removeStartStopCommentFromSelection( KateView *view, int attr
 
   // The selection ends on the char before selectEnd
   if (ec != 0) {
-    ec--;
-  } else {
-    if (el > 0) {
-      el--;
-      ec = m_buffer->plainLine(el)->length() - 1;
-    }
+    --ec;
+  } else if (el > 0) {
+    --el;
+    ec = m_buffer->plainLine(el)->length() - 1;
   }
 
-  int startCommentLen = startComment.length();
-  int endCommentLen = endComment.length();
+  const int startCommentLen = startComment.length();
+  const int endCommentLen = endComment.length();
 
   // had this been perl or sed: s/^\s*$startComment(.+?)$endComment\s*/$2/
 
@@ -3660,10 +3641,7 @@ bool KateDocument::removeStartStopCommentFromSelection( KateView *view, int attr
     removeText (KTextEditor::Range(sl, sc, sl, sc + startCommentLen));
 
     editEnd ();
-
-    // Set the new selection
-    ec -= endCommentLen + ( (el == sl) ? startCommentLen : 0 );
-    view->setSelection(KTextEditor::Range(sl, sc, el, ec + 1));
+    // selection automatically updated (KateSmartRange)
   }
 
   return remove;
@@ -3671,21 +3649,20 @@ bool KateDocument::removeStartStopCommentFromSelection( KateView *view, int attr
 
 bool KateDocument::removeStartStopCommentFromRegion(const KTextEditor::Cursor &start,const KTextEditor::Cursor &end,int attrib)
 {
-  QString startComment = highlight()->getCommentStart( attrib );
-  QString endComment = highlight()->getCommentEnd( attrib );
-  int startCommentLen = startComment.length();
-  int endCommentLen = endComment.length();
+  const QString startComment = highlight()->getCommentStart( attrib );
+  const QString endComment = highlight()->getCommentEnd( attrib );
+  const int startCommentLen = startComment.length();
+  const int endCommentLen = endComment.length();
 
-    bool remove = m_buffer->plainLine(start.line())->matchesAt(start.column(), startComment)
-      && ( (end.column() - endCommentLen ) >= 0 )
-      && m_buffer->plainLine(end.line())->matchesAt(end.column() - endCommentLen , endComment);
-      if (remove)  {
-        editStart();
-          removeText(KTextEditor::Range(end.line(), end.column() - endCommentLen, end.line(), end.column()));
-          removeText(KTextEditor::Range(start, startCommentLen));
-        editEnd();
-      }
-      return remove;
+  const bool remove = m_buffer->plainLine(start.line())->matchesAt(start.column(), startComment)
+                   && m_buffer->plainLine(end.line())->matchesAt(end.column() - endCommentLen , endComment);
+  if (remove) {
+    editStart();
+      removeText(KTextEditor::Range(end.line(), end.column() - endCommentLen, end.line(), end.column()));
+      removeText(KTextEditor::Range(start, startCommentLen));
+    editEnd();
+  }
+  return remove;
 }
 
 /*
@@ -3694,23 +3671,16 @@ bool KateDocument::removeStartStopCommentFromRegion(const KTextEditor::Cursor &s
 */
 bool KateDocument::removeStartLineCommentFromSelection( KateView *view, int attrib )
 {
-  QString shortCommentMark = highlight()->getCommentSingleLineStart( attrib );
-  QString longCommentMark = shortCommentMark + ' ';
+  const QString shortCommentMark = highlight()->getCommentSingleLineStart( attrib );
+  const QString longCommentMark = shortCommentMark + ' ';
 
   int sl = view->selectionRange().start().line();
   int el = view->selectionRange().end().line();
 
-  if ((view->selectionRange().end().column() == 0) && ((el-1) >= 0))
+  if ((view->selectionRange().end().column() == 0) && (el > 0))
   {
     el--;
   }
-
-  // Find out how many char will be removed from the last line
-  int removeLength = 0;
-  if (m_buffer->plainLine(el)->startsWith(longCommentMark))
-    removeLength = longCommentMark.length();
-  else if (m_buffer->plainLine(el)->startsWith(shortCommentMark))
-    removeLength = shortCommentMark.length();
 
   bool removed = false;
 
@@ -3720,21 +3690,13 @@ bool KateDocument::removeStartLineCommentFromSelection( KateView *view, int attr
   for (int z = el; z >= sl; z--)
   {
     // Try to remove the long comment mark first
-    removed = (removeStringFromBegining(z, longCommentMark)
-                 || removeStringFromBegining(z, shortCommentMark)
-                 || removed);
+    removed = (removeStringFromBeginning(z, longCommentMark)
+            || removeStringFromBeginning(z, shortCommentMark)
+            || removed);
   }
 
   editEnd();
-
-  if (removed)
-  {
-    // Set the new selection
-    KateDocCursor end (view->selectionRange().end(), this);
-    end.setColumn(view->selectionRange().end().column() - ((el == view->selectionRange().end().line()) ? removeLength : 0) );
-
-    view->setSelection(KTextEditor::Range(view->selectionRange().start(), end));
-  }
+  // selection automatically updated (KateSmartRange)
 
   return removed;
 }

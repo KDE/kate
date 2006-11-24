@@ -115,7 +115,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_hasWrap( false )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
-    , m_selection(m_doc->smartManager()->newSmartRange(KTextEditor::Range::invalid()))
+    , m_selection(m_doc->smartManager()->newSmartRange(KTextEditor::Range::invalid(), 0L, KTextEditor::SmartRange::ExpandRight))
     , blockSelect (false)
     , m_imComposeEvent( false )
 {

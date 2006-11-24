@@ -674,8 +674,8 @@ class KateDocument : public KTextEditor::Document,
     void joinLines( uint first, uint last );
 
   private:
-    bool removeStringFromBegining(int line, QString &str);
-    bool removeStringFromEnd(int line, QString &str);
+    bool removeStringFromBeginning(int line, const QString &str);
+    bool removeStringFromEnd(int line, const QString &str);
 
     /**
       Find the position (line and col) of the next char

@@ -702,6 +702,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfi
   listView = new KatePartPluginListView(this);
   listView->setColumnCount(2);
   listView->setHeaderLabels(QStringList() << i18n("Name") << i18n("Comment"));
+  listView->setRootIsDecorated(false);
 
   grid->addWidget(listView, 0, 0);
 
@@ -713,6 +714,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfi
 
     m_items.append (item);
   }
+  listView->resizeColumnToContents(0);
 
   // configure button
 

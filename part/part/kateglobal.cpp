@@ -240,7 +240,7 @@ void KateGlobal::configDialog(QWidget *parent)
 
     KPageWidgetItem *item = kd->addPage( page, name );
     item->setHeader( configPageFullName (i) );
-    //item->setIcon( KIcon( configPageIcon(i, K3Icon::SizeMedium) ) );
+    item->setIcon( configPageIcon(i) );
 
     QVBoxLayout *topLayout = new QVBoxLayout( page );
     topLayout->setMargin( 0 );

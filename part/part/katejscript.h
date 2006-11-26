@@ -49,7 +49,7 @@ namespace KJS {
   class Interpreter;
   class ExecState;
   class Identifier;
-  class HashTable;
+  struct HashTable;
   class List;
 }
 

@@ -275,13 +275,13 @@ void KateView::setupActions()
 
     // setup Tools menu
     a = new KAction(KIcon("indent"), i18n("&Indent"), ac, "tools_indent");
-    a->setShortcut(Qt::CTRL+Qt::Key_I);
+    a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_I));
     a->setWhatsThis(i18n("Use this to indent a selected block of text.<br><br>"
         "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
     connect(a, SIGNAL(triggered(bool)), SLOT(indent()));
 
     a = new KAction(KIcon("unindent"), i18n("&Unindent"), ac, "tools_unindent");
-    a->setShortcut(Qt::CTRL+Qt::SHIFT+Qt::Key_I);
+    a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_I));
     a->setWhatsThis(i18n("Use this to unindent a selected block of text."));
     connect(a, SIGNAL(triggered(bool)), SLOT(unIndent()));
 
@@ -296,13 +296,13 @@ void KateView::setupActions()
     connect(a, SIGNAL(triggered(bool)), SLOT(align()));
 
     a = new KAction(i18n("C&omment"), ac, "tools_comment");
-    a->setShortcut(Qt::CTRL+Qt::Key_D);
+    a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_D));
     a->setWhatsThis(i18n("This command comments out the current line or a selected block of text.<BR><BR>"
         "The characters for single/multiple line comments are defined within the language's highlighting."));
     connect(a, SIGNAL(triggered(bool)), SLOT(comment()));
 
     a = new KAction(i18n("Unco&mment"), ac, "tools_uncomment");
-    a->setShortcut(Qt::CTRL+Qt::SHIFT+Qt::Key_D);
+    a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_D));
     a->setWhatsThis(i18n("This command removes comments from the current line or a selected block of text.<BR><BR>"
     "The characters for single/multiple line comments are defined within the language's highlighting."));
     connect(a, SIGNAL(triggered(bool)), SLOT(uncomment()));
@@ -312,30 +312,30 @@ void KateView::setupActions()
     connect(a, SIGNAL(triggered(bool)), SLOT( toggleWriteLock() ));
 
     a = new KAction( i18n("Uppercase"), ac, "tools_uppercase" );
-    a->setShortcut(Qt::CTRL + Qt::Key_U);
+    a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_U));
     a->setWhatsThis( i18n("Convert the selection to uppercase, or the character to the "
       "right of the cursor if no text is selected.") );
     connect(a, SIGNAL(triggered(bool)), SLOT(uppercase()));
 
     a = new KAction( i18n("Lowercase"), ac, "tools_lowercase" );
-    a->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_U);
+    a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_U));
     a->setWhatsThis( i18n("Convert the selection to lowercase, or the character to the "
       "right of the cursor if no text is selected.") );
     connect(a, SIGNAL(triggered(bool)), SLOT(lowercase()));
 
     a = new KAction( i18n("Capitalize"), ac, "tools_capitalize" );
-    a->setShortcut(Qt::CTRL + Qt::ALT + Qt::Key_U);
+    a->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_U));
     a->setWhatsThis( i18n("Capitalize the selection, or the word under the "
       "cursor if no text is selected.") );
     connect(a, SIGNAL(triggered(bool)), SLOT(capitalize()));
 
     a = new KAction( i18n("Join Lines"), ac, "tools_join_lines" );
-    a->setShortcut(Qt::CTRL + Qt::Key_J);
+    a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J));
     connect(a, SIGNAL(triggered(bool)), SLOT( joinLines() ));
 
     a = new KAction(i18n("Invoke Code Completion"), ac, "tools_invoke_code_completion");
     a->setWhatsThis(i18n("Manually invoke command completion, usually by using a shortcut bound to this action."));
-    a->setShortcut(Qt::CTRL + Qt::Key_Space);
+    a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Space));
     connect(a, SIGNAL(triggered(bool)), SLOT(userInvokedCompletion()));
   }
   else
@@ -398,18 +398,18 @@ void KateView::setupActions()
   connect(a, SIGNAL(triggered(bool)), m_viewInternal, SLOT(slotDecFontSizes()));
 
   a= m_toggleBlockSelection = new KToggleAction(i18n("Bl&ock Selection Mode"), ac, "set_verticalSelect");
-  a->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_B);
+  a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B));
   a->setWhatsThis(i18n("This command allows switching between the normal (line based) selection mode and the block selection mode."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleBlockSelectionMode()));
 
   a= m_toggleInsert = new KToggleAction(i18n("Overwr&ite Mode"), ac, "set_insert" );
-  a->setShortcut(Qt::Key_Insert);
+  a->setShortcut(QKeySequence(Qt::Key_Insert));
   a->setWhatsThis(i18n("Choose whether you want the text you type to be inserted or to overwrite existing text."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleInsert()));
 
   KToggleAction *toggleAction;
   a = m_toggleDynWrap = toggleAction = new KToggleAction(i18n("&Dynamic Word Wrap"), ac, "view_dynamic_word_wrap");
-  a->setShortcut(Qt::Key_F10);
+  a->setShortcut(QKeySequence(Qt::Key_F10));
   a->setWhatsThis(i18n("If this option is checked, the text lines will be wrapped at the view border on the screen."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleDynWordWrap()));
 
@@ -424,19 +424,19 @@ void KateView::setupActions()
   m_setDynWrapIndicators->setItems(list2);
 
   a= toggleAction=m_toggleFoldingMarkers = new KToggleAction(i18n("Show Folding &Markers"), ac, "view_folding_markers");
-  a->setShortcut(Qt::Key_F9);
+  a->setShortcut(QKeySequence(Qt::Key_F9));
   a->setWhatsThis(i18n("You can choose if the codefolding marks should be shown, if codefolding is possible."));
   toggleAction->setCheckedState(KGuiItem(i18n("Hide Folding &Markers")));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleFoldingMarkers()));
 
   a = m_toggleIconBar = toggleAction = new KToggleAction(i18n("Show &Icon Border"), ac, "view_border");
-  a->setShortcut(Qt::Key_F6);
+  a->setShortcut(QKeySequence(Qt::Key_F6));
   a->setWhatsThis(i18n("Show/hide the icon border.<BR><BR> The icon border shows bookmark symbols, for instance."));
   toggleAction->setCheckedState(KGuiItem(i18n("Hide &Icon Border")));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleIconBorder()));
 
   a = toggleAction = m_toggleLineNumbers = new KToggleAction(i18n("Show &Line Numbers"), ac, "view_line_numbers");
-  a->setShortcut(Qt::Key_F11);
+  a->setShortcut(QKeySequence(Qt::Key_F11));
   a->setWhatsThis(i18n("Show/hide the line numbers on the left hand side of the view."));
   toggleAction->setCheckedState(KGuiItem(i18n("Hide &Line Numbers")));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleLineNumbersOn()));
@@ -454,7 +454,7 @@ void KateView::setupActions()
   connect(a, SIGNAL(triggered(bool)), SLOT( toggleWWMarker() ));
 
   a = m_switchCmdLine = new KAction(i18n("Switch to Command Line"), ac, "switch_to_cmd_line");
-  a->setShortcut(Qt::Key_F7);
+  a->setShortcut(QKeySequence(Qt::Key_F7));
   a->setWhatsThis(i18n("Show/hide the command line on the bottom of the view."));
   connect(a, SIGNAL(triggered(bool)), SLOT(switchToCmdLine()));
 
@@ -508,33 +508,33 @@ void KateView::setupEditActions()
   KActionCollection* ac = m_editActions;
 
   KAction* a = new KAction( i18n("Move Word Left"), ac, "word_left" );
-  a->setShortcut(Qt::CTRL + Qt::Key_Left);
+  a->setShortcut(KStdAccel::backwardWord());
   connect(a, SIGNAL(triggered(bool)),  SLOT(wordLeft()));
 
   a = new KAction( i18n("Select Character Left"), ac, "select_char_left" );
-  a->setShortcut(Qt::SHIFT + Qt::Key_Left);
+  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Left));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftCursorLeft()));
 
   a = new KAction( i18n("Select Word Left"), ac, "select_word_left" );
-  a->setShortcut(Qt::SHIFT + Qt::CTRL + Qt::Key_Left);
+  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_Left));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftWordLeft()));
 
 
   a = new KAction( i18n("Move Word Right"), ac, "word_right" );
-  a->setShortcut(Qt::CTRL + Qt::Key_Right);
+  a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(wordRight()));
 
   a = new KAction( i18n("Select Character Right"), ac, "select_char_right" );
-  a->setShortcut(Qt::SHIFT + Qt::Key_Right);
+  a->setShortcut(KStdAccel::forwardWord());
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftCursorRight()));
 
   a = new KAction( i18n("Select Word Right"), ac, "select_word_right" );
-  a->setShortcut(Qt::SHIFT + Qt::CTRL + Qt::Key_Right);
+  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftWordRight()));
 
 
   a = new KAction( i18n("Move to Beginning of Line"), ac, "beginning_of_line" );
-  a->setShortcut(Qt::Key_Home);
+  a->setShortcut(QKeySequence(Qt::Key_Home));
   connect(a, SIGNAL(triggered(bool)), SLOT(home()));
 
   a = new KAction( i18n("Move to Beginning of Document"), ac, "beginning_of_document" );
@@ -542,16 +542,16 @@ void KateView::setupEditActions()
   connect(a, SIGNAL(triggered(bool)), SLOT(top()));
 
   a = new KAction( i18n("Select to Beginning of Line"), ac, "select_beginning_of_line" );
-  a->setShortcut(Qt::SHIFT + Qt::Key_Home);
+  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Home));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftHome()));
 
   a = new KAction( i18n("Select to Beginning of Document"), ac, "select_beginning_of_document" );
-  a->setShortcut(Qt::SHIFT + Qt::CTRL + Qt::Key_Home);
+  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_Home));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftTop()));
 
 
   a = new KAction( i18n("Move to End of Line"), ac, "end_of_line" );
-  a->setShortcut(Qt::Key_End);
+  a->setShortcut(QKeySequence(Qt::Key_End));
   connect(a, SIGNAL(triggered(bool)), SLOT(end()));
 
   a = new KAction( i18n("Move to End of Document"), ac, "end_of_document" );
@@ -559,49 +559,49 @@ void KateView::setupEditActions()
   connect(a, SIGNAL(triggered(bool)), SLOT(bottom()));
 
   a = new KAction( i18n("Select to End of Line"), ac, "select_end_of_line" );
-  a->setShortcut(Qt::SHIFT + Qt::Key_End);
+  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_End));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftEnd()));
 
   a = new KAction( i18n("Select to End of Document"), ac, "select_end_of_document" );
-  a->setShortcut(Qt::SHIFT + Qt::CTRL + Qt::Key_End);
+  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_End));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftBottom()));
 
 
   a = new KAction( i18n("Select to Previous Line"), ac, "select_line_up" );
-  a->setShortcut(Qt::SHIFT + Qt::Key_Up);
+  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Up));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftUp()));
 
   a = new KAction( i18n("Scroll Line Up"), ac, "scroll_line_up" );
-  a->setShortcut(Qt::CTRL + Qt::Key_Up);
+  a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Up));
   connect(a, SIGNAL(triggered(bool)), SLOT(scrollUp()));
 
 
   a = new KAction(i18n("Move to Next Line"), ac, "move_line_down");
-  a->setShortcut(Qt::Key_Down);
+  a->setShortcut(QKeySequence(Qt::Key_Down));
   connect(a, SIGNAL(triggered(bool)), SLOT(down()));
 
 
   a = new KAction(i18n("Move to Previous Line"), ac, "move_line_up");
-  a->setShortcut(Qt::Key_Up);
+  a->setShortcut(QKeySequence(Qt::Key_Up));
   connect(a, SIGNAL(triggered(bool)), SLOT(up()));
 
 
   a = new KAction(i18n("Move Character Right"), ac, "move_cursor_right");
-  a->setShortcut(Qt::Key_Right);
+  a->setShortcut(QKeySequence(Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(cursorRight()));
 
 
   a = new KAction(i18n("Move Character Left"), ac, "move_cusor_left");
-  a->setShortcut(Qt::Key_Left);
+  a->setShortcut(QKeySequence(Qt::Key_Left));
   connect(a, SIGNAL(triggered(bool)), SLOT(cursorLeft()));
 
 
   a = new KAction( i18n("Select to Next Line"), ac, "select_line_down" );
-  a->setShortcut(Qt::SHIFT + Qt::Key_Down);
+  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Down));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftDown()));
 
   a = new KAction( i18n("Scroll Line Down"), ac, "scroll_line_down" );
-  a->setShortcut(Qt::CTRL + Qt::Key_Down);
+  a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Down));
   connect(a, SIGNAL(triggered(bool)), SLOT(scrollDown()));
 
 
@@ -610,15 +610,15 @@ void KateView::setupEditActions()
   connect(a, SIGNAL(triggered(bool)), SLOT(pageUp()));
 
   a = new KAction( i18n("Select Page Up"), ac, "select_page_up" );
-  a->setShortcut(Qt::SHIFT + Qt::Key_PageUp);
+  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_PageUp));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftPageUp()));
 
   a = new KAction( i18n("Move to Top of View"), ac, "move_top_of_view" );
-  a->setShortcut(Qt::CTRL + Qt::Key_PageUp);
+  a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageUp));
   connect(a, SIGNAL(triggered(bool)), SLOT(topOfView()));
 
   a = new KAction( i18n("Select to Top of View"), ac, "select_top_of_view" );
-  a->setShortcut(Qt::CTRL + Qt::SHIFT +  Qt::Key_PageUp);
+  a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT +  Qt::Key_PageUp));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftTopOfView()));
 
 
@@ -627,23 +627,23 @@ void KateView::setupEditActions()
   connect(a, SIGNAL(triggered(bool)), SLOT(pageDown()));
 
   a = new KAction( i18n("Select Page Down"), ac, "select_page_down" );
-  a->setShortcut(Qt::SHIFT + Qt::Key_PageDown);
+  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_PageDown));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftPageDown()));
 
   a = new KAction( i18n("Move to Bottom of View"), ac, "move_bottom_of_view" );
-  a->setShortcut(Qt::CTRL + Qt::Key_PageDown);
+  a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageDown));
   connect(a, SIGNAL(triggered(bool)), SLOT(bottomOfView()));
 
   a = new KAction( i18n("Select to Bottom of View"), ac, "select_bottom_of_view" );
-  a->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_PageDown);
+  a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_PageDown));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftBottomOfView()));
 
   a = new KAction( i18n("Move to Matching Bracket"), ac, "to_matching_bracket" );
-  a->setShortcut(Qt::CTRL + Qt::Key_6);
+  a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_6));
   connect(a, SIGNAL(triggered(bool)), SLOT(toMatchingBracket()));
 
   a = new KAction( i18n("Select to Matching Bracket"), ac, "select_matching_bracket" );
-  a->setShortcut(Qt::SHIFT + Qt::CTRL + Qt::Key_6);
+  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_6));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftToMatchingBracket()));
 
 
@@ -651,11 +651,11 @@ void KateView::setupEditActions()
   if ( !m_doc->readOnly() )
   {
     a = new KAction( i18n("Transpose Characters"), ac, "transpose_char" );
-    a->setShortcut(Qt::CTRL + Qt::Key_T);
+    a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_T));
     connect(a, SIGNAL(triggered(bool)), SLOT(transpose()));
 
     a = new KAction( i18n("Delete Line"), ac, "delete_line" );
-    a->setShortcut(Qt::CTRL + Qt::Key_K);
+    a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_K));
     connect(a, SIGNAL(triggered(bool)), SLOT(killLine()));
 
     a = new KAction( i18n("Delete Word Left"), ac, "delete_word_left" );
@@ -667,11 +667,11 @@ void KateView::setupEditActions()
     connect(a, SIGNAL(triggered(bool)), SLOT(deleteWordRight()));
 
     a = new KAction(i18n("Delete Next Character"), ac, "delete_next_character");
-    a->setShortcut(Qt::Key_Delete);
+    a->setShortcut(QKeySequence(Qt::Key_Delete));
     connect(a, SIGNAL(triggered(bool)), SLOT(keyDelete()));
 
     a = new KAction(i18n("Backspace"), ac, "backspace");
-    a->setShortcut(Qt::Key_Backspace);
+    a->setShortcut(QKeySequence(Qt::Key_Backspace));
     connect(a, SIGNAL(triggered(bool)), SLOT(backspace()));
 
 #ifdef __GNUC__
@@ -679,7 +679,7 @@ void KateView::setupEditActions()
 #endif
 
     a = new KAction(i18n("Debug TemplateCode"), ac, "debug_template_code");
-    a->setShortcut(Qt::CTRL+Qt::Key_1);
+    a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_1));
     connect(a, SIGNAL(triggered(bool)), m_doc,SLOT(testTemplateCode()));
 
   }
@@ -697,19 +697,19 @@ void KateView::setupCodeFolding()
 {
   KActionCollection *ac=this->actionCollection();
   KAction* a = new KAction( i18n("Collapse Toplevel"), ac,"folding_toplevel");
-  a->setShortcut(Qt::CTRL+Qt::SHIFT+Qt::Key_Minus);
+  a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Minus));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(collapseToplevelNodes()));
 
   a = new KAction( i18n("Expand Toplevel"), ac,"folding_expandtoplevel");
-  a->setShortcut(Qt::CTRL+Qt::SHIFT+Qt::Key_Plus);
+  a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandToplevel()));
 
   a = new KAction( i18n("Collapse One Local Level"), ac,"folding_collapselocal");
-  a->setShortcut(Qt::CTRL+Qt::Key_Minus);
+  a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Minus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotCollapseLocal()));
 
   a = new KAction( i18n("Expand One Local Level"), ac,"folding_expandlocal");
-  a->setShortcut(Qt::CTRL+Qt::Key_Plus);
+  a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandLocal()));
 }
 

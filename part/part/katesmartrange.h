@@ -156,6 +156,11 @@ class KateSmartRange : public KTextEditor::SmartRange
           m_isInternal  :1;
 };
 
+inline kdbgstream& operator<<(kdbgstream& s, const KateSmartRange& range)
+{
+    return s << static_cast<KTextEditor::Range>(range);
+}
+
 /**
  * Used for internal references to external KateSmartRanges
  */

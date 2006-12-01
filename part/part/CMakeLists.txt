@@ -1,6 +1,7 @@
 # includes
 include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kutils ${CMAKE_SOURCE_DIR}/kde3support/kdeui)
 
+
 # kjs hash stuff
 set(CREATE_HASH_TABLE ${CMAKE_SOURCE_DIR}/kjs/create_hash_table )
 
@@ -10,7 +11,11 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp
 )
 
-macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
+if(KDE4_ENABLE_FINAL)
+	macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
+else(KDE4_ENABLE_FINAL)		
+	macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
+endif(KDE4_ENABLE_FINAL)
 
 # our sources
 set(katepart_PART_SRCS

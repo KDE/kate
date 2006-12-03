@@ -797,7 +797,7 @@ void KateView::slotReadWriteChanged ()
       << "edit_undo" << "edit_redo" << "tools_spelling_from_cursor"
       << "tools_spelling_selection";
 
-  QAction *a = 0;
+  KAction *a = 0;
   for (int z = 0; z < l.size(); z++)
     if ((a = actionCollection()->action( l[z].toAscii().constData() )))
       a->setEnabled (m_doc->isReadWrite());
@@ -1222,7 +1222,7 @@ void KateView::updateFoldingConfig ()
   l << "folding_toplevel" << "folding_expandtoplevel"
     << "folding_collapselocal" << "folding_expandlocal";
 
-  QAction *a = 0;
+  KAction *a = 0;
   for (int z = 0; z < l.size(); z++)
     if ((a = actionCollection()->action( l[z].toAscii().constData() )))
       a->setEnabled (m_doc->highlight() && m_doc->highlight()->allowsFolding());
@@ -2340,7 +2340,7 @@ QMenu * KateView::defaultContextMenu(QMenu* menu) const
     menu->addSeparator();
     menu->addAction(m_selectAll);
     menu->addAction(m_deSelect);
-    if (QAction* bookmark = actionCollection()->action("bookmarks")) {
+    if (KAction* bookmark = actionCollection()->action("bookmarks")) {
       menu->addSeparator();
       menu->addAction(bookmark);
     }

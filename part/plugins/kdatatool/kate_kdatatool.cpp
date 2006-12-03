@@ -94,11 +94,11 @@ void KDataToolPluginView::aboutToShow()
 	m_wordUnderCursor.clear();
 
 	// unplug old actions, if any:
-	foreach (KAction *ac, m_actionList) {
-		m_menu->remove(ac);
+	foreach (QAction *ac, m_actionList) {
+		m_menu->removeAction(ac);
 	}
 	if (m_notAvailable) {
-		m_menu->remove(m_notAvailable);
+		m_menu->removeAction(m_notAvailable);
 		delete m_notAvailable;
 		m_notAvailable=0;
 	}
@@ -162,7 +162,7 @@ void KDataToolPluginView::aboutToShow()
 		SLOT( slotToolActivated( const KDataToolInfo &, const QString & ) ),
                                                             actionCollection());
 
-	foreach (KAction* ac, m_actionList)
+	foreach (QAction* ac, m_actionList)
 		m_menu->addAction(ac);
 
 	if( m_actionList.isEmpty() ) {

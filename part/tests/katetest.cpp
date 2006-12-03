@@ -400,9 +400,9 @@ void KWrite::slotDropEvent( QDropEvent *event )
 
 void KWrite::slotEnableActions( bool enable )
 {
-  Q3ValueList<KAction *> actions = actionCollection()->actions();
-  Q3ValueList<KAction *>::ConstIterator it = actions.begin();
-  Q3ValueList<KAction *>::ConstIterator end = actions.end();
+  Q3ValueList<QAction *> actions = actionCollection()->actions();
+  Q3ValueList<QAction *>::ConstIterator it = actions.begin();
+  Q3ValueList<QAction *>::ConstIterator end = actions.end();
 
   for (; it != end; ++it )
       (*it)->setEnabled( enable );

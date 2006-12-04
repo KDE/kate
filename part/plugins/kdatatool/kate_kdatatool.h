@@ -60,9 +60,9 @@ private:
 	bool m_singleWord;
 	int m_singleWord_line, m_singleWord_start, m_singleWord_end;
 	QString m_wordUnderCursor;
-	QList<KAction*> m_actionList;
+	QList<QAction*> m_actionList;
 	QPointer<KActionMenu> m_menu;
-	KAction *m_notAvailable;
+	QAction *m_notAvailable;
 protected Q_SLOTS:
 	void aboutToShow();
 	void slotToolActivated( const KDataToolInfo &datatoolinfo, const QString &string );

@@ -96,7 +96,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
     }
 
     doc = editor->createDocument(0);
-  
+
     // enable the modified on disk warning dialogs if any
     if (qobject_cast<KTextEditor::ModificationInterface *>(doc))
       qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning (true);
@@ -374,9 +374,9 @@ void KWrite::slotDropEvent( QDropEvent *event )
 
 void KWrite::slotEnableActions( bool enable )
 {
-  QList<KAction *> actions = actionCollection()->actions();
-  QList<KAction *>::ConstIterator it = actions.begin();
-  QList<KAction *>::ConstIterator end = actions.end();
+  QList<QAction *> actions = actionCollection()->actions();
+  QList<QAction *>::ConstIterator it = actions.begin();
+  QList<QAction *>::ConstIterator end = actions.end();
 
   for (; it != end; ++it )
       (*it)->setEnabled( enable );
@@ -644,7 +644,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   QByteArray kWriteVersion  = QString ("%1.%2.%3").arg(KDE::versionMajor() + 1).arg(KDE::versionMinor()).arg(KDE::versionRelease()).toLatin1();
 
   KAboutData aboutData ( "kwrite",
-                         I18N_NOOP("KWrite"), 
+                         I18N_NOOP("KWrite"),
                          kWriteVersion,
                          I18N_NOOP( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
                          I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://www.kate-editor.org" );
@@ -806,11 +806,11 @@ KWriteEditorChooser::KWriteEditorChooser(QWidget *):
     connect( this, SIGNAL( okClicked() ), SLOT( slotOk() ) );
 }
 
-KWriteEditorChooser::~KWriteEditorChooser() 
+KWriteEditorChooser::~KWriteEditorChooser()
 {
 }
 
-void KWriteEditorChooser::slotOk() 
+void KWriteEditorChooser::slotOk()
 {
     m_chooser->writeAppSetting();
 }

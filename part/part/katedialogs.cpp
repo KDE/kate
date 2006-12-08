@@ -973,6 +973,7 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
     this, SLOT(listDataReceived(KIO::Job *, const QByteArray &)));
 //        void data( KIO::Job *, const QByteArray &data);
   resize(450, 400);
+  connect(this,SIGNAL(user1Clicked()),this,SLOT(slotUser1()));
 }
 
 KateHlDownloadDialog::~KateHlDownloadDialog(){}

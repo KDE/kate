@@ -71,6 +71,7 @@
 #include <ktemporaryfile.h>
 #include <kcodecs.h>
 #include <kstaticdeleter.h>
+#include <kstandarddirs.h>
 
 #include <QtDBus/QtDBus>
 #include <qtimer.h>
@@ -2028,6 +2029,8 @@ void KateDocument::readSessionConfig(KConfig *kconfig)
 
 void KateDocument::writeSessionConfig(KConfig *kconfig)
 {
+  if ( m_url.isLocalFile() && !KGlobal::dirs()->relativeLocation("tmp", m_url.path()).startsWith("/"))
+       return;	
   // save url
   kconfig->writeEntry("URL", m_url.prettyUrl() );
 

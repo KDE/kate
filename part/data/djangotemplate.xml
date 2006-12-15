@@ -4,7 +4,7 @@
 	<!ENTITY name    "[A-Za-z_:][\w.:_-]*">
 	<!ENTITY entref  "&amp;(#[0-9]+|#[xX][0-9A-Fa-f]+|&name;);">
 ]>
-<language name="Django HTML Template" version="1.1" kateversion="2.4" section="Markup" extensions="*.htm;*.html" mimetype="text/html"  author="Matthew Marshall (matthew@matthewmarshall.org)" license="LGPL" priority="9">
+<language name="Django HTML Template" version="1.2" kateversion="2.4" section="Markup" extensions="*.htm;*.html" mimetype="text/html"  author="Matthew Marshall (matthew@matthewmarshall.org)" license="LGPL" priority="9">
 
 <!--
     Based off of the katepart html syntax highlighting by Wilbert Berendsen.
@@ -38,13 +38,13 @@
 
 <contexts>
   <context name="Start" attribute="Normal Text" lineEndContext="#stay">
-    <RegExpr attribute="Mismatched Block Tag" context="#stay" String="\{%\send[a-z]+\s%\}" />
+    <RegExpr attribute="Mismatched Block Tag" context="#stay" String="\{%\s*end[a-z]+\s*%\}" />
     <IncludeRules context="FindTemplate" />
     <IncludeRules context="FindHTML" />
   </context>
 
   <context name="In Block" attribute="Normal Text" lineEndContext="#stay">
-    <RegExpr context="#pop" String="\{%\send[a-z]+\s%\}" lookAhead="true" />
+    <RegExpr context="#pop" String="\{%\s*end[a-z]+\s*%\}" lookAhead="true" />
     <IncludeRules context="FindTemplate" />
     <IncludeRules context="FindHTML" />
   </context>
@@ -87,8 +87,8 @@
   </context>
 
   <context name="In Block Tag" attribute="Template Tag Argument" dynamic="true" lineEndContext="#stay" >
-    <RegExpr context="#pop#pop#pop" String="\{%\send%1\s%\}" dynamic="true" attribute="Template Tag"/>
-    <RegExpr context="Non Matching Tag" String="\{%\send[a-z]+\s%\}" lookAhead="true" />
+    <RegExpr context="#pop#pop#pop" String="\{%\s*end%1\s*%\}" dynamic="true" attribute="Template Tag"/>
+    <RegExpr context="Non Matching Tag" String="\{%\s*end[a-z]+\s*%\}" lookAhead="true" />
     <Detect2Chars attribute="Template Tag" context="In Block" char="%" char1="}" />
     <IncludeRules context="In Template Tag" />
   </context>

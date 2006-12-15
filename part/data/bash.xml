@@ -7,7 +7,7 @@
 	<!ENTITY eos      "(?=($|\s))">			<!-- eol or space following -->
 	<!ENTITY noword   "(?![\w$+-])">		<!-- no word, $, + or - following -->
 ]>
-<language name="Bash" version="2.05" kateversion="2.4" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Bash" version="2.06" kateversion="2.4" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <!-- (c) 2004 by Wilbert Berendsen, wilbert@kde.nl
     Released under the LGPL, part of kdelibs/kate -->
@@ -504,7 +504,7 @@
 	<RegExpr attribute="Option" context="#stay" String="-[A-Za-z0-9]+" />
 	<RegExpr attribute="Option" context="#stay" String="--[a-z][A-Za-z0-9_-]*" />
 	<!-- handle variable assignments -->
-	<RegExpr attribute="Variable" context="Assign" String="\b&varname;=" />
+	<RegExpr attribute="Variable" context="Assign" String="\b&varname;\+?=" />
 	<RegExpr attribute="Variable" context="AssignSubscr" String="\b&varname;(?=\[[^]]+\]=)" />
 	<!-- handle functions with function keyword before keywords -->
 	<StringDetect attribute="Function" context="#stay" String=":()" />

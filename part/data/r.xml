@@ -8,7 +8,7 @@
 	R      : http://www.r-project.org/
 	RKWard : http://rkward.sourceforge.net/
 	-->
-<language version="2.00" kateversion="2.5" name="R Script" section="Scripts" extensions="*.R;*.r;*.S;*.s;*.q" mimetype="" license="GPL">
+<language version="2.01" kateversion="2.5" name="R Script" section="Scripts" extensions="*.R;*.r;*.S;*.s;*.q" mimetype="" license="GPL">
 <highlighting>
 
 	<list name="controls">
@@ -60,6 +60,12 @@
 
 		<context attribute="String" lineEndContext="#stay" name="string">
 			<DetectChar attribute="String" context="#pop" char="&quot;"/>
+			<DetectChar attribute="String" context="#pop" char="'"/>
+			<HlCStringChar attribute="String Char" context="#stay"/>
+		</context>
+		
+		<context attribute="Identifier" lineEndContext="#stay" name="backquotedsymbol">
+			<DetectChar attribute="String" context="#pop" char="`"/>
 			<HlCStringChar attribute="String Char" context="#stay"/>
 		</context>
 
@@ -69,6 +75,8 @@
 		<!-- This context is not really used, but contains the common rules -->
 		<context name="CommonRules" lineEndContext="#stay" attribute="Normal Text" >
 			<DetectChar attribute="String" context="string" char="&quot;"/>
+			<DetectChar attribute="String" context="string" char="'"/>
+			<DetectChar attribute="String" context="backquotedsymbol" char="`"/>
 			<keyword attribute="Control Structure" context="#stay" String="controls"/>
 			<keyword attribute="Reserved Words" context="#stay" String="words"/>
 			<Float attribute="Float" context="#stay"/>
@@ -102,6 +110,7 @@
 	<itemDatas>
 	<!-- KDE default colors: http://accessibility.kde.org/oxygen.php?color=white -->
 		<itemData name="Normal Text" defStyleNum="dsNormal"/>
+		<itemData name="Symbol" defStyleNum="dsNormal"/>
 		<itemData name="Keyword" defStyleNum="dsKeyword"/>
 		<itemData name="Identifier" defStyleNum="dsDataType"/>
 		<itemData name="String" defStyleNum="dsString"/>

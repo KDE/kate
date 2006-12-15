@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE  language SYSTEM "language.dtd">
-<language name="ASP" version="1.02" kateversion="2.1" section="Markup" extensions="*.asp;" mimetype="text/x-asp-src;text/x-asp-src" author="Antonio Salazar (savedfastcool@gmail.com)" license="LGPL">
+<language name="ASP" version="1.03" kateversion="2.1" section="Markup" extensions="*.asp;" mimetype="text/x-asp-src;text/x-asp-src" author="Antonio Salazar (savedfastcool@gmail.com)" license="LGPL">
     <highlighting>
         <list name="control structures">
             <item>select</item>
@@ -232,6 +232,7 @@
             <contexts>
             <context name="nosource" attribute="Normal Text" lineEndContext="#stay">
                 <StringDetect attribute="Keyword" context="aspsource" String="&lt;%" />
+                <RegExpr attribute="HTML Tag" context="aspsource" String="&lt;\s*script\s*language=&quot;VBScript&quot;[^&gt;]*&gt;" insensitive="TRUE" />
                 <RegExpr attribute="HTML Tag" context="scripts" String="&lt;\s*script(\s|&gt;)" insensitive="TRUE" />
                 <RegExpr attribute="HTML Tag" context="htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
                 <StringDetect attribute="HTML Comment" context="htmlcomment" String="&lt;!--" />
@@ -239,6 +240,7 @@
 
             <context name="aspsource" attribute="ASP Text" lineEndContext="#stay">
                 <StringDetect attribute="Keyword" context="#pop" String="%&gt;" />
+                <RegExpr attribute="HTML Tag" context="#pop" String="&lt;\s*\/\s*script\s*&gt;" insensitive="TRUE" />
                 <DetectChar attribute="Comment" context="asp_onelinecomment" char="'" />
                 <DetectChar attribute="String" context="doublequotestring" char="&quot;" />
                 <DetectChar attribute="String" context="singlequotestring" char="&#39;" />

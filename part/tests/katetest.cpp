@@ -220,7 +220,9 @@ void KWrite::setupActions()
   a=KStdAction::configureToolbars(this, SLOT(editToolbars()), actionCollection(), "set_configure_toolbars");
   a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
 
-  a=new KAction(i18n("&About Editor Component"), KShortcut(), this, SLOT(aboutEditor()), actionCollection(), "help_about_editor");
+  a=new KAction(actionCollection(), "help_about_editor");
+  a->setText(i18n("&About Editor Component"));
+  connect(a, SIGNAL(triggered()), this, SLOT(aboutEditor()));
 
 }
 

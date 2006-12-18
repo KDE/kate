@@ -29,7 +29,7 @@
 
 #include <kaction.h>
 #include <kicon.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include <k3spell.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
@@ -54,7 +54,7 @@ KateSpell::~KateSpell()
 
 void KateSpell::createActions( KActionCollection* ac )
 {
-   KStdAction::spelling( this, SLOT(spellcheck()), ac );
+   KStandardAction::spelling( this, SLOT(spellcheck()), ac );
    KAction *a = new KAction( i18n("Spelling (from cursor)..."), ac, "tools_spelling_from_cursor" );
    a->setIcon( KIcon( "spellcheck" ) );
    a->setWhatsThis(i18n("Check the document's spelling from the cursor and forward"));

@@ -61,7 +61,7 @@
 #include <kconfig.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include <kxmlguifactory.h>
 #include <kdebug.h>
 #include <kglobalsettings.h>

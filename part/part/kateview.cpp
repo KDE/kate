@@ -64,7 +64,7 @@
 #include <kcharsets.h>
 #include <kmessagebox.h>
 #include <kaction.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include <kxmlguifactory.h>
 #include <kxmlguiclient.h>
 #include <klibloader.h>
@@ -243,13 +243,13 @@ void KateView::setupActions()
 
   m_toggleWriteLock = 0;
 
-  m_cut = a=KStdAction::cut(this, SLOT(cut()), ac);
+  m_cut = a=KStandardAction::cut(this, SLOT(cut()), ac);
   a->setWhatsThis(i18n("Cut the selected text and move it to the clipboard"));
 
-  m_paste = a=KStdAction::pasteText(this, SLOT(paste()), ac);
+  m_paste = a=KStandardAction::pasteText(this, SLOT(paste()), ac);
   a->setWhatsThis(i18n("Paste previously copied or cut clipboard contents"));
 
-  m_copy = a=KStdAction::copy(this, SLOT(copy()), ac);
+  m_copy = a=KStandardAction::copy(this, SLOT(copy()), ac);
   a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard."));
 
   m_copyHTML = a = new KAction(KIcon("editcopy"), i18n("Copy as &HTML"), ac, "edit_copy_html");
@@ -258,13 +258,13 @@ void KateView::setupActions()
 
   if (!m_doc->readOnly())
   {
-    a=KStdAction::save(m_doc, SLOT(documentSave()), ac);
+    a=KStandardAction::save(m_doc, SLOT(documentSave()), ac);
     a->setWhatsThis(i18n("Save the current document"));
 
-    a=m_editUndo = KStdAction::undo(m_doc, SLOT(undo()), ac);
+    a=m_editUndo = KStandardAction::undo(m_doc, SLOT(undo()), ac);
     a->setWhatsThis(i18n("Revert the most recent editing actions"));
 
-    a=m_editRedo = KStdAction::redo(m_doc, SLOT(redo()), ac);
+    a=m_editRedo = KStandardAction::redo(m_doc, SLOT(redo()), ac);
     a->setWhatsThis(i18n("Revert the most recent undo operation"));
 
     a = new KAction(i18n("&Word Wrap Document"), ac, "tools_apply_wordwrap");
@@ -346,7 +346,7 @@ void KateView::setupActions()
     m_editRedo = 0;
   }
 
-  a=KStdAction::print( m_doc, SLOT(print()), ac );
+  a=KStandardAction::print( m_doc, SLOT(print()), ac );
   a->setWhatsThis(i18n("Print the current document."));
 
   a = new KAction(KIcon("reload"), i18n("Reloa&d"), ac, "file_reload");
@@ -354,10 +354,10 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Reload the current document from disk."));
   connect(a, SIGNAL(triggered(bool)), SLOT(reloadFile()));
 
-  a=KStdAction::saveAs(m_doc, SLOT(documentSaveAs()), ac);
+  a=KStandardAction::saveAs(m_doc, SLOT(documentSaveAs()), ac);
   a->setWhatsThis(i18n("Save the current document to disk, with a name of your choice."));
 
-  a=KStdAction::gotoLine(this, SLOT(gotoLine()), ac);
+  a=KStandardAction::gotoLine(this, SLOT(gotoLine()), ac);
   a->setWhatsThis(i18n("This command opens a dialog and lets you choose a line that you want the cursor to move to."));
 
   a = new KAction(i18n("&Configure Editor..."), ac, "set_confdlg");
@@ -383,10 +383,10 @@ void KateView::setupActions()
                       " with all highlighting information into a HTML document."));
   connect(a, SIGNAL(triggered(bool)), SLOT(exportAsHTML()));
 
-  m_selectAll = a=KStdAction::selectAll(this, SLOT(selectAll()), ac);
+  m_selectAll = a=KStandardAction::selectAll(this, SLOT(selectAll()), ac);
   a->setWhatsThis(i18n("Select the entire text of the current document."));
 
-  m_deSelect = a=KStdAction::deselect(this, SLOT(clearSelection()), ac);
+  m_deSelect = a=KStandardAction::deselect(this, SLOT(clearSelection()), ac);
   a->setWhatsThis(i18n("If you have selected something within the current document, this will no longer be selected."));
 
   a = new KAction(KIcon("viewmag+"), i18n("Enlarge Font"), ac, "incFontSizes");
@@ -471,20 +471,20 @@ void KateView::setupActions()
   // encoding menu
   new KateViewEncodingAction (m_doc, this, i18n("E&ncoding"), ac, "set_encoding");
 
-  a = KStdAction::find(this, SLOT(find()), ac);
+  a = KStandardAction::find(this, SLOT(find()), ac);
   a->setWhatsThis(i18n("Look up the first occurrence of a piece of text or regular expression."));
   addAction(a);
 
-  a = KStdAction::findNext(this, SLOT(findNext()), ac);
+  a = KStandardAction::findNext(this, SLOT(findNext()), ac);
   a->setWhatsThis(i18n("Look up the next occurrence of the search phrase."));
   addAction(a);
 
-  a = KStdAction::findPrev(this, SLOT(findPrevious()), ac, "edit_find_prev");
+  a = KStandardAction::findPrev(this, SLOT(findPrevious()), ac, "edit_find_prev");
   a->setWhatsThis(i18n("Look up the previous occurrence of the search phrase."));
   addAction(a);
 
   // TODO: something about "replace" (kling)
-  a = KStdAction::replace(m_search, SLOT(replace()), ac);
+  a = KStandardAction::replace(m_search, SLOT(replace()), ac);
   a->setWhatsThis(i18n("Look up a piece of text or regular expression and replace the result with some given text."));
 
   m_spell->createActions( ac );

@@ -29,7 +29,7 @@
 #include "kateconfig.h"
 
 #include <klocale.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include <kpushbutton.h>
 #include <kaction.h>
 #include <kmessagebox.h>
@@ -62,19 +62,19 @@ KateSearch::~KateSearch()
 
 void KateSearch::createActions( KActionCollection* ac )
 {
-  KAction* a = KStdAction::find( this, SLOT(find()), ac );
+  KAction* a = KStandardAction::find( this, SLOT(find()), ac );
   a->setWhatsThis(i18n("Look up the first occurrence of a piece of text or regular expression."));
   m_view->addAction(a);
 
-  a = KStdAction::findNext( this, SLOT(slotFindNext()), ac );
+  a = KStandardAction::findNext( this, SLOT(slotFindNext()), ac );
   a->setWhatsThis(i18n("Look up the next occurrence of the search phrase."));
   m_view->addAction(a);
 
-  a = KStdAction::findPrev( this, SLOT(slotFindPrev()), ac, "edit_find_prev" );
+  a = KStandardAction::findPrev( this, SLOT(slotFindPrev()), ac, "edit_find_prev" );
   a->setWhatsThis(i18n("Look up the previous occurrence of the search phrase."));
   m_view->addAction(a);
 
-  a = KStdAction::replace( this, SLOT(replace()), ac );
+  a = KStandardAction::replace( this, SLOT(replace()), ac );
   a->setWhatsThis(i18n("Look up a piece of text or regular expression and replace the result with some given text."));
 }
 

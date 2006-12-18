@@ -50,7 +50,7 @@
 #include <kparts/event.h>
 #include <krecentfilesaction.h>
 #include <kstatusbar.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include <ksqueezedtextlabel.h>
 #include <kstringhandler.h>
 #include <kurl.h>
@@ -161,14 +161,14 @@ KWrite::~KWrite()
 
 void KWrite::setupActions()
 {
-  KStdAction::close( this, SLOT(slotFlush()), actionCollection(), "file_close" )->setWhatsThis(i18n("Use this to close the current document"));
+  KStandardAction::close( this, SLOT(slotFlush()), actionCollection(), "file_close" )->setWhatsThis(i18n("Use this to close the current document"));
 
   // setup File menu
-  KStdAction::print(this, SLOT(printDlg()), actionCollection())->setWhatsThis(i18n("Use this command to print the current document"));
-  KStdAction::openNew( this, SLOT(slotNew()), actionCollection(), "file_new" )->setWhatsThis(i18n("Use this command to create a new document"));
-  KStdAction::open( this, SLOT( slotOpen() ), actionCollection(), "file_open" )->setWhatsThis(i18n("Use this command to open an existing document for editing"));
+  KStandardAction::print(this, SLOT(printDlg()), actionCollection())->setWhatsThis(i18n("Use this command to print the current document"));
+  KStandardAction::openNew( this, SLOT(slotNew()), actionCollection(), "file_new" )->setWhatsThis(i18n("Use this command to create a new document"));
+  KStandardAction::open( this, SLOT( slotOpen() ), actionCollection(), "file_open" )->setWhatsThis(i18n("Use this command to open an existing document for editing"));
 
-  m_recentFiles = KStdAction::openRecent(this, SLOT(slotOpen(const KUrl&)),
+  m_recentFiles = KStandardAction::openRecent(this, SLOT(slotOpen(const KUrl&)),
                                          actionCollection());
   m_recentFiles->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
@@ -180,22 +180,22 @@ void KWrite::setupActions()
   connect( a, SIGNAL(triggered()), this, SLOT(changeEditor()) );
   a->setWhatsThis(i18n("Override the system wide setting for the default editing component"));
 
-  KStdAction::quit(this, SLOT(close()), actionCollection())->setWhatsThis(i18n("Close the current document view"));
+  KStandardAction::quit(this, SLOT(close()), actionCollection())->setWhatsThis(i18n("Close the current document view"));
 
   // setup Settings menu
   setStandardToolBarMenuEnabled(true);
 
-  m_paShowStatusBar = KStdAction::showStatusbar(this, SLOT(toggleStatusBar()), actionCollection(), "settings_show_statusbar");
+  m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleStatusBar()), actionCollection(), "settings_show_statusbar");
   m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
   m_paShowPath = new KToggleAction( i18n("Sho&w Path"), actionCollection(), "set_showPath" );
   connect( m_paShowPath, SIGNAL(triggered()), this, SLOT(documentNameChanged()) );
   m_paShowPath->setCheckedState(KGuiItem(i18n("Hide Path")));
   m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
-  a=KStdAction::keyBindings(this, SLOT(editKeys()), actionCollection());
+  a=KStandardAction::keyBindings(this, SLOT(editKeys()), actionCollection());
   a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
 
-  a = KStdAction::configureToolbars(this, SLOT(editToolbars()), actionCollection(), "set_configure_toolbars");
+  a = KStandardAction::configureToolbars(this, SLOT(editToolbars()), actionCollection(), "set_configure_toolbars");
   a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
 
   a = new KAction( i18n("&About Editor Component"), actionCollection(), "help_about_editor" );

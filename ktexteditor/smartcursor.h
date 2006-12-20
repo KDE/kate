@@ -121,7 +121,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     virtual bool atEndOfDocument() const;
 
     /**
-     * \overload Cursor::isValid()
+     * \overload bool Cursor::isValid()
      * \sa Document::cursorInText()
      */
     virtual bool isValid() const;
@@ -171,7 +171,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      * \param mode whether to move by character, or by number of valid cursor positions
      *
      * \return true if the position could be reached within the document, otherwise false
-     *         (the cursor should not move if \distance is beyond the end of the document).
+     *         (the cursor should not move if \a distance is beyond the end of the document).
      */
     virtual bool advance(int distance, AdvanceMode mode = ByCharacter);
     //END

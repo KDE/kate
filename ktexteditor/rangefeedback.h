@@ -175,7 +175,7 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
      * The range \a child was inserted as a child range into the current \a range.
      *
      * \param range pointer to the range which generated the notification.
-     * \param range pointer to the range which was inserted as a child range.
+     * \param child pointer to the range which was inserted as a child range.
      */
     void childRangeInserted(KTextEditor::SmartRange* range, KTextEditor::SmartRange* child);
 
@@ -183,7 +183,7 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
      * The child range \a child was removed from the current \a range.
      *
      * \param range pointer to the range which generated the notification.
-     * \param range pointer to the child range which was removed.
+     * \param child pointer to the child range which was removed.
      */
     void childRangeRemoved(KTextEditor::SmartRange* range, KTextEditor::SmartRange* child);
 

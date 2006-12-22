@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kwrite" version="15">
+<kpartgui name="kwrite" version="16">
 
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
@@ -55,7 +55,7 @@
     <Action name="set_showPath" append="show_merge"/>
     <DefineGroup name="show_merge" />
     <DefineGroup name="configure_merge" append="save_merge"/>
-    <Action name="set_configure_toolbars" append="configure_merge"/>
+    <Action name="options_configure_toolbars"/>
     <Action name="settings_configure" append="configure_merge"/>
     <Action name="settings_choose_editor" append="save_merge"/>
   </Menu>

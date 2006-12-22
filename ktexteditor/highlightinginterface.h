@@ -100,7 +100,7 @@ class KTEXTEDITOR_EXPORT HighlightingInterface
     virtual bool setHighlighting(const QString &name) = 0;
 
   /*
-   * Important signals which are emited from the highlighting system
+   * Important signals which are emitted from the highlighting system
    */
   public:
     /**

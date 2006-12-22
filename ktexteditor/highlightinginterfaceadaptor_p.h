@@ -70,7 +70,7 @@ class HighlightingInterfaceAdaptor: public QDBusAbstractAdaptor
     QStringList highlightings() const { return m_iface->highlightings (); }
 
   /*
-   * Important signals which are emited from the highlighting system
+   * Important signals which are emitted from the highlighting system
    */
   Q_SIGNALS:
     /**

@@ -1252,7 +1252,7 @@ void KateModOnHdPrompt::slotButtonClicked(int button)
            "will overwrite the file on disk; if you do not save then the disk "
            "file (if present) is what you have."),
            i18n("You Are on Your Own"),
-           KStdGuiItem::cont(),
+           KStandardGuiItem::cont(),
            "kate_ignore_modonhd" ) != KMessageBox::Continue )
         return;
       done( Ignore );

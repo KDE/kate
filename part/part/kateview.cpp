@@ -71,7 +71,7 @@
 #include <kencodingfiledialog.h>
 #include <ktemporaryfile.h>
 #include <ksavefile.h>
-#include <kstdaccel.h>
+#include <kstandardshortcut.h>
 #include <kmenu.h>
 #include <ktoggleaction.h>
 #include <kselectaction.h>
@@ -350,7 +350,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Print the current document."));
 
   a = new KAction(KIcon("reload"), i18n("Reloa&d"), ac, "file_reload");
-  a->setShortcut(KStdAccel::reload());
+  a->setShortcut(KStandardShortcut::reload());
   a->setWhatsThis(i18n("Reload the current document from disk."));
   connect(a, SIGNAL(triggered(bool)), SLOT(reloadFile()));
 
@@ -508,7 +508,7 @@ void KateView::setupEditActions()
   KActionCollection* ac = m_editActions;
 
   KAction* a = new KAction( i18n("Move Word Left"), ac, "word_left" );
-  a->setShortcut(KStdAccel::backwardWord());
+  a->setShortcut(KStandardShortcut::backwardWord());
   connect(a, SIGNAL(triggered(bool)),  SLOT(wordLeft()));
 
   a = new KAction( i18n("Select Character Left"), ac, "select_char_left" );
@@ -525,7 +525,7 @@ void KateView::setupEditActions()
   connect(a, SIGNAL(triggered(bool)), SLOT(wordRight()));
 
   a = new KAction( i18n("Select Character Right"), ac, "select_char_right" );
-  a->setShortcut(KStdAccel::forwardWord());
+  a->setShortcut(KStandardShortcut::forwardWord());
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftCursorRight()));
 
   a = new KAction( i18n("Select Word Right"), ac, "select_word_right" );
@@ -538,7 +538,7 @@ void KateView::setupEditActions()
   connect(a, SIGNAL(triggered(bool)), SLOT(home()));
 
   a = new KAction( i18n("Move to Beginning of Document"), ac, "beginning_of_document" );
-  a->setShortcut(KStdAccel::home());
+  a->setShortcut(KStandardShortcut::home());
   connect(a, SIGNAL(triggered(bool)), SLOT(top()));
 
   a = new KAction( i18n("Select to Beginning of Line"), ac, "select_beginning_of_line" );
@@ -555,7 +555,7 @@ void KateView::setupEditActions()
   connect(a, SIGNAL(triggered(bool)), SLOT(end()));
 
   a = new KAction( i18n("Move to End of Document"), ac, "end_of_document" );
-  a->setShortcut(KStdAccel::end());
+  a->setShortcut(KStandardShortcut::end());
   connect(a, SIGNAL(triggered(bool)), SLOT(bottom()));
 
   a = new KAction( i18n("Select to End of Line"), ac, "select_end_of_line" );
@@ -606,7 +606,7 @@ void KateView::setupEditActions()
 
 
   a = new KAction( i18n("Scroll Page Up"), ac, "scroll_page_up" );
-  a->setShortcut(KStdAccel::prior());
+  a->setShortcut(KStandardShortcut::prior());
   connect(a, SIGNAL(triggered(bool)), SLOT(pageUp()));
 
   a = new KAction( i18n("Select Page Up"), ac, "select_page_up" );
@@ -623,7 +623,7 @@ void KateView::setupEditActions()
 
 
   a = new KAction( i18n("Scroll Page Down"), ac, "scroll_page_down" );
-  a->setShortcut(KStdAccel::next());
+  a->setShortcut(KStandardShortcut::next());
   connect(a, SIGNAL(triggered(bool)), SLOT(pageDown()));
 
   a = new KAction( i18n("Select Page Down"), ac, "select_page_down" );
@@ -659,11 +659,11 @@ void KateView::setupEditActions()
     connect(a, SIGNAL(triggered(bool)), SLOT(killLine()));
 
     a = new KAction( i18n("Delete Word Left"), ac, "delete_word_left" );
-    a->setShortcut(KStdAccel::deleteWordBack());
+    a->setShortcut(KStandardShortcut::deleteWordBack());
     connect(a, SIGNAL(triggered(bool)), SLOT(deleteWordLeft()));
 
     a = new KAction( i18n("Delete Word Right"), ac, "delete_word_right" );
-    a->setShortcut(KStdAccel::deleteWordForward());
+    a->setShortcut(KStandardShortcut::deleteWordForward());
     connect(a, SIGNAL(triggered(bool)), SLOT(deleteWordRight()));
 
     a = new KAction(i18n("Delete Next Character"), ac, "delete_next_character");

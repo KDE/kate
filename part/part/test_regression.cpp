@@ -576,7 +576,12 @@ int main(int argc, char *argv[])
     if (!getenv("KDE_DEBUG")) {
         // set ulimits
         rlimit vmem_limit = { 256*1024*1024, RLIM_INFINITY };	// 256Mb Memory should suffice
+#if defined(RLIMIT_AS)
         setrlimit(RLIMIT_AS, &vmem_limit);
+#endif
+#if defined(RLIMIT_DATA)
+        setrlimit(RLIMIT_DATA, &vmem_limit);
+#endif
         rlimit stack_limit = { 8*1024*1024, RLIM_INFINITY };	// 8Mb Memory should suffice
         setrlimit(RLIMIT_STACK, &stack_limit);
     }

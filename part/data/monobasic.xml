@@ -4,13 +4,13 @@
 <!--
     Mono Basic syntax
 
-    Created: Davide Bettio <windowsuninstall@alproject.org>
+    Created: Davide Bettio <davide.bettio@kdemail.net>
     Date: 09/09/2005
-    Version: 1.0
+    Version: 1.01
     License: GNU General Public License
 -->
 
-<language name="MonoBasic" section="Sources" version="1.00" kateversion="2.3" extensions="*.vb" mimetype="" author="Davide Bettio (windowsuninstall@alproject.org)" license="GPL">
+<language name="MonoBasic" section="Sources" version="1.01" kateversion="2.3" extensions="*.vb" mimetype="" author="Davide Bettio (davide.bettio@kdemail.net)" license="GPL">
   <highlighting>
      <list name="keywords">
         <item> Option </item>

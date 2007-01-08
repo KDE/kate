@@ -448,8 +448,8 @@ class KateViewHighlightAction: public KActionMenu
   Q_OBJECT
 
   public:
-    KateViewHighlightAction(const QString& text, KActionCollection *parent = 0, const char* name = 0)
-       : KActionMenu(text, parent, name) { init(); };
+    KateViewHighlightAction(const QString& text, QObject *parent)
+       : KActionMenu(text, parent) { init(); };
 
     ~KateViewHighlightAction();
 

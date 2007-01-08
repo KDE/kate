@@ -32,6 +32,7 @@
 #include <kstandardaction.h>
 #include <kpushbutton.h>
 #include <kaction.h>
+#include <kactioncollection.h>
 #include <kmessagebox.h>
 #include <kstringhandler.h>
 #include <kdebug.h>
@@ -62,20 +63,20 @@ KateSearch::~KateSearch()
 
 void KateSearch::createActions( KActionCollection* ac )
 {
-  KAction* a = KStandardAction::find( this, SLOT(find()), ac );
-  a->setWhatsThis(i18n("Look up the first occurrence of a piece of text or regular expression."));
-  m_view->addAction(a);
+    QAction* a = ac->addAction( KStandardAction::Find, this, SLOT(find()) );
+    a->setWhatsThis(i18n("Look up the first occurrence of a piece of text or regular expression."));
+    m_view->addAction(a);
 
-  a = KStandardAction::findNext( this, SLOT(slotFindNext()), ac );
-  a->setWhatsThis(i18n("Look up the next occurrence of the search phrase."));
-  m_view->addAction(a);
+    a = ac->addAction( KStandardAction::FindNext, this, SLOT(slotFindNext()) );
+    a->setWhatsThis(i18n("Look up the next occurrence of the search phrase."));
+    m_view->addAction(a);
 
-  a = KStandardAction::findPrev( this, SLOT(slotFindPrev()), ac, "edit_find_prev" );
-  a->setWhatsThis(i18n("Look up the previous occurrence of the search phrase."));
-  m_view->addAction(a);
+    a = ac->addAction( KStandardAction::FindPrev, "edit_find_prev", this, SLOT(slotFindPrev()) );
+    a->setWhatsThis(i18n("Look up the previous occurrence of the search phrase."));
+    m_view->addAction(a);
 
-  a = KStandardAction::replace( this, SLOT(replace()), ac );
-  a->setWhatsThis(i18n("Look up a piece of text or regular expression and replace the result with some given text."));
+    a = ac->addAction( KStandardAction::Replace, this, SLOT(replace()) );
+    a->setWhatsThis(i18n("Look up a piece of text or regular expression and replace the result with some given text."));
 }
 
 void KateSearch::addToList( QStringList& list, const QString& s )

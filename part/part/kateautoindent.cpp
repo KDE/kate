@@ -169,9 +169,9 @@ void KateAutoIndent::keepIndent ( KateView *view, int line )
   // no line in front, no work...
   if (line <= 0)
     return;
-  
+
   KateTextLine::Ptr textline = doc->plainKateTextLine(line-1);
-  
+
   // textline not found, cu
   if (!textline)
     return;
@@ -192,7 +192,7 @@ void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &po
   {
     // keep indent of previous line
     keepIndent (view, position.line());
-   
+
     return;
   }
 
@@ -284,7 +284,7 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
 
     // keep indent of previous line
     keepIndent (view, position.line());
-   
+
     return;
   }
 
@@ -302,8 +302,8 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
 //END KateAutoIndent
 
 //BEGIN KateViewIndentAction
-KateViewIndentationAction::KateViewIndentationAction(KateDocument *_doc, const QString& text, KActionCollection* parent, const char* name)
-       : KActionMenu (text, parent, name), doc(_doc)
+KateViewIndentationAction::KateViewIndentationAction(KateDocument *_doc, const QString& text, QObject *parent)
+       : KActionMenu (text, parent), doc(_doc)
 {
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 

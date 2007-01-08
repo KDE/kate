@@ -21,6 +21,7 @@
 #include "kate_kdatatool.moc"
 #include <kgenericfactory.h>
 #include <kaction.h>
+#include <kactioncollection.h>
 #include <ktexteditor/view.h>
 #include <kdebug.h>
 #include <kdatatool.h>
@@ -73,7 +74,8 @@ KDataToolPluginView::KDataToolPluginView( KTextEditor::View *view )
 	view->insertChildClient (this);
 	setInstance( KGenericFactory<KDataToolPlugin>::instance() );
 
-	m_menu = new KActionMenu(i18n("Data Tools"), actionCollection(), "popup_dataTool");
+	m_menu = new KActionMenu(i18n("Data Tools"), this);
+        actionCollection()->addAction("popup_dataTool", m_menu);
 	connect(m_menu->menu(), SIGNAL(aboutToShow()), this, SLOT(aboutToShow()));
 	setXMLFile("ktexteditor_kdatatoolui.rc");
 
@@ -144,7 +146,8 @@ void KDataToolPluginView::aboutToShow()
 			m_singleWord = true;
 			m_singleWord_line = line;
 		} else {
-			m_notAvailable = new KAction(i18n("(not available)"), actionCollection(),"dt_n_av");
+                        m_notAvailable = new KAction(i18n("(not available)"), this );
+                        actionCollection()->addAction("dt_n_av", m_notAvailable);
                         connect( m_notAvailable, SIGNAL( triggered( bool ) ), this, SLOT(slotNotAvailable()) );
 			m_menu->addAction(m_notAvailable);
 			return;
@@ -166,8 +169,9 @@ void KDataToolPluginView::aboutToShow()
 		m_menu->addAction(ac);
 
 	if( m_actionList.isEmpty() ) {
-		m_notAvailable = new KAction(i18n("(not available)"), actionCollection(),"dt_n_av");
-    connect( m_notAvailable, SIGNAL( triggered( bool ) ), this, SLOT(slotNotAvailable()) );
+                m_notAvailable = new KAction(i18n("(not available)"), this);
+                actionCollection()->addAction("dt_n_av", m_notAvailable);
+                connect( m_notAvailable, SIGNAL( triggered( bool ) ), this, SLOT(slotNotAvailable()) );
 		m_menu->addAction(m_notAvailable);
 	}
 }

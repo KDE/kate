@@ -1303,8 +1303,8 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
 }
 //END KateIconBorder
 
-KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, KActionCollection* parent, const char* name)
-       : KActionMenu (text, parent, name), doc(_doc), view (_view)
+KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject *parent)
+       : KActionMenu (text, parent), doc(_doc), view (_view)
 {
   m_actions=new QActionGroup(this);
   m_actions->setExclusive(true);

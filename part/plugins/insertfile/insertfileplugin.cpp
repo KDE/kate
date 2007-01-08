@@ -24,6 +24,7 @@
 #include <assert.h>
 #include <kio/job.h>
 #include <kaction.h>
+#include <kactioncollection.h>
 #include <kfiledialog.h>
 #include <kgenericfactory.h>
 #include <klocale.h>
@@ -83,7 +84,8 @@ InsertFilePluginView::InsertFilePluginView( KTextEditor::View *view, const char 
   setInstance( KGenericFactory<InsertFilePlugin>::instance() );
   _job = 0;
 
-  KAction *action = new KAction( i18n("Insert File..."), actionCollection(), "tools_insert_file" );
+  KAction *action = new KAction( i18n("Insert File..."), this );
+  actionCollection()->addAction( "tools_insert_file", action );
   connect( action, SIGNAL( triggered( bool ) ), this, SLOT(slotInsertFile()) );
 
   setXMLFile( "ktexteditor_insertfileui.rc" );

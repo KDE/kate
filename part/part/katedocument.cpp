@@ -83,8 +83,6 @@
 #include <QMutex>
 //END  includes
 
-static bool s_openErrorDialogsActivated = true;
-
 //BEGIN PRIVATE CLASSES
 class KatePartPluginItem
 {
@@ -2030,7 +2028,7 @@ void KateDocument::readSessionConfig(KConfig *kconfig)
 void KateDocument::writeSessionConfig(KConfig *kconfig)
 {
   if ( m_url.isLocalFile() && !KGlobal::dirs()->relativeLocation("tmp", m_url.path()).startsWith("/"))
-       return;	
+       return;
   // save url
   kconfig->writeEntry("URL", m_url.prettyUrl() );
 
@@ -2392,7 +2390,6 @@ bool KateDocument::openFile()
 
 bool KateDocument::openFile(KIO::Job * job)
 {
-  bool showDialog=!suppressOpeningErrorDialogs();
   // add new m_file to dirwatch
   activateDirWatch ();
 
@@ -2499,7 +2496,7 @@ bool KateDocument::openFile(KIO::Job * job)
   //
   // display errors
   //
-  if (s_openErrorDialogsActivated && showDialog)
+  if (!suppressOpeningErrorDialogs())
   {
     if (!success)
       KMessageBox::error (widget(), i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.", m_url.url()));
@@ -2516,7 +2513,7 @@ bool KateDocument::openFile(KIO::Job * job)
     // this file can't be saved again without killing it
     setReadWrite( false );
 
-    if(showDialog)
+    if(!suppressOpeningErrorDialogs())
       KMessageBox::information (widget()
         , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", m_url.url())
         , i18n ("Binary File Opened")
@@ -2532,7 +2529,7 @@ bool KateDocument::openFile(KIO::Job * job)
     // this file can't be saved again without killing it
     setReadWrite( false );
 
-    if (showDialog)
+    if (!suppressOpeningErrorDialogs())
       KMessageBox::information (widget()
         , i18n ("The file %1 was opened with UTF-8 encoding but contained invalid characters."
                 " It is set to read-only mode, as saving might destroy it's content."

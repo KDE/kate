@@ -95,9 +95,6 @@
 </MenuBar>
 
 <Menu name="ktexteditor_popup" noMerge="0">
-  <Action name="edit_undo" group="popup_operations" />
-  <Action name="edit_redo" group="popup_operations" />
-  <Separator group="popup_operations" />
   <Action name="edit_cut" group="popup_operations" />
   <Action name="edit_copy" group="popup_operations" />
   <Action name="edit_paste" group="popup_operations" />
@@ -112,15 +109,8 @@
 <ToolBar name="mainToolBar" noMerge="1"><text>Main Toolbar</text>
   <Action name="file_save" group="file_operations" />
   <Action name="file_save_as" group="file_operations" />
-  <Action name="file_print" group="print_merge" />
   <Action name="edit_undo" group="edit_operations" />
   <Action name="edit_redo" group="edit_operations" />
-  <Action name="edit_cut" group="edit_operations" />
-  <Action name="edit_copy" group="edit_operations" />
-  <Action name="edit_paste" group="edit_operations" />
-  <Action name="edit_find" group="find_operations" />
-  <Action name="incFontSizes" group="zoom_operations" />
-  <Action name="decFontSizes" group="zoom_operations" />
 </ToolBar>
 
 </kpartgui>

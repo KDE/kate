@@ -4,5 +4,6 @@ Type=ServiceType
 X-KDE-ServiceType=KTextEditor/Plugin
 X-KDE-Derived=
 Comment=KTextEditor Plugin
+Comment[el]=Πρόσθετο KTextEditor
 Comment[fr]=Module externe KTextEditor
 Comment[x-test]=xxKTextEditor Pluginxx

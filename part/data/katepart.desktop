@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Embedded Advanced Text Editor
+Name[el]=Ενσωματωμένος προχωρημένος επεξεργαστής κειμένου
 Name[fr]=Éditeur de texte avancé intégré
 Name[x-test]=xxEmbedded Advanced Text Editorxx
 X-KDE-Library=katepart

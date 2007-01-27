@@ -305,7 +305,7 @@ KTextEditor::Cursor KateViewInternal::endPos() const
   if (!cache()->viewCacheLineCount())
     return KTextEditor::Cursor();
 
-  for (int i = qMax(1, cache()->viewCacheLineCount() - 1); i >= 0; i--) {
+  for (int i = qMin(linesDisplayed() - 1, cache()->viewCacheLineCount() - 1); i >= 0; i--) {
     const KateTextLayout& thisLine = cache()->viewLine(i);
 
     if (thisLine.line() == -1) continue;
@@ -704,7 +704,9 @@ int KateViewInternal::linesDisplayed() const
   int h = height();
   int fh = renderer()->fontHeight();
 
-  return (h - (h % fh)) / fh;
+  // default to 1, there is always one line around....
+  // too many places calc with linesDisplayed() - 1
+  return qMax (1, (h - (h % fh)) / fh);
 }
 
 QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor, bool realCursor ) const

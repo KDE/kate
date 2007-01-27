@@ -305,7 +305,7 @@ KTextEditor::Cursor KateViewInternal::endPos() const
   if (!cache()->viewCacheLineCount())
     return KTextEditor::Cursor();
 
-  for (int i = qMin(linesDisplayed() - 1, cache()->viewCacheLineCount() - 1); i >= 0; i--) {
+  for (int i = qMax(1, cache()->viewCacheLineCount() - 1); i >= 0; i--) {
     const KateTextLayout& thisLine = cache()->viewLine(i);
 
     if (thisLine.line() == -1) continue;

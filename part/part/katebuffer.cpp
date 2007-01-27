@@ -626,7 +626,7 @@ bool KateBuffer::saveFile (const QString &m_file)
 
       if (lastChar > -1)
       {
-        stream << textline->string().left(lastChar);
+        stream << textline->string().left(lastChar+1);
       }
     }
     else // simple, dump the line

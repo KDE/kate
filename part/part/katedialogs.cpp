@@ -105,6 +105,7 @@
 #include <qtoolbutton.h>
 #include <QComboBox>
 #include <QWhatsThis>
+#include <QKeyEvent>
 
 // trailing slash is important
 #define HLDOWNLOADPATH "http://kate.kde.org/syntax/"
@@ -1060,30 +1061,60 @@ void KateHlDownloadDialog::slotUser1()
 }
 //END KateHlDownloadDialog
 
-//BEGIN KateGotoLineDialog
-KateGotoBar::KateGotoBar(KateViewBar *parent, int line, int max)
+//BEGIN KateGotoBar
+KateGotoBar::KateGotoBar(KateViewBar *parent)
   : KateViewBarWidget( parent )
 {
-  QVBoxLayout *topLayout = new QVBoxLayout( centralWidget() );
-  topLayout->setMargin( 0);
+  QHBoxLayout *topLayout = new QHBoxLayout( centralWidget() );
+  topLayout->setMargin(0);
   //topLayout->setSpacing(spacingHint());
-  e1 = new KIntNumInput(line,centralWidget());
-  e1->setRange(1, max);
-  e1->setEditFocus(true);
+  gotoRange = new KIntNumInput(1, centralWidget());
+  gotoRange->setRange(1, 100);
+  gotoRange->setEditFocus(true);
 
   QLabel *label = new QLabel(i18n("&Go to line:"), centralWidget() );
-  label->setBuddy(e1);
+  label->setBuddy(gotoRange);
+
+  btnOK = new QToolButton();
+  btnOK->setAutoRaise(true);
+  btnOK->setIcon(QIcon(SmallIcon("goto")));
+  btnOK->setText(i18n("Go"));
+  btnOK->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+  connect(btnOK, SIGNAL(clicked()), this, SLOT(gotoLine()));
+
   topLayout->addWidget(label);
-  topLayout->addWidget(e1);
-  //topLayout->addSpacing(spacingHint()); // A little bit extra space
-  topLayout->addStretch(10);
-  e1->setFocus();
+  topLayout->addWidget(gotoRange, 1);
+  topLayout->addWidget(btnOK);
 }
 
-int KateGotoBar::getLine() {
-  return e1->value();
+void KateGotoBar::showBar()
+{
+  KateView* view = viewBar()->view();
+  gotoRange->setMaximum(view->doc()->lines());
+  if (!isVisible())
+    gotoRange->setValue(view->cursorPosition().line() + 1);
+  gotoRange->setEditFocus(true);
+
+  KateViewBarWidget::showBar();
 }
-//END KateGotoLineDialog
+
+void KateGotoBar::keyPressEvent(QKeyEvent* event)
+{
+  int key = event->key();
+  if (key == Qt::Key_Return || key == Qt::Key_Enter) {
+    gotoLine();
+    return;
+  }
+  KateViewBarWidget::keyPressEvent(event);
+}
+
+void KateGotoBar::gotoLine()
+{
+  viewBar()->view()->setCursorPosition( KTextEditor::Cursor(gotoRange->value() - 1, 0) );
+  viewBar()->view()->setFocus();
+  hideBar();
+}
+//END KateGotoBar
 
 //BEGIN KateModOnHdPrompt
 KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,

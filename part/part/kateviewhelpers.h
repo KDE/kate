@@ -106,7 +106,7 @@ class KateCmdLine : public KLineEdit
     virtual bool event(QEvent *e);
   private Q_SLOTS:
     void slotReturnPressed ( const QString& cmd );
-    void hideMe ();
+    void hideBar ();
 
   protected:
     void focusInEvent ( QFocusEvent *ev );
@@ -231,11 +231,11 @@ class KateViewBarWidget : public QWidget
     QWidget *centralWidget () { return m_centralWidget; }
 
   public Q_SLOTS:
-    void showMe ();
-    void hideMe ();
+    void showBar ();
+    void hideBar ();
 
   protected:
-    // allow subclass to avoid hidding...
+    // allow subclass to avoid hiding...
     virtual bool hideIsTriggered () { return true; }
 
   private:
@@ -254,6 +254,9 @@ class KateViewBar : public QStackedWidget
 
     KateView *view () { return m_view; }
 
+  protected:
+    virtual void keyPressEvent(QKeyEvent* event);
+
   private:
     void addBarWidget (KateViewBarWidget *newBarWidget);
     void showBarWidget (KateViewBarWidget *barWidget);
@@ -261,7 +264,6 @@ class KateViewBar : public QStackedWidget
 
   private:
     KateView *m_view;
-    int m_activeViews;
 };
 
 #endif

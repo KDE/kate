@@ -72,7 +72,9 @@ class QLineEdit;
 class QPushButton;
 class QRadioButton;
 class QSpinBox;
+class QToolButton;
 class QCheckBox;
+class QKeyEvent;
 
 namespace Ui
 {
@@ -111,12 +113,20 @@ class KateGotoBar : public KateViewBarWidget
   Q_OBJECT
 
   public:
-    KateGotoBar(KateViewBar *parent, int line, int max);
-    int getLine();
+    KateGotoBar(KateViewBar *parent);
+
+  public Q_SLOTS:
+    void showBar();
+
+  protected Q_SLOTS:
+    void gotoLine();
 
   protected:
-    KIntNumInput *e1;
-    QPushButton *btnOK;
+    virtual void keyPressEvent(QKeyEvent* event);
+
+  private:
+    KIntNumInput *gotoRange;
+    QToolButton *btnOK;
 };
 
 class KateIndentConfigTab : public KateConfigPage

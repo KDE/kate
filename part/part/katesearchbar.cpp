@@ -54,7 +54,6 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     connect(d->expressionEdit, SIGNAL(textChanged(const QString &)), this, SLOT(slotSearch()));
     connect(d->expressionEdit, SIGNAL(findNext()), this, SLOT(findNext()));
     connect(d->expressionEdit, SIGNAL(findPrevious()), this, SLOT(findPrevious()));
-    connect(d->expressionEdit, SIGNAL(escapePressed()), this, SLOT(slotEscapePressed()));
 
     d->caseSensitiveBox = new QCheckBox(i18n("&Case Sensitive"));
     connect(d->caseSensitiveBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
@@ -129,11 +128,6 @@ void KateSearchBar::doSearch(const QString &expression, bool backwards)
     d->expressionEdit->setStatus(foundMatch ? (wrapped ? KateSearchBarEdit::SearchWrapped : KateSearchBarEdit::Normal) : KateSearchBarEdit::NotFound);
 }
 
-void KateSearchBar::slotEscapePressed()
-{
-    emit hidden();
-}
-
 void KateSearchBarEdit::setStatus(Status status)
 {
     QPalette pal;
@@ -183,6 +177,8 @@ KateSearchBarEdit::KateSearchBarEdit(QWidget *parent)
 {
 }
 
+// NOTE: void keyPressEvent(QKeyEvent* ev) does not grab Qt::Key_Tab.
+// No idea, why... but that's probably why we use ::event here.
 bool KateSearchBarEdit::event(QEvent *e)
 {
     if (e->type() == QEvent::KeyPress)
@@ -195,9 +191,6 @@ bool KateSearchBarEdit::event(QEvent *e)
                 return true;
             case Qt::Key_Backtab:
                 emit findPrevious();
-                return true;
-            case Qt::Key_Escape:
-                emit escapePressed();
                 return true;
         }
     }

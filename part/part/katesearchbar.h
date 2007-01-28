@@ -37,11 +37,7 @@ public Q_SLOTS:
     void findNext();
     void findPrevious();
 
-Q_SIGNALS:
-    void hidden();
-
 private Q_SLOTS:
-    void slotEscapePressed();
     void slotSearch();
 
 private:
@@ -67,7 +63,7 @@ Q_SIGNALS:
     void findPrevious();
     void escapePressed();
 
-private:
+protected:
     bool event(QEvent *);
     void showEvent(QShowEvent *);
 };

@@ -957,18 +957,10 @@ void KateView::gotoLine()
 {
   // no around, create one...
   if (!m_gotoBar)
-    m_gotoBar = new KateGotoBar (m_viewBar, 0, 1000);
-
-//  KateGotoLineDialog *dlg = new KateGotoLineDialog (this, m_viewInternal->getCursor().line() + 1, m_doc->lines());
+    m_gotoBar = new KateGotoBar (m_viewBar);
 
   // show it
-  m_gotoBar->showMe();
-
-  // focus
-  m_gotoBar->setFocus ();
-
-  //if (dlg->exec() == QDialog::Accepted)
-    //setCursorPositionInternal( KTextEditor::Cursor(dlg->getLine() - 1, 0) );
+  m_gotoBar->showBar ();
 }
 
 void KateView::joinLines()
@@ -1130,15 +1122,9 @@ void KateView::slotNeedTextHint(int line, int col, QString &text)
   text=QString("test %1 %2").arg(line).arg(col);
 }
 
-void KateView::slotHideSearchBar()
-{
-  m_searchBar->hideMe();
-  setFocus();
-}
-
 void KateView::find()
 {
-  m_searchBar->showMe();
+  m_searchBar->showBar();
   m_searchBar->setFocus();
 }
 

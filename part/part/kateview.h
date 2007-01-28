@@ -516,7 +516,6 @@ class KateView : public KTextEditor::View,
     void slotCollapseLocal();
     void slotExpandLocal();
     void slotConfigDialog ();
-    void slotHideSearchBar();
 
   private:
     void setupConnections();

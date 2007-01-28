@@ -2017,21 +2017,19 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
   {
     case QEvent::KeyPress:
     {
-      QKeyEvent *k = (QKeyEvent *)e;
+      QKeyEvent *k = static_cast<QKeyEvent *>(e);
 
-
-      if (m_view->isCompletionActive())
-      {
-        //kDebug (13030) << "hint around" << endl;
-
-        if( k->key() == Qt::Key_Escape )
+      if (k->key() == Qt::Key_Escape) {
+        if (m_view->isCompletionActive()) {
           m_view->abortCompletion();
-      }
-
-      if ((k->key() == Qt::Key_Escape) && !m_view->config()->persistentSelection() )
-      {
-        m_view->clearSelection();
-        return true;
+          return true;
+        } else if (m_view->m_viewBar->isVisible()) {
+          m_view->m_viewBar->hide();
+          return true;
+        } else if (!m_view->config()->persistentSelection()) {
+          m_view->clearSelection();
+          return true;
+        }
       }
       else if ( !((k->modifiers() & Qt::ControlModifier) || (k->modifiers() & Qt::AltModifier)) )
       {

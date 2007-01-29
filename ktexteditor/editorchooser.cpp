@@ -29,6 +29,7 @@
 #include <kglobal.h>
 
 #include "ui_editorchooser_ui.h"
+#include <kconfiggroup.h>
 
 using namespace KTextEditor;
 

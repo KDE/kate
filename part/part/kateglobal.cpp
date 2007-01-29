@@ -53,7 +53,7 @@ KateGlobal::KateGlobal ()
  , m_aboutData ("katepart", I18N_NOOP("Kate Part"), KATEPART_VERSION,
              I18N_NOOP( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
              I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://www.kate-editor.org")
- , m_instance (&m_aboutData)
+ , m_componentData (&m_aboutData)
  , m_plugins (KServiceTypeTrader::self()->query("KTextEditor/Plugin"))
 {
   // set s_self
@@ -188,7 +188,7 @@ const QList<KTextEditor::Document*> &KateGlobal::documents ()
 void KateGlobal::readConfig(KConfig *config)
 {
   if( !config )
-    config = KGlobal::config();
+    config = KGlobal::config().data();
 
   config->setGroup("Kate Document Defaults");
   KateDocumentConfig::global()->readConfig (config);
@@ -203,7 +203,7 @@ void KateGlobal::readConfig(KConfig *config)
 void KateGlobal::writeConfig(KConfig *config)
 {
   if( !config )
-    config = KGlobal::config();
+    config = KGlobal::config().data();
 
   config->setGroup("Kate Document Defaults");
   KateDocumentConfig::global()->writeConfig (config);

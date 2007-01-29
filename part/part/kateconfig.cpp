@@ -32,7 +32,7 @@
 #include <klocale.h>
 #include <kfinddialog.h>
 #include <kreplacedialog.h>
-#include <kinstance.h>
+#include <kcomponentdata.h>
 #include <kstaticdeleter.h>
 #include <kfind.h>
 #include <kdebug.h>
@@ -112,9 +112,9 @@ KateDocumentConfig::KateDocumentConfig ()
   m_pluginsSet.fill (true);
 
   // init with defaults from config or really hardcoded ones
-  KConfig *config = KGlobal::config();
+  KSharedConfig::Ptr config = KGlobal::config();
   config->setGroup("Kate Document Defaults");
-  readConfig (config);
+  readConfig (config.data());
 }
 
 KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
@@ -649,9 +649,9 @@ KateViewConfig::KateViewConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfig *config = KGlobal::config();
+  KSharedConfig::Ptr config = KGlobal::config();
   config->setGroup("Kate View Defaults");
-  readConfig (config);
+  readConfig (config.data());
 }
 
 KateViewConfig::KateViewConfig (KateView *view)
@@ -1038,9 +1038,9 @@ KateRendererConfig::KateRendererConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfig *config = KGlobal::config();
+  KSharedConfig::Ptr config = KGlobal::config();
   config->setGroup("Kate Renderer Defaults");
-  readConfig (config);
+  readConfig (config.data());
 }
 
 KateRendererConfig::KateRendererConfig (KateRenderer *renderer)

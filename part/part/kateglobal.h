@@ -24,7 +24,7 @@
 #include <ktexteditor/editor.h>
 
 #include <kservice.h>
-#include <kinstance.h>
+#include <kcomponentdata.h>
 #include <kaboutdata.h>
 #include <ktexteditor/commandinterface.h>
 #include <QList>
@@ -176,7 +176,7 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * public accessor to the instance
      * @return instance
      */
-    KInstance *instance () { return &m_instance; }
+    const KComponentData &componentData() { return m_componentData; }
 
     /**
      * register document at the factory
@@ -336,7 +336,7 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     /**
      * our kinstance
      */
-    KInstance m_instance;
+    KComponentData m_componentData;
 
     /**
      * registered docs

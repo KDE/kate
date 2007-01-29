@@ -71,12 +71,12 @@
 //BEGIN KateSchemaManager
 QString KateSchemaManager::normalSchema ()
 {
-  return KGlobal::instance()->aboutData()->appName () + QString (" - Normal");
+  return KGlobal::mainComponent().aboutData()->appName () + QString (" - Normal");
 }
 
 QString KateSchemaManager::printingSchema ()
 {
-  return KGlobal::instance()->aboutData()->appName () + QString (" - Printing");
+  return KGlobal::mainComponent().aboutData()->appName () + QString (" - Printing");
 }
 
 KateSchemaManager::KateSchemaManager ()
@@ -725,7 +725,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   hbHl = new KHBox( this );
   layout->addWidget (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
-  lHl = new QLabel( i18n("&Default schema for %1:", KGlobal::instance()->aboutData()->programName ()), hbHl );
+  lHl = new QLabel( i18n("&Default schema for %1:", KGlobal::mainComponent().aboutData()->programName ()), hbHl );
   defaultSchemaCombo = new QComboBox( hbHl );
   defaultSchemaCombo->setEditable( false );
   lHl->setBuddy( defaultSchemaCombo );

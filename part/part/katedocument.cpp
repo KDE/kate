@@ -255,7 +255,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   hlSetByUser = false;
   m_fileType = -1;
   m_fileTypeSetByUser = false;
-  setInstance( KateGlobal::self()->instance() );
+  setComponentData( KateGlobal::self()->componentData() );
 
   editSessionNumber = 0;
   editIsRunning = false;

@@ -72,7 +72,7 @@ KDataToolPluginView::KDataToolPluginView( KTextEditor::View *view )
 {
 
 	view->insertChildClient (this);
-	setInstance( KGenericFactory<KDataToolPlugin>::instance() );
+	setComponentData( KGenericFactory<KDataToolPlugin>::componentData() );
 
 	m_menu = new KActionMenu(i18n("Data Tools"), this);
         actionCollection()->addAction("popup_dataTool", m_menu);
@@ -154,7 +154,7 @@ void KDataToolPluginView::aboutToShow()
 		}
 	}
 
-	KInstance *inst=instance();
+	KComponentData inst=componentData();
 
 	QList<KDataToolInfo> tools;
 	tools += KDataToolInfo::query( "QString", "text/plain", inst );

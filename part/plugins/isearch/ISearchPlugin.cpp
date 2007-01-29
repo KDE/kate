@@ -60,7 +60,7 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 {
 	view->insertChildClient (this);
 
-	setInstance( KGenericFactory<ISearchPlugin>::instance() );
+	setComponentData( KGenericFactory<ISearchPlugin>::componentData() );
 
 	KAction* a = m_searchForwardAction = new KAction( i18n("Search Incrementally"), this );
         actionCollection()->addAction( "edit_isearch", a );
@@ -154,12 +154,12 @@ void ISearchPluginView::setView( KTextEditor::View* view )
 
 void ISearchPluginView::readConfig()
 {
-    // KConfig* config = instance()->config();
+    // KSharedConfig::Ptr config = componentData().config();
 }
 
 void ISearchPluginView::writeConfig()
 {
-    // KConfig* config = instance()->config();
+    // KSharedConfig::Ptr config = componentData().config();
 }
 
 void ISearchPluginView::setCaseSensitive( bool caseSensitive )

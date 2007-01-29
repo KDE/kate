@@ -81,7 +81,7 @@ InsertFilePluginView::InsertFilePluginView( KTextEditor::View *view, const char 
   setObjectName( name );
 
   view->insertChildClient( this );
-  setInstance( KGenericFactory<InsertFilePlugin>::instance() );
+  setComponentData( KGenericFactory<InsertFilePlugin>::componentData() );
   _job = 0;
 
   KAction *action = new KAction( i18n("Insert File..."), this );

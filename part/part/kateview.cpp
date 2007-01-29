@@ -152,7 +152,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   // this really is needed :)
   m_viewInternal->updateView ();
 
-  setInstance( KateGlobal::self()->instance() );
+  setComponentData( KateGlobal::self()->componentData() );
   doc->addView( this );
 
   setFocusProxy( m_viewInternal );

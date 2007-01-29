@@ -464,14 +464,14 @@ void KWrite::writeConfig(KConfig *config)
 //config file
 void KWrite::readConfig()
 {
-  KConfig *config = KGlobal::config();
-  readConfig(config);
+  KSharedConfig::Ptr config = KGlobal::config();
+  readConfig(config.data());
 }
 
 void KWrite::writeConfig()
 {
-  KConfig *config = KGlobal::config();
-  writeConfig(config);
+  KSharedConfig::Ptr config = KGlobal::config();
+  writeConfig(config.data());
 }
 
 // session management

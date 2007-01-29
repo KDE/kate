@@ -186,7 +186,7 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold, bool au
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
   if (cci) {cci->registerCompletionProvider(this); kDebug()<<"*******Completion provider registered"<<endl; }
   else kDebug()<<"****** No code completion interface available for view"<<endl;
-  setInstance( KGenericFactory<DocWordCompletionPlugin>::instance() );
+  setComponentData( KGenericFactory<DocWordCompletionPlugin>::componentData() );
 
   KAction *action = new KAction( i18n("Reuse Word Above"), actionCollection(), "doccomplete_bw" );
   action->setShortcut( Qt::CTRL+Qt::Key_8 );

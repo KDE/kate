@@ -35,7 +35,7 @@
 
 #include <kconfig.h>
 #include <kglobal.h>
-#include <kinstance.h>
+#include <kcomponentdata.h>
 #include <kmimetype.h>
 #include <klocale.h>
 #include <kmenu.h>

@@ -349,7 +349,7 @@ void KWrite::editKeys()
 
 void KWrite::editToolbars()
 {
-  saveMainWindowSettings( KGlobal::config(), "MainWindow" );
+  saveMainWindowSettings( KGlobal::config().data(), "MainWindow" );
   KEditToolbar *dlg = new KEditToolbar(guiFactory());
 
   connect( dlg, SIGNAL(newToolbarConfig()), this, SLOT(slotNewToolbarConfig()) );
@@ -359,7 +359,7 @@ void KWrite::editToolbars()
 
 void KWrite::slotNewToolbarConfig()
 {
-    applyMainWindowSettings( KGlobal::config(), "MainWindow" );
+    applyMainWindowSettings( KGlobal::config().data(), "MainWindow" );
 }
 
 void KWrite::dragEnterEvent( QDragEnterEvent *event )
@@ -403,16 +403,16 @@ void KWrite::slotEnableActions( bool enable )
 }
 
 //common config
-void KWrite::readConfig(KConfig *config)
+void KWrite::readConfig(KSharedConfigPtr config)
 {
   config->setGroup("General Options");
 
   m_paShowStatusBar->setChecked( config->readEntry("ShowStatusBar", QVariant(false)).toBool() );
   m_paShowPath->setChecked( config->readEntry("ShowPath", QVariant(false)).toBool() );
 
-  m_recentFiles->loadEntries(config, "Recent Files");
+  m_recentFiles->loadEntries(config.data(), "Recent Files");
 
-  m_view->document()->editor()->readConfig(config);
+  m_view->document()->editor()->readConfig(config.data());
 
   if( m_paShowStatusBar->isChecked() )
     statusBar()->show();
@@ -420,16 +420,16 @@ void KWrite::readConfig(KConfig *config)
     statusBar()->hide();
 }
 
-void KWrite::writeConfig(KConfig *config)
+void KWrite::writeConfig(KSharedConfigPtr config)
 {
   config->setGroup("General Options");
 
   config->writeEntry("ShowStatusBar",m_paShowStatusBar->isChecked());
   config->writeEntry("ShowPath",m_paShowPath->isChecked());
 
-  m_recentFiles->saveEntries(config, "Recent Files");
+  m_recentFiles->saveEntries(config.data(), "Recent Files");
 
-  m_view->document()->editor()->writeConfig(config);
+  m_view->document()->editor()->writeConfig(config.data());
 
   config->sync ();
 }
@@ -437,14 +437,12 @@ void KWrite::writeConfig(KConfig *config)
 //config file
 void KWrite::readConfig()
 {
-  KConfig *config = KGlobal::config();
-  readConfig(config);
+  readConfig(KGlobal::config());
 }
 
 void KWrite::writeConfig()
 {
-  KConfig *config = KGlobal::config();
-  writeConfig(config);
+  writeConfig(KGlobal::config());
 }
 
 // session management
@@ -453,21 +451,21 @@ void KWrite::restore(KConfig *config, int n)
   readPropertiesInternal(config, n);
 }
 
-void KWrite::readProperties(KConfig *config)
+void KWrite::readProperties(KSharedConfigPtr config)
 {
   readConfig(config);
 
   if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view))
-    iface->readSessionConfig(config);
+    iface->readSessionConfig(config.data());
 }
 
-void KWrite::saveProperties(KConfig *config)
+void KWrite::saveProperties(KSharedConfigPtr config)
 {
   writeConfig(config);
   config->writeEntry("DocumentNumber",docList.indexOf(m_view->document()) + 1);
 
   if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view))
-    iface->writeSessionConfig(config);
+    iface->writeSessionConfig(config.data());
 }
 
 void KWrite::saveGlobalProperties(KConfig *config) //save documents

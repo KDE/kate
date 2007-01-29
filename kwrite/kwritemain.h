@@ -27,7 +27,7 @@
 #include <kparts/mainwindow.h>
 
 #include <kdialog.h>
-#include <kdialog.h>
+#include <kconfig.h>
 //Added by qt3to4:
 #include <QDragEnterEvent>
 #include <QDropEvent>
@@ -91,8 +91,8 @@ class KWrite : public KParts::MainWindow
 
   //config file functions
   public:
-    void readConfig (KConfig *);
-    void writeConfig (KConfig *);
+    void readConfig (KSharedConfigPtr);
+    void writeConfig (KSharedConfigPtr);
 
     void readConfig ();
     void writeConfig ();
@@ -103,8 +103,8 @@ class KWrite : public KParts::MainWindow
     static void restore();
 
   private:
-    void readProperties(KConfig *);
-    void saveProperties(KConfig *);
+    void readProperties(KSharedConfigPtr);
+    void saveProperties(KSharedConfigPtr);
     void saveGlobalProperties(KConfig *);
 
   private:

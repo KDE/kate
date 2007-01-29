@@ -29,7 +29,7 @@
 
 #include <kio/netaccess.h>
 
-#include <kaboutapplication.h>
+#include <kaboutapplicationdialog.h>
 #include <kaboutdata.h>
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -541,11 +541,8 @@ void KWrite::restore()
 
 void KWrite::aboutEditor()
 {
-  KAboutApplication *ad = new KAboutApplication (m_view->document()->editor()->aboutData(), this);
-
-  ad->exec();
-
-  delete ad;
+  KAboutApplicationDialog dlg(m_view->document()->editor()->aboutData(), this);
+  dlg.exec();
 }
 
 void KWrite::updateStatus ()

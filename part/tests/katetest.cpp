@@ -31,7 +31,7 @@
 #include <kio/netaccess.h>
 
 #include <kdeversion.h>
-#include <kaboutapplication.h>
+#include <kaboutapplicationdialog.h>
 #include <kicon.h>
 #include <kencodingfiledialog.h>
 #include <kdiroperator.h>
@@ -570,7 +570,7 @@ void KWrite::restore()
 
 void KWrite::aboutEditor()
 {
-  KAboutApplication *ad = new KAboutApplication (m_view->document()->editor()->aboutData(), this);
+  KAboutApplicationDialog *ad = new KAboutApplication (m_view->document()->editor()->aboutData(), this);
 
   ad->exec();
 

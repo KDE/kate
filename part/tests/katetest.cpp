@@ -570,7 +570,7 @@ void KWrite::restore()
 
 void KWrite::aboutEditor()
 {
-  KAboutApplicationDialog *ad = new KAboutApplication (m_view->document()->editor()->aboutData(), this);
+  KAboutApplicationDialog *ad = new KAboutApplicationDialog (m_view->document()->editor()->aboutData(), this);
 
   ad->exec();
 

@@ -4,7 +4,7 @@
 	<!ENTITY name    "[A-Za-z_:][\w.:_-]*">
 	<!ENTITY entref  "&amp;(#[0-9]+|#[xX][0-9A-Fa-f]+|&name;);">
 ]>
-<language name="HTML" version="1.98" kateversion="2.4" section="Markup" extensions="*.htm;*.html;*.shtml;*.shtm" mimetype="text/html"  author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL" priority="10">
+<language name="HTML" version="1.99" kateversion="2.4" section="Markup" extensions="*.htm;*.html;*.shtml;*.shtm" mimetype="text/html"  author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL" priority="10">
 
 <highlighting>
 <contexts>
@@ -24,10 +24,16 @@
     <RegExpr attribute="Element" context="El Open" String="&lt;pre\b" insensitive="TRUE" beginRegion="pre" />
     <RegExpr attribute="Element" context="El Open" String="&lt;div\b" insensitive="TRUE" beginRegion="div" />
     <RegExpr attribute="Element" context="El Open" String="&lt;table\b" insensitive="TRUE" beginRegion="table" />
+    <RegExpr attribute="Element" context="El Open" String="&lt;ul\b" insensitive="TRUE" beginRegion="ul" />
+    <RegExpr attribute="Element" context="El Open" String="&lt;ol\b" insensitive="TRUE" beginRegion="ol" />
+    <RegExpr attribute="Element" context="El Open" String="&lt;dl\b" insensitive="TRUE" beginRegion="dl" />
     <RegExpr attribute="Element" context="El Open" String="&lt;&name;" />
     <RegExpr attribute="Element" context="El Close" String="&lt;/pre\b" insensitive="TRUE" endRegion="pre" />
     <RegExpr attribute="Element" context="El Close" String="&lt;/div\b" insensitive="TRUE" endRegion="div" />
     <RegExpr attribute="Element" context="El Close" String="&lt;/table\b" insensitive="TRUE" endRegion="table" />
+    <RegExpr attribute="Element" context="El Close" String="&lt;/ul\b" insensitive="TRUE" endRegion="ul" />
+    <RegExpr attribute="Element" context="El Close" String="&lt;/ol\b" insensitive="TRUE" endRegion="ol" />
+    <RegExpr attribute="Element" context="El Close" String="&lt;/dl\b" insensitive="TRUE" endRegion="dl" />
     <RegExpr attribute="Element" context="El Close" String="&lt;/&name;" />
     <!-- as long as kde gives DTDs the text/html mimetype--><IncludeRules context="FindDTDRules" />
     <IncludeRules context="FindEntityRefs" />

@@ -58,10 +58,14 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     d->caseSensitiveBox = new QCheckBox(i18n("&Case Sensitive"));
     connect(d->caseSensitiveBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
 
-    QHBoxLayout *layout = new QHBoxLayout;
+    QVBoxLayout *topLayout = new QVBoxLayout ();
+    centralWidget()->setLayout(topLayout);
 
     // NOTE: Here be cosmetics.
-    layout->setMargin(2);
+    topLayout->setMargin(2);
+
+    QHBoxLayout *layoutFirstLine = new QHBoxLayout;
+    topLayout->addLayout (layoutFirstLine);
 
     QToolButton *nextButton = new QToolButton();
     nextButton->setAutoRaise(true);
@@ -77,12 +81,16 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     prevButton->setText(i18n("Find &Previous"));
     connect(prevButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
 
-    layout->addWidget(d->expressionEdit);
-    layout->addWidget(nextButton);
-    layout->addWidget(prevButton);
-    layout->addWidget(d->caseSensitiveBox);
+    layoutFirstLine->addWidget(d->expressionEdit);
+    layoutFirstLine->addWidget(nextButton);
+    layoutFirstLine->addWidget(prevButton);
 
-    centralWidget()->setLayout(layout);
+    QHBoxLayout *layoutSecondLine = new QHBoxLayout;
+    topLayout->addLayout (layoutSecondLine);
+
+    layoutSecondLine->addWidget(d->caseSensitiveBox);
+
+    // set right focus proxy
     centralWidget()->setFocusProxy(d->expressionEdit);
 }
 

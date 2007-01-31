@@ -34,6 +34,8 @@ public:
     KTextEditor::Range lastMatch;
     KateSearchBarEdit *expressionEdit;
     QCheckBox *caseSensitiveBox;
+    QCheckBox *wholeWordsBox;
+    QCheckBox *regExpBox;
     QRegExp regExp;
 
     bool searching;
@@ -57,6 +59,12 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
 
     d->caseSensitiveBox = new QCheckBox(i18n("&Case Sensitive"));
     connect(d->caseSensitiveBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
+
+    d->wholeWordsBox = new QCheckBox(i18n("&Whole Words"));
+    connect(d->wholeWordsBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
+
+    d->regExpBox = new QCheckBox(i18n("&Regular Expression"));
+    connect(d->regExpBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
 
     QVBoxLayout *topLayout = new QVBoxLayout ();
     centralWidget()->setLayout(topLayout);
@@ -89,6 +97,9 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     topLayout->addLayout (layoutSecondLine);
 
     layoutSecondLine->addWidget(d->caseSensitiveBox);
+    layoutSecondLine->addWidget(d->wholeWordsBox);
+    layoutSecondLine->addWidget(d->regExpBox);
+    layoutSecondLine->addStretch (1);
 
     // set right focus proxy
     centralWidget()->setFocusProxy(d->expressionEdit);

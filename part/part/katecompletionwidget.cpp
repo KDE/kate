@@ -61,7 +61,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_entryList->setModel(m_presentationModel);
 
   m_statusBar = new QWidget(this);
-  m_statusBar->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed));
+  m_statusBar->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed );
 
   m_sortButton = new QToolButton(m_statusBar);
   m_sortButton->setIcon(KIcon("sort"));

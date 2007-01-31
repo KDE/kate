@@ -741,7 +741,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
        }
 
   setAttribute( Qt::WA_StaticContents );
-  setSizePolicy( QSizePolicy(  QSizePolicy::Fixed, QSizePolicy::Minimum ) );
+  setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Minimum );
   setMouseTracking(true);
   m_doc->setMarkDescription( MarkInterface::markType01, i18n("Bookmark") );
   m_doc->setMarkPixmap( MarkInterface::markType01, QPixmap((const char**)bookmark_xpm) );
@@ -1430,8 +1430,7 @@ void KateViewBar::hideBarWidget (KateViewBarWidget *barWidget)
 
 void KateViewBar::keyPressEvent(QKeyEvent* event)
 {
-  kDebug(13025)<<"keyPressEvent: " << event->key() << endl;
-  if (isVisible() && event->key() == Qt::Key_Escape) {
+  if (event->key() == Qt::Key_Escape) {
     hide();
     return;
   }

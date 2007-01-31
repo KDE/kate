@@ -130,12 +130,12 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   m_lineScroll = new KateScrollBar(Qt::Vertical, this);
   m_lineScroll->show();
   m_lineScroll->setTracking (true);
-  m_lineScroll->setSizePolicy( QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding));
+  m_lineScroll->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Expanding );
 
   // bottom corner box
   m_dummy = new QWidget(m_view);
   m_dummy->setFixedSize(m_lineScroll->width(), m_lineScroll->width());
-  m_dummy->setSizePolicy( QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+  m_dummy->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
 
   if (m_view->dynWordWrap())
     m_dummy->hide();

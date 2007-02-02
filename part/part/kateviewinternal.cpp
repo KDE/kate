@@ -2711,6 +2711,10 @@ void KateViewInternal::focusOutEvent (QFocusEvent *)
   if (m_view->isCompletionActive())
     m_view->abortCompletion();
 
+  m_cursorTimer.stop();
+  m_view->renderer()->setDrawCaret(true);
+  paintCursor();
+
   m_textHintTimer.stop();
 }
 

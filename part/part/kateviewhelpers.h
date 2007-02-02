@@ -266,6 +266,7 @@ class KateViewBar : public QWidget
 
   protected:
     virtual void keyPressEvent(QKeyEvent* event);
+    virtual void hideEvent(QHideEvent* event);
 
   private:
     void addBarWidget (KateViewBarWidget *newBarWidget);

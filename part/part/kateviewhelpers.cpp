@@ -1450,10 +1450,16 @@ void KateViewBar::hideBarWidget ()
 void KateViewBar::keyPressEvent(QKeyEvent* event)
 {
   if (event->key() == Qt::Key_Escape) {
-    hide();
+    hideBarWidget();
     return;
   }
   QWidget::keyPressEvent(event);
+}
+
+void KateViewBar::hideEvent(QHideEvent* event)
+{
+  if (!event->spontaneous())
+    m_view->setFocus();
 }
 
 //END KateViewBar related classes

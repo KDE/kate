@@ -270,7 +270,7 @@ class KateViewBar : public QWidget
   private:
     void addBarWidget (KateViewBarWidget *newBarWidget);
     void showBarWidget (KateViewBarWidget *barWidget);
-    void hideBarWidget (KateViewBarWidget *barWidget);
+    void hideBarWidget ();
 
   private:
     KateView *m_view;

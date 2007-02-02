@@ -1355,7 +1355,7 @@ void KateViewEncodingAction::setMode (QAction* a)
 }
 
 
-//BEGIN Kate Vier Bar related classes
+//BEGIN KateViewBar related classes
 
 KateViewBarWidget::KateViewBarWidget (KateViewBar *viewBar)
  : QWidget (), m_viewBar (viewBar)
@@ -1368,7 +1368,7 @@ KateViewBarWidget::KateViewBarWidget (KateViewBar *viewBar)
   layout->setMargin(2);
 
   // hide button
-  QToolButton *hideButton = new QToolButton();
+  QToolButton *hideButton = new QToolButton(this);
   hideButton->setAutoRaise(true);
   hideButton->setIcon(QIcon(SmallIcon("cancel")));
   connect(hideButton, SIGNAL(clicked()), this, SLOT(hideBar()));
@@ -1393,7 +1393,7 @@ void KateViewBarWidget::hideBar ()
   if (!hideIsTriggered ())
     return;
 
-  m_viewBar->hideBarWidget (this);
+  m_viewBar->hideBarWidget ();
 }
 
 
@@ -1441,10 +1441,10 @@ void KateViewBar::showBarWidget (KateViewBarWidget *barWidget)
   show ();
 }
 
-void KateViewBar::hideBarWidget (KateViewBarWidget *barWidget)
+void KateViewBar::hideBarWidget ()
 {
   hide();
-  kDebug(13025)<<"hide barwidget " << barWidget <<endl;
+  kDebug(13025)<<"hide barwidget"<<endl;
 }
 
 void KateViewBar::keyPressEvent(QKeyEvent* event)
@@ -1456,6 +1456,6 @@ void KateViewBar::keyPressEvent(QKeyEvent* event)
   QWidget::keyPressEvent(event);
 }
 
-//END Kate Vier Bar related classes
+//END KateViewBar related classes
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

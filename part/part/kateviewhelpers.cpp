@@ -1355,7 +1355,7 @@ void KateViewEncodingAction::setMode (QAction* a)
 }
 
 
-
+//BEGIN Kate Vier Bar related classes
 
 KateViewBarWidget::KateViewBarWidget (KateViewBar *viewBar)
  : QWidget (), m_viewBar (viewBar)
@@ -1398,18 +1398,37 @@ void KateViewBarWidget::hideBar ()
 
 
 
+KateStackedLayout::KateStackedLayout(QWidget* parent)
+  : QStackedLayout(parent)
+{}
+
+QSize KateStackedLayout::sizeHint() const
+{
+  if (currentWidget())
+    return currentWidget()->sizeHint();
+  return QStackedLayout::sizeHint();
+}
+
+QSize KateStackedLayout::minimumSize() const
+{
+  if (currentWidget())
+    return currentWidget()->minimumSize();
+  return QStackedLayout::minimumSize();
+}
+
 
 
 KateViewBar::KateViewBar (KateView *view)
- : QStackedWidget (view), m_view (view)
+ : QWidget (view), m_view (view)
 {
+  m_stack = new KateStackedLayout(this);
   hide ();
 }
 
 void KateViewBar::addBarWidget (KateViewBarWidget *newBarWidget)
 {
   // add new widget, invisible...
-  addWidget (newBarWidget);
+  m_stack->addWidget (newBarWidget);
 
   kDebug(13025)<<"add barwidget " << newBarWidget <<endl;
 }
@@ -1417,7 +1436,7 @@ void KateViewBar::addBarWidget (KateViewBarWidget *newBarWidget)
 void KateViewBar::showBarWidget (KateViewBarWidget *barWidget)
 {
   // raise correct widget
-  setCurrentWidget (barWidget);
+  m_stack->setCurrentWidget (barWidget);
   kDebug(13025)<<"show barwidget " << barWidget <<endl;
   show ();
 }
@@ -1434,7 +1453,9 @@ void KateViewBar::keyPressEvent(QKeyEvent* event)
     hide();
     return;
   }
-  QStackedWidget::keyPressEvent(event);
+  QWidget::keyPressEvent(event);
 }
+
+//END Kate Vier Bar related classes
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

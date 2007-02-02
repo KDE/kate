@@ -28,7 +28,7 @@
 #include <QColor>
 #include <QScrollBar>
 #include <QHash>
-#include <QStackedWidget>
+#include <QStackedLayout>
 #include <QMap>
 
 class KateDocument;
@@ -243,7 +243,17 @@ class KateViewBarWidget : public QWidget
     QWidget *m_centralWidget;
 };
 
-class KateViewBar : public QStackedWidget
+// Helper layout class to always provide minimum size
+class KateStackedLayout : public QStackedLayout
+{
+  Q_OBJECT
+public:
+  KateStackedLayout(QWidget* parent);
+  virtual QSize sizeHint() const;
+  virtual QSize minimumSize() const;
+};
+
+class KateViewBar : public QWidget
 {
   Q_OBJECT
 
@@ -264,6 +274,7 @@ class KateViewBar : public QStackedWidget
 
   private:
     KateView *m_view;
+    KateStackedLayout *m_stack;
 };
 
 #endif

@@ -87,7 +87,7 @@ class ConfigPage;
  *
  * \section editor_extensions Editor Extension Interfaces
  *
- * There is only a signle extension interface for the Editor: the
+ * There is only a single extension interface for the Editor: the
  * CommandInterface. With the CommandInterface it is possible to add and
  * remove new command line commands which are valid for all documents. Common
  * use cases are for example commands like \e find or setting document

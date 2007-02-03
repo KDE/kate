@@ -1,5 +1,7 @@
 /** @mainpage ./kate
  * 
- * Not much to say.
+ * The Kate Editor Component (also called Kate Part) implements the
+ * KTextEditor interfaces. Thus, all Kate Part classes are internal
+ * and never appear in public interfaces.
 */
 // DOXYGEN_REFERENCES = kdecore kio kdeui kparts interfaces/kdocument interfaces/ktexteditor kjs

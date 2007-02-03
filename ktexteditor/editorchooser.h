@@ -50,17 +50,17 @@ namespace KTextEditor
  * implementations. To give the user the possibility to choose a text editor
  * implementation, create an instance of this class and put it into the GUI:
  * \code
- *     KTextEditor::EditorChooser* ec = new KTextEditor::EditorChooser(parent);
- *     // read the settings from the application's KConfig object
- *     ec->readAppSetting();
- *     // optionally connect the signal changed()
- *     // plug the widget into a layout
- *     layout->addWidget(ec);
+ * KTextEditor::EditorChooser* ec = new KTextEditor::EditorChooser(parent);
+ * // read the settings from the application's KConfig object
+ * ec->readAppSetting();
+ * // optionally connect the signal changed()
+ * // plug the widget into a layout
+ * layout->addWidget(ec);
  * \endcode
  * Later, for example when the user clicks the Apply-button:
  * \code
- *     // save the user's choice
- *     ec->writeAppSetting();
+ * // save the user's choice
+ * ec->writeAppSetting();
  * \endcode
  * After this, the static accessor editor() will return the new editor part
  * object. Now, either the application has to be restarted, or you need code
@@ -77,7 +77,7 @@ namespace KTextEditor
  * KDE default or the one configured with the EditorChooser's GUI
  * (see \ref chooser_gui). Example:
  * \code
- *     KTextEditor::Editor* editor = KTextEditor::EditorChooser::editor();
+ * KTextEditor::Editor* editor = KTextEditor::EditorChooser::editor();
  * \endcode
  *
  * \see KTextEditor::Editor

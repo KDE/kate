@@ -77,14 +77,14 @@ class Mark
  * KTextEditor library in use implements the interface. Use qobject_cast to access
  * the interface:
  * \code
- *   // doc is of type KTextEditor::Document*
- *   KTextEditor::MarkInterface *iface =
- *       qobject_cast<KTextEditor::MarkInterface*>( doc );
+ * // doc is of type KTextEditor::Document*
+ * KTextEditor::MarkInterface *iface =
+ *     qobject_cast<KTextEditor::MarkInterface*>( doc );
  *
- *   if( iface ) {
- *       // the implementation supports the interface
- *       // do stuff
- *   }
+ * if( iface ) {
+ *     // the implementation supports the interface
+ *     // do stuff
+ * }
  * \endcode
  *
  * \section markext_handling Handling Marks
@@ -142,8 +142,8 @@ class KTEXTEDITOR_EXPORT MarkInterface
      * All other marks are deleted before the mark is set. You can achieve
      * the same by calling
      * \code
-     *   clearMark(line);
-     *   addMark(line, markType);
+     * clearMark(line);
+     * addMark(line, markType);
      * \endcode
      * \param line line to set the mark
      * \param markType mark type
@@ -310,15 +310,15 @@ class KTEXTEDITOR_EXPORT MarkInterface
      * be able to add a bookmark and set a breakpoint with the context menu in
      * the icon pane, you have to call
      * \code
-     *   // iface is of Type KTextEditor::MarkInterface*
-     *   // only make bookmark and breakpoint editable
-     *   iface->setEditableMarks( MarkInterface::Bookmark |
-     *                            MarkInterface::BreakpointActive );
+     * // iface is of Type KTextEditor::MarkInterface*
+     * // only make bookmark and breakpoint editable
+     * iface->setEditableMarks( MarkInterface::Bookmark |
+     *                          MarkInterface::BreakpointActive );
      *
-     *   // or preserve last settings, and add bookmark and breakpoint
-     *   iface->setEditableMarks( iface->editableMarks() |
-     *                            MarkInterface::Bookmark |
-     *                            MarkInterface::BreakpointActive );
+     * // or preserve last settings, and add bookmark and breakpoint
+     * iface->setEditableMarks( iface->editableMarks() |
+     *                          MarkInterface::Bookmark |
+     *                          MarkInterface::BreakpointActive );
      * \endcode
      * \param markMask bitmap pattern
      * \see editableMarks(), setMarkPixmap(), setMarkDescription()

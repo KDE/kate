@@ -61,14 +61,14 @@ namespace KTextEditor
  * interface \e provided that it implements the interface. Use qobject_cast to
  * access the interface:
  * \code
- *   // object is of type KTextEditor::Document* or View* or Plugin*
- *   KTextEditor::SessionConfigInterface *iface =
- *       qobject_cast<KTextEditor::SessionConfigInterface*>( object );
+ * // object is of type KTextEditor::Document* or View* or Plugin*
+ * KTextEditor::SessionConfigInterface *iface =
+ *     qobject_cast<KTextEditor::SessionConfigInterface*>( object );
  *
- *   if( iface ) {
- *       // interface is supported
- *       // do stuff
- *   }
+ * if( iface ) {
+ *     // interface is supported
+ *     // do stuff
+ * }
  * \endcode
  *
  * \see KTextEditor::Document, KTextEditor::View, KTextEditor::Plugin

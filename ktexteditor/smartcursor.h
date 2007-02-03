@@ -48,13 +48,13 @@ class SmartCursorNotifier;
  *
  * Create a new SmartCursor like this:
  * \code
- *   // Retrieve the SmartInterface
- *   KTextEditor::SmartInterface* smart =
- *       qobject_cast<KTextEditor::SmartInterface*>( yourDocument );
+ * // Retrieve the SmartInterface
+ * KTextEditor::SmartInterface* smart =
+ *     qobject_cast<KTextEditor::SmartInterface*>( yourDocument );
  *
- *   if ( smart ) {
- *       KTextEditor::SmartCursor* cursor = smart->newSmartCursor();
- *   }
+ * if ( smart ) {
+ *     KTextEditor::SmartCursor* cursor = smart->newSmartCursor();
+ * }
  * \endcode
  *
  * When finished with a SmartCursor, simply delete it.
@@ -159,7 +159,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
      *
      * E.g.:
      * \code
-     *   cursor.advance(1);
+     * cursor.advance(1);
      * \endcode
      * will move the cursor forward by one character, or, if the cursor is already
      * on the end of the line, will move it to the start of the next line.

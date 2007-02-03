@@ -62,13 +62,13 @@ class SmartRangeWatcher;
  *
  * Create a new SmartRange like this:
  * \code
- *   // Retrieve the SmartInterface
- *   KTextEditor::SmartInterface* smart =
- *       qobject_cast<KTextEditor::SmartInterface*>( yourDocument );
+ * // Retrieve the SmartInterface
+ * KTextEditor::SmartInterface* smart =
+ *     qobject_cast<KTextEditor::SmartInterface*>( yourDocument );
  *
- *   if ( smart ) {
- *       KTextEditor::SmartRange* range = smart->newSmartRange();
- *   }
+ * if ( smart ) {
+ *     KTextEditor::SmartRange* range = smart->newSmartRange();
+ * }
  * \endcode
  *
  * When finished with a SmartRange, simply delete it.

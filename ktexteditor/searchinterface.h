@@ -49,14 +49,14 @@ class Document;
  * used KTextEditor library implements the interface. Use qobject_cast to
  * access the interface:
  * \code
- *   // doc is of type KTextEditor::Document*
- *   KTextEditor::SearchInterface *iface =
- *       qobject_cast<KTextEditor::SearchInterface*>( doc );
+ * // doc is of type KTextEditor::Document*
+ * KTextEditor::SearchInterface *iface =
+ *     qobject_cast<KTextEditor::SearchInterface*>( doc );
  *
- *   if( iface ) {
- *       // the implementation supports the interface
- *       // do stuff
- *   }
+ * if( iface ) {
+ *     // the implementation supports the interface
+ *     // do stuff
+ * }
  * \endcode
  *
  * \see KTextEditor::Document

@@ -52,14 +52,14 @@ class Document;
  * used KTextEditor library implements the interface. Use qobject_cast to
  * access the interface:
  * \code
- *   // doc is of type KTextEditor::Document*
- *   KTextEditor::HighlightingInterface *iface =
- *       qobject_cast<KTextEditor::HighlightingInterface*>( doc );
+ * // doc is of type KTextEditor::Document*
+ * KTextEditor::HighlightingInterface *iface =
+ *     qobject_cast<KTextEditor::HighlightingInterface*>( doc );
  *
- *   if( iface ) {
- *       // the implementation supports the interface
- *       // do stuff
- *   }
+ * if( iface ) {
+ *     // the implementation supports the interface
+ *     // do stuff
+ * }
  * \endcode
  *
  * \see KTextEditor::Document

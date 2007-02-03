@@ -91,14 +91,14 @@ class SmartCursor;
  * KTextEditor library in use implements the interface. Use dynamic_cast to access
  * the interface:
  * \code
- *   // doc is of type KTextEditor::Document*
- *   KTextEditor::SmartInterface *iface =
- *       qobject_cast<KTextEditor::SmartInterface*>( doc );
+ * // doc is of type KTextEditor::Document*
+ * KTextEditor::SmartInterface *iface =
+ *     qobject_cast<KTextEditor::SmartInterface*>( doc );
  *
- *   if( iface ) {
- *       // the implementation supports the interface
- *       // do stuff
- *   }
+ * if( iface ) {
+ *     // the implementation supports the interface
+ *     // do stuff
+ * }
  * \endcode
  *
  * \section smartiface_threadsafety Thread safety
@@ -301,8 +301,8 @@ class KTEXTEDITOR_EXPORT SmartInterface
      *
      * First, extract the cursors yourself using:
      * \code
-     *  SmartCursor* start = &range->smartStart();
-     *  SmartCursor* end = &range->smartEnd();
+     * SmartCursor* start = &range->smartStart();
+     * SmartCursor* end = &range->smartEnd();
      * \endcode
      *
      * Then, call this function to delete the SmartRange instance.  The underlying text will not be affected.

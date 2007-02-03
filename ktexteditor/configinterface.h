@@ -49,15 +49,15 @@ class Document;
  * KTextEditor library in use implements the interface. Use qobject_cast to access
  * the interface:
  * \code
- *   // view is of type KTextEditor::View*
- *   KTextEditor::ConfigInterface *iface =
- *       qobject_cast<KTextEditor::ConfigInterface*>( view );
+ * // view is of type KTextEditor::View*
+ * KTextEditor::ConfigInterface *iface =
+ *     qobject_cast<KTextEditor::ConfigInterface*>( view );
  *
- *   if( iface ) {
+ * if( iface ) {
  *
- *       // the implementation supports the interface
- *       // do stuff
- *   }
+ *     // the implementation supports the interface
+ *     // do stuff
+ * }
  * \endcode
  *
  * \section config_data Accessing Data
@@ -73,7 +73,7 @@ class Document;
  *
  * As a small example, if you want to enable dynamic word wrap simply call
  * \code
- *   iface->setConfigValue("dynamic-word-wrap", true);
+ * iface->setConfigValue("dynamic-word-wrap", true);
  * \endcode
  *
  * \see KTextEditor::View

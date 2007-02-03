@@ -56,16 +56,16 @@ class Editor;
  * \section factory_example Creating an Editor Part
  * To get a kate part the following code snippet can be used:
  * \code
- *     KLibFactory* factory = KLibLoader::self()->factory("katepart");
- *     KTextEditor::Factory* kte_factory =
- *         qobject_cast<KTextEditor::Factory*>(factory);
+ * KLibFactory* factory = KLibLoader::self()->factory("katepart");
+ * KTextEditor::Factory* kte_factory =
+ *     qobject_cast<KTextEditor::Factory*>(factory);
  *
- *     if(kte_factory) {
- *         // valid editor factory, it is possible to access the editor now
- *         KTextEditor::Editor* editor = kte_factory->editor();
- *     } else {
- *         // error
- *     }
+ * if(kte_factory) {
+ *     // valid editor factory, it is possible to access the editor now
+ *     KTextEditor::Editor* editor = kte_factory->editor();
+ * } else {
+ *     // error
+ * }
  * \endcode
  * If another editor part is desired substitue the string "katepart" with the
  * corresponding library name.
@@ -73,7 +73,7 @@ class Editor;
  * However, if you are only interested in getting the editor part (which is
  * usually the case) a simple call of
  * \code
- *     KTextEditor::Editor* editor = KTextEditor::editor("katepart");
+ * KTextEditor::Editor* editor = KTextEditor::editor("katepart");
  * \endcode
  * is enough.
  *

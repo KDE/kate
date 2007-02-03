@@ -211,14 +211,14 @@ class KTEXTEDITOR_EXPORT CommandExtension
  * used KTextEditor library implements the interface. Use qobject_cast to
  * access the interface:
  * \code
- *   // editor is of type KTextEditor::Editor*
- *   KTextEditor::CommandInterface *iface =
- *       qobject_cast<KTextEditor::CommandInterface*>( editor );
+ * // editor is of type KTextEditor::Editor*
+ * KTextEditor::CommandInterface *iface =
+ *     qobject_cast<KTextEditor::CommandInterface*>( editor );
  *
- *   if( iface ) {
- *       // the implementation supports the interface
- *       // do stuff
- *   }
+ * if( iface ) {
+ *     // the implementation supports the interface
+ *     // do stuff
+ * }
  * \endcode
  *
  * \see KTextEditor::Editor, KTextEditor::Command,

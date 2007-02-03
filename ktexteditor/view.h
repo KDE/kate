@@ -69,14 +69,14 @@ class Document;
  * menu entries and toolbar items) can be merged into the application's GUI
  * (or into a KXMLGUIFactory) by calling
  * \code
- *   // view is of type KTextEditor::View*
- *   mainWindow()->guiFactory()->addClient( view );
+ * // view is of type KTextEditor::View*
+ * mainWindow()->guiFactory()->addClient( view );
  * \endcode
  * You can add only one view as client, so if you have several views, you first
  * have to remove the current view, and then add the new one, like this
  * \code
- *   mainWindow()->guiFactory()->removeClient( currentView );
- *   mainWindow()->guiFactory()->addClient( newView );
+ * mainWindow()->guiFactory()->removeClient( currentView );
+ * mainWindow()->guiFactory()->addClient( newView );
  * \endcode
  *
  * \section view_selection Text Selection

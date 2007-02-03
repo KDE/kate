@@ -67,16 +67,16 @@ class View;
  * If you have session dependant data additionally derive your Plugin from
  * this interface and implement the session related functions, for example:
  * \code
- *   class MyPlugin : public KTextEditor::Plugin,
- *                    public KTextEditor::SessionConfigInterface
- *   {
- *     Q_OBJECT
- *     Q_INTERFACES(KTextEditor::SessionConfigInterface)
+ * class MyPlugin : public KTextEditor::Plugin,
+ *                  public KTextEditor::SessionConfigInterface
+ * {
+ *   Q_OBJECT
+ *   Q_INTERFACES(KTextEditor::SessionConfigInterface)
  *
- *     // ...
- *     virtual void readSessionConfig (KConfig *config);
- *     virtual void writeSessionConfig (KConfig *config);
- *   };
+ *   // ...
+ *   virtual void readSessionConfig (KConfig *config);
+ *   virtual void writeSessionConfig (KConfig *config);
+ * };
  * \endcode
  *
  * \section plugin_arch Plugin Architecture
@@ -86,18 +86,18 @@ class View;
  * addDocument() and addView() for all documents and views the plugin should
  * handle. If your plugin has a GUI it is common to add an extra class, like:
  * \code
- *   class PluginView : public QObject, public KXMLGUIClient
- *   {
- *       Q_OBJECT
- *   public:
- *       // Constructor and other methods
- *       PluginView( KTextEditor::View* view )
- *         : QObject( view ), KXMLGUIClient( view ), m_view( view )
- *       { ... }
- *       // ...
- *   private:
- *       KTextEditor::View* m_view;
- *   };
+ * class PluginView : public QObject, public KXMLGUIClient
+ * {
+ *     Q_OBJECT
+ * public:
+ *     // Constructor and other methods
+ *     PluginView( KTextEditor::View* view )
+ *       : QObject( view ), KXMLGUIClient( view ), m_view( view )
+ *     { ... }
+ *     // ...
+ * private:
+ *     KTextEditor::View* m_view;
+ * };
  * \endcode
  * Your KTextEditor::Plugin derived class then will create a new PluginView
  * for every View, i.e. for every call of addView().

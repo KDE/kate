@@ -32,13 +32,38 @@
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/codecompletioninterface.h>
+#include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/configpage.h>
 #include <kxmlguiclient.h>
 
-#include <qevent.h>
-#include <qobject.h>
-#include <q3valuelist.h>
+#include <QEvent>
+#include <QObject>
+#include <QList>
+
 #include <kdebug.h>
+
+class DocWordCompletionModel
+  : public KTextEditor::CodeCompletionModel
+{
+  Q_OBJECT
+  public:
+    DocWordCompletionModel( QObject *parent );
+    ~DocWordCompletionModel();
+
+    void xcompletionInvoked( KTextEditor::View* view,
+                            const KTextEditor::Range& range,
+                            InvocationType invocationType);
+
+    int rowCount ( const QModelIndex & parent ) const;
+
+    QVariant data(const QModelIndex& index, int role) const;
+    virtual QModelIndex index(int row, int column, const QModelIndex& parent=QModelIndex()) const;
+
+    const QStringList allMatches( KTextEditor::View *view, const KTextEditor::Range &range  ) const;
+
+  private:
+    QStringList m_matches;
+};
 
 class DocWordCompletionPlugin
   : public KTextEditor::Plugin
@@ -63,7 +88,7 @@ class DocWordCompletionPlugin
     // ConfigInterfaceExtention
     uint configPages() const { return 1; }
     bool configDialogSupported () const { return true; }
-    KTextEditor::ConfigPage * configPage( uint number, QWidget *parent, const char *name );
+    KTextEditor::ConfigPage * configPage( uint number, QWidget *parent );
     QString configPageName( uint ) const;
     QString configPageFullName( uint ) const;
     QPixmap configPagePixmap( uint, int ) const;
@@ -78,17 +103,20 @@ class DocWordCompletionPlugin
     QList<class DocWordCompletionPluginView*> m_views;
     uint m_treshold;
     bool m_autopopup;
+    DocWordCompletionModel *m_dWCompletionModel;
 
 };
 
 class DocWordCompletionPluginView
-   : public QObject, public KXMLGUIClient//,public KTextEditor::CompletionProvider
+   : public QObject, public KXMLGUIClient
 {
   Q_OBJECT
 
   public:
-    DocWordCompletionPluginView( uint treshold=3, bool autopopup=true, KTextEditor::View *view=0,
-                               const char *name=0 );
+    DocWordCompletionPluginView( uint treshold=3,
+                                 bool autopopup=true,
+                                 KTextEditor::View *view=0,
+                                 DocWordCompletionModel *completionModel=0 );
     ~DocWordCompletionPluginView();
 
     void settreshold( uint treshold );
@@ -98,7 +126,7 @@ class DocWordCompletionPluginView
     void completeForwards();
     void shellComplete();
 
-    void popupCompletionList( QString word=QString() );
+    void popupCompletionList();
     void autoPopupCompletionList();
     void toggleAutoPopup();
 
@@ -107,19 +135,23 @@ class DocWordCompletionPluginView
   private:
     void complete( bool fw=true );
 
-    QString word();
-    QString word(int col, const QString& line);
+    const QString word() const;
+    const KTextEditor::Range range() const;
+
+    QString findLongestUnique( const QStringList &matches, int lead ) const;
+
     KTextEditor::View *m_view;
-    struct DocWordCompletionPluginViewPrivate *d;
     QString m_oldWord;
     KTextEditor::Cursor m_oldCursor;
+    DocWordCompletionModel *m_dWCompletionModel;
+    struct DocWordCompletionPluginViewPrivate *d;
 };
 
 class DocWordCompletionConfigPage : public KTextEditor::ConfigPage
 {
   Q_OBJECT
   public:
-    DocWordCompletionConfigPage( DocWordCompletionPlugin *completion, QWidget *parent, const char *name );
+    DocWordCompletionConfigPage( DocWordCompletionPlugin *completion, QWidget *parent );
     virtual ~DocWordCompletionConfigPage() {}
 
     virtual void apply();

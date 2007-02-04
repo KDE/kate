@@ -266,7 +266,6 @@ struct DocWordCompletionPluginViewPrivate
   QRegExp re;           // hrm
   KToggleAction *autopopup; // for accessing state
   uint treshold;        // the required length of a word before popping up the completion list automatically
-  bool busy;
 };
 
 DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
@@ -282,7 +281,6 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
 //   setObjectName( name );
 
   d->treshold = treshold;
-  d->busy = false;
   view->insertChildClient( this );
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
 

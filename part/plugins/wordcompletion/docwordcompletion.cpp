@@ -48,7 +48,7 @@
 
 #include <qregexp.h>
 #include <qstring.h>
-#include <QHash>
+#include <QSet>
 #include <qspinbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
@@ -128,7 +128,7 @@ const QStringList DocWordCompletionModel::allMatches( KTextEditor::View *view, c
   KTextEditor::Document *doc = view->document();
   QRegExp re( "\\b(" + doc->text( range ) + "\\w{" + QString::number(minAdditionalLength) + ",})" );
   QString s, m;
-  QHash<QString,int> seen;
+  QSet<QString> seen;
 
   while( i < doc->lines() )
   {
@@ -141,7 +141,7 @@ const QStringList DocWordCompletionModel::allMatches( KTextEditor::View *view, c
       {
         m = re.cap( 1 );
         if ( ! seen.contains( m ) ) {
-          seen.insert( m, 1 );
+          seen.insert( m );
           l << m;
         }
         pos += re.matchedLength();

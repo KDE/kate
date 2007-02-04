@@ -50,9 +50,8 @@ class DocWordCompletionModel
     DocWordCompletionModel( QObject *parent );
     ~DocWordCompletionModel();
 
-    void xcompletionInvoked( KTextEditor::View* view,
-                            const KTextEditor::Range& range,
-                            InvocationType invocationType);
+    void saveMatches( KTextEditor::View* view,
+                            const KTextEditor::Range& range);
 
     int rowCount ( const QModelIndex & parent ) const;
 

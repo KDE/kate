@@ -56,7 +56,7 @@
 #include <kvbox.h>
 #include <qcheckbox.h>
 
-#include <kdebug.h>
+// #include <kdebug.h>
 //END
 
 //BEGIN DocWordCompletionModel
@@ -69,17 +69,14 @@ DocWordCompletionModel::~DocWordCompletionModel()
 {
 }
 
-void DocWordCompletionModel::xcompletionInvoked( KTextEditor::View* view,
-                        const KTextEditor::Range& range,
-                        InvocationType invocationType)
+void DocWordCompletionModel::saveMatches( KTextEditor::View* view,
+                        const KTextEditor::Range& range)
 {
-  Q_UNUSED( invocationType );
   m_matches = allMatches( view, range );
 }
 
 QVariant DocWordCompletionModel::data(const QModelIndex& index, int role) const
 {
-  kDebug()<<"data for row "<<index.row()<<", column "<<index.column()<<", role "<<role<<": "<<m_matches.at(index.row())<<endl;
   switch ( role )
   {
     case Qt::DisplayRole:
@@ -119,7 +116,6 @@ int DocWordCompletionModel::rowCount ( const QModelIndex & parent ) const
 // ignoring any dublets
 const QStringList DocWordCompletionModel::allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const
 {
-  kDebug()<<"allMatches()"<<endl;
   QStringList l;
 
   // we complete words on a single line, that has a length
@@ -129,7 +125,6 @@ const QStringList DocWordCompletionModel::allMatches( KTextEditor::View *view, c
   int i( 0 );
   int pos( 0 );
   KTextEditor::Document *doc = view->document();
-  kDebug()<<"word is '"<<doc->text( range )<<endl;
   QRegExp re( "\\b(" + doc->text( range ) + "\\w+)" );
   QString s, m;
   QHash<QString,int> seen;
@@ -153,7 +148,6 @@ const QStringList DocWordCompletionModel::allMatches( KTextEditor::View *view, c
     }
     i++;
   }
-  kDebug()<<"found matches: "<<l.count()<<endl;
   return l;
 }
 
@@ -272,6 +266,7 @@ struct DocWordCompletionPluginViewPrivate
   QRegExp re;           // hrm
   KToggleAction *autopopup; // for accessing state
   uint treshold;        // the required length of a word before popping up the completion list automatically
+  bool busy;
 };
 
 DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
@@ -287,6 +282,7 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
 //   setObjectName( name );
 
   d->treshold = treshold;
+  d->busy = false;
   view->insertChildClient( this );
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
 
@@ -369,7 +365,7 @@ void DocWordCompletionPluginView::popupCompletionList()
   if ( r.isEmpty() )
     return;
 
-  m_dWCompletionModel->xcompletionInvoked( m_view, r, KTextEditor::CodeCompletionModel::UserInvocation );
+  m_dWCompletionModel->saveMatches( m_view, r );
 
   if ( ! m_dWCompletionModel->rowCount(QModelIndex()) ) return;
 
@@ -436,7 +432,8 @@ void DocWordCompletionPluginView::complete( bool fw )
   int cline, ccol;
   m_view->cursorPosition().position ( cline, ccol );
   QString wrd = word();
-  if ( wrd.isEmpty() ) return;
+  if ( wrd.isEmpty() )
+    return;
 
   /* IF the current line is equal to the previous line
      AND the position - the length of the last inserted string
@@ -458,8 +455,8 @@ void DocWordCompletionPluginView::complete( bool fw )
     d->ccol = ccol;
     d->last = wrd;
     d->lastIns.clear();
-    d->line = d->cline;
-    d->col = d->ccol - wrd.length();
+    d->line = cline;
+    d->col = ccol - wrd.length();
     d->lilen = 0;
   }
 
@@ -469,7 +466,7 @@ void DocWordCompletionPluginView::complete( bool fw )
   QString ln = m_view->document()->line( d->line );
 
   if ( ! fw )
-    ln = ln.mid( 0, d->col );
+    ln = ln.left( d->col );
 
   while ( true )
   {
@@ -501,9 +498,11 @@ void DocWordCompletionPluginView::complete( bool fw )
       else
       {
         d->col = pos; // for next try
+
         if ( fw )
-          d->col += m.length();
-        else // FIXME figure out if all of that is really necessary
+          d->col += d->re.matchedLength();
+
+        else
         {
           if ( pos == 0 )
           {
@@ -519,6 +518,7 @@ void DocWordCompletionPluginView::complete( bool fw )
               return;
             }
           }
+
           else
             d->col--;
         }
@@ -527,20 +527,13 @@ void DocWordCompletionPluginView::complete( bool fw )
 
     else  // no match
     {
-      if ( ! fw && d->line == 0)
-      {
-        KNotification::beep();
-        return;
-      }
-      else if ( fw && d->line >= (uint)m_view->document()->lines() )
+      if ( (! fw && d->line == 0 ) || ( fw && d->line >= (uint)m_view->document()->lines() ) )
       {
         KNotification::beep();
         return;
       }
 
       d->line += inc;
-      if ( fw )
-        d->col++;
 
       ln = m_view->document()->line( d->line );
       d->col = fw ? 0 : ln.length();
@@ -588,20 +581,23 @@ const KTextEditor::Range DocWordCompletionPluginView::range() const
   KTextEditor::Cursor end = m_view->cursorPosition();
 
   if ( ! end.column() ) return KTextEditor::Range::Range(); // no word
-  KTextEditor::Cursor start = end;
+  int line = end.line();
+  int col = end.column();
 
   KTextEditor::Document *doc = m_view->document();
-  while ( start.column() > 0 )
+  while ( col > 0 )
   {
-    start.setColumn( start.column() - 1 );
-    QChar c = ( doc->character( start ) );
+    QChar c = ( doc->character( KTextEditor::Cursor( line, col-1 ) ) );
     if ( c.isLetterOrNumber() || c.isMark() || c == '_' )
+    {
+      col--;
       continue;
+    }
 
     break;
   }
 
-  return KTextEditor::Range::Range( start, end );
+  return KTextEditor::Range::Range( KTextEditor::Cursor( line, col ), end );
 }
 
 void DocWordCompletionPluginView::slotVariableChanged( const QString &var, const QString &val )

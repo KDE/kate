@@ -72,7 +72,8 @@ DocWordCompletionModel::~DocWordCompletionModel()
 void DocWordCompletionModel::saveMatches( KTextEditor::View* view,
                         const KTextEditor::Range& range)
 {
-  m_matches = allMatches( view, range );
+  m_matches = allMatches( view, range, 2 );
+  m_matches.sort();
 }
 
 QVariant DocWordCompletionModel::data(const QModelIndex& index, int role) const
@@ -114,7 +115,7 @@ int DocWordCompletionModel::rowCount ( const QModelIndex & parent ) const
 
 // Scan throughout the entire document for possible completions,
 // ignoring any dublets
-const QStringList DocWordCompletionModel::allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const
+const QStringList DocWordCompletionModel::allMatches( KTextEditor::View *view, const KTextEditor::Range &range, int minAdditionalLength ) const
 {
   QStringList l;
 
@@ -125,7 +126,7 @@ const QStringList DocWordCompletionModel::allMatches( KTextEditor::View *view, c
   int i( 0 );
   int pos( 0 );
   KTextEditor::Document *doc = view->document();
-  QRegExp re( "\\b(" + doc->text( range ) + "\\w+)" );
+  QRegExp re( "\\b(" + doc->text( range ) + "\\w{" + QString::number(minAdditionalLength) + ",})" );
   QString s, m;
   QHash<QString,int> seen;
 

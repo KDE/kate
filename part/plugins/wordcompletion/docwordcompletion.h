@@ -58,7 +58,7 @@ class DocWordCompletionModel
     QVariant data(const QModelIndex& index, int role) const;
     virtual QModelIndex index(int row, int column, const QModelIndex& parent=QModelIndex()) const;
 
-    const QStringList allMatches( KTextEditor::View *view, const KTextEditor::Range &range  ) const;
+    const QStringList allMatches( KTextEditor::View *view, const KTextEditor::Range &range, int minAdditionalLength = 1 ) const;
 
   private:
     QStringList m_matches;

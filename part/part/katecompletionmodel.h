@@ -138,13 +138,13 @@ class KateCompletionModel : public QAbstractItemModel
     const QList< QList<int> >& columnMerges() const;
     void setColumnMerges(const QList< QList<int> >& columnMerges);
 
-  public slots:
+  public Q_SLOTS:
     void setSortingEnabled(bool enable);
     void setFilteringEnabled(bool enable);
     void setGroupingEnabled(bool enable);
     void setColumnMergingEnabled(bool enable);
 
-  private slots:
+  private Q_SLOTS:
     void slotRowsInserted( const QModelIndex & parent, int start, int end );
     void slotRowsRemoved( const QModelIndex & parent, int start, int end );
 

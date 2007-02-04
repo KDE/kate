@@ -37,10 +37,10 @@ class KateCompletionConfig : public KDialog
     explicit KateCompletionConfig(KateCompletionModel* model, QWidget* parent = 0L);
     virtual ~KateCompletionConfig();
 
-  public slots:
+  public Q_SLOTS:
     void apply();
 
-  private slots:
+  private Q_SLOTS:
     void moveColumnUp();
     void moveColumnDown();
     void moveGroupingUp();

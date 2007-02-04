@@ -242,7 +242,7 @@ private:
      */
     QStringList concatListFiles(const QString &relPath, const QString &filename);
 
-private slots:
+private Q_SLOTS:
     void slotOpenURL(const KUrl &url, const KParts::URLArgs &args);
     void resizeTopLevelWidget( int, int );
 

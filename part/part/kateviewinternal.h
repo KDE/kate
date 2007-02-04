@@ -104,12 +104,12 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
     void clear ();
 
-  signals:
+  Q_SIGNALS:
     // Trigger this signal whenever you want to call updateView() and may not be in the same thread.
     void requestViewUpdate();
   //END
 
-  private slots:
+  private Q_SLOTS:
     // Updates the view and requests a redraw.
     void updateView (bool changed = false, int viewLinesScrolled = 0);
 

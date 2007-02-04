@@ -74,7 +74,7 @@ class KateCompletionWidget : public QFrame
 
     virtual bool eventFilter( QObject * watched, QEvent * event );
 
-  public slots:
+  public Q_SLOTS:
     void abortCompletion();
     void showConfig();
 
@@ -82,7 +82,7 @@ class KateCompletionWidget : public QFrame
     virtual void resizeEvent ( QResizeEvent * event );
     virtual void hideEvent ( QHideEvent * event );
 
-  private slots:
+  private Q_SLOTS:
     void cursorPositionChanged();
     void editDone(KateEditInfo* edit);
     void modelReset();

@@ -285,7 +285,6 @@ class KatePartPluginConfigPage : public KateConfigPage
   private Q_SLOTS:
     void slotCurrentChanged( QTreeWidgetItem* );
     void slotConfigure();
-    void slotStateChanged( KatePartPluginListItem *, bool );
 
   private:
     KatePartPluginListView *listView;

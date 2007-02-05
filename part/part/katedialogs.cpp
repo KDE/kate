@@ -655,29 +655,16 @@ class KatePartPluginListItem : public QTreeWidgetItem
     KatePartPluginListItem(bool checked, uint i, const QString &name, QTreeWidget *parent);
     uint pluginIndex () const { return index; }
 
-  protected:
-    void stateChange(bool);
-
   private:
     uint index;
-    bool silentStateChange;
 };
 
 KatePartPluginListItem::KatePartPluginListItem(bool checked, uint i, const QString &name, QTreeWidget *parent)
   : QTreeWidgetItem(parent)
   , index(i)
-  , silentStateChange(false)
 {
   setText(0, name);
-  silentStateChange = true;
   setCheckState(0, checked ? Qt::Checked : Qt::Unchecked);
-  silentStateChange = false;
-}
-
-void KatePartPluginListItem::stateChange(bool b)
-{
-  if(!silentStateChange)
-    static_cast<KatePartPluginListView *>(treeWidget())->stateChanged(this, b);
 }
 //END
 
@@ -685,11 +672,6 @@ void KatePartPluginListItem::stateChange(bool b)
 KatePartPluginListView::KatePartPluginListView(QWidget *parent)
   : QTreeWidget(parent)
 {
-}
-
-void KatePartPluginListView::stateChanged(KatePartPluginListItem *item, bool b)
-{
-  emit stateChange(item, b);
 }
 //END
 
@@ -725,9 +707,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfi
   connect( btnConfigure, SIGNAL(clicked()), this, SLOT(slotConfigure()) );
 
   connect( listView, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(slotCurrentChanged(QTreeWidgetItem*)) );
-  connect( listView, SIGNAL(stateChange(KatePartPluginListItem *, bool)),
-    this, SLOT(slotStateChanged(KatePartPluginListItem *, bool)));
-  connect(listView, SIGNAL(stateChange(KatePartPluginListItem *, bool)), this, SLOT(slotChanged()));
+  connect( listView, SIGNAL(itemChanged (QTreeWidgetItem *, int)), this, SLOT(slotChanged()));
 }
 
 KatePartPluginConfigPage::~KatePartPluginConfigPage ()
@@ -751,12 +731,6 @@ void KatePartPluginConfigPage::apply ()
     KateDocumentConfig::global()->setPlugin (m_items.at(i)->pluginIndex(), m_items.at(i)->checkState(0) == Qt::Checked);
 
   KateDocumentConfig::global()->configEnd ();
-}
-
-void KatePartPluginConfigPage::slotStateChanged( KatePartPluginListItem *item, bool b )
-{
-  if ( b )
-    slotCurrentChanged( (QTreeWidgetItem*)item );
 }
 
 void KatePartPluginConfigPage::slotCurrentChanged( QTreeWidgetItem* i )

@@ -25,6 +25,7 @@
 #include <QHBoxLayout>
 #include <QToolButton>
 #include <QCheckBox>
+#include <QKeyEvent>
 
 class KateSearchBar::Private
 {

@@ -23,6 +23,7 @@
 #include <QTextLine>
 
 #include <ksharedptr.h>
+#include "katelinerange.h"
 
 #include "katecursor.h"
 

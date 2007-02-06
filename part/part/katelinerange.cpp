@@ -18,6 +18,7 @@
 */
 
 #include "katelinerange.h"
+#include "katetextlayout.h"
 
 #include <QTextLayout>
 

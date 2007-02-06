@@ -44,6 +44,7 @@ class KateView;
 class KateIconBorder;
 class KateScrollBar;
 class KateSmartRange;
+class KateTextLayout;
 
 class QScrollBar;
 

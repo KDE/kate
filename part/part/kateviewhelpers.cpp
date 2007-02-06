@@ -30,6 +30,7 @@
 #include "kateview.h"
 #include "kateviewinternal.h"
 #include "katelayoutcache.h"
+#include "katetextlayout.h"
 
 #include <kapplication.h>
 #include <kglobalsettings.h>

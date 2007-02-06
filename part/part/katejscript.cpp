@@ -668,7 +668,7 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec,
 
     case KateJSDocument::LastIndexOf: {
       if (exception.invalidArgs(2, 4)) break;
-      const int from = args.size() >=3 ? args[2]->toUInt32(exec) : -1;
+      const int from = args.size() >=3 ? (int)args[2]->toUInt32(exec) : -1;
       Qt::CaseSensitivity cs = Qt::CaseSensitive;
       if (args.size() == 4 && !args[3]->toBoolean(exec))
         cs = Qt::CaseInsensitive;

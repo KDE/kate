@@ -27,6 +27,7 @@
 #include "katehighlight.h"
 #include "kateview.h"
 #include "katerenderrange.h"
+#include "katetextlayout.h"
 
 #include <limits.h>
 

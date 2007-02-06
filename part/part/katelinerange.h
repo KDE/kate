@@ -22,10 +22,10 @@
 
 #include "katecursor.h"
 #include "katetextline.h"
-#include "katetextlayout.h"
 
 class QTextLayout;
 class KateDocument;
+class KateTextLayout;
 
 class KateLineLayout : public KShared
 {

@@ -447,8 +447,6 @@ void DocWordCompletionPluginView::complete( bool fw )
           wrd.endsWith( d->lastIns ) )
   {
     // this is a repeted activation
-    ccol = d->ccol;
-    wrd = d->last;
 
     // if we are back to where we started, reset.
     if ( ( fw && d->directionalPos == -1 ) ||
@@ -465,6 +463,12 @@ void DocWordCompletionPluginView::complete( bool fw )
 
       return;
     }
+
+    if ( fw )
+      d->col += d->lilen;
+
+    ccol = d->ccol;
+    wrd = d->last;
 
     d->directionalPos += inc;
   }
@@ -483,9 +487,6 @@ void DocWordCompletionPluginView::complete( bool fw )
   d->re.setPattern( "\\b" + wrd + "(\\w+)" );
   int pos ( 0 );
   QString ln = m_view->document()->line( d->line );
-
-  if ( ! fw )
-    ln = ln.left( d->col );
 
   while ( true )
   {
@@ -506,9 +507,6 @@ void DocWordCompletionPluginView::complete( bool fw )
         d->lastIns = m;
         d->lilen = m.length();
         d->col = pos; // for next try
-
-        if ( fw )
-          d->col += m.length();
 
         return;
       }

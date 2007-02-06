@@ -93,7 +93,6 @@ QVariant DocWordCompletionModel::data(const QModelIndex& index, int role) const
       return QVariant::Invalid;
     case InheritanceDepth:
       return 0;
-
   }
 
   return QVariant();
@@ -267,6 +266,7 @@ struct DocWordCompletionPluginViewPrivate
   QRegExp re;           // hrm
   KToggleAction *autopopup; // for accessing state
   uint treshold;        // the required length of a word before popping up the completion list automatically
+  int directionalPos;   // be able to insert "" at the correct time
 };
 
 DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
@@ -434,6 +434,8 @@ void DocWordCompletionPluginView::complete( bool fw )
   if ( wrd.isEmpty() )
     return;
 
+  int inc = fw ? 1 : -1;
+
   /* IF the current line is equal to the previous line
      AND the position - the length of the last inserted string
           is equal to the old position
@@ -447,6 +449,24 @@ void DocWordCompletionPluginView::complete( bool fw )
     // this is a repeted activation
     ccol = d->ccol;
     wrd = d->last;
+
+    // if we are back to where we started, reset.
+    if ( ( fw && d->directionalPos == -1 ) ||
+         ( !fw && d->directionalPos == 1 ) )
+    {
+      if ( d->lilen )
+        m_view->document()->removeText( KTextEditor::Range(d->cline, d->ccol, d->cline, d->ccol + d->lilen) );
+
+      d->lastIns = "";
+      d->lilen = 0;
+      d->line = d->cline;
+      d->col = d->ccol;
+      d->directionalPos = 0;
+
+      return;
+    }
+
+    d->directionalPos += inc;
   }
   else
   {
@@ -457,10 +477,10 @@ void DocWordCompletionPluginView::complete( bool fw )
     d->line = cline;
     d->col = ccol - wrd.length();
     d->lilen = 0;
+    d->directionalPos = inc;
   }
 
   d->re.setPattern( "\\b" + wrd + "(\\w+)" );
-  int inc = fw ? 1 : -1;
   int pos ( 0 );
   QString ln = m_view->document()->line( d->line );
 

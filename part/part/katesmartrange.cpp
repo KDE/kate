@@ -87,7 +87,7 @@ void KateSmartRangeNotifier::connectNotify(const char* signal)
 {
   if (receivers(signal) == 1)
     // which signal has been turned on?
-    if (signal == SIGNAL(positionChanged(SmartRange*)))
+    if (QMetaObject::normalizedSignature(SIGNAL(positionChanged(SmartRange*))) == signal)
       m_owner->checkFeedback();
 }
 
@@ -95,7 +95,7 @@ void KateSmartRangeNotifier::disconnectNotify(const char* signal)
 {
   if (receivers(signal) == 0)
     // which signal has been turned off?
-    if (signal == SIGNAL(positionChanged(SmartRange*)))
+    if (QMetaObject::normalizedSignature(SIGNAL(positionChanged(SmartRange*))) == signal)
       m_owner->checkFeedback();
 }
 

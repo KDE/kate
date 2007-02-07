@@ -34,9 +34,15 @@ public:
     KTextEditor::Range match;
     KTextEditor::Range lastMatch;
     KateSearchBarEdit *expressionEdit;
+
     QCheckBox *caseSensitiveBox;
     QCheckBox *wholeWordsBox;
     QCheckBox *regExpBox;
+
+    QCheckBox *fromCursorBox;
+    QCheckBox *selectionOnlyBox;
+    QCheckBox *highlightAllBox;
+
     QRegExp regExp;
 
     bool searching;
@@ -67,15 +73,23 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     d->regExpBox = new QCheckBox(i18n("&Regular Expression"));
     connect(d->regExpBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
 
+    d->fromCursorBox = new QCheckBox(i18n("&From Cursor"));
+    connect(d->fromCursorBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
+
+    d->selectionOnlyBox = new QCheckBox(i18n("&Selection Only"));
+    connect(d->selectionOnlyBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
+
+    d->highlightAllBox = new QCheckBox(i18n("&Highlight all"));
+    connect(d->highlightAllBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
+
     QVBoxLayout *topLayout = new QVBoxLayout ();
     centralWidget()->setLayout(topLayout);
 
     // NOTE: Here be cosmetics.
     topLayout->setMargin(2);
 
-    QHBoxLayout *layoutFirstLine = new QHBoxLayout;
-    topLayout->addLayout (layoutFirstLine);
 
+    // first line, search field + next/prev
     QToolButton *nextButton = new QToolButton();
     nextButton->setAutoRaise(true);
     nextButton->setIcon(QIcon(SmallIcon("next")));
@@ -90,17 +104,30 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     prevButton->setText(i18n("Find &Previous"));
     connect(prevButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
 
+    QHBoxLayout *layoutFirstLine = new QHBoxLayout;
+    topLayout->addLayout (layoutFirstLine);
+
+    // first line: lineedit + next + prev
     layoutFirstLine->addWidget(d->expressionEdit);
     layoutFirstLine->addWidget(nextButton);
     layoutFirstLine->addWidget(prevButton);
 
-    QHBoxLayout *layoutSecondLine = new QHBoxLayout;
-    topLayout->addLayout (layoutSecondLine);
+    QGridLayout *gridLayout = new QGridLayout;
+    topLayout->addLayout (gridLayout);
 
-    layoutSecondLine->addWidget(d->caseSensitiveBox);
-    layoutSecondLine->addWidget(d->wholeWordsBox);
-    layoutSecondLine->addWidget(d->regExpBox);
-    layoutSecondLine->addStretch (1);
+    // second line: casesensitive + whole words + regexp
+    gridLayout->addWidget(d->caseSensitiveBox, 0, 0);
+    gridLayout->addWidget(d->wholeWordsBox, 0, 1);
+    gridLayout->addWidget(d->regExpBox, 0, 2);
+    gridLayout->addItem (new QSpacerItem(0,0), 0, 3);
+
+    // third line: from cursor + selection only + highlight all
+    gridLayout->addWidget(d->fromCursorBox, 1, 0);
+    gridLayout->addWidget(d->selectionOnlyBox, 1, 1);
+    gridLayout->addWidget(d->highlightAllBox, 1, 2);
+    gridLayout->addItem (new QSpacerItem(0,0), 1, 3);
+
+    gridLayout->setColumnStretch (3, 10);
 
     // set right focus proxy
     centralWidget()->setFocusProxy(d->expressionEdit);

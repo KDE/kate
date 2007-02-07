@@ -576,8 +576,8 @@ bool KateSearch::doSearch( const QString& text )
         end.setColumn (qMax(s.selection.start().column(), s.selection.end().column()));
       }
 
-      if ( !s.flags.backward && match.start() >= end
-        ||  s.flags.backward && match.start() < start )
+      if ( (!s.flags.backward && match.start() >= end)
+        ||  (s.flags.backward && match.start() < start) )
         match = KTextEditor::Range::invalid();
       else if (m_view->blockSelection())
       {

@@ -264,8 +264,8 @@ class KateTextLine : public KShared
     /**
      * @return true if any context at the line end has the noIndentBasedFolding flag set
      */
-    inline const bool noIndentBasedFolding() const { return m_flags & KateTextLine::flagNoIndentationBasedFolding; };
-    inline const bool noIndentBasedFoldingAtStart() const { return m_flags & KateTextLine::flagNoIndentationBasedFoldingAtStart; };
+    inline bool noIndentBasedFolding() const { return m_flags & KateTextLine::flagNoIndentationBasedFolding; };
+    inline bool noIndentBasedFoldingAtStart() const { return m_flags & KateTextLine::flagNoIndentationBasedFoldingAtStart; };
     /**
      * folding list
      * @return folding array

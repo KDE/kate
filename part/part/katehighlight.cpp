@@ -2855,16 +2855,15 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         // to be matched to at once)
         datasub=KateHlManager::self()->syntax->getSubItems(data);
         bool tmpbool;
-        if (tmpbool=KateHlManager::self()->syntax->nextItem(datasub))
+        for (bool tmpbool=KateHlManager::self()->syntax->nextItem(datasub);
+             tmpbool;
+             tmpbool=KateHlManager::self()->syntax->nextItem(datasub))
         {
-          for (;tmpbool;tmpbool=KateHlManager::self()->syntax->nextItem(datasub))
-          {
-            c->subItems.resize (c->subItems.size()+1);
-            c->subItems[c->subItems.size()-1] = createKateHlItem(datasub,iDl,&RegionList,&ContextNameList);
-          }                             }
-          KateHlManager::self()->syntax->freeGroupInfo(datasub);
-                              // end of sublevel
+          c->subItems.resize (c->subItems.size()+1);
+          c->subItems[c->subItems.size()-1] = createKateHlItem(datasub,iDl,&RegionList,&ContextNameList);
         }
+        KateHlManager::self()->syntax->freeGroupInfo(datasub);
+      }
       }
       i++;
     }

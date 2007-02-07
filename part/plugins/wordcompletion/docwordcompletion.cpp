@@ -31,6 +31,8 @@
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/variableinterface.h>
+#include <ktexteditor/smartinterface.h>
+#include <ktexteditor/smartrange.h>
 
 #include <kconfig.h>
 #include <kdialog.h>
@@ -56,7 +58,7 @@
 #include <kvbox.h>
 #include <qcheckbox.h>
 
-// #include <kdebug.h>
+//#include <kdebug.h>
 //END
 
 //BEGIN DocWordCompletionModel
@@ -258,11 +260,9 @@ QString DocWordCompletionPlugin::configPageFullName( uint ) const
 //BEGIN DocWordCompletionPluginView
 struct DocWordCompletionPluginViewPrivate
 {
-  uint line, col;       // start position of last match (where to search from)
-  uint cline, ccol;     // cursor position
-  uint lilen;           // length of last insertion
-  QString last;         // last word we were trying to match
-  QString lastIns;      // latest applied completion
+  KTextEditor::SmartRange* liRange;       // range containing last inserted text
+  KTextEditor::Range dcRange;  // current range to be completed by directional completion
+  KTextEditor::Cursor dcCursor;     // directional completion search cursor
   QRegExp re;           // hrm
   KToggleAction *autopopup; // for accessing state
   uint treshold;        // the required length of a word before popping up the completion list automatically
@@ -282,17 +282,49 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
 //   setObjectName( name );
 
   d->treshold = treshold;
+  d->dcRange = KTextEditor::Range();
+  KTextEditor::SmartInterface *si =
+     qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );
+
+  if( ! si )
+    return;
+
+  d->liRange = si->newSmartRange();
+
+  KTextEditor::Attribute::Ptr a( new KTextEditor::Attribute() );
+  a->setBackground( QColor("red") );
+  a->setForeground( QColor("black") );
+  d->liRange->setAttribute( a );
+
   view->insertChildClient( this );
+
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
+
+  KAction *action;
 
   if (cci)
   {
     cci->registerCompletionModel( m_dWCompletionModel );
+
+    action = new KAction( i18n("Pop Up Completion List"), this );
+    actionCollection()->addAction( "doccomplete_pu", action );
+    connect( action, SIGNAL( triggered() ), this, SLOT(popupCompletionList()) );
+
+    d->autopopup = new KToggleAction( i18n("Automatic Completion Popup"), this );
+    actionCollection()->addAction( "enable_autopopup", d->autopopup );
+    connect( d->autopopup, SIGNAL( triggered() ), this, SLOT(toggleAutoPopup()) );
+
+    d->autopopup->setChecked( autopopup );
+    toggleAutoPopup();
+
+    action = new KAction( i18n("Shell Completion"), this );
+    actionCollection()->addAction( "doccomplete_sh", action );
+    connect( action, SIGNAL( triggered() ), this, SLOT(shellComplete()) );
   }
 
   setComponentData( KGenericFactory<DocWordCompletionPlugin>::componentData() );
 
-  KAction *action = new KAction( i18n("Reuse Word Above"), this );
+  action = new KAction( i18n("Reuse Word Above"), this );
   actionCollection()->addAction( "doccomplete_bw", action );
   action->setShortcut( Qt::CTRL+Qt::Key_8 );
   connect( action, SIGNAL( triggered() ), this, SLOT(completeBackwards()) );
@@ -301,21 +333,6 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
   actionCollection()->addAction( "doccomplete_fw", action );
   action->setShortcut( Qt::CTRL+Qt::Key_9 );
   connect( action, SIGNAL( triggered() ), this, SLOT(completeForwards()) );
-
-  action = new KAction( i18n("Pop Up Completion List"), this );
-  actionCollection()->addAction( "doccomplete_pu", action );
-  connect( action, SIGNAL( triggered() ), this, SLOT(popupCompletionList()) );
-
-  action = new KAction( i18n("Shell Completion"), this );
-  actionCollection()->addAction( "doccomplete_sh", action );
-  connect( action, SIGNAL( triggered() ), this, SLOT(shellComplete()) );
-
-  d->autopopup = new KToggleAction( i18n("Automatic Completion Popup"), this );
-  actionCollection()->addAction( "enable_autopopup", d->autopopup );
-  connect( d->autopopup, SIGNAL( triggered() ), this, SLOT(toggleAutoPopup()) );
-
-  d->autopopup->setChecked( autopopup );
-  toggleAutoPopup();
 
   setXMLFile("docwordcompletionui.rc");
 
@@ -427,14 +444,12 @@ void DocWordCompletionPluginView::shellComplete()
 // if possible
 void DocWordCompletionPluginView::complete( bool fw )
 {
-  // find the word we are typing
-  int cline, ccol;
-  m_view->cursorPosition().position ( cline, ccol );
-  QString wrd = word();
-  if ( wrd.isEmpty() )
+  KTextEditor::Range r = range();
+  if ( r.isEmpty() )
     return;
 
   int inc = fw ? 1 : -1;
+  KTextEditor::Document *doc = m_view->document();
 
   /* IF the current line is equal to the previous line
      AND the position - the length of the last inserted string
@@ -442,71 +457,61 @@ void DocWordCompletionPluginView::complete( bool fw )
      AND the lastinsertedlength last characters of the word is
           equal to the last inserted string
           */
-  if ( cline == (int)d-> cline &&
-          ccol - d->lilen == d->ccol &&
-          wrd.endsWith( d->lastIns ) )
+  if ( r.start() == d->dcRange.start() && r.end() >= d->dcRange.end() )
   {
+    //kDebug()<<"CONTINUE "<<d->dcRange<<endl;
     // this is a repeted activation
 
     // if we are back to where we started, reset.
     if ( ( fw && d->directionalPos == -1 ) ||
          ( !fw && d->directionalPos == 1 ) )
     {
-      if ( d->lilen )
-        m_view->document()->removeText( KTextEditor::Range(d->cline, d->ccol, d->cline, d->ccol + d->lilen) );
+      if ( d->liRange->columnWidth() )
+        doc->removeText( *d->liRange );
 
-      d->lastIns = "";
-      d->lilen = 0;
-      d->line = d->cline;
-      d->col = d->ccol;
+      d->liRange->setRange( KTextEditor::Range( d->liRange->start(), 0 )  );
+      d->dcCursor = r.end();
       d->directionalPos = 0;
 
       return;
     }
 
     if ( fw )
-      d->col += d->lilen;
-
-    ccol = d->ccol;
-    wrd = d->last;
+      d->dcCursor.setColumn( d->dcCursor.column() + d->liRange->columnWidth() );
 
     d->directionalPos += inc;
   }
-  else
+  else // new completion, reset all
   {
-    d->cline = cline;
-    d->ccol = ccol;
-    d->last = wrd;
-    d->lastIns.clear();
-    d->line = cline;
-    d->col = ccol - wrd.length();
-    d->lilen = 0;
+    //kDebug()<<"RESET FOR NEW"<<endl;
+    d->dcRange = r;
+    d->liRange->setRange( KTextEditor::Range( r.end(), 0 ) );
+    d->dcCursor = r.start();
     d->directionalPos = inc;
   }
 
-  d->re.setPattern( "\\b" + wrd + "(\\w+)" );
+  d->re.setPattern( "\\b" + doc->text( d->dcRange ) + "(\\w+)" );
   int pos ( 0 );
-  QString ln = m_view->document()->line( d->line );
+  QString ln = doc->line( d->dcCursor.line() );
 
   while ( true )
   {
+    //kDebug()<<"SEARCHING FOR "<<d->re.pattern()<<" "<<ln<<" at "<<d->dcCursor<<endl;
     pos = fw ?
-      d->re.indexIn( ln, d->col ) :
-      d->re.lastIndexIn( ln, d->col );
+      d->re.indexIn( ln, d->dcCursor.column() ) :
+      d->re.lastIndexIn( ln, d->dcCursor.column() );
 
     if ( pos > -1 ) // we matched a word
     {
+      //kDebug()<<"USABLE MATCH"<<endl;
       QString m = d->re.cap( 1 );
-      if ( m != d->lastIns )
+      if ( m != doc->text( *d->liRange ) )
       {
         // we got good a match! replace text and return.
-        if ( d->lilen )
-          m_view->document()->removeText( KTextEditor::Range(d->cline, d->ccol, d->cline, d->ccol + d->lilen) );
-        m_view->document()->insertText( KTextEditor::Cursor (d->cline, d->ccol), m );
+        doc->replaceText( *d->liRange, m );
 
-        d->lastIns = m;
-        d->lilen = m.length();
-        d->col = pos; // for next try
+        d->liRange->setRange( KTextEditor::Range( d->dcRange.end(), m.length() ) );
+        d->dcCursor.setColumn( pos ); // for next try
 
         return;
       }
@@ -514,20 +519,21 @@ void DocWordCompletionPluginView::complete( bool fw )
       // equal to last one, continue
       else
       {
-        d->col = pos; // for next try
+        //kDebug()<<"SKIPPING, EQUAL MATCH"<<endl;
+        d->dcCursor.setColumn( pos ); // for next try
 
         if ( fw )
-          d->col += d->re.matchedLength();
+          d->dcCursor.setColumn( pos + m.length() );
 
         else
         {
           if ( pos == 0 )
           {
-            if ( d->line > 0 )
+            if ( d->dcCursor.line() > 0 )
             {
-              d->line += inc;
-              ln = m_view->document()->line( d->line );
-              d->col = ln.length();
+              int l = d->dcCursor.line() + inc;
+              ln = doc->line( l );
+              d->dcCursor.setPosition( l, ln.length() );
             }
             else
             {
@@ -537,23 +543,23 @@ void DocWordCompletionPluginView::complete( bool fw )
           }
 
           else
-            d->col--;
+            d->dcCursor.setColumn( d->dcCursor.column()-1 );
         }
       }
     }
 
     else  // no match
     {
-      if ( (! fw && d->line == 0 ) || ( fw && d->line >= (uint)m_view->document()->lines() ) )
+      //kDebug()<<"NO MATCH"<<endl;
+      if ( (! fw && d->dcCursor.line() == 0 ) || ( fw && d->dcCursor.line() >= doc->lines() ) )
       {
         KNotification::beep();
         return;
       }
 
-      d->line += inc;
-
-      ln = m_view->document()->line( d->line );
-      d->col = fw ? 0 : ln.length();
+      int l = d->dcCursor.line() + inc;
+      ln = doc->line( l );
+      d->dcCursor.setPosition( l, fw ? 0 : ln.length() );
     }
   } // while true
 }

@@ -58,7 +58,7 @@
 #include <kvbox.h>
 #include <qcheckbox.h>
 
-//#include <kdebug.h>
+#include <kdebug.h>
 //END
 
 //BEGIN DocWordCompletionModel
@@ -140,10 +140,14 @@ const QStringList DocWordCompletionModel::allMatches( KTextEditor::View *view, c
       pos = re.indexIn( s, pos );
       if ( pos >= 0 )
       {
-        m = re.cap( 1 );
-        if ( ! seen.contains( m ) ) {
-          seen.insert( m );
-          l << m;
+        // typing in the middle of a word
+        if ( ! ( i == range.start().line() && pos == range.start().column() ) )
+        {
+          m = re.cap( 1 );
+          if ( ! seen.contains( m ) ) {
+            seen.insert( m );
+            l << m;
+          }
         }
         pos += re.matchedLength();
       }
@@ -295,6 +299,7 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
   a->setBackground( QColor("red") );
   a->setForeground( QColor("black") );
   d->liRange->setAttribute( a );
+  si->addHighlightToView( m_view, d->liRange, false );
 
   view->insertChildClient( this );
 

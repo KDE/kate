@@ -140,8 +140,6 @@ class DocWordCompletionPluginView
     QString findLongestUnique( const QStringList &matches, int lead ) const;
 
     KTextEditor::View *m_view;
-    QString m_oldWord;
-    KTextEditor::Cursor m_oldCursor;
     DocWordCompletionModel *m_dWCompletionModel;
     struct DocWordCompletionPluginViewPrivate *d;
 };

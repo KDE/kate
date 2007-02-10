@@ -792,7 +792,7 @@ QStringList RegressionTest::concatListFiles(const QString &relPath, const QStrin
 
 bool RegressionTest::runTests(QString relPath, bool mustExist, int known_failure)
 {
-    m_currentOutput = QString::null;
+    m_currentOutput.clear();
 
     if (!QFile(m_baseDir + "/tests/"+relPath).exists()) {
         fprintf(stderr,"%s: No such file or directory\n",relPath.toLatin1().constData());

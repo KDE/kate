@@ -407,8 +407,8 @@ void KWrite::readConfig(KSharedConfigPtr config)
 {
   config->setGroup("General Options");
 
-  m_paShowStatusBar->setChecked( config->readEntry("ShowStatusBar", QVariant(false)).toBool() );
-  m_paShowPath->setChecked( config->readEntry("ShowPath", QVariant(false)).toBool() );
+  m_paShowStatusBar->setChecked( config->readEntry("ShowStatusBar", false) );
+  m_paShowPath->setChecked( config->readEntry("ShowPath", false) );
 
   m_recentFiles->loadEntries(config.data(), "Recent Files");
 

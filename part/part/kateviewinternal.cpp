@@ -1771,12 +1771,12 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 {
   if ( !force && (m_cursor == newCursor) )
   {
-    if ( !m_madeVisible )
+    if ( !m_madeVisible && m_view == m_doc->activeView() )
     {
       // unfold if required
       m_doc->foldingTree()->ensureVisible( newCursor.line() );
 
-      makeVisible ( m_displayCursor, m_displayCursor.column(), false, center, calledExternally );
+        makeVisible ( m_displayCursor, m_displayCursor.column(), false, center, calledExternally );
     }
 
     return;
@@ -1791,7 +1791,8 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
   m_displayCursor = toVirtualCursor(m_cursor);
 
   m_cursorX = renderer()->cursorToX(cache()->textLayout(m_cursor), m_cursor);
-  makeVisible ( m_displayCursor, m_displayCursor.column(), false, center, calledExternally );
+  if ( m_view == m_doc->activeView() )
+    makeVisible ( m_displayCursor, m_displayCursor.column(), false, center, calledExternally );
 
   updateBracketMarks();
 
@@ -2941,7 +2942,8 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
 #ifdef __GNUC__
 #warning fixme, this needs to be fixed app transparent to only be done if this view is the view where the editing did happen
 #endif
-    makeVisible(m_displayCursor, m_displayCursor.column());
+    if ( m_view == m_doc->activeView() )
+      makeVisible(m_displayCursor, m_displayCursor.column());
   }
 
   editIsRunning = false;

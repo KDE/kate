@@ -92,16 +92,16 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     // first line, search field + next/prev
     QToolButton *nextButton = new QToolButton();
     nextButton->setAutoRaise(true);
-    nextButton->setIcon(QIcon(SmallIcon("next")));
+    nextButton->setIcon(SmallIcon("next"));
     nextButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    nextButton->setText(i18n("Find &Next"));
+    nextButton->setText(i18n("Next"));
     connect(nextButton, SIGNAL(clicked()), this, SLOT(findNext()));
 
     QToolButton *prevButton = new QToolButton();
     prevButton->setAutoRaise(true);
-    prevButton->setIcon(QIcon(SmallIcon("previous")));
+    prevButton->setIcon(SmallIcon("previous"));
     prevButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    prevButton->setText(i18n("Find &Previous"));
+    prevButton->setText(i18n("Previous"));
     connect(prevButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
 
     QHBoxLayout *layoutFirstLine = new QHBoxLayout;
@@ -109,8 +109,8 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
 
     // first line: lineedit + next + prev
     layoutFirstLine->addWidget(d->expressionEdit);
-    layoutFirstLine->addWidget(nextButton);
     layoutFirstLine->addWidget(prevButton);
+    layoutFirstLine->addWidget(nextButton);
 
     QGridLayout *gridLayout = new QGridLayout;
     topLayout->addLayout (gridLayout);

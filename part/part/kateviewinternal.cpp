@@ -1706,7 +1706,7 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
 
             KateTextLine::Ptr l = m_doc->kateTextLine( newCursor.line() );
 
-            for ( c = newCursor.column(); c > 0; c-- )
+            for ( c = newCursor.column(); c >= 0; c-- )
               if ( !m_doc->highlight()->isInWord( l->at( c ) ) )
                 break;
 

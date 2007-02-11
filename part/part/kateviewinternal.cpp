@@ -1776,7 +1776,7 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
       // unfold if required
       m_doc->foldingTree()->ensureVisible( newCursor.line() );
 
-        makeVisible ( m_displayCursor, m_displayCursor.column(), false, center, calledExternally );
+      makeVisible ( m_displayCursor, m_displayCursor.column(), false, center, calledExternally );
     }
 
     return;
@@ -2939,9 +2939,6 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
   }
   else //if ( m_view->isActive() )
   {
-#ifdef __GNUC__
-#warning fixme, this needs to be fixed app transparent to only be done if this view is the view where the editing did happen
-#endif
     if ( m_view == m_doc->activeView() )
       makeVisible(m_displayCursor, m_displayCursor.column());
   }

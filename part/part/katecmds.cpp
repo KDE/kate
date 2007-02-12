@@ -512,7 +512,7 @@ bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd
     res += sedMagic(doc, line, find, replace, d, !noCase, repeat);
   }
 
-  msg = i18np("1 replacement done", "%n replacements done",res );
+  msg = i18np("1 replacement done", "%1 replacements done",res );
 
   doc->editEnd();
 

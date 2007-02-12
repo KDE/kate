@@ -342,7 +342,7 @@ void KateSearch::replaceAll()
     }
   } else {
     KMessageBox::information( view(),
-        i18np("%n replacement made.","%n replacements made.",replaces),
+        i18np("%1 replacement made.","%1 replacements made.",replaces),
         i18n("Replace") );
   }
 }
@@ -359,7 +359,7 @@ void KateSearch::promptReplace()
   } else {
     replacePrompt->hide();
     KMessageBox::information( view(),
-        i18np("%n replacement made.","%n replacements made.",replaces),
+        i18np("%1 replacement made.","%1 replacements made.",replaces),
         i18n("Replace") );
   }
 }
@@ -462,8 +462,8 @@ void KateSearch::replaceSlot() {
 bool KateSearch::askContinue()
 {
   QString made =
-     i18np( "%n replacement made.",
-           "%n replacements made.",
+     i18np( "%1 replacement made.",
+           "%1 replacements made.",
            replaces );
 
   QString reached = !s.flags.backward ?

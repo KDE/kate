@@ -25,7 +25,6 @@
 class KateView;
 
 namespace KTextEditor { class Mark; class View; }
-namespace KDocument { class View; }
 
 class KAction;
 class KToggleAction;

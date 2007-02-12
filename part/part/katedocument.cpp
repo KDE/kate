@@ -479,7 +479,7 @@ void KateDocument::disablePluginGUI (KTextEditor::Plugin *plugin)
 
 //BEGIN KTextEditor::Document stuff
 
-KDocument::View *KateDocument::createView( QWidget *parent )
+KTextEditor::View *KateDocument::createView( QWidget *parent )
 {
   KateView* newView = new KateView( this, parent);
   connect(newView, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(undoCancel()));
@@ -491,7 +491,7 @@ KDocument::View *KateDocument::createView( QWidget *parent )
   return newView;
 }
 
-const QList<KDocument::View*> &KateDocument::views () const
+const QList<KTextEditor::View*> &KateDocument::views () const
 {
   return m_textEditViews;
 }
@@ -2953,7 +2953,7 @@ void KateDocument::addView(KTextEditor::View *view) {
   if (!view)
     return;
 
-  m_views.append( (KateView *) view  );
+  m_views.append( static_cast<KateView*>(view) );
   m_textEditViews.append( view );
 
   // apply the view & renderer vars from the file type

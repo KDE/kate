@@ -148,8 +148,8 @@ class KateDocument : public KTextEditor::Document,
   // KTextEditor::Document stuff
   //
   public:
-    KDocument::View *createView( QWidget *parent );
-    const QList<KDocument::View*> &views () const;
+    KTextEditor::View *createView( QWidget *parent );
+    const QList<KTextEditor::View*> &views () const;
 
     virtual KTextEditor::View* activeView() const { return m_activeView; }
     // Invalid covariant returns my a$$... for some reason gcc won't let me return a KateView above!
@@ -160,7 +160,7 @@ class KateDocument : public KTextEditor::Document,
 
   private:
     QLinkedList<KateView*> m_views;
-    QList<KDocument::View*> m_textEditViews;
+    QList<KTextEditor::View*> m_textEditViews;
     KTextEditor::View *m_activeView;
 
   //

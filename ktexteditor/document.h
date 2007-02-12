@@ -23,7 +23,6 @@
 // the very important KTextEditor::Cursor class
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/range.h>
-#include <kdocument/document.h>
 
 // our main baseclass of the KTextEditor::Document
 #include <kparts/part.h>
@@ -63,9 +62,6 @@ class View;
  * Further signals are documentUrlChanged(). The encoding can be specified
  * with setEncoding(), however this will only take effect on file reload and
  * file save.
- *
- * Every document has a application wide unique document number, accessible
- * with documentNumber().
  *
  * \section doc_manipulation Text Manipulation
  *
@@ -109,7 +105,7 @@ class View;
  *      KTextEditor::VariableInterface
  * \author Christoph Cullmann \<cullmann@kde.org\>
  */
-class KTEXTEDITOR_EXPORT Document : public KDocument::Document
+class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
 {
   Q_OBJECT
 
@@ -143,6 +139,13 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
     virtual Editor *editor () = 0;
 
     /**
+     * Create a new view attached to @p parent.
+     * @param parent parent widget
+     * @return the new view
+     */
+    virtual View *createView ( QWidget *parent ) = 0;
+
+    /**
      * Return the view which is currently has user focus, if any.
      */
     virtual View* activeView() const = 0;
@@ -150,7 +153,7 @@ class KTEXTEDITOR_EXPORT Document : public KDocument::Document
     /**
      * Returns the views pre-casted to KTextEditor::View%s
      */
-    QList<View*> textViews() const;
+    virtual const QList<View*> &views() const = 0;
 
   Q_SIGNALS:
    /**

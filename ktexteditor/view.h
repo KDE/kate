@@ -25,8 +25,6 @@
 // gui merging
 #include <kxmlguiclient.h>
 
-#include <kdocument/view.h>
-
 // widget
 #include <qwidget.h>
 
@@ -59,7 +57,7 @@ class Document;
  * method to insert text is insertText(), which inserts the given text
  * at the current cursor position and emits the signal textInserted().
  *
- * Usually a view is created by using KDocument::createView().
+ * Usually a view is created by using Document::createView().
  * Furthermore a view can have a context menu. Set it with setContextMenu()
  * and get it with contextMenu().
  *
@@ -139,7 +137,7 @@ class Document;
  *      KXMLGUIClient
  * \author Christoph Cullmann \<cullmann@kde.org\>
  */
-class KTEXTEDITOR_EXPORT View : public KDocument::View
+class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
 {
   Q_OBJECT
 
@@ -149,7 +147,7 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      *
      * Create a view attached to the widget \p parent.
      * \param parent parent widget
-     * \see KDocument::createView()
+     * \see Document::createView()
      */
     View ( QWidget *parent );
 
@@ -168,6 +166,15 @@ class KTEXTEDITOR_EXPORT View : public KDocument::View
      * \return the view's document
      */
     virtual Document *document () const = 0;
+
+    /**
+     * Check whether this view is the document's active view.
+     * This is equal to the code:
+     * \code
+     * document()->activeView() == view
+     * \endcode
+     */
+    bool isActiveView() const;
 
   /*
    * General information about this view

@@ -84,15 +84,15 @@ Editor::~Editor()
 
 class KTextEditor::DocumentPrivate {
   public:
-    DocumentPrivate():openingError(false),suppressOpeningErrorDialogs(false) {
-    }
+    DocumentPrivate()
+      : openingError(false), suppressOpeningErrorDialogs(false) { }
     bool openingError;
     bool suppressOpeningErrorDialogs;
     QString openingErrorMessage;
 };
 
 Document::Document( QObject *parent)
- : KDocument::Document( parent)
+ : KParts::ReadWritePart(parent)
  , d(new DocumentPrivate())
 {
         qRegisterMetaType<KTextEditor::Document*>("KTextEditor::Document*");
@@ -154,12 +154,9 @@ bool Document::replaceText( const Range & range, const QStringList & text, bool 
   return success;
 }
 
-QList< View * > Document::textViews( ) const
+bool View::isActiveView() const
 {
-  QList< View * > v;
-  foreach (KDocument::View* view, views())
-    v << static_cast<View*>(view);
-  return v;
+  return this == document()->activeView();
 }
 
 bool View::setSelection(const Cursor& position, int length,bool wrap)
@@ -217,7 +214,7 @@ ConfigPage::~ConfigPage ()
 {}
 
 View::View ( QWidget *parent )
-  : KDocument::View( parent )
+  : QWidget(parent), KXMLGUIClient()
   , d(0)
 {}
 

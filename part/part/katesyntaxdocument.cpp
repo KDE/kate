@@ -353,7 +353,8 @@ void KateSyntaxDocument::setupModeList (bool force)
   }
 
   // Let's get a list of all the xml files for hl
-  QStringList list = KGlobal::dirs()->findAllResources("data","katepart/syntax/*.xml",false,true);
+  QStringList list = KGlobal::dirs()->findAllResources("data","katepart/syntax/*.xml",
+                                                       KStandardDirs::NoDuplicates);
 
   // Let's iterate through the list and build the Mode List
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )

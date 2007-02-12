@@ -1592,7 +1592,7 @@ KateJScriptHeaderVector KateJScriptHelpers::findScripts(const QString& rcFile,
   }
 
   // get a list of all .js files (false: not recursive, true: no duplicates)
-  QStringList list = KGlobal::dirs()->findAllResources("data", resourceDir, false, true);
+  QStringList list = KGlobal::dirs()->findAllResources("data", resourceDir, KStandardDirs::NoDuplicates);
   KateJScriptHeaderVector files;
   files.reserve(list.size());
 

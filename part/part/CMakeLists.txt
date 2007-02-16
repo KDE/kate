@@ -1,5 +1,5 @@
 # includes
-include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kutils ${CMAKE_SOURCE_DIR}/kde3support/kdeui)
+include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kutils ${CMAKE_SOURCE_DIR}/kde3support/kdeui ${CMAKE_SOURCE_DIR}/kjsembed )
 
 
 # kjs hash stuff
@@ -66,6 +66,7 @@ katecompletiontree.cpp
 katecompletionconfig.cpp
 katejscript.cpp
 katestyletreewidget.cpp
+js/kte_document_binding.cpp
 )
 
 kde4_automoc(${katepart_PART_SRCS})
@@ -90,7 +91,7 @@ kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 kde4_add_plugin(katepart ${katepart_PART_SRCS})
 
 # linking
-target_link_libraries(katepart ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kutils kjs knewstuff kde3support )
+target_link_libraries(katepart ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kutils kjs kjsembed knewstuff kde3support )
 
 # install the stuff
 install(TARGETS katepart  DESTINATION ${PLUGIN_INSTALL_DIR} )

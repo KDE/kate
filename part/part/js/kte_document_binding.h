@@ -8,7 +8,7 @@ namespace KTextEditor
   class Document;
 }
 
-KJSO_BINDING( KTEDocument, KTextEditor::Document, KJSEmbed::QObjectBinding )
+KJSO_BINDING_NOEXP( KTEDocument, KTextEditor::Document, KJSEmbed::QObjectBinding )
 
 #endif
 

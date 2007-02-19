@@ -39,9 +39,13 @@ public Q_SLOTS:
 
 private Q_SLOTS:
     void slotSearch();
+    void slotSpecialOptionTogled();
+
+protected:
+    void showEvent( QShowEvent * );
 
 private:
-    void doSearch(const QString &expression, bool backwards = false);
+    void doSearch(const QString &expression, bool init = false, bool backwards = false );
 
     KateView *m_view;
     class Private;
@@ -56,16 +60,21 @@ public:
     KateSearchBarEdit(QWidget *parent = 0L);
 
     enum Status { Normal, NotFound, SearchWrapped };
+    const Status status() const { return m_status; }
     void setStatus(Status status);
 
 Q_SIGNALS:
     void findNext();
     void findPrevious();
     void escapePressed();
+    void returnPressed();
 
 protected:
     bool event(QEvent *);
     void showEvent(QShowEvent *);
+
+private:
+    Status m_status;
 };
 
 #endif // __katesearchbar_h__

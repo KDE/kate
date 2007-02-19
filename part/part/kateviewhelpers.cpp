@@ -39,7 +39,6 @@
 #include <kglobal.h>
 #include <kcharsets.h>
 #include <kmenu.h>
-#include <kmenu.h>
 #include <kiconloader.h>
 
 #include <qcursor.h>

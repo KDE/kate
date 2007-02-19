@@ -36,7 +36,6 @@
 #include <qimage.h>
 #include <qfile.h>
 #include "test_regression.h"
-#include <unistd.h>
 #include <stdio.h>
 
 #include <kaction.h>
@@ -59,7 +58,6 @@
 #include <qtextstream.h>
 #include <qlist.h>
 #include <qwidget.h>
-#include <qfileinfo.h>
 #include <qtimer.h>
 #include <kstatusbar.h>
 #include <qfileinfo.h>

@@ -53,11 +53,7 @@
 #include <kedittoolbar.h>
 #include <kparts/event.h>
 #include <kmenubar.h>
-#include <kiconloader.h>
-#include <klocale.h>
 #include <ksqueezedtextlabel.h>
-#include <kconfig.h>
-#include <kdebug.h>
 #include <kstringhandler.h>
 #include <krecentfilesaction.h>
 #include <kactioncollection.h>

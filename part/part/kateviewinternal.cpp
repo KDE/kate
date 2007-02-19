@@ -51,7 +51,6 @@
 #include <QPixmap>
 #include <QWheelEvent>
 #include <QMouseEvent>
-#include <QClipboard>
 #include <QStack>
 #include <QMutex>
 #include <QThread>

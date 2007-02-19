@@ -34,7 +34,6 @@
 #include "katedialogs.h"
 #include "katetextline.h"
 #include "katecodefoldinghelpers.h"
-#include "katesearch.h"
 #include "kateschema.h"
 #include "katebookmarks.h"
 #include "katesearch.h"

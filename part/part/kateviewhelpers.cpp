@@ -1373,6 +1373,7 @@ KateViewBarWidget::KateViewBarWidget (KateViewBar *viewBar)
   hideButton->setIcon(QIcon(SmallIcon("cancel")));
   connect(hideButton, SIGNAL(clicked()), this, SLOT(hideBar()));
   layout->addWidget(hideButton);
+  layout->setAlignment( hideButton, Qt::AlignLeft|Qt::AlignTop );
 
   // widget to be used as parent for the real content
   m_centralWidget = new QWidget ();

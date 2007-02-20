@@ -565,12 +565,12 @@ void KateView::setupEditActions()
 
   a = ac->addAction("word_right");
   a->setText(i18n("Move Word Right"));
-  a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right));
+  a->setShortcuts(KStandardShortcut::forwardWord());
   connect(a, SIGNAL(triggered(bool)), SLOT(wordRight()));
 
   a = ac->addAction("select_char_right");
   a->setText(i18n("Select Character Right"));
-  a->setShortcuts(KStandardShortcut::forwardWord());
+  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftCursorRight()));
 
   a = ac->addAction("select_word_right");

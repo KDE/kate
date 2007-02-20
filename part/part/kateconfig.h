@@ -27,6 +27,7 @@
 #include <QVector>
 #include <QFontMetrics>
 
+class KConfigGroup;
 class KateView;
 class KateDocument;
 class KateRenderer;
@@ -113,12 +114,12 @@ class KateDocumentConfig : public KateConfig
     /**
      * Read config from object
      */
-    void readConfig (KConfig *config);
+    void readConfig (const KConfigGroup &config);
 
     /**
      * Write config to object
      */
-    void writeConfig (KConfig *config);
+    void writeConfig (KConfigGroup &config);
 
   protected:
     void updateConfig ();
@@ -298,12 +299,12 @@ class KateViewConfig : public KateConfig
     /**
      * Read config from object
      */
-    void readConfig (KConfig *config);
+    void readConfig (const KConfigGroup &config);
 
     /**
      * Write config to object
      */
-    void writeConfig (KConfig *config);
+    void writeConfig (KConfigGroup &config);
 
   protected:
     void updateConfig ();
@@ -426,12 +427,12 @@ class KateRendererConfig : public KateConfig
     /**
      * Read config from object
      */
-    void readConfig (KConfig *config);
+    void readConfig (const KConfigGroup &config);
 
     /**
      * Write config to object
      */
-    void writeConfig (KConfig *config);
+    void writeConfig (KConfigGroup &config);
 
   protected:
     void updateConfig ();

@@ -1996,13 +1996,13 @@ void KateDocument::setDontChangeHlOnSave()
 //END
 
 //BEGIN KTextEditor::ConfigInterface stuff
-void KateDocument::readSessionConfig(KConfig *kconfig)
+void KateDocument::readSessionConfig(const KConfigGroup &kconfig)
 {
   // restore the url
-  KUrl url (kconfig->readEntry("URL"));
+  KUrl url (kconfig.readEntry("URL"));
 
   // get the encoding
-  QString tmpenc=kconfig->readEntry("Encoding");
+  QString tmpenc=kconfig.readEntry("Encoding");
   if (!tmpenc.isEmpty() && (tmpenc != encoding()))
     setEncoding(tmpenc);
 
@@ -2011,34 +2011,34 @@ void KateDocument::readSessionConfig(KConfig *kconfig)
     openUrl (url);
   else completed(); //perhaps this should be emitted at the end of this function
   // restore the hl stuff
-  m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig->readEntry("Highlighting")));
+  m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig.readEntry("Highlighting")));
 
   if (hlMode() > 0)
     hlSetByUser = true;
 
   // indent mode
-  config()->setIndentationMode( kconfig->readEntry("Indentation Mode", config()->indentationMode() ) );
+  config()->setIndentationMode( kconfig.readEntry("Indentation Mode", config()->indentationMode() ) );
 
   // Restore Bookmarks
-  QList<int> marks = kconfig->readEntry("Bookmarks", QList<int>());
+  QList<int> marks = kconfig.readEntry("Bookmarks", QList<int>());
   for( int i = 0; i < marks.count(); i++ )
     addMark( marks[i], KateDocument::markType01 );
 }
 
-void KateDocument::writeSessionConfig(KConfig *kconfig)
+void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
 {
   if ( m_url.isLocalFile() && !KGlobal::dirs()->relativeLocation("tmp", m_url.path()).startsWith("/"))
        return;
   // save url
-  kconfig->writeEntry("URL", m_url.prettyUrl() );
+  kconfig.writeEntry("URL", m_url.prettyUrl() );
 
   // save encoding
-  kconfig->writeEntry("Encoding",encoding());
+  kconfig.writeEntry("Encoding",encoding());
 
   // save hl
-  kconfig->writeEntry("Highlighting", highlight()->name());
+  kconfig.writeEntry("Highlighting", highlight()->name());
 
-  kconfig->writeEntry("Indentation Mode", config()->indentationMode() );
+  kconfig.writeEntry("Indentation Mode", config()->indentationMode() );
 
   // Save Bookmarks
   QList<int> marks;
@@ -2046,7 +2046,7 @@ void KateDocument::writeSessionConfig(KConfig *kconfig)
     if (i.value()->type & KTextEditor::MarkInterface::markType01)
      marks << i.value()->line;
 
-  kconfig->writeEntry( "Bookmarks", marks );
+  kconfig.writeEntry( "Bookmarks", marks );
 }
 
 uint KateDocument::mark( int line )

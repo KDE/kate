@@ -190,14 +190,11 @@ void KateGlobal::readConfig(KConfig *config)
   if( !config )
     config = KGlobal::config().data();
 
-  config->setGroup("Kate Document Defaults");
-  KateDocumentConfig::global()->readConfig (config);
+  KateDocumentConfig::global()->readConfig (KConfigGroup(config, "Kate Document Defaults"));
 
-  config->setGroup("Kate View Defaults");
-  KateViewConfig::global()->readConfig (config);
+  KateViewConfig::global()->readConfig (KConfigGroup(config, "Kate View Defaults"));
 
-  config->setGroup("Kate Renderer Defaults");
-  KateRendererConfig::global()->readConfig (config);
+  KateRendererConfig::global()->readConfig (KConfigGroup(config, "Kate Renderer Defaults"));
 }
 
 void KateGlobal::writeConfig(KConfig *config)
@@ -205,14 +202,14 @@ void KateGlobal::writeConfig(KConfig *config)
   if( !config )
     config = KGlobal::config().data();
 
-  config->setGroup("Kate Document Defaults");
-  KateDocumentConfig::global()->writeConfig (config);
+  KConfigGroup cg(config, "Kate Document Defaults");
+  KateDocumentConfig::global()->writeConfig (cg);
 
-  config->setGroup("Kate View Defaults");
-  KateViewConfig::global()->writeConfig (config);
+  cg.changeGroup("Kate View Defaults");
+  KateViewConfig::global()->writeConfig (cg);
 
-  config->setGroup("Kate Renderer Defaults");
-  KateRendererConfig::global()->writeConfig (config);
+  cg.changeGroup("Kate Renderer Defaults");
+  KateRendererConfig::global()->writeConfig (cg);
 
   config->sync();
 }

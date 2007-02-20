@@ -305,7 +305,7 @@ class KateJSView : public KJS::JSObject
       ClearSelection,
       StartOfSelection,
       EndOfSelection,
-      
+
       // indentation
       Indent
     };
@@ -744,7 +744,7 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec,
     case KateJSDocument::RemoveLine:
       if (exception.invalidArgs(1)) break;
       return KJS::Boolean (doc->removeLine (args[0]->toUInt32(exec)));
-      
+
     case KateJSDocument::JoinLines:
       if (exception.invalidArgs(2)) break;
       doc->joinLines (args[0]->toUInt32(exec), args[1]->toUInt32(exec));
@@ -828,7 +828,7 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec,
       if (!textLine || vcolumn < 0 || vcolumn > textLine->virtualLength(tabWidth)) return KJS::Number(-1);
       return KJS::Number(textLine->fromVirtualColumn(vcolumn, tabWidth));
     }
-    
+
     case KateJSDocument::PrevNonSpaceColumn: {
       if (exception.invalidArgs(2)) break;
       KateTextLine::Ptr textLine = doc->plainKateTextLine(args[0]->toUInt32(exec));
@@ -1179,7 +1179,7 @@ JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec,
       object->put(exec, "column", KJS::Number(view->selectionRange().end().column()));
       return object;
     }
-    
+
     case KateJSView::Indent:
       if (exception.invalidArgs(3)) break;
       //return KJS::Boolean( view->indent (args[0]->toInt32(exec), args[1]->toInt32(exec), args[2]->toUInt32(exec) )) );
@@ -1187,7 +1187,7 @@ JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec,
     default:
       kDebug(13051) << "View: Unknown function id: " << id << endl;
   }
- 
+
   return KJS::Undefined();
 }
 
@@ -1581,11 +1581,11 @@ KateJScriptHeaderVector KateJScriptHelpers::findScripts(const QString& rcFile,
                                                         const QString& resourceDir,
                                                         const QStringList &keys)
 {
-  KConfig config(rcFile, false, false);
+  KConfig cfgFile(rcFile, KConfig::NoGlobals);
+  KConfigGroup config = cfgFile.group("General");
 
   bool force = false;
   // If KatePart version does not match, better force a true reload
-  config.setGroup ("General");
   if (QString(KATEPART_VERSION) != config.readEntry ("kate-version", QString("0.0"))) {
     config.writeEntry("kate-version", QString(KATEPART_VERSION));
     force = true;
@@ -1601,7 +1601,7 @@ KateJScriptHeaderVector KateJScriptHelpers::findScripts(const QString& rcFile,
   {
     // each file has a group
     QString group = "Cache "+ *fileit;
-    config.setGroup(group);
+    config.changeGroup(group);
 
     // stat the file to get the last-modified-time
     struct stat sbuf;
@@ -1610,8 +1610,8 @@ KateJScriptHeaderVector KateJScriptHelpers::findScripts(const QString& rcFile,
 
     // check whether file is already cached
     bool useCache = false;
-    if (!force && config.hasGroup(group)) {
-      config.setGroup(group);
+    if (!force && cfgFile.hasGroup(group)) {
+      config.changeGroup(group);
       useCache = (sbuf.st_mtime == config.readEntry("last-modified", 0));
     }
 
@@ -1627,7 +1627,7 @@ KateJScriptHeaderVector KateJScriptHelpers::findScripts(const QString& rcFile,
       }
       files.push_back(scriptHeader);
     } else if (parseScriptHeader(*fileit, scriptHeader)) {
-      config.setGroup(group);
+      config.changeGroup(group);
       config.writeEntry("last-modified", int(sbuf.st_mtime));
       // iterate keys and save cache
       for (QStringList::ConstIterator keyit = keys.begin(); keyit != keys.end(); ++keyit)

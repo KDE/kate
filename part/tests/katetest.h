@@ -87,8 +87,8 @@ class KWrite : public KParts::MainWindow
 
   //config file functions
   public:
-    void readConfig (KConfig *);
-    void writeConfig (KConfig *);
+    void readConfig (const KConfigGroup &);
+    void writeConfig (KConfigGroup &);
 
     void readConfig ();
     void writeConfig ();
@@ -99,8 +99,8 @@ class KWrite : public KParts::MainWindow
     static void restore();
 
   private:
-    void readProperties(KConfig *);
-    void saveProperties(KConfig *);
+    void readProperties(const KConfigGroup &);
+    void saveProperties(KConfigGroup &);
     void saveGlobalProperties(KConfig *);
 
   private:

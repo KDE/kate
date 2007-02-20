@@ -112,9 +112,8 @@ KateDocumentConfig::KateDocumentConfig ()
   m_pluginsSet.fill (true);
 
   // init with defaults from config or really hardcoded ones
-  KSharedConfig::Ptr config = KGlobal::config();
-  config->setGroup("Kate Document Defaults");
-  readConfig (config.data());
+  KConfigGroup cg( KGlobal::config(), "Kate Document Defaults");
+  readConfig (cg);
 }
 
 KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
@@ -148,83 +147,83 @@ KateDocumentConfig::~KateDocumentConfig ()
 {
 }
 
-void KateDocumentConfig::readConfig (KConfig *config)
+void KateDocumentConfig::readConfig (const KConfigGroup &config)
 {
   configStart ();
 
-  setTabWidth (config->readEntry("Tab Width", 8));
+  setTabWidth (config.readEntry("Tab Width", 8));
 
-  setIndentationWidth (config->readEntry("Indentation Width", 2));
+  setIndentationWidth (config.readEntry("Indentation Width", 2));
 
-  setIndentationMode (config->readEntry("Indentation Mode", ""));
+  setIndentationMode (config.readEntry("Indentation Mode", ""));
 
-  setTabHandling (config->readEntry("Tab Handling", int(KateDocumentConfig::tabSmart)));
+  setTabHandling (config.readEntry("Tab Handling", int(KateDocumentConfig::tabSmart)));
 
-  setWordWrap (config->readEntry("Word Wrap", false));
-  setWordWrapAt (config->readEntry("Word Wrap Column", 80));
-  setPageUpDownMovesCursor (config->readEntry("PageUp/PageDown Moves Cursor", false));
-  setUndoSteps(config->readEntry("Undo Steps", 0));
+  setWordWrap (config.readEntry("Word Wrap", false));
+  setWordWrapAt (config.readEntry("Word Wrap Column", 80));
+  setPageUpDownMovesCursor (config.readEntry("PageUp/PageDown Moves Cursor", false));
+  setUndoSteps(config.readEntry("Undo Steps", 0));
 
-  setConfigFlags (config->readEntry("Basic Config Flags", KateDocumentConfig::cfTabIndents
+  setConfigFlags (config.readEntry("Basic Config Flags", KateDocumentConfig::cfTabIndents
     | KateDocumentConfig::cfWrapCursor
     | KateDocumentConfig::cfShowTabs
     | KateDocumentConfig::cfSmartHome));
 
-  setEncoding (config->readEntry("Encoding", ""));
+  setEncoding (config.readEntry("Encoding", ""));
 
-  setEol (config->readEntry("End of Line", 0));
-  setAllowEolDetection (config->readEntry("Allow End of Line Detection", true));
+  setEol (config.readEntry("End of Line", 0));
+  setAllowEolDetection (config.readEntry("Allow End of Line Detection", true));
 
-  setBackupFlags (config->readEntry("Backup Config Flags", 1));
+  setBackupFlags (config.readEntry("Backup Config Flags", 1));
 
-  setSearchDirConfigDepth (config->readEntry("Search Dir Config Depth", 3));
+  setSearchDirConfigDepth (config.readEntry("Search Dir Config Depth", 3));
 
-  setBackupPrefix (config->readEntry("Backup Prefix", QString ("")));
+  setBackupPrefix (config.readEntry("Backup Prefix", QString ("")));
 
-  setBackupSuffix (config->readEntry("Backup Suffix", QString ("~")));
+  setBackupSuffix (config.readEntry("Backup Suffix", QString ("~")));
 
   // plugins
   const KService::List& plugins = KateGlobal::self()->plugins();
   for (int i=0; i<plugins.count(); i++)
-    setPlugin (i, config->readEntry("KTextEditor Plugin " + plugins[i]->library(), false));
+    setPlugin (i, config.readEntry("KTextEditor Plugin " + plugins[i]->library(), false));
 
   configEnd ();
 }
 
-void KateDocumentConfig::writeConfig (KConfig *config)
+void KateDocumentConfig::writeConfig (KConfigGroup &config)
 {
-  config->writeEntry("Tab Width", tabWidth());
+  config.writeEntry("Tab Width", tabWidth());
 
-  config->writeEntry("Indentation Width", indentationWidth());
-  config->writeEntry("Indentation Mode", indentationMode());
+  config.writeEntry("Indentation Width", indentationWidth());
+  config.writeEntry("Indentation Mode", indentationMode());
 
-  config->writeEntry("Tab Handling", tabHandling());
+  config.writeEntry("Tab Handling", tabHandling());
 
-  config->writeEntry("Word Wrap", wordWrap());
-  config->writeEntry("Word Wrap Column", wordWrapAt());
+  config.writeEntry("Word Wrap", wordWrap());
+  config.writeEntry("Word Wrap Column", wordWrapAt());
 
-  config->writeEntry("PageUp/PageDown Moves Cursor", pageUpDownMovesCursor());
+  config.writeEntry("PageUp/PageDown Moves Cursor", pageUpDownMovesCursor());
 
-  config->writeEntry("Undo Steps", undoSteps());
+  config.writeEntry("Undo Steps", undoSteps());
 
-  config->writeEntry("Basic Config Flags", configFlags());
+  config.writeEntry("Basic Config Flags", configFlags());
 
-  config->writeEntry("Encoding", encoding());
+  config.writeEntry("Encoding", encoding());
 
-  config->writeEntry("End of Line", eol());
-  config->writeEntry("Allow End of Line Detection", allowEolDetection());
+  config.writeEntry("End of Line", eol());
+  config.writeEntry("Allow End of Line Detection", allowEolDetection());
 
-  config->writeEntry("Backup Config Flags", backupFlags());
+  config.writeEntry("Backup Config Flags", backupFlags());
 
-  config->writeEntry("Search Dir Config Depth", searchDirConfigDepth());
+  config.writeEntry("Search Dir Config Depth", searchDirConfigDepth());
 
-  config->writeEntry("Backup Prefix", backupPrefix());
+  config.writeEntry("Backup Prefix", backupPrefix());
 
-  config->writeEntry("Backup Suffix", backupSuffix());
+  config.writeEntry("Backup Suffix", backupSuffix());
 
   // plugins
   for (int i=0; i<KateGlobal::self()->plugins().count(); i++)
-    config->writeEntry("KTextEditor Plugin " + (KateGlobal::self()->plugins())[i]->library(), plugin(i));
+    config.writeEntry("KTextEditor Plugin " + (KateGlobal::self()->plugins())[i]->library(), plugin(i));
 }
 
 void KateDocumentConfig::updateConfig ()
@@ -649,9 +648,8 @@ KateViewConfig::KateViewConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KSharedConfig::Ptr config = KGlobal::config();
-  config->setGroup("Kate View Defaults");
-  readConfig (config.data());
+  KConfigGroup config( KGlobal::config(), "Kate View Defaults");
+  readConfig (config);
 }
 
 KateViewConfig::KateViewConfig (KateView *view)
@@ -678,66 +676,66 @@ KateViewConfig::~KateViewConfig ()
 {
 }
 
-void KateViewConfig::readConfig (KConfig *config)
+void KateViewConfig::readConfig ( const KConfigGroup &config)
 {
   configStart ();
 
-  setDynWordWrap (config->readEntry( "Dynamic Word Wrap", true ));
-  setDynWordWrapIndicators (config->readEntry( "Dynamic Word Wrap Indicators", 1 ));
-  setDynWordWrapAlignIndent (config->readEntry( "Dynamic Word Wrap Align Indent", 80 ));
+  setDynWordWrap (config.readEntry( "Dynamic Word Wrap", true ));
+  setDynWordWrapIndicators (config.readEntry( "Dynamic Word Wrap Indicators", 1 ));
+  setDynWordWrapAlignIndent (config.readEntry( "Dynamic Word Wrap Align Indent", 80 ));
 
-  setLineNumbers (config->readEntry( "Line Numbers",  false));
+  setLineNumbers (config.readEntry( "Line Numbers",  false));
 
-  setScrollBarMarks (config->readEntry( "Scroll Bar Marks",  false));
+  setScrollBarMarks (config.readEntry( "Scroll Bar Marks",  false));
 
-  setIconBar (config->readEntry( "Icon Bar", false ));
+  setIconBar (config.readEntry( "Icon Bar", false ));
 
-  setFoldingBar (config->readEntry( "Folding Bar", true));
+  setFoldingBar (config.readEntry( "Folding Bar", true));
 
-  setBookmarkSort (config->readEntry( "Bookmark Menu Sorting", 0 ));
+  setBookmarkSort (config.readEntry( "Bookmark Menu Sorting", 0 ));
 
-  setAutoCenterLines (config->readEntry( "Auto Center Lines", 0 ));
+  setAutoCenterLines (config.readEntry( "Auto Center Lines", 0 ));
 
-  setSearchFlags (config->readEntry("Search Config Flags", KFind::FromCursor | KFind::CaseSensitive | KReplaceDialog::PromptOnReplace));
+  setSearchFlags (config.readEntry("Search Config Flags", KFind::FromCursor | KFind::CaseSensitive | KReplaceDialog::PromptOnReplace));
 
-  setCmdLine (config->readEntry( "Command Line", false));
+  setCmdLine (config.readEntry( "Command Line", false));
 
-  setDefaultMarkType (config->readEntry( "Default Mark Type", int(KTextEditor::MarkInterface::markType01) ));
+  setDefaultMarkType (config.readEntry( "Default Mark Type", int(KTextEditor::MarkInterface::markType01) ));
 
-  setPersistentSelection (config->readEntry( "Persistent Selection", false ));
+  setPersistentSelection (config.readEntry( "Persistent Selection", false ));
 
-  setTextToSearchMode (config->readEntry( "Text To Search Mode", int(KateViewConfig::SelectionWord)));
+  setTextToSearchMode (config.readEntry( "Text To Search Mode", int(KateViewConfig::SelectionWord)));
 
   configEnd ();
 }
 
-void KateViewConfig::writeConfig (KConfig *config)
+void KateViewConfig::writeConfig (KConfigGroup &config)
 {
-  config->writeEntry( "Dynamic Word Wrap", dynWordWrap() );
-  config->writeEntry( "Dynamic Word Wrap Indicators", dynWordWrapIndicators() );
-  config->writeEntry( "Dynamic Word Wrap Align Indent", dynWordWrapAlignIndent() );
+  config.writeEntry( "Dynamic Word Wrap", dynWordWrap() );
+  config.writeEntry( "Dynamic Word Wrap Indicators", dynWordWrapIndicators() );
+  config.writeEntry( "Dynamic Word Wrap Align Indent", dynWordWrapAlignIndent() );
 
-  config->writeEntry( "Line Numbers", lineNumbers() );
+  config.writeEntry( "Line Numbers", lineNumbers() );
 
-  config->writeEntry( "Scroll Bar Marks", scrollBarMarks() );
+  config.writeEntry( "Scroll Bar Marks", scrollBarMarks() );
 
-  config->writeEntry( "Icon Bar", iconBar() );
+  config.writeEntry( "Icon Bar", iconBar() );
 
-  config->writeEntry( "Folding Bar", foldingBar() );
+  config.writeEntry( "Folding Bar", foldingBar() );
 
-  config->writeEntry( "Bookmark Menu Sorting", bookmarkSort() );
+  config.writeEntry( "Bookmark Menu Sorting", bookmarkSort() );
 
-  config->writeEntry( "Auto Center Lines", autoCenterLines() );
+  config.writeEntry( "Auto Center Lines", autoCenterLines() );
 
-  config->writeEntry("Search Config Flags", int(searchFlags()));
+  config.writeEntry("Search Config Flags", int(searchFlags()));
 
-  config->writeEntry("Command Line", cmdLine());
+  config.writeEntry("Command Line", cmdLine());
 
-  config->writeEntry("Default Mark Type", defaultMarkType());
+  config.writeEntry("Default Mark Type", defaultMarkType());
 
-  config->writeEntry("Persistent Selection", persistentSelection());
+  config.writeEntry("Persistent Selection", persistentSelection());
 
-  config->writeEntry("Text To Search Mode", textToSearchMode());
+  config.writeEntry("Text To Search Mode", textToSearchMode());
 }
 
 void KateViewConfig::updateConfig ()
@@ -1038,9 +1036,8 @@ KateRendererConfig::KateRendererConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KSharedConfig::Ptr config = KGlobal::config();
-  config->setGroup("Kate Renderer Defaults");
-  readConfig (config.data());
+  KConfigGroup config(KGlobal::config(), "Kate Renderer Defaults");
+  readConfig (config);
 }
 
 KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
@@ -1070,26 +1067,26 @@ KateRendererConfig::~KateRendererConfig ()
 {
 }
 
-void KateRendererConfig::readConfig (KConfig *config)
+void KateRendererConfig::readConfig (const KConfigGroup &config)
 {
   configStart ();
 
-  setSchema (KateGlobal::self()->schemaManager()->number (config->readEntry("Schema", KateSchemaManager::normalSchema())));
+  setSchema (KateGlobal::self()->schemaManager()->number (config.readEntry("Schema", KateSchemaManager::normalSchema())));
 
-  setWordWrapMarker (config->readEntry("Word Wrap Marker", false ));
+  setWordWrapMarker (config.readEntry("Word Wrap Marker", false ));
 
-  setShowIndentationLines (config->readEntry( "Show Indentation Lines", false));
+  setShowIndentationLines (config.readEntry( "Show Indentation Lines", false));
 
   configEnd ();
 }
 
-void KateRendererConfig::writeConfig (KConfig *config)
+void KateRendererConfig::writeConfig (KConfigGroup& config)
 {
-  config->writeEntry ("Schema", KateGlobal::self()->schemaManager()->name(schema()));
+  config.writeEntry ("Schema", KateGlobal::self()->schemaManager()->name(schema()));
 
-  config->writeEntry("Word Wrap Marker", wordWrapMarker() );
+  config.writeEntry("Word Wrap Marker", wordWrapMarker() );
 
-  config->writeEntry("Show Indentation Lines", showIndentationLines());
+  config.writeEntry("Show Indentation Lines", showIndentationLines());
 }
 
 void KateRendererConfig::updateConfig ()
@@ -1139,7 +1136,7 @@ void KateRendererConfig::setSchemaInternal( int schema )
   m_schemaSet = true;
   m_schema = schema;
 
-  KConfig *config (KateGlobal::self()->schemaManager()->schema(schema));
+  KConfigGroup config = KateGlobal::self()->schemaManager()->schema(schema);
 
   QColor tmp0 (KGlobalSettings::baseColor());
   QColor tmp1 (KGlobalSettings::highlightColor());
@@ -1150,21 +1147,21 @@ void KateRendererConfig::setSchemaInternal( int schema )
   QColor tmp6 ( "#EAE9E8" );
   QColor tmp7 ( "#000000" );
 
-  m_backgroundColor = config->readEntry("Color Background", tmp0);
+  m_backgroundColor = config.readEntry("Color Background", tmp0);
   m_backgroundColorSet = true;
-  m_selectionColor = config->readEntry("Color Selection", tmp1);
+  m_selectionColor = config.readEntry("Color Selection", tmp1);
   m_selectionColorSet = true;
-  m_highlightedLineColor  = config->readEntry("Color Highlighted Line", tmp2);
+  m_highlightedLineColor  = config.readEntry("Color Highlighted Line", tmp2);
   m_highlightedLineColorSet = true;
-  m_highlightedBracketColor = config->readEntry("Color Highlighted Bracket", tmp3);
+  m_highlightedBracketColor = config.readEntry("Color Highlighted Bracket", tmp3);
   m_highlightedBracketColorSet = true;
-  m_wordWrapMarkerColor = config->readEntry("Color Word Wrap Marker", tmp4);
+  m_wordWrapMarkerColor = config.readEntry("Color Word Wrap Marker", tmp4);
   m_wordWrapMarkerColorSet = true;
-  m_tabMarkerColor = config->readEntry("Color Tab Marker", tmp5);
+  m_tabMarkerColor = config.readEntry("Color Tab Marker", tmp5);
   m_tabMarkerColorSet = true;
-  m_iconBarColor  = config->readEntry("Color Icon Bar", tmp6);
+  m_iconBarColor  = config.readEntry("Color Icon Bar", tmp6);
   m_iconBarColorSet = true;
-  m_lineNumberColor = config->readEntry("Color Line Number", tmp7);
+  m_lineNumberColor = config.readEntry("Color Line Number", tmp7);
   m_lineNumberColorSet = true;
 
     // same std colors like in KateDocument::markColor
@@ -1178,7 +1175,7 @@ void KateRendererConfig::setSchemaInternal( int schema )
   mark[6] = Qt::red;
 
   for (int i = 1; i <= KTextEditor::MarkInterface::reservedMarkersCount(); i++) {
-    QColor col = config->readEntry(QString("Color MarkType%1").arg(i), mark[i - 1]);
+    QColor col = config.readEntry(QString("Color MarkType%1").arg(i), mark[i - 1]);
     int index = i-1;
     m_lineMarkerColorSet[index] = true;
     m_lineMarkerColor[index] = col;
@@ -1186,15 +1183,15 @@ void KateRendererConfig::setSchemaInternal( int schema )
 
   QFont f (KGlobalSettings::fixedFont());
 
-  m_font = config->readEntry("Font", f);
+  m_font = config.readEntry("Font", f);
   m_fontMetrics = QFontMetrics(m_font);
   m_fontSet = true;
 
   kDebug()<<"Loading template colors "<<this<<endl;
-  m_templateBackgroundColor=config->readEntry(QString("Color Template Background"),QColor(0xcc,0xcc,0xcc));
-  m_templateEditablePlaceholderColor = config->readEntry(QString("Color Template Editable Placeholder"),QColor(0xcc,0xff,0xcc));
-  m_templateFocusedEditablePlaceholderColor=config->readEntry(QString("Color Template Focused Editable Placeholder"),QColor(0x66,0xff,0x66));
-  m_templateNotEditablePlaceholderColor=config->readEntry(QString("Color Template Not Editable Placeholder"),QColor(0xff,0xcc,0xcc));
+  m_templateBackgroundColor=config.readEntry(QString("Color Template Background"),QColor(0xcc,0xcc,0xcc));
+  m_templateEditablePlaceholderColor = config.readEntry(QString("Color Template Editable Placeholder"),QColor(0xcc,0xff,0xcc));
+  m_templateFocusedEditablePlaceholderColor=config.readEntry(QString("Color Template Focused Editable Placeholder"),QColor(0x66,0xff,0x66));
+  m_templateNotEditablePlaceholderColor=config.readEntry(QString("Color Template Not Editable Placeholder"),QColor(0xff,0xcc,0xcc));
 
   m_templateColorsSet=true;
 }
@@ -1408,21 +1405,21 @@ const QColor &KateRendererConfig::templateBackgroundColor() const {
   return s_global->templateBackgroundColor();
 }
 const QColor &KateRendererConfig::templateEditablePlaceholderColor() const {
-  if (m_templateColorsSet || isGlobal())  
+  if (m_templateColorsSet || isGlobal())
     return m_templateEditablePlaceholderColor;
 
   return s_global->templateEditablePlaceholderColor();
 }
 const QColor &KateRendererConfig::templateFocusedEditablePlaceholderColor() const {
-  if (m_templateColorsSet || isGlobal())  
+  if (m_templateColorsSet || isGlobal())
     return m_templateFocusedEditablePlaceholderColor;
 
   return s_global->templateFocusedEditablePlaceholderColor();
 }
 const QColor &KateRendererConfig::templateNotEditablePlaceholderColor() const {
-  if (m_templateColorsSet || isGlobal())  
+  if (m_templateColorsSet || isGlobal())
     return m_templateNotEditablePlaceholderColor;
-  
+
   return s_global->templateNotEditablePlaceholderColor();
 }
 

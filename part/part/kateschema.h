@@ -58,7 +58,7 @@ class KateSchemaManager
     /**
      * return kconfig with right group set or set to Normal if not there
      */
-    KConfig *schema (uint number);
+    KConfigGroup schema (uint number);
 
     void addSchema (const QString &t);
 

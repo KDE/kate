@@ -67,7 +67,7 @@ KateFileTypeManager::~KateFileTypeManager ()
 //
 void KateFileTypeManager::update ()
 {
-  KConfig config ("katefiletyperc", false, false);
+  KConfig config ("katefiletyperc", KConfig::NoGlobals);
 
   QStringList g (config.groupList());
   g.sort ();
@@ -75,16 +75,16 @@ void KateFileTypeManager::update ()
   m_types.clear ();
   for (int z=0; z < g.count(); z++)
   {
-    config.setGroup (g[z]);
+    KConfigGroup cg(&config, g[z]);
 
     KateFileType type;
     type.number = z;
     type.name = g[z];
-    type.section = config.readEntry ("Section");
-    type.wildcards = config.readEntry ("Wildcards", QStringList(), ';');
-    type.mimetypes = config.readEntry ("Mimetypes", QStringList(), ';');
-    type.priority = config.readEntry ("Priority", 0);
-    type.varLine = config.readEntry ("Variables");
+    type.section = cg.readEntry ("Section");
+    type.wildcards = cg.readEntry ("Wildcards", QStringList(), ';');
+    type.mimetypes = cg.readEntry ("Mimetypes", QStringList(), ';');
+    type.priority = cg.readEntry ("Priority", 0);
+    type.varLine = cg.readEntry ("Variables");
 
     m_types.append(type);
   }
@@ -95,12 +95,13 @@ void KateFileTypeManager::update ()
 //
 void KateFileTypeManager::save (const QList<KateFileType>& v)
 {
-  KConfig config ("katefiletyperc", false, false);
+  KConfig katerc("katefiletyperc", KConfig::NoGlobals);
+  KConfigGroup config(&katerc, QString());
 
   QStringList newg;
   foreach (const KateFileType& type, v)
   {
-    config.setGroup(type.name);
+    config.changeGroup(type.name);
 
     config.writeEntry ("Section", type.section);
     config.writeEntry ("Wildcards", type.wildcards, ';');
@@ -116,12 +117,14 @@ void KateFileTypeManager::save (const QList<KateFileType>& v)
     newg << type.name;
   }
 
-  QStringList g (config.groupList());
+  QStringList g (katerc.groupList());
 
   for (int z=0; z < g.count(); z++)
   {
     if (newg.indexOf (g[z]) == -1)
-      config.deleteGroup (g[z]);
+    {
+      katerc.deleteGroup (g[z]);
+    }
   }
 
   config.sync ();
@@ -176,7 +179,7 @@ int KateFileTypeManager::fileType (KateDocument *doc)
 
   // Try content-based mimetype
   KMimeType::Ptr mt = doc->mimeTypeForContent();
-  
+
   QList<KateFileType> types;
 
   foreach (const KateFileType& type, m_types)

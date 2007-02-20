@@ -975,15 +975,15 @@ void KateView::joinLines()
   m_doc->joinLines( first, last );
 }
 
-void KateView::readSessionConfig(KConfig *config)
+void KateView::readSessionConfig(const KConfigGroup& config)
 {
-  setCursorPositionInternal(KTextEditor::Cursor(config->readEntry("CursorLine",0), config->readEntry("CursorColumn",0)));
+  setCursorPositionInternal(KTextEditor::Cursor(config.readEntry("CursorLine",0), config.readEntry("CursorColumn",0)));
 }
 
-void KateView::writeSessionConfig(KConfig *config)
+void KateView::writeSessionConfig(KConfigGroup& config)
 {
-  config->writeEntry("CursorLine",m_viewInternal->m_cursor.line());
-  config->writeEntry("CursorColumn",m_viewInternal->m_cursor.column());
+  config.writeEntry("CursorLine",m_viewInternal->m_cursor.line());
+  config.writeEntry("CursorColumn",m_viewInternal->m_cursor.column());
 }
 
 int KateView::getEol() const

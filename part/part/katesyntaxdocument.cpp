@@ -342,10 +342,10 @@ void KateSyntaxDocument::setupModeList (bool force)
     return;
 
   // We'll store the ModeList in katesyntaxhighlightingrc
-  KConfig config("katesyntaxhighlightingrc", false, false);
+  KConfig _config("katesyntaxhighlightingrc", KConfig::NoGlobals);
+  KConfigGroup config(&_config, "General");
 
   // figure our if the kate install is too new
-  config.setGroup ("General");
   if (config.readEntry ("Version",0) > config.readEntry ("CachedVersion",0))
   {
     config.writeEntry ("CachedVersion", config.readEntry ("Version",0));
@@ -363,7 +363,7 @@ void KateSyntaxDocument::setupModeList (bool force)
     QString Group="Cache "+ *it;
 
     // Let's go to this group
-    config.setGroup(Group);
+    config.changeGroup(Group);
 
     // stat the file
     struct stat sbuf;
@@ -371,7 +371,7 @@ void KateSyntaxDocument::setupModeList (bool force)
     stat(QFile::encodeName(*it), &sbuf);
 
     // If the group exist and we're not forced to read the xml file, let's build myModeList for katesyntax..rc
-    if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readEntry("lastModified",0)))
+    if (!force && config.exists() && (sbuf.st_mtime == config.readEntry("lastModified",0)))
     {
       // Let's make a new KateSyntaxModeListItem to instert in myModeList from the information in katesyntax..rc
       KateSyntaxModeListItem *mli=new KateSyntaxModeListItem;
@@ -435,7 +435,7 @@ void KateSyntaxDocument::setupModeList (bool force)
               mli->identifier = *it;
 
               // Now let's write or overwrite (if force==true) the entry in katesyntax...rc
-              config.setGroup(Group);
+              config.changeGroup(Group);
               config.writeEntry("name",mli->name);
               config.writeEntry("section",mli->section);
               config.writeEntry("mimetype",mli->mimetype);

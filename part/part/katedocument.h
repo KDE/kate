@@ -429,8 +429,8 @@ class KateDocument : public KTextEditor::Document,
   // KTextEditor::ConfigInterface stuff
   //
   public:
-    void readSessionConfig (KConfig *);
-    void writeSessionConfig (KConfig *);
+    void readSessionConfig (const KConfigGroup&);
+    void writeSessionConfig (KConfigGroup&);
 
   //
   // KTextEditor::MarkInterface

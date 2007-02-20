@@ -43,7 +43,7 @@
 //#include "katefactory.h"
 #include <kio/job.h>
 #include <kmainwindow.h>
-#include <ksimpleconfig.h>
+#include <kconfig.h>
 #include <kglobalsettings.h>
 
 #include <qcolor.h>
@@ -506,7 +506,7 @@ int main(int argc, char *argv[])
     // FIXME: Any analogous call for dbus?
 //     a.disableAutoDcopRegistration();
     a.setStyle("windows");
-    KSimpleConfig cfg( "testkateregressionrc" );
+    KConfig cfg( "testkateregressionrc", KConfig::OnlyLocal );
     cfg.setGroup("Kate Document Defaults");
     cfg.writeEntry("Basic Config Flags",
       KateDocumentConfig::cfBackspaceIndents
@@ -533,7 +533,7 @@ int main(int argc, char *argv[])
     int rv = 1;
 
     {
-        KSimpleConfig dc( "kdebugrc" );
+        KConfig dc( "kdebugrc", KConfig::OnlyLocal );
         // FIXME adapt to kate
         static int areas[] = { 1000, 13000, 13001, 13002, 13010,
                                13020, 13025, 13030, 13033, 13035,
@@ -604,14 +604,14 @@ int main(int argc, char *argv[])
             failureSnapshot = findMostRecentFailureSnapshot();
         if (!failureSnapshot.isEmpty())
             regressionTest->setFailureSnapshotConfig(
-                    new KSimpleConfig(failureSnapshotPrefix + failureSnapshot, true),
+                    new KConfig(failureSnapshotPrefix + failureSnapshot, KConfig::OnlyLocal),
                     failureSnapshot);
     }
 
     if (args->isSet("save-failures")) {
         QString failureSaver = args->getOption("save-failures");
         regressionTest->setFailureSnapshotSaver(
-                new KSimpleConfig(failureSnapshotPrefix + failureSaver, false),
+                new KConfig(failureSnapshotPrefix + failureSaver, KConfig::OnlyLocal),
                 failureSaver);
     }
 

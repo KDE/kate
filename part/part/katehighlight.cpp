@@ -1566,10 +1566,9 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
 void KateHighlighting::loadWildcards()
 {
-  KConfig *config = KateHlManager::self()->getKConfig();
-  config->setGroup("Highlighting " + iName);
+  KConfigGroup config(KateHlManager::self()->getKConfig(), "Highlighting " + iName);
 
-  QString extensionString = config->readEntry("Wildcards", iWildcards);
+  QString extensionString = config.readEntry("Wildcards", iWildcards);
 
   if (extensionSource != extensionString) {
     regexpExtensions.clear();
@@ -1603,46 +1602,46 @@ QStringList& KateHighlighting::getPlainExtensions()
 
 QString KateHighlighting::getMimetypes()
 {
-  KConfig *config = KateHlManager::self()->getKConfig();
-  config->setGroup("Highlighting " + iName);
+  KConfigGroup config(KateHlManager::self()->getKConfig(),
+                      "Highlighting " + iName);
 
-  return config->readEntry("Mimetypes", iMimetypes);
+  return config.readEntry("Mimetypes", iMimetypes);
 }
 
 int KateHighlighting::priority()
 {
-  KConfig *config = KateHlManager::self()->getKConfig();
-  config->setGroup("Highlighting " + iName);
+  KConfigGroup config(KateHlManager::self()->getKConfig(),
+                      "Highlighting " + iName);
 
-  return config->readEntry("Priority", m_priority);
+  return config.readEntry("Priority", m_priority);
 }
 
 KateHlData KateHighlighting::getData()
 {
-  KConfig *config = KateHlManager::self()->getKConfig();
-  config->setGroup("Highlighting " + iName);
+  KConfigGroup config(KateHlManager::self()->getKConfig(),
+                      "Highlighting " + iName);
 
   return  KateHlData(
-  config->readEntry("Wildcards", iWildcards),
-  config->readEntry("Mimetypes", iMimetypes),
-  config->readEntry("Identifier", identifier),
-  config->readEntry("Priority", m_priority));
+  config.readEntry("Wildcards", iWildcards),
+  config.readEntry("Mimetypes", iMimetypes),
+  config.readEntry("Identifier", identifier),
+  config.readEntry("Priority", m_priority));
 }
 
 void KateHighlighting::setData(const KateHlData &hlData)
 {
-  KConfig *config = KateHlManager::self()->getKConfig();
-  config->setGroup("Highlighting " + iName);
+  KConfigGroup config(KateHlManager::self()->getKConfig(),
+                      "Highlighting " + iName);
 
-  config->writeEntry("Wildcards",hlData.wildcards);
-  config->writeEntry("Mimetypes",hlData.mimetypes);
-  config->writeEntry("Priority",hlData.priority);
+  config.writeEntry("Wildcards",hlData.wildcards);
+  config.writeEntry("Mimetypes",hlData.mimetypes);
+  config.writeEntry("Priority",hlData.priority);
 }
 
 void KateHighlighting::getKateExtendedAttributeList (uint schema, QList<KateExtendedAttribute::Ptr> &list)
 {
-  KConfig *config = KateHlManager::self()->getKConfig();
-  config->setGroup("Highlighting " + iName + " - Schema " + KateGlobal::self()->schemaManager()->name(schema));
+  KConfigGroup config(KateHlManager::self()->getKConfig(),
+                      "Highlighting " + iName + " - Schema " + KateGlobal::self()->schemaManager()->name(schema));
 
   list.clear();
   createKateExtendedAttribute(list);
@@ -1651,7 +1650,7 @@ void KateHighlighting::getKateExtendedAttributeList (uint schema, QList<KateExte
   {
     Q_ASSERT(p);
 
-    QStringList s = config->readEntry(p->name(), QStringList());
+    QStringList s = config.readEntry(p->name(), QStringList());
 
 //    kDebug(13010)<<p->name<<s.count()<<endl;
     if (s.count()>0)
@@ -1708,9 +1707,9 @@ void KateHighlighting::getKateExtendedAttributeListCopy( uint schema, QList< Kat
  */
 void KateHighlighting::setKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute::Ptr> &list)
 {
-  KConfig *config = KateHlManager::self()->getKConfig();
-  config->setGroup("Highlighting " + iName + " - Schema "
-      + KateGlobal::self()->schemaManager()->name(schema));
+  KConfigGroup config(KateHlManager::self()->getKConfig(),
+                      "Highlighting " + iName + " - Schema "
+                      + KateGlobal::self()->schemaManager()->name(schema));
 
   QStringList settings;
 
@@ -1729,7 +1728,7 @@ void KateHighlighting::setKateExtendedAttributeList(uint schema, QList<KateExten
     settings<<(p->hasProperty(QTextFormat::BackgroundBrush)?QString::number(p->background().color().rgb(),16):"");
     settings<<(p->hasProperty(KTextEditor::Attribute::SelectedBackground)?QString::number(p->selectedBackground().color().rgb(),16):"");
     settings<<"---";
-    config->writeEntry(p->name(),settings);
+    config.writeEntry(p->name(),settings);
   }
 }
 
@@ -2972,7 +2971,7 @@ QList<KTextEditor::Attribute::Ptr> KateHighlighting::attributes (uint schema)
 //BEGIN KateHlManager
 KateHlManager::KateHlManager()
   : QObject()
-  , m_config ("katesyntaxhighlightingrc", false, false)
+  , m_config ("katesyntaxhighlightingrc", KConfig::NoGlobals)
   , commonSuffixes (QString(".orig;.new;~;.bak;.BAK").split(';'))
   , syntax (new KateSyntaxDocument())
   , dynamicCtxsCount(0)
@@ -3268,13 +3267,13 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
   error->setSelectedForeground(Qt::red);
   list.append(error);
 
-  KConfig *config = KateHlManager::self()->self()->getKConfig();
-  config->setGroup("Default Item Styles - Schema " + KateGlobal::self()->schemaManager()->name(schema));
+  KConfigGroup config(KateHlManager::self()->self()->getKConfig(),
+                      "Default Item Styles - Schema " + KateGlobal::self()->schemaManager()->name(schema));
 
   for (uint z = 0; z < defaultStyles(); z++)
   {
     KTextEditor::Attribute::Ptr i = list.at(z);
-    QStringList s = config->readEntry(defaultStyleName(z), QStringList());
+    QStringList s = config.readEntry(defaultStyleName(z), QStringList());
     if (!s.isEmpty())
     {
       while( s.count()<8)
@@ -3321,8 +3320,8 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
 
 void KateHlManager::setDefaults(uint schema, KateAttributeList &list)
 {
-  KConfig *config =  KateHlManager::self()->self()->getKConfig();
-  config->setGroup("Default Item Styles - Schema " + KateGlobal::self()->schemaManager()->name(schema));
+  KConfigGroup config(KateHlManager::self()->self()->getKConfig(),
+                      "Default Item Styles - Schema " + KateGlobal::self()->schemaManager()->name(schema));
 
   for (uint z = 0; z < defaultStyles(); z++)
   {
@@ -3339,7 +3338,7 @@ void KateHlManager::setDefaults(uint schema, KateAttributeList &list)
     settings<<(p->hasProperty(KTextEditor::Attribute::SelectedBackground)?QString::number(p->selectedBackground().color().rgb(),16):"");
     settings<<"---";
 
-    config->writeEntry(defaultStyleName(z),settings);
+    config.writeEntry(defaultStyleName(z),settings);
   }
 
   emit changed();

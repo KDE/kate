@@ -436,8 +436,8 @@ class KateView : public KTextEditor::View,
 
   // config file / session management functions
   public:
-    void readSessionConfig(KConfig *);
-    void writeSessionConfig(KConfig *);
+    void readSessionConfig(const KConfigGroup&);
+    void writeSessionConfig(KConfigGroup&);
 
   public Q_SLOTS:
     void setEol( int eol );

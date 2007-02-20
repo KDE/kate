@@ -151,7 +151,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
 {
     QString expression = _expression;
 
-    bool sel = d->selectionOnlyBox->checkState();
+    bool selected = d->selectionOnlyBox->checkState();
 
     // If we're starting search for the first time, begin at the current cursor position.
     // ### there may be cases when this should happen, but does not
@@ -159,7 +159,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
     {
         d->startCursor = d->fromCursorBox->checkState() ==
             Qt::Checked ? m_view->cursorPosition() :
-              sel ? m_view->selectionRange().start() :
+              selected ? m_view->selectionRange().start() :
               KTextEditor::Cursor( 0, 0 );
         d->searching = true;
 
@@ -194,14 +194,17 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
 
     if (d->wrapAround && !foundMatch)
     {
-        // We found nothing, so wrap. FIXME selected
-        d->startCursor = backwards ? m_view->doc()->documentEnd() : KTextEditor::Cursor(0, 0);
+        // We found nothing, so wrap.
+        d->startCursor = selected?
+            backwards ? m_view->selectionRange().end() : m_view->selectionRange().start()
+        :
+            backwards ? m_view->doc()->documentEnd() : KTextEditor::Cursor(0, 0);
         d->match = m_view->doc()->searchText(d->startCursor, d->regExp, backwards);
         foundMatch = d->match.isValid() && d->match != d->lastMatch;
         wrapped = true;
     }
 
-    if ( foundMatch && sel )
+    if ( foundMatch && selected )
         foundMatch = m_view->selectionRange().contains( d->match );
 
     if (foundMatch)
@@ -210,7 +213,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
         m_view->setSelection(d->match);
         d->lastMatch = d->match;
         // it makes no sense to have this enabled after a match
-        if ( sel )
+        if ( selected )
             d->selectionOnlyBox->setCheckState( Qt::Unchecked );
 
         // highlight all matches

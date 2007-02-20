@@ -22,7 +22,7 @@
 
 #include <kdelibs_export.h>
 
-class KConfig;
+class KConfigGroup;
 
 namespace KTextEditor
 {
@@ -98,20 +98,20 @@ class KTEXTEDITOR_EXPORT SessionConfigInterface
      *  - a Plugin should restore session specific settings
      *  - If no file is being loaded, because an empty new document is going to be displayed,
      *    this function should emit ReadOnlyPart::completed
-     * 
-     * \param config read the session settings from this KConfig
+     *
+     * \param config read the session settings from this KConfigGroup
      * \see writeSessionConfig()
      */
-    virtual void readSessionConfig (KConfig *config) = 0;
+    virtual void readSessionConfig (const KConfigGroup& config) = 0;
 
     /**
      * Write session settings to the \p config.
      * See readSessionConfig() for more details.
      *
-     * \param config write the session settings to this KConfig
+     * \param config write the session settings to this KConfigGroup
      * \see readSessionConfig()
      */
-    virtual void writeSessionConfig (KConfig *config) = 0;
+    virtual void writeSessionConfig (KConfigGroup& config) = 0;
 
   private:
     class SessionConfigInterfacePrivate* const d;

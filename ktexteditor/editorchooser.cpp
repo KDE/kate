@@ -58,9 +58,8 @@ EditorChooser::EditorChooser(QWidget *parent)
   d->chooser->setupUi(this);
 
   KService::List offers = KMimeTypeTrader::self()->query("text/plain", "KTextEditor/Document");
-  KConfig *config = new KConfig("default_components");
-  config->setGroup("KTextEditor");
-  QString editor = config->readPathEntry("embeddedEditor");
+  KConfigGroup config = KSharedConfig::openConfig("default_components")->group("KTextEditor");
+  QString editor = config.readPathEntry("embeddedEditor");
 
   if (editor.isEmpty()) editor = "katepart";
 
@@ -124,8 +123,7 @@ KTextEditor::Editor *EditorChooser::editor(const QString& postfix,
     // there is no library set in the application's config,
     // fall back to KDE's system default
     KConfig config("default_components");
-    config.setGroup("KTextEditor");
-    editor = config.readPathEntry("embeddedEditor", "katepart");
+    editor = config.group("KTextEditor").readPathEntry("embeddedEditor", "katepart");
   }
 
   KService::Ptr serv = KService::serviceByDesktopName(editor);

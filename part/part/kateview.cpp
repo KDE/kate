@@ -1442,7 +1442,7 @@ bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
 
 bool KateView::selection() const
 {
-  return m_selection->start() != m_selection->end();
+  return m_selection->isValid ();
 }
 
 QString KateView::selectionText() const

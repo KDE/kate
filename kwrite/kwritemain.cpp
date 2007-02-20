@@ -349,7 +349,7 @@ void KWrite::editKeys()
 
 void KWrite::editToolbars()
 {
-  saveMainWindowSettings( KGlobal::config().data(), "MainWindow" );
+  saveMainWindowSettings( KGlobal::config()->group( "MainWindow" ) );
   KEditToolbar *dlg = new KEditToolbar(guiFactory());
 
   connect( dlg, SIGNAL(newToolbarConfig()), this, SLOT(slotNewToolbarConfig()) );
@@ -359,7 +359,7 @@ void KWrite::editToolbars()
 
 void KWrite::slotNewToolbarConfig()
 {
-    applyMainWindowSettings( KGlobal::config().data(), "MainWindow" );
+    applyMainWindowSettings( KGlobal::config()->group( "MainWindow" ) );
 }
 
 void KWrite::dragEnterEvent( QDragEnterEvent *event )
@@ -405,12 +405,12 @@ void KWrite::slotEnableActions( bool enable )
 //common config
 void KWrite::readConfig(KSharedConfigPtr config)
 {
-  config->setGroup("General Options");
+  KConfigGroup cfg( config, "General Options");
 
-  m_paShowStatusBar->setChecked( config->readEntry("ShowStatusBar", false) );
-  m_paShowPath->setChecked( config->readEntry("ShowPath", false) );
+  m_paShowStatusBar->setChecked( cfg.readEntry("ShowStatusBar", false) );
+  m_paShowPath->setChecked( cfg.readEntry("ShowPath", false) );
 
-  m_recentFiles->loadEntries(config.data(), "Recent Files");
+  m_recentFiles->loadEntries( config->group( "Recent Files" ));
 
   m_view->document()->editor()->readConfig(config.data());
 
@@ -422,13 +422,14 @@ void KWrite::readConfig(KSharedConfigPtr config)
 
 void KWrite::writeConfig(KSharedConfigPtr config)
 {
-  config->setGroup("General Options");
+  KConfigGroup generalOptions( config, "General Options");
 
-  config->writeEntry("ShowStatusBar",m_paShowStatusBar->isChecked());
-  config->writeEntry("ShowPath",m_paShowPath->isChecked());
+  generalOptions.writeEntry("ShowStatusBar",m_paShowStatusBar->isChecked());
+  generalOptions.writeEntry("ShowPath",m_paShowPath->isChecked());
 
-  m_recentFiles->saveEntries(config.data(), "Recent Files");
+  m_recentFiles->saveEntries(KConfigGroup(config, "Recent Files"));
 
+  // Writes into its own group
   m_view->document()->editor()->writeConfig(config.data());
 
   config->sync ();
@@ -456,7 +457,7 @@ void KWrite::readProperties(KSharedConfigPtr config)
   readConfig(config);
 
   if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view))
-    iface->readSessionConfig(config.data());
+    iface->readSessionConfig(KConfigGroup(config, "General Options"));
 }
 
 void KWrite::saveProperties(KSharedConfigPtr config)
@@ -464,8 +465,10 @@ void KWrite::saveProperties(KSharedConfigPtr config)
   writeConfig(config);
   config->writeEntry("DocumentNumber",docList.indexOf(m_view->document()) + 1);
 
-  if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view))
-    iface->writeSessionConfig(config.data());
+  if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view)) {
+    KConfigGroup cg( config, "General Options" );
+    iface->writeSessionConfig(cg);
+  }
 }
 
 void KWrite::saveGlobalProperties(KConfig *config) //save documents
@@ -476,20 +479,18 @@ void KWrite::saveGlobalProperties(KConfig *config) //save documents
   for (int z = 1; z <= docList.count(); z++)
   {
      QString buf = QString("Document %1").arg(z);
-     config->setGroup(buf);
-
+     KConfigGroup cg( config, buf );
      KTextEditor::Document *doc = docList.at(z - 1);
 
      if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
-       iface->writeSessionConfig(config);
+       iface->writeSessionConfig(cg);
   }
 
   for (int z = 1; z <= winList.count(); z++)
   {
      QString buf = QString("Window %1").arg(z);
-     config->setGroup(buf);
-
-     config->writeEntry("DocumentNumber",docList.indexOf(winList.at(z-1)->view()->document()) + 1);
+     KConfigGroup cg( config, buf );
+     cg.writeEntry("DocumentNumber",docList.indexOf(winList.at(z-1)->view()->document()) + 1);
   }
 }
 
@@ -522,11 +523,11 @@ void KWrite::restore()
   for (int z = 1; z <= docs; z++)
   {
      buf = QString("Document %1").arg(z);
-     config->setGroup(buf);
+     KConfigGroup cg(config, buf);
      doc=editor->createDocument(0);
 
      if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
-       iface->readSessionConfig(config);
+       iface->readSessionConfig(cg);
      docList.append(doc);
   }
 

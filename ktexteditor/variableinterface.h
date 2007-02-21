@@ -22,6 +22,9 @@
 
 #include <kdelibs_export.h>
 
+
+#include <QtCore/QObject>
+
 class QString;
 
 namespace KTextEditor {

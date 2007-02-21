@@ -23,6 +23,8 @@
 
 #include <kdelibs_export.h>
 
+#include <ktexteditor/range.h>
+
 class QString;
 class QRegExp;
 

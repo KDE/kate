@@ -23,7 +23,10 @@
 
 #include <kdelibs_export.h>
 
+#include <QtCore/QStringList>
+
 class QString;
+class QObject;
 
 namespace KTextEditor
 {

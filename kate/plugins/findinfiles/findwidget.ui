@@ -1,0 +1,208 @@
+<ui version="4.0" >
+ <class>FindWidget</class>
+ <widget class="QWidget" name="FindWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>699</width>
+    <height>287</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="margin" >
+    <number>9</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item>
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item row="1" column="0" >
+      <widget class="QLabel" name="lblFolder" >
+       <property name="text" >
+        <string>Folder:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="buddy" >
+        <cstring>cmbDir</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2" >
+      <widget class="QCheckBox" name="cbCasesensitive" >
+       <property name="text" >
+        <string>Case sensitive</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2" >
+      <widget class="QCheckBox" name="cbRecursive" >
+       <property name="text" >
+        <string>Recursive</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" >
+      <widget class="QLabel" name="lblFiles" >
+       <property name="text" >
+        <string>Files:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="buddy" >
+        <cstring>cmbFiles</cstring>
+       </property>
+      </widget>
+     </item>
+     <item rowspan="3" row="0" column="3" >
+      <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="KPushButton" name="btnSearch" >
+         <property name="default" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KPushButton" name="btnClear" />
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="1" >
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QToolButton" name="btnSync" >
+         <property name="toolTip" >
+          <string>Use the current document's path.</string>
+         </property>
+         <property name="autoRaise" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KUrlComboRequester" name="cmbDir" >
+         <property name="sizePolicy" >
+          <sizepolicy>
+           <hsizetype>7</hsizetype>
+           <vsizetype>5</vsizetype>
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="1" >
+      <widget class="KComboBox" name="cmbFiles" >
+       <property name="editable" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="KComboBox" name="cmbPattern" >
+       <property name="editable" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="lblPattern" >
+       <property name="text" >
+        <string>Pattern:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="buddy" >
+        <cstring>cmbPattern</cstring>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTreeWidget" name="lbResult" />
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KUrlComboRequester</class>
+   <extends>KUrlRequester</extends>
+   <header>kurlrequester.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>cmbPattern</tabstop>
+  <tabstop>cbCasesensitive</tabstop>
+  <tabstop>btnSync</tabstop>
+  <tabstop>cbRecursive</tabstop>
+  <tabstop>cmbFiles</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

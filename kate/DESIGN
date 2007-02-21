@@ -1,0 +1,15 @@
+KateApp
+  - KatePluginManager
+    one plugin manager per app
+
+  - KateDocManager
+    one doc manager per app
+
+  - KateMainWindow
+    mutliple mainwindows per app possible
+
+      - KateViewManager
+        one view manager per mainwin
+
+Coding Guidelines: Keep close to what this command gives you
+  astyle -c -s2 -C -S -N -b --convert-tabs -p <file>

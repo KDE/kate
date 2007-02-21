@@ -1,0 +1,77 @@
+[Global]
+tools=externaltool_CVSLogforCurrentDocument,externaltool_CervisiaDirectoryofCurrentDocument,externaltool_CompareCurrentDocumenttoCVS,externaltool_CompareDirectoryofCurrentDocumenttoCVS,externaltool_EmailCVSDiffforCurrentDocument,---,externaltool_RunScript,---,externaltool_GoogleSelection
+
+[Shortcuts]
+externaltool_CVSLogforCurrentDocument=Shift+F10
+externaltool_CompareCurrentDocumenttoCVS=Shift+F11
+externaltool_RunScript=Ctrl+Shift+X
+
+[externaltool_CVSLogforCurrentDocument]
+acname=externaltool_CVSLogforCurrentDocument
+cmdname=cvs-log
+command=if grep %filename %directory/CVS/Entries 2>&1 >/dev/null ; then\n  cd %directory && cervisia -log %filename\nelse\n  kdialog --title Error --msgbox "The file '%filename' is not in CVS."\nfi
+executable=cervisia
+icon=cervisia
+mimetypes=
+name=CVS Log for Current Document
+save=0
+
+[externaltool_CervisiaDirectoryofCurrentDocument]
+acname=externaltool_CervisiaDirectoryofCurrentDocument
+cmdname=cvs-directory
+command=if [ -d %directory/CVS ] ; then\n  cervisia %directory\nelse\n  kdialog --title Error --msgbox "The directory '%directory' does not appear to be a CVS sandbox."\nfi
+executable=cervisia
+icon=cervisia
+mimetypes=
+name=Cervisia (Directory of Current Document)
+save=0
+
+[externaltool_CompareCurrentDocumenttoCVS]
+acname=externaltool_CompareCurrentDocumenttoCVS
+cmdname=cvs-diff
+command=cd %directory\nif [ -d CVS ] && grep %filename CVS/Entries 2>&1 >/dev/null ; then\n  cvs diff %filename|kompare -o -\nelse\n  kdialog --title Error --msgbox "The file '%filename' is not in CVS."\nfi
+executable=kompare
+icon=kompare
+mimetypes=
+name=Compare Current Document to CVS
+save=1
+
+[externaltool_EmailCVSDiffforCurrentDocument]
+acname=externaltool_EmailCVSDiffforCurrentDocument
+cmdname=
+command=cd %directory\nif [ -d CVS ] && grep %filename CVS/Entries > /dev/null ; then\n  cvs diff -ubB %filename > $(kde4-config --path tmp)%filename.diff \n  kmail --composer --attach  $(kde4-config --path tmp)%filename.diff\nelse\n  kdialog --title Error -msgbox "The file '%filename' is not in CVS"\nfi
+executable=kmail
+icon=kmail
+mimetypes=
+name=Email CVS Diff for Current Document
+save=1
+
+[externaltool_GoogleSelection]
+acname=externaltool_GoogleSelection
+cmdname=google-selection
+command=[ -n "%selection" ] && kfmclient openURL "gg:%selection"
+executable=kfmclient
+icon=globe
+mimetypes=
+name=Google Selection
+save=0
+
+[externaltool_RunScript]
+acname=externaltool_RunScript
+cmdname=runscript
+command=cd "%directory" && chmod u+x "%filename" && konsole -e "./%filename"
+executable=konsole
+icon=run
+mimetypes=
+name=Run Script
+save=1
+
+[externaltool_CompareDirectoryofCurrentDocumenttoCVS]
+acname=externaltool_CompareDirectoryofCurrentDocumenttoCVS
+cmdname=
+command=cd %directory\nif [ -d CVS ] ; then\n  cvs diff -ub |kompare -o -\nelse\n  kdialog --title Error --msgbox "The directory '%directory' does not appear to be a cvs sandbox."\nfi
+executable=kompare
+icon=kompare
+mimetypes=
+name=Compare Directory of Current Document to CVS
+save=0

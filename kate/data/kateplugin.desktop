@@ -1,0 +1,22 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=ServiceType
+X-KDE-ServiceType=Kate/Plugin
+X-KDE-Derived=
+Comment=Kate Plugin
+Comment[el]=Πρόσθετο Kate
+Comment[fr]=Module de Kate
+Comment[x-test]=xxKate Pluginxx
+
+[PropertyDef::X-Kate-Version]
+Type=QString
+
+[PropertyDef::X-Kate-PluginName]
+Type=QString
+
+[PropertyDef::X-Kate-MajorProfiles]
+Type=QStringList
+
+[PropertyDef::X-Kate-MinorProfiles]
+Type=QStringList
+

@@ -1,0 +1,172 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="kate" version="51">
+
+<MenuBar noMerge="1">
+  <Menu name="file"><text>&amp;File</text>
+    <Action name="file_new" />
+    <DefineGroup name="new_merge" />
+    <Separator />
+
+    <Action name="file_open"/>
+    <Action name="file_open_recent"/>
+    <Action name="file_open_with"/>
+    <DefineGroup name="open_merge" />
+    <Separator />
+
+    <DefineGroup name="save_merge" />
+    <Action name="file_save_all" />
+    <Separator />
+
+    <DefineGroup name="revert_merge" />
+    <DefineGroup name="print_merge" />
+    <DefineGroup name="export_merge" />
+    <Separator />
+
+    <Action name="file_close"/>
+    <Action name="file_close_all"/>
+    <Separator />
+
+    <Action name="file_quit"/>
+  </Menu>
+
+  <Menu name="edit"><text>&amp;Edit</text>
+    <DefineGroup name="edit_undo_merge" />
+    <Separator group="edit_undo_merge" />
+    <DefineGroup name="edit_paste_merge" />
+    <Separator />
+    <DefineGroup name="edit_select_merge" />
+    <Separator />
+    <DefineGroup name="edit_find_merge" />
+    <Separator />
+  </Menu>
+
+  <Menu name="documents"><text>&amp;Document</text>
+    <Action name="go_back"/>
+    <Action name="go_forward"/>
+    <Separator />
+  </Menu>
+
+  <Menu name="view"><text>&amp;View</text>
+    <DefineGroup name="view_operations" />
+  </Menu>
+
+  <Merge/>
+
+  <Menu name="tools"><text>&amp;Tools</text>
+    <Action name="tools_external" />
+    <Separator />
+    <DefineGroup name="tools_operations" />
+    <Action name="scripts"/>
+  </Menu>
+
+  <Menu name="sessions"><text>Sess&amp;ions</text>
+    <Action name="sessions_new"/>
+    <Action name="sessions_open"/>
+    <Action name="sessions_list"/>
+    <Separator />
+    <Action name="sessions_save"/>
+    <Action name="sessions_save_as"/>
+    <Separator />
+    <Action name="sessions_manage"/>
+  </Menu>
+
+  <Menu name="settings"><text>&amp;Settings</text>
+    <Merge name="StandardToolBarMenuHandler"/>
+    <DefineGroup name="show_merge" />
+    <DefineGroup name="configure_merge" />
+    <Separator />
+    <Action name="settings_show_statusbar"/>
+    <Action name="settings_show_full_path"/>
+    <Separator />
+    <Action name="options_configure_keybinding"/>
+    <Action name="set_configure_toolbars"/>
+    <Action name="settings_configure" />
+  </Menu>
+
+  <Menu name="window"><text>&amp;Window</text>
+    <Action name="view_new_view" />
+    <Separator />
+    <Action name="view_new_tab"/>
+    <Action name="view_close_tab"/>
+    <Separator />
+    <Action name="view_next_tab"/>
+    <Action name="view_prev_tab"/>
+    <Separator />
+    <Action name="view_split_vert"/>
+    <Action name="view_split_horiz"/>
+    <Action name="view_close_current_space" />
+    <Separator />
+    <Action name="go_next"/>
+    <Action name="go_prev"/>
+    <Separator/>
+    <Merge name="kate_mdi_window_actions"/>
+    <Separator />
+    <Action name="fullscreen" />
+  </Menu>
+
+  <Menu name="help"><text>&amp;Help</text>
+    <Action name="help_contents"/>
+    <Action name="help_plugins_contents"/>
+    <Action name="help_whats_this"/>
+    <Action name="help_show_tip" />
+    <Separator/>
+    <Action name="help_report_bug"/>
+    <Separator/>
+    <Action name="help_about_app"/>
+    <Action name="help_about_editor"/>
+    <Action name="help_about_kde"/>
+  </Menu>
+</MenuBar>
+
+<ToolBar name="mainToolBar" noMerge="1"><text>Main Toolbar</text>
+  <DefineGroup name="file_open" />
+  <Action name="file_new" group="file_open" />
+  <Action name="file_open" group="file_open" />
+  <Separator />
+  <Action name="go_back" />
+  <Action name="go_forward" />
+  <Separator />
+  <DefineGroup name="file_operations" />
+  <Separator />
+  <DefineGroup name="print_merge" />
+  <Separator />
+  <Action name="file_close" />
+  <Separator />
+  <DefineGroup name="edit_operations" />
+  <Separator />
+  <DefineGroup name="find_operations" />
+  <Separator />
+  <DefineGroup name="zoom_operations" />
+</ToolBar>
+
+<Menu name="ktexteditor_popup" noMerge="1">
+  <DefineGroup name="popup_operations" />
+</Menu>
+
+<Menu name="viewspace_popup" noMerge="1">
+  <Action name="view_split_vert"/>
+  <Action name="view_split_horiz"/>
+  <Separator />
+  <Action name="view_close_current_space" />
+  <Separator />
+  <Action name="go_back"/>
+  <Action name="go_forward"/>
+  <Action name="doc_list"/>
+</Menu>
+
+<Menu name="filelist_popup" noMerge="1">
+  <DefineGroup name="save_merge" />
+  <Action name="file_save_all"/>
+  <Separator/>
+  <DefineGroup name="revert_merge" />
+  <Action name="file_open_with" />
+  <Separator/>
+  <DefineGroup name="print_merge" />
+  <Separator/>
+  <Action name="file_close"/>
+  <Action name="file_close_all"/>
+  <Separator/>
+  <Action name="filelist_sortby"/>
+</Menu>
+
+</kpartgui>

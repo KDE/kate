@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katefindinfilesplugin
+X-Kate-Version=2.8
+Name=Find in files tool view
+Comment=Toolview allowing to search in all open files or files in the filesystem
+X-Kate-MajorProfiles=Kate
+X-Kate-MinorProfiles=*

@@ -473,8 +473,7 @@ void KWrite::saveProperties(KSharedConfigPtr config)
 
 void KWrite::saveGlobalProperties(KConfig *config) //save documents
 {
-  config->setGroup("Number");
-  config->writeEntry("NumberOfDocuments",docList.count());
+  config->group("Number").writeEntry("NumberOfDocuments",docList.count());
 
   for (int z = 1; z <= docList.count(); z++)
   {
@@ -516,9 +515,9 @@ void KWrite::restore()
   KTextEditor::Document *doc;
   KWrite *t;
 
-  config->setGroup("Number");
-  docs = config->readEntry("NumberOfDocuments", 0);
-  windows = config->readEntry("NumberOfWindows", 0);
+  KConfigGroup numberConfig(config, "Number");
+  docs = numberConfig.readEntry("NumberOfDocuments", 0);
+  windows = numberConfig.readEntry("NumberOfWindows", 0);
 
   for (int z = 1; z <= docs; z++)
   {
@@ -534,8 +533,8 @@ void KWrite::restore()
   for (int z = 1; z <= windows; z++)
   {
     buf = QString("Window %1").arg(z);
-    config->setGroup(buf);
-    t = new KWrite(docList.at(config->readEntry("DocumentNumber", 0) - 1));
+    KConfigGroup cg(config, buf);
+    t = new KWrite(docList.at(cg.readEntry("DocumentNumber", 0) - 1));
     t->restore(config,z);
   }
 }

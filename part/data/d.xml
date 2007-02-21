@@ -5,7 +5,9 @@
 
   D.XML supports syntax highlighting for the D programming language under Kate.
 
+  Copyright (C) 2007 - Jari-Matti Mäkelä <jmjm@iki.fi>
   Copyright (C) 2004 - Simon J Mackenzie <project.katedxml@smackoz.fastmail.fm>
+
   This code is released under the LGPL as part of kdelibs/kate.
 
   ========================================================================
@@ -18,27 +20,27 @@
   Updates for D.XML can be obtained from http://kate.kde.org/hl/
 
   UPDATE HISTORY:-
-  2004.08.15 - D.XML 1.36 - D 0.98 - Current release of D.
-                                   - package, writef(strictly speaking writyef isn't a keyword) - keywords are now supported.
-  2004.??.?? - D.XML 1.35 - D 0.?? - Not sure how this release got posted!
-  2004.05.23 - D.XML 1.34 - D 0.90 - updated.
-  2004.05.19 - D.XML 1.33 - D 0.89 - mixin - keyword is now supported.
-  2004.05.19 - D.XML 1.32 - D 0.77 - pragma, typeof - keywords are now supported.
-  2004.05.19 - D.XML 1.31 - D 0.76 - is - keyword is now supported.
-  2003.09.06 - D.XML 1.30 - D 0.71 - foreach - keyword is now supported.
-  2003.08.18 - D.XML 1.20 - D 0.69 - floats are now supported.
-                                   - embedded underscores in integer and float literals are now supported.
-  2003.08.11 - D.XML 1.10          - updated.
-  2003.07.18 - D.XML 1.00          - First released.
+  2007.02.12 - D.XML 1.37 - D 1.006 - bool, foreach_reverse, lazy, scope and typeid keywords are now supported, fixed \"
+                                    - inside a string, fixed ending of wysiwyg strings.
+  2004.08.15 - D.XML 1.36 - D 0.98  - Current release of D.
+                                    - package, writef(strictly speaking writef isn't a keyword) - keywords are now supported.
+  2004.??.?? - D.XML 1.35 - D 0.??  - Not sure how this release got posted!
+  2004.05.23 - D.XML 1.34 - D 0.90  - updated.
+  2004.05.19 - D.XML 1.33 - D 0.89  - mixin - keyword is now supported.
+  2004.05.19 - D.XML 1.32 - D 0.77  - pragma, typeof - keywords are now supported.
+  2004.05.19 - D.XML 1.31 - D 0.76  - is - keyword is now supported.
+  2003.09.06 - D.XML 1.30 - D 0.71  - foreach - keyword is now supported.
+  2003.08.18 - D.XML 1.20 - D 0.69  - floats are now supported.
+                                    - embedded underscores in integer and float literals are now supported.
+  2003.08.11 - D.XML 1.10           - updated.
+  2003.07.18 - D.XML 1.00           - First released.
 
   TODO:-
-  - Kate string translation cannot handle \" as a literal within a D string.  The " will be interpreted as an end of string marker
-    when it should be ignored because of the preceding back-slash.
 
    ========================================================================
 -->
 
-<language name="D" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc" version="1.36" kateversion="2.2" casesensitive="true" author="Simon J Mackenzie (project.katedxml@smackoz.fastmail.fm)" license="LGPL">
+<language name="D" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc" version="1.37" kateversion="2.2" casesensitive="true" author="Simon J Mackenzie (project.katedxml@smackoz.fastmail.fm)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> abstract </item>
@@ -72,6 +74,7 @@
       <item> finally </item>
       <item> for </item>
       <item> foreach </item>
+      <item> foreach_reverse </item>
       <item> function </item>
 
       <item> goto </item>
@@ -82,6 +85,8 @@
       <item> interface </item>
       <item> invariant </item>
       <item> is </item>
+
+      <item> lazy </item>
 
       <item> mixin </item>
 
@@ -98,6 +103,7 @@
 
       <item> return </item>
 
+      <item> scope </item>
       <item> static </item>
       <item> struct </item>
       <item> super </item>
@@ -110,6 +116,7 @@
       <item> true </item>
       <item> try </item>
       <item> typedef </item>
+      <item> typeid </item>
       <item> typeof </item>
 
       <item> union </item>
@@ -125,7 +132,7 @@
     </list>
     <list name="types">
       <item> void </item>
-      <item> bit </item>
+      <item> bool </item>
       <item> byte </item>
       <item> ubyte </item>
       <item> short </item>
@@ -212,8 +219,8 @@
         <keyword attribute="Version"        context="Version"    String="version"/>
         <keyword attribute="Unit Test"      context="#stay"      String="unittest"/>
 
-        <Detect2Chars attribute="Wysiwyg"   context="Wysiwyg" char="r" char1="&quot;"/>
-        <Detect2Chars attribute="Hex"       context="Hex"     char="x" char1="&quot;"/>
+        <Detect2Chars attribute="Wysiwyg1"  context="Wysiwyg1" char="r" char1="&quot;"/>
+        <Detect2Chars attribute="Hex"       context="Hex"      char="x" char1="&quot;"/>
 
         <RegExpr attribute="Normal Text"    context="#pop" String="[_a-z][\w]*" insensitive="true"/>
 
@@ -240,9 +247,9 @@
         <RegExpr attribute="Hex"     context="#pop" String="0x[\da-f]+[_\da-f]*(UL|LU|U|L)?" insensitive="true"/>
         <RegExpr attribute="Integer" context="#pop" String="[\d]+[_\d]*(UL|LU|U|L)?"         insensitive="true"/>
 
-        <DetectChar attribute="Char"    context="Char"    char="'"/>
-        <DetectChar attribute="String"  context="String"  char="&quot;"/>
-        <DetectChar attribute="Wysiwyg" context="Wysiwyg" char="`"/>
+        <DetectChar attribute="Char"     context="Char"     char="'"/>
+        <DetectChar attribute="String"   context="String"   char="&quot;"/>
+        <DetectChar attribute="Wysiwyg2" context="Wysiwyg2" char="`"/>
 
         <Detect2Chars attribute="Comment" context="CommentLine"   char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="CommentBlockA" char="/" char1="*" beginRegion="CommentA"/>
@@ -283,10 +290,15 @@
         <DetectChar attribute="Normal Text"  context="#pop"  char=")"/>
       </context>
 
-      <context attribute="Wysiwyg" lineEndContext="#stay" name="Wysiwyg">
-        <DetectChar attribute="Wysiwyg" context="#pop" char="&quot;"/>
-        <DetectChar attribute="Wysiwyg" context="#pop" char="`"/>
+      <context attribute="Wysiwyg1" lineEndContext="#stay" name="Wysiwyg1">
+        <DetectChar attribute="Wysiwyg1" context="#pop" char="&quot;"/>
+        <RegExpr attribute="Escape String" context="#stay" String="\\&quot;"/>
       </context>
+
+      <context attribute="Wysiwyg2" lineEndContext="#stay" name="Wysiwyg2">
+        <DetectChar attribute="Wysiwyg2" context="#pop" char="`"/>
+      </context>
+
       <context attribute="Hex" lineEndContext="#stay" name="Hex">
         <DetectChar attribute="Hex" context="#pop" char="&quot;"/>
       </context>
@@ -297,6 +309,7 @@
       </context>
       <context attribute="String" lineEndContext="#stay" name="String">
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
+        <RegExpr attribute="Escape String" context="#stay" String="\\&quot;"/>
       </context>
 
       <context attribute="Comment" lineEndContext="#pop" name="CommentLine">
@@ -333,7 +346,8 @@
       <itemData name="Escape String"  defStyleNum="dsString"   color="#00aa00" selColor="#ff0000" bold="0" italic="0"/>
       <itemData name="String"         defStyleNum="dsString"   color="#00aa00" selColor="#ff0000" bold="0" italic="0"/>
       <itemData name="Char"           defStyleNum="dsChar"     color="#ff00ff" selColor="#ff00ff" bold="0" italic="0"/>
-      <itemData name="Wysiwyg"        defStyleNum="dsChar"     color="#a100a1" selColor="#ff00ff" bold="0" italic="0"/>
+      <itemData name="Wysiwyg1"       defStyleNum="dsChar"     color="#a100a1" selColor="#ff00ff" bold="0" italic="0"/>
+      <itemData name="Wysiwyg2"       defStyleNum="dsChar"     color="#a100a1" selColor="#ff00ff" bold="0" italic="0"/>
 
       <itemData name="Comment"        defStyleNum="dsComment"/>
     </itemDatas>

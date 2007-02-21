@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katehtmltoolsplugin
+X-Kate-Version=2.9
+Name=Kate HTML Tools
+Name[el]=Εργαλεία HTML του Kate
+Name[fr]=Outils HTML pour Kate
+Name[x-test]=xxKate HTML Toolsxx
+Comment=Facilitated insertion of HTML tags
+Comment[el]=Διευκόλυνση της εισαγωγής HTML tags
+Comment[fr]=Aide à l'insertion de balises HTML
+Comment[x-test]=xxFacilitated insertion of HTML tagsxx

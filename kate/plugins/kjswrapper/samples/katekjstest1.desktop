@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katekjswrapperplugin
+X-Kate-Version=2.2
+X-Kate-PluginName=katekjstest1
+Name=Kate KJS Test 1
+Name[el]=Kate KJS δοκιμή 1
+Name[fr]=Test 1 KJS pour Kate
+Name[x-test]=xxKate KJS Test 1xx
+Comment=Test  for the KJS Wrapper
+Comment[el]=Δοκιμή για το KJS Wrapper
+Comment[fr]=Test pour l'interface avec KJS
+Comment[x-test]=xxTest  for the KJS Wrapperxx

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=kateinsertcommandplugin
+X-Kate-Version=2.9
+Name=Kate InsertCommand
+Name[el]=Εισαγωγή εντολών του Kate
+Name[fr]=Insertion de commande dans Kate
+Name[x-test]=xxKate InsertCommandxx
+Comment=Insert shell command output into a document
+Comment[el]=Εισαγωγή εξόδου κάποιας εντολής σε ένα έγγραφο
+Comment[fr]=Insertion de la sortie d'une commande shell dans un document
+Comment[x-test]=xxInsert shell command output into a documentxx

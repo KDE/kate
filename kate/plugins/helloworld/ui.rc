@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui>
+<kpartplugin name="katehelloworld" library="libkatehelloworldplugin" version="2">
+<MenuBar>
+ <Menu name="tools"><text>&amp;Tools</text>
+    <Action name="edit_insert_helloworld" />
+ </Menu>
+</MenuBar>
+</kpartplugin>

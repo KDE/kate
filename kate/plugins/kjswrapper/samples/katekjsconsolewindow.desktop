@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katekjswrapperplugin
+X-Kate-Version=2.2
+X-Kate-PluginName=katekjsconsolewindow
+Name=Kate Javascript Console Window
+Name[el]=Παράθυρο κονσόλας Javascript του Kate
+Name[fr]=Console Javascript pour Kate
+Name[x-test]=xxKate Javascript Console Windowxx

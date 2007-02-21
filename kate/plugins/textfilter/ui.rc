@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui>
+<kpartplugin name="katetextfilter" library="libkatetextfilterplugin" version="3">
+<MenuBar>
+ <Menu name="tools"><text>&amp;Tools</text>
+    <Action name="edit_filter" />
+ </Menu>
+</MenuBar>
+</kpartplugin>

@@ -1,0 +1,10 @@
+# KDE Config File
+[Desktop Entry]
+Type=Application
+Exec=kpybrowser -caption "%c"
+Icon=kpybrowser
+Comment=
+Terminal=false
+Name=KPyBrowser
+Name[x-test]=xxKPyBrowserxx
+Encoding=UTF-8

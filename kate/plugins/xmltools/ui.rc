@@ -1,0 +1,10 @@
+<!DOCTYPE kpartgui>
+<kpartplugin name="katexmltools" library="libkatexmltoolsplugin" version="8">
+<MenuBar>
+ <Menu name="xml"><Text>&amp;XML</Text>
+    <Action name="xml_tool_insert_element" />
+    <Action name="xml_tool_close_element" />
+    <Action name="xml_tool_assign" />
+ </Menu>
+</MenuBar>
+</kpartplugin>

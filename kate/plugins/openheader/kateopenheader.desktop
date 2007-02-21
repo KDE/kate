@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=kateopenheaderplugin
+X-Kate-Version=2.9
+Name=Kate OpenHeader
+Name[el]=Άνοιγμα επικεφαλίδας του Kate
+Name[fr]=Ouverture d'en-tête pour Kate
+Name[x-test]=xxKate OpenHeaderxx
+Comment=Opens the corresponding .h/[.cpp|.c] file
+Comment[el]=Ανοίγει το αντίστοιχο αρχείο .h/[.cpp|.c]
+Comment[fr]=Ouvre le fichier correspondant .h/[.cpp|.c]
+Comment[x-test]=xxOpens the corresponding .h/[.cpp|.c] filexx

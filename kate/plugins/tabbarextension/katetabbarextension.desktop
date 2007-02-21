@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katetabbarextensionplugin
+X-Kate-Version=2.8
+Name=Kate Tab Bar Extension
+Name[el]=Επέκταση γραμμής καρτελών του Kate
+Name[fr]=Extension de la barre d'onglets pour Kate
+Name[x-test]=xxKate Tab Bar Extensionxx
+Comment=Adds a tab bar to Kate's main window
+Comment[el]=Προσθέτει μία γραμμή στηλοθέτη στο κύριο παράθυρο του Kate
+Comment[fr]=Ajoute une barre d'onglet dans la fenêtre principale de Kate
+Comment[x-test]=xxAdds a tab bar to Kate's main windowxx
+author=Dominik Haumann, dhdev@gmx.de

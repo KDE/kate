@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui>
+<kpartplugin name="kateopenheader" library="libkateopenheaderplugin" version="3">
+<MenuBar>
+ <Menu name="file"><Text>&amp;File</Text>
+    <Action name="file_openheader" group="open_merge"/>
+ </Menu>
+</MenuBar>
+</kpartplugin>

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katekjswrapperplugin
+X-Kate-Version=2.2
+X-Kate-PluginName=katekjsselect
+Name=Select Smallest Enclosing Block
+Name[el]=Επιλογή του μικρότερου περικλυόμενου κομματιού
+Name[fr]=Sélection du plus petit bloc enfermé
+Name[x-test]=xxSelect Smallest Enclosing Blockxx

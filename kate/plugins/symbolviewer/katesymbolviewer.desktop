@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katesymbolviewerplugin
+X-Kate-Version=2.8
+Name=Kate Symbol Viewer
+Comment=This plugin extracts and shows reference symbols from source

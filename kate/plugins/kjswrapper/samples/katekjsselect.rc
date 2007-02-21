@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui>
+<kpartplugin name="katekjsselect" library="libkatekjsselect" version="1">
+<MenuBar>
+ <Menu name="tools"><Text>&amp;Tools</Text>
+    <Action name="kjsselect_select_action"/>
+ </Menu>
+</MenuBar>
+</kpartplugin>

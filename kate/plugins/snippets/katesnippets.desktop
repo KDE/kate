@@ -1,0 +1,15 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katesnippetsplugin
+X-Kate-Version=2.9
+Name=Kate Snippets
+Name[el]=Δείγματα Kate
+Name[fr]=Fragments de codes pour Kate
+Name[x-test]=xxKate Snippetsxx
+Comment=Configurable Text-Snippets for Kate
+Comment[el]=Ρυθμιζόμενα δείγματα κειμένου για το Kate
+Comment[fr]=Fragments de codes configurables pour Kate
+Comment[x-test]=xxConfigurable Text-Snippets for Katexx
+author=Stephan Möres, Erdling@gmx.net

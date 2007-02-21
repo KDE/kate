@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katemakeplugin
+X-Kate-Version=2.9
+Name=Kate Make Plugin
+Name[el]=Πρόσθετο Make του Kate
+Name[fr]=Module Make pour Kate
+Name[x-test]=xxKate Make Pluginxx
+Comment=Compile and parse error messages
+Comment[el]=Μεταγλώττιση και ανάλυση μηνυμάτων λάθους
+Comment[fr]=Compiler et analyser les messages d'erreurs
+Comment[x-test]=xxCompile and parse error messagesxx

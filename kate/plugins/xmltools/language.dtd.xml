@@ -1,0 +1,960 @@
+<!DOCTYPE dtd PUBLIC "-//Norman Walsh//DTD DTDParse V2.0//EN"
+              "dtd.dtd" [
+]>
+<dtd version='1.0'
+     unexpanded='1'
+     title="kate highlightning definition"
+     namecase-general="1"
+     namecase-entity="0"
+     xml="0"
+     system-id="dev/kdelibs/kate/data/language.dtd"
+     public-id=""
+     declaration=""
+     created-by="DTDParse V2.0beta6"
+     created-on="Wed Jun 12 12:05:12 2002"
+>
+<entity name="ruleattrs"
+        type="param"
+>
+<text-expanded>attribute     CDATA   #REQUIRED       -- The name of the ItemData to be used for matching text -- 
+  context       NMTOKEN #REQUIRED       -- The name of the context to go to when this rule
+                                           matches --
+  beginRegion   CDATA   #IMPLIED        -- Begin a region of type beginRegion --
+  endRegion     CDATA   #IMPLIED        -- End a region of type endRegion --</text-expanded>
+<text>attribute     CDATA   #REQUIRED       -- The name of the ItemData to be used for matching text -- 
+  context       NMTOKEN #REQUIRED       -- The name of the context to go to when this rule
+                                           matches --
+  beginRegion   CDATA   #IMPLIED        -- Begin a region of type beginRegion --
+  endRegion     CDATA   #IMPLIED        -- End a region of type endRegion --</text>
+</entity>
+
+<element name="Float"
+         content-type="element">
+<content-model-expanded>
+  <sequence-group occurrence="*">
+    <element-name name="AnyChar"/>
+  </sequence-group>
+</content-model-expanded>
+<content-model>
+  <sequence-group occurrence="*">
+    <element-name name="AnyChar"/>
+  </sequence-group>
+</content-model>
+</element>
+
+<attlist name="Float">
+<attdecl>
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="RegExpr"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="RegExpr">
+<attdecl>
+  String        CDATA   #REQUIRED       -- The regular expression pattern --
+  insensitive (false|true) #IMPLIED     -- Wheather to match insensitive or not
+                                           Defaults to false --
+  minimal (false|true) #IMPLIED         -- Wheather to use minimal matching for wild cards
+                                           in the pattern Defaults to false --
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="insensitive"
+           type="#IMPLIED"
+           enumeration="yes"
+           value="false true"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="minimal"
+           type="#IMPLIED"
+           enumeration="yes"
+           value="false true"
+           default=""/>
+<attribute name="String"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="HlCHex"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="HlCHex">
+<attdecl>
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="language"
+         content-type="element">
+<content-model-expanded>
+  <sequence-group>
+    <element-name name="highlighting"/>
+    <element-name name="general" occurrence="?"/>
+  </sequence-group>
+</content-model-expanded>
+<content-model>
+  <sequence-group>
+    <element-name name="highlighting"/>
+    <element-name name="general" occurrence="?"/>
+  </sequence-group>
+</content-model>
+</element>
+
+<attlist name="language">
+<attdecl>
+  name          CDATA   #REQUIRED       -- The name of this syntax description. Used in the
+                                           Highlightning Mode menu --
+  section (Sources|Markup|Other|Scripts) #REQUIRED
+                                        -- The logical group to which this syntax description
+                                           belongs. Used for sub menus --
+  extensions    CDATA   #REQUIRED       -- A file glob or pattern to decide for which documents
+                                           to use this syntax description --
+  mimetype      CDATA   #REQUIRED       -- A list of mimetypes to decide for which documents
+                                           to use this syntax description --
+  version       CDATA   #IMPLIED        -- Version number of this syntax description --
+  kateverison   CDATA   #IMPLIED        -- Kate version required for using this file --
+  casesensitive (0|1)   #IMPLIED        -- ?? --
+</attdecl>
+<attribute name="section"
+           type="#REQUIRED"
+           enumeration="yes"
+           value="Sources Markup Other Scripts"
+           default=""/>
+<attribute name="casesensitive"
+           type="#IMPLIED"
+           enumeration="yes"
+           value=""
+           default=""/>
+<attribute name="mimetype"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="extensions"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="version"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="kateverison"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="name"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="general"
+         content-type="element">
+<content-model-expanded>
+  <sequence-group>
+    <element-name name="comments" occurrence="?"/>
+    <element-name name="keywords" occurrence="?"/>
+  </sequence-group>
+</content-model-expanded>
+<content-model>
+  <sequence-group>
+    <element-name name="comments" occurrence="?"/>
+    <element-name name="keywords" occurrence="?"/>
+  </sequence-group>
+</content-model>
+</element>
+
+<attlist name="general">
+<attdecl>
+</attdecl>
+</attlist>
+
+<element name="DetectChar"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="DetectChar">
+<attdecl>
+  char          CDATA   #REQUIRED       -- The character to look for --
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="char"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="item"
+         content-type="mixed">
+<content-model-expanded>
+  <sequence-group>
+    <pcdata/>
+  </sequence-group>
+</content-model-expanded>
+<content-model>
+  <sequence-group>
+    <pcdata/>
+  </sequence-group>
+</content-model>
+</element>
+
+<element name="comments"
+         content-type="element">
+<content-model-expanded>
+  <sequence-group occurrence="+">
+    <element-name name="comment"/>
+  </sequence-group>
+</content-model-expanded>
+<content-model>
+  <sequence-group occurrence="+">
+    <element-name name="comment"/>
+  </sequence-group>
+</content-model>
+</element>
+
+<attlist name="comments">
+<attdecl>
+</attdecl>
+</attlist>
+
+<element name="AnyChar"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="AnyChar">
+<attdecl>
+  String        CDATA   #REQUIRED       -- A string representing the characters to look for --
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="String"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="itemDatas"
+         content-type="element">
+<content-model-expanded>
+  <sequence-group occurrence="+">
+    <element-name name="itemData"/>
+  </sequence-group>
+</content-model-expanded>
+<content-model>
+  <sequence-group occurrence="+">
+    <element-name name="itemData"/>
+  </sequence-group>
+</content-model>
+</element>
+
+<attlist name="itemDatas">
+<attdecl>
+</attdecl>
+</attlist>
+
+<element name="IncludeRules"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="IncludeRules">
+<attdecl>
+  context       NMTOKEN #REQUIRED       -- The name or index of the context to include -- 
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+</attlist>
+
+<element name="itemData"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="itemData">
+<attdecl>
+  name          CDATA   #REQUIRED       -- The name of this attribute --
+  defStyleNum   CDATA   #REQUIRED       -- The index of the default style to use --
+  color         CDATA   #IMPLIED        -- Color for this style, either a hex triplet, a name 
+                                           or some other format recognized by Qt --
+  selColor      CDATA   #IMPLIED        -- The color for this style when text is selected --
+  italic        CDATA   #IMPLIED        -- Wheather this attribute should be rendered using
+                                           an italic typeface --         
+  bold          CDATA   #IMPLIED        -- Wheather this attribute should be renederd using
+                                           a bold typeface --
+</attdecl>
+<attribute name="italic"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="defStyleNum"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="selColor"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="bold"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="color"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="name"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="LineContinue"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="LineContinue">
+<attdecl>
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="contexts"
+         content-type="element">
+<content-model-expanded>
+  <sequence-group occurrence="+">
+    <element-name name="context"/>
+  </sequence-group>
+</content-model-expanded>
+<content-model>
+  <sequence-group occurrence="+">
+    <element-name name="context"/>
+  </sequence-group>
+</content-model>
+</element>
+
+<element name="keywords"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="keywords">
+<attdecl>
+  casesensitive CDATA #IMPLIED
+  weakDeliminator CDATA #IMPLIED
+</attdecl>
+<attribute name="casesensitive"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="weakDeliminator"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="HlCOct"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="HlCOct">
+<attdecl>
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="HlCStringChar"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="HlCStringChar">
+<attdecl>
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="context"
+         content-type="element">
+<content-model-expanded>
+  <or-group occurrence="*">
+    <element-name name="keyword"/>
+    <element-name name="Float"/>
+    <element-name name="HlCOct"/>
+    <element-name name="HlCHex"/>
+    <element-name name="Int"/>
+    <element-name name="DetectChar"/>
+    <element-name name="Detect2Chars"/>
+    <element-name name="AnyChar"/>
+    <element-name name="StringDetect"/>
+    <element-name name="RegExpr"/>
+    <element-name name="LineContinue"/>
+    <element-name name="HlCStringChar"/>
+    <element-name name="RangeDetect"/>
+    <element-name name="HlCChar"/>
+    <element-name name="IncludeRules"/>
+  </or-group>
+</content-model-expanded>
+<content-model>
+  <or-group occurrence="*">
+    <element-name name="keyword"/>
+    <element-name name="Float"/>
+    <element-name name="HlCOct"/>
+    <element-name name="HlCHex"/>
+    <element-name name="Int"/>
+    <element-name name="DetectChar"/>
+    <element-name name="Detect2Chars"/>
+    <element-name name="AnyChar"/>
+    <element-name name="StringDetect"/>
+    <element-name name="RegExpr"/>
+    <element-name name="LineContinue"/>
+    <element-name name="HlCStringChar"/>
+    <element-name name="RangeDetect"/>
+    <element-name name="HlCChar"/>
+    <element-name name="IncludeRules"/>
+  </or-group>
+</content-model>
+</element>
+
+<attlist name="context">
+<attdecl>
+  attribute CDATA #REQUIRED
+  lineEndContext NMTOKEN #REQUIRED
+  lineBeginContext NMTOKEN #IMPLIED
+  name CDATA #IMPLIED
+  fallthrough (false|true) #IMPLIED
+  fallthroughContext NMTOKEN #IMPLIED
+</attdecl>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="lineEndContext"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="fallthroughContext"
+           type="#IMPLIED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="fallthrough"
+           type="#IMPLIED"
+           enumeration="yes"
+           value="false true"
+           default=""/>
+<attribute name="lineBeginContext"
+           type="#IMPLIED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="name"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="keyword"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="keyword">
+<attdecl>
+  %ruleattrs;
+  String (types|keywords|attribute-definitions|literals|definitions) #REQUIRED
+                                        -- The name of the list to try --
+  weakDelimiter CDATA #IMPLIED
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="weakDelimiter"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="String"
+           type="#REQUIRED"
+           enumeration="yes"
+           value="types keywords attribute-definitions literals definitions"
+           default=""/>
+</attlist>
+
+<element name="list"
+         content-type="element">
+<content-model-expanded>
+  <sequence-group occurrence="+">
+    <element-name name="item"/>
+  </sequence-group>
+</content-model-expanded>
+<content-model>
+  <sequence-group occurrence="+">
+    <element-name name="item"/>
+  </sequence-group>
+</content-model>
+</element>
+
+<attlist name="list">
+<attdecl>
+  name (types|keywords|attribute-definitions|literals|definitions) #REQUIRED
+</attdecl>
+<attribute name="name"
+           type="#REQUIRED"
+           enumeration="yes"
+           value="types keywords attribute-definitions literals definitions"
+           default=""/>
+</attlist>
+
+<element name="Int"
+         content-type="element">
+<content-model-expanded>
+  <sequence-group occurrence="*">
+    <element-name name="StringDetect"/>
+  </sequence-group>
+</content-model-expanded>
+<content-model>
+  <sequence-group occurrence="*">
+    <element-name name="StringDetect"/>
+  </sequence-group>
+</content-model>
+</element>
+
+<attlist name="Int">
+<attdecl>
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="RangeDetect"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="RangeDetect">
+<attdecl>
+  char          CDATA   #REQUIRED       -- The character starting the range --
+  char1         CDATA   #REQUIRED       -- The character terminating the range --
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="char"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="char1"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="StringDetect"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="StringDetect">
+<attdecl>
+  String        CDATA   #REQUIRED       -- The string to look for --
+  insensitive (TRUE|FALSE) #REQUIRED    -- Wheather to match case insensitive or not.
+                                           Defaults to false --
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="insensitive"
+           type="#REQUIRED"
+           enumeration="yes"
+           value="TRUE FALSE"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="String"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="highlighting"
+         content-type="element">
+<content-model-expanded>
+  <sequence-group>
+    <element-name name="list" occurrence="*"/>
+    <element-name name="contexts"/>
+    <element-name name="itemDatas"/>
+  </sequence-group>
+</content-model-expanded>
+<content-model>
+  <sequence-group>
+    <element-name name="list" occurrence="*"/>
+    <element-name name="contexts"/>
+    <element-name name="itemDatas"/>
+  </sequence-group>
+</content-model>
+</element>
+
+<attlist name="highlighting">
+<attdecl>
+</attdecl>
+</attlist>
+
+<element name="Detect2Chars"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="Detect2Chars">
+<attdecl>
+  char          CDATA   #REQUIRED       -- The first character --
+  char1         CDATA   #REQUIRED       -- The second character --
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="char"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="char1"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+<element name="comment"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="comment">
+<attdecl>
+  name (singleLine|multiLine) #REQUIRED
+  start CDATA #REQUIRED
+  end CDATA #IMPLIED
+</attdecl>
+<attribute name="end"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="start"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="name"
+           type="#REQUIRED"
+           enumeration="yes"
+           value="singleLine multiLine"
+           default=""/>
+</attlist>
+
+<element name="HlCChar"
+         content-type="element">
+<content-model-expanded>
+  <empty/>
+</content-model-expanded>
+<content-model>
+  <empty/>
+</content-model>
+</element>
+
+<attlist name="HlCChar">
+<attdecl>
+  %ruleattrs;
+</attdecl>
+<attribute name="context"
+           type="#REQUIRED"
+           value="NMTOKEN"
+           default=""/>
+<attribute name="attribute"
+           type="#REQUIRED"
+           value="CDATA"
+           default=""/>
+<attribute name="beginRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+<attribute name="endRegion"
+           type="#IMPLIED"
+           value="CDATA"
+           default=""/>
+</attlist>
+
+</dtd>

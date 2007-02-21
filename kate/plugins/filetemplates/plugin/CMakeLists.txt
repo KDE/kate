@@ -1,0 +1,25 @@
+
+
+
+
+########### next target ###############
+
+set(katefiletemplates_PART_SRCS filetemplates.cpp )
+
+kde4_automoc(${katefiletemplates_PART_SRCS})
+
+kde4_add_plugin(katefiletemplates ${katefiletemplates_PART_SRCS})
+
+
+
+target_link_libraries(katefiletemplates  ${KDE4_KNEWSTUFF_LIBS} kateinterfaces ktexteditor )
+
+install(TARGETS katefiletemplates  DESTINATION ${PLUGIN_INSTALL_DIR} )
+
+
+########### install files ###############
+
+install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kate/plugins/katefiletemplates )
+install( FILES katetemplate.xml  DESTINATION  ${DATA_INSTALL_DIR}/katepart/syntax )
+install( FILES katefiletemplates.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+

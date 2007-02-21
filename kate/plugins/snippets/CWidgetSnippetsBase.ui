@@ -1,0 +1,214 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>CWidgetSnippetsBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>CWidgetSnippetsBase</cstring>
+    </property>
+    <property name="enabled">
+        <bool>true</bool>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>531</width>
+            <height>740</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Snippets</string>
+        <comment>Snippets for Kate</comment>
+    </property>
+    <property name="icon">
+        <pixmap>image0</pixmap>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QSplitter">
+            <property name="name">
+                <cstring>splitter13</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Qt::Vertical</enum>
+            </property>
+            <widget class="QListView">
+                <column>
+                    <property name="text">
+                        <string>Snippet</string>
+                    </property>
+                    <property name="clickable">
+                        <bool>true</bool>
+                    </property>
+                    <property name="resizable">
+                        <bool>false</bool>
+                    </property>
+                </column>
+                <property name="name">
+                    <cstring>lvSnippets</cstring>
+                </property>
+                <property name="cursor">
+                    <cursor>13</cursor>
+                </property>
+                <property name="acceptDrops">
+                    <bool>false</bool>
+                </property>
+                <property name="lineWidth">
+                    <number>2</number>
+                </property>
+                <property name="midLineWidth">
+                    <number>0</number>
+                </property>
+                <property name="resizePolicy">
+                    <enum>Manual</enum>
+                </property>
+                <property name="allColumnsShowFocus">
+                    <bool>true</bool>
+                </property>
+                <property name="showSortIndicator">
+                    <bool>true</bool>
+                </property>
+                <property name="showToolTips">
+                    <bool>true</bool>
+                </property>
+                <property name="resizeMode">
+                    <enum>AllColumns</enum>
+                </property>
+                <property name="treeStepSize">
+                    <number>20</number>
+                </property>
+                <property name="defaultRenameAction">
+                    <enum>Accept</enum>
+                </property>
+                <property name="toolTip" stdset="0">
+                    <string>A list of Snippets</string>
+                </property>
+                <property name="whatsThis" stdset="0">
+                    <string>A list of Snippets, what else</string>
+                </property>
+            </widget>
+            <widget class="QLayoutWidget">
+                <property name="name">
+                    <cstring>layout24</cstring>
+                </property>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <property name="margin">
+                        <number>0</number>
+                    </property>
+                    <widget class="QLayoutWidget">
+                        <property name="name">
+                            <cstring>layout11</cstring>
+                        </property>
+                        <hbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>0</number>
+                            </property>
+                            <widget class="QToolButton">
+                                <property name="name">
+                                    <cstring>btnNew</cstring>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                                <property name="iconSet">
+                                    <iconset>image1</iconset>
+                                </property>
+                            </widget>
+                            <widget class="QToolButton">
+                                <property name="name">
+                                    <cstring>btnSave</cstring>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                                <property name="iconSet">
+                                    <iconset>image2</iconset>
+                                </property>
+                            </widget>
+                            <widget class="QToolButton">
+                                <property name="name">
+                                    <cstring>btnDelete</cstring>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                                <property name="iconSet">
+                                    <iconset>image3</iconset>
+                                </property>
+                            </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>spacer1_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Qt::Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>200</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </hbox>
+                    </widget>
+                    <widget class="QTextEdit">
+                        <property name="name">
+                            <cstring>teSnippetText</cstring>
+                        </property>
+                        <property name="enabled">
+                            <bool>true</bool>
+                        </property>
+                        <property name="textFormat">
+                            <enum>Qt::PlainText</enum>
+                        </property>
+                        <property name="tabChangesFocus">
+                            <bool>false</bool>
+                        </property>
+                    </widget>
+                </vbox>
+            </widget>
+        </widget>
+    </vbox>
+</widget>
+<images>
+    <image name="image0">
+        <data format="XPM.GZ" length="1917">789c7dd4476fdb401005e0bb7e05e1bd19c158ec5c0439b897b8c9dd0e725816c94d6e926b90ff9ed9d9478a0e83686d409fe6f189c2aeb430ef9dedef78f30bbdc9d44caf0aafb8344fde7cf93c1ebffff8f9ed576fcecf3cfe4b032f98fbd29b1b4cbdc2dbbdbfab2c4831545f1ee2657196e8c488f7acfd7e52c21bb5d3d05a0dad031debc8cd2bebd00fb2c0f5ddc2057ce49cf9995c4f191cc363b10efb8116dfc111bcef9ce92c177fb78efcc6723f9189faa12f367004af386b5f47e2dc3a0e78eefa3f9cb5d685f8596c1a3f582781f18dbbfe526ce2129fffcab99917700cbf58a761e2c7b219740f6bb86cecfaa67089f9b538e7fd707eb7cec2348697600df71b4b9faae0fafa35715ecf6913aef73b74ce7ce4d71bbbf9161ca39fac75d4cc0f60cce9acb63b3fb4036b78575c6465eaf6f3d059fb706c9d470656aa36cecf051c637f13d8c0917511e709f6f35c5ce606fba3adcb38aff3a9739118c92b533b77f347715504e85b84eb7e1fae70bd9c878ab7af28c5396c9ce9585c9549ee1cc006ef770a57452c7eb21e268d4f9cab007d03980f9078049b52beffaaac5d25327f150f9bebb79d8701e66f8dddefc7044ee055d80c5dfe06e687fbf121e5d6603a5b64289fbde67e97a8a092aad9ab9c18d2882e3bb92bbaa61bba95d631dd71e686d77d27f7c07d765271ea919e68229a7672cfd267d70be75ee94d9ebfd7f74d0ab90ff4d98ec5a66f89df7ff9536e057dabb4d6ea5be7dcc65fb99233139e6fb6fab63a7ddfb96f9bd788765a7dbbecbd4fb97dee1bd180d741abefb0d377c47dc77442a77486be73fe14179dfbb3c93ef91450c87d1167624a28edf4d995f167d5fc44d19a322a57852a3fdf5f730eb85355dc75c4d7d4ffcbed5c93ccd49067aabbeadcec6cfd7bcd72ff4fb673ed64fbc4ca79f9fdb5f707a32dabb2</data>
+    </image>
+    <image name="image1">
+        <data format="XPM.GZ" length="1055">789c5dd24b6fe2301000e03bbf222237b4a22d2259a2d51e80044a5b28ed69a5d51efc248f8600061a5aed7fdf8cc793a28da3c8df783cb623dff4bc5feba5d7bbe998233b66c213293b783d792acbcbef3f3f3f3bddbbd06bde61f3ed7eeb74fb9ef056d55641bf6cfafe773e0a2201fc20b221903b46c87720139c09093c00f990281c1592116500f42da51820f78e21f20c148160d2ee6ae6a8904f9692b824aa10b846ca018e268e218ec64019105347867c6969e7be5a2a1add39ba85b29636b940aa01b202aa6619e485a8eddc8d23436a4b45cc1d15f204d421718bd403ad8147475759b5b4a3c65247c1ed2db0768c9013a408915347869448cdb0d4d851df8d808fc48001e7c47000bc278e38f08118d99bb320727b375644bc2acf44bc0c6f44dc46bf797c868d377d8a89e6dfeb4d9a09fe15f3a554f9a6c87c9f7fe5bd2995e75956f2925fe76df36a97ee0f25c58c39aafc541467f68e79a6eed7469a3abf6467dfffb07f773c31e3b1998e4d9ccc667b9737bf5f2c1e1eeb2c4de2a7a5ab67a6abe78929b2348de3f575debc866012ff576f97256d1eacab4d5d14e94b1c5fedafaa8a62f7dad68373e41a826d3d88c139a975fffee8fc0371b41110</data>
+    </image>
+    <image name="image2">
+        <data format="XPM.GZ" length="1345">789c5dd44b53db301007f07b3e8507df980e58b625dbd3e9018815de2101c2a3d3c35a9209818400e1d9e9776f76572a505fe2df7f572b3913677d353a3f3a8856d73b8f0b585c9bc88ce1215ab54fd3e9dbcf5f3f7e7756848a4411a93c122bdf3a2b6b91890eef660eeff5f23e4ee84296c4322905b1468a44e4a244a6c43270e059328f9169224c46bbec11abb44c2be433321359921113642e322353e41911f25211f3c0b2413aa6945c554899caa4c89085a764021164c5cde61f0129032b83cc3c2d3346aa545a6ebe662ac13c0ce4e67d22280939b2f2acf8cca7815c1d228bac10406b0f884d219923cfaaa1e62d4fcb7c419659e011b3148d4576894d29993b9e15731b59e5953012f9ee29991744132890b0fca20dadbd241a00663fd052f32bb2c9c1311f988d62be116d03967e66b748231bc79c324dea1472e2a9988f441b78efe9980ba495069863a64d1d4d7ef254cc19d105ce3d817917d8d2a82b4fc7d50da453d66f74eee9b8f984e9fcbebd40ae369e8ab9ebe9d75aa20bd54d4f7f8c1b64dbb6d0b6c8d6b365aef92bf69f9f3268ccffd9f271daf86b06576e39ca7ccee2f135cd8f3f329898f6864213b2f8763a89db9bd9dd6c7e1f73060fb7f03831f78ba7f9fcf9855fa1d737b0307e8f9b8dcde7ad6e4d7f3253e8f51ad8de31bb7bfb0775975e266d7bfd9e85a3adc170587779deb19e9ff47b7d189e8eea33edf7d5fabc777139381cd589d6da9f4febbe48b351adf547b60c07b9acd5976c19eed485fe9aade9b2c2009ff7cff7ce5fcf2134c0</data>
+    </image>
+    <image name="image3">
+        <data format="XPM.GZ" length="965">789c5dd1514fdb301007f0f77e8aa879aba6423b9a0d211e70431b284c7b44427b70ec334e89db244da165da77c7e7b393322791fcf3fd7d4e94b351f4f4fb311a9d0d762d6f0b1109cd9b6824f7c61c9fff5cff1d0c274964ef8bf36832fc36188e2311fdda6e00e78d9dc73fbeff9c5c0ae4bb631e283c67c41b2417792224f20d995f04724f20e68172868c1d65e09628a6c4bd6742fc408a99e0c47947f7ceb79e405c38cac07ba29c12d3404890779e09551f02a9aa917216987972e2c61388b52304161d5d67438429f188842470e59910db40e55abd7872a27204e0142e03a95a7902f1405453e22b52d96394422e89a1baebe8aae0991099a33ab703b9262a4e55e9a988e371cce31c1f31c6416bf68f817ad10517fd5a2cd7f05a9a4dbc155f725555178d68c4696e57b5b5debfbd9fe60e87a3f9e0377d8e31bbb9652c8e9b2eb766ac2c199bcff77d0e76cc0e9dde2efa7eb0ac18cbb2bb74f15faec8749af6fda0c4bdb5d6f77d6ec9d8cad8dd0fbaefc7586b4c6d4f39c955ed6a658acc36ecfae17786cbaefdbb1a7c029001f396</data>
+    </image>
+</images>
+<includes>
+    <include location="local" impldecl="in implementation">CWidgetSnippetsBase.ui.h</include>
+</includes>
+<signals>
+    <signal>lalala()</signal>
+</signals>
+<slots>
+    <slot>init()</slot>
+</slots>
+<functions>
+    <function returnType="QListViewItem *">insertItem( const QString&amp; name, bool bRename )</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

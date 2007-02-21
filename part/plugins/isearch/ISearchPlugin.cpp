@@ -333,14 +333,14 @@ void ISearchPluginView::startSearch()
 
 	updateLabelText( false, m_searchBackward );
 
-	m_combo->blockSignals( true );
+	bool blocked = m_combo->blockSignals( true );
 
 	QString text = m_view->selectionText();
 	if( text.isEmpty() )
 		text = m_lastString;
 	m_combo->setItemText( m_combo->currentIndex(), text );
 
-	m_combo->blockSignals( false );
+	m_combo->blockSignals( blocked );
 	m_combo->lineEdit()->selectAll();
 
 //	kDebug() << "Starting search at " << m_startLine << ", " << m_startCol << endl;
@@ -366,9 +366,9 @@ void ISearchPluginView::quitToView( const QString &text )
 		m_lastString = text;
 	}
 
-	m_combo->blockSignals( true );
+	bool blocked = m_combo->blockSignals( true );
 	m_combo->clear();
-	m_combo->blockSignals( false );
+	m_combo->blockSignals( blocked );
 
 	if( m_view ) {
 		m_view->setFocus(); // Will call endSearch()

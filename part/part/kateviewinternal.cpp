@@ -372,9 +372,9 @@ void KateViewInternal::scrollViewLines(int offset)
   KTextEditor::Cursor c = viewLineOffset(startPos(), offset);
   scrollPos(c);
 
-  m_lineScroll->blockSignals(true);
+  bool blocked = m_lineScroll->blockSignals(true);
   m_lineScroll->setValue(startLine());
-  m_lineScroll->blockSignals(false);
+  m_lineScroll->blockSignals(blocked);
 }
 
 void KateViewInternal::scrollAction( int action )
@@ -528,9 +528,9 @@ void KateViewInternal::scrollColumns ( int x )
   else
     update();
 
-  m_columnScroll->blockSignals(true);
+  bool blocked = m_columnScroll->blockSignals(true);
   m_columnScroll->setValue(m_startX);
-  m_columnScroll->blockSignals(false);
+  m_columnScroll->blockSignals(blocked);
 }
 
 // If changed is true, the lines that have been set dirty have been updated.
@@ -557,7 +557,7 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
   if (changed)
     cache()->clear();
 
-  m_lineScroll->blockSignals(true);
+  bool blocked = m_lineScroll->blockSignals(blocked);
 
   if (width() != cache()->viewWidth())
     cache()->setViewWidth(width());
@@ -574,7 +574,7 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
   m_lineScroll->setValue(startPos().line());
   m_lineScroll->setSingleStep(1);
   m_lineScroll->setPageStep(height() / renderer()->fontHeight());
-  m_lineScroll->blockSignals(false);
+  m_lineScroll->blockSignals(blocked);
 
   if (!m_view->dynWordWrap())
   {
@@ -588,7 +588,7 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
       scrollColumns(0);
     }
 
-    m_columnScroll->blockSignals(true);
+    blocked = m_columnScroll->blockSignals(true);
 
     // disable scrollbar
     m_columnScroll->setDisabled (max == 0);
@@ -601,7 +601,7 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
     m_columnScroll->setSingleStep(renderer()->config()->fontMetrics().width('a'));
     m_columnScroll->setPageStep(width());
 
-    m_columnScroll->blockSignals(false);
+    m_columnScroll->blockSignals(blocked);
   }
 
   if (m_smartDirty)

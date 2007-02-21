@@ -239,7 +239,7 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
   m_schema = newSchema;
 
   // first block signals otherwise setColor emits changed
-  blockSignals(true);
+  bool blocked = blockSignals(true);
 
   // If we havent this schema, read in from config file
   if ( ! m_schemas.contains( newSchema ) )
@@ -313,7 +313,7 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
 
   ui->markers->setColor(  m_schemas [ newSchema ].markerColors[ ui->combobox->currentIndex() ] );
 
-  blockSignals(false);
+  blockSignals(blocked);
 }
 
 void KateSchemaConfigColorTab::apply ()
@@ -366,12 +366,12 @@ void KateSchemaConfigColorTab::slotMarkerColorChanged( const QColor& color)
 void KateSchemaConfigColorTab::slotComboBoxChanged(int index)
 {
   // temporarily block signals because setColor emits changed as well
-  ui->markers->blockSignals(true);
+  bool blocked = ui->markers->blockSignals(true);
   if (index<7)
     ui->markers->setColor( m_schemas[m_schema].markerColors[index] );
   else
     ui->markers->setColor( m_schemas[m_schema].templateColors[index-7] );
-  ui->markers->blockSignals(false);
+  ui->markers->blockSignals(blocked);
 }
 
 //END KateSchemaConfigColorTab

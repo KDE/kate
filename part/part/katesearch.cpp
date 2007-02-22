@@ -39,8 +39,8 @@
 #include <kfinddialog.h>
 #include <kreplacedialog.h>
 #include <kfind.h>
-#include <qlayout.h>
-#include <qlabel.h>
+#include <QtGui/QLayout>
+#include <QtGui/QLabel>
 
 //BEGIN KateSearch
 QStringList KateSearch::s_searchList  = QStringList();

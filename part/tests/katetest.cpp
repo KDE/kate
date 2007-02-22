@@ -61,13 +61,13 @@
 
 #include <QStackedWidget>
 #include <qpainter.h>
-#include <qlabel.h>
+#include <QtGui/QLabel>
 #include <qcursor.h>
 #include <QMenu>
 #include <qpixmap.h>
 #include <qtimer.h>
 #include <qtextcodec.h>
-#include <qlayout.h>
+#include <QtGui/QLayout>
 //Added by qt3to4:
 #include <QDragEnterEvent>
 #include <QVBoxLayout>

@@ -47,7 +47,7 @@
 
 #include <QSet>
 #include <QAction>
-#include <qstringlist.h>
+#include <QtCore/QStringList>
 #include <qtextstream.h>
 //END
 

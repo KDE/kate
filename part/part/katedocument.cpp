@@ -75,7 +75,7 @@
 
 #include <QtDBus/QtDBus>
 #include <qtimer.h>
-#include <qfile.h>
+#include <QtCore/QFile>
 #include <qclipboard.h>
 #include <qtextstream.h>
 #include <qtextcodec.h>

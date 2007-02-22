@@ -21,14 +21,14 @@
 
 #include "kateprinter.h"
 
-#include <kateconfig.h>
-#include <katedocument.h>
-#include <kateglobal.h>
-#include <katehighlight.h>
-#include <katelinerange.h>
-#include <katerenderer.h>
-#include <kateschema.h>
-#include <katetextline.h>
+#include "kateconfig.h"
+#include "katedocument.h"
+#include "kateglobal.h"
+#include "katehighlight.h"
+#include "katelinerange.h"
+#include "katerenderer.h"
+#include "kateschema.h"
+#include "katetextline.h"
 
 #include <kapplication.h>
 #include <kcolorbutton.h>
@@ -45,11 +45,11 @@
 #include <qcombobox.h>
 #include <QGroupBox>
 
-#include <qlabel.h>
-#include <qlayout.h>
+#include <QtGui/QLabel>
+#include <QtGui/QLayout>
 #include <qlineedit.h>
 #include <qspinbox.h>
-#include <qstringlist.h>
+#include <QtCore/QStringList>
 #include <kvbox.h>
 
 //BEGIN KatePrinter

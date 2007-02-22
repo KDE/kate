@@ -33,7 +33,7 @@
 #include <ktemporaryfile.h>
 #include <kurl.h>
 
-#include <qfile.h>
+#include <QtCore/QFile>
 #include <qtextstream.h>
 
 K_EXPORT_COMPONENT_FACTORY( ktexteditor_insertfile, KGenericFactory<InsertFilePlugin>( "ktexteditor_insertfile" ) )

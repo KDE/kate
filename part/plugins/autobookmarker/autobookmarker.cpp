@@ -42,8 +42,8 @@
 #include <kurl.h>
 
 #include <qcheckbox.h>
-#include <qlabel.h>
-#include <qlayout.h>
+#include <QtGui/QLabel>
+#include <QtGui/QLayout>
 #include <qlineedit.h>
 #include <q3listview.h>
 #include <qpushbutton.h>

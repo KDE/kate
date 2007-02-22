@@ -16,7 +16,7 @@
     Boston, MA 02110-1301, USA.
  */
 
-#include <qlabel.h>
+#include <QtGui/QLabel>
 #include <qlineedit.h>
 #include <qregexp.h>
 #include <qstyle.h>

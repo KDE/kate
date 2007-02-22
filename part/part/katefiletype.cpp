@@ -42,8 +42,8 @@
 #include <qcombobox.h>
 #include <QGroupBox>
 
-#include <qlabel.h>
-#include <qlayout.h>
+#include <QtGui/QLabel>
+#include <QtGui/QLayout>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qtoolbutton.h>

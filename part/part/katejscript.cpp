@@ -47,7 +47,7 @@
 #include <kjs/function.h>
 #include <kjs/PropertyNameArray.h>
 
-#include <qfile.h>
+#include <QtCore/QFile>
 #include <qfileinfo.h>
 #include <qregexp.h>
 #include <qtextstream.h>

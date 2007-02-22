@@ -49,11 +49,11 @@
 #include <kconfiggroup.h>
 
 #include <qregexp.h>
-#include <qstring.h>
+#include <QtCore/QString>
 #include <QSet>
 #include <qspinbox.h>
-#include <qlabel.h>
-#include <qlayout.h>
+#include <QtGui/QLabel>
+#include <QtGui/QLayout>
 
 #include <kvbox.h>
 #include <qcheckbox.h>

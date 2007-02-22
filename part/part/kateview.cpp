@@ -80,7 +80,7 @@
 #include <qfileinfo.h>
 #include <qstyle.h>
 #include <qevent.h>
-#include <qlayout.h>
+#include <QtGui/QLayout>
 #include <qclipboard.h>
 #include <qtextdocument.h>
 #include <qtextstream.h>

@@ -49,17 +49,17 @@
 
 #include <qcheckbox.h>
 #include <qdialog.h>
-#include <qlabel.h>
+#include <QtGui/QLabel>
 #include <qtextcodec.h>
-#include <qlayout.h>
+#include <QtGui/QLayout>
 #include <qlineedit.h>
 #include <qpainter.h>
-#include <qobject.h>
+#include <QtCore/QObject>
 #include <qpixmap.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qspinbox.h>
-#include <qstringlist.h>
+#include <QtCore/QStringList>
 #include <qtabwidget.h>
 #include <QPolygon>
 #include <QGroupBox>

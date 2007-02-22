@@ -33,8 +33,8 @@
 
 #include <kapplication.h>
 #include <kstandarddirs.h>
-#include <qimage.h>
-#include <qfile.h>
+#include <QtGui/QImage>
+#include <QtCore/QFile>
 #include "test_regression.h"
 #include <stdio.h>
 
@@ -50,14 +50,14 @@
 #include <qcursor.h>
 #include <qdir.h>
 #include <qevent.h>
-#include <qobject.h>
+#include <QtCore/QObject>
 #include <qpushbutton.h>
 //#include <qscrollview.h>
-#include <qstring.h>
+#include <QtCore/QString>
 #include <qregexp.h>
 #include <qtextstream.h>
 #include <qlist.h>
-#include <qwidget.h>
+#include <QtGui/QImage>
 #include <qtimer.h>
 #include <kstatusbar.h>
 #include <qfileinfo.h>

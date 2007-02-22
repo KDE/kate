@@ -23,7 +23,7 @@
 #include "katecursor.h"
 #include <kdebug.h>
 
-#include <qstring.h>
+#include <QtCore/QString>
 
 #define JW_DEBUG 0
 

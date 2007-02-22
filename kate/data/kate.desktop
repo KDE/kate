@@ -1,11 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 GenericName=Advanced Text Editor
-GenericName[el]=Προχωρημένος επεξεργαστής κειμένου
-GenericName[fr]=Éditeur de texte avancé
-GenericName[x-test]=xxAdvanced Text Editorxx
 Name=Kate
-Name[x-test]=xxKatexx
 MimeType=text/plain
 Exec=kate %U
 X-KDE-StartupNotify=true

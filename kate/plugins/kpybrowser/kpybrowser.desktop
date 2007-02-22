@@ -6,5 +6,4 @@ Icon=kpybrowser
 Comment=
 Terminal=false
 Name=KPyBrowser
-Name[x-test]=xxKPyBrowserxx
 Encoding=UTF-8

@@ -4,9 +4,6 @@ Type=ServiceType
 X-KDE-ServiceType=Kate/Plugin
 X-KDE-Derived=
 Comment=Kate Plugin
-Comment[el]=Πρόσθετο Kate
-Comment[fr]=Module de Kate
-Comment[x-test]=xxKate Pluginxx
 
 [PropertyDef::X-Kate-Version]
 Type=QString

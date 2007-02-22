@@ -19,8 +19,8 @@
 #ifndef KDELIBS_KTEXTEDITOR_TEXTHINTINTERFACE_H
 #define KDELIBS_KTEXTEDITOR_TEXTHINTINTERFACE_H
 
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 #include <kdelibs_export.h>
 

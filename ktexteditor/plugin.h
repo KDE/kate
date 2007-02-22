@@ -20,7 +20,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_PLUGIN_H
 #define KDELIBS_KTEXTEDITOR_PLUGIN_H
 
-#include <qobject.h>
+#include <QtCore/QObject>
 
 #include <kdelibs_export.h>
 

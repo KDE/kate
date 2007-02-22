@@ -19,9 +19,9 @@
 #ifndef KDELIBS_KTEXTEDITOR_TEMPLATEINTERFACE_H
 #define KDELIBS_KTEXTEDITOR_TEMPLATEINTERFACE_H
 
-#include <qstring.h>
+#include <QtCore/QString>
 #include <qmap.h>
-#include <qwidget.h>
+#include <QtGui/QImage>
 
 #include <kdelibs_export.h>
 #include <ktexteditor/cursor.h>

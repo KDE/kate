@@ -22,7 +22,7 @@
 #define KDELIBS_KTEXTEDITOR_COMMANDINTERFACE_H
 
 #include <kdelibs_export.h>
-#include <qobject.h>
+#include <QtCore/QObject>
 
 class QStringList;
 class KCompletion;

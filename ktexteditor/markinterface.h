@@ -24,7 +24,7 @@
 #include <kdelibs_export.h>
 
 #include <qhash.h>
-#include <qobject.h>
+#include <QtCore/QObject>
 
 class QPixmap;
 

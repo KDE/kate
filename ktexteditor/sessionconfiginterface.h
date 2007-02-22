@@ -24,6 +24,8 @@
 
 class KConfigGroup;
 
+#include <QtCore/QObject>
+
 namespace KTextEditor
 {
 

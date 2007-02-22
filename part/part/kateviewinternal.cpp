@@ -557,7 +557,7 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
   if (changed)
     cache()->clear();
 
-  bool blocked = m_lineScroll->blockSignals(blocked);
+  bool blocked = m_lineScroll->blockSignals(true);
 
   if (width() != cache()->viewWidth())
     cache()->setViewWidth(width());

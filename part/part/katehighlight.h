@@ -33,8 +33,8 @@
 #include <QMap>
 
 #include <qregexp.h>
-#include <qobject.h>
-#include <qstringlist.h>
+#include <QtCore/QObject>
+#include <QtCore/QStringList>
 #include <qpointer.h>
 #include <qdatetime.h>
 #include <QLinkedList>

@@ -20,7 +20,7 @@
 #define _KATE_KDATATOOL_
 
 #include <ktexteditor/plugin.h>
-#include <qstringlist.h>
+#include <QtCore/QStringList>
 #include <kxmlguiclient.h>
 #include <qpointer.h>
 

@@ -20,7 +20,7 @@
 #define _KATE_CODEFOLDING_HELPERS_
 
 //BEGIN INCLUDES + FORWARDS
-#include <qobject.h>
+#include <QtCore/QObject>
 #include <QHash>
 #include <QSet>
 #include <QList>

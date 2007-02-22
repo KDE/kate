@@ -21,7 +21,7 @@
 
 #include <QWidget>
 #include <klineedit.h>
-#include <kateviewhelpers.h>
+#include "kateviewhelpers.h"
 
 class KateView;
 

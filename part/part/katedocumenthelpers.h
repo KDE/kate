@@ -23,7 +23,7 @@
 
 #include <kparts/browserextension.h>
 
-#include <qstringlist.h>
+#include <QtCore/QStringList>
 #include <qpointer.h>
 
 class KateDocument;

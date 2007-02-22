@@ -23,7 +23,7 @@
 #include <ktexteditor/view.h>
 
 #include <kxmlguiclient.h>
-#include <qobject.h>
+#include <QtCore/QObject>
 #include <jobclasses.h>
 #include <kurl.h>
 

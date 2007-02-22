@@ -24,11 +24,11 @@
 #ifndef TEST_REGRESSION_H
 #define TEST_REGRESSION_H
 
-#include <katejscript.h>
-#include <kateview.h>
+#include "katejscript.h"
+#include "kateview.h"
 #include <kurl.h>
-#include <qobject.h>
-#include <qstringlist.h>
+#include <QtCore/QObject>
+#include <QtCore/QStringList>
 #include <kjs/ustring.h>
 #include <kjs/object.h>
 #include <kjs/interpreter.h>

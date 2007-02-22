@@ -28,9 +28,9 @@
 
 #include <kdialog.h>
 
-#include <qstring.h>
+#include <QtCore/QString>
 #include <qregexp.h>
-#include <qstringlist.h>
+#include <QtCore/QStringList>
 
 class KateView;
 class KateDocument;

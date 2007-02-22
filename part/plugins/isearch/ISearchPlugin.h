@@ -26,7 +26,7 @@
 #include <ktexteditor/range.h>
 
 #include <kxmlguiclient.h>
-#include <qobject.h>
+#include <QtCore/QObject>
 #include <qpointer.h>
 
 class QLabel;

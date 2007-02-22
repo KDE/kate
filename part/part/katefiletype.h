@@ -19,7 +19,7 @@
 #ifndef __kate_filetype_h__
 #define __kate_filetype_h__
 
-#include <qstringlist.h>
+#include <QtCore/QStringList>
 #include <qpointer.h>
 
 #include "katedialogs.h"

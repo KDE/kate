@@ -23,7 +23,7 @@
 #include "katehighlight.h"
 #include "katedialogs.h"
 
-#include <qstringlist.h>
+#include <QtCore/QStringList>
 #include <qmap.h>
 #include <qfont.h>
 

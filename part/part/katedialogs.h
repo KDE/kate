@@ -36,7 +36,7 @@
 #include <kdialog.h>
 #include <kmimetype.h>
 
-#include <qstringlist.h>
+#include <QtCore/QStringList>
 #include <qcolor.h>
 #include <qtabwidget.h>
 #include <QTreeWidget>

@@ -19,7 +19,7 @@
 #include "templateinterface.h"
 #include "document.h"
 #include "view.h"
-#include <qstring.h>
+#include <QtCore/QString>
 #include <klocale.h>
 #include <kglobal.h>
 #include <qdatetime.h>

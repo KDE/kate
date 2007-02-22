@@ -19,9 +19,9 @@
 #include <editorchooser.moc>
 
 #include <qcombobox.h>
-#include <qstringlist.h>
-#include <qlabel.h>
-#include <qlayout.h>
+#include <QtCore/QStringList>
+#include <QtGui/QLabel>
+#include <QtGui/QLayout>
 
 #include <kmimetypetrader.h>
 #include <kconfig.h>

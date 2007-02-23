@@ -209,13 +209,13 @@ bool KateViewSpace::event( QEvent *e )
 void KateViewSpace::saveConfig ( KConfigBase* config, int myIndex , const QString& viewConfGrp)
 {
 //   kDebug()<<"KateViewSpace::saveConfig("<<myIndex<<", "<<viewConfGrp<<") - currentView: "<<currentView()<<")"<<endl;
-  QString group = QString(viewConfGrp + "-ViewSpace %1").arg( myIndex );
+  QString groupname = QString(viewConfGrp + "-ViewSpace %1").arg( myIndex );
 
-  config->setGroup (group);
-  config->writeEntry ("Count", mViewList.count());
+  KConfigGroup group (config, groupname);
+  group.writeEntry ("Count", mViewList.count());
 
   if (currentView())
-    config->writeEntry( "Active View", currentView()->document()->url().prettyUrl() );
+    group.writeEntry( "Active View", currentView()->document()->url().prettyUrl() );
 
   // Save file list, including cursor position in this instance.
   int idx = 0;
@@ -224,25 +224,24 @@ void KateViewSpace::saveConfig ( KConfigBase* config, int myIndex , const QStrin
   {
     if ( !(*it)->document()->url().isEmpty() )
     {
-      config->setGroup( group );
-      config->writeEntry( QString("View %1").arg( idx ), (*it)->document()->url().prettyUrl() );
+      group.writeEntry( QString("View %1").arg( idx ), (*it)->document()->url().prettyUrl() );
 
       // view config, group: "ViewSpace <n> url"
-      QString vgroup = QString("%1 %2").arg(group).arg((*it)->document()->url().prettyUrl());
-      KConfigGroup configGroup( config, vgroup );
+      QString vgroup = QString("%1 %2").arg(groupname).arg((*it)->document()->url().prettyUrl());
+      KConfigGroup viewGroup( config, vgroup );
 
       if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(*it))
-        iface->writeSessionConfig( configGroup );
+        iface->writeSessionConfig( viewGroup );
     }
 
     ++idx;
   }
 }
 
-void KateViewSpace::restoreConfig ( KateViewSpaceContainer *viewMan, KConfigBase* config, const QString &group )
+void KateViewSpace::restoreConfig ( KateViewSpaceContainer *viewMan, KConfigBase* config, const QString &groupname )
 {
-  config->setGroup (group);
-  QString fn = config->readEntry( "Active View" );
+  KConfigGroup group (config, groupname);
+  QString fn = group.readEntry( "Active View" );
 
   if ( !fn.isEmpty() )
   {
@@ -251,7 +250,7 @@ void KateViewSpace::restoreConfig ( KateViewSpaceContainer *viewMan, KConfigBase
     if (doc)
     {
       // view config, group: "ViewSpace <n> url"
-      QString vgroup = QString("%1 %2").arg(group).arg(fn);
+      QString vgroup = QString("%1 %2").arg(groupname).arg(fn);
       KConfigGroup configGroup( config, vgroup );
 
       viewMan->createView (doc);
@@ -266,7 +265,7 @@ void KateViewSpace::restoreConfig ( KateViewSpaceContainer *viewMan, KConfigBase
   if (mViewList.isEmpty())
     viewMan->createView (KateDocManager::self()->document(0));
 
-  m_group = group; // used for restroing view configs later
+  m_group = groupname; // used for restroing view configs later
 }
 //END KateViewSpace
 

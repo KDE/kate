@@ -247,7 +247,6 @@ KatePluginSymbolViewer::KatePluginSymbolViewer( QObject* parent, const QStringLi
     pConfig("katesymbolviewerpluginrc")
 {
  kDebug(13000)<<"KatePluginSymbolViewer"<<endl;
- pConfig.setGroup("global");
 }
 
 KatePluginSymbolViewer::~KatePluginSymbolViewer()
@@ -310,7 +309,7 @@ Kate::PluginConfigPage* KatePluginSymbolViewer::configPage(
 
 void KatePluginSymbolViewer::initConfigPage( KatePluginSymbolViewerConfigPage* p )
 {
-  p->viewReturns->setChecked(pConfig.readEntry("view_types", true));
+  p->viewReturns->setChecked(pConfig.group("global").readEntry("view_types", true));
 }
 
 void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
@@ -322,7 +321,7 @@ void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
     m_views.at(z)->slotRefreshSymbol();
   }
 */
-  pConfig.writeEntry("view_types", p->viewReturns->isChecked());
+  pConfig.group("global").writeEntry("view_types", p->viewReturns->isChecked());
 }
 
 // BEGIN KatePluginSymbolViewerConfigPage

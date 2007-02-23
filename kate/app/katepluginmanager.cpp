@@ -89,14 +89,14 @@ void KatePluginManager::loadConfig (KConfig* config)
   // first: unload the plugins
   unloadAllPlugins ();
 
-  if (config)
-    config->setGroup("Kate Plugins");
+  if ( ! config ) return;
+
+  KConfigGroup cg = KConfigGroup(config, "Kate Plugins");
 
   // disable all plugin if no config...
   foreach (const KatePluginInfo &plugin, m_pluginList)
-    plugin.load =  config ? (config->readEntry (plugin.service->library(), false) ||
-                 config->readEntry (plugin.service->property("X-Kate-PluginName").toString(), false))
-                  : false;
+    plugin.load =  cg.readEntry (plugin.service->library(), false) ||
+                 cg.readEntry (plugin.service->property("X-Kate-PluginName").toString(), false);
 
   for (KatePluginList::iterator it = m_pluginList.begin();it != m_pluginList.end(); ++it)
   {
@@ -113,12 +113,14 @@ void KatePluginManager::loadConfig (KConfig* config)
 
 void KatePluginManager::writeConfig(KConfig* config)
 {
+  Q_ASSERT( config );
+
+  KConfigGroup cg = KConfigGroup( config, "Kate Plugins" );
   foreach(const KatePluginInfo &plugin, m_pluginList)
   {
-    config->setGroup("Kate Plugins");
     QString saveName = plugin.saveName();
 
-    config->writeEntry (saveName, plugin.load);
+    cg.writeEntry (saveName, plugin.load);
 
     if (plugin.plugin)
       plugin.plugin->writeSessionConfig(config, QString("Plugin:%1:").arg(saveName));

@@ -461,7 +461,7 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
       int d = filename.findRev('.');
 #ifdef __GNUC__
 #warning i18n: Hack to have localized number later...
-#endif      
+#endif
       docname = i18n("Untitled %1", QString("%1"));
       if ( d > 0 ) docname += filename.mid( d );
     } else if ( docname.isEmpty() )
@@ -482,14 +482,14 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
         count++;
 
     if ( docname.contains( "%1" ) )
-#ifdef __GNUC__	    
+#ifdef __GNUC__
       #warning i18n: ...localized number here
 #endif
 
       docname = docname.arg( i18n("%1", count) );
 #ifdef __GNUC__
 #warning FIXME, setDocName is gone
-#endif    
+#endif
 #if 0
     doc->setDocName( docname );
 #endif
@@ -706,7 +706,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   glo->addMultiCellWidget( rb, 3, 3, 1, 2 );
 #ifdef __GNUC__
 #warning 0 could be wrong here
-#endif  
+#endif
   int marg = rb->style()->subElementRect( QStyle::SE_RadioButtonIndicator, 0,rb ).width();
   glo->addItem( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 4, 1 );
   urOrigin = new KUrlRequester( page );
@@ -1226,20 +1226,18 @@ void KateTemplateManager::slotRemoveTemplate()
 
     if ( failed )
     {
-      config->setGroup( "KateFileTemplates" );
+      KConfigGroup cg( config, "KateFileTemplates" );
       QStringList l;
-      config->readListEntry( "Hidden", l, ';' );
+      cg.readListEntry( "Hidden", l, ';' );
       l << fname;
-      config->writeEntry( "Hidden", l, ';' );
+      cg.writeEntry( "Hidden", l, ';' );
     }
 
     // If we removed any files, we should delete a KNewStuff key
     // for this template, so the template is installable again.
     // ### This assumes that the knewstuff name is similar to the template name.
     kDebug()<<"trying to remove knewstuff key '"<<item->templateinfo->tmplate<<"'"<<endl;
-    config->setGroup("KNewStuffStatus");
-    config->deleteEntry( item->templateinfo->tmplate );
-
+    config->group("KNewStuffStatus").deleteEntry( item->templateinfo->tmplate );
 
     kft->updateTemplateDirs();
     reload();

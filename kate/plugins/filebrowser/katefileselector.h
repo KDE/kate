@@ -136,7 +136,7 @@ class KateFileSelector : public KVBox
 
     void readConfig( KConfig *, const QString & );
     void writeConfig( KConfig *, const QString & );
-    void setupToolbar( KConfig * );
+    void setupToolbar( QStringList actions );
     void setView( KFile::FileView );
     KDirOperator *dirOperator()
     {

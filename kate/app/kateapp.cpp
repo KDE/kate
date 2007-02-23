@@ -150,8 +150,7 @@ void KateApp::initKate ()
 void KateApp::restoreKate ()
 {
   // activate again correct session!!!
-  sessionConfig()->setGroup("General");
-  QString lastSession (sessionConfig()->readEntry ("Last Session", "default.katesession"));
+  QString lastSession (sessionConfig()->group("General").readEntry ("Last Session", "default.katesession"));
   sessionManager()->activateSession (KSharedPtr<KateSession>(new KateSession (sessionManager(), lastSession)), false, false, false);
 
   // plugins

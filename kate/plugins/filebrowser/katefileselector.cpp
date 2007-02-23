@@ -292,23 +292,26 @@ void ::KateFileSelector::readConfig(KConfig *config, const QString & name)
 #ifdef __GNUC__
 #warning THIS WILL CRASH - setViewConfig keeps the pointer to the KConfigGroup! That API needs to be revised.
 #endif
-  KConfigGroup confGroup(config, name + ":view");
-  dir->setViewConfig(&confGroup );
-  KConfigGroup confDirGroup(config, name + ":dir");
-  dir->readConfig(&confDirGroup);
+  KConfigGroup cgView(config, name + ":view");
+  dir->setViewConfig(&cgView );
+
+  KConfigGroup cgDir(config, name + ":dir");
+  dir->readConfig(&cgDir);
+
   dir->setView( KFile::Default );
   dir->view()->setSelectionMode(KFile::Multi);
-  config->setGroup( name );
+
+  KConfigGroup cg (config, name );
 
   // set up the toolbar
-  setupToolbar( config );
+  setupToolbar( cg.readEntry( "toolbar actions", QStringList(), ',' ) );
 
-  cmbPath->setMaxItems( config->readEntry( "pathcombo history len", 9 ) );
-  cmbPath->setUrls( config->readPathListEntry( "dir history" ) );
+  cmbPath->setMaxItems( cg.readEntry( "pathcombo history len", 9 ) );
+  cmbPath->setUrls( cg.readPathListEntry( "dir history" ) );
   // if we restore history
-  if ( config->readEntry( "restore location", true) || qApp->isSessionRestored() )
+  if ( cg.readEntry( "restore location", true) || qApp->isSessionRestored() )
   {
-    QString loc( config->readPathEntry( "location" ) );
+    QString loc( cg.readPathEntry( "location" ) );
     if ( ! loc.isEmpty() )
     {
 //       waitingDir = loc;
@@ -319,16 +322,16 @@ void ::KateFileSelector::readConfig(KConfig *config, const QString & name)
 
   // else is automatic, as cmpPath->setURL is called when a location is entered.
 
-  filter->setMaxCount( config->readEntry( "filter history len", 9 ) );
-  filter->setHistoryItems( config->readEntry("filter history", QStringList()), true );
-  lastFilter = config->readEntry( "last filter" );
+  filter->setMaxCount( cg.readEntry( "filter history len", 9 ) );
+  filter->setHistoryItems( cg.readEntry("filter history", QStringList()), true );
+  lastFilter = cg.readEntry( "last filter" );
   QString flt("");
-  if ( config->readEntry( "restore last filter", true ) || qApp->isSessionRestored() )
-    flt = config->readEntry("current filter");
+  if ( cg.readEntry( "restore last filter", true ) || qApp->isSessionRestored() )
+    flt = cg.readEntry("current filter");
   filter->lineEdit()->setText( flt );
   slotFilterChange( flt );
 
-  autoSyncEvents = config->readEntry( "AutoSyncEvents", 0 );
+  autoSyncEvents = cg.readEntry( "AutoSyncEvents", 0 );
 }
 
 void ::KateFileSelector::initialDirChangeHack()
@@ -336,19 +339,18 @@ void ::KateFileSelector::initialDirChangeHack()
   setDir( waitingDir );
 }
 
-void ::KateFileSelector::setupToolbar( KConfig *config )
+void ::KateFileSelector::setupToolbar( QStringList actions )
 {
   toolbar->clear();
-  QStringList tbactions = config->readEntry( "toolbar actions", QStringList(), ',' );
-  if ( tbactions.isEmpty() )
+  if ( actions.isEmpty() )
   {
     // reasonable collection for default toolbar
-    tbactions << "up" << "back" << "forward" << "home" <<
+    actions << "up" << "back" << "forward" << "home" <<
     "short view" << "detailed view" <<
     "bookmarks" << "sync_dir";
   }
   QAction *ac;
-  for ( QStringList::Iterator it = tbactions.begin(); it != tbactions.end(); ++it )
+  for ( QStringList::Iterator it = actions.begin(); it != actions.end(); ++it )
   {
     if ( *it == "bookmarks" || *it == "sync_dir" )
       ac = mActionCollection->action( (*it).toLatin1().constData() );
@@ -361,24 +363,25 @@ void ::KateFileSelector::setupToolbar( KConfig *config )
 
 void ::KateFileSelector::writeConfig(KConfig *config, const QString & name)
 {
-  KConfigGroup confGroup(config, name + ":dir");
-  dir->writeConfig(&confGroup);
+  KConfigGroup cgDir(config, name + ":dir");
+  dir->writeConfig(&cgDir);
 
-  config->setGroup( name );
-  config->writeEntry( "pathcombo history len", cmbPath->maxItems() );
+  KConfigGroup cg = KConfigGroup( config, name );
+
+  cg.writeEntry( "pathcombo history len", cmbPath->maxItems() );
   QStringList l;
   for (int i = 0; i < cmbPath->count(); i++)
   {
     l.append( cmbPath->itemText( i ) );
   }
-  config->writePathEntry( "dir history", l );
-  config->writePathEntry( "location", cmbPath->currentText() );
+  cg.writePathEntry( "dir history", l );
+  cg.writePathEntry( "location", cmbPath->currentText() );
 
-  config->writeEntry( "filter history len", filter->maxCount() );
-  config->writeEntry( "filter history", filter->historyItems() );
-  config->writeEntry( "current filter", filter->currentText() );
-  config->writeEntry( "last filter", lastFilter );
-  config->writeEntry( "AutoSyncEvents", autoSyncEvents );
+  cg.writeEntry( "filter history len", filter->maxCount() );
+  cg.writeEntry( "filter history", filter->historyItems() );
+  cg.writeEntry( "current filter", filter->currentText() );
+  cg.writeEntry( "last filter", lastFilter );
+  cg.writeEntry( "AutoSyncEvents", autoSyncEvents );
 }
 
 void ::KateFileSelector::setView(KFile::FileView view)
@@ -755,7 +758,7 @@ void KFSConfigPage::apply()
     l << aItem->idstring();
   }
   config.writeEntry( "toolbar actions", l );
-  fileSelector->setupToolbar(KGlobal::config().data());
+  fileSelector->setupToolbar( config.readEntry( "toolbar actions", QStringList(), ',' ) );
   // sync
   int s = 0;
   if ( cbSyncActive->isChecked() )

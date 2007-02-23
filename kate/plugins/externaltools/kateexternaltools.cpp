@@ -670,8 +670,7 @@ void KateExternalToolsConfigWidget::reset()
   lbTools->clear();
 
   // load the files from a KConfig
-  config->setGroup( "Global" );
-  QStringList tools = config->readEntry("tools", QStringList());
+  QStringList tools = config->group("Global").readEntry("tools", QStringList());
 
   for( QStringList::Iterator it = tools.begin(); it != tools.end(); ++it )
   {
@@ -681,17 +680,17 @@ void KateExternalToolsConfigWidget::reset()
     }
     else
     {
-      config->setGroup( *it );
+      KConfigGroup cg( config, *it );
 
       KateExternalTool *t = new KateExternalTool(
-                              config->readEntry( "name", "" ),
-                              config->readEntry( "command", ""),
-                              config->readEntry( "icon", ""),
-                              config->readEntry( "executable", ""),
-                              config->readEntry( "mimetypes", QStringList() ),
-                              config->readEntry( "acname" ),
-                              config->readEntry( "cmdname"),
-                              config->readEntry( "save", 0 ) );
+                              cg.readEntry( "name", "" ),
+                              cg.readEntry( "command", ""),
+                              cg.readEntry( "icon", ""),
+                              cg.readEntry( "executable", ""),
+                              cg.readEntry( "mimetypes", QStringList() ),
+                              cg.readEntry( "acname" ),
+                              cg.readEntry( "cmdname"),
+                              cg.readEntry( "save", 0 ) );
 
       if ( t->hasexec ) // we only show tools that are also in the menu.
         new ToolItem( lbTools, t->icon.isEmpty() ? blankIcon() : SmallIcon( t->icon ), t );
@@ -730,19 +729,19 @@ void KateExternalToolsConfigWidget::apply()
 //     kDebug(13001)<<"adding tool: "<<t->name<<endl;
     tools << t->acname;
 
-    config->setGroup( t->acname );
-    config->writeEntry( "name", t->name );
-    config->writeEntry( "command", t->command );
-    config->writeEntry( "icon", t->icon );
-    config->writeEntry( "executable", t->tryexec );
-    config->writeEntry( "mimetypes", t->mimetypes );
-    config->writeEntry( "acname", t->acname );
-    config->writeEntry( "cmdname", t->cmdname );
-    config->writeEntry( "save", t->save );
+    KConfigGroup cg( config, t->acname );
+
+    cg.writeEntry( "name", t->name );
+    cg.writeEntry( "command", t->command );
+    cg.writeEntry( "icon", t->icon );
+    cg.writeEntry( "executable", t->tryexec );
+    cg.writeEntry( "mimetypes", t->mimetypes );
+    cg.writeEntry( "acname", t->acname );
+    cg.writeEntry( "cmdname", t->cmdname );
+    cg.writeEntry( "save", t->save );
   }
 
-  config->setGroup("Global");
-  config->writeEntry( "tools", tools );
+  config->group("Global").writeEntry( "tools", tools );
 
   // if any tools was removed, try to delete their groups, and
   // add the group names to the list of removed items.
@@ -753,7 +752,7 @@ void KateExternalToolsConfigWidget::apply()
       if ( config->hasGroup( *it ) )
         config->deleteGroup( *it  );
     }
-    QStringList removed = config->readEntry( "removed", QStringList() );
+    QStringList removed = config->group("Global").readEntry( "removed", QStringList() );
     removed += m_removed;
 
     // clean up the list of removed items, so that it does not contain
@@ -767,7 +766,7 @@ void KateExternalToolsConfigWidget::apply()
       else
         ++it1;
     }
-    config->writeEntry( "removed", removed );
+    config->group("Global").writeEntry( "removed", removed );
   }
 
   config->sync();
@@ -831,8 +830,7 @@ void KateExternalToolsConfigWidget::slotEdit()
   // show the item in an editor
   KateExternalTool *t = ((ToolItem*)lbTools->currentItem())->tool;
   KateExternalToolServiceEditor editor( t, this);
-  config->setGroup( "Editor" );
-  editor.resize( config->readEntry( "Size", QSize() ) );
+  editor.resize( config->group("Editor").readEntry( "Size", QSize() ) );
   if ( editor.exec() /*== KDialog::Ok*/ )
   {
 
@@ -858,8 +856,7 @@ void KateExternalToolsConfigWidget::slotEdit()
     m_changed = true;
   }
 
-  config->setGroup( "Editor" );
-  config->writeEntry( "Size", editor.size() );
+  config->group("Editor").writeEntry( "Size", editor.size() );
   config->sync();
 }
 

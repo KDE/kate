@@ -376,8 +376,8 @@ PluginKateMakeView::PluginKateMakeView(QWidget *parent,
 		this, SLOT(slotReceivedProcStderr(KProcess*, char*, int)));
 
 
-	KConfig c("katemakepluginrc");
-	c.setGroup("Prefixes");
+	KConfig config("katemakepluginrc");
+	KConfigGroup c( config, "Prefixes" );
 	source_prefix = c.readEntry("Source",QString::null);
 	build_prefix = c.readEntry("Build",QString::null);
 
@@ -730,8 +730,8 @@ void PluginKateMakeView::slotConfigure()
 // 		}
 	}
 
-	KConfig c("katemakepluginrc");
-	c.setGroup("Prefixes");
+	KConfig config("katemakepluginrc");
+	KConfigGroup c( config, "Prefixes" );
 	c.writeEntry("Source",source_prefix);
 	c.writeEntry("Build",build_prefix);
 }

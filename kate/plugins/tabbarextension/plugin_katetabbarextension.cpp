@@ -65,7 +65,7 @@ PluginView::PluginView( Kate::MainWindow* mainwindow )
   : Kate::PluginView( mainwindow )
 {
   tabbar = new KTinyTabBar( mainWindow()->centralWidget() );
-  
+
   QBoxLayout* layout = qobject_cast<QBoxLayout*>(mainWindow()->centralWidget()->layout());
   layout->insertWidget( 0, tabbar );
 
@@ -235,7 +235,8 @@ KatePluginTabBarExtension::KatePluginTabBarExtension(
   : Kate::Plugin ( (Kate::Application*)parent),
     pConfig(new KConfig("katetabbarextensionpluginrc"))
 {
-  pConfig->setGroup("global");
+  // ### seems pConfig is never used!
+//   pConfig->setGroup("global");
 }
 
 KatePluginTabBarExtension::~KatePluginTabBarExtension()

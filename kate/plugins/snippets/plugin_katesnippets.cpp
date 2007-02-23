@@ -112,7 +112,7 @@ void KatePluginSnippets::storeViewConfig(KConfig* config, Kate::MainWindow* win,
 {
   // TODO: FIXME: port to new Kate interfaces
 }
- 
+
 void KatePluginSnippets::loadViewConfig(KConfig* config, Kate::MainWindow*win, const QString& groupPrefix)
 {
   // TODO: FIXME: port to new Kate interfaces
@@ -262,12 +262,12 @@ void KatePluginSnippetsView::readConfig() {
   QString sKey, sValue;
   Q3ListViewItem *lvi;
 
-  config->setGroup("Snippets");
+  KConfigGroup cg( config, "Snippets" );
 
-  int iNrOfSnippets = config->readEntry("NumberOfSnippets", "0").toInt() ;
+  int iNrOfSnippets = cg.readEntry("NumberOfSnippets", "0").toInt() ;
   for (int i=0; i < iNrOfSnippets; i++) {
     QStringList slFields;
-    slFields = config->readEntry ( QString::number(i),QStringList() );
+    slFields = cg.readEntry ( QString::number(i),QStringList() );
 
     sKey   = slFields[0];
     sValue = slFields[1];
@@ -298,11 +298,11 @@ void KatePluginSnippetsView::readConfig() {
  *
  */
 void KatePluginSnippetsView::writeConfig() {
-  config->setGroup("Snippets");
+  KConfigGroup( config, "Snippets" );
 
   int iNrOfSnippets = lSnippets.count();
 
-  config->writeEntry("NumberOfSnippets", iNrOfSnippets );
+  cg.writeEntry("NumberOfSnippets", iNrOfSnippets );
 
   int i=0;
 
@@ -312,7 +312,7 @@ void KatePluginSnippetsView::writeConfig() {
     slFields.append( snippet->getKey() );
     slFields.append( snippet->getValue() );
 
-    config->writeEntry ( QString::number(i), slFields, ',' );
+    cg.writeEntry ( QString::number(i), slFields, ',' );
     i++;
   }
   // sync to disc ...

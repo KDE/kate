@@ -70,7 +70,7 @@ bool tabLessThan( const KTinyTabButton* a, const KTinyTabButton* b )
 
         case KTinyTabBar::Extension:
         {
-            // sort by extension, but check whether the files have an 
+            // sort by extension, but check whether the files have an
             // extension first
             const int apos = a->text().lastIndexOf( '.' );
             const int bpos = b->text().lastIndexOf( '.' );
@@ -183,49 +183,43 @@ KTinyTabBar::~KTinyTabBar()
  * The original group is saved and restored at the end of this fuction.
  *
  * \note Call @p load() immediately after you created the tabbar, otherwise
- *       some properties might not be restored correctly (like highlighted 
+ *       some properties might not be restored correctly (like highlighted
  *       buttons).
  */
 void KTinyTabBar::load( KConfig* config, const QString& group )
 {
-    QString section = config->group();
-
-    config->setGroup( group );
+    KConfigGroup cg( config, group );
 
     // tabbar properties
-    setLocationTop    ( config->readEntry( "location top", false ) );
-    setNumRows        ( config->readEntry( "count of rows", 1 ) );
-    setMinimumTabWidth( config->readEntry( "minimum width", 150 ) );
-    setMaximumTabWidth( config->readEntry( "maximum width", 300 ) );
-    setTabHeight      ( config->readEntry( "fixed height", 20 ) );
-    setTabSortType    ( (SortType) config->readEntry( "sort type", (int)OpeningOrder ) );
-    setTabButtonStyle ( (ButtonStyle) config->readEntry( "button style", (int)Push ) );
-    setFollowCurrentTab(config->readEntry("follow current tab", true ) );
-    setHighlightModifiedTabs( config->readEntry( "highlight modified", false ) );
-    setHighlightPreviousTab( config->readEntry( "highlight previous", false ) );
-    setHighlightActiveTab( config->readEntry( "highlight active", false ) );
-    setHighlightOpacity(config->readEntry( "highlight opacity", 20 ) );
+    setLocationTop    ( cg.readEntry( "location top", false ) );
+    setNumRows        ( cg.readEntry( "count of rows", 1 ) );
+    setMinimumTabWidth( cg.readEntry( "minimum width", 150 ) );
+    setMaximumTabWidth( cg.readEntry( "maximum width", 300 ) );
+    setTabHeight      ( cg.readEntry( "fixed height", 20 ) );
+    setTabSortType    ( (SortType) cg.readEntry( "sort type", (int)OpeningOrder ) );
+    setTabButtonStyle ( (ButtonStyle) cg.readEntry( "button style", (int)Push ) );
+    setFollowCurrentTab(cg.readEntry("follow current tab", true ) );
+    setHighlightModifiedTabs( cg.readEntry( "highlight modified", false ) );
+    setHighlightPreviousTab( cg.readEntry( "highlight previous", false ) );
+    setHighlightActiveTab( cg.readEntry( "highlight active", false ) );
+    setHighlightOpacity(cg.readEntry( "highlight opacity", 20 ) );
 
     // color settings
-    setPlainColorPressed( config->readEntry( "plain color pressed", m_plainColorPressed ) );
-    setPlainColorHovered( config->readEntry( "plain color hovered", m_plainColorHovered ) );
-    setPlainColorActivated( config->readEntry( "plain color activated", m_plainColorActivated ) );
-    setModifiedTabsColor( config->readEntry( "color modified", m_colorModifiedTab ) );
-    setActiveTabColor( config->readEntry( "color active", m_colorActiveTab ) );
-    setPreviousTabColor( config->readEntry( "color previous", m_colorPreviousTab ) );
+    setPlainColorPressed( cg.readEntry( "plain color pressed", m_plainColorPressed ) );
+    setPlainColorHovered( cg.readEntry( "plain color hovered", m_plainColorHovered ) );
+    setPlainColorActivated( cg.readEntry( "plain color activated", m_plainColorActivated ) );
+    setModifiedTabsColor( cg.readEntry( "color modified", m_colorModifiedTab ) );
+    setActiveTabColor( cg.readEntry( "color active", m_colorActiveTab ) );
+    setPreviousTabColor( cg.readEntry( "color previous", m_colorPreviousTab ) );
 
     // highlighted entries
-    QStringList documents = config->readEntry( "highlighted documents", QStringList() );
-    QStringList colors = config->readEntry( "highlighted colors", QStringList() );
+    QStringList documents = cg.readEntry( "highlighted documents", QStringList() );
+    QStringList colors = cg.readEntry( "highlighted colors", QStringList() );
 
     // restore highlight map
     m_highlightedTabs.clear();
     for( int i = 0; i < documents.size() && i < colors.size(); ++i )
         m_highlightedTabs[documents[i]] = colors[i];
-
-
-    // restore group
-    config->setGroup( section );
 }
 
 /**
@@ -235,39 +229,34 @@ void KTinyTabBar::load( KConfig* config, const QString& group )
  */
 void KTinyTabBar::save( KConfig* config, const QString& group ) const
 {
-    QString section = config->group();
-
-    config->setGroup( group );
+    KConfigGroup cg( config, group );
 
     // tabbar properties
-    config->writeEntry( "location top", locationTop() );
-    config->writeEntry( "count of rows", numRows() );
-    config->writeEntry( "minimum width", minimumTabWidth() );
-    config->writeEntry( "maximum width", maximumTabWidth() );
-    config->writeEntry( "fixed height", tabHeight() );
-    config->writeEntry( "sort type", (int)tabSortType() );
-    config->writeEntry( "button style", (int) tabButtonStyle() );
-    config->writeEntry( "follow current tab", followCurrentTab() );
-    config->writeEntry( "highlight modified", highlightModifiedTabs() );
-    config->writeEntry( "highlight previous", highlightPreviousTab() );
-    config->writeEntry( "highlight active", highlightActiveTab() );
-    config->writeEntry( "highlight opacity", highlightOpacity() );
+    cg.writeEntry( "location top", locationTop() );
+    cg.writeEntry( "count of rows", numRows() );
+    cg.writeEntry( "minimum width", minimumTabWidth() );
+    cg.writeEntry( "maximum width", maximumTabWidth() );
+    cg.writeEntry( "fixed height", tabHeight() );
+    cg.writeEntry( "sort type", (int)tabSortType() );
+    cg.writeEntry( "button style", (int) tabButtonStyle() );
+    cg.writeEntry( "follow current tab", followCurrentTab() );
+    cg.writeEntry( "highlight modified", highlightModifiedTabs() );
+    cg.writeEntry( "highlight previous", highlightPreviousTab() );
+    cg.writeEntry( "highlight active", highlightActiveTab() );
+    cg.writeEntry( "highlight opacity", highlightOpacity() );
 
 
     // color settings
-    config->writeEntry( "plain color mousedown", plainColorPressed() );
-    config->writeEntry( "plain color mouseover", plainColorHovered() );
-    config->writeEntry( "plain color activated", plainColorActivated() );
-    config->writeEntry( "color modified", modifiedTabsColor() );
-    config->writeEntry( "color active", activeTabColor() );
-    config->writeEntry( "color previous", previousTabColor() );
+    cg.writeEntry( "plain color mousedown", plainColorPressed() );
+    cg.writeEntry( "plain color mouseover", plainColorHovered() );
+    cg.writeEntry( "plain color activated", plainColorActivated() );
+    cg.writeEntry( "color modified", modifiedTabsColor() );
+    cg.writeEntry( "color active", activeTabColor() );
+    cg.writeEntry( "color previous", previousTabColor() );
 
     // highlighted entries
-    config->writeEntry( "highlighted documents", m_highlightedTabs.keys() );
-    config->writeEntry( "highlighted colors", m_highlightedTabs.values() );
-
-    // restore group
-    config->setGroup( section );
+    cg.writeEntry( "highlighted documents", m_highlightedTabs.keys() );
+    cg.writeEntry( "highlighted colors", m_highlightedTabs.values() );
 }
 
 /**

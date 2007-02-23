@@ -92,8 +92,7 @@ KateDocManager::~KateDocManager ()
       QDateTime def(QDate(1970, 1, 1));
       for (QStringList::const_iterator it = groups.begin(); it != groups.end(); ++it)
       {
-        m_metaInfos->setGroup(*it);
-        QDateTime last = m_metaInfos->readEntry("Time", def);
+        QDateTime last = m_metaInfos->group(*it).readEntry("Time", def);
         if (last.daysTo(QDateTime::currentDateTime()) > m_daysMetaInfos)
           m_metaInfos->deleteGroup(*it);
       }

@@ -69,6 +69,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   setObjectName( "configdialog" );
 
   KSharedConfig::Ptr config = KGlobal::config();
+  KConfigGroup cgGeneral = KConfigGroup( config, "General" );
 
   enableButton( Apply, false );
 
@@ -90,7 +91,6 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   QVBoxLayout *lo = new QVBoxLayout( frGeneral );
   lo->setSpacing(KDialog::spacingHint());
-  config->setGroup("General");
 
   // GROUP with the one below: "Behavior"
   Q3ButtonGroup *bgStartup = new Q3ButtonGroup( 1, Qt::Horizontal, i18n("&Behavior"), frGeneral );
@@ -162,8 +162,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   // restore view  config
   cb_restoreVC = new QCheckBox( bgStartup );
   cb_restoreVC->setText(i18n("Include &window configuration"));
-  config->setGroup("General");
-  cb_restoreVC->setChecked( config->readEntry("Restore Window Configuration", true) );
+  cb_restoreVC->setChecked( cgGeneral.readEntry("Restore Window Configuration", true) );
   cb_restoreVC->setWhatsThis( i18n(
                                 "Check this if you want all your views and frames restored each time you open Kate"));
   connect( cb_restoreVC, SIGNAL( toggled( bool ) ), this, SLOT( slotChanged() ) );
@@ -178,8 +177,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   sessions_start->insert( rb2 = new QRadioButton( i18n("&Load last-used session"), sessions_start ), 1 );
   sessions_start->insert( rb3 = new QRadioButton( i18n("&Manually choose a session"), sessions_start ), 2 );
 
-  config->setGroup("General");
-  QString sesStart (config->readEntry ("Startup Session", "manual"));
+  QString sesStart (cgGeneral.readEntry ("Startup Session", "manual"));
   if (sesStart == "new")
     sessions_start->setButton (0);
   else if (sesStart == "last")
@@ -199,8 +197,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   sessions_exit->insert( rb2 = new QRadioButton( i18n("&Save session"), sessions_exit ), 1 );
   sessions_exit->insert( rb3 = new QRadioButton( i18n("&Ask user"), sessions_exit ), 2 );
 
-  config->setGroup("General");
-  QString sesExit (config->readEntry ("Session Exit", "save"));
+  QString sesExit (cgGeneral.readEntry ("Session Exit", "save"));
   if (sesExit == "discard")
     sessions_exit->setButton (0);
   else if (sesExit == "save")
@@ -331,38 +328,38 @@ void KateConfigDialog::slotApply()
   // if data changed apply the kate app stuff
   if( dataChanged )
   {
-    config->setGroup("General");
+    KConfigGroup cg = KConfigGroup( config, "General" );
 
-    config->writeEntry("Restore Window Configuration", cb_restoreVC->isChecked());
+    cg.writeEntry("Restore Window Configuration", cb_restoreVC->isChecked());
 
     int bu = sessions_start->id (sessions_start->selected());
 
     if (bu == 0)
-      config->writeEntry ("Startup Session", "new");
+      cg.writeEntry ("Startup Session", "new");
     else if (bu == 1)
-      config->writeEntry ("Startup Session", "last");
+      cg.writeEntry ("Startup Session", "last");
     else
-      config->writeEntry ("Startup Session", "manual");
+      cg.writeEntry ("Startup Session", "manual");
 
     bu = sessions_exit->id (sessions_exit->selected());
 
     if (bu == 0)
-      config->writeEntry ("Session Exit", "discard");
+      cg.writeEntry ("Session Exit", "discard");
     else if (bu == 1)
-      config->writeEntry ("Session Exit", "save");
+      cg.writeEntry ("Session Exit", "save");
     else
-      config->writeEntry ("Session Exit", "ask");
+      cg.writeEntry ("Session Exit", "ask");
 
 
     m_editorChooser->writeAppSetting();
 
-    config->writeEntry("Save Meta Infos", cb_saveMetaInfos->isChecked());
+    cg.writeEntry("Save Meta Infos", cb_saveMetaInfos->isChecked());
     KateDocManager::self()->setSaveMetaInfos(cb_saveMetaInfos->isChecked());
 
-    config->writeEntry("Days Meta Infos", sb_daysMetaInfos->value() );
+    cg.writeEntry("Days Meta Infos", sb_daysMetaInfos->value() );
     KateDocManager::self()->setDaysMetaInfos(sb_daysMetaInfos->value());
 
-    config->writeEntry("Modified Notification", cb_modNotifications->isChecked());
+    cg.writeEntry("Modified Notification", cb_modNotifications->isChecked());
     mainWindow->modNotification = cb_modNotifications->isChecked();
 
 #ifdef __GNUC__

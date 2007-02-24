@@ -1043,7 +1043,6 @@ KateGotoBar::KateGotoBar(KateViewBar *parent)
   topLayout->setMargin(0);
   //topLayout->setSpacing(spacingHint());
   gotoRange = new QSpinBox(centralWidget());
-//   gotoRange->setRange(1, 100); // why??
 
   QLabel *label = new QLabel(i18n("&Go to line:"), centralWidget() );
   label->setBuddy(gotoRange);
@@ -1057,9 +1056,9 @@ KateGotoBar::KateGotoBar(KateViewBar *parent)
 
   topLayout->addWidget(label);
   topLayout->addWidget(gotoRange, 1);
-//   topLayout->setStretchFactor( gotoRange, 0 );
+  topLayout->setStretchFactor( gotoRange, 0 );
   topLayout->addWidget(btnOK);
-//   topLayout->addStretch();
+  topLayout->addStretch();
 }
 
 void KateGotoBar::showBar()
@@ -1067,8 +1066,10 @@ void KateGotoBar::showBar()
   KateView* view = viewBar()->view();
   gotoRange->setMaximum(view->doc()->lines());
   if (!isVisible())
+  {
     gotoRange->setValue(view->cursorPosition().line() + 1);
-//   gotoRange->adjustSize(); // ### does not respect the range :-(
+    gotoRange->adjustSize(); // ### does not respect the range :-(
+  }
   gotoRange->setFocus(Qt::OtherFocusReason);
 
   KateViewBarWidget::showBar();

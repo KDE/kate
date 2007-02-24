@@ -8,4 +8,4 @@ add_subdirectory( plugins )
 add_subdirectory( data )
 add_subdirectory( pics )
 
-install( FILES kdebase_export.h DESTINATION ${INCLUDE_INSTALL_DIR} )
+install( FILES kate_export.h DESTINATION ${INCLUDE_INSTALL_DIR} )

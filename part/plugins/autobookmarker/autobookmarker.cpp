@@ -207,12 +207,12 @@ void ABGlobal::readConfig()
   uint n( 0 );
   while ( config->hasGroup( QString("autobookmark%1").arg( n ) ) )
   {
-    config->setGroup( QString("autobookmark%1").arg( n ) );
-    QStringList filemask = config->readEntry( "filemask", QStringList(), ';' );
-    QStringList mimemask = config->readEntry( "mimemask", QStringList(), ';' );
-    int flags = config->readEntry( "flags", 1 );
+    KConfigGroup cg( config, QString("autobookmark%1").arg( n ) );
+    QStringList filemask = cg.readEntry( "filemask", QStringList(), ';' );
+    QStringList mimemask = cg.readEntry( "mimemask", QStringList(), ';' );
+    int flags = cg.readEntry( "flags", 1 );
     AutoBookmarkEnt *e = new AutoBookmarkEnt(
-        config->readEntry( "pattern", "" ),
+        cg.readEntry( "pattern", "" ),
         filemask,
         mimemask,
         flags
@@ -239,11 +239,11 @@ void ABGlobal::writeConfig()
   for ( uint i = 0; i < m_ents->count(); i++ )
   {
     AutoBookmarkEnt *e = m_ents->at( i );
-    config->setGroup( QString("autobookmark%1").arg( i ) );
-    config->writeEntry( "pattern", e->pattern );
-    config->writeEntry( "filemask", e->filemask, ';' );
-    config->writeEntry( "mimemask", e->mimemask, ';' );
-    config->writeEntry( "flags", e->flags );
+    KConfigGroup cg( config, QString("autobookmark%1").arg( i ) );
+    cg.writeEntry( "pattern", e->pattern );
+    cg.writeEntry( "filemask", e->filemask, ';' );
+    cg.writeEntry( "mimemask", e->mimemask, ';' );
+    cg.writeEntry( "flags", e->flags );
   }
 
   config->sync(); // explicit -- this is supposedly handled by the d'tor

@@ -20,7 +20,7 @@
 #ifndef _KATE_PLUGIN_INCLUDE_
 #define _KATE_PLUGIN_INCLUDE_
 
-#include <kdebase_export.h>
+#include <kate_export.h>
 
 #include <QWidget>
 #include <QPixmap>

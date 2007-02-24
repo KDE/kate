@@ -1,16 +1,16 @@
 /* This file is part of the KDE project
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
- 
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
- 
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
- 
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -20,7 +20,7 @@
 #ifndef _KATE_PLUGINMANAGER_INCLUDE_
 #define _KATE_PLUGINMANAGER_INCLUDE_
 
-#include <kdebase_export.h>
+#include <kate_export.h>
 
 #include <QObject>
 #include <kurl.h>
@@ -34,13 +34,13 @@ namespace Kate
    * call loadPlugin(), to unload a plugin call unloadPlugin(). To check,
    * whether a plugin is loaded use plugin(), and to check a plugin's
    * availability use pluginAvailable().
-   * 
+   *
    * To access the plugin manager use Application::pluginManager().
    * You should never have to create an instance of this class yourself.
    *
    * \note Usually the Kate application itself loads/unloads the plugins, so
    *       plugins actually never have to call loadPlugin() or unloadPlugin().
-   * 
+   *
    *
    * \author Christoph Cullmann \<cullmann@kde.org\>
    * \see Plugin

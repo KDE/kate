@@ -59,7 +59,7 @@
 static const int KATE_DYNAMIC_CONTEXTS_RESET_DELAY = 30 * 1000;
 
 // x is a QString. if x is "true" or "1" this expression returns "true"
-#define IS_TRUE(x) x.toLower() == QString("true") || x.toInt() == 1
+#define IS_TRUE(x) x.toLower() == QLatin1String("true") || x.toInt() == 1
 //END defines
 
 //BEGIN  Prviate HL classes

@@ -211,10 +211,10 @@ void KateAutoIndent::setMode (const QString &name)
   m_normal = false;
 
   // first, catch easy stuff... normal mode and none, easy...
-  if ( name.isEmpty() || name == QString ("none") || name == QString ("normal") )
+  if ( name.isEmpty() || name == QLatin1String ("none") || name == QLatin1String ("normal") )
   {
-    m_normal = (name == QString ("normal"));
-    m_mode = (name == QString ("normal")) ? QString ("normal") : QString ("none");
+    m_normal = (name == QLatin1String ("normal"));
+    m_mode = m_normal ? QString ("normal") : QString ("none");
     return;
   }
 

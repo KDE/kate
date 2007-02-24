@@ -1320,7 +1320,7 @@ bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QSt
   if (!m_jscript)
     m_jscript = new KateJSInterpreterContext();
 
-  if (cmd == QString("js-run-myself"))
+  if (cmd == QLatin1String("js-run-myself"))
     return m_jscript->evalSource(kateView, kateView->doc()->text(), errorMsg);
 
   if (!m_scripts.contains(cmd)) {

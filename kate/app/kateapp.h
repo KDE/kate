@@ -20,7 +20,7 @@
 #ifndef __KATE_APP_H__
 #define __KATE_APP_H__
 
-#include <kdebase_export.h>
+#include <kate_export.h>
 
 #include "katemain.h"
 #include <kate/mainwindow.h>

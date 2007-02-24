@@ -56,7 +56,6 @@ namespace KIO
 
 class KColorButton;
 class KComboBox;
-class KIntNumInput;
 class KKeyButton;
 class KKeyChooser;
 class KMainWindow;
@@ -125,7 +124,7 @@ class KateGotoBar : public KateViewBarWidget
     virtual void keyPressEvent(QKeyEvent* event);
 
   private:
-    KIntNumInput *gotoRange;
+    QSpinBox *gotoRange;
     QToolButton *btnOK;
 };
 

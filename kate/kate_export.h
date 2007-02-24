@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _KDEBASE_EXPORT_H
-#define _KDEBASE_EXPORT_H
+#ifndef _KATE_EXPORT_H
+#define _KATE_EXPORT_H
 
 #include <kdemacros.h>
 
@@ -32,5 +32,5 @@
 # endif
 #endif
 
-#endif // _KDEBASE_EXPORT_H
+#endif // _KATE_EXPORT_H
 

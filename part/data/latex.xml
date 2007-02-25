@@ -1,6 +1,6 @@
 <?xml version="1.01" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.23" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@t-online.de)+Michel Ludwig (michel.ludwig@kdemail.net)" license="LGPL" >
+<language name="LaTeX" version="1.25" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
@@ -8,9 +8,9 @@
         <RegExpr String="\\begin(?=[^a-zA-Z])" attribute="Structure" context="FindEnvironment" beginRegion="block" />
         <RegExpr String="\\end(?=[^a-zA-Z])" attribute="Structure" context="FindEnvironment" endRegion="block" />
         <RegExpr String="\\(label|pageref|ref|vpageref|vref|cite)(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
-        <RegExpr String="\\(part|chapter|section|subsection|subsubsection|paragraph|subparagraph)\*?(?=[^a-zA-Z])" attribute="Structure" context="#stay"/>
+        <RegExpr String="\\(part|chapter|section|subsection|subsubsection|paragraph|subparagraph)\*?\s*(?=[\{\[])" attribute="Structure" context="Sectioning"/>
         <RegExpr String="\\(re)?newcommand(?=[^a-zA-Z])" attribute="Keyword" context="NewCommand"/>
-        <RegExpr String="\\def(?=[^a-zA-Z])" attribute="Keyword" context="DefCommand"/>
+        <RegExpr String="\\(e|g|x)?def(?=[^a-zA-Z])" attribute="Keyword" context="DefCommand"/>
         <StringDetect String="\(" attribute="Math" context="MathMode" beginRegion="mathMode" />
         <StringDetect String="\[" attribute="Math" context="MathModeEquation" beginRegion="mathMode" />
         <DetectChar char="\" attribute="Keyword" context="ContrSeq"/>
@@ -20,6 +20,43 @@
         <RegExpr String="%\s*BEGIN.*$" attribute="Region Marker" context="#stay" beginRegion="regionMarker" firstNonSpace="true" />
         <RegExpr String="%\s*END.*$" attribute="Region Marker" context="#stay" endRegion="regionMarker" firstNonSpace="true" />
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+      </context>
+
+      <!-- LaTeX sectioning commands -->
+      <context name="Sectioning" attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop">
+        <RegExpr String="\[[^\]]*\]" attribute="Normal Text" context="#stay"/>
+        <DetectChar char=" " attribute="Normal Text" context="#stay"/>
+        <DetectChar char="{" attribute="Normal Text" context="SectioningInside"/>
+        <DetectChar char="}" attribute="Normal Text" context="#pop"/>
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
+      </context>
+      <context name="SectioningInside" attribute="Structure Text" lineEndContext="#stay">
+        <DetectChar char="{" attribute="Normal Text" context="SectioningInside"/>
+        <DetectChar char="}" attribute="Normal Text" context="#pop"/>
+        <StringDetect String="\(" attribute="Structure Math" context="SectioningMathMode" beginRegion="mathMode" />
+        <DetectChar char="\" attribute="Structure Keyword" context="SectioningContrSeq"/>
+        <DetectChar char="$" attribute="Structure Math" context="SectioningMathMode" beginRegion="mathMode" />
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
+        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+      </context>
+      <context name="SectioningContrSeq" attribute="Keyword" lineEndContext="#pop">
+         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+        <RegExpr String="[a-zA-Z]+(\+?|\*{0,3})" attribute="Structure Keyword" context="#pop"/>
+        <RegExpr String="[^a-zA-Z]" attribute="Structure Keyword" context="#pop" />
+      </context>
+      <context name="SectioningMathMode" attribute="Structure Math" lineEndContext="#stay">
+        <StringDetect String="$$" attribute="Error" context="#stay" />
+        <DetectChar char="$" attribute="Structure Math" context="#pop" endRegion="mathMode" />
+        <Detect2Chars char="\" char1=")" attribute="Structure Math" context="#pop" endRegion="mathMode" />
+        <Detect2Chars char="\" char1="]" attribute="Error" context="#stay" />
+        <DetectChar char="\" attribute="Structure Keyword Mathmode" context="SectioningMathContrSeq"/>
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
+        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+      </context>
+      <context name="SectioningMathContrSeq" attribute="Structure Keyword Mathmode" lineEndContext="#pop">
+        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+        <RegExpr String="[a-zA-Z]+\*?" attribute="Structure Keyword Mathmode" context="#pop"/>
+        <RegExpr String="[^a-zA-Z]" attribute="Structure Keyword Mathmode" context="#pop" /> 
       </context>
 
       <!-- LaTeX commands \newcommand and \renewcommand -->
@@ -53,7 +90,7 @@
         <StringDetect String="verb*" attribute="Keyword" context="Verb"/>
         <RegExpr String="verb(?=[^a-zA-Z])" attribute="Keyword" context="Verb"/>
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
-        <RegExpr String="[a-zA-Z]+\*?" attribute="Keyword" context="#pop"/>
+        <RegExpr String="[a-zA-Z]+(\+?|\*{0,3})" attribute="Keyword" context="#pop"/>
         <RegExpr String="[^a-zA-Z]" attribute="Keyword" context="#pop" />
       </context>
       <context name="ToEndOfLine" attribute="Normal Text" lineEndContext="#pop">
@@ -279,6 +316,10 @@
       <itemData name="Region Marker" defStyleNum="dsRegionMarker" />
       <itemData name="Bullet" defStyleNum="dsNormal" color="#FF00C4" bold="1" underline="1"/>
       <itemData name="Alert" defStyleNum="dsAlert" />
+      <itemData name="Structure Text" defStyleNum="dsNormal" color="#000000" selColor="#FFFFFF" bold="1" italic="0"/>
+      <itemData name="Structure Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="1" italic="0"/>
+      <itemData name="Structure Math" defStyleNum="dsNormal" color="#00A000" selColor="#FF40FF"  bold="1" italic="0"/>
+      <itemData name="Structure Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="1" italic="0"/>
      </itemDatas>
   </highlighting>
 

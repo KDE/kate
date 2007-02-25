@@ -30,4 +30,4 @@ and
  - Kate::PluginManager
 */
 
-// DOXYGEN_REFERENCES = kdecore kdeui kio interfaces/kdocument
+// DOXYGEN_REFERENCES = kdecore kdeui kio

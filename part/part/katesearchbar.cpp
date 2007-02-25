@@ -336,8 +336,10 @@ void KateSearchBar::findPrevious()
     doSearch(d->expressionEdit->text(), false, true);
 }
 
-void KateSearchBar::showEvent(QShowEvent *)
+void KateSearchBar::showEvent(QShowEvent *e)
 {
+    if ( e->spontaneous() ) return;
+
     d->searching = false;
     if ( d->selectionOnlyBox->checkState() == Qt::Checked && ! m_view->selection() )
       d->selectionOnlyBox->setCheckState( Qt::Unchecked );
@@ -373,8 +375,10 @@ bool KateSearchBarEdit::event(QEvent *e)
     return KLineEdit::event(e);
 }
 
-void KateSearchBarEdit::showEvent(QShowEvent *)
+void KateSearchBarEdit::showEvent(QShowEvent *e)
 {
+    if ( e->spontaneous() ) return;
+
     selectAll();
 }
 

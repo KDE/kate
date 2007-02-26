@@ -1994,7 +1994,7 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
   if (!thisLine.isValid())
     return false;
 
-  return m_view->cursorSelected(renderer()->xToCursor(thisLine, p.x(), !view()->wrapCursor()));
+  return m_view->cursorSelected(renderer()->xToCursor(thisLine, startX() + p.x(), !view()->wrapCursor()));
 }
 
 //BEGIN EVENT HANDLING STUFF

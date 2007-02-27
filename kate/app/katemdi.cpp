@@ -605,8 +605,8 @@ namespace KateMDI
     {
       ToolView *tv = m_toolviews[i];
 
-      tv->persistent = config.readEntry (QString ("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), QVariant(false)).toBool();
-      tv->setToolVisible (config.readEntry (QString ("Kate-MDI-ToolView-%1-Visible").arg(tv->id), QVariant(false)).toBool());
+      tv->persistent = config.readEntry (QString ("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), false);
+      tv->setToolVisible (config.readEntry (QString ("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
 
       if (!anyVis)
         anyVis = tv->toolVisible();

@@ -203,7 +203,9 @@ void KateFileSelectorToolBarParent::resizeEvent ( QResizeEvent * )
 
   dir = new KDirOperator(KUrl(), this);
   dir->setView(KFile::/* Simple */Detail);
-  dir->view()->setSelectionMode(KFile::Multi);
+  dir->view()->setSelectionMode(KFile::Extended);
+  connect ( dir, SIGNAL( viewChanged(KFileView *) ),
+           this, SLOT( selectorViewChanged(KFileView *) ) );
   setStretchFactor(dir, 2);
   dir->setSizePolicy (QSizePolicy (QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 
@@ -299,7 +301,7 @@ void ::KateFileSelector::readConfig(KConfig *config, const QString & name)
   dir->readConfig(&cgDir);
 
   dir->setView( KFile::Default );
-  dir->view()->setSelectionMode(KFile::Multi);
+  dir->view()->setSelectionMode(KFile::Extended);
 
   KConfigGroup cg (config, name );
 
@@ -387,7 +389,7 @@ void ::KateFileSelector::writeConfig(KConfig *config, const QString & name)
 void ::KateFileSelector::setView(KFile::FileView view)
 {
   dir->setView(view);
-  dir->view()->setSelectionMode(KFile::Multi);
+  dir->view()->setSelectionMode(KFile::Extended);
 }
 
 //END Public Methods
@@ -552,6 +554,11 @@ void ::KateFileSelector::kateViewChanged()
   // TODO: make sure the button is disabled if the directory is unreadable, eg
   //       the document URL has protocol http
   acSyncDir->setEnabled( ! activeDocumentUrl().directory().isEmpty() );
+}
+
+void ::KateFileSelector::selectorViewChanged( KFileView * newView )
+{
+  newView->setSelectionMode(KFile::Extended);
 }
 
 //END Private Slots

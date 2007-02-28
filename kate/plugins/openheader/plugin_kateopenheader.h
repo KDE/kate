@@ -20,10 +20,11 @@
 
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
+#include <kxmlguiclient.h>
 
 #include <QList>
 
-class PluginKateOpenHeader : public Kate::Plugin, Kate::PluginViewInterface
+class PluginKateOpenHeader : public Kate::Plugin
 {
   Q_OBJECT
 
@@ -31,8 +32,8 @@ class PluginKateOpenHeader : public Kate::Plugin, Kate::PluginViewInterface
     PluginKateOpenHeader( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~PluginKateOpenHeader();
 
-    void addView (Kate::MainWindow *win);
-    void removeView (Kate::MainWindow *win);
+    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+
 
     void storeGeneralConfig(KConfig* config,const QString& groupPrefix);
     void loadGeneralConfig(KConfig* config,const QString& groupPrefix);
@@ -47,5 +48,13 @@ class PluginKateOpenHeader : public Kate::Plugin, Kate::PluginViewInterface
   private:
   QList<class PluginView*> m_views;
 };
+
+class PluginViewKateOpenHeader: public Kate::PluginView, KXMLGUIClient {
+    Q_OBJECT
+    public:
+        PluginViewKateOpenHeader(PluginKateOpenHeader* plugin, Kate::MainWindow *mainwindow);
+        virtual ~PluginViewKateOpenHeader();
+};
+
 
 #endif // _PLUGIN_KANT_OPENHEADER_H

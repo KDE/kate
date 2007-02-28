@@ -14,7 +14,7 @@ add_subdirectory( symbolviewer )
 
 #add_subdirectory( htmltools )
 #add_subdirectory( kpybrowser )
-#add_subdirectory( openheader )
+add_subdirectory( openheader )
 #add_subdirectory( textfilter )
 #add_subdirectory( xmltools )
 #add_subdirectory( xmlcheck )

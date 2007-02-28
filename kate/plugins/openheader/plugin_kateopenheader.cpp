@@ -30,15 +30,29 @@
 #include <kurl.h>
 #include <kio/netaccess.h>
 #include <kactioncollection.h>
-class PluginView : public KXMLGUIClient
-{
-  friend class PluginKateOpenHeader;
 
-  public:
-    Kate::MainWindow *win;
-};
 
 K_EXPORT_COMPONENT_FACTORY( kateopenheaderplugin, KGenericFactory<PluginKateOpenHeader>( "kateopenheader" ) )
+
+
+PluginViewKateOpenHeader::PluginViewKateOpenHeader(PluginKateOpenHeader *plugin,Kate::MainWindow *mainwindow): Kate::PluginView(mainwindow),KXMLGUIClient()
+{
+    QAction *a = actionCollection()->addAction("file_openheader");
+    a->setText(i18n("Open .h/.cpp/.c"));
+    a->setShortcut( Qt::Key_F12 );
+    connect( a, SIGNAL( triggered(bool) ), plugin, SLOT( slotOpenHeader() ) );
+
+    setComponentData (KComponentData("kate"));
+    setXMLFile( "plugins/kateopenheader/ui.rc" );
+    mainwindow->guiFactory()->addClient (this);
+}
+
+PluginViewKateOpenHeader::~PluginViewKateOpenHeader()
+{
+      mainWindow()->guiFactory()->removeClient (this);
+
+}
+
 
 PluginKateOpenHeader::PluginKateOpenHeader( QObject* parent, const QStringList& )
     : Kate::Plugin ( (Kate::Application *)parent, "open-header-plugin" )
@@ -49,34 +63,13 @@ PluginKateOpenHeader::~PluginKateOpenHeader()
 {
 }
 
-void PluginKateOpenHeader::addView(Kate::MainWindow *win)
+Kate::PluginView *PluginKateOpenHeader::createView (Kate::MainWindow *mainWindow)
 {
-    PluginView *view = new PluginView ();
-
-    QAction *a = view->actionCollection()->addAction("file_openheader");
-    a->setText(i18n("Open .h/.cpp/.c"));
-    a->setShortcut( Qt::Key_F12 );
-    connect( a, SIGNAL( triggered(bool) ), this, SLOT( slotOpenHeader() ) );
-
-    view->setComponentData (KComponentData("kate"));
-    view->setXMLFile( "plugins/kateopenheader/ui.rc" );
-    win->guiFactory()->addClient (view);
-    view->win = win;
-
-   m_views.append (view);
+    return new PluginViewKateOpenHeader(this,mainWindow);
 }
 
-void PluginKateOpenHeader::removeView(Kate::MainWindow *win)
-{
-  for (int z=0; z < m_views.count(); z++)
-    if (m_views.at(z)->win == win)
-    {
-      PluginView *view = m_views.at(z);
-      m_views.removeAll (view);
-      win->guiFactory()->removeClient (view);
-      delete view;
-    }
-}
+
+
 
 void PluginKateOpenHeader::storeGeneralConfig(KConfig* config,const QString& groupPrefix)
 {

@@ -2,6 +2,6 @@
 Type=Service
 ServiceTypes=Kate/Plugin
 X-KDE-Library=kateopenheaderplugin
-X-Kate-Version=2.9
+X-Kate-Version=2.8
 Name=Kate OpenHeader
 Comment=Opens the corresponding .h/[.cpp|.c] file

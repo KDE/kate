@@ -71,31 +71,6 @@ Kate::PluginView *PluginKateOpenHeader::createView (Kate::MainWindow *mainWindow
 
 
 
-void PluginKateOpenHeader::storeGeneralConfig(KConfig* config,const QString& groupPrefix)
-{
-  Q_UNUSED( config );
-  Q_UNUSED( groupPrefix );
-}
-
-void PluginKateOpenHeader::loadGeneralConfig(KConfig* config,const QString& groupPrefix)
-{
-  Q_UNUSED( config );
-  Q_UNUSED( groupPrefix );
-}
-
-void PluginKateOpenHeader::storeViewConfig(KConfig* config, Kate::MainWindow* mainwindow, const QString& groupPrefix)
-{
-  Q_UNUSED( config );
-  Q_UNUSED( mainwindow );
-  Q_UNUSED( groupPrefix );
-}
-
-void PluginKateOpenHeader::loadViewConfig(KConfig* config, Kate::MainWindow* mainwindow, const QString& groupPrefix)
-{
-  Q_UNUSED( config );
-  Q_UNUSED( mainwindow );
-  Q_UNUSED( groupPrefix );
-}
 
 void PluginKateOpenHeader::slotOpenHeader ()
 {

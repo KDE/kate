@@ -28,10 +28,12 @@
 #include <ktexteditor/commandinterface.h>
 
 #include <kprocess.h>
+#include <kxmlguiclient.h>
 
 #include <QList>
 
-class PluginKateTextFilter : public Kate::Plugin, public Kate::PluginViewInterface, public KTextEditor::Command
+
+class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
 {
   Q_OBJECT
 
@@ -39,13 +41,7 @@ class PluginKateTextFilter : public Kate::Plugin, public Kate::PluginViewInterfa
     PluginKateTextFilter( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~PluginKateTextFilter();
 
-    void addView (Kate::MainWindow *win);
-    void removeView (Kate::MainWindow *win);
-
-    void storeViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix);
-    void loadViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix);
-    void storeGeneralConfig(KConfig* config, const QString& groupPrefix);
-    void loadGeneralConfig(KConfig* config, const QString& groupPrefix);
+    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
     // Kate::Command
     const QStringList& cmds ();
@@ -57,7 +53,6 @@ class PluginKateTextFilter : public Kate::Plugin, public Kate::PluginViewInterfa
   private:
     QString  m_strFilterOutput;
     KShellProcess * m_pFilterShellProcess;
-    QList<class PluginView*> m_views;
     QStringList completionList;
   public slots:
     void slotEditFilter ();
@@ -65,6 +60,14 @@ class PluginKateTextFilter : public Kate::Plugin, public Kate::PluginViewInterfa
     void slotFilterReceivedStderr (KProcess * pProcess, char * got, int len);
     void slotFilterProcessExited (KProcess * pProcess);
     void slotFilterCloseStdin (KProcess *);
+};
+
+class PluginViewKateTextFilter: public Kate::PluginView, public KXMLGUIClient {
+  Q_OBJECT
+
+  public:
+    PluginViewKateTextFilter(PluginKateTextFilter *plugin, Kate::MainWindow *mainwindow);
+    virtual ~PluginViewKateTextFilter();
 };
 
 #endif // _PLUGIN_KANT_TEXTFILTER_H

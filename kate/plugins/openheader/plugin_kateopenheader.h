@@ -34,19 +34,9 @@ class PluginKateOpenHeader : public Kate::Plugin
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
-
-    void storeGeneralConfig(KConfig* config,const QString& groupPrefix);
-    void loadGeneralConfig(KConfig* config,const QString& groupPrefix);
-
-    void storeViewConfig(KConfig* config, Kate::MainWindow* mainwindow, const QString& groupPrefix);
-    void loadViewConfig(KConfig* config, Kate::MainWindow* mainwindow, const QString& groupPrefix);
-
   public slots:
     void slotOpenHeader ();
     void tryOpen( const KUrl& url, const QStringList& extensions );   
-
-  private:
-  QList<class PluginView*> m_views;
 };
 
 class PluginViewKateOpenHeader: public Kate::PluginView, KXMLGUIClient {

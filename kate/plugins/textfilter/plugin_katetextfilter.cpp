@@ -27,7 +27,6 @@
 #include <cassert>
 #include <kdebug.h>
 #include <qstring.h>
-#include <kcompletion.h>
 #include <klineedit.h>
 #include <kinputdialog.h>
 #define POP_(x) kDebug(13000) << #x " = " << flush << x << endl
@@ -37,13 +36,23 @@
 #include <kactioncollection.h>
 K_EXPORT_COMPONENT_FACTORY( katetextfilterplugin, KGenericFactory<PluginKateTextFilter>( "katetextfilter" ) )
 
-class PluginView : public KXMLGUIClient
+PluginViewKateTextFilter::PluginViewKateTextFilter(PluginKateTextFilter *plugin,Kate::MainWindow *mainwindow)
+  : Kate::PluginView(mainwindow),KXMLGUIClient()
 {
-  friend class PluginKateTextFilter;
+    QAction *a = actionCollection()->addAction("edit_filter");
+    a->setText(i18n("Filter Te&xt..."));
+    a->setShortcut( Qt::CTRL + Qt::Key_Backslash );
+    connect( a, SIGNAL(triggered(bool)), plugin, SLOT(slotEditFilter()) );
 
-  public:
-    Kate::MainWindow *win;
-};
+    setComponentData (KComponentData("kate"));
+    setXMLFile( "plugins/katetextfilter/ui.rc" );
+    mainwindow->guiFactory()->addClient (this);
+}
+
+PluginViewKateTextFilter::~PluginViewKateTextFilter()
+{
+      mainWindow()->guiFactory()->removeClient (this);
+}
 
 PluginKateTextFilter::PluginKateTextFilter( QObject* parent, const QStringList& )
   : Kate::Plugin ( (Kate::Application *)parent, "kate-text-filter-plugin" ),
@@ -61,151 +70,11 @@ PluginKateTextFilter::~PluginKateTextFilter()
   if( cmdIface ) cmdIface->unregisterCommand( this );
 }
 
-void PluginKateTextFilter::addView(Kate::MainWindow *win)
+
+Kate::PluginView *PluginKateTextFilter::createView (Kate::MainWindow *mainWindow)
 {
-    PluginView *view = new PluginView ();
-
-    QAction *a = view->actionCollection()->addAction("edit_filter");
-    a->setText(i18n("Filter Te&xt..."));
-    a->setShortcut( Qt::CTRL + Qt::Key_Backslash );
-    connect( a, SIGNAL(triggered(bool)), this, SLOT(slotEditFilter()) );
-
-    view->setComponentData (KComponentData("kate"));
-    view->setXMLFile( "plugins/katetextfilter/ui.rc" );
-    win->guiFactory()->addClient (view);
-    view->win = win;
-
-   m_views.append (view);
+    return new PluginViewKateTextFilter(this,mainWindow);
 }
-
-void PluginKateTextFilter::removeView(Kate::MainWindow *win)
-{
-  for (int z=0; z < m_views.count(); z++)
-    if (m_views.at(z)->win == win)
-    {
-      PluginView *view = m_views.at(z);
-      m_views.removeAll (view);
-      win->guiFactory()->removeClient (view);
-      delete view;
-    }
-}
-
-void PluginKateTextFilter::storeViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new Kate interfaces
-}
- 
-void PluginKateTextFilter::loadViewConfig(KConfig* config, Kate::MainWindow*win, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new Kate interfaces
-}
-
-void PluginKateTextFilter::storeGeneralConfig(KConfig* config, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new Kate interfaces
-}
-
-void PluginKateTextFilter::loadGeneralConfig(KConfig* config, const QString& groupPrefix)
-{
-  // TODO: FIXME: port to new Kate interfaces
-}
-
-        void
-splitString (QString q, char c, QStringList &list)  //  PCP
-{
-
-// screw the OnceAndOnlyOnce Principle!
-
-  int pos;
-  QString item;
-
-  while ( (pos = q.indexOf(c)) >= 0)
-    {
-      item = q.left(pos);
-      list.append(item);
-      q.remove(0,pos+1);
-    }
-  list.append(q);
-}
-
-
-        static void  //  PCP
-slipInNewText (KTextEditor::View & view, QString pre, QString marked, QString post, bool reselect)
-{
-#ifdef __GNUC__
-#warning "kde4: this function is not used for the moment";
-#endif
-
-#if 0
-  int preDeleteLine = 0, preDeleteCol = 0;
-  view.cursorPosition ().position(preDeleteLine, preDeleteCol);
-
-  if (marked.length() > 0)
-    view.removeSelectionText ();
-  int line = 0, col = 0;
-  view.cursorPosition ().position(line, col);
-  view.insertText (pre + marked + post);
-
-  //  all this muck to leave the cursor exactly where the user
-  //  put it...
-
-  //  Someday we will can all this (unless if it already
-  //  is canned and I didn't find it...)
-
-  //  The second part of the if disrespects the display bugs
-  //  when we try to reselect. TODO: fix those bugs, and we can
-  //  un-break this if...
-
-  //  TODO: fix OnceAndOnlyOnce between this module and plugin_katehtmltools.cpp
-
-  if (reselect && preDeleteLine == line && -1 == marked.indexOf ('\n'))
-    if (preDeleteLine == line && preDeleteCol == col)
-        {
-        view.setCursorPosition ( KTextEditor::Cursor(line, col + pre.length () + marked.length () - 1) );
-
-        for (int x (marked.length());  x--;)
-                view.shiftCursorLeft ();
-        }
-   else
-        {
-        view.setCursorPosition (line, col += pre.length ());
-
-        for (int x (marked.length());  x--;)
-                view.shiftCursorRight ();
-        }
-#endif
-}
-
-
-        static QString  //  PCP
-KatePrompt
-        (
-        const QString & strTitle,
-        const QString & strPrompt,
-        QWidget * that,
-	QStringList *completionList
-        )
-{
-  //  TODO: Make this a "memory edit" field with a combo box
-  //  containing prior entries
-return KInputDialog::getText(strTitle,QString::null,strPrompt);
-#if 0
-  KInputDialog dlg(strPrompt, QString::null,QString::null, that);
-  dlg.setCaption(strTitle);
-  KCompletion *comple=dlg.lineEdit()->completionObject();
-  comple->setItems(*completionList);
-  if (dlg.exec()) {
-    if (!dlg.text().isEmpty())	{
-	comple->addItem(dlg.text());
-	(*completionList)=comple->items();
-    }
-    return dlg.text();
-  }
-  else
-    return "";
-#endif
-}
-
 
 	void
 PluginKateTextFilter::slotFilterReceivedStdout (KProcess * pProcess, char * got, int len)
@@ -241,7 +110,6 @@ PluginKateTextFilter::slotFilterProcessExited (KProcess * pProcess)
 	  kv->removeSelectionText();
 	kv -> insertText (m_strFilterOutput);
 	kv->document()->endEditing();
-//	slipInNewText (*kv, "", m_strFilterOutput, "", false);
 	m_strFilterOutput = "";
 
 }
@@ -290,13 +158,9 @@ PluginKateTextFilter::slotEditFilter ()  //  PCP
   KTextEditor::View * kv (application()->activeMainWindow()->activeView());
   if (!kv) return;
 
-  QString text ( KatePrompt ( i18n("Filter"),
-                        i18n("Enter command to pipe selected text through:"),
-                        (QWidget*)  kv,
-			&completionList
-                        ) );
-
-  if ( !text.isEmpty () )
+  bool ok(false);
+  QString text ( KInputDialog::getText(i18n("Filter"),"",i18n("Enter command to pipe selected text through:"),&ok));
+  if ( ok && (!text.isEmpty () ))
     runFilter( kv, text );
 }
 

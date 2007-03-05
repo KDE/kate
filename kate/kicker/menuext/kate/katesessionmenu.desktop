@@ -1,10 +1,6 @@
 [Desktop Entry]
 Name=Kate Session Menu
-Name[el]=Μενού συνεδρίας του Kate
-Name[fr]=Menu de sessions de Kate
 Comment=Allows you to open Kate with a specified session, or create a new one
-Comment[el]=Σας επιτρέπει να ανοίξετε το Kate μα μια καθορισμένη συνεδρία, ή να δημιουργήσετε μία νέα
-Comment[fr]=Vous permet d'ouvrir Kate avec une session spécifiée, ou d'en créer une nouvelle
 Icon=kate
 X-KDE-Library=kickermenu_kate
 X-KDE-AuthorizeAction=shell_access

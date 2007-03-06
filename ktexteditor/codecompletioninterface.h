@@ -79,8 +79,8 @@ class KTEXTEDITOR_EXPORT CodeCompletionInterface
     virtual void setAutomaticInvocationEnabled(bool enabled = true) = 0;
 
   //signals:
-    //void completionExecuted(const Cursor& position, CodeCompletionModel* model, int row);
-    //void completionAborted();
+    //void completionExecuted(KTextEditor::View* view, const KTextEditor::Cursor& position, KTextEditor::CodeCompletionModel* model, int row);
+    //void completionAborted(KTextEditor::View* view);
 };
 
 }

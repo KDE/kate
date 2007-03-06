@@ -4,4 +4,6 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katetextfilterplugin
 X-Kate-Version=2.8
 Name=Kate TextFilter
+Name[x-test]=xxKate TextFilterxx
 Comment=Easy text filtering
+Comment[x-test]=xxEasy text filteringxx

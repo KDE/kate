@@ -1,7 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
 GenericName=Advanced Text Editor
+GenericName[x-test]=xxAdvanced Text Editorxx
 Name=Kate
+Name[x-test]=xxKatexx
 MimeType=text/plain
 Exec=kate %U
 X-KDE-StartupNotify=true

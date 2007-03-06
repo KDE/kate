@@ -4,5 +4,7 @@ ServiceTypes=Kate/Plugin
 X-Kate-Version=2.9
 X-KDE-Library=katefiletemplates
 Name=Kate File Templates
+Name[x-test]=xxKate File Templatesxx
 Comment=Create new files from templates in the Kate text editor
+Comment[x-test]=xxCreate new files from templates in the Kate text editorxx
 author=Anders Lund, anders@alweb.dk

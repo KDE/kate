@@ -4,4 +4,6 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katexmltoolsplugin
 X-Kate-Version=2.9
 Name=Kate XML Completion
+Name[x-test]=xxKate XML Completionxx
 Comment=Lists XML elements, attributes, attribute values and entities allowed by DTD
+Comment[x-test]=xxLists XML elements, attributes, attribute values and entities allowed by DTDxx

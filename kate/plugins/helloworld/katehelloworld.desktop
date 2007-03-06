@@ -4,4 +4,6 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katehelloworldplugin
 X-Kate-Version=2.9
 Name=My First Kate Plugin
+Name[x-test]=xxMy First Kate Pluginxx
 Comment=Your short description about the plugin goes here
+Comment[x-test]=xxYour short description about the plugin goes herexx

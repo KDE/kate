@@ -5,4 +5,6 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katepybrowseplugin
 X-Kate-Version=2.9
 Name=Kate Python Browser Plugin
+Name[x-test]=xxKate Python Browser Pluginxx
 Comment=A Python browser plugin for Kate
+Comment[x-test]=xxA Python browser plugin for Katexx

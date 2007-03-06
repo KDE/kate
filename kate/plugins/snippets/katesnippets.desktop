@@ -5,5 +5,7 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katesnippetsplugin
 X-Kate-Version=2.9
 Name=Kate Snippets
+Name[x-test]=xxKate Snippetsxx
 Comment=Configurable Text-Snippets for Kate
+Comment[x-test]=xxConfigurable Text-Snippets for Katexx
 author=Stephan Möres, Erdling@gmx.net

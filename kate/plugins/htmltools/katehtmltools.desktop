@@ -4,4 +4,6 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katehtmltoolsplugin
 X-Kate-Version=2.9
 Name=Kate HTML Tools
+Name[x-test]=xxKate HTML Toolsxx
 Comment=Facilitated insertion of HTML tags
+Comment[x-test]=xxFacilitated insertion of HTML tagsxx

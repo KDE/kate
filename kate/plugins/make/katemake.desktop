@@ -4,4 +4,6 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katemakeplugin
 X-Kate-Version=2.9
 Name=Kate Make Plugin
+Name[x-test]=xxKate Make Pluginxx
 Comment=Compile and parse error messages
+Comment[x-test]=xxCompile and parse error messagesxx

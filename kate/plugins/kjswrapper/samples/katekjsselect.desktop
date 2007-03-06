@@ -5,3 +5,4 @@ X-KDE-Library=katekjswrapperplugin
 X-Kate-Version=2.2
 X-Kate-PluginName=katekjsselect
 Name=Select Smallest Enclosing Block
+Name[x-test]=xxSelect Smallest Enclosing Blockxx

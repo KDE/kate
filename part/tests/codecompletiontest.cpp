@@ -27,8 +27,6 @@ CodeCompletionTest::CodeCompletionTest(KTextEditor::View* parent)
 {
   setRowCount(40);
 
-  //connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(cursorPositionChanged()));
-
   Q_ASSERT(cc());
   cc()->setAutomaticInvocationEnabled(true);
   cc()->registerCompletionModel(this);
@@ -152,36 +150,6 @@ QVariant CodeCompletionTest::data( const QModelIndex & index, int role ) const
   return QVariant();
 }
 
-void CodeCompletionTest::cursorPositionChanged( )
-{
-  if (cc()->isCompletionActive())
-    return;
-
-  KTextEditor::Cursor end = view()->cursorPosition();
-
-  if (!end.column())
-    return;
-
-  QString text = view()->document()->line(end.line());
-
-  static QRegExp findWordStart( "\\b(\\w+)$" );
-  static QRegExp findWordEnd( "^(\\w*)\\b" );
-
-  if ( findWordStart.lastIndexIn(text.left(end.column())) < 0 )
-    return;
-
-  KTextEditor::Cursor start(end.line(), findWordStart.pos(1));
-
-  if ( findWordEnd.indexIn(text.mid(end.column())) < 0 )
-    return;
-
-  end.setColumn(end.column() + findWordEnd.cap(1).length());
-
-  m_startText = text.mid(start.column(), end.column() - start.column());
-
-  cc()->startCompletion(KTextEditor::Range(start, end), this);
-}
-
 KTextEditor::View* CodeCompletionTest::view( ) const
 {
   return static_cast<KTextEditor::View*>(const_cast<QObject*>(QObject::parent()));
@@ -196,7 +164,7 @@ void CodeCompletionTest::completionInvoked(KTextEditor::View* view, const KTextE
 {
   Q_UNUSED(invocationType)
 
-  m_startText = view->document()->text(range);
+  m_startText = view->document()->text(KTextEditor::Range(range.start(), view->cursorPosition()));
   kDebug() << k_funcinfo << m_startText << endl;
 }
 

@@ -219,12 +219,17 @@ void KateCompletionWidget::abortCompletion( )
 {
   kDebug(13035) << k_funcinfo << endl;
 
+  if (!isCompletionActive())
+    return;
+
   hide();
 
   m_presentationModel->clearCompletionModels();
 
   delete m_completionRange;
   m_completionRange = 0L;
+
+  view()->sendCompletionAborted();
 }
 
 void KateCompletionWidget::execute()
@@ -238,15 +243,19 @@ void KateCompletionWidget::execute()
     return abortCompletion();
 
   toExecute = m_presentationModel->mapToSource(toExecute);
+  KTextEditor::Cursor start = m_completionRange->start();
 
   // encapsulate all editing as being from the code completion, and undo-able in one step.
   view()->doc()->editStart(Kate::CodeCompletionEdit);
 
-  static_cast<const KTextEditor::CodeCompletionModel*>(toExecute.model())->executeCompletionItem(view()->document(), *m_completionRange, toExecute.row());
+  KTextEditor::CodeCompletionModel* model = static_cast<KTextEditor::CodeCompletionModel*>(const_cast<QAbstractItemModel*>(toExecute.model()));
+  model->executeCompletionItem(view()->document(), *m_completionRange, toExecute.row());
 
   view()->doc()->editEnd();
 
   hide();
+
+  view()->sendCompletionExecuted(start, model, toExecute.row());
 }
 
 void KateCompletionWidget::resizeEvent( QResizeEvent * event )

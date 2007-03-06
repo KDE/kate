@@ -39,9 +39,6 @@ class CodeCompletionTest : public KTextEditor::CodeCompletionModel
     virtual void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
-  private slots:
-    void cursorPositionChanged();
-
   private:
     QString m_startText;
 };

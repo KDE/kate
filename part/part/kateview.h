@@ -211,12 +211,18 @@ class KateView : public KTextEditor::View,
     virtual bool isAutomaticInvocationEnabled() const;
     virtual void setAutomaticInvocationEnabled(bool enabled = true);
 
+  Q_SIGNALS:
+    void completionExecuted(KTextEditor::View* view, const KTextEditor::Cursor& position, KTextEditor::CodeCompletionModel* model, int row);
+    void completionAborted(KTextEditor::View* view);
+
   public Q_SLOTS:
     void userInvokedCompletion();
 
-  private:
+  public:
     KateCompletionWidget* completionWidget() const;
     mutable KateCompletionWidget* m_completionWidget;
+    void sendCompletionExecuted(const KTextEditor::Cursor& position, KTextEditor::CodeCompletionModel* model, int row);
+    void sendCompletionAborted();
 
   //
   // KTextEditor::TextHintInterface

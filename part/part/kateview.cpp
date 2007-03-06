@@ -1905,12 +1905,15 @@ bool KateView::tagLines( KTextEditor::Range range, bool realRange )
 void KateView::addInternalHighlight( KTextEditor::SmartRange * topRange )
 {
   m_internalHighlights.append(topRange);
-  relayoutRange(*topRange, true);
+
+  addHighlightRange(topRange);
 }
 
 void KateView::removeInternalHighlight( KTextEditor::SmartRange * topRange )
 {
   m_internalHighlights.removeAll(topRange);
+
+  removeHighlightRange(topRange);
 }
 
 const QList< KTextEditor::SmartRange * > & KateView::internalHighlights( ) const
@@ -1938,8 +1941,6 @@ void KateView::addExternalHighlight( KTextEditor::SmartRange * topRange, bool su
     m_externalHighlightsDynamic.append(topRange);
     emit dynamicHighlightAdded(static_cast<KateSmartRange*>(topRange));
   }
-
-  relayoutRange(*topRange, true);
 
   addHighlightRange(topRange);
 }
@@ -2072,6 +2073,16 @@ bool KateView::isAutomaticInvocationEnabled() const
 void KateView::setAutomaticInvocationEnabled(bool enabled)
 {
   completionWidget()->setAutomaticInvocationEnabled(enabled);
+}
+
+void KateView::sendCompletionExecuted(const KTextEditor::Cursor& position, KTextEditor::CodeCompletionModel* model, int row)
+{
+  emit completionExecuted(this, position, model, row);
+}
+
+void KateView::sendCompletionAborted()
+{
+  emit completionAborted(this);
 }
 
 void KateView::paste( )

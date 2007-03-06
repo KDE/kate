@@ -3011,8 +3011,6 @@ void KateViewInternal::dynamicHighlightAdded( KateSmartRange * range )
   DynamicRangeHL* hl = new DynamicRangeHL(range);
   hl->isView = view() == sender();
 
-  addWatcher(range, this);
-
   m_dynamicHighlights.insert(range, hl);
 
   if (m_mouse.isValid())
@@ -3174,10 +3172,10 @@ void KateViewInternal::cursorMoved( )
 
 void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool realCursors )
 {
-
   int startLine = realCursors ? range.start().line() : toRealCursor(range.start()).line();
   int endLine = realCursors ? range.end().line() : toRealCursor(range.end()).line();
   cache()->relayoutLines(startLine, endLine);
+
 #ifndef KTEXTEDITOR_NO_SMART_THREADSAFE
   Q_ASSERT(m_doc->isSmartLocked() || thread() == QThread::currentThread());
   if (!m_smartDirty) {
@@ -3202,7 +3200,6 @@ void KateViewInternal::rangeDeleted( KTextEditor::SmartRange * range )
 void KateViewInternal::childRangeInserted( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
 {
   relayoutRange(*child);
-  // This is already a dynamically highlighted range if we're watching it, thus add a watcher
   child->addWatcher(this);
 }
 
@@ -3215,26 +3212,19 @@ void KateViewInternal::rangeAttributeChanged( KTextEditor::SmartRange * range, K
 void KateViewInternal::childRangeRemoved( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
 {
   relayoutRange(*child);
-  // This is already a dynamically highlighted range if we're watching it, thus remove the watcher
   child->removeWatcher(this);
 }
 
 void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
 {
   relayoutRange(*range);
-  // Watchers are only added for dynamically highlighted ranges
-  //range->addWatcher(this);
-  foreach (KTextEditor::SmartRange* child, range->childRanges())
-    addHighlightRange(child);
+  addWatcher(range, this);
 }
 
 void KateViewInternal::removeHighlightRange(KTextEditor::SmartRange* range)
 {
   relayoutRange(*range);
-  // Watchers are only removed for dynamically highlighted ranges
-  //range->removeWatcher(this);
-  foreach (KTextEditor::SmartRange* child, range->childRanges())
-    removeHighlightRange(child);
+  removeWatcher(range, this);
 }
 
 #if 0

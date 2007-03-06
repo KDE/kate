@@ -43,6 +43,7 @@ private Q_SLOTS:
 
 protected:
     void showEvent( QShowEvent * );
+    void hideEvent( QHideEvent * );
 
 private:
     void doSearch(const QString &expression, bool init = false, bool backwards = false );

@@ -54,7 +54,7 @@ public:
     bool searching;
     bool wrapAround;
 
-    QList<KTextEditor::SmartRange*> allMatches;
+    KTextEditor::SmartRange* topRange;
 };
 
 KateSearchBar::KateSearchBar(KateViewBar *viewBar)
@@ -140,10 +140,14 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
 
     // set right focus proxy
     centralWidget()->setFocusProxy(d->expressionEdit);
+
+    d->topRange = m_view->doc()->newSmartRange( m_view->doc()->documentRange() );
+    d->topRange->setInsertBehavior(KTextEditor::SmartRange::ExpandRight);
 }
 
 KateSearchBar::~KateSearchBar()
 {
+    delete d->topRange;
     delete d;
 }
 
@@ -164,13 +168,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
         d->searching = true;
 
         // clear
-        while ( ! d->allMatches.isEmpty() )
-        {
-          KTextEditor::SmartRange* sr = d->allMatches.takeFirst();
-          kDebug() << "remove highlight: ["<<sr->start()<<"] - ["<<sr->end()<<"]"<<endl;
-          m_view->removeInternalHighlight( sr );
-          delete sr;
-        }
+        d->topRange->deleteChildRanges();
     }
 
     if ( d->regExpBox->checkState() != Qt::Checked )
@@ -221,7 +219,10 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
         {
 
           // add highlight to the current match
-          d->allMatches.prepend( m_view->doc()->newSmartRange( d->match ) );
+          KTextEditor::SmartRange* sr = m_view->doc()->newSmartRange( d->match, d->topRange );
+          KTextEditor::Attribute::Ptr a( new KTextEditor::Attribute() );
+          a->setBackground( QColor("yellow") ); //TODO make this part of the color scheme
+          sr->setAttribute( a );
 
           d->startCursor = d->match.end();
 
@@ -231,9 +232,10 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
             KTextEditor::Range r = m_view->doc()->searchText( d->startCursor, d->regExp, false );
             if ( r.isValid() )
             {
-                d->allMatches.append( m_view->doc()->newSmartRange( r ) );
+                sr = m_view->doc()->newSmartRange( r, d->topRange );
+                sr->setAttribute( a );
                 d->startCursor = r.end();
-                kDebug()<<"MATCH: "<<r<<endl;
+                //kDebug()<<"MATCH: "<<r<<endl;
             }
 
             else if ( ! wrapped )
@@ -244,17 +246,6 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
 
             another = r.isValid();
           } while (another);
-
-          // add highlight to each range
-          KTextEditor::Attribute::Ptr a( new KTextEditor::Attribute() );
-          a->setBackground( QColor("yellow") ); //TODO make this part of the color scheme
-          foreach( KTextEditor::SmartRange* sr, d->allMatches )
-          {
-            sr->setAttribute( a );
-            m_view->addInternalHighlight( sr );
-            kDebug()<<"added highlight to match ["<<sr->start()<<"] - ["<<sr->end()<<"]"<<endl;
-          }
-
         }
     }
 
@@ -343,6 +334,13 @@ void KateSearchBar::showEvent(QShowEvent *e)
     d->searching = false;
     if ( d->selectionOnlyBox->checkState() == Qt::Checked && ! m_view->selection() )
       d->selectionOnlyBox->setCheckState( Qt::Unchecked );
+
+    m_view->addInternalHighlight( d->topRange );
+}
+
+void KateSearchBar::hideEvent( QHideEvent * )
+{
+    m_view->removeInternalHighlight( d->topRange );
 }
 
 KateSearchBarEdit::KateSearchBarEdit(QWidget *parent)

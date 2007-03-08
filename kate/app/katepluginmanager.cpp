@@ -161,7 +161,7 @@ void KatePluginManager::loadPlugin (KatePluginInfo *item)
   if (pluginName.isEmpty())
     pluginName = item->service->library();
 
-  item->plugin = Kate::createPlugin (QFile::encodeName(item->service->library()), Kate::application(), QStringList(pluginName));
+  item->load=item->plugin = Kate::createPlugin (QFile::encodeName(item->service->library()), Kate::application(), QStringList(pluginName));
 }
 
 void KatePluginManager::unloadPlugin (KatePluginInfo *item)
@@ -169,6 +169,7 @@ void KatePluginManager::unloadPlugin (KatePluginInfo *item)
   disablePluginGUI (item);
   if (item->plugin) delete item->plugin;
   item->plugin = 0L;
+  item->load=false;
 }
 
 void KatePluginManager::enablePluginGUI (KatePluginInfo *item, KateMainWindow *win, KConfigBase *config)

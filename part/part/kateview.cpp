@@ -756,10 +756,10 @@ void KateView::setupEditActions()
 #warning REMOVE THIS IN THE RELEASE
 #endif
 
-    a = ac->addAction("debug_template_code");
-    a->setText(i18n("Debug TemplateCode"));
-    a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_1));
-    connect(a, SIGNAL(triggered(bool)), m_doc,SLOT(testTemplateCode()));
+//     a = ac->addAction("debug_template_code");
+//     a->setText(i18n("Debug TemplateCode"));
+//     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_1));
+//     connect(a, SIGNAL(triggered(bool)), m_doc,SLOT(testTemplateCode()));
 
   }
 

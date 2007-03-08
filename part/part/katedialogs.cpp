@@ -1011,7 +1011,7 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
         if (!hl || hl->version() < e.attribute("version"))
         {
           entry->treeWidget()->setItemSelected(entry, true);
-          entry->setIcon(0, SmallIcon(("knewstuff")));
+          entry->setIcon(0, SmallIcon(("get-hot-new-stuff")));
         }
       }
     }
@@ -1049,7 +1049,7 @@ KateGotoBar::KateGotoBar(KateViewBar *parent)
 
   btnOK = new QToolButton();
   btnOK->setAutoRaise(true);
-  btnOK->setIcon(QIcon(SmallIcon("goto")));
+  btnOK->setIcon(QIcon(SmallIcon("goto-page")));
   btnOK->setText(i18n("Go"));
   btnOK->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
   connect(btnOK, SIGNAL(clicked()), this, SLOT(gotoLine()));
@@ -1134,7 +1134,7 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
   ui->setupUi( w );
   setMainWidget( w );
 
-  ui->lblIcon->setPixmap( DesktopIcon("messagebox_warning" ) );
+  ui->lblIcon->setPixmap( DesktopIcon("dialog-warning" ) );
   ui->lblText->setText( reason + "\n\n" + i18n("What do you want to do?") );
 
   // If the file isn't deleted, present a diff button, and a overwrite action.

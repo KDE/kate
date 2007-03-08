@@ -48,8 +48,8 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
   ui->sortingAlphabetical->setChecked(m_model->isSortingAlphabetical());
   ui->sortingReverse->setChecked(m_model->isSortingReverse());
   ui->sortingCaseSensitive->setChecked(m_model->sortingCaseSensitivity() == Qt::CaseSensitive);
-  ui->groupingOrderUp->setIcon(KIcon("up"));
-  ui->groupingOrderDown->setIcon(KIcon("down"));
+  ui->groupingOrderUp->setIcon(KIcon("go-up"));
+  ui->groupingOrderDown->setIcon(KIcon("go-down"));
   connect(ui->groupingOrderUp, SIGNAL(pressed()), SLOT(moveGroupingOrderUp()));
   connect(ui->groupingOrderDown, SIGNAL(pressed()), SLOT(moveGroupingOrderDown()));
 
@@ -67,8 +67,8 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
 
   // Grouping
   ui->grouping->setChecked(m_model->isGroupingEnabled());
-  ui->groupingUp->setIcon(KIcon("up"));
-  ui->groupingDown->setIcon(KIcon("down"));
+  ui->groupingUp->setIcon(KIcon("go-up"));
+  ui->groupingDown->setIcon(KIcon("go-down"));
 
   m_groupingScopeType = ui->groupingMethods->topLevelItem(0);
   m_groupingScopeType->setCheckState(0, (m_model->groupingMethod() & KateCompletionModel::ScopeType) ? Qt::Checked : Qt::Unchecked);
@@ -93,8 +93,8 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
 
   // Column merging
   ui->columnMerging->setChecked(m_model->isColumnMergingEnabled());
-  ui->columnUp->setIcon(KIcon("up"));
-  ui->columnDown->setIcon(KIcon("down"));
+  ui->columnUp->setIcon(KIcon("go-up"));
+  ui->columnDown->setIcon(KIcon("go-down"));
   connect(ui->columnUp, SIGNAL(pressed()), SLOT(moveColumnUp()));
   connect(ui->columnDown, SIGNAL(pressed()), SLOT(moveColumnDown()));
 

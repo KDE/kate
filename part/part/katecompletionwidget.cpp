@@ -71,7 +71,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_sortText = new QLabel(i18n("Sort: None"), m_statusBar);
 
   m_filterButton = new QToolButton(m_statusBar);
-  m_filterButton->setIcon(KIcon("filter"));
+  m_filterButton->setIcon(KIcon("search-filter"));
   m_filterButton->setCheckable(true);
   connect(m_filterButton, SIGNAL(toggled(bool)), m_presentationModel, SLOT(setFilteringEnabled(bool)));
 

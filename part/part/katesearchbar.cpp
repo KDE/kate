@@ -101,14 +101,14 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     // first line, search field + next/prev
     QToolButton *nextButton = new QToolButton();
     nextButton->setAutoRaise(true);
-    nextButton->setIcon(SmallIcon("next"));
+    nextButton->setIcon(SmallIcon("find-next"));
     nextButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     nextButton->setText(i18n("Next"));
     connect(nextButton, SIGNAL(clicked()), this, SLOT(findNext()));
 
     QToolButton *prevButton = new QToolButton();
     prevButton->setAutoRaise(true);
-    prevButton->setIcon(SmallIcon("previous"));
+    prevButton->setIcon(SmallIcon("find-previous"));
     prevButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     prevButton->setText(i18n("Previous"));
     connect(prevButton, SIGNAL(clicked()), this, SLOT(findPrevious()));

@@ -411,22 +411,22 @@ KIcon KateGlobal::configPageIcon (int number) const
   switch( number )
   {
     case 0:
-      return KIcon("view_text");
+      return KIcon("fileview-text");
 
     case 1:
       return KIcon("colorize");
 
     case 2:
-        return KIcon("frame_edit");
+        return KIcon("frame-edit");
 
     case 3:
       return KIcon("edit");
 
     case 4:
-      return KIcon("rightjust");
+      return KIcon("format-justify-right");
 
     case 5:
-      return KIcon("filesave");
+      return KIcon("document-save");
 
     case 6:
       return KIcon("source");
@@ -435,10 +435,10 @@ KIcon KateGlobal::configPageIcon (int number) const
       return KIcon("edit");
 
     case 8:
-      return KIcon("key_enter");
+      return KIcon("browser-go");
 
     case 9:
-      return KIcon("connect_established");
+      return KIcon("connection-established");
 
     case 10:
       return KIcon("edit");

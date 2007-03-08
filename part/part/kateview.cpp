@@ -252,7 +252,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard."));
 
   m_copyHTML = a = ac->addAction("edit_copy_html");
-  m_copyHTML->setIcon(KIcon("editcopy"));
+  m_copyHTML->setIcon(KIcon("edit-copy"));
   m_copyHTML->setText(i18n("Copy as &HTML"));
   connect(a, SIGNAL(triggered(bool)), SLOT(copyHTML()));
   a->setWhatsThis(i18n( "Use this command to copy the currently selected text as HTML to the system clipboard."));
@@ -277,7 +277,7 @@ void KateView::setupActions()
 
     // setup Tools menu
     a = ac->addAction("tools_indent");
-    a->setIcon(KIcon("indent"));
+    a->setIcon(KIcon("format-indent-more"));
     a->setText(i18n("&Indent"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_I));
     a->setWhatsThis(i18n("Use this to indent a selected block of text.<br><br>"
@@ -285,7 +285,7 @@ void KateView::setupActions()
     connect(a, SIGNAL(triggered(bool)), SLOT(indent()));
 
     a = ac->addAction("tools_unindent");
-    a->setIcon(KIcon("unindent"));
+    a->setIcon(KIcon("format-indent-less"));
     a->setText(i18n("&Unindent"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_I));
     a->setWhatsThis(i18n("Use this to unindent a selected block of text."));
@@ -366,7 +366,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Print the current document."));
 
   a = ac->addAction( "file_reload" );
-  a->setIcon(KIcon("reload"));
+  a->setIcon(KIcon("view-refresh"));
   a->setText(i18n("Reloa&d"));
   a->setShortcuts(KStandardShortcut::reload());
   a->setWhatsThis(i18n("Reload the current document from disk."));
@@ -414,13 +414,13 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("If you have selected something within the current document, this will no longer be selected."));
 
   a = ac->addAction("incFontSizes");
-  a->setIcon(KIcon("viewmag+"));
+  a->setIcon(KIcon("zoom-in"));
   a->setText(i18n("Enlarge Font"));
   a->setWhatsThis(i18n("This increases the display font size."));
   connect(a, SIGNAL(triggered(bool)), m_viewInternal, SLOT(slotIncFontSizes()));
 
   a = ac->addAction("decFontSizes");
-  a->setIcon(KIcon("viewmag-"));
+  a->setIcon(KIcon("zoom-out"));
   a->setText(i18n("Shrink Font"));
   a->setWhatsThis(i18n("This decreases the display font size."));
   connect(a, SIGNAL(triggered(bool)), m_viewInternal, SLOT(slotDecFontSizes()));

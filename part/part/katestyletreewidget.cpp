@@ -131,10 +131,10 @@ KateStyleTreeWidget::KateStyleTreeWidget( QWidget *parent, bool showUseDefaults 
   headers << i18n("Context") << QString() << QString() << QString() << QString() << i18n("Normal") << i18n("Selected") << i18n("Background") << i18n("Background Selected") << i18n("Use Default Style");
   setHeaderLabels(headers);
 
-  headerItem()->setIcon(1, KIcon("text_bold"));
-  headerItem()->setIcon(2, KIcon("text_italic"));
-  headerItem()->setIcon(3, KIcon("text_under"));
-  headerItem()->setIcon(4, KIcon("text_strike"));
+  headerItem()->setIcon(1, KIcon("format-text-bold"));
+  headerItem()->setIcon(2, KIcon("format-text-italic"));
+  headerItem()->setIcon(3, KIcon("format-text-underline"));
+  headerItem()->setIcon(4, KIcon("format-text-strikethrough"));
 
   // grap the bg color, selected color and default font
   normalcol = KGlobalSettings::textColor();

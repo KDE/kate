@@ -278,28 +278,30 @@ void KateViewSpaceContainer::activateView ( KTextEditor::View *view )
 
   if (!m_activeStates[view])
   {
-    if ( !activeViewSpace()->showView (view) )
+    if ( !activeViewSpace()->showView(view) )
     {
       // since it wasn't found, give'em a new one
-      createView ( (KTextEditor::Document *)view->document() );
+      createView( view->document() );
       return;
     }
 
     setActiveView (view);
 
-    mainWindow()->toolBar ()->setUpdatesEnabled (false);
+    mainWindow()->setUpdatesEnabled( false );
+    mainWindow()->toolBar()->hide();
 
     if (m_viewManager->guiMergedView)
-      mainWindow()->guiFactory()->removeClient (m_viewManager->guiMergedView );
+      mainWindow()->guiFactory()->removeClient( m_viewManager->guiMergedView );
 
     m_viewManager->guiMergedView = view;
 
     if (!m_blockViewCreationAndActivation)
-      mainWindow()->guiFactory ()->addClient( view );
+      mainWindow()->guiFactory()->addClient( view );
 
-    mainWindow()->toolBar ()->setUpdatesEnabled (true);
+    mainWindow()->toolBar()->show();
+    mainWindow()->setUpdatesEnabled( true );
 
-    emit viewChanged ();
+    emit viewChanged();
   }
 }
 

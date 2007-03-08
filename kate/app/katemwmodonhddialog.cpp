@@ -64,9 +64,9 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
 {
   setCaption( i18n("Documents Modified on Disk") );
   setButtons( User1 | User2 | User3 );
-  setButtonGuiItem( User1, KGuiItem (i18n("&Ignore"), "fileclose") );
+  setButtonGuiItem( User1, KGuiItem (i18n("&Ignore"), "window-close") );
   setButtonGuiItem( User2, KStandardGuiItem::overwrite() );
-  setButtonGuiItem( User3, KGuiItem (i18n("&Reload"), "reload") );
+  setButtonGuiItem( User3, KGuiItem (i18n("&Reload"), "view-refresh") );
 
   setObjectName( name );
   setModal( true );
@@ -90,7 +90,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
 
   // dialog text
   QLabel *icon = new QLabel( lo1 );
-  icon->setPixmap( DesktopIcon("messagebox_warning") );
+  icon->setPixmap( DesktopIcon("dialog-warning") );
 
   QLabel *t = new QLabel( i18n(
                             "<qt>The documents listed below has changed on disk.<p>Select one "

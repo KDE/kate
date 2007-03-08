@@ -59,7 +59,7 @@ KateMailDialog::KateMailDialog( QWidget *parent, Kate::MainWindow  *mainwin )
   setObjectName( "kate mail dialog" );
   setModal( true );
 
-  setButtonGuiItem( KDialog::Ok, KGuiItem( i18n("&Mail..."), "mail_send") );
+  setButtonGuiItem( KDialog::Ok, KGuiItem( i18n("&Mail..."), "mail-send") );
 
   mw = new KVBox(this);
   setMainWidget(mw);

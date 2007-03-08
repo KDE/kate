@@ -260,7 +260,7 @@ void KateMainWindow::setupMainWindow ()
   //filelist->readConfig(KateApp::self()->config(), "Filelist");
 
 #if 0
-  KateMDI::ToolView *t = createToolView("kate_fileselector", KMultiTabBar::Left, SmallIcon("fileopen"), i18n("Filesystem Browser"));
+  KateMDI::ToolView *t = createToolView("kate_fileselector", KMultiTabBar::Left, SmallIcon("document-open"), i18n("Filesystem Browser"));
   fileselector = new KateFileSelector( this, m_viewManager, t, "operator");
   connect(fileselector->dirOperator(), SIGNAL(fileSelected(const KFileItem*)), this, SLOT(fileSelected(const KFileItem*)));
 #endif
@@ -301,7 +301,7 @@ void KateMainWindow::setupActions()
   ->setWhatsThis(i18n("Close this window"));
 
   a = actionCollection()->addAction( "view_new_view" );
-  a->setIcon( KIcon("window_new") );
+  a->setIcon( KIcon("window-new") );
   a->setText( i18n("&New Window") );
   connect( a, SIGNAL( triggered() ), this, SLOT( newWindow() ) );
   a->setWhatsThis(i18n("Create a new Kate view (a new window with the same document list)."));
@@ -351,19 +351,19 @@ void KateMainWindow::setupActions()
 
   // session actions
   a = actionCollection()->addAction( "sessions_new" );
-  a->setIcon( KIcon("filenew") );
+  a->setIcon( KIcon("document-new") );
   a->setText( i18nc("Menu entry Session->New", "&New") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionNew() ) );
   a = actionCollection()->addAction( "sessions_open" );
-  a->setIcon( KIcon("fileopen") );
+  a->setIcon( KIcon("document-open") );
   a->setText( i18n("&Open...") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionOpen() ) );
   a = actionCollection()->addAction( "sessions_save" );
-  a->setIcon( KIcon("filesave") );
+  a->setIcon( KIcon("document-save") );
   a->setText( i18n("&Save") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionSave() ) );
   a = actionCollection()->addAction( "sessions_save_as" );
-  a->setIcon( KIcon("filesaveas") );
+  a->setIcon( KIcon("document-save-as") );
   a->setText( i18n("Save &As...") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionSaveAs() ) );
   a = actionCollection()->addAction( "sessions_manage" );

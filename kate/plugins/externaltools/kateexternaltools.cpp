@@ -634,11 +634,11 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget( QWidget *parent, c
   lo->addWidget( b, 5, 3 );
   connect( b, SIGNAL(clicked()), this, SLOT(slotInsertSeparator()) );
 
-  btnMoveUp = new QPushButton( KIcon("up"), "", this );
+  btnMoveUp = new QPushButton( KIcon("go-up"), "", this );
   lo->addWidget( btnMoveUp, 2, 4 );
   connect( btnMoveUp, SIGNAL(clicked()), this, SLOT(slotMoveUp()) );
 
-  btnMoveDwn = new QPushButton( KIcon("down"), "", this );
+  btnMoveDwn = new QPushButton( KIcon("go-down"), "", this );
   lo->addWidget( btnMoveDwn, 3, 4 );
   connect( btnMoveDwn, SIGNAL(clicked()), this, SLOT(slotMoveDown()) );
 

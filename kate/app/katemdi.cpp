@@ -449,22 +449,22 @@ namespace KateMDI
 
           p->addTitle(SmallIcon("view_remove"), i18n("Behavior"));
 
-          p->addAction(w->persistent ? KIcon("window_nofullscreen") : KIcon("window_fullscreen"),
+          p->addAction(w->persistent ? KIcon("view-restore") : KIcon("view-fullscreen"),
                        w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent") ) -> setData(10);
 
           p->addTitle(SmallIcon("move"), i18n("Move To"));
 
           if (position() != 0)
-            p->addAction(KIcon("back"), i18n("Left Sidebar"))->setData(0);
+            p->addAction(KIcon("go-previous"), i18n("Left Sidebar"))->setData(0);
 
           if (position() != 1)
-            p->addAction(KIcon("forward"), i18n("Right Sidebar"))->setData(1);
+            p->addAction(KIcon("go-next"), i18n("Right Sidebar"))->setData(1);
 
           if (position() != 2)
-            p->addAction(KIcon("up"), i18n("Top Sidebar"))->setData(2);
+            p->addAction(KIcon("go-up"), i18n("Top Sidebar"))->setData(2);
 
           if (position() != 3)
-            p->addAction(KIcon("down"), i18n("Bottom Sidebar"))->setData(3);
+            p->addAction(KIcon("go-down"), i18n("Bottom Sidebar"))->setData(3);
 
           connect(p, SIGNAL(triggered(QAction *)),
                   this, SLOT(buttonPopupActivate(QAction *)));

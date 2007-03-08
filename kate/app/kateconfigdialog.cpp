@@ -87,7 +87,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   QFrame* frGeneral = new QFrame();
   KPageWidgetItem *item = addSubPage( applicationItem, frGeneral, i18n("General") );
   item->setHeader( i18n("General Options") );
-  item->setIcon( KIcon( "gohome" ) );
+  item->setIcon( KIcon( "go-home" ) );
 
   QVBoxLayout *lo = new QVBoxLayout( frGeneral );
   lo->setSpacing(KDialog::spacingHint());
@@ -217,7 +217,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   path << i18n("Application") << i18n("File Selector");
 
   KVBox *page = addVBoxPage( path, i18n("File Selector Settings"),
-                             BarIcon("fileopen", K3Icon::SizeSmall) );
+                             BarIcon("document-open", K3Icon::SizeSmall) );
   fileSelConfigPage = new KFSConfigPage( page, "file selector config page",
                                          mainWindow->fileselector );
   connect( fileSelConfigPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
@@ -233,7 +233,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 #endif
   item = addSubPage( applicationItem, page, i18n("Document List") );
   item->setHeader( i18n("Document List Settings") );
-  item->setIcon( KIcon( "view_text" ) );
+  item->setIcon( KIcon( "fileview-text" ) );
 
   page = new KVBox();
   KateConfigPluginPage *configPluginPage = new KateConfigPluginPage(page, this);
@@ -241,7 +241,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   KPageWidgetItem *pluginItem = addSubPage( applicationItem, page, i18n("Plugins") );
   pluginItem->setHeader( i18n("Plugin Manager") );
-  pluginItem->setIcon( KIcon( "connect_established" ) );
+  pluginItem->setIcon( KIcon( "connection-established" ) );
 
   // editor widgets from kwrite/kwdialog
   KPageWidgetItem *editorItem = addPage( new QWidget, i18n("Editor Component") );

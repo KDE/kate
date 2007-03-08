@@ -594,8 +594,8 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   setCaption( i18n ("Session Chooser") );
   setButtons( User1 | User2 | User3 );
   setButtonGuiItem( User1, KStandardGuiItem::quit() );
-  setButtonGuiItem( User2, KGuiItem (i18n ("Open Session"), "fileopen") );
-  setButtonGuiItem( User3, KGuiItem ((templates.count() > 1) ? i18n ("New Session (hold down for template)") : i18n ("New Session"), "filenew") );
+  setButtonGuiItem( User2, KGuiItem (i18n ("Open Session"), "document-open") );
+  setButtonGuiItem( User3, KGuiItem ((templates.count() > 1) ? i18n ("New Session (hold down for template)") : i18n ("New Session"), "document-new") );
 
   setDefaultButton(KDialog::User2);
   setEscapeButton(KDialog::User1);

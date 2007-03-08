@@ -137,7 +137,7 @@ void KatePluginSnippets::addView(Kate::MainWindow *win)
   QWidget *dock = win->createToolView(
               "kate_plugin_snippets",
               Kate::MainWindow::Left,
-              SmallIcon("contents"),
+              SmallIcon("help-contents"),
               i18n("Snippets"));
 
   KatePluginSnippetsView *view = new KatePluginSnippetsView (win,dock);

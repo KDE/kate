@@ -98,12 +98,12 @@ void KateViewManager::setupActions ()
    * tabbing
    */
   a = m_mainWindow->actionCollection()->addAction( "view_new_tab" );
-  a->setIcon( KIcon("tab_new") );
+  a->setIcon( KIcon("tab-new") );
   a->setText( i18n("New Tab") );
   connect(a, SIGNAL(triggered()), this, SLOT(slotNewTab()));
 
   m_closeTab = m_mainWindow->actionCollection()->addAction("view_close_tab");
-  m_closeTab->setIcon( KIcon("tab_remove") );
+  m_closeTab->setIcon( KIcon("tab-remove") );
   m_closeTab->setText( i18n("Close Current Tab") );
   connect(m_closeTab, SIGNAL(triggered()), this, SLOT(slotCloseTab()));
 
@@ -164,7 +164,7 @@ void KateViewManager::setupActions ()
   QToolButton *b = new QToolButton( m_mainWindow->tabWidget() );
   connect( b, SIGNAL( clicked() ),
            this, SLOT( slotNewTab() ) );
-  b->setIcon( SmallIcon( "tab_new" ) );
+  b->setIcon( SmallIcon( "tab-new" ) );
   b->adjustSize();
   b->setToolTip( i18n("Open a new tab"));
   m_mainWindow->tabWidget()->setCornerWidget( b, Qt::TopLeftCorner );
@@ -172,7 +172,7 @@ void KateViewManager::setupActions ()
   b = m_closeTabButton = new QToolButton( m_mainWindow->tabWidget() );
   connect( b, SIGNAL( clicked() ),
            this, SLOT( slotCloseTab() ) );
-  b->setIcon( SmallIcon( "tab_remove" ) );
+  b->setIcon( SmallIcon( "tab-remove" ) );
   b->adjustSize();
   b->setToolTip( i18n("Close the current tab"));
   m_mainWindow->tabWidget()->setCornerWidget( b, Qt::TopRightCorner );

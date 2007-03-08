@@ -90,7 +90,7 @@ KateFileSelectorPluginView::KateFileSelectorPluginView (Kate::MainWindow *mainWi
     : Kate::PluginView (mainWindow)
 {
   // init console
-  QWidget *toolview = mainWindow->createToolView ("kate_private_plugin_katefileselectorplugin", Kate::MainWindow::Left, SmallIcon("fileopen"), i18n("Filesystem Browser"));
+  QWidget *toolview = mainWindow->createToolView ("kate_private_plugin_katefileselectorplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Filesystem Browser"));
   m_fileSelector = new KateFileSelector(mainWindow, toolview);
 }
 
@@ -135,7 +135,7 @@ QString KateFileSelectorPlugin::configPageFullName (uint number) const
 KIcon KateFileSelectorPlugin::configPageIcon (uint number) const
 {
   if (number != 0) return KIcon();
-  return KIcon("fileopen");
+  return KIcon("document-open");
 }
 
 //BEGIN Toolbar
@@ -227,7 +227,7 @@ void KateFileSelectorToolBarParent::resizeEvent ( QResizeEvent * )
   KHBox* filterBox = new KHBox(this);
 
   btnFilter = new QToolButton( filterBox );
-  btnFilter->setIcon( KIcon("filter" ) );
+  btnFilter->setIcon( KIcon("search-filter" ) );
   btnFilter->setCheckable( true );
   filter = new KHistoryCombo( true, filterBox);
   filter->setSizePolicy( QSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed ));

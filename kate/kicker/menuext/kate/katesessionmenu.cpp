@@ -94,7 +94,7 @@ void KateSessionMenu::initialize()
 
   // means for updating, to let the user manually update if he/she added new sessions.
   addSeparator();
-  insertItem( KIcon("reload"), i18n("Reload Session List"), this, SLOT(reinitialize()) );
+  insertItem( KIcon("view-refresh"), i18n("Reload Session List"), this, SLOT(reinitialize()) );
 }
 
 void KateSessionMenu::slotExec( int id )

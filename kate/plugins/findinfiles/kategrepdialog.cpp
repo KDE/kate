@@ -49,7 +49,7 @@ KateGrepDialog::KateGrepDialog(QWidget *parent, Kate::MainWindow *mw)
   cmbPattern->setFocus();
 
   // set sync icon
-  btnSync->setIcon(QIcon(SmallIcon("reload")));
+  btnSync->setIcon(QIcon(SmallIcon("view-refresh")));
 
   // get url-requester's combo box and sanely initialize
   KComboBox* cmbUrl = cmbDir->comboBox();

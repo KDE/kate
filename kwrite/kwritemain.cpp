@@ -177,7 +177,7 @@ void KWrite::setupActions()
   m_recentFiles->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
   QAction *a = actionCollection()->addAction( "view_new_view" );
-  a->setIcon( KIcon("window_new") );
+  a->setIcon( KIcon("window-new") );
   a->setText( i18n("&New Window") );
   connect( a, SIGNAL(triggered()), this, SLOT(newView()) );
   a->setWhatsThis(i18n("Create another view containing the current document"));

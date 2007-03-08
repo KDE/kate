@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui>
+<kpartplugin name="katequickdocumentswitcher" library="libkatequickdocumentswitcherplugin" version="1">
+<MenuBar>
+  <Menu name="documents"><text>&amp;Document</text>
+    <Action name="documents_quickswitch"/>
+  </Menu>
+</MenuBar>
+</kpartplugin>

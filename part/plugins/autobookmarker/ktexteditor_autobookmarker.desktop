@@ -54,6 +54,7 @@ Name[x-test]=xxKTextEditor Autobookmarkerxx
 Comment=Set bookmarks on lines matching a pattern when documents are loaded
 Comment[af]=Stel boekmerke op lyne wat met 'n patroon ooreenstem wanneer dokumente gelaai word.
 Comment[be]=Стварае закладкі для радкоў, якія адпавядаюць шаблону
+Comment[bg]=Установяване на отметки на редовете, които отговарят на зададен шаблон по време на зареждане на файла
 Comment[ca]=Estableix punts a les línies coincidents amb un patró quan es carreguen documents
 Comment[cs]=Nastavení záložek do řádek vyhovujících vzoru po nahrání dokumentu
 Comment[da]=Sæt bogmærker på linjer der matcher et mønster når dokumenter er indlæst

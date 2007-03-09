@@ -58,6 +58,7 @@ Name[zh_TW]=KTextEditor 單字補完外掛程式
 Comment=Directional or popup-based completion from words in the document
 Comment[af]=Direksionele of opspring gebaseerde woord voltooiïng van woorde in die dokument
 Comment[be]=Простае заканчэнне словаў ці выплыўнае вакно з варыянтамі заканчэння
+Comment[bg]=Автоматично завършване на думи, базирано на използваните вече думи в документа
 Comment[ca]=Compleció de paraules del document dirigida o basada en emergents
 Comment[cs]=Přímé nebo vyskakovací doplňování slov v dokumentu
 Comment[da]=Retnings- eller popop-baseret fuldstændiggørelse ud fra ord i dokumentet

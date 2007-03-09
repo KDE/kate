@@ -1369,7 +1369,7 @@ KateViewBarWidget::KateViewBarWidget (KateViewBar *viewBar)
   // hide button
   QToolButton *hideButton = new QToolButton(this);
   hideButton->setAutoRaise(true);
-  hideButton->setIcon(QIcon(SmallIcon("cancel")));
+  hideButton->setIcon(KIcon("process-stop"));
   connect(hideButton, SIGNAL(clicked()), this, SLOT(hideBar()));
   layout->addWidget(hideButton);
   layout->setAlignment( hideButton, Qt::AlignLeft|Qt::AlignTop );

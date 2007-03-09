@@ -209,6 +209,12 @@ KateView::~KateView()
   delete m_selection;
   m_selection = 0L;
 
+  foreach (KTextEditor::SmartRange* range, m_externalHighlights)
+    removeExternalHighlight(range);
+
+  foreach (KTextEditor::SmartRange* range, m_internalHighlights)
+    removeInternalHighlight(range);
+
   delete m_viewInternal;
 
   delete m_renderer;

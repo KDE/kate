@@ -2027,10 +2027,10 @@ void KateDocument::readSessionConfig(const KConfigGroup &kconfig)
 
 void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
 {
-  if ( m_url.isLocalFile() && !KGlobal::dirs()->relativeLocation("tmp", m_url.path()).startsWith("/"))
+  if ( this->url().isLocalFile() && !KGlobal::dirs()->relativeLocation("tmp", this->url().path()).startsWith("/"))
        return;
   // save url
-  kconfig.writeEntry("URL", m_url.prettyUrl() );
+  kconfig.writeEntry("URL", this->url().prettyUrl() );
 
   // save encoding
   kconfig.writeEntry("Encoding",encoding());
@@ -2234,10 +2234,10 @@ QString KateDocument::mimeType()
   KMimeType::Ptr result = KMimeType::defaultMimeTypePtr();
 
   // if the document has a URL, try KMimeType::findByURL
-  if ( ! m_url.isEmpty() )
-    result = KMimeType::findByUrl( m_url );
+  if ( ! this->url().isEmpty() )
+    result = KMimeType::findByUrl( this->url() );
 
-  else if ( m_url.isEmpty() || ! m_url.isLocalFile() )
+  else if ( this->url().isEmpty() || ! this->url().isLocalFile() )
     result = mimeTypeForContent();
 
   return result->name();
@@ -2288,19 +2288,19 @@ bool KateDocument::openUrl( const KUrl &url )
     return false;
 
   // set my url
-  m_url = url;
+  setUrl(url);
 
-  if ( m_url.isLocalFile() )
+  if ( this->url().isLocalFile() )
   {
     // local mode, just like in kpart
 
-    m_file = m_url.path();
+    setLocalFilePath(this->url().path());
 
     emit started( 0 );
 
     bool ret=openFile();
     if (ret) {
-      emit setWindowCaption( m_url.prettyUrl() );
+      emit setWindowCaption( this->url().prettyUrl() );
       emit completed();
     } else emit canceled(QString());
     return ret;
@@ -2309,12 +2309,12 @@ bool KateDocument::openUrl( const KUrl &url )
   {
     // remote mode
 
-    m_bTemp = true;
+    setLocalFileTemporary(true);
 
     m_tempFile = new KTemporaryFile ();
     m_tempFile->setAutoRemove(false);
     m_tempFile->open();
-    m_file = m_tempFile->fileName();
+    setLocalFilePath(m_tempFile->fileName());
 
     m_job = KIO::get ( url, false, isProgressInfoEnabled() );
 
@@ -2364,7 +2364,7 @@ void KateDocument::slotFinishedKate ( KJob * job )
   else
   {
       if ( openFile( dynamic_cast<KIO::Job*>( job )) ) {
-        emit setWindowCaption( m_url.prettyUrl() );
+        emit setWindowCaption( this->url().prettyUrl() );
         emit completed();
       } else emit canceled(QString());
   }
@@ -2417,7 +2417,7 @@ bool KateDocument::openFile(KIO::Job * job)
   emit KTextEditor::Document::textRemoved(this, documentRange());
   history()->doEdit( new KateEditInfo(this, Kate::CloseFileEdit, documentRange(), QStringList(), KTextEditor::Range(0,0,0,0), QStringList()) );
 
-  bool success = m_buffer->openFile (m_file);
+  bool success = m_buffer->openFile (localFilePath());
 
   //
   // yeah, success
@@ -2427,7 +2427,7 @@ bool KateDocument::openFile(KIO::Job * job)
     emit KTextEditor::Document::textInserted(this, documentRange());
     history()->doEdit( new KateEditInfo(this, Kate::OpenFileEdit, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
 
-    /*if (highlight() && !m_url.isLocalFile()) {
+    /*if (highlight() && !this->url().isLocalFile()) {
       // The buffer's highlighting gets nuked by KateBuffer::clear()
       m_buffer->setHighlight(m_highlight);
   }*/
@@ -2499,12 +2499,12 @@ bool KateDocument::openFile(KIO::Job * job)
   if (!suppressOpeningErrorDialogs())
   {
     if (!success)
-      KMessageBox::error (widget(), i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.", m_url.url()));
+      KMessageBox::error (widget(), i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.", this->url().url()));
   }
 
   if (!success) {
     setOpeningError(true);
-    setOpeningErrorMessage(i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.",m_url.url()));
+    setOpeningErrorMessage(i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.",this->url().url()));
   }
 
   // warn -> opened binary file!!!!!!!
@@ -2515,12 +2515,12 @@ bool KateDocument::openFile(KIO::Job * job)
 
     if(!suppressOpeningErrorDialogs())
       KMessageBox::information (widget()
-        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", m_url.url())
+        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", this->url().url())
         , i18n ("Binary File Opened")
         , "Binary File Opened Warning");
 
     setOpeningError(true);
-    setOpeningErrorMessage(i18n ("The file %1 is a binary, saving it will result in a corrupt file.", m_url.url()));
+    setOpeningErrorMessage(i18n ("The file %1 is a binary, saving it will result in a corrupt file.", this->url().url()));
   }
 
   // warn: opened broken utf-8 file...
@@ -2533,13 +2533,13 @@ bool KateDocument::openFile(KIO::Job * job)
       KMessageBox::information (widget()
         , i18n ("The file %1 was opened with UTF-8 encoding but contained invalid characters."
                 " It is set to read-only mode, as saving might destroy it's content."
-                " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", m_url.url())
+                " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().url())
         , i18n ("Broken UTF-8 File Opened")
         , "Broken UTF-8 File Opened Warning");
     setOpeningError(true);
     setOpeningErrorMessage(i18n ("The file %1 was opened with UTF-8 encoding but contained invalid characters."
               " It is set to read-only mode, as saving might destroy it's content."
-              " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", m_url.url()));
+              " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().url()));
   }
 
   //
@@ -2623,7 +2623,7 @@ bool KateDocument::saveFile()
   // warn -> try to save binary file!!!!!!!
   //
   if (m_buffer->binary() && (KMessageBox::warningContinueCancel (widget()
-        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", m_url.url())
+        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", this->url().url())
         , i18n ("Trying to Save Binary File")
         , KGuiItem(i18n("Save Nevertheless")), "Binary File Save Warning") != KMessageBox::Continue))
     return false;
@@ -2675,7 +2675,7 @@ bool KateDocument::saveFile()
   //
   // try to save
   //
-  bool success = m_buffer->saveFile (m_file);
+  bool success = m_buffer->saveFile (localFilePath());
 
   // update the md5 digest
   createDigest( m_digest );
@@ -2715,7 +2715,7 @@ bool KateDocument::saveFile()
   // display errors
   //
   if (!success)
-    KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", m_url.url()));
+    KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", this->url().url()));
 
   //
   // return success
@@ -2746,9 +2746,9 @@ void KateDocument::readDirConfig ()
 {
   int depth = config()->searchDirConfigDepth ();
 
-  if (m_url.isLocalFile() && (depth > -1))
+  if (this->url().isLocalFile() && (depth > -1))
   {
-    QString currentDir = QFileInfo (m_file).absolutePath();
+    QString currentDir = QFileInfo (localFilePath()).absolutePath();
 
     // only search as deep as specified or not at all ;)
     while (depth > -1)
@@ -2791,17 +2791,17 @@ void KateDocument::readDirConfig ()
 void KateDocument::activateDirWatch ()
 {
   // same file as we are monitoring, return
-  if (m_file == m_dirWatchFile)
+  if (localFilePath() == m_dirWatchFile)
     return;
 
   // remove the old watched file
   deactivateDirWatch ();
 
   // add new file if needed
-  if (m_url.isLocalFile() && !m_file.isEmpty())
+  if (this->url().isLocalFile() && !localFilePath().isEmpty())
   {
-    KateGlobal::self()->dirWatch ()->addFile (m_file);
-    m_dirWatchFile = m_file;
+    KateGlobal::self()->dirWatch ()->addFile (localFilePath());
+    m_dirWatchFile = localFilePath();
   }
 }
 
@@ -2848,8 +2848,8 @@ bool KateDocument::closeUrl()
   //
   // empty url + fileName
   //
-  m_url = KUrl ();
-  m_file.clear();
+  setUrl(KUrl());
+  setLocalFilePath(QString());
 
   // we are not modified
   if (m_modOnHd)
@@ -4907,7 +4907,7 @@ void KateDocument::updateFileType (int newType, bool user)
 void KateDocument::slotQueryClose_save(bool *handled, bool* abortClosing) {
       *handled=true;
       *abortClosing=true;
-      if (m_url.isEmpty())
+      if (this->url().isEmpty())
       {
         KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
                 QString(),QString(),0,i18n("Save File"));

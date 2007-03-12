@@ -1,6 +1,8 @@
 [Desktop Entry]
 Name=Kate Session Menu
+Name[ja]=Kate セッションメニュー
 Comment=Allows you to open Kate with a specified session, or create a new one
+Comment[ja]=セッションを指定して Kate を起動、または新しいセッションを作成します
 Icon=kate
 X-KDE-Library=kickermenu_kate
 X-KDE-AuthorizeAction=shell_access

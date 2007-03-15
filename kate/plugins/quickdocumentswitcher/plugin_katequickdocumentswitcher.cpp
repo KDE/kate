@@ -179,3 +179,4 @@ PluginViewKateQuickDocumentSwitcherDialog::~PluginViewKateQuickDocumentSwitcherD
 
 
 //END: Dialog
+

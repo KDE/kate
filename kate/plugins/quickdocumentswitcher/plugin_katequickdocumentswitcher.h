@@ -68,3 +68,4 @@ class PluginViewKateQuickDocumentSwitcherDialog: public KDialog {
 
 
 #endif // _KateQuickDocumentSwitcher_h_
+

@@ -4,4 +4,6 @@ ServiceTypes=Kate/Plugin
 X-KDE-Library=katequickdocumentswitcherplugin
 X-Kate-Version=2.8
 Name=Kate Quick Document switcher
+Name[x-test]=xxKate Quick Document switcherxx
 Comment=Quickly switch to another already opened document
+Comment[x-test]=xxQuickly switch to another already opened documentxx

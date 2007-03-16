@@ -163,17 +163,21 @@ QList<KateEditInfo*> KateEditHistory::editsBetweenRevisions(int from, int to) co
     Q_ASSERT(m_revisions.contains(to));
   }
 
-  Q_ASSERT(m_revisions.contains(from));
+  int fromIndex = 0;
+  if (from != 0) {
+    Q_ASSERT(m_revisions.contains(from));
+    KateEditInfo* fromEdit = m_revisions[from];
+    Q_ASSERT(fromEdit);
+    fromIndex = buffer()->edits().indexOf(fromEdit);
+  }
 
-  KateEditInfo* fromEdit = m_revisions[from];
   KateEditInfo* toEdit = to == -1 ? buffer()->edits().last() : m_revisions[to];
-  Q_ASSERT(fromEdit && toEdit);
+  Q_ASSERT(toEdit);
 
-  int fromIndex = buffer()->edits().indexOf(fromEdit);
-  int toIndex = buffer()->edits().indexOf(fromEdit);
+  int toIndex = buffer()->edits().indexOf(toEdit);
   Q_ASSERT(fromIndex != -1);
   Q_ASSERT(toIndex != -1);
-  Q_ASSERT(fromIndex > toIndex);
+  Q_ASSERT(fromIndex < toIndex);
 
   for (int i = fromIndex; i <= toIndex; ++i)
     ret.append(buffer()->edits().at(i));

@@ -165,9 +165,10 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
   {
     if( it.value()->type & KTextEditor::MarkInterface::markType01 )
     {
-      QString bText = KStringHandler::rEmSqueeze
+      QString bText = menu.fontMetrics().elidedText
                       ( m_view->doc()->line( it.value()->line ),
-                        menu.fontMetrics(), 32 );
+                        Qt::ElideRight,
+                        menu.fontMetrics().maxWidth() * 32 );
       bText.replace(re, "&&"); // kill undesired accellerators!
       bText.replace('\t', ' '); // kill tabs, as they are interpreted as shortcuts
 

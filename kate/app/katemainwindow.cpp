@@ -283,7 +283,7 @@ void KateMainWindow::setupActions()
   fileOpenRecent->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
   a = actionCollection()->addAction( "file_save_all" );
-  a->setIcon( KIcon("save_all") );
+  a->setIcon( KIcon("save-all") );
   a->setText( i18n("Save A&ll") );
   a->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_L) );
   connect( a, SIGNAL( triggered() ), KateDocManager::self(), SLOT( saveAll() ) );
@@ -367,7 +367,7 @@ void KateMainWindow::setupActions()
   a->setText( i18n("Save &As...") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionSaveAs() ) );
   a = actionCollection()->addAction( "sessions_manage" );
-  a->setIcon( KIcon("view_choose") );
+  a->setIcon( KIcon("view-choose") );
   a->setText( i18n("&Manage...") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionManage() ) );
 

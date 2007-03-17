@@ -414,16 +414,16 @@ KIcon KateGlobal::configPageIcon (int number) const
       return KIcon("fileview-text");
 
     case 1:
-      return KIcon("colorize");
+      return KIcon("color-line");
 
     case 2:
         return KIcon("frame-edit");
 
     case 3:
-      return KIcon("edit");
+      return KIcon("text");
 
     case 4:
-      return KIcon("format-justify-right");
+      return KIcon("format-indent-more");
 
     case 5:
       return KIcon("document-save");

@@ -48,10 +48,10 @@ static void setDocFlag( KateDocumentConfig::ConfigFlags flag, bool enable,
 // this returns wheather the string s could be converted to
 // a bool value, one of on|off|1|0|true|false. the argument val is
 // set to the extracted value in case of success
-static bool getBoolArg( QString s, bool *val  )
+static bool getBoolArg( const QString &t, bool *val  )
 {
   bool res( false );
-  s = s.toLower();
+  QString s = t.toLower();
   res = (s == "on" || s == "1" || s == "true");
   if ( res )
   {

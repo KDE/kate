@@ -301,7 +301,7 @@ class KateHlAnyChar : public KateHlItem
 class KateHlRegExpr : public KateHlItem
 {
   public:
-    KateHlRegExpr(int attribute, KateHlContextModification context,signed char regionId,signed char regionId2 ,QString expr, bool insensitive, bool minimal);
+    KateHlRegExpr(int attribute, KateHlContextModification context,signed char regionId,signed char regionId2 ,const QString &expr, bool insensitive, bool minimal);
     ~KateHlRegExpr() { delete Expr; };
 
     virtual int checkHgl(const QString& text, int offset, int len);
@@ -895,17 +895,14 @@ int KateHlAnyChar::checkHgl(const QString& text, int offset, int)
 //END
 
 //BEGIN KateHlRegExpr
-KateHlRegExpr::KateHlRegExpr( int attribute, KateHlContextModification context, signed char regionId,signed char regionId2, QString regexp, bool insensitive, bool minimal)
+KateHlRegExpr::KateHlRegExpr( int attribute, KateHlContextModification context, signed char regionId,signed char regionId2, const QString &regexp, bool insensitive, bool minimal)
   : KateHlItem(attribute, context, regionId,regionId2)
   , handlesLinestart (regexp.startsWith("^"))
   , _regexp(regexp)
   , _insensitive(insensitive)
   , _minimal(minimal)
 {
-  if (!handlesLinestart)
-    regexp.prepend("^");
-
-  Expr = new QRegExp(regexp, _insensitive ? Qt::CaseInsensitive : Qt::CaseSensitive );
+  Expr = new QRegExp(handlesLinestart ? regexp : '^' + regexp, _insensitive ? Qt::CaseInsensitive : Qt::CaseSensitive );
   Expr->setMinimal(_minimal);
 }
 
@@ -2853,7 +2850,6 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         // Not supported completely atm and only one level. Subitems.(all have
         // to be matched to at once)
         datasub=KateHlManager::self()->syntax->getSubItems(data);
-        bool tmpbool;
         for (bool tmpbool=KateHlManager::self()->syntax->nextItem(datasub);
              tmpbool;
              tmpbool=KateHlManager::self()->syntax->nextItem(datasub))

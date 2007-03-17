@@ -1186,14 +1186,6 @@ void KateView::switchToCmdLine ()
   m_cmdLine->setFocus ();
 }
 
-#if 0
-void KateView::showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 )
-{
-  m_codeCompletion->showArgHint( arg1, arg2, arg3 );
-}
-
-#endif
-
 KateRenderer *KateView::renderer ()
 {
   return m_renderer;

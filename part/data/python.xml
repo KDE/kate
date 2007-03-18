@@ -2,7 +2,7 @@
 <!DOCTYPE language>
 <!-- Python syntax highlightning v0.9 by Per Wigren -->
 <!-- Python syntax highlighting v1.9 by Michael Bueker (improved keyword differentiation) -->
-<language name="Python" version="1.95" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
+<language name="Python" version="1.96" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -88,7 +88,6 @@
 			<item> open </item>
 			<item> ord </item>
 			<item> pow </item>
-			<item> quit </item>
 			<item> range </item>
 			<item> raw_input </item>
 			<item> reduce </item>
@@ -114,6 +113,11 @@
 			<item> NotImplemented </item>
 			<item> Ellipsis </item>
 		</list>
+		<list name="bindings">
+			<item> CONNECT </item>
+			<item> SIGNAL </item>
+			<item> SLOT </item>
+		</list>
 		<contexts>
 			<context name="Normal" attribute="Normal Text" lineEndContext="#stay">
 				<keyword attribute="Preprocessor" String="prep" context="#stay"/>
@@ -123,6 +127,7 @@
 				<keyword attribute="Flow Control Keyword" String="flow" context="#stay"/>
 				<keyword attribute="Builtin Function" String="builtinfuncs" context="#stay"/>
 				<keyword attribute="Special Variable" String="specialvars" context="#stay"/>
+				<keyword attribute="Extensions" String="bindings" context="#stay"/>
 				<RegExpr attribute="Normal" String="[a-zA-Z_][a-zA-Z_0-9]+" context="#stay"/>
 
 				<RegExpr attribute="Complex" String=" ((([0-9]*\.[0-9]+|[0-9]+\.)|([0-9]+|([0-9]*\.[0-9]+|[0-9]+\.))[eE](\+|-)?[0-9]+)|[0-9]+)[jJ]" context="#stay"/>
@@ -221,13 +226,14 @@
 		</contexts>
 		<itemDatas>
 			<itemData name="Normal Text" defStyleNum="dsNormal"/>
-			<itemData name="Definition Keyword" defStyleNum="dsDefinition"/>
-			<itemData name="Operator" defStyleNum="dsOperator"/>
-			<itemData name="String Substitution" defStyleNum="dsStringSubst"/>
+			<itemData name="Definition Keyword" defStyleNum="dsKeyword"/>
+			<itemData name="Operator" defStyleNum="dsNormal"/>
+			<itemData name="String Substitution" defStyleNum="dsNormal"/>
 			<itemData name="Command Keyword" defStyleNum="dsKeyword"/>
-			<itemData name="Flow Control Keyword" defStyleNum="dsFlow"/>
+			<itemData name="Flow Control Keyword" defStyleNum="dsKeyword"/>
 			<itemData name="Builtin Function" defStyleNum="dsDataType"/>
 			<itemData name="Special Variable" defStyleNum="dsOthers"/>
+			<itemData name="Extensions" defStyleNum="dsOthers"/>
 			<itemData name="Preprocessor" defStyleNum="dsChar"/>
 			<itemData name="Long" defStyleNum="dsOthers"/>
 			<itemData name="Float" defStyleNum="dsFloat"/>

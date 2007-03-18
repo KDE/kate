@@ -28,7 +28,7 @@ class KTextEditor::SmartInterfacePrivate
 {
 public:
   SmartInterfacePrivate()
-    : mutex(/*QMutex::Recursive*/)
+    : mutex(QMutex::Recursive)
     , clearOnDocumentReload(true)
   {}
 

@@ -2455,7 +2455,7 @@ void KateHighlighting::makeContextList()
 
   do
   {
-    kDebug(13010)<<"**************** Outter loop in make ContextList"<<endl;
+    kDebug(13010)<<"**************** Outer loop in make ContextList"<<endl;
     kDebug(13010)<<"**************** Hl List count:"<<embeddedHls.count()<<endl;
     something_changed=false; //assume all "embedded" hls have already been loaded
     for (KateEmbeddedHlInfos::const_iterator it=embeddedHls.begin(); it!=embeddedHls.end();++it)

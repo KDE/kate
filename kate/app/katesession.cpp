@@ -587,15 +587,16 @@ class KateSessionChooserItem : public QTreeWidgetItem
     KateSession::Ptr session;
 };
 
-KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSession, const QList<KateSessionChooserTemplate> &templates)
-    : KDialog (  parent )
+KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSession,
+                                        const QList<KateSessionChooserTemplate> &templates)
+    : KDialog ( parent )
     , m_templates(templates)
 {
   setCaption( i18n ("Session Chooser") );
   setButtons( User1 | User2 | User3 );
   setButtonGuiItem( User1, KStandardGuiItem::quit() );
   setButtonGuiItem( User2, KGuiItem (i18n ("Open Session"), "document-open") );
-  setButtonGuiItem( User3, KGuiItem ((templates.count() > 1) ? i18n ("New Session (hold down for template)") : i18n ("New Session"), "document-new") );
+  setButtonGuiItem( User3, KGuiItem (i18n ("New Session"), "document-new") );
 
   setDefaultButton(KDialog::User2);
   setEscapeButton(KDialog::User1);
@@ -653,9 +654,11 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   connect(this, SIGNAL(user3Clicked()), this, SLOT(slotUser3()));
   enableButton (KDialog::User2, true);
   m_popup = new KateToolTipMenu(this);
+  if (templates.count() > 1)
+    button(KDialog::User3)->setMenu(m_popup);
+
   connect(m_popup, SIGNAL(aboutToShow()), this, SLOT(slotProfilePopup()));
   connect(m_popup, SIGNAL(triggered(QAction *)), this, SLOT(slotTemplateAction(QAction*)));
-  setButtonMenu(KDialog::User3, m_popup, KDialog::DelayedPopup);
 }
 
 KateSessionChooser::~KateSessionChooser ()

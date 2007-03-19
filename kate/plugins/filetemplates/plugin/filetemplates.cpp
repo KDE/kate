@@ -27,7 +27,7 @@
 #include <kactionmenu.h>
 #include <kactioncollection.h>
 #include <kconfig.h>
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <kdirwatch.h>
 #include <kfiledialog.h>
 #include <kglobal.h>
@@ -62,13 +62,13 @@
 #include <qregexp.h>
 #include <qstyle.h>
 #include <ktexteditor/highlightinginterface.h>
-#include <ktexteditor/editinterface.h>
 #include <q3whatsthis.h>
 //Added by qt3to4:
 #include <QTextStream>
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QStyle>
+#include <QApplication>
 #include <khbox.h>
 
 #include <stdlib.h>
@@ -76,41 +76,45 @@
 #include <kdebug.h>
 #include <ktexteditor/templateinterface.h>
 #include <krecentfilesaction.h>
+
+#include <kgenericfactory.h>
+#include <kmenu.h>
 //END Includes
 
 //BEGIN plugin + factory stuff
-class PluginView : public KXMLGUIClient
-{
-  friend class KateFileTemplates;
 
-  public:
-    Kate::MainWindow *win;
-};
-
-extern "C"
-{
-  void* init_katefiletemplates()
-  {
-    KGlobal::locale()->insertCatalog("katefiletemplates");
-    return new KatePluginFactory;
-  }
-}
-
-KatePluginFactory::KatePluginFactory()
-    : m_componentData("kate")
-{
-}
-
-KatePluginFactory::~KatePluginFactory()
-{
-}
-
-QObject* KatePluginFactory::createObject( QObject* parent, const QStringList & )
-{
-  return new KateFileTemplates( parent);
-}
+K_EXPORT_COMPONENT_FACTORY( katefiletemplates,
+                            KGenericFactory<KateFileTemplates>( "katefiletemplates" ) )
 
 //END
+
+//BEGIN PluginViewKateFileTemplates
+PluginViewKateFileTemplates::PluginViewKateFileTemplates(KateFileTemplates *plugin, Kate::MainWindow *mainwindow):
+  Kate::PluginView(mainwindow),KXMLGUIClient(),m_plugin(plugin)
+{
+  QAction *a = actionCollection()->addAction("settings_manage_templates");
+  a->setText(i18n("&Manage Templates..."));
+  connect( a, SIGNAL( triggered(bool) ), plugin, SLOT( slotEditTemplate() ) );
+
+  a=new KActionMenu( i18n("New From &Template"), actionCollection());
+  actionCollection()->addAction("file_new_fromtemplate",a);
+  refreshMenu();
+
+  setComponentData (KComponentData("kate"));
+  setXMLFile("plugins/katefiletemplates/ui.rc");
+  mainwindow->guiFactory()->addClient (this);
+
+}
+
+void PluginViewKateFileTemplates::refreshMenu()
+{
+  m_plugin->refreshMenu( ((KActionMenu*)(actionCollection()->action("file_new_fromtemplate")))->menu());
+}
+
+PluginViewKateFileTemplates::~PluginViewKateFileTemplates()
+{
+}
+//END PluginViewKateFileTemplates
 
 //BEGIN TemplateInfo
 class TemplateInfo
@@ -131,22 +135,23 @@ class TemplateInfo
 //END TemplateInfo
 
 //BEGIN KateFileTemplates
-KateFileTemplates::KateFileTemplates( QObject* parent, const char* name )
-    : Kate::Plugin ( (Kate::Application*)parent, name ),
-      m_actionCollection( new KActionCollection( this, "template_actions", KComponentData("kate") ) )
+KateFileTemplates::KateFileTemplates( QObject* parent, const QStringList &dummy)
+    : Kate::Plugin ( (Kate::Application*)parent)/*,
+      m_actionCollection( new KActionCollection( this, "template_actions", KComponentData("kate") ) )*/
 {
-  // create actions, so that they are shared.
-  // We plug them into each view's menus, and update them centrally, so that
-  // new plugins can automatically become visible in all windows.
-  (void) new KAction ( i18n("Any File..."), 0, this,
-                        SLOT( slotAny() ), m_actionCollection,
-                        "file_template_any" );
-  // recent templates
-  m_acRecentTemplates = new KRecentFilesAction( i18n("&Use Recent"), 0, this,
-                        SLOT(slotOpenTemplate(const KUrl &)),
-                        m_actionCollection,
-                        "file_templates_recent" );
-  m_acRecentTemplates->loadEntries( KGlobal::config(), "Recent Templates" );
+    Q_UNUSED(dummy)
+//   // create actions, so that they are shared.
+//   // We plug them into each view's menus, and update them centrally, so that
+//   // new plugins can automatically become visible in all windows.
+//   (void) new KAction ( i18n("Any File..."), 0, this,
+//                         SLOT( slotAny() ), m_actionCollection,
+//                         "file_template_any" );
+//   // recent templates
+//   m_acRecentTemplates = new KRecentFilesAction( i18n("&Use Recent"), 0, this,
+//                         SLOT(slotOpenTemplate(const KUrl &)),
+//                         m_actionCollection,
+//                         "file_templates_recent" );
+//   m_acRecentTemplates->loadEntries( KGlobal::config(), "Recent Templates" );
 
   // template menu
   m_dw = new KDirWatch( this);
@@ -180,16 +185,16 @@ void KateFileTemplates::updateTemplateDirs(const QString &d)
 
   QStringList templates = KGlobal::dirs()->findAllResources(
       "data","kate/plugins/katefiletemplates/templates/*.katetemplate",
-      false,true);
+      KStandardDirs::NoDuplicates);
 
   m_templates.clear();
 
   QRegExp re( "\\b(\\w+)\\s*=\\s*(.+)(?:\\s+\\w+=|$)" );
   re.setMinimal( true );
 
-  KSharedConfig::Ptr config = KGlobal::config();
+  KConfigGroup cg( KGlobal::config(), "KateFileTemplates" );
   QStringList hidden;
-  config->readListEntry( "Hidden", hidden, ';' );
+  cg.readEntry( "Hidden", hidden, ';' );
 
   for ( QStringList::Iterator it=templates.begin(); it != templates.end(); ++it )
   {
@@ -236,51 +241,22 @@ void KateFileTemplates::updateTemplateDirs(const QString &d)
     }
   }
 
-  // update the menus of all views
-  for (uint z=0; z < m_views.count(); z++)
-  {
-    PluginView *view = m_views.at(z);
-    refreshMenu( view );
-  }
+  emit triggerMenuRefresh();
+
 }
 
 KateFileTemplates::~KateFileTemplates()
 {
-  m_acRecentTemplates->saveEntries( KGlobal::config(), "Recent Templates" );
+//   m_acRecentTemplates->saveEntries( KGlobal::config(), "Recent Templates" );
   delete m_emailstuff;
   delete m_user;
 }
 
-void KateFileTemplates::addView(Kate::MainWindow *win)
+Kate::PluginView *KateFileTemplates::createView (Kate::MainWindow *mainWindow)
 {
-  PluginView *view = new PluginView ();
-
-  (void) new KAction( i18n("&Manage Templates..."), 0,
-      this, SLOT(slotEditTemplate()),
-      view->actionCollection(), "settings_manage_templates" );
-
-  (void)new KActionMenu( i18n("New From &Template"), "make",
-      view->actionCollection(), "file_new_fromtemplate" );
-  refreshMenu( view );
-
-  view->setComponentData (KComponentData("kate"));
-  view->setXMLFile("plugins/katefiletemplates/ui.rc");
-  win->guiFactory()->addClient (view);
-  view->win = win;
-
-  m_views.append (view);
-}
-
-void KateFileTemplates::removeView(Kate::MainWindow *win)
-{
-  for (uint z=0; z < m_views.count(); z++)
-    if (m_views.at(z)->win == win)
-    {
-      PluginView *view = m_views.at(z);
-      m_views.remove (view);
-      win->guiFactory()->removeClient (view);
-      delete view;
-    }
+  PluginViewKateFileTemplates *view=new PluginViewKateFileTemplates(this,mainWindow);
+  connect(this,SIGNAL(triggerMenuRefresh()),view,SLOT(refreshMenu()));
+  return view;
 }
 
 QStringList KateFileTemplates::groups()
@@ -298,35 +274,37 @@ QStringList KateFileTemplates::groups()
   return l;
 }
 
-void KateFileTemplates::refreshMenu( PluginView *v )
+void KateFileTemplates::refreshMenu( KMenu *menu )
 {
-  Q3PopupMenu *m = (Q3PopupMenu*)(((KActionMenu*)(v->actionCollection()->action("file_new_fromtemplate")))->menu());
 
   // clear the menu for templates
-  m->clear();
+  menu->clear();
 
   // restore it
-  m_actionCollection->action( "file_template_any" )->plug( m );
-  m_acRecentTemplates->plug( m );
-  m->insertSeparator();
+//  m_actionCollection->action( "file_template_any" )->plug( m );
+//   m_acRecentTemplates->plug( m );
+  menu->addSeparator();
 
-  Q3Dict<Q3PopupMenu> submenus; // ### QMAP
+  Q3Dict<QMenu> submenus; // ### QMAP
   for ( uint i = 0; i < m_templates.count(); i++ )
   {
     if ( ! submenus[ m_templates.at( i )->group ] )
     {
-      Q3PopupMenu *sm = new Q3PopupMenu();
+      QMenu *sm=menu->addMenu(m_templates.at( i )->group);
       submenus.insert( m_templates.at( i )->group, sm );
-      m->insertItem( m_templates.at( i )->group, sm );
     }
     kDebug()<<"=== ICON: '"<<m_templates.at( i )->icon<<"'"<<endl;
+    QMenu *sm=submenus[m_templates.at(i)->group];
+    QAction *a;
     if ( ! m_templates.at( i )->icon.isEmpty() )
-      submenus[m_templates.at( i )->group]->insertItem(
+      a=sm->addAction(
         KIcon( m_templates.at( i )->icon ),
-        m_templates.at( i )->tmplate, this, SLOT(slotOpenTemplate( int )), 0, i );
+        m_templates.at( i )->tmplate);
     else
-      submenus[m_templates.at( i )->group]->insertItem(
-        m_templates.at( i )->tmplate, this, SLOT(slotOpenTemplate( int )), 0, i );
+      a=sm->addAction(
+        m_templates.at( i )->tmplate);
+    a->setData(i);
+    connect(a,SIGNAL(triggered(bool)),this,SLOT(slotOpenTemplate()));
 
     // add whatsthis containing the description and author
     QString w ( m_templates.at( i )->description );
@@ -339,7 +317,7 @@ void KateFileTemplates::refreshMenu( PluginView *v )
       w.prepend( "<p>" );
 
     if ( ! w.isEmpty() )
-      submenus[m_templates.at( i )->group]->actions().at( i )->setWhatsThis( w );
+      a->setWhatsThis( w );
   }
 }
 
@@ -354,7 +332,7 @@ void KateFileTemplates::slotAny()
 
   // get a URL and pass that to slotOpenTemplate
   QString fn = KFileDialog::getOpenFileName(
-                          "katefiletemplate",
+                          KUrl(),
                           QString::null,
                           application()->activeMainWindow()->activeView(),
                           i18n("Open as Template") );
@@ -365,8 +343,9 @@ void KateFileTemplates::slotAny()
 /**
  * converts template [index] to a URL and passes that
  */
-void KateFileTemplates::slotOpenTemplate( int index )
+void KateFileTemplates::slotOpenTemplate()
 {
+  int index=((QAction*)sender())->data().toInt();
   kDebug()<<"slotOpenTemplate( "<<index<<" )"<<endl;
   if ( index < 0 || (uint)index > m_templates.count() ) return;
   slotOpenTemplate( KUrl( m_templates.at( index )->filename ) );
@@ -435,7 +414,7 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
             // this is overly complex, too bad the interface is
             // not providing a resonable method..
             QString hlmode = reHl.cap( 1 );
-            KTextEditor::HighlightingInterface *hi=KTextEditor::highlightingInterface(doc);
+            KTextEditor::HighlightingInterface *hi=qobject_cast<KTextEditor::HighlightingInterface*>( doc );
             if (hi)
               hi->setHighlighting (hlmode);
 
@@ -477,10 +456,11 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
     QRegExp reName( p );
 
     int count = 1;
-    for ( uint i=0; i < application()->documentManager()->documents(); i++ )
-      if ( ( reName.search ( application()->documentManager()->document( i )->documentName() ) > -1 ) )
+    const QList<KTextEditor::Document*> docs=application()->documentManager()->documents();
+    foreach(const KTextEditor::Document *doc,docs) {
+      if ( ( reName.search ( doc->documentName() ) > -1 ) )
         count++;
-
+    }
     if ( docname.contains( "%1" ) )
 #ifdef __GNUC__
       #warning i18n: ...localized number here
@@ -496,7 +476,7 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
     doc->setModified( false );
 
     QApplication::restoreOverrideCursor();
-    m_acRecentTemplates->addUrl( url );
+//     m_acRecentTemplates->addUrl( url );
 
     // clean up
     delete m_user;
@@ -504,8 +484,8 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
     delete m_emailstuff;
     m_emailstuff = 0;
     if (isTemplate) {
-	    KTextEditor::TemplateInterface *ti=KTextEditor::templateInterface(doc);
-	    ti->insertTemplateText(0,0,str,QMap<QString,QString>());
+	    KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(doc->activeView());
+	    ti->insertTemplateText(KTextEditor::Cursor(0,0),str,QMap<QString,QString>());
     }
 
 
@@ -545,7 +525,10 @@ void KateFileTemplates::slotCreateTemplate()
 // * Set the URL to a writable one if required
 void KateFileTemplates::slotEditTemplate()
 {
-  KDialogBase dlg( parentWindow(), "templatemanager", false, i18n("Manage File Templates"), KDialogBase::Close);
+  KDialog dlg( parentWindow());
+  dlg.setModal(true);
+  dlg.setCaption(i18n("Manage File Templates"));
+  dlg.setButtons(KDialog::Close);
   dlg.setMainWidget( new KateTemplateManager( this, &dlg ) );
   dlg.exec();
 }
@@ -560,11 +543,11 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
 {
   QGridLayout *lo = new QGridLayout( this, 6, 2 );
   lo->setAutoAdd( true );
-  lo->setSpacing( KDialogBase::spacingHint() );
+  lo->setSpacing( KDialog::spacingHint() );
 
   QLabel *l = new QLabel( i18n("&Template:"), this );
   KHBox *hb = new KHBox( this );
-  hb->setSpacing( KDialogBase::spacingHint() );
+  hb->setSpacing( KDialog::spacingHint() );
   leTemplate = new QLineEdit( hb );
   l->setBuddy( leTemplate );
   leTemplate->setToolTip( i18n("<p>This string is used as the template's name "
@@ -628,10 +611,10 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
   }
 
   // fill in the Hl menu
-  KTextEditor::Document *doc = kft->application()->documentManager()->activeDocument();
+  KTextEditor::Document *doc = kft->application()->activeMainWindow()->activeView()->document();
   if ( doc )
   {
-    KTextEditor::HighlightingInterface *hi=KTextEditor::highlightingInterface(doc);
+    KTextEditor::HighlightingInterface *hi=qobject_cast<KTextEditor::HighlightingInterface*>( doc );
     if (hi)
     {
       Q3PopupMenu *m = new Q3PopupMenu( btnHighlight );
@@ -666,8 +649,8 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
 
 void KateTemplateInfoWidget::slotHlSet( int id )
 {
-  KTextEditor::Document *doc=kft->application()->documentManager()->activeDocument();
-  KTextEditor::HighlightingInterface *hi=KTextEditor::highlightingInterface(doc);
+  KTextEditor::Document *doc=kft->application()->activeMainWindow()->activeView()->document();
+  KTextEditor::HighlightingInterface *hi=qobject_cast<KTextEditor::HighlightingInterface*>( doc );
   /*if (hi)
   btnHighlight->setText(
     hi->hlModeName( id ) );*/ // fixme
@@ -687,7 +670,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   QWidget *page = new QWidget( this );
   QGridLayout *glo = new QGridLayout( page );
   //lo->setAutoAdd( true );
-  glo->setSpacing( KDialogBase::spacingHint() );
+  glo->setSpacing( KDialog::spacingHint() );
 
   glo->addMultiCellWidget( new QLabel( i18n("<p>If you want to base this "
       "template on an existing file or template, select the appropriate option "
@@ -765,7 +748,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   // a custom location
   page = new QWidget( this );
   glo = new QGridLayout( page, 7, 2 );
-  glo->setSpacing( KDialogBase::spacingHint() );
+  glo->setSpacing( KDialog::spacingHint() );
 
   glo->addMultiCellWidget( new QLabel( i18n("<p>Chose a location for the "
       "template. If you store it in the template directory, it will "
@@ -807,7 +790,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   // This is *only* relevant if the origin is a non-template file.
   page = new QWidget( this );
   QVBoxLayout *lo = new QVBoxLayout( page );
-  lo->setSpacing( KDialogBase::spacingHint() );
+  lo->setSpacing( KDialog::spacingHint() );
 
   lo->addWidget(
     new QLabel( i18n( "<p>You can replace certain strings in the text with "
@@ -831,7 +814,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   // 5) Display a summary
   page = new QWidget( this );
   lo = new QVBoxLayout( page );
-  lo->setSpacing( KDialogBase::spacingHint() );
+  lo->setSpacing( KDialog::spacingHint() );
 
   QString s = i18n("<p>The template will now be created and saved to the chosen "
       "location. To position the cursor put a caret ('^') character where you "
@@ -943,7 +926,7 @@ void KateTemplateWizard::accept()
           "<p>The file <br><strong>'%1'</strong><br> already exists; if you "
           "do not want to overwrite it, change the template file name to "
           "something else.", templateUrl.prettyUrl() ),
-      i18n("File Exists"), i18n("Overwrite") )
+      i18n("File Exists"), KGuiItem(i18n("Overwrite") ))
            == KMessageBox::Cancel )
         return;
     }
@@ -1081,8 +1064,7 @@ void KateTemplateWizard::accept()
     kft->application()->activeMainWindow()->openUrl( KUrl() );
     KTextEditor::View *view = kft->application()->activeMainWindow()->activeView();
     KTextEditor::Document *doc = view->document();
-    KTextEditor::EditInterface *ei=KTextEditor::editInterface(doc);
-    if (ei) ei->insertText( ln++, 0, str );
+    doc->insertText( KTextEditor::Cursor(ln++, 0), str );
   }
   else if ( cbOpenTemplate->isChecked() )
     kft->application()->activeMainWindow()->openUrl( templateUrl );
@@ -1125,7 +1107,7 @@ KateTemplateManager::KateTemplateManager( KateFileTemplates *kft, QWidget *paren
   , kft( kft )
 {
   QGridLayout *lo = new QGridLayout( this, 2, 6 );
-  lo->setSpacing( KDialogBase::spacingHint() );
+  lo->setSpacing( KDialog::spacingHint() );
   lvTemplates = new K3ListView( this );
   lvTemplates->addColumn( i18n("Template") );
   lo->addMultiCellWidget( lvTemplates, 1, 1, 1, 6 );
@@ -1212,8 +1194,7 @@ void KateTemplateManager::slotRemoveTemplate()
     KSharedConfig::Ptr config = KGlobal::config();
     QString fname = item->templateinfo->filename.section( '/', -1 );
     QStringList templates = KGlobal::dirs()->findAllResources(
-        "data", fname.prepend( "kate/plugins/katefiletemplates/templates/" ),
-      false,true);
+        "data", fname.prepend( "kate/plugins/katefiletemplates/templates/" ),KStandardDirs::NoDuplicates);
     int failed = 0;
     int removed = 0;
     for ( QStringList::Iterator it=templates.begin(); it!=templates.end(); ++it )
@@ -1228,7 +1209,7 @@ void KateTemplateManager::slotRemoveTemplate()
     {
       KConfigGroup cg( config, "KateFileTemplates" );
       QStringList l;
-      cg.readListEntry( "Hidden", l, ';' );
+      cg.readEntry( "Hidden", l, ';' );
       l << fname;
       cg.writeEntry( "Hidden", l, ';' );
     }

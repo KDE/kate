@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 ServiceTypes=Kate/Plugin
-X-Kate-Version=2.9
+X-Kate-Version=2.8
 X-KDE-Library=katefiletemplates
 Name=Kate File Templates
 Name[ja]=Kate ファイル テンプレート

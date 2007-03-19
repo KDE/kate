@@ -35,19 +35,7 @@
 
 #include <q3ptrlist.h>
 
-class KatePluginFactory : public KLibFactory
-{
-  Q_OBJECT
-
-  public:
-    KatePluginFactory();
-    virtual ~KatePluginFactory();
-
-    virtual QObject* createObject( QObject* parent = 0, const QStringList &args = QStringList() );
-
-  private:
-    KComponentData m_componentData;
-};
+#include <kxmlguiclient.h>
 
 /**
  * This template system has the following features:
@@ -69,16 +57,15 @@ class KatePluginFactory : public KLibFactory
  * @li Load templates
  * @li Provide simple tools for creating/editing templates
 */
-class KateFileTemplates : public Kate::Plugin, public Kate::PluginViewInterface
+class KateFileTemplates : public Kate::Plugin
 {
   Q_OBJECT
 
   public:
-    KateFileTemplates( QObject* parent = 0, const char* name = 0 );
+    KateFileTemplates( QObject* parent = 0, const QStringList& dummy=QStringList());
     virtual ~KateFileTemplates();
-
-    void addView (Kate::MainWindow *win);
-    void removeView (Kate::MainWindow *win);
+    
+    virtual Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
     /**
      * @return a list of unique group names in the template list.
@@ -107,7 +94,7 @@ class KateFileTemplates : public Kate::Plugin, public Kate::PluginViewInterface
      */
     void updateTemplateDirs(const QString &s=QString::null);
 
-  private slots:
+  protected Q_SLOTS:
     /**
      * Show a file dialog, so that any file can be opened as a template.
      * If the chosen file has the .katetemplate extension, it is parsed,
@@ -118,7 +105,7 @@ class KateFileTemplates : public Kate::Plugin, public Kate::PluginViewInterface
     /**
      * Open the template found at @p index in the colletion
      */
-    void slotOpenTemplate( int index );
+    void slotOpenTemplate();
 
     /**
      * Open the file at @p url as a template. If it has the .katetemplate
@@ -134,10 +121,12 @@ class KateFileTemplates : public Kate::Plugin, public Kate::PluginViewInterface
      */
     void slotCreateTemplate();
 
-  private:
-    void refreshMenu( class PluginView */*class QPopupMenu **/ );
+  Q_SIGNALS:
+    void triggerMenuRefresh();
+  public:
+    void refreshMenu( class KMenu */*class QPopupMenu **/ );
 
-    Q3PtrList<class PluginView> m_views;
+  private:
     class KActionCollection *m_actionCollection;
     class KRecentFilesAction *m_acRecentTemplates;
     Q3PtrList<class TemplateInfo> m_templates;
@@ -250,6 +239,18 @@ class KateTemplateManager : public QWidget
     KateFileTemplates *kft;
     Q3PtrList<class TemplateInfo> *remove;
 
+};
+
+class PluginViewKateFileTemplates : public Kate::PluginView, public KXMLGUIClient
+{
+  Q_OBJECT
+  public:
+    PluginViewKateFileTemplates(KateFileTemplates *plugin,Kate::MainWindow* mainwindow);
+    virtual ~PluginViewKateFileTemplates();
+  public Q_SLOTS:
+    void refreshMenu();
+  private:
+    KateFileTemplates *m_plugin;
 };
 
 #endif // _PLUGIN_KATE_FILETEMPLATES_H_

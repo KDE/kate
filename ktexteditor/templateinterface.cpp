@@ -60,7 +60,7 @@ bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *pare
           KLibrary *lib=KLibLoader::self()->library("ktexteditorkabcbridge");
           if ((lib==0) || (!lib->hasSymbol("ktexteditorkabcbridge")))
           {
-            KMessageBox::sorry(parentWindow,i18n("The templates needs information about you, which are stored in your addressbook.\nThe needed plugin could not be loaded."));
+            KMessageBox::sorry(parentWindow,i18n("The templates needs information about you, which are stored in your addressbook.\nThe needed plugin could not be loaded.\n\nPlease install the KDEPIM/Kontact package for your system"));
             return false;
           }
           kabcbridgecall=(kabcbridgecalltype)(lib->symbol("ktexteditorkabcbridge"));

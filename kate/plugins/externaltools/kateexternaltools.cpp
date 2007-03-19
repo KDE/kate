@@ -39,6 +39,7 @@
 #include <KSharedConfig>
 #include <kdebug.h>
 
+#include <QBitmap>
 #include <QComboBox>
 #include <QFile>
 #include <QLabel>

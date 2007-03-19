@@ -28,7 +28,6 @@
 #include "ui_filetypeconfigwidget.h"
 
 #include <kconfig.h>
-#include <kmimemagic.h>
 #include <kmimetype.h>
 #include <kmimetypechooser.h>
 #include <kdebug.h>

@@ -862,11 +862,11 @@ protected:
 class BoundedCursor : public CalculatingCursor {
 public:
   BoundedCursor(KateViewInternal* vi)
-    : CalculatingCursor( vi ) {};
+    : CalculatingCursor( vi ) {}
   BoundedCursor(KateViewInternal* vi, const KTextEditor::Cursor& c )
-    : CalculatingCursor( vi, c ) {};
+    : CalculatingCursor( vi, c ) {}
   BoundedCursor(KateViewInternal* vi, int line, int col )
-    : CalculatingCursor( vi, line, col ) {};
+    : CalculatingCursor( vi, line, col ) {}
   virtual CalculatingCursor& operator+=( int n ) {
     KateLineLayoutPtr thisLine = m_vi->cache()->line(line());
     if (!thisLine->isValid()) {
@@ -924,11 +924,11 @@ public:
 class WrappingCursor : public CalculatingCursor {
 public:
   WrappingCursor(KateViewInternal* vi)
-    : CalculatingCursor( vi) {};
+    : CalculatingCursor( vi) {}
   WrappingCursor(KateViewInternal* vi, const KTextEditor::Cursor& c )
-    : CalculatingCursor( vi, c ) {};
+    : CalculatingCursor( vi, c ) {}
   WrappingCursor(KateViewInternal* vi, int line, int col )
-    : CalculatingCursor( vi, line, col ) {};
+    : CalculatingCursor( vi, line, col ) {}
 
   virtual CalculatingCursor& operator+=( int n ) {
     KateLineLayoutPtr thisLine = m_vi->cache()->line(line());

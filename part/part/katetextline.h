@@ -259,24 +259,24 @@ class KateTextLine : public KShared
      * context stack
      * @return context stack
      */
-    inline const QVector<short> &ctxArray () const { return m_ctx; };
+    inline const QVector<short> &ctxArray () const { return m_ctx; }
 
     /**
      * @return true if any context at the line end has the noIndentBasedFolding flag set
      */
-    inline bool noIndentBasedFolding() const { return m_flags & KateTextLine::flagNoIndentationBasedFolding; };
-    inline bool noIndentBasedFoldingAtStart() const { return m_flags & KateTextLine::flagNoIndentationBasedFoldingAtStart; };
+    inline bool noIndentBasedFolding() const { return m_flags & KateTextLine::flagNoIndentationBasedFolding; }
+    inline bool noIndentBasedFoldingAtStart() const { return m_flags & KateTextLine::flagNoIndentationBasedFoldingAtStart; }
     /**
      * folding list
      * @return folding array
      */
-    inline const QVector<int> &foldingListArray () const { return m_foldingList; };
+    inline const QVector<int> &foldingListArray () const { return m_foldingList; }
 
     /**
      * indentation stack
      * @return indentation array
      */
-    inline const QVector<unsigned short> &indentationDepthArray () const { return m_indentationDepth; };
+    inline const QVector<unsigned short> &indentationDepthArray () const { return m_indentationDepth; }
 
     /**
      * insert text into line

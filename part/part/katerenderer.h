@@ -310,7 +310,7 @@ public:
    * Configuration
    */
   public:
-    inline KateRendererConfig *config () const { return m_config; };
+    inline KateRendererConfig *config () const { return m_config; }
 
     void updateConfig ();
 

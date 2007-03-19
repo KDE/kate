@@ -115,7 +115,7 @@ class KateViewFileTypeAction : public KActionMenu
 
   public:
     KateViewFileTypeAction(const QString& text, QObject *parent)
-       : KActionMenu(text, parent) { init(); };
+       : KActionMenu(text, parent) { init(); }
 
     ~KateViewFileTypeAction();
 

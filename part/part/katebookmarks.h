@@ -42,8 +42,8 @@ class KateBookmarks : public QObject
 
     void createActions( KActionCollection* );
 
-    KateBookmarks::Sorting sorting() { return m_sorting; };
-    void setSorting( Sorting s ) { m_sorting = s; };
+    KateBookmarks::Sorting sorting() { return m_sorting; }
+    void setSorting( Sorting s ) { m_sorting = s; }
 
   protected:
     void insertBookmarks( QMenu& menu);

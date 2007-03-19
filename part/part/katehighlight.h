@@ -243,7 +243,7 @@ class KateHighlighting
 
     QList<KTextEditor::Attribute::Ptr> attributes (uint schema);
 
-    inline bool noHighlighting () const { return noHl; };
+    inline bool noHighlighting () const { return noHl; }
 
     // be carefull: all documents hl should be invalidated after calling this method!
     void dropDynamicContexts();
@@ -387,7 +387,7 @@ class KateHlManager : public QObject
 
     static KateHlManager *self();
 
-    inline KConfig *getKConfig() { return &m_config; };
+    inline KConfig *getKConfig() { return &m_config; }
 
     KateHighlighting *getHl(int n);
     int nameFind(const QString &name);
@@ -410,9 +410,9 @@ class KateHlManager : public QObject
     QString hlSection(int n);
     bool hlHidden(int n);
 
-    void incDynamicCtxs() { ++dynamicCtxsCount; };
-    int countDynamicCtxs() { return dynamicCtxsCount; };
-    void setForceNoDCReset(bool b) { forceNoDCReset = b; };
+    void incDynamicCtxs() { ++dynamicCtxsCount; }
+    int countDynamicCtxs() { return dynamicCtxsCount; }
+    void setForceNoDCReset(bool b) { forceNoDCReset = b; }
 
     // be carefull: all documents hl should be invalidated after having successfully called this method!
     bool resetDynamicCtxs();
@@ -449,7 +449,7 @@ class KateViewHighlightAction: public KActionMenu
 
   public:
     KateViewHighlightAction(const QString& text, QObject *parent)
-       : KActionMenu(text, parent) { init(); };
+       : KActionMenu(text, parent) { init(); }
 
     ~KateViewHighlightAction();
 

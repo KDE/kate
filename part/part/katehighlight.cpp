@@ -302,7 +302,7 @@ class KateHlRegExpr : public KateHlItem
 {
   public:
     KateHlRegExpr(int attribute, KateHlContextModification context,signed char regionId,signed char regionId2 ,const QString &expr, bool insensitive, bool minimal);
-    ~KateHlRegExpr() { delete Expr; };
+    ~KateHlRegExpr() { delete Expr; }
 
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual QStringList *capturedTexts();

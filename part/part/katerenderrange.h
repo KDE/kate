@@ -32,7 +32,7 @@ class KateView;
 class KateRenderRange
 {
   public:
-    virtual ~KateRenderRange() {};
+    virtual ~KateRenderRange() {}
     virtual KTextEditor::Cursor nextBoundary() const = 0;
     virtual bool advanceTo(const KTextEditor::Cursor& pos) const = 0;
     virtual KTextEditor::Attribute::Ptr currentAttribute() const = 0;

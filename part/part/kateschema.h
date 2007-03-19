@@ -99,7 +99,7 @@ class KateViewSchemaAction : public KActionMenu
 
   public:
     KateViewSchemaAction(const QString& text, QObject *parent)
-       : KActionMenu(text, parent) { init(); };
+       : KActionMenu(text, parent) { init(); }
 
     void updateMenu (KateView *view);
 

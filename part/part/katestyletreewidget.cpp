@@ -65,7 +65,7 @@ class KateStyleTreeWidgetItem : public QTreeWidgetItem
   public:
     KateStyleTreeWidgetItem( QTreeWidgetItem *parent, const QString& styleName, KTextEditor::Attribute::Ptr defaultstyle, KateExtendedAttribute::Ptr data = KateExtendedAttribute::Ptr() );
     KateStyleTreeWidgetItem( QTreeWidget *parent, const QString& styleName, KTextEditor::Attribute::Ptr defaultstyle, KateExtendedAttribute::Ptr data = KateExtendedAttribute::Ptr() );
-    ~KateStyleTreeWidgetItem() {};
+    ~KateStyleTreeWidgetItem() {}
 
     enum columns {
       Context = 0,
@@ -92,14 +92,14 @@ class KateStyleTreeWidgetItem : public QTreeWidgetItem
      */
     void unsetColor( int c );
     /* style context name */
-    QString contextName() const { return text(0); };
+    QString contextName() const { return text(0); }
     /* only true for a hl mode item using it's default style */
     bool defStyle() const;
     /* true for default styles */
     bool isDefault() const;
     /* whichever style is active (currentStyle for hl mode styles not using
        the default style, defaultStyle otherwise) */
-    KTextEditor::Attribute::Ptr style() const { return currentStyle; };
+    KTextEditor::Attribute::Ptr style() const { return currentStyle; }
 
     virtual QVariant data( int column, int role ) const;
     virtual void setData( int column, int role, const QVariant& value );

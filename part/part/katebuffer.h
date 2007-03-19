@@ -236,14 +236,14 @@ class KateBuffer : public QObject
      */
     void setHighlight (int hlMode);
 
-    KateHighlighting *highlight () { return m_highlight; };
+    KateHighlighting *highlight () { return m_highlight; }
 
     /**
      * Invalidate highlighting of whole buffer.
      */
     void invalidateHighlighting();
 
-    KateCodeFoldingTree *foldingTree () { return &m_regionTree; };
+    KateCodeFoldingTree *foldingTree () { return &m_regionTree; }
 
     void codeFoldingColumnUpdate(int lineNr);
 

@@ -54,7 +54,7 @@ class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExt
     bool exec( class KTextEditor::View *view, const QString &cmd, QString &errorMsg );
 
     /** This command does not have help. @see KTextEditor::Command::help */
-    bool help( class KTextEditor::View *, const QString &, QString & ) {return false;};
+    bool help( class KTextEditor::View *, const QString &, QString & ) {return false;}
 
     /**
      * supported commands as prefixes
@@ -97,13 +97,13 @@ class SedReplace : public KTextEditor::Command
     bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
     /** This command does not have help. @see KTextEditor::Command::help */
-    bool help (class KTextEditor::View *, const QString &, QString &) { return false; };
+    bool help (class KTextEditor::View *, const QString &, QString &) { return false; }
 
     /**
      * supported commands as prefixes
      * @return prefix list
      */
-    const QStringList &cmds () { static QStringList l("s"); if (l.isEmpty()) l << "%s" << "$s"; return l; };
+    const QStringList &cmds () { static QStringList l("s"); if (l.isEmpty()) l << "%s" << "$s"; return l; }
 
   private:
     /**
@@ -152,13 +152,13 @@ class Character : public KTextEditor::Command
     bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
     /** This command does not have help. @see KTextEditor::Command::help */
-    bool help (class KTextEditor::View *, const QString &, QString &) { return false; };
+    bool help (class KTextEditor::View *, const QString &, QString &) { return false; }
 
     /**
      * supported commands as prefixes
      * @return prefix list
      */
-    const QStringList &cmds () { static QStringList test("char"); return test; };
+    const QStringList &cmds () { static QStringList test("char"); return test; }
 };
 
 /**
@@ -177,7 +177,7 @@ class Date : public KTextEditor::Command
     bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
     /** This command does not have help. @see KTextEditor::Command::help */
-    bool help (class KTextEditor::View *, const QString &, QString &) { return false; };
+    bool help (class KTextEditor::View *, const QString &, QString &) { return false; }
 
     /**
      * supported commands as prefixes

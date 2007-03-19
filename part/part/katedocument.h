@@ -630,7 +630,7 @@ class KateDocument : public KTextEditor::Document,
 
   //export feature, obsolute
   public Q_SLOTS:
-     void exportAs(const QString&) { };
+     void exportAs(const QString&) { }
 
   Q_SIGNALS:
     void preHighlightChanged(uint);
@@ -768,7 +768,7 @@ class KateDocument : public KTextEditor::Document,
     /**
      * @return wheather the document is modified on disc since last saved.
      */
-    bool isModifiedOnDisc() { return m_modOnHd; };
+    bool isModifiedOnDisc() { return m_modOnHd; }
 
     void setModifiedOnDisk( ModifiedOnDiskReason reason );
 
@@ -873,7 +873,7 @@ class KateDocument : public KTextEditor::Document,
   public:
     void updateFileType (int newType, bool user = false);
 
-    int fileType () const { return m_fileType; };
+    int fileType () const { return m_fileType; }
 
   //
   // REALLY internal data ;)

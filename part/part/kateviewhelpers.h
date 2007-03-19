@@ -59,8 +59,8 @@ class KateScrollBar : public QScrollBar
   public:
     KateScrollBar(Qt::Orientation orientation, class KateViewInternal *parent);
 
-    inline bool showMarks() { return m_showMarks; };
-    inline void setShowMarks(bool b) { m_showMarks = b; update(); };
+    inline bool showMarks() { return m_showMarks; }
+    inline void setShowMarks(bool b) { m_showMarks = b; update(); }
 
   Q_SIGNALS:
     void sliderMMBMoved(int value);
@@ -206,7 +206,7 @@ class KateViewEncodingAction : public KActionMenu
   public:
     KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject *parent);
 
-    ~KateViewEncodingAction(){;};
+    ~KateViewEncodingAction(){;}
 
   private:
     KateDocument* doc;

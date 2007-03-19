@@ -112,7 +112,7 @@
      * text inserted/removed
      * @return text
      */
-    inline const QString& text() const { return m_text; };
+    inline const QString& text() const { return m_text; }
 
   private:
     /**

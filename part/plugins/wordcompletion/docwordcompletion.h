@@ -72,7 +72,7 @@ class DocWordCompletionPlugin
   public:
     DocWordCompletionPlugin( QObject *parent = 0,
                             const QStringList &args = QStringList() );
-    virtual ~DocWordCompletionPlugin(){kDebug()<<"~DocWordCompletionPlugin"<<endl;};
+    virtual ~DocWordCompletionPlugin(){kDebug()<<"~DocWordCompletionPlugin"<<endl;}
 
     void addView (KTextEditor::View *view);
     void removeView (KTextEditor::View *view);
@@ -92,10 +92,10 @@ class DocWordCompletionPlugin
     QString configPageFullName( uint ) const;
     QPixmap configPagePixmap( uint, int ) const;
 
-    uint treshold() const { return m_treshold; };
-    void setTreshold( uint t ) { m_treshold = t; };
-    bool autoPopupEnabled() const { return m_autopopup; };
-    void setAutoPopupEnabled( bool enable ) { m_autopopup = enable; };
+    uint treshold() const { return m_treshold; }
+    void setTreshold( uint t ) { m_treshold = t; }
+    bool autoPopupEnabled() const { return m_autopopup; }
+    void setAutoPopupEnabled( bool enable ) { m_autopopup = enable; }
 
 
   private:

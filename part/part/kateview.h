@@ -579,7 +579,7 @@ class KateView : public KTextEditor::View,
    * Configuration
    */
   public:
-    inline KateViewConfig *config () { return m_config; };
+    inline KateViewConfig *config () { return m_config; }
 
     void updateConfig ();
 

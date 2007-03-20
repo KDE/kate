@@ -1158,7 +1158,7 @@ void KateIconBorder::showBlock(int line) {
     KateCodeFoldingNode *node = tree->findNodeForLine(line);
     KTextEditor::Cursor beg;
     KTextEditor::Cursor end;
-    if (node->getBegin(tree,&beg) && node->getEnd(tree,&end)) {
+    if (node != tree->rootNode () && node->getBegin(tree,&beg) && node->getEnd(tree,&end)) {
       kDebug()<<"BEGIN"<<beg<<"END"<<end<<endl;
       m_blockRange=m_doc->newSmartRange(KTextEditor::Range(beg,end));
       KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());

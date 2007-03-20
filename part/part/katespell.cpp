@@ -108,9 +108,9 @@ void KateSpell::spellcheck( const KTextEditor::Cursor &from, const KTextEditor::
   QString mt = m_view->doc()->mimeType()/*->name()*/;
 
   K3Spell::SpellerType type = K3Spell::Text;
-  if ( mt == "text/x-tex" || mt == "text/x-latex" )
+  if ( mt == "text/x-tex" || mt == "text/x-latex" /*deprecated name*/ )
     type = K3Spell::TeX;
-  else if ( mt == "text/html" || mt == "text/xml" )
+  else if ( mt == "text/html" || mt == "application/xml" )
     type = K3Spell::HTML;
 
   m_kspell = new K3Spell( 0, i18n("Spellcheck"),

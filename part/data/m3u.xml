@@ -3,6 +3,9 @@
 
 <!-- Changelog:
 
+v1.2: (kde4)
+- mimetype set to audio/x-mpegurl (fdo standard)
+
 v1.1:
 - mimetype korrigiert zu "audio/mpegurl"
 - Syntax verbessert
@@ -11,7 +14,7 @@ v1.0:
 -first Release
 -->
 
-<language name="M3U" section="Other" extensions="*.m3u" mimetype="audio/mpegurl" version="1.10" kateversion="2.0" author="Jan Janssen (medhefgo@web.de)" license="LGPL" >
+<language name="M3U" section="Other" extensions="*.m3u" mimetype="audio/x-mpegurl" version="1.10" kateversion="2.0" author="Jan Janssen (medhefgo@web.de)" license="LGPL" >
 
 <highlighting>
 <contexts>

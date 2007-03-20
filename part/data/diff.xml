@@ -12,7 +12,7 @@
       There is currently a bug (KATE limitation?) where regions may sometimes
       pick up one line too many.
 -->
-<language name="Diff" version="1.10" kateversion="2.1" section="Other" extensions="*.diff;*patch" mimetype="text/x-diff">
+<language name="Diff" version="1.10" kateversion="2.1" section="Other" extensions="*.diff;*patch" mimetype="text/x-patch">
 
   <highlighting>
 

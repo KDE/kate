@@ -33,7 +33,6 @@
 #include <kfinddialog.h>
 #include <kreplacedialog.h>
 #include <kcomponentdata.h>
-#include <kstaticdeleter.h>
 #include <kfind.h>
 #include <kdebug.h>
 

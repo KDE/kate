@@ -19,7 +19,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_CURSORFEEDBACK_H
 #define KDELIBS_KTEXTEDITOR_CURSORFEEDBACK_H
 
-#include <kdelibs_export.h>
+#include <ktexteditor/ktexteditor_export.h>
 #include <QObject>
 #include <kdebug.h>
 

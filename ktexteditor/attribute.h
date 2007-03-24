@@ -22,7 +22,7 @@
 #include <QTextCharFormat>
 
 #include <ksharedptr.h>
-#include <kdelibs_export.h>
+#include <ktexteditor/ktexteditor_export.h>
 
 class KAction;
 

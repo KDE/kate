@@ -22,7 +22,7 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
-#include <kdelibs_export.h>
+#include <ktexteditor/ktexteditor_export.h>
 
 #include <ktexteditor/cursor.h>
 

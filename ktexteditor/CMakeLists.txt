@@ -35,6 +35,7 @@ install(TARGETS ktexteditor  DESTINATION ${LIB_INSTALL_DIR} )
 
 ########### install files ###############
 install( FILES
+    ktexteditor_export.h
     factory.h
     editor.h
     document.h

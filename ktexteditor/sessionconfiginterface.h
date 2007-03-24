@@ -20,7 +20,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_SESSIONCONFIGINTERFACE_H
 #define KDELIBS_KTEXTEDITOR_SESSIONCONFIGINTERFACE_H
 
-#include <kdelibs_export.h>
+#include <ktexteditor/ktexteditor_export.h>
 
 class KConfigGroup;
 

@@ -23,7 +23,7 @@
 #include <qmap.h>
 #include <QtGui/QImage>
 
-#include <kdelibs_export.h>
+#include <ktexteditor/ktexteditor_export.h>
 #include <ktexteditor/cursor.h>
 
 namespace KTextEditor

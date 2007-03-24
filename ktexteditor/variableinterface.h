@@ -20,7 +20,7 @@
 #ifndef _KTEXTEDITOR_VARIABLE_INTERFACE_H_
 #define _KTEXTEDITOR_VARIABLE_INTERFACE_H_
 
-#include <kdelibs_export.h>
+#include <ktexteditor/ktexteditor_export.h>
 
 
 #include <QtCore/QObject>

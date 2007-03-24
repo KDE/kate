@@ -20,7 +20,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_CONFIGINTERFACE_H
 #define KDELIBS_KTEXTEDITOR_CONFIGINTERFACE_H
 
-#include <kdelibs_export.h>
+#include <ktexteditor/ktexteditor_export.h>
 #include <QtCore/QStringList>
 #include <qvariant.h>
 

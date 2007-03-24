@@ -23,7 +23,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_RANGE_H
 #define KDELIBS_KTEXTEDITOR_RANGE_H
 
-#include <kdelibs_export.h>
+#include <ktexteditor/ktexteditor_export.h>
 #include <ktexteditor/cursor.h>
 
 class KAction;

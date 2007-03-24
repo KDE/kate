@@ -22,7 +22,7 @@
 
 #include <QtCore/QObject>
 
-#include <kdelibs_export.h>
+#include <ktexteditor/ktexteditor_export.h>
 
 class KConfig;
 

@@ -19,8 +19,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_SMARTCURSOR_H
 #define KDELIBS_KTEXTEDITOR_SMARTCURSOR_H
 
-#include <kdelibs_export.h>
-
+#include <ktexteditor/ktexteditor_export.h>
 #include <ktexteditor/cursor.h>
 
 namespace KTextEditor

@@ -50,7 +50,7 @@ QStringList KateAutoIndent::listModes ()
 int KateAutoIndent::modeCount ()
 {
   // inbuild modes + scripts
-  return 2 +  KateGlobal::self()->indentScriptManager()->scripts();
+  return 2 +  KateGlobal::self()->jscriptManager()->indentationScripts();
 }
 
 
@@ -62,7 +62,7 @@ QString KateAutoIndent::modeName (int mode)
   if (mode == 1)
     return QString ("normal");
 
-  return KateGlobal::self()->indentScriptManager()->scriptByIndex(mode-2)->basename ();
+  return KateGlobal::self()->jscriptManager()->indentationScriptByIndex(mode-2)->basename ();
 }
 
 QString KateAutoIndent::modeDescription (int mode)
@@ -73,7 +73,7 @@ QString KateAutoIndent::modeDescription (int mode)
   if (mode == 1)
     return i18n ("Normal");
 
-  return KateGlobal::self()->indentScriptManager()->scriptByIndex(mode-2)->name();
+  return KateGlobal::self()->jscriptManager()->indentationScriptByIndex(mode-2)->name();
 }
 
 uint KateAutoIndent::modeNumber (const QString &name)
@@ -219,7 +219,7 @@ void KateAutoIndent::setMode (const QString &name)
   }
 
   // handle script indenters, if any for this name...
-  KateIndentJScript *script = KateGlobal::self()->indentScriptManager()->script(name);
+  KateIndentJScript *script = KateGlobal::self()->jscriptManager()->indentationScript(name);
   if ( script )
   {
     m_script = script;

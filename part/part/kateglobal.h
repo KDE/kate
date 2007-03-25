@@ -45,8 +45,6 @@ class KateDocument;
 class KateRenderer;
 class KateView;
 class KateJScriptManager;
-class KateIndentJScriptManager;
-class KateIndentScriptManagerAbstract;
 class KDirWatch;
 class KateHlManager;
 class KateCmd;
@@ -265,12 +263,6 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     KateJScriptManager *jscriptManager () { return m_jscriptManager; }
 
     /**
-     * looks up a script given by name. If there are more than
-     * one matching, the first found will be taken
-     */
-    KateIndentJScriptManager *indentScriptManager () { return m_indentScriptManager; }
-
-    /**
      * hl manager
      * @return hl manager
      */
@@ -392,11 +384,6 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * js script manager
      */
     KateJScriptManager *m_jscriptManager;
-
-    /**
-     * manager for js based indenters
-     */
-    KateIndentJScriptManager *m_indentScriptManager;
 
     /**
      * hl manager

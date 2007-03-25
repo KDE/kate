@@ -333,13 +333,27 @@ class KateJSIndenter : public KJS::JSObject
 //END
 
 //BEGIN KateJSInterpreterContext
-KateJSInterpreterContext::KateJSInterpreterContext ()
+KateJSInterpreterContext::KateJSInterpreterContext (const QString &filename)
  : m_global (new KateJSGlobal ())
  , m_interpreter (new KJS::Interpreter (m_global))
  , m_document (new KateJSDocument(m_interpreter->globalExec(), 0))
  , m_view (new KateJSView(m_interpreter->globalExec(), 0))
 {
   m_interpreter->ref();
+
+  // eval file, if any
+  if (!filename.isEmpty())
+  {
+    QFile file(filename);
+    QTextStream stream(&file);
+    stream.setCodec("UTF-8");
+    QString source = stream.readAll();
+    file.close();
+
+    // parse + eval script....
+    m_interpreter->evaluate("", 0, source);
+  }
+
   // put some stuff into env., this should stay for all executions.
   m_interpreter->globalObject()->put(m_interpreter->globalExec(), "document", m_document);
   m_interpreter->globalObject()->put(m_interpreter->globalExec(), "view", m_view);
@@ -1260,47 +1274,88 @@ JSValue* KateJSIndenterProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSOb
 
 //BEGIN KateJScriptManager
 
-KateJScriptManager::KateJScriptManager ():KTextEditor::Command(),m_jscript(0)
+KateJScriptManager::KateJScriptManager ()
+  : KTextEditor::Command()
 {
+  // collect all scripts available...
   collectScripts ();
 }
 
 KateJScriptManager::~KateJScriptManager ()
 {
-  delete m_jscript;
   qDeleteAll(m_scripts);
 }
 
 void KateJScriptManager::collectScripts (bool force)
 {
-// If there's something in myModeList the Mode List was already built so, don't do it again
-  if (!m_scripts.isEmpty())
-    return;
+  // clear old list...
+  qDeleteAll(m_scripts);
+  m_scripts.clear ();
 
-  QStringList keys(QStringList() << "help");
+  // get list of all scripts + given headers
+  QStringList keys(QStringList() << "name" << "author" << "license"
+                                 << "version" << "kate-version"
+                                 << "type"
+                                 << "function" << "help-function");
   KateJScriptHeaderVector scripts;
-  scripts = KateJScriptHelpers::findScripts(QString("katepartjscriptrc"),
-                                            QString("katepart/scripts/*.js"), keys);
+  scripts = KateJScriptHelpers::findScripts(QString("katepartjscriptrc"), QString("katepart/scripts/*.js"), keys);
 
   // Let's iterate through the list and build the Mode List
-  for (KateJScriptHeaderVector::iterator it = scripts.begin();
-       it != scripts.end(); ++it)
+  for (KateJScriptHeaderVector::iterator it = scripts.begin(); it != scripts.end(); ++it)
   {
-    kDebug (13050) << "add script: " << (*it).url << endl;
-    QFileInfo fi((*it).url);
+    // get abs filename....
+    QFileInfo fi(it->url);
+    QString absPath = fi.absoluteFilePath();
+    QString baseName = fi.baseName ();
 
-    if (m_scripts.contains(fi.baseName()))
+    // skip multiple entries...
+    if (m_scripts.contains(baseName))
       continue;
 
+    kDebug (13050) << "add script: " << baseName << " - " << absPath << endl;
+
     KateJScriptManager::Script *s = new KateJScriptManager::Script ();
+    s->filename = absPath;
+    s->type = it->pairs.value ("type");
 
-    s->command = fi.baseName();
-    s->url = (*it).url;
-    if ((*it).pairs.contains("help"))
-      s->help = (*it).pairs["help"];
+    kDebug (13050) << "type: " << s->type << endl;
 
-    m_scripts.insert (s->command, s);
+    // remember this.....
+    m_scripts.insert (baseName, s);
+    m_types[s->type] << baseName;
   }
+
+  // handle all indentation scripts...  // Let's iterate through the list and build the Mode List
+  QStringList indents = m_types.value ("indentation");
+  for (int i = 0; i < indents.size(); ++i)
+  {
+    kDebug (13050) << "add indent-script: " << indents[i] << endl;
+
+    KateIndentJScript *s = new KateIndentJScript(indents[i]);
+    m_indentationScripts.insert (indents[i], s);
+    m_indentationScriptsList.append(s);
+  }
+
+}
+
+KateJSInterpreterContext *KateJScriptManager::interpreter (const QString &name, bool persistent)
+{
+  // get the script
+  KateJScriptManager::Script *s = m_scripts.value (name);
+
+  // script not found...
+  if (!s)
+    return 0;
+
+  // remember the flag...
+  s->persistent = persistent;
+
+  // get the interpreter...
+  if (s->interpreter)
+    return s->interpreter;
+
+  // construct + return interpreter....
+  return s->interpreter = new KateJSInterpreterContext (s->filename);
 }
 
 bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QString &errorMsg )
@@ -1310,7 +1365,7 @@ bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QSt
     return false;
   }
 
-  // TODO: add support for arguments
+/*  // TODO: add support for arguments
   QStringList args( _cmd.split( QRegExp("\\s+") ,QString::SkipEmptyParts) );
   QString cmd ( args.first() );
   args.removeFirst();
@@ -1328,12 +1383,13 @@ bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QSt
     return false;
   }
 
-  return m_jscript->evalFile(kateView, m_scripts[cmd]->url, errorMsg);
+  return m_jscript->evalFile(kateView, m_scripts[cmd]->url, errorMsg);*/
+  return true;
 }
 
 bool KateJScriptManager::help( KTextEditor::View *, const QString &cmd, QString &msg )
 {
-  if (cmd == "js-run-myself") {
+ /* if (cmd == "js-run-myself") {
     msg = i18n("This executes the current document as a javascript within kate");
     return true;
   }
@@ -1343,7 +1399,8 @@ bool KateJScriptManager::help( KTextEditor::View *, const QString &cmd, QString 
 
   msg = m_scripts[cmd]->help;
 
-  return !msg.isEmpty();
+  return !msg.isEmpty();*/
+  return true;
 }
 
 const QStringList &KateJScriptManager::cmds()
@@ -1351,135 +1408,19 @@ const QStringList &KateJScriptManager::cmds()
   static QStringList l;
 
   l.clear();
-  l << "js-run-myself";
+  l << "js-run-myself";/*
   foreach (KateJScriptManager::Script* script, m_scripts)
-    l << script->command;
+    l << script->command;*/
 
    return l;
 }
 //END
 
-//BEGIN KateIndentJScriptManager
-KateIndentJScriptManager::KateIndentJScriptManager()
-{
-  collectScripts ();
-}
-
-KateIndentJScriptManager::~KateIndentJScriptManager ()
-{
-  qDeleteAll(m_scripts);
-}
-
-void KateIndentJScriptManager::collectScripts (bool force)
-{
-  if (!m_scripts.isEmpty())
-    return;
-
-  // Let's get a list of all the .js files
-  QStringList keys(QStringList() << "name" << "license" << "author"
-                                 << "version" << "kate-version");
-  KateJScriptHeaderVector scripts;
-  scripts = KateJScriptHelpers::findScripts(QString("katepartindentscriptrc"),
-                                            QString("katepart/indent/*.js"), keys);
-
-  // Let's iterate through the list and build the Mode List
-  for (KateJScriptHeaderVector::iterator it = scripts.begin();
-       it != scripts.end(); ++it )
-  {
-    kDebug (13050) << "add indent-script: " << (*it).url << endl;
-    KateJScriptHeader &header = *it;
-
-    QFileInfo fi(header.url);
-    QString basename = fi.baseName();
-
-    QString name = header.pairs["name"];
-    QString license = header.pairs["license"];
-    QString author = header.pairs["author"];
-    QString version = header.pairs["version"];
-    QString kateVersion = header.pairs["kate-version"];
-    KateIndentJScript *s = new KateIndentJScript(basename,
-        header.url, name, license, author, version, kateVersion);
-    m_scripts.insert (basename, s);
-    m_scriptsList.append(s);
-  }
-}
-//END
-
-
-
-
-
-//BEGIN KateJSIndentInterpreter
-KateJSIndentInterpreter::KateJSIndentInterpreter(KateView* view, const QString& url)
-  : KateJSInterpreterContext(),
-    m_indenter(new KateJSIndenter(m_interpreter->globalExec()))
-{
-  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "indenter",
-                                     m_indenter, KJS::DontDelete | KJS::ReadOnly);
-  QString error;
-  if (!evalFile(view, url, error))
-    kDebug(13050) << "Error: " << error << endl;
-}
-
-KateJSIndentInterpreter::~KateJSIndentInterpreter()
-{
-}
-
-QString KateJSIndentInterpreter::triggerCharacters()
-{
-  KJS::ExecState *exec = m_interpreter->globalExec();
-
-  QString triggers = m_indenter->get(exec, "triggerCharacters")->toString(exec).qstring();
-  if (exec->hadException()) {
-    kDebug(13050) << "triggerCharacters: Unable to lookup 'indenter.triggerCharacters'" << endl;
-    exec->clearException();
-    triggers = QString();
-  }
-
-  return triggers;
-}
-
-int KateJSIndentInterpreter::indent(KateView* view,
-                                    const KTextEditor::Cursor& position,
-                                    QChar typedChar,
-                                    int indentWidth)
-{
-  KJS::List params;
-  params.append(KJS::Number(position.line()));
-  params.append(KJS::Number(indentWidth));
-  params.append(KJS::String(typedChar.isNull() ? QString("") : QString(typedChar)));
-
-  QString errorMsg;
-  KJS::JSValue *val = callFunction(view, m_indenter, KJS::Identifier("indent"),
-                                   params, errorMsg);
-
-  if (!val) {
-    kDebug(13050) << "KateIndentJScript::indent: callFunction(): " << errorMsg << endl;
-    return -2;
-  }
-
-  const int indentLevel = val->toInt32(m_interpreter->globalExec());
-  kDebug() << "new indentation: " << indentLevel << endl;
-  return indentLevel;
-}
-//END KateJSIndentInterpreter
-
-
-
-
 //BEGIN KateIndentJScript
-KateIndentJScript::KateIndentJScript(
-    const QString& basename, const QString& url, const QString& name,
-    const QString& license, const QString& author, const QString& version,
-    const QString& kateVersion)
+KateIndentJScript::KateIndentJScript(const QString& basename)
   : m_script(0),
+    m_indenter(0),
     m_basename(basename),
-    m_url(url),
-    m_name(name),
-    m_author(author),
-    m_license(license),
-    m_version(version),
-    m_kateVersion(kateVersion),
     m_triggerCharactersSet(false)
 {
 }
@@ -1492,7 +1433,17 @@ KateIndentJScript::~KateIndentJScript()
 void KateIndentJScript::loadInterpreter(KateView* view)
 {
   if (!m_script)
-    m_script = new KateJSIndentInterpreter(view, m_url);
+  {
+    // get the interpreter...
+    m_script = KateGlobal::self()->jscriptManager()->interpreter (m_basename, true);
+
+    if (m_script)
+    {
+      m_indenter = new KateJSIndenter (m_script->interpreter()->globalExec());
+
+      m_script->interpreter()->globalObject()->put(m_script->interpreter()->globalExec(), "indenter", m_indenter, KJS::DontDelete | KJS::ReadOnly);
+    }
+  }
 }
 
 void KateIndentJScript::unloadInterpreter()
@@ -1511,7 +1462,19 @@ const QString &KateIndentJScript::triggerCharacters(KateView* view)
   loadInterpreter(view);
 
   m_triggerCharactersSet = true;
-  m_triggerCharacters = m_script->triggerCharacters();
+
+  if (!m_script)
+    return m_triggerCharacters;
+
+  KJS::ExecState *exec = m_script->interpreter()->globalExec();
+
+  m_triggerCharacters = m_indenter->get(exec, "triggerCharacters")->toString(exec).qstring();
+  if (exec->hadException()) {
+    kDebug(13050) << "triggerCharacters: Unable to lookup 'indenter.triggerCharacters'" << endl;
+    exec->clearException();
+    m_triggerCharacters = QString();
+  }
+
   kDebug () << "trigger chars: '" << m_triggerCharacters << "'" << endl;
 
   return m_triggerCharacters;
@@ -1524,7 +1487,26 @@ int KateIndentJScript::indent(KateView* view,
 {
   loadInterpreter(view);
 
-  return m_script->indent(view, position, typedChar, indentWidth);
+  if (!m_script)
+    return -2;
+
+  KJS::List params;
+  params.append(KJS::Number(position.line()));
+  params.append(KJS::Number(indentWidth));
+  params.append(KJS::String(typedChar.isNull() ? QString("") : QString(typedChar)));
+
+  QString errorMsg;
+  KJS::JSValue *val = m_script->callFunction(view, m_indenter, KJS::Identifier("indent"),
+                                   params, errorMsg);
+
+  if (!val) {
+    kDebug(13050) << "KateIndentJScript::indent: callFunction(): " << errorMsg << endl;
+    return -2;
+  }
+
+  const int indentLevel = val->toInt32(m_script->interpreter()->globalExec());
+  kDebug() << "new indentation: " << indentLevel << endl;
+  return indentLevel;
 }
 //END KateIndentJScript
 

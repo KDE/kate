@@ -99,7 +99,7 @@ class KateJSInterpreterContext
 {
   public:
     /** generate new global interpreter for part scripting */
-    KateJSInterpreterContext();
+    KateJSInterpreterContext(const QString &filename = "");
 
     /** be destructive */
     virtual ~KateJSInterpreterContext ();
@@ -127,7 +127,8 @@ class KateJSInterpreterContext
     bool evalSource(KateView *view, const QString &script, QString &errorMsg);
     bool evalFile(KateView* view, const QString& url, QString &errorMsg);
 
-  protected:
+    KJS::Interpreter *interpreter () { return m_interpreter; }
+
     /**
      * Call @p function for the object @p lookupObj. The @p view is the KateView
      * the script operates on. @p parameter contains the list of parameters.
@@ -154,49 +155,13 @@ class KateJSInterpreterContext
 };
 
 /**
- * Interpreter class for indentation.
- */
-class KateJSIndentInterpreter : public KateJSInterpreterContext
-{
-  public:
-    /**
-     * Constructor. Creates a new interpreter context and loads the script
-     * @p url. @p view is the current active KateView.
-     */
-    KateJSIndentInterpreter(KateView* view, const QString& url);
-    /** destructor. The interpreter is already deleted in KateJSInterpreterContext */
-    virtual ~KateJSIndentInterpreter();
-
-    /** Get a list of trigger characters the indetner can process. */
-    QString triggerCharacters();
-
-    /**
-     * Get the indentation level for the line in @p position. @p indentWidth is
-     * the indentation with (per indent level) in spaces. @p typedChar contains
-     * one of the following characters:
-     * - the typed char (includes '\n')
-     * - empty ("") for the action "Tools > Align"
-     */
-    int indent(KateView* view,
-               const KTextEditor::Cursor& position,
-               QChar typedChar,
-               int indentWidth);
-
-  protected:
-    /** additional js indenter object */
-    KateJSIndenter *m_indenter;
-};
-
-/**
  * JS indentation class representing one indenter.
  */
 class KateIndentJScript
 {
   public:
     /** create new indenter object. parameters are self-explaining. Beat dominik if you disagree. */
-    KateIndentJScript(const QString& basename, const QString& url, const QString& name,
-                      const QString& license, const QString& author, const QString& version,
-                      const QString& kateVersion);
+    KateIndentJScript(const QString& basename);
     ~KateIndentJScript();
 
     /** get the supported characters the indenter wants to process */
@@ -222,7 +187,10 @@ class KateIndentJScript
     void unloadInterpreter();
 
   private:
-    KateJSIndentInterpreter *m_script; ///< interpreter object
+    KateJSInterpreterContext *m_script; ///< interpreter object
+
+    /** additional js indenter object */
+    KateJSIndenter *m_indenter;
 
     QString m_basename;          ///< filename without extension (use-case: command line: set-indent-mode c)
     QString m_url;               ///< full qualified location to the file
@@ -236,7 +204,10 @@ class KateIndentJScript
     bool m_triggerCharactersSet; ///< helper. if true, trigger characters are already read
 };
 
-
+/**
+ * manager for all js scripts the part knows about
+ * this manager will act as a cache for already parsed scripts, too
+ */
 class KateJScriptManager : public KTextEditor::Command
 {
   private:
@@ -246,14 +217,19 @@ class KateJScriptManager : public KTextEditor::Command
     class Script
     {
       public:
-        /** command name, as used for command line and more */
-        QString command;
+        Script () : interpreter (0), persistent (false) {}
 
-        /** translated description, can be used for e.g. status bars */
-        QString help;
+        /** complete path to script */
+        QString filename;
 
-        /** filename of the script */
-        QString url;
+        /** type of this script */
+        QString type;
+
+        /** interpreter for this script.... */
+        KateJSInterpreterContext *interpreter;
+
+        /** should this interpreter persist? */
+        bool persistent;
     };
 
   public:
@@ -267,7 +243,15 @@ class KateJScriptManager : public KTextEditor::Command
      */
     void collectScripts(bool force = false);
 
-    KateJSInterpreterContext *m_jscript;
+  public:
+    /**
+     * get interpreter for given script basename
+     * interpreter will be constructed on demand...
+     * @param basename basename of the script...
+     * @param persistent should this interpreter live forever?
+     * @return interpreter, if script for this basename exists...
+     */
+    KateJSInterpreterContext *interpreter (const QString &name, bool persistent = false);
 
   //
   // Here we deal with the KTextEditor::Command stuff
@@ -297,36 +281,34 @@ class KateJScriptManager : public KTextEditor::Command
      */
     const QStringList &cmds();
 
+  public:
+    KateIndentJScript *indentationScript (const QString &scriptname) { return m_indentationScripts.value(scriptname); }
+
+    int indentationScripts () { return m_indentationScriptsList.size(); }
+    KateIndentJScript *indentationScriptByIndex (int index) { return m_indentationScriptsList[index]; }
+
   private:
     /**
-     * we need to know somewhere which scripts are around
+     * hash of all scripts
+     * hashs basename -> script...
      */
     QHash<QString, KateJScriptManager::Script*> m_scripts;
-};
 
-class KateIndentJScriptManager
-{
-  public:
-    KateIndentJScriptManager ();
-    virtual ~KateIndentJScriptManager ();
-    virtual KateIndentJScript *script(const QString &scriptname) { return m_scripts.value(scriptname); }
-
-    int scripts () { return m_scriptsList.size(); }
-    KateIndentJScript *scriptByIndex (int index) { return m_scriptsList[index]; }
-
-  private:
     /**
-     * go, search our scripts
-     * @param force force cache updating?
+     * hash of types to basenames...
      */
-    void collectScripts(bool force = false);
+    QHash<QString, QStringList> m_types;
 
-  private:
     /**
      * hash of all existing indenter scripts
+     * hashs basename -> script
      */
-    QHash<QString, KateIndentJScript*> m_scripts;
-    QList<KateIndentJScript*> m_scriptsList;
+    QHash<QString, KateIndentJScript*> m_indentationScripts;
+
+    /**
+     * list of all indentation scripts
+     */
+    QList<KateIndentJScript*> m_indentationScriptsList;
 };
 
 class KateJSExceptionTranslator

@@ -130,7 +130,6 @@ KateGlobal::KateGlobal ()
   // create script man (search scripts) + register commands
   m_jscriptManager = new KateJScriptManager ();
   KateCmd::self()->registerCommand (m_jscriptManager);
-  m_indentScriptManager = new KateIndentJScriptManager();
 
   //
   // init the cmds
@@ -159,12 +158,9 @@ KateGlobal::~KateGlobal()
   // you too
   qDeleteAll (m_cmds);
 
-  // cu manager
-  delete m_indentScriptManager;
+  // cu managers
   delete m_jscriptManager;
-
   delete m_hlManager;
-
   delete m_cmdManager;
 
   s_self = 0;

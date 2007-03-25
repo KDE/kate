@@ -4,6 +4,7 @@
  * author: Dominik Haumann <dhdev@gmx.de>
  * version: 1
  * kate-version: 3.0
+ * type: indentation
  *
  * This file is part of the Kate Project.
  *
@@ -30,7 +31,7 @@ var cfgIndentCase = true;
 var cfgIndentNamespace = true;
 //END USER CONFIGURATION
 
-// indent gets three arguments: line, indentwidth in spaces, typed character 
+// indent gets three arguments: line, indentwidth in spaces, typed character
 indenter.indent = indent;
 
 // specifies the characters which should trigger indent, beside the default '\n'
@@ -175,7 +176,7 @@ function lastNonSpace(text)
 // {
 //     var currentLine = line;
 //     var currentString;
-// 
+//
 //     // go line up as long as the previous line ends with an escape character '\'
 //     while (currentLine >= 0) {
 //         currentString = document.line(currentLine - 1);
@@ -183,7 +184,7 @@ function lastNonSpace(text)
 //             break;
 //         --currentLine;
 //     }
-// 
+//
 //     // iterate through all lines and toggle bool insideString for every quote
 //     var insideString = false;
 //     var indentation = null;
@@ -205,7 +206,7 @@ function lastNonSpace(text)
 //         }
 //         ++currentLine;
 //     }
-// 
+//
 //     return insideString ? indentation : null;
 // }
 

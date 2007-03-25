@@ -19,6 +19,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_SMARTRANGE_H
 #define KDELIBS_KTEXTEDITOR_SMARTRANGE_H
 
+#include <ktexteditor/ktexteditor_export.h>
 #include <ktexteditor/range.h>
 #include <ktexteditor/smartcursor.h>
 #include <ktexteditor/attribute.h>

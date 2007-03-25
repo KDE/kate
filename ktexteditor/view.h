@@ -20,6 +20,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_VIEW_H
 #define KDELIBS_KTEXTEDITOR_VIEW_H
 
+#include <ktexteditor/ktexteditor_export.h>
 #include <ktexteditor/range.h>
 
 // gui merging

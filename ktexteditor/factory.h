@@ -20,6 +20,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_FACTORY_H
 #define KDELIBS_KTEXTEDITOR_FACTORY_H
 
+#include <ktexteditor/ktexteditor_export.h>
 // our main baseclass of the KTextEditor::Document
 #include <kparts/factory.h>
 

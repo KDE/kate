@@ -20,6 +20,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_EDITOR_H
 #define KDELIBS_KTEXTEDITOR_EDITOR_H
 
+#include <ktexteditor/ktexteditor_export.h>
 // our main baseclass of the KTextEditor::Editor
 #include <QObject>
 

@@ -19,8 +19,8 @@
 #ifndef KDELIBS_KTEXTEDITOR_CODECOMPLETIONINTERFACE_H
 #define KDELIBS_KTEXTEDITOR_CODECOMPLETIONINTERFACE_H
 
+#include <ktexteditor/ktexteditor_export.h>
 #include <QtCore/QObject>
-
 #include <ktexteditor/range.h>
 
 namespace KTextEditor {

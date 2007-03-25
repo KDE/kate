@@ -18,6 +18,7 @@
 #ifndef _EDITOR_CHOOSER_H_
 #define _EDITOR_CHOOSER_H_
 
+#include <ktexteditor/ktexteditor_export.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 

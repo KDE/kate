@@ -32,10 +32,10 @@ var cfgIndentNamespace = true;
 //END USER CONFIGURATION
 
 // indent gets three arguments: line, indentwidth in spaces, typed character
-indenter.indent = indent;
+// indent
 
 // specifies the characters which should trigger indent, beside the default '\n'
-indenter.triggerCharacters = "{}/:;";
+triggerCharacters = "{}/:;";
 
 //BEGIN global variables and functions
 // maximum number of lines we look backwards/forward to find out the indentation

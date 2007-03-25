@@ -39,6 +39,7 @@ class KateJSDocument;
 class KateJSView;
 class KateJSIndenter;
 class KateDocCursor;
+class KateIndentJScript;
 
 /*
  * Cool, this is all we need here
@@ -154,55 +155,6 @@ class KateJSInterpreterContext
     KJS::JSObject *m_view;
 };
 
-/**
- * JS indentation class representing one indenter.
- */
-class KateIndentJScript
-{
-  public:
-    /** create new indenter object. parameters are self-explaining. Beat dominik if you disagree. */
-    KateIndentJScript(const QString& basename);
-    ~KateIndentJScript();
-
-    /** get the supported characters the indenter wants to process */
-    const QString &triggerCharacters(KateView* view);
-
-    /** get new indent level. See KateJSIndentInterpreter::indent() for further information */
-    int indent(KateView* view, const KTextEditor::Cursor& position,
-               QChar typedChar, int indentWidth);
-
-  public:
-    inline const QString& basename() const { return m_basename; }
-    inline const QString& url() const { return m_url; }
-    inline const QString& name() const { return m_name; }
-    inline const QString& license() const { return m_license; }
-    inline const QString& author() const { return m_author; }
-    inline const QString& version() const { return m_version; }
-    inline const QString& kateVersion() const { return m_kateVersion; }
-
-  protected:
-    /** loads the interpreter */
-    void loadInterpreter(KateView* view);
-    /** free the interpreter */
-    void unloadInterpreter();
-
-  private:
-    KateJSInterpreterContext *m_script; ///< interpreter object
-
-    /** additional js indenter object */
-    KateJSIndenter *m_indenter;
-
-    QString m_basename;          ///< filename without extension (use-case: command line: set-indent-mode c)
-    QString m_url;               ///< full qualified location to the file
-    QString m_name;              ///< indenter's name, like 'C++' or 'Python'
-    QString m_author;            ///< FirstName LastName <email-address>
-    QString m_license;           ///< license, like GPL, LPGL, Artistic, ...
-    QString m_version;           ///< indenter version
-    QString m_kateVersion;       ///< minimum required kate version
-
-    QString m_triggerCharacters; ///< trigger characters the indenter supports
-    bool m_triggerCharactersSet; ///< helper. if true, trigger characters are already read
-};
 
 /**
  * manager for all js scripts the part knows about
@@ -210,7 +162,7 @@ class KateIndentJScript
  */
 class KateJScriptManager : public KTextEditor::Command
 {
-  private:
+  public:
     /**
      * Internal used Script Representation
      */
@@ -221,6 +173,12 @@ class KateJScriptManager : public KTextEditor::Command
 
         /** complete path to script */
         QString filename;
+
+        QString name;              ///< script's name, like 'C++' or 'Python'
+        QString author;            ///< FirstName LastName <email-address>
+        QString license;           ///< license, like GPL, LPGL, Artistic, ...
+        QString version;           ///< scripts's version
+        QString kateVersion;       ///< minimum required kate version
 
         /** type of this script */
         QString type;
@@ -309,6 +267,48 @@ class KateJScriptManager : public KTextEditor::Command
      * list of all indentation scripts
      */
     QList<KateIndentJScript*> m_indentationScriptsList;
+};
+
+/**
+ * JS indentation class representing one indenter.
+ */
+class KateIndentJScript
+{
+  public:
+    /** create new indenter object. parameters are self-explaining. Beat dominik if you disagree. */
+    KateIndentJScript(const QString& basename, KateJScriptManager::Script *info);
+    ~KateIndentJScript();
+
+    /** get the supported characters the indenter wants to process */
+    const QString &triggerCharacters(KateView* view);
+
+    /** get new indent level. See KateJSIndentInterpreter::indent() for further information */
+    int indent(KateView* view, const KTextEditor::Cursor& position,
+               QChar typedChar, int indentWidth);
+
+  public:
+    inline const QString& basename() const { return m_basename; }
+
+    KateJScriptManager::Script *info () { return m_info; }
+
+  protected:
+    /** loads the interpreter */
+    void loadInterpreter(KateView* view);
+    /** free the interpreter */
+    void unloadInterpreter();
+
+  private:
+    KateJScriptManager::Script *m_info;
+
+    KateJSInterpreterContext *m_script; ///< interpreter object
+
+    /** additional js indenter object */
+    KateJSIndenter *m_indenter;
+
+    QString m_basename;          ///< filename without extension (use-case: command line: set-indent-mode c)
+
+    QString m_triggerCharacters; ///< trigger characters the indenter supports
+    bool m_triggerCharactersSet; ///< helper. if true, trigger characters are already read
 };
 
 class KateJSExceptionTranslator

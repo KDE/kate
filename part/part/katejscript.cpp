@@ -344,6 +344,8 @@ KateJSInterpreterContext::KateJSInterpreterContext (const QString &filename)
   // eval file, if any
   if (!filename.isEmpty())
   {
+    kDebug(13051) << "read script: " << filename << endl;
+
     QFile file(filename);
     QTextStream stream(&file);
     stream.setCodec("UTF-8");
@@ -1316,6 +1318,13 @@ void KateJScriptManager::collectScripts (bool force)
 
     KateJScriptManager::Script *s = new KateJScriptManager::Script ();
     s->filename = absPath;
+
+    // remember important pairs...
+    s->name = it->pairs.value ("name");
+    s->author = it->pairs.value ("author");
+    s->license = it->pairs.value ("license");
+    s->version = it->pairs.value ("version");
+    s->kateVersion = it->pairs.value ("kate-version");
     s->type = it->pairs.value ("type");
 
     kDebug (13050) << "type: " << s->type << endl;
@@ -1331,7 +1340,8 @@ void KateJScriptManager::collectScripts (bool force)
   {
     kDebug (13050) << "add indent-script: " << indents[i] << endl;
 
-    KateIndentJScript *s = new KateIndentJScript(indents[i]);
+    // construct and remember indentation script...
+    KateIndentJScript *s = new KateIndentJScript(indents[i], m_scripts.value (indents[i]));
     m_indentationScripts.insert (indents[i], s);
     m_indentationScriptsList.append(s);
   }
@@ -1417,8 +1427,8 @@ const QStringList &KateJScriptManager::cmds()
 //END
 
 //BEGIN KateIndentJScript
-KateIndentJScript::KateIndentJScript(const QString& basename)
-  : m_script(0),
+KateIndentJScript::KateIndentJScript(const QString& basename, KateJScriptManager::Script *info)
+  : m_info (info), m_script(0),
     m_indenter(0),
     m_basename(basename),
     m_triggerCharactersSet(false)
@@ -1436,13 +1446,6 @@ void KateIndentJScript::loadInterpreter(KateView* view)
   {
     // get the interpreter...
     m_script = KateGlobal::self()->jscriptManager()->interpreter (m_basename, true);
-
-    if (m_script)
-    {
-      m_indenter = new KateJSIndenter (m_script->interpreter()->globalExec());
-
-      m_script->interpreter()->globalObject()->put(m_script->interpreter()->globalExec(), "indenter", m_indenter, KJS::DontDelete | KJS::ReadOnly);
-    }
   }
 }
 
@@ -1468,7 +1471,7 @@ const QString &KateIndentJScript::triggerCharacters(KateView* view)
 
   KJS::ExecState *exec = m_script->interpreter()->globalExec();
 
-  m_triggerCharacters = m_indenter->get(exec, "triggerCharacters")->toString(exec).qstring();
+  m_triggerCharacters = m_script->interpreter()->globalObject()->get(exec, "triggerCharacters")->toString(exec).qstring();
   if (exec->hadException()) {
     kDebug(13050) << "triggerCharacters: Unable to lookup 'indenter.triggerCharacters'" << endl;
     exec->clearException();
@@ -1496,7 +1499,7 @@ int KateIndentJScript::indent(KateView* view,
   params.append(KJS::String(typedChar.isNull() ? QString("") : QString(typedChar)));
 
   QString errorMsg;
-  KJS::JSValue *val = m_script->callFunction(view, m_indenter, KJS::Identifier("indent"),
+  KJS::JSValue *val = m_script->callFunction(view, m_script->interpreter()->globalObject(), KJS::Identifier("indent"),
                                    params, errorMsg);
 
   if (!val) {

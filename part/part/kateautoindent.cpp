@@ -73,7 +73,7 @@ QString KateAutoIndent::modeDescription (int mode)
   if (mode == 1)
     return i18n ("Normal");
 
-  return KateGlobal::self()->jscriptManager()->indentationScriptByIndex(mode-2)->name();
+  return KateGlobal::self()->jscriptManager()->indentationScriptByIndex(mode-2)->info()->name;
 }
 
 uint KateAutoIndent::modeNumber (const QString &name)

@@ -37,7 +37,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
  KTextEditor::Document *kv = win->activeView()->document();
 
      //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
- if(listMode)
+ if(treeMode)
    {
     mcrNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Uses"));
     sctNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Pragmas"));
@@ -45,6 +45,12 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
     mcrNode->setPixmap(0, (const QPixmap &)mcr);
     sctNode->setPixmap(0, (const QPixmap &)sct);
     clsNode->setPixmap(0, (const QPixmap &)cls);
+    if (expanded_on)
+      {
+       mcrNode->setOpen(TRUE);
+       sctNode->setOpen(TRUE);
+       clsNode->setOpen(TRUE);
+      }
     lastMcrNode = mcrNode;
     lastSctNode = sctNode;
     lastClsNode = clsNode;
@@ -53,7 +59,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
  else
     symbols->setRootIsDecorated(0);
 
- for (unsigned int i=0; i<kv->lines(); i++)
+ for (int i=0; i<kv->lines(); i++)
    {
     cl = kv->line(i);
     cl = cl.trimmed();
@@ -75,7 +81,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
        QString stripped=cl.replace( QRegExp("^use +"), "" );
        //stripped=stripped.replace( QRegExp(";$"), "" ); // Doesn't work ??
        stripped = stripped.left(stripped.indexOf(';'));
-       if (listMode)
+       if (treeMode)
          {
           node = new Q3ListViewItem(mcrNode, lastMcrNode, stripped);
           lastMcrNode = node;
@@ -91,7 +97,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
       {
        QString stripped=cl.replace( QRegExp("^use +"), "" );
        stripped=stripped.replace( QRegExp(";$"), "" );
-       if (listMode)
+       if (treeMode)
          {
           node = new Q3ListViewItem(sctNode, lastSctNode, stripped);
           lastMcrNode = node;
@@ -108,7 +114,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
       {
        QString stripped=cl.replace( QRegExp("^sub +"), "" );
        stripped=stripped.replace( QRegExp("[{;] *$"), "" );
-       if (listMode)
+       if (treeMode)
          {
           node = new Q3ListViewItem(clsNode, lastClsNode, stripped);
           lastClsNode = node;

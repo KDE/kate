@@ -55,6 +55,7 @@ class KatePluginSymbolViewerView : public QObject, public KXMLGUIClient
     void slotInsertSymbol();
     void slotRefreshSymbol();
     void slotChangeMode();
+    void slotEnableSorting();
     void slotDocChanged();
     void goToSymbol(Q3ListViewItem *);
     void slotShowContextMenu(Q3ListViewItem *, const QPoint&, int);
@@ -68,9 +69,9 @@ class KatePluginSymbolViewerView : public QObject, public KXMLGUIClient
     K3ListView *symbols;
     QWidget *dock;
     bool m_Active;
-    int m_macro, m_struct, m_func;
+    int m_macro, m_struct, m_func, m_sort;
     bool macro_on, struct_on, func_on;
-    bool listMode;
+    bool treeMode, lsorting;
     void parseCppSymbols(void);
     void parseTclSymbols(void);
     void parseFortranSymbols(void);
@@ -79,6 +80,7 @@ class KatePluginSymbolViewerView : public QObject, public KXMLGUIClient
   public:
     Kate::MainWindow *win;
     bool types_on;
+    bool expanded_on;
 };
 
 /**
@@ -116,6 +118,7 @@ class KatePluginSymbolViewerConfigPage : public Kate::PluginConfigPage
 
   private:
     QCheckBox* viewReturns;
+    QCheckBox* expandTree;
 };
 
 
@@ -266,7 +269,6 @@ static const char* const struct_xpm[] = {
 "  ..,>.         ",
 "    ..          "};
 
-// Sarah's colors...
 static const char* const macro_xpm[] = {
 "16 16 14 1",
 " 	c None",

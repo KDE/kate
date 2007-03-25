@@ -45,7 +45,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
  popup->changeItem( popup->idAt(4),i18n("Show Functions"));
 
 
- if(listMode)
+ if(treeMode)
   {
    funcNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Functions"));
    subrNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Subroutines"));
@@ -53,6 +53,14 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
    funcNode->setPixmap(0, (const QPixmap &)func);
    modNode->setPixmap(0, (const QPixmap &)mod);
    subrNode->setPixmap(0, (const QPixmap &)subr);
+
+   if (expanded_on)
+      {
+       funcNode->setOpen(TRUE);
+       subrNode->setOpen(TRUE);
+       modNode->setOpen(TRUE);
+      }
+
    lastSubrNode = subrNode;
    lastFuncNode = funcNode;
    lastModNode = modNode;
@@ -131,7 +139,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                     stripped.prepend("Main: ");
                 if(stripped.indexOf("=")==-1)
                   {
-                   if (listMode)
+                   if (treeMode)
                      {
                       node = new Q3ListViewItem(subrNode, lastSubrNode, stripped);
                       lastSubrNode = node;
@@ -171,7 +179,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
               }
             if(stripped.indexOf('=')==-1)
               {
-               if (listMode)
+               if (treeMode)
                  {
                   node = new Q3ListViewItem(modNode, lastModNode, stripped);
                   lastModNode = node;
@@ -211,7 +219,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
             if(paro==parc && stripped.endsWith("&",FALSE)==FALSE)
               {
                stripped.replace("&","");
-              if (listMode)
+              if (treeMode)
                 {
                  node = new Q3ListViewItem(funcNode, lastFuncNode, stripped);
                  lastFuncNode = node;

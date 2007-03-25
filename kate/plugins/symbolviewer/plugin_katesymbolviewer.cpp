@@ -83,6 +83,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(Kate::MainWindow *w)
  m_func = popup->insertItem(i18n("Show Functions"), this, SLOT(toggleShowFunctions()));
  popup->addSeparator();
  popup->insertItem(i18n("List/Tree Mode"), this, SLOT(slotChangeMode()));
+ m_sort = popup->insertItem(i18n("Enable sorting"), this, SLOT(slotEnableSorting()));
 
  popup->setItemChecked(m_macro, true);
  popup->setItemChecked(m_struct, true);
@@ -133,7 +134,7 @@ void KatePluginSymbolViewerView::slotInsertSymbol()
       dock = win->createToolView("kate_plugin_symbolviewer", Kate::MainWindow::Left, cls, i18n("Symbol List"));
 
       symbols = new K3ListView(dock);
-      listMode = 0;
+      treeMode = 0;
 
       connect(symbols, SIGNAL(executed(Q3ListViewItem *)), this, SLOT(goToSymbol(Q3ListViewItem *)));
       connect(symbols, SIGNAL(rightButtonClicked(Q3ListViewItem *, const QPoint&, int)),
@@ -174,8 +175,21 @@ void KatePluginSymbolViewerView::slotRefreshSymbol()
 
 void KatePluginSymbolViewerView::slotChangeMode()
 {
- listMode = !listMode;
+ treeMode = !treeMode;
  symbols->clear();
+ parseSymbols();
+}
+
+void KatePluginSymbolViewerView::slotEnableSorting()
+{
+ lsorting = !lsorting;
+ popup->setItemChecked(m_sort, lsorting);
+ symbols->clear();
+ if (lsorting == TRUE)
+     symbols->setSorting(0, TRUE);
+ else
+     symbols->setSorting(-1, FALSE);
+
  parseSymbols();
 }
 
@@ -225,6 +239,8 @@ void KatePluginSymbolViewerView::parseSymbols(void)
      parsePerlSymbols();
   else if (hlModeName == "Python")
      parsePythonSymbols();
+  else if (hlModeName == "Java")
+     parseCppSymbols();
   else
      node = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Sorry. Language not supported yet"));
 }
@@ -310,6 +326,7 @@ Kate::PluginConfigPage* KatePluginSymbolViewer::configPage(
 void KatePluginSymbolViewer::initConfigPage( KatePluginSymbolViewerConfigPage* p )
 {
   p->viewReturns->setChecked(pConfig.group("global").readEntry("view_types", true));
+  p->expandTree->setChecked(pConfig.group("global").readEntry("expand_tree", false));
 }
 
 void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
@@ -322,6 +339,7 @@ void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
   }
 */
   pConfig.group("global").writeEntry("view_types", p->viewReturns->isChecked());
+  pConfig.group("global").writeEntry("expand_tree", p->expandTree->isChecked());
 }
 
 // BEGIN KatePluginSymbolViewerConfigPage
@@ -334,14 +352,16 @@ KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(
 
   Q3GroupBox* gb = new Q3GroupBox( i18n("Parser Options"),
       this, "symbolviewer_config_page_layout" );
-  gb->setColumnLayout(1, Qt::Vertical);
+  gb->setColumnLayout(1, Qt::Horizontal);
   gb->setInsideSpacing(KDialog::spacingHint());
   viewReturns = new QCheckBox(i18n("Display functions' parameters"), gb);
+  expandTree = new QCheckBox(i18n("Automatically expand nodes in tree mode"), gb);
 
   top->add(gb);
   top->addStretch(1);
 //  throw signal changed
   connect(viewReturns, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
+  connect(expandTree, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
 }
 
 KatePluginSymbolViewerConfigPage::~KatePluginSymbolViewerConfigPage() {}

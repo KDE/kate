@@ -24,19 +24,21 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
  QString stripped;
  int i, j, tmpPos = 0;
  int par = 0, graph = 0, retry = 0;
- char block = 0, comment = 0, macro = 0, macro_pos = 0;
+ char mclass = 0, block = 0, comment = 0; // comment: 0-no comment 1-inline comment 2-multiline comment 3-string
+ char macro = 0, macro_pos = 0, func_close = 0;
  bool structure = false;
  QPixmap cls( ( const char** ) class_xpm );
  QPixmap sct( ( const char** ) struct_xpm );
  QPixmap mcr( ( const char** ) macro_xpm );
+ QPixmap mtd( ( const char** ) method_xpm );
  Q3ListViewItem *node = NULL;
- Q3ListViewItem *mcrNode = NULL, *sctNode = NULL, *clsNode = NULL;
- Q3ListViewItem *lastMcrNode = NULL, *lastSctNode = NULL, *lastClsNode = NULL;
+ Q3ListViewItem *mcrNode = NULL, *sctNode = NULL, *clsNode = NULL, *mtdNode = NULL;
+ Q3ListViewItem *lastMcrNode = NULL, *lastSctNode = NULL, *lastClsNode = NULL, *lastMtdNode = NULL;
 
  KTextEditor::Document *kv = win->activeView()->document();
 
  //kDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
- if(listMode)
+ if(treeMode)
    {
     mcrNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Macros"));
     sctNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Structures"));
@@ -44,9 +46,17 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
     mcrNode->setPixmap(0, (const QPixmap &)mcr);
     sctNode->setPixmap(0, (const QPixmap &)sct);
     clsNode->setPixmap(0, (const QPixmap &)cls);
+    if (expanded_on)
+      {
+       mcrNode->setOpen(TRUE);
+       sctNode->setOpen(TRUE);
+       clsNode->setOpen(TRUE);
+      }
     lastMcrNode = mcrNode;
     lastSctNode = sctNode;
     lastClsNode = clsNode;
+    mtdNode = clsNode;
+    lastMtdNode = clsNode;
     symbols->setRootIsDecorated(1);
    }
  else symbols->setRootIsDecorated(0);
@@ -55,7 +65,9 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
    {
     cl = kv->line(i);
     cl = cl.trimmed();
+    func_close = 0;
     if ( (cl.length()>=2) && (cl.at(0) == '/' && cl.at(1) == '/')) continue;
+    if(cl.indexOf("/*") == 0 && (cl.indexOf("*/") == ((signed)cl.length() - 2)) && graph == 0) continue; // workaround :(
     if(cl.indexOf("/*") >= 0 && graph == 0) comment = 1;
     if(cl.indexOf("*/") >= 0 && graph == 0) comment = 0;
     if(cl.indexOf('#') >= 0 && graph == 0 ) macro = 1;
@@ -67,7 +79,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
           //macro_pos = cl.indexOf('#');
           for (j = 0; j < cl.length(); j++)
              {
-              if ( ((j+1) <cl.length()) &&  (cl.at(j)=='/' && cl.at(j+1)=='/')) { macro = 0; break; }
+              if ( ((j+1) <cl.length()) &&  (cl.at(j)=='/' && cl.at(j+1)=='/')) { macro = 4; break; }
               if(  cl.indexOf("define") == j &&
                  !(cl.indexOf("defined") == j))
                     {
@@ -91,7 +103,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
               stripped = stripped.trimmed();
               if (macro_on == true)
                  {
-                  if (listMode)
+                  if (treeMode)
                     {
                      node = new Q3ListViewItem(mcrNode, lastMcrNode, stripped);
                      lastMcrNode = node;
@@ -108,11 +120,50 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
               continue;
              }
           }
-       if (macro == 5 && cl.at(cl.length() - 1) != '\\') { macro = 0; continue; }
+       if (macro == 5)
+          { 
+           if (cl.at(cl.length() - 1) != '\\')
+	      macro = 0; 
+           continue; 
+          } 
 
        /* ******************************************************************** */
-       //if (cl.at(j) == '"' && comment == 2) { comment = 0; j++; }
-       //else if (cl.at(j) == '"' && comment == 0) comment = 2;
+
+       if ((cl.indexOf("class") >= 0 && graph == 0 && block == 0))
+         {
+          mclass = 1;
+          for (j = 0; j < cl.length(); j++)
+             {
+              if(((j+1) < cl.length()) && (cl.at(j)=='/' && cl.at(j+1)=='/')) { mclass = 2; break; }
+              if(cl.at(j)=='{') { mclass = 4; break;}
+              stripped += cl.at(j);
+             }
+          if(func_on == true)
+            {
+             if (treeMode)
+               {
+                node = new Q3ListViewItem(clsNode, lastClsNode, stripped);
+                if (expanded_on) node->setOpen(TRUE);
+                lastClsNode = node;
+                mtdNode = lastClsNode;
+                lastMtdNode = lastClsNode;
+               }
+             else node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
+             node->setPixmap(0, (const QPixmap &)cls);
+             node->setText(1, QString::number( i, 10));
+             stripped = "";
+             if (mclass == 1) mclass = 3;
+            }
+          continue;
+         }
+       if (mclass == 3)
+         {
+          if (cl.find('{') >= 0) 
+            {
+             cl = cl.right(cl.find('{'));
+             mclass = 4;
+            }
+         }
 
        if(cl.indexOf('(') >= 0 && cl.at(0) != '#' && block == 0 && comment != 2)
           { structure = false; block = 1; }
@@ -121,17 +172,18 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
          { structure = true; block = 2; stripped = ""; }
        //if(cl.indexOf(';') >= 0 && graph == 0)
        //    block = 0;
-       if(block > 0)
+       if(block > 0 && mclass != 1 )
          {
           for (j = 0; j < cl.length(); j++)
             {
-             if (cl.at(j) == '/' && (cl.at(j + 1) == '*')) comment = 2;
-             if ( ((j+1)<cl.length()) && (cl.at(j) == '*' && (cl.at(j + 1) == '/')) ) {  comment = 0; j+=2; if (j>=cl.length()) break;}
-             if (cl.at(j) == '"' && comment == 2) { comment = 0; j++; if (j>=cl.length()) break;}
-             else if (cl.at(j) == '"' && comment == 0) comment = 2;
-             if ( ((j+1) <cl.length()) &&(cl.at(j)=='/' && cl.at(j+1)=='/') )
+             if ( ((j+1) < cl.length()) && (cl.at(j) == '/' && (cl.at(j + 1) == '*'))) comment = 2;
+             if ( ((j+1) < cl.length()) && (cl.at(j) == '*' && (cl.at(j + 1) == '/')) ) {  comment = 0; j+=2; if (j>=cl.length()) break;}
+             // Handles a string. Those are freaking evilish !
+             if (cl.at(j) == '"' && comment == 3) { comment = 0; j++; if (j>=cl.length()) break;}
+             else if (cl.at(j) == '"' && comment == 0) comment = 3;
+             if ( ((j+1) <cl.length()) &&(cl.at(j)=='/' && cl.at(j+1)=='/') && comment == 0 )
                { if(block == 1 && stripped.isEmpty()) block = 0; break; }
-             if (comment != 2)
+             if (comment != 2 && comment != 3)
                {
                 if (block == 1 && graph == 0 )
                   {
@@ -152,7 +204,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                   } // BLOCK 1
                 if(block == 2 && graph == 0)
                   {
-                   if ( ((j+1)<cl.length()) && (cl.at(j)=='/' && cl.at(j+1)=='/') ) break;
+                   if ( ((j+1)<cl.length()) && (cl.at(j)=='/' && cl.at(j+1)=='/') && comment == 0) break;
                    //if(cl.at(j)==':' || cl.at(j)==',') { block = 1; continue; }
                    if(cl.at(j)==':') { block = 1; continue; }
                    if(cl.at(j)==';')
@@ -163,7 +215,8 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                       break;
                      }
 
-                   if(cl.at(j)=='{' && structure == false && cl.indexOf(';') < 0)
+                   if(cl.at(j)=='{' && structure == false && cl.indexOf(';') < 0 ||
+                      cl.at(j)=='{' && structure == false && cl.indexOf('}') > (int)j)
                      {
                       stripped.replace(0x9, " ");
                       if(func_on == true)
@@ -178,13 +231,23 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                             while (stripped.indexOf(0x20) >= 0)
                               stripped = stripped.mid(stripped.indexOf(0x20, 0) + 1);
                            }
-                         if (listMode)
+                         if (treeMode)
                            {
-                            node = new Q3ListViewItem(clsNode, lastClsNode, stripped);
-                            lastClsNode = node;
+                            if (mclass == 4)
+                              {
+                               node = new Q3ListViewItem(mtdNode, lastMtdNode, stripped);
+                               lastMtdNode = node;
+                              }
+                            else 
+                              {
+                               node = new Q3ListViewItem(clsNode, lastClsNode, stripped);
+                               lastClsNode = node;
+                              }
                            }
-                         else node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
-                         node->setPixmap(0, (const QPixmap &)cls);
+                         else
+                             node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
+                         if (mclass == 4) node->setPixmap(0, (const QPixmap &)mtd);
+                         else node->setPixmap(0, (const QPixmap &)cls);
                          node->setText(1, QString::number( tmpPos, 10));
                         }
                       stripped = "";
@@ -211,12 +274,12 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                 if (block == 3)
                   {
                    // A comment...there can be anything
-                   if( ((j+1)<cl.length()) && (cl.at(j)=='/' && cl.at(j+1)=='/') ) break;
+                   if( ((j+1)<cl.length()) && (cl.at(j)=='/' && cl.at(j+1)=='/') && comment == 0 ) break;
                    if(cl.at(j)=='{') graph++;
                    if(cl.at(j)=='}')
                      {
                       graph--;
-                      if (graph == 0 && structure == false) block = 0;
+                      if (graph == 0 && structure == false)  { block = 0; func_close = 1; }
                       if (graph == 0 && structure == true) block = 4;
                      }
                   } // BLOCK 3
@@ -230,7 +293,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                       stripped.replace('}', " ");
                       if(struct_on == true)
                         {
-                         if (listMode)
+                         if (treeMode)
                            {
                             node = new Q3ListViewItem(sctNode, lastSctNode, stripped);
                             lastSctNode = node;
@@ -252,6 +315,14 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
              //kDebug(13000)<<"Stripped : "<<stripped<<" at row : "<<i<<endl;
             } // End of For cycle
          } // BLOCK > 0
+       if (mclass == 4 && block == 0 && func_close == 0)
+         {
+          if (cl.indexOf('}') >= 0) 
+            {
+             cl = cl.right(cl.indexOf('}'));
+             mclass = 0;
+            }
+         }
       } // Comment != 1
    } // for kv->numlines
 

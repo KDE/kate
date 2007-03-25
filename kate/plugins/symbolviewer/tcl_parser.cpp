@@ -38,12 +38,17 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
  QPixmap mcr( ( const char** ) macro_xpm );
  QPixmap cls( ( const char** ) class_xpm );
 
- if(listMode)
+ if(treeMode)
   {
    clsNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Functions"));
    mcrNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Globals"));
    lastMcrNode = mcrNode;
    lastClsNode = clsNode;
+   if (expanded_on)
+      {
+       clsNode->setOpen(TRUE);
+       mcrNode->setOpen(TRUE);
+      }
    symbols->setRootIsDecorated(1);
   }
  else
@@ -82,7 +87,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
              //fnd = stripped.indexOf(';');
              if(fnd > 0) stripped = stripped.left(fnd);
 
-             if (listMode)
+             if (treeMode)
                {
                 node = new Q3ListViewItem(mcrNode, lastMcrNode, stripped);
                 lastMcrNode = node;
@@ -123,7 +128,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                              //stripped = stripped.simplified();
                              if(func_on == true)
                                {
-                                if (listMode)
+                                if (treeMode)
                                   {
                                    node = new Q3ListViewItem(clsNode, lastClsNode, stripped);
                                    lastClsNode = node;

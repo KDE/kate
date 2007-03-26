@@ -4,6 +4,8 @@
     begin                : 2005-06-15
     copyright            : (C) 2005 by Dominik Haumann
     email                : dhdev@gmx.de
+    
+    Copyright (C) 2007 Flavio Castelli <flavio.castelli@gmail.com>
  ***************************************************************************/
 
 /***************************************************************************
@@ -233,6 +235,8 @@ void KTinyTabButton::contextMenuEvent( QContextMenuEvent* ev )
     menu.addSeparator();
 
     QAction* aCloseTab = menu.addAction( i18n( "&Close Tab" ) );
+    QAction* aCloseOtherTabs = menu.addAction( i18n( "Close &Other Tabs" ) );
+    QAction* aCloseAllTabs = menu.addAction( i18n( "Close &All Tabs" ) );
 
     QAction* choice = menu.exec( ev->globalPos() );
 
@@ -271,7 +275,12 @@ void KTinyTabButton::contextMenuEvent( QContextMenuEvent* ev )
         }
     } else if( choice == aCloseTab ) {
         emit closeRequest( this );
+    } else if (choice == aCloseOtherTabs) {
+        emit closeOtherTabsRequest (this);
+    } else if (choice == aCloseAllTabs) {
+        emit closeAllTabsRequest ();
     }
+    
 }
 
 void KTinyTabButton::setButtonID( int button_id )

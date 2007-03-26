@@ -4,6 +4,8 @@
     begin                : 2005-06-15
     copyright            : (C) 2005 by Dominik Haumann
     email                : dhdev@gmx.de
+    
+    Copyright (C) 2007 Flavio Castelli <flavio.castelli@gmail.com>
  ***************************************************************************/
 
 /***************************************************************************
@@ -191,7 +193,9 @@ signals:
 protected slots:
     void tabButtonActivated( KTinyTabButton* tabButton );
     void tabButtonHighlightChanged( KTinyTabButton* tabButton );
+    void tabButtonCloseAllRequest();
     void tabButtonCloseRequest( KTinyTabButton* tabButton );
+    void tabButtonCloseOtherRequest( KTinyTabButton* tabButton );
     void upClicked();
     void downClicked();
     void configureClicked();

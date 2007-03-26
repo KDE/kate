@@ -4,6 +4,8 @@
     begin                : 2005-06-15
     copyright            : (C) 2005 by Dominik Haumann
     email                : dhdev@gmx.de
+    
+    Copyright (C) 2007 Flavio Castelli <flavio.castelli@gmail.com>
  ***************************************************************************/
 
 /***************************************************************************
@@ -402,6 +404,10 @@ int KTinyTabBar::addTab( const QString& docurl, const QIcon& icon, const QString
              this, SLOT( tabButtonHighlightChanged( KTinyTabButton* ) ) );
     connect( tabButton, SIGNAL( closeRequest( KTinyTabButton* ) ),
              this, SLOT( tabButtonCloseRequest( KTinyTabButton* ) ) );
+    connect( tabButton, SIGNAL( closeOtherTabsRequest( KTinyTabButton* ) ),
+             this, SLOT( tabButtonCloseOtherRequest( KTinyTabButton* ) ) );
+    connect( tabButton, SIGNAL( closeAllTabsRequest() ),
+             this, SLOT( tabButtonCloseAllRequest() ) );
 
     if( !isVisible() )
         show();
@@ -954,6 +960,41 @@ void KTinyTabBar::tabButtonHighlightChanged( KTinyTabButton* tabButton )
 void KTinyTabBar::tabButtonCloseRequest( KTinyTabButton* tabButton )
 {
     emit closeRequest( tabButton->buttonID() );
+}
+
+/**
+ * If the user wants to close all tabs except the current one using the context
+ * menu, it sends multiple close requests.
+ * Throw the close requests by emitting the signal @p closeRequest().
+ */
+void KTinyTabBar::tabButtonCloseOtherRequest( KTinyTabButton* tabButton )
+{
+    QList <int> tabToCloseID;
+    for (int i = 0; i < m_tabButtons.size(); ++i) {
+        if ((m_tabButtons.at(i))->buttonID() != tabButton->buttonID())
+            tabToCloseID << (m_tabButtons.at(i))->buttonID();
+    }
+    
+    for (int i = 0; i < tabToCloseID.size(); i++) {
+        emit closeRequest(tabToCloseID.at(i));
+    }
+}
+
+/**
+ * If the user wants to close all the tabs using the context menu, it sends
+ * multiple close requests.
+ * Throw the close requests by emitting the signal @p closeRequest().
+ */
+void KTinyTabBar::tabButtonCloseAllRequest( )
+{
+    QList <int> tabToCloseID;
+    for (int i = 0; i < m_tabButtons.size(); ++i) {
+        tabToCloseID << (m_tabButtons.at(i))->buttonID();
+    }
+    
+    for (int i = 0; i < tabToCloseID.size(); i++) {
+        emit closeRequest(tabToCloseID.at(i));
+    }
 }
 
 /**

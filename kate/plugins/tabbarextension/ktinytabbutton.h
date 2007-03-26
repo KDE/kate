@@ -4,6 +4,8 @@
     begin                : 2005-06-15
     copyright            : (C) 2005 by Dominik Haumann
     email                : dhdev@gmx.de
+    
+    Copyright (C) 2007 Flavio Castelli <flavio.castelli@gmail.com>
  ***************************************************************************/
 
 /***************************************************************************
@@ -198,6 +200,18 @@ signals:
      * @param tabbutton the button that emitted this signal
      */
     void closeRequest( KTinyTabButton* tabbutton );
+    
+    /**
+     * Emitted whenever the user wants to close all the tab button except the
+     * selected one.
+     * @param tabbutton the button that emitted this signal
+     */
+    void closeOtherTabsRequest( KTinyTabButton* tabbutton );
+    
+    /**
+     * Emitted whenever the user wants to close all the tabs.
+     */
+    void closeAllTabsRequest();
 
 protected slots:
     void buttonClicked();

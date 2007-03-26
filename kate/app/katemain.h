@@ -51,7 +51,7 @@ class KFileViewItem;
 class KHistoryCombo;
 class KLineEdit;
 class KListWidget;
-class KProcess;
+class K3Process;
 class KPushButton;
 class KRecentFilesAction;
 class KSelectAction;

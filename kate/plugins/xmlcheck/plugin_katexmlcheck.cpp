@@ -153,13 +153,13 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(QWidget *parent,Kate::MainWindow 
 */
 
 	m_proc_stderr = "";
-	m_proc = new KProcess();
-	connect(m_proc, SIGNAL(processExited(KProcess*)), this, SLOT(slotProcExited(KProcess*)));
+	m_proc = new K3Process();
+	connect(m_proc, SIGNAL(processExited(K3Process*)), this, SLOT(slotProcExited(K3Process*)));
 	// we currently only want errors:
-	//connect(m_proc, SIGNAL(receivedStdout(KProcess*,char*,int)),
-	//	this, SLOT(receivedProcStdout(KProcess*, char*, int)));
-	connect(m_proc, SIGNAL(receivedStderr(KProcess*,char*,int)),
-		this, SLOT(slotReceivedProcStderr(KProcess*, char*, int)));
+	//connect(m_proc, SIGNAL(receivedStdout(K3Process*,char*,int)),
+	//	this, SLOT(receivedProcStdout(K3Process*, char*, int)));
+	connect(m_proc, SIGNAL(receivedStderr(K3Process*,char*,int)),
+		this, SLOT(slotReceivedProcStderr(K3Process*, char*, int)));
 
 }
 
@@ -169,12 +169,12 @@ PluginKateXMLCheckView::~PluginKateXMLCheckView()
 	delete m_tmp_file;
 }
 
-void PluginKateXMLCheckView::slotReceivedProcStderr(KProcess *, char *result, int len)
+void PluginKateXMLCheckView::slotReceivedProcStderr(K3Process *, char *result, int len)
 {
 	m_proc_stderr += QString::fromLocal8Bit( Q3CString(result, len+1) );
 }
 
-void PluginKateXMLCheckView::slotProcExited(KProcess*)
+void PluginKateXMLCheckView::slotProcExited(K3Process*)
 {
 	// FIXME: doesn't work correct the first time:
 	//if( m_dockwidget->isDockBackPossible() ) {
@@ -351,7 +351,7 @@ bool PluginKateXMLCheckView::slotValidate()
 	}
 	*m_proc << m_tmp_file->fileName();
 
-	if( ! m_proc->start(KProcess::NotifyOnExit, KProcess::AllOutput) ) {
+	if( ! m_proc->start(K3Process::NotifyOnExit, K3Process::AllOutput) ) {
 		KMessageBox::error(0, i18n("<b>Error:</b> Failed to execute xmllint. Please make "
 			"sure that xmllint is installed. It is part of libxml2."));
 		return false;

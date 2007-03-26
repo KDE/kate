@@ -46,7 +46,7 @@ class QRegExp;
 
 #include <k3dockwidget.h>
 #include <kiconloader.h>
-#include <kprocess.h>
+#include <k3process.h>
 
 class PluginKateMakeView : public Q3ListView, public KXMLGUIClient
 {
@@ -66,8 +66,8 @@ class PluginKateMakeView : public Q3ListView, public KXMLGUIClient
 	void slotPrev();
 
 	bool slotValidate();
-	void slotProcExited(KProcess*);
-	void slotReceivedProcStderr(KProcess*, char*, int);
+	void slotProcExited(K3Process*);
+	void slotReceivedProcStderr(K3Process*, char*, int);
 
 	void slotConfigure();
 
@@ -75,7 +75,7 @@ protected:
 	void processLine(const QString &);
 	
   private:
-	KProcess *m_proc;
+	K3Process *m_proc;
 	
 	QString output_line;
 	QString doc_name;

@@ -41,7 +41,7 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kprocess.h>
+#include <k3process.h>
 #include <kstandarddirs.h>
 #include <kgenericfactory.h>
 #include <kauthorized.h>
@@ -149,14 +149,14 @@ void PluginKateInsertCommand::slotInsertCommand()
                                docdir, dialogSettings);
   if ( d->exec() && ! d->command().isEmpty() ) {
     if ( ! sh ) {
-    sh = new KShellProcess;
+    sh = new K3ShellProcess;
 
-    connect ( sh, SIGNAL(receivedStdout(KProcess*, char*, int)),
-              this, SLOT(slotReceivedStdout(KProcess*, char*, int)) );
-    connect ( sh, SIGNAL(receivedStderr(KProcess*, char*, int)),
-              this, SLOT(slotReceivedStderr(KProcess*, char*, int)) );
-    connect ( sh, SIGNAL(processExited(KProcess*)),
-              this, SLOT(slotProcessExited(KProcess*)) ) ;
+    connect ( sh, SIGNAL(receivedStdout(K3Process*, char*, int)),
+              this, SLOT(slotReceivedStdout(K3Process*, char*, int)) );
+    connect ( sh, SIGNAL(receivedStderr(K3Process*, char*, int)),
+              this, SLOT(slotReceivedStderr(K3Process*, char*, int)) );
+    connect ( sh, SIGNAL(processExited(K3Process*)),
+              this, SLOT(slotProcessExited(K3Process*)) ) ;
     }
 
     sh->clearArguments();
@@ -173,7 +173,7 @@ void PluginKateInsertCommand::slotInsertCommand()
       config->writePathEntry("Last WD", d->wd());
     }
     *sh << QFile::encodeName(d->command());
-    sh->start( KProcess::NotifyOnExit, KProcess::All );
+    sh->start( K3Process::NotifyOnExit, K3Process::All );
 
     // add command to history
     if ( cmdhist.contains( d->command() ) ) {
@@ -222,7 +222,7 @@ void PluginKateInsertCommand::slotShowWaitDlg()
     }
 }
 
-void PluginKateInsertCommand::slotReceivedStdout( KProcess* /*p*/, char* text,
+void PluginKateInsertCommand::slotReceivedStdout( K3Process* /*p*/, char* text,
                                                   int len )
 {
   QString t = QString::fromLocal8Bit ( text );
@@ -230,14 +230,14 @@ void PluginKateInsertCommand::slotReceivedStdout( KProcess* /*p*/, char* text,
   kv->insertText( t );
 }
 
-void PluginKateInsertCommand::slotReceivedStderr( KProcess* p, char* text,
+void PluginKateInsertCommand::slotReceivedStderr( K3Process* p, char* text,
                                                   int len )
 {
   if ( bInsStdErr )
     slotReceivedStdout( p, text, len );
 }
 
-void PluginKateInsertCommand::slotProcessExited( KProcess* p )
+void PluginKateInsertCommand::slotProcessExited( K3Process* p )
 {
   if (wdlg) {
     wdlg->hide();

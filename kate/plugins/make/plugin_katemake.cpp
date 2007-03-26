@@ -369,11 +369,11 @@ PluginKateMakeView::PluginKateMakeView(QWidget *parent,
 	setResizeMode(Q3ListView::LastColumn);
 	connect(this, SIGNAL(clicked(Q3ListViewItem *)), SLOT(slotClicked(Q3ListViewItem *)));
 
-	m_proc = new KProcess();
+	m_proc = new K3Process();
 
-	connect(m_proc, SIGNAL(processExited(KProcess*)), this, SLOT(slotProcExited(KProcess*)));
-	connect(m_proc, SIGNAL(receivedStderr(KProcess*,char*,int)),
-		this, SLOT(slotReceivedProcStderr(KProcess*, char*, int)));
+	connect(m_proc, SIGNAL(processExited(K3Process*)), this, SLOT(slotProcExited(K3Process*)));
+	connect(m_proc, SIGNAL(receivedStderr(K3Process*,char*,int)),
+		this, SLOT(slotReceivedProcStderr(K3Process*, char*, int)));
 
 
 	KConfig config("katemakepluginrc");
@@ -448,7 +448,7 @@ void PluginKateMakeView::processLine(const QString &l)
 }
 
 
-void PluginKateMakeView::slotReceivedProcStderr(KProcess *, char *result, int len)
+void PluginKateMakeView::slotReceivedProcStderr(K3Process *, char *result, int len)
 {
 	FUNCTIONSETUP;
 
@@ -465,7 +465,7 @@ void PluginKateMakeView::slotReceivedProcStderr(KProcess *, char *result, int le
 }
 
 
-void PluginKateMakeView::slotProcExited(KProcess *p)
+void PluginKateMakeView::slotProcExited(K3Process *p)
 {
 	FUNCTIONSETUP;
 
@@ -663,7 +663,7 @@ bool PluginKateMakeView::slotValidate()
 
 	m_proc->setWorkingDirectory(document_dir);
 	*m_proc << "gmake" ;
-	if( ! m_proc->start(KProcess::NotifyOnExit, KProcess::AllOutput) ) {
+	if( ! m_proc->start(K3Process::NotifyOnExit, K3Process::AllOutput) ) {
 		KMessageBox::error(0, i18n("<b>Error:</b> Failed to run gmake."));
 		return false;
 	}

@@ -27,7 +27,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/commandinterface.h>
 
-#include <kprocess.h>
+#include <k3process.h>
 #include <kxmlguiclient.h>
 
 #include <QList>
@@ -52,14 +52,14 @@ class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
 
   private:
     QString  m_strFilterOutput;
-    KShellProcess * m_pFilterShellProcess;
+    K3ShellProcess * m_pFilterShellProcess;
     QStringList completionList;
   public slots:
     void slotEditFilter ();
-    void slotFilterReceivedStdout (KProcess * pProcess, char * got, int len);
-    void slotFilterReceivedStderr (KProcess * pProcess, char * got, int len);
-    void slotFilterProcessExited (KProcess * pProcess);
-    void slotFilterCloseStdin (KProcess *);
+    void slotFilterReceivedStdout (K3Process * pProcess, char * got, int len);
+    void slotFilterReceivedStderr (K3Process * pProcess, char * got, int len);
+    void slotFilterProcessExited (K3Process * pProcess);
+    void slotFilterCloseStdin (K3Process *);
 };
 
 class PluginViewKateTextFilter: public Kate::PluginView, public KXMLGUIClient {

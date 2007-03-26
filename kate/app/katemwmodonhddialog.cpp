@@ -27,7 +27,7 @@
 #include <KIconLoader>
 #include <KLocale>
 #include <KMessageBox>
-#include <KProcIO>
+#include <K3ProcIO>
 #include <KRun>
 #include <KTemporaryFile>
 #include <KPushButton>
@@ -227,16 +227,16 @@ void KateMwModOnHdDialog::slotDiff()
   if ( KateDocManager::self()->documentInfo( doc )->modifiedOnDiscReason == 3 )
     return;
 
-  // Start a KProcess that creates a diff
-  KProcIO *p = new KProcIO();
-  p->setComm( KProcess::All );
+  // Start a K3Process that creates a diff
+  K3ProcIO *p = new K3ProcIO();
+  p->setComm( K3Process::All );
   *p << "diff" << "-ub" << "-" <<  doc->url().path();
-  connect( p, SIGNAL(processExited(KProcess*)), this, SLOT(slotPDone(KProcess*)) );
-  connect( p, SIGNAL(readReady(KProcIO*)), this, SLOT(slotPRead(KProcIO*)) );
+  connect( p, SIGNAL(processExited(K3Process*)), this, SLOT(slotPDone(K3Process*)) );
+  connect( p, SIGNAL(readReady(K3ProcIO*)), this, SLOT(slotPRead(K3ProcIO*)) );
 
   setCursor( Qt::WaitCursor );
 
-  p->start( KProcess::NotifyOnExit, true );
+  p->start( K3Process::NotifyOnExit, true );
 
   uint lastln =  doc->lines();
   for ( uint l = 0; l <  lastln; l++ )
@@ -245,7 +245,7 @@ void KateMwModOnHdDialog::slotDiff()
   p->closeWhenDone();
 }
 
-void KateMwModOnHdDialog::slotPRead( KProcIO *p)
+void KateMwModOnHdDialog::slotPRead( K3ProcIO *p)
 {
   // create a file for the diff if we haven't one already
   if ( ! m_tmpfile )
@@ -272,7 +272,7 @@ void KateMwModOnHdDialog::slotPRead( KProcIO *p)
     p->ackRead();
 }
 
-void KateMwModOnHdDialog::slotPDone( KProcess *p )
+void KateMwModOnHdDialog::slotPDone( K3Process *p )
 {
   setCursor( Qt::ArrowCursor );
 

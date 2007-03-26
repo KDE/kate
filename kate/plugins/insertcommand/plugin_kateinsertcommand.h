@@ -44,8 +44,8 @@ namespace Kate {
   class PluginView;
 }
 class KConfig;
-class KProcess;
-class KShellProcess;
+class K3Process;
+class K3ShellProcess;
 class Q3ButtonGroup;
 class QCheckBox;
 class QSpinBox;
@@ -82,7 +82,7 @@ class PluginKateInsertCommand : public Kate::Plugin,
   private:
     void initConfigPage( InsertCommandConfigPage* );
 
-    KShellProcess *sh;
+    K3ShellProcess *sh;
     QString workingdir;
     QString cmd;
     QStringList cmdhist;
@@ -96,9 +96,9 @@ class PluginKateInsertCommand : public Kate::Plugin,
     void applyConfig( InsertCommandConfigPage* );
 
   private slots:
-    void slotReceivedStdout(KProcess*, char*, int);
-    void slotReceivedStderr(KProcess*, char*, int);
-    void slotProcessExited(KProcess*);
+    void slotReceivedStdout(K3Process*, char*, int);
+    void slotReceivedStderr(K3Process*, char*, int);
+    void slotProcessExited(K3Process*);
     void slotShowWaitDlg();
 };
 

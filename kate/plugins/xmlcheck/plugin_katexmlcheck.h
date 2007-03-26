@@ -40,7 +40,7 @@
 
 #include <k3dockwidget.h>
 #include <kiconloader.h>
-#include <kprocess.h>
+#include <k3process.h>
 
 class KTemporaryFile;
 
@@ -58,15 +58,15 @@ class PluginKateXMLCheckView : public Q3ListView, public KXMLGUIClient
   public slots:
 	bool slotValidate();
 	void slotClicked(Q3ListViewItem *item);
-	void slotProcExited(KProcess*);
-	void slotReceivedProcStderr(KProcess*, char*, int);
+	void slotProcExited(K3Process*);
+	void slotReceivedProcStderr(K3Process*, char*, int);
 	void slotUpdate();
 
   private:
 	KTemporaryFile *m_tmp_file;
 	KParts::ReadOnlyPart *part;
 	bool m_validating;
-	KProcess *m_proc;
+	K3Process *m_proc;
 	QString m_proc_stderr;
 	QString m_dtdname;
 };

@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2007 Flavio Castelli <flavio.castelli@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -306,6 +307,11 @@ bool KateDocManager::closeDocument(uint n)
   return closeDocument(document(n));
 }
 
+bool KateDocManager::closeOtherDocuments(uint n)
+{
+  return closeOtherDocuments (document(n));
+}
+
 bool KateDocManager::closeAllDocuments(bool closeUrl)
 {
   bool res = true;
@@ -334,12 +340,47 @@ bool KateDocManager::closeAllDocuments(bool closeUrl)
   return res;
 }
 
-QList<KTextEditor::Document*> KateDocManager::modifiedDocumentList()
+bool KateDocManager::closeOtherDocuments(KTextEditor::Document* doc)
+{
+  bool res = true;
+
+  QList<KTextEditor::Document*> docs = m_docList;
+
+  for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
+  {
+    KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(true);
+  }
+  
+  for (int i = 0; (i < docs.size()) && res; i++)
+  {
+    if (docs.at(i) != doc)
+        if (! closeDocument(docs.at(i), false) )
+          res = false;
+  }
+  
+  for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
+  {
+    KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(false);
+
+    for (int s = 0; s < KateApp::self()->mainWindow(i)->viewManager()->containers()->count(); s++)
+      KateApp::self()->mainWindow(i)->viewManager()->containers()->at(s)->activateView (m_docList.at(0));
+  }
+  
+  return res;
+}
+
+/**
+ * Find all modified documents, excluding @p excludedDoc.
+ * @param excludedDoc a document that will never be included into the returned
+ * list (also if it has been modified).
+ * @return Return the list of all modified documents.
+ */
+QList<KTextEditor::Document*> KateDocManager::modifiedDocumentList(KTextEditor::Document* excludedDoc)
 {
   QList<KTextEditor::Document*> modified;
   foreach (KTextEditor::Document* doc, m_docList)
   {
-    if (doc->isModified())
+    if ((excludedDoc != doc) && (doc->isModified()))
     {
       modified.append(doc);
     }

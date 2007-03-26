@@ -23,6 +23,7 @@
     <Separator />
 
     <Action name="file_close"/>
+    <Action name="file_close_other"/>
     <Action name="file_close_all"/>
     <Separator />
 
@@ -164,6 +165,7 @@
   <DefineGroup name="print_merge" />
   <Separator/>
   <Action name="file_close"/>
+  <Action name="file_close_other"/>
   <Action name="file_close_all"/>
   <Separator/>
   <Action name="filelist_sortby"/>

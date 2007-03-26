@@ -130,7 +130,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     /*reimp*/ void saveGlobalProperties( KConfig* sessionConfig );
 
   public:
-    bool queryClose_internal();
+    bool queryClose_internal(KTextEditor::Document *doc = NULL);
 
   private:
     /**
@@ -217,6 +217,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
   private Q_SLOTS:
     void slotDocumentCloseAll();
+    void slotDocumentCloseOther();
     void slotDocModified(KTextEditor::Document *document);
   private:
     static uint uniqueID;

@@ -2,6 +2,7 @@
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2001 Anders Lund <anders.lund@lund.tdcadsl.dk>
+   Copyright (C) 2007 Flavio Castelli <flavio.castelli@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -292,6 +293,11 @@ void KateMainWindow::setupActions()
   actionCollection()->addAction( KStandardAction::Close, "file_close", m_viewManager, SLOT( slotDocumentClose() ) )
   ->setWhatsThis(i18n("Close the current document."));
 
+  a = actionCollection()->addAction( "file_close_other" );
+  a->setText( i18n( "Close Other" ) );
+  connect( a, SIGNAL( triggered() ), this, SLOT( slotDocumentCloseOther() ) );
+  a->setWhatsThis(i18n("Close other open documents."));
+  
   a = actionCollection()->addAction( "file_close_all" );
   a->setText( i18n( "Clos&e All" ) );
   connect( a, SIGNAL( triggered() ), this, SLOT( slotDocumentCloseAll() ) );
@@ -387,14 +393,20 @@ void KateMainWindow::slotDocumentCloseAll()
     KateDocManager::self()->closeAllDocuments(false);
 }
 
-bool KateMainWindow::queryClose_internal()
+void KateMainWindow::slotDocumentCloseOther()
+{
+  if (queryClose_internal(m_viewManager->activeView()->document()))
+    KateDocManager::self()->closeOtherDocuments(m_viewManager->activeView()->document());
+}
+
+bool KateMainWindow::queryClose_internal(KTextEditor::Document* doc)
 {
   uint documentCount = KateDocManager::self()->documents();
 
   if ( ! showModOnDiskPrompt() )
     return false;
 
-  QList<KTextEditor::Document*> modifiedDocuments = KateDocManager::self()->modifiedDocumentList();
+  QList<KTextEditor::Document*> modifiedDocuments = KateDocManager::self()->modifiedDocumentList(doc);
   bool shutdown = (modifiedDocuments.count() == 0);
 
   if (!shutdown)

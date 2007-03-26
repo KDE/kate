@@ -359,8 +359,8 @@ class KateHlDownloadDialog: public KDialog
     void slotUser1();
 };
 
-class KProcIO;
-class KProcess;
+class K3ProcIO;
+class K3Process;
 /**
  * This dialog will prompt the user for what do with a file that is
  * modified on disk.
@@ -394,8 +394,8 @@ class KateModOnHdPrompt : public KDialog
     virtual void slotButtonClicked(int button);
 
   private Q_SLOTS:
-    void slotPRead(KProcIO*); ///< Read from the diff process
-    void slotPDone(KProcess*); ///< Runs the diff file when done
+    void slotPRead(K3ProcIO*); ///< Read from the diff process
+    void slotPDone(K3Process*); ///< Runs the diff file when done
 
   private:
     Ui::ModOnHdWidget* ui;

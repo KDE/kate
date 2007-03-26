@@ -72,8 +72,8 @@
 #include <knuminput.h>
 #include <kparts/componentfactory.h>
 #include <kmenu.h>
-#include <kprocess.h>
-#include <kprocio.h>
+#include <k3process.h>
+#include <k3procio.h>
 #include <kregexpeditorinterface.h>
 #include <krun.h>
 #include <kseparator.h>
@@ -1159,20 +1159,20 @@ KateModOnHdPrompt::~KateModOnHdPrompt()
 
 void KateModOnHdPrompt::slotDiff()
 {
-  // Start a KProcess that creates a diff
-  KProcIO *p = new KProcIO();
-  p->setComm( KProcess::All );
+  // Start a K3Process that creates a diff
+  K3ProcIO *p = new K3ProcIO();
+  p->setComm( K3Process::All );
   *p << "diff" << QString(ui->chkIgnoreWhiteSpaces->isChecked() ? "-ub" : "-u")
      << "-" <<  m_doc->url().path();
-  connect( p, SIGNAL(processExited(KProcess*)), this, SLOT(slotPDone(KProcess*)) );
-  connect( p, SIGNAL(readReady(KProcIO*)), this, SLOT(slotPRead(KProcIO*)) );
+  connect( p, SIGNAL(processExited(K3Process*)), this, SLOT(slotPDone(K3Process*)) );
+  connect( p, SIGNAL(readReady(K3ProcIO*)), this, SLOT(slotPRead(K3ProcIO*)) );
 
   setCursor( Qt::WaitCursor );
   // disable the button and checkbox, to hinder the user to run it twice.
   ui->chkIgnoreWhiteSpaces->setEnabled( false );
   ui->btnDiff->setEnabled( false );
 
-  p->start( KProcess::NotifyOnExit, true );
+  p->start( K3Process::NotifyOnExit, true );
 
   int lastln =  m_doc->lines();
   for ( int l = 0; l <  lastln; ++l )
@@ -1181,7 +1181,7 @@ void KateModOnHdPrompt::slotDiff()
   p->closeWhenDone();
 }
 
-void KateModOnHdPrompt::slotPRead( KProcIO *p)
+void KateModOnHdPrompt::slotPRead( K3ProcIO *p)
 {
   // create a file for the diff if we haven't one already
   if ( ! m_tmpfile ) {
@@ -1208,7 +1208,7 @@ void KateModOnHdPrompt::slotPRead( KProcIO *p)
     p->ackRead();
 }
 
-void KateModOnHdPrompt::slotPDone( KProcess *p )
+void KateModOnHdPrompt::slotPDone( K3Process *p )
 {
   setCursor( Qt::ArrowCursor );
   ui->chkIgnoreWhiteSpaces->setEnabled( true );

@@ -363,9 +363,9 @@ void KWrite::toggleStatusBar()
 void KWrite::editKeys()
 {
   KKeyDialog dlg;
-  dlg.insert(actionCollection());
+  dlg.addCollection(actionCollection());
   if( m_view )
-    dlg.insert(m_view->actionCollection());
+    dlg.addCollection(m_view->actionCollection());
   dlg.configure();
 }
 

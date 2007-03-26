@@ -515,7 +515,8 @@ void KateEditKeyConfiguration::apply()
 
   if (m_ready)
   {
-    m_keyChooser->commitChanges();
+    #warning: semantics of KKeyDialo changed from change/commit to change in-place/revert
+    //m_keyChooser->commitChanges();
     m_ac->writeSettings();
   }
 }

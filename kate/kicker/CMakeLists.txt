@@ -1,8 +1,7 @@
-FIND_PATH( KICKER_INCLUDE_DIR plasma/kpanelapplet.h
-	  ${KDE4_INCLUDE_DIR}
-	  )
-if(KICKER_INCLUDE_DIR)
+
+find_package(Plasma)
+if(PLASMA_FOUND)
 	add_subdirectory( sessionmenu )
-else(KICKER_INCLUDE_DIR)
+else(PLASMA_FOUND)
 	        MESSAGE(STATUS "Plasma include files (plasma/kpanelapplet.h) was not found. compile kdebase before to compile applet")
-endif(KICKER_INCLUDE_DIR)
+endif(PLASMA_FOUND)

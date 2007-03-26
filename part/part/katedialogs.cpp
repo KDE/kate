@@ -515,7 +515,9 @@ void KateEditKeyConfiguration::apply()
 
   if (m_ready)
   {
-    #warning: semantics of KKeyDialog changed from change/commit to change in-place/revert
+#ifdef __GNUC__
+#warning: semantics of KKeyDialog changed from change/commit to change in-place/revert
+#endif
     //m_keyChooser->commitChanges();
     m_ac->writeSettings();
   }

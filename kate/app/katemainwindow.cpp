@@ -655,7 +655,7 @@ void KateMainWindow::editKeys()
   QList<KXMLGUIClient*> clients = guiFactory()->clients();
 
   foreach(KXMLGUIClient *client, clients)
-  dlg.insert ( client->actionCollection(), client->componentData().aboutData()->programName() );
+  dlg.addCollection ( client->actionCollection(), client->componentData().aboutData()->programName() );
   /*
     dlg.insert( externalTools->actionCollection(), i18n("External Tools") );
   */

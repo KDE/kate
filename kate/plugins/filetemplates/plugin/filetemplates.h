@@ -87,13 +87,13 @@ class KateFileTemplates : public Kate::Plugin
      * @return a a pointer to the active main window
      */
     QWidget * parentWindow();
-
+  
+  public Q_SLOTS:
     /**
      * Update the template collection by rereading the template
      * directories. Also updates the menu.
      */
     void updateTemplateDirs(const QString &s=QString::null);
-
   protected Q_SLOTS:
     /**
      * Show a file dialog, so that any file can be opened as a template.

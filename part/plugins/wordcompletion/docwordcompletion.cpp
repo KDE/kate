@@ -348,8 +348,8 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
     if ( ! e.isEmpty() )
       d->autopopup->setEnabled( e == "true" );
 
-    connect( view->document(), SIGNAL(variableChanged(const QString &, const QString &)),
-             this, SLOT(slotVariableChanged(const QString &, const QString &)) );
+    connect( view->document(), SIGNAL(variableChanged(KTextEditor::Document*,const QString &, const QString &)),
+             this, SLOT(slotVariableChanged(KTextEditor::Document *,const QString &, const QString &)) );
   }
 }
 
@@ -628,7 +628,7 @@ const KTextEditor::Range DocWordCompletionPluginView::range() const
   return KTextEditor::Range::Range( KTextEditor::Cursor( line, col ), end );
 }
 
-void DocWordCompletionPluginView::slotVariableChanged( const QString &var, const QString &val )
+void DocWordCompletionPluginView::slotVariableChanged( KTextEditor::Document*,const QString &var, const QString &val )
 {
   if ( var == "wordcompletion-autopopup" )
     d->autopopup->setEnabled( val == "true" );

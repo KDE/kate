@@ -341,12 +341,23 @@ KateJSInterpreterContext::KateJSInterpreterContext (const QString &filename)
 {
   m_interpreter->ref();
 
+  // put some stuff into env., this should stay for all executions.
+  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "document", m_document);
+  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "view", m_view);
+  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "debug",
+        new KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1));
+
   // eval file, if any
   if (!filename.isEmpty())
   {
     kDebug(13051) << "read script: " << filename << endl;
 
     QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly)) {
+      kDebug(13051) << i18n("Unable to read file: '%1'", filename);
+      return;
+    }
+
     QTextStream stream(&file);
     stream.setCodec("UTF-8");
     QString source = stream.readAll();
@@ -355,18 +366,13 @@ KateJSInterpreterContext::KateJSInterpreterContext (const QString &filename)
     // parse + eval script....
     m_interpreter->evaluate("", 0, source);
   }
-
-  // put some stuff into env., this should stay for all executions.
-  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "document", m_document);
-  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "view", m_view);
-  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "debug",
-        new KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1));
 }
 
 KateJSInterpreterContext::~KateJSInterpreterContext ()
 {
   m_interpreter->deref();
-//   delete m_global;
+  // NOTE: do not delete objects, the KJS garbage collection does this
+  // big no no: delete m_global;
 }
 
 KJS::JSObject *KateJSInterpreterContext::wrapDocument(KJS::ExecState *exec, KateDocument *doc)

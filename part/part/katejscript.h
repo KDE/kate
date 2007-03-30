@@ -128,7 +128,10 @@ class KateJSInterpreterContext
     bool evalSource(KateView *view, const QString &script, QString &errorMsg);
     bool evalFile(KateView* view, const QString& url, QString &errorMsg);
 
-    KJS::Interpreter *interpreter () { return m_interpreter; }
+    KJS::Interpreter *interpreter() const { return m_interpreter; }
+    KJS::JSObject *global() const { return m_global; }
+    KJS::JSObject *document() const { return m_document; }
+    KJS::JSObject *view() const { return m_view; }
 
     /**
      * Call @p function for the object @p lookupObj. The @p view is the KateView

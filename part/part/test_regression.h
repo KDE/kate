@@ -54,14 +54,6 @@ class TestJScriptEnv : public KateJSInterpreterContext
     explicit TestJScriptEnv(KateDocument *part);
     virtual ~TestJScriptEnv();
 
-    /** returns the global scope */
-    KJS::JSObject *global() const { return m_global; }
-    /** returns the script interpreter */
-    KJS::Interpreter &interpreter() { return *m_interpreter; }
-    /** returns the document scope */
-    KJS::JSObject *document() const { return m_document; }
-    /** returns the view scope */
-    KJS::JSObject *view() const { return m_view; }
     /** returns the output object */
     OutputObject *output() const { return m_output; }
 

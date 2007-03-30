@@ -341,11 +341,9 @@ KateJSInterpreterContext::KateJSInterpreterContext (const QString &filename)
 {
   m_interpreter->ref();
 
-  // put some stuff into env., this should stay for all executions.
-  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "document", m_document);
-  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "view", m_view);
+  // add stuff that is not bound to a doc/view
   m_interpreter->globalObject()->put(m_interpreter->globalExec(), "debug",
-        new KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1));
+      new KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1));
 
   // eval file, if any
   if (!filename.isEmpty())
@@ -364,8 +362,32 @@ KateJSInterpreterContext::KateJSInterpreterContext (const QString &filename)
     file.close();
 
     // parse + eval script....
-    m_interpreter->evaluate("", 0, source);
+    //m_interpreter->evaluate("", 0, source);
+    KJS::Completion comp (m_interpreter->evaluate("", 0, source));
+
+    if (comp.complType() == KJS::Throw)
+    {
+      KJS::JSValue *exVal = comp.value();
+      KJS::ExecState *exec = m_interpreter->globalExec();
+      QString msg = exVal->toString(exec).qstring();
+
+      int lineno = -1;
+      if (exVal->type() == KJS::ObjectType)
+      {
+        KJS::JSValue *lineVal = exVal->getObject()->get(exec,"line");
+
+        if (lineVal->type() == KJS::NumberType)
+          lineno = lineVal->toInt32(exec);
+      }
+
+      kDebug(13051) << i18n("Exception, line %1: %2", lineno, msg);
+      return;
+    }
   }
+
+  // now also add document and view. this should stay for all executions.
+  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "document", m_document);
+  m_interpreter->globalObject()->put(m_interpreter->globalExec(), "view", m_view);
 }
 
 KateJSInterpreterContext::~KateJSInterpreterContext ()

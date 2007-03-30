@@ -1106,8 +1106,8 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
         TestJScriptEnv jsenv(m_part);
         jsenv.output()->setChangedFlag(&m_outputCustomised);
         jsenv.output()->setOutputFile( ( m_genOutput ? m_baseDir + "/baseline/" : m_outputDir + '/' ) + filename + "-result" );
-        script_error = evalJS(jsenv.interpreter(), m_baseDir + "/tests/"+QFileInfo(filename).dir().path()+"/.kateconfig-script", true)
-            && evalJS(jsenv.interpreter(), m_baseDir + "/tests/"+filename+"-script");
+        script_error = evalJS(*jsenv.interpreter(), m_baseDir + "/tests/"+QFileInfo(filename).dir().path()+"/.kateconfig-script", true)
+            && evalJS(*jsenv.interpreter(), m_baseDir + "/tests/"+filename+"-script");
     }
 
     int back_known_failures = m_known_failures;

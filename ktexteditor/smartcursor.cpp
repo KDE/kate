@@ -65,6 +65,11 @@ SmartRange * SmartCursor::smartRange( ) const
   return static_cast<SmartRange*>(m_range);
 }
 
+Document* SmartCursor::document() const
+{
+  return m_doc;
+}
+
 bool SmartCursor::atEndOfLine( ) const
 {
   return column() == m_doc->lineLength(line());

@@ -103,7 +103,7 @@ class KTEXTEDITOR_EXPORT SmartCursor : public Cursor
     /**
      * Returns the document to which this cursor is attached.
      */
-    inline Document* document() const { return m_doc; }
+    Document* document() const;
 
     /**
      * Determine if this cursor is located at the end of the current line.

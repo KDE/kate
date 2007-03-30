@@ -73,6 +73,24 @@ Cursor SmartInterface::translateFromRevision(const Cursor& cursor, SmartCursor::
   return cursor;
 }
 
+SmartCursor* SmartInterface::newSmartCursor(int line, int column, SmartCursor::InsertBehavior insertBehavior)
+{
+  return newSmartCursor(Cursor(line, column), insertBehavior);
+}
+
+SmartRange* SmartInterface::newSmartRange(const Cursor& startPosition,
+                                          const Cursor& endPosition,
+                                          SmartRange* parent,
+                                          SmartRange::InsertBehaviors insertBehavior)
+{
+  return newSmartRange(Range(startPosition, endPosition), parent, insertBehavior);
+}
+
+SmartRange* SmartInterface::newSmartRange(int startLine, int startColumn, int endLine, int endColumn, SmartRange* parent, SmartRange::InsertBehaviors insertBehavior)
+{
+  return newSmartRange(Range(startLine, startColumn, endLine, endColumn), parent, insertBehavior);
+}
+
 Range SmartInterface::translateFromRevision(const Range& range, SmartRange::InsertBehaviors insertBehavior) const
 {
   Q_UNUSED(insertBehavior);

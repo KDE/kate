@@ -60,6 +60,11 @@ const Cursor& Cursor::start()
   return start;
 }
 
+int Cursor::line() const
+{
+  return m_line;
+}
+
 void Cursor::setLine( int line )
 {
   if (line == this->line())
@@ -70,6 +75,11 @@ void Cursor::setLine( int line )
   m_line = line;
 
   cursorChangedDirectly(old);
+}
+
+int Cursor::column() const
+{
+    return m_column;
 }
 
 void Cursor::setColumn( int column )
@@ -102,14 +112,19 @@ bool Cursor::isSmartCursor( ) const
   return false;
 }
 
-int Cursor::line( ) const
+void Cursor::setPosition(int line, int column)
 {
-  return m_line;
+    setPosition(Cursor(line, column));
 }
 
 void Cursor::position (int &_line, int &_column) const
 {
   _line = line(); _column = column();
+}
+
+Range* Cursor::range() const
+{
+    return m_range;
 }
 
 Cursor::~ Cursor( )

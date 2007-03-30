@@ -137,7 +137,7 @@ class KTEXTEDITOR_EXPORT Cursor
      * \param line new cursor line
      * \param column new cursor column
      */
-    inline void setPosition(int line, int column) { setPosition(Cursor(line, column)); }
+    void setPosition(int line, int column);
 
     /**
      * Retrieve the line on which this cursor is situated.
@@ -155,7 +155,7 @@ class KTEXTEDITOR_EXPORT Cursor
      * Retrieve the column on which this cursor is situated.
      * \return column number, where 0 is the first column.
      */
-    inline int column() const { return m_column; }
+    int column() const;
 
     /**
      * Set the cursor column to \e column.
@@ -186,7 +186,7 @@ class KTEXTEDITOR_EXPORT Cursor
     /**
      * Returns the range that this cursor belongs to, if any.
      */
-    inline Range* range() const { return m_range; }
+    Range* range() const;
 
     /**
      * Assignment operator. Same as setPosition().

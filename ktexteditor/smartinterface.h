@@ -229,8 +229,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * \param column the line number of the cursor's initial position
      * \param insertBehavior Define whether the cursor should move when text is inserted at the cursor position.
      */
-    inline SmartCursor* newSmartCursor(int line, int column, SmartCursor::InsertBehavior insertBehavior = SmartCursor::MoveOnInsert)
-      { return newSmartCursor(Cursor(line, column), insertBehavior); }
+    SmartCursor* newSmartCursor(int line, int column, SmartCursor::InsertBehavior insertBehavior = SmartCursor::MoveOnInsert);
 
     /**
      * Delete all SmartCursor%s from this document, with the exception of those
@@ -267,11 +266,10 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * \param parent The parent SmartRange, if this is to be the child of an existing range.
      * \param insertBehavior Define whether the range should expand when text is inserted adjacent to the range.
      */
-    inline SmartRange* newSmartRange(const Cursor& startPosition,
+    SmartRange* newSmartRange(const Cursor& startPosition,
                                      const Cursor& endPosition,
                                      SmartRange* parent = 0L,
-                                     SmartRange::InsertBehaviors insertBehavior = SmartRange::DoNotExpand)
-      { return newSmartRange(Range(startPosition, endPosition), parent, insertBehavior); }
+                                     SmartRange::InsertBehaviors insertBehavior = SmartRange::DoNotExpand);
 
     /**
      * \overload
@@ -284,8 +282,7 @@ class KTEXTEDITOR_EXPORT SmartInterface
      * \param parent The parent SmartRange, if this is to be the child of an existing range.
      * \param insertBehavior Define whether the range should expand when text is inserted adjacent to the range.
      */
-    inline SmartRange* newSmartRange(int startLine, int startColumn, int endLine, int endColumn, SmartRange* parent = 0L, SmartRange::InsertBehaviors insertBehavior = SmartRange::DoNotExpand)
-      { return newSmartRange(Range(startLine, startColumn, endLine, endColumn), parent, insertBehavior); }
+    SmartRange* newSmartRange(int startLine, int startColumn, int endLine, int endColumn, SmartRange* parent = 0L, SmartRange::InsertBehaviors insertBehavior = SmartRange::DoNotExpand);
 
     /**
      * Creates a new SmartRange from pre-existing SmartCursor%s.  The cursors must not be part of any other range.

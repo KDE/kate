@@ -289,6 +289,26 @@ SmartRange* KTextEditor::Range::toSmartRange( ) const
   return 0L;
 }
 
+Cursor& KTextEditor::Range::start()
+{
+  return *m_start;
+}
+
+const Cursor& KTextEditor::Range::start() const
+{
+  return *m_start;
+}
+
+Cursor& KTextEditor::Range::end()
+{
+  return *m_end;
+}
+
+const Cursor& KTextEditor::Range::end() const
+{
+  return *m_end;
+}
+
 Range KTextEditor::Range::intersect( const Range & range ) const
 {
   if (!isValid() || !range.isValid() || *this > range || *this < range)

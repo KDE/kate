@@ -156,8 +156,7 @@ class KTEXTEDITOR_EXPORT Range
      *
      * \returns a reference to the start position of this range.
      */
-    inline Cursor& start()
-      { return *m_start; }
+    Cursor& start();
 
     /**
      * Get the start position of this range. This will always be <= end().
@@ -166,8 +165,7 @@ class KTEXTEDITOR_EXPORT Range
      *
      * \internal this function is virtual to allow for covariant return of SmartCursor%s.
      */
-    inline const Cursor& start() const
-      { return *m_start; }
+    const Cursor& start() const;
 
     /**
      * Get the end position of this range. This will always be >= start().
@@ -188,8 +186,7 @@ class KTEXTEDITOR_EXPORT Range
      *
      * \internal this function is virtual to allow for covariant return of SmartCursor%s.
      */
-    inline Cursor& end()
-      { return *m_end; }
+    Cursor& end();
 
     /**
      * Get the end position of this range. This will always be >= start().
@@ -198,8 +195,7 @@ class KTEXTEDITOR_EXPORT Range
      *
      * \internal this function is virtual to allow for covariant return of SmartCursor%s.
      */
-    inline const Cursor& end() const
-      { return *m_end; }
+    const Cursor& end() const;
 
     /**
      * Convenience function.  Set the start and end lines to \p line.

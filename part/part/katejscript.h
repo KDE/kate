@@ -37,7 +37,6 @@ class KateView;
 class KateJSGlobal;
 class KateJSDocument;
 class KateJSView;
-class KateJSIndenter;
 class KateDocCursor;
 class KateIndentJScript;
 
@@ -304,9 +303,6 @@ class KateIndentJScript
     KateJScriptManager::Script *m_info;
 
     KateJSInterpreterContext *m_script; ///< interpreter object
-
-    /** additional js indenter object */
-    KateJSIndenter *m_indenter;
 
     QString m_basename;          ///< filename without extension (use-case: command line: set-indent-mode c)
 

@@ -316,19 +316,6 @@ class KateJSView : public KJS::JSObject
     static const KJS::ClassInfo info;
 };
 
-class KateJSIndenter : public KJS::JSObject
-{
-  public:
-    KateJSIndenter (KJS::ExecState *exec);
-    const KJS::ClassInfo* classInfo() const { return &info; }
-
-    enum { Dummy };
-
-  public:
-
-    static const KJS::ClassInfo info;
-};
-
 #include "katejscript.lut.h"
 //END
 
@@ -1268,39 +1255,6 @@ void KateJSView::putValueProperty(KJS::ExecState *exec, int token, KJS::JSValue*
 }
 //END
 
-//BEGIN KateJSIndenter
-// -------------------------------------------------------------------------
-/* Source for KateJSIndenterProtoTable.
-@begin KateJSIndenterProtoTable 1
-  Dummy                 KateJSIndenter::Dummy             DontDelete
-@end
-*/
-
-/* Source for KateJSIndenterTable.
-@begin KateJSIndenterTable 1
-  Dummy                 KateJSIndenter::Dummy             DontDelete
-@end
-*/
-
-KateJSIndenter::KateJSIndenter (KJS::ExecState *exec)
-    : KJS::JSObject (KateJSViewProto::self(exec))
-{
-}
-
-KJS_DEFINE_PROTOTYPE(KateJSIndenterProto)
-KJS_IMPLEMENT_PROTOFUNC(KateJSIndenterProtoFunc)
-KJS_IMPLEMENT_PROTOTYPE("KateJSIndenter", KateJSIndenterProto, KateJSIndenterProtoFunc)
-
-const KJS::ClassInfo KateJSIndenter::info = { "KateJSIndenter", 0, &KateJSIndenterTable, 0 };
-
-JSValue* KateJSIndenterProtoFunc::callAsFunction(KJS::ExecState *exec, KJS::JSObject *thisObj, const KJS::List &args)
-{
-  KJS_CHECK_THIS( KateJSIndenter, thisObj );
-
-  return KJS::Undefined();
-}
-//END KateJSIndenter
-
 //BEGIN KateJScriptManager
 
 KateJScriptManager::KateJScriptManager ()
@@ -1456,7 +1410,6 @@ const QStringList &KateJScriptManager::cmds()
 //BEGIN KateIndentJScript
 KateIndentJScript::KateIndentJScript(const QString& basename, KateJScriptManager::Script *info)
   : m_info (info), m_script(0),
-    m_indenter(0),
     m_basename(basename),
     m_triggerCharactersSet(false)
 {

@@ -362,7 +362,6 @@ KateJSInterpreterContext::KateJSInterpreterContext (const QString &filename)
     file.close();
 
     // parse + eval script....
-    //m_interpreter->evaluate("", 0, source);
     KJS::Completion comp (m_interpreter->evaluate("", 0, source));
 
     if (comp.complType() == KJS::Throw)

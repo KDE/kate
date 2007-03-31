@@ -63,8 +63,7 @@
 #include <kglobal.h>
 #include <kglobalsettings.h>
 #include <kiconloader.h>
-#include <kkeybutton.h>
-#include <kkeydialog.h>
+#include <kshortcutsdialog.h>
 #include <klineedit.h>
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -492,9 +491,11 @@ void KateEditKeyConfiguration::showEvent ( QShowEvent * )
     QVBoxLayout *l=new QVBoxLayout(this);
     KateView* view = (KateView*)m_doc->views().at(0);
     m_ac = view->editActionCollection();
-    l->addWidget(m_keyChooser = new KKeyChooser( m_ac, this, false ));
-    connect( m_keyChooser, SIGNAL( keyChange() ), this, SLOT( slotChanged() ) );
-    m_keyChooser->show ();
+    l->addWidget(m_shortcutsEditor = new KShortcutsEditor( m_ac, this, false ));
+    //is this really needed? if yes, I'll add it to KShortcutsEditor
+    //note that changes will immediately become active with KShortcutsEditor -- ahartmetz
+    //connect( m_shortcutsEditor, SIGNAL( keyChange() ), this, SLOT( slotChanged() ) );
+    m_shortcutsEditor->show ();
 
     m_ready = true;
   }

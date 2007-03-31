@@ -57,7 +57,7 @@ namespace KIO
 class KColorButton;
 class KComboBox;
 class KKeyButton;
-class KKeyChooser;
+class KShortcutsEditor;
 class KMainWindow;
 class KPushButton;
 class KRegExpDialog;
@@ -219,7 +219,7 @@ class KateEditKeyConfiguration: public KateConfigPage
   private:
     bool m_ready;
     class KateDocument *m_doc;
-    KKeyChooser* m_keyChooser;
+    KShortcutsEditor* m_shortcutsEditor;
     class KActionCollection *m_ac;
 };
 

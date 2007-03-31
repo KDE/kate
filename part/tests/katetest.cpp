@@ -50,7 +50,7 @@
 #include <kconfig.h>
 #include <kcmdlineargs.h>
 #include <kmessagebox.h>
-#include <kkeydialog.h>
+#include <kshortcutsdialog.h>
 #include <kedittoolbar.h>
 #include <kparts/event.h>
 #include <kmenubar.h>
@@ -362,7 +362,7 @@ void KWrite::toggleStatusBar()
 
 void KWrite::editKeys()
 {
-  KKeyDialog dlg;
+  KShortcutsDialog dlg;
   dlg.addCollection(actionCollection());
   if( m_view )
     dlg.addCollection(m_view->actionCollection());

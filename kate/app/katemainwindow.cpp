@@ -53,7 +53,7 @@
 #include <KGlobal>
 #include <KGlobalSettings>
 #include <KIconLoader>
-#include <KKeyDialog>
+#include <KShortcutsDialog>
 #include <KLocale>
 #include <KMessageBox>
 #include <KMimeType>
@@ -650,7 +650,7 @@ void KateMainWindow::slotDropEvent( QDropEvent * event )
 
 void KateMainWindow::editKeys()
 {
-  KKeyDialog dlg ( KKeyChooser::AllActions, KKeyChooser::LetterShortcutsDisallowed, this );
+  KShortcutsDialog dlg ( KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsDisallowed, this );
 
   QList<KXMLGUIClient*> clients = guiFactory()->clients();
 

@@ -291,14 +291,11 @@ void KateFileSelectorToolBarParent::resizeEvent ( QResizeEvent * )
 void ::KateFileSelector::readConfig(KConfig *config, const QString & name)
 {
   kDebug() << "===================================================================::KateFileSelector::readConfig" << endl;
-#ifdef __GNUC__
-#warning THIS WILL CRASH - setViewConfig keeps the pointer to the KConfigGroup! That API needs to be revised.
-#endif
   KConfigGroup cgView(config, name + ":view");
-  dir->setViewConfig(&cgView );
+  dir->setViewConfig(cgView );
 
   KConfigGroup cgDir(config, name + ":dir");
-  dir->readConfig(&cgDir);
+  dir->readConfig(cgDir);
 
   dir->setView( KFile::Default );
   dir->view()->setSelectionMode(KFile::Extended);
@@ -366,7 +363,7 @@ void ::KateFileSelector::setupToolbar( QStringList actions )
 void ::KateFileSelector::writeConfig(KConfig *config, const QString & name)
 {
   KConfigGroup cgDir(config, name + ":dir");
-  dir->writeConfig(&cgDir);
+  dir->writeConfig(cgDir);
 
   KConfigGroup cg = KConfigGroup( config, name );
 

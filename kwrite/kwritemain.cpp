@@ -43,12 +43,12 @@
 #include <kencodingfiledialog.h>
 #include <kglobal.h>
 #include <kiconloader.h>
-#include <kkeydialog.h>
 #include <klocale.h>
 #include <kmenubar.h>
 #include <kmessagebox.h>
 #include <kparts/event.h>
 #include <krecentfilesaction.h>
+#include <kshortcutsdialog.h>
 #include <kstatusbar.h>
 #include <kstandardaction.h>
 #include <ksqueezedtextlabel.h>
@@ -340,7 +340,7 @@ void KWrite::toggleStatusBar()
 
 void KWrite::editKeys()
 {
-  KKeyDialog dlg;
+  KShortcutsDialog dlg;
   dlg.addCollection(actionCollection());
   if( m_view )
     dlg.addCollection(m_view->actionCollection());

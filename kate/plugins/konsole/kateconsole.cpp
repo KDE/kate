@@ -176,7 +176,7 @@ void KateConsole::slotPipeToConsole ()
       (m_mw->window()
        , i18n ("Do you really want to pipe the text to the console? This will execute any contained commands with your user rights.")
        , i18n ("Pipe to Console?")
-       , KGuiItem(i18n("Pipe to Console")), "Pipe To Console Warning") != KMessageBox::Continue)
+       , KGuiItem(i18n("Pipe to Console")), KStandardGuiItem::cancel(), "Pipe To Console Warning") != KMessageBox::Continue)
     return;
 
   KTextEditor::View *v = m_mw->activeView();

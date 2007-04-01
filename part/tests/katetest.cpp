@@ -34,13 +34,13 @@
 #include <kaboutapplicationdialog.h>
 #include <kicon.h>
 #include <kencodingfiledialog.h>
-#include <kdiroperator.h>
 #include <kiconloader.h>
 #include <kstandarddirs.h>
 #include <kaboutdata.h>
 #include <kstatusbar.h>
 #include <kstandardaction.h>
 #include <kaction.h>
+#include <ktoggleaction.h>
 #include <kdebug.h>
 #include <kconfiggroup.h>
 #include <kglobal.h>

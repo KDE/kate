@@ -137,7 +137,8 @@ class KatePythonEncodingCheck: public LoadSaveFilterCheckPlugin {
         , i18n ("You are trying to save a python file as non ASCII, without specifiying a correct source encoding line for encoding \"%1\"", codec)
         , i18n ("No encoding header")
         , KGuiItem(i18n("Insert: %1",addLine))
-        , KGuiItem(i18n("Save Nevertheless")),"OnSave-WrongPythonEncodingHeader");
+        , KGuiItem(i18n("Save Nevertheless"))
+        , KStandardGuiItem::cancel(), "OnSave-WrongPythonEncodingHeader");
         switch (what) {
           case KMessageBox::Yes:
           {
@@ -2608,7 +2609,8 @@ bool KateDocument::save()
                 " If the there occurs an error while saving, you might loose the data of this file."
                 " A reason could be, that the media you write to is full or the directory of the file is read-only for you.", url().url())
         , i18n ("Failed to create backup copy.")
-        , KGuiItem(i18n("Try to Save Nevertheless")), "Backup Failed Warning") != KMessageBox::Continue))
+        , KGuiItem(i18n("Try to Save Nevertheless"))
+        , KStandardGuiItem::cancel(), "Backup Failed Warning") != KMessageBox::Continue))
     {
       return false;
     }
@@ -2625,7 +2627,8 @@ bool KateDocument::saveFile()
   if (m_buffer->binary() && (KMessageBox::warningContinueCancel (widget()
         , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", this->url().url())
         , i18n ("Trying to Save Binary File")
-        , KGuiItem(i18n("Save Nevertheless")), "Binary File Save Warning") != KMessageBox::Continue))
+        , KGuiItem(i18n("Save Nevertheless"))
+        , KStandardGuiItem::cancel(), "Binary File Save Warning") != KMessageBox::Continue))
     return false;
 
   if ( !url().isEmpty() )
@@ -2827,7 +2830,7 @@ bool KateDocument::closeUrl()
       if (!(KMessageBox::warningContinueCancel(
             widget(),
             reasonedMOHString() + "\n\n" + i18n("Do you really want to continue to close this file? Data loss may occur."),
-            i18n("Possible Data Loss"), KGuiItem(i18n("Close Nevertheless")),
+            i18n("Possible Data Loss"), KGuiItem(i18n("Close Nevertheless")), KStandardGuiItem::cancel(),
             QString("kate_close_modonhd_%1").arg( m_modOnHdReason ) ) == KMessageBox::Continue))
         return false;
     }

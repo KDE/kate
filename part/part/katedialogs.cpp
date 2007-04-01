@@ -1265,6 +1265,7 @@ void KateModOnHdPrompt::slotButtonClicked(int button)
            "file (if present) is what you have."),
            i18n("You Are on Your Own"),
            KStandardGuiItem::cont(),
+           KStandardGuiItem::cancel(),
            "kate_ignore_modonhd" ) != KMessageBox::Continue )
         return;
       done( Ignore );

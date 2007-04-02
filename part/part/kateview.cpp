@@ -2405,7 +2405,8 @@ QMenu * KateView::defaultContextMenu(QMenu* menu) const
   while (client->parentClient())
     client = client->parentClient();
 
-  if (QWidget* popupwidget = client->factory()->container("ktexteditor_popup", client)) {
+  QWidget* popupwidget = 0;
+  if (client && client->factory() && (popupwidget = client->factory()->container("ktexteditor_popup", client))) {
     menu->addActions(popupwidget->actions());
 
   } else {

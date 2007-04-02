@@ -350,11 +350,10 @@ void KWrite::editKeys()
 void KWrite::editToolbars()
 {
   saveMainWindowSettings( KGlobal::config()->group( "MainWindow" ) );
-  KEditToolbar *dlg = new KEditToolbar(guiFactory());
+  KEditToolBar dlg(guiFactory());
 
-  connect( dlg, SIGNAL(newToolbarConfig()), this, SLOT(slotNewToolbarConfig()) );
-  dlg->exec();
-  delete dlg;
+  connect( &dlg, SIGNAL(newToolbarConfig()), this, SLOT(slotNewToolbarConfig()) );
+  dlg.exec();
 }
 
 void KWrite::slotNewToolbarConfig()

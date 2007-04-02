@@ -1390,6 +1390,10 @@ bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QSt
   }
 
   KJS::List params;
+
+  foreach (QString a, args)
+    params.append(KJS::String(a));
+
   KJS::JSValue *val = inter->callFunction(kateView, inter->interpreter()->globalObject(), KJS::Identifier(cmd),
                                    params, errorMsg);
 

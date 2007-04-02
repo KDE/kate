@@ -371,7 +371,7 @@ void KWrite::editKeys()
 
 void KWrite::editToolbars()
 {
-  KEditToolbar *dlg = new KEditToolbar(guiFactory());
+  KEditToolBar *dlg = new KEditToolBar(guiFactory());
 
   if (dlg->exec())
   {

@@ -10,7 +10,7 @@ kde4_automoc(${katefilebrowserplugin_PART_SRCS})
 kde4_add_plugin(katefilebrowserplugin ${katefilebrowserplugin_PART_SRCS})
 
 
-target_link_libraries(katefilebrowserplugin  ${KDE4_KDE3SUPPORT_LIBS} kateinterfaces )
+target_link_libraries(katefilebrowserplugin ${KDE4_KFILE_LIBS} kateinterfaces )
 
 install(TARGETS katefilebrowserplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

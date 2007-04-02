@@ -39,7 +39,6 @@
 #include <kdebug.h>
 #include <kpagedialog.h>
 #include <kpagewidgetmodel.h>
-#include <kwin.h>
 #include <kiconloader.h>
 
 #include <QVBoxLayout>

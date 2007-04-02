@@ -47,7 +47,7 @@
 #include <KCmdLineArgs>
 #include <kdebug.h>
 #include <KDirOperator>
-#include <KEditToolbar>
+#include <KEditToolBar>
 #include <KFileDialog>
 #include <KGlobalAccel>
 #include <KGlobal>
@@ -468,7 +468,7 @@ void KateMainWindow::newWindow ()
 void KateMainWindow::slotEditToolbars()
 {
   saveMainWindowSettings(KConfigGroup(KGlobal::config(), "MainWindow"));
-  KEditToolbar dlg( factory() );
+  KEditToolBar dlg( factory() );
 
   connect( &dlg, SIGNAL(newToolbarConfig()), this, SLOT(slotNewToolbarConfig()) );
   dlg.exec();

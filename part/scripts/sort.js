@@ -4,8 +4,7 @@
  * license: LGPL
  * version: 1
  * kate-version: 3.0
- * function: sorter
- * help-function: sorter sorts the selection....
+ * functions: sorter
  */
 
 function sorter ()

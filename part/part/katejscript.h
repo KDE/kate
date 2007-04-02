@@ -28,6 +28,7 @@
 
 #include <QHash>
 #include <QList>
+#include <QStringList>
 
 /*
  * Some common stuff
@@ -173,6 +174,9 @@ class KateJScriptManager : public KTextEditor::Command
       public:
         Script () : interpreter (0), persistent (false) {}
 
+        /** base name */
+        QString basename;
+
         /** complete path to script */
         QString filename;
 
@@ -184,6 +188,9 @@ class KateJScriptManager : public KTextEditor::Command
 
         /** type of this script */
         QString type;
+
+        /** list of all public functions in this script */
+        QStringList functions;
 
         /** interpreter for this script.... */
         KateJSInterpreterContext *interpreter;
@@ -253,6 +260,12 @@ class KateJScriptManager : public KTextEditor::Command
      * hashs basename -> script...
      */
     QHash<QString, KateJScriptManager::Script*> m_scripts;
+
+    /**
+     * hash of all scripts
+     * hashs function name -> script...
+     */
+    QHash<QString, KateJScriptManager::Script*> m_function2Script;
 
     /**
      * hash of types to basenames...

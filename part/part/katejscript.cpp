@@ -1279,7 +1279,7 @@ void KateJScriptManager::collectScripts (bool force)
   QStringList keys(QStringList() << "name" << "author" << "license"
                                  << "version" << "kate-version"
                                  << "type"
-                                 << "function" << "help-function");
+                                 << "functions");
   KateJScriptHeaderVector scripts;
   scripts = KateJScriptHelpers::findScripts(QString("katepartjscriptrc"), QString("katepart/scripts/*.js"), keys);
 
@@ -1298,6 +1298,7 @@ void KateJScriptManager::collectScripts (bool force)
     kDebug (13050) << "add script: " << baseName << " - " << absPath << endl;
 
     KateJScriptManager::Script *s = new KateJScriptManager::Script ();
+    s->basename = baseName;
     s->filename = absPath;
 
     // remember important pairs...
@@ -1307,12 +1308,17 @@ void KateJScriptManager::collectScripts (bool force)
     s->version = it->pairs.value ("version");
     s->kateVersion = it->pairs.value ("kate-version");
     s->type = it->pairs.value ("type");
+    s->functions = it->pairs.value ("functions").split (' ', QString::SkipEmptyParts);
 
     kDebug (13050) << "type: " << s->type << endl;
+    kDebug (13050) << "functions: " << s->functions << endl;
+
+    foreach (QString fun, s->functions)
+      m_function2Script.insert (fun, s);
 
     // remember this.....
-    m_scripts.insert (baseName, s);
-    m_types[s->type] << baseName;
+    m_scripts.insert (s->basename, s);
+    m_types[s->type] << s->basename;
   }
 
   // handle all indentation scripts...  // Let's iterate through the list and build the Mode List
@@ -1356,25 +1362,37 @@ bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QSt
     return false;
   }
 
-/*  // TODO: add support for arguments
   QStringList args( _cmd.split( QRegExp("\\s+") ,QString::SkipEmptyParts) );
   QString cmd ( args.first() );
   args.removeFirst();
 
-  KateView* kateView = static_cast<KateView*>(view);
-
-  if (!m_jscript)
-    m_jscript = new KateJSInterpreterContext();
+  KateView* kateView = qobject_cast<KateView*>(view);
 
   if (cmd == QLatin1String("js-run-myself"))
-    return m_jscript->evalSource(kateView, kateView->doc()->text(), errorMsg);
+  {
+    KateJSInterpreterContext script ("");
+    return script.evalSource (kateView, kateView->doc()->text(), errorMsg);
+  }
 
-  if (!m_scripts.contains(cmd)) {
+  KateJScriptManager::Script *script = m_function2Script.value (cmd);
+
+  if (!script) {
     errorMsg = i18n("Command not found: %1", cmd);
     return false;
   }
 
-  return m_jscript->evalFile(kateView, m_scripts[cmd]->url, errorMsg);*/
+  KateJSInterpreterContext *inter = interpreter (script->basename);
+
+  if (!inter)
+  {
+    errorMsg = i18n("Failed to start interpreter for script %1, command %2", script->basename, cmd);
+    return false;
+  }
+
+  KJS::List params;
+  KJS::JSValue *val = inter->callFunction(kateView, inter->interpreter()->globalObject(), KJS::Identifier(cmd),
+                                   params, errorMsg);
+
   return true;
 }
 
@@ -1399,11 +1417,15 @@ const QStringList &KateJScriptManager::cmds()
   static QStringList l;
 
   l.clear();
-  l << "js-run-myself";/*
-  foreach (KateJScriptManager::Script* script, m_scripts)
-    l << script->command;*/
+  l << "js-run-myself";
+ 
+  QHashIterator<QString, KateJScriptManager::Script*> i(m_function2Script);
+  while (i.hasNext()) {
+      i.next();
+      l << i.key();
+  }
 
-   return l;
+  return l;
 }
 //END
 

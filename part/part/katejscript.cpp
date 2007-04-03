@@ -154,7 +154,7 @@ class KateJSGlobalFunctions : public KJS::JSObject
 
 KateJSGlobalFunctions::KateJSGlobalFunctions(int i, int length) : KJS::JSObject(), id(i)
 {
-  putDirect(KJS::lengthPropertyName,length,KJS::DontDelete|KJS::ReadOnly|KJS::DontEnum);
+  putDirect(Identifier("length"),length,KJS::DontDelete|KJS::ReadOnly|KJS::DontEnum);
 }
 
 JSValue* KateJSGlobalFunctions::callAsFunction (KJS::ExecState *exec, KJS::JSObject *thisObj, const KJS::List &args)
@@ -1422,7 +1422,7 @@ const QStringList &KateJScriptManager::cmds()
 
   l.clear();
   l << "js-run-myself";
- 
+
   QHashIterator<QString, KateJScriptManager::Script*> i(m_function2Script);
   while (i.hasNext()) {
       i.next();

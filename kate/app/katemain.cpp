@@ -162,64 +162,38 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     
     if (foundRunningService)
     {
-    
-  /*  
-    //args->getOption("pid");
-      if (QDBus::sessionBus().busService()->nameHasOwner(tryApp))
-        kateApp = tryApp;
-    
-  QDBusMessage m = QDBusMessage::createMethodCall ("org.kde.kate-8023",
-                                              "/KateApplication",
-                                              "",
-                                              "openInput");
-QList<QVariant> args;
-args.append("kde.org");
-m.setArguments(args);
-bool queued = QDBusConnection::sessionBus().send(m);
-  return 0;
-#ifdef __GNUC__
-#warning "kde4: port to dbus"
-#endif*/
-#if 0
-    DCOPClient client;
-    client.attach ();
-
-    // get all attached clients ;)
-    DCOPCStringList allClients = client.registeredApplications();
-
-    // search for a kate app client, use the first found
-    QString kateApp;
-
-    
-    else
-    {
-      for (int i = 0; i < allClients.count(); ++i)
-      {
-        if (allClients[i] == "kate" || allClients[i].left(5) == "kate-")
-        {
-          kateApp = allClients[i];
-          break;
-        }
-      }
-    }
-
-    // found a matching kate client ;)
-    if (!kateApp.isEmpty())
-    {
-      kDebug () << "kate app: " << kateApp << endl;
-
-      DCOPRef kRef (kateApp, "KateApplication");
-
+      // open given session
       if (args->isSet ("start"))
-        kRef.call( "activateSession", QString::fromLocal8Bit (args->getOption("start")) );
+      {
+        QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
+                "/KateApplication", "", "activateSession");
+
+        QList<QVariant> dbusargs;
+        dbusargs.append(QString::fromLocal8Bit (args->getOption("start")));
+        m.setArguments(dbusargs);
+
+        QDBusConnection::sessionBus().call (m);
+      }
 
       QString enc = args->isSet("encoding") ? args->getOption("encoding") : QByteArray("");
 
       bool tempfileSet = KCmdLineArgs::isTempFileSet();
 
+      // open given files...
       for (int z = 0; z < args->count(); z++)
-        kRef.call( "openURL", args->url(z), enc, tempfileSet);
+      {
+        QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
+                "/KateApplication", "", "openURL");
 
+        QList<QVariant> dbusargs;
+        dbusargs.append(args->url(z));
+        dbusargs.append(enc);
+        dbusargs.append(tempfileSet);
+        m.setArguments(dbusargs);
+
+        QDBusConnection::sessionBus().call (m);
+      }
+      
       if( args->isSet( "stdin" ) )
       {
         QTextStream input(stdin, QIODevice::ReadOnly);
@@ -240,7 +214,14 @@ bool queued = QDBusConnection::sessionBus().send(m);
         }
         while( !line.isNull() );
 
-        kRef.call( "openInput", text );
+        QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
+                "/KateApplication", "", "openInput");
+
+        QList<QVariant> dbusargs;
+        dbusargs.append(text);
+        m.setArguments(dbusargs);
+
+        QDBusConnection::sessionBus().call (m);
       }
 
       int line = 0;
@@ -260,11 +241,17 @@ bool queued = QDBusConnection::sessionBus().send(m);
       }
 
       if (nav)
-        kRef.call( "setCursor", line, column );
+      {
+        QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
+                "/KateApplication", "", "setCursor");
 
-      return 0;
-    }
-#endif
+        QList<QVariant> args;
+        args.append(line);
+        args.append(column);
+        m.setArguments(args);
+
+        QDBusConnection::sessionBus().call (m);
+      }
     
       return 0;
     }

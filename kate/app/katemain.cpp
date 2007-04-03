@@ -38,6 +38,7 @@
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
 #include <QDBusReply>
+#include <QVariant>
 
 static KCmdLineOptions options[] =
   {
@@ -166,7 +167,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       if (args->isSet ("start"))
       {
         QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-                "/KateApplication", "", "activateSession");
+                QLatin1String("/MainApplication"), "", "activateSession");
 
         QList<QVariant> dbusargs;
         dbusargs.append(QString::fromLocal8Bit (args->getOption("start")));
@@ -183,10 +184,10 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       for (int z = 0; z < args->count(); z++)
       {
         QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-                "/KateApplication", "", "openURL");
+                QLatin1String("/MainApplication"), "", "openURL");
 
         QList<QVariant> dbusargs;
-        dbusargs.append(args->url(z));
+        dbusargs.append(QVariant::fromValue(args->url(z)));
         dbusargs.append(enc);
         dbusargs.append(tempfileSet);
         m.setArguments(dbusargs);
@@ -215,7 +216,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
         while( !line.isNull() );
 
         QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-                "/KateApplication", "", "openInput");
+                QLatin1String("/MainApplication"), "", "openInput");
 
         QList<QVariant> dbusargs;
         dbusargs.append(text);
@@ -243,7 +244,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       if (nav)
       {
         QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-                "/KateApplication", "", "setCursor");
+                QLatin1String("/MainApplication"), "", "setCursor");
 
         QList<QVariant> args;
         args.append(line);

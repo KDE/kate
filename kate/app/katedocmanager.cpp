@@ -66,7 +66,7 @@ KateDocManager::KateDocManager (QObject *parent)
   m_documentManager = new Kate::DocumentManager (this);
 
   ( void ) new KateDocManagerAdaptor( this );
-  m_dbusObjectPath = "/KateDocumentManager";
+  m_dbusObjectPath = "/DocumentManager";
   QDBusConnection::sessionBus().registerObject( m_dbusObjectPath, this );
 
   m_metaInfos = new KConfig("appdata", "metainfos", KConfig::NoGlobals );

@@ -82,7 +82,7 @@ KateApp::KateApp (KCmdLineArgs *args)
   // application dcop interface
 
   ( void ) new KateAppAdaptor( this );
-  QDBusConnection::sessionBus().registerObject( "/KateApplication", this );
+  QDBusConnection::sessionBus().registerObject( QLatin1String("/MainApplication"), this );
   // real init
   initKate ();
 }

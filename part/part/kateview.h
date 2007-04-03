@@ -458,13 +458,11 @@ class KateView : public KTextEditor::View,
     void setIconBorder( bool enable );
     void setLineNumbersOn( bool enable );
     void setScrollBarMarks( bool enable );
-    void showCmdLine ( bool enable );
     void toggleFoldingMarkers();
     void toggleIconBorder();
     void toggleLineNumbersOn();
     void toggleScrollBarMarks();
     void toggleDynWordWrap ();
-    void toggleCmdLine ();
     void setDynWrapIndicators(int mode);
 
   public:
@@ -565,7 +563,6 @@ class KateView : public KTextEditor::View,
     KateCmdLine *m_cmdLine;
     KateSearchBar *m_searchBar;
     KateGotoBar *m_gotoBar;
-    bool m_cmdLineOn;
 
     QVBoxLayout *m_vBox;
 

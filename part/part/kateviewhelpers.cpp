@@ -248,15 +248,15 @@ void KateScrollBar::sliderMaybeMoved(int value)
 //END
 
 
-//BEGIN KateCmdLineFlagCompletion
+//BEGIN KateCmdLineEditFlagCompletion
 /**
  * This class provide completion of flags. It shows a short description of
  * each flag, and flags are appended.
  */
-class KateCmdLineFlagCompletion : public KCompletion
+class KateCmdLineEditFlagCompletion : public KCompletion
 {
   public:
-    KateCmdLineFlagCompletion() {;}
+    KateCmdLineEditFlagCompletion() {;}
 
     QString makeCompletion( const QString & /*s*/ )
     {
@@ -264,12 +264,29 @@ class KateCmdLineFlagCompletion : public KCompletion
     }
 
 };
-//END KateCmdLineFlagCompletion
+//END KateCmdLineEditFlagCompletion
 
-//BEGIN KateCmdLine
-KateCmdLine::KateCmdLine (KateView *view)
-  : KLineEdit (view)
+//BEGIN KateCmdLineEdit
+KateCmdLine::KateCmdLine (KateView *view, KateViewBar *viewBar)
+    : KateViewBarWidget (viewBar)
+{
+    QVBoxLayout *topLayout = new QVBoxLayout ();
+    centralWidget()->setLayout(topLayout);
+    topLayout->setMargin(0);
+    m_lineEdit = new KateCmdLineEdit (this, view);
+    topLayout->addWidget (m_lineEdit);
+    
+    setFocusProxy (m_lineEdit);
+}
+
+KateCmdLine::~KateCmdLine()
+{
+}
+
+KateCmdLineEdit::KateCmdLineEdit (KateCmdLine *bar, KateView *view)
+  : KLineEdit ()
   , m_view (view)
+  , m_bar (bar)
   , m_msgMode (false)
   , m_histpos( 0 )
   , m_cmdend( 0 )
@@ -284,7 +301,7 @@ KateCmdLine::KateCmdLine (KateView *view)
 }
 
 
-QString KateCmdLine::helptext( const QPoint & ) const
+QString KateCmdLineEdit::helptext( const QPoint & ) const
     {
       QString beg = "<qt background=\"white\"><div><table width=\"100%\"><tr><td bgcolor=\"brown\"><font color=\"white\"><b>Help: <big>";
       QString mid = "</big></b></font></td></tr><tr><td>";
@@ -329,13 +346,13 @@ QString KateCmdLine::helptext( const QPoint & ) const
 
 
 
-bool KateCmdLine::event(QEvent *e) {
+bool KateCmdLineEdit::event(QEvent *e) {
 	if (e->type()==QEvent::WhatsThis)
 		setWhatsThis(helptext(QPoint()));
 	return KLineEdit::event(e);
 }
 
-void KateCmdLine::slotReturnPressed ( const QString& text )
+void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 {
   if (text.isEmpty()) return;
   // silently ignore leading space
@@ -413,14 +430,14 @@ void KateCmdLine::slotReturnPressed ( const QString& text )
   QTimer::singleShot( 4000, this, SLOT(hideBar()) );
 }
 
-void KateCmdLine::hideBar () // unless i have focus ;)
+void KateCmdLineEdit::hideBar () // unless i have focus ;)
 {
-  if ( isVisibleTo(parentWidget()) && ! hasFocus() ) {
-     m_view->toggleCmdLine ();
+  if ( ! hasFocus() ) {
+     m_bar->hideBar ();
   }
 }
 
-void KateCmdLine::focusInEvent ( QFocusEvent *ev )
+void KateCmdLineEdit::focusInEvent ( QFocusEvent *ev )
 {
   if (m_msgMode)
   {
@@ -432,7 +449,7 @@ void KateCmdLine::focusInEvent ( QFocusEvent *ev )
   KLineEdit::focusInEvent (ev);
 }
 
-void KateCmdLine::keyPressEvent( QKeyEvent *ev )
+void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
 {
   if (ev->key() == Qt::Key_Escape)
   {
@@ -542,7 +559,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
   }
 }
 
-void KateCmdLine::fromHistory( bool up )
+void KateCmdLineEdit::fromHistory( bool up )
 {
   if ( ! KateCmd::self()->historyLength() )
     return;
@@ -579,7 +596,7 @@ void KateCmdLine::fromHistory( bool up )
       setSelection( text().length() - reCmd.cap(1).length(), reCmd.cap(1).length() );
   }
 }
-//END KateCmdLine
+//END KateCmdLineEdit
 
 //BEGIN KateIconBorder
 using namespace KTextEditor;

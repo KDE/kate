@@ -107,10 +107,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_search( new KateSearch( this ) )
     , m_spell( new KateSpell( this ) )
     , m_bookmarks( new KateBookmarks( this ) )
-    , m_cmdLine (0)
     , m_searchBar (0)
     , m_gotoBar (0)
-    , m_cmdLineOn (false)
     , m_hasWrap( false )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
@@ -179,6 +177,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   m_viewBar = new KateViewBar (this);
   m_vBox->addWidget(m_viewBar);
+  
+  // create the commandline
+  m_cmdLine = new KateCmdLine (this, m_viewBar);
 
   // create the searchbar...
   m_searchBar = new KateSearchBar(m_viewBar);
@@ -1078,35 +1079,6 @@ bool KateView::foldingMarkersOn() {
   return m_viewInternal->m_leftBorder->foldingMarkersOn();
 }
 
-void KateView::showCmdLine ( bool enabled )
-{
-  if (enabled == m_cmdLineOn)
-    return;
-
-  if (enabled)
-  {
-    if (!m_cmdLine)
-    {
-      m_cmdLine = new KateCmdLine (this);
-      m_vBox->addWidget (m_cmdLine);
-    }
-
-    m_cmdLine->show ();
-    m_cmdLine->setFocus();
-  }
-  else {
-    m_cmdLine->hide ();
-    //m_toggleCmdLine->setChecked(false);
-  }
-
-  m_cmdLineOn = enabled;
-}
-
-void KateView::toggleCmdLine ()
-{
-  m_config->setCmdLine (!m_config->cmdLine ());
-}
-
 void KateView::toggleWriteLock()
 {
   m_doc->setReadWrite( ! m_doc->isReadWrite() );
@@ -1175,14 +1147,7 @@ void KateView::slotSelectionChanged ()
 
 void KateView::switchToCmdLine ()
 {
-  if (!m_cmdLineOn)
-    m_config->setCmdLine (true);
-  else {
-        if (m_cmdLine->hasFocus()) {
-                this->setFocus();
-                return;
-        }
-  }
+  m_cmdLine->showBar ();
   m_cmdLine->setFocus ();
 }
 
@@ -1224,10 +1189,6 @@ void KateView::updateConfig ()
   // scrollbar marks
   m_viewInternal->m_lineScroll->setShowMarks( config()->scrollBarMarks() );
   m_toggleScrollBarMarks->setChecked( config()->scrollBarMarks() );
-
-  // cmd line
-  showCmdLine (config()->cmdLine());
-  //m_toggleCmdLine->setChecked( config()->cmdLine() );
 
   // misc edit
   m_toggleBlockSelection->setChecked( blockSelectionMode() );

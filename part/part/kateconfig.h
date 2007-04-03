@@ -340,9 +340,6 @@ class KateViewConfig : public KateConfig
     long searchFlags () const;
     void setSearchFlags (long flags);
 
-    bool cmdLine () const;
-    void setCmdLine (bool on);
-
     uint defaultMarkType () const;
     void setDefaultMarkType (uint type);
 
@@ -372,7 +369,6 @@ class KateViewConfig : public KateConfig
     int m_bookmarkSort;
     int m_autoCenterLines;
     long m_searchFlags;
-    bool m_cmdLine;
     uint m_defaultMarkType;
     bool m_persistentSelection;
     int m_textToSearchMode;
@@ -387,7 +383,6 @@ class KateViewConfig : public KateConfig
     bool m_bookmarkSortSet : 1;
     bool m_autoCenterLinesSet : 1;
     bool m_searchFlagsSet : 1;
-    bool m_cmdLineSet : 1;
     bool m_defaultMarkTypeSet : 1;
     bool m_persistentSelectionSet : 1;
     bool m_textToSearchModeSet : 1;

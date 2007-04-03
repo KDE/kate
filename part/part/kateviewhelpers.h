@@ -97,35 +97,6 @@ class KateScrollBar : public QScrollBar
     bool m_showMarks;
 };
 
-class KateCmdLine : public KLineEdit
-{
-  Q_OBJECT
-
-  public:
-    KateCmdLine (KateView *view);
-    virtual bool event(QEvent *e);
-  private Q_SLOTS:
-    void slotReturnPressed ( const QString& cmd );
-    void hideBar ();
-
-  protected:
-    void focusInEvent ( QFocusEvent *ev );
-    void keyPressEvent( QKeyEvent *ev );
-
-  private:
-    void fromHistory( bool up );
-    QString helptext( const QPoint & ) const;
-
-    KateView *m_view;
-    bool m_msgMode;
-    QString m_oldText;
-    uint m_histpos; ///< position in the history
-    uint m_cmdend; ///< the point where a command ends in the text, if we have a valid one.
-    KTextEditor::Command *m_command; ///< For completing flags/args and interactiveness
-    class KCompletion *m_oldCompletionObject; ///< save while completing command args.
-    class KateCmdLnWhatsThis *m_help;
-};
-
 class KateIconBorder : public QWidget
 {
   Q_OBJECT
@@ -276,6 +247,46 @@ class KateViewBar : public QWidget
   private:
     KateView *m_view;
     KateStackedLayout *m_stack;
+};
+
+class KateCmdLine : public KateViewBarWidget
+{
+  public:
+    explicit KateCmdLine(KateView *view, KateViewBar *viewBar);
+    ~KateCmdLine();
+
+  private:
+    class KateCmdLineEdit *m_lineEdit;
+};
+
+class KateCmdLineEdit : public KLineEdit
+{
+  Q_OBJECT
+
+  public:
+    KateCmdLineEdit (KateCmdLine *bar, KateView *view);
+    virtual bool event(QEvent *e);
+  private Q_SLOTS:
+    void slotReturnPressed ( const QString& cmd );
+    void hideBar ();
+
+  protected:
+    void focusInEvent ( QFocusEvent *ev );
+    void keyPressEvent( QKeyEvent *ev );
+
+  private:
+    void fromHistory( bool up );
+    QString helptext( const QPoint & ) const;
+
+    KateView *m_view;
+    KateCmdLine *m_bar;
+    bool m_msgMode;
+    QString m_oldText;
+    uint m_histpos; ///< position in the history
+    uint m_cmdend; ///< the point where a command ends in the text, if we have a valid one.
+    KTextEditor::Command *m_command; ///< For completing flags/args and interactiveness
+    class KCompletion *m_oldCompletionObject; ///< save while completing command args.
+    class KateCmdLnWhatsThis *m_help;
 };
 
 #endif

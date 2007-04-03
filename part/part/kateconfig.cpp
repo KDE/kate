@@ -638,7 +638,6 @@ KateViewConfig::KateViewConfig ()
    m_bookmarkSortSet (true),
    m_autoCenterLinesSet (true),
    m_searchFlagsSet (true),
-   m_cmdLineSet (true),
    m_defaultMarkTypeSet (true),
    m_persistentSelectionSet (true),
    m_textToSearchModeSet (true),
@@ -663,7 +662,6 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_bookmarkSortSet (false),
    m_autoCenterLinesSet (false),
    m_searchFlagsSet (false),
-   m_cmdLineSet (false),
    m_defaultMarkTypeSet (false),
    m_persistentSelectionSet (false),
    m_textToSearchModeSet (false),
@@ -697,8 +695,6 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 
   setSearchFlags (config.readEntry("Search Config Flags", KFind::FromCursor | KFind::CaseSensitive | KReplaceDialog::PromptOnReplace));
 
-  setCmdLine (config.readEntry( "Command Line", false));
-
   setDefaultMarkType (config.readEntry( "Default Mark Type", int(KTextEditor::MarkInterface::markType01) ));
 
   setPersistentSelection (config.readEntry( "Persistent Selection", false ));
@@ -727,8 +723,6 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry( "Auto Center Lines", autoCenterLines() );
 
   config.writeEntry("Search Config Flags", int(searchFlags()));
-
-  config.writeEntry("Command Line", cmdLine());
 
   config.writeEntry("Default Mark Type", defaultMarkType());
 
@@ -931,24 +925,6 @@ void KateViewConfig::setSearchFlags (long flags)
 
   m_searchFlagsSet = true;
   m_searchFlags = flags;
-
-  configEnd ();
-}
-
-bool KateViewConfig::cmdLine () const
-{
-  if (m_cmdLineSet || isGlobal())
-    return m_cmdLine;
-
-  return s_global->cmdLine();
-}
-
-void KateViewConfig::setCmdLine (bool on)
-{
-  configStart ();
-
-  m_cmdLineSet = true;
-  m_cmdLine = on;
 
   configEnd ();
 }

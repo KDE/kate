@@ -107,14 +107,16 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_search( new KateSearch( this ) )
     , m_spell( new KateSpell( this ) )
     , m_bookmarks( new KateBookmarks( this ) )
-    , m_searchBar (0)
-    , m_gotoBar (0)
     , m_hasWrap( false )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
     , m_selection(m_doc->smartManager()->newSmartRange(KTextEditor::Range::invalid(), 0L, KTextEditor::SmartRange::ExpandRight))
     , blockSelect (false)
     , m_imComposeEvent( false )
+    , m_viewBar (new KateViewBar (this))
+    , m_cmdLine (0)
+    , m_searchBar (0)
+    , m_gotoBar (0)
 {
   KateGlobal::self()->registerView( this );
 
@@ -146,6 +148,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   hbox->addWidget (m_viewInternal->m_columnScroll);
   hbox->addWidget (m_viewInternal->m_dummy);
 
+  // add viewbar...
+  m_vBox->addWidget(m_viewBar);
+
   // this really is needed :)
   m_viewInternal->updateView ();
 
@@ -174,15 +179,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   // update the enabled state of the undo/redo actions...
   slotNewUndo();
-
-  m_viewBar = new KateViewBar (this);
-  m_vBox->addWidget(m_viewBar);
-  
-  // create the commandline
-  m_cmdLine = new KateCmdLine (this, m_viewBar);
-
-  // create the searchbar...
-  m_searchBar = new KateSearchBar(m_viewBar);
 
   m_startingUp = false;
   updateConfig ();
@@ -961,12 +957,8 @@ void KateView::slotSaveCanceled( const QString& error )
 
 void KateView::gotoLine()
 {
-  // no around, create one...
-  if (!m_gotoBar)
-    m_gotoBar = new KateGotoBar (m_viewBar);
-
   // show it
-  m_gotoBar->showBar ();
+  gotoBar()->showBar ();
 }
 
 void KateView::joinLines()
@@ -1101,8 +1093,8 @@ void KateView::slotNeedTextHint(int line, int col, QString &text)
 
 void KateView::find()
 {
-  m_searchBar->showBar();
-  m_searchBar->setFocus();
+  searchBar()->showBar();
+  searchBar()->setFocus();
 }
 
 void KateView::find( const QString& pattern, long flags, bool add )
@@ -1123,12 +1115,12 @@ void KateView::replace( const QString &pattern, const QString &replacement, long
 
 void KateView::findNext()
 {
-  m_searchBar->findNext();
+  searchBar()->findNext();
 }
 
 void KateView::findPrevious()
 {
-  m_searchBar->findPrevious();
+  searchBar()->findPrevious();
 }
 
 void KateView::slotSelectionChanged ()
@@ -1147,8 +1139,8 @@ void KateView::slotSelectionChanged ()
 
 void KateView::switchToCmdLine ()
 {
-  m_cmdLine->showBar ();
-  m_cmdLine->setFocus ();
+  cmdLine()->showBar ();
+  cmdLine()->setFocus ();
 }
 
 KateRenderer *KateView::renderer ()
@@ -2440,4 +2432,28 @@ void KateView::setConfigValue(const QString &key, const QVariant &value)
 void KateView::userInvokedCompletion()
 {
   completionWidget()->userInvokedCompletion();
+}
+
+KateCmdLine *KateView::cmdLine ()
+{
+  if (m_cmdLine)
+    return m_cmdLine;
+
+  return m_cmdLine = new KateCmdLine (this, m_viewBar);
+}
+
+KateSearchBar *KateView::searchBar ()
+{
+  if (m_searchBar)
+    return m_searchBar;
+
+  return m_searchBar = new KateSearchBar(m_viewBar);
+}
+
+KateGotoBar *KateView::gotoBar ()
+{
+  if (m_gotoBar)
+    return m_gotoBar;
+
+  return m_gotoBar = new KateGotoBar (m_viewBar);
 }

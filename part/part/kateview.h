@@ -560,10 +560,6 @@ class KateView : public KTextEditor::View,
     KateSpell             *m_spell;
     KateBookmarks*         m_bookmarks;
 
-    KateCmdLine *m_cmdLine;
-    KateSearchBar *m_searchBar;
-    KateGotoBar *m_gotoBar;
-
     QVBoxLayout *m_vBox;
 
     bool       m_hasWrap;
@@ -615,7 +611,26 @@ class KateView : public KTextEditor::View,
     KTextEditor::Range m_imRange, m_imSelection;
     bool m_imComposeEvent;
 
+  /**
+   * Accessors to the bars...
+   */
+  public:
+    KateCmdLine *cmdLine ();
+    KateSearchBar *searchBar ();
+    KateGotoBar *gotoBar ();
+
+  /**
+   * viewbar + it's widgets
+   * they are created on demand...
+   */
+  private:
+    // created in constructor of the view
     KateViewBar *m_viewBar;
+
+    // created on demand..., only access them through the above accessors....
+    KateCmdLine *m_cmdLine;
+    KateSearchBar *m_searchBar;
+    KateGotoBar *m_gotoBar;
 };
 
 #endif

@@ -229,16 +229,19 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
 
     doc->setEncoding(encoding);
 
-    if (!loadMetaInfos(doc, url))
-      doc->openUrl (url);
-
-    if ( isTempFile && !url.isEmpty() && url.isLocalFile() )
+    if (!url.isEmpty())
     {
-      QFileInfo fi( url.path() );
-      if ( fi.exists() )
+      if (!loadMetaInfos(doc, url))
+        doc->openUrl (url);
+    
+      if ( isTempFile && url.isLocalFile() )
       {
-        m_tempFiles[ doc] = qMakePair(url, fi.lastModified());
-        kDebug(13001) << "temporary file will be deleted after use unless modified: " << url.prettyUrl() << endl;
+        QFileInfo fi( url.path() );
+        if ( fi.exists() )
+        {
+          m_tempFiles[ doc] = qMakePair(url, fi.lastModified());
+          kDebug(13001) << "temporary file will be deleted after use unless modified: " << url.prettyUrl() << endl;
+        }
       }
     }
 
@@ -249,15 +252,23 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
     return doc;
   }
 
-  KTextEditor::Document *doc = findDocument (url);
+  KTextEditor::Document *doc = 0;
+  
+  // always new document if url is empty...
+  if (!url.isEmpty())
+    doc = findDocument (url);
+  
   if ( !doc )
   {
-    doc = (KTextEditor::Document *)createDoc ();
+    doc = createDoc ();
 
     doc->setEncoding(encoding);
 
-    if (!loadMetaInfos(doc, url))
-      doc->openUrl (url);
+    if (!url.isEmpty())
+    {
+      if (!loadMetaInfos(doc, url))
+        doc->openUrl (url);
+    }
   }
 
   return doc;

@@ -84,6 +84,7 @@ namespace Kate
 
       /**
        * Get the document with the URL \p url.
+       * if multiple documents match the searched url, return the first found one...
        * \param url the document's URL
        * \return the document with the given \p url or NULL, if no such document
        *         is in the document manager's internal list.
@@ -92,6 +93,7 @@ namespace Kate
 
       /**
        * Open the document \p url with the given \p encoding.
+       * if the url is empty, a new empty document will be created
        * \param url the document's url
        * \param encoding the preferred encoding. If encoding is QString() the
        *        encoding will be guessed or the default encoding will be used.

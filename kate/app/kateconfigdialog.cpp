@@ -42,7 +42,7 @@
 #include <KConfig>
 #include <kstandardaction.h>
 #include <KStandardDirs>
-#include <KWin>
+#include <KWM>
 #include <KSeparator>
 #include <KPageWidgetModel>
 #include <KVBox>

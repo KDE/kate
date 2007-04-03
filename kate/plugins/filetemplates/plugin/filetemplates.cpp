@@ -37,8 +37,7 @@
 #include <k3listview.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <knewstuff/knewstuff.h>
-#include <knewstuff/entry.h>
+#include <knewstuff2/core/entry.h>
 #include <k3process.h>
 #include <kstandarddirs.h>
 #include <kstandarddirs.h>

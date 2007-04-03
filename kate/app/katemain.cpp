@@ -33,6 +33,11 @@
 #include <QTextCodec>
 #include <QTextIStream>
 #include <QByteArray>
+#include <QCoreApplication>
+#include <QDBusMessage>
+#include <QDBusConnection>
+#include <QDBusConnectionInterface>
+#include <QDBusReply>
 
 static KCmdLineOptions options[] =
   {
@@ -109,9 +114,72 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   // now, first try to contact running kate instance if needed
   if ( (args->isSet("use")) || (::getenv("KATE_PID") != 0))
   {
+    // inialize the dbus stuff...
+    QCoreApplication *app = new QCoreApplication (argc, argv);
+    
+    // bus interface
+    QDBusConnectionInterface *i = QDBusConnection::sessionBus().interface ();
+  
+    // service name....
+    QString serviceName;
+  
+    // two possibilities: pid given or not...
+    if ( (args->isSet("pid")) || (::getenv("KATE_PID") != 0))
+    {
+      QByteArray usePid;
+      if (args->isSet("pid")) usePid = args->getOption("pid");
+      else usePid = QByteArray(::getenv("KATE_PID"));
+      
+      serviceName = "org.kde.kate-" + usePid;
+    }
+    else // pid not given, try to guess it....
+    {
+      QDBusReply<QStringList> servicesReply = i->registeredServiceNames ();
+      QStringList services;
+      if (servicesReply.isValid())
+        services = servicesReply.value ();
+        
+      foreach (QString s, services)
+      {
+        kDebug() << "found service: " << s << endl;
+        if (s.startsWith ("org.kde.kate-"))
+        {
+          serviceName = s;
+          break;
+        }
+      }
+    }
+    
+    kDebug() << "servicename to use for -u : " << serviceName << endl;
+    
+    // no already running instance found and no specific pid given, start new instance...
+    bool foundRunningService = false;
+    if (!serviceName.isEmpty ())
+    {
+      QDBusReply<bool> there = i->isServiceRegistered (serviceName);
+      foundRunningService = there.isValid () && there.value();
+    }
+    
+    if (foundRunningService)
+    {
+    
+  /*  
+    //args->getOption("pid");
+      if (QDBus::sessionBus().busService()->nameHasOwner(tryApp))
+        kateApp = tryApp;
+    
+  QDBusMessage m = QDBusMessage::createMethodCall ("org.kde.kate-8023",
+                                              "/KateApplication",
+                                              "",
+                                              "openInput");
+QList<QVariant> args;
+args.append("kde.org");
+m.setArguments(args);
+bool queued = QDBusConnection::sessionBus().send(m);
+  return 0;
 #ifdef __GNUC__
 #warning "kde4: port to dbus"
-#endif
+#endif*/
 #if 0
     DCOPClient client;
     client.attach ();
@@ -122,15 +190,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     // search for a kate app client, use the first found
     QString kateApp;
 
-    if ( (args->isSet("pid")) || (::getenv("KATE_PID") != 0))
-    {
-      QByteArray usePid;
-      if (args->isSet("pid")) usePid = args->getOption("pid");
-      else usePid = QByteArray(::getenv("KATE_PID"));
-      QString tryApp = QByteArray ("kate-") + usePid;//args->getOption("pid");
-      if (QDBus::sessionBus().busService()->nameHasOwner(tryApp))
-        kateApp = tryApp;
-    }
+    
     else
     {
       for (int i = 0; i < allClients.count(); ++i)
@@ -205,6 +265,13 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       return 0;
     }
 #endif
+    
+      return 0;
+    }
+    
+    kDebug () << "couldn't find existing running process to reuse, starting new kate process" << endl;
+
+    delete app;
   }
 
   // construct the real kate app object ;)

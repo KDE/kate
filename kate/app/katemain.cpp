@@ -160,14 +160,16 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       QDBusReply<bool> there = i->isServiceRegistered (serviceName);
       foundRunningService = there.isValid () && there.value();
     }
-    
+        
     if (foundRunningService)
     {
+      kDebug() << "servicename " << serviceName << " is valid, calling the methodes" << endl;
+    
       // open given session
       if (args->isSet ("start"))
       {
         QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-                QLatin1String("/MainApplication"), "", "activateSession");
+                QLatin1String("/MainApplication"), "org.kde.Kate.Application", "activateSession");
 
         QList<QVariant> dbusargs;
         dbusargs.append(QString::fromLocal8Bit (args->getOption("start")));
@@ -184,10 +186,10 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       for (int z = 0; z < args->count(); z++)
       {
         QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-                QLatin1String("/MainApplication"), "", "openURL");
+                QLatin1String("/MainApplication"), "org.kde.Kate.Application", "openUrl");
 
         QList<QVariant> dbusargs;
-        dbusargs.append(QVariant::fromValue(args->url(z)));
+        dbusargs.append(args->url(z).url());
         dbusargs.append(enc);
         dbusargs.append(tempfileSet);
         m.setArguments(dbusargs);
@@ -216,7 +218,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
         while( !line.isNull() );
 
         QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-                QLatin1String("/MainApplication"), "", "openInput");
+                QLatin1String("/MainApplication"), "org.kde.Kate.Application", "openInput");
 
         QList<QVariant> dbusargs;
         dbusargs.append(text);
@@ -244,7 +246,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       if (nav)
       {
         QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-                QLatin1String("/MainApplication"), "", "setCursor");
+                QLatin1String("/MainApplication"), "org.kde.Kate.Application", "setCursor");
 
         QList<QVariant> args;
         args.append(line);

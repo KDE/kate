@@ -24,6 +24,8 @@
 #include "katemainwindow.h"
 #include "kateappadaptor.moc"
 
+#include <kdebug.h>
+
 KateAppAdaptor::KateAppAdaptor (KateApp *app)
     : QDBusAbstractAdaptor( app )
     , m_app (app)
@@ -77,6 +79,8 @@ bool KateAppAdaptor::openUrl (QString url, QString encoding)
 
 bool KateAppAdaptor::openUrl (QString url, QString encoding, bool isTempFile)
 {
+  kDebug () << "openURL" << endl;
+
   return m_app->openUrl (url, encoding, isTempFile);
 }
 

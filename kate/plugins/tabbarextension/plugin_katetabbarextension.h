@@ -88,7 +88,7 @@ private:
 class KatePluginTabBarExtension : public Kate::Plugin, public Kate::PluginConfigPageInterface
 {
   Q_OBJECT
-
+  Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
     KatePluginTabBarExtension( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~KatePluginTabBarExtension();

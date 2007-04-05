@@ -149,7 +149,7 @@ class KatePluginSymbolViewerView2 : public Kate::PluginView
 class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterface
 {
   Q_OBJECT
-
+  Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
     KatePluginSymbolViewer( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~KatePluginSymbolViewer();

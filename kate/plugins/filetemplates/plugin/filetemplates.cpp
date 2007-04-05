@@ -37,7 +37,8 @@
 #include <k3listview.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <knewstuff2/core/entry.h>
+// #include <knewstuff2/core/entry.h>
+#include <knewstuff2/engine.h>
 #include <k3process.h>
 #include <kstandarddirs.h>
 #include <kstandarddirs.h>
@@ -1083,6 +1084,7 @@ class KateTemplateItem : public K3ListViewItem
 //END KateTemplateItem
 
 //BEGIN KFTNewStuff
+#if 0
 class KFTNewStuff : public KNewStuff {
   public:
     KFTNewStuff( const QString &type, QWidget *parent=0 ) : KNewStuff( type, parent ), m_win( parent ) {};
@@ -1098,6 +1100,7 @@ class KFTNewStuff : public KNewStuff {
   private:
     QWidget *m_win;
 };
+#endif
 //END KTNewStuff
 
 //BEGIN KateTemplateManager
@@ -1228,19 +1231,42 @@ void KateTemplateManager::slotRemoveTemplate()
 void KateTemplateManager::slotUpload()
 {
   // TODO something nicer, like preparing the meta data from the template info.
+//   KateTemplateItem *item = dynamic_cast<KateTemplateItem*>( lvTemplates->currentItem() );
+//   if ( item )
+//   {
+//     KFTNewStuff *ns = new KFTNewStuff( "katefiletemplates/template", this );
+//     ns->upload( item->templateinfo->filename, QString::null );
+//   }
+#warning ERROR HANDLING
   KateTemplateItem *item = dynamic_cast<KateTemplateItem*>( lvTemplates->currentItem() );
-  if ( item )
+  if (!item) return;
+  KNS::Engine *engine=new KNS::Engine();
+  bool success=engine->init("katefiletemplates.knsrc");
+  if (!success)
   {
-    KFTNewStuff *ns = new KFTNewStuff( "katefiletemplates/template", this );
-    ns->upload( item->templateinfo->filename, QString::null );
+    delete engine;
+    return;
   }
+  engine->upload(item->templateinfo->filename);
+  delete engine;
+
 }
 
 // KNewStuff download
 void KateTemplateManager::slotDownload()
 {
-  KFTNewStuff *ns = new KFTNewStuff( "katefiletemplates/template", this );
-  ns->download();
+//   KFTNewStuff *ns = new KFTNewStuff( "katefiletemplates/template", this );
+//   ns->download();
+#warning ERROR HANDLING
+  KNS::Engine *engine=new KNS::Engine();
+  bool success=engine->init("katefiletemplates.knsrc");
+  if (!success)
+  {
+    delete engine;
+    return;
+  }
+  engine->downloadDialogModal();
+  delete engine;
 
   kft->updateTemplateDirs();
   reload();

@@ -17,7 +17,7 @@ katetemplate: author= Anders Lund <anders@alweb.dk>
     Boston, MA 02110-1301, USA.
 
     ---
-    Copyright (C) %{year}, %{realname} <%{email}>
+    Copyright (C) %{year}, %{fullname} <%{email}>
 */
 
 ${cursor}

@@ -20,7 +20,7 @@
 #define KDELIBS_KTEXTEDITOR_TEMPLATEINTERFACE_H
 
 #include <QtCore/QString>
-#include <qmap.h>
+#include <QtCore/QMap>
 #include <QtGui/QImage>
 
 #include <ktexteditor/ktexteditor_export.h>

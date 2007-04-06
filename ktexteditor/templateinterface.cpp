@@ -22,8 +22,8 @@
 #include <QtCore/QString>
 #include <klocale.h>
 #include <kglobal.h>
-#include <qdatetime.h>
-#include <qregexp.h>
+#include <QtCore/QDate>
+#include <QtCore/QRegExp>
 #include <kmessagebox.h>
 #include <kcalendarsystem.h>
 #include <unistd.h>

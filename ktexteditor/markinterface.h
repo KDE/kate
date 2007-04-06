@@ -23,7 +23,7 @@
 
 #include <ktexteditor/ktexteditor_export.h>
 
-#include <qhash.h>
+#include <QtCore/QHash>
 #include <QtCore/QObject>
 
 class QPixmap;

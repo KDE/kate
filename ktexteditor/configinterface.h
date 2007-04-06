@@ -22,7 +22,7 @@
 
 #include <ktexteditor/ktexteditor_export.h>
 #include <QtCore/QStringList>
-#include <qvariant.h>
+#include <QtCore/QVariant>
 
 namespace KTextEditor
 {

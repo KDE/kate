@@ -18,7 +18,7 @@
 #include <editorchooser.h>
 #include <editorchooser.moc>
 
-#include <qcombobox.h>
+#include <QtGui/QComboBox>
 #include <QtCore/QStringList>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>

@@ -33,7 +33,7 @@
 #include <ktexteditor/rangefeedback.h>
 #include <ktexteditor/configinterface.h>
 
-#include <qpointer.h>
+#include <QtCore/QPointer>
 #include <QMenu>
 #include <QLinkedList>
 #include <QHash>

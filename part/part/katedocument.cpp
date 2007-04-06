@@ -74,12 +74,12 @@
 #include <kstandarddirs.h>
 
 #include <QtDBus/QtDBus>
-#include <qtimer.h>
+#include <QtCore/QTimer>
 #include <QtCore/QFile>
-#include <qclipboard.h>
-#include <qtextstream.h>
-#include <qtextcodec.h>
-#include <qmap.h>
+#include <QtGui/QClipboard>
+#include <QtCore/QTextIStream>
+#include <QtCore/QTextCodec>
+#include <QtCore/QMap>
 #include <QMutex>
 //END  includes
 

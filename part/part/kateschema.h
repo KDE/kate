@@ -24,8 +24,8 @@
 #include "katedialogs.h"
 
 #include <QtCore/QStringList>
-#include <qmap.h>
-#include <qfont.h>
+#include <QtCore/QMap>
+#include <QtGui/QFont>
 
 #include <kconfig.h>
 #include <kaction.h>

@@ -76,15 +76,15 @@
 #include <kselectaction.h>
 #include <kactioncollection.h>
 
-#include <qfont.h>
-#include <qfileinfo.h>
-#include <qstyle.h>
-#include <qevent.h>
+#include <QtGui/QFont>
+#include <QtCore/QFileInfo>
+#include <QtGui/QStyle>
+#include <QtGui/QActionEvent>
 #include <QtGui/QLayout>
-#include <qclipboard.h>
-#include <qtextdocument.h>
-#include <qtextstream.h>
-#include <qmimedata.h>
+#include <QtGui/QClipboard>
+#include <QtGui/QAbstractUndoItem>
+#include <QtCore/QTextIStream>
+#include <QtCore/QMimeData>
 #include <QTextCodec>
 //END includes
 

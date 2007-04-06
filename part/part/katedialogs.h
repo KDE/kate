@@ -37,8 +37,8 @@
 #include <kmimetype.h>
 
 #include <QtCore/QStringList>
-#include <qcolor.h>
-#include <qtabwidget.h>
+#include <QtGui/QColor>
+#include <QtGui/QTabWidget>
 #include <QTreeWidget>
 
 class KatePartPluginListItem;

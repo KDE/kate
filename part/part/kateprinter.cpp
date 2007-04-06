@@ -40,15 +40,15 @@
 #include <kurl.h>
 #include <kuser.h> // for loginName
 
-#include <qpainter.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
+#include <QtGui/QPainter>
+#include <QtGui/QCheckBox>
+#include <QtGui/QComboBox>
 #include <QGroupBox>
 
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
-#include <qlineedit.h>
-#include <qspinbox.h>
+#include <QtGui/QLineEdit>
+#include <QtGui/QDoubleSpinBox>
 #include <QtCore/QStringList>
 #include <kvbox.h>
 

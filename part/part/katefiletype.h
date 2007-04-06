@@ -20,7 +20,7 @@
 #define __kate_filetype_h__
 
 #include <QtCore/QStringList>
-#include <qpointer.h>
+#include <QtCore/QPointer>
 
 #include "katedialogs.h"
 

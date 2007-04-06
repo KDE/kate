@@ -60,13 +60,13 @@
 #include <kactioncollection.h>
 
 #include <QStackedWidget>
-#include <qpainter.h>
+#include <QtGui/QPainter>
 #include <QtGui/QLabel>
-#include <qcursor.h>
+#include <QtGui/QCursor>
 #include <QMenu>
-#include <qpixmap.h>
-#include <qtimer.h>
-#include <qtextcodec.h>
+#include <QtGui/QPixmap>
+#include <QtCore/QTimer>
+#include <QtCore/QTextCodec>
 #include <QtGui/QLayout>
 //Added by qt3to4:
 #include <QDragEnterEvent>

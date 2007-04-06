@@ -22,7 +22,7 @@
 #include "katekeyinterceptorfunctor.h"
 #include <QPointer>
 #include <QtCore/QObject>
-#include <qmap.h>
+#include <QtCore/QMap>
 #include <QHash>
 #include <QtCore/QString>
 #include <QList>

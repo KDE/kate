@@ -28,7 +28,7 @@
 
 #include <kdialog.h>
 
-#include <q3ptrlist.h>
+#include <Qt3Support/Q3PtrList>
 //Added by qt3to4:
 #include <QPixmap>
 

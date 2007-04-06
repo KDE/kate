@@ -48,7 +48,7 @@
 #include <QSet>
 #include <QAction>
 #include <QtCore/QStringList>
-#include <qtextstream.h>
+#include <QtCore/QTextIStream>
 //END
 
 //BEGIN defines

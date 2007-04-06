@@ -46,22 +46,22 @@
 #include <kconfig.h>
 #include <kglobalsettings.h>
 
-#include <qcolor.h>
-#include <qcursor.h>
-#include <qdir.h>
-#include <qevent.h>
+#include <QtGui/QColor>
+#include <QtGui/QCursor>
+#include <QtCore/QDir>
+#include <QtGui/QActionEvent>
 #include <QtCore/QObject>
-#include <qpushbutton.h>
+#include <QtGui/QPushButton>
 //#include <qscrollview.h>
 #include <QtCore/QString>
-#include <qregexp.h>
-#include <qtextstream.h>
-#include <qlist.h>
+#include <QtCore/QRegExp>
+#include <QtCore/QTextIStream>
+#include <QtCore/QList>
 #include <QtGui/QImage>
-#include <qtimer.h>
+#include <QtCore/QTimer>
 #include <kstatusbar.h>
-#include <qfileinfo.h>
-#include <qprocess.h>
+#include <QtCore/QFileInfo>
+#include <QtCore/Q_PID>
 
 #include "katedocument.h"
 #include "kateview.h"

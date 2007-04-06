@@ -41,14 +41,14 @@
 #include <kstaticdeleter.h>
 #include <kurl.h>
 
-#include <qcheckbox.h>
+#include <QtGui/QCheckBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
-#include <qlineedit.h>
-#include <q3listview.h>
-#include <qpushbutton.h>
-#include <qtoolbutton.h>
-#include <qregexp.h>
+#include <QtGui/QLineEdit>
+#include <Qt3Support/Q3CheckListItem>
+#include <QtGui/QPushButton>
+#include <QtGui/QToolButton>
+#include <QtCore/QRegExp>
 //Added by qt3to4:
 #include <QPixmap>
 #include <QGridLayout>

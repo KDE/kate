@@ -28,8 +28,8 @@
 #include "katelinerange.h"
 #include "katesmartregion.h"
 
-#include <qfont.h>
-#include <qfontmetrics.h>
+#include <QtGui/QFont>
+#include <QtGui/QFontMetrics>
 #include <QList>
 #include <QTextLayout>
 

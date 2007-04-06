@@ -48,15 +48,15 @@
 #include <ktoggleaction.h>
 #include <kconfiggroup.h>
 
-#include <qregexp.h>
+#include <QtCore/QRegExp>
 #include <QtCore/QString>
 #include <QSet>
-#include <qspinbox.h>
+#include <QtGui/QDoubleSpinBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
 
 #include <kvbox.h>
-#include <qcheckbox.h>
+#include <QtGui/QCheckBox>
 
 #include <kdebug.h>
 //END

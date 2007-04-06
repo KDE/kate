@@ -32,11 +32,11 @@
 #include <QHash>
 #include <QMap>
 
-#include <qregexp.h>
+#include <QtCore/QRegExp>
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
-#include <qpointer.h>
-#include <qdatetime.h>
+#include <QtCore/QPointer>
+#include <QtCore/QDate>
 #include <QLinkedList>
 #include <QRegExp>
 

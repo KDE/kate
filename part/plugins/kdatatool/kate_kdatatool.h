@@ -22,7 +22,7 @@
 #include <ktexteditor/plugin.h>
 #include <QtCore/QStringList>
 #include <kxmlguiclient.h>
-#include <qpointer.h>
+#include <QtCore/QPointer>
 
 class KActionMenu;
 class KDataToolInfo;

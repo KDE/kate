@@ -36,16 +36,16 @@
 #include <klocale.h>
 #include <kmenu.h>
 
-#include <qregexp.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
+#include <QtCore/QRegExp>
+#include <QtGui/QCheckBox>
+#include <QtGui/QComboBox>
 #include <QGroupBox>
 
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qtoolbutton.h>
+#include <QtGui/QLineEdit>
+#include <QtGui/QPushButton>
+#include <QtGui/QToolButton>
 #include <kvbox.h>
 
 #define KATE_FT_HOWMANY 1024

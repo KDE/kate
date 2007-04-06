@@ -29,7 +29,7 @@
 #include <kdialog.h>
 
 #include <QtCore/QString>
-#include <qregexp.h>
+#include <QtCore/QRegExp>
 #include <QtCore/QStringList>
 
 class KateView;

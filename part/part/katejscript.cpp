@@ -48,9 +48,9 @@
 #include <kjs/PropertyNameArray.h>
 
 #include <QtCore/QFile>
-#include <qfileinfo.h>
-#include <qregexp.h>
-#include <qtextstream.h>
+#include <QtCore/QFileInfo>
+#include <QtCore/QRegExp>
+#include <QtCore/QTextIStream>
 
 
 namespace KJS {

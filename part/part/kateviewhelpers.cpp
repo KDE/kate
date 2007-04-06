@@ -41,12 +41,12 @@
 #include <kmenu.h>
 #include <kiconloader.h>
 
-#include <qcursor.h>
-#include <qpainter.h>
-#include <qstyle.h>
+#include <QtGui/QCursor>
+#include <QtGui/QPainter>
+#include <QtGui/QStyle>
 #include <QTimer>
-#include <qregexp.h>
-#include <qtextcodec.h>
+#include <QtCore/QRegExp>
+#include <QtCore/QTextCodec>
 #include <QMouseEvent>
 #include <QPainterPath>
 #include <QStyleOption>

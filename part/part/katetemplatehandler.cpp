@@ -30,7 +30,7 @@
 #include <ktexteditor/range.h>
 #include <ktexteditor/attribute.h>
 
-#include <qregexp.h>
+#include <QtCore/QRegExp>
 #include <kdebug.h>
 
 KateTemplateHandler::KateTemplateHandler(

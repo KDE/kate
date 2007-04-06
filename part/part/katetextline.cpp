@@ -26,7 +26,7 @@
 #include <kglobal.h>
 #include <kdebug.h>
 
-#include <qregexp.h>
+#include <QtCore/QRegExp>
 
 KateTextLine::KateTextLine ()
   : m_flags(0)

@@ -24,7 +24,7 @@
 #include <kparts/browserextension.h>
 
 #include <QtCore/QStringList>
-#include <qpointer.h>
+#include <QtCore/QPointer>
 
 class KateDocument;
 

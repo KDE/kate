@@ -75,7 +75,7 @@ bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *pare
       }
       else if ( placeholder == "date" )
       {
-        map[ placeholder ] = KGlobal::locale() ->formatDate( date, true );
+        map[ placeholder ] = KGlobal::locale() ->formatDate( date, KLocale::ShortDate );
       }
       else if ( placeholder == "time" )
       {

@@ -75,6 +75,7 @@
 #include <KStringHandler>
 #include <KToolInvocation>
 #include <KAuthorized>
+#include <KRun>
 
 #include <QLayout>
 #include <QDragEnterEvent>

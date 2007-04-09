@@ -45,6 +45,7 @@
 #include <kjs/context.h>
 #include <kjs/nodes.h>
 #include <kjs/function.h>
+#include <kjs/scriptfunction.h> // ### supposed to be private API
 #include <kjs/PropertyNameArray.h>
 
 #include <QtCore/QFile>

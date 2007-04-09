@@ -44,6 +44,7 @@
 
 class KActionCollection;
 class KActionSelector;
+class KHistoryComboBox;
 class QToolButton;
 class QCheckBox;
 class QSpinBox;
@@ -185,7 +186,7 @@ class KateFileSelector : public KVBox
     KUrlComboBox *cmbPath;
     KDirOperator * dir;
     class QAction *acSyncDir;
-    KHistoryCombo * filter;
+    KHistoryComboBox * filter;
     QToolButton *btnFilter;
 
     Kate::MainWindow *mainwin;

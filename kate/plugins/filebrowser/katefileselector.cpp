@@ -72,6 +72,7 @@
 #include <kate/mainwindow.h>
 #include <ktexteditor/view.h>
 #include <kconfiggroup.h>
+#include <khistorycombobox.h>
 //END Includes
 
 
@@ -229,7 +230,7 @@ void KateFileSelectorToolBarParent::resizeEvent ( QResizeEvent * )
   btnFilter = new QToolButton( filterBox );
   btnFilter->setIcon( KIcon("search-filter" ) );
   btnFilter->setCheckable( true );
-  filter = new KHistoryCombo( true, filterBox);
+  filter = new KHistoryComboBox( true, filterBox);
   filter->setSizePolicy( QSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed ));
   filterBox->setStretchFactor(filter, 2);
   connect( btnFilter, SIGNAL( clicked() ), this, SLOT( btnFilterClick() ) );

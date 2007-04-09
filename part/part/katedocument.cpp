@@ -4405,6 +4405,16 @@ const QString &KateDocument::encoding() const
   return m_config->encoding();
 }
 
+void KateDocument::setScriptForEncodingAutoDetection (KEncodingDetector::AutoDetectScript script)
+{
+  m_config->setEncodingAutoDetectionScript(script);
+}
+
+KEncodingDetector::AutoDetectScript KateDocument::scriptForEncodingAutoDetection() const
+{
+  return m_config->encodingAutoDetectionScript();
+}
+
 void KateDocument::updateConfig ()
 {
   emit undoChanged ();

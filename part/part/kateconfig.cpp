@@ -80,11 +80,12 @@ KateViewConfig *KateViewConfig::s_global = 0;
 KateRendererConfig *KateRendererConfig::s_global = 0;
 
 KateDocumentConfig::KateDocumentConfig ()
- : m_tabWidth (8),
-   m_indentationWidth (2),
+ : m_indentationWidth (2),
+   m_tabWidth (8),
    m_tabHandling (tabSmart),
-   m_wordWrapAt (80),
    m_configFlags (0),
+   m_wordWrapAt (80),
+   m_scriptForEncodingAutoDetection(KEncodingDetector::None),
    m_plugins (KateGlobal::self()->plugins().count()),
    m_tabWidthSet (true),
    m_indentationWidthSet (true),
@@ -96,7 +97,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_configFlagsSet (0xFFFF),
    m_encodingSet (true),
    m_eolSet (true),
-   m_allowEolDetectionSet (true),
+   m_allowEolDetectionSet (false),
    m_backupFlagsSet (true),
    m_searchDirConfigDepthSet (true),
    m_backupPrefixSet (true),
@@ -140,6 +141,8 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
   // init plugin array
   m_plugins.fill (false);
   m_pluginsSet.fill (false);
+
+  m_scriptForEncodingAutoDetection=s_global->encodingAutoDetectionScript();
 }
 
 KateDocumentConfig::~KateDocumentConfig ()
@@ -169,6 +172,7 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
     | KateDocumentConfig::cfSmartHome));
 
   setEncoding (config.readEntry("Encoding", ""));
+  setEncodingAutoDetectionScript ((KEncodingDetector::AutoDetectScript)config.readEntry("Script for Encoding Autodetection", 0));
 
   setEol (config.readEntry("End of Line", 0));
   setAllowEolDetection (config.readEntry("Allow End of Line Detection", true));
@@ -208,6 +212,7 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Basic Config Flags", configFlags());
 
   config.writeEntry("Encoding", encoding());
+  config.writeEntry("Script for Encoding Autodetection", (int)encodingAutoDetectionScript());
 
   config.writeEntry("End of Line", eol());
   config.writeEntry("Allow End of Line Detection", allowEolDetection());
@@ -449,28 +454,40 @@ QTextCodec *KateDocumentConfig::codec () const
   return s_global->codec ();
 }
 
-bool KateDocumentConfig::setEncoding (const QString &encoding)
+bool KateDocumentConfig::setEncoding (const QString &encoding, bool resetDetection)
 {
-  QString enc = encoding;
-
-  if (!enc.isEmpty())
+  QTextCodec *codec;
+  bool found = false;
+  if (encoding.isEmpty())
   {
-    bool found = false;
-    QTextCodec *codec = KGlobal::charsets()->codecForName (encoding, found);
-
-    if (!found || !codec)
-      return false;
-
-    enc = codec->name();
+    codec = s_global->codec();
+#ifdef DECODE_DEBUG
+    kWarning()<<"defaulting to " << codec->name() <<endl;
+#endif
+    found=true;
   }
+  else
+    codec = KGlobal::charsets()->codecForName (encoding, found);
+
+  if (!found || !codec)
+    return false;
 
   configStart ();
 
+  if (resetDetection)
+  {
+    if (!m_encodingSet || encoding.isEmpty())
+      m_scriptForEncodingAutoDetection=s_global->encodingAutoDetectionScript();
+    else
+      m_scriptForEncodingAutoDetection = KEncodingDetector::None;
+  }
   m_encodingSet = true;
-  m_encoding = enc;
+  m_encoding = codec->name();
 
   configEnd ();
-
+#ifdef DECODE_DEBUG
+  kWarning()<<"set to " << codec->name() <<endl;
+#endif
   return true;
 }
 
@@ -478,6 +495,22 @@ bool KateDocumentConfig::isSetEncoding () const
 {
   return m_encodingSet;
 }
+
+KEncodingDetector::AutoDetectScript KateDocumentConfig::encodingAutoDetectionScript() const
+{
+  return m_scriptForEncodingAutoDetection;
+}
+
+void KateDocumentConfig::setEncodingAutoDetectionScript(KEncodingDetector::AutoDetectScript script)
+{
+  configStart ();
+
+  m_scriptForEncodingAutoDetection=script;
+
+  configEnd ();
+
+}
+
 
 int KateDocumentConfig::eol () const
 {

@@ -37,7 +37,6 @@
 #include <klocale.h>
 #include <knotification.h>
 #include <kglobal.h>
-#include <kcharsets.h>
 #include <kmenu.h>
 #include <kiconloader.h>
 
@@ -1320,55 +1319,46 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
 //END KateIconBorder
 
 KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject *parent)
-       : KActionMenu (text, parent), doc(_doc), view (_view)
+       : KCodecAction(text, parent,true), doc(_doc), view (_view)
 {
-  m_actions=new QActionGroup(this);
-  m_actions->setExclusive(true);
-
-  QStringList modes (KGlobal::charsets()->descriptiveEncodingNames());
-  for (int z=0; z<modes.size(); ++z)
-  {
-    QAction *a=m_actions->addAction( modes[z]);
-    a->setCheckable(true);
-    a->setData(z);
-  }
-  menu()->addActions(m_actions->actions());
-  connect(m_actions,SIGNAL(triggered(QAction*)),this,SLOT(setMode(QAction*)));
+  connect(this,SIGNAL(triggered(KEncodingDetector::AutoDetectScript)),this,SLOT(setScriptForEncodingAutoDetection(KEncodingDetector::AutoDetectScript)));
+  connect(this,SIGNAL(triggered(const QString&)),this,SLOT(setEncoding(const QString&)));
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
 void KateViewEncodingAction::slotAboutToShow()
 {
-  QStringList modes (KGlobal::charsets()->descriptiveEncodingNames());
-  QString name=doc->config()->codec()->name();
-  int id=-1;
-  int i=0;
-  foreach(const QString &cname,modes) {
-    bool found = false;
-    QTextCodec *codecForEnc = KGlobal::charsets()->codecForName(KGlobal::charsets()->encodingForName(cname), found);
-    if (codecForEnc && (codecForEnc->name()==name)) {
-      id=i;
-      break;
-    }
-    i++;
+  if (doc->scriptForEncodingAutoDetection()==KEncodingDetector::None)
+  {
+    if (!setCurrentCodec(doc->encoding()))
+      kWarning() << "KateViewEncodingAction: cannot set current "<<doc->encoding() << endl;
   }
-  menu()->clear();
-  kDebug()<<id<<endl<<m_actions->actions().size()<<endl;
-  if ( (id<0) || (id>=m_actions->actions().size()) || (m_actions->actions()[id]->data().toInt()!=id)) {
-    menu()->addAction(i18n("Encoding management error"))->setEnabled(false);
-  } else {
-    menu()->addActions(m_actions->actions());
-    m_actions->actions()[id]->setChecked(true);
-  }
+  else
+    setCurrentAutoDetectScript(doc->scriptForEncodingAutoDetection());
 }
 
-void KateViewEncodingAction::setMode (QAction* a)
+void KateViewEncodingAction::setEncoding (const QString &e)
 {
-  kDebug()<<"setMode"<<endl;
-  QStringList modes (KGlobal::charsets()->descriptiveEncodingNames());
-  doc->setEncoding( KGlobal::charsets()->encodingForName( modes[a->data().toInt()] ) );
+  doc->setEncoding(e);
+  //this is done in setEncoding()
+  //doc->setScriptForEncodingAutoDetection(KEncodingDetector::None);
+  view->reloadFile();
+
+}
+void KateViewEncodingAction::setScriptForEncodingAutoDetection (KEncodingDetector::AutoDetectScript script)
+{
+  if (script==KEncodingDetector::SemiautomaticDetection)
+  {
+    doc->setEncoding("");
+#ifdef DECODE_DEBUG
+    kWarning() << "KEncodingDetector::SemiautomaticDetection " <<doc->encoding() << endl;
+#endif
+  }
+  else
+    doc->setScriptForEncodingAutoDetection(script);
   view->reloadFile();
 }
+
 
 
 //BEGIN KateViewBar related classes

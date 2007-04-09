@@ -541,6 +541,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   //
 
   connect( ui->cmbEncoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect( ui->cmbEncodingDetection, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->cmbEOL, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->chkDetectEOL, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -589,6 +590,8 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setConfigFlags(configFlags);
 
   KateDocumentConfig::global()->setEncoding((ui->cmbEncoding->currentIndex() == 0) ? "" : KGlobal::charsets()->encodingForName(ui->cmbEncoding->currentText()));
+  KateDocumentConfig::global()->setEncodingAutoDetectionScript(
+      (KEncodingDetector::AutoDetectScript)ui->cmbEncodingDetection->itemData(ui->cmbEncodingDetection->currentIndex()).toUInt());
 
   KateDocumentConfig::global()->setEol(ui->cmbEOL->currentIndex());
   KateDocumentConfig::global()->setAllowEolDetection(ui->chkDetectEOL->isChecked());
@@ -619,6 +622,22 @@ void KateSaveConfigTab::reload()
       }
 
       insert++;
+    }
+  }
+
+  // encoding detection
+  ui->cmbEncodingDetection->clear ();
+  ui->cmbEncodingDetection->addItem (i18n("Disabled"));
+  ui->cmbEncodingDetection->setCurrentIndex(0);
+
+  foreach(const QStringList &encodingsForScript, KGlobal::charsets()->encodingsByScript())
+  {
+    KEncodingDetector::AutoDetectScript scri=KEncodingDetector::scriptForName(encodingsForScript.at(0));
+    if (KEncodingDetector::hasAutoDetectionForScript(scri))
+    {
+      ui->cmbEncodingDetection->addItem (encodingsForScript.at(0),QVariant((uint)scri));
+      if (scri==KateDocumentConfig::global()->encodingAutoDetectionScript())
+        ui->cmbEncodingDetection->setCurrentIndex(ui->cmbEncodingDetection->count()-1);
     }
   }
 

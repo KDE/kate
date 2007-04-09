@@ -21,7 +21,7 @@
 #ifndef __KATE_VIEW_HELPERS_H__
 #define __KATE_VIEW_HELPERS_H__
 
-#include <kactionmenu.h>
+#include <kcodecaction.h>
 #include <klineedit.h>
 
 #include <QPixmap>
@@ -170,22 +170,22 @@ class KateIconBorder : public QWidget
     const QBrush &foldingColor(KateLineInfo *, int,bool solid);
 };
 
-class KateViewEncodingAction : public KActionMenu
+class KateViewEncodingAction : public KCodecAction
 {
   Q_OBJECT
 
   public:
     KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject *parent);
 
-    ~KateViewEncodingAction(){;}
+    ~KateViewEncodingAction(){}
 
   private:
     KateDocument* doc;
     KateView *view;
-    QActionGroup *m_actions;
 
   private Q_SLOTS:
-    void setMode (QAction*);
+    void setEncoding (const QString &e);
+    void setScriptForEncodingAutoDetection (KEncodingDetector::AutoDetectScript);
     void slotAboutToShow();
 };
 

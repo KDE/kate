@@ -236,7 +236,8 @@ public Q_SLOTS:
   void defaults();
 
 protected:
-  KComboBox *m_encoding, *m_eol;
+  //why?
+  //KComboBox *m_encoding, *m_encodingDetection, *m_eol;
   QCheckBox *cbLocalFiles, *cbRemoteFiles;
   QCheckBox *replaceTabs, *removeSpaces, *allowEolDetection;
   QLineEdit *leBuPrefix;

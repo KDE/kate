@@ -20,6 +20,7 @@
 #define __KATE_CONFIG_H__
 
 #include <ktexteditor/markinterface.h>
+#include <kencodingdetector.h>
 
 #include <QBitArray>
 #include <QColor>
@@ -35,6 +36,7 @@ class KateRenderer;
 class KConfig;
 
 class QTextCodec;
+
 
 /**
  * Base Class for the Kate Config Classes
@@ -180,12 +182,12 @@ class KateDocumentConfig : public KateConfig
     void setConfigFlags (KateDocumentConfig::ConfigFlags flag, bool enable);
     void setConfigFlags (uint fullFlags);
 
-    const QString &encoding () const;
     QTextCodec *codec () const;
-
-    bool setEncoding (const QString &encoding);
-
+    const QString &encoding () const;
+    bool setEncoding (const QString &encoding,bool resetDetection=true);
     bool isSetEncoding () const;
+    KEncodingDetector::AutoDetectScript encodingAutoDetectionScript() const;
+    void setEncodingAutoDetectionScript(KEncodingDetector::AutoDetectScript);
 
     enum Eol
     {
@@ -230,20 +232,21 @@ class KateDocumentConfig : public KateConfig
     void setSearchDirConfigDepth (int depth);
 
   private:
-    int m_tabWidth;
-    int m_indentationWidth;
     QString m_indentationMode;
+    int m_indentationWidth;
+    int m_tabWidth;
     uint m_tabHandling;
-    bool m_wordWrap;
-    int m_wordWrapAt;
-    uint m_undoSteps;
-    bool m_pageUpDownMovesCursor;
     uint m_configFlags;
-    QString m_encoding;
-    int m_eol;
+    int m_wordWrapAt;
+    bool m_wordWrap;
+    bool m_pageUpDownMovesCursor;
     bool m_allowEolDetection;
+    int m_eol;
     uint m_backupFlags;
+    uint m_undoSteps;
     int m_searchDirConfigDepth;
+    KEncodingDetector::AutoDetectScript m_scriptForEncodingAutoDetection;
+    QString m_encoding;
     QString m_backupPrefix;
     QString m_backupSuffix;
     QBitArray m_plugins;

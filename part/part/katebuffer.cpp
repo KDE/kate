@@ -34,6 +34,7 @@
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kcharsets.h>
+#include <kencodingdetector.h>
 
 #include <QFile>
 #include <QTextStream>
@@ -62,46 +63,35 @@ static const int KATE_HL_LOOKAHEAD = 64;
  */
 static const int KATE_MAX_DYNAMIC_CONTEXTS = 512;
 
-/**
- * Static vars to get utf8 tested...
- */
-static const unsigned char highest1Bits = 0x80;
-static const unsigned char highest2Bits = 0xC0;
-static const unsigned char highest3Bits = 0xE0;
-static const unsigned char highest4Bits = 0xF0;
-static const unsigned char highest5Bits = 0xF8;
-
-class KateFileLoader
+class KateFileLoader: private KEncodingDetector
 {
   public:
-    KateFileLoader (const QString &filename, QTextCodec *codec, bool removeTrailingSpaces)
-      : m_file (filename)
-      , m_buffer (qMin (m_file.size() == 0 ? KATE_FILE_LOADER_BS : m_file.size(), KATE_FILE_LOADER_BS), 0) // handle zero sized files special, like in /proc
-      , m_codec (codec)
-      , m_decoder (m_codec->makeDecoder())
-      , m_position (0)
-      , m_lastLineStart (0)
+    KateFileLoader (const QString &filename, QTextCodec *codec, bool removeTrailingSpaces, KEncodingDetector::AutoDetectScript script)
+      : KEncodingDetector(codec,
+                          script==KEncodingDetector::None?KEncodingDetector::UserChosenEncoding:KEncodingDetector::DefaultEncoding,
+                          script)
       , m_eof (false) // default to not eof
-      , lastWasEndOfLine (true) // at start of file, we had a virtual newline
-      , lastWasR (false) // we have not found a \r as last char
-      , m_eol (-1) // no eol type detected atm
-      , m_twoByteEncoding (QString(codec->name()) == "ISO-10646-UCS-2")
+      , m_lastWasEndOfLine (true) // at start of file, we had a virtual newline
+      , m_lastWasR (false) // we have not found a \r as last char
       , m_binary (false)
       , m_removeTrailingSpaces (removeTrailingSpaces)
-      , m_utf8 (QString(codec->name()) == "UTF-8")
       , m_utf8Borked (false)
-      , m_multiByte (0)
+      , m_position (0)
+      , m_lastLineStart (0)
+      , m_eol (-1) // no eol type detected atm
+      , m_file (filename)
+      , m_buffer (qMin (m_file.size() == 0 ? KATE_FILE_LOADER_BS : m_file.size(), KATE_FILE_LOADER_BS), 0) // handle zero sized files special, like in /proc
     {
-      kDebug (13020) << "OPEN USES ENCODING: " << m_codec->name() << endl;
+      kDebug (13020) << "OPEN USES ENCODING: " << codec->name() << endl;
     }
 
     ~KateFileLoader ()
     {
-      delete m_decoder;
+      //delete m_decoder;
     }
 
     /**
-     * open file, read first chunk of data, detect eol
+     * open file, read first chunk of data, detect eol (and possibly charset)
      */
     bool open ()
     {
@@ -111,18 +101,12 @@ class KateFileLoader
 
         if (c > 0)
         {
-          // fix utf16 LE, stolen from khtml ;)
-          if ((c >= 2) && (m_codec->mibEnum() == 1000) && (m_buffer[1] == '\0'))
-          {
-            // utf16LE, we need to put the decoder in LE mode
-            unsigned char reverseUtf16[3] = {0xFF, 0xFE, 0x00};
-            m_decoder->toUnicode((const char*)reverseUtf16, 2);
-          }
-
-          processNull (c);
-          processUtf8 (c);
-
-          m_text = m_decoder->toUnicode (m_buffer, c);
+          // fixes utf16 LE
+          //may change codec if autodetection was set or BOM was found
+          analyze(m_buffer.data(), c);
+          m_utf8Borked=errorsIfUtf8(m_buffer.data(), c);
+          m_binary=processNull(m_buffer.data(), c);
+          m_text = decoder()->toUnicode(m_buffer, c);
         }
 
         m_eof = (c == -1) || (c == 0);
@@ -155,8 +139,10 @@ class KateFileLoader
       return false;
     }
 
+    inline const char* actualEncoding () const { return encoding(); }
+
     // no new lines around ?
-    inline bool eof () const { return m_eof && !lastWasEndOfLine && (m_lastLineStart == m_text.length()); }
+    inline bool eof () const { return m_eof && !m_lastWasEndOfLine && (m_lastLineStart == m_text.length()); }
 
     // eol mode ? autodetected on open(), -1 for no eol found in the first block!
     inline int eol () const { return m_eol; }
@@ -191,10 +177,10 @@ class KateFileLoader
             int readString = 0;
             if (c > 0)
             {
-              processNull (c);
-              processUtf8 (c);
+              m_binary=processNull(m_buffer.data(), c)||m_binary;
+              m_utf8Borked=m_utf8Borked||errorsIfUtf8(m_buffer.data(), c);
 
-              QString str (m_decoder->toUnicode (m_buffer, c));
+              QString str (decoder()->toUnicode (m_buffer.data(), c));
               readString = str.length();
 
               m_text = m_text.mid (m_lastLineStart, m_position-m_lastLineStart)
@@ -214,7 +200,7 @@ class KateFileLoader
           // oh oh, end of file, escape !
           if (m_eof && (m_position == m_text.length()))
           {
-            lastWasEndOfLine = false;
+            m_lastWasEndOfLine = false;
 
             // line data
             offset = m_lastLineStart;
@@ -228,12 +214,12 @@ class KateFileLoader
 
         if (m_text[m_position] == '\n')
         {
-          lastWasEndOfLine = true;
+          m_lastWasEndOfLine = true;
 
-          if (lastWasR)
+          if (m_lastWasR)
           {
             m_lastLineStart++;
-            lastWasR = false;
+            m_lastWasR = false;
           }
           else
           {
@@ -249,8 +235,8 @@ class KateFileLoader
         }
         else if (m_text[m_position] == '\r')
         {
-          lastWasEndOfLine = true;
-          lastWasR = true;
+          m_lastWasEndOfLine = true;
+          m_lastWasR = true;
 
           // line data
           offset = m_lastLineStart;
@@ -263,113 +249,28 @@ class KateFileLoader
         }
         else
         {
-          lastWasEndOfLine = false;
-          lastWasR = false;
+          m_lastWasEndOfLine = false;
+          m_lastWasR = false;
         }
 
         m_position++;
       }
     }
 
-    // this nice methode will kill all 0 bytes (or double bytes)
-    // and remember if this was a binary or not ;)
-    void processNull (int length)
-    {
-      if (m_twoByteEncoding)
-      {
-        for (int i=1; i < length; i+=2)
-        {
-          if ((m_buffer[i] == '\0') && (m_buffer[i-1] == '\0'))
-          {
-            m_binary = true;
-            m_buffer[i] = ' ';
-          }
-        }
-      }
-      else
-      {
-        for (int i=0; i < length; i++)
-        {
-          if (m_buffer[i] == '\0')
-          {
-            m_binary = true;
-            m_buffer[i] = ' ';
-          }
-        }
-      }
-    }
-
-    // check if we are really utf8
-    // please somebody read http://de.wikipedia.org/wiki/UTF-8 and check this code...
-    void processUtf8 (int length)
-    {
-      if (!m_utf8 || m_utf8Borked)
-        return;
-
-      for (int i=0; i < length; i++)
-      {
-        unsigned char c = m_buffer[i];
-
-        if (m_multiByte > 0)
-        {
-          if ((c & highest2Bits) == 0x80)
-          {
-            --m_multiByte;
-            continue;
-          }
-
-          m_utf8Borked = true;
-          return;
-        }
-      
-        // most significant bit zero, single char
-        if ((c & highest1Bits) == 0x00)
-          continue;
-      
-        // 110xxxxx => init 1 following bytes
-        if ((c & highest3Bits) == 0xC0)
-        {
-          m_multiByte = 1;
-          continue;
-        }
-      
-        // 1110xxxx => init 2 following bytes
-        if ((c & highest4Bits) == 0xE0)
-        {
-          m_multiByte = 2;
-          continue;
-        }
-      
-        // 11110xxx => init 3 following bytes
-        if ((c & highest5Bits) == 0xF0)
-        {
-          m_multiByte = 3;
-          continue;
-        }
-  
-        m_utf8Borked = true;
-        return;
-      }
-    }
 
   private:
-    QFile m_file;
-    QByteArray m_buffer;
-    QTextCodec *m_codec;
-    QTextDecoder *m_decoder;
-    QString m_text;
-    int m_position;
-    int m_lastLineStart;
     bool m_eof;
-    bool lastWasEndOfLine;
-    bool lastWasR;
-    int m_eol;
-    bool m_twoByteEncoding;
+    bool m_lastWasEndOfLine;
+    bool m_lastWasR;
     bool m_binary;
     bool m_removeTrailingSpaces;
-    bool m_utf8;
     bool m_utf8Borked;
-    int m_multiByte;
+    int m_position;
+    int m_lastLineStart;
+    int m_eol;
+    QFile m_file;
+    QByteArray m_buffer;
+    QString m_text;
 };
 
 /**
@@ -488,7 +389,7 @@ bool KateBuffer::openFile (const QString &m_file)
    QTime t;
     t.start();
 
-  KateFileLoader file (m_file, m_doc->config()->codec(), m_doc->config()->configFlags() & KateDocumentConfig::cfRemoveSpaces);
+  KateFileLoader file (m_file, m_doc->config()->codec(), m_doc->config()->configFlags() & KateDocumentConfig::cfRemoveSpaces, m_doc->scriptForEncodingAutoDetection());
 
   bool ok = false;
   struct stat sbuf;
@@ -503,6 +404,8 @@ bool KateBuffer::openFile (const QString &m_file)
     clear();
     return false; // Error
   }
+
+  m_doc->config()->setEncoding(file.actualEncoding());
 
   // set eol mode, if a eol char was found in the first 256kb block and we allow this at all!
   if (m_doc->config()->allowEolDetection() && (file.eol() != -1))

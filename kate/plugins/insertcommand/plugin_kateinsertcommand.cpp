@@ -322,16 +322,16 @@ CmdPrompt::CmdPrompt(QWidget* parent,
    cb_printCmd->setChecked(settings & 2);
    lo->addWidget( cb_printCmd );
 
-   Q3WhatsThis::add( cmb_cmd, i18n(
+   cmb_cmd->setWhatsThis(i18n(
      "Enter the shell command, the output of which you want inserted into your "
      "document. Feel free to use a pipe or two if you wish.") );
-   Q3WhatsThis::add( wdreq, i18n(
+   wdreq->setWhatsThis( i18n(
      "Sets the working folder of the command. The command executed is 'cd <dir> "
      "&& <command>'") );
-   Q3WhatsThis::add( cb_insStdErr, i18n(
+   cb_insStdErr->setWhatsThis( i18n(
      "Check this if you want the error output from <command> inserted as well.\n"
      "Some commands, such as locate, print everything to STDERR") );
-   Q3WhatsThis::add( cb_printCmd, i18n(
+   cb_printCmd->setWhatsThis( i18n(
      "If you check this, the command string will be printed followed by a "
      "newline before the output.") );
    slotTextChanged(cmb_cmd->lineEdit()->text());
@@ -399,10 +399,10 @@ InsertCommandConfigPage::InsertCommandConfigPage(QObject* /*parent*/,
   lo->addStretch(1);  // look nice
 
   // Be helpfull!
-  Q3WhatsThis::add( sb_cmdhistlen, i18n(
+  sb_cmdhistlen->setWhatsThis(i18n(
     "Sets the number of commands to remember. The command history is saved "
     "over sessions.") );
-  Q3WhatsThis::add( rg_startin, i18n(
+  rg_startin->setWhatsThis( i18n(
     "<qt><p>Decides what is suggested as <em>working folder</em> for the "
     "command.</p><p><strong>Application Working Folder (default):</strong> "
     "The folder from which you launched the application hosting the plugin, "

@@ -27,13 +27,13 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
  QString modStr("module ");
 
  QString stripped="";
- uint i;
+ int i;
  int fnd,block=0,blockend=0,paro=0,parc=0;
  bool mainprog;
 
- Q3ListViewItem *node = NULL;
- Q3ListViewItem *subrNode = NULL, *funcNode = NULL, *modNode = NULL;
- Q3ListViewItem *lastSubrNode = NULL, *lastFuncNode = NULL, *lastModNode = NULL;
+ QTreeWidgetItem *node = NULL;
+ QTreeWidgetItem *subrNode = NULL, *funcNode = NULL, *modNode = NULL;
+ QTreeWidgetItem *lastSubrNode = NULL, *lastFuncNode = NULL, *lastModNode = NULL;
 
  QPixmap func( ( const char** ) class_xpm );
  QPixmap subr( ( const char** ) macro_xpm );
@@ -47,18 +47,18 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
 
  if(treeMode)
   {
-   funcNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Functions"));
-   subrNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Subroutines"));
-   modNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Modules"));
-   funcNode->setPixmap(0, (const QPixmap &)func);
-   modNode->setPixmap(0, (const QPixmap &)mod);
-   subrNode->setPixmap(0, (const QPixmap &)subr);
+   funcNode = new QTreeWidgetItem(symbols, QStringList(i18n("Functions") ) );
+   subrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Subroutines") ) );
+   modNode = new QTreeWidgetItem(symbols, QStringList( i18n("Modules") ) );
+   funcNode->setIcon(0, QIcon(func));
+   modNode->setIcon(0, QIcon(mod));
+   subrNode->setIcon(0, QIcon(subr));
 
    if (expanded_on)
       {
-       funcNode->setOpen(TRUE);
-       subrNode->setOpen(TRUE);
-       modNode->setOpen(TRUE);
+       symbols->expandItem(funcNode);
+       symbols->expandItem(subrNode);
+       symbols->expandItem(modNode);
       }
 
    lastSubrNode = subrNode;
@@ -71,7 +71,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
 
  KTextEditor::Document *kDoc = win->activeView()->document();
 
- for (i = 0; i<kDoc->lines(); i++)
+ for (i = 0; i < kDoc->lines(); i++)
    {
     currline = kDoc->line(i);
     currline = currline.trimmed();
@@ -141,13 +141,13 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                   {
                    if (treeMode)
                      {
-                      node = new Q3ListViewItem(subrNode, lastSubrNode, stripped);
+                      node = new QTreeWidgetItem(subrNode, lastSubrNode);
                       lastSubrNode = node;
                      }
                    else
-                      node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
-
-                   node->setPixmap(0, (const QPixmap &)subr);
+                      node = new QTreeWidgetItem(symbols);
+                   node->setText(0, stripped);
+                   node->setIcon(0, QIcon(subr));
                    node->setText(1, QString::number( i, 10));
                   }
                 stripped="";
@@ -181,12 +181,13 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
               {
                if (treeMode)
                  {
-                  node = new Q3ListViewItem(modNode, lastModNode, stripped);
+                  node = new QTreeWidgetItem(modNode, lastModNode);
                   lastModNode = node;
                  }
                else
-                  node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
-               node->setPixmap(0, (const QPixmap &)mod);
+                  node = new QTreeWidgetItem(symbols);
+               node->setText(0, stripped);
+               node->setIcon(0, QIcon(mod));
                node->setText(1, QString::number( i, 10));
               }
             stripped = "";
@@ -221,12 +222,13 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                stripped.replace("&","");
               if (treeMode)
                 {
-                 node = new Q3ListViewItem(funcNode, lastFuncNode, stripped);
+                 node = new QTreeWidgetItem(funcNode, lastFuncNode);
                  lastFuncNode = node;
                 }
               else
-                 node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
-              node->setPixmap(0, (const QPixmap &)func);
+                 node = new QTreeWidgetItem(symbols);
+              node->setText(0, stripped);
+              node->setIcon(0, QIcon(func));
               node->setText(1, QString::number( i, 10));
               stripped = "";
               block=0;

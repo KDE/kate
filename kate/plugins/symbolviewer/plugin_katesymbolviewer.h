@@ -27,17 +27,16 @@
 #include <kate/pluginconfigpageinterface.h>
 
 #include <kdebug.h>
-#include <q3memarray.h>
 #include <QMenu>
 #include <qevent.h>
 #include <qcheckbox.h>
-//Added by qt3to4:
+
 #include <QPixmap>
 #include <QResizeEvent>
-#include <Q3PtrList>
+#include <QTreeWidget>
+#include <QList>
 #include <klibloader.h>
 #include <klocale.h>
-#include <k3listview.h>
 #include <kiconloader.h>
 #include <kconfig.h>
 
@@ -57,8 +56,8 @@ class KatePluginSymbolViewerView : public QObject, public KXMLGUIClient
     void slotChangeMode();
     void slotEnableSorting();
     void slotDocChanged();
-    void goToSymbol(Q3ListViewItem *);
-    void slotShowContextMenu(Q3ListViewItem *, const QPoint&, int);
+    void goToSymbol(QTreeWidgetItem *);
+    void slotShowContextMenu(const QPoint&);
     void toggleShowMacros(void);
     void toggleShowStructures(void);
     void toggleShowFunctions(void);
@@ -66,7 +65,7 @@ class KatePluginSymbolViewerView : public QObject, public KXMLGUIClient
     void slotViewChanged(QResizeEvent *e);
   private:
     QMenu *popup;
-    K3ListView *symbols;
+    QTreeWidget *symbols;
     QWidget *dock;
     bool m_Active;
     int m_macro, m_struct, m_func, m_sort;
@@ -121,31 +120,6 @@ class KatePluginSymbolViewerConfigPage : public Kate::PluginConfigPage
     QCheckBox* expandTree;
 };
 
-
-class KatePluginSymbolViewerView2 : public Kate::PluginView
-{
-  Q_OBJECT
-
-  public:
-    /**
-     * construct us
-     * @param mw main window
-     * @param parent toolview
-     */
-    KatePluginSymbolViewerView2 (Kate::MainWindow *mw);
-
-    /**
-     * destruct us
-     */
-    ~KatePluginSymbolViewerView2 ();
-
-  private:
-    /**
-     * symbolviewer
-     */
-    KatePluginSymbolViewerView *m_view;
-};
-
 class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterface
 {
   Q_OBJECT
@@ -174,6 +148,7 @@ class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterf
     void initConfigPage( KatePluginSymbolViewerConfigPage* );
 
   private:
+    QList<KatePluginSymbolViewerView *> m_views;
     KConfig pConfig;
 };
 

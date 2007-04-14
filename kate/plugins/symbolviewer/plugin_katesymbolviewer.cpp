@@ -47,14 +47,14 @@
 #include <kgenericfactory.h>
 #include <kfiledialog.h>
 #include <ktoggleaction.h>
-
-#include <qlayout.h>
-#include <q3groupbox.h>
 #include <ktexteditor/highlightinginterface.h>
 #include <kactioncollection.h>
-//Added by qt3to4:
+
 #include <QPixmap>
 #include <QVBoxLayout>
+#include <QLayout>
+#include <QGroupBox>
+
 #include <QResizeEvent>
 #include <QMenu>
 
@@ -128,30 +128,33 @@ void KatePluginSymbolViewerView::toggleShowFunctions(void)
 void KatePluginSymbolViewerView::slotInsertSymbol()
 {
  QPixmap cls( ( const char** ) class_xpm );
+ QStringList titles;
 
  if (m_Active == false)
      {
       dock = win->createToolView("kate_plugin_symbolviewer", Kate::MainWindow::Left, cls, i18n("Symbol List"));
 
-      symbols = new K3ListView(dock);
+      symbols = new QTreeWidget(dock);
       treeMode = 0;
 
-      connect(symbols, SIGNAL(executed(Q3ListViewItem *)), this, SLOT(goToSymbol(Q3ListViewItem *)));
-      connect(symbols, SIGNAL(rightButtonClicked(Q3ListViewItem *, const QPoint&, int)),
-               SLOT(slotShowContextMenu(Q3ListViewItem *, const QPoint&, int)));
+      connect(symbols, SIGNAL(itemActivated(QTreeWidgetItem *, int)), this, SLOT(goToSymbol(QTreeWidgetItem *)));
+      connect(symbols, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(slotShowContextMenu(const QPoint&)));
+
       connect(win, SIGNAL(viewChanged()), this, SLOT(slotDocChanged()));
       //connect(symbols, SIGNAL(resizeEvent(QResizeEvent *)), this, SLOT(slotViewChanged(QResizeEvent *)));
 
       m_Active = true;
       //symbols->addColumn(i18n("Symbols"), symbols->parentWidget()->width());
-      symbols->addColumn(i18n("Symbols"));
-      symbols->addColumn(i18n("Position"));
-      symbols->setColumnWidthMode(1, Q3ListView::Manual);
-      symbols->setColumnWidth ( 1, 0 );
-      symbols->setSorting(-1, FALSE);
+      titles << tr("Symbols") << tr("Position");
+      symbols->setColumnCount(2);
+      symbols->setHeaderLabels(titles);
+
+      symbols->setColumnHidden(1, TRUE);
+      symbols->setSortingEnabled(FALSE); // was "symbols->setSorting(-1, FALSE);"
       symbols->setRootIsDecorated(0);
-      symbols->setTreeStepSize(10);
-      symbols->setShowToolTips(TRUE);
+      symbols->setContextMenuPolicy(Qt::CustomContextMenu);
+      symbols->setIndentation(10);
+      //symbols->setShowToolTips(TRUE);
 
       /* First Symbols parsing here...*/
       parseSymbols();
@@ -186,11 +189,12 @@ void KatePluginSymbolViewerView::slotEnableSorting()
  popup->setItemChecked(m_sort, lsorting);
  symbols->clear();
  if (lsorting == TRUE)
-     symbols->setSorting(0, TRUE);
+     symbols->setSortingEnabled(TRUE); // symbols->setSorting(0, TRUE);
  else
-     symbols->setSorting(-1, FALSE);
+     symbols->setSortingEnabled(FALSE); // symbols->setSorting(-1, FALSE);
 
  parseSymbols();
+ if (lsorting == TRUE) symbols->sortItems(0, Qt::AscendingOrder);
 }
 
 void KatePluginSymbolViewerView::slotDocChanged()
@@ -205,14 +209,14 @@ void KatePluginSymbolViewerView::slotViewChanged(QResizeEvent *)
  symbols->setColumnWidth(0, symbols->parentWidget()->width());
 }
 
-void KatePluginSymbolViewerView::slotShowContextMenu(Q3ListViewItem *, const QPoint &p, int)
+void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint &p)
 {
  popup->popup(p);
 }
 
 void KatePluginSymbolViewerView::parseSymbols(void)
 {
-  Q3ListViewItem *node = NULL;
+  QTreeWidgetItem *node = NULL;
 
   if (!win->activeView())
     return;
@@ -242,10 +246,10 @@ void KatePluginSymbolViewerView::parseSymbols(void)
   else if (hlModeName == "Java")
      parseCppSymbols();
   else
-     node = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Sorry. Language not supported yet"));
+     node = new QTreeWidgetItem(symbols,  QStringList(i18n("Sorry. Language not supported yet") ) );
 }
 
-void KatePluginSymbolViewerView::goToSymbol(Q3ListViewItem *it)
+void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
 {
   KTextEditor::View *kv = win->activeView();
 
@@ -253,7 +257,7 @@ void KatePluginSymbolViewerView::goToSymbol(Q3ListViewItem *it)
   if (!kv)
     return;
 
-  kDebug(13000)<<"Slot Activated at pos: "<<symbols->itemIndex(it) <<endl;
+//  kDebug(13000)<<"Slot Activated at pos: "<<symbols->itemIndex(it) <<endl;
 
   kv->setCursorPosition (KTextEditor::Cursor (it->text(1).toInt(NULL, 10), 0));
 }
@@ -273,24 +277,10 @@ KatePluginSymbolViewer::~KatePluginSymbolViewer()
 
 Kate::PluginView *KatePluginSymbolViewer::createView (Kate::MainWindow *mainWindow)
 {
-  return new KatePluginSymbolViewerView2 (mainWindow);
-}
-
-/*
- * Construct the view, toolview + grepdialog
- */
-KatePluginSymbolViewerView2::KatePluginSymbolViewerView2 (Kate::MainWindow *mw)
- : Kate::PluginView (mw)
- , m_view (new KatePluginSymbolViewerView (mw))
-{
-}
-
-/*
- * delete toolview and children again...
- */
-KatePluginSymbolViewerView2::~KatePluginSymbolViewerView2 ()
-{
-  delete m_view;
+  KatePluginSymbolViewerView *view = new KatePluginSymbolViewerView (mainWindow);
+  m_views.append (view);
+  return (Kate::PluginView *)view;
+  //return new KatePluginSymbolViewerView2 (mainWindow);
 }
 
 void KatePluginSymbolViewer::storeViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix)
@@ -331,13 +321,14 @@ void KatePluginSymbolViewer::initConfigPage( KatePluginSymbolViewerConfigPage* p
 
 void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
 {
- /* for (uint z=0; z < m_views.count(); z++)
+ for (int z=0; z < m_views.count(); z++)
   {
     m_views.at(z)->types_on = p->viewReturns->isChecked();
+    m_views.at(z)->expanded_on = p->expandTree->isChecked();
   //kDebug(13000)<<"KatePluginSymbolViewer: Configuration applied.("<<m_SymbolView->types_on<<")"<<endl;
     m_views.at(z)->slotRefreshSymbol();
   }
-*/
+
   pConfig.group("global").writeEntry("view_types", p->viewReturns->isChecked());
   pConfig.group("global").writeEntry("expand_tree", p->expandTree->isChecked());
 }
@@ -347,18 +338,18 @@ KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(
     QObject* /*parent*/ /*= 0L*/, QWidget *parentWidget /*= 0L*/)
   : Kate::PluginConfigPage( parentWidget )
 {
-  QVBoxLayout* top = new QVBoxLayout(this, 0,
-      KDialog::spacingHint());
+  QGroupBox* groupBox = new QGroupBox( i18n("Parser Options"), this);
 
-  Q3GroupBox* gb = new Q3GroupBox( i18n("Parser Options"),
-      this, "symbolviewer_config_page_layout" );
-  gb->setColumnLayout(1, Qt::Horizontal);
-  gb->setInsideSpacing(KDialog::spacingHint());
-  viewReturns = new QCheckBox(i18n("Display functions' parameters"), gb);
-  expandTree = new QCheckBox(i18n("Automatically expand nodes in tree mode"), gb);
+  viewReturns = new QCheckBox(i18n("Display functions parameters"));
+  expandTree = new QCheckBox(i18n("Automatically expand nodes in tree mode"));
 
-  top->add(gb);
+  QVBoxLayout* top = new QVBoxLayout();
+  top->addWidget(viewReturns);
+  top->addWidget(expandTree);
   top->addStretch(1);
+
+  groupBox->setLayout(top);
+
 //  throw signal changed
   connect(viewReturns, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
   connect(expandTree, SIGNAL(toggled(bool)), this, SIGNAL(changed()));

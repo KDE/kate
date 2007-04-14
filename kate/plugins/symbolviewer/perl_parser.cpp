@@ -30,26 +30,27 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
  QPixmap sct( ( const char** ) struct_xpm );
  QPixmap mcr( ( const char** ) macro_xpm );
  QPixmap cls_int( ( const char** ) class_int_xpm );
- Q3ListViewItem *node = NULL;
- Q3ListViewItem *mcrNode = NULL, *sctNode = NULL, *clsNode = NULL;
- Q3ListViewItem *lastMcrNode = NULL, *lastSctNode = NULL, *lastClsNode = NULL;
+ QTreeWidgetItem *node = NULL;
+ QTreeWidgetItem *mcrNode = NULL, *sctNode = NULL, *clsNode = NULL;
+ QTreeWidgetItem *lastMcrNode = NULL, *lastSctNode = NULL, *lastClsNode = NULL;
 
  KTextEditor::Document *kv = win->activeView()->document();
 
      //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
  if(treeMode)
    {
-    mcrNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Uses"));
-    sctNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Pragmas"));
-    clsNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Subroutines"));
-    mcrNode->setPixmap(0, (const QPixmap &)mcr);
-    sctNode->setPixmap(0, (const QPixmap &)sct);
-    clsNode->setPixmap(0, (const QPixmap &)cls);
+    mcrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Uses") ) );
+    sctNode = new QTreeWidgetItem(symbols, QStringList( i18n("Pragmas") ) );
+    clsNode = new QTreeWidgetItem(symbols, QStringList( i18n("Subroutines") ) );
+    mcrNode->setIcon(0, QIcon(mcr));
+    sctNode->setIcon(0, QIcon(sct));
+    clsNode->setIcon(0, QIcon(cls));
+
     if (expanded_on)
       {
-       mcrNode->setOpen(TRUE);
-       sctNode->setOpen(TRUE);
-       clsNode->setOpen(TRUE);
+       symbols->expandItem(mcrNode);
+       symbols->expandItem(sctNode);
+       symbols->expandItem(clsNode);
       }
     lastMcrNode = mcrNode;
     lastSctNode = sctNode;
@@ -83,13 +84,14 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
        stripped = stripped.left(stripped.indexOf(';'));
        if (treeMode)
          {
-          node = new Q3ListViewItem(mcrNode, lastMcrNode, stripped);
+          node = new QTreeWidgetItem(mcrNode, lastMcrNode);
           lastMcrNode = node;
          }
        else
-          node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
+          node = new QTreeWidgetItem(symbols);
 
-       node->setPixmap(0, (const QPixmap &)mcr);
+       node->setText(0, stripped);
+       node->setIcon(0, QIcon(mcr));
        node->setText(1, QString::number( i, 10));
       }
 #if 1
@@ -99,13 +101,14 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
        stripped=stripped.replace( QRegExp(";$"), "" );
        if (treeMode)
          {
-          node = new Q3ListViewItem(sctNode, lastSctNode, stripped);
+          node = new QTreeWidgetItem(sctNode, lastSctNode);
           lastMcrNode = node;
          }
        else
-          node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
+          node = new QTreeWidgetItem(symbols);
 
-       node->setPixmap(0, (const QPixmap &)sct);
+       node->setText(0, stripped);
+       node->setIcon(0, QIcon(sct));
        node->setText(1, QString::number( i, 10));
       }
 #endif
@@ -116,16 +119,17 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
        stripped=stripped.replace( QRegExp("[{;] *$"), "" );
        if (treeMode)
          {
-          node = new Q3ListViewItem(clsNode, lastClsNode, stripped);
+          node = new QTreeWidgetItem(clsNode, lastClsNode);
           lastClsNode = node;
          }
        else
-          node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
+          node = new QTreeWidgetItem(symbols);
+        node->setText(0, stripped);
 
         if (stripped.at(0)=='_')
-             node->setPixmap(0, (const QPixmap &)cls_int);
+             node->setIcon(0, QIcon(cls_int));
         else
-             node->setPixmap(0, (const QPixmap &)cls);
+             node->setIcon(0, QIcon(cls));
 
         node->setText(1, QString::number( i, 10));
        }

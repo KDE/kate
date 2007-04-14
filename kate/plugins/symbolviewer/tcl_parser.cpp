@@ -15,7 +15,6 @@
  ***************************************************************************/
 
 #include "plugin_katesymbolviewer.h"
-//Added by qt3to4:
 #include <QPixmap>
 
 void KatePluginSymbolViewerView::parseTclSymbols(void)
@@ -31,23 +30,27 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
  int i, j, args_par = 0, graph = 0;
  char block = 0, parse_func = 0;
 
- Q3ListViewItem *node = NULL;
- Q3ListViewItem *mcrNode = NULL, *clsNode = NULL;
- Q3ListViewItem *lastMcrNode = NULL, *lastClsNode = NULL;
+ QTreeWidgetItem *node = NULL;
+ QTreeWidgetItem *mcrNode = NULL, *clsNode = NULL;
+ QTreeWidgetItem *lastMcrNode = NULL, *lastClsNode = NULL;
 
  QPixmap mcr( ( const char** ) macro_xpm );
  QPixmap cls( ( const char** ) class_xpm );
 
  if(treeMode)
   {
-   clsNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Functions"));
-   mcrNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Globals"));
+   clsNode = new QTreeWidgetItem(symbols, QStringList( i18n("Functions") ) );
+   mcrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Globals") ) );
+   clsNode->setIcon(0, QIcon(cls));
+   mcrNode->setIcon(0, QIcon(mcr));
+
    lastMcrNode = mcrNode;
    lastClsNode = clsNode;
+
    if (expanded_on)
       {
-       clsNode->setOpen(TRUE);
-       mcrNode->setOpen(TRUE);
+       symbols->expandItem(clsNode);
+       symbols->expandItem(mcrNode);
       }
    symbols->setRootIsDecorated(1);
   }
@@ -89,13 +92,13 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
 
              if (treeMode)
                {
-                node = new Q3ListViewItem(mcrNode, lastMcrNode, stripped);
+                node = new QTreeWidgetItem(mcrNode, lastMcrNode);
                 lastMcrNode = node;
                }
              else
-                node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
-
-             node->setPixmap(0, (const QPixmap &)mcr);
+                node = new QTreeWidgetItem(symbols);
+             node->setText(0, stripped);
+             node->setIcon(0, QIcon(mcr));
              node->setText(1, QString::number( i, 10));
              stripped = "";
             }//macro
@@ -130,12 +133,13 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                                {
                                 if (treeMode)
                                   {
-                                   node = new Q3ListViewItem(clsNode, lastClsNode, stripped);
+                                   node = new QTreeWidgetItem(clsNode, lastClsNode);
                                    lastClsNode = node;
                                   }
                                 else
-                                   node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
-                                node->setPixmap(0, (const QPixmap &)cls);
+                                   node = new QTreeWidgetItem(symbols);
+                                node->setText(0, stripped);
+                                node->setIcon(0, QIcon(cls));
                                 node->setText(1, QString::number( i, 10));
                                }
                              stripped = "";

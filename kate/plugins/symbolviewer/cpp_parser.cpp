@@ -31,26 +31,26 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
  QPixmap sct( ( const char** ) struct_xpm );
  QPixmap mcr( ( const char** ) macro_xpm );
  QPixmap mtd( ( const char** ) method_xpm );
- Q3ListViewItem *node = NULL;
- Q3ListViewItem *mcrNode = NULL, *sctNode = NULL, *clsNode = NULL, *mtdNode = NULL;
- Q3ListViewItem *lastMcrNode = NULL, *lastSctNode = NULL, *lastClsNode = NULL, *lastMtdNode = NULL;
+ QTreeWidgetItem *node = NULL;
+ QTreeWidgetItem *mcrNode = NULL, *sctNode = NULL, *clsNode = NULL, *mtdNode = NULL;
+ QTreeWidgetItem *lastMcrNode = NULL, *lastSctNode = NULL, *lastClsNode = NULL, *lastMtdNode = NULL;
 
  KTextEditor::Document *kv = win->activeView()->document();
 
  //kDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
  if(treeMode)
    {
-    mcrNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Macros"));
-    sctNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Structures"));
-    clsNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Functions"));
-    mcrNode->setPixmap(0, (const QPixmap &)mcr);
-    sctNode->setPixmap(0, (const QPixmap &)sct);
-    clsNode->setPixmap(0, (const QPixmap &)cls);
+    mcrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Macros") ) );
+    sctNode = new QTreeWidgetItem(symbols, QStringList( i18n("Structures") ) );
+    clsNode = new QTreeWidgetItem(symbols, QStringList( i18n("Functions") ) );
+    mcrNode->setIcon(0, QIcon(mcr));
+    sctNode->setIcon(0, QIcon(sct));
+    clsNode->setIcon(0, QIcon(cls));
     if (expanded_on)
       {
-       mcrNode->setOpen(TRUE);
-       sctNode->setOpen(TRUE);
-       clsNode->setOpen(TRUE);
+       symbols->expandItem(mcrNode);
+       symbols->expandItem(sctNode);
+       symbols->expandItem(clsNode);
       }
     lastMcrNode = mcrNode;
     lastSctNode = sctNode;
@@ -105,11 +105,12 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                  {
                   if (treeMode)
                     {
-                     node = new Q3ListViewItem(mcrNode, lastMcrNode, stripped);
+                     node = new QTreeWidgetItem(mcrNode, lastMcrNode);
                      lastMcrNode = node;
                     }
-                  else node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
-                  node->setPixmap(0, (const QPixmap &)mcr);
+                  else node = new QTreeWidgetItem(symbols);
+                  node->setText(0, stripped);
+                  node->setIcon(0, QIcon(mcr));
                   node->setText(1, QString::number( i, 10));
                  }
               macro = 0;
@@ -142,14 +143,15 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
             {
              if (treeMode)
                {
-                node = new Q3ListViewItem(clsNode, lastClsNode, stripped);
-                if (expanded_on) node->setOpen(TRUE);
+                node = new QTreeWidgetItem(clsNode, lastClsNode);
+                if (expanded_on) symbols->expandItem(node); //node->setOpen(TRUE);
                 lastClsNode = node;
                 mtdNode = lastClsNode;
                 lastMtdNode = lastClsNode;
                }
-             else node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
-             node->setPixmap(0, (const QPixmap &)cls);
+             else node = new QTreeWidgetItem(symbols);
+             node->setText(0, stripped);
+             node->setIcon(0, QIcon(cls));
              node->setText(1, QString::number( i, 10));
              stripped = "";
              if (mclass == 1) mclass = 3;
@@ -235,19 +237,20 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                            {
                             if (mclass == 4)
                               {
-                               node = new Q3ListViewItem(mtdNode, lastMtdNode, stripped);
+                               node = new QTreeWidgetItem(mtdNode, lastMtdNode);
                                lastMtdNode = node;
                               }
                             else 
                               {
-                               node = new Q3ListViewItem(clsNode, lastClsNode, stripped);
+                               node = new QTreeWidgetItem(clsNode, lastClsNode);
                                lastClsNode = node;
                               }
                            }
                          else
-                             node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
-                         if (mclass == 4) node->setPixmap(0, (const QPixmap &)mtd);
-                         else node->setPixmap(0, (const QPixmap &)cls);
+                             node = new QTreeWidgetItem(symbols);
+                         node->setText(0, stripped);
+                         if (mclass == 4) node->setIcon(0, QIcon(mtd));
+                         else node->setIcon(0, QIcon(cls));
                          node->setText(1, QString::number( tmpPos, 10));
                         }
                       stripped = "";
@@ -295,11 +298,12 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                         {
                          if (treeMode)
                            {
-                            node = new Q3ListViewItem(sctNode, lastSctNode, stripped);
+                            node = new QTreeWidgetItem(sctNode, lastSctNode);
                             lastSctNode = node;
                            }
-                         else node = new Q3ListViewItem(symbols, symbols->lastItem(), stripped);
-                         node->setPixmap(0, (const QPixmap &)sct);
+                         else node = new QTreeWidgetItem(symbols);
+                         node->setText(0, stripped);
+                         node->setIcon(0, QIcon(sct));
                          node->setText(1, QString::number( tmpPos, 10));
                         }
                       //kDebug(13000)<<"Structure -- Inserted : "<<stripped<<" at row : "<<i<<endl;

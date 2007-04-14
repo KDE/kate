@@ -31,23 +31,24 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
  int in_class = 0, state = 0, j;
  QString name;
 
- Q3ListViewItem *node = NULL;
- Q3ListViewItem *mcrNode = NULL, *mtdNode = NULL, *clsNode = NULL;
- Q3ListViewItem *lastMcrNode = NULL, *lastMtdNode = NULL, *lastClsNode = NULL;
+ QTreeWidgetItem *node = NULL;
+ QTreeWidgetItem *mcrNode = NULL, *mtdNode = NULL, *clsNode = NULL;
+ QTreeWidgetItem *lastMcrNode = NULL, *lastMtdNode = NULL, *lastClsNode = NULL;
 
  KTextEditor::Document *kv = win->activeView()->document();
 
  //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
  if(treeMode)
    {
-    clsNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Classes"));
-    mcrNode = new Q3ListViewItem(symbols, symbols->lastItem(), i18n("Globals"));
-    clsNode->setPixmap(0, (const QPixmap &)cls);
-    mcrNode->setPixmap(0, (const QPixmap &)mcr);
+    clsNode = new QTreeWidgetItem(symbols, QStringList( i18n("Classes") ) );
+    mcrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Globals") ) );
+    mcrNode->setIcon(0, QIcon(mcr));
+    clsNode->setIcon(0, QIcon(cls));
+
     if (expanded_on)
       {
-       mcrNode->setOpen(TRUE);
-       clsNode->setOpen(TRUE);
+       symbols->expandItem(mcrNode);
+       symbols->expandItem(clsNode);
       }
     lastClsNode = clsNode;
     lastMcrNode = mcrNode;
@@ -99,14 +100,16 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
             {
              if (treeMode)
                {
-                node = new Q3ListViewItem(clsNode, lastClsNode, name);
-                if (expanded_on) node->setOpen(TRUE);
+                node = new QTreeWidgetItem(clsNode, lastClsNode);
+                if (expanded_on) symbols->expandItem(node);
                 lastClsNode = node;
                 mtdNode = lastClsNode;
                 lastMtdNode = lastClsNode;
                }
-             else node = new Q3ListViewItem(symbols, symbols->lastItem(), name);
-             node->setPixmap(0, (const QPixmap &)cls);
+             else node = new QTreeWidgetItem(symbols);
+
+             node->setText(0, name);
+             node->setIcon(0, QIcon(cls));
              node->setText(1, QString::number( i, 10));
             }
 
@@ -114,11 +117,13 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
            {
             if (treeMode)
               {
-               node = new Q3ListViewItem(mtdNode, lastMtdNode, name);
+               node = new QTreeWidgetItem(mtdNode, lastMtdNode);
                lastMtdNode = node;
               }
-            else node = new Q3ListViewItem(symbols, symbols->lastItem(), name);
-            node->setPixmap(0, (const QPixmap &)mtd);
+            else node = new QTreeWidgetItem(symbols);
+
+            node->setText(0, name);
+            node->setIcon(0, QIcon(mtd));
             node->setText(1, QString::number( i, 10));
            }
 
@@ -126,11 +131,13 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
             {
              if (treeMode)
                {
-                node = new Q3ListViewItem(mcrNode, lastMcrNode, name);
+                node = new QTreeWidgetItem(mcrNode, lastMcrNode);
                 lastMcrNode = node;
                }
-             else node = new Q3ListViewItem(symbols, symbols->lastItem(), name);
-             node->setPixmap(0, (const QPixmap &)mcr);
+             else node = new QTreeWidgetItem(symbols);
+
+             node->setText(0, name);
+             node->setIcon(0, QIcon(mcr));
              node->setText(1, QString::number( i, 10));
             }
 

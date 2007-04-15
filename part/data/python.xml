@@ -2,6 +2,7 @@
 <!DOCTYPE language>
 <!-- Python syntax highlightning v0.9 by Per Wigren -->
 <!-- Python syntax highlighting v1.9 by Michael Bueker (improved keyword differentiation) -->
+<!-- Python syntax highlighting v1.97 by Paul Giannaros -->
 <language name="Python" version="1.96" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
@@ -45,25 +46,32 @@
 			<item> yield </item>
 		</list>
 		<list name="builtinfuncs">
+			<item> __import__ </item>
 			<item> abs </item>
+			<item> all </item>
+			<item> any </item>
 			<item> apply </item>
+			<item> basestring </item>
+			<item> bool </item>
 			<item> buffer </item>
 			<item> callable </item>
 			<item> chr </item>
+			<item> classmethod </item>
 			<item> cmp </item>
 			<item> coerce </item>
 			<item> compile </item>
 			<item> complex </item>
-			<item> copyright </item>
-			<item> credits </item>
 			<item> delattr </item>
+			<item> dict </item>
 			<item> dir </item>
 			<item> divmod </item>
+			<item> enumerate </item>
 			<item> eval </item>
 			<item> execfile </item>
-			<item> exit </item>
+			<item> file </item>
 			<item> filter </item>
 			<item> float </item>
+			<item> frozenset </item>
 			<item> getattr </item>
 			<item> globals </item>
 			<item> hasattr </item>
@@ -77,26 +85,33 @@
 			<item> issubclass </item>
 			<item> iter </item>
 			<item> len </item>
-			<item> license </item>
 			<item> list </item>
 			<item> locals </item>
 			<item> long </item>
 			<item> map </item>
 			<item> max </item>
 			<item> min </item>
+			<item> object </item>
 			<item> oct </item>
 			<item> open </item>
 			<item> ord </item>
 			<item> pow </item>
+			<item> property </item>
 			<item> range </item>
 			<item> raw_input </item>
 			<item> reduce </item>
 			<item> reload </item>
 			<item> repr </item>
+			<item> reversed </item>
 			<item> round </item>
+			<item> set </item>
 			<item> setattr </item>
 			<item> slice </item>
+			<item> sorted </item>
+			<item> staticmethod </item>
 			<item> str </item>
+			<item> sum </item>
+			<item> super </item>
 			<item> tuple </item>
 			<item> type </item>
 			<item> unichr </item>

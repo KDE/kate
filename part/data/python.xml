@@ -151,6 +151,9 @@
 				<RegExpr attribute="Long" String="[1-9][0-9]*([eE][0-9.]+)?[Ll]" context="#stay"/>
 				<RegExpr attribute="Hex" String="0[Xx][0-9a-fA-F]+" context="#stay"/>
 				<RegExpr attribute="Octal" String="0[1-9][0-9]*" context="#stay"/>
+  
+				<RegExpr attribute="Raw String" String="[rR]'''" context="Raw Tripple A-string"/>
+				<RegExpr attribute="Raw String" String="[rR]&quot;&quot;&quot;" context="Raw Tripple Q-string"/>
 
 				<RegExpr attribute="Raw String" String="[rR]'" context="Raw A-string"/>
 				<RegExpr attribute="Raw String" String="[rR]&quot;" context="Raw Q-string"/>
@@ -165,7 +168,7 @@
 				<DetectChar attribute="String" char="&quot;" context="Single Q-string"/>
 				
 				<DetectChar attribute="Operator" char="(" context="parenthesised" beginRegion="parenthesis"/>
-                                <DetectChar attribute="Operator" char=")" context="#pop" endRegion="parenthesis"/>
+				<DetectChar attribute="Operator" char=")" context="#pop" endRegion="parenthesis"/>
 				
 				<RegExpr attribute="Operator" String="[+*/%\|=;\!&lt;&gt;!^&amp;~-]" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
@@ -174,7 +177,7 @@
 			
 			<context name="parenthesised" attribute="Normal Text" lineEndContext="#stay" noIndentationBasedFolding="True">
 				<IncludeRules context="Normal" />
-                        </context>
+			</context>
 			
 			<context name="Tripple A-comment" attribute="Comment" lineEndContext="#stay" noIndentationBasedFolding="True">
 				<StringDetect attribute="Comment" String="'''" context="#pop" endRegion="Tripple A-region"/>
@@ -186,14 +189,28 @@
 			</context>
 
 			<context name="Tripple A-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="True">
-				<HlCChar attribute="String" context="#stay"/>
+				<HlCStringChar attribute="String Char" context="#stay"/>
+				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/> 
+				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
+				<RegExpr attribute="String" String="'''" context="#pop" endRegion="Tripple A-region"/>
+			</context>
+
+			<context name="Raw Tripple A-string" attribute="Raw String" lineEndContext="#stay" noIndentationBasedFolding="True">
+				<HlCStringChar attribute="Raw String" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/> 
 				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String" String="'''" context="#pop" endRegion="Tripple A-region"/>
 			</context>
 
 			<context name="Tripple Q-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="True">
-				<HlCStringChar attribute="String" context="#stay"/>
+				<HlCStringChar attribute="String Char" context="#stay"/>
+				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
+				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
+				<RegExpr attribute="String" String="&quot;&quot;&quot;" context="#pop" endRegion="Tripple Q-region"/>
+			</context>
+
+			<context name="Raw Tripple Q-string" attribute="Raw String" lineEndContext="#stay" noIndentationBasedFolding="True">
+				<HlCStringChar attribute="Raw String" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String" String="&quot;&quot;&quot;" context="#pop" endRegion="Tripple Q-region"/>
@@ -210,14 +227,14 @@
 			</context>
 
 			<context name="Single A-string" attribute="String" lineEndContext="#stay">
-				<HlCStringChar attribute="String" context="#stay"/>
+				<HlCStringChar attribute="String Char" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
 				<DetectChar attribute="String" char="'" context="#pop"/>
 			</context>
 
 			<context name="Single Q-string" attribute="String" lineEndContext="#stay">
-				<HlCStringChar attribute="String" context="#stay"/>
+				<HlCStringChar attribute="String Char" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
 				<DetectChar attribute="String" char="&quot;" context="#pop"/>
@@ -250,6 +267,7 @@
 			<itemData name="Special Variable" defStyleNum="dsOthers"/>
 			<itemData name="Extensions" defStyleNum="dsOthers"/>
 			<itemData name="Preprocessor" defStyleNum="dsChar"/>
+			<itemData name="String Char" defStyleNum="dsChar"/>
 			<itemData name="Long" defStyleNum="dsOthers"/>
 			<itemData name="Float" defStyleNum="dsFloat"/>
 			<itemData name="Int" defStyleNum="dsDecVal"/>

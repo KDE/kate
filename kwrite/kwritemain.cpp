@@ -165,8 +165,6 @@ void KWrite::setupActions()
     ->setWhatsThis(i18n("Use this to close the current document"));
 
   // setup File menu
-  actionCollection()->addAction( KStandardAction::Print, this, SLOT(printDlg()) )
-    ->setWhatsThis(i18n("Use this command to print the current document"));
   actionCollection()->addAction( KStandardAction::New, "file_new", this, SLOT(slotNew()) )
     ->setWhatsThis(i18n("Use this command to create a new document"));
   actionCollection()->addAction( KStandardAction::Open, "file_open", this, SLOT(slotOpen()) )

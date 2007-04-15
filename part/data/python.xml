@@ -129,9 +129,9 @@
 			<item> Ellipsis </item>
 		</list>
 		<list name="bindings">
-			<item> CONNECT </item>
 			<item> SIGNAL </item>
 			<item> SLOT </item>
+			<item> connect </item>
 		</list>
 		<contexts>
 			<context name="Normal" attribute="Normal Text" lineEndContext="#stay">
@@ -265,7 +265,7 @@
 			<itemData name="Flow Control Keyword" defStyleNum="dsKeyword"/>
 			<itemData name="Builtin Function" defStyleNum="dsDataType"/>
 			<itemData name="Special Variable" defStyleNum="dsOthers"/>
-			<itemData name="Extensions" defStyleNum="dsOthers"/>
+			<itemData name="Extensions" defStyleNum="dsOthers" color="#0095ff" selColor="#ffffff" bold="1" italic="0"/>
 			<itemData name="Preprocessor" defStyleNum="dsChar"/>
 			<itemData name="String Char" defStyleNum="dsChar"/>
 			<itemData name="Long" defStyleNum="dsOthers"/>

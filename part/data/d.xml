@@ -20,6 +20,7 @@
   Updates for D.XML can be obtained from http://kate.kde.org/hl/
 
   UPDATE HISTORY:-
+  2007.04.11 - D.XML 1.38 - D 1.011 - ref, macro keywords are now supported, fixed \\ inside a string, updated author
   2007.02.12 - D.XML 1.37 - D 1.006 - bool, foreach_reverse, lazy, scope and typeid keywords are now supported, fixed \"
                                     - inside a string, fixed ending of wysiwyg strings.
   2004.08.15 - D.XML 1.36 - D 0.98  - Current release of D.
@@ -40,7 +41,7 @@
    ========================================================================
 -->
 
-<language name="D" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc" version="1.37" kateversion="2.2" casesensitive="true" author="Simon J Mackenzie (project.katedxml@smackoz.fastmail.fm)" license="LGPL">
+<language name="D" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc" version="1.38" kateversion="2.2" casesensitive="true" author="Jari-Matti Mäkelä (jmjm@iki.fi)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> abstract </item>
@@ -88,6 +89,7 @@
 
       <item> lazy </item>
 
+      <item> macro </item>
       <item> mixin </item>
 
       <item> new </item>
@@ -101,6 +103,7 @@
       <item> protected </item>
       <item> public </item>
 
+      <item> ref </item>
       <item> return </item>
 
       <item> scope </item>
@@ -309,6 +312,7 @@
       </context>
       <context attribute="String" lineEndContext="#stay" name="String">
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
+        <Detect2Chars attribute="Escape String" context="#stay" char="\" char1="\"/>
         <RegExpr attribute="Escape String" context="#stay" String="\\&quot;"/>
       </context>
 

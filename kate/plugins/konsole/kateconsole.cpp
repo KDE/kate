@@ -37,7 +37,6 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
-#include <kapplication.h>
 //Added by qt3to4:
 #include <QShowEvent>
 

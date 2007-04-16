@@ -30,7 +30,6 @@
 #include <QShowEvent>
 
 #include <kacceleratormanager.h>
-#include <kapplication.h>
 #include <kconfig.h>
 #include <kiconloader.h>
 #include <klineedit.h>

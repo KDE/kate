@@ -21,7 +21,6 @@
 #include "katesessionmenu.h"
 #include "katesessionmenu.moc"
 
-#include <kapplication.h>
 #include <kconfig.h>
 #include <kglobal.h>
 #include <kiconloader.h>

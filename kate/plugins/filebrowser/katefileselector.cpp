@@ -49,7 +49,6 @@
 #include <QVBoxLayout>
 #include <QLineEdit>
 
-#include <kapplication.h>
 #include <kactioncollection.h>
 #include <kactionmenu.h>
 #include <kactionselector.h>

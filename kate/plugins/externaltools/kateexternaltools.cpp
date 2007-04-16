@@ -31,7 +31,7 @@
 #include <KIconLoader>
 #include <KMessageBox>
 #include <KMimeTypeChooser>
-#include <KMainWindow>
+#include <KXmlGuiWindow>
 #include <KConfig>
 #include <KRun>
 #include <KIconDialog>
@@ -205,7 +205,7 @@ bool KateExternalToolsCommand::exec (KTextEditor::View *view, const QString &cmd
 //   kDebug(13001)<<"KateExternalToolsCommand::exec: Could not get view widget"<<endl;
     return false;
   }
-  KMainWindow *dmw = dynamic_cast<KMainWindow*>(wv->window());
+  KXmlGuiWindow *dmw = dynamic_cast<KXmlGuiWindow*>(wv->window());
   if (!dmw)
   {
 //   kDebug(13001)<<"KateExternalToolsCommand::exec: Could not get main window"<<endl;

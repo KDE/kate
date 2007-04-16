@@ -313,7 +313,7 @@ KateVSStatusBar::~KateVSStatusBar ()
 
 void KateVSStatusBar::showMenu()
 {
-  KMainWindow* mainWindow = static_cast<KMainWindow*>( window() );
+  KXmlGuiWindow* mainWindow = static_cast<KXmlGuiWindow*>( window() );
   QMenu* menu = static_cast<QMenu*>( mainWindow->factory()->container("viewspace_popup", mainWindow ) );
 
   if (menu)

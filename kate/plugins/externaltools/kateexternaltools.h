@@ -36,7 +36,7 @@
 #include <kate/application.h>
 
 #include <KActionMenu>
-#include <KMainWindow>
+#include <KXmlGuiWindow>
 #include <KDialog>
 #include <KWordMacroExpander>
 

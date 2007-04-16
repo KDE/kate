@@ -3,7 +3,7 @@
 <!-- Author: Alexander Neundorf <neundorf@kde.org> //-->
 <!-- cmake 2.0.3 syntax highlighting -->
 <!-- dsKeyword, dsDataType, dsDecVal, dsBaseN, dsFloat, dsChar, dsString, dsComment, dsOthers, new in KDE 3.3: dsAlert, dsFunction, dsRegionMarker, dsError -->
-<language name="CMake" version="1.02" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="">
+<language name="CMake" version="1.03" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="">
   <highlighting>
 
     <list name = "commands">
@@ -14,6 +14,7 @@
       <item> ADD_DEPENDENCIES </item>
       <item> ADD_EXECUTABLE </item>
       <item> ADD_LIBRARY </item>
+      <item> ADD_SUBDIRECTORY </item>
       <item> ADD_TEST </item>
       <item> AUX_SOURCE_DIRECTORY </item>
       <item> BUILD_COMMAND </item>
@@ -22,6 +23,7 @@
       <item> CONFIGURE_FILE </item>
       <item> CREATE_TEST_SOURCELIST </item>
       <item> ELSE </item>
+      <item> ELSEIF </item>
       <item> ENABLE_TESTING </item>
       <item> ENDFOREACH </item>
       <item> ENDIF </item>
@@ -46,12 +48,14 @@
       <item> INCLUDE_DIRECTORIES </item>
       <item> INCLUDE_EXTERNAL_MSPROJECT </item>
       <item> INCLUDE_REGULAR_EXPRESSION </item>
+      <item> INSTALL </item>
       <item> INSTALL_FILES </item>
       <item> INSTALL_PROGRAMS </item>
       <item> INSTALL_TARGETS </item>
       <item> ITK_WRAP_TCL </item>
-      <item> LINK_DIRECTORIE </item>
+      <item> LINK_DIRECTORIES </item>
       <item> LINK_LIBRARIES </item>
+      <item> LIST </item>
       <item> LOAD_CACHE </item>
       <item> LOAD_COMMAND </item>
       <item> MACRO </item>
@@ -98,22 +102,29 @@
       <item> ALL </item>
       <item> AND </item>
       <item> APPEND </item>
+      <item> ARCHIVE </item>
       <item> ARGS </item>
       <item> ASCII </item>
       <item> BEFORE </item>
       <item> CACHE </item>
       <item> CACHE_VARIABLES </item>
       <item> CLEAR </item>
+      <item> CMAKE_FLAGS </item>
+      <item> CODE </item>
       <item> COMMAND </item>
       <item> COMMANDS </item>
       <item> COMMAND_NAME </item>
       <item> COMMENT </item>
       <item> COMPARE </item>
       <item> COMPILE_FLAGS </item>
+      <item> COMPONENT </item>
+      <item> CONFIGURATIONS </item>
       <item> COPYONLY </item>
       <item> DEFINED </item>
       <item> DEFINE_SYMBOL </item>
       <item> DEPENDS </item>
+      <item> DESTINATION </item>
+      <item> DIRECTORY_PERMISSIONS </item>
       <item> DOC </item>
       <item> EQUAL </item>
       <item> ESCAPE_QUOTES </item>
@@ -126,6 +137,7 @@
       <item> FATAL_ERROR </item>
       <item> FILE </item>
       <item> FILES </item>
+      <item> FILE_PERMISSIONS </item>
       <item> FORCE </item>
       <item> FUNCTION </item>
       <item> GENERATED </item>
@@ -140,7 +152,9 @@
       <item> INCLUDE_DIRECTORIES </item>
       <item> INCLUDE_INTERNALS </item>
       <item> INCLUDE_REGULAR_EXPRESSION </item>
+      <item> INTERNAL </item>
       <item> LESS </item>
+      <item> LIBRARY </item>
       <item> LINK_DIRECTORIES </item>
       <item> LINK_FLAGS </item>
       <item> LOCATION </item>
@@ -164,6 +178,8 @@
       <item> OUTPUT_VARIABLE </item>
       <item> PATH </item>
       <item> PATHS </item>
+      <item> PATTERN </item>
+      <item> PERMISSIONS </item>
       <item> POST_BUILD </item>
       <item> POST_INSTALL_SCRIPT </item>
       <item> PREFIX </item>
@@ -172,6 +188,7 @@
       <item> PRE_INSTALL_SCRIPT </item>
       <item> PRE_LINK </item>
       <item> PROGRAM </item>
+      <item> PROGRAMS </item>
       <item> PROGRAM_ARGS </item>
       <item> PROPERTIES </item>
       <item> QUIET </item>
@@ -179,10 +196,13 @@
       <item> READ </item>
       <item> REGEX </item>
       <item> REGULAR_EXPRESSION </item>
+      <item> RENAME </item>
       <item> REPLACE </item>
       <item> REQUIRED </item>
       <item> RETURN_VALUE </item>
+      <item> RUNTIME </item>
       <item> RUNTIME_DIRECTORY </item>
+      <item> SCRIPT </item>
       <item> SEND_ERROR </item>
       <item> SHARED </item>
       <item> SOURCES </item>
@@ -193,8 +213,10 @@
       <item> STRLESS </item>
       <item> SUFFIX </item>
       <item> TARGET </item>
+      <item> TARGETS </item>
       <item> TOLOWER </item>
       <item> TOUPPER </item>
+      <item> USE_SOURCE_PERMISSIONS </item>
       <item> VAR </item>
       <item> VARIABLES </item>
       <item> VERSION </item>
@@ -203,19 +225,23 @@
       <item> WRITE </item>
     </list>
     <contexts>
-      <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
-        <keyword attribute="Commands" context="Function Args" String="commands" />
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text">
+        <DetectSpaces/>
+        <keyword attribute="Commands" context="Function Args" String="commands" insensitive="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="block" firstNonSpace="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="block" firstNonSpace="true"/>
-        <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
+        <DetectChar attribute="Comment" context="Comment" char="#"/>
         <RegExpr attribute="Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
-        <RegExpr attribute="Macros" context="#stay" String="\s*\w+\s*(?=\(.*\))"/>
+        <RegExpr attribute="Macros" context="#stay" String="\w+\s*(?=\()"/>
       </context>
-      <context attribute="Normal Text" lineEndContext="#stay" name="Function Args" >
-        <DetectChar attribute="Normal Text" context="#pop" char=")" />
-        <keyword attribute="Special Args" context="#stay" String="special_args" />
+      <context attribute="Normal Text" lineEndContext="#stay" name="Function Args">
+        <DetectChar attribute="Normal Text" context="#pop" char=")"/>
+        <keyword attribute="Special Args" context="#stay" String="special_args"/>
         <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
         <RegExpr attribute="Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="Comment">
+        <IncludeRules context="##Alerts" />
       </context>
 
     </contexts>
@@ -232,8 +258,8 @@
 
   <general>
     <comments>
-      <comment name="singleLine" start="#" />
+      <comment name="singleLine" start="#"/>
     </comments>
-    <keywords casesensitive="1" />
+    <keywords casesensitive="1"/>
   </general>
 </language>

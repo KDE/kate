@@ -205,7 +205,7 @@ class KateHlRangeDetect : public KateHlItem
 class KateHlKeyword : public KateHlItem
 {
   public:
-    KateHlKeyword(int attribute, KateHlContextModification context,signed char regionId,signed char regionId2, bool casesensitive, const QString& delims);
+    KateHlKeyword(int attribute, KateHlContextModification context,signed char regionId,signed char regionId2, bool insensitive, const QString& delims);
     virtual ~KateHlKeyword ();
 
     void addList(const QStringList &);
@@ -213,7 +213,7 @@ class KateHlKeyword : public KateHlItem
 
   private:
     QVector< QSet<QString>* > dict;
-    bool _caseSensitive;
+    bool _insensitive;
     const QString& deliminators;
     int minLen;
     int maxLen;
@@ -555,9 +555,9 @@ int KateHlRangeDetect::checkHgl(const QString& text, int offset, int len)
 //END
 
 //BEGIN KateHlKeyword
-KateHlKeyword::KateHlKeyword (int attribute, KateHlContextModification context, signed char regionId,signed char regionId2, bool casesensitive, const QString& delims)
+KateHlKeyword::KateHlKeyword (int attribute, KateHlContextModification context, signed char regionId,signed char regionId2, bool insensitive, const QString& delims)
   : KateHlItem(attribute,context,regionId,regionId2)
-  , _caseSensitive(casesensitive)
+  , _insensitive(insensitive)
   , deliminators(delims)
   , minLen (0xFFFFFF)
   , maxLen (0)
@@ -596,7 +596,7 @@ void KateHlKeyword::addList(const QStringList& list)
     if (!dict[len])
       dict[len] = new QSet<QString> ();
 
-    if (_caseSensitive)
+    if (!_insensitive)
       dict[len]->insert(list[i]);
     else
       dict[len]->insert(list[i].toLower());
@@ -618,7 +618,7 @@ int KateHlKeyword::checkHgl(const QString& text, int offset, int len)
 
   if (wordLen < minLen || !dict[wordLen]) return 0;
 
-  if (_caseSensitive)
+  if (!_insensitive)
   {
     if (dict[wordLen]->contains(QString::fromRawData(text.unicode() + offset, wordLen)) )
       return offset2;
@@ -1973,8 +1973,9 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
   else
     chr1=0;
 
-  // Will be removed eventuall. Atm used for StringDetect and RegExp
-  bool insensitive = IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("insensitive")) );
+  // Will be removed eventually. Atm used for StringDetect, keyword and RegExp
+  const QString & insensitive_str = KateHlManager::self()->syntax->groupItemData(data,QString("insensitive"));
+  bool insensitive = IS_TRUE( insensitive_str );
 
   // for regexp only
   bool minimal = IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("minimal")) );
@@ -1996,7 +1997,8 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
 
   if (dataname=="keyword")
   {
-    KateHlKeyword *keyword=new KateHlKeyword(attr,context,regionId,regionId2,casesensitive,
+    bool keywordInsensitive = insensitive_str.isEmpty() ? !casesensitive : insensitive;
+    KateHlKeyword *keyword=new KateHlKeyword(attr,context,regionId,regionId2,keywordInsensitive,
                                              m_additionalData[ buildIdentifier ]->deliminator);
 
     //Get the entries for the keyword lookup list

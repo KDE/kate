@@ -85,6 +85,7 @@
       <context attribute="Region Marker" lineEndContext="#pop" name="Region Marker">
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
+        <LineContinue attribute="Comment" context="#stay"/>
         <IncludeRules context="##Alerts" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">

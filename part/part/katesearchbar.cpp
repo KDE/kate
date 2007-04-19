@@ -73,19 +73,19 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     connect(d->expressionEdit, SIGNAL(findNext()), this, SLOT(findNext()));
     connect(d->expressionEdit, SIGNAL(findPrevious()), this, SLOT(findPrevious()));
 
-    d->caseSensitiveBox = new QCheckBox(i18n("&Case Sensitive"));
+    d->caseSensitiveBox = new QCheckBox(i18n("&Case sensitive"));
     connect(d->caseSensitiveBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
 
-    d->wholeWordsBox = new QCheckBox(i18n("&Whole Words"));
+    d->wholeWordsBox = new QCheckBox(i18n("&Whole words"));
     connect(d->wholeWordsBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
 
-    d->regExpBox = new QCheckBox(i18n("&Regular Expression"));
+    d->regExpBox = new QCheckBox(i18n("&Regular expression"));
     connect(d->regExpBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
 
-    d->fromCursorBox = new QCheckBox(i18n("&From Cursor"));
+    d->fromCursorBox = new QCheckBox(i18n("&From cursor"));
     connect(d->fromCursorBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
 
-    d->selectionOnlyBox = new QCheckBox(i18n("&Selection Only"));
+    d->selectionOnlyBox = new QCheckBox(i18n("&Selection only"));
     connect(d->selectionOnlyBox, SIGNAL(stateChanged(int)), this, SLOT(slotSpecialOptionTogled()));
 
     d->highlightAllBox = new QCheckBox(i18n("&Highlight all"));

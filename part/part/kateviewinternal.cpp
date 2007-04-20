@@ -499,7 +499,7 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
 
       m_leftBorder->scroll(0, scrollHeight);
       //m_leftBorder->update(0, m_leftBorder->height()+scrollHeight-scrollbarWidth, m_leftBorder->width(), 2*scrollbarWidth);
-
+      emit m_view->verticalScrollPositionChanged( m_view, c );  
       return;
     }
   }
@@ -507,6 +507,7 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
   updateView();
   update();
   m_leftBorder->update();
+  emit m_view->verticalScrollPositionChanged( m_view, c );  
 }
 
 void KateViewInternal::scrollColumns ( int x )
@@ -524,6 +525,8 @@ void KateViewInternal::scrollColumns ( int x )
     scroll(dx, 0);
   else
     update();
+  
+  emit m_view->horizontalScrollPositionChanged( m_view );
 
   bool blocked = m_columnScroll->blockSignals(true);
   m_columnScroll->setValue(m_startX);
@@ -709,7 +712,7 @@ int KateViewInternal::linesDisplayed() const
 QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor, bool realCursor ) const
 {
   int viewLine = cache()->displayViewLine(realCursor ? toVirtualCursor(cursor) : cursor, true);
-
+  
   if (viewLine < 0 || viewLine >= cache()->viewCacheLineCount())
     return QPoint(-1, -1);
 

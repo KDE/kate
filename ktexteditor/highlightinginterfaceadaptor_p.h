@@ -40,6 +40,9 @@ class HighlightingInterfaceAdaptor: public QDBusAbstractAdaptor
     HighlightingInterfaceAdaptor (QObject *obj, HighlightingInterface *iface)
       : QDBusAbstractAdaptor(obj), m_iface(iface)
     {
+#ifdef __GNUC__
+#warning Object::connect: No such signal KTextEditor::Document::highlightingChanged(KTextEditor::Document*)
+#endif
       connect(obj,SIGNAL(highlightingChanged(KTextEditor::Document *)),this,SIGNAL(highlightingChanged(KTextEditor::Document *)));
     }
 

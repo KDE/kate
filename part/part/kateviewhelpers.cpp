@@ -747,7 +747,8 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
             r=0xff-0x40*(i-3); g=0xff;b=0;
           } else if (i<15) {
             //r=0;g=0xff;b=0x10*(info.depth-32);
-            r=0;g=0xff-0x40*(i-7);b=0;
+            //r=0;g=0xff-0x40*(i-7);b=0;    // 0x40 creates negative values!
+            r=0;g=0xff-0x10*(i-7);b=0;
           } else {
             //r=0;g=0xff;b=0xff;
             r=0;g=0;b=0;

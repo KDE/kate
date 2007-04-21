@@ -31,7 +31,7 @@
 #include <QStringList>
 #include <QLabel>
 #include <QPushButton>
-#include <QToolTip>
+
 
 class KatePluginListItem : public Q3CheckListItem
 {

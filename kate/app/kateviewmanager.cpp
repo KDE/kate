@@ -52,7 +52,7 @@
 #include <QStringList>
 #include <QFileInfo>
 #include <QToolButton>
-#include <QToolTip>
+
 //END Includes
 
 KateViewManager::KateViewManager (KateMainWindow *parent)

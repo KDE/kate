@@ -21,7 +21,7 @@
 #include <k3listview.h>
 #include <qstring.h>
 #include <q3valuelist.h>
-#include <qtooltip.h>
+
 #include <q3dict.h>
 #include "pybrowsenode.h"
 

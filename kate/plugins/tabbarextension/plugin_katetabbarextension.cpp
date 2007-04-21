@@ -45,7 +45,7 @@
 
 #include <QPushButton>
 #include <QLayout>
-#include <QToolTip>
+
 #include <q3groupbox.h>
 #include <QCheckBox>
 #include <q3vbox.h>

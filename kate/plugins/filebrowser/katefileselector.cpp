@@ -28,7 +28,7 @@
 #include <kvbox.h>
 #include <QLabel>
 #include <q3strlist.h>
-#include <QToolTip>
+
 #include <QApplication>
 #include <QListWidget>
 #include <qscrollbar.h>

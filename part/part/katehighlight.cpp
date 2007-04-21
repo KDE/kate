@@ -2410,7 +2410,7 @@ KateHlContextModification KateHighlighting::getContextModificationFromString(QSt
     QString tmp=tmpLineEndContext.right(tmpLineEndContext.length()-2);
     if (!embeddedHls.contains(tmp))  embeddedHls.insert(tmp,KateEmbeddedHlInfo());
     unres=tmp;
-    kdDebug(13010) << "unres = " << unres << endl;
+    kDebug(13010) << "unres = " << unres << endl;
     context=0;
   }
 

@@ -246,7 +246,7 @@ void KateCompletionWidget::execute()
   KTextEditor::Cursor start = m_completionRange->start();
 
   // encapsulate all editing as being from the code completion, and undo-able in one step.
-  view()->doc()->editStart(Kate::CodeCompletionEdit);
+  view()->doc()->editStart(true, Kate::CodeCompletionEdit);
 
   KTextEditor::CodeCompletionModel* model = static_cast<KTextEditor::CodeCompletionModel*>(const_cast<QAbstractItemModel*>(toExecute.model()));
   model->executeCompletionItem(view()->document(), *m_completionRange, toExecute.row());

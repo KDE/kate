@@ -70,7 +70,6 @@
 #include <kencodingfiledialog.h>
 #include <ktemporaryfile.h>
 #include <kcodecs.h>
-#include <kstaticdeleter.h>
 #include <kstandarddirs.h>
 
 #include <QtDBus/QtDBus>
@@ -199,10 +198,6 @@ class KateDocument::LoadSaveFilterCheckPlugins
     }
     QHash <QString,LoadSaveFilterCheckPlugin*> m_plugins;
 };
-
-KateDocument::LoadSaveFilterCheckPlugins* KateDocument::s_loadSaveFilterCheckPlugins = 0L;
-static KStaticDeleter<KateDocument::LoadSaveFilterCheckPlugins> loadSaveFilterCheckPluginsSD;
-
 
 //BEGIN d'tor, c'tor
 //
@@ -5289,7 +5284,6 @@ bool KateDocument::isSmartLocked() const
 
 KateDocument::LoadSaveFilterCheckPlugins* KateDocument::loadSaveFilterCheckPlugins()
 {
-  if (s_loadSaveFilterCheckPlugins) return s_loadSaveFilterCheckPlugins;
-  s_loadSaveFilterCheckPlugins=loadSaveFilterCheckPluginsSD.setObject(s_loadSaveFilterCheckPlugins,new LoadSaveFilterCheckPlugins);
+  K_GLOBAL_STATIC(KateDocument::LoadSaveFilterCheckPlugins, s_loadSaveFilterCheckPlugins)
   return s_loadSaveFilterCheckPlugins;
 }

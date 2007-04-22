@@ -1003,7 +1003,6 @@ class KateDocument : public KTextEditor::Document,
       QStringList m_preSavePostDialogFilterChecks;
       void setPostLoadFilterChecks(QStringList plugins) {m_postLoadFilterChecks=plugins;}
       QStringList m_postLoadFilterChecks;
-      static LoadSaveFilterCheckPlugins *s_loadSaveFilterCheckPlugins;
       static LoadSaveFilterCheckPlugins* loadSaveFilterCheckPlugins();
 };
 

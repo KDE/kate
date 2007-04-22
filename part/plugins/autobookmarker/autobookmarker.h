@@ -92,7 +92,6 @@ class ABGlobal
 
   private:
     ABEntityList *m_ents;
-    static ABGlobal *s_self;
 };
 
 class AutoBookmarkerConfigPage : public KTextEditor::ConfigPage

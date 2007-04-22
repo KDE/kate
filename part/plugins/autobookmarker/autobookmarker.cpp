@@ -38,7 +38,6 @@
 #include <kmimetype.h>
 #include <kmimetypechooser.h>
 #include <krun.h>
-#include <kstaticdeleter.h>
 #include <kurl.h>
 
 #include <QtGui/QCheckBox>
@@ -173,8 +172,6 @@ void AutoBookmarker::applyEntity( AutoBookmarkEnt *e )
 //END
 
 //BEGIN ABGlobal
-ABGlobal *ABGlobal::s_self = 0;
-
 ABGlobal::ABGlobal()
 {
   m_ents = new ABEntityList;
@@ -186,13 +183,9 @@ ABGlobal::~ABGlobal()
   delete m_ents;
 }
 
-static KStaticDeleter<ABGlobal> sdSelf;
-
 ABGlobal *ABGlobal::self()
 {
-  if ( ! s_self )
-    sdSelf.setObject(s_self, new ABGlobal());
-
+  K_STATIC_DELETER(ABGlobal, s_self)
   return s_self;
 }
 

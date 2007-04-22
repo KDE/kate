@@ -1,9 +1,9 @@
+#include "kte_document_binding.h"
+
 #include <ktexteditor/document.h>
 #include <kjs/object.h>
 #include <kjsembed/object_binding.h>
 #include <kjsembed/variant_binding.h>
-
-#include "kte_document_binding.h"
 
 using namespace KJSEmbed;
 

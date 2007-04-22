@@ -2814,7 +2814,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
            if (incCtxi >= 0)
            {
              QString incSet = incCtx.mid(incCtxi + 2);
-             QString incCtxN = incSet + ":" + incCtx.left(incCtxi);
+             QString incCtxN = incSet + ':' + incCtx.left(incCtxi);
 
              //a cross highlighting reference
              kDebug(13010)<<"Cross highlight reference <IncludeRules>, context "<<incCtxN<<endl;

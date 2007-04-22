@@ -17,13 +17,13 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "katebuffer.h"
+#include "katebuffer.moc"
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <stdlib.h>
-
-#include "katebuffer.h"
-#include "katebuffer.moc"
 
 #include "katedocument.h"
 #include "katehighlight.h"

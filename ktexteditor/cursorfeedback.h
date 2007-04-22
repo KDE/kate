@@ -20,7 +20,7 @@
 #define KDELIBS_KTEXTEDITOR_CURSORFEEDBACK_H
 
 #include <ktexteditor/ktexteditor_export.h>
-#include <QObject>
+#include <QtCore/QObject>
 #include <kdebug.h>
 
 namespace KTextEditor

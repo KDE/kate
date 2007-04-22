@@ -22,7 +22,7 @@
 
 #include <ktexteditor/ktexteditor_export.h>
 // our main baseclass of the KTextEditor::Editor
-#include <QObject>
+#include <QtCore/QObject>
 
 #include <kicon.h>
 

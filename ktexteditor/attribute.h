@@ -19,7 +19,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_ATTRIBUTE_H
 #define KDELIBS_KTEXTEDITOR_ATTRIBUTE_H
 
-#include <QTextCharFormat>
+#include <QtGui/QTextCharFormat>
 
 #include <ksharedptr.h>
 #include <ktexteditor/ktexteditor_export.h>

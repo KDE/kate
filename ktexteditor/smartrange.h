@@ -24,7 +24,7 @@
 #include <ktexteditor/smartcursor.h>
 #include <ktexteditor/attribute.h>
 
-#include <QList>
+#include <QtCore/QList>
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 template <class T> class QStack;

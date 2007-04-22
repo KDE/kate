@@ -22,7 +22,7 @@
 
 #include <ktexteditor/ktexteditor_export.h>
 
-#include <QWidget>
+#include <QtGui/QWidget>
 
 namespace KTextEditor
 {

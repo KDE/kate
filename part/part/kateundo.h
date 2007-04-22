@@ -22,7 +22,7 @@
 #define kate_undo_h
 
 #include <QList>
-#include <QString>
+
 
 class KateDocument;
 class KateUndo;

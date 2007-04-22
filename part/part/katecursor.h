@@ -24,7 +24,7 @@
 
 #include <ktexteditor/cursor.h>
 
-#include <QString>
+
 
 class KateDocument;
 namespace KTextEditor { class Attribute; }

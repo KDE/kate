@@ -489,7 +489,8 @@ void KateDocManager::restoreDocumentList (KConfig* config)
 
   KProgressDialog *pd = new KProgressDialog(0,
                         i18n("Starting Up"),
-                        i18n("Reopening files from the last session..."), true);
+                        i18n("Reopening files from the last session..."));
+  pd->setModal(true);
   pd->setAllowCancel(false);
   pd->progressBar()->setRange(0, count);
 

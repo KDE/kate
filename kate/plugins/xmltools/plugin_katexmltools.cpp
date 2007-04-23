@@ -94,7 +94,6 @@ TODO:
 #include <Q3ValueList>
 
 #include <kaction.h>
-#include <kbuttonbox.h>
 #include <klineedit.h>
 #include <kcursor.h>
 #include <kdebug.h>

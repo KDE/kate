@@ -70,7 +70,7 @@ class DocWordCompletionPlugin
   Q_OBJECT
 
   public:
-    DocWordCompletionPlugin( QObject *parent = 0,
+    explicit DocWordCompletionPlugin( QObject *parent = 0,
                             const QStringList &args = QStringList() );
     virtual ~DocWordCompletionPlugin(){kDebug()<<"~DocWordCompletionPlugin"<<endl;}
 
@@ -112,7 +112,7 @@ class DocWordCompletionPluginView
   Q_OBJECT
 
   public:
-    DocWordCompletionPluginView( uint treshold=3,
+    explicit DocWordCompletionPluginView( uint treshold=3,
                                  bool autopopup=true,
                                  KTextEditor::View *view=0,
                                  DocWordCompletionModel *completionModel=0 );

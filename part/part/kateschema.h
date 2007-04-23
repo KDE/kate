@@ -215,7 +215,7 @@ class KateSchemaConfigHighlightTab : public QWidget
   Q_OBJECT
 
   public:
-    KateSchemaConfigHighlightTab(KateSchemaConfigFontColorTab *page = 0, uint hl = 0 );
+    explicit KateSchemaConfigHighlightTab(KateSchemaConfigFontColorTab *page = 0, uint hl = 0 );
     ~KateSchemaConfigHighlightTab();
 
     void schemaChanged (int schema);
@@ -245,7 +245,7 @@ class KateSchemaConfigPage : public KateConfigPage
   Q_OBJECT
 
   public:
-    KateSchemaConfigPage ( QWidget *parent, class KateDocument *doc=0 );
+    explicit KateSchemaConfigPage ( QWidget *parent, class KateDocument *doc=0 );
     ~KateSchemaConfigPage ();
 
   public Q_SLOTS:

@@ -91,7 +91,7 @@ class KateConfigPage : public KTextEditor::ConfigPage
   Q_OBJECT
 
   public:
-    KateConfigPage ( QWidget *parent=0, const char *name=0 );
+    explicit KateConfigPage ( QWidget *parent=0, const char *name=0 );
     virtual ~KateConfigPage ();
 
   public:

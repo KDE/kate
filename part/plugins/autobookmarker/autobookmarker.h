@@ -36,7 +36,7 @@ class AutoBookmarkEnt
 {
   public:
   enum REFlags { CaseSensitive=1, MinimalMatching=2 };
-  AutoBookmarkEnt(const QString &p=QString(),
+  explicit AutoBookmarkEnt(const QString &p=QString(),
                   const QStringList &f=QStringList(),
                   const QStringList &m=QStringList(),
                   int flags=1 );
@@ -53,7 +53,7 @@ class AutoBookmarker
 {
   Q_OBJECT
   public:
-    AutoBookmarker( QObject *parent = 0,
+    explicit AutoBookmarker( QObject *parent = 0,
                         const char* name = 0,
                         const QStringList &args = QStringList() );
     virtual ~AutoBookmarker() {}

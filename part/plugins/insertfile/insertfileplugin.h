@@ -32,7 +32,7 @@ class InsertFilePlugin : public KTextEditor::Plugin
   Q_OBJECT
 
   public:
-    InsertFilePlugin( QObject *parent = 0,
+    explicit InsertFilePlugin( QObject *parent = 0,
                       const QStringList &args = QStringList() );
     virtual ~InsertFilePlugin();
 
@@ -48,7 +48,7 @@ class InsertFilePluginView : public QObject, public KXMLGUIClient
 {
   Q_OBJECT
   public:
-    InsertFilePluginView( KTextEditor::View *view, const char *name=0 );
+    explicit InsertFilePluginView( KTextEditor::View *view, const char *name=0 );
     ~InsertFilePluginView() {}
   public Q_SLOTS:
     /* display a file dialog, and insert the chosen file */

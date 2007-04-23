@@ -94,7 +94,7 @@ class KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::SmartInterface)
 
   public:
-    KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
+    explicit KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
                   QWidget *parentWidget = 0, QObject * = 0);
     ~KateDocument ();
 

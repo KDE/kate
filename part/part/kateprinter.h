@@ -52,7 +52,7 @@ class KatePrintTextSettings : public KPrintDialogPage
 {
   Q_OBJECT
   public:
-    KatePrintTextSettings( KPrinter *printer, QWidget *parent=0 );
+    explicit KatePrintTextSettings( KPrinter *printer, QWidget *parent=0 );
     ~KatePrintTextSettings(){}
 
     void getOptions(QMap<QString,QString>& opts, bool incldef = false);
@@ -117,7 +117,7 @@ class KatePrintLayout : public KPrintDialogPage
 {
   Q_OBJECT
   public:
-    KatePrintLayout( KPrinter *printer, QWidget *parent=0 );
+    explicit KatePrintLayout( KPrinter *printer, QWidget *parent=0 );
     ~KatePrintLayout(){}
 
     void getOptions(QMap<QString,QString>& opts, bool incldef = false);

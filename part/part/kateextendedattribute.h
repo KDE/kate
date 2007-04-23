@@ -37,7 +37,7 @@ class KateExtendedAttribute : public KTextEditor::Attribute
   public:
     typedef KSharedPtr<KateExtendedAttribute> Ptr;
 
-    KateExtendedAttribute(const QString& name, int defaultStyleIndex = -1);
+    explicit KateExtendedAttribute(const QString& name, int defaultStyleIndex = -1);
 
     enum DefaultStyle {
       dsNormal,

@@ -37,7 +37,7 @@ class KDataToolPlugin : public KTextEditor::Plugin
 	Q_OBJECT
 
 public:
-	KDataToolPlugin( QObject *parent = 0, const QStringList &args = QStringList() );
+	explicit KDataToolPlugin( QObject *parent = 0, const QStringList &args = QStringList() );
 	virtual ~KDataToolPlugin();
 	void addView (KTextEditor::View *view);
 	void removeView (KTextEditor::View *view);

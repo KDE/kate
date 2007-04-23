@@ -51,7 +51,6 @@
 #include <kio/netaccess.h>
 
 #include <kapplication.h>
-#include <kbuttonbox.h>
 #include <kcharsets.h>
 #include <kcolorbutton.h>
 #include <kcolorcombo.h>

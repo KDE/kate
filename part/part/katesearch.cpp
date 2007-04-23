@@ -96,7 +96,7 @@ void KateSearch::find()
   if (m_view->selection() && !m_view->selectionRange().onSingleLine())
     searchf |= KFind::SelectedText;
 
-  KFindDialog *findDialog = new KFindDialog (  m_view, "", searchf,
+  KFindDialog *findDialog = new KFindDialog (  m_view, searchf,
                                                s_searchList, m_view->selection() );
 
   findDialog->setPattern (getSearchText());
@@ -159,7 +159,7 @@ void KateSearch::replace()
   if (m_view->selection() && !m_view->selectionRange().onSingleLine())
     searchf |= KFind::SelectedText;
 
-  KReplaceDialog *replaceDialog = new KReplaceDialog (  m_view, "", searchf,
+  KReplaceDialog *replaceDialog = new KReplaceDialog (  m_view, searchf,
                                                s_searchList, s_replaceList, m_view->selection() );
 
   replaceDialog->setPattern (getSearchText());

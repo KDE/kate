@@ -22,7 +22,7 @@
 #include "kateviewspace.moc"
 
 #include "katemainwindow.h"
-#include "kateviewspacecontainer.h"
+#include "kateviewmanager.h"
 #include "katedocmanager.h"
 #include "kateapp.h"
 #include "katesession.h"
@@ -48,7 +48,7 @@
 #include <QMouseEvent>
 
 //BEGIN KateViewSpace
-KateViewSpace::KateViewSpace( KateViewSpaceContainer *viewManager,
+KateViewSpace::KateViewSpace( KateViewManager *viewManager,
                               QWidget* parent, const char* name )
     : KVBox(parent),
     m_viewManager( viewManager )
@@ -238,7 +238,7 @@ void KateViewSpace::saveConfig ( KConfigBase* config, int myIndex , const QStrin
   }
 }
 
-void KateViewSpace::restoreConfig ( KateViewSpaceContainer *viewMan, KConfigBase* config, const QString &groupname )
+void KateViewSpace::restoreConfig ( KateViewManager *viewMan, KConfigBase* config, const QString &groupname )
 {
   KConfigGroup group (config, groupname);
   QString fn = group.readEntry( "Active View" );

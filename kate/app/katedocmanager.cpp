@@ -23,7 +23,6 @@
 #include "kateapp.h"
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
-#include "kateviewspacecontainer.h"
 #include "katedocmanageradaptor.h"
 
 #include <KTextEditor/View>
@@ -330,9 +329,7 @@ bool KateDocManager::closeAllDocuments(bool closeUrl)
   QList<KTextEditor::Document*> docs = m_docList;
 
   for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
-  {
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(true);
-  }
 
   while (!docs.isEmpty() && res)
     if (! closeDocument(docs.at(0), closeUrl) )
@@ -343,9 +340,7 @@ bool KateDocManager::closeAllDocuments(bool closeUrl)
   for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
   {
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(false);
-
-    for (int s = 0; s < KateApp::self()->mainWindow(i)->viewManager()->containers()->count(); s++)
-      KateApp::self()->mainWindow(i)->viewManager()->containers()->at(s)->activateView (m_docList.at(0));
+    KateApp::self()->mainWindow(i)->viewManager()->activateView (m_docList.at(0));
   }
 
   return res;
@@ -358,9 +353,7 @@ bool KateDocManager::closeOtherDocuments(KTextEditor::Document* doc)
   QList<KTextEditor::Document*> docs = m_docList;
 
   for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
-  {
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(true);
-  }
   
   for (int i = 0; (i < docs.size()) && res; i++)
   {
@@ -372,9 +365,7 @@ bool KateDocManager::closeOtherDocuments(KTextEditor::Document* doc)
   for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
   {
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(false);
-
-    for (int s = 0; s < KateApp::self()->mainWindow(i)->viewManager()->containers()->count(); s++)
-      KateApp::self()->mainWindow(i)->viewManager()->containers()->at(s)->activateView (m_docList.at(0));
+    KateApp::self()->mainWindow(i)->viewManager()->activateView (m_docList.at(0));
   }
   
   return res;

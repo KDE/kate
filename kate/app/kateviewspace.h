@@ -37,7 +37,7 @@
 
 class KConfigBase;
 class KSqueezedTextLabel;
-class KateViewSpaceContainer;
+class KateViewManager;
 
 class QStackedWidget;
 
@@ -83,13 +83,13 @@ class KateVSStatusBar : public KStatusBar
 
 class KateViewSpace : public KVBox
 {
-    friend class KateViewSpaceContainer;
+    friend class KateViewManager;
     friend class KateVSStatusBar;
 
     Q_OBJECT
 
   public:
-    KateViewSpace(KateViewSpaceContainer *, QWidget* parent = 0, const char* name = 0);
+    KateViewSpace(KateViewManager *, QWidget* parent = 0, const char* name = 0);
     ~KateViewSpace();
     bool isActiveSpace();
     void setActive(bool b, bool showled = false);
@@ -110,7 +110,7 @@ class KateViewSpace : public KVBox
     }
 
     void saveConfig (KConfigBase* config, int myIndex, const QString& viewConfGrp);
-    void restoreConfig ( class KateViewSpaceContainer *viewMan, KConfigBase* config, const QString &group );
+    void restoreConfig ( KateViewManager *viewMan, KConfigBase* config, const QString &group );
 
   private Q_SLOTS:
     void statusBarToggled ();
@@ -128,7 +128,7 @@ class KateViewSpace : public KVBox
     /// last entry in the list, i.e. mViewList.last()
     /// mViewList.count() == stack.count() is always true!
     QList<KTextEditor::View*> mViewList;
-    KateViewSpaceContainer *m_viewManager;
+    KateViewManager *m_viewManager;
     QString m_group;
 };
 

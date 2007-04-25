@@ -43,8 +43,6 @@ class QMenu;
 
 class QListView;
 
-class KateTabWidget;
-
 namespace Kate
 {
   class MainWindow;
@@ -117,12 +115,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * handled by the dialog; otherwise (the dialog was canceled) false.
      */
     bool showModOnDiskPrompt();
-
-    /**
-     * central tabwidget ;)
-     * @return tab widget
-     */
-    KateTabWidget *tabWidget ();
 
   public:
     /*reimp*/ void readProperties(const KConfigGroup& config);
@@ -245,7 +237,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     KateExternalToolsMenuAction *externalTools;
     bool m_modignore, m_grrr;
 
-    KateTabWidget *m_tabWidget;
     QString m_dbusObjectPath;
     KateViewDocumentProxyModel *m_documentModel;
 

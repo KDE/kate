@@ -33,7 +33,6 @@
 #include "katesavemodifieddialog.h"
 #include "katemwmodonhddialog.h"
 #include "katesession.h"
-#include "katetabwidget.h"
 #include "katemainwindowadaptor.h"
 #include "kateviewdocumentproxymodel.h"
 
@@ -232,9 +231,7 @@ void KateMainWindow::setupMainWindow ()
 {
   setToolViewStyle( KMultiTabBar::KDEV3ICON );
 
-  m_tabWidget = new KateTabWidget (centralWidget());
-
-  m_viewManager = new KateViewManager (this);
+  m_viewManager = new KateViewManager (centralWidget(), this);
 
   KateMDI::ToolView *ft = createToolView("kate_filelist", KMultiTabBar::Left, SmallIcon("kmultiple"), i18n("Documents"));
   m_fileList = new KateFileList(ft, actionCollection());
@@ -381,11 +378,6 @@ void KateMainWindow::setupActions()
   // quick open menu ;)
   a = new KateSessionsAction (i18n("&Quick Open"), this);
   actionCollection()->addAction("sessions_list", a);
-}
-
-KateTabWidget *KateMainWindow::tabWidget ()
-{
-  return m_tabWidget;
 }
 
 void KateMainWindow::slotDocumentCloseAll()

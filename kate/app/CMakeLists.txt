@@ -18,11 +18,9 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp katemainwindowadaptor.cpp
    kateviewspace.cpp
    katetooltipmenu.cpp
    katesavemodifieddialog.cpp
-   kateviewspacecontainer.cpp
    katemwmodonhddialog.cpp
    katesession.cpp
    katemdi.cpp
-   katetabwidget.cpp
    katedocmanageradaptor.cpp
    kateviewdocumentproxymodel.cpp
    )

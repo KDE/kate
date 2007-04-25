@@ -381,6 +381,10 @@ class KateDocument : public KTextEditor::Document,
     KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
         const QRegExp &regexp, bool backwards = false);
 
+  public:
+    static void escapePlaintext(QString & text);
+    static int repairPattern(QString & pattern, bool & stillMultiLine);
+
   //
   // KTextEditor::HighlightingInterface stuff
   //

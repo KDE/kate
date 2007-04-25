@@ -171,21 +171,49 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
         d->topRange->deleteChildRanges();
     }
 
-    if ( d->regExpBox->checkState() != Qt::Checked )
-      expression = QRegExp::escape( expression );
+    const bool escapeSequences = true; // TODO make checkbox for that
 
-    if ( d->wholeWordsBox->checkState() == Qt::Checked )
-        expression = "\\b" + expression + "\\b";
+    // abuse regex for whole word plaintext search
+    bool regexMode = d->regExpBox->checkState() == Qt::Checked;
+    const bool wholeWords = !d->wholeWordsBox->checkState() == Qt::Checked;
+    if (!regexMode && wholeWords)
+    {
+      // resolve escape sequences like \t
+      if (escapeSequences)
+      {
+        KateDocument::escapePlaintext(expression);
+      }
 
-    d->regExp.setPattern(expression);
+      // escape dot and friends
+      expression = "\\b" + QRegExp::escape(expression) + "\\b";
+      regexMode = true;
+    }
 
-    if ( ! d->regExp.isValid() )
+    // run search engine
+    const bool caseSensitive = d->caseSensitiveBox->checkState() == Qt::Checked;
+    if (regexMode)
+    {
+      d->regExp.setPattern(expression);
+      if (!d->regExp.isValid())
+      {
         return;
+      }
 
-    d->regExp.setCaseSensitivity(d->caseSensitiveBox->checkState() == Qt::Checked ? Qt::CaseSensitive : Qt::CaseInsensitive);
+      d->regExp.setCaseSensitivity(caseSensitive
+          ? Qt::CaseSensitive
+          : Qt::CaseInsensitive);
 
-
-    d->match = m_view->doc()->searchText(d->startCursor, d->regExp, backwards);
+      d->match = m_view->doc()->searchText(d->startCursor, d->regExp, backwards);
+    }
+    else
+    {
+      // resolve escape sequences like \t
+      if (escapeSequences)
+      {
+        KateDocument::escapePlaintext(expression);
+      }
+      d->match = m_view->doc()->searchText(d->startCursor, expression, caseSensitive, backwards);
+    }
 
     bool foundMatch = d->match.isValid() && d->match != d->lastMatch && d->match != m_view->selectionRange();
     bool wrapped = false;

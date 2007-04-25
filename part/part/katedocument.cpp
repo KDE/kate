@@ -1774,69 +1774,158 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Cursor& startPos
   int line = startPosition.line();
   int col = startPosition.column();
 
-  if (!backwards)
+  const QString sep("\n");
+  const QStringList needleLines = text.split(sep);
+  const int numNeedleLines = needleLines.count();
+
+  if (numNeedleLines > 1)
   {
-    int searchEnd = lastLine();
-
-    while (line <= searchEnd)
+    // multi-line plaintext search
+    if (!backwards)
     {
-      KateTextLine::Ptr textLine = m_buffer->plainLine(line);
+      // forward search
+      // multi-line searching
+      // make single lines of multi-line needle
+      const QStringList needleLines = text.split(sep);
+      const int numNeedleLines = needleLines.count();
 
-      if (!textLine)
+      // needle with too many lines?
+      const int numHayLines = m_buffer->lines();
+      if (line + numNeedleLines > numHayLines) {
         return KTextEditor::Range::invalid();
+      }
 
-      uint foundAt, myMatchLen;
-      bool found = textLine->searchText (col, text, &foundAt, &myMatchLen, casesensitive, false);
+      // init hay line ring buffer
+      int hayLinesZeroIndex = 0;
+      KateTextLine::Ptr * hayLinesWindow = new KateTextLine::Ptr[numNeedleLines];
+      for (int i = 0; i < numNeedleLines; i++) {
+        hayLinesWindow[i] = m_buffer->plainLine(line + i);
+      }
 
-      if (found)
-        return KTextEditor::Range(line, foundAt, line, foundAt + myMatchLen);
+      for (int j = line; j + numNeedleLines <= numHayLines; j++) {
+        // try to match all lines
+        uint startCol = 0; // init value not important
+        for (int k = 0; k < numNeedleLines; k++) {
+          // which lines to compare
+          const QString & needleLine = needleLines[k];
+          KateTextLine::Ptr & hayLine = hayLinesWindow[(k + hayLinesZeroIndex) % numNeedleLines];
 
-      col = 0;
-      line++;
+          // position specific comparision (first, middle, last)
+          if (k == 0) {
+            // first line
+            if (needleLine.length() == 0) // if needle starts with a newline
+            {
+              startCol = hayLine->length();
+            }
+            else
+            {
+              uint myMatchLen;
+              const uint colOffset = (j > line) ? 0 : col;
+              const bool matches = hayLine->searchText (colOffset, needleLine, &startCol,
+                &myMatchLen, casesensitive, false);
+              if (!matches || (startCol + myMatchLen != static_cast<uint>(hayLine->length()))) {
+                break;
+              }
+            }
+          } else if (k == numNeedleLines - 1) {
+            // last line
+            uint foundAt, myMatchLen;
+            const bool matches = hayLine->searchText (0, needleLine, &foundAt, &myMatchLen, casesensitive, false);
+            if (matches && (foundAt == 0)) // full match!
+            {
+              delete [] hayLinesWindow;
+              return KTextEditor::Range(j, startCol, j + k, needleLine.length());
+            }
+          } else {
+            // mid lines
+            uint foundAt, myMatchLen;
+            const bool matches = hayLine->searchText (0, needleLine, &foundAt, &myMatchLen, casesensitive, false);
+            if (!matches || (foundAt != 0) || (myMatchLen != static_cast<uint>(needleLine.length()))) {
+              break;
+            }
+          }
+        }
+
+        // get a fresh line into the ring buffer
+        hayLinesWindow[hayLinesZeroIndex] = m_buffer->plainLine(j + numNeedleLines);
+        hayLinesZeroIndex++;
+      }
+
+      // not found
+      delete [] hayLinesWindow;
+      return KTextEditor::Range::invalid();
+    }
+    else
+    {
+      // backward search
+      // TODO
     }
   }
   else
   {
-    // backward search
-    int searchEnd = 0;
-
-    while (line >= searchEnd)
+    // single-line plaintext search
+    if (!backwards)
     {
-      KateTextLine::Ptr textLine = m_buffer->plainLine(line);
-
-      if (!textLine)
-        return KTextEditor::Range::invalid();
-
-      uint foundAt, myMatchLen;
-      bool found = textLine->searchText (col, text, &foundAt, &myMatchLen, casesensitive, true);
-
-      if (found)
+      // forward search
+      const int searchEnd = lastLine();
+      while (line <= searchEnd)
       {
-       /* if ((uint) line == startLine && foundAt + myMatchLen >= (uint) col
-            && line == selectStart.line() && foundAt == (uint) selectStart.column()
-            && line == selectEnd.line() && foundAt + myMatchLen == (uint) selectEnd.column())
-        {
-          // To avoid getting stuck at one match we skip a match if it is already
-          // selected (most likely because it has just been found).
-          if (foundAt > 0)
-            col = foundAt - 1;
-          else {
-            if (--line >= 0)
-              col = lineLength(line);
-          }
-          continue;
-      }*/
+        KateTextLine::Ptr textLine = m_buffer->plainLine(line);
 
-        return KTextEditor::Range(line, foundAt, line, foundAt + myMatchLen);
+        if (!textLine)
+          return KTextEditor::Range::invalid();
+
+        uint foundAt, myMatchLen;
+        const bool found = textLine->searchText (col, text, &foundAt, &myMatchLen, casesensitive, false);
+
+        if (found)
+          return KTextEditor::Range(line, foundAt, line, foundAt + myMatchLen);
+
+        col = 0;
+        line++;
       }
+    }
+    else
+    {
+      // backward search
+      const int searchEnd = 0;
+      while (line >= searchEnd)
+      {
+        KateTextLine::Ptr textLine = m_buffer->plainLine(line);
 
-      if (line >= 1)
-        col = lineLength(line-1);
+        if (!textLine)
+          return KTextEditor::Range::invalid();
 
-      line--;
+        uint foundAt, myMatchLen;
+        const bool found = textLine->searchText (col, text, &foundAt, &myMatchLen, casesensitive, true);
+
+        if (found)
+        {
+         /* if ((uint) line == startLine && foundAt + myMatchLen >= (uint) col
+              && line == selectStart.line() && foundAt == (uint) selectStart.column()
+              && line == selectEnd.line() && foundAt + myMatchLen == (uint) selectEnd.column())
+          {
+            // To avoid getting stuck at one match we skip a match if it is already
+            // selected (most likely because it has just been found).
+            if (foundAt > 0)
+              col = foundAt - 1;
+            else {
+              if (--line >= 0)
+                col = lineLength(line);
+            }
+            continue;
+        }*/
+
+          return KTextEditor::Range(line, foundAt, line, foundAt + myMatchLen);
+        }
+
+        if (line >= 1)
+          col = lineLength(line-1);
+
+        line--;
+      }
     }
   }
-
   return KTextEditor::Range::invalid();
 }
 
@@ -1849,85 +1938,635 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Cursor& startPos
   int line = startPosition.line();
   int col = startPosition.column();
 
-  if (!backwards)
-  {
-    int searchEnd = lastLine();
 
-    while (line <= searchEnd)
+  // detect pattern type (single- or mutli-line)
+  bool isMultiLine;
+  QString multiLinePattern = regexp.pattern();
+
+  // detect '.' and '\s' and fix them
+  const bool dotMatchesNewline = false; // TODO
+  const int replacements = repairPattern(multiLinePattern, isMultiLine);
+  if (dotMatchesNewline && (replacements > 0))
+  {
+    isMultiLine = true;
+  }
+
+  if (isMultiLine)
+  {
+    // multi-line regex search
+    QString wholeDocument;
+    const int lineCount = m_buffer->lines();
+
+    int * lineLens = new int[lineCount - line];
+
+    if (lineCount > line) // TODO
     {
       KateTextLine::Ptr textLine = m_buffer->plainLine(line);
-
-      if (!textLine)
-        return KTextEditor::Range::invalid();
-
-      uint foundAt, myMatchLen;
-      bool found = textLine->searchText (col, regexp, &foundAt, &myMatchLen, false);
-
-      if (found)
-      {
-        // A special case which can only occur when searching with a regular expression consisting
-        // only of a lookahead (e.g. ^(?=\{) for a function beginning without selecting '{').
-        if (myMatchLen == 0 && line == startPosition.line() && foundAt == (uint) col)
-        {
-          if (col < lineLength(line))
-            col++;
-          else {
-            line++;
-            col = 0;
-          }
-          continue;
-        }
-
-        return KTextEditor::Range(line, foundAt, line, foundAt + myMatchLen);
-      }
-
-      col = 0;
-      line++;
+      QString text = textLine->string();
+      const int lineLen = text.length() - col;
+      wholeDocument.append(text.right(lineLen));
+      lineLens[0] = lineLen;
     }
+
+    const QString sep("\n");
+    for (int i = line + 1; i < lineCount; i++)
+    {
+      KateTextLine::Ptr textLine = m_buffer->plainLine(i);
+      QString text = textLine->string();
+      wholeDocument.append(sep);
+      wholeDocument.append(text);
+      lineLens[i - line] = text.length();
+    }
+
+    // make regexer from modified pattern
+    QRegExp matcher(multiLinePattern, regexp.caseSensitivity());
+    const int pos = backwards	? matcher.lastIndexIn(wholeDocument, 0, QRegExp::CaretAtZero)
+				: matcher.indexIn(wholeDocument, 0, QRegExp::CaretAtZero);
+    if (pos == -1)
+    {
+      // no match
+      delete [] lineLens;
+      return KTextEditor::Range::invalid();
+    }
+    const int matchLen = matcher.matchedLength();
+
+    // make range from <pos> and <matchLen>
+    int startLine = 0;
+    int startCol = 0;
+    int endLine = 0;
+    int endCol = 0;
+    int startSum = 0;
+    int curRelLine = 0; // relative to starting 
+    for (;;)
+    {
+      if (startSum + lineLens[curRelLine] < pos)
+      {
+        // not in this line
+        startSum += lineLens[curRelLine] + 1;
+        curRelLine++;
+      }
+      else if (startSum + lineLens[curRelLine] == pos)
+      {
+        // in line, at trailing newline
+        startLine = curRelLine;
+        startCol = lineLens[curRelLine];
+        break;
+      }
+      else // if (startSum + lineLens[curRelLine] > pos)
+      {
+        // in line, before trailing newline
+        startLine = curRelLine;
+        startCol = pos - startSum;
+        break;
+      }
+    }
+
+    // single- or multi-line match?
+    if (startCol + matchLen <= lineLens[curRelLine] + 1)
+    {
+      // full or part line but not the newline
+      endLine = curRelLine;
+      endCol = startCol + matchLen; // first char after selection
+    }
+    else if (startCol + matchLen == lineLens[curRelLine] + 1)
+    {
+      // full line and the newline
+      endLine = curRelLine + 1;
+      endCol = 0; // first char after selection
+    }
+    else // if (startCol + matchLen > lineLens[curRelLine] + 1)
+    {
+      // multi-line match
+      int endSum = lineLens[curRelLine] - startCol + 1;
+      curRelLine++;
+      for (;;)
+      {
+        if (matchLen < endSum + lineLens[curRelLine] + 1)
+        {
+          // any char, not the trailing newline
+          endLine = curRelLine;
+          endCol = matchLen - endSum; // first char after selection
+          break;
+        }
+        else if (matchLen == endSum + lineLens[curRelLine] + 1)
+        {
+          // trailing newline
+          endLine = curRelLine + 1;
+          endCol = 0; // first char after selection
+          break;
+        }
+        else // if (matchLen > endSum + lineLens[curRelLine] + 1)
+        {
+          // first char in next line
+          endSum += lineLens[curRelLine] + 1;
+          curRelLine++;
+        }
+      }
+    }
+
+    delete [] lineLens;
+    return KTextEditor::Range(startLine, startCol, endLine, endCol);
   }
   else
   {
-    // backward search
-    int searchEnd = 0;
-
-    while (line >= searchEnd)
+    // single-line regex search
+    if (!backwards)
     {
-      KateTextLine::Ptr textLine = m_buffer->plainLine(line);
+      int searchEnd = lastLine();
 
-      if (!textLine)
-        return KTextEditor::Range::invalid();
-
-      uint foundAt, myMatchLen;
-      bool found = textLine->searchText (col, regexp, &foundAt, &myMatchLen, true);
-
-      if (found)
+      while (line <= searchEnd)
       {
-        /*if ((uint) line == startLine && foundAt + myMatchLen >= (uint) col
-            && line == selectStart.line() && foundAt == (uint) selectStart.column()
-            && line == selectEnd.line() && foundAt + myMatchLen == (uint) selectEnd.column())
+        KateTextLine::Ptr textLine = m_buffer->plainLine(line);
+
+        if (!textLine)
+          return KTextEditor::Range::invalid();
+
+        uint foundAt, myMatchLen;
+        bool found = textLine->searchText (col, regexp, &foundAt, &myMatchLen, false);
+
+        if (found)
         {
-          // To avoid getting stuck at one match we skip a match if it is already
-          // selected (most likely because it has just been found).
-          if (foundAt > 0)
-            col = foundAt - 1;
-          else {
-            if (--line >= 0)
-              col = lineLength(line);
+          // A special case which can only occur when searching with a regular expression consisting
+          // only of a lookahead (e.g. ^(?=\{) for a function beginning without selecting '{').
+          if (myMatchLen == 0 && line == startPosition.line() && foundAt == (uint) col)
+          {
+            if (col < lineLength(line))
+              col++;
+            else {
+              line++;
+              col = 0;
+            }
+            continue;
           }
-          continue;
-      }*/
 
-        return KTextEditor::Range(line, foundAt, line, foundAt + myMatchLen);
+          return KTextEditor::Range(line, foundAt, line, foundAt + myMatchLen);
+        }
+
+        col = 0;
+        line++;
       }
+    }
+    else
+    {
+      // backward search
+      int searchEnd = 0;
 
-      if (line >= 1)
-        col = lineLength(line-1);
+      while (line >= searchEnd)
+      {
+        KateTextLine::Ptr textLine = m_buffer->plainLine(line);
 
-      line--;
+        if (!textLine)
+          return KTextEditor::Range::invalid();
+
+        uint foundAt, myMatchLen;
+        bool found = textLine->searchText (col, regexp, &foundAt, &myMatchLen, true);
+
+        if (found)
+        {
+          /*if ((uint) line == startLine && foundAt + myMatchLen >= (uint) col
+              && line == selectStart.line() && foundAt == (uint) selectStart.column()
+              && line == selectEnd.line() && foundAt + myMatchLen == (uint) selectEnd.column())
+          {
+            // To avoid getting stuck at one match we skip a match if it is already
+            // selected (most likely because it has just been found).
+            if (foundAt > 0)
+              col = foundAt - 1;
+            else {
+              if (--line >= 0)
+                col = lineLength(line);
+            }
+            continue;
+          }*/
+
+          return KTextEditor::Range(line, foundAt, line, foundAt + myMatchLen);
+        }
+
+        if (line >= 1)
+          col = lineLength(line-1);
+
+        line--;
+      }
     }
   }
 
   return KTextEditor::Range::invalid();
+}
+
+
+
+void KateDocument::escapePlaintext(QString & text) {
+  // get input
+  const int inputLen = text.length();
+  int input = 0; // walker index
+
+  // prepare output
+  QString output;
+  output.reserve(inputLen + 1);
+
+  while (input < inputLen)
+  {
+    switch (text[input].unicode())
+    {
+    case L'\n':
+      output.append(text[input]);
+      input++;
+      break;
+
+    case L'\\':
+      if (input + 1 >= inputLen)
+      {
+        // copy backslash
+        output.append(text[input]);
+        input++;
+        break;
+      }
+
+      switch (text[input + 1].unicode())
+      {
+      case L'0': // "\0000".."\0377"
+        if (input + 2 >= inputLen)
+        {
+          // strip backslash ("\0" -> "0")
+          output.append(text[input + 1]);
+          input += 2;
+        }
+        else if (input + 3 >= inputLen)
+        {
+          // strip backslash ("\0?" -> "0?")
+          output.append(text[input + 1]).append(text[input + 2]);
+          input += 3;
+        }
+        else if (input + 4 >= inputLen)
+        {
+          // strip backslash ("\0??" -> "0??")
+          output.append(text[input + 1]).append(text[input + 2]).append(text[input + 3]);
+          input += 4;
+        }
+        else
+        {
+          const ushort text_2 = text[input + 2].unicode();
+          if ((text_2 >= L'0') && (text_2 <= L'3'))
+          {
+            const ushort text_3 = text[input + 3].unicode();
+            if ((text_3 >= L'0') && (text_3 <= L'7'))
+            {
+              const ushort text_4 = text[input + 4].unicode();
+              if ((text_4 >= L'0') && (text_4 <= L'7'))
+              {
+                int digits[3];
+                for (int i = 0; i < 3; i++)
+                {
+                  digits[i] = 7 - (L'7' - text[input + 2 + i].unicode());
+                }
+                const int ch = 64 * digits[0] + 8 * digits[1] + digits[2];
+                output.append(QChar(ch));
+                input += 5;
+              }
+              else
+              {
+                // strip backslash ("\0??" -> "0??")
+                output.append(text[input + 1]).append(text[input + 2]).append(text[input + 3]);
+                input += 4;
+              }
+            }
+            else
+            {
+              // strip backslash ("\0?" -> "0?")
+              output.append(text[input + 1]).append(text[input + 2]);
+              input += 3;
+            }
+          }
+          else
+          {
+            // strip backslash ("\0" -> "0")
+            output.append(text[input + 1]);
+            input += 2;
+          }
+        }
+        break;
+
+      case L'a':
+        output.append(QChar(0x07));
+        input += 2;
+        break;
+
+      case L'f':
+        output.append(QChar(0x0c));
+        input += 2;
+        break;
+
+      case L'n':
+        output.append(QChar(0x0a));
+        input += 2;
+        break;
+
+      case L'r':
+        output.append(QChar(0x0d));
+        input += 2;
+        break;
+
+      case L't':
+        output.append(QChar(0x09));
+        input += 2;
+        break;
+
+      case L'v':
+        output.append(QChar(0x0b));
+        input += 2;
+        break;
+
+      case L'x': // "\x0000".."\xffff"
+        if (input + 2 >= inputLen)
+        {
+          // strip backslash ("\x" -> "x")
+          output.append(text[input + 1]);
+          input += 2;
+        }
+        else if (input + 3 >= inputLen)
+        {
+          // strip backslash ("\x?" -> "x?")
+          output.append(text[input + 1]).append(text[input + 2]);
+          input += 3;
+        }
+        else if (input + 4 >= inputLen)
+        {
+          // strip backslash ("\x??" -> "x??")
+          output.append(text[input + 1]).append(text[input + 2]).append(text[input + 3]);
+          input += 4;
+        }
+        else if (input + 5 >= inputLen)
+        {
+          // strip backslash ("\x???" -> "x???")
+          output.append(text[input + 1]).append(text[input + 2]).append(text[input + 3]).append(text[input + 4]);
+          input += 5;
+        }
+        else
+        {
+          const ushort text_2 = text[input + 2].unicode();
+          if (((text_2 >= L'0') && (text_2 <= L'9'))
+              || ((text_2 >= L'a') && (text_2 <= L'f'))
+              || ((text_2 >= L'A') && (text_2 <= L'F')))
+          {
+            const ushort text_3 = text[input + 3].unicode();
+            if (((text_3 >= L'0') && (text_3 <= L'9'))
+                || ((text_3 >= L'a') && (text_3 <= L'f'))
+                || ((text_3 >= L'A') && (text_3 <= L'F')))
+            {
+              const ushort text_4 = text[input + 4].unicode();
+              if (((text_4 >= L'0') && (text_4 <= L'9'))
+                  || ((text_4 >= L'a') && (text_4 <= L'f'))
+                  || ((text_4 >= L'A') && (text_4 <= L'F')))
+              {
+                const ushort text_5 = text[input + 5].unicode();
+                if (((text_5 >= L'0') && (text_5 <= L'9'))
+                    || ((text_5 >= L'a') && (text_5 <= L'f'))
+                    || ((text_5 >= L'A') && (text_5 <= L'F')))
+                {
+                  int digits[4];
+                  for (int i = 0; i < 4; i++)
+                  {
+                    const ushort cur = text[input + 2 + i].unicode();
+                    if ((cur >= L'0') && (cur <= L'9'))
+                    {
+                      digits[i] = 9 - (L'9' - cur);
+                    }
+                    else if ((cur >= L'a') && (cur <= L'f'))
+                    {
+                      digits[i] = 15 - (L'f' - cur);
+                    }
+                    else // if ((cur >= L'A') && (cur <= L'F')))
+                    {
+                      digits[i] = 15 - (L'F' - cur);
+                    }
+                  }
+
+                  const int ch = 4096 * digits[0] + 256 * digits[1] + 16 * digits[2] + digits[3];
+                  output.append(QChar(ch));
+                  input += 6;
+                }
+                else
+                {
+                  // Strip backslash ("\x???" -> "x???")
+                  output.append(text[input + 1]).append(text[input + 2]).append(text[input + 3]).append(text[input + 4]);
+                  input += 5;
+                }
+              }
+              else
+              {
+                // Strip backslash ("\x??" -> "x??")
+                output.append(text[input + 1]).append(text[input + 2]).append(text[input + 3]);
+                input += 4;
+              }
+            }
+            else
+            {
+              // Strip backslash ("\x?" -> "x?")
+              output.append(text[input + 1]).append(text[input + 2]);
+              input += 3;
+            }
+          }
+          else
+          {
+            // Strip backslash ("\x" -> "x")
+            output.append(text[input + 1]);
+            input += 2;
+          }
+        }
+        break;
+
+      default:
+        // Strip backslash ("\?" -> "?")
+        output.append(text[input + 1]);
+        input += 2;
+
+      }
+      break;
+
+    default:
+      output.append(text[input]);
+      input++;
+
+    }
+  }
+
+  // Overwrite with escaped edition
+  text = output;
+}
+
+
+
+// these things can besides '.' and '\s' make apptern multi-line:
+// \n, \x000A, \x????-\x????, \0012, \0???-\0???
+// a multi-line pattern must not pass as single-line, the other
+// way around will just result in slower searches and is therefore
+// not as critical
+int KateDocument::repairPattern(QString & pattern, bool & stillMultiLine)
+{
+  const QString & text = pattern; // read-only input for parsing
+
+  // get input
+  const int inputLen = text.length();
+  int input = 0; // walker index
+
+  // prepare output
+  QString output;
+  output.reserve(2 * inputLen + 1); // twice should be enough for the average case
+
+  // parser state
+  stillMultiLine = false;
+  int replaceCount = 0;
+  bool insideClass = false;
+  
+  while (input < inputLen)
+  {
+    if (insideClass)
+    {
+      // wait for closing, unescaped ']'
+      switch (text[input].unicode())
+      {
+      case L'\\':
+        switch (text[input + 1].unicode())
+        {
+        case L'x':
+          if (input + 5 < inputLen)
+          {
+            // copy "\x????" unmodified
+            output.append(text.mid(input, 6));
+            input += 6;
+          } else {
+            // copy "\x" unmodified
+            output.append(text.mid(input, 2));
+            input += 2;
+          }
+          stillMultiLine = true;
+          break;
+
+        case L'0':
+          if (input + 4 < inputLen)
+          {
+            // copy "\0???" unmodified
+            output.append(text.mid(input, 5));
+            input += 5;
+          } else {
+            // copy "\0" unmodified
+            output.append(text.mid(input, 2));
+            input += 2;
+          }
+          stillMultiLine = true;
+          break;
+
+        case L's':
+          // replace "\s" with "[ \t]"
+          output.append("[ \\t]");
+          input += 2;
+          replaceCount++;
+          break;
+
+        case L'n':
+          stillMultiLine = true;
+          // FALLTROUGH
+
+        default:
+          // copy "\?" unmodified
+          output.append(text.mid(input, 2));
+          input += 2;
+        }
+        break;
+
+      case L']':
+        // copy "]" unmodified
+        insideClass = false;
+        output.append(text[input]);
+        input++;
+        break;
+
+      default:
+        // copy "?" unmodified
+        output.append(text[input]);
+        input++;
+
+      }
+    }
+    else
+    {
+      // search for real dots and \S
+      switch (text[input].unicode())
+      {
+      case L'\\':
+        switch (text[input + 1].unicode())
+        {
+        case L'x':
+          if (input + 5 < inputLen)
+          {
+            // copy "\x????" unmodified
+            output.append(text.mid(input, 6));
+            input += 6;
+          } else {
+            // copy "\x" unmodified
+            output.append(text.mid(input, 2));
+            input += 2;
+          }
+          stillMultiLine = true;
+          break;
+
+        case L'0':
+          if (input + 4 < inputLen)
+          {
+            // copy "\0???" unmodified
+            output.append(text.mid(input, 5));
+            input += 5;
+          } else {
+            // copy "\0" unmodified
+            output.append(text.mid(input, 2));
+            input += 2;
+          }
+          stillMultiLine = true;
+          break;
+
+        case L's':
+          // replace "\s" with "[ \t]"
+          output.append("[ \\t]");
+          input += 2;
+          replaceCount++;
+          break;
+
+        case L'n':
+          stillMultiLine = true;
+          // FALLTROUGH
+
+        default:
+          // copy "\?" unmodified
+          output.append(text.mid(input, 2));
+          input += 2;
+        }
+        break;
+
+      case L'.':
+        // replace " with "[^\n]"
+        output.append("[^\\n]");
+        input++;
+        replaceCount++;
+        break;
+
+      case L'[':
+        // copy "]" unmodified
+        insideClass = true;
+        output.append(text[input]);
+        input++;
+        break;
+
+      default:
+        // copy "?" unmodified
+        output.append(text[input]);
+        input++;
+
+      }
+    }
+  }
+
+  // Overwrite with repaired pattern
+  pattern = output;
+  return replaceCount;
 }
 //END
 

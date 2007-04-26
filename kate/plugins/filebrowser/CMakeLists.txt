@@ -1,4 +1,5 @@
 
+add_subdirectory( icons )
 
 
 ########### next target ###############

@@ -1423,6 +1423,10 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
       if (offset2 <= offset)
         continue;
+      // BUG 144599: Ignore a context change that would push the same context
+      // without eating anything... this would be an infinite loop!
+      if ( item->lookAhead && ( item->ctx.pops < 2 && item->ctx.newContext == ( ctx.isEmpty() ? 0 : ctx.last() ) ) )
+        continue;
 
       if (item->region2)
       {

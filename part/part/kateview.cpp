@@ -829,13 +829,15 @@ QString KateView::viewMode () const
 
 void KateView::slotGotFocus()
 {
-  editActionCollection()->setEnabled(true);
+  foreach(QAction *action, editActionCollection()->actions())
+    action->setEnabled(true);
   emit focusIn ( this );
 }
 
 void KateView::slotLostFocus()
 {
-  editActionCollection()->setEnabled(false);
+  foreach(QAction *action, editActionCollection()->actions())
+    action->setEnabled(false);
   emit focusOut ( this );
 }
 

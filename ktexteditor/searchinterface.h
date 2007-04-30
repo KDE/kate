@@ -33,6 +33,38 @@ namespace KTextEditor
 class Document;
 
 /**
+ * TODO
+ */
+namespace Search
+{
+  enum SearchOptionsEnum
+  {
+    // plaintext, case-sensitive, no escape
+    // sequence processing, whole words off,
+    // forward mode, non-block input range
+    Default             = 0,
+
+    // modes
+    Regex               = 1 << 1,
+
+    // options for all modes
+    CaseInsensitive     = 1 << 4,
+    Backwards           = 1 << 5,
+    BlockInputRange     = 1 << 6,
+
+    // options for plaintext
+    EscapeSequences     = 1 << 10,
+    WholeWords          = 1 << 11,
+
+    // options for regex
+    DotMatchesNewline   = 1 << 15
+  };
+
+  Q_DECLARE_FLAGS(SearchOptions, SearchOptionsEnum)
+  Q_DECLARE_OPERATORS_FOR_FLAGS(SearchOptions)
+}
+
+/**
  * \brief Search interface extension for the Document.
  *
  * \ingroup kte_group_doc_extensions
@@ -75,40 +107,17 @@ class KTEXTEDITOR_EXPORT SearchInterface
 
   public:
     /**
-     * Search for the given \p text beginning from \p startPosition taking
-     * into account whether to search \p casesensitive and \p backwards.
-     *
-     * \param startPosition start cursor position
-     * \param text text to search for
-     * \param casesensitive if \e true, the search is performed case
-     *        sensitive, otherwise case insensitive
-     * \param backwards if \e true, the search will be backwards
-     * \return The valid range of the matched text if \p text was found. If
-     *        the \p text was not found, the returned range is not valid
-     *        (see Range::isValid()).
-     * \see KTextEditor::Range
+     * TODO
      */
-    virtual KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
-                                           const QString &text,
-                                           bool casesensitive = true,
-                                           bool backwards = false) = 0;
+    virtual QVector<KTextEditor::Range> searchText(
+        const KTextEditor::Range & range,
+        const QString & pattern,
+        const Search::SearchOptions options = Search::Default) = 0;
 
     /**
-     * Search for the regular expression \p regexp beginning from
-     * \p startPosition, if \p backwards is \e true, the search direction will
-     * be reversed.
-     *
-     * \param startPosition start cursor position
-     * \param regexp text to search for
-     * \param backwards if \e true, the search will be backwards
-     * \return The valid range of the matched \p regexp. If the search was not
-     *        successful, the returned range is not valid
-     *        (see Range::isValid()).
-     * \see KTextEditor::Range, QRegExp
+     * TODO
      */
-    virtual KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
-                                           const QRegExp &regexp,
-                                           bool backwards = false) = 0;
+    virtual Search::SearchOptions supportedSearchOptions() const = 0;
 
   private:
     class SearchInterfacePrivate* const d;

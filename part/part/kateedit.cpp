@@ -39,7 +39,7 @@ Kate::EditSource KateEditInfo::editSource() const
   return m_editSource;
 }
 
-const KTextEditor::Range & KateEditInfo::oldRange( ) const
+KTextEditor::Range KateEditInfo::oldRange( ) const
 {
   return m_oldRange;
 }

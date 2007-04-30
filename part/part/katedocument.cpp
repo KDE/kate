@@ -2152,7 +2152,96 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Cursor& startPos
   return KTextEditor::Range::invalid();
 }
 
+QVector<KTextEditor::Range> KateDocument::searchText(
+    const KTextEditor::Range & range,
+    const QString & pattern,
+    const KTextEditor::Search::SearchOptions options)
+{
+  // TODO
+  // * support BlockInputRange
+  // * support DotMatchesNewline
+  // * return captchure ranges (not only full match)
 
+  KTextEditor::Search::SearchOptions finalOptions(options);
+  const bool escapeSequences = finalOptions.testFlag(KTextEditor::Search::EscapeSequences);
+
+  // abuse regex for whole word plaintext search
+  if (finalOptions.testFlag(KTextEditor::Search::WholeWords))
+  {
+    // resolve escape sequences like \t
+    QString expression(pattern);
+    if (escapeSequences)
+    {
+      KateDocument::escapePlaintext(expression);
+    }
+
+    // escape dot and friends
+    expression = "\\b" + QRegExp::escape(expression) + "\\b";
+
+    // regex ON, whole words OFF
+    finalOptions |= KTextEditor::Search::Regex;
+    finalOptions &= ~KTextEditor::Search::SearchOptions(KTextEditor::Search::WholeWords);
+  }
+
+  const bool regexMode = finalOptions.testFlag(KTextEditor::Search::Regex);
+  const bool caseSensitive = !finalOptions.testFlag(KTextEditor::Search::CaseInsensitive);
+  const bool backwards = finalOptions.testFlag(KTextEditor::Search::Backwards);
+
+  const KTextEditor::Cursor & start = range.start();
+  KTextEditor::Range resultRange;
+  if (regexMode)
+  {
+    // regex search
+    const Qt::CaseSensitivity caseSensitivity =
+        caseSensitive
+        ? Qt::CaseSensitive
+        : Qt::CaseInsensitive;
+
+    QRegExp matcher(pattern, caseSensitivity);
+    if (matcher.isValid())
+    {
+      // valid pattern
+      // run engine
+      resultRange = searchText(start, matcher, backwards);
+    }
+    else
+    {
+      // invalid pattern
+      resultRange = KTextEditor::Range::invalid();
+    }
+  }
+  else
+  {
+    // plaintext search
+
+    // resolve escape sequences like \t
+    QString finalPattern(pattern);
+    if (escapeSequences)
+    {
+      KateDocument::escapePlaintext(finalPattern);
+    }
+
+    // run engine
+    resultRange = searchText(start, finalPattern, caseSensitive, backwards);
+  }
+
+  QVector<KTextEditor::Range> result;
+  result.append(resultRange);
+  return result;
+}
+
+KTextEditor::Search::SearchOptions KateDocument::supportedSearchOptions() const
+{
+  KTextEditor::Search::SearchOptions supported(KTextEditor::Search::Default);
+  supported |= KTextEditor::Search::Regex;
+  supported |= KTextEditor::Search::CaseInsensitive;
+  supported |= KTextEditor::Search::Backwards;
+// supported |= KTextEditor::Search::BlockInputRange;
+  supported |= KTextEditor::Search::EscapeSequences;
+  supported |= KTextEditor::Search::WholeWords;
+// supported |= KTextEditor::Search::DotMatchesNewline;
+  return supported;
+}
 
 void KateDocument::escapePlaintext(QString & text) {
   // get input

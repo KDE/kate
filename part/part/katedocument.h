@@ -376,10 +376,44 @@ class KateDocument : public KTextEditor::Document,
   // KTextEditor::SearchInterface stuff
   //
   public Q_SLOTS:
+    /**
+     * Search for the given \p text beginning from \p startPosition taking
+     * into account whether to search \p casesensitive and \p backwards.
+     *
+     * \param startPosition start cursor position
+     * \param text text to search for
+     * \param casesensitive if \e true, the search is performed case
+     *        sensitive, otherwise case insensitive
+     * \param backwards if \e true, the search will be backwards
+     * \return The valid range of the matched text if \p text was found. If
+     *        the \p text was not found, the returned range is not valid
+     *        (see Range::isValid()).
+     * \see KTextEditor::Range
+     */
     KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
         const QString &text, bool casesensitive = true, bool backwards = false);
+
+    /**
+     * Search for the regular expression \p regexp beginning from
+     * \p startPosition, if \p backwards is \e true, the search direction will
+     * be reversed.
+     *
+     * \param startPosition start cursor position
+     * \param regexp text to search for
+     * \param backwards if \e true, the search will be backwards
+     * \return The valid range of the matched \p regexp. If the search was not
+     *        successful, the returned range is not valid
+     *        (see Range::isValid()).
+     * \see KTextEditor::Range, QRegExp
+     */
     KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
         const QRegExp &regexp, bool backwards = false);
+
+    QVector<KTextEditor::Range> searchText(
+        const KTextEditor::Range & range,
+        const QString & pattern,
+        const KTextEditor::Search::SearchOptions options);
+    KTextEditor::Search::SearchOptions supportedSearchOptions() const;
 
   public:
     static void escapePlaintext(QString & text);

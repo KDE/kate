@@ -153,6 +153,7 @@ KateSearchBar::~KateSearchBar()
 
 void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwards)
 {
+#if 0
     QString expression = _expression;
 
     bool selected = d->selectionOnlyBox->checkState();
@@ -230,7 +231,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
         wrapped = true;
     }
 
-    if ( foundMatch && selected )
+    if ( foundMatch && selectionOnly )
         foundMatch = m_view->selectionRange().contains( d->match );
 
     if (foundMatch)
@@ -239,7 +240,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
         m_view->setSelection(d->match);
         d->lastMatch = d->match;
         // it makes no sense to have this enabled after a match
-        if ( selected )
+        if ( selectionOnly )
             d->selectionOnlyBox->setCheckState( Qt::Unchecked );
 
         // highlight all matches
@@ -279,6 +280,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
 
 
     d->expressionEdit->setStatus(foundMatch ? (wrapped ? KateSearchBarEdit::SearchWrapped : KateSearchBarEdit::Normal) : KateSearchBarEdit::NotFound);
+#endif
 }
 
 void KateSearchBar::slotSpecialOptionTogled()

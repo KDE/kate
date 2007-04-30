@@ -107,12 +107,12 @@ class KTEXTEDITOR_EXPORT Cursor
     /**
      * Returns an invalid cursor.
      */
-    static Cursor invalid();
+    static const Cursor& invalid();
 
     /**
      * Returns a cursor representing the start of any document - i.e., line 0, column 0.
      */
-    static Cursor start();
+    static const Cursor& start();
 
     /**
      * \name Position

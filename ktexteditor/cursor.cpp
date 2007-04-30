@@ -48,13 +48,13 @@ bool Cursor::isValid() const
   return m_line >= 0 && m_column >= 0;
 }
 
-Cursor Cursor::invalid( )
+const Cursor & Cursor::invalid( )
 {
   static Cursor invalid(-1,-1);
   return invalid;
 }
 
-Cursor Cursor::start()
+const Cursor& Cursor::start()
 {
   static Cursor start(0, 0);
   return start;

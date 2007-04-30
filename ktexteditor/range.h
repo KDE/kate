@@ -121,7 +121,7 @@ class KTEXTEDITOR_EXPORT Range
     /**
      * Returns an invalid range.
      */
-    static Range invalid();
+    static const Range& invalid();
 
     /**
      * Returns whether this range is a SmartRange.
@@ -161,11 +161,11 @@ class KTEXTEDITOR_EXPORT Range
     /**
      * Get the start position of this range. This will always be <= end().
      *
-     * \returns the start position of this range.
+     * \returns a const reference to the start position of this range.
      *
      * \internal this function is virtual to allow for covariant return of SmartCursor%s.
      */
-    Cursor start() const;
+    const Cursor& start() const;
 
     /**
      * Get the end position of this range. This will always be >= start().
@@ -191,11 +191,11 @@ class KTEXTEDITOR_EXPORT Range
     /**
      * Get the end position of this range. This will always be >= start().
      *
-     * \returns the end position of this range.
+     * \returns a const reference to the end position of this range.
      *
      * \internal this function is virtual to allow for covariant return of SmartCursor%s.
      */
-    Cursor end() const;
+    const Cursor& end() const;
 
     /**
      * Convenience function.  Set the start and end lines to \p line.

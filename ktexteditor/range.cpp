@@ -116,7 +116,7 @@ bool Range::isValid( ) const
   return start().isValid() && end().isValid();
 }
 
-const Range& Range::invalid()
+Range Range::invalid()
 {
   static Range r;
   if (r.start().line() != -1)
@@ -294,7 +294,7 @@ Cursor& KTextEditor::Range::start()
   return *m_start;
 }
 
-const Cursor& KTextEditor::Range::start() const
+Cursor KTextEditor::Range::start() const
 {
   return *m_start;
 }
@@ -304,7 +304,7 @@ Cursor& KTextEditor::Range::end()
   return *m_end;
 }
 
-const Cursor& KTextEditor::Range::end() const
+Cursor KTextEditor::Range::end() const
 {
   return *m_end;
 }

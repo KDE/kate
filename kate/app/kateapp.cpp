@@ -31,7 +31,7 @@
 #include <kdeversion.h>
 #include <KCmdLineArgs>
 #include <KConfig>
-#include <KWM>
+#include <KWindowSystem>
 #include <KTipDialog>
 #include <kdebug.h>
 #include <KLibLoader>

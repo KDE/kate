@@ -153,68 +153,125 @@ KateSearchBar::~KateSearchBar()
 
 void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwards)
 {
-#if 0
     QString expression = _expression;
 
-    bool selected = d->selectionOnlyBox->checkState();
+    const bool selectionOnly = d->selectionOnlyBox->checkState() == Qt::Checked;
+    const bool fromCursor = d->fromCursorBox->checkState() == Qt::Checked;
 
     // If we're starting search for the first time, begin at the current cursor position.
     // ### there may be cases when this should happen, but does not
     if ( init )
     {
-        d->startCursor = d->fromCursorBox->checkState() ==
-            Qt::Checked ? m_view->cursorPosition() :
-              selected ? m_view->selectionRange().start() :
-              KTextEditor::Cursor( 0, 0 );
+        d->startCursor = fromCursor ? m_view->cursorPosition()
+                                    : selectionOnly ? m_view->selectionRange().start()
+                                                    : KTextEditor::Cursor(0, 0);
         d->searching = true;
 
         // clear
         d->topRange->deleteChildRanges();
     }
 
-    const bool escapeSequences = true; // TODO make checkbox for that
+    // combine options
+    const KTextEditor::Search::SearchOptions supportedOptions = m_view->doc()->supportedSearchOptions();
+    KTextEditor::Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
 
-    // abuse regex for whole word plaintext search
-    bool regexMode = d->regExpBox->checkState() == Qt::Checked;
-    const bool wholeWords = (d->wholeWordsBox->checkState() != Qt::Checked);
-    if (!regexMode && wholeWords)
+    // which mode?
+    const bool regexChecked = d->regExpBox->checkState() == Qt::Checked;
+    if (regexChecked && supportedOptions.testFlag(KTextEditor::Search::Regex))
     {
-      // resolve escape sequences like \t
-      if (escapeSequences)
+      // regex
+      enabledOptions |= KTextEditor::Search::Regex;
+
+      // TODO
+      // dot matches newline?
+      const bool dotMatchesNewline = false;
+      if (dotMatchesNewline && supportedOptions.testFlag(KTextEditor::Search::DotMatchesNewline))
       {
-        KateDocument::escapePlaintext(expression);
+        enabledOptions |= KTextEditor::Search::DotMatchesNewline;
       }
-
-      // escape dot and friends
-      expression = "\\b" + QRegExp::escape(expression) + "\\b";
-      regexMode = true;
-    }
-
-    // run search engine
-    const bool caseSensitive = d->caseSensitiveBox->checkState() == Qt::Checked;
-    if (regexMode)
-    {
-      d->regExp.setPattern(expression);
-      if (!d->regExp.isValid())
-      {
-        return;
-      }
-
-      d->regExp.setCaseSensitivity(caseSensitive
-          ? Qt::CaseSensitive
-          : Qt::CaseInsensitive);
-
-      d->match = m_view->doc()->searchText(d->startCursor, d->regExp, backwards);
     }
     else
     {
-      // resolve escape sequences like \t
-      if (escapeSequences)
+      // plaintext
+
+      // whole words?
+      const bool wholeWordsChecked = d->wholeWordsBox->checkState() == Qt::Checked;
+      if (wholeWordsChecked && supportedOptions.testFlag(KTextEditor::Search::WholeWords))
       {
-        KateDocument::escapePlaintext(expression);
+        enabledOptions |= KTextEditor::Search::WholeWords;
       }
-      d->match = m_view->doc()->searchText(d->startCursor, expression, caseSensitive, backwards);
+
+      // TODO make configurable
+      // escape sequences?    
+      const bool escapeSequences = true;
+      if (escapeSequences && supportedOptions.testFlag(KTextEditor::Search::EscapeSequences))
+      {
+        enabledOptions |= KTextEditor::Search::EscapeSequences;
+      }
     }
+
+    // case insensitive?
+    const bool caseSensitiveChecked = d->caseSensitiveBox->checkState() == Qt::Checked;
+    if (!caseSensitiveChecked && supportedOptions.testFlag(KTextEditor::Search::CaseInsensitive))
+    {
+      enabledOptions |= KTextEditor::Search::CaseInsensitive;
+    }
+
+    // backwards?
+    if (backwards && supportedOptions.testFlag(KTextEditor::Search::Backwards))
+    {
+      enabledOptions |= KTextEditor::Search::Backwards;
+    }
+
+    // find input range
+    KTextEditor::Range inputRange;
+    if (selectionOnly)
+    {
+      if (m_view->selection())
+      {
+        // selection found
+        // TODO skip part before cursor if cursor within selection
+        inputRange = m_view->selectionRange();
+
+        // block input range?
+        if (m_view->blockSelection())
+        {
+          if (supportedOptions.testFlag(KTextEditor::Search::BlockInputRange))
+          {
+            enabledOptions |= KTextEditor::Search::BlockInputRange;
+          }
+          else
+          {
+            // TODO KTextEditor in use cannot handle this. What do we do?
+            // TODO Stop whole search?
+            inputRange = m_view->doc()->documentRange();
+          }          
+        }
+      }
+      else
+      {
+        // no selection
+        if (fromCursor)
+        {
+          // from cursor on
+          inputRange.setRange(d->startCursor, m_view->doc()->documentEnd());
+        }
+        else
+        {
+          // whole document
+          inputRange = m_view->doc()->documentRange();
+        }
+      }
+    }
+    else
+    {
+      // whole document
+      inputRange = m_view->doc()->documentRange();
+    }
+
+    // run engine
+    QVector<KTextEditor::Range> resultRanges = m_view->doc()->searchText(inputRange, expression, enabledOptions);
+    d->match = resultRanges[0];
 
     bool foundMatch = d->match.isValid() && d->match != d->lastMatch && d->match != m_view->selectionRange();
     bool wrapped = false;
@@ -222,7 +279,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
     if (d->wrapAround && !foundMatch)
     {
         // We found nothing, so wrap.
-        d->startCursor = selected?
+        d->startCursor = selectionOnly?
             backwards ? m_view->selectionRange().end() : m_view->selectionRange().start()
         :
             backwards ? m_view->doc()->documentEnd() : KTextEditor::Cursor(0, 0);
@@ -280,7 +337,6 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
 
 
     d->expressionEdit->setStatus(foundMatch ? (wrapped ? KateSearchBarEdit::SearchWrapped : KateSearchBarEdit::Normal) : KateSearchBarEdit::NotFound);
-#endif
 }
 
 void KateSearchBar::slotSpecialOptionTogled()

@@ -2160,7 +2160,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
   // TODO
   // * support BlockInputRange
   // * support DotMatchesNewline
-  // * return captchure ranges (not only full match)
+  // * return capture ranges (not only full match)
 
   KTextEditor::Search::SearchOptions finalOptions(options);
   const bool escapeSequences = finalOptions.testFlag(KTextEditor::Search::EscapeSequences);

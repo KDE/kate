@@ -230,8 +230,14 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
       if (m_view->selection())
       {
         // selection found
-        // TODO skip part before cursor if cursor within selection
         inputRange = m_view->selectionRange();
+
+        // skip part before cursor if cursor within selection
+        const KTextEditor::Cursor cursorPos = m_view->cursorPosition();
+        if (inputRange.contains(cursorPos))
+        {
+          inputRange.setRange(cursorPos, inputRange.end());
+        }
 
         // block input range?
         if (m_view->blockSelection())

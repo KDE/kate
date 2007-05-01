@@ -240,7 +240,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
         }
 
         // block input range?
-        if (m_view->blockSelection())
+        if (m_view->blockSelection() && !inputRange.onSingleLine())
         {
           if (supportedOptions.testFlag(KTextEditor::Search::BlockInputRange))
           {

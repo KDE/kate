@@ -176,7 +176,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
 
     // abuse regex for whole word plaintext search
     bool regexMode = d->regExpBox->checkState() == Qt::Checked;
-    bool wholeWords = (d->wholeWordsBox->checkState() != Qt::Checked);
+    const bool wholeWords = (d->wholeWordsBox->checkState() != Qt::Checked);
     if (!regexMode && wholeWords)
     {
       // resolve escape sequences like \t

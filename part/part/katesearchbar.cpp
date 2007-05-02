@@ -172,12 +172,11 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
     }
 
     // combine options
-    const KTextEditor::Search::SearchOptions supportedOptions = m_view->doc()->supportedSearchOptions();
     KTextEditor::Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
 
     // which mode?
     const bool regexChecked = d->regExpBox->checkState() == Qt::Checked;
-    if (regexChecked && supportedOptions.testFlag(KTextEditor::Search::Regex))
+    if (regexChecked)
     {
       // regex
       enabledOptions |= KTextEditor::Search::Regex;
@@ -185,7 +184,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
       // TODO
       // dot matches newline?
       const bool dotMatchesNewline = false;
-      if (dotMatchesNewline && supportedOptions.testFlag(KTextEditor::Search::DotMatchesNewline))
+      if (dotMatchesNewline)
       {
         enabledOptions |= KTextEditor::Search::DotMatchesNewline;
       }
@@ -196,7 +195,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
 
       // whole words?
       const bool wholeWordsChecked = d->wholeWordsBox->checkState() == Qt::Checked;
-      if (wholeWordsChecked && supportedOptions.testFlag(KTextEditor::Search::WholeWords))
+      if (wholeWordsChecked)
       {
         enabledOptions |= KTextEditor::Search::WholeWords;
       }
@@ -204,7 +203,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
       // TODO make configurable
       // escape sequences?    
       const bool escapeSequences = true;
-      if (escapeSequences && supportedOptions.testFlag(KTextEditor::Search::EscapeSequences))
+      if (escapeSequences)
       {
         enabledOptions |= KTextEditor::Search::EscapeSequences;
       }
@@ -212,13 +211,13 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
 
     // case insensitive?
     const bool caseSensitiveChecked = d->caseSensitiveBox->checkState() == Qt::Checked;
-    if (!caseSensitiveChecked && supportedOptions.testFlag(KTextEditor::Search::CaseInsensitive))
+    if (!caseSensitiveChecked)
     {
       enabledOptions |= KTextEditor::Search::CaseInsensitive;
     }
 
     // backwards?
-    if (backwards && supportedOptions.testFlag(KTextEditor::Search::Backwards))
+    if (backwards)
     {
       enabledOptions |= KTextEditor::Search::Backwards;
     }
@@ -242,16 +241,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
         // block input range?
         if (m_view->blockSelection() && !inputRange.onSingleLine())
         {
-          if (supportedOptions.testFlag(KTextEditor::Search::BlockInputRange))
-          {
-            enabledOptions |= KTextEditor::Search::BlockInputRange;
-          }
-          else
-          {
-            // TODO KTextEditor in use cannot handle this. What do we do?
-            // TODO Stop whole search?
-            inputRange = m_view->doc()->documentRange();
-          }          
+          enabledOptions |= KTextEditor::Search::BlockInputRange;
         }
       }
       else

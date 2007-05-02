@@ -416,7 +416,23 @@ class KateDocument : public KTextEditor::Document,
     KTextEditor::Search::SearchOptions supportedSearchOptions() const;
 
   public:
+    /**
+     * Resolves escape sequences, e.g. "\\n" to "\n".
+     *
+     * \param text  Text to process
+     */
     static void escapePlaintext(QString & text);
+
+    /**
+     * Repairs a regular Expression pattern.
+     * This is a workaround to make "." and "\s" not match
+     * newlines, which currently is the unconfigurable
+     * default in QRegExp.
+     *
+     * \param pattern         Regular expression
+     * \param stillMultiLine  Multi-line after reparation flag
+     * \return                Number of replacements done
+     */
     static int repairPattern(QString & pattern, bool & stillMultiLine);
 
   //

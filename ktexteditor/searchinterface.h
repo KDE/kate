@@ -33,31 +33,38 @@ namespace KTextEditor
 class Document;
 
 /**
- * TODO
+ * \brief Search interface options.
  */
 namespace Search
 {
+  /**
+   * \brief Search flags for use with searchText.
+   *
+   * Modifies the behavior of searchText.
+   * By default it is searched for a case-sensitive plaintext pattern,
+   * without processing of escape sequences, with "whole words" off,
+   * in forward direction, within a non-block-mode text range.
+   *
+   * \author Sebastian Pipping \<webmaster@hartwork.org\>
+   */
   enum SearchOptionsEnum
   {
-    // plaintext, case-sensitive, no escape
-    // sequence processing, whole words off,
-    // forward mode, non-block input range
-    Default             = 0,
+    Default             = 0,      ///< Default settings
 
     // modes
-    Regex               = 1 << 1,
+    Regex               = 1 << 1, ///< Treats the pattern as a regular expression
 
     // options for all modes
-    CaseInsensitive     = 1 << 4,
-    Backwards           = 1 << 5,
-    BlockInputRange     = 1 << 6,
+    CaseInsensitive     = 1 << 4, ///< Ignores cases, e.g. "a" matches "A"
+    Backwards           = 1 << 5, ///< Searches in backward direction
+    BlockInputRange     = 1 << 6, ///< Treats the input range as a recantgle (block-selection mode)
 
     // options for plaintext
-    EscapeSequences     = 1 << 10,
-    WholeWords          = 1 << 11,
+    EscapeSequences     = 1 << 10, ///< Plaintext mode: Processes escape sequences
+    WholeWords          = 1 << 11, ///< Plaintext mode: Whole words only, e.g. <u>not</u> &quot;amp&quot; in &quot;example&quot;
 
     // options for regex
-    DotMatchesNewline   = 1 << 15
+    DotMatchesNewline   = 1 << 15  ///< Regex mode: Makes "." match newlines
   };
 
   Q_DECLARE_FLAGS(SearchOptions, SearchOptionsEnum)
@@ -73,7 +80,7 @@ namespace Search
  *
  * The SearchInterface provides methods to search for a given text pattern in
  * a Document. You can either search for a simple text or for a regular
- * expression by using a QRegExp, see searchText().
+ * expression, see searchText.
  *
  * \section searchiface_access Accessing the SearchInterface
  *
@@ -98,6 +105,9 @@ namespace Search
 class KTEXTEDITOR_EXPORT SearchInterface
 {
   public:
+    /**
+     * Constructor.
+     */
     SearchInterface();
 
     /**
@@ -107,7 +117,26 @@ class KTEXTEDITOR_EXPORT SearchInterface
 
   public:
     /**
-     * TODO
+     * \brief Searches the given input range for a text pattern.
+     *
+     * Searches for a text pattern within the given input range.
+     * The kind of search performed depends on the <code>options</code>
+     * used. Use this function for plaintext searches as well as
+     * regular expression searches. Query supportedSearchOptions
+     * to find out, which options the current implementation does
+     * support. If no match is found the first (and only) element
+     * in the vector return is the invalid range. When searching
+     * for regular expressions, the first element holds the
+     * range of the full match, the subsequent elements hold
+     * the ranges of the capturing parentheses.
+     *
+     * \param range    Input range to search in
+     * \param pattern  Text pattern to search for
+     * \param options  Combination of search flags
+     * \return         List of ranges (length >=1)
+     *
+     * \see Search::SearchOptionsEnum
+     * \author Sebastian Pipping \<webmaster@hartwork.org\>
      */
     virtual QVector<KTextEditor::Range> searchText(
         const KTextEditor::Range & range,
@@ -115,7 +144,12 @@ class KTEXTEDITOR_EXPORT SearchInterface
         const Search::SearchOptions options = Search::Default) = 0;
 
     /**
-     * TODO
+     * \brief Specifies all options supported by searchText.
+     *
+     * \return  Combination of all flags supported by searchText
+     *
+     * \see Search::SearchOptionsEnum
+     * \author Sebastian Pipping \<webmaster@hartwork.org\>
      */
     virtual Search::SearchOptions supportedSearchOptions() const = 0;
 

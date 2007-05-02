@@ -1810,7 +1810,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Cursor& startPos
           const QString & needleLine = needleLines[k];
           KateTextLine::Ptr & hayLine = hayLinesWindow[(k + hayLinesZeroIndex) % numNeedleLines];
 
-          // position specific comparision (first, middle, last)
+          // position specific comparison (first, middle, last)
           if (k == 0) {
             // first line
             if (needleLine.length() == 0) // if needle starts with a newline

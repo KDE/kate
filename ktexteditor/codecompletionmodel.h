@@ -20,7 +20,7 @@
 #define KDELIBS_KTEXTEDITOR_CODECOMPLETIONMODEL_H
 
 #include <ktexteditor/ktexteditor_export.h>
-#include <QtCore/QAbstractItemModel>
+#include <QtCore/QModelIndex>
 #include <ktexteditor/range.h>
 
 namespace KTextEditor {

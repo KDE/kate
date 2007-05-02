@@ -20,7 +20,7 @@
 
 #include "smartinterface.h"
 
-#include <QMutex>
+#include <QtCore/QMutex>
 
 using namespace KTextEditor;
 

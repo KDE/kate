@@ -18,7 +18,7 @@
 
 #include "smartrange.h"
 
-#include <QStack>
+#include <QtCore/QStack>
 
 #include "document.h"
 #include "view.h"

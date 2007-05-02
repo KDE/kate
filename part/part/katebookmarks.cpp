@@ -35,9 +35,9 @@
 #include <ktoggleaction.h>
 #include <kactionmenu.h>
 
-#include <QRegExp>
-#include <QEvent>
-#include <QVector>
+#include <QtCore/QRegExp>
+#include <QtCore/QEvent>
+#include <QtCore/QVector>
 
 namespace KTextEditor{ class Document; }
 

@@ -50,8 +50,8 @@
 
 #include <QtCore/QRegExp>
 #include <QtCore/QString>
-#include <QSet>
-#include <QtGui/QDoubleSpinBox>
+#include <QtCore/QSet>
+#include <QtGui/QSpinBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
 

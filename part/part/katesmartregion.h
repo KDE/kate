@@ -19,7 +19,7 @@
 #ifndef KATESMARTREGION_H
 #define KATESMARTREGION_H
 
-#include <QList>
+#include <QtCore/QList>
 
 #include <ktexteditor/range.h>
 

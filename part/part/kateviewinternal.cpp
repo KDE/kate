@@ -44,16 +44,15 @@
 #include <kapplication.h>
 #include <kglobalsettings.h>
 
-#include <QMimeData>
-#include <QPainter>
-#include <QLayout>
-#include <QClipboard>
-#include <QPixmap>
-#include <QWheelEvent>
-#include <QMouseEvent>
-#include <QStack>
-#include <QMutex>
-#include <QThread>
+#include <QtCore/QMimeData>
+#include <QtGui/QPainter>
+#include <QtGui/QLayout>
+#include <QtGui/QClipboard>
+#include <QtGui/QPixmap>
+#include <QtGui/QKeyEvent>
+#include <QtCore/QStack>
+#include <QtCore/QMutex>
+#include <QtCore/QThread>
 
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view)

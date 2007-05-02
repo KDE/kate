@@ -19,7 +19,7 @@
 #ifndef KATECOMPLETIONTREE_H
 #define KATECOMPLETIONTREE_H
 
-#include <QTreeView>
+#include <QtGui/QTreeView>
 
 class KateCompletionWidget;
 class KateCompletionModel;

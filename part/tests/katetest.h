@@ -21,9 +21,8 @@
 #ifndef __KWRITE_MAIN_H__
 #define __KWRITE_MAIN_H__
 
-#include <QDragEnterEvent>
-#include <QDropEvent>
-#include <QList>
+#include <QtGui/QKeyEvent>
+#include <QtCore/QList>
 
 #include <kdialog.h>
 #include <ktexteditor/document.h>

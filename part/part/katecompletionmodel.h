@@ -19,10 +19,10 @@
 #ifndef KATECOMPLETIONMODEL_H
 #define KATECOMPLETIONMODEL_H
 
-#include <QAbstractProxyModel>
-#include <QPair>
-#include <QMutableListIterator>
-#include <QHash>
+#include <QtGui/QAbstractProxyModel>
+#include <QtCore/QPair>
+#include <QtCore/QList>
+#include <QtCore/QHash>
 
 #include <ktexteditor/codecompletionmodel.h>
 

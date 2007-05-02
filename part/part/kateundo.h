@@ -21,7 +21,7 @@
 #ifndef kate_undo_h
 #define kate_undo_h
 
-#include <QList>
+#include <QtCore/QList>
 
 
 class KateDocument;

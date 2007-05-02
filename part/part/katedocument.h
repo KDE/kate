@@ -22,11 +22,11 @@
 #ifndef _KATE_DOCUMENT_H_
 #define _KATE_DOCUMENT_H_
 
-#include <QLinkedList>
-#include <QMap>
-#include <QDateTime>
-#include <QClipboard>
-#include <QStack>
+#include <QtCore/QLinkedList>
+#include <QtCore/QMap>
+#include <QtCore/QDate>
+#include <QtGui/QClipboard>
+#include <QtCore/QStack>
 
 #include <kmimetype.h>
 #include <klocale.h>

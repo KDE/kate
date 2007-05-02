@@ -21,7 +21,7 @@
 #ifndef KATESTYLELISTVIEW_H
 #define KATESTYLELISTVIEW_H
 
-#include <QTreeWidget>
+#include <QtGui/QTreeWidget>
 
 #include "kateextendedattribute.h"
 

@@ -41,7 +41,7 @@
 #include <kpagewidgetmodel.h>
 #include <kiconloader.h>
 
-#include <QVBoxLayout>
+#include <QtGui/QBoxLayout>
 
 KateGlobal *KateGlobal::s_self = 0;
 

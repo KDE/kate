@@ -58,13 +58,13 @@
 #include <QtGui/QPixmap>
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
-#include <QtGui/QDoubleSpinBox>
+#include <QtGui/QSpinBox>
 #include <QtCore/QStringList>
 #include <QtGui/QTabWidget>
-#include <QPolygon>
-#include <QGroupBox>
-#include <QTreeWidgetItem>
-#include <QItemDelegate>
+#include <QtGui/QPolygon>
+#include <QtGui/QGroupBox>
+#include <QtGui/QTreeWidget>
+#include <QtGui/QItemDelegate>
 //END
 
 

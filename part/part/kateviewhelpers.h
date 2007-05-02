@@ -24,12 +24,12 @@
 #include <kcodecaction.h>
 #include <klineedit.h>
 
-#include <QPixmap>
-#include <QColor>
-#include <QScrollBar>
-#include <QHash>
-#include <QStackedLayout>
-#include <QMap>
+#include <QtGui/QPixmap>
+#include <QtGui/QColor>
+#include <QtGui/QScrollBar>
+#include <QtCore/QHash>
+#include <QtGui/QStackedLayout>
+#include <QtCore/QMap>
 
 class KateDocument;
 class KateView;

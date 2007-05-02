@@ -19,7 +19,7 @@
 #ifndef CURSOREXPECTATION_H
 #define CURSOREXPECTATION_H
 
-#include <QFlags>
+#include <QtCore/QBool>
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/cursorfeedback.h>
 

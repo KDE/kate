@@ -79,13 +79,13 @@
 #include <QtGui/QFont>
 #include <QtCore/QFileInfo>
 #include <QtGui/QStyle>
-#include <QtGui/QActionEvent>
+#include <QtGui/QKeyEvent>
 #include <QtGui/QLayout>
 #include <QtGui/QClipboard>
-#include <QtGui/QAbstractUndoItem>
-#include <QtCore/QTextIStream>
+#include <QtGui/QTextDocument>
+#include <QtCore/QTextStream>
 #include <QtCore/QMimeData>
-#include <QTextCodec>
+#include <QtCore/QTextCodec>
 //END includes
 
 static void blockFix(KTextEditor::Range& range)

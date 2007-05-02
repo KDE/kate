@@ -49,13 +49,13 @@
 #include <QtGui/QColor>
 #include <QtGui/QCursor>
 #include <QtCore/QDir>
-#include <QtGui/QActionEvent>
+#include <QtGui/QKeyEvent>
 #include <QtCore/QObject>
 #include <QtGui/QPushButton>
 //#include <qscrollview.h>
 #include <QtCore/QString>
 #include <QtCore/QRegExp>
-#include <QtCore/QTextIStream>
+#include <QtCore/QTextStream>
 #include <QtCore/QList>
 #include <QtGui/QImage>
 #include <QtCore/QTimer>

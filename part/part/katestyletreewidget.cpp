@@ -20,10 +20,10 @@
 
 #include "katestyletreewidget.h"
 
-#include <QPainter>
-#include <QContextMenuEvent>
-#include <QAction>
-#include <QItemDelegate>
+#include <QtGui/QPainter>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QAction>
+#include <QtGui/QItemDelegate>
 
 #include <klocale.h>
 #include <kicon.h>

@@ -59,21 +59,20 @@
 #include <krecentfilesaction.h>
 #include <kactioncollection.h>
 
-#include <QStackedWidget>
+#include <QtGui/QStackedWidget>
 #include <QtGui/QPainter>
 #include <QtGui/QLabel>
 #include <QtGui/QCursor>
-#include <QMenu>
+#include <QtGui/QMenu>
 #include <QtGui/QPixmap>
 #include <QtCore/QTimer>
 #include <QtCore/QTextCodec>
 #include <QtGui/QLayout>
 //Added by qt3to4:
-#include <QDragEnterEvent>
-#include <QVBoxLayout>
-#include <Q3ValueList>
-#include <QDropEvent>
-#include <QTextIStream>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QBoxLayout>
+#include <Qt3Support/Q3ValueList>
+#include <QtCore/QTextStream>
 
 #include <kxmlguifactory.h>
 

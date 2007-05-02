@@ -18,8 +18,8 @@
 
 #include "katecompletiondelegate.h"
 
-#include <QTextLayout>
-#include <QPainter>
+#include <QtGui/QTextLine>
+#include <QtGui/QPainter>
 
 #include "katerenderer.h"
 #include "katetextline.h"

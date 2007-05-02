@@ -39,7 +39,7 @@
 #include <QtCore/QStringList>
 #include <QtGui/QColor>
 #include <QtGui/QTabWidget>
-#include <QTreeWidget>
+#include <QtGui/QTreeWidget>
 
 class KatePartPluginListItem;
 

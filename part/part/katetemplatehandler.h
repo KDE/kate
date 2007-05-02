@@ -20,12 +20,12 @@
 
 #include "katesmartrange.h"
 #include "katekeyinterceptorfunctor.h"
-#include <QPointer>
+#include <QtCore/QPointer>
 #include <QtCore/QObject>
 #include <QtCore/QMap>
-#include <QHash>
+#include <QtCore/QHash>
 #include <QtCore/QString>
-#include <QList>
+#include <QtCore/QList>
 
 class KateDocument;
 

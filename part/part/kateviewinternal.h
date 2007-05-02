@@ -33,12 +33,12 @@
 #include "katetextline.h"
 #include "katedocument.h"
 
-#include <QPoint>
-#include <QTimer>
-#include <QDrag>
-#include <QWidget>
-#include <QSet>
-#include <QPointer>
+#include <QtCore/QPoint>
+#include <QtCore/QTimer>
+#include <QtGui/QDrag>
+#include <QtGui/QWidget>
+#include <QtCore/QSet>
+#include <QtCore/QPointer>
 
 class KateView;
 class KateIconBorder;

@@ -43,12 +43,12 @@
 #include <QtGui/QPainter>
 #include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
-#include <QGroupBox>
+#include <QtGui/QGroupBox>
 
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
 #include <QtGui/QLineEdit>
-#include <QtGui/QDoubleSpinBox>
+#include <QtGui/QSpinBox>
 #include <QtCore/QStringList>
 #include <kvbox.h>
 

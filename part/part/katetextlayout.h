@@ -20,7 +20,7 @@
 #ifndef _KATE_TEXTLAYOUT_H_
 #define _KATE_TEXTLAYOUT_H_
 
-#include <QTextLine>
+#include <QtGui/QTextLine>
 
 #include <ksharedptr.h>
 #include "katelinerange.h"

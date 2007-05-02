@@ -95,15 +95,14 @@
 #include <QtGui/QPainter>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
-#include <QtGui/QDoubleSpinBox>
+#include <QtGui/QSpinBox>
 #include <QtCore/QStringList>
 #include <QtGui/QTabWidget>
 #include <QtCore/QTextCodec>
-#include <QtCore/QTextIStream>
+#include <QtCore/QTextStream>
 #include <QtGui/QToolButton>
-#include <QComboBox>
-#include <QWhatsThis>
-#include <QKeyEvent>
+#include <QtGui/QWhatsThis>
+#include <QtGui/QKeyEvent>
 
 // trailing slash is important
 #define HLDOWNLOADPATH "http://kate.kde.org/syntax/"

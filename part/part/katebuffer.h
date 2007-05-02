@@ -23,7 +23,7 @@
 #include "katetextline.h"
 #include "katecodefoldinghelpers.h"
 
-#include <QObject>
+#include <QtCore/QObject>
 
 class KateLineInfo;
 class KateDocument;

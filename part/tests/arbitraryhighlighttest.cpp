@@ -23,7 +23,7 @@
 #include <ktexteditor/rangefeedback.h>
 #include <ktexteditor/attribute.h>
 
-#include <QTimer>
+#include <QtCore/QTimer>
 
 using namespace KTextEditor;
 

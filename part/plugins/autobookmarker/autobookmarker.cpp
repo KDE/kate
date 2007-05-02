@@ -44,15 +44,14 @@
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
 #include <QtGui/QLineEdit>
-#include <Qt3Support/Q3CheckListItem>
+#include <Qt3Support/Q3ListView>
 #include <QtGui/QPushButton>
 #include <QtGui/QToolButton>
 #include <QtCore/QRegExp>
 //Added by qt3to4:
-#include <QPixmap>
-#include <QGridLayout>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
+#include <QtGui/QPixmap>
+#include <QtGui/QGridLayout>
+#include <QtGui/QBoxLayout>
 
 //#include <kdebug.h>
 //END includes

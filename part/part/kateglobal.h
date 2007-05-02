@@ -27,7 +27,7 @@
 #include <kcomponentdata.h>
 #include <kaboutdata.h>
 #include <ktexteditor/commandinterface.h>
-#include <QList>
+#include <QtCore/QList>
 
 /**
  * katepart version must be a string in double quotes, format: "x.x"

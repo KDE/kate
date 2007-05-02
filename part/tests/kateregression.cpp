@@ -18,7 +18,7 @@
 
 #include "kateregression.h"
 
-#include <QStack>
+#include <QtCore/QStack>
 
 #include <ktexteditor/editorchooser.h>
 #include <ktexteditor/editor.h>

@@ -43,22 +43,22 @@
 #include <QtGui/QCursor>
 #include <QtGui/QPainter>
 #include <QtGui/QStyle>
-#include <QTimer>
+#include <QtCore/QTimer>
 #include <QtCore/QRegExp>
 #include <QtCore/QTextCodec>
-#include <QMouseEvent>
-#include <QPainterPath>
-#include <QStyleOption>
-#include <QPalette>
-#include <QPen>
-#include <QVBoxLayout>
-#include <QToolButton>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QPainterPath>
+#include <QtGui/QStyleOption>
+#include <QtGui/QPalette>
+#include <QtGui/QPen>
+#include <QtGui/QBoxLayout>
+#include <QtGui/QToolButton>
 
 #include <math.h>
 
 #include <kdebug.h>
 
-#include <QWhatsThis>
+#include <QtGui/QWhatsThis>
 
 //BEGIN KateScrollBar
 KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* parent)

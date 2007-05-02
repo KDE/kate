@@ -19,7 +19,7 @@
 #ifndef KATEDYNAMICANIMATION_H
 #define KATEDYNAMICANIMATION_H
 
-#include <QObject>
+#include <QtCore/QObject>
 
 #include <ktexteditor/attribute.h>
 

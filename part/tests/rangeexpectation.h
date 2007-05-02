@@ -19,7 +19,7 @@
 #ifndef RANGEEXPECTATION_H
 #define RANGEEXPECTATION_H
 
-#include <QFlags>
+#include <QtCore/QBool>
 
 #include <ktexteditor/range.h>
 #include <ktexteditor/rangefeedback.h>

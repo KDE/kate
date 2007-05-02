@@ -18,16 +18,15 @@
 
 #include "katecompletionwidget.h"
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QApplication>
-#include <QDesktopWidget>
-#include <QHeaderView>
-#include <QTimer>
-#include <QLabel>
-#include <QToolButton>
-#include <QSizeGrip>
-#include <QPushButton>
+#include <QtGui/QBoxLayout>
+#include <QtGui/QApplication>
+#include <QtGui/QDesktopWidget>
+#include <QtGui/QHeaderView>
+#include <QtCore/QTimer>
+#include <QtGui/QLabel>
+#include <QtGui/QToolButton>
+#include <QtGui/QSizeGrip>
+#include <QtGui/QPushButton>
 
 #include <kicon.h>
 #include <kdialog.h>

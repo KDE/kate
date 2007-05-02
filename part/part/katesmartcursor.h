@@ -21,7 +21,7 @@
 
 #include <ktexteditor/smartcursor.h>
 
-#include <QObject>
+#include <QtCore/QObject>
 
 #include "kateedit.h"
 

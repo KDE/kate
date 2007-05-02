@@ -19,8 +19,8 @@
 #ifndef KATEREGRESSION_H
 #define KATEREGRESSION_H
 
-#include <QObject>
-#include <QMap>
+#include <QtCore/QObject>
+#include <QtCore/QMap>
 
 #include <ktexteditor/range.h>
 

@@ -34,9 +34,9 @@
 #include <ktexteditor/configinterface.h>
 
 #include <QtCore/QPointer>
-#include <QMenu>
-#include <QLinkedList>
-#include <QHash>
+#include <QtGui/QMenu>
+#include <QtCore/QLinkedList>
+#include <QtCore/QHash>
 
 #include <kdebug.h>
 

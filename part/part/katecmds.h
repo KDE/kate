@@ -23,7 +23,7 @@
 
 #include <ktexteditor/commandinterface.h>
 
-#include <QStringList>
+#include <QtCore/QStringList>
 
 class KateDocument;
 class KCompletion;

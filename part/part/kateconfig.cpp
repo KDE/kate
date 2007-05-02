@@ -36,7 +36,7 @@
 #include <kfind.h>
 #include <kdebug.h>
 
-#include <QTextCodec>
+#include <QtCore/QTextCodec>
 
 //BEGIN KateConfig
 KateConfig::KateConfig ()

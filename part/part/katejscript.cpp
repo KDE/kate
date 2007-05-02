@@ -51,7 +51,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 #include <QtCore/QRegExp>
-#include <QtCore/QTextIStream>
+#include <QtCore/QTextStream>
 
 
 namespace KJS {

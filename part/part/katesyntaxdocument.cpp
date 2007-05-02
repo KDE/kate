@@ -31,7 +31,7 @@
 #include <kmessagebox.h>
 #include <kconfig.h>
 
-#include <QFile>
+#include <QtCore/QFile>
 
 KateSyntaxDocument::KateSyntaxDocument(bool force)
   : QDomDocument()

@@ -23,8 +23,8 @@
 
 #include <kcompletion.h>
 
-#include <QHash>
-#include <QStringList>
+#include <QtCore/QHash>
+#include <QtCore/QStringList>
 
 class KateCmd
 {

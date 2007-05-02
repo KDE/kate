@@ -19,9 +19,9 @@
 #ifndef KATESMARTMANAGER_H
 #define KATESMARTMANAGER_H
 
-#include <QObject>
-#include <QSet>
-#include <QLinkedList>
+#include <QtCore/QObject>
+#include <QtCore/QSet>
+#include <QtCore/QLinkedList>
 
 #include <ktexteditor/smartrange.h>
 #include <ktexteditor/rangefeedback.h>

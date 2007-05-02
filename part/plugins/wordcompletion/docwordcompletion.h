@@ -36,9 +36,9 @@
 #include <ktexteditor/configpage.h>
 #include <kxmlguiclient.h>
 
-#include <QEvent>
-#include <QObject>
-#include <QList>
+#include <QtCore/QEvent>
+#include <QtCore/QObject>
+#include <QtCore/QList>
 
 #include <kdebug.h>
 

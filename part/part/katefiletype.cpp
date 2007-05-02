@@ -39,7 +39,7 @@
 #include <QtCore/QRegExp>
 #include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
-#include <QGroupBox>
+#include <QtGui/QGroupBox>
 
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>

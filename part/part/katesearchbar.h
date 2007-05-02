@@ -19,7 +19,7 @@
 #ifndef __katesearchbar_h__
 #define __katesearchbar_h__
 
-#include <QWidget>
+#include <QtGui/QWidget>
 #include <klineedit.h>
 #include "kateviewhelpers.h"
 

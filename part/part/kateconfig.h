@@ -22,11 +22,11 @@
 #include <ktexteditor/markinterface.h>
 #include <kencodingdetector.h>
 
-#include <QBitArray>
-#include <QColor>
-#include <QObject>
-#include <QVector>
-#include <QFontMetrics>
+#include <QtCore/QBitRef>
+#include <QtGui/QColor>
+#include <QtCore/QObject>
+#include <QtCore/QVector>
+#include <QtGui/QFontMetrics>
 
 class KConfigGroup;
 class KateView;

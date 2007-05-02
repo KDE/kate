@@ -22,7 +22,7 @@
 #include "katedocument.h"
 #include "katerenderer.h"
 
-#include <QTimer>
+#include <QtCore/QTimer>
 
 using namespace KTextEditor;
 

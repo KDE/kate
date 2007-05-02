@@ -19,7 +19,7 @@
 #ifndef ARBITRARYHIGHLIGHTTEST_H
 #define ARBITRARYHIGHLIGHTTEST_H
 
-#include <QObject>
+#include <QtCore/QObject>
 
 namespace KTextEditor {
   class Document;

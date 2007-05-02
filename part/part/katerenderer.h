@@ -30,8 +30,8 @@
 
 #include <QtGui/QFont>
 #include <QtGui/QFontMetrics>
-#include <QList>
-#include <QTextLayout>
+#include <QtCore/QList>
+#include <QtGui/QTextLine>
 
 class KateDocument;
 class KateView;

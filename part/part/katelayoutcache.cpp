@@ -18,7 +18,7 @@
 
 #include "katelayoutcache.h"
 
-#include <QMutexLocker>
+#include <QtCore/QMutex>
 
 #include "katerenderer.h"
 #include "kateview.h"

@@ -22,9 +22,9 @@
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/attribute.h>
 
-#include <QStack>
-#include <QList>
-#include <QPair>
+#include <QtCore/QStack>
+#include <QtCore/QList>
+#include <QtCore/QPair>
 
 class KateSmartRange;
 class KateView;

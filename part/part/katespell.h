@@ -25,7 +25,7 @@
 
 #include "katecursor.h"
 
-#include <QObject>
+#include <QtCore/QObject>
 
 class KateView;
 

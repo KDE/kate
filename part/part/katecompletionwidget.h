@@ -18,7 +18,7 @@
 #ifndef KATECOMPLETIONWIDGET_H
 #define KATECOMPLETIONWIDGET_H
 
-#include <QFrame>
+#include <QtGui/QFrame>
 
 #include <ktexteditor/range.h>
 #include <ktexteditor/codecompletioninterface.h>

@@ -45,10 +45,10 @@
 #include <kmessagebox.h>
 #include <kapplication.h>
 
-#include <QSet>
-#include <QAction>
+#include <QtCore/QSet>
+#include <QtGui/QAction>
 #include <QtCore/QStringList>
-#include <QtCore/QTextIStream>
+#include <QtCore/QTextStream>
 //END
 
 //BEGIN defines

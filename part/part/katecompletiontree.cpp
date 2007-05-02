@@ -18,8 +18,8 @@
 
 #include "katecompletiontree.h"
 
-#include <QHeaderView>
-#include <QScrollBar>
+#include <QtGui/QHeaderView>
+#include <QtGui/QScrollBar>
 
 #include "kateview.h"
 #include "katerenderer.h"

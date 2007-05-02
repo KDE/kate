@@ -27,18 +27,17 @@
 #include <kconfig.h>
 #include <kactionmenu.h>
 
-#include <QVector>
-#include <QList>
-#include <QHash>
-#include <QMap>
+#include <QtCore/QVector>
+#include <QtCore/QList>
+#include <QtCore/QHash>
+#include <QtCore/QMap>
 
 #include <QtCore/QRegExp>
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
 #include <QtCore/QPointer>
 #include <QtCore/QDate>
-#include <QLinkedList>
-#include <QRegExp>
+#include <QtCore/QLinkedList>
 
 class KateHlContext;
 class KateHlItem;

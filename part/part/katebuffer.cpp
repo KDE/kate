@@ -36,11 +36,11 @@
 #include <kcharsets.h>
 #include <kencodingdetector.h>
 
-#include <QFile>
-#include <QTextStream>
-#include <QTimer>
-#include <QTextCodec>
-#include <QDateTime>
+#include <QtCore/QFile>
+#include <QtCore/QTextStream>
+#include <QtCore/QTimer>
+#include <QtCore/QTextCodec>
+#include <QtCore/QDate>
 
 #include <limits.h>
 

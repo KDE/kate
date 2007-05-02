@@ -19,8 +19,8 @@
 #ifndef KATECOMPLETIONDELEGATE_H
 #define KATECOMPLETIONDELEGATE_H
 
-#include <QItemDelegate>
-#include <QTextLayout>
+#include <QtGui/QItemDelegate>
+#include <QtGui/QTextLine>
 
 class KateRenderer;
 class KateCompletionWidget;

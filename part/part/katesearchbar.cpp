@@ -25,11 +25,11 @@
 #include <kglobalsettings.h>
 #include <kiconloader.h>
 
-#include <QHBoxLayout>
-#include <QToolButton>
-#include <QCheckBox>
-#include <QKeyEvent>
-#include <QList>
+#include <QtGui/QBoxLayout>
+#include <QtGui/QToolButton>
+#include <QtGui/QCheckBox>
+#include <QtGui/QKeyEvent>
+#include <QtCore/QList>
 
 #include <kdebug.h>
 

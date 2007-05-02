@@ -21,8 +21,8 @@
 #define __KATE_SYNTAXDOCUMENT_H__
 
 #include <Qt/qdom.h>
-#include <QList>
-#include <QStringList>
+#include <QtCore/QList>
+#include <QtCore/QStringList>
 
 /**
  * Information about each syntax hl Mode. This is documented in Kate's

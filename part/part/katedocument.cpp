@@ -76,10 +76,10 @@
 #include <QtCore/QTimer>
 #include <QtCore/QFile>
 #include <QtGui/QClipboard>
-#include <QtCore/QTextIStream>
+#include <QtCore/QTextStream>
 #include <QtCore/QTextCodec>
 #include <QtCore/QMap>
-#include <QMutex>
+#include <QtCore/QMutex>
 //END  includes
 
 //BEGIN PRIVATE CLASSES

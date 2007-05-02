@@ -33,9 +33,9 @@
 
 #include <kdebug.h>
 
-#include <QPainter>
-#include <QTextLayout>
-#include <QStack>
+#include <QtGui/QPainter>
+#include <QtGui/QTextLine>
+#include <QtCore/QStack>
 
 static const QChar tabChar('\t');
 static const QChar spaceChar(' ');

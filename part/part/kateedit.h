@@ -19,9 +19,9 @@
 #ifndef KATEEDIT_H
 #define KATEEDIT_H
 
-#include <QStringList>
-#include <QObject>
-#include <QMap>
+#include <QtCore/QStringList>
+#include <QtCore/QObject>
+#include <QtCore/QMap>
 
 #include <ktexteditor/range.h>
 

@@ -21,10 +21,10 @@
 
 //BEGIN INCLUDES + FORWARDS
 #include <QtCore/QObject>
-#include <QHash>
-#include <QSet>
-#include <QList>
-#include <QVector>
+#include <QtCore/QHash>
+#include <QtCore/QSet>
+#include <QtCore/QList>
+#include <QtCore/QVector>
 
 class KateCodeFoldingTree;
 namespace KTextEditor { class Cursor; }

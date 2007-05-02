@@ -18,7 +18,7 @@
 
 #include "katecompletionconfig.h"
 
-#include <QTreeWidgetItem>
+#include <QtGui/QTreeWidget>
 
 #include <kicon.h>
 

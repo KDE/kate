@@ -25,8 +25,8 @@
 
 #include <ksharedptr.h>
 
-#include <QString>
-#include <QVector>
+#include <QtCore/QString>
+#include <QtCore/QVector>
 
 class KateRenderer;
 class QTextStream;

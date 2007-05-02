@@ -26,9 +26,9 @@
 
 #include <kdebug.h>
 
-#include <QHash>
-#include <QList>
-#include <QStringList>
+#include <QtCore/QHash>
+#include <QtCore/QList>
+#include <QtCore/QStringList>
 
 /*
  * Some common stuff

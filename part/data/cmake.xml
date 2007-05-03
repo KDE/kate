@@ -3,7 +3,7 @@
 <!-- Author: Alexander Neundorf <neundorf@kde.org> //-->
 <!-- cmake 2.0.3 syntax highlighting -->
 <!-- dsKeyword, dsDataType, dsDecVal, dsBaseN, dsFloat, dsChar, dsString, dsComment, dsOthers, new in KDE 3.3: dsAlert, dsFunction, dsRegionMarker, dsError -->
-<language name="CMake" version="1.03" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="">
+<language name="CMake" version="1.02" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="">
   <highlighting>
 
     <list name = "commands">
@@ -167,6 +167,7 @@
       <item> MATCHES </item>
       <item> MODULE </item>
       <item> NAME </item>
+      <item> NAMES </item>
       <item> NAME_WE </item>
       <item> NOT </item>
       <item> NOTEQUAL </item>

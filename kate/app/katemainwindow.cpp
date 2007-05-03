@@ -787,18 +787,8 @@ bool KateMainWindow::event( QEvent *e )
   uint type = e->type();
   if ( type == QEvent::WindowActivate && modNotification )
   {
-    if ( m_modignore )
-    {
-      m_modignore = false;
-      return KateMDI::MainWindow::event( e );
-    }
     showModOnDiskPrompt();
   }
-  // Try to disable the modonhd prompt from showing after internal dialogs.
-  // TODO make this work better.
-  else if ( (type == QEvent::WindowUnblocked || type == QEvent::WindowBlocked) && modNotification)
-    m_modignore = true;
-
   return KateMDI::MainWindow::event( e );
 }
 
@@ -817,11 +807,13 @@ bool KateMainWindow::showModOnDiskPrompt()
     }
   }
 
-  if ( cnt )
+  if ( cnt && !m_modignore )
   {
     list.resize( cnt );
     KateMwModOnHdDialog mhdlg( list, this );
+    m_modignore = true;
     bool res = mhdlg.exec();
+    m_modignore = false;
 
     return res;
   }

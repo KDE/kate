@@ -376,6 +376,17 @@ class KateDocument : public KTextEditor::Document,
   // KTextEditor::SearchInterface stuff
   //
   public Q_SLOTS:
+    QVector<KTextEditor::Range> searchText(
+        const KTextEditor::Range & range,
+        const QString & pattern,
+        const KTextEditor::Search::SearchOptions options);
+        
+    KTextEditor::Search::SearchOptions supportedSearchOptions() const;
+  
+  //
+  // internal implementation....
+  //
+  private:
     /**
      * Search for the given \p text inside the range \p inputRange taking
      * into account whether to search \p casesensitive and \p backwards.
@@ -409,13 +420,6 @@ class KateDocument : public KTextEditor::Document,
     KTextEditor::Range searchText (const KTextEditor::Range & inputRange,
         QRegExp & regexp, bool backwards = false);
 
-    QVector<KTextEditor::Range> searchText(
-        const KTextEditor::Range & range,
-        const QString & pattern,
-        const KTextEditor::Search::SearchOptions options);
-    KTextEditor::Search::SearchOptions supportedSearchOptions() const;
-
-  private:
     /**
      * Resolves escape sequences, e.g. "\\n" to "\n".
      *

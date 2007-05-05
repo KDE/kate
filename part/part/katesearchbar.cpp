@@ -461,11 +461,13 @@ void KateSearchBar::slotSearch()
 
     if ( d->expressionEdit->status() == KateSearchBarEdit::NotFound)
     {
+#if 0 // this hurts usability, if you try multiline search but get selected on typing the \ for test1\n for example...
         // nothing found, so select the non-matching part of the text
         if ( d->expressionEdit->text().startsWith( m_view->document()->text(d->lastMatch) ) )
             d->expressionEdit->setSelection( d->lastMatch.columnWidth(), d->expressionEdit->text().length() );
         else
             d->expressionEdit->selectAll();
+#endif
     }
 
 }

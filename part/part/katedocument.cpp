@@ -27,7 +27,6 @@
 #include "katedialogs.h"
 #include "katehighlight.h"
 #include "kateview.h"
-#include "katesearch.h"
 #include "kateautoindent.h"
 #include "katetextline.h"
 #include "katedocumenthelpers.h"
@@ -1796,7 +1795,12 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     int hayLinesZeroIndex = 0;
     KateTextLine::Ptr * hayLinesWindow = new KateTextLine::Ptr[numNeedleLines];
     for (int i = 0; i < numNeedleLines; i++) {
-      hayLinesWindow[i] = m_buffer->plainLine((backwards ? forMax : forMin) + i);
+      KateTextLine::Ptr textLine = m_buffer->plainLine((backwards ? forMax : forMin) + i);
+      
+      if (!textLine)
+        return KTextEditor::Range::invalid();
+    
+      hayLinesWindow[i] = textLine;
       kDebug() << "searchText | hayLinesWindow[" << i << "] = \"" << hayLinesWindow[i]->string() << "\"" << endl;
     }
 
@@ -1951,6 +1955,10 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     if (lineCount > line) // TODO
     {
       KateTextLine::Ptr textLine = m_buffer->plainLine(line);
+      
+      if (!textLine)
+        return KTextEditor::Range::invalid();
+      
       QString text = textLine->string();
       const int lineLen = text.length() - col;
       wholeDocument.append(text.right(lineLen));
@@ -1961,6 +1969,10 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     for (int i = line + 1; i < lineCount; i++)
     {
       KateTextLine::Ptr textLine = m_buffer->plainLine(i);
+      
+      if (!textLine)
+        return KTextEditor::Range::invalid();
+      
       QString text = textLine->string();
       wholeDocument.append(sep);
       wholeDocument.append(text);

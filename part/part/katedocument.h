@@ -415,7 +415,7 @@ class KateDocument : public KTextEditor::Document,
         const KTextEditor::Search::SearchOptions options);
     KTextEditor::Search::SearchOptions supportedSearchOptions() const;
 
-  public:
+  private:
     /**
      * Resolves escape sequences, e.g. "\\n" to "\n".
      *

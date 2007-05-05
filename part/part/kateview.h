@@ -42,7 +42,6 @@
 
 class KateDocument;
 class KateBookmarks;
-class KateSearch;
 class KateCmdLine;
 class KateViewConfig;
 class KateViewSchemaAction;
@@ -448,9 +447,7 @@ class KateView : public KTextEditor::View,
   public Q_SLOTS:
     void setEol( int eol );
     void find();
-    void find( const QString&, long, bool add=true ); ///< proxy for KateSearch
     void replace();
-    void replace( const QString&, const QString &, long ); ///< proxy for KateSearch
     void findNext();
     void findPrevious();
 
@@ -556,7 +553,6 @@ class KateView : public KTextEditor::View,
     KateDocument*          m_doc;
     KateViewInternal*      m_viewInternal;
     KateRenderer*          m_renderer;
-    KateSearch*            m_search;
     KateSpell             *m_spell;
     KateBookmarks*         m_bookmarks;
 

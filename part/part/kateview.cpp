@@ -36,7 +36,6 @@
 #include "katecodefoldinghelpers.h"
 #include "kateschema.h"
 #include "katebookmarks.h"
-#include "katesearch.h"
 #include "kateconfig.h"
 #include "katefiletype.h"
 #include "kateautoindent.h"
@@ -104,7 +103,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_completionWidget(0)
     , m_editActions (0)
     , m_doc( doc )
-    , m_search( new KateSearch( this ) )
     , m_spell( new KateSpell( this ) )
     , m_bookmarks( new KateBookmarks( this ) )
     , m_hasWrap( false )
@@ -526,8 +524,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Look up the previous occurrence of the search phrase."));
   addAction(a);
 
-  // TODO: something about "replace" (kling)
-  a = ac->addAction( KStandardAction::Replace, m_search, SLOT(replace()) );
+  a = ac->addAction( KStandardAction::Replace, this, SLOT(replace()) );
   a->setWhatsThis(i18n("Look up a piece of text or regular expression and replace the result with some given text."));
 
   m_spell->createActions( ac );
@@ -1099,20 +1096,9 @@ void KateView::find()
   searchBar()->setFocus();
 }
 
-void KateView::find( const QString& pattern, long flags, bool add )
-{
-  // TODO: something like the old thing (kling)
-  //m_search->find( pattern, flags, add );
-}
-
 void KateView::replace()
 {
-  m_search->replace();
-}
-
-void KateView::replace( const QString &pattern, const QString &replacement, long flags )
-{
-  m_search->replace( pattern, replacement, flags );
+  //m_search->replace();
 }
 
 void KateView::findNext()

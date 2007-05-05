@@ -25,7 +25,6 @@
 #include "katecmds.h"
 #include "katefiletype.h"
 #include "kateschema.h"
-#include "katesearch.h"
 #include "kateconfig.h"
 #ifndef Q_WS_WIN //todo
 #include "katejscript.h"
@@ -137,7 +136,6 @@ KateGlobal::KateGlobal ()
   m_cmds.push_back (new KateCommands::SedReplace ());
   m_cmds.push_back (new KateCommands::Character ());
   m_cmds.push_back (new KateCommands::Date ());
-  m_cmds.push_back (new SearchCommand());
 
   for ( QList<KTextEditor::Command *>::iterator it = m_cmds.begin(); it != m_cmds.end(); ++it )
     m_cmdManager->registerCommand (*it);

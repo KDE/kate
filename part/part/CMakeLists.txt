@@ -19,7 +19,6 @@ endif(KDE4_ENABLE_FINAL)
 
 # our sources
 set(katepart_PART_SRCS
-katesearch.cpp
 katesearchbar.cpp
 katebuffer.cpp
 katecmds.cpp

@@ -28,6 +28,7 @@
 #include <QtGui/QBoxLayout>
 #include <QtGui/QToolButton>
 #include <QtGui/QCheckBox>
+#include <QtGui/QComboBox>
 #include <QtGui/QKeyEvent>
 #include <QtCore/QList>
 
@@ -42,8 +43,8 @@ public:
     KateSearchBarEdit *expressionEdit;
 
     QCheckBox *caseSensitiveBox;
-    QCheckBox *wholeWordsBox;
-    QCheckBox *regExpBox;
+    //QCheckBox *wholeWordsBox;
+    QComboBox *regExpBox;
 
     QCheckBox *fromCursorBox;
     QCheckBox *selectionOnlyBox;
@@ -76,11 +77,17 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     d->caseSensitiveBox = new QCheckBox(i18n("&Case sensitive"));
     connect(d->caseSensitiveBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
 
-    d->wholeWordsBox = new QCheckBox(i18n("&Whole words"));
-    connect(d->wholeWordsBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
+    //d->wholeWordsBox = new QCheckBox(i18n("&Whole words"));
+    //connect(d->wholeWordsBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
 
-    d->regExpBox = new QCheckBox(i18n("&Regular expression"));
-    connect(d->regExpBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
+    d->regExpBox = new QComboBox();
+    
+    d->regExpBox->addItem (i18n("Plain Text"), KTextEditor::Search::Default);
+    d->regExpBox->addItem (i18n("Whole Words"), KTextEditor::Search::WholeWords);
+    d->regExpBox->addItem (i18n("Escape Sequences"), KTextEditor::Search::EscapeSequences);
+    d->regExpBox->addItem (i18n("Regular Expression"), KTextEditor::Search::Regex);
+    
+    connect(d->regExpBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotSearch()));
 
     d->fromCursorBox = new QCheckBox(i18n("&From cursor"));
     connect(d->fromCursorBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
@@ -125,9 +132,9 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     topLayout->addLayout (gridLayout);
 
     // second line: casesensitive + whole words + regexp
-    gridLayout->addWidget(d->caseSensitiveBox, 0, 0);
-    gridLayout->addWidget(d->wholeWordsBox, 0, 1);
-    gridLayout->addWidget(d->regExpBox, 0, 2);
+    gridLayout->addWidget(d->regExpBox, 0, 0);
+    gridLayout->addWidget(d->caseSensitiveBox, 0, 1);
+    //gridLayout->addWidget(d->wholeWordsBox, 0, 1);
     gridLayout->addItem (new QSpacerItem(0,0), 0, 3);
 
     // third line: from cursor + selection only + highlight all
@@ -175,7 +182,8 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
     KTextEditor::Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
 
     // which mode?
-    const bool regexChecked = d->regExpBox->checkState() == Qt::Checked;
+    const bool regexChecked
+      = d->regExpBox->itemData (d->regExpBox->currentIndex()).toUInt() & KTextEditor::Search::Regex;
     if (regexChecked)
     {
       // regex
@@ -194,18 +202,22 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
       // plaintext
 
       // whole words?
-      const bool wholeWordsChecked = d->wholeWordsBox->checkState() == Qt::Checked;
+      const bool wholeWordsChecked
+        = d->regExpBox->itemData (d->regExpBox->currentIndex()).toUInt() & KTextEditor::Search::WholeWords;
       if (wholeWordsChecked)
       {
         enabledOptions |= KTextEditor::Search::WholeWords;
+        kDebug() << "doSearch | whole words only" << endl;
       }
 
       // TODO make configurable
       // escape sequences?    
-      const bool escapeSequences = true;
+      const bool escapeSequences
+        = d->regExpBox->itemData (d->regExpBox->currentIndex()).toUInt() & KTextEditor::Search::EscapeSequences;
       if (escapeSequences)
       {
         enabledOptions |= KTextEditor::Search::EscapeSequences;
+        kDebug() << "doSearch | parse escapes" << endl;
       }
     }
 

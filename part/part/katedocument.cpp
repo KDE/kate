@@ -1793,14 +1793,14 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
 
     // init hay line ring buffer
     int hayLinesZeroIndex = 0;
-    KateTextLine::Ptr * hayLinesWindow = new KateTextLine::Ptr[numNeedleLines];
+    QVector<KateTextLine::Ptr> hayLinesWindow;
     for (int i = 0; i < numNeedleLines; i++) {
       KateTextLine::Ptr textLine = m_buffer->plainLine((backwards ? forMax : forMin) + i);
       
       if (!textLine)
         return KTextEditor::Range::invalid();
     
-      hayLinesWindow[i] = textLine;
+      hayLinesWindow.append (textLine);
       kDebug() << "searchText | hayLinesWindow[" << i << "] = \"" << hayLinesWindow[i]->string() << "\"" << endl;
     }
 
@@ -1841,7 +1841,6 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
           if (matches && (foundAt == 0) && !((k == lastLine)
               && (static_cast<uint>(foundAt + myMatchLen) > maxRight))) // full match!
           {
-            delete [] hayLinesWindow;
             kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": yes" << endl;
             return KTextEditor::Range(j, startCol, j + k, needleLine.length());
           }
@@ -1864,7 +1863,14 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
         if (backwards)
         {
           hayLinesZeroIndex = (hayLinesZeroIndex + numNeedleLines - 1) % numNeedleLines;
-          hayLinesWindow[hayLinesZeroIndex] = m_buffer->plainLine(j - 1);
+          
+          KateTextLine::Ptr textLine = m_buffer->plainLine(j - 1);
+      
+          if (!textLine)
+            return KTextEditor::Range::invalid();
+        
+          hayLinesWindow[hayLinesZeroIndex] = textLine;
+          
           kDebug() << "searchText | filling slot " << hayLinesZeroIndex << " with line "
             << j - 1 << ": " << hayLinesWindow[hayLinesZeroIndex]->string() << endl;
         }
@@ -1879,7 +1885,6 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     }
 
     // not found
-    delete [] hayLinesWindow;
     return KTextEditor::Range::invalid();
   }
   else

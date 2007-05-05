@@ -89,7 +89,7 @@ kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 kde4_add_plugin(katepart ${katepart_PART_SRCS})
 
 # linking
-target_link_libraries(katepart ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kutils kjs kde3support )
+target_link_libraries(katepart ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kjs )
 
 # install the stuff
 install(TARGETS katepart  DESTINATION ${PLUGIN_INSTALL_DIR} )

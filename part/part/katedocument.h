@@ -377,10 +377,10 @@ class KateDocument : public KTextEditor::Document,
   //
   public Q_SLOTS:
     /**
-     * Search for the given \p text beginning from \p startPosition taking
+     * Search for the given \p text inside the range \p inputRange taking
      * into account whether to search \p casesensitive and \p backwards.
      *
-     * \param startPosition start cursor position
+     * \param inputRange Range to search in
      * \param text text to search for
      * \param casesensitive if \e true, the search is performed case
      *        sensitive, otherwise case insensitive
@@ -390,15 +390,15 @@ class KateDocument : public KTextEditor::Document,
      *        (see Range::isValid()).
      * \see KTextEditor::Range
      */
-    KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
+    KTextEditor::Range searchText (const KTextEditor::Range & inputRange,
         const QString &text, bool casesensitive = true, bool backwards = false);
 
     /**
-     * Search for the regular expression \p regexp beginning from
-     * \p startPosition, if \p backwards is \e true, the search direction will
+     * Search for the regular expression \p regexp inside the range
+     * \p inputRange. If \p backwards is \e true, the search direction will
      * be reversed.
      *
-     * \param startPosition start cursor position
+     * \param inputRange Range to search in
      * \param regexp text to search for
      * \param backwards if \e true, the search will be backwards
      * \return The valid range of the matched \p regexp. If the search was not
@@ -406,8 +406,8 @@ class KateDocument : public KTextEditor::Document,
      *        (see Range::isValid()).
      * \see KTextEditor::Range, QRegExp
      */
-    KTextEditor::Range searchText (const KTextEditor::Cursor& startPosition,
-        const QRegExp &regexp, bool backwards = false);
+    KTextEditor::Range searchText (const KTextEditor::Range & inputRange,
+        QRegExp & regexp, bool backwards = false);
 
     QVector<KTextEditor::Range> searchText(
         const KTextEditor::Range & range,

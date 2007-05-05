@@ -49,12 +49,12 @@ public:
     QCheckBox *selectionOnlyBox;
     QCheckBox *highlightAllBox;
 
-    QRegExp regExp;
-
     bool searching;
     bool wrapAround;
 
     KTextEditor::SmartRange* topRange;
+
+    QString lastExpression;
 };
 
 KateSearchBar::KateSearchBar(KateViewBar *viewBar)
@@ -226,12 +226,14 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
     KTextEditor::Range inputRange;
     if (selectionOnly)
     {
+      // inside selection only checked
+      // is text selected?
       if (m_view->selection())
       {
-        // selection found
+        // selection present
         inputRange = m_view->selectionRange();
 
-        // skip part before cursor if cursor within selection
+        // exclude part before cursor
         const KTextEditor::Cursor cursorPos = m_view->cursorPosition();
         if (inputRange.contains(cursorPos))
         {
@@ -262,8 +264,56 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
     else
     {
       // whole document
-      inputRange = m_view->doc()->documentRange();
+      kDebug() << "doSearch | whole document" << endl;
+
+      // is text selected?
+      if (m_view->selection())
+      {
+        // selection present
+        const KTextEditor::Range selRange = m_view->selectionRange();
+        if (expression == d->lastExpression)
+        {
+          // prev/next was pressed -> exclude selection from input range
+          if (backwards)
+          {
+            kDebug() << "doSearch | searching [backwards] before [selected text]" << endl;
+            inputRange.setRange(d->startCursor, selRange.start());
+          }
+          else
+          {
+            kDebug() << "doSearch | searching [forwards] after [selected text]" << endl;
+            inputRange.setRange(selRange.end(), m_view->doc()->documentEnd());
+          }
+        }
+        else
+        {
+          // pattern has changed -> new search from original starting position
+          kDebug() << "doSearch | searching RESET" << endl;
+          inputRange.setRange(d->startCursor, m_view->doc()->documentEnd());
+        }
+      }
+      else
+      {
+        if (backwards)
+        {
+          // we checked above that no selection is present which
+          // also means there was no match after the starting point.
+          // if the user hits "prev" now (that is why <backwards> is true here)
+          // he probably wants to find a match before his original starting point.
+          kDebug() << "doSearch | searching [backwards] before [cursor]" << endl;
+          d->startCursor = KTextEditor::Cursor(0, 0);
+          inputRange.setRange(d->startCursor, m_view->doc()->documentEnd());
+        }
+        else
+        {
+          // find first match from starting position on
+          kDebug() << "doSearch | searching [forwards] after [cursor]" << endl;
+          inputRange.setRange(d->startCursor, m_view->doc()->documentEnd());
+        }
+      }
     }
+    kDebug() << "doSearch | range is " << inputRange.start() << ".." << inputRange.end() << endl;
+
 
     // run engine
     QVector<KTextEditor::Range> resultRanges = m_view->doc()->searchText(inputRange, expression, enabledOptions);
@@ -275,11 +325,16 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
     if (d->wrapAround && !foundMatch)
     {
         // We found nothing, so wrap.
-        d->startCursor = selectionOnly?
-            backwards ? m_view->selectionRange().end() : m_view->selectionRange().start()
-        :
-            backwards ? m_view->doc()->documentEnd() : KTextEditor::Cursor(0, 0);
-        d->match = m_view->doc()->searchText(d->startCursor, d->regExp, backwards);
+        d->startCursor = selectionOnly
+          ? backwards ? m_view->selectionRange().end()
+                      : m_view->selectionRange().start()
+          : // backwards ? m_view->doc()->documentEnd() : KTextEditor::Cursor(0, 0);
+            KTextEditor::Cursor(0, 0);
+
+        // d->match = m_view->doc()->searchText(d->startCursor, regexp, backwards);
+        QVector<KTextEditor::Range> resultRanges = m_view->doc()->searchText(inputRange, expression, enabledOptions);
+        d->match = resultRanges[0];
+
         foundMatch = d->match.isValid() && d->match != d->lastMatch;
         wrapped = true;
     }
@@ -289,50 +344,72 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
 
     if (foundMatch)
     {
-        m_view->setCursorPositionInternal(d->match.start(), 1);
-        m_view->setSelection(d->match);
-        d->lastMatch = d->match;
-        // it makes no sense to have this enabled after a match
-        if ( selectionOnly )
-            d->selectionOnlyBox->setCheckState( Qt::Unchecked );
+      m_view->setCursorPositionInternal(d->match.start(), 1);
+      m_view->setSelection(d->match);
+      d->lastMatch = d->match;
 
-        // highlight all matches
-        if ( d->highlightAllBox->checkState() == Qt::Checked )
-        {
+      // it makes no sense to have this enabled after a match
+      if (selectionOnly)
+        d->selectionOnlyBox->setCheckState(Qt::Unchecked);
 
-          // add highlight to the current match
-          KTextEditor::SmartRange* sr = m_view->doc()->newSmartRange( d->match, d->topRange );
-          KTextEditor::Attribute::Ptr a( new KTextEditor::Attribute() );
-          a->setBackground( QColor("yellow") ); //TODO make this part of the color scheme
-          sr->setAttribute( a );
+      // highlight all matches
+      if (d->highlightAllBox->checkState() == Qt::Checked)
+      {
+        // add highlight to the current match
+        KTextEditor::SmartRange* sr = m_view->doc()->newSmartRange(d->match, d->topRange);
+        KTextEditor::Attribute::Ptr a(new KTextEditor::Attribute());
+        a->setBackground( QColor("yellow") ); //TODO make this part of the color scheme
+        sr->setAttribute( a );
 
-          d->startCursor = d->match.end();
+        // find other matches and put each in a smartrange
+        bool another = true;
+        bool highlightWrapped = false;
+        KTextEditor::Cursor nextStart = d->match.end();
+        do {
+          // KTextEditor::Range r = m_view->doc()->searchText( d->startCursor, regexp, false );
+          const KTextEditor::Range localRange(nextStart, m_view->doc()->documentEnd());
+          QVector<KTextEditor::Range> resultRanges = m_view->doc()->searchText(localRange, expression, enabledOptions);
+          const KTextEditor::Range r = resultRanges[0];
 
-          // find other matches and put each in a smartrange
-          bool another = true;
-          do {
-            KTextEditor::Range r = m_view->doc()->searchText( d->startCursor, d->regExp, false );
-            if ( r.isValid() )
+          if (r.isValid())
+          {
+            sr = m_view->doc()->newSmartRange(r, d->topRange);
+            sr->setAttribute(a);
+            nextStart = r.end();
+            if ((nextStart >= m_view->doc()->documentEnd()) && !highlightWrapped)
             {
-                sr = m_view->doc()->newSmartRange( r, d->topRange );
-                sr->setAttribute( a );
-                d->startCursor = r.end();
-                //kDebug()<<"MATCH: "<<r<<endl;
+              nextStart = KTextEditor::Cursor(0, 0);
+              highlightWrapped = true;
             }
-
-            else if ( ! wrapped )
+            else
             {
-              d->startCursor = backwards ? m_view->doc()->documentEnd() : KTextEditor::Cursor(0, 0);
-              wrapped = true;
+              another = false;
             }
-
-            another = r.isValid();
-          } while (another);
-        }
+            //kDebug()<<"MATCH: "<<r<<endl;
+          }
+          else
+          {
+            if (!highlightWrapped)
+            {
+              nextStart = KTextEditor::Cursor(0, 0);
+              highlightWrapped = true;
+            }
+            else
+            {
+              another = false;
+            }
+          }
+        } while (another);
+      }
     }
 
+  d->expressionEdit->setStatus(foundMatch
+    ? (wrapped
+      ? KateSearchBarEdit::SearchWrapped
+      : KateSearchBarEdit::Normal)
+    : KateSearchBarEdit::NotFound);
 
-    d->expressionEdit->setStatus(foundMatch ? (wrapped ? KateSearchBarEdit::SearchWrapped : KateSearchBarEdit::Normal) : KateSearchBarEdit::NotFound);
+  d->lastExpression = expression;
 }
 
 void KateSearchBar::slotSpecialOptionTogled()
@@ -397,7 +474,7 @@ void KateSearchBar::findNext()
 {
     if (d->lastMatch.isEmpty())
         return;
-    d->startCursor = d->lastMatch.end();
+    // XXX d->startCursor = d->lastMatch.end();
     doSearch(d->expressionEdit->text(), false, false);
 }
 
@@ -405,7 +482,7 @@ void KateSearchBar::findPrevious()
 {
     if (d->lastMatch.isEmpty())
         return;
-    d->startCursor = d->lastMatch.start();
+    // XXX d->startCursor = d->lastMatch.start();
     doSearch(d->expressionEdit->text(), false, true);
 }
 

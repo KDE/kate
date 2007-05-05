@@ -554,14 +554,16 @@ bool KateSearch::doSearch( const QString& text )
   //kDebug() << "Searching at " << line << ", " << col << endl;
 
   do {
+      // Just to keep old code working
+      const KTextEditor::Range inputRange(startPos, doc()->documentEnd());
       if( regExp ) {
         m_re = QRegExp( text, caseSensitive ? Qt::CaseSensitive: Qt::CaseInsensitive);
-        match = doc()->searchText( startPos, m_re, backward );
+        match = doc()->searchText( inputRange, m_re, backward );
       } else if ( wholeWords ) {
         QRegExp re( "\\b" + text + "\\b", caseSensitive ? Qt::CaseSensitive: Qt::CaseInsensitive);
-        match = doc()->searchText( startPos, re, backward );
+        match = doc()->searchText( inputRange, re, backward );
       } else {
-        match = doc()->searchText( startPos, text, caseSensitive, backward );
+        match = doc()->searchText( inputRange, text, caseSensitive, backward );
       }
 
     if ( match.isValid() && s.flags.selected )

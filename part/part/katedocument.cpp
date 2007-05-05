@@ -1766,173 +1766,162 @@ void KateDocument::clearRedo()
 
 //BEGIN KTextEditor::SearchInterface stuff
 
-KTextEditor::Range KateDocument::searchText (const KTextEditor::Cursor& startPosition, const QString &text, bool casesensitive, bool backwards)
+KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRange, const QString &text, bool casesensitive, bool backwards)
 {
-  if (text.isEmpty())
+  if (text.isEmpty() || !inputRange.isValid() || (inputRange.start() == inputRange.end()))
+  {
     return KTextEditor::Range::invalid();
+  }
 
-  int line = startPosition.line();
-  int col = startPosition.column();
-
+  // split multi-line needle into single lines
   const QString sep("\n");
   const QStringList needleLines = text.split(sep);
   const int numNeedleLines = needleLines.count();
+  kDebug() << "searchText | needle has " << numNeedleLines << " lines" << endl;
 
   if (numNeedleLines > 1)
   {
-    // multi-line plaintext search
-    if (!backwards)
+    // multi-line plaintext search (both forwards or backwards)
+    const int lastLine = inputRange.end().line();
+
+    const int forMin   = inputRange.start().line(); // first line in range
+    const int forMax   = lastLine + 1 - numNeedleLines; // last line in range
+    const int forInit  = backwards ? forMax : forMin;
+    const int forInc   = backwards ? -1 : +1;
+
+    const int minLeft  = inputRange.start().column();
+    const int maxRight = inputRange.end().column(); // first not included
+
+    // init hay line ring buffer
+    int hayLinesZeroIndex = 0;
+    KateTextLine::Ptr * hayLinesWindow = new KateTextLine::Ptr[numNeedleLines];
+    for (int i = 0; i < numNeedleLines; i++) {
+      hayLinesWindow[i] = m_buffer->plainLine((backwards ? forMax : forMin) + i);
+      kDebug() << "searchText | hayLinesWindow[" << i << "] = \"" << hayLinesWindow[i]->string() << "\"" << endl;
+    }
+
+    for (int j = forInit; (forMin <= j) && (j <= forMax); j += forInc)
     {
-      // forward search
-      // multi-line searching
-      // make single lines of multi-line needle
-      const QStringList needleLines = text.split(sep);
-      const int numNeedleLines = needleLines.count();
+      // try to match all lines
+      uint startCol = 0; // init value not important
+      for (int k = 0; k < numNeedleLines; k++)
+      {
+        // which lines to compare
+        const QString & needleLine = needleLines[k];
+        KateTextLine::Ptr & hayLine = hayLinesWindow[(k + hayLinesZeroIndex) % numNeedleLines];
+        kDebug() << "searchText | hayLine = \"" << hayLine->string() << "\"" << endl;
 
-      // needle with too many lines?
-      const int numHayLines = m_buffer->lines();
-      if (line + numNeedleLines > numHayLines) {
-        return KTextEditor::Range::invalid();
-      }
-
-      // init hay line ring buffer
-      int hayLinesZeroIndex = 0;
-      KateTextLine::Ptr * hayLinesWindow = new KateTextLine::Ptr[numNeedleLines];
-      for (int i = 0; i < numNeedleLines; i++) {
-        hayLinesWindow[i] = m_buffer->plainLine(line + i);
-      }
-
-      for (int j = line; j + numNeedleLines <= numHayLines; j++) {
-        // try to match all lines
-        uint startCol = 0; // init value not important
-        for (int k = 0; k < numNeedleLines; k++) {
-          // which lines to compare
-          const QString & needleLine = needleLines[k];
-          KateTextLine::Ptr & hayLine = hayLinesWindow[(k + hayLinesZeroIndex) % numNeedleLines];
-
-          // position specific comparison (first, middle, last)
-          if (k == 0) {
-            // first line
-            if (needleLine.length() == 0) // if needle starts with a newline
-            {
-              startCol = hayLine->length();
-            }
-            else
-            {
-              uint myMatchLen;
-              const uint colOffset = (j > line) ? 0 : col;
-              const bool matches = hayLine->searchText (colOffset, needleLine, &startCol,
-                &myMatchLen, casesensitive, false);
-              if (!matches || (startCol + myMatchLen != static_cast<uint>(hayLine->length()))) {
-                break;
-              }
-            }
-          } else if (k == numNeedleLines - 1) {
-            // last line
-            uint foundAt, myMatchLen;
-            const bool matches = hayLine->searchText (0, needleLine, &foundAt, &myMatchLen, casesensitive, false);
-            if (matches && (foundAt == 0)) // full match!
-            {
-              delete [] hayLinesWindow;
-              return KTextEditor::Range(j, startCol, j + k, needleLine.length());
-            }
-          } else {
-            // mid lines
-            uint foundAt, myMatchLen;
-            const bool matches = hayLine->searchText (0, needleLine, &foundAt, &myMatchLen, casesensitive, false);
-            if (!matches || (foundAt != 0) || (myMatchLen != static_cast<uint>(needleLine.length()))) {
+        // position specific comparison (first, middle, last)
+        if (k == 0) {
+          // first line
+          if (needleLine.length() == 0) // if needle starts with a newline
+          {
+            startCol = hayLine->length();
+          }
+          else
+          {
+            uint myMatchLen;
+            const uint colOffset = (j > forMin) ? 0 : minLeft;
+            const bool matches = hayLine->searchText(colOffset, needleLine, &startCol,
+              &myMatchLen, casesensitive, false);
+            if (!matches || (startCol + myMatchLen != static_cast<uint>(hayLine->length()))) {
+              // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no" << endl;
               break;
             }
+            // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": yes" << endl;
           }
+        } else if (k == numNeedleLines - 1) {
+          // last line
+          uint foundAt, myMatchLen;
+          const bool matches = hayLine->searchText(0, needleLine, &foundAt, &myMatchLen, casesensitive, false);
+          if (matches && (foundAt == 0) && !((k == lastLine)
+              && (static_cast<uint>(foundAt + myMatchLen) > maxRight))) // full match!
+          {
+            delete [] hayLinesWindow;
+            kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": yes" << endl;
+            return KTextEditor::Range(j, startCol, j + k, needleLine.length());
+          }
+          // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no" << endl;
+        } else {
+          // mid lines
+          uint foundAt, myMatchLen;
+          const bool matches = hayLine->searchText(0, needleLine, &foundAt, &myMatchLen, casesensitive, false);
+          if (!matches || (foundAt != 0) || (myMatchLen != static_cast<uint>(needleLine.length()))) {
+            // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no" << endl;
+            break;
+          }
+          // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": yes" << endl;
         }
-
-        // get a fresh line into the ring buffer
-        hayLinesWindow[hayLinesZeroIndex] = m_buffer->plainLine(j + numNeedleLines);
-        hayLinesZeroIndex++;
       }
 
-      // not found
-      delete [] hayLinesWindow;
-      return KTextEditor::Range::invalid();
+      // get a fresh line into the ring buffer
+      if ((backwards && (j > forMin)) || (!backwards && (j < forMax)))
+      {
+        if (backwards)
+        {
+          hayLinesZeroIndex = (hayLinesZeroIndex + numNeedleLines - 1) % numNeedleLines;
+          hayLinesWindow[hayLinesZeroIndex] = m_buffer->plainLine(j - 1);
+          kDebug() << "searchText | filling slot " << hayLinesZeroIndex << " with line "
+            << j - 1 << ": " << hayLinesWindow[hayLinesZeroIndex]->string() << endl;
+        }
+        else
+        {
+          hayLinesWindow[hayLinesZeroIndex] = m_buffer->plainLine(j + numNeedleLines);
+          kDebug() << "searchText | filling slot " << hayLinesZeroIndex << " with line "
+            << j + numNeedleLines << ": " << hayLinesWindow[hayLinesZeroIndex]->string() << endl;
+          hayLinesZeroIndex = (hayLinesZeroIndex + 1) % numNeedleLines;
+        }
+      }
     }
-    else
-    {
-      // backward search
-      // TODO
-    }
+
+    // not found
+    delete [] hayLinesWindow;
+    return KTextEditor::Range::invalid();
   }
   else
   {
-    // single-line plaintext search
-    if (!backwards)
+    // single-line plaintext search (both forward of backward mode)
+    const int minLeft  = inputRange.start().column();
+    const int maxRight = inputRange.end().column(); // first not included
+    const int forMin   = inputRange.start().line();
+    const int forMax   = inputRange.end().line();
+    const int forInit  = backwards ? forMax : forMin;
+    const int forInc   = backwards ? -1 : +1;
+    kDebug() << "searchText | single line " << (backwards ? forMax : forMin) << ".."
+      << (backwards ? forMin : forMax) << endl;
+    for (int j = forInit; (forMin <= j) && (j <= forMax); j += forInc)
     {
-      // forward search
-      const int searchEnd = lastLine();
-      while (line <= searchEnd)
+      KateTextLine::Ptr textLine = m_buffer->plainLine(j);
+      if (!textLine)
       {
-        KateTextLine::Ptr textLine = m_buffer->plainLine(line);
-
-        if (!textLine)
-          return KTextEditor::Range::invalid();
-
-        uint foundAt, myMatchLen;
-        const bool found = textLine->searchText (col, text, &foundAt, &myMatchLen, casesensitive, false);
-
-        if (found)
-          return KTextEditor::Range(line, foundAt, line, foundAt + myMatchLen);
-
-        col = 0;
-        line++;
+        // kDebug() << "searchText | line " << j << ": no" << endl;
+        return KTextEditor::Range::invalid();
       }
-    }
-    else
-    {
-      // backward search
-      const int searchEnd = 0;
-      while (line >= searchEnd)
+
+      const int offset = (j == forMin) ? minLeft : 0;
+      uint foundAt, myMatchLen;
+      const bool found = textLine->searchText (offset, text, &foundAt, &myMatchLen, casesensitive, backwards);
+      if (found && !((j == forMax) && (static_cast<uint>(foundAt + myMatchLen) > maxRight)))
       {
-        KateTextLine::Ptr textLine = m_buffer->plainLine(line);
-
-        if (!textLine)
-          return KTextEditor::Range::invalid();
-
-        uint foundAt, myMatchLen;
-        const bool found = textLine->searchText (col, text, &foundAt, &myMatchLen, casesensitive, true);
-
-        if (found)
-        {
-         /* if ((uint) line == startLine && foundAt + myMatchLen >= (uint) col
-              && line == selectStart.line() && foundAt == (uint) selectStart.column()
-              && line == selectEnd.line() && foundAt + myMatchLen == (uint) selectEnd.column())
-          {
-            // To avoid getting stuck at one match we skip a match if it is already
-            // selected (most likely because it has just been found).
-            if (foundAt > 0)
-              col = foundAt - 1;
-            else {
-              if (--line >= 0)
-                col = lineLength(line);
-            }
-            continue;
-        }*/
-
-          return KTextEditor::Range(line, foundAt, line, foundAt + myMatchLen);
-        }
-
-        if (line >= 1)
-          col = lineLength(line-1);
-
-        line--;
+        kDebug() << "searchText | line " << j << ": yes" << endl;
+        return KTextEditor::Range(j, foundAt, j, foundAt + myMatchLen);
+      }
+      else
+      {
+        // kDebug() << "searchText | line " << j << ": no" << endl;
       }
     }
   }
   return KTextEditor::Range::invalid();
 }
 
-KTextEditor::Range KateDocument::searchText (const KTextEditor::Cursor& startPosition, const QRegExp &regexp, bool backwards)
+KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRange, QRegExp &regexp, bool backwards)
 {
+  // TODO remove, fully integrate inputRange
+  const KTextEditor::Cursor& startPosition = inputRange.start();
+
   kDebug(13020)<<"KateDocument::searchText( "<<startPosition.line()<<", "<<startPosition.column()<<", "<<regexp.pattern()<<", "<<backwards<<" )"<<endl;
-  if (regexp.isEmpty() || !regexp.isValid())
+  if (regexp.isEmpty() || !regexp.isValid() || !inputRange.isValid() || (inputRange.start() == inputRange.end()))
     return KTextEditor::Range::invalid();
 
   int line = startPosition.line();
@@ -1978,17 +1967,17 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Cursor& startPos
       lineLens[i - line] = text.length();
     }
 
-    // make regexer from modified pattern
-    QRegExp matcher(multiLinePattern, regexp.caseSensitivity());
-    const int pos = backwards	? matcher.lastIndexIn(wholeDocument, 0, QRegExp::CaretAtZero)
-				: matcher.indexIn(wholeDocument, 0, QRegExp::CaretAtZero);
+    // apply modified pattern
+    regexp.setPattern(multiLinePattern);
+    const int pos = backwards	? regexp.lastIndexIn(wholeDocument, 0, QRegExp::CaretAtZero)
+				: regexp.indexIn(wholeDocument, 0, QRegExp::CaretAtZero);
     if (pos == -1)
     {
       // no match
       delete [] lineLens;
       return KTextEditor::Range::invalid();
     }
-    const int matchLen = matcher.matchedLength();
+    const int matchLen = regexp.matchedLength();
 
     // make range from <pos> and <matchLen>
     int startLine = 0;
@@ -2187,7 +2176,6 @@ QVector<KTextEditor::Range> KateDocument::searchText(
   const bool caseSensitive = !finalOptions.testFlag(KTextEditor::Search::CaseInsensitive);
   const bool backwards = finalOptions.testFlag(KTextEditor::Search::Backwards);
 
-  const KTextEditor::Cursor & start = range.start();
   KTextEditor::Range resultRange;
   if (regexMode)
   {
@@ -2202,7 +2190,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
     {
       // valid pattern
       // run engine
-      resultRange = searchText(start, matcher, backwards);
+      resultRange = searchText(range, matcher, backwards);
     }
     else
     {
@@ -2222,7 +2210,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
     }
 
     // run engine
-    resultRange = searchText(start, finalPattern, caseSensitive, backwards);
+    resultRange = searchText(range, finalPattern, caseSensitive, backwards);
   }
 
   QVector<KTextEditor::Range> result;

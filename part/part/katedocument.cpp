@@ -1954,8 +1954,12 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     // multi-line regex search
     QString wholeDocument;
     const int lineCount = m_buffer->lines();
+    
+    // nothing to do...
+    if (line >= lineCount)
+      return KTextEditor::Range::invalid();
 
-    int * lineLens = new int[lineCount - line];
+    QVector<int> lineLens (lineCount - line);
 
     if (lineCount > line) // TODO
     {
@@ -1991,7 +1995,6 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     if (pos == -1)
     {
       // no match
-      delete [] lineLens;
       return KTextEditor::Range::invalid();
     }
     const int matchLen = regexp.matchedLength();
@@ -2070,7 +2073,6 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
       }
     }
 
-    delete [] lineLens;
     return KTextEditor::Range(startLine, startCol, endLine, endCol);
   }
   else

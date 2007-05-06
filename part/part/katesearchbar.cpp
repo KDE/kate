@@ -210,10 +210,9 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
         kDebug() << "doSearch | whole words only" << endl;
       }
 
-      // TODO make configurable
       // escape sequences?    
-      const bool escapeSequences
-        = d->regExpBox->itemData (d->regExpBox->currentIndex()).toUInt() & KTextEditor::Search::EscapeSequences;
+      const bool escapeSequences = d->regExpBox->itemData(d->regExpBox->currentIndex()).toUInt()
+        & KTextEditor::Search::EscapeSequences;
       if (escapeSequences)
       {
         enabledOptions |= KTextEditor::Search::EscapeSequences;

@@ -1926,15 +1926,10 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
 
 KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRange, QRegExp &regexp, bool backwards)
 {
-  // TODO remove, fully integrate inputRange
-  const KTextEditor::Cursor& startPosition = inputRange.start();
-
-  kDebug(13020)<<"KateDocument::searchText( "<<startPosition.line()<<", "<<startPosition.column()<<", "<<regexp.pattern()<<", "<<backwards<<" )"<<endl;
+  kDebug(13020) << "KateDocument::searchText( " << inputRange.start().line() << ", "
+    << inputRange.start().column() << ", " << regexp.pattern() << ", " << backwards << " )" << endl;
   if (regexp.isEmpty() || !regexp.isValid() || !inputRange.isValid() || (inputRange.start() == inputRange.end()))
     return KTextEditor::Range::invalid();
-
-  int line = startPosition.line();
-  int col = startPosition.column();
 
 
   // detect pattern type (single- or mutli-line)
@@ -1949,55 +1944,64 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     isMultiLine = true;
   }
 
+  const int firstLineIndex = inputRange.start().line();
+  const int minColStart = inputRange.start().column();
+  const int maxColEnd = inputRange.end().column();
   if (isMultiLine)
   {
-    // multi-line regex search
+    // multi-line regex search (both forward and backward mode)
     QString wholeDocument;
-    const int lineCount = m_buffer->lines();
+    const int inputLineCount = inputRange.end().line() - inputRange.start().line() + 1;
+    kDebug() << "searchText | multi line " << firstLineIndex << ".." << firstLineIndex + inputLineCount - 1 << endl;
     
     // nothing to do...
-    if (line >= lineCount)
+    if (firstLineIndex >= m_buffer->lines())
       return KTextEditor::Range::invalid();
 
-    QVector<int> lineLens (lineCount - line);
+    QVector<int> lineLens (inputLineCount);
 
-    if (lineCount > line) // TODO
-    {
-      KateTextLine::Ptr textLine = m_buffer->plainLine(line);
-      
-      if (!textLine)
-        return KTextEditor::Range::invalid();
-      
-      QString text = textLine->string();
-      const int lineLen = text.length() - col;
-      wholeDocument.append(text.right(lineLen));
-      lineLens[0] = lineLen;
-    }
+    // first line
+    KateTextLine::Ptr firstLine = m_buffer->plainLine(firstLineIndex);
+    if (!firstLine)
+      return KTextEditor::Range::invalid();
+    QString firstLineText = firstLine->string();
+    const int firstLineLen = firstLineText.length() - minColStart;
+    wholeDocument.append(firstLineText.right(firstLineLen));
+    lineLens[0] = firstLineLen;
+    kDebug() << "searchText | line " << 0 << " len " << lineLens[0] << endl;
 
+    // second line and after
     const QString sep("\n");
-    for (int i = line + 1; i < lineCount; i++)
+    for (int i = 1; i < inputLineCount; i++)
     {
-      KateTextLine::Ptr textLine = m_buffer->plainLine(i);
-      
+      KateTextLine::Ptr textLine = m_buffer->plainLine(firstLineIndex + i);
       if (!textLine)
         return KTextEditor::Range::invalid();
       
       QString text = textLine->string();
+      if (i == inputLineCount - 1)
+      {
+        // cut last line
+        text = text.left(maxColEnd);
+      }
       wholeDocument.append(sep);
       wholeDocument.append(text);
-      lineLens[i - line] = text.length();
+      lineLens[i] = text.length();
+      kDebug() << "searchText | line " << i << " len " << lineLens[i] << endl;
     }
 
     // apply modified pattern
     regexp.setPattern(multiLinePattern);
-    const int pos = backwards	? regexp.lastIndexIn(wholeDocument, 0, QRegExp::CaretAtZero)
+    const int pos = backwards	? regexp.lastIndexIn(wholeDocument, -1, QRegExp::CaretAtZero)
 				: regexp.indexIn(wholeDocument, 0, QRegExp::CaretAtZero);
     if (pos == -1)
     {
       // no match
+      kDebug() << "searchText | not found" << endl;
       return KTextEditor::Range::invalid();
     }
     const int matchLen = regexp.matchedLength();
+    kDebug() << "searchText | found (pos " << pos << ", len " << matchLen << ")" << endl;
 
     // make range from <pos> and <matchLen>
     int startLine = 0;
@@ -2031,7 +2035,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     }
 
     // single- or multi-line match?
-    if (startCol + matchLen <= lineLens[curRelLine] + 1)
+    if (startCol + matchLen < lineLens[curRelLine] + 1)
     {
       // full or part line but not the newline
       endLine = curRelLine;
@@ -2073,27 +2077,48 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
       }
     }
 
+    kDebug() << "searchText | found at (" << startLine << ", " << startCol << ")..("
+      << endLine << ", " << endCol << ")" << endl;
+
+    // make relative line indeces absolute
+    if (startLine == 0)
+    {
+      startCol += minColStart;
+    }
+    startLine += firstLineIndex;
+    endLine += firstLineIndex;
+
+    kDebug() << "searchText | found at (" << startLine << ", " << startCol << ")..("
+      << endLine << ", " << endCol << ")" << endl;
     return KTextEditor::Range(startLine, startCol, endLine, endCol);
   }
   else
   {
-    // single-line regex search
-    if (!backwards)
+    // single-line regex search (both forward of backward mode)
+    const int minLeft  = inputRange.start().column();
+    const int maxRight = inputRange.end().column(); // first not included
+    const int forMin   = inputRange.start().line();
+    const int forMax   = inputRange.end().line();
+    const int forInit  = backwards ? forMax : forMin;
+    const int forInc   = backwards ? -1 : +1;
+    kDebug() << "searchText | single line " << (backwards ? forMax : forMin) << ".."
+      << (backwards ? forMin : forMax) << endl;
+    for (int j = forInit; (forMin <= j) && (j <= forMax); j += forInc)
     {
-      int searchEnd = lastLine();
-
-      while (line <= searchEnd)
+      KateTextLine::Ptr textLine = m_buffer->plainLine(j);
+      if (!textLine)
       {
-        KateTextLine::Ptr textLine = m_buffer->plainLine(line);
+        // kDebug() << "searchText | line " << j << ": no" << endl;
+        return KTextEditor::Range::invalid();
+      }
 
-        if (!textLine)
-          return KTextEditor::Range::invalid();
+      const int offset = (j == forMin) ? minLeft : 0;
+      uint foundAt, myMatchLen;
+      const bool found = textLine->searchText (offset, regexp, &foundAt, &myMatchLen, backwards);
 
-        uint foundAt, myMatchLen;
-        bool found = textLine->searchText (col, regexp, &foundAt, &myMatchLen, false);
+      /*
+      TODO do we still need this?
 
-        if (found)
-        {
           // A special case which can only occur when searching with a regular expression consisting
           // only of a lookahead (e.g. ^(?=\{) for a function beginning without selecting '{').
           if (myMatchLen == 0 && line == startPosition.line() && foundAt == (uint) col)
@@ -2106,57 +2131,19 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
             }
             continue;
           }
+      */
 
-          return KTextEditor::Range(line, foundAt, line, foundAt + myMatchLen);
-        }
-
-        col = 0;
-        line++;
-      }
-    }
-    else
-    {
-      // backward search
-      int searchEnd = 0;
-
-      while (line >= searchEnd)
+      if (found && !((j == forMax) && (static_cast<uint>(foundAt + myMatchLen) > maxRight)))
       {
-        KateTextLine::Ptr textLine = m_buffer->plainLine(line);
-
-        if (!textLine)
-          return KTextEditor::Range::invalid();
-
-        uint foundAt, myMatchLen;
-        bool found = textLine->searchText (col, regexp, &foundAt, &myMatchLen, true);
-
-        if (found)
-        {
-          /*if ((uint) line == startLine && foundAt + myMatchLen >= (uint) col
-              && line == selectStart.line() && foundAt == (uint) selectStart.column()
-              && line == selectEnd.line() && foundAt + myMatchLen == (uint) selectEnd.column())
-          {
-            // To avoid getting stuck at one match we skip a match if it is already
-            // selected (most likely because it has just been found).
-            if (foundAt > 0)
-              col = foundAt - 1;
-            else {
-              if (--line >= 0)
-                col = lineLength(line);
-            }
-            continue;
-          }*/
-
-          return KTextEditor::Range(line, foundAt, line, foundAt + myMatchLen);
-        }
-
-        if (line >= 1)
-          col = lineLength(line-1);
-
-        line--;
+        kDebug() << "searchText | line " << j << ": yes" << endl;
+        return KTextEditor::Range(j, foundAt, j, foundAt + myMatchLen);
+      }
+      else
+      {
+        // kDebug() << "searchText | line " << j << ": no" << endl;
       }
     }
   }
-
   return KTextEditor::Range::invalid();
 }
 

@@ -217,7 +217,6 @@ void KWrite::setupActions()
     m_paShowPath = new KToggleAction(i18n("Sho&w Path"), this);
     actionCollection()->addAction("set_showPath", m_paShowPath);
     m_paShowPath->setShortcuts(KShortcut());
-    m_paShowPath->setCheckedState(KGuiItem(i18n("Hide Path")));
     m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
     connect(m_paShowPath, SIGNAL(triggered()), this, SLOT(documentNameChanged()));
 

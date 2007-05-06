@@ -460,27 +460,23 @@ void KateView::setupActions()
   ac->addAction("view_folding_markers", a);
   a->setShortcut(QKeySequence(Qt::Key_F9));
   a->setWhatsThis(i18n("You can choose if the codefolding marks should be shown, if codefolding is possible."));
-  toggleAction->setCheckedState(KGuiItem(i18n("Hide Folding &Markers")));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleFoldingMarkers()));
 
   a = m_toggleIconBar = toggleAction = new KToggleAction(i18n("Show &Icon Border"), this);
   ac->addAction("view_border", a);
   a->setShortcut(QKeySequence(Qt::Key_F6));
   a->setWhatsThis(i18n("Show/hide the icon border.<BR><BR> The icon border shows bookmark symbols, for instance."));
-  toggleAction->setCheckedState(KGuiItem(i18n("Hide &Icon Border")));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleIconBorder()));
 
   a = toggleAction = m_toggleLineNumbers = new KToggleAction(i18n("Show &Line Numbers"), this);
   ac->addAction("view_line_numbers", a);
   a->setShortcut(QKeySequence(Qt::Key_F11));
   a->setWhatsThis(i18n("Show/hide the line numbers on the left hand side of the view."));
-  toggleAction->setCheckedState(KGuiItem(i18n("Hide &Line Numbers")));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleLineNumbersOn()));
 
   a = m_toggleScrollBarMarks = toggleAction = new KToggleAction(i18n("Show Scroll&bar Marks"), this);
   ac->addAction("view_scrollbar_marks", a);
   a->setWhatsThis(i18n("Show/hide the marks on the vertical scrollbar.<BR><BR>The marks, for instance, show bookmarks."));
-  toggleAction->setCheckedState(KGuiItem(i18n("Hide Scroll&bar Marks")));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleScrollBarMarks()));
 
   a = toggleAction = m_toggleWWMarker = new KToggleAction(i18n("Show Static &Word Wrap Marker"), this);
@@ -488,7 +484,6 @@ void KateView::setupActions()
   a->setWhatsThis( i18n(
         "Show/hide the Word Wrap Marker, a vertical line drawn at the word "
         "wrap column as defined in the editing properties" ));
-  toggleAction->setCheckedState(KGuiItem(i18n("Hide Static &Word Wrap Marker")));
   connect(a, SIGNAL(triggered(bool)), SLOT( toggleWWMarker() ));
 
   a = m_switchCmdLine = ac->addAction("switch_to_cmd_line");

@@ -86,7 +86,6 @@ void KateBookmarks::createActions( KActionCollection* ac )
     m_bookmarkToggle->setIcon( KIcon( "bookmark-new" ) );
     m_bookmarkToggle->setShortcut( Qt::CTRL+Qt::Key_B );
     m_bookmarkToggle->setWhatsThis(i18n("If a line has no bookmark then add one, otherwise remove it."));
-    m_bookmarkToggle->setCheckedState( KGuiItem(i18n("Clear &Bookmark")) );
     connect( m_bookmarkToggle, SIGNAL( triggered() ), this, SLOT(toggleBookmark()) );
 
     m_bookmarkClear = new KAction( i18n("Clear &All Bookmarks"), this );

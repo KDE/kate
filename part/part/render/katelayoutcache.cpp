@@ -23,7 +23,6 @@
 #include "katerenderer.h"
 #include "kateview.h"
 #include "katedocument.h"
-#include "katetextlayout.h"
 
 #include <kdebug.h>
 

@@ -25,7 +25,7 @@
 #include "katecursor.h"
 #include <ktexteditor/attribute.h>
 #include "katetextline.h"
-#include "katelinerange.h"
+#include "katelinelayout.h"
 #include "katesmartregion.h"
 
 #include <QtGui/QFont>

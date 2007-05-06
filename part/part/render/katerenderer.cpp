@@ -21,7 +21,6 @@
 
 #include "katerenderer.h"
 
-#include "katelinerange.h"
 #include "katedocument.h"
 #include "kateconfig.h"
 #include "katehighlight.h"

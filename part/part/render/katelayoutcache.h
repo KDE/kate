@@ -20,7 +20,8 @@
 #define KATELAYOUTCACHE_H
 
 #include <ktexteditor/range.h>
-#include "katelinerange.h"
+
+#include "katetextlayout.h"
 
 class KateRenderer;
 

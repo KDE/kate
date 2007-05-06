@@ -21,8 +21,6 @@
 
 #include <kdebug.h>
 
-#include "katelinerange.h"
-
 KateTextLayout::KateTextLayout(KateLineLayoutPtr line, int viewLine)
   : m_lineLayout(line)
   , m_viewLine(viewLine)

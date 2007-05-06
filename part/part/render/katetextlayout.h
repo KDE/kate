@@ -23,9 +23,9 @@
 #include <QtGui/QTextLine>
 
 #include <ksharedptr.h>
-#include "katelinerange.h"
 
 #include "katecursor.h"
+#include "katelinelayout.h"
 
 class QTextLayout;
 class KateDocument;

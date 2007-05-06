@@ -37,7 +37,6 @@
 #include "katedynamicanimation.h"
 #include "katesmartmanager.h"
 #include "katecompletionwidget.h"
-#include "katetextlayout.h"
 
 #include <kcursor.h>
 #include <kdebug.h>

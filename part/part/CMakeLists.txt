@@ -1,8 +1,10 @@
 # includes
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/completion
+  ${CMAKE_CURRENT_SOURCE_DIR}/render
   ${CMAKE_CURRENT_SOURCE_DIR}/smart
   ${CMAKE_CURRENT_SOURCE_DIR}/syntax
+  ${CMAKE_CURRENT_SOURCE_DIR}/view
   ${CMAKE_SOURCE_DIR}/kdeprint
   ${CMAKE_SOURCE_DIR}/kde3support
   ${CMAKE_SOURCE_DIR}/kde3support/kdeui
@@ -34,6 +36,13 @@ completion/katecompletiondelegate.cpp
 completion/katecompletiontree.cpp
 completion/katecompletionconfig.cpp
 
+# rendering stuff (katerenderer  and helpers)
+render/katerenderer.cpp
+render/katerenderrange.cpp
+render/katelayoutcache.cpp
+render/katetextlayout.cpp
+render/katelinelayout.cpp
+
 # smart stuff (cursors, ranges, ...)
 smart/katesmartcursor.cpp
 smart/katesmartrange.cpp
@@ -47,6 +56,12 @@ syntax/katesyntaxdocument.cpp
 syntax/katecodefolding.cpp
 syntax/kateextendedattribute.cpp
 
+# view stuff (THE view and it's helpers)
+view/kateview.cpp
+view/kateviewinternal.cpp
+view/kateviewhelpers.cpp
+
+
 # generic stuff, unsorted...
 katesearchbar.cpp
 katebuffer.cpp
@@ -57,14 +72,9 @@ katedialogs.cpp
 katedocument.cpp
 katefactory.cpp
 katetextline.cpp
-kateview.cpp
 kateconfig.cpp
-kateviewhelpers.cpp
 katedocumenthelpers.cpp
-kateviewinternal.cpp
 katebookmarks.cpp
-katelinerange.cpp
-katerenderer.cpp
 kateautoindent.cpp
 katefiletype.cpp
 kateschema.cpp
@@ -73,10 +83,7 @@ katespell.cpp
 kateprinter.cpp
 kateglobal.cpp
 katecmd.cpp
-katelayoutcache.cpp
-katetextlayout.cpp
 kateedit.cpp
-katerenderrange.cpp
 katedynamicanimation.cpp
 katejscript.cpp
 katestyletreewidget.cpp

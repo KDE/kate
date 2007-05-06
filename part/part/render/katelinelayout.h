@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _KATE_LINERANGE_H_
-#define _KATE_LINERANGE_H_
+#ifndef _KATE_LINELAYOUT_H_
+#define _KATE_LINELAYOUT_H_
 
 #include "katecursor.h"
 #include "katetextline.h"

@@ -29,7 +29,7 @@
 #include <ktexteditor/rangefeedback.h>
 
 #include "katesmartcursor.h"
-#include "katelinerange.h"
+#include "katelinelayout.h"
 #include "katetextline.h"
 #include "katedocument.h"
 

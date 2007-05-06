@@ -1,6 +1,7 @@
 # includes
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/completion
+  ${CMAKE_CURRENT_SOURCE_DIR}/dialogs
   ${CMAKE_CURRENT_SOURCE_DIR}/document
   ${CMAKE_CURRENT_SOURCE_DIR}/render
   ${CMAKE_CURRENT_SOURCE_DIR}/smart
@@ -36,6 +37,9 @@ completion/katecompletionmodel.cpp
 completion/katecompletiondelegate.cpp
 completion/katecompletiontree.cpp
 completion/katecompletionconfig.cpp
+
+# dialogs
+dialogs/katedialogs.cpp
 
 # document (THE document, buffer, lines/cursors/..., CORE STUFF)
 document/katedocument.cpp
@@ -75,7 +79,6 @@ view/kateviewhelpers.cpp
 # generic stuff, unsorted...
 katesearchbar.cpp
 katecmds.cpp
-katedialogs.cpp
 katefactory.cpp
 kateconfig.cpp
 katebookmarks.cpp
@@ -95,18 +98,18 @@ katestyletreewidget.cpp
 kde4_automoc(${katepart_PART_SRCS})
 
 set( katepart_PART_UI
-ui//appearanceconfigwidget.ui
-ui//commandmenuconfigwidget.ui
-ui//commandmenueditwidget.ui
-ui//cursorconfigwidget.ui
-ui//editconfigwidget.ui
-ui//filetypeconfigwidget.ui
-ui//hlconfigwidget.ui
-ui//indentationconfigwidget.ui
-ui//opensaveconfigwidget.ui
-ui//modonhdwidget.ui
-ui//schemaconfigcolortab.ui
-ui//completionconfigwidget.ui
+dialogs/appearanceconfigwidget.ui
+dialogs/commandmenuconfigwidget.ui
+dialogs/commandmenueditwidget.ui
+dialogs/cursorconfigwidget.ui
+dialogs/editconfigwidget.ui
+dialogs/filetypeconfigwidget.ui
+dialogs/hlconfigwidget.ui
+dialogs/indentationconfigwidget.ui
+dialogs/opensaveconfigwidget.ui
+dialogs/modonhdwidget.ui
+dialogs/schemaconfigcolortab.ui
+dialogs/completionconfigwidget.ui
 )
 
 kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )

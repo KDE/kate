@@ -55,7 +55,7 @@
 //BEGIN KateHlManager
 KateHlManager::KateHlManager()
   : QObject()
-  , m_config ("katesyntaxhighlightingrc", KConfig::NoGlobals)
+  , m_config ("katesyntaxrc", KConfig::NoGlobals)
   , commonSuffixes (QString(".orig;.new;~;.bak;.BAK").split(';'))
   , syntax (new KateSyntaxDocument())
   , dynamicCtxsCount(0)

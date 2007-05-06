@@ -31,7 +31,6 @@
 #include "katetextline.h"
 #include "katedocumenthelpers.h"
 #include "kateprinter.h"
-#include "katelinerange.h"
 #include "katesmartcursor.h"
 #include "katerenderer.h"
 #include <ktexteditor/attribute.h>

@@ -752,6 +752,7 @@ void KateView::setupEditActions()
     a->setShortcut(QKeySequence(Qt::Key_Backspace));
     connect(a, SIGNAL(triggered(bool)), SLOT(backspace()));
 
+#if 0
 #ifdef __GNUC__
 #warning REMOVE THIS IN THE RELEASE
 #endif
@@ -760,7 +761,7 @@ void KateView::setupEditActions()
 //     a->setText(i18n("Debug TemplateCode"));
 //     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_1));
 //     connect(a, SIGNAL(triggered(bool)), m_doc,SLOT(testTemplateCode()));
-
+#endif
   }
 
   m_editActions->setConfigGroup("Katepart Shortcuts");

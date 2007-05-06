@@ -25,7 +25,7 @@
 #include "katedocument.h"
 #include "kateglobal.h"
 #include "katehighlight.h"
-#include "katelinerange.h"
+#include "katetextlayout.h"
 #include "katerenderer.h"
 #include "kateschema.h"
 #include "katetextline.h"

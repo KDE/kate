@@ -1,6 +1,7 @@
 # includes
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/completion
+  ${CMAKE_CURRENT_SOURCE_DIR}/smart
   ${CMAKE_SOURCE_DIR}/kdeprint
   ${CMAKE_SOURCE_DIR}/kde3support
   ${CMAKE_SOURCE_DIR}/kde3support/kdeui
@@ -24,11 +25,22 @@ endif(KDE4_ENABLE_FINAL)
 
 # our sources
 set(katepart_PART_SRCS
+
+# completion (widget, model, delegate, ...)
 completion/katecompletionwidget.cpp
 completion/katecompletionmodel.cpp
 completion/katecompletiondelegate.cpp
 completion/katecompletiontree.cpp
 completion/katecompletionconfig.cpp
+
+# smart stuff (cursors, ranges, ...)
+smart/katesmartcursor.cpp
+smart/katesmartrange.cpp
+smart/katesmartmanager.cpp
+smart/katesmartcursornotifier.cpp
+smart/katesmartregion.cpp
+
+# generic stuff, unsorted...
 katesearchbar.cpp
 katebuffer.cpp
 katecmds.cpp
@@ -48,7 +60,6 @@ katecodefoldinghelpers.cpp
 kateviewinternal.cpp
 katebookmarks.cpp
 katelinerange.cpp
-katesmartcursor.cpp
 katerenderer.cpp
 kateautoindent.cpp
 katefiletype.cpp
@@ -56,16 +67,12 @@ kateschema.cpp
 katetemplatehandler.cpp
 katespell.cpp
 kateprinter.cpp
-katesmartrange.cpp
 kateglobal.cpp
 katecmd.cpp
 katelayoutcache.cpp
 katetextlayout.cpp
-katesmartmanager.cpp
 kateedit.cpp
-katesmartcursornotifier.cpp
 katerenderrange.cpp
-katesmartregion.cpp
 katedynamicanimation.cpp
 kateextendedattribute.cpp
 katejscript.cpp

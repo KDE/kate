@@ -72,7 +72,6 @@
 #include <kmenu.h>
 #include <k3process.h>
 #include <k3procio.h>
-#include <kregexpeditorinterface.h>
 #include <krun.h>
 #include <kseparator.h>
 #include <kstandarddirs.h>

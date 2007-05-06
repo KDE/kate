@@ -1,5 +1,10 @@
 # includes
-include_directories( ${CMAKE_SOURCE_DIR}/kdeprint ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor ${CMAKE_SOURCE_DIR}/kutils ${CMAKE_SOURCE_DIR}/kde3support ${CMAKE_SOURCE_DIR}/kde3support/kdeui ${CMAKE_SOURCE_DIR}/kjsembed )
+include_directories(
+  ${CMAKE_CURRENT_SOURCE_DIR}/completion
+  ${CMAKE_SOURCE_DIR}/kdeprint
+  ${CMAKE_SOURCE_DIR}/kde3support
+  ${CMAKE_SOURCE_DIR}/kde3support/kdeui
+  ${CMAKE_SOURCE_DIR}/kjsembed )
 
 
 # kjs hash stuff
@@ -19,6 +24,11 @@ endif(KDE4_ENABLE_FINAL)
 
 # our sources
 set(katepart_PART_SRCS
+completion/katecompletionwidget.cpp
+completion/katecompletionmodel.cpp
+completion/katecompletiondelegate.cpp
+completion/katecompletiontree.cpp
+completion/katecompletionconfig.cpp
 katesearchbar.cpp
 katebuffer.cpp
 katecmds.cpp
@@ -58,11 +68,6 @@ katerenderrange.cpp
 katesmartregion.cpp
 katedynamicanimation.cpp
 kateextendedattribute.cpp
-katecompletionwidget.cpp
-katecompletionmodel.cpp
-katecompletiondelegate.cpp
-katecompletiontree.cpp
-katecompletionconfig.cpp
 katejscript.cpp
 katestyletreewidget.cpp
 )

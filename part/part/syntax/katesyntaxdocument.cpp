@@ -342,7 +342,7 @@ void KateSyntaxDocument::setupModeList (bool force)
     return;
 
   // We'll store the ModeList in katesyntaxhighlightingrc
-  KConfig _config("katesyntaxrc", KConfig::NoGlobals);
+  KConfig _config("katesyntaxhighlightingrc", KConfig::NoGlobals);
   KConfigGroup config(&_config, "General");
 
   // figure our if the kate install is too new

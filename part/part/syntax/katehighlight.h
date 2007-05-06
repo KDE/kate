@@ -23,6 +23,7 @@
 
 #include "katetextline.h"
 #include "kateextendedattribute.h"
+#include "katesyntaxmanager.h"
 
 #include <kconfig.h>
 #include <kactionmenu.h>
@@ -47,6 +48,12 @@ class KateSyntaxDocument;
 class KateTextLine;
 class KateSyntaxModeListItem;
 class KateSyntaxContextData;
+
+// same as in kmimemagic, no need to feed more data
+#define KATE_HL_HOWMANY 1024
+
+// min. x seconds between two dynamic contexts reset
+#define KATE_DYNAMIC_CONTEXTS_RESET_DELAY (30 * 1000)
 
 class QMenu;
 
@@ -374,72 +381,6 @@ class KateHighlighting
   public:
     inline bool foldingIndentationSensitive () { return m_foldingIndentationSensitive; }
     inline bool allowsFolding(){return folding;}
-};
-
-class KateHlManager : public QObject
-{
-  Q_OBJECT
-
-  public:
-    KateHlManager();
-    ~KateHlManager();
-
-    static KateHlManager *self();
-
-    inline KConfig *getKConfig() { return &m_config; }
-
-    KateHighlighting *getHl(int n);
-    int nameFind(const QString &name);
-
-    int detectHighlighting (class KateDocument *doc);
-
-    int findHl(KateHighlighting *h) {return hlList.indexOf(h);}
-    QString identifierForName(const QString&);
-
-    // methodes to get the default style count + names
-    static uint defaultStyles();
-    static QString defaultStyleName(int n, bool translateNames = false);
-
-    void getDefaults(uint schema, KateAttributeList &);
-    void setDefaults(uint schema, KateAttributeList &);
-
-    int highlights();
-    QString hlName(int n);
-    QString hlNameTranslated (int n);
-    QString hlSection(int n);
-    bool hlHidden(int n);
-
-    void incDynamicCtxs() { ++dynamicCtxsCount; }
-    int countDynamicCtxs() { return dynamicCtxsCount; }
-    void setForceNoDCReset(bool b) { forceNoDCReset = b; }
-
-    // be carefull: all documents hl should be invalidated after having successfully called this method!
-    bool resetDynamicCtxs();
-
-  Q_SIGNALS:
-    void changed();
-
-  private:
-    int wildcardFind(const QString &fileName);
-    int mimeFind(KateDocument *);
-    int realWildcardFind(const QString &fileName);
-
-  private:
-    friend class KateHighlighting;
-
-    // This list owns objects it holds, thus they should be deleted when the object is removed
-    QList<KateHighlighting*> hlList;
-    // This hash does not own the objects it holds, thus they should not be deleted
-    QHash<QString, KateHighlighting*> hlDict;
-
-    KConfig m_config;
-    QStringList commonSuffixes;
-
-    KateSyntaxDocument *syntax;
-
-    int dynamicCtxsCount;
-    QTime lastCtxsReset;
-    bool forceNoDCReset;
 };
 
 class KateViewHighlightAction: public KActionMenu

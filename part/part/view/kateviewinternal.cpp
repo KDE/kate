@@ -3175,7 +3175,7 @@ void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool rea
   cache()->relayoutLines(startLine, endLine);
 
 #ifndef KTEXTEDITOR_NO_SMART_THREADSAFE
-  Q_ASSERT(m_doc->isSmartLocked() || thread() == QThread::currentThread());
+  //Q_ASSERT(m_doc->isSmartLocked() || thread() == QThread::currentThread());
   if (!m_smartDirty) {
     m_smartDirty = true;
     emit requestViewUpdate();

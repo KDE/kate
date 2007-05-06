@@ -2,6 +2,7 @@
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/completion
   ${CMAKE_CURRENT_SOURCE_DIR}/smart
+  ${CMAKE_CURRENT_SOURCE_DIR}/syntax
   ${CMAKE_SOURCE_DIR}/kdeprint
   ${CMAKE_SOURCE_DIR}/kde3support
   ${CMAKE_SOURCE_DIR}/kde3support/kdeui
@@ -40,6 +41,11 @@ smart/katesmartmanager.cpp
 smart/katesmartcursornotifier.cpp
 smart/katesmartregion.cpp
 
+# syntax related stuff (highlighting, xml file parsing, folding, ...)
+syntax/katehighlight.cpp
+syntax/katesyntaxdocument.cpp
+syntax/katecodefolding.cpp
+
 # generic stuff, unsorted...
 katesearchbar.cpp
 katebuffer.cpp
@@ -49,14 +55,11 @@ katecursor.cpp
 katedialogs.cpp
 katedocument.cpp
 katefactory.cpp
-katehighlight.cpp
-katesyntaxdocument.cpp
 katetextline.cpp
 kateview.cpp
 kateconfig.cpp
 kateviewhelpers.cpp
 katedocumenthelpers.cpp
-katecodefoldinghelpers.cpp
 kateviewinternal.cpp
 katebookmarks.cpp
 katelinerange.cpp

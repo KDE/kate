@@ -27,7 +27,7 @@
 #include "kateviewinternal.moc"
 
 #include "kateview.h"
-#include "katecodefoldinghelpers.h"
+#include "katecodefolding.h"
 #include "kateviewhelpers.h"
 #include "katehighlight.h"
 #include "katesmartrange.h"

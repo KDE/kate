@@ -21,7 +21,7 @@
 #define __KATE_BUFFER_H__
 
 #include "katetextline.h"
-#include "katecodefoldinghelpers.h"
+#include "katecodefolding.h"
 
 #include <QtCore/QObject>
 

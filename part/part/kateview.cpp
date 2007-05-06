@@ -33,7 +33,7 @@
 #include "katehighlight.h"
 #include "katedialogs.h"
 #include "katetextline.h"
-#include "katecodefoldinghelpers.h"
+#include "katecodefolding.h"
 #include "kateschema.h"
 #include "katebookmarks.h"
 #include "kateconfig.h"

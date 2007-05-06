@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _KATE_CODEFOLDING_HELPERS_
-#define _KATE_CODEFOLDING_HELPERS_
+#ifndef _KATE_CODEFOLDING_H_
+#define _KATE_CODEFOLDING_H_
 
 //BEGIN INCLUDES + FORWARDS
 #include <QtCore/QObject>

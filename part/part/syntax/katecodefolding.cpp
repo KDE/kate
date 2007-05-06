@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "katecodefoldinghelpers.h"
-#include "katecodefoldinghelpers.moc"
+#include "katecodefolding.h"
+#include "katecodefolding.moc"
 
 #include "katebuffer.h"
 #include "katecursor.h"

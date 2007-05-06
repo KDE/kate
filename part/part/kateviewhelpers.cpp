@@ -23,7 +23,7 @@
 
 #include "katecmd.h"
 #include <ktexteditor/attribute.h>
-#include "katecodefoldinghelpers.h"
+#include "katecodefolding.h"
 #include "kateconfig.h"
 #include "katedocument.h"
 #include "katerenderer.h"

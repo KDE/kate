@@ -45,6 +45,7 @@ smart/katesmartregion.cpp
 syntax/katehighlight.cpp
 syntax/katesyntaxdocument.cpp
 syntax/katecodefolding.cpp
+syntax/kateextendedattribute.cpp
 
 # generic stuff, unsorted...
 katesearchbar.cpp
@@ -77,7 +78,6 @@ katetextlayout.cpp
 kateedit.cpp
 katerenderrange.cpp
 katedynamicanimation.cpp
-kateextendedattribute.cpp
 katejscript.cpp
 katestyletreewidget.cpp
 )

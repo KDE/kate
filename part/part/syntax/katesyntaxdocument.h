@@ -24,6 +24,8 @@
 #include <QtCore/QList>
 #include <QtCore/QStringList>
 
+class KConfig;
+
 /**
  * Information about each syntax hl Mode. This is documented in Kate's
  * <a href="http://docs.kde.org/stable/en/kdebase/kate/katehighlight-xml-format.html">user guide</a>
@@ -74,7 +76,7 @@ class KateSyntaxDocument : public QDomDocument
      * Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
      * @param force fore the update of the hl cache
      */
-    KateSyntaxDocument(bool force = false);
+    KateSyntaxDocument(KConfig *config, bool force = false);
 
     /**
      * Desctructor
@@ -162,6 +164,11 @@ class KateSyntaxDocument : public QDomDocument
      * last found data out of the xml
      */
     QStringList m_data;
+    
+    /**
+     * global config, deleted by hlmanager...
+     */
+    KConfig *m_config;
 };
 
 #endif

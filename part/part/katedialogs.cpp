@@ -1051,7 +1051,8 @@ void KateHlDownloadDialog::slotUser1()
   }
 
   // update Config !!
-  KateSyntaxDocument doc (true);
+  // this rewrites the cache....
+  KateSyntaxDocument doc (KateHlManager::self()->getKConfig(), true);
 }
 //END KateHlDownloadDialog
 

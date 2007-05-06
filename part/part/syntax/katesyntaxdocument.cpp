@@ -33,8 +33,9 @@
 
 #include <QtCore/QFile>
 
-KateSyntaxDocument::KateSyntaxDocument(bool force)
+KateSyntaxDocument::KateSyntaxDocument(KConfig *config, bool force)
   : QDomDocument()
+  , m_config (config)
 {
   // Let's build the Mode List (katesyntaxhighlightingrc)
   setupModeList(force);
@@ -342,8 +343,7 @@ void KateSyntaxDocument::setupModeList (bool force)
     return;
 
   // We'll store the ModeList in katesyntaxhighlightingrc
-  KConfig _config("katesyntaxhighlightingrc", KConfig::NoGlobals);
-  KConfigGroup config(&_config, "General");
+  KConfigGroup config(m_config, "General");
 
   // figure our if the kate install is too new
   if (config.readEntry ("Version",0) > config.readEntry ("CachedVersion",0))

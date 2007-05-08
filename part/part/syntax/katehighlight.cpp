@@ -2403,11 +2403,14 @@ KateHlContextModification KateHighlighting::getContextModificationFromString(QSt
    * handle the remaining string, this might be a ##contextname
    * or a normal contextname....
    */
-  if ( tmpLineEndContext.startsWith("##"))
+  if ( tmpLineEndContext.contains("##"))
   {
-    QString tmp=tmpLineEndContext.right(tmpLineEndContext.length()-2);
+    int o = tmpLineEndContext.indexOf("##");
+    // FIXME at least with 'foo##bar'-style contexts the rules are picked up
+    // but the default attribute is not
+    QString tmp=tmpLineEndContext.mid(o+2);
     if (!embeddedHls.contains(tmp))  embeddedHls.insert(tmp,KateEmbeddedHlInfo());
-    unres=tmp;
+    unres=tmp+':'+tmpLineEndContext.left(o);
     kDebug(13010) << "unres = " << unres << endl;
     context=0;
   }

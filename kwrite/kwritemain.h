@@ -29,10 +29,9 @@
 #include <kdialog.h>
 #include <kconfig.h>
 //Added by qt3to4:
-#include <QDragEnterEvent>
-#include <QDropEvent>
-#include <QList>
-#include <QLabel>
+#include <QtGui/QKeyEvent>
+#include <QtCore/QList>
+#include <QtGui/QLabel>
 namespace KTextEditor { class EditorChooser; }
 
 class KAction;

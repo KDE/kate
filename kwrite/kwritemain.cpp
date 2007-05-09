@@ -56,21 +56,20 @@
 #include <kurl.h>
 #include <kxmlguifactory.h>
 
-#include <QStackedWidget>
-#include <QPainter>
-#include <QLabel>
-#include <QCursor>
-#include <QMenu>
-#include <QPixmap>
-#include <QTimer>
-#include <QTextCodec>
-#include <QLayout>
+#include <QtGui/QStackedWidget>
+#include <QtGui/QPainter>
+#include <QtGui/QLabel>
+#include <QtGui/QCursor>
+#include <QtGui/QMenu>
+#include <QtGui/QPixmap>
+#include <QtCore/QTimer>
+#include <QtCore/QTextCodec>
+#include <QtGui/QLayout>
 //Added by qt3to4:
-#include <QDragEnterEvent>
-#include <QVBoxLayout>
-#include <QList>
-#include <QDropEvent>
-#include <QTextIStream>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QBoxLayout>
+#include <QtCore/QList>
+#include <QtCore/QTextStream>
 
 // StatusBar field IDs
 #define KWRITE_ID_GEN 1

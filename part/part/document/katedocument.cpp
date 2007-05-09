@@ -2079,7 +2079,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     kDebug() << "searchText | found at (" << startLine << ", " << startCol << ")..("
       << endLine << ", " << endCol << ")" << endl;
 
-    // make relative line indeces absolute
+    // make relative line indices absolute
     if (startLine == 0)
     {
       startCol += minColStart;

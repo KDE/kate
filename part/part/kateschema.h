@@ -260,7 +260,7 @@ class KateSchemaConfigPage : public KateConfigPage
     void newSchema ();
     void schemaChanged (int schema);
 
-    void newCurrentPage (QWidget *w);
+    void newCurrentPage(int);
 
   private:
     int m_lastSchema;

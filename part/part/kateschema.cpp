@@ -699,7 +699,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   m_tabWidget = new QTabWidget ( this );
   layout->addWidget (m_tabWidget);
 
-  connect (m_tabWidget, SIGNAL (currentChanged (QWidget *)), this, SLOT (newCurrentPage (QWidget *)));
+  connect (m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT (newCurrentPage(int)));
 
   m_colorTab = new KateSchemaConfigColorTab();
   m_tabWidget->addTab (m_colorTab, i18n("Colors"));
@@ -848,9 +848,10 @@ void KateSchemaConfigPage::schemaChanged (int schema)
   m_lastSchema = schema;
 }
 
-void KateSchemaConfigPage::newCurrentPage (QWidget *w)
+void KateSchemaConfigPage::newCurrentPage (int index)
 {
-  if (w == m_highlightTab)
+   QWidget *w = m_tabWidget->widget(index);
+   if (w == m_highlightTab)
     m_highlightTab->schemaChanged (m_lastSchema);
 }
 //END KateSchemaConfigPage

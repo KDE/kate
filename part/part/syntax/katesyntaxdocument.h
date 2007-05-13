@@ -76,7 +76,7 @@ class KateSyntaxDocument : public QDomDocument
      * Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
      * @param force fore the update of the hl cache
      */
-    KateSyntaxDocument(KConfig *config, bool force = false);
+    explicit KateSyntaxDocument(KConfig *config, bool force = false);
 
     /**
      * Desctructor

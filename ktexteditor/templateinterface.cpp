@@ -57,7 +57,7 @@ bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *pare
       {
         if (kabcbridgecall==0)
         {
-          KLibrary *lib=KLibLoader::self()->library("ktexteditorkabcbridge");
+          KLibrary *lib=KLibLoader::self()->library(QLatin1String("ktexteditorkabcbridge"));
           if (lib)
               kabcbridgecall=(kabcbridgecalltype)lib->resolveFunction("ktexteditorkabcbridge");
           if (kabcbridgecall == 0)

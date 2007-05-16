@@ -22,12 +22,6 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp
 )
 
-if(KDE4_ENABLE_FINAL)
-	macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
-else(KDE4_ENABLE_FINAL)		
-	macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
-endif(KDE4_ENABLE_FINAL)
-
 # our sources
 set(katepart_PART_SRCS
 
@@ -118,6 +112,13 @@ kde4_add_plugin(katepart ${katepart_PART_SRCS})
 
 # linking
 target_link_libraries(katepart ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kjs kde3support )
+
+if(KDE4_ENABLE_FINAL)
+	macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
+else(KDE4_ENABLE_FINAL)		
+	macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
+endif(KDE4_ENABLE_FINAL)
+
 
 # install the stuff
 install(TARGETS katepart  DESTINATION ${PLUGIN_INSTALL_DIR} )

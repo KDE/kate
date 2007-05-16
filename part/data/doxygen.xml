@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE language SYSTEM "language.dtd">
+<!DOCTYPE language SYSTEM "language.dtd"
+[
+        <!ENTITY wordsep "([][,?;()]|\.$|\.?\s)">     <!-- things that end a TagWord -->
+]>
 <!--
   This file is part of KDE's kate project.
 
@@ -19,11 +22,11 @@
  *                                                                    *
  * You should have received a copy of the GNU Library General Public  *
  * License along with this library; if not, write to the              *
- * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,       *
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,   *
  * Boston, MA  02110-1301, USA.                                       *
  **********************************************************************
  -->
-<language name="Doxygen" version="1.25" kateversion="2.4" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language name="Doxygen" version="1.27" kateversion="2.4" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->
@@ -36,6 +39,7 @@
       <item> \dot </item>
       <item> \else </item>
       <item> \endcode </item>
+      <item> \endcond </item>
       <item> \enddot </item>
       <item> \endhtmlonly </item>
       <item> \endif </item>
@@ -64,7 +68,6 @@
       <item> \nosubgrouping </item>
       <item> \note </item>
       <item> \only </item>
-      <item> \par </item>
       <item> \post </item>
       <item> \pre </item>
       <item> \remarks </item>
@@ -88,6 +91,7 @@
       <item> @dot </item>
       <item> @else </item>
       <item> @endcode </item>
+      <item> @endcond </item>
       <item> @enddot </item>
       <item> @endhtmlonly </item>
       <item> @endif </item>
@@ -116,7 +120,6 @@
       <item> @nosubgrouping </item>
       <item> @note </item>
       <item> @only </item>
-      <item> @par </item>
       <item> @post </item>
       <item> @pre </item>
       <item> @remarks </item>
@@ -140,6 +143,7 @@
       <item> \b </item>
       <item> \c </item>
       <item> \class </item>
+      <item> \cond </item>
       <item> \copydoc </item>
       <item> \def </item>
       <item> \dontinclude </item>
@@ -160,7 +164,6 @@
       <item> \namespace </item>
       <item> \p </item>
       <item> \package </item>
-      <item> \param </item>
       <item> \ref </item>
       <item> \relatesalso </item>
       <item> \relates </item>
@@ -177,6 +180,7 @@
       <item> @b </item>
       <item> @c </item>
       <item> @class </item>
+      <item> @cond </item>
       <item> @copydoc </item>
       <item> @def </item>
       <item> @dontinclude </item>
@@ -197,7 +201,6 @@
       <item> @namespace </item>
       <item> @p </item>
       <item> @package </item>
-      <item> @param </item>
       <item> @ref </item>
       <item> @relatesalso </item>
       <item> @relates </item>
@@ -207,6 +210,11 @@
       <item> @verbinclude </item>
       <item> @version </item>
       <item> @xrefitem </item>
+    </list>
+    <list name="TagParam">
+      <item> \param </item>
+
+      <item> @param </item>
     </list>
     <list name="TagWordWord">
       <item> \image </item>
@@ -246,6 +254,7 @@
       <item> \mainpage </item>
       <item> \name </item>
       <item> \overload </item>
+      <item> \par </item>
       <item> \short </item>
       <item> \skip </item>
       <item> \skipline </item>
@@ -264,6 +273,7 @@
       <item> @mainpage </item>
       <item> @name </item>
       <item> @overload </item>
+      <item> @par </item>
       <item> @short </item>
       <item> @skip </item>
       <item> @skipline </item>
@@ -281,13 +291,18 @@
     -->
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <RegExpr attribute="Comment" context="LineComment" String="//(!|(/(?=[^/]|$)))&lt;?"/>
-        <RegExpr attribute="Comment" context="BlockComment" String="/\*(\*[^*/]|!|\*$)&lt;?" beginRegion="BlockComment"/>
+        <RegExpr attribute="Comment" context="BlockComment" String="/\*(\*[^*/]|!|[*!]&lt;|\*$)" beginRegion="BlockComment"/>
+        <RegExpr attribute="Region" context="#stay" String="//@\{\s*$" beginRegion="MemberGroup"/>
+        <RegExpr attribute="Region" context="#stay" String="//@\}\s*$"   endRegion="MemberGroup"/>
+        <RegExpr attribute="Region" context="#stay" String="/\*@\{\s*\*/" beginRegion="MemberGroup"/>
+        <RegExpr attribute="Region" context="#stay" String="/\*@\}\s*\*/"   endRegion="MemberGroup"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="LineComment">
         <DetectSpaces />
         <IncludeRules context="##Alerts" />
         <keyword attribute="Tags" context="#stay" String="TagOnly" />
         <keyword attribute="Tags" context="SL_TagWord" String="TagWord" />
+        <keyword attribute="Tags" context="SL_TagParam" String="TagParam" />
         <keyword attribute="Tags" context="SL_TagWordWord" String="TagWordWord" />
         <keyword attribute="Tags" context="SL_TagString" String="TagString" />
         <keyword attribute="Tags" context="SL_TagWordString" String="TagWordString" />
@@ -302,6 +317,7 @@
         <IncludeRules context="##Alerts" />
         <keyword attribute="Tags" context="#stay" String="TagOnly" />
         <keyword attribute="Tags" context="ML_TagWord" String="TagWord" />
+        <keyword attribute="Tags" context="ML_TagParam" String="TagParam" />
         <keyword attribute="Tags" context="ML_TagWordWord" String="TagWordWord" />
         <keyword attribute="Tags" context="ML_TagString" String="TagString" />
         <keyword attribute="Tags" context="ML_TagWordString" String="TagWordString" />
@@ -313,26 +329,32 @@
       </context>
 
 <!-- NOTE: all contexts beginning with ML_ are for multiline comments
-     The following contexts contain a Detect2Chars that looks for a */ sequence to end multiline comments. Singleline comments do not have this limitation - that's why all contexts are copy&pasted and the line <Detect2Chars ... */> is removed. <IncludeRules context="acontext"> could be used instead but it would make context switching much more complex and very hard to understand!
+     The following contexts contain a Detect2Chars that looks for a */ sequence to end multiline comments. Singleline comments do not have this limitation - that's why all contexts are copy&pasted and the line <Detect2Chars ... */> is removed. <IncludeRules context="acontext"> could be used instead but it would make context switching much more complex and very hard to understand! (But use IncludeRules where the rules don't refer to another SL_*/ML_* context, to help maintainability.)
 -->
       <!-- tag contexts -->
       <context attribute="Comment" lineEndContext="#pop" name="ML_TagWord">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
+        <IncludeRules context="SL_TagWord" />
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="ML_TagParam">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
         <DetectSpaces />
-        <RegExpr attribute="Word" context="#pop" String="\S\s" />
+        <StringDetect attribute="Tags" context="ML_Tag2ndWord" String="[in]" />
+        <StringDetect attribute="Tags" context="ML_Tag2ndWord" String="[out]" />
+        <StringDetect attribute="Tags" context="ML_Tag2ndWord" String="[in,out]" />
+        <RegExpr attribute="Word" context="#pop" String="\S(?=&wordsep;)" />
         <RegExpr attribute="Word" context="#stay" String="\S" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="ML_TagWordWord">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
         <DetectSpaces />
-        <RegExpr attribute="Word" context="#pop" String="\S\s" />
+        <RegExpr attribute="Word" context="ML_Tag2ndWord" String="\S(?=&wordsep;)" />
         <RegExpr attribute="Word" context="#stay" String="\S" />
       </context>
-      <context attribute="Comment" lineEndContext="#pop" name="ML_Tag2ndWord">
-        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
-        <DetectSpaces />
-        <RegExpr attribute="Word" context="#pop" String="\S\s" />
-        <RegExpr attribute="Word" context="#stay" String="\S" />
+      <!-- TODO for kate 2.x, convert references to "#pop!ML_TagWord" -->
+      <context attribute="Comment" lineEndContext="#pop#pop" name="ML_Tag2ndWord">
+        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" lookAhead="true"/>
+        <IncludeRules context="SL_Tag2ndWord" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="ML_TagString">
         <DetectSpaces />
@@ -344,9 +366,7 @@
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="ML_TagWordString">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
-        <DetectSpaces />
-        <RegExpr attribute="Word" context="#pop" String="\S\s" />
-        <RegExpr attribute="Word" context="#stay" String="\S" />
+        <IncludeRules context="SL_TagWordString" />
       </context>
 
       <!-- html contexts -->
@@ -380,17 +400,27 @@
       <!-- tag contexts -->
       <context attribute="Comment" lineEndContext="#pop" name="SL_TagWord">
         <DetectSpaces />
-        <RegExpr attribute="Word" context="#pop" String="\S\s" />
+        <keyword attribute="Tags" context="#pop" String="TagWord" lookAhead="true"/>
+        <RegExpr attribute="Word" context="#pop" String="\S(?=&wordsep;)" />
+        <RegExpr attribute="Word" context="#stay" String="\S" />
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="SL_TagParam">
+        <DetectSpaces />
+        <StringDetect attribute="Tags" context="SL_Tag2ndWord" String="[in]" />
+        <StringDetect attribute="Tags" context="SL_Tag2ndWord" String="[out]" />
+        <StringDetect attribute="Tags" context="SL_Tag2ndWord" String="[in,out]" />
+        <RegExpr attribute="Word" context="#pop" String="\S(?=&wordsep;)" />
         <RegExpr attribute="Word" context="#stay" String="\S" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="SL_TagWordWord">
         <DetectSpaces />
-        <RegExpr attribute="Word" context="#pop" String="\S\s" />
+        <RegExpr attribute="Word" context="SL_Tag2ndWord" String="\S(?=&wordsep;)" />
         <RegExpr attribute="Word" context="#stay" String="\S" />
       </context>
-      <context attribute="Comment" lineEndContext="#pop" name="SL_Tag2ndWord">
+      <!-- TODO for kate 2.x, convert references to "#pop!SL_TagWord" -->
+      <context attribute="Comment" lineEndContext="#pop#pop" name="SL_Tag2ndWord">
         <DetectSpaces />
-        <RegExpr attribute="Word" context="#pop" String="\S\s" />
+        <RegExpr attribute="Word" context="#pop#pop" String="\S(?=&wordsep;)" />
         <RegExpr attribute="Word" context="#stay" String="\S" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="SL_TagString">
@@ -402,7 +432,7 @@
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="SL_TagWordString">
         <DetectSpaces />
-        <RegExpr attribute="Word" context="#pop" String="\S\s" />
+        <RegExpr attribute="Word" context="#pop" String="\S(?=&wordsep;)" />
         <RegExpr attribute="Word" context="#stay" String="\S" />
       </context>
 
@@ -436,6 +466,7 @@
       <itemData name="HTML Tag"    defStyleNum="dsKeyword" color="#000000" selColor="#ffffff" bold="1" italic="0" />
       <itemData name="Description" defStyleNum="dsString"  color="#ff0000" />
       <itemData name="Comment"     defStyleNum="dsComment" color="#0000ff" selColor="#ffffff" italic="1" />
+      <itemData name="Region"      defStyleNum="dsRegionMarker" />
       <itemData name="Identifier"  defStyleNum="dsOthers" />
       <itemData name="HTML Comment" defStyleNum="dsComment" />
       <itemData name="Types"       defStyleNum="dsDataType" />

@@ -18,7 +18,7 @@ Changes:
 
 -->
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.28" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.29" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -55,6 +55,7 @@ Changes:
       <item> final </item>
       <item> function </item>
       <item> implements </item>
+      <item> instanceof </item>
       <item> interface </item>
       <item> new </item>
       <item> self </item>

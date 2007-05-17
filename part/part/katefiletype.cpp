@@ -24,6 +24,8 @@
 #include "kateconfig.h"
 #include "kateview.h"
 #include "kateglobal.h"
+#include "katesyntaxmanager.h"
+#include "katesyntaxdocument.h"
 
 #include "ui_filetypeconfigwidget.h"
 
@@ -71,6 +73,8 @@ void KateFileTypeManager::update ()
   QStringList g (config.groupList());
   g.sort ();
 
+  QHash<QString, int> names;
+
   m_types.clear ();
   for (int z=0; z < g.count(); z++)
   {
@@ -84,8 +88,44 @@ void KateFileTypeManager::update ()
     type.mimetypes = cg.readEntry ("Mimetypes", QStringList(), ';');
     type.priority = cg.readEntry ("Priority", 0);
     type.varLine = cg.readEntry ("Variables");
-
+    
+    type.hl = cg.readEntry ("Highlighting");
+    type.hlGenerated = cg.readEntry ("Highlighting Generated", false);
+    type.version = cg.readEntry ("Highlighting Version");
+      
+    names.insert (type.name, m_types.size());
     m_types.append(type);
+  }
+  
+  // try if the hl stuff is up to date...
+  const KateSyntaxModeList &modes = KateHlManager::self()->syntaxDocument()->modeList();
+  for (int i = 0; i < modes.size(); ++i)
+  {
+    int useType = 0;
+    bool newType = false;
+    if (names.contains (modes[i]->name))
+      useType = names[modes[i]->name];
+    else
+    {
+      useType = m_types.size ();
+      newType = true;
+      KateFileType type;
+      type.number = m_types.size();
+      m_types.append (type);
+    }
+    
+    KateFileType &type = m_types[useType];
+    if (newType || type.version != modes[i]->version)
+    {
+      type.name = modes[i]->name;
+      type.section = modes[i]->section;
+      type.wildcards = modes[i]->extension.split (';', QString::SkipEmptyParts);
+      type.mimetypes = modes[i]->mimetype.split (';', QString::SkipEmptyParts);
+      type.priority = modes[i]->priority.toInt();
+      type.version = modes[i]->version;
+      type.hl = modes[i]->name;
+      type.hlGenerated = true;
+    }
   }
 }
 
@@ -112,6 +152,10 @@ void KateFileTypeManager::save (const QList<KateFileType>& v)
       varLine.prepend ("kate: ");
 
     config.writeEntry ("Variables", varLine);
+    
+    config.writeEntry ("Highlighting", type.hl);
+    config.writeEntry ("Highlighting Generated", type.hlGenerated);
+    config.writeEntry ("Highlighting Version", type.version);
 
     newg << type.name;
   }
@@ -401,6 +445,10 @@ void KateFileTypeConfigTab::typeChanged (int type)
     ui->edtFileExtensions->setText(t.wildcards.join (";"));
     ui->edtMimeTypes->setText(t.mimetypes.join (";"));
     ui->sbPriority->setValue(t.priority);
+    
+    ui->btnDelete->setEnabled (!t.hlGenerated);
+    ui->edtName->setEnabled (!t.hlGenerated);
+    ui->edtSection->setEnabled (!t.hlGenerated);
   }
   else
   {

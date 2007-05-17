@@ -60,6 +60,8 @@ class KateHlManager : public QObject
     ~KateHlManager();
 
     static KateHlManager *self();
+    
+    KateSyntaxDocument *syntaxDocument () { return syntax; }
 
     inline KConfig *getKConfig() { return &m_config; }
 

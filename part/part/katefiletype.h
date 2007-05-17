@@ -21,6 +21,7 @@
 
 #include <QtCore/QStringList>
 #include <QtCore/QPointer>
+#include <QtCore/QHash>
 
 #include "katedialogs.h"
 
@@ -41,6 +42,9 @@ class KateFileType
     QStringList mimetypes;
     int priority;
     QString varLine;
+    QString hl;
+    bool hlGenerated;
+    QString version;
 };
 
 class KateFileTypeManager

@@ -5596,12 +5596,12 @@ void KateDocument::updateFileType (const QString &newType, bool user)
           m_config->configStart();
           
           if (!hlSetByUser)
-   {
-      int hl (KateHlManager::self()->detectHighlighting (this));
+          {
+            int hl (KateHlManager::self()->nameFind (KateGlobal::self()->fileTypeManager()->fileType(newType).hl));
 
-      if (hl >= 0)
-        m_buffer->setHighlight(hl);
-    }
+            if (hl >= 0)
+              m_buffer->setHighlight(hl);
+          }
 
           
           // views!

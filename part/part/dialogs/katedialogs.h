@@ -334,9 +334,6 @@ class KateHlConfigPage : public KateConfigPage
 
     Ui::HlConfigWidget *ui;
 
-    QHash<int,KateHlData> hlDataDict;
-    int m_currentHlData;
-
     KateDocument *m_doc;
 };
 

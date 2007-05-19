@@ -68,8 +68,6 @@ class KateHlManager : public QObject
     KateHighlighting *getHl(int n);
     int nameFind(const QString &name);
 
-    int detectHighlighting (class KateDocument *doc);
-
     int findHl(KateHighlighting *h) {return hlList.indexOf(h);}
     QString identifierForName(const QString&);
 
@@ -95,11 +93,6 @@ class KateHlManager : public QObject
 
   Q_SIGNALS:
     void changed();
-
-  private:
-    int wildcardFind(const QString &fileName);
-    int mimeFind(KateDocument *);
-    int realWildcardFind(const QString &fileName);
 
   private:
     friend class KateHighlighting;

@@ -42,12 +42,12 @@
 
 class KateHlContext;
 class KateHlItem;
-class KateHlData;
 class KateHlIncludeRule;
 class KateSyntaxDocument;
 class KateTextLine;
 class KateSyntaxModeListItem;
 class KateSyntaxContextData;
+class KateDocument;
 
 // same as in kmimemagic, no need to feed more data
 #define KATE_HL_HOWMANY 1024
@@ -118,19 +118,6 @@ typedef QList<KateHlIncludeRule*> KateHlIncludeRules;
 typedef QMap<QString,KateEmbeddedHlInfo> KateEmbeddedHlInfos;
 typedef QMap<KateHlContextModification*,QString> KateHlUnresolvedCtxRefs;
 
-
-class KateHlData
-{
-  public:
-    KateHlData(const QString &wildcards, const QString &mimetypes,const QString &identifier, int priority);
-    KateHlData();
-  public:
-    QString wildcards;
-    QString mimetypes;
-    QString identifier;
-    int priority;
-};
-
 class KateHighlighting
 {
   public:
@@ -157,9 +144,6 @@ class KateHighlighting
     QStringList& getPlainExtensions();
 
     QString getMimetypes();
-
-    KateHlData getData();
-    void setData(const KateHlData&);
 
     void setKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute::Ptr> &);
 

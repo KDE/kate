@@ -819,7 +819,6 @@ void KateScriptConfigPage::reload () {
 //BEGIN KateHlConfigPage
 KateHlConfigPage::KateHlConfigPage (QWidget *parent, KateDocument *doc)
  : KateConfigPage (parent, "")
- , m_currentHlData (-1)
  , m_doc (doc)
 {
   ui = new Ui::HlConfigWidget();
@@ -832,21 +831,13 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent, KateDocument *doc)
     else
       ui->cmbHl->addItem(KateHlManager::self()->hlNameTranslated(i));
   }
-
-  ui->btnMimeTypes->setIcon(QIcon(SmallIcon("wizard")));
-  connect( ui->btnMimeTypes, SIGNAL(clicked()), this, SLOT(showMTDlg()) );
+  
   connect( ui->btnDownload, SIGNAL(clicked()), this, SLOT(hlDownload()) );
   connect( ui->cmbHl, SIGNAL(activated(int)), this, SLOT(hlChanged(int)) );
 
   int currentHl = m_doc ? m_doc->hlMode() : 0;
   ui->cmbHl->setCurrentIndex( currentHl );
   hlChanged( currentHl );
-
-  // What's This? help is in the ui-file
-
-  connect( ui->edtFileExtensions, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( ui->edtMimeTypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( ui->sbPriority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
 }
 
 KateHlConfigPage::~KateHlConfigPage ()
@@ -859,13 +850,6 @@ void KateHlConfigPage::apply ()
   if (!hasChanged())
     return;
   m_changed = false;
-
-  writeback();
-
-  for(QHash<int,KateHlData>::const_iterator it=hlDataDict.constBegin();it!=hlDataDict.constEnd();++it)
-    KateHlManager::self()->getHl( it.key() )->setData( it.value() );
-
-  KateHlManager::self()->getKConfig()->sync ();
 }
 
 void KateHlConfigPage::reload ()
@@ -881,18 +865,8 @@ void KateHlConfigPage::hlChanged(int z)
 
   if (!hl)
   {
-    m_currentHlData = -1;
     return;
   }
-
-  if ( !hlDataDict.contains( z ) )
-    hlDataDict.insert( z, hl->getData() );
-
-  m_currentHlData = z;
-  const KateHlData& hlData=hlDataDict[ z ];
-  ui->edtFileExtensions->setText(hlData.wildcards);
-  ui->edtMimeTypes->setText(hlData.mimetypes);
-  ui->sbPriority->setValue(hlData.priority);
 
   // split author string if needed into multiple lines !
   QStringList l= hl->author().split (QRegExp("[,;]"));
@@ -903,13 +877,6 @@ void KateHlConfigPage::hlChanged(int z)
 
 void KateHlConfigPage::writeback()
 {
-  if (m_currentHlData!=-1)
-  {
-    KateHlData &hlData=hlDataDict[m_currentHlData];
-    hlData.wildcards = ui->edtFileExtensions->text();
-    hlData.mimetypes = ui->edtMimeTypes->text();
-    hlData.priority = ui->sbPriority->value();
-  }
 }
 
 void KateHlConfigPage::hlDownload()
@@ -920,16 +887,6 @@ void KateHlConfigPage::hlDownload()
 
 void KateHlConfigPage::showMTDlg()
 {
-  QString text = i18n("Select the MimeTypes you want highlighted using the '%1' syntax highlight rules.\nPlease note that this will automatically edit the associated file extensions as well.",  ui->cmbHl->currentText() );
-  QStringList list = ui->edtMimeTypes->text().split( QRegExp("\\s*;\\s*") );
-  KMimeTypeChooserDialog d( i18n("Select Mime Types"), text, list, "text", this );
-
-  if ( d.exec() == KDialog::Accepted ) {
-    // do some checking, warn user if mime types or patterns are removed.
-    // if the lists are empty, and the fields not, warn.
-    ui->edtFileExtensions->setText(d.chooser()->patterns().join(";"));
-    ui->edtMimeTypes->setText(d.chooser()->mimeTypes().join(";"));
-  }
 }
 //END KateHlConfigPage
 

@@ -1075,13 +1075,6 @@ KateHl2CharDetect::KateHl2CharDetect(int attribute, KateHlContextModification co
   }
 //END KateHl2CharDetect
 
-KateHlData::KateHlData(const QString &wildcards, const QString &mimetypes, const QString &identifier, int priority)
-  : wildcards(wildcards), mimetypes(mimetypes), identifier(identifier), priority(priority)
-{
-}
-
-KateHlData::KateHlData() {}
-
 //BEGIN KateHlContext
 KateHlContext::KateHlContext (const QString &_hlId, int attribute, KateHlContextModification _lineEndContext, KateHlContextModification _lineBeginContext, bool _fallthrough,
 	KateHlContextModification _fallthroughContext, bool _dynamic, bool _noIndentationBasedFolding)
@@ -1611,28 +1604,6 @@ int KateHighlighting::priority()
   return config.readEntry("Priority", m_priority);
 }
 
-KateHlData KateHighlighting::getData()
-{
-  KConfigGroup config(KateHlManager::self()->getKConfig(),
-                      "Highlighting " + iName);
-
-  return  KateHlData(
-  config.readEntry("Wildcards", iWildcards),
-  config.readEntry("Mimetypes", iMimetypes),
-  config.readEntry("Identifier", identifier),
-  config.readEntry("Priority", m_priority));
-}
-
-void KateHighlighting::setData(const KateHlData &hlData)
-{
-  KConfigGroup config(KateHlManager::self()->getKConfig(),
-                      "Highlighting " + iName);
-
-  config.writeEntry("Wildcards",hlData.wildcards);
-  config.writeEntry("Mimetypes",hlData.mimetypes);
-  config.writeEntry("Priority",hlData.priority);
-}
-
 void KateHighlighting::getKateExtendedAttributeList (uint schema, QList<KateExtendedAttribute::Ptr> &list)
 {
   KConfigGroup config(KateHlManager::self()->getKConfig(),
@@ -1695,7 +1666,7 @@ void KateHighlighting::getKateExtendedAttributeListCopy( uint schema, QList< Kat
 
 
 /**
- * Saves the KateHlData attribute definitions to the config file.
+ * Saves the attribute definitions to the config file.
  *
  * @param schema The id of the schema group to save
  * @param list QList<KateExtendedAttribute::Ptr> containing the data to be used

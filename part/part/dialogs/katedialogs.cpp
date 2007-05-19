@@ -834,6 +834,9 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent, KateDocument *doc)
   
   connect( ui->btnDownload, SIGNAL(clicked()), this, SLOT(hlDownload()) );
   connect( ui->cmbHl, SIGNAL(activated(int)), this, SLOT(hlChanged(int)) );
+  
+  ui->txtAuthor->setWordWrap (true);
+  ui->txtLicense->setWordWrap (true);
 
   int currentHl = m_doc ? m_doc->hlMode() : 0;
   ui->cmbHl->setCurrentIndex( currentHl );

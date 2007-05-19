@@ -476,7 +476,7 @@ void KateViewFileTypeAction::init()
 
   connect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
   QAction *action = menu()->addAction ( i18n("None") );
-  action->setData( 0 );
+  action->setData( "" );
   action->setCheckable( true );
 
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
@@ -517,7 +517,7 @@ void KateViewFileTypeAction::slotAboutToShow()
       names << hlName;
       QAction *action = subMenus.at(m)->addAction ( hlName );
       action->setCheckable( true );
-      action->setData( z+1 );
+      action->setData( hlName );
     }
     else if (!names.contains(hlName))
     {
@@ -528,7 +528,7 @@ void KateViewFileTypeAction::slotAboutToShow()
 
       QAction *action = menu()->addAction ( hlName );
       action->setCheckable( true );
-      action->setData( z+1 );
+      action->setData( hlName );
     }
   }
 
@@ -547,28 +547,28 @@ void KateViewFileTypeAction::slotAboutToShow()
 
   if (doc->fileType().isEmpty()) {
     for ( int i = 0; i < actions.count(); ++i ) {
-      if ( actions[ i ]->data().toInt() == 0 )
+      if ( actions[ i ]->data().toString() == "" )
         actions[ i ]->setChecked( true );
     }
   } else {
-/*    if (!doc->fileType().isEmpty())
+    if (!doc->fileType().isEmpty())
     {
       const KateFileType& t = KateGlobal::self()->fileTypeManager()->fileType(doc->fileType());
       int i = subMenusName.indexOf (t.section);
       if (i >= 0 && subMenus.at(i)) {
         QList<QAction*> actions = subMenus.at( i )->actions();
         for ( int j = 0; j < actions.count(); ++j ) {
-          if ( actions[ j ]->data().toInt() == (doc->fileType()+1) )
+          if ( actions[ j ]->data().toString() == doc->fileType() )
             actions[ j ]->setChecked( true );
         }
       } else {
         QList<QAction*> actions = menu()->actions();
         for ( int j = 0; j < actions.count(); ++j ) {
-          if ( actions[ j ]->data().toInt() == 0 )
+          if ( actions[ j ]->data().toString() == "" )
             actions[ j ]->setChecked( true );
         }
       }
-    }*/
+    }
   }
 }
 
@@ -577,8 +577,7 @@ void KateViewFileTypeAction::setType (QAction *action)
   KateDocument *doc=m_doc;
 
   if (doc) {
-    int mode = action->data().toInt();
-  //  doc->updateFileType(mode-1, true);
+    doc->updateFileType(action->data().toString(), true);
   }
 }
 

@@ -247,7 +247,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setActiveView(0L);
 
   hlSetByUser = false;
-  m_fileType = -1;
   m_fileTypeSetByUser = false;
   setComponentData( KateGlobal::self()->componentData() );
 
@@ -2726,6 +2725,11 @@ void KateDocument::readSessionConfig(const KConfigGroup &kconfig)
   if (!url.isEmpty() && url.isValid())
     openUrl (url);
   else completed(); //perhaps this should be emitted at the end of this function
+  
+  
+  // restore the filetype
+  updateFileType (kconfig.readEntry("File Type"));
+  
   // restore the hl stuff
   m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig.readEntry("Highlighting")));
 
@@ -2750,6 +2754,9 @@ void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
 
   // save encoding
   kconfig.writeEntry("Encoding",encoding());
+  
+  // save file type
+  kconfig.writeEntry("File Type", m_fileType);
 
   // save hl
   kconfig.writeEntry("Highlighting", highlight()->name());
@@ -3143,20 +3150,6 @@ bool KateDocument::openFile(KIO::Job * job)
     emit KTextEditor::Document::textInserted(this, documentRange());
     history()->doEdit( new KateEditInfo(this, Kate::OpenFileEdit, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
 
-    /*if (highlight() && !this->url().isLocalFile()) {
-      // The buffer's highlighting gets nuked by KateBuffer::clear()
-      m_buffer->setHighlight(m_highlight);
-  }*/
-
-    // update our hl type if needed
-    if (!hlSetByUser)
-    {
-      int hl (KateHlManager::self()->detectHighlighting (this));
-
-      if (hl >= 0)
-        m_buffer->setHighlight(hl);
-    }
-
     // update file type
     updateFileType (KateGlobal::self()->fileTypeManager()->fileType (this));
 
@@ -3406,14 +3399,8 @@ bool KateDocument::saveFile()
   //
   if (success)
   {
-    // update our hl type if needed
-    if (!hlSetByUser)
-    {
-      int hl (KateHlManager::self()->detectHighlighting (this));
-
-      if (hl >= 0)
-        m_buffer->setHighlight(hl);
-    }
+    // update file type
+    updateFileType (KateGlobal::self()->fileTypeManager()->fileType (this));
 
     // read our vars
     readVariables();
@@ -3675,7 +3662,7 @@ void KateDocument::addView(KTextEditor::View *view) {
   m_textEditViews.append( view );
 
   // apply the view & renderer vars from the file type
-  if (KateGlobal::self()->fileTypeManager()->isValidType(m_fileType))
+  if (!m_fileType.isEmpty())
       readVariableLine(KateGlobal::self()->fileTypeManager()->fileType(m_fileType).varLine, true);
 
   // apply the view & renderer vars from the file
@@ -4854,7 +4841,6 @@ void KateDocument::setDocName (QString name )
   {
     // TODO check for similarly named documents
     m_docName = name;
-    updateFileType (KateGlobal::self()->fileTypeManager()->fileType (this));
     emit documentNameChanged (this);
     return;
   }
@@ -4883,7 +4869,6 @@ void KateDocument::setDocName (QString name )
   if (m_docNameNumber > 0)
     m_docName = QString(m_docName + " (%1)").arg(m_docNameNumber+1);
 
-  updateFileType (KateGlobal::self()->fileTypeManager()->fileType (this));
   emit documentNameChanged (this);
 }
 
@@ -5600,34 +5585,41 @@ void KateDocument::removeTrailingSpace(int line)
   }
 }
 
-void KateDocument::updateFileType (int newType, bool user)
+void KateDocument::updateFileType (const QString &newType, bool user)
 {
   if (user || !m_fileTypeSetByUser)
   {
-    if (newType == -1 || KateGlobal::self()->fileTypeManager()->isValidType(newType))
+    if (!newType.isEmpty())
     {
       m_fileType = newType;
 
-      if (KateGlobal::self()->fileTypeManager()->isValidType(newType))
-      {
-        m_config->configStart();
-        // views!
-        KateView *v;
-        foreach (v,m_views)
-        {
-          v->config()->configStart();
-          v->renderer()->config()->configStart();
-        }
+          m_config->configStart();
+          
+          if (!hlSetByUser)
+   {
+      int hl (KateHlManager::self()->detectHighlighting (this));
 
-        readVariableLine( KateGlobal::self()->fileTypeManager()->fileType(newType).varLine );
+      if (hl >= 0)
+        m_buffer->setHighlight(hl);
+    }
 
-        m_config->configEnd();
-        foreach (v,m_views)
-        {
-          v->config()->configEnd();
-          v->renderer()->config()->configEnd();
-        }
-      }
+          
+          // views!
+          KateView *v;
+          foreach (v,m_views)
+          {
+            v->config()->configStart();
+            v->renderer()->config()->configStart();
+          }
+  
+          readVariableLine( KateGlobal::self()->fileTypeManager()->fileType(newType).varLine );
+  
+          m_config->configEnd();
+          foreach (v,m_views)
+          {
+            v->config()->configEnd();
+            v->renderer()->config()->configEnd();
+          }
     }
   }
 }

@@ -64,14 +64,12 @@ class KateFileTypeManager
      * get the right fileType for the given document
      * -1 if none found !
      */
-    int fileType (KateDocument *doc);
-
-    bool isValidType(int number) const;
+    QString fileType (KateDocument *doc);
 
     /**
      * Don't store the pointer somewhere longer times, won't be valid after the next update()
      */
-    const KateFileType& fileType (int number) const;
+    const KateFileType& fileType (const QString &name) const;
 
     /**
      * Don't modify
@@ -79,7 +77,7 @@ class KateFileTypeManager
     const QList<KateFileType>& list() const { return m_types; }
 
   private:
-    int wildcardsFind (const QString &fileName);
+    QString wildcardsFind (const QString &fileName);
 
   private:
     QList<KateFileType> m_types;

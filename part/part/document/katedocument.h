@@ -933,9 +933,9 @@ class KateDocument : public KTextEditor::Document,
     bool m_blockRemoveTrailingSpaces;
 
   public:
-    void updateFileType (int newType, bool user = false);
+    void updateFileType (const QString &newType, bool user = false);
 
-    int fileType () const { return m_fileType; }
+    QString fileType () const { return m_fileType; }
 
   //
   // REALLY internal data ;)
@@ -957,7 +957,7 @@ class KateDocument : public KTextEditor::Document,
     int m_docNameNumber;
 
     // file type !!!
-    int m_fileType;
+    QString m_fileType;
     bool m_fileTypeSetByUser;
 
     /**

@@ -175,49 +175,40 @@ void KateFileTypeManager::save (const QList<KateFileType>& v)
   update ();
 }
 
-int KateFileTypeManager::fileType (KateDocument *doc)
+QString KateFileTypeManager::fileType (KateDocument *doc)
 {
   kDebug(13020)<<k_funcinfo<<endl;
   if (!doc)
-    return -1;
+    return "";
 
   if (m_types.isEmpty())
-    return -1;
+    return "";
 
   QString fileName = doc->url().prettyUrl();
   int length = doc->url().prettyUrl().length();
 
-  int result;
+  QString result;
 
   // Try wildcards
   if ( ! fileName.isEmpty() )
   {
     static QStringList commonSuffixes = QString(".orig;.new;~;.bak;.BAK").split (";");
 
-    if ((result = wildcardsFind(fileName)) != -1)
+    if (!(result = wildcardsFind(fileName)).isEmpty())
       return result;
 
     QString backupSuffix = KateDocumentConfig::global()->backupSuffix();
     if (fileName.endsWith(backupSuffix)) {
-      if ((result = wildcardsFind(fileName.left(length - backupSuffix.length()))) != -1)
+      if (!(result = wildcardsFind(fileName.left(length - backupSuffix.length()))).isEmpty())
         return result;
     }
 
     for (QStringList::Iterator it = commonSuffixes.begin(); it != commonSuffixes.end(); ++it) {
       if (*it != backupSuffix && fileName.endsWith(*it)) {
-        if ((result = wildcardsFind(fileName.left(length - (*it).length()))) != -1)
+        if (!(result = wildcardsFind(fileName.left(length - (*it).length()))).isEmpty())
           return result;
       }
     }
-  }
-
-  // Even try the document name, if the URL is empty
-  // This is useful if the document name is set for example by a plugin which
-  // created the document
-  else if ( (result = wildcardsFind(doc->documentName())) != -1)
-  {
-    kDebug(13020)<<"KateFiletype::filetype(): got type "<<result<<" using docName '"<<doc->documentName()<<"'"<<endl;
-    return result;
   }
 
   // Try content-based mimetype
@@ -234,25 +225,25 @@ int KateFileTypeManager::fileType (KateDocument *doc)
   if ( !types.isEmpty() )
   {
     int pri = -1;
-    int hl = -1;
+    QString name;
 
     foreach (const KateFileType& type, types)
     {
       if (type.priority > pri)
       {
         pri = type.priority;
-        hl = type.number;
+        name = type.name;
       }
     }
 
-    return hl;
+    return name;
   }
 
 
-  return -1;
+  return "";
 }
 
-int KateFileTypeManager::wildcardsFind (const QString &fileName)
+QString KateFileTypeManager::wildcardsFind (const QString &fileName)
 {
   QList<KateFileType> types;
 
@@ -271,33 +262,29 @@ int KateFileTypeManager::wildcardsFind (const QString &fileName)
   if ( !types.isEmpty() )
   {
     int pri = -1;
-    int hl = -1;
+    QString name;
 
     foreach (const KateFileType& type, types)
     {
       if (type.priority > pri)
       {
         pri = type.priority;
-        hl = type.number;
+        name = type.name;
       }
     }
 
-    return hl;
+    return name;
   }
 
-  return -1;
+  return "";
 }
 
-bool KateFileTypeManager::isValidType( int number ) const
+const KateFileType& KateFileTypeManager::fileType(const QString &name) const
 {
-  return number >= 0 && number < m_types.count();
-}
-
-const KateFileType& KateFileTypeManager::fileType(int number) const
-{
-  if (number >= 0 && number < m_types.count())
-    return m_types.at(number);
-
+  for (int i = 0; i < m_types.size(); ++i)
+    if (m_types[i].name == name)
+      return m_types[i];
+      
   static KateFileType notype;
   return notype;
 }
@@ -558,13 +545,13 @@ void KateViewFileTypeAction::slotAboutToShow()
   for ( int i = 0; i < actions.count(); ++i )
     actions[ i ]->setChecked( false );
 
-  if (doc->fileType() == -1) {
+  if (doc->fileType().isEmpty()) {
     for ( int i = 0; i < actions.count(); ++i ) {
       if ( actions[ i ]->data().toInt() == 0 )
         actions[ i ]->setChecked( true );
     }
   } else {
-    if (KateGlobal::self()->fileTypeManager()->isValidType(doc->fileType()))
+/*    if (!doc->fileType().isEmpty())
     {
       const KateFileType& t = KateGlobal::self()->fileTypeManager()->fileType(doc->fileType());
       int i = subMenusName.indexOf (t.section);
@@ -581,7 +568,7 @@ void KateViewFileTypeAction::slotAboutToShow()
             actions[ j ]->setChecked( true );
         }
       }
-    }
+    }*/
   }
 }
 
@@ -591,7 +578,7 @@ void KateViewFileTypeAction::setType (QAction *action)
 
   if (doc) {
     int mode = action->data().toInt();
-    doc->updateFileType(mode-1, true);
+  //  doc->updateFileType(mode-1, true);
   }
 }
 

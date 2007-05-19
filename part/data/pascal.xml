@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Pascal" version="1.20" kateversion="2.3" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal">
+<language name="Pascal" version="1.21" kateversion="2.3" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal">
   <highlighting>
     <list name="keywords">
       <item> and </item>
@@ -84,6 +84,7 @@
       <item> property </item>
       <item> protected </item>
       <item> public </item>
+      <item> read </item>
       <item> qualified </item>
       <item> raise </item>
       <item> restricted </item>
@@ -92,6 +93,7 @@
       <item> threadvar </item>
       <item> try </item>
       <item> virtual </item>
+      <item> write </item>
     </list>
     <list name="types">
       <item> Integer </item>

@@ -740,7 +740,10 @@ void KateView::setupEditActions()
 
     a = ac->addAction("backspace");
     a->setText(i18n("Backspace"));
-    a->setShortcut(QKeySequence(Qt::Key_Backspace));
+    QList<QKeySequence> scuts;
+    scuts << QKeySequence(Qt::Key_Backspace)
+          << QKeySequence(Qt::SHIFT + Qt::Key_Backspace);
+    a->setShortcuts(scuts);
     connect(a, SIGNAL(triggered(bool)), SLOT(backspace()));
 
 #if 0

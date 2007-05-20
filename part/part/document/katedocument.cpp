@@ -2728,13 +2728,7 @@ void KateDocument::readSessionConfig(const KConfigGroup &kconfig)
   
   
   // restore the filetype
-  updateFileType (kconfig.readEntry("File Type"));
-  
-  // restore the hl stuff
-  m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig.readEntry("Highlighting")));
-
-  if (hlMode() > 0)
-    hlSetByUser = true;
+  updateFileType (kconfig.readEntry("Mode"));
 
   // indent mode
   config()->setIndentationMode( kconfig.readEntry("Indentation Mode", config()->indentationMode() ) );
@@ -2756,11 +2750,9 @@ void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
   kconfig.writeEntry("Encoding",encoding());
   
   // save file type
-  kconfig.writeEntry("File Type", m_fileType);
+  kconfig.writeEntry("Mode", m_fileType);
 
-  // save hl
-  kconfig.writeEntry("Highlighting", highlight()->name());
-
+  // indent mode
   kconfig.writeEntry("Indentation Mode", config()->indentationMode() );
 
   // Save Bookmarks

@@ -33,7 +33,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 -->
 
-<language name="AVR Assembler" version="1.03" kateversion="2.4" section="Assembler" extensions="*.asm;*.ASM;*.asm-avr" mimetype="text/x-asm;text/x-asm-avr" author="Roland Nagy" license="GPL">
+<language name="AVR Assembler" version="1.04" kateversion="2.4" section="Assembler" extensions="*.asm;*.ASM;*.asm-avr" mimetype="text/x-asm;text/x-asm-avr" author="Roland Nagy" license="GPL">
   <highlighting>
     <list name="keywords">
       <item> adc</item>
@@ -46,6 +46,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item> bld</item>
       <item> brbc</item>
       <item> brbs</item>
+      <item> brcc</item>
+      <item> brcs</item>
       <item> break</item>
       <item> breq</item>
       <item> brge</item>
@@ -96,6 +98,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item> inc</item>
       <item> jmp</item>
       <item> ld</item>
+      <item> ldd</item>
       <item> ldi</item>
       <item> lds</item>
       <item> lpm</item>
@@ -140,6 +143,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item> sleep</item>
       <item> spm</item>
       <item> st</item>
+      <item> std</item>
       <item> sts</item>
       <item> sub</item>
       <item> subi</item>

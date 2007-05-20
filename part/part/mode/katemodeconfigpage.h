@@ -33,13 +33,13 @@ namespace Ui
   class FileTypeConfigWidget;
 }
 
-class KateFileTypeConfigTab : public KateConfigPage
+class ModeConfigPage : public KateConfigPage
 {
   Q_OBJECT
 
   public:
-    explicit KateFileTypeConfigTab( QWidget *parent );
-    ~KateFileTypeConfigTab ();
+    explicit ModeConfigPage( QWidget *parent );
+    ~ModeConfigPage ();
 
   public Q_SLOTS:
     void apply();
@@ -54,6 +54,7 @@ class KateFileTypeConfigTab : public KateConfigPage
     void typeChanged (int type);
     void showMTDlg();
     void save ();
+    void hlDownload ();
 
   private:
     Ui::FileTypeConfigWidget *ui;

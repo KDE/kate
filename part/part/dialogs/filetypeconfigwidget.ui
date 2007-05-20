@@ -210,15 +210,22 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="2" colspan="2" >
+   <item row="2" column="4" >
+    <widget class="QPushButton" name="btnDownload" >
+     <property name="text" >
+      <string>Download Highlighting Files...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2" colspan="2" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
      <property name="sizeHint" >
       <size>
-       <width>20</width>
-       <height>40</height>
+       <width>160</width>
+       <height>71</height>
       </size>
      </property>
     </spacer>

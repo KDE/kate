@@ -263,7 +263,7 @@ void KateGlobal::configDialog(QWidget *parent)
 
 int KateGlobal::configPages () const
 {
-  return 11;
+  return 10;
 }
 
 KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
@@ -289,18 +289,15 @@ KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
       return new KateSaveConfigTab (parent);
 
     case 6:
-      return new KateHlConfigPage (parent, 0);
+      return new ModeConfigPage (parent);
 
     case 7:
-      return new KateFileTypeConfigTab (parent);
-
-    case 8:
       return new KateEditKeyConfiguration (parent, 0);
 
-    case 9:
+    case 8:
       return new KatePartPluginConfigPage (parent);
 
-    case 10:
+    case 9:
       return new KateScriptConfigPage (parent);
 
     default:
@@ -333,18 +330,15 @@ QString KateGlobal::configPageName (int number) const
       return i18n("Open/Save");
 
     case 6:
-      return i18n ("Highlighting");
+      return i18n("Modes");
 
     case 7:
-      return i18n("Filetypes");
-
-    case 8:
       return i18n ("Shortcuts");
 
-    case 9:
+    case 8:
       return i18n ("Plugins");
 
-    case 10:
+    case 9:
       return i18n("Scripts");
 
     default:
@@ -377,18 +371,15 @@ QString KateGlobal::configPageFullName (int number) const
       return i18n("File Opening & Saving");
 
     case 6:
-      return i18n ("Highlighting Rules");
+      return i18n("Mode Specific Settings");
 
     case 7:
-      return i18n("Filetype Specific Settings");
-
-    case 8:
       return i18n ("Shortcuts Configuration");
 
-    case 9:
+    case 8:
       return i18n ("Plugin Manager");
 
-    case 10:
+    case 9:
       return i18n ("Script Manager");
 
     default:
@@ -421,18 +412,15 @@ KIcon KateGlobal::configPageIcon (int number) const
       return KIcon("document-save");
 
     case 6:
-      return KIcon("source");
+      return KIcon("text-plain");
 
     case 7:
-      return KIcon("edit");
-
-    case 8:
       return KIcon("browser-go");
 
-    case 9:
+    case 8:
       return KIcon("connection-established");
 
-    case 10:
+    case 9:
       return KIcon("edit");
 
     default:

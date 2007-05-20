@@ -53,7 +53,7 @@
 #define KATE_FT_HOWMANY 1024
 //END Includes
 
-KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
+ModeConfigPage::ModeConfigPage( QWidget *parent )
   : KateConfigPage( parent )
 {
   m_lastType = -1;
@@ -74,6 +74,7 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   connect( ui->btnDelete, SIGNAL(clicked()), this, SLOT(deleteType()) );
   ui->btnMimeTypes->setIcon(QIcon(SmallIcon("wizard")));
   connect(ui->btnMimeTypes, SIGNAL(clicked()), this, SLOT(showMTDlg()));
+  connect( ui->btnDownload, SIGNAL(clicked()), this, SLOT(hlDownload()) );
 
   reload();
 
@@ -86,12 +87,12 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   connect( ui->cmbHl, SIGNAL(activated(int)), this, SLOT(slotChanged()) );
 }
 
-KateFileTypeConfigTab::~KateFileTypeConfigTab ()
+ModeConfigPage::~ModeConfigPage ()
 {
   qDeleteAll (m_types);
 }
 
-void KateFileTypeConfigTab::apply()
+void ModeConfigPage::apply()
 {
   if (!hasChanged())
     return;
@@ -101,7 +102,7 @@ void KateFileTypeConfigTab::apply()
   KateGlobal::self()->modeManager()->save(m_types);
 }
 
-void KateFileTypeConfigTab::reload()
+void ModeConfigPage::reload()
 {
   qDeleteAll (m_types);
   m_types.clear();
@@ -117,17 +118,17 @@ void KateFileTypeConfigTab::reload()
   update ();
 }
 
-void KateFileTypeConfigTab::reset()
+void ModeConfigPage::reset()
 {
   reload ();
 }
 
-void KateFileTypeConfigTab::defaults()
+void ModeConfigPage::defaults()
 {
   reload ();
 }
 
-void KateFileTypeConfigTab::update ()
+void ModeConfigPage::update ()
 {
   m_lastType = -1;
 
@@ -147,7 +148,7 @@ void KateFileTypeConfigTab::update ()
   ui->cmbFiletypes->setEnabled (ui->cmbFiletypes->count() > 0);
 }
 
-void KateFileTypeConfigTab::deleteType ()
+void ModeConfigPage::deleteType ()
 {
   int type = ui->cmbFiletypes->currentIndex ();
 
@@ -159,7 +160,7 @@ void KateFileTypeConfigTab::deleteType ()
   }
 }
 
-void KateFileTypeConfigTab::newType ()
+void ModeConfigPage::newType ()
 {
   QString newN = i18n("New Filetype");
 
@@ -182,7 +183,7 @@ void KateFileTypeConfigTab::newType ()
   update ();
 }
 
-void KateFileTypeConfigTab::save ()
+void ModeConfigPage::save ()
 {
   if (m_lastType != -1)
   {
@@ -196,7 +197,7 @@ void KateFileTypeConfigTab::save ()
   }
 }
 
-void KateFileTypeConfigTab::typeChanged (int type)
+void ModeConfigPage::typeChanged (int type)
 {
   save ();
     
@@ -250,7 +251,7 @@ void KateFileTypeConfigTab::typeChanged (int type)
   m_lastType = type;
 }
 
-void KateFileTypeConfigTab::showMTDlg()
+void ModeConfigPage::showMTDlg()
 {
   QString text = i18n("Select the MimeTypes you want for this file type.\nPlease note that this will automatically edit the associated file extensions as well.");
   QStringList list = ui->edtMimeTypes->text().split( QRegExp("\\s*;\\s*"), QString::SkipEmptyParts );
@@ -261,6 +262,12 @@ void KateFileTypeConfigTab::showMTDlg()
     ui->edtFileExtensions->setText( d.chooser()->patterns().join(";") );
     ui->edtMimeTypes->setText( d.chooser()->mimeTypes().join(";") );
   }
+}
+
+void ModeConfigPage::hlDownload()
+{
+  KateHlDownloadDialog diag(this,"hlDownload",true);
+  diag.exec();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -104,7 +104,6 @@ dialogs/commandmenueditwidget.ui
 dialogs/cursorconfigwidget.ui
 dialogs/editconfigwidget.ui
 dialogs/filetypeconfigwidget.ui
-dialogs/hlconfigwidget.ui
 dialogs/indentationconfigwidget.ui
 dialogs/opensaveconfigwidget.ui
 dialogs/modonhdwidget.ui

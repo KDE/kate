@@ -310,33 +310,6 @@ class KateScriptConfigPage : public KateConfigPage
     KateScriptNewStuff *m_newStuff;
 };
 
-class KateHlConfigPage : public KateConfigPage
-{
-  Q_OBJECT
-
-  public:
-    KateHlConfigPage (QWidget *parent, KateDocument *doc);
-    ~KateHlConfigPage ();
-
-  public Q_SLOTS:
-    void apply ();
-    void reload ();
-    void reset () {}
-    void defaults () {}
-
-  protected Q_SLOTS:
-    void hlChanged(int);
-    void hlDownload();
-    void showMTDlg();
-
-  private:
-    void writeback ();
-
-    Ui::HlConfigWidget *ui;
-
-    KateDocument *m_doc;
-};
-
 class KateHlDownloadDialog: public KDialog
 {
   Q_OBJECT

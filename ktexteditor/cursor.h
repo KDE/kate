@@ -51,6 +51,10 @@ class SmartCursor;
  * \note Think of cursors as having their position at the start of a character,
  *       not in the middle of one.
  *
+ * \note If a Cursor is associated with a Range the Range will be notified
+ *       whenever the cursor (i.e. start or end position) changes its position.
+ *       Read the class documentation about Range%s for further details.
+ *
  * \sa SmartCursor
  */
 class KTEXTEDITOR_EXPORT Cursor

@@ -68,7 +68,7 @@ KateModeManager::~KateModeManager ()
 //
 void KateModeManager::update ()
 {
-  KConfig config ("katefiletyperc", KConfig::NoGlobals);
+  KConfig config ("katemoderc", KConfig::NoGlobals);
 
   QStringList g (config.groupList());
 

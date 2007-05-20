@@ -28,15 +28,15 @@
 
 class KateDocument;
 
-class KateViewFileTypeAction : public KActionMenu
+class KateModeMenu : public KActionMenu
 {
   Q_OBJECT
 
   public:
-    KateViewFileTypeAction(const QString& text, QObject *parent)
+    KateModeMenu(const QString& text, QObject *parent)
        : KActionMenu(text, parent) { init(); }
 
-    ~KateViewFileTypeAction();
+    ~KateModeMenu();
 
     void updateMenu (KTextEditor::Document *doc);
 

@@ -384,13 +384,9 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Configure various aspects of this editor."));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotConfigDialog()));
 
-  KateViewHighlightAction *menu = new KateViewHighlightAction (i18n("&Highlighting"), this);
-  ac->addAction("set_highlight", menu);
-  menu->setWhatsThis(i18n("Here you can choose how the current document should be highlighted."));
-  menu->updateMenu (m_doc);
-
-  KateViewFileTypeAction *ftm = new KateViewFileTypeAction (i18n("&Filetype"), this);
-  ac->addAction("set_filetype", ftm);
+  KateModeMenu *ftm = new KateModeMenu (i18n("&Mode"), this);
+  ac->addAction("tools_mode", ftm);
+  ftm->setWhatsThis(i18n("Here you can choose which mode should be used for the current document. This will influence the used highlighting and folding for example."));
   ftm->updateMenu (m_doc);
 
   KateViewSchemaAction *schemaMenu = new KateViewSchemaAction (i18n("&Schema"), this);

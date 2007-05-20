@@ -353,33 +353,6 @@ class KateHighlighting
     inline bool allowsFolding(){return folding;}
 };
 
-class KateViewHighlightAction: public KActionMenu
-{
-  Q_OBJECT
-
-  public:
-    KateViewHighlightAction(const QString& text, QObject *parent)
-       : KActionMenu(text, parent) { init(); }
-
-    ~KateViewHighlightAction();
-
-    void updateMenu (KateDocument *doc);
-
-  private:
-    void init();
-
-    QPointer<KateDocument> m_doc;
-    QStringList subMenusName;
-    QStringList names;
-    QList<QMenu*> subMenus;
-    QList<QAction*> subActions;
-  public  Q_SLOTS:
-    void slotAboutToShow();
-
-  private Q_SLOTS:
-    void setHl ();
-};
-
 #endif
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

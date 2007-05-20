@@ -53,7 +53,7 @@
 #define KATE_FT_HOWMANY 1024
 //END Includes
 
-void KateViewFileTypeAction::init()
+void KateModeMenu::init()
 {
   m_doc = 0;
 
@@ -62,17 +62,17 @@ void KateViewFileTypeAction::init()
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
-KateViewFileTypeAction::~ KateViewFileTypeAction( )
+KateModeMenu::~ KateModeMenu( )
 {
   qDeleteAll(subMenus);
 }
 
-void KateViewFileTypeAction::updateMenu (KTextEditor::Document *doc)
+void KateModeMenu::updateMenu (KTextEditor::Document *doc)
 {
   m_doc = (KateDocument *)doc;
 }
 
-void KateViewFileTypeAction::slotAboutToShow()
+void KateModeMenu::slotAboutToShow()
 {
   KateDocument *doc=m_doc;
   int count = KateGlobal::self()->modeManager()->list().count();
@@ -152,7 +152,7 @@ void KateViewFileTypeAction::slotAboutToShow()
   }
 }
 
-void KateViewFileTypeAction::setType (QAction *action)
+void KateModeMenu::setType (QAction *action)
 {
   KateDocument *doc=m_doc;
 

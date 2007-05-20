@@ -4527,18 +4527,26 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
     // cache the selection and cursor, so we can be sure to restore.
     KTextEditor::Range selection = v->selectionRange();
 
-    KTextEditor::Range range(v->selectionRange().start(), 0);
-    while ( range.start().line() <= v->selectionRange().end().line() )
+    KTextEditor::Range range(selection.start(), 0);
+    while ( range.start().line() <= selection.end().line() )
     {
-      if (range.start().line() == v->selectionRange().start().line() || v->blockSelectionMode())
-        range.start().setColumn(v->selectionRange().start().column());
-      else
-        range.start().setColumn(0);
+      int start = 0;
+      int end = lineLength( range.start().line() );
 
-      if (range.start().line() == v->selectionRange().end().line() || v->blockSelectionMode())
-        range.end().setColumn(v->selectionRange().end().column());
-      else
-        range.end().setColumn(lineLength( range.start().line() ));
+      if (range.start().line() == selection.start().line() || v->blockSelectionMode())
+        start = selection.start().column();
+
+      if (range.start().line() == selection.end().line() || v->blockSelectionMode())
+        end = selection.end().column();
+
+      if ( start > end )
+      {
+        int swapCol = start;
+        start = end;
+        end = swapCol;
+      }
+      range.start().setColumn( start );
+      range.end().setColumn( end );
 
       QString s = text( range );
       QString old = s;
@@ -4558,7 +4566,7 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
           // 2. if blockselect or first line, and p == 0 and start-1 is not in a word, upper
           // 3. if p-1 is not in a word, upper.
           if ( ( ! range.start().column() && ! p ) ||
-                   ( ( range.start().line() == v->selectionRange().start().line() || v->blockSelectionMode() ) &&
+                   ( ( range.start().line() == selection.start().line() || v->blockSelectionMode() ) &&
                    ! p && ! highlight()->isInWord( l->at( range.start().column() - 1 )) ) ||
                    ( p && ! highlight()->isInWord( s.at( p-1 ) ) )
              )

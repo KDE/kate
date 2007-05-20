@@ -36,7 +36,7 @@
 #define KATEPART_VERSION "3.0"
 
 class KateCmd;
-class KateFileTypeManager;
+class KateModeManager;
 class KateSchemaManager;
 class KateDocumentConfig;
 class KateViewConfig;
@@ -227,11 +227,11 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     KDirWatch *dirWatch () { return m_dirWatch; }
 
     /**
-     * global filetype manager
-     * used to manage the file types centrally
-     * @return filetype manager
+     * global mode manager
+     * used to manage the modes centrally
+     * @return mode manager
      */
-    KateFileTypeManager *fileTypeManager () { return m_fileTypeManager; }
+    KateModeManager *modeManager () { return m_modeManager; }
 
     /**
      * manager for the katepart schemas
@@ -346,9 +346,9 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     KDirWatch *m_dirWatch;
 
     /**
-     * filetype manager
+     * mode manager
      */
-    KateFileTypeManager *m_fileTypeManager;
+    KateModeManager *m_modeManager;
 
     /**
      * schema manager

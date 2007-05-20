@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __kate_filetype_h__
-#define __kate_filetype_h__
+#ifndef KATE_MODEMANAGER_H__
+#define KATE_MODEMANAGER_H__
 
 #include <QtCore/QStringList>
 #include <QtCore/QPointer>
@@ -47,11 +47,11 @@ class KateFileType
     QString version;
 };
 
-class KateFileTypeManager
+class KateModeManager
 {
   public:
-    KateFileTypeManager ();
-    ~KateFileTypeManager ();
+    KateModeManager ();
+    ~KateModeManager ();
 
     /**
      * File Type Config changed, update all docs (which will take care of views/renderers)
@@ -84,61 +84,6 @@ class KateFileTypeManager
     QHash<QString, KateFileType *> m_name2Type;
 };
 
-class KateFileTypeConfigTab : public KateConfigPage
-{
-  Q_OBJECT
-
-  public:
-    explicit KateFileTypeConfigTab( QWidget *parent );
-    ~KateFileTypeConfigTab ();
-
-  public Q_SLOTS:
-    void apply();
-    void reload();
-    void reset();
-    void defaults();
-
-  private Q_SLOTS:
-    void update ();
-    void deleteType ();
-    void newType ();
-    void typeChanged (int type);
-    void showMTDlg();
-    void save ();
-
-  private:
-    Ui::FileTypeConfigWidget *ui;
-
-    QList<KateFileType *> m_types;
-    int m_lastType;
-};
-
-class KateViewFileTypeAction : public KActionMenu
-{
-  Q_OBJECT
-
-  public:
-    KateViewFileTypeAction(const QString& text, QObject *parent)
-       : KActionMenu(text, parent) { init(); }
-
-    ~KateViewFileTypeAction();
-
-    void updateMenu (KTextEditor::Document *doc);
-
-  private:
-    void init();
-
-    QPointer<KateDocument> m_doc;
-    QStringList subMenusName;
-    QStringList names;
-    QList<QMenu*> subMenus;
-
-  public  Q_SLOTS:
-    void slotAboutToShow();
-
-  private Q_SLOTS:
-    void setType (QAction*);
-};
-
 #endif
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

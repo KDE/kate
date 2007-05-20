@@ -37,7 +37,7 @@
 #include "kateschema.h"
 #include "katebookmarks.h"
 #include "kateconfig.h"
-#include "katefiletype.h"
+#include "katemodemenu.h"
 #include "kateautoindent.h"
 #include "katespell.h"
 #include "katecompletionwidget.h"

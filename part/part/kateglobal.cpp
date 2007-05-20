@@ -23,12 +23,11 @@
 #include "kateview.h"
 #include "katerenderer.h"
 #include "katecmds.h"
-#include "katefiletype.h"
+#include "katemodemanager.h"
+#include "katemodeconfigpage.h"
 #include "kateschema.h"
 #include "kateconfig.h"
-#ifndef Q_WS_WIN //todo
 #include "katejscript.h"
-#endif
 #include "katecmd.h"
 #include "katebuffer.h"
 
@@ -111,9 +110,9 @@ KateGlobal::KateGlobal ()
   m_hlManager = new KateHlManager ();
 
   //
-  // filetype man
+  // mode man
   //
-  m_fileTypeManager = new KateFileTypeManager ();
+  m_modeManager = new KateModeManager ();
 
   //
   // schema man
@@ -147,7 +146,7 @@ KateGlobal::~KateGlobal()
   delete m_viewConfig;
   delete m_rendererConfig;
 
-  delete m_fileTypeManager;
+  delete m_modeManager;
   delete m_schemaManager;
 
   delete m_dirWatch;

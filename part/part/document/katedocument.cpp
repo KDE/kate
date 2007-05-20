@@ -35,7 +35,7 @@
 #include "katerenderer.h"
 #include <ktexteditor/attribute.h>
 #include "kateconfig.h"
-#include "katefiletype.h"
+#include "katemodemanager.h"
 #include "kateschema.h"
 #include "katetemplatehandler.h"
 #include "katesmartmanager.h"
@@ -3151,7 +3151,7 @@ bool KateDocument::openFile(KIO::Job * job)
     history()->doEdit( new KateEditInfo(this, Kate::OpenFileEdit, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
 
     // update file type
-    updateFileType (KateGlobal::self()->fileTypeManager()->fileType (this));
+    updateFileType (KateGlobal::self()->modeManager()->fileType (this));
 
     // read dir config (if possible and wanted)
     readDirConfig ();
@@ -3400,7 +3400,7 @@ bool KateDocument::saveFile()
   if (success)
   {
     // update file type
-    updateFileType (KateGlobal::self()->fileTypeManager()->fileType (this));
+    updateFileType (KateGlobal::self()->modeManager()->fileType (this));
 
     // read our vars
     readVariables();
@@ -3663,7 +3663,7 @@ void KateDocument::addView(KTextEditor::View *view) {
 
   // apply the view & renderer vars from the file type
   if (!m_fileType.isEmpty())
-      readVariableLine(KateGlobal::self()->fileTypeManager()->fileType(m_fileType).varLine, true);
+      readVariableLine(KateGlobal::self()->modeManager()->fileType(m_fileType).varLine, true);
 
   // apply the view & renderer vars from the file
   readVariables (true);
@@ -5606,7 +5606,7 @@ void KateDocument::updateFileType (const QString &newType, bool user)
           
           if (!hlSetByUser)
           {
-            int hl (KateHlManager::self()->nameFind (KateGlobal::self()->fileTypeManager()->fileType(newType).hl));
+            int hl (KateHlManager::self()->nameFind (KateGlobal::self()->modeManager()->fileType(newType).hl));
 
             if (hl >= 0)
               m_buffer->setHighlight(hl);
@@ -5621,7 +5621,7 @@ void KateDocument::updateFileType (const QString &newType, bool user)
             v->renderer()->config()->configStart();
           }
   
-          readVariableLine( KateGlobal::self()->fileTypeManager()->fileType(newType).varLine );
+          readVariableLine( KateGlobal::self()->modeManager()->fileType(newType).varLine );
   
           m_config->configEnd();
           foreach (v,m_views)

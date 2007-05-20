@@ -3,6 +3,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/completion
   ${CMAKE_CURRENT_SOURCE_DIR}/dialogs
   ${CMAKE_CURRENT_SOURCE_DIR}/document
+  ${CMAKE_CURRENT_SOURCE_DIR}/mode
   ${CMAKE_CURRENT_SOURCE_DIR}/render
   ${CMAKE_CURRENT_SOURCE_DIR}/smart
   ${CMAKE_CURRENT_SOURCE_DIR}/syntax
@@ -44,6 +45,11 @@ document/katecursor.cpp
 document/kateedit.cpp
 document/kateundo.cpp
 
+# mode (modemanager and co)
+mode/katemodemanager.cpp
+mode/katemodeconfigpage.cpp
+mode/katemodemenu.cpp
+
 # rendering stuff (katerenderer  and helpers)
 render/katerenderer.cpp
 render/katerenderrange.cpp
@@ -61,6 +67,7 @@ smart/katesmartregion.cpp
 # syntax related stuff (highlighting, xml file parsing, folding, ...)
 syntax/katesyntaxmanager.cpp
 syntax/katehighlight.cpp
+syntax/katehighlighthelpers.cpp
 syntax/katesyntaxdocument.cpp
 syntax/katecodefolding.cpp
 syntax/kateextendedattribute.cpp
@@ -77,7 +84,6 @@ katefactory.cpp
 kateconfig.cpp
 katebookmarks.cpp
 kateautoindent.cpp
-katefiletype.cpp
 kateschema.cpp
 katetemplatehandler.cpp
 katespell.cpp

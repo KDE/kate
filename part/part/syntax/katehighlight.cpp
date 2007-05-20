@@ -1136,7 +1136,6 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
     iName = "None"; // not translated internal name (for config and more)
     iNameTranslated = i18n("None"); // user visible name
     iSection = "";
-    m_priority = 0;
     iHidden = false;
     m_additionalData.insert( "none", new HighlightPropertyBag );
     m_additionalData["none"]->deliminator = stdDeliminator;
@@ -1149,13 +1148,10 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
     iNameTranslated = def->nameTranslated;
     iSection = def->section;
     iHidden = def->hidden;
-    iWildcards = def->extension;
-    iMimetypes = def->mimetype;
     identifier = def->identifier;
     iVersion=def->version;
     iAuthor=def->author;
     iLicense=def->license;
-    m_priority=def->priority.toInt();
   }
 
    deliminator = stdDeliminator;
@@ -1550,58 +1546,6 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     }
     textLine->setNoIndentBasedFolding(noindent);
   }
-}
-
-void KateHighlighting::loadWildcards()
-{
-  KConfigGroup config(KateHlManager::self()->getKConfig(), "Highlighting " + iName);
-
-  QString extensionString = config.readEntry("Wildcards", iWildcards);
-
-  if (extensionSource != extensionString) {
-    regexpExtensions.clear();
-    plainExtensions.clear();
-
-    extensionSource = extensionString;
-
-    static QRegExp sep("\\s*;\\s*");
-
-    QStringList l = extensionSource.split( sep, QString::SkipEmptyParts );
-
-    static QRegExp boringExpression("\\*\\.[\\d\\w]+");
-
-    for( QStringList::Iterator it = l.begin(); it != l.end(); ++it )
-      if (boringExpression.exactMatch(*it))
-        plainExtensions.append((*it).mid(1));
-      else
-        regexpExtensions.append(QRegExp((*it), Qt::CaseSensitive, QRegExp::Wildcard));
-  }
-}
-
-QList<QRegExp>& KateHighlighting::getRegexpExtensions()
-{
-  return regexpExtensions;
-}
-
-QStringList& KateHighlighting::getPlainExtensions()
-{
-  return plainExtensions;
-}
-
-QString KateHighlighting::getMimetypes()
-{
-  KConfigGroup config(KateHlManager::self()->getKConfig(),
-                      "Highlighting " + iName);
-
-  return config.readEntry("Mimetypes", iMimetypes);
-}
-
-int KateHighlighting::priority()
-{
-  KConfigGroup config(KateHlManager::self()->getKConfig(),
-                      "Highlighting " + iName);
-
-  return config.readEntry("Priority", m_priority);
 }
 
 void KateHighlighting::getKateExtendedAttributeList (uint schema, QList<KateExtendedAttribute::Ptr> &list)

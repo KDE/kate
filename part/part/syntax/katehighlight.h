@@ -139,12 +139,6 @@ class KateHighlighting
                        QVector<int> &foldingList,
                        bool &ctxChanged );
 
-    void loadWildcards();
-    QList<QRegExp>& getRegexpExtensions();
-    QStringList& getPlainExtensions();
-
-    QString getMimetypes();
-
     void setKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute::Ptr> &);
 
     const QString &name() const {return iName;}
@@ -154,7 +148,6 @@ class KateHighlighting
     const QString &version() const {return iVersion;}
     const QString &author () const { return iAuthor; }
     const QString &license () const { return iLicense; }
-    int priority();
     const QString &getIdentifier() const {return identifier;}
     void use();
     void release();
@@ -298,14 +291,11 @@ class KateHighlighting
     QString iNameTranslated;
     QString iSection;
     bool iHidden;
-    QString iWildcards;
-    QString iMimetypes;
     QString identifier;
     QString iVersion;
     QString iAuthor;
     QString iLicense;
     QString m_indentation;
-    int m_priority;
     int refCount;
     int startctx, base_startctx;
 
@@ -357,10 +347,6 @@ class KateHighlighting
      * @see hlKeyForAttrib
      */
     QMap<int, QString> m_hlIndex;
-
-    QString extensionSource;
-    QList<QRegExp> regexpExtensions;
-    QStringList plainExtensions;
 
   public:
     inline bool foldingIndentationSensitive () { return m_foldingIndentationSensitive; }

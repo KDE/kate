@@ -4549,6 +4549,7 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
         range.end().setColumn(lineLength( range.start().line() ));
 
       QString s = text( range );
+      QString old = s;
 
       if ( t == Uppercase )
         s = s.toUpper();
@@ -4574,8 +4575,11 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
         }
       }
 
-      removeText( range );
-      insertText( range.start(), s );
+      if ( s != old )
+      {
+        removeText( range );
+        insertText( range.start(), s );
+      }
 
       range.setBothLines(range.start().line() + 1);
     }
@@ -4584,27 +4588,32 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
     v->setSelection( selection );
 
   } else {  // no selection
+    QString old = text( KTextEditor::Range(cursor, 1) );
     QString s;
     switch ( t ) {
       case Uppercase:
-      s = text( KTextEditor::Range(cursor, 1) ).toUpper();
+      s = old.toUpper();
       break;
       case Lowercase:
-      s = text( KTextEditor::Range(cursor, 1) ).toLower();
+      s = old.toLower();
       break;
       case Capitalize:
       {
         KateTextLine::Ptr l = m_buffer->plainLine( cursor.line() );
         while ( cursor.column() > 0 && highlight()->isInWord( l->at( cursor.column() - 1 ), l->attribute( cursor.column() - 1 ) ) )
           cursor.setColumn(cursor.column() - 1);
-        s = text( KTextEditor::Range(cursor, 1) ).toUpper();
+        old = text( KTextEditor::Range(cursor, 1) );
+        s = old.toUpper();
       }
       break;
       default:
       break;
     }
-    removeText( KTextEditor::Range(cursor, 1) );
-    insertText( cursor, s );
+    if ( s != old )
+    {
+      removeText( KTextEditor::Range(cursor, 1) );
+      insertText( cursor, s );
+    }
   }
 
   editEnd();

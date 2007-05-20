@@ -40,7 +40,6 @@
 #include "ui_appearanceconfigwidget.h"
 #include "ui_cursorconfigwidget.h"
 #include "ui_editconfigwidget.h"
-#include "ui_hlconfigwidget.h"
 #include "ui_indentationconfigwidget.h"
 #include "ui_opensaveconfigwidget.h"
 

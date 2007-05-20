@@ -1,70 +1,15 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>FileTypeConfigWidget</class>
  <widget class="QWidget" name="FileTypeConfigWidget" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>330</width>
-    <height>274</height>
+    <width>618</width>
+    <height>472</height>
    </rect>
   </property>
   <layout class="QGridLayout" >
-   <property name="margin" >
-    <number>0</number>
-   </property>
-   <property name="spacing" >
-    <number>6</number>
-   </property>
-   <item row="2" column="0" colspan="5" >
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" >
-      <size>
-       <width>311</width>
-       <height>21</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="0" column="4" >
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" >
-      <size>
-       <width>16</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="0" column="3" >
-    <widget class="QPushButton" name="btnDelete" >
-     <property name="whatsThis" >
-      <string>Delete the current file type.</string>
-     </property>
-     <property name="text" >
-      <string>&amp;Delete</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2" >
-    <widget class="QPushButton" name="btnNew" >
-     <property name="whatsThis" >
-      <string>Create a new file type.</string>
-     </property>
-     <property name="text" >
-      <string>&amp;New</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0" >
     <widget class="QLabel" name="lblFiletype" >
      <property name="text" >
@@ -82,22 +27,52 @@
      </property>
     </widget>
    </item>
+   <item row="0" column="2" >
+    <widget class="QPushButton" name="btnNew" >
+     <property name="whatsThis" >
+      <string>Create a new file type.</string>
+     </property>
+     <property name="text" >
+      <string>&amp;New</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3" >
+    <widget class="QPushButton" name="btnDelete" >
+     <property name="whatsThis" >
+      <string>Delete the current file type.</string>
+     </property>
+     <property name="text" >
+      <string>&amp;Delete</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="4" >
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>16</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
    <item row="1" column="0" colspan="5" >
     <widget class="QGroupBox" name="gbProperties" >
      <property name="title" >
       <string>Properties</string>
      </property>
      <layout class="QGridLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <item row="5" column="1" >
-       <widget class="QSpinBox" name="sbPriority" >
-        <property name="whatsThis" >
-         <string>Sets priority for this file type. If more than one file type selects the same file, the one with the highest priority will be used.</string>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="lblName" >
+        <property name="text" >
+         <string>&amp;Name:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>edtName</cstring>
         </property>
        </widget>
       </item>
@@ -105,67 +80,6 @@
        <widget class="QLineEdit" name="edtName" >
         <property name="whatsThis" >
          <string>The name of the filetype will be the text of the corresponding menu item.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="QLineEdit" name="edtSection" >
-        <property name="whatsThis" >
-         <string>The section name is used to organize the file types in menus.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" >
-       <widget class="QLineEdit" name="edtVariables" >
-        <property name="whatsThis" >
-         <string>&lt;p>This string allows to configure Kate's settings for the files selected by this mimetype using Kate variables. Almost any configuration option can be set, such as highlight, indent-mode, encoding, etc.&lt;/p>&lt;p>For a full list of known variables, see the manual.&lt;/p></string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" >
-       <widget class="QLineEdit" name="edtFileExtensions" >
-        <property name="whatsThis" >
-         <string>The wildcards mask allows to select files by filename. A typical mask uses an asterisk and the file extension, for example &lt;code>*.txt; *.text&lt;/code>. The string is a semicolon-separated list of masks.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" >
-       <widget class="QLabel" name="lblExtensions" >
-        <property name="text" >
-         <string>File e&amp;xtensions:</string>
-        </property>
-        <property name="buddy" >
-         <cstring>edtFileExtensions</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0" >
-       <widget class="QLabel" name="lblMimeTypes" >
-        <property name="text" >
-         <string>MIME &amp;types:</string>
-        </property>
-        <property name="buddy" >
-         <cstring>edtMimeTypes</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0" >
-       <widget class="QLabel" name="lblPriority" >
-        <property name="text" >
-         <string>P&amp;riority:</string>
-        </property>
-        <property name="buddy" >
-         <cstring>sbPriority</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" >
-       <widget class="QLabel" name="lblVariables" >
-        <property name="text" >
-         <string>&amp;Variables:</string>
-        </property>
-        <property name="buddy" >
-         <cstring>edtVariables</cstring>
         </property>
        </widget>
       </item>
@@ -179,22 +93,82 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="lblName" >
+      <item row="1" column="1" >
+       <widget class="QLineEdit" name="edtSection" >
+        <property name="whatsThis" >
+         <string>The section name is used to organize the file types in menus.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QLabel" name="lblVariables" >
         <property name="text" >
-         <string>&amp;Name:</string>
+         <string>&amp;Variables:</string>
         </property>
         <property name="buddy" >
-         <cstring>edtName</cstring>
+         <cstring>edtVariables</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QLineEdit" name="edtVariables" >
+        <property name="whatsThis" >
+         <string>&lt;p>This string allows to configure Kate's settings for the files selected by this mimetype using Kate variables. Almost any configuration option can be set, such as highlight, indent-mode, encoding, etc.&lt;/p>&lt;p>For a full list of known variables, see the manual.&lt;/p></string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" >
+       <widget class="QLabel" name="lblHl" >
+        <property name="text" >
+         <string>&amp;Highlighting:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>edtFileExtensions</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" >
+       <widget class="QLabel" name="lblExtensions" >
+        <property name="text" >
+         <string>File e&amp;xtensions:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>edtFileExtensions</cstring>
         </property>
        </widget>
       </item>
       <item row="4" column="1" >
+       <widget class="QLineEdit" name="edtFileExtensions" >
+        <property name="whatsThis" >
+         <string>The wildcards mask allows to select files by filename. A typical mask uses an asterisk and the file extension, for example &lt;code>*.txt; *.text&lt;/code>. The string is a semicolon-separated list of masks.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" >
+       <widget class="QLabel" name="lblMimeTypes" >
+        <property name="text" >
+         <string>MIME &amp;types:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>edtMimeTypes</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1" >
        <layout class="QHBoxLayout" >
-        <property name="margin" >
+        <property name="spacing" >
          <number>0</number>
         </property>
-        <property name="spacing" >
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
          <number>0</number>
         </property>
         <item>
@@ -213,12 +187,44 @@
         </item>
        </layout>
       </item>
+      <item row="6" column="0" >
+       <widget class="QLabel" name="lblPriority" >
+        <property name="text" >
+         <string>P&amp;riority:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>sbPriority</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1" >
+       <widget class="QSpinBox" name="sbPriority" >
+        <property name="whatsThis" >
+         <string>Sets priority for this file type. If more than one file type selects the same file, the one with the highest priority will be used.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" >
+       <widget class="QComboBox" name="cmbHl" />
+      </item>
      </layout>
     </widget>
    </item>
+   <item row="2" column="2" colspan="2" >
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
   </layout>
  </widget>
- <pixmapfunction></pixmapfunction>
  <resources/>
  <connections/>
 </ui>

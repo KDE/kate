@@ -58,7 +58,7 @@ class KateFileTypeManager
      */
     void update ();
 
-    void save (const QList<KateFileType>& v);
+    void save (const QList<KateFileType *>& v);
 
     /**
      * get the right fileType for the given document
@@ -74,13 +74,14 @@ class KateFileTypeManager
     /**
      * Don't modify
      */
-    const QList<KateFileType>& list() const { return m_types; }
+    const QList<KateFileType *>& list() const { return m_types; }
 
   private:
     QString wildcardsFind (const QString &fileName);
 
   private:
-    QList<KateFileType> m_types;
+    QList<KateFileType *> m_types;
+    QHash<QString, KateFileType *> m_name2Type;
 };
 
 class KateFileTypeConfigTab : public KateConfigPage
@@ -89,6 +90,7 @@ class KateFileTypeConfigTab : public KateConfigPage
 
   public:
     explicit KateFileTypeConfigTab( QWidget *parent );
+    ~KateFileTypeConfigTab ();
 
   public Q_SLOTS:
     void apply();
@@ -107,7 +109,7 @@ class KateFileTypeConfigTab : public KateConfigPage
   private:
     Ui::FileTypeConfigWidget *ui;
 
-    QList<KateFileType> m_types;
+    QList<KateFileType *> m_types;
     int m_lastType;
 };
 

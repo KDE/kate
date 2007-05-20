@@ -61,6 +61,7 @@ KateFileTypeManager::KateFileTypeManager ()
 
 KateFileTypeManager::~KateFileTypeManager ()
 {
+  qDeleteAll (m_types);
 }
 
 //
@@ -71,93 +72,130 @@ void KateFileTypeManager::update ()
   KConfig config ("katefiletyperc", KConfig::NoGlobals);
 
   QStringList g (config.groupList());
-  g.sort ();
 
-  QHash<QString, int> names;
-
+  qDeleteAll (m_types);
   m_types.clear ();
+  m_name2Type.clear ();
   for (int z=0; z < g.count(); z++)
   {
     KConfigGroup cg(&config, g[z]);
 
-    KateFileType type;
-    type.number = z;
-    type.name = g[z];
-    type.section = cg.readEntry ("Section");
-    type.wildcards = cg.readEntry ("Wildcards", QStringList(), ';');
-    type.mimetypes = cg.readEntry ("Mimetypes", QStringList(), ';');
-    type.priority = cg.readEntry ("Priority", 0);
-    type.varLine = cg.readEntry ("Variables");
+    KateFileType *type = new KateFileType ();
+    type->number = z;
+    type->name = g[z];
+    type->section = cg.readEntry ("Section");
+    type->wildcards = cg.readEntry ("Wildcards", QStringList(), ';');
+    type->mimetypes = cg.readEntry ("Mimetypes", QStringList(), ';');
+    type->priority = cg.readEntry ("Priority", 0);
+    type->varLine = cg.readEntry ("Variables");
     
-    type.hl = cg.readEntry ("Highlighting");
-    type.hlGenerated = cg.readEntry ("Highlighting Generated", false);
-    type.version = cg.readEntry ("Highlighting Version");
-      
-    names.insert (type.name, m_types.size());
+    type->hl = cg.readEntry ("Highlighting", "None");
+    
+    if (type->hl.isEmpty())
+      type->hl = "None";
+    
+    // only for generated types...
+    type->hlGenerated = cg.readEntry ("Highlighting Generated", false);
+    type->version = cg.readEntry ("Highlighting Version");
+ 
+    // insert into the list + hash...
     m_types.append(type);
+    m_name2Type.insert (type->name, type);
   }
   
   // try if the hl stuff is up to date...
   const KateSyntaxModeList &modes = KateHlManager::self()->syntaxDocument()->modeList();
   for (int i = 0; i < modes.size(); ++i)
   {
-    int useType = 0;
+    KateFileType *type = 0;
     bool newType = false;
-    if (names.contains (modes[i]->name))
-      useType = names[modes[i]->name];
+    if (m_name2Type.contains (modes[i]->name))
+      type = m_name2Type[modes[i]->name];
     else
     {
-      useType = m_types.size ();
       newType = true;
-      KateFileType type;
-      type.number = m_types.size();
+      type = new KateFileType ();
+      type->name = modes[i]->name;
       m_types.append (type);
+      m_name2Type.insert (type->name, type);
     }
-    
-    KateFileType &type = m_types[useType];
-    if (newType || type.version != modes[i]->version)
+
+    if (newType || type->version != modes[i]->version)
     {
-      type.name = modes[i]->name;
-      type.section = modes[i]->section;
-      type.wildcards = modes[i]->extension.split (';', QString::SkipEmptyParts);
-      type.mimetypes = modes[i]->mimetype.split (';', QString::SkipEmptyParts);
-      type.priority = modes[i]->priority.toInt();
-      type.version = modes[i]->version;
-      type.hl = modes[i]->name;
-      type.hlGenerated = true;
+      type->name = modes[i]->name;
+      type->section = modes[i]->section;
+      type->wildcards = modes[i]->extension.split (';', QString::SkipEmptyParts);
+      type->mimetypes = modes[i]->mimetype.split (';', QString::SkipEmptyParts);
+      type->priority = modes[i]->priority.toInt();
+      type->version = modes[i]->version;
+      type->hl = modes[i]->name;
+      type->hlGenerated = true;
     }
   }
+
+  // sort the list...
+  QList<KateFileType *> newList;  
+  for (int i=0; i < m_types.count(); i++)
+  {
+    KateFileType *t = m_types[i];
+
+    int insert = 0;
+    for (; insert <= newList.count(); insert++)
+    {
+      if (insert == newList.count())
+        break;
+
+      if ( QString(newList.at(insert)->section + newList.at(insert)->name).toLower()
+            > QString(t->section + t->name).toLower() )
+        break;
+    }
+
+    newList.insert (insert, t);
+  }
+
+  // replace old list with new sorted list...
+  m_types = newList;
+
+  // add the none type...
+  KateFileType *t = new KateFileType ();
+  t->name = "None";
+  t->hl = "None";
+  t->hlGenerated = true;
+
+  m_types.prepend (t);
 }
 
 //
 // save the given list to config file + update
 //
-void KateFileTypeManager::save (const QList<KateFileType>& v)
+void KateFileTypeManager::save (const QList<KateFileType *>& v)
 {
   KConfig katerc("katefiletyperc", KConfig::NoGlobals);
   KConfigGroup config(&katerc, QString());
 
   QStringList newg;
-  foreach (const KateFileType& type, v)
+  foreach (const KateFileType *type, v)
   {
-    config.changeGroup(type.name);
+    config.changeGroup(type->name);
 
-    config.writeEntry ("Section", type.section);
-    config.writeEntry ("Wildcards", type.wildcards, ';');
-    config.writeEntry ("Mimetypes", type.mimetypes, ';');
-    config.writeEntry ("Priority", type.priority);
+    config.writeEntry ("Section", type->section);
+    config.writeEntry ("Wildcards", type->wildcards, ';');
+    config.writeEntry ("Mimetypes", type->mimetypes, ';');
+    config.writeEntry ("Priority", type->priority);
 
-    QString varLine = type.varLine;
+    QString varLine = type->varLine;
     if (QRegExp("kate:(.*)").indexIn(varLine) < 0)
       varLine.prepend ("kate: ");
 
     config.writeEntry ("Variables", varLine);
     
-    config.writeEntry ("Highlighting", type.hl);
-    config.writeEntry ("Highlighting Generated", type.hlGenerated);
-    config.writeEntry ("Highlighting Version", type.version);
+    config.writeEntry ("Highlighting", type->hl);
+    
+    // only for generated types...
+    config.writeEntry ("Highlighting Generated", type->hlGenerated);
+    config.writeEntry ("Highlighting Version", type->version);
 
-    newg << type.name;
+    newg << type->name;
   }
 
   QStringList g (katerc.groupList());
@@ -214,11 +252,11 @@ QString KateFileTypeManager::fileType (KateDocument *doc)
   // Try content-based mimetype
   KMimeType::Ptr mt = doc->mimeTypeForContent();
 
-  QList<KateFileType> types;
+  QList<KateFileType*> types;
 
-  foreach (const KateFileType& type, m_types)
+  foreach (KateFileType *type, m_types)
   {
-    if (type.mimetypes.indexOf (mt->name()) > -1)
+    if (type->mimetypes.indexOf (mt->name()) > -1)
       types.append (type);
   }
 
@@ -227,12 +265,12 @@ QString KateFileTypeManager::fileType (KateDocument *doc)
     int pri = -1;
     QString name;
 
-    foreach (const KateFileType& type, types)
+    foreach (KateFileType *type, types)
     {
-      if (type.priority > pri)
+      if (type->priority > pri)
       {
-        pri = type.priority;
-        name = type.name;
+        pri = type->priority;
+        name = type->name;
       }
     }
 
@@ -245,11 +283,11 @@ QString KateFileTypeManager::fileType (KateDocument *doc)
 
 QString KateFileTypeManager::wildcardsFind (const QString &fileName)
 {
-  QList<KateFileType> types;
+  QList<KateFileType*> types;
 
-  foreach (const KateFileType& type, m_types)
+  foreach (KateFileType *type, m_types)
   {
-    foreach (QString wildcard, type.wildcards)
+    foreach (QString wildcard, type->wildcards)
     {
       // anders: we need to be sure to match the end of string, as eg a css file
       // would otherwise end up with the c hl
@@ -264,12 +302,12 @@ QString KateFileTypeManager::wildcardsFind (const QString &fileName)
     int pri = -1;
     QString name;
 
-    foreach (const KateFileType& type, types)
+    foreach (KateFileType *type, types)
     {
-      if (type.priority > pri)
+      if (type->priority > pri)
       {
-        pri = type.priority;
-        name = type.name;
+        pri = type->priority;
+        name = type->name;
       }
     }
 
@@ -282,8 +320,8 @@ QString KateFileTypeManager::wildcardsFind (const QString &fileName)
 const KateFileType& KateFileTypeManager::fileType(const QString &name) const
 {
   for (int i = 0; i < m_types.size(); ++i)
-    if (m_types[i].name == name)
-      return m_types[i];
+    if (m_types[i]->name == name)
+      return *m_types[i];
       
   static KateFileType notype;
   return notype;
@@ -299,6 +337,14 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   ui = new Ui::FileTypeConfigWidget();
   ui->setupUi( this );
 
+ for( int i = 0; i < KateHlManager::self()->highlights(); i++) {
+    if (KateHlManager::self()->hlSection(i).length() > 0)
+      ui->cmbHl->addItem(KateHlManager::self()->hlSection(i) + QString ("/")
+          + KateHlManager::self()->hlNameTranslated(i), QVariant(KateHlManager::self()->hlName(i)));
+    else
+      ui->cmbHl->addItem(KateHlManager::self()->hlNameTranslated(i), QVariant(KateHlManager::self()->hlName(i)));
+  }
+
   connect( ui->cmbFiletypes, SIGNAL(activated(int)), this, SLOT(typeChanged(int)) );
   connect( ui->btnNew, SIGNAL(clicked()), this, SLOT(newType()) );
   connect( ui->btnDelete, SIGNAL(clicked()), this, SLOT(deleteType()) );
@@ -313,6 +359,12 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   connect( ui->edtFileExtensions, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( ui->edtMimeTypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( ui->sbPriority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
+  connect( ui->cmbHl, SIGNAL(activated(int)), this, SLOT(slotChanged()) );
+}
+
+KateFileTypeConfigTab::~KateFileTypeConfigTab ()
+{
+  qDeleteAll (m_types);
 }
 
 void KateFileTypeConfigTab::apply()
@@ -327,10 +379,15 @@ void KateFileTypeConfigTab::apply()
 
 void KateFileTypeConfigTab::reload()
 {
+  qDeleteAll (m_types);
   m_types.clear();
-  foreach (const KateFileType& type, KateGlobal::self()->fileTypeManager()->list())
+
+  // deep copy...
+  foreach (KateFileType *type, KateGlobal::self()->fileTypeManager()->list())
   {
-    m_types.append (type);
+    KateFileType *t = new KateFileType ();
+    *t = *type;
+    m_types.append (t);
   }
 
   update ();
@@ -352,11 +409,11 @@ void KateFileTypeConfigTab::update ()
 
   ui->cmbFiletypes->clear ();
 
-  foreach (const KateFileType& type, m_types) {
-    if (type.section.length() > 0)
-      ui->cmbFiletypes->addItem(type.section + QString ("/") + type.name);
+  foreach (KateFileType *type, m_types) {
+    if (type->section.length() > 0)
+      ui->cmbFiletypes->addItem(type->section + QString ("/") + type->name);
     else
-      ui->cmbFiletypes->addItem(type.name);
+      ui->cmbFiletypes->addItem(type->name);
   }
 
   ui->cmbFiletypes->setCurrentIndex (0);
@@ -372,6 +429,7 @@ void KateFileTypeConfigTab::deleteType ()
 
   if (type > -1 && type < m_types.count())
   {
+    delete m_types[type];
     m_types.removeAt(type);
     update ();
   }
@@ -382,8 +440,8 @@ void KateFileTypeConfigTab::newType ()
   QString newN = i18n("New Filetype");
 
   for (int i = 0; i < m_types.count(); ++i) {
-    const KateFileType& type = m_types.at(i);
-    if (type.name == newN)
+    KateFileType *type = m_types.at(i);
+    if (type->name == newN)
     {
       ui->cmbFiletypes->setCurrentIndex (i);
       typeChanged (i);
@@ -391,9 +449,9 @@ void KateFileTypeConfigTab::newType ()
     }
   }
 
-  KateFileType newT;
-  newT.priority = 0;
-  newT.name = newN;
+  KateFileType *newT = new KateFileType ();
+  newT->priority = 0;
+  newT->name = newN;
 
   m_types.prepend (newT);
 
@@ -404,38 +462,50 @@ void KateFileTypeConfigTab::save ()
 {
   if (m_lastType != -1)
   {
-    m_types[m_lastType].name = ui->edtName->text ();
-    m_types[m_lastType].section = ui->edtSection->text ();
-    m_types[m_lastType].varLine = ui->edtVariables->text ();
-    m_types[m_lastType].wildcards = ui->edtFileExtensions->text().split (";", QString::SkipEmptyParts);
-    m_types[m_lastType].mimetypes = ui->edtMimeTypes->text().split (";", QString::SkipEmptyParts);
-    m_types[m_lastType].priority = ui->sbPriority->value();
+    m_types[m_lastType]->name = ui->edtName->text ();
+    m_types[m_lastType]->section = ui->edtSection->text ();
+    m_types[m_lastType]->varLine = ui->edtVariables->text ();
+    m_types[m_lastType]->wildcards = ui->edtFileExtensions->text().split (";", QString::SkipEmptyParts);
+    m_types[m_lastType]->mimetypes = ui->edtMimeTypes->text().split (";", QString::SkipEmptyParts);
+    m_types[m_lastType]->priority = ui->sbPriority->value();
+    m_types[m_lastType]->hl = ui->cmbHl->itemData(ui->cmbHl->currentIndex()).toString();
   }
 }
 
 void KateFileTypeConfigTab::typeChanged (int type)
 {
   save ();
+    
+  ui->cmbHl->setEnabled (true);
+  ui->btnDelete->setEnabled (true);
+  ui->edtName->setEnabled (true);
+  ui->edtSection->setEnabled (true);
 
   if (type > -1 && type < m_types.count())
   {
-    const KateFileType& t = m_types.at(type);
+    KateFileType *t = m_types.at(type);
 
     ui->gbProperties->setTitle (i18n("Properties of %1",  ui->cmbFiletypes->currentText()));
 
     ui->gbProperties->setEnabled (true);
     ui->btnDelete->setEnabled (true);
 
-    ui->edtName->setText(t.name);
-    ui->edtSection->setText(t.section);
-    ui->edtVariables->setText(t.varLine);
-    ui->edtFileExtensions->setText(t.wildcards.join (";"));
-    ui->edtMimeTypes->setText(t.mimetypes.join (";"));
-    ui->sbPriority->setValue(t.priority);
+    ui->edtName->setText(t->name);
+    ui->edtSection->setText(t->section);
+    ui->edtVariables->setText(t->varLine);
+    ui->edtFileExtensions->setText(t->wildcards.join (";"));
+    ui->edtMimeTypes->setText(t->mimetypes.join (";"));
+    ui->sbPriority->setValue(t->priority);
     
-    ui->btnDelete->setEnabled (!t.hlGenerated);
-    ui->edtName->setEnabled (!t.hlGenerated);
-    ui->edtSection->setEnabled (!t.hlGenerated);
+    ui->cmbHl->setEnabled (!t->hlGenerated);
+    ui->btnDelete->setEnabled (!t->hlGenerated);
+    ui->edtName->setEnabled (!t->hlGenerated);
+    ui->edtSection->setEnabled (!t->hlGenerated);
+
+    // activate current hl...
+    for (int i = 0; i < ui->cmbHl->count(); ++i)
+      if (ui->cmbHl->itemData (i).toString() == t->hl)
+        ui->cmbHl->setCurrentIndex (i);
   }
   else
   {
@@ -450,6 +520,7 @@ void KateFileTypeConfigTab::typeChanged (int type)
     ui->edtFileExtensions->clear();
     ui->edtMimeTypes->clear();
     ui->sbPriority->setValue(0);
+    ui->cmbHl->setCurrentIndex (0);
   }
 
   m_lastType = type;
@@ -475,9 +546,6 @@ void KateViewFileTypeAction::init()
   m_doc = 0;
 
   connect( menu(), SIGNAL( triggered( QAction* ) ), this, SLOT( setType( QAction* ) ) );
-  QAction *action = menu()->addAction ( i18n("None") );
-  action->setData( "" );
-  action->setCheckable( true );
 
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
@@ -499,8 +567,8 @@ void KateViewFileTypeAction::slotAboutToShow()
 
   for (int z=0; z<count; z++)
   {
-    QString hlName = KateGlobal::self()->fileTypeManager()->list().at(z).name;
-    QString hlSection = KateGlobal::self()->fileTypeManager()->list().at(z).section;
+    QString hlName = KateGlobal::self()->fileTypeManager()->list().at(z)->name;
+    QString hlSection = KateGlobal::self()->fileTypeManager()->list().at(z)->section;
 
     if ( !hlSection.isEmpty() && !names.contains(hlName) )
     {
@@ -545,9 +613,9 @@ void KateViewFileTypeAction::slotAboutToShow()
   for ( int i = 0; i < actions.count(); ++i )
     actions[ i ]->setChecked( false );
 
-  if (doc->fileType().isEmpty()) {
+  if (doc->fileType().isEmpty() || doc->fileType() == "None") {
     for ( int i = 0; i < actions.count(); ++i ) {
-      if ( actions[ i ]->data().toString() == "" )
+      if ( actions[ i ]->data().toString() == "None" )
         actions[ i ]->setChecked( true );
     }
   } else {

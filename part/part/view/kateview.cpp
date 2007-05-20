@@ -842,15 +842,8 @@ bool KateView::isOverwriteMode() const
 
 void KateView::reloadFile()
 {
-  // save cursor position
-  KTextEditor::Cursor backupCursor(cursorPositionVirtual());
-
-  // save bookmarks
+  // bookmarks and cursor positions are temporarily saved by the document
   m_doc->documentReload();
-
-  if (m_doc->lines() >= backupCursor.line())
-    // Explicitly call internal function because we want this to be registered as a non-external call
-    setCursorPositionInternal( backupCursor, m_doc->config()->tabWidth(), false );
 }
 
 void KateView::slotUpdate()

@@ -204,7 +204,7 @@ class KateDocument::LoadSaveFilterCheckPlugins
 KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
                              bool bReadOnly, QWidget *parentWidget,
                              QObject *parent)
-: KTextEditor::Document (parent), KTextEditor::HighlightingInterface(this),
+: KTextEditor::Document (parent),
   m_plugins (KateGlobal::self()->plugins().count()),
   m_activeView(0L),
   m_undoDontMerge(false),
@@ -2657,7 +2657,7 @@ uint KateDocument::hlMode ()
   return KateHlManager::self()->findHl(highlight());
 }
 
-bool KateDocument::setHighlighting (const QString &name)
+bool KateDocument::setMode (const QString &name)
 {
   m_buffer->setHighlight (KateHlManager::self()->nameFind(name));
 
@@ -2670,12 +2670,12 @@ bool KateDocument::setHighlighting (const QString &name)
   return false;
 }
 
-QString KateDocument::highlighting () const
+QString KateDocument::mode () const
 {
-  return KateHlManager::self()->hlName (KateHlManager::self()->findHl(highlight()));
+  return m_fileType;
 }
 
-QStringList KateDocument::highlightings () const
+QStringList KateDocument::modes () const
 {
   QStringList hls;
 
@@ -5010,8 +5010,8 @@ bool KateDocument::documentReload()
       tmp.append (m);
     }
 
-    QString mode = highlighting ();
-    bool byUser = hlSetByUser;
+    QString oldMode = mode ();
+    bool byUser = m_fileTypeSetByUser;
 
     m_storedVariables.clear();
 
@@ -5040,7 +5040,7 @@ bool KateDocument::documentReload()
     }
 
     if (byUser)
-      setHighlighting (mode);
+      setMode (oldMode);
 
     return true;
   }
@@ -5360,9 +5360,9 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         setPreSavePostDialogFilterChecks(val.split(','));
       else if (var == "postload")
         setPostLoadFilterChecks(val.split(','));
-      else if ( var == "syntax" || var == "hl" )
+      else if ( var == "mode" || var == "syntax" || var == "hl" )
       {
-        setHighlighting( val );
+        setMode( val );
       }
 
       // VIEW SETTINGS

@@ -82,7 +82,7 @@ const QStringList &KateCommands::CoreCommands::cmds()
     << "set-wrap-cursor"
     << "set-word-wrap" << "set-word-wrap-column"
     << "set-replace-tabs-save" << "set-remove-trailing-space-save"
-    << "set-highlight" << "set-show-indent";
+    << "set-highlight" << "set-mode" << "set-show-indent";
 
   return l;
 }
@@ -148,12 +148,12 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     v->doc()->config()->setIndentationMode( args.first() );
     return true;
   }
-  else if ( cmd == "set-highlight" )
+  else if ( cmd == "set-highlight" || cmd == "set-mode" )
   {
-    if ( v->doc()->setHighlighting( args.first()) )
+    if ( v->doc()->setMode( args.first()) )
       return true;
       
-    KCC_ERR( i18n("No such highlight '%1'",  args.first() ) );
+    KCC_ERR( i18n("No such mode '%1'",  args.first() ) );
   }
 
   // ALL commands that takes exactly one integer argument.

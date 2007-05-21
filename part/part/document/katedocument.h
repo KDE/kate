@@ -36,7 +36,6 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/searchinterface.h>
-#include <ktexteditor/highlightinginterface.h>
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/variableinterface.h>
 #include <ktexteditor/modificationinterface.h>
@@ -77,7 +76,6 @@ class KateKeyInterceptorFunctor;
 class KateDocument : public KTextEditor::Document,
                      public KTextEditor::SessionConfigInterface,
                      public KTextEditor::SearchInterface,
-                     public KTextEditor::HighlightingInterface,
                      public KTextEditor::MarkInterface,
                      public KTextEditor::VariableInterface,
                      public KTextEditor::ModificationInterface,
@@ -87,7 +85,6 @@ class KateDocument : public KTextEditor::Document,
   Q_OBJECT
   Q_INTERFACES(KTextEditor::SessionConfigInterface)
   Q_INTERFACES(KTextEditor::SearchInterface)
-  Q_INTERFACES(KTextEditor::HighlightingInterface)
   Q_INTERFACES(KTextEditor::MarkInterface)
   Q_INTERFACES(KTextEditor::VariableInterface)
   Q_INTERFACES(KTextEditor::ModificationInterface)
@@ -439,29 +436,29 @@ class KateDocument : public KTextEditor::Document,
      */
     static int repairPattern(QString & pattern, bool & stillMultiLine);
 
-  //
-  // KTextEditor::HighlightingInterface stuff
-  //
+  /*
+   * Access to the mode/highlighting subsystem
+   */
   public:
     /**
-     * Return the name of the currently used highlighting
-     * \return name of the used highlighting
-     *
+     * Return the name of the currently used mode
+     * \return name of the used mode
+     * 
      */
-    virtual QString highlighting() const;
-
+    virtual QString mode() const;
+    
     /**
-     * Return a list of the names of all possible highlighting
-     * \return list of highlighting names
+     * Return a list of the names of all possible modes
+     * \return list of mode names
      */
-    virtual QStringList highlightings() const;
-
+    virtual QStringList modes() const;
+    
     /**
-     * Set the current highlighting of the document by giving it's name
-     * \param name name of the highlighting to use for this document
+     * Set the current mode of the document by giving it's name
+     * \param name name of the mode to use for this document
      * \return \e true on success, otherwise \e false
      */
-    virtual bool setHighlighting(const QString &name);
+    virtual bool setMode(const QString &name);
 
   Q_SIGNALS:
     /**

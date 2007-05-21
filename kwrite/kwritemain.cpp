@@ -119,6 +119,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
   connect(m_view->document(), SIGNAL(modifiedOnDisk(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(modifiedChanged()) );
   connect(m_view->document(), SIGNAL(documentNameChanged(KTextEditor::Document *)), this, SLOT(documentNameChanged()));
   connect(m_view->document(),SIGNAL(documentUrlChanged(KTextEditor::Document *)), this, SLOT(urlChanged()));
+  connect(m_view->document(), SIGNAL(modeChanged(KTextEditor::Document *)), this, SLOT(modeChanged(KTextEditor::Document *)));
 
   setAcceptDrops(true);
   connect(m_view,SIGNAL(dropEventPass(QDropEvent *)),this,SLOT(slotDropEvent(QDropEvent *)));
@@ -230,6 +231,10 @@ void KWrite::setupStatusBar()
   m_selectModeLabel = new QLabel( i18n(" NORM "), statusBar() );
   statusBar()->addWidget( m_selectModeLabel, 0 );
   m_selectModeLabel->setAlignment( Qt::AlignCenter );
+  
+  m_modeLabel = new QLabel( QString(), statusBar() );
+  statusBar()->addWidget( m_modeLabel, 0 );
+  m_modeLabel->setAlignment( Qt::AlignCenter );
 
   m_fileNameLabel=new KSqueezedTextLabel( statusBar() );
   statusBar()->addPermanentWidget( m_fileNameLabel, 1 );
@@ -547,6 +552,7 @@ void KWrite::updateStatus ()
   selectionChanged (m_view);
   modifiedChanged ();
   documentNameChanged ();
+  modeChanged (m_view->document());
 }
 
 void KWrite::viewModeChanged ( KTextEditor::View *view )
@@ -627,6 +633,11 @@ void KWrite::documentNameChanged ()
 
     setCaption (c, m_view->document()->isModified());
   }
+}
+
+void KWrite::modeChanged ( KTextEditor::Document *document )
+{
+  m_modeLabel->setText (document->mode());
 }
 
 static KCmdLineOptions options[] =

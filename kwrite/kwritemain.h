@@ -125,6 +125,8 @@ class KWrite : public KParts::MainWindow
     void updateStatus ();
 
     void viewModeChanged ( KTextEditor::View *view );
+    
+    void modeChanged ( KTextEditor::Document *document );
 
     void cursorPositionChanged ( KTextEditor::View *view );
 
@@ -141,6 +143,7 @@ class KWrite : public KParts::MainWindow
       QLabel* m_modifiedLabel;
       QLabel* m_insertModeLabel;
       QLabel* m_selectModeLabel;
+      QLabel* m_modeLabel;
       KSqueezedTextLabel* m_fileNameLabel;
       QPixmap m_modPm, m_modDiscPm, m_modmodPm, m_noPm;
 };

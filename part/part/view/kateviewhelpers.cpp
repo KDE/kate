@@ -929,7 +929,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   paintBorder(e->rect().x(), e->rect().y(), e->rect().width(), e->rect().height());
 }
 
-static void paintTriangle (QPainter &painter, QColor baseColor, int xOffset, int yOffset, int width, int height, bool open)
+static void paintTriangle (QPainter &painter, const QColor &baseColor, int xOffset, int yOffset, int width, int height, bool open)
 {
   float size = qMin (width, height);
 

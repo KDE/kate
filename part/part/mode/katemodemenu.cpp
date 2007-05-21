@@ -144,7 +144,7 @@ void KateModeMenu::slotAboutToShow()
       } else {
         QList<QAction*> actions = menu()->actions();
         for ( int j = 0; j < actions.count(); ++j ) {
-          if ( actions[ j ]->data().toString() == "" )
+          if ( actions[ j ]->data().toString().isEmpty() )
             actions[ j ]->setChecked( true );
         }
       }

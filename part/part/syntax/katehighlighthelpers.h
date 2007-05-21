@@ -91,7 +91,7 @@ class KateHlContext
 class KateHlIncludeRule
 {
   public:
-    KateHlIncludeRule(int ctx_=0, uint pos_=0, const QString &incCtxN_="", bool incAttrib=false)
+    explicit KateHlIncludeRule(int ctx_=0, uint pos_=0, const QString &incCtxN_="", bool incAttrib=false)
       : ctx(ctx_)
       , pos( pos_)
       , incCtxN( incCtxN_ )

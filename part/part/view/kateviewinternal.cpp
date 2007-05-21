@@ -1681,33 +1681,47 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
       {
         case Word:
         {
-          bool same = ( newCursor.line() == m_selectionCached.start().line() );
+          // Restore selStartCached if needed. It gets nuked by
+          // viewSelectionChanged if we drag the selection into non-existence,
+          // which can legitimately happen if a shift+DC selection is unable to
+          // set a "proper" (i.e. non-empty) cached selection, e.g. because the
+          // start was on something that isn't a word. Word select mode relies
+          // on the cached selection being set properly, even if it is empty
+          // (i.e. selStartCached == selEndCached).
+          if ( !m_selectionCached.isValid() )
+            m_selectionCached.start() = m_selectionCached.end();
+
           int c;
-          if ( newCursor.line() > m_selectionCached.start().line() ||
-               ( same && newCursor.column() > m_selectionCached.end().column() ) )
+          if ( newCursor > m_selectionCached.start() )
           {
             m_selectAnchor = m_selectionCached.start();
 
             KateTextLine::Ptr l = m_doc->kateTextLine( newCursor.line() );
 
-            for ( c = newCursor.column(); c < l->length(); c++ )
-              if ( !m_doc->highlight()->isInWord( l->at( c ) ) )
-                break;
+            c = newCursor.column();
+            if ( c > 0 && m_doc->highlight()->isInWord( l->at( c-1 ) ) ) {
+              for ( ; c < l->length(); c++ )
+                if ( !m_doc->highlight()->isInWord( l->at( c ) ) )
+                  break;
+            }
 
             newCursor.setColumn( c );
           }
-          else if ( newCursor.line() < m_selectionCached.start().line() ||
-               ( same && newCursor.column() < m_selectionCached.start().column() ) )
+          else if ( newCursor < m_selectionCached.start() )
           {
             m_selectAnchor = m_selectionCached.end();
 
             KateTextLine::Ptr l = m_doc->kateTextLine( newCursor.line() );
 
-            for ( c = newCursor.column(); c >= 0; c-- )
-              if ( !m_doc->highlight()->isInWord( l->at( c ) ) )
-                break;
-
-            newCursor.setColumn( c+1 );
+            c = newCursor.column();
+            if ( c > 0 && c < m_doc->lineLength( newCursor.line() )
+                 && m_doc->highlight()->isInWord( l->at( c ) )
+                 && m_doc->highlight()->isInWord( l->at( c-1 ) ) ) {
+              for ( c -= 2; c >= 0; c-- )
+                if ( !m_doc->highlight()->isInWord( l->at( c ) ) )
+                  break;
+              newCursor.setColumn( c+1 );
+            }
           }
           else
             doSelect = false;
@@ -1717,36 +1731,44 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
         case Line:
           if ( newCursor.line() > m_selectionCached.start().line() )
           {
+            if (newCursor.line() + 1 >= m_doc->lines() )
+              newCursor.setColumn( m_doc->line( newCursor.line() ).length() );
+            else
+              newCursor.setPosition( newCursor.line() + 1, 0 );
+            // Grow to include the entire line
             m_selectAnchor = m_selectionCached.start();
-            newCursor.setColumn( m_doc->line( newCursor.line() ).length() );
+            m_selectAnchor.setColumn( 0 );
           }
           else if ( newCursor.line() < m_selectionCached.start().line() )
           {
-            m_selectAnchor = m_selectionCached.end();
             newCursor.setColumn( 0 );
+            // Grow to include entire line
+            m_selectAnchor = m_selectionCached.end();
+            if ( m_selectAnchor.column() > 0 )
+            {
+              if ( m_selectAnchor.line()+1 >= m_doc->lines() )
+                m_selectAnchor.setColumn( m_doc->line( newCursor.line() ).length() );
+              else
+                m_selectAnchor.setPosition( m_selectAnchor.line() + 1, 0 );
+            }
           }
           else // same line, ignore
             doSelect = false;
         break;
-        default: // *always* keep original selection for mouse
+        case Mouse:
         {
-          if ( m_selectionCached.start().line() < 0 ) // invalid
+          if ( !m_selectionCached.isValid() )
             break;
 
-          if ( newCursor.line() > m_selectionCached.end().line() ||
-               ( newCursor.line() == m_selectionCached.end().line() &&
-                 newCursor.column() > m_selectionCached.end().column() ) )
+          if ( newCursor > m_selectionCached.end() )
             m_selectAnchor = m_selectionCached.start();
-
-          else if ( newCursor.line() < m_selectionCached.start().line() ||
-               ( newCursor.line() == m_selectionCached.start().line() &&
-                 newCursor.column() < m_selectionCached.start().column() ) )
+          else if ( newCursor < m_selectionCached.start() )
             m_selectAnchor = m_selectionCached.end();
-
           else
             doSelect = false;
         }
-//         break;
+        break;
+        default: /* nothing special to do */;
       }
 
       if ( doSelect )
@@ -2273,20 +2295,54 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
           if (m_view->selection())
             QApplication::clipboard()->setText(m_view->selectionText (), QClipboard::Selection);
 
-          m_selectionCached = m_view->selectionRange();
+          // Keep the line at the select anchor selected during further
+          // mouse selection
+          if ( m_selectAnchor.line() > m_view->selectionRange().start().line() )
+          {
+            // Preserve the last selected line
+            if ( m_selectAnchor == m_view->selectionRange().end() && m_selectAnchor.column() == 0 )
+              m_selectionCached.start().setPosition( m_selectAnchor.line()-1, 0 );
+            else
+              m_selectionCached.start().setPosition( m_selectAnchor.line(), 0 );
+            m_selectionCached.end() = m_view->selectionRange().end();
+          }
+          else
+          {
+            // Preserve the first selected line
+            m_selectionCached.start() = m_view->selectionRange().start();
+            if ( m_view->selectionRange().end().line() > m_view->selectionRange().start().line() )
+              m_selectionCached.end().setPosition( m_view->selectionRange().start().line()+1, 0 );
+            else
+              m_selectionCached.end() = m_view->selectionRange().end();
+          }
+
+          // Set cursor to edge of selection... which edge depends on what
+          // "direction" the selection was made in
+          if ( m_view->selectionRange().start() < m_selectAnchor
+               && m_selectAnchor.line() != m_view->selectionRange().start().line() )
+            updateCursor( m_view->selectionRange().start() );
+          else
+            updateCursor( m_view->selectionRange().end() );
 
           e->accept();
           return;
         }
+        else if ( m_selectionMode == Default )
+        {
+          m_selectionMode = Mouse;
+        }
 
         if ( e->modifiers() & Qt::ShiftModifier )
         {
-          m_selectionCached = m_view->selectionRange();
+          if ( !m_selectAnchor.isValid() )
+            m_selectAnchor = m_cursor;
         }
         else
-          m_selectionCached.start().setLine( -1 ); // invalidate
+        {
+          m_selectionCached = KTextEditor::Range::invalid();
+        }
 
-        if( isTargetSelected( e->pos() ) )
+        if( !(e->modifiers() & Qt::ShiftModifier) && isTargetSelected( e->pos() ) )
         {
           m_dragInfo.state = diPending;
           m_dragInfo.start = e->pos();
@@ -2295,7 +2351,22 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
         {
           m_dragInfo.state = diNone;
 
-          placeCursor( e->pos(), e->modifiers() & Qt::ShiftModifier );
+          if ( e->modifiers() & Qt::ShiftModifier )
+          {
+            placeCursor( e->pos(), true, false );
+            if ( m_selectionCached.start().isValid() )
+            {
+              if ( m_cursor < m_selectionCached.start() )
+                m_selectAnchor = m_selectionCached.end();
+              else
+                m_selectAnchor = m_selectionCached.start();
+            }
+            m_view->setSelection( KTextEditor::Range( m_selectAnchor, m_cursor ) );
+          }
+          else
+          {
+            placeCursor( e->pos() );
+          }
 
           m_scrollX = 0;
           m_scrollY = 0;
@@ -2321,34 +2392,85 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
 
       if ( e->modifiers() & Qt::ShiftModifier )
       {
-        m_selectionCached = m_view->selectionRange();
-        updateSelection( m_cursor, true );
+        KTextEditor::Range oldSelection = m_view->selectionRange();
+
+        // Now select the word under the select anchor
+        int cs, ce;
+        KateTextLine::Ptr l = m_doc->kateTextLine( m_selectAnchor.line() );
+
+        ce = m_selectAnchor.column();
+        if ( ce > 0 && m_doc->highlight()->isInWord( l->at(ce) ) ) {
+          for (; ce < l->length(); ce++ )
+            if ( !m_doc->highlight()->isInWord( l->at(ce) ) )
+              break;
+        }
+
+        cs = m_selectAnchor.column() - 1;
+        if ( cs < m_doc->lineLength( m_selectAnchor.line() )
+              && m_doc->highlight()->isInWord( l->at(cs) ) ) {
+          for ( cs--; cs >= 0; cs-- )
+            if ( !m_doc->highlight()->isInWord( l->at(cs) ) )
+              break;
+        }
+
+        // ...and keep it selected
+        if (cs+1 < ce)
+        {
+          m_selectionCached.start().setPosition( m_selectAnchor.line(), cs+1 );
+          m_selectionCached.end().setPosition( m_selectAnchor.line(), ce );
+        }
+        else
+        {
+          m_selectionCached.start() = m_selectAnchor;
+          m_selectionCached.end() = m_selectAnchor;
+        }
+        // Now word select to the mouse cursor
+        placeCursor( e->pos(), true );
       }
       else
       {
-        // first clear the selection, otherweise we run into bug #106402
+        // first clear the selection, otherwise we run into bug #106402
+        // ...and set the cursor position, for the same reason (otherwise there
+        // are *other* idiosyncrasies we can't fix without reintroducing said
+        // bug)
         // Parameters: don't redraw, and don't emit selectionChanged signal yet
         m_view->clearSelection( false, false );
+        placeCursor( e->pos() );
         m_view->selectWord( m_cursor );
-        m_selectAnchor = m_view->selectionRange().end();
-        m_selectionCached = m_view->selectionRange();
 
-        // if we didn't actually select anything, restore the selection mode
-        // -- see bug #131369 (kling)
-        if (!m_view->selection())
+        if (m_view->selection())
+        {
+          m_selectAnchor = m_view->selectionRange().start();
+          m_selectionCached = m_view->selectionRange();
+        }
+        else
+        {
+          // if we didn't actually select anything, restore the selection mode
+          // -- see bug #131369 (kling)
           m_selectionMode = Default;
+        }
       }
 
-      // Move cursor to end of selected word
+      // Move cursor to end (or beginning) of selected word
       if (m_view->selection())
       {
-        QApplication::clipboard()->setText(m_view->selectionText (), QClipboard::Selection);
+        QApplication::clipboard()->setText( m_view->selectionText(), QClipboard::Selection );
 
-        m_selectionCached = m_view->selectionRange();
+        // Shift+DC before the "cached" word should move the cursor to the
+        // beginning of the selection, not the end
+        if (m_view->selectionRange().start() < m_selectionCached.start())
+          updateCursor( m_view->selectionRange().start() );
+        else
+          updateCursor( m_view->selectionRange().end() );
       }
 
       m_possibleTripleClick = true;
       QTimer::singleShot ( QApplication::doubleClickInterval(), this, SLOT(tripleClickTimeout()) );
+
+      m_scrollX = 0;
+      m_scrollY = 0;
+
+      m_scrollTimer.start (50);
 
       e->accept ();
       break;
@@ -2376,6 +2498,13 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
       {
         if (m_view->selection())
           QApplication::clipboard()->setText(m_view->selectionText (), QClipboard::Selection);
+
+        // Set cursor to edge of selection... which edge depends on what
+        // "direction" the selection was made in
+        if ( m_view->selectionRange().start() < m_selectAnchor )
+          updateCursor( m_view->selectionRange().start() );
+        else
+          updateCursor( m_view->selectionRange().end() );
 
         m_selChangedByUser = false;
       }
@@ -2437,6 +2566,12 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
       if( p.manhattanLength() > KGlobalSettings::dndEventDelay() )
         doDrag();
 
+      return;
+    }
+    else if (m_dragInfo.state == diDragging)
+    {
+      // Don't do anything after a canceled drag until the user lets go of
+      // the mouse button!
       return;
     }
 
@@ -2954,7 +3089,15 @@ void KateViewInternal::editSetCursor (const KTextEditor::Cursor &_cursor)
 void KateViewInternal::viewSelectionChanged ()
 {
   if (!m_view->selection())
-    m_selectAnchor.setPosition (-1, -1);
+  {
+    m_selectAnchor = KTextEditor::Cursor::invalid();
+    // Do NOT nuke the entire range! The reason is that a shift+DC selection
+    // might (correctly) set the range to be empty (i.e. start() == end()), and
+    // subsequent dragging might shrink the selection into non-existance. When
+    // this happens, we use the cached end to restore the cached start so that
+    // updateSelection is not confused. See also comments in updateSelection.
+    m_selectionCached.start() = KTextEditor::Cursor::invalid();
+  }
 }
 
 void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)

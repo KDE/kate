@@ -2015,6 +2015,7 @@ void KateView::sendCompletionAborted()
 void KateView::paste( )
 {
   m_doc->paste( this );
+  emit selectionChanged (this);
   m_viewInternal->repaint();
 }
 

@@ -304,7 +304,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     bool m_selChangedByUser;
     KTextEditor::Cursor m_selectAnchor;
 
-    enum SelectionMode { Default=0, Word, Line }; ///< for drag selection.
+    enum SelectionMode { Default=0, Mouse, Word, Line }; ///< for drag selection.
     uint m_selectionMode;
     // when drag selecting after double/triple click, keep the initial selected
     // word/line independent of direction.

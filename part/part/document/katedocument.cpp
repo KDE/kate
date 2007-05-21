@@ -5642,6 +5642,9 @@ void KateDocument::updateFileType (const QString &newType, bool user)
           }
     }
   }
+  
+  // fixme, make this better...
+  emit modeChanged (this);
 }
 
 void KateDocument::slotQueryClose_save(bool *handled, bool* abortClosing) {

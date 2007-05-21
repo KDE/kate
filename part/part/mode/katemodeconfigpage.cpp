@@ -177,6 +177,7 @@ void ModeConfigPage::newType ()
   KateFileType *newT = new KateFileType ();
   newT->priority = 0;
   newT->name = newN;
+  newT->hlGenerated = false;
 
   m_types.prepend (newT);
 

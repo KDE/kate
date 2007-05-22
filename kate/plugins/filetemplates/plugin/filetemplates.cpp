@@ -61,7 +61,6 @@
 #include <qradiobutton.h>
 #include <qregexp.h>
 #include <qstyle.h>
-#include <ktexteditor/highlightinginterface.h>
 #include <q3whatsthis.h>
 //Added by qt3to4:
 #include <QTextStream>
@@ -414,9 +413,7 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
             // this is overly complex, too bad the interface is
             // not providing a resonable method..
             QString hlmode = reHl.cap( 1 );
-            KTextEditor::HighlightingInterface *hi=qobject_cast<KTextEditor::HighlightingInterface*>( doc );
-            if (hi)
-              hi->setHighlighting (hlmode);
+            doc->setMode (hlmode);
 
             doneheader |= 2;
           }
@@ -614,9 +611,7 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
   KTextEditor::Document *doc = kft->application()->activeMainWindow()->activeView()->document();
   if ( doc )
   {
-    KTextEditor::HighlightingInterface *hi=qobject_cast<KTextEditor::HighlightingInterface*>( doc );
-    if (hi)
-    {
+    
       Q3PopupMenu *m = new Q3PopupMenu( btnHighlight );
       connect( m, SIGNAL( activated( int ) ), this, SLOT( slotHlSet( int ) ) );
       Q3Dict<Q3PopupMenu> submenus;
@@ -643,14 +638,12 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
       }
 #endif
       btnHighlight->setPopup( m );
-    }
   }
 }
 
 void KateTemplateInfoWidget::slotHlSet( int id )
 {
   KTextEditor::Document *doc=kft->application()->activeMainWindow()->activeView()->document();
-  KTextEditor::HighlightingInterface *hi=qobject_cast<KTextEditor::HighlightingInterface*>( doc );
   /*if (hi)
   btnHighlight->setText(
     hi->hlModeName( id ) );*/ // fixme

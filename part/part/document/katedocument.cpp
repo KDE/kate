@@ -2686,40 +2686,12 @@ QStringList KateDocument::modes () const
 }
 
 
-bool KateDocument::setHighlightingMode (const QString &name)
-{
-  m_buffer->setHighlight (KateHlManager::self()->nameFind(name));
-
-  if (true)
-  {
-    setDontChangeHlOnSave();
-    return true;
-  }
-
-  return false;
-}
-
-QString KateDocument::highlightingMode () const
-{
-  return KateHlManager::self()->hlName (KateHlManager::self()->findHl(highlight()));
-}
-
-QStringList KateDocument::highlightingModes () const
-{
-  QStringList hls;
-
-  for (uint i = 0; i < hlModeCount(); ++i)
-    hls << hlModeName (i);
-
-  return hls;
-}
-
 void KateDocument::bufferHlChanged ()
 {
   // update all views
   makeAttribs(false);
 
-  emit highlightingModeChanged(this);
+  emit highlightingChanged(this);
 }
 
 uint KateDocument::hlModeCount () const

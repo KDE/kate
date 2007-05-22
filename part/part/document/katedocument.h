@@ -446,13 +446,6 @@ class KateDocument : public KTextEditor::Document,
      * 
      */
     virtual QString mode() const;
-
-    /**
-     * Return the name of the currently used mode
-     * \return name of the used mode
-     * 
-     */
-    virtual QString highlightingMode() const;
     
     /**
      * Return a list of the names of all possible modes
@@ -461,46 +454,20 @@ class KateDocument : public KTextEditor::Document,
     virtual QStringList modes() const;
     
     /**
-     * Return a list of the names of all possible modes
-     * \return list of mode names
-     */
-    virtual QStringList highlightingModes() const;
-    
-    /**
      * Set the current mode of the document by giving it's name
      * \param name name of the mode to use for this document
      * \return \e true on success, otherwise \e false
      */
     virtual bool setMode(const QString &name);
-    
-    /**
-     * Set the current mode of the document by giving it's name
-     * \param name name of the mode to use for this document
-     * \return \e true on success, otherwise \e false
-     */
-    virtual bool setHighlightingMode(const QString &name);
 
-  /*
-   * SIGNALS
-   * Following signals should be emitted by the document if the mode
-   * or highlighting mode of the document changes
-   */
   Q_SIGNALS:
     /**
-     * Warn anyone listening that the current document's mode has
+     * Warn anyone listening that the current document's highlighting has
      * changed.
-     * 
-     * \param document the document which's mode has changed
+     *
+     * \param document the document which's highlighting has changed
      */
-    void modeChanged(KTextEditor::Document *document);
-    
-    /**
-     * Warn anyone listening that the current document's highlighting mode has
-     * changed.
-     * 
-     * \param document the document which's mode has changed
-     */
-    void highlightingModeChanged(KTextEditor::Document *document);
+    virtual void highlightingChanged(KTextEditor::Document *document);
 
   /*
    * Helpers....

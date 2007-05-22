@@ -2726,10 +2726,12 @@ void KateDocument::readSessionConfig(const KConfigGroup &kconfig)
     openUrl (url);
   else completed(); //perhaps this should be emitted at the end of this function
   
-  
   // restore the filetype
-  updateFileType (kconfig.readEntry("Mode"));
+  updateFileType (kconfig.readEntry("Mode", "Normal"));
 
+  // restore the hl stuff
+  m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig.readEntry("Highlighting")));
+  
   // indent mode
   config()->setIndentationMode( kconfig.readEntry("Indentation Mode", config()->indentationMode() ) );
 
@@ -2751,7 +2753,10 @@ void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
   
   // save file type
   kconfig.writeEntry("Mode", m_fileType);
-
+  
+  // save hl
+  kconfig.writeEntry("Highlighting", highlight()->name());
+  
   // indent mode
   kconfig.writeEntry("Indentation Mode", config()->indentationMode() );
 
@@ -5615,7 +5620,7 @@ void KateDocument::updateFileType (const QString &newType, bool user)
 
           m_config->configStart();
           
-          if (!hlSetByUser)
+          if (!hlSetByUser && !KateGlobal::self()->modeManager()->fileType(newType).hl.isEmpty())
           {
             int hl (KateHlManager::self()->nameFind (KateGlobal::self()->modeManager()->fileType(newType).hl));
 

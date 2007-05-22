@@ -125,9 +125,9 @@ void KateModeMenu::slotAboutToShow()
   for ( int i = 0; i < actions.count(); ++i )
     actions[ i ]->setChecked( false );
 
-  if (doc->fileType().isEmpty() || doc->fileType() == "None") {
+  if (doc->fileType().isEmpty() || doc->fileType() == "Normal") {
     for ( int i = 0; i < actions.count(); ++i ) {
-      if ( actions[ i ]->data().toString() == "None" )
+      if ( actions[ i ]->data().toString() == "Normal" )
         actions[ i ]->setChecked( true );
     }
   } else {

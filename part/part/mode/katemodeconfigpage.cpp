@@ -61,6 +61,7 @@ ModeConfigPage::ModeConfigPage( QWidget *parent )
   ui = new Ui::FileTypeConfigWidget();
   ui->setupUi( this );
 
+ ui->cmbHl->addItem(i18n("<Unchanged>"), QVariant(""));
  for( int i = 0; i < KateHlManager::self()->highlights(); i++) {
     if (KateHlManager::self()->hlSection(i).length() > 0)
       ui->cmbHl->addItem(KateHlManager::self()->hlSection(i) + QString ("/")

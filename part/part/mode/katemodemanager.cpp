@@ -88,11 +88,8 @@ void KateModeManager::update ()
     type->priority = cg.readEntry ("Priority", 0);
     type->varLine = cg.readEntry ("Variables");
     
-    type->hl = cg.readEntry ("Highlighting", "None");
-    
-    if (type->hl.isEmpty())
-      type->hl = "None";
-    
+    type->hl = cg.readEntry ("Highlighting");
+   
     // only for generated types...
     type->hlGenerated = cg.readEntry ("Highlighting Generated", false);
     type->version = cg.readEntry ("Highlighting Version");
@@ -157,7 +154,7 @@ void KateModeManager::update ()
 
   // add the none type...
   KateFileType *t = new KateFileType ();
-  t->name = "None";
+  t->name = "Normal";
   t->hl = "None";
   t->hlGenerated = true;
 
@@ -169,7 +166,7 @@ void KateModeManager::update ()
 //
 void KateModeManager::save (const QList<KateFileType *>& v)
 {
-  KConfig katerc("katefiletyperc", KConfig::NoGlobals);
+  KConfig katerc("katemoderc", KConfig::NoGlobals);
   KConfigGroup config(&katerc, QString());
 
   QStringList newg;

@@ -100,7 +100,7 @@ class View;
  * \ref kte_group_doc_extensions.
  *
  * \see KParts::ReadWritePart, KTextEditor::Editor, KTextEditor::View,
- *      KTextEditor::MarkInterface,
+ *      KTextEditor::HighlightingInterface, KTextEditor::MarkInterface,
  *      KTextEditor::ModificationInterface, KTextEditor::SearchInterface,
  *      KTextEditor::SessionConfigInterface, KTextEditor::SmartInterface,
  *      KTextEditor::VariableInterface
@@ -591,13 +591,6 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * 
      */
     virtual QString mode() const = 0;
-
-    /**
-     * Return the name of the currently used mode
-     * \return name of the used mode
-     * 
-     */
-    virtual QString highlightingMode() const = 0;
     
     /**
      * Return a list of the names of all possible modes
@@ -606,29 +599,16 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     virtual QStringList modes() const = 0;
     
     /**
-     * Return a list of the names of all possible modes
-     * \return list of mode names
-     */
-    virtual QStringList highlightingModes() const = 0;
-    
-    /**
      * Set the current mode of the document by giving it's name
      * \param name name of the mode to use for this document
      * \return \e true on success, otherwise \e false
      */
     virtual bool setMode(const QString &name) = 0;
-    
-    /**
-     * Set the current mode of the document by giving it's name
-     * \param name name of the mode to use for this document
-     * \return \e true on success, otherwise \e false
-     */
-    virtual bool setHighlightingMode(const QString &name) = 0;
 
   /*
    * SIGNALS
    * Following signals should be emitted by the document if the mode
-   * or highlighting mode of the document changes
+   * of the document changes
    */
   Q_SIGNALS:
     /**
@@ -638,14 +618,6 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * \param document the document which's mode has changed
      */
     void modeChanged(KTextEditor::Document *document);
-    
-    /**
-     * Warn anyone listening that the current document's highlighting mode has
-     * changed.
-     * 
-     * \param document the document which's mode has changed
-     */
-    void highlightingModeChanged(KTextEditor::Document *document);
 
   private:
     class DocumentPrivate* const d;

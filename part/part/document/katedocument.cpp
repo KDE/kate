@@ -1787,7 +1787,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     const int forInc   = backwards ? -1 : +1;
 
     const int minLeft  = inputRange.start().column();
-    const int maxRight = inputRange.end().column(); // first not included
+    const uint maxRight = inputRange.end().column(); // first not included
 
     // init hay line ring buffer
     int hayLinesZeroIndex = 0;
@@ -1889,7 +1889,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
   {
     // single-line plaintext search (both forward of backward mode)
     const int minLeft  = inputRange.start().column();
-    const int maxRight = inputRange.end().column(); // first not included
+    const uint maxRight = inputRange.end().column(); // first not included
     const int forMin   = inputRange.start().line();
     const int forMax   = inputRange.end().line();
     const int forInit  = backwards ? forMax : forMin;
@@ -2094,7 +2094,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
   {
     // single-line regex search (both forward of backward mode)
     const int minLeft  = inputRange.start().column();
-    const int maxRight = inputRange.end().column(); // first not included
+    const uint maxRight = inputRange.end().column(); // first not included
     const int forMin   = inputRange.start().line();
     const int forMax   = inputRange.end().line();
     const int forInit  = backwards ? forMax : forMin;

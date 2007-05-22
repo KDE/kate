@@ -381,6 +381,7 @@ The following interfaces were merged, in order:
  - \p EditInterface was merged into the KTextEditor::Document
  - \p EditInterfaceExt was merged into the KTextEditor::Document
  - \p EncodingInterface was merged into the KTextEditor::Document
+ - \p HighlightingInterface was merged into the KTextEditor::Document
  - \p MarkInterfaceExtension was merged into the KTextEditor::MarkInterface
  - \p PluginViewInterface was merged into the KTextEditor::Plugin
  - \p PopupMenuInterface was merged into the KTextEditor::View

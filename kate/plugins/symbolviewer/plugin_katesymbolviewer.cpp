@@ -47,7 +47,6 @@
 #include <kgenericfactory.h>
 #include <kfiledialog.h>
 #include <ktoggleaction.h>
-#include <ktexteditor/highlightinginterface.h>
 #include <kactioncollection.h>
 
 #include <QPixmap>
@@ -222,16 +221,13 @@ void KatePluginSymbolViewerView::parseSymbols(void)
     return;
 
   KTextEditor::Document *doc = win->activeView()->document();
-  KTextEditor::HighlightingInterface *hi = qobject_cast<KTextEditor::HighlightingInterface*>(doc);
 
   // be sure we have some document around !
   if (!doc)
     return;
 
   /** Get the current highlighting mode */
-  QString hlModeName = hi->highlighting();
-
-  //QListViewItem mcrNode = new QListViewItem(symbols, symbols->lastItem(), hlModeName);
+  QString hlModeName = doc->mode();
 
   if (hlModeName == "C++" || hlModeName == "C")
      parseCppSymbols();

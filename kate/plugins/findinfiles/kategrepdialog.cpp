@@ -3,6 +3,7 @@
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2001, 2004 Anders Lund <anders.lund@lund.tdcadsl.dk>
    Copyright (C) 2007 Dominik Haumann <dhaumann@kde.org>
+   Copyright (C) 2007 Flavio Castelli <flavio.castelli@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -28,6 +29,9 @@
 #include <QObject>
 #include <QRegExp>
 #include <QShowEvent>
+#include <QToolButton>
+#include <QToolTip>
+#include <QTreeWidget>
 
 #include <kacceleratormanager.h>
 #include <kconfig.h>
@@ -63,12 +67,6 @@ KateGrepDialog::KateGrepDialog(QWidget *parent, Kate::MainWindow *mw)
   // buttons find and clear
   btnSearch->setGuiItem(KStandardGuiItem::find());
   btnClear->setGuiItem(KStandardGuiItem::clear());
-
-  // result view, list all matches....
-  QStringList headers;
-  headers << i18n("File") << i18n("Line") << i18n("Text");
-  lbResult->setHeaderLabels(headers);
-  lbResult->setIndentation(0);
 
   // auto-accels
   KAcceleratorManager::manage( this );
@@ -108,9 +106,22 @@ KateGrepDialog::KateGrepDialog(QWidget *parent, Kate::MainWindow *mw)
   cmbPattern->installEventFilter( this );
   cmbFiles->installEventFilter( this );
   cmbDir->comboBox()->installEventFilter( this );
+  
+  
+  // add close tab button to tabwidget
+  btnCloseTab = new QToolButton( lbResult );
+  btnCloseTab->setEnabled(false);
+  QToolTip::add(btnCloseTab,i18n("Click for closing actual search results"));
+  btnCloseTab->setIconSet(QIcon(SmallIcon("tab-remove")));
+  btnCloseTab->adjustSize();
+  connect(btnCloseTab, SIGNAL(clicked()), SLOT(slotCloseResultTab()));
+  btnCloseTab->hide();
+    
+  lbResult->setCornerWidget( btnCloseTab, Qt::BottomRight );
+  lbResult->setTabCloseActivatePrevious (true);
+  connect(lbResult, SIGNAL(closeRequest( QWidget * )), this,
+          SLOT(slotCloseResultTab(QWidget*)));
 
-  connect( lbResult, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
-           SLOT(itemSelected(QTreeWidgetItem *, int)) );
   connect( btnSearch, SIGNAL(clicked()),
            SLOT(slotSearch()) );
   connect( btnClear, SIGNAL(clicked()),
@@ -238,8 +249,21 @@ void KateGrepDialog::slotSearch()
   btnClear->setEnabled( false );
   btnSearch->setGuiItem( KStandardGuiItem::cancel() );
 
-  // clear the listview
-  slotClear ();
+  
+  // add a tab for the new search
+  QTreeWidget* w = new QTreeWidget();
+  connect( w, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
+           SLOT(itemSelected(QTreeWidgetItem *, int)) );
+  
+  // result view, list all matches....
+  QStringList headers;
+  headers << i18n("File") << i18n("Line") << i18n("Text");
+  w->setHeaderLabels(headers);
+  w->setIndentation(0);
+  
+  lbResult->insertTab( w, QIcon(SmallIcon ("system-search")),
+                       cmbPattern->currentText(), 0);
+  lbResult->setCurrentWidget (w);
 
   //
   // init the grep thread
@@ -270,8 +294,13 @@ void KateGrepDialog::searchFinished ()
   lbResult->unsetCursor();
   btnClear->setEnabled( true );
   btnSearch->setGuiItem( KStandardGuiItem::find() );
+  btnCloseTab->setEnabled(true);
+  btnCloseTab->show();
 
   addItems();
+
+  delete m_grepThread;
+  m_grepThread = 0;
 }
 
 void KateGrepDialog::addItems()
@@ -328,7 +357,9 @@ void KateGrepDialog::addItems()
 
 void KateGrepDialog::searchMatchFound(const QString &filename, int line, int column, const QString &basename, const QString &lineContent)
 {
-  QTreeWidgetItem* item = new QTreeWidgetItem(lbResult);
+  QTreeWidget* w = (QTreeWidget*) lbResult->currentWidget();
+  
+  QTreeWidgetItem* item = new QTreeWidgetItem(w);
   item->setText(0, basename);
   item->setText(1, QString::number (line + 1));
   item->setText(2, lineContent.trimmed());
@@ -340,6 +371,25 @@ void KateGrepDialog::searchMatchFound(const QString &filename, int line, int col
 void KateGrepDialog::slotClear()
 {
   lbResult->clear();
+}
+
+void KateGrepDialog::slotCloseResultTab()
+{
+  slotCloseResultTab (lbResult->currentPage());
+}
+
+void KateGrepDialog::slotCloseResultTab(QWidget* widget)
+{
+  lbResult->removePage (widget);
+    
+  widget->hide();
+  delete widget;
+    
+  if (lbResult->count() == 0)
+  {
+    btnCloseTab->setEnabled(false);
+    btnCloseTab->hide();
+  }
 }
 
 bool KateGrepDialog::eventFilter( QObject *o, QEvent *e )

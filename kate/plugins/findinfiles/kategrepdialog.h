@@ -27,10 +27,12 @@
 #include "kategrepthread.h"
 #include "ui_findwidget.h"
 
-#include <QStringList>
 #include <QEvent>
+#include <QStringList>
 
+class QToolButton;
 class QShowEvent;
+class QTreeWidgetItem;
 class KConfig;
 
 class KateGrepDialog : public QWidget, private Ui::FindWidget
@@ -53,6 +55,8 @@ class KateGrepDialog : public QWidget, private Ui::FindWidget
 
   private Q_SLOTS:
     void itemSelected(QTreeWidgetItem *item, int column);
+    void slotCloseResultTab();
+    void slotCloseResultTab(QWidget*);
     void slotSearch();
     void slotClear();
     void patternTextChanged( const QString &);
@@ -67,7 +71,8 @@ class KateGrepDialog : public QWidget, private Ui::FindWidget
     QStringList lastSearchItems;
     QStringList lastSearchPaths;
     QStringList lastSearchFiles;
-
+    QToolButton* btnCloseTab;
+    
     KateGrepThread *m_grepThread;
 };
 

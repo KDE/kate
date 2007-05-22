@@ -62,7 +62,7 @@ Kate::PluginView *KateFindInFilesPlugin::createView (Kate::MainWindow *mainWindo
  */
 KateFindInFilesView::KateFindInFilesView (Kate::MainWindow *mw)
     : Kate::PluginView (mw)
-    , m_toolView (mw->createToolView ("kate_private_plugin_katefindinfilesplugin", Kate::MainWindow::Bottom, SmallIcon("konsole"), i18n("Find in Files")))
+    , m_toolView (mw->createToolView ("kate_private_plugin_katefindinfilesplugin", Kate::MainWindow::Bottom, SmallIcon("file-find"), i18n("Find in Files")))
     , m_grepDialog (new KateGrepDialog (m_toolView, mw))
 {}
 

@@ -132,7 +132,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KUrlComboRequester" name="cmbDir" >
+        <widget class="KUrlComboRequester" native="1" name="cmbDir" >
          <property name="sizePolicy" >
           <sizepolicy>
            <hsizetype>7</hsizetype>
@@ -175,16 +175,12 @@
     </layout>
    </item>
    <item>
-    <widget class="QTreeWidget" name="lbResult" />
+    <widget class="KTabWidget" name="lbResult" >
+    </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KUrlComboRequester</class>
-   <extends>KUrlRequester</extends>
-   <header>kurlrequester.h</header>
-  </customwidget>
   <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>
@@ -194,6 +190,17 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QWidget</extends>
+   <header>kurlrequester.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>KUrlComboRequester</class>
+   <extends>KUrlRequester</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

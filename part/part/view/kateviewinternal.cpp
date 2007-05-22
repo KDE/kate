@@ -3093,7 +3093,7 @@ void KateViewInternal::viewSelectionChanged ()
     m_selectAnchor = KTextEditor::Cursor::invalid();
     // Do NOT nuke the entire range! The reason is that a shift+DC selection
     // might (correctly) set the range to be empty (i.e. start() == end()), and
-    // subsequent dragging might shrink the selection into non-existance. When
+    // subsequent dragging might shrink the selection into non-existence. When
     // this happens, we use the cached end to restore the cached start so that
     // updateSelection is not confused. See also comments in updateSelection.
     m_selectionCached.start() = KTextEditor::Cursor::invalid();

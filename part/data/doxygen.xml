@@ -26,7 +26,7 @@
  * Boston, MA  02110-1301, USA.                                       *
  **********************************************************************
  -->
-<language name="Doxygen" version="1.27" kateversion="2.4" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language name="Doxygen" version="1.28" kateversion="2.4" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->
@@ -292,10 +292,10 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <RegExpr attribute="Comment" context="LineComment" String="//(!|(/(?=[^/]|$)))&lt;?"/>
         <RegExpr attribute="Comment" context="BlockComment" String="/\*(\*[^*/]|!|[*!]&lt;|\*$)" beginRegion="BlockComment"/>
-        <RegExpr attribute="Region" context="#stay" String="//@\{\s*$" beginRegion="MemberGroup"/>
-        <RegExpr attribute="Region" context="#stay" String="//@\}\s*$"   endRegion="MemberGroup"/>
-        <RegExpr attribute="Region" context="#stay" String="/\*@\{\s*\*/" beginRegion="MemberGroup"/>
-        <RegExpr attribute="Region" context="#stay" String="/\*@\}\s*\*/"   endRegion="MemberGroup"/>
+        <RegExpr attribute="Region" context="#stay" String="//\s*@\{\s*$" beginRegion="MemberGroup"/>
+        <RegExpr attribute="Region" context="#stay" String="//\s*@\}\s*$"   endRegion="MemberGroup"/>
+        <RegExpr attribute="Region" context="#stay" String="/\*\s*@\{\s*\*/" beginRegion="MemberGroup"/>
+        <RegExpr attribute="Region" context="#stay" String="/\*\s*@\}\s*\*/"   endRegion="MemberGroup"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="LineComment">
         <DetectSpaces />
@@ -315,6 +315,8 @@
         <DetectSpaces />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="BlockComment"/>
         <IncludeRules context="##Alerts" />
+        <Detect2Chars attribute="Region" context="#stay" char="@" char1="{" />
+        <Detect2Chars attribute="Region" context="#stay" char="@" char1="}" />
         <keyword attribute="Tags" context="#stay" String="TagOnly" />
         <keyword attribute="Tags" context="ML_TagWord" String="TagWord" />
         <keyword attribute="Tags" context="ML_TagParam" String="TagParam" />

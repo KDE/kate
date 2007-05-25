@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Alexander Neundorf <neundorf@kde.org> //-->
-<!-- cmake 2.0.3 syntax highlighting -->
+<!-- cmake 2.4.x syntax highlighting -->
 <!-- dsKeyword, dsDataType, dsDecVal, dsBaseN, dsFloat, dsChar, dsString, dsComment, dsOthers, new in KDE 3.3: dsAlert, dsFunction, dsRegionMarker, dsError -->
 <language name="CMake" version="1.04" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="">
   <highlighting>

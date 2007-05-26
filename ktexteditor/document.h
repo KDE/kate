@@ -588,13 +588,14 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     /**
      * Return the name of the currently used mode
      * \return name of the used mode
-     * 
+     * \see modes(), setMode()
      */
     virtual QString mode() const = 0;
     
     /**
      * Return a list of the names of all possible modes
      * \return list of mode names
+     * \see mode(), setMode()
      */
     virtual QStringList modes() const = 0;
     
@@ -602,6 +603,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * Set the current mode of the document by giving it's name
      * \param name name of the mode to use for this document
      * \return \e true on success, otherwise \e false
+     * \see mode(), modes(), modeChanged()
      */
     virtual bool setMode(const QString &name) = 0;
 
@@ -615,7 +617,8 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * Warn anyone listening that the current document's mode has
      * changed.
      * 
-     * \param document the document which's mode has changed
+     * \param document the document whose mode has changed
+     * \see setMode()
      */
     void modeChanged(KTextEditor::Document *document);
 

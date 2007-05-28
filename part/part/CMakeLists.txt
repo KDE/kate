@@ -7,6 +7,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/render
   ${CMAKE_CURRENT_SOURCE_DIR}/smart
   ${CMAKE_CURRENT_SOURCE_DIR}/syntax
+  ${CMAKE_CURRENT_SOURCE_DIR}/utils
   ${CMAKE_CURRENT_SOURCE_DIR}/view
   ${CMAKE_SOURCE_DIR}/kdeprint
   ${CMAKE_SOURCE_DIR}/kde3support
@@ -18,9 +19,9 @@ include_directories(
 set(CREATE_HASH_TABLE ${CMAKE_SOURCE_DIR}/kjs/create_hash_table )
 
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
-   COMMAND ${PERL_EXECUTABLE} ${CREATE_HASH_TABLE} ${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp >
+   COMMAND ${PERL_EXECUTABLE} ${CREATE_HASH_TABLE} ${CMAKE_CURRENT_SOURCE_DIR}/utils/katejscript.cpp >
    ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
-   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp
+   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/utils/katejscript.cpp
 )
 
 # our sources
@@ -79,21 +80,21 @@ view/kateviewinternal.cpp
 view/kateviewhelpers.cpp
 
 # generic stuff, unsorted...
-katesearchbar.cpp
-katecmds.cpp
-katefactory.cpp
-kateconfig.cpp
-katebookmarks.cpp
-kateautoindent.cpp
-kateschema.cpp
-katetemplatehandler.cpp
-katespell.cpp
-kateprinter.cpp
-kateglobal.cpp
-katecmd.cpp
-katedynamicanimation.cpp
-katejscript.cpp
-katestyletreewidget.cpp
+utils/katesearchbar.cpp
+utils/katecmds.cpp
+utils/katefactory.cpp
+utils/kateconfig.cpp
+utils/katebookmarks.cpp
+utils/kateautoindent.cpp
+utils/kateschema.cpp
+utils/katetemplatehandler.cpp
+utils/katespell.cpp
+utils/kateprinter.cpp
+utils/kateglobal.cpp
+utils/katecmd.cpp
+utils/katedynamicanimation.cpp
+utils/katejscript.cpp
+utils/katestyletreewidget.cpp
 )
 
 kde4_automoc(${katepart_PART_SRCS})
@@ -122,9 +123,8 @@ target_link_libraries(katepart ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kjs kde
 if(KDE4_ENABLE_FINAL)
 	macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
 else(KDE4_ENABLE_FINAL)		
-	macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
+	macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/utils/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
 endif(KDE4_ENABLE_FINAL)
-
 
 # install the stuff
 install(TARGETS katepart  DESTINATION ${PLUGIN_INSTALL_DIR} )

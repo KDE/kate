@@ -40,7 +40,6 @@
 #include "plugin.moc"
 
 #include "commandinterface.h"
-#include "highlightinginterface.h"
 #include "markinterface.h"
 #include "modificationinterface.h"
 #include "searchinterface.h"
@@ -51,8 +50,6 @@
 
 #include "documentadaptor_p.h"
 #include "documentadaptor_p.moc"
-#include "highlightinginterfaceadaptor_p.h"
-#include "highlightinginterfaceadaptor_p.moc"
 
 
 //#include <kaction.h>
@@ -227,13 +224,6 @@ Plugin::Plugin ( QObject *parent )
 {}
 
 Plugin::~Plugin ()
-{}
-
-HighlightingInterface::HighlightingInterface (QObject *myself)
-  : d(0)
-{ new HighlightingInterfaceAdaptor(myself,this);}
-
-HighlightingInterface::~HighlightingInterface ()
 {}
 
 MarkInterface::MarkInterface ()

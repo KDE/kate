@@ -1,5 +1,3 @@
-
-
 include_directories( ${KDE4_KPARTS_INCLUDES} )
 
 ########### next target ###############
@@ -45,7 +43,6 @@ install( FILES
     range.h
     configpage.h
     searchinterface.h
-    highlightinginterface.h
     markinterface.h
     sessionconfiginterface.h
     editorchooser.h

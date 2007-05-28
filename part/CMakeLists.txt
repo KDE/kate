@@ -3,8 +3,13 @@ project(kate)
 
 # this subdirs have own CMakeLists
 add_subdirectory( data )
+
+# syntax highlighting data files
 add_subdirectory( syntax/data )
-add_subdirectory( scripts )
+
+# jscripts for the part
+add_subdirectory( jscript/data )
+
 add_subdirectory( plugins )
 add_subdirectory( tests )
 

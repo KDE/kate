@@ -1282,7 +1282,7 @@ void KateJScriptManager::collectScripts (bool force)
                                  << "type"
                                  << "functions");
   KateJScriptHeaderVector scripts;
-  scripts = KateJScriptHelpers::findScripts(QString("katepartjscriptrc"), QString("katepart/scripts/*.js"), keys);
+  scripts = KateJScriptHelpers::findScripts(QString("katepartjscriptrc"), QString("katepart/jscript/*.js"), keys);
 
   // Let's iterate through the list and build the Mode List
   for (KateJScriptHeaderVector::iterator it = scripts.begin(); it != scripts.end(); ++it)

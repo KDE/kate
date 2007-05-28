@@ -13,6 +13,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/completion
   ${CMAKE_CURRENT_SOURCE_DIR}/dialogs
   ${CMAKE_CURRENT_SOURCE_DIR}/document
+  ${CMAKE_CURRENT_SOURCE_DIR}/jscript
   ${CMAKE_CURRENT_SOURCE_DIR}/mode
   ${CMAKE_CURRENT_SOURCE_DIR}/render
   ${CMAKE_CURRENT_SOURCE_DIR}/smart
@@ -29,9 +30,9 @@ include_directories(
 set(CREATE_HASH_TABLE ${CMAKE_SOURCE_DIR}/kjs/create_hash_table )
 
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
-   COMMAND ${PERL_EXECUTABLE} ${CREATE_HASH_TABLE} ${CMAKE_CURRENT_SOURCE_DIR}/utils/katejscript.cpp >
+   COMMAND ${PERL_EXECUTABLE} ${CREATE_HASH_TABLE} ${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp >
    ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
-   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/utils/katejscript.cpp
+   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp
 )
 
 # our sources
@@ -55,6 +56,9 @@ document/katetextline.cpp
 document/katecursor.cpp
 document/kateedit.cpp
 document/kateundo.cpp
+
+# scripting
+jscript/katejscript.cpp
 
 # mode (modemanager and co)
 mode/katemodemanager.cpp
@@ -103,7 +107,6 @@ utils/kateprinter.cpp
 utils/kateglobal.cpp
 utils/katecmd.cpp
 utils/katedynamicanimation.cpp
-utils/katejscript.cpp
 utils/katestyletreewidget.cpp
 )
 
@@ -133,7 +136,7 @@ target_link_libraries(katepart ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kjs kde
 if(KDE4_ENABLE_FINAL)
 	macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
 else(KDE4_ENABLE_FINAL)		
-	macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/utils/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
+	macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
 endif(KDE4_ENABLE_FINAL)
 
 # install the stuff

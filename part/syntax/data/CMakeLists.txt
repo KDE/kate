@@ -18,7 +18,6 @@ generate_php_xml(html-php.xml html.xml)
 
 file(GLOB HIGHLIGHTERS "${CMAKE_CURRENT_SOURCE_DIR}/*.xml")
 
-install( FILES katesyntaxhighlightingrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 install( FILES language.dtd syntax.template ${HIGHLIGHTERS}
                ${CMAKE_CURRENT_BINARY_DIR}/html-php.xml ${CMAKE_CURRENT_BINARY_DIR}/css-php.xml ${CMAKE_CURRENT_BINARY_DIR}/javascript-php.xml
                DESTINATION ${DATA_INSTALL_DIR}/katepart/syntax)

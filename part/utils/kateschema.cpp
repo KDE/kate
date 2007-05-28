@@ -672,7 +672,7 @@ void KateSchemaConfigHighlightTab::apply ()
 //END KateSchemaConfigHighlightTab
 
 //BEGIN KateSchemaConfigPage -- Main dialog page
-KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
+KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument * )
   : KateConfigPage( parent ),
     m_lastSchema (-1)
 {
@@ -713,8 +713,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   m_tabWidget->addTab (m_fontColorTab, i18n("Normal Text Styles"));
   connect(m_fontColorTab, SIGNAL(changed()), SLOT(slotChanged()));
 
-  uint hl = doc ? doc->hlMode() : 0;
-  m_highlightTab = new KateSchemaConfigHighlightTab(m_fontColorTab, hl );
+  m_highlightTab = new KateSchemaConfigHighlightTab(m_fontColorTab, 0 );
   m_tabWidget->addTab(m_highlightTab, i18n("Highlighting Text Styles"));
   connect(m_highlightTab, SIGNAL(changed()), SLOT(slotChanged()));
 
@@ -726,8 +725,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   defaultSchemaCombo->setEditable( false );
   lHl->setBuddy( defaultSchemaCombo );
 
-
-  m_defaultSchema = (doc && doc->activeView()) ? doc->activeKateView()->renderer()->config()->schema() : KateRendererConfig::global()->schema();
+  m_defaultSchema = KateRendererConfig::global()->schema();
 
   reload();
 

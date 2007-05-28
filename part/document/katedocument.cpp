@@ -2651,12 +2651,6 @@ int KateDocument::repairPattern(QString & pattern, bool & stillMultiLine)
 //END
 
 //BEGIN KTextEditor::HighlightingInterface stuff
-
-uint KateDocument::hlMode ()
-{
-  return KateHlManager::self()->findHl(highlight());
-}
-
 bool KateDocument::setMode (const QString &name)
 {
   updateFileType (name);
@@ -2679,7 +2673,6 @@ QStringList KateDocument::modes () const
   return m;
 }
 
-
 bool KateDocument::setHighlightingMode (const QString &name)
 {
   m_buffer->setHighlight (KateHlManager::self()->nameFind(name));
@@ -2695,7 +2688,7 @@ bool KateDocument::setHighlightingMode (const QString &name)
 
 QString KateDocument::highlightingMode () const
 {
-  return KateHlManager::self()->hlName (KateHlManager::self()->findHl(highlight()));
+  return highlight()->name ();
 }
 
 QStringList KateDocument::highlightingModes () const

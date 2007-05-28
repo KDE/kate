@@ -1040,7 +1040,7 @@ KJS::JSValue* KateJSDocument::getValueProperty(KJS::ExecState *exec, int token) 
       return KJS::String( doc->config()->indentationMode() );
 
     case KateJSDocument::HighlightMode:
-      return KJS::String( doc->hlModeName( doc->hlMode() ) );
+      return KJS::String( doc->highlightingMode () );
 
     case KateJSDocument::ExpandTabs:
       return KJS::Boolean( doc->config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn );

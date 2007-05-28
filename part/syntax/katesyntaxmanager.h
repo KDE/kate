@@ -68,7 +68,6 @@ class KateHlManager : public QObject
     KateHighlighting *getHl(int n);
     int nameFind(const QString &name);
 
-    int findHl(KateHighlighting *h) {return hlList.indexOf(h);}
     QString identifierForName(const QString&);
 
     // methodes to get the default style count + names

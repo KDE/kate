@@ -90,7 +90,7 @@ void KateHighlightingMenu::slotAboutToShow()
         int m = subMenusName.indexOf (hlSection);
         names << hlName;
         QAction *a=subMenus.at(m)->addAction( '&' + hlName, this, SLOT(setHl()));
-        a->setData(z);
+        a->setData(KateHlManager::self()->hlName (z));
         a->setCheckable(true);
         subActions.append(a);
       }
@@ -98,7 +98,7 @@ void KateHighlightingMenu::slotAboutToShow()
       {
         names << hlName;
         QAction *a=menu()->addAction ( '&' + hlName, this, SLOT(setHl()));
-        a->setData(z);
+        a->setData(KateHlManager::self()->hlName (z));
         a->setCheckable(true);
         subActions.append(a);
       }
@@ -106,30 +106,19 @@ void KateHighlightingMenu::slotAboutToShow()
   }
 
   if (!m_doc) return;
+  QString mode=m_doc->highlightingMode();
   for (int i=0;i<subActions.count();i++) {
-        subActions[i]->setChecked(false);
+        subActions[i]->setChecked(subActions[i]->data().toString()==mode);
   }
-
-  int mode=m_doc->hlMode();
-  int start=mode;
-  if ( (mode<0) || (mode>=subActions.count() ) )
-    start=subActions.count()-1;
-  for(;(start>0) && (subActions[start]->data().toInt()!=mode);start--);
-  if (start>=0)
-    subActions[start]->setChecked(true);
-
 }
 
 void KateHighlightingMenu::setHl ()
 {
-  if (!sender()) return;
+  if (!m_doc || !sender()) return;
   QAction *action=qobject_cast<QAction*>(sender());
   if (!action) return;
-  int mode=action->data().toInt();
-  KateDocument *doc=m_doc;
-
-  if (doc)
-    doc->setHighlightingMode(KateHlManager::self()->hlName (mode));
+  QString mode=action->data().toString();
+  m_doc->setHighlightingMode(mode);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -2668,7 +2668,7 @@ QStringList KateDocument::modes () const
   QStringList m;
   
   const QList<KateFileType *> &modeList = KateGlobal::self()->modeManager()->list();
-  for (uint i = 0; i < modeList.size(); ++i)
+  for (int i = 0; i < modeList.size(); ++i)
     m << modeList[i]->name;
 
   return m;
@@ -2696,7 +2696,7 @@ QStringList KateDocument::highlightingModes () const
 {
   QStringList hls;
 
-  for (uint i = 0; i < KateHlManager::self()->highlights(); ++i)
+  for (int i = 0; i < KateHlManager::self()->highlights(); ++i)
     hls << KateHlManager::self()->hlName (i);
 
   return hls;
@@ -3137,8 +3137,54 @@ bool KateDocument::openFile()
   return success;
 }
 
-bool KateDocument::save()
+bool KateDocument::saveFile()
 {
+  //
+  // warn -> try to save binary file!!!!!!!
+  //
+  if (m_buffer->binary() && (KMessageBox::warningContinueCancel (widget()
+        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", url().url())
+        , i18n ("Trying to Save Binary File")
+        , KGuiItem(i18n("Save Nevertheless"))
+        , KStandardGuiItem::cancel(), "Binary File Save Warning") != KMessageBox::Continue))
+    return false;
+
+  // some warnings, if file was changed by the outside!
+  if ( !url().isEmpty() )
+  {
+    if (s_fileChangedDialogsActivated && m_modOnHd)
+    {
+      QString str = reasonedMOHString() + "\n\n";
+
+      if (!isModified())
+      {
+        if (KMessageBox::warningContinueCancel(0,
+               str + i18n("Do you really want to save this unmodified file? You could overwrite changed data in the file on disk."),i18n("Trying to Save Unmodified File"),KGuiItem(i18n("Save Nevertheless"))) != KMessageBox::Continue)
+          return false;
+      }
+      else
+      {
+        if (KMessageBox::warningContinueCancel(0,
+               str + i18n("Do you really want to save this file? Both your open file and the file on disk were changed. There could be some data lost."),i18n("Possible Data Loss"),KGuiItem(i18n("Save Nevertheless"))) != KMessageBox::Continue)
+          return false;
+      }
+    }
+  }
+
+  //
+  // can we encode it if we want to save it ?
+  //
+  if (!m_buffer->canEncode ()
+       && (KMessageBox::warningContinueCancel(0,
+           i18n("The selected encoding cannot encode every unicode character in this document. Do you really want to save it? There could be some data lost."),i18n("Possible Data Loss"),KGuiItem(i18n("Save Nevertheless"))) != KMessageBox::Continue))
+  {
+    return false;
+  }
+
+  //
+  // try to create backup file..
+  //
+
   // local file or not is here the question
   bool l ( url().isLocalFile() );
 
@@ -3204,52 +3250,6 @@ bool KateDocument::save()
     }
   }
 
-  return KParts::ReadWritePart::save();
-}
-
-bool KateDocument::saveFile()
-{
-  //
-  // warn -> try to save binary file!!!!!!!
-  //
-  if (m_buffer->binary() && (KMessageBox::warningContinueCancel (widget()
-        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", this->url().url())
-        , i18n ("Trying to Save Binary File")
-        , KGuiItem(i18n("Save Nevertheless"))
-        , KStandardGuiItem::cancel(), "Binary File Save Warning") != KMessageBox::Continue))
-    return false;
-
-  if ( !url().isEmpty() )
-  {
-    if (s_fileChangedDialogsActivated && m_modOnHd)
-    {
-      QString str = reasonedMOHString() + "\n\n";
-
-      if (!isModified())
-      {
-        if (KMessageBox::warningContinueCancel(0,
-               str + i18n("Do you really want to save this unmodified file? You could overwrite changed data in the file on disk."),i18n("Trying to Save Unmodified File"),KGuiItem(i18n("Save Nevertheless"))) != KMessageBox::Continue)
-          return false;
-      }
-      else
-      {
-        if (KMessageBox::warningContinueCancel(0,
-               str + i18n("Do you really want to save this file? Both your open file and the file on disk were changed. There could be some data lost."),i18n("Possible Data Loss"),KGuiItem(i18n("Save Nevertheless"))) != KMessageBox::Continue)
-          return false;
-      }
-    }
-  }
-
-  //
-  // can we encode it if we want to save it ?
-  //
-  if (!m_buffer->canEncode ()
-       && (KMessageBox::warningContinueCancel(0,
-           i18n("The selected encoding cannot encode every unicode character in this document. Do you really want to save it? There could be some data lost."),i18n("Possible Data Loss"),KGuiItem(i18n("Save Nevertheless"))) != KMessageBox::Continue))
-  {
-    return false;
-  }
-
   if (!m_preSavePostDialogFilterChecks.isEmpty())
   {
     LoadSaveFilterCheckPlugins *lscps=loadSaveFilterCheckPlugins();
@@ -3259,6 +3259,9 @@ bool KateDocument::saveFile()
          return false;
     }
   }
+  
+  // remember the oldpath...
+  QString oldPath = m_dirWatchFile;
 
   // remove file from dirwatch
   deactivateDirWatch ();
@@ -3281,7 +3284,16 @@ bool KateDocument::saveFile()
   {
     // update file type
     updateFileType (KateGlobal::self()->modeManager()->fileType (this));
-
+    
+    // read dir config (if possible and wanted)
+    if ( url().isLocalFile())
+    {
+       QFileInfo fo (oldPath), fn (m_dirWatchFile);
+    
+       if (fo.path() != fn.path())
+        readDirConfig();
+    }
+    
     // read our vars
     readVariables();
   }
@@ -3302,29 +3314,17 @@ bool KateDocument::saveFile()
   if (!success)
     KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", this->url().url()));
 
+  // update document name...
+  setDocName( QString() );
+
+  // url may have changed...
+  if (success)
+    emit documentUrlChanged (this);
+
   //
   // return success
   //
   return success;
-}
-
-bool KateDocument::saveAs( const KUrl &u )
-{
-  QString oldDir = url().directory();
-
-  if ( KParts::ReadWritePart::saveAs( u ) )
-  {
-    // null means base on fileName
-    setDocName( QString() );
-
-    if ( u.directory() != oldDir )
-      readDirConfig();
-
-    emit documentUrlChanged (this);
-    return true;
-  }
-
-  return false;
 }
 
 void KateDocument::readDirConfig ()
@@ -3383,7 +3383,7 @@ void KateDocument::activateDirWatch ()
   deactivateDirWatch ();
 
   // add new file if needed
-  if (this->url().isLocalFile() && !localFilePath().isEmpty())
+  if (url().isLocalFile() && !localFilePath().isEmpty())
   {
     KateGlobal::self()->dirWatch ()->addFile (localFilePath());
     m_dirWatchFile = localFilePath();

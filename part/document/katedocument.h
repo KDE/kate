@@ -663,14 +663,6 @@ class KateDocument : public KTextEditor::Document,
   // KParts::ReadWrite stuff
   //
   public:
-    /* Anders:
-      I reimplemented this, since i need to check if backup succeeded
-      if requested */
-    bool save();
-
-    /* Anders: Reimplemented to do kate specific stuff */
-    bool saveAs( const KUrl &url );
-
     bool openFile ();
 
     bool saveFile ();

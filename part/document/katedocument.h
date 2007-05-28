@@ -663,8 +663,6 @@ class KateDocument : public KTextEditor::Document,
   // KParts::ReadWrite stuff
   //
   public:
-    bool openUrl( const KUrl &url );
-
     /* Anders:
       I reimplemented this, since i need to check if backup succeeded
       if requested */
@@ -673,7 +671,6 @@ class KateDocument : public KTextEditor::Document,
     /* Anders: Reimplemented to do kate specific stuff */
     bool saveAs( const KUrl &url );
 
-    bool openFile (KIO::Job * job);
     bool openFile ();
 
     bool saveFile ();
@@ -682,13 +679,7 @@ class KateDocument : public KTextEditor::Document,
 
     void setModified( bool m );
 
-  private Q_SLOTS:
-    void slotDataKate ( KIO::Job* kio_job, const QByteArray &data );
-    void slotFinishedKate ( KJob * job );
-
   private:
-    void abortLoadKate();
-
     void activateDirWatch ();
     void deactivateDirWatch ();
 
@@ -1062,9 +1053,6 @@ class KateDocument : public KTextEditor::Document,
     static QRegExp kvLineWildcard;
     static QRegExp kvLineMime;
     static QRegExp kvVar;
-
-    KIO::TransferJob *m_job;
-    KTemporaryFile *m_tempFile;
 
     bool s_fileChangedDialogsActivated;
 

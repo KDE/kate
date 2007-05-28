@@ -214,8 +214,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_indenter(this),
   m_modOnHd (false),
   m_modOnHdReason (OnDiskUnmodified),
-  m_job (0),
-  m_tempFile (0),
   s_fileChangedDialogsActivated (false),
   m_tabInterceptor(0)
 {
@@ -282,6 +280,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   // important, fill in the config into the indenter we use...
   m_indenter.updateConfig ();
+  
+  // connect the start of kparts kio job to remember the job
+  connect(this, SIGNAL(started(KIO::Job *)), this, SLOT(rememberJob (KIO::Job *)));
 
   // some nice signals from the buffer
   connect(m_buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
@@ -2999,136 +3000,13 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
 
 
 //BEGIN KParts::ReadWrite stuff
-
-bool KateDocument::openUrl( const KUrl &url )
-{
-  setOpeningError(false);
-//   kDebug(13020)<<"KateDocument::openUrl( "<<url.prettyUrl()<<")"<<endl;
-  // no valid URL
-  if ( !url.isValid() )
-    return false;
-
-  // could not close old one
-  if ( !closeUrl() )
-    return false;
-
-  // set my url
-  setUrl(url);
-
-  if ( this->url().isLocalFile() )
-  {
-    // local mode, just like in kpart
-
-    setLocalFilePath(this->url().path());
-
-    emit started( 0 );
-
-    bool ret=openFile();
-    if (ret) {
-      emit setWindowCaption( this->url().prettyUrl() );
-      emit completed();
-    } else emit canceled(QString());
-    return ret;
-  }
-  else
-  {
-    // remote mode
-
-    setLocalFileTemporary(true);
-
-    m_tempFile = new KTemporaryFile ();
-    m_tempFile->setAutoRemove(false);
-    m_tempFile->open();
-    setLocalFilePath(m_tempFile->fileName());
-
-    m_job = KIO::get ( url, false, isProgressInfoEnabled() );
-
-    // connect to slots
-    connect( m_job, SIGNAL( data( KIO::Job*, const QByteArray& ) ),
-           SLOT( slotDataKate( KIO::Job*, const QByteArray& ) ) );
-
-    connect( m_job, SIGNAL( result( KJob* ) ),
-           SLOT( slotFinishedKate( KJob* ) ) );
-
-    QWidget *w = widget ();
-    if (!w && !m_views.isEmpty ())
-      w = m_views.first();
-
-    if (w)
-      m_job->ui()->setWindow (w->topLevelWidget());
-
-    emit started( m_job );
-
-    return true;
-  }
-}
-
-void KateDocument::slotDataKate ( KIO::Job *, const QByteArray &data )
-{
-//   kDebug(13020) << "KateDocument::slotData" << endl;
-
-  if (!m_tempFile)
-    return;
-
-  m_tempFile->write (data);
-}
-
-void KateDocument::slotFinishedKate ( KJob * job )
-{
-//   kDebug(13020) << "KateDocument::slotJobFinished" << endl;
-
-  if (!m_tempFile)
-    return;
-
-  delete m_tempFile;
-  m_tempFile = 0;
-  m_job = 0;
-
-  if (job->error())
-    emit canceled( job->errorString() );
-  else
-  {
-      if ( openFile( dynamic_cast<KIO::Job*>( job )) ) {
-        emit setWindowCaption( this->url().prettyUrl() );
-        emit completed();
-      } else emit canceled(QString());
-  }
-}
-
-void KateDocument::abortLoadKate()
-{
-  if ( m_job )
-  {
-    kDebug(13020) << "Aborting job " << m_job << endl;
-    m_job->kill();
-    m_job = 0;
-  }
-
-  delete m_tempFile;
-  m_tempFile = 0;
-}
-
 bool KateDocument::openFile()
 {
-  return openFile (0);
-}
+  // no open errors until now...
+  setOpeningError(false);
 
-bool KateDocument::openFile(KIO::Job * job)
-{
   // add new m_file to dirwatch
   activateDirWatch ();
-
-  //
-  // use metadata
-  //
-  if (job)
-  {
-    QString metaDataCharset = job->queryMetaData("charset");
-
-    // only overwrite config if nothing set
-    if (!metaDataCharset.isEmpty () && (!m_config->isSetEncoding() || m_config->encoding().isEmpty()))
-      setEncoding (metaDataCharset);
-  }
 
   //
   // service type magic to get encoding right
@@ -3522,8 +3400,6 @@ void KateDocument::deactivateDirWatch ()
 
 bool KateDocument::closeUrl()
 {
-  abortLoadKate();
-
   //
   // file mod on hd
   //

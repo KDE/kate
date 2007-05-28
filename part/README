@@ -1,7 +1,7 @@
    *** Kate Part ***
 The Kate Part supports the majority of KTextEditor interfaces and it is
-highly approciated to use them (the Kate::View/Document interfaces allow are more
-tight integration with the kate part, but makes you more depend on the kate part!)
+highly recommended to use them (the Kate::View/Document interfaces allow for
+tighter integration with the kate part but make you more dependent on the kate part!)
    
 Homepage: http://kate-editor.org
 

@@ -595,7 +595,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     /**
      * Return the name of the currently used mode
      * \return name of the used mode
-     * 
+     * \see highlightingModes(), setHighlightingMode()
      */
     virtual QString highlightingMode() const = 0;
     
@@ -609,11 +609,12 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     /**
      * Return a list of the names of all possible modes
      * \return list of mode names
+     * \see highlightingMode(), setHighlightingMode()
      */
     virtual QStringList highlightingModes() const = 0;
 
     /**
-     * Set the current mode of the document by giving it's name
+     * Set the current mode of the document by giving its name
      * \param name name of the mode to use for this document
      * \return \e true on success, otherwise \e false
      * \see mode(), modes(), modeChanged()
@@ -621,9 +622,10 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     virtual bool setMode(const QString &name) = 0;
 
     /**
-     * Set the current mode of the document by giving it's name
+     * Set the current mode of the document by giving its name
      * \param name name of the mode to use for this document
      * \return \e true on success, otherwise \e false
+     * \see highlightingMode(), highlightingModes(), highlightingModeChanged()
      */
     virtual bool setHighlightingMode(const QString &name) = 0;
 
@@ -647,6 +649,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * changed.
      * 
      * \param document the document which's mode has changed
+     * \see setHighlightingMode()
      */
     void highlightingModeChanged(KTextEditor::Document *document);
 

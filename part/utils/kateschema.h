@@ -68,6 +68,7 @@ class KateSchemaManager
      * is this schema valid ? (does it exist ?)
      */
     bool validSchema (uint number);
+    bool validSchema (const QString &name);
 
     /**
      * if not found, defaults to 0

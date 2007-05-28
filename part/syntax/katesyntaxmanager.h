@@ -74,8 +74,8 @@ class KateHlManager : public QObject
     static uint defaultStyles();
     static QString defaultStyleName(int n, bool translateNames = false);
 
-    void getDefaults(uint schema, KateAttributeList &);
-    void setDefaults(uint schema, KateAttributeList &);
+    void getDefaults(const QString &schema, KateAttributeList &);
+    void setDefaults(const QString &schema, KateAttributeList &);
 
     int highlights();
     QString hlName(int n);

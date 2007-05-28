@@ -148,6 +148,18 @@ bool KateSchemaManager::validSchema (uint number)
   return false;
 }
 
+bool KateSchemaManager::validSchema (const QString &name)
+{
+  if (name == normalSchema() || name == printingSchema())
+    return true;
+
+  for (int i = 0; i < m_schemas.size(); ++i)
+    if (m_schemas[i] == name)
+      return true;
+
+  return false;
+}
+
 uint KateSchemaManager::number (const QString &name)
 {
   if (name == normalSchema())
@@ -457,7 +469,7 @@ KateAttributeList *KateSchemaConfigFontColorTab::attributeList (uint schema)
   if (!m_defaultStyleLists.contains(schema))
   {
     KateAttributeList *list = new KateAttributeList ();
-    KateHlManager::self()->getDefaults(schema, *list);
+    KateHlManager::self()->getDefaults(KateGlobal::self()->schemaManager()->name (schema), *list);
 
     m_defaultStyleLists.insert (schema, list);
   }
@@ -504,7 +516,7 @@ void KateSchemaConfigFontColorTab::apply ()
   QHashIterator<int,KateAttributeList*> it = m_defaultStyleLists;
   while (it.hasNext()) {
     it.next();
-    KateHlManager::self()->setDefaults(it.key(), *it.value());
+    KateHlManager::self()->setDefaults(KateGlobal::self()->schemaManager()->name (it.key()), *it.value());
   }
 }
 
@@ -591,7 +603,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
     kDebug(13030) << "NEW HL, create list" << endl;
 
     QList<KateExtendedAttribute::Ptr> list;
-    KateHlManager::self()->getHl( m_hl )->getKateExtendedAttributeListCopy(m_schema, list);
+    KateHlManager::self()->getHl( m_hl )->getKateExtendedAttributeListCopy(KateGlobal::self()->schemaManager()->name (m_schema), list);
     m_hlDict[m_schema].insert (m_hl, list);
   }
 
@@ -725,7 +737,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument * )
   defaultSchemaCombo->setEditable( false );
   lHl->setBuddy( defaultSchemaCombo );
 
-  m_defaultSchema = KateRendererConfig::global()->schema();
+  m_defaultSchema = KateGlobal::self()->schemaManager()->number (KateRendererConfig::global()->schema());
 
   reload();
 
@@ -756,7 +768,7 @@ void KateSchemaConfigPage::apply()
     KateHlManager::self()->getHl (i)->clearAttributeArrays();
 
   // than reload the whole stuff
-  KateRendererConfig::global()->setSchema (defaultSchemaCombo->currentIndex());
+  KateRendererConfig::global()->setSchema (KateGlobal::self()->schemaManager()->name (defaultSchemaCombo->currentIndex()));
   KateRendererConfig::global()->reloadSchema();
 
   // sync the hl config for real
@@ -773,7 +785,7 @@ void KateSchemaConfigPage::reload()
 
   update ();
 
-  defaultSchemaCombo->setCurrentIndex (KateRendererConfig::global()->schema());
+  defaultSchemaCombo->setCurrentIndex (KateGlobal::self()->schemaManager()->number (KateRendererConfig::global()->schema()));
 
   // initialize to the schema in the current document, or default schema
   schemaCombo->setCurrentIndex( m_defaultSchema );
@@ -888,7 +900,7 @@ void KateViewSchemaAction::slotAboutToShow()
     {
       names << hlName;
       QAction *a=menu()->addAction ( hlName, this, SLOT(setSchema()));
-      a->setData(z+1);
+      a->setData(hlName);
       a->setCheckable(true);
       a->setActionGroup(m_group);
 	//FIXME EXCLUSIVE
@@ -897,17 +909,11 @@ void KateViewSchemaAction::slotAboutToShow()
 
   if (!view) return;
 
-  int id=view->renderer()->config()->schema()+1;
-  if (menu()->actions().at(id-1)->data().toInt()==id) {
-  	menu()->actions().at(id-1)->setChecked(true);
-  } else {
-	foreach(QAction *a,menu()->actions()) {
-		if (a->data().toInt()==id) {
-			a->setChecked(true);
-			break;
-		}
+  QString id=view->renderer()->config()->schema();
+   foreach(QAction *a,menu()->actions()) {
+	a->setChecked(a->data().toString()==id);
+	
 	}
-  }
 //FIXME
 #if 0
   popupMenu()->setItemChecked (last, false);
@@ -921,12 +927,12 @@ void KateViewSchemaAction::setSchema () {
   QAction *action = qobject_cast<QAction*>(sender());
 
   if (!action) return;
-  int mode=action->data().toInt();
+  QString mode=action->data().toString();
 
   KateView *view=m_view;
 
   if (view)
-    view->renderer()->config()->setSchema (mode-1);
+    view->renderer()->config()->setSchema (mode);
 }
 //END SCHEMA ACTION
 

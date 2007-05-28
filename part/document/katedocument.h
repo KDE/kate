@@ -663,8 +663,18 @@ class KateDocument : public KTextEditor::Document,
   // KParts::ReadWrite stuff
   //
   public:
+    /**
+     * open the file obtained by the kparts framework
+     * the framework abstracts the loading of remote files
+     * @return success
+     */
     bool openFile ();
 
+    /**
+     * save the file obtained by the kparts framework
+     * the framework abstracts the uploading of remote files
+     * @return success
+     */
     bool saveFile ();
 
     void setReadWrite ( bool rw = true );

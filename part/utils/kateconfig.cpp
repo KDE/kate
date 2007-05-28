@@ -1079,7 +1079,7 @@ void KateRendererConfig::readConfig (const KConfigGroup &config)
 {
   configStart ();
 
-  setSchema (KateGlobal::self()->schemaManager()->number (config.readEntry("Schema", KateSchemaManager::normalSchema())));
+  setSchema (config.readEntry("Schema", KateSchemaManager::normalSchema()));
 
   setWordWrapMarker (config.readEntry("Word Wrap Marker", false ));
 
@@ -1090,7 +1090,7 @@ void KateRendererConfig::readConfig (const KConfigGroup &config)
 
 void KateRendererConfig::writeConfig (KConfigGroup& config)
 {
-  config.writeEntry ("Schema", KateGlobal::self()->schemaManager()->name(schema()));
+  config.writeEntry ("Schema", schema());
 
   config.writeEntry("Word Wrap Marker", wordWrapMarker() );
 
@@ -1112,7 +1112,7 @@ void KateRendererConfig::updateConfig ()
   }
 }
 
-uint KateRendererConfig::schema () const
+const QString &KateRendererConfig::schema () const
 {
   if (m_schemaSet || isGlobal())
     return m_schema;
@@ -1120,7 +1120,7 @@ uint KateRendererConfig::schema () const
   return s_global->schema();
 }
 
-void KateRendererConfig::setSchema (uint schema)
+void KateRendererConfig::setSchema (const QString &schema)
 {
   configStart ();
   m_schemaSet = true;
@@ -1139,12 +1139,12 @@ void KateRendererConfig::reloadSchema()
     setSchemaInternal( m_schema );
 }
 
-void KateRendererConfig::setSchemaInternal( int schema )
+void KateRendererConfig::setSchemaInternal( const QString &schema )
 {
   m_schemaSet = true;
   m_schema = schema;
 
-  KConfigGroup config = KateGlobal::self()->schemaManager()->schema(schema);
+  KConfigGroup config = KateGlobal::self()->schemaManager()->schema(KateGlobal::self()->schemaManager()->number(schema));
 
   QColor tmp0 (KGlobalSettings::baseColor());
   QColor tmp1 (KGlobalSettings::highlightColor());

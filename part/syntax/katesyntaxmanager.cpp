@@ -168,7 +168,7 @@ QString KateHlManager::defaultStyleName(int n, bool translateNames)
   return translateNames ? translatedNames[n] : names[n];
 }
 
-void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
+void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list)
 {
   KTextEditor::Attribute::Ptr normal(new KTextEditor::Attribute());
   normal->setForeground(Qt::black);
@@ -247,7 +247,7 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
   list.append(error);
 
   KConfigGroup config(KateHlManager::self()->self()->getKConfig(),
-                      "Default Item Styles - Schema " + KateGlobal::self()->schemaManager()->name(schema));
+                      "Default Item Styles - Schema " + schema);
 
   for (uint z = 0; z < defaultStyles(); z++)
   {
@@ -297,10 +297,10 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
   }
 }
 
-void KateHlManager::setDefaults(uint schema, KateAttributeList &list)
+void KateHlManager::setDefaults(const QString &schema, KateAttributeList &list)
 {
   KConfigGroup config(KateHlManager::self()->self()->getKConfig(),
-                      "Default Item Styles - Schema " + KateGlobal::self()->schemaManager()->name(schema));
+                      "Default Item Styles - Schema " + schema);
 
   for (uint z = 0; z < defaultStyles(); z++)
   {

@@ -5331,7 +5331,7 @@ void KateDocument::setViewVariable( QString var, QString val )
     }
     else if ( var == "scheme" )
     {
-      v->renderer()->config()->setSchema( KateGlobal::self()->schemaManager()->number( val ) );
+      v->renderer()->config()->setSchema( val );
     }
   }
 }

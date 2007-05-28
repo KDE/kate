@@ -22,7 +22,6 @@
 
 //BEGIN INCLUDES
 #include "katehighlight.h"
-#include "katehighlight.moc"
 
 #include "katehighlighthelpers.h"
 #include "katetextline.h"
@@ -488,10 +487,10 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   }
 }
 
-void KateHighlighting::getKateExtendedAttributeList (uint schema, QList<KateExtendedAttribute::Ptr> &list)
+void KateHighlighting::getKateExtendedAttributeList (const QString &schema, QList<KateExtendedAttribute::Ptr> &list)
 {
   KConfigGroup config(KateHlManager::self()->getKConfig(),
-                      "Highlighting " + iName + " - Schema " + KateGlobal::self()->schemaManager()->name(schema));
+                      "Highlighting " + iName + " - Schema " + schema);
 
   list.clear();
   createKateExtendedAttribute(list);
@@ -537,7 +536,7 @@ void KateHighlighting::getKateExtendedAttributeList (uint schema, QList<KateExte
   }
 }
 
-void KateHighlighting::getKateExtendedAttributeListCopy( uint schema, QList< KateExtendedAttribute::Ptr >& list )
+void KateHighlighting::getKateExtendedAttributeListCopy( const QString &schema, QList< KateExtendedAttribute::Ptr >& list )
 {
   QList<KateExtendedAttribute::Ptr> attributes;
   getKateExtendedAttributeList(schema, attributes);
@@ -1767,7 +1766,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
 void KateHighlighting::clearAttributeArrays ()
 {
-  QMutableHashIterator< int, QList<KTextEditor::Attribute::Ptr> > it = m_attributeArrays;
+  QMutableHashIterator< QString, QList<KTextEditor::Attribute::Ptr> > it = m_attributeArrays;
   while (it.hasNext())
   {
     it.next();
@@ -1797,18 +1796,11 @@ void KateHighlighting::clearAttributeArrays ()
   }
 }
 
-QList<KTextEditor::Attribute::Ptr> KateHighlighting::attributes (uint schema)
+QList<KTextEditor::Attribute::Ptr> KateHighlighting::attributes (const QString &schema)
 {
   // found it, already floating around
   if (m_attributeArrays.contains(schema))
     return m_attributeArrays[schema];
-
-  // ohh, not found, check if valid schema number
-  if (!KateGlobal::self()->schemaManager()->validSchema(schema))
-  {
-    // uhh, not valid :/, stick with normal default schema, it's always there !
-    return attributes (0);
-  }
 
   // k, schema correct, let create the data
   QList<KTextEditor::Attribute::Ptr> array;

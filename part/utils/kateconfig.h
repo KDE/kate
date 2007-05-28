@@ -436,8 +436,8 @@ class KateRendererConfig : public KateConfig
     void updateConfig ();
 
   public:
-    uint schema () const;
-    void setSchema (uint schema);
+    const QString &schema () const;
+    void setSchema (const QString &schema);
     /**
      * Reload the schema from the schema manager.
      * For the global instance, have all other instances reload.
@@ -494,9 +494,9 @@ class KateRendererConfig : public KateConfig
     /**
      * Read the schema properties from the config file.
      */
-    void setSchemaInternal(int schema);
+    void setSchemaInternal(const QString &schema);
 
-    uint m_schema;
+    QString m_schema;
     QFont m_font;
     QFontMetrics m_fontMetrics;
     bool m_wordWrapMarker;

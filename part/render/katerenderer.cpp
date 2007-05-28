@@ -63,8 +63,7 @@ KateRenderer::~KateRenderer()
 
 void KateRenderer::updateAttributes ()
 {
-  m_schema = config()->schema ();
-  m_attributes = m_doc->highlight()->attributes (m_schema);
+  m_attributes = m_doc->highlight()->attributes (config()->schema ());
 }
 
 KTextEditor::Attribute::Ptr KateRenderer::attribute(uint pos) const

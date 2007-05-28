@@ -224,7 +224,7 @@ class KateHighlighting
 
     void clearAttributeArrays ();
 
-    QList<KTextEditor::Attribute::Ptr> attributes (uint schema);
+    QList<KTextEditor::Attribute::Ptr> attributes (const QString &schema);
 
     inline bool noHighlighting () const { return noHl; }
 
@@ -233,8 +233,8 @@ class KateHighlighting
 
     QString indentation () { return m_indentation; }
 
-    void getKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute::Ptr> &);
-    void getKateExtendedAttributeListCopy(uint schema, QList<KateExtendedAttribute::Ptr> &);
+    void getKateExtendedAttributeList(const QString &schema, QList<KateExtendedAttribute::Ptr> &);
+    void getKateExtendedAttributeListCopy(const QString &schema, QList<KateExtendedAttribute::Ptr> &);
 
   private:
     void init();
@@ -308,7 +308,8 @@ class KateHighlighting
     KateHlIncludeRules includeRules;
     bool m_foldingIndentationSensitive;
 
-    QHash< int, QList<KTextEditor::Attribute::Ptr> > m_attributeArrays;
+    // map schema name to attributes...
+    QHash< QString, QList<KTextEditor::Attribute::Ptr> > m_attributeArrays;
 
 
     /**

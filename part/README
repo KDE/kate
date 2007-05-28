@@ -3,7 +3,7 @@ The Kate Part supports the majority of KTextEditor interfaces and it is
 highly approciated to use them (the Kate::View/Document interfaces allow are more
 tight integration with the kate part, but makes you more depend on the kate part!)
    
-Homepage: http://kate.kde.org
+Homepage: http://kate-editor.org
 
 Licensing:
 The Kate Part and its interfaces are licensed under the LGPL version 2,

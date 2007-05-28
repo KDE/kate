@@ -121,7 +121,7 @@ class KTEXTEDITOR_EXPORT Range
     /**
      * Returns an invalid range.
      */
-    static const Range& invalid();
+    static Range invalid();
 
     /**
      * Returns whether this range is a SmartRange.

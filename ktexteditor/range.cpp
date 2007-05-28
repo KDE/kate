@@ -116,12 +116,9 @@ bool Range::isValid( ) const
   return start().isValid() && end().isValid();
 }
 
-const Range& Range::invalid()
+Range Range::invalid()
 {
-  static Range r;
-  if (r.start().line() != -1)
-    r.setRange(Cursor(-1,-1),Cursor(-1,-1));
-  return r;
+  return Range (Cursor(-1, -1), Cursor(-1, -1));
 }
 
 void Range::setRange(const Range& range)

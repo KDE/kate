@@ -2659,15 +2659,8 @@ uint KateDocument::hlMode ()
 
 bool KateDocument::setMode (const QString &name)
 {
-  m_buffer->setHighlight (KateHlManager::self()->nameFind(name));
-
-  if (true)
-  {
-    setDontChangeHlOnSave();
-    return true;
-  }
-
-  return false;
+  updateFileType (name);
+  return true;
 }
 
 QString KateDocument::mode () const
@@ -2677,12 +2670,13 @@ QString KateDocument::mode () const
 
 QStringList KateDocument::modes () const
 {
-  QStringList hls;
+  QStringList m;
+  
+  const QList<KateFileType *> &modeList = KateGlobal::self()->modeManager()->list();
+  for (uint i = 0; i < modeList.size(); ++i)
+    m << modeList[i]->name;
 
-  for (uint i = 0; i < hlModeCount(); ++i)
-    hls << hlModeName (i);
-
-  return hls;
+  return m;
 }
 
 

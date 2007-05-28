@@ -506,8 +506,6 @@ class KateDocument : public KTextEditor::Document,
    * Helpers....
    */
   public:
-    uint hlModeCount() const;
-    QString hlModeName(uint mode) const;
     void bufferHlChanged();
 
   private:

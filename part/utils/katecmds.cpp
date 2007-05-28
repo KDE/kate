@@ -25,6 +25,7 @@
 #include "kateconfig.h"
 #include "kateautoindent.h"
 #include "katetextline.h"
+#include "katesyntaxmanager.h"
 #include "kateglobal.h"
 #include "katejscript.h"
 #include "katerenderer.h"
@@ -265,8 +266,8 @@ KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *vi
   {
     KateView *v = (KateView*)view;
     QStringList l;
-    for ( uint i = 0; i < v->doc()->hlModeCount(); i++ )
-      l << v->doc()->hlModeName( i );
+    for ( uint i = 0; i < KateHlManager::self()->highlights(); i++ )
+      l << KateHlManager::self()->hlName (i);
 
     KateCmdShellCompletion *co = new KateCmdShellCompletion();
     co->setItems( l );

@@ -2695,8 +2695,8 @@ QStringList KateDocument::highlightingModes () const
 {
   QStringList hls;
 
-  for (uint i = 0; i < hlModeCount(); ++i)
-    hls << hlModeName (i);
+  for (uint i = 0; i < KateHlManager::self()->highlights(); ++i)
+    hls << KateHlManager::self()->hlName (i);
 
   return hls;
 }
@@ -2707,16 +2707,6 @@ void KateDocument::bufferHlChanged ()
   makeAttribs(false);
 
   emit highlightingModeChanged(this);
-}
-
-uint KateDocument::hlModeCount () const
-{
-  return KateHlManager::self()->highlights();
-}
-
-QString KateDocument::hlModeName (uint mode) const
-{
-  return KateHlManager::self()->hlName (mode);
 }
 
 void KateDocument::setDontChangeHlOnSave()

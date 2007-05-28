@@ -3,6 +3,7 @@ project(kate)
 
 # this subdirs have own CMakeLists
 add_subdirectory( data )
+add_subdirectory( syntax/data )
 add_subdirectory( scripts )
 add_subdirectory( plugins )
 add_subdirectory( tests )

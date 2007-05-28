@@ -148,7 +148,14 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     v->doc()->config()->setIndentationMode( args.first() );
     return true;
   }
-  else if ( cmd == "set-highlight" || cmd == "set-mode" )
+  else if ( cmd == "set-highlight" )
+  {
+    if ( v->doc()->setHighlightingMode( args.first()) )
+      return true;
+      
+    KCC_ERR( i18n("No such highlighting '%1'",  args.first() ) );
+  }
+  else if ( cmd == "set-mode" )
   {
     if ( v->doc()->setMode( args.first()) )
       return true;

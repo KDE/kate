@@ -5393,7 +5393,11 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         setPreSavePostDialogFilterChecks(val.split(','));
       else if (var == "postload")
         setPostLoadFilterChecks(val.split(','));
-      else if ( var == "mode" || var == "syntax" || var == "hl" )
+      else if ( var == "syntax" || var == "hl" )
+      {
+        setHighlightingMode( val );
+      }
+      else if ( var == "mode" )
       {
         setMode( val );
       }

@@ -68,6 +68,7 @@ smart/katesmartregion.cpp
 syntax/katesyntaxmanager.cpp
 syntax/katehighlight.cpp
 syntax/katehighlighthelpers.cpp
+syntax/katehighlightmenu.cpp
 syntax/katesyntaxdocument.cpp
 syntax/katecodefolding.cpp
 syntax/kateextendedattribute.cpp

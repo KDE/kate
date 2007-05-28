@@ -31,6 +31,7 @@
 #include "katedocumenthelpers.h"
 #include "kateglobal.h"
 #include "katehighlight.h"
+#include "katehighlightmenu.h"
 #include "katedialogs.h"
 #include "katetextline.h"
 #include "katecodefolding.h"
@@ -388,6 +389,11 @@ void KateView::setupActions()
   ac->addAction("tools_mode", ftm);
   ftm->setWhatsThis(i18n("Here you can choose which mode should be used for the current document. This will influence the used highlighting and folding for example."));
   ftm->updateMenu (m_doc);
+  
+  KateHighlightingMenu *menu = new KateHighlightingMenu (i18n("&Highlighting"), this);
+  ac->addAction("tools_highlighting", menu);
+  menu->setWhatsThis(i18n("Here you can choose how the current document should be highlighted."));
+  menu->updateMenu (m_doc);
 
   KateViewSchemaAction *schemaMenu = new KateViewSchemaAction (i18n("&Schema"), this);
   ac->addAction("view_schemas", schemaMenu);

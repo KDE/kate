@@ -12,7 +12,7 @@ kde4_add_plugin(katesymbolviewerplugin ${katesymbolviewerplugin_PART_SRCS})
 
 
 
-target_link_libraries(katesymbolviewerplugin  ${KDE4_KDEUI_LIBS} kateinterfaces ktexteditor )
+target_link_libraries(katesymbolviewerplugin  ${KDE4_KDEUI_LIBS} kateinterfaces ${KDE4_KTEXTEDITOR_LIBS} )
 
 install(TARGETS katesymbolviewerplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

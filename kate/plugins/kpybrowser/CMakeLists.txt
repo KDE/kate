@@ -12,7 +12,7 @@ kde4_add_plugin(katepybrowseplugin ${katepybrowseplugin_PART_SRCS})
 
 
 
-target_link_libraries(katepybrowseplugin  ${KDE4_KDEUI_LIBS} ktexteditor kateinterfaces )
+target_link_libraries(katepybrowseplugin  ${KDE4_KDEUI_LIBS} ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces )
 
 install(TARGETS katepybrowseplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

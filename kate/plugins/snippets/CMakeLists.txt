@@ -20,7 +20,7 @@ kde4_add_plugin(katesnippetsplugin ${katesnippetsplugin_PART_SRCS})
 
 
 
-target_link_libraries(katesnippetsplugin  ${KDE4_KDEUI_LIBS} ktexteditor kateinterfaces )
+target_link_libraries(katesnippetsplugin  ${KDE4_KDEUI_LIBS} ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces )
 
 install(TARGETS katesnippetsplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

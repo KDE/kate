@@ -12,7 +12,7 @@ kde4_add_plugin(katetextfilterplugin ${katetextfilterplugin_PART_SRCS})
 
 
 
-target_link_libraries(katetextfilterplugin  ${KDE4_KDEUI_LIBS} ktexteditor kateinterfaces )
+target_link_libraries(katetextfilterplugin  ${KDE4_KDEUI_LIBS} ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces )
 
 install(TARGETS katetextfilterplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

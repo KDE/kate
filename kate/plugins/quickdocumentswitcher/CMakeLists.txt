@@ -12,7 +12,7 @@ kde4_add_plugin(katequickdocumentswitcherplugin ${katequickdocumentswitcherplugi
 
 
 
-target_link_libraries(katequickdocumentswitcherplugin  ${KDE4_KDEUI_LIBS} ktexteditor kateinterfaces )
+target_link_libraries(katequickdocumentswitcherplugin  ${KDE4_KDEUI_LIBS} ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces )
 
 install(TARGETS katequickdocumentswitcherplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

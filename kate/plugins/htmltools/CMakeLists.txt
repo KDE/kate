@@ -12,7 +12,7 @@ kde4_add_plugin(katehtmltoolsplugin ${katehtmltoolsplugin_PART_SRCS})
 
 
 
-target_link_libraries(katehtmltoolsplugin  ${KDE4_KDEUI_LIBS} kateinterfaces ktexteditor)
+target_link_libraries(katehtmltoolsplugin  ${KDE4_KDEUI_LIBS} kateinterfaces ${KDE4_KTEXTEDITOR_LIBS})
 
 install(TARGETS katehtmltoolsplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

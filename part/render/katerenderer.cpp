@@ -785,6 +785,9 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   int height = 0;
   int shiftX = 0;
 
+  bool needShiftX = (maxwidth != -1)
+                 && (m_view->config()->dynWordWrapAlignIndent() > 0);
+
   forever {
     QTextLine line = l->createLine();
     if (!line.isValid())
@@ -795,22 +798,22 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
 
     line.setPosition(QPoint(line.lineNumber() ? shiftX : 0, height));
 
-    if (!line.lineNumber() && maxwidth != -1) {
+    if (needShiftX) {
+      needShiftX = false;
       // Determine x offset for subsequent-lines-of-paragraph indenting
-      if (m_view->config()->dynWordWrapAlignIndent() > 0)
-      {
-        if (shiftX == 0)
-        {
-          int pos = lineLayout->textLine()->nextNonSpaceChar(0);
+      int pos = lineLayout->textLine()->nextNonSpaceChar(0);
 
-          if (pos > 0) {
-            shiftX = (int)line.cursorToX(pos);
-          }
-
-          if (shiftX > ((double)maxwidth / 100 * m_view->config()->dynWordWrapAlignIndent()) || shiftX == -1)
-            shiftX = 0;
-        }
+      if (pos > 0) {
+        shiftX = (int)line.cursorToX(pos);
       }
+
+      // check for too deep shift value and limit if necessary
+      if (shiftX > ((double)maxwidth / 100 * m_view->config()->dynWordWrapAlignIndent()))
+        shiftX = 0;
+
+      // if shiftX > 0, the maxwidth has to adapted
+      maxwidth -= shiftX;
+
       lineLayout->setShiftX(shiftX);
     }
 

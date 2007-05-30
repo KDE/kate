@@ -1151,7 +1151,7 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   QColor tmp2 (KGlobalSettings::alternateBackgroundColor());
   QColor tmp3 ( "#FFFF99" );
   QColor tmp4 (tmp2.dark());
-  QColor tmp5 ( KGlobalSettings::textColor().lighter(500) );
+  QColor tmp5 ( KGlobalSettings::inactiveTextColor().lighter(50) );
   QColor tmp6 ( "#EAE9E8" );
   QColor tmp7 ( "#000000" );
 
@@ -1165,7 +1165,7 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   m_highlightedBracketColorSet = true;
   m_wordWrapMarkerColor = config.readEntry("Color Word Wrap Marker", tmp4);
   m_wordWrapMarkerColorSet = true;
-  m_tabMarkerColor = config.readEntry("Color Tab Marker", KGlobalSettings::inactiveTextColor().lighter(50));
+  m_tabMarkerColor = config.readEntry("Color Tab Marker", tmp5);
   m_tabMarkerColorSet = true;
   m_iconBarColor  = config.readEntry("Color Icon Bar", tmp6);
   m_iconBarColorSet = true;

@@ -262,7 +262,7 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
     QColor tmp2 (KGlobalSettings::alternateBackgroundColor());
     QColor tmp3 ( "#FFFF99" );
     QColor tmp4 (tmp2.dark());
-    QColor tmp5 ( "#EAE9E8" );
+    QColor tmp5 ( KGlobalSettings::inactiveTextColor().lighter(50) );
     QColor tmp6 ( "#EAE9E8" );
     QColor tmp7 ( "#000000" );
 

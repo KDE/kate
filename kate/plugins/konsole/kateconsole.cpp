@@ -113,6 +113,9 @@ void KateConsole::loadConsoleIfNeeded()
 
   if (!m_part) return;
 
+  // start the terminal
+  ((TerminalInterface*)m_part)->showShellInDir( QString() );
+
   KGlobal::locale()->insertCatalog("konsole");
 
   setFocusProxy(m_part->widget());

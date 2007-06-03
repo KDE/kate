@@ -2410,8 +2410,6 @@ void KateView::setConfigValue(const QString &key, const QVariant &value)
 
 // END ConfigInterface
 
-// kate: space-indent on; indent-width 2; replace-tabs on;
-
 void KateView::userInvokedCompletion()
 {
   completionWidget()->userInvokedCompletion();
@@ -2440,3 +2438,5 @@ KateGotoBar *KateView::gotoBar ()
 
   return m_gotoBar = new KateGotoBar (m_viewBar);
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

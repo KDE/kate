@@ -239,8 +239,6 @@ class KateCompletionModel : public QAbstractItemModel
     QString m_currentMatch;
     Qt::CaseSensitivity m_matchCaseSensitivity;
 
-    bool m_hasCompletionModel;
-
     // Column merging
     QList< QList<int> > m_columnMerges;
 

@@ -30,7 +30,6 @@ using namespace KTextEditor;
 KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   : QAbstractItemModel(parent)
   , m_matchCaseSensitivity(Qt::CaseInsensitive)
-  , m_hasCompletionModel(false)
   , m_ungrouped(new Group(this))
   , m_ungroupedDisplayed(false)
   , m_sortingEnabled(false)
@@ -727,7 +726,7 @@ void KateCompletionModel::slotRowsRemoved( const QModelIndex & /*parent*/, int /
 
 bool KateCompletionModel::hasCompletionModel( ) const
 {
-  return m_hasCompletionModel;
+  return m_completionModels.size() > 0;
 }
 
 KateCompletionModel::Group * KateCompletionModel::ungrouped( )

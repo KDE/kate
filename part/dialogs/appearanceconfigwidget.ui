@@ -1,23 +1,29 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>AppearanceConfigWidget</class>
  <widget class="QWidget" name="AppearanceConfigWidget" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>473</width>
-    <height>447</height>
+    <width>506</width>
+    <height>486</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>0</number>
-   </property>
    <property name="spacing" >
     <number>6</number>
+   </property>
+   <property name="leftMargin" >
+    <number>0</number>
+   </property>
+   <property name="topMargin" >
+    <number>0</number>
+   </property>
+   <property name="rightMargin" >
+    <number>0</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>0</number>
    </property>
    <item>
     <widget class="QGroupBox" name="gbWordWrap" >
@@ -25,11 +31,20 @@
       <string>Word Wrap</string>
      </property>
      <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
       <property name="spacing" >
        <number>6</number>
+      </property>
+      <property name="leftMargin" >
+       <number>9</number>
+      </property>
+      <property name="topMargin" >
+       <number>9</number>
+      </property>
+      <property name="rightMargin" >
+       <number>9</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>9</number>
       </property>
       <item>
        <widget class="QCheckBox" name="chkDynamicWordWrap" >
@@ -43,11 +58,20 @@
       </item>
       <item>
        <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
         <property name="spacing" >
          <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
         </property>
         <item>
          <widget class="QLabel" name="lblDynamicWordWrapIndicators" >
@@ -83,11 +107,20 @@
       </item>
       <item>
        <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
         <property name="spacing" >
          <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
         </property>
         <item>
          <widget class="QLabel" name="lblDynamicWordWrapIndicators_2" >
@@ -137,17 +170,11 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="gbCodeFolding" >
+    <widget class="QGroupBox" name="gbBorders" >
      <property name="title" >
-      <string>Code Folding</string>
+      <string>Borders</string>
      </property>
      <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
       <item>
        <widget class="QCheckBox" name="chkShowFoldingMarkers" >
         <property name="whatsThis" >
@@ -158,21 +185,6 @@
         </property>
        </widget>
       </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="gbBorders" >
-     <property name="title" >
-      <string>Borders</string>
-     </property>
-     <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
       <item>
        <widget class="QCheckBox" name="chkIconBorder" >
         <property name="whatsThis" >
@@ -215,11 +227,20 @@
       <string>Sort Bookmarks Menu</string>
      </property>
      <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
       <property name="spacing" >
        <number>6</number>
+      </property>
+      <property name="leftMargin" >
+       <number>9</number>
+      </property>
+      <property name="topMargin" >
+       <number>9</number>
+      </property>
+      <property name="rightMargin" >
+       <number>9</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>9</number>
       </property>
       <item>
        <widget class="QRadioButton" name="rbSortBookmarksByPosition" >
@@ -261,15 +282,14 @@
      </property>
      <property name="sizeHint" >
       <size>
-       <width>371</width>
-       <height>16</height>
+       <width>20</width>
+       <height>40</height>
       </size>
      </property>
     </spacer>
    </item>
   </layout>
  </widget>
- <pixmapfunction></pixmapfunction>
  <resources/>
  <connections/>
 </ui>

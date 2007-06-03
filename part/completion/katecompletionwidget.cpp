@@ -406,8 +406,9 @@ KTextEditor::Range KateCompletionWidget::determineRange() const
 {
   KTextEditor::Cursor end = view()->cursorPosition();
 
-  if (!end.column())
-    return KTextEditor::Range::invalid();
+  // the end cursor should always be valid, otherwise things go wrong
+  // Assumption: view()->cursorPosition() is always valid.
+  Q_ASSERT(end.isValid());
 
   QString text = view()->document()->line(end.line());
 
@@ -426,3 +427,5 @@ KTextEditor::Range KateCompletionWidget::determineRange() const
 }
 
 #include "katecompletionwidget.moc"
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -674,6 +674,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfi
 {
   QVBoxLayout *layout = new QVBoxLayout;
   setLayout(layout);
+  layout->setMargin(0);
 
   plugins.clear();
 

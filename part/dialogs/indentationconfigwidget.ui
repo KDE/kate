@@ -6,23 +6,41 @@
     <x>0</x>
     <y>0</y>
     <width>511</width>
-    <height>347</height>
+    <height>350</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>0</number>
-   </property>
    <property name="spacing" >
     <number>6</number>
    </property>
+   <property name="leftMargin" >
+    <number>0</number>
+   </property>
+   <property name="topMargin" >
+    <number>0</number>
+   </property>
+   <property name="rightMargin" >
+    <number>0</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>0</number>
+   </property>
    <item>
     <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
      <property name="spacing" >
       <number>6</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
      </property>
      <item>
       <widget class="QLabel" name="lblMode" >
@@ -37,7 +55,7 @@
      <item>
       <widget class="KComboBox" name="cmbMode" >
        <property name="whatsThis" >
-        <string>This is a list of available indentation modes. The specified indentation mode will be used for all new documents. Be aware that it is also possible to set the indentation mode with document variables, filetypes or a .kateconfig file.</string>
+        <string>This is a list of available indentation modes. The specified indentation mode will be used for all new documents. Be aware that it is also possible to set the indentation mode with document variables, modes or a .kateconfig file.</string>
        </property>
       </widget>
      </item>
@@ -61,23 +79,38 @@
      <property name="title" >
       <string>Indentation Properties</string>
      </property>
-     <property name="flat" >
-      <bool>true</bool>
-     </property>
      <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
       <property name="spacing" >
        <number>6</number>
       </property>
+      <property name="leftMargin" >
+       <number>9</number>
+      </property>
+      <property name="topMargin" >
+       <number>9</number>
+      </property>
+      <property name="rightMargin" >
+       <number>9</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>9</number>
+      </property>
       <item>
        <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
         <property name="spacing" >
          <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
         </property>
         <item>
          <widget class="QLabel" name="lblIndentWidth" >
@@ -97,11 +130,11 @@
           <property name="suffix" >
            <string>characters</string>
           </property>
-          <property name="maximum" >
-           <number>16</number>
-          </property>
           <property name="minimum" >
            <number>1</number>
+          </property>
+          <property name="maximum" >
+           <number>16</number>
           </property>
           <property name="value" >
            <number>4</number>
@@ -151,15 +184,21 @@
      <property name="title" >
       <string>Indentation Actions</string>
      </property>
-     <property name="flat" >
-      <bool>true</bool>
-     </property>
      <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
       <property name="spacing" >
        <number>6</number>
+      </property>
+      <property name="leftMargin" >
+       <number>9</number>
+      </property>
+      <property name="topMargin" >
+       <number>9</number>
+      </property>
+      <property name="rightMargin" >
+       <number>9</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>9</number>
       </property>
       <item>
        <widget class="QCheckBox" name="chkBackspaceUnindents" >
@@ -183,11 +222,20 @@ p, li { white-space: pre-wrap; }
       </item>
       <item>
        <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
         <property name="spacing" >
          <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
         </property>
         <item>
          <spacer>
@@ -207,11 +255,20 @@ p, li { white-space: pre-wrap; }
         </item>
         <item>
          <layout class="QVBoxLayout" >
-          <property name="margin" >
-           <number>0</number>
-          </property>
           <property name="spacing" >
            <number>6</number>
+          </property>
+          <property name="leftMargin" >
+           <number>0</number>
+          </property>
+          <property name="topMargin" >
+           <number>0</number>
+          </property>
+          <property name="rightMargin" >
+           <number>0</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>0</number>
           </property>
           <item>
            <widget class="QRadioButton" name="rbTabAdvances" >

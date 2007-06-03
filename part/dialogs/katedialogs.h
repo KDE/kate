@@ -41,8 +41,6 @@
 #include <QtGui/QTabWidget>
 #include <QtGui/QTreeWidget>
 
-class KatePartPluginListItem;
-
 struct syntaxContextData;
 
 class KateDocument;
@@ -62,6 +60,8 @@ class KMainWindow;
 class KPushButton;
 class KRegExpDialog;
 class KIntNumInput;
+class KPluginSelector;
+class KPluginInfo;
 
 class QGroupBox;
 class QCheckBox;
@@ -250,24 +250,6 @@ private:
   Ui::OpenSaveConfigWidget* ui;
 };
 
-class KatePartPluginListItem;
-
-class KatePartPluginListView : public QTreeWidget
-{
-  Q_OBJECT
-
-  friend class KatePartPluginListItem;
-
-  public:
-    KatePartPluginListView (QWidget *parent = 0);
-
-  Q_SIGNALS:
-    void stateChange(KatePartPluginListItem *, bool);
-
-  private:
-    void stateChanged(KatePartPluginListItem *, bool);
-};
-
 class KatePartPluginConfigPage : public KateConfigPage
 {
   Q_OBJECT
@@ -278,18 +260,13 @@ class KatePartPluginConfigPage : public KateConfigPage
 
   public Q_SLOTS:
     void apply ();
-    void reload () {}
+    void reload ();
     void reset () {}
-    void defaults () {}
-
-  private Q_SLOTS:
-    void slotCurrentChanged( QTreeWidgetItem* );
-    void slotConfigure();
+    void defaults ();
 
   private:
-    KatePartPluginListView *listView;
-    QList<KatePartPluginListItem*> m_items;
-    class QPushButton *btnConfigure;
+    KPluginSelector *selector;
+    QList<KPluginInfo*> plugins;
 };
 
 class KateScriptNewStuff;

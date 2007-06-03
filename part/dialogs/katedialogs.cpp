@@ -78,6 +78,8 @@
 #include <kpushbutton.h>
 #include <kvbox.h>
 #include <kactioncollection.h>
+#include <kplugininfo.h>
+#include <kutils/kpluginselector.h>
 //#include <knewstuff/knewstuff.h>
 #include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
@@ -667,121 +669,57 @@ void KateSaveConfigTab::defaults()
 
 //END KateSaveConfigTab
 
-//BEGIN PluginListItem
-class KatePartPluginListItem : public QTreeWidgetItem
-{
-  public:
-    KatePartPluginListItem(bool checked, uint i, const QString &name, QTreeWidget *parent);
-    uint pluginIndex () const { return index; }
-
-  private:
-    uint index;
-};
-
-KatePartPluginListItem::KatePartPluginListItem(bool checked, uint i, const QString &name, QTreeWidget *parent)
-  : QTreeWidgetItem(parent)
-  , index(i)
-{
-  setText(0, name);
-  setCheckState(0, checked ? Qt::Checked : Qt::Unchecked);
-}
-//END
-
-//BEGIN PluginListView
-KatePartPluginListView::KatePartPluginListView(QWidget *parent)
-  : QTreeWidget(parent)
-{
-}
-//END
-
 //BEGIN KatePartPluginConfigPage
 KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfigPage (parent, "")
 {
-  // sizemanagment
-  QGridLayout *grid = new QGridLayout( this); //, 1, 1 );
-  grid->setSpacing( KDialog::spacingHint() );
+  QVBoxLayout *layout = new QVBoxLayout;
+  setLayout(layout);
 
-  listView = new KatePartPluginListView(this);
-  listView->setColumnCount(2);
-  listView->setHeaderLabels(QStringList() << i18n("Name") << i18n("Comment"));
-  listView->setRootIsDecorated(false);
+  plugins.clear();
 
-  grid->addWidget(listView, 0, 0);
-
-  for (int i=0; i<KateGlobal::self()->plugins().count(); i++)
+  KPluginInfo *it;
+  int i = 0;
+  foreach (const KService::Ptr &service, KateGlobal::self()->plugins())
   {
-    KatePartPluginListItem *item = new KatePartPluginListItem(KateDocumentConfig::global()->plugin(i), i, (KateGlobal::self()->plugins())[i]->name(), listView);
-    item->setText(0, (KateGlobal::self()->plugins())[i]->name());
-    item->setText(1, (KateGlobal::self()->plugins())[i]->comment());
-
-    m_items.append (item);
+    it = new KPluginInfo(service);
+    it->setPluginEnabled(KateDocumentConfig::global()->plugin(i));
+    plugins.append(it);
+    i++;
   }
-  listView->resizeColumnToContents(0);
 
-  // configure button
+  selector = new KPluginSelector(0);
 
-  btnConfigure = new QPushButton( i18n("Configure..."), this );
-  btnConfigure->setEnabled( false );
-  grid->addWidget( btnConfigure, 1, 0, Qt::AlignRight );
-  connect( btnConfigure, SIGNAL(clicked()), this, SLOT(slotConfigure()) );
+  connect(selector, SIGNAL(changed(bool)), this, SLOT(slotChanged()));
+  connect(selector, SIGNAL(configCommitted(QByteArray)), this, SLOT(slotChanged()));
 
-  connect( listView, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(slotCurrentChanged(QTreeWidgetItem*)) );
-  connect( listView, SIGNAL(itemChanged (QTreeWidgetItem *, int)), this, SLOT(slotChanged()));
+  selector->addPlugins(plugins, KPluginSelector::IgnoreConfigFile, i18n("Editor Plugins"), "Editor");
+  layout->addWidget(selector);
 }
 
 KatePartPluginConfigPage::~KatePartPluginConfigPage ()
 {
-  qDeleteAll(m_items);
 }
 
 void KatePartPluginConfigPage::apply ()
 {
-  kDebug()<<"KatePartPluginConfigPage::apply (entered)"<<endl;
-  // nothing changed, no need to apply stuff
-  if (!hasChanged())
-    return;
-  m_changed = false;
-
-  kDebug()<<"KatePartPluginConfigPage::apply (need to store configuration)"<<endl;
+  selector->updatePluginsState();
 
   KateDocumentConfig::global()->configStart ();
 
-  for (int i=0; i < m_items.count(); i++)
-    KateDocumentConfig::global()->setPlugin (m_items.at(i)->pluginIndex(), m_items.at(i)->checkState(0) == Qt::Checked);
+  for (int i=0; i < plugins.count(); i++)
+    KateDocumentConfig::global()->setPlugin (i, plugins[i]->isPluginEnabled ());
 
   KateDocumentConfig::global()->configEnd ();
 }
 
-void KatePartPluginConfigPage::slotCurrentChanged( QTreeWidgetItem* i )
+void KatePartPluginConfigPage::reload ()
 {
-  KatePartPluginListItem *item = static_cast<KatePartPluginListItem *>(i);
-  if ( ! item ) return;
-
-    bool b = false;
-  if ( item->checkState(0) == Qt::Checked )
-  {
-    // load this plugin, and see if it has config pages
-    KTextEditor::Plugin *plugin = KTextEditor::createPlugin(QFile::encodeName((KateGlobal::self()->plugins())[item->pluginIndex()]->library()), 0);
-    if ( plugin ) {
-      b = plugin->configDialogSupported();
-      delete plugin;
-    }
-  }
-
-  btnConfigure->setEnabled( b );
+  selector->load();
 }
 
-void KatePartPluginConfigPage::slotConfigure()
+void KatePartPluginConfigPage::defaults ()
 {
-  KatePartPluginListItem *item = static_cast<KatePartPluginListItem*>(listView->currentItem());
-  KTextEditor::Plugin *plugin =
-    KTextEditor::createPlugin(QFile::encodeName((KateGlobal::self()->plugins())[item->pluginIndex()]->library()), 0);
-
-  if ( ! plugin ) return;
-
-  plugin->configDialog (this);
-
-  delete plugin;
+  selector->defaults();
 }
 //END KatePartPluginConfigPage
 

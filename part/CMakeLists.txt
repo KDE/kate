@@ -29,6 +29,7 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/kde3support
   ${CMAKE_SOURCE_DIR}/kde3support/kdeui
   ${CMAKE_SOURCE_DIR}/kjsembed
+  ${CMAKE_SOURCE_DIR}/kutils
   ${KDE4_KIO_INCLUDES})
 
 # kjs hash stuff
@@ -136,7 +137,7 @@ kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 kde4_add_plugin(katepart ${katepart_PART_SRCS})
 
 # linking
-target_link_libraries(katepart ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kjs kde3support )
+target_link_libraries(katepart ${KDE4_KDECORE_LIBS} kutils ktexteditor kdeprint kjs kde3support )
 
 if(KDE4_ENABLE_FINAL)
 	macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )

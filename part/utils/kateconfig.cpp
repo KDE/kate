@@ -188,7 +188,7 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   // plugins
   const KService::List& plugins = KateGlobal::self()->plugins();
   for (int i=0; i<plugins.count(); i++)
-    setPlugin (i, config.readEntry("KTextEditor Plugin " + plugins[i]->library(), false));
+    setPlugin (i, config.readEntry(plugins[i]->property("X-KDE-PluginInfo-Name").toString() + "Enabled", false));
 
   configEnd ();
 }
@@ -227,7 +227,7 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
 
   // plugins
   for (int i=0; i<KateGlobal::self()->plugins().count(); i++)
-    config.writeEntry("KTextEditor Plugin " + (KateGlobal::self()->plugins())[i]->library(), plugin(i));
+    config.writeEntry((KateGlobal::self()->plugins())[i]->property("X-KDE-PluginInfo-Name").toString() + "Enabled", plugin(i));
 }
 
 void KateDocumentConfig::updateConfig ()

@@ -682,7 +682,7 @@ class KateDocument : public KTextEditor::Document,
     void setModified( bool m );
 
   private:
-    void activateDirWatch ();
+    void activateDirWatch (const QString &useFileName = QString());
     void deactivateDirWatch ();
 
     QString m_dirWatchFile;

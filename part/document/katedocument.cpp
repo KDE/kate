@@ -3269,7 +3269,15 @@ bool KateDocument::saveFile()
   //
   // try to save
   //
-  bool success = m_buffer->saveFile (localFilePath());
+  if (!m_buffer->saveFile (localFilePath()))
+  {
+    // add m_file again to dirwatch
+    activateDirWatch (oldPath);
+    
+    KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", this->url().url()));
+    
+    return false;
+  }
 
   // update the md5 digest
   createDigest( m_digest );
@@ -3277,54 +3285,41 @@ bool KateDocument::saveFile()
   // add m_file again to dirwatch
   activateDirWatch ();
 
-  //
-  // hurray, we had success, do stuff we need
-  //
-  if (success)
+  // update file type
+  updateFileType (KateGlobal::self()->modeManager()->fileType (this));
+    
+  // read dir config (if possible and wanted)
+  if ( url().isLocalFile())
   {
-    // update file type
-    updateFileType (KateGlobal::self()->modeManager()->fileType (this));
+    QFileInfo fo (oldPath), fn (m_dirWatchFile);
     
-    // read dir config (if possible and wanted)
-    if ( url().isLocalFile())
-    {
-       QFileInfo fo (oldPath), fn (m_dirWatchFile);
-    
-       if (fo.path() != fn.path())
-        readDirConfig();
-    }
-    
-    // read our vars
-    readVariables();
+    if (fo.path() != fn.path())
+      readDirConfig();
   }
+    
+  // read our vars
+  readVariables();
 
   //
   // we are not modified
   //
-  if (success && m_modOnHd)
+  if (m_modOnHd)
   {
     m_modOnHd = false;
     m_modOnHdReason = OnDiskUnmodified;
     emit modifiedOnDisk (this, m_modOnHd, m_modOnHdReason);
   }
 
-  //
-  // display errors
-  //
-  if (!success)
-    KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", this->url().url()));
-
   // update document name...
   setDocName( QString() );
 
   // url may have changed...
-  if (success)
-    emit documentUrlChanged (this);
+  emit documentUrlChanged (this);
 
   //
   // return success
   //
-  return success;
+  return true;
 }
 
 void KateDocument::readDirConfig ()
@@ -3373,20 +3368,24 @@ void KateDocument::readDirConfig ()
   }
 }
 
-void KateDocument::activateDirWatch ()
+void KateDocument::activateDirWatch (const QString &useFileName)
 {
+  QString fileToUse = useFileName;
+  if (fileToUse.isEmpty())
+    fileToUse = localFilePath();
+
   // same file as we are monitoring, return
-  if (localFilePath() == m_dirWatchFile)
+  if (fileToUse == m_dirWatchFile)
     return;
 
   // remove the old watched file
   deactivateDirWatch ();
 
   // add new file if needed
-  if (url().isLocalFile() && !localFilePath().isEmpty())
+  if (url().isLocalFile() && !fileToUse.isEmpty())
   {
-    KateGlobal::self()->dirWatch ()->addFile (localFilePath());
-    m_dirWatchFile = localFilePath();
+    KateGlobal::self()->dirWatch ()->addFile (fileToUse);
+    m_dirWatchFile = fileToUse;
   }
 }
 

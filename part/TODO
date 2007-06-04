@@ -7,6 +7,28 @@ TODO:
 * arbitrary highlighting
   * failure to redraw when the cursor is off the screen and the highlighting changes
 
+* highlighting issues
+  * external context references don't pick up default attribute (bug 145052)
+  * highlighting uses attributes from the current highlighter, but not the right ones
+
+* color issues
+  * use color roles when they become available to initialize attributes
+    -> this will probably fix bug 143606
+  * dsNormal always using dark color
+    -> by 4.0 please, this wrecks usability!!
+
+* text painted twice after clearing a selection (see http://permalink.gmane.org/gmane.comp.kde.devel.kwrite/12546)
+
+* HL configuration issues
+  * attributes appear backwards in list
+  * current highlighter not selected (regression)
+  * 'use default' never checked
+  * wrong (can be illegible) color used for group headings
+  * selected item uses system background color, not attribute color (regression)
+  * controls seem to need to be clicked twice?
+
+* reimplement bracket matching
+
 **** Refactoring/Cleanups ****
 * code cleanups wherever needed ;)
 
@@ -25,12 +47,15 @@ TODO:
 * Memory usage and leak auditing
   * KateHlContext::items needs to be implicitly shared + autodelete
 
+* make sure block selection works
+
 **** new features ****
 
 * Fix EOL whitespace cleaning finally by removing whitespace at load-time and
   keeping the document consistent all the time
 
   -> DONE ;) whitespaces are no cleaned at load time, the magic clean on save stuff is gone
+    -> is bug 115175 fixed?
   Ah, but there are bugs:
   * indenting a block of text will create whitespace on lines that were empty to start with
     -> could be fixed by adapting KateNormalIndent::indent()
@@ -122,6 +147,8 @@ TODO:
   * Expose via an interface
 
 * KateFoldingTree* to use smart*
+
+* Fix folding for HL's where region end is defined by a new region starting (bug 112888)
 
 * Splitting a view over multiple columns
 

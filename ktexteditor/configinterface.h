@@ -27,7 +27,6 @@
 namespace KTextEditor
 {
 
-class Document;
 
 
 /**

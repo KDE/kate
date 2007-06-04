@@ -29,9 +29,7 @@
 namespace KTextEditor
 {
 
-class Document;
 class Cursor;
-class View;
 
 /**
  * This is an interface for inserting template strings with user editable

@@ -25,7 +25,6 @@
 #include <ktexteditor/range.h>
 
 class QString;
-class QRegExp;
 
 namespace KTextEditor
 {

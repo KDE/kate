@@ -30,7 +30,6 @@ class KCompletion;
 namespace KTextEditor
 {
 
-class Document;
 class Editor;
 class View;
 

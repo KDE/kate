@@ -26,11 +26,9 @@
 #include <ktexteditor/ktexteditor_export.h>
 #include <ktexteditor/cursor.h>
 
-class KAction;
 
 namespace KTextEditor
 {
-class Attribute;
 class SmartRange;
 
 /**

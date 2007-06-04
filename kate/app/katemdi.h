@@ -39,6 +39,7 @@
 
 class KActionMenu;
 class QAction;
+class KConfigBase;
 
 namespace KateMDI
 {

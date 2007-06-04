@@ -25,7 +25,6 @@
 #include <QTextStream>
 #include <QByteArray>
 
-class KActionMenu;
 
 class QTextStream;
 class KMenu;

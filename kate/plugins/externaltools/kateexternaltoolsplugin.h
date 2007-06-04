@@ -26,12 +26,10 @@
 
 #include <kxmlguiclient.h>
 
-class QShowEvent;
 
 namespace KParts
 {
-  class ReadOnlyPart;
-}
+  }
 
 class KateExternalToolsPlugin: public Kate::Plugin
 {

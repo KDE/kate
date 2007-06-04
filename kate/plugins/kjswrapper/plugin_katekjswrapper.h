@@ -48,8 +48,7 @@ namespace Kate {
   namespace JS {
 	class Bindings;
 	class Management;
-	class RefCountedObjectDict;
-	class Application;
+		class Application;
 	class MainWindow;
   }
 }

@@ -32,17 +32,14 @@
 
 #include <kategrepdialog.h>
 
-class QShowEvent;
 
 namespace KParts
 {
-  class ReadOnlyPart;
-}
+  }
 
 namespace KateMDI
 {
-  class ToolView;
-}
+  }
 
 class KateFindInFilesView;
 

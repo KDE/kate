@@ -30,7 +30,6 @@
 #include <QPushButton>
 #include "ktinytabbar.h"
 
-class QLabel;
 
 /**
  * A \p KTinyTabButton represents a button on the tab bar. It can either be

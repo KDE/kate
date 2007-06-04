@@ -37,7 +37,6 @@
 #include <QEvent>
 #include <QChildEvent>
 
-class KActionCollection;
 class KActionMenu;
 class QAction;
 

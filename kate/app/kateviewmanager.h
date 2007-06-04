@@ -36,7 +36,7 @@ class KConfigGroup;
 class KConfigBase;
 class KateMainWindow;
 class KateViewSpaceContainer;
-
+class KateViewSpace;
 class QAction;
 
 class QToolButton;

@@ -32,6 +32,8 @@
 #include <QObject>
 #include <QLinkedList>
 
+class KateMainWindow;
+
 class KatePluginInfo
 {
   public:

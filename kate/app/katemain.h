@@ -31,43 +31,15 @@
 #include <QGridLayout>
 #include <QEvent>
 
-class QComboBox;
-class QDateTime;
 class QEvent;
-class QFileInfo;
 class QGridLayout;
 class QLabel;
-class QObject;
 class QPixmap;
 class QVBoxLayout;
-class QString;
 
 class KAction;
-class KActionMenu;
-class KConfig;
-class KDirOperator;
-class KEditToolbar;
-class KFileViewItem;
-class KHistoryCombo;
-class KLineEdit;
-class KListWidget;
-class K3Process;
-class KPushButton;
-class KRecentFilesAction;
-class KSelectAction;
-class KStatusBar;
-class KToggleAction;
 class KUrl;
-class KUrlComboBox;
 
-class KateApp;
-class KateConfigDlg;
-class KateDocManager;
-class KateFileList;
-class KateMainWindow;
-class KatePluginManager;
-class KateViewManager;
-class KateViewSpace;
 
 #endif
 // kate: space-indent on; indent-width 2; replace-tabs on;

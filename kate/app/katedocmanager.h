@@ -43,6 +43,7 @@ namespace KParts
 }
 
 class KConfig;
+class KateMainWindow;
 
 class KateDocumentInfo
 {

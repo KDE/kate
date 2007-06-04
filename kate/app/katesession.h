@@ -33,8 +33,6 @@
 #include <QTreeWidgetItem>
 
 class KateSessionManager;
-class KActionCollection;
-class KDirWatch;
 class KPushButton;
 class KateToolTipMenu;
 

@@ -34,8 +34,6 @@
 #include <QTreeWidgetItem>
 
 class QString;
-class QStringList;
-class KateMainWindow;
 
 /**
     This is a dialog for choosing which of the open files to mail.

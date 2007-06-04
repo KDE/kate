@@ -37,8 +37,7 @@ namespace KParts
 
 namespace KateMDI
 {
-  class ToolView;
-}
+  }
 
 class KateConsole;
 

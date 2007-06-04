@@ -38,7 +38,7 @@
 class KConfigBase;
 class KSqueezedTextLabel;
 class KateViewManager;
-
+class KateViewSpace;
 class QStackedWidget;
 
 class KateVSStatusBar : public KStatusBar

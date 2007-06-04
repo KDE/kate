@@ -41,8 +41,7 @@ namespace Kate
 
   class DocumentManager;
   class PluginManager;
-  class InitPluginManager;
-  class MainWindow;
+    class MainWindow;
 
   /**
    * \brief Central interface to the application.

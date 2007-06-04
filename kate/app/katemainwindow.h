@@ -55,6 +55,7 @@ class KRecentFilesAction;
 
 class KateExternalToolsMenuAction;
 class KateViewDocumentProxyModel;
+class KateViewManager;
 
 class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBase
 {

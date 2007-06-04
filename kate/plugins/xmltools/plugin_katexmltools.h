@@ -25,7 +25,6 @@
 
 #include "pseudo_dtd.h"
 
-class Kjob;
 
 #include <q3dict.h>
 #include <qstring.h>

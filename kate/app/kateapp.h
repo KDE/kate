@@ -30,7 +30,9 @@
 #include <QList>
 
 class KateSessionManager;
-
+class KateMainWindow;
+class KatePluginManager;
+class KateDocManager;
 namespace Kate
 {
   class Application;

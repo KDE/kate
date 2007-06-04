@@ -49,7 +49,6 @@
 class QBoxLayout;
 class QCheckBox;
 
-class KateTabBarButton;
 class KateTabBarExtension;
 class KateTabBarExtensionConfigPage;
 class KTinyTabBar;

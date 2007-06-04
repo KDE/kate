@@ -34,6 +34,7 @@
 class QCheckBox;
 class QSpinBox;
 class Q3ButtonGroup;
+class KateMainWindow;
 
 struct PluginPageListItem
 {

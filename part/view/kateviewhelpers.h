@@ -34,7 +34,6 @@
 class KateDocument;
 class KateView;
 class KateViewInternal;
-class QActionGroup;
 
 #define MAXFOLDINGCOLORS 16
 

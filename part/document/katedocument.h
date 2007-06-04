@@ -51,7 +51,6 @@ namespace KTextEditor { class Plugin; class Attribute; }
 namespace KIO { class TransferJob; }
 
 class KateUndoGroup;
-class KateCmd;
 class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
@@ -60,11 +59,8 @@ class KateLineInfo;
 class KateBrowserExtension;
 class KateDocumentConfig;
 class KateHighlighting;
-class KatePartPluginItem;
-class KatePartPluginInfo;
 class KateSmartManager;
 
-class KTemporaryFile;
 
 class QTimer;
 

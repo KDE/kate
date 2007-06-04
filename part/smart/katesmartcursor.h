@@ -26,7 +26,6 @@
 #include "kateedit.h"
 
 class KateDocument;
-class KateView;
 class KateSmartGroup;
 class KateSmartCursorNotifier;
 namespace KTextEditor { class Document; }

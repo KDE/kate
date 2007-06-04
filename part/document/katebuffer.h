@@ -28,9 +28,7 @@
 class KateLineInfo;
 class KateDocument;
 class KateHighlighting;
-class KateFileLoader;
 
-class QTextCodec;
 
 /**
  * The KateBuffer class maintains a collections of lines.

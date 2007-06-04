@@ -27,8 +27,6 @@
 #include "katecursor.h"
 #include "katelinelayout.h"
 
-class QTextLayout;
-class KateDocument;
 
 class KateLineLayout;
 typedef KSharedPtr<KateLineLayout> KateLineLayoutPtr;

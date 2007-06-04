@@ -35,10 +35,8 @@
  */
 class KateDocument;
 class KateView;
-class KateJSGlobal;
 class KateJSDocument;
 class KateJSView;
-class KateDocCursor;
 class KateIndentJScript;
 
 /*

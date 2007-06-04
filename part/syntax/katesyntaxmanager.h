@@ -39,17 +39,9 @@
 #include <QtCore/QDate>
 #include <QtCore/QLinkedList>
 
-class KateHlContext;
-class KateHlItem;
-class KateHlData;
-class KateHlIncludeRule;
 class KateSyntaxDocument;
-class KateTextLine;
-class KateSyntaxModeListItem;
-class KateSyntaxContextData;
 class KateHighlighting;
 
-class QMenu;
 
 class KateHlManager : public QObject
 {

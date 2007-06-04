@@ -36,7 +36,6 @@
 class KateDocument;
 class KateView;
 class RegressionTest;
-class QTimer;
 
 namespace KParts {
   struct URLArgs;

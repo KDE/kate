@@ -27,11 +27,6 @@
 
 class KateDocument;
 
-namespace Ui
-{
-  class FileTypeConfigWidget;
-}
-
 class KateFileType
 {
   public:

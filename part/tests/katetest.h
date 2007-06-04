@@ -33,9 +33,7 @@ class QLabel;
 
 namespace KTextEditor { class EditorChooser; }
 
-class KAction;
 class KToggleAction;
-class KSelectAction;
 class KRecentFilesAction;
 class KSqueezedTextLabel;
 

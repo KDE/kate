@@ -31,15 +31,11 @@
 #include <kaction.h>
 
 class KateView;
-class KateStyleListCaption;
 class KateStyleTreeWidget;
 
-class KColorButton;
 
-class QMenu;
 class QAction;
 class QActionGroup;
-class KComboBox;
 class QComboBox;
 
 namespace Ui { class SchemaConfigColorTab; }

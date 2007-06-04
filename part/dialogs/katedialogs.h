@@ -52,24 +52,15 @@ namespace KIO
   class TransferJob;
 }
 
-class KColorButton;
 class KComboBox;
-class KKeyButton;
 class KShortcutsEditor;
-class KMainWindow;
-class KPushButton;
-class KRegExpDialog;
 class KIntNumInput;
 class KPluginSelector;
 class KPluginInfo;
 
-class QGroupBox;
 class QCheckBox;
-class QHBoxLayout;
 class QLabel;
 class QLineEdit;
-class QPushButton;
-class QRadioButton;
 class QSpinBox;
 class QToolButton;
 class QCheckBox;
@@ -81,7 +72,6 @@ namespace Ui
   class AppearanceConfigWidget;
   class CursorConfigWidget;
   class EditConfigWidget;
-  class HlConfigWidget;
   class IndentationConfigWidget;
   class OpenSaveConfigWidget;
 }

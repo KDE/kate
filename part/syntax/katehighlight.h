@@ -43,11 +43,9 @@
 class KateHlContext;
 class KateHlItem;
 class KateHlIncludeRule;
-class KateSyntaxDocument;
 class KateTextLine;
 class KateSyntaxModeListItem;
 class KateSyntaxContextData;
-class KateDocument;
 
 // same as in kmimemagic, no need to feed more data
 #define KATE_HL_HOWMANY 1024
@@ -55,7 +53,6 @@ class KateDocument;
 // min. x seconds between two dynamic contexts reset
 #define KATE_DYNAMIC_CONTEXTS_RESET_DELAY (30 * 1000)
 
-class QMenu;
 
 /**
  * describe a modification of the context stack

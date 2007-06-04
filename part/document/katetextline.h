@@ -28,8 +28,6 @@
 #include <QtCore/QString>
 #include <QtCore/QVector>
 
-class KateRenderer;
-class QTextStream;
 
 /**
  * The KateTextLine represents a line of text. A text line that contains the

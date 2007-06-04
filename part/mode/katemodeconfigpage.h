@@ -26,7 +26,6 @@
 #include "katedialogs.h"
 #include "katemodemanager.h"
 
-class KateDocument;
 
 namespace Ui
 {

@@ -44,7 +44,6 @@ class KateDocument;
 class KateBookmarks;
 class KateCmdLine;
 class KateViewConfig;
-class KateViewSchemaAction;
 class KateRenderer;
 class KateSpell;
 class KateCompletionWidget;
@@ -61,10 +60,6 @@ class KSelectAction;
 
 class QVBoxLayout;
 
-namespace KTextEditor
-{
-  class CompletionProvider;
-}
 
 //
 // Kate KTextEditor::View class ;)

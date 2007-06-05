@@ -15,6 +15,7 @@ ServiceTypes=KTextEditor/Plugin
 Type=Service
 Icon=speaker
 Name=Word Completion
+Name[csb]=Dofùlowaniô słowów
 Comment=Directional or popup-based completion from words in the document
 Comment[af]=Direksionele of opspring gebaseerde woord voltooiïng van woorde in die dokument
 Comment[be]=Простае заканчэнне словаў ці выплыўнае вакно з варыянтамі заканчэння

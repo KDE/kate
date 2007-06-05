@@ -15,6 +15,7 @@ ServiceTypes=KTextEditor/Plugin
 Type=Service
 Icon=speaker
 Name=Insert File
+Name[csb]=Wstôwi lopk
 Comment=Insert any readable file at cursor position
 Comment[af]=Voeg enige leesbare lêer in by die merker posisie
 Comment[be]=Устаўляе файл у пазіцыю курсора

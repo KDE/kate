@@ -15,6 +15,7 @@ ServiceTypes=KTextEditor/Plugin
 Type=Service
 Icon=bookmark-new
 Name=Autobookmarker
+Name[csb]=Aùtomatné wstôwianié załóżków
 Comment=Set bookmarks on lines matching a pattern when documents are loaded
 Comment[af]=Stel boekmerke op lyne wat met 'n patroon ooreenstem wanneer dokumente gelaai word.
 Comment[be]=Стварае закладкі для радкоў, якія адпавядаюць шаблону

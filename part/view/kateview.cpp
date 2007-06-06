@@ -153,7 +153,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   }
   hbox->addWidget (m_viewInternal->m_lineScroll);
 
-  m_vBox->addSpacing (extent);
+  if (style()->styleHint(QStyle::SH_ScrollView_FrameOnlyAroundContents)) {
+    m_vBox->addSpacing (style()->pixelMetric(QStyle::PM_DefaultFrameWidth) * 2);
+  }
 
   hbox = new QHBoxLayout ();
   m_vBox->addLayout (hbox);

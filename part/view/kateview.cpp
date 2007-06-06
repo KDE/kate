@@ -135,9 +135,25 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   hbox->setMargin (0);
   hbox->setSpacing (0);
 
-  hbox->addWidget (m_viewInternal->m_leftBorder);
-  hbox->addWidget (m_viewInternal);
+  if (style()->styleHint(QStyle::SH_ScrollView_FrameOnlyAroundContents)) {
+      QHBoxLayout *extrahbox = new QHBoxLayout ();
+      QFrame * frame = new QFrame(this);
+      extrahbox->setMargin (0);
+      extrahbox->setSpacing (0);
+      extrahbox->addWidget (m_viewInternal->m_leftBorder);
+      extrahbox->addWidget (m_viewInternal);
+      frame->setLayout (extrahbox);
+      hbox->addWidget (frame);
+      hbox->addSpacing (style()->pixelMetric(QStyle::PM_DefaultFrameWidth) * 2);
+      frame->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  }
+  else {
+    hbox->addWidget (m_viewInternal->m_leftBorder);
+    hbox->addWidget (m_viewInternal);
+  }
   hbox->addWidget (m_viewInternal->m_lineScroll);
+
+  m_vBox->addSpacing (extent);
 
   hbox = new QHBoxLayout ();
   m_vBox->addLayout (hbox);

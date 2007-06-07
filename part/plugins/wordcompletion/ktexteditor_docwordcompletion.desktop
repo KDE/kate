@@ -16,6 +16,7 @@ Type=Service
 Icon=speaker
 Name=Word Completion
 Name[csb]=Dofùlowaniô słowów
+Name[es]=Completado de palabras
 Name[te]=పదం పూరణ
 Comment=Directional or popup-based completion from words in the document
 Comment[af]=Direksionele of opspring gebaseerde woord voltooiïng van woorde in die dokument

@@ -58,8 +58,13 @@ ModeConfigPage::ModeConfigPage( QWidget *parent )
 {
   m_lastType = -1;
 
+  // This will let us have more separation between this page and
+  // the KTabWidget edge (ereslibre)
+  QVBoxLayout *layout = new QVBoxLayout;
+  QWidget *newWidget = new QWidget(this);
+
   ui = new Ui::FileTypeConfigWidget();
-  ui->setupUi( this );
+  ui->setupUi( newWidget );
 
  ui->cmbHl->addItem(i18n("<Unchanged>"), QVariant(""));
  for( int i = 0; i < KateHlManager::self()->highlights(); i++) {
@@ -86,6 +91,9 @@ ModeConfigPage::ModeConfigPage( QWidget *parent )
   connect( ui->edtMimeTypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( ui->sbPriority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
   connect( ui->cmbHl, SIGNAL(activated(int)), this, SLOT(slotChanged()) );
+
+  layout->addWidget(newWidget);
+  setLayout(layout);
 }
 
 ModeConfigPage::~ModeConfigPage ()

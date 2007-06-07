@@ -43,6 +43,8 @@
 
 struct syntaxContextData;
 
+class KateScriptConfigPage;
+class ModeConfigPage;
 class KateDocument;
 class KateView;
 
@@ -168,8 +170,12 @@ protected:
 public Q_SLOTS:
   void apply ();
   void reload ();
-  void reset () {}
-  void defaults () {}
+  void reset ();
+  void defaults ();
+
+private:
+  KateSelectConfigTab *selectConfigTab;
+  KateIndentConfigTab *indentConfigTab;
 };
 
 class KateViewDefaultsConfig : public KateConfigPage
@@ -216,28 +222,30 @@ class KateEditKeyConfiguration: public KateConfigPage
 class KateSaveConfigTab : public KateConfigPage
 {
   Q_OBJECT
-public:
-  KateSaveConfigTab( QWidget *parent );
 
-public Q_SLOTS:
-  void apply();
-  void reload();
-  void reset();
-  void defaults();
+  public:
+    KateSaveConfigTab( QWidget *parent );
 
-protected:
-  //why?
-  //KComboBox *m_encoding, *m_encodingDetection, *m_eol;
-  QCheckBox *cbLocalFiles, *cbRemoteFiles;
-  QCheckBox *replaceTabs, *removeSpaces, *allowEolDetection;
-  QLineEdit *leBuPrefix;
-  QLineEdit *leBuSuffix;
-  KIntNumInput *dirSearchDepth;
-  class QSpinBox *blockCount;
-  class QLabel *blockCountLabel;
+  public Q_SLOTS:
+    void apply();
+    void reload();
+    void reset();
+    void defaults();
 
-private:
-  Ui::OpenSaveConfigWidget* ui;
+  protected:
+    //why?
+    //KComboBox *m_encoding, *m_encodingDetection, *m_eol;
+    QCheckBox *cbLocalFiles, *cbRemoteFiles;
+    QCheckBox *replaceTabs, *removeSpaces, *allowEolDetection;
+    QLineEdit *leBuPrefix;
+    QLineEdit *leBuSuffix;
+    KIntNumInput *dirSearchDepth;
+    class QSpinBox *blockCount;
+    class QLabel *blockCountLabel;
+
+  private:
+    Ui::OpenSaveConfigWidget* ui;
+    ModeConfigPage *modeConfigPage;
 };
 
 class KatePartPluginConfigPage : public KateConfigPage
@@ -251,12 +259,13 @@ class KatePartPluginConfigPage : public KateConfigPage
   public Q_SLOTS:
     void apply ();
     void reload ();
-    void reset () {}
+    void reset ();
     void defaults ();
 
   private:
     KPluginSelector *selector;
     QList<KPluginInfo*> plugins;
+    KateScriptConfigPage *scriptConfigPage;
 };
 
 class KateScriptNewStuff;

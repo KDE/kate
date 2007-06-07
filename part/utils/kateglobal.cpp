@@ -24,7 +24,6 @@
 #include "katerenderer.h"
 #include "katecmds.h"
 #include "katemodemanager.h"
-#include "katemodeconfigpage.h"
 #include "kateschema.h"
 #include "kateconfig.h"
 #include "katejscript.h"
@@ -263,7 +262,7 @@ void KateGlobal::configDialog(QWidget *parent)
 
 int KateGlobal::configPages () const
 {
-  return 10;
+  return 6;
 }
 
 KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
@@ -277,28 +276,16 @@ KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
       return new KateSchemaConfigPage (parent, 0);
 
     case 2:
-      return new KateSelectConfigTab (parent);
-
-    case 3:
       return new KateEditConfigTab (parent);
 
-    case 4:
-      return new KateIndentConfigTab (parent);
-
-    case 5:
+    case 3:
       return new KateSaveConfigTab (parent);
 
-    case 6:
-      return new ModeConfigPage (parent);
-
-    case 7:
+    case 4:
       return new KateEditKeyConfiguration (parent, 0);
 
-    case 8:
+    case 5:
       return new KatePartPluginConfigPage (parent);
-
-    case 9:
-      return new KateScriptConfigPage (parent);
 
     default:
       return 0;
@@ -318,28 +305,16 @@ QString KateGlobal::configPageName (int number) const
       return i18n ("Fonts & Colors");
 
     case 2:
-      return i18n ("Cursor & Selection");
-
-    case 3:
       return i18n ("Editing");
 
-    case 4:
-      return i18n ("Indentation");
-
-    case 5:
+    case 3:
       return i18n("Open/Save");
 
-    case 6:
-      return i18n("Modes");
-
-    case 7:
+    case 4:
       return i18n ("Shortcuts");
 
-    case 8:
-      return i18n ("Plugins");
-
-    case 9:
-      return i18n("Scripts");
+    case 5:
+      return i18n ("Extensions");
 
     default:
       return QString ("");
@@ -359,28 +334,16 @@ QString KateGlobal::configPageFullName (int number) const
       return i18n ("Font & Color Schemas");
 
     case 2:
-      return i18n ("Cursor & Selection Behavior");
-
-    case 3:
       return i18n ("Editing Options");
 
-    case 4:
-      return i18n ("Indentation Rules");
-
-    case 5:
+    case 3:
       return i18n("File Opening & Saving");
 
-    case 6:
-      return i18n("Mode Specific Settings");
-
-    case 7:
+    case 4:
       return i18n ("Shortcuts Configuration");
 
-    case 8:
-      return i18n ("Plugin Manager");
-
-    case 9:
-      return i18n ("Script Manager");
+    case 5:
+      return i18n ("Extensions Manager");
 
     default:
       return QString ("");
@@ -400,28 +363,16 @@ KIcon KateGlobal::configPageIcon (int number) const
       return KIcon("color-line");
 
     case 2:
-        return KIcon("frame-edit");
-
-    case 3:
       return KIcon("text");
 
-    case 4:
-      return KIcon("format-indent-more");
-
-    case 5:
+    case 3:
       return KIcon("document-save");
 
-    case 6:
-      return KIcon("text-plain");
-
-    case 7:
+    case 4:
       return KIcon("browser-go");
 
-    case 8:
+    case 5:
       return KIcon("connection-established");
-
-    case 9:
-      return KIcon("edit");
 
     default:
       return KIcon("edit");

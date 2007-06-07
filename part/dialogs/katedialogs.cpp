@@ -33,6 +33,7 @@
 #include "kateglobal.h"
 #include "kateschema.h"
 #include "katesyntaxdocument.h"
+#include "katemodeconfigpage.h"
 #include "kateview.h"
 
 // auto generated ui files
@@ -80,6 +81,7 @@
 #include <kactioncollection.h>
 #include <kplugininfo.h>
 #include <kutils/kpluginselector.h>
+#include <ktabwidget.h>
 //#include <knewstuff/knewstuff.h>
 #include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
@@ -137,8 +139,13 @@ void KateConfigPage::somethingHasChanged ()
 KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
+  // This will let us have more separation between this page and
+  // the KTabWidget edge (ereslibre)
+  QVBoxLayout *layout = new QVBoxLayout;
+  QWidget *newWidget = new QWidget(this);
+
   ui = new Ui::IndentationConfigWidget();
-  ui->setupUi( this );
+  ui->setupUi( newWidget );
 
   ui->cmbMode->addItems (KateAutoIndent::listModes());
 
@@ -164,6 +171,9 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   connect(ui->rbTabAdvances, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->rbTabIndents, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->rbTabSmart, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  layout->addWidget(newWidget);
+  setLayout(layout);
 }
 
 void KateIndentConfigTab::showWhatsThis(const QString& text)
@@ -225,10 +235,15 @@ void KateIndentConfigTab::reload ()
 KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
+  // This will let us having more separation between this page and
+  // the KTabWidget edge (ereslibre)
+  QVBoxLayout *layout = new QVBoxLayout;
+  QWidget *newWidget = new QWidget(this);
+
   uint configFlags = KateDocumentConfig::global()->configFlags();
 
   ui = new Ui::CursorConfigWidget();
-  ui->setupUi( this );
+  ui->setupUi( newWidget );
 
   ui->chkSmartHome->setChecked(configFlags & KateDocumentConfig::cfSmartHome);
   connect(ui->chkSmartHome, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -252,6 +267,9 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
 
   connect(ui->rbNormal, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->rbPersistent, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  layout->addWidget(newWidget);
+  setLayout(layout);
 }
 
 void KateSelectConfigTab::apply ()
@@ -292,12 +310,23 @@ void KateSelectConfigTab::reload ()
 
 //BEGIN KateEditConfigTab
 KateEditConfigTab::KateEditConfigTab(QWidget *parent)
-  : KateConfigPage(parent)
+  : selectConfigTab(new KateSelectConfigTab(this))
+  , indentConfigTab(new KateIndentConfigTab(this))
+  , KateConfigPage(parent)
 {
+  // FIXME: Is really needed to move all this code below to another class,
+  // since it is another tab itself on the config dialog. This means we should
+  // initialize, add and work with as we do with selectConfigTab and
+  // indentConfigTab (ereslibre)
+  QVBoxLayout *layout = new QVBoxLayout;
+  KTabWidget *tabWidget = new KTabWidget(this);
   uint configFlags = KateDocumentConfig::global()->configFlags();
 
+  QWidget *tmpWidget = new QWidget(tabWidget);
+  QVBoxLayout *internalLayout = new QVBoxLayout;
+  QWidget *newWidget = new QWidget(tabWidget);
   ui = new Ui::EditConfigWidget();
-  ui->setupUi( this );
+  ui->setupUi( newWidget );
 
   ui->chkReplaceTabs->setChecked( configFlags & KateDocumentConfig::cfReplaceTabsDyn );
   connect( ui->chkReplaceTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
@@ -340,10 +369,25 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   connect(ui->cmbSmartSearch, SIGNAL(activated(int)), this, SLOT(slotChanged()));
 
   // What is this? help is in the ui-file
+
+  internalLayout->addWidget(newWidget);
+  tmpWidget->setLayout(internalLayout);
+
+  // add all tabs
+  tabWidget->insertTab(0, tmpWidget, i18n("General"));
+  tabWidget->insertTab(1, selectConfigTab, i18n("Cursor & Selection"));
+  tabWidget->insertTab(2, indentConfigTab, i18n("Indentation"));
+
+  layout->addWidget(tabWidget);
+  setLayout(layout);
 }
 
 void KateEditConfigTab::apply ()
 {
+  // try to update the rest of tabs
+  selectConfigTab->apply();
+  indentConfigTab->apply();
+
   // nothing changed, no need to apply stuff
   if (!hasChanged())
     return;
@@ -384,6 +428,20 @@ void KateEditConfigTab::apply ()
 
 void KateEditConfigTab::reload ()
 {
+  selectConfigTab->reload();
+  indentConfigTab->reload();
+}
+
+void KateEditConfigTab::reset ()
+{
+  selectConfigTab->reset();
+  indentConfigTab->reset();
+}
+
+void KateEditConfigTab::defaults ()
+{
+  selectConfigTab->defaults();
+  indentConfigTab->defaults();
 }
 //END KateEditConfigTab
 
@@ -525,10 +583,21 @@ void KateEditKeyConfiguration::apply()
 
 //BEGIN KateSaveConfigTab
 KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
-  : KateConfigPage( parent )
+  : modeConfigPage( new ModeConfigPage( this ) )
+  , KateConfigPage( parent )
 {
+  // FIXME: Is really needed to move all this code below to another class,
+  // since it is another tab itself on the config dialog. This means we should
+  // initialize, add and work with as we do with modeConfigPage (ereslibre)
+  QVBoxLayout *layout = new QVBoxLayout;
+  KTabWidget *tabWidget = new KTabWidget(this);
+
+  QWidget *tmpWidget = new QWidget(tabWidget);
+  QVBoxLayout *internalLayout = new QVBoxLayout;
+  QWidget *newWidget = new QWidget(tabWidget);
   ui = new Ui::OpenSaveConfigWidget();
-  ui->setupUi( this );
+  ui->setupUi( newWidget );
+
 //  layout->setSpacing( KDialog::spacingHint() );
 
   // What's this help is added in ui/opensaveconfigwidget.ui
@@ -548,10 +617,22 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect( ui->sbConfigFileSearchDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect( ui->edtBackupPrefix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( ui->edtBackupSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+
+  internalLayout->addWidget(newWidget);
+  tmpWidget->setLayout(internalLayout);
+
+  // add all tabs
+  tabWidget->insertTab(0, tmpWidget, i18n("General"));
+  tabWidget->insertTab(1, modeConfigPage, i18n("Modes & Filetypes"));
+
+  layout->addWidget(tabWidget);
+  setLayout(layout);
 }
 
 void KateSaveConfigTab::apply()
 {
+  modeConfigPage->apply();
+
   // nothing changed, no need to apply stuff
   if (!hasChanged())
     return;
@@ -599,6 +680,8 @@ void KateSaveConfigTab::apply()
 
 void KateSaveConfigTab::reload()
 {
+  modeConfigPage->reload();
+
   // encoding
   ui->cmbEncoding->clear ();
   ui->cmbEncoding->addItem (i18n("KDE Default"));
@@ -657,10 +740,13 @@ void KateSaveConfigTab::reload()
 
 void KateSaveConfigTab::reset()
 {
+  modeConfigPage->reset();
 }
 
 void KateSaveConfigTab::defaults()
 {
+  modeConfigPage->defaults();
+
   ui->chkBackupLocalFiles->setChecked( true );
   ui->chkBackupRemoteFiles->setChecked( false );
   ui->edtBackupPrefix->setText( "" );
@@ -670,10 +756,21 @@ void KateSaveConfigTab::defaults()
 //END KateSaveConfigTab
 
 //BEGIN KatePartPluginConfigPage
-KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfigPage (parent, "")
+KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
+  : scriptConfigPage (new KateScriptConfigPage(this))
+  , KateConfigPage (parent, "")
 {
+  // FIXME: Is really needed to move all this code below to another class,
+  // since it is another tab itself on the config dialog. This means we should
+  // initialize, add and work with as we do with scriptConfigPage (ereslibre)
+  QVBoxLayout *generalLayout = new QVBoxLayout;
+  KTabWidget *tabWidget = new KTabWidget(this);
+
+  QWidget *tmpWidget = new QWidget(tabWidget);
+  QVBoxLayout *internalLayout = new QVBoxLayout;
+  QWidget *newWidget = new QWidget(tabWidget);
   QVBoxLayout *layout = new QVBoxLayout;
-  setLayout(layout);
+  newWidget->setLayout(layout);
   layout->setMargin(0);
 
   plugins.clear();
@@ -695,6 +792,16 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfi
 
   selector->addPlugins(plugins, KPluginSelector::IgnoreConfigFile, i18n("Editor Plugins"), "Editor");
   layout->addWidget(selector);
+
+  internalLayout->addWidget(newWidget);
+  tmpWidget->setLayout(internalLayout);
+
+  // add all tabs
+  tabWidget->insertTab(0, tmpWidget, i18n("Plugins"));
+  tabWidget->insertTab(1, scriptConfigPage, i18n("Scripts"));
+
+  generalLayout->addWidget(tabWidget);
+  setLayout(generalLayout);
 }
 
 KatePartPluginConfigPage::~KatePartPluginConfigPage ()
@@ -703,6 +810,8 @@ KatePartPluginConfigPage::~KatePartPluginConfigPage ()
 
 void KatePartPluginConfigPage::apply ()
 {
+  scriptConfigPage->apply();
+
   selector->updatePluginsState();
 
   KateDocumentConfig::global()->configStart ();
@@ -715,11 +824,22 @@ void KatePartPluginConfigPage::apply ()
 
 void KatePartPluginConfigPage::reload ()
 {
+  scriptConfigPage->reload();
+
+  selector->load();
+}
+
+void KatePartPluginConfigPage::reset ()
+{
+  scriptConfigPage->reset();
+
   selector->load();
 }
 
 void KatePartPluginConfigPage::defaults ()
 {
+  scriptConfigPage->defaults();
+
   selector->defaults();
 }
 //END KatePartPluginConfigPage
@@ -738,6 +858,10 @@ class KateScriptNewStuff: public KNewStuff {
 //BEGIN KateScriptConfigPage
 KateScriptConfigPage::KateScriptConfigPage(QWidget *parent): KateConfigPage(parent,""), m_newStuff(new KateScriptNewStuff())
 {
+  // TODO: Please look at KateSelectConfigTab or ModeConfigPage to add
+  // a layout like we do there, to be consistent and have on all config
+  // pages the same distance to the KTabWidget edge (ereslibre)
+
   //m_newStuff->download();
 }
 

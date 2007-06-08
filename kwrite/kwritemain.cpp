@@ -35,44 +35,23 @@
 #include <kactioncollection.h>
 #include <kapplication.h>
 #include <kcmdlineargs.h>
-#include <kconfig.h>
-#include <kdebug.h>
 #include <kdeversion.h>
 #include <kdiroperator.h>
 #include <kedittoolbar.h>
 #include <kencodingfiledialog.h>
-#include <kglobal.h>
 #include <kiconloader.h>
 #include <klocale.h>
-#include <kmenubar.h>
 #include <kmessagebox.h>
-#include <kparts/event.h>
 #include <krecentfilesaction.h>
 #include <kshortcutsdialog.h>
 #include <kstatusbar.h>
 #include <kstandardaction.h>
 #include <ksqueezedtextlabel.h>
 #include <kstringhandler.h>
-#include <kurl.h>
 #include <kxmlguifactory.h>
 
-#include <QtGui/QStackedWidget>
-#include <QtGui/QPainter>
-#include <QtGui/QLabel>
-#include <QtGui/QCursor>
-#include <QtGui/QMenu>
-#include <QtGui/QPixmap>
 #include <QtCore/QTimer>
 #include <QtCore/QTextCodec>
-#include <QtGui/QLayout>
-//Added by qt3to4:
-#include <QtGui/QKeyEvent>
-#include <QtGui/QBoxLayout>
-#include <QtCore/QList>
-#include <QtCore/QTextStream>
-
-// StatusBar field IDs
-#define KWRITE_ID_GEN 1
 
 QList<KTextEditor::Document*> KWrite::docList;
 QList<KWrite*> KWrite::winList;
@@ -463,7 +442,9 @@ void KWrite::readProperties(KSharedConfigPtr config)
 void KWrite::saveProperties(KSharedConfigPtr config)
 {
   writeConfig(config);
-  config->writeEntry("DocumentNumber",docList.indexOf(m_view->document()) + 1);
+
+  KConfigGroup group(config, QString());
+  group.writeEntry("DocumentNumber",docList.indexOf(m_view->document()) + 1);
 
   if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view)) {
     KConfigGroup cg( config, "General Options" );
@@ -654,15 +635,11 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 {
   KLocale::setMainCatalog("kate");         //lukas: set this to have the kwritepart translated using kate message catalog
 
-  // here we go, construct the KWrite version
-  QByteArray kWriteVersion  = QString ("%1.%2.%3").arg(KDE::versionMajor() + 1).arg(KDE::versionMinor()).arg(KDE::versionRelease()).toLatin1();
-
   KAboutData aboutData ( "kwrite",
                          I18N_NOOP("KWrite"),
-                         kWriteVersion,
+                         KDE_VERSION_STRING,
                          I18N_NOOP( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
                          I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://www.kate-editor.org" );
-  aboutData.setOrganizationDomain("kde.org");
   aboutData.addAuthor ("Christoph Cullmann", I18N_NOOP("Maintainer"), "cullmann@kde.org", "http://www.babylon2k.de");
   aboutData.addAuthor ("Anders Lund", I18N_NOOP("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
   aboutData.addAuthor ("Joseph Wenninger", I18N_NOOP("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
@@ -694,8 +671,6 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   aboutData.addCredit ("Cristi Dumitrescu",I18N_NOOP("PHP Keyword/Datatype list"),"");
   aboutData.addCredit ("Carsten Pfeiffer", I18N_NOOP("Very nice help"), "");
   aboutData.addCredit (I18N_NOOP("All people who have contributed and I have forgotten to mention"),"","");
-
-  aboutData.setTranslator(I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"), I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"));
 
   KCmdLineArgs::init( argc, argv, &aboutData );
   KCmdLineArgs::addCmdLineOptions( options );

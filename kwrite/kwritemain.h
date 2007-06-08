@@ -18,8 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __KWRITE_MAIN_H__
-#define __KWRITE_MAIN_H__
+#ifndef KWRITE_MAIN_H
+#define KWRITE_MAIN_H
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
@@ -27,11 +27,11 @@
 #include <kparts/mainwindow.h>
 
 #include <kdialog.h>
-#include <kconfig.h>
-//Added by qt3to4:
+
 #include <QtGui/QKeyEvent>
-#include <QtCore/QList>
-#include <QtGui/QLabel>
+
+class QLabel;
+
 namespace KTextEditor { class EditorChooser; }
 
 class KToggleAction;
@@ -75,7 +75,7 @@ class KWrite : public KParts::MainWindow
 
   private Q_SLOTS:
     void slotNewToolbarConfig();
-    
+
   public Q_SLOTS:
     void slotDropEvent(QDropEvent *);
 
@@ -123,7 +123,7 @@ class KWrite : public KParts::MainWindow
     void updateStatus ();
 
     void viewModeChanged ( KTextEditor::View *view );
-    
+
     void modeChanged ( KTextEditor::Document *document );
 
     void cursorPositionChanged ( KTextEditor::View *view );

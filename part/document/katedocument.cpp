@@ -1923,12 +1923,37 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
   return KTextEditor::Range::invalid();
 }
 
-KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRange, QRegExp &regexp, bool backwards)
+
+
+// helper structs for captures re-construction
+struct TwoViewCursor {
+  int index;
+  int openLine;
+  int openCol;
+  int closeLine;
+  int closeCol;
+};
+
+struct IndexPair {
+  int openIndex;
+  int closeIndex;
+};
+
+
+
+QVector<KTextEditor::Range> KateDocument::searchText(
+    const KTextEditor::Range & inputRange,
+    QRegExp &regexp,
+    bool backwards)
 {
   kDebug(13020) << "KateDocument::searchText( " << inputRange.start().line() << ", "
     << inputRange.start().column() << ", " << regexp.pattern() << ", " << backwards << " )" << endl;
   if (regexp.isEmpty() || !regexp.isValid() || !inputRange.isValid() || (inputRange.start() == inputRange.end()))
-    return KTextEditor::Range::invalid();
+  {
+    QVector<KTextEditor::Range> result;
+    result.append(KTextEditor::Range::invalid());
+    return result;
+  }
 
 
   // detect pattern type (single- or mutli-line)
@@ -1951,23 +1976,32 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     // multi-line regex search (both forward and backward mode)
     QString wholeDocument;
     const int inputLineCount = inputRange.end().line() - inputRange.start().line() + 1;
-    kDebug() << "searchText | multi line " << firstLineIndex << ".." << firstLineIndex + inputLineCount - 1 << endl;
+    kDebug() << "searchText/regex | multi line " << firstLineIndex << ".." << firstLineIndex + inputLineCount - 1 << endl;
     
     // nothing to do...
     if (firstLineIndex >= m_buffer->lines())
-      return KTextEditor::Range::invalid();
+    {
+      QVector<KTextEditor::Range> result;
+      result.append(KTextEditor::Range::invalid());
+      return result;
+    }
 
     QVector<int> lineLens (inputLineCount);
 
     // first line
     KateTextLine::Ptr firstLine = m_buffer->plainLine(firstLineIndex);
     if (!firstLine)
-      return KTextEditor::Range::invalid();
+    {
+      QVector<KTextEditor::Range> result;
+      result.append(KTextEditor::Range::invalid());
+      return result;
+    }
+
     QString firstLineText = firstLine->string();
     const int firstLineLen = firstLineText.length() - minColStart;
     wholeDocument.append(firstLineText.right(firstLineLen));
     lineLens[0] = firstLineLen;
-    kDebug() << "searchText | line " << 0 << " len " << lineLens[0] << endl;
+    kDebug() << "searchText/regex | line " << 0 << " len " << lineLens[0] << endl;
 
     // second line and after
     const QString sep("\n");
@@ -1975,7 +2009,11 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     {
       KateTextLine::Ptr textLine = m_buffer->plainLine(firstLineIndex + i);
       if (!textLine)
-        return KTextEditor::Range::invalid();
+      {
+        QVector<KTextEditor::Range> result;
+        result.append(KTextEditor::Range::invalid());
+        return result;
+      }
       
       QString text = textLine->string();
       if (i == inputLineCount - 1)
@@ -1986,7 +2024,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
       wholeDocument.append(sep);
       wholeDocument.append(text);
       lineLens[i] = text.length();
-      kDebug() << "searchText | line " << i << " len " << lineLens[i] << endl;
+      kDebug() << "searchText/regex | line " << i << " len " << lineLens[i] << endl;
     }
 
     // apply modified pattern
@@ -1996,100 +2034,152 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     if (pos == -1)
     {
       // no match
-      kDebug() << "searchText | not found" << endl;
-      return KTextEditor::Range::invalid();
+      kDebug() << "searchText/regex | not found" << endl;
+      {
+        QVector<KTextEditor::Range> result;
+        result.append(KTextEditor::Range::invalid());
+        return result;
+      }
     }
     const int matchLen = regexp.matchedLength();
-    kDebug() << "searchText | found (pos " << pos << ", len " << matchLen << ")" << endl;
+    kDebug() << "searchText/regex | found (pos " << pos << ", len " << matchLen << ")" << endl;
 
-    // make range from <pos> and <matchLen>
-    int startLine = 0;
-    int startCol = 0;
-    int endLine = 0;
-    int endCol = 0;
-    int startSum = 0;
-    int curRelLine = 0; // relative to starting 
-    for (;;)
+
+    // save opening and closing indices and build
+    // a map that the correct values will be written
+    // into later
+    QMap<int, TwoViewCursor *> indicesToCursors;
+    const int numCaptures = regexp.numCaptures();
+    QVector<IndexPair> indexPairs(1 + numCaptures);
+    for (int z = 0; z <= numCaptures; z++)
     {
-      if (startSum + lineLens[curRelLine] < pos)
+      const int openIndex = regexp.pos(z);
+      IndexPair & pair = indexPairs[z];
+      if (openIndex == -1)
       {
-        // not in this line
-        startSum += lineLens[curRelLine] + 1;
-        curRelLine++;
+        // empty capture gives invalid
+        pair.openIndex = -1;
+        pair.closeIndex = -1;
+kDebug() << "searchText/regex | capture []" << endl;
       }
-      else if (startSum + lineLens[curRelLine] == pos)
+      else
       {
-        // in line, at trailing newline
-        startLine = curRelLine;
-        startCol = lineLens[curRelLine];
-        break;
-      }
-      else // if (startSum + lineLens[curRelLine] > pos)
-      {
-        // in line, before trailing newline
-        startLine = curRelLine;
-        startCol = pos - startSum;
-        break;
+        const int closeIndex = openIndex + regexp.cap(z).length();
+        pair.openIndex = openIndex;
+        pair.closeIndex = closeIndex;
+kDebug() << "searchText/regex | capture [" << pair.openIndex << ".." << pair.closeIndex << "]" << endl;
+
+        // each key no more than once
+        if (!indicesToCursors.contains(openIndex))
+        {
+          TwoViewCursor * twoViewCursor = new TwoViewCursor;
+          twoViewCursor->index = openIndex;
+          indicesToCursors.insert(openIndex, twoViewCursor);
+kDebug() << "searchText/regex | index added: " << openIndex << endl;
+        }
+        if (!indicesToCursors.contains(closeIndex))
+        {
+          TwoViewCursor * twoViewCursor = new TwoViewCursor;
+          twoViewCursor->index = closeIndex;
+          indicesToCursors.insert(closeIndex, twoViewCursor);
+kDebug() << "searchText/regex | index added: " << closeIndex << endl;
+        }
       }
     }
 
-    // single- or multi-line match?
-    if (startCol + matchLen < lineLens[curRelLine] + 1)
+    // find out where they belong
+    int curRelLine = 0;
+    int curRelCol = 0;
+    int curRelIndex = 0;
+    QMap<int, TwoViewCursor *>::const_iterator iter = indicesToCursors.constBegin();
+    while (iter != indicesToCursors.end())
     {
-      // full or part line but not the newline
-      endLine = curRelLine;
-      endCol = startCol + matchLen; // first char after selection
-    }
-    else if (startCol + matchLen == lineLens[curRelLine] + 1)
-    {
-      // full line and the newline
-      endLine = curRelLine + 1;
-      endCol = 0; // first char after selection
-    }
-    else // if (startCol + matchLen > lineLens[curRelLine] + 1)
-    {
-      // multi-line match
-      int endSum = lineLens[curRelLine] - startCol + 1;
-      curRelLine++;
-      for (;;)
+      // forward to index, save line/col
+      const int index = (*iter)->index;
+      TwoViewCursor & twoViewCursor = *(*iter);
+      while (curRelIndex <= index)
       {
-        if (matchLen < endSum + lineLens[curRelLine] + 1)
+kDebug() << "searchText/regex | walk pos (" << curRelLine << "," << curRelCol << ")=" << curRelIndex << " to go " << index - curRelIndex << endl;
+        const int curRelLineLen = lineLens[curRelLine];
+        const int curLineRemainder = curRelLineLen - curRelCol; // TODO
+        const int lineFeedIndex = curRelIndex + curLineRemainder;
+        if (index < lineFeedIndex)
         {
-          // any char, not the trailing newline
-          endLine = curRelLine;
-          endCol = matchLen - endSum; // first char after selection
-          break;
+          // on this line _before_ line feed
+kDebug() << "searchText/regex | before line feed" << endl;
+          const int diff = (index - curRelIndex);
+          const int absLine = curRelLine + firstLineIndex;
+          const int absCol = ((curRelLine == 0) ? minColStart : 0) + curRelCol + diff;
+          twoViewCursor.openLine = twoViewCursor.closeLine = absLine;
+          twoViewCursor.openCol = twoViewCursor.closeCol = absCol;
+          
+          // advance on same line
+          const int advance = diff + 1;
+          curRelCol += advance;
+          curRelIndex += advance;
         }
-        else if (matchLen == endSum + lineLens[curRelLine] + 1)
+        else if (index == lineFeedIndex)
         {
-          // trailing newline
-          endLine = curRelLine + 1;
-          endCol = 0; // first char after selection
-          break;
-        }
-        else // if (matchLen > endSum + lineLens[curRelLine] + 1)
-        {
-          // first char in next line
-          endSum += lineLens[curRelLine] + 1;
+          // on this line _on_ line feed
+kDebug() << "searchText/regex | on line feed" << endl;
+          const int absLine = curRelLine + firstLineIndex;
+          twoViewCursor.openLine = absLine + 1;
+          twoViewCursor.openCol = 0;
+          twoViewCursor.closeLine = absLine;
+          twoViewCursor.closeCol = curRelLineLen;
+
+          // advance to next line
+          const int advance = (index - curRelIndex) + 1;
           curRelLine++;
+          curRelCol = 0;
+          curRelIndex += advance;
         }
+        else // if (index > lineFeedIndex)
+        {
+          // not on this line
+          // advance to next line
+kDebug() << "searchText/regex | not on this line" << endl;
+          const int advance = curLineRemainder + 1;
+          curRelLine++;
+          curRelCol = 0;
+          curRelIndex += advance;
+        }
+      }
+
+      iter++;
+    }
+
+    // build result array
+    QVector<KTextEditor::Range> result(1 + numCaptures);
+    for (int y = 0; y <= numCaptures; y++)
+    {
+      IndexPair & pair = indexPairs[y];
+      if ((pair.openIndex == -1) || (pair.closeIndex == -1))
+      {
+        result[y] = KTextEditor::Range::invalid();
+      }
+      else
+      {
+        const TwoViewCursor * const openCursors = indicesToCursors[pair.openIndex];
+        const TwoViewCursor * const closeCursors = indicesToCursors[pair.closeIndex];
+        const int startLine = openCursors->openLine;
+        const int startCol = openCursors->openCol;
+        const int endLine = closeCursors->closeLine;
+        const int endCol = closeCursors->closeCol;
+kDebug() << "searchText/regex | range " << y << ": (" << startLine << ", " << startCol << ")..(" << endLine << ", " << endCol << ")" << endl;
+        result[y] = KTextEditor::Range(startLine, startCol, endLine, endCol);
       }
     }
 
-    kDebug() << "searchText | found at (" << startLine << ", " << startCol << ")..("
-      << endLine << ", " << endCol << ")" << endl;
-
-    // make relative line indices absolute
-    if (startLine == 0)
+    // free structs allocated for indicesToCursors
+    iter = indicesToCursors.constBegin();
+    while (iter != indicesToCursors.end())
     {
-      startCol += minColStart;
+      TwoViewCursor * const twoViewCursor = *iter;
+      delete twoViewCursor;
+      iter++;
     }
-    startLine += firstLineIndex;
-    endLine += firstLineIndex;
-
-    kDebug() << "searchText | found at (" << startLine << ", " << startCol << ")..("
-      << endLine << ", " << endCol << ")" << endl;
-    return KTextEditor::Range(startLine, startCol, endLine, endCol);
+    return result;
   }
   else
   {
@@ -2108,7 +2198,9 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
       if (!textLine)
       {
         // kDebug() << "searchText | line " << j << ": no" << endl;
-        return KTextEditor::Range::invalid();
+        QVector<KTextEditor::Range> result;
+        result.append(KTextEditor::Range::invalid());
+        return result;
       }
 
       const int offset = (j == forMin) ? minLeft : 0;
@@ -2135,7 +2227,28 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
       if (found && !((j == forMax) && (static_cast<uint>(foundAt + myMatchLen) > maxRight)))
       {
         kDebug() << "searchText | line " << j << ": yes" << endl;
-        return KTextEditor::Range(j, foundAt, j, foundAt + myMatchLen);
+
+        // build result array
+        const int numCaptures = regexp.numCaptures();
+        QVector<KTextEditor::Range> result(1 + numCaptures);
+        result[0] = KTextEditor::Range(j, foundAt, j, foundAt + myMatchLen);
+kDebug() << "searchText/regex | range " << 0 << ": (" << j << ", " << foundAt << ")..(" << j << ", " << foundAt + myMatchLen << ")" << endl;
+        for (int y = 1; y <= numCaptures; y++)
+        {
+          const int openIndex = regexp.pos(y);
+          if (openIndex == -1)
+          {
+            result[y] = KTextEditor::Range::invalid();
+kDebug() << "searchText/regex | capture []" << endl;
+          }
+          else
+          {
+            const int closeIndex = openIndex + regexp.cap(y).length();
+kDebug() << "searchText/regex | range " << y << ": (" << j << ", " << openIndex << ")..(" << j << ", " << closeIndex << ")" << endl;
+            result[y] = KTextEditor::Range(j, openIndex, j, closeIndex);  
+          }
+        }
+        return result;
       }
       else
       {
@@ -2143,8 +2256,13 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
       }
     }
   }
-  return KTextEditor::Range::invalid();
+
+  QVector<KTextEditor::Range> result;
+  result.append(KTextEditor::Range::invalid());
+  return result;
 }
+
+
 
 QVector<KTextEditor::Range> KateDocument::searchText(
     const KTextEditor::Range & range,
@@ -2181,7 +2299,6 @@ QVector<KTextEditor::Range> KateDocument::searchText(
   const bool caseSensitive = !finalOptions.testFlag(KTextEditor::Search::CaseInsensitive);
   const bool backwards = finalOptions.testFlag(KTextEditor::Search::Backwards);
 
-  KTextEditor::Range resultRange;
   if (regexMode)
   {
     // regex search
@@ -2195,12 +2312,14 @@ QVector<KTextEditor::Range> KateDocument::searchText(
     {
       // valid pattern
       // run engine
-      resultRange = searchText(range, matcher, backwards);
+      return searchText(range, matcher, backwards);
     }
     else
     {
       // invalid pattern
-      resultRange = KTextEditor::Range::invalid();
+      QVector<KTextEditor::Range> result;
+      result.append(KTextEditor::Range::invalid());
+      return result;
     }
   }
   else
@@ -2214,13 +2333,15 @@ QVector<KTextEditor::Range> KateDocument::searchText(
     }
 
     // run engine
-    resultRange = searchText(range, workPattern, caseSensitive, backwards);
+    KTextEditor::Range resultRange = searchText(range, workPattern, caseSensitive, backwards);
+    QVector<KTextEditor::Range> result;
+    result.append(resultRange);
+    return result;
   }
-
-  QVector<KTextEditor::Range> result;
-  result.append(resultRange);
-  return result;
 }
+
+
+
 
 KTextEditor::Search::SearchOptions KateDocument::supportedSearchOptions() const
 {

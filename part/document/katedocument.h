@@ -405,12 +405,12 @@ class KateDocument : public KTextEditor::Document,
      * \param inputRange Range to search in
      * \param regexp text to search for
      * \param backwards if \e true, the search will be backwards
-     * \return The valid range of the matched \p regexp. If the search was not
-     *        successful, the returned range is not valid
-     *        (see Range::isValid()).
+     * \return Vector of ranges, one for each capture. The first range (index zero)
+     *        spans the full match. If the pattern does not match the vector
+     *        has length 1 and holds the invalid range (see Range::isValid()).
      * \see KTextEditor::Range, QRegExp
      */
-    KTextEditor::Range searchText (const KTextEditor::Range & inputRange,
+    QVector<KTextEditor::Range> searchText (const KTextEditor::Range & inputRange,
         QRegExp & regexp, bool backwards = false);
 
     /**

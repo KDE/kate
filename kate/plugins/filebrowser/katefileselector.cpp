@@ -246,7 +246,7 @@ void KateFileSelectorToolBarParent::resizeEvent ( QResizeEvent * )
   connect( acSyncDir, SIGNAL( triggered() ), this, SLOT( setActiveDocumentDir() ) );
   toolbar->setToolButtonStyle( Qt::ToolButtonIconOnly );
   toolbar->setIconDimensions( 16 );
-  toolbar->setContextMenuEnabled( false );
+  toolbar->setContextMenuPolicy( Qt::NoContextMenu );
 
   connect( cmbPath, SIGNAL( urlActivated( const KUrl&  )),
            this, SLOT( cmbPathActivated( const KUrl& ) ));

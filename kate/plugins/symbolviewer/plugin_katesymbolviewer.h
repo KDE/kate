@@ -76,6 +76,9 @@ class KatePluginSymbolViewerView : public QObject, public KXMLGUIClient
     void parseFortranSymbols(void);
     void parsePerlSymbols(void);
     void parsePythonSymbols(void);
+    void parseRubySymbols(void);
+    void parseXsltSymbols(void);
+    void parsePhpSymbols(void);
   public:
     Kate::MainWindow *win;
     bool types_on;

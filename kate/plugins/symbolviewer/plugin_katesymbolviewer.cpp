@@ -74,7 +74,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(Kate::MainWindow *w)
   symbols = 0;
 
  m_Active = false;
- popup = new QMenu();
+ popup = new QMenu(symbols);
  popup->insertItem(i18n("Refresh List"), this, SLOT(slotRefreshSymbol()));
  popup->addSeparator();
  m_macro = popup->insertItem(i18n("Show Macros"), this, SLOT(toggleShowMacros()));
@@ -139,6 +139,7 @@ void KatePluginSymbolViewerView::slotInsertSymbol()
       connect(symbols, SIGNAL(itemActivated(QTreeWidgetItem *, int)), this, SLOT(goToSymbol(QTreeWidgetItem *)));
       connect(symbols, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(slotShowContextMenu(const QPoint&)));
 
+      // FIXME - lately this is broken and doesn't work anymore :(
       connect(win, SIGNAL(viewChanged()), this, SLOT(slotDocChanged()));
       //connect(symbols, SIGNAL(resizeEvent(QResizeEvent *)), this, SLOT(slotViewChanged(QResizeEvent *)));
 
@@ -149,7 +150,7 @@ void KatePluginSymbolViewerView::slotInsertSymbol()
       symbols->setHeaderLabels(titles);
 
       symbols->setColumnHidden(1, TRUE);
-      symbols->setSortingEnabled(FALSE); // was "symbols->setSorting(-1, FALSE);"
+      symbols->setSortingEnabled(FALSE);
       symbols->setRootIsDecorated(0);
       symbols->setContextMenuPolicy(Qt::CustomContextMenu);
       symbols->setIndentation(10);
@@ -188,9 +189,9 @@ void KatePluginSymbolViewerView::slotEnableSorting()
  popup->setItemChecked(m_sort, lsorting);
  symbols->clear();
  if (lsorting == TRUE)
-     symbols->setSortingEnabled(TRUE); // symbols->setSorting(0, TRUE);
+     symbols->setSortingEnabled(TRUE);
  else
-     symbols->setSortingEnabled(FALSE); // symbols->setSorting(-1, FALSE);
+     symbols->setSortingEnabled(FALSE);
 
  parseSymbols();
  if (lsorting == TRUE) symbols->sortItems(0, Qt::AscendingOrder);
@@ -204,12 +205,13 @@ void KatePluginSymbolViewerView::slotDocChanged()
 
 void KatePluginSymbolViewerView::slotViewChanged(QResizeEvent *)
 {
- kDebug(13000)<<"View changed !!!!"<<endl;
+ //kDebug(13000)<<"View changed !!!!"<<endl;
  symbols->setColumnWidth(0, symbols->parentWidget()->width());
 }
 
 void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint &p)
 {
+ // FIXME - with QT4 QPoint is an absolute coordinate ! With a dual head monitor this is really messy
  popup->popup(p);
 }
 
@@ -231,6 +233,8 @@ void KatePluginSymbolViewerView::parseSymbols(void)
 
   if (hlModeName == "C++" || hlModeName == "C")
      parseCppSymbols();
+ else if (hlModeName == "PHP (HTML)")
+    parsePhpSymbols();
   else if (hlModeName == "Tcl/Tk")
      parseTclSymbols();
   else if (hlModeName == "Fortran")
@@ -239,8 +243,12 @@ void KatePluginSymbolViewerView::parseSymbols(void)
      parsePerlSymbols();
   else if (hlModeName == "Python")
      parsePythonSymbols();
+ else if (hlModeName == "Ruby")
+    parseRubySymbols();
   else if (hlModeName == "Java")
      parseCppSymbols();
+  else if (hlModeName == "xslt")
+     parseXsltSymbols();
   else
      node = new QTreeWidgetItem(symbols,  QStringList(i18n("Sorry. Language not supported yet") ) );
 }

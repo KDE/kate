@@ -144,7 +144,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
              if (treeMode)
                {
                 node = new QTreeWidgetItem(clsNode, lastClsNode);
-                if (expanded_on) symbols->expandItem(node); //node->setOpen(TRUE);
+                if (expanded_on) symbols->expandItem(node);
                 lastClsNode = node;
                 mtdNode = lastClsNode;
                 lastMtdNode = lastClsNode;
@@ -178,8 +178,9 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
          {
           for (j = 0; j < cl.length(); j++)
             {
-             if ( ((j+1) < cl.length()) && (cl.at(j) == '/' && (cl.at(j + 1) == '*'))) comment = 2;
-             if ( ((j+1) < cl.length()) && (cl.at(j) == '*' && (cl.at(j + 1) == '/')) ) {  comment = 0; j+=2; if (j>=cl.length()) break;}
+             if ( ((j+1) < cl.length()) && (cl.at(j) == '/' && (cl.at(j + 1) == '*') && comment != 3)) comment = 2;
+             if ( ((j+1) < cl.length()) && (cl.at(j) == '*' && (cl.at(j + 1) == '/') && comment != 3) ) 
+                   {  comment = 0; j+=2; if (j>=cl.length()) break;}
              // Handles a string. Those are freaking evilish !
              if (cl.at(j) == '"' && comment == 3) { comment = 0; j++; if (j>=cl.length()) break;}
              else if (cl.at(j) == '"' && comment == 0) comment = 3;

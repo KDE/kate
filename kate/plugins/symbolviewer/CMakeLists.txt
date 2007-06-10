@@ -4,7 +4,8 @@
 
 ########### next target ###############
 
-set(katesymbolviewerplugin_PART_SRCS cpp_parser.cpp tcl_parser.cpp fortran_parser.cpp perl_parser.cpp python_parser.cpp plugin_katesymbolviewer.cpp )
+set(katesymbolviewerplugin_PART_SRCS cpp_parser.cpp tcl_parser.cpp fortran_parser.cpp perl_parser.cpp 
+php_parser.cpp xslt_parser.cpp ruby_parser.cpp python_parser.cpp plugin_katesymbolviewer.cpp )
 
 kde4_automoc(${katesymbolviewerplugin_PART_SRCS})
 

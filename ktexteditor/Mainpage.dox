@@ -12,7 +12,7 @@ or any later version published by the Free Software Foundation;
 /** \file Mainpage.dox
     \brief Introduction to the KTextEditor Interface
 */
-/** \mainpage Introduction to the KTextEditor Interface
+/** \mainpage KTextEditor - a Set of Interfaces for Advanced Plain Text Editing Services
 
 \section kte_intro Introduction
 The KTextEditor interfaces - also called KTE interfaces - are a set of

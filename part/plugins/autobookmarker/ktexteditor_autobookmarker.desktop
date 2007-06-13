@@ -19,6 +19,7 @@ Name[csb]=Aùtomatné wstôwianié załóżków
 Name[de]=Automatische Lesezeichenmarkierung
 Name[es]=Marcador automático
 Name[ja]=自動ブックマーク
+Name[nl]=Autobladwijzers
 Name[te]=ఆటొబుక్ మార్కర్
 Name[zh_CN]=自动书签
 Comment=Set bookmarks on lines matching a pattern when documents are loaded

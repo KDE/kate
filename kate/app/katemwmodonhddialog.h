@@ -50,7 +50,7 @@ class KateMwModOnHdDialog : public KDialog
 
   private Q_SLOTS:
     void slotDiff();
-    void slotSelectionChanged(QTreeWidget *current, QTreeWidget *);
+    void slotSelectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *);
     void slotPRead(K3ProcIO*);
     void slotPDone(K3Process*);
 

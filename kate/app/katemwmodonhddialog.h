@@ -30,8 +30,8 @@
 #include <QTreeWidgetItem>
 
 typedef  Q3PtrVector<KTextEditor::Document> DocVector;
-class K3ProcIO;
-class K3Process;
+class KProcess;
+
 /**
  * A dialog for handling multiple documents modified on disk
  * from within KateMainWindow
@@ -51,15 +51,14 @@ class KateMwModOnHdDialog : public KDialog
   private Q_SLOTS:
     void slotDiff();
     void slotSelectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *);
-    void slotPRead(K3ProcIO*);
-    void slotPDone(K3Process*);
+    void slotPDone();
 
   private:
     enum Action { Ignore, Overwrite, Reload };
     void handleSelected( int action );
     class QTreeWidget *twDocuments;
     class QPushButton *btnDiff;
-    class KTemporaryFile *m_tmpfile;
+    KProcess *m_proc;
 };
 
 #endif // _KATE_MW_MODONHD_DIALOG_H_

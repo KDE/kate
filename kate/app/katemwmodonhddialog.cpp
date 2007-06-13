@@ -27,7 +27,7 @@
 #include <KIconLoader>
 #include <KLocale>
 #include <KMessageBox>
-#include <K3ProcIO>
+#include <kprocess.h>
 #include <KRun>
 #include <KTemporaryFile>
 #include <KPushButton>
@@ -129,7 +129,6 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   connect( this, SIGNAL(user3Clicked()), this, SLOT(slotUser3()) );
 
   slotSelectionChanged(NULL, NULL);
-  m_tmpfile = 0;
 }
 
 KateMwModOnHdDialog::~KateMwModOnHdDialog()
@@ -215,7 +214,7 @@ void KateMwModOnHdDialog::slotSelectionChanged(QTreeWidgetItem *current, QTreeWi
 // class KateModOnHdPrompt.
 void KateMwModOnHdDialog::slotDiff()
 {
-  if ( m_tmpfile ) // we are already somewhere in this process.
+  if ( !btnDiff->isEnabled()) // diff button already pressed, proc not finished yet
     return;
 
   if ( ! twDocuments->currentItem() )
@@ -224,85 +223,67 @@ void KateMwModOnHdDialog::slotDiff()
   KTextEditor::Document *doc = ((KateDocItem*)twDocuments->currentItem())->document;
 
   // don't try o diff a deleted file
-  if ( KateDocManager::self()->documentInfo( doc )->modifiedOnDiscReason == 3 )
+  if ( KateDocManager::self()->documentInfo( doc )->modifiedOnDiscReason == KTextEditor::ModificationInterface::OnDiskDeleted )
     return;
 
-  // Start a K3Process that creates a diff
-  K3ProcIO *p = new K3ProcIO();
-  p->setComm( K3Process::All );
-  *p << "diff" << "-ub" << "-" <<  doc->url().path();
-  connect( p, SIGNAL(processExited(K3Process*)), this, SLOT(slotPDone(K3Process*)) );
-  connect( p, SIGNAL(readReady(K3ProcIO*)), this, SLOT(slotPRead(K3ProcIO*)) );
+  // Start a KProcess that creates a diff
+  m_proc = new KProcess( this );
+  m_proc->setOutputChannelMode( KProcess::MergedChannels );
+  *m_proc << "diff" << "-ub" << "-" << doc->url().path();
+  connect( m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotPDone()) );
 
   setCursor( Qt::WaitCursor );
+  btnDiff->setEnabled(false);
 
-  p->start( K3Process::NotifyOnExit, true );
+  m_proc->start();
 
-  uint lastln =  doc->lines();
-  for ( uint l = 0; l <  lastln; l++ )
-    p->writeStdin(  doc->line( l ), l < lastln );
-
-  p->closeWhenDone();
+  QTextStream ts(m_proc);
+  int lastln = doc->lines();
+  for ( int l = 0; l < lastln; ++l )
+    ts << doc->line( l ) << '\n';
+  ts.flush();
+  m_proc->closeWriteChannel();
 }
 
-void KateMwModOnHdDialog::slotPRead( K3ProcIO *p)
-{
-  // create a file for the diff if we haven't one already
-  if ( ! m_tmpfile )
-  {
-    m_tmpfile = new KTemporaryFile();
-    m_tmpfile->setAutoRemove(false);
-    m_tmpfile->open();
-  }
-
-  // put all the data we have in it
-  QString stmp;
-  bool readData = false;
-  QTextStream textStream ( m_tmpfile );
-  while ( p->readln( stmp, false ) > -1 )
-  {
-    textStream << stmp << endl;
-    readData = true;
-  }
-  textStream.flush();
-
-  // dominik: only ackRead(), when we *really* read data, otherwise, this slot
-  // is called infinity times, which leads to a crash (#123887)
-  if (readData)
-    p->ackRead();
-}
-
-void KateMwModOnHdDialog::slotPDone( K3Process *p )
+void KateMwModOnHdDialog::slotPDone()
 {
   setCursor( Qt::ArrowCursor );
+  slotSelectionChanged(twDocuments->currentItem(), 0);
 
-  // dominik: whitespace changes lead to diff with 0 bytes, so that slotPRead is
-  // never called. Thus, m_tmpfile can be NULL
-  if( m_tmpfile )
-    m_tmpfile->close();
-
-  if ( ! p->normalExit() /*|| p->exitStatus()*/ )
+  if ( m_proc->exitStatus() != QProcess::NormalExit )
   {
     KMessageBox::sorry( this,
                         i18n("The diff command failed. Please make sure that "
                              "diff(1) is installed and in your PATH."),
                         i18n("Error Creating Diff") );
-    delete m_tmpfile;
-    m_tmpfile = 0;
+    delete m_proc;
+    m_proc = 0;
     return;
   }
 
-  if ( ! m_tmpfile )
+  KTemporaryFile tmpfile;
+  tmpfile.setAutoRemove(false);
+  tmpfile.open();
+  const QString fileName = tmpfile.fileName();
+  QTextStream ts(&tmpfile);
+  ts << m_proc->readAll();
+  ts.flush();
+  tmpfile.close();
+
+  delete m_proc;
+  m_proc = 0;
+
+  if ( tmpfile.size() == 0 )
   {
     KMessageBox::information( this,
                               i18n("Besides white space changes, the files are identical."),
                               i18n("Diff Output") );
+    tmpfile.setAutoRemove(true);
     return;
   }
 
-  KRun::runUrl( m_tmpfile->fileName(), "text/x-patch", this, true );
-  delete m_tmpfile;
-  m_tmpfile = 0;
+  KRun::runUrl( fileName, "text/x-patch", this, true );
+  // todo: when is the file deleted?
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

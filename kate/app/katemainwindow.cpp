@@ -796,20 +796,18 @@ bool KateMainWindow::showModOnDiskPrompt()
 {
   KTextEditor::Document *doc;
 
-  DocVector list( KateDocManager::self()->documents() );
-  uint cnt = 0;
+  DocVector list;
+  list.reserve( KateDocManager::self()->documents() );
   foreach( doc, KateDocManager::self()->documentList())
   {
     if ( KateDocManager::self()->documentInfo( doc )->modifiedOnDisc )
     {
-      list.insert( cnt, doc );
-      cnt++;
+      list.append( doc );
     }
   }
 
-  if ( cnt && !m_modignore )
+  if ( !list.isEmpty() && !m_modignore )
   {
-    list.resize( cnt );
     KateMwModOnHdDialog mhdlg( list, this );
     m_modignore = true;
     bool res = mhdlg.exec();

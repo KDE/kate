@@ -24,12 +24,12 @@
 
 #include <KDialog>
 
-#include <Q3PtrVector>
+#include <QVector>
 
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 
-typedef  Q3PtrVector<KTextEditor::Document> DocVector;
+typedef  QVector<KTextEditor::Document*> DocVector;
 class KProcess;
 
 /**

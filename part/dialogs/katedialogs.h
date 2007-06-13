@@ -59,6 +59,7 @@ class KShortcutsEditor;
 class KIntNumInput;
 class KPluginSelector;
 class KPluginInfo;
+class KProcess;
 
 class QCheckBox;
 class QLabel;
@@ -306,8 +307,6 @@ class KateHlDownloadDialog: public KDialog
     void slotUser1();
 };
 
-class K3ProcIO;
-class K3Process;
 /**
  * This dialog will prompt the user for what do with a file that is
  * modified on disk.
@@ -341,14 +340,14 @@ class KateModOnHdPrompt : public KDialog
     virtual void slotButtonClicked(int button);
 
   private Q_SLOTS:
-    void slotPRead(K3ProcIO*); ///< Read from the diff process
-    void slotPDone(K3Process*); ///< Runs the diff file when done
+    void slotPDone(); ///< Runs the diff file when done
 
   private:
     Ui::ModOnHdWidget* ui;
     KateDocument *m_doc;
     KTextEditor::ModificationInterface::ModifiedOnDiskReason m_modtype;
     class KTemporaryFile *m_tmpfile; ///< The diff file. Deleted by KRun when the viewer is exited.
+    KProcess *m_proc;
 
 };
 

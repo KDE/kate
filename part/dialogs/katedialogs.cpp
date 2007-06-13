@@ -70,8 +70,7 @@
 #include <knuminput.h>
 #include <kparts/componentfactory.h>
 #include <kmenu.h>
-#include <k3process.h>
-#include <k3procio.h>
+#include <kprocess.h>
 #include <krun.h>
 #include <kseparator.h>
 #include <kstandarddirs.h>
@@ -1124,86 +1123,70 @@ KateModOnHdPrompt::~KateModOnHdPrompt()
 
 void KateModOnHdPrompt::slotDiff()
 {
+  m_tmpfile = new KTemporaryFile();
+  m_tmpfile->setAutoRemove(false);
+  m_tmpfile->open();
+  m_tmpfile->close();
+
   // Start a K3Process that creates a diff
-  K3ProcIO *p = new K3ProcIO();
-  p->setComm( K3Process::All );
-  *p << "diff" << QString(ui->chkIgnoreWhiteSpaces->isChecked() ? "-ub" : "-u")
+  m_proc = new KProcess( this );
+  m_proc->setStandardOutputFile( m_tmpfile->fileName() );
+  m_proc->setOutputChannelMode( KProcess::MergedChannels );
+  *m_proc << "diff" << QString(ui->chkIgnoreWhiteSpaces->isChecked() ? "-ub" : "-u")
      << "-" <<  m_doc->url().path();
-  connect( p, SIGNAL(processExited(K3Process*)), this, SLOT(slotPDone(K3Process*)) );
-  connect( p, SIGNAL(readReady(K3ProcIO*)), this, SLOT(slotPRead(K3ProcIO*)) );
+  connect( m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotPDone()) );
 
   setCursor( Qt::WaitCursor );
   // disable the button and checkbox, to hinder the user to run it twice.
   ui->chkIgnoreWhiteSpaces->setEnabled( false );
   ui->btnDiff->setEnabled( false );
 
-  p->start( K3Process::NotifyOnExit, true );
+  m_proc->start();
 
-  int lastln =  m_doc->lines();
-  for ( int l = 0; l <  lastln; ++l )
-    p->writeStdin(  m_doc->line( l ) );
-
-  p->closeWhenDone();
+  QTextStream ts(m_proc);
+  int lastln = m_doc->lines();
+  for ( int l = 0; l < lastln; ++l )
+    ts << m_doc->line( l );
+  ts.flush();
+  m_proc->closeWriteChannel();
 }
 
-void KateModOnHdPrompt::slotPRead( K3ProcIO *p)
-{
-  // create a file for the diff if we haven't one already
-  if ( ! m_tmpfile ) {
-    m_tmpfile = new KTemporaryFile();
-    m_tmpfile->setAutoRemove(false);
-    m_tmpfile->open();
-  }
-
-  QTextStream stream(m_tmpfile);
-
-  // put all the data we have in it
-  QString stmp;
-  bool readData = false;
-  while ( p->readln( stmp, false ) > -1 )
-  {
-    stream << stmp << endl;
-    readData = true;
-  }
-  stream.flush();
-
-  // dominik: only ackRead(), when we *really* read data, otherwise, this slot
-  // is called infinity times, which leads to a crash (#123887)
-  if( readData )
-    p->ackRead();
-}
-
-void KateModOnHdPrompt::slotPDone( K3Process *p )
+void KateModOnHdPrompt::slotPDone()
 {
   setCursor( Qt::ArrowCursor );
   ui->chkIgnoreWhiteSpaces->setEnabled( true );
   ui->btnDiff->setEnabled( true );
 
-  // dominik: whitespace changes lead to diff with 0 bytes, so that slotPRead is
-  // never called. Thus, m_tmpfile can be NULL
-  if( m_tmpfile )
-    m_tmpfile->close();
-
-  if ( ! p->normalExit() /*|| p->exitStatus()*/ )
+  if ( m_proc->exitStatus() != QProcess::NormalExit /*|| p->exitCode()*/ )
   {
     KMessageBox::sorry( this,
                         i18n("The diff command failed. Please make sure that "
                              "diff(1) is installed and in your PATH."),
                         i18n("Error Creating Diff") );
+    delete m_proc;
+    m_proc = 0;
+    m_tmpfile->remove();
     delete m_tmpfile;
     m_tmpfile = 0;
     return;
   }
 
-  if ( ! m_tmpfile )
+  delete m_proc;
+  m_proc = 0;
+
+  if ( m_tmpfile->size() == 0 )
   {
     KMessageBox::information( this,
                               i18n("Besides white space changes, the files are identical."),
                               i18n("Diff Output") );
+    m_tmpfile->remove();
+    delete m_tmpfile;
+    m_tmpfile = 0;
     return;
   }
 
   KRun::runUrl( KUrl::fromPath(m_tmpfile->fileName()), "text/x-patch", this, true );
+  // when is the file deleted?
   delete m_tmpfile;
   m_tmpfile = 0;
 }

@@ -1065,8 +1065,7 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
                                       QWidget *parent )
   : KDialog( parent ),
     m_doc( doc ),
-    m_modtype ( modtype ),
-    m_tmpfile( 0 )
+    m_modtype ( modtype )
 {
   setButtons( Ok | Apply | Cancel | User1 );
 
@@ -1123,14 +1122,8 @@ KateModOnHdPrompt::~KateModOnHdPrompt()
 
 void KateModOnHdPrompt::slotDiff()
 {
-  m_tmpfile = new KTemporaryFile();
-  m_tmpfile->setAutoRemove(false);
-  m_tmpfile->open();
-  m_tmpfile->close();
-
   // Start a K3Process that creates a diff
   m_proc = new KProcess( this );
-  m_proc->setStandardOutputFile( m_tmpfile->fileName() );
   m_proc->setOutputChannelMode( KProcess::MergedChannels );
   *m_proc << "diff" << QString(ui->chkIgnoreWhiteSpaces->isChecked() ? "-ub" : "-u")
      << "-" <<  m_doc->url().path();
@@ -1146,7 +1139,7 @@ void KateModOnHdPrompt::slotDiff()
   QTextStream ts(m_proc);
   int lastln = m_doc->lines();
   for ( int l = 0; l < lastln; ++l )
-    ts << m_doc->line( l );
+    ts << m_doc->line( l ) << '\n';
   ts.flush();
   m_proc->closeWriteChannel();
 }
@@ -1165,30 +1158,32 @@ void KateModOnHdPrompt::slotPDone()
                         i18n("Error Creating Diff") );
     delete m_proc;
     m_proc = 0;
-    m_tmpfile->remove();
-    delete m_tmpfile;
-    m_tmpfile = 0;
     return;
   }
+
+  KTemporaryFile tmpfile;
+  tmpfile.setAutoRemove(false);
+  tmpfile.open();
+  const QString fileName = tmpfile.fileName();
+  QTextStream ts(&tmpfile);
+  ts << m_proc->readAll();
+  ts.flush();
+  tmpfile.close();
 
   delete m_proc;
   m_proc = 0;
 
-  if ( m_tmpfile->size() == 0 )
+  if ( tmpfile.size() == 0 )
   {
     KMessageBox::information( this,
                               i18n("Besides white space changes, the files are identical."),
                               i18n("Diff Output") );
-    m_tmpfile->remove();
-    delete m_tmpfile;
-    m_tmpfile = 0;
+    tmpfile.setAutoRemove(true);
     return;
   }
 
-  KRun::runUrl( KUrl::fromPath(m_tmpfile->fileName()), "text/x-patch", this, true );
-  // when is the file deleted?
-  delete m_tmpfile;
-  m_tmpfile = 0;
+  // KRun::runUrl should delete the file, once the client exits
+  KRun::runUrl( KUrl::fromPath(tmpfile.fileName()), "text/x-patch", this, true );
 }
 
 void KateModOnHdPrompt::slotButtonClicked(int button)

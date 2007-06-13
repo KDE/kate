@@ -346,7 +346,6 @@ class KateModOnHdPrompt : public KDialog
     Ui::ModOnHdWidget* ui;
     KateDocument *m_doc;
     KTextEditor::ModificationInterface::ModifiedOnDiskReason m_modtype;
-    class KTemporaryFile *m_tmpfile; ///< The diff file. Deleted by KRun when the viewer is exited.
     KProcess *m_proc;
 
 };

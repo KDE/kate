@@ -23,7 +23,6 @@
 #include <QWidget>
 #include <QRegExp>
 #include <QList>
-#include <QStringList>
 
 class KateGrepThread : public QThread
 {

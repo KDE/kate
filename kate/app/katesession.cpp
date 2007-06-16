@@ -45,7 +45,6 @@
 #include <QCheckBox>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QStringList>
 #include <QStyle>
 #include <QtAlgorithms>
 

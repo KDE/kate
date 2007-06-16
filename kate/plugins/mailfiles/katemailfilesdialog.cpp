@@ -24,7 +24,6 @@
 
 #include <QEvent>
 #include <QLabel>
-#include <QStringList>
 #include <QList>
 
 /* a private check list item, that can store a KTextEditor::Document*.  */

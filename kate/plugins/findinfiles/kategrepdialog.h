@@ -28,7 +28,6 @@
 #include "ui_findwidget.h"
 
 #include <QEvent>
-#include <QStringList>
 
 class QToolButton;
 class QShowEvent;

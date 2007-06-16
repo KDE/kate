@@ -52,7 +52,6 @@
 
 #include <QApplication>
 #include <QObject>
-#include <QStringList>
 #include <QFileInfo>
 #include <QToolButton>
 #include <QTimer>

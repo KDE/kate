@@ -28,7 +28,6 @@
 #include <KLocale>
 #include <KIconLoader>
 
-#include <QStringList>
 #include <QLabel>
 #include <QPushButton>
 

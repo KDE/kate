@@ -309,9 +309,9 @@ void KateSelectConfigTab::reload ()
 
 //BEGIN KateEditConfigTab
 KateEditConfigTab::KateEditConfigTab(QWidget *parent)
-  : selectConfigTab(new KateSelectConfigTab(this))
+  : KateConfigPage(parent)
+  , selectConfigTab(new KateSelectConfigTab(this))
   , indentConfigTab(new KateIndentConfigTab(this))
-  , KateConfigPage(parent)
 {
   // FIXME: Is really needed to move all this code below to another class,
   // since it is another tab itself on the config dialog. This means we should
@@ -582,8 +582,8 @@ void KateEditKeyConfiguration::apply()
 
 //BEGIN KateSaveConfigTab
 KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
-  : modeConfigPage( new ModeConfigPage( this ) )
-  , KateConfigPage( parent )
+  : KateConfigPage( parent )
+  , modeConfigPage( new ModeConfigPage( this ) )
 {
   // FIXME: Is really needed to move all this code below to another class,
   // since it is another tab itself on the config dialog. This means we should
@@ -756,8 +756,8 @@ void KateSaveConfigTab::defaults()
 
 //BEGIN KatePartPluginConfigPage
 KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
-  : scriptConfigPage (new KateScriptConfigPage(this))
-  , KateConfigPage (parent, "")
+  : KateConfigPage (parent, "")
+  , scriptConfigPage (new KateScriptConfigPage(this))
 {
   // FIXME: Is really needed to move all this code below to another class,
   // since it is another tab itself on the config dialog. This means we should

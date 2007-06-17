@@ -1036,6 +1036,7 @@ void KateGotoBar::showBar()
     gotoRange->adjustSize(); // ### does not respect the range :-(
   }
   gotoRange->setFocus(Qt::OtherFocusReason);
+  gotoRange->selectAll();
 
   KateViewBarWidget::showBar();
 }

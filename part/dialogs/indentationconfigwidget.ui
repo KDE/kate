@@ -128,7 +128,7 @@
            <string>The indentation width is the number of spaces which is used to indent a line. If the option &lt;b>Insert spaces instead of tabulators&lt;/b> in the section &lt;b>Editing&lt;/b> is disabled, a &lt;b>Tab&lt;/b> character is inserted if the indentation is divisible by the tab width.</string>
           </property>
           <property name="suffix" >
-           <string>characters</string>
+           <string> characters</string>
           </property>
           <property name="minimum" >
            <number>1</number>

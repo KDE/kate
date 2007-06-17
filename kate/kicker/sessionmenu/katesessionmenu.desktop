@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Kate Session Menu
+Name[it]=Menu di sessione di Kate
 Name[ja]=Kate セッションメニュー
 Name[x-test]=xxKate Session Menuxx
 Comment=Allows you to open Kate with a specified session, or create a new one
+Comment[it]=Permette di aprire Kate con una sessione specificata, o crearne una nuova
 Comment[ja]=新規または既存のセッションで Kate を起動します
 Comment[x-test]=xxAllows you to open Kate with a specified session, or create a new onexx
 Icon=kate

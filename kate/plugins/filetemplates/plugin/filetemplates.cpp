@@ -718,7 +718,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
 
   glo->addMultiCell( new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding ), 7, 7, 1, 2 );
 
-  addPage( page, i18n("Chose Template Origin") );
+  addPage( page, i18n("Choose Template Origin") );
   kDebug()<<"=== Adding template origin page at "<<page<<endl;
   // 2) edit the template properties
   kti = new KateTemplateInfoWidget( this, 0, kft );
@@ -743,7 +743,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   glo = new QGridLayout( page, 7, 2 );
   glo->setSpacing( KDialog::spacingHint() );
 
-  glo->addMultiCellWidget( new QLabel( i18n("<p>Chose a location for the "
+  glo->addMultiCellWidget( new QLabel( i18n("<p>Choose a location for the "
       "template. If you store it in the template directory, it will "
       "automatically be added to the template menu.</p>"), page ), 1, 1, 1, 2);
 

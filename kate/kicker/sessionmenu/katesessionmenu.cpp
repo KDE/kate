@@ -126,7 +126,7 @@ void KateSessionMenu::slotExec( int id )
 
     if ( m_sessions.contains( name ) &&
          KMessageBox::warningYesNo( 0,
-                                    i18n("You allready have a session named %1. Do you want to open that session?", name ),
+                                    i18n("You already have a session named %1. Do you want to open that session?", name ),
                                     i18n("Session exists") ) == KMessageBox::No )
       return;
     else

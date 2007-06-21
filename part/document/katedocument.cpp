@@ -282,7 +282,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   // important, fill in the config into the indenter we use...
   m_indenter.updateConfig ();
-  
+
   // connect the start of kparts kio job to remember the job
   connect(this, SIGNAL(started(KIO::Job *)), this, SLOT(rememberJob (KIO::Job *)));
 
@@ -1860,10 +1860,10 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     QVector<KateTextLine::Ptr> hayLinesWindow;
     for (int i = 0; i < numNeedleLines; i++) {
       KateTextLine::Ptr textLine = m_buffer->plainLine((backwards ? forMax : forMin) + i);
-      
+
       if (!textLine)
         return KTextEditor::Range::invalid();
-    
+
       hayLinesWindow.append (textLine);
       kDebug() << "searchText | hayLinesWindow[" << i << "] = \"" << hayLinesWindow[i]->string() << "\"" << endl;
     }
@@ -1927,14 +1927,14 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
         if (backwards)
         {
           hayLinesZeroIndex = (hayLinesZeroIndex + numNeedleLines - 1) % numNeedleLines;
-          
+
           KateTextLine::Ptr textLine = m_buffer->plainLine(j - 1);
-      
+
           if (!textLine)
             return KTextEditor::Range::invalid();
-        
+
           hayLinesWindow[hayLinesZeroIndex] = textLine;
-          
+
           kDebug() << "searchText | filling slot " << hayLinesZeroIndex << " with line "
             << j - 1 << ": " << hayLinesWindow[hayLinesZeroIndex]->string() << endl;
         }
@@ -2042,7 +2042,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
     QString wholeDocument;
     const int inputLineCount = inputRange.end().line() - inputRange.start().line() + 1;
     kDebug() << "searchText/regex | multi line " << firstLineIndex << ".." << firstLineIndex + inputLineCount - 1 << endl;
-    
+
     // nothing to do...
     if (firstLineIndex >= m_buffer->lines())
     {
@@ -2079,7 +2079,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
         result.append(KTextEditor::Range::invalid());
         return result;
       }
-      
+
       QString text = textLine->string();
       if (i == inputLineCount - 1)
       {
@@ -2177,7 +2177,7 @@ kDebug() << "searchText/regex | before line feed" << endl;
           const int absCol = ((curRelLine == 0) ? minColStart : 0) + curRelCol + diff;
           twoViewCursor.openLine = twoViewCursor.closeLine = absLine;
           twoViewCursor.openCol = twoViewCursor.closeCol = absCol;
-          
+
           // advance on same line
           const int advance = diff + 1;
           curRelCol += advance;
@@ -2310,7 +2310,7 @@ kDebug() << "searchText/regex | capture []" << endl;
           {
             const int closeIndex = openIndex + regexp.cap(y).length();
 kDebug() << "searchText/regex | range " << y << ": (" << j << ", " << openIndex << ")..(" << j << ", " << closeIndex << ")" << endl;
-            result[y] = KTextEditor::Range(j, openIndex, j, closeIndex);  
+            result[y] = KTextEditor::Range(j, openIndex, j, closeIndex);
           }
         }
         return result;
@@ -2683,7 +2683,7 @@ int KateDocument::repairPattern(QString & pattern, bool & stillMultiLine)
   stillMultiLine = false;
   int replaceCount = 0;
   bool insideClass = false;
-  
+
   while (input < inputLen)
   {
     if (insideClass)
@@ -2852,7 +2852,7 @@ QString KateDocument::mode () const
 QStringList KateDocument::modes () const
 {
   QStringList m;
-  
+
   const QList<KateFileType *> &modeList = KateGlobal::self()->modeManager()->list();
   for (int i = 0; i < modeList.size(); ++i)
     m << modeList[i]->name;
@@ -2917,13 +2917,13 @@ void KateDocument::readSessionConfig(const KConfigGroup &kconfig)
   if (!url.isEmpty() && url.isValid())
     openUrl (url);
   else completed(); //perhaps this should be emitted at the end of this function
-  
+
   // restore the filetype
   updateFileType (kconfig.readEntry("Mode", "Normal"));
 
   // restore the hl stuff
   m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig.readEntry("Highlighting")));
-  
+
   // indent mode
   config()->setIndentationMode( kconfig.readEntry("Indentation Mode", config()->indentationMode() ) );
 
@@ -2942,13 +2942,13 @@ void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
 
   // save encoding
   kconfig.writeEntry("Encoding",encoding());
-  
+
   // save file type
   kconfig.writeEntry("Mode", m_fileType);
-  
+
   // save hl
   kconfig.writeEntry("Highlighting", highlight()->name());
-  
+
   // indent mode
   kconfig.writeEntry("Indentation Mode", config()->indentationMode() );
 
@@ -3445,7 +3445,7 @@ bool KateDocument::saveFile()
          return false;
     }
   }
-  
+
   // remember the oldpath...
   QString oldPath = m_dirWatchFile;
 
@@ -3459,9 +3459,9 @@ bool KateDocument::saveFile()
   {
     // add m_file again to dirwatch
     activateDirWatch (oldPath);
-    
+
     KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", this->url().url()));
-    
+
     return false;
   }
 
@@ -3473,16 +3473,16 @@ bool KateDocument::saveFile()
 
   // update file type
   updateFileType (KateGlobal::self()->modeManager()->fileType (this));
-    
+
   // read dir config (if possible and wanted)
   if ( url().isLocalFile())
   {
     QFileInfo fo (oldPath), fn (m_dirWatchFile);
-    
+
     if (fo.path() != fn.path())
       readDirConfig();
   }
-    
+
   // read our vars
   readVariables();
 
@@ -5698,7 +5698,7 @@ void KateDocument::updateFileType (const QString &newType, bool user)
           m_fileType = newType;
 
           m_config->configStart();
-          
+
           if (!hlSetByUser && !KateGlobal::self()->modeManager()->fileType(newType).hl.isEmpty())
           {
             int hl (KateHlManager::self()->nameFind (KateGlobal::self()->modeManager()->fileType(newType).hl));
@@ -5707,7 +5707,7 @@ void KateDocument::updateFileType (const QString &newType, bool user)
               m_buffer->setHighlight(hl);
           }
 
-          
+
           // views!
           KateView *v;
           foreach (v,m_views)
@@ -5715,9 +5715,9 @@ void KateDocument::updateFileType (const QString &newType, bool user)
             v->config()->configStart();
             v->renderer()->config()->configStart();
           }
-  
+
           readVariableLine( KateGlobal::self()->modeManager()->fileType(newType).varLine );
-  
+
           m_config->configEnd();
           foreach (v,m_views)
           {
@@ -5726,7 +5726,7 @@ void KateDocument::updateFileType (const QString &newType, bool user)
           }
     }
   }
-  
+
   // fixme, make this better...
   emit modeChanged (this);
 }

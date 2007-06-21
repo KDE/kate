@@ -4,6 +4,7 @@ Type=ServiceType
 X-KDE-ServiceType=Kate/Plugin
 X-KDE-Derived=
 Comment=Kate Plugin
+Comment[de]=Kate-Modul
 Comment[it]=Plugin di Kate
 Comment[ja]=Kate プラグイン
 Comment[x-test]=xxKate Pluginxx

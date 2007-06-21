@@ -85,7 +85,6 @@
 #include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
 #include <QtGui/QDialog>
-#include <Qt/qdom.h>
 #include <QtCore/QFile>
 #include <QtGui/QGroupBox>
 #include <QtGui/QLabel>
@@ -104,6 +103,7 @@
 #include <QtGui/QToolButton>
 #include <QtGui/QWhatsThis>
 #include <QtGui/QKeyEvent>
+#include <QtXml/QDomDocument>
 
 // trailing slash is important
 #define HLDOWNLOADPATH "http://kate.kde.org/syntax/"

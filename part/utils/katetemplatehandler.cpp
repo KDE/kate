@@ -285,7 +285,7 @@ void KateTemplateHandler::slotTextInserted(KTextEditor::Document*, const KTextEd
     m_doc->activeView()->setSelection( *m_currentRange );
   }
   else {
-   if (ph->isReplacableSpace && sourceText.startsWith(" ")) {
+   if (ph->isReplacableSpace && sourceText.startsWith(' ')) {
     m_doc->removeText( KTextEditor::Range(m_currentRange->start(),1));
     sourceText=sourceText.right(sourceText.length()-1);
    }

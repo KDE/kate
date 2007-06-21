@@ -565,7 +565,7 @@ int KateHlAnyChar::checkHgl(const QString& text, int offset, int)
 //BEGIN KateHlRegExpr
 KateHlRegExpr::KateHlRegExpr( int attribute, KateHlContextModification context, signed char regionId,signed char regionId2, const QString &regexp, bool insensitive, bool minimal)
   : KateHlItem(attribute, context, regionId,regionId2)
-  , handlesLinestart (regexp.startsWith("^"))
+  , handlesLinestart (regexp.startsWith('^'))
   , _regexp(regexp)
   , _insensitive(insensitive)
   , _minimal(minimal)

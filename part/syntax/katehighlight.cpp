@@ -1243,7 +1243,7 @@ KateHlContextModification KateHighlighting::getContextModificationFromString(QSt
    */
   if (anyFound && !tmpLineEndContext.isEmpty())
   {
-    if (tmpLineEndContext.startsWith("!"))
+    if (tmpLineEndContext.startsWith('!'))
       tmpLineEndContext.remove (0, 1);
   }
 
@@ -1369,7 +1369,7 @@ void KateHighlighting::makeContextList()
 
     // only resolve '##Name' contexts here; handleKateHlIncludeRules() can figure
     // out 'Name##Name'-style inclusions, but we screw it up
-    if (incCtx.endsWith(":")) {
+    if (incCtx.endsWith(':')) {
       kDebug(13010)<<"Looking up context0 for ruleset "<<incCtx<<endl;
       incCtx = incCtx.left(incCtx.length()-1);
       //try to find the context0 id for a given unresolvedReference
@@ -1662,7 +1662,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         bool includeAttrib = IS_TRUE( incAttrib );
 
         // only context refernces of type Name, ##Name, and Subname##Name are allowed
-        if (incCtx.startsWith("##") || (!incCtx.startsWith("#")))
+        if (incCtx.startsWith("##") || (!incCtx.startsWith('#')))
         {
            int incCtxi = incCtx.indexOf ("##");
            //#stay, #pop is not interesting here

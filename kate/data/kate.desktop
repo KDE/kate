@@ -2,9 +2,11 @@
 Encoding=UTF-8
 GenericName=Advanced Text Editor
 GenericName[de]=Erweiterter Texteditor
+GenericName[el]=Προχωρημένος επεξεργαστής κειμένου
 GenericName[it]=Editor di testi avanzato
 GenericName[ja]=高度なテキストエディタ
 GenericName[x-test]=xxAdvanced Text Editorxx
+GenericName[zh_TW]=進階文字編輯器
 Name=Kate
 Name[x-test]=xxKatexx
 MimeType=text/plain

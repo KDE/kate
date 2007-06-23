@@ -1,2 +1,2 @@
 #! /bin/sh
-$XGETTEXT *.cpp -o $podir/katetabbarextension.pot
+$XGETTEXT *.cpp *.h -o $podir/katetabbarextension.pot

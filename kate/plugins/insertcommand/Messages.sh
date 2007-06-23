@@ -1,2 +1,2 @@
 #! /bin/sh
-$XGETTEXT *.cpp -o $podir/kateinsertcommand.pot
+$XGETTEXT *.cpp *.h -o $podir/kateinsertcommand.pot

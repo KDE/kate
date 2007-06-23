@@ -346,6 +346,7 @@ class KateModOnHdPrompt : public KDialog
     Ui::ModOnHdWidget* ui;
     KateDocument *m_doc;
     KTextEditor::ModificationInterface::ModifiedOnDiskReason m_modtype;
+    QString m_fileName;
     KProcess *m_proc;
 
 };

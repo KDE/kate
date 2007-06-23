@@ -1230,7 +1230,9 @@ void KateTemplateManager::slotUpload()
 //     KFTNewStuff *ns = new KFTNewStuff( "katefiletemplates/template", this );
 //     ns->upload( item->templateinfo->filename, QString::null );
 //   }
+#ifdef __GNUC__
 #warning ERROR HANDLING
+#endif
   KateTemplateItem *item = dynamic_cast<KateTemplateItem*>( lvTemplates->currentItem() );
   if (!item) return;
   KNS::Engine *engine=new KNS::Engine();
@@ -1250,7 +1252,9 @@ void KateTemplateManager::slotDownload()
 {
 //   KFTNewStuff *ns = new KFTNewStuff( "katefiletemplates/template", this );
 //   ns->download();
+#ifdef __GNUC__
 #warning ERROR HANDLING
+#endif
   KNS::Engine *engine=new KNS::Engine();
   bool success=engine->init("katefiletemplates.knsrc");
   if (!success)

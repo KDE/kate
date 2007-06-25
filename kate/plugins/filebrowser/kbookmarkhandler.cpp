@@ -51,7 +51,7 @@ KBookmarkHandler::KBookmarkHandler( KateFileSelector *parent, KMenu* kpopupmenu 
   if ( file.isEmpty() )
     file = KStandardDirs::locateLocal( "data", "kate/fsbookmarks.xml" );
 
-  KBookmarkManager *manager = KBookmarkManager::managerForFile( file, "kate", false);
+  KBookmarkManager *manager = KBookmarkManager::managerForFile( file, "kate" );
   manager->setUpdate( true );
 
   m_bookmarkMenu = new KBookmarkMenu( manager, this, m_menu, parent->actionCollection() );

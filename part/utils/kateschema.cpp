@@ -497,8 +497,7 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
   p.setColor( QPalette::Text, _c );
   m_defaultStyles->viewport()->setPalette( p );
 
-  // insert the default styles backwards to get them in the right order
-  for ( int i = KateHlManager::self()->defaultStyles() - 1; i >= 0; i-- )
+  for ( int i = 0; i < KateHlManager::self()->defaultStyles(); i++ )
   {
     m_defaultStyles->addItem( KateHlManager::self()->defaultStyleName(i, true), l->at( i ) );
   }
@@ -627,10 +626,9 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   m_styles->viewport()->setPalette( p );
 
   QHash<QString, QTreeWidgetItem*> prefixes;
-  QList<KateExtendedAttribute::Ptr>::ConstIterator it = m_hlDict[m_schema][m_hl].end();
-  while (it != m_hlDict[m_schema][m_hl].begin())
+  QList<KateExtendedAttribute::Ptr>::ConstIterator it = m_hlDict[m_schema][m_hl].begin();
+  while (it != m_hlDict[m_schema][m_hl].end())
   {
-    --it;
     KateExtendedAttribute::Ptr itemData = *it;
     Q_ASSERT(itemData);
 
@@ -654,6 +652,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
     } else {
       m_styles->addItem( itemData->name(), l->at(itemData->defaultStyleIndex()), itemData );
     }
+    ++it;
   }
 
   m_styles->resizeColumns();
@@ -912,7 +911,7 @@ void KateViewSchemaAction::slotAboutToShow()
   QString id=view->renderer()->config()->schema();
    foreach(QAction *a,menu()->actions()) {
 	a->setChecked(a->data().toString()==id);
-	
+
 	}
 //FIXME
 #if 0

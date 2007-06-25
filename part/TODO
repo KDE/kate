@@ -20,7 +20,6 @@ TODO:
 * text painted twice after clearing a selection (see http://permalink.gmane.org/gmane.comp.kde.devel.kwrite/12546)
 
 * HL configuration issues
-  * attributes appear backwards in list
   * current highlighter not selected (regression)
   * 'use default' never checked
   * wrong (can be illegible) color used for group headings

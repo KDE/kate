@@ -14,8 +14,8 @@ TODO:
 * color issues
   * use color roles when they become available to initialize attributes
     -> this will probably fix bug 143606
-  * dsNormal always using dark color
-    -> by 4.0 please, this wrecks usability!!
+  * dsNormal using very wrong color ('border background'?!) as foreground most of the time
+    -> by 4.0 please, this wreaks havoc on u7y/a11!!
 
 * text painted twice after clearing a selection (see http://permalink.gmane.org/gmane.comp.kde.devel.kwrite/12546)
 

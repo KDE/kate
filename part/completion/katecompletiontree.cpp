@@ -33,7 +33,7 @@ KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
   : QTreeView(parent)
 {
   setUniformRowHeights(true);
-  header()->hide();
+  //header()->hide();
   setRootIsDecorated(false);
   setIndentation(0);
   setFrameStyle(QFrame::NoFrame);

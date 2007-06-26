@@ -1045,6 +1045,7 @@ KateCompletionModel::Group::Group( KateCompletionModel * m )
   : model(m)
   , isEmpty(false)
 {
+  Q_ASSERT(model);
 }
 
 void KateCompletionModel::setSortingAlphabetical( bool alphabetical )

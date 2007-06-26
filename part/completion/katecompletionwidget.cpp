@@ -122,6 +122,7 @@ KateView * KateCompletionWidget::view( ) const
 
 void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTextEditor::CodeCompletionModel * model, KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
+  Q_ASSERT(word.isValid()); //If word was invalid, the assert would happen later and the reason would be less clear
   kDebug(13035) << k_funcinfo << word << " " << model << endl;
 
   if (!m_filterInstalled) {
@@ -187,8 +188,10 @@ void KateCompletionWidget::updatePosition( )
 
 void KateCompletionWidget::cursorPositionChanged( )
 {
-  if (!isCompletionActive())
+  if (!isCompletionActive())  {
+    m_presentationModel->setCurrentCompletion(QString::null);
     return;
+  }
 
   KTextEditor::Cursor cursor = view()->cursorPosition();
 

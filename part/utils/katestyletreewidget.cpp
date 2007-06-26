@@ -27,7 +27,7 @@
 
 #include <klocale.h>
 #include <kicon.h>
-#include <kglobalsettings.h>
+#include <kcolorscheme.h>
 #include <kmenu.h>
 #include <kmessagebox.h>
 #include <kcolordialog.h>
@@ -137,7 +137,7 @@ KateStyleTreeWidget::KateStyleTreeWidget( QWidget *parent, bool showUseDefaults 
   headerItem()->setIcon(4, KIcon("format-text-strikethrough"));
 
   // grap the bg color, selected color and default font
-  normalcol = KGlobalSettings::textColor();
+  normalcol = KColorScheme(KColorScheme::View).foreground().color();
   bgcol = KateRendererConfig::global()->backgroundColor();
   selcol = KateRendererConfig::global()->selectionColor();
   docfont = KateRendererConfig::global()->font();

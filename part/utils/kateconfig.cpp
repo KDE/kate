@@ -28,6 +28,7 @@
 
 #include <kconfig.h>
 #include <kglobalsettings.h>
+#include <kcolorscheme.h>
 #include <kcharsets.h>
 #include <klocale.h>
 #include <kfinddialog.h>
@@ -1146,14 +1147,18 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
 
   KConfigGroup config = KateGlobal::self()->schemaManager()->schema(KateGlobal::self()->schemaManager()->number(schema));
 
-  QColor tmp0 (KGlobalSettings::baseColor());
-  QColor tmp1 (KGlobalSettings::highlightColor());
-  QColor tmp2 (KGlobalSettings::alternateBackgroundColor());
-  QColor tmp3 ( "#FFFF99" );
-  QColor tmp4 (tmp2.dark());
-  QColor tmp5 ( KGlobalSettings::inactiveTextColor().lighter(50) );
-  QColor tmp6 ( "#EAE9E8" );
-  QColor tmp7 ( "#000000" );
+  // NOTE keep in sync with KateSchemaConfigColorTab::schemaChanged
+  KColorScheme schemeView(KColorScheme::View);
+  KColorScheme schemeWindow(KColorScheme::Window);
+  KColorScheme schemeSelection(KColorScheme::Selection);
+  QColor tmp0( schemeView.background().color() );
+  QColor tmp1( schemeSelection.background().color() );
+  QColor tmp2( schemeView.background(KColorScheme::AlternateBackground).color() );
+  QColor tmp3( schemeView.shade(KColorScheme::LightShade) );
+  QColor tmp4( schemeView.shade(KColorScheme::MidShade) );
+  QColor tmp5( schemeView.shade(KColorScheme::MidlightShade) );
+  QColor tmp6( schemeWindow.background().color() );
+  QColor tmp7( schemeWindow.foreground().color() );
 
   m_backgroundColor = config.readEntry("Color Background", tmp0);
   m_backgroundColorSet = true;

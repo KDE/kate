@@ -31,6 +31,7 @@
 
 #include "ui_schemaconfigcolortab.h"
 
+#include <kcolorscheme.h>
 #include <klocale.h>
 #include <kdialog.h>
 #include <kcolorbutton.h>
@@ -122,7 +123,7 @@ KConfigGroup KateSchemaManager::schema (uint number)
 
 void KateSchemaManager::addSchema (const QString &t)
 {
-  m_config.group(t).writeEntry("Color Background", KGlobalSettings::baseColor());
+  m_config.group(t).writeEntry("Color Background", KColorScheme(KColorScheme::View).background().color());
 
   update (false);
 }
@@ -257,14 +258,18 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
   if ( ! m_schemas.contains( newSchema ) )
   {
     // fallback defaults
-    QColor tmp0 (KGlobalSettings::baseColor());
-    QColor tmp1 (KGlobalSettings::highlightColor());
-    QColor tmp2 (KGlobalSettings::alternateBackgroundColor());
-    QColor tmp3 ( "#FFFF99" );
-    QColor tmp4 (tmp2.dark());
-    QColor tmp5 ( KGlobalSettings::inactiveTextColor().lighter(50) );
-    QColor tmp6 ( "#EAE9E8" );
-    QColor tmp7 ( "#000000" );
+    // NOTE keep in sync with KateRendererConfig::setSchemaInternal
+    KColorScheme schemeView(KColorScheme::View);
+    KColorScheme schemeWindow(KColorScheme::Window);
+    KColorScheme schemeSelection(KColorScheme::Selection);
+    QColor tmp0( schemeView.background().color() );
+    QColor tmp1( schemeSelection.background().color() );
+    QColor tmp2( schemeView.background(KColorScheme::AlternateBackground).color() );
+    QColor tmp3( schemeView.shade(KColorScheme::LightShade) );
+    QColor tmp4( schemeView.shade(KColorScheme::MidShade) );
+    QColor tmp5( schemeView.shade(KColorScheme::MidlightShade) );
+    QColor tmp6( schemeWindow.background().color() );
+    QColor tmp7( schemeWindow.foreground().color() );
 
     // same std colors like in KateDocument::markColor
     QVector <QColor> mark(KTextEditor::MarkInterface::reservedMarkersCount());
@@ -339,6 +344,9 @@ void KateSchemaConfigColorTab::apply ()
     kDebug(13030)<<"Using config group "<<config.group()<<endl;
     SchemaColors c = it.value();
 
+    // TODO - don't save if using defaults, so that changing the color scheme
+    // lets colors track the new scheme if they haven't been customized
+    // Although, KColorScheme should handle this eventually...
     config.writeEntry("Color Background", c.back);
     config.writeEntry("Color Selection", c.selected);
     config.writeEntry("Color Highlighted Line", c.current);
@@ -485,11 +493,11 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
 
   // set colors
   QPalette p ( m_defaultStyles->palette() );
-  QColor _c ( KGlobalSettings::baseColor() );
+  QColor _c ( KColorScheme(KColorScheme::View).background().color() );
   p.setColor( QPalette::Base,
     KateGlobal::self()->schemaManager()->schema(schema).
       readEntry( "Color Background", _c ) );
-  _c = KGlobalSettings::highlightColor();
+  _c = KColorScheme(KColorScheme::Selection).background().color();
   p.setColor( QPalette::Highlight,
     KateGlobal::self()->schemaManager()->schema(schema).
       readEntry( "Color Selection", _c ) );
@@ -613,11 +621,11 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   // TODO this reads of the KConfig object, which should be changed when
   // the color tab is fixed.
   QPalette p ( m_styles->palette() );
-  QColor _c ( KGlobalSettings::baseColor() );
+  QColor _c ( KColorScheme(KColorScheme::View).background().color() );
   p.setColor( QPalette::Base,
     KateGlobal::self()->schemaManager()->schema(m_schema).
       readEntry( "Color Background", _c ) );
-  _c = KGlobalSettings::highlightColor();
+  _c = KColorScheme(KColorScheme::Selection).background().color();
   p.setColor( QPalette::Highlight,
     KateGlobal::self()->schemaManager()->schema(m_schema).
       readEntry( "Color Selection", _c ) );

@@ -718,7 +718,7 @@ void KateBuffer::updatePreviousNotEmptyLine(int current_line,bool addindent,int 
   while ( (foldingList.size()>0)  && ( abs(foldingList[foldingList.size()-2])==1)) {
     foldingList.resize(foldingList.size()-2);
   }
-  addIndentBasedFoldingInformation(foldingList,addindent,deindent);
+  addIndentBasedFoldingInformation(foldingList,textLine->length(),addindent,deindent);
   textLine->setFoldingList(foldingList);
 
   bool retVal_folding = false;
@@ -727,7 +727,7 @@ void KateBuffer::updatePreviousNotEmptyLine(int current_line,bool addindent,int 
   emit tagLines (current_line, current_line);
 }
 
-void KateBuffer::addIndentBasedFoldingInformation(QVector<int> &foldingList,bool addindent,int deindent)
+void KateBuffer::addIndentBasedFoldingInformation(QVector<int> &foldingList,int linelength,bool addindent,int deindent)
 {
   if (addindent) {
     //kDebug(13020)<<"adding indent for line :"<<current_line + buf->startLine()<<"  textLine->noIndentBasedFoldingAtStart"<<textLine->noIndentBasedFoldingAtStart()<<endl;
@@ -739,13 +739,20 @@ void KateBuffer::addIndentBasedFoldingInformation(QVector<int> &foldingList,bool
   kDebug(13020)<<"DEINDENT: "<<deindent<<endl;
   if (deindent > 0)
   {
-    foldingList.resize (foldingList.size() + (deindent*2));
+    //foldingList.resize (foldingList.size() + (deindent*2));
 
-    for (int z= foldingList.size()-(deindent*2); z < foldingList.size(); z=z+2)
+    //Make the whole last line marked as still belonging to the block
+    for (int z=0;z<deindent;z++) {
+      //FIXME: Not sure if this is really a performance problem
+      foldingList.prepend(linelength+1);
+      foldingList.prepend(-1);
+    }
+
+/*    for (int z= foldingList.size()-(deindent*2); z < foldingList.size(); z=z+2)
     {
       foldingList[z] = -1;
       foldingList[z+1] = 0;
-    }
+    }*/
   }
 }
 
@@ -972,7 +979,7 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
             }
             else
             {
-              addIndentBasedFoldingInformation(foldingList,addindent,deindent);
+              addIndentBasedFoldingInformation(foldingList,textLine->length(),addindent,deindent);
             }
           }
         }

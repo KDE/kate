@@ -209,7 +209,7 @@ class KateBuffer : public QObject
     void removeLine(int i);
   
   private:
-     inline void addIndentBasedFoldingInformation(QVector<int> &foldingList,bool addindent,int deindent);
+     inline void addIndentBasedFoldingInformation(QVector<int> &foldingList,int linelength,bool addindent,int deindent);
      inline void updatePreviousNotEmptyLine(int current_line,bool addindent,int deindent);
 
   public:

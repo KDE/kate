@@ -45,13 +45,17 @@
 #include "katecompletiontree.h"
 #include "katecompletionconfig.h"
 
+//#include "modeltest.h"
+
 KateCompletionWidget::KateCompletionWidget(KateView* parent)
-  : QFrame(parent, Qt::ToolTip)
+  : QFrame(parent, Qt::Tool | Qt::FramelessWindowHint)
   , m_presentationModel(new KateCompletionModel(this))
   , m_completionRange(0L)
   , m_automaticInvocation(false)
   , m_filterInstalled(false)
 {
+  //new ModelTest(m_presentationModel, this);
+
   setFrameStyle( QFrame::Box | QFrame::Plain );
   setLineWidth( 1 );
   //setWindowOpacity(0.8);
@@ -103,8 +107,8 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   vl->setMargin(0);
 
   // Keep branches expanded
-  connect(m_presentationModel, SIGNAL(modelReset()), SLOT(modelReset()));
-  connect(m_presentationModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)), m_entryList, SLOT(expand(const QModelIndex&)));
+  connect(m_presentationModel, SIGNAL(modelReset()), this, SLOT(modelReset()), Qt::QueuedConnection);
+  connect(m_presentationModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(rowsInserted(const QModelIndex&, int, int)));
 
   connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(cursorPositionChanged()));
   connect(view()->doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(editDone(KateEditInfo*)));
@@ -113,6 +117,12 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   setFocusPolicy(Qt::NoFocus);
   foreach (QWidget* childWidget, findChildren<QWidget*>())
     childWidget->setFocusPolicy(Qt::NoFocus);
+}
+
+void KateCompletionWidget::rowsInserted(const QModelIndex& parent, int rowFrom, int rowEnd)
+{
+  for (int i = rowFrom; i <= rowEnd; ++i)
+    m_entryList->expand(m_presentationModel->index(i, 0, parent));
 }
 
 KateView * KateCompletionWidget::view( ) const
@@ -141,7 +151,7 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   m_completionRange = view()->doc()->smartManager()->newSmartRange(word);
   m_completionRange->setInsertBehavior(KTextEditor::SmartRange::ExpandRight);
 
-  connect(m_completionRange->smartStart().notifier(), SIGNAL(characterDeleted(KTextEditor::SmartCursor*, bool)), SLOT(startCharactedDeleted(KTextEditor::SmartCursor*, bool)));
+  connect(m_completionRange->smartStart().notifier(), SIGNAL(characterDeleted(KTextEditor::SmartCursor*, bool)), SLOT(startCharacterDeleted(KTextEditor::SmartCursor*, bool)));
 
   cursorPositionChanged();
 
@@ -150,7 +160,7 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   else
     m_presentationModel->setCompletionModels(m_sourceModels);
 
-  updatePosition();
+  updatePosition(true);
 
   if (!m_presentationModel->completionModels().isEmpty()) {
     show();
@@ -162,9 +172,9 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   }
 }
 
-void KateCompletionWidget::updatePosition( )
+void KateCompletionWidget::updatePosition(bool force)
 {
-  if (!isCompletionActive())
+  if (!force && !isCompletionActive())
     return;
 
   QPoint cursorPosition = view()->cursorToCoordinate(m_completionRange->start());
@@ -236,6 +246,8 @@ void KateCompletionWidget::abortCompletion( )
 
 void KateCompletionWidget::execute()
 {
+  kDebug(13035) << k_funcinfo << endl;
+
   if (!isCompletionActive())
     return;
 
@@ -285,7 +297,7 @@ void KateCompletionWidget::modelReset( )
   m_entryList->expandAll();
 }
 
-void KateCompletionWidget::startCharactedDeleted( KTextEditor::SmartCursor*, bool deletedBefore )
+void KateCompletionWidget::startCharacterDeleted( KTextEditor::SmartCursor*, bool deletedBefore )
 {
   if (deletedBefore)
     // Cannot abort completion from this function, or the cursor will be deleted before returning

@@ -70,7 +70,7 @@ class KateCompletionWidget : public QFrame
     void top();
     void bottom();
 
-    void updatePosition();
+    void updatePosition(bool force = false);
 
     virtual bool eventFilter( QObject * watched, QEvent * event );
 
@@ -86,7 +86,8 @@ class KateCompletionWidget : public QFrame
     void cursorPositionChanged();
     void editDone(KateEditInfo* edit);
     void modelReset();
-    void startCharactedDeleted(KTextEditor::SmartCursor* cursor, bool deletedBefore);
+    void startCharacterDeleted(KTextEditor::SmartCursor* cursor, bool deletedBefore);
+    void rowsInserted(const QModelIndex& parent, int row, int rowEnd);
 
   private:
     KTextEditor::Range determineRange() const;

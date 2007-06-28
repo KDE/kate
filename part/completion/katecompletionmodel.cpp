@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2005-2006 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2005-2007 Hamish Rodda <rodda@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -31,7 +31,6 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   : QAbstractItemModel(parent)
   , m_matchCaseSensitivity(Qt::CaseInsensitive)
   , m_ungrouped(new Group(this))
-  , m_ungroupedDisplayed(false)
   , m_sortingEnabled(false)
   , m_sortingAlphabetical(false)
   , m_sortingCaseSensitivity(Qt::CaseInsensitive)
@@ -49,6 +48,8 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
 {
   m_ungrouped->attribute = 0;
   m_ungrouped->title = i18n("Other");
+  m_emptyGroups.append(m_ungrouped);
+  m_groupHash.insert(0, m_ungrouped);
 }
 
 QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
@@ -126,7 +127,7 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
 
 Qt::ItemFlags KateCompletionModel::flags( const QModelIndex & index ) const
 {
-  if (!hasCompletionModel())
+  if (!hasCompletionModel() || !index.isValid())
     return 0;
 
   if (!hasGroups() || groupOfParent(index))
@@ -164,8 +165,11 @@ bool KateCompletionModel::hasChildren( const QModelIndex & parent ) const
     if (hasGroups())
       return true;
 
-    return m_ungrouped->rows.count();
+    return !m_ungrouped->rows.isEmpty();
   }
+
+  if (parent.column() != 0)
+    return false;
 
   if (!hasGroups())
     return false;
@@ -181,8 +185,14 @@ QModelIndex KateCompletionModel::index( int row, int column, const QModelIndex &
   if (row < 0 || column < 0 || column >= columnCount(QModelIndex()))
     return QModelIndex();
 
-  if (parent.isValid()) {
+  if (parent.isValid() || !hasGroups()) {
+    if (parent.isValid() && parent.column() != 0)
+      return QModelIndex();
+
     Group* g = groupForIndex(parent);
+
+    if (!g)
+      return QModelIndex();
 
     if (row >= g->rows.count()) {
       //kWarning() << k_funcinfo << "Invalid index requested: row " << row << " beyond indivdual range in group " << g << endl;
@@ -202,10 +212,13 @@ QModelIndex KateCompletionModel::index( int row, int column, const QModelIndex &
   return createIndex(row, column, 0);
 }
 
-QModelIndex KateCompletionModel::sibling( int row, int column, const QModelIndex & index ) const
+/*QModelIndex KateCompletionModel::sibling( int row, int column, const QModelIndex & index ) const
 {
-  if (!index.isValid() || row < 0 || column < 0 || column >= columnCount(QModelIndex()))
+  if (row < 0 || column < 0 || column >= columnCount(QModelIndex()))
     return QModelIndex();
+
+  if (!index.isValid()) {
+  }
 
   if (Group* g = groupOfParent(index)) {
     if (row >= g->rows.count())
@@ -220,15 +233,18 @@ QModelIndex KateCompletionModel::sibling( int row, int column, const QModelIndex
   if (row >= m_ungrouped->rows.count())
     return QModelIndex();
 
-  return createIndex(row, column, 0);
-}
+  return createIndex(row, column, m_ungrouped);
+}*/
 
 bool KateCompletionModel::hasIndex( int row, int column, const QModelIndex & parent ) const
 {
   if (row < 0 || column < 0 || column >= columnCount(QModelIndex()))
     return false;
 
-  if (parent.isValid()) {
+  if (parent.isValid() || !hasGroups()) {
+    if (parent.isValid() && parent.column() != 0)
+      return false;
+
     Group* g = groupForIndex(parent);
 
     if (row >= g->rows.count())
@@ -253,7 +269,7 @@ QModelIndex KateCompletionModel::indexForRow( Group * g, int row ) const
 
 QModelIndex KateCompletionModel::indexForGroup( Group * g ) const
 {
-  if (g == m_ungrouped)
+  if (!hasGroups())
     return QModelIndex();
 
   int row = m_rowTable.indexOf(g);
@@ -266,24 +282,22 @@ QModelIndex KateCompletionModel::indexForGroup( Group * g ) const
 
 void KateCompletionModel::clearGroups( )
 {
-  if (m_ungroupedDisplayed) {
-    m_ungrouped->clear();
-    if (!m_ungrouped->isEmpty)
-      m_rowTable.removeAll(m_ungrouped);
-    else
-      m_emptyGroups.removeAll(m_ungrouped);
-    m_ungroupedDisplayed = false;
-    m_ungrouped->isEmpty = false;
-  }
+  m_ungrouped->clear();
+  // Don't bother trying to work out where it is
+  m_rowTable.removeAll(m_ungrouped);
+  m_emptyGroups.removeAll(m_ungrouped);
 
   qDeleteAll(m_rowTable);
   qDeleteAll(m_emptyGroups);
   m_rowTable.clear();
   m_emptyGroups.clear();
   m_groupHash.clear();
+
+  m_emptyGroups.append(m_ungrouped);
+  m_groupHash.insert(0, m_ungrouped);
 }
 
-void KateCompletionModel::createGroups( )
+void KateCompletionModel::createGroups()
 {
   clearGroups();
 
@@ -300,12 +314,13 @@ void KateCompletionModel::createGroups( )
     }
 
   resort();
+  reset();
 }
 
 KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, const QString& scope )
 {
   if (!groupingMethod())
-    return ungrouped();
+    return m_ungrouped;
 
   int groupingAttribute = groupingAttributes(attribute);
   //kDebug() << attribute << " " << groupingAttribute << endl;
@@ -392,7 +407,7 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
     ret->title.append(it);
   }
 
-  m_rowTable.append(ret);
+  m_emptyGroups.append(ret);
   m_groupHash.insert(groupingAttribute, ret);
 
   return ret;
@@ -400,16 +415,16 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
 
 bool KateCompletionModel::hasGroups( ) const
 {
-  return m_rowTable.count();
+  return m_groupingEnabled;
 }
 
 KateCompletionModel::Group* KateCompletionModel::groupForIndex( const QModelIndex & index ) const
 {
   if (!index.isValid())
-    return 0L;
-
-  if (!hasGroups())
-    return m_ungrouped;
+    if (!hasGroups())
+      return m_ungrouped;
+    else
+      return 0L;
 
   if (groupOfParent(index))
     return 0L;
@@ -420,7 +435,7 @@ KateCompletionModel::Group* KateCompletionModel::groupForIndex( const QModelInde
   return m_rowTable[index.row()];
 }
 
-QMap< int, QVariant > KateCompletionModel::itemData( const QModelIndex & index ) const
+/*QMap< int, QVariant > KateCompletionModel::itemData( const QModelIndex & index ) const
 {
   if (!hasGroups() || groupOfParent(index)) {
     QModelIndex index = mapToSource(index);
@@ -429,7 +444,7 @@ QMap< int, QVariant > KateCompletionModel::itemData( const QModelIndex & index )
   }
 
   return QAbstractItemModel::itemData(index);
-}
+}*/
 
 QModelIndex KateCompletionModel::parent( const QModelIndex & index ) const
 {
@@ -437,7 +452,13 @@ QModelIndex KateCompletionModel::parent( const QModelIndex & index ) const
     return QModelIndex();
 
   if (Group* g = groupOfParent(index)) {
+    if (!hasGroups()) {
+      Q_ASSERT(g == m_ungrouped);
+      return QModelIndex();
+    }
+
     int row = m_rowTable.indexOf(g);
+    Q_ASSERT(row != -1);
     return createIndex(row, 0, 0);
   }
 
@@ -456,6 +477,11 @@ int KateCompletionModel::rowCount( const QModelIndex & parent ) const
     }
 
   Group* g = groupForIndex(parent);
+
+  // This is not an error, seems you don't have to check hasChildren()
+  if (!g)
+    return 0;
+
   //kDebug() << k_funcinfo << "Returning row count for group " << g << " as " << g->rows.count() << endl;
   return g->rows.count();
 }
@@ -524,7 +550,7 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
     changeType = Narrow;
   }
 
-  //kDebug() << k_funcinfo << "Old match: " << m_currentMatch << ", new: " << completion << ", type: " << changeType << endl;
+  kDebug() << k_funcinfo << "Old match: " << m_currentMatch << ", new: " << completion << ", type: " << changeType << endl;
 
   if (!hasGroups())
     changeCompletions(m_ungrouped, completion, changeType);
@@ -541,14 +567,17 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
 #define COMPLETE_DELETE \
   if (rowDeleteStart != -1) { \
     if (!g->isEmpty) \
-      deleteRows(g, filtered, index - rowDeleteStart + 1, rowDeleteStart); \
+      deleteRows(g, filtered, index - rowDeleteStart, rowDeleteStart); \
+    filterIndex -= index - rowDeleteStart + 1; \
+    index -= index - rowDeleteStart; \
     rowDeleteStart = -1; \
   }
 
 #define COMPLETE_ADD \
   if (rowAddStart != -1) { \
-    if (!g->isEmpty) \
-      addRows(g, filtered, rowAddStart, rowAdd); \
+    addRows(g, filtered, rowAddStart, rowAdd); \
+    filterIndex += rowAdd.count(); \
+    index += rowAdd.count(); \
     rowAddStart = -1; \
     rowAdd.clear(); \
   }
@@ -563,6 +592,7 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
   QList<ModelRow> rowAdd;
 
   int index = 0;
+  int filterIndex = 0;
   while (prefilter.hasNext()) {
     if (filtered.hasNext()) {
       if (filtered.peekNext() == prefilter.peekNext().sourceRow()) {
@@ -587,6 +617,7 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
         }
 
         // Advance iterator - item matched
+        ++filterIndex;
         filtered.next();
 
       } else {
@@ -597,7 +628,7 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
             COMPLETE_DELETE
 
             if (rowAddStart == -1)
-              rowAddStart = index;
+              rowAddStart = filterIndex;
 
             rowAdd.append(prefilter.peekNext().sourceRow());
 
@@ -621,7 +652,7 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
           COMPLETE_DELETE
 
           if (rowAddStart == -1)
-            rowAddStart = index;
+            rowAddStart = filterIndex;
 
           rowAdd.append(prefilter.peekNext().sourceRow());
 
@@ -637,12 +668,12 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
       }
     }
 
-    COMPLETE_DELETE
-    COMPLETE_ADD
-
     ++index;
     prefilter.next();
   }
+
+  COMPLETE_DELETE
+  COMPLETE_ADD
 
   hideOrShowGroup(g);
 }
@@ -655,9 +686,11 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
       g->isEmpty = true;
       int row = m_rowTable.indexOf(g);
       if (row != -1) {
-        beginRemoveRows(QModelIndex(), row, row);
+        if (hasGroups())
+          beginRemoveRows(QModelIndex(), row, row);
         m_rowTable.removeAt(row);
-        endRemoveRows();
+        if (hasGroups())
+          endRemoveRows();
         m_emptyGroups.append(g);
       } else {
         kWarning() << k_funcinfo << "Group " << g << " not found in row table!!" << endl;
@@ -670,25 +703,39 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
       // FIXME insert into correctly sorted location
       g->isEmpty = false;
       int row = m_rowTable.count();
-      beginInsertRows(QModelIndex(), row, row);
+      if (hasGroups())
+        beginInsertRows(QModelIndex(), row, row);
       m_rowTable.append(g);
-      endInsertRows();
+      if (hasGroups())
+        endInsertRows();
       m_emptyGroups.removeAll(g);
 
       // Cheating a bit here... we already display these rows
-      beginInsertRows(indexForGroup(g), 0, g->rows.count() - 1);
-      endInsertRows();
+      //beginInsertRows(indexForGroup(g), 0, g->rows.count() - 1);
+      //endInsertRows();
     }
   }
 }
 
 void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<ModelRow> & filtered, int countBackwards, int startRow )
 {
-  beginRemoveRows(indexForGroup(g), startRow, startRow + countBackwards - 1);
+  QModelIndex groupIndex = indexForGroup(g);
+  Q_ASSERT(!hasGroups() || groupIndex.isValid());
+
+  beginRemoveRows(groupIndex, startRow, startRow + countBackwards - 1);
 
   for (int i = 0; i < countBackwards; ++i) {
-    filtered.previous();
     filtered.remove();
+
+    if (i == countBackwards - 1)
+      break;
+
+    if (!filtered.hasPrevious()) {
+      kWarning() << k_funcinfo << "Tried to move back too far!" << endl;
+      break;
+    }
+
+    filtered.previous();
   }
 
   endRemoveRows();
@@ -697,12 +744,21 @@ void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<ModelRow> &
 
 void KateCompletionModel::addRows( Group * g, QMutableListIterator<ModelRow> & filtered, int startRow, const QList<ModelRow> & newItems )
 {
-  beginInsertRows(indexForGroup(g), startRow, startRow + newItems.count() - 1);
+  bool notify = true;
+
+  QModelIndex groupIndex = indexForGroup(g);
+  if (hasGroups() && !groupIndex.isValid())
+    // Group is currently hidden... don't emit begin/endInsertRows.
+    notify = false;
+
+  if (notify)
+    beginInsertRows(groupIndex, startRow, startRow + newItems.count() - 1);
 
   for (int i = 0; i < newItems.count(); ++i)
     filtered.insert(newItems[i]);
 
-  endInsertRows();
+  if (notify)
+    endInsertRows();
 }
 
 bool KateCompletionModel::indexIsCompletion( const QModelIndex & index ) const
@@ -726,18 +782,7 @@ void KateCompletionModel::slotRowsRemoved( const QModelIndex & /*parent*/, int /
 
 bool KateCompletionModel::hasCompletionModel( ) const
 {
-  return m_completionModels.size() > 0;
-}
-
-KateCompletionModel::Group * KateCompletionModel::ungrouped( )
-{
-  if (!m_ungroupedDisplayed) {
-    beginInsertRows(QModelIndex(), m_rowTable.count(), m_rowTable.count());
-    m_rowTable.append(m_ungrouped);
-    m_ungroupedDisplayed = true;
-  }
-
-  return m_ungrouped;
+  return !m_completionModels.isEmpty();
 }
 
 void KateCompletionModel::setFilteringEnabled( bool enable )
@@ -1043,7 +1088,7 @@ void KateCompletionModel::Group::addItem( Item i )
 
 KateCompletionModel::Group::Group( KateCompletionModel * m )
   : model(m)
-  , isEmpty(false)
+  , isEmpty(true)
 {
   Q_ASSERT(model);
 }
@@ -1093,9 +1138,6 @@ void KateCompletionModel::resort( )
 
   foreach (Group* g, m_emptyGroups)
     g->resort();
-
-  if (m_ungrouped && m_ungroupedDisplayed)
-    m_ungrouped->resort();
 }
 
 bool KateCompletionModel::Item::isValid( ) const
@@ -1107,6 +1149,7 @@ void KateCompletionModel::Group::clear( )
 {
   prefilter.clear();
   rows.clear();
+  isEmpty = true;
 }
 
 bool KateCompletionModel::filterContextMatchesOnly( ) const
@@ -1163,8 +1206,7 @@ void KateCompletionModel::setMaximumInheritanceDepth( int maxDepth )
 
 void KateCompletionModel::refilter( )
 {
-  if (m_ungrouped && m_ungroupedDisplayed)
-    m_ungrouped->refilter();
+  m_ungrouped->refilter();
 
   foreach (Group* g, m_rowTable)
     g->refilter();
@@ -1340,14 +1382,13 @@ void KateCompletionModel::addCompletionModel(KTextEditor::CodeCompletionModel * 
   connect(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(slotRowsInserted(const QModelIndex&, int, int)));
   connect(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT(slotRowsRemoved(const QModelIndex&, int, int)));
 
+  // This performs the reset
   createGroups();
-
-  reset();
 }
 
 void KateCompletionModel::setCompletionModel(KTextEditor::CodeCompletionModel* model)
 {
-  clearCompletionModels();
+  clearCompletionModels(true);
   addCompletionModel(model);
 }
 
@@ -1356,7 +1397,7 @@ void KateCompletionModel::setCompletionModels(const QList<KTextEditor::CodeCompl
   if (m_completionModels == models)
     return;
 
-  clearCompletionModels();
+  clearCompletionModels(true);
 
   m_completionModels = models;
 
@@ -1365,8 +1406,8 @@ void KateCompletionModel::setCompletionModels(const QList<KTextEditor::CodeCompl
     connect(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT(slotRowsRemoved(const QModelIndex&, int, int)));
   }
 
+  // This performs the reset
   createGroups();
-  reset();
 }
 
 QList< KTextEditor::CodeCompletionModel * > KateCompletionModel::completionModels() const
@@ -1391,7 +1432,7 @@ void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
   reset();
 }
 
-void KateCompletionModel::clearCompletionModels()
+void KateCompletionModel::clearCompletionModels(bool skipReset)
 {
   foreach (CodeCompletionModel * model, m_completionModels)
     model->disconnect(this);
@@ -1399,7 +1440,9 @@ void KateCompletionModel::clearCompletionModels()
   m_completionModels.clear();
 
   clearGroups();
-  reset();
+
+  if (!skipReset)
+    reset();
 }
 
 #include "katecompletionmodel.moc"

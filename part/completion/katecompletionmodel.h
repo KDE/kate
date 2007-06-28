@@ -43,7 +43,7 @@ class KateCompletionModel : public QAbstractItemModel
     KateCompletionModel(KateCompletionWidget* parent = 0L);
 
     QList<KTextEditor::CodeCompletionModel*> completionModels() const;
-    void clearCompletionModels();
+    void clearCompletionModels(bool skipReset = false);
     void addCompletionModel(KTextEditor::CodeCompletionModel* model);
     void setCompletionModel(KTextEditor::CodeCompletionModel* model);
     void setCompletionModels(const QList<KTextEditor::CodeCompletionModel*>& models);
@@ -71,10 +71,13 @@ class KateCompletionModel : public QAbstractItemModel
     virtual bool hasIndex ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
     virtual QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
 
-    virtual QMap<int, QVariant> itemData ( const QModelIndex & index ) const;
+    // Disabled in case of bugs, reenable once fully debugged.
+    //virtual QMap<int, QVariant> itemData ( const QModelIndex & index ) const;
     virtual QModelIndex parent ( const QModelIndex & index ) const;
     virtual int rowCount ( const QModelIndex & parent = QModelIndex() ) const;
-    virtual QModelIndex sibling ( int row, int column, const QModelIndex & index ) const;
+
+    // Disabled in case of bugs, reenable once fully debugged.
+    //virtual QModelIndex sibling ( int row, int column, const QModelIndex & index ) const;
     virtual void sort ( int column, Qt::SortOrder order = Qt::AscendingOrder );
 
     virtual QModelIndex mapToSource(const QModelIndex &proxyIndex) const;
@@ -137,6 +140,9 @@ class KateCompletionModel : public QAbstractItemModel
 
     const QList< QList<int> >& columnMerges() const;
     void setColumnMerges(const QList< QList<int> >& columnMerges);
+
+  Q_SIGNALS:
+    void expandIndex(const QModelIndex& index);
 
   public Q_SLOTS:
     void setSortingEnabled(bool enable);
@@ -206,7 +212,6 @@ class KateCompletionModel : public QAbstractItemModel
     void createGroups();
     void clearGroups();
     void hideOrShowGroup(Group* g);
-    Group* ungrouped();
     Group* fetchGroup(int attribute, const QString& scope = QString());
     Group* groupForIndex(const QModelIndex& index) const;
     inline Group* groupOfParent(const QModelIndex& child) const { return static_cast<Group*>(child.internalPointer()); }
@@ -243,7 +248,6 @@ class KateCompletionModel : public QAbstractItemModel
     QList< QList<int> > m_columnMerges;
 
     Group* m_ungrouped;
-    bool m_ungroupedDisplayed;
 
     // Storing the sorted order
     QList<Group*> m_rowTable;

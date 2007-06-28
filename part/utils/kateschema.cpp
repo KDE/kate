@@ -493,7 +493,8 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
 
   // set colors
   QPalette p ( m_defaultStyles->palette() );
-  QColor _c ( KColorScheme(KColorScheme::View).background().color() );
+  KColorScheme s ( KColorScheme::View );
+  QColor _c ( s.background().color() );
   p.setColor( QPalette::Base,
     KateGlobal::self()->schemaManager()->schema(schema).
       readEntry( "Color Background", _c ) );
@@ -621,7 +622,8 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   // TODO this reads of the KConfig object, which should be changed when
   // the color tab is fixed.
   QPalette p ( m_styles->palette() );
-  QColor _c ( KColorScheme(KColorScheme::View).background().color() );
+  KColorScheme s ( KColorScheme::View );
+  QColor _c ( s.background().color() );
   p.setColor( QPalette::Base,
     KateGlobal::self()->schemaManager()->schema(m_schema).
       readEntry( "Color Background", _c ) );

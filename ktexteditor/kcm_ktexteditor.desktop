@@ -1,6 +1,5 @@
 Name=Embedded Text Editor
 Name[af]=Ingebedde Teks Redigeerder
-Name[ar]=محرر نص مدمج
 Name[be]=Унутраны тэкставы рэдактар
 Name[br]=Aozer skrid enframmet
 Name[ca]=Editor de text, encastable
@@ -65,7 +64,6 @@ Name[zh_HK]=嵌入式文字編輯器
 Name[zh_TW]=嵌入式文字編輯器
 Comment=The text editor service provides applications with a text viewer and editor. KDE applications that provide text editing facilities should use this service.
 Comment[af]=Die teks redigeerder diens verskaf programme met 'n teks aansig en redigeerder. Kde programme wat verskaf teks redigering fasiliteite moet gebruik hierdie diens.
-Comment[ar]=تقوم خدمة محرر النصوص بتزويد التطبيقات بمعاين نصوص ومحرر. يجب أن تستخدم تطبيقات كيدي التي تزود بتسهيلات تحرير النصوص هذه الخدمة.
 Comment[be]=Сервіс тэкставага рэдактара дазваляе праглядаць і рэдагаваць тэкст у праграмах. Праграмы KDE, якія выконваюць гэтыя функцыі, павінны працаваць з гэтым сервісам.
 Comment[ca]=El servei de l'editor de text proveeix d'aplicacions amb un visor i un editor de text. Les aplicacions KDE que proveeixen de facilitats d'edició haurien d'emprar aquest servei.
 Comment[cs]=Služba textového editoru poskytuje aplikacím prohlížeč a editor textu. Aplikace KDE, které umožňují editovat text, by měly používat tuto službu.

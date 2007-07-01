@@ -437,6 +437,9 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       }
     }
 
+    QBrush backgroundBrush;
+    bool backgroundBrushSet = false;
+
     // Loop each individual line for additional text decoration etc.
     QListIterator<QTextLayout::FormatRange> it = range->layout()->additionalFormats();
     QVectorIterator<QTextLayout::FormatRange> it2 = additionalFormats;
@@ -444,8 +447,9 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       KateTextLayout line = range->viewLine(i);
 
       // Determine the background to use, if any, for the end of this view line
-      QBrush backgroundBrush;
-      bool backgroundBrushSet = false;
+//       QBrush backgroundBrush;
+//       bool backgroundBrushSet = false;
+      backgroundBrushSet = false;
       while (it2.hasNext()) {
         const QTextLayout::FormatRange& fr = it2.peekNext();
         if (fr.start > line.endCol())
@@ -537,6 +541,9 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     // draw word-wrap-honor-indent filling
     if ( (range->viewLineCount() > 1)  && range->shiftX() && (range->shiftX() > xStart) )
     {
+      if (backgroundBrushSet);
+        paint.fillRect(0, fm.height(), range->shiftX() - xStart, fm.height() * (range->viewLineCount() - 1),
+          backgroundBrush);
       paint.fillRect(0, fm.height(), range->shiftX() - xStart, fm.height() * (range->viewLineCount() - 1),
         QBrush(config()->wordWrapMarkerColor(), Qt::DiagCrossPattern));
     }

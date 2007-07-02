@@ -46,9 +46,9 @@ int KateGlobal::s_ref = 0;
 
 KateGlobal::KateGlobal ()
  : KTextEditor::Editor (0)
- , m_aboutData ("katepart", I18N_NOOP("Kate Part"), KATEPART_VERSION,
-             I18N_NOOP( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
-             I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://www.kate-editor.org")
+ , m_aboutData ("katepart", 0, ki18n("Kate Part"), KATEPART_VERSION,
+             ki18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
+             ki18n( "(c) 2000-2005 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org")
  , m_componentData (&m_aboutData)
  , m_plugins (KServiceTypeTrader::self()->query("KTextEditor/Plugin"))
 {
@@ -58,38 +58,38 @@ KateGlobal::KateGlobal ()
   //
   // fill about data
   //
-  m_aboutData.addAuthor ("Christoph Cullmann", I18N_NOOP("Maintainer"), "cullmann@kde.org", "http://www.babylon2k.de");
-  m_aboutData.addAuthor ("Anders Lund", I18N_NOOP("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
-  m_aboutData.addAuthor ("Joseph Wenninger", I18N_NOOP("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
-  m_aboutData.addAuthor ("Hamish Rodda",I18N_NOOP("Core Developer"), "rodda@kde.org");
-  m_aboutData.addAuthor ("Dominik Haumann", I18N_NOOP("Developer & Highlight wizard"), "dhdev@gmx.de");
-  m_aboutData.addAuthor ("Waldo Bastian", I18N_NOOP( "The cool buffersystem" ), "bastian@kde.org" );
-  m_aboutData.addAuthor ("Charles Samuels", I18N_NOOP("The Editing Commands"), "charles@kde.org");
-  m_aboutData.addAuthor ("Matt Newell", I18N_NOOP("Testing, ..."), "newellm@proaxis.com");
-  m_aboutData.addAuthor ("Michael Bartl", I18N_NOOP("Former Core Developer"), "michael.bartl1@chello.at");
-  m_aboutData.addAuthor ("Michael McCallum", I18N_NOOP("Core Developer"), "gholam@xtra.co.nz");
-  m_aboutData.addAuthor ("Jochen Wilhemly", I18N_NOOP( "KWrite Author" ), "digisnap@cs.tu-berlin.de" );
-  m_aboutData.addAuthor ("Michael Koch",I18N_NOOP("KWrite port to KParts"), "koch@kde.org");
-  m_aboutData.addAuthor ("Christian Gebauer", 0, "gebauer@kde.org" );
-  m_aboutData.addAuthor ("Simon Hausmann", 0, "hausmann@kde.org" );
-  m_aboutData.addAuthor ("Glen Parker",I18N_NOOP("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
-  m_aboutData.addAuthor ("Scott Manson",I18N_NOOP("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
-  m_aboutData.addAuthor ("John Firebaugh",I18N_NOOP("Patches and more"), "jfirebaugh@kde.org");
-  m_aboutData.addAuthor ("Andreas Kling", I18N_NOOP("Developer"), "kling@impul.se");
+  m_aboutData.addAuthor (ki18n("Christoph Cullmann"), ki18n("Maintainer"), "cullmann@kde.org", "http://www.babylon2k.de");
+  m_aboutData.addAuthor (ki18n("Anders Lund"), ki18n("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
+  m_aboutData.addAuthor (ki18n("Joseph Wenninger"), ki18n("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
+  m_aboutData.addAuthor (ki18n("Hamish Rodda"), ki18n("Core Developer"), "rodda@kde.org");
+  m_aboutData.addAuthor (ki18n("Dominik Haumann"), ki18n("Developer & Highlight wizard"), "dhdev@gmx.de");
+  m_aboutData.addAuthor (ki18n("Waldo Bastian"), ki18n( "The cool buffersystem" ), "bastian@kde.org" );
+  m_aboutData.addAuthor (ki18n("Charles Samuels"), ki18n("The Editing Commands"), "charles@kde.org");
+  m_aboutData.addAuthor (ki18n("Matt Newell"), ki18n("Testing, ..."), "newellm@proaxis.com");
+  m_aboutData.addAuthor (ki18n("Michael Bartl"), ki18n("Former Core Developer"), "michael.bartl1@chello.at");
+  m_aboutData.addAuthor (ki18n("Michael McCallum"), ki18n("Core Developer"), "gholam@xtra.co.nz");
+  m_aboutData.addAuthor (ki18n("Jochen Wilhemly"), ki18n( "KWrite Author" ), "digisnap@cs.tu-berlin.de" );
+  m_aboutData.addAuthor (ki18n("Michael Koch"), ki18n("KWrite port to KParts"), "koch@kde.org");
+  m_aboutData.addAuthor (ki18n("Christian Gebauer"), KLocalizedString(), "gebauer@kde.org" );
+  m_aboutData.addAuthor (ki18n("Simon Hausmann"), KLocalizedString(), "hausmann@kde.org" );
+  m_aboutData.addAuthor (ki18n("Glen Parker"), ki18n("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
+  m_aboutData.addAuthor (ki18n("Scott Manson"), ki18n("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
+  m_aboutData.addAuthor (ki18n("John Firebaugh"), ki18n("Patches and more"), "jfirebaugh@kde.org");
+  m_aboutData.addAuthor (ki18n("Andreas Kling"), ki18n("Developer"), "kling@impul.se");
 
-  m_aboutData.addCredit ("Matteo Merli",I18N_NOOP("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
-  m_aboutData.addCredit ("Rocky Scaletta",I18N_NOOP("Highlighting for VHDL"), "rocky@purdue.edu");
-  m_aboutData.addCredit ("Yury Lebedev",I18N_NOOP("Highlighting for SQL"),"");
-  m_aboutData.addCredit ("Chris Ross",I18N_NOOP("Highlighting for Ferite"),"");
-  m_aboutData.addCredit ("Nick Roux",I18N_NOOP("Highlighting for ILERPG"),"");
-  m_aboutData.addCredit ("Carsten Niehaus", I18N_NOOP("Highlighting for LaTeX"),"");
-  m_aboutData.addCredit ("Per Wigren", I18N_NOOP("Highlighting for Makefiles, Python"),"");
-  m_aboutData.addCredit ("Jan Fritz", I18N_NOOP("Highlighting for Python"),"");
-  m_aboutData.addCredit ("Daniel Naber","","");
-  m_aboutData.addCredit ("Roland Pabel",I18N_NOOP("Highlighting for Scheme"),"");
-  m_aboutData.addCredit ("Cristi Dumitrescu",I18N_NOOP("PHP Keyword/Datatype list"),"");
-  m_aboutData.addCredit ("Carsten Pfeiffer", I18N_NOOP("Very nice help"), "");
-  m_aboutData.addCredit (I18N_NOOP("All people who have contributed and I have forgotten to mention"),"","");
+  m_aboutData.addCredit (ki18n("Matteo Merli"), ki18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
+  m_aboutData.addCredit (ki18n("Rocky Scaletta"), ki18n("Highlighting for VHDL"), "rocky@purdue.edu");
+  m_aboutData.addCredit (ki18n("Yury Lebedev"), ki18n("Highlighting for SQL"),"");
+  m_aboutData.addCredit (ki18n("Chris Ross"), ki18n("Highlighting for Ferite"),"");
+  m_aboutData.addCredit (ki18n("Nick Roux"), ki18n("Highlighting for ILERPG"),"");
+  m_aboutData.addCredit (ki18n("Carsten Niehaus"), ki18n("Highlighting for LaTeX"),"");
+  m_aboutData.addCredit (ki18n("Per Wigren"), ki18n("Highlighting for Makefiles, Python"),"");
+  m_aboutData.addCredit (ki18n("Jan Fritz"), ki18n("Highlighting for Python"),"");
+  m_aboutData.addCredit (ki18n("Daniel Naber"));
+  m_aboutData.addCredit (ki18n("Roland Pabel"), ki18n("Highlighting for Scheme"),"");
+  m_aboutData.addCredit (ki18n("Cristi Dumitrescu"), ki18n("PHP Keyword/Datatype list"),"");
+  m_aboutData.addCredit (ki18n("Carsten Pfeiffer"), ki18n("Very nice help"), "");
+  m_aboutData.addCredit (ki18n("All people who have contributed and I have forgotten to mention"));
 
   m_aboutData.setTranslator(ki18nc("NAME OF TRANSLATORS","Your names"), ki18nc("EMAIL OF TRANSLATORS","Your emails"));
 

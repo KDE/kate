@@ -411,30 +411,27 @@ static QString findMostRecentFailureSnapshot() {
     return entries.isEmpty() ? QString() : dir[0].mid(sizeof failureSnapshotPrefix - 1);
 }
 
-static KCmdLineOptions options[] =
-{
-    { "b", 0, 0 },
-    { "base <base_dir>", "Directory containing tests, basedir and output directories.", 0},
-    { "cmp-failures <snapshot>", "Compare failures of this testrun against snapshot <snapshot>. Defaults to the most recently captured failure snapshot or none if none exists.", 0 },
-    { "d", 0, 0 },
-    { "debug", "Do not suppress debug output", 0},
-    { "g", 0, 0 } ,
-    { "genoutput", "Regenerate baseline (instead of checking)", 0 } ,
-    { "keep-output", "Keep output files even on success", 0 },
-    { "save-failures <snapshot>", "Save failures of this testrun as failure snapshot <snapshot>", 0 },
-    { "s", 0, 0 } ,
-    { "show", "Show the window while running tests", 0 } ,
-    { "t", 0, 0 } ,
-    { "test <filename>", "Only run a single test. Multiple options allowed.", 0 } ,
-    { "o", 0, 0 },
-    { "output <directory>", "Put output in <directory> instead of <base_dir>/output", 0 } ,
-    { "+[base_dir]", "Directory containing tests,basedir and output directories. Only regarded if -b is not specified.", 0 } ,
-    { "+[testcases]", "Relative path to testcase, or directory of testcases to be run (equivalent to -t).", 0 } ,
-    KCmdLineLastOption
-};
-
 int main(int argc, char *argv[])
 {
+    KCmdLineOptions options;
+    options.add("b");
+    options.add("base <base_dir>", ki18n("Directory containing tests, basedir and output directories."));
+    options.add("cmp-failures <snapshot>", ki18n("Compare failures of this testrun against snapshot <snapshot>. Defaults to the most recently captured failure snapshot or none if none exists."));
+    options.add("d");
+    options.add("debug", ki18n("Do not suppress debug output"));
+    options.add("g");
+    options.add("genoutput", ki18n("Regenerate baseline (instead of checking)"));
+    options.add("keep-output", ki18n("Keep output files even on success"));
+    options.add("save-failures <snapshot>", ki18n("Save failures of this testrun as failure snapshot <snapshot>"));
+    options.add("s");
+    options.add("show", ki18n("Show the window while running tests"));
+    options.add("t");
+    options.add("test <filename>", ki18n("Only run a single test. Multiple options allowed."));
+    options.add("o");
+    options.add("output <directory>", ki18n("Put output in <directory> instead of <base_dir>/output"));
+    options.add("+[base_dir]", ki18n("Directory containing tests,basedir and output directories. Only regarded if -b is not specified."));
+    options.add("+[testcases]", ki18n("Relative path to testcase, or directory of testcases to be run (equivalent to -t)."));
+
     // forget about any settings
     passwd* pw = getpwuid( getuid() );
     if (!pw) {
@@ -450,20 +447,20 @@ int main(int argc, char *argv[])
 
 //     signal( SIGALRM, signal_handler );
 
-    KCmdLineArgs::init(argc, argv, "testregression", "TestRegression",
-                       "Regression tester for kate", "1.0");
+    KCmdLineArgs::init(argc, argv, "testregression", 0, ki18n("TestRegression"),
+                       "1.0", ki18n("Regression tester for kate"));
     KCmdLineArgs::addCmdLineOptions(options);
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs( );
 
-    QByteArray baseDir = args->getOption("base");
+    QString baseDir = args->getOption("base");
     QByteArray homeDir = ::getenv("HOME");
     QByteArray baseDirConfigFile(homeDir + QByteArray(BASE_DIR_CONFIG));
     {
         QFile baseDirConfig(baseDirConfigFile);
         if (baseDirConfig.open(QFile::ReadOnly)) {
             QTextStream bds(&baseDirConfig);
-            baseDir = bds.readLine().toLatin1();
+            baseDir = bds.readLine();
         }
     }
 
@@ -616,12 +613,12 @@ int main(int argc, char *argv[])
     }
 
     bool result = false;
-    QByteArrayList tests = args->getOptionList("test");
+    QStringList tests = args->getOptionList("test");
     // merge testcases specified on command line
     for (; testcase_index < args->count(); testcase_index++)
         tests << args->arg(testcase_index);
     if (tests.count() > 0)
-        for (QByteArrayList::ConstIterator it = tests.begin(); it != tests.end(); ++it) {
+        for (QStringList::ConstIterator it = tests.begin(); it != tests.end(); ++it) {
 	    result = regressionTest->runTests(*it,true);
             if (!result) break;
         }

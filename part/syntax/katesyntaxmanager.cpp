@@ -40,7 +40,8 @@
 #include <kmimetype.h>
 #include <klocale.h>
 #include <kmenu.h>
-#include <kglobalsettings.h>
+#include <kcolorscheme.h>
+#include <kcolorutils.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
@@ -170,80 +171,83 @@ QString KateHlManager::defaultStyleName(int n, bool translateNames)
 
 void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list)
 {
+  KColorScheme scheme(KColorScheme::View);
+  KColorScheme schemeSelected(KColorScheme::Selection);
+
   KTextEditor::Attribute::Ptr normal(new KTextEditor::Attribute());
-  normal->setForeground(Qt::black);
-  normal->setSelectedForeground(Qt::white);
+  normal->setForeground( scheme.foreground().color() );
+  normal->setSelectedForeground( schemeSelected.foreground().color() );
   list.append(normal);
 
   KTextEditor::Attribute::Ptr keyword(new KTextEditor::Attribute());
-  keyword->setForeground(Qt::black);
-  keyword->setSelectedForeground(Qt::white);
+  keyword->setForeground( scheme.foreground().color() );
+  keyword->setSelectedForeground( schemeSelected.foreground().color() );
   keyword->setFontBold(true);
   list.append(keyword);
 
   KTextEditor::Attribute::Ptr dataType(new KTextEditor::Attribute());
-  dataType->setForeground(Qt::darkRed);
-  dataType->setSelectedForeground(Qt::white);
+  dataType->setForeground( scheme.foreground(KColorScheme::LinkText).color() );
+  dataType->setSelectedForeground( schemeSelected.foreground(KColorScheme::LinkText).color() );
   list.append(dataType);
 
   KTextEditor::Attribute::Ptr decimal(new KTextEditor::Attribute());
-  decimal->setForeground(Qt::blue);
-  decimal->setSelectedForeground(Qt::cyan);
+  decimal->setForeground( scheme.foreground(KColorScheme::NeutralText).color() );
+  decimal->setSelectedForeground( schemeSelected.foreground(KColorScheme::NeutralText).color() );
   list.append(decimal);
 
   KTextEditor::Attribute::Ptr basen(new KTextEditor::Attribute());
-  basen->setForeground(Qt::darkCyan);
-  basen->setSelectedForeground(Qt::cyan);
+  basen->setForeground( scheme.foreground(KColorScheme::NeutralText).color() );
+  basen->setSelectedForeground( schemeSelected.foreground(KColorScheme::NeutralText).color() );
   list.append(basen);
 
   KTextEditor::Attribute::Ptr floatAttribute(new KTextEditor::Attribute());
-  floatAttribute->setForeground(Qt::darkMagenta);
-  floatAttribute->setSelectedForeground(Qt::cyan);
+  floatAttribute->setForeground( scheme.foreground(KColorScheme::NeutralText).color() );
+  floatAttribute->setSelectedForeground( schemeSelected.foreground(KColorScheme::NeutralText).color() );
   list.append(floatAttribute);
 
   KTextEditor::Attribute::Ptr charAttribute(new KTextEditor::Attribute());
-  charAttribute->setForeground(Qt::magenta);
-  charAttribute->setSelectedForeground(Qt::magenta);
+  charAttribute->setForeground( scheme.foreground(KColorScheme::ActiveText).color() );
+  charAttribute->setSelectedForeground( schemeSelected.foreground(KColorScheme::ActiveText).color() );
   list.append(charAttribute);
 
   KTextEditor::Attribute::Ptr string(new KTextEditor::Attribute());
-  string->setForeground(QColor::QColor("#D00"));
-  string->setSelectedForeground(Qt::red);
+  string->setForeground( scheme.foreground(KColorScheme::NegativeText).color() );
+  string->setSelectedForeground( schemeSelected.foreground(KColorScheme::NegativeText).color() );
   list.append(string);
 
   KTextEditor::Attribute::Ptr comment(new KTextEditor::Attribute());
-  comment->setForeground(Qt::darkGray);
-  comment->setSelectedForeground(Qt::gray);
+  comment->setForeground( scheme.foreground(KColorScheme::InactiveText).color() );
+  comment->setSelectedForeground( schemeSelected.foreground(KColorScheme::InactiveText).color() );
   comment->setFontItalic(true);
   list.append(comment);
 
   KTextEditor::Attribute::Ptr others(new KTextEditor::Attribute());
-  others->setForeground(Qt::darkGreen);
-  others->setSelectedForeground(Qt::green);
+  others->setForeground( scheme.foreground(KColorScheme::PositiveText).color() );
+  others->setSelectedForeground( schemeSelected.foreground(KColorScheme::PositiveText).color() );
   list.append(others);
 
   KTextEditor::Attribute::Ptr alert(new KTextEditor::Attribute());
-  alert->setForeground(Qt::black);
-  alert->setSelectedForeground( QColor::QColor("#FCC") );
+  alert->setForeground( scheme.foreground(KColorScheme::NegativeText).color() );
+  alert->setSelectedForeground( schemeSelected.foreground(KColorScheme::NegativeText).color() );
   alert->setFontBold(true);
-  alert->setBackground( QColor::QColor("#FCC") );
+  alert->setBackground( KColorUtils::tint( scheme.background().color(), scheme.foreground(KColorScheme::NegativeText).color() ) );
   list.append(alert);
 
   KTextEditor::Attribute::Ptr functionAttribute(new KTextEditor::Attribute());
-  functionAttribute->setForeground(Qt::darkBlue);
-  functionAttribute->setSelectedForeground(Qt::white);
+  functionAttribute->setForeground( scheme.foreground(KColorScheme::VisitedText).color() );
+  functionAttribute->setSelectedForeground( schemeSelected.foreground(KColorScheme::VisitedText).color() );
   list.append(functionAttribute);
 
   KTextEditor::Attribute::Ptr regionmarker(new KTextEditor::Attribute());
-  regionmarker->setForeground(Qt::white);
-  regionmarker->setBackground(Qt::gray);
-  regionmarker->setSelectedForeground(Qt::gray);
+  regionmarker->setForeground( scheme.foreground(KColorScheme::LinkText).color() );
+  regionmarker->setSelectedForeground( schemeSelected.foreground(KColorScheme::LinkText).color() );
+  regionmarker->setBackground( KColorUtils::tint( scheme.background().color(), scheme.foreground(KColorScheme::LinkText).color() ) );
   list.append(regionmarker);
 
   KTextEditor::Attribute::Ptr error(new KTextEditor::Attribute());
-  error->setForeground(Qt::red);
+  error->setForeground( scheme.foreground(KColorScheme::NegativeText) );
+  error->setSelectedForeground( schemeSelected.foreground(KColorScheme::NegativeText).color() );
   error->setFontUnderline(true);
-  error->setSelectedForeground(Qt::red);
   list.append(error);
 
   KConfigGroup config(KateHlManager::self()->self()->getKConfig(),

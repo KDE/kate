@@ -35,6 +35,7 @@
 #include <QtGui/QPainter>
 #include <QtGui/QTextLine>
 #include <QtCore/QStack>
+#include <QtGui/QBrush>
 
 static const QChar tabChar('\t');
 static const QChar spaceChar(' ');
@@ -404,6 +405,8 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 {
   Q_ASSERT(range->isValid());
 
+//   kDebug()<<"KateRenderer::paintTextLine"<<endl;
+
   // font data
   const QFontMetrics& fm = config()->fontMetrics();
 
@@ -493,8 +496,11 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
       } else if (backgroundBrushSet) {
         // Draw text background outside of areas where text is rendered.
-        QRect area(line.endX() + line.xOffset() - xStart, fm.height() * i, xEnd - xStart, fm.height() * (i + 1));
-        paint.fillRect(area, backgroundBrush);
+        QRect area(line.endX() /*+ line.xOffset()*/ - line.startX() +  (i==0?0:range->shiftX()) - xStart/*-(i*xEnd)*/, fm.height() * i, xEnd - xStart, fm.height() /** (i + 1)*/);
+        paint.fillRect(area, /*QBrush(Qt::red));*/backgroundBrush);
+//         kDebug()<<i<<":backgroundBrush:"<<backgroundBrush<<"---"<<xEnd<<"/"<<xStart<<endl;
+//         kDebug()<<line.endX()<<"---"<<line.xOffset()<<endl;
+         kDebug()<<i<<"----"<<area<<endl;
       }
 
       // Draw indent lines

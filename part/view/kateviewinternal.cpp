@@ -2704,6 +2704,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
     }
     else
     {
+      //kDebug()<<"KateViewInternal::paintEvent(QPaintEvent *e):cache()->viewLine"<<z<<endl;
       KateTextLayout& thisLine = cache()->viewLine(z);
       thisLine.setDirty(false);
 
@@ -3315,6 +3316,8 @@ void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool rea
 {
   int startLine = realCursors ? range.start().line() : toRealCursor(range.start()).line();
   int endLine = realCursors ? range.end().line() : toRealCursor(range.end()).line();
+ 
+//   kDebug()<<"KateViewInternal::relayoutRange(): startLine:"<<startLine<<" endLine:"<<endLine<<endl;
   cache()->relayoutLines(startLine, endLine);
 
 #ifndef KTEXTEDITOR_NO_SMART_THREADSAFE

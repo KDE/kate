@@ -621,58 +621,53 @@ void KWrite::modeChanged ( KTextEditor::Document *document )
   m_modeLabel->setText (document->mode());
 }
 
-static KCmdLineOptions options[] =
-{
-  { "stdin",   I18N_NOOP("Read the contents of stdin"), 0},
-  { "encoding <argument>",     I18N_NOOP("Set encoding for the file to open"), 0 },
-  { "line <argument>",     I18N_NOOP("Navigate to this line"), 0 },
-  { "column <argument>",     I18N_NOOP("Navigate to this column"), 0 },
-  { "+[URL]",  I18N_NOOP("Document to open"), 0 },
-  KCmdLineLastOption
-};
-
 extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 {
-  KLocale::setMainCatalog("kate");         //lukas: set this to have the kwritepart translated using kate message catalog
-
-  KAboutData aboutData ( "kwrite",
-                         I18N_NOOP("KWrite"),
+  KAboutData aboutData ( "kwrite", "kate",
+                         ki18n("KWrite"),
                          KDE_VERSION_STRING,
-                         I18N_NOOP( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
-                         I18N_NOOP( "(c) 2000-2005 The Kate Authors" ), 0, "http://www.kate-editor.org" );
-  aboutData.addAuthor ("Christoph Cullmann", I18N_NOOP("Maintainer"), "cullmann@kde.org", "http://www.babylon2k.de");
-  aboutData.addAuthor ("Anders Lund", I18N_NOOP("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
-  aboutData.addAuthor ("Joseph Wenninger", I18N_NOOP("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
-  aboutData.addAuthor ("Hamish Rodda",I18N_NOOP("Core Developer"), "rodda@kde.org");
-  aboutData.addAuthor ("Dominik Haumann", I18N_NOOP("Developer & Highlight wizard"), "dhdev@gmx.de");
-  aboutData.addAuthor ("Waldo Bastian", I18N_NOOP( "The cool buffersystem" ), "bastian@kde.org" );
-  aboutData.addAuthor ("Charles Samuels", I18N_NOOP("The Editing Commands"), "charles@kde.org");
-  aboutData.addAuthor ("Matt Newell", I18N_NOOP("Testing, ..."), "newellm@proaxis.com");
-  aboutData.addAuthor ("Michael Bartl", I18N_NOOP("Former Core Developer"), "michael.bartl1@chello.at");
-  aboutData.addAuthor ("Michael McCallum", I18N_NOOP("Core Developer"), "gholam@xtra.co.nz");
-  aboutData.addAuthor ("Jochen Wilhemly", I18N_NOOP( "KWrite Author" ), "digisnap@cs.tu-berlin.de" );
-  aboutData.addAuthor ("Michael Koch",I18N_NOOP("KWrite port to KParts"), "koch@kde.org");
-  aboutData.addAuthor ("Christian Gebauer", 0, "gebauer@kde.org" );
-  aboutData.addAuthor ("Simon Hausmann", 0, "hausmann@kde.org" );
-  aboutData.addAuthor ("Glen Parker",I18N_NOOP("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
-  aboutData.addAuthor ("Scott Manson",I18N_NOOP("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
-  aboutData.addAuthor ("John Firebaugh",I18N_NOOP("Patches and more"), "jfirebaugh@kde.org");
+                         ki18n( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
+                         ki18n( "(c) 2000-2005 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org" );
+  aboutData.addAuthor (ki18n("Christoph Cullmann"), ki18n("Maintainer"), "cullmann@kde.org", "http://www.babylon2k.de");
+  aboutData.addAuthor (ki18n("Anders Lund"), ki18n("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
+  aboutData.addAuthor (ki18n("Joseph Wenninger"), ki18n("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
+  aboutData.addAuthor (ki18n("Hamish Rodda"),ki18n("Core Developer"), "rodda@kde.org");
+  aboutData.addAuthor (ki18n("Dominik Haumann"), ki18n("Developer & Highlight wizard"), "dhdev@gmx.de");
+  aboutData.addAuthor (ki18n("Waldo Bastian"), ki18n( "The cool buffersystem" ), "bastian@kde.org" );
+  aboutData.addAuthor (ki18n("Charles Samuels"), ki18n("The Editing Commands"), "charles@kde.org");
+  aboutData.addAuthor (ki18n("Matt Newell"), ki18n("Testing, ..."), "newellm@proaxis.com");
+  aboutData.addAuthor (ki18n("Michael Bartl"), ki18n("Former Core Developer"), "michael.bartl1@chello.at");
+  aboutData.addAuthor (ki18n("Michael McCallum"), ki18n("Core Developer"), "gholam@xtra.co.nz");
+  aboutData.addAuthor (ki18n("Jochen Wilhemly"), ki18n( "KWrite Author" ), "digisnap@cs.tu-berlin.de" );
+  aboutData.addAuthor (ki18n("Michael Koch"),ki18n("KWrite port to KParts"), "koch@kde.org");
+  aboutData.addAuthor (ki18n("Christian Gebauer"), KLocalizedString(), "gebauer@kde.org" );
+  aboutData.addAuthor (ki18n("Simon Hausmann"), KLocalizedString(), "hausmann@kde.org" );
+  aboutData.addAuthor (ki18n("Glen Parker"),ki18n("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
+  aboutData.addAuthor (ki18n("Scott Manson"),ki18n("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
+  aboutData.addAuthor (ki18n("John Firebaugh"),ki18n("Patches and more"), "jfirebaugh@kde.org");
 
-  aboutData.addCredit ("Matteo Merli",I18N_NOOP("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
-  aboutData.addCredit ("Rocky Scaletta",I18N_NOOP("Highlighting for VHDL"), "rocky@purdue.edu");
-  aboutData.addCredit ("Yury Lebedev",I18N_NOOP("Highlighting for SQL"),"");
-  aboutData.addCredit ("Chris Ross",I18N_NOOP("Highlighting for Ferite"),"");
-  aboutData.addCredit ("Nick Roux",I18N_NOOP("Highlighting for ILERPG"),"");
-  aboutData.addCredit ("Carsten Niehaus", I18N_NOOP("Highlighting for LaTeX"),"");
-  aboutData.addCredit ("Per Wigren", I18N_NOOP("Highlighting for Makefiles, Python"),"");
-  aboutData.addCredit ("Jan Fritz", I18N_NOOP("Highlighting for Python"),"");
-  aboutData.addCredit ("Daniel Naber","","");
-  aboutData.addCredit ("Roland Pabel",I18N_NOOP("Highlighting for Scheme"),"");
-  aboutData.addCredit ("Cristi Dumitrescu",I18N_NOOP("PHP Keyword/Datatype list"),"");
-  aboutData.addCredit ("Carsten Pfeiffer", I18N_NOOP("Very nice help"), "");
-  aboutData.addCredit (I18N_NOOP("All people who have contributed and I have forgotten to mention"),"","");
+  aboutData.addCredit (ki18n("Matteo Merli"),ki18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
+  aboutData.addCredit (ki18n("Rocky Scaletta"),ki18n("Highlighting for VHDL"), "rocky@purdue.edu");
+  aboutData.addCredit (ki18n("Yury Lebedev"),ki18n("Highlighting for SQL"));
+  aboutData.addCredit (ki18n("Chris Ross"),ki18n("Highlighting for Ferite"));
+  aboutData.addCredit (ki18n("Nick Roux"),ki18n("Highlighting for ILERPG"));
+  aboutData.addCredit (ki18n("Carsten Niehaus"), ki18n("Highlighting for LaTeX"));
+  aboutData.addCredit (ki18n("Per Wigren"), ki18n("Highlighting for Makefiles, Python"));
+  aboutData.addCredit (ki18n("Jan Fritz"), ki18n("Highlighting for Python"));
+  aboutData.addCredit (ki18n("Daniel Naber"));
+  aboutData.addCredit (ki18n("Roland Pabel"),ki18n("Highlighting for Scheme"));
+  aboutData.addCredit (ki18n("Cristi Dumitrescu"),ki18n("PHP Keyword/Datatype list"));
+  aboutData.addCredit (ki18n("Carsten Pfeiffer"), ki18n("Very nice help"));
+  aboutData.addCredit (ki18n("All people who have contributed and I have forgotten to mention"));
 
   KCmdLineArgs::init( argc, argv, &aboutData );
+
+  KCmdLineOptions options;
+  options.add("stdin", ki18n("Read the contents of stdin"));
+  options.add("encoding <argument>", ki18n("Set encoding for the file to open"));
+  options.add("line <argument>", ki18n("Navigate to this line"));
+  options.add("column <argument>", ki18n("Navigate to this column"));
+  options.add("+[URL]", ki18n("Document to open"));
   KCmdLineArgs::addCmdLineOptions( options );
 
   KApplication a;
@@ -697,7 +692,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
     bool nav = false;
     int line = 0, column = 0;
 
-    QTextCodec *codec = args->isSet("encoding") ? QTextCodec::codecForName(args->getOption("encoding")) : 0;
+    QTextCodec *codec = args->isSet("encoding") ? QTextCodec::codecForName(args->getOption("encoding").toLocal8Bit()) : 0;
 
     if (args->isSet ("line"))
     {

@@ -15,6 +15,7 @@ ServiceTypes=KTextEditor/Plugin
 Type=Service
 Icon=speaker
 Name=Insert File
+Name[ca]=Inserció de fitxer
 Name[csb]=Wstôwi lopk
 Name[de]=Datei einfügen
 Name[el]=Εισαγωγή αρχείου

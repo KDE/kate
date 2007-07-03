@@ -15,6 +15,7 @@ ServiceTypes=KTextEditor/Plugin
 Type=Service
 Icon=speaker
 Name=Word Completion
+Name[ca]=Compleció de paraules
 Name[csb]=Dofùlowaniô słowów
 Name[de]=Wortkomplettierung
 Name[el]=Συμπλήρωση λέξεων

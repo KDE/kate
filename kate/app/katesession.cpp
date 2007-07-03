@@ -432,6 +432,7 @@ bool KateSessionManager::chooseSession ()
     return success;
   }
 
+  updateSessionList();
   // start with empty new session
   if (sesStart == "new" || m_sessionList.size() == 0)
   {

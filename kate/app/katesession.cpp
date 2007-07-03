@@ -432,9 +432,9 @@ bool KateSessionManager::chooseSession ()
     return success;
   }
 
-  updateSessionList();
   // start with empty new session
-  if (sesStart == "new" || m_sessionList.size() == 0)
+  // also, if no sessions exist
+  if (sesStart == "new" || sessionList().size() == 0)
   {
     activateSession (KateSession::Ptr(new KateSession (this, QString())), false, false);
     return success;

@@ -199,7 +199,7 @@ void KateCompletionWidget::updatePosition(bool force)
 void KateCompletionWidget::cursorPositionChanged( )
 {
   if (!isCompletionActive())  {
-    m_presentationModel->setCurrentCompletion(QString::null);
+    m_presentationModel->setCurrentCompletion(QString());
     return;
   }
 

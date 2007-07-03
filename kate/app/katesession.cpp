@@ -433,7 +433,7 @@ bool KateSessionManager::chooseSession ()
   }
 
   // start with empty new session
-  if (sesStart == "new")
+  if (sesStart == "new" || m_sessionList.size() == 0)
   {
     activateSession (KateSession::Ptr(new KateSession (this, QString())), false, false);
     return success;
@@ -697,8 +697,6 @@ KateSessionChooser::~KateSessionChooser ()
 
 void KateSessionChooser::slotCopySession()
 {
-  KateSessionChooserItem *item = (KateSessionChooserItem *) m_sessions->currentItem();
-
   done(resultCopy);
 }
 

@@ -179,6 +179,8 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     /* to update the caption */
     void slotDocumentCreated (KTextEditor::Document *doc);
     void updateCaption (KTextEditor::Document *doc);
+    // calls updateCaption(doc) with the current document
+    void updateCaption ();
 
     void pluginHelp ();
     void aboutEditor();
@@ -186,7 +188,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
   private Q_SLOTS:
     void toggleShowStatusBar ();
-    void toggleShowFullPath ();
 
   public:
     bool showStatusBar ();

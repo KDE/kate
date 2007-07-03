@@ -49,8 +49,8 @@ class KateSession  : public KShared
   public:
     /**
      * create a session from given file
-     * @param fileName session filename, relative
      * @param manager pointer to the manager
+     * @param fileName session filename, relative
      */
     KateSession (KateSessionManager *manager, const QString &fileName);
 
@@ -88,14 +88,12 @@ class KateSession  : public KShared
       return m_sessionName;
     }
 
-    /**
-     * is this a valid session? if not, don't use any session if this is
-     * the active one
-     */
-    bool isNew () const
+    bool isAnonymous() const
     {
-      return m_sessionName.isEmpty();
+      return !(m_readConfig && m_writeConfig);
     }
+
+    void makeAnonymous();
 
     /**
      * create the session file, if not existing
@@ -168,7 +166,6 @@ class KateSession  : public KShared
      * simpleconfig to write to
      */
     KConfig *m_writeConfig;
-
 };
 
 typedef QList<KateSession::Ptr> KateSessionList;
@@ -272,9 +269,20 @@ class KateSessionManager : public QObject
     void sessionSaveAs ();
 
     /**
+     * save the current session's properties for new sessions.
+     */
+    void sessionSaveAsDefault ();
+
+    /**
      * show dialog to manage our sessions
      */
     void sessionManage ();
+
+  Q_SIGNALS:
+    /**
+     * Emitted, whenever the session changes, e.g. when it was renamed.
+     */
+    void sessionChanged();
 
   private Q_SLOTS:
     void dirty (const QString &path);
@@ -286,10 +294,16 @@ class KateSessionManager : public QObject
     void updateSessionList ();
 
   public:
-    QString defaultSessionFileName()
+    QString defaultSessionFile() const
     {
-      return m_defaultSessionFileName;
+      return m_defaultSessionFile;
     }
+  private:
+    /**
+     * Asks the user for a new session name. Used by save as for example.
+     */
+    bool newSessionName();
+
   private:
     /**
      * absolute path to dir in home dir where to store the sessions
@@ -306,18 +320,7 @@ class KateSessionManager : public QObject
      */
     KateSession::Ptr m_activeSession;
 
-    QString m_defaultSessionFileName;
-};
-
-class KateSessionChooserTemplate
-{
-  public:
-    KateSessionChooserTemplate(const QString &displayname_, const QString &configfilename_, const QString tooltip_):
-        displayName(displayname_), configFileName(configfilename_), toolTip(tooltip_)
-    {}
-    QString displayName;
-    QString configFileName;
-    QString toolTip;
+    QString m_defaultSessionFile;
 };
 
 class KateSessionChooser : public KDialog
@@ -325,58 +328,47 @@ class KateSessionChooser : public KDialog
     Q_OBJECT
 
   public:
-    KateSessionChooser (QWidget *parent, const QString &lastSession, const QList<KateSessionChooserTemplate>& templates);
+    KateSessionChooser (QWidget *parent, const QString &lastSession);
     ~KateSessionChooser ();
 
     KateSession::Ptr selectedSession ();
-    QString selectedTemplate()
-    {
-      return m_selectedTemplate;
-    }
     bool reopenLastSession ();
 
     enum {
       resultOpen,
       resultNew,
       resultQuit,
-      resultNone
-  };
+      resultNone,
+      resultCopy
+    };
 
-  private:
-    QString m_selectedTemplate;
   protected Q_SLOTS:
     /**
-     * open session
+     * quit kate
      */
     void slotUser1 ();
 
     /**
-     * new session
+     * open session
      */
     void slotUser2 ();
 
     /**
-     * quit kate
+     * new session
      */
     void slotUser3 ();
 
-    void slotTemplateAction(QAction* a);
+    void slotCopySession();
+    void slotNewSession();
 
     /**
      * selection has changed
      */
     void selectionChanged (QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
-    void slotProfilePopup();
   private:
     QTreeWidget *m_sessions;
     QCheckBox *m_useLast;
-    QList<KateSessionChooserTemplate> m_templates;
-    /**
-     * new session menu
-     */
-    KateToolTipMenu *m_popup;
-
 };
 
 class KateSessionOpenDialog : public KDialog
@@ -438,6 +430,11 @@ class KateSessionManageDialog : public KDialog
      */
     void del ();
 
+    /**
+     * close dialog and open the selected session
+     */
+    void open ();
+
   private:
     /**
      * update our list
@@ -458,8 +455,7 @@ class KateSessionsAction : public KActionMenu
     KateSessionsAction(const QString& text, QObject *parent);
     ~KateSessionsAction ()
     {
-      ;
-    };
+    }
 
   public  Q_SLOTS:
     void slotAboutToShow();

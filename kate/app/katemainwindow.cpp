@@ -196,6 +196,8 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   finishRestore ();
 
   setAcceptDrops(true);
+
+  connect(KateSessionManager::self(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
 }
 
 KateMainWindow::~KateMainWindow()
@@ -222,7 +224,7 @@ void KateMainWindow::setupImportantActions ()
 
   m_paShowPath = new KToggleAction( i18n("Sho&w Path"), this );
   actionCollection()->addAction( "settings_show_full_path", m_paShowPath );
-  connect( m_paShowPath, SIGNAL(toggled(bool)), this, SLOT(toggleShowFullPath()) );
+  connect( m_paShowPath, SIGNAL(toggled(bool)), this, SLOT(updateCaption()) );
   m_paShowPath->setCheckedState(KGuiItem(i18n("Hide Path")));
   m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
 }
@@ -370,6 +372,10 @@ void KateMainWindow::setupActions()
   a->setIcon( KIcon("document-save-as") );
   a->setText( i18n("Save &As...") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionSaveAs() ) );
+  a = actionCollection()->addAction( "sessions_save_default" );
+  a->setIcon( KIcon("document-save-as") );
+  a->setText( i18n("Save As &Default...") );
+  connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionSaveAsDefault() ) );
   a = actionCollection()->addAction( "sessions_manage" );
   a->setIcon( KIcon("view-choose") );
   a->setText( i18n("&Manage...") );
@@ -518,13 +524,6 @@ void KateMainWindow::saveOptions ()
 void KateMainWindow::toggleShowStatusBar ()
 {
   emit statusBarToggled ();
-}
-
-void KateMainWindow::toggleShowFullPath ()
-{
-  // update caption
-  if (m_viewManager->activeView())
-    updateCaption (m_viewManager->activeView()->document());
 }
 
 bool KateMainWindow::showStatusBar ()
@@ -826,6 +825,12 @@ void KateMainWindow::slotDocumentCreated (KTextEditor::Document *doc)
   connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document *)), this, SLOT(slotUpdateOpenWith()));
 
   updateCaption (doc);
+}
+
+void KateMainWindow::updateCaption ()
+{
+  if (m_viewManager->activeView())
+    updateCaption(m_viewManager->activeView()->document());
 }
 
 void KateMainWindow::updateCaption (KTextEditor::Document *doc)

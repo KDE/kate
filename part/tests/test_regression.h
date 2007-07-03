@@ -2,7 +2,7 @@
  * This file is part of the KDE project
  *
  * Copyright (C) 2001,2003 Peter Kelly (pmk@post.com)
- * Copyright 2006 Leo Savernik (l.savernik@aon.at)
+ * Copyright 2006, 2007 Leo Savernik (l.savernik@aon.at)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -32,6 +32,7 @@
 #include <kjs/ustring.h>
 #include <kjs/object.h>
 #include <kjs/interpreter.h>
+#include <kconfig.h>
 
 class KateDocument;
 class KateView;

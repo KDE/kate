@@ -4,7 +4,7 @@
  * Copyright (C) 2001,2003 Peter Kelly (pmk@post.com)
  * Copyright (C) 2003,2004 Stephan Kulow (coolo@kde.org)
  * Copyright (C) 2004 Dirk Mueller ( mueller@kde.org )
- * Copyright 2006 Leo Savernik (l.savernik@aon.at)
+ * Copyright 2006, 2007 Leo Savernik (l.savernik@aon.at)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -34,6 +34,7 @@
 #include <signal.h>
 
 #include <kapplication.h>
+#include <kglobal.h>
 #include <kstandarddirs.h>
 #include <QtCore/QFile>
 #include <stdio.h>
@@ -404,7 +405,7 @@ KJS::JSValue *OutputFunction::callAsFunction(KJS::ExecState *exec, KJS::JSObject
 const char failureSnapshotPrefix[] = "testkateregressionrc-FS.";
 
 static QString findMostRecentFailureSnapshot() {
-    QDir dir(kapp->dirs()->saveLocation("config"),
+    QDir dir(KGlobal::dirs()->saveLocation("config"),
              QString(failureSnapshotPrefix) + '*',
              QDir::Time, QDir::Files);
     QStringList entries = dir.entryList();
@@ -478,9 +479,9 @@ int main(int argc, char *argv[])
                "\techo \"<root-path>\" > %s\n"
                "You may override the location by specifying the root explicitly on the\n"
                "command line with option -b\n"
-               "", KCmdLineArgs::appName(),
-               (const char *)baseDirConfigFile,
-               (const char *)baseDirConfigFile);
+               "", argv[0],
+               baseDirConfigFile.constData(),
+               baseDirConfigFile.constData());
 	::exit( 1 );
     }
 
@@ -494,7 +495,7 @@ int main(int argc, char *argv[])
     for ( int i = 0; i < 2; i++ ) {
         QFileInfo sourceDir(QFile::encodeName( baseDir ) + '/' + subdirs[i]);
         if ( !sourceDir.exists() || !sourceDir.isDir() ) {
-            fprintf(stderr,"ERROR: Source directory \"%s/%s\": no such directory.\n", (const char *)baseDir, subdirs[i]);
+            fprintf(stderr,"ERROR: Source directory \"%s/%s\": no such directory.\n", (const char *)baseDir.toLatin1(), subdirs[i]);
             exit(1);
         }
     }
@@ -1244,10 +1245,10 @@ RegressionTest::CheckResult RegressionTest::checkOutput(const QString &againstFi
 
 void RegressionTest::rereadConfig()
 {
-    m_baseConfig->setGroup("Kate Document Defaults");
-    m_part->config()->readConfig(m_baseConfig);
-    m_baseConfig->setGroup("Kate View Defaults");
-    m_view->config()->readConfig(m_baseConfig);
+    KConfigGroup g = m_baseConfig->group("Kate Document Defaults");
+    m_part->config()->readConfig(g);
+    g = m_baseConfig->group("Kate View Defaults");
+    m_view->config()->readConfig(g);
 }
 
 bool RegressionTest::reportResult(CheckResult result, const QString & description, bool *newfail)

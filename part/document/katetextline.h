@@ -207,6 +207,7 @@ class KateTextLine : public KShared
     /**
      * search given string
      * @param startCol column to start search
+     * @param endCol column to end search
      * @param text string to search for
      * @param foundAtCol column where text was found
      * @param matchLen length of matching
@@ -214,7 +215,7 @@ class KateTextLine : public KShared
      * @param backwards search backwards?
      * @return string found?
      */
-    bool searchText (uint startCol, const QString &text,
+    bool searchText (uint startCol, uint endCol,const QString &text,
                      uint *foundAtCol, uint *matchLen,
                      bool casesensitive = true,
                      bool backwards = false);

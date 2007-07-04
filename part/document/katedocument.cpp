@@ -1890,7 +1890,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
           {
             uint myMatchLen;
             const uint colOffset = (j > forMin) ? 0 : minLeft;
-            const bool matches = hayLine->searchText(colOffset, needleLine, &startCol,
+            const bool matches = hayLine->searchText(colOffset, hayLine->length(),needleLine, &startCol,
               &myMatchLen, casesensitive, false);
             if (!matches || (startCol + myMatchLen != static_cast<uint>(hayLine->length()))) {
               // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no" << endl;
@@ -1901,7 +1901,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
         } else if (k == numNeedleLines - 1) {
           // last line
           uint foundAt, myMatchLen;
-          const bool matches = hayLine->searchText(0, needleLine, &foundAt, &myMatchLen, casesensitive, false);
+          const bool matches = hayLine->searchText(0,hayLine->length(), needleLine, &foundAt, &myMatchLen, casesensitive, false);
           if (matches && (foundAt == 0) && !((k == lastLine)
               && (static_cast<uint>(foundAt + myMatchLen) > maxRight))) // full match!
           {
@@ -1912,7 +1912,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
         } else {
           // mid lines
           uint foundAt, myMatchLen;
-          const bool matches = hayLine->searchText(0, needleLine, &foundAt, &myMatchLen, casesensitive, false);
+          const bool matches = hayLine->searchText(0, hayLine->length(),needleLine, &foundAt, &myMatchLen, casesensitive, false);
           if (!matches || (foundAt != 0) || (myMatchLen != static_cast<uint>(needleLine.length()))) {
             // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no" << endl;
             break;
@@ -1972,11 +1972,13 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
       }
 
       const int offset = (j == forMin) ? minLeft : 0;
+      const int line_end= (j==forMax) ? maxRight : textLine->length();
       uint foundAt, myMatchLen;
-      const bool found = textLine->searchText (offset, text, &foundAt, &myMatchLen, casesensitive, backwards);
+      //kDebug() << "searchText | searching in line line: " << j << endl;
+      const bool found = textLine->searchText (offset,line_end, text, &foundAt, &myMatchLen, casesensitive, backwards);
       if (found && !((j == forMax) && (static_cast<uint>(foundAt + myMatchLen) > maxRight)))
       {
-        kDebug() << "searchText | line " << j << ": yes" << endl;
+        //kDebug() << "searchText | line " << j << ": yes" << endl;
         return KTextEditor::Range(j, foundAt, j, foundAt + myMatchLen);
       }
       else

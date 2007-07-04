@@ -227,33 +227,44 @@ int KateTextLine::virtualLength (int tabWidth) const
   return x;
 }
 
-bool KateTextLine::searchText (uint startCol, const QString &text, uint *foundAtCol,
+bool KateTextLine::searchText (uint startCol, uint endCol, const QString &text, uint *foundAtCol,
                                uint *matchLen, bool casesensitive, bool backwards)
 {
   int index;
 
+  //kDebug()<<"KateTextLine::searchText()"<<startCol<<"__"<<casesensitive<<"___"<< backwards<<endl;
+  
+  int l = text.length();
+
   if (backwards)
   {
-    int col = startCol;
-    int l = text.length();
+    int col = -1; //endCol-m_text.length();
+    int start_col=startCol-m_text.length();
+
     // allow finding the string ending at eol
-    if ( col == m_text.length() ) ++startCol;
+    //if ( col == m_text.length() ) ++startCol;
+
 
     do {
       index = m_text.lastIndexOf( text, col, casesensitive?Qt::CaseSensitive:Qt::CaseInsensitive);
       col--;
-    } while ( col >= 0 && l + index >= (int)startCol );
+      //kDebug()<<"KateTextLine::searchText()"<<index<<"__"<<col<<"__"<<l+index<<"___"<< startCol<<"__"<<endCol<<"----"<<
+      //(col>=start_col)<<"---"<<(index >= startCol)<<"---"<<((l + index) <= (int)endCol)<<endl<<text<<endl<<m_text<<endl<<
+      //m_text.left(m_text.length()+1-col)<<endl<<(l+index)<<"_"<<index<<"__"<<endCol<<endl;
+    } while ( (col>=start_col) && (index >= startCol) && ((l + index) > (int)endCol) );
   }
   else
     index = m_text.indexOf (text, startCol, casesensitive?Qt::CaseSensitive:Qt::CaseInsensitive);
 
   if (index > -1)
   {
-    if (foundAtCol)
-      (*foundAtCol) = index;
-    if (matchLen)
-      (*matchLen)=text.length();
-    return true;
+    if ( (index>=(int)startCol)  && ( (index+l)<=(int)endCol) ) {
+      if (foundAtCol)
+        (*foundAtCol) = index;
+      if (matchLen)
+        (*matchLen)=text.length();
+      return true;
+    }
   }
 
   return false;

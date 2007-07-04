@@ -895,7 +895,6 @@ namespace KateMDI
       // apply all settings, like toolbar pos and more ;)
       KConfigGroup cg(m_restoreConfig, m_restoreGroup);
       applyMainWindowSettings(cg);
-      cg.changeGroup(m_restoreGroup);
 
       // reshuffle toolviews only if needed
       for ( int i = 0; i < m_toolviews.size(); ++i )

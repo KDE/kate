@@ -82,6 +82,8 @@ class KateViewObject : public KJS::JSObject
     KateView *view;
     // end evil hack
     KJS::JSObject *fallback;
+
+    static const KJS::ClassInfo info;
 };
 
 /**

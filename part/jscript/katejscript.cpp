@@ -1120,6 +1120,8 @@ KJS_IMPLEMENT_PROTOFUNC(KateJSViewProtoFunc)
 KJS_IMPLEMENT_PROTOTYPE("KateJSView",KateJSViewProto,KateJSViewProtoFunc)
 
 const KJS::ClassInfo KateJSView::info = { "KateJSView", 0, &KateJSViewTable, 0 };
+// Reference for testkateregression
+extern const KJS::ClassInfo *testregression_KateJSView_info = &KateJSView::info;
 
 JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec,
                                              KJS::JSObject *thisObj,

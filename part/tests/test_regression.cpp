@@ -192,9 +192,11 @@ KateViewObject::~KateViewObject()
 }
 
 const ClassInfo *KateViewObject::classInfo() const {
-    // evil hack II: disguise as fallback, otherwise we can't fall back
-    return fallback->classInfo();
+    return &info;
 }
+
+extern const KJS::ClassInfo *testregression_KateJSView_info; // from katejscript.cpp
+const KJS::ClassInfo KateViewObject::info = { "KateViewObject", testregression_KateJSView_info, 0, 0 };
 
 #if 0
 JSValue *KateViewObject::get(ExecState *exec, const Identifier &propertyName) const

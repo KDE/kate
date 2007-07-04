@@ -97,9 +97,7 @@ KateFileSelectorPluginView::KateFileSelectorPluginView (Kate::MainWindow *mainWi
 KateFileSelectorPluginView::~KateFileSelectorPluginView ()
 {
   // cleanup, kill toolview + console
-  QWidget *toolview = m_fileSelector->parentWidget();
-  delete m_fileSelector;
-  delete toolview;
+  delete m_fileSelector->parentWidget();
 }
 
 void KateFileSelectorPluginView::readSessionConfig(KConfig* config, const QString& group)

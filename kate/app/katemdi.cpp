@@ -720,6 +720,7 @@ namespace KateMDI
 
     ToolView *v  = m_sidebars[pos]->addWidget (icon, text, 0);
     v->id = identifier;
+    v->setMinimumSize(80, 80);
 
     m_idToWidget.insert (identifier, v);
     m_toolviews.push_back (v);

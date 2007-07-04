@@ -350,6 +350,7 @@ void KateMainWindow::setupActions()
   connect( a, SIGNAL( triggered() ), this, SLOT( aboutEditor() ) );
   qobject_cast<KAction*>( a )->setGlobalShortcutAllowed(true);
 
+  connect(m_viewManager, SIGNAL(viewChanged()), m_mainWindow, SIGNAL(viewChanged()));
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotWindowActivated()));
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotUpdateOpenWith()));
 

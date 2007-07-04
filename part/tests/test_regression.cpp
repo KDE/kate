@@ -29,6 +29,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <pwd.h>
 #include <signal.h>
@@ -252,6 +253,7 @@ JSValue *KateViewFunction::callAsFunction(ExecState *exec, JSObject */*thisObj*/
             int cnt = 1;\
             if (args.size() > 0) cnt = args[0]->toInt32(exec);\
             while (cnt-- > 0) { m_view->func(); }\
+    fprintf(stderr, "invoked "#func"\n"); \
             return jsUndefined();\
         }
     switch (id) {
@@ -951,6 +953,40 @@ static void pause(int msec)
     } while (t.elapsed() < msec);
 }
 
+/**
+ * returns a unique file name
+ * (Cannot have QTemporaryFile as it won't return a file name without actually
+ * opening the file. Besides, it contains an indeterminate id which differs 
+ * between processes.)
+ */
+static QString getTempFileName(const QString &name) {
+    return QDir::tempPath()+"testkateregression-"+name;
+}
+
+/** writes an ipc-variable */
+static void writeVariable(const QString &varName, const QString &content) {
+    QString fn = getTempFileName(varName);
+    QFile::remove(fn);
+    QFile f(fn);
+    if (!f.open(QFile::WriteOnly))
+        return;   // FIXME be more elaborate
+    f.write(content.toLatin1());
+//     fprintf(stderr, "writing: %s: %s\n", fn.toLatin1().constData(), content.toLatin1().constData());
+}
+
+/** reads an ipc-variable */
+static QString readVariable(const QString &varName) {
+    QString fn = getTempFileName(varName);
+    QFile f(fn);
+    if (!f.open(QFile::ReadOnly))
+        return QString();   // FIXME be more elaborate
+    QByteArray content = f.readAll();
+    f.close();
+    QFile::remove(fn);
+//     fprintf(stderr, "reading: %s: %s\n", fn.toLatin1().constData(), content.constData());
+    return QLatin1String(content.constData());
+}
+
 void RegressionTest::doFailureReport( const QString& test, int failures )
 {
     if ( failures == NoFailure ) {
@@ -1096,18 +1132,36 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
         }
     }
 
-    pause(200);
+//     pause(200);
 
 //     Q_ASSERT(m_part->config()->configFlags() & KateDocumentConfig::cfDoxygenAutoTyping);
 
     bool script_error = false;
-    {
+    pid_t pid = fork();
+    if (pid == 0) {
         // Execute script
         TestJScriptEnv jsenv(m_part);
         jsenv.output()->setChangedFlag(&m_outputCustomised);
         jsenv.output()->setOutputFile( ( m_genOutput ? m_baseDir + "/baseline/" : m_outputDir + '/' ) + filename + "-result" );
         script_error = evalJS(*jsenv.interpreter(), m_baseDir + "/tests/"+QFileInfo(filename).dir().path()+"/.kateconfig-script", true)
             && evalJS(*jsenv.interpreter(), m_baseDir + "/tests/"+filename+"-script");
+        writeVariable("script_error", QString::number(script_error));
+        writeVariable("m_errors", QString::number(m_errors));
+        writeVariable("m_outputCustomised", QString::number(m_outputCustomised));
+        signal(SIGABRT, SIG_DFL);   // Dr. Konqi, no interference please
+        ::abort();  // crash, don't let Qt/KDE do any fancy deinit stuff
+    } else if (pid == -1) {
+        // whoops, will fail later on comparison
+        m_errors++;
+    } else {
+        // wait for child to finish
+        int status;
+        waitpid(pid, &status, 0);
+        // read in potentially changed variables
+        script_error = (bool)readVariable("script_error").toInt();
+        m_errors = readVariable("m_errors").toInt();
+        m_outputCustomised = (bool)readVariable("m_outputCustomised").toInt();
+//         fprintf(stderr, "script_error = %d, m_errors = %d, m_outputCustomised = %d\n", script_error, m_errors, m_outputCustomised);
     }
 
     int back_known_failures = m_known_failures;
@@ -1163,6 +1217,7 @@ bool RegressionTest::evalJS(Interpreter &interp, const QString &filename, bool i
 
     if ( /*report_result &&*/ !ignore_errors) {
         if (c.complType() == Throw) {
+            fprintf(stderr, "eval script failed\n");
             QString errmsg = c.value()->toString(interp.globalExec()).qstring();
             printf( "ERROR: %s (%s)\n",filename.toLatin1().constData(), errmsg.toLatin1().constData());
             m_errors++;

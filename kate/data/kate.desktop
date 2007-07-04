@@ -24,4 +24,5 @@ DocPath=kate/index.html
 Type=Application
 Terminal=false
 X-DBUS-StartupType=Multi
+X-DBUS-ServiceName=org.kate-editor.kate
 Categories=Qt;KDE;TextEditor;

@@ -253,7 +253,6 @@ JSValue *KateViewFunction::callAsFunction(ExecState *exec, JSObject */*thisObj*/
             int cnt = 1;\
             if (args.size() > 0) cnt = args[0]->toInt32(exec);\
             while (cnt-- > 0) { m_view->func(); }\
-    fprintf(stderr, "invoked "#func"\n"); \
             return jsUndefined();\
         }
     switch (id) {
@@ -1148,6 +1147,7 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
         writeVariable("script_error", QString::number(script_error));
         writeVariable("m_errors", QString::number(m_errors));
         writeVariable("m_outputCustomised", QString::number(m_outputCustomised));
+        writeVariable("m_part.text", m_part->text());
         signal(SIGABRT, SIG_DFL);   // Dr. Konqi, no interference please
         ::abort();  // crash, don't let Qt/KDE do any fancy deinit stuff
     } else if (pid == -1) {
@@ -1161,6 +1161,7 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
         script_error = (bool)readVariable("script_error").toInt();
         m_errors = readVariable("m_errors").toInt();
         m_outputCustomised = (bool)readVariable("m_outputCustomised").toInt();
+        m_part->setText(readVariable("m_part.text"));
 //         fprintf(stderr, "script_error = %d, m_errors = %d, m_outputCustomised = %d\n", script_error, m_errors, m_outputCustomised);
     }
 

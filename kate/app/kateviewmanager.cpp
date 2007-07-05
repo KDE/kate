@@ -109,29 +109,6 @@ void KateViewManager::setupActions ()
   QAction *a;
 
   /**
-   * tabbing
-   */
-  a = m_mainWindow->actionCollection()->addAction( "view_new_tab" );
-  a->setIcon( KIcon("tab-new") );
-  a->setText( i18n("New Tab") );
-  connect(a, SIGNAL(triggered()), this, SLOT(slotNewTab()));
-
-  m_closeTab = m_mainWindow->actionCollection()->addAction("view_close_tab");
-  m_closeTab->setIcon( KIcon("tab-remove") );
-  m_closeTab->setText( i18n("Close Current Tab") );
-  connect(m_closeTab, SIGNAL(triggered()), this, SLOT(slotCloseTab()));
-
-  m_activateNextTab = m_mainWindow->actionCollection()->addAction("view_next_tab");
-  m_activateNextTab->setText( i18n( "Activate Next Tab" ) );
-  m_activateNextTab->setShortcuts( QApplication::isRightToLeft() ? KStandardShortcut::tabPrev() : KStandardShortcut::tabNext() );
-  connect(m_activateNextTab, SIGNAL(triggered()), this, SLOT(activateNextTab()));
-
-  m_activatePrevTab = m_mainWindow->actionCollection()->addAction("view_prev_tab");
-  m_activatePrevTab->setText( i18n( "Activate Previous Tab" ) );
-  m_activatePrevTab->setShortcuts( QApplication::isRightToLeft() ? KStandardShortcut::tabNext() : KStandardShortcut::tabPrev() );
-  connect(m_activatePrevTab, SIGNAL(triggered()), this, SLOT(activatePrevTab()));
-
-  /**
    * view splitting
    */
   a = m_mainWindow->actionCollection()->addAction("view_split_vert");

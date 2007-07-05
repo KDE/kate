@@ -211,8 +211,7 @@ void KatePluginSymbolViewerView::slotViewChanged(QResizeEvent *)
 
 void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint &p)
 {
- // FIXME - with QT4 QPoint is an absolute coordinate ! With a dual head monitor this is really messy
- popup->popup(p);
+ popup->popup(symbols->mapToGlobal(p));
 }
 
 void KatePluginSymbolViewerView::parseSymbols(void)
@@ -261,7 +260,7 @@ void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
   if (!kv)
     return;
 
-//  kDebug(13000)<<"Slot Activated at pos: "<<symbols->itemIndex(it) <<endl;
+  kDebug(13000)<<"Slot Activated at pos: "<<symbols->indexOfTopLevelItem(it) <<endl;
 
   kv->setCursorPosition (KTextEditor::Cursor (it->text(1).toInt(NULL, 10), 0));
 }

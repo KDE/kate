@@ -60,7 +60,9 @@ class KateDocItem : public QTreeWidgetItem
 
 
 KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const char *name )
-    : KDialog( parent )
+    : KDialog( parent ),
+      m_proc( 0 ),
+      m_diffFile( 0 )
 {
   setCaption( i18n("Documents Modified on Disk") );
   setButtons( User1 | User2 | User3 );
@@ -132,7 +134,15 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
 }
 
 KateMwModOnHdDialog::~KateMwModOnHdDialog()
-{}
+{
+  delete m_proc;
+  m_proc = 0;
+  if (m_diffFile) {
+    m_diffFile->setAutoRemove(true);
+    delete m_diffFile;
+    m_diffFile = 0;
+  }
+}
 
 void KateMwModOnHdDialog::slotUser1()
 {
@@ -222,14 +232,21 @@ void KateMwModOnHdDialog::slotDiff()
 
   KTextEditor::Document *doc = ((KateDocItem*)twDocuments->currentItem())->document;
 
-  // don't try o diff a deleted file
+  // don't try to diff a deleted file
   if ( KateDocManager::self()->documentInfo( doc )->modifiedOnDiscReason == KTextEditor::ModificationInterface::OnDiskDeleted )
     return;
+
+  if (m_diffFile)
+    return;
+
+  m_diffFile = new KTemporaryFile();
+  m_diffFile->open();
 
   // Start a KProcess that creates a diff
   m_proc = new KProcess( this );
   m_proc->setOutputChannelMode( KProcess::MergedChannels );
   *m_proc << "diff" << "-ub" << "-" << doc->url().path();
+  connect( m_proc, SIGNAL(readyRead()), this, SLOT(slotDataAvailable()) );
   connect( m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotPDone()) );
 
   setCursor( Qt::WaitCursor );
@@ -245,45 +262,48 @@ void KateMwModOnHdDialog::slotDiff()
   m_proc->closeWriteChannel();
 }
 
+void KateMwModOnHdDialog::slotDataAvailable()
+{
+  m_diffFile->write(m_proc->readAll());
+}
+
 void KateMwModOnHdDialog::slotPDone()
 {
   setCursor( Qt::ArrowCursor );
   slotSelectionChanged(twDocuments->currentItem(), 0);
 
-  if ( m_proc->exitStatus() != QProcess::NormalExit )
+  const QProcess::ExitStatus es = m_proc->exitStatus();
+  delete m_proc;
+  m_proc = 0;
+
+  if ( es != QProcess::NormalExit )
   {
     KMessageBox::sorry( this,
                         i18n("The diff command failed. Please make sure that "
                              "diff(1) is installed and in your PATH."),
                         i18n("Error Creating Diff") );
-    delete m_proc;
-    m_proc = 0;
+    delete m_diffFile;
+    m_diffFile = 0;
     return;
   }
 
-  KTemporaryFile tmpfile;
-  tmpfile.setAutoRemove(false);
-  tmpfile.open();
-  const QString fileName = tmpfile.fileName();
-  QTextStream ts(&tmpfile);
-  ts << m_proc->readAll();
-  ts.flush();
-  tmpfile.close();
-
-  delete m_proc;
-  m_proc = 0;
-
-  if ( tmpfile.size() == 0 )
+  if ( m_diffFile->size() == 0 )
   {
     KMessageBox::information( this,
                               i18n("Besides white space changes, the files are identical."),
                               i18n("Diff Output") );
-    tmpfile.setAutoRemove(true);
+    delete m_diffFile;
+    m_diffFile = 0;
     return;
   }
 
-  KRun::runUrl( fileName, "text/x-patch", this, true );
-  // todo: when is the file deleted?
+  m_diffFile->setAutoRemove(false);
+  KUrl url = KUrl::fromPath(m_diffFile->fileName());
+  delete m_diffFile;
+  m_diffFile = 0;
+
+  // KRun::runUrl should delete the file, once the client exits
+  KRun::runUrl( url, "text/x-patch", this, true );
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

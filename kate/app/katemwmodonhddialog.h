@@ -31,6 +31,7 @@
 
 typedef  QVector<KTextEditor::Document*> DocVector;
 class KProcess;
+class KTemporaryFile;
 
 /**
  * A dialog for handling multiple documents modified on disk
@@ -51,6 +52,7 @@ class KateMwModOnHdDialog : public KDialog
   private Q_SLOTS:
     void slotDiff();
     void slotSelectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *);
+    void slotDataAvailable();
     void slotPDone();
 
   private:
@@ -59,6 +61,7 @@ class KateMwModOnHdDialog : public KDialog
     class QTreeWidget *twDocuments;
     class QPushButton *btnDiff;
     KProcess *m_proc;
+    KTemporaryFile *m_diffFile;
 };
 
 #endif // _KATE_MW_MODONHD_DIALOG_H_

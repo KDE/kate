@@ -238,6 +238,7 @@ class KateCompletionModel : public QAbstractItemModel
 
     void resort();
     void refilter();
+    void rematch();
 
     // ### Runtime state
     // General

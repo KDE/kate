@@ -315,6 +315,8 @@ void KateCompletionModel::createGroups()
 
   resort();
   reset();
+
+  rematch();
 }
 
 KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, const QString& scope )
@@ -562,6 +564,20 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
   }
 
   m_currentMatch = completion;
+}
+
+void KateCompletionModel::rematch()
+{
+  if (!hasGroups()) {
+    changeCompletions(m_ungrouped, m_currentMatch, Change);
+
+  } else {
+    foreach (Group* g, m_rowTable)
+      changeCompletions(g, m_currentMatch, Change);
+
+    foreach (Group* g, m_emptyGroups)
+      changeCompletions(g, m_currentMatch, Change);
+  }
 }
 
 #define COMPLETE_DELETE \
@@ -1262,6 +1278,10 @@ bool KateCompletionModel::Item::filter( )
 
 bool KateCompletionModel::Item::match(const QString& newCompletion)
 {
+  // Hehe, everything matches nothing! (ie. everything matches a blank string)
+  if (newCompletion.isEmpty())
+    return true;
+
   // Check to see if the item is matched by the current completion string
   QModelIndex sourceIndex = m_sourceRow.first->index(m_sourceRow.second, CodeCompletionModel::Name, QModelIndex());
 

@@ -175,6 +175,8 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
     }
 
     m_entryList->resizeColumns(false, true);
+
+    m_presentationModel->setCurrentCompletion(view()->doc()->text(KTextEditor::Range(m_completionRange->start(), view()->cursorPosition())));
   }
 }
 

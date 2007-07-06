@@ -1066,7 +1066,8 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
                                       QWidget *parent )
   : KDialog( parent ),
     m_doc( doc ),
-    m_modtype ( modtype )
+    m_modtype ( modtype ),
+    m_diffFile( 0 )
 {
   setButtons( Ok | Apply | Cancel | User1 );
 
@@ -1119,22 +1120,29 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
 
 KateModOnHdPrompt::~KateModOnHdPrompt()
 {
+  delete m_proc;
+  m_proc = 0;
+  if (m_diffFile) {
+    m_diffFile->setAutoRemove(true);
+    delete m_diffFile;
+    m_diffFile = 0;
+  }
 }
 
 void KateModOnHdPrompt::slotDiff()
 {
-  KTemporaryFile tmpfile;
-  tmpfile.setAutoRemove(false);
-  tmpfile.open();
-  m_fileName = tmpfile.fileName();
-  tmpfile.close();
+  if (m_diffFile)
+    return;
 
-  // Start a K3Process that creates a diff
+  m_diffFile = new KTemporaryFile();
+  m_diffFile->open();
+
+  // Start a KProcess that creates a diff
   m_proc = new KProcess( this );
-  m_proc->setStandardOutputFile( m_fileName );
   m_proc->setOutputChannelMode( KProcess::MergedChannels );
   *m_proc << "diff" << QString(ui->chkIgnoreWhiteSpaces->isChecked() ? "-ub" : "-u")
      << "-" <<  m_doc->url().path();
+  connect( m_proc, SIGNAL(readyRead()), this, SLOT(slotDataAvailable()) );
   connect( m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotPDone()) );
 
   setCursor( Qt::WaitCursor );
@@ -1152,38 +1160,49 @@ void KateModOnHdPrompt::slotDiff()
   m_proc->closeWriteChannel();
 }
 
+void KateModOnHdPrompt::slotDataAvailable()
+{
+  m_diffFile->write(m_proc->readAll());
+}
+
 void KateModOnHdPrompt::slotPDone()
 {
   setCursor( Qt::ArrowCursor );
   ui->chkIgnoreWhiteSpaces->setEnabled( true );
   ui->btnDiff->setEnabled( true );
 
-  if ( m_proc->exitStatus() != QProcess::NormalExit /*|| p->exitCode()*/ )
+  const QProcess::ExitStatus es = m_proc->exitStatus();
+  delete m_proc;
+  m_proc = 0;
+
+  if ( es != QProcess::NormalExit )
   {
     KMessageBox::sorry( this,
                         i18n("The diff command failed. Please make sure that "
                              "diff(1) is installed and in your PATH."),
                         i18n("Error Creating Diff") );
-    delete m_proc;
-    m_proc = 0;
-    QFile::remove( m_fileName );
+    delete m_diffFile;
+    m_diffFile = 0;
     return;
   }
 
-  delete m_proc;
-  m_proc = 0;
-
-  if ( QFile( m_fileName ).size() == 0 )
+  if ( m_diffFile->size() == 0 )
   {
     KMessageBox::information( this,
                               i18n("Besides white space changes, the files are identical."),
                               i18n("Diff Output") );
-    QFile::remove( m_fileName );
+    delete m_diffFile;
+    m_diffFile = 0;
     return;
   }
 
+  m_diffFile->setAutoRemove(false);
+  KUrl url = KUrl::fromPath(m_diffFile->fileName());
+  delete m_diffFile;
+  m_diffFile = 0;
+
   // KRun::runUrl should delete the file, once the client exits
-  KRun::runUrl( KUrl::fromPath(m_fileName), "text/x-patch", this, true );
+  KRun::runUrl( url, "text/x-patch", this, true );
 }
 
 void KateModOnHdPrompt::slotButtonClicked(int button)

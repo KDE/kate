@@ -56,6 +56,7 @@ namespace KIO
 
 class KComboBox;
 class KShortcutsEditor;
+class KTemporaryFile;
 class KIntNumInput;
 class KPluginSelector;
 class KPluginInfo;
@@ -340,15 +341,15 @@ class KateModOnHdPrompt : public KDialog
     virtual void slotButtonClicked(int button);
 
   private Q_SLOTS:
+    void slotDataAvailable(); ///< read data from the process
     void slotPDone(); ///< Runs the diff file when done
 
   private:
     Ui::ModOnHdWidget* ui;
     KateDocument *m_doc;
     KTextEditor::ModificationInterface::ModifiedOnDiskReason m_modtype;
-    QString m_fileName;
     KProcess *m_proc;
-
+    KTemporaryFile *m_diffFile;
 };
 
 #endif

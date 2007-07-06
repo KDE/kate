@@ -124,7 +124,6 @@ Comment[zh_CN]=文本编辑器服务提供了文本查看器和编辑器的应�
 Comment[zh_HK]=文字編輯服務為各種程式提供一個檢視和編輯文字的介面。任何提供文字編輯功能的 KDE 程式都應該使用這項服務。
 Comment[zh_TW]=文字編輯服務提供程式一個文字檢視器以及編輯器。提供文字編輯功能的 KDE 程式擁該使用這項服務。
 ServiceTypeToConfigure=KTextEditor/Document
-MimeTypeOfInterest=text/plain
 defaultImplementation=katepart
 storeInFile=default_components
 valueSection=KTextEditor

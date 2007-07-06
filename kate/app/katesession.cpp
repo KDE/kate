@@ -660,10 +660,8 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   connect (m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), this, SLOT(selectionChanged(QTreeWidgetItem *, QTreeWidgetItem *)));
 
   QMenu* popup = new QMenu(this);
-  button(KDialog::User3)->setMenu(popup);
-  QAction *a = popup->addAction(i18n("Empty session"));
-  connect(a, SIGNAL(triggered()), this, SLOT(slotNewSession()));
-  a = popup->addAction(i18n("Use selected session as template"));
+  button(KDialog::User3)->setDelayedMenu(popup);
+  QAction *a = popup->addAction(i18n("Use selected session as template"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
 
   KateSessionList &slist (KateSessionManager::self()->sessionList());
@@ -701,11 +699,6 @@ void KateSessionChooser::slotCopySession()
   done(resultCopy);
 }
 
-void KateSessionChooser::slotNewSession()
-{
-  done(resultNew);
-}
-
 KateSession::Ptr KateSessionChooser::selectedSession ()
 {
   KateSessionChooserItem *item = (KateSessionChooserItem *) m_sessions->currentItem ();
@@ -728,7 +721,6 @@ void KateSessionChooser::slotUser2 ()
 
 void KateSessionChooser::slotUser3 ()
 {
-  // ### never called right now due to popupmenu
   done (resultNew);
 }
 

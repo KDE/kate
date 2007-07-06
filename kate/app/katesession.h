@@ -359,7 +359,6 @@ class KateSessionChooser : public KDialog
     void slotUser3 ();
 
     void slotCopySession();
-    void slotNewSession();
 
     /**
      * selection has changed

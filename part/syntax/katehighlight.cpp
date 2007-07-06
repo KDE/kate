@@ -1786,12 +1786,12 @@ void KateHighlighting::clearAttributeArrays ()
     for (uint z = 0; z < nAttribs; z++)
     {
       KateExtendedAttribute::Ptr itemData = itemDataList.at(z);
-      KTextEditor::Attribute::Ptr n = defaultStyleList.at(itemData->defaultStyleIndex());
+      KTextEditor::Attribute::Ptr newAttribute( new KTextEditor::Attribute(*defaultStyleList.at(itemData->defaultStyleIndex())) );
 
       if (itemData && itemData->hasAnyProperty())
-        *n += *itemData;
+        *newAttribute += *itemData;
 
-      array.append(n);
+      array.append(newAttribute);
     }
   }
 }
@@ -1812,16 +1812,15 @@ QList<KTextEditor::Attribute::Ptr> KateHighlighting::attributes (const QString &
   getKateExtendedAttributeList(schema, itemDataList);
 
   uint nAttribs = itemDataList.count();
-
   for (uint z = 0; z < nAttribs; z++)
   {
     KateExtendedAttribute::Ptr itemData = itemDataList.at(z);
-    KTextEditor::Attribute::Ptr n = defaultStyleList.at(itemData->defaultStyleIndex());
+    KTextEditor::Attribute::Ptr newAttribute( new KTextEditor::Attribute(*defaultStyleList.at(itemData->defaultStyleIndex())) );
 
     if (itemData && itemData->hasAnyProperty())
-      *n += *itemData;
+      *newAttribute += *itemData;
 
-    array.append(n);
+    array.append(newAttribute);
   }
 
   m_attributeArrays.insert(schema, array);

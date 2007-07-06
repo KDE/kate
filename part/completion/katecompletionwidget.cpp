@@ -132,7 +132,11 @@ KateView * KateCompletionWidget::view( ) const
 
 void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTextEditor::CodeCompletionModel * model, KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
-  Q_ASSERT(word.isValid()); //If word was invalid, the assert would happen later and the reason would be less clear
+  if (!word.isValid()) {
+    kWarning(13035) << k_funcinfo << "Invalid range given to start code completion!" << endl;
+    return;
+  }
+
   kDebug(13035) << k_funcinfo << word << " " << model << endl;
 
   if (!m_filterInstalled) {
@@ -164,11 +168,13 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
 
   if (!m_presentationModel->completionModels().isEmpty()) {
     show();
-    m_entryList->expandAll();
-    m_entryList->resizeColumns();
 
-    foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels())
+    foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels()) {
       model->completionInvoked(view(), word, invocationType);
+      kDebug(13035) << "CC Model Statistics: " << model << endl << "  Completions: " << model->rowCount(QModelIndex()) << endl;
+    }
+
+    m_entryList->resizeColumns(false, true);
   }
 }
 

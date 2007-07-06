@@ -34,7 +34,7 @@ class KateCompletionTree : public QTreeView
     KateCompletionWidget* widget() const;
     KateCompletionModel* kateModel() const;
 
-    void resizeColumns(bool fromResizeEvent = false);
+    void resizeColumns(bool fromResizeEvent = false, bool firstShow = false);
 
     // Navigation
     bool nextCompletion();

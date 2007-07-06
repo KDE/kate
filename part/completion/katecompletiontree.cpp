@@ -59,8 +59,14 @@ KateCompletionWidget * KateCompletionTree::widget( ) const
   return static_cast<KateCompletionWidget*>(const_cast<QObject*>(parent()));
 }
 
-void KateCompletionTree::resizeColumns(bool fromResizeEvent)
+void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
 {
+  static bool firstCall = false;
+  if (firstCall)
+    return;
+
+  firstCall = true;
+
   setUpdatesEnabled(false);
 
   int indexOfName = header()->visualIndex(kateModel()->translateColumn(KTextEditor::CodeCompletionModel::Name));
@@ -73,21 +79,26 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent)
   int newIndentWidth = header()->sectionPosition(indexOfName);
 
   int minWidth = 50;
-  int newMinWidth = newIndentWidth + header()->sectionSize(indexOfName) + verticalScrollBar()->width();
+  int sectionSize = header()->sectionSize(indexOfName);
+  //int scrollBarWidth = verticalScrollBar()->width();
+  int newMinWidth = newIndentWidth + sectionSize;// + scrollBarWidth;
   minWidth = qMax(minWidth, newMinWidth);
 
-  if (!fromResizeEvent && oldIndentWidth != newIndentWidth) {
-    int newWidth = widget()->width() - oldIndentWidth + newIndentWidth;
+  //kDebug() << "New min width: " << minWidth << " Old min: " << minimumWidth() << " width " << width() << endl;
+  setMinimumWidth(minWidth);
+
+  if (!fromResizeEvent && (firstShow || oldIndentWidth != newIndentWidth)) {
+    int newWidth = qMax(widget()->width() - oldIndentWidth + newIndentWidth, minWidth);
     //kDebug() << k_funcinfo << "fromResize " << fromResizeEvent << " indexOfName " << indexOfName << " oldI " << oldIndentWidth << " newI " << newIndentWidth << " minw " << minWidth << " w " << widget()->width() << " newW " << newWidth << endl;
     widget()->resize(newWidth, widget()->height());
   }
-
-  setMinimumWidth(minWidth);
 
   if (oldIndentWidth != newIndentWidth)
     widget()->updatePosition();
 
   setUpdatesEnabled(true);
+
+  firstCall = false;
 }
 
 QStyleOptionViewItem KateCompletionTree::viewOptions( ) const

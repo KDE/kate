@@ -1394,8 +1394,8 @@ void KateCompletionModel::setCompletionModel(KTextEditor::CodeCompletionModel* m
 
 void KateCompletionModel::setCompletionModels(const QList<KTextEditor::CodeCompletionModel*>& models)
 {
-  if (m_completionModels == models)
-    return;
+  //if (m_completionModels == models)
+    //return;
 
   clearCompletionModels(true);
 

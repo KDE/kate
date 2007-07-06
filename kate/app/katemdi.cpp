@@ -845,14 +845,12 @@ namespace KateMDI
     m_restoreConfig = config;
     m_restoreGroup = group;
 
+    // set sane default sizes
+    QList<int> hs = (QList<int>() << 200 << 100 << 200);
+    QList<int> vs = (QList<int>() << 150 << 100 << 200);
+
     if (!m_restoreConfig || !m_restoreConfig->hasGroup (m_restoreGroup))
     {
-      // set sane default sizes
-      QList<int> hs;
-      hs << 200 << 100 << 200;
-      QList<int> vs;
-      vs << 150 << 100 << 200;
-
       m_sidebars[0]->setLastSize (hs[0]);
       m_sidebars[1]->setLastSize (hs[2]);
       m_sidebars[2]->setLastSize (vs[0]);
@@ -868,8 +866,8 @@ namespace KateMDI
     restoreWindowSize (cg);
 
     // get main splitter sizes ;)
-    QList<int> hs = cg.readEntry ("Kate-MDI-H-Splitter", QList<int>());
-    QList<int> vs = cg.readEntry ("Kate-MDI-V-Splitter", QList<int>());
+    hs = cg.readEntry ("Kate-MDI-H-Splitter", hs);
+    vs = cg.readEntry ("Kate-MDI-V-Splitter", vs);
 
     m_sidebars[0]->setLastSize (hs[0]);
     m_sidebars[1]->setLastSize (hs[2]);

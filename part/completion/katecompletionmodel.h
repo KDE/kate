@@ -153,6 +153,7 @@ class KateCompletionModel : public QAbstractItemModel
   private Q_SLOTS:
     void slotRowsInserted( const QModelIndex & parent, int start, int end );
     void slotRowsRemoved( const QModelIndex & parent, int start, int end );
+    void slotModelReset();
 
   private:
     typedef QPair<KTextEditor::CodeCompletionModel*, int> ModelRow;

@@ -780,6 +780,11 @@ void KateCompletionModel::slotRowsRemoved( const QModelIndex & /*parent*/, int /
 {
 }
 
+void KateCompletionModel::slotModelReset()
+{
+  createGroups();
+}
+
 bool KateCompletionModel::hasCompletionModel( ) const
 {
   return !m_completionModels.isEmpty();
@@ -1381,6 +1386,7 @@ void KateCompletionModel::addCompletionModel(KTextEditor::CodeCompletionModel * 
 
   connect(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(slotRowsInserted(const QModelIndex&, int, int)));
   connect(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT(slotRowsRemoved(const QModelIndex&, int, int)));
+  connect(model, SIGNAL(modelReset()), SLOT(slotModelReset()));
 
   // This performs the reset
   createGroups();
@@ -1404,6 +1410,7 @@ void KateCompletionModel::setCompletionModels(const QList<KTextEditor::CodeCompl
   foreach (KTextEditor::CodeCompletionModel* model, models) {
     connect(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(slotRowsInserted(const QModelIndex&, int, int)));
     connect(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SLOT(slotRowsRemoved(const QModelIndex&, int, int)));
+    connect(model, SIGNAL(modelReset()), SLOT(slotModelReset()));
   }
 
   // This performs the reset

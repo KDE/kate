@@ -142,11 +142,114 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
         item->setCheckState(2, Qt::Checked);
     }
   }
+
+  // init with defaults from config or really hardcoded ones
+  KConfigGroup config( KGlobal::config(), "Kate Code Completion Defaults");
+  readConfig (config);
 }
 
 KateCompletionConfig::~ KateCompletionConfig( )
 {
   delete ui;
+}
+
+void KateCompletionConfig::readConfig(const KConfigGroup &config)
+{
+  configStart ();
+
+  // Sorting
+  ui->sorting->setChecked(config.readEntry("Sorting Enabled", true));
+  ui->sortingAlphabetical->setChecked(config.readEntry("Sort Alphabetically", true));
+  ui->sortingReverse->setChecked(config.readEntry("Reverse Sort", false));
+  ui->sortingCaseSensitive->setChecked(config.readEntry("Case Sensitive Sort", false));
+
+  // Filtering
+  ui->filtering->setChecked(config.readEntry("Filtering Enabled", false));
+  ui->filteringContextMatchOnly->setChecked(config.readEntry("Filter by Context Match Only", false));
+  ui->filteringHideAttributes->setChecked(config.readEntry("Hide Completions by Attribute", false));
+
+  int attributes = config.readEntry("Filter Attribute Mask", 0);
+  for (int i = 0; i < ui->filteringAttributesList->count(); ++i) {
+    QListWidgetItem* item = ui->filteringAttributesList->item(i);
+    item->setCheckState(((1 << (i - 1)) & attributes) ? Qt::Checked : Qt::Unchecked);
+  }
+
+  ui->filteringMaximumInheritanceDepth->setValue(config.readEntry("Filter by Maximum Inheritance Depth", 0));
+
+  // Grouping
+  ui->grouping->setChecked(config.readEntry("Grouping Enabled", false));
+
+  m_groupingScopeType->setCheckState(0, config.readEntry("Group by Scope Type", false) ? Qt::Checked : Qt::Unchecked);
+  m_groupingScope->setCheckState(0, config.readEntry("Group by Scope", false) ? Qt::Checked : Qt::Unchecked);
+  m_groupingAccessType->setCheckState(0, config.readEntry("Group by Access Type", false) ? Qt::Checked : Qt::Unchecked);
+  m_groupingItemType->setCheckState(0, config.readEntry("Group by Item Type", false) ? Qt::Checked : Qt::Unchecked);
+
+  ui->accessConst->setChecked(config.readEntry("Group by Const", false));
+  ui->accessStatic->setChecked(config.readEntry("Group by Static", false));
+  ui->accessSignalSlot->setChecked(config.readEntry("Group by Signals and Slots", false));
+
+  // Column merging
+  ui->columnMerging->setChecked(config.readEntry("Column Merging Enabled", false));
+
+  for (int i = 0; i < ui->columnMergeTree->topLevelItemCount(); ++i) {
+    QTreeWidgetItem* item = ui->columnMergeTree->topLevelItem(i);
+    item->setCheckState(1, config.readEntry(QString("Column %1 Merge").arg(i), false) ? Qt::Checked : Qt::Unchecked);
+    item->setCheckState(2, config.readEntry(QString("Column %1 Show").arg(i), true) ? Qt::Checked : Qt::Unchecked);
+  }
+
+  applyInternal();
+
+  configEnd();
+}
+
+void KateCompletionConfig::writeConfig(KConfigGroup &config)
+{
+  // Sorting
+  config.writeEntry("Sorting Enabled", ui->sorting->isChecked());
+  config.writeEntry("Sort Alphabetically", ui->sortingAlphabetical->isChecked());
+  config.writeEntry("Reverse Sort", ui->sortingReverse->isChecked());
+  config.writeEntry("Case Sensitive Sort", ui->sortingCaseSensitive->isChecked());
+
+  // Filtering
+  config.writeEntry("Filtering Enabled", ui->filtering->isChecked());
+  config.writeEntry("Filter by Context Match Only", ui->filteringContextMatchOnly->isChecked());
+  config.writeEntry("Hide Completions by Attribute", ui->filteringHideAttributes->isChecked());
+
+  int attributes = 0;
+  for (int i = 0; i < ui->filteringAttributesList->count(); ++i) {
+    QListWidgetItem* item = ui->filteringAttributesList->item(i);
+    if (item->checkState() == Qt::Checked)
+      attributes |= 1 << (i - 1);
+  }
+  config.writeEntry("Filter Attribute Mask", attributes);
+
+  config.writeEntry("Filter by Maximum Inheritance Depth", ui->filteringMaximumInheritanceDepth->value());
+
+  // Grouping
+  config.writeEntry("Grouping Enabled", ui->grouping->isChecked());
+
+  config.writeEntry("Group by Scope Type", m_groupingScopeType->checkState(0) == Qt::Checked ? true : false);
+  config.writeEntry("Group by Scope", m_groupingScope->checkState(0) == Qt::Checked ? true : false);
+  config.writeEntry("Group by Access Type", m_groupingAccessType->checkState(0) == Qt::Checked ? true : false);
+  config.writeEntry("Group by Item Type", m_groupingItemType->checkState(0) == Qt::Checked ? true : false);
+
+  config.writeEntry("Group by Const", ui->accessConst->isChecked());
+  config.writeEntry("Group by Static", ui->accessStatic->isChecked());
+  config.writeEntry("Group by Signals and Slots", ui->accessSignalSlot->isChecked());
+
+  // Column merging
+  config.writeEntry("Column Merging Enabled", ui->columnMerging->isChecked());
+
+  for (int i = 0; i < ui->columnMergeTree->topLevelItemCount(); ++i) {
+    QTreeWidgetItem* item = ui->columnMergeTree->topLevelItem(i);
+    config.writeEntry(QString("Column %1 Merge").arg(i), item->checkState(1) == Qt::Checked ? true : false);
+    config.writeEntry(QString("Column %1 Show").arg(i), item->checkState(2) == Qt::Checked ? true : false);
+  }
+}
+
+void KateCompletionConfig::updateConfig()
+{
+  // Ah, nothing to do, I think...?
 }
 
 void KateCompletionConfig::moveColumnUp( )
@@ -176,6 +279,14 @@ void KateCompletionConfig::moveColumnDown( )
 }
 
 void KateCompletionConfig::apply( )
+{
+  applyInternal();
+
+  KConfigGroup config( KGlobal::config(), "Kate Code Completion Defaults");
+  writeConfig (config);
+}
+
+void KateCompletionConfig::applyInternal()
 {
   // Sorting
   m_model->setSortingEnabled(ui->sorting->isChecked());

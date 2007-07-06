@@ -21,6 +21,8 @@
 
 #include <kdialog.h>
 
+#include "kateconfig.h"
+
 namespace Ui { class CompletionConfigWidget; }
 
 class QTreeWidgetItem;
@@ -29,7 +31,7 @@ class KateCompletionModel;
 /**
  * @author Hamish Rodda <rodda@kde.org>
  */
-class KateCompletionConfig : public KDialog
+class KateCompletionConfig : public KDialog, public KateConfig
 {
   Q_OBJECT
 
@@ -37,8 +39,21 @@ class KateCompletionConfig : public KDialog
     explicit KateCompletionConfig(KateCompletionModel* model, QWidget* parent = 0L);
     virtual ~KateCompletionConfig();
 
+    /**
+     * Read config from object
+     */
+    void readConfig (const KConfigGroup &config);
+
+    /**
+     * Write config to object
+     */
+    void writeConfig (KConfigGroup &config);
+
   public Q_SLOTS:
     void apply();
+
+  protected:
+    virtual void updateConfig();
 
   private Q_SLOTS:
     void moveColumnUp();
@@ -49,6 +64,8 @@ class KateCompletionConfig : public KDialog
     void moveGroupingOrderDown();
 
   private:
+    void applyInternal();
+
     Ui::CompletionConfigWidget* ui;
     KateCompletionModel* m_model;
 

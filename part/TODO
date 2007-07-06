@@ -9,13 +9,15 @@ TODO:
 
 * highlighting issues
   * external context references don't pick up default attribute (bug 145052)
-  * highlighting uses attributes from the current highlighter, but not the right ones
+  * attributes not always assigned (i.e. when attribute is dsNormal), this can
+    lead to failure to set brush color, and is probably related to previous item
+    -> "work-around patch" here: http://permalink.gmane.org/gmane.comp.kde.devel.kwrite/12875
 
 * color issues
-  * use color roles when they become available to initialize attributes
-    -> this will probably fix bug 143606
-  * dsNormal using very wrong color ('border background'?!) as foreground most of the time
-    -> by 4.0 please, this wreaks havoc on u7y/a11!!
+  * use color roles when they become available to initialize attributes - DONE
+    -> check if this does indeed fix bug 143606
+  * caret is black (should match color of corresponding text cell)
+    -> also 1px width is a little ugly, what about going back to 2px? --mwoehlke
 
 * text painted twice after clearing a selection (see http://permalink.gmane.org/gmane.comp.kde.devel.kwrite/12546)
 

@@ -4,8 +4,17 @@
 <!-- Authors: Alexander Dederer & JM. Philippe -->
 <!-- Copyright: BSD copyright & Irsid - Arcelor Innovation R&D -->
 <!-- Ported to Kate 2.0/ KWrite 4.0 by Joseph Wenninger (Updated by Simon Robins)-->
+<!--
+    Updated by Pawel Salawa (boogie at scripts dot one dot pl)
 
-<language name="Tcl/Tk" version="1.08" kateversion="2.4" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
+    Revision history:
+	1.09:
+	    - Added fast comments support (Ctrl+d or whatever your shortcut is)
+	    - Fixed single-character variables detection
+	    - Fixed detection of varaibles with names containing serval namespace delimiters (::)
+-->
+
+<language name="Tcl/Tk" version="1.09" kateversion="2.4" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
   <highlighting>
     <list name="keywords">
       <item> after </item>
@@ -450,7 +459,7 @@
         <RegExpr String="\\." attribute = "Char" context = "#stay"/>
         <RegExpr String = "\W-\w+" attribute = "Parameter" context="#stay"/>
         <RegExpr String = "\$\{[^\}]+\}" attribute = "Variable" context="#stay"/>
-        <RegExpr String = "\$(::)?[\S\D]\w+" attribute = "Variable" context="#stay"/>
+        <RegExpr String = "\$[\w:]+" attribute = "Variable" context="#stay"/>
         <RegExpr String = "[^\\]&quot;&quot;" attribute = "String" context="#stay"/>
         <RegExpr String = "[^\\]&quot;" attribute = "String" context="String"/>
         <RegExpr String= "#.*$" attribute = "Comment" context="#stay" firstNonSpace="true"/>
@@ -484,6 +493,9 @@
   </highlighting>
 
   <general>
+    <comments>
+	<comment name="singleLine" start="#" />
+    </comments>
     <keywords casesensitive="1"/>
   </general>
 

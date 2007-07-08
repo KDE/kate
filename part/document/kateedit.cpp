@@ -177,7 +177,8 @@ QList<KateEditInfo*> KateEditHistory::editsBetweenRevisions(int from, int to) co
   int toIndex = buffer()->edits().indexOf(toEdit);
   Q_ASSERT(fromIndex != -1);
   Q_ASSERT(toIndex != -1);
-  Q_ASSERT(fromIndex < toIndex);
+  if( fromIndex == toIndex )
+    return ret;
 
   for (int i = fromIndex; i <= toIndex; ++i)
     ret.append(buffer()->edits().at(i));

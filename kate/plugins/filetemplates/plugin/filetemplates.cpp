@@ -1235,7 +1235,7 @@ void KateTemplateManager::slotUpload()
 #endif
   KateTemplateItem *item = dynamic_cast<KateTemplateItem*>( lvTemplates->currentItem() );
   if (!item) return;
-  KNS::Engine *engine=new KNS::Engine();
+  KNS::Engine *engine=new KNS::Engine(this);
   bool success=engine->init("katefiletemplates.knsrc");
   if (!success)
   {
@@ -1255,7 +1255,7 @@ void KateTemplateManager::slotDownload()
 #ifdef __GNUC__
 #warning ERROR HANDLING
 #endif
-  KNS::Engine *engine=new KNS::Engine();
+  KNS::Engine *engine=new KNS::Engine(this);
   bool success=engine->init("katefiletemplates.knsrc");
   if (!success)
   {

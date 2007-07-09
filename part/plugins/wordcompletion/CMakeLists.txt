@@ -3,7 +3,6 @@
 
 set(ktexteditor_docwordcompletion_PART_SRCS docwordcompletion.cpp )
 
-kde4_automoc(${ktexteditor_docwordcompletion_PART_SRCS})
 
 kde4_add_plugin(ktexteditor_docwordcompletion ${ktexteditor_docwordcompletion_PART_SRCS})
 

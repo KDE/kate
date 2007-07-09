@@ -3,7 +3,6 @@
 
 set(ktexteditor_autobookmarker_PART_SRCS autobookmarker.cpp )
 
-kde4_automoc(${ktexteditor_autobookmarker_PART_SRCS})
 
 kde4_add_plugin(ktexteditor_autobookmarker ${ktexteditor_autobookmarker_PART_SRCS})
 

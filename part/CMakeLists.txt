@@ -116,7 +116,6 @@ utils/katedynamicanimation.cpp
 utils/katestyletreewidget.cpp
 )
 
-kde4_automoc(${katepart_PART_SRCS})
 
 set( katepart_PART_UI
 dialogs/appearanceconfigwidget.ui
@@ -161,7 +160,6 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
 
 set(testkateregression_SRCS ${katepart_PART_SRCS} tests/test_regression.cpp tests/test_regression.h )
 
-kde4_automoc(${testkateregression_SRCS})
 
 kde4_add_executable(testkateregression NOGUI RUN_UNINSTALLED ${testkateregression_SRCS})
 

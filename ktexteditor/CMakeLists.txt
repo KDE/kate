@@ -19,7 +19,6 @@ set(ktexteditor_LIB_SRCS
    smartinterface.cpp
    )
 
-kde4_automoc(${ktexteditor_LIB_SRCS})
 
 kde4_add_ui_files(ktexteditor_LIB_SRCS editorchooser_ui.ui )
 

@@ -160,7 +160,7 @@ const QStringList DocWordCompletionModel::allMatches( KTextEditor::View *view, c
 //END DocWordCompletionModel
 
 //BEGIN DocWordCompletionPlugin
-K_EXPORT_COMPONENT_FACTORY( ktexteditor_docwordcompletion, KGenericFactory<DocWordCompletionPlugin>( "ktexteditor_docwordcompletion" ) )
+K_EXPORT_COMPONENT_FACTORY( ktexteditor_docwordcompletion, KGenericFactory<DocWordCompletionPlugin>( "ktexteditor_docwordcompletion", "ktexteditor_plugins" ) )
 DocWordCompletionPlugin::DocWordCompletionPlugin( QObject *parent,
                             const QStringList& /*args*/ )
   : KTextEditor::Plugin ( parent )

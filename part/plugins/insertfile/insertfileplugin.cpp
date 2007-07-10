@@ -36,7 +36,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
 
-K_EXPORT_COMPONENT_FACTORY( ktexteditor_insertfile, KGenericFactory<InsertFilePlugin>( "ktexteditor_insertfile" ) )
+K_EXPORT_COMPONENT_FACTORY( ktexteditor_insertfile, KGenericFactory<InsertFilePlugin>( "ktexteditor_insertfile", "ktexteditor_plugins" ) )
 
 
 //BEGIN InsertFilePlugin

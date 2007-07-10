@@ -57,7 +57,7 @@
 //END includes
 
 //BEGIN AutoBookmarker
-K_EXPORT_COMPONENT_FACTORY( ktexteditor_autobookmarker, KGenericFactory<AutoBookmarker>( "ktexteditor_autobookmarker" ) )
+K_EXPORT_COMPONENT_FACTORY( ktexteditor_autobookmarker, KGenericFactory<AutoBookmarker>( "ktexteditor_autobookmarker", "ktexteditor_plugins" ) )
 
 AutoBookmarker::AutoBookmarker( QObject *parent,
                             const char* name,

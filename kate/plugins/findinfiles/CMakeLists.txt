@@ -2,7 +2,6 @@
 
 set(katefindinfilesplugin_PART_SRCS katefindinfiles.cpp kategrepdialog.cpp kategrepthread.cpp)
 
-kde4_automoc(${katefindinfilesplugin_PART_SRCS})
 
 set( katefindinfilesplugin_PART_UI
 findwidget.ui

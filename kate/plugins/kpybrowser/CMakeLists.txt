@@ -6,7 +6,6 @@
 
 set(katepybrowseplugin_PART_SRCS kpybrowser.cpp pybrowsenode.cpp pybrowse_part.cpp )
 
-kde4_automoc(${katepybrowseplugin_PART_SRCS})
 
 kde4_add_plugin(katepybrowseplugin ${katepybrowseplugin_PART_SRCS})
 

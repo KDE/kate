@@ -6,7 +6,6 @@
 
 set(katefiletemplates_PART_SRCS filetemplates.cpp )
 
-kde4_automoc(${katefiletemplates_PART_SRCS})
 
 kde4_add_plugin(katefiletemplates ${katefiletemplates_PART_SRCS})
 

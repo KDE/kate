@@ -12,7 +12,6 @@ set(katesnippetsplugin_PART_SRCS
    csnippet.cpp 
    CWidgetSnippetsBase.ui.h )
 
-kde4_automoc(${katesnippetsplugin_PART_SRCS})
 
 kde4_add_ui3_files(katesnippetsplugin_PART_SRCS CWidgetSnippetsBase.ui )
 

@@ -6,7 +6,6 @@
 
 set(katexmlcheckplugin_PART_SRCS plugin_katexmlcheck.cpp )
 
-kde4_automoc(${katexmlcheckplugin_PART_SRCS})
 
 kde4_add_plugin(katexmlcheckplugin ${katexmlcheckplugin_PART_SRCS})
 

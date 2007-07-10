@@ -6,7 +6,6 @@
 
 set(kateopenheaderplugin_PART_SRCS plugin_kateopenheader.cpp )
 
-kde4_automoc(${kateopenheaderplugin_PART_SRCS})
 
 kde4_add_plugin(kateopenheaderplugin ${kateopenheaderplugin_PART_SRCS})
 

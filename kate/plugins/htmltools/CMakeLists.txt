@@ -6,7 +6,6 @@
 
 set(katehtmltoolsplugin_PART_SRCS plugin_katehtmltools.cpp )
 
-kde4_automoc(${katehtmltoolsplugin_PART_SRCS})
 
 kde4_add_plugin(katehtmltoolsplugin ${katehtmltoolsplugin_PART_SRCS})
 

@@ -1,6 +1,5 @@
 set(kateexternaltoolsplugin_PART_SRCS kateexternaltoolsplugin.cpp )
 
-kde4_automoc(${kateexternaltoolsplugin_PART_SRCS})
 
 kde4_add_plugin(kateexternaltoolsplugin ${kateexternaltoolsplugin_PART_SRCS})
 

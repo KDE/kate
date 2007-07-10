@@ -6,7 +6,6 @@
 
 set(katetextfilterplugin_PART_SRCS plugin_katetextfilter.cpp )
 
-kde4_automoc(${katetextfilterplugin_PART_SRCS})
 
 kde4_add_plugin(katetextfilterplugin ${katetextfilterplugin_PART_SRCS})
 

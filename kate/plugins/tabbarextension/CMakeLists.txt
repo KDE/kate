@@ -7,7 +7,6 @@ set(katetabbarextensionplugin_PART_SRCS
    ktinytabbarconfigdialog.cpp 
    ktinytabbarconfigpage.cpp )
 
-kde4_automoc(${katetabbarextensionplugin_PART_SRCS})
 
 kde4_add_plugin(katetabbarextensionplugin ${katetabbarextensionplugin_PART_SRCS})
 

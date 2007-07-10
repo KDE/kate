@@ -8,7 +8,6 @@ add_subdirectory( samples )
 
 set(katekjswrapperplugin_PART_SRCS plugin_katekjswrapper.cpp bindings.cpp )
 
-kde4_automoc(${katekjswrapperplugin_PART_SRCS})
 
 kde4_add_plugin(katekjswrapperplugin ${katekjswrapperplugin_PART_SRCS})
 

@@ -6,7 +6,6 @@
 
 set(kateinsertcommandplugin_PART_SRCS plugin_kateinsertcommand.cpp )
 
-kde4_automoc(${kateinsertcommandplugin_PART_SRCS})
 
 kde4_add_plugin(kateinsertcommandplugin ${kateinsertcommandplugin_PART_SRCS})
 

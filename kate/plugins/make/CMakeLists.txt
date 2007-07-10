@@ -6,7 +6,6 @@
 
 set(katemakeplugin_PART_SRCS plugin_katemake.cpp )
 
-kde4_automoc(${katemakeplugin_PART_SRCS})
 
 kde4_add_plugin(katemakeplugin ${katemakeplugin_PART_SRCS})
 

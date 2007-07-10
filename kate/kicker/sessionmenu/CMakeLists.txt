@@ -4,7 +4,6 @@ find_library(KICKER_WORKSPACE_LIBRARY NAMES kworkspace PATHS ${KDE4_LIB_INSTALL_
 
 set(kickermenu_kate_PART_SRCS katesessionmenu.cpp )
 
-kde4_automoc(${kickermenu_kate_PART_SRCS})
 
 kde4_add_plugin(kickermenu_kate ${kickermenu_kate_PART_SRCS})
 

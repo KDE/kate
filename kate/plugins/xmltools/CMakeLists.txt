@@ -6,7 +6,6 @@
 
 set(katexmltoolsplugin_PART_SRCS pseudo_dtd.cpp plugin_katexmltools.cpp )
 
-kde4_automoc(${katexmltoolsplugin_PART_SRCS})
 
 kde4_add_plugin(katexmltoolsplugin ${katexmltoolsplugin_PART_SRCS})
 

@@ -24,7 +24,6 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp katemainwindowadaptor.cpp
    kateviewdocumentproxymodel.cpp
    )
 
-kde4_automoc(${kateinterfaces_LIB_SRCS})
 
 
 kde4_add_library(kateinterfaces SHARED ${kateinterfaces_LIB_SRCS})
@@ -39,7 +38,6 @@ install(TARGETS kateinterfaces  DESTINATION ${LIB_INSTALL_DIR} )
 
 set(kate_KDEINIT_SRCS katemain.cpp)
 
-kde4_automoc(${kate_KDEINIT_SRCS})
 
 kde4_add_kdeinit_executable( kate ${kate_KDEINIT_SRCS})
 

@@ -6,7 +6,6 @@
 
 set(katequickdocumentswitcherplugin_PART_SRCS plugin_katequickdocumentswitcher.cpp )
 
-kde4_automoc(${katequickdocumentswitcherplugin_PART_SRCS})
 
 kde4_add_plugin(katequickdocumentswitcherplugin ${katequickdocumentswitcherplugin_PART_SRCS})
 

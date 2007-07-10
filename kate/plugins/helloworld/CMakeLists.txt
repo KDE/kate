@@ -6,7 +6,6 @@
 
 set(katehelloworldplugin_PART_SRCS plugin_katehelloworld.cpp )
 
-kde4_automoc(${katehelloworldplugin_PART_SRCS})
 
 kde4_add_plugin(katehelloworldplugin ${katehelloworldplugin_PART_SRCS})
 

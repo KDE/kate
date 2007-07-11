@@ -200,7 +200,7 @@ KateSessionManager::KateSessionManager (QObject *parent)
     : QObject (parent)
     , m_sessionsDir (KStandardDirs::locateLocal( "data", "kate/sessions"))
     , m_activeSession (new KateSession (this, QString()))
-    , m_defaultSessionFile(KStandardDirs::locateLocal( "data", "kate") + "/default.katesession")
+    , m_defaultSessionFile(KStandardDirs::locate( "data", "kate/default.katesession"))
 {
   kDebug() << "LOCAL SESSION DIR: " << m_sessionsDir << endl;
 
@@ -214,6 +214,11 @@ KateSessionManager::~KateSessionManager()
 KateSessionManager *KateSessionManager::self()
 {
   return KateApp::self()->sessionManager ();
+}
+
+QString KateSessionManager::defaultSessionFile() const
+{
+  return m_defaultSessionFile;
 }
 
 void KateSessionManager::dirty (const QString &)
@@ -586,10 +591,19 @@ bool KateSessionManager::newSessionName()
 
 void KateSessionManager::sessionSaveAsDefault ()
 {
-  KConfig defaultConfig(defaultSessionFile(), KConfig::OnlyLocal);
+  // get path of local default.katesession file
+  QString localSessionFile = KStandardDirs::locateLocal("data", "kate/default.katesession");
+
+  // use this local file to store the defaults to
+  KConfig defaultConfig(localSessionFile, KConfig::OnlyLocal);
   defaultConfig.group("General").writeEntry ("Name", QString());
 
   saveSessionTo(&defaultConfig);
+
+  // in case the local default.katesession did not exist, the KateSessionManager
+  // constructor set the default.katesession to the global KDE directory. But
+  // now we are sure the local file exists, so point to if from now on...
+  m_defaultSessionFile = localSessionFile;
 }
 
 void KateSessionManager::sessionManage ()

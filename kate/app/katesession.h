@@ -241,6 +241,14 @@ class KateSessionManager : public QObject
     }
 
     /**
+     * Returns the url to the default.katesession file.
+     * The url is the global file, if the local file (i.e. in the .kde-folder)
+     * does not exist. The url changes, as soon as the local file exists (this
+     * happens, when the users invokes "Session" > "Save As Default")
+     */
+    QString defaultSessionFile() const;
+
+    /**
      * initial session chooser, on app start
      * @return success, if false, app should exit
      */
@@ -293,11 +301,6 @@ class KateSessionManager : public QObject
      */
     void updateSessionList ();
 
-  public:
-    QString defaultSessionFile() const
-    {
-      return m_defaultSessionFile;
-    }
   private:
     /**
      * Asks the user for a new session name. Used by save as for example.

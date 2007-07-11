@@ -37,6 +37,7 @@
 #include <KMenu>
 #include <KActionCollection>
 #include <KIO/NetAccess>
+#include <KIO/CopyJob>
 
 #include <QDir>
 #include <QLabel>
@@ -142,7 +143,8 @@ bool KateSession::rename (const QString &name)
     m_sessionFileRel = oldRel;
     return false;
   }
-  if (!KIO::NetAccess::file_move(KUrl(QString("file://") + oldSessionFile), KUrl(QString("file://") + sessionFile())) )
+  KIO::CopyJob *job = KIO::move(KUrl(QString("file://") + oldSessionFile), KUrl(QString("file://") + sessionFile()), false);
+  if ( ! KIO::NetAccess::synchronousRun(job, 0) )
   {
     m_sessionFileRel = oldRel;
     return false;

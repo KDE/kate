@@ -45,6 +45,7 @@ class KateCompletionTree : public QTreeView
     void bottom();
 
   protected:
+    virtual void currentChanged ( const QModelIndex & current, const QModelIndex & previous ); ///Not available as a signal in this way
     virtual void scrollContentsBy(int dx, int dy);
     virtual QStyleOptionViewItem viewOptions() const;
 };

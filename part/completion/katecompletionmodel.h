@@ -23,11 +23,15 @@
 #include <QtCore/QPair>
 #include <QtCore/QList>
 #include <QtCore/QHash>
+#include <QHash>
+#include <QIcon>
 
 #include <ktexteditor/codecompletionmodel.h>
 
 class KateCompletionWidget;
 class KateView;
+class QWidget;
+class QTextEdit;
 
 /**
  * This class has the responsibility for filtering, sorting, and manipulating
@@ -41,6 +45,7 @@ class KateCompletionModel : public QAbstractItemModel
 
   public:
     KateCompletionModel(KateCompletionWidget* parent = 0L);
+    ~KateCompletionModel();
 
     QList<KTextEditor::CodeCompletionModel*> completionModels() const;
     void clearCompletionModels(bool skipReset = false);
@@ -50,6 +55,7 @@ class KateCompletionModel : public QAbstractItemModel
     void removeCompletionModel(KTextEditor::CodeCompletionModel* model);
 
     KateView* view() const;
+    KateCompletionWidget* widget() const;
 
     const QString& currentCompletion() const;
     void setCurrentCompletion(const QString& completion);
@@ -83,6 +89,41 @@ class KateCompletionModel : public QAbstractItemModel
     virtual QModelIndex mapToSource(const QModelIndex &proxyIndex) const;
     virtual QModelIndex mapFromSource(const QModelIndex &sourceIndex) const;
 
+    // Expanding
+    bool isExpandable(const QModelIndex& index) const;
+
+    bool canExpandCurrentItem() const;
+    bool canCollapseCurrentItem() const;
+    void setCurrentItemExpanded( bool );
+
+    ///Returns whether the given row is currently partially expanded. Does not do any other checks like calling models for data.
+    bool isPartiallyExpanded(int row) const;
+    
+    ///@return whether row is currently expanded
+    bool isExpanded(int row) const;
+    ///@return change the expand-state of the row given through index. The display will be updated.
+    void setExpanded(QModelIndex index, bool expanded);
+
+    ///@return the expanding-widget for the given row, if available. Expanding-widgets are in best case available for all expanded rows.
+    ///This does not return the partially-expand widget.
+    QWidget* expandingWidget(int row) const;
+
+    int partiallyExpandWidgetHeight() const;
+    /**
+     * Notifies underlying models that the item was selected, collapses any previous partially expanded line,
+     * checks whether this line should be partially expanded, and eventually does it.
+     * Does nothing when nothing needs to be done.
+     * Does NOT show the expanding-widget. That must be done immediately when painting by KateCompletionDelegate,
+     * to reduce flickering. @see showPartialExpandWidget()
+     * @param row The row
+     * */
+    ///
+    void rowSelected(int row);
+
+    ///Places and shows the expanding-widget for the given row, if it should be visible and is valid.
+    ///Also shows the partial-expanding-widget when it should be visible.
+    void placeExpandingWidget(int row);
+    
     // Sorting
     bool isSortingEnabled() const;
     bool isSortingAlphabetical() const;
@@ -159,6 +200,12 @@ class KateCompletionModel : public QAbstractItemModel
     typedef QPair<KTextEditor::CodeCompletionModel*, int> ModelRow;
     ModelRow modelRowPair(const QModelIndex& index) const;
 
+    //Does not update the view
+    void partiallyUnExpand(int row);
+    //Finds out the basic height of the row represented by the given index. Basic means without respecting any expansion.
+    int basicRowHeight( const QModelIndex& index ) const;
+    
+    
     // Represents a source row; provides sorting method
     class Item {
       public:
@@ -224,6 +271,13 @@ class KateCompletionModel : public QAbstractItemModel
       Narrow,
       Change
     };
+
+    enum ExpandingType {
+      NotExpandable=0,
+      Expandable,
+      Expanded
+    };
+
     void changeCompletions(Group* g, const QString& newCompletion, changeTypes changeType);
 
     void deleteRows(Group* g, QMutableListIterator<ModelRow>& filtered, int countBackwards, int startRow);
@@ -235,11 +289,16 @@ class KateCompletionModel : public QAbstractItemModel
     /// Removes attributes not used in grouping from the input \a attribute
     int groupingAttributes(int attribute) const;
     int countBits(int value) const;
-
+    
     void resort();
     void refilter();
     void rematch();
 
+    void clearExpanding();
+
+    //Places all expanding-widgets to the right positions in the viewport
+    void placeExpandingWidgets();
+    
     // ### Runtime state
     // General
     QList<KTextEditor::CodeCompletionModel*> m_completionModels;
@@ -257,6 +316,14 @@ class KateCompletionModel : public QAbstractItemModel
     // Quick access to each specific group (if it exists)
     QMultiHash<int, Group*> m_groupHash;
 
+    // Store expanding-widgets and cache whether items can be expanded
+    mutable QHash<int, ExpandingType> m_expandState;
+    mutable QIcon m_expandedIcon;
+    mutable QIcon m_collapsedIcon;
+    QHash< int, QWidget* > m_expandingWidgets; //Map row-numbers to their expanding-widgets
+    int m_partiallyExpandedRow;
+    QTextEdit* m_partiallyExpandWidget; ///@todo instead of embedding this widget, use QTextDocument to paint the content in KateCompletionDelegate
+    
     // ### Configurable state
     // Sorting
     bool m_sortingEnabled;

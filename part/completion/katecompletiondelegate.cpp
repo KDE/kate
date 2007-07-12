@@ -15,11 +15,14 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-
 #include "katecompletiondelegate.h"
 
 #include <QtGui/QTextLine>
 #include <QtGui/QPainter>
+#include <QtGui/QBrush>
+#include <QKeyEvent>
+
+#include <ktexteditor/codecompletionmodel.h>
 
 #include "katerenderer.h"
 #include "katetextline.h"
@@ -31,6 +34,7 @@
 
 #include "katecompletionwidget.h"
 #include "katecompletionmodel.h"
+#include "katecompletiontree.h"
 
 KateCompletionDelegate::KateCompletionDelegate(KateCompletionWidget* parent)
   : QItemDelegate(parent)
@@ -40,9 +44,24 @@ KateCompletionDelegate::KateCompletionDelegate(KateCompletionWidget* parent)
 {
 }
 
-void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const
+void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewItem & optionOld, const QModelIndex & index ) const
 {
+  QStyleOptionViewItem option(optionOld);
+
+/*  if( (option.state & QStyle::State_Selected) && model()->m_partiallyExpandedRow != index.row() )
+    kDebug() << "painting " << index.row() << " in selected state, while " << model()->m_partiallyExpandedRow << " is set as partially-expanded row" << endl;
+  else if( model()->m_partiallyExpandedRow == index.row() && !(option.state & QStyle::State_Selected) )
+    kDebug() << "painting " << index.row() << " in unselected state, while it is set as partially-expanded" << endl;*/
+    
+    
+  model()->placeExpandingWidget(index.row());
+
+  //Make sure the decorations are painted at the top, because the center of expanded items will be filled with the embedded widget.
+  if( index.column() != KTextEditor::CodeCompletionModel::Prefix )
+    option.decorationAlignment = Qt::AlignTop;
+  
   //kDebug() << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected) << endl;
+
   if ((index.row() != m_cachedRow) || ( ( option.state & QStyle::State_Selected  ) == QStyle::State_Selected ) != m_cachedRowSelected) {
     m_cachedColumnStarts.clear();
     m_cachedHighlights.clear();
@@ -119,6 +138,59 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
   QItemDelegate::paint(painter, option, index);
 }
 
+QSize KateCompletionDelegate::basicSizeHint( const QModelIndex& index ) const {
+  return QItemDelegate::sizeHint( QStyleOptionViewItem(), index );
+}
+
+QSize KateCompletionDelegate::sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const
+{
+  QSize s = QItemDelegate::sizeHint( option, index );
+  if( model()->isExpanded(index.row()) && model()->expandingWidget(index.row()) )
+  {
+    QWidget* widget = model()->expandingWidget(index.row());
+    QSize widgetSize = widget->size();
+
+    s.setHeight( widgetSize.height() + s.height() + 10 ); //10 is the sum that must match exactly the offsets used in KateCompletionModel::placeExpandingWidgets
+  } else if( model()->isPartiallyExpanded(index.row()) ) {
+    s.setHeight( s.height() + 30 + 10 );
+  }
+  return s;
+}
+
+void KateCompletionDelegate::drawBackground ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const
+{
+  if( !model()->isExpanded(index.row()) )
+    QItemDelegate::drawBackground( painter, option, index );
+  else {
+    //Highlight expanded items specially
+    QStyleOptionViewItem newOption(option);
+
+    ///@todo make these colors be used
+    QColor base = newOption.palette.color( newOption.palette.currentColorGroup(), QPalette::Base );
+    QColor alternateBase = newOption.palette.color( newOption.palette.currentColorGroup(), QPalette::AlternateBase );
+    QColor highlight = newOption.palette.color( newOption.palette.currentColorGroup(), QPalette::Highlight );
+
+    base.setRed(70);
+    base.setGreen(70);
+    base.setBlue(50);
+    
+    alternateBase.setRed(90);
+    alternateBase.setGreen(90);
+    alternateBase.setBlue(50);
+    
+    highlight.setRed(90);
+    highlight.setGreen(90);
+    highlight.setBlue(30);
+
+    newOption.palette.setColor( newOption.palette.currentColorGroup(), QPalette::Base, base );
+    newOption.palette.setColor( newOption.palette.currentColorGroup(), QPalette::Background, base );
+    newOption.palette.setColor( newOption.palette.currentColorGroup(), QPalette::AlternateBase, alternateBase );
+    newOption.palette.setColor( newOption.palette.currentColorGroup(), QPalette::Highlight, highlight );
+    
+    QItemDelegate::drawBackground( painter, newOption, index );
+  }
+}
+
 void KateCompletionDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & text ) const
 {
   if (m_cachedRow == -1)
@@ -173,6 +245,28 @@ void KateCompletionDelegate::drawDisplay( QPainter * painter, const QStyleOption
   //if (painter->fontMetrics().width(text) > textRect.width() && !text.contains(QLatin1Char('\n')))
       //str = elidedText(option.fontMetrics, textRect.width(), option.textElideMode, text);
   //qt_format_text(option.font, textRect, option.displayAlignment, str, 0, 0, 0, 0, painter);
+}
+
+KateCompletionModel* KateCompletionDelegate::model() const {
+  return widget()->model();
+}
+
+bool KateCompletionDelegate::editorEvent ( QEvent * event, QAbstractItemModel * /*model*/, const QStyleOptionViewItem & /*option*/, const QModelIndex & index )
+{
+  QKeyEvent* keyEvent = 0;
+  if( event->type() == QEvent::KeyPress )
+    keyEvent = reinterpret_cast<QKeyEvent*>(event);
+  
+  if( event->type() == QEvent::MouseButtonRelease || (keyEvent && !keyEvent->isAutoRepeat() && keyEvent->key() == Qt::Key_Tab ) )
+  {
+    event->accept();
+    model()->setExpanded(index, !model()->isExpanded(index.row()));
+    return true;
+  } else {
+    event->ignore();
+  }
+  
+  return false;
 }
 
 KateRenderer * KateCompletionDelegate::renderer( ) const

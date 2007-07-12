@@ -1013,6 +1013,10 @@ void KateViewInternal::moveChar( KateViewInternal::Bias bias, bool sel )
 
 void KateViewInternal::cursorLeft(  bool sel )
 {
+  if (m_view->isCompletionActive() && view()->completionWidget()->canCollapseCurrentItem() ) {
+    view()->completionWidget()->setCurrentItemExpanded(false);
+    return;
+  }
   if ( ! m_view->wrapCursor() && m_cursor.column() == 0 )
     return;
 
@@ -1021,6 +1025,10 @@ void KateViewInternal::cursorLeft(  bool sel )
 
 void KateViewInternal::cursorRight( bool sel )
 {
+  if (m_view->isCompletionActive() && view()->completionWidget()->canExpandCurrentItem() ) {
+    view()->completionWidget()->setCurrentItemExpanded(true);
+    return;
+  }
   moveChar( KateViewInternal::right, sel );
 }
 

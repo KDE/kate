@@ -32,18 +32,24 @@
 KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
   : QTreeView(parent)
 {
-  setUniformRowHeights(true);
+  setUniformRowHeights(false);
   header()->hide();
   setRootIsDecorated(false);
   setIndentation(0);
   setFrameStyle(QFrame::NoFrame);
   setAllColumnsShowFocus(true);
+  setAlternatingRowColors(true);
 
   // Provide custom highlighting to completion entries
   setItemDelegate(new KateCompletionDelegate(widget()));
 
   // Prevent user from expanding / collapsing with the mouse
   setItemsExpandable(false);
+}
+
+void KateCompletionTree::currentChanged ( const QModelIndex & current, const QModelIndex & previous ) {
+  widget()->model()->rowSelected(current.row());
+  QTreeView::currentChanged(current, previous);
 }
 
 void KateCompletionTree::scrollContentsBy( int dx, int dy )

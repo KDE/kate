@@ -48,6 +48,7 @@ class KateCompletionWidget : public QFrame
     explicit KateCompletionWidget(KateView* parent);
 
     KateView* view() const;
+    KateCompletionTree* treeView() const;
 
     bool isCompletionActive() const;
     void startCompletion(const KTextEditor::Range& word, KTextEditor::CodeCompletionModel* model, KTextEditor::CodeCompletionModel::InvocationType invocationType = KTextEditor::CodeCompletionModel::ManualInvocation);
@@ -55,6 +56,9 @@ class KateCompletionWidget : public QFrame
 
     void execute();
 
+    const KateCompletionModel* model() const;
+    KateCompletionModel* model();
+    
     void registerCompletionModel(KTextEditor::CodeCompletionModel* model);
     void unregisterCompletionModel(KTextEditor::CodeCompletionModel* model);
     bool isAutomaticInvocationEnabled() const;
@@ -70,6 +74,12 @@ class KateCompletionWidget : public QFrame
     void top();
     void bottom();
 
+    bool canExpandCurrentItem() const;
+
+    bool canCollapseCurrentItem() const;
+
+    void setCurrentItemExpanded( bool );
+    
     void updatePosition(bool force = false);
 
     virtual bool eventFilter( QObject * watched, QEvent * event );

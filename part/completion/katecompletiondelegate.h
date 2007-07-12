@@ -21,11 +21,14 @@
 
 #include <QtGui/QItemDelegate>
 #include <QtGui/QTextLine>
+#include <QModelIndex>
+#include <QPoint>
 
 class KateRenderer;
 class KateCompletionWidget;
 class KateDocument;
 class KateTextLine;
+class KateCompletionModel;
 
 class KateCompletionDelegate : public QItemDelegate
 {
@@ -41,11 +44,19 @@ class KateCompletionDelegate : public QItemDelegate
     // Overridden to create highlighting for current index
     virtual void paint ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
 
+    // Returns the basic size-hint as reported by QItemDelegate
+    QSize basicSizeHint( const QModelIndex& index ) const;
+    
   protected:
     virtual void drawDisplay ( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & text ) const;
-
+    void drawBackground ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
+    virtual QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const;
+    virtual bool editorEvent ( QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index );
   private:
+
     KateTextLine* m_previousLine;
+
+    KateCompletionModel* model() const;
 
     mutable int m_cachedRow;
     mutable bool m_cachedRowSelected;

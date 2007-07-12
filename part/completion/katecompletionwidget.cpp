@@ -119,6 +119,14 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
     childWidget->setFocusPolicy(Qt::NoFocus);
 }
 
+const KateCompletionModel* KateCompletionWidget::model() const {
+  return m_presentationModel;
+}
+
+KateCompletionModel* KateCompletionWidget::model() {
+  return m_presentationModel;
+}
+
 void KateCompletionWidget::rowsInserted(const QModelIndex& parent, int rowFrom, int rowEnd)
 {
   for (int i = rowFrom; i <= rowEnd; ++i)
@@ -303,6 +311,25 @@ KateSmartRange * KateCompletionWidget::completionRange( ) const
 void KateCompletionWidget::modelReset( )
 {
   m_entryList->expandAll();
+}
+
+KateCompletionTree* KateCompletionWidget::treeView() const {
+  return m_entryList;
+}
+
+bool KateCompletionWidget::canExpandCurrentItem() const {
+  if( !m_entryList->currentIndex().isValid() ) return false;
+  return model()->isExpandable( m_entryList->currentIndex() ) && !model()->isExpanded( m_entryList->currentIndex().row() );
+}
+
+bool KateCompletionWidget::canCollapseCurrentItem() const {
+  if( !m_entryList->currentIndex().isValid() ) return false;
+  return model()->isExpandable( m_entryList->currentIndex() ) && model()->isExpanded( m_entryList->currentIndex().row() );
+}
+
+void KateCompletionWidget::setCurrentItemExpanded( bool expanded ) {
+  if( !m_entryList->currentIndex().isValid() ) return;
+  model()->setExpanded(m_entryList->currentIndex(), expanded);
 }
 
 void KateCompletionWidget::startCharacterDeleted( KTextEditor::SmartCursor*, bool deletedBefore )

@@ -371,7 +371,7 @@ Qt::ItemFlags KateCompletionModel::flags( const QModelIndex & index ) const
 }
 
 KateCompletionWidget* KateCompletionModel::widget() const {
-  return static_cast<const KateCompletionWidget*>(QObject::parent());
+  return static_cast<KateCompletionWidget*>(QObject::parent());
 }
 
 KateView * KateCompletionModel::view( ) const

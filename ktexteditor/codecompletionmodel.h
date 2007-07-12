@@ -151,7 +151,47 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        * which comes from the base class would have depth 0, one from a parent class
        * would have depth 1, one from that class' parent 2, etc.
        */
-      InheritanceDepth
+      InheritanceDepth,
+
+      /**
+       * This allows items in the completion-list to be expandable. If a model returns an QVariant bool value
+       * that evaluates to true, the completion-widget will draw a handle to expand the item, and will also make
+       * that action accessible through keyboard.
+       */
+      IsExpandable,
+      /**
+       * After a model returned true for a row on IsExpandable, the row may be expanded by the user.
+       * When this happens, ExpandingWidget is requested.
+       *
+       * The model may return two types of values:
+       * QWidget*:
+       *  If the model returns a QVariant of type QWidget*, the code-completion takes over the given widget
+       *  and embeds it into the completion-list under the completion-item. The widget will be automatically deleted at some point.
+       *  The completion-widget will use the height of the widget as a hint for it's preferred size, but it will
+       *  resize the widget at will.
+       * QString:
+       *  If the mode returns a QVariant of type QString, it will create a small html-widget showing the given html-code,
+       *  and embed it into the completion-list under the completion-item.
+       *
+       * Warning:
+       *   QWidget* widget;
+       *   return QVariant(widget);
+       * Will not work correctly!
+       * Use the following instead.:
+       *   QVariant v;
+       *   v.setValue<QWidget*>(widget);
+       *   return v;
+       *
+       * */
+      ExpandingWidget,
+      /**
+       * Whenever an item is selected, this will be requested from the underlying model.
+       * It may be used as a simple notification that the item was selected.
+       *
+       * Above that, the model may return a QString, which then should then contain html-code. A html-widget
+       * will then be displayed as a one- or two-liner under the currently selected item(it will be partially expanded)
+       * */
+      ItemSelected
     };
     static const int LastItemDataRole = InheritanceDepth;
 

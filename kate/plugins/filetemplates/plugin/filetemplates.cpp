@@ -39,7 +39,6 @@
 #include <kmessagebox.h>
 // #include <knewstuff2/core/entry.h>
 #include <knewstuff2/engine.h>
-#include <k3process.h>
 #include <kstandarddirs.h>
 #include <kstandarddirs.h>
 #include <ktemporaryfile.h>

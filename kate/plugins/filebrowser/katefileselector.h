@@ -146,7 +146,7 @@ class KateFileSelector : public KVBox
     KActionCollection *actionCollection()
     {
       return mActionCollection;
-    };
+    }
 
   public Q_SLOTS:
     void slotFilterChange(const QString&);
@@ -154,7 +154,7 @@ class KateFileSelector : public KVBox
     void setDir( const QString& url )
     {
       setDir( KUrl( url ) );
-    };
+    }
     void kateViewChanged();
     void selectorViewChanged( KFileView * );
 
@@ -216,7 +216,7 @@ class KFSConfigPage : public Kate::PluginConfigPage
   public:
     KFSConfigPage( QWidget* parent = 0, const char *name = 0, KateFileSelector *kfs = 0);
     virtual ~KFSConfigPage()
-    {};
+    {}
 
     virtual void apply();
     virtual void reset();

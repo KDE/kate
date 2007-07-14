@@ -72,7 +72,7 @@ class KateDocManager : public QStandardItemModel
     Kate::DocumentManager *documentManager ()
     {
       return m_documentManager;
-    };
+    }
     KTextEditor::Editor *editor()
     {
       return m_editor;
@@ -100,7 +100,7 @@ class KateDocManager : public QStandardItemModel
     const QList<KTextEditor::Document*> &documentList () const
     {
       return m_docList;
-    };
+    }
 
     KTextEditor::Document *openUrl(const KUrl&, const QString &encoding = QString(), bool isTempFile = false);
 
@@ -119,20 +119,20 @@ class KateDocManager : public QStandardItemModel
     inline bool getSaveMetaInfos()
     {
       return m_saveMetaInfos;
-    };
+    }
     inline void setSaveMetaInfos(bool b)
     {
       m_saveMetaInfos = b;
-    };
+    }
 
     inline int getDaysMetaInfos()
     {
       return m_daysMetaInfos;
-    };
+    }
     inline void setDaysMetaInfos(int i)
     {
       m_daysMetaInfos = i;
-    };
+    }
 
     QModelIndex indexForDocument(KTextEditor::Document *document);
 

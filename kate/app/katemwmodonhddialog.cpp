@@ -53,7 +53,7 @@ class KateDocItem : public QTreeWidgetItem
         setCheckState( 0, Qt::Unchecked );
     }
     ~KateDocItem()
-  {};
+  {}
 
     KTextEditor::Document *document;
 };

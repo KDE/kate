@@ -75,7 +75,7 @@ class KateFileTemplates : public Kate::Plugin
     /**
      * @return a pointer to the templateinfo collection
      */
-    Q3PtrList<class TemplateInfo> templates() { return m_templates; };
+    Q3PtrList<class TemplateInfo> templates() { return m_templates; }
 
     /**
      * @return a pointer to the templateInfo for the template at @p index
@@ -146,7 +146,7 @@ class KateTemplateInfoWidget : public QWidget
   Q_OBJECT
   public:
     KateTemplateInfoWidget( QWidget *parent=0, TemplateInfo *info=0, KateFileTemplates *kft=0 );
-    ~KateTemplateInfoWidget() {};
+    ~KateTemplateInfoWidget() {}
 
     TemplateInfo *info;
 
@@ -180,7 +180,7 @@ class KateTemplateWizard : public K3Wizard
   Q_OBJECT
   public:
     KateTemplateWizard( QWidget* parent, KateFileTemplates *ktf );
-    ~KateTemplateWizard() {};
+    ~KateTemplateWizard() {}
 
   public slots:
     void accept();
@@ -219,12 +219,12 @@ class KateTemplateManager : public QWidget
   Q_OBJECT
   public:
     KateTemplateManager( KateFileTemplates *kft=0, QWidget *parent=0, const char *name=0 );
-    ~KateTemplateManager() {};
+    ~KateTemplateManager() {}
 
   public slots:
     void apply();
     void reload();
-    void reset() { reload(); };
+    void reset() { reload(); }
 
   private slots:
     void slotUpload();

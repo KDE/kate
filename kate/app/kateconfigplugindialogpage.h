@@ -54,7 +54,7 @@ class KateConfigPluginPage: public KVBox
     ~KateConfigPluginPage()
     {
       ;
-    };
+    }
 
   private:
     class KateConfigDialog *myDialog;

@@ -58,7 +58,7 @@ class KatePluginManager : public QObject
     Kate::PluginManager *pluginManager () const
     {
       return m_pluginManager;
-    };
+    }
 
     void unloadAllPlugins ();
 
@@ -80,7 +80,7 @@ class KatePluginManager : public QObject
     inline KatePluginList & pluginList ()
     {
       return m_pluginList;
-    };
+    }
 
     Kate::Plugin *plugin (const QString &name);
     bool pluginAvailable (const QString &name);

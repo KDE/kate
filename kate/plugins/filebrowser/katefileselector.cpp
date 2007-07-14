@@ -628,11 +628,11 @@ class ActionLBItem : public QListWidgetItem
                   const QString &str = QString::null ) :
         QListWidgetItem(pm, text, lb, 0 ),
         _str(str)
-    {};
+    {}
     QString idstring()
     {
       return _str;
-    };
+    }
   private:
     QString _str;
 };

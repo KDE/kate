@@ -450,7 +450,7 @@ class ToolItem : public QListWidgetItem
     }
 
     ~ToolItem()
-    {};
+    {}
 
     KateExternalTool *tool;
 };

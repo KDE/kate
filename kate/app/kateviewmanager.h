@@ -112,7 +112,7 @@ class KateViewManager : public QSplitter
     inline QList<KTextEditor::View*> &viewList ()
     {
       return m_viewList;
-    };
+    }
 
   private:
     /**
@@ -149,7 +149,7 @@ class KateViewManager : public QSplitter
     bool isViewActivationBlocked()
     {
       return m_blockViewCreationAndActivation;
-    };
+    }
 
   private Q_SLOTS:
     void slotViewChanged();

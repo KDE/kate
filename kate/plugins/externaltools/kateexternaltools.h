@@ -72,7 +72,7 @@ class KateExternalToolsMenuAction : public KActionMenu
   public:
     KateExternalToolsMenuAction( const QString &text, QObject *parent, class Kate::MainWindow *mw = 0 );
     ~KateExternalToolsMenuAction()
-    {};
+    {}
 
     /**
      * This will load all the confiured services.
@@ -126,7 +126,7 @@ class KateExternalTool
                       const QString &cmdname = QString(),
                       int save = 0 );
     ~KateExternalTool()
-    {};
+    {}
 
     QString name; ///< The name used in the menu.
     QString command; ///< The command to execute.
@@ -204,7 +204,7 @@ class KateExternalToolsCommand : public KTextEditor::Command
   public:
     KateExternalToolsCommand ();
     virtual ~KateExternalToolsCommand ()
-    {};
+    {}
     static KateExternalToolsCommand *self();
     void reload();
   public:

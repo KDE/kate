@@ -48,7 +48,7 @@ class KateMailDialog : public KDialog
     KateMailDialog( QWidget *parent = 0,
                     Kate::MainWindow *mainwin = 0 );
     ~KateMailDialog()
-    {};
+    {}
 
     /**
         @return a list of the selected docs.

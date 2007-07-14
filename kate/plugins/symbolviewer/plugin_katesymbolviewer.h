@@ -140,9 +140,9 @@ class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterf
 
     uint configPages () const { return 1; }
     Kate::PluginConfigPage *configPage (uint , QWidget *w, const char *name=0);
-    QString configPageName(uint) const { return i18n("Symbol Viewer"); };
-    QString configPageFullName(uint) const { return i18n("Symbol Viewer Configuration Page"); };
-    QPixmap configPagePixmap (uint, int) const { return 0L; };
+    QString configPageName(uint) const { return i18n("Symbol Viewer"); }
+    QString configPageFullName(uint) const { return i18n("Symbol Viewer Configuration Page"); }
+    QPixmap configPagePixmap (uint, int) const { return 0L; }
     KIcon configPageIcon (uint) const {return KIcon();} //TODO implement it
   public slots:
     void applyConfig( KatePluginSymbolViewerConfigPage* );

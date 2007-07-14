@@ -36,11 +36,11 @@ class KateMailDocItem : public QTreeWidgetItem
       setText(0, doc->documentName());
       setText(1, doc->url().prettyUrl());
       setCheckState(0, Qt::Unchecked);
-    };
+    }
     KTextEditor::Document *doc()
     {
       return mdoc;
-    };
+    }
   private:
     KTextEditor::Document *mdoc;
 };

@@ -100,8 +100,8 @@ class KatePluginTabBarExtension : public Kate::Plugin, public Kate::PluginConfig
     // Kate::PluginConfigPageInterface
     uint configPages () const { return 1; }
     Kate::PluginConfigPage *configPage (uint , QWidget *w, const char *name=0);
-    QString configPageName(uint) const { return i18n("Tab Bar Extension"); };
-    QString configPageFullName(uint) const { return i18n("Configure Tab Bar Extension"); };
+    QString configPageName(uint) const { return i18n("Tab Bar Extension"); }
+    QString configPageFullName(uint) const { return i18n("Configure Tab Bar Extension"); }
     KIcon configPageIcon(uint) const { return KIcon(); }
 
   public slots:
@@ -148,8 +148,8 @@ class KateTabBarExtensionConfigPage : public Kate::PluginConfigPage
      */
     virtual void apply();
 
-    virtual void reset () { ; };
-    virtual void defaults () { ; };
+    virtual void reset () { ; }
+    virtual void defaults () { ; }
 
   signals:
     /**

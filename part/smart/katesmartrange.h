@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KATESUPERRANGE_H
-#define KATESUPERRANGE_H
+#ifndef KATESMARTRANGE_H
+#define KATESMARTRANGE_H
 
 #include "katesmartcursor.h"
 #include <ktexteditor/smartrange.h>

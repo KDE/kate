@@ -18,8 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KATESTYLELISTVIEW_H
-#define KATESTYLELISTVIEW_H
+#ifndef KATESTYLETREEWIDGET_H
+#define KATESTYLETREEWIDGET_H
 
 #include <QtGui/QTreeWidget>
 

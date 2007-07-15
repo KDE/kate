@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KATE_HLMENU_H__
-#define KATE_HLMENU_H__
+#ifndef KATE_HIGHLIGHTMENU_H__
+#define KATE_HIGHLIGHTMENU_H__
 
 #include <QtCore/QStringList>
 #include <QtCore/QPointer>

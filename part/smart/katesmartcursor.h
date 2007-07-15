@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KATESUPERCURSOR_H
-#define KATESUPERCURSOR_H
+#ifndef KATESMARTCURSOR_H
+#define KATESMARTCURSOR_H
 
 #include <ktexteditor/smartcursor.h>
 

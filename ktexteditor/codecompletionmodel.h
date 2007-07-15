@@ -119,14 +119,29 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
       /**
        * If requested, your model should try to determine whether the
        * completion in question is a suitable match for the context (ie.
-       * is accessible, exported, + returns the data type required)
+       * is accessible, exported, + returns the data type required). 
        *
-       * Return a bool, \e true if the completion is suitable, otherwise
-       * return \e false.  Return QVariant::Invalid if you are unable to
-       * determine this.
+       * The returned data should ideally be matched against the argument-hint context
+       * set earlier by SetMatchContext.
+       *
+       * Return an integer value that should be positive if the completion is suitable,
+       * and zero if the completion is not suitable. The value should be between 0 an 10, where
+       * 10 means perfect match.
+       *
+       * Return QVariant::Invalid if you are unable to determine this.
        */
-      MatchType,
+      MatchQuality,
 
+      /**
+       * Is requested before MatchQuality(..) is requested. The item on which this is requested
+       * is an argument-hint item(@see ArgumentHintDepth). When this role is requested, the item should
+       * be noted, and whenever MatchQuality is requested, it should be computed by matching the item given
+       * with MatchQuality into the context chosen by SetMatchContext.
+       *
+       * Feel free to ignore this, but ideally you should return QVariant::Invalid to make clear that your model does not support this.
+       * */
+      SetMatchContext,
+      
       /**
        * Define which highlighting method will be used:
        * - QVariant::Invalid - allows the editor to choose (usually internal highlighting)
@@ -191,7 +206,38 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        * Above that, the model may return a QString, which then should then contain html-code. A html-widget
        * will then be displayed as a one- or two-liner under the currently selected item(it will be partially expanded)
        * */
-      ItemSelected
+      ItemSelected,
+
+       /**Is this completion-item an argument-hint?
+        * The model should return an integral positive number if the item is an argument-hint, and QVariant() or 0 if it is not one.
+        *
+        * The returned depth-integer is important for sorting and matching.
+        * Example:
+        * "otherFunction(function1(function2("
+        * all functions named function2 should have ArgumentHintDepth 1, all functions found for function1 should have ArgumentHintDepth 2,
+        * and all functions named otherFunction should have ArgumentHintDepth 3
+        *
+        * Later, a completed item may then be matched with the first argument of function2, the return-type of function2 with the first
+        * argument-type of function1, and the return-type of function1 with the argument-type of otherFunction.
+        *
+        * If the model returns a positive value on this role for a row, the content will be treated specially:
+        * - It will be shown in a separate argument-hint list
+        * - It will be sorted by Argument-hint depth
+        * - Match-qualities will be illustrated by differently highlighting the matched argument if possible
+        * The argument-hint list strings will be built from the following source-model columns:
+        * Prefix - Should be all text of the function-signature up to left of the matched argument of the function
+        * Name - Should be the type and name of the function's matched argument. This part will be highlighted differently depending on the match-quality
+        * Suffix - All the text of the function-signature behind the matched argument
+        *
+        * Example: You are matching a function with signature "void test(int param1, int param2)", and you are matching the first argument.
+        * The model should then return:
+        * Prefix: "void test("
+        * Name: "int param1"
+        * Suffix: ", int param2)"
+        *
+        * If you don't use the highlighting, matching, etc. you can as well return the whole signature on either Prefix, Name, or Suffix.
+       * */
+      ArgumentHintDepth
     };
     static const int LastItemDataRole = InheritanceDepth;
 

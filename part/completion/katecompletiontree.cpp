@@ -41,7 +41,7 @@ KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
   setAlternatingRowColors(true);
 
   // Provide custom highlighting to completion entries
-  setItemDelegate(new KateCompletionDelegate(widget()));
+  setItemDelegate(new KateCompletionDelegate(widget()->model(), widget()));
 
   // Prevent user from expanding / collapsing with the mouse
   setItemsExpandable(false);
@@ -169,8 +169,9 @@ bool KateCompletionTree::previousCompletion()
   return true;
 }
 
-void KateCompletionTree::pageDown( )
+bool KateCompletionTree::pageDown( )
 {
+  QModelIndex old = currentIndex();
   QModelIndex current = moveCursor(MovePageDown, Qt::NoModifier);
 
   if (current.isValid()) {
@@ -179,10 +180,13 @@ void KateCompletionTree::pageDown( )
       if (!nextCompletion())
         previousCompletion();
   }
+
+  return current != old;
 }
 
-void KateCompletionTree::pageUp( )
+bool KateCompletionTree::pageUp( )
 {
+  QModelIndex old = currentIndex();
   QModelIndex current = moveCursor(MovePageUp, Qt::NoModifier);
 
   if (current.isValid()) {
@@ -191,6 +195,7 @@ void KateCompletionTree::pageUp( )
       if (!previousCompletion())
         nextCompletion();
   }
+  return current != old;
 }
 
 void KateCompletionTree::top( )

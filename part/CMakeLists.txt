@@ -50,6 +50,9 @@ completion/katecompletionmodel.cpp
 completion/katecompletiondelegate.cpp
 completion/katecompletiontree.cpp
 completion/katecompletionconfig.cpp
+completion/kateargumenthinttree.cpp
+completion/kateargumenthintmodel.cpp
+completion/expandingwidgetmodel.cpp
 
 # dialogs
 dialogs/katedialogs.cpp

@@ -44,6 +44,8 @@
 #include "katecompletionmodel.h"
 #include "katecompletiontree.h"
 #include "katecompletionconfig.h"
+#include "kateargumenthinttree.h"
+#include "kateargumenthintmodel.h"
 
 //#include "modeltest.h"
 
@@ -51,8 +53,12 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   : QFrame(parent, Qt::Tool | Qt::FramelessWindowHint)
   , m_presentationModel(new KateCompletionModel(this))
   , m_completionRange(0L)
+  , m_entryList(new KateCompletionTree(this))
+  , m_argumentHintModel(new KateArgumentHintModel(this))
+  , m_argumentHintTree(new KateArgumentHintTree(this))
   , m_automaticInvocation(false)
   , m_filterInstalled(false)
+  , m_inCompletionList(false)
 {
   //new ModelTest(m_presentationModel, this);
 
@@ -60,8 +66,8 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   setLineWidth( 1 );
   //setWindowOpacity(0.8);
 
-  m_entryList = new KateCompletionTree(this);
   m_entryList->setModel(m_presentationModel);
+  m_argumentHintTree->setModel(m_argumentHintModel);
 
   m_statusBar = new QWidget(this);
   m_statusBar->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed );
@@ -105,7 +111,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   vl->addWidget(m_entryList);
   vl->addWidget(m_statusBar);
   vl->setMargin(0);
-
+  
   // Keep branches expanded
   connect(m_presentationModel, SIGNAL(modelReset()), this, SLOT(modelReset()), Qt::QueuedConnection);
   connect(m_presentationModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(rowsInserted(const QModelIndex&, int, int)));
@@ -117,6 +123,17 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   setFocusPolicy(Qt::NoFocus);
   foreach (QWidget* childWidget, findChildren<QWidget*>())
     childWidget->setFocusPolicy(Qt::NoFocus);
+}
+
+KateCompletionWidget::~KateCompletionWidget() {
+}
+
+KateArgumentHintTree* KateCompletionWidget::argumentHintTree() const {
+  return m_argumentHintTree;
+}
+
+KateArgumentHintModel* KateCompletionWidget::argumentHintModel() const {
+  return m_argumentHintModel;
 }
 
 const KateCompletionModel* KateCompletionWidget::model() const {
@@ -185,6 +202,9 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
     m_entryList->resizeColumns(false, true);
 
     m_presentationModel->setCurrentCompletion(view()->doc()->text(KTextEditor::Range(m_completionRange->start(), view()->cursorPosition())));
+
+    m_argumentHintModel->buildRows();
+    m_argumentHintTree->updateGeometry();
   }
 }
 
@@ -210,6 +230,13 @@ void KateCompletionWidget::updatePosition(bool force)
     x = QApplication::desktop()->width() - width();
 
   move( QPoint(x,y) );
+
+  //Now place the argument-hint widget
+  QRect geom = m_argumentHintTree->geometry();
+  geom.moveTo(QPoint(x,y));
+  geom.setWidth(width());
+  geom.moveBottom(y - 50);
+  m_argumentHintTree->updateGeometry(geom);
 }
 
 void KateCompletionWidget::cursorPositionChanged( )
@@ -252,12 +279,18 @@ void KateCompletionWidget::abortCompletion( )
 
   hide();
 
-  m_presentationModel->clearCompletionModels();
+  clear();
 
   delete m_completionRange;
   m_completionRange = 0L;
 
   view()->sendCompletionAborted();
+}
+
+void KateCompletionWidget::clear() {
+  m_presentationModel->clearCompletionModels();
+  m_argumentHintTree->clearCompletion();
+  m_argumentHintModel->clear();
 }
 
 void KateCompletionWidget::execute()
@@ -295,10 +328,19 @@ void KateCompletionWidget::resizeEvent( QResizeEvent * event )
   m_entryList->resizeColumns(true);
 }
 
+void KateCompletionWidget::showEvent ( QShowEvent * event )
+{
+  QWidget::showEvent(event);
+  
+  m_argumentHintTree->show();
+}
+
 void KateCompletionWidget::hideEvent( QHideEvent * event )
 {
   QWidget::hideEvent(event);
 
+  m_argumentHintTree->hide();
+  
   if (isCompletionActive())
     abortCompletion();
 }
@@ -310,6 +352,7 @@ KateSmartRange * KateCompletionWidget::completionRange( ) const
 
 void KateCompletionWidget::modelReset( )
 {
+  m_argumentHintTree->expandAll();
   m_entryList->expandAll();
 }
 
@@ -318,18 +361,33 @@ KateCompletionTree* KateCompletionWidget::treeView() const {
 }
 
 bool KateCompletionWidget::canExpandCurrentItem() const {
-  if( !m_entryList->currentIndex().isValid() ) return false;
-  return model()->isExpandable( m_entryList->currentIndex() ) && !model()->isExpanded( m_entryList->currentIndex().row() );
+  if( m_inCompletionList ) {
+    if( !m_entryList->currentIndex().isValid() ) return false;
+    return model()->isExpandable( m_entryList->currentIndex() ) && !model()->isExpanded( m_entryList->currentIndex().row() );
+  } else {
+    if( !m_argumentHintTree->currentIndex().isValid() ) return false;
+    return argumentHintModel()->isExpandable( m_argumentHintTree->currentIndex() ) && !argumentHintModel()->isExpanded( m_argumentHintTree->currentIndex().row() );
+  }
 }
 
 bool KateCompletionWidget::canCollapseCurrentItem() const {
-  if( !m_entryList->currentIndex().isValid() ) return false;
-  return model()->isExpandable( m_entryList->currentIndex() ) && model()->isExpanded( m_entryList->currentIndex().row() );
+  if( m_inCompletionList ) {
+    if( !m_entryList->currentIndex().isValid() ) return false;
+    return model()->isExpandable( m_entryList->currentIndex() ) && model()->isExpanded( m_entryList->currentIndex().row() );
+  }else{
+    if( !m_argumentHintTree->currentIndex().isValid() ) return false;
+    return m_argumentHintModel->isExpandable( m_argumentHintTree->currentIndex() ) && m_argumentHintModel->isExpanded( m_argumentHintTree->currentIndex().row() );
+  }
 }
 
 void KateCompletionWidget::setCurrentItemExpanded( bool expanded ) {
-  if( !m_entryList->currentIndex().isValid() ) return;
-  model()->setExpanded(m_entryList->currentIndex(), expanded);
+  if( m_inCompletionList ) {
+    if( !m_entryList->currentIndex().isValid() ) return;
+    model()->setExpanded(m_entryList->currentIndex(), expanded);
+  }else{
+    if( !m_argumentHintTree->currentIndex().isValid() ) return;
+    m_argumentHintModel->setExpanded(m_argumentHintTree->currentIndex(), expanded);
+  }
 }
 
 void KateCompletionWidget::startCharacterDeleted( KTextEditor::SmartCursor*, bool deletedBefore )
@@ -352,32 +410,71 @@ bool KateCompletionWidget::eventFilter( QObject * watched, QEvent * event )
 
 void KateCompletionWidget::nextCompletion( )
 {
-  m_entryList->nextCompletion();
+  if( m_inCompletionList )
+    m_entryList->nextCompletion();
+  else {
+    if( !m_argumentHintTree->nextCompletion() )
+      switchList();
+  }
 }
 
 void KateCompletionWidget::previousCompletion( )
 {
-  m_entryList->previousCompletion();
+  if( m_inCompletionList ) {
+    if( !m_entryList->previousCompletion() )
+      switchList();
+  }else{
+    m_argumentHintTree->previousCompletion();
+  }
 }
 
 void KateCompletionWidget::pageDown( )
 {
-  m_entryList->pageDown();
+  if( m_inCompletionList )
+    m_entryList->pageDown();
+  else {
+    if( !m_argumentHintTree->pageDown() )
+      switchList();
+  }
 }
 
 void KateCompletionWidget::pageUp( )
 {
-  m_entryList->pageUp();
+  if( m_inCompletionList ) {
+    if( !m_entryList->pageUp() )
+      switchList();
+  }else{
+    m_argumentHintTree->pageUp();
+  }
 }
 
 void KateCompletionWidget::top( )
 {
-  m_entryList->top();
+  if( m_inCompletionList )
+    m_entryList->top();
+  else
+    m_argumentHintTree->top();
 }
 
 void KateCompletionWidget::bottom( )
 {
-  m_entryList->bottom();
+  if( m_inCompletionList )
+    m_entryList->bottom();
+  else
+    m_argumentHintTree->bottom();
+}
+
+void KateCompletionWidget::switchList() {
+  if( m_inCompletionList ) {
+      m_entryList->setCurrentIndex(QModelIndex());
+      if( m_argumentHintModel->rowCount(QModelIndex()) != 0 )
+        m_argumentHintTree->setCurrentIndex(m_argumentHintModel->index(m_argumentHintModel->rowCount(QModelIndex())-1, 0));
+  } else {
+      m_argumentHintTree->setCurrentIndex(QModelIndex());
+      if( m_presentationModel->rowCount(QModelIndex()) != 0 )
+        m_entryList->setCurrentIndex(m_presentationModel->index(0, 0));
+  }
+  m_inCompletionList = !m_inCompletionList;
 }
 
 void KateCompletionWidget::showConfig( )

@@ -34,13 +34,15 @@
 
 #include "katecompletionwidget.h"
 #include "katecompletionmodel.h"
+#include "expandingwidgetmodel.h"
 #include "katecompletiontree.h"
 
-KateCompletionDelegate::KateCompletionDelegate(KateCompletionWidget* parent)
+KateCompletionDelegate::KateCompletionDelegate(ExpandingWidgetModel* model, KateCompletionWidget* parent)
   : QItemDelegate(parent)
   , m_previousLine(0L)
   , m_cachedRow(-1)
   , m_cachedRowSelected(false)
+  , m_model(model)
 {
 }
 
@@ -48,11 +50,6 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
 {
   QStyleOptionViewItem option(optionOld);
 
-/*  if( (option.state & QStyle::State_Selected) && model()->m_partiallyExpandedRow != index.row() )
-    kDebug() << "painting " << index.row() << " in selected state, while " << model()->m_partiallyExpandedRow << " is set as partially-expanded row" << endl;
-  else if( model()->m_partiallyExpandedRow == index.row() && !(option.state & QStyle::State_Selected) )
-    kDebug() << "painting " << index.row() << " in unselected state, while it is set as partially-expanded" << endl;*/
-    
     
   model()->placeExpandingWidget(index.row());
 
@@ -66,14 +63,13 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
     m_cachedColumnStarts.clear();
     m_cachedHighlights.clear();
 
-    const KateCompletionModel* model = static_cast<const KateCompletionModel*>(index.model());
-    if (!model->indexIsCompletion(index)) {
+    if (!model()->indexIsCompletion(index) /*|| !isCompletionDelegate()*/ ) { ///@todo fix things to work correctly in case !isCompletionDelegate
       m_cachedRow = -1;
       return QItemDelegate::paint(painter, option, index);
     }
 
     // Which highlighting to use?
-    QVariant highlight = model->data(model->index(index.row(), KTextEditor::CodeCompletionModel::Name, index.parent()), KTextEditor::CodeCompletionModel::HighlightingMethod);
+    QVariant highlight = model()->data(model()->index(index.row(), KTextEditor::CodeCompletionModel::Name, index.parent()), KTextEditor::CodeCompletionModel::HighlightingMethod);
 
     // TODO: config enable specifying no highlight as default
     int highlightMethod = KTextEditor::CodeCompletionModel::InternalHighlighting;
@@ -90,7 +86,7 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
     int len = completionStart.column();
     for (int i = 0; i < KTextEditor::CodeCompletionModel::ColumnCount; ++i) {
       m_cachedColumnStarts.append(len);
-      QString text = model->data(model->index(index.row(), i, index.parent()), Qt::DisplayRole).toString();
+      QString text = model()->data(model()->index(index.row(), i, index.parent()), Qt::DisplayRole).toString();
       thisLine->insertText(thisLine->length(), text);
       len += text.length();
     }
@@ -111,7 +107,7 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
 
     NormalRenderRange rr;
     if (highlightMethod & KTextEditor::CodeCompletionModel::CustomHighlighting) {
-      QList<QVariant> customHighlights = model->data(model->index(index.row(), KTextEditor::CodeCompletionModel::Name, index.parent()), KTextEditor::CodeCompletionModel::CustomHighlight).toList();
+      QList<QVariant> customHighlights = model()->data(model()->index(index.row(), KTextEditor::CodeCompletionModel::Name, index.parent()), KTextEditor::CodeCompletionModel::CustomHighlight).toList();
 
       for (int i = 0; i + 2 < customHighlights.count(); i += 3) {
         if (!customHighlights[i].canConvert(QVariant::Int) || !customHighlights[i+1].canConvert(QVariant::Int) || !customHighlights[i+2].canConvert<void*>()) {
@@ -150,7 +146,7 @@ QSize KateCompletionDelegate::sizeHint ( const QStyleOptionViewItem & option, co
     QWidget* widget = model()->expandingWidget(index.row());
     QSize widgetSize = widget->size();
 
-    s.setHeight( widgetSize.height() + s.height() + 10 ); //10 is the sum that must match exactly the offsets used in KateCompletionModel::placeExpandingWidgets
+    s.setHeight( widgetSize.height() + s.height() + 10 ); //10 is the sum that must match exactly the offsets used in ExpandingWidgetModel::placeExpandingWidgets
   } else if( model()->isPartiallyExpanded(index.row()) ) {
     s.setHeight( s.height() + 30 + 10 );
   }
@@ -247,8 +243,8 @@ void KateCompletionDelegate::drawDisplay( QPainter * painter, const QStyleOption
   //qt_format_text(option.font, textRect, option.displayAlignment, str, 0, 0, 0, 0, painter);
 }
 
-KateCompletionModel* KateCompletionDelegate::model() const {
-  return widget()->model();
+ExpandingWidgetModel* KateCompletionDelegate::model() const {
+  return m_model;
 }
 
 bool KateCompletionDelegate::editorEvent ( QEvent * event, QAbstractItemModel * /*model*/, const QStyleOptionViewItem & /*option*/, const QModelIndex & index )
@@ -282,6 +278,10 @@ KateCompletionWidget * KateCompletionDelegate::widget( ) const
 KateDocument * KateCompletionDelegate::document( ) const
 {
   return widget()->view()->doc();
+}
+
+bool KateCompletionDelegate::isCompletionDelegate() const {
+  return static_cast<ExpandingWidgetModel*>(widget()->model()) == model();
 }
 
 #include "katecompletiondelegate.moc"

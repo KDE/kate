@@ -19,6 +19,7 @@
 #define KATECOMPLETIONWIDGET_H
 
 #include <QtGui/QFrame>
+#include <QObject>
 
 #include <ktexteditor/range.h>
 #include <ktexteditor/codecompletioninterface.h>
@@ -33,6 +34,8 @@ class KateSmartRange;
 class KateCompletionModel;
 class KateCompletionTree;
 class KateEditInfo;
+class KateArgumentHintTree;
+class KateArgumentHintModel;
 
 /**
  * This is the code completion's main widget, and also contains the
@@ -46,6 +49,7 @@ class KateCompletionWidget : public QFrame
 
   public:
     explicit KateCompletionWidget(KateView* parent);
+    ~KateCompletionWidget();
 
     KateView* view() const;
     KateCompletionTree* treeView() const;
@@ -84,11 +88,16 @@ class KateCompletionWidget : public QFrame
 
     virtual bool eventFilter( QObject * watched, QEvent * event );
 
+    KateArgumentHintTree* argumentHintTree() const;
+    
+    KateArgumentHintModel* argumentHintModel() const;
+    
   public Q_SLOTS:
     void abortCompletion();
     void showConfig();
 
   protected:
+    virtual void showEvent ( QShowEvent * event );
     virtual void resizeEvent ( QResizeEvent * event );
     virtual void hideEvent ( QHideEvent * event );
 
@@ -100,6 +109,9 @@ class KateCompletionWidget : public QFrame
     void rowsInserted(const QModelIndex& parent, int row, int rowEnd);
 
   private:
+    void clear();
+    //Switch cursor between argument-hint list / completion-list
+    void switchList();
     KTextEditor::Range determineRange() const;
 
     QList<KTextEditor::CodeCompletionModel*> m_sourceModels;
@@ -109,6 +121,8 @@ class KateCompletionWidget : public QFrame
     KTextEditor::Cursor m_lastCursorPosition;
 
     KateCompletionTree* m_entryList;
+    KateArgumentHintModel* m_argumentHintModel;
+    KateArgumentHintTree* m_argumentHintTree;
 
     QWidget* m_statusBar;
     QToolButton* m_sortButton;
@@ -119,6 +133,7 @@ class KateCompletionWidget : public QFrame
 
     bool m_automaticInvocation;
     bool m_filterInstalled;
+    bool m_inCompletionList; //Are we in the completion-list? If not, we're in the argument-hint list
 };
 
 #endif

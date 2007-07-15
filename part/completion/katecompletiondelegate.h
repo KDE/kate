@@ -28,14 +28,14 @@ class KateRenderer;
 class KateCompletionWidget;
 class KateDocument;
 class KateTextLine;
-class KateCompletionModel;
+class ExpandingWidgetModel;
 
 class KateCompletionDelegate : public QItemDelegate
 {
   Q_OBJECT
 
   public:
-    KateCompletionDelegate(KateCompletionWidget* parent = 0L);
+    KateCompletionDelegate(ExpandingWidgetModel* model, KateCompletionWidget* parent = 0L);
 
     KateRenderer* renderer() const;
     KateCompletionWidget* widget() const;
@@ -54,15 +54,19 @@ class KateCompletionDelegate : public QItemDelegate
     virtual bool editorEvent ( QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index );
   private:
 
+    //Returns true if this delegate is painting in the list of completions, opposed to the list of argument-hints
+    bool isCompletionDelegate() const;
+
     KateTextLine* m_previousLine;
 
-    KateCompletionModel* model() const;
+    ExpandingWidgetModel* model() const;
 
     mutable int m_cachedRow;
     mutable bool m_cachedRowSelected;
     mutable int m_cachedColumnStart;
     mutable QList<int> m_cachedColumnStarts;
     mutable QList<QTextLayout::FormatRange> m_cachedHighlights;
+    ExpandingWidgetModel* m_model;
 };
 
 #endif

@@ -89,8 +89,8 @@ QVariant DocWordCompletionModel::data(const QModelIndex& index, int role) const
       return (int)FirstProperty|LastProperty|Public;
     case ScopeIndex:
       return 0;
-    case MatchType:
-      return true;
+    case MatchQuality:
+      return 10;
     case HighlightingMethod:
       return QVariant::Invalid;
     case InheritanceDepth:

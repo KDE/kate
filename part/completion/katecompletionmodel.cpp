@@ -33,11 +33,10 @@
 using namespace KTextEditor;
 
 KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
-  : QAbstractItemModel(parent)
+  : ExpandingWidgetModel(parent)
   , m_matchCaseSensitivity(Qt::CaseInsensitive)
   , m_ungrouped(new Group(this))
-  , m_partiallyExpandedRow(-1)
-  , m_partiallyExpandWidget(new QTextEdit())
+  , m_argumentHints(new Group(this))
   , m_sortingEnabled(false)
   , m_sortingAlphabetical(false)
   , m_sortingCaseSensitivity(Qt::CaseInsensitive)
@@ -53,223 +52,26 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   , m_accesSignalSlot(false)
   , m_columnMergingEnabled(false)
 {
-  m_partiallyExpandWidget->setReadOnly(true);
-  m_partiallyExpandWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   
   m_ungrouped->attribute = 0;
+  m_argumentHints->attribute = -1;
+  
   m_ungrouped->title = i18n("Other");
+  m_argumentHints->title = i18n("Argument-hints");
+
   m_emptyGroups.append(m_ungrouped);
+  m_emptyGroups.append(m_argumentHints);
+
   m_groupHash.insert(0, m_ungrouped);
+  m_groupHash.insert(-1, m_ungrouped);
 }
 
 KateCompletionModel::~KateCompletionModel() {
   clearCompletionModels();
-  delete m_partiallyExpandWidget;
 }
 
-bool KateCompletionModel::isPartiallyExpanded(int row) const {
-  return row == m_partiallyExpandedRow;
-}
-
-void KateCompletionModel::partiallyUnExpand(int row)
-{
-  if( m_partiallyExpandedRow == row )
-  {
-      QModelIndex index( KateCompletionModel::index(row, 0 ) );
-      m_partiallyExpandedRow = -1;
-      m_partiallyExpandWidget->hide();
-  }
-}
-
-int KateCompletionModel::partiallyExpandWidgetHeight() const {
-  return m_partiallyExpandWidget->height();
-}
-
-void KateCompletionModel::rowSelected(int row)
-{
-//   kDebug() << "row selected: " << row << endl;
-  if( m_partiallyExpandedRow != row )
-  {
-      QModelIndex oldIndex;
-      //Unexpand the previous partially expanded row
-      if( m_partiallyExpandedRow != -1)
-      {
-        oldIndex = KateCompletionModel::index(m_partiallyExpandedRow, 0 );
-        partiallyUnExpand(m_partiallyExpandedRow);
-      }
-    
-      //Notify the underlying models that the item was selected, and eventually get back the text for the expanding widget.
-      QModelIndex index( KateCompletionModel::index(row, 0 ) );
-      if( !index.isValid() )
-        return;
-    
-      QVariant variant = data(index, KTextEditor::CodeCompletionModel::ItemSelected);
-
-    if( !isExpanded(row) && variant.type() == QVariant::String) {
-//       kDebug() << "expanding: " << row << endl;
-      m_partiallyExpandedRow = row;
-
-      //Say that one row above until one row below has changed, so no items will need to be moved(the space that is taken from one item is given to the other)
-      if( oldIndex.isValid() && oldIndex.row() < index.row() )
-        emit dataChanged(oldIndex, index);
-      else if( oldIndex.isValid() && oldIndex.row() > index.row() )
-        emit dataChanged(index, oldIndex);
-      else
-        emit dataChanged(index, index);
-      //Only partially expand unexpanded rows
-
-      m_partiallyExpandWidget->setHtml(variant.toString());
-
-      QTextEdit* w = m_partiallyExpandWidget;
-
-      w->hide(); //Hide the widget until painting takes place
-      //Get the whole rectangle of the row:
-      QModelIndex rightMostIndex = index;
-      QModelIndex tempIndex = index;
-      while( (tempIndex = rightMostIndex.sibling(rightMostIndex.row(), rightMostIndex.column()+1)).isValid() )
-        rightMostIndex = tempIndex;
-
-      QRect rect = view()->completionWidget()->treeView()->visualRect(index);
-      QRect rightMostRect = view()->completionWidget()->treeView()->visualRect(rightMostIndex);
-
-      rect.setLeft( rect.left() + 20 );
-      rect.setRight( rightMostRect.right() - 5 );
-
-      //These offsets must match exactly those used in KateCompletionDeleage::sizeHint()
-      rect.setTop( rect.top() + basicRowHeight(index) + 5 );
-      rect.setBottom( rightMostRect.bottom() - 5 );
-
-      if( w->parent() != view()->completionWidget()->treeView()->viewport() || w->geometry() != rect ) {
-        w->setParent( view()->completionWidget()->treeView()->viewport() );
-
-        w->setGeometry(rect);
-      
-        // To reduce flickering, the widget is not shown here, but instead when the underlying row is painted
-      }
-    } else if( oldIndex.isValid() ) {
-      //We are not partially expanding a new row, but we previously had a partially expanded row. So signalize that it has been unexpanded.
-        emit dataChanged(oldIndex, oldIndex);
-    }
-  }
-}
-
-bool KateCompletionModel::isExpandable(const QModelIndex& index) const
-{
-  if( !m_expandState.contains(index.row()) )
-  {
-    m_expandState.insert(index.row(), NotExpandable);
-    QVariant v = data(index, KTextEditor::CodeCompletionModel::IsExpandable);
-    if( v.canConvert<bool>() && v.value<bool>() )
-        m_expandState[index.row()] = Expandable;
-  }
-
-  return m_expandState[index.row()] != NotExpandable;
-}
-
-bool KateCompletionModel::isExpanded(int row) const {
-  return m_expandState.contains(row) && m_expandState[row] == Expanded;
-}
-
-void KateCompletionModel::setExpanded(QModelIndex index, bool expanded)
-{
-  if( !index.isValid() )
-    return;
-  
-  if( isExpandable(index) ) {
-    if( !expanded && m_expandingWidgets.contains(index.row()) && m_expandingWidgets[index.row()] ) {
-      m_expandingWidgets[index.row()]->hide();
-    }
-      
-    m_expandState[index.row()] = expanded ? Expanded : Expandable;
-
-    if( expanded )
-      partiallyUnExpand(index.row());
-    
-    if( expanded && !m_expandingWidgets.contains(index.row()) )
-    {
-      QVariant v = data(index, KTextEditor::CodeCompletionModel::ExpandingWidget);
-      
-      if( v.canConvert<QWidget*>() ) {
-        m_expandingWidgets[index.row()] = v.value<QWidget*>();
-      } else if( v.canConvert<QString>() ) {
-        //Create a html widget that shows the given string
-        QTextEdit* edit = new QTextEdit( v.value<QString>() );
-        edit->setReadOnly(true);
-        edit->resize(200, 50); //Make the widget small so it embeds nicely.
-        m_expandingWidgets[index.row()] = edit;
-      } else {
-        m_expandingWidgets[index.row()] = 0;
-      }
-    }
-
-    //Eventually partially expand the row
-    if( !expanded && widget()->treeView()->currentIndex().row() == index.row() && m_partiallyExpandedRow != index.row() )
-      rowSelected(index.row()); //Partially expand the row.
-    
-    emit dataChanged(index, index);
-    
-    view()->completionWidget()->treeView()->scrollTo(index);
-  }
-}
-
-int KateCompletionModel::basicRowHeight( const QModelIndex& index ) const {
-      KateCompletionDelegate* delegate = dynamic_cast<KateCompletionDelegate*>( widget()->treeView()->itemDelegate(index) );
-      if( !delegate || !index.isValid() ) {
-        kDebug() << "KateCompletionModel::basicRowHeight: Could not get delegate" << endl;
-        return 15;
-      }
-      return delegate->basicSizeHint( index ).height();
-}
-
-void KateCompletionModel::placeExpandingWidget(int row) {
-  QWidget* w = 0;
-  if( m_expandingWidgets.contains(row) )
-    w = m_expandingWidgets[row];
-  
-  if( w && isExpanded(row) ) {
-      QModelIndex index( KateCompletionModel::index(row, 0 ) );
-      if( !index.isValid() )
-        return;
-
-      QModelIndex rightMostIndex = index;
-      QModelIndex tempIndex = index;
-      while( (tempIndex = rightMostIndex.sibling(rightMostIndex.row(), rightMostIndex.column()+1)).isValid() )
-        rightMostIndex = tempIndex;
-
-      QRect rect = view()->completionWidget()->treeView()->visualRect(index);
-      QRect rightMostRect = view()->completionWidget()->treeView()->visualRect(rightMostIndex);
-
-      //Find out the basic height of the row
-      rect.setLeft( rect.left() + 20 );
-      rect.setRight( rightMostRect.right() - 5 );
-
-      //These offsets must match exactly those used in KateCompletionDeleage::sizeHint()
-      rect.setTop( rect.top() + basicRowHeight(index) + 5 );
-      rect.setBottom( rightMostRect.bottom() - 5 );
-
-      if( w->parent() != view()->completionWidget()->treeView()->viewport() || w->geometry() != rect || !w->isVisible() ) {
-        w->setParent( view()->completionWidget()->treeView()->viewport() );
-
-        w->setGeometry(rect);
-        w->show();
-      }
-  } else if( m_partiallyExpandedRow != -1 && m_partiallyExpandedRow == row ) {
-    ///@todo don't embed this, instead paint the content
-    m_partiallyExpandWidget->show();
-  }
-}
-
-void KateCompletionModel::placeExpandingWidgets() {
-  for( QHash<int, QWidget*>::const_iterator it = m_expandingWidgets.begin(); it != m_expandingWidgets.end(); ++it ) {
-    placeExpandingWidget(it.key());
-  }
-}
-
-QWidget* KateCompletionModel::expandingWidget(int row) const {
-  if( m_expandingWidgets.contains(row) )
-    return m_expandingWidgets[row];
-  else
-    return 0;
+QTreeView* KateCompletionModel::treeView() const {
+  return view()->completionWidget()->treeView();
 }
 
 QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
@@ -279,12 +81,8 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
 
   if( isExpandable(index) && role == Qt::DecorationRole && index.column() == KTextEditor::CodeCompletionModel::Prefix )
   {
-    if( m_expandedIcon.isNull() )
-      m_expandedIcon = KIconLoader::global()->loadIcon("go-down", K3Icon::Small);
-    
-    if( m_collapsedIcon.isNull() )
-      m_collapsedIcon = KIconLoader::global()->loadIcon("go-next", K3Icon::Small);
-    
+    cacheIcons();
+
     if( !isExpanded(index.row() ) )
       return QVariant( m_collapsedIcon );
     else
@@ -518,23 +316,19 @@ QModelIndex KateCompletionModel::indexForGroup( Group * g ) const
   return createIndex(row, 0, 0);
 }
 
-void KateCompletionModel::clearExpanding() {
-    m_partiallyExpandedRow = -1;
-    m_partiallyExpandWidget->hide();
-    m_expandState.clear();
-    foreach( QWidget* widget, m_expandingWidgets )
-      delete widget;
-    m_expandingWidgets.clear();
-}
 
 void KateCompletionModel::clearGroups( )
 {
   clearExpanding();
   m_ungrouped->clear();
+  m_argumentHints->clear();
   // Don't bother trying to work out where it is
   m_rowTable.removeAll(m_ungrouped);
   m_emptyGroups.removeAll(m_ungrouped);
 
+  m_rowTable.removeAll(m_argumentHints);
+  m_emptyGroups.removeAll(m_argumentHints);
+  
   qDeleteAll(m_rowTable);
   qDeleteAll(m_emptyGroups);
   m_rowTable.clear();
@@ -543,6 +337,9 @@ void KateCompletionModel::clearGroups( )
 
   m_emptyGroups.append(m_ungrouped);
   m_groupHash.insert(0, m_ungrouped);
+  
+  m_emptyGroups.append(m_argumentHints);
+  m_groupHash.insert(-1, m_argumentHints);
 }
 
 void KateCompletionModel::createGroups()
@@ -556,7 +353,16 @@ void KateCompletionModel::createGroups()
       int completionFlags = sourceIndex.data(CodeCompletionModel::CompletionRole).toInt();
       QString scopeIfNeeded = (groupingMethod() & Scope) ? sourceModel->index(i, CodeCompletionModel::Scope, QModelIndex()).data(Qt::DisplayRole).toString() : QString();
 
-      Group* g = fetchGroup(completionFlags, scopeIfNeeded);
+      int argumentHintDepth = sourceIndex.data(CodeCompletionModel::ArgumentHintDepth).toInt();
+      
+      Group* g;
+      if( argumentHintDepth )
+        g = m_argumentHints;
+      else
+        g = fetchGroup(completionFlags, scopeIfNeeded);
+      
+      if( g == m_argumentHints )
+        kDebug() << "Adding argument-hint" << endl;
 
       g->addItem(Item(this, ModelRow(sourceModel, i)));
     }
@@ -944,6 +750,9 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
 
 void KateCompletionModel::hideOrShowGroup(Group* g)
 {
+  if( g == m_argumentHints )
+    return; //Never show argument-hints in the normal completion-list
+  
   if (!g->isEmpty) {
     if (g->rows.isEmpty()) {
       // Move to empty group list
@@ -1500,8 +1309,8 @@ bool KateCompletionModel::Item::filter( )
     QModelIndex sourceIndex = m_sourceRow.first->index(m_sourceRow.second, CodeCompletionModel::Name, QModelIndex());
 
     if (model->filterContextMatchesOnly()) {
-      QVariant contextMatch = sourceIndex.data(CodeCompletionModel::MatchType);
-      if (contextMatch.canConvert(QVariant::Bool) && !contextMatch.toBool())
+      QVariant contextMatch = sourceIndex.data(CodeCompletionModel::MatchQuality);
+      if (contextMatch.canConvert(QVariant::Int) && !contextMatch.toInt())
         goto filter;
     }
 

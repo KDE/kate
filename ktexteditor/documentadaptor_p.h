@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _ktexteditor_document_h_
-#define _ktexteditor_document_h_
+#ifndef _ktexteditor_documentadaptor_p_h_
+#define _ktexteditor_documentadaptor_p_h_
 
 #include <QtDBus/QtDBus>
 

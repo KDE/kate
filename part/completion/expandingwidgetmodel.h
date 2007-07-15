@@ -30,7 +30,7 @@ class QTextEdit;
  * Cares about expanding/un-expanding items in a tree-view together with KateCompletionDelegate
  */
 class ExpandingWidgetModel : public QAbstractTableModel {
-    Q_OBJECT;
+    Q_OBJECT
     public:
         
     ExpandingWidgetModel( QWidget* parent );

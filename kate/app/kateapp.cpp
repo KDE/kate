@@ -64,7 +64,7 @@ KateApp::KateApp (KCmdLineArgs *args)
   dcopClient()->suspend();
 #endif
   // insert right translations for the katepart
-  KGlobal::locale()->insertCatalog("katepart");
+  KGlobal::locale()->insertCatalog("katepart4");
   setQuitOnLastWindowClosed (false);
 
   // application interface

@@ -37,7 +37,7 @@
      <item>
       <widget class="QComboBox" name="cmbFiletypes" >
        <property name="whatsThis" >
-        <string>Select the tiletype you want to change.</string>
+        <string>Select the filetype you want to change.</string>
        </property>
       </widget>
      </item>

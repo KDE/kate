@@ -153,6 +153,8 @@ install(TARGETS katepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ########### next target ###############
 
+if(NOT MINGW)
+
 # Tests don't need to go into toplevel/bin, they are fine in the current dir.
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
 
@@ -171,3 +173,5 @@ target_link_libraries(testkateregression  ${KDE4_KDECORE_LIBS} ktexteditor kdepr
 #add_dependencies(check testkateregression)
 
 add_custom_target(check ${CMAKE_CURRENT_BINARY_DIR}/testkateregression DEPENDS testkateregression WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
+
+endif(NOT MINGW)

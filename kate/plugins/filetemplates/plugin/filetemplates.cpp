@@ -206,7 +206,7 @@ void KateFileTemplates::updateTemplateDirs(const QString &d)
         continue;
 
       // Read the first line of the file, to get the group/name
-      TemplateInfo *tmp = new TemplateInfo( *it, fname, "Other" );
+      TemplateInfo *tmp = new TemplateInfo( *it, fname, i18nc( "@item:inmenu", "Other" ) );
       bool trymore ( true );
       QTextStream stream(&_f);
       while ( trymore )
@@ -220,13 +220,13 @@ void KateFileTemplates::updateTemplateDirs(const QString &d)
         {
           pos += re.cap( 1 ).length();
           if ( re.cap( 1 ).lower() == "template" )
-            tmp->tmplate = re.cap( 2 );
+            tmp->tmplate = i18nc( "@item:inmenu", re.cap( 2 ).toUtf8() );
           if ( re.cap( 1 ).lower() == "group" )
-            tmp->group = re.cap( 2 );
+            tmp->group = i18nc( "@item:inmenu", re.cap( 2 ).toUtf8() );
           if ( re.cap( 1 ).lower() == "description" )
-            tmp->description = re.cap( 2 );
+            tmp->description = i18nc( "@info:whatsthis", re.cap( 2 ).toUtf8() );
           if ( re.cap( 1 ).lower() == "author" )
-            tmp->author = re.cap( 2 );
+            tmp->author = i18nc( "@info:credit", re.cap( 2 ).toUtf8() );
           if ( re.cap( 1 ).lower() == "highlight" )
             tmp->highlight = re.cap( 2 );
           if ( re.cap( 1 ) == "icon" )
@@ -664,9 +664,11 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   //lo->setAutoAdd( true );
   glo->setSpacing( KDialog::spacingHint() );
 
-  glo->addMultiCellWidget( new QLabel( i18n("<p>If you want to base this "
-      "template on an existing file or template, select the appropriate option "
-      "below.</p>"), page ), 1, 1, 1, 2);
+  QLabel *l1 = new QLabel( i18n("<p>If you want to base this "
+    "template on an existing file or template, select the appropriate option "
+    "below.</p>"), page );
+  l1->setWordWrap( true );
+  glo->addMultiCellWidget( l1, 1, 1, 1, 2);
   bgOrigin = new Q3ButtonGroup( page );
   bgOrigin->hide();
   bgOrigin->setRadioButtonExclusive( true );
@@ -680,9 +682,10 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   bgOrigin->insert( rb, 2 );
   glo->addMultiCellWidget( rb, 3, 3, 1, 2 );
 #ifdef __GNUC__
-#warning 0 could be wrong here
+#warning 0 could be wrong here: it crashes with Plastik
 #endif
-  int marg = rb->style()->subElementRect( QStyle::SE_RadioButtonIndicator, 0,rb ).width();
+  // int marg = rb->style()->subElementRect( QStyle::SE_RadioButtonIndicator, 0,rb ).width();
+  int marg = KDialog::marginHint();
   glo->addItem( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 4, 1 );
   urOrigin = new KUrlRequester( page );
   glo->addWidget( urOrigin, 4, 2 );
@@ -742,9 +745,11 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   glo = new QGridLayout( page, 7, 2 );
   glo->setSpacing( KDialog::spacingHint() );
 
-  glo->addMultiCellWidget( new QLabel( i18n("<p>Choose a location for the "
-      "template. If you store it in the template directory, it will "
-      "automatically be added to the template menu.</p>"), page ), 1, 1, 1, 2);
+  QLabel *l2 = new QLabel( i18n("<p>Choose a location for the "
+    "template. If you store it in the template directory, it will "
+    "automatically be added to the template menu.</p>"), page );
+  l2->setWordWrap( true );
+  glo->addMultiCellWidget( l2, 1, 1, 1, 2);
 
   bgLocation = new Q3ButtonGroup( page );
   bgLocation->hide();
@@ -811,8 +816,10 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   QString s = i18n("<p>The template will now be created and saved to the chosen "
       "location. To position the cursor put a caret ('^') character where you "
       "want it in files created from the template.</p>");
+  QLabel *l3 = new QLabel( s, page );
+  l3->setWordWrap( true );
 
-  lo->addWidget( new QLabel( s, page ) );
+  lo->addWidget( l3 );
 
   cbOpenTemplate = new QCheckBox( i18n("Open the template for editing"), page );
 
@@ -1107,23 +1114,23 @@ KateTemplateManager::KateTemplateManager( KateFileTemplates *kft, QWidget *paren
   lo->addMultiCellWidget( lvTemplates, 1, 1, 1, 6 );
   connect( lvTemplates, SIGNAL(selectionChanged()), this, SLOT(slotUpdateState()) );
 
-  btnNew = new QPushButton( i18n("New..."), this );
+  btnNew = new QPushButton( i18nc("@action:button Template", "New..."), this );
   connect( btnNew, SIGNAL(clicked()), kft, SLOT(slotCreateTemplate()) );
   lo->addWidget( btnNew, 2, 2 );
 
-  btnEdit = new QPushButton( i18n("Edit..."), this );
+  btnEdit = new QPushButton( i18nc("@action:button Template", "Edit..."), this );
   connect( btnEdit, SIGNAL(clicked()), this, SLOT( slotEditTemplate()) );
   lo->addWidget( btnEdit, 2, 3 );
 
-  btnRemove = new QPushButton( i18n("Remove"), this );
+  btnRemove = new QPushButton( i18nc("@action:button Template", "Remove"), this );
   connect( btnRemove, SIGNAL(clicked()), this, SLOT(slotRemoveTemplate()) );
   lo->addWidget( btnRemove, 2, 4 );
 
-  btnUpload = new QPushButton( i18n("Upload..."), this );
+  btnUpload = new QPushButton( i18nc("@action:button Template", "Upload..."), this );
   connect( btnUpload, SIGNAL(clicked()), this, SLOT(slotUpload()) );
   lo->addWidget( btnUpload, 2, 5 );
 
-  btnDownload = new QPushButton( i18n("Download..."), this );
+  btnDownload = new QPushButton( i18nc("@action:button Template", "Download..."), this );
   connect( btnDownload, SIGNAL(clicked()), this, SLOT(slotDownload()) );
   lo->addWidget( btnDownload, 2, 6 );
 

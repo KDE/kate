@@ -509,8 +509,8 @@ int main(int argc, char *argv[])
 //     a.disableAutoDcopRegistration();
     a.setStyle("windows");
     KConfig cfg( "testkateregressionrc", KConfig::OnlyLocal );
-    cfg.setGroup("Kate Document Defaults");
-    cfg.writeEntry("Basic Config Flags",
+    KConfigGroup group = cfg.group("Kate Document Defaults");
+    group.writeEntry("Basic Config Flags",
       KateDocumentConfig::cfBackspaceIndents
 //       | KateDocumentConfig::cfWordWrap
 //       | KateDocumentConfig::cfRemoveSpaces
@@ -544,8 +544,8 @@ int main(int argc, char *argv[])
                                7001, 7011, 6070, 6080, 6090, 0};
         int channel = args->isSet( "debug" ) ? 2 : 4;
         for ( int i = 0; areas[i]; ++i ) {
-            dc.setGroup( QString::number( areas[i] ) );
-            dc.writeEntry( "InfoOutput", channel );
+            KConfigGroup group = dc.group( QString::number( areas[i] ) );
+            group.writeEntry( "InfoOutput", channel );
         }
         dc.sync();
 

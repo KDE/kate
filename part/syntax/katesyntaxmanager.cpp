@@ -230,7 +230,7 @@ void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list)
   alert->setForeground( scheme.foreground(KColorScheme::NegativeText).color() );
   alert->setSelectedForeground( schemeSelected.foreground(KColorScheme::NegativeText).color() );
   alert->setFontBold(true);
-  alert->setBackground( KColorUtils::tint( scheme.background().color(), scheme.foreground(KColorScheme::NegativeText).color() ) );
+  alert->setBackground( scheme.background(KColorScheme::NegativeBackground).color() );
   list.append(alert);
 
   KTextEditor::Attribute::Ptr functionAttribute(new KTextEditor::Attribute());
@@ -241,7 +241,7 @@ void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list)
   KTextEditor::Attribute::Ptr regionmarker(new KTextEditor::Attribute());
   regionmarker->setForeground( scheme.foreground(KColorScheme::LinkText).color() );
   regionmarker->setSelectedForeground( schemeSelected.foreground(KColorScheme::LinkText).color() );
-  regionmarker->setBackground( KColorUtils::tint( scheme.background().color(), scheme.foreground(KColorScheme::LinkText).color() ) );
+  regionmarker->setBackground( scheme.background(KColorScheme::LinkBackground).color() );
   list.append(regionmarker);
 
   KTextEditor::Attribute::Ptr error(new KTextEditor::Attribute());

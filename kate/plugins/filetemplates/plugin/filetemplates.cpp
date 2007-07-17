@@ -1248,7 +1248,7 @@ void KateTemplateManager::slotUpload()
     delete engine;
     return;
   }
-  engine->upload(item->templateinfo->filename);
+  engine->uploadDialogModal(item->templateinfo->filename);
   delete engine;
 
 }

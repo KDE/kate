@@ -68,6 +68,8 @@ class KateCompletionModel : public ExpandingWidgetModel
 
     static QString propertyName(KTextEditor::CodeCompletionModel::CompletionProperty property);
 
+    virtual void rowSelected(int row);
+    
     virtual bool indexIsCompletion(const QModelIndex& index) const;
 
     virtual int columnCount ( const QModelIndex & parent = QModelIndex() ) const;
@@ -88,7 +90,6 @@ class KateCompletionModel : public ExpandingWidgetModel
 
     virtual QModelIndex mapToSource(const QModelIndex &proxyIndex) const;
     virtual QModelIndex mapFromSource(const QModelIndex &sourceIndex) const;
-
 
     // Sorting
     bool isSortingEnabled() const;
@@ -148,6 +149,9 @@ class KateCompletionModel : public ExpandingWidgetModel
     const QList< QList<int> >& columnMerges() const;
     void setColumnMerges(const QList< QList<int> >& columnMerges);
 
+  protected:
+    virtual int contextMatchQuality(int row) const;
+    
   Q_SIGNALS:
     void expandIndex(const QModelIndex& index);
 

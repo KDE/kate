@@ -39,10 +39,22 @@ ExpandingWidgetModel::~ExpandingWidgetModel() {
     clearExpanding();
 }
 
-QVariant ExpandingWidgetModel::data ( const QModelIndex & index, int role ) const {
+QVariant ExpandingWidgetModel::data( const QModelIndex & index, int role ) const {
   switch( role ) {
     case Qt::BackgroundRole:
     {
+      if( index.column() == 0 ) {
+        //Highlight by match-quality
+        int matchQuality = contextMatchQuality(index.row());
+        if( matchQuality != -1 )
+        {
+          uint badMatchColor = 0xffff0000; //Full red
+          uint goodMatchColor = 0xff00ff00; //Full green
+          uint totalColor = (badMatchColor*(10-matchQuality) + goodMatchColor*matchQuality)/10;
+          return QBrush(totalColor);
+        }
+      }
+      
       //Use a special background-color for expanded items
       if( isExpanded(index.row()) ) {
         bool alternate = index.row() & 1;
@@ -55,7 +67,6 @@ QVariant ExpandingWidgetModel::data ( const QModelIndex & index, int role ) cons
   }
   return QVariant();
 }
-
 
 void ExpandingWidgetModel::clearMatchQualities() {
     m_contextMatchQualities.clear();
@@ -104,30 +115,29 @@ void ExpandingWidgetModel::rowSelected(int row)
         m_partiallyExpandedRow = -1;
         if( oldIndex.isValid() )
           emit dataChanged(oldIndex, oldIndex);
-        return;
-      }
-    
-      QVariant variant = data(idx, CodeCompletionModel::ItemSelected);
+      } else {
+        QVariant variant = data(idx, CodeCompletionModel::ItemSelected);
 
-    if( !isExpanded(row) && variant.type() == QVariant::String) {
-       //kDebug() << "expanding: " << row << endl;
-      m_partiallyExpandedRow = row;
+        if( !isExpanded(row) && variant.type() == QVariant::String) {
+           //kDebug() << "expanding: " << row << endl;
+          m_partiallyExpandedRow = row;
 
-      //Say that one row above until one row below has changed, so no items will need to be moved(the space that is taken from one item is given to the other)
-      if( oldIndex.isValid() && oldIndex.row() < idx.row() )
-        emit dataChanged(oldIndex, idx);
-      else if( oldIndex.isValid() && oldIndex.row() > idx.row() )
-        emit dataChanged(idx, oldIndex);
-      else
-        emit dataChanged(idx, idx);
-    } else if( oldIndex.isValid() ) {
-      //We are not partially expanding a new row, but we previously had a partially expanded row. So signalize that it has been unexpanded.
-        emit dataChanged(oldIndex, oldIndex);
+          //Say that one row above until one row below has changed, so no items will need to be moved(the space that is taken from one item is given to the other)
+          if( oldIndex.isValid() && oldIndex.row() < idx.row() )
+            emit dataChanged(oldIndex, idx);
+          else if( oldIndex.isValid() && oldIndex.row() > idx.row() )
+            emit dataChanged(idx, oldIndex);
+          else
+            emit dataChanged(idx, idx);
+        } else if( oldIndex.isValid() ) {
+          //We are not partially expanding a new row, but we previously had a partially expanded row. So signalize that it has been unexpanded.
+            emit dataChanged(oldIndex, oldIndex);
+        }
+        if( isExpanded(row) )
+          kDebug() << "ExpandingWidgetModel::rowSelected: row is already expanded" << endl;
+        if( variant.type() != QVariant::String )
+          kDebug() << "ExpandingWidgetModel::rowSelected: no string returned " << endl;
     }
-    if( isExpanded(row) )
-      kDebug() << "ExpandingWidgetModel::rowSelected: row is already expanded" << endl;
-    if( variant.type() != QVariant::String )
-      kDebug() << "ExpandingWidgetModel::rowSelected: no string returned " << endl;
   }else{
     kDebug() << "ExpandingWidgetModel::rowSelected: Row is already partially expanded" << endl;
   }
@@ -142,6 +152,9 @@ QString ExpandingWidgetModel::partialExpandText(int row) const {
 
 }
 
+int ExpandingWidgetModel::partiallyExpandedRow() const {
+  return m_partiallyExpandedRow;
+}
 
 QRect ExpandingWidgetModel::partialExpandRect(int row) const {
   QModelIndex idx( index(row, 0 ) );

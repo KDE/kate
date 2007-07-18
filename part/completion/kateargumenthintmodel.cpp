@@ -139,17 +139,20 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
   }
 
   if( index.column() == 0 ) {
-    if( role == Qt::DecorationRole ) {
-      //Show the expand-handle
-      model()->cacheIcons();
+    switch( role ) {
+      case Qt::DecorationRole:
+      {
+        //Show the expand-handle
+        model()->cacheIcons();
 
-      if( !isExpanded(index.row() ) )
-        return QVariant( model()->m_collapsedIcon );
-      else
-        return QVariant( model()->m_expandedIcon );
-    } else if( role == Qt::DisplayRole ) {
-      //Ignore text in the first column(we create our own compound text in the second)
-      return QVariant();
+        if( !isExpanded(index.row() ) )
+          return QVariant( model()->m_collapsedIcon );
+        else
+          return QVariant( model()->m_expandedIcon );
+      }
+      case Qt::DisplayRole:
+        //Ignore text in the first column(we create our own compound text in the second)
+        return QVariant();
     }
   }
 
@@ -234,8 +237,60 @@ QTreeView* KateArgumentHintModel::treeView() const {
   return m_parent->argumentHintTree();
 }
 
+void KateArgumentHintModel::emitDataChanged( const QModelIndex& start, const QModelIndex& end ) {
+  emit dataChanged(start, end);
+}
+
 bool KateArgumentHintModel::indexIsCompletion(const QModelIndex& index) const {
   return index.row() >= 0 && index.row() < m_rows.count() && m_rows[index.row()] >= 0;
+}
+
+int KateArgumentHintModel::contextMatchQuality(int row) const {
+  if( row <  0 || row >= m_rows.count() )
+    return -1;
+
+  if( m_rows[row] <  0 || m_rows[row] >= group()->rows.count() )
+    return -1; //Probably a label
+  
+  KateCompletionModel::ModelRow source = group()->rows[m_rows[row]];
+  if( !source.first )
+    return -1;
+  
+   QModelIndex  sourceIndex = source.first->index(source.second, 0);
+ 
+  if( !sourceIndex.isValid() )
+    return -1;
+
+  int depth = sourceIndex.data(CodeCompletionModel::ArgumentHintDepth).toInt();
+
+  switch(depth) {
+    case 1:
+    {
+      //This argument-hint is on the lowest level, match it with the currently selected item in the completion-widget
+      int row = m_parent->model()->partiallyExpandedRow();
+      if( row == -1 )
+        return -1;
+
+      QModelIndex selectedIndex = m_parent->model()->mapToSource( m_parent->model()->index(row,0) );
+      if( !selectedIndex.isValid() )
+        return -1;
+
+      if( selectedIndex.model() != sourceIndex.model() )
+        return -1; //We can only match items from the same source-model
+
+      sourceIndex.data( CodeCompletionModel::SetMatchContext );
+
+      QVariant v = selectedIndex.data( CodeCompletionModel::MatchQuality );
+      if( v.type() == QVariant::Int ) 
+        return v.toInt();
+    }
+    break;
+    default:
+      //Do some other nice matching here in future
+      break;
+  }
+
+  return -1;
 }
 
 #include "kateargumenthintmodel.moc"

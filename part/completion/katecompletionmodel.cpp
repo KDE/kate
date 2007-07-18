@@ -26,6 +26,7 @@
 #include "katecompletionwidget.h"
 #include "katecompletiontree.h"
 #include "katecompletiondelegate.h"
+#include "kateargumenthintmodel.h"
 #include "kateview.h"
 #include "katerenderer.h"
 #include "kateconfig.h"
@@ -160,6 +161,45 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
   return QVariant();
 }
 
+int KateCompletionModel::contextMatchQuality(int row) const {
+  //Return the best match with any of the argument-hints
+  QModelIndex idx = index(row,0);
+  if( !idx.isValid() )
+    return -1;
+
+  Group* g = groupOfParent(idx);
+  if( !g )
+    return -1;
+  
+  ModelRow source = g->rows[idx.row()];
+  QModelIndex realIndex = source.first->index(source.second, 0);
+
+  
+  int bestMatch = -1;
+  //Iterate through all argument-hints and find the best match-quality
+  foreach( const ModelRow& row, m_argumentHints->rows )
+  {
+    if( realIndex.model() != row.first )
+      continue; //We can only match within the same source-model
+
+    QModelIndex hintIndex = row.first->index(row.second,0);
+
+    QVariant depth = hintIndex.data(CodeCompletionModel::ArgumentHintDepth);
+    if( !depth.isValid() || depth.type() != QVariant::Int || depth.toInt() != 1 )
+      continue; //Only match completion-items to argument-hints of depth 1(the ones the item will be given to as argument)
+    
+    hintIndex.data(CodeCompletionModel::SetMatchContext);
+    
+    QVariant matchQuality = realIndex.data(CodeCompletionModel::MatchQuality);
+    if( matchQuality.isValid() && matchQuality.type() == QVariant::Int ) {
+      int m = matchQuality.toInt();
+      if( m > bestMatch )
+        bestMatch = m;
+    }
+  }
+
+  return bestMatch;
+}
 
 Qt::ItemFlags KateCompletionModel::flags( const QModelIndex & index ) const
 {
@@ -1518,6 +1558,19 @@ void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
     createGroups();
 
   reset();
+}
+
+void KateCompletionModel::rowSelected(int row) {
+  ExpandingWidgetModel::rowSelected(row);
+  ///@todo delay this
+  int rc = widget()->argumentHintModel()->rowCount(QModelIndex());
+  if( rc == 0 ) return;
+
+  //For now, simply update the whole column 0
+  QModelIndex start = widget()->argumentHintModel()->index(0,0);
+  QModelIndex end = widget()->argumentHintModel()->index(rc-1,0);
+
+  widget()->argumentHintModel()->emitDataChanged(start, end);
 }
 
 void KateCompletionModel::clearCompletionModels(bool skipReset)

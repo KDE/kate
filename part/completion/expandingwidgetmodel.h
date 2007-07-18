@@ -60,6 +60,9 @@ class ExpandingWidgetModel : public QAbstractTableModel {
 
     ///Returns whether the given row is currently partially expanded. Does not do any other checks like calling models for data.
     bool isPartiallyExpanded(int row) const;
+
+    ///Returns the row that is currently partially expanded, or -1
+    int partiallyExpandedRow() const;
     
     ///@return whether row is currently expanded
     bool isExpanded(int row) const;
@@ -81,7 +84,7 @@ class ExpandingWidgetModel : public QAbstractTableModel {
      * @param row The row
      * */
     ///
-    void rowSelected(int row);
+    virtual void rowSelected(int row);
 
     ///Returns the rectangle for the partially expanded part of the given row
     QRect partialExpandRect(int row) const;
@@ -102,12 +105,12 @@ class ExpandingWidgetModel : public QAbstractTableModel {
 
     ///Does not request data from index, this only returns local data like highlighting for expanded rows and similar
     virtual QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
-    
+
     protected:
     /**
      * @return the context-match quality from 0 to 10 if it could be determined, else -1
      * */
-    int contextMatchQuality(int row);
+    virtual int contextMatchQuality(int row) const = 0;
       
     //Makes sure m_expandedIcon and m_collapsedIcon are loaded
     void cacheIcons() const;
@@ -124,7 +127,7 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     // Store expanding-widgets and cache whether items can be expanded
     mutable QHash<int, ExpandingType> m_expandState;
     QHash< int, QWidget* > m_expandingWidgets; //Map row-numbers to their expanding-widgets
-    QHash< int, int > m_contextMatchQualities; //Map row-numbers to their context-match qualities(undefined if unknown, else 0 to 10)
+    QHash< int, int > m_contextMatchQualities; //Map row-numbers to their context-match qualities(undefined if unknown, else 0 to 10). Not used yet, eventually remove.
     int m_partiallyExpandedRow;
 };
 

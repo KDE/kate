@@ -40,8 +40,12 @@ class KateArgumentHintModel : public ExpandingWidgetModel {
 
     virtual bool indexIsCompletion(const QModelIndex& index) const;
 
+    void emitDataChanged( const QModelIndex& start, const QModelIndex& end );
+    
     void buildRows();
     void clear();
+  protected:
+    virtual int contextMatchQuality(int row) const;
   public slots:
     void parentModelReset();
   private:

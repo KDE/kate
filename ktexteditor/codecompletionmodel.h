@@ -224,10 +224,10 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
         * - It will be shown in a separate argument-hint list
         * - It will be sorted by Argument-hint depth
         * - Match-qualities will be illustrated by differently highlighting the matched argument if possible
-        * The argument-hint list strings will be built from the following source-model columns:
+        * The argument-hint list strings will be built from all source-model, with a little special behavior:
         * Prefix - Should be all text of the function-signature up to left of the matched argument of the function
         * Name - Should be the type and name of the function's matched argument. This part will be highlighted differently depending on the match-quality
-        * Suffix - All the text of the function-signature behind the matched argument
+        * Suffix - Should be all the text of the function-signature behind the matched argument
         *
         * Example: You are matching a function with signature "void test(int param1, int param2)", and you are matching the first argument.
         * The model should then return:
@@ -235,9 +235,20 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
         * Name: "int param1"
         * Suffix: ", int param2)"
         *
-        * If you don't use the highlighting, matching, etc. you can as well return the whole signature on either Prefix, Name, or Suffix.
+        * If you don't use the highlighting, matching, etc. you can also return the columns in the usual way.
        * */
-      ArgumentHintDepth
+      ArgumentHintDepth,
+      
+      /**
+       * This will be requested for each item to ask whether it should be included in computing a best-matches list.
+       * If you return a valid positive integer n here, the n best matches will be listed at top of the completion-list separately.
+       *
+       * This is expensive because all items of the whole completion-list will be tested for their matching-quality, with each of the level 1
+       * argument-hints.
+       *
+       * For that reason the end-user should be able to disable this feature.
+       */
+      BestMatchesCount
     };
     static const int LastItemDataRole = InheritanceDepth;
 

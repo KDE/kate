@@ -113,6 +113,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 #endif
 
   setMinimumSize (0,0);
+  setAttribute(Qt::WA_OpaquePaintEvent);
 
   // cursor
   m_cursor.setInsertBehavior (KTextEditor::SmartCursor::MoveOnInsert);

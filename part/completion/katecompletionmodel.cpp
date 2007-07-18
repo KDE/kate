@@ -125,7 +125,11 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
       return text;
     }
 
-    return mapToSource(index).data(role);
+    QVariant v = mapToSource(index).data(role);
+    if( v.isValid() )
+      return v;
+    else
+      return ExpandingWidgetModel::data(index, role);
   }
 
   Group* g = groupForIndex(index);

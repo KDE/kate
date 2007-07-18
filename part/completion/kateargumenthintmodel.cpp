@@ -118,7 +118,11 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
     //Show labels
     if( role == Qt::DisplayRole && index.column() == 0 ) {
       return QString("Depth %1").arg(-m_rows[index.row()]);
-    } else {
+    } else if( role == Qt::BackgroundRole ) {
+      return QColor(Qt::black);
+    }else if( role == Qt::ForegroundRole ) {
+      return QColor(Qt::white);
+    }else{
       return QVariant();
     }
   }
@@ -156,45 +160,55 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
     return QVariant();
   }
 
-  if( role == Qt::DisplayRole )
-  {
-    //Construct the text
-    QString totalText;
-    for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
-      if( a != CodeCompletionModel::Scope ) //Skip the scope
-        totalText += source.first->index(source.second, a).data(Qt::DisplayRole).toString() + " ";
-  
+  switch( role ) {
+    case Qt::DisplayRole:
+    {
+      //Construct the text
+      QString totalText;
+      for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
+        if( a != CodeCompletionModel::Scope ) //Skip the scope
+          totalText += source.first->index(source.second, a).data(Qt::DisplayRole).toString() + " ";
     
-    return QVariant(totalText);
-  } else if( role == CodeCompletionModel::HighlightingMethod )
-  {
-    //Return that we are doing custom-highlighting of one of the sub-strings does it
-    for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
-        if( source.first->index(source.second, a).data(Qt::DisplayRole).type() == QVariant::Int )
-          return QVariant(1);
-  
-    return QVariant();
-  } else if( role == CodeCompletionModel::CustomHighlight )
-  {
-    QStringList strings;
+      
+      return QVariant(totalText);
+    }
+    case CodeCompletionModel::HighlightingMethod:
+    {
+      //Return that we are doing custom-highlighting of one of the sub-strings does it
+      for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
+          if( source.first->index(source.second, a).data(Qt::DisplayRole).type() == QVariant::Int )
+            return QVariant(1);
     
-    //Collect strings
-    for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
-        strings << source.first->index(source.second, a).data(Qt::DisplayRole).toString();
+      return QVariant();
+    }
+    case CodeCompletionModel::CustomHighlight:
+    {
+      QStringList strings;
+      
+      //Collect strings
+      for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
+          strings << source.first->index(source.second, a).data(Qt::DisplayRole).toString();
 
-    QList<QVariantList> highlights;
+      QList<QVariantList> highlights;
 
-    //Collect custom-highlightings
-    for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
-        highlights << source.first->index(source.second, a).data(CodeCompletionModel::CustomHighlight).toList();
+      //Collect custom-highlightings
+      for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
+          highlights << source.first->index(source.second, a).data(CodeCompletionModel::CustomHighlight).toList();
 
-    return mergeCustomHighlighting( strings, highlights );
-  } else if( role == Qt::DecorationRole ) {
-    //Redirect the decoration to the decoration of the item-column
-    return source.first->index(source.second, CodeCompletionModel::Icon).data(role);
+      return mergeCustomHighlighting( strings, highlights );
+    }
+    case Qt::DecorationRole:
+    {
+      //Redirect the decoration to the decoration of the item-column
+      return source.first->index(source.second, CodeCompletionModel::Icon).data(role);
+    }
   }
   
-  return sourceIndex.data( role );
+  QVariant v = ExpandingWidgetModel::data( index, role );
+  if( v.isValid() )
+    return v;
+  else
+    return sourceIndex.data( role );
 }
 
 int KateArgumentHintModel::rowCount ( const QModelIndex & parent ) const {
@@ -221,7 +235,7 @@ QTreeView* KateArgumentHintModel::treeView() const {
 }
 
 bool KateArgumentHintModel::indexIsCompletion(const QModelIndex& index) const {
-  return index.row() >= 0 && index.row() < m_rows.count();
+  return index.row() >= 0 && index.row() < m_rows.count() && m_rows[index.row()] >= 0;
 }
 
 #include "kateargumenthintmodel.moc"

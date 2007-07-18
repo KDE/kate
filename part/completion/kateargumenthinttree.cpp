@@ -26,7 +26,7 @@
 #include <QModelIndex>
 
 
-KateArgumentHintTree::KateArgumentHintTree( KateCompletionWidget* parent ) : QTreeView(), m_parent(parent) { //Do not use the completion-widget as widget-parent, because the argument-hint-tree will be rendered separately
+KateArgumentHintTree::KateArgumentHintTree( KateCompletionWidget* parent ) : KateExpandingTree(0), m_parent(parent) { //Do not use the completion-widget as widget-parent, because the argument-hint-tree will be rendered separately
 
   setFrameStyle( QFrame::Box | QFrame::Plain );
   setLineWidth( 1 );

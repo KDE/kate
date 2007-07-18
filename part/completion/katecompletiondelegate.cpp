@@ -50,6 +50,7 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
 {
   QStyleOptionViewItem option(optionOld);
 
+  changeBackground(index.row(), index.column(), option);
     
   model()->placeExpandingWidget(index.row());
 
@@ -153,38 +154,14 @@ QSize KateCompletionDelegate::sizeHint ( const QStyleOptionViewItem & option, co
   return s;
 }
 
-void KateCompletionDelegate::drawBackground ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const
-{
-  if( !model()->isExpanded(index.row()) )
-    QItemDelegate::drawBackground( painter, option, index );
-  else {
-    //Highlight expanded items specially
-    QStyleOptionViewItem newOption(option);
+void KateCompletionDelegate::changeBackground( int row, int column, QStyleOptionViewItem & option ) const {
+    //Highlight selected items specially
+    QColor highlight = option.palette.color( option.palette.currentColorGroup(), QPalette::Highlight );
 
-    ///@todo make these colors be used
-    QColor base = newOption.palette.color( newOption.palette.currentColorGroup(), QPalette::Base );
-    QColor alternateBase = newOption.palette.color( newOption.palette.currentColorGroup(), QPalette::AlternateBase );
-    QColor highlight = newOption.palette.color( newOption.palette.currentColorGroup(), QPalette::Highlight );
+    highlight.setRgb(0x45aed0);
 
-    base.setRed(70);
-    base.setGreen(70);
-    base.setBlue(50);
-    
-    alternateBase.setRed(90);
-    alternateBase.setGreen(90);
-    alternateBase.setBlue(50);
-    
-    highlight.setRed(90);
-    highlight.setGreen(90);
-    highlight.setBlue(30);
-
-    newOption.palette.setColor( newOption.palette.currentColorGroup(), QPalette::Base, base );
-    newOption.palette.setColor( newOption.palette.currentColorGroup(), QPalette::Background, base );
-    newOption.palette.setColor( newOption.palette.currentColorGroup(), QPalette::AlternateBase, alternateBase );
-    newOption.palette.setColor( newOption.palette.currentColorGroup(), QPalette::Highlight, highlight );
-    
-    QItemDelegate::drawBackground( painter, newOption, index );
-  }
+    for(int a = 0; a <=2; a++ )
+      option.palette.setColor( (QPalette::ColorGroup)a, QPalette::Highlight, highlight );
 }
 
 void KateCompletionDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & text ) const
@@ -215,6 +192,7 @@ void KateCompletionDelegate::drawDisplay( QPainter * painter, const QStyleOption
     format.start = m_cachedHighlights[i].start - m_cachedColumnStart;
     format.length = m_cachedHighlights[i].length;
     format.format = m_cachedHighlights[i].format;
+    format.format.setBackground(QBrush(Qt::NoBrush)); //Make sure that our own background-color is preserved Maybe remove this
     additionalFormats.append(format);
   }
 

@@ -30,7 +30,7 @@
 #include "katecompletionmodel.h"
 
 KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
-  : QTreeView(parent)
+  : KateExpandingTree(parent)
 {
   setUniformRowHeights(false);
   header()->hide();

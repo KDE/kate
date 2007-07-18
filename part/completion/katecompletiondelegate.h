@@ -48,8 +48,9 @@ class KateCompletionDelegate : public QItemDelegate
     QSize basicSizeHint( const QModelIndex& index ) const;
     
   protected:
+    //column may be -1 if unknown
+    void changeBackground( int row, int column, QStyleOptionViewItem & option ) const;
     virtual void drawDisplay ( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & text ) const;
-    void drawBackground ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
     virtual QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const;
     virtual bool editorEvent ( QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index );
   private:

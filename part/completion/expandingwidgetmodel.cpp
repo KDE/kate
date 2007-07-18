@@ -18,6 +18,7 @@
 #include <QTreeView>
 #include <QTextEdit>
 #include <QModelIndex>
+#include <QBrush>
 #include <ktexteditor/codecompletionmodel.h>
 #include <kiconloader.h>
 #include "katecompletiondelegate.h"
@@ -31,20 +32,38 @@ using namespace KTextEditor;
 ExpandingWidgetModel::ExpandingWidgetModel( QWidget* parent ) : 
         QAbstractTableModel(parent)
         , m_partiallyExpandedRow(-1)
-        , m_partiallyExpandWidget(new QTextEdit())
 {
-  m_partiallyExpandWidget->setReadOnly(true);
-  m_partiallyExpandWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 ExpandingWidgetModel::~ExpandingWidgetModel() {
     clearExpanding();
-    delete m_partiallyExpandWidget;
+}
+
+QVariant ExpandingWidgetModel::data ( const QModelIndex & index, int role ) const {
+  switch( role ) {
+    case Qt::BackgroundRole:
+    {
+      //Use a special background-color for expanded items
+      if( isExpanded(index.row()) ) {
+        bool alternate = index.row() & 1;
+        if( alternate )
+          return QBrush(0xffd8ca6c);
+        else
+          return QBrush(0xffeddc6a);
+      }
+    }
+  }
+  return QVariant();
+}
+
+
+void ExpandingWidgetModel::clearMatchQualities() {
+    m_contextMatchQualities.clear();
 }
 
 void ExpandingWidgetModel::clearExpanding() {
+    clearMatchQualities();
     m_partiallyExpandedRow = -1;
-    m_partiallyExpandWidget->hide();
     m_expandState.clear();
     foreach( QWidget* widget, m_expandingWidgets )
       delete widget;
@@ -58,14 +77,11 @@ bool ExpandingWidgetModel::isPartiallyExpanded(int row) const {
 void ExpandingWidgetModel::partiallyUnExpand(int row)
 {
   if( m_partiallyExpandedRow == row )
-  {
       m_partiallyExpandedRow = -1;
-      m_partiallyExpandWidget->hide();
-  }
 }
 
 int ExpandingWidgetModel::partiallyExpandWidgetHeight() const {
-  return m_partiallyExpandWidget->height();
+  return 60; ///@todo use font-metrics text-height*2 for 2 lines
 }
 
 void ExpandingWidgetModel::rowSelected(int row)
@@ -104,37 +120,6 @@ void ExpandingWidgetModel::rowSelected(int row)
         emit dataChanged(idx, oldIndex);
       else
         emit dataChanged(idx, idx);
-      //Only partially expand unexpanded rows
-
-      m_partiallyExpandWidget->setHtml(variant.toString());
-
-      QTextEdit* w = m_partiallyExpandWidget;
-
-      w->hide(); //Hide the widget until painting takes place
-      
-      //Get the whole rectangle of the row:
-      QModelIndex rightMostIndex = idx;
-      QModelIndex tempIndex = idx;
-      while( (tempIndex = rightMostIndex.sibling(rightMostIndex.row(), rightMostIndex.column()+1)).isValid() )
-        rightMostIndex = tempIndex;
-
-      QRect rect = treeView()->visualRect(idx);
-      QRect rightMostRect = treeView()->visualRect(rightMostIndex);
-
-      rect.setLeft( rect.left() + 20 );
-      rect.setRight( rightMostRect.right() - 5 );
-
-      //These offsets must match exactly those used in KateCompletionDelegate::sizeHint()
-      rect.setTop( rect.top() + basicRowHeight(idx) + 5 );
-      rect.setBottom( rightMostRect.bottom() - 5 );
-
-      if( w->parent() != treeView()->viewport() || w->geometry() != rect ) {
-        w->setParent( treeView()->viewport() );
-
-        w->setGeometry(rect);
-      
-        // To reduce flickering, the widget is not shown here, but instead when the underlying row is painted
-      }
     } else if( oldIndex.isValid() ) {
       //We are not partially expanding a new row, but we previously had a partially expanded row. So signalize that it has been unexpanded.
         emit dataChanged(oldIndex, oldIndex);
@@ -146,6 +131,40 @@ void ExpandingWidgetModel::rowSelected(int row)
   }else{
     kDebug() << "ExpandingWidgetModel::rowSelected: Row is already partially expanded" << endl;
   }
+}
+
+QString ExpandingWidgetModel::partialExpandText(int row) const {
+  QModelIndex idx( index(row, 0 ) );
+  if( !idx.isValid() )
+    return QString();
+
+  return data(idx, CodeCompletionModel::ItemSelected).toString();
+
+}
+
+
+QRect ExpandingWidgetModel::partialExpandRect(int row) const {
+  QModelIndex idx( index(row, 0 ) );
+  if( !idx.isValid() )
+    return QRect();
+  
+    //Get the whole rectangle of the row:
+    QModelIndex rightMostIndex = idx;
+    QModelIndex tempIndex = idx;
+    while( (tempIndex = rightMostIndex.sibling(rightMostIndex.row(), rightMostIndex.column()+1)).isValid() )
+      rightMostIndex = tempIndex;
+
+    QRect rect = treeView()->visualRect(idx);
+    QRect rightMostRect = treeView()->visualRect(rightMostIndex);
+
+    rect.setLeft( rect.left() + 20 );
+    rect.setRight( rightMostRect.right() - 5 );
+
+    //These offsets must match exactly those used in KateCompletionDelegate::sizeHint()
+    rect.setTop( rect.top() + basicRowHeight(idx) + 5 );
+    rect.setBottom( rightMostRect.bottom() - 5 );
+
+    return rect;
 }
 
 bool ExpandingWidgetModel::isExpandable(const QModelIndex& idx) const
@@ -249,9 +268,6 @@ void ExpandingWidgetModel::placeExpandingWidget(int row) {
         w->setGeometry(rect);
         w->show();
       }
-  } else if( m_partiallyExpandedRow != -1 && m_partiallyExpandedRow == row ) {
-    ///@todo don't embed this, instead paint the content
-    m_partiallyExpandWidget->show();
   }
 }
 

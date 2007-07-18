@@ -19,12 +19,12 @@
 #ifndef KATECOMPLETIONTREE_H
 #define KATECOMPLETIONTREE_H
 
-#include <QtGui/QTreeView>
+#include "kateexpandingtree.h"
 
 class KateCompletionWidget;
 class KateCompletionModel;
 
-class KateCompletionTree : public QTreeView
+class KateCompletionTree : public KateExpandingTree
 {
   Q_OBJECT
 

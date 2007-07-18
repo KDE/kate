@@ -19,13 +19,13 @@
 #ifndef KATEARGUMENTHINTTREE_H
 #define KATEARGUMENTHINTTREE_H
 
-#include <QTreeView>
+#include "kateexpandingtree.h"
 
 class KateCompletionWidget;
 class KateArgumentHintModel;
 class QRect;
 
-class KateArgumentHintTree : public QTreeView {
+class KateArgumentHintTree : public KateExpandingTree {
   Q_OBJECT
   public:
     KateArgumentHintTree( KateCompletionWidget* parent );

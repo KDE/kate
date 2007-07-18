@@ -41,40 +41,53 @@ class ExpandingWidgetModel : public QAbstractTableModel {
       Expandable,
       Expanded
     };
+
+    ///The following three are convenience-functions for the current item that could be replaced by the later ones
+    ///@return whether the current item can be expanded
+    bool canExpandCurrentItem() const;
+    ///@return whether the current item can be collapsed
+    bool canCollapseCurrentItem() const;
+    ///Expand/collapse the current item
+    void setCurrentItemExpanded( bool );
+
+    void clearMatchQualities();
     
+    ///Unexpand all rows and clear all cached information about them(this includes deleting the expanding-widgets)
     void clearExpanding();
     
-    // Expanding
+    ///@return whether the row given through index is expandable
     bool isExpandable(const QModelIndex& index) const;
-
-    bool canExpandCurrentItem() const;
-    bool canCollapseCurrentItem() const;
-    void setCurrentItemExpanded( bool );
 
     ///Returns whether the given row is currently partially expanded. Does not do any other checks like calling models for data.
     bool isPartiallyExpanded(int row) const;
     
     ///@return whether row is currently expanded
     bool isExpanded(int row) const;
-    ///@return change the expand-state of the row given through index. The display will be updated.
+    ///Change the expand-state of the row given through index. The display will be updated.
     void setExpanded(QModelIndex index, bool expanded);
 
     ///@return the expanding-widget for the given row, if available. Expanding-widgets are in best case available for all expanded rows.
     ///This does not return the partially-expand widget.
     QWidget* expandingWidget(int row) const;
 
+    ///Amount by which the height of a row increases when it is partially expanded
     int partiallyExpandWidgetHeight() const;
     /**
      * Notifies underlying models that the item was selected, collapses any previous partially expanded line,
      * checks whether this line should be partially expanded, and eventually does it.
      * Does nothing when nothing needs to be done.
-     * Does NOT show the expanding-widget. That must be done immediately when painting by KateCompletionDelegate,
+     * Does NOT show the expanding-widget. That is done immediately when painting by KateCompletionDelegate,
      * to reduce flickering. @see showPartialExpandWidget()
      * @param row The row
      * */
     ///
     void rowSelected(int row);
 
+    ///Returns the rectangle for the partially expanded part of the given row
+    QRect partialExpandRect(int row) const;
+
+    QString partialExpandText(int row) const;
+    
     ///Places and shows the expanding-widget for the given row, if it should be visible and is valid.
     ///Also shows the partial-expanding-widget when it should be visible.
     void placeExpandingWidget(int row);
@@ -84,10 +97,18 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     
     virtual QTreeView* treeView() const = 0;
     
-    ///Should return true if the given row should be painted like a completion-item
+    ///Should return true if the given row should be painted like a completion-item(as opposed to label-rows etc.)
     virtual bool indexIsCompletion(const QModelIndex& index) const = 0;
+
+    ///Does not request data from index, this only returns local data like highlighting for expanded rows and similar
+    virtual QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
     
     protected:
+    /**
+     * @return the context-match quality from 0 to 10 if it could be determined, else -1
+     * */
+    int contextMatchQuality(int row);
+      
     //Makes sure m_expandedIcon and m_collapsedIcon are loaded
     void cacheIcons() const;
     
@@ -103,8 +124,8 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     // Store expanding-widgets and cache whether items can be expanded
     mutable QHash<int, ExpandingType> m_expandState;
     QHash< int, QWidget* > m_expandingWidgets; //Map row-numbers to their expanding-widgets
+    QHash< int, int > m_contextMatchQualities; //Map row-numbers to their context-match qualities(undefined if unknown, else 0 to 10)
     int m_partiallyExpandedRow;
-    QTextEdit* m_partiallyExpandWidget; ///@todo instead of embedding this widget, use QTextDocument to paint the content in KateCompletionDelegate
 };
 
 #endif

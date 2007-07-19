@@ -111,7 +111,7 @@ WARNING: due to helper scripts, the language opening tag must be on a
 >
 
 <!-- General options -->
-<!ELEMENT general (folding|comments|keywords|indentation)*>
+<!ELEMENT general (folding|comments|keywords|indentation|emptyLines)*>
 
 <!-- List of folding
   indentationsensitive: If true, the code folding is indentation based.
@@ -171,6 +171,24 @@ TODO
   mode         CDATA   #IMPLIED
 >
 
+<!-- Treat lines that match a given regular expression as empty line. This is
+  needed for example in Python for comments (#...), as then the indentation
+  based folding should ignore the line.
+  This is only implemented for indentation based folding. If the folding
+  is not indentation based, the emptyLines are not used.
+-->
+<!ELEMENT emptyLines (emptyLine*)>
+
+<!-- One empty line regular expression.
+  regexpr:       The regular expression, example from python: ^\s*#.*$
+  casesensitive: Sets, whether the regular expression match is performed case sesitive
+-->
+<!ELEMENT emptyLine EMPTY>
+<!ATTLIST emptyLine
+  regexpr       CDATA       #REQUIRED
+  casesensitive (%boolean;) #IMPLIED
+>
+
 
 <!-- Highlighting specification -->
 <!ELEMENT highlighting (list*, contexts, itemDatas)>
@@ -201,6 +219,10 @@ TODO
   fallthrough:      Use a fallthrough context [optional]
   fallthroughContext: Fall through to this context [optional]
   dynamic:          Dynamic context [boolean, optional]
+  noIndentationBasedFolding: Python uses indentation based folding. However, Python has parts where
+                    it does not use indentation based folding (e.g. for """ strings). In this case
+		    switch to an own context and set this attribute to true. Then the indentation
+		    based folding will ignore this parts and not change folding markers. [optional]
 
 TODO:
   - Explain fallthrough.
@@ -216,6 +238,7 @@ TODO:
   fallthrough       (%boolean;) #IMPLIED
   fallthroughContext CDATA      #IMPLIED
   dynamic           (%boolean;) #IMPLIED
+  noIndentationBasedFolding (%boolean;) #IMPLIED
 >
 
 <!-- Common attributes

@@ -3,7 +3,7 @@
 <!-- Python syntax highlightning v0.9 by Per Wigren -->
 <!-- Python syntax highlighting v1.9 by Michael Bueker (improved keyword differentiation) -->
 <!-- Python syntax highlighting v1.97 by Paul Giannaros -->
-<language name="Python" version="1.97" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
+<language name="Python" version="1.98" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -175,41 +175,41 @@
 
 			</context>
 			
-			<context name="parenthesised" attribute="Normal Text" lineEndContext="#stay" noIndentationBasedFolding="True">
+			<context name="parenthesised" attribute="Normal Text" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<IncludeRules context="Normal" />
 			</context>
 			
-			<context name="Tripple A-comment" attribute="Comment" lineEndContext="#stay" noIndentationBasedFolding="True">
+			<context name="Tripple A-comment" attribute="Comment" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<StringDetect attribute="Comment" String="'''" context="#pop" endRegion="Tripple A-region"/>
 			</context>
 
-			<context name="Tripple Q-comment" attribute="Comment" lineEndContext="#stay" noIndentationBasedFolding="True">
+			<context name="Tripple Q-comment" attribute="Comment" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<HlCChar attribute="Comment" context="#stay"/>
 				<RegExpr attribute="Comment" String="&quot;&quot;&quot;" context="#pop" endRegion="Tripple Q-region"/>
 			</context>
 
-			<context name="Tripple A-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="True">
+			<context name="Tripple A-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<HlCStringChar attribute="String Char" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/> 
 				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String" String="'''" context="#pop" endRegion="Tripple A-region"/>
 			</context>
 
-			<context name="Raw Tripple A-string" attribute="Raw String" lineEndContext="#stay" noIndentationBasedFolding="True">
+			<context name="Raw Tripple A-string" attribute="Raw String" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<HlCStringChar attribute="Raw String" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/> 
 				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String" String="'''" context="#pop" endRegion="Tripple A-region"/>
 			</context>
 
-			<context name="Tripple Q-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="True">
+			<context name="Tripple Q-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<HlCStringChar attribute="String Char" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String" String="&quot;&quot;&quot;" context="#pop" endRegion="Tripple Q-region"/>
 			</context>
 
-			<context name="Raw Tripple Q-string" attribute="Raw String" lineEndContext="#stay" noIndentationBasedFolding="True">
+			<context name="Raw Tripple Q-string" attribute="Raw String" lineEndContext="#stay" noIndentationBasedFolding="true">
 				<HlCStringChar attribute="Raw String" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%\([a-zA-Z0-9_]+\)[a-zA-Z]" context="#stay"/>
 				<RegExpr attribute="String Substitution" String="%[a-zA-Z]" context="#stay"/>

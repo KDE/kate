@@ -407,7 +407,7 @@ void KateView::setupActions()
   ac->addAction("tools_mode", ftm);
   ftm->setWhatsThis(i18n("Here you can choose which mode should be used for the current document. This will influence the used highlighting and folding for example."));
   ftm->updateMenu (m_doc);
-  
+
   KateHighlightingMenu *menu = new KateHighlightingMenu (i18n("&Highlighting"), this);
   ac->addAction("tools_highlighting", menu);
   menu->setWhatsThis(i18n("Here you can choose how the current document should be highlighted."));
@@ -1525,7 +1525,11 @@ void KateView::selectWord( const KTextEditor::Cursor& cursor )
 
 void KateView::selectLine( const KTextEditor::Cursor& cursor )
 {
-  setSelection (KTextEditor::Range(cursor.line(), 0, cursor.line()+1, 0));
+  int line = cursor.line();
+  if ( line+1 >= m_doc->lines() )
+    setSelection (KTextEditor::Range(line, 0, line, m_doc->lineLength(line)));
+  else
+    setSelection (KTextEditor::Range(line, 0, line+1, 0));
 }
 
 void KateView::cut()

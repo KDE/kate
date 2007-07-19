@@ -27,6 +27,7 @@
 #include "kateautoindent.h"
 #include "katehighlight.h"
 #include "katetextline.h"
+#include "katerenderer.h"
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -903,15 +904,35 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec,
     case KateJSDocument::FindLeftBrace: {
       if (exception.invalidArgs(2)) break;
       KateDocCursor cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec), doc);
+      QList<KTextEditor::Attribute::Ptr> attributes =
+          doc->highlight()->attributes(((KateView*)doc->activeView())->renderer()->config()->schema());
       int count = 1;
 
       // Move backwards char by char and find the opening brace
       while (cursor.moveBackward(1)) {
         QChar ch = cursor.currentChar();
         if (ch == '{') {
-          --count;
+          KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
+          const int ds = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
+          if (ds != KateExtendedAttribute::dsComment
+              && ds != KateExtendedAttribute::dsString
+              && ds != KateExtendedAttribute::dsRegionMarker
+              && ds != KateExtendedAttribute::dsChar
+              && ds != KateExtendedAttribute::dsOthers)
+          {
+            --count;
+          }
         } else if (ch == '}') {
-          ++count;
+          KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
+          const int ds = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
+          if (ds != KateExtendedAttribute::dsComment
+              && ds != KateExtendedAttribute::dsString
+              && ds != KateExtendedAttribute::dsRegionMarker
+              && ds != KateExtendedAttribute::dsChar
+              && ds != KateExtendedAttribute::dsOthers)
+          {
+            ++count;
+          }
         }
 
         if (count == 0) {
@@ -928,15 +949,35 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec,
     case KateJSDocument::FindLeftParenthesis: {
       if (exception.invalidArgs(2)) break;
       KateDocCursor cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec), doc);
+      QList<KTextEditor::Attribute::Ptr> attributes =
+          doc->highlight()->attributes(((KateView*)doc->activeView())->renderer()->config()->schema());
       int count = 1;
 
       // Move backwards char by char and find the opening parenthesis
       while (cursor.moveBackward(1)) {
         QChar ch = cursor.currentChar();
         if (ch == '(') {
-          --count;
+          KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
+          const int ds = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
+          if (ds != KateExtendedAttribute::dsComment
+              && ds != KateExtendedAttribute::dsString
+              && ds != KateExtendedAttribute::dsRegionMarker
+              && ds != KateExtendedAttribute::dsChar
+              && ds != KateExtendedAttribute::dsOthers)
+          {
+            --count;
+          }
         } else if (ch == ')') {
-          ++count;
+          KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
+          const int ds = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
+          if (ds != KateExtendedAttribute::dsComment
+              && ds != KateExtendedAttribute::dsString
+              && ds != KateExtendedAttribute::dsRegionMarker
+              && ds != KateExtendedAttribute::dsChar
+              && ds != KateExtendedAttribute::dsOthers)
+          {
+            ++count;
+          }
         }
 
         if (count == 0) {

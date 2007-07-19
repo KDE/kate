@@ -244,7 +244,7 @@ class KateTextLine : public KShared
     {
       for (int i=0; i < m_attributesList.size(); i+=3)
       {
-        if (pos >= m_attributesList[i] && pos <= m_attributesList[i]+m_attributesList[i+1])
+        if (pos >= m_attributesList[i] && pos < m_attributesList[i]+m_attributesList[i+1])
           return m_attributesList[i+2];
 
         if (pos < m_attributesList[i])

@@ -79,19 +79,20 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
       Variable    = 0x400,
       Enum        = 0x800,
       Template    = 0x1000,
+      TypeAlias   = 0x2000,
 
       // Special attributes - any number per item
-      Virtual     = 0x2000,
-      Override    = 0x4000,
-      Inline      = 0x8000,
-      Friend      = 0x10000,
-      Signal      = 0x20000,
-      Slot        = 0x40000,
+      Virtual     = 0x4000,
+      Override    = 0x8000,
+      Inline      = 0x10000,
+      Friend      = 0x20000,
+      Signal      = 0x40000,
+      Slot        = 0x80000,
 
       // Scope - no more than 1 per item
-      LocalScope      = 0x80000,
-      NamespaceScope  = 0x100000,
-      GlobalScope     = 0x200000,
+      LocalScope      = 0x100000,
+      NamespaceScope  = 0x200000,
+      GlobalScope     = 0x400000,
 
       // Keep this in sync so the code knows when to stop
       LastProperty    = GlobalScope

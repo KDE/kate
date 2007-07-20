@@ -52,7 +52,7 @@ var gIndentWidth = 4;
  */
 function findLeftBrace(line, column)
 {
-    var cursor = document.findLeftBrace(line, column);
+    var cursor = document.anchor(line, column, '{');
     if (cursor) {
         var parenthesisCursor = tryParenthesisBeforeBrace(cursor.line, cursor.column);
         if (parenthesisCursor)
@@ -77,7 +77,7 @@ function tryParenthesisBeforeBrace(line, column)
     var firstColumn = document.firstColumn(line);
     while (column > firstColumn && document.isSpace(line, --column));
     if (document.charAt(line, column) == ')')
-        return document.findLeftParenthesis(line, column);
+        return document.anchor(line, column, '(');
     return null;
 }
 
@@ -129,7 +129,7 @@ function tryAccessModifiers(line)
     if (currentString.search(/^\s*((public|protected|private)\s*\S*|(signals|Q_SIGNALS)\s*):/) == -1)
         return -1;
 
-    var cursor = document.findLeftBrace(line, 0);
+    var cursor = document.anchor(line, 0, '{');
     if (!cursor)
         return -1;
 
@@ -225,7 +225,7 @@ function tryCComment(line)
 
     // we found a */, search the opening /* and return its indentation level
     if (document.endsWith(currentLine, "*/", true)) {
-        var cursor = document.findStartOfCComment(currentLine, document.lastColumn(currentLine));
+        var cursor = document.rfind(currentLine, document.lastColumn(currentLine), "/*");
         if (cursor && cursor.column == document.firstColumn(cursor.line))
             indentation = document.firstVirtualColumn(cursor.line);
 
@@ -364,7 +364,7 @@ function tryCKeywords(line, isBrace)
     var lastPos = document.lastColumn(currentLine);
     var cursor = null;
     if (document.charAt(currentLine, lastPos) == ')')
-        cursor = document.findLeftParenthesis(currentLine, lastPos);
+        cursor = document.anchor(currentLine, lastPos, '(');
     if (cursor)
         currentLine = cursor.line;
 
@@ -456,7 +456,7 @@ function tryStatement(line)
     var column = currentString.search(/^(.*)(,|[)];)\s*(\/\/.*|\/\*.*\*\/\s*)?$/);
     if (column == 0) {
         var comma = (RegExp.$2.length == 1);
-        var cursor = document.findLeftParenthesis(currentLine, RegExp.$1.length);
+        var cursor = document.anchor(currentLine, RegExp.$1.length, '(');
         if (cursor) {
             if (comma) {
                 currentLine = cursor.line;

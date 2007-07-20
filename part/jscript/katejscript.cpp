@@ -54,6 +54,17 @@
 #include <QtCore/QRegExp>
 #include <QtCore/QTextStream>
 
+//BEGIN helper functions
+static bool isCode(int defaultStyle)
+{
+  return (defaultStyle != KateExtendedAttribute::dsComment
+       && defaultStyle != KateExtendedAttribute::dsString
+       && defaultStyle != KateExtendedAttribute::dsRegionMarker
+       && defaultStyle != KateExtendedAttribute::dsChar
+       && defaultStyle != KateExtendedAttribute::dsOthers);
+}
+//END
+
 
 namespace KJS {
 
@@ -246,9 +257,8 @@ class KateJSDocument : public KJS::JSObject
       PrevNonEmptyLine,     // (line)
       NextNonEmptyLine,     // (line)
 
-      FindLeftBrace,        // (line, column)
-      FindLeftParenthesis,  // (line, column)
-      FindStartOfCComment,  // (line, column)
+      Anchor,               // (line, column, char:{([)
+      RFind,                // (line, column, string, defaultStyle)
 
       // highlighting
       IsInWord,             // (char, attribute)
@@ -572,9 +582,8 @@ KJS::JSValue* KateJSInterpreterContext::callFunction(KateView* view,
   prevNonEmptyLine     KateJSDocument::PrevNonEmptyLine    DontDelete|Function 1
   nextNonEmptyLine     KateJSDocument::NextNonEmptyLine    DontDelete|Function 1
 
-  findLeftBrace        KateJSDocument::FindLeftBrace       DontDelete|Function 2
-  findLeftParenthesis  KateJSDocument::FindLeftParenthesis DontDelete|Function 2
-  findStartOfCComment  KateJSDocument::FindStartOfCComment DontDelete|Function 2
+  anchor               KateJSDocument::Anchor              DontDelete|Function 3
+  rfind                KateJSDocument::RFind               DontDelete|Function 4
 #
 # methods from highlight (and around)
 #
@@ -901,36 +910,32 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec,
       return KJS::Number(-1);
     }
 
-    case KateJSDocument::FindLeftBrace: {
-      if (exception.invalidArgs(2)) break;
+    case KateJSDocument::Anchor: {
+      if (exception.invalidArgs(3)) break;
       KateDocCursor cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec), doc);
       QList<KTextEditor::Attribute::Ptr> attributes =
           doc->highlight()->attributes(((KateView*)doc->activeView())->renderer()->config()->schema());
       int count = 1;
+      QChar lc(args[2]->toString(exec).qstring().at(0));
+      QChar rc;
+      if (lc == '(') rc = ')';
+      else if (lc == '{') rc = '}';
+      else if (lc == '[') rc = ']';
+      else return KJS::Null();
 
-      // Move backwards char by char and find the opening brace
+      // Move backwards char by char and find the opening character
       while (cursor.moveBackward(1)) {
         QChar ch = cursor.currentChar();
-        if (ch == '{') {
+        if (ch == lc) {
           KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
           const int ds = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
-          if (ds != KateExtendedAttribute::dsComment
-              && ds != KateExtendedAttribute::dsString
-              && ds != KateExtendedAttribute::dsRegionMarker
-              && ds != KateExtendedAttribute::dsChar
-              && ds != KateExtendedAttribute::dsOthers)
-          {
+          if (isCode(ds)) {
             --count;
           }
-        } else if (ch == '}') {
+        } else if (ch == rc) {
           KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
           const int ds = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
-          if (ds != KateExtendedAttribute::dsComment
-              && ds != KateExtendedAttribute::dsString
-              && ds != KateExtendedAttribute::dsRegionMarker
-              && ds != KateExtendedAttribute::dsChar
-              && ds != KateExtendedAttribute::dsOthers)
-          {
+          if (isCode(ds)) {
             ++count;
           }
         }
@@ -946,67 +951,45 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec,
       return KJS::Null();
     }
 
-    case KateJSDocument::FindLeftParenthesis: {
-      if (exception.invalidArgs(2)) break;
+    case KateJSDocument::RFind: {
+      if (exception.invalidArgs(3, 4)) break;
       KateDocCursor cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec), doc);
+      const int start = cursor.line();
+      const QString text(args[2]->toString(exec).qstring());
+      const int style = (args.size() == 4) ? args[3]->toUInt32(exec) : -1;
       QList<KTextEditor::Attribute::Ptr> attributes =
           doc->highlight()->attributes(((KateView*)doc->activeView())->renderer()->config()->schema());
-      int count = 1;
 
-      // Move backwards char by char and find the opening parenthesis
-      while (cursor.moveBackward(1)) {
-        QChar ch = cursor.currentChar();
-        if (ch == '(') {
-          KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
-          const int ds = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
-          if (ds != KateExtendedAttribute::dsComment
-              && ds != KateExtendedAttribute::dsString
-              && ds != KateExtendedAttribute::dsRegionMarker
-              && ds != KateExtendedAttribute::dsChar
-              && ds != KateExtendedAttribute::dsOthers)
-          {
-            --count;
-          }
-        } else if (ch == ')') {
-          KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
-          const int ds = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
-          if (ds != KateExtendedAttribute::dsComment
-              && ds != KateExtendedAttribute::dsString
-              && ds != KateExtendedAttribute::dsRegionMarker
-              && ds != KateExtendedAttribute::dsChar
-              && ds != KateExtendedAttribute::dsOthers)
-          {
-            ++count;
-          }
-        }
-
-        if (count == 0) {
-          KJS::JSObject *object = exec->lexicalInterpreter()->builtinObject()->construct(exec, KJS::List::empty());
-          object->put(exec, "line", KJS::Number(cursor.line()));
-          object->put(exec, "column", KJS::Number(cursor.column()));
-          return object;
-        }
-      }
-
-      return KJS::Null();
-    }
-
-    case KateJSDocument::FindStartOfCComment: {
-      if (exception.invalidArgs(2)) break;
-      KateDocCursor cursor(args[0]->toUInt32(exec), args[1]->toUInt32(exec), doc);
-
-      // find the line with the opening "/*"
       do {
         KateTextLine::Ptr textLine = doc->plainKateTextLine(cursor.line());
         if (!textLine)
           break;
 
-        int column = textLine->string().indexOf("/*");
-        if (column >= 0) {
-          KJS::JSObject *object = exec->lexicalInterpreter()->builtinObject()->construct(exec, KJS::List::empty());
-          object->put(exec, "line", KJS::Number(cursor.line()));
-          object->put(exec, "column", KJS::Number(column));
-          return object;
+        if (cursor.line() != start) {
+          cursor.setColumn(textLine->length());
+        } else {
+          cursor.setColumn(0);
+        }
+
+        bool found = true;
+        while (found) {
+          uint foundAt;
+          found = textLine->searchText(0, cursor.column(), text, &foundAt, 0, true, true);
+          if (found) {
+            bool hasStyle = true;
+            if (style != -1) {
+              KTextEditor::Attribute::Ptr a = attributes[textLine->attribute(foundAt)];
+              const int ds = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
+              hasStyle = (ds == style);
+            }
+
+            if (hasStyle) {
+              KJS::JSObject *object = exec->lexicalInterpreter()->builtinObject()->construct(exec, KJS::List::empty());
+              object->put(exec, "line", KJS::Number(cursor.line()));
+              object->put(exec, "column", KJS::Number(foundAt));
+              return object;
+            }
+          }
         }
       } while (cursor.gotoPreviousLine());
 

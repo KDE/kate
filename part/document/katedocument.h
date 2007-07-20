@@ -66,6 +66,14 @@ class QTimer;
 
 class KateKeyInterceptorFunctor;
 
+// needed for parsing replacement text like "\1:\2"
+struct ReplacementPart
+{
+  bool isReference; // otherwise text
+  int index; // [0..9] 0=full match, 1=first capture, ..
+  QString text; // if not a reference
+};
+
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
@@ -415,12 +423,22 @@ class KateDocument : public KTextEditor::Document,
     QVector<KTextEditor::Range> searchText (const KTextEditor::Range & inputRange,
         QRegExp & regexp, bool backwards = false);
 
+  /*
+   * Public string processing helpers
+   */
+  public:
     /**
-     * Resolves escape sequences, e.g. "\\n" to "\n".
+     * Resolves escape sequences (e.g. "\\n" to "\n") in <code>text</code>
+     * if <code>parts</code> is NULL. Otherwise it leaves code>text</code>
+     * unmodified and creates a list of text and capture references out of it.
+     * These two modes are fused into one function to avoid code duplication.
      *
-     * \param text  Text to process
+     * \param text             Text to process
+     * \param parts            List of text and references
+     * \param zeroCaptureOnly  Only accept \0 as a reference, discard \1 to \9
      */
-    static void escapePlaintext(QString & text);
+    static void escapePlaintext(QString & text, QList<ReplacementPart> * parts = NULL,
+        bool zeroCaptureOnly = false);
 
     /**
      * Repairs a regular Expression pattern.

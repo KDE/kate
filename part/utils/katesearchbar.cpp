@@ -30,6 +30,7 @@
 #include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
 #include <QtGui/QKeyEvent>
+#include <QtGui/QPushButton> // just for replace buttons, remove if class changes
 #include <QtCore/QList>
 
 #include <kdebug.h>
@@ -41,6 +42,7 @@ public:
     KTextEditor::Range match;
     KTextEditor::Range lastMatch;
     KateSearchBarEdit *expressionEdit;
+    KLineEdit * replaceEdit;
 
     QCheckBox *caseSensitiveBox;
     //QCheckBox *wholeWordsBox;
@@ -56,6 +58,7 @@ public:
     KTextEditor::SmartRange* topRange;
 
     QString lastExpression;
+    QVector<KTextEditor::Range> lastResultRanges; // TODO reset on document change so we don't get wrong data when asking for the ranges content?
 };
 
 KateSearchBar::KateSearchBar(KateViewBar *viewBar)
@@ -73,6 +76,8 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     connect(d->expressionEdit, SIGNAL(returnPressed()), this, SLOT(slotSearch()));
     connect(d->expressionEdit, SIGNAL(findNext()), this, SLOT(findNext()));
     connect(d->expressionEdit, SIGNAL(findPrevious()), this, SLOT(findPrevious()));
+
+    d->replaceEdit = new KLineEdit();
 
     d->caseSensitiveBox = new QCheckBox(i18n("&Case sensitive"));
     connect(d->caseSensitiveBox, SIGNAL(stateChanged(int)), this, SLOT(slotSearch()));
@@ -120,24 +125,43 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     prevButton->setText(i18n("Previous"));
     connect(prevButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
 
-    QHBoxLayout *layoutFirstLine = new QHBoxLayout;
-    topLayout->addLayout (layoutFirstLine);
+
+    QPushButton * const replaceOnceButton = new QPushButton();
+#warning TRANSLATE HERE
+    replaceOnceButton->setText("Once");
+    connect(replaceOnceButton, SIGNAL(clicked()), this, SLOT(replaceOnce()));
+
+    QPushButton * const replaceAllButton = new QPushButton();
+#warning TRANSLATE HERE
+    replaceAllButton->setText("All");
+    replaceAllButton->setDisabled(true);
+    connect(replaceAllButton, SIGNAL(clicked()), this, SLOT(replaceAll()));
 
     // first line: lineedit + next + prev
+    QHBoxLayout *layoutFirstLine = new QHBoxLayout;
+    topLayout->addLayout (layoutFirstLine);
     layoutFirstLine->addWidget(d->expressionEdit);
     layoutFirstLine->addWidget(prevButton);
     layoutFirstLine->addWidget(nextButton);
 
+    // second line: lineedit
+    // TODO: better in grid with first line?
+    QHBoxLayout * layoutSecondLine = new QHBoxLayout;
+    layoutSecondLine->addWidget(d->replaceEdit);
+    layoutSecondLine->addWidget(replaceOnceButton);
+    layoutSecondLine->addWidget(replaceAllButton);
+    topLayout->addLayout(layoutSecondLine);
+
     QGridLayout *gridLayout = new QGridLayout;
     topLayout->addLayout (gridLayout);
 
-    // second line: casesensitive + whole words + regexp
+    // third line: casesensitive + whole words + regexp
     gridLayout->addWidget(d->regExpBox, 0, 0);
     gridLayout->addWidget(d->caseSensitiveBox, 0, 1);
     //gridLayout->addWidget(d->wholeWordsBox, 0, 1);
     gridLayout->addItem (new QSpacerItem(0,0), 0, 3);
 
-    // third line: from cursor + selection only + highlight all
+    // fourth line: from cursor + selection only + highlight all
     gridLayout->addWidget(d->fromCursorBox, 1, 0);
     gridLayout->addWidget(d->selectionOnlyBox, 1, 1);
     gridLayout->addWidget(d->highlightAllBox, 1, 2);
@@ -150,6 +174,9 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
 
     d->topRange = m_view->doc()->newSmartRange( m_view->doc()->documentRange() );
     d->topRange->setInsertBehavior(KTextEditor::SmartRange::ExpandRight);
+
+    // result range vector must contain one element minimum
+    d->lastResultRanges.append(KTextEditor::Range::invalid());
 }
 
 KateSearchBar::~KateSearchBar()
@@ -421,6 +448,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
     : KateSearchBarEdit::NotFound);
 
   d->lastExpression = expression;
+  d->lastResultRanges = resultRanges; // copy over whole vector
 }
 
 void KateSearchBar::slotSpecialOptionTogled()
@@ -497,6 +525,73 @@ void KateSearchBar::findPrevious()
         return;
     // XXX d->startCursor = d->lastMatch.start();
     doSearch(d->expressionEdit->text(), false, true);
+}
+
+void KateSearchBar::replaceOnce()
+{
+    // replace current selection in document
+    // with text from <replaceEdit>
+    // TODO do a new search and replace its reseult instead
+
+    // text selected?
+    KTextEditor::Range selRange = m_view->selectionRange();
+    if (!selRange.isValid())
+    {
+      return;
+    }
+
+    // parse escape sequences in escape string if in
+    // regexp or escape sequence search mode
+    const uint comboData = d->regExpBox->itemData(d->regExpBox->currentIndex()).toUInt();
+    const bool processEscapeSequence = comboData & (KTextEditor::Search::Regex | KTextEditor::Search::EscapeSequences);
+    QString replaceText = d->replaceEdit->text();
+    if (processEscapeSequence)
+    {
+      const int MIN_REF_INDEX = 0;
+      const int MAX_REF_INDEX = d->lastResultRanges.count() - 1;
+
+      QList<ReplacementPart> parts;
+      const bool zeroCaptureOnly = (MAX_REF_INDEX == 0);
+      KateDocument::escapePlaintext(replaceText, &parts, zeroCaptureOnly);
+
+      // build replacement text with filled in references
+      replaceText.clear();
+      for (QList<ReplacementPart>::iterator iter = parts.begin(); iter != parts.end(); iter++)
+      {
+        ReplacementPart curPart = *iter;
+        if (curPart.isReference)
+        {
+          if ((curPart.index < MIN_REF_INDEX) || (curPart.index > MAX_REF_INDEX))
+          {
+            // insert just the number since "\c" becomes "c" in QRegExp
+            replaceText.append(QString::number(curPart.index));
+          }
+          else
+          {
+            const KTextEditor::Range & captureRange = d->lastResultRanges[curPart.index];
+            if (captureRange.isValid())
+            {
+              // copy capture content
+              const bool blockMode = m_view->blockSelection();
+              replaceText.append(m_view->doc()->text(captureRange, blockMode));
+            }
+          }
+        }
+        else
+        {
+          replaceText.append(curPart.text);
+        }
+      }
+    }
+
+    // replace
+    const bool blockMode = (m_view->blockSelection() && !selRange.onSingleLine());
+    m_view->doc()->replaceText(selRange, replaceText, blockMode);
+}
+
+void KateSearchBar::replaceAll()
+{
+    // TODO
 }
 
 void KateSearchBar::showEvent(QShowEvent *e)

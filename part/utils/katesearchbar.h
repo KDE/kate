@@ -36,6 +36,8 @@ public:
 public Q_SLOTS:
     void findNext();
     void findPrevious();
+    void replaceOnce();
+    void replaceAll();
 
 private Q_SLOTS:
     void slotSearch();

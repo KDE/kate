@@ -2423,7 +2423,9 @@ KTextEditor::Search::SearchOptions KateDocument::supportedSearchOptions() const
   return supported;
 }
 
-void KateDocument::escapePlaintext(QString & text) {
+void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * parts,
+    bool zeroCaptureOnly)
+{
   // get input
   const int inputLen = text.length();
   int input = 0; // walker index
@@ -2453,26 +2455,37 @@ void KateDocument::escapePlaintext(QString & text) {
       switch (text[input + 1].unicode())
       {
       case L'0': // "\0000".."\0377"
-        if (input + 2 >= inputLen)
+        if (input + 4 >= inputLen)
         {
-          // strip backslash ("\0" -> "0")
-          output.append(text[input + 1]);
+          if (parts == NULL)
+          {
+            // strip backslash ("\0" -> "0")
+            output.append(text[input + 1]);
+          }
+          else
+          {
+            // handle reference
+            ReplacementPart part;
+
+            // append text before the reference
+            if (!output.isEmpty())
+            {
+              part.isReference = false;
+              part.text = output;
+              output.clear();
+              parts->append(part);
+            }
+
+            // append reference
+            part.isReference = true;
+            part.index = 0;
+            parts->append(part);
+          }
           input += 2;
-        }
-        else if (input + 3 >= inputLen)
-        {
-          // strip backslash ("\0?" -> "0?")
-          output.append(text[input + 1]).append(text[input + 2]);
-          input += 3;
-        }
-        else if (input + 4 >= inputLen)
-        {
-          // strip backslash ("\0??" -> "0??")
-          output.append(text[input + 1]).append(text[input + 2]).append(text[input + 3]);
-          input += 4;
         }
         else
         {
+          bool stripAndSkip = false;
           const ushort text_2 = text[input + 2].unicode();
           if ((text_2 >= L'0') && (text_2 <= L'3'))
           {
@@ -2493,25 +2506,84 @@ void KateDocument::escapePlaintext(QString & text) {
               }
               else
               {
-                // strip backslash ("\0??" -> "0??")
-                output.append(text[input + 1]).append(text[input + 2]).append(text[input + 3]);
-                input += 4;
+                stripAndSkip = true;
               }
             }
             else
             {
-              // strip backslash ("\0?" -> "0?")
-              output.append(text[input + 1]).append(text[input + 2]);
-              input += 3;
+              stripAndSkip = true;
             }
           }
           else
           {
-            // strip backslash ("\0" -> "0")
-            output.append(text[input + 1]);
+            stripAndSkip = true;
+          }
+
+          if (stripAndSkip)
+          {
+            if (parts == NULL)
+            {
+              // strip backslash ("\0" -> "0")
+              output.append(text[input + 1]);
+            }
+            else
+            {
+              // handle reference
+              ReplacementPart part;
+
+              // append text before the reference
+              if (!output.isEmpty())
+              {
+                part.isReference = false;
+                part.text = output;
+                output.clear();
+                parts->append(part);
+              }
+
+              // append reference
+              part.isReference = true;
+              part.index = 0;
+              parts->append(part);
+            }
             input += 2;
           }
         }
+        break;
+
+      case L'1':
+      case L'2':
+      case L'3':
+      case L'4':
+      case L'5':
+      case L'6':
+      case L'7':
+      case L'8':
+      case L'9':
+        if ((parts == NULL) || zeroCaptureOnly)
+        {
+          // strip backslash ("\?" -> "?")
+          output.append(text[input + 1]);
+        }
+        else
+        {
+          // handle reference
+          ReplacementPart part;
+
+          // append text before the reference
+          if (!output.isEmpty())
+          {
+            part.isReference = false;
+            part.text = output;
+            output.clear();
+            parts->append(part);
+          }
+
+          // append reference
+          part.isReference = true;
+          part.index = 9 - (L'9' - text[input + 1].unicode());
+          parts->append(part);
+        }
+        input += 2;
         break;
 
       case L'a':
@@ -2545,32 +2617,15 @@ void KateDocument::escapePlaintext(QString & text) {
         break;
 
       case L'x': // "\x0000".."\xffff"
-        if (input + 2 >= inputLen)
+        if (input + 5 >= inputLen)
         {
           // strip backslash ("\x" -> "x")
           output.append(text[input + 1]);
           input += 2;
         }
-        else if (input + 3 >= inputLen)
-        {
-          // strip backslash ("\x?" -> "x?")
-          output.append(text[input + 1]).append(text[input + 2]);
-          input += 3;
-        }
-        else if (input + 4 >= inputLen)
-        {
-          // strip backslash ("\x??" -> "x??")
-          output.append(text[input + 1]).append(text[input + 2]).append(text[input + 3]);
-          input += 4;
-        }
-        else if (input + 5 >= inputLen)
-        {
-          // strip backslash ("\x???" -> "x???")
-          output.append(text[input + 1]).append(text[input + 2]).append(text[input + 3]).append(text[input + 4]);
-          input += 5;
-        }
         else
         {
+          bool stripAndSkip = false;
           const ushort text_2 = text[input + 2].unicode();
           if (((text_2 >= L'0') && (text_2 <= L'9'))
               || ((text_2 >= L'a') && (text_2 <= L'f'))
@@ -2615,28 +2670,23 @@ void KateDocument::escapePlaintext(QString & text) {
                 }
                 else
                 {
-                  // Strip backslash ("\x???" -> "x???")
-                  output.append(text[input + 1]).append(text[input + 2]).append(text[input + 3]).append(text[input + 4]);
-                  input += 5;
+                  stripAndSkip = true;
                 }
               }
               else
               {
-                // Strip backslash ("\x??" -> "x??")
-                output.append(text[input + 1]).append(text[input + 2]).append(text[input + 3]);
-                input += 4;
+                stripAndSkip = true;
               }
             }
             else
             {
-              // Strip backslash ("\x?" -> "x?")
-              output.append(text[input + 1]).append(text[input + 2]);
-              input += 3;
+              stripAndSkip = true;
             }
           }
-          else
+
+          if (stripAndSkip)
           {
-            // Strip backslash ("\x" -> "x")
+            // strip backslash ("\x" -> "x")
             output.append(text[input + 1]);
             input += 2;
           }
@@ -2644,7 +2694,7 @@ void KateDocument::escapePlaintext(QString & text) {
         break;
 
       default:
-        // Strip backslash ("\?" -> "?")
+        // strip backslash ("\?" -> "?")
         output.append(text[input + 1]);
         input += 2;
 
@@ -2658,8 +2708,22 @@ void KateDocument::escapePlaintext(QString & text) {
     }
   }
 
-  // Overwrite with escaped edition
-  text = output;
+  if (parts == NULL)
+  {
+    // overwrite with escaped edition
+    text = output;
+  }
+  else
+  {
+    // append text after the last reference if any
+    if (!output.isEmpty())
+    {
+      ReplacementPart part;
+      part.isReference = false;
+      part.text = output;
+      parts->append(part);
+    }
+  }
 }
 
 

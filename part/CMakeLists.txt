@@ -54,7 +54,6 @@ completion/kateexpandingtree.cpp
 completion/kateargumenthinttree.cpp
 completion/kateargumenthintmodel.cpp
 completion/expandingwidgetmodel.cpp
-completion/kateexpandingtree.cpp
 
 # dialogs
 dialogs/katedialogs.cpp

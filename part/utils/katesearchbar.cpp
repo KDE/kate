@@ -127,12 +127,16 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
 
 
     QPushButton * const replaceOnceButton = new QPushButton();
+#ifdef __GNUC__
 #warning TRANSLATE HERE
+#endif
     replaceOnceButton->setText("Once");
     connect(replaceOnceButton, SIGNAL(clicked()), this, SLOT(replaceOnce()));
 
     QPushButton * const replaceAllButton = new QPushButton();
+#ifdef __GNUC__
 #warning TRANSLATE HERE
+#endif
     replaceAllButton->setText("All");
     replaceAllButton->setDisabled(true);
     connect(replaceAllButton, SIGNAL(clicked()), this, SLOT(replaceAll()));

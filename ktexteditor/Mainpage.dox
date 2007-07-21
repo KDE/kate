@@ -9,10 +9,15 @@ under the terms of the GNU Free Documentation License, Version 1.2
 or any later version published by the Free Software Foundation;
 */
 
-/** \file Mainpage.dox
-    \brief Introduction to the KTextEditor Interface
-*/
-/** \mainpage KTextEditor - a Set of Interfaces for Advanced Plain Text Editing Services
+/** \mainpage KTextEditor
+
+<p><b>
+Overview |
+\ref kte_design "Design" |
+\ref kte_guidelines "Coding Guidelines" |
+\ref kte_port_to_kde4 "Porting to KDE 4" |
+\ref kte_howto "Using"
+</b></p>
 
 \section kte_intro Introduction
 The KTextEditor interfaces - also called KTE interfaces - are a set of
@@ -45,8 +50,23 @@ to use. The two popular implementations right now are the Kate Editor Component
  - <a href="hierarchy.html">Inheritance Hierarchy</a>
 <!-- grouped classes -> TODO Grouping -->
 
-\author Dominik Haumann \<dhdev@gmx.de\>
-\author Christoph Cullmann \<cullmann@kde.org\>
+@authors
+Dominik Haumann \<dhdev@gmx.de\><br>
+Christoph Cullmann \<cullmann@kde.org\><br>
+Hamish Rodda \<rodda@kde.org\><br>
+Joseph Wenninger \<jowenn@kde.org\><br>
+Jochen Wilhelmy \<digisnap@cs.tu-berlin.de\><br>
+Anders Lund \<anders@alweb.dk\><br>
+Matt Broadstone \<mbroadst@gmail.com\>
+
+@maintainers
+Dominik Haumann \<dhdev@gmx.de\><br>
+Christoph Cullmann \<cullmann@kde.org\><br>
+Hamish Rodda \<rodda@kde.org\>
+
+@licenses
+@lgpl
+
 */
 
 
@@ -54,6 +74,15 @@ to use. The two popular implementations right now are the Kate Editor Component
 
 
 /** \page kte_design Overview of the Core Interface Design
+
+<p><b>
+\ref index "Overview" |
+Design |
+\ref kte_guidelines "Coding Guidelines" |
+\ref kte_port_to_kde4 "Porting to KDE 4" |
+\ref kte_howto "Using"
+</b></p>
+
 The core of the KTextEditor interfaces consists of several main interfaces:
 - KTextEditor::Factory \n
   The Factory provides access to the editor object.
@@ -108,6 +137,15 @@ first argument.
 
 
 /** \page kte_guidelines Coding Guidelines and API Conventions
+
+<p><b>
+\ref index "Overview" |
+\ref kte_design "Design" |
+Coding Guidelines |
+\ref kte_port_to_kde4 "Porting to KDE 4" |
+\ref kte_howto "Using"
+</b></p>
+
 All KTextEditor interfaces have a consistent design.
 - naming follows Qt style. Avoid Java style getters like getSomeData()
   for example,
@@ -331,6 +369,14 @@ The following classes are a list of all available Command extension interfaces.
 
 /** \page kte_port_to_kde4 Porting to KDE 4
 
+<p><b>
+\ref index "Overview" |
+\ref kte_design "Design" |
+\ref kte_guidelines "Coding Guidelines" |
+Porting to %KDE 4 |
+\ref kte_howto "Using"
+</b></p>
+
 This document describes porting applications using the KTextEditor interfaces
 from KDE 3 to KDE 4. This page does not try to be complete; its main goal is
 to show what interfaces were removed, changed or added to give some impression
@@ -447,6 +493,14 @@ settings if desired.
 
 /** \page kte_howto How to use the KTextEditor Interfaces
 
+<p><b>
+\ref index "Overview" |
+\ref kte_design "Design" |
+\ref kte_guidelines "Coding Guidelines" |
+\ref kte_port_to_kde4 "Porting to KDE 4" |
+Using
+</b></p>
+
 This HOWTO will explain step by step how to load a KTextEditor component and
 plug a single View into a KMainWindow.
 
@@ -542,3 +596,4 @@ In order to compile link against the following libraries:
 */
 
 // DOXYGEN_REFERENCES = kdecore kdeui kio kparts
+// vim:ts=4:sw=4:expandtab:filetype=doxygen

@@ -472,7 +472,7 @@ TODO:
   italic        CDATA   #IMPLIED        Whether this attribute should be rendered using an italic typeface [optional, boolean, default=false]
   bold          CDATA   #IMPLIED        Whether this attribute should be renederd using a bold typeface [optional, boolean, default=false]
   underline     CDATA   #IMPLIED        Whether this attribute should be underlined [optional, boolean, default=false]
-  strikeout     CDATA   #IMPLIED        Whether this attribute should be striked out [optional, boolean, default=false]
+  strikeOut     CDATA   #IMPLIED        Whether this attribute should be striked out [optional, boolean, default=false]
 -->
 <!ELEMENT itemData EMPTY>
 <!ATTLIST itemData
@@ -483,5 +483,5 @@ TODO:
   italic        (%boolean;) #IMPLIED
   bold          (%boolean;) #IMPLIED
   underline     (%boolean;) #IMPLIED
-  strikeout     (%boolean;) #IMPLIED
+  strikeOut     (%boolean;) #IMPLIED
 >

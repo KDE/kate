@@ -1322,6 +1322,15 @@ void KateJScriptManager::collectScripts (bool force)
     if (m_scripts.contains(baseName))
       continue;
 
+    // check for kate-version. If the current Kate Part version is too old, ignore the script
+    if (!it->pairs.contains ("kate-version")
+         || it->pairs.value ("kate-version") > QString(KATEPART_VERSION))
+    {
+      kDebug (13050) << "reject script: " << baseName << ", required Kate version too high: "
+          << it->pairs.value ("kate-version") << endl;
+      continue;
+    }
+
     kDebug (13050) << "add script: " << baseName << " - " << absPath << endl;
 
     KateJScriptManager::Script *s = new KateJScriptManager::Script ();

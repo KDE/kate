@@ -596,4 +596,5 @@ In order to compile link against the following libraries:
 */
 
 // DOXYGEN_REFERENCES = kdecore kdeui kio kparts
+// DOXYGEN_SET_PROJECT_NAME = KTextEditor
 // vim:ts=4:sw=4:expandtab:filetype=doxygen

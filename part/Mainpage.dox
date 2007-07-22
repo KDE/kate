@@ -32,4 +32,5 @@ Christoph Cullmann \<cullmann@kde.org\>
 
 */
 // DOXYGEN_REFERENCES = kdecore kio kdeui kparts interfaces/kdocument interfaces/ktexteditor kjs
+// DOXYGEN_SET_PROJECT_NAME = Kate
 // vim:ts=4:sw=4:expandtab:filetype=doxygen

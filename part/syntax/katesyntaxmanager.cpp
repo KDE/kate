@@ -111,9 +111,10 @@ KateHighlighting *KateHlManager::getHl(int n)
 
 int KateHlManager::nameFind(const QString &name)
 {
+  const QString lower_name = name.toLower();
   int z (hlList.count() - 1);
   for (; z > 0; z--)
-    if (hlList.at(z)->name() == name)
+    if (hlList.at(z)->name().toLower() == lower_name)
       return z;
 
   return z;

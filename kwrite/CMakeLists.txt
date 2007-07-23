@@ -17,6 +17,6 @@ install(TARGETS kwrite DESTINATION ${BIN_INSTALL_DIR})
 
 ########### install files ###############
 
-install( FILES kwrite.desktop  DESTINATION  ${XDG_APPS_DIR} )
+install( FILES kwrite.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES kwriteui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kwrite )
 

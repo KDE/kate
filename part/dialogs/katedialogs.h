@@ -266,7 +266,7 @@ class KatePartPluginConfigPage : public KateConfigPage
 
   private:
     KPluginSelector *selector;
-    QList<KPluginInfo*> plugins;
+    QList<KPluginInfo> plugins;
     KateScriptConfigPage *scriptConfigPage;
 };
 

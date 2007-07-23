@@ -774,12 +774,11 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
 
   plugins.clear();
 
-  KPluginInfo *it;
   int i = 0;
   foreach (const KService::Ptr &service, KateGlobal::self()->plugins())
   {
-    it = new KPluginInfo(service);
-    it->setPluginEnabled(KateDocumentConfig::global()->plugin(i));
+    KPluginInfo it(service);
+    it.setPluginEnabled(KateDocumentConfig::global()->plugin(i));
     plugins.append(it);
     i++;
   }
@@ -816,7 +815,7 @@ void KatePartPluginConfigPage::apply ()
   KateDocumentConfig::global()->configStart ();
 
   for (int i=0; i < plugins.count(); i++)
-    KateDocumentConfig::global()->setPlugin (i, plugins[i]->isPluginEnabled ());
+    KateDocumentConfig::global()->setPlugin (i, plugins[i].isPluginEnabled ());
 
   KateDocumentConfig::global()->configEnd ();
 }

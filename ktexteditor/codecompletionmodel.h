@@ -249,7 +249,33 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        *
        * For that reason the end-user should be able to disable this feature.
        */
-      BestMatchesCount
+      BestMatchesCount,
+      
+      /**
+       * The following three enumeration-values are only used on expanded completion-list items that contain an expanding-widget(@see ExpandingWidget)
+       *
+       * You can use them to allow the user to interact with the widget by keyboard.
+       *
+       * AccessibilityNext will be requested on an item if it is expanded, contains an expanding-widget, and the user triggers a special navigation
+       * short-cut to go to navigate to the next position within the expanding-widget(if applicable).
+       *
+       * Return QVariant(true) if the input was used.
+       * */
+      AccessibilityNext,
+      /**
+       * AccessibilityPrevious will be requested on an item if it is expanded, contains an expanding-widget, and the user triggers a special navigation
+       * short-cut to go to navigate to the previous position within the expanding-widget(if applicable).
+       *
+       * Return QVariant(true) if the input was used.
+       * */
+      AccessibilityPrevious,
+      /**
+       * AccessibilityAccept will be requested on an item if it is expanded, contains an expanding-widget, and the user triggers a special
+       * shortcut to trigger the action associated with the position within the expanding-widget the user has navigated to using AccessibilityNext and AccessibilityPrevious.
+       *
+       * This should return QVariant(true) if an action was triggered, else QVariant(false) or QVariant().
+       * */
+      AccessibilityAccept
     };
     static const int LastItemDataRole = InheritanceDepth;
 

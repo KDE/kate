@@ -429,6 +429,10 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   if (range->layout()) {
     QVector<QTextLayout::FormatRange> additionalFormats;
     if (range->length() > 0) {
+      // We may have changed the pen, be absolutely sure it gets set back to
+      // normal foreground color before drawing text for text that does not
+      // set the pen color
+      paint.setPen(attribute(KateExtendedAttribute::dsNormal)->foreground().color());
       // Draw the text :)
       if (m_dynamicRegion.boundingRange().isValid() || (m_view->selection() && showSelections() && m_view->selectionRange().overlapsLine(range->line()))) {
         // FIXME toVector() may be a performance issue

@@ -9,9 +9,6 @@ TODO:
 
 * highlighting issues
   * external context references don't pick up default attribute (bug 145052)
-  * attributes not always assigned (i.e. when attribute is dsNormal), this can
-    lead to failure to set brush color, and is probably related to previous item
-    -> "work-around patch" here: http://permalink.gmane.org/gmane.comp.kde.devel.kwrite/12875
 
 * color issues
   * use color roles when they become available to initialize attributes - DONE

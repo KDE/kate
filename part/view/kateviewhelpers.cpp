@@ -879,7 +879,7 @@ int KateIconBorder::lineNumberWidth() const
 
         h = m_view->renderer()->config()->fontMetrics().ascent();
 
-        p.setPen(m_view->renderer()->attribute(0)->foreground().color());
+        p.setPen(m_view->renderer()->config()->lineNumberColor());
 
         QPainterPath path;
         path.moveTo(w/2, h/2);

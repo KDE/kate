@@ -13,8 +13,6 @@ TODO:
 * color issues
   * use color roles when they become available to initialize attributes - DONE
     -> check if this does indeed fix bug 143606
-  * caret is black (should match color of corresponding text cell)
-    -> also 1px width is a little ugly, what about going back to 2px? --mwoehlke
 
 * text painted twice after clearing a selection (see http://permalink.gmane.org/gmane.comp.kde.devel.kwrite/12546)
 
@@ -22,7 +20,6 @@ TODO:
   * current highlighter not selected (regression)
   * 'use default' never checked
   * wrong (can be illegible) color used for group headings
-  * selected item uses system background color, not attribute color (regression)
   * controls seem to need to be clicked twice?
 
 * reimplement bracket matching

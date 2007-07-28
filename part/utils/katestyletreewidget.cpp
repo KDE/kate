@@ -44,6 +44,7 @@ class KateStyleTreeDelegate : public QItemDelegate
     virtual void paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const;
 
   private:
+    QBrush getBrushForColorColumn(const QModelIndex& index, int column) const;
     QWidget* m_widget;
 };
 //END
@@ -306,14 +307,40 @@ KateStyleTreeDelegate::KateStyleTreeDelegate(QWidget* widget)
 {
 }
 
+QBrush KateStyleTreeDelegate::getBrushForColorColumn(const QModelIndex& index, int column) const
+{
+  QModelIndex colorIndex = index.sibling(index.row(), column);
+  QVariant displayData = colorIndex.model()->data(colorIndex);
+  return qVariantValue<QBrush>(displayData);
+}
+
 void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
 {
   static QSet<int> columns;
   if (!columns.count())
     columns << KateStyleTreeWidgetItem::Foreground << KateStyleTreeWidgetItem::SelectedForeground << KateStyleTreeWidgetItem::Background << KateStyleTreeWidgetItem::SelectedBackground;
 
-  if (!columns.contains(index.column()))
+  if(index.column() == KateStyleTreeWidgetItem::Context) {
+    QStyleOptionViewItem styleContextItem(option);
+
+    QBrush brush = getBrushForColorColumn(index, KateStyleTreeWidgetItem::SelectedBackground);
+    if(brush != QBrush()) {
+      styleContextItem.palette.setBrush(QPalette::Highlight, brush);
+    } else {
+      styleContextItem.palette.setBrush(QPalette::Highlight, QBrush(KateRendererConfig::global()->selectionColor()));
+    }
+
+    brush = getBrushForColorColumn(index, KateStyleTreeWidgetItem::SelectedForeground);
+    if(brush != QBrush()) {
+      styleContextItem.palette.setBrush(QPalette::HighlightedText, brush);
+    }
+	
+    return QItemDelegate::paint(painter, styleContextItem, index);
+  }
+  
+  if (!columns.contains(index.column())) {
     return QItemDelegate::paint(painter, option, index);
+  }
 
   QVariant displayData = index.model()->data(index);
   if (displayData.type() != QVariant::Brush)

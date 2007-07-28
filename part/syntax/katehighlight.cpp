@@ -252,8 +252,10 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   textLine->clearAttributes ();
 
   // no hl set, nothing to do more than the above cleaning ;)
-  if (noHl)
+  if (noHl) {
+    textLine->addAttribute (0, textLine->length(), KateExtendedAttribute::dsNormal);
     return;
+  }
 
   // duplicate the ctx stack, only once !
   QVector<short> ctx (prevLine->ctxArray());
@@ -484,6 +486,11 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       }
     }
     textLine->setNoIndentBasedFolding(noindent);
+  }
+
+  //set the dsNormal attribute if we haven't found anything else
+  if(textLine->attributesList().empty()) {
+    textLine->addAttribute (0, textLine->length(), KateExtendedAttribute::dsNormal);
   }
 }
 

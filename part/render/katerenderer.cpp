@@ -376,8 +376,14 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
 
       KTextEditor::Attribute a = renderRanges.generateAttribute();
       fr.format = a;
-      if (m_view->selection() && m_view->selectionRange().contains(currentPosition) && a.hasProperty(KTextEditor::Attribute::SelectedForeground))
-        fr.format.setForeground(a.selectedForeground());
+      if (m_view->selection() && m_view->selectionRange().contains(currentPosition)) {
+        if(a.hasProperty(KTextEditor::Attribute::SelectedForeground)) {
+          fr.format.setForeground(a.selectedForeground());
+    	  }
+    	  if(a.hasProperty(KTextEditor::Attribute::SelectedBackground)) {
+    	    fr.format.setBackground(a.selectedBackground());
+    	  }
+      }
 
       newHighlight.append(fr);
 

@@ -157,7 +157,7 @@ KateFileTemplates::KateFileTemplates( QObject* parent, const QStringList &dummy)
   QStringList dirs = KGlobal::dirs()->findDirs("data", "kate/plugins/katefiletemplates/templates");
   for ( QStringList::Iterator it = dirs.begin(); it != dirs.end(); ++it )
   {
-    m_dw->addDir( *it, true );
+    m_dw->addDir( *it, KDirWatch::WatchFiles );
   }
 
   connect( m_dw, SIGNAL(dirty(const QString&)),

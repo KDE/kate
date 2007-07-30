@@ -566,18 +566,13 @@ class KTEXTEDITOR_EXPORT Range
     /**
      * kDebug() stream operator.  Writes this range to the debug output in a nicely formatted way.
      */
-    inline friend kdbgstream& operator<< (kdbgstream& s, const Range& range) {
+    inline friend QDebug operator<< (QDebug s, const Range& range) {
       if (&range)
         s << "[" << range.start() << " -> " << range.end() << "]";
       else
         s << "(null range)";
       return s;
     }
-
-    /**
-     * Non-debug stream operator; does nothing.
-     */
-    inline friend kndbgstream& operator<< (kndbgstream& s, const Range&) { return s; }
 
   protected:
     /**

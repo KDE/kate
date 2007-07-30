@@ -688,14 +688,6 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(SmartRange::InsertBehaviors)
 
-/**
- * kDebug() stream operator.  Writes this range to the debug output in a nicely formatted way.
- */
-inline kdbgstream& operator<<(kdbgstream& s, const SmartRange& range)
-{
-    return s << static_cast<const Range&>(range);
-}
-
 }
 
 #endif

@@ -48,6 +48,7 @@
 #include <kmainwindow.h>
 #include <kconfig.h>
 #include <kglobalsettings.h>
+#include <kdefakes.h>
 
 #include <QtGui/QColor>
 #include <QtGui/QCursor>

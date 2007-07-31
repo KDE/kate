@@ -145,7 +145,7 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
         //Show the expand-handle
         model()->cacheIcons();
 
-        if( !isExpanded(index.row() ) )
+        if( !isExpanded(index ) )
           return QVariant( model()->m_collapsedIcon );
         else
           return QVariant( model()->m_expandedIcon );
@@ -245,7 +245,8 @@ bool KateArgumentHintModel::indexIsCompletion(const QModelIndex& index) const {
   return index.row() >= 0 && index.row() < m_rows.count() && m_rows[index.row()] >= 0;
 }
 
-int KateArgumentHintModel::contextMatchQuality(int row) const {
+int KateArgumentHintModel::contextMatchQuality(const QModelIndex& index) const {
+  int row=index.row();
   if( row <  0 || row >= m_rows.count() )
     return -1;
 
@@ -267,11 +268,11 @@ int KateArgumentHintModel::contextMatchQuality(int row) const {
     case 1:
     {
       //This argument-hint is on the lowest level, match it with the currently selected item in the completion-widget
-      int row = m_parent->model()->partiallyExpandedRow();
-      if( row == -1 )
+      QModelIndex row = m_parent->model()->partiallyExpandedRow();
+      if( !row.isValid() )
         return -1;
 
-      QModelIndex selectedIndex = m_parent->model()->mapToSource( m_parent->model()->index(row,0) );
+      QModelIndex selectedIndex = m_parent->model()->mapToSource( row );
       if( !selectedIndex.isValid() )
         return -1;
 

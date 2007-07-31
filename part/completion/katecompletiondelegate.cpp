@@ -52,7 +52,8 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
 
   changeBackground(index.row(), index.column(), option);
     
-  model()->placeExpandingWidget(index.row());
+  if( index.column() == 0 )
+    model()->placeExpandingWidget(index);
 
   //Make sure the decorations are painted at the top, because the center of expanded items will be filled with the embedded widget.
   if( index.column() != KTextEditor::CodeCompletionModel::Prefix )
@@ -142,13 +143,13 @@ QSize KateCompletionDelegate::basicSizeHint( const QModelIndex& index ) const {
 QSize KateCompletionDelegate::sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const
 {
   QSize s = QItemDelegate::sizeHint( option, index );
-  if( model()->isExpanded(index.row()) && model()->expandingWidget(index.row()) )
+  if( model()->isExpanded(index) && model()->expandingWidget( index ) )
   {
-    QWidget* widget = model()->expandingWidget(index.row());
+    QWidget* widget = model()->expandingWidget( index );
     QSize widgetSize = widget->size();
 
     s.setHeight( widgetSize.height() + s.height() + 10 ); //10 is the sum that must match exactly the offsets used in ExpandingWidgetModel::placeExpandingWidgets
-  } else if( model()->isPartiallyExpanded(index.row()) ) {
+  } else if( model()->isPartiallyExpanded( index ) ) {
     s.setHeight( s.height() + 30 + 10 );
   }
   return s;
@@ -234,7 +235,7 @@ bool KateCompletionDelegate::editorEvent ( QEvent * event, QAbstractItemModel * 
   if( event->type() == QEvent::MouseButtonRelease || (keyEvent && !keyEvent->isAutoRepeat() && keyEvent->key() == Qt::Key_Tab ) )
   {
     event->accept();
-    model()->setExpanded(index, !model()->isExpanded(index.row()));
+    model()->setExpanded(index, !model()->isExpanded( index ));
     return true;
   } else {
     event->ignore();

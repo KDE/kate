@@ -21,6 +21,7 @@
 #include <QAbstractTableModel>
 #include <QtCore/QHash>
 #include <QIcon>
+#include <QPersistentModelIndex>
 
 class KWidget;
 class QTreeView;
@@ -58,20 +59,17 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     ///@return whether the row given through index is expandable
     bool isExpandable(const QModelIndex& index) const;
 
-    ///Returns whether the given row is currently partially expanded. Does not do any other checks like calling models for data.
-    bool isPartiallyExpanded(int row) const;
+    ///Returns whether the given index is currently partially expanded. Does not do any other checks like calling models for data.
+    bool isPartiallyExpanded(const QModelIndex& index) const;
 
-    ///Returns the row that is currently partially expanded, or -1
-    int partiallyExpandedRow() const;
-    
     ///@return whether row is currently expanded
-    bool isExpanded(int row) const;
+    bool isExpanded(const QModelIndex & row) const;
     ///Change the expand-state of the row given through index. The display will be updated.
     void setExpanded(QModelIndex index, bool expanded);
 
     ///@return the expanding-widget for the given row, if available. Expanding-widgets are in best case available for all expanded rows.
     ///This does not return the partially-expand widget.
-    QWidget* expandingWidget(int row) const;
+    QWidget* expandingWidget(const QModelIndex & row) const;
 
     ///Amount by which the height of a row increases when it is partially expanded
     int partiallyExpandWidgetHeight() const;
@@ -84,16 +82,16 @@ class ExpandingWidgetModel : public QAbstractTableModel {
      * @param row The row
      * */
     ///
-    virtual void rowSelected(int row);
+    virtual void rowSelected(const QModelIndex & row);
 
     ///Returns the rectangle for the partially expanded part of the given row
-    QRect partialExpandRect(int row) const;
+    QRect partialExpandRect(const QModelIndex & row) const;
 
-    QString partialExpandText(int row) const;
+    QString partialExpandText(const QModelIndex & row) const;
     
     ///Places and shows the expanding-widget for the given row, if it should be visible and is valid.
     ///Also shows the partial-expanding-widget when it should be visible.
-    void placeExpandingWidget(int row);
+    void placeExpandingWidget(const QModelIndex & row);
     
     ///Place all expanding-widgets to the correct positions
     void placeExpandingWidgets();
@@ -106,11 +104,14 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     ///Does not request data from index, this only returns local data like highlighting for expanded rows and similar
     virtual QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
 
+    ///Returns the first row that is currently partially expanded.
+    QModelIndex partiallyExpandedRow() const;
+    
     protected:
     /**
      * @return the context-match quality from 0 to 10 if it could be determined, else -1
      * */
-    virtual int contextMatchQuality(int row) const = 0;
+    virtual int contextMatchQuality(const QModelIndex & index) const = 0;
       
     //Makes sure m_expandedIcon and m_collapsedIcon are loaded
     void cacheIcons() const;
@@ -119,16 +120,16 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     static QIcon m_collapsedIcon;
     
     //Does not update the view
-    void partiallyUnExpand(int row);
+    void partiallyUnExpand(const QModelIndex& index);
     //Finds out the basic height of the row represented by the given index. Basic means without respecting any expansion.
     int basicRowHeight( const QModelIndex& index ) const;
     
     private:
+    QMap<QPersistentModelIndex, bool> m_partiallyExpanded;
     // Store expanding-widgets and cache whether items can be expanded
-    mutable QHash<int, ExpandingType> m_expandState;
-    QHash< int, QWidget* > m_expandingWidgets; //Map row-numbers to their expanding-widgets
-    QHash< int, int > m_contextMatchQualities; //Map row-numbers to their context-match qualities(undefined if unknown, else 0 to 10). Not used yet, eventually remove.
-    int m_partiallyExpandedRow;
+    mutable QMap<QPersistentModelIndex, ExpandingType> m_expandState;
+    QMap< QPersistentModelIndex, QWidget* > m_expandingWidgets; //Map rows to their expanding-widgets
+    QMap< QPersistentModelIndex, int > m_contextMatchQualities; //Map rows to their context-match qualities(undefined if unknown, else 0 to 10). Not used yet, eventually remove.
 };
 
 #endif

@@ -363,20 +363,20 @@ KateCompletionTree* KateCompletionWidget::treeView() const {
 bool KateCompletionWidget::canExpandCurrentItem() const {
   if( m_inCompletionList ) {
     if( !m_entryList->currentIndex().isValid() ) return false;
-    return model()->isExpandable( m_entryList->currentIndex() ) && !model()->isExpanded( m_entryList->currentIndex().row() );
+    return model()->isExpandable( m_entryList->currentIndex() ) && !model()->isExpanded( m_entryList->currentIndex() );
   } else {
     if( !m_argumentHintTree->currentIndex().isValid() ) return false;
-    return argumentHintModel()->isExpandable( m_argumentHintTree->currentIndex() ) && !argumentHintModel()->isExpanded( m_argumentHintTree->currentIndex().row() );
+    return argumentHintModel()->isExpandable( m_argumentHintTree->currentIndex() ) && !argumentHintModel()->isExpanded( m_argumentHintTree->currentIndex() );
   }
 }
 
 bool KateCompletionWidget::canCollapseCurrentItem() const {
   if( m_inCompletionList ) {
     if( !m_entryList->currentIndex().isValid() ) return false;
-    return model()->isExpandable( m_entryList->currentIndex() ) && model()->isExpanded( m_entryList->currentIndex().row() );
+    return model()->isExpandable( m_entryList->currentIndex() ) && model()->isExpanded( m_entryList->currentIndex() );
   }else{
     if( !m_argumentHintTree->currentIndex().isValid() ) return false;
-    return m_argumentHintModel->isExpandable( m_argumentHintTree->currentIndex() ) && m_argumentHintModel->isExpanded( m_argumentHintTree->currentIndex().row() );
+    return m_argumentHintModel->isExpandable( m_argumentHintTree->currentIndex() ) && m_argumentHintModel->isExpanded( m_argumentHintTree->currentIndex() );
   }
 }
 

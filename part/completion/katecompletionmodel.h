@@ -68,7 +68,7 @@ class KateCompletionModel : public ExpandingWidgetModel
 
     static QString propertyName(KTextEditor::CodeCompletionModel::CompletionProperty property);
 
-    virtual void rowSelected(int row);
+    virtual void rowSelected(const QModelIndex& row);
     
     virtual bool indexIsCompletion(const QModelIndex& index) const;
 
@@ -150,7 +150,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     void setColumnMerges(const QList< QList<int> >& columnMerges);
 
   protected:
-    virtual int contextMatchQuality(int row) const;
+    virtual int contextMatchQuality(const QModelIndex& row) const;
     
   Q_SIGNALS:
     void expandIndex(const QModelIndex& index);
@@ -229,6 +229,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     void clearGroups();
     void hideOrShowGroup(Group* g);
     Group* fetchGroup(int attribute, const QString& scope = QString());
+    //If this returns nonzero on an index, the index is the header of the returned group
     Group* groupForIndex(const QModelIndex& index) const;
     inline Group* groupOfParent(const QModelIndex& child) const { return static_cast<Group*>(child.internalPointer()); }
     QModelIndex indexForRow(Group* g, int row) const;

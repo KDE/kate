@@ -48,7 +48,7 @@ KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
 }
 
 void KateCompletionTree::currentChanged ( const QModelIndex & current, const QModelIndex & previous ) {
-  widget()->model()->rowSelected(current.row());
+  widget()->model()->rowSelected(current);
   QTreeView::currentChanged(current, previous);
 }
 

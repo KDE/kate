@@ -32,9 +32,9 @@ void KateExpandingTree::drawRow ( QPainter * painter, const QStyleOptionViewItem
   QTreeView::drawRow( painter, option, index );
 
   const ExpandingWidgetModel* eModel = qobject_cast<const ExpandingWidgetModel*>(model());
-  if( eModel && eModel->isPartiallyExpanded( index.row() ) )
+  if( eModel && eModel->isPartiallyExpanded( index ) )
   {
-    QRect rect = eModel->partialExpandRect( index.row() );
+    QRect rect = eModel->partialExpandRect( index );
     if( rect.isValid() )
     {
       painter->fillRect(rect,QBrush(0xffffffff));
@@ -44,7 +44,7 @@ void KateExpandingTree::drawRow ( QPainter * painter, const QStyleOptionViewItem
       painter->setViewTransformEnabled(true);
       painter->translate(rect.left(), rect.top());
       
-      m_drawText.setHtml( eModel->partialExpandText( index.row() ) );
+      m_drawText.setHtml( eModel->partialExpandText( index ) );
       m_drawText.setPageSize(QSizeF(rect.width(), rect.height()));
       m_drawText.documentLayout()->draw( painter, ctx );
     

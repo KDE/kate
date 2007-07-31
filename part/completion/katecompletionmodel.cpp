@@ -84,7 +84,7 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
   {
     cacheIcons();
 
-    if( !isExpanded(index.row() ) )
+    if( !isExpanded(index ) )
       return QVariant( m_collapsedIcon );
     else
       return QVariant( m_expandedIcon );
@@ -161,9 +161,9 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
   return QVariant();
 }
 
-int KateCompletionModel::contextMatchQuality(int row) const {
+int KateCompletionModel::contextMatchQuality(const QModelIndex& idx) const {
   //Return the best match with any of the argument-hints
-  QModelIndex idx = index(row,0);
+
   if( !idx.isValid() )
     return -1;
 
@@ -1560,7 +1560,7 @@ void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
   reset();
 }
 
-void KateCompletionModel::rowSelected(int row) {
+void KateCompletionModel::rowSelected(const QModelIndex& row) {
   ExpandingWidgetModel::rowSelected(row);
   ///@todo delay this
   int rc = widget()->argumentHintModel()->rowCount(QModelIndex());

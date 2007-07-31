@@ -45,7 +45,7 @@ class KateArgumentHintModel : public ExpandingWidgetModel {
     void buildRows();
     void clear();
   protected:
-    virtual int contextMatchQuality(int row) const;
+    virtual int contextMatchQuality(const QModelIndex& row) const;
   public slots:
     void parentModelReset();
   private:

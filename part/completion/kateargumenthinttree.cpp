@@ -65,7 +65,7 @@ void KateArgumentHintTree::dataChanged ( const QModelIndex & topLeft, const QMod
 
 void KateArgumentHintTree::currentChanged ( const QModelIndex & current, const QModelIndex & previous ) {
 /*  kDebug() << "currentChanged()" << endl;*/
-  static_cast<ExpandingWidgetModel*>(model())->rowSelected(current.row());
+  static_cast<ExpandingWidgetModel*>(model())->rowSelected(current);
   QTreeView::currentChanged(current, previous);
 }
 

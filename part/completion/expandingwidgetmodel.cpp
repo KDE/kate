@@ -29,9 +29,12 @@ QIcon ExpandingWidgetModel::m_collapsedIcon;
 
 using namespace KTextEditor;
 
+inline QModelIndex firstColumn( const QModelIndex& index ) {
+    return index.sibling(index.row(), 0);
+}
+
 ExpandingWidgetModel::ExpandingWidgetModel( QWidget* parent ) : 
         QAbstractTableModel(parent)
-        , m_partiallyExpandedRow(-1)
 {
 }
 
@@ -45,7 +48,7 @@ QVariant ExpandingWidgetModel::data( const QModelIndex & index, int role ) const
     {
       if( index.column() == 0 ) {
         //Highlight by match-quality
-        int matchQuality = contextMatchQuality(index.row());
+        int matchQuality = contextMatchQuality(index);
         if( matchQuality != -1 )
         {
           uint badMatchColor = 0xffff0000; //Full red
@@ -56,7 +59,7 @@ QVariant ExpandingWidgetModel::data( const QModelIndex & index, int role ) const
       }
       
       //Use a special background-color for expanded items
-      if( isExpanded(index.row()) ) {
+      if( isExpanded(index) ) {
         bool alternate = index.row() & 1;
         if( alternate )
           return QBrush(0xffd8ca6c);
@@ -72,60 +75,66 @@ void ExpandingWidgetModel::clearMatchQualities() {
     m_contextMatchQualities.clear();
 }
 
+QModelIndex ExpandingWidgetModel::partiallyExpandedRow() const {
+    if( m_partiallyExpanded.isEmpty() )
+        return QModelIndex();
+    else
+        return m_partiallyExpanded.begin().key();
+}
+
 void ExpandingWidgetModel::clearExpanding() {
     clearMatchQualities();
-    m_partiallyExpandedRow = -1;
     m_expandState.clear();
     foreach( QWidget* widget, m_expandingWidgets )
       delete widget;
     m_expandingWidgets.clear();
 }
 
-bool ExpandingWidgetModel::isPartiallyExpanded(int row) const {
-  return row == m_partiallyExpandedRow;
+bool ExpandingWidgetModel::isPartiallyExpanded(const QModelIndex& index) const {
+  return m_partiallyExpanded.contains(firstColumn(index));
 }
 
-void ExpandingWidgetModel::partiallyUnExpand(int row)
+void ExpandingWidgetModel::partiallyUnExpand(const QModelIndex& idx_)
 {
-  if( m_partiallyExpandedRow == row )
-      m_partiallyExpandedRow = -1;
+  QModelIndex index( firstColumn(idx_) );
+  m_partiallyExpanded.remove(index);
+  m_partiallyExpanded.remove(idx_);
 }
 
 int ExpandingWidgetModel::partiallyExpandWidgetHeight() const {
   return 60; ///@todo use font-metrics text-height*2 for 2 lines
 }
 
-void ExpandingWidgetModel::rowSelected(int row)
+void ExpandingWidgetModel::rowSelected(const QModelIndex& idx_)
 {
-   //kDebug() << "row selected: " << row << endl;
-  if( m_partiallyExpandedRow != row )
+  QModelIndex idx( firstColumn(idx_) );
+  if( !m_partiallyExpanded.contains( idx ) )
   {
-      QModelIndex oldIndex;
+      QModelIndex oldIndex = partiallyExpandedRow();
       //Unexpand the previous partially expanded row
-      if( m_partiallyExpandedRow != -1)
-      {
-        oldIndex = index(m_partiallyExpandedRow, 0 );
-        partiallyUnExpand(m_partiallyExpandedRow);
+      if( !m_partiallyExpanded.isEmpty() )
+      { ///@todo allow multiple partially expanded rows
+        while( !m_partiallyExpanded.isEmpty() )
+            m_partiallyExpanded.erase(m_partiallyExpanded.begin());
+            //partiallyUnExpand( m_partiallyExpanded.begin().key() );
       }
     
       //Notify the underlying models that the item was selected, and eventually get back the text for the expanding widget.
-      QModelIndex idx( index(row, 0 ) );
       if( !idx.isValid() ) {
         //All items have been unselected
-        m_partiallyExpandedRow = -1;
         if( oldIndex.isValid() )
           emit dataChanged(oldIndex, oldIndex);
       } else {
         QVariant variant = data(idx, CodeCompletionModel::ItemSelected);
 
-        if( !isExpanded(row) && variant.type() == QVariant::String) {
-           //kDebug() << "expanding: " << row << endl;
-          m_partiallyExpandedRow = row;
+        if( !isExpanded(idx) && variant.type() == QVariant::String) {
+           //kDebug() << "expanding: " << idx << endl;
+          m_partiallyExpanded.insert(idx, true);
 
           //Say that one row above until one row below has changed, so no items will need to be moved(the space that is taken from one item is given to the other)
-          if( oldIndex.isValid() && oldIndex.row() < idx.row() )
+          if( oldIndex.isValid() && oldIndex < idx )
             emit dataChanged(oldIndex, idx);
-          else if( oldIndex.isValid() && oldIndex.row() > idx.row() )
+          else if( oldIndex.isValid() &&  idx < oldIndex )
             emit dataChanged(idx, oldIndex);
           else
             emit dataChanged(idx, idx);
@@ -133,7 +142,7 @@ void ExpandingWidgetModel::rowSelected(int row)
           //We are not partially expanding a new row, but we previously had a partially expanded row. So signalize that it has been unexpanded.
             emit dataChanged(oldIndex, oldIndex);
         }
-        if( isExpanded(row) )
+        if( isExpanded(idx) )
           kDebug() << "ExpandingWidgetModel::rowSelected: row is already expanded" << endl;
         if( variant.type() != QVariant::String )
           kDebug() << "ExpandingWidgetModel::rowSelected: no string returned " << endl;
@@ -143,21 +152,17 @@ void ExpandingWidgetModel::rowSelected(int row)
   }
 }
 
-QString ExpandingWidgetModel::partialExpandText(int row) const {
-  QModelIndex idx( index(row, 0 ) );
+QString ExpandingWidgetModel::partialExpandText(const QModelIndex& idx) const {
   if( !idx.isValid() )
     return QString();
 
-  return data(idx, CodeCompletionModel::ItemSelected).toString();
-
+  return data(firstColumn(idx), CodeCompletionModel::ItemSelected).toString();
 }
 
-int ExpandingWidgetModel::partiallyExpandedRow() const {
-  return m_partiallyExpandedRow;
-}
-
-QRect ExpandingWidgetModel::partialExpandRect(int row) const {
-  QModelIndex idx( index(row, 0 ) );
+QRect ExpandingWidgetModel::partialExpandRect(const QModelIndex& idx_) const 
+{
+  QModelIndex idx(firstColumn(idx_));
+  
   if( !idx.isValid() )
     return QRect();
   
@@ -180,58 +185,65 @@ QRect ExpandingWidgetModel::partialExpandRect(int row) const {
     return rect;
 }
 
-bool ExpandingWidgetModel::isExpandable(const QModelIndex& idx) const
+bool ExpandingWidgetModel::isExpandable(const QModelIndex& idx_) const
 {
-  if( !m_expandState.contains(idx.row()) )
+  QModelIndex idx(firstColumn(idx_));
+  
+  if( !m_expandState.contains(idx) )
   {
-    m_expandState.insert(idx.row(), NotExpandable);
+    m_expandState.insert(idx, NotExpandable);
     QVariant v = data(idx, CodeCompletionModel::IsExpandable);
     if( v.canConvert<bool>() && v.value<bool>() )
-        m_expandState[idx.row()] = Expandable;
+        m_expandState[idx] = Expandable;
   }
 
-  return m_expandState[idx.row()] != NotExpandable;
+  return m_expandState[idx] != NotExpandable;
 }
 
-bool ExpandingWidgetModel::isExpanded(int row) const {
-  return m_expandState.contains(row) && m_expandState[row] == Expanded;
-}
-
-void ExpandingWidgetModel::setExpanded(QModelIndex idx, bool expanded)
+bool ExpandingWidgetModel::isExpanded(const QModelIndex& idx_) const 
 {
+    QModelIndex idx(firstColumn(idx_));
+    return m_expandState.contains(idx) && m_expandState[idx] == Expanded;
+}
+
+void ExpandingWidgetModel::setExpanded(QModelIndex idx_, bool expanded)
+{
+  QModelIndex idx(firstColumn(idx_));
+    
+  //kDebug() << "Setting expand-state of row " << idx.row() << " to " << expanded << endl;
   if( !idx.isValid() )
     return;
   
   if( isExpandable(idx) ) {
-    if( !expanded && m_expandingWidgets.contains(idx.row()) && m_expandingWidgets[idx.row()] ) {
-      m_expandingWidgets[idx.row()]->hide();
+    if( !expanded && m_expandingWidgets.contains(idx) && m_expandingWidgets[idx] ) {
+      m_expandingWidgets[idx]->hide();
     }
       
-    m_expandState[idx.row()] = expanded ? Expanded : Expandable;
+    m_expandState[idx] = expanded ? Expanded : Expandable;
 
     if( expanded )
-      partiallyUnExpand(idx.row());
+      partiallyUnExpand(idx);
     
-    if( expanded && !m_expandingWidgets.contains(idx.row()) )
+    if( expanded && !m_expandingWidgets.contains(idx) )
     {
       QVariant v = data(idx, CodeCompletionModel::ExpandingWidget);
       
       if( v.canConvert<QWidget*>() ) {
-        m_expandingWidgets[idx.row()] = v.value<QWidget*>();
+        m_expandingWidgets[idx] = v.value<QWidget*>();
       } else if( v.canConvert<QString>() ) {
         //Create a html widget that shows the given string
         QTextEdit* edit = new QTextEdit( v.value<QString>() );
         edit->setReadOnly(true);
         edit->resize(200, 50); //Make the widget small so it embeds nicely.
-        m_expandingWidgets[idx.row()] = edit;
+        m_expandingWidgets[idx] = edit;
       } else {
-        m_expandingWidgets[idx.row()] = 0;
+        m_expandingWidgets[idx] = 0;
       }
     }
 
     //Eventually partially expand the row
-    if( !expanded && treeView()->currentIndex().row() == idx.row() && m_partiallyExpandedRow != idx.row() )
-      rowSelected(idx.row()); //Partially expand the row.
+    if( !expanded && treeView()->currentIndex() == idx && !isPartiallyExpanded(idx) )
+      rowSelected(idx); //Partially expand the row.
     
     emit dataChanged(idx, idx);
     
@@ -239,25 +251,36 @@ void ExpandingWidgetModel::setExpanded(QModelIndex idx, bool expanded)
   }
 }
 
-int ExpandingWidgetModel::basicRowHeight( const QModelIndex& idx ) const {
-      KateCompletionDelegate* delegate = dynamic_cast<KateCompletionDelegate*>( treeView()->itemDelegate(idx) );
-      if( !delegate || !idx.isValid() ) {
-        kDebug() << "ExpandingWidgetModel::basicRowHeight: Could not get delegate" << endl;
-        return 15;
-      }
-      return delegate->basicSizeHint( idx ).height();
+int ExpandingWidgetModel::basicRowHeight( const QModelIndex& idx_ ) const 
+{
+  QModelIndex idx(firstColumn(idx_));
+    
+    KateCompletionDelegate* delegate = dynamic_cast<KateCompletionDelegate*>( treeView()->itemDelegate(idx) );
+    if( !delegate || !idx.isValid() ) {
+    kDebug() << "ExpandingWidgetModel::basicRowHeight: Could not get delegate" << endl;
+    return 15;
+    }
+    return delegate->basicSizeHint( idx ).height();
 }
 
 
-void ExpandingWidgetModel::placeExpandingWidget(int row) {
+void ExpandingWidgetModel::placeExpandingWidget(const QModelIndex& idx_) 
+{
+  QModelIndex idx(firstColumn(idx_));
+
   QWidget* w = 0;
-  if( m_expandingWidgets.contains(row) )
-    w = m_expandingWidgets[row];
+  if( m_expandingWidgets.contains(idx) )
+    w = m_expandingWidgets[idx];
   
-  if( w && isExpanded(row) ) {
-      QModelIndex idx( index(row, 0 ) );
+  if( w && isExpanded(idx) ) {
       if( !idx.isValid() )
         return;
+      
+      if( idx.parent().isValid() && !treeView()->isExpanded(idx.parent()) ) {
+          //The item is in a group that is currently not expanded in tree-like way
+          w->hide();
+          return;
+      }
 
       QModelIndex rightMostIndex = idx;
       QModelIndex tempIndex = idx;
@@ -285,14 +308,16 @@ void ExpandingWidgetModel::placeExpandingWidget(int row) {
 }
 
 void ExpandingWidgetModel::placeExpandingWidgets() {
-  for( QHash<int, QWidget*>::const_iterator it = m_expandingWidgets.begin(); it != m_expandingWidgets.end(); ++it ) {
+  for( QMap<QPersistentModelIndex, QWidget*>::const_iterator it = m_expandingWidgets.begin(); it != m_expandingWidgets.end(); ++it ) {
     placeExpandingWidget(it.key());
   }
 }
 
-QWidget* ExpandingWidgetModel::expandingWidget(int row) const {
-  if( m_expandingWidgets.contains(row) )
-    return m_expandingWidgets[row];
+QWidget* ExpandingWidgetModel::expandingWidget(const QModelIndex& idx_) const {
+  QModelIndex idx(firstColumn(idx_));
+
+  if( m_expandingWidgets.contains(idx) )
+    return m_expandingWidgets[idx];
   else
     return 0;
 }

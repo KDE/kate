@@ -117,7 +117,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   connect(m_presentationModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(rowsInserted(const QModelIndex&, int, int)));
 
   connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(cursorPositionChanged()));
-  connect(view()->doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(editDone(KateEditInfo*)));
+  connect(view()->doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(editDone(KateEditInfo*)), Qt::QueuedConnection);
 
   // This is a non-focus widget, it is passed keyboard input from the view
   setFocusPolicy(Qt::NoFocus);

@@ -91,9 +91,10 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
   show();
   resizeColumnToContents(0);
   int bottom = geom.bottom();
+  QRect topRect = visualRect(model()->index(0, 0));
   QRect contentRect = visualRect(model()->index(model()->rowCount(QModelIndex())-1, 0));
   
-  geom.setHeight(contentRect.bottom() + 5);
+  geom.setHeight(contentRect.bottom() + 5 - topRect.top());
   geom.moveBottom(bottom);
 /*  kDebug() << "KateArgumentHintTree::updateGeometry: updating geometry to " << geom << endl;*/
   setGeometry(geom);

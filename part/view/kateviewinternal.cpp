@@ -1014,10 +1014,9 @@ void KateViewInternal::moveChar( KateViewInternal::Bias bias, bool sel )
 
 void KateViewInternal::cursorLeft(  bool sel )
 {
-  if (m_view->isCompletionActive() && view()->completionWidget()->canCollapseCurrentItem() ) {
-    view()->completionWidget()->setCurrentItemExpanded(false);
+  if( m_view->isCompletionActive() && view()->completionWidget()->cursorLeft(sel) )
     return;
-  }
+  
   if ( ! m_view->wrapCursor() && m_cursor.column() == 0 )
     return;
 
@@ -1026,10 +1025,8 @@ void KateViewInternal::cursorLeft(  bool sel )
 
 void KateViewInternal::cursorRight( bool sel )
 {
-  if (m_view->isCompletionActive() && view()->completionWidget()->canExpandCurrentItem() ) {
-    view()->completionWidget()->setCurrentItemExpanded(true);
+  if( m_view->isCompletionActive() && view()->completionWidget()->cursorRight(sel) )
     return;
-  }
   moveChar( KateViewInternal::right, sel );
 }
 
@@ -1376,7 +1373,7 @@ int KateViewInternal::lineMaxCol(const KateTextLayout& range)
 void KateViewInternal::cursorUp(bool sel)
 {
   if (m_view->isCompletionActive()) {
-    view()->completionWidget()->previousCompletion();
+    view()->completionWidget()->cursorUp(sel);
     return;
   }
 
@@ -1409,7 +1406,7 @@ void KateViewInternal::cursorUp(bool sel)
 void KateViewInternal::cursorDown(bool sel)
 {
   if (m_view->isCompletionActive()) {
-    view()->completionWidget()->nextCompletion();
+    view()->completionWidget()->cursorDown(sel);
     return;
   }
 
@@ -2113,7 +2110,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   {
     if( key == Qt::Key_Enter || key == Qt::Key_Return  ||
     (key == Qt::SHIFT + Qt::Key_Return) || (key == Qt::SHIFT + Qt::Key_Enter)) {
-      m_view->completionWidget()->execute();
+      m_view->completionWidget()->execute(key & Qt::SHIFT);
       e->accept();
       return;
     }

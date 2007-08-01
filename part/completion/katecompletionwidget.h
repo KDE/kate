@@ -58,7 +58,13 @@ class KateCompletionWidget : public QFrame
     void startCompletion(const KTextEditor::Range& word, KTextEditor::CodeCompletionModel* model, KTextEditor::CodeCompletionModel::InvocationType invocationType = KTextEditor::CodeCompletionModel::ManualInvocation);
     void userInvokedCompletion();
 
-    void execute();
+    //Executed when return is pressed while completion is active. With shift, only the item selected within the expanding-widget will be executed
+    void execute(bool shift);
+        //Callbacks for keyboard-input, they return true when the event should be handled exclusively
+    bool cursorLeft( bool shift );
+    bool cursorRight( bool shift );
+    void cursorDown(bool shift);
+    void cursorUp(bool shift);
 
     const KateCompletionModel* model() const;
     KateCompletionModel* model();
@@ -71,13 +77,11 @@ class KateCompletionWidget : public QFrame
     KateSmartRange* completionRange() const;
 
     // Navigation
-    void nextCompletion();
-    void previousCompletion();
     void pageDown();
     void pageUp();
     void top();
     void bottom();
-
+    
     bool canExpandCurrentItem() const;
 
     bool canCollapseCurrentItem() const;
@@ -109,6 +113,8 @@ class KateCompletionWidget : public QFrame
     void rowsInserted(const QModelIndex& parent, int row, int rowEnd);
 
   private:
+    QModelIndex selectedIndex() const;
+
     void clear();
     //Switch cursor between argument-hint list / completion-list
     void switchList();

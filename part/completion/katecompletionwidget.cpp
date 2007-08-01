@@ -293,13 +293,22 @@ void KateCompletionWidget::clear() {
   m_argumentHintModel->clear();
 }
 
-void KateCompletionWidget::execute()
+void KateCompletionWidget::execute(bool shift)
 {
   kDebug(13035) << k_funcinfo << endl;
 
   if (!isCompletionActive())
     return;
 
+  if( shift ) {
+    QModelIndex index = selectedIndex();
+    
+    if( index.isValid() )
+      index.data(KTextEditor::CodeCompletionModel::AccessibilityAccept);
+    
+    return;
+  }
+  
   QModelIndex toExecute = m_entryList->selectionModel()->currentIndex();
 
   if (!toExecute.isValid())
@@ -360,6 +369,47 @@ KateCompletionTree* KateCompletionWidget::treeView() const {
   return m_entryList;
 }
 
+QModelIndex KateCompletionWidget::selectedIndex() const {
+  if( m_inCompletionList )
+    return m_entryList->currentIndex();
+  else
+    return m_argumentHintTree->currentIndex();
+}
+
+bool KateCompletionWidget::cursorLeft( bool shift ) {
+  if( shift ) {
+    QModelIndex index = selectedIndex();
+    
+    if( index.isValid() )
+      index.data(KTextEditor::CodeCompletionModel::AccessibilityPrevious);
+    
+    return true;
+  }
+  
+  if (canCollapseCurrentItem() ) {
+    setCurrentItemExpanded(false);
+    return true;
+  }
+  return false;
+}
+
+bool KateCompletionWidget::cursorRight( bool shift ) {
+  if( shift ) {
+    QModelIndex index = selectedIndex();
+    
+    if( index.isValid() )
+      index.data(KTextEditor::CodeCompletionModel::AccessibilityNext);
+    
+    return true;
+  }
+  
+  if ( canExpandCurrentItem() ) {
+    setCurrentItemExpanded(true);
+    return true;
+  }
+  return false;
+}
+
 bool KateCompletionWidget::canExpandCurrentItem() const {
   if( m_inCompletionList ) {
     if( !m_entryList->currentIndex().isValid() ) return false;
@@ -408,8 +458,18 @@ bool KateCompletionWidget::eventFilter( QObject * watched, QEvent * event )
   return ret;
 }
 
-void KateCompletionWidget::nextCompletion( )
+void KateCompletionWidget::cursorDown( bool shift )
 {
+  if( shift ) {
+    QModelIndex index = selectedIndex();
+    
+ //Re-enable once AccessibilityDown is in KTextEditor::CodeCompletionModel
+    if( index.isValid() )
+      index.data(KTextEditor::CodeCompletionModel::AccessibilityNext/*AccessibilityDown*/);
+    
+    return;
+  }
+  
   if( m_inCompletionList )
     m_entryList->nextCompletion();
   else {
@@ -418,8 +478,18 @@ void KateCompletionWidget::nextCompletion( )
   }
 }
 
-void KateCompletionWidget::previousCompletion( )
+void KateCompletionWidget::cursorUp( bool shift )
 {
+  if( shift ) {
+    QModelIndex index = selectedIndex();
+    
+ //Re-enable once AccessibilityUp is in KTextEditor::CodeCompletionModel
+    if( index.isValid() )
+      index.data(KTextEditor::CodeCompletionModel::AccessibilityPrevious/*AccessibilityUp*/);
+    
+    return;
+  }
+  
   if( m_inCompletionList ) {
     if( !m_entryList->previousCompletion() )
       switchList();

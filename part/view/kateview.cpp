@@ -2007,7 +2007,7 @@ void KateView::abortCompletion( )
 
 void KateView::forceCompletion( )
 {
-  completionWidget()->execute();
+  completionWidget()->execute(false);
 }
 
 void KateView::registerCompletionModel(KTextEditor::CodeCompletionModel* model)

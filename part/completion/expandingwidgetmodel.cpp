@@ -296,7 +296,7 @@ void ExpandingWidgetModel::placeExpandingWidget(const QModelIndex& idx_)
 
       //These offsets must match exactly those used in KateCompletionDeleage::sizeHint()
       rect.setTop( rect.top() + basicRowHeight(idx) + 5 );
-      rect.setBottom( rightMostRect.bottom() - 5 );
+      rect.setHeight( w->height() );
 
       if( w->parent() != treeView()->viewport() || w->geometry() != rect || !w->isVisible() ) {
         w->setParent( treeView()->viewport() );

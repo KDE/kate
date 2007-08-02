@@ -673,7 +673,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   */
 
   // show word wrap marker if desirable
-  if ((!isPrinterFriendly()) && config()->wordWrapMarker() && config()->font().fixedPitch())
+  if ((!isPrinterFriendly()) && config()->wordWrapMarker() && QFontInfo(config()->font()).fixedPitch())
   {
     paint.setPen( config()->wordWrapMarkerColor() );
     int _x = m_doc->config()->wordWrapAt() * fm.width('x') - xStart;

@@ -37,7 +37,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
 
  KTextEditor::Document *kv = win->activeView()->document();
 
- //kDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
+ //kDebug(13000)<<"Lines counted :"<<kv->numLines();
  if(treeMode)
    {
     mcrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Macros") ) );
@@ -93,7 +93,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                  if (cl.at(j) == ' ' || j == cl.length() - 1)
                          macro = 4;
                 }
-              //kDebug(13000)<<"Macro -- Stripped : "<<stripped<<" macro = "<<macro<<endl;
+              //kDebug(13000)<<"Macro -- Stripped : "<<stripped<<" macro = "<<macro;
              }
            // I didn't find a valid macro e.g. include
            if(j == cl.length() && macro == 1) macro = 0;
@@ -116,7 +116,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
               macro = 0;
               macro_pos = 0;
               stripped = "";
-              //kDebug(13000)<<"Macro -- Inserted : "<<stripped<<" at row : "<<i<<endl;
+              //kDebug(13000)<<"Macro -- Inserted : "<<stripped<<" at row : "<<i;
               if (cl.at(cl.length() - 1) == '\\') macro = 5; // continue in rows below
               continue;
              }
@@ -199,7 +199,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                         {
                          stripped = stripped.trimmed();
                          stripped.remove("static ");
-                         //kDebug(13000)<<"Function -- Inserted : "<<stripped<<" at row : "<<i<<endl;
+                         //kDebug(13000)<<"Function -- Inserted : "<<stripped<<" at row : "<<i;
                          block = 2;
                          tmpPos = i;
                         }
@@ -268,7 +268,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                       retry = 1;
                       block = 0;
                       j = 0;
-                      //kDebug(13000)<<"Restart from the beginning of line..."<<endl;
+                      //kDebug(13000)<<"Restart from the beginning of line...";
                       stripped = "";
                       break; // Avoid an infinite loop :(
                      }
@@ -307,7 +307,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                          node->setIcon(0, QIcon(sct));
                          node->setText(1, QString::number( tmpPos, 10));
                         }
-                      //kDebug(13000)<<"Structure -- Inserted : "<<stripped<<" at row : "<<i<<endl;
+                      //kDebug(13000)<<"Structure -- Inserted : "<<stripped<<" at row : "<<i;
                       stripped = "";
                       block = 0;
                       structure = false;
@@ -317,7 +317,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                    if (cl.at(j) >= 0x20) stripped += cl.at(j);
                   } // BLOCK 4
                } // comment != 2
-             //kDebug(13000)<<"Stripped : "<<stripped<<" at row : "<<i<<endl;
+             //kDebug(13000)<<"Stripped : "<<stripped<<" at row : "<<i;
             } // End of For cycle
          } // BLOCK > 0
        if (mclass == 4 && block == 0 && func_close == 0)
@@ -332,7 +332,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
    } // for kv->numlines
 
  //for (i= 0; i < (symbols->itemIndex(node) + 1); i++)
- //    kDebug(13000)<<"Symbol row :"<<positions.at(i) <<endl;
+ //    kDebug(13000)<<"Symbol row :"<<positions.at(i);
 }
 
 

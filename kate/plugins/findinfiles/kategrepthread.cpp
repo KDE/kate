@@ -102,7 +102,7 @@ void KateGrepThread::grepInFile (const QString &fileName, const QString &baseNam
       // found match...
       if (firstColumn != -1)
       {
-        kDebug () << "found match: " << fileName << " : " << lineNumber << endl;
+        kDebug () << "found match: " << fileName << " : " << lineNumber;
         emit foundMatch (fileName, lineNumber, firstColumn, baseName, lines.at (0));
       }
 

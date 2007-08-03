@@ -239,7 +239,7 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
         if ( fi.exists() )
         {
           m_tempFiles[ doc] = qMakePair(url, fi.lastModified());
-          kDebug(13001) << "temporary file will be deleted after use unless modified: " << url.prettyUrl() << endl;
+          kDebug(13001) << "temporary file will be deleted after use unless modified: " << url.prettyUrl();
         }
       }
     }
@@ -293,13 +293,13 @@ bool KateDocManager::closeDocument(class KTextEditor::Document *doc, bool closeU
                                      i18n("Delete File?") ) == KMessageBox::Yes )
     {
       KIO::del( m_tempFiles[ doc ].first, false, false );
-      kDebug(13001) << "Deleted temporary file " << m_tempFiles[ doc ].first << endl;
+      kDebug(13001) << "Deleted temporary file " << m_tempFiles[ doc ].first;
       m_tempFiles.remove( doc );
     }
     else
     {
       m_tempFiles.remove(doc);
-      kDebug(13001) << "The supposedly temporary file " << m_tempFiles[ doc ].first.prettyUrl() << " have been modified since loaded, and has not been deleted." << endl;
+      kDebug(13001) << "The supposedly temporary file " << m_tempFiles[ doc ].first.prettyUrl() << " have been modified since loaded, and has not been deleted.";
     }
   }
 
@@ -572,7 +572,7 @@ void KateDocManager::saveMetaInfos(KTextEditor::Document *doc)
 
   if (doc->isModified())
   {
-//     kDebug (13020) << "DOC MODIFIED: no meta data saved" << endl;
+//     kDebug (13020) << "DOC MODIFIED: no meta data saved";
     return;
   }
 
@@ -623,9 +623,9 @@ void KateDocManager::slotDocumentUrlChanged(KTextEditor::Document *doc)
 
 void KateDocManager::slotModChanged1(KTextEditor::Document * doc)
 {
-  kDebug() << "KateDocManager::slotModChanged (1)" << endl;
+  kDebug() << "KateDocManager::slotModChanged (1)";
   if (!m_documentItemMapping.contains(doc)) return;
-  kDebug() << "KateDocManager::slotModChanged (2)" << endl;
+  kDebug() << "KateDocManager::slotModChanged (2)";
   QStandardItem *item = m_documentItemMapping[doc];
   const KateDocumentInfo *info = KateDocManager::self()->documentInfo(doc);
   item->setIcon(QIcon());

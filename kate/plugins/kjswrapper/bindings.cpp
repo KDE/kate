@@ -25,7 +25,7 @@ Bindings::~Bindings() {
 
 KJS::Object Bindings::createBinding(KJSEmbed::KJSEmbedPart *jspart, KJS::ExecState *exec, const KJS::List &args) const {
 /*
-        kDebug() << "Loading a custom object" << endl;
+        kDebug() << "Loading a custom object";
         DocumentManager *obj = new DocumentManager();
         JSOpaqueProxy *prx = new JSOpaqueProxy(  (void *) obj, "Kate::JS::DocumentManager" );
 
@@ -38,7 +38,7 @@ KJS::Object Bindings::createBinding(KJSEmbed::KJSEmbedPart *jspart, KJS::ExecSta
 
 
 void Bindings::addBindings(KJS::ExecState *exec, KJS::Object &target) const {
-	kDebug()<<"Kate::JS::Bindings:: ADDING CUSTOM BINDINGS"<<endl;
+	kDebug()<<"Kate::JS::Bindings:: ADDING CUSTOM BINDINGS";
 
 	KJSEmbed::JSObjectProxy *proxy = KJSEmbed::JSProxy::toObjectProxy( target.imp() );
 	if ( !proxy )
@@ -89,7 +89,7 @@ KJS::Value DocumentManager::call( KJS::ExecState *exec, KJS::Object &self, const
 	QObject *o=m_proxy->object();
 	Kate::DocumentManager *dm=dynamic_cast<Kate::DocumentManager*>(o);
 	if (!dm) {
-		kWarning()<<"Object died"<<endl;
+		kWarning()<<"Object died";
 	        QString msg = i18n("Call of DocumentManager member on destroyed object");
         	KJS::Object err = KJS::Error::create( exec, KJS::GeneralError, msg.utf8() );
 	        exec->setException( err );
@@ -175,7 +175,7 @@ KJS::Value DocumentManager::call( KJS::ExecState *exec, KJS::Object &self, const
 			return KJS::Boolean(dm->closeAllDocuments()); }
 		break;
 		default:
-		kDebug()<<"calling illegal method of DocumentManager"<<endl;
+		kDebug()<<"calling illegal method of DocumentManager";
 		return KJS::Null(); 
 	}
             QString msg = i18n("Method %1 called with wrong signature", mdesc);
@@ -222,13 +222,13 @@ KJS::Value Kate::JS::Management::call( KJS::ExecState *exec, KJS::Object &self, 
 		kDebug()<<"***********************************************************************************"<<endl<<
 			"Kate::JS::Management::call: Object type for m_toolViewConstructors (1):"<<args[0].type()<<endl;
 		m_wrapper->m_toolViewConstructors=(args.size()>0)?args[0]:KJS::Value();
-		kDebug()<<"Kate::JS::Management::call: Object type for m_toolViewConstructors (2):"<<m_wrapper->m_toolViewConstructors.type()<<endl;
+		kDebug()<<"Kate::JS::Management::call: Object type for m_toolViewConstructors (2):"<<m_wrapper->m_toolViewConstructors.type();
 	        m_wrapper->m_newWindowHandler=(args.size()>1)?args[1]:KJS::Value();
         	m_wrapper->m_removeWindowHandler=(args.size()>2)?args[2]:KJS::Value();
 	} else if (m_id==KJSConsole) {
 		m_wrapper->m_part->view()->show();
 	} else
-		kDebug()<<"Remove not implemented yet"<<endl;
+		kDebug()<<"Remove not implemented yet";
 	return KJS::Boolean(true);
 }
 
@@ -265,7 +265,7 @@ void Kate::JS::Application::addBindings(KJS::ExecState *exec, KJSEmbed::JSObject
 }
 
 Kate::JS::Application::Application( KJS::ExecState *exec, int id, KJSEmbed::JSObjectProxy *parent,PluginKateKJSWrapper *plugin):KJSEmbed::JSProxyImp(exec) {
-	kDebug()<<"Kate::JS::Application::Application"<<endl;
+	kDebug()<<"Kate::JS::Application::Application";
 	m_id=id;
 	m_proxy=parent;
 	m_plugin=plugin;
@@ -278,7 +278,7 @@ KJS::Value Kate::JS::Application::call( KJS::ExecState *exec, KJS::Object &self,
         QObject *o=m_proxy->object();
         Kate::Application *ka=dynamic_cast<Kate::Application*>(o);
         if (!ka) {
-                kWarning()<<"Object died"<<endl;
+                kWarning()<<"Object died";
                 QString msg = i18n("Call of KATE  member on destroyed object");
                 KJS::Object err = KJS::Error::create( exec, KJS::GeneralError, msg.utf8() );
                 exec->setException( err );
@@ -387,7 +387,7 @@ void Kate::JS::RefCountedObjectDict::incRef() {
 }
 
 void Kate::JS::RefCountedObjectDict::decRef() {
-	kDebug()<<"Kate::JS:RefCountedObjectDict::decCount()"<<endl;
+	kDebug()<<"Kate::JS:RefCountedObjectDict::decCount()";
 	m_usageCount--;
 	if (m_usageCount<1) deleteLater();
 	
@@ -406,24 +406,24 @@ KJS::Object  Kate::JS::RefCountedObjectDict::jsObject(KJS::ExecState *exec, QObj
 }
 
 void Kate::JS::RefCountedObjectDict::removeSender() {
-	kDebug()<<"Trying to remove object from dict"<<sender()<<endl;
+	kDebug()<<"Trying to remove object from dict"<<sender();
 	remove((void*)sender());	
 }
 
 
 void Kate::JS::MainWindow::addBindings(KJS::ExecState *exec, KJSEmbed::JSObjectProxy *proxy,KJS::Object &object){
-	kDebug()<<"Kate::JS::MainWindow::addBindings - 1"<<endl;
+	kDebug()<<"Kate::JS::MainWindow::addBindings - 1";
 	if (!proxy)
 		return;
-	kDebug()<<"Kate::JS::MainWindow::addBindings - 2"<<endl;
+	kDebug()<<"Kate::JS::MainWindow::addBindings - 2";
 
 	Kate::MainWindow *mw=dynamic_cast<Kate::MainWindow*>(proxy->object());
 	if (!mw) return;
-	kDebug()<<"Kate::JS::MainWindow::addBindings - 3"<<endl;
+	kDebug()<<"Kate::JS::MainWindow::addBindings - 3";
 
 	PluginKateKJSWrapper *wrap=static_cast<PluginKateKJSWrapper*>(proxy->part()->parent());
 	if (!wrap) return;
-	kDebug()<<"Kate::JS::MainWindow::addBindings - 4"<<endl;
+	kDebug()<<"Kate::JS::MainWindow::addBindings - 4";
 
 	object.put(exec, "actionCollection", KJS::Object(new MainWindow( exec, ActionCollection, proxy,wrap)));
 	
@@ -432,7 +432,7 @@ void Kate::JS::MainWindow::addBindings(KJS::ExecState *exec, KJSEmbed::JSObjectP
 
 
 Kate::JS::MainWindow::MainWindow( KJS::ExecState *exec, int id, KJSEmbed::JSObjectProxy *parent,PluginKateKJSWrapper *plugin):KJSEmbed::JSProxyImp(exec) {
-	kDebug()<<"Kate::JS::MainWindow::MainWindow"<<endl;
+	kDebug()<<"Kate::JS::MainWindow::MainWindow";
 	m_id=id;
 	m_proxy=parent;
 	m_plugin=plugin;
@@ -445,7 +445,7 @@ KJS::Value Kate::JS::MainWindow::call( KJS::ExecState *exec, KJS::Object &self, 
         QObject *o=m_proxy->object();
         Kate::MainWindow *mw=dynamic_cast<Kate::MainWindow*>(o);
         if (!mw) {
-                kWarning()<<"Object died"<<endl;
+                kWarning()<<"Object died";
                 QString msg = i18n("Call of MainWindow  member on destroyed object");
                 KJS::Object err = KJS::Error::create( exec, KJS::GeneralError, msg.utf8() );
                 exec->setException( err );

@@ -120,7 +120,7 @@ Kate::PluginConfigPage *KateFileSelectorPlugin::configPage (uint number, QWidget
 QString KateFileSelectorPlugin::configPageName (uint number) const
 {
   if (number != 0) return QString();
-  kDebug() << "Returning a config page name" << endl;
+  kDebug() << "Returning a config page name";
   return i18n("File Selector");
 }
 
@@ -288,7 +288,7 @@ void KateFileSelectorToolBarParent::resizeEvent ( QResizeEvent * )
 
 void ::KateFileSelector::readConfig(KConfig *config, const QString & name)
 {
-  kDebug() << "===================================================================::KateFileSelector::readConfig" << endl;
+  kDebug() << "===================================================================::KateFileSelector::readConfig";
   KConfigGroup cgView(config, name + ":view");
   dir->setViewConfig(cgView );
 
@@ -518,19 +518,19 @@ void ::KateFileSelector::btnFilterClick()
 //FIXME crash on shutdown
 void ::KateFileSelector::setActiveDocumentDir()
 {
-//   kDebug(13001)<<"KateFileSelector::setActiveDocumentDir()"<<endl;
+//   kDebug(13001)<<"KateFileSelector::setActiveDocumentDir()";
   KUrl u = activeDocumentUrl();
-//   kDebug(13001)<<"URL: "<<u.prettyUrl()<<endl;
+//   kDebug(13001)<<"URL: "<<u.prettyUrl();
   if (!u.isEmpty())
     setDir( u.upUrl() );
-//   kDebug(13001)<<"... setActiveDocumentDir() DONE!"<<endl;
+//   kDebug(13001)<<"... setActiveDocumentDir() DONE!";
 }
 
 void ::KateFileSelector::kateViewChanged()
 {
   if ( autoSyncEvents & DocumentChanged )
   {
-//     kDebug(13001)<<"KateFileSelector::do a sync ()"<<endl;
+//     kDebug(13001)<<"KateFileSelector::do a sync ()";
     // if visible, sync
     if ( isVisible() )
     {
@@ -578,7 +578,7 @@ void KateFileSelector::showEvent( QShowEvent * )
   // sync if we should
   if ( autoSyncEvents & GotVisible )
   {
-//     kDebug(13001)<<"syncing fs on show"<<endl;
+//     kDebug(13001)<<"syncing fs on show";
     setActiveDocumentDir();
     waitingUrl.clear();
   }

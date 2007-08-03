@@ -179,7 +179,7 @@ KateFileTemplates::KateFileTemplates( QObject* parent, const QStringList &dummy)
  */
 void KateFileTemplates::updateTemplateDirs(const QString &d)
 {
-  kDebug()<<"updateTemplateDirs called with arg "<<d<<endl;
+  kDebug()<<"updateTemplateDirs called with arg "<<d;
 
   QStringList templates = KGlobal::dirs()->findAllResources(
       "data","kate/plugins/katefiletemplates/templates/*.katetemplate",
@@ -291,7 +291,7 @@ void KateFileTemplates::refreshMenu( KMenu *menu )
       QMenu *sm=menu->addMenu(m_templates.at( i )->group);
       submenus.insert( m_templates.at( i )->group, sm );
     }
-    kDebug()<<"=== ICON: '"<<m_templates.at( i )->icon<<"'"<<endl;
+    kDebug()<<"=== ICON: '"<<m_templates.at( i )->icon<<"'";
     QMenu *sm=submenus[m_templates.at(i)->group];
     QAction *a;
     if ( ! m_templates.at( i )->icon.isEmpty() )
@@ -344,7 +344,7 @@ void KateFileTemplates::slotAny()
 void KateFileTemplates::slotOpenTemplate()
 {
   int index=((QAction*)sender())->data().toInt();
-  kDebug()<<"slotOpenTemplate( "<<index<<" )"<<endl;
+  kDebug()<<"slotOpenTemplate( "<<index<<" )";
   if ( index < 0 || (uint)index > m_templates.count() ) return;
   slotOpenTemplate( KUrl( m_templates.at( index )->filename ) );
 }
@@ -354,7 +354,7 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
   // check if the file can be opened
   QString tmpfile;
   QString filename = url.fileName();
-  kDebug()<<"file: "<<filename<<endl;
+  kDebug()<<"file: "<<filename;
   if ( KIO::NetAccess::download( url, tmpfile, 0L ) )
   {
     bool isTemplate ( filename.endsWith( ".katetemplate" ) );
@@ -405,10 +405,10 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
         {
           QRegExp reHl( "\\bhighlight\\s*=\\s*(.+)(?:\\s+\\w+\\s*=|$)", false );
           reHl.setMinimal( true );
-            kDebug()<<"looking for a hl mode"<<endl;
+            kDebug()<<"looking for a hl mode";
           if ( reHl.search( tmp ) > -1 )
           {
-            kDebug()<<"looking for a hl mode -- "<<reHl.cap()<<endl;
+            kDebug()<<"looking for a hl mode -- "<<reHl.cap();
             // this is overly complex, too bad the interface is
             // not providing a resonable method..
             QString hlmode = reHl.cap( 1 );
@@ -721,10 +721,10 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   glo->addMultiCell( new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding ), 7, 7, 1, 2 );
 
   addPage( page, i18n("Choose Template Origin") );
-  kDebug()<<"=== Adding template origin page at "<<page<<endl;
+  kDebug()<<"=== Adding template origin page at "<<page;
   // 2) edit the template properties
   kti = new KateTemplateInfoWidget( this, 0, kft );
-  kDebug()<<"=== Adding template info page at "<<kti<<endl;
+  kDebug()<<"=== Adding template info page at "<<kti;
   addPage( kti, i18n("Edit Template Properties") );
   // get liekly values from KTE
   QMap<QString, QString> map;
@@ -782,7 +782,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   glo->addMultiCell( new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding ), 7, 7, 1, 2 );
 
   addPage( page, i18n("Choose Location") );
-  kDebug()<<"=== Adding location page at "<<page<<endl;
+  kDebug()<<"=== Adding location page at "<<page;
   // 4) Should we edit the text to add some macros, replacing username etc?
   // This is *only* relevant if the origin is a non-template file.
   page = new QWidget( this );
@@ -807,7 +807,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   lo->addStretch();
 
   addPage( page, i18n("Autoreplace Macros") );
-  kDebug()<<"=== Adding autoreplace page at "<<page<<endl;
+  kDebug()<<"=== Adding autoreplace page at "<<page;
   // 5) Display a summary
   page = new QWidget( this );
   lo = new QVBoxLayout( page );
@@ -828,7 +828,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   lo->addStretch();
 
   addPage( page, i18n("Create Template") );
-  kDebug()<<"=== Adding summary page at "<<endl;
+  kDebug()<<"=== Adding summary page at ";
   connect( this, SIGNAL(selected(const QString&)), this, SLOT(slotStateChanged(const QString&)) );
 }
 
@@ -961,7 +961,7 @@ void KateTemplateWizard::accept()
 
   //   2) If a file or template is chosen, open that. and fill the data into a string
   int toid = bgOrigin->selectedId(); // 1 = blank, 2 = file, 3 = template
-  kDebug()<<"=== create template: origin type "<<toid<<endl;
+  kDebug()<<"=== create template: origin type "<<toid;
   if ( toid > 1 )
   {
     KUrl u;
@@ -1033,7 +1033,7 @@ void KateTemplateWizard::accept()
       QFile file( templateUrl.path() );
          if ( file.open(QIODevice::WriteOnly) )
       {
-        kDebug()<<"file opened with succes"<<endl;
+        kDebug()<<"file opened with succes";
         QTextStream stream( &file );
         stream << str;
         file.close();
@@ -1218,7 +1218,7 @@ void KateTemplateManager::slotRemoveTemplate()
     // If we removed any files, we should delete a KNewStuff key
     // for this template, so the template is installable again.
     // ### This assumes that the knewstuff name is similar to the template name.
-    kDebug()<<"trying to remove knewstuff key '"<<item->templateinfo->tmplate<<"'"<<endl;
+    kDebug()<<"trying to remove knewstuff key '"<<item->templateinfo->tmplate<<"'";
     config->group("KNewStuffStatus").deleteEntry( item->templateinfo->tmplate );
 
     kft->updateTemplateDirs();

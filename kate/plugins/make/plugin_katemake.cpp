@@ -62,7 +62,7 @@
 
 K_EXPORT_COMPONENT_FACTORY( katemakeplugin, KGenericFactory<PluginKateMake>( "katemake" ) )
 
-// #define FUNCTIONSETUP kDebug() << k_funcinfo << endl;
+// #define FUNCTIONSETUP kDebug() << k_funcinfo;
 #define FUNCTIONSETUP
 
 PluginKateMake::PluginKateMake( QObject* parent, const char* name, const QStringList& )
@@ -85,12 +85,12 @@ void PluginKateMake::addView(Kate::MainWindow *win)
 	PluginKateMakeView *view = new PluginKateMakeView (0,win,
 		"katemakeview");
 	if( ! view ) {
-		kDebug() << "Error: no plugin view" << endl;
+		kDebug() << "Error: no plugin view";
 		return;
 	}
 
 	if( ! win ) {
-		kDebug() << "Error: no main win" << endl;
+		kDebug() << "Error: no main win";
 		return;
 	}
 
@@ -255,7 +255,7 @@ QString ErrorMessage::fancyMessage() const
 /* virtual */ int ErrorMessage::compare(Q3ListViewItem *i,
 	int /* column */ , bool /* ascending */) const
 {
-	kDebug() << "In compare " << serial() << endl;
+	kDebug() << "In compare " << serial();
 	ErrorMessage *e = dynamic_cast<ErrorMessage*>(i);
 	if (!e) return 1;
 	if (e->serial() < serial()) return 1;
@@ -417,7 +417,7 @@ void PluginKateMakeView::processLine(const QString &l)
 	if (filenameDetector && l.find(*filenameDetector)<0)
 	{
 		ErrorMessage *e = new ErrorMessage(this,l);
-		kDebug() << "Got message(1) #" << e->serial() << endl;
+		kDebug() << "Got message(1) #" << e->serial();
 		return;
 	}
 
@@ -431,11 +431,11 @@ void PluginKateMakeView::processLine(const QString &l)
 	int line = l.mid(ofs1+1,ofs2-ofs1-1).toInt();
 	ErrorMessage *e = new ErrorMessage(this,
 		filename,line,m);
-	kDebug() << "Got message(2) #" << e->serial() << endl;
+	kDebug() << "Got message(2) #" << e->serial();
 
 	// Should cache files being found and check for
 	// existence.
-	 kDebug() << ": Looking at " << document_dir+filename << endl;
+	 kDebug() << ": Looking at " << document_dir+filename;
 	if (!QFile::exists(document_dir+filename))
 	{
 		e->setSelectable(false);
@@ -484,7 +484,7 @@ void PluginKateMakeView::slotProcExited(K3Process *p)
 	}
 #endif
 
-	kDebug() << "slotProcExited()" << endl;
+	kDebug() << "slotProcExited()";
 	QApplication::restoreOverrideCursor();
 
 	sort();
@@ -525,7 +525,7 @@ void PluginKateMakeView::slotClicked(Q3ListViewItem *item)
 	FUNCTIONSETUP;
 	if (!item)
 	{
-		kDebug() << ": No item clicked." << endl;
+		kDebug() << ": No item clicked.";
 		return;
 	}
 	if (!item->isSelectable()) return;
@@ -625,11 +625,11 @@ bool PluginKateMakeView::slotValidate()
 
 	KTextEditor::View *kv = win->activeView();
 	if( ! kv ) {
-		kDebug() << "Error (slotValidate()): no KTextEditor::View" << endl;
+		kDebug() << "Error (slotValidate()): no KTextEditor::View";
 		return false;
 	}
 	if( ! kv->document() ) {
-		kDebug() << "Error (slotValidate()): no kv->document()" << endl;
+		kDebug() << "Error (slotValidate()): no kv->document()";
 		return false;
 	}
 

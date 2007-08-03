@@ -139,7 +139,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
         
       foreach (QString s, services)
       {
-        kDebug() << "found service: " << s << endl;
+        kDebug() << "found service: " << s;
         if (s.startsWith ("org.kde.kate-"))
         {
           serviceName = s;
@@ -148,7 +148,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       }
     }
     
-    kDebug() << "servicename to use for -u : " << serviceName << endl;
+    kDebug() << "servicename to use for -u : " << serviceName;
     
     // no already running instance found and no specific pid given, start new instance...
     bool foundRunningService = false;
@@ -160,7 +160,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
         
     if (foundRunningService)
     {
-      kDebug() << "servicename " << serviceName << " is valid, calling the methodes" << endl;
+      kDebug() << "servicename " << serviceName << " is valid, calling the methodes";
     
       // open given session
       if (args->isSet ("start"))
@@ -256,7 +256,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       return 0;
     }
     
-    kDebug () << "couldn't find existing running process to reuse, starting new kate process" << endl;
+    kDebug () << "couldn't find existing running process to reuse, starting new kate process";
 
     delete app;
   }
@@ -267,7 +267,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 
   // execute ourself ;)
   int res = app.exec();
-  kDebug() << "primary event loop has been left" << endl;
+  kDebug() << "primary event loop has been left";
   return res;
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;

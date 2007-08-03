@@ -67,7 +67,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
     currline = kDoc->line(i);
     currline = currline.trimmed();
     bool comment = false;
-    //kDebug(13000)<<currline<<endl;
+    //kDebug(13000)<<currline;
     if(currline == "") continue;
     if(currline.at(0) == '#') comment = true;
 

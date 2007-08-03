@@ -119,7 +119,7 @@ class PluginView : public KXMLGUIClient
 PluginKateXMLTools::PluginKateXMLTools( QObject* parent, const QStringList& )
   : Kate::Plugin ( (Kate::Application*)parent, "PluginKateXMLTools" )
 {
-  //kDebug() << "PluginKateXMLTools constructor called" << endl;
+  //kDebug() << "PluginKateXMLTools constructor called";
 
   m_dtdString = QString();
   m_urlString = QString();
@@ -145,7 +145,7 @@ PluginKateXMLTools::PluginKateXMLTools( QObject* parent, const QStringList& )
 
 PluginKateXMLTools::~PluginKateXMLTools()
 {
-  //kDebug() << "xml tools descructor 1..." << endl;
+  //kDebug() << "xml tools descructor 1...";
 }
 
 void PluginKateXMLTools::storeViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix)
@@ -207,7 +207,7 @@ void PluginKateXMLTools::slotDocumentDeleted( uint documentNumber )
   // if it becomes unused.
   if ( m_docDtds[ documentNumber ] )
   {
-    kDebug()<<"XMLTools:slotDocumentDeleted: documents: "<<m_docDtds.count()<<", DTDs: "<<m_dtds.count()<<endl;
+    kDebug()<<"XMLTools:slotDocumentDeleted: documents: "<<m_docDtds.count()<<", DTDs: "<<m_dtds.count();
     PseudoDTD *dtd = m_docDtds.take( documentNumber );
 
     Q3IntDictIterator<PseudoDTD> it ( m_docDtds );
@@ -231,7 +231,7 @@ void PluginKateXMLTools::slotDocumentDeleted( uint documentNumber )
 
 void PluginKateXMLTools::backspacePressed()
 {
-  kDebug() << "xml tools backspacePressed" << endl;
+  kDebug() << "xml tools backspacePressed";
 
   if ( !application()->activeMainWindow() )
     return;
@@ -239,22 +239,22 @@ void PluginKateXMLTools::backspacePressed()
   KTextEditor::View *kv = application()->activeMainWindow()->activeView();
   if( ! kv )
   {
-    kDebug() << "Warning: no KTextEditor::View" << endl;
+    kDebug() << "Warning: no KTextEditor::View";
     return;
   }
   int line, col;
   kv->cursorPosition().position ( line, col );
 
-  //kDebug() << "++ redisplay popup? line:" << line << ", col: " << col << endl;
+  //kDebug() << "++ redisplay popup? line:" << line << ", col: " << col;
   if( m_lastLine == line && col == m_lastCol )
   {
     int len = col - m_popupOpenCol;
     if( len < 0 )
     {
-      kDebug() << "**Warning: len < 0" << endl;
+      kDebug() << "**Warning: len < 0";
       return;
     }
-    //kDebug() << "++ redisplay popup, " << m_lastAllowed.count() << ", len:" << len <<endl;
+    //kDebug() << "++ redisplay popup, " << m_lastAllowed.count() << ", len:" << len;
     connectSlots( kv );
     kv->showCompletionBox( stringListToCompletionEntryList(m_lastAllowed), len, false );
   }
@@ -267,7 +267,7 @@ void PluginKateXMLTools::emptyKeyEvent()
 
 void PluginKateXMLTools::keyEvent( int, int, const QString &/*s*/ )
 {
-  //kDebug() << "xml tools keyEvent: '" << s << endl;
+  //kDebug() << "xml tools keyEvent: '" << s;
 
   if ( !application()->activeMainWindow() )
     return;
@@ -275,7 +275,7 @@ void PluginKateXMLTools::keyEvent( int, int, const QString &/*s*/ )
   KTextEditor::View *kv = application()->activeMainWindow()->activeView();
   if( ! kv )
   {
-    kDebug() << "Warning: no KTextEditor::View" << endl;
+    kDebug() << "Warning: no KTextEditor::View";
     return;
   }
 
@@ -298,15 +298,15 @@ void PluginKateXMLTools::keyEvent( int, int, const QString &/*s*/ )
 
   if( leftCh == "&" )
   {
-    kDebug() << "Getting entities" << endl;
+    kDebug() << "Getting entities";
     allowed = m_docDtds[docNumber]->entities("" );
     m_mode = entities;
   }
   else if( leftCh == "<" )
   {
-    kDebug() << "*outside tag -> get elements" << endl;
+    kDebug() << "*outside tag -> get elements";
     QString parentElement = getParentElement( *kv, true );
-    kDebug() << "parent: " << parentElement << endl;
+    kDebug() << "parent: " << parentElement;
     allowed = m_docDtds[docNumber]->allowedElements(parentElement );
     m_mode = elements;
   }
@@ -320,12 +320,12 @@ void PluginKateXMLTools::keyEvent( int, int, const QString &/*s*/ )
     if( ! currentElement.isEmpty() )
       currentAttribute = insideAttribute( *kv );
 
-    kDebug() << "Tag: " << currentElement << endl;
-    kDebug() << "Attr: " << currentAttribute << endl;
+    kDebug() << "Tag: " << currentElement;
+    kDebug() << "Attr: " << currentAttribute;
 
     if( ! currentElement.isEmpty() && ! currentAttribute.isEmpty() )
     {
-      kDebug() << "*inside attribute -> get attribute values" << endl;
+      kDebug() << "*inside attribute -> get attribute values";
       allowed = m_docDtds[docNumber]->attributeValues(currentElement, currentAttribute );
       if( allowed.count() == 1 &&
           (allowed[0] == "CDATA" || allowed[0] == "ID" || allowed[0] == "IDREF" ||
@@ -342,14 +342,14 @@ void PluginKateXMLTools::keyEvent( int, int, const QString &/*s*/ )
     }
     else if( ! currentElement.isEmpty() )
     {
-      kDebug() << "*inside tag -> get attributes" << endl;
+      kDebug() << "*inside tag -> get attributes";
       allowed = m_docDtds[docNumber]->allowedAttributes(currentElement );
       m_mode = attributes;
     }
   }
 
-  //kDebug() << "time elapsed (ms): " << t.elapsed() << endl;
-  //kDebug() << "Allowed strings: " << allowed.count() << endl;
+  //kDebug() << "time elapsed (ms): " << t.elapsed();
+  //kDebug() << "Allowed strings: " << allowed.count();
 
   if( allowed.count() >= 1 && allowed[0] != "__EMPTY" )
   {
@@ -414,7 +414,7 @@ void PluginKateXMLTools::getDTD()
   KTextEditor::View *kv = application()->activeMainWindow()->activeView();
   if( ! kv )
   {
-    kDebug() << "Warning: no KTextEditor::View" << endl;
+    kDebug() << "Warning: no KTextEditor::View";
     return;
   }
 
@@ -445,8 +445,8 @@ void PluginKateXMLTools::getDTD()
   if( matchPos != -1 ) {
     topElement = re.cap( 1 );
     doctype = re.cap( 2 );
-    kDebug() << "Top element: " << topElement << endl;
-    kDebug() << "Doctype match: " << doctype << endl;
+    kDebug() << "Top element: " << topElement;
+    kDebug() << "Doctype match: " << doctype;
     // XHTML:
     if( doctype == "-//W3C//DTD XHTML 1.0 Transitional//EN" )
       filename = "xhtml1-transitional.dtd.xml";
@@ -476,7 +476,7 @@ void PluginKateXMLTools::getDTD()
     doctype = "XSLT 1.0";
   }
   else
-    kDebug() << "No doctype found" << endl;
+    kDebug() << "No doctype found";
 
   if( filename.isEmpty() )
   {
@@ -512,14 +512,14 @@ void PluginKateXMLTools::getDTD()
     connect( job, SIGNAL(data(KIO::Job *, const QByteArray &)),
              this, SLOT(slotData(KIO::Job *, const QByteArray &)) );
   }
-  kDebug()<<"XMLTools::getDTD: Documents: "<<m_docDtds.count()<<", DTDs: "<<m_dtds.count()<<endl;
+  kDebug()<<"XMLTools::getDTD: Documents: "<<m_docDtds.count()<<", DTDs: "<<m_dtds.count();
 }
 
 void PluginKateXMLTools::slotFinished( KJob *job )
 {
   if( job->error() )
   {
-    //kDebug() << "XML Plugin error: DTD in XML format (" << filename << " ) could not be loaded" << endl;
+    //kDebug() << "XML Plugin error: DTD in XML format (" << filename << " ) could not be loaded";
     static_cast<KIO::Job*>(job)->showErrorDialog( 0 );
   }
   else if ( static_cast<KIO::TransferJob *>(job)->isErrorPage() )
@@ -573,7 +573,7 @@ void PluginKateXMLTools::slotInsertElement()
   KTextEditor::View *kv = application()->activeMainWindow()->activeView();
   if( ! kv )
   {
-    kDebug() << "Warning: no KTextEditor::View" << endl;
+    kDebug() << "Warning: no KTextEditor::View";
     return;
   }
 
@@ -636,12 +636,12 @@ void PluginKateXMLTools::slotCloseElement()
   KTextEditor::View *kv = application()->activeMainWindow()->activeView();
   if( ! kv )
   {
-    kDebug() << "Warning: no KTextEditor::View" << endl;
+    kDebug() << "Warning: no KTextEditor::View";
     return;
   }
   QString parentElement = getParentElement( *kv, false );
 
-  //kDebug() << "parentElement: '" << parentElement << "'" << endl;
+  //kDebug() << "parentElement: '" << parentElement << "'";
   QString closeTag = "</" + parentElement + ">";
   if( ! parentElement.isEmpty() )
     kv->insertText( closeTag );
@@ -650,8 +650,8 @@ void PluginKateXMLTools::slotCloseElement()
 // modify the completion string before it gets inserted
 void PluginKateXMLTools::filterInsertString( KTextEditor::CompletionItem *ce, QString *text )
 {
-  kDebug() << "filterInsertString str: " << *text << endl;
-  kDebug() << "filterInsertString text: " << ce.text() << endl;
+  kDebug() << "filterInsertString str: " << *text;
+  kDebug() << "filterInsertString text: " << ce.text();
 
   if ( !application()->activeMainWindow() )
     return;
@@ -659,7 +659,7 @@ void PluginKateXMLTools::filterInsertString( KTextEditor::CompletionItem *ce, QS
   KTextEditor::View *kv = application()->activeMainWindow()->activeView();
   if( ! kv )
   {
-    kDebug() << "Warning (filterInsertString() ): no KTextEditor::View" << endl;
+    kDebug() << "Warning (filterInsertString() ): no KTextEditor::View";
     return;
   }
 
@@ -771,7 +771,7 @@ void PluginKateXMLTools::completionAborted()
   KTextEditor::View *kv = application()->activeMainWindow()->activeView();
   if( ! kv )
   {
-    kDebug() << "Warning (completionAborted() ): no KTextEditor::View" << endl;
+    kDebug() << "Warning (completionAborted() ): no KTextEditor::View";
     return;
   }
   disconnectSlots( kv );
@@ -781,12 +781,12 @@ void PluginKateXMLTools::completionAborted()
   correctPos( kv,m_correctPos );
   m_correctPos = 0;
 
-  kDebug() << "completionAborted() at line:" << m_lastLine << ", col:" << m_lastCol << endl;
+  kDebug() << "completionAborted() at line:" << m_lastLine << ", col:" << m_lastCol;
 }
 
 void PluginKateXMLTools::completionDone( KTextEditor::CompletionItem )
 {
-  kDebug() << "completionDone()" << endl;
+  kDebug() << "completionDone()";
 
   if ( !application()->activeMainWindow() )
     return;
@@ -794,7 +794,7 @@ void PluginKateXMLTools::completionDone( KTextEditor::CompletionItem )
   KTextEditor::View *kv = application()->activeMainWindow()->activeView();
   if( ! kv )
   {
-    kDebug() << "Warning (completionDone() ): no KTextEditor::View" << endl;
+    kDebug() << "Warning (completionDone() ): no KTextEditor::View";
     return;
   }
   disconnectSlots( kv );

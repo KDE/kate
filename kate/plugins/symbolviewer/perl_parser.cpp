@@ -65,7 +65,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
     cl = kv->line(i);
     cl = cl.trimmed();
 
-    kDebug(13000)<<"Line " << i << " : "<< cl << endl;
+    kDebug(13000)<<"Line " << i << " : "<< cl;
 
     if(cl == "" || cl.at(0) == '#') continue;
     if(cl.indexOf(QRegExp("^=")) >= 0) comment = 1;

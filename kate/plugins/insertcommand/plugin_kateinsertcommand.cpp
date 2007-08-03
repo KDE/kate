@@ -314,7 +314,7 @@ CmdPrompt::CmdPrompt(QWidget* parent,
    lwd->setBuddy( wdreq );
    lo->addWidget( wdreq );
 
-   //kDebug()<<"settings: "<<settings<<endl;
+   //kDebug()<<"settings: "<<settings;
    cb_insStdErr = new QCheckBox( i18n("Insert Std&Err messages"), page );
    cb_insStdErr->setChecked(settings & 1);
    lo->addWidget( cb_insStdErr );

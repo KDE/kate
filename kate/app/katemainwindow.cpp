@@ -166,7 +166,7 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   setXMLFile( "kateui.rc" );
   createShellGUI ( true );
 
-  kDebug() << "****************************************************************************" << sconfig << endl;
+  kDebug() << "****************************************************************************" << sconfig;
 
   // register mainwindow in app
   KateApp::self()->addMainWindow (this);
@@ -249,7 +249,7 @@ void KateMainWindow::setupMainWindow ()
 #endif
   if (!style()->styleHint(QStyle::SH_ItemView_ActivateItemOnSingleClick, 0, m_fileList))
   {
-    kDebug() << "HACK:***********************CONNECTING CLICKED***************************" << endl;
+    kDebug() << "HACK:***********************CONNECTING CLICKED***************************";
     connect(m_fileList, SIGNAL(clicked(const QModelIndex&)), m_documentModel, SLOT(opened(const QModelIndex&)));
     connect(m_fileList, SIGNAL(clicked(const QModelIndex&)), m_viewManager, SLOT(activateDocument(const QModelIndex &)));
   }
@@ -657,13 +657,13 @@ void KateMainWindow::editKeys()
   QList<KTextEditor::Document*>  l = KateDocManager::self()->documentList();
   for (int i = 0;i < l.count();i++)
   {
-//     kDebug(13001)<<"reloading Keysettings for document "<<i<<endl;
+//     kDebug(13001)<<"reloading Keysettings for document "<<i;
     l.at(i)->reloadXML();
     QList<KTextEditor::View *> l1 = l.at(i)->views ();
     for (int i1 = 0;i1 < l1.count();i1++)
     {
       l1.at(i1)->reloadXML();
-//       kDebug(13001)<<"reloading Keysettings for view "<<i<<"/"<<i1<<endl;
+//       kDebug(13001)<<"reloading Keysettings for view "<<i<<"/"<<i1;
     }
   }
 
@@ -715,7 +715,7 @@ void KateMainWindow::mSlotFixOpenWithMenu()
   menu->clear();
   // get a list of appropriate services.
   KMimeType::Ptr mime = KMimeType::mimeType(m_viewManager->activeView()->document()->mimeType());
-  //kDebug(13001) << "mime type: " << mime->name() << endl;
+  //kDebug(13001) << "mime type: " << mime->name();
 
   QAction *a = 0;
   KService::List offers = KMimeTypeTrader::self()->query(mime->name(), "Application");

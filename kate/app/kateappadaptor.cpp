@@ -79,7 +79,7 @@ bool KateAppAdaptor::openUrl (QString url, QString encoding)
 
 bool KateAppAdaptor::openUrl (QString url, QString encoding, bool isTempFile)
 {
-  kDebug () << "openURL" << endl;
+  kDebug () << "openURL";
 
   return m_app->openUrl (url, encoding, isTempFile);
 }

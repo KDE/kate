@@ -146,7 +146,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(QWidget *parent,Kate::MainWindow 
 /* TODO?: invalidate the listview when document has changed
 	Kate::View *kv = application()->activeMainWindow()->activeView();
 	if( ! kv ) {
-		kDebug() << "Warning: no Kate::View" << endl;
+		kDebug() << "Warning: no Kate::View";
 		return;
 	}
 	connect(kv, SIGNAL(modifiedChanged()), this, SLOT(slotUpdate()));
@@ -181,8 +181,8 @@ void PluginKateXMLCheckView::slotProcExited(K3Process*)
 	//	m_dockwidget->dockBack();
 //	}
 
-	kDebug() << "slotProcExited()" << endl;
-	//kDebug() << "output: " << endl << m_proc_stderr << endl << endl;
+	kDebug() << "slotProcExited()";
+	//kDebug() << "output: " << endl << m_proc_stderr << endl;
 	QApplication::restoreOverrideCursor();
 	delete m_tmp_file;
 	m_tmp_file=0;
@@ -249,7 +249,7 @@ void PluginKateXMLCheckView::slotProcExited(K3Process*)
 
 void PluginKateXMLCheckView::slotClicked(Q3ListViewItem *item)
 {
-	kDebug() << "slotClicked" << endl;
+	kDebug() << "slotClicked";
 	if( item ) {
 		bool ok = true;
 		uint line = item->text(1).toUInt(&ok);
@@ -268,13 +268,13 @@ void PluginKateXMLCheckView::slotClicked(Q3ListViewItem *item)
 
 void PluginKateXMLCheckView::slotUpdate()
 {
-	kDebug() << "slotUpdate() (not implemented yet)" << endl;
+	kDebug() << "slotUpdate() (not implemented yet)";
 }
 
 
 bool PluginKateXMLCheckView::slotValidate()
 {
-	kDebug() << "slotValidate()" << endl;
+	kDebug() << "slotValidate()";
 
 	win->showToolView (this);
 
@@ -289,7 +289,7 @@ bool PluginKateXMLCheckView::slotValidate()
 
 	m_tmp_file = new KTemporaryFile();
 	if( !m_tmp_file->open() ) {
-		kDebug() << "Error (slotValidate()): could not create '" << m_tmp_file->fileName() << "': " << m_tmp_file->errorString() << endl;
+		kDebug() << "Error (slotValidate()): could not create '" << m_tmp_file->fileName() << "': " << m_tmp_file->errorString();
 		KMessageBox::error(0, i18n("<b>Error:</b> Could not create "
 			"temporary file '%1'.", m_tmp_file->fileName()));
 		delete m_tmp_file;
@@ -312,10 +312,10 @@ bool PluginKateXMLCheckView::slotValidate()
 		catalogs += ins.dirs()->findResource("data", "ksgmltools2/customization/catalog");
 		catalogs += ":";
 		catalogs += ins.dirs()->findResource("data", "ksgmltools2/docbook/xml-dtd-4.1.2/docbook.cat");
-		kDebug() << "catalogs: " << catalogs << endl;
+		kDebug() << "catalogs: " << catalogs;
 		setenv("SGML_CATALOG_FILES", QFile::encodeName( catalogs ).data(), 1);
 	}
-	//kDebug() << "**catalogs: " << getenv("SGML_CATALOG_FILES") << endl;
+	//kDebug() << "**catalogs: " << getenv("SGML_CATALOG_FILES");
 
 	*m_proc << exe << "--catalogs" << "--noout";
 

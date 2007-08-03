@@ -84,7 +84,7 @@ void KateSession::init ()
   }
 
   if (!m_sessionFileRel.isEmpty() && !KGlobal::dirs()->exists(sessionFile ()))
-    kDebug() << "Warning, session file not found: " << m_sessionFileRel << endl;
+    kDebug() << "Warning, session file not found: " << m_sessionFileRel;
 }
 
 KateSession::~KateSession ()
@@ -202,7 +202,7 @@ KateSessionManager::KateSessionManager (QObject *parent)
     , m_activeSession (new KateSession (this, QString()))
     , m_defaultSessionFile(KStandardDirs::locate( "data", "kate/default.katesession"))
 {
-  kDebug() << "LOCAL SESSION DIR: " << m_sessionsDir << endl;
+  kDebug() << "LOCAL SESSION DIR: " << m_sessionsDir;
 
   // create dir if needed
   KGlobal::dirs()->makeDir (m_sessionsDir);
@@ -238,7 +238,7 @@ void KateSessionManager::updateSessionList ()
     KateSession *session = new KateSession (this, dir[i]);
     m_sessionList.append (KateSession::Ptr(session));
 
-    kDebug () << "FOUND SESSION: " << session->sessionName() << " FILE: " << session->sessionFile() << " dir[i];" << dir[i] << endl;
+    kDebug () << "FOUND SESSION: " << session->sessionName() << " FILE: " << session->sessionFile() << " dir[i];" << dir[i];
   }
 
   qSort(m_sessionList.begin(), m_sessionList.end(), caseInsensitiveLessThan);

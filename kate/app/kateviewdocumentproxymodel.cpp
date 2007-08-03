@@ -87,7 +87,7 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
   int sourcecolumn;
   stream >> sourcerow;
   stream >> sourcecolumn;
-  kDebug() << sourcerow << "/" << sourcecolumn << endl;
+  kDebug() << sourcerow << "/" << sourcecolumn;
   int insertRowAt = row - ((sourcerow < row) ? 1 : 0);
   m_rowCountOffset = -1;
   beginRemoveRows(parent, sourcerow, sourcerow);
@@ -101,9 +101,9 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
     int tmp = m_mapToSource[sourcerow];
     m_mapFromSource[tmp] = i;
   }
-//        foreach (int i,m_mapToSource) kDebug()<<i<<endl;
-//        kDebug()<<"***********"<<endl;
-//        foreach (int i,m_mapFromSource) kDebug()<<i<<endl;
+//        foreach (int i,m_mapToSource) kDebug()<<i;
+//        kDebug()<<"***********";
+//        foreach (int i,m_mapFromSource) kDebug()<<i;
   endRemoveRows();
   beginInsertRows(parent, insertRowAt, insertRowAt);
   m_mapToSource.insert(insertRowAt, sourceModelRow);
@@ -113,10 +113,10 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
     int tmp = m_mapToSource[i];
     m_mapFromSource[tmp] = i;
   }
-//        kDebug()<<"--------------"<<endl;
-//        foreach (int i,m_mapToSource) kDebug()<<i<<endl;
-//        kDebug()<<"***********"<<endl;
-//        foreach (int i,m_mapFromSource) kDebug()<<i<<endl;
+//        kDebug()<<"--------------";
+//        foreach (int i,m_mapToSource) kDebug()<<i;
+//        kDebug()<<"***********";
+//        foreach (int i,m_mapFromSource) kDebug()<<i;
   endInsertRows();
   QModelIndex index = createIndex(insertRowAt, 0);
   opened(index);
@@ -157,7 +157,7 @@ class EditViewCount
 
 void KateViewDocumentProxyModel::opened(const QModelIndex &index)
 {
-  kDebug() << "KateViewDocumentProxyModel::opened" << endl;
+  kDebug() << "KateViewDocumentProxyModel::opened";
 
   if (m_current == index) return;
   m_selection->select(index, QItemSelectionModel::Clear);
@@ -165,7 +165,7 @@ void KateViewDocumentProxyModel::opened(const QModelIndex &index)
   m_selection->select(index, QItemSelectionModel::SelectCurrent);
   m_selection->setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
   //m_selection->select(index,QItemSelectionModel::Select);
-  kDebug() << "KateViewDocumentProxyModel::opened-1" << endl;
+  kDebug() << "KateViewDocumentProxyModel::opened-1";
 
   m_current = index;
   m_markOpenedTimer->stop();
@@ -189,7 +189,7 @@ void KateViewDocumentProxyModel::slotMarkOpenedTimer()
 
 void KateViewDocumentProxyModel::modified(const QModelIndex &index)
 {
-  kDebug() << "KateViewDocumentProxyModel::modified" << endl;
+  kDebug() << "KateViewDocumentProxyModel::modified";
 
   m_editHistory.removeAll(index);
   m_editHistory.prepend(index);
@@ -260,7 +260,7 @@ QVariant KateViewDocumentProxyModel::data ( const QModelIndex & index, int role 
 {
   if (role == Qt::BackgroundColorRole)
   {
-    //kDebug()<<"BACKGROUNDROLE"<<endl;
+    //kDebug()<<"BACKGROUNDROLE";
     QBrush br = m_brushes[index];
     if (br.style() != Qt::NoBrush)
       return br;
@@ -280,7 +280,7 @@ QItemSelection KateViewDocumentProxyModel::mapSelectionFromSource ( const QItemS
 }
 QItemSelection KateViewDocumentProxyModel::mapSelectionToSource ( const QItemSelection & proxySelection ) const
 {
-  kDebug() << "KateViewDocumentProxyModel::mapSelectionToSource" << endl;
+  kDebug() << "KateViewDocumentProxyModel::mapSelectionToSource";
   return QAbstractProxyModel::mapSelectionToSource(proxySelection);
 }
 
@@ -483,14 +483,14 @@ void KateViewDocumentProxyModel::slotRowsAboutToBeRemoved ( const QModelIndex & 
     }
     m_mapToSource.removeLast();
     m_mapFromSource.removeLast();
-    //foreach (int sr, m_mapToSource) kDebug()<<sr<<endl;
-    //kDebug()<<"**************"<<endl;
+    //foreach (int sr, m_mapToSource) kDebug()<<sr;
+    //kDebug()<<"**************";
     for (int i = 0;i < m_mapToSource.count();i++)
     {
       int tmp = m_mapToSource[i];
       m_mapFromSource[tmp] = i;
     }
-    //foreach (int sd, m_mapFromSource) kDebug()<<sd<<endl;
+    //foreach (int sd, m_mapFromSource) kDebug()<<sd;
     removeItemFromColoring(removeRow);
     endRemoveRows();
   }
@@ -520,7 +520,7 @@ void KateViewDocumentProxyModel::slotRowsRemoved ( const QModelIndex & parent, i
 {
   m_rowCountOffset = 0;
 //    endRemoveRows();
-  kDebug() << "KateViewDocumentProxyModel::slotRowsRemoved" << endl;
+  kDebug() << "KateViewDocumentProxyModel::slotRowsRemoved";
   foreach(const QModelIndex &key, m_brushes.keys())
   {
     dataChanged(key, key);

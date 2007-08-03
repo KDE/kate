@@ -90,7 +90,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
        }
      if (state == 3)
        {
-        //kDebug(13000)<<"Function -- Inserted : "<<name<<" at row : "<<i<<endl;
+        //kDebug(13000)<<"Function -- Inserted : "<<name<<" at row : "<<i;
         if (in_class == 1) //strip off the word "class "
             name = name.trimmed ().mid (6);
         else //strip off the word "def "

@@ -199,13 +199,13 @@ void KatePluginSymbolViewerView::slotEnableSorting()
 
 void KatePluginSymbolViewerView::slotDocChanged()
 {
- //kDebug(13000)<<"Document changed !!!!"<<endl;
+ //kDebug(13000)<<"Document changed !!!!";
  slotRefreshSymbol();
 }
 
 void KatePluginSymbolViewerView::slotViewChanged(QResizeEvent *)
 {
- //kDebug(13000)<<"View changed !!!!"<<endl;
+ //kDebug(13000)<<"View changed !!!!";
  symbols->setColumnWidth(0, symbols->parentWidget()->width());
 }
 
@@ -260,7 +260,7 @@ void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
   if (!kv)
     return;
 
-  kDebug(13000)<<"Slot Activated at pos: "<<symbols->indexOfTopLevelItem(it) <<endl;
+  kDebug(13000)<<"Slot Activated at pos: "<<symbols->indexOfTopLevelItem(it);
 
   kv->setCursorPosition (KTextEditor::Cursor (it->text(1).toInt(NULL, 10), 0));
 }
@@ -269,12 +269,12 @@ KatePluginSymbolViewer::KatePluginSymbolViewer( QObject* parent, const QStringLi
     : Kate::Plugin ( (Kate::Application*)parent, "katesymbolviewerplugin" ),
     pConfig("katesymbolviewerpluginrc")
 {
- kDebug(13000)<<"KatePluginSymbolViewer"<<endl;
+ kDebug(13000)<<"KatePluginSymbolViewer";
 }
 
 KatePluginSymbolViewer::~KatePluginSymbolViewer()
 {
-  kDebug(13000)<<"~KatePluginSymbolViewer"<<endl;
+  kDebug(13000)<<"~KatePluginSymbolViewer";
   pConfig.sync();
 }
 
@@ -328,7 +328,7 @@ void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
   {
     m_views.at(z)->types_on = p->viewReturns->isChecked();
     m_views.at(z)->expanded_on = p->expandTree->isChecked();
-  //kDebug(13000)<<"KatePluginSymbolViewer: Configuration applied.("<<m_SymbolView->types_on<<")"<<endl;
+  //kDebug(13000)<<"KatePluginSymbolViewer: Configuration applied.("<<m_SymbolView->types_on<<")";
     m_views.at(z)->slotRefreshSymbol();
   }
 

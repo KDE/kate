@@ -202,26 +202,26 @@ bool KateExternalToolsCommand::exec (KTextEditor::View *view, const QString &cmd
   QWidget *wv = dynamic_cast<QWidget*>(view);
   if (!wv)
   {
-//   kDebug(13001)<<"KateExternalToolsCommand::exec: Could not get view widget"<<endl;
+//   kDebug(13001)<<"KateExternalToolsCommand::exec: Could not get view widget";
     return false;
   }
   KXmlGuiWindow *dmw = dynamic_cast<KXmlGuiWindow*>(wv->window());
   if (!dmw)
   {
-//   kDebug(13001)<<"KateExternalToolsCommand::exec: Could not get main window"<<endl;
+//   kDebug(13001)<<"KateExternalToolsCommand::exec: Could not get main window";
     return false;
   }
-//  kDebug(13001)<<"cmd="<<cmd.trimmed()<<endl;
+//  kDebug(13001)<<"cmd="<<cmd.trimmed();
   QString actionName = m_map[cmd.trimmed()];
   if (actionName.isEmpty()) return false;
-//  kDebug(13001)<<"actionName is not empty:"<<actionName<<endl;
+//  kDebug(13001)<<"actionName is not empty:"<<actionName;
   KateExternalToolsMenuAction *a =
     dynamic_cast<KateExternalToolsMenuAction*>(dmw->action("tools_external"));
   if (!a) return false;
-//  kDebug(13001)<<"trying to find action"<<endl;
+//  kDebug(13001)<<"trying to find action";
   QAction *a1 = a->actionCollection()->action(actionName.toUtf8().constData ());
   if (!a1) return false;
-//  kDebug(13001)<<"activating action"<<endl;
+//  kDebug(13001)<<"activating action";
   a1->trigger();
   return true;
 }
@@ -298,7 +298,7 @@ void KateExternalToolAction::slotRun()
                         i18n( "Kate External Tools") );
     return;
   }
-  kDebug(13001) << "externaltools: Running command: " << cmd << endl;
+  kDebug(13001) << "externaltools: Running command: " << cmd;
 
   // save documents if requested
   KateMainWindow *mw = (KateMainWindow*)parent()->parent();
@@ -727,7 +727,7 @@ void KateExternalToolsConfigWidget::apply()
       continue;
     }
     KateExternalTool *t = ((ToolItem*)lbTools->item( i ))->tool;
-//     kDebug(13001)<<"adding tool: "<<t->name<<endl;
+//     kDebug(13001)<<"adding tool: "<<t->name;
     tools << t->acname;
 
     KConfigGroup cg( config, t->acname );

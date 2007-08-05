@@ -128,7 +128,7 @@ void ExpandingWidgetModel::rowSelected(const QModelIndex& idx_)
         QVariant variant = data(idx, CodeCompletionModel::ItemSelected);
 
         if( !isExpanded(idx) && variant.type() == QVariant::String) {
-           //kDebug() << "expanding: " << idx << endl;
+           //kDebug() << "expanding: " << idx;
           m_partiallyExpanded.insert(idx, true);
 
           //Say that one row above until one row below has changed, so no items will need to be moved(the space that is taken from one item is given to the other)
@@ -143,12 +143,12 @@ void ExpandingWidgetModel::rowSelected(const QModelIndex& idx_)
             emit dataChanged(oldIndex, oldIndex);
         }
         if( isExpanded(idx) )
-          kDebug() << "ExpandingWidgetModel::rowSelected: row is already expanded" << endl;
+          kDebug() << "ExpandingWidgetModel::rowSelected: row is already expanded";
         if( variant.type() != QVariant::String )
-          kDebug() << "ExpandingWidgetModel::rowSelected: no string returned " << endl;
+          kDebug() << "ExpandingWidgetModel::rowSelected: no string returned ";
     }
   }else{
-    kDebug() << "ExpandingWidgetModel::rowSelected: Row is already partially expanded" << endl;
+    kDebug() << "ExpandingWidgetModel::rowSelected: Row is already partially expanded";
   }
 }
 
@@ -210,7 +210,7 @@ void ExpandingWidgetModel::setExpanded(QModelIndex idx_, bool expanded)
 {
   QModelIndex idx(firstColumn(idx_));
     
-  //kDebug() << "Setting expand-state of row " << idx.row() << " to " << expanded << endl;
+  //kDebug() << "Setting expand-state of row " << idx.row() << " to " << expanded;
   if( !idx.isValid() )
     return;
   
@@ -257,7 +257,7 @@ int ExpandingWidgetModel::basicRowHeight( const QModelIndex& idx_ ) const
     
     KateCompletionDelegate* delegate = dynamic_cast<KateCompletionDelegate*>( treeView()->itemDelegate(idx) );
     if( !delegate || !idx.isValid() ) {
-    kDebug() << "ExpandingWidgetModel::basicRowHeight: Could not get delegate" << endl;
+    kDebug() << "ExpandingWidgetModel::basicRowHeight: Could not get delegate";
     return 15;
     }
     return delegate->basicSizeHint( idx ).height();

@@ -463,7 +463,7 @@ bool KateDocumentConfig::setEncoding (const QString &encoding, bool resetDetecti
   {
     codec = s_global->codec();
 #ifdef DECODE_DEBUG
-    kWarning()<<"defaulting to " << codec->name() <<endl;
+    kWarning()<<"defaulting to " << codec->name();
 #endif
     found=true;
   }
@@ -487,7 +487,7 @@ bool KateDocumentConfig::setEncoding (const QString &encoding, bool resetDetecti
 
   configEnd ();
 #ifdef DECODE_DEBUG
-  kWarning()<<"set to " << codec->name() <<endl;
+  kWarning()<<"set to " << codec->name();
 #endif
   return true;
 }
@@ -1200,7 +1200,7 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   m_fontMetrics = QFontMetrics(m_font);
   m_fontSet = true;
 
-  kDebug()<<"Loading template colors "<<this<<endl;
+  kDebug()<<"Loading template colors "<<this;
   m_templateBackgroundColor=config.readEntry(QString("Color Template Background"),QColor(0xcc,0xcc,0xcc));
   m_templateEditablePlaceholderColor = config.readEntry(QString("Color Template Editable Placeholder"),QColor(0xcc,0xff,0xcc));
   m_templateFocusedEditablePlaceholderColor=config.readEntry(QString("Color Template Focused Editable Placeholder"),QColor(0x66,0xff,0x66));

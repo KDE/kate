@@ -64,7 +64,7 @@ void KateArgumentHintTree::dataChanged ( const QModelIndex & topLeft, const QMod
 }
 
 void KateArgumentHintTree::currentChanged ( const QModelIndex & current, const QModelIndex & previous ) {
-/*  kDebug() << "currentChanged()" << endl;*/
+/*  kDebug() << "currentChanged()";*/
   static_cast<ExpandingWidgetModel*>(model())->rowSelected(current);
   QTreeView::currentChanged(current, previous);
 }
@@ -81,7 +81,7 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
   updatingGeometry = true;
   
   if( model()->rowCount(QModelIndex()) == 0 ) {
-/*  kDebug() << "KateArgumentHintTree:: empty model" << endl;*/
+/*  kDebug() << "KateArgumentHintTree:: empty model";*/
     hide();
     setGeometry(geom);
     updatingGeometry = false;
@@ -96,7 +96,7 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
   
   geom.setHeight(contentRect.bottom() + 5 - topRect.top());
   geom.moveBottom(bottom);
-/*  kDebug() << "KateArgumentHintTree::updateGeometry: updating geometry to " << geom << endl;*/
+/*  kDebug() << "KateArgumentHintTree::updateGeometry: updating geometry to " << geom;*/
   setGeometry(geom);
   show();
   updatingGeometry = false;

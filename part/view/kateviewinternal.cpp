@@ -315,7 +315,7 @@ KTextEditor::Cursor KateViewInternal::endPos() const
   }
 
   Q_ASSERT(false);
-  kDebug(13030) << "WARNING: could not find a lineRange at all" << endl;
+  kDebug(13030) << "WARNING: could not find a lineRange at all";
   return KTextEditor::Cursor(-1, -1);
 }
 
@@ -615,10 +615,10 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
  */
 void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bool force, bool center, bool calledExternally)
 {
-  //kDebug(13030) << "MakeVisible start " << startPos() << " end " << endPos() << " -> request: " << c << endl;// , new start [" << scroll.line << "," << scroll.col << "] lines " << (linesDisplayed() - 1) << " height " << height() << endl;
+  //kDebug(13030) << "MakeVisible start " << startPos() << " end " << endPos() << " -> request: " << c;// , new start [" << scroll.line << "," << scroll.col << "] lines " << (linesDisplayed() - 1) << " height " << height() << endl;
     // if the line is in a folded region, unfold all the way up
     //if ( m_doc->foldingTree()->findNodeForLine( c.line )->visible )
-    //  kDebug(13030)<<"line ("<<c.line<<") should be visible"<<endl;
+    //  kDebug(13030)<<"line ("<<c.line<<") should be visible";
 
   if ( force )
   {
@@ -668,7 +668,7 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
 
 void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int)
 {
-  kDebug(13030) << "slotRegionVisibilityChangedAt()" << endl;
+  kDebug(13030) << "slotRegionVisibilityChangedAt()";
   m_cachedMaxStartPos.setLine(-1);
   KTextEditor::Cursor max = maxStartPos();
   if (startPos() > max)
@@ -686,7 +686,7 @@ void KateViewInternal::slotCodeFoldingChanged()
 
 void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int)
 {
-  kDebug(13030) << "slotRegionBeginEndAddedRemoved()" << endl;
+  kDebug(13030) << "slotRegionBeginEndAddedRemoved()";
   // FIXME: performance problem
   m_leftBorder->update();
 }
@@ -872,7 +872,7 @@ public:
   virtual CalculatingCursor& operator+=( int n ) {
     KateLineLayoutPtr thisLine = m_vi->cache()->line(line());
     if (!thisLine->isValid()) {
-      kWarning() << "Did not retrieve valid layout for line " << line() << endl;
+      kWarning() << "Did not retrieve valid layout for line " << line();
       return *this;
     }
 
@@ -935,7 +935,7 @@ public:
   virtual CalculatingCursor& operator+=( int n ) {
     KateLineLayoutPtr thisLine = m_vi->cache()->line(line());
     if (!thisLine->isValid()) {
-      kWarning() << "Did not retrieve a valid layout for line " << line() << endl;
+      kWarning() << "Did not retrieve a valid layout for line " << line();
       return *this;
     }
 
@@ -954,7 +954,7 @@ public:
           // Retrieve the next text range
           thisLine = m_vi->cache()->line(line());
           if (!thisLine->isValid()) {
-            kWarning() << "Did not retrieve a valid layout for line " << line() << endl;
+            kWarning() << "Did not retrieve a valid layout for line " << line();
             return *this;
           }
 
@@ -977,7 +977,7 @@ public:
           // Retrieve the next text range
           thisLine = m_vi->cache()->line(line());
           if (!thisLine->isValid()) {
-            kWarning() << "Did not retrieve a valid layout for line " << line() << endl;
+            kWarning() << "Did not retrieve a valid layout for line " << line();
             return *this;
           }
 
@@ -1840,8 +1840,8 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
   else
     m_currentMaxX = m_cursorX;
 
-  //kDebug(13030) << "m_currentMaxX: " << m_currentMaxX << " (was "<< oldmaxx << "), m_cursorX: " << m_cursorX << endl;
-  //kDebug(13030) << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << m_displayCursor.line << ", " << m_displayCursor.col << "; Top is " << startLine() << ", " << startPos().col <<  endl;
+  //kDebug(13030) << "m_currentMaxX: " << m_currentMaxX << " (was "<< oldmaxx << "), m_cursorX: " << m_cursorX;
+  //kDebug(13030) << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << m_displayCursor.line << ", " << m_displayCursor.col << "; Top is " << startLine() << ", " << startPos().col;
 
   cursorMoved();
 
@@ -1909,23 +1909,23 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
 {
   if (realCursors)
   {
-    //kDebug(13030)<<"realLines is true"<<endl;
+    //kDebug(13030)<<"realLines is true";
     start = toVirtualCursor(start);
     end = toVirtualCursor(end);
   }
 
   if (end.line() < startLine())
   {
-    //kDebug(13030)<<"end<startLine"<<endl;
+    //kDebug(13030)<<"end<startLine";
     return false;
   }
   if (start.line() > endLine())
   {
-    //kDebug(13030)<<"start> endLine"<<start<<" "<<((int)endLine())<<endl;
+    //kDebug(13030)<<"start> endLine"<<start<<" "<<((int)endLine());
     return false;
   }
 
-  //kDebug(13030) << "tagLines( [" << start << "], [" << end << "] )" << endl;
+  //kDebug(13030) << "tagLines( [" << start << "], [" << end << "] )";
 
   bool ret = false;
 
@@ -1936,7 +1936,7 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
         (line.virtualLine() < end.line() || (line.virtualLine() == end.line() && (line.startCol() <= end.column() || end.column() == -1)))) {
       ret = true;
       line.setDirty();
-      //kDebug(13030) << "Tagged line " << line.line() << endl;
+      //kDebug(13030) << "Tagged line " << line.line();
     }
   }
 
@@ -1981,7 +1981,7 @@ bool KateViewInternal::tagRange(const KTextEditor::Range& range, bool realCursor
 
 void KateViewInternal::tagAll()
 {
-  //kDebug(13030) << "tagAll()" << endl;
+  //kDebug(13030) << "tagAll()";
   for (int z = 0; z < cache()->viewCacheLineCount(); z++)
     cache()->viewLine(z).setDirty();
 
@@ -2664,7 +2664,7 @@ void KateViewInternal::updateDirty( )
     updateRegion += QRect(0, currentRectStart, width(), currentRectEnd);
 
   if (!updateRegion.isEmpty()) {
-    //kDebug() << "Requesting update to " << updateRegion.boundingRect() << endl;
+    //kDebug() << "Requesting update to " << updateRegion.boundingRect();
     update(updateRegion);
   }
 }
@@ -2710,7 +2710,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
     }
     else
     {
-      //kDebug()<<"KateViewInternal::paintEvent(QPaintEvent *e):cache()->viewLine"<<z<<endl;
+      //kDebug()<<"KateViewInternal::paintEvent(QPaintEvent *e):cache()->viewLine"<<z;
       KateTextLayout& thisLine = cache()->viewLine(z);
       thisLine.setDirty(false);
 
@@ -2828,7 +2828,7 @@ void KateViewInternal::textHintTimeout ()
 
   emit m_view->needTextHint(c, tmp);
 
-  if (!tmp.isEmpty()) kDebug(13030)<<"Hint text: "<<tmp<<endl;
+  if (!tmp.isEmpty()) kDebug(13030)<<"Hint text: "<<tmp;
 }
 
 void KateViewInternal::focusInEvent (QFocusEvent *)
@@ -3258,7 +3258,7 @@ void KateViewInternal::endDynamic( DynamicRangeHL* hl, KateSmartRange* range, KT
 
 void KateViewInternal::updateRange(KateSmartRange* range)
 {
-  //kDebug() << k_funcinfo << *range << endl;
+  //kDebug() << k_funcinfo << *range;
   tagRange(*range, true);
   updateDirty();
 }
@@ -3323,7 +3323,7 @@ void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool rea
   int startLine = realCursors ? range.start().line() : toRealCursor(range.start()).line();
   int endLine = realCursors ? range.end().line() : toRealCursor(range.end()).line();
  
-//   kDebug()<<"KateViewInternal::relayoutRange(): startLine:"<<startLine<<" endLine:"<<endLine<<endl;
+//   kDebug()<<"KateViewInternal::relayoutRange(): startLine:"<<startLine<<" endLine:"<<endLine;
   cache()->relayoutLines(startLine, endLine);
 
 #ifndef KTEXTEDITOR_NO_SMART_THREADSAFE

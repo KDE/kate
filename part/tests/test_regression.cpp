@@ -356,7 +356,7 @@ KJS::JSValue *OutputFunction::callAsFunction(KJS::ExecState *exec, KJS::JSObject
 
     RegressionTest::createMissingDirs(o->filename);
     QFile out(o->filename);
-//     kDebug() << "$$$$$$$$$ outfile " << o->filename << " changed " << *o->changed << endl;
+//     kDebug() << "$$$$$$$$$ outfile " << o->filename << " changed " << *o->changed;
     QFile::OpenMode mode = QFile::WriteOnly;
     mode |= *o->changed ? QFile::Append : QFile::Truncate;
     if (!out.open(mode)) {
@@ -906,8 +906,8 @@ static QString makeRelativePath(const QString &base, const QString &path)
 {
     QString absBase = QFileInfo(base).absoluteFilePath();
     QString absPath = QFileInfo(path).absoluteFilePath();
-//     kDebug() << "absPath: \"" << absolutePath << "\"" << endl;
-//     kDebug() << "absBase: \"" << absoluteBase << "\"" << endl;
+//     kDebug() << "absPath: \"" << absolutePath << "\"";
+//     kDebug() << "absBase: \"" << absoluteBase << "\"";
 
     // walk up to common ancestor directory
     int pos = 0;
@@ -917,16 +917,16 @@ static QString makeRelativePath(const QString &base, const QString &path)
         if (newpos == -1) newpos = absBase.length();
         QString cmpPathComp = QString::fromRawData(absPath.unicode() + pos, newpos - pos);
         QString cmpBaseComp = QString::fromRawData(absBase.unicode() + pos, newpos - pos);
-//         kDebug() << "cmpPathComp: \"" << cmpPathComp << "\"" << endl;
-//         kDebug() << "cmpBaseComp: \"" << cmpBaseComp << "\"" << endl;
-//         kDebug() << "pos: " << pos << " newpos: " << newpos << endl;
+//         kDebug() << "cmpPathComp: \"" << cmpPathComp << "\"";
+//         kDebug() << "cmpBaseComp: \"" << cmpBaseComp << "\"";
+//         kDebug() << "pos: " << pos << " newpos: " << newpos;
         if (cmpPathComp != cmpBaseComp) { pos--; break; }
         pos = newpos;
     } while (pos < (int)absBase.length() && pos < (int)absPath.length());
     int basepos = pos < (int)absBase.length() ? pos + 1 : pos;
     int pathpos = pos < (int)absPath.length() ? pos + 1 : pos;
 
-//     kDebug() << "basepos " << basepos << " pathpos " << pathpos << endl;
+//     kDebug() << "basepos " << basepos << " pathpos " << pathpos;
 
     QString rel;
     {
@@ -1123,7 +1123,7 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
     // inject commands
     for (QStringList::ConstIterator cit = commands.begin(); cit != commands.end(); ++cit) {
         QString str = (*cit).trimmed();
-        kDebug() << "command: " << str << endl;
+        kDebug() << "command: " << str;
         if (str.isEmpty() || str.startsWith("#")) continue;
         KTextEditor::Command *cmd = KateCmd::self()->queryCommand(str);
         if (cmd) {

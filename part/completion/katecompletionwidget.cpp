@@ -158,15 +158,15 @@ KateView * KateCompletionWidget::view( ) const
 void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTextEditor::CodeCompletionModel * model, KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
   if (!word.isValid()) {
-    kWarning(13035) << k_funcinfo << "Invalid range given to start code completion!" << endl;
+    kWarning(13035) << k_funcinfo << "Invalid range given to start code completion!";
     return;
   }
 
-  kDebug(13035) << k_funcinfo << word << " " << model << endl;
+  kDebug(13035) << k_funcinfo << word << " " << model;
 
   if (!m_filterInstalled) {
     if (!QApplication::activeWindow()) {
-      kWarning(13035) << k_funcinfo << "No active window to install event filter on!!" << endl;
+      kWarning(13035) << k_funcinfo << "No active window to install event filter on!!";
       return;
     }
     // Enable the cc box to move when the editor window is moved
@@ -196,7 +196,7 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
 
     foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels()) {
       model->completionInvoked(view(), word, invocationType);
-      kDebug(13035) << "CC Model Statistics: " << model << endl << "  Completions: " << model->rowCount(QModelIndex()) << endl;
+      kDebug(13035) << "CC Model Statistics: " << model << endl << "  Completions: " << model->rowCount(QModelIndex());
     }
 
     m_entryList->resizeColumns(false, true);
@@ -272,7 +272,7 @@ bool KateCompletionWidget::isCompletionActive( ) const
 
 void KateCompletionWidget::abortCompletion( )
 {
-  kDebug(13035) << k_funcinfo << endl;
+  kDebug(13035) << k_funcinfo;
 
   if (!isCompletionActive())
     return;
@@ -295,7 +295,7 @@ void KateCompletionWidget::clear() {
 
 void KateCompletionWidget::execute(bool shift)
 {
-  kDebug(13035) << k_funcinfo << endl;
+  kDebug(13035) << k_funcinfo;
 
   if (!isCompletionActive())
     return;
@@ -610,7 +610,7 @@ void KateCompletionWidget::editDone(KateEditInfo * edit)
     if (range.isValid())
       startCompletion(range, 0, KTextEditor::CodeCompletionModel::AutomaticInvocation);
     else
-      kWarning(13035) << k_funcinfo << "Completion range was invalid even though it was expected to be valid." << endl;
+      kWarning(13035) << k_funcinfo << "Completion range was invalid even though it was expected to be valid.";
   }
 }
 

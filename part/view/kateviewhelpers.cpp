@@ -477,11 +477,11 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
         m_command = KateCmd::self()->queryCommand( text().trimmed() );
         if ( m_command )
         {
-          //kDebug(13025)<<"keypress in commandline: We have a command! "<<m_command<<". text is '"<<text()<<"'"<<endl;
+          //kDebug(13025)<<"keypress in commandline: We have a command! "<<m_command<<". text is '"<<text()<<"'";
           // if the typed character is ":",
           // we try if the command has flag completions
           m_cmdend = cursorpos;
-          //kDebug(13025)<<"keypress in commandline: Set m_cmdend to "<<m_cmdend<<endl;
+          //kDebug(13025)<<"keypress in commandline: Set m_cmdend to "<<m_cmdend;
         }
         else
           m_cmdend = 0;
@@ -489,11 +489,11 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
     }
     else // since cursor is inside the command name, we reconsider it
     {
-      kDebug(13025)<<"keypress in commandline: \\W -- text is "<<text()<<endl;
+      kDebug(13025)<<"keypress in commandline: \\W -- text is "<<text();
       m_command = KateCmd::self()->queryCommand( text().trimmed() );
       if ( m_command )
       {
-        //kDebug(13025)<<"keypress in commandline: We have a command! "<<m_command<<endl;
+        //kDebug(13025)<<"keypress in commandline: We have a command! "<<m_command;
         QString t = text();
         m_cmdend = 0;
         bool b = false;
@@ -508,7 +508,7 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
         if ( c == ':' && cursorpos == m_cmdend )
         {
           // check if this command wants to complete flags
-          //kDebug(13025)<<"keypress in commandline: Checking if flag completion is desired!"<<endl;
+          //kDebug(13025)<<"keypress in commandline: Checking if flag completion is desired!";
         }
       }
       else
@@ -530,7 +530,7 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
     // if we got a command, check if it wants to do semething.
     if ( m_command )
     {
-      //kDebug(13025)<<"Checking for CommandExtension.."<<endl;
+      //kDebug(13025)<<"Checking for CommandExtension..";
       KTextEditor::CommandExtension *ce = dynamic_cast<KTextEditor::CommandExtension*>(m_command);
       if ( ce )
       {
@@ -540,7 +540,7 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
         // save the old completion object and use what the command provides
         // instead. We also need to prepend the current command name + flag string
         // when completion is done
-          //kDebug(13025)<<"keypress in commandline: Setting completion object!"<<endl;
+          //kDebug(13025)<<"keypress in commandline: Setting completion object!";
           if ( ! m_oldCompletionObject )
             m_oldCompletionObject = completionObject();
 
@@ -1163,20 +1163,20 @@ void KateIconBorder::mousePressEvent( QMouseEvent* e )
 }
 
 void KateIconBorder::showBlock(int line) {
-  //kDebug()<<"showBlock: 1"<<endl;
+  //kDebug()<<"showBlock: 1";
   if (line==m_lastBlockLine) return;
-  //kDebug()<<"showBlock: 2"<<endl;
+  //kDebug()<<"showBlock: 2";
   m_lastBlockLine=line;
   delete m_blockRange;
   m_blockRange=0;
   KateCodeFoldingTree *tree=m_doc->foldingTree();
   if (tree) {
-    //kDebug()<<"showBlock: 3"<<endl;
+    //kDebug()<<"showBlock: 3";
     KateCodeFoldingNode *node = tree->findNodeForLine(line);
     KTextEditor::Cursor beg;
     KTextEditor::Cursor end;
     if (node != tree->rootNode () && node->getBegin(tree,&beg) && node->getEnd(tree,&end)) {
-      kDebug()<<"BEGIN"<<beg<<"END"<<end<<endl;
+      kDebug()<<"BEGIN"<<beg<<"END"<<end;
       m_blockRange=m_doc->newSmartRange(KTextEditor::Range(beg,end));
       KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
       attr->setBackground(foldingColor(0,line,false));
@@ -1332,7 +1332,7 @@ void KateViewEncodingAction::slotAboutToShow()
   if (doc->scriptForEncodingAutoDetection()==KEncodingDetector::None)
   {
     if (!setCurrentCodec(doc->encoding()))
-      kWarning() << "KateViewEncodingAction: cannot set current "<<doc->encoding() << endl;
+      kWarning() << "KateViewEncodingAction: cannot set current "<<doc->encoding();
   }
   else
     setCurrentAutoDetectScript(doc->scriptForEncodingAutoDetection());
@@ -1352,7 +1352,7 @@ void KateViewEncodingAction::setScriptForEncodingAutoDetection (KEncodingDetecto
   {
     doc->setEncoding("");
 #ifdef DECODE_DEBUG
-    kWarning() << "KEncodingDetector::SemiautomaticDetection " <<doc->encoding() << endl;
+    kWarning() << "KEncodingDetector::SemiautomaticDetection " <<doc->encoding();
 #endif
   }
   else
@@ -1438,21 +1438,21 @@ void KateViewBar::addBarWidget (KateViewBarWidget *newBarWidget)
   // add new widget, invisible...
   m_stack->addWidget (newBarWidget);
 
-  kDebug(13025)<<"add barwidget " << newBarWidget <<endl;
+  kDebug(13025)<<"add barwidget " << newBarWidget;
 }
 
 void KateViewBar::showBarWidget (KateViewBarWidget *barWidget)
 {
   // raise correct widget
   m_stack->setCurrentWidget (barWidget);
-  kDebug(13025)<<"show barwidget " << barWidget <<endl;
+  kDebug(13025)<<"show barwidget " << barWidget;
   show ();
 }
 
 void KateViewBar::hideBarWidget ()
 {
   hide();
-  kDebug(13025)<<"hide barwidget"<<endl;
+  kDebug(13025)<<"hide barwidget";
 }
 
 void KateViewBar::keyPressEvent(QKeyEvent* event)

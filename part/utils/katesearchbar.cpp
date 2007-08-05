@@ -238,7 +238,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
       if (wholeWordsChecked)
       {
         enabledOptions |= KTextEditor::Search::WholeWords;
-        kDebug() << "doSearch | whole words only" << endl;
+        kDebug() << "doSearch | whole words only";
       }
 
       // escape sequences?    
@@ -247,7 +247,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
       if (escapeSequences)
       {
         enabledOptions |= KTextEditor::Search::EscapeSequences;
-        kDebug() << "doSearch | parse escapes" << endl;
+        kDebug() << "doSearch | parse escapes";
       }
     }
 
@@ -306,7 +306,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
     else
     {
       // whole document
-      kDebug() << "doSearch | whole document" << endl;
+      kDebug() << "doSearch | whole document";
 
       // is text selected?
       if (m_view->selection())
@@ -318,19 +318,19 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
           // prev/next was pressed -> exclude selection from input range
           if (backwards)
           {
-            kDebug() << "doSearch | searching [backwards] before [selected text]" << endl;
+            kDebug() << "doSearch | searching [backwards] before [selected text]";
             inputRange.setRange(d->startCursor, selRange.start());
           }
           else
           {
-            kDebug() << "doSearch | searching [forwards] after [selected text]" << endl;
+            kDebug() << "doSearch | searching [forwards] after [selected text]";
             inputRange.setRange(selRange.end(), m_view->doc()->documentEnd());
           }
         }
         else
         {
           // pattern has changed -> new search from original starting position
-          kDebug() << "doSearch | searching RESET" << endl;
+          kDebug() << "doSearch | searching RESET";
           inputRange.setRange(d->startCursor, m_view->doc()->documentEnd());
         }
       }
@@ -342,19 +342,19 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
           // also means there was no match after the starting point.
           // if the user hits "prev" now (that is why <backwards> is true here)
           // he probably wants to find a match before his original starting point.
-          kDebug() << "doSearch | searching [backwards] before [cursor]" << endl;
+          kDebug() << "doSearch | searching [backwards] before [cursor]";
           d->startCursor = KTextEditor::Cursor(0, 0);
           inputRange.setRange(d->startCursor, m_view->doc()->documentEnd());
         }
         else
         {
           // find first match from starting position on
-          kDebug() << "doSearch | searching [forwards] after [cursor]" << endl;
+          kDebug() << "doSearch | searching [forwards] after [cursor]";
           inputRange.setRange(d->startCursor, m_view->doc()->documentEnd());
         }
       }
     }
-    kDebug() << "doSearch | range is " << inputRange.start() << ".." << inputRange.end() << endl;
+    kDebug() << "doSearch | range is " << inputRange.start() << ".." << inputRange.end();
 
 
     // run engine
@@ -427,7 +427,7 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
             {
               another = false;
             }
-            //kDebug()<<"MATCH: "<<r<<endl;
+            //kDebug()<<"MATCH: "<<r;
           }
           else
           {
@@ -495,7 +495,7 @@ void KateSearchBar::slotSearch()
 
     if (d->expressionEdit->text().isEmpty())
     {
-        kDebug()<<"reset!!"<<endl;
+        kDebug()<<"reset!!";
         d->expressionEdit->setStatus(KateSearchBarEdit::Normal);
         d->searching = false;
     }

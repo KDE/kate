@@ -1575,7 +1575,7 @@ QString KateView::selectionAsHtml()
 
 QString KateView::textAsHtml ( KTextEditor::Range range, bool blockwise)
 {
-  kDebug(13020) << "textAsHtml" << endl;
+  kDebug(13020) << "textAsHtml";
   if (blockwise)
     blockFix(range);
 
@@ -1595,7 +1595,7 @@ QString KateView::textAsHtml ( KTextEditor::Range range, bool blockwise)
 
   ts << "</body>" << endl;
   ts << "</html>" << endl;
-  kDebug(13020) << "html is: " << s << endl;
+  kDebug(13020) << "html is: " << s;
   return s;
 }
 
@@ -2368,7 +2368,7 @@ QMenu * KateView::defaultContextMenu(QMenu* menu) const
     menu->addActions(popupwidget->actions());
 
   } else {
-    kDebug() << k_funcinfo << "no ktexteditor_popup container found; populating manually" << endl;
+    kDebug() << k_funcinfo << "no ktexteditor_popup container found; populating manually";
     menu->addAction(m_editUndo);
     menu->addAction(m_editRedo);
     menu->addSeparator();

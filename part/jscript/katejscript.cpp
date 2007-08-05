@@ -174,7 +174,7 @@ JSValue* KateJSGlobalFunctions::callAsFunction (KJS::ExecState *exec, KJS::JSObj
 {
   switch (id) {
     case Debug:
-      kDebug(13051) << args[0]->toString(exec).qstring() << endl;
+      kDebug(13051) << args[0]->toString(exec).qstring();
       return KJS::Undefined();
     default:
       break;
@@ -347,7 +347,7 @@ KateJSInterpreterContext::KateJSInterpreterContext (const QString &filename)
   // eval file, if any
   if (!filename.isEmpty())
   {
-    kDebug(13051) << "read script: " << filename << endl;
+    kDebug(13051) << "read script: " << filename;
 
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly)) {
@@ -1035,7 +1035,7 @@ JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec,
       return KJS::String( doc->variable(args[0]->toString(exec).qstring()) );
 
     default:
-      kDebug(13051) << "Document: Unknown function id: " << id << endl;
+      kDebug(13051) << "Document: Unknown function id: " << id;
   }
 
   return KJS::Undefined();
@@ -1070,7 +1070,7 @@ KJS::JSValue* KateJSDocument::getValueProperty(KJS::ExecState *exec, int token) 
       return KJS::Boolean( doc->config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn );
 
     default:
-      kDebug(13051) << "Document: Unknown property id: " << token << endl;
+      kDebug(13051) << "Document: Unknown property id: " << token;
   }
 
   return KJS::Undefined ();
@@ -1242,7 +1242,7 @@ JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec,
       //return KJS::Boolean( view->indent (args[0]->toInt32(exec), args[1]->toInt32(exec), args[2]->toUInt32(exec) )) );
 
     default:
-      kDebug(13051) << "View: Unknown function id: " << id << endl;
+      kDebug(13051) << "View: Unknown function id: " << id;
   }
 
   return KJS::Undefined();
@@ -1266,7 +1266,7 @@ KJS::JSValue* KateJSView::getValueProperty(KJS::ExecState *exec, int token) cons
 
   switch (token) {
     default:
-      kDebug(13051) << "View: Unknown property id: " << token << endl;
+      kDebug(13051) << "View: Unknown property id: " << token;
   }
 
   return KJS::Undefined ();
@@ -1331,7 +1331,7 @@ void KateJScriptManager::collectScripts (bool force)
       continue;
     }
 
-    kDebug (13050) << "add script: " << baseName << " - " << absPath << endl;
+    kDebug (13050) << "add script: " << baseName << " - " << absPath;
 
     KateJScriptManager::Script *s = new KateJScriptManager::Script ();
     s->basename = baseName;
@@ -1346,8 +1346,8 @@ void KateJScriptManager::collectScripts (bool force)
     s->type = it->pairs.value ("type");
     s->functions = it->pairs.value ("functions").split (' ', QString::SkipEmptyParts);
 
-    kDebug (13050) << "type: " << s->type << endl;
-    kDebug (13050) << "functions: " << s->functions << endl;
+    kDebug (13050) << "type: " << s->type;
+    kDebug (13050) << "functions: " << s->functions;
 
     foreach (QString fun, s->functions)
       m_function2Script.insert (fun, s);
@@ -1361,7 +1361,7 @@ void KateJScriptManager::collectScripts (bool force)
   QStringList indents = m_types.value ("indentation");
   for (int i = 0; i < indents.size(); ++i)
   {
-    kDebug (13050) << "add indent-script: " << indents[i] << endl;
+    kDebug (13050) << "add indent-script: " << indents[i];
 
     // construct and remember indentation script...
     KateIndentJScript *s = new KateIndentJScript(indents[i], m_scripts.value (indents[i]));
@@ -1515,12 +1515,12 @@ const QString &KateIndentJScript::triggerCharacters(KateView* view)
 
   m_triggerCharacters = m_script->interpreter()->globalObject()->get(exec, "triggerCharacters")->toString(exec).qstring();
   if (exec->hadException()) {
-    kDebug(13050) << "triggerCharacters: Unable to lookup 'indenter.triggerCharacters'" << endl;
+    kDebug(13050) << "triggerCharacters: Unable to lookup 'indenter.triggerCharacters'";
     exec->clearException();
     m_triggerCharacters = QString();
   }
 
-  kDebug () << "trigger chars: '" << m_triggerCharacters << "'" << endl;
+  kDebug () << "trigger chars: '" << m_triggerCharacters << "'";
 
   return m_triggerCharacters;
 }
@@ -1545,12 +1545,12 @@ int KateIndentJScript::indent(KateView* view,
                                    params, errorMsg);
 
   if (!val) {
-    kDebug(13050) << "KateIndentJScript::indent: callFunction(): " << errorMsg << endl;
+    kDebug(13050) << "KateIndentJScript::indent: callFunction(): " << errorMsg;
     return -2;
   }
 
   const int indentLevel = val->toInt32(m_script->interpreter()->globalExec());
-  kDebug() << "new indentation: " << indentLevel << endl;
+  kDebug() << "new indentation: " << indentLevel;
   return indentLevel;
 }
 //END KateIndentJScript
@@ -1570,15 +1570,15 @@ bool KateJScriptHelpers::parseScriptHeader(const QString& url,
 
   QFile file(QFile::encodeName(url));
   if (!file.open(QIODevice::ReadOnly)) {
-    kDebug(13050) << "Script parse error: Cannot open file " << url << endl;
+    kDebug(13050) << "Script parse error: Cannot open file " << url;
     return false;
   }
 
-  kDebug(13050) << "Update script: " << url << endl;
+  kDebug(13050) << "Update script: " << url;
   QTextStream ts(&file);
   ts.setCodec("UTF-8");
   if (!ts.readLine().contains("kate-script")) {
-    kDebug(13050) << "Script parse error: No header found in " << url << endl;
+    kDebug(13050) << "Script parse error: No header found in " << url;
     file.close();
     return false;
   }
@@ -1598,7 +1598,7 @@ bool KateJScriptHelpers::parseScriptHeader(const QString& url,
     QString value = line.right(line.length() - (colon + 1)).trimmed();
     scriptHeader.pairs[key] = value;
 
-    kDebug(13050) << "found pair: (" << key << " | " << value << ")" << endl;
+    kDebug(13050) << "found pair: (" << key << " | " << value << ")";
   }
   file.close();
   return true;

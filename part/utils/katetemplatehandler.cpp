@@ -154,7 +154,7 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
 {
 
   KateRendererConfig *config=m_doc->activeKateView()->renderer()->config();
-  kDebug(13020)<<config->templateEditablePlaceholderColor()<<config->templateBackgroundColor()<<config->templateFocusedEditablePlaceholderColor()<<config->templateNotEditablePlaceholderColor()<<endl;
+  kDebug(13020)<<config->templateEditablePlaceholderColor()<<config->templateBackgroundColor()<<config->templateFocusedEditablePlaceholderColor()<<config->templateNotEditablePlaceholderColor();
   //editable/master placeholder
 /*  KTextEditor::Attribute::Ptr attributeEditableElement(new KTextEditor::Attribute());
   attributeEditableElement->setBackground(QBrush(config->templateEditablePlaceholderColor(),Qt::Dense4Pattern));
@@ -193,7 +193,7 @@ void KateTemplateHandler::generateRangeTable( const KTextEditor::Cursor& insertP
   endC->advance(insertString.length());
   m_templateRange=m_doc->newSmartRange(KTextEditor::Range(insertPosition,*endC));
   connect(m_templateRange->primaryNotifier(),SIGNAL(rangeDeleted(KTextEditor::SmartRange*)),this,SLOT(slotRangeDeleted(KTextEditor::SmartRange*)));
-  kDebug(13020)<<insertPosition.line()<<"/"<<insertPosition.column()<<"--"<<endC->line()<<"/"<<endC->column()<<"++++"<<m_templateRange<<endl;
+  kDebug(13020)<<insertPosition.line()<<"/"<<insertPosition.column()<<"--"<<endC->line()<<"/"<<endC->column()<<"++++"<<m_templateRange;
   delete endC;
   m_templateRange->setAttribute(attributeTemplateBackground);
 
@@ -256,20 +256,20 @@ void KateTemplateHandler::slotTextInserted(KTextEditor::Document*, const KTextEd
 #ifdef __GNUC__
 #warning FIXME undo/redo detection
 #endif
-  kDebug(13020)<<"KateTemplateHandler::slotTextInserted *****"<<endl;
+  kDebug(13020)<<"KateTemplateHandler::slotTextInserted *****";
   if ( m_recursion ) return ;
-  kDebug(13020)<<"KateTemplateHandler::slotTextInserted: no recurssion"<<endl;
+  kDebug(13020)<<"KateTemplateHandler::slotTextInserted: no recurssion";
   //if (m_editSessionNumber!=0) return; // assume that this is due an udno/redo operation right now
   KTextEditor::Cursor cur=range.start();
 
-  kDebug(13020)<<cur.line()<<"/"<<cur.column()<<"---"<<m_currentRange->start().line()<<"/"<<m_currentRange->start().column()<<"+++"<<m_currentRange->end().line()<<"/"<<m_currentRange->end().column()<<endl;
+  kDebug(13020)<<cur.line()<<"/"<<cur.column()<<"---"<<m_currentRange->start().line()<<"/"<<m_currentRange->start().column()<<"+++"<<m_currentRange->end().line()<<"/"<<m_currentRange->end().column();
 
   if ( ( !m_currentRange ) ||
        ( ( !m_currentRange->contains( cur ) ) && ( ! ( ( m_currentRange->start() == m_currentRange->end() ) && m_currentRange->end() == cur ) )
        ) ) locateRange( cur );
 
   if ( !m_currentRange ) return ;
-  kDebug(13020)<<"KateTemplateHandler::slotTextInserted: m_currentRange is not null"<<endl;
+  kDebug(13020)<<"KateTemplateHandler::slotTextInserted: m_currentRange is not null";
 
   KateTemplatePlaceHolder *ph = m_tabOrder.at( m_currentTabStop );
 
@@ -277,7 +277,7 @@ void KateTemplateHandler::slotTextInserted(KTextEditor::Document*, const KTextEd
   m_doc->editStart( /*false*/ );
 
   QString sourceText = m_doc->text ( *m_currentRange );
-  kDebug(13020)<<"KateTemplateHandler::slotTextInserted:"<<ph->isReplacableSpace<<"--->"<<sourceText<<"<---"<<endl;
+  kDebug(13020)<<"KateTemplateHandler::slotTextInserted:"<<ph->isReplacableSpace<<"--->"<<sourceText<<"<---";
   if ( (sourceText.length()==0) || (ph->isReplacableSpace && (sourceText==" ")) ) {
     ph->isReplacableSpace = true;
     sourceText=QString(" ");
@@ -300,7 +300,7 @@ void KateTemplateHandler::slotTextInserted(KTextEditor::Document*, const KTextEd
     foreach ( KTextEditor::SmartRange* range, ph->ranges )
   {
     if ( range == m_currentRange ) continue;
-    kDebug(13020)<<"KateTemplateHandler::slotTextInserted: updating a range"<<endl;
+    kDebug(13020)<<"KateTemplateHandler::slotTextInserted: updating a range";
     KTextEditor::Cursor start = range->start();
     KTextEditor::Cursor end = range->end();
     //m_doc->removeText( start.line(), start.column(), end.line(), end.column(), false );
@@ -394,10 +394,10 @@ void KateTemplateHandler::slotAboutToRemoveText( const KTextEditor::Range& range
 
   if (m_currentRange) {
     KTextEditor::Cursor cur=range.start();
-    kDebug(13020)<<cur.line()<<"/"<<cur.column()<<"---"<<m_currentRange->start().line()<<"/"<<m_currentRange->start().column()<<"+++"<<m_currentRange->end().line()<<"/"<<m_currentRange->end().column()<<endl;
+    kDebug(13020)<<cur.line()<<"/"<<cur.column()<<"---"<<m_currentRange->start().line()<<"/"<<m_currentRange->start().column()<<"+++"<<m_currentRange->end().line()<<"/"<<m_currentRange->end().column();
   }
   if ( m_currentRange && ( !m_currentRange->contains( range.start() ) ) ) {
-    kDebug(13020)<<"KateTemplateHandler::slotAboutToRemoveText: about to locate range"<<endl;
+    kDebug(13020)<<"KateTemplateHandler::slotAboutToRemoveText: about to locate range";
     locateRange( range.start() );
   }
 
@@ -406,7 +406,7 @@ void KateTemplateHandler::slotAboutToRemoveText( const KTextEditor::Range& range
     if ( range.end() <= m_currentRange->end() ) return ;
   }
 
-  kDebug(13020)<<"KateTemplateHandler::slotAboutToRemoveText: disconnect & leave"<<endl;
+  kDebug(13020)<<"KateTemplateHandler::slotAboutToRemoveText: disconnect & leave";
   if ( m_doc )
   {
     disconnect( m_doc, SIGNAL( textInserted(KTextEditor::Document*, const KTextEditor::Range& ) ), this, SLOT( slotTextInserted(KTextEditor::Document*, const KTextEditor::Range& ) ) );

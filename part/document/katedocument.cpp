@@ -109,7 +109,7 @@ class KatePythonEncodingCheck: public LoadSaveFilterCheckPlugin {
     virtual ~KatePythonEncodingCheck(){}
     virtual bool preSavePostDialogFilterCheck(KTextEditor::Document *document)
     {
-      kDebug(13020)<<"KatePythonEncodingCheck::preSavePostDialogCheck"<<endl;
+      kDebug(13020)<<"KatePythonEncodingCheck::preSavePostDialogCheck";
       //QString codec=document->config()->codec()->name().toLower();
       QString codec=document->encoding().toLower();
       codec.replace(" ","-");
@@ -408,10 +408,10 @@ void KateDocument::disableAllPluginsGUI (KateView *view)
 
 void KateDocument::loadPlugin (uint pluginIndex)
 {
-  kDebug(13020)<<"loadPlugin (entered)"<<endl;
+  kDebug(13020)<<"loadPlugin (entered)";
   if (m_plugins[pluginIndex]) return;
 
-  kDebug(13020)<<"loadPlugin (loading plugin)"<<endl;
+  kDebug(13020)<<"loadPlugin (loading plugin)";
   m_plugins[pluginIndex] = KTextEditor::createPlugin (QFile::encodeName((KateGlobal::self()->plugins())[pluginIndex]->library()), this);
 
   // TODO: call Plugin::readConfig with right KConfig*
@@ -431,7 +431,7 @@ void KateDocument::unloadPlugin (uint pluginIndex)
 
 void KateDocument::enablePluginGUI (KTextEditor::Plugin *plugin, KateView *view)
 {
-  kDebug(13020)<<"KateDocument::enablePluginGUI(plugin,view):"<<"plugin"<<endl;
+  kDebug(13020)<<"KateDocument::enablePluginGUI(plugin,view):"<<"plugin";
   if (!plugin) return;
 
   KXMLGUIFactory *factory = view->factory();
@@ -446,7 +446,7 @@ void KateDocument::enablePluginGUI (KTextEditor::Plugin *plugin, KateView *view)
 
 void KateDocument::enablePluginGUI (KTextEditor::Plugin *plugin)
 {
-  kDebug(13020)<<"KateDocument::enablePluginGUI(plugin):"<<"plugin"<<endl;
+  kDebug(13020)<<"KateDocument::enablePluginGUI(plugin):"<<"plugin";
   if (!plugin) return;
 
   foreach(KateView *view,m_views)
@@ -1224,13 +1224,13 @@ bool KateDocument::wrapText(int startLine, int endLine)
     if (!l)
       return false;
 
-    kDebug (13020) << "try wrap line: " << line << endl;
+    kDebug (13020) << "try wrap line: " << line;
 
     if (l->virtualLength(m_buffer->tabWidth()) > col)
     {
       KateTextLine::Ptr nextl = m_buffer->line(line+1);
 
-      kDebug (13020) << "do wrap line: " << line << endl;
+      kDebug (13020) << "do wrap line: " << line;
 
       int eolPosition = l->length()-1;
 
@@ -1798,7 +1798,7 @@ void KateDocument::updateModified()
     if ( currentPattern == patterns[patternIndex] )
     {
       setModified( false );
-      kDebug(13020) << k_funcinfo << "setting modified to false!" << endl;
+      kDebug(13020) << k_funcinfo << "setting modified to false!";
       break;
     }
   }
@@ -1840,7 +1840,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
   const QString sep("\n");
   const QStringList needleLines = text.split(sep);
   const int numNeedleLines = needleLines.count();
-  kDebug() << "searchText | needle has " << numNeedleLines << " lines" << endl;
+  kDebug() << "searchText | needle has " << numNeedleLines << " lines";
 
   if (numNeedleLines > 1)
   {
@@ -1865,7 +1865,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
         return KTextEditor::Range::invalid();
 
       hayLinesWindow.append (textLine);
-      kDebug() << "searchText | hayLinesWindow[" << i << "] = \"" << hayLinesWindow[i]->string() << "\"" << endl;
+      kDebug() << "searchText | hayLinesWindow[" << i << "] = \"" << hayLinesWindow[i]->string() << "\"";
     }
 
     for (int j = forInit; (forMin <= j) && (j <= forMax); j += forInc)
@@ -1877,7 +1877,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
         // which lines to compare
         const QString & needleLine = needleLines[k];
         KateTextLine::Ptr & hayLine = hayLinesWindow[(k + hayLinesZeroIndex) % numNeedleLines];
-        kDebug() << "searchText | hayLine = \"" << hayLine->string() << "\"" << endl;
+        kDebug() << "searchText | hayLine = \"" << hayLine->string() << "\"";
 
         // position specific comparison (first, middle, last)
         if (k == 0) {
@@ -1893,10 +1893,10 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
             const bool matches = hayLine->searchText(colOffset, hayLine->length(),needleLine, &startCol,
               &myMatchLen, casesensitive, false);
             if (!matches || (startCol + myMatchLen != static_cast<uint>(hayLine->length()))) {
-              // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no" << endl;
+              // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no";
               break;
             }
-            // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": yes" << endl;
+            // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": yes";
           }
         } else if (k == numNeedleLines - 1) {
           // last line
@@ -1905,19 +1905,19 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
           if (matches && (foundAt == 0) && !((k == lastLine)
               && (static_cast<uint>(foundAt + myMatchLen) > maxRight))) // full match!
           {
-            kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": yes" << endl;
+            kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": yes";
             return KTextEditor::Range(j, startCol, j + k, needleLine.length());
           }
-          // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no" << endl;
+          // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no";
         } else {
           // mid lines
           uint foundAt, myMatchLen;
           const bool matches = hayLine->searchText(0, hayLine->length(),needleLine, &foundAt, &myMatchLen, casesensitive, false);
           if (!matches || (foundAt != 0) || (myMatchLen != static_cast<uint>(needleLine.length()))) {
-            // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no" << endl;
+            // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no";
             break;
           }
-          // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": yes" << endl;
+          // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": yes";
         }
       }
 
@@ -1967,23 +1967,23 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
       KateTextLine::Ptr textLine = m_buffer->plainLine(j);
       if (!textLine)
       {
-        // kDebug() << "searchText | line " << j << ": no" << endl;
+        // kDebug() << "searchText | line " << j << ": no";
         return KTextEditor::Range::invalid();
       }
 
       const int offset = (j == forMin) ? minLeft : 0;
       const int line_end= (j==forMax) ? maxRight : textLine->length();
       uint foundAt, myMatchLen;
-      //kDebug() << "searchText | searching in line line: " << j << endl;
+      //kDebug() << "searchText | searching in line line: " << j;
       const bool found = textLine->searchText (offset,line_end, text, &foundAt, &myMatchLen, casesensitive, backwards);
       if (found && !((j == forMax) && (static_cast<uint>(foundAt + myMatchLen) > maxRight)))
       {
-        //kDebug() << "searchText | line " << j << ": yes" << endl;
+        //kDebug() << "searchText | line " << j << ": yes";
         return KTextEditor::Range(j, foundAt, j, foundAt + myMatchLen);
       }
       else
       {
-        // kDebug() << "searchText | line " << j << ": no" << endl;
+        // kDebug() << "searchText | line " << j << ": no";
       }
     }
   }
@@ -2043,7 +2043,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
     // multi-line regex search (both forward and backward mode)
     QString wholeDocument;
     const int inputLineCount = inputRange.end().line() - inputRange.start().line() + 1;
-    kDebug() << "searchText/regex | multi line " << firstLineIndex << ".." << firstLineIndex + inputLineCount - 1 << endl;
+    kDebug() << "searchText/regex | multi line " << firstLineIndex << ".." << firstLineIndex + inputLineCount - 1;
 
     // nothing to do...
     if (firstLineIndex >= m_buffer->lines())
@@ -2068,7 +2068,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
     const int firstLineLen = firstLineText.length() - minColStart;
     wholeDocument.append(firstLineText.right(firstLineLen));
     lineLens[0] = firstLineLen;
-    kDebug() << "searchText/regex | line " << 0 << " len " << lineLens[0] << endl;
+    kDebug() << "searchText/regex | line " << 0 << " len " << lineLens[0];
 
     // second line and after
     const QString sep("\n");
@@ -2091,7 +2091,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
       wholeDocument.append(sep);
       wholeDocument.append(text);
       lineLens[i] = text.length();
-      kDebug() << "searchText/regex | line " << i << " len " << lineLens[i] << endl;
+      kDebug() << "searchText/regex | line " << i << " len " << lineLens[i];
     }
 
     // apply modified pattern
@@ -2101,7 +2101,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
     if (pos == -1)
     {
       // no match
-      kDebug() << "searchText/regex | not found" << endl;
+      kDebug() << "searchText/regex | not found";
       {
         QVector<KTextEditor::Range> result;
         result.append(KTextEditor::Range::invalid());
@@ -2109,7 +2109,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
       }
     }
     const int matchLen = regexp.matchedLength();
-    kDebug() << "searchText/regex | found (pos " << pos << ", len " << matchLen << ")" << endl;
+    kDebug() << "searchText/regex | found (pos " << pos << ", len " << matchLen << ")";
 
 
     // save opening and closing indices and build
@@ -2127,14 +2127,14 @@ QVector<KTextEditor::Range> KateDocument::searchText(
         // empty capture gives invalid
         pair.openIndex = -1;
         pair.closeIndex = -1;
-kDebug() << "searchText/regex | capture []" << endl;
+kDebug() << "searchText/regex | capture []";
       }
       else
       {
         const int closeIndex = openIndex + regexp.cap(z).length();
         pair.openIndex = openIndex;
         pair.closeIndex = closeIndex;
-kDebug() << "searchText/regex | capture [" << pair.openIndex << ".." << pair.closeIndex << "]" << endl;
+kDebug() << "searchText/regex | capture [" << pair.openIndex << ".." << pair.closeIndex << "]";
 
         // each key no more than once
         if (!indicesToCursors.contains(openIndex))
@@ -2142,14 +2142,14 @@ kDebug() << "searchText/regex | capture [" << pair.openIndex << ".." << pair.clo
           TwoViewCursor * twoViewCursor = new TwoViewCursor;
           twoViewCursor->index = openIndex;
           indicesToCursors.insert(openIndex, twoViewCursor);
-kDebug() << "searchText/regex | index added: " << openIndex << endl;
+kDebug() << "searchText/regex | index added: " << openIndex;
         }
         if (!indicesToCursors.contains(closeIndex))
         {
           TwoViewCursor * twoViewCursor = new TwoViewCursor;
           twoViewCursor->index = closeIndex;
           indicesToCursors.insert(closeIndex, twoViewCursor);
-kDebug() << "searchText/regex | index added: " << closeIndex << endl;
+kDebug() << "searchText/regex | index added: " << closeIndex;
         }
       }
     }
@@ -2166,14 +2166,14 @@ kDebug() << "searchText/regex | index added: " << closeIndex << endl;
       TwoViewCursor & twoViewCursor = *(*iter);
       while (curRelIndex <= index)
       {
-kDebug() << "searchText/regex | walk pos (" << curRelLine << "," << curRelCol << ")=" << curRelIndex << " to go " << index - curRelIndex << endl;
+kDebug() << "searchText/regex | walk pos (" << curRelLine << "," << curRelCol << ")=" << curRelIndex << " to go " << index - curRelIndex;
         const int curRelLineLen = lineLens[curRelLine];
         const int curLineRemainder = curRelLineLen - curRelCol; // TODO
         const int lineFeedIndex = curRelIndex + curLineRemainder;
         if (index < lineFeedIndex)
         {
           // on this line _before_ line feed
-kDebug() << "searchText/regex | before line feed" << endl;
+kDebug() << "searchText/regex | before line feed";
           const int diff = (index - curRelIndex);
           const int absLine = curRelLine + firstLineIndex;
           const int absCol = ((curRelLine == 0) ? minColStart : 0) + curRelCol + diff;
@@ -2188,7 +2188,7 @@ kDebug() << "searchText/regex | before line feed" << endl;
         else if (index == lineFeedIndex)
         {
           // on this line _on_ line feed
-kDebug() << "searchText/regex | on line feed" << endl;
+kDebug() << "searchText/regex | on line feed";
           const int absLine = curRelLine + firstLineIndex;
           twoViewCursor.openLine = absLine + 1;
           twoViewCursor.openCol = 0;
@@ -2205,7 +2205,7 @@ kDebug() << "searchText/regex | on line feed" << endl;
         {
           // not on this line
           // advance to next line
-kDebug() << "searchText/regex | not on this line" << endl;
+kDebug() << "searchText/regex | not on this line";
           const int advance = curLineRemainder + 1;
           curRelLine++;
           curRelCol = 0;
@@ -2233,7 +2233,7 @@ kDebug() << "searchText/regex | not on this line" << endl;
         const int startCol = openCursors->openCol;
         const int endLine = closeCursors->closeLine;
         const int endCol = closeCursors->closeCol;
-kDebug() << "searchText/regex | range " << y << ": (" << startLine << ", " << startCol << ")..(" << endLine << ", " << endCol << ")" << endl;
+kDebug() << "searchText/regex | range " << y << ": (" << startLine << ", " << startCol << ")..(" << endLine << ", " << endCol << ")";
         result[y] = KTextEditor::Range(startLine, startCol, endLine, endCol);
       }
     }
@@ -2264,7 +2264,7 @@ kDebug() << "searchText/regex | range " << y << ": (" << startLine << ", " << st
       KateTextLine::Ptr textLine = m_buffer->plainLine(j);
       if (!textLine)
       {
-        // kDebug() << "searchText | line " << j << ": no" << endl;
+        // kDebug() << "searchText | line " << j << ": no";
         QVector<KTextEditor::Range> result;
         result.append(KTextEditor::Range::invalid());
         return result;
@@ -2293,25 +2293,25 @@ kDebug() << "searchText/regex | range " << y << ": (" << startLine << ", " << st
 
       if (found && !((j == forMax) && (static_cast<uint>(foundAt + myMatchLen) > maxRight)))
       {
-        kDebug() << "searchText | line " << j << ": yes" << endl;
+        kDebug() << "searchText | line " << j << ": yes";
 
         // build result array
         const int numCaptures = regexp.numCaptures();
         QVector<KTextEditor::Range> result(1 + numCaptures);
         result[0] = KTextEditor::Range(j, foundAt, j, foundAt + myMatchLen);
-kDebug() << "searchText/regex | range " << 0 << ": (" << j << ", " << foundAt << ")..(" << j << ", " << foundAt + myMatchLen << ")" << endl;
+kDebug() << "searchText/regex | range " << 0 << ": (" << j << ", " << foundAt << ")..(" << j << ", " << foundAt + myMatchLen << ")";
         for (int y = 1; y <= numCaptures; y++)
         {
           const int openIndex = regexp.pos(y);
           if (openIndex == -1)
           {
             result[y] = KTextEditor::Range::invalid();
-kDebug() << "searchText/regex | capture []" << endl;
+kDebug() << "searchText/regex | capture []";
           }
           else
           {
             const int closeIndex = openIndex + regexp.cap(y).length();
-kDebug() << "searchText/regex | range " << y << ": (" << j << ", " << openIndex << ")..(" << j << ", " << closeIndex << ")" << endl;
+kDebug() << "searchText/regex | range " << y << ": (" << j << ", " << openIndex << ")..(" << j << ", " << closeIndex << ")";
             result[y] = KTextEditor::Range(j, openIndex, j, closeIndex);
           }
         }
@@ -2319,7 +2319,7 @@ kDebug() << "searchText/regex | range " << y << ": (" << j << ", " << openIndex 
       }
       else
       {
-        // kDebug() << "searchText | line " << j << ": no" << endl;
+        // kDebug() << "searchText | line " << j << ": no";
       }
     }
   }
@@ -3447,8 +3447,8 @@ bool KateDocument::saveFile()
     KUrl u( url() );
     u.setFileName( config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
 
-    kDebug () << "backup src file name: " << url() << endl;
-    kDebug () << "backup dst file name: " << u << endl;
+    kDebug () << "backup src file name: " << url();
+    kDebug () << "backup dst file name: " << u;
 
     // handle the backup...
     bool backupSuccess = false;
@@ -3478,7 +3478,7 @@ bool KateDocument::saveFile()
       KIO::UDSEntry fentry;
       if (KIO::NetAccess::stat (url(), fentry, kapp->activeWindow()))
       {
-        kDebug () << "stating succesfull: " << url() << endl;
+        kDebug () << "stating succesfull: " << url();
         KFileItem item (fentry, url());
         perms = item.permissions();
 
@@ -3585,7 +3585,7 @@ void KateDocument::readDirConfig ()
     // only search as deep as specified or not at all ;)
     while (depth > -1)
     {
-      kDebug (13020) << "search for config file in path: " << currentDir << endl;
+      kDebug (13020) << "search for config file in path: " << currentDir;
 
       // try to open config file in this dir
       QFile f (currentDir + "/.kateconfig");
@@ -4586,7 +4586,7 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
 
   if ( ! highlight()->canComment( startAttrib, endAttrib ) )
   {
-    kDebug(13020)<<"canComment( "<<startAttrib<<", "<<endAttrib<<" ) returned false!"<<endl;
+    kDebug(13020)<<"canComment( "<<startAttrib<<", "<<endAttrib<<" ) returned false!";
     return;
   }
 
@@ -4633,22 +4633,22 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
         || ( hasStartStopCommentMark
              && removeStartStopCommentFromSingleLine( line, startAttrib ) );
       if ((!removed) && foldingTree()) {
-        kDebug(13020)<<"easy approach for uncommenting did not work, trying harder (folding tree)"<<endl;
+        kDebug(13020)<<"easy approach for uncommenting did not work, trying harder (folding tree)";
         int commentRegion=(highlight()->commentRegion(startAttrib));
         if (commentRegion){
            KateCodeFoldingNode *n=foldingTree()->findNodeForPosition(line,column);
            if (n) {
             KTextEditor::Cursor start,end;
             if ((n->nodeType()==(int)commentRegion) && n->getBegin(foldingTree(), &start) && n->getEnd(foldingTree(), &end)) {
-                kDebug(13020)<<"Enclosing region found:"<<start.column()<<"/"<<start.line()<<"-"<<end.column()<<"/"<<end.line()<<endl;
+                kDebug(13020)<<"Enclosing region found:"<<start.column()<<"/"<<start.line()<<"-"<<end.column()<<"/"<<end.line();
                 removeStartStopCommentFromRegion(start,end,startAttrib);
              } else {
-                  kDebug(13020)<<"Enclosing region found, but not valid"<<endl;
-                  kDebug(13020)<<"Region found: "<<n->nodeType()<<" region needed: "<<commentRegion<<endl;
+                  kDebug(13020)<<"Enclosing region found, but not valid";
+                  kDebug(13020)<<"Region found: "<<n->nodeType()<<" region needed: "<<commentRegion;
              }
             //perhaps nested regions should be hadled here too...
-          } else kDebug(13020)<<"No enclosing region found"<<endl;
-        } else kDebug(13020)<<"No comment region specified for current hl"<<endl;
+          } else kDebug(13020)<<"No enclosing region found";
+        } else kDebug(13020)<<"No comment region specified for current hl";
       }
     }
     else
@@ -5051,7 +5051,7 @@ void KateDocument::slotModifiedOnDisk( KTextEditor::View * /*v*/ )
         KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
             url().url(),QString(),widget(),i18n("Save File"));
 
-        kDebug(13020)<<"got "<<res.URLs.count()<<" URLs"<<endl;
+        kDebug(13020)<<"got "<<res.URLs.count()<<" URLs";
         if( ! res.URLs.isEmpty() && ! res.URLs.first().isEmpty() && checkOverwrite( res.URLs.first() ) )
         {
           setEncoding( res.encoding );
@@ -5369,7 +5369,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
   {
     s = kvLine.cap(1);
 
-    kDebug (13020) << "normal variable line kate: matched: " << s << endl;
+    kDebug (13020) << "normal variable line kate: matched: " << s;
   }
   else if (kvLineWildcard.indexIn( t ) > -1) // regex given
   {
@@ -5390,7 +5390,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
 
     s = kvLineWildcard.cap(2);
 
-    kDebug (13020) << "guarded variable line kate-wildcard: matched: " << s << endl;
+    kDebug (13020) << "guarded variable line kate-wildcard: matched: " << s;
   }
   else if (kvLineMime.indexIn( t ) > -1) // mime-type given
   {
@@ -5402,7 +5402,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
 
     s = kvLineMime.cap(2);
 
-    kDebug (13020) << "guarded variable line kate-mimetype: matched: " << s << endl;
+    kDebug (13020) << "guarded variable line kate-mimetype: matched: " << s;
   }
   else // nothing found
   {

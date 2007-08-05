@@ -464,7 +464,7 @@ void DocWordCompletionPluginView::complete( bool fw )
           */
   if ( r.start() == d->dcRange.start() && r.end() >= d->dcRange.end() )
   {
-    //kDebug()<<"CONTINUE "<<d->dcRange<<endl;
+    //kDebug()<<"CONTINUE "<<d->dcRange;
     // this is a repeted activation
 
     // if we are back to where we started, reset.
@@ -488,7 +488,7 @@ void DocWordCompletionPluginView::complete( bool fw )
   }
   else // new completion, reset all
   {
-    //kDebug()<<"RESET FOR NEW"<<endl;
+    //kDebug()<<"RESET FOR NEW";
     d->dcRange = r;
     d->liRange->setRange( KTextEditor::Range( r.end(), 0 ) );
     d->dcCursor = r.start();
@@ -501,14 +501,14 @@ void DocWordCompletionPluginView::complete( bool fw )
 
   while ( true )
   {
-    //kDebug()<<"SEARCHING FOR "<<d->re.pattern()<<" "<<ln<<" at "<<d->dcCursor<<endl;
+    //kDebug()<<"SEARCHING FOR "<<d->re.pattern()<<" "<<ln<<" at "<<d->dcCursor;
     pos = fw ?
       d->re.indexIn( ln, d->dcCursor.column() ) :
       d->re.lastIndexIn( ln, d->dcCursor.column() );
 
     if ( pos > -1 ) // we matched a word
     {
-      //kDebug()<<"USABLE MATCH"<<endl;
+      //kDebug()<<"USABLE MATCH";
       QString m = d->re.cap( 1 );
       if ( m != doc->text( *d->liRange ) )
       {
@@ -524,7 +524,7 @@ void DocWordCompletionPluginView::complete( bool fw )
       // equal to last one, continue
       else
       {
-        //kDebug()<<"SKIPPING, EQUAL MATCH"<<endl;
+        //kDebug()<<"SKIPPING, EQUAL MATCH";
         d->dcCursor.setColumn( pos ); // for next try
 
         if ( fw )
@@ -555,7 +555,7 @@ void DocWordCompletionPluginView::complete( bool fw )
 
     else  // no match
     {
-      //kDebug()<<"NO MATCH"<<endl;
+      //kDebug()<<"NO MATCH";
       if ( (! fw && d->dcCursor.line() == 0 ) || ( fw && d->dcCursor.line() >= doc->lines() ) )
       {
         KNotification::beep();

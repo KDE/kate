@@ -54,7 +54,7 @@ KateHlItem::KateHlItem(int attribute, KateHlContextModification context,signed c
 
 KateHlItem::~KateHlItem()
 {
-  //kDebug(13010)<<"In hlItem::~KateHlItem()"<<endl;
+  //kDebug(13010)<<"In hlItem::~KateHlItem()";
   for (int i=0; i < subItems.size(); i++)
     delete subItems[i];
 }
@@ -606,7 +606,7 @@ KateHlItem *KateHlRegExpr::clone(const QStringList *args)
   if (regexp == _regexp)
     return this;
 
-  // kDebug (13010) << "clone regexp: " << regexp << endl;
+  // kDebug (13010) << "clone regexp: " << regexp;
 
   KateHlRegExpr *ret = new KateHlRegExpr(attr, ctx, region, region2, regexp, _insensitive, _minimal);
   ret->dynamicChild = true;
@@ -762,7 +762,7 @@ KateHlContext::KateHlContext (const QString &_hlId, int attribute, KateHlContext
   dynamic = _dynamic;
   dynamicChild = false;
   noIndentationBasedFolding=_noIndentationBasedFolding;
-  if (_noIndentationBasedFolding) kDebug(13010)<<QString("**********************_noIndentationBasedFolding is TRUE*****************")<<endl;
+  if (_noIndentationBasedFolding) kDebug(13010)<<QString("**********************_noIndentationBasedFolding is TRUE*****************");
 
 }
 

@@ -209,7 +209,7 @@ KateSyntaxContextData* KateSyntaxDocument::getSubItems(KateSyntaxContextData* da
 
 bool KateSyntaxDocument::getElement (QDomElement &element, const QString &mainGroupName, const QString &config)
 {
-  kDebug(13010) << "Looking for \"" << mainGroupName << "\" -> \"" << config << "\"." << endl;
+  kDebug(13010) << "Looking for \"" << mainGroupName << "\" -> \"" << config << "\".";
 
   QDomNodeList nodes = documentElement().childNodes();
 
@@ -234,12 +234,12 @@ bool KateSyntaxDocument::getElement (QDomElement &element, const QString &mainGr
         }
       }
 
-      kDebug(13010) << "WARNING: \""<< config <<"\" wasn't found!" << endl;
+      kDebug(13010) << "WARNING: \""<< config <<"\" wasn't found!";
       return false;
     }
   }
 
-  kDebug(13010) << "WARNING: \""<< mainGroupName <<"\" wasn't found!" << endl;
+  kDebug(13010) << "WARNING: \""<< mainGroupName <<"\" wasn't found!";
   return false;
 }
 
@@ -280,7 +280,7 @@ KateSyntaxContextData* KateSyntaxDocument::getGroupInfo(const QString& mainGroup
  */
 QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QString& type, bool clearList)
 {
-  kDebug(13010)<<"Create a list of keywords \""<<type<<"\" from \""<<mainGroup<<"\"."<<endl;
+  kDebug(13010)<<"Create a list of keywords \""<<type<<"\" from \""<<mainGroup<<"\".";
   if (clearList)
     m_data.clear();
 
@@ -289,14 +289,14 @@ QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QStrin
     QDomElement elem = node.toElement();
     if (elem.tagName() == mainGroup)
     {
-      kDebug(13010)<<"\""<<mainGroup<<"\" found."<<endl;
+      kDebug(13010)<<"\""<<mainGroup<<"\" found.";
       QDomNodeList nodelist1 = elem.elementsByTagName("list");
 
       for (int l=0; l<nodelist1.count(); l++)
       {
         if (nodelist1.item(l).toElement().attribute("name") == type)
         {
-          kDebug(13010)<<"List with attribute name=\""<<type<<"\" found."<<endl;
+          kDebug(13010)<<"List with attribute name=\""<<type<<"\" found.";
           QDomNodeList childlist = nodelist1.item(l).toElement().childNodes();
 
           for (int i=0; i<childlist.count(); i++)
@@ -307,11 +307,11 @@ QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QStrin
 #ifndef NDEBUG
             if (i<6)
             {
-              kDebug(13010)<<"\""<<element<<"\" added to the list \""<<type<<"\""<<endl;
+              kDebug(13010)<<"\""<<element<<"\" added to the list \""<<type<<"\"";
             }
             else if(i==6)
             {
-              kDebug(13010)<<"... The list continues ..."<<endl;
+              kDebug(13010)<<"... The list continues ...";
             }
 #endif
             m_data += element;
@@ -337,7 +337,7 @@ void KateSyntaxDocument::setupModeList (bool force)
   struct timeval time_end;
 
   gettimeofday(&time_start,0);
-//  kDebug()<<"setupModeList-time-enter:"<<time(0)<<endl;
+//  kDebug()<<"setupModeList-time-enter:"<<time(0);
   // If there's something in myModeList the Mode List was already built so, don't do it again
   if (!myModeList.isEmpty())
     return;
@@ -392,7 +392,7 @@ void KateSyntaxDocument::setupModeList (bool force)
     }
     else
     {
-      kDebug (13010) << "UPDATE hl cache for: " << *it << endl;
+      kDebug (13010) << "UPDATE hl cache for: " << *it;
 
       // We're forced to read the xml files or the mode doesn't exist in the katesyntax...rc
       QFile f(*it);
@@ -478,10 +478,10 @@ void KateSyntaxDocument::setupModeList (bool force)
 
   // Syncronize with the file katesyntax...rc
   config.sync();
-//  kDebug()<<"setupModeList-time-leave:"<<time(0)<<endl;
+//  kDebug()<<"setupModeList-time-leave:"<<time(0);
   gettimeofday(&time_end,0);
-  kDebug()<<"time-start:"<<time_start.tv_sec % 60<<";;"<<time_start.tv_usec<<endl;
-  kDebug()<<"time-end:"<<time_end.tv_sec % 60<<";;"<<time_end.tv_usec<<endl;
+  kDebug()<<"time-start:"<<time_start.tv_sec % 60<<";;"<<time_start.tv_usec;
+  kDebug()<<"time-end:"<<time_end.tv_sec % 60<<";;"<<time_end.tv_usec;
 
 }
 

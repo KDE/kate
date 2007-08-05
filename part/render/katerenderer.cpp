@@ -411,7 +411,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 {
   Q_ASSERT(range->isValid());
 
-//   kDebug()<<"KateRenderer::paintTextLine"<<endl;
+//   kDebug()<<"KateRenderer::paintTextLine";
 
   // font data
   const QFontMetrics& fm = config()->fontMetrics();
@@ -508,9 +508,9 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         // Draw text background outside of areas where text is rendered.
         QRect area(line.endX() /*+ line.xOffset()*/ - line.startX() +  (i==0?0:range->shiftX()) - xStart/*-(i*xEnd)*/, fm.height() * i, xEnd - xStart, fm.height() /** (i + 1)*/);
         paint.fillRect(area, /*QBrush(Qt::red));*/backgroundBrush);
-//         kDebug()<<i<<":backgroundBrush:"<<backgroundBrush<<"---"<<xEnd<<"/"<<xStart<<endl;
-//         kDebug()<<line.endX()<<"---"<<line.xOffset()<<endl;
-         kDebug()<<i<<"----"<<area<<endl;
+//         kDebug()<<i<<":backgroundBrush:"<<backgroundBrush<<"---"<<xEnd<<"/"<<xStart;
+//         kDebug()<<line.endX()<<"---"<<line.xOffset();
+         kDebug()<<i<<"----"<<area;
       }
 
       // Draw indent lines

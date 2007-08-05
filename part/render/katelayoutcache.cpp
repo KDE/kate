@@ -39,7 +39,7 @@ KateLayoutCache::KateLayoutCache(KateRenderer* renderer)
 
 void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int newViewLineCount, int viewLinesScrolled)
 {
-  //kDebug() << k_funcinfo << startPos << " nvlc " << newViewLineCount << " vls " << viewLinesScrolled << endl;
+  //kDebug() << k_funcinfo << startPos << " nvlc " << newViewLineCount << " vls " << viewLinesScrolled;
 
   int oldViewLineCount = m_textLayouts.count();
   if (newViewLineCount == -1)
@@ -128,7 +128,7 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
       m_textLayouts.append(l->viewLine(_viewLine));
     }
 
-    //kDebug() << k_funcinfo << "Laid out line " << realLine << " (" << l << "), viewLine " << _viewLine << " (" << m_textLayouts[i].kateLineLayout().data() << ")" << endl;
+    //kDebug() << k_funcinfo << "Laid out line " << realLine << " (" << l << "), viewLine " << _viewLine << " (" << m_textLayouts[i].kateLineLayout().data() << ")";
     //m_textLayouts[i].debugOutput();
 
     _viewLine++;
@@ -309,13 +309,13 @@ int KateLayoutCache::viewLineCount(int realLine) const
 
 void KateLayoutCache::viewCacheDebugOutput( ) const
 {
-  kDebug() << k_funcinfo << "Printing values for " << m_textLayouts.count() << " lines:" << endl;
+  kDebug() << k_funcinfo << "Printing values for " << m_textLayouts.count() << " lines:";
   if (m_textLayouts.count())
   foreach (const KateTextLayout& t, m_textLayouts)
     if (t.isValid())
       t.debugOutput();
     else
-      kDebug() << "Line Invalid." << endl;
+      kDebug() << "Line Invalid.";
 }
 
 void KateLayoutCache::slotTextInserted( KTextEditor::Document *, const KTextEditor::Range & range )

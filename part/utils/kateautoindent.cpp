@@ -112,7 +112,7 @@ QString KateAutoIndent::tabString (int length) const
 
 bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces )
 {
-  kDebug (13060) << "doIndent: line: " << line << " change: " << change << " relative: " << relative << endl;
+  kDebug (13060) << "doIndent: line: " << line << " change: " << change << " relative: " << relative;
 
   KateTextLine::Ptr textline = doc->plainKateTextLine(line);
 

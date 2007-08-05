@@ -90,12 +90,12 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
   int newMinWidth = newIndentWidth + sectionSize;// + scrollBarWidth;
   minWidth = qMax(minWidth, newMinWidth);
 
-  //kDebug() << "New min width: " << minWidth << " Old min: " << minimumWidth() << " width " << width() << endl;
+  //kDebug() << "New min width: " << minWidth << " Old min: " << minimumWidth() << " width " << width();
   setMinimumWidth(minWidth);
 
   if (!fromResizeEvent && (firstShow || oldIndentWidth != newIndentWidth)) {
     int newWidth = qMax(widget()->width() - oldIndentWidth + newIndentWidth, minWidth);
-    //kDebug() << k_funcinfo << "fromResize " << fromResizeEvent << " indexOfName " << indexOfName << " oldI " << oldIndentWidth << " newI " << newIndentWidth << " minw " << minWidth << " w " << widget()->width() << " newW " << newWidth << endl;
+    //kDebug() << k_funcinfo << "fromResize " << fromResizeEvent << " indexOfName " << indexOfName << " oldI " << oldIndentWidth << " newI " << newIndentWidth << " minw " << minWidth << " w " << widget()->width() << " newW " << newWidth;
     widget()->resize(newWidth, widget()->height());
   }
 

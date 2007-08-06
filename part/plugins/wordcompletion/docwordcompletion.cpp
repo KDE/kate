@@ -169,61 +169,12 @@ DocWordCompletionPlugin::DocWordCompletionPlugin( QObject *parent,
   readConfig();
 }
 
-void DocWordCompletionPlugin::configDialog (QWidget *parent)
-{
- // If we have only one page, we use a simple dialog, else an icon list type
-  KPageDialog::FaceType ft = configPages() > 1 ? KPageDialog::List :     // still untested
-                                                 KPageDialog::Plain;
-
-  KPageDialog *kd = new KPageDialog ( parent );
-  kd->setFaceType( ft );
-  kd->setCaption( i18n("Configure") );
-  kd->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Help );
-  kd->setDefaultButton( KDialog::Ok );
-
-  QList<KTextEditor::ConfigPage*> editorPages;
-
-  for (uint i = 0; i < configPages (); i++)
-  {
-    QWidget *page = new QWidget(0);
-
-    KPageWidgetItem *item = new KPageWidgetItem( page, configPageName( i ) );
-    item->setHeader( configPageFullName( i ) );
-// FIXME: set the icon here      item->setIcon();
-
-    kd->addPage( item );
-
-    editorPages.append( configPage( i, page ) );
-  }
-
-  if (kd->exec())
-  {
-
-    for( int i=0; i<editorPages.count(); i++ )
-    {
-      editorPages.at( i )->apply();
-    }
-  }
-
-  delete kd;
-}
-
-void DocWordCompletionPlugin::readConfig()
-{
-  KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin" );
-  m_treshold = cg.readEntry( "treshold", 3 );
-  m_autopopup = cg.readEntry( "autopopup", true );
-}
-
-void DocWordCompletionPlugin::writeConfig()
-{
-  KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin" );
-  cg.writeEntry("autopopup", m_autopopup );
-  cg.writeEntry("treshold", m_treshold );
-}
-
 void DocWordCompletionPlugin::addView(KTextEditor::View *view)
 {
+  KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin");
+  uint m_treshold = cg.readEntry("treshold", 3);
+  bool m_autopopup = cg.readEntry("autopopup", true);
+
   DocWordCompletionPluginView *nview = new DocWordCompletionPluginView (m_treshold, m_autopopup, view, m_dWCompletionModel );
   m_views.append (nview);
 }
@@ -237,27 +188,6 @@ void DocWordCompletionPlugin::removeView(KTextEditor::View *view)
        m_views.removeAll (nview);
        delete nview;
     }
-}
-
-KTextEditor::ConfigPage* DocWordCompletionPlugin::configPage( uint, QWidget *parent )
-{
-  return new DocWordCompletionConfigPage( this, parent );
-}
-
-QString DocWordCompletionPlugin::configPageName( uint ) const
-{
-  return i18n("Word Completion Plugin");
-}
-
-QString DocWordCompletionPlugin::configPageFullName( uint ) const
-{
-  return i18n("Configure the Word Completion Plugin");
-}
-
-// FIXME provide sucn a icon
-       QPixmap DocWordCompletionPlugin::configPagePixmap( uint, int size ) const
-{
-  return UserIcon( "kte_wordcompletion", size );
 }
 //END
 
@@ -636,71 +566,6 @@ void DocWordCompletionPluginView::slotVariableChanged( KTextEditor::Document*,co
     d->treshold = val.toInt();
 }
 //END
-
-//BEGIN DocWordCompletionConfigPage
-DocWordCompletionConfigPage::DocWordCompletionConfigPage( DocWordCompletionPlugin *completion, QWidget *parent )
-  : KTextEditor::ConfigPage( parent )
-  , m_completion( completion )
-{
-  QVBoxLayout *lo = new QVBoxLayout( this );
-  lo->setSpacing( KDialog::spacingHint() );
-
-  cbAutoPopup = new QCheckBox( i18n("Automatically &show completion list"), this );
-  lo->addWidget( cbAutoPopup );
-
-  KHBox *hb = new KHBox( this );
-  hb->setSpacing( KDialog::spacingHint() );
-  lo->addWidget( hb );
-  QLabel *l = new QLabel( i18nc(
-      "Translators: This is the first part of two strings which will comprise the "
-      "sentence 'Show completions when a word is at least N characters'. The first "
-      "part is on the right side of the N, which is represented by a spinbox "
-      "widget, followed by the second part: 'characters long'. Characters is a "
-      "ingeger number between and including 1 and 30. Feel free to leave the "
-      "second part of the sentence blank if it suits your language better. ",
-      "Show completions &when a word is at least"), hb );
-  sbAutoPopup = new QSpinBox( hb );
-  sbAutoPopup->setRange( 1, 30 );
-  sbAutoPopup->setSingleStep( 1 );
-  l->setBuddy( sbAutoPopup );
-  lSbRight = new QLabel( i18nc(
-      "This is the second part of two strings that will comprise the sentence "
-      "'Show completions when a word is at least N characters'",
-      "characters long."), hb );
-
-  cbAutoPopup->setWhatsThis(i18n(
-      "Enable the automatic completion list popup as default. The popup can "
-      "be disabled on a view basis from the 'Tools' menu.") );
-  sbAutoPopup->setWhatsThis(i18n(
-      "Define the length a word should have before the completion list "
-      "is displayed.") );
-
-  cbAutoPopup->setChecked( m_completion->autoPopupEnabled() );
-  sbAutoPopup->setValue( m_completion->treshold() );
-
-  lo->addStretch();
-}
-
-void DocWordCompletionConfigPage::apply()
-{
-  m_completion->setAutoPopupEnabled( cbAutoPopup->isChecked() );
-  m_completion->setTreshold( sbAutoPopup->value() );
-  m_completion->writeConfig();
-}
-
-void DocWordCompletionConfigPage::reset()
-{
-  cbAutoPopup->setChecked( m_completion->autoPopupEnabled() );
-  sbAutoPopup->setValue( m_completion->treshold() );
-}
-
-void DocWordCompletionConfigPage::defaults()
-{
-  cbAutoPopup->setChecked( true );
-  sbAutoPopup->setValue( 3 );
-}
-
-//END DocWordCompletionConfigPage
 
 #include "docwordcompletion.moc"
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

@@ -77,31 +77,8 @@ class DocWordCompletionPlugin
     void addView (KTextEditor::View *view);
     void removeView (KTextEditor::View *view);
 
-    void readConfig();
-    void writeConfig();
-
-    virtual void readConfig (KConfig *) {}
-    virtual void writeConfig (KConfig *) {}
-    virtual void configDialog (QWidget *parent);
-
-    // ConfigInterfaceExtention
-    uint configPages() const { return 1; }
-    bool configDialogSupported () const { return true; }
-    KTextEditor::ConfigPage * configPage( uint number, QWidget *parent );
-    QString configPageName( uint ) const;
-    QString configPageFullName( uint ) const;
-    QPixmap configPagePixmap( uint, int ) const;
-
-    uint treshold() const { return m_treshold; }
-    void setTreshold( uint t ) { m_treshold = t; }
-    bool autoPopupEnabled() const { return m_autopopup; }
-    void setAutoPopupEnabled( bool enable ) { m_autopopup = enable; }
-
-
   private:
     QList<class DocWordCompletionPluginView*> m_views;
-    uint m_treshold;
-    bool m_autopopup;
     DocWordCompletionModel *m_dWCompletionModel;
 
 };
@@ -142,24 +119,6 @@ class DocWordCompletionPluginView
     KTextEditor::View *m_view;
     DocWordCompletionModel *m_dWCompletionModel;
     struct DocWordCompletionPluginViewPrivate *d;
-};
-
-class DocWordCompletionConfigPage : public KTextEditor::ConfigPage
-{
-  Q_OBJECT
-  public:
-    DocWordCompletionConfigPage( DocWordCompletionPlugin *completion, QWidget *parent );
-    virtual ~DocWordCompletionConfigPage() {}
-
-    virtual void apply();
-    virtual void reset();
-    virtual void defaults();
-
-  private:
-    DocWordCompletionPlugin *m_completion;
-    class QCheckBox *cbAutoPopup;
-    class QSpinBox *sbAutoPopup;
-    class QLabel *lSbRight;
 };
 
 #endif // _DocWordCompletionPlugin_h_

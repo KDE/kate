@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Service
+ServiceTypes=KCModule
+
+X-KDE-Library=kcm_ktexteditor_docwordcompletion
+X-KDE-FactoryName=kcm_ktexteditor_docwordcompletion
+X-KDE-ParentComponents=ktexteditordocwordcompletion
+
+Name=Behavior

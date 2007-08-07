@@ -318,6 +318,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   // initialize, add and work with as we do with selectConfigTab and
   // indentConfigTab (ereslibre)
   QVBoxLayout *layout = new QVBoxLayout;
+  layout->setMargin(0);
   KTabWidget *tabWidget = new KTabWidget(this);
   uint configFlags = KateDocumentConfig::global()->configFlags();
 
@@ -589,6 +590,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   // since it is another tab itself on the config dialog. This means we should
   // initialize, add and work with as we do with modeConfigPage (ereslibre)
   QVBoxLayout *layout = new QVBoxLayout;
+  layout->setMargin(0);
   KTabWidget *tabWidget = new KTabWidget(this);
 
   QWidget *tmpWidget = new QWidget(tabWidget);
@@ -763,6 +765,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
   // since it is another tab itself on the config dialog. This means we should
   // initialize, add and work with as we do with scriptConfigPage (ereslibre)
   QVBoxLayout *generalLayout = new QVBoxLayout;
+  generalLayout->setMargin(0);
   KTabWidget *tabWidget = new KTabWidget(this);
 
   QWidget *tmpWidget = new QWidget(tabWidget);

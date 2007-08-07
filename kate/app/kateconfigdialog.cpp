@@ -89,6 +89,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   item->setIcon( KIcon( "go-home" ) );
 
   QVBoxLayout *lo = new QVBoxLayout( frGeneral );
+  lo->setMargin(0);
   lo->setSpacing(KDialog::spacingHint());
 
   // GROUP with the one below: "Behavior"
@@ -152,6 +153,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   item->setIcon( KIcon( "history" ) );
 
   lo = new QVBoxLayout( frSessions );
+  lo->setMargin(0);
   lo->setSpacing(KDialog::spacingHint());
 
   // GROUP with the one below: "Startup"

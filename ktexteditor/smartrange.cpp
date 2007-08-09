@@ -133,7 +133,11 @@ void SmartRange::insertChildRange( SmartRange * newChild )
     if (it.peekPrevious()->end() <= newChild->start()) {
       it.insert(newChild);
       if (it.hasNext() && it.peekNext()->start() < newChild->end())
+      {
+          //Give a warning here, because this most probably results in unwanted behavior, and is extremely hard to debug. This at least gives a clue what'is going wrong. The alternative would be an assertion.
+          kDebug() << "SmartRange warning: " << this << ": Added child-range " << newChild << "(" << *newChild << ") intersects child-range " << it.peekNext() << "(" << *it.peekNext() << "), the second one will be trimmed" << endl;
           it.peekNext()->start() = newChild->end();
+      }
 
       done = true;
       break;
@@ -144,7 +148,10 @@ void SmartRange::insertChildRange( SmartRange * newChild )
 
   if (!done) {
     if (m_childRanges.count() && m_childRanges.first()->start() < newChild->end())
+    {
+        kDebug() << "SmartRange warning: " << this << ": Added child-range " << newChild << "(" << *newChild << ") intersects child-range " << m_childRanges.first() << "(" << *m_childRanges.first() << "), the second one will be trimmed" << endl;
         m_childRanges.first()->start() = newChild->end();
+    }
     m_childRanges.prepend(newChild);
   }
 

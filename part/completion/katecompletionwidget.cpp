@@ -27,6 +27,8 @@
 #include <QtGui/QToolButton>
 #include <QtGui/QSizeGrip>
 #include <QtGui/QPushButton>
+#include <QtGui/QAbstractScrollArea>
+#include <QtGui/QScrollBar>
 
 #include <kicon.h>
 #include <kdialog.h>
@@ -179,6 +181,11 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
 
   m_completionRange = view()->doc()->smartManager()->newSmartRange(word);
   m_completionRange->setInsertBehavior(KTextEditor::SmartRange::ExpandRight);
+  if(!m_completionRange->isValid()) {
+    kWarning(13035) << k_funcinfo << "Could not construct valid smart-range from " << word;
+    abortCompletion();
+    return;
+  }
 
   connect(m_completionRange->smartStart().notifier(), SIGNAL(characterDeleted(KTextEditor::SmartCursor*, bool)), SLOT(startCharacterDeleted(KTextEditor::SmartCursor*, bool)));
 
@@ -462,11 +469,15 @@ void KateCompletionWidget::cursorDown( bool shift )
 {
   if( shift ) {
     QModelIndex index = selectedIndex();
-    
- //Re-enable once AccessibilityDown is in KTextEditor::CodeCompletionModel
-    if( index.isValid() )
-      index.data(KTextEditor::CodeCompletionModel::AccessibilityNext/*AccessibilityDown*/);
-    
+    if( dynamic_cast<const ExpandingWidgetModel*>(index.model()) ) {
+      const ExpandingWidgetModel* model = static_cast<const ExpandingWidgetModel*>(index.model());
+      if( model->isExpanded(index) ) {
+        QWidget* widget = model->expandingWidget(index);
+        QAbstractScrollArea* area = qobject_cast<QAbstractScrollArea*>(widget);
+        if( area && area->verticalScrollBar() )
+          area->verticalScrollBar()->setSliderPosition( area->verticalScrollBar()->sliderPosition() + area->verticalScrollBar()->singleStep() );
+      }
+    }
     return;
   }
   
@@ -482,11 +493,15 @@ void KateCompletionWidget::cursorUp( bool shift )
 {
   if( shift ) {
     QModelIndex index = selectedIndex();
-    
- //Re-enable once AccessibilityUp is in KTextEditor::CodeCompletionModel
-    if( index.isValid() )
-      index.data(KTextEditor::CodeCompletionModel::AccessibilityPrevious/*AccessibilityUp*/);
-    
+    if( dynamic_cast<const ExpandingWidgetModel*>(index.model()) ) {
+      const ExpandingWidgetModel* model = static_cast<const ExpandingWidgetModel*>(index.model());
+      if( model->isExpanded(index) ) {
+        QWidget* widget = model->expandingWidget(index);
+        QAbstractScrollArea* area = qobject_cast<QAbstractScrollArea*>(widget);
+        if( area && area->verticalScrollBar() )
+          area->verticalScrollBar()->setSliderPosition( area->verticalScrollBar()->sliderPosition() - area->verticalScrollBar()->singleStep() );
+      }
+    }
     return;
   }
   

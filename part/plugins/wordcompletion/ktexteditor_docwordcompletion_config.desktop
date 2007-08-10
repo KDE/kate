@@ -8,6 +8,7 @@ X-KDE-FactoryName=kcm_ktexteditor_docwordcompletion
 X-KDE-ParentComponents=ktexteditordocwordcompletion
 
 Name=Behavior
+Name[ar]=السلوك
 Name[es]=Comportamiento
 Name[sv]=Beteende
 Name[zh_TW]=行為

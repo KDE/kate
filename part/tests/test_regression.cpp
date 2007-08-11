@@ -435,8 +435,7 @@ int main(int argc, char *argv[])
     options.add("test <filename>", ki18n("Only run a single test. Multiple options allowed."));
     options.add("o");
     options.add("output <directory>", ki18n("Put output in <directory> instead of <base_dir>/output"));
-    options.add("+[base_dir]", ki18n("Directory containing tests, basedir and output directories. Only regarded if -b is not 
-specified."));
+    options.add("+[base_dir]", ki18n("Directory containing tests, basedir and output directories. Only regarded if -b is not specified."));
     options.add("+[testcases]", ki18n("Relative path to testcase, or directory of testcases to be run (equivalent to -t)."));
 
     // forget about any settings

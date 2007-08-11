@@ -19,7 +19,6 @@ TODO:
 * HL configuration issues
   * current highlighter not selected (regression)
   * 'use default' never checked
-  * wrong (can be illegible) color used for group headings
   * controls seem to need to be clicked twice?
 
 * reimplement bracket matching

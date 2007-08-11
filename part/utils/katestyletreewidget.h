@@ -63,6 +63,7 @@ class KateStyleTreeWidget : public QTreeWidget
   private Q_SLOTS:
     void changeProperty( );
     void unsetColor( );
+    void updateGroupHeadings();
 
   private:
     QColor bgcol, selcol, normalcol;

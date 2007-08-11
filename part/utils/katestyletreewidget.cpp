@@ -282,8 +282,30 @@ void KateStyleTreeWidget::unsetColor()
   ((KateStyleTreeWidgetItem*)currentItem())->unsetColor( static_cast<QAction*>(sender())->data().toInt() );
 }
 
+void KateStyleTreeWidget::updateGroupHeadings() {
+
+  for(int i = 0; i < topLevelItemCount(); i++) {
+    QTreeWidgetItem* currentTopLevelItem = topLevelItem(i);
+    QTreeWidgetItem* firstChild = currentTopLevelItem->child(0);
+    
+    if(firstChild) {
+      QColor foregroundColor = firstChild->data(KateStyleTreeWidgetItem::Foreground, Qt::DisplayRole).value<QColor>();
+      QColor backgroundColor = firstChild->data(KateStyleTreeWidgetItem::Background, Qt::DisplayRole).value<QColor>();
+      
+      currentTopLevelItem->setForeground(KateStyleTreeWidgetItem::Context, foregroundColor);
+      
+      if(backgroundColor.isValid()) {
+        currentTopLevelItem->setBackground(KateStyleTreeWidgetItem::Context, backgroundColor);
+      } else {
+        currentTopLevelItem->setBackground(KateStyleTreeWidgetItem::Context, bgcol);
+      }
+    }
+  }
+}
+
 void KateStyleTreeWidget::emitChanged( )
 {
+  updateGroupHeadings();
   emit changed();
 }
 
@@ -295,6 +317,7 @@ void KateStyleTreeWidget::addItem( const QString & styleName, KTextEditor::Attri
 void KateStyleTreeWidget::addItem( QTreeWidgetItem * parent, const QString & styleName, KTextEditor::Attribute::Ptr  defaultstyle, KateExtendedAttribute::Ptr  data )
 {
   new KateStyleTreeWidgetItem(parent, styleName, defaultstyle, data);
+  updateGroupHeadings();
 }
 //END
 
@@ -683,6 +706,8 @@ void KateStyleTreeWidgetItem::unsetColor( int c )
   else if ( c == 101 && currentStyle->hasProperty(KTextEditor::Attribute::SelectedBackground) )
     currentStyle->clearProperty(KTextEditor::Attribute::SelectedBackground);
   updateStyle();
+
+  treeWidget()->emitChanged();
 }
 
 KateStyleTreeWidget* KateStyleTreeWidgetItem::treeWidget() const

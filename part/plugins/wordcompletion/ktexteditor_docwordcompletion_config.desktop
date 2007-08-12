@@ -3,8 +3,8 @@ Encoding=UTF-8
 Type=Service
 ServiceTypes=KCModule
 
-X-KDE-Library=kcm_ktexteditor_docwordcompletion
-X-KDE-FactoryName=kcm_ktexteditor_docwordcompletion
+X-KDE-Library=ktexteditor_docwordcompletion
+X-KDE-FactoryName=ktexteditor_docwordcompletion_config
 X-KDE-ParentComponents=ktexteditordocwordcompletion
 
 Name=Behavior

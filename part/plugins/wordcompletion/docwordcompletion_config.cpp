@@ -19,6 +19,7 @@
   */
 
 #include "docwordcompletion_config.h"
+#include "docwordcompletion.h"
 
 #include <QtGui/QBoxLayout>
 #include <QtGui/QLabel>
@@ -31,8 +32,8 @@
 #include <kgenericfactory.h>
 
 K_EXPORT_COMPONENT_FACTORY( \
-    kcm_ktexteditor_docwordcompletion, \
-    KGenericFactory<DocWordCompletionConfig>("kcm_ktexteditor_docwordcompletion"))
+    ktexteditor_docwordcompletion_config, \
+    KGenericFactory<DocWordCompletionConfig>("ktexteditor_docwordcompletion_config"))
 
 DocWordCompletionConfig::DocWordCompletionConfig(QWidget *parent, const QStringList &args)
     : KCModule(KGenericFactory<DocWordCompletionConfig>::componentData(), parent, args)
@@ -85,18 +86,36 @@ DocWordCompletionConfig::~DocWordCompletionConfig()
 
 void DocWordCompletionConfig::save()
 {
-    KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin");
-    cg.writeEntry("autopopup", cbAutoPopup->isChecked());
-    cg.writeEntry("treshold", sbAutoPopup->value());
+    if (DocWordCompletionPlugin::self())
+    {
+        DocWordCompletionPlugin::self()->setTreshold(sbAutoPopup->value());
+        DocWordCompletionPlugin::self()->setAutoPopupEnabled(cbAutoPopup->isChecked());
+        DocWordCompletionPlugin::self()->writeConfig();
+    }
+    else
+    {
+        KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin");
+        cg.writeEntry("treshold", sbAutoPopup->value());
+        cg.writeEntry("autopopup", cbAutoPopup->isChecked());
+    }
 
     emit changed(false);
 }
 
 void DocWordCompletionConfig::load()
 {
-    KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin");
-    sbAutoPopup->setValue(cg.readEntry("treshold", 3));
-    cbAutoPopup->setChecked(cg.readEntry("autopopup", true));
+    if (DocWordCompletionPlugin::self())
+    {
+        DocWordCompletionPlugin::self()->readConfig();
+        sbAutoPopup->setValue(DocWordCompletionPlugin::self()->treshold());
+        cbAutoPopup->setChecked(DocWordCompletionPlugin::self()->autoPopupEnabled());
+    }
+    else
+    {
+        KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin");
+        sbAutoPopup->setValue(cg.readEntry("treshold", 3));
+        cbAutoPopup->setChecked(cg.readEntry("autopopup", true));
+    }
 
     emit changed(false);
 }

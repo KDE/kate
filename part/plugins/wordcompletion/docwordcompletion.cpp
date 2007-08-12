@@ -160,21 +160,19 @@ const QStringList DocWordCompletionModel::allMatches( KTextEditor::View *view, c
 //END DocWordCompletionModel
 
 //BEGIN DocWordCompletionPlugin
+DocWordCompletionPlugin *DocWordCompletionPlugin::plugin = 0;
 K_EXPORT_COMPONENT_FACTORY( ktexteditor_docwordcompletion, KGenericFactory<DocWordCompletionPlugin>( "ktexteditor_docwordcompletion", "ktexteditor_plugins" ) )
 DocWordCompletionPlugin::DocWordCompletionPlugin( QObject *parent,
                             const QStringList& /*args*/ )
   : KTextEditor::Plugin ( parent )
 {
+  plugin = this;
   m_dWCompletionModel = new DocWordCompletionModel( this );
   readConfig();
 }
 
 void DocWordCompletionPlugin::addView(KTextEditor::View *view)
 {
-  KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin");
-  uint m_treshold = cg.readEntry("treshold", 3);
-  bool m_autopopup = cg.readEntry("autopopup", true);
-
   DocWordCompletionPluginView *nview = new DocWordCompletionPluginView (m_treshold, m_autopopup, view, m_dWCompletionModel );
   m_views.append (nview);
 }
@@ -188,6 +186,20 @@ void DocWordCompletionPlugin::removeView(KTextEditor::View *view)
        m_views.removeAll (nview);
        delete nview;
     }
+}
+
+void DocWordCompletionPlugin::readConfig()
+{
+  KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin" );
+  m_treshold = cg.readEntry( "treshold", 3 );
+  m_autopopup = cg.readEntry( "autopopup", true );
+}
+
+void DocWordCompletionPlugin::writeConfig()
+{
+  KConfigGroup cg(KGlobal::config(), "DocWordCompletion Plugin" );
+  cg.writeEntry("autopopup", m_autopopup );
+  cg.writeEntry("treshold", m_treshold );
 }
 //END
 

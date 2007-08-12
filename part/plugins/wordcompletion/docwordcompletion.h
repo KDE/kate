@@ -74,11 +74,26 @@ class DocWordCompletionPlugin
                             const QStringList &args = QStringList() );
     virtual ~DocWordCompletionPlugin(){kDebug()<<"~DocWordCompletionPlugin";}
 
+    static DocWordCompletionPlugin *self() { return plugin; }
+
     void addView (KTextEditor::View *view);
     void removeView (KTextEditor::View *view);
 
+    void readConfig();
+    void writeConfig();
+
+    virtual void readConfig (KConfig *) {}
+    virtual void writeConfig (KConfig *) {}
+
+    uint treshold() const { return m_treshold; }
+    void setTreshold( uint t ) { m_treshold = t; }
+    bool autoPopupEnabled() const { return m_autopopup; }
+    void setAutoPopupEnabled( bool enable ) { m_autopopup = enable; }
   private:
+    static DocWordCompletionPlugin *plugin;
     QList<class DocWordCompletionPluginView*> m_views;
+    uint m_treshold;
+    bool m_autopopup;
     DocWordCompletionModel *m_dWCompletionModel;
 
 };

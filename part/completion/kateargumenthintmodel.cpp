@@ -66,7 +66,7 @@ QList<QVariant> mergeCustomHighlighting( QStringList strings, QList<QVariantList
     while( !strings.isEmpty() ) {
 
       totalHighlighting = mergeCustomHighlighting( totalString.length(), totalHighlighting, strings[0].length(), highlights[0] );
-      totalString += strings[0] + " ";
+      totalString += strings[0] + ' ';
       strings.erase(0);
       highlights.erase(0);
     }
@@ -170,7 +170,7 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
       QString totalText;
       for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
         if( a != CodeCompletionModel::Scope ) //Skip the scope
-          totalText += source.first->index(source.second, a).data(Qt::DisplayRole).toString() + " ";
+          totalText += source.first->index(source.second, a).data(Qt::DisplayRole).toString() + ' ';
     
       
       return QVariant(totalText);

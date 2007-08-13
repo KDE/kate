@@ -3492,8 +3492,8 @@ bool KateDocument::saveFile()
     // backup has failed, ask user how to proceed
     if (!backupSuccess && (KMessageBox::warningContinueCancel (widget()
         , i18n ("For file %1 no backup copy could be created before saving."
-                " If an error occurs while saving, you might loose the data of this file."
-                " A reason could be, that the media you write to is full or the directory of the file is read-only for you.", url().url())
+                " If an error occurs while saving, you might lose the data of this file."
+                " A reason could be that the media you write to is full or the directory of the file is read-only for you.", url().url())
         , i18n ("Failed to create backup copy.")
         , KGuiItem(i18n("Try to Save Nevertheless"))
         , KStandardGuiItem::cancel(), "Backup Failed Warning") != KMessageBox::Continue))

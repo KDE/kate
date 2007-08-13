@@ -39,7 +39,8 @@ class KateView;
 class RegressionTest;
 
 namespace KParts {
-  struct URLArgs;
+  class OpenUrlArguments;
+  class BrowserArguments;
 }
 
 class OutputObject;
@@ -237,7 +238,7 @@ private:
     QStringList concatListFiles(const QString &relPath, const QString &filename);
 
 private Q_SLOTS:
-    void slotOpenURL(const KUrl &url, const KParts::URLArgs &args);
+    void slotOpenURL(const KUrl &url, const KParts::OpenUrlArguments&, const KParts::BrowserArguments&);
     void resizeTopLevelWidget( int, int );
 
 };

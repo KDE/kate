@@ -3261,12 +3261,12 @@ bool KateDocument::openFile()
   activateDirWatch ();
 
   //
-  // service type magic to get encoding right
+  // mime type magic to get encoding right
   //
-  QString serviceType = m_extension->urlArgs().serviceType.simplified();
-  int pos = serviceType.indexOf(';');
+  QString mimeType = arguments().mimeType();
+  int pos = mimeType.indexOf(';');
   if (pos != -1)
-    setEncoding (serviceType.mid(pos+1));
+    setEncoding (mimeType.mid(pos+1));
 
   // do we have success ?
   emit KTextEditor::Document::textRemoved(this, documentRange());

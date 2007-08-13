@@ -69,7 +69,6 @@
 
 #include "katedocument.h"
 #include "kateview.h"
-#include <kparts/browserextension.h>
 #include "katejscript.h"
 #include "katedocumenthelpers.h"
 #include "kateconfig.h"
@@ -593,10 +592,6 @@ int main(int argc, char *argv[])
                                                         baseDir,
                                                         args->getOption("output"),
                                                         args->isSet("genoutput"));
-    QObject::connect(part->browserExtension(), SIGNAL(openUrlRequest(const KUrl &, const KParts::URLArgs &)),
-		     regressionTest, SLOT(slotOpenURL(const KUrl&, const KParts::URLArgs &)));
-    QObject::connect(part->browserExtension(), SIGNAL(resizeTopLevelWidget( int, int )),
-		     regressionTest, SLOT(resizeTopLevelWidget( int, int )));
 
     regressionTest->m_keepOutput = args->isSet("keep-output");
     regressionTest->m_showGui = args->isSet("show");
@@ -1111,9 +1106,9 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
     toplevel->resize( 800, 600); // restore size
 
     // Set arguments
-    KParts::URLArgs args;
-    if (filename.endsWith(".txt")) args.serviceType = "text/plain";
-    m_part->browserExtension()->setUrlArgs(args);
+    KParts::OpenUrlArguments args;
+    if (filename.endsWith(".txt")) args.setMimeType("text/plain");
+    m_part->setArguments(args);
     // load page
     KUrl url;
     url.setProtocol("file");
@@ -1416,10 +1411,9 @@ void RegressionTest::createMissingDirs(const QString & filename)
     }
 }
 
-void RegressionTest::slotOpenURL(const KUrl &url, const KParts::URLArgs &args)
+void RegressionTest::slotOpenURL(const KUrl &url, const KParts::OpenUrlArguments & args, const KParts::BrowserArguments&)
 {
-    m_part->browserExtension()->setUrlArgs( args );
-
+    m_part->setArguments(args);
     m_part->openUrl(url);
 }
 

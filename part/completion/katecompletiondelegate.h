@@ -35,7 +35,7 @@ class KateCompletionDelegate : public QItemDelegate
   Q_OBJECT
 
   public:
-    KateCompletionDelegate(ExpandingWidgetModel* model, KateCompletionWidget* parent = 0L);
+    explicit KateCompletionDelegate(ExpandingWidgetModel* model, KateCompletionWidget* parent = 0L);
 
     KateRenderer* renderer() const;
     KateCompletionWidget* widget() const;

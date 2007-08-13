@@ -72,7 +72,7 @@ class KateHlContextModification
      * @param _newContext new context to push on stack
      * @param _pops number of contexts to remove from stack in advance
      */
-    KateHlContextModification (int _newContext = -1, int _pops = 0) : type (doNothing), newContext (_newContext), pops (_pops)
+    explicit KateHlContextModification (int _newContext = -1, int _pops = 0) : type (doNothing), newContext (_newContext), pops (_pops)
     {
       if (newContext >= 0 && pops == 0) type = doPush;
       else if (newContext < 0 && pops > 0) type = doPops;

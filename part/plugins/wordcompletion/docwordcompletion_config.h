@@ -29,7 +29,7 @@ class DocWordCompletionConfig
     Q_OBJECT
 
 public:
-    DocWordCompletionConfig(QWidget *parent = 0, const QStringList &args = QStringList());
+    explicit DocWordCompletionConfig(QWidget *parent = 0, const QStringList &args = QStringList());
     virtual ~DocWordCompletionConfig();
 
     virtual void save();

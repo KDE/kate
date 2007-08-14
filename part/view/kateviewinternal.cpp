@@ -2857,6 +2857,8 @@ void KateViewInternal::focusOutEvent (QFocusEvent *)
   paintCursor();
 
   m_textHintTimer.stop();
+
+  m_view->slotLostFocus ();
 }
 
 void KateViewInternal::doDrag()

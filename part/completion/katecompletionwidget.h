@@ -99,6 +99,8 @@ class KateCompletionWidget : public QFrame
   public Q_SLOTS:
     void abortCompletion();
     void showConfig();
+    void focusOut();
+    void focusIn();
 
   protected:
     virtual void showEvent ( QShowEvent * event );
@@ -140,6 +142,7 @@ class KateCompletionWidget : public QFrame
     bool m_automaticInvocation;
     bool m_filterInstalled;
     bool m_inCompletionList; //Are we in the completion-list? If not, we're in the argument-hint list
+    bool m_isSuspended;
 };
 
 #endif

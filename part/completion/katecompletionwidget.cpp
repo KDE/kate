@@ -61,6 +61,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_automaticInvocation(false)
   , m_filterInstalled(false)
   , m_inCompletionList(false)
+  , m_isSuspended(false)
 {
   //new ModelTest(m_presentationModel, this);
 
@@ -120,6 +121,8 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
 
   connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(cursorPositionChanged()));
   connect(view()->doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(editDone(KateEditInfo*)), Qt::QueuedConnection);
+  connect(view(), SIGNAL(focusOut(KTextEditor::View*)), this, SLOT(focusOut()));
+  connect(view(), SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(focusIn()));
 
   // This is a non-focus widget, it is passed keyboard input from the view
   setFocusPolicy(Qt::NoFocus);
@@ -128,6 +131,20 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
 }
 
 KateCompletionWidget::~KateCompletionWidget() {
+}
+
+void KateCompletionWidget::focusOut() {
+  if( isCompletionActive() ) {
+    hide();
+    m_isSuspended = true;
+  }
+}
+
+void KateCompletionWidget::focusIn() {
+  if( m_isSuspended ) {
+    show();
+    m_isSuspended = false;
+  }
 }
 
 KateArgumentHintTree* KateCompletionWidget::argumentHintTree() const {
@@ -159,6 +176,8 @@ KateView * KateCompletionWidget::view( ) const
 
 void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTextEditor::CodeCompletionModel * model, KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
+  m_isSuspended = false;
+  
   if (!word.isValid()) {
     kWarning(13035) << k_funcinfo << "Invalid range given to start code completion!";
     return;
@@ -281,6 +300,8 @@ void KateCompletionWidget::abortCompletion( )
 {
   kDebug(13035) << k_funcinfo;
 
+  m_isSuspended = false;
+  
   if (!isCompletionActive())
     return;
 
@@ -346,6 +367,8 @@ void KateCompletionWidget::resizeEvent( QResizeEvent * event )
 
 void KateCompletionWidget::showEvent ( QShowEvent * event )
 {
+  m_isSuspended = false;
+  
   QWidget::showEvent(event);
   
   m_argumentHintTree->show();

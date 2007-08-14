@@ -23,6 +23,12 @@ TODO:
 
 * reimplement bracket matching
 
+* since KDE4 we have a Mode for every Highlighting file. Opening a file leads to a
+  call of QString KateModeManager::wildcardsFind (const QString &fileName), which is
+  very slow. Opening 50 files in the Kate Application is *very* slow. Needs to be
+  vastly improved ...somehow...
+
+
 **** Refactoring/Cleanups ****
 * code cleanups wherever needed ;)
 

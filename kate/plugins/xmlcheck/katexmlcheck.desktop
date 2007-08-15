@@ -20,6 +20,7 @@ Name[zh_TW]=Kate XML 檢查器
 Comment=Validates XML files using xmllint
 Comment[de]=Validiert XML-Dateien mit xmllint
 Comment[el]=Επαλήθευση αρχείων XML με χρήση του xmllint
+Comment[ga]=Bailíochtaigh comhaid XML le xmllint
 Comment[it]=Convalida i file XML usando xmllint
 Comment[ja]=xmllint で XML ファイルを検証します
 Comment[pt]=Valida os ficheiros em XML com o xmllint

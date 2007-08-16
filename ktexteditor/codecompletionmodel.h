@@ -277,7 +277,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        * */
       AccessibilityAccept
     };
-    static const int LastItemDataRole = InheritanceDepth;
+    static const int LastItemDataRole = AccessibilityAccept;
 
     void setRowCount(int rowCount);
 

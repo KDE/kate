@@ -1069,7 +1069,8 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
   : KDialog( parent ),
     m_doc( doc ),
     m_modtype ( modtype ),
-    m_diffFile( 0 )
+    m_diffFile( 0 ),
+    m_proc( 0 )
 {
   setButtons( Ok | Apply | Cancel | User1 );
 

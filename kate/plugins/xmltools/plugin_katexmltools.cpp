@@ -262,7 +262,7 @@ void PluginKateXMLTools::backspacePressed()
 
 void PluginKateXMLTools::emptyKeyEvent()
 {
-  keyEvent( 0, 0, QString::null );
+  keyEvent( 0, 0, QString::null );	//krazy:exclude=nullstrassign for old broken gcc
 }
 
 void PluginKateXMLTools::keyEvent( int, int, const QString &/*s*/ )
@@ -953,7 +953,7 @@ QString PluginKateXMLTools::getParentElement( KTextEditor::View &kv, bool ignore
     {
       do
       {
-        if( !line-- ) return QString::null; // reached start of document
+        if( !line-- ) return QString(); // reached start of document
         str = kv.document()->line(line );
         col = str.length();
       } while( !col );
@@ -973,7 +973,7 @@ QString PluginKateXMLTools::getParentElement( KTextEditor::View &kv, bool ignore
         {
           case '<':
             // hmm... we were actually inside an element
-            return QString::null;
+            return QString();
 
           case '>':
             // we just hit an element boundary
@@ -1161,7 +1161,7 @@ QString InsertElement::showDialog( QStringList &completions )
   if( exec() )
     return combo->currentText();
 
-  return QString::null;
+  return QString();
 }
 //END InsertElement dialog
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

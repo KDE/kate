@@ -62,6 +62,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_filterInstalled(false)
   , m_inCompletionList(false)
   , m_isSuspended(false)
+  , m_dontShowArgumentHints(false)
 {
   //new ModelTest(m_presentationModel, this);
 
@@ -218,8 +219,10 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   updatePosition(true);
 
   if (!m_presentationModel->completionModels().isEmpty()) {
+    m_dontShowArgumentHints = true;
+    
     show();
-
+    
     foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels()) {
       model->completionInvoked(view(), word, invocationType);
       kDebug(13035) << "CC Model Statistics: " << model << endl << "  Completions: " << model->rowCount(QModelIndex());
@@ -229,8 +232,11 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
 
     m_presentationModel->setCurrentCompletion(view()->doc()->text(KTextEditor::Range(m_completionRange->start(), view()->cursorPosition())));
 
+    m_dontShowArgumentHints = false;
     m_argumentHintModel->buildRows();
     m_argumentHintTree->updateGeometry();
+    
+    m_argumentHintTree->show();
   }
 }
 
@@ -370,8 +376,9 @@ void KateCompletionWidget::showEvent ( QShowEvent * event )
   m_isSuspended = false;
   
   QWidget::showEvent(event);
-  
-  m_argumentHintTree->show();
+
+  if( !m_dontShowArgumentHints )
+    m_argumentHintTree->show();
 }
 
 void KateCompletionWidget::hideEvent( QHideEvent * event )

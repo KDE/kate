@@ -143,6 +143,7 @@ class KateCompletionWidget : public QFrame
     bool m_filterInstalled;
     bool m_inCompletionList; //Are we in the completion-list? If not, we're in the argument-hint list
     bool m_isSuspended;
+    bool m_dontShowArgumentHints; //Used temporarily to prevent flashing
 };
 
 #endif

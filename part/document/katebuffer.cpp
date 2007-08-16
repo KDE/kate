@@ -336,9 +336,7 @@ void KateBuffer::editEnd ()
   if (editChangesDone)
   {
     // hl update !!!
-    if ( m_highlight && !m_highlight->noHighlighting()
-        && (editTagLineStart <= editTagLineEnd)
-        && (editTagLineEnd <= m_lineHighlighted))
+    if (m_highlight && editTagLineStart <= editTagLineEnd && editTagLineEnd <= m_lineHighlighted)
     {
       // look one line too far, needed for linecontinue stuff
       ++editTagLineEnd;

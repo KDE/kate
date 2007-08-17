@@ -331,7 +331,7 @@ void KateFileTemplates::slotAny()
   // get a URL and pass that to slotOpenTemplate
   QString fn = KFileDialog::getOpenFileName(
                           KUrl(),
-                          QString::null,	//krazy:exclude=nullstrassign for old broken gcc
+                          QString(),
                           application()->activeMainWindow()->activeView(),
                           i18n("Open as Template") );
   if ( ! fn.isEmpty() )
@@ -1234,7 +1234,7 @@ void KateTemplateManager::slotUpload()
 //   if ( item )
 //   {
 //     KFTNewStuff *ns = new KFTNewStuff( "katefiletemplates/template", this );
-//     ns->upload( item->templateinfo->filename, QString::null );	//krazy:exclude=nullstrassign for old broken gcc
+//     ns->upload( item->templateinfo->filename, QString() );
 //   }
 #ifdef __GNUC__
 #warning ERROR HANDLING

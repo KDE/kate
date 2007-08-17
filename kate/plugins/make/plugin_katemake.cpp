@@ -134,7 +134,7 @@ public:
 		const QString &message) :
 		Q3ListViewItem(parent,
 			filename,
-			(lineno > 0 ? QString::number(lineno) : QString::null),	//krazy:exclude=nullstrassign for old broken gcc
+			(lineno > 0 ? QString::number(lineno) : QString()),
 			message)
 	{
 		m_isError = !message.contains(QString::fromLatin1("warning"));
@@ -142,7 +142,7 @@ public:
 		m_serial = s_serial++;
 	} ;
 	ErrorMessage(Q3ListView *parent,const QString &message) :
-		Q3ListViewItem(parent,QString::null,QString::null,QString::null)	//krazy:exclude=nullstrassign for old broken gcc
+		Q3ListViewItem(parent, QString(), QString(), QString())
 	{
 		QString m(message);
 		m.remove('\n');
@@ -155,7 +155,7 @@ public:
 		setSelectable(false);
 	} ;
 	ErrorMessage(Q3ListView *parent, bool start) :
-		Q3ListViewItem(parent,QString::null)	//krazy:exclude=nullstrassign for old broken gcc
+		Q3ListViewItem(parent, QString())
 	{
 		m_isError=false;
 		m_lineno=-1;
@@ -378,8 +378,8 @@ PluginKateMakeView::PluginKateMakeView(QWidget *parent,
 
 	KConfig config("katemakepluginrc");
 	KConfigGroup c( config, "Prefixes" );
-	source_prefix = c.readEntry("Source",QString::null);	//krazy:exclude=nullstrassign for old broken gcc
-	build_prefix = c.readEntry("Build",QString::null);	//krazy:exclude=nullstrassign for old broken gcc
+	source_prefix = c.readEntry("Source", QString());
+	build_prefix = c.readEntry("Build", QString());
 
 //	if (source_prefix.isEmpty())
 	{
@@ -509,8 +509,8 @@ void PluginKateMakeView::slotProcExited(K3Process *p)
 			this);
 		clear();
 #if 0
-		Q3ListViewItem *i = new Q3ListViewItem(this,QString::null,	//krazy:exclude=nullstrassign for old broken gcc
-			QString::null,	//krazy:exclude=nullstrassign for old broken gcc
+		Q3ListViewItem *i = new Q3ListViewItem(this, QString(),
+			QString(),
 			i18n("No Errors."));
 		i->setSelectable(false);
 #else
@@ -637,7 +637,7 @@ bool PluginKateMakeView::slotValidate()
 	doc->save();
 	KUrl url(doc->url());
 
-	output_line = QString::null;	//krazy:exclude=nullstrassign for old broken gcc
+	output_line = QString();
 	ErrorMessage::resetSerial();
 	found_error=false;
 

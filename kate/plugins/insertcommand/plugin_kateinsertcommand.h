@@ -109,8 +109,8 @@ public:
     CmdPrompt(QWidget* parent=0,
               const char* name=0,
               const QStringList& cmdhist=QStringList(),
-              const QString& dir=QString::null,	//krazy:exclude=nullstrassign for old broken gcc
-              const QString& docdir=QString::null,	//krazy:exclude=nullstrassign for old broken gcc
+              const QString& dir=QString(),
+              const QString& docdir=QString(),
               int   settings=0);
     ~CmdPrompt();
     QString command()const { return cmb_cmd->currentText(); }
@@ -133,7 +133,7 @@ class WaitDlg : public KDialogBase
 {
   public:
     WaitDlg(QWidget* parent,
-            const QString& text=QString::null,	//krazy:exclude=nullstrassign for old broken gcc
+            const QString& text=QString(),
             const QString& title=i18n("Please Wait"));
     ~WaitDlg();
 };

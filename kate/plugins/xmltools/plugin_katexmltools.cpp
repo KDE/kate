@@ -262,7 +262,7 @@ void PluginKateXMLTools::backspacePressed()
 
 void PluginKateXMLTools::emptyKeyEvent()
 {
-  keyEvent( 0, 0, QString::null );	//krazy:exclude=nullstrassign for old broken gcc
+  keyEvent( 0, 0, QString() );
 }
 
 void PluginKateXMLTools::keyEvent( int, int, const QString &/*s*/ )

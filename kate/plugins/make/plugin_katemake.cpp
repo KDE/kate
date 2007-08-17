@@ -134,7 +134,7 @@ public:
 		const QString &message) :
 		Q3ListViewItem(parent,
 			filename,
-			(lineno > 0 ? QString::number(lineno) : QString::null),
+			(lineno > 0 ? QString::number(lineno) : QString::null),	//krazy:exclude=nullstrassign for old broken gcc
 			message)
 	{
 		m_isError = !message.contains(QString::fromLatin1("warning"));
@@ -142,7 +142,7 @@ public:
 		m_serial = s_serial++;
 	} ;
 	ErrorMessage(Q3ListView *parent,const QString &message) :
-		Q3ListViewItem(parent,QString::null,QString::null,QString::null)
+		Q3ListViewItem(parent,QString::null,QString::null,QString::null)	//krazy:exclude=nullstrassign for old broken gcc
 	{
 		QString m(message);
 		m.remove('\n');
@@ -155,7 +155,7 @@ public:
 		setSelectable(false);
 	} ;
 	ErrorMessage(Q3ListView *parent, bool start) :
-		Q3ListViewItem(parent,QString::null)
+		Q3ListViewItem(parent,QString::null)	//krazy:exclude=nullstrassign for old broken gcc
 	{
 		m_isError=false;
 		m_lineno=-1;
@@ -378,8 +378,8 @@ PluginKateMakeView::PluginKateMakeView(QWidget *parent,
 
 	KConfig config("katemakepluginrc");
 	KConfigGroup c( config, "Prefixes" );
-	source_prefix = c.readEntry("Source",QString::null);
-	build_prefix = c.readEntry("Build",QString::null);
+	source_prefix = c.readEntry("Source",QString::null);	//krazy:exclude=nullstrassign for old broken gcc
+	build_prefix = c.readEntry("Build",QString::null);	//krazy:exclude=nullstrassign for old broken gcc
 
 //	if (source_prefix.isEmpty())
 	{
@@ -509,8 +509,8 @@ void PluginKateMakeView::slotProcExited(K3Process *p)
 			this);
 		clear();
 #if 0
-		Q3ListViewItem *i = new Q3ListViewItem(this,QString::null,
-			QString::null,
+		Q3ListViewItem *i = new Q3ListViewItem(this,QString::null,	//krazy:exclude=nullstrassign for old broken gcc
+			QString::null,	//krazy:exclude=nullstrassign for old broken gcc
 			i18n("No Errors."));
 		i->setSelectable(false);
 #else
@@ -637,7 +637,7 @@ bool PluginKateMakeView::slotValidate()
 	doc->save();
 	KUrl url(doc->url());
 
-	output_line = QString::null;
+	output_line = QString::null;	//krazy:exclude=nullstrassign for old broken gcc
 	ErrorMessage::resetSerial();
 	found_error=false;
 

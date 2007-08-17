@@ -143,7 +143,7 @@ KJS::Value DocumentManager::call( KJS::ExecState *exec, KJS::Object &self, const
 				if (args.size()==1) {
 					KUrl url = QString( args[0].toString(exec).qstring() );
 					if (exec->hadException()) break;
-					(void)dm->openURL(url,QString::null,&docID);
+					(void)dm->openURL(url,QString::null,&docID);	//krazy:exclude=nullstrassign for old broken gcc
 					return KJS::Number(docID);
 				} else if (args.size()==2) {
 					KUrl url = QString( args[0].toString(exec).qstring() );

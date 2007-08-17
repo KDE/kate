@@ -128,7 +128,7 @@ QString PluginKateHtmlTools::KatePrompt
   //  containing prior entries
   bool ok;
   QString result=KInputDialog::getText( strTitle, strPrompt,
-    QString::null, &ok,that);
+    QString::null, &ok,that);	//krazy:exclude=nullstrassign for old broken gcc
   if (ok) return result; else return "";
 }
 

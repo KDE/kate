@@ -624,8 +624,8 @@ class ActionLBItem : public QListWidgetItem
   public:
     ActionLBItem( QListWidget *lb = 0,
                   const QIcon &pm = QIcon(),
-                  const QString &text = QString::null,
-                  const QString &str = QString::null ) :
+                  const QString &text = QString::null,	//krazy:exclude=nullstrassign for old broken gcc
+                  const QString &str = QString::null ) :	//krazy:exclude=nullstrassign for old broken gcc
         QListWidgetItem(pm, text, lb, 0 ),
         _str(str)
     {}

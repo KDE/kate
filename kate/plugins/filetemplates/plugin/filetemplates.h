@@ -93,7 +93,7 @@ class KateFileTemplates : public Kate::Plugin
      * Update the template collection by rereading the template
      * directories. Also updates the menu.
      */
-    void updateTemplateDirs(const QString &s=QString::null);
+    void updateTemplateDirs(const QString &s=QString::null);	//krazy:exclude=nullstrassign for old broken gcc
   protected Q_SLOTS:
     /**
      * Show a file dialog, so that any file can be opened as a template.

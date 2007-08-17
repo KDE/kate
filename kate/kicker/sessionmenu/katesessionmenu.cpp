@@ -111,7 +111,7 @@ void KateSessionMenu::slotExec( int id )
     bool ok (false);
     QString name = KInputDialog::getText( i18n("Session Name"),
                                           i18n("Please enter a name for the new session"),
-                                          QString::null,
+                                          QString::null,	//krazy:exclude=nullstrassign for old broken gcc
                                           &ok, 0, new Validator( m_parent ) );
     if ( ! ok )
       return;

@@ -42,7 +42,9 @@ ExpandingWidgetModel::~ExpandingWidgetModel() {
     clearExpanding();
 }
 
-QVariant ExpandingWidgetModel::data( const QModelIndex & index, int role ) const {
+QVariant ExpandingWidgetModel::data( const QModelIndex & index, int role ) const
+{
+  bool alternate = index.row() & 1;
   switch( role ) {
     case Qt::BackgroundRole:
     {
@@ -51,8 +53,13 @@ QVariant ExpandingWidgetModel::data( const QModelIndex & index, int role ) const
         int matchQuality = contextMatchQuality(index);
         if( matchQuality != -1 )
         {
-          uint badMatchColor = 0xffff0000; //Full red
-          uint goodMatchColor = 0xff00ff00; //Full green
+          quint64 badMatchColor = 0xff7777ff; //Full blue
+          quint64 goodMatchColor = 0xff77ff77; //Full green
+          
+          if( alternate ) {
+            badMatchColor += 0x00080000;
+            goodMatchColor += 0x00080000;
+          }
           uint totalColor = (badMatchColor*(10-matchQuality) + goodMatchColor*matchQuality)/10;
           return QBrush(totalColor);
         }
@@ -60,7 +67,6 @@ QVariant ExpandingWidgetModel::data( const QModelIndex & index, int role ) const
       
       //Use a special background-color for expanded items
       if( isExpanded(index) ) {
-        bool alternate = index.row() & 1;
         if( alternate )
           return QBrush(0xffd8ca6c);
         else

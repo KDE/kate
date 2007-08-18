@@ -19,6 +19,7 @@
 #include "katecompletionmodel.h"
 
 #include <QTextEdit>
+#include <QMultiMap>
 
 #include <klocale.h>
 #include <kiconloader.h>
@@ -38,8 +39,10 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   , m_matchCaseSensitivity(Qt::CaseInsensitive)
   , m_ungrouped(new Group(this))
   , m_argumentHints(new Group(this))
+  , m_bestMatches(new Group(this))
   , m_sortingEnabled(false)
   , m_sortingAlphabetical(false)
+  , m_isSortingByInheritance(false)
   , m_sortingCaseSensitivity(Qt::CaseInsensitive)
   , m_sortingReverse(false)
   , m_filteringEnabled(false)
@@ -56,19 +59,28 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   
   m_ungrouped->attribute = 0;
   m_argumentHints->attribute = -1;
+  m_bestMatches->attribute = BestMatchesProperty;
   
   m_ungrouped->title = i18n("Other");
   m_argumentHints->title = i18n("Argument-hints");
+  m_bestMatches->title = i18n("Best matches");
 
   m_emptyGroups.append(m_ungrouped);
   m_emptyGroups.append(m_argumentHints);
+  m_emptyGroups.append(m_bestMatches);
 
   m_groupHash.insert(0, m_ungrouped);
-  m_groupHash.insert(-1, m_ungrouped);
+  m_groupHash.insert(-1, m_argumentHints);
+  m_groupHash.insert(BestMatchesProperty, m_argumentHints);
+
+  initializeSettings();
 }
 
 KateCompletionModel::~KateCompletionModel() {
   clearCompletionModels();
+  delete m_argumentHints;
+  delete m_ungrouped;
+  delete m_bestMatches;
 }
 
 QTreeView* KateCompletionModel::treeView() const {
@@ -116,7 +128,7 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
     }
 
     // Merge text for column merging
-    if (role == Qt::DisplayRole && m_columnMerges.count()) {
+    if (role == Qt::DisplayRole && m_columnMerges.count() && isColumnMergingEnabled()) {
       QString text;
       foreach (int column, m_columnMerges[index.column()]) {
         QModelIndex sourceIndex = mapToSource(createIndex(index.row(), column, index.internalPointer()));
@@ -366,12 +378,16 @@ void KateCompletionModel::clearGroups( )
   clearExpanding();
   m_ungrouped->clear();
   m_argumentHints->clear();
+  m_bestMatches->clear();
   // Don't bother trying to work out where it is
   m_rowTable.removeAll(m_ungrouped);
   m_emptyGroups.removeAll(m_ungrouped);
 
   m_rowTable.removeAll(m_argumentHints);
   m_emptyGroups.removeAll(m_argumentHints);
+  
+  m_rowTable.removeAll(m_bestMatches);
+  m_emptyGroups.removeAll(m_bestMatches);
   
   qDeleteAll(m_rowTable);
   qDeleteAll(m_emptyGroups);
@@ -384,6 +400,9 @@ void KateCompletionModel::clearGroups( )
   
   m_emptyGroups.append(m_argumentHints);
   m_groupHash.insert(-1, m_argumentHints);
+  
+  m_emptyGroups.append(m_bestMatches);
+  m_groupHash.insert(BestMatchesProperty, m_bestMatches);
 }
 
 void KateCompletionModel::createGroups()
@@ -405,9 +424,6 @@ void KateCompletionModel::createGroups()
       else
         g = fetchGroup(completionFlags, scopeIfNeeded);
       
-      if( g == m_argumentHints )
-        kDebug() << "Adding argument-hint";
-
       g->addItem(Item(this, ModelRow(sourceModel, i)));
     }
 
@@ -448,8 +464,6 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
       st = "Namespace Scope";
     else if (attribute & KTextEditor::CodeCompletionModel::LocalScope)
       st = "Local Scope";
-    else
-      st = i18n("Unspecified Scope");
 
     ret->title = st;
   }
@@ -468,8 +482,6 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
       at = "Protected";
     else if (attribute & KTextEditor::CodeCompletionModel::Private)
       at = "Private";
-    else
-      at = i18n("Unspecified Access");
 
     if (accessIncludeStatic() && attribute & KTextEditor::CodeCompletionModel::Static)
       at.append(i18n(" Static"));
@@ -477,10 +489,12 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
     if (accessIncludeConst() && attribute & KTextEditor::CodeCompletionModel::Const)
       at.append(" Const");
 
-    if (!ret->title.isEmpty())
-      ret->title.append(", ");
+    if( !at.isEmpty() ) {
+      if (!ret->title.isEmpty())
+        ret->title.append(", ");
 
-    ret->title.append(at);
+      ret->title.append(at);
+    }
   }
 
   if (groupingMethod() & ItemType) {
@@ -498,13 +512,13 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
       it = i18n("Variables");
     else if (attribute & CodeCompletionModel::Enum)
       it = i18n("Enumerations");
-    else
-      it = i18n("Unspecified Item Type");
 
-    if (!ret->title.isEmpty())
-      ret->title.append(" ");
+    if( !it.isEmpty() ) {
+      if (!ret->title.isEmpty())
+        ret->title.append(" ");
 
-    ret->title.append(it);
+      ret->title.append(it);
+    }
   }
 
   m_emptyGroups.append(ret);
@@ -558,7 +572,14 @@ QModelIndex KateCompletionModel::parent( const QModelIndex & index ) const
     }
 
     int row = m_rowTable.indexOf(g);
-    Q_ASSERT(row != -1);
+
+    /**
+     * Workaround for crash caused by the assertion that I don't know how to fix, any better fix is encouraged.
+     * It happens when I click setup
+     * */
+    if( row == -1 )
+      return QModelIndex(); 
+//     Q_ASSERT(row != -1);
     return createIndex(row, 0, 0);
   }
 
@@ -598,8 +619,12 @@ QModelIndex KateCompletionModel::mapToSource( const QModelIndex & proxyIndex ) c
     return QModelIndex();
 
   if (Group* g = groupOfParent(proxyIndex)) {
-    ModelRow source = g->rows[proxyIndex.row()];
-    return source.first->index(source.second, proxyIndex.column());
+    if( proxyIndex.row() >= 0 && proxyIndex.row() < g->rows.count() ) {
+      ModelRow source = g->rows[proxyIndex.row()];
+      return source.first->index(source.second, proxyIndex.column());
+    }else{
+      kDebug("Invalid proxy-index");
+    }
   }
 
   return QModelIndex();
@@ -659,6 +684,8 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
       changeCompletions(g, completion, changeType);
     foreach (Group* g, m_emptyGroups)
       changeCompletions(g, completion, changeType);
+
+    updateBestMatches();
   }
 
   m_currentMatch = completion;
@@ -675,6 +702,8 @@ void KateCompletionModel::rematch()
 
     foreach (Group* g, m_emptyGroups)
       changeCompletions(g, m_currentMatch, Change);
+
+    updateBestMatches();
   }
 }
 
@@ -792,6 +821,35 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
   hideOrShowGroup(g);
 }
 
+int KateCompletionModel::Group::orderNumber() const {
+  ///@todo extend this. Currently it mainly does this: "BestMatches < Local < Public < Protected < Private < Global"
+    if( this == model->m_ungrouped )
+      return 50;
+  
+    if (attribute & KTextEditor::CodeCompletionModel::GlobalScope)
+      return 30;
+    else if (attribute & KTextEditor::CodeCompletionModel::NamespaceScope)
+      return 29;
+    else if (attribute & KTextEditor::CodeCompletionModel::LocalScope)
+      return 3;
+
+    if (attribute & KTextEditor::CodeCompletionModel::Public)
+      return 4;
+    else if (attribute & KTextEditor::CodeCompletionModel::Protected)
+      return 5;
+    else if (attribute & KTextEditor::CodeCompletionModel::Private)
+      return 6;
+
+    if( attribute & BestMatchesProperty )
+      return 1;
+
+    return 50;
+}
+
+bool KateCompletionModel::Group::orderBefore(Group* other) const {
+    return orderNumber() < other->orderNumber();
+}
+
 void KateCompletionModel::hideOrShowGroup(Group* g)
 {
   if( g == m_argumentHints )
@@ -817,12 +875,19 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
   } else {
     if (!g->rows.isEmpty()) {
       // Move off empty group list
-      // FIXME insert into correctly sorted location
       g->isEmpty = false;
-      int row = m_rowTable.count();
+      
+      int row = 0; //Find row where to insert
+      for( int a = 0; a < m_rowTable.count(); a++ ) {
+        if( g->orderBefore(m_rowTable[a]) ) {
+        row = a;
+        break;
+        }
+        row = a+1;
+      }
       if (hasGroups())
         beginInsertRows(QModelIndex(), row, row);
-      m_rowTable.append(g);
+      m_rowTable.insert(row, g);
       if (hasGroups())
         endInsertRows();
       m_emptyGroups.removeAll(g);
@@ -993,7 +1058,9 @@ int KateCompletionModel::translateColumn( int sourceColumn ) const
   foreach (const QList<int>& list, m_columnMerges) {
     foreach (int column, list) {
       if (column == sourceColumn)
-        return c;
+        ///@todo Ugly workaround: "return c" is correct here. This is a workaround for a bug I don't understand, which you can notice in katecompletionwidget.cpp:
+        ///For some reason, the name-column is mapped to the post-fix column when column-merging is enabled, so the widget is not positioned correctly.
+        return c > 0 ? c-1 : c;
       c++;
     }
   }
@@ -1128,6 +1195,13 @@ KateCompletionModel::GroupingMethods KateCompletionModel::groupingMethod( ) cons
   return m_groupingMethod;
 }
 
+bool KateCompletionModel::isSortingByInheritanceDepth() const {
+  return m_isSortingByInheritance;
+}
+void KateCompletionModel::setSortingByInheritanceDepth(bool byInheritance) {
+  m_isSortingByInheritance = byInheritance;
+}
+
 bool KateCompletionModel::isSortingAlphabetical( ) const
 {
   return m_sortingAlphabetical;
@@ -1149,6 +1223,7 @@ KateCompletionModel::Item::Item( KateCompletionModel* m, ModelRow sr )
   , matchCompletion(true)
   , matchFilters(true)
 {
+  inheritanceDepth = m_sourceRow.first->index(m_sourceRow.second, 0).data(CodeCompletionModel::InheritanceDepth).toInt();
   filter();
   match();
 }
@@ -1170,6 +1245,8 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
 
     //kDebug() << k_funcinfo << c1 << " c/w " << c2 << " -> " << (model->isSortingReverse() ? ret > 0 : ret < 0) << " (" << ret << ")";
 
+  } else if( model->isSortingByInheritanceDepth() ) {
+    return inheritanceDepth < rhs.inheritanceDepth;
   } else {
     // FIXME need to define a better default ordering for multiple model display
     ret = m_sourceRow.second - rhs.m_sourceRow.second;
@@ -1335,6 +1412,8 @@ void KateCompletionModel::refilter( )
 
   foreach (Group* g, m_emptyGroups)
     g->refilter();
+
+  updateBestMatches();
 }
 
 void KateCompletionModel::Group::refilter( )
@@ -1560,6 +1639,66 @@ void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
   reset();
 }
 
+//Updates the best-matches group
+void KateCompletionModel::updateBestMatches() {
+
+  //Maps match-qualities to ModelRows paired together with the BestMatchesCount returned by the items.
+  typedef QMultiMap<int, QPair<int, ModelRow> > BestMatchMap;
+  BestMatchMap matches;
+  ///@todo Cache the CodeCompletionModel::BestMatchesCount
+  int maxMatches = 50; //We cannot do too many operations here, because they are all executed whenever a character is added. Would be nice if we could split the operations up somewhat using a timer.
+  foreach (Group* g, m_rowTable) {
+    if( g == m_bestMatches )
+      continue;
+    for( int a = 0; a < g->rows.size(); a++ )
+    {
+      QModelIndex index = indexForGroup(g).child(a,0);
+
+      QVariant v = index.data(CodeCompletionModel::BestMatchesCount);
+      
+      if( v.type() == QVariant::Int && v.toInt() > 0 ) {
+        int quality = contextMatchQuality(index);
+        if( quality > 0 )
+          matches.insert(quality, qMakePair(v.toInt(), g->rows[a]));
+        --maxMatches;
+      }
+      
+      
+      if( maxMatches < 0 )
+        break;
+    }
+    if( maxMatches < 0 )
+      break;
+  }
+
+  //Now choose how many of the matches will be taken. This is done with the rule:
+  //The count of shown best-matches should equal the average count of their BestMatchesCounts
+  int cnt = 0;
+  int matchesSum = 0;
+  BestMatchMap::const_iterator it = matches.end();
+  while( it != matches.begin() )
+  {
+    --it;
+    ++cnt;
+    matchesSum += (*it).first;
+    if( cnt > matchesSum / cnt )
+      break;
+  }
+  
+  m_bestMatches->rows.clear();
+  it = matches.end();
+  
+  while( it != matches.begin() && cnt > 0 )
+  {
+    --it;
+    --cnt;
+
+    m_bestMatches->rows.append( (*it).second );
+  }
+  
+  hideOrShowGroup(m_bestMatches);
+}
+
 void KateCompletionModel::rowSelected(const QModelIndex& row) {
   ExpandingWidgetModel::rowSelected(row);
   ///@todo delay this
@@ -1584,6 +1723,37 @@ void KateCompletionModel::clearCompletionModels(bool skipReset)
 
   if (!skipReset)
     reset();
+}
+
+void KateCompletionModel::initializeSettings()
+{
+  ///@todo load stored settings through KateCompletionConfig here if  they exist
+  
+  ///Initialize a standard column-merging: Merge Scope, Name, Arguments and Postfix
+  setColumnMergingEnabled(true);
+  QList<QList<int> > merges;
+  QList<int> mergeEnd;
+  mergeEnd << KTextEditor::CodeCompletionModel::Scope;
+  mergeEnd << KTextEditor::CodeCompletionModel::Name;
+  mergeEnd << KTextEditor::CodeCompletionModel::Arguments;
+  mergeEnd << KTextEditor::CodeCompletionModel::Postfix;
+  for( int a = 0; a < CodeCompletionModel::Scope; a++ ) {
+    QList<int> group;
+    group << a;
+    merges << group;
+  }
+
+  merges << mergeEnd;
+
+  setColumnMerges(merges);
+
+  ///Initialize standard grouping by access-type and scope-type
+  setGroupingEnabled(true);
+  setGroupingMethod(KateCompletionModel::AccessType | KateCompletionModel::ScopeType);
+
+  ///Within the groups, sort items by inheritance-depth
+  setSortingEnabled(true);
+  setSortingByInheritanceDepth(true);
 }
 
 #include "katecompletionmodel.moc"

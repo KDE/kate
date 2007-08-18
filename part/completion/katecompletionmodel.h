@@ -94,6 +94,8 @@ class KateCompletionModel : public ExpandingWidgetModel
     // Sorting
     bool isSortingEnabled() const;
     bool isSortingAlphabetical() const;
+    bool isSortingByInheritanceDepth() const;
+    void setSortingByInheritanceDepth(bool byIneritance);
     void setSortingAlphabetical(bool alphabetical);
 
     Qt::CaseSensitivity sortingCaseSensitivity() const;
@@ -127,6 +129,11 @@ class KateCompletionModel : public ExpandingWidgetModel
       AccessType    = 0x4,
       ItemType      = 0x8
     };
+
+    enum { //An own property that will be used to mark the best-matches group internally
+      BestMatchesProperty = 2*KTextEditor::CodeCompletionModel::LastProperty
+    };
+    
     Q_DECLARE_FLAGS(GroupingMethods, gm)
 
     static const int ScopeTypeMask = 0x380000;
@@ -168,6 +175,9 @@ class KateCompletionModel : public ExpandingWidgetModel
 
   private:
 
+    ///Initializes usable standard-settings for grouping, column-merging, etc.
+    void initializeSettings();
+
     QTreeView* treeView() const;
     
     friend class KateArgumentHintModel;
@@ -199,6 +209,8 @@ class KateCompletionModel : public ExpandingWidgetModel
         KateCompletionModel* model;
         ModelRow m_sourceRow;
 
+        int inheritanceDepth;
+
         // True when currently matching completion string
         bool matchCompletion;
         // True when passes all active filters
@@ -216,6 +228,10 @@ class KateCompletionModel : public ExpandingWidgetModel
         void resort();
         void refilter();
         void clear();
+        //Returns whether this group should be ordered before other
+        bool orderBefore(Group* other) const;
+        //Returns a number that can be used for ordering
+        int orderNumber() const;
 
         KateCompletionModel* model;
         int attribute;
@@ -258,6 +274,8 @@ class KateCompletionModel : public ExpandingWidgetModel
     void refilter();
     void rematch();
 
+    //Updates the best-matches group
+    void updateBestMatches();
 
     //Places all expanding-widgets to the correct positions in the viewport
     void placeExpandingWidgets();
@@ -273,6 +291,7 @@ class KateCompletionModel : public ExpandingWidgetModel
 
     Group* m_ungrouped;
     Group* m_argumentHints; //The argument-hints will be passed on to another model, to be shown in another widget
+    Group* m_bestMatches; //A temporary group used for holding the best matches of all visible items
 
     // Storing the sorted order
     QList<Group*> m_rowTable;
@@ -284,6 +303,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     // Sorting
     bool m_sortingEnabled;
     bool m_sortingAlphabetical;
+    bool m_isSortingByInheritance;
     Qt::CaseSensitivity m_sortingCaseSensitivity;
     bool m_sortingReverse;
     QHash< int, QList<int> > m_sortingGroupingOrder;

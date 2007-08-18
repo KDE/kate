@@ -251,7 +251,7 @@ void KateCompletionWidget::updatePosition(bool force)
     return abortCompletion();
 
   QPoint p = view()->mapToGlobal( cursorPosition );
-  int x = p.x() - m_entryList->header()->sectionPosition(m_entryList->header()->visualIndex(m_presentationModel->translateColumn(KTextEditor::CodeCompletionModel::Name))) - 2;
+  int x = p.x() - m_entryList->columnViewportPosition(m_presentationModel->translateColumn(KTextEditor::CodeCompletionModel::Name)) - 2;
   int y = p.y();
   if ( y + height() + view()->renderer()->config()->fontMetrics().height() > QApplication::desktop()->height() )
     y -= height();
@@ -267,7 +267,7 @@ void KateCompletionWidget::updatePosition(bool force)
   QRect geom = m_argumentHintTree->geometry();
   geom.moveTo(QPoint(x,y));
   geom.setWidth(width());
-  geom.moveBottom(y - 50);
+  geom.moveBottom(y - view()->renderer()->config()->fontMetrics().height()*2);
   m_argumentHintTree->updateGeometry(geom);
 }
 

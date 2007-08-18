@@ -20,6 +20,10 @@
 
 #include <QtGui/QHeaderView>
 #include <QtGui/QScrollBar>
+#include <QVector>
+#include <QTimer>
+#include <QApplication>
+#include <QDesktopWidget>
 
 #include "kateview.h"
 #include "katerenderer.h"
@@ -30,7 +34,7 @@
 #include "katecompletionmodel.h"
 
 KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
-  : KateExpandingTree(parent)
+  : KateExpandingTree(parent), m_needResize(false)
 {
   setUniformRowHeights(false);
   header()->hide();
@@ -40,6 +44,11 @@ KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
   setAllColumnsShowFocus(true);
   setAlternatingRowColors(true);
 
+  m_resizeTimer = new QTimer(this);
+  m_resizeTimer->setSingleShot(true);
+
+  connect(m_resizeTimer, SIGNAL(timeout()), this, SLOT(resizeColumnsSlot()));
+  
   // Provide custom highlighting to completion entries
   setItemDelegate(new KateCompletionDelegate(widget()->model(), widget()));
 
@@ -57,12 +66,17 @@ void KateCompletionTree::scrollContentsBy( int dx, int dy )
   QTreeView::scrollContentsBy(dx, dy);
 
   if (isVisible())
-    resizeColumns();
+    m_resizeTimer->start(300);
 }
 
 KateCompletionWidget * KateCompletionTree::widget( ) const
 {
   return static_cast<KateCompletionWidget*>(const_cast<QObject*>(parent()));
+}
+
+void KateCompletionTree::resizeColumnsSlot()
+{
+  resizeColumns();
 }
 
 void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
@@ -71,34 +85,94 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
   if (firstCall)
     return;
 
+  if( firstShow ) { ///@todo This might make some flickering, but is needed because visualRect(..) for group child-indices returns invalid rects before the widget is shown
+    m_resizeTimer->start(100);
+    m_needResize = true;
+  } else if( m_needResize ) {
+    m_needResize = false;
+    firstShow = true;
+  }
+
   firstCall = true;
 
   setUpdatesEnabled(false);
 
-  int indexOfName = header()->visualIndex(kateModel()->translateColumn(KTextEditor::CodeCompletionModel::Name));
-  int oldIndentWidth = header()->sectionPosition(indexOfName);
+  int modelIndexOfName = kateModel()->translateColumn(KTextEditor::CodeCompletionModel::Name);
+  int oldIndentWidth = columnViewportPosition(modelIndexOfName);
+
+  ///Step 1: Compute the needed column-sizes for the visible content
+  QRect visibleViewportRect(0, 0, width(), height());
 
   int numColumns = model()->columnCount();
-  for (int i = 0; i < numColumns; ++i)
-    resizeColumnToContents(i);
+  
+  QVector<int> columnSize(numColumns, 5);
 
-  int newIndentWidth = header()->sectionPosition(indexOfName);
+  QModelIndex current = indexAt(QPoint(1,1));
 
-  int minWidth = 50;
-  int sectionSize = header()->sectionSize(indexOfName);
-  //int scrollBarWidth = verticalScrollBar()->width();
-  int newMinWidth = newIndentWidth + sectionSize;// + scrollBarWidth;
-  minWidth = qMax(minWidth, newMinWidth);
+  if( current.child(0,0).isValid() ) //If the index has children, it is a group-label. Then we should start with it's first child.
+    current = current.child(0,0);
+
+  int num = 0;
+  bool changed = false;
+  while( current.isValid() && visualRect(current).isValid() && visualRect(current).intersects(visibleViewportRect) )
+  {
+    changed = true;
+    num++;
+    for( int a = 0; a < numColumns; a++ )
+    {
+      QSize s = sizeHintForIndex (current.sibling(current.row(), a));
+      if( s.width() > columnSize[a] && s.width() < 700 )
+        columnSize[a] = s.width();
+      else if( s.width() > 700 )
+        kDebug() << "got invalid size-hint of width " << s.width();
+    }
+
+    QModelIndex oldCurrent = current;
+    current = current.sibling(current.row()+1, 0);
+    
+    //Are we at the end of a group? If yes, move on into the next group
+    if( !current.isValid() && oldCurrent.parent().isValid() ) {
+      current = oldCurrent.parent().sibling( oldCurrent.parent().row()+1, 0 );
+      if( current.isValid() && current.child(0,0).isValid() )
+        current = current.child(0,0);
+    }
+  }
+
+  int totalColumnsWidth = 0;
+
+  ///Step 2: Update column-sizes
+  if( changed ) {
+    //It may happen that while initial showing, no visual rectangles can be retrieved.
+    for( int n = 0; n < numColumns; n++ ) {
+      setColumnWidth(n, columnSize[n]);
+      totalColumnsWidth += columnSize[n];
+    }
+  }
+
+  ///Step 3: Update widget-size and -position
+  
+  int newIndentWidth = columnViewportPosition(modelIndexOfName);
+
+  int scrollBarWidth = verticalScrollBar()->width();
+  int newMinWidth = totalColumnsWidth + scrollBarWidth;
+
+  int minWidth = qMax(50, newMinWidth);
 
   //kDebug() << "New min width: " << minWidth << " Old min: " << minimumWidth() << " width " << width();
   setMinimumWidth(minWidth);
 
-  if (!fromResizeEvent && (firstShow || oldIndentWidth != newIndentWidth)) {
-    int newWidth = qMax(widget()->width() - oldIndentWidth + newIndentWidth, minWidth);
-    //kDebug() << k_funcinfo << "fromResize " << fromResizeEvent << " indexOfName " << indexOfName << " oldI " << oldIndentWidth << " newI " << newIndentWidth << " minw " << minWidth << " w " << widget()->width() << " newW " << newWidth;
+  if (!fromResizeEvent && (firstShow || oldIndentWidth != newIndentWidth))
+  {
+    //Never allow a completion-widget to be wider than 2/3 of the screen
+    int maxWidth = (QApplication::desktop()->screenGeometry(widget()).width()*2) / 3;
+    int newWidth = qMin(maxWidth, minWidth); 
+    //kDebug() << k_funcinfo << "fromResize " << fromResizeEvent << " indexOfName " << modelIndexOfName << " oldI " << oldIndentWidth << " newI " << newIndentWidth << " minw " << minWidth << " w " << widget()->width() << " newW " << newWidth;
     widget()->resize(newWidth, widget()->height());
   }
 
+  if( totalColumnsWidth ) //Set the size of the last column to fill the whole rest of the widget
+    setColumnWidth(numColumns-1, width() - totalColumnsWidth + columnSize[numColumns-1]);
+  
   if (oldIndentWidth != newIndentWidth)
     widget()->updatePosition();
 

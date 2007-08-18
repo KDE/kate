@@ -24,6 +24,8 @@
 class KateCompletionWidget;
 class KateCompletionModel;
 
+class QTimer;
+
 class KateCompletionTree : public KateExpandingTree
 {
   Q_OBJECT
@@ -44,10 +46,15 @@ class KateCompletionTree : public KateExpandingTree
     void top();
     void bottom();
 
+  private slots:
+    void resizeColumnsSlot();
   protected:
     virtual void currentChanged ( const QModelIndex & current, const QModelIndex & previous ); ///Not available as a signal in this way
     virtual void scrollContentsBy(int dx, int dy);
     virtual QStyleOptionViewItem viewOptions() const;
+  private:
+    QTimer* m_resizeTimer;
+    bool m_needResize;
 };
 
 #endif

@@ -26,76 +26,6 @@
 #include <ktexteditor/ktexteditor_export.h>
 #include <kdebug.h>
 
-class KTEXTEDITOR_EXPORT SecuredInteger {
-  public:
-    SecuredInteger();
-    SecuredInteger(int init);
-    
-    explicit SecuredInteger(const SecuredInteger& rhs) {
-      init();
-      operator=(rhs.m_int);
-    }
-
-    SecuredInteger& operator=( int rhs ) ;
-
-    SecuredInteger& operator=( const SecuredInteger& rhs) {
-      operator=(rhs.m_int);
-      return *this;
-    }
-
-    SecuredInteger& operator++() {
-      operator=(m_int+1);
-      return *this;
-    }
-    
-    SecuredInteger& operator--() {
-      operator=(m_int-1);
-      return *this;
-    }
-    
-    SecuredInteger operator+(int rhs) {
-      return SecuredInteger(m_int+rhs);
-    }
-    
-    SecuredInteger operator-(int rhs) {
-      return SecuredInteger(m_int-rhs);
-    }
-    
-    SecuredInteger& operator+=(int rhs) {
-      operator=(m_int+rhs);
-      return *this;
-    }
-    
-    SecuredInteger& operator-=(int rhs) {
-      operator=(m_int-rhs);
-      return *this;
-    }
-    
-    SecuredInteger operator++(int) {
-      return *this + 1;
-    }
-    
-    SecuredInteger operator--(int) {
-      return *this - 1;
-    }
-    
-    operator int() const {
-      verify();
-      return m_int;
-    }
-  private:
-    void init() {
-      for(int a = 0; a < 100; a++)
-      secure[a] = 0;
-    }
-    void verify() const {
-      for(int a = 0; a < 100; a++)
-        Q_ASSERT(secure[a] == 0);
-    }
-    int secure[100];
-    int m_int;
-};
-
 namespace KTextEditor
 {
 class Document;
@@ -411,7 +341,7 @@ class KTEXTEDITOR_EXPORT Cursor
      *
      * Cursor column
      */
-    SecuredInteger m_column;
+    int m_column;
 
     /**
      * \internal

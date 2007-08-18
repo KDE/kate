@@ -106,10 +106,10 @@ void PluginKateOpenHeader::tryOpen( const KUrl& url, const QStringList& extensio
   KUrl newURL( url );
   for( QStringList::ConstIterator it = extensions.begin(); it != extensions.end(); ++it ) {
     newURL.setFileName( basename + "." + *it );
-    if( KIO::NetAccess::exists( newURL , true, application()->activeMainWindow()->window()) )
+    if( KIO::NetAccess::exists( newURL , KIO::NetAccess::SourceSide, application()->activeMainWindow()->window()) )
       application()->activeMainWindow()->openUrl( newURL );
     newURL.setFileName( basename + "." + (*it).toUpper() );
-    if( KIO::NetAccess::exists( newURL , true, application()->activeMainWindow()->window()) )
+    if( KIO::NetAccess::exists( newURL , KIO::NetAccess::SourceSide, application()->activeMainWindow()->window()) )
       application()->activeMainWindow()->openUrl( newURL );
   }
 }

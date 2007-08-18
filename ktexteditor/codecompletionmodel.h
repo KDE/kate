@@ -165,7 +165,9 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
       /**
        * Returns the inheritance depth of the completion.  For example, a completion
        * which comes from the base class would have depth 0, one from a parent class
-       * would have depth 1, one from that class' parent 2, etc.
+       * would have depth 1, one from that class' parent 2, etc. you can use this to
+       * symbolize the general distance of a completion-item from a user. It will be used
+       * for sorting.
        */
       InheritanceDepth,
 

@@ -20,7 +20,25 @@
 
 #include "range.h"
 
+#include <kdebug.h>
+
 using namespace KTextEditor;
+
+SecuredInteger::SecuredInteger() {
+  init();
+}
+
+ SecuredInteger::SecuredInteger(int init) : m_int(init) {
+   this->init();
+ }
+
+SecuredInteger& SecuredInteger::operator=( int rhs ) {
+  verify();
+  //Break here, it is called from everywhere!
+  m_int = rhs;
+  return *this;
+}
+
 
 Cursor::Cursor( )
   : m_line(0)
@@ -67,6 +85,7 @@ void Cursor::setLine( int line )
 {
   if (line == this->line())
     return;
+  //kDebug() << this << "(" << m_range <<  ")Cursor changing line from " << this->line() << " to " << line << endl;
 
   Cursor old = *this;
 
@@ -84,6 +103,7 @@ void Cursor::setColumn( int column )
 {
   if (column == this->column())
     return;
+  //kDebug() << this << "(" << m_range <<  ")Cursor changing column from " << this->column() << " to " << column << endl;
 
   Cursor old = *this;
 
@@ -96,6 +116,7 @@ void Cursor::setPosition( const Cursor & pos )
 {
   if (pos == *this)
     return;
+  //kDebug() << this << "(" << m_range <<  ")Cursor changing position from " << *this << " to " << pos << endl;
 
   Cursor old = *this;
 

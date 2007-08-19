@@ -101,6 +101,7 @@ class KateCompletionWidget : public QFrame
     void showConfig();
     void focusOut();
     void focusIn();
+    void updatePositionSlot();
 
   protected:
     virtual void showEvent ( QShowEvent * event );
@@ -115,6 +116,7 @@ class KateCompletionWidget : public QFrame
     void rowsInserted(const QModelIndex& parent, int row, int rowEnd);
 
   private:
+    void updateHeight();
     QModelIndex selectedIndex() const;
 
     void clear();
@@ -144,6 +146,9 @@ class KateCompletionWidget : public QFrame
     bool m_inCompletionList; //Are we in the completion-list? If not, we're in the argument-hint list
     bool m_isSuspended;
     bool m_dontShowArgumentHints; //Used temporarily to prevent flashing
+
+    int m_expandedAddedHeightBase;
+    int m_expandingAddedHeight;
 };
 
 #endif

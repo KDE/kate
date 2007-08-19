@@ -38,6 +38,9 @@ class KateArgumentHintTree : public KateExpandingTree {
     void top();
     void bottom();
 
+    //Returns the total size of all columns
+    int resizeColumns();
+    
     void  clearCompletion();
   public slots:
     void updateGeometry();

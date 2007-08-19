@@ -319,7 +319,19 @@ void ExpandingWidgetModel::placeExpandingWidgets() {
   }
 }
 
-QWidget* ExpandingWidgetModel::expandingWidget(const QModelIndex& idx_) const {
+int ExpandingWidgetModel::expandingWidgetsHeight() const
+{
+  int sum = 0;
+  for( QMap<QPersistentModelIndex, QPointer<QWidget> >::const_iterator it = m_expandingWidgets.begin(); it != m_expandingWidgets.end(); ++it ) {
+    if( isExpanded(it.key() ) && (*it) )
+      sum += (*it)->height();
+  }
+  return sum;
+}
+
+
+QWidget* ExpandingWidgetModel::expandingWidget(const QModelIndex& idx_) const
+{
   QModelIndex idx(firstColumn(idx_));
 
   if( m_expandingWidgets.contains(idx) )

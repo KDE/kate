@@ -17,12 +17,16 @@
 */
 
 #include <QHeaderView>
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QScrollBar>
 
 #include "kateargumenthinttree.h"
 #include "kateargumenthintmodel.h"
 #include "katecompletionwidget.h"
 #include "expandingwidgetmodel.h"
 #include "katecompletiondelegate.h"
+#include "kateview.h"
 #include <QModelIndex>
 
 
@@ -89,17 +93,59 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
   }
 
   show();
-  resizeColumnToContents(0);
   int bottom = geom.bottom();
+  int totalWidth = resizeColumns();
   QRect topRect = visualRect(model()->index(0, 0));
   QRect contentRect = visualRect(model()->index(model()->rowCount(QModelIndex())-1, 0));
   
   geom.setHeight(contentRect.bottom() + 5 - topRect.top());
+
   geom.moveBottom(bottom);
+  if( totalWidth > geom.width() )
+    geom.setWidth(totalWidth);
+
+  //Resize and move so it fits the screen horizontally
+  int maxWidth = (QApplication::desktop()->screenGeometry(m_parent->view()).width()*3)/4;
+  if( geom.width() > maxWidth ) {
+    geom.setWidth(maxWidth);
+    geom.setHeight(geom.height() + horizontalScrollBar()->height() +2);
+    setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
+  }else{
+    setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+  }
+
+  if (geom.right() > QApplication::desktop()->screenGeometry(m_parent->view()).right())
+    geom.moveRight( QApplication::desktop()->screenGeometry(m_parent->view()).right() );
+
+  if( geom.left() < QApplication::desktop()->screenGeometry(m_parent->view()).left() )
+    geom.moveLeft(QApplication::desktop()->screenGeometry(m_parent->view()).left());
+
+  //Resize and move so it fits the screen vertically
+  bool resized = false;
+  if( geom.top() < QApplication::desktop()->screenGeometry(this).top() ) {
+    int offset = QApplication::desktop()->screenGeometry(this).top() - geom.top();
+    geom.setBottom( geom.bottom() - offset );
+    geom.moveTo(geom.left(), QApplication::desktop()->screenGeometry(this).top());
+    resized = true;
+  }
+  
 /*  kDebug() << "KateArgumentHintTree::updateGeometry: updating geometry to " << geom;*/
   setGeometry(geom);
+  
+  if( resized && currentIndex().isValid() )
+    scrollTo(currentIndex());
+  
   show();
   updatingGeometry = false;
+}
+
+int KateArgumentHintTree::resizeColumns() {
+  int totalSize = 0;
+  for( int a  = 0; a < header()->count(); a++ ) {
+    resizeColumnToContents(a);
+    totalSize += columnWidth(a);
+  }
+  return totalSize;
 }
 
 void KateArgumentHintTree::updateGeometry() {

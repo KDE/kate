@@ -63,6 +63,8 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_inCompletionList(false)
   , m_isSuspended(false)
   , m_dontShowArgumentHints(false)
+  , m_expandedAddedHeightBase(0)
+  , m_expandingAddedHeight(0)
 {
   //new ModelTest(m_presentationModel, this);
 
@@ -124,6 +126,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   connect(view()->doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(editDone(KateEditInfo*)), Qt::QueuedConnection);
   connect(view(), SIGNAL(focusOut(KTextEditor::View*)), this, SLOT(focusOut()));
   connect(view(), SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(focusIn()));
+  connect(view(), SIGNAL(verticalScrollPositionChanged (KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(updatePositionSlot()));
 
   // This is a non-focus widget, it is passed keyboard input from the view
   setFocusPolicy(Qt::NoFocus);
@@ -135,6 +138,7 @@ KateCompletionWidget::~KateCompletionWidget() {
 }
 
 void KateCompletionWidget::focusOut() {
+  ///@todo Do not suspend when the user clicked the completion-widget
   if( isCompletionActive() ) {
     hide();
     m_isSuspended = true;
@@ -235,9 +239,14 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
     m_dontShowArgumentHints = false;
     m_argumentHintModel->buildRows();
     m_argumentHintTree->updateGeometry();
-    
+
     m_argumentHintTree->show();
   }
+}
+
+void KateCompletionWidget::updatePositionSlot()
+{
+  updatePosition();
 }
 
 void KateCompletionWidget::updatePosition(bool force)
@@ -253,16 +262,22 @@ void KateCompletionWidget::updatePosition(bool force)
   QPoint p = view()->mapToGlobal( cursorPosition );
   int x = p.x() - m_entryList->columnViewportPosition(m_presentationModel->translateColumn(KTextEditor::CodeCompletionModel::Name)) - 2;
   int y = p.y();
-  if ( y + height() + view()->renderer()->config()->fontMetrics().height() > QApplication::desktop()->height() )
+  //We do not need to move the widget up, because updateHeight will resize the widget to fit the screen
+/*  if ( y + height() + view()->renderer()->config()->fontMetrics().height() > QApplication::desktop()->screenGeometry(this).bottom() )
     y -= height();
-  else
-    y += view()->renderer()->config()->fontMetrics().height();
+  else*/
+  y += view()->renderer()->config()->fontMetrics().height();
 
-  if (x + width() > QApplication::desktop()->width())
-    x = QApplication::desktop()->width() - width();
+  if (x + width() > QApplication::desktop()->screenGeometry(view()).right())
+    x = QApplication::desktop()->screenGeometry(view()).right() - width();
 
+  if( x < QApplication::desktop()->screenGeometry(view()).left() )
+    x = QApplication::desktop()->screenGeometry(view()).left();
+  
   move( QPoint(x,y) );
 
+  updateHeight();
+  
   //Now place the argument-hint widget
   QRect geom = m_argumentHintTree->geometry();
   geom.moveTo(QPoint(x,y));
@@ -270,6 +285,64 @@ void KateCompletionWidget::updatePosition(bool force)
   geom.moveBottom(y - view()->renderer()->config()->fontMetrics().height()*2);
   m_argumentHintTree->updateGeometry(geom);
 }
+
+void KateCompletionWidget::updateHeight()
+{
+  kDebug() << "updateHeight(), height: " << geometry().height() << " current added-height: " << m_expandingAddedHeight;
+  
+  QRect geom = geometry();
+
+  int baseHeight = geom.height() - m_expandingAddedHeight;
+
+  if( m_expandedAddedHeightBase != baseHeight && m_expandedAddedHeightBase - baseHeight > -2 && m_expandedAddedHeightBase - baseHeight < 2  )
+  {
+    //Re-use the stored base-height if it only slightly differs from the current one.
+    //Reason: Qt seems to apply slightly wrong sizes when the completion-widget is moved out of the screen at the bottom,
+    //        which completely breaks this algorithm. Solution: re-use the old base-size if it only slightly differs from the computed one.
+    baseHeight = m_expandedAddedHeightBase;
+  }
+  
+  if( baseHeight < 300 ) {
+    baseHeight = 300; //Here we enforce a minimum desirable height
+    m_expandingAddedHeight = 0;
+//     kDebug() << "Resetting baseHeight and m_expandingAddedHeight";
+  }
+  
+  int newExpandingAddedHeight = 0;
+  
+//   kDebug() << "baseHeight: " << baseHeight;
+
+  newExpandingAddedHeight = model()->expandingWidgetsHeight();
+
+//   kDebug() << "new newExpandingAddedHeight: " << newExpandingAddedHeight;
+  
+  int screenBottom = QApplication::desktop()->screenGeometry(view()).bottom();
+
+  int bottomPosition = baseHeight + newExpandingAddedHeight + geometry().top();
+//  int targetHeight = baseHeight + newExpandingAddedHeight;
+//   kDebug() << "targetHeight: " << targetHeight;
+
+//   kDebug() << "screen-bottom: " << screenBottom << " bottomPosition: " << bottomPosition;
+  
+  if( bottomPosition > screenBottom-50 ) {
+    newExpandingAddedHeight -= bottomPosition - (screenBottom-50);
+//     kDebug() << "Too high, moved bottomPosition to: " << baseHeight + newExpandingAddedHeight + geometry().top() << " changed newExpandingAddedHeight to " << newExpandingAddedHeight;
+  }
+
+  int finalHeight = baseHeight+newExpandingAddedHeight;
+//   kDebug() << "finalHeight: " << finalHeight;
+  if( finalHeight < 50 ) {
+    return;
+  }
+
+  m_expandingAddedHeight = baseHeight;
+  m_expandedAddedHeightBase = geometry().height();
+  
+  geom.setHeight(finalHeight);
+  
+  setGeometry(geom);
+}
+
 
 void KateCompletionWidget::cursorPositionChanged( )
 {
@@ -471,6 +544,7 @@ void KateCompletionWidget::setCurrentItemExpanded( bool expanded ) {
   if( m_inCompletionList ) {
     if( !m_entryList->currentIndex().isValid() ) return;
     model()->setExpanded(m_entryList->currentIndex(), expanded);
+    updateHeight();
   }else{
     if( !m_argumentHintTree->currentIndex().isValid() ) return;
     m_argumentHintModel->setExpanded(m_argumentHintTree->currentIndex(), expanded);

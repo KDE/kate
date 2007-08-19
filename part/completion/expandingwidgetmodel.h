@@ -68,6 +68,9 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     ///Change the expand-state of the row given through index. The display will be updated.
     void setExpanded(QModelIndex index, bool expanded);
 
+    ///Returns the total height added through all open expanding-widgets
+    int expandingWidgetsHeight() const;
+    
     ///@return the expanding-widget for the given row, if available. Expanding-widgets are in best case available for all expanded rows.
     ///This does not return the partially-expand widget.
     QWidget* expandingWidget(const QModelIndex & row) const;

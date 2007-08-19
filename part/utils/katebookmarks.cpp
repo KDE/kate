@@ -155,11 +155,11 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
   const QHash<int, KTextEditor::Mark*> &m = m_view->doc()->marks();
   QVector<uint> sortArray( m.size() );
 
-  if ( !m.isEmpty() )
-    menu.addSeparator();
+  if ( m.isEmpty() )
+    return;
 
   int i = 0;
-  QAction* firstNewAction = 0L;
+  QAction* firstNewAction = menu.addSeparator();
   for (QHash<int, KTextEditor::Mark*>::const_iterator it = m.constBegin(); it != m.constEnd(); ++it, ++i)
   {
     if( it.value()->type & KTextEditor::MarkInterface::markType01 )
@@ -199,7 +199,6 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
       } else {
         QAction* a = menu.addAction(QString("%1 - \"%2\"").arg( it.value()->line+1 ).arg( bText ), this, SLOT(gotoLine()));
         a->setData(it.value()->line);
-        if (!firstNewAction) firstNewAction = a;
       }
 
       if ( it.value()->line < line )

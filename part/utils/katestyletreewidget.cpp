@@ -24,6 +24,7 @@
 #include <QtGui/QKeyEvent>
 #include <QtGui/QAction>
 #include <QtGui/QItemDelegate>
+#include <QtGui/QHeaderView>
 
 #include <klocale.h>
 #include <kicon.h>
@@ -127,9 +128,12 @@ KateStyleTreeWidget::KateStyleTreeWidget( QWidget *parent, bool showUseDefaults 
 {
   setItemDelegate(new KateStyleTreeDelegate(this));
 
-  setColumnCount( showUseDefaults ? 10 : 9 );
   QStringList headers;
-  headers << i18n("Context") << QString() << QString() << QString() << QString() << i18n("Normal") << i18n("Selected") << i18n("Background") << i18n("Background Selected") << i18n("Use Default Style");
+  headers << i18n("Context") << QString() << QString() << QString() << QString() << i18n("Normal") << i18n("Selected") << i18n("Background") << i18n("Background Selected");
+  if(showUseDefaults) {
+    headers << i18n("Use Default Style");
+  }
+  
   setHeaderLabels(headers);
 
   headerItem()->setIcon(1, KIcon("format-text-bold"));

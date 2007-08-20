@@ -28,6 +28,7 @@
 class QToolButton;
 class QPushButton;
 class QLabel;
+class QTimer;
 
 class KateView;
 class KateSmartRange;
@@ -71,9 +72,13 @@ class KateCompletionWidget : public QFrame
     
     void registerCompletionModel(KTextEditor::CodeCompletionModel* model);
     void unregisterCompletionModel(KTextEditor::CodeCompletionModel* model);
+    
     bool isAutomaticInvocationEnabled() const;
     void setAutomaticInvocationEnabled(bool enabled = true);
 
+    int automaticInvocationDelay() const;
+    void setAutomaticInvocationDelay(int delay);
+    
     KateSmartRange* completionRange() const;
 
     // Navigation
@@ -102,6 +107,7 @@ class KateCompletionWidget : public QFrame
     void focusOut();
     void focusIn();
     void updatePositionSlot();
+    void automaticInvocation();
 
   protected:
     virtual void showEvent ( QShowEvent * event );
@@ -134,6 +140,7 @@ class KateCompletionWidget : public QFrame
     KateArgumentHintModel* m_argumentHintModel;
     KateArgumentHintTree* m_argumentHintTree;
 
+    QTimer* m_automaticInvocationTimer;
     QWidget* m_statusBar;
     QToolButton* m_sortButton;
     QLabel* m_sortText;
@@ -141,7 +148,9 @@ class KateCompletionWidget : public QFrame
     QLabel* m_filterText;
     QPushButton* m_configButton;
 
+    QString m_automaticInvocationLine;
     bool m_automaticInvocation;
+    int m_automaticInvocationDelay;
     bool m_filterInstalled;
     bool m_inCompletionList; //Are we in the completion-list? If not, we're in the argument-hint list
     bool m_isSuspended;

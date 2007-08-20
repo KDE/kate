@@ -59,6 +59,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_argumentHintModel(new KateArgumentHintModel(this))
   , m_argumentHintTree(new KateArgumentHintTree(this))
   , m_automaticInvocation(false)
+  , m_automaticInvocationDelay(300)
   , m_filterInstalled(false)
   , m_inCompletionList(false)
   , m_isSuspended(false)
@@ -95,6 +96,10 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_configButton = new QPushButton(KIcon("configure"), i18n("Setup"), m_statusBar);
   connect(m_configButton, SIGNAL(pressed()), SLOT(showConfig()));
 
+  m_automaticInvocationTimer = new QTimer(this);
+  m_automaticInvocationTimer->setSingleShot(true);
+  connect(m_automaticInvocationTimer, SIGNAL(timeout()), this, SLOT(automaticInvocation()));
+  
   QSizeGrip* sg = new QSizeGrip(m_statusBar);
 
   QHBoxLayout* statusLayout = new QHBoxLayout(m_statusBar);
@@ -699,28 +704,43 @@ void KateCompletionWidget::setAutomaticInvocationEnabled(bool enabled)
   m_automaticInvocation = enabled;
 }
 
+int KateCompletionWidget::automaticInvocationDelay() const {
+  return m_automaticInvocationDelay;
+}
+
+void KateCompletionWidget::setAutomaticInvocationDelay(int delay) {
+  m_automaticInvocationDelay = delay;
+}
+
+
 void KateCompletionWidget::editDone(KateEditInfo * edit)
 {
-  if (isCompletionActive())
+  if (!isAutomaticInvocationEnabled()
+       || (edit->editSource() != Kate::UserInputEdit)
+       || edit->isRemoval()
+       || isCompletionActive()
+       || edit->newText().isEmpty() )
+  {
+    m_automaticInvocationTimer->stop();
+    return;
+  }
+
+  m_automaticInvocationLine = edit->newText().last();
+
+  if (m_automaticInvocationLine.isEmpty()) {
+    m_automaticInvocationTimer->stop();
+    return;
+  }
+  
+  m_automaticInvocationTimer->start(m_automaticInvocationDelay);
+}
+
+void KateCompletionWidget::automaticInvocation()
+{
+  if(m_automaticInvocationLine.isEmpty())
     return;
 
-  if (!isAutomaticInvocationEnabled())
-    return;
-
-  if (edit->editSource() != Kate::UserInputEdit)
-    return;
-
-  if (edit->isRemoval())
-    return;
-
-  if (edit->newText().isEmpty())
-    return;
-
-  QString lastLine = edit->newText().last();
-
-  if (lastLine.isEmpty())
-    return;
-
+  QString lastLine = m_automaticInvocationLine;
   QChar lastChar = lastLine.at(lastLine.count() - 1);
 
   if (lastChar.isLetter() || lastChar.isNumber() || lastChar == '.' || lastChar == '_' || lastChar == '>') {

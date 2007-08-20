@@ -295,7 +295,7 @@ KateSmartRange* KateSmartManager::feedbackRange( const KateEditInfo& edit, KateS
 
 void KateSmartGroup::translateChanged( const KateEditInfo& edit)
 {
-  //kDebug() << k_funcinfo << "Was " << edit.oldRange() << " now " << edit.newRange() << " numcursors feedback " << m_feedbackCursors.count() << " normal " << m_normalCursors.count();
+  //kDebug() << "Was " << edit.oldRange() << " now " << edit.newRange() << " numcursors feedback " << m_feedbackCursors.count() << " normal " << m_normalCursors.count();
 
   foreach (KateSmartCursor* cursor, m_feedbackCursors)
     cursor->translate(edit);
@@ -428,7 +428,7 @@ void KateSmartManager::verifyCorrect() const
 
   Q_ASSERT(currentGroup->endLine() == doc()->lines() - 1);
 
-  kDebug() << k_funcinfo << "Verified correct.";
+  kDebug() << "Verified correct.";
 }
 
 void KateSmartManager::rangeGotParent( KateSmartRange * range )

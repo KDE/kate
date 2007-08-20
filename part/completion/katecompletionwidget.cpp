@@ -189,15 +189,15 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   m_isSuspended = false;
   
   if (!word.isValid()) {
-    kWarning(13035) << k_funcinfo << "Invalid range given to start code completion!";
+    kWarning(13035) << "Invalid range given to start code completion!";
     return;
   }
 
-  kDebug(13035) << k_funcinfo << word << " " << model;
+  kDebug(13035) << word << " " << model;
 
   if (!m_filterInstalled) {
     if (!QApplication::activeWindow()) {
-      kWarning(13035) << k_funcinfo << "No active window to install event filter on!!";
+      kWarning(13035) << "No active window to install event filter on!!";
       return;
     }
     // Enable the cc box to move when the editor window is moved
@@ -211,7 +211,7 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   m_completionRange = view()->doc()->smartManager()->newSmartRange(word);
   m_completionRange->setInsertBehavior(KTextEditor::SmartRange::ExpandRight);
   if(!m_completionRange->isValid()) {
-    kWarning(13035) << k_funcinfo << "Could not construct valid smart-range from " << word;
+    kWarning(13035) << "Could not construct valid smart-range from " << word;
     abortCompletion();
     return;
   }
@@ -382,7 +382,7 @@ bool KateCompletionWidget::isCompletionActive( ) const
 
 void KateCompletionWidget::abortCompletion( )
 {
-  kDebug(13035) << k_funcinfo;
+  kDebug(13035) ;
 
   m_isSuspended = false;
   
@@ -407,7 +407,7 @@ void KateCompletionWidget::clear() {
 
 void KateCompletionWidget::execute(bool shift)
 {
-  kDebug(13035) << k_funcinfo;
+  kDebug(13035) ;
 
   if (!isCompletionActive())
     return;
@@ -749,7 +749,7 @@ void KateCompletionWidget::automaticInvocation()
     if (range.isValid())
       startCompletion(range, 0, KTextEditor::CodeCompletionModel::AutomaticInvocation);
     else
-      kWarning(13035) << k_funcinfo << "Completion range was invalid even though it was expected to be valid.";
+      kWarning(13035) << "Completion range was invalid even though it was expected to be valid.";
   }
 }
 

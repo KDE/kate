@@ -211,7 +211,7 @@ void KateModeManager::save (const QList<KateFileType *>& v)
 
 QString KateModeManager::fileType (KateDocument *doc)
 {
-  kDebug(13020)<<k_funcinfo;
+  kDebug(13020);
   if (!doc)
     return "";
 

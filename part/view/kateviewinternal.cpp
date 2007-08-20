@@ -3260,7 +3260,7 @@ void KateViewInternal::endDynamic( DynamicRangeHL* hl, KateSmartRange* range, KT
 
 void KateViewInternal::updateRange(KateSmartRange* range)
 {
-  //kDebug() << k_funcinfo << *range;
+  //kDebug() << *range;
   tagRange(*range, true);
   updateDirty();
 }

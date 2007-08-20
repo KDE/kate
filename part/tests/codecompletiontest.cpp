@@ -165,7 +165,7 @@ void CodeCompletionTest::completionInvoked(KTextEditor::View* view, const KTextE
   Q_UNUSED(invocationType)
 
   m_startText = view->document()->text(KTextEditor::Range(range.start(), view->cursorPosition()));
-  kDebug() << k_funcinfo << m_startText;
+  kDebug() << m_startText;
 }
 
 #include "codecompletiontest.moc"

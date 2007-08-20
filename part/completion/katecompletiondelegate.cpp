@@ -93,7 +93,7 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
       len += text.length();
     }
 
-    //kDebug() << k_funcinfo << "About to highlight with mode " << highlightMethod << " text [" << thisLine->string() << "]";
+    //kDebug() << "About to highlight with mode " << highlightMethod << " text [" << thisLine->string() << "]";
 
     if (highlightMethod & KTextEditor::CodeCompletionModel::InternalHighlighting) {
       KateTextLine::Ptr previousLine;
@@ -113,7 +113,7 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
 
       for (int i = 0; i + 2 < customHighlights.count(); i += 3) {
         if (!customHighlights[i].canConvert(QVariant::Int) || !customHighlights[i+1].canConvert(QVariant::Int) || !customHighlights[i+2].canConvert<void*>()) {
-          kWarning() << k_funcinfo << "Unable to convert triple to custom formatting.";
+          kWarning() << "Unable to convert triple to custom formatting.";
           continue;
         }
 
@@ -123,9 +123,9 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
 
     m_cachedHighlights = renderer()->decorationsForLine(thisLine, 0, false, &rr, option.state & QStyle::State_Selected);
 
-    /*kDebug() << k_funcinfo << "Highlights for line [" << thisLine->string() << "]:";
+    /*kDebug() << "Highlights for line [" << thisLine->string() << "]:";
     foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
-      kDebug() << k_funcinfo << fr.start << " len " << fr.length << " format ";*/
+      kDebug() << fr.start << " len " << fr.length << " format ";*/
 
     m_cachedRow = index.row();
     m_cachedRowSelected = option.state & QStyle::State_Selected;
@@ -197,9 +197,9 @@ void KateCompletionDelegate::drawDisplay( QPainter * painter, const QStyleOption
     additionalFormats.append(format);
   }
 
-  /*kDebug() << k_funcinfo << "Highlights for text [" << text << "] col start " << m_cachedColumnStart << ":";
+  /*kDebug() << "Highlights for text [" << text << "] col start " << m_cachedColumnStart << ":";
   foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
-    kDebug() << k_funcinfo << fr.start << " len " << fr.length << " format " << fr.format.fontWeight();*/
+    kDebug() << fr.start << " len " << fr.length << " format " << fr.format.fontWeight();*/
 
   layout.setAdditionalFormats(additionalFormats);
 

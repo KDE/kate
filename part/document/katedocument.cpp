@@ -1793,7 +1793,7 @@ void KateDocument::updateModified()
 
   // This will print out the pattern information
 
-  kDebug(13020) << k_funcinfo
+  kDebug(13020) 
     << "Pattern:" << static_cast<unsigned int>(currentPattern) << endl;
 
   for (uint patternIndex = 0; patternIndex < patternCount; ++patternIndex)
@@ -1801,7 +1801,7 @@ void KateDocument::updateModified()
     if ( currentPattern == patterns[patternIndex] )
     {
       setModified( false );
-      kDebug(13020) << k_funcinfo << "setting modified to false!";
+      kDebug(13020) << "setting modified to false!";
       break;
     }
   }

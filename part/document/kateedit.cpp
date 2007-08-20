@@ -145,7 +145,7 @@ void KateEditHistory::releaseRevision(int revision)
     return;
   }
 
-  kWarning() << k_funcinfo << "Unknown revision token " << revision;
+  kWarning() << "Unknown revision token " << revision;
 }
 
 QList<KateEditInfo*> KateEditHistory::editsBetweenRevisions(int from, int to) const

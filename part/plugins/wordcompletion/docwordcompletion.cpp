@@ -550,7 +550,7 @@ const KTextEditor::Range DocWordCompletionPluginView::range() const
 {
   KTextEditor::Cursor end = m_view->cursorPosition();
 
-  if ( ! end.column() ) return KTextEditor::Range::Range(); // no word
+  if ( ! end.column() ) return KTextEditor::Range(); // no word
   int line = end.line();
   int col = end.column();
 
@@ -567,7 +567,7 @@ const KTextEditor::Range DocWordCompletionPluginView::range() const
     break;
   }
 
-  return KTextEditor::Range::Range( KTextEditor::Cursor( line, col ), end );
+  return KTextEditor::Range( KTextEditor::Cursor( line, col ), end );
 }
 
 void DocWordCompletionPluginView::slotVariableChanged( KTextEditor::Document*,const QString &var, const QString &val )

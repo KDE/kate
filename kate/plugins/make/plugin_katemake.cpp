@@ -62,7 +62,7 @@
 
 K_EXPORT_COMPONENT_FACTORY( katemakeplugin, KGenericFactory<PluginKateMake>( "katemake" ) )
 
-// #define FUNCTIONSETUP kDebug() << k_funcinfo;
+// #define FUNCTIONSETUP kDebug() ;
 #define FUNCTIONSETUP
 
 PluginKateMake::PluginKateMake( QObject* parent, const char* name, const QStringList& )

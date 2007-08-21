@@ -1,0 +1,18 @@
+[Desktop Entry]
+Encoding=UTF-8
+X-KDE-Library=ktexteditor_timedate
+X-KDE-PluginInfo-Author=Rafael Fernández López
+X-KDE-PluginInfo-Email=ereslibre@gmail.com
+X-KDE-PluginInfo-Name=ktexteditortimedate
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://kate.kde.org
+X-KDE-PluginInfo-Category=Editor
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=false
+X-KDE-ParentApp=kate
+ServiceTypes=KTextEditor/Plugin
+Type=Service
+Icon=korganizer
+Name=Time & Date
+Comment=Insert current Time & Date

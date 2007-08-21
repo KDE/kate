@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Service
+ServiceTypes=KCModule
+
+X-KDE-Library=ktexteditor_timedate
+X-KDE-FactoryName=ktexteditor_timedate_config
+X-KDE-ParentComponents=ktexteditortimedate
+
+Name=Format of Time & Date insertion

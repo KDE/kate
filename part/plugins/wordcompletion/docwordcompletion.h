@@ -85,10 +85,10 @@ class DocWordCompletionPlugin
     virtual void readConfig (KConfig *) {}
     virtual void writeConfig (KConfig *) {}
 
-    uint treshold() const { return m_treshold; }
-    void setTreshold( uint t ) { m_treshold = t; }
-    bool autoPopupEnabled() const { return m_autopopup; }
-    void setAutoPopupEnabled( bool enable ) { m_autopopup = enable; }
+    uint treshold() const;
+    void setTreshold( uint t );
+    bool autoPopupEnabled() const;
+    void setAutoPopupEnabled( bool enable );
   private:
     static DocWordCompletionPlugin *plugin;
     QList<class DocWordCompletionPluginView*> m_views;
@@ -110,7 +110,11 @@ class DocWordCompletionPluginView
                                  DocWordCompletionModel *completionModel=0 );
     ~DocWordCompletionPluginView();
 
-    void settreshold( uint treshold );
+    void setTreshold( uint treshold );
+    void setAutoPopupEnabled( bool enable );
+
+  public Q_SLOTS:
+    void toggleAutoPopup();
 
   private Q_SLOTS:
     void completeBackwards();
@@ -119,7 +123,6 @@ class DocWordCompletionPluginView
 
     void popupCompletionList();
     void autoPopupCompletionList();
-    void toggleAutoPopup();
 
     void slotVariableChanged(KTextEditor::Document*, const QString &, const QString & );
 

@@ -201,6 +201,42 @@ void DocWordCompletionPlugin::writeConfig()
   cg.writeEntry("autopopup", m_autopopup );
   cg.writeEntry("treshold", m_treshold );
 }
+
+uint DocWordCompletionPlugin::treshold() const
+{
+    return m_treshold;
+}
+
+void DocWordCompletionPlugin::setTreshold(uint t)
+{
+    m_treshold = t;
+
+    // If the property has been set for the plugin in general, let's set that
+    // property to that value on all views where the plugin has been loaded.
+    foreach (DocWordCompletionPluginView *view, m_views)
+    {
+        view->setTreshold(t);
+    }
+}
+
+bool DocWordCompletionPlugin::autoPopupEnabled() const
+{
+    return m_autopopup;
+}
+
+void DocWordCompletionPlugin::setAutoPopupEnabled(bool enable)
+{
+    m_autopopup = enable;
+
+    // If the property has been set for the plugin in general, let's set that
+    // property to that value on all views where the plugin has been loaded.
+    foreach (DocWordCompletionPluginView *view, m_views)
+    {
+        view->setAutoPopupEnabled(enable);
+        view->toggleAutoPopup();
+    }
+}
+
 //END
 
 //BEGIN DocWordCompletionPluginView
@@ -305,9 +341,14 @@ DocWordCompletionPluginView::~DocWordCompletionPluginView()
   d=0;
 }
 
-void DocWordCompletionPluginView::settreshold( uint t )
+void DocWordCompletionPluginView::setTreshold( uint t )
 {
   d->treshold = t;
+}
+
+void DocWordCompletionPluginView::setAutoPopupEnabled( bool enable )
+{
+  d->autopopup->setChecked(enable);
 }
 
 void DocWordCompletionPluginView::completeBackwards()

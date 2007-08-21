@@ -680,7 +680,7 @@ KatePrintTextSettings::KatePrintTextSettings( KPrinter * /*printer*/, QWidget *p
         "<p>If enabled, line numbers will be printed on the left side of the page(s).</p>") );
   cbGuide->setWhatsThis(i18n(
         "<p>Print a box displaying typographical conventions for the document type, as "
-        "defined by the syntax highlighting being used.") );
+        "defined by the syntax highlighting being used.</p>") );
 }
 
 void KatePrintTextSettings::getOptions( QMap<QString,QString>& opts, bool )
@@ -836,7 +836,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter * /*printer*/, QWidget *p
       "<li><tt>%f</tt>: file name</li>"
       "<li><tt>%U</tt>: full URL of the document</li>"
       "<li><tt>%p</tt>: page number</li>"
-      "</ul><br>"
+      "</ul><br />"
       "<u>Note:</u> Do <b>not</b> use the '|' (vertical bar) character.");
   leHeaderRight->setWhatsThis(s + s1 );
   leHeaderCenter->setWhatsThis(s + s1 );

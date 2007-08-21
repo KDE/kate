@@ -459,12 +459,12 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab()
   grid->addWidget( m_defaultStyles, 0, 0);
 
   m_defaultStyles->setWhatsThis(i18n(
-      "This list displays the default styles for the current schema and "
+      "<p>This list displays the default styles for the current schema and "
       "offers the means to edit them. The style name reflects the current "
-      "style settings."
+      "style settings.</p>"
       "<p>To edit the colors, click the colored squares, or select the color "
-      "to edit from the popup menu.<p>You can unset the Background and Selected "
-      "Background colors from the popup menu when appropriate.") );
+      "to edit from the popup menu.</p><p>You can unset the Background and Selected "
+      "Background colors from the popup menu when appropriate.</p>") );
 }
 
 KateSchemaConfigFontColorTab::~KateSchemaConfigFontColorTab()
@@ -571,13 +571,13 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontC
   hlChanged ( hl );
 
   m_styles->setWhatsThis(i18n(
-    "This list displays the contexts of the current syntax highlight mode and "
+    "<p>This list displays the contexts of the current syntax highlight mode and "
     "offers the means to edit them. The context name reflects the current "
-    "style settings.<p>To edit using the keyboard, press "
-    "<strong>&lt;SPACE&gt;</strong> and choose a property from the popup menu."
+    "style settings.</p><p>To edit using the keyboard, press "
+    "<strong>&lt;SPACE&gt;</strong> and choose a property from the popup menu.</p>"
     "<p>To edit the colors, click the colored squares, or select the color "
-    "to edit from the popup menu.<p>You can unset the Background and Selected "
-    "Background colors from the context menu when appropriate.") );
+    "to edit from the popup menu.</p><p>You can unset the Background and Selected "
+    "Background colors from the context menu when appropriate.</p>") );
 }
 
 KateSchemaConfigHighlightTab::~KateSchemaConfigHighlightTab()

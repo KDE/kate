@@ -291,7 +291,7 @@ void KateView::setupActions()
     a = ac->addAction("tools_apply_wordwrap");
     a->setText(i18n("&Word Wrap Document"));
     a->setWhatsThis(i18n("Use this command to wrap all lines of the current document which are longer than the width of the"
-    " current view, to fit into this view.<br><br> This is a static word wrap, meaning it is not updated"
+    " current view, to fit into this view.<br /><br /> This is a static word wrap, meaning it is not updated"
     " when the view is resized."));
     connect(a, SIGNAL(triggered(bool)), SLOT(applyWordWrap()));
 
@@ -300,7 +300,7 @@ void KateView::setupActions()
     a->setIcon(KIcon("format-indent-more"));
     a->setText(i18n("&Indent"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_I));
-    a->setWhatsThis(i18n("Use this to indent a selected block of text.<br><br>"
+    a->setWhatsThis(i18n("Use this to indent a selected block of text.<br /><br />"
         "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
     connect(a, SIGNAL(triggered(bool)), SLOT(indent()));
 
@@ -313,7 +313,7 @@ void KateView::setupActions()
 
     a = ac->addAction("tools_cleanIndent");
     a->setText(i18n("&Clean Indentation"));
-    a->setWhatsThis(i18n("Use this to clean the indentation of a selected block of text (only tabs/only spaces)<br><br>"
+    a->setWhatsThis(i18n("Use this to clean the indentation of a selected block of text (only tabs/only spaces)<br /><br />"
         "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
     connect(a, SIGNAL(triggered(bool)), SLOT(cleanIndent()));
 
@@ -326,14 +326,14 @@ void KateView::setupActions()
     a = ac->addAction("tools_comment");
     a->setText(i18n("C&omment"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_D));
-    a->setWhatsThis(i18n("This command comments out the current line or a selected block of text.<BR><BR>"
+    a->setWhatsThis(i18n("This command comments out the current line or a selected block of text.<br /><br />"
         "The characters for single/multiple line comments are defined within the language's highlighting."));
     connect(a, SIGNAL(triggered(bool)), SLOT(comment()));
 
     a = ac->addAction("tools_uncomment");
     a->setText(i18n("Unco&mment"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_D));
-    a->setWhatsThis(i18n("This command removes comments from the current line or a selected block of text.<BR><BR>"
+    a->setWhatsThis(i18n("This command removes comments from the current line or a selected block of text.<br /><br />"
     "The characters for single/multiple line comments are defined within the language's highlighting."));
     connect(a, SIGNAL(triggered(bool)), SLOT(uncomment()));
 
@@ -485,7 +485,7 @@ void KateView::setupActions()
   a = m_toggleIconBar = toggleAction = new KToggleAction(i18n("Show &Icon Border"), this);
   ac->addAction("view_border", a);
   a->setShortcut(QKeySequence(Qt::Key_F6));
-  a->setWhatsThis(i18n("Show/hide the icon border.<BR><BR> The icon border shows bookmark symbols, for instance."));
+  a->setWhatsThis(i18n("Show/hide the icon border.<br /><br />The icon border shows bookmark symbols, for instance."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleIconBorder()));
 
   a = toggleAction = m_toggleLineNumbers = new KToggleAction(i18n("Show &Line Numbers"), this);
@@ -496,7 +496,7 @@ void KateView::setupActions()
 
   a = m_toggleScrollBarMarks = toggleAction = new KToggleAction(i18n("Show Scroll&bar Marks"), this);
   ac->addAction("view_scrollbar_marks", a);
-  a->setWhatsThis(i18n("Show/hide the marks on the vertical scrollbar.<BR><BR>The marks, for instance, show bookmarks."));
+  a->setWhatsThis(i18n("Show/hide the marks on the vertical scrollbar.<br /><br />The marks, for instance, show bookmarks."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleScrollBarMarks()));
 
   a = toggleAction = m_toggleWWMarker = new KToggleAction(i18n("Show Static &Word Wrap Marker"), this);

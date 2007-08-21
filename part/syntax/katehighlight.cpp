@@ -800,7 +800,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
     if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
     {
       errorsAndWarnings+=i18n(
-          "<B>%1</B>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<BR>",
+          "<b>%1</b>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<br />",
       buildIdentifier, tmpAttr);
       attr=tmpAttr.toInt();
     }
@@ -1204,7 +1204,7 @@ void  KateHighlighting::createContextNameList(QStringList *ContextNameList,int c
     if (tmpAttr.isEmpty())
     {
      tmpAttr=QString("!KATE_INTERNAL_DUMMY! %1").arg(id);
-     errorsAndWarnings +=i18n("<B>%1</B>: Deprecated syntax. Context %2 has no symbolic name<BR>", buildIdentifier, id-ctx0);
+     errorsAndWarnings +=i18n("<b>%1</b>: Deprecated syntax. Context %2 has no symbolic name<br />", buildIdentifier, id-ctx0);
     }
           else tmpAttr=buildPrefix+tmpAttr;
     (*ContextNameList)<<tmpAttr;
@@ -1757,7 +1757,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
     long commentregionid=RegionList.indexOf( m_additionalData[ ident ]->multiLineRegion );
     if (-1==commentregionid) {
       errorsAndWarnings+=i18n(
-          "<B>%1</B>: Specified multiline comment region (%2) could not be resolved<BR>"
+          "<b>%1</b>: Specified multiline comment region (%2) could not be resolved<br />"
                              , buildIdentifier,  m_additionalData[ ident ]->multiLineRegion );
       m_additionalData[ ident ]->multiLineRegion.clear();
       kDebug(13010)<<"ERROR comment region attribute could not be resolved";

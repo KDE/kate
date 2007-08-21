@@ -391,12 +391,12 @@ AutoBookmarkerConfigPage::AutoBookmarkerConfigPage( QWidget *parent, const char 
   l->setBuddy( lvPatterns );
   lvPatterns->setWhatsThis(i18n(
       "<p>This list shows your configured autobookmark entities. When a document "
-      "is opened, each entity is used in the following way: "
+      "is opened, each entity is used in the following way:<p>"
       "<ol>"
       "<li>The entity is dismissed, if a mime and/or filename mask is defined, "
       "and neither matches the document.</li>"
       "<li>Otherwise each line of the document is tried against the pattern, "
-      "and a bookmark is set on matching lines.</li></ul>"
+      "and a bookmark is set on matching lines.</li></ol>"
       "<p>Use the buttons below to manage your collection of entities.</p>") );
 
   QHBoxLayout *lo1 = new QHBoxLayout ( lo );

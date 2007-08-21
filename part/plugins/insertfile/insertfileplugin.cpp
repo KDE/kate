@@ -140,11 +140,11 @@ void InsertFilePluginView::insertFile()
   QFileInfo fi;
   fi.setFile( _tmpfile );
   if (!fi.exists() || !fi.isReadable())
-    error = i18n("<p>The file <strong>%1</strong> does not exist or is not readable, aborting.", _file.fileName());
+    error = i18n("<p>The file <strong>%1</strong> does not exist or is not readable, aborting.</p>", _file.fileName());
 
   QFile f( _tmpfile );
   if ( !f.open(QIODevice::ReadOnly) )
-    error = i18n("<p>Unable to open file <strong>%1</strong>, aborting.", _file.fileName());
+    error = i18n("<p>Unable to open file <strong>%1</strong>, aborting.</p>", _file.fileName());
 
   if ( ! error.isEmpty() ) {
     KMessageBox::sorry( (QWidget*)parent(), error, i18n("Insert File Error") );
@@ -167,7 +167,7 @@ void InsertFilePluginView::insertFile()
   f.close();
 
   if ( str.isEmpty() )
-    error = i18n("<p>File <strong>%1</strong> had no contents.", _file.fileName());
+    error = i18n("<p>File <strong>%1</strong> had no contents.</p>", _file.fileName());
   if ( ! error.isEmpty() ) {
     KMessageBox::sorry( (QWidget*)parent(), error, i18n("Insert File Error") );
     return;

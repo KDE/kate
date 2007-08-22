@@ -8,3 +8,8 @@ X-KDE-FactoryName=ktexteditor_timedate_config
 X-KDE-ParentComponents=ktexteditortimedate
 
 Name=Format of Time & Date insertion
+Name[ga]=Formáid Ionsáite Ama & Dáta
+Name[he]=הגדרות תבנית התאריך והשעה המוספים
+Name[nds]=Formaat för inföögt Datum un Tiet
+Name[pt]=Formato da inserção da Data & Hora
+Name[pt_BR]=Formato da inserção da Data & Hora

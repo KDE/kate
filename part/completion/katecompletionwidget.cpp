@@ -61,6 +61,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_automaticInvocation(false)
   , m_automaticInvocationDelay(300)
   , m_filterInstalled(false)
+  , m_configWidget(new KateCompletionConfig(m_presentationModel, view()))
   , m_inCompletionList(false)
   , m_isSuspended(false)
   , m_dontShowArgumentHints(false)
@@ -99,7 +100,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_automaticInvocationTimer = new QTimer(this);
   m_automaticInvocationTimer->setSingleShot(true);
   connect(m_automaticInvocationTimer, SIGNAL(timeout()), this, SLOT(automaticInvocation()));
-  
+
   QSizeGrip* sg = new QSizeGrip(m_statusBar);
 
   QHBoxLayout* statusLayout = new QHBoxLayout(m_statusBar);
@@ -122,7 +123,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   vl->addWidget(m_entryList);
   vl->addWidget(m_statusBar);
   vl->setMargin(0);
-  
+
   // Keep branches expanded
   connect(m_presentationModel, SIGNAL(modelReset()), this, SLOT(modelReset()), Qt::QueuedConnection);
   connect(m_presentationModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(rowsInserted(const QModelIndex&, int, int)));
@@ -187,7 +188,7 @@ KateView * KateCompletionWidget::view( ) const
 void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTextEditor::CodeCompletionModel * model, KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
   m_isSuspended = false;
-  
+
   if (!word.isValid()) {
     kWarning(13035) << "Invalid range given to start code completion!";
     return;
@@ -229,12 +230,11 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
 
   if (!m_presentationModel->completionModels().isEmpty()) {
     m_dontShowArgumentHints = true;
-    
+
     show();
-    
+
     foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels()) {
       model->completionInvoked(view(), word, invocationType);
-      kDebug(13035) << "CC Model Statistics: " << model << endl << "  Completions: " << model->rowCount(QModelIndex());
     }
 
     m_entryList->resizeColumns(false, true);
@@ -278,11 +278,11 @@ void KateCompletionWidget::updatePosition(bool force)
 
   if( x < QApplication::desktop()->screenGeometry(view()).left() )
     x = QApplication::desktop()->screenGeometry(view()).left();
-  
+
   move( QPoint(x,y) );
 
   updateHeight();
-  
+
   //Now place the argument-hint widget
   QRect geom = m_argumentHintTree->geometry();
   geom.moveTo(QPoint(x,y));
@@ -294,7 +294,7 @@ void KateCompletionWidget::updatePosition(bool force)
 void KateCompletionWidget::updateHeight()
 {
   kDebug() << "updateHeight(), height: " << geometry().height() << " current added-height: " << m_expandingAddedHeight;
-  
+
   QRect geom = geometry();
 
   int baseHeight = geom.height() - m_expandingAddedHeight;
@@ -306,21 +306,21 @@ void KateCompletionWidget::updateHeight()
     //        which completely breaks this algorithm. Solution: re-use the old base-size if it only slightly differs from the computed one.
     baseHeight = m_expandedAddedHeightBase;
   }
-  
+
   if( baseHeight < 300 ) {
     baseHeight = 300; //Here we enforce a minimum desirable height
     m_expandingAddedHeight = 0;
 //     kDebug() << "Resetting baseHeight and m_expandingAddedHeight";
   }
-  
+
   int newExpandingAddedHeight = 0;
-  
+
 //   kDebug() << "baseHeight: " << baseHeight;
 
   newExpandingAddedHeight = model()->expandingWidgetsHeight();
 
 //   kDebug() << "new newExpandingAddedHeight: " << newExpandingAddedHeight;
-  
+
   int screenBottom = QApplication::desktop()->screenGeometry(view()).bottom();
 
   int bottomPosition = baseHeight + newExpandingAddedHeight + geometry().top();
@@ -328,7 +328,7 @@ void KateCompletionWidget::updateHeight()
 //   kDebug() << "targetHeight: " << targetHeight;
 
 //   kDebug() << "screen-bottom: " << screenBottom << " bottomPosition: " << bottomPosition;
-  
+
   if( bottomPosition > screenBottom-50 ) {
     newExpandingAddedHeight -= bottomPosition - (screenBottom-50);
 //     kDebug() << "Too high, moved bottomPosition to: " << baseHeight + newExpandingAddedHeight + geometry().top() << " changed newExpandingAddedHeight to " << newExpandingAddedHeight;
@@ -342,9 +342,9 @@ void KateCompletionWidget::updateHeight()
 
   m_expandingAddedHeight = baseHeight;
   m_expandedAddedHeightBase = geometry().height();
-  
+
   geom.setHeight(finalHeight);
-  
+
   setGeometry(geom);
 }
 
@@ -385,7 +385,7 @@ void KateCompletionWidget::abortCompletion( )
   kDebug(13035) ;
 
   m_isSuspended = false;
-  
+
   if (!isCompletionActive())
     return;
 
@@ -414,13 +414,13 @@ void KateCompletionWidget::execute(bool shift)
 
   if( shift ) {
     QModelIndex index = selectedIndex();
-    
+
     if( index.isValid() )
       index.data(KTextEditor::CodeCompletionModel::AccessibilityAccept);
-    
+
     return;
   }
-  
+
   QModelIndex toExecute = m_entryList->selectionModel()->currentIndex();
 
   if (!toExecute.isValid())
@@ -452,7 +452,7 @@ void KateCompletionWidget::resizeEvent( QResizeEvent * event )
 void KateCompletionWidget::showEvent ( QShowEvent * event )
 {
   m_isSuspended = false;
-  
+
   QWidget::showEvent(event);
 
   if( !m_dontShowArgumentHints )
@@ -464,7 +464,7 @@ void KateCompletionWidget::hideEvent( QHideEvent * event )
   QWidget::hideEvent(event);
 
   m_argumentHintTree->hide();
-  
+
   if (isCompletionActive())
     abortCompletion();
 }
@@ -494,13 +494,13 @@ QModelIndex KateCompletionWidget::selectedIndex() const {
 bool KateCompletionWidget::cursorLeft( bool shift ) {
   if( shift ) {
     QModelIndex index = selectedIndex();
-    
+
     if( index.isValid() )
       index.data(KTextEditor::CodeCompletionModel::AccessibilityPrevious);
-    
+
     return true;
   }
-  
+
   if (canCollapseCurrentItem() ) {
     setCurrentItemExpanded(false);
     return true;
@@ -511,13 +511,13 @@ bool KateCompletionWidget::cursorLeft( bool shift ) {
 bool KateCompletionWidget::cursorRight( bool shift ) {
   if( shift ) {
     QModelIndex index = selectedIndex();
-    
+
     if( index.isValid() )
       index.data(KTextEditor::CodeCompletionModel::AccessibilityNext);
-    
+
     return true;
   }
-  
+
   if ( canExpandCurrentItem() ) {
     setCurrentItemExpanded(true);
     return true;
@@ -589,7 +589,7 @@ void KateCompletionWidget::cursorDown( bool shift )
     }
     return;
   }
-  
+
   if( m_inCompletionList )
     m_entryList->nextCompletion();
   else {
@@ -613,7 +613,7 @@ void KateCompletionWidget::cursorUp( bool shift )
     }
     return;
   }
-  
+
   if( m_inCompletionList ) {
     if( !m_entryList->previousCompletion() )
       switchList();
@@ -675,9 +675,7 @@ void KateCompletionWidget::showConfig( )
 {
   abortCompletion();
 
-  KateCompletionConfig* config = new KateCompletionConfig(m_presentationModel, view());
-  config->exec();
-  delete config;
+  m_configWidget->exec();
 }
 
 void KateCompletionWidget::registerCompletionModel(KTextEditor::CodeCompletionModel* model)
@@ -731,7 +729,7 @@ void KateCompletionWidget::editDone(KateEditInfo * edit)
     m_automaticInvocationTimer->stop();
     return;
   }
-  
+
   m_automaticInvocationTimer->start(m_automaticInvocationDelay);
 }
 

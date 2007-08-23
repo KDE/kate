@@ -158,8 +158,8 @@ void KateCompletionConfig::readConfig(const KConfigGroup &config)
   configStart ();
 
   // Sorting
-  ui->sorting->setChecked(config.readEntry("Sorting Enabled", true));
-  ui->sortingAlphabetical->setChecked(config.readEntry("Sort Alphabetically", true));
+  ui->sorting->setChecked(config.readEntry("Sorting Enabled", false));
+  ui->sortingAlphabetical->setChecked(config.readEntry("Sort Alphabetically", false));
   ui->sortingReverse->setChecked(config.readEntry("Reverse Sort", false));
   ui->sortingCaseSensitive->setChecked(config.readEntry("Case Sensitive Sort", false));
 
@@ -245,6 +245,8 @@ void KateCompletionConfig::writeConfig(KConfigGroup &config)
     config.writeEntry(QString("Column %1 Merge").arg(i), item->checkState(1) == Qt::Checked ? true : false);
     config.writeEntry(QString("Column %1 Show").arg(i), item->checkState(2) == Qt::Checked ? true : false);
   }
+
+  config.sync();
 }
 
 void KateCompletionConfig::updateConfig()

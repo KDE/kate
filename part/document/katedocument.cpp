@@ -463,7 +463,7 @@ void KateDocument::disablePluginGUI (KTextEditor::Plugin *plugin, KateView *view
 
   plugin->removeView( view );
 
-  if ( factory )
+  if ( factory && !view->destructing() )
     factory->addClient( view );
 }
 

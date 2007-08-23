@@ -56,11 +56,11 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   , m_accesSignalSlot(false)
   , m_columnMergingEnabled(false)
 {
-  
+
   m_ungrouped->attribute = 0;
   m_argumentHints->attribute = -1;
   m_bestMatches->attribute = BestMatchesProperty;
-  
+
   m_ungrouped->title = i18n("Other");
   m_argumentHints->title = i18n("Argument-hints");
   m_bestMatches->title = i18n("Best matches");
@@ -101,7 +101,7 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
     else
       return QVariant( m_expandedIcon );
   }
-  
+
   if (!hasGroups() || groupOfParent(index)) {
     switch (role) {
       case Qt::TextAlignmentRole:
@@ -182,11 +182,11 @@ int KateCompletionModel::contextMatchQuality(const QModelIndex& idx) const {
   Group* g = groupOfParent(idx);
   if( !g )
     return -1;
-  
+
   ModelRow source = g->rows[idx.row()];
   QModelIndex realIndex = source.first->index(source.second, 0);
 
-  
+
   int bestMatch = -1;
   //Iterate through all argument-hints and find the best match-quality
   foreach( const ModelRow& row, m_argumentHints->rows )
@@ -199,9 +199,9 @@ int KateCompletionModel::contextMatchQuality(const QModelIndex& idx) const {
     QVariant depth = hintIndex.data(CodeCompletionModel::ArgumentHintDepth);
     if( !depth.isValid() || depth.type() != QVariant::Int || depth.toInt() != 1 )
       continue; //Only match completion-items to argument-hints of depth 1(the ones the item will be given to as argument)
-    
+
     hintIndex.data(CodeCompletionModel::SetMatchContext);
-    
+
     QVariant matchQuality = realIndex.data(CodeCompletionModel::MatchQuality);
     if( matchQuality.isValid() && matchQuality.type() == QVariant::Int ) {
       int m = matchQuality.toInt();
@@ -385,10 +385,10 @@ void KateCompletionModel::clearGroups( )
 
   m_rowTable.removeAll(m_argumentHints);
   m_emptyGroups.removeAll(m_argumentHints);
-  
+
   m_rowTable.removeAll(m_bestMatches);
   m_emptyGroups.removeAll(m_bestMatches);
-  
+
   qDeleteAll(m_rowTable);
   qDeleteAll(m_emptyGroups);
   m_rowTable.clear();
@@ -397,10 +397,10 @@ void KateCompletionModel::clearGroups( )
 
   m_emptyGroups.append(m_ungrouped);
   m_groupHash.insert(0, m_ungrouped);
-  
+
   m_emptyGroups.append(m_argumentHints);
   m_groupHash.insert(-1, m_argumentHints);
-  
+
   m_emptyGroups.append(m_bestMatches);
   m_groupHash.insert(BestMatchesProperty, m_bestMatches);
 }
@@ -417,15 +417,17 @@ void KateCompletionModel::createGroups()
       QString scopeIfNeeded = (groupingMethod() & Scope) ? sourceModel->index(i, CodeCompletionModel::Scope, QModelIndex()).data(Qt::DisplayRole).toString() : QString();
 
       int argumentHintDepth = sourceIndex.data(CodeCompletionModel::ArgumentHintDepth).toInt();
-      
+
       Group* g;
       if( argumentHintDepth )
         g = m_argumentHints;
       else
         g = fetchGroup(completionFlags, scopeIfNeeded);
-      
+
       g->addItem(Item(this, ModelRow(sourceModel, i)));
     }
+
+  //debugStats();
 
   resort();
   reset();
@@ -435,7 +437,7 @@ void KateCompletionModel::createGroups()
 
 KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, const QString& scope )
 {
-  if (!groupingMethod())
+  if (!hasGroups())
     return m_ungrouped;
 
   int groupingAttribute = groupingAttributes(attribute);
@@ -578,7 +580,7 @@ QModelIndex KateCompletionModel::parent( const QModelIndex & index ) const
      * It happens when I click setup
      * */
     if( row == -1 )
-      return QModelIndex(); 
+      return QModelIndex();
 //     Q_ASSERT(row != -1);
     return createIndex(row, 0, 0);
   }
@@ -825,7 +827,7 @@ int KateCompletionModel::Group::orderNumber() const {
   ///@todo extend this. Currently it mainly does this: "BestMatches < Local < Public < Protected < Private < Global"
     if( this == model->m_ungrouped )
       return 50;
-  
+
     if (attribute & KTextEditor::CodeCompletionModel::GlobalScope)
       return 30;
     else if (attribute & KTextEditor::CodeCompletionModel::NamespaceScope)
@@ -854,7 +856,7 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
 {
   if( g == m_argumentHints )
     return; //Never show argument-hints in the normal completion-list
-  
+
   if (!g->isEmpty) {
     if (g->rows.isEmpty()) {
       // Move to empty group list
@@ -876,7 +878,7 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
     if (!g->rows.isEmpty()) {
       // Move off empty group list
       g->isEmpty = false;
-      
+
       int row = 0; //Find row where to insert
       for( int a = 0; a < m_rowTable.count(); a++ ) {
         if( g->orderBefore(m_rowTable[a]) ) {
@@ -965,6 +967,19 @@ void KateCompletionModel::slotRowsRemoved( const QModelIndex & /*parent*/, int /
 void KateCompletionModel::slotModelReset()
 {
   createGroups();
+
+  //debugStats();
+}
+
+void KateCompletionModel::debugStats()
+{
+  if (!hasGroups())
+    kDebug() << "Model groupless, " << m_ungrouped->rows.count() << " items.";
+  else {
+    kDebug() << "Model grouped (" << m_rowTable.count() << " groups):";
+    foreach (Group* g, m_rowTable)
+      kDebug() << "Group" << g << "count" << g->rows.count();
+  }
 }
 
 bool KateCompletionModel::hasCompletionModel( ) const
@@ -1655,15 +1670,15 @@ void KateCompletionModel::updateBestMatches() {
       QModelIndex index = indexForGroup(g).child(a,0);
 
       QVariant v = index.data(CodeCompletionModel::BestMatchesCount);
-      
+
       if( v.type() == QVariant::Int && v.toInt() > 0 ) {
         int quality = contextMatchQuality(index);
         if( quality > 0 )
           matches.insert(quality, qMakePair(v.toInt(), g->rows[a]));
         --maxMatches;
       }
-      
-      
+
+
       if( maxMatches < 0 )
         break;
     }
@@ -1684,10 +1699,10 @@ void KateCompletionModel::updateBestMatches() {
     if( cnt > matchesSum / cnt )
       break;
   }
-  
+
   m_bestMatches->rows.clear();
   it = matches.end();
-  
+
   while( it != matches.begin() && cnt > 0 )
   {
     --it;
@@ -1695,7 +1710,7 @@ void KateCompletionModel::updateBestMatches() {
 
     m_bestMatches->rows.append( (*it).second );
   }
-  
+
   hideOrShowGroup(m_bestMatches);
 }
 
@@ -1728,7 +1743,7 @@ void KateCompletionModel::clearCompletionModels(bool skipReset)
 void KateCompletionModel::initializeSettings()
 {
   ///@todo load stored settings through KateCompletionConfig here if  they exist
-  
+
   ///Initialize a standard column-merging: Merge Scope, Name, Arguments and Postfix
   setColumnMergingEnabled(true);
   QList<QList<int> > merges;

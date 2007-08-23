@@ -69,7 +69,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     static QString propertyName(KTextEditor::CodeCompletionModel::CompletionProperty property);
 
     virtual void rowSelected(const QModelIndex& row);
-    
+
     virtual bool indexIsCompletion(const QModelIndex& index) const;
 
     virtual int columnCount ( const QModelIndex & parent = QModelIndex() ) const;
@@ -133,7 +133,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     enum { //An own property that will be used to mark the best-matches group internally
       BestMatchesProperty = 2*KTextEditor::CodeCompletionModel::LastProperty
     };
-    
+
     Q_DECLARE_FLAGS(GroupingMethods, gm)
 
     static const int ScopeTypeMask = 0x380000;
@@ -156,9 +156,11 @@ class KateCompletionModel : public ExpandingWidgetModel
     const QList< QList<int> >& columnMerges() const;
     void setColumnMerges(const QList< QList<int> >& columnMerges);
 
+    void debugStats();
+
   protected:
     virtual int contextMatchQuality(const QModelIndex& row) const;
-    
+
   Q_SIGNALS:
     void expandIndex(const QModelIndex& index);
 
@@ -179,7 +181,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     void initializeSettings();
 
     QTreeView* treeView() const;
-    
+
     friend class KateArgumentHintModel;
     typedef QPair<KTextEditor::CodeCompletionModel*, int> ModelRow;
     ModelRow modelRowPair(const QModelIndex& index) const;
@@ -269,7 +271,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     /// Removes attributes not used in grouping from the input \a attribute
     int groupingAttributes(int attribute) const;
     int countBits(int value) const;
-    
+
     void resort();
     void refilter();
     void rematch();
@@ -279,7 +281,7 @@ class KateCompletionModel : public ExpandingWidgetModel
 
     //Places all expanding-widgets to the correct positions in the viewport
     void placeExpandingWidgets();
-    
+
     // ### Runtime state
     // General
     QList<KTextEditor::CodeCompletionModel*> m_completionModels;

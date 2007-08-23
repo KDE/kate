@@ -133,6 +133,8 @@ dialogs/opensaveconfigwidget.ui
 dialogs/modonhdwidget.ui
 dialogs/schemaconfigcolortab.ui
 dialogs/completionconfigwidget.ui
+dialogs/searchbarincremental.ui
+dialogs/searchbarpower.ui
 )
 
 kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )

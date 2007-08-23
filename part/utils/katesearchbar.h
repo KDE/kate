@@ -16,22 +16,70 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __katesearchbar_h__
-#define __katesearchbar_h__
+#ifndef KATE_SEARCH_BAR_H
+#define KATE_SEARCH_BAR_H 1
+
+#include "kateviewhelpers.h"
+#include "katesmartrange.h"
+
+
+
+class KateView;
+class QVBoxLayout;
+
+
+
+class KateSearchBar : public KateViewBarWidget {
+    Q_OBJECT
+
+public:
+    explicit KateSearchBar(KateViewBar * viewBar);
+    ~KateSearchBar();
+
+private:
+    void highlightMatch(const KTextEditor::Range & range);
+
+public Q_SLOTS:
+    void findNext();
+    void findPrevious();
+
+    void onMutate();
+    void onIncPatternChanged(const QString &);
+    void onIncNext();
+    void onIncPrev();
+    void onPowerFindNext();
+    void onPowerFindPrev();
+    void onPowerReplaceNext();
+    void onPowerReplaceAll();
+
+private:
+    void mutatePower();
+    void mutateIncremental();
+
+private:
+    KateView * view;
+    QVBoxLayout * layout;
+    QWidget * incrementalParent;
+    QWidget * powerParent;
+    KTextEditor::SmartRange * topRange;
+
+};
+
+
+
 
 #include <QtGui/QWidget>
 #include <klineedit.h>
-#include "kateviewhelpers.h"
 
 class KateView;
 
-class KateSearchBar : public KateViewBarWidget
+class OLD_KateSearchBar_OLD : public KateViewBarWidget
 {
     Q_OBJECT
 
 public:
-    explicit KateSearchBar(KateViewBar *viewBar);
-    ~KateSearchBar();
+    explicit OLD_KateSearchBar_OLD(KateViewBar *viewBar);
+    ~OLD_KateSearchBar_OLD();
 
 public Q_SLOTS:
     void findNext();
@@ -55,12 +103,12 @@ private:
     Private * const d;
 };
 
-class KateSearchBarEdit : public KLineEdit
+class OLD_KateSearchBar_OLDEdit : public KLineEdit
 {
     Q_OBJECT
 
 public:
-    KateSearchBarEdit(QWidget *parent = 0L);
+    OLD_KateSearchBar_OLDEdit(QWidget *parent = 0L);
 
     enum Status { Normal, NotFound, SearchWrapped };
     const Status status() const { return m_status; }
@@ -80,4 +128,4 @@ private:
     Status m_status;
 };
 
-#endif // __katesearchbar_h__
+#endif // KATE_SEARCH_BAR_H

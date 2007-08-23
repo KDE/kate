@@ -1,3 +1,13 @@
+/* ##################################################################
+## 
+##  PLEASE LEAVE THE OLD CODE BELOW: I WILL DO CLEANUP LATER,
+##  I PROMISE ;-)
+##
+##  Sebastian Pipping (sping)
+##
+################################################################## */
+
+
 /* This file is part of the KDE libraries
    Copyright (C) 2006 Andreas Kling <kling@impul.se>
 
@@ -17,8 +27,187 @@
 */
 
 #include "katesearchbar.h"
-#include "katedocument.h"
 #include "kateview.h"
+#include "katedocument.h"
+#include "ui_searchbarincremental.h"
+#include "ui_searchbarpower.h"
+#include <QtGui/QVBoxLayout>
+
+using namespace KTextEditor;
+
+
+
+KateSearchBar::KateSearchBar(KateViewBar * viewBar)
+        : KateViewBarWidget(viewBar),
+        view(viewBar->view()),
+        layout(new QVBoxLayout()),
+        incrementalParent(NULL),
+        powerParent(NULL),
+        topRange(NULL) {
+    QWidget * const widget = this->centralWidget();
+    widget->setLayout(this->layout);
+
+    // Start in incremental mode
+    this->mutateIncremental();
+
+    this->layout->setSpacing(0);
+
+    this->topRange = this->view->doc()->newSmartRange(this->view->doc()->documentRange());
+    this->topRange->setInsertBehavior(SmartRange::ExpandRight);
+}
+
+
+
+KateSearchBar::~KateSearchBar() {
+    // TODO
+}
+
+
+
+void KateSearchBar::findNext() {
+    // TODO
+}
+
+
+
+void KateSearchBar::findPrevious() {
+    // TODO
+}
+
+
+
+void KateSearchBar::onMutate() {
+    if (this->incrementalParent == NULL) {
+        this->mutateIncremental();
+    } else {
+        this->mutatePower();
+    }
+}
+
+
+
+void KateSearchBar::highlightMatch(const Range & range) {
+    SmartRange * const highlight = this->view->doc()->newSmartRange(range, this->topRange);
+    Attribute::Ptr color(new Attribute());
+    color->setBackground(QColor("yellow")); // TODO make this part of the color scheme
+    highlight->setAttribute(color);
+}
+
+
+
+void KateSearchBar::onIncPatternChanged(const QString & pattern) {
+    // TODO
+    // TODO
+    // TODO
+
+    Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
+    Range inputRange = this->view->doc()->documentRange();
+
+    QVector<Range> resultRanges = this->view->doc()->searchText(inputRange, pattern, enabledOptions);
+    const Range & match = resultRanges[0];
+
+    if (match.isValid()) {
+        this->view->setCursorPositionInternal(match.start(), 1);
+        this->view->setSelection(match);
+    }
+
+    // TODO
+    // TODO
+    // TODO
+}
+
+
+
+void KateSearchBar::onIncNext() {
+    // TODO
+}
+
+
+
+void KateSearchBar::onIncPrev() {
+    // TODO
+}
+
+
+
+void KateSearchBar::onPowerFindNext() {
+    // TODO
+}
+
+
+
+void KateSearchBar::onPowerFindPrev() {
+    // TODO
+}
+
+
+
+void KateSearchBar::onPowerReplaceNext() {
+    // TODO
+}
+
+
+
+void KateSearchBar::onPowerReplaceAll() {
+    // TODO
+}
+
+
+
+void KateSearchBar::mutatePower() {
+    if (this->incrementalParent != NULL) {
+        this->incrementalParent->close();
+        this->incrementalParent = NULL;
+    }
+
+    this->powerParent = new QWidget;
+    Ui_PowerSearchBar * power = new Ui_PowerSearchBar;
+    power->setupUi(powerParent);
+    this->layout->addWidget(powerParent);
+
+    // Icons
+    power->mutate->setIcon(KIcon("arrow-down-double"));
+    power->findNext->setIcon(KIcon("go-down"));
+    power->findPrev->setIcon(KIcon("go-up"));
+    power->patternAdd->setIcon(KIcon("list-add"));
+    power->replacementAdd->setIcon(KIcon("list-add"));
+
+    // Slots
+    connect(power->mutate, SIGNAL(clicked()), this, SLOT(onMutate()));
+    connect(power->findNext, SIGNAL(clicked()), this, SLOT(onPowerFindNext()));
+    connect(power->findPrev, SIGNAL(clicked()), this, SLOT(onPowerFindPrev()));
+    connect(power->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));
+    connect(power->replaceAll, SIGNAL(clicked()), this, SLOT(onPowerReplaceAll()));
+}
+
+
+
+void KateSearchBar::mutateIncremental() {
+    if (this->powerParent != NULL) {
+        this->powerParent->close();
+        this->powerParent = NULL;
+    }
+
+    this->incrementalParent = new QWidget;
+    Ui_IncrementalSearchBar * incremental = new Ui_IncrementalSearchBar;
+    incremental->setupUi(incrementalParent);
+    this->layout->addWidget(incrementalParent);
+
+    // Icons
+    incremental->mutate->setIcon(KIcon("arrow-up-double"));
+    incremental->next->setIcon(KIcon("go-down"));
+    incremental->prev->setIcon(KIcon("go-up"));
+
+    // Slots
+    connect(incremental->mutate, SIGNAL(clicked()), this, SLOT(onMutate()));
+    connect(incremental->pattern, SIGNAL(returnPressed()), this, SLOT(onIncNext()));
+    connect(incremental->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
+    connect(incremental->next, SIGNAL(clicked()), this, SLOT(onIncNext()));
+    connect(incremental->prev, SIGNAL(clicked()), this, SLOT(onIncPrev()));
+}
+
+
+
 #include "kateviewinternal.h"
 #include "katesmartrange.h"
 
@@ -35,13 +224,13 @@
 
 #include <kdebug.h>
 
-class KateSearchBar::Private
+class OLD_KateSearchBar_OLD::Private
 {
 public:
     KTextEditor::Cursor startCursor;
     KTextEditor::Range match;
     KTextEditor::Range lastMatch;
-    KateSearchBarEdit *expressionEdit;
+    OLD_KateSearchBar_OLDEdit *expressionEdit;
     KLineEdit * replaceEdit;
 
     QCheckBox *caseSensitiveBox;
@@ -61,7 +250,7 @@ public:
     QVector<KTextEditor::Range> lastResultRanges; // TODO reset on document change so we don't get wrong data when asking for the ranges content?
 };
 
-KateSearchBar::KateSearchBar(KateViewBar *viewBar)
+OLD_KateSearchBar_OLD::OLD_KateSearchBar_OLD(KateViewBar *viewBar)
     : KateViewBarWidget (viewBar),
       m_view(viewBar->view()),
       d(new Private)
@@ -71,7 +260,7 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     d->searching = false;
     d->wrapAround = true;
 
-    d->expressionEdit = new KateSearchBarEdit;
+    d->expressionEdit = new OLD_KateSearchBar_OLDEdit;
     connect(d->expressionEdit, SIGNAL(textChanged(const QString &)), this, SLOT(slotSearch()));
     connect(d->expressionEdit, SIGNAL(returnPressed()), this, SLOT(slotSearch()));
     connect(d->expressionEdit, SIGNAL(findNext()), this, SLOT(findNext()));
@@ -183,13 +372,13 @@ KateSearchBar::KateSearchBar(KateViewBar *viewBar)
     d->lastResultRanges.append(KTextEditor::Range::invalid());
 }
 
-KateSearchBar::~KateSearchBar()
+OLD_KateSearchBar_OLD::~OLD_KateSearchBar_OLD()
 {
     delete d->topRange;
     delete d;
 }
 
-void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwards)
+void OLD_KateSearchBar_OLD::doSearch(const QString &_expression, bool init, bool backwards)
 {
     QString expression = _expression;
 
@@ -447,15 +636,15 @@ void KateSearchBar::doSearch(const QString &_expression, bool init, bool backwar
 
   d->expressionEdit->setStatus(foundMatch
     ? (wrapped
-      ? KateSearchBarEdit::SearchWrapped
-      : KateSearchBarEdit::Normal)
-    : KateSearchBarEdit::NotFound);
+      ? OLD_KateSearchBar_OLDEdit::SearchWrapped
+      : OLD_KateSearchBar_OLDEdit::Normal)
+    : OLD_KateSearchBar_OLDEdit::NotFound);
 
   d->lastExpression = expression;
   d->lastResultRanges = resultRanges; // copy over whole vector
 }
 
-void KateSearchBar::slotSpecialOptionTogled()
+void OLD_KateSearchBar_OLD::slotSpecialOptionTogled()
 {
   if ( d->selectionOnlyBox->checkState() == Qt::Checked || d->highlightAllBox->checkState() == Qt::Checked )
       disconnect(d->expressionEdit, SIGNAL(textChanged(const QString &)), this, SLOT(slotSearch()));
@@ -465,7 +654,7 @@ void KateSearchBar::slotSpecialOptionTogled()
   d->expressionEdit->setFocus( Qt::OtherFocusReason );
 }
 
-void KateSearchBarEdit::setStatus(Status status)
+void OLD_KateSearchBar_OLDEdit::setStatus(Status status)
 {
     m_status = status;
 
@@ -473,13 +662,13 @@ void KateSearchBarEdit::setStatus(Status status)
     QColor col;
     switch (status)
     {
-        case KateSearchBarEdit::Normal:
+        case OLD_KateSearchBar_OLDEdit::Normal:
             col = QPalette().color(QPalette::Base);
             break;
-        case KateSearchBarEdit::NotFound:
+        case OLD_KateSearchBar_OLDEdit::NotFound:
             col = QColor("lightsalmon");
             break;
-        case KateSearchBarEdit::SearchWrapped:
+        case OLD_KateSearchBar_OLDEdit::SearchWrapped:
             col = QColor("palegreen");
             break;
     }
@@ -487,7 +676,7 @@ void KateSearchBarEdit::setStatus(Status status)
     setPalette(pal);
 }
 
-void KateSearchBar::slotSearch()
+void OLD_KateSearchBar_OLD::slotSearch()
 {
     // ### can we achieve this in a better way?
     if ( isVisible() )
@@ -496,13 +685,13 @@ void KateSearchBar::slotSearch()
     if (d->expressionEdit->text().isEmpty())
     {
         kDebug()<<"reset!!";
-        d->expressionEdit->setStatus(KateSearchBarEdit::Normal);
+        d->expressionEdit->setStatus(OLD_KateSearchBar_OLDEdit::Normal);
         d->searching = false;
     }
     else
         doSearch(d->expressionEdit->text(), d->highlightAllBox->checkState()==Qt::Checked||d->selectionOnlyBox->checkState()==Qt::Checked||!d->searching);
 
-    if ( d->expressionEdit->status() == KateSearchBarEdit::NotFound)
+    if ( d->expressionEdit->status() == OLD_KateSearchBar_OLDEdit::NotFound)
     {
 #if 0 // this hurts usability, if you try multiline search but get selected on typing the \ for test1\n for example...
         // nothing found, so select the non-matching part of the text
@@ -515,7 +704,7 @@ void KateSearchBar::slotSearch()
 
 }
 
-void KateSearchBar::findNext()
+void OLD_KateSearchBar_OLD::findNext()
 {
     if (d->lastMatch.isEmpty())
         return;
@@ -523,7 +712,7 @@ void KateSearchBar::findNext()
     doSearch(d->expressionEdit->text(), false, false);
 }
 
-void KateSearchBar::findPrevious()
+void OLD_KateSearchBar_OLD::findPrevious()
 {
     if (d->lastMatch.isEmpty())
         return;
@@ -531,7 +720,7 @@ void KateSearchBar::findPrevious()
     doSearch(d->expressionEdit->text(), false, true);
 }
 
-void KateSearchBar::replaceOnce()
+void OLD_KateSearchBar_OLD::replaceOnce()
 {
     // replace current selection in document
     // with text from <replaceEdit>
@@ -593,12 +782,12 @@ void KateSearchBar::replaceOnce()
     m_view->doc()->replaceText(selRange, replaceText, blockMode);
 }
 
-void KateSearchBar::replaceAll()
+void OLD_KateSearchBar_OLD::replaceAll()
 {
     // TODO
 }
 
-void KateSearchBar::showEvent(QShowEvent *e)
+void OLD_KateSearchBar_OLD::showEvent(QShowEvent *e)
 {
     if ( e->spontaneous() ) return;
 
@@ -609,12 +798,12 @@ void KateSearchBar::showEvent(QShowEvent *e)
     m_view->addInternalHighlight( d->topRange );
 }
 
-void KateSearchBar::hideEvent( QHideEvent * )
+void OLD_KateSearchBar_OLD::hideEvent( QHideEvent * )
 {
     m_view->removeInternalHighlight( d->topRange );
 }
 
-KateSearchBarEdit::KateSearchBarEdit(QWidget *parent)
+OLD_KateSearchBar_OLDEdit::OLD_KateSearchBar_OLDEdit(QWidget *parent)
     : KLineEdit(parent)
 {
   m_status = Normal;
@@ -622,7 +811,7 @@ KateSearchBarEdit::KateSearchBarEdit(QWidget *parent)
 
 // NOTE: void keyPressEvent(QKeyEvent* ev) does not grab Qt::Key_Tab.
 // No idea, why... but that's probably why we use ::event here.
-bool KateSearchBarEdit::event(QEvent *e)
+bool OLD_KateSearchBar_OLDEdit::event(QEvent *e)
 {
     if (e->type() == QEvent::KeyPress)
     {
@@ -644,7 +833,7 @@ bool KateSearchBarEdit::event(QEvent *e)
     return KLineEdit::event(e);
 }
 
-void KateSearchBarEdit::showEvent(QShowEvent *e)
+void OLD_KateSearchBar_OLDEdit::showEvent(QShowEvent *e)
 {
     if ( e->spontaneous() ) return;
 
@@ -652,3 +841,4 @@ void KateSearchBarEdit::showEvent(QShowEvent *e)
 }
 
 #include "katesearchbar.moc"
+

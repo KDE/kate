@@ -66,13 +66,13 @@ KateSearchBar::~KateSearchBar() {
 
 
 void KateSearchBar::findNext() {
-    // TODO
+    // TODO remove need for this function?
 }
 
 
 
 void KateSearchBar::findPrevious() {
-    // TODO
+    // TODO remove need for this function?
 }
 
 
@@ -132,6 +132,25 @@ void KateSearchBar::onIncPrev() {
 
 
 void KateSearchBar::onPowerFindNext() {
+    const QString pattern = this->powerUi->pattern->currentText();
+
+    // TODO
+    // TODO
+    // TODO
+
+    Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
+    Range inputRange = this->view->doc()->documentRange();
+
+    QVector<Range> resultRanges = this->view->doc()->searchText(inputRange, pattern, enabledOptions);
+    const Range & match = resultRanges[0];
+
+    if (match.isValid()) {
+        this->view->setCursorPositionInternal(match.start(), 1);
+        this->view->setSelection(match);
+    }
+
+    // TODO
+    // TODO
     // TODO
 }
 

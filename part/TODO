@@ -111,33 +111,32 @@ TODO:
     * add a column to CodeCompletionModel to enable displaying an icon just before a completion's name
     * column merging
     * filtering of items based on metadata
+    * multiple model merging
+    * extend metadata to include inheritance depth of an item
+    * implement configurability
+      * show/hide/reorder/merge columns
+      * sorting list
+      * filtering list
   * in progress:
     * implement sorting of items based on metadata, and sorted group headers
       * needs to react to model changes
     * automatic invocation of code completion
     * multiple code completion providers
-  * todo
     * api improvement: generic way to detect when a completion could be offered, and possibly replaceable with a plugin, so that multiple model completion can be offered
-      * multiple model merging
-    * extend metadata to include inheritance depth of an item
+    * connect signals from source model to katecompletionmodel and vice-versa
+  * todo
     * implement click-execution of completion entries based on KDE click policy
     * implement configurability
-      * show/hide/reorder/merge columns
       * positioning retaining horizontal sync with text when it would mean the completion box going outside the screen or not (alternative: reorganise columns, hide column(s))
-      * sorting list
-      * filtering list
       * highlighting mode (native / custom / user / combination)
       * consider embedding 3rd party cc config with the above
     * make sure enough info is exported that the current completion's documentation can be retreived in a documentation browser;
       * place basic documentation in an extended popup... positioning / design still to be worked out
-    * connect signals from source model to katecompletionmodel and vice-versa
     * configurability of keyboard commands for cc
     * refine keyboard control
   * performance testing and optimisation
     * test user-defined highlighting
     * test for thread safety
-  * critical issues
-    * crash from visual index == -1 (? still present)
 
 * Custom widgets in between lines interface (eg. so kcachegrind could use
   katepart to display its cpu usage information etc)

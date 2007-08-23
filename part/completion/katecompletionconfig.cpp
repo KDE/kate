@@ -158,10 +158,11 @@ void KateCompletionConfig::readConfig(const KConfigGroup &config)
   configStart ();
 
   // Sorting
-  ui->sorting->setChecked(config.readEntry("Sorting Enabled", false));
-  ui->sortingAlphabetical->setChecked(config.readEntry("Sort Alphabetically", false));
+  ui->sorting->setChecked(config.readEntry("Sorting Enabled", true));
+  ui->sortingAlphabetical->setChecked(config.readEntry("Sort Alphabetically", true));
   ui->sortingReverse->setChecked(config.readEntry("Reverse Sort", false));
   ui->sortingCaseSensitive->setChecked(config.readEntry("Case Sensitive Sort", false));
+  ui->sortingInheritanceDepth->setChecked(config.readEntry("Sort by Inheritance Depth", true));
 
   // Filtering
   ui->filtering->setChecked(config.readEntry("Filtering Enabled", false));
@@ -177,11 +178,11 @@ void KateCompletionConfig::readConfig(const KConfigGroup &config)
   ui->filteringMaximumInheritanceDepth->setValue(config.readEntry("Filter by Maximum Inheritance Depth", 0));
 
   // Grouping
-  ui->grouping->setChecked(config.readEntry("Grouping Enabled", false));
+  ui->grouping->setChecked(config.readEntry("Grouping Enabled", true));
 
-  m_groupingScopeType->setCheckState(0, config.readEntry("Group by Scope Type", false) ? Qt::Checked : Qt::Unchecked);
+  m_groupingScopeType->setCheckState(0, config.readEntry("Group by Scope Type", true) ? Qt::Checked : Qt::Unchecked);
   m_groupingScope->setCheckState(0, config.readEntry("Group by Scope", false) ? Qt::Checked : Qt::Unchecked);
-  m_groupingAccessType->setCheckState(0, config.readEntry("Group by Access Type", false) ? Qt::Checked : Qt::Unchecked);
+  m_groupingAccessType->setCheckState(0, config.readEntry("Group by Access Type", true) ? Qt::Checked : Qt::Unchecked);
   m_groupingItemType->setCheckState(0, config.readEntry("Group by Item Type", false) ? Qt::Checked : Qt::Unchecked);
 
   ui->accessConst->setChecked(config.readEntry("Group by Const", false));
@@ -189,11 +190,12 @@ void KateCompletionConfig::readConfig(const KConfigGroup &config)
   ui->accessSignalSlot->setChecked(config.readEntry("Group by Signals and Slots", false));
 
   // Column merging
-  ui->columnMerging->setChecked(config.readEntry("Column Merging Enabled", false));
+  ui->columnMerging->setChecked(config.readEntry("Column Merging Enabled", true));
 
   for (int i = 0; i < ui->columnMergeTree->topLevelItemCount(); ++i) {
     QTreeWidgetItem* item = ui->columnMergeTree->topLevelItem(i);
-    item->setCheckState(1, config.readEntry(QString("Column %1 Merge").arg(i), false) ? Qt::Checked : Qt::Unchecked);
+    ///Initialize a standard column-merging: Merge Scope, Name, Arguments and Postfix
+    item->setCheckState(1, config.readEntry(QString("Column %1 Merge").arg(i), (i == CodeCompletionModel::Scope || i == CodeCompletionModel::Name || i == CodeCompletionModel::Arguments)) ? Qt::Checked : Qt::Unchecked);
     item->setCheckState(2, config.readEntry(QString("Column %1 Show").arg(i), true) ? Qt::Checked : Qt::Unchecked);
   }
 
@@ -209,6 +211,7 @@ void KateCompletionConfig::writeConfig(KConfigGroup &config)
   config.writeEntry("Sort Alphabetically", ui->sortingAlphabetical->isChecked());
   config.writeEntry("Reverse Sort", ui->sortingReverse->isChecked());
   config.writeEntry("Case Sensitive Sort", ui->sortingCaseSensitive->isChecked());
+  config.writeEntry("Sort by Inheritance Depth", ui->sortingInheritanceDepth->isChecked());
 
   // Filtering
   config.writeEntry("Filtering Enabled", ui->filtering->isChecked());
@@ -295,6 +298,7 @@ void KateCompletionConfig::applyInternal()
   m_model->setSortingAlphabetical(ui->sortingAlphabetical->isChecked());
   m_model->setSortingReverse(ui->sortingReverse->isChecked());
   m_model->setSortingCaseSensitivity(ui->sortingCaseSensitive->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
+  m_model->setSortingByInheritanceDepth(ui->sortingInheritanceDepth->isChecked());
 
   // Filtering
   m_model->setFilteringEnabled(ui->filtering->isChecked());

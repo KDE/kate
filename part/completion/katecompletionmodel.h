@@ -176,10 +176,6 @@ class KateCompletionModel : public ExpandingWidgetModel
     void slotModelReset();
 
   private:
-
-    ///Initializes usable standard-settings for grouping, column-merging, etc.
-    void initializeSettings();
-
     QTreeView* treeView() const;
 
     friend class KateArgumentHintModel;

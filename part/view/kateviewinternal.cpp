@@ -1016,7 +1016,7 @@ void KateViewInternal::cursorLeft(  bool sel )
 {
   if( m_view->isCompletionActive() && view()->completionWidget()->cursorLeft(sel) )
     return;
-  
+
   if ( ! m_view->wrapCursor() && m_cursor.column() == 0 )
     return;
 
@@ -3324,7 +3324,7 @@ void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool rea
 {
   int startLine = realCursors ? range.start().line() : toRealCursor(range.start()).line();
   int endLine = realCursors ? range.end().line() : toRealCursor(range.end()).line();
- 
+
 //   kDebug()<<"KateViewInternal::relayoutRange(): startLine:"<<startLine<<" endLine:"<<endLine;
   cache()->relayoutLines(startLine, endLine);
 

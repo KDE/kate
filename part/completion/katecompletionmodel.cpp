@@ -72,8 +72,6 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   m_groupHash.insert(0, m_ungrouped);
   m_groupHash.insert(-1, m_argumentHints);
   m_groupHash.insert(BestMatchesProperty, m_argumentHints);
-
-  initializeSettings();
 }
 
 KateCompletionModel::~KateCompletionModel() {
@@ -1738,37 +1736,6 @@ void KateCompletionModel::clearCompletionModels(bool skipReset)
 
   if (!skipReset)
     reset();
-}
-
-void KateCompletionModel::initializeSettings()
-{
-  ///@todo load stored settings through KateCompletionConfig here if  they exist
-
-  ///Initialize a standard column-merging: Merge Scope, Name, Arguments and Postfix
-  setColumnMergingEnabled(true);
-  QList<QList<int> > merges;
-  QList<int> mergeEnd;
-  mergeEnd << KTextEditor::CodeCompletionModel::Scope;
-  mergeEnd << KTextEditor::CodeCompletionModel::Name;
-  mergeEnd << KTextEditor::CodeCompletionModel::Arguments;
-  mergeEnd << KTextEditor::CodeCompletionModel::Postfix;
-  for( int a = 0; a < CodeCompletionModel::Scope; a++ ) {
-    QList<int> group;
-    group << a;
-    merges << group;
-  }
-
-  merges << mergeEnd;
-
-  setColumnMerges(merges);
-
-  ///Initialize standard grouping by access-type and scope-type
-  setGroupingEnabled(true);
-  setGroupingMethod(KateCompletionModel::AccessType | KateCompletionModel::ScopeType);
-
-  ///Within the groups, sort items by inheritance-depth
-  setSortingEnabled(true);
-  setSortingByInheritanceDepth(true);
 }
 
 #include "katecompletionmodel.moc"

@@ -27,6 +27,11 @@
 class KateView;
 class QVBoxLayout;
 
+namespace Ui {
+    class IncrementalSearchBar;
+    class PowerSearchBar;
+}
+
 
 
 class KateSearchBar : public KateViewBarWidget {
@@ -58,9 +63,12 @@ private:
 
 private:
     KateView * view;
+
     QVBoxLayout * layout;
-    QWidget * incrementalParent;
-    QWidget * powerParent;
+    QWidget * widget;
+    Ui::IncrementalSearchBar * incUi;
+    Ui::PowerSearchBar * powerUi;
+
     KTextEditor::SmartRange * topRange;
 
 };

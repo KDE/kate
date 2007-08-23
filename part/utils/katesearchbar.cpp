@@ -41,8 +41,9 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar)
         : KateViewBarWidget(viewBar),
         view(viewBar->view()),
         layout(new QVBoxLayout()),
-        incrementalParent(NULL),
-        powerParent(NULL),
+        widget(NULL),
+        incUi(NULL),
+        powerUi(NULL),
         topRange(NULL) {
     QWidget * const widget = this->centralWidget();
     widget->setLayout(this->layout);
@@ -50,7 +51,7 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar)
     // Start in incremental mode
     this->mutateIncremental();
 
-    this->layout->setSpacing(0);
+    this->layout->setMargin(2);
 
     this->topRange = this->view->doc()->newSmartRange(this->view->doc()->documentRange());
     this->topRange->setInsertBehavior(SmartRange::ExpandRight);
@@ -77,7 +78,7 @@ void KateSearchBar::findPrevious() {
 
 
 void KateSearchBar::onMutate() {
-    if (this->incrementalParent == NULL) {
+    if (this->incUi == NULL) {
         this->mutateIncremental();
     } else {
         this->mutatePower();
@@ -155,55 +156,57 @@ void KateSearchBar::onPowerReplaceAll() {
 
 
 void KateSearchBar::mutatePower() {
-    if (this->incrementalParent != NULL) {
-        this->incrementalParent->close();
-        this->incrementalParent = NULL;
-    }
+    // Kill incremental widget
+    delete this->widget;
+    delete this->incUi;
+    this->incUi = NULL;
 
-    this->powerParent = new QWidget;
-    Ui_PowerSearchBar * power = new Ui_PowerSearchBar;
-    power->setupUi(powerParent);
-    this->layout->addWidget(powerParent);
+    // Add power widget
+    this->widget = new QWidget;
+    this->powerUi = new Ui::PowerSearchBar;
+    this->powerUi->setupUi(this->widget);
+    this->layout->addWidget(this->widget);
 
     // Icons
-    power->mutate->setIcon(KIcon("arrow-down-double"));
-    power->findNext->setIcon(KIcon("go-down"));
-    power->findPrev->setIcon(KIcon("go-up"));
-    power->patternAdd->setIcon(KIcon("list-add"));
-    power->replacementAdd->setIcon(KIcon("list-add"));
+    this->powerUi->mutate->setIcon(KIcon("arrow-down-double"));
+    this->powerUi->findNext->setIcon(KIcon("go-down"));
+    this->powerUi->findPrev->setIcon(KIcon("go-up"));
+    this->powerUi->patternAdd->setIcon(KIcon("list-add"));
+    this->powerUi->replacementAdd->setIcon(KIcon("list-add"));
 
     // Slots
-    connect(power->mutate, SIGNAL(clicked()), this, SLOT(onMutate()));
-    connect(power->findNext, SIGNAL(clicked()), this, SLOT(onPowerFindNext()));
-    connect(power->findPrev, SIGNAL(clicked()), this, SLOT(onPowerFindPrev()));
-    connect(power->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));
-    connect(power->replaceAll, SIGNAL(clicked()), this, SLOT(onPowerReplaceAll()));
+    connect(this->powerUi->mutate, SIGNAL(clicked()), this, SLOT(onMutate()));
+    connect(this->powerUi->findNext, SIGNAL(clicked()), this, SLOT(onPowerFindNext()));
+    connect(this->powerUi->findPrev, SIGNAL(clicked()), this, SLOT(onPowerFindPrev()));
+    connect(this->powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));
+    connect(this->powerUi->replaceAll, SIGNAL(clicked()), this, SLOT(onPowerReplaceAll()));
 }
 
 
 
 void KateSearchBar::mutateIncremental() {
-    if (this->powerParent != NULL) {
-        this->powerParent->close();
-        this->powerParent = NULL;
-    }
+    // Kill power widget
+    delete this->widget;
+    delete this->powerUi;
+    this->powerUi = NULL;
 
-    this->incrementalParent = new QWidget;
-    Ui_IncrementalSearchBar * incremental = new Ui_IncrementalSearchBar;
-    incremental->setupUi(incrementalParent);
-    this->layout->addWidget(incrementalParent);
+    // Add incremental widget
+    this->widget = new QWidget;
+    this->incUi = new Ui::IncrementalSearchBar;
+    this->incUi->setupUi(this->widget);
+    this->layout->addWidget(this->widget);
 
     // Icons
-    incremental->mutate->setIcon(KIcon("arrow-up-double"));
-    incremental->next->setIcon(KIcon("go-down"));
-    incremental->prev->setIcon(KIcon("go-up"));
+    this->incUi->mutate->setIcon(KIcon("arrow-up-double"));
+    this->incUi->next->setIcon(KIcon("go-down"));
+    this->incUi->prev->setIcon(KIcon("go-up"));
 
     // Slots
-    connect(incremental->mutate, SIGNAL(clicked()), this, SLOT(onMutate()));
-    connect(incremental->pattern, SIGNAL(returnPressed()), this, SLOT(onIncNext()));
-    connect(incremental->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
-    connect(incremental->next, SIGNAL(clicked()), this, SLOT(onIncNext()));
-    connect(incremental->prev, SIGNAL(clicked()), this, SLOT(onIncPrev()));
+    connect(this->incUi->mutate, SIGNAL(clicked()), this, SLOT(onMutate()));
+    connect(this->incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onIncNext()));
+    connect(this->incUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
+    connect(this->incUi->next, SIGNAL(clicked()), this, SLOT(onIncNext()));
+    connect(this->incUi->prev, SIGNAL(clicked()), this, SLOT(onIncPrev()));
 }
 
 

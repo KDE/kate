@@ -26,6 +26,7 @@
 
 class KateView;
 class QVBoxLayout;
+class QCheckBox;
 
 namespace Ui {
     class IncrementalSearchBar;
@@ -41,8 +42,9 @@ public:
     explicit KateSearchBar(KateViewBar * viewBar);
     ~KateSearchBar();
 
-private:
+private: // helpers
     void highlightMatch(const KTextEditor::Range & range);
+    void selectMatch(const KTextEditor::Range & range);
 
 public Q_SLOTS:
     void findNext();
@@ -52,6 +54,7 @@ public Q_SLOTS:
     void onIncPatternChanged(const QString &);
     void onIncNext();
     void onIncPrev();
+    void onPowerFindStep(bool forwards = true);
     void onPowerFindNext();
     void onPowerFindPrev();
     void onPowerReplaceNext();
@@ -61,15 +64,19 @@ private:
     void mutatePower();
     void mutateIncremental();
 
+private: // helpers
+    bool isChecked(QCheckBox * checkbox);
+    
+
 private:
-    KateView * view;
+    KateView * m_view;
 
-    QVBoxLayout * layout;
-    QWidget * widget;
-    Ui::IncrementalSearchBar * incUi;
-    Ui::PowerSearchBar * powerUi;
+    QVBoxLayout * m_layout;
+    QWidget * m_widget;
+    Ui::IncrementalSearchBar * m_incUi;
+    Ui::PowerSearchBar * m_powerUi;
 
-    KTextEditor::SmartRange * topRange;
+    KTextEditor::SmartRange * m_topRange;
 
 };
 

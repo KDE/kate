@@ -32,6 +32,7 @@
 #include "ui_searchbarincremental.h"
 #include "ui_searchbarpower.h"
 #include <QtGui/QVBoxLayout>
+#include <QtGui/QCheckBox>
 
 using namespace KTextEditor;
 
@@ -39,22 +40,23 @@ using namespace KTextEditor;
 
 KateSearchBar::KateSearchBar(KateViewBar * viewBar)
         : KateViewBarWidget(viewBar),
-        view(viewBar->view()),
-        layout(new QVBoxLayout()),
-        widget(NULL),
-        incUi(NULL),
-        powerUi(NULL),
-        topRange(NULL) {
-    QWidget * const widget = this->centralWidget();
-    widget->setLayout(this->layout);
+        m_view(viewBar->view()),
+        m_layout(new QVBoxLayout()),
+        m_widget(NULL),
+        m_incUi(NULL),
+        m_powerUi(NULL),
+        m_topRange(NULL) {
+    QWidget * const widget = centralWidget();
+    widget->setLayout(m_layout);
 
     // Start in incremental mode
-    this->mutateIncremental();
+    // mutateIncremental();
+    mutatePower();
 
-    this->layout->setMargin(2);
+    m_layout->setMargin(2);
 
-    this->topRange = this->view->doc()->newSmartRange(this->view->doc()->documentRange());
-    this->topRange->setInsertBehavior(SmartRange::ExpandRight);
+    m_topRange = m_view->doc()->newSmartRange(m_view->doc()->documentRange());
+    m_topRange->setInsertBehavior(SmartRange::ExpandRight);
 }
 
 
@@ -78,20 +80,27 @@ void KateSearchBar::findPrevious() {
 
 
 void KateSearchBar::onMutate() {
-    if (this->incUi == NULL) {
-        this->mutateIncremental();
+    if (m_incUi == NULL) {
+        mutateIncremental();
     } else {
-        this->mutatePower();
+        mutatePower();
     }
 }
 
 
 
 void KateSearchBar::highlightMatch(const Range & range) {
-    SmartRange * const highlight = this->view->doc()->newSmartRange(range, this->topRange);
+    SmartRange * const highlight = m_view->doc()->newSmartRange(range, m_topRange);
     Attribute::Ptr color(new Attribute());
     color->setBackground(QColor("yellow")); // TODO make this part of the color scheme
     highlight->setAttribute(color);
+}
+
+
+
+void KateSearchBar::selectMatch(const KTextEditor::Range & range) {
+    m_view->setCursorPositionInternal(range.start(), 1);
+    m_view->setSelection(range);
 }
 
 
@@ -102,14 +111,14 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
     // TODO
 
     Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
-    Range inputRange = this->view->doc()->documentRange();
+    Range inputRange = m_view->doc()->documentRange();
 
-    QVector<Range> resultRanges = this->view->doc()->searchText(inputRange, pattern, enabledOptions);
+    QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
     const Range & match = resultRanges[0];
 
     if (match.isValid()) {
-        this->view->setCursorPositionInternal(match.start(), 1);
-        this->view->setSelection(match);
+        m_view->setCursorPositionInternal(match.start(), 1);
+        m_view->setSelection(match);
     }
 
     // TODO
@@ -131,33 +140,136 @@ void KateSearchBar::onIncPrev() {
 
 
 
-void KateSearchBar::onPowerFindNext() {
-    const QString pattern = this->powerUi->pattern->currentText();
+void KateSearchBar::onPowerFindStep(bool forwards) {
+    // kDebug() << "KateSearchBar::onPowerFindStep" << forwards;
 
-    // TODO
-    // TODO
-    // TODO
+    // What to find?
+    const QString pattern = m_powerUi->pattern->currentText();
 
+
+    // How to find?
     Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
-    Range inputRange = this->view->doc()->documentRange();
-
-    QVector<Range> resultRanges = this->view->doc()->searchText(inputRange, pattern, enabledOptions);
-    const Range & match = resultRanges[0];
-
-    if (match.isValid()) {
-        this->view->setCursorPositionInternal(match.start(), 1);
-        this->view->setSelection(match);
+    const bool matchCase = isChecked(m_powerUi->matchCase);
+    if (!matchCase) {
+        enabledOptions |= Search::CaseInsensitive;
     }
 
-    // TODO
-    // TODO
-    // TODO
+    if (!forwards) {
+        enabledOptions |= Search::Backwards;
+    }
+
+    switch (m_powerUi->searchMode->currentIndex()) {
+    case 1: // Whole words
+        enabledOptions |= Search::WholeWords;
+        break;
+
+    case 2: // Escape sequences
+        enabledOptions |= Search::EscapeSequences;
+        break;
+
+    case 3: // Regegular expression
+        enabledOptions |= Search::Regex;
+        break;
+
+    default: // Plain text
+        break;
+
+    }
+
+
+    // Where to find?
+    Range inputRange;
+    Range selection;
+    const bool selected = m_view->selection();
+    const bool selectionOnly = isChecked(m_powerUi->selectionOnly);
+    if (selected) {
+        selection = m_view->selectionRange();
+        if (selectionOnly) {
+            // First match in selection
+            inputRange = selection;
+        } else {
+            // Next match after/before selection if a match was selected before
+            if (forwards) {
+                inputRange.setRange(selection.start(), m_view->doc()->documentEnd());
+            } else {
+                inputRange.setRange(Cursor(0, 0), selection.end());
+            }
+        }
+    } else {
+        // No selection
+        const bool fromCursor = isChecked(m_powerUi->fromCursor);
+        if (fromCursor) {
+            const Cursor cursorPos = m_view->cursorPosition();
+            if (forwards) {
+                inputRange.setRange(cursorPos, m_view->doc()->documentEnd());
+            } else {
+                inputRange.setRange(Cursor(0, 0), cursorPos);
+            }
+        } else {
+            inputRange = m_view->doc()->documentRange();
+        }
+    }
+    // kDebug() << "(1) input range is" << inputRange;
+
+    // Find, first try
+    const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
+    const Range & match = resultRanges[0];
+    bool wrap = false;
+    if (match.isValid()) {
+        // Did we find the previously selected match again?
+        if (selected && !selectionOnly && (match == selection)) {
+            // Find, second try after old selection
+            if (forwards) {
+                inputRange.setRange(selection.end(), inputRange.end());
+            } else {
+                inputRange.setRange(inputRange.start(), selection.start());
+            }
+            // kDebug() << "(2) input range is" << inputRange;
+            const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
+            const Range & match2 = resultRanges2[0];
+            if (match2.isValid()) {
+                selectMatch(match2);
+            } else {
+                // Find, third try from doc start on
+                wrap = true;
+            }
+        } else {
+            selectMatch(match);
+        }
+    } else if (!selected || !selectionOnly) {
+        // Find, second try from doc start on
+        wrap = true;
+    }
+
+    // Wrap around
+    if (wrap) {
+        inputRange = m_view->doc()->documentRange();
+        const QVector<Range> resultRanges3 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
+        const Range & match3 = resultRanges3[0];
+        if (match3.isValid()) {
+            if (selected && !selectionOnly && (match3 == selection)) {
+                // Same match again
+            } else {
+                selectMatch(match3);
+            }
+// TODO indicate wrap match
+        } else {
+// TODO indicate wrap error
+        }
+    }
+}
+
+
+
+void KateSearchBar::onPowerFindNext() {
+    onPowerFindStep();
 }
 
 
 
 void KateSearchBar::onPowerFindPrev() {
-    // TODO
+    const bool BACKWARDS = false;
+    onPowerFindStep(BACKWARDS);
 }
 
 
@@ -176,56 +288,63 @@ void KateSearchBar::onPowerReplaceAll() {
 
 void KateSearchBar::mutatePower() {
     // Kill incremental widget
-    delete this->widget;
-    delete this->incUi;
-    this->incUi = NULL;
+    delete m_widget;
+    delete m_incUi;
+    m_incUi = NULL;
 
     // Add power widget
-    this->widget = new QWidget;
-    this->powerUi = new Ui::PowerSearchBar;
-    this->powerUi->setupUi(this->widget);
-    this->layout->addWidget(this->widget);
+    m_widget = new QWidget;
+    m_powerUi = new Ui::PowerSearchBar;
+    m_powerUi->setupUi(m_widget);
+    m_layout->addWidget(m_widget);
 
     // Icons
-    this->powerUi->mutate->setIcon(KIcon("arrow-down-double"));
-    this->powerUi->findNext->setIcon(KIcon("go-down"));
-    this->powerUi->findPrev->setIcon(KIcon("go-up"));
-    this->powerUi->patternAdd->setIcon(KIcon("list-add"));
-    this->powerUi->replacementAdd->setIcon(KIcon("list-add"));
+    m_powerUi->mutate->setIcon(KIcon("arrow-down-double"));
+    m_powerUi->findNext->setIcon(KIcon("go-down"));
+    m_powerUi->findPrev->setIcon(KIcon("go-up"));
+    m_powerUi->patternAdd->setIcon(KIcon("list-add"));
+    m_powerUi->replacementAdd->setIcon(KIcon("list-add"));
 
     // Slots
-    connect(this->powerUi->mutate, SIGNAL(clicked()), this, SLOT(onMutate()));
-    connect(this->powerUi->findNext, SIGNAL(clicked()), this, SLOT(onPowerFindNext()));
-    connect(this->powerUi->findPrev, SIGNAL(clicked()), this, SLOT(onPowerFindPrev()));
-    connect(this->powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));
-    connect(this->powerUi->replaceAll, SIGNAL(clicked()), this, SLOT(onPowerReplaceAll()));
+    connect(m_powerUi->mutate, SIGNAL(clicked()), this, SLOT(onMutate()));
+    connect(m_powerUi->findNext, SIGNAL(clicked()), this, SLOT(onPowerFindNext()));
+    connect(m_powerUi->findPrev, SIGNAL(clicked()), this, SLOT(onPowerFindPrev()));
+    connect(m_powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));
+    connect(m_powerUi->replaceAll, SIGNAL(clicked()), this, SLOT(onPowerReplaceAll()));
 }
 
 
 
 void KateSearchBar::mutateIncremental() {
     // Kill power widget
-    delete this->widget;
-    delete this->powerUi;
-    this->powerUi = NULL;
+    delete m_widget;
+    delete m_powerUi;
+    m_powerUi = NULL;
 
     // Add incremental widget
-    this->widget = new QWidget;
-    this->incUi = new Ui::IncrementalSearchBar;
-    this->incUi->setupUi(this->widget);
-    this->layout->addWidget(this->widget);
+    m_widget = new QWidget;
+    m_incUi = new Ui::IncrementalSearchBar;
+    m_incUi->setupUi(m_widget);
+    m_layout->addWidget(m_widget);
 
     // Icons
-    this->incUi->mutate->setIcon(KIcon("arrow-up-double"));
-    this->incUi->next->setIcon(KIcon("go-down"));
-    this->incUi->prev->setIcon(KIcon("go-up"));
+    m_incUi->mutate->setIcon(KIcon("arrow-up-double"));
+    m_incUi->next->setIcon(KIcon("go-down"));
+    m_incUi->prev->setIcon(KIcon("go-up"));
 
     // Slots
-    connect(this->incUi->mutate, SIGNAL(clicked()), this, SLOT(onMutate()));
-    connect(this->incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onIncNext()));
-    connect(this->incUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
-    connect(this->incUi->next, SIGNAL(clicked()), this, SLOT(onIncNext()));
-    connect(this->incUi->prev, SIGNAL(clicked()), this, SLOT(onIncPrev()));
+    connect(m_incUi->mutate, SIGNAL(clicked()), this, SLOT(onMutate()));
+    connect(m_incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onIncNext()));
+    connect(m_incUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
+    connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(onIncNext()));
+    connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(onIncPrev()));
+}
+
+
+
+bool KateSearchBar::isChecked(QCheckBox * checkbox) {
+    Q_ASSERT(checkbox != NULL);
+    return checkbox->checkState() == Qt::Checked;
 }
 
 

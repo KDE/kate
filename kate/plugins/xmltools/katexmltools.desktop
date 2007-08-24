@@ -18,6 +18,7 @@ Name[zh_TW]=Kate XML 補完
 Comment=Lists XML elements, attributes, attribute values and entities allowed by DTD
 Comment[de]=Zeigt XML-Elemente, Attribute, Attributwerte und Entitäten an, die von der DTD definiert werden
 Comment[el]=Εμφάνιση στοιχείων XML, ιδιοτήτων, τιμών ιδιοτήτων και οντοτήτων που επιτρέπονται από το DTD
+Comment[es]=Lista elementos XML, atributos, valores de atributos y entidades permitidas por la DTD
 Comment[ga]=Liostaigh eilimintí XML, aitreabúidí, luachanna aitreabúide agus aonáin atá ceadaithe ag an DTD
 Comment[it]=Elenca gli elementi XML, gli attributi, i loro valori e le entità permesse dalla DTD
 Comment[ja]=DTD で許可されている XML のエレメント、アトリビュートおよびその値やエンティティを表示します

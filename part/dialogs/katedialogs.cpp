@@ -35,6 +35,8 @@
 #include "katesyntaxdocument.h"
 #include "katemodeconfigpage.h"
 #include "kateview.h"
+#include "katepluginmanager.h"
+#include "pluginselector.h"
 
 // auto generated ui files
 #include "ui_modonhdwidget.h"
@@ -79,7 +81,7 @@
 #include <kvbox.h>
 #include <kactioncollection.h>
 #include <kplugininfo.h>
-#include <kutils/kpluginselector.h>
+
 #include <ktabwidget.h>
 //#include <knewstuff/knewstuff.h>
 #include <QtGui/QCheckBox>
@@ -759,6 +761,7 @@ void KateSaveConfigTab::defaults()
 //BEGIN KatePartPluginConfigPage
 KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
   : KateConfigPage (parent, "")
+  , katePluginInfos (KatePluginManager::self()->pluginList())
   , scriptConfigPage (new KateScriptConfigPage(this))
 {
   // FIXME: Is really needed to move all this code below to another class,
@@ -778,20 +781,20 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
   plugins.clear();
 
   int i = 0;
-  foreach (const KService::Ptr &service, KateGlobal::self()->plugins())
+  foreach (const KatePluginInfo &info, katePluginInfos)
   {
-    KPluginInfo it(service);
-    it.setPluginEnabled(KateDocumentConfig::global()->plugin(i));
+    KPluginInfo it(info.service);
+    it.setPluginEnabled(info.load);
     plugins.append(it);
     i++;
   }
 
-  selector = new KPluginSelector(0);
+  selector = new KatePluginSelector(0);
 
   connect(selector, SIGNAL(changed(bool)), this, SLOT(slotChanged()));
   connect(selector, SIGNAL(configCommitted(QByteArray)), this, SLOT(slotChanged()));
 
-  selector->addPlugins(plugins, KPluginSelector::IgnoreConfigFile, i18n("Editor Plugins"), "Editor");
+  selector->addPlugins(plugins, KatePluginSelector::IgnoreConfigFile, i18n("Editor Plugins"), "Editor");
   layout->addWidget(selector);
 
   internalLayout->addWidget(newWidget);
@@ -815,12 +818,22 @@ void KatePartPluginConfigPage::apply ()
 
   selector->updatePluginsState();
 
-  KateDocumentConfig::global()->configStart ();
-
-  for (int i=0; i < plugins.count(); i++)
-    KateDocumentConfig::global()->setPlugin (i, plugins[i].isPluginEnabled ());
-
-  KateDocumentConfig::global()->configEnd ();
+  KatePluginList &katePluginList = KatePluginManager::self()->pluginList();
+  for (int i=0; i < plugins.count(); i++) {
+    if (plugins[i].isPluginEnabled()) {
+      if (!(katePluginList[i].load && katePluginList[i].plugin)) {
+        KatePluginManager::self()->loadPlugin(katePluginList[i]);
+        KatePluginManager::self()->enablePlugin(katePluginList[i]);
+      }
+    } else {
+      if (katePluginList[i].load || katePluginList[i].plugin) {
+        KatePluginManager::self()->disablePlugin(katePluginList[i]);
+        KatePluginManager::self()->unloadPlugin(katePluginList[i]);
+      }
+    }
+    
+//    KateDocumentConfig::global()->setPlugin (i, plugins[i].isPluginEnabled ());
+  }
 }
 
 void KatePartPluginConfigPage::reload ()
@@ -1069,8 +1082,8 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
   : KDialog( parent ),
     m_doc( doc ),
     m_modtype ( modtype ),
-    m_diffFile( 0 ),
-    m_proc( 0 )
+    m_proc( 0 ),
+    m_diffFile( 0 )
 {
   setButtons( Ok | Apply | Cancel | User1 );
 

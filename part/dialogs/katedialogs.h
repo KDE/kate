@@ -47,6 +47,7 @@ class KateScriptConfigPage;
 class ModeConfigPage;
 class KateDocument;
 class KateView;
+class KatePluginInfo;
 
 namespace KIO
 {
@@ -58,7 +59,7 @@ class KComboBox;
 class KShortcutsEditor;
 class KTemporaryFile;
 class KIntNumInput;
-class KPluginSelector;
+class KatePluginSelector;
 class KPluginInfo;
 class KProcess;
 
@@ -265,7 +266,8 @@ class KatePartPluginConfigPage : public KateConfigPage
     void defaults ();
 
   private:
-    KPluginSelector *selector;
+    KatePluginSelector *selector;
+    QList<KatePluginInfo> katePluginInfos;
     QList<KPluginInfo> plugins;
     KateScriptConfigPage *scriptConfigPage;
 };

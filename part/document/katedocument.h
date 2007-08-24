@@ -112,27 +112,6 @@ class KateDocument : public KTextEditor::Document,
      */
     virtual QWidget *widget();
 
-  //
-  // Plugins section
-  //
-  public:
-    void unloadAllPlugins ();
-
-    void enableAllPluginsGUI (KateView *view);
-    void disableAllPluginsGUI (KateView *view);
-
-    void loadPlugin (uint pluginIndex);
-    void unloadPlugin (uint pluginIndex);
-
-    void enablePluginGUI (KTextEditor::Plugin *plugin, KateView *view);
-    void enablePluginGUI (KTextEditor::Plugin *plugin);
-
-    void disablePluginGUI (KTextEditor::Plugin *plugin, KateView *view);
-    void disablePluginGUI (KTextEditor::Plugin *plugin);
-
-  private:
-     QVector<KTextEditor::Plugin *> m_plugins;
-
   public:
     bool readOnly () const { return m_bReadOnly; }
     bool browserView () const { return m_bBrowserView; }

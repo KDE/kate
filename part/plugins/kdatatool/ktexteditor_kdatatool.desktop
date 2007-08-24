@@ -11,6 +11,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 X-KDE-ParentApp=kate
+X-KDE-Version=4.0
 ServiceTypes=KTextEditor/Plugin
 Type=Service
 Icon=tools-check-spelling

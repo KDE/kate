@@ -218,6 +218,7 @@ class KateHighlighting
      */
     QString hlKeyForAttrib( int attrib ) const;
 
+    int defaultStyleForAttribute( int attrib ) const;
 
     void clearAttributeArrays ();
 

@@ -29,6 +29,7 @@
 #include "katejscript.h"
 #include "katecmd.h"
 #include "katebuffer.h"
+#include "katepluginmanager.h"
 
 #include <klocale.h>
 #include <kservicetypetrader.h>
@@ -50,7 +51,6 @@ KateGlobal::KateGlobal ()
              ki18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
              ki18n( "(c) 2000-2005 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org")
  , m_componentData (&m_aboutData)
- , m_plugins (KServiceTypeTrader::self()->query("KTextEditor/Plugin"))
 {
   // set s_self
   s_self = this;
@@ -128,6 +128,11 @@ KateGlobal::KateGlobal ()
   KateCmd::self()->registerCommand (m_jscriptManager);
 
   //
+  // plugin manager
+  //
+  m_pluginManager = new KatePluginManager ();
+
+  //
   // init the cmds
   //
   m_cmds.push_back (new KateCommands::CoreCommands());
@@ -141,6 +146,8 @@ KateGlobal::KateGlobal ()
 
 KateGlobal::~KateGlobal()
 {
+  delete m_pluginManager;
+
   delete m_documentConfig;
   delete m_viewConfig;
   delete m_rendererConfig;

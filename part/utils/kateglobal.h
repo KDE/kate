@@ -48,6 +48,7 @@ class KateJScriptManager;
 class KDirWatch;
 class KateHlManager;
 class KateCmd;
+class KatePluginManager;
 
 namespace Kate {
   class Command;
@@ -215,10 +216,10 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     QList<KateView*> &views () { return m_views; }
 
     /**
-     * on start detected plugins
-     * @return list of all at launch detected ktexteditor::plugins
+     * global plugin manager
+     * @return kate part plugin manager
      */
-    const KService::List &plugins () { return m_plugins; }
+    KatePluginManager *pluginManager () { return m_pluginManager; }
 
     /**
      * global dirwatch
@@ -358,7 +359,7 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     /**
      * at start found plugins
      */
-    KService::List m_plugins;
+    KatePluginManager *m_pluginManager;
 
     /**
      * fallback document config

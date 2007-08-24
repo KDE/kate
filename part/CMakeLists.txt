@@ -25,6 +25,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/syntax
   ${CMAKE_CURRENT_SOURCE_DIR}/utils
   ${CMAKE_CURRENT_SOURCE_DIR}/view
+  ${CMAKE_CURRENT_SOURCE_DIR}/pluginselector
   ${CMAKE_SOURCE_DIR}/kdeprint
   ${CMAKE_SOURCE_DIR}/kde3support
   ${CMAKE_SOURCE_DIR}/kde3support/kdeui
@@ -118,6 +119,10 @@ utils/kateglobal.cpp
 utils/katecmd.cpp
 utils/katedynamicanimation.cpp
 utils/katestyletreewidget.cpp
+utils/katepluginmanager.cpp
+
+# plugin selector fork
+pluginselector/pluginselector.cpp
 )
 
 
@@ -171,7 +176,7 @@ set(testkateregression_SRCS ${katepart_PART_SRCS} tests/test_regression.cpp test
 
 kde4_add_executable(testkateregression NOGUI RUN_UNINSTALLED ${testkateregression_SRCS})
 
-target_link_libraries(testkateregression  ${KDE4_KDECORE_LIBS} ktexteditor kdeprint kutils kjs kde3support )
+target_link_libraries(testkateregression  ${KDE4_KDECORE_LIBS} kutils ktexteditor kdeprint kjs kde3support )
 
 #add_dependencies(check testkateregression)
 

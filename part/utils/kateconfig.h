@@ -249,7 +249,6 @@ class KateDocumentConfig : public KateConfig
     QString m_encoding;
     QString m_backupPrefix;
     QString m_backupSuffix;
-    QBitArray m_plugins;
 
     bool m_tabWidthSet : 1;
     bool m_indentationWidthSet : 1;
@@ -266,7 +265,6 @@ class KateDocumentConfig : public KateConfig
     bool m_searchDirConfigDepthSet : 1;
     bool m_backupPrefixSet : 1;
     bool m_backupSuffixSet : 1;
-    QBitArray m_pluginsSet;
 
   private:
     static KateDocumentConfig *s_global;

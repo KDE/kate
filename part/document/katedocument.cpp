@@ -44,6 +44,7 @@
 #include "katebuffer.h"
 #include "kateundo.h"
 #include "katejscript.h"
+#include "katepluginmanager.h"
 
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
@@ -205,7 +206,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
                              bool bReadOnly, QWidget *parentWidget,
                              QObject *parent)
 : KTextEditor::Document (parent),
-  m_plugins (KateGlobal::self()->plugins().count()),
   m_activeView(0L),
   m_undoDontMerge(false),
   m_undoIgnoreCancel(false),
@@ -226,9 +226,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   // my dbus object
   QDBusConnection::sessionBus().registerObject (pathName, this);
-
-  // init local plugin array
-  m_plugins.fill (0);
 
   // register doc at factory
   KateGlobal::self()->registerDocument(this);
@@ -321,12 +318,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   m_isasking = 0;
 
-  // plugins
-  for (int i=0; i<KateGlobal::self()->plugins().count(); i++)
-  {
-    if (config()->plugin (i))
-      loadPlugin (i);
-  }
+  // register document in plugins
+  KatePluginManager::self()->addDocument(this);
 }
 
 //
@@ -356,8 +349,8 @@ KateDocument::~KateDocument()
   qDeleteAll(undoItems);
   undoItems.clear();
 
-  // clean up plugins
-  unloadAllPlugins ();
+  // de-register from plugin
+  KatePluginManager::self()->removeDocument(this);
 
   // cu marks
   for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
@@ -386,95 +379,6 @@ QWidget *KateDocument::widget()
   setWidget( view );
   return view;
 }
-
-//BEGIN Plugins
-void KateDocument::unloadAllPlugins ()
-{
-  for (int i=0; i<m_plugins.count(); i++)
-    unloadPlugin (i);
-}
-
-void KateDocument::enableAllPluginsGUI (KateView *view)
-{
-  for (int i=0; i<m_plugins.count(); i++)
-    enablePluginGUI (m_plugins[i], view);
-}
-
-void KateDocument::disableAllPluginsGUI (KateView *view)
-{
-  for (int i=0; i<m_plugins.count(); i++)
-    disablePluginGUI (m_plugins[i], view);
-}
-
-void KateDocument::loadPlugin (uint pluginIndex)
-{
-  kDebug(13020)<<"loadPlugin (entered)";
-  if (m_plugins[pluginIndex]) return;
-
-  kDebug(13020)<<"loadPlugin (loading plugin)";
-  m_plugins[pluginIndex] = KTextEditor::createPlugin (QFile::encodeName((KateGlobal::self()->plugins())[pluginIndex]->library()), this);
-
-  // TODO: call Plugin::readConfig with right KConfig*
-  enablePluginGUI (m_plugins[pluginIndex]);
-}
-
-void KateDocument::unloadPlugin (uint pluginIndex)
-{
-  if (!m_plugins[pluginIndex]) return;
-
-  disablePluginGUI (m_plugins[pluginIndex]);
-  // TODO: call Plugin::writeConfig with right KConfig*
-
-  delete m_plugins[pluginIndex];
-  m_plugins[pluginIndex] = 0L;
-}
-
-void KateDocument::enablePluginGUI (KTextEditor::Plugin *plugin, KateView *view)
-{
-  kDebug(13020)<<"KateDocument::enablePluginGUI(plugin,view):"<<"plugin";
-  if (!plugin) return;
-
-  KXMLGUIFactory *factory = view->factory();
-  if ( factory )
-    factory->removeClient( view );
-
-  plugin->addView(view);
-
-  if ( factory )
-    factory->addClient( view );
-}
-
-void KateDocument::enablePluginGUI (KTextEditor::Plugin *plugin)
-{
-  kDebug(13020)<<"KateDocument::enablePluginGUI(plugin):"<<"plugin";
-  if (!plugin) return;
-
-  foreach(KateView *view,m_views)
-    enablePluginGUI (plugin, view);
-}
-
-void KateDocument::disablePluginGUI (KTextEditor::Plugin *plugin, KateView *view)
-{
-  if (!plugin) return;
-
-  KXMLGUIFactory *factory = view->factory();
-  if ( factory )
-    factory->removeClient( view );
-
-  plugin->removeView( view );
-
-  if ( factory && !view->destructing() )
-    factory->addClient( view );
-}
-
-void KateDocument::disablePluginGUI (KTextEditor::Plugin *plugin)
-{
-  if (!plugin) return;
-
-  foreach(KateView *view,m_views)
-    disablePluginGUI (plugin, view);
-}
-//END
 
 //BEGIN KTextEditor::Document stuff
 
@@ -5299,15 +5203,6 @@ void KateDocument::updateConfig ()
   m_indenter.updateConfig();
 
   m_buffer->setTabWidth (config()->tabWidth());
-
-  // plugins
-  for (int i=0; i<KateGlobal::self()->plugins().count(); i++)
-  {
-    if (config()->plugin (i))
-      loadPlugin (i);
-    else
-      unloadPlugin (i);
-  }
 }
 
 //BEGIN Variable reader

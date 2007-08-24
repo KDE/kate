@@ -3106,6 +3106,7 @@ void KateViewInternal::viewSelectionChanged ()
     // this happens, we use the cached end to restore the cached start so that
     // updateSelection is not confused. See also comments in updateSelection.
     m_selectionCached.start() = KTextEditor::Cursor::invalid();
+//     updateView(true);
   }
 }
 

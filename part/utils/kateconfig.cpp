@@ -87,7 +87,6 @@ KateDocumentConfig::KateDocumentConfig ()
    m_configFlags (0),
    m_wordWrapAt (80),
    m_scriptForEncodingAutoDetection(KEncodingDetector::None),
-   m_plugins (KateGlobal::self()->plugins().count()),
    m_tabWidthSet (true),
    m_indentationWidthSet (true),
    m_indentationModeSet (true),
@@ -103,14 +102,9 @@ KateDocumentConfig::KateDocumentConfig ()
    m_searchDirConfigDepthSet (true),
    m_backupPrefixSet (true),
    m_backupSuffixSet (true),
-   m_pluginsSet (m_plugins.size()),
    m_doc (0)
 {
   s_global = this;
-
-  // init plugin array
-  m_plugins.fill (false);
-  m_pluginsSet.fill (true);
 
   // init with defaults from config or really hardcoded ones
   KConfigGroup cg( KGlobal::config(), "Kate Document Defaults");
@@ -120,7 +114,6 @@ KateDocumentConfig::KateDocumentConfig ()
 KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
  : m_tabHandling (tabSmart),
    m_configFlags (0),
-   m_plugins (KateGlobal::self()->plugins().count()),
    m_tabWidthSet (false),
    m_indentationWidthSet (false),
    m_indentationModeSet (false),
@@ -136,13 +129,8 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_searchDirConfigDepthSet (false),
    m_backupPrefixSet (false),
    m_backupSuffixSet (false),
-   m_pluginsSet (m_plugins.size()),
    m_doc (doc)
 {
-  // init plugin array
-  m_plugins.fill (false);
-  m_pluginsSet.fill (false);
-
   m_scriptForEncodingAutoDetection=s_global->encodingAutoDetectionScript();
 }
 
@@ -187,9 +175,10 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   setBackupSuffix (config.readEntry("Backup Suffix", QString ("~")));
 
   // plugins
-  const KService::List& plugins = KateGlobal::self()->plugins();
-  for (int i=0; i<plugins.count(); i++)
-    setPlugin (i, config.readEntry(plugins[i]->property("X-KDE-PluginInfo-Name").toString() + "Enabled", false));
+  // ### KPS fixme dominik
+//  const KService::List& plugins = KateGlobal::self()->plugins();
+//  for (int i=0; i<plugins.count(); i++)
+//    setPlugin (i, config.readEntry(plugins[i]->property("X-KDE-PluginInfo-Name").toString() + "Enabled", false));
 
   configEnd ();
 }
@@ -227,8 +216,9 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Backup Suffix", backupSuffix());
 
   // plugins
-  for (int i=0; i<KateGlobal::self()->plugins().count(); i++)
-    config.writeEntry((KateGlobal::self()->plugins())[i]->property("X-KDE-PluginInfo-Name").toString() + "Enabled", plugin(i));
+  // ### KPS dominik fixme
+//  for (int i=0; i<KateGlobal::self()->plugins().count(); i++)
+//    config.writeEntry((KateGlobal::self()->plugins())[i]->property("X-KDE-PluginInfo-Name").toString() + "Enabled", plugin(i));
 }
 
 void KateDocumentConfig::updateConfig ()
@@ -617,17 +607,22 @@ void KateDocumentConfig::setBackupSuffix (const QString &suffix)
 
 bool KateDocumentConfig::plugin (int index) const
 {
-  if (index < 0 || index >= m_plugins.size())
+  return false;
+  // ### kps dominik fixme
+/*  if (index < 0 || index >= m_plugins.size())
     return false;
 
   if (m_pluginsSet.at(index) || isGlobal())
     return m_plugins.at(index);
 
   return s_global->plugin (index);
+*/
 }
 
 void KateDocumentConfig::setPlugin (int index, bool load)
 {
+  // ### KPS dominik fixme
+  /*
   if (index < 0 || index >= m_plugins.size())
     return;
 
@@ -637,6 +632,7 @@ void KateDocumentConfig::setPlugin (int index, bool load)
   m_plugins.setBit(index, load);
 
   configEnd ();
+  */
 }
 
 int KateDocumentConfig::searchDirConfigDepth () const

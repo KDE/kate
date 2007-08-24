@@ -21,6 +21,7 @@
 
 #include "kateviewhelpers.h"
 #include "katesmartrange.h"
+#include "katedocument.h"
 
 
 
@@ -45,6 +46,9 @@ public:
 private: // helpers
     void highlightMatch(const KTextEditor::Range & range);
     void selectMatch(const KTextEditor::Range & range);
+    void buildReplacement(QString & output, QList<ReplacementPart> & parts,
+            const QVector<KTextEditor::Range> & details);
+    void replaceMatch(const QVector<KTextEditor::Range> & match, const QString & replacement);
 
 public Q_SLOTS:
     void findNext();
@@ -54,7 +58,7 @@ public Q_SLOTS:
     void onIncPatternChanged(const QString &);
     void onIncNext();
     void onIncPrev();
-    void onPowerFindStep(bool forwards = true);
+    void onPowerStep(bool replace, bool forwards = true);
     void onPowerFindNext();
     void onPowerFindPrev();
     void onPowerReplaceNext();

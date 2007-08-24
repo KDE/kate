@@ -105,6 +105,55 @@ void KateSearchBar::selectMatch(const KTextEditor::Range & range) {
 
 
 
+void KateSearchBar::buildReplacement(QString & output, QList<ReplacementPart> & parts, const QVector<Range> & details) {
+    const int MIN_REF_INDEX = 0;
+    const int MAX_REF_INDEX = details.count() - 1;
+
+    output.clear();
+    for (QList<ReplacementPart>::iterator iter = parts.begin(); iter != parts.end(); iter++) {
+        ReplacementPart & curPart = *iter;
+        if (curPart.isReference) {
+            if ((curPart.index < MIN_REF_INDEX) || (curPart.index > MAX_REF_INDEX)) {
+                // Insert just the number to be consistent with QRegExp ("\c" becomes "c")
+                output.append(QString::number(curPart.index));
+            } else {
+                const Range & captureRange = details[curPart.index];
+                if (captureRange.isValid()) {
+                    // Copy capture content
+                    const bool blockMode = m_view->blockSelection();
+                    output.append(m_view->doc()->text(captureRange, blockMode));
+                }
+            }
+        } else {
+            output.append(curPart.text);
+        }
+    }
+}
+
+
+
+void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & replacement) {
+    const bool usePlaceholders = isChecked(m_powerUi->usePlaceholders);
+    const Range & targetRange = match[0];
+
+    QString finalReplacement;
+    if (usePlaceholders) {
+        // Resolve references and escape sequences
+        QList<ReplacementPart> parts;
+        QString writableHack(replacement);
+        KateDocument::escapePlaintext(writableHack, &parts);
+        buildReplacement(finalReplacement, parts, match);
+    } else {
+        // Plain text replacement
+        finalReplacement = replacement;
+    }
+
+    const bool blockMode = (m_view->blockSelection() && !targetRange.onSingleLine());
+    m_view->doc()->replaceText(targetRange, finalReplacement, blockMode);
+}
+
+
+
 void KateSearchBar::onIncPatternChanged(const QString & pattern) {
     // TODO
     // TODO
@@ -140,8 +189,8 @@ void KateSearchBar::onIncPrev() {
 
 
 
-void KateSearchBar::onPowerFindStep(bool forwards) {
-    // kDebug() << "KateSearchBar::onPowerFindStep" << forwards;
+void KateSearchBar::onPowerStep(bool replace, bool forwards) {
+    // kDebug() << "KateSearchBar::onPowerStep" << forwards;
 
     // What to find?
     const QString pattern = m_powerUi->pattern->currentText();
@@ -216,22 +265,30 @@ void KateSearchBar::onPowerFindStep(bool forwards) {
     const Range & match = resultRanges[0];
     bool wrap = false;
     if (match.isValid()) {
-        // Did we find the previously selected match again?
+        // Previously selected match again?
         if (selected && !selectionOnly && (match == selection)) {
-            // Find, second try after old selection
-            if (forwards) {
-                inputRange.setRange(selection.end(), inputRange.end());
+            // Same match again
+            if (replace) {
+                // Selection is match -> replace
+                kDebug() << "replace range" << resultRanges[0];
+                const QString replacement = m_powerUi->replacement->currentText();
+                replaceMatch(resultRanges, replacement);
             } else {
-                inputRange.setRange(inputRange.start(), selection.start());
-            }
-            // kDebug() << "(2) input range is" << inputRange;
-            const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
-            const Range & match2 = resultRanges2[0];
-            if (match2.isValid()) {
-                selectMatch(match2);
-            } else {
-                // Find, third try from doc start on
-                wrap = true;
+                // Find, second try after old selection
+                if (forwards) {
+                    inputRange.setRange(selection.end(), inputRange.end());
+                } else {
+                    inputRange.setRange(inputRange.start(), selection.start());
+                }
+                // kDebug() << "(2) input range is" << inputRange;
+                const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
+                const Range & match2 = resultRanges2[0];
+                if (match2.isValid()) {
+                    selectMatch(match2);
+                } else {
+                    // Find, third try from doc start on
+                    wrap = true;
+                }
             }
         } else {
             selectMatch(match);
@@ -247,8 +304,9 @@ void KateSearchBar::onPowerFindStep(bool forwards) {
         const QVector<Range> resultRanges3 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
         const Range & match3 = resultRanges3[0];
         if (match3.isValid()) {
+            // Previously selected match again?
             if (selected && !selectionOnly && (match3 == selection)) {
-                // Same match again
+                // NOOP, same match again
             } else {
                 selectMatch(match3);
             }
@@ -262,20 +320,23 @@ void KateSearchBar::onPowerFindStep(bool forwards) {
 
 
 void KateSearchBar::onPowerFindNext() {
-    onPowerFindStep();
+    const bool FIND = false;
+    onPowerStep(FIND);
 }
 
 
 
 void KateSearchBar::onPowerFindPrev() {
+    const bool FIND = false;
     const bool BACKWARDS = false;
-    onPowerFindStep(BACKWARDS);
+    onPowerStep(FIND, BACKWARDS);
 }
 
 
 
 void KateSearchBar::onPowerReplaceNext() {
-    // TODO
+    const bool REPLACE = true;
+    onPowerStep(REPLACE);
 }
 
 
@@ -311,6 +372,13 @@ void KateSearchBar::mutatePower() {
     connect(m_powerUi->findPrev, SIGNAL(clicked()), this, SLOT(onPowerFindPrev()));
     connect(m_powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));
     connect(m_powerUi->replaceAll, SIGNAL(clicked()), this, SLOT(onPowerReplaceAll()));
+
+    // Disable still to implement controls
+    // TODO
+    m_powerUi->patternAdd->setDisabled(true);
+    m_powerUi->replacementAdd->setDisabled(true);
+    m_powerUi->highlightAll->setDisabled(true);
+    m_powerUi->replaceAll->setDisabled(true);
 }
 
 

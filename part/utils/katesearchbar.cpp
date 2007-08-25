@@ -44,19 +44,23 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar)
         m_layout(new QVBoxLayout()),
         m_widget(NULL),
         m_incUi(NULL),
+        m_incMenu(NULL),
+        m_incMenuMatchCase(NULL),
+        m_incMenuFromCursor(NULL),
+        m_incMenuHighlightAll(NULL),
+        m_incInitCursor(0, 0),
         m_powerUi(NULL),
         m_topRange(NULL) {
     QWidget * const widget = centralWidget();
     widget->setLayout(m_layout);
 
     // Start in incremental mode
-    // mutateIncremental();
-    mutatePower();
+    mutateIncremental();
+    // mutatePower();
 
     m_layout->setMargin(2);
 
-    m_topRange = m_view->doc()->newSmartRange(m_view->doc()->documentRange());
-    m_topRange->setInsertBehavior(SmartRange::ExpandRight);
+    enableHighlights(true);
 }
 
 
@@ -90,16 +94,31 @@ void KateSearchBar::onMutate() {
 
 
 void KateSearchBar::highlightMatch(const Range & range) {
+// TODO Highlight code does not work as expected!?
+/*
     SmartRange * const highlight = m_view->doc()->newSmartRange(range, m_topRange);
-    Attribute::Ptr color(new Attribute());
+    Attribute::Ptr color(new Attribute()); // TODO
     color->setBackground(QColor("yellow")); // TODO make this part of the color scheme
     highlight->setAttribute(color);
+*/
 }
 
 
 
-void KateSearchBar::selectMatch(const KTextEditor::Range & range) {
-    m_view->setCursorPositionInternal(range.start(), 1);
+void KateSearchBar::highlightReplacement(const Range & range) {
+// TODO Highlight code does not work as expected!?
+/*
+    SmartRange * const highlight = m_view->doc()->newSmartRange(range, m_topRange);
+    Attribute::Ptr color(new Attribute()); // TODO
+    color->setBackground(QColor("green")); // TODO make this part of the color scheme
+    highlight->setAttribute(color);
+*/
+}
+
+
+
+void KateSearchBar::selectRange(const KTextEditor::Range & range) {
+    m_view->setCursorPositionInternal(range.start(), 1); // TODO
     m_view->setSelection(range);
 }
 
@@ -155,50 +174,83 @@ void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & r
 
 
 void KateSearchBar::onIncPatternChanged(const QString & pattern) {
-    // TODO
-    // TODO
-    // TODO
-
+    // How to find?
     Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
-    Range inputRange = m_view->doc()->documentRange();
+    const bool matchCase = isChecked(m_incMenuMatchCase);
+    if (!matchCase) {
+        enabledOptions |= Search::CaseInsensitive;
+    }
 
+
+    // Where to find?
+    Range inputRange;
+    const bool fromCursor = isChecked(m_incMenuFromCursor);
+    if (fromCursor) {
+        inputRange.setRange(m_incInitCursor, m_view->doc()->documentEnd());
+    } else {
+        inputRange = m_view->doc()->documentRange();
+    }
+
+    // Find, first try
     QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
     const Range & match = resultRanges[0];
 
     if (match.isValid()) {
-        m_view->setCursorPositionInternal(match.start(), 1);
-        m_view->setSelection(match);
+        resetHighlights();
+        highlightMatch(match);
+        selectRange(match);
+    } else {
+        // Wrap if it makes sense
+        if (fromCursor) {
+            // Find, second try
+            inputRange = m_view->doc()->documentRange();
+            QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
+            const Range & match2 = resultRanges2[0];
+            if (match2.isValid()) {
+                resetHighlights();
+                highlightMatch(match2);
+                selectRange(match2);
+// TODO indicate wrap match
+            } else {
+// TODO indicate wrap error
+            }
+        } else {
+// TODO indicate wrap error
+        }
     }
-
-    // TODO
-    // TODO
-    // TODO
 }
 
 
 
 void KateSearchBar::onIncNext() {
-    // TODO
+    const bool FIND = false;
+    onStep(FIND);
 }
 
 
 
 void KateSearchBar::onIncPrev() {
-    // TODO
+    const bool FIND = false;
+    const bool BACKWARDS = false;
+    onStep(FIND, BACKWARDS);
 }
 
 
 
-void KateSearchBar::onPowerStep(bool replace, bool forwards) {
-    // kDebug() << "KateSearchBar::onPowerStep" << forwards;
+void KateSearchBar::onStep(bool replace, bool forwards) {
+    // kDebug() << "KateSearchBar::onStep" << forwards;
 
     // What to find?
-    const QString pattern = m_powerUi->pattern->currentText();
+    const QString pattern = (m_powerUi != NULL)
+            ? m_powerUi->pattern->currentText()
+            : m_incUi->pattern->displayText();
 
 
     // How to find?
     Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
-    const bool matchCase = isChecked(m_powerUi->matchCase);
+    const bool matchCase = (m_powerUi != NULL)
+            ? isChecked(m_powerUi->matchCase)
+            : isChecked(m_incMenuMatchCase);
     if (!matchCase) {
         enabledOptions |= Search::CaseInsensitive;
     }
@@ -207,22 +259,24 @@ void KateSearchBar::onPowerStep(bool replace, bool forwards) {
         enabledOptions |= Search::Backwards;
     }
 
-    switch (m_powerUi->searchMode->currentIndex()) {
-    case 1: // Whole words
-        enabledOptions |= Search::WholeWords;
-        break;
+    if (m_powerUi != NULL) {
+        switch (m_powerUi->searchMode->currentIndex()) {
+        case 1: // Whole words
+            enabledOptions |= Search::WholeWords;
+            break;
 
-    case 2: // Escape sequences
-        enabledOptions |= Search::EscapeSequences;
-        break;
+        case 2: // Escape sequences
+            enabledOptions |= Search::EscapeSequences;
+            break;
 
-    case 3: // Regegular expression
-        enabledOptions |= Search::Regex;
-        break;
+        case 3: // Regegular expression
+            enabledOptions |= Search::Regex;
+            break;
 
-    default: // Plain text
-        break;
+        default: // Plain text
+            break;
 
+        }
     }
 
 
@@ -230,7 +284,9 @@ void KateSearchBar::onPowerStep(bool replace, bool forwards) {
     Range inputRange;
     Range selection;
     const bool selected = m_view->selection();
-    const bool selectionOnly = isChecked(m_powerUi->selectionOnly);
+    const bool selectionOnly = (m_powerUi != NULL)
+            ? isChecked(m_powerUi->selectionOnly)
+            : false;
     if (selected) {
         selection = m_view->selectionRange();
         if (selectionOnly) {
@@ -246,7 +302,9 @@ void KateSearchBar::onPowerStep(bool replace, bool forwards) {
         }
     } else {
         // No selection
-        const bool fromCursor = isChecked(m_powerUi->fromCursor);
+        const bool fromCursor = (m_powerUi != NULL)
+                ? isChecked(m_powerUi->fromCursor)
+                : isChecked(m_incMenuFromCursor);
         if (fromCursor) {
             const Cursor cursorPos = m_view->cursorPosition();
             if (forwards) {
@@ -270,8 +328,10 @@ void KateSearchBar::onPowerStep(bool replace, bool forwards) {
             // Same match again
             if (replace) {
                 // Selection is match -> replace
-                kDebug() << "replace range" << resultRanges[0];
+                kDebug() << "replace range" << match;
                 const QString replacement = m_powerUi->replacement->currentText();
+                resetHighlights();
+                highlightReplacement(match);
                 replaceMatch(resultRanges, replacement);
             } else {
                 // Find, second try after old selection
@@ -284,14 +344,18 @@ void KateSearchBar::onPowerStep(bool replace, bool forwards) {
                 const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
                 const Range & match2 = resultRanges2[0];
                 if (match2.isValid()) {
-                    selectMatch(match2);
+                    resetHighlights();
+                    highlightMatch(match2);
+                    selectRange(match2);
                 } else {
                     // Find, third try from doc start on
                     wrap = true;
                 }
             }
         } else {
-            selectMatch(match);
+            resetHighlights();
+            highlightMatch(match);
+            selectRange(match);
         }
     } else if (!selected || !selectionOnly) {
         // Find, second try from doc start on
@@ -308,7 +372,9 @@ void KateSearchBar::onPowerStep(bool replace, bool forwards) {
             if (selected && !selectionOnly && (match3 == selection)) {
                 // NOOP, same match again
             } else {
-                selectMatch(match3);
+                resetHighlights();
+                highlightMatch(match3);
+                selectRange(match3);
             }
 // TODO indicate wrap match
         } else {
@@ -321,7 +387,7 @@ void KateSearchBar::onPowerStep(bool replace, bool forwards) {
 
 void KateSearchBar::onPowerFindNext() {
     const bool FIND = false;
-    onPowerStep(FIND);
+    onStep(FIND);
 }
 
 
@@ -329,29 +395,113 @@ void KateSearchBar::onPowerFindNext() {
 void KateSearchBar::onPowerFindPrev() {
     const bool FIND = false;
     const bool BACKWARDS = false;
-    onPowerStep(FIND, BACKWARDS);
+    onStep(FIND, BACKWARDS);
 }
 
 
 
 void KateSearchBar::onPowerReplaceNext() {
     const bool REPLACE = true;
-    onPowerStep(REPLACE);
+    onStep(REPLACE);
 }
 
 
 
 void KateSearchBar::onPowerReplaceAll() {
-    // TODO
+    // kDebug() << "KateSearchBar::onPowerReplaceAll";
+
+    // What to find/replace?
+    const QString pattern = m_powerUi->pattern->currentText();
+    const QString replacement = m_powerUi->replacement->currentText();
+
+
+    // How to find?
+    Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
+    const bool matchCase = isChecked(m_powerUi->matchCase);
+    if (!matchCase) {
+        enabledOptions |= Search::CaseInsensitive;
+    }
+
+    if (m_powerUi != NULL) {
+        switch (m_powerUi->searchMode->currentIndex()) {
+        case 1: // Whole words
+            enabledOptions |= Search::WholeWords;
+            break;
+
+        case 2: // Escape sequences
+            enabledOptions |= Search::EscapeSequences;
+            break;
+
+        case 3: // Regegular expression
+            enabledOptions |= Search::Regex;
+            break;
+
+        default: // Plain text
+            break;
+
+        }
+    }
+
+
+    // Where to replace?
+    Range selection;
+    const bool selected = m_view->selection();
+    const bool selectionOnly = isChecked(m_powerUi->selectionOnly);
+    Range inputRange = (selected && selectionOnly)
+            ? m_view->selectionRange()
+            : m_view->doc()->documentRange();
+
+
+    // Collect matches
+    QList<QVector<KTextEditor::Range> > replacementJobs;
+    for (;;) {
+        const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
+        const Range & match = resultRanges[0];
+        if (!match.isValid()) {
+            break;
+        }
+
+        // Continue after match
+        replacementJobs.append(resultRanges);
+        inputRange.setRange(match.end(), inputRange.end());
+        if (!inputRange.isValid()) {
+            break;
+        }
+    }
+
+
+    // Replace backwards
+    if (!replacementJobs.isEmpty()) {
+        resetHighlights();
+        QList<QVector<Range> >::iterator iter = replacementJobs.end();
+        while (iter != replacementJobs.begin()) {
+            --iter;
+            const QVector<Range> & targetDetails = *iter;
+            const Range & targetRange = targetDetails[0];
+            highlightReplacement(targetRange);
+            replaceMatch(targetDetails, replacement);
+        }
+    }
 }
 
 
 
 void KateSearchBar::mutatePower() {
     // Kill incremental widget
-    delete m_widget;
     delete m_incUi;
+    delete m_incMenu;
+/*
+    // NOTE: The menu owns them!
+    delete m_incMenuMatchCase;
+    delete m_incMenuFromCursor;
+    delete m_incMenuHighlightAll;
+*/
     m_incUi = NULL;
+    m_incMenu = NULL;
+    m_incMenuMatchCase = NULL;
+    m_incMenuFromCursor = NULL;
+    m_incMenuHighlightAll = NULL;
+    delete m_widget;
 
     // Add power widget
     m_widget = new QWidget;
@@ -378,22 +528,37 @@ void KateSearchBar::mutatePower() {
     m_powerUi->patternAdd->setDisabled(true);
     m_powerUi->replacementAdd->setDisabled(true);
     m_powerUi->highlightAll->setDisabled(true);
-    m_powerUi->replaceAll->setDisabled(true);
+
+    // Focus
+    centralWidget()->setFocusProxy(m_powerUi->pattern);
+    m_powerUi->pattern->setFocus(Qt::MouseFocusReason);
 }
 
 
 
 void KateSearchBar::mutateIncremental() {
     // Kill power widget
-    delete m_widget;
     delete m_powerUi;
     m_powerUi = NULL;
+    delete m_widget;
 
     // Add incremental widget
     m_widget = new QWidget;
     m_incUi = new Ui::IncrementalSearchBar;
     m_incUi->setupUi(m_widget);
     m_layout->addWidget(m_widget);
+
+    // Fill options menu
+    m_incMenu = new QMenu();
+    m_incUi->options->setMenu(m_incMenu);
+    m_incMenuMatchCase = m_incMenu->addAction(i18n("&Match case"));
+    m_incMenuMatchCase->setCheckable(true);
+    m_incMenuFromCursor = m_incMenu->addAction(i18n("From &cursor"));
+    m_incMenuFromCursor->setCheckable(true);
+    m_incMenuFromCursor->setChecked(true);
+    m_incMenuHighlightAll = m_incMenu->addAction(i18n("Hi&ghlight all"));
+    m_incMenuHighlightAll->setCheckable(true);
+    m_incMenuHighlightAll->setDisabled(true);
 
     // Icons
     m_incUi->mutate->setIcon(KIcon("arrow-up-double"));
@@ -406,6 +571,14 @@ void KateSearchBar::mutateIncremental() {
     connect(m_incUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
     connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(onIncNext()));
     connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(onIncPrev()));
+
+    // Make button click open the menu as well. IMHO with the dropdown arrow present the button
+    // better shows his nature than in instant popup mode.
+    connect(m_incUi->options, SIGNAL(clicked()), m_incUi->options, SLOT(showMenu()));
+
+    // Focus
+    centralWidget()->setFocusProxy(m_incUi->pattern);
+    m_incUi->pattern->setFocus(Qt::MouseFocusReason);
 }
 
 
@@ -413,6 +586,63 @@ void KateSearchBar::mutateIncremental() {
 bool KateSearchBar::isChecked(QCheckBox * checkbox) {
     Q_ASSERT(checkbox != NULL);
     return checkbox->checkState() == Qt::Checked;
+}
+
+
+
+bool KateSearchBar::isChecked(QAction * menuAction) {
+    Q_ASSERT(menuAction != NULL);
+    return menuAction->isChecked();
+}
+
+
+
+void KateSearchBar::enableHighlights(bool enable) {
+// TODO Highlight code does not work as expected!?
+/*
+    if (enable) {
+        if (m_topRange != NULL) {
+            return;
+        }
+        m_topRange = m_view->doc()->newSmartRange(m_view->doc()->documentRange());
+        m_topRange->setInsertBehavior(SmartRange::ExpandRight);
+        m_view->addInternalHighlight(m_topRange);
+    } else {
+        if (m_topRange == NULL) {
+            return;
+        }
+        m_view->removeInternalHighlight(m_topRange);
+        m_view->doc()->unbindSmartRange(m_topRange);
+        m_view->doc()->deleteRanges();
+        m_topRange = NULL;
+    }
+*/
+}
+
+
+
+void KateSearchBar::resetHighlights() {
+    enableHighlights(false);
+    enableHighlights(true);
+}
+
+
+
+void KateSearchBar::showEvent(QShowEvent * event) {
+    // Update init cursor
+    if (m_incUi != NULL) {
+        m_incInitCursor = m_view->cursorPosition();
+    }
+
+    enableHighlights(true);
+    KateViewBarWidget::showEvent(event);
+}
+
+
+
+void KateSearchBar::hideEvent(QHideEvent * event) {
+    enableHighlights(false);
+    KateViewBarWidget::hideEvent(event);
 }
 
 

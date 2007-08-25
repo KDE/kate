@@ -45,7 +45,8 @@ public:
 
 private: // helpers
     void highlightMatch(const KTextEditor::Range & range);
-    void selectMatch(const KTextEditor::Range & range);
+    void highlightReplacement(const KTextEditor::Range & range);
+    void selectRange(const KTextEditor::Range & range);
     void buildReplacement(QString & output, QList<ReplacementPart> & parts,
             const QVector<KTextEditor::Range> & details);
     void replaceMatch(const QVector<KTextEditor::Range> & match, const QString & replacement);
@@ -58,7 +59,7 @@ public Q_SLOTS:
     void onIncPatternChanged(const QString &);
     void onIncNext();
     void onIncPrev();
-    void onPowerStep(bool replace, bool forwards = true);
+    void onStep(bool replace, bool forwards = true);
     void onPowerFindNext();
     void onPowerFindPrev();
     void onPowerReplaceNext();
@@ -70,14 +71,29 @@ private:
 
 private: // helpers
     bool isChecked(QCheckBox * checkbox);
-    
+    bool isChecked(QAction * menuAction);
+    void enableHighlights(bool enable);
+    void resetHighlights();
+
+private: // override    
+    void showEvent(QShowEvent * event);
+    void hideEvent(QHideEvent * event);
 
 private:
     KateView * m_view;
 
     QVBoxLayout * m_layout;
     QWidget * m_widget;
+
+    // Incremental stuff
     Ui::IncrementalSearchBar * m_incUi;
+    QMenu * m_incMenu;
+    QAction * m_incMenuMatchCase;
+    QAction * m_incMenuFromCursor;
+    QAction * m_incMenuHighlightAll;
+    KTextEditor::Cursor m_incInitCursor;
+
+    // Power stuff
     Ui::PowerSearchBar * m_powerUi;
 
     KTextEditor::SmartRange * m_topRange;

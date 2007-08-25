@@ -167,6 +167,9 @@ QIcon brushIcon(const QColor& color)
 
 bool KateStyleTreeWidget::edit( const QModelIndex & index, EditTrigger trigger, QEvent * event )
 {
+  if(index.column() == KateStyleTreeWidgetItem::Context)
+    return false;
+  
   KateStyleTreeWidgetItem *i = dynamic_cast<KateStyleTreeWidgetItem*>(itemFromIndex(index));
   if (!i)
     return QTreeWidget::edit(index, trigger, event);

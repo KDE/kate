@@ -2,6 +2,7 @@
    Copyright (C) 2001-2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002, 2003 Anders Lund <anders.lund@lund.tdcadsl.dk>
    Copyright (C) 2005-2006 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -40,13 +41,13 @@
 class KateStyleTreeDelegate : public QItemDelegate
 {
   public:
-    KateStyleTreeDelegate(QWidget* widget);
+    KateStyleTreeDelegate(KateStyleTreeWidget* widget);
 
     virtual void paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const;
 
   private:
     QBrush getBrushForColorColumn(const QModelIndex& index, int column) const;
-    QWidget* m_widget;
+    KateStyleTreeWidget* m_widget;
 };
 //END
 
@@ -330,7 +331,7 @@ void KateStyleTreeWidget::addItem( QTreeWidgetItem * parent, const QString & sty
 static const int BoxSize = 16;
 static const int ColorBtnWidth = 32;
 
-KateStyleTreeDelegate::KateStyleTreeDelegate(QWidget* widget)
+KateStyleTreeDelegate::KateStyleTreeDelegate(KateStyleTreeWidget* widget)
   : m_widget(widget)
 {
 }
@@ -386,7 +387,11 @@ void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem
     opt.text = i18nc("No text or background colour set", "None set");
     brush = Qt::white;
   }
-
+  
+  if(index.row() == m_widget->currentIndex().row()) {
+    painter->fillRect(opt.rect, KColorScheme(KColorScheme::Selection).background());
+  }
+  
   m_widget->style()->drawControl(QStyle::CE_PushButton, &opt, painter, m_widget);
 
   if (set)

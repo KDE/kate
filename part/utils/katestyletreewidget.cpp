@@ -104,7 +104,6 @@ class KateStyleTreeWidgetItem : public QTreeWidgetItem
     KTextEditor::Attribute::Ptr style() const { return currentStyle; }
 
     virtual QVariant data( int column, int role ) const;
-    virtual void setData( int column, int role, const QVariant& value );
 
     KateStyleTreeWidget* treeWidget() const;
 
@@ -176,6 +175,8 @@ bool KateStyleTreeWidget::edit( const QModelIndex & index, EditTrigger trigger, 
     case QAbstractItemView::SelectedClicked:
     case QAbstractItemView::EditKeyPressed:
       i->changeProperty(index.column());
+      update(index);
+      update(index.sibling(index.row(), KateStyleTreeWidgetItem::Context));
       return false;
     default:
       return QTreeWidget::edit(index, trigger, event);
@@ -286,8 +287,8 @@ void KateStyleTreeWidget::unsetColor()
   ((KateStyleTreeWidgetItem*)currentItem())->unsetColor( static_cast<QAction*>(sender())->data().toInt() );
 }
 
-void KateStyleTreeWidget::updateGroupHeadings() {
-
+void KateStyleTreeWidget::updateGroupHeadings()
+{
   for(int i = 0; i < topLevelItemCount(); i++) {
     QTreeWidgetItem* currentTopLevelItem = topLevelItem(i);
     QTreeWidgetItem* firstChild = currentTopLevelItem->child(0);
@@ -480,31 +481,6 @@ QVariant KateStyleTreeWidgetItem::data( int column, int role ) const
   }
 
   return QTreeWidgetItem::data(column, role);
-}
-
-void KateStyleTreeWidgetItem::setData( int column, int role, const QVariant& value )
-{
-  if (role == Qt::CheckStateRole) {
-    switch (column) {
-      case Bold:
-        style()->setFontBold(value.toBool());
-        break;
-
-      case Italic:
-        style()->setFontItalic(value.toBool());
-        break;
-
-      case Underline:
-        style()->setFontUnderline(value.toBool());
-        break;
-
-      case StrikeOut:
-        style()->setFontStrikeOut(value.toBool());
-        break;
-    }
-  }
-
-  QTreeWidgetItem::setData(column, role, value);
 }
 
 void KateStyleTreeWidgetItem::updateStyle()

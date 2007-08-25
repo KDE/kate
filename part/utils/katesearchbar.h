@@ -1,5 +1,27 @@
+/* ##################################################################
+## 
+##  PLEASE LEAVE THE OLD CODE BELOW: I WILL DO CLEANUP LATER,
+##  I PROMISE ;-)
+##
+##  Sebastian Pipping (sping), webmaster@hartwork.org
+##
+##  TODO:
+##  * D pointer!
+##  * Match/wrap indication
+##  * Search/replace history
+##  * Highlight all with background thread
+##  * Fix regex backward search?
+##  * Fix match/replacement highlighting?
+##  * "Add..." buttons
+##  * Proper loading/saving of search settings
+##  * Disabled/enable buttons live as needed
+##
+################################################################## */
+
+
 /* This file is part of the KDE libraries
    Copyright (C) 2006 Andreas Kling <kling@impul.se>
+   Copyright (C) 2007 SebastianPipping <webmaster@hartwork.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -55,7 +77,6 @@ public Q_SLOTS:
     void findNext();
     void findPrevious();
 
-    void onMutate();
     void onIncPatternChanged(const QString &);
     void onIncNext();
     void onIncPrev();
@@ -65,9 +86,9 @@ public Q_SLOTS:
     void onPowerReplaceNext();
     void onPowerReplaceAll();
 
-private:
-    void mutatePower();
-    void mutateIncremental();
+public Q_SLOTS: // Also toggles for KateView
+    void onMutatePower();
+    void onMutateIncremental();
 
 private: // helpers
     bool isChecked(QCheckBox * checkbox);

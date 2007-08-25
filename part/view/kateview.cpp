@@ -1104,13 +1104,18 @@ void KateView::slotNeedTextHint(int line, int col, QString &text)
 
 void KateView::find()
 {
+  searchBar()->onMutateIncremental();
+
   searchBar()->showBar();
   searchBar()->setFocus();
 }
 
 void KateView::replace()
 {
-  //m_search->replace();
+  searchBar()->onMutatePower();
+
+  searchBar()->showBar();
+  searchBar()->setFocus();
 }
 
 void KateView::findNext()

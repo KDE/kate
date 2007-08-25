@@ -3,13 +3,25 @@
 ##  PLEASE LEAVE THE OLD CODE BELOW: I WILL DO CLEANUP LATER,
 ##  I PROMISE ;-)
 ##
-##  Sebastian Pipping (sping)
+##  Sebastian Pipping (sping), webmaster@hartwork.org
+##
+##  TODO:
+##  * D pointer!
+##  * Match/wrap indication
+##  * Search/replace history
+##  * Highlight all with background thread
+##  * Fix regex backward search?
+##  * Fix match/replacement highlighting?
+##  * "Add..." buttons
+##  * Proper loading/saving of search settings
+##  * Disabled/enable buttons live as needed
 ##
 ################################################################## */
 
 
 /* This file is part of the KDE libraries
    Copyright (C) 2006 Andreas Kling <kling@impul.se>
+   Copyright (C) 2007 SebastianPipping <webmaster@hartwork.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -55,8 +67,8 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar)
     widget->setLayout(m_layout);
 
     // Start in incremental mode
-    mutateIncremental();
-    // mutatePower();
+    onMutateIncremental();
+    // onMutatePower();
 
     m_layout->setMargin(2);
 
@@ -72,22 +84,20 @@ KateSearchBar::~KateSearchBar() {
 
 
 void KateSearchBar::findNext() {
-    // TODO remove need for this function?
+    if (m_incUi != NULL) {
+        onIncNext();
+    } else {
+        onPowerFindNext();
+    }
 }
 
 
 
 void KateSearchBar::findPrevious() {
-    // TODO remove need for this function?
-}
-
-
-
-void KateSearchBar::onMutate() {
-    if (m_incUi == NULL) {
-        mutateIncremental();
+    if (m_incUi != NULL) {
+        onIncPrev();
     } else {
-        mutatePower();
+        onPowerFindPrev();
     }
 }
 
@@ -486,7 +496,31 @@ void KateSearchBar::onPowerReplaceAll() {
 
 
 
-void KateSearchBar::mutatePower() {
+void KateSearchBar::onMutatePower() {
+    QString initialPattern;
+
+    // Re-init if existing
+    if (m_powerUi != NULL) {
+        if (!m_widget->isVisible() && m_view->selection()) {
+            // Init pattern with current selection
+            initialPattern = m_view->selectionText(); // TODO multi-line selection?
+        }
+        m_powerUi->pattern->setEditText(initialPattern);
+        return;
+    }
+
+    // Initial search pattern
+    if (!m_widget->isVisible()) {
+        // Init pattern with current selection
+        const bool selected = m_view->selection();
+        if (selected) {
+            initialPattern = m_view->selectionText(); // TODO multi-line selection?
+        }
+    } else if (m_incUi != NULL) {
+        // Init pattern with old pattern from incremental dialog
+        initialPattern = m_incUi->pattern->displayText();
+    }
+
     // Kill incremental widget
     delete m_incUi;
     delete m_incMenu;
@@ -517,7 +551,7 @@ void KateSearchBar::mutatePower() {
     m_powerUi->replacementAdd->setIcon(KIcon("list-add"));
 
     // Slots
-    connect(m_powerUi->mutate, SIGNAL(clicked()), this, SLOT(onMutate()));
+    connect(m_powerUi->mutate, SIGNAL(clicked()), this, SLOT(onMutateIncremental()));
     connect(m_powerUi->findNext, SIGNAL(clicked()), this, SLOT(onPowerFindNext()));
     connect(m_powerUi->findPrev, SIGNAL(clicked()), this, SLOT(onPowerFindPrev()));
     connect(m_powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));
@@ -529,6 +563,11 @@ void KateSearchBar::mutatePower() {
     m_powerUi->replacementAdd->setDisabled(true);
     m_powerUi->highlightAll->setDisabled(true);
 
+    // Initial search pattern
+    if (!initialPattern.isEmpty()) {
+        m_powerUi->pattern->setEditText(initialPattern);
+    }
+
     // Focus
     centralWidget()->setFocusProxy(m_powerUi->pattern);
     m_powerUi->pattern->setFocus(Qt::MouseFocusReason);
@@ -536,7 +575,19 @@ void KateSearchBar::mutatePower() {
 
 
 
-void KateSearchBar::mutateIncremental() {
+void KateSearchBar::onMutateIncremental() {
+    // Re-init if existing
+    if (m_incUi != NULL) {
+        m_incUi->pattern->setText("");
+        return;
+    }
+
+    // Initial search pattern
+    QString initialPattern;
+    if ((m_powerUi != NULL) && m_widget->isVisible()) {
+        initialPattern = m_powerUi->pattern->currentText();
+    }
+
     // Kill power widget
     delete m_powerUi;
     m_powerUi = NULL;
@@ -566,7 +617,7 @@ void KateSearchBar::mutateIncremental() {
     m_incUi->prev->setIcon(KIcon("go-up"));
 
     // Slots
-    connect(m_incUi->mutate, SIGNAL(clicked()), this, SLOT(onMutate()));
+    connect(m_incUi->mutate, SIGNAL(clicked()), this, SLOT(onMutatePower()));
     connect(m_incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onIncNext()));
     connect(m_incUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
     connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(onIncNext()));
@@ -575,6 +626,12 @@ void KateSearchBar::mutateIncremental() {
     // Make button click open the menu as well. IMHO with the dropdown arrow present the button
     // better shows his nature than in instant popup mode.
     connect(m_incUi->options, SIGNAL(clicked()), m_incUi->options, SLOT(showMenu()));
+
+    // Initial search pattern
+    if (!initialPattern.isEmpty()) {
+        m_incUi->pattern->setText(initialPattern);
+        m_incUi->pattern->selectAll();
+    }
 
     // Focus
     centralWidget()->setFocusProxy(m_incUi->pattern);

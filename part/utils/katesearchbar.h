@@ -1,26 +1,17 @@
 /* ##################################################################
-## 
-##  PLEASE LEAVE THE OLD CODE BELOW: I WILL DO CLEANUP LATER,
-##  I PROMISE ;-)
-##
-##  Sebastian Pipping (sping), webmaster@hartwork.org
 ##
 ##  TODO:
-##  * D pointer!
-##  * Match/wrap indication
+##  * Text/icon area for match/mismatch/wrap indication
 ##  * Search/replace history
 ##  * Highlight all with background thread
 ##  * Fix regex backward search?
 ##  * Fix match/replacement highlighting?
 ##  * "Add..." buttons
 ##  * Proper loading/saving of search settings
-##  * Disabled/enable buttons live as needed
 ##
 ################################################################## */
 
-
 /* This file is part of the KDE libraries
-   Copyright (C) 2006 Andreas Kling <kling@impul.se>
    Copyright (C) 2007 SebastianPipping <webmaster@hartwork.org>
 
    This library is free software; you can redistribute it and/or
@@ -65,48 +56,56 @@ public:
     explicit KateSearchBar(KateViewBar * viewBar);
     ~KateSearchBar();
 
-private: // helpers
-    void highlightMatch(const KTextEditor::Range & range);
-    void highlightReplacement(const KTextEditor::Range & range);
-    void selectRange(const KTextEditor::Range & range);
-    void buildReplacement(QString & output, QList<ReplacementPart> & parts,
-            const QVector<KTextEditor::Range> & details);
-    void replaceMatch(const QVector<KTextEditor::Range> & match, const QString & replacement);
-
 public Q_SLOTS:
+    // Called for <F3> and <Shift>+<F3>
     void findNext();
     void findPrevious();
 
-    void onIncPatternChanged(const QString &);
+    void onIncPatternChanged(const QString & pattern);
     void onIncNext();
     void onIncPrev();
     void onStep(bool replace, bool forwards = true);
+    void onPowerPatternChanged(const QString & pattern);
     void onPowerFindNext();
     void onPowerFindPrev();
     void onPowerReplaceNext();
     void onPowerReplaceAll();
 
-public Q_SLOTS: // Also toggles for KateView
+public Q_SLOTS:
+    // Also used by KateView
     void onMutatePower();
     void onMutateIncremental();
 
-private: // helpers
+private:
+    // Helpers
     bool isChecked(QCheckBox * checkbox);
     bool isChecked(QAction * menuAction);
     void enableHighlights(bool enable);
     void resetHighlights();
 
-private: // override    
+    void highlightMatch(const KTextEditor::Range & range);
+    void highlightReplacement(const KTextEditor::Range & range);
+    void indicateMatch(bool wrapped);
+    void indicateMismatch();
+    void indicateNothing();
+    void selectRange(const KTextEditor::Range & range);
+    void buildReplacement(QString & output, QList<ReplacementPart> & parts,
+            const QVector<KTextEditor::Range> & details);
+    void replaceMatch(const QVector<KTextEditor::Range> & match, const QString & replacement);
+
+private:
+    // Overridden
     void showEvent(QShowEvent * event);
     void hideEvent(QHideEvent * event);
 
 private:
+    // Shared by both dialogs
     KateView * m_view;
-
+    KTextEditor::SmartRange * m_topRange;
     QVBoxLayout * m_layout;
     QWidget * m_widget;
 
-    // Incremental stuff
+    // Incremental search related
     Ui::IncrementalSearchBar * m_incUi;
     QMenu * m_incMenu;
     QAction * m_incMenuMatchCase;
@@ -114,74 +113,12 @@ private:
     QAction * m_incMenuHighlightAll;
     KTextEditor::Cursor m_incInitCursor;
 
-    // Power stuff
+    // Power search related
     Ui::PowerSearchBar * m_powerUi;
 
-    KTextEditor::SmartRange * m_topRange;
-
 };
 
 
-
-
-#include <QtGui/QWidget>
-#include <klineedit.h>
-
-class KateView;
-
-class OLD_KateSearchBar_OLD : public KateViewBarWidget
-{
-    Q_OBJECT
-
-public:
-    explicit OLD_KateSearchBar_OLD(KateViewBar *viewBar);
-    ~OLD_KateSearchBar_OLD();
-
-public Q_SLOTS:
-    void findNext();
-    void findPrevious();
-    void replaceOnce();
-    void replaceAll();
-
-private Q_SLOTS:
-    void slotSearch();
-    void slotSpecialOptionTogled();
-
-protected:
-    void showEvent( QShowEvent * );
-    void hideEvent( QHideEvent * );
-
-private:
-    void doSearch(const QString &expression, bool init = false, bool backwards = false );
-
-    KateView *m_view;
-    class Private;
-    Private * const d;
-};
-
-class OLD_KateSearchBar_OLDEdit : public KLineEdit
-{
-    Q_OBJECT
-
-public:
-    OLD_KateSearchBar_OLDEdit(QWidget *parent = 0L);
-
-    enum Status { Normal, NotFound, SearchWrapped };
-    const Status status() const { return m_status; }
-    void setStatus(Status status);
-
-Q_SIGNALS:
-    void findNext();
-    void findPrevious();
-    void escapePressed();
-    void returnPressed();
-
-protected:
-    bool event(QEvent *);
-    void showEvent(QShowEvent *);
-
-private:
-    Status m_status;
-};
 
 #endif // KATE_SEARCH_BAR_H
+

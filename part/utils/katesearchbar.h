@@ -4,15 +4,15 @@
 ##  * Text/icon area for match/mismatch/wrap indication
 ##  * Search/replace history
 ##  * Highlight all with background thread
-##  * Fix regex backward search?
-##  * Fix match/replacement highlighting?
-##  * "Add..." buttons
+##  * Fix regex backward search in KateDocument?
+##  * Fix highlighting of matches/replacements?
+##  * "Add..." button integration
 ##  * Proper loading/saving of search settings
 ##
 ################################################################## */
 
 /* This file is part of the KDE libraries
-   Copyright (C) 2007 SebastianPipping <webmaster@hartwork.org>
+   Copyright (C) 2007 Sebastian Pipping <webmaster@hartwork.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public

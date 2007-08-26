@@ -399,8 +399,8 @@ bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
     if (doc->url().isEmpty() && doc->isModified())
     {
       int msgres = KMessageBox::warningYesNoCancel( w,
-                   i18n("<p>The document '%1' has been modified, but not saved."
-                        "<p>Do you want to save your changes or discard them?", doc->documentName() ),
+                   i18n("<p>The document '%1' has been modified, but not saved.</p>"
+                        "<p>Do you want to save your changes or discard them?</p>", doc->documentName() ),
                    i18n("Close Document"), KStandardGuiItem::save(), KStandardGuiItem::discard() );
 
       if (msgres == KMessageBox::Cancel)

@@ -89,8 +89,8 @@ void KateMailFilesPluginView::slotMail()
       // unsaved document. back out unless it gets saved
       int r = KMessageBox::questionYesNo( mainWindow()->window(),
                                           i18n("<p>The current document has not been saved, and "
-                                               "cannot be attached to an email message."
-                                               "<p>Do you want to save it and proceed?"),
+                                               "cannot be attached to an email message.</p>"
+                                               "<p>Do you want to save it and proceed?</p>"),
                                           i18n("Cannot Send Unsaved File"), KStandardGuiItem::saveAs(), KStandardGuiItem::cancel() );
       if ( r == KMessageBox::Yes )
       {
@@ -111,9 +111,9 @@ void KateMailFilesPluginView::slotMail()
     {
       // warn that document is modified and offer to save it before proceeding.
       int r = KMessageBox::warningYesNoCancel( mainWindow()->window(),
-              i18n("<p>The current file:<br><strong>%1</strong><br>has been "
-                   "modified. Modifications will not be available in the attachment."
-                   "<p>Do you want to save it before sending it?", doc->url().prettyUrl()),
+              i18n("<p>The current file:<br /><strong>%1</strong><br />has been "
+                   "modified. Modifications will not be available in the attachment.</p>"
+                   "<p>Do you want to save it before sending it?</p>", doc->url().prettyUrl()),
               i18n("Save Before Sending?"), KStandardGuiItem::save(), KGuiItem(i18n("Do Not Save")) );
       switch ( r )
       {

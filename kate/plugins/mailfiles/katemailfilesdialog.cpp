@@ -65,8 +65,8 @@ KateMailDialog::KateMailDialog( QWidget *parent, Kate::MainWindow  *mainwin )
   mw->installEventFilter( this );
 
   lInfo = new QLabel( i18n(
-                        "<p>Press <strong>Mail...</strong> to email the current document."
-                        "<p>To select more documents to send, press <strong>Show All Documents&nbsp;&gt;&gt;</strong>."), mw );
+                        "<p>Press <strong>Mail...</strong> to email the current document.</p>"
+                        "<p>To select more documents to send, press <strong>Show All Documents&nbsp;&gt;&gt;</strong>.</p>"), mw );
   // TODO avoid untill needed - later
   list = new QTreeWidget( mw );
   QStringList header;

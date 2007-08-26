@@ -505,17 +505,17 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor( KateExternalTool *
                             "<p>The script to execute to invoke the tool. The script is passed "
                             "to /bin/sh for execution. The following macros "
                             "will be expanded:</p>"
-                            "<ul><li><code>%URL</code> - the URL of the current document."
-                            "<li><code>%URLs</code> - a list of the URLs of all open documents."
+                            "<ul><li><code>%URL</code> - the URL of the current document.</li>"
+                            "<li><code>%URLs</code> - a list of the URLs of all open documents.</li>"
                             "<li><code>%directory</code> - the URL of the directory containing "
-                            "the current document."
-                            "<li><code>%filename</code> - the filename of the current document."
+                            "the current document.</li>"
+                            "<li><code>%filename</code> - the filename of the current document.</li>"
                             "<li><code>%line</code> - the current line of the text cursor in the "
-                            "current view."
+                            "current view.</li>"
                             "<li><code>%column</code> - the column of the text cursor in the "
-                            "current view."
-                            "<li><code>%selection</code> - the selected text in the current view."
-                            "<li><code>%text</code> - the text of the current document.</ul>" ) );
+                            "current view.</li>"
+                            "<li><code>%selection</code> - the selected text in the current view.</li>"
+                            "<li><code>%text</code> - the text of the current document.</li></ul>" ) );
 
 
   leExecutable = new QLineEdit( w );

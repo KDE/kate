@@ -364,7 +364,7 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
     if ( ! file.open( QIODevice::ReadOnly ) )
     {
       KMessageBox::sorry( application()->activeMainWindow()->activeView(),
-                          i18n("<qt>Error opening the file<br><strong>%1</strong><br>for reading. The document will not be created.</qt>", filename),
+                          i18n("<qt>Error opening the file<br /><strong>%1</strong><br />for reading. The document will not be created.</qt>", filename),
                           i18n("Template Plugin"), 0 );
       KIO::NetAccess::removeTempFile( tmpfile );
       return;
@@ -790,8 +790,8 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
 
   lo->addWidget(
     new QLabel( i18n( "<p>You can replace certain strings in the text with "
-      "template macros.<p>If any of the data below is incorrect or missing, "
-      "edit the data in the KDE email information."), page ) );
+      "template macros.</p><p>If any of the data below is incorrect or missing, "
+      "edit the data in the KDE email information.</p>"), page ) );
 
   cbRRealname = new QCheckBox( i18n("Replace full name '%1' with the "
     "'%{fullname}' macro", sFullname ), page );
@@ -921,9 +921,9 @@ void KateTemplateWizard::accept()
     if ( QFile::exists( templateUrl.path() ) )
     {
       if ( KMessageBox::warningContinueCancel( this, i18n(
-          "<p>The file <br><strong>'%1'</strong><br> already exists; if you "
+          "<p>The file <br /><strong>'%1'</strong><br /> already exists; if you "
           "do not want to overwrite it, change the template file name to "
-          "something else.", templateUrl.prettyUrl() ),
+          "something else.</p>", templateUrl.prettyUrl() ),
       i18n("File Exists"), KGuiItem(i18n("Overwrite") ))
            == KMessageBox::Cancel )
         return;
@@ -976,7 +976,7 @@ void KateTemplateWizard::accept()
       if ( ! file.open( QIODevice::ReadOnly ) )
       {
         KMessageBox::sorry( this, i18n(
-            "<qt>Error opening the file<br><strong>%1</strong><br>for reading. "
+            "<qt>Error opening the file<br /><strong>%1</strong><br />for reading. "
             "The document will not be created</qt>", u.prettyUrl()),
             i18n("Template Plugin"), 0 );
 

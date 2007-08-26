@@ -73,7 +73,6 @@
 #include <khistorycombobox.h>
 //END Includes
 
-
 K_EXPORT_COMPONENT_FACTORY( katefilebrowserplugin, KGenericFactory<KateFileSelectorPlugin>( "katefilebrowserplugin" ) )
 
 KateFileSelectorPlugin::KateFileSelectorPlugin( QObject* parent, const QStringList&):
@@ -266,15 +265,15 @@ void KateFileSelectorToolBarParent::resizeEvent ( QResizeEvent * )
   waitingUrl.clear();
 
   // whatsthis help
-  cmbPath->setWhatsThis(       i18n("<p>Here you can enter a path for a folder to display."
+  cmbPath->setWhatsThis(       i18n("<p>Here you can enter a path for a folder to display.</p>"
                                     "<p>To go to a folder previously entered, press the arrow on "
-                                    "the right and choose one. <p>The entry has folder "
-                                    "completion. Right-click to choose how completion should behave.") );
-  filter->setWhatsThis(        i18n("<p>Here you can enter a name filter to limit which files are displayed."
-                                    "<p>To clear the filter, toggle off the filter button to the left."
-                                    "<p>To reapply the last filter used, toggle on the filter button." ) );
+                                    "the right and choose one.</p><p>The entry has folder "
+                                    "completion. Right-click to choose how completion should behave.</p>") );
+  filter->setWhatsThis(        i18n("<p>Here you can enter a name filter to limit which files are displayed.</p>"
+                                    "<p>To clear the filter, toggle off the filter button to the left.</p>"
+                                    "<p>To reapply the last filter used, toggle on the filter button.</p>" ) );
   btnFilter->setWhatsThis(        i18n("<p>This button clears the name filter when toggled off, or "
-                                       "reapplies the last filter used when toggled on.") );
+                                       "reapplies the last filter used when toggled on.</p>") );
 
   connect(dir, SIGNAL(fileSelected(const KFileItem*)), this, SLOT(fileSelected(const KFileItem*)));
 }
@@ -708,34 +707,34 @@ KFSConfigPage::KFSConfigPage( QWidget *parent, const char *, KateFileSelector *k
   */
   QString lhwt( i18n(
                   "<p>Decides how many locations to keep in the history of the location "
-                  "combo box.") );
+                  "combo box.</p>") );
   lbPathHist->setWhatsThis(lhwt );
   sbPathHistLength->setWhatsThis(lhwt );
   QString fhwt( i18n(
                   "<p>Decides how many filters to keep in the history of the filter "
-                  "combo box.") );
+                  "combo box.</p>") );
   lbFilterHist->setWhatsThis(fhwt );
   sbFilterHistLength->setWhatsThis(fhwt );
   QString synwt( i18n(
                    "<p>These options allow you to have the File Selector automatically "
                    "change location to the folder of the active document on certain "
-                   "events."
+                   "events.</p>"
                    "<p>Auto synchronization is <em>lazy</em>, meaning it will not take "
-                   "effect until the file selector is visible."
+                   "effect until the file selector is visible.</p>"
                    "<p>None of these are enabled by default, but you can always sync the "
-                   "location by pressing the sync button in the toolbar.") );
+                   "location by pressing the sync button in the toolbar.</p>") );
   gbSync->setWhatsThis(synwt );
   cbSesLocation->setWhatsThis(i18n(
                                 "<p>If this option is enabled (default), the location will be restored "
-                                "when you start Kate.<p><strong>Note</strong> that if the session is "
-                                "handled by the KDE session manager, the location is always restored.") );
+                                "when you start Kate.</p><p><strong>Note</strong> that if the session is "
+                                "handled by the KDE session manager, the location is always restored.</p>") );
   cbSesFilter->setWhatsThis(i18n(
                               "<p>If this option is enabled (default), the current filter will be "
                               "restored when you start Kate.<p><strong>Note</strong> that if the "
                               "session is handled by the KDE session manager, the filter is always "
-                              "restored."
+                              "restored.</p>"
                               "<p><strong>Note</strong> that some of the autosync settings may "
-                              "override the restored location if on.") );
+                              "override the restored location if on.</p>") );
 
   init();
 

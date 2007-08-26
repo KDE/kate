@@ -96,7 +96,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
 
   QLabel *t = new QLabel( i18n(
                             "<qt>The documents listed below has changed on disk.<p>Select one "
-                            "or more at the time and press an action button until the list is empty.</qt>"), lo1 );
+                            "or more at the time and press an action button until the list is empty.</p></qt>"), lo1 );
   lo1->setStretchFactor( t, 1000 );
 
   // document list

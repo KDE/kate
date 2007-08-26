@@ -64,6 +64,9 @@
            <property name="focusPolicy" >
             <enum>Qt::StrongFocus</enum>
            </property>
+           <property name="toolTip" >
+            <string>Text to search for</string>
+           </property>
            <property name="editable" >
             <bool>true</bool>
            </property>
@@ -115,6 +118,9 @@
            </item>
            <item>
             <widget class="QComboBox" name="searchMode" >
+             <property name="toolTip" >
+              <string>Search mode</string>
+             </property>
              <item>
               <property name="text" >
                <string>Plain text</string>
@@ -200,6 +206,9 @@
         <layout class="QVBoxLayout" >
          <item>
           <widget class="QPushButton" name="findNext" >
+           <property name="toolTip" >
+            <string>Jump to next match</string>
+           </property>
            <property name="text" >
             <string>Next</string>
            </property>
@@ -227,6 +236,9 @@
         <layout class="QVBoxLayout" >
          <item>
           <widget class="QPushButton" name="findPrev" >
+           <property name="toolTip" >
+            <string>Jump to previous match</string>
+           </property>
            <property name="text" >
             <string>Previous</string>
            </property>
@@ -267,6 +279,9 @@
         <layout class="QVBoxLayout" >
          <item>
           <widget class="QPushButton" name="replaceAll" >
+           <property name="toolTip" >
+            <string>Replace all matches</string>
+           </property>
            <property name="text" >
             <string>Replace &amp;all</string>
            </property>
@@ -291,6 +306,9 @@
         <layout class="QVBoxLayout" >
          <item>
           <widget class="QPushButton" name="replaceNext" >
+           <property name="toolTip" >
+            <string>Replace next match</string>
+           </property>
            <property name="text" >
             <string>Replace</string>
            </property>
@@ -327,6 +345,9 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="toolTip" >
+            <string>Text to replace with</string>
+           </property>
            <property name="editable" >
             <bool>true</bool>
            </property>
@@ -355,6 +376,9 @@
            </item>
            <item>
             <widget class="QCheckBox" name="usePlaceholders" >
+             <property name="toolTip" >
+              <string>Resolve placeholders (\0 to \9) and escape sequences (\n, \t, ..)</string>
+             </property>
              <property name="text" >
               <string>Use Placeholders</string>
              </property>
@@ -556,6 +580,9 @@
       <layout class="QVBoxLayout" >
        <item>
         <widget class="QCheckBox" name="highlightAll" >
+         <property name="toolTip" >
+          <string>Highlight all matches</string>
+         </property>
          <property name="text" >
           <string>Hi&amp;ghlight all</string>
          </property>
@@ -563,6 +590,9 @@
        </item>
        <item>
         <widget class="QCheckBox" name="matchCase" >
+         <property name="toolTip" >
+          <string>Case-sensitive searching</string>
+         </property>
          <property name="text" >
           <string>Match case</string>
          </property>
@@ -570,6 +600,9 @@
        </item>
        <item>
         <widget class="QCheckBox" name="fromCursor" >
+         <property name="toolTip" >
+          <string>Start search from cursor, not document start</string>
+         </property>
          <property name="text" >
           <string>From cursor</string>
          </property>
@@ -577,6 +610,9 @@
        </item>
        <item>
         <widget class="QCheckBox" name="selectionOnly" >
+         <property name="toolTip" >
+          <string>Search/replace within the current selection only</string>
+         </property>
          <property name="text" >
           <string>Selection only   </string>
          </property>
@@ -588,6 +624,9 @@
       <layout class="QVBoxLayout" >
        <item>
         <widget class="QToolButton" name="mutate" >
+         <property name="toolTip" >
+          <string>Switch to incremental search bar</string>
+         </property>
          <property name="text" >
           <string/>
          </property>

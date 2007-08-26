@@ -61,10 +61,16 @@
          <height>0</height>
         </size>
        </property>
+       <property name="toolTip" >
+        <string>Text to search for</string>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="next" >
+       <property name="toolTip" >
+        <string>Jump to next match</string>
+       </property>
        <property name="text" >
         <string>Next</string>
        </property>
@@ -75,6 +81,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="prev" >
+       <property name="toolTip" >
+        <string>Jump to previous match</string>
+       </property>
        <property name="text" >
         <string>Previous</string>
        </property>
@@ -104,6 +113,9 @@
        <property name="contextMenuPolicy" >
         <enum>Qt::DefaultContextMenu</enum>
        </property>
+       <property name="toolTip" >
+        <string>Modifiy search behavior</string>
+       </property>
        <property name="text" >
         <string>Options</string>
        </property>
@@ -127,6 +139,9 @@
      </item>
      <item>
       <widget class="QToolButton" name="mutate" >
+       <property name="toolTip" >
+        <string>Switch to power search and replace bar</string>
+       </property>
        <property name="text" >
         <string/>
        </property>

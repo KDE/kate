@@ -22,8 +22,8 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  ***************************************************************************/
 
-#ifndef _PLUGIN_KANT_XMLCHECK_H
-#define _PLUGIN_KANT_XMLCHECK_H
+#ifndef PLUGIN_KATEXMLCHECK_H
+#define PLUGIN_KATEXMLCHECK_H
 
 #include <q3listview.h>
 #include <qstring.h>
@@ -90,4 +90,4 @@ class PluginKateXMLCheck : public Kate::Plugin, Kate::PluginViewInterface
 	Q3PtrList<PluginKateXMLCheckView> m_views;
 };
 
-#endif // _PLUGIN_KANT_XMLCHECK_H
+#endif // PLUGIN_KATEXMLCHECK_H

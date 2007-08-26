@@ -40,7 +40,6 @@
 #include <qvbox.h>
 #include <qptrdict.h>
 #include <kxmlguiclient.h>
-#include <qvaluelist.h>
 #include <qguardedptr.h>
 
 namespace Kate {

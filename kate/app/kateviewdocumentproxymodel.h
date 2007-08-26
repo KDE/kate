@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _kate_view_filelist_model_
-#define  _kate_view_filelist_model_
+#ifndef KATEVIEWDOCUMENTPROXYMODEL_H
+#define KATEVIEWDOCUMENTPROXYMODEL_H
 
 #include <QAbstractProxyModel>
 #include <QModelIndex>
@@ -96,7 +96,6 @@ class KateViewDocumentProxyModel: public QAbstractProxyModel
     void updateBackgrounds(bool emitSignals = true);
 };
 
-
-#endif
+#endif // KATEVIEWDOCUMENTPROXYMODEL_H
 
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

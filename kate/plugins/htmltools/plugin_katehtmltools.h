@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLUGIN_KANT_HTMLTOOLS_H
-#define _PLUGIN_KANT_HTMLTOOLS_H
+#ifndef PLUGIN_KATEHTMLTOOLS_H
+#define PLUGIN_KATEHTMLTOOLS_H
 
 #include <qstring.h>
 
@@ -55,4 +55,4 @@ public slots:
   void slotEditHTMLtag();
 };
 
-#endif // _PLUGIN_KANT_HTMLTOOLS_H
+#endif // PLUGIN_KATEHTMLTOOLS_H

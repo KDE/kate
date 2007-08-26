@@ -43,7 +43,6 @@
 #include <QFocusEvent>
 #include <QEvent>
 #include <QFrame>
-#include <QListWidget>
 #include <QShowEvent>
 #include <QResizeEvent>
 #include <QVBoxLayout>

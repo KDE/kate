@@ -7,7 +7,8 @@
 ** place of a destructor.
 *****************************************************************************/
 
-
+#ifndef CWIDGETSNIPPETSBASE_UI_H
+#define CWIDGETSNIPPETSBASE_UI_H
 
 void CWidgetSnippetsBase::init()
 {
@@ -26,3 +27,5 @@ Q3ListViewItem* CWidgetSnippetsBase::insertItem( const QString& name, bool bRena
     }
     return item;
 }
+
+#endif // CWIDGETSNIPPETSBASE_UI_H

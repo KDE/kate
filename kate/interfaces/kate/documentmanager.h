@@ -16,12 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _KATE_DOCMANAGER_INCLUDE_
-#define _KATE_DOCMANAGER_INCLUDE_
+#ifndef DOCUMENTMANAGER_H
+#define DOCUMENTMANAGER_H
 
 #include <kate_export.h>
 
-#include <QObject>
+#include <QtCore/QObject>
 #include <kurl.h>
 
 namespace KTextEditor
@@ -150,6 +150,6 @@ namespace Kate
 
 }
 
-#endif
-// kate: space-indent on; indent-width 2; replace-tabs on;
+#endif // DOCUMENTMANAGER_H
 
+// kate: space-indent on; indent-width 2; replace-tabs on;

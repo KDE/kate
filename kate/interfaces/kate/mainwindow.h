@@ -21,8 +21,8 @@
 
 #include <kate_export.h>
 
-#include <QObject>
-#include <QPixmap>
+#include <QtCore/QObject>
+#include <QtGui/QPixmap>
 
 #include <kxmlguifactory.h>
 #include <kurl.h>

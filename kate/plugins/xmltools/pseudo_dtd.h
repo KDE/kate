@@ -20,8 +20,8 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  ***************************************************************************/
 
-#ifndef _PLUGIN_KANT_XMLTOOLS_DTD_H
-#define _PLUGIN_KANT_XMLTOOLS_DTD_H
+#ifndef PSEUDO_DTD_H
+#define PSEUDO_DTD_H
 
 #include <qdom.h>
 #include <qprogressdialog.h>
@@ -73,5 +73,6 @@ class PseudoDTD
 
 };
 
-#endif // _PLUGIN_KANT_XMLTOOLS_DTD_H
+#endif // PSEUDO_DTD_H
+
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

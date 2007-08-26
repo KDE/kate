@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLUGIN_KANT_HEADER_H
-#define _PLUGIN_KANT_HEADER_H
+#ifndef PLUGIN_KATEOPENHEADER_H
+#define PLUGIN_KATEOPENHEADER_H
 
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
@@ -46,5 +46,4 @@ class PluginViewKateOpenHeader: public Kate::PluginView, KXMLGUIClient {
         virtual ~PluginViewKateOpenHeader();
 };
 
-
-#endif // _PLUGIN_KANT_OPENHEADER_H
+#endif // PLUGIN_KATEOPENHEADER_H

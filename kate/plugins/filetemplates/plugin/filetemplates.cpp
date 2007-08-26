@@ -40,7 +40,6 @@
 // #include <knewstuff2/core/entry.h>
 #include <knewstuff2/engine.h>
 #include <kstandarddirs.h>
-#include <kstandarddirs.h>
 #include <ktemporaryfile.h>
 #include <kurlrequester.h>
 #include <kuser.h>

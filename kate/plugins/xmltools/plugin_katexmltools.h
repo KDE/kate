@@ -20,11 +20,10 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  ***************************************************************************/
 
-#ifndef _PLUGIN_KANT_XMLTOOLS_H
-#define _PLUGIN_KANT_XMLTOOLS_H
+#ifndef PLUGIN_KATEXMLTOOLS_H
+#define PLUGIN_KATEXMLTOOLS_H
 
 #include "pseudo_dtd.h"
-
 
 #include <q3dict.h>
 #include <qstring.h>
@@ -151,5 +150,6 @@ class InsertElement : public KDialog
 
 };
 
-#endif // _PLUGIN_KANT_XMLTOOLS_H
+#endif // PLUGIN_KATEXMLTOOLS_H
+
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

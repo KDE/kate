@@ -12,9 +12,7 @@
 #include <kjs/value.h>
 #include <k3dockwidget.h>
 #include <kate/application.h>
-#include <kate/documentmanager.h>
 #include <kjsembed/jsconsolewidget.h>
-
 
 using namespace Kate::JS;
 Bindings::Bindings(QObject *parent): KJSEmbed::Bindings::JSBindingPlugin(parent,"KateAppBindings",QStringList()) {

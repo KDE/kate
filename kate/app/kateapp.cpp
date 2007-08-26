@@ -37,7 +37,6 @@
 #include <KLibLoader>
 #include <KMessageBox>
 #include <KLocale>
-#include <KConfig>
 #include <KStartupInfo>
 
 #include <QFile>

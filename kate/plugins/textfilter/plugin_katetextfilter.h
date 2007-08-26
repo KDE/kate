@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLUGIN_KANT_TEXTFILTER_H
-#define _PLUGIN_KANT_TEXTFILTER_H
+#ifndef PLUGIN_KATETEXTFILTER_H
+#define PLUGIN_KATETEXTFILTER_H
 
 #include <kate/plugin.h>
 #include <kate/application.h>
@@ -70,5 +70,6 @@ class PluginViewKateTextFilter: public Kate::PluginView, public KXMLGUIClient {
     virtual ~PluginViewKateTextFilter();
 };
 
-#endif // _PLUGIN_KANT_TEXTFILTER_H
+#endif // PLUGIN_KATETEXTFILTER_H
+
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

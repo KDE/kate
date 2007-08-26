@@ -22,8 +22,8 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  ***************************************************************************/
 
-#ifndef _PLUGIN_TABBAREXTENSION_H_
-#define _PLUGIN_TABBAREXTENSION_H_
+#ifndef PLUGIN_KATETABBAREXTENSION_H
+#define PLUGIN_KATETABBAREXTENSION_H
 
 #include <kate/application.h>
 #include <kate/documentmanager.h>
@@ -166,4 +166,4 @@ class KateTabBarExtensionConfigPage : public Kate::PluginConfigPage
     QCheckBox* pSortAlpha;
 };
 
-#endif // _PLUGIN_TABBAREXTENSION_H_
+#endif // PLUGIN_KATETABBAREXTENSION_H

@@ -21,9 +21,9 @@
 
 #include <kate_export.h>
 
-#include <QObject>
-#include <kurl.h>
+#include <QtCore/QObject>
 
+#include <kurl.h>
 
 namespace KTextEditor
 {

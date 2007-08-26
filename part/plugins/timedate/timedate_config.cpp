@@ -71,6 +71,11 @@ TimeDateConfig::TimeDateConfig(QWidget *parent, const QStringList &args)
     load();
 
     QObject::connect(format, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+
+    // Do not emit changed() signals here. Will be useless. The KCModuleProxy
+    // is creating this object, and it hasn't still connected those signals
+    // anywhere. If you need your plugin configuration dialog to force the configuration
+    // settings to be saved, reimplement init() method, and put there "emit changed(true)".
 }
 
 TimeDateConfig::~TimeDateConfig()
@@ -79,6 +84,9 @@ TimeDateConfig::~TimeDateConfig()
 
 void TimeDateConfig::save()
 {
+    // This method will _only_ be called if the last emitted signal from this
+    // plugin was changed, with the parameter true.
+
     if (TimeDatePlugin::self())
     {
         TimeDatePlugin::self()->setFormat(format->text());

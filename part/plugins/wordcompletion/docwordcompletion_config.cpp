@@ -21,6 +21,7 @@
 #include "docwordcompletion_config.h"
 #include "docwordcompletion.h"
 
+#include <QtCore/QTimer>
 #include <QtGui/QBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QCheckBox>
@@ -78,29 +79,15 @@ DocWordCompletionConfig::DocWordCompletionConfig(QWidget *parent, const QStringL
     QObject::connect(sbAutoPopup, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
     load();
-
-    // The reason for emitting the changed signal here is that this plugin adds a menu
-    // entry "[x] Auto pop up completion list". As this setting is on the plugin
-    // configuration dialog too, the behavior is the next:
-    //
-    // 1. This dialog is not going to show when opened the properties of the view.
-    //    It is going to show the properties that will be applied to new views,
-    //    and the properties that are going to be applied when opening Kate/Kwrite
-    //    again.
-    //
-    // 2. If we go to the plugin configuration dialog and the state of this property
-    //    is different than the one on the menu of the view, set the property view to this
-    //    dialog property value only if we hit "OK". If this signal weren't emitted,
-    //    KPluginSelector would just ignore the saving of the settings (because
-    //    it considers that no changes were made to this dialog. Probably nobody
-    //    clicked on any widget of this config dialog, but the properties values of this dialog
-    //    and the view menu ones are different).
-
-    emit changed(true);
 }
 
 DocWordCompletionConfig::~DocWordCompletionConfig()
 {
+}
+
+void DocWordCompletionConfig::init()
+{
+    emit changed(true);
 }
 
 void DocWordCompletionConfig::save()

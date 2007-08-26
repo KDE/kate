@@ -714,7 +714,7 @@ void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
   // emergency
   if (m_viewSpaceList.empty())
   {
-    // kill bad childs
+    // kill bad children
     while (count())
       delete widget (0);
   

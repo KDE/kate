@@ -410,7 +410,7 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
           {
             kDebug()<<"looking for a hl mode -- "<<reHl.cap();
             // this is overly complex, too bad the interface is
-            // not providing a resonable method..
+            // not providing a reasonable method..
             QString hlmode = reHl.cap( 1 );
             doc->setMode (hlmode);
 
@@ -443,7 +443,7 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
       docname = filename.left( filename.length() - 13 );
 
     // check for other documents matching this naming scheme,
-    // and do a count before chosing a name for this one
+    // and do a count before choosing a name for this one
     QString p = docname;
     p.replace( "%1", "\\d+" );
     p.replace( ".", "\\." );
@@ -557,7 +557,7 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
   cmbGroup = new QComboBox( true, this );
   cmbGroup->insertStringList( kft->groups() );
   l->setBuddy( cmbGroup );
-  cmbGroup->setToolTip(i18n("<p>The group is used for chosing a "
+  cmbGroup->setToolTip(i18n("<p>The group is used for choosing a "
       "submenu for the plugin. If it is empty, 'Other' is used.</p>"
       "<p>You can type any string to add a new group to your menu.</p>") );
 

@@ -151,7 +151,7 @@ bool PseudoDTD::parseElements( QDomDocument *doc, QProgressDialog *progress )
           subelementList["__EMPTY"] = true;
       }
 
-      // Now remove the elements not allowed (e.g. <a> is explicitely not allowed in <a>
+      // Now remove the elements not allowed (e.g. <a> is explicitly not allowed in <a>
       // in the HTML 4.01 Strict DTD):
       QDomNodeList exclusionsList = elem.elementsByTagName( "exclusions" );
       if( exclusionsList.length() > 0 )
@@ -193,7 +193,7 @@ bool PseudoDTD::parseElements( QDomDocument *doc, QProgressDialog *progress )
 /**
  * Check which elements are allowed inside a parent element. This returns
  * a list of allowed elements, but it doesn't care about order or if only a certain
- * number of occurences is allowed.
+ * number of occurrences is allowed.
  */
 QStringList PseudoDTD::allowedElements( QString parentElement )
 {

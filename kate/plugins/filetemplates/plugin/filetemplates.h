@@ -39,7 +39,7 @@
 
 /**
  * This template system has the following features:
- * It allows to create new documents that allready has some contents and a meaningfull
+ * It allows to create new documents that already has some contents and a meaningfull
  * document name.
  *
  * Any file can b e used as a template.

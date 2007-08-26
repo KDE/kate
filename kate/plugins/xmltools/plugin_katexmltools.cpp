@@ -66,7 +66,7 @@ TODO:
 -Show expanded entities with QChar::QChar( int rc ) + unicode font
 -Don't ignore entities defined in the document's prologue
 -Only offer 'valid' elements, i.e. don't take the elements as a set but check
- if the DTD is matched ( order, number of occurences, ... )
+ if the DTD is matched ( order, number of occurrences, ... )
 
 -Maybe only read the meta DTD file once, then store the resulting QMap on disk ( using QDataStream )?
  We'll then have to compare timeOf_cacheFile <-> timeOf_metaDtd.
@@ -739,7 +739,7 @@ void PluginKateXMLTools::filterInsertString( KTextEditor::CompletionItem *ce, QS
     *text = *text + str;
 
     // Place the cursor where it is most likely wanted:
-    // allways inside the tag if the tag is empty AND the DTD indicates that there are attribs)
+    // always inside the tag if the tag is empty AND the DTD indicates that there are attribs)
     // outside for open tags, UNLESS there are mandatory attributes
     if ( m_docDtds[docNumber]->requiredAttributes(ce->text).count()
          || ( isEmptyTag && m_docDtds[docNumber]->allowedAttributes( ce->text).count() ) )

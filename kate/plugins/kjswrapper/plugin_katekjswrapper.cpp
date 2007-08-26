@@ -364,7 +364,7 @@ void PluginKateKJSWrapper::applyConfig( KateKJSWrapperConfigPage *p )
 {
 #if 0
   config->writeEntry( "Command History Length", p->sb_cmdhistlen->value() );
-  // truncate the cmd hist if nessecary?
+  // truncate the cmd hist if neccessary?
   config->writeEntry( "Start In", p->rg_startin->id(p->rg_startin->selected()) );
   config->sync();
 #endif

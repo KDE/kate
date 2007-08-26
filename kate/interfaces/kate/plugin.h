@@ -135,7 +135,7 @@ namespace Kate
 
       /**
        * Create a new View for this plugin for the given Kate MainWindow
-       * This may be called arbitary often by the application to create as much
+       * This may be called arbitrary often by the application to create as much
        * views as mainwindows are around, the application will take care to delete
        * this views if mainwindows close, you don't need to handle this yourself in
        * the plugin.

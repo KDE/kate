@@ -185,7 +185,7 @@ signals:
     void settingsChanged( KTinyTabBar* tabbar );
 
     /**
-     * This signal is emited whenever a highlight mark changes.
+     * This signal is emitted whenever a highlight mark changes.
      * Usually this is used to synchronice several tabbars.
      */
     void highlightMarksChanged( KTinyTabBar* tabbar );

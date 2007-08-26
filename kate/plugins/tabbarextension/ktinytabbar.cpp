@@ -182,7 +182,7 @@ KTinyTabBar::~KTinyTabBar()
  *  - button colors
  *  - much more!
  *  .
- * The original group is saved and restored at the end of this fuction.
+ * The original group is saved and restored at the end of this function.
  *
  * \note Call @p load() immediately after you created the tabbar, otherwise
  *       some properties might not be restored correctly (like highlighted
@@ -226,7 +226,7 @@ void KTinyTabBar::load( KConfig* config, const QString& group )
 
 /**
  * Saves the settings to \a config into section \a group.
- * The original group is saved and restored at the end of this fuction.
+ * The original group is saved and restored at the end of this function.
  * See @p load() for more information.
  */
 void KTinyTabBar::save( KConfig* config, const QString& group ) const

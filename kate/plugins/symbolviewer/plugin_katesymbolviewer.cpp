@@ -149,12 +149,12 @@ void KatePluginSymbolViewerView::slotInsertSymbol()
       symbols->setColumnCount(2);
       symbols->setHeaderLabels(titles);
 
-      symbols->setColumnHidden(1, TRUE);
-      symbols->setSortingEnabled(FALSE);
+      symbols->setColumnHidden(1, true);
+      symbols->setSortingEnabled(false);
       symbols->setRootIsDecorated(0);
       symbols->setContextMenuPolicy(Qt::CustomContextMenu);
       symbols->setIndentation(10);
-      //symbols->setShowToolTips(TRUE);
+      //symbols->setShowToolTips(true);
 
       /* First Symbols parsing here...*/
       parseSymbols();
@@ -188,13 +188,13 @@ void KatePluginSymbolViewerView::slotEnableSorting()
  lsorting = !lsorting;
  popup->setItemChecked(m_sort, lsorting);
  symbols->clear();
- if (lsorting == TRUE)
-     symbols->setSortingEnabled(TRUE);
+ if (lsorting == true)
+     symbols->setSortingEnabled(true);
  else
-     symbols->setSortingEnabled(FALSE);
+     symbols->setSortingEnabled(false);
 
  parseSymbols();
- if (lsorting == TRUE) symbols->sortItems(0, Qt::AscendingOrder);
+ if (lsorting == true) symbols->sortItems(0, Qt::AscendingOrder);
 }
 
 void KatePluginSymbolViewerView::slotDocChanged()

@@ -132,7 +132,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
              paro+=currline.count(')', Qt::CaseSensitive);
              parc+=currline.count('(', Qt::CaseSensitive);
 
-             if((paro==parc || mainprog) && stripped.endsWith("&", Qt::CaseInsensitive)==FALSE)
+             if((paro==parc || mainprog) && stripped.endsWith("&", Qt::CaseInsensitive)==false)
                {
                 stripped.replace("&","");
                 if(mainprog && stripped.indexOf('(')<0 && stripped.indexOf(')')<0)
@@ -217,7 +217,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
             paro+=currline.count(')', Qt::CaseSensitive);
             parc+=currline.count('(', Qt::CaseSensitive);
 
-            if(paro==parc && stripped.endsWith("&",FALSE)==FALSE)
+            if(paro==parc && stripped.endsWith("&",false)==false)
               {
                stripped.replace("&","");
               if (treeMode)

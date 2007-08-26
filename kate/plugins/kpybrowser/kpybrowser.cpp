@@ -246,7 +246,7 @@ KPyBrowser::parseText (QString & pytext)
   QRegExp method_rx (QString ("[\\s]+def [a-zA-Z_]+[^#]*:"));
 
   int paren_i;
-  QStringList lines = QStringList::split ("\n", pytext, TRUE);
+  QStringList lines = QStringList::split ("\n", pytext, true);
   QStringList::Iterator iter;
   QString *line;
   QString class_name, method_name, function_name, class_sig, method_sig,

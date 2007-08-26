@@ -61,7 +61,7 @@ KatePluginSnippetsView::KatePluginSnippetsView(Kate::MainWindow *w, QWidget *doc
   );
   //</make connections>
 
-  lSnippets.setAutoDelete( TRUE ); // the list owns the objects
+  lSnippets.setAutoDelete( true ); // the list owns the objects
 
   config = new KConfig("katesnippetspluginrc");
   readConfig();

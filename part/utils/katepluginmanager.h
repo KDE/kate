@@ -21,8 +21,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __KATEPART_PLUGINMANAGER_H__
-#define __KATEPART_PLUGINMANAGER_H__
+#ifndef KATEPLUGINMANAGER_H
+#define KATEPLUGINMANAGER_H
 
 #include <kservice.h>
 #include <kconfigbase.h>
@@ -89,6 +89,6 @@ class KatePluginManager : public QObject
     KatePluginList m_pluginList;
 };
 
-#endif
-// kate: space-indent on; indent-width 2; replace-tabs on;
+#endif // KATEPLUGINMANAGER_H
 
+// kate: space-indent on; indent-width 2; replace-tabs on;

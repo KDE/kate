@@ -94,7 +94,7 @@ class PluginKateMake : public Kate::Plugin, Kate::PluginViewInterface
   Q_OBJECT
 
   public:
-	PluginKateMake( QObject* parent = 0, const char* name = 0, const QStringList& = QStringList() );
+	explicit PluginKateMake( QObject* parent = 0, const char* name = 0, const QStringList& = QStringList() );
 	virtual ~PluginKateMake();
 
 	void addView (Kate::MainWindow *win);

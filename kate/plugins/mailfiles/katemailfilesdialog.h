@@ -45,8 +45,8 @@ class KateMailDialog : public KDialog
 {
     Q_OBJECT
   public:
-    KateMailDialog( QWidget *parent = 0,
-                    Kate::MainWindow *mainwin = 0 );
+    explicit KateMailDialog( QWidget *parent = 0,
+        	             Kate::MainWindow *mainwin = 0 );
     ~KateMailDialog()
     {}
 

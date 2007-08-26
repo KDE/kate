@@ -72,7 +72,7 @@ class PluginKateKJSWrapper : public Kate::Plugin,
   Q_OBJECT
 
   public:
-    PluginKateKJSWrapper( QObject* parent = 0, const char* name = 0, const QStringList& = QStringList() );
+    explicit PluginKateKJSWrapper( QObject* parent = 0, const char* name = 0, const QStringList& = QStringList() );
     virtual ~PluginKateKJSWrapper();
 
     void addView (Kate::MainWindow *win);
@@ -117,7 +117,7 @@ class KateKJSWrapperConfigPage : public Kate::PluginConfigPage
   friend class PluginKateKJSWrapper;
 
   public:
-    KateKJSWrapperConfigPage(KJS::Object pageConstructor,PluginKateKJSWrapper* parent = 0L, QWidget *parentWidget = 0L);
+    explicit KateKJSWrapperConfigPage(KJS::Object pageConstructor,PluginKateKJSWrapper* parent = 0L, QWidget *parentWidget = 0L);
     ~KateKJSWrapperConfigPage() {};
 
     /** Reimplemented from Kate::PluginConfigPage

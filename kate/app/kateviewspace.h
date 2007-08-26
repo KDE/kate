@@ -89,7 +89,7 @@ class KateViewSpace : public KVBox
     Q_OBJECT
 
   public:
-    KateViewSpace(KateViewManager *, QWidget* parent = 0, const char* name = 0);
+    explicit KateViewSpace(KateViewManager *, QWidget* parent = 0, const char* name = 0);
     ~KateViewSpace();
     bool isActiveSpace();
     void setActive(bool b, bool showled = false);

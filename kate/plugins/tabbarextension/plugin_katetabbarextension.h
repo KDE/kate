@@ -89,7 +89,7 @@ class KatePluginTabBarExtension : public Kate::Plugin, public Kate::PluginConfig
   Q_OBJECT
   Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
-    KatePluginTabBarExtension( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KatePluginTabBarExtension( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~KatePluginTabBarExtension();
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
@@ -120,15 +120,6 @@ class KatePluginTabBarExtension : public Kate::Plugin, public Kate::PluginConfig
 };
 
 
-
-
-
-
-
-
-
-
-
 /**
  * The tabbar's config page
  */
@@ -139,7 +130,7 @@ class KateTabBarExtensionConfigPage : public Kate::PluginConfigPage
   friend class KatePluginTabBarExtension;
 
   public:
-    KateTabBarExtensionConfigPage (QObject* parent = 0L, QWidget *parentWidget = 0L);
+    explicit KateTabBarExtensionConfigPage (QObject* parent = 0L, QWidget *parentWidget = 0L);
     ~KateTabBarExtensionConfigPage ();
 
     /**

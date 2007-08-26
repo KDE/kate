@@ -32,7 +32,7 @@ class KPyBrowser : public K3ListView
   Q_OBJECT
   public:
     /** construtor */
-    KPyBrowser(QWidget* parent=0, const char *name=0);
+    explicit KPyBrowser(QWidget* parent=0, const char *name=0);
     /** destructor */
     ~KPyBrowser();
     void parseText(QString &pytext);

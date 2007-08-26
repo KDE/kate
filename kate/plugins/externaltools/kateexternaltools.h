@@ -117,14 +117,14 @@ class KateExternalToolAction : public KAction, public KWordMacroExpander
 class KateExternalTool
 {
   public:
-    KateExternalTool( const QString &name = QString(),
-                      const QString &command = QString(),
-                      const QString &icon = QString(),
-                      const QString &tryexec = QString(),
-                      const QStringList &mimetypes = QStringList(),
-                      const QString &acname = QString(),
-                      const QString &cmdname = QString(),
-                      int save = 0 );
+    explicit KateExternalTool( const QString &name = QString(),
+    		               const QString &command = QString(),
+        	               const QString &icon = QString(),
+	                       const QString &tryexec = QString(),
+        	               const QStringList &mimetypes = QStringList(),
+	                       const QString &acname = QString(),
+        	               const QString &cmdname = QString(),
+	                       int save = 0 );
     ~KateExternalTool()
     {}
 
@@ -228,8 +228,8 @@ class KateExternalToolServiceEditor : public KDialog
 
   public:
 
-    KateExternalToolServiceEditor( KateExternalTool *tool = 0,
-                                   QWidget *parent = 0, const char *name = 0 );
+    explicit KateExternalToolServiceEditor( KateExternalTool *tool = 0,
+        	                            QWidget *parent = 0, const char *name = 0 );
 
     class QLineEdit *leName, *leExecutable, *leMimetypes, *leCmdLine;
     class Q3TextEdit *teCommand;

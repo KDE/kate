@@ -38,7 +38,7 @@ class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
   Q_OBJECT
 
   public:
-    PluginKateTextFilter( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit PluginKateTextFilter( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~PluginKateTextFilter();
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);

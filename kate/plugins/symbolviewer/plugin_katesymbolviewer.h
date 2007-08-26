@@ -95,7 +95,7 @@ class KatePluginSymbolViewerConfigPage : public Kate::PluginConfigPage
   friend class KatePluginSymbolViewer;
 
   public:
-    KatePluginSymbolViewerConfigPage (QObject* parent = 0L, QWidget *parentWidget = 0L);
+    explicit KatePluginSymbolViewerConfigPage (QObject* parent = 0L, QWidget *parentWidget = 0L);
     ~KatePluginSymbolViewerConfigPage ();
 
     /**
@@ -128,7 +128,7 @@ class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterf
   Q_OBJECT
   Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
-    KatePluginSymbolViewer( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KatePluginSymbolViewer( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~KatePluginSymbolViewer();
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);

@@ -27,7 +27,7 @@
 class KateSessionMenu : public KPanelMenu {
   Q_OBJECT
   public:
-    KateSessionMenu( QWidget *parent=0, const QStringList& args=QStringList() );
+    explicit KateSessionMenu( QWidget *parent=0, const QStringList& args=QStringList() );
     ~KateSessionMenu();
 
   public slots:

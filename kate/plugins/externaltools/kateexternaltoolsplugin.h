@@ -36,7 +36,7 @@ class KateExternalToolsPlugin: public Kate::Plugin
     Q_OBJECT
 
   public:
-    KateExternalToolsPlugin( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KateExternalToolsPlugin( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~KateExternalToolsPlugin()
     {}
 

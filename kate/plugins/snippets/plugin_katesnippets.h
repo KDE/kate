@@ -62,7 +62,7 @@ class KatePluginSnippets : public Kate::Plugin, Kate::PluginViewInterface {
   Q_OBJECT
 
 public:
-  KatePluginSnippets( QObject* parent = 0, const QStringList& = QStringList() );
+  explicit KatePluginSnippets( QObject* parent = 0, const QStringList& = QStringList() );
   virtual ~KatePluginSnippets();
 
   void addView (Kate::MainWindow *win);

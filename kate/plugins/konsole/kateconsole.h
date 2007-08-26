@@ -46,7 +46,7 @@ class KateKonsolePlugin: public Kate::Plugin
     Q_OBJECT
 
   public:
-    KateKonsolePlugin( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KateKonsolePlugin( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~KateKonsolePlugin()
     {}
 

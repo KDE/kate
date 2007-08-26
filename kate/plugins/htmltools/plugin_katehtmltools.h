@@ -34,7 +34,7 @@ class PluginKateHtmlTools : public Kate::Plugin, Kate::PluginViewInterface
   Q_OBJECT
  
 public:
-  PluginKateHtmlTools( QObject* parent = 0, const QStringList& = QStringList() );
+  explicit PluginKateHtmlTools( QObject* parent = 0, const QStringList& = QStringList() );
   virtual ~PluginKateHtmlTools();
 
   void addView (Kate::MainWindow *win);

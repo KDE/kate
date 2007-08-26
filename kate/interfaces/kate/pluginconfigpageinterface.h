@@ -51,7 +51,7 @@ namespace Kate
        * \param parent parent widget.
        * \param name identifier
        */
-      PluginConfigPage ( QWidget *parent = 0, const char *name = 0 );
+      explicit PluginConfigPage ( QWidget *parent = 0, const char *name = 0 );
       /**
        * Virtual destructor.
        */

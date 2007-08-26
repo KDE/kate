@@ -145,7 +145,7 @@ class KateTemplateInfoWidget : public QWidget
 {
   Q_OBJECT
   public:
-    KateTemplateInfoWidget( QWidget *parent=0, TemplateInfo *info=0, KateFileTemplates *kft=0 );
+    explicit KateTemplateInfoWidget( QWidget *parent=0, TemplateInfo *info=0, KateFileTemplates *kft=0 );
     ~KateTemplateInfoWidget() {}
 
     TemplateInfo *info;
@@ -218,7 +218,7 @@ class KateTemplateManager : public QWidget
 {
   Q_OBJECT
   public:
-    KateTemplateManager( KateFileTemplates *kft=0, QWidget *parent=0, const char *name=0 );
+    explicit KateTemplateManager( KateFileTemplates *kft=0, QWidget *parent=0, const char *name=0 );
     ~KateTemplateManager() {}
 
   public slots:

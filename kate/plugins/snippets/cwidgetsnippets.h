@@ -17,7 +17,7 @@
 */
 class CWidgetSnippets : public CWidgetSnippetsBase {
 public:
-  CWidgetSnippets( QWidget* parent = 0, const char* name = 0, Qt::WFlags fl = 0 );
+  explicit CWidgetSnippets( QWidget* parent = 0, const char* name = 0, Qt::WFlags fl = 0 );
 
   ~CWidgetSnippets();
 

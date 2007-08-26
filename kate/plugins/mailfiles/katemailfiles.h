@@ -36,7 +36,7 @@ class KateMailFilesPlugin: public Kate::Plugin
     Q_OBJECT
 
   public:
-    KateMailFilesPlugin( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KateMailFilesPlugin( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~KateMailFilesPlugin()
     {}
 

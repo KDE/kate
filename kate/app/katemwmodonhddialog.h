@@ -41,7 +41,7 @@ class KateMwModOnHdDialog : public KDialog
 {
     Q_OBJECT
   public:
-    KateMwModOnHdDialog( DocVector docs, QWidget *parent = 0, const char *name = 0 );
+    explicit KateMwModOnHdDialog( DocVector docs, QWidget *parent = 0, const char *name = 0 );
     ~KateMwModOnHdDialog();
 
   protected Q_SLOTS:

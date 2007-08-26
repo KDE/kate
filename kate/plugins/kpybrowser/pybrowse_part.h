@@ -60,7 +60,7 @@ class KatePluginPyBrowse : public Kate::Plugin, public Kate::PluginViewInterface
   Q_OBJECT
 
   public:
-    KatePluginPyBrowse( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KatePluginPyBrowse( QObject* parent = 0, const QStringList& = QStringList() );
     ~KatePluginPyBrowse();
 
     void addView(Kate::MainWindow *win);

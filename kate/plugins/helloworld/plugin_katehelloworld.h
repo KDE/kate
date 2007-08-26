@@ -15,7 +15,7 @@ class KatePluginHelloWorld : public Kate::Plugin, Kate::PluginViewInterface
   Q_OBJECT
 
   public:
-    KatePluginHelloWorld( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KatePluginHelloWorld( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~KatePluginHelloWorld();
 
     void storeGeneralConfig(KConfig* config,const QString& groupPrefix);

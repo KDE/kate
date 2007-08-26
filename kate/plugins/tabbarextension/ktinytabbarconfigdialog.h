@@ -42,7 +42,7 @@ class KTinyTabBarConfigDialog : public KDialog
 {
     Q_OBJECT
 public:
-    KTinyTabBarConfigDialog( const KTinyTabBar* tabbar, QWidget *parent = 0 );
+    explicit KTinyTabBarConfigDialog( const KTinyTabBar* tabbar, QWidget *parent = 0 );
     ~KTinyTabBarConfigDialog();
 
     KTinyTabBarConfigPage* configPage();

@@ -56,7 +56,7 @@ class KateFileSelectorPlugin: public Kate::Plugin, public Kate::PluginConfigPage
     Q_OBJECT
     Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
-    KateFileSelectorPlugin( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KateFileSelectorPlugin( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~KateFileSelectorPlugin()
     {}
 
@@ -131,7 +131,7 @@ class KateFileSelector : public KVBox
     /* When to sync to current document directory */
     enum AutoSyncEvent { DocumentChanged = 1, GotVisible = 2 };
 
-    KateFileSelector( Kate::MainWindow *mainWindow = 0,
+    explicit KateFileSelector( Kate::MainWindow *mainWindow = 0,
                       QWidget * parent = 0, const char * name = 0 );
     ~KateFileSelector();
 
@@ -214,7 +214,7 @@ class KFSConfigPage : public Kate::PluginConfigPage
 {
     Q_OBJECT
   public:
-    KFSConfigPage( QWidget* parent = 0, const char *name = 0, KateFileSelector *kfs = 0);
+    explicit KFSConfigPage( QWidget* parent = 0, const char *name = 0, KateFileSelector *kfs = 0);
     virtual ~KFSConfigPage()
     {}
 

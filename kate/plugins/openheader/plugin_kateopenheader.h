@@ -29,7 +29,7 @@ class PluginKateOpenHeader : public Kate::Plugin
   Q_OBJECT
 
   public:
-    PluginKateOpenHeader( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit PluginKateOpenHeader( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~PluginKateOpenHeader();
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);

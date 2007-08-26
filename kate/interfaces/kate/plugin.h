@@ -121,7 +121,7 @@ namespace Kate
        * \param application the Kate application
        * \param name identifier
        */
-      Plugin (Application *application = 0, const char *name = 0 );
+      explicit Plugin (Application *application = 0, const char *name = 0 );
       /**
        * Virtual destructor.
        */

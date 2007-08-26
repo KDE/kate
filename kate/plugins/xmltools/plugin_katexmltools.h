@@ -48,12 +48,11 @@
 
 class PluginKateXMLTools : public Kate::Plugin, Kate::PluginViewInterface
 {
-
   Q_OBJECT
 
   public:
 
-    PluginKateXMLTools( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit PluginKateXMLTools( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~PluginKateXMLTools();
     void addView ( Kate::MainWindow *win );
     void removeView( Kate::MainWindow *win );

@@ -59,7 +59,7 @@ class PluginKateInsertCommand : public Kate::Plugin,
   Q_OBJECT
 
   public:
-    PluginKateInsertCommand( QObject* parent = 0, const char* name = 0, const QStringList& = QStringList() );
+    explicit PluginKateInsertCommand( QObject* parent = 0, const char* name = 0, const QStringList& = QStringList() );
     virtual ~PluginKateInsertCommand();
 
     void addView (Kate::MainWindow *win);
@@ -106,12 +106,12 @@ class CmdPrompt : public KDialogBase
 {
 Q_OBJECT
 public:
-    CmdPrompt(QWidget* parent=0,
-              const char* name=0,
-              const QStringList& cmdhist=QStringList(),
-              const QString& dir=QString(),
-              const QString& docdir=QString(),
-              int   settings=0);
+    explicit CmdPrompt(QWidget* parent=0,
+	              const char* name=0,
+    		      const QStringList& cmdhist=QStringList(),
+	              const QString& dir=QString(),
+	              const QString& docdir=QString(),
+	              int   settings=0);
     ~CmdPrompt();
     QString command()const { return cmb_cmd->currentText(); }
     bool insertStdErr()const { return cb_insStdErr->isChecked(); }
@@ -132,9 +132,9 @@ private slots:
 class WaitDlg : public KDialogBase
 {
   public:
-    WaitDlg(QWidget* parent,
-            const QString& text=QString(),
-            const QString& title=i18n("Please Wait"));
+    explicit WaitDlg(QWidget* parent,
+	            const QString& text=QString(),
+    		    const QString& title=i18n("Please Wait"));
     ~WaitDlg();
 };
 
@@ -145,7 +145,7 @@ class InsertCommandConfigPage : public Kate::PluginConfigPage
   friend class PluginKateInsertCommand;
 
   public:
-    InsertCommandConfigPage(QObject* parent = 0L, QWidget *parentWidget = 0L);
+    explicit InsertCommandConfigPage(QObject* parent = 0L, QWidget *parentWidget = 0L);
     ~InsertCommandConfigPage() {};
 
     /** Reimplemented from Kate::PluginConfigPage

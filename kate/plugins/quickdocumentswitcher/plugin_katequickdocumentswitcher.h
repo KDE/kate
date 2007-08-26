@@ -35,7 +35,7 @@ class KLineEdit;
 class PluginKateQuickDocumentSwitcher : public Kate::Plugin {
   Q_OBJECT
   public:
-    PluginKateQuickDocumentSwitcher( QObject* parent = 0, const QStringList& = QStringList());
+    explicit PluginKateQuickDocumentSwitcher( QObject* parent = 0, const QStringList& = QStringList());
     virtual ~PluginKateQuickDocumentSwitcher();
     virtual Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 };

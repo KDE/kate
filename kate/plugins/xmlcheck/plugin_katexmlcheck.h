@@ -77,7 +77,7 @@ class PluginKateXMLCheck : public Kate::Plugin, Kate::PluginViewInterface
   Q_OBJECT
 
   public:
-	PluginKateXMLCheck( QObject* parent = 0, const QStringList& = QStringList() );
+	explicit PluginKateXMLCheck( QObject* parent = 0, const QStringList& = QStringList() );
 	virtual ~PluginKateXMLCheck();
 
 	void addView (Kate::MainWindow *win);

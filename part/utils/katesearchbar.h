@@ -6,7 +6,6 @@
 ##  * Highlight all with background thread
 ##  * Fix regex backward search in KateDocument?
 ##  * Fix highlighting of matches/replacements?
-##  * "Add..." button integration
 ##  * Proper loading/saving of search settings
 ##
 ################################################################## */
@@ -70,6 +69,10 @@ public Q_SLOTS:
     void onPowerFindPrev();
     void onPowerReplaceNext();
     void onPowerReplaceAll();
+    void onPowerAddToPatternClicked();
+    void onPowerAddToReplacementClicked();
+    void onPowerUsePlaceholdersToggle(int state);
+    void onPowerModeChanged(int index);
 
 public Q_SLOTS:
     // Also used by KateView
@@ -92,6 +95,12 @@ private:
     void buildReplacement(QString & output, QList<ReplacementPart> & parts,
             const QVector<KTextEditor::Range> & details);
     void replaceMatch(const QVector<KTextEditor::Range> & match, const QString & replacement);
+
+    void addMenuEntry(QMenu * menu, QVector<QString> & insertBefore,
+            QVector<QString> & insertAfter, uint & walker,
+            const QString & before, const QString after, const QString description,
+            const QString & realBefore = QString(), const QString & realAfter = QString());
+    void showAddMenu(bool forPattern);
 
 private:
     // Overridden

@@ -1,7 +1,6 @@
 /* ##################################################################
 ##
 ##  TODO:
-##  * Text/icon area for match/mismatch/wrap indication
 ##  * Search/replace history
 ##  * Highlight all with background thread
 ##  * Fix regex backward search in KateDocument?

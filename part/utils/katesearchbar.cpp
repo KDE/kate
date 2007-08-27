@@ -1,7 +1,6 @@
 /* ##################################################################
 ##
 ##  TODO:
-##  * Text/icon area for match/mismatch/wrap indication
 ##  * Search/replace history
 ##  * Highlight all with background thread
 ##  * Fix regex backward search in KateDocument?
@@ -72,7 +71,12 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar)
 
 
 KateSearchBar::~KateSearchBar() {
-    // TODO
+    // delete m_topRange; ???
+    delete m_layout;
+    delete m_widget;
+    delete m_incUi;
+    delete m_incMenu;
+    delete m_powerUi;
 }
 
 
@@ -121,13 +125,18 @@ void KateSearchBar::highlightReplacement(const Range & /*range*/) {
 
 
 
-void KateSearchBar::indicateMatch(bool /*wrapped*/) {
+void KateSearchBar::indicateMatch(bool wrapped) {
     if (m_incUi != NULL) {
         // Green background for line edit
         QColor color("palegreen");
         QPalette background;
         background.setColor(QPalette::Base, color);
         m_incUi->pattern->setPalette(background);
+
+        // Update status label
+        m_incUi->status->setText(wrapped
+                ? i18n("Reached bottom, continued from top")
+                : "");
     } else {
         // TODO
     }
@@ -142,6 +151,9 @@ void KateSearchBar::indicateMismatch() {
         QPalette background;
         background.setColor(QPalette::Base, color);
         m_incUi->pattern->setPalette(background);
+
+        // Update status label
+        m_incUi->status->setText(i18n("Not found"));
     } else {
         // TODO
     }
@@ -156,6 +168,9 @@ void KateSearchBar::indicateNothing() {
         QPalette background;
         background.setColor(QPalette::Base, color);
         m_incUi->pattern->setPalette(background);
+
+        // Update status label
+        m_incUi->status->setText("");
     } else {
         // TODO
     }

@@ -36,9 +36,8 @@ static QString localizedTimeDate =
                "%Y means year in XXXX format."
                "%H means hours in XX format."
                "%M means minutes in XX format."
-               "Translator, if time or date in your language is written in a different order, change it here."
-               "The current string will print out something like 08-25-2007 23:45",
-               "%m-%e-%Y %H:%M");
+               "Please, if in your language time or date is written in a different order, change it here",
+               "%e-%m-%Y %H:%M");
 
 class TimeDatePlugin
   : public KTextEditor::Plugin

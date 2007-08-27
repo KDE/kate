@@ -32,8 +32,6 @@ public:
     explicit DocWordCompletionConfig(QWidget *parent, const QVariantList &);
     virtual ~DocWordCompletionConfig();
 
-    virtual void init();
-
     virtual void save();
     virtual void load();
     virtual void defaults();

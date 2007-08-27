@@ -59,6 +59,7 @@ install( FILES
     codecompletioninterface.h
     codecompletionmodel.h
     configinterface.h
+    containerinterface.h
     DESTINATION  ${INCLUDE_INSTALL_DIR}/ktexteditor )
 
 install( FILES ktexteditor.desktop ktexteditorplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )

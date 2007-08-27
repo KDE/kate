@@ -147,7 +147,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     virtual View *createView ( QWidget *parent ) = 0;
 
     /**
-     * Return the view which is currently has user focus, if any.
+     * Return the view which currently has user focus, if any.
      */
     virtual View* activeView() const = 0;
 

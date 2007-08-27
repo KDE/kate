@@ -123,6 +123,10 @@ class KTEXTEDITOR_EXPORT EditorChooser: public QWidget
     /**
      * Static accessor to get the Editor instance of the currently used
      * KTextEditor component.
+     *
+     * That Editor instance can be qobject-cast to specific extensions.
+     * If the result of the cast is not NULL, that extension is supported:
+     *
      * \param postfix config group postfix string
      * \param fallBackToKatePart if \e true, the returned Editor component
      *        will be a katepart if no other implementation can be found

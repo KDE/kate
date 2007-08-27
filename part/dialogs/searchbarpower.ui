@@ -159,7 +159,7 @@
            <item>
             <widget class="QPushButton" name="patternAdd" >
              <property name="toolTip" >
-              <string>Add special item</string>
+              <string>Add special item to search pattern</string>
              </property>
              <property name="text" >
               <string>Add...</string>
@@ -403,7 +403,7 @@
            <item>
             <widget class="QPushButton" name="replacementAdd" >
              <property name="toolTip" >
-              <string>Add special item</string>
+              <string>Add special item to replacement text</string>
              </property>
              <property name="text" >
               <string>Add...</string>

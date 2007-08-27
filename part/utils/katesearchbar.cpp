@@ -932,7 +932,7 @@ void KateSearchBar::enableHighlights(bool /*enable*/) {
         m_view->doc()->deleteRanges();
         m_topRange = NULL;
 
-        // TODO or somethinbg like this?
+        // TODO or something like this?
         // m_topRange->deleteChildRanges();
     }
 */

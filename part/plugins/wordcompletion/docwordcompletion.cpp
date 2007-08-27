@@ -161,9 +161,9 @@ const QStringList DocWordCompletionModel::allMatches( KTextEditor::View *view, c
 
 //BEGIN DocWordCompletionPlugin
 DocWordCompletionPlugin *DocWordCompletionPlugin::plugin = 0;
-K_EXPORT_COMPONENT_FACTORY( ktexteditor_docwordcompletion, KGenericFactory<DocWordCompletionPlugin>( "ktexteditor_docwordcompletion", "ktexteditor_plugins" ) )
+K_PLUGIN_FACTORY_DECLARATION(DocWordCompletionFactory)
 DocWordCompletionPlugin::DocWordCompletionPlugin( QObject *parent,
-                            const QStringList& /*args*/ )
+                            const QVariantList& /*args*/ )
   : KTextEditor::Plugin ( parent )
 {
   plugin = this;
@@ -305,7 +305,7 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
     connect( action, SIGNAL( triggered() ), this, SLOT(shellComplete()) );
   }
 
-  setComponentData( KGenericFactory<DocWordCompletionPlugin>::componentData() );
+  setComponentData( DocWordCompletionFactory::componentData() );
 
   action = new KAction( i18n("Reuse Word Above"), this );
   actionCollection()->addAction( "doccomplete_bw", action );
@@ -619,6 +619,13 @@ void DocWordCompletionPluginView::slotVariableChanged( KTextEditor::Document*,co
     d->treshold = val.toInt();
 }
 //END
+
+#include "docwordcompletion_config.h"
+K_PLUGIN_FACTORY_DEFINITION(DocWordCompletionFactory,
+        registerPlugin<DocWordCompletionConfig>();
+        registerPlugin<DocWordCompletionPlugin>();
+        )
+K_EXPORT_PLUGIN(DocWordCompletionFactory("ktexteditor_docwordcompletion", "ktexteditor_plugins"))
 
 #include "docwordcompletion.moc"
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

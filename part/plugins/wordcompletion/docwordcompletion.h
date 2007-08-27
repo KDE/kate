@@ -70,8 +70,8 @@ class DocWordCompletionPlugin
   Q_OBJECT
 
   public:
-    explicit DocWordCompletionPlugin( QObject *parent = 0,
-                            const QStringList &args = QStringList() );
+    explicit DocWordCompletionPlugin( QObject *parent,
+                            const QVariantList &args );
     virtual ~DocWordCompletionPlugin(){kDebug()<<"~DocWordCompletionPlugin";}
 
     static DocWordCompletionPlugin *self() { return plugin; }

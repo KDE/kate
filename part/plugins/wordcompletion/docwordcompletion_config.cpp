@@ -32,12 +32,10 @@
 #include <klocale.h>
 #include <kgenericfactory.h>
 
-K_EXPORT_COMPONENT_FACTORY( \
-    ktexteditor_docwordcompletion_config, \
-    KGenericFactory<DocWordCompletionConfig>("ktexteditor_docwordcompletion_config"))
+K_PLUGIN_FACTORY_DECLARATION(DocWordCompletionFactory)
 
-DocWordCompletionConfig::DocWordCompletionConfig(QWidget *parent, const QStringList &args)
-    : KCModule(KGenericFactory<DocWordCompletionConfig>::componentData(), parent, args)
+DocWordCompletionConfig::DocWordCompletionConfig(QWidget *parent, const QVariantList &args)
+    : KCModule(DocWordCompletionFactory::componentData(), parent, args)
 {
     QVBoxLayout *lo = new QVBoxLayout( this );
     lo->setSpacing( KDialog::spacingHint() );

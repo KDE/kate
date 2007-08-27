@@ -575,9 +575,10 @@ void KateSearchBar::onPowerReplaceAll() {
     }
 
 
-    // Replace backwards
+    // Replace (backwards)
     if (!replacementJobs.isEmpty()) {
         resetHighlights();
+        m_view->doc()->editBegin(); // Group to single undo job
         QList<QVector<Range> >::iterator iter = replacementJobs.end();
         while (iter != replacementJobs.begin()) {
             --iter;
@@ -586,6 +587,7 @@ void KateSearchBar::onPowerReplaceAll() {
             highlightReplacement(targetRange);
             replaceMatch(targetDetails, replacement);
         }
+        m_view->doc()->editEnd();
     }
 }
 
@@ -729,8 +731,14 @@ void KateSearchBar::onMutatePower() {
         if (!m_widget->isVisible()) {
             // Init pattern
             if (m_view->selection()) {
-                // ... with current selection
-                initialPattern = m_view->selectionText(); // TODO multi-line selection?
+                const Range & selection = m_view->selectionRange();
+                if (selection.onSingleLine()) {
+                    // ... with current selection
+                    initialPattern = m_view->selectionText();
+                } else {
+                    // Enable selection only
+                    m_powerUi->selectionOnly->setCheckState(Qt::Checked);
+                }
             }
             QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
             Q_ASSERT(lineEdit != NULL);
@@ -744,18 +752,6 @@ void KateSearchBar::onMutatePower() {
         return;
     }
 
-
-    // Initial search pattern
-    if (!m_widget->isVisible()) {
-        // Init pattern with current selection
-        const bool selected = m_view->selection();
-        if (selected) {
-            initialPattern = m_view->selectionText(); // TODO multi-line selection?
-        }
-    } else if (m_incUi != NULL) {
-        // Init pattern with old pattern from incremental dialog
-        initialPattern = m_incUi->pattern->displayText();
-    }
 
     // Kill incremental widget
     delete m_incUi;
@@ -778,6 +774,25 @@ void KateSearchBar::onMutatePower() {
     m_powerUi = new Ui::PowerSearchBar;
     m_powerUi->setupUi(m_widget);
     m_layout->addWidget(m_widget);
+
+    // Initial search pattern
+    if (!m_widget->isVisible()) {
+        // Init pattern with current selection
+        const bool selected = m_view->selection();
+        if (selected) {
+            const Range & selection = m_view->selectionRange();
+            if (selection.onSingleLine()) {
+                // ... with current selection
+                initialPattern = m_view->selectionText();
+            } else {
+                // Enable selection only
+                m_powerUi->selectionOnly->setCheckState(Qt::Checked);
+            }
+        }
+    } else if (m_incUi != NULL) {
+        // Init pattern with old pattern from incremental dialog
+        initialPattern = m_incUi->pattern->displayText();
+    }
 
     // Disable next/prev and replace next/all
     m_powerUi->findNext->setDisabled(true);

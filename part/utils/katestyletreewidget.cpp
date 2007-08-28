@@ -391,7 +391,7 @@ void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem
     brush = Qt::white;
   }
   
-  if(index.row() == m_widget->currentIndex().row()) {
+  if(index.row() == m_widget->currentIndex().row() && m_widget->currentItem()->isSelected() && m_widget->currentItem()->childCount() == 0) {
     painter->fillRect(opt.rect, KColorScheme(KColorScheme::Selection).background());
   }
   

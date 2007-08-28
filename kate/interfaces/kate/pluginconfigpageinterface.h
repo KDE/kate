@@ -20,8 +20,8 @@
 #define kate_pluginconfigpageinterface_h
 
 #include <kate_export.h>
-#include <QWidget>
-#include <QPixmap>
+#include <QtGui/QWidget>
+#include <QtGui/QPixmap>
 #include <kicon.h>
 
 namespace Kate

@@ -22,11 +22,12 @@
 
 #include <kate_export.h>
 
-#include <QWidget>
-#include <QPixmap>
-#include <kicontheme.h>
+#include <QtGui/QWidget>
+#include <QtGui/QPixmap>
 
+#include <kicontheme.h>
 #include <kurl.h>
+
 class KConfigBase;
 
 namespace Kate

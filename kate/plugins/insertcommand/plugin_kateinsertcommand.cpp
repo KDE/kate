@@ -271,7 +271,7 @@ void PluginKateInsertCommand::initConfigPage( InsertCommandConfigPage *p )
 void PluginKateInsertCommand::applyConfig( InsertCommandConfigPage *p )
 {
   config->writeEntry( "Command History Length", p->sb_cmdhistlen->value() );
-  // truncate the cmd hist if neccessary?
+  // truncate the cmd hist if necessary?
   config->writeEntry( "Start In", p->rg_startin->id(p->rg_startin->selected()) );
   config->sync();
 }

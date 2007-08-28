@@ -32,7 +32,6 @@
 #include "katedocument.h"
 #include "ui_searchbarincremental.h"
 #include "ui_searchbarpower.h"
-#include <kglobalsettings.h>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QCheckBox>
 
@@ -62,16 +61,16 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar)
 
     m_layout->setMargin(2);
 
-    // TODO Do we need this?
-    centralWidget()->setFont(KGlobalSettings::toolBarFont());
-
+    // Init highlight
+    m_topRange = m_view->doc()->newSmartRange(m_view->doc()->documentRange());
+    m_topRange->setInsertBehavior(SmartRange::ExpandRight);
     enableHighlights(true);
 }
 
 
 
 KateSearchBar::~KateSearchBar() {
-    // delete m_topRange; ???
+    delete m_topRange;
     delete m_layout;
     delete m_widget;
     delete m_incUi;
@@ -101,26 +100,23 @@ void KateSearchBar::findPrevious() {
 
 
 
-void KateSearchBar::highlightMatch(const Range & /*range*/) {
-// TODO Highlight code does not work as expected!?
-/*
+void KateSearchBar::highlight(const Range & range, const QString & color) {
     SmartRange * const highlight = m_view->doc()->newSmartRange(range, m_topRange);
-    Attribute::Ptr color(new Attribute()); // TODO
-    color->setBackground(QColor("yellow")); // TODO make this part of the color scheme
-    highlight->setAttribute(color);
-*/
+    Attribute::Ptr attribute(new Attribute());
+    attribute->setBackground(QColor(color)); // TODO make this part of the color scheme
+    highlight->setAttribute(attribute);
 }
 
 
 
-void KateSearchBar::highlightReplacement(const Range & /*range*/) {
-// TODO Highlight code does not work as expected!?
-/*
-    SmartRange * const highlight = m_view->doc()->newSmartRange(range, m_topRange);
-    Attribute::Ptr color(new Attribute()); // TODO
-    color->setBackground(QColor("green")); // TODO make this part of the color scheme
-    highlight->setAttribute(color);
-*/
+void KateSearchBar::highlightMatch(const Range & range) {
+    highlight(range, "yellow"); // TODO make this part of the color scheme
+}
+
+
+
+void KateSearchBar::highlightReplacement(const Range & range) {
+    highlight(range, "green"); // TODO make this part of the color scheme
 }
 
 
@@ -928,29 +924,13 @@ bool KateSearchBar::isChecked(QAction * menuAction) {
 
 
 
-void KateSearchBar::enableHighlights(bool /*enable*/) {
-// TODO Highlight code does not work as expected!?
-/*
+void KateSearchBar::enableHighlights(bool enable) {
     if (enable) {
-        if (m_topRange != NULL) {
-            return;
-        }
-        m_topRange = m_view->doc()->newSmartRange(m_view->doc()->documentRange());
-        m_topRange->setInsertBehavior(SmartRange::ExpandRight);
         m_view->addInternalHighlight(m_topRange);
     } else {
-        if (m_topRange == NULL) {
-            return;
-        }
         m_view->removeInternalHighlight(m_topRange);
-        m_view->doc()->unbindSmartRange(m_topRange);
-        m_view->doc()->deleteRanges();
-        m_topRange = NULL;
-
-        // TODO or something like this?
-        // m_topRange->deleteChildRanges();
+        m_topRange->deleteChildRanges();
     }
-*/
 }
 
 

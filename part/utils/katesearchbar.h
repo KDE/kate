@@ -85,6 +85,7 @@ private:
     void enableHighlights(bool enable);
     void resetHighlights();
 
+    void highlight(const KTextEditor::Range & range, const QString & color);
     void highlightMatch(const KTextEditor::Range & range);
     void highlightReplacement(const KTextEditor::Range & range);
     void indicateMatch(bool wrapped);

@@ -504,8 +504,9 @@ void KateSearchBar::addCurrentTextToHistory(QComboBox * combo) {
 QStringListModel * KateSearchBar::getPatternHistoryModel() {
     static QStringListModel * patternHistoryModel = NULL;
     if (patternHistoryModel == NULL) {
-        return patternHistoryModel = new QStringListModel();
+        patternHistoryModel = new QStringListModel();
     }
+    return patternHistoryModel;
 }
 
 
@@ -513,8 +514,9 @@ QStringListModel * KateSearchBar::getPatternHistoryModel() {
 QStringListModel * KateSearchBar::getReplacementHistoryModel() {
     static QStringListModel * replacementHistoryModel = NULL;
     if (replacementHistoryModel == NULL) {
-        return replacementHistoryModel = new QStringListModel();
+        replacementHistoryModel = new QStringListModel();
     }
+    return replacementHistoryModel;
 }
 
 

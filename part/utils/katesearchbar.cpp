@@ -1,11 +1,12 @@
 /* ##################################################################
 ##
 ##  TODO:
-##  * Search/replace history
-##  * Highlight all with background thread
-##  * Fix regex backward search in KateDocument?
+##  * Fix regex search in KateDocument?
+##    (Skips when backwords, ".*" endless loop!?)
 ##  * Fix highlighting of matches/replacements?
+##    (Zero width smart range)
 ##  * Proper loading/saving of search settings
+##  * Highlight all (with background thread?)
 ##
 ################################################################## */
 
@@ -33,7 +34,9 @@
 #include "ui_searchbarincremental.h"
 #include "ui_searchbarpower.h"
 #include <QtGui/QVBoxLayout>
+#include <QtGui/QComboBox>
 #include <QtGui/QCheckBox>
+#include <QStringListModel>
 
 using namespace KTextEditor;
 
@@ -486,9 +489,42 @@ void KateSearchBar::onPowerPatternChanged(const QString & pattern) {
 
 
 
+void KateSearchBar::addCurrentTextToHistory(QComboBox * combo) {
+    const QString text = combo->currentText();
+    const int index = combo->findText(text);
+    if (index != -1) {
+        combo->removeItem(index);
+    }
+    combo->insertItem(0, text);
+    combo->setCurrentIndex(0);
+}
+
+
+
+QStringListModel * KateSearchBar::getPatternHistoryModel() {
+    static QStringListModel * patternHistoryModel = NULL;
+    if (patternHistoryModel == NULL) {
+        return patternHistoryModel = new QStringListModel();
+    }
+}
+
+
+
+QStringListModel * KateSearchBar::getReplacementHistoryModel() {
+    static QStringListModel * replacementHistoryModel = NULL;
+    if (replacementHistoryModel == NULL) {
+        return replacementHistoryModel = new QStringListModel();
+    }
+}
+
+
+
 void KateSearchBar::onPowerFindNext() {
     const bool FIND = false;
     onStep(FIND);
+
+    // Add to search history
+    addCurrentTextToHistory(m_powerUi->pattern);
 }
 
 
@@ -497,6 +533,9 @@ void KateSearchBar::onPowerFindPrev() {
     const bool FIND = false;
     const bool BACKWARDS = false;
     onStep(FIND, BACKWARDS);
+
+    // Add to search history
+    addCurrentTextToHistory(m_powerUi->pattern);
 }
 
 
@@ -504,6 +543,12 @@ void KateSearchBar::onPowerFindPrev() {
 void KateSearchBar::onPowerReplaceNext() {
     const bool REPLACE = true;
     onStep(REPLACE);
+
+    // Add to search history
+    addCurrentTextToHistory(m_powerUi->pattern);
+
+    // Add to replace history
+    addCurrentTextToHistory(m_powerUi->replacement);
 }
 
 
@@ -585,6 +630,13 @@ void KateSearchBar::onPowerReplaceAll() {
         }
         m_view->doc()->editEnd();
     }
+
+
+    // Add to search history
+    addCurrentTextToHistory(m_powerUi->pattern);
+
+    // Add to replace history
+    addCurrentTextToHistory(m_powerUi->replacement);
 }
 
 
@@ -740,6 +792,7 @@ void KateSearchBar::onMutatePower() {
             Q_ASSERT(lineEdit != NULL);
             lineEdit->setText(initialPattern);
             lineEdit->selectAll();
+            onPowerPatternChanged(initialPattern); // Needed in case the text did not change, better way?
 
             // Enable/disable add buttons
             onPowerUsePlaceholdersToggle(m_powerUi->usePlaceholders->checkState());
@@ -770,6 +823,15 @@ void KateSearchBar::onMutatePower() {
     m_powerUi = new Ui::PowerSearchBar;
     m_powerUi->setupUi(m_widget);
     m_layout->addWidget(m_widget);
+
+    // Bind to shared history models
+    const int MAX_HISTORY_SIZE = 100; // Please don't lower this value! Thanks, Sebastian
+    QStringListModel * const patternHistoryModel = getPatternHistoryModel();
+    QStringListModel * const replacementHistoryModel = getReplacementHistoryModel();
+    m_powerUi->pattern->setMaxCount(MAX_HISTORY_SIZE);
+    m_powerUi->pattern->setModel(patternHistoryModel);
+    m_powerUi->replacement->setMaxCount(MAX_HISTORY_SIZE);
+    m_powerUi->replacement->setModel(replacementHistoryModel);
 
     // Initial search pattern
     if (!m_widget->isVisible()) {
@@ -820,12 +882,11 @@ void KateSearchBar::onMutatePower() {
     m_powerUi->highlightAll->setDisabled(true);
 
     // Initial search pattern
-    if (!initialPattern.isEmpty()) {
-        QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
-        Q_ASSERT(lineEdit != NULL);
-        lineEdit->setText(initialPattern);
-        lineEdit->selectAll();
-    }
+    QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
+    Q_ASSERT(lineEdit != NULL);
+    lineEdit->setText(initialPattern);
+    lineEdit->selectAll();
+    onPowerPatternChanged(initialPattern); // Needed in case the text did not change, better way?
 
     // Enable/disable add buttons
     onPowerUsePlaceholdersToggle(m_powerUi->usePlaceholders->checkState());
@@ -843,6 +904,7 @@ void KateSearchBar::onMutateIncremental() {
     if (m_incUi != NULL) {
         if (!m_widget->isVisible()) {
             m_incUi->pattern->setText("");
+            onIncPatternChanged(""); // Needed in case the text did not change, better way?
         }
         return;
     }
@@ -898,10 +960,9 @@ void KateSearchBar::onMutateIncremental() {
     connect(m_incUi->options, SIGNAL(clicked()), m_incUi->options, SLOT(showMenu()));
 
     // Initial search pattern
-    if (!initialPattern.isEmpty()) {
-        m_incUi->pattern->setText(initialPattern);
-        m_incUi->pattern->selectAll();
-    }
+    m_incUi->pattern->setText(initialPattern);
+    m_incUi->pattern->selectAll();
+    onIncPatternChanged(initialPattern); // Needed in case the text did not change, better way?
 
     // Focus
     centralWidget()->setFocusProxy(m_incUi->pattern);

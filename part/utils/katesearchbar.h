@@ -1,11 +1,12 @@
 /* ##################################################################
 ##
 ##  TODO:
-##  * Search/replace history
-##  * Highlight all with background thread
-##  * Fix regex backward search in KateDocument?
+##  * Fix regex search in KateDocument?
+##    (Skips when backwords, ".*" endless loop!?)
 ##  * Fix highlighting of matches/replacements?
+##    (Zero width smart range)
 ##  * Proper loading/saving of search settings
+##  * Highlight all (with background thread?)
 ##
 ################################################################## */
 
@@ -39,6 +40,8 @@
 class KateView;
 class QVBoxLayout;
 class QCheckBox;
+class QComboBox;
+class QStringListModel;
 
 namespace Ui {
     class IncrementalSearchBar;
@@ -101,6 +104,10 @@ private:
             const QString & before, const QString after, const QString description,
             const QString & realBefore = QString(), const QString & realAfter = QString());
     void showAddMenu(bool forPattern);
+
+    void addCurrentTextToHistory(QComboBox * combo);
+    QStringListModel * getPatternHistoryModel();
+    QStringListModel * getReplacementHistoryModel();
 
 private:
     // Overridden

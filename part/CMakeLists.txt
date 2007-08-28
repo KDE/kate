@@ -120,6 +120,7 @@ utils/katecmd.cpp
 utils/katedynamicanimation.cpp
 utils/katestyletreewidget.cpp
 utils/katepluginmanager.cpp
+utils/katehistorymodel.cpp
 
 # plugin selector fork
 pluginselector/pluginselector.cpp

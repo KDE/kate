@@ -77,6 +77,24 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar)
     m_topRange = m_view->doc()->newSmartRange(m_view->doc()->documentRange());
     m_topRange->setInsertBehavior(SmartRange::ExpandRight);
     enableHighlights(true);
+
+    // Read settings
+    const long searchFlags = m_view->config()->searchFlags();
+    m_incHighlightAll = (searchFlags & KateViewConfig::IncHighlightAll) != 0;
+    m_incFromCursor = (searchFlags & KateViewConfig::IncFromCursor) != 0;
+    m_incMatchCase = (searchFlags & KateViewConfig::IncMatchCase) != 0;
+    m_powerMatchCase = (searchFlags & KateViewConfig::PowerMatchCase) != 0;
+    m_powerFromCursor = (searchFlags & KateViewConfig::PowerFromCursor) != 0;
+    m_powerHighlightAll = (searchFlags & KateViewConfig::PowerHighlightAll) != 0;
+    m_powerSelectionOnly = (searchFlags & KateViewConfig::PowerSelectionOnly) != 0;
+    m_powerUsePlaceholders = (searchFlags & KateViewConfig::PowerUsePlaceholders) != 0;
+    m_powerMode = ((searchFlags & KateViewConfig::PowerModeRegularExpression) != 0)
+            ? 3
+            : (((searchFlags & KateViewConfig::PowerModeEscapeSequences) != 0)
+                ? 2
+                : (((searchFlags & KateViewConfig::PowerModeWholeWords) != 0)
+                    ? 1
+                    : 0)); // Plain text
 }
 
 
@@ -328,8 +346,6 @@ void KateSearchBar::onIncPrev() {
 
 
 void KateSearchBar::onStep(bool replace, bool forwards) {
-    // kDebug() << "KateSearchBar::onStep" << forwards;
-
     // What to find?
     const QString pattern = (m_powerUi != NULL)
             ? m_powerUi->pattern->currentText()
@@ -406,7 +422,6 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
             inputRange = m_view->doc()->documentRange();
         }
     }
-    // kDebug() << "(1) input range is" << inputRange;
 
     // Find, first try
     const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
@@ -418,7 +433,6 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
             // Same match again
             if (replace) {
                 // Selection is match -> replace
-                kDebug() << "replace range" << match;
                 const QString replacement = m_powerUi->replacement->currentText();
                 resetHighlights();
                 highlightReplacement(match);
@@ -430,7 +444,6 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
                 } else {
                     inputRange.setRange(inputRange.start(), selection.start());
                 }
-                // kDebug() << "(2) input range is" << inputRange;
                 const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
                 const Range & match2 = resultRanges2[0];
                 if (match2.isValid()) {
@@ -510,22 +523,51 @@ void KateSearchBar::addCurrentTextToHistory(QComboBox * combo) {
 
 
 
-QStringListModel * KateSearchBar::getPatternHistoryModel() {
-    static QStringListModel * patternHistoryModel = NULL;
-    if (patternHistoryModel == NULL) {
-        patternHistoryModel = new QStringListModel();
+void KateSearchBar::backupConfig(bool ofPower) {
+    if (ofPower) {
+        m_powerMatchCase = isChecked(m_powerUi->matchCase);
+        m_powerFromCursor = isChecked(m_powerUi->fromCursor);
+        m_powerHighlightAll = isChecked(m_powerUi->highlightAll);
+        m_powerSelectionOnly = isChecked(m_powerUi->selectionOnly);
+        m_powerUsePlaceholders = isChecked(m_powerUi->usePlaceholders);
+        m_powerMode = m_powerUi->searchMode->currentIndex();
+    } else {
+        m_incHighlightAll = isChecked(m_incMenuHighlightAll);
+        m_incFromCursor = isChecked(m_incMenuFromCursor);
+        m_incMatchCase = isChecked(m_incMenuMatchCase);
     }
-    return patternHistoryModel;
 }
 
 
 
-QStringListModel * KateSearchBar::getReplacementHistoryModel() {
-    static QStringListModel * replacementHistoryModel = NULL;
-    if (replacementHistoryModel == NULL) {
-        replacementHistoryModel = new QStringListModel();
+void KateSearchBar::sendConfig() {
+    if (m_powerUi != NULL) {
+        const bool OF_POWER = true;
+        backupConfig(OF_POWER);
+    } else if (m_incUi != NULL) {
+        const bool OF_INCREMENTAL = false;
+        backupConfig(OF_INCREMENTAL);
     }
-    return replacementHistoryModel;
+
+    const long searchFlags = 0
+            | (m_incHighlightAll ? KateViewConfig::IncHighlightAll : 0)
+            | (m_incFromCursor ? KateViewConfig::IncFromCursor : 0)
+            | (m_incMatchCase ? KateViewConfig::IncMatchCase : 0)
+            | (m_powerMatchCase ? KateViewConfig::PowerMatchCase : 0)
+            | (m_powerFromCursor ? KateViewConfig::PowerFromCursor : 0)
+            | (m_powerHighlightAll ? KateViewConfig::PowerHighlightAll : 0)
+            | (m_powerSelectionOnly ? KateViewConfig::PowerSelectionOnly : 0)
+            | (m_powerUsePlaceholders ? KateViewConfig::PowerUsePlaceholders : 0)
+            | ((m_powerMode == 3)
+                ? KateViewConfig::PowerModeRegularExpression
+                : ((m_powerMode == 2)
+                    ? KateViewConfig::PowerModeEscapeSequences
+                    : ((m_powerMode == 1)
+                        ? KateViewConfig::PowerModeWholeWords
+                        : KateViewConfig::PowerModePlainText)));
+
+    KateViewConfig * const viewConfig = m_view->config();
+    viewConfig->setSearchFlags(searchFlags);
 }
 
 
@@ -565,8 +607,6 @@ void KateSearchBar::onPowerReplaceNext() {
 
 
 void KateSearchBar::onPowerReplaceAll() {
-    // kDebug() << "KateSearchBar::onPowerReplaceAll";
-
     // What to find/replace?
     const QString pattern = m_powerUi->pattern->currentText();
     const QString replacement = m_powerUi->replacement->currentText();
@@ -803,9 +843,8 @@ void KateSearchBar::onMutatePower() {
         // Kill incremental widget
         if (m_incUi != NULL) {
             // Backup current settings
-            m_incHighlightAll = isChecked(m_incMenuHighlightAll);
-            m_incFromCursor = isChecked(m_incMenuFromCursor);
-            m_incMatchCase = isChecked(m_incMenuMatchCase);
+            const bool OF_INCREMENTAL = false;
+            backupConfig(OF_INCREMENTAL);
 
             // Kill widget
             delete m_incUi;
@@ -826,8 +865,8 @@ void KateSearchBar::onMutatePower() {
 
         // Bind to shared history models
         const int MAX_HISTORY_SIZE = 100; // Please don't lower this value! Thanks, Sebastian
-        QStringListModel * const patternHistoryModel = getPatternHistoryModel();
-        QStringListModel * const replacementHistoryModel = getReplacementHistoryModel();
+        QStringListModel * const patternHistoryModel = KateHistoryModel::getPatternHistoryModel();
+        QStringListModel * const replacementHistoryModel = KateHistoryModel::getReplacementHistoryModel();
         m_powerUi->pattern->setMaxCount(MAX_HISTORY_SIZE);
         m_powerUi->pattern->setModel(patternHistoryModel);
         m_powerUi->replacement->setMaxCount(MAX_HISTORY_SIZE);
@@ -912,6 +951,9 @@ void KateSearchBar::onMutatePower() {
 
     // Focus
     m_powerUi->pattern->setFocus(Qt::MouseFocusReason);
+
+    // Send config
+    // sendConfig();
 }
 
 
@@ -937,12 +979,8 @@ void KateSearchBar::onMutateIncremental() {
         // Kill power widget
         if (m_powerUi != NULL) {
             // Backup current settings
-            m_powerMatchCase = isChecked(m_powerUi->matchCase);
-            m_powerFromCursor = isChecked(m_powerUi->fromCursor);
-            m_powerHighlightAll = isChecked(m_powerUi->highlightAll);
-            m_powerSelectionOnly = isChecked(m_powerUi->selectionOnly);
-            m_powerUsePlaceholders = isChecked(m_powerUi->usePlaceholders);
-            m_powerMode = m_powerUi->searchMode->currentIndex();
+            const bool OF_POWER = true;
+            backupConfig(OF_POWER);
 
             // Kill widget
             delete m_powerUi;
@@ -1008,6 +1046,9 @@ void KateSearchBar::onMutateIncremental() {
 
     // Focus
     m_incUi->pattern->setFocus(Qt::MouseFocusReason);
+
+    // Send config
+    // sendConfig();
 }
 
 
@@ -1073,6 +1114,8 @@ void KateSearchBar::showEvent(QShowEvent * event) {
 void KateSearchBar::hideEvent(QHideEvent * event) {
     enableHighlights(false);
     KateViewBarWidget::hideEvent(event);
+
+    // sendConfig();
 }
 
 

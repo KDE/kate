@@ -34,6 +34,7 @@
 #include "kateviewhelpers.h"
 #include "katesmartrange.h"
 #include "katedocument.h"
+#include "katehistorymodel.h"
 
 
 
@@ -108,8 +109,8 @@ private:
     void showAddMenu(bool forPattern);
 
     void addCurrentTextToHistory(QComboBox * combo);
-    QStringListModel * getPatternHistoryModel();
-    QStringListModel * getReplacementHistoryModel();
+    void backupConfig(bool ofPower);
+    void sendConfig();
 
 private:
     // Overridden
@@ -143,7 +144,7 @@ private:
     bool m_powerHighlightAll : 1;
     bool m_powerSelectionOnly : 1;
     bool m_powerUsePlaceholders : 1;
-    int m_powerMode : 2;
+    unsigned int m_powerMode : 2;
 
 };
 

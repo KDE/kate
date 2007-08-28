@@ -23,6 +23,7 @@
 #include "kateview.h"
 #include "katedocument.h"
 #include "kateschema.h"
+#include "katehistorymodel.h"
 
 #include <math.h>
 
@@ -38,6 +39,7 @@
 #include <kdebug.h>
 
 #include <QtCore/QTextCodec>
+#include <QStringListModel>
 
 //BEGIN KateConfig
 KateConfig::KateConfig ()
@@ -605,7 +607,7 @@ void KateDocumentConfig::setBackupSuffix (const QString &suffix)
   configEnd ();
 }
 
-bool KateDocumentConfig::plugin (int index) const
+bool KateDocumentConfig::plugin (int /*index*/) const
 {
   return false;
   // ### kps dominik fixme
@@ -619,7 +621,7 @@ bool KateDocumentConfig::plugin (int index) const
 */
 }
 
-void KateDocumentConfig::setPlugin (int index, bool load)
+void KateDocumentConfig::setPlugin (int /*index*/, bool /*load*/)
 {
   // ### KPS dominik fixme
   /*
@@ -703,6 +705,13 @@ KateViewConfig::~KateViewConfig ()
 {
 }
 
+
+// TODO Extract more keys to constants for maintainability
+static const char * const KEY_SEARCH_REPLACE_FLAGS = "Search/Replace Flags";
+static const char * const KEY_PATTERN_HISTORY = "Search Pattern History";
+static const char * const KEY_REPLACEMENT_HISTORY = "Replacement Text History";
+
+
 void KateViewConfig::readConfig ( const KConfigGroup &config)
 {
   configStart ();
@@ -723,13 +732,28 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 
   setAutoCenterLines (config.readEntry( "Auto Center Lines", 0 ));
 
-  setSearchFlags (config.readEntry("Search Config Flags", KFind::FromCursor | KFind::CaseSensitive | KReplaceDialog::PromptOnReplace));
+  setSearchFlags(config.readEntry(KEY_SEARCH_REPLACE_FLAGS,
+      IncFromCursor|PowerMatchCase|PowerModePlainText));
 
   setDefaultMarkType (config.readEntry( "Default Mark Type", int(KTextEditor::MarkInterface::markType01) ));
 
   setPersistentSelection (config.readEntry( "Persistent Selection", false ));
 
   setTextToSearchMode (config.readEntry( "Text To Search Mode", int(KateViewConfig::SelectionWord)));
+
+  if (isGlobal()) {
+    QStringList empty;
+
+    // Read search pattern history
+    QStringListModel * const patternHistoryModel = KateHistoryModel::getPatternHistoryModel();
+    QStringList patternHistory = config.readEntry(KEY_PATTERN_HISTORY, empty, ',');
+    patternHistoryModel->setStringList(patternHistory);
+
+    // Read replacement text history
+    QStringListModel * const replacementHistoryModel = KateHistoryModel::getReplacementHistoryModel();
+    QStringList replacementHistory = config.readEntry(KEY_REPLACEMENT_HISTORY, empty, ',');
+    replacementHistoryModel->setStringList(replacementHistory);
+  }
 
   configEnd ();
 }
@@ -752,13 +776,23 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
 
   config.writeEntry( "Auto Center Lines", autoCenterLines() );
 
-  config.writeEntry("Search Config Flags", int(searchFlags()));
+  config.writeEntry(KEY_SEARCH_REPLACE_FLAGS, int(searchFlags()));
 
   config.writeEntry("Default Mark Type", defaultMarkType());
 
   config.writeEntry("Persistent Selection", persistentSelection());
 
   config.writeEntry("Text To Search Mode", textToSearchMode());
+
+  if (isGlobal()) {
+    // Write search pattern history
+    QStringListModel * const patternHistoryModel = KateHistoryModel::getPatternHistoryModel();
+    config.writeEntry(KEY_PATTERN_HISTORY, patternHistoryModel->stringList());
+
+    // Write replacement text history
+    QStringListModel * const replacementHistoryModel = KateHistoryModel::getReplacementHistoryModel();
+    config.writeEntry(KEY_REPLACEMENT_HISTORY, replacementHistoryModel->stringList());
+  }
 }
 
 void KateViewConfig::updateConfig ()

@@ -338,6 +338,21 @@ class KateViewConfig : public KateConfig
     int autoCenterLines() const;
     void setAutoCenterLines (int lines);
 
+    enum SearchFlags {
+      IncMatchCase = 1 << 0,
+      IncHighlightAll = 1 << 1,
+      IncFromCursor = 1 << 2,
+      PowerMatchCase = 1 << 3,
+      PowerHighlightAll = 1 << 4,
+      PowerFromCursor = 1 << 5,
+      PowerSelectionOnly = 1 << 6,
+      PowerModePlainText = 1 << 7,
+      PowerModeWholeWords = 1 << 8,
+      PowerModeEscapeSequences = 1 << 9,
+      PowerModeRegularExpression = 1 << 10,
+      PowerUsePlaceholders = 1 << 11
+    };
+
     long searchFlags () const;
     void setSearchFlags (long flags);
 
@@ -347,6 +362,7 @@ class KateViewConfig : public KateConfig
     bool persistentSelection () const;
     void setPersistentSelection (bool on);
 
+    // Do we still need the enum and related functions below?
     enum TextToSearch
     {
       Nowhere = 0,

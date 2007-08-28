@@ -21,6 +21,8 @@
 
 #include <ktexteditor/ktexteditor_export.h>
 
+#include <QtCore/QObject>
+
 namespace KTextEditor
 {
 

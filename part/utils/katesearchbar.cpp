@@ -54,7 +54,16 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar)
         m_incMenuFromCursor(NULL),
         m_incMenuHighlightAll(NULL),
         m_incInitCursor(0, 0),
-        m_powerUi(NULL) {
+        m_powerUi(NULL),
+        m_incHighlightAll(false),
+        m_incFromCursor(true),
+        m_incMatchCase(false),
+        m_powerMatchCase(true),
+        m_powerFromCursor(false),
+        m_powerHighlightAll(false),
+        m_powerSelectionOnly(false),
+        m_powerUsePlaceholders(false),
+        m_powerMode(0) {
     QWidget * const widget = centralWidget();
     widget->setLayout(m_layout);
 
@@ -774,71 +783,75 @@ void KateSearchBar::onPowerModeChanged(int index) {
 
 
 void KateSearchBar::onMutatePower() {
-    QString initialPattern;
-
-    // Re-init if existing
-    if (m_powerUi != NULL) {
-        if (!m_widget->isVisible()) {
-            // Init pattern
-            if (m_view->selection()) {
-                const Range & selection = m_view->selectionRange();
-                if (selection.onSingleLine()) {
-                    // ... with current selection
-                    initialPattern = m_view->selectionText();
-                } else {
-                    // Enable selection only
-                    m_powerUi->selectionOnly->setCheckState(Qt::Checked);
-                }
-            }
-            QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
-            Q_ASSERT(lineEdit != NULL);
-            lineEdit->setText(initialPattern);
-            lineEdit->selectAll();
-            onPowerPatternChanged(initialPattern); // Needed in case the text did not change, better way?
-
-            // Enable/disable add buttons
-            onPowerUsePlaceholdersToggle(m_powerUi->usePlaceholders->checkState());
-            onPowerModeChanged(m_powerUi->searchMode->currentIndex());
-        }
+    // Coming from power search?
+    const bool fromReplace = (m_powerUi != NULL) && (m_widget->isVisible());
+    if (fromReplace) {
+        m_powerUi->pattern->setFocus(Qt::MouseFocusReason);
         return;
     }
 
+    // Coming from incremental search?
+    const bool fromIncremental = (m_incUi != NULL) && (m_widget->isVisible());
+    QString initialPattern;
+    if (fromIncremental) {
+        initialPattern = m_incUi->pattern->displayText();
+    }
 
-    // Kill incremental widget
-    delete m_incUi;
-    delete m_incMenu;
-/*
-    // NOTE: The menu owns them!
-    delete m_incMenuMatchCase;
-    delete m_incMenuFromCursor;
-    delete m_incMenuHighlightAll;
-*/
-    m_incUi = NULL;
-    m_incMenu = NULL;
-    m_incMenuMatchCase = NULL;
-    m_incMenuFromCursor = NULL;
-    m_incMenuHighlightAll = NULL;
-    delete m_widget;
+    // Create dialog
+    const bool create = (m_powerUi == NULL);
+    if (create) {
+        // Kill incremental widget
+        if (m_incUi != NULL) {
+            // Backup current settings
+            m_incHighlightAll = isChecked(m_incMenuHighlightAll);
+            m_incFromCursor = isChecked(m_incMenuFromCursor);
+            m_incMatchCase = isChecked(m_incMenuMatchCase);
 
-    // Add power widget
-    m_widget = new QWidget;
-    m_powerUi = new Ui::PowerSearchBar;
-    m_powerUi->setupUi(m_widget);
-    m_layout->addWidget(m_widget);
+            // Kill widget
+            delete m_incUi;
+            delete m_incMenu;
+            m_incUi = NULL;
+            m_incMenu = NULL;
+            m_incMenuMatchCase = NULL;
+            m_incMenuFromCursor = NULL;
+            m_incMenuHighlightAll = NULL;
+            delete m_widget;
+        }
 
-    // Bind to shared history models
-    const int MAX_HISTORY_SIZE = 100; // Please don't lower this value! Thanks, Sebastian
-    QStringListModel * const patternHistoryModel = getPatternHistoryModel();
-    QStringListModel * const replacementHistoryModel = getReplacementHistoryModel();
-    m_powerUi->pattern->setMaxCount(MAX_HISTORY_SIZE);
-    m_powerUi->pattern->setModel(patternHistoryModel);
-    m_powerUi->replacement->setMaxCount(MAX_HISTORY_SIZE);
-    m_powerUi->replacement->setModel(replacementHistoryModel);
+        // Add power widget
+        m_widget = new QWidget;
+        m_powerUi = new Ui::PowerSearchBar;
+        m_powerUi->setupUi(m_widget);
+        m_layout->addWidget(m_widget);
 
-    // Initial search pattern
-    if (!m_widget->isVisible()) {
+        // Bind to shared history models
+        const int MAX_HISTORY_SIZE = 100; // Please don't lower this value! Thanks, Sebastian
+        QStringListModel * const patternHistoryModel = getPatternHistoryModel();
+        QStringListModel * const replacementHistoryModel = getReplacementHistoryModel();
+        m_powerUi->pattern->setMaxCount(MAX_HISTORY_SIZE);
+        m_powerUi->pattern->setModel(patternHistoryModel);
+        m_powerUi->replacement->setMaxCount(MAX_HISTORY_SIZE);
+        m_powerUi->replacement->setModel(replacementHistoryModel);
+
+        // Icons
+        m_powerUi->mutate->setIcon(KIcon("arrow-down-double"));
+        m_powerUi->findNext->setIcon(KIcon("go-down"));
+        m_powerUi->findPrev->setIcon(KIcon("go-up"));
+        m_powerUi->patternAdd->setIcon(KIcon("list-add"));
+        m_powerUi->replacementAdd->setIcon(KIcon("list-add"));
+
+        // Disable still to implement controls
+        // TODO
+        m_powerUi->highlightAll->setDisabled(true);
+
+        // Focus proxy
+        centralWidget()->setFocusProxy(m_powerUi->pattern);
+    }
+
+    // Guess settings from context
+    const bool selected = m_view->selection();
+    if (!fromIncremental) {
         // Init pattern with current selection
-        const bool selected = m_view->selection();
         if (selected) {
             const Range & selection = m_view->selectionRange();
             if (selection.onSingleLine()) {
@@ -846,128 +859,154 @@ void KateSearchBar::onMutatePower() {
                 initialPattern = m_view->selectionText();
             } else {
                 // Enable selection only
-                m_powerUi->selectionOnly->setCheckState(Qt::Checked);
+                if (create) {
+                    m_powerSelectionOnly = true;
+                } else {
+                    setChecked(m_powerUi->selectionOnly, true);
+                }
             }
         }
-    } else if (m_incUi != NULL) {
-        // Init pattern with old pattern from incremental dialog
-        initialPattern = m_incUi->pattern->displayText();
+    } else {
+        // Disable selection only
+        if (create) {
+            m_powerSelectionOnly = false;
+        } else {
+            setChecked(m_powerUi->selectionOnly, false);
+        }
     }
 
-    // Disable next/prev and replace next/all
-    m_powerUi->findNext->setDisabled(true);
-    m_powerUi->findPrev->setDisabled(true);
-    m_powerUi->replaceNext->setDisabled(true);
-    m_powerUi->replaceAll->setDisabled(true);
+    // Restore previous settings
+    if (create) {
+        setChecked(m_powerUi->matchCase, m_powerMatchCase);
+        setChecked(m_powerUi->highlightAll, m_powerHighlightAll);
+        setChecked(m_powerUi->selectionOnly, m_powerSelectionOnly);
+        setChecked(m_powerUi->usePlaceholders, m_powerUsePlaceholders);
+        setChecked(m_powerUi->fromCursor, m_powerFromCursor);
+        m_powerUi->searchMode->setCurrentIndex(m_powerMode);
+    }
 
-    // Icons
-    m_powerUi->mutate->setIcon(KIcon("arrow-down-double"));
-    m_powerUi->findNext->setIcon(KIcon("go-down"));
-    m_powerUi->findPrev->setIcon(KIcon("go-up"));
-    m_powerUi->patternAdd->setIcon(KIcon("list-add"));
-    m_powerUi->replacementAdd->setIcon(KIcon("list-add"));
-
-    // Slots
-    connect(m_powerUi->mutate, SIGNAL(clicked()), this, SLOT(onMutateIncremental()));
-    connect(m_powerUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onPowerPatternChanged(const QString &)));
-    connect(m_powerUi->findNext, SIGNAL(clicked()), this, SLOT(onPowerFindNext()));
-    connect(m_powerUi->findPrev, SIGNAL(clicked()), this, SLOT(onPowerFindPrev()));
-    connect(m_powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));
-    connect(m_powerUi->replaceAll, SIGNAL(clicked()), this, SLOT(onPowerReplaceAll()));
-    connect(m_powerUi->searchMode, SIGNAL(currentIndexChanged(int)), this, SLOT(onPowerModeChanged(int)));
-    connect(m_powerUi->patternAdd, SIGNAL(clicked()), this, SLOT(onPowerAddToPatternClicked()));
-    connect(m_powerUi->usePlaceholders, SIGNAL(stateChanged(int)), this, SLOT(onPowerUsePlaceholdersToggle(int)));
-    connect(m_powerUi->replacementAdd, SIGNAL(clicked()), this, SLOT(onPowerAddToReplacementClicked()));
-
-    // Disable still to implement controls
-    // TODO
-    m_powerUi->highlightAll->setDisabled(true);
-
-    // Initial search pattern
+    // Set initial search pattern
     QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
     Q_ASSERT(lineEdit != NULL);
     lineEdit->setText(initialPattern);
     lineEdit->selectAll();
-    onPowerPatternChanged(initialPattern); // Needed in case the text did not change, better way?
 
-    // Enable/disable add buttons
+    // Propagate settings (slots are still inactive on purpose)
+    onPowerPatternChanged(initialPattern);
     onPowerUsePlaceholdersToggle(m_powerUi->usePlaceholders->checkState());
     onPowerModeChanged(m_powerUi->searchMode->currentIndex());
 
+    if (create) {
+        // Slots
+        connect(m_powerUi->mutate, SIGNAL(clicked()), this, SLOT(onMutateIncremental()));
+        connect(m_powerUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onPowerPatternChanged(const QString &)));
+        connect(m_powerUi->findNext, SIGNAL(clicked()), this, SLOT(onPowerFindNext()));
+        connect(m_powerUi->findPrev, SIGNAL(clicked()), this, SLOT(onPowerFindPrev()));
+        connect(m_powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));
+        connect(m_powerUi->replaceAll, SIGNAL(clicked()), this, SLOT(onPowerReplaceAll()));
+        connect(m_powerUi->searchMode, SIGNAL(currentIndexChanged(int)), this, SLOT(onPowerModeChanged(int)));
+        connect(m_powerUi->patternAdd, SIGNAL(clicked()), this, SLOT(onPowerAddToPatternClicked()));
+        connect(m_powerUi->usePlaceholders, SIGNAL(stateChanged(int)), this, SLOT(onPowerUsePlaceholdersToggle(int)));
+        connect(m_powerUi->replacementAdd, SIGNAL(clicked()), this, SLOT(onPowerAddToReplacementClicked()));
+    }
+
     // Focus
-    centralWidget()->setFocusProxy(m_powerUi->pattern);
     m_powerUi->pattern->setFocus(Qt::MouseFocusReason);
 }
 
 
 
 void KateSearchBar::onMutateIncremental() {
-    // Re-init if existing
-    if (m_incUi != NULL) {
-        if (!m_widget->isVisible()) {
-            m_incUi->pattern->setText("");
-            onIncPatternChanged(""); // Needed in case the text did not change, better way?
-        }
+    // Coming from incremental search?
+    const bool fromIncremental = (m_incUi != NULL) && (m_widget->isVisible());
+    QString initialPattern;
+    if (fromIncremental) {
+        m_incUi->pattern->setFocus(Qt::MouseFocusReason);
         return;
     }
 
-
-    // Initial search pattern
-    QString initialPattern;
-    if ((m_powerUi != NULL) && m_widget->isVisible()) {
+    // Coming from power search?
+    const bool fromReplace = (m_powerUi != NULL) && (m_widget->isVisible());
+    if (fromReplace) {
         initialPattern = m_powerUi->pattern->currentText();
     }
 
-    // Kill power widget
-    delete m_powerUi;
-    m_powerUi = NULL;
-    delete m_widget;
+    // Create dialog
+    const bool create = (m_incUi == NULL);
+    if (create) {
+        // Kill power widget
+        if (m_powerUi != NULL) {
+            // Backup current settings
+            m_powerMatchCase = isChecked(m_powerUi->matchCase);
+            m_powerFromCursor = isChecked(m_powerUi->fromCursor);
+            m_powerHighlightAll = isChecked(m_powerUi->highlightAll);
+            m_powerSelectionOnly = isChecked(m_powerUi->selectionOnly);
+            m_powerUsePlaceholders = isChecked(m_powerUi->usePlaceholders);
+            m_powerMode = m_powerUi->searchMode->currentIndex();
 
-    // Add incremental widget
-    m_widget = new QWidget;
-    m_incUi = new Ui::IncrementalSearchBar;
-    m_incUi->setupUi(m_widget);
-    m_layout->addWidget(m_widget);
+            // Kill widget
+            delete m_powerUi;
+            m_powerUi = NULL;
+            delete m_widget;
+        }
 
-    // Disable next/prev
-    m_incUi->next->setDisabled(true);
-    m_incUi->prev->setDisabled(true);
+        // Add incremental widget
+        m_widget = new QWidget;
+        m_incUi = new Ui::IncrementalSearchBar;
+        m_incUi->setupUi(m_widget);
+        m_layout->addWidget(m_widget);
 
-    // Fill options menu
-    m_incMenu = new QMenu();
-    m_incUi->options->setMenu(m_incMenu);
-    m_incMenuMatchCase = m_incMenu->addAction(i18n("&Match case"));
-    m_incMenuMatchCase->setCheckable(true);
-    m_incMenuFromCursor = m_incMenu->addAction(i18n("From &cursor"));
-    m_incMenuFromCursor->setCheckable(true);
-    m_incMenuFromCursor->setChecked(true);
-    m_incMenuHighlightAll = m_incMenu->addAction(i18n("Hi&ghlight all"));
-    m_incMenuHighlightAll->setCheckable(true);
-    m_incMenuHighlightAll->setDisabled(true);
+        // Fill options menu
+        m_incMenu = new QMenu();
+        m_incUi->options->setMenu(m_incMenu);
+        m_incMenuMatchCase = m_incMenu->addAction(i18n("&Match case"));
+        m_incMenuMatchCase->setCheckable(true);
+        m_incMenuFromCursor = m_incMenu->addAction(i18n("From &cursor"));
+        m_incMenuFromCursor->setCheckable(true);
+        m_incMenuHighlightAll = m_incMenu->addAction(i18n("Hi&ghlight all"));
+        m_incMenuHighlightAll->setCheckable(true);
+        m_incMenuHighlightAll->setDisabled(true);
 
-    // Icons
-    m_incUi->mutate->setIcon(KIcon("arrow-up-double"));
-    m_incUi->next->setIcon(KIcon("go-down"));
-    m_incUi->prev->setIcon(KIcon("go-up"));
+        // Icons
+        m_incUi->mutate->setIcon(KIcon("arrow-up-double"));
+        m_incUi->next->setIcon(KIcon("go-down"));
+        m_incUi->prev->setIcon(KIcon("go-up"));
 
-    // Slots
-    connect(m_incUi->mutate, SIGNAL(clicked()), this, SLOT(onMutatePower()));
-    connect(m_incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onIncNext()));
-    connect(m_incUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
-    connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(onIncNext()));
-    connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(onIncPrev()));
+        // Focus proxy
+        centralWidget()->setFocusProxy(m_incUi->pattern);
+    }
 
-    // Make button click open the menu as well. IMHO with the dropdown arrow present the button
-    // better shows his nature than in instant popup mode.
-    connect(m_incUi->options, SIGNAL(clicked()), m_incUi->options, SLOT(showMenu()));
+    // Guess settings from context
+    // NOOP
 
-    // Initial search pattern
+    // Restore previous settings
+    if (create) {
+        setChecked(m_incMenuHighlightAll, m_incHighlightAll);
+        setChecked(m_incMenuFromCursor, m_incFromCursor);
+        setChecked(m_incMenuMatchCase, m_incMatchCase);
+    }
+
+    // Set initial search pattern
     m_incUi->pattern->setText(initialPattern);
     m_incUi->pattern->selectAll();
-    onIncPatternChanged(initialPattern); // Needed in case the text did not change, better way?
+
+    // Propagate settings (slots are still inactive on purpose)
+    onIncPatternChanged(initialPattern);
+
+    if (create) {
+        // Slots
+        connect(m_incUi->mutate, SIGNAL(clicked()), this, SLOT(onMutatePower()));
+        connect(m_incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onIncNext()));
+        connect(m_incUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
+        connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(onIncNext()));
+        connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(onIncPrev()));
+
+        // Make button click open the menu as well. IMHO with the dropdown arrow present the button
+        // better shows his nature than in instant popup mode.
+        connect(m_incUi->options, SIGNAL(clicked()), m_incUi->options, SLOT(showMenu()));
+    }
 
     // Focus
-    centralWidget()->setFocusProxy(m_incUi->pattern);
     m_incUi->pattern->setFocus(Qt::MouseFocusReason);
 }
 
@@ -983,6 +1022,20 @@ bool KateSearchBar::isChecked(QCheckBox * checkbox) {
 bool KateSearchBar::isChecked(QAction * menuAction) {
     Q_ASSERT(menuAction != NULL);
     return menuAction->isChecked();
+}
+
+
+
+void KateSearchBar::setChecked(QCheckBox * checkbox, bool checked) {
+    Q_ASSERT(checkbox != NULL);
+    checkbox->setCheckState(checked ? Qt::Checked : Qt::Unchecked);
+}
+
+
+
+void KateSearchBar::setChecked(QAction * menuAction, bool checked) {
+    Q_ASSERT(menuAction != NULL);
+    menuAction->setChecked(checked);
 }
 
 

@@ -85,6 +85,8 @@ private:
     // Helpers
     bool isChecked(QCheckBox * checkbox);
     bool isChecked(QAction * menuAction);
+    void setChecked(QCheckBox * checkbox, bool checked);
+    void setChecked(QAction * menuAction, bool checked);
     void enableHighlights(bool enable);
     void resetHighlights();
 
@@ -131,6 +133,17 @@ private:
 
     // Power search related
     Ui::PowerSearchBar * m_powerUi;
+
+    // Status backup
+    bool m_incHighlightAll : 1;
+    bool m_incFromCursor : 1;
+    bool m_incMatchCase : 1;
+    bool m_powerMatchCase : 1;
+    bool m_powerFromCursor : 1;
+    bool m_powerHighlightAll : 1;
+    bool m_powerSelectionOnly : 1;
+    bool m_powerUsePlaceholders : 1;
+    int m_powerMode : 2;
 
 };
 

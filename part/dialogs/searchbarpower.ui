@@ -98,6 +98,9 @@
              <property name="text" >
               <string>as</string>
              </property>
+             <property name="buddy" >
+              <cstring>searchMode</cstring>
+             </property>
             </widget>
            </item>
            <item>

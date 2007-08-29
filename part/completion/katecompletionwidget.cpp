@@ -189,6 +189,8 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
 {
   m_isSuspended = false;
 
+  m_dontShowArgumentHints = true;
+  
   if (!word.isValid()) {
     kWarning(13035) << "Invalid range given to start code completion!";
     return;
@@ -229,8 +231,6 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   updatePosition(true);
 
   if (!m_presentationModel->completionModels().isEmpty()) {
-    m_dontShowArgumentHints = true;
-
     show();
 
     foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels()) {
@@ -241,11 +241,12 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
 
     m_presentationModel->setCurrentCompletion(view()->doc()->text(KTextEditor::Range(m_completionRange->start(), view()->cursorPosition())));
 
-    m_dontShowArgumentHints = false;
-    m_argumentHintModel->buildRows();
-    m_argumentHintTree->updateGeometry();
-
-    m_argumentHintTree->show();
+    if( m_argumentHintModel->rowCount(QModelIndex()) != 0 ) {
+      m_dontShowArgumentHints = false;
+      m_argumentHintModel->buildRows();
+      m_argumentHintTree->updateGeometry();
+      m_argumentHintTree->show();
+    }
   }
 }
 

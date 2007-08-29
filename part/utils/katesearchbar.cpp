@@ -12,6 +12,7 @@
 
 /* This file is part of the KDE libraries
    Copyright (C) 2007 Sebastian Pipping <webmaster@hartwork.org>
+   Copyright (C) 2007 Matthew Woehlke <mw_triad@users.sourceforge.net>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -37,6 +38,8 @@
 #include <QtGui/QComboBox>
 #include <QtGui/QCheckBox>
 #include <QStringListModel>
+
+#include <kcolorscheme.h>
 
 using namespace KTextEditor;
 
@@ -151,12 +154,21 @@ void KateSearchBar::highlightReplacement(const Range & range) {
 
 
 
+void adjustBackground(QPalette & palette, QPalette::ColorRole role,
+                      KColorScheme::ColorSet set, KColorScheme::BackgroundRole newRole)
+{
+    palette.setBrush(QPalette::Active,   role, KColorScheme(QPalette::Active,   set).background(newRole));
+    palette.setBrush(QPalette::Inactive, role, KColorScheme(QPalette::Inactive, set).background(newRole));
+    palette.setBrush(QPalette::Disabled, role, KColorScheme(QPalette::Disabled, set).background(newRole));
+}
+
+
+
 void KateSearchBar::indicateMatch(bool wrapped) {
     if (m_incUi != NULL) {
         // Green background for line edit
-        QColor color("palegreen");
-        QPalette background;
-        background.setColor(QPalette::Base, color);
+        QPalette background(m_incUi->pattern->palette());
+        adjustBackground(background, QPalette::Base, KColorScheme::View, KColorScheme::PositiveBackground);
         m_incUi->pattern->setPalette(background);
 
         // Update status label
@@ -173,9 +185,8 @@ void KateSearchBar::indicateMatch(bool wrapped) {
 void KateSearchBar::indicateMismatch() {
     if (m_incUi != NULL) {
         // Red background for line edit
-        QColor color("lightsalmon");
-        QPalette background;
-        background.setColor(QPalette::Base, color);
+        QPalette background(m_incUi->pattern->palette());
+        adjustBackground(background, QPalette::Base, KColorScheme::View, KColorScheme::NegativeBackground);
         m_incUi->pattern->setPalette(background);
 
         // Update status label
@@ -191,8 +202,10 @@ void KateSearchBar::indicateNothing() {
     if (m_incUi != NULL) {
         // Reset background of line edit
         QColor color = QPalette().color(QPalette::Base);
-        QPalette background;
-        background.setColor(QPalette::Base, color);
+        QPalette background(m_incUi->pattern->palette());
+        background.setBrush(QPalette::Active, QPalette::Base, QPalette().brush(QPalette::Active, QPalette::Base));
+        background.setBrush(QPalette::Inactive, QPalette::Base, QPalette().brush(QPalette::Inactive, QPalette::Base));
+        background.setBrush(QPalette::Disabled, QPalette::Base, QPalette().brush(QPalette::Disabled, QPalette::Base));
         m_incUi->pattern->setPalette(background);
 
         // Update status label
@@ -744,7 +757,7 @@ void KateSearchBar::showAddMenu(bool forPattern) {
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\8", "", i18n("Capture reference 8"));
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\9", "", i18n("Capture reference 9"));
         popupMenu->addSeparator();
-    }    
+    }
 
     addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\n", "", i18n("Line break"));
     addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\t", "", i18n("Tab"));
@@ -770,7 +783,7 @@ void KateSearchBar::showAddMenu(bool forPattern) {
     }
 
 
-    // Show menu    
+    // Show menu
     const QPoint topLeftGlobal = m_powerUi->patternAdd->mapToGlobal(QPoint(0, 0));
     QAction * const result = popupMenu->exec(topLeftGlobal);
     if (result != NULL) {

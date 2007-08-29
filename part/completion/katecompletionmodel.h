@@ -207,6 +207,9 @@ class KateCompletionModel : public ExpandingWidgetModel
         KateCompletionModel* model;
         ModelRow m_sourceRow;
 
+        mutable QString m_completionSortingName;
+        bool m_haveCompletionName;
+        
         int inheritanceDepth;
 
         // True when currently matching completion string
@@ -214,7 +217,7 @@ class KateCompletionModel : public ExpandingWidgetModel
         // True when passes all active filters
         bool matchFilters;
 
-        QString completionName() const;
+        QString completionSortingName() const;
     };
 
     // Grouping and sorting of rows

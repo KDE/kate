@@ -1233,10 +1233,12 @@ Qt::CaseSensitivity KateCompletionModel::sortingCaseSensitivity( ) const
 KateCompletionModel::Item::Item( KateCompletionModel* m, ModelRow sr )
   : model(m)
   , m_sourceRow(sr)
+  , m_haveCompletionName(false)
   , matchCompletion(true)
   , matchFilters(true)
 {
   inheritanceDepth = m_sourceRow.first->index(m_sourceRow.second, 0).data(CodeCompletionModel::InheritanceDepth).toInt();
+  
   filter();
   match();
 }
@@ -1244,23 +1246,16 @@ KateCompletionModel::Item::Item( KateCompletionModel* m, ModelRow sr )
 bool KateCompletionModel::Item::operator <( const Item & rhs ) const
 {
   int ret = 0;
-  if (model->isSortingAlphabetical()) {
-    QString c1 = completionName();
-    QString c2 = rhs.completionName();
-    if (model->sortingCaseSensitivity() == Qt::CaseSensitive) {
-      c1 = c1.toLower();
-      c2 = c2.toLower();
-      ret = QString::localeAwareCompare(c1, c2);
-
-    } else {
-      ret = QString::localeAwareCompare(c1, c2);
-    }
 
     //kDebug() << c1 << " c/w " << c2 << " -> " << (model->isSortingReverse() ? ret > 0 : ret < 0) << " (" << ret << ")";
 
-  } else if( model->isSortingByInheritanceDepth() ) {
-    return inheritanceDepth < rhs.inheritanceDepth;
-  } else {
+  if( model->isSortingByInheritanceDepth() )
+    ret = inheritanceDepth - rhs.inheritanceDepth;
+
+  if (ret == 0 && model->isSortingAlphabetical())
+    ret = QString::compare(completionSortingName(), rhs.completionSortingName()); //Do not use localeAwareCompare, because it is simply too slow for a list of about 1000 items
+
+  if( ret == 0 ) {
     // FIXME need to define a better default ordering for multiple model display
     ret = m_sourceRow.second - rhs.m_sourceRow.second;
   }
@@ -1268,9 +1263,14 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
   return model->isSortingReverse() ? ret > 0 : ret < 0;
 }
 
-QString KateCompletionModel::Item::completionName( ) const
+QString KateCompletionModel::Item::completionSortingName( ) const
 {
-  return m_sourceRow.first->index(m_sourceRow.second, CodeCompletionModel::Name, QModelIndex()).data(Qt::DisplayRole).toString();
+  if( !m_haveCompletionName ) {
+    m_completionSortingName = m_sourceRow.first->index(m_sourceRow.second, CodeCompletionModel::Name, QModelIndex()).data(Qt::DisplayRole).toString();
+    if (model->sortingCaseSensitivity() == Qt::CaseSensitive)
+        m_completionSortingName = m_completionSortingName.toLower();
+  }
+  return m_completionSortingName;
 }
 
 void KateCompletionModel::Group::addItem( Item i )

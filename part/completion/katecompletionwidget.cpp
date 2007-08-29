@@ -241,9 +241,9 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
 
     m_presentationModel->setCurrentCompletion(view()->doc()->text(KTextEditor::Range(m_completionRange->start(), view()->cursorPosition())));
 
+    m_argumentHintModel->buildRows();
     if( m_argumentHintModel->rowCount(QModelIndex()) != 0 ) {
       m_dontShowArgumentHints = false;
-      m_argumentHintModel->buildRows();
       m_argumentHintTree->updateGeometry();
       m_argumentHintTree->show();
     }

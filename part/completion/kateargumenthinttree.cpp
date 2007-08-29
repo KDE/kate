@@ -92,6 +92,7 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
     return;
   }
 
+  setUpdatesEnabled(false);
   show();
   int bottom = geom.bottom();
   int totalWidth = resizeColumns();
@@ -137,6 +138,7 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
   
   show();
   updatingGeometry = false;
+  setUpdatesEnabled(true);
 }
 
 int KateArgumentHintTree::resizeColumns() {

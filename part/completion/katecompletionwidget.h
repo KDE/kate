@@ -122,6 +122,7 @@ class KateCompletionWidget : public QFrame
     void rowsInserted(const QModelIndex& parent, int row, int rowEnd);
 
   private:
+    void updateArgumentHintGeometry();
     void updateHeight();
     QModelIndex selectedIndex() const;
 

@@ -95,7 +95,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
 
   firstCall = true;
 
-  setUpdatesEnabled(false);
+  widget()->setUpdatesEnabled(false);
 
   int modelIndexOfName = kateModel()->translateColumn(KTextEditor::CodeCompletionModel::Name);
   int oldIndentWidth = columnViewportPosition(modelIndexOfName);
@@ -106,6 +106,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
   int numColumns = model()->columnCount();
   
   QVector<int> columnSize(numColumns, 5);
+  columnSize[0] = 50;
 
   QModelIndex current = indexAt(QPoint(1,1));
 
@@ -142,10 +143,31 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
 
   ///Step 2: Update column-sizes
   if( changed ) {
-    //It may happen that while initial showing, no visual rectangles can be retrieved.
+
+    int minimumResize = 0;
+    int maximumResize = 0;
     for( int n = 0; n < numColumns; n++ ) {
-      setColumnWidth(n, columnSize[n]);
       totalColumnsWidth += columnSize[n];
+      
+      int diff = columnSize[n] - columnWidth(n);
+      if( diff < minimumResize )
+        minimumResize = diff;
+      if( diff > maximumResize )
+        maximumResize = diff;
+    }
+
+    if( minimumResize > -40 && maximumResize == 0 ) {
+      //No column needs to be exanded, and no column needs to be reduced by more then 40 pixels.
+      //To prevent flashing, do not resize at all.
+      totalColumnsWidth = 0;
+      for( int n = 0; n < numColumns; n++ ) {
+        columnSize[n] = columnWidth(n);
+        totalColumnsWidth += columnSize[n];
+      }
+    } else {
+      //It may happen that while initial showing, no visual rectangles can be retrieved.
+      for( int n = 0; n < numColumns; n++ )
+        setColumnWidth(n, columnSize[n]);
     }
   }
 
@@ -156,7 +178,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
   int scrollBarWidth = verticalScrollBar()->width();
   int newMinWidth = totalColumnsWidth /*+ scrollBarWidth*/;
 
-  int minWidth = qMax(50, newMinWidth);
+  int minWidth = qMax(500, newMinWidth);
 
   //kDebug() << "New min width: " << minWidth << " Old min: " << minimumWidth() << " width " << width();
   setMinimumWidth(minWidth);
@@ -176,7 +198,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
   if (oldIndentWidth != newIndentWidth)
     widget()->updatePosition();
 
-  setUpdatesEnabled(true);
+  widget()->setUpdatesEnabled(true);
 
   firstCall = false;
 }

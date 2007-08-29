@@ -228,6 +228,8 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   else
     m_presentationModel->setCompletionModels(m_sourceModels);
 
+  setUpdatesEnabled(false);
+  
   updatePosition(true);
 
   if (!m_presentationModel->completionModels().isEmpty()) {
@@ -244,10 +246,11 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
     m_argumentHintModel->buildRows();
     if( m_argumentHintModel->rowCount(QModelIndex()) != 0 ) {
       m_dontShowArgumentHints = false;
-      m_argumentHintTree->updateGeometry();
-      m_argumentHintTree->show();
+      updateArgumentHintGeometry();
     }
   }
+  
+  setUpdatesEnabled(true);
 }
 
 void KateCompletionWidget::updatePositionSlot()
@@ -284,12 +287,19 @@ void KateCompletionWidget::updatePosition(bool force)
 
   updateHeight();
 
-  //Now place the argument-hint widget
-  QRect geom = m_argumentHintTree->geometry();
-  geom.moveTo(QPoint(x,y));
-  geom.setWidth(width());
-  geom.moveBottom(y - view()->renderer()->config()->fontMetrics().height()*2);
-  m_argumentHintTree->updateGeometry(geom);
+  updateArgumentHintGeometry();
+}
+
+void KateCompletionWidget::updateArgumentHintGeometry()
+{
+  if( !m_dontShowArgumentHints ) {
+    //Now place the argument-hint widget
+    QRect geom = m_argumentHintTree->geometry();
+    geom.moveTo(pos());
+    geom.setWidth(width());
+    geom.moveBottom(pos().y() - view()->renderer()->config()->fontMetrics().height()*2);
+    m_argumentHintTree->updateGeometry(geom);
+  }
 }
 
 void KateCompletionWidget::updateHeight()
@@ -456,7 +466,7 @@ void KateCompletionWidget::showEvent ( QShowEvent * event )
 
   QWidget::showEvent(event);
 
-  if( !m_dontShowArgumentHints )
+  if( !m_dontShowArgumentHints && m_argumentHintModel->rowCount(QModelIndex()) != 0 )
     m_argumentHintTree->show();
 }
 

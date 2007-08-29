@@ -21,10 +21,10 @@
 #ifndef _KateSessionMenu_h_
 #define _KateSessionMenu_h_
 
-#include <plasma/kpanelmenu.h>
+#include <k3panelmenu.h>
 #include <QObject>
 
-class KateSessionMenu : public KPanelMenu {
+class KateSessionMenu : public K3PanelMenu {
   Q_OBJECT
   public:
     explicit KateSessionMenu( QWidget *parent=0, const QStringList& args=QStringList() );

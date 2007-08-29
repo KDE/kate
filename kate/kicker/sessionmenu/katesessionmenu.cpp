@@ -44,7 +44,7 @@ class Validator : public QValidator {
 K_EXPORT_KICKER_MENUEXT(kate, KateSessionMenu)
 
 KateSessionMenu::KateSessionMenu( QWidget *parent, const QStringList& )
-  : KPanelMenu( "", parent ),
+  : K3PanelMenu( "", parent ),
     m_parent( parent )
 {
 }

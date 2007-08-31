@@ -345,7 +345,7 @@ class KateViewConfig : public KateConfig
       PowerMatchCase = 1 << 3,
       PowerHighlightAll = 1 << 4,
       PowerFromCursor = 1 << 5,
-      PowerSelectionOnly = 1 << 6,
+      // PowerSelectionOnly = 1 << 6, Better not save to file // Sebastian
       PowerModePlainText = 1 << 7,
       PowerModeWholeWords = 1 << 8,
       PowerModeEscapeSequences = 1 << 9,

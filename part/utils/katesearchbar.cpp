@@ -65,7 +65,6 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar, bool initAsPower)
         m_powerMatchCase(true),
         m_powerFromCursor(false),
         m_powerHighlightAll(false),
-        m_powerSelectionOnly(false),
         m_powerUsePlaceholders(false),
         m_powerMode(0) {
     // Modify parent
@@ -88,7 +87,6 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar, bool initAsPower)
     m_powerMatchCase = (searchFlags & KateViewConfig::PowerMatchCase) != 0;
     m_powerFromCursor = (searchFlags & KateViewConfig::PowerFromCursor) != 0;
     m_powerHighlightAll = (searchFlags & KateViewConfig::PowerHighlightAll) != 0;
-    m_powerSelectionOnly = (searchFlags & KateViewConfig::PowerSelectionOnly) != 0;
     m_powerUsePlaceholders = (searchFlags & KateViewConfig::PowerUsePlaceholders) != 0;
     m_powerMode = ((searchFlags & KateViewConfig::PowerModeRegularExpression) != 0)
             ? 3
@@ -626,7 +624,6 @@ void KateSearchBar::backupConfig(bool ofPower) {
         m_powerMatchCase = isChecked(m_powerUi->matchCase);
         m_powerFromCursor = isChecked(m_powerUi->fromCursor);
         m_powerHighlightAll = isChecked(m_powerUi->highlightAll);
-        m_powerSelectionOnly = isChecked(m_powerUi->selectionOnly);
         m_powerUsePlaceholders = isChecked(m_powerUi->usePlaceholders);
         m_powerMode = m_powerUi->searchMode->currentIndex();
     } else {
@@ -657,7 +654,6 @@ void KateSearchBar::sendConfig() {
             | (m_powerMatchCase ? KateViewConfig::PowerMatchCase : 0)
             | (m_powerFromCursor ? KateViewConfig::PowerFromCursor : 0)
             | (m_powerHighlightAll ? KateViewConfig::PowerHighlightAll : 0)
-            | (m_powerSelectionOnly ? KateViewConfig::PowerSelectionOnly : 0)
             | (m_powerUsePlaceholders ? KateViewConfig::PowerUsePlaceholders : 0)
             | ((m_powerMode == 3)
                 ? KateViewConfig::PowerModeRegularExpression
@@ -676,7 +672,6 @@ void KateSearchBar::sendConfig() {
                 & (KateViewConfig::PowerMatchCase
                     | KateViewConfig::PowerFromCursor
                     | KateViewConfig::PowerHighlightAll
-                    | KateViewConfig::PowerSelectionOnly
                     | KateViewConfig::PowerUsePlaceholders
                     | KateViewConfig::PowerModeRegularExpression
                     | KateViewConfig::PowerModeEscapeSequences
@@ -1011,14 +1006,6 @@ void KateSearchBar::onPowerFromCursorToggle(bool invokedByUserAction) {
 
 
 
-void KateSearchBar::onPowerSelectionOnlyToggle(bool invokedByUserAction) {
-    if (invokedByUserAction) {
-        sendConfig();
-    }
-}
-
-
-
 void KateSearchBar::onPowerModeChanged(int index, bool invokedByUserAction) {
     const bool disabled = (index < 2); // TODO
     m_powerUi->patternAdd->setDisabled(disabled);
@@ -1110,6 +1097,7 @@ void KateSearchBar::onMutatePower() {
 
     // Guess settings from context
     const bool selected = m_view->selection();
+    bool selectionOnly = false;
     if (!fromIncremental) {
         // Init pattern with current selection
         if (selected) {
@@ -1119,27 +1107,16 @@ void KateSearchBar::onMutatePower() {
                 initialPattern = m_view->selectionText();
             } else {
                 // Enable selection only
-                if (create) {
-                    m_powerSelectionOnly = true;
-                } else {
-                    setChecked(m_powerUi->selectionOnly, true);
-                }
+                selectionOnly = true;
             }
         }
-    } else {
-        // Disable selection only
-        if (create) {
-            m_powerSelectionOnly = false;
-        } else {
-            setChecked(m_powerUi->selectionOnly, false);
-        }
     }
+    setChecked(m_powerUi->selectionOnly, selectionOnly);
 
     // Restore previous settings
     if (create) {
         setChecked(m_powerUi->matchCase, m_powerMatchCase);
         setChecked(m_powerUi->highlightAll, m_powerHighlightAll);
-        setChecked(m_powerUi->selectionOnly, m_powerSelectionOnly);
         setChecked(m_powerUi->usePlaceholders, m_powerUsePlaceholders);
         setChecked(m_powerUi->fromCursor, m_powerFromCursor);
         m_powerUi->searchMode->setCurrentIndex(m_powerMode);
@@ -1176,7 +1153,6 @@ void KateSearchBar::onMutatePower() {
         connect(m_powerUi->matchCase, SIGNAL(stateChanged(int)), this, SLOT(onPowerMatchCaseToggle()));
         connect(m_powerUi->highlightAll, SIGNAL(stateChanged(int)), this, SLOT(onPowerHighlightAllToggle()));
         connect(m_powerUi->fromCursor, SIGNAL(stateChanged(int)), this, SLOT(onPowerFromCursorToggle()));
-        connect(m_powerUi->selectionOnly, SIGNAL(stateChanged(int)), this, SLOT(onPowerSelectionOnlyToggle()));
         connect(m_powerUi->replacementAdd, SIGNAL(clicked()), this, SLOT(onPowerAddToReplacementClicked()));
     }
 

@@ -82,7 +82,6 @@ public Q_SLOTS:
     void onPowerMatchCaseToggle(bool invokedByUserAction = true);
     void onPowerHighlightAllToggle(bool invokedByUserAction = true);
     void onPowerFromCursorToggle(bool invokedByUserAction = true);
-    void onPowerSelectionOnlyToggle(bool invokedByUserAction = true);
     void onPowerModeChanged(int index, bool invokedByUserAction = true);
 
 public Q_SLOTS:
@@ -151,7 +150,6 @@ private:
     bool m_powerMatchCase : 1;
     bool m_powerFromCursor : 1;
     bool m_powerHighlightAll : 1;
-    bool m_powerSelectionOnly : 1;
     bool m_powerUsePlaceholders : 1;
     unsigned int m_powerMode : 2;
 

@@ -2179,7 +2179,19 @@ kDebug() << "searchText/regex | range " << y << ": (" << startLine << ", " << st
 
       const int offset = (j == forMin) ? minLeft : 0;
       uint foundAt, myMatchLen;
-      const bool found = textLine->searchText (offset, regexp, &foundAt, &myMatchLen, backwards);
+
+        // BEGIN QUICK BUGFIX
+//      const bool found = textLine->searchText (offset, regexp, &foundAt, &myMatchLen, backwards);
+        const int first = (j == forMin) ? minLeft : 0;
+        const int afterLast = (j == forMax) ? maxRight : textLine->length();
+        const QString hay = textLine->string(first, afterLast - first);
+        foundAt = backwards ? regexp.lastIndexIn(hay) : regexp.indexIn(hay);
+        const bool found = (foundAt != -1);
+        if (found) {
+            foundAt += first;
+            myMatchLen = regexp.matchedLength();
+        }
+        // END QUICK BUGFIX
 
       /*
       TODO do we still need this?

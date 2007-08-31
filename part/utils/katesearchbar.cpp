@@ -358,6 +358,42 @@ void KateSearchBar::onIncPrev() {
 
 
 
+void KateSearchBar::fixForSingleLine(Range & range, bool forwards) {
+    kDebug() << "Single-line workaround checking" << range;
+    if (forwards) {
+        const int line = range.start().line();
+        const int col = range.start().column();
+        const int maxColWithNewline = m_view->doc()->lineLength(line);
+        if (col == maxColWithNewline) {
+            kDebug() << "Starting on a newline" << range;
+            const int maxLine = m_view->doc()->lines() - 1;
+            if (line < maxLine) {
+                range.setRange(Cursor(line + 1, 0), range.end());                
+                kDebug() << "Search range fixed to " << range;
+            } else {
+                // Already at last line
+                range = Range::invalid();
+            }
+        }
+    } else {
+        const int col = range.end().column();
+        if (col == 0) {
+            kDebug() << "Ending after a newline" << range;
+            const int line = range.end().line();
+            if (line > 0) {
+                const int maxColWithNewline = m_view->doc()->lineLength(line - 1);
+                range.setRange(range.start(), Cursor(line - 1, maxColWithNewline));
+                kDebug() << "Search range fixed to " << range;
+            } else {
+                // Already at first line
+                range = Range::invalid();
+            }
+        }
+    }
+}
+
+
+
 void KateSearchBar::onStep(bool replace, bool forwards) {
     // What to find?
     const QString pattern = (m_powerUi != NULL)
@@ -378,6 +414,7 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
         enabledOptions |= Search::Backwards;
     }
 
+    bool multiLinePattern = false;
     if (m_powerUi != NULL) {
         switch (m_powerUi->searchMode->currentIndex()) {
         case 1: // Whole words
@@ -386,9 +423,15 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
 
         case 2: // Escape sequences
             enabledOptions |= Search::EscapeSequences;
+            multiLinePattern = true;
             break;
 
         case 3: // Regular expression
+            {
+                // Check if pattern multi-line
+                QString patternCopy(pattern);
+                KateDocument::repairPattern(patternCopy, multiLinePattern);
+            }
             enabledOptions |= Search::Regex;
             break;
 
@@ -435,6 +478,13 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
             inputRange = m_view->doc()->documentRange();
         }
     }
+    kDebug() << "Search range is" << inputRange;
+
+    // Single-line workaround
+    if (!multiLinePattern) {
+        fixForSingleLine(inputRange, forwards);
+    }
+
 
     // Find, first try
     const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
@@ -457,6 +507,8 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
                 } else {
                     inputRange.setRange(inputRange.start(), selection.start());
                 }
+                fixForSingleLine(inputRange, forwards);
+
                 const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
                 const Range & match2 = resultRanges2[0];
                 if (match2.isValid()) {
@@ -632,6 +684,7 @@ void KateSearchBar::onPowerReplaceAll() {
         enabledOptions |= Search::CaseInsensitive;
     }
 
+    bool multiLinePattern = false;
     if (m_powerUi != NULL) {
         switch (m_powerUi->searchMode->currentIndex()) {
         case 1: // Whole words
@@ -640,9 +693,15 @@ void KateSearchBar::onPowerReplaceAll() {
 
         case 2: // Escape sequences
             enabledOptions |= Search::EscapeSequences;
+            multiLinePattern = true;
             break;
 
         case 3: // Regular expression
+            {
+                // Check if pattern multi-line
+                QString patternCopy(pattern);
+                KateDocument::repairPattern(patternCopy, multiLinePattern);
+            }
             enabledOptions |= Search::Regex;
             break;
 
@@ -671,9 +730,46 @@ void KateSearchBar::onPowerReplaceAll() {
             break;
         }
 
-        // Continue after match
         replacementJobs.append(resultRanges);
-        inputRange.setRange(match.end(), inputRange.end());
+
+        if (!multiLinePattern) {
+            // NOTE: Without this workaround patterns like ".*" would hit
+            // each line twice, second time the newline only
+            const int line = match.end().line();
+            const int maxLine = m_view->doc()->lines() - 1;
+            if (line < maxLine) {
+                inputRange.setRange(Cursor(line + 1, 0), inputRange.end());
+            } else {
+                // Already at last line
+                break;
+            }
+        } else {
+            // Continue after match
+            if (match.start() == match.end()) {
+                // Can happen for regex patterns like "^".
+                // If we don't advance here we will loop forever...
+                const int line = match.end().line();
+                const int col = match.end().column();
+                const int maxColWithNewline = m_view->doc()->lineLength(line);
+                if (col < maxColWithNewline) {
+                    // Advance on same line
+                    inputRange.setRange(Cursor(line, col + 1), inputRange.end());
+                } else {
+                    // Advance to next line
+                    const int maxLine = m_view->doc()->lines() - 1;
+                    if (line < maxLine) {
+                        // Next line
+                        inputRange.setRange(Cursor(line + 1, 0), inputRange.end());
+                    } else {
+                        // Already at last line
+                        break;
+                    }
+                }
+            } else {
+                inputRange.setRange(match.end(), inputRange.end());
+            }
+        }
+
         if (!inputRange.isValid()) {
             break;
         }

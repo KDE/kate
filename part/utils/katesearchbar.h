@@ -111,6 +111,7 @@ private:
     void addCurrentTextToHistory(QComboBox * combo);
     void backupConfig(bool ofPower);
     void sendConfig();
+    void fixForSingleLine(KTextEditor::Range & range, bool forwards);
 
 private:
     // Overridden

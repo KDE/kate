@@ -1154,6 +1154,9 @@ void KateSearchBar::onMutatePower() {
         connect(m_powerUi->highlightAll, SIGNAL(stateChanged(int)), this, SLOT(onPowerHighlightAllToggle()));
         connect(m_powerUi->fromCursor, SIGNAL(stateChanged(int)), this, SLOT(onPowerFromCursorToggle()));
         connect(m_powerUi->replacementAdd, SIGNAL(clicked()), this, SLOT(onPowerAddToReplacementClicked()));
+
+        // Make [return] in pattern line edit trigger <find next> action
+        connect(patternLineEdit, SIGNAL(returnPressed()), this, SLOT(onPowerFindNext()));
     }
 
     // Focus

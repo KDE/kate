@@ -1104,18 +1104,20 @@ void KateView::slotNeedTextHint(int line, int col, QString &text)
 
 void KateView::find()
 {
-  searchBar()->onMutateIncremental();
-
-  searchBar()->showBar();
-  searchBar()->setFocus();
+  const bool INIT_HINT_AS_POWER = true;
+  KateSearchBar * const bar = searchBar(INIT_HINT_AS_POWER);
+  bar->onMutateIncremental();
+  bar->showBar();
+  bar->setFocus();
 }
 
 void KateView::replace()
 {
-  searchBar()->onMutatePower();
-
-  searchBar()->showBar();
-  searchBar()->setFocus();
+  const bool INIT_HINT_AS_INCREMENTAL = false;
+  KateSearchBar * const bar = searchBar(INIT_HINT_AS_INCREMENTAL);
+  bar->onMutatePower();
+  bar->showBar();
+  bar->setFocus();
 }
 
 void KateView::findNext()
@@ -2450,12 +2452,12 @@ KateCmdLine *KateView::cmdLine ()
   return m_cmdLine = new KateCmdLine (this, m_viewBar);
 }
 
-KateSearchBar *KateView::searchBar ()
+KateSearchBar *KateView::searchBar (bool initHintAsPower)
 {
   if (m_searchBar)
     return m_searchBar;
 
-  return m_searchBar = new KateSearchBar(m_viewBar);
+  return m_searchBar = new KateSearchBar(m_viewBar, initHintAsPower);
 }
 
 KateGotoBar *KateView::gotoBar ()

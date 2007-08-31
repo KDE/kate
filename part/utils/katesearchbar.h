@@ -55,7 +55,7 @@ class KateSearchBar : public KateViewBarWidget {
     Q_OBJECT
 
 public:
-    explicit KateSearchBar(KateViewBar * viewBar);
+    explicit KateSearchBar(KateViewBar * viewBar, bool initAsPower);
     ~KateSearchBar();
 
 public Q_SLOTS:
@@ -66,6 +66,10 @@ public Q_SLOTS:
     void onIncPatternChanged(const QString & pattern);
     void onIncNext();
     void onIncPrev();
+    void onIncMatchCaseToggle(bool invokedByUserAction = true);
+    void onIncHighlightAllToggle(bool invokedByUserAction = true);
+    void onIncFromCursorToggle(bool invokedByUserAction = true);
+
     void onStep(bool replace, bool forwards = true);
     void onPowerPatternChanged(const QString & pattern);
     void onPowerFindNext();
@@ -74,7 +78,11 @@ public Q_SLOTS:
     void onPowerReplaceAll();
     void onPowerAddToPatternClicked();
     void onPowerAddToReplacementClicked();
-    void onPowerUsePlaceholdersToggle(int state);
+    void onPowerUsePlaceholdersToggle(int state, bool invokedByUserAction = true);
+    void onPowerMatchCaseToggle(bool invokedByUserAction = true);
+    void onPowerHighlightAllToggle(bool invokedByUserAction = true);
+    void onPowerFromCursorToggle(bool invokedByUserAction = true);
+    void onPowerSelectionOnlyToggle(bool invokedByUserAction = true);
     void onPowerModeChanged(int index, bool invokedByUserAction = true);
 
 public Q_SLOTS:

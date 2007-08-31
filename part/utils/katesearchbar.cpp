@@ -2,9 +2,7 @@
 ##
 ##  TODO:
 ##  * Fix regex search in KateDocument?
-##    (Skips when backwords, ".*" endless loop!?)
-##  * Fix highlighting of matches/replacements?
-##    (Zero width smart range)
+##    (Fix case with pattern "\n+")
 ##  * Proper loading/saving of search settings
 ##  * Highlight all (with background thread?)
 ##
@@ -32,8 +30,11 @@
 #include "katesearchbar.h"
 #include "kateview.h"
 #include "katedocument.h"
+#include "kateglobal.h"
+
 #include "ui_searchbarincremental.h"
 #include "ui_searchbarpower.h"
+
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QComboBox>
 #include <QtGui/QCheckBox>
@@ -45,7 +46,7 @@ using namespace KTextEditor;
 
 
 
-KateSearchBar::KateSearchBar(KateViewBar * viewBar)
+KateSearchBar::KateSearchBar(KateViewBar * viewBar, bool initAsPower)
         : KateViewBarWidget(viewBar),
         m_view(viewBar->view()),
         m_topRange(NULL),
@@ -67,13 +68,9 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar)
         m_powerSelectionOnly(false),
         m_powerUsePlaceholders(false),
         m_powerMode(0) {
+    // Modify parent
     QWidget * const widget = centralWidget();
     widget->setLayout(m_layout);
-
-    // Start in incremental mode
-    onMutateIncremental();
-    // onMutatePower();
-
     m_layout->setMargin(2);
 
     // Init highlight
@@ -81,8 +78,10 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar)
     m_topRange->setInsertBehavior(SmartRange::ExpandRight);
     enableHighlights(true);
 
-    // Read settings
-    const long searchFlags = m_view->config()->searchFlags();
+
+    // Copy global to local config backup
+    KateViewConfig * const globalConfig = KateGlobal::self()->viewConfig();
+    const long searchFlags = globalConfig->searchFlags();
     m_incHighlightAll = (searchFlags & KateViewConfig::IncHighlightAll) != 0;
     m_incFromCursor = (searchFlags & KateViewConfig::IncFromCursor) != 0;
     m_incMatchCase = (searchFlags & KateViewConfig::IncMatchCase) != 0;
@@ -98,6 +97,15 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar)
                 : (((searchFlags & KateViewConfig::PowerModeWholeWords) != 0)
                     ? 1
                     : 0)); // Plain text
+    kDebug() << "GLOBAL SEARCH CONFIG COPIED TO LOCAL" << "past" << searchFlags;
+
+
+    // Load one of either dialogs
+    if (initAsPower) {
+        onMutatePower();
+    } else {
+        onMutateIncremental();
+    }
 }
 
 
@@ -359,6 +367,30 @@ void KateSearchBar::onIncPrev() {
 
 
 
+void KateSearchBar::onIncMatchCaseToggle(bool invokedByUserAction) {
+    if (invokedByUserAction) {
+        sendConfig();
+    }
+}
+
+
+
+void KateSearchBar::onIncHighlightAllToggle(bool invokedByUserAction) {
+    if (invokedByUserAction) {
+        sendConfig();
+    }
+}
+
+
+
+void KateSearchBar::onIncFromCursorToggle(bool invokedByUserAction) {
+    if (invokedByUserAction) {
+        sendConfig();
+    }
+}
+
+
+
 void KateSearchBar::fixForSingleLine(Range & range, bool forwards) {
     kDebug() << "Single-line workaround checking" << range;
     if (forwards) {
@@ -607,18 +639,21 @@ void KateSearchBar::backupConfig(bool ofPower) {
 
 
 void KateSearchBar::sendConfig() {
+    KateViewConfig * const globalConfig = KateGlobal::self()->viewConfig();
+    const long pastFlags = globalConfig->searchFlags();
+    long futureFlags = pastFlags;
+
     if (m_powerUi != NULL) {
         const bool OF_POWER = true;
         backupConfig(OF_POWER);
-    } else if (m_incUi != NULL) {
-        const bool OF_INCREMENTAL = false;
-        backupConfig(OF_INCREMENTAL);
-    }
 
-    const long searchFlags = 0
-            | (m_incHighlightAll ? KateViewConfig::IncHighlightAll : 0)
-            | (m_incFromCursor ? KateViewConfig::IncFromCursor : 0)
-            | (m_incMatchCase ? KateViewConfig::IncMatchCase : 0)
+        // Update power search flags only
+        const long incFlagsOnly = pastFlags
+                & (KateViewConfig::IncHighlightAll
+                    | KateViewConfig::IncFromCursor
+                    | KateViewConfig::IncMatchCase);
+
+        futureFlags = incFlagsOnly
             | (m_powerMatchCase ? KateViewConfig::PowerMatchCase : 0)
             | (m_powerFromCursor ? KateViewConfig::PowerFromCursor : 0)
             | (m_powerHighlightAll ? KateViewConfig::PowerHighlightAll : 0)
@@ -632,8 +667,31 @@ void KateSearchBar::sendConfig() {
                         ? KateViewConfig::PowerModeWholeWords
                         : KateViewConfig::PowerModePlainText)));
 
-    KateViewConfig * const viewConfig = m_view->config();
-    viewConfig->setSearchFlags(searchFlags);
+    } else if (m_incUi != NULL) {
+        const bool OF_INCREMENTAL = false;
+        backupConfig(OF_INCREMENTAL);
+
+        // Update incremental search flags only
+        const long powerFlagsOnly = pastFlags
+                & (KateViewConfig::PowerMatchCase
+                    | KateViewConfig::PowerFromCursor
+                    | KateViewConfig::PowerHighlightAll
+                    | KateViewConfig::PowerSelectionOnly
+                    | KateViewConfig::PowerUsePlaceholders
+                    | KateViewConfig::PowerModeRegularExpression
+                    | KateViewConfig::PowerModeEscapeSequences
+                    | KateViewConfig::PowerModeWholeWords
+                    | KateViewConfig::PowerModePlainText);
+
+        futureFlags = powerFlagsOnly
+                | (m_incHighlightAll ? KateViewConfig::IncHighlightAll : 0)
+                | (m_incFromCursor ? KateViewConfig::IncFromCursor : 0)
+                | (m_incMatchCase ? KateViewConfig::IncMatchCase : 0);
+    }
+
+    // Adjust global config
+    globalConfig->setSearchFlags(futureFlags);
+    kDebug() << "LOCAL SEARCH CONFIG COPIED TO GLOBAL" << "past" << pastFlags << "future" << futureFlags;
 }
 
 
@@ -918,9 +976,45 @@ void KateSearchBar::onPowerAddToReplacementClicked() {
 
 
 
-void KateSearchBar::onPowerUsePlaceholdersToggle(int state) {
+void KateSearchBar::onPowerUsePlaceholdersToggle(int state, bool invokedByUserAction) {
     const bool disabled = (state != Qt::Checked);
     m_powerUi->replacementAdd->setDisabled(disabled);
+
+    if (invokedByUserAction) {
+        sendConfig();
+    }
+}
+
+
+
+void KateSearchBar::onPowerMatchCaseToggle(bool invokedByUserAction) {
+    if (invokedByUserAction) {
+        sendConfig();
+    }
+}
+
+
+
+void KateSearchBar::onPowerHighlightAllToggle(bool invokedByUserAction) {
+    if (invokedByUserAction) {
+        sendConfig();
+    }
+}
+
+
+
+void KateSearchBar::onPowerFromCursorToggle(bool invokedByUserAction) {
+    if (invokedByUserAction) {
+        sendConfig();
+    }
+}
+
+
+
+void KateSearchBar::onPowerSelectionOnlyToggle(bool invokedByUserAction) {
+    if (invokedByUserAction) {
+        sendConfig();
+    }
 }
 
 
@@ -942,6 +1036,8 @@ void KateSearchBar::onPowerModeChanged(int index, bool invokedByUserAction) {
         default:
             ; // NOOP
         }
+
+        sendConfig();
     }
 }
 
@@ -1057,8 +1153,8 @@ void KateSearchBar::onMutatePower() {
 
     // Propagate settings (slots are still inactive on purpose)
     onPowerPatternChanged(initialPattern);
-    onPowerUsePlaceholdersToggle(m_powerUi->usePlaceholders->checkState());
     const bool NOT_INVOKED_BY_USER_ACTION = false;
+    onPowerUsePlaceholdersToggle(m_powerUi->usePlaceholders->checkState(), NOT_INVOKED_BY_USER_ACTION);
     onPowerModeChanged(m_powerUi->searchMode->currentIndex(), NOT_INVOKED_BY_USER_ACTION);
 
     if (create) {
@@ -1072,14 +1168,15 @@ void KateSearchBar::onMutatePower() {
         connect(m_powerUi->searchMode, SIGNAL(currentIndexChanged(int)), this, SLOT(onPowerModeChanged(int)));
         connect(m_powerUi->patternAdd, SIGNAL(clicked()), this, SLOT(onPowerAddToPatternClicked()));
         connect(m_powerUi->usePlaceholders, SIGNAL(stateChanged(int)), this, SLOT(onPowerUsePlaceholdersToggle(int)));
+        connect(m_powerUi->matchCase, SIGNAL(stateChanged(int)), this, SLOT(onPowerMatchCaseToggle()));
+        connect(m_powerUi->highlightAll, SIGNAL(stateChanged(int)), this, SLOT(onPowerHighlightAllToggle()));
+        connect(m_powerUi->fromCursor, SIGNAL(stateChanged(int)), this, SLOT(onPowerFromCursorToggle()));
+        connect(m_powerUi->selectionOnly, SIGNAL(stateChanged(int)), this, SLOT(onPowerSelectionOnlyToggle()));
         connect(m_powerUi->replacementAdd, SIGNAL(clicked()), this, SLOT(onPowerAddToReplacementClicked()));
     }
 
     // Focus
     m_powerUi->pattern->setFocus(Qt::MouseFocusReason);
-
-    // Send config
-    // sendConfig();
 }
 
 
@@ -1164,6 +1261,9 @@ void KateSearchBar::onMutateIncremental() {
         connect(m_incUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
         connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(onIncNext()));
         connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(onIncPrev()));
+        connect(m_incMenuMatchCase, SIGNAL(changed()), this, SLOT(onIncMatchCaseToggle()));
+        connect(m_incMenuFromCursor, SIGNAL(changed()), this, SLOT(onIncFromCursorToggle()));
+        connect(m_incMenuHighlightAll, SIGNAL(changed()), this, SLOT(onIncHighlightAllToggle()));
 
         // Make button click open the menu as well. IMHO with the dropdown arrow present the button
         // better shows his nature than in instant popup mode.
@@ -1172,9 +1272,6 @@ void KateSearchBar::onMutateIncremental() {
 
     // Focus
     m_incUi->pattern->setFocus(Qt::MouseFocusReason);
-
-    // Send config
-    // sendConfig();
 }
 
 
@@ -1240,8 +1337,6 @@ void KateSearchBar::showEvent(QShowEvent * event) {
 void KateSearchBar::hideEvent(QHideEvent * event) {
     enableHighlights(false);
     KateViewBarWidget::hideEvent(event);
-
-    // sendConfig();
 }
 
 

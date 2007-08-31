@@ -607,7 +607,7 @@ class KateView : public KTextEditor::View,
    */
   public:
     KateCmdLine *cmdLine ();
-    KateSearchBar *searchBar ();
+    KateSearchBar *searchBar (bool initHintAsPower = false);
     KateGotoBar *gotoBar ();
 
   /**

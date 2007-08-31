@@ -75,7 +75,7 @@ public Q_SLOTS:
     void onPowerAddToPatternClicked();
     void onPowerAddToReplacementClicked();
     void onPowerUsePlaceholdersToggle(int state);
-    void onPowerModeChanged(int index);
+    void onPowerModeChanged(int index, bool invokedByUserAction = true);
 
 public Q_SLOTS:
     // Also used by KateView

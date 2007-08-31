@@ -924,9 +924,24 @@ void KateSearchBar::onPowerUsePlaceholdersToggle(int state) {
 
 
 
-void KateSearchBar::onPowerModeChanged(int index) {
+void KateSearchBar::onPowerModeChanged(int index, bool invokedByUserAction) {
     const bool disabled = (index < 2); // TODO
     m_powerUi->patternAdd->setDisabled(disabled);
+
+    if (invokedByUserAction) {
+        switch (index) {
+        case 3: // Regex
+            setChecked(m_powerUi->matchCase, true);
+            // FALLTRHOUGH
+
+        case 2: // Escape sequences
+            setChecked(m_powerUi->usePlaceholders, true);
+            break;
+
+        default:
+            ; // NOOP
+        }
+    }
 }
 
 
@@ -1042,7 +1057,8 @@ void KateSearchBar::onMutatePower() {
     // Propagate settings (slots are still inactive on purpose)
     onPowerPatternChanged(initialPattern);
     onPowerUsePlaceholdersToggle(m_powerUi->usePlaceholders->checkState());
-    onPowerModeChanged(m_powerUi->searchMode->currentIndex());
+    const bool NOT_INVOKED_BY_USER_ACTION = false;
+    onPowerModeChanged(m_powerUi->searchMode->currentIndex(), NOT_INVOKED_BY_USER_ACTION);
 
     if (create) {
         // Slots

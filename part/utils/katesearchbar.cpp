@@ -1146,10 +1146,15 @@ void KateSearchBar::onMutatePower() {
     }
 
     // Set initial search pattern
-    QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
-    Q_ASSERT(lineEdit != NULL);
-    lineEdit->setText(initialPattern);
-    lineEdit->selectAll();
+    QLineEdit * const patternLineEdit = m_powerUi->pattern->lineEdit();
+    Q_ASSERT(patternLineEdit != NULL);
+    patternLineEdit->setText(initialPattern);
+    patternLineEdit->selectAll();
+
+    // Set initial replacement text
+    QLineEdit * const replacementLineEdit = m_powerUi->replacement->lineEdit();
+    Q_ASSERT(replacementLineEdit != NULL);
+    replacementLineEdit->setText("");
 
     // Propagate settings (slots are still inactive on purpose)
     onPowerPatternChanged(initialPattern);

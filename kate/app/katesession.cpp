@@ -274,6 +274,7 @@ void KateSessionManager::activateSession (KateSession::Ptr session,
   {
     // open the new session
     KConfig *sc = activeSession()->configRead();
+    const bool loadDocs = (sc != 0); // do not load docs for new sessions
 
     // if we have no session config object, try to load the default
     // (anonymous/unnamed sessions)
@@ -283,7 +284,7 @@ void KateSessionManager::activateSession (KateSession::Ptr session,
     // load plugin config + plugins
     KatePluginManager::self()->loadConfig (sc);
 
-    if (sc)
+    if (sc && loadDocs)
       KateApp::self()->documentManager()->restoreDocumentList (sc);
 
     // window config

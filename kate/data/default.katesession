@@ -16,7 +16,6 @@ katetextfilterplugin=false
 
 [MainWindow0]
 Active ViewSpace=0
-Height 1050=575
 Kate-MDI-H-Splitter=200,560,200
 Kate-MDI-Sidebar-0-Splitter=480
 Kate-MDI-Sidebar-1-Splitter=
@@ -34,7 +33,6 @@ Kate-MDI-ToolView-kate_private_plugin_katefindinfilesplugin-Sidebar-Position=0
 Kate-MDI-ToolView-kate_private_plugin_katefindinfilesplugin-Visible=false
 Kate-MDI-V-Splitter=150,461,200
 State=AAAA/wAAAAD9AAAAAAAAAxoAAAHlAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAAAAADGgAAAAAAAAAA
-Width 1400=775
 
 [MainWindow0-Splitter 0]
 Children=MainWindow0-ViewSpace 0

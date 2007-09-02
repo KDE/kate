@@ -4,7 +4,6 @@ Type=Service
 ServiceTypes=KCModule
 
 X-KDE-Library=ktexteditor_docwordcompletion
-X-KDE-FactoryName=ktexteditor_docwordcompletion_config
 X-KDE-ParentComponents=ktexteditordocwordcompletion
 
 Name=Behavior

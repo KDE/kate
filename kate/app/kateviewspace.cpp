@@ -289,7 +289,7 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
   m_insertModeLabel->setAlignment( Qt::AlignCenter );
   m_insertModeLabel->installEventFilter( this );
 
-  m_selectModeLabel = new QLabel( i18n(" NORM "), this );
+  m_selectModeLabel = new QLabel( i18n(" LINE "), this );
   addWidget( m_selectModeLabel, 0 );
   m_selectModeLabel->setAlignment( Qt::AlignCenter );
   m_selectModeLabel->installEventFilter( this );
@@ -374,7 +374,7 @@ void KateVSStatusBar::selectionChanged (KTextEditor::View *view)
   if (view != m_viewSpace->currentView())
     return;
 
-  m_selectModeLabel->setText( view->blockSelection() ? i18n(" BLK ") : i18n(" NORM ") );
+  m_selectModeLabel->setText( view->blockSelection() ? i18n(" BLOCK ") : i18n(" LINE ") );
 }
 
 void KateVSStatusBar::informationMessage (KTextEditor::View *view, const QString &message)

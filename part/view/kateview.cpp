@@ -840,7 +840,7 @@ QString KateView::viewMode () const
   if (!m_doc->isReadWrite())
     return i18n ("R/O");
 
-  return isOverwriteMode() ? i18n("OVR") : i18n ("NORM");
+  return isOverwriteMode() ? i18n("OVR") : i18n ("INS");
 }
 
 void KateView::slotGotFocus()

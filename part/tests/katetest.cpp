@@ -248,7 +248,7 @@ void KWrite::setupStatusBar()
   statusBar()->addWidget( m_insertModeLabel, 0 );
   m_insertModeLabel->setAlignment( Qt::AlignCenter );
 
-  m_selectModeLabel = new QLabel( i18n(" NORM "), statusBar() );
+  m_selectModeLabel = new QLabel( i18n(" LINE "), statusBar() );
   statusBar()->addWidget( m_selectModeLabel, 0 );
   m_selectModeLabel->setAlignment( Qt::AlignCenter );
 
@@ -596,7 +596,7 @@ void KWrite::cursorPositionChanged ( KTextEditor::View *view )
 
 void KWrite::selectionChanged (KTextEditor::View *view)
 {
-  m_selectModeLabel->setText( view->blockSelection() ? i18n(" BLK ") : i18n(" NORM ") );
+  m_selectModeLabel->setText( view->blockSelection() ? i18n(" BLOCK ") : i18n(" LINE ") );
 }
 
 void KWrite::informationMessage (KTextEditor::View *, const QString &message)

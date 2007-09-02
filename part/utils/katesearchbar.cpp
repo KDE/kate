@@ -3,7 +3,6 @@
 ##  TODO:
 ##  * Fix regex search in KateDocument?
 ##    (Fix case with pattern "\n+")
-##  * Proper loading/saving of search settings
 ##  * Highlight all (with background thread?)
 ##
 ################################################################## */

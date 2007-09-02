@@ -1,15 +1,3 @@
-/* ##################################################################
-##
-##  TODO:
-##  * Fix regex search in KateDocument?
-##    (Skips when backwords, ".*" endless loop!?)
-##  * Fix highlighting of matches/replacements?
-##    (Zero width smart range)
-##  * Proper loading/saving of search settings
-##  * Highlight all (with background thread?)
-##
-################################################################## */
-
 /* This file is part of the KDE libraries
    Copyright (C) 2007 Sebastian Pipping <webmaster@hartwork.org>
 

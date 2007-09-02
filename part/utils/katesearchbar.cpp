@@ -39,7 +39,6 @@
 #include <QtGui/QCheckBox>
 #include <QStringListModel>
 
-#include <kcolorscheme.h>
 
 using namespace KTextEditor;
 
@@ -88,12 +87,12 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar, bool initAsPower)
     m_powerHighlightAll = (searchFlags & KateViewConfig::PowerHighlightAll) != 0;
     m_powerUsePlaceholders = (searchFlags & KateViewConfig::PowerUsePlaceholders) != 0;
     m_powerMode = ((searchFlags & KateViewConfig::PowerModeRegularExpression) != 0)
-            ? 3
+            ? MODE_REGEX
             : (((searchFlags & KateViewConfig::PowerModeEscapeSequences) != 0)
-                ? 2
+                ? MODE_ESCAPE_SEQUENCES
                 : (((searchFlags & KateViewConfig::PowerModeWholeWords) != 0)
-                    ? 1
-                    : 0)); // Plain text
+                    ? MODE_WHOLE_WORDS
+                    : MODE_PLAIN_TEXT));
     kDebug() << "GLOBAL SEARCH CONFIG COPIED TO LOCAL" << "past" << searchFlags;
 
 
@@ -138,31 +137,31 @@ void KateSearchBar::findPrevious() {
 
 
 
-void KateSearchBar::highlight(const Range & range, const QString & color) {
+void KateSearchBar::highlight(const Range & range, const QColor & color) {
     SmartRange * const highlight = m_view->doc()->newSmartRange(range, m_topRange);
     highlight->setInsertBehavior(SmartRange::ExpandRight);
     Attribute::Ptr attribute(new Attribute());
-    attribute->setBackground(QColor(color)); // TODO make this part of the color scheme
+    attribute->setBackground(color);
     highlight->setAttribute(attribute);
 }
 
 
 
 void KateSearchBar::highlightMatch(const Range & range) {
-    highlight(range, "yellow"); // TODO make this part of the color scheme
+    highlight(range, Qt::yellow); // TODO make this part of the color scheme
 }
 
 
 
 void KateSearchBar::highlightReplacement(const Range & range) {
-    highlight(range, "green"); // TODO make this part of the color scheme
+    highlight(range, Qt::green); // TODO make this part of the color scheme
 }
 
 
 
-void adjustBackground(QPalette & palette, QPalette::ColorRole role,
-                      KColorScheme::ColorSet set, KColorScheme::BackgroundRole newRole)
-{
+inline void KateSearchBar::adjustBackground(QPalette & palette, KColorScheme::BackgroundRole newRole) {
+    const QPalette::ColorRole role = QPalette::Base;
+    const KColorScheme::ColorSet set = KColorScheme::View;
     palette.setBrush(QPalette::Active,   role, KColorScheme(QPalette::Active,   set).background(newRole));
     palette.setBrush(QPalette::Inactive, role, KColorScheme(QPalette::Inactive, set).background(newRole));
     palette.setBrush(QPalette::Disabled, role, KColorScheme(QPalette::Disabled, set).background(newRole));
@@ -174,7 +173,7 @@ void KateSearchBar::indicateMatch(bool wrapped) {
     if (m_incUi != NULL) {
         // Green background for line edit
         QPalette background(m_incUi->pattern->palette());
-        adjustBackground(background, QPalette::Base, KColorScheme::View, KColorScheme::PositiveBackground);
+        adjustBackground(background, KColorScheme::PositiveBackground);
         m_incUi->pattern->setPalette(background);
 
         // Update status label
@@ -192,7 +191,7 @@ void KateSearchBar::indicateMismatch() {
     if (m_incUi != NULL) {
         // Red background for line edit
         QPalette background(m_incUi->pattern->palette());
-        adjustBackground(background, QPalette::Base, KColorScheme::View, KColorScheme::NegativeBackground);
+        adjustBackground(background, KColorScheme::NegativeBackground);
         m_incUi->pattern->setPalette(background);
 
         // Update status label
@@ -224,7 +223,7 @@ void KateSearchBar::indicateNothing() {
 
 
 void KateSearchBar::selectRange(const KTextEditor::Range & range) {
-    m_view->setCursorPositionInternal(range.start(), 1); // TODO
+    m_view->setCursorPositionInternal(range.start(), 1);
     m_view->setSelection(range);
 }
 
@@ -445,27 +444,29 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
     }
 
     bool multiLinePattern = false;
+    bool regexMode = false;
     if (m_powerUi != NULL) {
         switch (m_powerUi->searchMode->currentIndex()) {
-        case 1: // Whole words
+        case MODE_WHOLE_WORDS:
             enabledOptions |= Search::WholeWords;
             break;
 
-        case 2: // Escape sequences
+        case MODE_ESCAPE_SEQUENCES:
             enabledOptions |= Search::EscapeSequences;
-            multiLinePattern = true;
             break;
 
-        case 3: // Regular expression
+        case MODE_REGEX:
             {
                 // Check if pattern multi-line
                 QString patternCopy(pattern);
                 KateDocument::repairPattern(patternCopy, multiLinePattern);
+                regexMode = true;
             }
             enabledOptions |= Search::Regex;
             break;
 
-        default: // Plain text
+        case MODE_PLAIN_TEXT: // FALLTHROUGH
+        default:
             break;
 
         }
@@ -511,7 +512,7 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
     kDebug() << "Search range is" << inputRange;
 
     // Single-line workaround
-    if (!multiLinePattern) {
+    if (regexMode && !multiLinePattern) {
         fixForSingleLine(inputRange, forwards);
     }
 
@@ -654,11 +655,11 @@ void KateSearchBar::sendConfig() {
             | (m_powerFromCursor ? KateViewConfig::PowerFromCursor : 0)
             | (m_powerHighlightAll ? KateViewConfig::PowerHighlightAll : 0)
             | (m_powerUsePlaceholders ? KateViewConfig::PowerUsePlaceholders : 0)
-            | ((m_powerMode == 3)
+            | ((m_powerMode == MODE_REGEX)
                 ? KateViewConfig::PowerModeRegularExpression
-                : ((m_powerMode == 2)
+                : ((m_powerMode == MODE_ESCAPE_SEQUENCES)
                     ? KateViewConfig::PowerModeEscapeSequences
-                    : ((m_powerMode == 1)
+                    : ((m_powerMode == MODE_WHOLE_WORDS)
                         ? KateViewConfig::PowerModeWholeWords
                         : KateViewConfig::PowerModePlainText)));
 
@@ -738,27 +739,29 @@ void KateSearchBar::onPowerReplaceAll() {
     }
 
     bool multiLinePattern = false;
+    bool regexMode = false;
     if (m_powerUi != NULL) {
         switch (m_powerUi->searchMode->currentIndex()) {
-        case 1: // Whole words
+        case MODE_WHOLE_WORDS:
             enabledOptions |= Search::WholeWords;
             break;
 
-        case 2: // Escape sequences
+        case MODE_ESCAPE_SEQUENCES:
             enabledOptions |= Search::EscapeSequences;
-            multiLinePattern = true;
             break;
 
-        case 3: // Regular expression
+        case MODE_REGEX:
             {
                 // Check if pattern multi-line
                 QString patternCopy(pattern);
                 KateDocument::repairPattern(patternCopy, multiLinePattern);
+                regexMode = true;
             }
             enabledOptions |= Search::Regex;
             break;
 
-        default: // Plain text
+        case MODE_PLAIN_TEXT: // FALLTHROUGH
+        default:
             break;
 
         }
@@ -785,7 +788,7 @@ void KateSearchBar::onPowerReplaceAll() {
 
         replacementJobs.append(resultRanges);
 
-        if (!multiLinePattern) {
+        if (regexMode && !multiLinePattern) {
             // NOTE: Without this workaround patterns like ".*" would hit
             // each line twice, second time the newline only
             const int line = match.end().line();
@@ -872,7 +875,7 @@ void KateSearchBar::showAddMenu(bool forPattern) {
 
     // Build menu
     QMenu * const popupMenu = new QMenu();
-    const bool regexMode = (m_powerUi->searchMode->currentIndex() == 3); // TODO
+    const bool regexMode = (m_powerUi->searchMode->currentIndex() == MODE_REGEX);
 
     if (forPattern) {
         if (regexMode) {
@@ -895,7 +898,8 @@ void KateSearchBar::showAddMenu(bool forPattern) {
     } else {
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\0", "", i18n("Whole match reference"));
         popupMenu->addSeparator();
-        // TODO count indexable captures in search pattern and only show available refs?
+        // TODO Add pattern text for each capture as requested by bug #148359
+        // http://bugs.kde.org/show_bug.cgi?id=148359
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\1", "", i18n("Capture reference 1"));
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\2", "", i18n("Capture reference 2"));
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\3", "", i18n("Capture reference 3"));
@@ -918,6 +922,8 @@ void KateSearchBar::showAddMenu(bool forPattern) {
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\D", "", i18n("Non-digit"));
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\s", "", i18n("Whitespace (excluding line breaks)"));
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\S", "", i18n("Non-whitespace (excluding line breaks)"));
+        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\w", "", i18n("Word character (alphanumerics plus '_')"));
+        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\W", "", i18n("Non-word character"));
     }
 
     addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\0???", "", i18n("Octal character 000 to 377 (2^8-1)"), "\\0");
@@ -1006,19 +1012,22 @@ void KateSearchBar::onPowerFromCursorToggle(bool invokedByUserAction) {
 
 
 void KateSearchBar::onPowerModeChanged(int index, bool invokedByUserAction) {
-    const bool disabled = (index < 2); // TODO
+    const bool disabled = (index == MODE_PLAIN_TEXT)
+            || (index == MODE_WHOLE_WORDS);
     m_powerUi->patternAdd->setDisabled(disabled);
 
     if (invokedByUserAction) {
         switch (index) {
-        case 3: // Regex
+        case MODE_REGEX:
             setChecked(m_powerUi->matchCase, true);
-            // FALLTRHOUGH
+            // FALLTROUGH
 
-        case 2: // Escape sequences
+        case MODE_ESCAPE_SEQUENCES:
             setChecked(m_powerUi->usePlaceholders, true);
             break;
 
+        case MODE_WHOLE_WORDS: // FALLTROUGH
+        case MODE_PLAIN_TEXT: // FALLTROUGH
         default:
             ; // NOOP
         }

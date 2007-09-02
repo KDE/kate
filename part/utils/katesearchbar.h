@@ -24,6 +24,8 @@
 #include "katedocument.h"
 #include "katehistorymodel.h"
 
+#include <kcolorscheme.h>
+
 
 
 class KateView;
@@ -41,6 +43,16 @@ namespace Ui {
 
 class KateSearchBar : public KateViewBarWidget {
     Q_OBJECT
+
+private:
+    enum SearchMode {
+        // NOTE: Concrete values are important here
+        // to work with the combobox index!
+        MODE_PLAIN_TEXT = 0,
+        MODE_WHOLE_WORDS = 1,
+        MODE_ESCAPE_SEQUENCES = 2,
+        MODE_REGEX = 3
+    };
 
 public:
     explicit KateSearchBar(KateViewBar * viewBar, bool initAsPower);
@@ -86,9 +98,10 @@ private:
     void enableHighlights(bool enable);
     void resetHighlights();
 
-    void highlight(const KTextEditor::Range & range, const QString & color);
+    void highlight(const KTextEditor::Range & range, const QColor & color);
     void highlightMatch(const KTextEditor::Range & range);
     void highlightReplacement(const KTextEditor::Range & range);
+    void adjustBackground(QPalette & palette, KColorScheme::BackgroundRole newRole);
     void indicateMatch(bool wrapped);
     void indicateMismatch();
     void indicateNothing();

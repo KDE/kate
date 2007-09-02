@@ -199,7 +199,7 @@ void KateFileSelectorToolBarParent::resizeEvent ( QResizeEvent * )
 
   dir = new KDirOperator(KUrl(), this);
   dir->setView(KFile::/* Simple */Detail);
-  dir->view()->setSelectionMode(KFile::Extended);
+  dir->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
   connect ( dir, SIGNAL( viewChanged(KFileView *) ),
            this, SLOT( selectorViewChanged(KFileView *) ) );
   setStretchFactor(dir, 2);
@@ -294,7 +294,7 @@ void ::KateFileSelector::readConfig(KConfig *config, const QString & name)
   dir->readConfig(cgDir);
 
   dir->setView( KFile::Default );
-  dir->view()->setSelectionMode(KFile::Extended);
+  dir->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
   KConfigGroup cg (config, name );
 
@@ -382,7 +382,7 @@ void ::KateFileSelector::writeConfig(KConfig *config, const QString & name)
 void ::KateFileSelector::setView(KFile::FileView view)
 {
   dir->setView(view);
-  dir->view()->setSelectionMode(KFile::Extended);
+  dir->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
 
 //END Public Methods
@@ -449,17 +449,14 @@ void ::KateFileSelector::setDir( KUrl u )
 
 void ::KateFileSelector::fileSelected(const KFileItem * /*file*/)
 {
-  const KFileItemList *list = dir->selectedItems();
+  const QList<KFileItem> list = dir->selectedItems();
 
-  KFileItem *tmp;
-  KFileItemList::const_iterator it = list->begin();
-  const KFileItemList::const_iterator end = list->end();
-  for ( ; it != end; ++it )
+  foreach (KFileItem item, list)
   {
-    tmp = (*it);
-    mainwin->openUrl(tmp->url());
-    dir->view()->setSelected(tmp, false);
+    mainwin->openUrl(item.url());
   }
+
+  dir->view()->selectionModel()->clear();
 }
 
 

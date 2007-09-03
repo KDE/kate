@@ -1915,12 +1915,12 @@ struct IndexPair {
 
 
 
-QVector<KTextEditor::Range> KateDocument::searchText(
+QVector<KTextEditor::Range> KateDocument::searchRegex(
     const KTextEditor::Range & inputRange,
     QRegExp &regexp,
     bool backwards)
 {
-  kDebug(13020) << "KateDocument::searchText( " << inputRange.start().line() << ", "
+  kDebug(13020) << "KateDocument::searchRegex( " << inputRange.start().line() << ", "
     << inputRange.start().column() << ", " << regexp.pattern() << ", " << backwards << " )" << endl;
   if (regexp.isEmpty() || !regexp.isValid() || !inputRange.isValid() || (inputRange.start() == inputRange.end()))
   {
@@ -1950,7 +1950,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
     // multi-line regex search (both forward and backward mode)
     QString wholeDocument;
     const int inputLineCount = inputRange.end().line() - inputRange.start().line() + 1;
-    kDebug() << "searchText/regex | multi line " << firstLineIndex << ".." << firstLineIndex + inputLineCount - 1;
+    kDebug() << "multi line search (lines " << firstLineIndex << ".." << firstLineIndex + inputLineCount - 1 << ")";
 
     // nothing to do...
     if (firstLineIndex >= m_buffer->lines())
@@ -1975,7 +1975,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
     const int firstLineLen = firstLineText.length() - minColStart;
     wholeDocument.append(firstLineText.right(firstLineLen));
     lineLens[0] = firstLineLen;
-    kDebug() << "searchText/regex | line " << 0 << " len " << lineLens[0];
+    kDebug() << "  line" << 0 << "has length" << lineLens[0];
 
     // second line and after
     const QString sep("\n");
@@ -1990,15 +1990,10 @@ QVector<KTextEditor::Range> KateDocument::searchText(
       }
 
       QString text = textLine->string();
-      if (i == inputLineCount - 1)
-      {
-        // cut last line
-        text = text.left(maxColEnd);
-      }
+      lineLens[i] = text.length();
       wholeDocument.append(sep);
       wholeDocument.append(text);
-      lineLens[i] = text.length();
-      kDebug() << "searchText/regex | line " << i << " len " << lineLens[i];
+      kDebug() << "  line" << i << "has length" << lineLens[i];
     }
 
     // apply modified pattern
@@ -2008,7 +2003,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
     if (pos == -1)
     {
       // no match
-      kDebug() << "searchText/regex | not found";
+      kDebug() << "not found";
       {
         QVector<KTextEditor::Range> result;
         result.append(KTextEditor::Range::invalid());
@@ -2016,12 +2011,11 @@ QVector<KTextEditor::Range> KateDocument::searchText(
       }
     }
     const int matchLen = regexp.matchedLength();
-    kDebug() << "searchText/regex | found (pos " << pos << ", len " << matchLen << ")";
+    kDebug() << "found at relative pos " << pos << ", length " << matchLen;
 
 
-    // save opening and closing indices and build
-    // a map that the correct values will be written
-    // into later
+    // save opening and closing indices and build a map.
+    // the correct values will be written into it later.
     QMap<int, TwoViewCursor *> indicesToCursors;
     const int numCaptures = regexp.numCaptures();
     QVector<IndexPair> indexPairs(1 + numCaptures);
@@ -2034,14 +2028,14 @@ QVector<KTextEditor::Range> KateDocument::searchText(
         // empty capture gives invalid
         pair.openIndex = -1;
         pair.closeIndex = -1;
-kDebug() << "searchText/regex | capture []";
+kDebug() << "capture []";
       }
       else
       {
         const int closeIndex = openIndex + regexp.cap(z).length();
         pair.openIndex = openIndex;
         pair.closeIndex = closeIndex;
-kDebug() << "searchText/regex | capture [" << pair.openIndex << ".." << pair.closeIndex << "]";
+kDebug() << "capture [" << pair.openIndex << ".." << pair.closeIndex << "]";
 
         // each key no more than once
         if (!indicesToCursors.contains(openIndex))
@@ -2049,14 +2043,14 @@ kDebug() << "searchText/regex | capture [" << pair.openIndex << ".." << pair.clo
           TwoViewCursor * twoViewCursor = new TwoViewCursor;
           twoViewCursor->index = openIndex;
           indicesToCursors.insert(openIndex, twoViewCursor);
-kDebug() << "searchText/regex | index added: " << openIndex;
+kDebug() << "  border index added: " << openIndex;
         }
         if (!indicesToCursors.contains(closeIndex))
         {
           TwoViewCursor * twoViewCursor = new TwoViewCursor;
           twoViewCursor->index = closeIndex;
           indicesToCursors.insert(closeIndex, twoViewCursor);
-kDebug() << "searchText/regex | index added: " << closeIndex;
+kDebug() << "  border index added: " << closeIndex;
         }
       }
     }
@@ -2073,14 +2067,14 @@ kDebug() << "searchText/regex | index added: " << closeIndex;
       TwoViewCursor & twoViewCursor = *(*iter);
       while (curRelIndex <= index)
       {
-kDebug() << "searchText/regex | walk pos (" << curRelLine << "," << curRelCol << ")=" << curRelIndex << " to go " << index - curRelIndex;
+kDebug() << "walk pos (" << curRelLine << "," << curRelCol << ") = " << curRelIndex << "relative, steps more to go" << index - curRelIndex;
         const int curRelLineLen = lineLens[curRelLine];
-        const int curLineRemainder = curRelLineLen - curRelCol; // TODO
+        const int curLineRemainder = curRelLineLen - curRelCol;
         const int lineFeedIndex = curRelIndex + curLineRemainder;
         if (index < lineFeedIndex)
         {
           // on this line _before_ line feed
-kDebug() << "searchText/regex | before line feed";
+kDebug() << "  before line feed";
           const int diff = (index - curRelIndex);
           const int absLine = curRelLine + firstLineIndex;
           const int absCol = ((curRelLine == 0) ? minColStart : 0) + curRelCol + diff;
@@ -2095,12 +2089,12 @@ kDebug() << "searchText/regex | before line feed";
         else if (index == lineFeedIndex)
         {
           // on this line _on_ line feed
-kDebug() << "searchText/regex | on line feed";
+kDebug() << "  on line feed";
           const int absLine = curRelLine + firstLineIndex;
-          twoViewCursor.openLine = absLine + 1;
-          twoViewCursor.openCol = 0;
-          twoViewCursor.closeLine = absLine;
-          twoViewCursor.closeCol = curRelLineLen;
+          twoViewCursor.openLine = absLine;
+          twoViewCursor.openCol = ((curRelLine == 0) ? minColStart : 0) + curRelLineLen;
+          twoViewCursor.closeLine = absLine + 1;
+          twoViewCursor.closeCol = 0;
 
           // advance to next line
           const int advance = (index - curRelIndex) + 1;
@@ -2112,7 +2106,7 @@ kDebug() << "searchText/regex | on line feed";
         {
           // not on this line
           // advance to next line
-kDebug() << "searchText/regex | not on this line";
+kDebug() << "  not on this line";
           const int advance = curLineRemainder + 1;
           curRelLine++;
           curRelCol = 0;
@@ -2140,7 +2134,7 @@ kDebug() << "searchText/regex | not on this line";
         const int startCol = openCursors->openCol;
         const int endLine = closeCursors->closeLine;
         const int endCol = closeCursors->closeCol;
-kDebug() << "searchText/regex | range " << y << ": (" << startLine << ", " << startCol << ")..(" << endLine << ", " << endCol << ")";
+kDebug() << "range " << y << ": (" << startLine << ", " << startCol << ")..(" << endLine << ", " << endCol << ")";
         result[y] = KTextEditor::Range(startLine, startCol, endLine, endCol);
       }
     }
@@ -2164,7 +2158,7 @@ kDebug() << "searchText/regex | range " << y << ": (" << startLine << ", " << st
     const int forMax   = inputRange.end().line();
     const int forInit  = backwards ? forMax : forMin;
     const int forInc   = backwards ? -1 : +1;
-    kDebug() << "searchText | single line " << (backwards ? forMax : forMin) << ".."
+    kDebug() << "single line " << (backwards ? forMax : forMin) << ".."
       << (backwards ? forMin : forMax) << endl;
     for (int j = forInit; (forMin <= j) && (j <= forMax); j += forInc)
     {
@@ -2212,25 +2206,25 @@ kDebug() << "searchText/regex | range " << y << ": (" << startLine << ", " << st
 
       if (found && !((j == forMax) && (static_cast<uint>(foundAt + myMatchLen) > maxRight)))
       {
-        kDebug() << "searchText | line " << j << ": yes";
+        kDebug() << "line " << j << ": yes";
 
         // build result array
         const int numCaptures = regexp.numCaptures();
         QVector<KTextEditor::Range> result(1 + numCaptures);
         result[0] = KTextEditor::Range(j, foundAt, j, foundAt + myMatchLen);
-kDebug() << "searchText/regex | range " << 0 << ": (" << j << ", " << foundAt << ")..(" << j << ", " << foundAt + myMatchLen << ")";
+kDebug() << "srange " << 0 << ": (" << j << ", " << foundAt << ")..(" << j << ", " << foundAt + myMatchLen << ")";
         for (int y = 1; y <= numCaptures; y++)
         {
           const int openIndex = regexp.pos(y);
           if (openIndex == -1)
           {
             result[y] = KTextEditor::Range::invalid();
-kDebug() << "searchText/regex | capture []";
+kDebug() << "capture []";
           }
           else
           {
             const int closeIndex = openIndex + regexp.cap(y).length();
-kDebug() << "searchText/regex | range " << y << ": (" << j << ", " << openIndex << ")..(" << j << ", " << closeIndex << ")";
+kDebug() << "range " << y << ": (" << j << ", " << openIndex << ")..(" << j << ", " << closeIndex << ")";
             result[y] = KTextEditor::Range(j, openIndex, j, closeIndex);
           }
         }
@@ -2258,7 +2252,6 @@ QVector<KTextEditor::Range> KateDocument::searchText(
   // TODO
   // * support BlockInputRange
   // * support DotMatchesNewline
-  // * return capture ranges (not only full match)
   QString workPattern(pattern);
 
   KTextEditor::Search::SearchOptions finalOptions(options);
@@ -2298,7 +2291,7 @@ QVector<KTextEditor::Range> KateDocument::searchText(
     {
       // valid pattern
       // run engine
-      return searchText(range, matcher, backwards);
+      return searchRegex(range, matcher, backwards);
     }
     else
     {
@@ -2328,7 +2321,6 @@ QVector<KTextEditor::Range> KateDocument::searchText(
 
 
 
-
 KTextEditor::Search::SearchOptions KateDocument::supportedSearchOptions() const
 {
   KTextEditor::Search::SearchOptions supported(KTextEditor::Search::Default);
@@ -2341,6 +2333,8 @@ KTextEditor::Search::SearchOptions KateDocument::supportedSearchOptions() const
 // supported |= KTextEditor::Search::DotMatchesNewline;
   return supported;
 }
+
+
 
 void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * parts,
     bool zeroCaptureOnly)

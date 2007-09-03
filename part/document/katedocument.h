@@ -399,7 +399,7 @@ class KateDocument : public KTextEditor::Document,
      *        has length 1 and holds the invalid range (see Range::isValid()).
      * \see KTextEditor::Range, QRegExp
      */
-    QVector<KTextEditor::Range> searchText (const KTextEditor::Range & inputRange,
+    QVector<KTextEditor::Range> searchRegex (const KTextEditor::Range & inputRange,
         QRegExp & regexp, bool backwards = false);
 
   /*

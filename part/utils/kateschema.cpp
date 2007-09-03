@@ -123,7 +123,7 @@ KConfigGroup KateSchemaManager::schema (uint number)
 
 void KateSchemaManager::addSchema (const QString &t)
 {
-  m_config.group(t).writeEntry("Color Background", KColorScheme(KColorScheme::View).background().color());
+  m_config.group(t).writeEntry("Color Background", KColorScheme(QPalette::Active, KColorScheme::View).background().color());
 
   update (false);
 }
@@ -259,9 +259,9 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
   {
     // fallback defaults
     // NOTE keep in sync with KateRendererConfig::setSchemaInternal
-    KColorScheme schemeView(KColorScheme::View);
-    KColorScheme schemeWindow(KColorScheme::Window);
-    KColorScheme schemeSelection(KColorScheme::Selection);
+    KColorScheme schemeView(QPalette::Active, KColorScheme::View);
+    KColorScheme schemeWindow(QPalette::Active, KColorScheme::Window);
+    KColorScheme schemeSelection(QPalette::Active, KColorScheme::Selection);
     QColor tmp0( schemeView.background().color() );
     QColor tmp1( schemeSelection.background().color() );
     QColor tmp2( schemeView.background(KColorScheme::AlternateBackground).color() );
@@ -493,12 +493,12 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
 
   // set colors
   QPalette p ( m_defaultStyles->palette() );
-  KColorScheme s ( KColorScheme::View );
+  KColorScheme s ( QPalette::Active, KColorScheme::View );
   QColor _c ( s.background().color() );
   p.setColor( QPalette::Base,
     KateGlobal::self()->schemaManager()->schema(schema).
       readEntry( "Color Background", _c ) );
-  _c = KColorScheme(KColorScheme::Selection).background().color();
+  _c = KColorScheme(QPalette::Active, KColorScheme::Selection).background().color();
   p.setColor( QPalette::Highlight,
     KateGlobal::self()->schemaManager()->schema(schema).
       readEntry( "Color Selection", _c ) );
@@ -622,12 +622,12 @@ void KateSchemaConfigHighlightTab::schemaChanged (int schema)
   // TODO this reads of the KConfig object, which should be changed when
   // the color tab is fixed.
   QPalette p ( m_styles->palette() );
-  KColorScheme s ( KColorScheme::View );
+  KColorScheme s ( QPalette::Active, KColorScheme::View );
   QColor _c ( s.background().color() );
   p.setColor( QPalette::Base,
     KateGlobal::self()->schemaManager()->schema(m_schema).
       readEntry( "Color Background", _c ) );
-  _c = KColorScheme(KColorScheme::Selection).background().color();
+  _c = KColorScheme(QPalette::Active, KColorScheme::Selection).background().color();
   p.setColor( QPalette::Highlight,
     KateGlobal::self()->schemaManager()->schema(m_schema).
       readEntry( "Color Selection", _c ) );

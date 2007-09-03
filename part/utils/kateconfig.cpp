@@ -1178,9 +1178,9 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   KConfigGroup config = KateGlobal::self()->schemaManager()->schema(KateGlobal::self()->schemaManager()->number(schema));
 
   // NOTE keep in sync with KateSchemaConfigColorTab::schemaChanged
-  KColorScheme schemeView(KColorScheme::View);
-  KColorScheme schemeWindow(KColorScheme::Window);
-  KColorScheme schemeSelection(KColorScheme::Selection);
+  KColorScheme schemeView(QPalette::Active, KColorScheme::View);
+  KColorScheme schemeWindow(QPalette::Active, KColorScheme::Window);
+  KColorScheme schemeSelection(QPalette::Active, KColorScheme::Selection);
   QColor tmp0( schemeView.background().color() );
   QColor tmp1( schemeSelection.background().color() );
   QColor tmp2( schemeView.background(KColorScheme::AlternateBackground).color() );

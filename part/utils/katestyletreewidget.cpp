@@ -142,7 +142,7 @@ KateStyleTreeWidget::KateStyleTreeWidget( QWidget *parent, bool showUseDefaults 
   headerItem()->setIcon(4, KIcon("format-text-strikethrough"));
 
   // grap the bg color, selected color and default font
-  normalcol = KColorScheme(KColorScheme::View).foreground().color();
+  normalcol = KColorScheme(QPalette::Active, KColorScheme::View).foreground().color();
   bgcol = KateRendererConfig::global()->backgroundColor();
   selcol = KateRendererConfig::global()->selectionColor();
   docfont = KateRendererConfig::global()->font();
@@ -392,7 +392,7 @@ void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem
   }
   
   if(index.row() == m_widget->currentIndex().row() && m_widget->currentItem()->isSelected() && m_widget->currentItem()->childCount() == 0) {
-    painter->fillRect(opt.rect, KColorScheme(KColorScheme::Selection).background());
+    painter->fillRect(opt.rect, KColorScheme(QPalette::Active, KColorScheme::Selection).background());
   }
   
   m_widget->style()->drawControl(QStyle::CE_PushButton, &opt, painter, m_widget);

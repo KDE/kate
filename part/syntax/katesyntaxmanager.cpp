@@ -172,8 +172,8 @@ QString KateHlManager::defaultStyleName(int n, bool translateNames)
 
 void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list)
 {
-  KColorScheme scheme(KColorScheme::View);
-  KColorScheme schemeSelected(KColorScheme::Selection);
+  KColorScheme scheme(QPalette::Active, KColorScheme::View);
+  KColorScheme schemeSelected(QPalette::Active, KColorScheme::Selection);
 
   KTextEditor::Attribute::Ptr normal(new KTextEditor::Attribute());
   normal->setForeground( scheme.foreground().color() );

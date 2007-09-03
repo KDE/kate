@@ -1,8 +1,6 @@
 /* ##################################################################
 ##
 ##  TODO:
-##  * Fix regex search in KateDocument?
-##    (Fix case with pattern "\n+")
 ##  * Highlight all (with background thread?)
 ##
 ################################################################## */
@@ -511,7 +509,7 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
     }
     kDebug() << "Search range is" << inputRange;
 
-    // Single-line workaround
+    // Single-line pattern workaround
     if (regexMode && !multiLinePattern) {
         fixForSingleLine(inputRange, forwards);
     }
@@ -538,6 +536,8 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
                 } else {
                     inputRange.setRange(inputRange.start(), selection.start());
                 }
+
+                // Single-line pattern workaround
                 fixForSingleLine(inputRange, forwards);
 
                 const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
@@ -788,42 +788,35 @@ void KateSearchBar::onPowerReplaceAll() {
 
         replacementJobs.append(resultRanges);
 
-        if (regexMode && !multiLinePattern) {
-            // NOTE: Without this workaround patterns like ".*" would hit
-            // each line twice, second time the newline only
+        // Continue after match
+        if (match.start() == match.end()) {
+            // Can happen for regex patterns like "^".
+            // If we don't advance here we will loop forever...
             const int line = match.end().line();
-            const int maxLine = m_view->doc()->lines() - 1;
-            if (line < maxLine) {
-                inputRange.setRange(Cursor(line + 1, 0), inputRange.end());
+            const int col = match.end().column();
+            const int maxColWithNewline = m_view->doc()->lineLength(line);
+            if (col < maxColWithNewline) {
+                // Advance on same line
+                inputRange.setRange(Cursor(line, col + 1), inputRange.end());
             } else {
-                // Already at last line
-                break;
+                // Advance to next line
+                const int maxLine = m_view->doc()->lines() - 1;
+                if (line < maxLine) {
+                    // Next line
+                    inputRange.setRange(Cursor(line + 1, 0), inputRange.end());
+                } else {
+                    // Already at last line
+                    break;
+                }
             }
         } else {
-            // Continue after match
-            if (match.start() == match.end()) {
-                // Can happen for regex patterns like "^".
-                // If we don't advance here we will loop forever...
-                const int line = match.end().line();
-                const int col = match.end().column();
-                const int maxColWithNewline = m_view->doc()->lineLength(line);
-                if (col < maxColWithNewline) {
-                    // Advance on same line
-                    inputRange.setRange(Cursor(line, col + 1), inputRange.end());
-                } else {
-                    // Advance to next line
-                    const int maxLine = m_view->doc()->lines() - 1;
-                    if (line < maxLine) {
-                        // Next line
-                        inputRange.setRange(Cursor(line + 1, 0), inputRange.end());
-                    } else {
-                        // Already at last line
-                        break;
-                    }
-                }
-            } else {
-                inputRange.setRange(match.end(), inputRange.end());
-            }
+            inputRange.setRange(match.end(), inputRange.end());
+        }
+
+        // Single-line pattern workaround
+        if (regexMode && !multiLinePattern) {
+            const bool FORWARDS = true;
+            fixForSingleLine(inputRange, FORWARDS);
         }
 
         if (!inputRange.isValid()) {

@@ -67,11 +67,22 @@ class QTimer;
 class KateKeyInterceptorFunctor;
 
 // needed for parsing replacement text like "\1:\2"
-struct ReplacementPart
-{
-  bool isReference; // otherwise text
+struct ReplacementPart {
+  enum Type {
+    Reference, // \1..\9
+    Text,
+    UpperCase, // \U = Uppercase from now on
+    LowerCase, // \L = Lowercase from now on
+    KeepCase // \E = back to original case
+  };
+
+  Type type;
+
+  // Type = Reference
   int index; // [0..9] 0=full match, 1=first capture, ..
-  QString text; // if not a reference
+
+  // Type = Text
+  QString text;
 };
 
 //
@@ -417,7 +428,7 @@ class KateDocument : public KTextEditor::Document,
      * \param zeroCaptureOnly  Only accept \0 as a reference, discard \1 to \9
      */
     static void escapePlaintext(QString & text, QList<ReplacementPart> * parts = NULL,
-        bool zeroCaptureOnly = false);
+        bool caseSwitchers = false);
 
     /**
      * Repairs a regular Expression pattern.

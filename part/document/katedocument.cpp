@@ -1944,7 +1944,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
 
   const int firstLineIndex = inputRange.start().line();
   const int minColStart = inputRange.start().column();
-  const int maxColEnd = inputRange.end().column();
+//  const int maxColEnd = inputRange.end().column();
   if (isMultiLine)
   {
     // multi-line regex search (both forward and backward mode)
@@ -2171,7 +2171,7 @@ kDebug() << "range " << y << ": (" << startLine << ", " << startCol << ")..(" <<
         return result;
       }
 
-      const int offset = (j == forMin) ? minLeft : 0;
+//      const int offset = (j == forMin) ? minLeft : 0;
       uint foundAt, myMatchLen;
 
         // BEGIN QUICK BUGFIX
@@ -2180,7 +2180,7 @@ kDebug() << "range " << y << ": (" << startLine << ", " << startCol << ")..(" <<
         const int afterLast = (j == forMax) ? maxRight : textLine->length();
         const QString hay = textLine->string(first, afterLast - first);
         foundAt = backwards ? regexp.lastIndexIn(hay) : regexp.indexIn(hay);
-        const bool found = (foundAt != -1);
+        const bool found = (foundAt != static_cast<uint>(-1));
         if (found) {
             foundAt += first;
             myMatchLen = regexp.matchedLength();
@@ -2337,8 +2337,7 @@ KTextEditor::Search::SearchOptions KateDocument::supportedSearchOptions() const
 
 
 void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * parts,
-    bool zeroCaptureOnly)
-{
+        bool caseSwitchers) {
   // get input
   const int inputLen = text.length();
   int input = 0; // walker index
@@ -2378,21 +2377,21 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
           else
           {
             // handle reference
-            ReplacementPart part;
+            ReplacementPart curPart;
 
             // append text before the reference
             if (!output.isEmpty())
             {
-              part.isReference = false;
-              part.text = output;
+              curPart.type = ReplacementPart::Text;
+              curPart.text = output;
               output.clear();
-              parts->append(part);
+              parts->append(curPart);
             }
 
             // append reference
-            part.isReference = true;
-            part.index = 0;
-            parts->append(part);
+            curPart.type = ReplacementPart::Reference;
+            curPart.index = 0;
+            parts->append(curPart);
           }
           input += 2;
         }
@@ -2442,21 +2441,21 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
             else
             {
               // handle reference
-              ReplacementPart part;
+              ReplacementPart curPart;
 
               // append text before the reference
               if (!output.isEmpty())
               {
-                part.isReference = false;
-                part.text = output;
+                curPart.type = ReplacementPart::Text;
+                curPart.text = output;
                 output.clear();
-                parts->append(part);
+                parts->append(curPart);
               }
 
               // append reference
-              part.isReference = true;
-              part.index = 0;
-              parts->append(part);
+              curPart.type = ReplacementPart::Reference;
+              curPart.index = 0;
+              parts->append(curPart);
             }
             input += 2;
           }
@@ -2472,7 +2471,7 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
       case L'7':
       case L'8':
       case L'9':
-        if ((parts == NULL) || zeroCaptureOnly)
+        if (parts == NULL)
         {
           // strip backslash ("\?" -> "?")
           output.append(text[input + 1]);
@@ -2480,21 +2479,60 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
         else
         {
           // handle reference
-          ReplacementPart part;
+          ReplacementPart curPart;
 
           // append text before the reference
           if (!output.isEmpty())
           {
-            part.isReference = false;
-            part.text = output;
+            curPart.type = ReplacementPart::Text;
+            curPart.text = output;
             output.clear();
-            parts->append(part);
+            parts->append(curPart);
           }
 
           // append reference
-          part.isReference = true;
-          part.index = 9 - (L'9' - text[input + 1].unicode());
-          parts->append(part);
+          curPart.type = ReplacementPart::Reference;
+          curPart.index = 9 - (L'9' - text[input + 1].unicode());
+          parts->append(curPart);
+        }
+        input += 2;
+        break;
+
+      case L'E': // FALLTHROUGH
+      case L'L': // FALLTHROUGH
+      case L'U':
+        if ((parts == NULL) || !caseSwitchers) {
+          // strip backslash ("\?" -> "?")
+          output.append(text[input + 1]);
+        } else {
+          // handle case switcher
+          ReplacementPart curPart;
+
+          // append text before case switcher
+          if (!output.isEmpty())
+          {
+            curPart.type = ReplacementPart::Text;
+            curPart.text = output;
+            output.clear();
+            parts->append(curPart);
+          }
+
+          // append case switcher
+          switch (text[input + 1].unicode()) {
+          case L'L':
+            curPart.type = ReplacementPart::LowerCase;
+            break;
+
+          case L'U':
+            curPart.type = ReplacementPart::UpperCase;
+            break;
+
+          case L'E': // FALLTHROUGH
+          default:
+            curPart.type = ReplacementPart::KeepCase;
+
+          }
+          parts->append(curPart);
         }
         input += 2;
         break;
@@ -2631,10 +2669,10 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
     // append text after the last reference if any
     if (!output.isEmpty())
     {
-      ReplacementPart part;
-      part.isReference = false;
-      part.text = output;
-      parts->append(part);
+      ReplacementPart curPart;
+      curPart.type = ReplacementPart::Text;
+      curPart.text = output;
+      parts->append(curPart);
     }
   }
 }

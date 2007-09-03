@@ -232,9 +232,11 @@ void KateSearchBar::buildReplacement(QString & output, QList<ReplacementPart> & 
     const int MAX_REF_INDEX = details.count() - 1;
 
     output.clear();
+    ReplacementPart::Type caseConversion = ReplacementPart::KeepCase;
     for (QList<ReplacementPart>::iterator iter = parts.begin(); iter != parts.end(); iter++) {
         ReplacementPart & curPart = *iter;
-        if (curPart.isReference) {
+        switch (curPart.type) {
+        case ReplacementPart::Reference:
             if ((curPart.index < MIN_REF_INDEX) || (curPart.index > MAX_REF_INDEX)) {
                 // Insert just the number to be consistent with QRegExp ("\c" becomes "c")
                 output.append(QString::number(curPart.index));
@@ -243,11 +245,57 @@ void KateSearchBar::buildReplacement(QString & output, QList<ReplacementPart> & 
                 if (captureRange.isValid()) {
                     // Copy capture content
                     const bool blockMode = m_view->blockSelection();
-                    output.append(m_view->doc()->text(captureRange, blockMode));
+                    const QString content = m_view->doc()->text(captureRange, blockMode);
+                    switch (caseConversion) {
+                    case ReplacementPart::UpperCase:
+                        // Copy as uppercase
+                        output.append(content.toUpper());
+                        break;
+
+                    case ReplacementPart::LowerCase:
+                        // Copy as lowercase
+                        output.append(content.toLower());
+                        break;
+
+                    case ReplacementPart::KeepCase: // FALLTHROUGH
+                    default:
+                        // Copy unmodified
+                        output.append(content);
+                        break;
+
+                    }
                 }
             }
-        } else {
-            output.append(curPart.text);
+            break;
+
+        case ReplacementPart::UpperCase: // FALLTHROUGH
+        case ReplacementPart::LowerCase: // FALLTHROUGH
+        case ReplacementPart::KeepCase:
+            caseConversion = curPart.type;
+            break;
+
+        case ReplacementPart::Text: // FALLTHROUGH
+        default:
+            switch (caseConversion) {
+            case ReplacementPart::UpperCase:
+                // Copy as uppercase
+                output.append(curPart.text.toUpper());
+                break;
+
+            case ReplacementPart::LowerCase:
+                // Copy as lowercase
+                output.append(curPart.text.toLower());
+                break;
+
+            case ReplacementPart::KeepCase: // FALLTHROUGH
+            default:
+                // Copy unmodified
+                output.append(curPart.text);
+                break;
+
+            }
+            break;
+
         }
     }
 }
@@ -263,7 +311,8 @@ void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & r
         // Resolve references and escape sequences
         QList<ReplacementPart> parts;
         QString writableHack(replacement);
-        KateDocument::escapePlaintext(writableHack, &parts);
+        const bool ENABLE_CASE_SWITCHERS = true;
+        KateDocument::escapePlaintext(writableHack, &parts, ENABLE_CASE_SWITCHERS);
         buildReplacement(finalReplacement, parts, match);
     } else {
         // Plain text replacement
@@ -928,6 +977,13 @@ void KateSearchBar::showAddMenu(bool forPattern) {
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "(?:E", ")", i18n("Group, non-capturing"), "(?:");
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "(?=E", ")", i18n("Lookahead"), "(?=");
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "(?!E", ")", i18n("Negative lookahead"), "(?!");
+    }
+
+    if (!forPattern) {
+        popupMenu->addSeparator();
+        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\L", "", i18n("Begin lowercase conversion"));
+        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\U", "", i18n("Begin uppercase conversion"));
+        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\E", "", i18n("End case conversion"));
     }
 
 

@@ -54,7 +54,8 @@
 
 //#include <kaction.h>
 #include <kparts/factory.h>
-#include <klibloader.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
 #include <kdebug.h>
 
 using namespace KTextEditor;
@@ -183,12 +184,17 @@ bool View::insertText (const QString &text )
 
 Plugin *KTextEditor::createPlugin ( const char *libname, QObject *parent )
 {
-  return KLibLoader::createInstance<Plugin>( libname, parent );
+  KPluginFactory *factory = KPluginLoader(libname).factory();
+  if (factory) {
+    return factory->create<Plugin>(parent);
+  } else {
+    return 0;
+  }
 }
 
 Editor *KTextEditor::editor(const char *libname)
 {
-  KLibFactory *fact=KLibLoader::self()->factory(libname);
+  KPluginFactory *fact=KPluginLoader(libname).factory();
 
   KTextEditor::Factory *ef=qobject_cast<KTextEditor::Factory*>(fact);
 

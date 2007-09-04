@@ -30,7 +30,7 @@ class TimeDateConfig
     Q_OBJECT
 
 public:
-    explicit TimeDateConfig(QWidget *parent = 0, const QStringList &args = QStringList());
+    explicit TimeDateConfig(QWidget *parent = 0, const QVariantList &args = QVariantList());
     virtual ~TimeDateConfig();
 
     virtual void save();

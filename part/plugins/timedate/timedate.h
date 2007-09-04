@@ -24,10 +24,12 @@
 #include <ktexteditor/view.h>
 #include <kxmlguiclient.h>
 #include <klocalizedstring.h>
+#include <kpluginfactory.h>
 
 #include <QtCore/QEvent>
 #include <QtCore/QObject>
 #include <QtCore/QList>
+#include <QtCore/QVariantList>
 
 static QString localizedTimeDate =
     I18N_NOOP2("This is a localized string for default time & date printing on kate document."
@@ -44,7 +46,7 @@ class TimeDatePlugin
 {
   public:
     explicit TimeDatePlugin(QObject *parent = 0,
-                            const QStringList &args = QStringList());
+                            const QVariantList &args = QVariantList());
     virtual ~TimeDatePlugin();
 
     static TimeDatePlugin *self() { return plugin; }
@@ -87,5 +89,7 @@ class TimeDatePluginView
     KTextEditor::View *m_view;
     QString m_string;
 };
+
+K_PLUGIN_FACTORY_DECLARATION(TimeDatePluginFactory)
 
 #endif // TIMEDATE_H

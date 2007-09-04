@@ -19,7 +19,8 @@
 //BEGIN includes
 #include "kate_kdatatool.h"
 #include "kate_kdatatool.moc"
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <ktexteditor/view.h>
@@ -29,14 +30,15 @@
 #include <kmenu.h>
 #include <kmessagebox.h>
 #include <kactionmenu.h>
+#include <klocale.h>
 //END includes
 
-
-K_EXPORT_COMPONENT_FACTORY( ktexteditor_kdatatool, KGenericFactory<KTextEditor::KDataToolPlugin>( "ktexteditor_kdatatool", "ktexteditor_plugins" ) )
+K_PLUGIN_FACTORY( KDataToolPluginFactory, registerPlugin<KTextEditor::KDataToolPlugin>(); )
+K_EXPORT_PLUGIN( KDataToolPluginFactory( "ktexteditor_kdatatool", "ktexteditor_plugins" ) )
 
 namespace KTextEditor {
 
-KDataToolPlugin::KDataToolPlugin( QObject *parent, const QStringList& )
+KDataToolPlugin::KDataToolPlugin( QObject *parent, const QVariantList& )
 	: KTextEditor::Plugin ( parent )
 {
 }
@@ -72,7 +74,7 @@ KDataToolPluginView::KDataToolPluginView( KTextEditor::View *view )
 {
 
 	view->insertChildClient (this);
-	setComponentData( KGenericFactory<KDataToolPlugin>::componentData() );
+	setComponentData( KDataToolPluginFactory::componentData() );
 
 	m_menu = new KActionMenu(i18n("Data Tools"), this);
         actionCollection()->addAction("popup_dataTool", m_menu);

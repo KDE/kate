@@ -31,7 +31,8 @@
 #include <kaction.h>
 #include <kapplication.h>
 #include <kconfig.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
 #include <kiconloader.h>
 #include <k3listview.h>
 #include <klocale.h>
@@ -57,11 +58,12 @@
 //END includes
 
 //BEGIN AutoBookmarker
-K_EXPORT_COMPONENT_FACTORY( ktexteditor_autobookmarker, KGenericFactory<AutoBookmarker>( "ktexteditor_autobookmarker", "ktexteditor_plugins" ) )
+K_PLUGIN_FACTORY( AutoBookmarkerFactory, registerPlugin<AutoBookmarker>(); )
+K_EXPORT_PLUGIN( AutoBookmarkerFactory( "ktexteditor_autobookmarker", "ktexteditor_plugins" ) )
 
 AutoBookmarker::AutoBookmarker( QObject *parent,
                             const char* name,
-                            const QStringList& /*args*/ )
+                            const QVariantList& /*args*/ )
         : KTextEditor::Plugin ( (KTextEditor::Document*) parent, name ),
           KTextEditor::ConfigInterfaceExtension()
 {

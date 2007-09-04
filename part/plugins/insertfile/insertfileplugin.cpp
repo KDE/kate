@@ -26,7 +26,8 @@
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kfiledialog.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kpushbutton.h>
@@ -36,11 +37,12 @@
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
 
-K_EXPORT_COMPONENT_FACTORY( ktexteditor_insertfile, KGenericFactory<InsertFilePlugin>( "ktexteditor_insertfile", "ktexteditor_plugins" ) )
+K_PLUGIN_FACTORY( InsertFilePluginFactory, registerPlugin<InsertFilePlugin>(); )
+K_EXPORT_PLUGIN( InsertFilePluginFactory( "ktexteditor_insertfile", "ktexteditor_plugins" ) )
 
 
 //BEGIN InsertFilePlugin
-InsertFilePlugin::InsertFilePlugin( QObject *parent, const QStringList& )
+InsertFilePlugin::InsertFilePlugin( QObject *parent, const QVariantList& )
 	: KTextEditor::Plugin ( parent )
 {
 }
@@ -81,7 +83,7 @@ InsertFilePluginView::InsertFilePluginView( KTextEditor::View *view, const char 
   setObjectName( name );
 
   view->insertChildClient( this );
-  setComponentData( KGenericFactory<InsertFilePlugin>::componentData() );
+  setComponentData( InsertFilePluginFactory::componentData() );
   _job = 0;
 
   KAction *action = new KAction( i18n("Insert File..."), this );

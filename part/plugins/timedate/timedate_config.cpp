@@ -24,15 +24,12 @@
 #include <QtGui/QBoxLayout>
 
 #include <klocale.h>
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
 #include <klineedit.h>
 
-K_EXPORT_COMPONENT_FACTORY( \
-    ktexteditor_timedate_config, \
-    KGenericFactory<TimeDateConfig>("ktexteditor_timedate_config"))
-
-TimeDateConfig::TimeDateConfig(QWidget *parent, const QStringList &args)
-    : KCModule(KGenericFactory<TimeDateConfig>::componentData(), parent, args)
+TimeDateConfig::TimeDateConfig(QWidget *parent, const QVariantList &args)
+    : KCModule(TimeDatePluginFactory::componentData(), parent, args)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
 

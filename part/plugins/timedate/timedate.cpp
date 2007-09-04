@@ -18,19 +18,26 @@
   */
 
 #include "timedate.h"
+#include "timedate_config.h"
 
 #include <ktexteditor/document.h>
 
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
+#include <kpluginloader.h>
 #include <klocale.h>
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kdatetime.h>
 
 TimeDatePlugin *TimeDatePlugin::plugin = 0;
-K_EXPORT_COMPONENT_FACTORY(ktexteditor_timedate, KGenericFactory<TimeDatePlugin>("ktexteditor_timedate", "ktexteditor_plugins"))
 
-TimeDatePlugin::TimeDatePlugin(QObject *parent, const QStringList &args)
+K_PLUGIN_FACTORY_DEFINITION(TimeDatePluginFactory,
+        registerPlugin<TimeDatePlugin>();
+        registerPlugin<TimeDateConfig>();
+        )
+K_EXPORT_PLUGIN(TimeDatePluginFactory("ktexteditor_timedate", "ktexteditor_plugins"))
+
+TimeDatePlugin::TimeDatePlugin(QObject *parent, const QVariantList &args)
     : KTextEditor::Plugin(parent)
 {
     Q_UNUSED(args);
@@ -100,7 +107,7 @@ TimeDatePluginView::TimeDatePluginView(const QString &string,
   , m_string(string)
 {
     view->insertChildClient(this);
-    setComponentData(KGenericFactory<TimeDatePlugin>::componentData());
+    setComponentData(TimeDatePluginFactory::componentData());
 
     KAction *action = new KAction(i18n("Insert Time && Date"), this);
     actionCollection()->addAction("tools_insert_timedate", action);

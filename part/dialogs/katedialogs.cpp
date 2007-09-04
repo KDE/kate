@@ -70,7 +70,6 @@
 #include <kmessagebox.h>
 #include <kmimetypechooser.h>
 #include <knuminput.h>
-#include <kparts/componentfactory.h>
 #include <kmenu.h>
 #include <kprocess.h>
 #include <krun.h>

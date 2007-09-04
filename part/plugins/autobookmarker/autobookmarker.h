@@ -31,6 +31,7 @@
 #include <Qt3Support/Q3PtrList>
 //Added by qt3to4:
 #include <QtGui/QPixmap>
+#include <QtCore/QVariantList>
 
 class AutoBookmarkEnt
 {
@@ -55,7 +56,7 @@ class AutoBookmarker
   public:
     explicit AutoBookmarker( QObject *parent = 0,
                         const char* name = 0,
-                        const QStringList &args = QStringList() );
+                        const QVariantList &args = QVariantList() );
     virtual ~AutoBookmarker() {}
 
     void addView (KTextEditor::View *view);

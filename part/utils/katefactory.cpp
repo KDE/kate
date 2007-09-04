@@ -79,6 +79,6 @@ class KateFactory : public KTextEditor::Factory
     }
 };
 
-K_EXPORT_COMPONENT_FACTORY( katepart, KateFactory )
+K_EXPORT_PLUGIN( KateFactory )
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

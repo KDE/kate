@@ -20,7 +20,7 @@
 #define _KATE_KDATATOOL_
 
 #include <ktexteditor/plugin.h>
-#include <QtCore/QStringList>
+#include <QtCore/QVariantList>
 #include <kxmlguiclient.h>
 #include <QtCore/QPointer>
 
@@ -37,7 +37,7 @@ class KDataToolPlugin : public KTextEditor::Plugin
 	Q_OBJECT
 
 public:
-	explicit KDataToolPlugin( QObject *parent = 0, const QStringList &args = QStringList() );
+	explicit KDataToolPlugin( QObject *parent = 0, const QVariantList &args = QVariantList() );
 	virtual ~KDataToolPlugin();
 	void addView (KTextEditor::View *view);
 	void removeView (KTextEditor::View *view);

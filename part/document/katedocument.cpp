@@ -2172,7 +2172,8 @@ kDebug() << "range " << y << ": (" << startLine << ", " << startCol << ")..(" <<
       }
 
 //      const int offset = (j == forMin) ? minLeft : 0;
-      uint foundAt, myMatchLen;
+        int foundAt;
+        uint myMatchLen;
 
         // BEGIN QUICK BUGFIX
 //      const bool found = textLine->searchText (offset, regexp, &foundAt, &myMatchLen, backwards);
@@ -2180,7 +2181,7 @@ kDebug() << "range " << y << ": (" << startLine << ", " << startCol << ")..(" <<
         const int afterLast = (j == forMax) ? maxRight : textLine->length();
         const QString hay = textLine->string(first, afterLast - first);
         foundAt = backwards ? regexp.lastIndexIn(hay) : regexp.indexIn(hay);
-        const bool found = (foundAt != static_cast<uint>(-1));
+        const bool found = (foundAt != -1);
         if (found) {
             foundAt += first;
             myMatchLen = regexp.matchedLength();
@@ -2337,7 +2338,7 @@ KTextEditor::Search::SearchOptions KateDocument::supportedSearchOptions() const
 
 
 void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * parts,
-        bool caseSwitchers) {
+        bool replacementGoodies) {
   // get input
   const int inputLen = text.length();
   int input = 0; // walker index
@@ -2386,6 +2387,7 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
               curPart.text = output;
               output.clear();
               parts->append(curPart);
+              curPart.text.clear();
             }
 
             // append reference
@@ -2450,6 +2452,7 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
                 curPart.text = output;
                 output.clear();
                 parts->append(curPart);
+                curPart.text.clear();
               }
 
               // append reference
@@ -2488,6 +2491,7 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
             curPart.text = output;
             output.clear();
             parts->append(curPart);
+            curPart.text.clear();
           }
 
           // append reference
@@ -2498,10 +2502,11 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
         input += 2;
         break;
 
+      case L'#': // FALLTHROUGH
       case L'E': // FALLTHROUGH
       case L'L': // FALLTHROUGH
       case L'U':
-        if ((parts == NULL) || !caseSwitchers) {
+        if ((parts == NULL) || !replacementGoodies) {
           // strip backslash ("\?" -> "?")
           output.append(text[input + 1]);
         } else {
@@ -2515,10 +2520,15 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
             curPart.text = output;
             output.clear();
             parts->append(curPart);
+            curPart.text.clear();
           }
 
           // append case switcher
           switch (text[input + 1].unicode()) {
+          case L'#':
+            curPart.type = ReplacementPart::Counter;
+            break;
+
           case L'L':
             curPart.type = ReplacementPart::LowerCase;
             break;

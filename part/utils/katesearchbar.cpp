@@ -227,7 +227,8 @@ void KateSearchBar::selectRange(const KTextEditor::Range & range) {
 
 
 
-void KateSearchBar::buildReplacement(QString & output, QList<ReplacementPart> & parts, const QVector<Range> & details) {
+void KateSearchBar::buildReplacement(QString & output, QList<ReplacementPart> & parts,
+        const QVector<Range> & details, int replacementCounter) {
     const int MIN_REF_INDEX = 0;
     const int MAX_REF_INDEX = details.count() - 1;
 
@@ -274,6 +275,10 @@ void KateSearchBar::buildReplacement(QString & output, QList<ReplacementPart> & 
             caseConversion = curPart.type;
             break;
 
+        case ReplacementPart::Counter:
+            output.append(QString::number(replacementCounter));
+            break;
+
         case ReplacementPart::Text: // FALLTHROUGH
         default:
             switch (caseConversion) {
@@ -302,7 +307,8 @@ void KateSearchBar::buildReplacement(QString & output, QList<ReplacementPart> & 
 
 
 
-void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & replacement) {
+void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & replacement,
+        int replacementCounter) {
     const bool usePlaceholders = isChecked(m_powerUi->usePlaceholders);
     const Range & targetRange = match[0];
 
@@ -311,9 +317,9 @@ void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & r
         // Resolve references and escape sequences
         QList<ReplacementPart> parts;
         QString writableHack(replacement);
-        const bool ENABLE_CASE_SWITCHERS = true;
-        KateDocument::escapePlaintext(writableHack, &parts, ENABLE_CASE_SWITCHERS);
-        buildReplacement(finalReplacement, parts, match);
+        const bool REPLACEMENT_GOODIES = true;
+        KateDocument::escapePlaintext(writableHack, &parts, REPLACEMENT_GOODIES);
+        buildReplacement(finalReplacement, parts, match, replacementCounter);
     } else {
         // Plain text replacement
         finalReplacement = replacement;
@@ -876,6 +882,7 @@ void KateSearchBar::onPowerReplaceAll() {
 
     // Replace (backwards)
     if (!replacementJobs.isEmpty()) {
+        int replacementCounter = replacementJobs.count();
         resetHighlights();
         m_view->doc()->editBegin(); // Group to single undo job
         QList<QVector<Range> >::iterator iter = replacementJobs.end();
@@ -884,7 +891,7 @@ void KateSearchBar::onPowerReplaceAll() {
             const QVector<Range> & targetDetails = *iter;
             const Range & targetRange = targetDetails[0];
             highlightReplacement(targetRange);
-            replaceMatch(targetDetails, replacement);
+            replaceMatch(targetDetails, replacement, replacementCounter--);
         }
         m_view->doc()->editEnd();
     }
@@ -940,18 +947,20 @@ void KateSearchBar::showAddMenu(bool forPattern) {
     } else {
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\0", "", i18n("Whole match reference"));
         popupMenu->addSeparator();
-        // TODO Add pattern text for each capture as requested by bug #148359
-        // http://bugs.kde.org/show_bug.cgi?id=148359
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\1", "", i18n("Capture reference 1"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\2", "", i18n("Capture reference 2"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\3", "", i18n("Capture reference 3"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\4", "", i18n("Capture reference 4"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\5", "", i18n("Capture reference 5"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\6", "", i18n("Capture reference 6"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\7", "", i18n("Capture reference 7"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\8", "", i18n("Capture reference 8"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\9", "", i18n("Capture reference 9"));
-        popupMenu->addSeparator();
+        if (regexMode) {
+            // TODO Add pattern text for each capture as requested by bug #148359
+            // http://bugs.kde.org/show_bug.cgi?id=148359
+            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\1", "", i18n("Capture reference 1"));
+            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\2", "", i18n("Capture reference 2"));
+            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\3", "", i18n("Capture reference 3"));
+            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\4", "", i18n("Capture reference 4"));
+            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\5", "", i18n("Capture reference 5"));
+            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\6", "", i18n("Capture reference 6"));
+            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\7", "", i18n("Capture reference 7"));
+            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\8", "", i18n("Capture reference 8"));
+            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\9", "", i18n("Capture reference 9"));
+            popupMenu->addSeparator();
+        }
     }
 
     addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\n", "", i18n("Line break"));
@@ -984,6 +993,7 @@ void KateSearchBar::showAddMenu(bool forPattern) {
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\L", "", i18n("Begin lowercase conversion"));
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\U", "", i18n("Begin uppercase conversion"));
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\E", "", i18n("End case conversion"));
+        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\#", "", i18n("Replacement counter (for Replace all)"));
     }
 
 

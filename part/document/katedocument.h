@@ -73,7 +73,8 @@ struct ReplacementPart {
     Text,
     UpperCase, // \U = Uppercase from now on
     LowerCase, // \L = Lowercase from now on
-    KeepCase // \E = back to original case
+    KeepCase, // \E = back to original case
+    Counter // \# = 1, 2, ... incremented for each replacement of <Replace All>
   };
 
   Type type;
@@ -423,12 +424,12 @@ class KateDocument : public KTextEditor::Document,
      * unmodified and creates a list of text and capture references out of it.
      * These two modes are fused into one function to avoid code duplication.
      *
-     * \param text             Text to process
-     * \param parts            List of text and references
-     * \param zeroCaptureOnly  Only accept \0 as a reference, discard \1 to \9
+     * \param text                Text to process
+     * \param parts               List of text and references
+     * \param replacementGoodies  Enable \L, \E, \E and \#
      */
     static void escapePlaintext(QString & text, QList<ReplacementPart> * parts = NULL,
-        bool caseSwitchers = false);
+        bool replacementGoodies = false);
 
     /**
      * Repairs a regular Expression pattern.

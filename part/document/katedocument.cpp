@@ -280,9 +280,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // important, fill in the config into the indenter we use...
   m_indenter.updateConfig ();
 
-  // connect the start of kparts kio job to remember the job
-  connect(this, SIGNAL(started(KIO::Job *)), this, SLOT(rememberJob (KIO::Job *)));
-
   // some nice signals from the buffer
   connect(m_buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
   connect(m_buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));

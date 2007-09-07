@@ -276,7 +276,12 @@ void KateSearchBar::buildReplacement(QString & output, QList<ReplacementPart> & 
             break;
 
         case ReplacementPart::Counter:
-            output.append(QString::number(replacementCounter));
+            {
+                // Zero padded counter value
+                const int minWidth = curPart.index;
+                const int number = replacementCounter;
+                output.append(QString("%1").arg(number, minWidth, 10, QLatin1Char('0')));
+            }
             break;
 
         case ReplacementPart::Text: // FALLTHROUGH
@@ -993,7 +998,7 @@ void KateSearchBar::showAddMenu(bool forPattern) {
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\L", "", i18n("Begin lowercase conversion"));
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\U", "", i18n("Begin uppercase conversion"));
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\E", "", i18n("End case conversion"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\#", "", i18n("Replacement counter (for Replace all)"));
+        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\#[#..]", "", i18n("Replacement counter (for Replace all)"), "\\#");
     }
 
 

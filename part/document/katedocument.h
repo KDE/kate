@@ -79,7 +79,7 @@ struct ReplacementPart {
 
   Type type;
 
-  // Type = Reference
+  // Type in {Reference, Counter}
   int index; // [0..9] 0=full match, 1=first capture, ..
 
   // Type = Text

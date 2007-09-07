@@ -2499,7 +2499,6 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
         input += 2;
         break;
 
-      case L'#': // FALLTHROUGH
       case L'E': // FALLTHROUGH
       case L'L': // FALLTHROUGH
       case L'U':
@@ -2522,10 +2521,6 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
 
           // append case switcher
           switch (text[input + 1].unicode()) {
-          case L'#':
-            curPart.type = ReplacementPart::Counter;
-            break;
-
           case L'L':
             curPart.type = ReplacementPart::LowerCase;
             break;
@@ -2542,6 +2537,38 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
           parts->append(curPart);
         }
         input += 2;
+        break;
+
+      case L'#':
+        if ((parts == NULL) || !replacementGoodies) {
+          // strip backslash ("\?" -> "?")
+          output.append(text[input + 1]);
+          input += 2;
+        } else {
+          // handle replacement counter
+          ReplacementPart curPart;
+
+          // append text before replacement counter
+          if (!output.isEmpty())
+          {
+            curPart.type = ReplacementPart::Text;
+            curPart.text = output;
+            output.clear();
+            parts->append(curPart);
+            curPart.text.clear();
+          }
+
+          // eat and count all following hash marks
+          // each hash stands for a leading zero: \### will produces 001, 002, ...
+          int count = 1;
+          while ((input + count + 1 < inputLen) && (text[input + count + 1].unicode() == L'#')) {
+            count++;
+          }
+          curPart.type = ReplacementPart::Counter;
+          curPart.index = count; // Each hash stands
+          parts->append(curPart);
+          input += 1 + count;
+        }
         break;
 
       case L'a':

@@ -650,19 +650,42 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
 
 
 void KateSearchBar::onPowerPatternChanged(const QString & pattern) {
+    givePatternFeedback(pattern);
+}
+
+
+
+void KateSearchBar::givePatternFeedback(const QString & pattern) {
+    bool enabled = true;
+
     if (pattern.isEmpty()) {
-        // Disable next/prev and replace next/all
-        m_powerUi->findNext->setDisabled(true);
-        m_powerUi->findPrev->setDisabled(true);
-        m_powerUi->replaceNext->setDisabled(true);
-        m_powerUi->replaceAll->setDisabled(true);
+        enabled = false;
     } else {
-        // Enable next/prev and replace next/all
-        m_powerUi->findNext->setDisabled(false);
-        m_powerUi->findPrev->setDisabled(false);
-        m_powerUi->replaceNext->setDisabled(false);
-        m_powerUi->replaceAll->setDisabled(false);
+        switch (m_powerUi->searchMode->currentIndex()) {
+        case MODE_WHOLE_WORDS:
+            if (pattern.trimmed() != pattern) {
+                enabled = false;
+            }
+            break;
+
+        case MODE_REGEX:
+            m_patternTester.setPattern(pattern);
+            enabled = m_patternTester.isValid();
+            break;
+
+        case MODE_ESCAPE_SEQUENCES: // FALLTHROUGH
+        case MODE_PLAIN_TEXT: // FALLTHROUGH
+        default:
+            ; // NOOP
+
+        }
     }
+
+    // Enable/disable next/prev and replace next/all
+    m_powerUi->findNext->setDisabled(!enabled);
+    m_powerUi->findPrev->setDisabled(!enabled);
+    m_powerUi->replaceNext->setDisabled(!enabled);
+    m_powerUi->replaceAll->setDisabled(!enabled);
 }
 
 
@@ -1098,6 +1121,8 @@ void KateSearchBar::onPowerModeChanged(int index, bool invokedByUserAction) {
 
         sendConfig();
     }
+
+    givePatternFeedback(m_powerUi->pattern->currentText());
 }
 
 

@@ -26,6 +26,8 @@
 
 #include <kcolorscheme.h>
 
+#include <QtCore/QRegExp>
+
 
 
 class KateView;
@@ -117,6 +119,7 @@ private:
             const QString & realBefore = QString(), const QString & realAfter = QString());
     void showAddMenu(bool forPattern);
 
+    void givePatternFeedback(const QString & pattern);
     void addCurrentTextToHistory(QComboBox * combo);
     void backupConfig(bool ofPower);
     void sendConfig();
@@ -133,6 +136,7 @@ private:
     KTextEditor::SmartRange * m_topRange;
     QVBoxLayout * m_layout;
     QWidget * m_widget;
+    QRegExp m_patternTester;
 
     // Incremental search related
     Ui::IncrementalSearchBar * m_incUi;

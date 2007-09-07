@@ -160,6 +160,11 @@ bool Range::contains( const Range& range ) const
   return range.start() >= start() && range.end() <= end();
 }
 
+bool Range::containsColumn( int column ) const
+{
+  return column >= start().column() && column < end().column();
+}
+
 bool Range::overlaps( const Range& range ) const
 {
   if (range.start() <= start())

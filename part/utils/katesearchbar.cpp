@@ -934,6 +934,90 @@ void KateSearchBar::onPowerReplaceAll() {
 
 
 
+struct ParInfo {
+    int openIndex;
+    bool capturing;
+    int captureNumber; // 1..9
+};
+
+
+
+QVector<QString> KateSearchBar::getCapturePatterns(const QString & pattern) {
+    QVector<QString> capturePatterns;
+    capturePatterns.reserve(9);
+    QStack<ParInfo> parInfos;
+
+    const int inputLen = pattern.length();
+    int input = 0; // walker index
+    bool insideClass = false;
+    int captureCount = 0;
+
+    while (input < inputLen) {
+        if (insideClass) {
+            // Wait for closing, unescaped ']'
+            if (pattern[input].unicode() == L']') {
+                insideClass = false;
+            }
+            input++;
+        }
+        else
+        {
+            // XXX
+            switch (pattern[input].unicode())
+            {
+            case L'\\':
+                // Skip this and any next character
+                input += 2;
+                break;
+
+            case L'(':
+                ParInfo curInfo;
+                curInfo.openIndex = input;
+                curInfo.capturing = (input + 1 >= inputLen) || (pattern[input + 1].unicode() != '?');
+                if (curInfo.capturing) {
+                    captureCount++;
+                }
+                curInfo.captureNumber = captureCount;
+                parInfos.push(curInfo);
+
+                input++;
+                break;
+                
+            case L')':
+                if (!parInfos.empty()) {
+                    ParInfo & top = parInfos.top();
+                    if (top.capturing && (top.captureNumber <= 9)) {
+                        const int start = top.openIndex + 1;
+                        const int len = input - start;
+                        if (capturePatterns.size() < top.captureNumber) {
+                            capturePatterns.resize(top.captureNumber);
+                        }
+                        capturePatterns[top.captureNumber - 1] = pattern.mid(start, len);
+                    }
+                    parInfos.pop();
+                }
+
+                input++;
+                break;
+
+            case L'[':
+                input++;
+                insideClass = true;
+                break;
+
+            default:
+                input++;
+                break;
+
+            }
+        }
+    }
+
+    return capturePatterns;
+}
+
+
+
 void KateSearchBar::addMenuEntry(QMenu * menu, QVector<QString> & insertBefore, QVector<QString> & insertAfter,
         uint & walker, const QString & before, const QString after, const QString description,
         const QString & realBefore, const QString & realAfter) {
@@ -976,17 +1060,19 @@ void KateSearchBar::showAddMenu(bool forPattern) {
         addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\0", "", i18n("Whole match reference"));
         popupMenu->addSeparator();
         if (regexMode) {
-            // TODO Add pattern text for each capture as requested by bug #148359
-            // http://bugs.kde.org/show_bug.cgi?id=148359
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\1", "", i18n("Capture reference 1"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\2", "", i18n("Capture reference 2"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\3", "", i18n("Capture reference 3"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\4", "", i18n("Capture reference 4"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\5", "", i18n("Capture reference 5"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\6", "", i18n("Capture reference 6"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\7", "", i18n("Capture reference 7"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\8", "", i18n("Capture reference 8"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\9", "", i18n("Capture reference 9"));
+            const QString pattern = m_powerUi->pattern->currentText();
+            const QVector<QString> capturePatterns = getCapturePatterns(pattern);
+
+            const int captureCount = capturePatterns.count();
+            for (int i = 1; i <= 9; i++) {
+                const QString number = QString::number(i);
+                const QString & captureDetails = (i <= captureCount)
+                        ? (QString(" == ") + capturePatterns[i - 1].left(30))
+                        : QString();
+                addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\" + number, "",
+                        i18n("Reference") + " " + number + captureDetails);
+            }
+
             popupMenu->addSeparator();
         }
     }

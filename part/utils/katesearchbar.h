@@ -113,6 +113,7 @@ private:
     void replaceMatch(const QVector<KTextEditor::Range> & match, const QString & replacement,
             int replacementCounter = 1);
 
+    QVector<QString> getCapturePatterns(const QString & pattern);
     void addMenuEntry(QMenu * menu, QVector<QString> & insertBefore,
             QVector<QString> & insertAfter, uint & walker,
             const QString & before, const QString after, const QString description,

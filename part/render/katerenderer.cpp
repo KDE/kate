@@ -329,7 +329,10 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
       if (completionHighlight && completionSelected)
         selectionHighlight->addRange(new KTextEditor::Range(line, 0, line + 1, 0), backgroundAttribute);
       else
-        selectionHighlight->addRange(new KTextEditor::Range(m_view->selectionRange()), backgroundAttribute);
+        if(m_view->blockSelection() && m_view->selectionRange().overlapsLine(line))
+          selectionHighlight->addRange(new KTextEditor::Range(line, m_view->selectionRange().start().column(), line, m_view->selectionRange().end().column()), backgroundAttribute);        
+        else
+          selectionHighlight->addRange(new KTextEditor::Range(m_view->selectionRange()), backgroundAttribute);
 
       renderRanges.append(selectionHighlight);
     }
@@ -376,13 +379,15 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
 
       KTextEditor::Attribute a = renderRanges.generateAttribute();
       fr.format = a;
-      if (m_view->selection() && m_view->selectionRange().contains(currentPosition)) {
-        if(a.hasProperty(KTextEditor::Attribute::SelectedForeground)) {
-          fr.format.setForeground(a.selectedForeground());
-    	  }
-    	  if(a.hasProperty(KTextEditor::Attribute::SelectedBackground)) {
-    	    fr.format.setBackground(a.selectedBackground());
-    	  }
+      if (m_view->selection() && m_view->selectionRange().contains(currentPosition)
+          && (!m_view->blockSelection() || m_view->selectionRange().containsColumn(currentPosition.column()))) {
+
+          if(a.hasProperty(KTextEditor::Attribute::SelectedForeground)) {
+            fr.format.setForeground(a.selectedForeground());
+          }
+          if(a.hasProperty(KTextEditor::Attribute::SelectedBackground)) {
+            fr.format.setBackground(a.selectedBackground());
+          }
       }
 
       newHighlight.append(fr);
@@ -415,10 +420,6 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
   // font data
   const QFontMetrics& fm = config()->fontMetrics();
-
-  // Paint selection background as the whole line is selected
-  // selection startcol/endcol calc
-  KTextEditor::Range selection = m_view->selection() ? m_view->selectionRange() : KTextEditor::Range::invalid();
 
   int currentViewLine = -1;
   if (cursor && cursor->line() == range->line())

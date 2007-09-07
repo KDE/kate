@@ -13,8 +13,7 @@ TODO:
 * color issues
   * use color roles when they become available to initialize attributes - DONE
     -> check if this does indeed fix bug 143606
-
-* text painted twice after clearing a selection (see http://permalink.gmane.org/gmane.comp.kde.devel.kwrite/12546)
+  * port to KStatefulBrush (how do we use this? need to repaint on losing focus or will Qt do it?)
 
 * HL configuration issues
   * current highlighter not selected (regression)

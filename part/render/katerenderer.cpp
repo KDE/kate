@@ -341,12 +341,16 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
 
     // Calculate the range which we need to iterate in order to get the highlighting for just this line
     if (selectionsOnly) {
-      KTextEditor::Range rangeNeeded = m_view->selectionRange().encompass(m_dynamicRegion.boundingRange());
-      rangeNeeded &= KTextEditor::Range(line, 0, line + 1, 0);
-
-      currentPosition = qMax(KTextEditor::Cursor(line, 0), rangeNeeded.start());
-      endPosition = qMin(KTextEditor::Cursor(line + 1, 0), rangeNeeded.end());
-
+      if(m_view->blockSelection()) {
+        currentPosition = KTextEditor::Cursor(line, m_view->selectionRange().start().column());
+        endPosition = KTextEditor::Cursor(line, m_view->selectionRange().end().column());
+      } else {
+        KTextEditor::Range rangeNeeded = m_view->selectionRange().encompass(m_dynamicRegion.boundingRange());
+        rangeNeeded &= KTextEditor::Range(line, 0, line + 1, 0);
+  
+        currentPosition = qMax(KTextEditor::Cursor(line, 0), rangeNeeded.start());
+        endPosition = qMin(KTextEditor::Cursor(line + 1, 0), rangeNeeded.end());
+      }
     } else {
       currentPosition = KTextEditor::Cursor(line, 0);
       endPosition = KTextEditor::Cursor(line + 1, 0);

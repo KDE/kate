@@ -342,8 +342,10 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
     // Calculate the range which we need to iterate in order to get the highlighting for just this line
     if (selectionsOnly) {
       if(m_view->blockSelection()) {
-        currentPosition = KTextEditor::Cursor(line, m_view->selectionRange().start().column());
-        endPosition = KTextEditor::Cursor(line, m_view->selectionRange().end().column());
+        int startColumn = m_view->selectionRange().start().column();
+        int endColumn = m_view->selectionRange().end().column();
+        currentPosition = KTextEditor::Cursor(line, qMin(startColumn, endColumn));
+        endPosition = KTextEditor::Cursor(line, qMax(startColumn, endColumn));
       } else {
         KTextEditor::Range rangeNeeded = m_view->selectionRange().encompass(m_dynamicRegion.boundingRange());
         rangeNeeded &= KTextEditor::Range(line, 0, line + 1, 0);
@@ -358,7 +360,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
 
     // Main iterative loop.  This walks through each set of highlighting ranges, and stops each
     // time the highlighting changes.  It then creates the corresponding QTextLayout::FormatRanges.
-    do {
+    while (currentPosition < endPosition) {
       renderRanges.advanceTo(currentPosition);
 
       if (!renderRanges.hasAttribute()) {
@@ -383,22 +385,22 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
 
       KTextEditor::Attribute a = renderRanges.generateAttribute();
       fr.format = a;
-      if (m_view->selection() && m_view->selectionRange().contains(currentPosition)
-          && (!m_view->blockSelection() || m_view->selectionRange().containsColumn(currentPosition.column()))) {
 
-          if(a.hasProperty(KTextEditor::Attribute::SelectedForeground)) {
-            fr.format.setForeground(a.selectedForeground());
-          }
-          if(a.hasProperty(KTextEditor::Attribute::SelectedBackground)) {
-            fr.format.setBackground(a.selectedBackground());
-          }
+      if(m_view->blockSelection()) {
+        int minSelectionColumn = qMin(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
+        int maxSelectionColumn = qMax(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
+ 
+        if(currentPosition.column() >= minSelectionColumn && currentPosition.column() < maxSelectionColumn)
+          assignSelectionBrushesFromAttribute(fr, a);
+        
+      } else if (m_view->selection() && m_view->selectionRange().contains(currentPosition)) {
+        assignSelectionBrushesFromAttribute(fr, a);
       }
 
       newHighlight.append(fr);
 
       currentPosition = nextPosition;
-
-    } while (currentPosition < endPosition);
+    }
 
     if (completionHighlight)
       // Don't delete external completion render range
@@ -408,6 +410,16 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
   }
 
   return newHighlight;
+}
+
+void KateRenderer::assignSelectionBrushesFromAttribute(QTextLayout::FormatRange& target, const KTextEditor::Attribute& attribute) const
+{
+  if(attribute.hasProperty(KTextEditor::Attribute::SelectedForeground)) {
+    target.format.setForeground(attribute.selectedForeground());
+  }
+  if(attribute.hasProperty(KTextEditor::Attribute::SelectedBackground)) {
+    target.format.setBackground(attribute.selectedBackground());
+  }
 }
 
 /*

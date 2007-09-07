@@ -27,6 +27,9 @@ TODO:
   very slow. Opening 50 files in the Kate Application is *very* slow. Needs to be
   vastly improved ...somehow...
 
+* try not to repaint the whole view on every keystroke. according to fredrikh,
+  this makes kate almost unusable with EXA.
+
 
 **** Refactoring/Cleanups ****
 * code cleanups wherever needed ;)

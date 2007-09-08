@@ -2168,22 +2168,28 @@ kDebug() << "range " << y << ": (" << startLine << ", " << startCol << ")..(" <<
         return result;
       }
 
-//      const int offset = (j == forMin) ? minLeft : 0;
-        int foundAt;
-        uint myMatchLen;
-
-        // BEGIN QUICK BUGFIX
-//      const bool found = textLine->searchText (offset, regexp, &foundAt, &myMatchLen, backwards);
+        // Find (and don't match ^ in between...)
         const int first = (j == forMin) ? minLeft : 0;
         const int afterLast = (j == forMax) ? maxRight : textLine->length();
         const QString hay = textLine->string(first, afterLast - first);
-        foundAt = backwards ? regexp.lastIndexIn(hay) : regexp.indexIn(hay);
-        const bool found = (foundAt != -1);
+        bool found = true;
+        int foundAt;
+        uint myMatchLen;
+        if (backwards) {
+            const int lineLen = textLine->length() - 1;
+            const int offset = lineLen - afterLast - 1;
+            foundAt = regexp.lastIndexIn(hay, offset);
+            found = (foundAt != -1) && (foundAt >= first);
+        } else {
+            foundAt = regexp.indexIn(hay, first);
+            found = (foundAt != -1);
+        }
+
+        // Repair
         if (found) {
             foundAt += first;
             myMatchLen = regexp.matchedLength();
         }
-        // END QUICK BUGFIX
 
       /*
       TODO do we still need this?

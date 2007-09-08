@@ -450,7 +450,7 @@ void KateSearchBar::fixForSingleLine(Range & range, bool forwards) {
     if (forwards) {
         const int line = range.start().line();
         const int col = range.start().column();
-        const int maxColWithNewline = m_view->doc()->lineLength(line);
+        const int maxColWithNewline = m_view->doc()->lineLength(line) + 1;
         if (col == maxColWithNewline) {
             kDebug() << "Starting on a newline" << range;
             const int maxLine = m_view->doc()->lines() - 1;

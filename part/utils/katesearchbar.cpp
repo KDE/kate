@@ -157,21 +157,11 @@ void KateSearchBar::highlightReplacement(const Range & range) {
 
 
 
-inline void KateSearchBar::adjustBackground(QPalette & palette, KColorScheme::BackgroundRole newRole) {
-    const QPalette::ColorRole role = QPalette::Base;
-    const KColorScheme::ColorSet set = KColorScheme::View;
-    palette.setBrush(QPalette::Active,   role, KColorScheme(QPalette::Active,   set).background(newRole));
-    palette.setBrush(QPalette::Inactive, role, KColorScheme(QPalette::Inactive, set).background(newRole));
-    palette.setBrush(QPalette::Disabled, role, KColorScheme(QPalette::Disabled, set).background(newRole));
-}
-
-
-
 void KateSearchBar::indicateMatch(bool wrapped) {
     if (m_incUi != NULL) {
         // Green background for line edit
         QPalette background(m_incUi->pattern->palette());
-        adjustBackground(background, KColorScheme::PositiveBackground);
+        KColorScheme::adjustBackground(background, KColorScheme::PositiveBackground);
         m_incUi->pattern->setPalette(background);
 
         // Update status label
@@ -189,7 +179,7 @@ void KateSearchBar::indicateMismatch() {
     if (m_incUi != NULL) {
         // Red background for line edit
         QPalette background(m_incUi->pattern->palette());
-        adjustBackground(background, KColorScheme::NegativeBackground);
+        KColorScheme::adjustBackground(background, KColorScheme::NegativeBackground);
         m_incUi->pattern->setPalette(background);
 
         // Update status label
@@ -204,6 +194,8 @@ void KateSearchBar::indicateMismatch() {
 void KateSearchBar::indicateNothing() {
     if (m_incUi != NULL) {
         // Reset background of line edit
+        // ### this is fragile (depends on knowledge of QPalette::ColorGroup)
+        // ...would it better to cache the original palette?
         QColor color = QPalette().color(QPalette::Base);
         QPalette background(m_incUi->pattern->palette());
         background.setBrush(QPalette::Active, QPalette::Base, QPalette().brush(QPalette::Active, QPalette::Base));
@@ -455,7 +447,7 @@ void KateSearchBar::fixForSingleLine(Range & range, bool forwards) {
             kDebug() << "Starting on a newline" << range;
             const int maxLine = m_view->doc()->lines() - 1;
             if (line < maxLine) {
-                range.setRange(Cursor(line + 1, 0), range.end());                
+                range.setRange(Cursor(line + 1, 0), range.end());
                 kDebug() << "Search range fixed to " << range;
             } else {
                 // Already at last line
@@ -982,7 +974,7 @@ QVector<QString> KateSearchBar::getCapturePatterns(const QString & pattern) {
 
                 input++;
                 break;
-                
+
             case L')':
                 if (!parInfos.empty()) {
                     ParInfo & top = parInfos.top();

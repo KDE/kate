@@ -725,7 +725,7 @@ void KateMainWindow::mSlotFixOpenWithMenu()
     KService::Ptr service = *it;
     if (service->name() == "Kate") continue;
     a = menu->addAction(KIcon(service->icon()), service->name());
-    a->setData(service->desktopEntryPath());
+    a->setData(service->entryPath());
   }
   // append "Other..." to call the KDE "open with" dialog.
   a = documentOpenWith->menu()->addAction(i18n("&Other..."));

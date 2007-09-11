@@ -1059,7 +1059,7 @@ void KateSearchBar::showAddMenu(bool forPattern) {
             for (int i = 1; i <= 9; i++) {
                 const QString number = QString::number(i);
                 const QString & captureDetails = (i <= captureCount)
-                        ? (QString(" == ") + capturePatterns[i - 1].left(30))
+                        ? (QString(" = (") + capturePatterns[i - 1].left(30)) + QString(")")
                         : QString();
                 addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\" + number, "",
                         i18n("Reference") + " " + number + captureDetails);

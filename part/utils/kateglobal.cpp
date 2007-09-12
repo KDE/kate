@@ -76,6 +76,9 @@ KateGlobal::KateGlobal ()
   m_aboutData.addAuthor (ki18n("Scott Manson"), ki18n("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
   m_aboutData.addAuthor (ki18n("John Firebaugh"), ki18n("Patches and more"), "jfirebaugh@kde.org");
   m_aboutData.addAuthor (ki18n("Andreas Kling"), ki18n("Developer"), "kling@impul.se");
+  m_aboutData.addAuthor (ki18n("Mirko Stocker"), ki18n("Various bugfixes"), "me@misto.ch", "http://misto.ch/");
+  m_aboutData.addAuthor (ki18n("Matthew Woehlke"), ki18n("Selection, KColorScheme integration"), "mw_triad@users.sourceforge.net");
+  m_aboutData.addAuthor (ki18n("Sebastian Pipping"), ki18n("Search bar back- and front-end"), "webmaster@hartwork.org", "http://www.hartwork.org/");
 
   m_aboutData.addCredit (ki18n("Matteo Merli"), ki18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
   m_aboutData.addCredit (ki18n("Rocky Scaletta"), ki18n("Highlighting for VHDL"), "rocky@purdue.edu");
@@ -89,6 +92,8 @@ KateGlobal::KateGlobal ()
   m_aboutData.addCredit (ki18n("Roland Pabel"), ki18n("Highlighting for Scheme"),"");
   m_aboutData.addCredit (ki18n("Cristi Dumitrescu"), ki18n("PHP Keyword/Datatype list"),"");
   m_aboutData.addCredit (ki18n("Carsten Pfeiffer"), ki18n("Very nice help"), "");
+  m_aboutData.addCredit (ki18n("Bruno Massa"), ki18n("Highlighting for Lua"), "brmassa@gmail.com");
+
   m_aboutData.addCredit (ki18n("All people who have contributed and I have forgotten to mention"));
 
   m_aboutData.setTranslator(ki18nc("NAME OF TRANSLATORS","Your names"), ki18nc("EMAIL OF TRANSLATORS","Your emails"));

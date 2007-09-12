@@ -5,6 +5,11 @@
 
     CHANGES
 
+    [ Version 1.03 (2007-09-12) by Bruno Massa ]
+
+    - [=[ ]=] comment and string style is now working (thanks to Dominik and Sebastian)
+    - it uses DoxygenLua.xml to format the comments in a Doxygen style
+
     [ Version 1.02 (2007-07-15) by Bruno Massa ]
 
     - based on Lua 5.1
@@ -30,7 +35,7 @@
     - improved highlighting
 
     -->
-<language name="Lua" version="1.02" kateversion="2.4" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
+<language name="Lua" version="1.03" kateversion="2.4" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
   <highlighting>
     <list name="keywords">
       <item> and </item>
@@ -202,18 +207,19 @@
       <item> FIXME </item>
       <item> NOTE </item>
     </list>
-
     <list name="deprecated">
       <item> table.foreach </item> <item> table.foreachi </item>
-      <item> foreach </item>     <item> foreachi </item>
+      <item> foreach </item>       <item> foreachi </item>
     </list>
+
     <contexts>
       <context name="Normal"        attribute="Normal Text" lineEndContext="#stay">
-        <IncludeRules context="##Doxygen" />
+        <IncludeRules context="##DoxygenLua" />
         <keyword      attribute="Error"  context="#stay" String="deprecated" />
         <DetectSpaces />
+        <RegExpr      attribute="Comment"  context="Block Comment" beginRegion="block comment"  String="--\[(=*)\[" dynamic="true" />
         <Detect2Chars attribute="Comment"  context="Comment"       char="-" char1="-"/>
-        <Detect2Chars attribute="Strings"  context="String_block"  char="[" char1="[" />
+        <RegExpr      attribute="Strings"  context="String_block"  String="\[(=*)\[" dynamic="true" />
         <DetectChar   attribute="Strings"  context="String_single" char="'"/>
         <DetectChar   attribute="Strings"  context="String_double" char="&quot;"/>
         <keyword      attribute="BFunc"    context="#stay"         String="basefunc"/>
@@ -246,12 +252,11 @@
         <AnyChar      attribute="Symbols"  context="#stay" String="[]().=~+-*/^&gt;&lt;#;" />
       </context>
       <context name="Comment"       attribute="Comment"     lineEndContext="#pop">
-        <Detect2Chars attribute="Comment"  context="Block Comment" beginRegion="block comment"  char="[" char1="[" />
         <Detect2Chars attribute="Alerts"   context="#stay" char="-" char1="-" />
         <keyword      attribute="Alerts"   context="#stay" String="attention"/>
       </context>
-      <context name="Block Comment" attribute="Comment"     lineEndContext="#stay">
-        <Detect2Chars attribute="Comment"  context="#pop"  endRegion="block comment" char="]" char1="]"  />
+      <context name="Block Comment" attribute="Comment"     lineEndContext="#stay" dynamic="true" >
+        <RegExpr attribute="Comment"  context="#pop"  endRegion="block comment" String="\]%1\]" dynamic="true" />
         <Detect2Chars attribute="Alerts"   context="#stay" char="-" char1="-" />
         <keyword      attribute="Alerts"   context="#stay" String="attention" />
       </context>
@@ -263,9 +268,9 @@
         <RegExpr      attribute="Symbols"  context="#stay" String="\\[abfnrtv'&quot;\\\[\]]" />
         <DetectChar   attribute="Strings"  context="#pop"  char="&quot;"/>
       </context>
-      <context name="String_block"  attribute="Strings"     lineEndContext="#stay">
+      <context name="String_block"  attribute="Strings"     lineEndContext="#stay" dynamic="true">
         <RegExpr      attribute="Symbols"  context="#stay" String="\\(a|b|f|n|r|t|v|\\|&quot;|\'|[|])" />
-        <Detect2Chars attribute="Strings"  context="#pop"  char="]" char1="]"  />
+        <RegExpr      attribute="Strings"  context="#pop"  String="\]%1\]" dynamic="true" />
       </context>
       <context name="Error"         attribute="Error"       lineEndContext="#stay">
       </context>

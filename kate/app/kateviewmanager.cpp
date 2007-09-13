@@ -709,6 +709,7 @@ void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
   if( lastViewSpace >= 0 && lastViewSpace < m_viewSpaceList.size())
   {
     setActiveSpace( m_viewSpaceList.at( lastViewSpace ) );
+    m_viewSpaceList.at( lastViewSpace )->currentView()->setFocus();
   }
 
   // emergency

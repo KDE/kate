@@ -196,7 +196,6 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   finishRestore ();
 
   setAcceptDrops(true);
-  centralWidget()->setFocus();
 
   connect(KateSessionManager::self(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
 }
@@ -892,7 +891,6 @@ void KateMainWindow::readProperties(const KConfigGroup& config)
   finishRestore ();
 
   m_viewManager->restoreViewConfiguration (config);
-  centralWidget()->setFocus();
 }
 
 void KateMainWindow::saveGlobalProperties( KConfig* sessionConfig )

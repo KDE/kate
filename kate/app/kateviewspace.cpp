@@ -153,7 +153,7 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
     {
       KTextEditor::View* kv = *it;
 
-      // move viewspace to end of list
+      // move view to end of list
       mViewList.removeAt( mViewList.indexOf(kv) );
       mViewList.append( kv );
       stack->setCurrentWidget( kv );

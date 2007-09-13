@@ -35,7 +35,6 @@
 class KConfigGroup;
 class KConfigBase;
 class KateMainWindow;
-class KateViewSpaceContainer;
 class KateViewSpace;
 class QAction;
 
@@ -100,8 +99,6 @@ class KateViewManager : public QSplitter
     void activatePrevView();
 
   protected:
-    friend class KateViewSpaceContainer;
-
     QPointer<KTextEditor::View> guiMergedView;
 
   Q_SIGNALS:

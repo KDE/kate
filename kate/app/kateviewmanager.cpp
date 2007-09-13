@@ -786,6 +786,8 @@ void KateViewManager::restoreSplitter( KConfigBase* configBase, const QString &g
     {
       KateViewSpace* vs = new KateViewSpace( this, 0 );
       m_viewSpaceList.append( vs );
+      // make active so that the view created in restoreConfig has this 
+      // new view space as parent.
       setActiveSpace( vs );
 
       vs->restoreConfig (this, configBase, *it);

@@ -204,6 +204,7 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEdito
       new KateSaveModifiedDocumentCheckListItem(m_documentRoot, documents.at(i));
     }
     m_list->expandItem(m_documentRoot);
+    m_list->resizeColumnToContents(0);
   }
   else m_documentRoot = 0;
   //FIXME - Is this the best way?

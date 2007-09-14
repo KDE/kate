@@ -1400,7 +1400,10 @@ bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
 
 bool KateView::selection() const
 {
-  return m_selection->isValid ();
+  if(blockSelection())
+    return *m_selection != KateSmartRange::invalid();
+  else
+    return m_selection->isValid();
 }
 
 QString KateView::selectionText() const

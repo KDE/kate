@@ -315,7 +315,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
     renderRanges.append(inbuiltHighlight);
 
     // Add selection highlighting if we're creating the selection decorations
-    if ((selectionsOnly && showSelections() && m_view->selection()) || (completionHighlight && completionSelected)) {
+    if ((selectionsOnly && showSelections() && m_view->selection()) || (completionHighlight && completionSelected) || m_view->blockSelection()) {
       NormalRenderRange* selectionHighlight = new NormalRenderRange();
 
       // Set up the selection background attribute TODO: move this elsewhere, eg. into the config?
@@ -517,11 +517,11 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       backgroundDetermined:
 
       // Draw selection outside of areas where text is rendered
-      if (m_view->selection() && m_view->lineEndSelected(line.end(true))) {
+      if (m_view->selection() && !m_view->blockSelection() && m_view->lineEndSelected(line.end(true))) {
         QRect area(line.endX() + line.xOffset() - xStart, fm.height() * i, xEnd - xStart, fm.height() * (i + 1));
         paint.fillRect(area, config()->selectionColor());
 
-      } else if (backgroundBrushSet) {
+      } else if (backgroundBrushSet && !m_view->blockSelection()) {
         // Draw text background outside of areas where text is rendered.
         QRect area(line.endX() /*+ line.xOffset()*/ - line.startX() +  (i==0?0:range->shiftX()) - xStart/*-(i*xEnd)*/, fm.height() * i, xEnd - xStart, fm.height() /** (i + 1)*/);
         paint.fillRect(area, /*QBrush(Qt::red));*/backgroundBrush);

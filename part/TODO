@@ -49,8 +49,6 @@ TODO:
 * Memory usage and leak auditing
   * KateHlContext::items needs to be implicitly shared + autodelete
 
-* make sure block selection works
-
 **** new features ****
 
 * Fix EOL whitespace cleaning finally by removing whitespace at load-time and

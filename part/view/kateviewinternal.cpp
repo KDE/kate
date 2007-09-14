@@ -4,6 +4,7 @@
    Copyright (C) 2002,2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002-2005 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2003 Anakim Border <aborder@sources.sourceforge.net>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
 
    Based on:
      KWriteView : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -1674,8 +1675,11 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
   if( keepSel )
   {
     if ( !m_view->selection() || (m_selectAnchor.line() == -1)
+        //don't kill the selection if we have a persistent selection and
+        //the cursor is inside or at the boundaries of the selected area
          || (m_view->config()->persistentSelection()
-             && !m_view->selectionRange().contains(m_cursor)) )
+             && !(m_view->selectionRange().contains(m_cursor)
+                   || m_view->selectionRange().boundaryAtCursor(m_cursor))) )
     {
       m_selectAnchor = m_cursor;
       m_view->setSelection( KTextEditor::Range(m_cursor, newCursor) );

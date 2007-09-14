@@ -2,6 +2,7 @@
    Copyright (C) 2001-2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002, 2003 Anders Lund <anders.lund@lund.tdcadsl.dk>
    Copyright (C) 2005-2006 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public

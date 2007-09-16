@@ -182,14 +182,9 @@ bool View::insertText (const QString &text )
   return doc->insertText(cursorPosition(),text);
 }
 
-Plugin *KTextEditor::createPlugin ( const char *libname, QObject *parent )
+Plugin *KTextEditor::createPlugin ( KService::Ptr service, QObject *parent )
 {
-  KPluginFactory *factory = KPluginLoader(libname).factory();
-  if (factory) {
-    return factory->create<Plugin>(parent);
-  } else {
-    return 0;
-  }
+  return KService::createInstance<KTextEditor::Plugin>(service, parent);
 }
 
 Editor *KTextEditor::editor(const char *libname)

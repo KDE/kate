@@ -29,11 +29,8 @@
 #include <ktexteditor/view.h>
 #include <kconfig.h>
 
-//Added by qt3to4:
-#include <QList>
 #include <kservicetypetrader.h>
 #include <kdebug.h>
-#include <QFile>
 
 QString KatePluginInfo::saveName() const
 {
@@ -186,18 +183,17 @@ void KatePluginManager::loadPlugin (KatePluginInfo &item)
 {
   if (item.plugin) return;
 
-  item.plugin = createPlugin (item.service);
-  if (item.plugin) {
-    item.load = true;
+  item.plugin = KTextEditor::createPlugin (item.service, this);
+  item.load = (item.plugin != 0);
+  if (item.plugin)
     item.plugin->readConfig(m_config);
-  }
 }
 
 void KatePluginManager::unloadPlugin (KatePluginInfo &item)
 {
   if (item.plugin) {
     item.plugin->writeConfig(m_config);
-//    delete item.plugin;
+    delete item.plugin;
     item.plugin = 0L;
   }
   item.load = false;
@@ -229,11 +225,6 @@ void KatePluginManager::disablePlugin (KatePluginInfo &item)
       item.plugin->removeView(view);
     item.plugin->removeDocument(doc);
   }
-}
-
-KTextEditor::Plugin *KatePluginManager::createPlugin(KService::Ptr service)
-{
-  return KTextEditor::createPlugin (QFile::encodeName(service->library()), 0);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

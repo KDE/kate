@@ -40,7 +40,6 @@
 K_PLUGIN_FACTORY( InsertFilePluginFactory, registerPlugin<InsertFilePlugin>(); )
 K_EXPORT_PLUGIN( InsertFilePluginFactory( "ktexteditor_insertfile", "ktexteditor_plugins" ) )
 
-
 //BEGIN InsertFilePlugin
 InsertFilePlugin::InsertFilePlugin( QObject *parent, const QVariantList& )
 	: KTextEditor::Plugin ( parent )

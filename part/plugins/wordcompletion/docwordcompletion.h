@@ -82,9 +82,6 @@ class DocWordCompletionPlugin
     void readConfig();
     void writeConfig();
 
-    virtual void readConfig (KConfig *) {}
-    virtual void writeConfig (KConfig *) {}
-
     uint treshold() const;
     void setTreshold( uint t );
     bool autoPopupEnabled() const;

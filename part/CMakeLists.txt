@@ -25,7 +25,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/syntax
   ${CMAKE_CURRENT_SOURCE_DIR}/utils
   ${CMAKE_CURRENT_SOURCE_DIR}/view
-  ${CMAKE_CURRENT_SOURCE_DIR}/pluginselector
   ${CMAKE_SOURCE_DIR}/kdeprint
   ${CMAKE_SOURCE_DIR}/kde3support
   ${CMAKE_SOURCE_DIR}/kde3support/kdeui
@@ -122,8 +121,6 @@ utils/katestyletreewidget.cpp
 utils/katepluginmanager.cpp
 utils/katehistorymodel.cpp
 
-# plugin selector fork
-pluginselector/pluginselector.cpp
 )
 
 

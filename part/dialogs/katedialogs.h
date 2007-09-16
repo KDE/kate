@@ -59,7 +59,7 @@ class KComboBox;
 class KShortcutsEditor;
 class KTemporaryFile;
 class KIntNumInput;
-class KatePluginSelector;
+class KPluginSelector;
 class KPluginInfo;
 class KProcess;
 
@@ -266,8 +266,7 @@ class KatePartPluginConfigPage : public KateConfigPage
     void defaults ();
 
   private:
-    KatePluginSelector *selector;
-    QList<KatePluginInfo> katePluginInfos;
+    KPluginSelector *selector;
     QList<KPluginInfo> plugins;
     KateScriptConfigPage *scriptConfigPage;
 };

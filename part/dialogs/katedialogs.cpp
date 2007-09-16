@@ -36,7 +36,7 @@
 #include "katemodeconfigpage.h"
 #include "kateview.h"
 #include "katepluginmanager.h"
-#include "pluginselector.h"
+#include "kpluginselector.h"
 
 // auto generated ui files
 #include "ui_modonhdwidget.h"
@@ -760,7 +760,6 @@ void KateSaveConfigTab::defaults()
 //BEGIN KatePartPluginConfigPage
 KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
   : KateConfigPage (parent, "")
-  , katePluginInfos (KatePluginManager::self()->pluginList())
   , scriptConfigPage (new KateScriptConfigPage(this))
 {
   // FIXME: Is really needed to move all this code below to another class,
@@ -780,7 +779,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
   plugins.clear();
 
   int i = 0;
-  foreach (const KatePluginInfo &info, katePluginInfos)
+  foreach (const KatePluginInfo &info, KatePluginManager::self()->pluginList())
   {
     KPluginInfo it(info.service);
     it.setPluginEnabled(info.load);
@@ -788,12 +787,12 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
     i++;
   }
 
-  selector = new KatePluginSelector(0);
+  selector = new KPluginSelector(0);
 
   connect(selector, SIGNAL(changed(bool)), this, SLOT(slotChanged()));
   connect(selector, SIGNAL(configCommitted(QByteArray)), this, SLOT(slotChanged()));
 
-  selector->addPlugins(plugins, KatePluginSelector::IgnoreConfigFile, i18n("Editor Plugins"), "Editor");
+  selector->addPlugins(plugins, KPluginSelector::IgnoreConfigFile, i18n("Editor Plugins"), "Editor");
   layout->addWidget(selector);
 
   internalLayout->addWidget(newWidget);

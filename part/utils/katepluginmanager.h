@@ -80,8 +80,6 @@ class KatePluginManager : public QObject
       return m_pluginList;
     }
 
-    KTextEditor::Plugin *createPlugin(KService::Ptr service);
-
   private:
     void setupPluginList ();
 

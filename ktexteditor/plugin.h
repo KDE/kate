@@ -51,15 +51,8 @@ class View;
  *
  * \section plugin_config Configuration Management
  *
- * If your plugin supports a config dialog overwrite configDialogSupported()
- * and return \e true (The default implementation returns \e false and
- * indicates that the plugin does not support a config dialog). The config
- * dialog can be shown by calling configDialog(), it can also be called from
- * a KTextEditor implementation (e.g. the KTextEditor implementation might
- * have a listview that shows all available plugins along with a
- * \e Configure... button). To save or load plugin settings writeConfig() and
- * readConfig() is called by the Editor part. Usually you do not have to call
- * readConfig() and writeConfig() yourself.
+ * @todo write docu about config pages
+ * @todo write docu about save/load settings
  *
  * \section plugin_sessions Session Management
  *
@@ -191,52 +184,6 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
      * \see addView(), removeDocument()
      */
     virtual void removeView (View *view) { Q_UNUSED(view); }
-
-  /*
-   * Configuration management.
-   * Default implementation just for convenience, does nothing
-   * and says this plugin supports no config dialog.
-   */
-  public:
-    /**
-     * Read the editor configuration from the KConfig \p config.
-     * If \p config is NULL you can kapp->config() as fallback solution.
-     * readConfig() is called from the Editor implementation, so you
-     * never have to call it yourself.
-     *
-     * \param config config object
-     * \see writeConfig()
-     */
-    virtual void readConfig (KConfig *config = 0) { Q_UNUSED(config); }
-
-    /**
-     * Write the editor configuration to the KConfig \p config.
-     * If \p config is NULL you can kapp->config() as fallback solution.
-     * writeConfig() is called from the Editor implementation, so you
-     * never have to call it yourself.
-     *
-     * \param config config object
-     * \see readConfig()
-     */
-    virtual void writeConfig (KConfig *config = 0) { Q_UNUSED(config); }
-
-    /**
-     * Check, whether the plugin has support for a config dialog.
-     * \return \e true, if the plugin has a config dialog, otherwise \e false
-     * \see configDialog()
-     */
-    virtual bool configDialogSupported () const { return false; }
-
-    /**
-     * Show the config dialog for the plugin.
-     * Changes should be applied to the plugin, but not saved to the disk
-     * immediately. writeConfig() is called by the Editor implementation to
-     * save the plugin's settings, e.g. when a plugin is unloaded.
-     *
-     * \param parent parent widget
-     * \see configDialogSupported()
-     */
-    virtual void configDialog (QWidget *parent) { Q_UNUSED(parent); }
 
   private:
     class PluginPrivate* const d;

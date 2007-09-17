@@ -54,7 +54,6 @@ KatePluginManager::~KatePluginManager()
   writeConfig();
   // than unload the plugins
   unloadAllPlugins ();
-  m_config->sync();
   delete m_config;
   m_config = 0;
 }
@@ -185,17 +184,12 @@ void KatePluginManager::loadPlugin (KatePluginInfo &item)
 
   item.plugin = KTextEditor::createPlugin (item.service, this);
   item.load = (item.plugin != 0);
-  if (item.plugin)
-    item.plugin->readConfig(m_config);
 }
 
 void KatePluginManager::unloadPlugin (KatePluginInfo &item)
 {
-  if (item.plugin) {
-    item.plugin->writeConfig(m_config);
-    delete item.plugin;
-    item.plugin = 0L;
-  }
+  delete item.plugin;
+  item.plugin = 0L;
   item.load = false;
 }
 

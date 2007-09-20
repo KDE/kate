@@ -105,7 +105,7 @@ void KateArgumentHintModel::buildRows() {
 }
 
 KateArgumentHintModel::KateArgumentHintModel( KateCompletionWidget* parent ) : ExpandingWidgetModel(parent), m_parent(parent) {
-  connect(parent->model(), SIGNAL("modelReset()"), this, SLOT(parentModelReset()));
+  connect(parent->model(), SIGNAL(modelReset()), this, SLOT(parentModelReset()));
 }
 
 QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) const {

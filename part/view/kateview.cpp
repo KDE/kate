@@ -1817,6 +1817,13 @@ bool KateView::setBlockSelectionMode (bool on)
     setSelection(oldSelection);
 
     m_toggleBlockSelection->setChecked( blockSelectionMode() );
+    
+    if(!blockSelectionMode() && !m_viewInternal->getCursor().isValid())
+    {
+    	KTextEditor::Cursor cursorAtEndOfLine(cursorPosition());
+    	cursorAtEndOfLine.setColumn(m_doc->kateTextLine(cursorPosition().line())->length());
+    	setCursorPosition(cursorAtEndOfLine);
+    }
   }
 
   return true;

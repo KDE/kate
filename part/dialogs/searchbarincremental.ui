@@ -114,7 +114,7 @@
         <enum>Qt::DefaultContextMenu</enum>
        </property>
        <property name="toolTip" >
-        <string>Modifiy search behavior</string>
+        <string>Modify search behavior</string>
        </property>
        <property name="text" >
         <string>Options</string>

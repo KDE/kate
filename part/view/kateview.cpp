@@ -1455,7 +1455,7 @@ bool KateView::cursorSelected(const KTextEditor::Cursor& cursor)
   if (blockSelect)
     return cursor.line() >= m_selection->start().line() && ret.line() <= m_selection->end().line() && ret.column() >= m_selection->start().column() && ret.column() < m_selection->end().column();
   else
-    return m_selection->contains(cursor);
+    return m_selection->contains(cursor) || m_selection->end() == cursor;
 }
 
 bool KateView::lineSelected (int line)

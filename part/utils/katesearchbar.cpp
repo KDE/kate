@@ -333,6 +333,9 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
         // Kill selection
         m_view->setSelection(Range::invalid());
 
+        // Kill highlight
+        resetHighlights();
+
         // Reset edit color
         indicateNothing();
 
@@ -1209,6 +1212,9 @@ void KateSearchBar::onMutatePower() {
     // Coming from power search?
     const bool fromReplace = (m_powerUi != NULL) && (m_widget->isVisible());
     if (fromReplace) {
+        QLineEdit * const patternLineEdit = m_powerUi->pattern->lineEdit();
+        Q_ASSERT(patternLineEdit != NULL);
+        patternLineEdit->selectAll();
         m_powerUi->pattern->setFocus(Qt::MouseFocusReason);
         return;
     }
@@ -1271,10 +1277,10 @@ void KateSearchBar::onMutatePower() {
     }
 
     // Guess settings from context
-    const bool selected = m_view->selection();
     bool selectionOnly = false;
     if (!fromIncremental) {
         // Init pattern with current selection
+        const bool selected = m_view->selection();
         if (selected) {
             const Range & selection = m_view->selectionRange();
             if (selection.onSingleLine()) {
@@ -1345,6 +1351,7 @@ void KateSearchBar::onMutateIncremental() {
     const bool fromIncremental = (m_incUi != NULL) && (m_widget->isVisible());
     QString initialPattern;
     if (fromIncremental) {
+        m_incUi->pattern->selectAll();
         m_incUi->pattern->setFocus(Qt::MouseFocusReason);
         return;
     }
@@ -1397,7 +1404,17 @@ void KateSearchBar::onMutateIncremental() {
     }
 
     // Guess settings from context
-    // NOOP
+    if (!fromReplace) {
+        // Init pattern with current selection
+        const bool selected = m_view->selection();
+        if (selected) {
+            const Range & selection = m_view->selectionRange();
+            if (selection.onSingleLine()) {
+                // ... with current selection
+                initialPattern = m_view->selectionText();
+            }
+        }
+    }
 
     // Restore previous settings
     if (create) {

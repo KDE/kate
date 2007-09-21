@@ -157,6 +157,14 @@ void KateSearchBar::highlightReplacement(const Range & range) {
 
 
 
+void KateSearchBar::highlightAllMatches(const QString & pattern,
+        Search::SearchOptions searchOptions) {
+    onForAll(pattern, m_view->doc()->documentRange(),
+            searchOptions, NULL);
+}
+
+
+
 void KateSearchBar::indicateMatch(bool wrapped) {
     if (m_incUi != NULL) {
         // Green background for line edit
@@ -424,9 +432,30 @@ void KateSearchBar::onIncMatchCaseToggle(bool invokedByUserAction) {
 
 
 
-void KateSearchBar::onIncHighlightAllToggle(bool invokedByUserAction) {
+void KateSearchBar::onIncHighlightAllToggle(bool checked, bool invokedByUserAction) {
     if (invokedByUserAction) {
         sendConfig();
+
+        if (checked) {
+            const QString pattern = m_incUi->pattern->displayText();
+            if (!pattern.isEmpty()) {
+                // How to search while highlighting?
+                Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
+                const bool matchCase = isChecked(m_incMenuMatchCase);
+                if (!matchCase) {
+                    enabledOptions |= Search::CaseInsensitive;
+                }
+
+                // Highlight them all
+                highlightAllMatches(pattern, enabledOptions);
+            }
+        } else {
+            resetHighlights();
+        }
+
+        // Actually show highlight changes
+        const bool EVERYTHING = false;
+        m_view->repaintText(EVERYTHING);
     }
 }
 
@@ -803,60 +832,19 @@ void KateSearchBar::onPowerReplaceNext() {
 
 
 
-void KateSearchBar::onPowerReplaceAll() {
-    // What to find/replace?
-    const QString pattern = m_powerUi->pattern->currentText();
-    const QString replacement = m_powerUi->replacement->currentText();
-
-
-    // How to find?
-    Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
-    const bool matchCase = isChecked(m_powerUi->matchCase);
-    if (!matchCase) {
-        enabledOptions |= Search::CaseInsensitive;
-    }
-
+// replacementJobs == NULL --> Highlight all matches on the fly
+// replacementJobs != NULL --> Collect all matches for replacing later
+void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
+        Search::SearchOptions enabledOptions,
+        QList<QVector<KTextEditor::Range> > * replacementJobs) {
     bool multiLinePattern = false;
-    bool regexMode = false;
-    if (m_powerUi != NULL) {
-        switch (m_powerUi->searchMode->currentIndex()) {
-        case MODE_WHOLE_WORDS:
-            enabledOptions |= Search::WholeWords;
-            break;
-
-        case MODE_ESCAPE_SEQUENCES:
-            enabledOptions |= Search::EscapeSequences;
-            break;
-
-        case MODE_REGEX:
-            {
-                // Check if pattern multi-line
-                QString patternCopy(pattern);
-                KateDocument::repairPattern(patternCopy, multiLinePattern);
-                regexMode = true;
-            }
-            enabledOptions |= Search::Regex;
-            break;
-
-        case MODE_PLAIN_TEXT: // FALLTHROUGH
-        default:
-            break;
-
-        }
+    const bool regexMode = enabledOptions.testFlag(Search::Regex);
+    if (regexMode) {
+        // Check if pattern multi-line
+        QString patternCopy(pattern);
+        KateDocument::repairPattern(patternCopy, multiLinePattern);
     }
 
-
-    // Where to replace?
-    Range selection;
-    const bool selected = m_view->selection();
-    const bool selectionOnly = isChecked(m_powerUi->selectionOnly);
-    Range inputRange = (selected && selectionOnly)
-            ? m_view->selectionRange()
-            : m_view->doc()->documentRange();
-
-
-    // Collect matches
-    QList<QVector<KTextEditor::Range> > replacementJobs;
     for (;;) {
         const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
         const Range & match = resultRanges[0];
@@ -864,7 +852,11 @@ void KateSearchBar::onPowerReplaceAll() {
             break;
         }
 
-        replacementJobs.append(resultRanges);
+        if (replacementJobs != NULL) {
+            replacementJobs->append(resultRanges);
+        } else {
+            highlightMatch(match);
+        }
 
         // Continue after match
         if (match.start() == match.end()) {
@@ -901,6 +893,57 @@ void KateSearchBar::onPowerReplaceAll() {
             break;
         }
     }
+}
+
+
+
+void KateSearchBar::onPowerReplaceAll() {
+    // What to find/replace?
+    const QString pattern = m_powerUi->pattern->currentText();
+    const QString replacement = m_powerUi->replacement->currentText();
+
+
+    // How to find?
+    Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
+    const bool matchCase = isChecked(m_powerUi->matchCase);
+    if (!matchCase) {
+        enabledOptions |= Search::CaseInsensitive;
+    }
+
+    if (m_powerUi != NULL) {
+        switch (m_powerUi->searchMode->currentIndex()) {
+        case MODE_WHOLE_WORDS:
+            enabledOptions |= Search::WholeWords;
+            break;
+
+        case MODE_ESCAPE_SEQUENCES:
+            enabledOptions |= Search::EscapeSequences;
+            break;
+
+        case MODE_REGEX:
+            enabledOptions |= Search::Regex;
+            break;
+
+        case MODE_PLAIN_TEXT: // FALLTHROUGH
+        default:
+            break;
+
+        }
+    }
+
+
+    // Where to replace?
+    Range selection;
+    const bool selected = m_view->selection();
+    const bool selectionOnly = isChecked(m_powerUi->selectionOnly);
+    Range inputRange = (selected && selectionOnly)
+            ? m_view->selectionRange()
+            : m_view->doc()->documentRange();
+
+
+    // Collect matches
+    QList<QVector<KTextEditor::Range> > replacementJobs;
+    onForAll(pattern, inputRange, enabledOptions, &replacementJobs);
 
 
     // Replace (backwards)
@@ -957,7 +1000,6 @@ QVector<QString> KateSearchBar::getCapturePatterns(const QString & pattern) {
         }
         else
         {
-            // XXX
             switch (pattern[input].unicode())
             {
             case L'\\':
@@ -1163,9 +1205,50 @@ void KateSearchBar::onPowerMatchCaseToggle(bool invokedByUserAction) {
 
 
 
-void KateSearchBar::onPowerHighlightAllToggle(bool invokedByUserAction) {
+void KateSearchBar::onPowerHighlightAllToggle(int state, bool invokedByUserAction) {
     if (invokedByUserAction) {
         sendConfig();
+
+        const bool wanted = (state == Qt::Checked);
+        if (wanted) {
+            const QString pattern = m_powerUi->pattern->currentText();
+            if (!pattern.isEmpty()) {
+                // How to search while highlighting?
+                Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
+                const bool matchCase = isChecked(m_powerUi->matchCase);
+                if (!matchCase) {
+                    enabledOptions |= Search::CaseInsensitive;
+                }
+
+                switch (m_powerUi->searchMode->currentIndex()) {
+                case MODE_WHOLE_WORDS:
+                    enabledOptions |= Search::WholeWords;
+                    break;
+
+                case MODE_ESCAPE_SEQUENCES:
+                    enabledOptions |= Search::EscapeSequences;
+                    break;
+
+                case MODE_REGEX:
+                    enabledOptions |= Search::Regex;
+                    break;
+
+                case MODE_PLAIN_TEXT: // FALLTHROUGH
+                default:
+                    break;
+
+                }
+
+                // Highlight them all
+                highlightAllMatches(pattern, enabledOptions);
+            }
+        } else {
+            resetHighlights();
+        }
+
+        // Actually show highlight changes
+        const bool EVERYTHING = false;
+        m_view->repaintText(EVERYTHING);
     }
 }
 
@@ -1332,7 +1415,7 @@ void KateSearchBar::onMutatePower() {
         connect(m_powerUi->patternAdd, SIGNAL(clicked()), this, SLOT(onPowerAddToPatternClicked()));
         connect(m_powerUi->usePlaceholders, SIGNAL(stateChanged(int)), this, SLOT(onPowerUsePlaceholdersToggle(int)));
         connect(m_powerUi->matchCase, SIGNAL(stateChanged(int)), this, SLOT(onPowerMatchCaseToggle()));
-        connect(m_powerUi->highlightAll, SIGNAL(stateChanged(int)), this, SLOT(onPowerHighlightAllToggle()));
+        connect(m_powerUi->highlightAll, SIGNAL(stateChanged(int)), this, SLOT(onPowerHighlightAllToggle(int)));
         connect(m_powerUi->fromCursor, SIGNAL(stateChanged(int)), this, SLOT(onPowerFromCursorToggle()));
         connect(m_powerUi->replacementAdd, SIGNAL(clicked()), this, SLOT(onPowerAddToReplacementClicked()));
 
@@ -1439,7 +1522,7 @@ void KateSearchBar::onMutateIncremental() {
         connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(onIncPrev()));
         connect(m_incMenuMatchCase, SIGNAL(changed()), this, SLOT(onIncMatchCaseToggle()));
         connect(m_incMenuFromCursor, SIGNAL(changed()), this, SLOT(onIncFromCursorToggle()));
-        connect(m_incMenuHighlightAll, SIGNAL(changed()), this, SLOT(onIncHighlightAllToggle()));
+        connect(m_incMenuHighlightAll, SIGNAL(toggled(bool)), this, SLOT(onIncHighlightAllToggle(bool)));
 
         // Make button click open the menu as well. IMHO with the dropdown arrow present the button
         // better shows his nature than in instant popup mode.

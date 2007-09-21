@@ -69,7 +69,7 @@ public Q_SLOTS:
     void onIncNext();
     void onIncPrev();
     void onIncMatchCaseToggle(bool invokedByUserAction = true);
-    void onIncHighlightAllToggle(bool invokedByUserAction = true);
+    void onIncHighlightAllToggle(bool checked, bool invokedByUserAction = true);
     void onIncFromCursorToggle(bool invokedByUserAction = true);
 
     void onStep(bool replace, bool forwards = true);
@@ -77,12 +77,14 @@ public Q_SLOTS:
     void onPowerFindNext();
     void onPowerFindPrev();
     void onPowerReplaceNext();
+
+
     void onPowerReplaceAll();
     void onPowerAddToPatternClicked();
     void onPowerAddToReplacementClicked();
     void onPowerUsePlaceholdersToggle(int state, bool invokedByUserAction = true);
     void onPowerMatchCaseToggle(bool invokedByUserAction = true);
-    void onPowerHighlightAllToggle(bool invokedByUserAction = true);
+    void onPowerHighlightAllToggle(int state, bool invokedByUserAction = true);
     void onPowerFromCursorToggle(bool invokedByUserAction = true);
     void onPowerModeChanged(int index, bool invokedByUserAction = true);
 
@@ -93,6 +95,9 @@ public Q_SLOTS:
 
 private:
     // Helpers
+    void onForAll(const QString & pattern, KTextEditor::Range inputRange,
+            KTextEditor::Search::SearchOptions enabledOptions,
+            QList<QVector<KTextEditor::Range> > * replacementJobs);
     bool isChecked(QCheckBox * checkbox);
     bool isChecked(QAction * menuAction);
     void setChecked(QCheckBox * checkbox, bool checked);
@@ -103,6 +108,8 @@ private:
     void highlight(const KTextEditor::Range & range, const QColor & color);
     void highlightMatch(const KTextEditor::Range & range);
     void highlightReplacement(const KTextEditor::Range & range);
+    void highlightAllMatches(const QString & pattern,
+            KTextEditor::Search::SearchOptions searchOptions);
     void adjustBackground(QPalette & palette, KColorScheme::BackgroundRole newRole);
     void indicateMatch(bool wrapped);
     void indicateMismatch();

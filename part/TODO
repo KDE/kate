@@ -30,6 +30,9 @@ TODO:
 * try not to repaint the whole view on every keystroke. according to fredrikh,
   this makes kate almost unusable with EXA.
 
+* make undo/redo actions not merge up/down/left/right arrows key presses
+  This is the same behaviour that kate from KDE 3. More info at
+  http://lists.kde.org/?l=kwrite-devel&m=119041604630553&w=2
 
 **** Refactoring/Cleanups ****
 * code cleanups wherever needed ;)

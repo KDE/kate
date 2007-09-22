@@ -531,6 +531,12 @@ void KateView::setupActions()
   a = ac->addAction( KStandardAction::Find, this, SLOT(find()) );
   a->setWhatsThis(i18n("Look up the first occurrence of a piece of text or regular expression."));
   addAction(a);
+  
+  a = ac->addAction("edit_find_selected");
+  a->setText(i18n("Find Selected"));
+  a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_H));
+  a->setWhatsThis(i18n("Finds next occurrence of selected text."));
+  connect(a, SIGNAL(triggered(bool)), SLOT(findSelected()));
 
   a = ac->addAction( KStandardAction::FindNext, this, SLOT(findNext()) );
   a->setWhatsThis(i18n("Look up the next occurrence of the search phrase."));
@@ -1110,6 +1116,11 @@ void KateView::find()
   bar->onMutateIncremental();
   bar->showBar();
   bar->setFocus();
+}
+
+void KateView::findSelected()
+{
+  KateSearchBar::nextMatchForSelection(m_viewBar->view());
 }
 
 void KateView::replace()

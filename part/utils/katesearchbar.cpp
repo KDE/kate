@@ -91,7 +91,6 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar, bool initAsPower)
                 : (((searchFlags & KateViewConfig::PowerModeWholeWords) != 0)
                     ? MODE_WHOLE_WORDS
                     : MODE_PLAIN_TEXT));
-    kDebug() << "GLOBAL SEARCH CONFIG COPIED TO LOCAL" << "past" << searchFlags;
 
 
     // Load one of either dialogs
@@ -220,9 +219,9 @@ void KateSearchBar::indicateNothing() {
 
 
 
-void KateSearchBar::selectRange(const KTextEditor::Range & range) {
-    m_view->setCursorPositionInternal(range.start(), 1);
-    m_view->setSelection(range);
+/*static*/ void KateSearchBar::selectRange(KateView * view, const KTextEditor::Range & range) {
+    view->setCursorPositionInternal(range.start(), 1);
+    view->setSelection(range);
 }
 
 
@@ -376,13 +375,13 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
     }
 
     // Find, first try
-    QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
+    const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
     const Range & match = resultRanges[0];
 
     if (match.isValid()) {
         resetHighlights();
         highlightMatch(match);
-        selectRange(match);
+        selectRange(m_view, match);
         const bool NOT_WRAPPED = false;
         indicateMatch(NOT_WRAPPED);
     } else {
@@ -390,12 +389,12 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
         if (fromCursor) {
             // Find, second try
             inputRange = m_view->doc()->documentRange();
-            QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
+            const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {
                 resetHighlights();
                 highlightMatch(match2);
-                selectRange(match2);
+                selectRange(m_view, match2);
                 const bool WRAPPED = true;
                 indicateMatch(WRAPPED);
             } else {
@@ -629,7 +628,7 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
                 if (match2.isValid()) {
                     resetHighlights();
                     highlightMatch(match2);
-                    selectRange(match2);
+                    selectRange(m_view, match2);
                     const bool NOT_WRAPPED = false;
                     indicateMatch(NOT_WRAPPED);
                 } else {
@@ -640,7 +639,7 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
         } else {
             resetHighlights();
             highlightMatch(match);
-            selectRange(match);
+            selectRange(m_view, match);
             const bool NOT_WRAPPED = false;
             indicateMatch(NOT_WRAPPED);
         }
@@ -661,7 +660,7 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
             } else {
                 resetHighlights();
                 highlightMatch(match3);
-                selectRange(match3);
+                selectRange(m_view, match3);
             }
             const bool WRAPPED = true;
             indicateMatch(WRAPPED);
@@ -793,7 +792,6 @@ void KateSearchBar::sendConfig() {
 
     // Adjust global config
     globalConfig->setSearchFlags(futureFlags);
-    kDebug() << "LOCAL SEARCH CONFIG COPIED TO GLOBAL" << "past" << pastFlags << "future" << futureFlags;
 }
 
 
@@ -1287,6 +1285,38 @@ void KateSearchBar::onPowerModeChanged(int index, bool invokedByUserAction) {
     }
 
     givePatternFeedback(m_powerUi->pattern->currentText());
+}
+
+
+
+/*static*/ void KateSearchBar::nextMatchForSelection(KateView * view) {
+    const bool selected = view->selection();
+    if (selected) {
+        const QString pattern = view->selectionText();
+
+        // How to find?
+        Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
+
+        // Where to find?
+        const Range selRange = view->selectionRange();
+        Range inputRange(selRange.end(), view->doc()->documentEnd());
+
+        // Find, first try
+        const QVector<Range> resultRanges = view->doc()->searchText(inputRange, pattern, enabledOptions);
+        const Range & match = resultRanges[0];
+
+        if (match.isValid()) {
+            selectRange(view, match);
+        } else {
+            // Find, second try
+            inputRange.setRange(Cursor(0, 0), selRange.start());
+            const QVector<Range> resultRanges2 = view->doc()->searchText(inputRange, pattern, enabledOptions);
+            const Range & match2 = resultRanges2[0];
+            if (match2.isValid()) {
+                selectRange(view, match2);
+            }
+        }
+    }
 }
 
 

@@ -77,8 +77,6 @@ public Q_SLOTS:
     void onPowerFindNext();
     void onPowerFindPrev();
     void onPowerReplaceNext();
-
-
     void onPowerReplaceAll();
     void onPowerAddToPatternClicked();
     void onPowerAddToReplacementClicked();
@@ -87,6 +85,10 @@ public Q_SLOTS:
     void onPowerHighlightAllToggle(int state, bool invokedByUserAction = true);
     void onPowerFromCursorToggle(bool invokedByUserAction = true);
     void onPowerModeChanged(int index, bool invokedByUserAction = true);
+
+public:
+    // Only used by KateView
+    static void nextMatchForSelection(KateView * view);
 
 public Q_SLOTS:
     // Also used by KateView
@@ -114,7 +116,7 @@ private:
     void indicateMatch(bool wrapped);
     void indicateMismatch();
     void indicateNothing();
-    void selectRange(const KTextEditor::Range & range);
+    static void selectRange(KateView * view, const KTextEditor::Range & range);
     void buildReplacement(QString & output, QList<ReplacementPart> & parts,
             const QVector<KTextEditor::Range> & details, int replacementCounter);
     void replaceMatch(const QVector<KTextEditor::Range> & match, const QString & replacement,

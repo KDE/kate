@@ -18,6 +18,7 @@
     <Action name="edit_find" group="edit_find_merge" />
     <Action name="edit_find_next" group="edit_find_merge" />
     <Action name="edit_find_prev" group="edit_find_merge" />
+    <Action name="edit_find_selected" group="edit_find_merge" />
     <Separator group="edit_find_merge" />
     <Action name="go_goto_line" group="edit_find_merge"/>
   </Menu>

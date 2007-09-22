@@ -338,9 +338,9 @@ class KateSessionChooser : public KDialog
     bool reopenLastSession ();
 
     enum {
+      resultQuit = QDialog::Rejected,
       resultOpen,
       resultNew,
-      resultQuit,
       resultNone,
       resultCopy
     };

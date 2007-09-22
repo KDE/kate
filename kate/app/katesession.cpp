@@ -671,7 +671,8 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   m_sessions->setHeaderLabels(header);
   m_sessions->setRootIsDecorated( false );
   m_sessions->setItemsExpandable( false );
-  m_sessions->setSelectionBehavior(QAbstractItemView::SelectItems);
+  m_sessions->setAllColumnsShowFocus( true );
+  m_sessions->setSelectionBehavior(QAbstractItemView::SelectRows);
   m_sessions->setSelectionMode (QAbstractItemView::SingleSelection);
 
   connect (m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), this, SLOT(selectionChanged(QTreeWidgetItem *, QTreeWidgetItem *)));
@@ -689,6 +690,8 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
     if (slist[i]->sessionFileRelative() == lastSession)
       m_sessions->setCurrentItem (item);
   }
+    
+  m_sessions->resizeColumnToContents(0);
 
   m_useLast = new QCheckBox (i18n ("&Always use this choice"), page);
   vb->addWidget(m_useLast);
@@ -784,7 +787,8 @@ KateSessionOpenDialog::KateSessionOpenDialog (QWidget *parent)
   m_sessions->setHeaderLabels(header);
   m_sessions->setRootIsDecorated( false );
   m_sessions->setItemsExpandable( false );
-  m_sessions->setSelectionBehavior(QAbstractItemView::SelectItems);
+  m_sessions->setAllColumnsShowFocus( true );
+  m_sessions->setSelectionBehavior(QAbstractItemView::SelectRows);
   m_sessions->setSelectionMode (QAbstractItemView::SingleSelection);
 
   KateSessionList &slist (KateSessionManager::self()->sessionList());
@@ -792,6 +796,7 @@ KateSessionOpenDialog::KateSessionOpenDialog (QWidget *parent)
   {
     new KateSessionChooserItem (m_sessions, slist[i]);
   }
+  m_sessions->resizeColumnToContents(0);
 
   setResult (resultCancel);
   connect(this, SIGNAL(user1Clicked()), this, SLOT(slotUser1()));
@@ -851,12 +856,15 @@ KateSessionManageDialog::KateSessionManageDialog (QWidget *parent)
   header << i18nc("The number of open documents", "Open Documents");
   m_sessions->setHeaderLabels(header);
   m_sessions->setRootIsDecorated( false );
+  m_sessions->setItemsExpandable( false );
+  m_sessions->setAllColumnsShowFocus( true );
   m_sessions->setSelectionBehavior(QAbstractItemView::SelectRows);
   m_sessions->setSelectionMode (QAbstractItemView::SingleSelection);
 
   connect (m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), this, SLOT(selectionChanged(QTreeWidgetItem *, QTreeWidgetItem *)));
 
   updateSessionList ();
+  m_sessions->resizeColumnToContents(0);
 
   QVBoxLayout *vb = new QVBoxLayout ();
   hb->addItem(vb);

@@ -51,14 +51,20 @@
       <widget class="QLineEdit" name="pattern" >
        <property name="sizePolicy" >
         <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
-         <horstretch>0</horstretch>
+         <horstretch>1</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize" >
         <size>
-         <width>180</width>
+         <width>80</width>
          <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize" >
+        <size>
+         <width>180</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="toolTip" >
@@ -102,8 +108,8 @@
        </property>
        <property name="sizeHint" >
         <size>
-         <width>8</width>
-         <height>20</height>
+         <width>16</width>
+         <height>26</height>
         </size>
        </property>
       </spacer>
@@ -134,8 +140,8 @@
        </property>
        <property name="sizeHint" >
         <size>
-         <width>8</width>
-         <height>20</height>
+         <width>16</width>
+         <height>26</height>
         </size>
        </property>
       </spacer>
@@ -157,8 +163,8 @@
        </property>
        <property name="sizeHint" >
         <size>
-         <width>8</width>
-         <height>20</height>
+         <width>16</width>
+         <height>26</height>
         </size>
        </property>
       </spacer>

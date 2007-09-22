@@ -35,6 +35,17 @@ using namespace KTextEditor;
 
 
 
+// Turn debug messages on/off here
+// #define FAST_DEBUG_ENABLE
+
+#ifdef FAST_DEBUG_ENABLE
+# define FAST_DEBUG(x) (kDebug() << x)
+#else
+# define FAST_DEBUG(x)
+#endif
+
+
+
 KateSearchBar::KateSearchBar(KateViewBar * viewBar, bool initAsPower)
         : KateViewBarWidget(viewBar),
         m_view(viewBar->view()),
@@ -476,17 +487,17 @@ void KateSearchBar::onIncFromCursorToggle(bool invokedByUserAction) {
 
 
 void KateSearchBar::fixForSingleLine(Range & range, bool forwards) {
-    kDebug() << "Single-line workaround checking" << range;
+    FAST_DEBUG("Single-line workaround checking" << range);
     if (forwards) {
         const int line = range.start().line();
         const int col = range.start().column();
         const int maxColWithNewline = m_view->doc()->lineLength(line) + 1;
         if (col == maxColWithNewline) {
-            kDebug() << "Starting on a newline" << range;
+            FAST_DEBUG("Starting on a newline" << range);
             const int maxLine = m_view->doc()->lines() - 1;
             if (line < maxLine) {
                 range.setRange(Cursor(line + 1, 0), range.end());
-                kDebug() << "Search range fixed to " << range;
+                FAST_DEBUG("Search range fixed to " << range);
             } else {
                 // Already at last line
                 range = Range::invalid();
@@ -495,12 +506,12 @@ void KateSearchBar::fixForSingleLine(Range & range, bool forwards) {
     } else {
         const int col = range.end().column();
         if (col == 0) {
-            kDebug() << "Ending after a newline" << range;
+            FAST_DEBUG("Ending after a newline" << range);
             const int line = range.end().line();
             if (line > 0) {
                 const int maxColWithNewline = m_view->doc()->lineLength(line - 1);
                 range.setRange(range.start(), Cursor(line - 1, maxColWithNewline));
-                kDebug() << "Search range fixed to " << range;
+                FAST_DEBUG("Search range fixed to " << range);
             } else {
                 // Already at first line
                 range = Range::invalid();
@@ -597,7 +608,7 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
             inputRange = m_view->doc()->documentRange();
         }
     }
-    kDebug() << "Search range is" << inputRange;
+    FAST_DEBUG("Search range is" << inputRange);
 
     // Single-line pattern workaround
     if (regexMode && !multiLinePattern) {
@@ -1675,6 +1686,14 @@ void KateSearchBar::hideEvent(QHideEvent * event) {
     enableHighlights(false);
     KateViewBarWidget::hideEvent(event);
 }
+
+
+
+// Kill our helpers again
+#ifdef FAST_DEBUG_ENABLE
+# undef FAST_DEBUG_ENABLE
+#endif
+#undef FAST_DEBUG
 
 
 

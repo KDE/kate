@@ -81,6 +81,19 @@
 #include <QtCore/QMutex>
 //END  includes
 
+
+
+// Turn debug messages on/off here
+// #define FAST_DEBUG_ENABLE
+
+#ifdef FAST_DEBUG_ENABLE
+# define FAST_DEBUG(x) (kDebug() << x)
+#else
+# define FAST_DEBUG(x)
+#endif
+
+
+
 //BEGIN PRIVATE CLASSES
 class KatePartPluginItem
 {
@@ -1744,7 +1757,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
   const QString sep("\n");
   const QStringList needleLines = text.split(sep);
   const int numNeedleLines = needleLines.count();
-  kDebug() << "searchText | needle has " << numNeedleLines << " lines";
+  FAST_DEBUG("searchText | needle has " << numNeedleLines << " lines");
 
   if (numNeedleLines > 1)
   {
@@ -1769,7 +1782,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
         return KTextEditor::Range::invalid();
 
       hayLinesWindow.append (textLine);
-      kDebug() << "searchText | hayLinesWindow[" << i << "] = \"" << hayLinesWindow[i]->string() << "\"";
+      FAST_DEBUG("searchText | hayLinesWindow[" << i << "] = \"" << hayLinesWindow[i]->string() << "\"");
     }
 
     for (int j = forInit; (forMin <= j) && (j <= forMax); j += forInc)
@@ -1781,7 +1794,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
         // which lines to compare
         const QString & needleLine = needleLines[k];
         KateTextLine::Ptr & hayLine = hayLinesWindow[(k + hayLinesZeroIndex) % numNeedleLines];
-        kDebug() << "searchText | hayLine = \"" << hayLine->string() << "\"";
+        FAST_DEBUG("searchText | hayLine = \"" << hayLine->string() << "\"");
 
         // position specific comparison (first, middle, last)
         if (k == 0) {
@@ -1797,10 +1810,10 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
             const bool matches = hayLine->searchText(colOffset, hayLine->length(),needleLine, &startCol,
               &myMatchLen, casesensitive, false);
             if (!matches || (startCol + myMatchLen != static_cast<uint>(hayLine->length()))) {
-              // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no";
+              FAST_DEBUG("searchText | [" << j << " + " << k << "] line " << j + k << ": no");
               break;
             }
-            // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": yes";
+            FAST_DEBUG("searchText | [" << j << " + " << k << "] line " << j + k << ": yes");
           }
         } else if (k == numNeedleLines - 1) {
           // last line
@@ -1809,19 +1822,19 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
           if (matches && (foundAt == 0) && !((k == lastLine)
               && (static_cast<uint>(foundAt + myMatchLen) > maxRight))) // full match!
           {
-            kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": yes";
+            FAST_DEBUG("searchText | [" << j << " + " << k << "] line " << j + k << ": yes");
             return KTextEditor::Range(j, startCol, j + k, needleLine.length());
           }
-          // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no";
+          FAST_DEBUG("searchText | [" << j << " + " << k << "] line " << j + k << ": no");
         } else {
           // mid lines
           uint foundAt, myMatchLen;
           const bool matches = hayLine->searchText(0, hayLine->length(),needleLine, &foundAt, &myMatchLen, casesensitive, false);
           if (!matches || (foundAt != 0) || (myMatchLen != static_cast<uint>(needleLine.length()))) {
-            // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": no";
+            FAST_DEBUG("searchText | [" << j << " + " << k << "] line " << j + k << ": no");
             break;
           }
-          // kDebug() << "searchText | [" << j << " + " << k << "] line " << j + k << ": yes";
+          FAST_DEBUG("searchText | [" << j << " + " << k << "] line " << j + k << ": yes");
         }
       }
 
@@ -1839,14 +1852,14 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
 
           hayLinesWindow[hayLinesZeroIndex] = textLine;
 
-          kDebug() << "searchText | filling slot " << hayLinesZeroIndex << " with line "
-            << j - 1 << ": " << hayLinesWindow[hayLinesZeroIndex]->string() << endl;
+          FAST_DEBUG("searchText | filling slot " << hayLinesZeroIndex << " with line "
+            << j - 1 << ": " << hayLinesWindow[hayLinesZeroIndex]->string() << endl);
         }
         else
         {
           hayLinesWindow[hayLinesZeroIndex] = m_buffer->plainLine(j + numNeedleLines);
-          kDebug() << "searchText | filling slot " << hayLinesZeroIndex << " with line "
-            << j + numNeedleLines << ": " << hayLinesWindow[hayLinesZeroIndex]->string() << endl;
+          FAST_DEBUG("searchText | filling slot " << hayLinesZeroIndex << " with line "
+            << j + numNeedleLines << ": " << hayLinesWindow[hayLinesZeroIndex]->string() << endl);
           hayLinesZeroIndex = (hayLinesZeroIndex + 1) % numNeedleLines;
         }
       }
@@ -1864,30 +1877,30 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     const int forMax   = inputRange.end().line();
     const int forInit  = backwards ? forMax : forMin;
     const int forInc   = backwards ? -1 : +1;
-    kDebug() << "searchText | single line " << (backwards ? forMax : forMin) << ".."
-      << (backwards ? forMin : forMax) << endl;
+    FAST_DEBUG("searchText | single line " << (backwards ? forMax : forMin) << ".."
+      << (backwards ? forMin : forMax) << endl);
     for (int j = forInit; (forMin <= j) && (j <= forMax); j += forInc)
     {
       KateTextLine::Ptr textLine = m_buffer->plainLine(j);
       if (!textLine)
       {
-        // kDebug() << "searchText | line " << j << ": no";
+        FAST_DEBUG("searchText | line " << j << ": no");
         return KTextEditor::Range::invalid();
       }
 
       const int offset = (j == forMin) ? minLeft : 0;
       const int line_end= (j==forMax) ? maxRight : textLine->length();
       uint foundAt, myMatchLen;
-      //kDebug() << "searchText | searching in line line: " << j;
+      FAST_DEBUG("searchText | searching in line line: " << j);
       const bool found = textLine->searchText (offset,line_end, text, &foundAt, &myMatchLen, casesensitive, backwards);
       if (found && !((j == forMax) && (static_cast<uint>(foundAt + myMatchLen) > maxRight)))
       {
-        //kDebug() << "searchText | line " << j << ": yes";
+        FAST_DEBUG("searchText | line " << j << ": yes");
         return KTextEditor::Range(j, foundAt, j, foundAt + myMatchLen);
       }
       else
       {
-        // kDebug() << "searchText | line " << j << ": no";
+        FAST_DEBUG("searchText | line " << j << ": no");
       }
     }
   }
@@ -1947,7 +1960,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
     // multi-line regex search (both forward and backward mode)
     QString wholeDocument;
     const int inputLineCount = inputRange.end().line() - inputRange.start().line() + 1;
-    kDebug() << "multi line search (lines " << firstLineIndex << ".." << firstLineIndex + inputLineCount - 1 << ")";
+    FAST_DEBUG("multi line search (lines " << firstLineIndex << ".." << firstLineIndex + inputLineCount - 1 << ")");
 
     // nothing to do...
     if (firstLineIndex >= m_buffer->lines())
@@ -1972,7 +1985,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
     const int firstLineLen = firstLineText.length() - minColStart;
     wholeDocument.append(firstLineText.right(firstLineLen));
     lineLens[0] = firstLineLen;
-    kDebug() << "  line" << 0 << "has length" << lineLens[0];
+    FAST_DEBUG("  line" << 0 << "has length" << lineLens[0]);
 
     // second line and after
     const QString sep("\n");
@@ -1990,7 +2003,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
       lineLens[i] = text.length();
       wholeDocument.append(sep);
       wholeDocument.append(text);
-      kDebug() << "  line" << i << "has length" << lineLens[i];
+      FAST_DEBUG("  line" << i << "has length" << lineLens[i]);
     }
 
     // apply modified pattern
@@ -2000,7 +2013,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
     if (pos == -1)
     {
       // no match
-      kDebug() << "not found";
+      FAST_DEBUG("not found");
       {
         QVector<KTextEditor::Range> result;
         result.append(KTextEditor::Range::invalid());
@@ -2008,7 +2021,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
       }
     }
     const int matchLen = regexp.matchedLength();
-    kDebug() << "found at relative pos " << pos << ", length " << matchLen;
+    FAST_DEBUG("found at relative pos " << pos << ", length " << matchLen);
 
 
     // save opening and closing indices and build a map.
@@ -2025,14 +2038,14 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
         // empty capture gives invalid
         pair.openIndex = -1;
         pair.closeIndex = -1;
-kDebug() << "capture []";
+        FAST_DEBUG("capture []");
       }
       else
       {
         const int closeIndex = openIndex + regexp.cap(z).length();
         pair.openIndex = openIndex;
         pair.closeIndex = closeIndex;
-kDebug() << "capture [" << pair.openIndex << ".." << pair.closeIndex << "]";
+        FAST_DEBUG("capture [" << pair.openIndex << ".." << pair.closeIndex << "]");
 
         // each key no more than once
         if (!indicesToCursors.contains(openIndex))
@@ -2040,14 +2053,14 @@ kDebug() << "capture [" << pair.openIndex << ".." << pair.closeIndex << "]";
           TwoViewCursor * twoViewCursor = new TwoViewCursor;
           twoViewCursor->index = openIndex;
           indicesToCursors.insert(openIndex, twoViewCursor);
-kDebug() << "  border index added: " << openIndex;
+          FAST_DEBUG("  border index added: " << openIndex);
         }
         if (!indicesToCursors.contains(closeIndex))
         {
           TwoViewCursor * twoViewCursor = new TwoViewCursor;
           twoViewCursor->index = closeIndex;
           indicesToCursors.insert(closeIndex, twoViewCursor);
-kDebug() << "  border index added: " << closeIndex;
+          FAST_DEBUG("  border index added: " << closeIndex);
         }
       }
     }
@@ -2064,14 +2077,15 @@ kDebug() << "  border index added: " << closeIndex;
       TwoViewCursor & twoViewCursor = *(*iter);
       while (curRelIndex <= index)
       {
-kDebug() << "walk pos (" << curRelLine << "," << curRelCol << ") = " << curRelIndex << "relative, steps more to go" << index - curRelIndex;
+        FAST_DEBUG("walk pos (" << curRelLine << "," << curRelCol << ") = "
+            << curRelIndex << "relative, steps more to go" << index - curRelIndex);
         const int curRelLineLen = lineLens[curRelLine];
         const int curLineRemainder = curRelLineLen - curRelCol;
         const int lineFeedIndex = curRelIndex + curLineRemainder;
         if (index < lineFeedIndex)
         {
           // on this line _before_ line feed
-kDebug() << "  before line feed";
+          FAST_DEBUG("  before line feed");
           const int diff = (index - curRelIndex);
           const int absLine = curRelLine + firstLineIndex;
           const int absCol = ((curRelLine == 0) ? minColStart : 0) + curRelCol + diff;
@@ -2086,7 +2100,7 @@ kDebug() << "  before line feed";
         else if (index == lineFeedIndex)
         {
           // on this line _on_ line feed
-kDebug() << "  on line feed";
+          FAST_DEBUG("  on line feed");
           const int absLine = curRelLine + firstLineIndex;
           twoViewCursor.openLine = absLine;
           twoViewCursor.openCol = ((curRelLine == 0) ? minColStart : 0) + curRelLineLen;
@@ -2103,7 +2117,7 @@ kDebug() << "  on line feed";
         {
           // not on this line
           // advance to next line
-kDebug() << "  not on this line";
+          FAST_DEBUG("  not on this line");
           const int advance = curLineRemainder + 1;
           curRelLine++;
           curRelCol = 0;
@@ -2131,7 +2145,7 @@ kDebug() << "  not on this line";
         const int startCol = openCursors->openCol;
         const int endLine = closeCursors->closeLine;
         const int endCol = closeCursors->closeCol;
-kDebug() << "range " << y << ": (" << startLine << ", " << startCol << ")..(" << endLine << ", " << endCol << ")";
+        FAST_DEBUG("range " << y << ": (" << startLine << ", " << startCol << ")..(" << endLine << ", " << endCol << ")");
         result[y] = KTextEditor::Range(startLine, startCol, endLine, endCol);
       }
     }
@@ -2155,14 +2169,14 @@ kDebug() << "range " << y << ": (" << startLine << ", " << startCol << ")..(" <<
     const int forMax   = inputRange.end().line();
     const int forInit  = backwards ? forMax : forMin;
     const int forInc   = backwards ? -1 : +1;
-    kDebug() << "single line " << (backwards ? forMax : forMin) << ".."
-      << (backwards ? forMin : forMax) << endl;
+    FAST_DEBUG("single line " << (backwards ? forMax : forMin) << ".."
+      << (backwards ? forMin : forMax) << endl);
     for (int j = forInit; (forMin <= j) && (j <= forMax); j += forInc)
     {
       KateTextLine::Ptr textLine = m_buffer->plainLine(j);
       if (!textLine)
       {
-        // kDebug() << "searchText | line " << j << ": no";
+        FAST_DEBUG("searchText | line " << j << ": no");
         QVector<KTextEditor::Range> result;
         result.append(KTextEditor::Range::invalid());
         return result;
@@ -2205,25 +2219,25 @@ kDebug() << "range " << y << ": (" << startLine << ", " << startCol << ")..(" <<
 
       if (found && !((j == forMax) && (static_cast<uint>(foundAt + myMatchLen) > maxRight)))
       {
-        kDebug() << "line " << j << ": yes";
+        FAST_DEBUG("line " << j << ": yes");
 
         // build result array
         const int numCaptures = regexp.numCaptures();
         QVector<KTextEditor::Range> result(1 + numCaptures);
         result[0] = KTextEditor::Range(j, foundAt, j, foundAt + myMatchLen);
-kDebug() << "srange " << 0 << ": (" << j << ", " << foundAt << ")..(" << j << ", " << foundAt + myMatchLen << ")";
+        FAST_DEBUG("srange " << 0 << ": (" << j << ", " << foundAt << ")..(" << j << ", " << foundAt + myMatchLen << ")");
         for (int y = 1; y <= numCaptures; y++)
         {
           const int openIndex = regexp.pos(y);
           if (openIndex == -1)
           {
             result[y] = KTextEditor::Range::invalid();
-kDebug() << "capture []";
+            FAST_DEBUG("capture []");
           }
           else
           {
             const int closeIndex = openIndex + regexp.cap(y).length();
-kDebug() << "range " << y << ": (" << j << ", " << openIndex << ")..(" << j << ", " << closeIndex << ")";
+            FAST_DEBUG("range " << y << ": (" << j << ", " << openIndex << ")..(" << j << ", " << closeIndex << ")");
             result[y] = KTextEditor::Range(j, openIndex, j, closeIndex);
           }
         }
@@ -2231,7 +2245,7 @@ kDebug() << "range " << y << ": (" << j << ", " << openIndex << ")..(" << j << "
       }
       else
       {
-        // kDebug() << "searchText | line " << j << ": no";
+        FAST_DEBUG("searchText | line " << j << ": no");
       }
     }
   }
@@ -6149,3 +6163,12 @@ KateDocument::LoadSaveFilterCheckPlugins* KateDocument::loadSaveFilterCheckPlugi
   K_GLOBAL_STATIC(KateDocument::LoadSaveFilterCheckPlugins, s_loadSaveFilterCheckPlugins)
   return s_loadSaveFilterCheckPlugins;
 }
+
+
+
+// Kill our helpers again
+#ifdef FAST_DEBUG_ENABLE
+# undef FAST_DEBUG_ENABLE
+#endif
+#undef FAST_DEBUG
+

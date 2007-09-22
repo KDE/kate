@@ -88,7 +88,7 @@ public Q_SLOTS:
 
 public:
     // Only used by KateView
-    static void nextMatchForSelection(KateView * view);
+    static void nextMatchForSelection(KateView * view, bool forwards);
 
 public Q_SLOTS:
     // Also used by KateView

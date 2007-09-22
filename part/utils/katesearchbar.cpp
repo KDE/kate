@@ -1323,17 +1323,25 @@ void KateSearchBar::onPowerModeChanged(int index, bool invokedByUserAction) {
 
 
 
-/*static*/ void KateSearchBar::nextMatchForSelection(KateView * view) {
+/*static*/ void KateSearchBar::nextMatchForSelection(KateView * view, bool forwards) {
     const bool selected = view->selection();
     if (selected) {
         const QString pattern = view->selectionText();
 
         // How to find?
         Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
+        if (!forwards) {
+            enabledOptions |= Search::Backwards;
+        }
 
         // Where to find?
         const Range selRange = view->selectionRange();
-        Range inputRange(selRange.end(), view->doc()->documentEnd());
+        Range inputRange;
+        if (forwards) {
+            inputRange.setRange(selRange.end(), view->doc()->documentEnd());
+        } else {
+            inputRange.setRange(Cursor(0, 0), selRange.start());
+        }
 
         // Find, first try
         const QVector<Range> resultRanges = view->doc()->searchText(inputRange, pattern, enabledOptions);
@@ -1343,7 +1351,11 @@ void KateSearchBar::onPowerModeChanged(int index, bool invokedByUserAction) {
             selectRange(view, match);
         } else {
             // Find, second try
-            inputRange.setRange(Cursor(0, 0), selRange.start());
+            if (forwards) {
+                inputRange.setRange(Cursor(0, 0), selRange.start());
+            } else {
+                inputRange.setRange(selRange.end(), view->doc()->documentEnd());
+            }
             const QVector<Range> resultRanges2 = view->doc()->searchText(inputRange, pattern, enabledOptions);
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {

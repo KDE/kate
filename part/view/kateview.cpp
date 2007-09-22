@@ -536,7 +536,7 @@ void KateView::setupActions()
   a->setText(i18n("Find Selected"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_H));
   a->setWhatsThis(i18n("Finds next occurrence of selected text."));
-  connect(a, SIGNAL(triggered(bool)), SLOT(findSelected()));
+  connect(a, SIGNAL(triggered(bool)), SLOT(findSelectedForwards()));
 
   a = ac->addAction( KStandardAction::FindNext, this, SLOT(findNext()) );
   a->setWhatsThis(i18n("Look up the next occurrence of the search phrase."));
@@ -1118,9 +1118,16 @@ void KateView::find()
   bar->setFocus();
 }
 
-void KateView::findSelected()
+void KateView::findSelectedForwards()
 {
-  KateSearchBar::nextMatchForSelection(m_viewBar->view());
+  const bool FORWARDS = true;
+  KateSearchBar::nextMatchForSelection(m_viewBar->view(), FORWARDS);
+}
+
+void KateView::findSelectedBackwards()
+{
+  const bool BACKWARDS = false;
+  KateSearchBar::nextMatchForSelection(m_viewBar->view(), BACKWARDS);
 }
 
 void KateView::replace()

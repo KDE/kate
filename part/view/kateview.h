@@ -442,7 +442,8 @@ class KateView : public KTextEditor::View,
   public Q_SLOTS:
     void setEol( int eol );
     void find();
-    void findSelected();
+    void findSelectedForwards();
+    void findSelectedBackwards();
     void replace();
     void findNext();
     void findPrevious();

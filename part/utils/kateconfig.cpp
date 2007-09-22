@@ -176,12 +176,6 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
 
   setBackupSuffix (config.readEntry("Backup Suffix", QString ("~")));
 
-  // plugins
-  // ### KPS fixme dominik
-//  const KService::List& plugins = KateGlobal::self()->plugins();
-//  for (int i=0; i<plugins.count(); i++)
-//    setPlugin (i, config.readEntry(plugins[i]->property("X-KDE-PluginInfo-Name").toString() + "Enabled", false));
-
   configEnd ();
 }
 
@@ -216,11 +210,6 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Backup Prefix", backupPrefix());
 
   config.writeEntry("Backup Suffix", backupSuffix());
-
-  // plugins
-  // ### KPS dominik fixme
-//  for (int i=0; i<KateGlobal::self()->plugins().count(); i++)
-//    config.writeEntry((KateGlobal::self()->plugins())[i]->property("X-KDE-PluginInfo-Name").toString() + "Enabled", plugin(i));
 }
 
 void KateDocumentConfig::updateConfig ()
@@ -605,36 +594,6 @@ void KateDocumentConfig::setBackupSuffix (const QString &suffix)
   m_backupSuffix = suffix;
 
   configEnd ();
-}
-
-bool KateDocumentConfig::plugin (int /*index*/) const
-{
-  return false;
-  // ### kps dominik fixme
-/*  if (index < 0 || index >= m_plugins.size())
-    return false;
-
-  if (m_pluginsSet.at(index) || isGlobal())
-    return m_plugins.at(index);
-
-  return s_global->plugin (index);
-*/
-}
-
-void KateDocumentConfig::setPlugin (int /*index*/, bool /*load*/)
-{
-  // ### KPS dominik fixme
-  /*
-  if (index < 0 || index >= m_plugins.size())
-    return;
-
-  configStart ();
-
-  m_pluginsSet.setBit(index);
-  m_plugins.setBit(index, load);
-
-  configEnd ();
-  */
 }
 
 int KateDocumentConfig::searchDirConfigDepth () const

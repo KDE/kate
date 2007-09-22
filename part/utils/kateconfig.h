@@ -219,9 +219,6 @@ class KateDocumentConfig : public KateConfig
     const QString &backupSuffix () const;
     void setBackupSuffix (const QString &suffix);
 
-    bool plugin (int index) const;
-    void setPlugin (int index, bool load);
-
     /**
      * Should Kate Part search for dir wide config file
      * and if, how depth?

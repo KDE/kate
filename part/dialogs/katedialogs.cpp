@@ -829,8 +829,6 @@ void KatePartPluginConfigPage::apply ()
         KatePluginManager::self()->unloadPlugin(katePluginList[i]);
       }
     }
-    
-//    KateDocumentConfig::global()->setPlugin (i, plugins[i].isPluginEnabled ());
   }
 }
 

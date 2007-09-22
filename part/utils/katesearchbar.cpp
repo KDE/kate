@@ -328,14 +328,16 @@ void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & r
 
 
 
-void KateSearchBar::onIncPatternChanged(const QString & pattern) {
+void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByUserAction) {
     if (pattern.isEmpty()) {
-        // Kill selection
-        m_view->setSelection(Range::invalid());
+        if (invokedByUserAction) {
+            // Kill selection
+            m_view->setSelection(Range::invalid());
 
-        // Kill highlight
-        resetHighlights();
-        updateHighlights();
+            // Kill highlight
+            resetHighlights();
+            updateHighlights();
+        }
 
         // Reset edit color
         indicateNothing();
@@ -350,61 +352,62 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
     m_incUi->next->setDisabled(false);
     m_incUi->prev->setDisabled(false);
 
+    if (invokedByUserAction) {
+        // How to find?
+        Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
+        const bool matchCase = isChecked(m_incMenuMatchCase);
+        if (!matchCase) {
+            enabledOptions |= Search::CaseInsensitive;
+        }
 
-    // How to find?
-    Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
-    const bool matchCase = isChecked(m_incMenuMatchCase);
-    if (!matchCase) {
-        enabledOptions |= Search::CaseInsensitive;
-    }
 
-
-    // Where to find?
-    Range inputRange;
-    const bool fromCursor = isChecked(m_incMenuFromCursor);
-    if (fromCursor) {
-        inputRange.setRange(m_incInitCursor, m_view->doc()->documentEnd());
-    } else {
-        inputRange = m_view->doc()->documentRange();
-    }
-
-    // Find, first try
-    const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
-    const Range & match = resultRanges[0];
-
-    bool found = false;
-    if (match.isValid()) {
-        selectRange(m_view, match);
-        const bool NOT_WRAPPED = false;
-        indicateMatch(NOT_WRAPPED);
-        found = true;
-    } else {
-        // Wrap if it makes sense
+        // Where to find?
+        Range inputRange;
+        const bool fromCursor = isChecked(m_incMenuFromCursor);
         if (fromCursor) {
-            // Find, second try
+            inputRange.setRange(m_incInitCursor, m_view->doc()->documentEnd());
+        } else {
             inputRange = m_view->doc()->documentRange();
-            const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
-            const Range & match2 = resultRanges2[0];
-            if (match2.isValid()) {
-                selectRange(m_view, match2);
-                const bool WRAPPED = true;
-                indicateMatch(WRAPPED);
-                found = true;
+        }
+
+        // Find, first try
+        const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
+        const Range & match = resultRanges[0];
+
+        bool found = false;
+        if (match.isValid()) {
+            selectRange(m_view, match);
+            const bool NOT_WRAPPED = false;
+            indicateMatch(NOT_WRAPPED);
+            found = true;
+        } else {
+            // Wrap if it makes sense
+            if (fromCursor) {
+                // Find, second try
+                inputRange = m_view->doc()->documentRange();
+                const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
+                const Range & match2 = resultRanges2[0];
+                if (match2.isValid()) {
+                    selectRange(m_view, match2);
+                    const bool WRAPPED = true;
+                    indicateMatch(WRAPPED);
+                    found = true;
+                } else {
+                    indicateMismatch();
+                }
             } else {
                 indicateMismatch();
             }
-        } else {
-            indicateMismatch();
         }
-    }
 
-    // Highlight all
-    if (isChecked(m_incMenuHighlightAll)) {
-        resetHighlights();
-        if (found) {
-            highlightAllMatches(pattern, enabledOptions);
+        // Highlight all
+        if (isChecked(m_incMenuHighlightAll)) {
+            resetHighlights();
+            if (found) {
+                highlightAllMatches(pattern, enabledOptions);
+            }
+            updateHighlights();
         }
-        updateHighlights();
     }
 }
 
@@ -1567,7 +1570,8 @@ void KateSearchBar::onMutateIncremental() {
     m_incUi->pattern->selectAll();
 
     // Propagate settings (slots are still inactive on purpose)
-    onIncPatternChanged(initialPattern);
+    const bool NOT_INVOKED_BY_USER_ACTION = false;
+    onIncPatternChanged(initialPattern, NOT_INVOKED_BY_USER_ACTION);
 
     if (create) {
         // Slots

@@ -65,7 +65,7 @@ public Q_SLOTS:
     void findNext();
     void findPrevious();
 
-    void onIncPatternChanged(const QString & pattern);
+    void onIncPatternChanged(const QString & pattern, bool invokedByUserAction = true);
     void onIncNext();
     void onIncPrev();
     void onIncMatchCaseToggle(bool invokedByUserAction = true);

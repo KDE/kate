@@ -99,7 +99,7 @@ private:
     // Helpers
     void onForAll(const QString & pattern, KTextEditor::Range inputRange,
             KTextEditor::Search::SearchOptions enabledOptions,
-            QList<QVector<KTextEditor::Range> > * replacementJobs);
+            const QString * replacement);
     bool isChecked(QCheckBox * checkbox);
     bool isChecked(QAction * menuAction);
     void setChecked(QCheckBox * checkbox, bool checked);

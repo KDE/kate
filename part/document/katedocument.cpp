@@ -1930,8 +1930,8 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
     QRegExp &regexp,
     bool backwards)
 {
-  kDebug(13020) << "KateDocument::searchRegex( " << inputRange.start().line() << ", "
-    << inputRange.start().column() << ", " << regexp.pattern() << ", " << backwards << " )" << endl;
+  FAST_DEBUG("KateDocument::searchRegex( " << inputRange.start().line() << ", "
+    << inputRange.start().column() << ", " << regexp.pattern() << ", " << backwards << " )" << endl);
   if (regexp.isEmpty() || !regexp.isValid() || !inputRange.isValid() || (inputRange.start() == inputRange.end()))
   {
     QVector<KTextEditor::Range> result;

@@ -412,12 +412,8 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
         }
 
         // Highlight all
-        if (isChecked(m_incMenuHighlightAll)) {
-            resetHighlights();
-            if (found) {
-                highlightAllMatches(pattern, enabledOptions);
-            }
-            updateHighlights();
+        if (found && isChecked(m_incMenuHighlightAll)) {
+            highlightAllMatches(pattern, enabledOptions);
         }
     }
 }
@@ -876,11 +872,11 @@ void KateSearchBar::onPowerReplaceNext() {
 
 
 
-// replacementJobs == NULL --> Highlight all matches on the fly
-// replacementJobs != NULL --> Collect all matches for replacing later
+// replacement == NULL --> Highlight all matches
+// replacement != NULL --> Replace and highlight all matches
 void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
         Search::SearchOptions enabledOptions,
-        QList<QVector<KTextEditor::Range> > * replacementJobs) {
+        const QString * replacement) {
     bool multiLinePattern = false;
     const bool regexMode = enabledOptions.testFlag(Search::Regex);
     if (regexMode) {
@@ -889,17 +885,45 @@ void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
         KateDocument::repairPattern(patternCopy, multiLinePattern);
     }
 
+    int matchCounter = 0;
     for (;;) {
         const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
-        const Range & match = resultRanges[0];
+        Range match = resultRanges[0];
         if (!match.isValid()) {
+            // After last match
+            if (matchCounter > 0) {
+                if (replacement != NULL) {
+                    m_view->doc()->editEnd();
+                }
+                updateHighlights();
+            }
             break;
         }
 
-        if (replacementJobs != NULL) {
-            replacementJobs->append(resultRanges);
+        if (matchCounter == 0) {
+            // Before first match
+            resetHighlights();
+            if (replacement != NULL) {
+                m_view->doc()->editBegin();
+            }
+        }
+
+        // Work with the match
+        if (replacement != NULL) {
+            // Track replacement operation
+            SmartRange * const afterReplace = m_view->doc()->newSmartRange(match);
+            afterReplace->setInsertBehavior(SmartRange::ExpandRight);
+
+            // Replace
+            replaceMatch(resultRanges, *replacement, ++matchCounter);
+
+            // Highlight and continue after adjusted match
+            highlightReplacement(match = *afterReplace);
+            delete afterReplace;
         } else {
+            // Highlight and continue after original match
             highlightMatch(match);
+            matchCounter++;
         }
 
         // Continue after match
@@ -985,27 +1009,8 @@ void KateSearchBar::onPowerReplaceAll() {
             : m_view->doc()->documentRange();
 
 
-    // Collect matches
-    QList<QVector<KTextEditor::Range> > replacementJobs;
-    onForAll(pattern, inputRange, enabledOptions, &replacementJobs);
-
-
-    // Replace (backwards)
-    if (!replacementJobs.isEmpty()) {
-        resetHighlights();
-        int replacementCounter = replacementJobs.count();
-        m_view->doc()->editBegin(); // Group to single undo job
-        QList<QVector<Range> >::iterator iter = replacementJobs.end();
-        while (iter != replacementJobs.begin()) {
-            --iter;
-            const QVector<Range> & targetDetails = *iter;
-            const Range & targetRange = targetDetails[0];
-            highlightReplacement(targetRange);
-            replaceMatch(targetDetails, replacement, replacementCounter--);
-        }
-        m_view->doc()->editEnd();
-        updateHighlights();
-    }
+    // Pass on the hard work
+    onForAll(pattern, inputRange, enabledOptions, &replacement);
 
 
     // Add to search history

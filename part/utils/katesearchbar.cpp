@@ -374,8 +374,6 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
 
     bool found = false;
     if (match.isValid()) {
-//      resetHighlights();
-//      highlightMatch(match);
         selectRange(m_view, match);
         const bool NOT_WRAPPED = false;
         indicateMatch(NOT_WRAPPED);
@@ -388,8 +386,6 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
             const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {
-//              resetHighlights();
-//              highlightMatch(match2);
                 selectRange(m_view, match2);
                 const bool WRAPPED = true;
                 indicateMatch(WRAPPED);
@@ -611,6 +607,7 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
     const Range & match = resultRanges[0];
     bool wrap = false;
     bool found = false;
+    SmartRange * afterReplace = NULL;
     if (match.isValid()) {
         // Previously selected match again?
         if (selected && !selectionOnly && (match == selection)) {
@@ -618,10 +615,16 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
             if (replace) {
                 // Selection is match -> replace
                 const QString replacement = m_powerUi->replacement->currentText();
-//              resetHighlights();
-//              highlightReplacement(match);
+                afterReplace = m_view->doc()->newSmartRange(match);
+                afterReplace->setInsertBehavior(SmartRange::ExpandRight);
                 replaceMatch(resultRanges, replacement);
-                found = true;
+
+                // Find, second try after replaced text
+                if (forwards) {
+                    inputRange.setRange(afterReplace->end(), inputRange.end());
+                } else {
+                    inputRange.setRange(inputRange.start(), afterReplace->start());
+                }
             } else {
                 // Find, second try after old selection
                 if (forwards) {
@@ -629,27 +632,23 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
                 } else {
                     inputRange.setRange(inputRange.start(), selection.start());
                 }
+            }
 
-                // Single-line pattern workaround
-                fixForSingleLine(inputRange, forwards);
+            // Single-line pattern workaround
+            fixForSingleLine(inputRange, forwards);
 
-                const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
-                const Range & match2 = resultRanges2[0];
-                if (match2.isValid()) {
-//                  resetHighlights();
-//                  highlightMatch(match2);
-                    selectRange(m_view, match2);
-                    found = true;
-                    const bool NOT_WRAPPED = false;
-                    indicateMatch(NOT_WRAPPED);
-                } else {
-                    // Find, third try from doc start on
-                    wrap = true;
-                }
+            const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
+            const Range & match2 = resultRanges2[0];
+            if (match2.isValid()) {
+                selectRange(m_view, match2);
+                found = true;
+                const bool NOT_WRAPPED = false;
+                indicateMatch(NOT_WRAPPED);
+            } else {
+                // Find, third try from doc start on
+                wrap = true;
             }
         } else {
-//          resetHighlights();
-//          highlightMatch(match);
             selectRange(m_view, match);
             found = true;
             const bool NOT_WRAPPED = false;
@@ -670,8 +669,6 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
             if (selected && !selectionOnly && (match3 == selection)) {
                 // NOOP, same match again
             } else {
-//              resetHighlights();
-//              highlightMatch(match3);
                 selectRange(m_view, match3);
                 found = true;
             }
@@ -682,17 +679,27 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
         }
     }
 
-    // Highlight all
+    // Highlight all matches and/or replacement
     const bool highlightAll = (m_powerUi != NULL)
             ? isChecked(m_powerUi->highlightAll)
             : isChecked(m_incMenuHighlightAll);
-    if (highlightAll) {
+    if ((found && highlightAll) || (afterReplace != NULL)) {
         resetHighlights();
-        if (found) {
+
+        // Highlight all matches
+        if (found && highlightAll) {
             highlightAllMatches(pattern, enabledOptions);
         }
+
+        // Highlight replacement (on top if overlapping) if new match selected
+        if (found && (afterReplace != NULL)) {
+            highlightReplacement(*afterReplace);
+        }
+
         updateHighlights();
     }
+
+    delete afterReplace;
 }
 
 
@@ -1405,10 +1412,6 @@ void KateSearchBar::onMutatePower() {
         m_powerUi->patternAdd->setIcon(KIcon("list-add"));
         m_powerUi->replacementAdd->setIcon(KIcon("list-add"));
 
-        // Disable still to implement controls
-        // TODO
-//      m_powerUi->highlightAll->setDisabled(true);
-
         // Focus proxy
         centralWidget()->setFocusProxy(m_powerUi->pattern);
     }
@@ -1529,7 +1532,6 @@ void KateSearchBar::onMutateIncremental() {
         m_incMenuFromCursor->setCheckable(true);
         m_incMenuHighlightAll = m_incMenu->addAction(i18n("Hi&ghlight all"));
         m_incMenuHighlightAll->setCheckable(true);
-//      m_incMenuHighlightAll->setDisabled(true);
 
         // Icons
         m_incUi->mutate->setIcon(KIcon("arrow-up-double"));

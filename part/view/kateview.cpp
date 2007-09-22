@@ -537,6 +537,12 @@ void KateView::setupActions()
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_H));
   a->setWhatsThis(i18n("Finds next occurrence of selected text."));
   connect(a, SIGNAL(triggered(bool)), SLOT(findSelectedForwards()));
+  
+  a = ac->addAction("edit_find_selected_backwards");
+  a->setText(i18n("Find Selected Backwards"));
+  a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_H));
+  a->setWhatsThis(i18n("Finds previous occurrence of selected text."));
+  connect(a, SIGNAL(triggered(bool)), SLOT(findSelectedBackwards()));
 
   a = ac->addAction( KStandardAction::FindNext, this, SLOT(findNext()) );
   a->setWhatsThis(i18n("Look up the next occurrence of the search phrase."));

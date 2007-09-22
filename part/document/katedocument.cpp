@@ -2171,7 +2171,7 @@ kDebug() << "range " << y << ": (" << startLine << ", " << startCol << ")..(" <<
         // Find (and don't match ^ in between...)
         const int first = (j == forMin) ? minLeft : 0;
         const int afterLast = (j == forMax) ? maxRight : textLine->length();
-        const QString hay = textLine->string(first, afterLast - first);
+        const QString hay = textLine->string();
         bool found = true;
         int foundAt;
         uint myMatchLen;
@@ -2184,12 +2184,7 @@ kDebug() << "range " << y << ": (" << startLine << ", " << startCol << ")..(" <<
             foundAt = regexp.indexIn(hay, first);
             found = (foundAt != -1);
         }
-
-        // Repair
-        if (found) {
-            foundAt += first;
-            myMatchLen = regexp.matchedLength();
-        }
+        myMatchLen = found ? regexp.matchedLength() : 0;
 
       /*
       TODO do we still need this?

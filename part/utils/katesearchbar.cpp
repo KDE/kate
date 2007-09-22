@@ -1,10 +1,3 @@
-/* ##################################################################
-##
-##  TODO:
-##  * Highlight all (with background thread?)
-##
-################################################################## */
-
 /* This file is part of the KDE libraries
    Copyright (C) 2007 Sebastian Pipping <webmaster@hartwork.org>
    Copyright (C) 2007 Matthew Woehlke <mw_triad@users.sourceforge.net>
@@ -342,6 +335,7 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
 
         // Kill highlight
         resetHighlights();
+        updateHighlights();
 
         // Reset edit color
         indicateNothing();
@@ -378,12 +372,14 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
     const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
     const Range & match = resultRanges[0];
 
+    bool found = false;
     if (match.isValid()) {
-        resetHighlights();
-        highlightMatch(match);
+//      resetHighlights();
+//      highlightMatch(match);
         selectRange(m_view, match);
         const bool NOT_WRAPPED = false;
         indicateMatch(NOT_WRAPPED);
+        found = true;
     } else {
         // Wrap if it makes sense
         if (fromCursor) {
@@ -392,17 +388,27 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern) {
             const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
             const Range & match2 = resultRanges2[0];
             if (match2.isValid()) {
-                resetHighlights();
-                highlightMatch(match2);
+//              resetHighlights();
+//              highlightMatch(match2);
                 selectRange(m_view, match2);
                 const bool WRAPPED = true;
                 indicateMatch(WRAPPED);
+                found = true;
             } else {
                 indicateMismatch();
             }
         } else {
             indicateMismatch();
         }
+    }
+
+    // Highlight all
+    if (isChecked(m_incMenuHighlightAll)) {
+        resetHighlights();
+        if (found) {
+            highlightAllMatches(pattern, enabledOptions);
+        }
+        updateHighlights();
     }
 }
 
@@ -426,6 +432,10 @@ void KateSearchBar::onIncPrev() {
 void KateSearchBar::onIncMatchCaseToggle(bool invokedByUserAction) {
     if (invokedByUserAction) {
         sendConfig();
+
+        // Re-search with new settings
+        const QString pattern = m_incUi->pattern->displayText();
+        onIncPatternChanged(pattern);
     }
 }
 
@@ -446,15 +456,13 @@ void KateSearchBar::onIncHighlightAllToggle(bool checked, bool invokedByUserActi
                 }
 
                 // Highlight them all
+                resetHighlights();
                 highlightAllMatches(pattern, enabledOptions);
             }
         } else {
             resetHighlights();
         }
-
-        // Actually show highlight changes
-        const bool EVERYTHING = false;
-        m_view->repaintText(EVERYTHING);
+        updateHighlights();
     }
 }
 
@@ -602,6 +610,7 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
     const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
     const Range & match = resultRanges[0];
     bool wrap = false;
+    bool found = false;
     if (match.isValid()) {
         // Previously selected match again?
         if (selected && !selectionOnly && (match == selection)) {
@@ -609,9 +618,10 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
             if (replace) {
                 // Selection is match -> replace
                 const QString replacement = m_powerUi->replacement->currentText();
-                resetHighlights();
-                highlightReplacement(match);
+//              resetHighlights();
+//              highlightReplacement(match);
                 replaceMatch(resultRanges, replacement);
+                found = true;
             } else {
                 // Find, second try after old selection
                 if (forwards) {
@@ -626,9 +636,10 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
                 const QVector<Range> resultRanges2 = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
                 const Range & match2 = resultRanges2[0];
                 if (match2.isValid()) {
-                    resetHighlights();
-                    highlightMatch(match2);
+//                  resetHighlights();
+//                  highlightMatch(match2);
                     selectRange(m_view, match2);
+                    found = true;
                     const bool NOT_WRAPPED = false;
                     indicateMatch(NOT_WRAPPED);
                 } else {
@@ -637,9 +648,10 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
                 }
             }
         } else {
-            resetHighlights();
-            highlightMatch(match);
+//          resetHighlights();
+//          highlightMatch(match);
             selectRange(m_view, match);
+            found = true;
             const bool NOT_WRAPPED = false;
             indicateMatch(NOT_WRAPPED);
         }
@@ -658,15 +670,28 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
             if (selected && !selectionOnly && (match3 == selection)) {
                 // NOOP, same match again
             } else {
-                resetHighlights();
-                highlightMatch(match3);
+//              resetHighlights();
+//              highlightMatch(match3);
                 selectRange(m_view, match3);
+                found = true;
             }
             const bool WRAPPED = true;
             indicateMatch(WRAPPED);
         } else {
             indicateMismatch();
         }
+    }
+
+    // Highlight all
+    const bool highlightAll = (m_powerUi != NULL)
+            ? isChecked(m_powerUi->highlightAll)
+            : isChecked(m_incMenuHighlightAll);
+    if (highlightAll) {
+        resetHighlights();
+        if (found) {
+            highlightAllMatches(pattern, enabledOptions);
+        }
+        updateHighlights();
     }
 }
 
@@ -946,8 +971,8 @@ void KateSearchBar::onPowerReplaceAll() {
 
     // Replace (backwards)
     if (!replacementJobs.isEmpty()) {
-        int replacementCounter = replacementJobs.count();
         resetHighlights();
+        int replacementCounter = replacementJobs.count();
         m_view->doc()->editBegin(); // Group to single undo job
         QList<QVector<Range> >::iterator iter = replacementJobs.end();
         while (iter != replacementJobs.begin()) {
@@ -958,6 +983,7 @@ void KateSearchBar::onPowerReplaceAll() {
             replaceMatch(targetDetails, replacement, replacementCounter--);
         }
         m_view->doc()->editEnd();
+        updateHighlights();
     }
 
 
@@ -1238,15 +1264,13 @@ void KateSearchBar::onPowerHighlightAllToggle(int state, bool invokedByUserActio
                 }
 
                 // Highlight them all
+                resetHighlights();
                 highlightAllMatches(pattern, enabledOptions);
             }
         } else {
             resetHighlights();
         }
-
-        // Actually show highlight changes
-        const bool EVERYTHING = false;
-        m_view->repaintText(EVERYTHING);
+        updateHighlights();
     }
 }
 
@@ -1383,7 +1407,7 @@ void KateSearchBar::onMutatePower() {
 
         // Disable still to implement controls
         // TODO
-        m_powerUi->highlightAll->setDisabled(true);
+//      m_powerUi->highlightAll->setDisabled(true);
 
         // Focus proxy
         centralWidget()->setFocusProxy(m_powerUi->pattern);
@@ -1505,7 +1529,7 @@ void KateSearchBar::onMutateIncremental() {
         m_incMenuFromCursor->setCheckable(true);
         m_incMenuHighlightAll = m_incMenu->addAction(i18n("Hi&ghlight all"));
         m_incMenuHighlightAll->setCheckable(true);
-        m_incMenuHighlightAll->setDisabled(true);
+//      m_incMenuHighlightAll->setDisabled(true);
 
         // Icons
         m_incUi->mutate->setIcon(KIcon("arrow-up-double"));
@@ -1607,6 +1631,12 @@ void KateSearchBar::enableHighlights(bool enable) {
 void KateSearchBar::resetHighlights() {
     enableHighlights(false);
     enableHighlights(true);
+}
+
+
+void KateSearchBar::updateHighlights() {
+    const bool EVERYTHING = false;
+    m_view->repaintText(EVERYTHING);
 }
 
 

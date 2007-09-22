@@ -106,6 +106,7 @@ private:
     void setChecked(QAction * menuAction, bool checked);
     void enableHighlights(bool enable);
     void resetHighlights();
+    void updateHighlights();
 
     void highlight(const KTextEditor::Range & range, const QColor & color);
     void highlightMatch(const KTextEditor::Range & range);

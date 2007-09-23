@@ -50,7 +50,7 @@ DocWordCompletionConfig::DocWordCompletionConfig(QWidget *parent, const QVariant
         "sentence 'Show completions when a word is at least N characters'. The first "
         "part is on the right side of the N, which is represented by a spinbox "
         "widget, followed by the second part: 'characters long'. Characters is a "
-        "ingeger number between and including 1 and 30. Feel free to leave the "
+        "integer number between and including 1 and 30. Feel free to leave the "
         "second part of the sentence blank if it suits your language better. ",
         "Show completions &when a word is at least"), hb );
     sbAutoPopup = new QSpinBox( hb );

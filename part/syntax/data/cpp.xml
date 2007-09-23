@@ -108,6 +108,9 @@
       <item> Q_RETURN_ARG </item>
       <item> Q_ASSERT </item>
       <item> Q_ASSERT_X </item>
+      <item> Q_PRIVATE_SLOT </item>
+      <item> Q_DECLARE_METATYPE </item>
+      <item> Q_NOREPLY </item>
       <item> TRUE </item>
       <item> FALSE </item>
       <item> connect </item>

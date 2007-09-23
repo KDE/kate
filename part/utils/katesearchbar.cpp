@@ -1441,7 +1441,7 @@ void KateSearchBar::onMutatePower() {
             m_incMenuMatchCase = NULL;
             m_incMenuFromCursor = NULL;
             m_incMenuHighlightAll = NULL;
-            delete m_widget;
+            m_widget->deleteLater(); // I didn't get a crash here but for symmetrie to the other mutate slot^
         }
 
         // Add power widget
@@ -1568,7 +1568,7 @@ void KateSearchBar::onMutateIncremental() {
             // Kill widget
             delete m_powerUi;
             m_powerUi = NULL;
-            delete m_widget;
+            m_widget->deleteLater(); //deleteLater, because it's not a good idea too delete the widget and there for the button triggering this slot
         }
 
         // Add incremental widget

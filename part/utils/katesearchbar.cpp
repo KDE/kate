@@ -180,7 +180,12 @@ void KateSearchBar::indicateMatch(bool wrapped) {
                 ? i18n("Reached bottom, continued from top")
                 : "");
     } else {
-        // TODO
+        // Green background for line edit
+        QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
+        Q_ASSERT(lineEdit != NULL);
+        QPalette background(lineEdit->palette());
+        KColorScheme::adjustBackground(background, KColorScheme::PositiveBackground);
+        lineEdit->setPalette(background);
     }
 }
 
@@ -196,7 +201,12 @@ void KateSearchBar::indicateMismatch() {
         // Update status label
         m_incUi->status->setText(i18n("Not found"));
     } else {
-        // TODO
+        // Red background for line edit
+        QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
+        Q_ASSERT(lineEdit != NULL);
+        QPalette background(lineEdit->palette());
+        KColorScheme::adjustBackground(background, KColorScheme::NegativeBackground);
+        lineEdit->setPalette(background);
     }
 }
 
@@ -217,7 +227,17 @@ void KateSearchBar::indicateNothing() {
         // Update status label
         m_incUi->status->setText("");
     } else {
-        // TODO
+        // Reset background of line edit
+        QLineEdit * const lineEdit = m_powerUi->pattern->lineEdit();
+        Q_ASSERT(lineEdit != NULL);
+        // ### this is fragile (depends on knowledge of QPalette::ColorGroup)
+        // ...would it better to cache the original palette?
+        QColor color = QPalette().color(QPalette::Base);
+        QPalette background(lineEdit->palette());
+        background.setBrush(QPalette::Active, QPalette::Base, QPalette().brush(QPalette::Active, QPalette::Base));
+        background.setBrush(QPalette::Inactive, QPalette::Base, QPalette().brush(QPalette::Inactive, QPalette::Base));
+        background.setBrush(QPalette::Disabled, QPalette::Base, QPalette().brush(QPalette::Disabled, QPalette::Base));
+        lineEdit->setPalette(background);
     }
 }
 
@@ -714,8 +734,9 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
 
 
 
-void KateSearchBar::onPowerPatternChanged(const QString & pattern) {
+void KateSearchBar::onPowerPatternEdited(const QString & pattern) {
     givePatternFeedback(pattern);
+    indicateNothing();
 }
 
 
@@ -1250,6 +1271,7 @@ void KateSearchBar::onPowerUsePlaceholdersToggle(int state, bool invokedByUserAc
 void KateSearchBar::onPowerMatchCaseToggle(bool invokedByUserAction) {
     if (invokedByUserAction) {
         sendConfig();
+        indicateNothing();
     }
 }
 
@@ -1332,6 +1354,7 @@ void KateSearchBar::onPowerModeChanged(int index, bool invokedByUserAction) {
         }
 
         sendConfig();
+        indicateNothing();
     }
 
     givePatternFeedback(m_powerUi->pattern->currentText());
@@ -1486,7 +1509,7 @@ void KateSearchBar::onMutatePower() {
     replacementLineEdit->setText("");
 
     // Propagate settings (slots are still inactive on purpose)
-    onPowerPatternChanged(initialPattern);
+    onPowerPatternEdited(initialPattern);
     const bool NOT_INVOKED_BY_USER_ACTION = false;
     onPowerUsePlaceholdersToggle(m_powerUi->usePlaceholders->checkState(), NOT_INVOKED_BY_USER_ACTION);
     onPowerModeChanged(m_powerUi->searchMode->currentIndex(), NOT_INVOKED_BY_USER_ACTION);
@@ -1494,7 +1517,7 @@ void KateSearchBar::onMutatePower() {
     if (create) {
         // Slots
         connect(m_powerUi->mutate, SIGNAL(clicked()), this, SLOT(onMutateIncremental()));
-        connect(m_powerUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onPowerPatternChanged(const QString &)));
+        connect(patternLineEdit, SIGNAL(textEdited(const QString &)), this, SLOT(onPowerPatternEdited(const QString &)));
         connect(m_powerUi->findNext, SIGNAL(clicked()), this, SLOT(onPowerFindNext()));
         connect(m_powerUi->findPrev, SIGNAL(clicked()), this, SLOT(onPowerFindPrev()));
         connect(m_powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));

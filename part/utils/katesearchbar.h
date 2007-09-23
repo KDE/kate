@@ -72,8 +72,12 @@ public Q_SLOTS:
     void onIncHighlightAllToggle(bool checked, bool invokedByUserAction = true);
     void onIncFromCursorToggle(bool invokedByUserAction = true);
 
+    void onForAll(const QString & pattern, KTextEditor::Range inputRange,
+            KTextEditor::Search::SearchOptions enabledOptions,
+            const QString * replacement);
     void onStep(bool replace, bool forwards = true);
-    void onPowerPatternChanged(const QString & pattern);
+
+    void onPowerPatternEdited(const QString & pattern);
     void onPowerFindNext();
     void onPowerFindPrev();
     void onPowerReplaceNext();
@@ -97,9 +101,6 @@ public Q_SLOTS:
 
 private:
     // Helpers
-    void onForAll(const QString & pattern, KTextEditor::Range inputRange,
-            KTextEditor::Search::SearchOptions enabledOptions,
-            const QString * replacement);
     bool isChecked(QCheckBox * checkbox);
     bool isChecked(QAction * menuAction);
     void setChecked(QCheckBox * checkbox, bool checked);

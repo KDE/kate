@@ -471,7 +471,16 @@ QVariant KateStyleTreeWidgetItem::data( int column, int role ) const
       case StrikeOut:
         return style()->fontStrikeOut();
       case UseDefaultStyle:
-        return *currentStyle == *defaultStyle;
+        /* can't compare all attributes, currentStyle has always more than defaultStyle (e.g. the item's name),
+         * so we just compare the important ones:*/
+        return currentStyle->foreground() == defaultStyle->foreground()
+            && currentStyle->background() == defaultStyle->background()
+            && currentStyle->selectedForeground() == defaultStyle->selectedForeground()
+            && currentStyle->selectedBackground() == defaultStyle->selectedBackground()
+            && currentStyle->fontBold() == defaultStyle->fontBold()
+            && currentStyle->fontItalic() == defaultStyle->fontItalic()
+            && currentStyle->fontUnderline() == defaultStyle->fontUnderline()
+            && currentStyle->fontStrikeOut() == defaultStyle->fontStrikeOut();
     }
   }
 

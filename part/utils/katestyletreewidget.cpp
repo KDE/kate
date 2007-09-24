@@ -607,8 +607,12 @@ void KateStyleTreeWidgetItem::toggleDefStyle()
   else {
     currentStyle = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute( *defaultStyle ));
     updateStyle();
-    //FIXME
-    //repaint();
+    
+    QModelIndex currentIndex = treeWidget()->currentIndex();
+    while(currentIndex.isValid()) {
+        treeWidget()->update(currentIndex);
+        currentIndex = currentIndex.sibling(currentIndex.row(), currentIndex.column() - 1);
+    }
   }
 }
 

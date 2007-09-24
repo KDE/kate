@@ -1,3 +1,4 @@
+set( EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
 include_directories( ${KDE4_KIO_INCLUDES} )
 
 
@@ -14,7 +15,7 @@ codecompletiontest.cpp
 )
 
 
-kde4_add_test_executable(katetest ${katetest_SRCS})
+kde4_add_executable(katetest TEST ${katetest_SRCS})
 
 target_link_libraries(katetest  ${KDE4_KDECORE_LIBS} ktexteditor )
 
@@ -28,7 +29,7 @@ cursorexpectation.cpp
 )
 
 
-kde4_add_test_executable(kateregression ${kateregression_SRCS})
+kde4_add_executable(kateregression TEST ${kateregression_SRCS})
 
 target_link_libraries(kateregression  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ktexteditor )
 

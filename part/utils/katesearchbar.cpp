@@ -215,14 +215,7 @@ void KateSearchBar::indicateMismatch() {
 void KateSearchBar::indicateNothing() {
     if (m_incUi != NULL) {
         // Reset background of line edit
-        // ### this is fragile (depends on knowledge of QPalette::ColorGroup)
-        // ...would it better to cache the original palette?
-        QColor color = QPalette().color(QPalette::Base);
-        QPalette background(m_incUi->pattern->palette());
-        background.setBrush(QPalette::Active, QPalette::Base, QPalette().brush(QPalette::Active, QPalette::Base));
-        background.setBrush(QPalette::Inactive, QPalette::Base, QPalette().brush(QPalette::Inactive, QPalette::Base));
-        background.setBrush(QPalette::Disabled, QPalette::Base, QPalette().brush(QPalette::Disabled, QPalette::Base));
-        m_incUi->pattern->setPalette(background);
+        m_incUi->pattern->setPalette(QPalette());
 
         // Update status label
         m_incUi->status->setText("");

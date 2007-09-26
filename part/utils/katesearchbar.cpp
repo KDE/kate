@@ -1580,12 +1580,12 @@ void KateSearchBar::onMutateIncremental() {
         // Fill options menu
         m_incMenu = new QMenu();
         m_incUi->options->setMenu(m_incMenu);
+        m_incMenuHighlightAll = m_incMenu->addAction(i18n("Hi&ghlight all"));
+        m_incMenuHighlightAll->setCheckable(true);
         m_incMenuMatchCase = m_incMenu->addAction(i18n("&Match case"));
         m_incMenuMatchCase->setCheckable(true);
         m_incMenuFromCursor = m_incMenu->addAction(i18n("From &cursor"));
         m_incMenuFromCursor->setCheckable(true);
-        m_incMenuHighlightAll = m_incMenu->addAction(i18n("Hi&ghlight all"));
-        m_incMenuHighlightAll->setCheckable(true);
 
         // Icons
         m_incUi->mutate->setIcon(KIcon("arrow-up-double"));

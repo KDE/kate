@@ -387,15 +387,17 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
       KTextEditor::Attribute a = renderRanges.generateAttribute();
       fr.format = a;
 
-      if(m_view->blockSelection()) {
-        int minSelectionColumn = qMin(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
-        int maxSelectionColumn = qMax(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
+      if(selectionsOnly) {
+        if(m_view->blockSelection()) {
+          int minSelectionColumn = qMin(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
+          int maxSelectionColumn = qMax(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
  
-        if(currentPosition.column() >= minSelectionColumn && currentPosition.column() < maxSelectionColumn)
-          assignSelectionBrushesFromAttribute(fr, a);
+          if(currentPosition.column() >= minSelectionColumn && currentPosition.column() < maxSelectionColumn)
+            assignSelectionBrushesFromAttribute(fr, a);
         
-      } else if (m_view->selection() && m_view->selectionRange().contains(currentPosition)) {
-        assignSelectionBrushesFromAttribute(fr, a);
+        } else if (m_view->selection() && m_view->selectionRange().contains(currentPosition)) {
+          assignSelectionBrushesFromAttribute(fr, a);
+        }
       }
 
       newHighlight.append(fr);

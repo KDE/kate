@@ -188,3 +188,11 @@ TODO:
 * Input restriction extension
   * needed? probably not
 
+* improved block selection with tabs
+  * block selection on tabs selects too much of the line that contains the tab, because the tab 
+    counts as one character but is rendered as multiple visible spaces. There are several possible 
+    solutions:
+    * expand the whole blockselection to include the whole width of the tab 
+    * cut the tab into multiple spaces
+    * implement both and make it configurable :)
+

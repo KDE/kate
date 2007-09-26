@@ -150,6 +150,14 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
 KateCompletionWidget::~KateCompletionWidget() {
 }
 
+void KateCompletionWidget::focusInEvent ( QFocusEvent * event ) {
+  //Instantly give the focus back
+  view()->activateWindow(); //When the completion-widget is clicked, the application-window is deactivated, so re-activate it
+  view()->setFocus(Qt::OtherFocusReason);
+  event->accept();
+  QFrame::focusInEvent(event);
+}
+
 void KateCompletionWidget::updateFocus() {
   if( isCompletionActive() ) {
     bool childHasFocus = QApplication::focusWidget() ? isAncestorOf(QApplication::focusWidget()) : false;

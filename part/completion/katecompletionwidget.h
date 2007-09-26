@@ -119,6 +119,7 @@ class KateCompletionWidget : public QFrame
     virtual void showEvent ( QShowEvent * event );
     virtual void resizeEvent ( QResizeEvent * event );
     virtual void hideEvent ( QHideEvent * event );
+    virtual void focusInEvent ( QFocusEvent * event );
 
   private Q_SLOTS:
     void cursorPositionChanged();

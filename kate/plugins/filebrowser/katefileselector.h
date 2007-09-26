@@ -156,7 +156,7 @@ class KateFileSelector : public KVBox
       setDir( KUrl( url ) );
     }
     void kateViewChanged();
-    void selectorViewChanged( KFileView * );
+    void selectorViewChanged( QAbstractItemView * );
 
   private Q_SLOTS:
     void fileSelected(const KFileItem * /*file*/);

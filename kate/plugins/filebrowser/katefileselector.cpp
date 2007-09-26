@@ -200,8 +200,8 @@ void KateFileSelectorToolBarParent::resizeEvent ( QResizeEvent * )
   dir = new KDirOperator(KUrl(), this);
   dir->setView(KFile::/* Simple */Detail);
   dir->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
-  connect ( dir, SIGNAL( viewChanged(KFileView *) ),
-           this, SLOT( selectorViewChanged(KFileView *) ) );
+  connect ( dir, SIGNAL( viewChanged(QAbstractItemView *) ),
+           this, SLOT( selectorViewChanged(QAbstractItemView *) ) );
   setStretchFactor(dir, 2);
   dir->setSizePolicy (QSizePolicy (QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 
@@ -546,9 +546,9 @@ void ::KateFileSelector::kateViewChanged()
   acSyncDir->setEnabled( ! activeDocumentUrl().directory().isEmpty() );
 }
 
-void ::KateFileSelector::selectorViewChanged( KFileView * newView )
+void ::KateFileSelector::selectorViewChanged( QAbstractItemView * newView )
 {
-  newView->setSelectionMode(KFile::Extended);
+  newView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
 
 //END Private Slots

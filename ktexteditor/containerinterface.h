@@ -65,7 +65,7 @@ class KTEXTEDITOR_EXPORT ContainerInterface
   public:
 
     /** Virtual Destructor */
-    ~ContainerInterface() {}
+    virtual ~ContainerInterface() {}
 
     /** 
      * Set the KTextEditor container.
@@ -165,10 +165,10 @@ class KTEXTEDITOR_EXPORT MdiContainer
   public:
     
     /** Constructor */
-    MdiContainer();
+    MdiContainer() {}
 
     /** Virtual destructor */
-    virtual ~MdiContainer();
+    ~MdiContainer() {}
 
     /** 
      * Set the \p view requested by the part as the active view.

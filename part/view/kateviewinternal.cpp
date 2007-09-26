@@ -2858,7 +2858,7 @@ void KateViewInternal::focusInEvent (QFocusEvent *)
   m_view->slotGotFocus ();
 }
 
-void KateViewInternal::focusOutEvent (QFocusEvent * event)
+void KateViewInternal::focusOutEvent (QFocusEvent *)
 {
   //if (m_view->isCompletionActive())
     //m_view->abortCompletion();

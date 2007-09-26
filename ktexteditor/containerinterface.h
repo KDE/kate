@@ -168,7 +168,7 @@ class KTEXTEDITOR_EXPORT MdiContainer
     MdiContainer() {}
 
     /** Virtual destructor */
-    ~MdiContainer() {}
+    virtual ~MdiContainer() {}
 
     /** 
      * Set the \p view requested by the part as the active view.

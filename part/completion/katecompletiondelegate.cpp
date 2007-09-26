@@ -232,10 +232,13 @@ bool KateCompletionDelegate::editorEvent ( QEvent * event, QAbstractItemModel * 
   if( event->type() == QEvent::KeyPress )
     keyEvent = reinterpret_cast<QKeyEvent*>(event);
   
-  if( event->type() == QEvent::MouseButtonRelease || (keyEvent && !keyEvent->isAutoRepeat() && keyEvent->key() == Qt::Key_Tab ) )
+  if( event->type() == QEvent::MouseButtonRelease )
   {
     event->accept();
     model()->setExpanded(index, !model()->isExpanded( index ));
+    if(parent())
+      widget()->updateHeight();
+
     return true;
   } else {
     event->ignore();

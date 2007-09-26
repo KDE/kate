@@ -61,7 +61,7 @@ class KateCompletionWidget : public QFrame
 
     //Executed when return is pressed while completion is active. With shift, only the item selected within the expanding-widget will be executed
     void execute(bool shift);
-        //Callbacks for keyboard-input, they return true when the event should be handled exclusively
+        //Callbacks for keyboard-input, they return true when the event was handled, and should not be reached on.
     bool cursorLeft( bool shift );
     bool cursorRight( bool shift );
     void cursorDown(bool shift);
@@ -100,15 +100,21 @@ class KateCompletionWidget : public QFrame
     KateArgumentHintTree* argumentHintTree() const;
     
     KateArgumentHintModel* argumentHintModel() const;
+
+    ///Called by KateViewInternal, because we need the specific information from the event.
+    
+    void updateHeight();
     
   public Q_SLOTS:
     void abortCompletion();
     void showConfig();
-    void focusOut();
-    void focusIn();
+    void viewFocusIn();
+    void viewFocusOut();
     void updatePositionSlot();
     void automaticInvocation();
 
+    void updateFocus();
+    
   protected:
     virtual void showEvent ( QShowEvent * event );
     virtual void resizeEvent ( QResizeEvent * event );
@@ -123,7 +129,6 @@ class KateCompletionWidget : public QFrame
 
   private:
     void updateArgumentHintGeometry();
-    void updateHeight();
     QModelIndex selectedIndex() const;
 
     void clear();
@@ -142,6 +147,7 @@ class KateCompletionWidget : public QFrame
     KateArgumentHintTree* m_argumentHintTree;
 
     QTimer* m_automaticInvocationTimer;
+    QTimer* m_updateFocusTimer;
     QWidget* m_statusBar;
     QToolButton* m_sortButton;
     QLabel* m_sortText;

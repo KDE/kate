@@ -278,9 +278,6 @@ class KateCompletionModel : public ExpandingWidgetModel
     //Updates the best-matches group
     void updateBestMatches();
 
-    //Places all expanding-widgets to the correct positions in the viewport
-    void placeExpandingWidgets();
-
     // ### Runtime state
     // General
     QList<KTextEditor::CodeCompletionModel*> m_completionModels;

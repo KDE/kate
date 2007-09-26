@@ -688,6 +688,7 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
     updateBestMatches();
   }
 
+  clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
   m_currentMatch = completion;
 }
 
@@ -705,6 +706,8 @@ void KateCompletionModel::rematch()
 
     updateBestMatches();
   }
+  
+  clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
 }
 
 #define COMPLETE_DELETE \
@@ -1427,6 +1430,8 @@ void KateCompletionModel::refilter( )
     g->refilter();
 
   updateBestMatches();
+  
+  clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
 }
 
 void KateCompletionModel::Group::refilter( )

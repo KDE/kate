@@ -282,8 +282,10 @@ void ExpandingWidgetModel::placeExpandingWidget(const QModelIndex& idx_)
       if( !idx.isValid() )
         return;
       
-      if( idx.parent().isValid() && !treeView()->isExpanded(idx.parent()) ) {
-          //The item is in a group that is currently not expanded in tree-like way
+      QRect rect = treeView()->visualRect(idx);
+      
+      if( !rect.isValid() ) {
+          //The item is currently not visible
           w->hide();
           return;
       }
@@ -293,7 +295,6 @@ void ExpandingWidgetModel::placeExpandingWidget(const QModelIndex& idx_)
       while( (tempIndex = rightMostIndex.sibling(rightMostIndex.row(), rightMostIndex.column()+1)).isValid() )
         rightMostIndex = tempIndex;
 
-      QRect rect = treeView()->visualRect(idx);
       QRect rightMostRect = treeView()->visualRect(rightMostIndex);
 
       //Find out the basic height of the row

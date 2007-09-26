@@ -101,6 +101,10 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_automaticInvocationTimer->setSingleShot(true);
   connect(m_automaticInvocationTimer, SIGNAL(timeout()), this, SLOT(automaticInvocation()));
 
+  m_updateFocusTimer = new QTimer(this);
+  m_updateFocusTimer->setSingleShot(true);
+  connect(m_updateFocusTimer, SIGNAL(timeout()), this, SLOT(updateFocus()));
+  
   QSizeGrip* sg = new QSizeGrip(m_statusBar);
 
   QHBoxLayout* statusLayout = new QHBoxLayout(m_statusBar);
@@ -130,12 +134,15 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
 
   connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(cursorPositionChanged()));
   connect(view()->doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(editDone(KateEditInfo*)), Qt::QueuedConnection);
-  connect(view(), SIGNAL(focusOut(KTextEditor::View*)), this, SLOT(focusOut()));
-  connect(view(), SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(focusIn()));
+  connect(view(), SIGNAL(focusOut(KTextEditor::View*)), this, SLOT(viewFocusOut()));
+  connect(view(), SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(viewFocusIn()));
   connect(view(), SIGNAL(verticalScrollPositionChanged (KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(updatePositionSlot()));
 
   // This is a non-focus widget, it is passed keyboard input from the view
-  setFocusPolicy(Qt::NoFocus);
+
+  //We need to do this, because else the focus goes to nirvana without any control when the completion-widget is clicked.
+  setFocusPolicy(Qt::ClickFocus);
+  
   foreach (QWidget* childWidget, findChildren<QWidget*>())
     childWidget->setFocusPolicy(Qt::NoFocus);
 }
@@ -143,15 +150,28 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
 KateCompletionWidget::~KateCompletionWidget() {
 }
 
-void KateCompletionWidget::focusOut() {
-  ///@todo Do not suspend when the user clicked the completion-widget
+void KateCompletionWidget::updateFocus() {
   if( isCompletionActive() ) {
-    hide();
-    m_isSuspended = true;
+    bool childHasFocus = QApplication::focusWidget() ? isAncestorOf(QApplication::focusWidget()) : false;
+    if(!childHasFocus && !view()->hasFocus()) {
+      if(isVisible()) {
+        hide();
+        m_isSuspended = true;
+      }
+    }else if(childHasFocus) {
+      //Whenever the completion-widget gets the focus by clicking, move it back to the text-view.
+      view()->activateWindow(); //When the completion-widget is clicked, the application-window is deactivated, so re-activate it
+      view()->setFocus(Qt::OtherFocusReason);
+    }
   }
 }
 
-void KateCompletionWidget::focusIn() {
+void KateCompletionWidget::viewFocusOut() {
+    //Check whether the view is still visible in a short time. If it isn't, hide the completion-widget.
+    m_updateFocusTimer->start(100);
+}
+
+void KateCompletionWidget::viewFocusIn() {
   if( m_isSuspended ) {
     show();
     m_isSuspended = false;

@@ -1117,8 +1117,8 @@ void KateView::slotNeedTextHint(int line, int col, QString &text)
 
 void KateView::find()
 {
-  const bool INIT_HINT_AS_POWER = true;
-  KateSearchBar * const bar = searchBar(INIT_HINT_AS_POWER);
+  const bool INIT_HINT_AS_INCREMENTAL = false;
+  KateSearchBar * const bar = searchBar(INIT_HINT_AS_INCREMENTAL);
   bar->onMutateIncremental();
   bar->showBar();
   bar->setFocus();
@@ -1138,8 +1138,8 @@ void KateView::findSelectedBackwards()
 
 void KateView::replace()
 {
-  const bool INIT_HINT_AS_INCREMENTAL = false;
-  KateSearchBar * const bar = searchBar(INIT_HINT_AS_INCREMENTAL);
+  const bool INIT_HINT_AS_POWER = true;
+  KateSearchBar * const bar = searchBar(INIT_HINT_AS_POWER);
   bar->onMutatePower();
   bar->showBar();
   bar->setFocus();

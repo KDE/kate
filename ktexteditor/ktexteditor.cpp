@@ -47,6 +47,7 @@
 #include "templateinterface.h"
 #include "texthintinterface.h"
 #include "variableinterface.h"
+#include "containerinterface.h"
 
 #include "documentadaptor_p.h"
 #include "documentadaptor_p.moc"
@@ -239,6 +240,18 @@ ModificationInterface::ModificationInterface ()
 {}
 
 ModificationInterface::~ModificationInterface ()
+{}
+
+ContainerInterface::ContainerInterface ()
+{}
+
+ContainerInterface::~ContainerInterface ()
+{}
+
+MdiContainer::MdiContainer ()
+{}
+
+MdiContainer::~MdiContainer ()
 {}
 
 SearchInterface::SearchInterface()

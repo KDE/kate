@@ -63,9 +63,13 @@ class View;
 class KTEXTEDITOR_EXPORT ContainerInterface
 {
   public:
+    /**
+     * Constructor.
+     */
+    ContainerInterface();
 
     /** Virtual Destructor */
-    virtual ~ContainerInterface() {}
+    virtual ~ContainerInterface();
 
     /** 
      * Set the KTextEditor container.
@@ -106,9 +110,7 @@ class KTEXTEDITOR_EXPORT ContainerInterface
      * \sa setContainer
      */
     virtual QObject * container() = 0;
-
 }; // class ContainerInterface
-
 
 /** 
  * A container for MDI-capable kpart hosts.
@@ -161,14 +163,13 @@ class KTEXTEDITOR_EXPORT ContainerInterface
  */
 class KTEXTEDITOR_EXPORT MdiContainer
 {
-
   public:
     
     /** Constructor */
-    MdiContainer() {}
+    MdiContainer();
 
     /** Virtual destructor */
-    virtual ~MdiContainer() {}
+    virtual ~MdiContainer();
 
     /** 
      * Set the \p view requested by the part as the active view.
@@ -255,7 +256,6 @@ class KTEXTEDITOR_EXPORT MdiContainer
      *     the kpart, or 
      */
     virtual bool closeView( View * view )=0;
-
 }; // class MdiContainer
 
 } // namespace KTextEditor
@@ -263,5 +263,3 @@ class KTEXTEDITOR_EXPORT MdiContainer
 Q_DECLARE_INTERFACE(KTextEditor::ContainerInterface, "org.kde.KTextEditor.ContainerInterface")
 
 #endif // KDELIBS_KTEXTEDITOR_CONTAINER_EXTENSION_H
-
-

@@ -728,7 +728,7 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
 
 
 
-void KateSearchBar::onPowerPatternEdited(const QString & pattern) {
+void KateSearchBar::onPowerPatternChanged(const QString & pattern) {
     givePatternFeedback(pattern);
     indicateNothing();
 }
@@ -1513,7 +1513,7 @@ void KateSearchBar::onMutatePower() {
     replacementLineEdit->setText("");
 
     // Propagate settings (slots are still inactive on purpose)
-    onPowerPatternEdited(initialPattern);
+    onPowerPatternChanged(initialPattern);
     const bool NOT_INVOKED_BY_USER_ACTION = false;
     onPowerUsePlaceholdersToggle(m_powerUi->usePlaceholders->checkState(), NOT_INVOKED_BY_USER_ACTION);
     onPowerModeChanged(m_powerUi->searchMode->currentIndex(), NOT_INVOKED_BY_USER_ACTION);
@@ -1521,7 +1521,7 @@ void KateSearchBar::onMutatePower() {
     if (create) {
         // Slots
         connect(m_powerUi->mutate, SIGNAL(clicked()), this, SLOT(onMutateIncremental()));
-        connect(patternLineEdit, SIGNAL(textEdited(const QString &)), this, SLOT(onPowerPatternEdited(const QString &)));
+        connect(patternLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(onPowerPatternChanged(const QString &)));
         connect(m_powerUi->findNext, SIGNAL(clicked()), this, SLOT(onPowerFindNext()));
         connect(m_powerUi->findPrev, SIGNAL(clicked()), this, SLOT(onPowerFindPrev()));
         connect(m_powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));

@@ -77,7 +77,7 @@ public Q_SLOTS:
             const QString * replacement);
     void onStep(bool replace, bool forwards = true);
 
-    void onPowerPatternEdited(const QString & pattern);
+    void onPowerPatternChanged(const QString & pattern);
     void onPowerFindNext();
     void onPowerFindPrev();
     void onPowerReplaceNext();

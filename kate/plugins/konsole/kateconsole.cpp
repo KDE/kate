@@ -41,6 +41,7 @@
 #include <QShowEvent>
 
 #include <kgenericfactory.h>
+#include <kpluginfactory.h>
 #include <kauthorized.h>
 
 K_EXPORT_COMPONENT_FACTORY( katekonsoleplugin, KGenericFactory<KateKonsolePlugin>( "katekonsoleplugin" ) )
@@ -105,11 +106,11 @@ void KateConsole::loadConsoleIfNeeded()
   if (!window() || !parentWidget()) return;
   if (!window() || !isVisibleTo(window())) return;
 
-  KLibFactory *factory = KLibLoader::self()->factory("libkonsolepart");
+  KPluginFactory *factory = KPluginLoader("libkonsolepart").factory();
 
   if (!factory) return;
 
-  m_part = static_cast<KParts::ReadOnlyPart *>(factory->create(this, "KParts::ReadOnlyPart"));
+  m_part = static_cast<KParts::ReadOnlyPart *>(factory->create<QObject>(this, this));
 
   if (!m_part) return;
 

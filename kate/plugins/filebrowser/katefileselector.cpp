@@ -81,7 +81,9 @@ KateFileSelectorPlugin::KateFileSelectorPlugin( QObject* parent, const QStringLi
 
 Kate::PluginView *KateFileSelectorPlugin::createView (Kate::MainWindow *mainWindow)
 {
-  return new KateFileSelectorPluginView (mainWindow);
+  KateFileSelectorPluginView* kateFileSelectorPluginView = new KateFileSelectorPluginView (mainWindow);
+  m_fileSelector = kateFileSelectorPluginView->kateFileSelector();
+  return kateFileSelectorPluginView;
 }
 
 KateFileSelectorPluginView::KateFileSelectorPluginView (Kate::MainWindow *mainWindow)
@@ -105,14 +107,14 @@ void KateFileSelectorPluginView::readSessionConfig(KConfig* config, const QStrin
 
 uint KateFileSelectorPlugin::configPages() const
 {
-  return 0;
+  return 1;
 }
 
 Kate::PluginConfigPage *KateFileSelectorPlugin::configPage (uint number, QWidget *parent, const char *name)
-{
-  if (number != 0) return 0;
-  //return new KFSConfigPage(parent,name,*(m_views.begin()));
-  return 0;
+{	
+  if (number != 0) 
+    return 0;
+  return new KFSConfigPage(parent, name, m_fileSelector);
 }
 
 QString KateFileSelectorPlugin::configPageName (uint number) const

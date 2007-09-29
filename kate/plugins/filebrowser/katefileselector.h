@@ -67,6 +67,7 @@ class KateFileSelectorPlugin: public Kate::Plugin, public Kate::PluginConfigPage
     QString configPageName (uint number = 0) const;
     QString configPageFullName (uint number = 0) const;
     KIcon configPageIcon (uint number = 0) const;
+    KateFileSelector *m_fileSelector;
 };
 
 class KateFileSelectorPluginView : public Kate::PluginView
@@ -85,7 +86,9 @@ class KateFileSelectorPluginView : public Kate::PluginView
     ~KateFileSelectorPluginView ();
 
     void readSessionConfig (KConfig* config, const QString& groupPrefix);
-
+    
+    KateFileSelector * kateFileSelector() const { return m_fileSelector; }
+    
   private:
     KateFileSelector *m_fileSelector;
 };
@@ -94,7 +97,7 @@ class KateFileSelectorPluginView : public Kate::PluginView
 /*
     The kate file selector presents a directory view, in which the default action is
     to open the activated file.
-    Additinally, a toolbar for managing the kdiroperator widget + sync that to
+    Additionally, a toolbar for managing the kdiroperator widget + sync that to
     the directory of the current file is available, as well as a filter widget
     allowing to filter the displayed files using a name filter.
 */

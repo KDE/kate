@@ -29,7 +29,7 @@
 #include <QtGui/QComboBox>
 #include <QtGui/QCheckBox>
 #include <QStringListModel>
-
+#include <QCompleter>
 
 using namespace KTextEditor;
 
@@ -1462,6 +1462,15 @@ void KateSearchBar::onMutatePower() {
 
         // Focus proxy
         centralWidget()->setFocusProxy(m_powerUi->pattern);
+
+        // Make completers case-sensitive
+        QLineEdit * const patternLineEdit = m_powerUi->pattern->lineEdit();
+        Q_ASSERT(patternLineEdit != NULL);
+        patternLineEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
+
+        QLineEdit * const replacementLineEdit = m_powerUi->pattern->lineEdit();
+        Q_ASSERT(replacementLineEdit != NULL);
+        replacementLineEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
     }
 
     // Guess settings from context

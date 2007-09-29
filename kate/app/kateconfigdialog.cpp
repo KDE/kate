@@ -74,8 +74,6 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   mainWindow = parent;
 
-  setMinimumSize(600, 400);
-
   v = view;
 
   KPageWidgetItem *applicationItem = addPage( new QWidget, i18n("Application") );
@@ -272,6 +270,8 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   connect(this, SIGNAL(applyClicked()), this, SLOT(slotApply()));
   //showButtonSeparator(true);
   dataChanged = false;
+
+  resize(minimumSizeHint());
 }
 
 KateConfigDialog::~KateConfigDialog()

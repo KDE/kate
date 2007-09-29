@@ -75,7 +75,7 @@ public Q_SLOTS:
     void onForAll(const QString & pattern, KTextEditor::Range inputRange,
             KTextEditor::Search::SearchOptions enabledOptions,
             const QString * replacement);
-    void onStep(bool replace, bool forwards = true);
+    bool onStep(bool replace, bool forwards = true);
 
     void onPowerPatternChanged(const QString & pattern);
     void onPowerFindNext();

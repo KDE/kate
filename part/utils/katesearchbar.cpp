@@ -532,12 +532,14 @@ void KateSearchBar::fixForSingleLine(Range & range, bool forwards) {
 
 
 
-void KateSearchBar::onStep(bool replace, bool forwards) {
+bool KateSearchBar::onStep(bool replace, bool forwards) {
     // What to find?
     const QString pattern = (m_powerUi != NULL)
             ? m_powerUi->pattern->currentText()
             : m_incUi->pattern->displayText();
-
+    if (pattern.isEmpty()) {
+        return false; // == Pattern error
+    }
 
     // How to find?
     Search::SearchOptions enabledOptions(KTextEditor::Search::Default);
@@ -724,6 +726,8 @@ void KateSearchBar::onStep(bool replace, bool forwards) {
     }
 
     delete afterReplace;
+
+    return true; // == No pattern error
 }
 
 
@@ -855,10 +859,10 @@ void KateSearchBar::sendConfig() {
 
 void KateSearchBar::onPowerFindNext() {
     const bool FIND = false;
-    onStep(FIND);
-
-    // Add to search history
-    addCurrentTextToHistory(m_powerUi->pattern);
+    if (onStep(FIND)) {
+        // Add to search history
+        addCurrentTextToHistory(m_powerUi->pattern);
+    }
 }
 
 
@@ -866,23 +870,23 @@ void KateSearchBar::onPowerFindNext() {
 void KateSearchBar::onPowerFindPrev() {
     const bool FIND = false;
     const bool BACKWARDS = false;
-    onStep(FIND, BACKWARDS);
-
-    // Add to search history
-    addCurrentTextToHistory(m_powerUi->pattern);
+    if (onStep(FIND, BACKWARDS)) {
+        // Add to search history
+        addCurrentTextToHistory(m_powerUi->pattern);
+    }
 }
 
 
 
 void KateSearchBar::onPowerReplaceNext() {
     const bool REPLACE = true;
-    onStep(REPLACE);
+    if (onStep(REPLACE)) {
+        // Add to search history
+        addCurrentTextToHistory(m_powerUi->pattern);
 
-    // Add to search history
-    addCurrentTextToHistory(m_powerUi->pattern);
-
-    // Add to replace history
-    addCurrentTextToHistory(m_powerUi->replacement);
+        // Add to replace history
+        addCurrentTextToHistory(m_powerUi->replacement);
+    }
 }
 
 

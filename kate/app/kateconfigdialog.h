@@ -60,19 +60,19 @@ class KateConfigDialog : public KPageDialog
     void slotChanged();
 
   private:
-    KateMainWindow *mainWindow;
+    KateMainWindow *m_mainWindow;
 
-    KTextEditor::View* v;
-    bool dataChanged;
+    KTextEditor::View* m_view;
+    bool m_dataChanged;
 
-    QCheckBox *cb_modNotifications;
-    QCheckBox *cb_saveMetaInfos;
-    QSpinBox *sb_daysMetaInfos;
-    QCheckBox* cb_restoreVC;
-    Q3ButtonGroup *sessions_start;
-    Q3ButtonGroup *sessions_exit;
-    QList<PluginPageListItem *> pluginPages;
-    QList<KTextEditor::ConfigPage *> editorPages;
+    QCheckBox *m_modNotifications;
+    QCheckBox *m_saveMetaInfos;
+    QSpinBox *m_daysMetaInfos;
+    QCheckBox *m_restoreVC;
+    Q3ButtonGroup *m_sessionsStart;
+    Q3ButtonGroup *m_sessionsExit;
+    QList<PluginPageListItem*> m_pluginPages;
+    QList<KTextEditor::ConfigPage*> m_editorPages;
     KTextEditor::EditorChooser *m_editorChooser;
 };
 

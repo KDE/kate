@@ -17,6 +17,7 @@ Type=Service
 Icon=speaker
 Name=Insert File
 Name[ar]=أدرج ملفا
+Name[bn_IN]=ফাইল সন্নিবেশ করুন
 Name[ca]=Inserció de fitxer
 Name[csb]=Wstôwi lopk
 Name[de]=Datei einfügen

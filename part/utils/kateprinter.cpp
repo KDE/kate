@@ -53,10 +53,9 @@
 #include <kvbox.h>
 
 //BEGIN KatePrinter
-bool KatePrinter::print (KateDocument * /*doc*/)
+bool KatePrinter::print (KateDocument *doc)
 {
 #if 0
-#ifndef Q_WS_WIN //TODO: reenable
   KPrinter printer;
 
   // docname is now always there, including the right Untitled name
@@ -73,7 +72,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
   printer.addDialogPage( new KatePrintHeaderFooter(&printer, NULL) );
   printer.addDialogPage( new KatePrintLayout(&printer, NULL) );
 
-   if ( printer.setup( kapp->mainWidget(), i18n("Print %1", printer.docName()) ) )
+   if ( printer.setup( doc->widget(), i18n("Print %1", printer.docName()) ) )
    {
      KateRenderer renderer(doc);
      //renderer.config()->setSchema (1);
@@ -86,7 +85,8 @@ bool KatePrinter::print (KateDocument * /*doc*/)
         2) prepare data according to those settings
         3) draw to the printer
      */
-     uint pdmWidth = printer->width();
+     uint pdmWidth = printer.width();
+     uint pdmHeight = printer.height();
      uint y = 0;
      uint xstart = 0; // beginning point for painting lines
      uint lineCount = 0;
@@ -137,8 +137,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
      bool footerDrawBg = false; // do
 
      // Layout Page
-     renderer.config()->setSchema( KateGlobal::self()->schemaManager()->number(
-           printer.option("app-kate-colorscheme") ) );
+     renderer.config()->setSchema( printer.option("app-kate-colorscheme") );
      bool useBackground = ( printer.option("app-kate-usebackground") == "true" );
      bool useBox = (printer.option("app-kate-usebox") == "true");
      int boxWidth(printer.option("app-kate-boxwidth").toInt());
@@ -146,7 +145,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
      int innerMargin = useBox ? printer.option("app-kate-boxmargin").toInt() : 6;
 
      // Post initialization
-     uint maxHeight = (useBox ? pdm.height()-innerMargin : pdm.height());
+     uint maxHeight = (useBox ? pdmHeight-innerMargin : pdmHeight);
      uint currentPage( 1 );
      uint lastline = doc->lastLine(); // necessary to print selection only
      uint firstline( 0 );
@@ -182,9 +181,9 @@ bool KatePrinter::print (KateDocument * /*doc*/)
          QString s( QString("%1 ").arg( doc->lines() ) );
          s.fill('5', -1); // some non-fixed fonts haven't equally wide numbers
                           // FIXME calculate which is actually the widest...
-         lineNumberWidth = renderer.currentFontMetrics()->width( s );
+         lineNumberWidth = renderer.currentFontMetrics().width( s );
          // a small space between the line numbers and the text
-         int _adj = renderer.currentFontMetrics()->width( "5" );
+         int _adj = renderer.currentFontMetrics().width( "5" );
          // adjust available width and set horizontal start point for data
          maxWidth -= (lineNumberWidth + _adj);
          xstart += lineNumberWidth + _adj;
@@ -228,14 +227,14 @@ bool KatePrinter::print (KateDocument * /*doc*/)
              headerHeight += 1 + QFontMetrics( headerFont ).leading();
 
            QString headerTags = printer.option("app-kate-headerformat");
-           int pos = reTags.search( headerTags );
+           int pos = reTags.indexIn( headerTags );
            QString rep;
            while ( pos > -1 )
            {
              rep = tags[reTags.cap( 1 )];
              headerTags.replace( (uint)pos, 2, rep );
              pos += rep.length();
-             pos = reTags.search( headerTags, pos );
+             pos = reTags.indexIn( headerTags, pos );
            }
            headerTagList = headerTags.split('|');
 
@@ -255,14 +254,14 @@ bool KatePrinter::print (KateDocument * /*doc*/)
              footerHeight += 1; // line only
 
            QString footerTags = printer.option("app-kate-footerformat");
-           int pos = reTags.search( footerTags );
+           int pos = reTags.indexIn( footerTags );
            QString rep;
            while ( pos > -1 )
            {
              rep = tags[reTags.cap( 1 )];
              footerTags.replace( (uint)pos, 2, rep );
              pos += rep.length();
-             pos = reTags.search( footerTags, pos );
+             pos = reTags.indexIn( footerTags, pos );
            }
 
            footerTagList = footerTags.split('|');
@@ -299,6 +298,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
        else
          boxWidth = 0;
 
+#if 0
        if ( useGuide )
        {
          // calculate the height required
@@ -324,23 +324,20 @@ bool KatePrinter::print (KateDocument * /*doc*/)
          // see how many columns we can fit in
          int _widest( 0 );
 
-         Q3PtrListIterator<KateExtendedAttribute> it( ilist );
-         KateExtendedAttribute::Ptr _d;
-
          int _items ( 0 );
-         while ( ( _d = it.current()) != 0 )
+         for (int i = 0; i < ilist.size(); ++i)
          {
+           KateExtendedAttribute::Ptr _d = ilist[i];
            _widest = qMax( _widest, ((QFontMetrics)(
-                                _d->bold() ?
-                                  _d->italic() ?
+                                _d->fontWeight() == QFont::Bold ?
+                                  _d->fontItalic() ?
                                     renderer.config()->fontStruct()->myFontMetricsBI :
                                     renderer.config()->fontStruct()->myFontMetricsBold :
-                                  _d->italic() ?
+                                  _d->fontItalic() ?
                                     renderer.config()->fontStruct()->myFontMetricsItalic :
                                     renderer.config()->fontStruct()->myFontMetrics
-                                    ) ).width( _d->name ) );
+                                    ) ).width( _d->name() ) );
            _items++;
-           ++it;
          }
          guideCols = _w/( _widest + innerMargin );
          // add height for required number of lines needed given columns
@@ -348,11 +345,12 @@ bool KatePrinter::print (KateDocument * /*doc*/)
          if ( _items%guideCols )
            guideHeight += renderer.fontHeight();
        }
+#endif
 
        // now that we know the vertical amount of space needed,
        // it is possible to calculate the total number of pages
        // if needed, that is if any header/footer tag contains "%P".
-       if ( headerTagList.grep("%P").count() || footerTagList.grep("%P").count() )
+       if ( !headerTagList.filter("%P").isEmpty() || !footerTagList.filter("%P").isEmpty() )
        {
          kDebug(13020)<<"'%P' found! calculating number of pages...";
          uint _pages = 0;
@@ -437,7 +435,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
                for (int i=0; i<3; i++)
                {
                  s = headerTagList[i];
-                 if (s.find("%p") != -1) s.replace("%p", QString::number(currentPage));
+                 if (s.indexOf("%p") != -1) s.replace("%p", QString::number(currentPage));
                  paint.drawText(marg, 0, headerWidth-(marg*2), headerHeight, align, s);
                  align = valign|(i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
                }
@@ -465,7 +463,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
                for (int i=0; i<3; i++)
                {
                  s = footerTagList[i];
-                 if (s.find("%p") != -1) s.replace("%p", QString::number(currentPage));
+                 if (s.indexOf("%p") != -1) s.replace("%p", QString::number(currentPage));
                  paint.drawText(marg, maxHeight+innerMargin, headerWidth-(marg*2), footerHeight, align, s);
                  align = Qt::AlignVCenter|(i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
                }
@@ -500,7 +498,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
            if ( useBox )
            {
              paint.setPen(QPen(boxColor, boxWidth));
-             paint.drawRect(0, 0, pdmWidth, pdm.height());
+             paint.drawRect(0, 0, pdmWidth, pdmHeight);
              if (useHeader)
                paint.drawLine(0, headerHeight, headerWidth, headerHeight);
              else
@@ -510,6 +508,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
                paint.fillRect( 0, maxHeight+innerMargin, headerWidth, boxWidth, boxColor );
            }
 
+#if 0
            if ( useGuide && currentPage == 1 )
            {  // FIXME - this may span more pages...
              // draw a box unless we have boxes, in which case we end with a box line
@@ -517,7 +516,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
              // use color of dsNormal for the title string and the hline
              KateAttributeList _dsList;
              KateHlManager::self()->getDefaults ( renderer.config()->schema(), _dsList );
-             paint.setPen( _dsList.at(0)->foreground() );
+             paint.setBrush ( _dsList.at(0)->foreground() );
              int _marg = 0; // this could be available globally!??
              if ( useBox )
              {
@@ -545,7 +544,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
              y += 1 + innerMargin;
              // draw attrib names using their styles
 
-             Q3PtrListIterator<KateExtendedAttribute> _it( ilist );
+             QListIterator<KateExtendedAttribute> _it( ilist );
              KateExtendedAttribute::Ptr _d;
              int _cw = _w/guideCols;
              int _i(0);
@@ -563,10 +562,12 @@ bool KatePrinter::print (KateDocument * /*doc*/)
              if ( _i%guideCols ) y += renderer.fontHeight();// last row not full
              y += ( useBox ? boxWidth : 1 ) + (innerMargin*2);
            }
+#endif
 
            pageStarted = false;
          } // pageStarted; move on to contents:)
 
+#if 0
          if ( printLineNumbers && ! startCol ) // don't repeat!
          {
            paint.setFont( renderer.config()->fontStruct()->font( false, false ) );
@@ -575,6 +576,7 @@ bool KatePrinter::print (KateDocument * /*doc*/)
                         lineNumberWidth, renderer.fontHeight(),
                         Qt::AlignRight, QString("%1").arg( lineCount + 1 ) );
          }
+#endif
          endCol = renderer.textWidth(doc->kateTextLine(lineCount), startCol, maxWidth, &needWrap);
 
          if ( endCol < startCol )
@@ -617,9 +619,11 @@ bool KatePrinter::print (KateDocument * /*doc*/)
          // FIXME Convert this function + related functionality to a separate KatePrintView
          KateLineLayout range(doc);
          range.setLine(lineCount);
+#if 0
          range.setStartCol(startCol);
          range.setEndCol(endCol);
          range.setWrap(needWrap);
+#endif
          paint.translate(xstart, y);
          renderer.paintTextLine(paint, &range, 0, maxWidth);
          paint.resetXForm();
@@ -641,11 +645,8 @@ bool KatePrinter::print (KateDocument * /*doc*/)
      } // done lineCount <= lastline
      return true;
   }
-
-#endif //!Q_WS_WIN
-  return false;
 #endif
-  return false; //FIXME ?
+  return false;
 }
 //END KatePrinter
 

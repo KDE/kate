@@ -1748,6 +1748,8 @@ void KateDocument::clearRedo()
 
 KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRange, const QString &text, bool casesensitive, bool backwards)
 {
+  FAST_DEBUG("KateDocument::searchText( " << inputRange.start().line() << ", "
+    << inputRange.start().column() << ", " << text << ", " << backwards << " )" << endl);
   if (text.isEmpty() || !inputRange.isValid() || (inputRange.start() == inputRange.end()))
   {
     return KTextEditor::Range::invalid();
@@ -1946,7 +1948,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
 
   // detect '.' and '\s' and fix them
   const bool dotMatchesNewline = false; // TODO
-  const int replacements = repairPattern(multiLinePattern, isMultiLine);
+  const int replacements = KateDocument::repairPattern(multiLinePattern, isMultiLine);
   if (dotMatchesNewline && (replacements > 0))
   {
     isMultiLine = true;
@@ -2008,8 +2010,9 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
 
     // apply modified pattern
     regexp.setPattern(multiLinePattern);
-    const int pos = backwards	? regexp.lastIndexIn(wholeDocument, -1, QRegExp::CaretAtZero)
-				: regexp.indexIn(wholeDocument, 0, QRegExp::CaretAtZero);
+    const int pos = backwards
+        ? KateDocument::fixedLastIndexIn(regexp, wholeDocument, -1, QRegExp::CaretAtZero)
+        : regexp.indexIn(wholeDocument, 0, QRegExp::CaretAtZero);
     if (pos == -1)
     {
       // no match
@@ -2020,9 +2023,11 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
         return result;
       }
     }
+
+#ifdef FAST_DEBUG_ENABLE
     const int matchLen = regexp.matchedLength();
     FAST_DEBUG("found at relative pos " << pos << ", length " << matchLen);
-
+#endif
 
     // save opening and closing indices and build a map.
     // the correct values will be written into it later.
@@ -2190,11 +2195,13 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
         int foundAt;
         uint myMatchLen;
         if (backwards) {
-            const int lineLen = textLine->length() - 1;
-            const int offset = lineLen - afterLast - 1;
-            foundAt = regexp.lastIndexIn(hay, offset);
+            const int lineLen = textLine->length();
+            const int offset = afterLast - lineLen - 1;
+            FAST_DEBUG("lastIndexIn(" << hay << "," << offset << ")");
+            foundAt = KateDocument::fixedLastIndexIn(regexp, hay, offset);
             found = (foundAt != -1) && (foundAt >= first);
         } else {
+            FAST_DEBUG("indexIn(" << hay << "," << first << ")");
             foundAt = regexp.indexIn(hay, first);
             found = (foundAt != -1);
         }
@@ -2225,7 +2232,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
         const int numCaptures = regexp.numCaptures();
         QVector<KTextEditor::Range> result(1 + numCaptures);
         result[0] = KTextEditor::Range(j, foundAt, j, foundAt + myMatchLen);
-        FAST_DEBUG("srange " << 0 << ": (" << j << ", " << foundAt << ")..(" << j << ", " << foundAt + myMatchLen << ")");
+        FAST_DEBUG("result range " << 0 << ": (" << j << ", " << foundAt << ")..(" << j << ", " << foundAt + myMatchLen << ")");
         for (int y = 1; y <= numCaptures; y++)
         {
           const int openIndex = regexp.pos(y);
@@ -2237,7 +2244,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
           else
           {
             const int closeIndex = openIndex + regexp.cap(y).length();
-            FAST_DEBUG("range " << y << ": (" << j << ", " << openIndex << ")..(" << j << ", " << closeIndex << ")");
+            FAST_DEBUG("result range " << y << ": (" << j << ", " << openIndex << ")..(" << j << ", " << closeIndex << ")");
             result[y] = KTextEditor::Range(j, openIndex, j, closeIndex);
           }
         }
@@ -2349,7 +2356,7 @@ KTextEditor::Search::SearchOptions KateDocument::supportedSearchOptions() const
 
 
 
-void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * parts,
+/*static*/ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * parts,
         bool replacementGoodies) {
   // get input
   const int inputLen = text.length();
@@ -2733,7 +2740,7 @@ void KateDocument::escapePlaintext(QString & text, QList<ReplacementPart> * part
 // a multi-line pattern must not pass as single-line, the other
 // way around will just result in slower searches and is therefore
 // not as critical
-int KateDocument::repairPattern(QString & pattern, bool & stillMultiLine)
+/*static*/ int KateDocument::repairPattern(QString & pattern, bool & stillMultiLine)
 {
   const QString & text = pattern; // read-only input for parsing
 
@@ -2900,6 +2907,59 @@ int KateDocument::repairPattern(QString & pattern, bool & stillMultiLine)
   // Overwrite with repaired pattern
   pattern = output;
   return replaceCount;
+}
+
+
+
+/*static*/ int KateDocument::fixedLastIndexIn(const QRegExp & matcher, const QString & str,
+        int offset, QRegExp::CaretMode caretMode) {
+    int prevPos = -1;
+    int prevLen = 1;
+    const int strLen = str.length();
+    for (;;) {
+        const int pos = matcher.indexIn(str, prevPos + prevLen, caretMode);
+        if (pos == -1) {
+            // No more matches
+            break;
+        } else {
+            const int len = matcher.matchedLength();
+            if (pos > strLen + offset + 1) {
+                // Gone too far, match in no way of use
+                break;
+            }
+
+            if (pos + len > strLen + offset + 1) {
+                // Gone too far, check if usable
+                if (offset == -1) {
+                    // No shrinking possible
+                    break;
+                }
+
+                const QString str2 = str.mid(0, strLen + offset + 1);
+                const int pos2 = matcher.indexIn(str2, pos, caretMode);
+                if (pos2 != -1) {
+                    // Match usable
+                    return pos2;
+                } else {
+                    // Match NOT usable
+                    break;
+                }
+            }
+
+            // Valid match, but maybe not the last one
+            prevPos = pos;
+            prevLen = (len == 0) ? 1 : len;
+        }
+    }
+
+    // Previous match is what we want
+    if (prevPos != -1) {
+        // Do that very search again
+        matcher.indexIn(str, prevPos, caretMode);
+        return prevPos;
+    } else {
+        return -1;
+    }
 }
 //END
 

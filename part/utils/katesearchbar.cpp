@@ -496,7 +496,7 @@ void KateSearchBar::onIncFromCursorToggle(bool invokedByUserAction) {
 
 
 void KateSearchBar::fixForSingleLine(Range & range, bool forwards) {
-    FAST_DEBUG("Single-line workaround checking" << range);
+    FAST_DEBUG("Single-line workaround checking BEFORE" << range);
     if (forwards) {
         const int line = range.start().line();
         const int col = range.start().column();
@@ -508,7 +508,7 @@ void KateSearchBar::fixForSingleLine(Range & range, bool forwards) {
                 range.setRange(Cursor(line + 1, 0), range.end());
                 FAST_DEBUG("Search range fixed to " << range);
             } else {
-                // Already at last line
+                FAST_DEBUG("Already at last line");
                 range = Range::invalid();
             }
         }
@@ -522,11 +522,12 @@ void KateSearchBar::fixForSingleLine(Range & range, bool forwards) {
                 range.setRange(range.start(), Cursor(line - 1, maxColWithNewline));
                 FAST_DEBUG("Search range fixed to " << range);
             } else {
-                // Already at first line
+                FAST_DEBUG("Already at first line");
                 range = Range::invalid();
             }
         }
     }
+    FAST_DEBUG("Single-line workaround checking  AFTER" << range);
 }
 
 

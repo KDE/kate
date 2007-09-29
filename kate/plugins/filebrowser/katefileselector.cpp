@@ -27,13 +27,12 @@
 #include <khbox.h>
 #include <kvbox.h>
 #include <QLabel>
-#include <q3strlist.h>
 
 #include <QApplication>
 #include <QListWidget>
-#include <qscrollbar.h>
+#include <QScrollBar>
 #include <QSpinBox>
-#include <q3groupbox.h>
+#include <QGroupBox>
 #include <QCheckBox>
 #include <QRegExp>
 #include <QTimer>
@@ -649,10 +648,15 @@ KFSConfigPage::KFSConfigPage( QWidget *parent, const char *, KateFileSelector *k
   lo->setSpacing( spacing );
 
   // Toolbar - a lot for a little...
-  Q3GroupBox *gbToolbar = new Q3GroupBox( 1, Qt::Vertical, i18n("Toolbar"), this );
+  QGroupBox *gbToolbar = new QGroupBox(i18n("Toolbar"), this );
   acSel = new KActionSelector( gbToolbar );
   acSel->setAvailableLabel( i18n("A&vailable actions:") );
   acSel->setSelectedLabel( i18n("S&elected actions:") );
+  
+  QVBoxLayout *vbox = new QVBoxLayout;
+  vbox->addWidget(acSel);
+  gbToolbar->setLayout(vbox);
+  
   lo->addWidget( gbToolbar );
   connect( acSel, SIGNAL( added( QListWidgetItem * ) ), this, SLOT( slotMyChanged() ) );
   connect( acSel, SIGNAL( removed( QListWidgetItem * ) ), this, SLOT( slotMyChanged() ) );
@@ -660,9 +664,15 @@ KFSConfigPage::KFSConfigPage( QWidget *parent, const char *, KateFileSelector *k
   connect( acSel, SIGNAL( movedDown( QListWidgetItem * ) ), this, SLOT( slotMyChanged() ) );
 
   // Sync
-  Q3GroupBox *gbSync = new Q3GroupBox( 1, Qt::Horizontal, i18n("Auto Synchronization"), this );
-  cbSyncActive = new QCheckBox( i18n("When a docu&ment becomes active"), gbSync );
-  cbSyncShow = new QCheckBox( i18n("When the file selector becomes visible"), gbSync );
+  QGroupBox *gbSync = new QGroupBox(i18n("Auto Synchronization"), this );
+  cbSyncActive = new QCheckBox( i18n("When a docu&ment becomes active"));
+  cbSyncShow = new QCheckBox( i18n("When the file selector becomes visible"));
+  
+  vbox = new QVBoxLayout;
+  vbox->addWidget(cbSyncActive);
+  vbox->addWidget(cbSyncShow);
+  gbSync->setLayout(vbox);
+  
   lo->addWidget( gbSync );
   connect( cbSyncActive, SIGNAL( toggled( bool ) ), this, SLOT( slotMyChanged() ) );
   connect( cbSyncShow, SIGNAL( toggled( bool ) ), this, SLOT( slotMyChanged() ) );
@@ -683,9 +693,15 @@ KFSConfigPage::KFSConfigPage( QWidget *parent, const char *, KateFileSelector *k
   connect( sbFilterHistLength, SIGNAL( valueChanged ( int ) ), this, SLOT( slotMyChanged() ) );
 
   // Session
-  Q3GroupBox *gbSession = new Q3GroupBox( 1, Qt::Horizontal, i18n("Session"), this );
-  cbSesLocation = new QCheckBox( i18n("Restore loca&tion"), gbSession );
-  cbSesFilter = new QCheckBox( i18n("Restore last f&ilter"), gbSession );
+  QGroupBox *gbSession = new QGroupBox(i18n("Session"), this );
+  cbSesLocation = new QCheckBox( i18n("Restore loca&tion"));
+  cbSesFilter = new QCheckBox( i18n("Restore last f&ilter"));
+  
+  vbox = new QVBoxLayout;
+  vbox->addWidget(cbSesLocation);
+  vbox->addWidget(cbSesFilter);
+  gbSession->setLayout(vbox);
+  
   lo->addWidget( gbSession );
   connect( cbSesLocation, SIGNAL( toggled( bool ) ), this, SLOT( slotMyChanged() ) );
   connect( cbSesFilter, SIGNAL( toggled( bool ) ), this, SLOT( slotMyChanged() ) );

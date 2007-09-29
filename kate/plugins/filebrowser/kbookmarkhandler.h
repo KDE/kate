@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
    Copyright (C) xxxx KFile Authors
    Copyright (C) 2002 Anders Lund <anders.lund@lund.tdcadsl.dk>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
  
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -41,6 +42,7 @@ class KBookmarkHandler : public QObject, public KBookmarkOwner
 
     // KBookmarkOwner interface:
     virtual QString currentUrl() const;
+    virtual QString currentTitle() const;
 
     KMenu *menu() const
     {

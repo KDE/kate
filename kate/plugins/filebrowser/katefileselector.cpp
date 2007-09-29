@@ -2,6 +2,7 @@
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2001 Anders Lund <anders.lund@lund.tdcadsl.dk>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -149,25 +150,6 @@ KateFileSelectorToolBar::KateFileSelectorToolBar(QWidget *parent)
 
 KateFileSelectorToolBar::~KateFileSelectorToolBar()
 {}
-
-KateFileSelectorToolBarParent::KateFileSelectorToolBarParent(QWidget *parent)
-    : QFrame(parent), m_tb(0)
-{}
-KateFileSelectorToolBarParent::~KateFileSelectorToolBarParent()
-{}
-void KateFileSelectorToolBarParent::setToolBar(KateFileSelectorToolBar *tb)
-{
-  m_tb = tb;
-}
-
-void KateFileSelectorToolBarParent::resizeEvent ( QResizeEvent * )
-{
-  if (m_tb)
-  {
-    setMinimumHeight(m_tb->sizeHint().height());
-    m_tb->resize(width(), height());
-  }
-}
 //END
 
 //BEGIN Constructor/destructor
@@ -183,9 +165,7 @@ void KateFileSelectorToolBarParent::resizeEvent ( QResizeEvent * )
 
   QtMsgHandler oldHandler = qInstallMsgHandler( silenceQToolBar );
 
-  KateFileSelectorToolBarParent *tbp = new KateFileSelectorToolBarParent(this);
-  toolbar = new KateFileSelectorToolBar(tbp);
-  tbp->setToolBar(toolbar);
+  toolbar = new KateFileSelectorToolBar(this);
   toolbar->setMovable(false);
   qInstallMsgHandler( oldHandler );
 

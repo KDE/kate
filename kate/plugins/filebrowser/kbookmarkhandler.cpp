@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
    Copyright (C) xxxx KFile Authors
    Copyright (C) 2002 Anders Lund <anders.lund@lund.tdcadsl.dk>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
  
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -67,11 +68,15 @@ QString KBookmarkHandler::currentUrl() const
   return mParent->dirOperator()->url().url();
 }
 
+QString KBookmarkHandler::currentTitle() const
+{
+  return currentUrl();
+}
+
 void KBookmarkHandler::openBookmark( const KBookmark & bm, Qt::MouseButtons, Qt::KeyboardModifiers )
 {
   emit openUrl(bm.url().url());
 }
-
 
 void KBookmarkHandler::slotNewBookmark( const QString& /*text*/,
                                         const QByteArray& url,

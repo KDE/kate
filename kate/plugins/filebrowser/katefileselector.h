@@ -2,6 +2,7 @@
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2001 Anders Lund <anders.lund@lund.tdcadsl.dk>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -102,26 +103,12 @@ class KateFileSelectorPluginView : public Kate::PluginView
     allowing to filter the displayed files using a name filter.
 */
 
-/* I think this fix for not moving toolbars is better */
 class KateFileSelectorToolBar: public KToolBar
 {
     Q_OBJECT
   public:
     KateFileSelectorToolBar(QWidget *parent);
     virtual ~KateFileSelectorToolBar();
-};
-
-class KateFileSelectorToolBarParent: public QFrame
-{
-    Q_OBJECT
-  public:
-    KateFileSelectorToolBarParent(QWidget *parent);
-    ~KateFileSelectorToolBarParent();
-    void setToolBar(KateFileSelectorToolBar *tb);
-  private:
-    KateFileSelectorToolBar *m_tb;
-  protected:
-    virtual void resizeEvent ( QResizeEvent * );
 };
 
 class KateFileSelector : public KVBox

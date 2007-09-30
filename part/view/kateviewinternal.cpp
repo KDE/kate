@@ -2012,13 +2012,11 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection, bool up
   KateTextLayout thisLine = yToKateTextLayout(p.y());
   KTextEditor::Cursor c;
   
-  if (thisLine.isValid()) {
-    c = renderer()->xToCursor(thisLine, startX() + p.x(), !view()->wrapCursor());
-  } else { //set to the last position in the document
-    thisLine = cache()->viewLine(m_doc->lines() - 1);
-    c = thisLine.end();
-  }
-  
+  if (!thisLine.isValid()) //set to the last position in the document
+    thisLine = cache()->textLayout(m_doc->lines() - 1, -1);
+
+  c = renderer()->xToCursor(thisLine, startX() + p.x(), !view()->wrapCursor());
+
   if (c.line () < 0 || c.line() >= m_doc->lines()) {
     return;
   }

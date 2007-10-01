@@ -45,6 +45,10 @@ KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection)
   connect( m_sortAction, SIGNAL(triggered(int)), this, SLOT(setSortType(int)) );
 
   m_sortType = SortOpening;
+  QPalette p = palette();
+  p.setColor(QPalette::Inactive, QPalette::Highlight, p.color(QPalette::Active, QPalette::Highlight));
+  p.setColor(QPalette::Inactive, QPalette::HighlightedText, p.color(QPalette::Active, QPalette::HighlightedText));
+  setPalette(p);
 }
 
 KateFileList::~KateFileList()

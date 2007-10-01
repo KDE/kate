@@ -168,10 +168,7 @@ void KateViewDocumentProxyModel::opened(const QModelIndex &index)
   kDebug() << "KateViewDocumentProxyModel::opened-1";
 
   m_current = index;
-  m_markOpenedTimer->stop();
-  m_markOpenedTimer->start(1000);
-
-
+  m_markOpenedTimer->start(100);
 }
 
 void KateViewDocumentProxyModel::slotMarkOpenedTimer()

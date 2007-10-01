@@ -531,13 +531,13 @@ void KateView::setupActions()
   a = ac->addAction( KStandardAction::Find, this, SLOT(find()) );
   a->setWhatsThis(i18n("Look up the first occurrence of a piece of text or regular expression."));
   addAction(a);
-  
+
   a = ac->addAction("edit_find_selected");
   a->setText(i18n("Find Selected"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_H));
   a->setWhatsThis(i18n("Finds next occurrence of selected text."));
   connect(a, SIGNAL(triggered(bool)), SLOT(findSelectedForwards()));
-  
+
   a = ac->addAction("edit_find_selected_backwards");
   a->setText(i18n("Find Selected Backwards"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_H));
@@ -940,8 +940,9 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
 {
   if ( !m_doc || !m_doc->browserExtension()  )
     return;
-  emit m_doc->browserExtension()->popupMenu( ev->globalPos(), m_doc->url(),
-                                        QLatin1String( "text/plain" ) );
+  KParts::OpenUrlArguments args;
+  args.setMimeType( QLatin1String("text/plain") );
+  emit m_doc->browserExtension()->popupMenu( ev->globalPos(), m_doc->url(), S_IFREG, args );
   ev->accept();
 }
 
@@ -1841,7 +1842,7 @@ bool KateView::setBlockSelectionMode (bool on)
     setSelection(oldSelection);
 
     m_toggleBlockSelection->setChecked( blockSelectionMode() );
-    
+
     if(!blockSelectionMode() && !m_viewInternal->getCursor().isValid())
     {
     	KTextEditor::Cursor cursorAtEndOfLine(cursorPosition());

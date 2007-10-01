@@ -256,7 +256,7 @@ KateFileSelectorToolBar::~KateFileSelectorToolBar()
   btnFilter->setWhatsThis(        i18n("<p>This button clears the name filter when toggled off, or "
                                        "reapplies the last filter used when toggled on.</p>") );
 
-  connect(dir, SIGNAL(fileSelected(const KFileItem*)), this, SLOT(fileSelected(const KFileItem*)));
+  connect(dir, SIGNAL(fileSelected(const KFileItem&)), this, SLOT(fileSelected(const KFileItem&)));
 }
 
 ::KateFileSelector::~KateFileSelector()
@@ -428,7 +428,7 @@ void ::KateFileSelector::setDir( KUrl u )
 
 //BEGIN Private Slots
 
-void ::KateFileSelector::fileSelected(const KFileItem * /*file*/)
+void ::KateFileSelector::fileSelected(const KFileItem & /*file*/)
 {
   const QList<KFileItem> list = dir->selectedItems();
 

@@ -263,7 +263,7 @@ void KateMainWindow::setupMainWindow ()
 #if 0
   KateMDI::ToolView *t = createToolView("kate_fileselector", KMultiTabBar::Left, SmallIcon("document-open"), i18n("Filesystem Browser"));
   fileselector = new KateFileSelector( this, m_viewManager, t, "operator");
-  connect(fileselector->dirOperator(), SIGNAL(fileSelected(const KFileItem*)), this, SLOT(fileSelected(const KFileItem*)));
+  connect(fileselector->dirOperator(), SIGNAL(fileSelected(const KFileItem&)), this, SLOT(fileSelected(const KFileItem&)));
 #endif
 
   // make per default the filelist visible, if we are in session restore, katemdi will skip this ;)
@@ -697,13 +697,13 @@ KUrl KateMainWindow::activeDocumentUrl()
 }
 
 #if 0
-void KateMainWindow::fileSelected(const KFileItem * /*file*/)
+void KateMainWindow::fileSelected(const KFileItem & /*file*/)
 {
-  const KFileItemList *list = fileselector->dirOperator()->selectedItems();
-  KFileItem *tmp;
-  for (KFileItemListIterator it(*list); (tmp = it.current()); ++it)
+  const KFileItemList list = fileselector->dirOperator()->selectedItems();
+
+  foreach (const KFileItem tmp, list )
   {
-    m_viewManager->openUrl(tmp->url());
+    m_viewManager->openUrl(tmp.url());
     fileselector->dirOperator()->view()->setSelected(tmp, false);
   }
 }

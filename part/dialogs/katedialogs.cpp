@@ -1025,7 +1025,7 @@ KateGotoBar::KateGotoBar(KateViewBar *parent)
 
   btnOK = new QToolButton();
   btnOK->setAutoRaise(true);
-  btnOK->setIcon(QIcon(SmallIcon("goto-page")));
+  btnOK->setIcon(QIcon(SmallIcon("go-jump")));
   btnOK->setText(i18n("Go"));
   btnOK->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
   connect(btnOK, SIGNAL(clicked()), this, SLOT(gotoLine()));

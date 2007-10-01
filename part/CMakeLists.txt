@@ -51,7 +51,6 @@ completion/katecompletiontree.cpp
 completion/katecompletionconfig.cpp
 completion/kateargumenthinttree.cpp
 completion/kateargumenthintmodel.cpp
-completion/katecompletiondelegate.cpp
 completion/expandingtree/expandingwidgetmodel.cpp
 completion/expandingtree/expandingdelegate.cpp
 completion/expandingtree/expandingtree.cpp

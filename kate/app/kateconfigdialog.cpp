@@ -213,7 +213,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   path << i18n("Application") << i18n("File Selector");
 
   KVBox *page = addVBoxPage( path, i18n("File Selector Settings"),
-                             BarIcon("document-open", K3Icon::SizeSmall) );
+                             BarIcon("document-open", KIconLoader::SizeSmall) );
   fileSelConfigPage = new KFSConfigPage( page, "file selector config page",
                                          m_mainWindow->fileselector );
   connect( fileSelConfigPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );

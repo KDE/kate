@@ -65,10 +65,10 @@ class AbstractKateSaveModifiedDialogCheckListItem: public QTreeWidgetItem
           setIcon(0, QIcon());
           break;
         case SaveOKState:
-          setIcon(0, loader->loadIcon("ok", K3Icon::NoGroup,/*height()*/16));
+          setIcon(0, loader->loadIcon("ok", KIconLoader::NoGroup,/*height()*/16));
           break;
         case SaveFailedState:
-          setIcon(0, loader->loadIcon("cancel", K3Icon::NoGroup,/*height()*/16));
+          setIcon(0, loader->loadIcon("cancel", KIconLoader::NoGroup,/*height()*/16));
           break;
       }
     }

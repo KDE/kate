@@ -76,7 +76,7 @@ class PluginKateInsertCommand : public Kate::Plugin,
     QString configPageFullName(uint) const {
       return i18n("Configure Insert Command Plugin"); };
     QPixmap configPagePixmap (uint /*number = 0*/,
-                              int /*size = K3Icon::SizeSmall*/) const
+                              int /*size = KIconLoader::SizeSmall*/) const
                                { return 0L; };
 
   private:

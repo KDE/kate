@@ -488,7 +488,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor( KateExternalTool *
                          "The name will be displayed in the 'Tools->External' menu") );
 
   btnIcon = new KIconButton( w );
-  btnIcon->setIconSize( K3Icon::SizeSmall );
+  btnIcon->setIconSize( KIconLoader::SizeSmall );
   lo->addWidget( btnIcon, 1, 3 );
   if ( tool && !tool->icon.isEmpty() )
     btnIcon->setIcon( tool->icon );
@@ -704,7 +704,7 @@ void KateExternalToolsConfigWidget::reset()
 
 QPixmap KateExternalToolsConfigWidget::blankIcon()
 {
-  QPixmap pm( K3Icon::SizeSmall, K3Icon::SizeSmall );
+  QPixmap pm( KIconLoader::SizeSmall, KIconLoader::SizeSmall );
   pm.fill();
   pm.setMask( pm.createHeuristicMask() );
   return pm;

@@ -167,7 +167,7 @@ QString PluginKateKJSWrapper::configPageFullName(uint id) const {
 }
 
 QPixmap PluginKateKJSWrapper::configPagePixmap (uint /*number = 0*/,
-                              int /*size = K3Icon::SizeSmall*/) const {
+                              int /*size = KIconLoader::SizeSmall*/) const {
 	return 0;
 }
 

@@ -169,7 +169,7 @@ void PluginView::slotDocumentChanged( KTextEditor::Document* document )
   int tabID = doc2id[document];
   if( document->isModified() )
     tabbar->setTabIcon( tabID, KIconLoader::global()
-            ->loadIcon( "modified", K3Icon::Small, 16 ) );
+            ->loadIcon( "modified", KIconLoader::Small, 16 ) );
   else
     tabbar->setTabIcon( tabID, QIcon() );
 
@@ -207,19 +207,19 @@ void PluginView::slotModifiedOnDisc( KTextEditor::Document* document, bool modif
     {
     case KTextEditor::ModificationInterface::OnDiskModified:
       tabbar->setTabIcon( tabID, KIconLoader::global()
-            ->loadIcon( "cancel", K3Icon::Small, 16 ) );
+            ->loadIcon( "cancel", KIconLoader::Small, 16 ) );
       break;
     case KTextEditor::ModificationInterface::OnDiskCreated:
       tabbar->setTabIcon( tabID, KIconLoader::global()
-            ->loadIcon( "modified", K3Icon::Small, 16 ) );
+            ->loadIcon( "modified", KIconLoader::Small, 16 ) );
     break;
     case KTextEditor::ModificationInterface::OnDiskDeleted:
       tabbar->setTabIcon( tabID, KIconLoader::global()
-          ->loadIcon( "cancel", K3Icon::Small, 16 ) );
+          ->loadIcon( "cancel", KIconLoader::Small, 16 ) );
       break;
     default:
       tabbar->setTabIcon( tabID, KIconLoader::global()
-            ->loadIcon( "cancel", K3Icon::Small, 16 ) );
+            ->loadIcon( "cancel", KIconLoader::Small, 16 ) );
     }
 
     tabbar->setTabModified( tabID, true );

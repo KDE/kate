@@ -154,9 +154,9 @@ KTinyTabBar::KTinyTabBar( QWidget *parent )
     m_configureButton = new KTinyTabButton( QString(), QString(), -3, true, this );
     m_navigateSize = 20;
 
-    m_upButton->setIcon( KIconLoader::global()->loadIcon( "arrow-up", K3Icon::Small, 16 ) );
-    m_downButton->setIcon( KIconLoader::global()->loadIcon( "arrow-down", K3Icon::Small, 16 ) );
-    m_configureButton->setIcon( KIconLoader::global()->loadIcon( "configure", K3Icon::Small, 16 ) );
+    m_upButton->setIcon( KIconLoader::global()->loadIcon( "arrow-up", KIconLoader::Small, 16 ) );
+    m_downButton->setIcon( KIconLoader::global()->loadIcon( "arrow-down", KIconLoader::Small, 16 ) );
+    m_configureButton->setIcon( KIconLoader::global()->loadIcon( "configure", KIconLoader::Small, 16 ) );
 
     connect( m_upButton, SIGNAL( activated( KTinyTabButton* ) ), this, SLOT( upClicked() ) );
     connect( m_downButton, SIGNAL( activated( KTinyTabButton* ) ), this, SLOT( downClicked() ) );

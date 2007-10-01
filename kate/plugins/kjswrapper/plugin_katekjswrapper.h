@@ -87,7 +87,7 @@ class PluginKateKJSWrapper : public Kate::Plugin,
     QString configPageName(uint) const;
     QString configPageFullName(uint) const;
     QPixmap configPagePixmap (uint /*number = 0*/, 
-                              int /*size = K3Icon::SizeSmall*/) const;
+                              int /*size = KIconLoader::SizeSmall*/) const;
     PluginKateKJSWrapperView *getViewObject(Kate::MainWindow *win);
 
   public slots:

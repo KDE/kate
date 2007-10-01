@@ -21,7 +21,7 @@
 
 #include <QAbstractListModel>
 #include "katecompletionmodel.h"
-#include "expandingwidgetmodel.h"
+#include "expandingtree/expandingwidgetmodel.h"
 
 class KateCompletionWidget;
 
@@ -38,7 +38,7 @@ class KateArgumentHintModel : public ExpandingWidgetModel {
 
     virtual QTreeView* treeView() const;
 
-    virtual bool indexIsCompletion(const QModelIndex& index) const;
+    virtual bool indexIsItem(const QModelIndex& index) const;
 
     void emitDataChanged( const QModelIndex& start, const QModelIndex& end );
     

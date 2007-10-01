@@ -241,7 +241,7 @@ void KateArgumentHintModel::emitDataChanged( const QModelIndex& start, const QMo
   emit dataChanged(start, end);
 }
 
-bool KateArgumentHintModel::indexIsCompletion(const QModelIndex& index) const {
+bool KateArgumentHintModel::indexIsItem(const QModelIndex& index) const {
   return index.row() >= 0 && index.row() < m_rows.count() && m_rows[index.row()] >= 0;
 }
 

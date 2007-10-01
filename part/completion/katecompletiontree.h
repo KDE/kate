@@ -19,14 +19,14 @@
 #ifndef KATECOMPLETIONTREE_H
 #define KATECOMPLETIONTREE_H
 
-#include "kateexpandingtree.h"
+#include "expandingtree/expandingtree.h"
 
 class KateCompletionWidget;
 class KateCompletionModel;
 
 class QTimer;
 
-class KateCompletionTree : public KateExpandingTree
+class KateCompletionTree : public ExpandingTree
 {
   Q_OBJECT
 

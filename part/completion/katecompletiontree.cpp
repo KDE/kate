@@ -34,7 +34,7 @@
 #include "katecompletionmodel.h"
 
 KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
-  : KateExpandingTree(parent), m_needResize(false)
+  : ExpandingTree(parent), m_needResize(false)
 {
   setUniformRowHeights(false);
   header()->hide();
@@ -236,7 +236,7 @@ bool KateCompletionTree::nextCompletion()
       return false;
     }
 
-  } while (!kateModel()->indexIsCompletion(current));
+  } while (!kateModel()->indexIsItem(current));
 
   return true;
 }
@@ -260,7 +260,7 @@ bool KateCompletionTree::previousCompletion()
       return false;
     }
 
-  } while (!kateModel()->indexIsCompletion(current));
+  } while (!kateModel()->indexIsItem(current));
 
   return true;
 }
@@ -272,7 +272,7 @@ bool KateCompletionTree::pageDown( )
 
   if (current.isValid()) {
     setCurrentIndex(current);
-    if (!kateModel()->indexIsCompletion(current))
+    if (!kateModel()->indexIsItem(current))
       if (!nextCompletion())
         previousCompletion();
   }
@@ -287,7 +287,7 @@ bool KateCompletionTree::pageUp( )
 
   if (current.isValid()) {
     setCurrentIndex(current);
-    if (!kateModel()->indexIsCompletion(current))
+    if (!kateModel()->indexIsItem(current))
       if (!previousCompletion())
         nextCompletion();
   }
@@ -301,7 +301,7 @@ void KateCompletionTree::top( )
 
   if (current.isValid()) {
     setCurrentIndex(current);
-    if (!kateModel()->indexIsCompletion(current))
+    if (!kateModel()->indexIsItem(current))
       nextCompletion();
   }
 }
@@ -313,7 +313,7 @@ void KateCompletionTree::bottom( )
 
   if (current.isValid()) {
     setCurrentIndex(current);
-    if (!kateModel()->indexIsCompletion(current))
+    if (!kateModel()->indexIsItem(current))
       previousCompletion();
   }
 }

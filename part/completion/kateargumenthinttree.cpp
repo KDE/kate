@@ -24,13 +24,13 @@
 #include "kateargumenthinttree.h"
 #include "kateargumenthintmodel.h"
 #include "katecompletionwidget.h"
-#include "expandingwidgetmodel.h"
+#include "expandingtree/expandingwidgetmodel.h"
 #include "katecompletiondelegate.h"
 #include "kateview.h"
 #include <QModelIndex>
 
 
-KateArgumentHintTree::KateArgumentHintTree( KateCompletionWidget* parent ) : KateExpandingTree(0), m_parent(parent) { //Do not use the completion-widget as widget-parent, because the argument-hint-tree will be rendered separately
+KateArgumentHintTree::KateArgumentHintTree( KateCompletionWidget* parent ) : ExpandingTree(0), m_parent(parent) { //Do not use the completion-widget as widget-parent, because the argument-hint-tree will be rendered separately
 
   setFrameStyle( QFrame::Box | QFrame::Plain );
   setLineWidth( 1 );
@@ -173,7 +173,7 @@ bool KateArgumentHintTree::nextCompletion()
       return false;
     }
 
-  } while (!model()->indexIsCompletion(current));
+  } while (!model()->indexIsItem(current));
 
   return true;
 }
@@ -197,7 +197,7 @@ bool KateArgumentHintTree::previousCompletion()
       return false;
     }
 
-  } while (!model()->indexIsCompletion(current));
+  } while (!model()->indexIsItem(current));
 
   return true;
 }
@@ -209,7 +209,7 @@ bool KateArgumentHintTree::pageDown( )
 
   if (current.isValid()) {
     setCurrentIndex(current);
-    if (!model()->indexIsCompletion(current))
+    if (!model()->indexIsItem(current))
       if (!nextCompletion())
         previousCompletion();
   }
@@ -224,7 +224,7 @@ bool KateArgumentHintTree::pageUp( )
 
   if (current.isValid()) {
     setCurrentIndex(current);
-    if (!model()->indexIsCompletion(current))
+    if (!model()->indexIsItem(current))
       if (!previousCompletion())
         nextCompletion();
   }
@@ -238,7 +238,7 @@ void KateArgumentHintTree::top( )
 
   if (current.isValid()) {
     setCurrentIndex(current);
-    if (!model()->indexIsCompletion(current))
+    if (!model()->indexIsItem(current))
       nextCompletion();
   }
 }
@@ -250,7 +250,7 @@ void KateArgumentHintTree::bottom( )
 
   if (current.isValid()) {
     setCurrentIndex(current);
-    if (!model()->indexIsCompletion(current))
+    if (!model()->indexIsItem(current))
       previousCompletion();
   }
 }

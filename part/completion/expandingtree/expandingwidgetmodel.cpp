@@ -21,7 +21,7 @@
 #include <QBrush>
 #include <ktexteditor/codecompletionmodel.h>
 #include <kiconloader.h>
-#include "katecompletiondelegate.h"
+#include "expandingdelegate.h"
 #include "expandingwidgetmodel.h"
 
 QIcon ExpandingWidgetModel::m_expandedIcon;
@@ -184,7 +184,7 @@ QRect ExpandingWidgetModel::partialExpandRect(const QModelIndex& idx_) const
     rect.setLeft( rect.left() + 20 );
     rect.setRight( rightMostRect.right() - 5 );
 
-    //These offsets must match exactly those used in KateCompletionDelegate::sizeHint()
+    //These offsets must match exactly those used in ExpandingDelegate::sizeHint()
     rect.setTop( rect.top() + basicRowHeight(idx) + 5 );
     rect.setBottom( rightMostRect.bottom() - 5 );
 
@@ -261,7 +261,7 @@ int ExpandingWidgetModel::basicRowHeight( const QModelIndex& idx_ ) const
 {
   QModelIndex idx(firstColumn(idx_));
     
-    KateCompletionDelegate* delegate = dynamic_cast<KateCompletionDelegate*>( treeView()->itemDelegate(idx) );
+    ExpandingDelegate* delegate = dynamic_cast<ExpandingDelegate*>( treeView()->itemDelegate(idx) );
     if( !delegate || !idx.isValid() ) {
     kDebug() << "ExpandingWidgetModel::basicRowHeight: Could not get delegate";
     return 15;
@@ -343,10 +343,10 @@ QWidget* ExpandingWidgetModel::expandingWidget(const QModelIndex& idx_) const
 
 void ExpandingWidgetModel::cacheIcons() const {
     if( m_expandedIcon.isNull() )
-      m_expandedIcon = KIconLoader::global()->loadIcon("go-down", KIconLoader::Small);
+      m_expandedIcon = KIconLoader::global()->loadIcon("go-down", K3Icon::Small);
     
     if( m_collapsedIcon.isNull() )
-      m_collapsedIcon = KIconLoader::global()->loadIcon("go-next", KIconLoader::Small);
+      m_collapsedIcon = KIconLoader::global()->loadIcon("go-next", K3Icon::Small);
 }
 
 #include "expandingwidgetmodel.moc"

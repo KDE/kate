@@ -946,7 +946,7 @@ void KateCompletionModel::addRows( Group * g, QMutableListIterator<ModelRow> & f
     endInsertRows();
 }
 
-bool KateCompletionModel::indexIsCompletion( const QModelIndex & index ) const
+bool KateCompletionModel::indexIsItem( const QModelIndex & index ) const
 {
   if (!hasGroups())
     return true;

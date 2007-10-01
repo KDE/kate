@@ -29,7 +29,7 @@ class QTreeView;
 class QTextEdit;
 
 /**
- * Cares about expanding/un-expanding items in a tree-view together with KateCompletionDelegate
+ * Cares about expanding/un-expanding items in a tree-view together with ExpandingDelegate
  */
 class ExpandingWidgetModel : public QAbstractTableModel {
     Q_OBJECT
@@ -81,7 +81,7 @@ class ExpandingWidgetModel : public QAbstractTableModel {
      * Notifies underlying models that the item was selected, collapses any previous partially expanded line,
      * checks whether this line should be partially expanded, and eventually does it.
      * Does nothing when nothing needs to be done.
-     * Does NOT show the expanding-widget. That is done immediately when painting by KateCompletionDelegate,
+     * Does NOT show the expanding-widget. That is done immediately when painting by ExpandingDelegate,
      * to reduce flickering. @see showPartialExpandWidget()
      * @param row The row
      * */
@@ -102,8 +102,8 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     
     virtual QTreeView* treeView() const = 0;
     
-    ///Should return true if the given row should be painted like a completion-item(as opposed to label-rows etc.)
-    virtual bool indexIsCompletion(const QModelIndex& index) const = 0;
+    ///Should return true if the given row should be painted like a contained item(as opposed to label-rows etc.)
+    virtual bool indexIsItem(const QModelIndex& index) const = 0;
 
     ///Does not request data from index, this only returns local data like highlighting for expanded rows and similar
     virtual QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;

@@ -1,3 +1,4 @@
+
 /* This file is part of the KDE libraries
    Copyright (C) 2006 Hamish Rodda <rodda@kde.org>
 
@@ -16,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KATECOMPLETIONDELEGATE_H
-#define KATECOMPLETIONDELEGATE_H
+#ifndef ExpandingDelegate_H
+#define ExpandingDelegate_H
 
 #include <QtGui/QItemDelegate>
 #include <QtGui/QTextLine>
@@ -30,16 +31,17 @@ class KateDocument;
 class KateTextLine;
 class ExpandingWidgetModel;
 
-class KateCompletionDelegate : public QItemDelegate
+/**
+ * This is a delegate that cares, together with ExpandingWidgetModel, about embedded widgets in tree-view.
+ * */
+
+class ExpandingDelegate : public QItemDelegate
 {
   Q_OBJECT
 
   public:
-    explicit KateCompletionDelegate(ExpandingWidgetModel* model, KateCompletionWidget* parent = 0L);
+    explicit ExpandingDelegate(ExpandingWidgetModel* model, QObject* parent = 0L);
 
-    KateRenderer* renderer() const;
-    KateCompletionWidget* widget() const;
-    KateDocument* document() const;
 
     // Overridden to create highlighting for current index
     virtual void paint ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
@@ -47,26 +49,28 @@ class KateCompletionDelegate : public QItemDelegate
     // Returns the basic size-hint as reported by QItemDelegate
     QSize basicSizeHint( const QModelIndex& index ) const;
     
+    ExpandingWidgetModel* model() const;
   protected:
     //column may be -1 if unknown
     void changeBackground( int row, int column, QStyleOptionViewItem & option ) const;
     virtual void drawDisplay ( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & text ) const;
     virtual QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const;
     virtual bool editorEvent ( QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index );
-  private:
 
-    //Returns true if this delegate is painting in the list of completions, opposed to the list of argument-hints
-    bool isCompletionDelegate() const;
+    //option can be changed
+    virtual QList<QTextLayout::FormatRange> createHighlighting(const QModelIndex& index, QStyleOptionViewItem& option) const;
 
-    KateTextLine* m_previousLine;
-
-    ExpandingWidgetModel* model() const;
-
+    //Called when an item was expanded/unexpanded and the height changed
+    virtual void heightChanged() const;
+  
     mutable int m_cachedRow;
     mutable bool m_cachedRowSelected;
     mutable int m_cachedColumnStart;
     mutable QList<int> m_cachedColumnStarts;
     mutable QList<QTextLayout::FormatRange> m_cachedHighlights;
+  
+  private:
+
     ExpandingWidgetModel* m_model;
 };
 

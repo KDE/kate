@@ -15,38 +15,24 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include "katecompletiondelegate.h"
+#include "expandingdelegate.h"
 
 #include <QtGui/QTextLine>
 #include <QtGui/QPainter>
 #include <QtGui/QBrush>
 #include <QKeyEvent>
 
-#include <ktexteditor/codecompletionmodel.h>
-
-#include "katerenderer.h"
-#include "katetextline.h"
-#include "katedocument.h"
-#include "kateview.h"
-#include "katehighlight.h"
-#include "katerenderrange.h"
-#include "katesmartrange.h"
-
-#include "katecompletionwidget.h"
-#include "katecompletionmodel.h"
 #include "expandingwidgetmodel.h"
-#include "katecompletiontree.h"
 
-KateCompletionDelegate::KateCompletionDelegate(ExpandingWidgetModel* model, KateCompletionWidget* parent)
+ExpandingDelegate::ExpandingDelegate(ExpandingWidgetModel* model, QObject* parent)
   : QItemDelegate(parent)
-  , m_previousLine(0L)
   , m_cachedRow(-1)
   , m_cachedRowSelected(false)
   , m_model(model)
 {
 }
 
-void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewItem & optionOld, const QModelIndex & index ) const
+void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & optionOld, const QModelIndex & index ) const
 {
   QStyleOptionViewItem option(optionOld);
 
@@ -56,8 +42,7 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
     model()->placeExpandingWidget(index);
 
   //Make sure the decorations are painted at the top, because the center of expanded items will be filled with the embedded widget.
-  if( index.column() != KTextEditor::CodeCompletionModel::Prefix )
-    option.decorationAlignment = Qt::AlignTop;
+  option.decorationAlignment = Qt::AlignTop | option.decorationAlignment;
   
   //kDebug() << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected);
 
@@ -65,63 +50,12 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
     m_cachedColumnStarts.clear();
     m_cachedHighlights.clear();
 
-    if (!model()->indexIsCompletion(index) /*|| !isCompletionDelegate()*/ ) { ///@todo fix things to work correctly in case !isCompletionDelegate
+    if (!model()->indexIsItem(index) ) {
       m_cachedRow = -1;
       return QItemDelegate::paint(painter, option, index);
     }
 
-    // Which highlighting to use?
-    QVariant highlight = model()->data(model()->index(index.row(), KTextEditor::CodeCompletionModel::Name, index.parent()), KTextEditor::CodeCompletionModel::HighlightingMethod);
-
-    // TODO: config enable specifying no highlight as default
-    int highlightMethod = KTextEditor::CodeCompletionModel::InternalHighlighting;
-    if (highlight.canConvert(QVariant::Int))
-      highlightMethod = highlight.toInt();
-
-    KTextEditor::Cursor completionStart = widget()->completionRange()->start();
-
-    QString startText = document()->text(KTextEditor::Range(completionStart.line(), 0, completionStart.line(), completionStart.column()));
-
-    KateTextLine::Ptr thisLine(new KateTextLine());
-    thisLine->insertText(0, startText);
-
-    int len = completionStart.column();
-    for (int i = 0; i < KTextEditor::CodeCompletionModel::ColumnCount; ++i) {
-      m_cachedColumnStarts.append(len);
-      QString text = model()->data(model()->index(index.row(), i, index.parent()), Qt::DisplayRole).toString();
-      thisLine->insertText(thisLine->length(), text);
-      len += text.length();
-    }
-
-    //kDebug() << "About to highlight with mode " << highlightMethod << " text [" << thisLine->string() << "]";
-
-    if (highlightMethod & KTextEditor::CodeCompletionModel::InternalHighlighting) {
-      KateTextLine::Ptr previousLine;
-      if (completionStart.line())
-        previousLine = document()->kateTextLine(completionStart.line() - 1);
-      else
-        previousLine = new KateTextLine();
-
-      QVector<int> foldingList;
-      bool ctxChanged = false;
-      document()->highlight()->doHighlight(previousLine.data(), thisLine.data(), foldingList, ctxChanged);
-    }
-
-    NormalRenderRange rr;
-    if (highlightMethod & KTextEditor::CodeCompletionModel::CustomHighlighting) {
-      QList<QVariant> customHighlights = model()->data(model()->index(index.row(), KTextEditor::CodeCompletionModel::Name, index.parent()), KTextEditor::CodeCompletionModel::CustomHighlight).toList();
-
-      for (int i = 0; i + 2 < customHighlights.count(); i += 3) {
-        if (!customHighlights[i].canConvert(QVariant::Int) || !customHighlights[i+1].canConvert(QVariant::Int) || !customHighlights[i+2].canConvert<void*>()) {
-          kWarning() << "Unable to convert triple to custom formatting.";
-          continue;
-        }
-
-        rr.addRange(new KTextEditor::Range(completionStart.start() + KTextEditor::Cursor(0, customHighlights[i].toInt()), completionStart.start() + KTextEditor::Cursor(0, customHighlights[i+1].toInt())), KTextEditor::Attribute::Ptr(static_cast<KTextEditor::Attribute*>(customHighlights[i+2].value<void*>())));
-      }
-    }
-
-    m_cachedHighlights = renderer()->decorationsForLine(thisLine, 0, false, &rr, option.state & QStyle::State_Selected);
+    m_cachedHighlights = createHighlighting(index, option);
 
     /*kDebug() << "Highlights for line [" << thisLine->string() << "]:";
     foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
@@ -136,11 +70,15 @@ void KateCompletionDelegate::paint( QPainter * painter, const QStyleOptionViewIt
   QItemDelegate::paint(painter, option, index);
 }
 
-QSize KateCompletionDelegate::basicSizeHint( const QModelIndex& index ) const {
+QList<QTextLayout::FormatRange> ExpandingDelegate::createHighlighting(const QModelIndex& index, QStyleOptionViewItem& option) const {
+  return QList<QTextLayout::FormatRange>();
+}
+
+QSize ExpandingDelegate::basicSizeHint( const QModelIndex& index ) const {
   return QItemDelegate::sizeHint( QStyleOptionViewItem(), index );
 }
 
-QSize KateCompletionDelegate::sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const
+QSize ExpandingDelegate::sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const
 {
   QSize s = QItemDelegate::sizeHint( option, index );
   if( model()->isExpanded(index) && model()->expandingWidget( index ) )
@@ -155,7 +93,7 @@ QSize KateCompletionDelegate::sizeHint ( const QStyleOptionViewItem & option, co
   return s;
 }
 
-void KateCompletionDelegate::changeBackground( int row, int column, QStyleOptionViewItem & option ) const {
+void ExpandingDelegate::changeBackground( int row, int column, QStyleOptionViewItem & option ) const {
     //Highlight selected items specially
     QColor highlight = option.palette.color( option.palette.currentColorGroup(), QPalette::Highlight );
 
@@ -165,7 +103,7 @@ void KateCompletionDelegate::changeBackground( int row, int column, QStyleOption
       option.palette.setColor( (QPalette::ColorGroup)a, QPalette::Highlight, highlight );
 }
 
-void KateCompletionDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & text ) const
+void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & text ) const
 {
   if (m_cachedRow == -1)
     return QItemDelegate::drawDisplay(painter, option, rect, text);
@@ -222,11 +160,14 @@ void KateCompletionDelegate::drawDisplay( QPainter * painter, const QStyleOption
   //qt_format_text(option.font, textRect, option.displayAlignment, str, 0, 0, 0, 0, painter);
 }
 
-ExpandingWidgetModel* KateCompletionDelegate::model() const {
+ExpandingWidgetModel* ExpandingDelegate::model() const {
   return m_model;
 }
 
-bool KateCompletionDelegate::editorEvent ( QEvent * event, QAbstractItemModel * /*model*/, const QStyleOptionViewItem & /*option*/, const QModelIndex & index )
+void ExpandingDelegate::heightChanged() const {
+}
+
+bool ExpandingDelegate::editorEvent ( QEvent * event, QAbstractItemModel * /*model*/, const QStyleOptionViewItem & /*option*/, const QModelIndex & index )
 {
   QKeyEvent* keyEvent = 0;
   if( event->type() == QEvent::KeyPress )
@@ -236,8 +177,7 @@ bool KateCompletionDelegate::editorEvent ( QEvent * event, QAbstractItemModel * 
   {
     event->accept();
     model()->setExpanded(index, !model()->isExpanded( index ));
-    if(parent())
-      widget()->updateHeight();
+    heightChanged();
 
     return true;
   } else {
@@ -247,23 +187,4 @@ bool KateCompletionDelegate::editorEvent ( QEvent * event, QAbstractItemModel * 
   return false;
 }
 
-KateRenderer * KateCompletionDelegate::renderer( ) const
-{
-  return widget()->view()->renderer();
-}
-
-KateCompletionWidget * KateCompletionDelegate::widget( ) const
-{
-  return static_cast<KateCompletionWidget*>(const_cast<QObject*>(parent()));
-}
-
-KateDocument * KateCompletionDelegate::document( ) const
-{
-  return widget()->view()->doc();
-}
-
-bool KateCompletionDelegate::isCompletionDelegate() const {
-  return static_cast<ExpandingWidgetModel*>(widget()->model()) == model();
-}
-
-#include "katecompletiondelegate.moc"
+#include "expandingdelegate.moc"

@@ -25,7 +25,7 @@
 
 #include <ktexteditor/codecompletionmodel.h>
 
-#include "expandingwidgetmodel.h"
+#include "expandingtree/expandingwidgetmodel.h"
 
 class KateCompletionWidget;
 class KateArgumentHintModel;
@@ -70,7 +70,7 @@ class KateCompletionModel : public ExpandingWidgetModel
 
     virtual void rowSelected(const QModelIndex& row);
 
-    virtual bool indexIsCompletion(const QModelIndex& index) const;
+    virtual bool indexIsItem(const QModelIndex& index) const;
 
     virtual int columnCount ( const QModelIndex & parent = QModelIndex() ) const;
     virtual QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;

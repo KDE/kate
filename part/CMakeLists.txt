@@ -47,14 +47,14 @@ set(katepart_PART_SRCS
 # completion (widget, model, delegate, ...)
 completion/katecompletionwidget.cpp
 completion/katecompletionmodel.cpp
-completion/katecompletiondelegate.cpp
 completion/katecompletiontree.cpp
 completion/katecompletionconfig.cpp
-completion/kateexpandingtree.cpp
 completion/kateargumenthinttree.cpp
 completion/kateargumenthintmodel.cpp
-completion/expandingwidgetmodel.cpp
-
+completion/katecompletiondelegate.cpp
+completion/expandingtree/expandingwidgetmodel.cpp
+completion/expandingtree/expandingdelegate.cpp
+completion/expandingtree/expandingtree.cpp
 # dialogs
 dialogs/katedialogs.cpp
 

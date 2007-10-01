@@ -343,10 +343,10 @@ QWidget* ExpandingWidgetModel::expandingWidget(const QModelIndex& idx_) const
 
 void ExpandingWidgetModel::cacheIcons() const {
     if( m_expandedIcon.isNull() )
-      m_expandedIcon = KIconLoader::global()->loadIcon("go-down", K3Icon::Small);
+      m_expandedIcon = KIconLoader::global()->loadIcon("go-down", KIconLoader::Small);
     
     if( m_collapsedIcon.isNull() )
-      m_collapsedIcon = KIconLoader::global()->loadIcon("go-next", K3Icon::Small);
+      m_collapsedIcon = KIconLoader::global()->loadIcon("go-next", KIconLoader::Small);
 }
 
 #include "expandingwidgetmodel.moc"

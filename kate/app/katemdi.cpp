@@ -255,13 +255,12 @@ namespace KateMDI
 //BEGIN SIDEBAR
 
   Sidebar::Sidebar (KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QWidget *parent)
-      : KMultiTabBar ((pos == KMultiTabBar::Top || pos == KMultiTabBar::Bottom) ? KMultiTabBar::Horizontal : KMultiTabBar::Vertical, parent)
+      : KMultiTabBar (pos, parent)
       , m_mainWin (mainwin)
       , m_splitter (0)
       , m_ownSplit (0)
       , m_lastSize (0)
   {
-    setPosition( pos );
     hide ();
   }
 

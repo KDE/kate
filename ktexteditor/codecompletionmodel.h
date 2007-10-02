@@ -156,6 +156,9 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        * - int startColumn (where 0 = start of the completion entry)
        * - int endColumn (note: not length)
        * - QTextFormat attribute (note: attribute may be a KTextEditor::Attribute, as it is a child class)
+       *   If the attribute is invalid, and the item is an argument-hint, the text will be drawn with
+       *   a background-color depending on match-quality, or yellow.
+       *   You can use that to mark the actual arguments that are matched in an argument-hint.
        *
        * Repeat this triplet as many times as required, however each column must be >= the previous,
        * and startColumn != endColumn.

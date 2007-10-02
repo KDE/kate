@@ -42,32 +42,44 @@ ExpandingWidgetModel::~ExpandingWidgetModel() {
     clearExpanding();
 }
 
+uint ExpandingWidgetModel::matchColor(const QModelIndex& index) const {
+  
+  int matchQuality = contextMatchQuality( index.sibling(index.row(), 0) );
+  
+  if( matchQuality != -1 )
+  {
+    bool alternate = index.row() & 1;
+    
+    quint64 badMatchColor = 0xff7777ff; //Full blue
+    quint64 goodMatchColor = 0xff77ff77; //Full green
+
+    if( alternate ) {
+      badMatchColor += 0x00080000;
+      goodMatchColor += 0x00080000;
+    }
+    uint totalColor = (badMatchColor*(10-matchQuality) + goodMatchColor*matchQuality)/10;
+    return totalColor;
+  }else{
+    return 0;
+  }
+}
+    
+
 QVariant ExpandingWidgetModel::data( const QModelIndex & index, int role ) const
 {
-  bool alternate = index.row() & 1;
   switch( role ) {
     case Qt::BackgroundRole:
     {
       if( index.column() == 0 ) {
         //Highlight by match-quality
-        int matchQuality = contextMatchQuality(index);
-        if( matchQuality != -1 )
-        {
-          quint64 badMatchColor = 0xff7777ff; //Full blue
-          quint64 goodMatchColor = 0xff77ff77; //Full green
-          
-          if( alternate ) {
-            badMatchColor += 0x00080000;
-            goodMatchColor += 0x00080000;
-          }
-          uint totalColor = (badMatchColor*(10-matchQuality) + goodMatchColor*matchQuality)/10;
-          return QBrush(totalColor);
-        }
+        uint color = matchColor(index);
+        if( color )
+          return QBrush( color );
       }
       
       //Use a special background-color for expanded items
       if( isExpanded(index) ) {
-        if( alternate )
+        if( index.row() & 1 )
           return QBrush(0xffd8ca6c);
         else
           return QBrush(0xffeddc6a);
@@ -148,10 +160,6 @@ void ExpandingWidgetModel::rowSelected(const QModelIndex& idx_)
           //We are not partially expanding a new row, but we previously had a partially expanded row. So signalize that it has been unexpanded.
             emit dataChanged(oldIndex, oldIndex);
         }
-        if( isExpanded(idx) )
-          kDebug() << "ExpandingWidgetModel::rowSelected: row is already expanded";
-        if( variant.type() != QVariant::String )
-          kDebug() << "ExpandingWidgetModel::rowSelected: no string returned ";
     }
   }else{
     kDebug() << "ExpandingWidgetModel::rowSelected: Row is already partially expanded";
@@ -349,5 +357,84 @@ void ExpandingWidgetModel::cacheIcons() const {
       m_collapsedIcon = KIconLoader::global()->loadIcon("go-next", KIconLoader::Small);
 }
 
+QList<QVariant> mergeCustomHighlighting( int leftSize, const QList<QVariant>& left, int rightSize, const QList<QVariant>& right )
+{
+  QList<QVariant> ret = left;
+  if( left.isEmpty() ) {
+    ret << QVariant(0);
+    ret << QVariant(leftSize);
+    ret << QTextFormat(QTextFormat::CharFormat);
+  }
+
+  if( right.isEmpty() ) {
+    ret << QVariant(leftSize);
+    ret << QVariant(rightSize);
+    ret << QTextFormat(QTextFormat::CharFormat);
+  } else {
+    QList<QVariant>::const_iterator it = right.begin();
+    while( it != right.end() ) {
+      {
+        QList<QVariant>::const_iterator testIt = it;
+        for(int a = 0; a < 2; a++) {
+          ++testIt;
+          if(testIt == right.end()) {
+            kWarning() << "Length of input is not multiple of 3";
+            break;
+          }
+        }
+      }
+        
+      ret << QVariant( (*it).toInt() + leftSize );
+      ++it;
+      ret << QVariant( (*it).toInt() );
+      ++it;
+      ret << *it;
+      if(!(*it).value<QTextFormat>().isValid())
+        kDebug() << "Text-format is invalid";
+      ++it;
+    }
+  }
+  return ret;
+}
+
+//It is assumed that between each two strings, one space is inserted
+QList<QVariant> mergeCustomHighlighting( QStringList strings, QList<QVariantList> highlights, int grapBetweenStrings )
+{
+    if(strings.isEmpty())   {
+      kWarning() << "List of strings is empty";
+      return QList<QVariant>();
+    }
+    
+    if(highlights.isEmpty())   {
+      kWarning() << "List of highlightings is empty";
+      return QList<QVariant>();
+    }
+
+    if(strings.count() != highlights.count()) {
+      kWarning() << "Length of string-list is " << strings.count() << " while count of highlightings is " << highlights.count() << ", should be same";
+      return QList<QVariant>();
+    }
+    
+    //Merge them together
+    QString totalString = strings[0];
+    QVariantList totalHighlighting = highlights[0];
+    
+    strings.pop_front();
+    highlights.pop_front();
+
+    while( !strings.isEmpty() ) {
+      totalHighlighting = mergeCustomHighlighting( totalString.length(), totalHighlighting, strings[0].length(), highlights[0] );
+      totalString += strings[0];
+
+      for(int a = 0; a < grapBetweenStrings; a++)
+        totalString += ' ';
+      
+      strings.pop_front();
+      highlights.pop_front();
+      
+    }
+    //Combine the custom-highlightings
+    return totalHighlighting;
+}
 #include "expandingwidgetmodel.moc"
 

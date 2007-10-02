@@ -23,56 +23,9 @@
 #include "kateargumenthintmodel.h"
 #include "katecompletionwidget.h"
 #include "kateargumenthinttree.h"
+#include "katecompletiontree.h"
 
 using namespace KTextEditor;
-
-QList<QVariant> mergeCustomHighlighting( int leftSize, const QList<QVariant>& left, int rightSize, const QList<QVariant>& right )
-{
-  QList<QVariant> ret = left;
-  if( left.isEmpty() ) {
-    ret << QVariant(0);
-    ret << QVariant(leftSize);
-    ret << QTextFormat();
-  }
-
-  if( right.isEmpty() ) {
-    ret << QVariant(leftSize);
-    ret << QVariant(leftSize+rightSize);
-    ret << QTextFormat();
-  } else {
-    QList<QVariant>::const_iterator it = right.begin();
-    while( it != right.end() ) {
-      ret << QVariant( (*it).toInt() + leftSize );
-      ++it;
-      ret << QVariant( (*it).toInt() + leftSize );
-      ++it;
-      ret << *it;
-      ++it;
-    }
-  }
-  return ret;
-}
-
-//It is assumed that between each two strings, one space is inserted
-QList<QVariant> mergeCustomHighlighting( QStringList strings, QList<QVariantList> highlights )
-{
-    //Merge them together
-    QString totalString = strings[0];
-    QVariantList totalHighlighting = highlights[0];
-
-    strings.erase(0);
-    highlights.erase(0);
-
-    while( !strings.isEmpty() ) {
-
-      totalHighlighting = mergeCustomHighlighting( totalString.length(), totalHighlighting, strings[0].length(), highlights[0] );
-      totalString += strings[0] + ' ';
-      strings.erase(0);
-      highlights.erase(0);
-    }
-    //Combine the custom-highlightings
-    return totalHighlighting;
-}
 
 void KateArgumentHintModel::clear() {
   m_rows.clear();
@@ -179,8 +132,9 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
     {
       //Return that we are doing custom-highlighting of one of the sub-strings does it
       for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
-          if( source.first->index(source.second, a).data(Qt::DisplayRole).type() == QVariant::Int )
-            return QVariant(1);
+          if( source.first->index(source.second, a).data(CodeCompletionModel::HighlightingMethod).type() == QVariant::Int ) {
+            return QVariant(CodeCompletionModel::CustomHighlighting);
+          }
     
       return QVariant();
     }
@@ -198,6 +152,34 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
       for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
           highlights << source.first->index(source.second, a).data(CodeCompletionModel::CustomHighlight).toList();
 
+      //Replace invalid QTextFormats with match-quality color or yellow.
+      for( QList<QVariantList>::iterator it = highlights.begin(); it != highlights.end(); ++it )
+      {
+        QVariantList& list( *it );
+        
+        for( int a = 2; a < list.count(); a += 3 )
+        {
+          if( list[a].canConvert<QTextFormat>() )
+          {
+            QTextFormat f = list[a].value<QTextFormat>();
+            
+            if(!f.isValid())
+            {
+              f = QTextFormat( QTextFormat::CharFormat );
+              uint color = matchColor( index );
+
+              if( color )
+                f.setBackground( QBrush(color) );
+              else
+                f.setBackground( Qt::yellow );
+              
+              list[a] = QVariant( f );
+            }
+          }
+        }
+      }
+      
+      
       return mergeCustomHighlighting( strings, highlights );
     }
     case Qt::DecorationRole:
@@ -268,7 +250,7 @@ int KateArgumentHintModel::contextMatchQuality(const QModelIndex& index) const {
     case 1:
     {
       //This argument-hint is on the lowest level, match it with the currently selected item in the completion-widget
-      QModelIndex row = m_parent->model()->partiallyExpandedRow();
+      QModelIndex row = m_parent->treeView()->currentIndex();
       if( !row.isValid() )
         return -1;
 

@@ -110,13 +110,16 @@ class ExpandingWidgetModel : public QAbstractTableModel {
 
     ///Returns the first row that is currently partially expanded.
     QModelIndex partiallyExpandedRow() const;
-    
+
     protected:
     /**
      * @return the context-match quality from 0 to 10 if it could be determined, else -1
      * */
     virtual int contextMatchQuality(const QModelIndex & index) const = 0;
-      
+
+    ///Returns the match-color for the given index, or zero if match-quality could not be computed.
+    uint matchColor(const QModelIndex& index) const;
+    
     //Makes sure m_expandedIcon and m_collapsedIcon are loaded
     void cacheIcons() const;
     
@@ -136,4 +139,14 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     QMap< QPersistentModelIndex, int > m_contextMatchQualities; //Map rows to their context-match qualities(undefined if unknown, else 0 to 10). Not used yet, eventually remove.
 };
 
+
+/**
+ * It is assumed that between each two strings, one space is inserted.
+ * Helper-function to merge custom-highlighting variant-lists.
+ *
+ * @param stings A list of strings that should be merged
+ * @param highlights One variant-list for highlighting, as described in the kde header ktextedtor/codecompletionmodel.h
+ * @param gapBetweenStrings How many signs are inserted between 2 strings?
+ * */
+QList<QVariant> mergeCustomHighlighting( QStringList strings, QList<QVariantList> highlights, int gapBetweenStrings = 1 );
 #endif

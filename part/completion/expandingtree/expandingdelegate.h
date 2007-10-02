@@ -30,6 +30,7 @@ class KateCompletionWidget;
 class KateDocument;
 class KateTextLine;
 class ExpandingWidgetModel;
+class QVariant;
 
 /**
  * This is a delegate that cares, together with ExpandingWidgetModel, about embedded widgets in tree-view.
@@ -60,12 +61,17 @@ class ExpandingDelegate : public QItemDelegate
     //option can be changed
     virtual QList<QTextLayout::FormatRange> createHighlighting(const QModelIndex& index, QStyleOptionViewItem& option) const;
 
+    /**
+     * Creates a list of FormatRanges as should be returned by createHighlighting from a list of QVariants as described in the kde header ktexteditor/codecompletionmodel.h
+     * */
+    QList<QTextLayout::FormatRange> highlightingFromVariantList(const QList<QVariant>& customHighlights) const;
+    
     //Called when an item was expanded/unexpanded and the height changed
     virtual void heightChanged() const;
   
     mutable int m_cachedRow;
     mutable bool m_cachedRowSelected;
-    mutable int m_cachedColumnStart;
+    mutable int m_cachedColumnStart; //Text-offset for custom highlighting, will be applied to m_cachedHighlights(Only highlights starting after this will be used). Shoult be zero of the highlighting is not taken from kate.
     mutable QList<int> m_cachedColumnStarts;
     mutable QList<QTextLayout::FormatRange> m_cachedHighlights;
   

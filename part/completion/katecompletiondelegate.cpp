@@ -66,6 +66,7 @@ QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const
     int highlightMethod = KTextEditor::CodeCompletionModel::InternalHighlighting;
     if (highlight.canConvert(QVariant::Int))
       highlightMethod = highlight.toInt();
+    
 
     KTextEditor::Cursor completionStart = widget()->completionRange()->start();
 
@@ -96,19 +97,19 @@ QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const
       document()->highlight()->doHighlight(previousLine.data(), thisLine.data(), foldingList, ctxChanged);
     }
 
-    NormalRenderRange rr;
-    if (highlightMethod & KTextEditor::CodeCompletionModel::CustomHighlighting) {
-      QList<QVariant> customHighlights = model()->data(model()->index(index.row(), KTextEditor::CodeCompletionModel::Name, index.parent()), KTextEditor::CodeCompletionModel::CustomHighlight).toList();
+  if (highlightMethod & KTextEditor::CodeCompletionModel::CustomHighlighting)
+    return highlightingFromVariantList(model()->data(index, KTextEditor::CodeCompletionModel::CustomHighlight).toList());
 
-      for (int i = 0; i + 2 < customHighlights.count(); i += 3) {
-        if (!customHighlights[i].canConvert(QVariant::Int) || !customHighlights[i+1].canConvert(QVariant::Int) || !customHighlights[i+2].canConvert<void*>()) {
-          kWarning() << "Unable to convert triple to custom formatting.";
-          continue;
-        }
-
-        rr.addRange(new KTextEditor::Range(completionStart.start() + KTextEditor::Cursor(0, customHighlights[i].toInt()), completionStart.start() + KTextEditor::Cursor(0, customHighlights[i+1].toInt())), KTextEditor::Attribute::Ptr(static_cast<KTextEditor::Attribute*>(customHighlights[i+2].value<void*>())));
-      }
-    }
+  m_cachedColumnStart = m_cachedColumnStarts[index.column()];
   
-  return renderer()->decorationsForLine(thisLine, 0, false, &rr, option.state & QStyle::State_Selected);
+  NormalRenderRange rr;
+  QList<QTextLayout::FormatRange> ret = renderer()->decorationsForLine(thisLine, 0, false, &rr, option.state & QStyle::State_Selected);
+
+  //Remove background-colors
+  for( QList<QTextLayout::FormatRange>::iterator it = ret.begin(); it != ret.end(); ++it )
+    (*it).format.clearBackground();
+  
+  return ret;
 }
+
+

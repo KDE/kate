@@ -22,6 +22,8 @@
 #include <QtGui/QBrush>
 #include <QKeyEvent>
 
+#include <kdebug.h>
+
 #include "expandingwidgetmodel.h"
 
 ExpandingDelegate::ExpandingDelegate(ExpandingWidgetModel* model, QObject* parent)
@@ -49,6 +51,7 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
   if ((index.row() != m_cachedRow) || ( ( option.state & QStyle::State_Selected  ) == QStyle::State_Selected ) != m_cachedRowSelected) {
     m_cachedColumnStarts.clear();
     m_cachedHighlights.clear();
+    m_cachedColumnStart = 0;
 
     if (!model()->indexIsItem(index) ) {
       m_cachedRow = -1;
@@ -57,15 +60,13 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
 
     m_cachedHighlights = createHighlighting(index, option);
 
-    /*kDebug() << "Highlights for line [" << thisLine->string() << "]:";
+/*    kDebug() << "Highlights for line:";
     foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
       kDebug() << fr.start << " len " << fr.length << " format ";*/
-
+    
     m_cachedRow = index.row();
     m_cachedRowSelected = option.state & QStyle::State_Selected;
   }
-
-  m_cachedColumnStart = m_cachedColumnStarts[index.column()];
 
   QItemDelegate::paint(painter, option, index);
 }
@@ -127,11 +128,14 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
         additionalFormats.append(before);
       }
 
+      
     QTextLayout::FormatRange format;
     format.start = m_cachedHighlights[i].start - m_cachedColumnStart;
     format.length = m_cachedHighlights[i].length;
     format.format = m_cachedHighlights[i].format;
-    format.format.setBackground(QBrush(Qt::NoBrush)); //Make sure that our own background-color is preserved Maybe remove this
+
+/*    kDebug() << "using highlight for " << format.start << " len " << format.length;*/
+    
     additionalFormats.append(format);
   }
 
@@ -185,6 +189,29 @@ bool ExpandingDelegate::editorEvent ( QEvent * event, QAbstractItemModel * /*mod
   }
   
   return false;
+}
+
+QList<QTextLayout::FormatRange> ExpandingDelegate::highlightingFromVariantList(const QList<QVariant>& customHighlights) const
+{
+    QList<QTextLayout::FormatRange> ret;
+
+    for (int i = 0; i + 2 < customHighlights.count(); i += 3) {
+      if (!customHighlights[i].canConvert(QVariant::Int) || !customHighlights[i+1].canConvert(QVariant::Int) || !customHighlights[i+2].canConvert<QTextFormat>()) {
+        kWarning() << "Unable to convert triple to custom formatting.";
+        continue;
+      }
+
+      QTextLayout::FormatRange format;
+      format.start = customHighlights[i].toInt();
+      format.length = customHighlights[i+1].toInt();
+      format.format = customHighlights[i+2].value<QTextFormat>().toCharFormat();
+
+      if(!format.format.isValid())
+        kWarning() << "Format is not valid";
+
+      ret << format;
+    }
+    return ret;
 }
 
 #include "expandingdelegate.moc"

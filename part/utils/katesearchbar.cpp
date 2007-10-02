@@ -1399,6 +1399,10 @@ void KateSearchBar::onPowerModeChanged(int index, bool invokedByUserAction) {
                 selectRange(view, match2);
             }
         }
+    } else {
+        // Select current word so we can search for that the next time
+        const Cursor cursorPos = view->cursorPosition();
+        view->selectWord(cursorPos);
     }
 }
 

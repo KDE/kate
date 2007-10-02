@@ -233,7 +233,7 @@ bool KateViewObject::getOwnPropertySlot(KJS::ExecState *exec, unsigned index, KJ
 
 //BEGIN KateViewFunction
 
-KateViewFunction::KateViewFunction(ExecState */*exec*/, KateView *v, int _id, int length)
+KateViewFunction::KateViewFunction(ExecState * /*exec*/, KateView *v, int _id, int length)
 {
     m_view = v;
     id = _id;
@@ -245,7 +245,7 @@ bool KateViewFunction::implementsCall() const
     return true;
 }
 
-JSValue *KateViewFunction::callAsFunction(ExecState *exec, JSObject */*thisObj*/, const List &args)
+JSValue *KateViewFunction::callAsFunction(ExecState *exec, JSObject * /*thisObj*/, const List &args)
 {
     // calls a function repeatedly as specified by its first parameter (once
     // if not specified).
@@ -1402,7 +1402,7 @@ void RegressionTest::createMissingDirs(const QString & filename)
 	pathComponents.prepend(parentPath);
 	parentDir = QFileInfo(parentPath);
     }
-    for (uint pathno = 1; pathno < pathComponents.count(); pathno++) {
+    for (int pathno = 1; pathno < pathComponents.count(); pathno++) {
 	if (!QFileInfo(pathComponents[pathno]).exists() &&
 	    !QDir(pathComponents[pathno-1]).mkdir(pathComponents[pathno])) {
             fprintf(stderr,"Error creating directory %s\n",pathComponents[pathno].toLatin1().constData());

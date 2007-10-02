@@ -40,7 +40,7 @@ class RegressionTest;
 
 namespace KParts {
   class OpenUrlArguments;
-  class BrowserArguments;
+  struct BrowserArguments;
 }
 
 class OutputObject;

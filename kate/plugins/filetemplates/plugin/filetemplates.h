@@ -127,8 +127,7 @@ class KateFileTemplates : public Kate::Plugin
     void refreshMenu( class KMenu */*class QPopupMenu **/ );
 
   private:
-    class KActionCollection *m_actionCollection;
-    class KRecentFilesAction *m_acRecentTemplates;
+    class KAction *mActionAny;
     Q3PtrList<class TemplateInfo> m_templates;
     class KDirWatch *m_dw;
     class KUser *m_user;

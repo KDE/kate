@@ -133,22 +133,15 @@ class TemplateInfo
 
 //BEGIN KateFileTemplates
 KateFileTemplates::KateFileTemplates( QObject* parent, const QStringList &dummy)
-    : Kate::Plugin ( (Kate::Application*)parent)/*,
-      m_actionCollection( new KActionCollection( this, "template_actions", KComponentData("kate") ) )*/
+    : Kate::Plugin ( (Kate::Application*)parent)
 {
     Q_UNUSED(dummy)
 //   // create actions, so that they are shared.
 //   // We plug them into each view's menus, and update them centrally, so that
 //   // new plugins can automatically become visible in all windows.
-//   (void) new KAction ( i18n("Any File..."), 0, this,
-//                         SLOT( slotAny() ), m_actionCollection,
-//                         "file_template_any" );
-//   // recent templates
-//   m_acRecentTemplates = new KRecentFilesAction( i18n("&Use Recent"), 0, this,
-//                         SLOT(slotOpenTemplate(const KUrl &)),
-//                         m_actionCollection,
-//                         "file_templates_recent" );
-//   m_acRecentTemplates->loadEntries( KGlobal::config(), "Recent Templates" );
+   mActionAny =  new KAction ( i18n("Any File..."), this );
+   connect( mActionAny, SIGNAL(triggered(bool)), this, SLOT(slotAny()) );
+
 
   // template menu
   m_dw = new KDirWatch( this);
@@ -278,8 +271,7 @@ void KateFileTemplates::refreshMenu( KMenu *menu )
   menu->clear();
 
   // restore it
-//  m_actionCollection->action( "file_template_any" )->plug( m );
-//   m_acRecentTemplates->plug( m );
+  menu->addAction( mActionAny );
   menu->addSeparator();
 
   Q3Dict<QMenu> submenus; // ### QMAP
@@ -481,9 +473,10 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
     if (isTemplate) {
 	    KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(doc->activeView());
 	    ti->insertTemplateText(KTextEditor::Cursor(0,0),str,QMap<QString,QString>());
+    } else {
+      doc->insertText( KTextEditor::Cursor(0, 0), str );
+      view->setCursorPosition(KTextEditor::Cursor(line, col));
     }
-
-
   }
 }
 

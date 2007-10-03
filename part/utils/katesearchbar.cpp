@@ -532,6 +532,31 @@ void KateSearchBar::fixForSingleLine(Range & range, bool forwards) {
 
 
 
+void KateSearchBar::onReturnPressed() {
+    const Qt::KeyboardModifiers modifiers = QApplication::keyboardModifiers();
+    const bool shiftDown = (modifiers & Qt::ShiftModifier) != 0;
+    const bool controlDown = (modifiers & Qt::ControlModifier) != 0;
+    const bool altDown = (modifiers & Qt::AltModifier) != 0;
+
+    if (shiftDown && !controlDown && !altDown) {
+        // Shift alone, search backwards
+        if (m_powerUi != NULL) {
+            onPowerFindPrev();
+        } else {
+            onIncPrev();
+        }
+    } else {
+        // Any other combo, search forwards
+        if (m_powerUi != NULL) {
+            onPowerFindNext();
+        } else {
+            onIncNext();
+        }
+    }
+}
+
+
+
 bool KateSearchBar::onStep(bool replace, bool forwards) {
     // What to find?
     const QString pattern = (m_powerUi != NULL)
@@ -1543,7 +1568,7 @@ void KateSearchBar::onMutatePower() {
         connect(m_powerUi->replacementAdd, SIGNAL(clicked()), this, SLOT(onPowerAddToReplacementClicked()));
 
         // Make [return] in pattern line edit trigger <find next> action
-        connect(patternLineEdit, SIGNAL(returnPressed()), this, SLOT(onPowerFindNext()));
+        connect(patternLineEdit, SIGNAL(returnPressed()), this, SLOT(onReturnPressed()));
     }
 
     // Focus
@@ -1640,7 +1665,7 @@ void KateSearchBar::onMutateIncremental() {
     if (create) {
         // Slots
         connect(m_incUi->mutate, SIGNAL(clicked()), this, SLOT(onMutatePower()));
-        connect(m_incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onIncNext()));
+        connect(m_incUi->pattern, SIGNAL(returnPressed()), this, SLOT(onReturnPressed()));
         connect(m_incUi->pattern, SIGNAL(textChanged(const QString &)), this, SLOT(onIncPatternChanged(const QString &)));
         connect(m_incUi->next, SIGNAL(clicked()), this, SLOT(onIncNext()));
         connect(m_incUi->prev, SIGNAL(clicked()), this, SLOT(onIncPrev()));

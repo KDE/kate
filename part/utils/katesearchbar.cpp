@@ -536,22 +536,25 @@ void KateSearchBar::onReturnPressed() {
     const Qt::KeyboardModifiers modifiers = QApplication::keyboardModifiers();
     const bool shiftDown = (modifiers & Qt::ShiftModifier) != 0;
     const bool controlDown = (modifiers & Qt::ControlModifier) != 0;
-    const bool altDown = (modifiers & Qt::AltModifier) != 0;
 
-    if (shiftDown && !controlDown && !altDown) {
-        // Shift alone, search backwards
+    if (shiftDown) {
+        // Shift down, search backwards
         if (m_powerUi != NULL) {
             onPowerFindPrev();
         } else {
             onIncPrev();
         }
     } else {
-        // Any other combo, search forwards
+        // Shift up, search forwards
         if (m_powerUi != NULL) {
             onPowerFindNext();
         } else {
             onIncNext();
         }
+    }
+
+    if (controlDown) {
+        hideBar();
     }
 }
 

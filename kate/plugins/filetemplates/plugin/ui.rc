@@ -9,7 +9,7 @@
   <Action name="settings_manage_templates" />
  </Menu>
 </MenuBar>
-  <Toolbar name="mainToolBar"><text>Main Toolbar</text>
-  <Action name="file_new_fromtemplate" group="file_open" />
-</Toolbar>
+<!--   <Toolbar name="mainToolBar"><text>Main Toolbar</text> -->
+<!--   <Action name="file_new_fromtemplate" group="file_open" /> -->
+<!-- </Toolbar> -->
 </kpartplugin>

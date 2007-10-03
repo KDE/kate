@@ -34,7 +34,6 @@
 #include <kicondialog.h>
 #include <kiconloader.h>
 #include <kio/netaccess.h>
-#include <k3listview.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 // #include <knewstuff2/core/entry.h>
@@ -45,21 +44,18 @@
 #include <kuser.h>
 #include <kxmlguifactory.h>
 
-#include <q3buttongroup.h>
+#include <qbuttongroup.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qcursor.h>
 #include <qdatetime.h>
-#include <q3dict.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qlineedit.h>
-#include <q3popupmenu.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qregexp.h>
 #include <qstyle.h>
-#include <q3whatsthis.h>
 //Added by qt3to4:
 #include <QTextStream>
 #include <QGridLayout>
@@ -67,6 +63,9 @@
 #include <QStyle>
 #include <QApplication>
 #include <khbox.h>
+
+#include <QWizardPage>
+#include <QTreeWidget>
 
 #include <stdlib.h>
 
@@ -129,6 +128,7 @@ class TemplateInfo
     QString highlight;
     QString icon;
 };
+Q_DECLARE_METATYPE(TemplateInfo*)
 //END TemplateInfo
 
 //BEGIN KateFileTemplates
@@ -159,7 +159,7 @@ KateFileTemplates::KateFileTemplates( QObject* parent, const QStringList &dummy)
   connect( m_dw, SIGNAL(deleted(const QString&)),
            this, SLOT(updateTemplateDirs(const QString&)) );
 
-  m_templates.setAutoDelete( true );
+//   m_templates.setAutoDelete( true );
   updateTemplateDirs();
 
   m_user = 0;
@@ -256,7 +256,7 @@ QStringList KateFileTemplates::groups()
 
   for ( uint i = 0; i < m_templates.count(); i++ )
   {
-    s = m_templates.at( i )->group;
+    s = m_templates[ i ]->group;
     if ( ! l.contains( s ) )
       l.append( s );
   }
@@ -274,33 +274,33 @@ void KateFileTemplates::refreshMenu( KMenu *menu )
   menu->addAction( mActionAny );
   menu->addSeparator();
 
-  Q3Dict<QMenu> submenus; // ### QMAP
+  QMap<QString, QMenu*> submenus; // ### QMAP
   for ( uint i = 0; i < m_templates.count(); i++ )
   {
-    if ( ! submenus[ m_templates.at( i )->group ] )
+    if ( ! submenus[ m_templates[ i ]->group ] )
     {
-      QMenu *sm=menu->addMenu(m_templates.at( i )->group);
-      submenus.insert( m_templates.at( i )->group, sm );
+      QMenu *sm=menu->addMenu(m_templates[ i ]->group);
+      submenus.insert( m_templates[ i ]->group, sm );
     }
-    kDebug()<<"=== ICON: '"<<m_templates.at( i )->icon<<"'";
+//     kDebug()<<"=== ICON: '"<<m_templates[ i ].icon<<"'";
     QMenu *sm=submenus[m_templates.at(i)->group];
     QAction *a;
-    if ( ! m_templates.at( i )->icon.isEmpty() )
+    if ( ! m_templates[ i ]->icon.isEmpty() )
       a=sm->addAction(
-        KIcon( m_templates.at( i )->icon ),
-        m_templates.at( i )->tmplate);
+        KIcon( m_templates[ i ]->icon ),
+        m_templates[ i ]->tmplate);
     else
       a=sm->addAction(
-        m_templates.at( i )->tmplate);
+        m_templates[ i ]->tmplate);
     a->setData(i);
     connect(a,SIGNAL(triggered(bool)),this,SLOT(slotOpenTemplate()));
 
     // add whatsthis containing the description and author
-    QString w ( m_templates.at( i )->description );
-    if( ! m_templates.at( i )->author.isEmpty() )
+    QString w ( m_templates[ i ]->description );
+    if( ! m_templates[ i ]->author.isEmpty() )
     {
       w.append( "<p>Author: " );
-      w.append( m_templates.at( i )->author );
+      w.append( m_templates[ i ]->author );
     }
     if ( ! w.isEmpty() )
       w.prepend( "<p>" );
@@ -602,122 +602,123 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
   KTextEditor::Document *doc = kft->application()->activeMainWindow()->activeView()->document();
   if ( doc )
   {
-    
-      Q3PopupMenu *m = new Q3PopupMenu( btnHighlight );
-      connect( m, SIGNAL( activated( int ) ), this, SLOT( slotHlSet( int ) ) );
-      Q3Dict<Q3PopupMenu> submenus;
-#if 0 // fixme
-      for ( uint n = 0; n < hi->hlModeCount(); n++ )
+    QStringList highlightModes = doc->highlightingModes();
+      QMenu *m = new QMenu( btnHighlight );
+      connect( m, SIGNAL( triggered( QAction* ) ), this, SLOT( slotHlSet( QAction* ) ) );
+      QMap<QString, QMenu*> submenus;
+      for ( uint n = 0; n < highlightModes.count(); n++ )
       {
-        // create the sub menu if it does not exist
-        QString text( hi->hlModeSectionName( n ) );
-        if ( ! text.isEmpty() )
-        {
-          if ( ! submenus[ text ] )
-          {
-            Q3PopupMenu *sm = new Q3PopupMenu();
-            submenus.insert( text, sm );
-            connect( sm, SIGNAL( activated( int ) ), this, SLOT( slotHlSet( int ) ) );
-            m->insertItem( text, sm );
-          }
-
-          // create the item
-          submenus[ text ]->insertItem( hi->hlModeName( n ), n );
-        }
-        else
-          m->insertItem( hi->hlModeName( n ), n );
+// ### I can't access the hl groups through the current interfaces :-(
+//         // create the sub menu if it does not exist
+//         QString text( highlightModes[ i ] );
+//         if ( ! text.isEmpty() )
+//         {
+//           if ( ! submenus[ text ] )
+//           {
+//             QMenu *sm = m.addMenu( text );
+//             connect( sm, SIGNAL( triggered( QAction* ) ), this, SLOT( slotHlSet( QAction* ) ) );
+//             submenus->insert( text, sm );
+//           }
+//           // create the item
+//           QAction *a = submenus[ text ]->addAction( hi->hlModeName( n ) );
+//           a->setData( n );
+//         }
+//         else {
+          QAction *a = m->addAction( highlightModes[ n ] );
+          a->setData( n );
+//         }
       }
-#endif
       btnHighlight->setPopup( m );
   }
 }
 
-void KateTemplateInfoWidget::slotHlSet( int id )
+void KateTemplateInfoWidget::slotHlSet( QAction *action )
 {
   KTextEditor::Document *doc=kft->application()->activeMainWindow()->activeView()->document();
-  /*if (hi)
-  btnHighlight->setText(
-    hi->hlModeName( id ) );*/ // fixme
+  if (doc)
+    btnHighlight->setText( action->text() ); // fixme
 }
 //END KateTemplateInfoWidget
 
 //BEGIN KateTemplateWizard
 // A simple wizard to help create a new template :-)
 KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft )
-  : K3Wizard( parent ),
+  : QWizard( parent ),
     kft( kft )
 {
-  // Hide the help button for now
-  helpButton()->hide();
-
   // 1) Optionally chose a file or existing template to start from
-  QWidget *page = new QWidget( this );
+  QWizardPage *page = new QWizardPage;
+  page->setTitle("Template Origin");
+  page->setSubTitle("If you want to base this "
+    "template on an existing file or template, select the appropriate option "
+    "below.");
+    
+  addPage( page );
+
   QGridLayout *glo = new QGridLayout( page );
   //lo->setAutoAdd( true );
   glo->setSpacing( KDialog::spacingHint() );
 
-  QLabel *l1 = new QLabel( i18n("<p>If you want to base this "
-    "template on an existing file or template, select the appropriate option "
-    "below.</p>"), page );
-  l1->setWordWrap( true );
-  glo->addMultiCellWidget( l1, 1, 1, 1, 2);
-  bgOrigin = new Q3ButtonGroup( page );
-  bgOrigin->hide();
-  bgOrigin->setRadioButtonExclusive( true );
+  bgOrigin = new QButtonGroup( page );
+//   bgOrigin->hide();
+  bgOrigin->setExclusive( true );
 
   QRadioButton *rb = new QRadioButton( i18n("Start with an &empty document" ), page );
-  bgOrigin->insert( rb, 1 );
-  glo->addMultiCellWidget( rb, 2, 2, 1, 2 );
+  bgOrigin->addButton( rb, 1 );
+  glo->addWidget( rb, 1, 1, 1, 2 );
   rb->setChecked( true );
 
   rb = new QRadioButton( i18n("Use an existing file:"), page );
-  bgOrigin->insert( rb, 2 );
-  glo->addMultiCellWidget( rb, 3, 3, 1, 2 );
+  bgOrigin->addButton( rb, 2 );
+  glo->addWidget( rb, 2, 1, 1, 2 );
 #ifdef __GNUC__
 #warning 0 could be wrong here: it crashes with Plastik
 #endif
   // int marg = rb->style()->subElementRect( QStyle::SE_RadioButtonIndicator, 0,rb ).width();
   int marg = KDialog::marginHint();
-  glo->addItem( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 4, 1 );
+  glo->addItem( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 3, 1 );
   urOrigin = new KUrlRequester( page );
-  glo->addWidget( urOrigin, 4, 2 );
+  glo->addWidget( urOrigin, 3, 2 );
 
   rb = new QRadioButton( i18n("Use an existing template:"), page );
-  bgOrigin->insert( rb, 3 );
-  glo->addMultiCellWidget( rb, 5, 5, 1, 2 );
-  glo->addItem( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 6, 1 );
+  bgOrigin->addButton( rb, 3 );
+  glo->addWidget( rb, 4, 1, 1, 2 );
+  glo->addItem( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 5, 1 );
   btnTmpl = new QPushButton( page );
-  glo->addWidget( btnTmpl, 6, 2 );
-  Q3PopupMenu *m = new Q3PopupMenu( btnTmpl );
-  connect( m, SIGNAL( activated( int ) ), this, SLOT( slotTmplateSet( int ) ) );
+  glo->addWidget( btnTmpl, 5, 2 );
+  QMenu *m = new QMenu( btnTmpl );
+  connect( m, SIGNAL( triggered( QAction* ) ), this, SLOT( slotTmplateSet( QAction* ) ) );
 
-  Q3Dict<Q3PopupMenu> submenus;
+  QMap<QString, QMenu*> submenus;
   for ( uint i = 0; i < kft->templates().count(); i++ )
   {
-    if ( ! submenus[ kft->templates().at( i )->group ] )
+    if ( ! submenus[ kft->templates()[ i ]->group ] )
     {
-      Q3PopupMenu *sm = new Q3PopupMenu();
-      connect( sm, SIGNAL( activated( int ) ), this, SLOT( slotTmplateSet( int ) ) );
-      submenus.insert( kft->templates().at( i )->group, sm );
-      m->insertItem( kft->templates().at( i )->group, sm );
+      QMenu *sm = m->addMenu( kft->templates()[ i ]->group );
+      connect( sm, SIGNAL( triggered( QAction* ) ), this, SLOT( slotTmplateSet( QAction* ) ) );
+      submenus.insert( kft->templates()[ i ]->group, sm );
     }
 
-    submenus[kft->templates().at( i )->group]->insertItem(
-        kft->templates().at( i )->tmplate, i );
+    QAction *a = submenus[kft->templates()[ i ]->group]->addAction(
+        kft->templates()[ i ]->tmplate );
+    a->setData( i );
   }
   btnTmpl->setPopup( m );
 
-  connect( bgOrigin, SIGNAL(clicked(int)), this, SLOT(slotStateChanged(int)) );
-  connect( urOrigin, SIGNAL(textChanged(const QString&)), this, SLOT(slotStateChanged(const QString&)) );
+  connect( bgOrigin, SIGNAL(buttonClicked(int)), this, SLOT(slotStateChanged()) );
+  connect( urOrigin, SIGNAL(textChanged(const QString&)), this, SLOT(slotStateChanged()) );
 
-  glo->addMultiCell( new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding ), 7, 7, 1, 2 );
+  glo->addItem( new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding ), 7, 7, 1, 2 );
 
-  addPage( page, i18n("Choose Template Origin") );
-  kDebug()<<"=== Adding template origin page at "<<page;
   // 2) edit the template properties
-  kti = new KateTemplateInfoWidget( this, 0, kft );
-  kDebug()<<"=== Adding template info page at "<<kti;
-  addPage( kti, i18n("Edit Template Properties") );
+  page = new QWizardPage;
+  page->setTitle( i18n("Edit Template Properties") );
+  page->setSubTitle( i18n("Specify the main properties of your plugin. You can leave fields empty for which you have no meaningful value.") );
+  glo = new QGridLayout( page );
+  kti = new KateTemplateInfoWidget( page, 0, kft );
+  glo->addWidget( kti, 1, 1 );
+  addPage( page );
+  
   // get liekly values from KTE
   QMap<QString, QString> map;
   map[ "fullname" ] = "";
@@ -733,22 +734,20 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
 
   // 3) chose a location - either the template directory (default) or
   // a custom location
-  page = new QWidget( this );
+  page = new QWizardPage;
+  page->setTitle( i18n("Choose Location") );
+  page->setSubTitle( i18n("<p>Choose a location for the "
+    "template. If you store it in the template directory, it will "
+    "automatically be added to the template menu.</p>") );
   glo = new QGridLayout( page, 7, 2 );
   glo->setSpacing( KDialog::spacingHint() );
 
-  QLabel *l2 = new QLabel( i18n("<p>Choose a location for the "
-    "template. If you store it in the template directory, it will "
-    "automatically be added to the template menu.</p>"), page );
-  l2->setWordWrap( true );
-  glo->addMultiCellWidget( l2, 1, 1, 1, 2);
-
-  bgLocation = new Q3ButtonGroup( page );
-  bgLocation->hide();
-  bgLocation->setRadioButtonExclusive( true );
+  bgLocation = new QButtonGroup( page );
+//   bgLocation->hide();
+  bgLocation->setExclusive( true );
 
   rb = new QRadioButton( i18n("Template directory"), page );
-  bgLocation->insert( rb, 1 );
+  bgLocation->addButton( rb, 1 );
   glo->addMultiCellWidget( rb, 2, 2, 1, 2 );
   rb->setChecked( true );
 
@@ -760,31 +759,29 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   glo->addWidget( leTemplateFileName, 4, 2 );
 
   rb = new QRadioButton( i18n("Custom location:"), page );
-  bgLocation->insert( rb, 2 );
+  bgLocation->addButton( rb, 2 );
   glo->addMultiCellWidget( rb, 5, 5, 1, 2 );
 
   glo->addItem( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 6, 1 );
   urLocation = new KUrlRequester( page );
   glo->addWidget( urLocation, 6, 2 );
 
-  connect( bgLocation, SIGNAL(clicked(int)), this, SLOT(slotStateChanged(int)) );
-  connect( urLocation, SIGNAL(textChanged(const QString&)), this, SLOT(slotStateChanged(const QString&)) );
-  connect( leTemplateFileName, SIGNAL(textChanged(const QString &)), this, SLOT(slotStateChanged(const QString &)) );
+  connect( bgLocation, SIGNAL(buttonClicked(int)), this, SLOT(slotStateChanged()) );
+  connect( urLocation, SIGNAL(textChanged(const QString&)), this, SLOT(slotStateChanged()) );
+  connect( leTemplateFileName, SIGNAL(textChanged(const QString &)), this, SLOT(slotStateChanged()) );
 
   glo->addMultiCell( new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding ), 7, 7, 1, 2 );
 
-  addPage( page, i18n("Choose Location") );
-  kDebug()<<"=== Adding location page at "<<page;
+  addPage( page );
   // 4) Should we edit the text to add some macros, replacing username etc?
   // This is *only* relevant if the origin is a non-template file.
-  page = new QWidget( this );
+  page = new QWizardPage;
+  page->setTitle(  i18n("Autoreplace Macros") );
+  page->setSubTitle( i18n( "You can replace certain strings in the text with "
+      "template macros. If any of the data below is incorrect or missing, "
+      "edit the data in the personal kaddressbook entry.") );
   QVBoxLayout *lo = new QVBoxLayout( page );
   lo->setSpacing( KDialog::spacingHint() );
-
-  lo->addWidget(
-    new QLabel( i18n( "<p>You can replace certain strings in the text with "
-      "template macros.</p><p>If any of the data below is incorrect or missing, "
-      "edit the data in the KDE email information.</p>"), page ) );
 
   cbRRealname = new QCheckBox( i18n("Replace full name '%1' with the "
     "'%{fullname}' macro", sFullname ), page );
@@ -798,34 +795,30 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
 
   lo->addStretch();
 
-  addPage( page, i18n("Autoreplace Macros") );
-  kDebug()<<"=== Adding autoreplace page at "<<page;
+  addPage( page );
+
   // 5) Display a summary
-  page = new QWidget( this );
+  page = new QWizardPage;
+  page->setTitle( i18n("Create Template") );
+  page->setSubTitle( i18n("The template will now be created and saved to the chosen "
+      "location. To position the cursor put the string ${|} where you "
+      "want it in files created from the template.") );
   lo = new QVBoxLayout( page );
   lo->setSpacing( KDialog::spacingHint() );
 
-  QString s = i18n("<p>The template will now be created and saved to the chosen "
-      "location. To position the cursor put a caret ('^') character where you "
-      "want it in files created from the template.</p>");
-  QLabel *l3 = new QLabel( s, page );
-  l3->setWordWrap( true );
-
-  lo->addWidget( l3 );
-
-  cbOpenTemplate = new QCheckBox( i18n("Open the template for editing"), page );
+  cbOpenTemplate = new QCheckBox( i18n("Open the template for editing in Kate"), page );
 
   lo->addWidget( cbOpenTemplate );
 
   lo->addStretch();
 
-  addPage( page, i18n("Create Template") );
-  kDebug()<<"=== Adding summary page at ";
-  connect( this, SIGNAL(selected(const QString&)), this, SLOT(slotStateChanged(const QString&)) );
+  addPage( page );
+   connect( this, SIGNAL(currentIdChanged(int)), this, SLOT(slotStateChanged()) );
 }
 
-void KateTemplateWizard::slotTmplateSet( int idx )
+void KateTemplateWizard::slotTmplateSet( QAction *action )
 {
+  int idx = action->data().toInt();
   btnTmpl->setText( kft->templates().at( idx )->tmplate );
   selectedTemplateIdx = idx;
   slotStateChanged();
@@ -846,20 +839,21 @@ void KateTemplateWizard::slotTmplateSet( int idx )
 void KateTemplateWizard::slotStateChanged()
 {
   bool sane( true );
-  switch ( indexOf( currentPage() ) )
+  switch ( currentId() )
   {
     case 0: // origin
     {
-      int _t = bgOrigin->selectedId();
+      int _t = bgOrigin->checkedId();
+      kDebug()<<"selected button:"<<_t;
       sane = ( _t == 1 ||
                ( _t == 2 && ! urOrigin->url().isEmpty() ) ||
                ( _t == 3 && ! btnTmpl->text().isEmpty() ) );
-      setAppropriate( page(3), _t == 2 );
+//       setAppropriate( page(3), _t == 2 );
     }
     break;
     case 1: // template properties
       // if origin is a existing template, let us try setting some of the properties
-      if ( bgOrigin->selectedId() == 3 )
+      if ( bgOrigin->checkedId() == 3 )
       {
         TemplateInfo *info = kft->templateInfo( selectedTemplateIdx );
         kti->cmbGroup->setCurrentText( info->group );
@@ -870,20 +864,29 @@ void KateTemplateWizard::slotStateChanged()
       // If there is a template name, and the user did not enter text into
       // the template file name entry, we will construct the name from the
       // template name.
-      int _t = bgLocation->selectedId();
+      int _t = bgLocation->checkedId();
       sane = ( ( _t == 1 && (! leTemplateFileName->text().isEmpty() || ! kti->leTemplate->text().isEmpty() ) ) ||
           ( _t == 2 && ! urLocation->url().isEmpty() ) );
     }
     break;
-    case 4: // summary
-      setFinishEnabled( currentPage(), true );
-    break;
     default:
     break;
   }
-  nextButton()->setEnabled( sane );
+  kdDebug()<<"enabling 'next' button:"<<sane;
+  button( QWizard::NextButton )->setEnabled( sane );
 }
 
+int KateTemplateWizard::nextId()
+{
+  switch ( currentId() )
+  {
+//     case 0:
+//       if ( bgOrigin->checkedId() == 2 ) return 2;
+//       else return 1;
+    default:
+      return QWizard::nextId();
+  }
+}
 /**
  * This will create the new template based on the collected information.
  */
@@ -894,7 +897,7 @@ void KateTemplateWizard::accept()
 
   // check that we can combine a valid URL
   KUrl templateUrl;
-  if ( bgLocation->selectedId() == 1 )
+  if ( bgLocation->checkedId() == 1 )
   {
     QString suggestion;
     if ( ! leTemplateFileName->text().isEmpty() )
@@ -927,7 +930,7 @@ void KateTemplateWizard::accept()
     templateUrl = urLocation->url();
   }
 
-  Q3Wizard::accept();
+  QWizard::accept();
   // The following must be done:
   // 1) add the collected template information to the top
   uint ln = 0;
@@ -952,7 +955,7 @@ void KateTemplateWizard::accept()
     str += "\nkatetemplate: Description=" + s;
 
   //   2) If a file or template is chosen, open that. and fill the data into a string
-  int toid = bgOrigin->selectedId(); // 1 = blank, 2 = file, 3 = template
+  int toid = bgOrigin->checkedId(); // 1 = blank, 2 = file, 3 = template
   kDebug()<<"=== create template: origin type "<<toid;
   if ( toid > 1 )
   {
@@ -1062,38 +1065,6 @@ void KateTemplateWizard::accept()
 }
 //END KateTemplateWizard
 
-//BEGIN KateTemplateItem
-class KateTemplateItem : public K3ListViewItem
-{
-  public:
-    KateTemplateItem( K3ListViewItem *parent, TemplateInfo *templateinfo )
-      : K3ListViewItem( parent, templateinfo->tmplate ), templateinfo( templateinfo )
-    {
-    }
-    TemplateInfo *templateinfo;
-};
-//END KateTemplateItem
-
-//BEGIN KFTNewStuff
-#if 0
-class KFTNewStuff : public KNewStuff {
-  public:
-    KFTNewStuff( const QString &type, QWidget *parent=0 ) : KNewStuff( type, parent ), m_win( parent ) {};
-    ~KFTNewStuff() {};
-    bool install( const QString &/*filename*/ ) { return true; }
-    bool createUploadFile( const QString &/*filename*/ ) { return false; }
-    QString downloadDestination( KNS::Entry *entry )
-    {
-      QString dir = KGlobal::dirs()->saveLocation( "data", "kate/plugins/katefiletemplates/templates/", true );
-      return dir.append( entry->payload().fileName() );
-    }
-
-  private:
-    QWidget *m_win;
-};
-#endif
-//END KTNewStuff
-
 //BEGIN KateTemplateManager
 KateTemplateManager::KateTemplateManager( KateFileTemplates *kft, QWidget *parent, const char *name )
   : QWidget( parent, name )
@@ -1101,10 +1072,11 @@ KateTemplateManager::KateTemplateManager( KateFileTemplates *kft, QWidget *paren
 {
   QGridLayout *lo = new QGridLayout( this, 2, 6 );
   lo->setSpacing( KDialog::spacingHint() );
-  lvTemplates = new K3ListView( this );
-  lvTemplates->addColumn( i18n("Template") );
+  lvTemplates = new QTreeWidget( this );
+  lvTemplates->setHeaderLabel( i18n("Template") );
+  lvTemplates->setSelectionMode( QAbstractItemView::SingleSelection );
   lo->addMultiCellWidget( lvTemplates, 1, 1, 1, 6 );
-  connect( lvTemplates, SIGNAL(selectionChanged()), this, SLOT(slotUpdateState()) );
+  connect( lvTemplates, SIGNAL(itemSelectionChanged()), this, SLOT(slotUpdateState()) );
 
   btnNew = new QPushButton( i18nc("@action:button Template", "New..."), this );
   connect( btnNew, SIGNAL(clicked()), kft, SLOT(slotCreateTemplate()) );
@@ -1138,19 +1110,23 @@ void KateTemplateManager::apply()
   // which case a link .filename should be put in the writable directory.
 }
 
+#define KATETEMPLATEITEM 1001
 void KateTemplateManager::reload()
 {
   lvTemplates->clear();
 
-  Q3Dict<K3ListViewItem> groupitems; // FIXME QMAP
+  QMap<QString, QTreeWidgetItem*> groupitems;
   for ( uint i = 0; i < kft->templates().count(); i++ )
   {
-    if ( ! groupitems[ kft->templates().at( i )->group ] )
+    if ( ! groupitems[ kft->templates()[ i ]->group ] )
     {
-      groupitems.insert( kft->templates().at( i )->group , new K3ListViewItem( lvTemplates, kft->templates().at( i )->group ) );
-      groupitems[ kft->templates().at( i )->group ]->setOpen( true );
+      groupitems.insert( kft->templates()[ i ]->group , new QTreeWidgetItem( lvTemplates ) );
+      groupitems[ kft->templates()[ i ]->group ]->setText( 0, kft->templates()[ i ]->group );
+       groupitems[ kft->templates()[ i ]->group ]->setExpanded( true );
     }
-    new KateTemplateItem( groupitems[ kft->templates().at( i )->group ], kft->templates().at( i ) );
+    QTreeWidgetItem *item = new QTreeWidgetItem( groupitems[ kft->templates()[ i ]->group ], KATETEMPLATEITEM );
+    item->setText( 0, kft->templates()[ i ]->tmplate );
+    item->setData( 0, Qt::UserRole, QVariant::fromValue( kft->templates()[ i ] ) );
   }
 }
 
@@ -1158,9 +1134,8 @@ void KateTemplateManager::slotUpdateState()
 {
   // enable/disable buttons wrt the current item in the list view.
   // we are in single selection mode, so currentItem() is selected.
-  bool cool = false;
-  if ( dynamic_cast<KateTemplateItem*>( lvTemplates->currentItem() ) )
-    cool = true;
+  QTreeWidgetItem *item = lvTemplates->currentItem();
+  bool cool = item && item->type() == KATETEMPLATEITEM;
 
   btnEdit->setEnabled( cool );
   btnRemove->setEnabled( cool );
@@ -1171,21 +1146,28 @@ void KateTemplateManager::slotEditTemplate()
 {
   // open the template file in kate
   // TODO show the properties dialog, and modify the file if the data was changed.
-  KateTemplateItem *item = dynamic_cast<KateTemplateItem*>( lvTemplates->currentItem() );
-  if ( item )
-    kft->application()->activeMainWindow()->openUrl( item->templateinfo->filename );
+  QList<QTreeWidgetItem*> selection = lvTemplates->selectedItems();
+  
+   if ( selection.count() ) {
+     QTreeWidgetItem *item = selection[ 0 ];
+     if ( item->type() != KATETEMPLATEITEM )
+       return;
+     TemplateInfo *info = item->data(0, Qt::UserRole ).value<TemplateInfo*>();
+     kft->application()->activeMainWindow()->openUrl( info->filename );
+   }
 }
 
 void KateTemplateManager::slotRemoveTemplate()
 {
-  KateTemplateItem *item = dynamic_cast<KateTemplateItem*>( lvTemplates->currentItem() );
-  if ( item )
+  QTreeWidgetItem *item = lvTemplates->selectedItems().first();
+  if ( item && item->type() == KATETEMPLATEITEM )
   {
     // Find all instances of filename, and try to delete them.
     // If it fails (there was a global, unwritable instance), add to a
     // list of removed templates
     KSharedConfig::Ptr config = KGlobal::config();
-    QString fname = item->templateinfo->filename.section( '/', -1 );
+    TemplateInfo *info =  item->data(0, Qt::UserRole).value<TemplateInfo*>();
+    QString fname = info->filename.section( '/', -1 );
     QStringList templates = KGlobal::dirs()->findAllResources(
         "data", fname.prepend( "kate/plugins/katefiletemplates/templates/" ),KStandardDirs::NoDuplicates);
     int failed = 0;
@@ -1210,8 +1192,8 @@ void KateTemplateManager::slotRemoveTemplate()
     // If we removed any files, we should delete a KNewStuff key
     // for this template, so the template is installable again.
     // ### This assumes that the knewstuff name is similar to the template name.
-    kDebug()<<"trying to remove knewstuff key '"<<item->templateinfo->tmplate<<"'";
-    config->group("KNewStuffStatus").deleteEntry( item->templateinfo->tmplate );
+    kDebug()<<"trying to remove knewstuff key '"<<info->tmplate<<"'";
+    config->group("KNewStuffStatus").deleteEntry( info->tmplate );
 
     kft->updateTemplateDirs();
     reload();
@@ -1231,17 +1213,17 @@ void KateTemplateManager::slotUpload()
 #ifdef __GNUC__
 #warning ERROR HANDLING
 #endif
-  KateTemplateItem *item = dynamic_cast<KateTemplateItem*>( lvTemplates->currentItem() );
-  if (!item) return;
-  KNS::Engine *engine=new KNS::Engine(this);
-  bool success=engine->init("katefiletemplates.knsrc");
-  if (!success)
-  {
-    delete engine;
-    return;
-  }
-  engine->uploadDialogModal(item->templateinfo->filename);
-  delete engine;
+//   KateTemplateItem *item = dynamic_cast<KateTemplateItem*>( lvTemplates->currentItem() );
+//   if (!item) return;
+//   KNS::Engine *engine=new KNS::Engine(this);
+//   bool success=engine->init("katefiletemplates.knsrc");
+//   if (!success)
+//   {
+//     delete engine;
+//     return;
+//   }
+//   engine->uploadDialogModal(item->templateinfo->filename);
+//   delete engine;
 
 }
 

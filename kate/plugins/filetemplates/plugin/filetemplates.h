@@ -31,9 +31,9 @@
 #include <klibloader.h>
 #include <klocale.h>
 #include <kurl.h>
-#include <k3wizard.h>
 
-#include <q3ptrlist.h>
+#include <qlist.h>
+#include <qwizard.h>
 
 #include <kxmlguiclient.h>
 
@@ -75,7 +75,7 @@ class KateFileTemplates : public Kate::Plugin
     /**
      * @return a pointer to the templateinfo collection
      */
-    Q3PtrList<class TemplateInfo> templates() { return m_templates; }
+    QList<class TemplateInfo*> templates() { return m_templates; }
 
     /**
      * @return a pointer to the templateInfo for the template at @p index
@@ -128,7 +128,7 @@ class KateFileTemplates : public Kate::Plugin
 
   private:
     class KAction *mActionAny;
-    Q3PtrList<class TemplateInfo> m_templates;
+    QList<class TemplateInfo*> m_templates;
     class KDirWatch *m_dw;
     class KUser *m_user;
     class KConfig *m_emailstuff;
@@ -155,7 +155,7 @@ class KateTemplateInfoWidget : public QWidget
     class KIconButton *ibIcon;
 
   private slots:
-    void slotHlSet( int id );
+    void slotHlSet( class QAction *action );
 
   private:
     KateFileTemplates *kft;
@@ -173,7 +173,7 @@ class KateTemplateInfoWidget : public QWidget
   * If so chosen, the file is saved to either the template directory, or a location
   * set by the user.
 */
-class KateTemplateWizard : public K3Wizard
+class KateTemplateWizard : public QWizard
 {
   friend class KateFileTemplates;
   Q_OBJECT
@@ -181,11 +181,13 @@ class KateTemplateWizard : public K3Wizard
     KateTemplateWizard( QWidget* parent, KateFileTemplates *ktf );
     ~KateTemplateWizard() {}
 
+   virtual int nextId();
+
   public slots:
     void accept();
 
   private slots:
-    void slotTmplateSet( int );
+    void slotTmplateSet( class QAction* );
     void slotStateChanged();
     void slotStateChanged( int ) { slotStateChanged(); }
     void slotStateChanged( const QString& ) { slotStateChanged(); }
@@ -195,13 +197,13 @@ class KateTemplateWizard : public K3Wizard
     KateTemplateInfoWidget *kti;
 
     // origin page
-    class Q3ButtonGroup *bgOrigin;
+    class QButtonGroup *bgOrigin;
     class KUrlRequester *urOrigin;
     class QPushButton *btnTmpl;
     uint selectedTemplateIdx;
 
     // location page
-    class Q3ButtonGroup *bgLocation;
+    class QButtonGroup *bgLocation;
     class KUrlRequester *urLocation;
     class QLineEdit *leTemplateFileName;
 
@@ -233,10 +235,10 @@ class KateTemplateManager : public QWidget
     void slotRemoveTemplate();
 
   private:
-    class K3ListView *lvTemplates;
+    class QTreeWidget *lvTemplates;
     class QPushButton *btnNew, *btnEdit, *btnRemove, *btnDownload, *btnUpload;
     KateFileTemplates *kft;
-    Q3PtrList<class TemplateInfo> *remove;
+//     QList<class TemplateInfo> *remove;
 
 };
 

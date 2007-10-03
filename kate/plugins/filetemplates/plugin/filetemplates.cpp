@@ -254,7 +254,7 @@ QStringList KateFileTemplates::groups()
   QStringList l;
   QString s;
 
-  for ( uint i = 0; i < m_templates.count(); i++ )
+  for ( int i = 0; i < m_templates.count(); i++ )
   {
     s = m_templates[ i ]->group;
     if ( ! l.contains( s ) )
@@ -275,7 +275,7 @@ void KateFileTemplates::refreshMenu( KMenu *menu )
   menu->addSeparator();
 
   QMap<QString, QMenu*> submenus; // ### QMAP
-  for ( uint i = 0; i < m_templates.count(); i++ )
+  for ( int i = 0; i < m_templates.count(); i++ )
   {
     if ( ! submenus[ m_templates[ i ]->group ] )
     {
@@ -336,7 +336,7 @@ void KateFileTemplates::slotOpenTemplate()
 {
   int index=((QAction*)sender())->data().toInt();
   kDebug()<<"slotOpenTemplate( "<<index<<" )";
-  if ( index < 0 || (uint)index > m_templates.count() ) return;
+  if ( index < 0 || index > m_templates.count() ) return;
   slotOpenTemplate( KUrl( m_templates.at( index )->filename ) );
 }
 
@@ -425,9 +425,7 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
     if ( ! isTemplate )
     {
       int d = filename.findRev('.');
-#ifdef __GNUC__
-#warning i18n: Hack to have localized number later...
-#endif
+// ### warning i18n: Hack to have localized number later...
       docname = i18n("Untitled %1", QString("%1"));
       if ( d > 0 ) docname += filename.mid( d );
     } else if ( docname.isEmpty() )
@@ -449,14 +447,10 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
         count++;
     }
     if ( docname.contains( "%1" ) )
-#ifdef __GNUC__
-      #warning i18n: ...localized number here
-#endif
+//### warning i18n: ...localized number here
 
       docname = docname.arg( i18n("%1", count) );
-#ifdef __GNUC__
-#warning FIXME, setDocName is gone
-#endif
+//### warning FIXME, setDocName is gone
 #if 0
     doc->setDocName( docname );
 #endif
@@ -606,7 +600,7 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
       QMenu *m = new QMenu( btnHighlight );
       connect( m, SIGNAL( triggered( QAction* ) ), this, SLOT( slotHlSet( QAction* ) ) );
       QMap<QString, QMenu*> submenus;
-      for ( uint n = 0; n < highlightModes.count(); n++ )
+      for ( int n = 0; n < highlightModes.count(); n++ )
       {
 // ### I can't access the hl groups through the current interfaces :-(
 //         // create the sub menu if it does not exist
@@ -671,9 +665,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   rb = new QRadioButton( i18n("Use an existing file:"), page );
   bgOrigin->addButton( rb, 2 );
   glo->addWidget( rb, 2, 1, 1, 2 );
-#ifdef __GNUC__
-#warning 0 could be wrong here: it crashes with Plastik
-#endif
+// ### warning 0 could be wrong here: it crashes with Plastik
   // int marg = rb->style()->subElementRect( QStyle::SE_RadioButtonIndicator, 0,rb ).width();
   int marg = KDialog::marginHint();
   glo->addItem( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 3, 1 );
@@ -690,7 +682,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   connect( m, SIGNAL( triggered( QAction* ) ), this, SLOT( slotTmplateSet( QAction* ) ) );
 
   QMap<QString, QMenu*> submenus;
-  for ( uint i = 0; i < kft->templates().count(); i++ )
+  for ( int i = 0; i < kft->templates().count(); i++ )
   {
     if ( ! submenus[ kft->templates()[ i ]->group ] )
     {
@@ -872,7 +864,7 @@ void KateTemplateWizard::slotStateChanged()
     default:
     break;
   }
-  kdDebug()<<"enabling 'next' button:"<<sane;
+  kDebug()<<"enabling 'next' button:"<<sane;
   button( QWizard::NextButton )->setEnabled( sane );
 }
 
@@ -1116,7 +1108,7 @@ void KateTemplateManager::reload()
   lvTemplates->clear();
 
   QMap<QString, QTreeWidgetItem*> groupitems;
-  for ( uint i = 0; i < kft->templates().count(); i++ )
+  for ( int i = 0; i < kft->templates().count(); i++ )
   {
     if ( ! groupitems[ kft->templates()[ i ]->group ] )
     {
@@ -1210,9 +1202,7 @@ void KateTemplateManager::slotUpload()
 //     KFTNewStuff *ns = new KFTNewStuff( "katefiletemplates/template", this );
 //     ns->upload( item->templateinfo->filename, QString() );
 //   }
-#ifdef __GNUC__
-#warning ERROR HANDLING
-#endif
+//### warning ERROR HANDLING
 //   KateTemplateItem *item = dynamic_cast<KateTemplateItem*>( lvTemplates->currentItem() );
 //   if (!item) return;
 //   KNS::Engine *engine=new KNS::Engine(this);
@@ -1232,9 +1222,7 @@ void KateTemplateManager::slotDownload()
 {
 //   KFTNewStuff *ns = new KFTNewStuff( "katefiletemplates/template", this );
 //   ns->download();
-#ifdef __GNUC__
-#warning ERROR HANDLING
-#endif
+//### warning ERROR HANDLING
   KNS::Engine *engine=new KNS::Engine(this);
   bool success=engine->init("katefiletemplates.knsrc");
   if (!success)

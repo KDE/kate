@@ -100,9 +100,14 @@ KateFileSelectorPluginView::~KateFileSelectorPluginView ()
   delete m_fileSelector->parentWidget();
 }
 
-void KateFileSelectorPluginView::readSessionConfig(KConfig* config, const QString& group)
+void KateFileSelectorPluginView::readSessionConfig(KConfigBase* config, const QString& group)
 {
   m_fileSelector->readConfig(config, group);
+}
+
+void KateFileSelectorPluginView::writeSessionConfig(KConfigBase* config, const QString& group)
+{
+  m_fileSelector->writeConfig(config, group);
 }
 
 uint KateFileSelectorPlugin::configPages() const
@@ -154,7 +159,7 @@ KateFileSelectorToolBar::~KateFileSelectorToolBar()
 
 //BEGIN Constructor/destructor
 
-::KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
+KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
                                       QWidget * parent, const char * name )
     : KVBox (parent),
     mainwin(mainWindow),
@@ -259,15 +264,15 @@ KateFileSelectorToolBar::~KateFileSelectorToolBar()
   connect(dir, SIGNAL(fileSelected(const KFileItem&)), this, SLOT(fileSelected(const KFileItem&)));
 }
 
-::KateFileSelector::~KateFileSelector()
+KateFileSelector::~KateFileSelector()
 {}
 //END Constroctor/Destrctor
 
 //BEGIN Public Methods
 
-void ::KateFileSelector::readConfig(KConfig *config, const QString & name)
+void ::KateFileSelector::readConfig(KConfigBase *config, const QString & name)
 {
-  kDebug() << "===================================================================::KateFileSelector::readConfig";
+  kDebug() << k_funcinfo;
   KConfigGroup cgView(config, name + ":view");
   dir->setViewConfig(cgView );
 
@@ -337,7 +342,7 @@ void ::KateFileSelector::setupToolbar( QStringList actions )
   }
 }
 
-void ::KateFileSelector::writeConfig(KConfig *config, const QString & name)
+void ::KateFileSelector::writeConfig(KConfigBase *config, const QString & name)
 {
   KConfigGroup cgDir(config, name + ":dir");
   dir->writeConfig(cgDir);

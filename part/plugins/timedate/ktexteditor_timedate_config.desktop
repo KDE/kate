@@ -9,6 +9,7 @@ X-KDE-ParentComponents=ktexteditortimedate
 
 Name=Format of Time & Date insertion
 Name[ca]=Format d'inserció de la data i l'hora
+Name[cs]=Formát vložení data a času
 Name[de]=Format für das Einfügen von Uhrzeit & Datum
 Name[el]=Μορφή εισαγωγής ώρας & ημερομηνίας
 Name[es]=Formato de la inserción de hora y fecha
@@ -24,6 +25,7 @@ Name[ko]=날짜 및 시간 삽입 형식
 Name[nds]=Formaat för inföögt Datum un Tiet
 Name[ne]=घुसाइने समय र मितिको ढाँचा
 Name[nl]=Opmaak van ingevoegde datum en tijd
+Name[pa]=ਟਾਇਮ ਅਤੇ ਮਿਤੀ ਸ਼ਾਮਲ ਕਰਨ ਲਈ ਫਾਰਮੈਟ
 Name[pt]=Formato da inserção da Data & Hora
 Name[pt_BR]=Formato da inserção da Data & Hora
 Name[sl]=Oblika vstavljenega časa in datuma

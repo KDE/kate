@@ -430,9 +430,9 @@ void ::KateFileSelector::setDir( KUrl u )
 
 void ::KateFileSelector::fileSelected(const KFileItem & /*file*/)
 {
-  const QList<KFileItem> list = dir->selectedItems();
+  const KFileItemList list = dir->selectedItems();
 
-  foreach (KFileItem item, list)
+  foreach (const KFileItem& item, list)
   {
     mainwin->openUrl(item.url());
   }

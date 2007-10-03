@@ -1,6 +1,6 @@
 /**
   * This file is part of the KDE libraries
-  * Copyright (C) 2007 Rafael Fernández López <ereslibre@gmail.com>
+  * Copyright (C) 2007 Rafael Fernández López <ereslibre@kde.org>
   *
   * This library is free software; you can redistribute it and/or
   * modify it under the terms of the GNU Library General Public

@@ -631,7 +631,6 @@ KateViewConfig::KateViewConfig ()
    m_searchFlagsSet (true),
    m_defaultMarkTypeSet (true),
    m_persistentSelectionSet (true),
-   m_textToSearchModeSet (true),
    m_view (0)
 {
   s_global = this;
@@ -655,7 +654,6 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_searchFlagsSet (false),
    m_defaultMarkTypeSet (false),
    m_persistentSelectionSet (false),
-   m_textToSearchModeSet (false),
    m_view (view)
 {
 }
@@ -698,8 +696,6 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 
   setPersistentSelection (config.readEntry( "Persistent Selection", false ));
 
-  setTextToSearchMode (config.readEntry( "Text To Search Mode", int(KateViewConfig::SelectionWord)));
-
   if (isGlobal()) {
     QStringList empty;
 
@@ -740,8 +736,6 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Default Mark Type", defaultMarkType());
 
   config.writeEntry("Persistent Selection", persistentSelection());
-
-  config.writeEntry("Text To Search Mode", textToSearchMode());
 
   if (isGlobal()) {
     // Write search pattern history
@@ -984,24 +978,6 @@ void KateViewConfig::setPersistentSelection (bool on)
 
   m_persistentSelectionSet = true;
   m_persistentSelection = on;
-
-  configEnd ();
-}
-
-int KateViewConfig::textToSearchMode () const
-{
-  if (m_textToSearchModeSet || isGlobal())
-    return m_textToSearchMode;
-
-  return s_global->textToSearchMode();
-}
-
-void KateViewConfig::setTextToSearchMode (int mode)
-{
-  configStart ();
-
-  m_textToSearchModeSet = true;
-  m_textToSearchMode = mode;
 
   configEnd ();
 }

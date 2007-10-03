@@ -361,14 +361,6 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   ui->sbMaxUndos->setValue( KateDocumentConfig::global()->undoSteps() );
   connect(ui->sbMaxUndos, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
-  ui->cmbSmartSearch->addItem( i18n("Nowhere") );
-  ui->cmbSmartSearch->addItem( i18n("Selection Only") );
-  ui->cmbSmartSearch->addItem( i18n("Selection, then Current Word") );
-  ui->cmbSmartSearch->addItem( i18n("Current Word Only") );
-  ui->cmbSmartSearch->addItem( i18n("Current Word, then Selection") );
-  ui->cmbSmartSearch->setCurrentIndex(KateViewConfig::global()->textToSearchMode());
-  connect(ui->cmbSmartSearch, SIGNAL(activated(int)), this, SLOT(slotChanged()));
-
   // What is this? help is in the ui-file
 
   internalLayout->addWidget(newWidget);
@@ -418,8 +410,6 @@ void KateEditConfigTab::apply ()
   KateDocumentConfig::global()->setTabWidth(ui->sbTabWidth->value());
 
   KateDocumentConfig::global()->setUndoSteps( qMax(0,ui->sbMaxUndos->value()) );
-
-  KateViewConfig::global()->setTextToSearchMode(ui->cmbSmartSearch->currentIndex());
 
   KateRendererConfig::global()->setWordWrapMarker (ui->chkShowStaticWordWrapMarker->isChecked());
 

@@ -10,11 +10,20 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>0</number>
-   </property>
    <property name="spacing" >
     <number>6</number>
+   </property>
+   <property name="leftMargin" >
+    <number>0</number>
+   </property>
+   <property name="topMargin" >
+    <number>0</number>
+   </property>
+   <property name="rightMargin" >
+    <number>0</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>0</number>
    </property>
    <item>
     <widget class="QGroupBox" name="gbTabulators" >
@@ -22,11 +31,20 @@
       <string>Tabulators</string>
      </property>
      <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
       <property name="spacing" >
        <number>6</number>
+      </property>
+      <property name="leftMargin" >
+       <number>9</number>
+      </property>
+      <property name="topMargin" >
+       <number>9</number>
+      </property>
+      <property name="rightMargin" >
+       <number>9</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>9</number>
       </property>
       <item>
        <widget class="QCheckBox" name="chkReplaceTabs" >
@@ -50,11 +68,20 @@
       </item>
       <item>
        <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
         <property name="spacing" >
          <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
         </property>
         <item>
          <widget class="QLabel" name="lblTabWidth" >
@@ -71,11 +98,11 @@
           <property name="suffix" >
            <string> characters</string>
           </property>
-          <property name="maximum" >
-           <number>16</number>
-          </property>
           <property name="minimum" >
            <number>1</number>
+          </property>
+          <property name="maximum" >
+           <number>16</number>
           </property>
           <property name="value" >
            <number>8</number>
@@ -106,11 +133,20 @@
       <string>Static Word Wrap</string>
      </property>
      <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
       <property name="spacing" >
        <number>6</number>
+      </property>
+      <property name="leftMargin" >
+       <number>9</number>
+      </property>
+      <property name="topMargin" >
+       <number>9</number>
+      </property>
+      <property name="rightMargin" >
+       <number>9</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>9</number>
       </property>
       <item>
        <widget class="QCheckBox" name="chkStaticWordWrap" >
@@ -134,11 +170,20 @@
       </item>
       <item>
        <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
         <property name="spacing" >
          <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
         </property>
         <item>
          <widget class="QLabel" name="lblWordWrap" >
@@ -158,11 +203,11 @@
           <property name="suffix" >
            <string> characters</string>
           </property>
-          <property name="maximum" >
-           <number>200</number>
-          </property>
           <property name="minimum" >
            <number>20</number>
+          </property>
+          <property name="maximum" >
+           <number>200</number>
           </property>
           <property name="value" >
            <number>76</number>
@@ -193,11 +238,20 @@
       <string>Misc</string>
      </property>
      <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
       <property name="spacing" >
        <number>6</number>
+      </property>
+      <property name="leftMargin" >
+       <number>9</number>
+      </property>
+      <property name="topMargin" >
+       <number>9</number>
+      </property>
+      <property name="rightMargin" >
+       <number>9</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>9</number>
       </property>
       <item>
        <widget class="QCheckBox" name="chkRemoveTrailingSpaces" >
@@ -228,11 +282,20 @@
       </item>
       <item>
        <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
         <property name="spacing" >
          <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
         </property>
         <item>
          <widget class="QLabel" name="label" >
@@ -266,71 +329,6 @@
            <size>
             <width>231</width>
             <height>23</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="lblSmartSearch" >
-          <property name="text" >
-           <string>Smart search t&amp;ext from:</string>
-          </property>
-          <property name="buddy" >
-           <cstring>cmbSmartSearch</cstring>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="cmbSmartSearch" >
-          <property name="whatsThis" >
-           <string>&lt;p>This determines where a view will get the search text from 
-(this will be automatically entered into the Find Text dialog): 
-&lt;/p>
-&lt;p>
-&lt;ul>
-&lt;li>&lt;b>Nowhere:&lt;/b> Don't guess the search text.
-&lt;/li>
-&lt;li>&lt;b>Selection Only:&lt;/b> Use the current text selection, 
-if available.
-&lt;/li>
-&lt;li>&lt;b>Selection, then Current Word:&lt;/b> Use the current 
-selection if available, otherwise use the current word.
-&lt;/li>
-&lt;li>&lt;b>Current Word Only:&lt;/b> Use the word that the cursor 
-is currently resting on, if available.
-&lt;/li>
-&lt;li>&lt;b>Current Word, then Selection:&lt;/b> Use the current 
-word if available, otherwise use the current selection.
-&lt;/li>
-&lt;/ul>
-&lt;/p>
-&lt;p>
-Note that, in all the above modes, if a search string has 
-not been or cannot be determined, then the Find Text Dialog 
-will fall back to the last search text.
-&lt;/p></string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" >
-           <size>
-            <width>131</width>
-            <height>20</height>
            </size>
           </property>
          </spacer>

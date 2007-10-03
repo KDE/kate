@@ -282,11 +282,11 @@ void ::KateFileSelector::readConfig(KConfigBase *config, const QString & name)
   dir->setView( KFile::Default );
   dir->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
-  KConfigGroup cg (config, name );
-
   // set up the toolbar
-  setupToolbar( cg.readEntry( "toolbar actions", QStringList(), ',' ) );
+  KConfigGroup fileselectorConfigGroup(KGlobal::config(), "fileselector");
+  setupToolbar( fileselectorConfigGroup.readEntry( "toolbar actions", QStringList(), ',' ) );
 
+  KConfigGroup cg (config, name );
   cmbPath->setMaxItems( cg.readEntry( "pathcombo history len", 9 ) );
   cmbPath->setUrls( cg.readPathListEntry( "dir history" ) );
   // if we restore history
@@ -751,7 +751,7 @@ void KFSConfigPage::apply()
   // toolbar
   QStringList l;
   ActionLBItem *aItem;
-  QList<QListWidgetItem *> list = acSel->selectedListWidget()->findItems(QString("*"), Qt::MatchRegExp);
+  QList<QListWidgetItem *> list = acSel->selectedListWidget()->findItems(QString("*"), Qt::MatchWildcard);
   foreach(QListWidgetItem *item, list)
   {
     aItem = (ActionLBItem*)item;

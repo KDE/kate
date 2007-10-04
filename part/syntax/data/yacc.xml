@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!--
-  ========================================================================
+========================================================================
+YACC.XML supports syntax highlighting for Yacc/Bison source under Kate.
 
-  YACC.XML supports syntax highlighting for Yacc/Bison source under Kate.
-
-  Copyright (C) 2004 - Jan Villat <jan.villat@net2000.ch>
-  This code is released under the LGPL as part of kdelibs/kate.
-
-  ========================================================================
-
-  Updates for YACC.XML can be obtained from http://kate.kde.org/hl/
-
-  UPDATE HISTORY
-  ------------------------------------------------------------------------
-  2007-10-01 // Sebastian Pipping <webmaster@hartwork.org>
-
-    Added: Extension "*.yy" for Bison
-
-  2004-05-26 // Jan Villat <jan.villat@net2000.ch>
-
-   YACC.XML 1.00        - First released.
+Copyright (C) 2004, Jan Villat <jan.villat@net2000.ch>
+This code is released under the LGPL as part of kdelibs/kate.
+========================================================================
 
 
-  TODO:-
-  - Add a mime type (cannot find it !?)
+== UPDATE HISTORY ==
+2007-10-01 // Sebastian Pipping <webmaster@hartwork.org>
 
-  ========================================================================
+  Added: Extension "*.yy" for Bison
+
+2004-05-26 // Jan Villat <jan.villat@net2000.ch>
+
+  YACC.XML 1.00 - First released.
+
+
+== TODO ==
+- Add a mime type (cannot find it !?)
+
+
+========================================================================
 -->
 <language name="Yacc/Bison" version="1.03" kateversion="2.4" section="Sources" extensions="*.y;*.yy" author="Jan Villat (jan.villat@net2000.ch)" license="LGPL">
 

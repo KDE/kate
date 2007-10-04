@@ -86,10 +86,14 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
   a->setIcon(KIcon("pipe"));
   a->setText(i18n("&Pipe to Console"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotPipeToConsole()));
+
+  a = actionCollection()->addAction("katekonsole_tools_sync");
+  a->setText(i18n("S&yncronize Konsole with Current Document"));
+  connect(a, SIGNAL(triggered()), this, SLOT(slotSync()));
+
   setComponentData (KComponentData("kate"));
   setXMLFile("plugins/katekonsole/ui.rc");
   m_mw->guiFactory()->addClient (this);
-
 }
 
 KateConsole::~KateConsole ()
@@ -124,9 +128,7 @@ void KateConsole::loadConsoleIfNeeded()
 
   connect ( m_part, SIGNAL(destroyed()), this, SLOT(slotDestroyed()) );
 
-  if (m_mw->activeView())
-    if (m_mw->activeView()->document()->url().isValid())
-      cd(KUrl( m_mw->activeView()->document()->url().directory() ));
+  slotSync();
 }
 
 void KateConsole::slotDestroyed ()
@@ -184,6 +186,13 @@ void KateConsole::slotPipeToConsole ()
     sendInput (v->selectionText());
   else
     sendInput (v->document()->text());
+}
+
+void KateConsole::slotSync() {
+  if (m_mw->activeView()
+    && m_mw->activeView()->document()->url().isValid()
+    && m_mw->activeView()->document()->url().isLocalFile() )
+      cd(KUrl( m_mw->activeView()->document()->url().directory() ));
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

@@ -117,6 +117,11 @@ class KateConsole : public KVBox, public KXMLGUIClient
      */
     void slotPipeToConsole ();
 
+    /**
+     * syncronize the konsole with the current document (cd to the directory)
+     */
+    void slotSync();
+
   private Q_SLOTS:
     /**
      * the konsole exited ;)

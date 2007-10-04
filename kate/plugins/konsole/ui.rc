@@ -1,8 +1,9 @@
 <!DOCTYPE kpartgui>
-<kpartplugin name="katekonsole" library="katekonsoleplugin" version="1">
+<kpartplugin name="katekonsole" library="katekonsoleplugin" version="2">
 <MenuBar>
  <Menu name="tools"><text>&amp;Tools</text>
     <Action name="katekonsole_tools_pipe_to_terminal" group="tools_operations"/>
+    <Action name="katekonsole_tools_sync" group="tools_operations"/>
  </Menu>
 </MenuBar>
 </kpartplugin>

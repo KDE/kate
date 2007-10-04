@@ -3014,7 +3014,7 @@ QStringList KateDocument::highlightingModes () const
   return hls;
 }
 
-QString KateDocument::highlightModeSection( int index ) const
+QString KateDocument::highlightingModeSection( int index ) const
 {
   return KateHlManager::self()->hlSection( index );
 }

@@ -512,7 +512,7 @@ class KateDocument : public KTextEditor::Document,
      * You can use this function to build a tree of the highlight names, organized in sections.
      * \param name the name of the highlight for which to find the section name.
      */
-    virtual QString highlightModeSection( int index ) const;
+    virtual QString highlightingModeSection( int index ) const;
 
     /**
      * Returns the name of the section for a mode given its index in the highlight 

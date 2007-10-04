@@ -27,7 +27,7 @@
 #include <ktexteditor/view.h>
 
 #include <kde_terminal_interface.h>
-
+#include <kshell.h>
 #include <kparts/part.h>
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -126,7 +126,7 @@ void KateConsole::loadConsoleIfNeeded()
 
   if (m_mw->activeView())
     if (m_mw->activeView()->document()->url().isValid())
-      cd(KUrl( m_mw->activeView()->document()->url().path() ));
+      cd(KUrl( m_mw->activeView()->document()->url().directory() ));
 }
 
 void KateConsole::slotDestroyed ()
@@ -150,11 +150,7 @@ void KateConsole::showEvent(QShowEvent *)
 
 void KateConsole::cd (const KUrl &url)
 {
-  loadConsoleIfNeeded();
-
-  if (!m_part) return;
-
-  m_part->openUrl (url);
+  sendInput("cd " + KShell::quoteArg(url.path()) + '\n');
 }
 
 void KateConsole::sendInput( const QString& text )

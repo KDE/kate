@@ -102,12 +102,12 @@ KateFileSelectorPluginView::~KateFileSelectorPluginView ()
 
 void KateFileSelectorPluginView::readSessionConfig(KConfigBase* config, const QString& group)
 {
-  m_fileSelector->readConfig(config, group);
+  m_fileSelector->readSessionConfig(config, group);
 }
 
 void KateFileSelectorPluginView::writeSessionConfig(KConfigBase* config, const QString& group)
 {
-  m_fileSelector->writeConfig(config, group);
+  m_fileSelector->writeSessionConfig(config, group);
 }
 
 uint KateFileSelectorPlugin::configPages() const
@@ -262,6 +262,8 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
                                        "reapplies the last filter used when toggled on.</p>") );
 
   connect(dir, SIGNAL(fileSelected(const KFileItem&)), this, SLOT(fileSelected(const KFileItem&)));
+
+  readConfig();
 }
 
 KateFileSelector::~KateFileSelector()
@@ -270,49 +272,52 @@ KateFileSelector::~KateFileSelector()
 
 //BEGIN Public Methods
 
-void ::KateFileSelector::readConfig(KConfigBase *config, const QString & name)
+void KateFileSelector::readConfig()
 {
-  kDebug() << k_funcinfo;
+
+//   dir->setView( KFile::Default );
+//   dir->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
+
+  // set up the toolbar
+  KConfigGroup fileselectorConfigGroup(KGlobal::config(), "fileselector");
+  setupToolbar( fileselectorConfigGroup.readEntry( "toolbar actions", QStringList(), ',' ) );
+
+  cmbPath->setMaxItems( fileselectorConfigGroup.readEntry( "pathcombo history len", 9 ) );
+  // if we restore history
+
+  filter->setMaxCount( fileselectorConfigGroup.readEntry( "filter history len", 9 ) );
+
+  autoSyncEvents = fileselectorConfigGroup.readEntry( "AutoSyncEvents", 0 );
+}
+
+void ::KateFileSelector::readSessionConfig(KConfigBase *config, const QString & name)
+{
+
   KConfigGroup cgView(config, name + ":view");
   dir->setViewConfig(cgView );
 
   KConfigGroup cgDir(config, name + ":dir");
   dir->readConfig(cgDir);
 
-  dir->setView( KFile::Default );
-  dir->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
-
-  // set up the toolbar
-  KConfigGroup fileselectorConfigGroup(KGlobal::config(), "fileselector");
-  setupToolbar( fileselectorConfigGroup.readEntry( "toolbar actions", QStringList(), ',' ) );
-
   KConfigGroup cg (config, name );
-  cmbPath->setMaxItems( cg.readEntry( "pathcombo history len", 9 ) );
   cmbPath->setUrls( cg.readPathListEntry( "dir history" ) );
-  // if we restore history
-  if ( cg.readEntry( "restore location", true) || qApp->isSessionRestored() )
+
+  KConfigGroup globalConfig( KGlobal::config(), "fileselector" );
+
+  if ( globalConfig.readEntry( "restore location", true) || qApp->isSessionRestored() )
   {
     QString loc( cg.readPathEntry( "location" ) );
     if ( ! loc.isEmpty() )
-    {
-//       waitingDir = loc;
-//       QTimer::singleShot(0, this, SLOT(initialDirChangeHack()));
       setDir( loc );
-    }
   }
 
-  // else is automatic, as cmpPath->setURL is called when a location is entered.
-
-  filter->setMaxCount( cg.readEntry( "filter history len", 9 ) );
   filter->setHistoryItems( cg.readEntry("filter history", QStringList()), true );
   lastFilter = cg.readEntry( "last filter" );
   QString flt("");
-  if ( cg.readEntry( "restore last filter", true ) || qApp->isSessionRestored() )
+  if ( globalConfig.readEntry( "restore last filter", true ) || qApp->isSessionRestored() )
     flt = cg.readEntry("current filter");
   filter->lineEdit()->setText( flt );
   slotFilterChange( flt );
-
-  autoSyncEvents = cg.readEntry( "AutoSyncEvents", 0 );
 }
 
 void ::KateFileSelector::initialDirChangeHack()
@@ -342,14 +347,22 @@ void ::KateFileSelector::setupToolbar( QStringList actions )
   }
 }
 
-void ::KateFileSelector::writeConfig(KConfigBase *config, const QString & name)
+void KateFileSelector::writeConfig()
+{
+  KConfigGroup cg = KConfigGroup( KGlobal::config(), "fileselector" );
+
+  cg.writeEntry( "pathcombo history len", cmbPath->maxItems() );
+  cg.writeEntry( "filter history len", filter->maxCount() );
+  cg.writeEntry( "filter history", filter->historyItems() );
+  cg.writeEntry( "AutoSyncEvents", autoSyncEvents );
+}
+
+void KateFileSelector::writeSessionConfig(KConfigBase *config, const QString & name)
 {
   KConfigGroup cgDir(config, name + ":dir");
   dir->writeConfig(cgDir);
 
   KConfigGroup cg = KConfigGroup( config, name );
-
-  cg.writeEntry( "pathcombo history len", cmbPath->maxItems() );
   QStringList l;
   for (int i = 0; i < cmbPath->count(); i++)
   {
@@ -357,12 +370,8 @@ void ::KateFileSelector::writeConfig(KConfigBase *config, const QString & name)
   }
   cg.writePathEntry( "dir history", l );
   cg.writePathEntry( "location", cmbPath->currentText() );
-
-  cg.writeEntry( "filter history len", filter->maxCount() );
-  cg.writeEntry( "filter history", filter->historyItems() );
   cg.writeEntry( "current filter", filter->currentText() );
   cg.writeEntry( "last filter", lastFilter );
-  cg.writeEntry( "AutoSyncEvents", autoSyncEvents );
 }
 
 void ::KateFileSelector::setView(KFile::FileView view)
@@ -758,7 +767,7 @@ void KFSConfigPage::apply()
     l << aItem->idstring();
   }
   config.writeEntry( "toolbar actions", l );
-  fileSelector->setupToolbar( config.readEntry( "toolbar actions", QStringList(), ',' ) );
+  fileSelector->setupToolbar( l );
   // sync
   int s = 0;
   if ( cbSyncActive->isChecked() )
@@ -774,6 +783,8 @@ void KFSConfigPage::apply()
   //           as they are not needed during operation.
   config.writeEntry( "restore location", cbSesLocation->isChecked() );
   config.writeEntry( "restore last filter", cbSesFilter->isChecked() );
+
+  fileSelector->writeConfig();
 }
 
 void KFSConfigPage::reset()

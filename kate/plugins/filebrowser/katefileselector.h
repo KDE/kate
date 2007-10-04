@@ -86,8 +86,8 @@ class KateFileSelectorPluginView : public Kate::PluginView
      */
     ~KateFileSelectorPluginView ();
 
-    void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
-    void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
+    virtual void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
+    virtual void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
     
     KateFileSelector * kateFileSelector() const { return m_fileSelector; }
     
@@ -126,8 +126,10 @@ class KateFileSelector : public KVBox
                       QWidget * parent = 0, const char * name = 0 );
     ~KateFileSelector();
 
-    void readConfig( KConfigBase *, const QString & );
-    void writeConfig( KConfigBase *, const QString & );
+    virtual void readSessionConfig( KConfigBase *, const QString & );
+    virtual void writeSessionConfig( KConfigBase *, const QString & );
+    void readConfig();
+    void writeConfig();
     void setupToolbar( QStringList actions );
     void setView( KFile::FileView );
     KDirOperator *dirOperator()

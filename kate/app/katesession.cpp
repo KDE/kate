@@ -433,6 +433,16 @@ bool KateSessionManager::chooseSession ()
   QString lastSession (c.readEntry ("Last Session", defaultSessionFile()));
   QString sesStart (c.readEntry ("Startup Session", "manual"));
 
+  // if this is the first time Kate App starts, create a i18ned default.katesession
+  bool firstStart = c.readEntry ("First Start", true);
+  if (firstStart) {
+    c.writeEntry ("First Start", false);
+    QFile::copy(defaultSessionFile(), sessionsDir() + "/default.katesession");
+    KateSession *ds = new KateSession(this, "default.katesession");
+    ds->rename(i18n("Default Session"));
+    delete ds;
+  }
+
   // uhh, just open last used session, show no chooser
   if (sesStart == "last")
   {

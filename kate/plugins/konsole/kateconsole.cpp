@@ -163,10 +163,7 @@ void KateConsole::sendInput( const QString& text )
 
   if (!m_part) return;
 
-  if (!m_part->inherits ("TerminalInterface"))
-    return;
-
-  TerminalInterface *t = (TerminalInterface*) ( m_part );
+  TerminalInterface *t = qobject_cast<TerminalInterface *>(m_part);
 
   if (!t) return;
 

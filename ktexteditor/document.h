@@ -635,7 +635,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * You can use this function to build a tree of the highlight names, organized in sections.
      * \param name the name of the highlight for which to find the section name.
      */
-    virtual QString highlightModeSection( int index ) const = 0;
+    virtual QString highlightingModeSection( int index ) const = 0;
 
     /**
      * Returns the name of the section for a mode given its index in the highlight 

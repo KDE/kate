@@ -40,6 +40,8 @@
 //Added by qt3to4:
 #include <QShowEvent>
 
+#include <QApplication>
+
 #include <kgenericfactory.h>
 #include <kpluginfactory.h>
 #include <kauthorized.h>
@@ -90,6 +92,12 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
   a = actionCollection()->addAction("katekonsole_tools_sync");
   a->setText(i18n("S&yncronize Konsole with Current Document"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotSync()));
+
+  a = actionCollection()->addAction("katekonsole_tools_toggle_focus");
+  a->setIcon(KIcon("terminal"));
+  a->setText(i18n("&Focus Console"));
+  a->setShortcut( Qt::Key_F8 );
+  connect(a, SIGNAL(triggered()), this, SLOT(slotToggleFocus()));
 
   setComponentData (KComponentData("kate"));
   setXMLFile("plugins/katekonsole/ui.rc");
@@ -193,6 +201,25 @@ void KateConsole::slotSync() {
     && m_mw->activeView()->document()->url().isValid()
     && m_mw->activeView()->document()->url().isLocalFile() )
       cd(KUrl( m_mw->activeView()->document()->url().directory() ));
+}
+
+void KateConsole::slotToggleFocus()
+{
+  if ( ! m_part ) {
+    m_mw->showToolView( parentWidget() );
+    return; // this shows and focuses the konsole
+  }
+  
+  if ( ! m_part ) return;
+  
+  QWidget *theonethatiwant = m_part->widget()->focusWidget();
+  if (!theonethatiwant) return; // FIXME GRRR, but showing the toolview doesn't set focus on it untill someone fix konsolepart.
+  if (theonethatiwant->hasFocus()) {
+    if (m_mw->activeView())
+      m_mw->activeView()->setFocus();
+  } else {
+    theonethatiwant->setFocus( Qt::OtherFocusReason );
+  }
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

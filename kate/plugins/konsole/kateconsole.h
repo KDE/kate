@@ -134,6 +134,11 @@ class KateConsole : public KVBox, public KXMLGUIClient
      */
     void loadConsoleIfNeeded();
 
+    /**
+     * set or clear focus as appropriate.
+     */
+    void slotToggleFocus();
+
   protected:
     /**
      * the konsole get shown

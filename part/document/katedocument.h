@@ -506,6 +506,21 @@ class KateDocument : public KTextEditor::Document,
      * \return \e true on success, otherwise \e false
      */
     virtual bool setHighlightingMode(const QString &name);
+    /**
+     * Returns the name of the section for a highlight given its index in the highlight 
+     * list (as returned by highlightModes()).
+     * You can use this function to build a tree of the highlight names, organized in sections.
+     * \param name the name of the highlight for which to find the section name.
+     */
+    virtual QString highlightModeSection( int index ) const;
+
+    /**
+     * Returns the name of the section for a mode given its index in the highlight 
+     * list (as returned by modes()).
+     * You can use this function to build a tree of the mode names, organized in sections.
+     * \param name the name of the highlight for which to find the section name.
+     */
+    virtual QString modeSection( int index ) const;
 
   /*
    * SIGNALS

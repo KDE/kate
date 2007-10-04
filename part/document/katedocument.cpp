@@ -3014,6 +3014,16 @@ QStringList KateDocument::highlightingModes () const
   return hls;
 }
 
+QString KateDocument::highlightModeSection( int index ) const
+{
+  return KateHlManager::self()->hlSection( index );
+}
+
+QString KateDocument::modeSection( int index ) const
+{
+  return KateGlobal::self()->modeManager()->list()[ index ]->section;
+}
+
 void KateDocument::bufferHlChanged ()
 {
   // update all views

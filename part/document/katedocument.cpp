@@ -44,7 +44,7 @@
 #include "katebuffer.h"
 #include "kateundo.h"
 #include "katejscript.h"
-#include "katepluginmanager.h"
+#include "katepartpluginmanager.h"
 
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
@@ -329,7 +329,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_isasking = 0;
 
   // register document in plugins
-  KatePluginManager::self()->addDocument(this);
+  KatePartPluginManager::self()->addDocument(this);
 }
 
 //
@@ -360,7 +360,7 @@ KateDocument::~KateDocument()
   undoItems.clear();
 
   // de-register from plugin
-  KatePluginManager::self()->removeDocument(this);
+  KatePartPluginManager::self()->removeDocument(this);
 
   // cu marks
   for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)

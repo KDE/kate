@@ -19,8 +19,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "katepluginmanager.h"
-#include "katepluginmanager.moc"
+#include "katepartpluginmanager.h"
+#include "katepartpluginmanager.moc"
 
 #include "kateglobal.h"
 
@@ -32,7 +32,7 @@
 #include <kservicetypetrader.h>
 #include <kdebug.h>
 
-QString KatePluginInfo::saveName() const
+QString KatePartPluginInfo::saveName() const
 {
   QString saveName = service->property("X-KDE-PluginInfo-Name").toString();
 
@@ -41,7 +41,7 @@ QString KatePluginInfo::saveName() const
   return saveName;
 }
 
-KatePluginManager::KatePluginManager()
+KatePartPluginManager::KatePartPluginManager()
   : QObject(),
     m_config(new KConfig("katepartpluginsrc", KConfig::NoGlobals))
 {
@@ -49,7 +49,7 @@ KatePluginManager::KatePluginManager()
   loadConfig ();
 }
 
-KatePluginManager::~KatePluginManager()
+KatePartPluginManager::~KatePartPluginManager()
 {
   writeConfig();
   // than unload the plugins
@@ -58,12 +58,12 @@ KatePluginManager::~KatePluginManager()
   m_config = 0;
 }
 
-KatePluginManager *KatePluginManager::self()
+KatePartPluginManager *KatePartPluginManager::self()
 {
   return KateGlobal::self()->pluginManager ();
 }
 
-void KatePluginManager::setupPluginList ()
+void KatePartPluginManager::setupPluginList ()
 {
   // NOTE: adapt the interval each minor KDE version
   KService::List traderList = KServiceTypeTrader::self()->
@@ -71,7 +71,7 @@ void KatePluginManager::setupPluginList ()
 
   foreach(const KService::Ptr &ptr, traderList)
   {
-    KatePluginInfo info;
+    KatePartPluginInfo info;
 
     info.load = false;
     info.service = ptr;
@@ -81,10 +81,10 @@ void KatePluginManager::setupPluginList ()
   }
 }
 
-void KatePluginManager::addDocument(KTextEditor::Document *doc)
+void KatePartPluginManager::addDocument(KTextEditor::Document *doc)
 {
   kDebug() << doc << endl;
-  for (KatePluginList::iterator it = m_pluginList.begin();
+  for (KatePartPluginList::iterator it = m_pluginList.begin();
       it != m_pluginList.end(); ++it)
   {
     if (it->load) {
@@ -93,10 +93,10 @@ void KatePluginManager::addDocument(KTextEditor::Document *doc)
   }
 }
 
-void KatePluginManager::removeDocument(KTextEditor::Document *doc)
+void KatePartPluginManager::removeDocument(KTextEditor::Document *doc)
 {
   kDebug() << doc << endl;
-  for (KatePluginList::iterator it = m_pluginList.begin();
+  for (KatePartPluginList::iterator it = m_pluginList.begin();
       it != m_pluginList.end(); ++it)
   {
     if (it->load) {
@@ -105,10 +105,10 @@ void KatePluginManager::removeDocument(KTextEditor::Document *doc)
   }
 }
 
-void KatePluginManager::addView(KTextEditor::View *view)
+void KatePartPluginManager::addView(KTextEditor::View *view)
 {
   kDebug() << view << endl;
-  for (KatePluginList::iterator it = m_pluginList.begin();
+  for (KatePartPluginList::iterator it = m_pluginList.begin();
       it != m_pluginList.end(); ++it)
   {
     if (it->load) {
@@ -117,10 +117,10 @@ void KatePluginManager::addView(KTextEditor::View *view)
   }
 }
 
-void KatePluginManager::removeView(KTextEditor::View *view)
+void KatePartPluginManager::removeView(KTextEditor::View *view)
 {
   kDebug() << view << endl;
-  for (KatePluginList::iterator it = m_pluginList.begin();
+  for (KatePartPluginList::iterator it = m_pluginList.begin();
       it != m_pluginList.end(); ++it)
   {
     if (it->load) {
@@ -129,7 +129,7 @@ void KatePluginManager::removeView(KTextEditor::View *view)
   }
 }
 
-void KatePluginManager::loadConfig ()
+void KatePartPluginManager::loadConfig ()
 {
   // first: unload the plugins
   unloadAllPlugins ();
@@ -137,25 +137,25 @@ void KatePluginManager::loadConfig ()
   KConfigGroup cg = KConfigGroup(m_config, "Kate Part Plugins");
 
   // disable all plugin if no config...
-  foreach (const KatePluginInfo &plugin, m_pluginList)
+  foreach (const KatePartPluginInfo &plugin, m_pluginList)
     plugin.load = cg.readEntry (plugin.service->library(), false)
                || cg.readEntry (plugin.service->property("X-KDE-PluginInfo-Name").toString(), false);
 
   loadAllPlugins();
 }
 
-void KatePluginManager::writeConfig()
+void KatePartPluginManager::writeConfig()
 {
   KConfigGroup cg = KConfigGroup( m_config, "Kate Part Plugins" );
-  foreach(const KatePluginInfo &it, m_pluginList)
+  foreach(const KatePartPluginInfo &it, m_pluginList)
   {
     cg.writeEntry (it.saveName(), it.load);
   }
 }
 
-void KatePluginManager::loadAllPlugins ()
+void KatePartPluginManager::loadAllPlugins ()
 {
-  for (KatePluginList::iterator it = m_pluginList.begin();
+  for (KatePartPluginList::iterator it = m_pluginList.begin();
       it != m_pluginList.end(); ++it)
   {
     if (it->load)
@@ -166,9 +166,9 @@ void KatePluginManager::loadAllPlugins ()
   }
 }
 
-void KatePluginManager::unloadAllPlugins ()
+void KatePartPluginManager::unloadAllPlugins ()
 {
-  for (KatePluginList::iterator it = m_pluginList.begin();
+  for (KatePartPluginList::iterator it = m_pluginList.begin();
        it != m_pluginList.end(); ++it)
   {
     if (it->plugin) {
@@ -178,7 +178,7 @@ void KatePluginManager::unloadAllPlugins ()
   }
 }
 
-void KatePluginManager::loadPlugin (KatePluginInfo &item)
+void KatePartPluginManager::loadPlugin (KatePartPluginInfo &item)
 {
   if (item.plugin) return;
 
@@ -186,14 +186,14 @@ void KatePluginManager::loadPlugin (KatePluginInfo &item)
   item.load = (item.plugin != 0);
 }
 
-void KatePluginManager::unloadPlugin (KatePluginInfo &item)
+void KatePartPluginManager::unloadPlugin (KatePartPluginInfo &item)
 {
   delete item.plugin;
   item.plugin = 0L;
   item.load = false;
 }
 
-void KatePluginManager::enablePlugin (KatePluginInfo &item)
+void KatePartPluginManager::enablePlugin (KatePartPluginInfo &item)
 {
   // plugin around at all?
   if (!item.plugin || !item.load)
@@ -207,7 +207,7 @@ void KatePluginManager::enablePlugin (KatePluginInfo &item)
   }
 }
 
-void KatePluginManager::disablePlugin (KatePluginInfo &item)
+void KatePartPluginManager::disablePlugin (KatePartPluginInfo &item)
 {
   // plugin around at all?
   if (!item.plugin || !item.load)

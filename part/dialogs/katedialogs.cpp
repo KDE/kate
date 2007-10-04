@@ -35,7 +35,7 @@
 #include "katesyntaxdocument.h"
 #include "katemodeconfigpage.h"
 #include "kateview.h"
-#include "katepluginmanager.h"
+#include "katepartpluginmanager.h"
 #include "kpluginselector.h"
 
 // auto generated ui files
@@ -769,7 +769,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
   plugins.clear();
 
   int i = 0;
-  foreach (const KatePluginInfo &info, KatePluginManager::self()->pluginList())
+  foreach (const KatePartPluginInfo &info, KatePartPluginManager::self()->pluginList())
   {
     KPluginInfo it(info.service);
     it.setPluginEnabled(info.load);
@@ -806,17 +806,17 @@ void KatePartPluginConfigPage::apply ()
 
   selector->updatePluginsState();
 
-  KatePluginList &katePluginList = KatePluginManager::self()->pluginList();
+  KatePartPluginList &katePluginList = KatePartPluginManager::self()->pluginList();
   for (int i=0; i < plugins.count(); i++) {
     if (plugins[i].isPluginEnabled()) {
       if (!(katePluginList[i].load && katePluginList[i].plugin)) {
-        KatePluginManager::self()->loadPlugin(katePluginList[i]);
-        KatePluginManager::self()->enablePlugin(katePluginList[i]);
+        KatePartPluginManager::self()->loadPlugin(katePluginList[i]);
+        KatePartPluginManager::self()->enablePlugin(katePluginList[i]);
       }
     } else {
       if (katePluginList[i].load || katePluginList[i].plugin) {
-        KatePluginManager::self()->disablePlugin(katePluginList[i]);
-        KatePluginManager::self()->unloadPlugin(katePluginList[i]);
+        KatePartPluginManager::self()->disablePlugin(katePluginList[i]);
+        KatePartPluginManager::self()->unloadPlugin(katePluginList[i]);
       }
     }
   }

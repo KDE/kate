@@ -29,7 +29,7 @@
 #include "katejscript.h"
 #include "katecmd.h"
 #include "katebuffer.h"
-#include "katepluginmanager.h"
+#include "katepartpluginmanager.h"
 
 #include <klocale.h>
 #include <kservicetypetrader.h>
@@ -135,7 +135,7 @@ KateGlobal::KateGlobal ()
   //
   // plugin manager
   //
-  m_pluginManager = new KatePluginManager ();
+  m_pluginManager = new KatePartPluginManager ();
 
   //
   // init the cmds

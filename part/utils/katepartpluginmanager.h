@@ -36,7 +36,7 @@ namespace KTextEditor {
   class View;
 }
 
-class KatePluginInfo
+class KatePartPluginInfo
 {
   public:
     mutable bool load;
@@ -45,17 +45,17 @@ class KatePluginInfo
     QString saveName() const;
 };
 
-typedef QList<KatePluginInfo> KatePluginList;
+typedef QList<KatePartPluginInfo> KatePartPluginList;
 
-class KatePluginManager : public QObject
+class KatePartPluginManager : public QObject
 {
     Q_OBJECT
 
   public:
-    KatePluginManager();
-    ~KatePluginManager();
+    KatePartPluginManager();
+    ~KatePartPluginManager();
 
-    static KatePluginManager *self();
+    static KatePartPluginManager *self();
 
     void loadConfig ();
     void writeConfig ();
@@ -69,13 +69,13 @@ class KatePluginManager : public QObject
     void loadAllPlugins ();
     void unloadAllPlugins ();
 
-    void loadPlugin (KatePluginInfo &item);
-    void unloadPlugin (KatePluginInfo &item);
+    void loadPlugin (KatePartPluginInfo &item);
+    void unloadPlugin (KatePartPluginInfo &item);
 
-    void enablePlugin (KatePluginInfo &item);
-    void disablePlugin (KatePluginInfo &item);
+    void enablePlugin (KatePartPluginInfo &item);
+    void disablePlugin (KatePartPluginInfo &item);
 
-    inline KatePluginList & pluginList ()
+    inline KatePartPluginList & pluginList ()
     {
       return m_pluginList;
     }
@@ -84,7 +84,7 @@ class KatePluginManager : public QObject
     void setupPluginList ();
 
     KConfig *m_config;
-    KatePluginList m_pluginList;
+    KatePartPluginList m_pluginList;
 };
 
 #endif // KATEPLUGINMANAGER_H

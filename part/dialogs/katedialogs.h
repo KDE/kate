@@ -47,7 +47,7 @@ class KateScriptConfigPage;
 class ModeConfigPage;
 class KateDocument;
 class KateView;
-class KatePluginInfo;
+class KatePartPluginInfo;
 
 namespace KIO
 {

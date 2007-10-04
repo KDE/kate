@@ -118,7 +118,7 @@ utils/kateglobal.cpp
 utils/katecmd.cpp
 utils/katedynamicanimation.cpp
 utils/katestyletreewidget.cpp
-utils/katepluginmanager.cpp
+utils/katepartpluginmanager.cpp
 utils/katehistorymodel.cpp
 
 )

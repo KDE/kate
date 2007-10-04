@@ -48,7 +48,7 @@ class KateJScriptManager;
 class KDirWatch;
 class KateHlManager;
 class KateCmd;
-class KatePluginManager;
+class KatePartPluginManager;
 
 namespace Kate {
   class Command;
@@ -219,7 +219,7 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * global plugin manager
      * @return kate part plugin manager
      */
-    KatePluginManager *pluginManager () { return m_pluginManager; }
+    KatePartPluginManager *pluginManager () { return m_pluginManager; }
 
     /**
      * global dirwatch
@@ -359,7 +359,7 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     /**
      * at start found plugins
      */
-    KatePluginManager *m_pluginManager;
+    KatePartPluginManager *m_pluginManager;
 
     /**
      * fallback document config

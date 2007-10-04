@@ -46,7 +46,7 @@
 #include "katesmartmanager.h"
 #include "katesmartrange.h"
 #include "katesearchbar.h"
-#include "katepluginmanager.h"
+#include "katepartpluginmanager.h"
 
 #include <ktexteditor/cursorfeedback.h>
 
@@ -193,7 +193,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   setupCodeFolding();
 
   // enable the plugins of this view
-  KatePluginManager::self()->addView(this);
+  KatePartPluginManager::self()->addView(this);
 
   // update the enabled state of the undo/redo actions...
   slotNewUndo();
@@ -216,7 +216,7 @@ KateView::~KateView()
     m_destructing=true;
 
     if (!m_doc->singleViewMode())
-      KatePluginManager::self()->removeView(this);
+      KatePartPluginManager::self()->removeView(this);
 
     m_doc->removeView( this );
   }

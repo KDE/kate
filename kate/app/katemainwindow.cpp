@@ -297,7 +297,7 @@ void KateMainWindow::setupActions()
   a->setText( i18n( "Close Other" ) );
   connect( a, SIGNAL( triggered() ), this, SLOT( slotDocumentCloseOther() ) );
   a->setWhatsThis(i18n("Close other open documents."));
-  
+
   a = actionCollection()->addAction( "file_close_all" );
   a->setText( i18n( "Clos&e All" ) );
   connect( a, SIGNAL( triggered() ), this, SLOT( slotDocumentCloseAll() ) );
@@ -929,4 +929,19 @@ void KateMainWindow::slotDocModified(KTextEditor::Document *document)
   if (document->isModified()) m_documentModel->modified(modelIndexForDocument(document));
 }
 
+void KateMainWindow::saveWindowConfig(const KConfigGroup &_config)
+{
+  KConfigGroup config( _config );
+  saveMainWindowSettings(config);
+  saveWindowSize(config);
+  config.writeEntry("WindowState", int(((KParts::MainWindow*)this)->windowState()));
+  config.sync();
+}
+
+void KateMainWindow::restoreWindowConfig(const KConfigGroup &config)
+{
+  applyMainWindowSettings(config);
+  restoreWindowSize(config);
+  setWindowState( QFlags<Qt::WindowState>(config.readEntry("WindowState", int(Qt::WindowActive))) );
+}
 // kate: space-indent on; indent-width 2; replace-tabs on;

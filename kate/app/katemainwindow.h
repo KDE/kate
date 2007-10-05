@@ -125,6 +125,17 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
   public:
     bool queryClose_internal(KTextEditor::Document *doc = NULL);
 
+    /**
+     * save the settings, size and state of this window in
+     * the provided config group
+     */
+    void saveWindowConfig(const KConfigGroup &);
+    /**
+     * restore the settings, size and state of this window from
+     * the provided config group.
+     */
+    void restoreWindowConfig(const KConfigGroup &);
+
   private:
     /**
      * Setup actions which pointers are needed already in setupMainWindow

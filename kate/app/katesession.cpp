@@ -308,6 +308,8 @@ void KateSessionManager::activateSession (KateSession::Ptr session,
         {
           KateApp::self()->mainWindow(i)->readProperties(KConfigGroup(sc, QString ("MainWindow%1").arg(i) ));
         }
+
+        KateApp::self()->mainWindow(i)->restoreWindowConfig(KConfigGroup(sc, QString ("MainWindow%1 Settings").arg(i)));
       }
 
       // remove mainwindows we need no longer...
@@ -352,10 +354,13 @@ static void saveSessionTo(KConfig *sc)
   sc->group("Open MainWindows").writeEntry ("Count", KateApp::self()->mainWindows ());
 
   // save config for all windows around ;)
+  bool saveWindowConfig = KConfigGroup(KGlobal::config(), "General").readEntry("Restore Window Configuration", true);
   for (int i = 0; i < KateApp::self()->mainWindows (); ++i )
   {
     KConfigGroup cg(sc, QString ("MainWindow%1").arg(i) );
     KateApp::self()->mainWindow(i)->saveProperties (cg);
+    if (saveWindowConfig)
+      KateApp::self()->mainWindow(i)->saveWindowConfig(KConfigGroup(sc, QString ("MainWindow%1 Settings").arg(i)));
   }
 
   sc->sync();
@@ -700,7 +705,7 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
     if (slist[i]->sessionFileRelative() == lastSession)
       m_sessions->setCurrentItem (item);
   }
-    
+
   m_sessions->resizeColumnToContents(0);
 
   m_useLast = new QCheckBox (i18n ("&Always use this choice"), page);

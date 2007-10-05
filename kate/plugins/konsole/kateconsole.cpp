@@ -97,7 +97,6 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
   a = actionCollection()->addAction("katekonsole_tools_toggle_focus");
   a->setIcon(KIcon("terminal"));
   a->setText(i18n("&Focus Terminal"));
-  a->setShortcut( Qt::Key_F8 );
   connect(a, SIGNAL(triggered()), this, SLOT(slotToggleFocus()));
 
   setComponentData (KComponentData("kate"));

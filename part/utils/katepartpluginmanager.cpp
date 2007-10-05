@@ -28,6 +28,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 #include <kconfig.h>
+#include <kconfiggroup.h>
 
 #include <kservicetypetrader.h>
 #include <kdebug.h>
@@ -43,7 +44,7 @@ QString KatePartPluginInfo::saveName() const
 
 KatePartPluginManager::KatePartPluginManager()
   : QObject(),
-    m_config(new KConfig("katepartpluginsrc", KConfig::NoGlobals))
+    m_config(new KConfig("katepartpluginsrc", KConfig::CascadeConfig))
 {
   setupPluginList ();
   loadConfig ();

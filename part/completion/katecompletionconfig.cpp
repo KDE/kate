@@ -21,6 +21,7 @@
 #include <QtGui/QTreeWidget>
 
 #include <kicon.h>
+#include <kglobal.h>
 
 #include "katecompletionmodel.h"
 

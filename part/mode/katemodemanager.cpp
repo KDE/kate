@@ -68,7 +68,7 @@ KateModeManager::~KateModeManager ()
 //
 void KateModeManager::update ()
 {
-  KConfig config ("katemoderc", KConfig::NoGlobals);
+  KConfig config ("katemoderc", KConfig::CascadeConfig);
 
   QStringList g (config.groupList());
 
@@ -166,7 +166,7 @@ void KateModeManager::update ()
 //
 void KateModeManager::save (const QList<KateFileType *>& v)
 {
-  KConfig katerc("katemoderc", KConfig::NoGlobals);
+  KConfig katerc("katemoderc", KConfig::CascadeConfig);
   KConfigGroup config(&katerc, QString());
 
   QStringList newg;

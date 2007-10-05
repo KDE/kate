@@ -81,7 +81,7 @@ QString KateSchemaManager::printingSchema ()
 }
 
 KateSchemaManager::KateSchemaManager ()
-    : m_config ("kateschemarc", KConfig::NoGlobals)
+    : m_config ("kateschemarc", KConfig::CascadeConfig)
 {
   update ();
 }
@@ -341,7 +341,7 @@ void KateSchemaConfigColorTab::apply ()
   {
     kDebug(13030)<<"APPLY scheme = "<<it.key();
     KConfigGroup config = KateGlobal::self()->schemaManager()->schema( it.key() );
-    kDebug(13030)<<"Using config group "<<config.group();
+    kDebug(13030)<<"Using config group "<<config.name();
     SchemaColors c = it.value();
 
     // TODO - don't save if using defaults, so that changing the color scheme

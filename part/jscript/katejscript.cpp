@@ -38,6 +38,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kconfig.h>
+#include <kconfiggroup.h>
 
 #include <kjs/collector.h>
 #include <kjs/function_object.h>
@@ -1608,7 +1609,7 @@ KateJScriptHeaderVector KateJScriptHelpers::findScripts(const QString& rcFile,
                                                         const QString& resourceDir,
                                                         const QStringList &keys)
 {
-  KConfig cfgFile(rcFile, KConfig::NoGlobals);
+  KConfig cfgFile(rcFile, KConfig::CascadeConfig);
   KConfigGroup config = cfgFile.group("General");
 
   bool force = false;

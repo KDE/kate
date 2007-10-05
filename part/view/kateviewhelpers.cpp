@@ -40,6 +40,7 @@
 #include <kglobal.h>
 #include <kmenu.h>
 #include <kiconloader.h>
+#include <kconfiggroup.h>
 
 #include <QtGui/QCursor>
 #include <QtGui/QPainter>

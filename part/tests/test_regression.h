@@ -192,8 +192,8 @@ public:
     QString m_outputDir;
     bool m_genOutput;
     QString m_currentBase;
-    KConfig *m_failureComp;
-    KConfig *m_failureSave;
+    KConfigGroup *m_failureComp;
+    KConfigGroup *m_failureSave;
 
     QString m_currentOutput;
     QString m_currentCategory;

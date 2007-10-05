@@ -47,6 +47,7 @@
 #include <kio/job.h>
 #include <kmainwindow.h>
 #include <kconfig.h>
+#include <kconfiggroup.h>
 #include <kglobalsettings.h>
 #include <kdefakes.h>
 
@@ -508,7 +509,7 @@ int main(int argc, char *argv[])
     // FIXME: Any analogous call for dbus?
 //     a.disableAutoDcopRegistration();
     a.setStyle("windows");
-    KConfig cfg( "testkateregressionrc", KConfig::OnlyLocal );
+    KConfig cfg( "testkateregressionrc", KConfig::SimpleConfig );
     KConfigGroup group = cfg.group("Kate Document Defaults");
     group.writeEntry("Basic Config Flags",
       KateDocumentConfig::cfBackspaceIndents
@@ -535,7 +536,7 @@ int main(int argc, char *argv[])
     int rv = 1;
 
     {
-        KConfig dc( "kdebugrc", KConfig::OnlyLocal );
+        KConfig dc( "kdebugrc", KConfig::SimpleConfig );
         // FIXME adapt to kate
         static int areas[] = { 1000, 13000, 13001, 13002, 13010,
                                13020, 13025, 13030, 13033, 13035,
@@ -602,14 +603,14 @@ int main(int argc, char *argv[])
             failureSnapshot = findMostRecentFailureSnapshot();
         if (!failureSnapshot.isEmpty())
             regressionTest->setFailureSnapshotConfig(
-                    new KConfig(failureSnapshotPrefix + failureSnapshot, KConfig::OnlyLocal),
+                    new KConfig(failureSnapshotPrefix + failureSnapshot, KConfig::SimpleConfig),
                     failureSnapshot);
     }
 
     if (args->isSet("save-failures")) {
         QString failureSaver = args->getOption("save-failures");
         regressionTest->setFailureSnapshotSaver(
-                new KConfig(failureSnapshotPrefix + failureSaver, KConfig::OnlyLocal),
+                new KConfig(failureSnapshotPrefix + failureSaver, KConfig::SimpleConfig),
                 failureSaver);
     }
 
@@ -642,13 +643,13 @@ int main(int argc, char *argv[])
             if ( regressionTest->m_passes_fail )
                 printf( " (%d unexpected passes)", regressionTest->m_passes_fail );
             if (regressionTest->m_passes_new)
-                printf(" (%d new since %s)", regressionTest->m_passes_new, regressionTest->m_failureComp->group().toLatin1().constData());
+                printf(" (%d new since %s)", regressionTest->m_passes_new, regressionTest->m_failureComp->name().toLatin1().constData());
             printf( "\n" );
 	    printf("Failures: %d",regressionTest->m_failures_work);
             if ( regressionTest->m_failures_fail )
                 printf( " (%d expected failures)", regressionTest->m_failures_fail );
             if ( regressionTest->m_failures_new )
-                printf(" (%d new since %s)", regressionTest->m_failures_new, regressionTest->m_failureComp->group().toLatin1().constData());
+                printf(" (%d new since %s)", regressionTest->m_failures_new, regressionTest->m_failureComp->name().toLatin1().constData());
             printf( "\n" );
             if ( regressionTest->m_errors )
                 printf("Errors:   %d\n",regressionTest->m_errors);
@@ -662,11 +663,11 @@ int main(int argc, char *argv[])
             if (regressionTest->m_failures_new)
                 link += QString(" <span style=\"color:red;font-weight:bold\">(%1 new failures since %2)</span>")
                         .arg(regressionTest->m_failures_new)
-                        .arg(regressionTest->m_failureComp->group());
+                        .arg(regressionTest->m_failureComp->name());
             if (regressionTest->m_passes_new)
                 link += QString(" <p style=\"color:green;font-weight:bold\">%1 new passes since %2</p>")
                         .arg(regressionTest->m_passes_new)
-                        .arg(regressionTest->m_failureComp->group());
+                        .arg(regressionTest->m_failureComp->name());
             list.write( link.toLatin1(), link.length() );
             list.close();
 	}
@@ -758,22 +759,26 @@ RegressionTest::~RegressionTest()
 {
     // Important! Delete comparison config *first* as saver config
     // might point to the same physical file.
+    KConfig *tmp = m_failureComp->config();
     delete m_failureComp;
+    if (tmp != m_failureSave->config()) {
+        delete tmp;
+        tmp = m_failureSave->config();
+    }
     delete m_failureSave;
+    delete tmp;
 }
 
 void RegressionTest::setFailureSnapshotConfig(KConfig *cfg, const QString &sname)
 {
     Q_ASSERT(cfg);
-    m_failureComp = cfg;
-    m_failureComp->setGroup(sname);
+    m_failureComp = new KConfigGroup(cfg, sname);
 }
 
 void RegressionTest::setFailureSnapshotSaver(KConfig *cfg, const QString &sname)
 {
     Q_ASSERT(cfg);
-    m_failureSave = cfg;
-    m_failureSave->setGroup(sname);
+    m_failureSave = new KConfigGroup(cfg, sname);
 }
 
 QStringList RegressionTest::concatListFiles(const QString &relPath, const QString &filename)
@@ -1327,7 +1332,7 @@ bool RegressionTest::reportResult(bool passed, const QString & description, bool
     if (!m_currentCategory.isEmpty())
         filename = m_currentCategory + '/' + filename;
 
-    const bool oldfailed = m_failureComp && m_failureComp->readEntry(filename, int(0));
+    const bool oldfailed = m_failureComp && m_failureComp->readEntry(filename, 0);
     if (passed) {
         if ( m_known_failures & AllFailure ) {
             printf("PASS (unexpected!)");

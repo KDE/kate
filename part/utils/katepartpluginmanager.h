@@ -25,7 +25,6 @@
 #define KATEPLUGINMANAGER_H
 
 #include <kservice.h>
-#include <kconfigbase.h>
 
 #include <QObject>
 #include <QList>

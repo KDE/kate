@@ -29,7 +29,7 @@
 #include <kstandarddirs.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kconfig.h>
+#include <kconfiggroup.h>
 
 #include <QtCore/QFile>
 

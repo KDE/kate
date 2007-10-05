@@ -292,7 +292,7 @@ bool KateDocManager::closeDocument(class KTextEditor::Document *doc, bool closeU
                                           "Do you want to delete it anyway?", m_tempFiles[ doc ].first.prettyUrl()),
                                      i18n("Delete File?") ) == KMessageBox::Yes )
     {
-      KIO::del( m_tempFiles[ doc ].first, false, false );
+      KIO::del( m_tempFiles[ doc ].first, KIO::HideProgressInfo );
       kDebug(13001) << "Deleted temporary file " << m_tempFiles[ doc ].first;
       m_tempFiles.remove( doc );
     }

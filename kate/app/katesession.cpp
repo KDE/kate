@@ -143,7 +143,7 @@ bool KateSession::rename (const QString &name)
     m_sessionFileRel = oldRel;
     return false;
   }
-  KIO::CopyJob *job = KIO::move(KUrl(QString("file://") + oldSessionFile), KUrl(QString("file://") + sessionFile()), false);
+  KIO::CopyJob *job = KIO::move(KUrl(QString("file://") + oldSessionFile), KUrl(QString("file://") + sessionFile()), KIO::HideProgressInfo);
   if ( ! KIO::NetAccess::synchronousRun(job, 0) )
   {
     m_sessionFileRel = oldRel;

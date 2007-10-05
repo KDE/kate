@@ -2073,8 +2073,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
       }
       else if ( !((k->modifiers() & Qt::ControlModifier) || (k->modifiers() & Qt::AltModifier)) )
       {
-        keyPressEvent( k );
-        return k->isAccepted();
+        return false;
       }
 
     } break;
@@ -2117,7 +2116,8 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
 void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
-  int key = e->key() | e->modifiers();
+  // Note: AND'ing with <Shift> is a quick hack to fix Key_Enter
+  const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
 
   if (m_view->isCompletionActive())
   {

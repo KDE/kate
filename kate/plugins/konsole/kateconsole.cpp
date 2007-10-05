@@ -87,16 +87,16 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
 {
   QAction* a = actionCollection()->addAction("katekonsole_tools_pipe_to_terminal");
   a->setIcon(KIcon("pipe"));
-  a->setText(i18n("&Pipe to Console"));
+  a->setText(i18n("&Pipe to Terminal"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotPipeToConsole()));
 
   a = actionCollection()->addAction("katekonsole_tools_sync");
-  a->setText(i18n("S&yncronize Console with Current Document"));
+  a->setText(i18n("S&yncronize Terminal with Current Document"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotSync()));
 
   a = actionCollection()->addAction("katekonsole_tools_toggle_focus");
   a->setIcon(KIcon("terminal"));
-  a->setText(i18n("&Focus Console"));
+  a->setText(i18n("&Focus Terminal"));
   a->setShortcut( Qt::Key_F8 );
   connect(a, SIGNAL(triggered()), this, SLOT(slotToggleFocus()));
 
@@ -182,8 +182,8 @@ void KateConsole::slotPipeToConsole ()
   if (KMessageBox::warningContinueCancel
       (m_mw->window()
        , i18n ("Do you really want to pipe the text to the console? This will execute any contained commands with your user rights.")
-       , i18n ("Pipe to Console?")
-       , KGuiItem(i18n("Pipe to Console")), KStandardGuiItem::cancel(), "Pipe To Console Warning") != KMessageBox::Continue)
+       , i18n ("Pipe to Terminal?")
+       , KGuiItem(i18n("Pipe to Terminal")), KStandardGuiItem::cancel(), "Pipe To Terminal Warning") != KMessageBox::Continue)
     return;
 
   KTextEditor::View *v = m_mw->activeView();
@@ -209,7 +209,7 @@ void KateConsole::slotToggleFocus()
   QAction *action = actionCollection()->action("katekonsole_tools_toggle_focus");
   if ( ! m_part ) {
     m_mw->showToolView( parentWidget() );
-    action->setText( i18n("Defocus Console") );
+    action->setText( i18n("Defocus Terminal") );
     return; // this shows and focuses the konsole
   }
 
@@ -218,14 +218,14 @@ void KateConsole::slotToggleFocus()
   if (m_part->widget()->hasFocus()) {
     if (m_mw->activeView())
       m_mw->activeView()->setFocus();
-      action->setText( i18n("Focus Console") );
+      action->setText( i18n("Focus Terminal") );
   } else {
     // show the view if it is hidden
     if (parentWidget()->isHidden())
       m_mw->showToolView( parentWidget() );
     else // should focus the widget too!
       m_part->widget()->setFocus( Qt::OtherFocusReason );
-    action->setText( i18n("Defocus Console") );
+    action->setText( i18n("Defocus Terminal") );
   }
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;

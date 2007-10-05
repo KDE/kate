@@ -908,7 +908,7 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
     KUrl(QString(HLDOWNLOADPATH)
        + QString("update-")
        + QString(KATEPART_VERSION)
-       + QString(".xml")), true, true );
+       + QString(".xml")), KIO::Reload );
   connect(transferJob, SIGNAL(data(KIO::Job *, const QByteArray &)),
     this, SLOT(listDataReceived(KIO::Job *, const QByteArray &)));
 //        void data( KIO::Job *, const QByteArray &data);

@@ -3553,7 +3553,8 @@ bool KateDocument::saveFile()
         perms = item.permissions();
 
         // do a evil copy which will overwrite target if possible
-	backupSuccess = KIO::NetAccess::file_copy ( url(), u, -1, true, false, w );
+        KIO::FileCopyJob *job = KIO::file_copy ( url(), u, -1, KIO::Overwrite );
+        backupSuccess = KIO::NetAccess::synchronousRun(job, w);
       }
       else
         backupSuccess = true;

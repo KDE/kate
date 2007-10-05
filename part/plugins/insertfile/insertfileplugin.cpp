@@ -117,7 +117,7 @@ void InsertFilePluginView::slotInsertFile()
 
     KUrl destURL;
     destURL.setPath( _tmpfile );
-    _job = KIO::file_copy( _file, destURL, 0600, true, false, true );
+    _job = KIO::file_copy( _file, destURL, 0600, KIO::Overwrite );
     connect( _job, SIGNAL( result( KJob * ) ), this, SLOT( slotFinished ( KJob * ) ) );
   }
 }

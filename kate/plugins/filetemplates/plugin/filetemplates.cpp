@@ -602,25 +602,24 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
       QMap<QString, QMenu*> submenus;
       for ( int n = 0; n < highlightModes.count(); n++ )
       {
-// ### I can't access the hl groups through the current interfaces :-(
-//         // create the sub menu if it does not exist
-//         QString text( highlightModes[ i ] );
-//         if ( ! text.isEmpty() )
-//         {
-//           if ( ! submenus[ text ] )
-//           {
-//             QMenu *sm = m.addMenu( text );
-//             connect( sm, SIGNAL( triggered( QAction* ) ), this, SLOT( slotHlSet( QAction* ) ) );
-//             submenus->insert( text, sm );
-//           }
-//           // create the item
-//           QAction *a = submenus[ text ]->addAction( hi->hlModeName( n ) );
-//           a->setData( n );
-//         }
-//         else {
+        // create the sub menu if it does not exist
+        QString text( doc->highlightingModeSection( n ) );
+        if ( ! text.isEmpty() )
+        {
+          if ( ! submenus[ text ] )
+          {
+            QMenu *sm = m->addMenu( text );
+            connect( sm, SIGNAL( triggered( QAction* ) ), this, SLOT( slotHlSet( QAction* ) ) );
+            submenus.insert( text, sm );
+          }
+          // create the item
+          QAction *a = submenus[ text ]->addAction( highlightModes[ n ] );
+          a->setData( n );
+        }
+        else {
           QAction *a = m->addAction( highlightModes[ n ] );
           a->setData( n );
-//         }
+        }
       }
       btnHighlight->setPopup( m );
   }
@@ -646,7 +645,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   page->setSubTitle("If you want to base this "
     "template on an existing file or template, select the appropriate option "
     "below.");
-    
+
   addPage( page );
 
   QGridLayout *glo = new QGridLayout( page );
@@ -710,7 +709,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   kti = new KateTemplateInfoWidget( page, 0, kft );
   glo->addWidget( kti, 1, 1 );
   addPage( page );
-  
+
   // get liekly values from KTE
   QMap<QString, QString> map;
   map[ "fullname" ] = "";
@@ -1139,7 +1138,7 @@ void KateTemplateManager::slotEditTemplate()
   // open the template file in kate
   // TODO show the properties dialog, and modify the file if the data was changed.
   QList<QTreeWidgetItem*> selection = lvTemplates->selectedItems();
-  
+
    if ( selection.count() ) {
      QTreeWidgetItem *item = selection[ 0 ];
      if ( item->type() != KATETEMPLATEITEM )

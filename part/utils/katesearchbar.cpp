@@ -161,9 +161,10 @@ void KateSearchBar::highlightReplacement(const Range & range) {
 
 
 void KateSearchBar::highlightAllMatches(const QString & pattern,
-        Search::SearchOptions searchOptions) {
+        Search::SearchOptions searchOptions,
+        bool repaintHappensElsewhere) {
     onForAll(pattern, m_view->doc()->documentRange(),
-            searchOptions, NULL);
+            searchOptions, NULL, repaintHappensElsewhere);
 }
 
 
@@ -426,7 +427,8 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern, bool invokedByU
 
         // Highlight all
         if (found && isChecked(m_incMenuHighlightAll)) {
-            highlightAllMatches(pattern, enabledOptions);
+            const bool REPAINT_NOT_DONE_HERE = false;
+            highlightAllMatches(pattern, enabledOptions, REPAINT_NOT_DONE_HERE);
         }
     }
 }
@@ -476,7 +478,8 @@ void KateSearchBar::onIncHighlightAllToggle(bool checked, bool invokedByUserActi
 
                 // Highlight them all
                 resetHighlights();
-                highlightAllMatches(pattern, enabledOptions);
+                const bool REPAINT_DONE_HERE = true;
+                highlightAllMatches(pattern, enabledOptions, REPAINT_DONE_HERE);
             }
         } else {
             resetHighlights();
@@ -738,15 +741,19 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
             ? isChecked(m_powerUi->highlightAll)
             : isChecked(m_incMenuHighlightAll);
     if ((found && highlightAll) || (afterReplace != NULL)) {
-        resetHighlights();
-
         // Highlight all matches
         if (found && highlightAll) {
-            highlightAllMatches(pattern, enabledOptions);
+            const bool REPAINT_DONE_HERE = true;
+            highlightAllMatches(pattern, enabledOptions, REPAINT_DONE_HERE);
         }
 
         // Highlight replacement (on top if overlapping) if new match selected
         if (found && (afterReplace != NULL)) {
+            // Note: highlightAllMatches already reset for us
+            if (!(found && highlightAll)) {
+                resetHighlights();
+            }
+            
             highlightReplacement(*afterReplace);
         }
 
@@ -923,13 +930,25 @@ void KateSearchBar::onPowerReplaceNext() {
 // replacement != NULL --> Replace and highlight all matches
 void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
         Search::SearchOptions enabledOptions,
-        const QString * replacement) {
+        const QString * replacement,
+        bool repaintHappensElsewhere) {
     bool multiLinePattern = false;
     const bool regexMode = enabledOptions.testFlag(Search::Regex);
     if (regexMode) {
         // Check if pattern multi-line
         QString patternCopy(pattern);
         KateDocument::repairPattern(patternCopy, multiLinePattern);
+    }
+
+    // Clear backwards flag, this algorithm is for foward mode
+    if (enabledOptions.testFlag(Search::Backwards)) {
+        enabledOptions &= ~Search::SearchOptions(Search::Backwards);
+    }
+
+    // Before first match
+    resetHighlights();
+    if (replacement != NULL) {
+        m_view->doc()->editBegin();
     }
 
     int matchCounter = 0;
@@ -942,17 +961,12 @@ void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
                 if (replacement != NULL) {
                     m_view->doc()->editEnd();
                 }
-                updateHighlights();
+
+                if (!repaintHappensElsewhere) {
+                    updateHighlights();
+                }
             }
             break;
-        }
-
-        if (matchCounter == 0) {
-            // Before first match
-            resetHighlights();
-            if (replacement != NULL) {
-                m_view->doc()->editBegin();
-            }
         }
 
         // Work with the match
@@ -1057,7 +1071,8 @@ void KateSearchBar::onPowerReplaceAll() {
 
 
     // Pass on the hard work
-    onForAll(pattern, inputRange, enabledOptions, &replacement);
+    const bool REPAINT_NOT_DONE_HERE = false;
+    onForAll(pattern, inputRange, enabledOptions, &replacement, REPAINT_NOT_DONE_HERE);
 
 
     // Add to search history
@@ -1339,7 +1354,8 @@ void KateSearchBar::onPowerHighlightAllToggle(int state, bool invokedByUserActio
 
                 // Highlight them all
                 resetHighlights();
-                highlightAllMatches(pattern, enabledOptions);
+                const bool REPAINT_DONE_HERE = true;
+                highlightAllMatches(pattern, enabledOptions, REPAINT_DONE_HERE);
             }
         } else {
             resetHighlights();

@@ -1918,6 +1918,9 @@ struct TwoViewCursor {
   int openCol;
   int closeLine;
   int closeCol;
+  // note: open/close distinction does not seem needed
+  // anymore. i keep it to make a potential way back
+  // easier. overhead is minimal.
 };
 
 struct IndexPair {
@@ -2079,6 +2082,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
     {
       // forward to index, save line/col
       const int index = (*iter)->index;
+      FAST_DEBUG("resolving position" << index);
       TwoViewCursor & twoViewCursor = *(*iter);
       while (curRelIndex <= index)
       {
@@ -2087,36 +2091,43 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
         const int curRelLineLen = lineLens[curRelLine];
         const int curLineRemainder = curRelLineLen - curRelCol;
         const int lineFeedIndex = curRelIndex + curLineRemainder;
-        if (index < lineFeedIndex)
-        {
-          // on this line _before_ line feed
-          FAST_DEBUG("  before line feed");
-          const int diff = (index - curRelIndex);
-          const int absLine = curRelLine + firstLineIndex;
-          const int absCol = ((curRelLine == 0) ? minColStart : 0) + curRelCol + diff;
-          twoViewCursor.openLine = twoViewCursor.closeLine = absLine;
-          twoViewCursor.openCol = twoViewCursor.closeCol = absCol;
+        if (index <= lineFeedIndex) {
+            if (index == lineFeedIndex) {
+                // on this line _on_ line feed
+                FAST_DEBUG("  on line feed");
+                const int absLine = curRelLine + firstLineIndex;
+                twoViewCursor.openLine
+                    = twoViewCursor.closeLine
+                    = absLine;
+                twoViewCursor.openCol
+                    = twoViewCursor.closeCol
+                    = ((curRelLine == 0) ? minColStart : 0) + curRelLineLen;
 
-          // advance on same line
-          const int advance = diff + 1;
-          curRelCol += advance;
-          curRelIndex += advance;
-        }
-        else if (index == lineFeedIndex)
-        {
-          // on this line _on_ line feed
-          FAST_DEBUG("  on line feed");
-          const int absLine = curRelLine + firstLineIndex;
-          twoViewCursor.openLine = absLine;
-          twoViewCursor.openCol = ((curRelLine == 0) ? minColStart : 0) + curRelLineLen;
-          twoViewCursor.closeLine = absLine + 1;
-          twoViewCursor.closeCol = 0;
+                // advance to next line
+                const int advance = (index - curRelIndex) + 1;
+                curRelLine++;
+                curRelCol = 0;
+                curRelIndex += advance;
+            } else { // index < lineFeedIndex
+                // on this line _before_ line feed
+                FAST_DEBUG("  before line feed");
+                const int diff = (index - curRelIndex);
+                const int absLine = curRelLine + firstLineIndex;
+                const int absCol = ((curRelLine == 0) ? minColStart : 0) + curRelCol + diff;
+                twoViewCursor.openLine
+                    = twoViewCursor.closeLine
+                    = absLine;
+                twoViewCursor.openCol
+                    = twoViewCursor.closeCol
+                    = absCol;
 
-          // advance to next line
-          const int advance = (index - curRelIndex) + 1;
-          curRelLine++;
-          curRelCol = 0;
-          curRelIndex += advance;
+                // advance on same line
+                const int advance = diff + 1;
+                curRelCol += advance;
+                curRelIndex += advance;
+            }
+            FAST_DEBUG("open(" << twoViewCursor.openLine << "," << twoViewCursor.openCol
+                << ")  close(" << twoViewCursor.closeLine << "," << twoViewCursor.closeCol << ")");
         }
         else // if (index > lineFeedIndex)
         {

@@ -195,6 +195,8 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
 
   finishRestore ();
 
+  fileOpenRecent->loadEntries( KConfigGroup(sconfig, "Recent Files" ) );
+
   setAcceptDrops(true);
 
   connect(KateSessionManager::self(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
@@ -496,8 +498,6 @@ void KateMainWindow::readOptions ()
   m_paShowPath->setChecked (generalGroup.readEntry("Show Full Path in Title", false));
   m_paShowStatusBar->setChecked (generalGroup.readEntry("Show Status Bar", true));
 
-  fileOpenRecent->loadEntries(KConfigGroup(config, "Recent Files"));
-
   // emit signal to hide/show statusbars
   toggleShowStatusBar ();
 }
@@ -515,7 +515,6 @@ void KateMainWindow::saveOptions ()
   generalGroup.writeEntry("Show Full Path in Title", m_paShowPath->isChecked());
   generalGroup.writeEntry("Show Status Bar", m_paShowStatusBar->isChecked());
 
-  fileOpenRecent->saveEntries(KConfigGroup(config, "Recent Files"));
 #ifdef __GNUC__
 #warning PORTME
 #endif
@@ -878,6 +877,7 @@ void KateMainWindow::saveProperties(KConfigGroup& config)
       }
   }
 
+  fileOpenRecent->saveEntries( KConfigGroup(config.config(), "Recent Files" ) );
   m_viewManager->saveViewConfiguration (config);
 }
 
@@ -890,6 +890,7 @@ void KateMainWindow::readProperties(const KConfigGroup& config)
 
   finishRestore ();
 
+  fileOpenRecent->loadEntries( KConfigGroup(config.config(), "Recent Files" ) );
   m_viewManager->restoreViewConfiguration (config);
 }
 

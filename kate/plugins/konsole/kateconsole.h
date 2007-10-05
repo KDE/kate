@@ -23,10 +23,12 @@
 
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
+#include <kate/pluginconfigpageinterface.h>
 #include <kurl.h>
 #include <kxmlguiclient.h>
 
 #include <kvbox.h>
+#include <QList>
 
 class QShowEvent;
 
@@ -40,17 +42,30 @@ namespace KateMDI
   }
 
 class KateConsole;
+class KateKonsolePluginView;
 
-class KateKonsolePlugin: public Kate::Plugin
+class KateKonsolePlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
 {
     Q_OBJECT
-
+    Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
     explicit KateKonsolePlugin( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~KateKonsolePlugin()
     {}
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+
+    // PluginConfigPageInterface
+    uint configPages() const { return 1; };
+    Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
+    QString configPageName (uint number = 0) const;
+    QString configPageFullName (uint number = 0) const;
+    KIcon configPageIcon (uint number = 0) const;
+
+    void readConfig();
+
+  private:
+    QList<KateKonsolePluginView*> mViews;
 };
 
 class KateKonsolePluginView : public Kate::PluginView
@@ -67,6 +82,8 @@ class KateKonsolePluginView : public Kate::PluginView
      * Virtual destructor.
      */
     ~KateKonsolePluginView ();
+
+    void readConfig();
 
   private:
     KateConsole *m_console;
@@ -93,6 +110,8 @@ class KateConsole : public KVBox, public KXMLGUIClient
      * destruct us
      */
     ~KateConsole ();
+
+    void readConfig();
 
     /**
      * cd to dir
@@ -121,6 +140,10 @@ class KateConsole : public KVBox, public KXMLGUIClient
      * syncronize the konsole with the current document (cd to the directory)
      */
     void slotSync();
+    /**
+     * When syncing is done by the user, also show the terminal if it is hidden
+     */
+    void slotManualSync();
 
   private Q_SLOTS:
     /**
@@ -163,6 +186,21 @@ class KateConsole : public KVBox, public KXMLGUIClient
     QWidget *m_toolView;
 };
 
+class KateKonsoleConfigPage : public Kate::PluginConfigPage {
+    Q_OBJECT
+  public:
+    explicit KateKonsoleConfigPage( QWidget* parent = 0, KateKonsolePlugin *plugin = 0 );
+    virtual ~KateKonsoleConfigPage()
+    {}
+
+    virtual void apply();
+    virtual void reset();
+    virtual void defaults()
+    {}
+  private:
+    class QCheckBox *cbAutoSyncronize;
+    KateKonsolePlugin *mPlugin;
+};
 #endif
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

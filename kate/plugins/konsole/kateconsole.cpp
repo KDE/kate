@@ -32,6 +32,7 @@
 #include <kparts/part.h>
 #include <kaction.h>
 #include <kactioncollection.h>
+#include <KDialog>
 
 #include <kurl.h>
 #include <klibloader.h>
@@ -42,6 +43,8 @@
 #include <QShowEvent>
 
 #include <QApplication>
+#include <QCheckBox>
+#include <QVBoxLayout>
 
 #include <kgenericfactory.h>
 #include <kpluginfactory.h>
@@ -60,7 +63,41 @@ KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QStringList& ):
 
 Kate::PluginView *KateKonsolePlugin::createView (Kate::MainWindow *mainWindow)
 {
-  return new KateKonsolePluginView (mainWindow);
+  KateKonsolePluginView *view = new KateKonsolePluginView (mainWindow);
+  mViews.append( view );
+  return view;
+}
+
+Kate::PluginConfigPage *KateKonsolePlugin::configPage (uint number, QWidget *parent, const char *name)
+{
+  Q_UNUSED(name)
+  if (number != 0)
+    return 0;
+  return new KateKonsoleConfigPage(parent, this);
+}
+
+QString KateKonsolePlugin::configPageName (uint number) const
+{
+  if (number != 0) return QString();
+  return i18n("Terminal");
+}
+
+QString KateKonsolePlugin::configPageFullName (uint number) const
+{
+  if (number != 0) return QString();
+  return i18n("Terminal settings");
+}
+
+KIcon KateKonsolePlugin::configPageIcon (uint number) const
+{
+  if (number != 0) return KIcon();
+  return KIcon("terminal");
+}
+
+void KateKonsolePlugin::readConfig()
+{
+  foreach ( KateKonsolePluginView *view, mViews )
+    view->readConfig();
 }
 
 KateKonsolePluginView::KateKonsolePluginView (Kate::MainWindow *mainWindow)
@@ -79,6 +116,11 @@ KateKonsolePluginView::~KateKonsolePluginView ()
   delete toolview;
 }
 
+void KateKonsolePluginView::readConfig()
+{
+  m_console->readConfig();
+}
+
 KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
     : KVBox (parent), KXMLGUIClient()
     , m_part (0)
@@ -92,7 +134,7 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
 
   a = actionCollection()->addAction("katekonsole_tools_sync");
   a->setText(i18n("S&yncronize Terminal with Current Document"));
-  connect(a, SIGNAL(triggered()), this, SLOT(slotSync()));
+  connect(a, SIGNAL(triggered()), this, SLOT(slotManualSync()));
 
   a = actionCollection()->addAction("katekonsole_tools_toggle_focus");
   a->setIcon(KIcon("terminal"));
@@ -102,6 +144,8 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
   setComponentData (KComponentData("kate"));
   setXMLFile("plugins/katekonsole/ui.rc");
   m_mw->guiFactory()->addClient (this);
+
+  readConfig();
 }
 
 KateConsole::~KateConsole ()
@@ -196,13 +240,24 @@ void KateConsole::slotPipeToConsole ()
     sendInput (v->document()->text());
 }
 
-void KateConsole::slotSync() {
-  if (m_mw->activeView()
-    && m_mw->activeView()->document()->url().isValid()
-    && m_mw->activeView()->document()->url().isLocalFile() )
+void KateConsole::slotSync()
+{
+  if (m_mw->activeView() ) {
+    if ( m_mw->activeView()->document()->url().isValid()
+      && m_mw->activeView()->document()->url().isLocalFile() ) {
       cd(KUrl( m_mw->activeView()->document()->url().directory() ));
+    } else if ( !m_mw->activeView()->document()->url().isEmpty() ) {
+      sendInput( "### " + i18n("Sorry, can not cd into '%1'", m_mw->activeView()->document()->url().directory() ) + "\n" );
+    }
+  }
 }
 
+void KateConsole::slotManualSync()
+{
+  slotSync();
+  if ( ! m_part || ! m_part->widget()->isVisible() )
+    m_mw->showToolView( parentWidget() );
+}
 void KateConsole::slotToggleFocus()
 {
   QAction *action = actionCollection()->action("katekonsole_tools_toggle_focus");
@@ -227,5 +282,42 @@ void KateConsole::slotToggleFocus()
     action->setText( i18n("Defocus Terminal") );
   }
 }
+
+void KateConsole::readConfig()
+{
+  if ( KConfigGroup(KGlobal::config(), "Konsole").readEntry("AutoSyncronize", false) )
+    connect( m_mw, SIGNAL(viewChanged()), SLOT(slotSync()) );
+  else
+    disconnect( m_mw, SIGNAL(viewChanged()), this, SLOT(slotSync()) );
+}
+
+KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin *plugin )
+  : Kate::PluginConfigPage( parent )
+  , mPlugin( plugin )
+{
+  QVBoxLayout *lo = new QVBoxLayout( this );
+  lo->setSpacing( KDialog::spacingHint() );
+
+  cbAutoSyncronize = new QCheckBox( i18n("&Automatically syncronize the terminal with the current document when possible"), this );
+  lo->addWidget( cbAutoSyncronize );
+  reset();
+  lo->addStretch();
+  connect( cbAutoSyncronize, SIGNAL(stateChanged(int)), SIGNAL(changed()) );
+}
+
+void KateKonsoleConfigPage::apply()
+{
+  KConfigGroup config(KGlobal::config(), "Konsole");
+  config.writeEntry("AutoSyncronize", cbAutoSyncronize->isChecked());
+  config.sync();
+  mPlugin->readConfig();
+}
+
+void KateKonsoleConfigPage::reset()
+{
+  KConfigGroup config(KGlobal::config(), "Konsole");
+  cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

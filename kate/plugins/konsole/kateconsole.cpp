@@ -2,16 +2,17 @@
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002 Anders Lund <anders.lund@lund.tdcadsl.dk>
- 
+   Copyright (C) 2007 Anders Lund <anders@alweb.dk>
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
- 
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
- 
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -90,7 +91,7 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
   connect(a, SIGNAL(triggered()), this, SLOT(slotPipeToConsole()));
 
   a = actionCollection()->addAction("katekonsole_tools_sync");
-  a->setText(i18n("S&yncronize Konsole with Current Document"));
+  a->setText(i18n("S&yncronize Console with Current Document"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotSync()));
 
   a = actionCollection()->addAction("katekonsole_tools_toggle_focus");
@@ -205,20 +206,26 @@ void KateConsole::slotSync() {
 
 void KateConsole::slotToggleFocus()
 {
+  QAction *action = actionCollection()->action("katekonsole_tools_toggle_focus");
   if ( ! m_part ) {
     m_mw->showToolView( parentWidget() );
+    action->setText( i18n("Defocus Console") );
     return; // this shows and focuses the konsole
   }
-  
+
   if ( ! m_part ) return;
-  
-  QWidget *theonethatiwant = m_part->widget()->focusWidget();
-  if (!theonethatiwant) return; // FIXME GRRR, but showing the toolview doesn't set focus on it untill someone fix konsolepart.
-  if (theonethatiwant->hasFocus()) {
+
+  if (m_part->widget()->hasFocus()) {
     if (m_mw->activeView())
       m_mw->activeView()->setFocus();
+      action->setText( i18n("Focus Console") );
   } else {
-    theonethatiwant->setFocus( Qt::OtherFocusReason );
+    // show the view if it is hidden
+    if (parentWidget()->isHidden())
+      m_mw->showToolView( parentWidget() );
+    else // should focus the widget too!
+      m_part->widget()->setFocus( Qt::OtherFocusReason );
+    action->setText( i18n("Defocus Console") );
   }
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;

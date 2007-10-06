@@ -1856,6 +1856,9 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 
   cursorMoved();
 
+  if(!m_doc->isEditRunning())
+	  m_doc->setUndoDontMerge(true);
+
   updateDirty(); //paintText(0, 0, width(), height(), true);
 
   emit m_view->cursorPositionChanged(m_view, m_cursor);

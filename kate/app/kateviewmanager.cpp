@@ -45,6 +45,7 @@
 #include <KMessageBox>
 #include <KRecentFilesAction>
 #include <KConfig>
+#include <KConfigGroup>
 #include <kstandardaction.h>
 #include <KStandardDirs>
 #include <KGlobalSettings>
@@ -685,7 +686,7 @@ void KateViewManager::saveViewConfiguration(KConfigGroup& config)
   config.writeEntry("Active ViewSpace", 0);
 
   m_splitterIndex = 0;
-  saveSplitterConfig(this, config.config(), config.group());
+  saveSplitterConfig(this, config.config(), config.name());
 }
 
 void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
@@ -701,7 +702,7 @@ void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
   m_activeStates.clear();
 
   // start recursion for the root splitter (Splitter 0)
-  restoreSplitter( config.config(), config.group() + "-Splitter 0", this, config.group() );
+  restoreSplitter( config.config(), config.name() + "-Splitter 0", this, config.name() );
 
   // finally, make the correct view from the last session active
   int lastViewSpace = config.readEntry("Active ViewSpace", 0);
@@ -772,7 +773,7 @@ void KateViewManager::saveSplitterConfig( QSplitter* s, KConfigBase* configBase,
   config.writeEntry("Children", childList);
 }
 
-void KateViewManager::restoreSplitter( KConfigBase* configBase, const QString &group,
+void KateViewManager::restoreSplitter( const KConfigBase* configBase, const QString &group,
     QSplitter* parent, const QString& viewConfGrp)
 {
   KConfigGroup config( configBase, group );

@@ -118,7 +118,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     bool showModOnDiskPrompt();
 
   public:
-    /*reimp*/ void readProperties(const KConfigGroup& config);
+    /*reimp*/ void readProperties(KConfigGroup config);
     /*reimp*/ void saveProperties(KConfigGroup& config);
     /*reimp*/ void saveGlobalProperties( KConfig* sessionConfig );
 

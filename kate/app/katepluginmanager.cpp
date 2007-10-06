@@ -32,6 +32,7 @@
 #include <QList>
 #include <KMessageBox>
 #include <KServiceTypeTrader>
+#include <KConfigGroup>
 #include <kdebug.h>
 #include <QFile>
 

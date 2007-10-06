@@ -881,9 +881,9 @@ void KateMainWindow::saveProperties(KConfigGroup& config)
   m_viewManager->saveViewConfiguration (config);
 }
 
-void KateMainWindow::readProperties(const KConfigGroup& config)
+void KateMainWindow::readProperties(KConfigGroup config)
 {
-  startRestore(config.config(), config.group());
+  startRestore(config.config(), config.name());
 
   // perhaps enable plugin guis
   KatePluginManager::self()->enableAllPluginsGUI (this, config.config());

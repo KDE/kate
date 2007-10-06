@@ -110,7 +110,7 @@ class KateViewSpace : public KVBox
     }
 
     void saveConfig (KConfigBase* config, int myIndex, const QString& viewConfGrp);
-    void restoreConfig ( KateViewManager *viewMan, KConfigBase* config, const QString &group );
+    void restoreConfig ( KateViewManager *viewMan, const KConfigBase* config, const QString &group );
 
   private Q_SLOTS:
     void statusBarToggled ();

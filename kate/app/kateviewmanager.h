@@ -132,7 +132,7 @@ class KateViewManager : public QSplitter
     /** Restore a single splitter.
      * This is all the work is done for @see saveSplitterConfig()
      */
-    void restoreSplitter ( KConfigBase* config, const QString &group, QSplitter* parent, const QString& viewConfGrp);
+    void restoreSplitter ( const KConfigBase* config, const QString &group, QSplitter* parent, const QString& viewConfGrp);
 
     void removeViewSpace (KateViewSpace *viewspace);
 

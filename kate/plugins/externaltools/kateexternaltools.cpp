@@ -33,6 +33,7 @@
 #include <KMimeTypeChooser>
 #include <KXmlGuiWindow>
 #include <KConfig>
+#include <KConfigGroup>
 #include <KRun>
 #include <KIconDialog>
 #include <KMenu>
@@ -154,7 +155,7 @@ void KateExternalToolsCommand::reload ()
   m_map.clear();
   m_name.clear();
 
-  KConfig _config( "appdata", "externaltools", KConfig::NoGlobals  );
+  KConfig _config( "externaltools", KConfig::NoGlobals, "appdata" );
   KConfigGroup config(&_config, "Global");
   QStringList tools = config.readEntry("tools", QStringList());
 
@@ -655,7 +656,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget( QWidget *parent, c
   lbTools->setWhatsThis(i18n(
                           "This list shows all the configured tools, represented by their menu text.") );
 
-  config = new KConfig("appdata", "externaltools", KConfig::NoGlobals );
+  config = new KConfig( "externaltools", KConfig::NoGlobals, "appdata" );
   reset();
   slotSelectionChanged();
 }

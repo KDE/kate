@@ -238,7 +238,7 @@ void KateViewSpace::saveConfig ( KConfigBase* config, int myIndex , const QStrin
   }
 }
 
-void KateViewSpace::restoreConfig ( KateViewManager *viewMan, KConfigBase* config, const QString &groupname )
+void KateViewSpace::restoreConfig ( KateViewManager *viewMan, const KConfigBase* config, const QString &groupname )
 {
   KConfigGroup group (config, groupname);
   QString fn = group.readEntry( "Active View" );

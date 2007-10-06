@@ -28,6 +28,7 @@ Comment[es]=Valida archivos XML usando xmllint
 Comment[ga]=Bailíochtaigh comhaid XML le xmllint
 Comment[it]=Convalida i file XML usando xmllint
 Comment[ja]=xmllint で XML ファイルを検証します
+Comment[lt]=Tikrina XML bylas naudojant xmllint
 Comment[ne]=xmllint प्रयोग गरेर एक्सएमएल फाइलहरू प्रमाणीकरण गर्दछ
 Comment[nl]=Valideert XML-bestanden met behulp van xmllint
 Comment[pt]=Valida os ficheiros em XML com o xmllint

@@ -274,12 +274,16 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
     return;
 
   d->liRange = si->newSmartRange();
+//   d->liRange->setInsertBehavior(KTextEditor::SmartRange::ExpandRight|KTextEditor::SmartRange::ExpandLeft);
 
   KTextEditor::Attribute::Ptr a( new KTextEditor::Attribute() );
-  a->setBackground( QColor("red") );
-  a->setForeground( QColor("black") );
+  QColor bg = Qt::blue;
+  bg.setAlpha(0x88);
+  a->setBackground( QBrush(bg) );
+//   a->setForeground( QBrush(Qt:white) );
   d->liRange->setAttribute( a );
   si->addHighlightToView( m_view, d->liRange, false );
+//   si->addHighlightToDocument( d->liRange, false );
 
   view->insertChildClient( this );
 
@@ -499,9 +503,16 @@ void DocWordCompletionPluginView::complete( bool fw )
       {
         // we got good a match! replace text and return.
         doc->replaceText( *d->liRange, m );
+kDebug()<<"liRange:"<<*d->liRange;
 
         d->liRange->setRange( KTextEditor::Range( d->dcRange.end(), m.length() ) );
+
+kDebug()<<"lirange background:"<<d->liRange->attribute()->background();
         d->dcCursor.setColumn( pos ); // for next try
+  KTextEditor::SmartInterface *si =
+     qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );
+foreach(KTextEditor::SmartRange* range, si->viewHighlights(m_view))
+kDebug()<<"highlighted range:"<<*range;
 
         return;
       }

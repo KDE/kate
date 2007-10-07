@@ -80,10 +80,12 @@ void DocWordCompletionModel::saveMatches( KTextEditor::View* view,
 
 QVariant DocWordCompletionModel::data(const QModelIndex& index, int role) const
 {
+  if ( index.column() !=  KTextEditor::CodeCompletionModel::Name ) return QVariant();
+
   switch ( role )
   {
     case Qt::DisplayRole:
-//       if ( index.column() == Name )
+      if ( index.column() == Name )
         return m_matches.at( index.row() );
     case CompletionRole:
       return (int)FirstProperty|LastProperty|Public;

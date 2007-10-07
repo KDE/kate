@@ -2238,6 +2238,14 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     return;
   }
 
+  // allow composition of AltGr + (q|2|3) on windows
+  if( (e->nativeModifiers() == 0x0242) && !e->text().isEmpty() && m_doc->typeChars ( m_view, e->text() ) )
+  {
+    e->accept();
+
+    return;
+  }
+
   e->ignore();
 }
 

@@ -668,10 +668,17 @@ static int checkEscapedChar(const QString& text, int offset, int& len)
         // replaced with something else but
         // for right now they work
         // check for hexdigits
-        for (i = 0; (len > 0) && (i < 2) && (text[offset].toAscii() >= '0' && text[offset].toAscii() <= '9' || text[offset].toAscii() >= 'A' && text[offset].toAscii() <= 'F'); i++)
+        for (i = 0; (len > 0) && (i < 2); i++)
         {
-          offset++;
-          len--;
+          const char ch = text[offset].toAscii();
+          if (((ch >= '0') && (ch <= '9'))
+              || ((ch >= 'a') && (ch <= 'f'))
+              || ((ch >= 'A') && (ch <= 'F'))) {
+            offset++;
+            len--;
+          } else {
+            break;
+          }
         }
 
         if (i == 0)

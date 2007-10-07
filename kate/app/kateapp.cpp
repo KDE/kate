@@ -376,7 +376,7 @@ bool KateApp::openInput (const QString &text)
 KateMainWindow *KateApp::newMainWindow (KConfig *sconfig_, const QString &sgroup_)
 {
   KConfig *sconfig = sconfig_ ? sconfig_ : new KConfig(m_sessionManager->defaultSessionFile());
-  QString sgroup = !sgroup_.isEmpty() ? group_ : "MainWindow0";
+  QString sgroup = !sgroup_.isEmpty() ? sgroup_ : "MainWindow0";
   KateMainWindow *mainWindow = new KateMainWindow (sconfig, sgroup);
 
   if ((mainWindows() > 1) && m_mainWindows[m_mainWindows.count()-2]->viewManager()->activeView())

@@ -3421,12 +3421,12 @@ bool KateDocument::openFile()
   if (!suppressOpeningErrorDialogs())
   {
     if (!success)
-      KMessageBox::error (widget(), i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.", this->url().url()));
+      KMessageBox::error (widget(), i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.", this->url().pathOrUrl()));
   }
 
   if (!success) {
     setOpeningError(true);
-    setOpeningErrorMessage(i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.",this->url().url()));
+    setOpeningErrorMessage(i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.",this->url().pathOrUrl()));
   }
 
   // warn -> opened binary file!!!!!!!
@@ -3437,12 +3437,12 @@ bool KateDocument::openFile()
 
     if(!suppressOpeningErrorDialogs())
       KMessageBox::information (widget()
-        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", this->url().url())
+        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", this->url().pathOrUrl())
         , i18n ("Binary File Opened")
         , "Binary File Opened Warning");
 
     setOpeningError(true);
-    setOpeningErrorMessage(i18n ("The file %1 is a binary, saving it will result in a corrupt file.", this->url().url()));
+    setOpeningErrorMessage(i18n ("The file %1 is a binary, saving it will result in a corrupt file.", this->url().pathOrUrl()));
   }
 
   // warn: opened broken utf-8 file...
@@ -3455,13 +3455,13 @@ bool KateDocument::openFile()
       KMessageBox::information (widget()
         , i18n ("The file %1 was opened with UTF-8 encoding but contained invalid characters."
                 " It is set to read-only mode, as saving might destroy it's content."
-                " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().url())
+                " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl())
         , i18n ("Broken UTF-8 File Opened")
         , "Broken UTF-8 File Opened Warning");
     setOpeningError(true);
     setOpeningErrorMessage(i18n ("The file %1 was opened with UTF-8 encoding but contained invalid characters."
               " It is set to read-only mode, as saving might destroy it's content."
-              " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().url()));
+              " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl()));
   }
 
   //
@@ -3476,7 +3476,7 @@ bool KateDocument::saveFile()
   // warn -> try to save binary file!!!!!!!
   //
   if (m_buffer->binary() && (KMessageBox::warningContinueCancel (widget()
-        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", url().url())
+        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", url().pathOrUrl())
         , i18n ("Trying to Save Binary File")
         , KGuiItem(i18n("Save Nevertheless"))
         , KStandardGuiItem::cancel(), "Binary File Save Warning") != KMessageBox::Continue))
@@ -3575,7 +3575,7 @@ bool KateDocument::saveFile()
     if (!backupSuccess && (KMessageBox::warningContinueCancel (widget()
         , i18n ("For file %1 no backup copy could be created before saving."
                 " If an error occurs while saving, you might lose the data of this file."
-                " A reason could be that the media you write to is full or the directory of the file is read-only for you.", url().url())
+                " A reason could be that the media you write to is full or the directory of the file is read-only for you.", url().pathOrUrl())
         , i18n ("Failed to create backup copy.")
         , KGuiItem(i18n("Try to Save Nevertheless"))
         , KStandardGuiItem::cancel(), "Backup Failed Warning") != KMessageBox::Continue))
@@ -3608,7 +3608,7 @@ bool KateDocument::saveFile()
     // add m_file again to dirwatch
     activateDirWatch (oldPath);
 
-    KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", this->url().url()));
+    KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", this->url().pathOrUrl()));
 
     return false;
   }
@@ -5790,13 +5790,13 @@ QString KateDocument::reasonedMOHString() const
   switch( m_modOnHdReason )
   {
     case OnDiskModified:
-      return i18n("The file '%1' was modified by another program.",  url().prettyUrl() );
+      return i18n("The file '%1' was modified by another program.",  url().pathOrUrl() );
       break;
     case OnDiskCreated:
-      return i18n("The file '%1' was created by another program.",  url().prettyUrl() );
+      return i18n("The file '%1' was created by another program.",  url().pathOrUrl() );
       break;
     case OnDiskDeleted:
-      return i18n("The file '%1' was deleted by another program.",  url().prettyUrl() );
+      return i18n("The file '%1' was deleted by another program.",  url().pathOrUrl() );
       break;
     default:
       return QString();

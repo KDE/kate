@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2003-2006 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -41,6 +42,14 @@ KTextEditor::Cursor SmartRenderRange::nextBoundary() const
     return KTextEditor::Cursor(INT_MAX,INT_MAX);
 
   KTextEditor::SmartRange* r = m_currentRange->deepestRangeContaining(m_currentPos);
+  
+  if(!r) {
+    if(m_currentPos < m_currentRange->start()) {
+      return m_currentRange->start();
+    }
+    return KTextEditor::Cursor(INT_MAX, INT_MAX);
+  }
+  
   foreach (KTextEditor::SmartRange* child, r->childRanges()) {
     if (child->start() > m_currentPos)
       return child->start();
@@ -57,7 +66,7 @@ bool SmartRenderRange::advanceTo(const KTextEditor::Cursor& pos) const
 
   bool ret = false;
 
-  while (m_currentRange && !m_currentRange->contains(pos)) {
+  while (m_currentRange && !m_currentRange->contains(pos) && m_currentRange->parentRange()) {
     m_attribs.pop();
     m_currentRange = m_currentRange->parentRange();
     ret = true;
@@ -78,7 +87,7 @@ bool SmartRenderRange::advanceTo(const KTextEditor::Cursor& pos) const
 
 KTextEditor::Attribute::Ptr SmartRenderRange::currentAttribute() const
 {
-  if (m_attribs.count())
+  if (m_attribs.count() && m_currentRange->contains(m_currentPos))
     return m_attribs.top();
   return KTextEditor::Attribute::Ptr();
 }

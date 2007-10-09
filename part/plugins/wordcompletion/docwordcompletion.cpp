@@ -33,6 +33,7 @@
 #include <ktexteditor/variableinterface.h>
 #include <ktexteditor/smartinterface.h>
 #include <ktexteditor/smartrange.h>
+#include <ktexteditor/rangefeedback.h>
 
 #include <kconfig.h>
 #include <kdialog.h>
@@ -47,6 +48,7 @@
 #include <kpagewidgetmodel.h>
 #include <ktoggleaction.h>
 #include <kconfiggroup.h>
+#include <kcolorscheme.h>
 
 #include <QtCore/QRegExp>
 #include <QtCore/QString>
@@ -274,16 +276,14 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
     return;
 
   d->liRange = si->newSmartRange();
-//   d->liRange->setInsertBehavior(KTextEditor::SmartRange::ExpandRight|KTextEditor::SmartRange::ExpandLeft);
 
-  KTextEditor::Attribute::Ptr a( new KTextEditor::Attribute() );
-  QColor bg = Qt::blue;
-  bg.setAlpha(0x88);
-  a->setBackground( QBrush(bg) );
-//   a->setForeground( QBrush(Qt:white) );
+  KColorScheme colors(QPalette::Active);
+  KTextEditor::Attribute::Ptr a = KTextEditor::Attribute::Ptr( new KTextEditor::Attribute() );
+  a->setBackground( colors.background(KColorScheme::ActiveBackground) );
+  a->setForeground( colors.foreground(KColorScheme::ActiveText) ); // ### this does 0
   d->liRange->setAttribute( a );
-  si->addHighlightToView( m_view, d->liRange, false );
-//   si->addHighlightToDocument( d->liRange, false );
+
+  connect( d->liRange->primaryNotifier(), SIGNAL(caretExitedRange(KTextEditor::SmartRange*, KTextEditor::View*)), this, SLOT(lastInsertedRangeExited(KTextEditor::SmartRange*, KTextEditor::View*)) );
 
   view->insertChildClient( this );
 
@@ -482,6 +482,12 @@ void DocWordCompletionPluginView::complete( bool fw )
     d->liRange->setRange( KTextEditor::Range( r.end(), 0 ) );
     d->dcCursor = r.start();
     d->directionalPos = inc;
+
+  KTextEditor::SmartInterface *si =
+     qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );
+  if ( si )
+    si->addHighlightToView( m_view, d->liRange, true );
+
   }
 
   d->re.setPattern( "\\b" + doc->text( d->dcRange ) + "(\\w+)" );
@@ -503,16 +509,9 @@ void DocWordCompletionPluginView::complete( bool fw )
       {
         // we got good a match! replace text and return.
         doc->replaceText( *d->liRange, m );
-kDebug()<<"liRange:"<<*d->liRange;
-
         d->liRange->setRange( KTextEditor::Range( d->dcRange.end(), m.length() ) );
 
-kDebug()<<"lirange background:"<<d->liRange->attribute()->background();
         d->dcCursor.setColumn( pos ); // for next try
-  KTextEditor::SmartInterface *si =
-     qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );
-foreach(KTextEditor::SmartRange* range, si->viewHighlights(m_view))
-kDebug()<<"highlighted range:"<<*range;
 
         return;
       }
@@ -563,6 +562,18 @@ kDebug()<<"highlighted range:"<<*range;
       d->dcCursor.setPosition( l, fw ? 0 : ln.length() );
     }
   } // while true
+}
+
+void DocWordCompletionPluginView::lastInsertedRangeExited(KTextEditor::SmartRange *range, KTextEditor::View */*view*/)
+{
+  kDebug()<<"cursor exited range:"<<range;
+  if ( range != d->liRange )
+    return;
+
+  KTextEditor::SmartInterface *si =
+     qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );
+  if ( si )
+    si->removeHighlightFromView( m_view, d->liRange );
 }
 
 // Contributed by <brain@hdsnet.hu> FIXME

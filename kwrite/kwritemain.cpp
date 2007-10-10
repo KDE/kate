@@ -182,7 +182,7 @@ void KWrite::setupActions()
   a= actionCollection()->addAction( KStandardAction::KeyBindings, this, SLOT(editKeys()) );
   a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
 
-  a = actionCollection()->addAction( KStandardAction::ConfigureToolbars, "set_configure_toolbars",
+  a = actionCollection()->addAction( KStandardAction::ConfigureToolbars, "options_configure_toolbars",
                                      this, SLOT(editToolbars()) );
   a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
 
@@ -210,7 +210,7 @@ void KWrite::setupStatusBar()
   m_selectModeLabel = new QLabel( i18n(" LINE "), statusBar() );
   statusBar()->addWidget( m_selectModeLabel, 0 );
   m_selectModeLabel->setAlignment( Qt::AlignCenter );
-  
+
   m_modeLabel = new QLabel( QString(), statusBar() );
   statusBar()->addWidget( m_modeLabel, 0 );
   m_modeLabel->setAlignment( Qt::AlignCenter );

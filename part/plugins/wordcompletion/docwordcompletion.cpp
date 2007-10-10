@@ -269,7 +269,7 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
 //   setObjectName( name );
   d->isCompleting = false;
   d->treshold = treshold;
-  d->dcRange = KTextEditor::Range();
+  d->dcRange = KTextEditor::Range::invalid();
   KTextEditor::SmartInterface *si =
      qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );
 
@@ -450,13 +450,7 @@ void DocWordCompletionPluginView::complete( bool fw )
   int inc = fw ? 1 : -1;
   KTextEditor::Document *doc = m_view->document();
 
-  /* IF the current line is equal to the previous line
-     AND the position - the length of the last inserted string
-          is equal to the old position
-     AND the lastinsertedlength last characters of the word is
-          equal to the last inserted string
-          */
-  if ( r.start() == d->dcRange.start() && r.end() >= d->dcRange.end() )
+  if ( d->dcRange.isValid() )
   {
     //kDebug()<<"CONTINUE "<<d->dcRange;
     // this is a repeted activation

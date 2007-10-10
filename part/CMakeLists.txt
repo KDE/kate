@@ -25,7 +25,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/syntax
   ${CMAKE_CURRENT_SOURCE_DIR}/utils
   ${CMAKE_CURRENT_SOURCE_DIR}/view
-  ${CMAKE_SOURCE_DIR}/kdeprint
   ${CMAKE_SOURCE_DIR}/kde3support
   ${CMAKE_SOURCE_DIR}/kde3support/kdeui
   ${CMAKE_SOURCE_DIR}/kjsembed
@@ -145,7 +144,7 @@ kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 kde4_add_plugin(katepart ${katepart_PART_SRCS})
 
 # linking
-target_link_libraries(katepart ${KDE4_KDECORE_LIBS} kutils ktexteditor kdeprint kjs kde3support )
+target_link_libraries(katepart ${KDE4_KDECORE_LIBS} kutils ktexteditor kjs kde3support )
 
 if(KDE4_ENABLE_FINAL)
 	macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
@@ -174,7 +173,7 @@ set(testkateregression_SRCS ${katepart_PART_SRCS} tests/test_regression.cpp test
 
 kde4_add_executable(testkateregression NOGUI RUN_UNINSTALLED ${testkateregression_SRCS})
 
-target_link_libraries(testkateregression  ${KDE4_KDECORE_LIBS} kutils ktexteditor kdeprint kjs kde3support )
+target_link_libraries(testkateregression  ${KDE4_KDECORE_LIBS} kutils ktexteditor kjs kde3support )
 
 #add_dependencies(check testkateregression)
 

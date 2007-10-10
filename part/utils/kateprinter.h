@@ -21,12 +21,11 @@
 #ifndef __KATE_PRINTER_H__
 #define __KATE_PRINTER_H__
 
-#include <kprintdialogpage.h>
+#include <QtGui/QWidget>
 
 class KateDocument;
 
 class KColorButton;
-class KPrinter;
 class QCheckBox;
 class QComboBox;
 class QGroupBox;
@@ -48,15 +47,16 @@ class KatePrinter
   - Print Line Numbers
     () Smart () Yes () No
 */
-class KatePrintTextSettings : public KPrintDialogPage
+class KatePrintTextSettings : public QWidget
 {
   Q_OBJECT
   public:
-    explicit KatePrintTextSettings( KPrinter *printer, QWidget *parent=0 );
+    explicit KatePrintTextSettings( QWidget *parent=0 );
     ~KatePrintTextSettings(){}
 
-    void getOptions(QMap<QString,QString>& opts, bool incldef = false);
-    void setOptions(const QMap<QString,QString>& opts);
+    bool printSelection();
+    bool printLineNumbers();
+    bool printGuide();
 
     /* call if view has a selection, enables the seelction checkbox according to the arg */
     void enableSelection( bool );
@@ -75,15 +75,26 @@ class KatePrintTextSettings : public KPrintDialogPage
     o colors
 */
 
-class KatePrintHeaderFooter : public KPrintDialogPage
+class KatePrintHeaderFooter : public QWidget
 {
   Q_OBJECT
   public:
-    explicit KatePrintHeaderFooter( KPrinter *printer, QWidget *parent=0 );
+    explicit KatePrintHeaderFooter( QWidget *parent=0 );
     ~KatePrintHeaderFooter(){}
 
-    void getOptions(QMap<QString,QString>& opts, bool incldef = false);
-    void setOptions(const QMap<QString,QString>& opts);
+    QFont font();
+
+    bool useHeader();
+    QString headerFormat();
+    QColor headerForeground();
+    QColor headerBackground();
+    bool useHeaderBackground();
+
+    bool useFooter();
+    QString footerFormat();
+    QColor footerForeground();
+    QColor footerBackground();
+    bool useFooterBackground();
 
   public Q_SLOTS:
     void setHFFont();
@@ -91,7 +102,6 @@ class KatePrintHeaderFooter : public KPrintDialogPage
   private:
     QCheckBox *cbEnableHeader, *cbEnableFooter;
     QLabel *lFontPreview;
-    QString strFont;
     QGroupBox *gbHeader, *gbFooter;
     QLineEdit *leHeaderLeft, *leHeaderCenter, *leHeaderRight;
     KColorButton *kcbtnHeaderFg, *kcbtnHeaderBg;
@@ -113,15 +123,19 @@ class KatePrintHeaderFooter : public KPrintDialogPage
     o Margin
     o Color
 */
-class KatePrintLayout : public KPrintDialogPage
+class KatePrintLayout : public QWidget
 {
   Q_OBJECT
   public:
-    explicit KatePrintLayout( KPrinter *printer, QWidget *parent=0 );
+    explicit KatePrintLayout( QWidget *parent=0 );
     ~KatePrintLayout(){}
 
-    void getOptions(QMap<QString,QString>& opts, bool incldef = false);
-    void setOptions(const QMap<QString,QString>& opts);
+    QString colorScheme();
+    bool useBackground();
+    bool useBox();
+    int boxWidth();
+    int boxMargin();
+    QColor boxColor();
 
   private:
     QComboBox *cmbSchema;

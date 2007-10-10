@@ -253,6 +253,7 @@ struct DocWordCompletionPluginViewPrivate
   KToggleAction *autopopup; // for accessing state
   uint treshold;        // the required length of a word before popping up the completion list automatically
   int directionalPos;   // be able to insert "" at the correct time
+  bool isCompleting; // true when the directional completion is doing a completion
 };
 
 DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
@@ -266,7 +267,7 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
     d( new DocWordCompletionPluginViewPrivate )
 {
 //   setObjectName( name );
-
+  d->isCompleting = false;
   d->treshold = treshold;
   d->dcRange = KTextEditor::Range();
   KTextEditor::SmartInterface *si =
@@ -282,8 +283,6 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
   a->setBackground( colors.background(KColorScheme::ActiveBackground) );
   a->setForeground( colors.foreground(KColorScheme::ActiveText) ); // ### this does 0
   d->liRange->setAttribute( a );
-
-  connect( d->liRange->primaryNotifier(), SIGNAL(caretExitedRange(KTextEditor::SmartRange*, KTextEditor::View*)), this, SLOT(lastInsertedRangeExited(KTextEditor::SmartRange*, KTextEditor::View*)) );
 
   view->insertChildClient( this );
 
@@ -488,6 +487,8 @@ void DocWordCompletionPluginView::complete( bool fw )
   if ( si )
     si->addHighlightToView( m_view, d->liRange, true );
 
+    connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, KTextEditor::Cursor&)), this, SLOT(slotCursorMoved()) );
+
   }
 
   d->re.setPattern( "\\b" + doc->text( d->dcRange ) + "(\\w+)" );
@@ -508,11 +509,13 @@ void DocWordCompletionPluginView::complete( bool fw )
       if ( m != doc->text( *d->liRange ) )
       {
         // we got good a match! replace text and return.
+        d->isCompleting = true;
         doc->replaceText( *d->liRange, m );
         d->liRange->setRange( KTextEditor::Range( d->dcRange.end(), m.length() ) );
 
         d->dcCursor.setColumn( pos ); // for next try
 
+        d->isCompleting = false;
         return;
       }
 
@@ -564,11 +567,13 @@ void DocWordCompletionPluginView::complete( bool fw )
   } // while true
 }
 
-void DocWordCompletionPluginView::lastInsertedRangeExited(KTextEditor::SmartRange *range, KTextEditor::View */*view*/)
+void DocWordCompletionPluginView::slotCursorMoved()
 {
-  kDebug()<<"cursor exited range:"<<range;
-  if ( range != d->liRange )
-    return;
+  if ( d->isCompleting) return;
+
+  d->dcRange = KTextEditor::Range::invalid();
+
+  disconnect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, KTextEditor::Cursor&)), this, SLOT(slotCursorMoved()) );
 
   KTextEditor::SmartInterface *si =
      qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );

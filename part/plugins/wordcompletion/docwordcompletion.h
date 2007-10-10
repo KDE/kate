@@ -116,7 +116,7 @@ class DocWordCompletionPluginView
   private Q_SLOTS:
     void completeBackwards();
     void completeForwards();
-    void lastInsertedRangeExited(KTextEditor::SmartRange *range, KTextEditor::View *view);
+    void slotCursorMoved();
 
     void shellComplete();
 

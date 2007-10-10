@@ -430,6 +430,12 @@ void DocWordCompletionPluginView::shellComplete()
   else
   {
     m_view->document()->insertText( r.end(), partial.mid( r.columnWidth() ) );
+    KTextEditor::SmartInterface *si = qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );
+    if ( si ) {
+      si->addHighlightToView( m_view, d->liRange, true );
+      d->liRange->setRange( KTextEditor::Range( r.end(), partial.length() - r.columnWidth() ) );
+      connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, KTextEditor::Cursor&)), this, SLOT(slotCursorMoved()) );
+    }
   }
 }
 

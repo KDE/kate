@@ -506,7 +506,7 @@ void DocWordCompletionPluginView::complete( bool fw )
     {
       //kDebug()<<"USABLE MATCH";
       QString m = d->re.cap( 1 );
-      if ( m != doc->text( *d->liRange ) )
+      if ( m != doc->text( *d->liRange ) && (d->dcCursor.line() != d->dcRange.start().line() || pos != d->dcRange.start().column() ) )
       {
         // we got good a match! replace text and return.
         d->isCompleting = true;

@@ -1793,9 +1793,9 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
   {
     int oldSelectionStartLine = m_view->selectionRange().start().line();
     int oldSelectionEndLine = m_view->selectionRange().end().line();
-    
+
     m_view->clearSelection();
-    
+
     cache()->relayoutLines(oldSelectionStartLine, oldSelectionEndLine);
     cache()->updateViewCache(startPos());
 
@@ -2014,7 +2014,7 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection, bool up
 {
   KateTextLayout thisLine = yToKateTextLayout(p.y());
   KTextEditor::Cursor c;
-  
+
   if (!thisLine.isValid()) // probably user clicked below the last line -> use the last line
     thisLine = cache()->textLayout(m_doc->lines() - 1, -1);
 

@@ -296,6 +296,14 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
   if (selectionsOnly || textLine->attributesList().count() || m_view->externalHighlights().count() || m_view->internalHighlights().count() || m_doc->documentHighlights().count()) {
     RenderRangeList renderRanges;
 
+    // Add the inbuilt highlighting to the list
+    NormalRenderRange* inbuiltHighlight = new NormalRenderRange();
+    const QVector<int> &al = textLine->attributesList();
+    for (int i = 0; i+2 < al.count(); i += 3) {
+      inbuiltHighlight->addRange(new KTextEditor::Range(KTextEditor::Cursor(line, al[i]), al[i+1]), specificAttribute(al[i+2]));
+    }
+    renderRanges.append(inbuiltHighlight);
+    
     if (!completionHighlight) {
       // Add arbitrary highlighting ranges to the list
       renderRanges.appendRanges(m_view->internalHighlights(), selectionsOnly, view());
@@ -306,14 +314,6 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
       // Add the code completion arbitrary highlight to the list
       renderRanges.append(completionHighlight);
     }
-
-    // Add the inbuilt highlighting to the list
-    NormalRenderRange* inbuiltHighlight = new NormalRenderRange();
-    const QVector<int> &al = textLine->attributesList();
-    for (int i = 0; i+2 < al.count(); i += 3) {
-      inbuiltHighlight->addRange(new KTextEditor::Range(KTextEditor::Cursor(line, al[i]), al[i+1]), specificAttribute(al[i+2]));
-    }
-    renderRanges.append(inbuiltHighlight);
 
     // Add selection highlighting if we're creating the selection decorations
     if ((selectionsOnly && showSelections() && m_view->selection()) || (completionHighlight && completionSelected) || m_view->blockSelection()) {

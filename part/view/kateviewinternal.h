@@ -262,7 +262,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     bool m_possibleTripleClick;
 
     // Bracket mark and corresponding decorative ranges
-    //KateSmartRange *m_bm, *m_bmStart, *m_bmEnd;
+    KateSmartRange *m_bm, *m_bmStart, *m_bmEnd;
 
     enum DragState { diNone, diPending, diDragging };
 

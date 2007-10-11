@@ -3,6 +3,7 @@
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
    Copyright (C) 2006 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -5012,54 +5013,48 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   }
 
   bool forward = isStartBracket( bracket );
-  int startAttr = textLine->attribute( range.start().column() );
-  uint count = 0;
-  int lines = 0;
+  uint nesting = 0;
+
+  int minLine = qMax( range.start().line() - maxLines, 0 );
+  int maxLine = qMin( range.start().line() + maxLines, documentEnd().line() );
+  
   range.end() = range.start();
+  KateDocCursor cursor(range.start(), this);
+  uchar validAttr = cursor.currentAttrib();
+  
+  while( cursor.line() >= minLine && cursor.line() <= maxLine ) {
 
-  while( true ) {
-    /* Increment or decrement, check base cases */
-    if( forward ) {
-      if( range.end().column() + 1 < lineLength( range.end().line() ) ) {
-        range.end().setColumn(range.end().column() + 1);
+    if( forward )
+      cursor.moveForward(1);
+    else
+      cursor.moveBackward(1);
 
-      } else {
-        if( range.end().line() >= (int)lastLine() )
-          return false;
-        range.end().setPosition(range.end().line() + 1, 0);
-        textLine = m_buffer->plainLine( range.end().line() );
-        lines++;
-      }
-    } else {
-      if( range.end().column() > 0 ) {
-        range.end().setColumn(range.end().column() - 1);
-
-      } else {
-        if( range.end().line() <= 0 )
-          return false;
-        range.end().setPosition(range.end().line() - 1, lineLength( range.end().line() ) - 1);
-        textLine = m_buffer->plainLine( range.end().line() );
-        lines++;
-      }
-    }
-
-    if ((maxLines != -1) && (lines > maxLines))
+    if( !cursor.validPosition() )
       return false;
-
-    /* Easy way to skip comments */
-    if( textLine->attribute( range.end().column() ) != startAttr )
+    
+    if( cursor.currentAttrib() != validAttr )
       continue;
-
+    
     /* Check for match */
-    QChar c = textLine->at( range.end().column() );
+    QChar c = cursor.currentChar();
     if( c == bracket ) {
-      count++;
+      nesting++;
     } else if( c == opposite ) {
-      if( count == 0 )
+      if( nesting == 0 ) {
+        if( forward ) 
+          range.end() = cursor;
+        else
+          range.start() = cursor;
         return true;
-      count--;
+      }
+      nesting--;
     }
+    
+    if(cursor == KTextEditor::Cursor(0,0) || cursor >= documentEnd())
+      return false;
   }
+
+  return false;
 }
 
 void KateDocument::guiActivateEvent( KParts::GUIActivateEvent *ev )

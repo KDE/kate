@@ -107,7 +107,7 @@ bool KateDocCursor::moveForward(uint nbChar)
   int nbCharLeft = nbChar - nbCharsOnLineAfter();
 
   if(nbCharLeft > 0) {
-    return gotoNextLine() && moveForward((uint)nbCharLeft);
+    return gotoNextLine() && moveForward((uint)nbCharLeft - 1);
   } else {
     m_column += nbChar;
     return true;
@@ -118,7 +118,7 @@ bool KateDocCursor::moveBackward(uint nbChar)
 {
   int nbCharLeft = nbChar - m_column;
   if(nbCharLeft > 0) {
-    return gotoEndOfPreviousLine() && moveBackward((uint)nbCharLeft);
+    return gotoEndOfPreviousLine() && moveBackward((uint)nbCharLeft - 1);
   } else {
     m_column -= nbChar;
     return true;

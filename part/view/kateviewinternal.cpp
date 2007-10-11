@@ -63,11 +63,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_cursor(doc)
   , m_mouse()
   , m_possibleTripleClick (false)
-#if 0
   , m_bm(doc->smartManager()->newSmartRange())
-  , m_bmStart(doc->smartManager()->newSmartRange(KTextEditor::Range()/*, m_bm*/))
-  , m_bmEnd(doc->smartManager()->newSmartRange(KTextEditor::Range()/*, m_bm*/))
-#endif
+  , m_bmStart(doc->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
+  , m_bmEnd(doc->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
   , m_dummy (0)
 
   // stay on cursor will avoid that the view scroll around on press return at beginning
@@ -94,7 +92,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_textHintMouseY(-1)
   , m_smartDirty(false)
 {
-#if 0
   // Set up bracket marking
   static KTextEditor::Attribute::Ptr bracketOutline, bracketFill;
   if (!bracketOutline) {
@@ -111,7 +108,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   m_bm->setAttribute(bracketOutline);
   m_bmStart->setAttribute(bracketFill);
   m_bmEnd->setAttribute(bracketFill);
-#endif
 
   setMinimumSize (0,0);
   setAttribute(Qt::WA_OpaquePaintEvent);
@@ -1866,15 +1862,13 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 
 void KateViewInternal::updateBracketMarks()
 {
-#if 0
+  m_doc->removeHighlightFromView(m_view, m_bmStart);
+  m_doc->removeHighlightFromView(m_view, m_bmEnd);
+
   if ( m_bm->isValid() ) {
-    tagRange(*m_bm, true);
     tagRange(*m_bmStart, true);
     tagRange(*m_bmEnd, true);
   }
-
-  //m_bmStart->setValid(false);
-  //m_bmEnd->setValid(false);
 
   // add some limit to this, this is really endless on big files without limit
   int maxLines = linesDisplayed () * 3;
@@ -1883,19 +1877,16 @@ void KateViewInternal::updateBracketMarks()
   if ( m_bm->isValid() ) {
     m_bmStart->start() = m_bm->start();
     m_bmStart->end().setPosition(m_bm->start().line(), m_bm->start().column() + 1);
-    //m_bmStart->setValid(true);
 
     m_bmEnd->start() = m_bm->end();
-    m_bmEnd->end().setPosition(m_bm->end().line(), m_bmEnd->end().column() + 1);
-    //m_bmEnd->setValid(true);
+    m_bmEnd->end().setPosition(m_bm->end().line(), m_bm->end().column() + 1);
 
-    m_bm->end().setColumn(m_bm->end().column() + 1);
-
-    tagRange(*m_bm, true);
     tagRange(*m_bmStart, true);
     tagRange(*m_bmEnd, true);
+
+    m_doc->addHighlightToView(m_view, m_bmStart, true);
+    m_doc->addHighlightToView(m_view, m_bmEnd, true);
   }
-#endif
 }
 
 bool KateViewInternal::tagLine(const KTextEditor::Cursor& virtualCursor)

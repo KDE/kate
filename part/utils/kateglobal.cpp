@@ -294,7 +294,7 @@ KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
       return new KateSaveConfigTab (parent);
 
     case 4:
-      return new KateEditKeyConfiguration (parent, 0);
+      return new KateEditKeyConfiguration (parent);
 
     case 5:
       return new KatePartPluginConfigPage (parent);

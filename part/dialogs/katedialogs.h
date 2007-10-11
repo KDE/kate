@@ -3,6 +3,7 @@
    Copyright (C) 2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2006 Dominik Haumann <dhdev@gmx.de>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
 
    Based on work of:
      Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -204,7 +205,8 @@ class KateEditKeyConfiguration: public KateConfigPage
   Q_OBJECT
 
   public:
-    KateEditKeyConfiguration( QWidget* parent, KateDocument* doc );
+    KateEditKeyConfiguration( QWidget* parent );
+    ~KateEditKeyConfiguration();
 
   public Q_SLOTS:
     void apply();
@@ -217,9 +219,12 @@ class KateEditKeyConfiguration: public KateConfigPage
 
   private:
     bool m_ready;
-    class KateDocument *m_doc;
     KShortcutsEditor* m_shortcutsEditor;
-    class KActionCollection *m_ac;
+    class KActionCollection *m_actionCollection;
+    
+    // we use a fake document/view to get the action collection:
+    class KateDocument *m_doc;
+    class KateView *m_view;
 };
 
 class KateSaveConfigTab : public KateConfigPage

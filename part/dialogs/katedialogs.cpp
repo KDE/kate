@@ -3,6 +3,7 @@
    Copyright (C) 2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2006 Dominik Haumann <dhdev@gmx.de>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
 
    Based on work of:
      Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -519,29 +520,30 @@ void KateViewDefaultsConfig::defaults (){;}
 
 //BEGIN KateEditKeyConfiguration
 
-KateEditKeyConfiguration::KateEditKeyConfiguration( QWidget* parent, KateDocument* doc )
+KateEditKeyConfiguration::KateEditKeyConfiguration( QWidget* parent)
   : KateConfigPage( parent )
+  , m_ready(false)
 {
-  m_doc = doc;
-  m_ready = false;
+  m_doc = new KateDocument();
+  m_view = new KateView(m_doc, 0);
+}
+
+KateEditKeyConfiguration::~KateEditKeyConfiguration()
+{
+  delete m_view;
+  delete m_doc;
 }
 
 void KateEditKeyConfiguration::showEvent ( QShowEvent * )
 {
-#ifdef __GNUC__
-#warning fixme, to work without a document object, perhaps create some own internally
-#endif
-  return ;
-
   if (!m_ready)
   {
-    QVBoxLayout *l=new QVBoxLayout(this);
-    KateView* view = (KateView*)m_doc->views().at(0);
-    m_ac = view->editActionCollection();
-    l->addWidget(m_shortcutsEditor = new KShortcutsEditor( m_ac, this, false ));
-    //is this really needed? if yes, I'll add it to KShortcutsEditor
-    //note that changes will immediately become active with KShortcutsEditor -- ahartmetz
-    //connect( m_shortcutsEditor, SIGNAL( keyChange() ), this, SLOT( slotChanged() ) );
+	m_actionCollection = m_view->editActionCollection();
+
+    QVBoxLayout *layout = new QVBoxLayout(this);	
+    layout->addWidget(m_shortcutsEditor = new KShortcutsEditor( m_actionCollection, this, false ));
+    connect( m_shortcutsEditor, SIGNAL( keyChange() ), this, SLOT( slotChanged() ) );
+
     m_shortcutsEditor->show ();
 
     m_ready = true;
@@ -552,22 +554,15 @@ void KateEditKeyConfiguration::showEvent ( QShowEvent * )
 
 void KateEditKeyConfiguration::apply()
 {
-#ifdef __GNUC__
-#warning fixme, to work without a document object, perhaps create some own internally
-#endif
-  return ;
-
-  if ( ! hasChanged() )
+  if(!hasChanged())
     return;
   m_changed = false;
 
   if (m_ready)
   {
-#ifdef __GNUC__
-#warning: semantics of KKeyDialog changed from change/commit to change in-place/revert
-#endif
-    //m_keyChooser->commitChanges();
-    m_ac->writeSettings();
+    KateViewConfig::global()->configStart ();
+    m_actionCollection->writeSettings();
+    KateViewConfig::global()->configEnd ();
   }
 }
 //END KateEditKeyConfiguration

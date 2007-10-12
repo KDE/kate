@@ -44,7 +44,7 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
     model()->placeExpandingWidget(index);
 
   //Make sure the decorations are painted at the top, because the center of expanded items will be filled with the embedded widget.
-  option.decorationAlignment = Qt::AlignTop | option.decorationAlignment;
+  option.decorationAlignment = Qt::AlignTop;
   
   //kDebug() << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected);
 

@@ -69,10 +69,8 @@ class ExpandingDelegate : public QItemDelegate
     //Called when an item was expanded/unexpanded and the height changed
     virtual void heightChanged() const;
   
-    mutable int m_cachedRow;
-    mutable bool m_cachedRowSelected;
-    mutable int m_cachedColumnStart; //Text-offset for custom highlighting, will be applied to m_cachedHighlights(Only highlights starting after this will be used). Shoult be zero of the highlighting is not taken from kate.
-    mutable QList<int> m_cachedColumnStarts;
+    mutable int m_currentColumnStart; //Text-offset for custom highlighting, will be applied to m_cachedHighlights(Only highlights starting after this will be used). Shoult be zero of the highlighting is not taken from kate.
+    mutable QList<int> m_currentColumnStarts;
     mutable QList<QTextLayout::FormatRange> m_cachedHighlights;
   
   private:

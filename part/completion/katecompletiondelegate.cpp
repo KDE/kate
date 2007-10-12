@@ -33,7 +33,7 @@
 #include "katecompletiontree.h"
 
 KateCompletionDelegate::KateCompletionDelegate(ExpandingWidgetModel* model, KateCompletionWidget* parent) :
-    ExpandingDelegate(model, parent)
+    ExpandingDelegate(model, parent), m_cachedRow(-1)
 {
 }
 
@@ -60,6 +60,18 @@ void KateCompletionDelegate::heightChanged() const {
 QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const QModelIndex& index, QStyleOptionViewItem& option) const {
     // Which highlighting to use?
   //model()->index(index.row(), KTextEditor::CodeCompletionModel::Name, index.parent())
+    if( index.row() == m_cachedRow ) {
+        if( index.column() < m_cachedColumnStarts.size() ) {
+            m_currentColumnStart = m_cachedColumnStarts[index.column()];
+        } else {
+            kWarning() << "Column-count does not match";
+        }
+        return m_cachedHighlights;
+    }
+    
+    ///@todo reset the cache when the model changed
+    m_cachedRow = index.row();
+    
     QVariant highlight = model()->data(index, KTextEditor::CodeCompletionModel::HighlightingMethod);
 
     // TODO: config enable specifying no highlight as default
@@ -76,6 +88,7 @@ QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const
     thisLine->insertText(0, startText);
 
     int len = completionStart.column();
+    m_cachedColumnStarts.clear();
     for (int i = 0; i < KTextEditor::CodeCompletionModel::ColumnCount; ++i) {
       m_cachedColumnStarts.append(len);
       QString text = model()->data(model()->index(index.row(), i, index.parent()), Qt::DisplayRole).toString();
@@ -100,7 +113,7 @@ QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const
   if (highlightMethod & KTextEditor::CodeCompletionModel::CustomHighlighting)
     return highlightingFromVariantList(model()->data(index, KTextEditor::CodeCompletionModel::CustomHighlight).toList());
 
-  m_cachedColumnStart = m_cachedColumnStarts[index.column()];
+  m_currentColumnStart = m_cachedColumnStarts[index.column()];
   
   NormalRenderRange rr;
   QList<QTextLayout::FormatRange> ret = renderer()->decorationsForLine(thisLine, 0, false, &rr, option.state & QStyle::State_Selected);

@@ -29,6 +29,8 @@ class KateCompletionDelegate : public ExpandingDelegate {
     KateCompletionWidget* widget() const;
     KateDocument* document() const;
   protected:
+    mutable int m_cachedRow;
+    mutable QList<int> m_cachedColumnStarts;
     virtual void heightChanged() const;
     QList<QTextLayout::FormatRange> createHighlighting(const QModelIndex& index, QStyleOptionViewItem& option) const;
     

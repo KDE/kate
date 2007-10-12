@@ -28,8 +28,6 @@
 
 ExpandingDelegate::ExpandingDelegate(ExpandingWidgetModel* model, QObject* parent)
   : QItemDelegate(parent)
-  , m_cachedRow(-1)
-  , m_cachedRowSelected(false)
   , m_model(model)
 {
 }
@@ -48,26 +46,16 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
   
   //kDebug() << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected);
 
-  if ((index.row() != m_cachedRow) || ( ( option.state & QStyle::State_Selected  ) == QStyle::State_Selected ) != m_cachedRowSelected) {
-    m_cachedColumnStarts.clear();
-    m_cachedHighlights.clear();
-    m_cachedColumnStart = 0;
+    if (!model()->indexIsItem(index) )
+        return QItemDelegate::paint(painter, option, index);
 
-    if (!model()->indexIsItem(index) ) {
-      m_cachedRow = -1;
-      return QItemDelegate::paint(painter, option, index);
-    }
-
+    m_currentColumnStart = 0;
     m_cachedHighlights = createHighlighting(index, option);
 
 /*    kDebug() << "Highlights for line:";
     foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
       kDebug() << fr.start << " len " << fr.length << " format ";*/
     
-    m_cachedRow = index.row();
-    m_cachedRowSelected = option.state & QStyle::State_Selected;
-  }
-
   QItemDelegate::paint(painter, option, index);
 }
 
@@ -106,9 +94,9 @@ void ExpandingDelegate::changeBackground( int row, int column, QStyleOptionViewI
 
 void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & text ) const
 {
-  if (m_cachedRow == -1)
+/*  if (m_cachedRow == -1)
     return QItemDelegate::drawDisplay(painter, option, rect, text);
-
+*/
   QTextLayout layout(text, option.font, painter->device());
 
   QRect textRect = rect.adjusted(1, 0, -1, 0); // remove width padding
@@ -116,21 +104,21 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
   QList<QTextLayout::FormatRange> additionalFormats;
 
   for (int i = 0; i < m_cachedHighlights.count(); ++i) {
-    if (m_cachedHighlights[i].start + m_cachedHighlights[i].length <= m_cachedColumnStart)
+    if (m_cachedHighlights[i].start + m_cachedHighlights[i].length <= m_currentColumnStart)
       continue;
 
     if (!additionalFormats.count())
-      if (i != 0 && m_cachedHighlights[i - 1].start + m_cachedHighlights[i - 1].length > m_cachedColumnStart) {
+      if (i != 0 && m_cachedHighlights[i - 1].start + m_cachedHighlights[i - 1].length > m_currentColumnStart) {
         QTextLayout::FormatRange before;
         before.start = 0;
-        before.length = m_cachedHighlights[i - 1].start + m_cachedHighlights[i - 1].length - m_cachedColumnStart;
+        before.length = m_cachedHighlights[i - 1].start + m_cachedHighlights[i - 1].length - m_currentColumnStart;
         before.format = m_cachedHighlights[i - 1].format;
         additionalFormats.append(before);
       }
 
       
     QTextLayout::FormatRange format;
-    format.start = m_cachedHighlights[i].start - m_cachedColumnStart;
+    format.start = m_cachedHighlights[i].start - m_currentColumnStart;
     format.length = m_cachedHighlights[i].length;
     format.format = m_cachedHighlights[i].format;
 
@@ -139,7 +127,7 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
     additionalFormats.append(format);
   }
 
-  /*kDebug() << "Highlights for text [" << text << "] col start " << m_cachedColumnStart << ":";
+  /*kDebug() << "Highlights for text [" << text << "] col start " << m_currentColumnStart << ":";
   foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
     kDebug() << fr.start << " len " << fr.length << " format " << fr.format.fontWeight();*/
 

@@ -5032,24 +5032,24 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
     if( !cursor.validPosition() )
       return false;
     
-    if( cursor.currentAttrib() != validAttr )
-      continue;
-    
-    /* Check for match */
-    QChar c = cursor.currentChar();
-    if( c == bracket ) {
-      nesting++;
-    } else if( c == opposite ) {
-      if( nesting == 0 ) {
-        if( forward ) 
-          range.end() = cursor;
-        else
-          range.start() = cursor;
-        return true;
+    if( cursor.currentAttrib() == validAttr )
+    {
+      /* Check for match */
+      QChar c = cursor.currentChar();
+      if( c == bracket ) {
+        nesting++;
+      } else if( c == opposite ) {
+        if( nesting == 0 ) {
+          if( forward ) 
+            range.end() = cursor;
+          else
+            range.start() = cursor;
+          return true;
+        }
+        nesting--;
       }
-      nesting--;
     }
-    
+
     if(cursor == KTextEditor::Cursor(0,0) || cursor >= documentEnd())
       return false;
   }

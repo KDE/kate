@@ -87,8 +87,7 @@ QVariant DocWordCompletionModel::data(const QModelIndex& index, int role) const
   switch ( role )
   {
     case Qt::DisplayRole:
-      if ( index.column() == Name )
-        return m_matches.at( index.row() );
+      return m_matches.at( index.row() );
     case CompletionRole:
       return (int)FirstProperty|LastProperty|Public;
     case ScopeIndex:
@@ -424,7 +423,7 @@ void DocWordCompletionPluginView::shellComplete()
 
   QString partial = findLongestUnique( matches, r.columnWidth() );
 
-  if ( partial.length() == r.columnWidth() )
+  if ( ! partial.length() )
     popupCompletionList();
 
   else

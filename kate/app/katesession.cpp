@@ -65,7 +65,7 @@ KateSession::KateSession (KateSessionManager *manager, const QString &fileName)
     , m_readConfig (0)
     , m_writeConfig (0)
 {
-  m_sessionName = QUrl::fromPercentEncoding(fileName.toLatin1());
+  m_sessionName = QUrl::fromPercentEncoding(QFile::encodeName(fileName));
   m_sessionName.chop(12);//.katesession==12
   init ();
 }

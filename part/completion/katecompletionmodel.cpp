@@ -573,13 +573,7 @@ QModelIndex KateCompletionModel::parent( const QModelIndex & index ) const
 
     int row = m_rowTable.indexOf(g);
 
-    /**
-     * Workaround for crash caused by the assertion that I don't know how to fix, any better fix is encouraged.
-     * It happens when I click setup
-     * */
-    if( row == -1 )
-      return QModelIndex();
-//     Q_ASSERT(row != -1);
+    Q_ASSERT(row != -1);
     return createIndex(row, 0, 0);
   }
 

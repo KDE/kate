@@ -433,7 +433,7 @@ void DocWordCompletionPluginView::shellComplete()
     if ( si ) {
       si->addHighlightToView( m_view, d->liRange, true );
       d->liRange->setRange( KTextEditor::Range( r.end(), partial.length() - r.columnWidth() ) );
-      connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, KTextEditor::Cursor&)), this, SLOT(slotCursorMoved()) );
+      connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(slotCursorMoved()) );
     }
   }
 }
@@ -486,7 +486,7 @@ void DocWordCompletionPluginView::complete( bool fw )
   if ( si )
     si->addHighlightToView( m_view, d->liRange, true );
 
-    connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, KTextEditor::Cursor&)), this, SLOT(slotCursorMoved()) );
+    connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(slotCursorMoved()) );
 
   }
 

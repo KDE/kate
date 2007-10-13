@@ -378,7 +378,7 @@ void DocWordCompletionPluginView::popupCompletionList()
   if ( ! m_dWCompletionModel->rowCount(QModelIndex()) ) return;
 
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>( m_view );
-  if ( cci )
+  if ( cci && ! cci->isCompletionActive() )
     cci->startCompletion( r, m_dWCompletionModel );
 }
 

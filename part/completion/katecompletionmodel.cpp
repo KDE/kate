@@ -706,7 +706,7 @@ void KateCompletionModel::rematch()
 
     updateBestMatches();
   }
-  
+
   clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
 }
 
@@ -1241,7 +1241,7 @@ KateCompletionModel::Item::Item( KateCompletionModel* m, ModelRow sr )
   , matchFilters(true)
 {
   inheritanceDepth = m_sourceRow.first->index(m_sourceRow.second, 0).data(CodeCompletionModel::InheritanceDepth).toInt();
-  
+
   filter();
   match();
 }
@@ -1279,11 +1279,12 @@ QString KateCompletionModel::Item::completionSortingName( ) const
 void KateCompletionModel::Group::addItem( Item i )
 {
   if (model->isSortingEnabled()) {
-    QList<Item>::Iterator it = model->isSortingReverse() ? qUpperBound(--prefilter.end(), prefilter.end(), i) : qUpperBound(prefilter.begin(), prefilter.end(), i);
+    QList<Item>::Iterator it = model->isSortingReverse() ? qLowerBound(prefilter.begin(), prefilter.end(), i) : qUpperBound(prefilter.begin(), prefilter.end(), i);
     if (it != prefilter.end()) {
+      const Item& item = *it;
       prefilter.insert(it, i);
       if (i.isVisible()) {
-        int index = rows.indexOf(it->sourceRow());
+        int index = rows.indexOf(item.sourceRow());
         if (index != -1)
           rows.append(i.sourceRow());
         else
@@ -1292,7 +1293,10 @@ void KateCompletionModel::Group::addItem( Item i )
     } else {
       prefilter.append(i);
       if (i.isVisible())
-        rows.append(i.sourceRow());
+        if (model->isSortingReverse())
+          rows.prepend(i.sourceRow());
+        else
+          rows.append(i.sourceRow());
     }
 
   } else {
@@ -1430,7 +1434,7 @@ void KateCompletionModel::refilter( )
     g->refilter();
 
   updateBestMatches();
-  
+
   clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
 }
 

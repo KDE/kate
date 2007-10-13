@@ -2067,7 +2067,8 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
       }
       else if ( !((k->modifiers() & Qt::ControlModifier) || (k->modifiers() & Qt::AltModifier)) )
       {
-        return false;
+        keyPressEvent( k );
+        return k->isAccepted();
       }
 
     } break;

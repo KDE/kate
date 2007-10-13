@@ -573,7 +573,11 @@ QModelIndex KateCompletionModel::parent( const QModelIndex & index ) const
 
     int row = m_rowTable.indexOf(g);
 
-    Q_ASSERT(row != -1);
+    if (row == -1) {
+      kWarning() << k_funcinfo << "Couldn't find parent for index" << index;
+      return QModelIndex();
+    }
+    
     return createIndex(row, 0, 0);
   }
 

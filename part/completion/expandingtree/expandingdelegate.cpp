@@ -46,16 +46,18 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
   
   //kDebug() << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected);
 
-    if (!model()->indexIsItem(index) )
-        return QItemDelegate::paint(painter, option, index);
+  m_cachedHighlights.clear();
 
-    m_currentColumnStart = 0;
-    m_cachedHighlights = createHighlighting(index, option);
+  if (!model()->indexIsItem(index) )
+      return QItemDelegate::paint(painter, option, index);
 
-/*    kDebug() << "Highlights for line:";
-    foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
-      kDebug() << fr.start << " len " << fr.length << " format ";*/
-    
+  m_currentColumnStart = 0;
+  m_cachedHighlights = createHighlighting(index, option);
+
+  /*kDebug() << "Highlights for line:";
+  foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
+    kDebug() << fr.start << " len " << fr.length << " format ";*/
+
   QItemDelegate::paint(painter, option, index);
 }
 
@@ -127,9 +129,19 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
     additionalFormats.append(format);
   }
 
+  if (additionalFormats.isEmpty()) {
+    QTextLayout::FormatRange format;
+    format.start = 0;
+    format.length = text.length();
+    QTextCharFormat fm;
+    fm.setForeground(option.palette.text());
+    format.format = fm;
+    additionalFormats.append(format);
+  }
+
   /*kDebug() << "Highlights for text [" << text << "] col start " << m_currentColumnStart << ":";
-  foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
-    kDebug() << fr.start << " len " << fr.length << " format " << fr.format.fontWeight();*/
+  foreach (const QTextLayout::FormatRange& fr, additionalFormats)
+    kDebug() << fr.start << " len " << fr.length << "foreground" << fr.format.foreground() << "background" << fr.format.background();*/
 
   layout.setAdditionalFormats(additionalFormats);
 

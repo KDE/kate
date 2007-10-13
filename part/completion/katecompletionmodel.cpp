@@ -1070,15 +1070,26 @@ int KateCompletionModel::translateColumn( int sourceColumn ) const
   if (m_columnMerges.isEmpty())
     return sourceColumn;
 
+  /* Debugging - dump column merge list
+
+  QString columnMerge;
+  foreach (const QList<int>& list, m_columnMerges) {
+    columnMerge += '[';
+    foreach (int column, list) {
+      columnMerge += QString::number(column) + " ";
+    }
+    columnMerge += "] ";
+  }
+
+  kDebug() << k_funcinfo << columnMerge;*/
+
   int c = 0;
   foreach (const QList<int>& list, m_columnMerges) {
     foreach (int column, list) {
       if (column == sourceColumn)
-        ///@todo Ugly workaround: "return c" is correct here. This is a workaround for a bug I don't understand, which you can notice in katecompletionwidget.cpp:
-        ///For some reason, the name-column is mapped to the post-fix column when column-merging is enabled, so the widget is not positioned correctly.
-        return c > 0 ? c-1 : c;
-      c++;
+        return c;
     }
+    c++;
   }
   return -1;
 }

@@ -104,7 +104,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_updateFocusTimer = new QTimer(this);
   m_updateFocusTimer->setSingleShot(true);
   connect(m_updateFocusTimer, SIGNAL(timeout()), this, SLOT(updateFocus()));
-  
+
   QSizeGrip* sg = new QSizeGrip(m_statusBar);
 
   QHBoxLayout* statusLayout = new QHBoxLayout(m_statusBar);
@@ -142,7 +142,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
 
   //We need to do this, because else the focus goes to nirvana without any control when the completion-widget is clicked.
   setFocusPolicy(Qt::ClickFocus);
-  
+
   foreach (QWidget* childWidget, findChildren<QWidget*>())
     childWidget->setFocusPolicy(Qt::NoFocus);
 }
@@ -218,7 +218,7 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   m_isSuspended = false;
 
   m_dontShowArgumentHints = true;
-  
+
   if (!word.isValid()) {
     kWarning(13035) << "Invalid range given to start code completion!";
     return;
@@ -257,7 +257,7 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
     m_presentationModel->setCompletionModels(m_sourceModels);
 
   setUpdatesEnabled(false);
-  
+
   updatePosition(true);
 
   if (!m_presentationModel->completionModels().isEmpty()) {
@@ -277,7 +277,7 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
       updateArgumentHintGeometry();
     }
   }
-  
+
   setUpdatesEnabled(true);
 }
 

@@ -614,7 +614,7 @@ void KateView::setupEditActions()
 
   a = ac->addAction("beginning_of_document");
   a->setText(i18n("Move to Beginning of Document"));
-  a->setShortcuts(KStandardShortcut::home());
+  a->setShortcuts(KStandardShortcut::begin());
   connect(a, SIGNAL(triggered(bool)), SLOT(top()));
 
   a = ac->addAction("select_beginning_of_line");

@@ -245,6 +245,7 @@ int KateLayoutCache::viewLine(const KTextEditor::Cursor& realCursor) const
 int KateLayoutCache::displayViewLine(const KTextEditor::Cursor& virtualCursor, bool limitToVisible) const
 {
   KTextEditor::Cursor work = viewCacheStart();
+  work.setLine(m_renderer->doc()->getVirtualLine(work.line()));
 
   int limit = m_textLayouts.count();
 

@@ -92,23 +92,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_textHintMouseY(-1)
   , m_smartDirty(false)
 {
-  // Set up bracket marking
-  static KTextEditor::Attribute::Ptr bracketOutline, bracketFill;
-  if (!bracketOutline) {
-    bracketOutline = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
-    bracketOutline->setOutline(m_view->m_renderer->config()->highlightedBracketColor());
-  }
-  if (!bracketFill) {
-    bracketFill = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
-    bracketFill->setBackground(m_view->m_renderer->config()->highlightedBracketColor());
-    bracketFill->setBackgroundFillWhitespace(false);
-    bracketFill->setFontBold();
-  }
-
-  m_bm->setAttribute(bracketOutline);
-  m_bmStart->setAttribute(bracketFill);
-  m_bmEnd->setAttribute(bracketFill);
-
+  updateBracketMarkAttributes();
+  
   setMinimumSize (0,0);
   setAttribute(Qt::WA_OpaquePaintEvent);
 
@@ -1858,6 +1843,17 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
   updateDirty(); //paintText(0, 0, width(), height(), true);
 
   emit m_view->cursorPositionChanged(m_view, m_cursor);
+}
+
+void KateViewInternal::updateBracketMarkAttributes()
+{
+  KTextEditor::Attribute::Ptr bracketFill = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
+  bracketFill->setBackground(m_view->m_renderer->config()->highlightedBracketColor());
+  bracketFill->setBackgroundFillWhitespace(false);
+  bracketFill->setFontBold();
+  
+  m_bmStart->setAttribute(bracketFill);
+  m_bmEnd->setAttribute(bracketFill);
 }
 
 void KateViewInternal::updateBracketMarks()

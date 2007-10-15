@@ -3,6 +3,7 @@
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
 
    Based on:
      KWriteView : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -263,6 +264,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
     // Bracket mark and corresponding decorative ranges
     KateSmartRange *m_bm, *m_bmStart, *m_bmEnd;
+    void updateBracketMarkAttributes();
 
     enum DragState { diNone, diPending, diDragging };
 

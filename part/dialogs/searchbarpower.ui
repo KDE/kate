@@ -383,7 +383,7 @@
               <string>Resolve placeholders (\0 to \9) and escape sequences (\n, \t, ..)</string>
              </property>
              <property name="text" >
-              <string>Use Placeholders</string>
+              <string>Use placeholders</string>
              </property>
             </widget>
            </item>

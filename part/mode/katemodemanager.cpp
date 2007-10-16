@@ -277,40 +277,44 @@ QString KateModeManager::fileType (KateDocument *doc)
   return "";
 }
 
+/*static*/ QString KateModeManager::reverse(const QString & text) {
+  const int len = text.length();
+  QString res;
+  res.reserve(len);
+  for (int i = len - 1; i >= 0; i--) {
+    res.append(text[i]);
+  }
+  return res;
+}
+
 QString KateModeManager::wildcardsFind (const QString &fileName)
 {
-  QList<KateFileType*> types;
+  const QString reversedFilename = reverse(fileName);
 
+  QRegExp re;
+  re.setCaseSensitivity(Qt::CaseSensitive);
+  re.setPatternSyntax(QRegExp::Wildcard);
+
+  KateFileType * match = NULL;
+  int minPrio = -1;
   foreach (KateFileType *type, m_types)
   {
+    if (type->priority <= minPrio) {
+      continue;
+    }
+
     foreach (QString wildcard, type->wildcards)
     {
-      // anders: we need to be sure to match the end of string, as eg a css file
-      // would otherwise end up with the c hl
-      QRegExp re(wildcard, Qt::CaseSensitive, QRegExp::Wildcard);
-      if ( ( re.indexIn( fileName ) > -1 ) && ( re.matchedLength() == (int)fileName.length() ) )
-        types.append (type);
-    }
-  }
-
-  if ( !types.isEmpty() )
-  {
-    int pri = -1;
-    QString name;
-
-    foreach (KateFileType *type, types)
-    {
-      if (type->priority > pri)
-      {
-        pri = type->priority;
-        name = type->name;
+      re.setPattern(reverse(wildcard));
+      if (re.exactMatch(reversedFilename)) {
+        match = type;
+        minPrio = type->priority;
+        break;
       }
     }
-
-    return name;
   }
 
-  return "";
+  return (match == NULL) ? "" : match->name;
 }
 
 const KateFileType& KateModeManager::fileType(const QString &name) const

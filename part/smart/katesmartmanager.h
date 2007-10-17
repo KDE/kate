@@ -93,6 +93,7 @@ class KateSmartManager : public QObject, private KTextEditor::SmartRangeWatcher
 
   private:
     KateSmartRange* feedbackRange(const KateEditInfo& edit, KateSmartRange* range);
+    int usingRevision() const;
 
     void debugOutput() const;
 
@@ -100,7 +101,7 @@ class KateSmartManager : public QObject, private KTextEditor::SmartRangeWatcher
     QSet<KateSmartRange*> m_topRanges;
     KateSmartGroup* m_invalidGroup;
     bool m_clearing;
-    int m_usingRevision;
+    QHash<QThread*, int> m_usingRevision;
 };
 
 /**

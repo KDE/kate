@@ -22,6 +22,8 @@
 #include "katesmartcursor.h"
 #include "katesmartrange.h"
 
+#include <QThread>
+
 #include <kdebug.h>
 
 static const int s_defaultGroupSize = 40;
@@ -35,7 +37,6 @@ KateSmartManager::KateSmartManager(KateDocument* parent)
   , m_firstGroup(new KateSmartGroup(0, 0, 0L, 0L))
   , m_invalidGroup(new KateSmartGroup(-1, -1, 0L, 0L))
   , m_clearing(false)
-  , m_usingRevision(-1)
 {
   connect(doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(slotTextChanged(KateEditInfo*)));
   //connect(doc(), SIGNAL(textChanged(Document*)), SLOT(verifyCorrect()));
@@ -63,7 +64,7 @@ KateDocument * KateSmartManager::doc( ) const
 KateSmartCursor * KateSmartManager::newSmartCursor( const Cursor & position, SmartCursor::InsertBehavior insertBehavior, bool internal )
 {
   KateSmartCursor* c;
-  if (m_usingRevision != -1)
+  if (usingRevision() != -1)
     c = new KateSmartCursor(translateFromRevision(position), doc(), insertBehavior);
   else
     c = new KateSmartCursor(position, doc(), insertBehavior);
@@ -77,7 +78,7 @@ KateSmartRange * KateSmartManager::newSmartRange( const Range & range, SmartRang
 {
   KateSmartRange* newRange;
 
-  if (m_usingRevision != -1)
+  if (usingRevision() != -1)
     newRange = new KateSmartRange(translateFromRevision(range), doc(), parent, insertBehavior);
   else
     newRange = new KateSmartRange(range, doc(), parent, insertBehavior);
@@ -91,7 +92,7 @@ KateSmartRange * KateSmartManager::newSmartRange( const Range & range, SmartRang
 
 KateSmartRange * KateSmartManager::newSmartRange( KateSmartCursor * start, KateSmartCursor * end, SmartRange * parent, SmartRange::InsertBehaviors insertBehavior, bool internal )
 {
-  if (m_usingRevision != -1) {
+  if (usingRevision() != -1) {
     *start = translateFromRevision(*start, (insertBehavior & SmartRange::ExpandLeft) ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
     *end = translateFromRevision(*end, (insertBehavior & SmartRange::ExpandRight) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
   }
@@ -515,7 +516,19 @@ void KateSmartManager::clear( bool includingInternal )
 
 void KateSmartManager::useRevision(int revision)
 {
-  m_usingRevision = revision;
+  if (revision == -1)
+    // Clear current revision use
+    m_usingRevision.remove(QThread::currentThread());
+  else
+    m_usingRevision[QThread::currentThread()] = revision;
+}
+
+int KateSmartManager::usingRevision() const
+{
+  if (m_usingRevision.contains(QThread::currentThread())) {
+    return m_usingRevision[QThread::currentThread()];
+  }
+  return -1;
 }
 
 void KateSmartManager::releaseRevision(int revision) const
@@ -567,7 +580,7 @@ Cursor KateSmartManager::translateFromRevision(const Cursor& cursor, SmartCursor
 {
   Cursor ret = cursor;
 
-  foreach (KateEditInfo* edit, doc()->history()->editsBetweenRevisions(m_usingRevision))
+  foreach (KateEditInfo* edit, doc()->history()->editsBetweenRevisions(usingRevision()))
     translate(edit, ret, insertBehavior);
 
   return ret;
@@ -577,7 +590,7 @@ Range KateSmartManager::translateFromRevision(const Range& range, KTextEditor::S
 {
   Range ret = range;
 
-  foreach (KateEditInfo* edit, doc()->history()->editsBetweenRevisions(m_usingRevision)) {
+  foreach (KateEditInfo* edit, doc()->history()->editsBetweenRevisions(usingRevision())) {
     translate(edit, ret.start(), insertBehavior & KTextEditor::SmartRange::ExpandLeft ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
     translate(edit, ret.end(), insertBehavior & KTextEditor::SmartRange::ExpandRight ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
   }

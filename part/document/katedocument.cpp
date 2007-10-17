@@ -439,6 +439,11 @@ QString KateDocument::text() const
 
 QString KateDocument::text( const KTextEditor::Range& range, bool blockwise ) const
 {
+  if (!range.isValid()) {
+    kWarning() << k_funcinfo << "Text requested for invalid range" << range;
+    return QString();
+  }
+  
   if ( blockwise && (range.start().column() > range.end().column()) )
     return QString ();
 
@@ -502,8 +507,10 @@ QStringList KateDocument::textLines( const KTextEditor::Range & range, bool bloc
 {
   QStringList ret;
 
-  if (!range.isValid())
+  if (!range.isValid()) {
+    kWarning() << k_funcinfo << "Text requested for invalid range" << range;
     return ret;
+  }
 
   if ( blockwise && (range.start().column() > range.end().column()) )
     return ret;

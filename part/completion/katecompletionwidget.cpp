@@ -466,12 +466,20 @@ void KateCompletionWidget::execute(bool shift)
     return abortCompletion();
 
   toExecute = m_presentationModel->mapToSource(toExecute);
+
+  if (!toExecute.isValid()) {
+    kWarning() << k_funcinfo << "Could not map index" << m_entryList->selectionModel()->currentIndex() << "to source index.";
+    return abortCompletion();
+  }
+
   KTextEditor::Cursor start = m_completionRange->start();
 
   // encapsulate all editing as being from the code completion, and undo-able in one step.
   view()->doc()->editStart(true, Kate::CodeCompletionEdit);
 
   KTextEditor::CodeCompletionModel* model = static_cast<KTextEditor::CodeCompletionModel*>(const_cast<QAbstractItemModel*>(toExecute.model()));
+  Q_ASSERT(model);
+
   model->executeCompletionItem(view()->document(), *m_completionRange, toExecute.row());
 
   view()->doc()->editEnd();

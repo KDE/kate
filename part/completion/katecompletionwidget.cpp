@@ -242,7 +242,7 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   m_completionRange = view()->doc()->smartManager()->newSmartRange(word);
   m_completionRange->setInsertBehavior(KTextEditor::SmartRange::ExpandRight);
   if(!m_completionRange->isValid()) {
-    kWarning(13035) << "Could not construct valid smart-range from " << word;
+    kWarning(13035) << "Could not construct valid smart-range from" << word << "instead got" << *m_completionRange;
     abortCompletion();
     return;
   }

@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="CSS" version="2.00" kateversion="2.4" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+
+<!--
+
+    Kate CSS syntax highlighting definition
+
+
+    Changelog:
+
+    - Version 2.01, by Mathieu Bonnet:
+
+        - Added CSS 3 property "border-radius".
+        - Added Gecko CSS properties "-moz-border-radius" and "-moz-box-flex".
+        - Added Gecko CSS value "-moz-box".
+        - Added Trident CSS functional notation "expression".
+        - Extended the id and class syntax specifications, as per CSS 2.1 grammar.
+
+-->
+
+<language name="CSS" version="2.01" kateversion="2.4" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
   <highlighting>
     <list name="properties">
@@ -130,9 +148,14 @@
       <item> z-index </item>
 
       <!-- CSS3 -->
+      <item> border-radius </item>
       <item> box-sizing </item>
       <item> opacity </item>
       <item> text-shadow </item>
+
+      <!-- Gecko rendering engine CSS property extensions -->
+      <item> -moz-border-radius </item>
+      <item> -moz-box-flex </item>
 
       <!-- konq specific -->
       <item> konq_bgpos_x </item>
@@ -349,6 +372,10 @@
       <item> monospace </item>
       <item> border-box </item>
       <item> content-box </item>
+      
+      <!-- Gecko rendering engine CSS value extensions -->
+      <item> -moz-box </item>      
+      
     </list>
 
 
@@ -410,6 +437,10 @@
       <!-- in @font-face -->
       <item> local </item>
       <item> format </item>
+      
+      <!-- Trident (a.k.a., MSHTML) rendering engine functional notation extensions -->
+      <item> expression </item>
+      
     </list>
 
     <list name="mediatypes">
@@ -472,8 +503,8 @@
         <DetectChar attribute="Property" context="RuleSet" char="{" beginRegion="ruleset" />
         <!--parse selectors-->
 	<DetectChar attribute="Selector Attr" context="SelAttr" char="[" />
-	<RegExpr attribute="Selector Id" context="#stay" String="#[A-Za-z0-9][\w\-]*" />
-	<RegExpr attribute="Selector Class" context="#stay" String="\.[A-Za-z0-9][\w\-]*" />
+	<RegExpr attribute="Selector Id" context="#stay" String="#([a-zA-Z0-9\-_]|[\x80-\xFF]|\\[0-9A-Fa-f]{1,6})*" />
+	<RegExpr attribute="Selector Class" context="#stay" String="\.([a-zA-Z0-9\-_]|[\x80-\xFF]|\\[0-9A-Fa-f]{1,6})*" />
 	<RegExpr attribute="Selector Pseudo" context="#stay" String=":lang\([\w_-]+\)" />
 	<DetectChar attribute="Selector Pseudo" context="SelPseudo" char=":" />
 	<IncludeRules context="FindStrings" />

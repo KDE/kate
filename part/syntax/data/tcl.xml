@@ -8,13 +8,25 @@
     Updated by Pawel Salawa (boogie at scripts dot one dot pl)
 
     Revision history:
+        1.10:
+            - Fixed problem with single ':' character after variable name (it's no longer variable,
+              because only double-colon is namespace delimiter and can be part of variable name).
+            - Fixed problem with matching quote character next to regular character, for example:
+              puts {"string"}
+              In that case left bracked was marked as string, but it's no longer like that.
+            - Fixed problem with variable names like: ${text\}test}
+              It whole is valid variable name, because of escape character.
+            - Fixed problem with marking ';' character as a comment when '#' character was after the ';'.
+            - Fixed problem with marking options. '-' character after word-delimiter character caused
+              marking that word-delimiter character as option too, even it wasn't white-space.
+            - Few other minor optimalizations.
 	1.09:
 	    - Added fast comments support (Ctrl+d or whatever your shortcut is)
 	    - Fixed single-character variables detection
 	    - Fixed detection of varaibles with names containing serval namespace delimiters (::)
 -->
 
-<language name="Tcl/Tk" version="1.09" kateversion="2.4" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
+<language name="Tcl/Tk" version="1.10" kateversion="2.4" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
   <highlighting>
     <list name="keywords">
       <item> after </item>
@@ -450,30 +462,52 @@
 
     <contexts>
       <context name = "Base" attribute = "Normal Text" lineEndContext="#stay">
+      
+        <!-- Virtual blocks -->
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="region" firstNonSpace="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="region" firstNonSpace="true"/>
+        
+        <!-- Standard -->
         <keyword String = "keywords" attribute = "Keyword" context="#stay"/>
         <keyword String = "keywords-opt" attribute = "Parameter" context="#stay"/>
         <Float attribute = "Float" context="#stay"/>
         <Int attribute ="Decimal" context="#stay"/>
         <RegExpr String="\\." attribute = "Char" context = "#stay"/>
-        <RegExpr String = "\W-\w+" attribute = "Parameter" context="#stay"/>
-        <RegExpr String = "\$\{[^\}]+\}" attribute = "Variable" context="#stay"/>
-        <RegExpr String = "\$[\w:]+" attribute = "Variable" context="#stay"/>
-        <RegExpr String = "[^\\]&quot;&quot;" attribute = "String" context="#stay"/>
-        <RegExpr String = "[^\\]&quot;" attribute = "String" context="String"/>
-        <RegExpr String= "#.*$" attribute = "Comment" context="#stay" firstNonSpace="true"/>
-        <RegExpr String= ";\s*#.*$" attribute = "Comment" context="#stay"/>
+        
+        <!-- Options -->
+        <RegExpr String = "\s-\w+" attribute = "Parameter" context="#stay"/>
+        
+        <!-- Variables -->
+        <RegExpr String = "\$\{([^\}]|\\\})+\}" attribute = "Variable" context="#stay"/>
+        <RegExpr String = "\$(::|\w)+" attribute = "Variable" context="#stay"/>
+        
+        <!-- Strings -->
+        <RegExpr String = "&quot;{2}" attribute = "String" context="#stay"/>
+        <RegExpr String = "&quot;" attribute = "String" context="String"/>
+        
+        <!-- Comments -->
+        <DetectChar char = ";" attribute = "Normal Text" context="New command line" />
+        <DetectChar char = "#" attribute = "Comment" context="Comment" firstNonSpace="true"/>
+        
+        <!-- Braces, brackets, etc -->
         <DetectChar char = "{" attribute = "Keyword" context="#stay" beginRegion="block"/>
         <DetectChar char = "}" attribute = "Keyword" context="#stay" endRegion="block"/>
         <DetectChar char = "[" attribute = "Keyword" context="#stay"/>
         <DetectChar char = "]" attribute = "Keyword" context="#stay"/>
+        
       </context>
 
       <context name = "String" attribute = "String" lineEndContext="#stay">
         <RegExpr String="\\." attribute = "Char" context = "#stay"/>
         <DetectChar char="&quot;" attribute = "String" context = "#pop"/>
         <DetectChar char  = "$" attribute = "Variable" context="#stay"/>
+      </context>
+
+      <context name = "Comment" attribute = "Comment" lineEndContext="#pop"/>
+
+      <context name = "New command line" attribute = "Normal Text" lineEndContext="#stay">
+        <RegExpr String = "\s*#" attribute="Comment" context="Comment" />
+        <RegExpr String = "." attribute="Normal Text" context="#pop" lookAhead="true" />
       </context>
     </contexts>
 

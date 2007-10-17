@@ -272,7 +272,8 @@ TODO:
 <!ELEMENT keyword EMPTY>
 <!ATTLIST keyword
   %commonAttributes;
-  String    CDATA   #REQUIRED
+  insensitive   CDATA #IMPLIED
+  String        CDATA #REQUIRED
   weakDelimiter CDATA #IMPLIED
 >
 

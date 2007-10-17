@@ -154,10 +154,10 @@ WARNING: due to helper scripts, the language opening tag must be on a
 -->
 <!ELEMENT keywords EMPTY>
 <!ATTLIST keywords
-  casesensitive         CDATA   #IMPLIED
-  weakDeliminator       CDATA   #IMPLIED
-  additionalDeliminator CDATA   #IMPLIED
-  wordWrapDeliminator   CDATA   #IMPLIED
+  casesensitive         (%boolean;) #IMPLIED
+  weakDeliminator       CDATA       #IMPLIED
+  additionalDeliminator CDATA       #IMPLIED
+  wordWrapDeliminator   CDATA       #IMPLIED
 >
 
 <!-- Indentation options
@@ -261,8 +261,12 @@ TODO:
 
 <!-- Detect members of a keyword list
   commonAttributes: Common attributes
+  insensitive:      Is this list case-insensitive? [boolean, optional, see note]
   String:           Name of the list
   weakDelimiter:    Use weak deliminator
+
+  By default, case sensitivity is determined from <keywords casesensitive> in
+  <general> (default=true), but can be overridden per-list with 'insensitive'.
 
 TODO:
   - Should be weakDeliminator

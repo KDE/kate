@@ -664,7 +664,6 @@ bool KatePrinter::print (KateDocument *doc)
 }
 //END KatePrinter
 
-#ifndef Q_WS_WIN //TODO: reenable
 //BEGIN KatePrintTextSettings
 KatePrintTextSettings::KatePrintTextSettings( QWidget *parent )
   : QWidget( parent )
@@ -1039,6 +1038,5 @@ QColor KatePrintLayout::boxColor()
 //END KatePrintLayout
 
 #include "kateprinter.moc"
-#endif //!Q_WS_WIN
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

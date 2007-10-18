@@ -3,7 +3,7 @@
   <!ENTITY nmtoken "[\-\w\d\.:_]+">
   <!ENTITY entref  "(#[0-9]+|#[xX][0-9A-Fa-f]+|&nmtoken;);">
 ]>
-<language name="DTD" version="1.01" kateversion="2.4" section="Markup" extensions="*.dtd" mimetype="application/xml-dtd" author="Andriy Lesyuk (s-andy@in.if.ua)" license="LGPL">
+<language name="DTD" version="1.02" kateversion="2.4" section="Markup" extensions="*.dtd" mimetype="application/xml-dtd" author="Andriy Lesyuk (s-andy@in.if.ua)" license="LGPL">
   <highlighting>
 
     <list name="Category">
@@ -59,16 +59,16 @@
         <DetectChar attribute="Declaration" context="#pop" char="&gt;" endRegion="declaration" />
         <DetectChar attribute="String" context="String" char="&quot;" />
         <RegExpr attribute="Declaration" context="#stay" String="(-|O)\s(-|O)" />
-        <AnyChar attribute="Delimiter" contect="#stay" String="(|)," />
+        <AnyChar attribute="Delimiter" context="#stay" String="(|)," />
         <RegExpr attribute="Entity" context="#stay" String="(%|&amp;)&entref;" />
-        <AnyChar attribute="Symbol" contect="#stay" String="?*+-&amp;" />
+        <AnyChar attribute="Symbol" context="#stay" String="?*+-&amp;" />
         <RegExpr attribute="Local" context="#stay" String="%\s" />
         <keyword attribute="Keyword" context="#stay" String="Category" />
         <keyword attribute="Keyword" context="#stay" String="Keywords" />
         <RegExpr attribute="Name" context="#stay" String="\b&nmtoken;\b" />
       </context>
 
-      <context name="String" attribute="String" lineEndStyle="#stay">
+      <context name="String" attribute="String" lineEndContext="#stay">
         <DetectSpaces />
         <DetectChar attribute="String" context="#pop" char="&quot;" />
         <RegExpr attribute="Entity" context="#stay" String="%&nmtoken;;" />

@@ -54,15 +54,15 @@ class KatePrintTextSettings : public QWidget
     explicit KatePrintTextSettings( QWidget *parent=0 );
     ~KatePrintTextSettings(){}
 
-    bool printSelection();
+//     bool printSelection();
     bool printLineNumbers();
     bool printGuide();
 
     /* call if view has a selection, enables the seelction checkbox according to the arg */
-    void enableSelection( bool );
+//     void enableSelection( bool );
 
   private:
-    QCheckBox *cbSelection, *cbLineNumbers, *cbGuide;
+    QCheckBox /* *cbSelection,*/ *cbLineNumbers, *cbGuide;
 };
 //END Text Settings
 

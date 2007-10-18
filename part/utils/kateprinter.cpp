@@ -57,7 +57,7 @@
 //BEGIN KatePrinter
 bool KatePrinter::print (KateDocument *doc)
 {
-#if 0
+
   QPrinter printer;
 
   // docname is now always there, including the right Untitled name
@@ -81,7 +81,9 @@ bool KatePrinter::print (KateDocument *doc)
 
    if ( printDialog->exec() )
    {
-     KateRenderer renderer(doc);
+// }
+// #if 0
+     KateRenderer renderer(doc, doc->activeKateView());
      //renderer.config()->setSchema (1);
      renderer.setPrinterFriendly(true);
 
@@ -404,6 +406,7 @@ bool KatePrinter::print (KateDocument *doc)
      uint _count = 0;
      while (  lineCount <= lastline  )
      {
+kDebug()<<"entering print lines loop";
        startCol = 0;
        endCol = 0;
        needWrap = true;
@@ -629,8 +632,12 @@ bool KatePrinter::print (KateDocument *doc)
          range.setEndCol(endCol);
          range.setWrap(needWrap);
 #endif
+         KateLineLayoutPtr *rangeptr = new KateLineLayoutPtr(&range);
+         renderer.layoutLine(*rangeptr, (int)maxWidth, false);
          paint.translate(xstart, y);
-         renderer.paintTextLine(paint, KateLineLayoutPtr(&range), 0, (int)maxWidth);
+         renderer.paintTextLine(paint, *rangeptr, 0, (int)maxWidth);
+needWrap=false;
+ kDebug()<<"painted line"<<lineCount;
          //paint.resetXForm();
          if ( skip )
          {
@@ -648,10 +655,11 @@ bool KatePrinter::print (KateDocument *doc)
 
        lineCount++;
      } // done lineCount <= lastline
+     paint.end();
      return true;
   }
   delete printDialog;
-#endif
+// #endif
   return false;
 }
 //END KatePrinter
@@ -666,8 +674,8 @@ KatePrintTextSettings::KatePrintTextSettings( QWidget *parent )
   QVBoxLayout *lo = new QVBoxLayout ( this );
   lo->setSpacing( KDialog::spacingHint() );
 
-  cbSelection = new QCheckBox( i18n("Print &selected text only"), this );
-  lo->addWidget( cbSelection );
+//   cbSelection = new QCheckBox( i18n("Print &selected text only"), this );
+//   lo->addWidget( cbSelection );
 
   cbLineNumbers = new QCheckBox( i18n("Print &line numbers"), this );
   lo->addWidget( cbLineNumbers );
@@ -680,9 +688,9 @@ KatePrintTextSettings::KatePrintTextSettings( QWidget *parent )
   // set defaults - nothing to do :-)
 
   // whatsthis
-  cbSelection->setWhatsThis(i18n(
-        "<p>This option is only available if some text is selected in the document.</p>"
-        "<p>If available and enabled, only the selected text is printed.</p>") );
+//   cbSelection->setWhatsThis(i18n(
+//         "<p>This option is only available if some text is selected in the document.</p>"
+//         "<p>If available and enabled, only the selected text is printed.</p>") );
   cbLineNumbers->setWhatsThis(i18n(
         "<p>If enabled, line numbers will be printed on the left side of the page(s).</p>") );
   cbGuide->setWhatsThis(i18n(
@@ -690,10 +698,10 @@ KatePrintTextSettings::KatePrintTextSettings( QWidget *parent )
         "defined by the syntax highlighting being used.</p>") );
 }
 
-bool KatePrintTextSettings::printSelection()
-{
-    return cbSelection->isChecked();
-}
+// bool KatePrintTextSettings::printSelection()
+// {
+//     return cbSelection->isChecked();
+// }
 
 bool KatePrintTextSettings::printLineNumbers()
 {
@@ -705,10 +713,10 @@ bool KatePrintTextSettings::printGuide()
     return cbGuide->isChecked();
 }
 
-void KatePrintTextSettings::enableSelection( bool enable )
-{
-  cbSelection->setEnabled( enable );
-}
+// void KatePrintTextSettings::enableSelection( bool enable )
+// {
+//   cbSelection->setEnabled( enable );
+// }
 
 //END KatePrintTextSettings
 
@@ -752,7 +760,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   grid->addWidget(lHeaderFormat, 0, 0);
 
   KHBox *hbHeaderFormat = new KHBox( gbHeader );
-  grid->addWidget(lHeaderFormat, 0, 1);
+  grid->addWidget(hbHeaderFormat, 0, 1);
 
   hbHeaderFormat->setSpacing( sp );
   leHeaderLeft = new QLineEdit( hbHeaderFormat );
@@ -968,7 +976,7 @@ KatePrintLayout::KatePrintLayout( QWidget *parent)
   QLabel *lBoxColor = new QLabel( i18n("Co&lor:"), gbBoxProps );
   grid->addWidget(lBoxColor, 2, 0);
   kcbtnBoxColor = new KColorButton( gbBoxProps );
-  grid->addWidget(lBoxWidth, 2, 1);
+  grid->addWidget(kcbtnBoxColor, 2, 1);
   lBoxColor->setBuddy( kcbtnBoxColor );
 
   connect( cbEnableBox, SIGNAL(toggled(bool)), gbBoxProps, SLOT(setEnabled(bool)) );

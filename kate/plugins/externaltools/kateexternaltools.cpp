@@ -166,7 +166,7 @@ void KateExternalToolsCommand::reload ()
       continue;
 
 
-    config.changeGroup( *it );
+    config= KConfigGroup(&_config,  *it );
 
     KateExternalTool t = KateExternalTool(
                            config.readEntry( "name", "" ),
@@ -379,7 +379,7 @@ void KateExternalToolsMenuAction::reload()
       continue;
     }
 
-    config.changeGroup( *it );
+    config=KConfigGroup(pConfig, *it );
 
     KateExternalTool *t = new KateExternalTool(
                             config.readEntry( "name", "" ),
@@ -401,7 +401,7 @@ void KateExternalToolsMenuAction::reload()
       delete t;
   }
 
-  config.changeGroup( "Shortcuts");
+  config=KConfigGroup(pConfig, "Shortcuts");
   m_actionCollection->readSettings( &config );
   slotDocumentChanged();
 }

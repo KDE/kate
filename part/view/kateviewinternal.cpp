@@ -288,7 +288,7 @@ KTextEditor::Cursor KateViewInternal::endPos() const
 
     if (thisLine.line() == -1) continue;
 
-    if (thisLine.virtualLine() >= (int)m_doc->numVisLines()) {
+    if (thisLine.virtualLine() >= m_doc->numVisLines()) {
       // Cache is too out of date
       return KTextEditor::Cursor(m_doc->numVisLines() - 1, m_doc->lineLength(m_doc->getRealLine(m_doc->numVisLines() - 1)));
     }
@@ -386,12 +386,12 @@ void KateViewInternal::scrollAction( int action )
 
 void KateViewInternal::scrollNextPage()
 {
-  scrollViewLines(qMax( (int)linesDisplayed() - 1, 0 ));
+  scrollViewLines(qMax( linesDisplayed() - 1, 0 ));
 }
 
 void KateViewInternal::scrollPrevPage()
 {
-  scrollViewLines(-qMax( (int)linesDisplayed() - 1, 0 ));
+  scrollViewLines(-qMax( linesDisplayed() - 1, 0 ));
 }
 
 void KateViewInternal::scrollPrevLine()
@@ -412,7 +412,7 @@ KTextEditor::Cursor KateViewInternal::maxStartPos(bool changed)
   {
     KTextEditor::Cursor end(m_doc->numVisLines() - 1, m_doc->lineLength(m_doc->getRealLine(m_doc->numVisLines() - 1)));
 
-    m_cachedMaxStartPos = viewLineOffset(end, -((int)linesDisplayed() - 1));
+    m_cachedMaxStartPos = viewLineOffset(end, -(linesDisplayed() - 1));
   }
 
   m_usePlainLines = false;
@@ -423,7 +423,7 @@ KTextEditor::Cursor KateViewInternal::maxStartPos(bool changed)
 // c is a virtual cursor
 void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool calledExternally)
 {
-  if (!force && ((!m_view->dynWordWrap() && c.line() == (int)startLine()) || c == startPos()))
+  if (!force && ((!m_view->dynWordWrap() && c.line() == startLine()) || c == startPos()))
     return;
 
   if (c.line() < 0)
@@ -434,7 +434,7 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
     c = limit;
 
     // Re-check we're not just scrolling to the same place
-    if (!force && ((!m_view->dynWordWrap() && c.line() == (int)startLine()) || c == startPos()))
+    if (!force && ((!m_view->dynWordWrap() && c.line() == startLine()) || c == startPos()))
       return;
   }
 
@@ -444,8 +444,8 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
   // for larger scrolls this makes 2-4 seconds difference on my xeon with dyn. word wrap on
   // try to get it really working ;)
   bool viewLinesScrolledUsable = !force
-                                 && (c.line() >= (int)startLine()-(int)linesDisplayed()-1)
-                                 && (c.line() <= (int)endLine()+(int)linesDisplayed()+1);
+                                 && (c.line() >= startLine() - linesDisplayed() - 1)
+                                 && (c.line() <= endLine() + linesDisplayed() + 1);
 
   if (viewLinesScrolledUsable)
     viewLinesScrolled = cache()->displayViewLine(c);
@@ -458,9 +458,9 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
   if (viewLinesScrolledUsable)
   {
     int lines = linesDisplayed();
-    if ((int)m_doc->numVisLines() < lines) {
+    if (m_doc->numVisLines() < lines) {
       KTextEditor::Cursor end(m_doc->numVisLines() - 1, m_doc->lineLength(m_doc->getRealLine(m_doc->numVisLines() - 1)));
-      lines = qMin((int)linesDisplayed(), cache()->displayViewLine(end) + 1);
+      lines = qMin(linesDisplayed(), cache()->displayViewLine(end) + 1);
     }
 
     Q_ASSERT(lines >= 0);
@@ -469,17 +469,11 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
     {
       updateView(false, viewLinesScrolled);
 
-      int scrollHeight = -(viewLinesScrolled * (int)renderer()->fontHeight());
-      //int scrollbarWidth = m_lineScroll->width();
+      int scrollHeight = -(viewLinesScrolled * renderer()->fontHeight());
 
-      //
-      // updates are for working around the scrollbar leaving blocks in the view
-      //
       scroll(0, scrollHeight);
-      //update(0, height()+scrollHeight-scrollbarWidth, width(), 2*scrollbarWidth);
-
       m_leftBorder->scroll(0, scrollHeight);
-      //m_leftBorder->update(0, m_leftBorder->height()+scrollHeight-scrollbarWidth, m_leftBorder->width(), 2*scrollbarWidth);
+
       emit m_view->verticalScrollPositionChanged( m_view, c );
       return;
     }
@@ -614,7 +608,7 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
   }
   else if ( c > viewLineOffset(endPos(), -m_minLinesVisible) )
   {
-    KTextEditor::Cursor scroll = viewLineOffset(c, -((int)linesDisplayed() - m_minLinesVisible - 1));
+    KTextEditor::Cursor scroll = viewLineOffset(c, -(linesDisplayed() - m_minLinesVisible - 1));
     scrollPos(scroll, false, calledExternally);
   }
   else if ( c < viewLineOffset(startPos(), m_minLinesVisible) )
@@ -1392,7 +1386,7 @@ void KateViewInternal::cursorDown(bool sel)
     return;
   }
 
-  if ((m_displayCursor.line() >= (int)m_doc->numVisLines() - 1) && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == cache()->lastViewLine(m_cursor.line())))
+  if ((m_displayCursor.line() >= m_doc->numVisLines() - 1) && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == cache()->lastViewLine(m_cursor.line())))
     return;
 
   m_preserveMaxX = true;
@@ -1500,7 +1494,7 @@ void KateViewInternal::pageUp( bool sel )
   if (cursorStart < m_minLinesVisible)
     lineadj -= m_minLinesVisible - cursorStart;
 
-  int linesToScroll = -qMax( ((int)linesDisplayed() - 1) - lineadj, 0 );
+  int linesToScroll = -qMax( (linesDisplayed() - 1) - lineadj, 0 );
   m_preserveMaxX = true;
 
   if (!m_doc->pageUpDownMovesCursor () && !atTop) {
@@ -1545,7 +1539,7 @@ void KateViewInternal::pageDown( bool sel )
   if (cursorStart > 0)
     lineadj -= cursorStart;
 
-  int linesToScroll = qMax( ((int)linesDisplayed() - 1) - lineadj, 0 );
+  int linesToScroll = qMax( (linesDisplayed() - 1) - lineadj, 0 );
   m_preserveMaxX = true;
 
   if (!m_doc->pageUpDownMovesCursor () && !atEnd) {
@@ -1922,7 +1916,7 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
   }
   if (start.line() > endLine())
   {
-    //kDebug(13030)<<"start> endLine"<<start<<" "<<((int)endLine());
+    //kDebug(13030)<<"start> endLine"<<start<<" "<<(endLine());
     return false;
   }
 
@@ -1946,7 +1940,7 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
     int y = lineToY( start.line() );
     // FIXME is this enough for when multiple lines are deleted
     int h = (end.line() - start.line() + 2) * renderer()->fontHeight();
-    if (end.line() == (int)m_doc->numVisLines() - 1)
+    if (end.line() == m_doc->numVisLines() - 1)
       h = height();
 
     m_leftBorder->update (0, y, m_leftBorder->width(), h);
@@ -2141,7 +2135,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     int pos = line->firstChar();
     if (pos > m_cursor.column()) pos = m_cursor.column();
     if (pos != -1) {
-      while ((int)line->length() > pos &&
+      while (line->length() > pos &&
              !line->at(pos).isLetterOrNumber() &&
              pos < m_cursor.column()) ++pos;
     } else {
@@ -2676,7 +2670,6 @@ void KateViewInternal::updateDirty( )
     updateRegion += QRect(0, currentRectStart, width(), currentRectEnd);
 
   if (!updateRegion.isEmpty()) {
-    //kDebug() << "Requesting update to " << updateRegion.boundingRect();
     update(updateRegion);
   }
 }
@@ -2690,8 +2683,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
     doUpdateView();
 #endif
 
-  //kDebug (13030) << "GOT PAINT EVENT: x: " << e->rect().x() << " y: " << e->rect().y()
-  //  << " width: " << e->rect().width() << " height: " << e->rect().height() << endl;
+  //kDebug (13030) << "GOT PAINT EVENT: Region" << e->region();
 
   int xStart = startX() + e->rect().x();
   int xEnd = xStart + e->rect().width();
@@ -2812,7 +2804,7 @@ void KateViewInternal::scrollTimeout ()
 {
   if (m_scrollX || m_scrollY)
   {
-    scrollLines (startPos().line() + (m_scrollY / (int)renderer()->fontHeight()));
+    scrollLines (startPos().line() + (m_scrollY / renderer()->fontHeight()));
     placeCursor( QPoint( m_mouseX, m_mouseY ), true );
   }
 }
@@ -2982,10 +2974,6 @@ void KateViewInternal::wheelEvent(QWheelEvent* e)
         scrollNextPage();
     } else {
       scrollViewLines(-((e->delta() / 120) * QApplication::wheelScrollLines()));
-      // maybe a menu was opened or a bubbled window title is on us -> we shall erase it
-      // FIXME this is the wrong place for this "fix"
-      update();
-      m_leftBorder->update();
     }
 
   } else if (columnScrollingPossible()) {

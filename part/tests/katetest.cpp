@@ -113,7 +113,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
     docList.append(doc);
   }
 
-  //new ArbitraryHighlightTest(doc);
+  new ArbitraryHighlightTest(doc);
 
   m_view = qobject_cast<KTextEditor::View*>(doc->createView (this));
 

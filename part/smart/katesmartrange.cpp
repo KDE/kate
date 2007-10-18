@@ -165,6 +165,38 @@ void KateSmartRange::feedbackMostSpecific( KateSmartRange * mostSpecific )
     w->rangeContentsChanged(this, mostSpecific);
 }
 
+void KateSmartRange::feedbackMouseCaretChange(KTextEditor::View* view, bool mouse, bool entered)
+{
+  if (mouse) {
+    if (entered) {
+      foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
+        emit static_cast<KateSmartRangeNotifier*>(n)->mouseEnteredRange(this, view);
+      foreach (KTextEditor::SmartRangeWatcher* w, watchers())
+        w->mouseEnteredRange(this, view);
+
+    } else {
+      foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
+        emit static_cast<KateSmartRangeNotifier*>(n)->mouseExitedRange(this, view);
+      foreach (KTextEditor::SmartRangeWatcher* w, watchers())
+        w->mouseExitedRange(this, view);
+    }
+
+  } else {
+    if (entered) {
+      foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
+        emit static_cast<KateSmartRangeNotifier*>(n)->caretEnteredRange(this, view);
+      foreach (KTextEditor::SmartRangeWatcher* w, watchers())
+        w->caretEnteredRange(this, view);
+
+    } else {
+      foreach (KTextEditor::SmartRangeNotifier* n, notifiers())
+        emit static_cast<KateSmartRangeNotifier*>(n)->caretExitedRange(this, view);
+      foreach (KTextEditor::SmartRangeWatcher* w, watchers())
+        w->caretExitedRange(this, view);
+    }
+  }
+}
+
 void KateSmartRange::shifted( )
 {
   if (kStart().lastPosition() != kStart()) {

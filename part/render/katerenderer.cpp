@@ -530,7 +530,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         paint.fillRect(area, /*QBrush(Qt::red));*/backgroundBrush);
 //         kDebug()<<i<<":backgroundBrush:"<<backgroundBrush<<"---"<<xEnd<<"/"<<xStart;
 //         kDebug()<<line.endX()<<"---"<<line.xOffset();
-         kDebug()<<i<<"----"<<area;
+         //kDebug()<<i<<"----"<<area;
       }
 
       // Draw indent lines

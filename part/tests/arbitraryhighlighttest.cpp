@@ -106,6 +106,11 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
     for (int i = 0; i < string.length(); ++i) {
       if (string.at(i) == openBrace) {
         currentRange = smart()->newSmartRange(current, currentRange->end(), currentRange);
+        connect(currentRange->primaryNotifier(), SIGNAL(mouseEnteredRange(KTextEditor::SmartRange*, KTextEditor::View*)), SLOT(slotMouseEnteredRange(KTextEditor::SmartRange*, KTextEditor::View*)));
+        connect(currentRange->primaryNotifier(), SIGNAL(mouseExitedRange(KTextEditor::SmartRange*, KTextEditor::View*)), SLOT(slotMouseExitedRange(KTextEditor::SmartRange*, KTextEditor::View*)));
+        connect(currentRange->primaryNotifier(), SIGNAL(caretEnteredRange(KTextEditor::SmartRange*, KTextEditor::View*)), SLOT(slotCaretEnteredRange(KTextEditor::SmartRange*, KTextEditor::View*)));
+        connect(currentRange->primaryNotifier(), SIGNAL(caretExitedRange(KTextEditor::SmartRange*, KTextEditor::View*)), SLOT(slotCaretExitedRange(KTextEditor::SmartRange*, KTextEditor::View*)));
+
         if (currentRange->depth() < 10)
           currentRange->setAttribute(ranges[currentRange->depth()]);
 
@@ -143,6 +148,26 @@ void ArbitraryHighlightTest::slotCreateTopRange( )
   connect(m_topRange->primaryNotifier(), SIGNAL(rangeDeleted(KTextEditor::SmartRange*)), SLOT(slotRangeDeleted(KTextEditor::SmartRange*)));
 
   slotRangeChanged(m_topRange, m_topRange);
+}
+
+void ArbitraryHighlightTest::slotMouseEnteredRange(KTextEditor::SmartRange* range, KTextEditor::View* view)
+{
+  kDebug() << k_funcinfo << *range;
+}
+
+void ArbitraryHighlightTest::slotMouseExitedRange(KTextEditor::SmartRange* range, KTextEditor::View* view)
+{
+  kDebug() << k_funcinfo << *range;
+}
+
+void ArbitraryHighlightTest::slotCaretEnteredRange(KTextEditor::SmartRange* range, KTextEditor::View* view)
+{
+  kDebug() << k_funcinfo << *range;
+}
+
+void ArbitraryHighlightTest::slotCaretExitedRange(KTextEditor::SmartRange* range, KTextEditor::View* view)
+{
+  kDebug() << k_funcinfo << *range;
 }
 
 #include "arbitraryhighlighttest.moc"

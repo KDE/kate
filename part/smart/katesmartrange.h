@@ -135,6 +135,8 @@ class KateSmartRange : public KTextEditor::SmartRange
     void feedbackMostSpecific(KateSmartRange* mostSpecific);
     /// The range has been shifted only
     void shifted();
+    /// Mouse / caret in or out
+    void feedbackMouseCaretChange(KTextEditor::View* view, bool mouse, bool entered);
 
     void registerPointer(KateSmartRangePtr* ptr);
     void deregisterPointer(KateSmartRangePtr* ptr);

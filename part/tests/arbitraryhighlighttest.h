@@ -25,6 +25,7 @@ namespace KTextEditor {
   class Document;
   class SmartInterface;
   class SmartRange;
+  class View;
 }
 
 /**
@@ -47,6 +48,10 @@ class ArbitraryHighlightTest : public QObject
     void slotRangeChanged(KTextEditor::SmartRange* range, KTextEditor::SmartRange* mostSpecificChild);
     void slotRangeDeleted(KTextEditor::SmartRange* range);
     void slotCreateTopRange();
+    void slotMouseEnteredRange(KTextEditor::SmartRange* range, KTextEditor::View* view);
+    void slotMouseExitedRange(KTextEditor::SmartRange* range, KTextEditor::View* view);
+    void slotCaretEnteredRange(KTextEditor::SmartRange* range, KTextEditor::View* view);
+    void slotCaretExitedRange(KTextEditor::SmartRange* range, KTextEditor::View* view);
 
   private:
     void outputRange(KTextEditor::SmartRange* range, KTextEditor::SmartRange * mostSpecific);

@@ -81,8 +81,6 @@ bool KatePrinter::print (KateDocument *doc)
 
    if ( printDialog->exec() )
    {
-// }
-// #if 0
      KateRenderer renderer(doc, doc->activeKateView());
      //renderer.config()->setSchema (1);
      renderer.setPrinterFriendly(true);
@@ -103,8 +101,8 @@ bool KatePrinter::print (KateDocument *doc)
      uint headerWidth = pdmWidth;
      int startCol = 0;
      int endCol = 0;
-     bool needWrap = true;
      bool pageStarted = true;
+     int remainder = 0; // remaining sublines from a wrapped line (for the top of a new page)
 
      // Text Settings Page
      bool selectionOnly = false;
@@ -403,20 +401,16 @@ bool KatePrinter::print (KateDocument *doc)
      /*
         On to draw something :-)
      */
-     uint _count = 0;
      while (  lineCount <= lastline  )
      {
-kDebug()<<"entering print lines loop";
        startCol = 0;
        endCol = 0;
-       needWrap = true;
 
-       while (needWrap)
-       {
          if ( y + renderer.fontHeight() >= (uint)(maxHeight) )
          {
-           kDebug(13020)<<"Starting new page, "<<_count<<" lines up to now.";
+           kDebug(13020)<<"Starting new page,"<<lineCount<<"lines up to now.";
            printer.newPage();
+           paint.resetTransform();
            currentPage++;
            pageStarted = true;
            y=0;
@@ -570,20 +564,18 @@ kDebug()<<"entering print lines loop";
              y += ( useBox ? boxWidth : 1 ) + (innerMargin*2);
            }
 #endif
-
+           paint.translate(xstart,y);
            pageStarted = false;
          } // pageStarted; move on to contents:)
 
-#if 0
-         if ( printLineNumbers && ! startCol ) // don't repeat!
+         if ( printLineNumbers /*&& ! startCol*/ ) // don't repeat!
          {
-           paint.setFont( renderer.config()->fontStruct()->font( false, false ) );
+           paint.setFont( renderer.config()->font() );
            paint.setPen( renderer.config()->lineNumberColor() );
-           paint.drawText( (( useBox || useBackground ) ? innerMargin : 0), y,
+           paint.drawText( (( useBox || useBackground ) ? innerMargin : 0)-xstart, 0,
                         lineNumberWidth, renderer.fontHeight(),
                         Qt::AlignRight, QString("%1").arg( lineCount + 1 ) );
          }
-#endif
          //FIXME: endCol = renderer.textWidth(doc->kateTextLine(lineCount), startCol, maxWidth, &needWrap);
          endCol = 80 * renderer.spaceWidth(); //FIXME: just a stand-in
 
@@ -634,14 +626,19 @@ kDebug()<<"entering print lines loop";
 #endif
          KateLineLayoutPtr *rangeptr = new KateLineLayoutPtr(&range);
          renderer.layoutLine(*rangeptr, (int)maxWidth, false);
-         paint.translate(xstart, y);
+         int _lines = (*rangeptr)->viewLineCount()-remainder; // number of "sublines" to paint.
+         int _yadjust = remainder * renderer.fontHeight(); // if we need to clip at the start of the line, it's this much.
+         bool _needWrap = (renderer.fontHeight()*_lines > maxHeight-y);
+         if (remainder || _needWrap) {
+           remainder = _needWrap? _lines - ((maxHeight-y)/renderer.fontHeight()) : 0;
+           paint.translate(0, -_yadjust);
+           paint.setClipRect(0,_yadjust,maxWidth,((_lines-remainder)*renderer.fontHeight())-1); //### drop the crosspatch in printerfriendly mode???
+         }
          renderer.paintTextLine(paint, *rangeptr, 0, (int)maxWidth);
-needWrap=false;
- kDebug()<<"painted line"<<lineCount;
-         //paint.resetXForm();
+         paint.setClipping(false);
+         paint.translate(0, (renderer.fontHeight() * _lines)+_yadjust);
          if ( skip )
          {
-           needWrap = false;
            startCol = 0;
          }
          else
@@ -649,17 +646,15 @@ needWrap=false;
            startCol = endCol;
          }
 
-         y += renderer.fontHeight();
-         _count++;
-       } // done while ( needWrap )
+         y += renderer.fontHeight()*_lines;
 
-       lineCount++;
+         if ( ! remainder )
+          lineCount++;
      } // done lineCount <= lastline
+
      paint.end();
      return true;
   }
-  delete printDialog;
-// #endif
   return false;
 }
 //END KatePrinter

@@ -1566,7 +1566,9 @@ bool KateDocument::editRemoveLine ( int line, Kate::EditSource editSource )
 
   KTextEditor::Range rangeRemoved(line, 0, line, oldText.length());
 
-  if (line) {
+  if (line < lastLine()) {
+    rangeRemoved.end().setPosition(line + 1, 0);
+  } else if (line) {
     KateTextLine::Ptr prevLine = plainKateTextLine(line - 1);
     rangeRemoved.start().setPosition(line - 1, prevLine->length());
   }

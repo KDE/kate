@@ -152,6 +152,7 @@ bool KatePrinter::print (KateDocument *doc)
      uint currentPage( 1 );
      uint lastline = doc->lastLine(); // necessary to print selection only
      uint firstline( 0 );
+     int fontHeight = renderer.fontHeight();
 
      QList<KateExtendedAttribute::Ptr> ilist;
 
@@ -344,9 +345,9 @@ bool KatePrinter::print (KateDocument *doc)
          }
          guideCols = _w/( _widest + innerMargin );
          // add height for required number of lines needed given columns
-         guideHeight += renderer.fontHeight() * ( _items/guideCols );
+         guideHeight += fontHeight * ( _items/guideCols );
          if ( _items%guideCols )
-           guideHeight += renderer.fontHeight();
+           guideHeight += fontHeight;
        }
 #endif
 
@@ -362,12 +363,12 @@ bool KatePrinter::print (KateDocument *doc)
            _ph -= ( headerHeight + innerMargin );
          if ( useFooter )
            _ph -= innerMargin;
-         int _lpp = _ph / renderer.fontHeight();
+         int _lpp = _ph / fontHeight;
          uint _lt = 0, _c=0;
 
          // add space for guide if required
          if ( useGuide )
-           _lt += (guideHeight + (renderer.fontHeight() /2)) / renderer.fontHeight();
+           _lt += (guideHeight + (fontHeight /2)) / fontHeight;
          long _lw;
          for ( uint i = firstline; i < lastline; i++ )
          {
@@ -406,7 +407,7 @@ bool KatePrinter::print (KateDocument *doc)
        startCol = 0;
        endCol = 0;
 
-         if ( y + renderer.fontHeight() >= (uint)(maxHeight) )
+         if ( y + fontHeight >= (uint)(maxHeight) )
          {
            kDebug(13020)<<"Starting new page,"<<lineCount<<"lines up to now.";
            printer.newPage();
@@ -554,13 +555,13 @@ bool KatePrinter::print (KateDocument *doc)
              {
                paint.setPen( renderer.attribute(_i)->foreground() );
                paint.setFont( renderer.attribute(_i)->font( *renderer.currentFont() ) );
-               paint.drawText(( _x + ((_i%guideCols)*_cw)), y, _cw, renderer.fontHeight(),
+               paint.drawText(( _x + ((_i%guideCols)*_cw)), y, _cw, fontHeight,
                         Qt::AlignVCenter|Qt::AlignLeft, _d->name, -1, &_r );
                _i++;
-               if ( _i && ! ( _i%guideCols ) ) y += renderer.fontHeight();
+               if ( _i && ! ( _i%guideCols ) ) y += fontHeight;
                ++_it;
              }
-             if ( _i%guideCols ) y += renderer.fontHeight();// last row not full
+             if ( _i%guideCols ) y += fontHeight;// last row not full
              y += ( useBox ? boxWidth : 1 ) + (innerMargin*2);
            }
 #endif
@@ -573,7 +574,7 @@ bool KatePrinter::print (KateDocument *doc)
            paint.setFont( renderer.config()->font() );
            paint.setPen( renderer.config()->lineNumberColor() );
            paint.drawText( (( useBox || useBackground ) ? innerMargin : 0)-xstart, 0,
-                        lineNumberWidth, renderer.fontHeight(),
+                        lineNumberWidth, fontHeight,
                         Qt::AlignRight, QString("%1").arg( lineCount + 1 ) );
          }
          //FIXME: endCol = renderer.textWidth(doc->kateTextLine(lineCount), startCol, maxWidth, &needWrap);
@@ -627,16 +628,16 @@ bool KatePrinter::print (KateDocument *doc)
          KateLineLayoutPtr *rangeptr = new KateLineLayoutPtr(&range);
          renderer.layoutLine(*rangeptr, (int)maxWidth, false);
          int _lines = (*rangeptr)->viewLineCount()-remainder; // number of "sublines" to paint.
-         int _yadjust = remainder * renderer.fontHeight(); // if we need to clip at the start of the line, it's this much.
-         bool _needWrap = (renderer.fontHeight()*_lines > maxHeight-y);
+         int _yadjust = remainder * fontHeight; // if we need to clip at the start of the line, it's this much.
+         bool _needWrap = (fontHeight*_lines > maxHeight-y);
          if (remainder || _needWrap) {
-           remainder = _needWrap? _lines - ((maxHeight-y)/renderer.fontHeight()) : 0;
+           remainder = _needWrap? _lines - ((maxHeight-y)/fontHeight) : 0;
            paint.translate(0, -_yadjust);
-           paint.setClipRect(0,_yadjust,maxWidth,((_lines-remainder)*renderer.fontHeight())-1); //### drop the crosspatch in printerfriendly mode???
+           paint.setClipRect(0,_yadjust,maxWidth,((_lines-remainder)*fontHeight)-1); //### drop the crosspatch in printerfriendly mode???
          }
          renderer.paintTextLine(paint, *rangeptr, 0, (int)maxWidth);
          paint.setClipping(false);
-         paint.translate(0, (renderer.fontHeight() * _lines)+_yadjust);
+         paint.translate(0, (fontHeight * _lines)+_yadjust);
          if ( skip )
          {
            startCol = 0;
@@ -646,7 +647,7 @@ bool KatePrinter::print (KateDocument *doc)
            startCol = endCol;
          }
 
-         y += renderer.fontHeight()*_lines;
+         y += fontHeight*_lines;
 
          if ( ! remainder )
           lineCount++;

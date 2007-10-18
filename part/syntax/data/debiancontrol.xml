@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Debian Control" version="0.82" kateversion="2.4" section="Other" extensions="" mimetype="">
+<language name="Debian Control" version="0.83" kateversion="2.4" section="Other" extensions="control" mimetype="">
     <highlighting>
         <contexts>
-            <context attribute="Normal Text" lineEndContext="#stay">
+            <context attribute="Normal Text" lineEndContext="#stay" name="INIT">
                 <StringDetect attribute="Keyword" context="DependencyField" String="Depends:"/>
                 <StringDetect attribute="Keyword" context="DependencyField" String="Recommends:"/>
                 <StringDetect attribute="Keyword" context="DependencyField" String="Suggests:"/>

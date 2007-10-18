@@ -50,8 +50,7 @@
 #include <QToolButton>
 #include <QGridLayout>
 
-#include <q3listbox.h>
-#include <q3textedit.h>
+#include <qtextedit.h>
 
 #include <unistd.h>
 //END Includes
@@ -494,7 +493,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor( KateExternalTool *
   if ( tool && !tool->icon.isEmpty() )
     btnIcon->setIcon( tool->icon );
 
-  teCommand = new Q3TextEdit( w );
+  teCommand = new QTextEdit( w );
   lo->addWidget( teCommand, 2, 2, 1, 2 );
   l = new QLabel( w );
   l->setBuddy( teCommand );

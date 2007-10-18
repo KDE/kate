@@ -232,7 +232,7 @@ class KateExternalToolServiceEditor : public KDialog
         	                            QWidget *parent = 0, const char *name = 0 );
 
     class QLineEdit *leName, *leExecutable, *leMimetypes, *leCmdLine;
-    class Q3TextEdit *teCommand;
+    class QTextEdit *teCommand;
     class KIconButton *btnIcon;
     class QComboBox *cmbSave;
 

@@ -286,7 +286,7 @@ void KateMainWindow::setupActions()
   fileOpenRecent->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
   a = actionCollection()->addAction( "file_save_all" );
-  a->setIcon( KIcon("save-all") );
+  a->setIcon( KIcon("document-save-all") );
   a->setText( i18n("Save A&ll") );
   a->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_L) );
   connect( a, SIGNAL( triggered() ), KateDocManager::self(), SLOT( saveAll() ) );

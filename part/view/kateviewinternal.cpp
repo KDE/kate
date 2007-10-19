@@ -1414,19 +1414,23 @@ void KateViewInternal::cursorDown(bool sel)
 
 void KateViewInternal::cursorToMatchingBracket( bool sel )
 {
-  KTextEditor::Range range(m_cursor, m_cursor);
-
-  if( !m_doc->findMatchingBracket( range ) )
+  if (!m_bm->isValid())
     return;
 
-  // The cursor is now placed just to the left of the matching bracket.
-  // If it's an ending bracket, put it to the right (so we can easily
-  // get back to the original bracket).
-  if( range.end() > range.start() )
-    range.end().setColumn(range.end().column() + 1);
+  KTextEditor::Cursor c;
 
-  updateSelection( range.end(), sel );
-  updateCursor( range.end() );
+  if (m_bmStart->contains(m_cursor) || m_bmStart->end() == m_cursor) {
+    c = m_bm->end();
+  } else if (m_bmEnd->contains(m_cursor) || m_bmEnd->end() == m_cursor) {
+    c = m_bm->start();
+  } else {
+    // should never happen: a range exists, but the cursor position is
+    // neither at the start nor at the end...
+    return;
+  }
+
+  updateSelection( c, sel );
+  updateCursor( c );
 }
 
 void KateViewInternal::topOfView( bool sel )

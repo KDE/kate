@@ -73,6 +73,7 @@ jscript/katejscript.cpp
 mode/katemodemanager.cpp
 mode/katemodeconfigpage.cpp
 mode/katemodemenu.cpp
+mode/katewildcardmatcher.cpp
 
 # rendering stuff (katerenderer  and helpers)
 render/katerenderer.cpp

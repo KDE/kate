@@ -19,6 +19,7 @@
 //BEGIN Includes
 #include "katemodemanager.h"
 #include "katemodemanager.moc"
+#include "katewildcardmatcher.h"
 
 #include "katedocument.h"
 #include "kateconfig.h"
@@ -277,24 +278,8 @@ QString KateModeManager::fileType (KateDocument *doc)
   return "";
 }
 
-/*static*/ QString KateModeManager::reverse(const QString & text) {
-  const int len = text.length();
-  QString res;
-  res.reserve(len);
-  for (int i = len - 1; i >= 0; i--) {
-    res.append(text[i]);
-  }
-  return res;
-}
-
 QString KateModeManager::wildcardsFind (const QString &fileName)
 {
-  const QString reversedFilename = reverse(fileName);
-
-  QRegExp re;
-  re.setCaseSensitivity(Qt::CaseSensitive);
-  re.setPatternSyntax(QRegExp::Wildcard);
-
   KateFileType * match = NULL;
   int minPrio = -1;
   foreach (KateFileType *type, m_types)
@@ -305,8 +290,7 @@ QString KateModeManager::wildcardsFind (const QString &fileName)
 
     foreach (QString wildcard, type->wildcards)
     {
-      re.setPattern(reverse(wildcard));
-      if (re.exactMatch(reversedFilename)) {
+      if (KateWildcardMatcher::exactMatch(fileName, wildcard)) {
         match = type;
         minPrio = type->priority;
         break;

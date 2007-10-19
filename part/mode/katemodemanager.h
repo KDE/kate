@@ -78,11 +78,6 @@ class KateModeManager
     QList<KateFileType *> m_types;
     QHash<QString, KateFileType *> m_name2Type;
 
-    /**
-     * Reverses a string on char level, i.e. "abc" becomes "cba".
-     */
-    static QString reverse(const QString & text);
-
 };
 
 #endif

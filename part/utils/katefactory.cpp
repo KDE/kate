@@ -61,16 +61,14 @@ class KateFactory : public KTextEditor::Factory
     {
       QByteArray classname( _classname );
 
-      // match both :: and /
-
       // default to the kparts::* behavior of having one single widget() if the user don't requested a pure document
-      bool bWantSingleView = !(( classname == "KTextEditor/Document" ) || ( classname == "KTextEditor::Document" ));
+      bool bWantSingleView = ( classname != "KTextEditor::Document" );
 
       // does user want browserview?
-      bool bWantBrowserView = ( classname == "Browser/View" ) || ( classname == "Browser::View" );
+      bool bWantBrowserView = false;
 
       // should we be readonly?
-      bool bWantReadOnly = (bWantBrowserView || ( classname == "KParts/ReadOnlyPart" ) || ( classname == "KParts::ReadOnlyPart" ));
+      bool bWantReadOnly = (bWantBrowserView || ( classname == "KParts::ReadOnlyPart" ));
 
       KParts::ReadWritePart *part = new KateDocument (bWantSingleView, bWantBrowserView, bWantReadOnly, parentWidget, parent);
       part->setReadWrite( !bWantReadOnly );

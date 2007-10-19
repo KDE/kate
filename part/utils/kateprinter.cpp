@@ -29,6 +29,7 @@
 #include "katerenderer.h"
 #include "kateschema.h"
 #include "katetextline.h"
+#include "kateview.h"
 
 #include <kapplication.h>
 #include <kcolorbutton.h>
@@ -67,16 +68,15 @@ bool KatePrinter::print (KateDocument *doc)
   KatePrintHeaderFooter *kphf = new KatePrintHeaderFooter;
   KatePrintLayout *kpl = new KatePrintLayout;
 
-#ifdef __GNUC__
-#warning fixme later
-#endif
-  //kpts->enableSelection( doc->hasSelection() );
-
   QList<QWidget*> tabs;
   tabs << kpts;
   tabs << kphf;
   tabs << kpl;
+
   QPrintDialog *printDialog = KdePrint::createPrintDialog(&printer, tabs, doc->widget());
+
+  if ( doc->activeView()->selection() )
+    printDialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
 
   if ( printDialog->exec() )
   {
@@ -104,12 +104,7 @@ bool KatePrinter::print (KateDocument *doc)
     int remainder = 0; // remaining sublines from a wrapped line (for the top of a new page)
 
     // Text Settings Page
-    bool selectionOnly = false;
-
-#ifdef __GNUC__
-  #warning fixme later
-#endif
-      //( doc->hasSelection() && kpts->selection() );
+    bool selectionOnly = (printDialog->printRange() == QAbstractPrintDialog::Selection);
 
     int selStartCol = 0;
     int selEndCol = 0;
@@ -152,6 +147,7 @@ bool KatePrinter::print (KateDocument *doc)
     uint lastline = doc->lastLine(); // necessary to print selection only
     uint firstline( 0 );
     int fontHeight = renderer.fontHeight();
+    KTextEditor::Range selectionRange;
 
     QList<KateExtendedAttribute::Ptr> ilist;
 
@@ -166,15 +162,10 @@ bool KatePrinter::print (KateDocument *doc)
     {
       if ( selectionOnly )
       {
-        #ifdef __GNUC__
-        #warning fixme later
-        #endif
         // set a line range from the first selected line to the last
-        //     firstline = doc->selectionStartLine();
-        //   selStartCol = doc->selectionStartColumn();
-        //  lastline = doc->selectionEndLine();
-        //  selEndCol = doc->selectionEndColumn();
-
+        selectionRange = doc->activeView()->selectionRange();
+        firstline = selectionRange.start().line();
+        lastline = selectionRange.end().line();
         lineCount = firstline;
       }
 
@@ -576,57 +567,43 @@ bool KatePrinter::print (KateDocument *doc)
                     lineNumberWidth, fontHeight,
                     Qt::AlignRight, QString("%1").arg( lineCount + 1 ) );
       }
-      //FIXME: endCol = renderer.textWidth(doc->kateTextLine(lineCount), startCol, maxWidth, &needWrap);
-      endCol = 80 * renderer.spaceWidth(); //FIXME: just a stand-in
-
-      if ( endCol < startCol )
-      {
-        //kDebug(13020)<<"--- Skipping garbage, line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" real EndCol; "<< buffer->line(lineCount)->length()<< " !?";
-        lineCount++;
-        continue; // strange case...
-                  // Happens if the line fits exactly.
-                  // When it happens, a line of garbage would be printed.
-                  // FIXME Most likely this is an error in textWidth(),
-                  // failing to correctly set needWrap to false in this case?
-      }
-
-      // if we print only selection:
-      // print only selected range of chars.
-      bool skip = false;
-      if ( selectionOnly )
-      {
-#ifdef __GNUC__
-#warning fixme later
-#endif
-        /*
-        bool inBlockSelection = ( doc->blockSelectionMode() && lineCount >= firstline && lineCount <= lastline );
-        if ( lineCount == firstline || inBlockSelection )
-        {
-          if ( startCol < selStartCol )
-            startCol = selStartCol;
-        }
-        if ( lineCount == lastline  || inBlockSelection )
-        {
-          if ( endCol > selEndCol )
-          {
-            endCol = selEndCol;
-            skip = true;
-          }
-        }*/
-      }
 
       // HA! this is where we print [part of] a line ;]]
       // FIXME Convert this function + related functionality to a separate KatePrintView
       KateLineLayout range(doc);
       range.setLine(lineCount);
-#if 0
-      range.setStartCol(startCol);
-      range.setEndCol(endCol);
-      range.setWrap(needWrap);
-#endif
       KateLineLayoutPtr *rangeptr = new KateLineLayoutPtr(&range);
       renderer.layoutLine(*rangeptr, (int)maxWidth, false);
 
+      // selectionOnly: clip non-selection parts and adjust painter position if needed
+      int _xadjust = 0;
+      if (selectionOnly) {
+        if (doc->activeView()->blockSelection()) {
+          int _x = renderer.cursorToX((*rangeptr)->viewLine(0), selectionRange.start());
+          int _x1 = renderer.cursorToX((*rangeptr)->viewLine((*rangeptr)->viewLineCount()-1), selectionRange.end());
+           _xadjust = _x;
+           paint.translate(-_xadjust, 0);
+          paint.setClipRegion(QRegion( _x, 0, _x1 - _x, (*rangeptr)->viewLineCount()*fontHeight));
+        }
+
+        else if (lineCount == firstline || lineCount == lastline) {
+          QRegion region(0, 0, maxWidth, (*rangeptr)->viewLineCount()*fontHeight);
+
+          if ( lineCount == firstline) {
+            region = region.subtracted(QRegion(0, 0, renderer.cursorToX((*rangeptr)->viewLine(0), selectionRange.start()), fontHeight));
+          }
+
+          if (lineCount == lastline) {
+            int _x = renderer.cursorToX((*rangeptr)->viewLine((*rangeptr)->viewLineCount()-1), selectionRange.end());
+            region = region.subtracted(QRegion(_x, 0, maxWidth-_x, fontHeight));
+          }
+
+          paint.setClipRegion(region);
+        }
+      }
+
+      // If the line is too long (too many 'viewlines') to fit the remaining vertical space,
+      // clip and adjust the painter position as nessecary
       int _lines = (*rangeptr)->viewLineCount()-remainder; // number of "sublines" to paint.
       int _yadjust = remainder * fontHeight; // if we need to clip at the start of the line, it's this much.
       bool _needWrap = (fontHeight*_lines > maxHeight-y);
@@ -640,16 +617,7 @@ bool KatePrinter::print (KateDocument *doc)
       renderer.paintTextLine(paint, *rangeptr, 0, (int)maxWidth);
 
       paint.setClipping(false);
-      paint.translate(0, (fontHeight * _lines)+_yadjust);
-
-      if ( skip )
-      {
-        startCol = 0;
-      }
-      else
-      {
-        startCol = endCol;
-      }
+      paint.translate(_xadjust, (fontHeight * _lines)+_yadjust);
 
       y += fontHeight*_lines;
 

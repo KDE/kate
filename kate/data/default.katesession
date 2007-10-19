@@ -3,7 +3,7 @@ Name=
 
 [Kate Plugins]
 kateexternaltoolsplugin=false
-katefilebrowserplugin=false
+katefilebrowserplugin=true
 katefiletemplates=false
 katefindinfilesplugin=true
 katekonsoleplugin=true

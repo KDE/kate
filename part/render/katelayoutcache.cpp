@@ -23,18 +23,22 @@
 #include "katerenderer.h"
 #include "kateview.h"
 #include "katedocument.h"
+#include "kateedit.h"
 
 #include <kdebug.h>
 
 static bool enableLayoutCache = false;
 
-KateLayoutCache::KateLayoutCache(KateRenderer* renderer)
-  : m_renderer(renderer)
+KateLayoutCache::KateLayoutCache(KateRenderer* renderer, QObject* parent)
+  : QObject(parent)
+  , m_renderer(renderer)
   , m_startPos(-1,-1)
   , m_viewWidth(0)
   , m_wrap(false)
 {
   Q_ASSERT(m_renderer);
+
+  connect(m_renderer->doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(slotEditDone(KateEditInfo*)));
 }
 
 void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int newViewLineCount, int viewLinesScrolled)
@@ -319,42 +323,12 @@ void KateLayoutCache::viewCacheDebugOutput( ) const
       kDebug() << "Line Invalid.";
 }
 
-void KateLayoutCache::slotTextInserted( KTextEditor::Document *, const KTextEditor::Range & range )
+void KateLayoutCache::slotEditDone(KateEditInfo* edit)
 {
-  // OPTIMISE: check to see if it's worth the effort
+  int fromLine = edit->oldRange().start().line();
+  int toLine = edit->oldRange().end().line();
+  int shiftAmount = edit->translate().line();
 
-  int deleteFromLine = range.start().line(); // eg 2,0 = 2 and 2,3 = 2
-  int shiftFromLine = range.end().line() + (range.end().column() ? 1 : 0); // eg 3,6 = 4 and 3,0 = 3
-  int shiftAmount = shiftFromLine - deleteFromLine; // eg 4 - 2 = 2 and 3 - 2 = 1
-
-  updateCache(deleteFromLine, shiftFromLine, shiftAmount);
-}
-
-void KateLayoutCache::slotTextRemoved( KTextEditor::Document *, const KTextEditor::Range & range )
-{
-  // OPTIMISE: check to see if it's worth the effort
-
-  int deleteFromLine = range.start().line(); // eg 2,0 = 2 and 2,3 = 2
-  int shiftFromLine = range.end().line() + (range.end().column() ? 1 : 0); // eg 3,6 = 4 and 3,0 = 3
-  int shiftAmount = deleteFromLine - shiftFromLine; // eg 2 - 4 = -2 and 2 - 3 = -1
-
-  updateCache(deleteFromLine, shiftFromLine, shiftAmount);
-}
-
-void KateLayoutCache::slotTextChanged(KTextEditor::Document *, const KTextEditor::Range& oldRange, const KTextEditor::Range& newRange)
-{
-  // OPTIMISE: check to see if it's worth the effort
-
-  int deleteFromLine = oldRange.start().line(); // eg 2,0 = 2 and 2,3 = 2
-  int shiftFromLine = oldRange.end().line() + (oldRange.end().column() ? 1 : 0); // eg 3,6 = 4 and 3,0 = 3
-  int shiftToLine = newRange.end().line() + (newRange.end().column() ? 1 : 0); // eg 5,6 = 6 and 5,0 = 5
-  int shiftAmount = shiftToLine - shiftFromLine; // eg 6 - 4 = 2 and 5 - 4 = 1
-
-  updateCache(deleteFromLine, shiftFromLine, shiftAmount);
-}
-
-void KateLayoutCache::updateCache( int fromLine, int toLine, int shiftAmount )
-{
   if (shiftAmount) {
     QMap<int, KateLineLayoutPtr> oldMap = m_lineLayouts;
     m_lineLayouts.clear();
@@ -363,17 +337,22 @@ void KateLayoutCache::updateCache( int fromLine, int toLine, int shiftAmount )
     while (it.hasNext()) {
       it.next();
 
-      if (it.key() >= toLine)
-        m_lineLayouts.insert(it.key() + shiftAmount, it.value());
-      else if (it.key() < fromLine)
+      if (it.key() > toLine) {
+        KateLineLayoutPtr layout = it.value();
+        layout->setLine(layout->line() + shiftAmount);
+        m_lineLayouts.insert(it.key() + shiftAmount, layout);
+
+      } else if (it.key() < fromLine) {
         m_lineLayouts.insert(it.key(), it.value());
-      else
+
+      } else {
         //gets deleted when oldMap goes but invalidate it just in case
         const_cast<KateLineLayoutPtr&>(it.value())->invalidateLayout();
+      }
     }
 
   } else {
-    for (int i = fromLine; i < toLine; --i)
+    for (int i = fromLine; i <= toLine; ++i)
       if (m_lineLayouts.contains(i)) {
         const_cast<KateLineLayoutPtr&>(m_lineLayouts[i])->invalidateLayout();
         m_lineLayouts.remove(i);
@@ -435,3 +414,5 @@ void KateLayoutCache::relayoutLines( int startRealLine, int endRealLine )
     if (m_lineLayouts.contains(i))
       m_lineLayouts[i]->setLayoutDirty();
 }
+
+#include "katelayoutcache.moc"

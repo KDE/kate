@@ -54,6 +54,8 @@
 #include <QtCore/QMutex>
 #include <QtCore/QThread>
 
+static const bool debugPainting = false;
+
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view)
   , editSessionNumber (0)
@@ -77,7 +79,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_selChangedByUser (false)
   , m_selectAnchor (-1, -1)
   , m_selectionMode( Default )
-  , m_layoutCache(new KateLayoutCache(renderer()))
+  , m_layoutCache(new KateLayoutCache(renderer(), this))
   , m_preserveMaxX(false)
   , m_currentMaxX(0)
   , m_usePlainLines(false)
@@ -528,9 +530,6 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
 #endif
 
   m_updatingView = true;
-
-  if (changed)
-    cache()->clear();
 
   bool blocked = m_lineScroll->blockSignals(true);
 
@@ -2674,6 +2673,7 @@ void KateViewInternal::updateDirty( )
     updateRegion += QRect(0, currentRectStart, width(), currentRectEnd);
 
   if (!updateRegion.isEmpty()) {
+    if (debugPainting) kDebug() << k_funcinfo << "Update dirty region " << updateRegion;
     update(updateRegion);
   }
 }
@@ -2687,13 +2687,15 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
     doUpdateView();
 #endif
 
-  //kDebug (13030) << "GOT PAINT EVENT: Region" << e->region();
+  if (debugPainting) kDebug (13030) << "GOT PAINT EVENT: Region" << e->region();
 
-  int xStart = startX() + e->rect().x();
-  int xEnd = xStart + e->rect().width();
+  const QRect& unionRect = e->rect();
+
+  int xStart = startX() + unionRect.x();
+  int xEnd = xStart + unionRect.width();
   uint h = renderer()->fontHeight();
-  uint startz = (e->rect().y() / h);
-  uint endz = startz + 1 + (e->rect().height() / h);
+  uint startz = (unionRect.y() / h);
+  uint endz = startz + 1 + (unionRect.height() / h);
   uint lineRangesSize = cache()->viewCacheLineCount();
 
   QPainter paint(this);
@@ -2705,7 +2707,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
   renderer()->setShowTrailingSpaces(m_doc->config()->configFlags() & KateDocumentConfig::cfShowSpaces);
 
   int sy = startz * h;
-  paint.translate(e->rect().x(), startz * h);
+  paint.translate(unionRect.x(), startz * h);
 
   for (uint z=startz; z <= endz; z++)
   {
@@ -2714,16 +2716,19 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
       if (!(z >= lineRangesSize))
         cache()->viewLine(z).setDirty(false);
 
-      paint.fillRect( 0, 0, e->rect().width(), h, renderer()->config()->backgroundColor() );
+      paint.fillRect( 0, 0, unionRect.width(), h, renderer()->config()->backgroundColor() );
     }
     else
     {
       //kDebug()<<"KateViewInternal::paintEvent(QPaintEvent *e):cache()->viewLine"<<z;
       KateTextLayout& thisLine = cache()->viewLine(z);
-      thisLine.setDirty(false);
 
       if (!thisLine.viewLine() || z == startz) {
-        //kDebug (13030) << "paint text: line: " << thisLine.line() << " viewLine " << thisLine.viewLine() << " x: " << e->rect().x() << " y: " << sy
+        // Don't bother if we're not in the requested update region
+        if (!e->region().contains(QRect(unionRect.x(), startz * h, unionRect.width(), h)))
+          continue;
+
+        //kDebug (13030) << "paint text: line: " << thisLine.line() << " viewLine " << thisLine.viewLine() << " x: " << unionRect.x() << " y: " << sy
         //  << " width: " << xEnd-xStart << " height: " << h << endl;
 
         if (thisLine.viewLine())
@@ -2738,6 +2743,8 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
 
         if (thisLine.viewLine())
           paint.translate(0, h * thisLine.viewLine());
+
+        thisLine.setDirty(false);
       }
     }
 
@@ -2815,8 +2822,10 @@ void KateViewInternal::scrollTimeout ()
 
 void KateViewInternal::cursorTimeout ()
 {
-  renderer()->setDrawCaret(!renderer()->drawCaret());
-  paintCursor();
+  if (!debugPainting) {
+    renderer()->setDrawCaret(!renderer()->drawCaret());
+    paintCursor();
+  }
 }
 
 void KateViewInternal::textHintTimeout ()

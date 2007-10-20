@@ -173,7 +173,7 @@ class KateEditHistory : public QObject
 
   Q_SIGNALS:
     void editDone(KateEditInfo* edit);
-    void editUndone(KateEditInfo* edit);
+    //void editUndone(KateEditInfo* edit);
 
   private:
     KateDocument* m_doc;

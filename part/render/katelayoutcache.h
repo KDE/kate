@@ -24,6 +24,7 @@
 #include "katetextlayout.h"
 
 class KateRenderer;
+class KateEditInfo;
 
 namespace KTextEditor { class Document; }
 
@@ -41,10 +42,12 @@ namespace KTextEditor { class Document; }
  *
  * @author Hamish Rodda \<rodda@kde.org\>
  */
-class KateLayoutCache
+class KateLayoutCache : public QObject
 {
+  Q_OBJECT
+
   public:
-    explicit KateLayoutCache(KateRenderer* renderer);
+    explicit KateLayoutCache(KateRenderer* renderer, QObject* parent);
 
     void clear();
 
@@ -107,9 +110,7 @@ class KateLayoutCache
     // Methods for tagging layouts as dirty
 
 private Q_SLOTS:
-    void slotTextInserted(KTextEditor::Document *document, const KTextEditor::Range& range);
-    void slotTextRemoved(KTextEditor::Document *document, const KTextEditor::Range& range);
-    void slotTextChanged(KTextEditor::Document *document, const KTextEditor::Range& oldRange, const KTextEditor::Range& newRange);
+    void slotEditDone(KateEditInfo* edit);
 
 private:
     void updateCache(int fromLine, int toLine, int shiftAmount);

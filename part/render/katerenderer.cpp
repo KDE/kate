@@ -520,19 +520,20 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       backgroundDetermined:
 
       // Draw selection outside of areas where text is rendered
-      if (m_view->selection() && !m_view->blockSelection() && m_view->lineEndSelected(line.end(true))) {
-        QRect area(line.endX() + line.xOffset() - xStart, fm.height() * i, xEnd - xStart, fm.height() * (i + 1));
-        paint.fillRect(area, config()->selectionColor());
-
-      } else if (backgroundBrushSet && !m_view->blockSelection()) {
-        // Draw text background outside of areas where text is rendered.
-        QRect area(line.endX() /*+ line.xOffset()*/ - line.startX() +  (i==0?0:range->shiftX()) - xStart/*-(i*xEnd)*/, fm.height() * i, xEnd - xStart, fm.height() /** (i + 1)*/);
-        paint.fillRect(area, /*QBrush(Qt::red));*/backgroundBrush);
-//         kDebug()<<i<<":backgroundBrush:"<<backgroundBrush<<"---"<<xEnd<<"/"<<xStart;
-//         kDebug()<<line.endX()<<"---"<<line.xOffset();
-         //kDebug()<<i<<"----"<<area;
+      if (!m_printerFriendly ) {
+        if (m_view->selection() && !m_view->blockSelection() && m_view->lineEndSelected(line.end(true))) {
+          QRect area(line.endX() + line.xOffset() - xStart, fm.height() * i, xEnd - xStart, fm.height() * (i + 1));
+          paint.fillRect(area, config()->selectionColor());
+  
+        } else if (backgroundBrushSet && !m_view->blockSelection()) {
+          // Draw text background outside of areas where text is rendered.
+          QRect area(line.endX() /*+ line.xOffset()*/ - line.startX() +  (i==0?0:range->shiftX()) - xStart/*-(i*xEnd)*/, fm.height() * i, xEnd - xStart, fm.height() /** (i + 1)*/);
+          paint.fillRect(area, /*QBrush(Qt::red));*/backgroundBrush);
+  //         kDebug()<<i<<":backgroundBrush:"<<backgroundBrush<<"---"<<xEnd<<"/"<<xStart;
+  //         kDebug()<<line.endX()<<"---"<<line.xOffset();
+          //kDebug()<<i<<"----"<<area;
+        }
       }
-
       // Draw indent lines
       if (showIndentLines() && i == 0)
       {

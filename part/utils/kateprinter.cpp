@@ -391,6 +391,7 @@ bool KatePrinter::print (KateDocument *doc)
 
         if ( useFooter )
         {
+          paint.setPen(footerFgColor);
           if ( ! ( footerDrawBg || useBox || useBackground ) ) // draw a 1 px (!?) line to separate footer from contents
             paint.drawLine( 0, maxHeight + innerMargin - 1, headerWidth, maxHeight + innerMargin - 1 );
           if ( footerDrawBg )
@@ -463,6 +464,7 @@ bool KatePrinter::print (KateDocument *doc)
 
           QColor _defaultPen = _defaultAttributes.at(0)->foreground().color();
           paint.setPen(_defaultPen);
+          paint.setBrush(_defaultPen);
 
           int _marg = 0;
           if ( useBox )
@@ -788,13 +790,13 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   leHeaderCenter->setText( "%f" );
   leHeaderRight->setText( "%p" );
   kcbtnHeaderFg->setColor( QColor("black") );
-  cbHeaderEnableBgColor->setChecked( true );
+  cbHeaderEnableBgColor->setChecked( false );
   kcbtnHeaderBg->setColor( QColor("lightgrey") );
 
   cbEnableFooter->setChecked( true );
   leFooterRight->setText( "%U" );
   kcbtnFooterFg->setColor( QColor("black") );
-  cbFooterEnableBgColor->setChecked( true );
+  cbFooterEnableBgColor->setChecked( false );
   kcbtnFooterBg->setColor( QColor("lightgrey") );
 
   // whatsthis

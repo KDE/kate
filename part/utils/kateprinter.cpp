@@ -81,7 +81,7 @@ bool KatePrinter::print (KateDocument *doc)
   if ( printDialog->exec() )
   {
     KateRenderer renderer(doc, doc->activeKateView());
-    //renderer.config()->setSchema (1);
+    renderer.config()->setSchema (kpl->colorScheme());
     renderer.setPrinterFriendly(true);
 
     QPainter paint( &printer );
@@ -93,11 +93,11 @@ bool KatePrinter::print (KateDocument *doc)
      */
     uint pdmWidth = printer.width();
     uint pdmHeight = printer.height();
-    uint y = 0;
+    int y = 0;
     uint xstart = 0; // beginning point for painting lines
     uint lineCount = 0;
     uint maxWidth = pdmWidth;
-    uint headerWidth = pdmWidth;
+    int headerWidth = pdmWidth;
     int startCol = 0;
     int endCol = 0;
     bool pageStarted = true;
@@ -105,13 +105,7 @@ bool KatePrinter::print (KateDocument *doc)
 
     // Text Settings Page
     bool selectionOnly = (printDialog->printRange() == QAbstractPrintDialog::Selection);
-
-    int selStartCol = 0;
-    int selEndCol = 0;
-
     bool useGuide = kpts->printGuide();
-    int guideHeight = 0;
-    int guideCols = 0;
 
     bool printLineNumbers = kpts->printLineNumbers();
     uint lineNumberWidth( 0 );
@@ -142,17 +136,12 @@ bool KatePrinter::print (KateDocument *doc)
     int innerMargin = useBox ? kpl->boxMargin() : 6;
 
     // Post initialization
-    uint maxHeight = (useBox ? pdmHeight-innerMargin : pdmHeight);
+    int maxHeight = (useBox ? pdmHeight-innerMargin : pdmHeight);
     uint currentPage( 1 );
     uint lastline = doc->lastLine(); // necessary to print selection only
     uint firstline( 0 );
     int fontHeight = renderer.fontHeight();
     KTextEditor::Range selectionRange;
-
-    QList<KateExtendedAttribute::Ptr> ilist;
-
-    if (useGuide)
-      doc->highlight()->getKateExtendedAttributeListCopy (renderer.config()->schema(), ilist);
 
     /*
     *        Now on for preparations...
@@ -220,17 +209,21 @@ bool KatePrinter::print (KateDocument *doc)
           else
             headerHeight += 1 + QFontMetrics( headerFont ).leading();
 
-          QString headerTags = kphf->headerFormat();
-          int pos = reTags.indexIn( headerTags );
-          QString rep;
-          while ( pos > -1 )
-          {
-            rep = tags[reTags.cap( 1 )];
-            headerTags.replace( (uint)pos, 2, rep );
-            pos += rep.length();
-            pos = reTags.indexIn( headerTags, pos );
+          headerTagList = kphf->headerFormat();
+          QMutableStringListIterator it(headerTagList);
+          while ( it.hasNext() ) {
+            QString tag = it.next();
+            int pos = reTags.indexIn( tag );
+            QString rep;
+            while ( pos > -1 )
+            {
+              rep = tags[reTags.cap( 1 )];
+              tag.replace( (uint)pos, 2, rep );
+              pos += rep.length();
+              pos = reTags.indexIn( tag, pos );
+            }
+            it.setValue( tag );
           }
-          headerTagList = headerTags.split('|');
 
           if (!headerBgColor.isValid())
             headerBgColor = Qt::lightGray;
@@ -247,18 +240,22 @@ bool KatePrinter::print (KateDocument *doc)
           else
             footerHeight += 1; // line only
 
-            QString footerTags = kphf->footerFormat();
-          int pos = reTags.indexIn( footerTags );
-          QString rep;
-          while ( pos > -1 )
-          {
-            rep = tags[reTags.cap( 1 )];
-            footerTags.replace( (uint)pos, 2, rep );
-            pos += rep.length();
-            pos = reTags.indexIn( footerTags, pos );
+          footerTagList = kphf->footerFormat();
+          QMutableStringListIterator it(footerTagList);
+          while ( it.hasNext() ) {
+            QString tag = it.next();
+            int pos = reTags.indexIn( tag );
+            QString rep;
+            while ( pos > -1 )
+            {
+              rep = tags[reTags.cap( 1 )];
+              tag.replace( (uint)pos, 2, rep );
+              pos += rep.length();
+              pos = reTags.indexIn( tag, pos );
+            }
+            it.setValue( tag );
           }
 
-          footerTagList = footerTags.split('|');
           if (!footerBgColor.isValid())
             footerBgColor = Qt::lightGray;
           if (!footerFgColor.isValid())
@@ -292,58 +289,10 @@ bool KatePrinter::print (KateDocument *doc)
       else
         boxWidth = 0;
 
-  #if 0
-      if ( useGuide )
-      {
-        // calculate the height required
-        // the number of columns is a side effect, saved for drawing time
-        // first width is needed
-        int _w = pdmWidth - innerMargin * 2;
-        if ( useBox )
-          _w -= boxWidth * 2;
-        else
-        {
-          if ( useBackground )
-            _w -= ( innerMargin * 2 );
-          _w -= 2; // 1 px line on each side
-        }
-
-        // base of height: margins top/bottom, above and below tetle sep line
-        guideHeight = ( innerMargin * 4 ) + 1;
-
-        // get a title and add the height required to draw it
-        QString _title = i18n("Typographical Conventions for %1", doc->highlight()->name());
-        guideHeight += paint.boundingRect( 0, 0, _w, 1000, Qt::AlignTop|Qt::AlignHCenter, _title ).height();
-
-        // see how many columns we can fit in
-        int _widest( 0 );
-
-        int _items ( 0 );
-        for (int i = 0; i < ilist.size(); ++i)
-        {
-          KateExtendedAttribute::Ptr _d = ilist[i];
-          _widest = qMax( _widest, ((QFontMetrics)(
-          _d->fontWeight() == QFont::Bold ?
-          _d->fontItalic() ?
-          renderer.config()->fontStruct()->myFontMetricsBI :
-          renderer.config()->fontStruct()->myFontMetricsBold :
-          _d->fontItalic() ?
-          renderer.config()->fontStruct()->myFontMetricsItalic :
-          renderer.config()->fontStruct()->myFontMetrics
-          ) ).width( _d->name() ) );
-          _items++;
-        }
-        guideCols = _w/( _widest + innerMargin );
-        // add height for required number of lines needed given columns
-        guideHeight += fontHeight * ( _items/guideCols );
-        if ( _items%guideCols )
-          guideHeight += fontHeight;
-      }
-  #endif
-
       // now that we know the vertical amount of space needed,
       // it is possible to calculate the total number of pages
       // if needed, that is if any header/footer tag contains "%P".
+#if 0
       if ( !headerTagList.filter("%P").isEmpty() || !footerTagList.filter("%P").isEmpty() )
       {
         kDebug(13020)<<"'%P' found! calculating number of pages...";
@@ -357,8 +306,8 @@ bool KatePrinter::print (KateDocument *doc)
         uint _lt = 0, _c=0;
 
         // add space for guide if required
-        if ( useGuide )
-          _lt += (guideHeight + (fontHeight /2)) / fontHeight;
+//         if ( useGuide )
+//           _lt += (guideHeight + (fontHeight /2)) / fontHeight;
         long _lw;
         for ( uint i = firstline; i < lastline; i++ )
         {
@@ -387,6 +336,7 @@ bool KatePrinter::print (KateDocument *doc)
         for ( it=footerTagList.begin(); it!=footerTagList.end(); ++it )
           (*it).replace( re, QString( "%1" ).arg( _pages ) );
       }
+#endif
     } // end prepare block
 
      /*
@@ -397,7 +347,7 @@ bool KatePrinter::print (KateDocument *doc)
       startCol = 0;
       endCol = 0;
 
-      if ( y + fontHeight >= (uint)(maxHeight) )
+      if ( y + fontHeight >= maxHeight )
       {
         kDebug(13020)<<"Starting new page,"<<lineCount<<"lines up to now.";
         printer.newPage();
@@ -409,7 +359,6 @@ bool KatePrinter::print (KateDocument *doc)
 
       if ( pageStarted )
       {
-
         if ( useHeader )
         {
           paint.setPen(headerFgColor);
@@ -500,61 +449,109 @@ bool KatePrinter::print (KateDocument *doc)
             paint.fillRect( 0, maxHeight+innerMargin, headerWidth, boxWidth, boxColor );
         }
 
-#if 0
         if ( useGuide && currentPage == 1 )
         {  // FIXME - this may span more pages...
           // draw a box unless we have boxes, in which case we end with a box line
+          int _ystart = y;
+          QString _hlName = doc->highlight()->name();
 
-          // use color of dsNormal for the title string and the hline
-          KateAttributeList _dsList;
-          KateHlManager::self()->getDefaults ( renderer.config()->schema(), _dsList );
-          paint.setBrush ( _dsList.at(0)->foreground() );
-          int _marg = 0; // this could be available globally!??
+          QList<KateExtendedAttribute::Ptr> _attributes; // list of highlight attributes for the legend
+          doc->highlight()->getKateExtendedAttributeList(kpl->colorScheme(), _attributes);
+
+          KateAttributeList _defaultAttributes;
+          KateHlManager::self()->getDefaults ( renderer.config()->schema(), _defaultAttributes );
+
+          QColor _defaultPen = _defaultAttributes.at(0)->foreground().color();
+          paint.setPen(_defaultPen);
+
+          int _marg = 0;
           if ( useBox )
-          {
             _marg += (2*boxWidth) + (2*innerMargin);
-            paint.fillRect( 0, y+guideHeight-innerMargin-boxWidth, headerWidth, boxWidth, boxColor );
-          }
           else
           {
             if ( useBackground )
               _marg += 2*innerMargin;
-            paint.drawRect( _marg, y, pdmWidth-(2*_marg), guideHeight );
             _marg += 1;
             y += 1 + innerMargin;
           }
+
           // draw a title string
-          paint.setFont( renderer.config()->fontStruct()->myFontBold );
+          QFont _titleFont = renderer.config()->font();
+          _titleFont.setBold(true);
+          paint.setFont( _titleFont );
           QRect _r;
-          paint.drawText( _marg, y, pdmWidth-(2*_marg), maxHeight - y,
+          paint.drawText( QRect(_marg, y, pdmWidth-(2*_marg), maxHeight - y),
             Qt::AlignTop|Qt::AlignHCenter,
-            i18n("Typographical Conventions for %1", doc->highlight()->name()), -1, &_r );
+            i18n("Typographical Conventions for %1", _hlName ), &_r );
           int _w = pdmWidth - (_marg*2) - (innerMargin*2);
           int _x = _marg + innerMargin;
           y += _r.height() + innerMargin;
           paint.drawLine( _x, y, _x + _w, y );
           y += 1 + innerMargin;
-          // draw attrib names using their styles
 
-          QListIterator<KateExtendedAttribute> _it( ilist );
-          KateExtendedAttribute::Ptr _d;
-          int _cw = _w/guideCols;
+          int _widest( 0 );
+          foreach (KateExtendedAttribute::Ptr attribute, _attributes)
+            _widest = qMax(QFontMetrics(attribute->font()).width(attribute->name().section(':',1,1)), _widest);
+
+          int _guideCols = _w/( _widest + innerMargin );
+
+          // draw attrib names using their styles
+          int _cw = _w/_guideCols;
           int _i(0);
 
-          while ( ( _d = _it.current() ) != 0 )
+          _titleFont.setUnderline(true);
+          QString _currentHlName;
+          foreach (KateExtendedAttribute::Ptr attribute, _attributes)
           {
-            paint.setPen( renderer.attribute(_i)->foreground() );
-            paint.setFont( renderer.attribute(_i)->font( *renderer.currentFont() ) );
-            paint.drawText(( _x + ((_i%guideCols)*_cw)), y, _cw, fontHeight,
-                    Qt::AlignVCenter|Qt::AlignLeft, _d->name, -1, &_r );
+            QString _hl = attribute->name().section(':',0,0);
+            QString _name = attribute->name().section(':',1,1);
+            if ( _hl != _hlName && _hl != _currentHlName ) {
+              _currentHlName = _hl;
+              if ( _i%_guideCols )
+                y += fontHeight;
+              y += innerMargin;
+              paint.setFont(_titleFont);
+              paint.setPen(_defaultPen);
+              paint.drawText( _x, y, _w, fontHeight, Qt::AlignTop, _hl + " " + i18n("text") );
+              y += fontHeight;
+              _i = 0;
+            }
+
+            KTextEditor::Attribute _attr =  *_defaultAttributes[attribute->defaultStyleIndex()];
+            _attr += *attribute;
+            paint.setPen( _attr.foreground().color() );
+            paint.setFont( _attr.font() );
+
+            if (_attr.hasProperty(QTextFormat::BackgroundBrush) ) {
+              QRect _rect = QFontMetrics(_attr.font()).boundingRect(_name);
+              _rect.moveTo(_x + ((_i%_guideCols)*_cw), y);
+               paint.fillRect(_rect, _attr.background() );
+            }
+
+            paint.drawText(( _x + ((_i%_guideCols)*_cw)), y, _cw, fontHeight, Qt::AlignTop, _name );
+
             _i++;
-            if ( _i && ! ( _i%guideCols ) ) y += fontHeight;
-            ++_it;
+            if ( _i && ! ( _i%_guideCols ) )
+              y += fontHeight;
           }
-          if ( _i%guideCols ) y += fontHeight;// last row not full
+
+          if ( _i%_guideCols )
+            y += fontHeight;// last row not full
+
+          // draw a box around the legend
+          paint.setPen ( _defaultPen );
+          if ( useBox )
+            paint.fillRect( 0, y+innerMargin, headerWidth, boxWidth, boxColor );
+          else
+          {
+            _marg -=1;
+            paint.setBrush(QBrush());
+            paint.drawRect( _marg, _ystart, pdmWidth-(2*_marg), y-_ystart+innerMargin );
+          }
+
           y += ( useBox ? boxWidth : 1 ) + (innerMargin*2);
-        }
-#endif
+        } // useGuide
+
         paint.translate(xstart,y);
         pageStarted = false;
       } // pageStarted; move on to contents:)
@@ -644,10 +641,10 @@ KatePrintTextSettings::KatePrintTextSettings( QWidget *parent )
 //   cbSelection = new QCheckBox( i18n("Print &selected text only"), this );
 //   lo->addWidget( cbSelection );
 
-  cbLineNumbers = new QCheckBox( i18n("Print &line numbers"), this );
+  cbLineNumbers = new QCheckBox( i18n("Print line &numbers"), this );
   lo->addWidget( cbLineNumbers );
 
-  cbGuide = new QCheckBox( i18n("Print syntax &guide"), this );
+  cbGuide = new QCheckBox( i18n("Print &legend"), this );
   lo->addWidget( cbGuide );
 
   lo->addStretch( 1 );
@@ -812,8 +809,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
       "<li><tt>%f</tt>: file name</li>"
       "<li><tt>%U</tt>: full URL of the document</li>"
       "<li><tt>%p</tt>: page number</li>"
-      "</ul><br />"
-      "<u>Note:</u> Do <b>not</b> use the '|' (vertical bar) character.");
+      "</ul><br />");
   leHeaderRight->setWhatsThis(s + s1 );
   leHeaderCenter->setWhatsThis(s + s1 );
   leHeaderLeft->setWhatsThis(s + s1 );
@@ -833,11 +829,11 @@ bool KatePrintHeaderFooter::useHeader()
   return cbEnableHeader->isChecked();
 }
 
-QString KatePrintHeaderFooter::headerFormat()
+QStringList KatePrintHeaderFooter::headerFormat()
 {
-  return leHeaderLeft->text() + '|' +
-  leHeaderCenter->text() + '|' +
-  leHeaderRight->text();
+  QStringList l;
+  l << leHeaderLeft->text() << leHeaderCenter->text() << leHeaderRight->text();
+  return l;
 }
 
 QColor KatePrintHeaderFooter::headerForeground()
@@ -860,11 +856,11 @@ bool KatePrintHeaderFooter::useFooter()
   return cbEnableFooter->isChecked();
 }
 
-QString KatePrintHeaderFooter::footerFormat()
+QStringList KatePrintHeaderFooter::footerFormat()
 {
-  return leFooterLeft->text() + '|' +
-  leFooterCenter->text() + '|' +
-  leFooterRight->text();
+  QStringList l;
+  l<< leFooterLeft->text() << leFooterCenter->text() << leFooterRight->text();
+  return l;
 }
 
 QColor KatePrintHeaderFooter::footerForeground()
@@ -933,7 +929,7 @@ KatePrintLayout::KatePrintLayout( QWidget *parent)
   lBoxWidth->setBuddy( sbBoxWidth );
 
   QLabel *lBoxMargin = new QLabel( i18n("&Margin:"), gbBoxProps );
-  grid->addWidget(lBoxWidth, 1, 0);
+  grid->addWidget(lBoxMargin, 1, 0);
   sbBoxMargin = new QSpinBox( gbBoxProps );
   sbBoxMargin->setRange( 0, 100 );
   sbBoxMargin->setSingleStep( 1 );
@@ -956,9 +952,8 @@ KatePrintLayout::KatePrintLayout( QWidget *parent)
   cmbSchema->setCurrentIndex( 1 );
 
   // whatsthis
-  // FIXME uncomment when string freeze is over
-//   QWhatsThis::add ( cmbSchema, i18n(
-//         "Select the color scheme to use for the print." ) );
+  cmbSchema->setWhatsThis(i18n(
+        "Select the color scheme to use for the print." ) );
   cbDrawBackground->setWhatsThis(i18n(
         "<p>If enabled, the background color of the editor will be used.</p>"
         "<p>This may be useful if your color scheme is designed for a dark background.</p>") );

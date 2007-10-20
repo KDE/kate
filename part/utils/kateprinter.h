@@ -84,13 +84,13 @@ class KatePrintHeaderFooter : public QWidget
     QFont font();
 
     bool useHeader();
-    QString headerFormat();
+    QStringList headerFormat();
     QColor headerForeground();
     QColor headerBackground();
     bool useHeaderBackground();
 
     bool useFooter();
-    QString footerFormat();
+    QStringList footerFormat();
     QColor footerForeground();
     QColor footerBackground();
     bool useFooterBackground();

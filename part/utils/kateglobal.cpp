@@ -381,7 +381,7 @@ KIcon KateGlobal::configPageIcon (int number) const
       return KIcon("document-save");
 
     case 4:
-      return KIcon("browser-go");
+      return KIcon("go-jump-locationbar");
 
     case 5:
       return KIcon("connection-established");

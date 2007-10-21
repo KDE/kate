@@ -1917,7 +1917,9 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
     //kDebug(13030)<<"end<startLine";
     return false;
   }
-  if (start.line() > endLine())
+  // Used to be > endLine(), but cache may not be valid when checking, so use a
+  // less optimal but still adequate approximation (potential overestimation but minimal performance difference)
+  if (start.line() > startLine() + cache()->viewCacheLineCount())
   {
     //kDebug(13030)<<"start> endLine"<<start<<" "<<(endLine());
     return false;

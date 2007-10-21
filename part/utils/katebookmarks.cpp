@@ -95,14 +95,14 @@ void KateBookmarks::createActions( KActionCollection* ac )
 
     m_goNext = new KAction( i18n("Next Bookmark"), this);
     ac->addAction("bookmarks_next", m_goNext);
-    m_goNext->setIcon( KIcon( "find-next" ) );
+    m_goNext->setIcon( KIcon( "edit-find-next" ) );
     m_goNext->setShortcut( Qt::ALT + Qt::Key_PageDown );
     m_goNext->setWhatsThis(i18n("Go to the next bookmark."));
     connect( m_goNext, SIGNAL( triggered() ), this, SLOT(goNext()) );
 
     m_goPrevious = new KAction( i18n("Previous Bookmark"), this);
     ac->addAction("bookmarks_previous", m_goPrevious);
-    m_goPrevious->setIcon( KIcon( "find-previous" ) );
+    m_goPrevious->setIcon( KIcon( "edit-find-previous" ) );
     m_goPrevious->setShortcut( Qt::ALT + Qt::Key_PageUp );
     m_goPrevious->setWhatsThis(i18n("Go to the previous bookmark."));
     connect( m_goPrevious, SIGNAL( triggered() ), this, SLOT(goPrevious()) );

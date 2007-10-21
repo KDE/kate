@@ -74,7 +74,7 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
   {
     noHl = true;
     iName = "None"; // not translated internal name (for config and more)
-    iNameTranslated = i18n("None"); // user visible name
+    iNameTranslated = i18nc("Syntax highlighting", "None"); // user visible name
     iSection = "";
     iHidden = false;
     m_additionalData.insert( "none", new HighlightPropertyBag );

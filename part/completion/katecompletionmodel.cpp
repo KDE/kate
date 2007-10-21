@@ -484,7 +484,7 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
       at = "Private";
 
     if (accessIncludeStatic() && attribute & KTextEditor::CodeCompletionModel::Static)
-      at.append(i18n(" Static"));
+      at.append(" Static");
 
     if (accessIncludeConst() && attribute & KTextEditor::CodeCompletionModel::Const)
       at.append(" Const");

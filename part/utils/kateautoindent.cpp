@@ -68,10 +68,10 @@ QString KateAutoIndent::modeName (int mode)
 QString KateAutoIndent::modeDescription (int mode)
 {
   if (mode == 0 || mode >= modeCount ())
-    return i18n ("None");
+    return i18nc ("Autoindent mode", "None");
 
   if (mode == 1)
-    return i18n ("Normal");
+    return i18nc ("Autoindent mode", "Normal");
 
   return KateGlobal::self()->jscriptManager()->indentationScriptByIndex(mode-2)->info()->name;
 }

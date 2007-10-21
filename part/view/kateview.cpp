@@ -259,6 +259,7 @@ void KateView::setupConnections()
 void KateView::setupActions()
 {
   KActionCollection *ac = this->actionCollection ();
+  ac->setAssociatedWidget(m_viewInternal);
   QAction *a;
 
   m_toggleWriteLock = 0;

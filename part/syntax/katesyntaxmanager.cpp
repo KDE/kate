@@ -149,22 +149,22 @@ QString KateHlManager::defaultStyleName(int n, bool translateNames)
     // this one is for marking invalid input
     names << "Error";
 
-    translatedNames << i18n("Normal");
-    translatedNames << i18n("Keyword");
-    translatedNames << i18n("Data Type");
-    translatedNames << i18n("Decimal/Value");
-    translatedNames << i18n("Base-N Integer");
-    translatedNames << i18n("Floating Point");
-    translatedNames << i18n("Character");
-    translatedNames << i18n("String");
-    translatedNames << i18n("Comment");
-    translatedNames << i18n("Others");
-    translatedNames << i18n("Alert");
-    translatedNames << i18n("Function");
+    translatedNames << i18nc("@item:intable Text context", "Normal");
+    translatedNames << i18nc("@item:intable Text context", "Keyword");
+    translatedNames << i18nc("@item:intable Text context", "Data Type");
+    translatedNames << i18nc("@item:intable Text context", "Decimal/Value");
+    translatedNames << i18nc("@item:intable Text context", "Base-N Integer");
+    translatedNames << i18nc("@item:intable Text context", "Floating Point");
+    translatedNames << i18nc("@item:intable Text context", "Character");
+    translatedNames << i18nc("@item:intable Text context", "String");
+    translatedNames << i18nc("@item:intable Text context", "Comment");
+    translatedNames << i18nc("@item:intable Text context", "Others");
+    translatedNames << i18nc("@item:intable Text context", "Alert");
+    translatedNames << i18nc("@item:intable Text context", "Function");
     // this next one is for denoting the beginning/end of a user defined folding region
-    translatedNames << i18n("Region Marker");
+    translatedNames << i18nc("@item:intable Text context", "Region Marker");
     // this one is for marking invalid input
-    translatedNames << i18n("Error");
+    translatedNames << i18nc("@item:intable Text context", "Error");
   }
 
   return translateNames ? translatedNames[n] : names[n];

@@ -129,7 +129,7 @@ KateStyleTreeWidget::KateStyleTreeWidget( QWidget *parent, bool showUseDefaults 
   setItemDelegate(new KateStyleTreeDelegate(this));
 
   QStringList headers;
-  headers << i18n("Context") << QString() << QString() << QString() << QString() << i18n("Normal") << i18n("Selected") << i18n("Background") << i18n("Background Selected");
+  headers << i18nc("@title:column Meaning of text in editor", "Context") << QString() << QString() << QString() << QString() << i18nc("@title:column Text style", "Normal") << i18nc("@title:column Text style", "Selected") << i18nc("@title:column Text style", "Background") << i18nc("@title:column Text style", "Background Selected");
   if(showUseDefaults) {
     headers << i18n("Use Default Style");
   }

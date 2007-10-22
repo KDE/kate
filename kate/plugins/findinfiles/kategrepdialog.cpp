@@ -112,7 +112,7 @@ KateGrepDialog::KateGrepDialog(QWidget *parent, Kate::MainWindow *mw)
   btnCloseTab = new QToolButton( lbResult );
   btnCloseTab->setEnabled(false);
   QToolTip::add(btnCloseTab,i18n("Click to close the current search results."));
-  btnCloseTab->setIconSet(QIcon(SmallIcon("tab-remove")));
+  btnCloseTab->setIconSet(QIcon(SmallIcon("tab-close")));
   btnCloseTab->adjustSize();
   connect(btnCloseTab, SIGNAL(clicked()), SLOT(slotCloseResultTab()));
   btnCloseTab->hide();

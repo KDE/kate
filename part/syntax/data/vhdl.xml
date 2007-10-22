@@ -8,8 +8,10 @@
   <!ENTITY eos      "\b">		<!-- eol or space following -->
 <!--  <!ENTITY eos      "(?=($|\s))">-->		<!-- eol or space following -->
   <!ENTITY noword   "(?![\w$+-])">		<!-- no word, $, + or - following -->
+  <!ENTITY label     "((&varname;)\s*:\s*)?">
+  
 ]>
-<language name="VHDL" version="1.07" kateversion="2.3" section="Hardware" extensions="*.vhdl;*.vhd" mimetype="text/x-vhdl" author="Rocky Scaletta (rocky@purdue.edu), Stefan Endrullis (stefan@endrullis.de)">
+<language name="VHDL" version="1.08" kateversion="2.3" section="Hardware" extensions="*.vhdl;*.vhd" mimetype="text/x-vhdl" author="Rocky Scaletta (rocky@purdue.edu), Stefan Endrullis (stefan@endrullis.de), Jan Michel (jan@mueschelsoft.de)">
   <highlighting>
     <list name="keywordsToplevel">
       <item> file </item>
@@ -107,14 +109,20 @@
       <item> loop </item>
     </list>
       
-<!--    <list name="directions">
+    <list name="directions">
       <item> in </item>
       <item> inout </item>
       <item> out </item>
       <item> buffer </item>
-      
     </list>
-    <list name="logics">
+    
+    <list name="signals">
+      <item> signal </item>
+      <item> variable </item>
+      <item> constant </item>
+      <item> type </item>      
+    </list>
+ <!--   <list name="logics">
       <item> and </item>
       <item> or </item>
       <item> xor </item>
@@ -161,8 +169,8 @@
     <contexts>
       <!-- start / global environment -->
       <context name="start" attribute="Normal Text" lineEndContext="#stay">
-        <RegExpr attribute="Normal Text" context="entity" String="&bos;(entity\s*(&varname;)\s*is)&eos;" beginRegion="EntityRegion1" lookAhead="true" />
-        <RegExpr attribute="Normal Text" context="architecture" String="&bos;(architecture\s*(&varname;)\s*of\s*&varname;\s*is)&eos;" beginRegion="ArchitectureRegion1" lookAhead="true" />
+        <RegExpr attribute="Normal Text" context="entity" String="&bos;(entity\s*(&varname;)\s*is)&eos;" beginRegion="EntityRegion1" lookAhead="true" insensitive="true" />
+        <RegExpr attribute="Normal Text" context="architecture" String="&bos;(architecture\s*(&varname;)\s*of\s*&varname;\s*is)&eos;" beginRegion="ArchitectureRegion1" lookAhead="true" insensitive="true" />
         <Detect2Chars attribute="Comment" context="comment" char="-" char1="-" />
         <keyword attribute="Keyword" context="#stay"  String="keywordsToplevel"/>
       </context>
@@ -176,17 +184,20 @@
       
       <!-- general keywords detection -->
       <context name="generalDetection" attribute="Normal Text" lineEndContext="#stay">
-        <keyword attribute="Keyword" context="#stay"  String="keywords"/>
         <keyword attribute="Data Type" context="#stay"  String="types"/>
+        <keyword attribute="Signal" context="#stay"  String="signals"/>
+        <keyword attribute="Keyword" context="#stay"  String="keywords"/>
         <Int attribute="Integer" context="#stay" />
         <HlCChar attribute="Bit" context="#stay" />
       </context>
+      
+
       
       <!-- entity environment -->
       <context name="entity" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
         <StringDetect attribute="Redirection" context="#stay" String="%2" dynamic="true" />
         <IncludeRules context="preDetection" />
-        <RegExpr attribute="Redirection" context="#pop" String="^(|\s.*)end(\s*entity)?\s*(%3)?\s*;" dynamic="true" endRegion="EntityRegion1" />
+        <RegExpr attribute="Redirection" context="#pop" String="^(|\s.*)end(\s*entity)?\s*(%3)?\s*;" dynamic="true" endRegion="EntityRegion1" insensitive="true" />
         <!--<RegExpr attribute="Alert" context="generic" String="generic"/>-->
         <IncludeRules context="generalDetection" />
       </context>
@@ -206,11 +217,12 @@
       <context name="architecture" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
         <StringDetect attribute="Redirection" context="#stay" String="%2" dynamic="true" />
         <IncludeRules context="preDetection" />
-        <StringDetect attribute="Redirection" context="#stay" String="begin" />
-        <RegExpr attribute="Redirection" context="#pop" String="&bos;end(\s+architecture)?(\s+%3)?\s*;" dynamic="true" endRegion="ArchitectureRegion1" />
-        <RegExpr attribute="Normal Text" context="component" String="&bos;(component\s+(&varname;)\s+is)&eos;" beginRegion="ComponentRegion1" lookAhead="true" />
-        <RegExpr attribute="Normal Text" context="process1" String="^(|\s+)((&varname;\s*:\s*)?process)&eos;" beginRegion="ProcessRegion1" lookAhead="true" />
-        <RegExpr attribute="Normal Text" context="instance" String="^(|\s+)((&varname;)\s*:\s*(&varname;))&eos;" beginRegion="InstanceRegion1" lookAhead="true" />
+        <StringDetect attribute="Redirection" context="#stay" String="begin" insensitive="true" />
+        <RegExpr attribute="Redirection" context="#pop" String="&bos;end(\s+architecture)?(\s+%3)?\s*;" dynamic="true" endRegion="ArchitectureRegion1"  insensitive="true" />
+        <RegExpr attribute="Normal Text" context="component" String="&bos;(component\s+(&varname;)(\s+is)?)&eos;" beginRegion="ComponentRegion1" lookAhead="true"  insensitive="true" />
+        <RegExpr attribute="Normal Text" context="process1" String="^(|\s+)(&label;process)&eos;" beginRegion="ProcessRegion1" lookAhead="true"  insensitive="true" />
+        <RegExpr attribute="Normal Text" context="generate1" String="^(|\s+)((&varname;)\s*:\s*((for\s+.+\s+in\s+.+)|(if\s+.+))\s+generate)&eos;" beginRegion="GenerateRegion1" lookAhead="true" insensitive="true" />
+        <RegExpr attribute="Normal Text" context="instance" String="^(|\s+)((&varname;)\s*:\s*(&varname;))&eos;" beginRegion="InstanceRegion1" lookAhead="true"  insensitive="true" />
         <IncludeRules context="generalDetection" />
       </context>
 <!--      <context name="architectureBeforeBegin" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
@@ -227,17 +239,25 @@
       
       <!-- component environment -->
       <context name="component" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
-        <StringDetect attribute="Redirection" context="#stay" String="%2" dynamic="true" />
+        <StringDetect attribute="Redirection" context="" String="%2" dynamic="true" />
         <IncludeRules context="preDetection" />
-        <RegExpr attribute="Redirection" context="#pop" String="&bos;end\s+component\s*;" dynamic="true" endRegion="ComponentRegion1" />
+        <RegExpr attribute="Redirection" context="#pop" String="&bos;end\s+component(\s+%3)?\s*;" dynamic="true" endRegion="ComponentRegion1" insensitive="true" />
         <IncludeRules context="generalDetection" />
       </context>
-      
+
+      <!-- generate statement -->
+      <context name="generate1" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+        <StringDetect attribute="Process" context="generate2" String="%2" dynamic="true" />
+      </context>
+      <context name="generate2" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+        <IncludeRules context="architecture" />
+        <RegExpr attribute="Process" context="#pop#pop" String="^(|\s.*)end\s+generate(?:\s+%3)?\s*;" dynamic="true" endRegion="GenerateRegion1" insensitive="true" />
+      </context>
+
       <context name="instance" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
         <StringDetect attribute="Redirection" context="#stay" String="%2" dynamic="true" />
         <Detect2Chars attribute="Comment" context="comment" char="-" char1="-" />
         <DetectChar attribute="Vector" context="string" char="&quot;" />
-<!--        <RegExpr attribute="Process" context="#pop" String="\);" endRegion="InstanceRegion1" />-->
         <Detect2Chars attribute="Normal Text" context="#pop" char=")" char1=";" endRegion="InstanceRegion1" />
         <IncludeRules context="generalDetection" />
         <AnyChar attribute="Operator" context="#stay" String="[&amp;&gt;&lt;=:+\-*\/|]().,;" />
@@ -247,39 +267,41 @@
       <!-- process environment -->
       <context name="process1" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
         <StringDetect attribute="Process" context="process2" String="%2" dynamic="true" />
+        <RegExpr attribute="Process" context="#pop" String="^(|\s.*)end\s+process(\s+%4)?\s*;" endRegion="ProcessRegion1" insensitive="true" dynamic="true" />
       </context>
       <context name="process2" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
-        <RegExpr attribute="Process" context="#pop#pop" String="&bos;end\s+process" endRegion="ProcessRegion1" />
-        <StringDetect attribute="Process" context="#stay" String="begin" />
+        <RegExpr attribute="Process" context="#pop" String="^(|\s.*)end\s+process" insensitive="true" lookAhead="true" />
+        <StringDetect attribute="Process" context="#stay" String="begin" insensitive="true" />
         <IncludeRules context="processContext" />
       </context>
+
       <context name="processContext" attribute="Normal Text" lineEndContext="#stay">
         <IncludeRules context="preDetection" />
-        <RegExpr attribute="Control" context="case1" String="&bos;case&eos;" beginRegion="CaseRegion1" />
-        <RegExpr attribute="Control" context="if" String="&bos;if&eos;" beginRegion="IfRegion1" />
-        <RegExpr attribute="Control" context="forOrWhile" String="&bos;(for|while)&eos;" beginRegion="ForOrWhileRegion1" />
+        <RegExpr attribute="Control" context="case1" String="&bos;&label;(case)&eos;" beginRegion="CaseRegion1" insensitive="true" />
+        <RegExpr attribute="Control" context="if" String="&bos;&label;(if)&eos;" beginRegion="IfRegion1" insensitive="true" />
+        <RegExpr attribute="Control" context="forOrWhile" String="&bos;&label;((for|while)\s+.+\s+)?loop&eos;" beginRegion="ForOrWhileRegion1" insensitive="true" />
         <IncludeRules context="generalDetection" />
       </context>
       <context name="case1" attribute="Normal Text" lineEndContext="#stay">
-        <StringDetect attribute="Keyword" context="case2" String="is"/>
+        <StringDetect attribute="Keyword" context="case2" String="is" insensitive="true" />
       </context>
       <context name="case2" attribute="Normal Text" lineEndContext="#stay">
-        <RegExpr attribute="Control" context="#pop#pop" String="&bos;end\s+case\s*;" endRegion="CaseRegion1" />
-        <RegExpr attribute="Control" context="caseWhen" String="&bos;when&eos;" beginRegion="CaseWhenRegion1" />
+        <RegExpr attribute="Control" context="#pop#pop" String="&bos;end\s+case(\s+&varname;)?\s*;" endRegion="CaseRegion1" insensitive="true" />
+        <RegExpr attribute="Control" context="caseWhen" String="&bos;when&eos;" beginRegion="CaseWhenRegion1" insensitive="true" />
         <IncludeRules context="processContext" />
       </context>
       <context name="caseWhen" attribute="Normal Text" lineEndContext="#stay">
-        <RegExpr attribute="Control" context="#pop" String="&bos;when&eos;" endRegion="CaseWhenRegion1" lookAhead="true" />
-        <RegExpr attribute="Control" context="#pop" String="&bos;end\s+case\s*;" endRegion="CaseWhenRegion1" lookAhead="true" />
+        <RegExpr attribute="Control" context="#pop" String="&bos;when&eos;" endRegion="CaseWhenRegion1" lookAhead="true" insensitive="true" />
+        <RegExpr attribute="Control" context="#pop" String="&bos;end\s+case(\s+&varname;)?\s*;" endRegion="CaseWhenRegion1" lookAhead="true" insensitive="true" />
         <IncludeRules context="process2" />
       </context>
       <context name="if" attribute="Normal Text" lineEndContext="#stay">
-        <RegExpr attribute="Control" context="#pop" String="&bos;end\s+if\s*;" endRegion="IfRegion1" />
+        <RegExpr attribute="Control" context="#pop" String="&bos;end\s+if(\s+&varname;)?\s*;" endRegion="IfRegion1" insensitive="true" />
         <keyword attribute="Control" context="#stay"  String="if"/>
         <IncludeRules context="processContext" />
       </context>
       <context name="forOrWhile" attribute="Normal Text" lineEndContext="#stay">
-        <RegExpr attribute="Control" context="#pop" String="&bos;end\s+loop\s*;" endRegion="ForOrWhileRegion1" />
+        <RegExpr attribute="Control" context="#pop" String="&bos;end\s+loop(\s+&varname;)?\s*;" endRegion="ForOrWhileRegion1" insensitive="true" />
         <keyword attribute="Control" context="#stay"  String="forOrWhile"/>
         <IncludeRules context="processContext" />
       </context>
@@ -309,6 +331,7 @@
       <itemData name="Operator" defStyleNum="dsOthers" />
       <itemData name="Attribute" defStyleNum="dsBaseN" />
       <itemData name="Region Marker" defStyleNum="dsRegionMarker" />
+      <itemData name="Signal" defStyleNum="dsOthers"/>
       <itemData name="Redirection" defStyleNum="dsKeyword" color="#238" />
       <itemData name="Process" defStyleNum="dsKeyword" color="#09A" />
       <itemData name="Control" defStyleNum="dsKeyword" color="#008" />

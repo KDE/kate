@@ -146,8 +146,6 @@ KateJSExceptionTranslator::~KateJSExceptionTranslator()
 
 //BEGIN JS API STUFF
 
-using namespace KJS;
-
 //BEGIN global methods
 class KateJSGlobalFunctions : public KJS::JSObject
 {
@@ -168,10 +166,10 @@ class KateJSGlobalFunctions : public KJS::JSObject
 
 KateJSGlobalFunctions::KateJSGlobalFunctions(int i, int length) : KJS::JSObject(), id(i)
 {
-  putDirect(Identifier("length"),length,KJS::DontDelete|KJS::ReadOnly|KJS::DontEnum);
+    putDirect(KJS::Identifier("length"),length,KJS::DontDelete|KJS::ReadOnly|KJS::DontEnum);
 }
 
-JSValue* KateJSGlobalFunctions::callAsFunction (KJS::ExecState *exec, KJS::JSObject *thisObj, const KJS::List &args)
+KJS::JSValue* KateJSGlobalFunctions::callAsFunction (KJS::ExecState *exec, KJS::JSObject *thisObj, const KJS::List &args)
 {
   switch (id) {
     case Debug:
@@ -613,13 +611,14 @@ KJS::JSValue* KateJSInterpreterContext::callFunction(KateView* view,
 @end
 */
 
+using namespace Kate;
 KJS_DEFINE_PROTOTYPE(KateJSDocumentProto)
 KJS_IMPLEMENT_PROTOFUNC(KateJSDocumentProtoFunc)
 KJS_IMPLEMENT_PROTOTYPE("KateJSDocument", KateJSDocumentProto, KateJSDocumentProtoFunc)
 
 const KJS::ClassInfo KateJSDocument::info = { "KateJSDocument", 0, 0, 0 };
 
-JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec,
+KJS::JSValue* KateJSDocumentProtoFunc::callAsFunction(KJS::ExecState *exec,
                                                  KJS::JSObject *thisObj,
                                                  const KJS::List &args)
 {

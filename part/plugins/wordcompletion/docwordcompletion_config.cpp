@@ -31,7 +31,9 @@
 #include <klocale.h>
 #include <kgenericfactory.h>
 
+#ifndef KDE_USE_FINAL
 K_PLUGIN_FACTORY_DECLARATION(DocWordCompletionFactory)
+#endif
 
 DocWordCompletionConfig::DocWordCompletionConfig(QWidget *parent, const QVariantList &args)
     : KCModule(DocWordCompletionFactory::componentData(), parent, args)

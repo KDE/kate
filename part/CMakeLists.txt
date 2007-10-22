@@ -35,7 +35,7 @@ include_directories(
 set(CREATE_HASH_TABLE ${CMAKE_SOURCE_DIR}/kjs/create_hash_table )
 
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
-   COMMAND ${PERL_EXECUTABLE} ${CREATE_HASH_TABLE} ${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp >
+   COMMAND ${PERL_EXECUTABLE} ${CREATE_HASH_TABLE} ${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp -n Kate >
    ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp
 )

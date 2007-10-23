@@ -522,8 +522,8 @@ class KateView : public KTextEditor::View,
     void setupCodeFolding();
 
     KActionCollection*     m_editActions;
-    QAction*               m_editUndo;
-    QAction*               m_editRedo;
+    KAction*               m_editUndo;
+    KAction*               m_editRedo;
     KRecentFilesAction*    m_fileRecent;
     KToggleAction*         m_toggleFoldingMarkers;
     KToggleAction*         m_toggleIconBar;
@@ -532,7 +532,7 @@ class KateView : public KTextEditor::View,
     KToggleAction*         m_toggleDynWrap;
     KSelectAction*         m_setDynWrapIndicators;
     KToggleAction*         m_toggleWWMarker;
-    QAction*               m_switchCmdLine;
+    KAction*               m_switchCmdLine;
 
     KSelectAction*         m_setEndOfLine;
 

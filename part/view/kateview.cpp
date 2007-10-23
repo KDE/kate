@@ -260,20 +260,20 @@ void KateView::setupActions()
 {
   KActionCollection *ac = this->actionCollection ();
   ac->setAssociatedWidget(m_viewInternal);
-  QAction *a;
+  KAction *a;
 
   m_toggleWriteLock = 0;
 
-  m_cut = a = ac->addAction(KStandardAction::Cut, this, SLOT(cut()));
+  m_cut = a = static_cast<KAction*>(ac->addAction(KStandardAction::Cut, this, SLOT(cut())));
   a->setWhatsThis(i18n("Cut the selected text and move it to the clipboard"));
 
-  m_paste = a = ac->addAction(KStandardAction::PasteText, this, SLOT(paste()));
+  m_paste = a = static_cast<KAction*>(ac->addAction(KStandardAction::PasteText, this, SLOT(paste())));
   a->setWhatsThis(i18n("Paste previously copied or cut clipboard contents"));
 
-  m_copy = a = ac->addAction(KStandardAction::Copy, this, SLOT(copy()));
+  m_copy = a = static_cast<KAction*>(ac->addAction(KStandardAction::Copy, this, SLOT(copy())));
   a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard."));
 
-  m_copyHTML = a = ac->addAction("edit_copy_html");
+  m_copyHTML = a = static_cast<KAction*>(ac->addAction("edit_copy_html"));
   m_copyHTML->setIcon(KIcon("edit-copy"));
   m_copyHTML->setText(i18n("Copy as &HTML"));
   connect(a, SIGNAL(triggered(bool)), SLOT(copyHTML()));
@@ -281,16 +281,16 @@ void KateView::setupActions()
 
   if (!m_doc->readOnly())
   {
-    a = ac->addAction(KStandardAction::Save, m_doc, SLOT(documentSave()));
+    a = static_cast<KAction*>(ac->addAction(KStandardAction::Save, m_doc, SLOT(documentSave())));
     a->setWhatsThis(i18n("Save the current document"));
 
-    a = m_editUndo = ac->addAction(KStandardAction::Undo, m_doc, SLOT(undo()));
+    a = m_editUndo = static_cast<KAction*>(ac->addAction(KStandardAction::Undo, m_doc, SLOT(undo())));
     a->setWhatsThis(i18n("Revert the most recent editing actions"));
 
-    a = m_editRedo = ac->addAction(KStandardAction::Redo, m_doc, SLOT(redo()));
+    a = m_editRedo = static_cast<KAction*>(ac->addAction(KStandardAction::Redo, m_doc, SLOT(redo())));
     a->setWhatsThis(i18n("Revert the most recent undo operation"));
 
-    a = ac->addAction("tools_apply_wordwrap");
+    a = static_cast<KAction*>(ac->addAction("tools_apply_wordwrap"));
     a->setText(i18n("&Word Wrap Document"));
     a->setWhatsThis(i18n("Use this command to wrap all lines of the current document which are longer than the width of the"
     " current view, to fit into this view.<br /><br /> This is a static word wrap, meaning it is not updated"
@@ -298,7 +298,7 @@ void KateView::setupActions()
     connect(a, SIGNAL(triggered(bool)), SLOT(applyWordWrap()));
 
     // setup Tools menu
-    a = ac->addAction("tools_indent");
+    a = static_cast<KAction*>(ac->addAction("tools_indent"));
     a->setIcon(KIcon("format-indent-more"));
     a->setText(i18n("&Indent"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_I));
@@ -306,33 +306,33 @@ void KateView::setupActions()
         "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
     connect(a, SIGNAL(triggered(bool)), SLOT(indent()));
 
-    a = ac->addAction("tools_unindent");
+    a = static_cast<KAction*>(ac->addAction("tools_unindent"));
     a->setIcon(KIcon("format-indent-less"));
     a->setText(i18n("&Unindent"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_I));
     a->setWhatsThis(i18n("Use this to unindent a selected block of text."));
     connect(a, SIGNAL(triggered(bool)), SLOT(unIndent()));
 
-    a = ac->addAction("tools_cleanIndent");
+    a = static_cast<KAction*>(ac->addAction("tools_cleanIndent"));
     a->setText(i18n("&Clean Indentation"));
     a->setWhatsThis(i18n("Use this to clean the indentation of a selected block of text (only tabs/only spaces)<br /><br />"
         "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
     connect(a, SIGNAL(triggered(bool)), SLOT(cleanIndent()));
 
 
-    a = ac->addAction("tools_align");
+    a = static_cast<KAction*>(ac->addAction("tools_align"));
     a->setText(i18n("&Align"));
     a->setWhatsThis(i18n("Use this to align the current line or block of text to its proper indent level."));
     connect(a, SIGNAL(triggered(bool)), SLOT(align()));
 
-    a = ac->addAction("tools_comment");
+    a = static_cast<KAction*>(ac->addAction("tools_comment"));
     a->setText(i18n("C&omment"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_D));
     a->setWhatsThis(i18n("This command comments out the current line or a selected block of text.<br /><br />"
         "The characters for single/multiple line comments are defined within the language's highlighting."));
     connect(a, SIGNAL(triggered(bool)), SLOT(comment()));
 
-    a = ac->addAction("tools_uncomment");
+    a = static_cast<KAction*>(ac->addAction("tools_uncomment"));
     a->setText(i18n("Unco&mment"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_D));
     a->setWhatsThis(i18n("This command removes comments from the current line or a selected block of text.<br /><br />"
@@ -344,33 +344,33 @@ void KateView::setupActions()
     connect(a, SIGNAL(triggered(bool)), SLOT( toggleWriteLock() ));
     ac->addAction("tools_toggle_write_lock", a);
 
-    a = ac->addAction("tools_uppercase");
+    a = static_cast<KAction*>(ac->addAction("tools_uppercase"));
     a->setText(i18n("Uppercase"));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_U));
     a->setWhatsThis( i18n("Convert the selection to uppercase, or the character to the "
       "right of the cursor if no text is selected.") );
     connect(a, SIGNAL(triggered(bool)), SLOT(uppercase()));
 
-    a = ac->addAction( "tools_lowercase" );
+    a = static_cast<KAction*>(ac->addAction( "tools_lowercase" ));
     a->setText( i18n("Lowercase") );
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_U));
     a->setWhatsThis( i18n("Convert the selection to lowercase, or the character to the "
       "right of the cursor if no text is selected.") );
     connect(a, SIGNAL(triggered(bool)), SLOT(lowercase()));
 
-    a = ac->addAction( "tools_capitalize" );
+    a = static_cast<KAction*>(ac->addAction( "tools_capitalize" ));
     a->setText( i18n("Capitalize") );
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_U));
     a->setWhatsThis( i18n("Capitalize the selection, or the word under the "
       "cursor if no text is selected.") );
     connect(a, SIGNAL(triggered(bool)), SLOT(capitalize()));
 
-    a = ac->addAction( "tools_join_lines" );
+    a = static_cast<KAction*>(ac->addAction( "tools_join_lines" ));
     a->setText( i18n("Join Lines") );
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J));
     connect(a, SIGNAL(triggered(bool)), SLOT( joinLines() ));
 
-    a = ac->addAction( "tools_invoke_code_completion" );
+    a = static_cast<KAction*>(ac->addAction( "tools_invoke_code_completion" ));
     a->setText( i18n("Invoke Code Completion") );
     a->setWhatsThis(i18n("Manually invoke command completion, usually by using a shortcut bound to this action."));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Space));
@@ -384,23 +384,23 @@ void KateView::setupActions()
     m_editRedo = 0;
   }
 
-  a = ac->addAction( KStandardAction::Print, m_doc, SLOT(print()) );
+  a = static_cast<KAction*>(ac->addAction( KStandardAction::Print, m_doc, SLOT(print()) ));
   a->setWhatsThis(i18n("Print the current document."));
 
-  a = ac->addAction( "file_reload" );
+  a = static_cast<KAction*>(ac->addAction( "file_reload" ));
   a->setIcon(KIcon("view-refresh"));
   a->setText(i18n("Reloa&d"));
   a->setShortcuts(KStandardShortcut::reload());
   a->setWhatsThis(i18n("Reload the current document from disk."));
   connect(a, SIGNAL(triggered(bool)), SLOT(reloadFile()));
 
-  a = ac->addAction( KStandardAction::SaveAs, m_doc, SLOT(documentSaveAs()) );
+  a = static_cast<KAction*>(ac->addAction( KStandardAction::SaveAs, m_doc, SLOT(documentSaveAs()) ));
   a->setWhatsThis(i18n("Save the current document to disk, with a name of your choice."));
 
-  a = ac->addAction( KStandardAction::GotoLine, this, SLOT(gotoLine()) );
+  a = static_cast<KAction*>(ac->addAction( KStandardAction::GotoLine, this, SLOT(gotoLine()) ));
   a->setWhatsThis(i18n("This command opens a dialog and lets you choose a line that you want the cursor to move to."));
 
-  a = ac->addAction("set_confdlg");
+  a = static_cast<KAction*>(ac->addAction("set_confdlg"));
   a->setText(i18n("&Configure Editor..."));
   a->setWhatsThis(i18n("Configure various aspects of this editor."));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotConfigDialog()));
@@ -424,25 +424,25 @@ void KateView::setupActions()
   ac->addAction("tools_indentation", indentMenu);
 
   // html export
-  a = ac->addAction("file_export_html");
+  a = static_cast<KAction*>(ac->addAction("file_export_html"));
   a->setText(i18n("E&xport as HTML..."));
   a->setWhatsThis(i18n("This command allows you to export the current document"
                       " with all highlighting information into a HTML document."));
   connect(a, SIGNAL(triggered(bool)), SLOT(exportAsHTML()));
 
-  m_selectAll = a= ac->addAction( KStandardAction::SelectAll, this, SLOT(selectAll()) );
+  m_selectAll = a= static_cast<KAction*>(ac->addAction( KStandardAction::SelectAll, this, SLOT(selectAll()) ));
   a->setWhatsThis(i18n("Select the entire text of the current document."));
 
-  m_deSelect = a= ac->addAction( KStandardAction::Deselect, this, SLOT(clearSelection()) );
+  m_deSelect = a= static_cast<KAction*>(ac->addAction( KStandardAction::Deselect, this, SLOT(clearSelection()) ));
   a->setWhatsThis(i18n("If you have selected something within the current document, this will no longer be selected."));
 
-  a = ac->addAction("incFontSizes");
+  a = static_cast<KAction*>(ac->addAction("incFontSizes"));
   a->setIcon(KIcon("zoom-in"));
   a->setText(i18n("Enlarge Font"));
   a->setWhatsThis(i18n("This increases the display font size."));
   connect(a, SIGNAL(triggered(bool)), m_viewInternal, SLOT(slotIncFontSizes()));
 
-  a = ac->addAction("decFontSizes");
+  a = static_cast<KAction*>(ac->addAction("decFontSizes"));
   a->setIcon(KIcon("zoom-out"));
   a->setText(i18n("Shrink Font"));
   a->setWhatsThis(i18n("This decreases the display font size."));
@@ -508,7 +508,7 @@ void KateView::setupActions()
         "wrap column as defined in the editing properties" ));
   connect(a, SIGNAL(triggered(bool)), SLOT( toggleWWMarker() ));
 
-  a = m_switchCmdLine = ac->addAction("switch_to_cmd_line");
+  a = m_switchCmdLine = static_cast<KAction*>(ac->addAction("switch_to_cmd_line"));
   a->setText(i18n("Switch to Command Line"));
   a->setShortcut(QKeySequence(Qt::Key_F7));
   a->setWhatsThis(i18n("Show/hide the command line on the bottom of the view."));
@@ -529,31 +529,31 @@ void KateView::setupActions()
   KateViewEncodingAction *encodingAction = new KateViewEncodingAction(m_doc, this, i18n("E&ncoding"), this);
   ac->addAction("set_encoding", encodingAction);
 
-  a = ac->addAction( KStandardAction::Find, this, SLOT(find()) );
+  a = static_cast<KAction*>(ac->addAction( KStandardAction::Find, this, SLOT(find()) ));
   a->setWhatsThis(i18n("Look up the first occurrence of a piece of text or regular expression."));
   addAction(a);
 
-  a = ac->addAction("edit_find_selected");
+  a = static_cast<KAction*>(ac->addAction("edit_find_selected"));
   a->setText(i18n("Find Selected"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_H));
   a->setWhatsThis(i18n("Finds next occurrence of selected text."));
   connect(a, SIGNAL(triggered(bool)), SLOT(findSelectedForwards()));
 
-  a = ac->addAction("edit_find_selected_backwards");
+  a = static_cast<KAction*>(ac->addAction("edit_find_selected_backwards"));
   a->setText(i18n("Find Selected Backwards"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_H));
   a->setWhatsThis(i18n("Finds previous occurrence of selected text."));
   connect(a, SIGNAL(triggered(bool)), SLOT(findSelectedBackwards()));
 
-  a = ac->addAction( KStandardAction::FindNext, this, SLOT(findNext()) );
+  a = static_cast<KAction*>(ac->addAction( KStandardAction::FindNext, this, SLOT(findNext()) ));
   a->setWhatsThis(i18n("Look up the next occurrence of the search phrase."));
   addAction(a);
 
-  a = ac->addAction( KStandardAction::FindPrev, "edit_find_prev", this, SLOT(findPrevious()) );
+  a = static_cast<KAction*>(ac->addAction( KStandardAction::FindPrev, "edit_find_prev", this, SLOT(findPrevious()) ));
   a->setWhatsThis(i18n("Look up the previous occurrence of the search phrase."));
   addAction(a);
 
-  a = ac->addAction( KStandardAction::Replace, this, SLOT(replace()) );
+  a = static_cast<KAction*>(ac->addAction( KStandardAction::Replace, this, SLOT(replace()) ));
   a->setWhatsThis(i18n("Look up a piece of text or regular expression and replace the result with some given text."));
 
   m_spell->createActions( ac );
@@ -576,173 +576,173 @@ void KateView::setupEditActions()
   m_editActions->setAssociatedWidget(m_viewInternal);
   KActionCollection* ac = m_editActions;
 
-  QAction* a = ac->addAction("word_left");
+  KAction* a = static_cast<KAction*>(ac->addAction("word_left"));
   a->setText(i18n("Move Word Left"));
   a->setShortcuts(KStandardShortcut::backwardWord());
   connect(a, SIGNAL(triggered(bool)),  SLOT(wordLeft()));
 
-  a = ac->addAction("select_char_left");
+  a = static_cast<KAction*>(ac->addAction("select_char_left"));
   a->setText(i18n("Select Character Left"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Left));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftCursorLeft()));
 
-  a = ac->addAction("select_word_left");
+  a = static_cast<KAction*>(ac->addAction("select_word_left"));
   a->setText(i18n("Select Word Left"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_Left));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftWordLeft()));
 
 
-  a = ac->addAction("word_right");
+  a = static_cast<KAction*>(ac->addAction("word_right"));
   a->setText(i18n("Move Word Right"));
   a->setShortcuts(KStandardShortcut::forwardWord());
   connect(a, SIGNAL(triggered(bool)), SLOT(wordRight()));
 
-  a = ac->addAction("select_char_right");
+  a = static_cast<KAction*>(ac->addAction("select_char_right"));
   a->setText(i18n("Select Character Right"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftCursorRight()));
 
-  a = ac->addAction("select_word_right");
+  a = static_cast<KAction*>(ac->addAction("select_word_right"));
   a->setText(i18n("Select Word Right"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftWordRight()));
 
 
-  a = ac->addAction("beginning_of_line");
+  a = static_cast<KAction*>(ac->addAction("beginning_of_line"));
   a->setText(i18n("Move to Beginning of Line"));
-  a->setShortcut(QKeySequence(Qt::Key_Home));
+  a->setShortcuts(KStandardShortcut::beginningOfLine());
   connect(a, SIGNAL(triggered(bool)), SLOT(home()));
 
-  a = ac->addAction("beginning_of_document");
+  a = static_cast<KAction*>(ac->addAction("beginning_of_document"));
   a->setText(i18n("Move to Beginning of Document"));
   a->setShortcuts(KStandardShortcut::begin());
   connect(a, SIGNAL(triggered(bool)), SLOT(top()));
 
-  a = ac->addAction("select_beginning_of_line");
+  a = static_cast<KAction*>(ac->addAction("select_beginning_of_line"));
   a->setText(i18n("Select to Beginning of Line"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Home));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftHome()));
 
-  a = ac->addAction("select_beginning_of_document");
+  a = static_cast<KAction*>(ac->addAction("select_beginning_of_document"));
   a->setText(i18n("Select to Beginning of Document"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_Home));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftTop()));
 
 
-  a = ac->addAction("end_of_line");
+  a = static_cast<KAction*>(ac->addAction("end_of_line"));
   a->setText(i18n("Move to End of Line"));
-  a->setShortcut(QKeySequence(Qt::Key_End));
+  a->setShortcuts(KStandardShortcut::endOfLine());
   connect(a, SIGNAL(triggered(bool)), SLOT(end()));
 
-  a = ac->addAction("end_of_document");
+  a = static_cast<KAction*>(ac->addAction("end_of_document"));
   a->setText(i18n("Move to End of Document"));
   a->setShortcuts(KStandardShortcut::end());
   connect(a, SIGNAL(triggered(bool)), SLOT(bottom()));
 
-  a = ac->addAction("select_end_of_line");
+  a = static_cast<KAction*>(ac->addAction("select_end_of_line"));
   a->setText(i18n("Select to End of Line"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_End));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftEnd()));
 
-  a = ac->addAction("select_end_of_document");
+  a = static_cast<KAction*>(ac->addAction("select_end_of_document"));
   a->setText(i18n("Select to End of Document"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_End));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftBottom()));
 
 
-  a = ac->addAction("select_line_up");
+  a = static_cast<KAction*>(ac->addAction("select_line_up"));
   a->setText(i18n("Select to Previous Line"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Up));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftUp()));
 
-  a = ac->addAction("scroll_line_up");
+  a = static_cast<KAction*>(ac->addAction("scroll_line_up"));
   a->setText(i18n("Scroll Line Up"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Up));
   connect(a, SIGNAL(triggered(bool)), SLOT(scrollUp()));
 
 
-  a = ac->addAction("move_line_down");
+  a = static_cast<KAction*>(ac->addAction("move_line_down"));
   a->setText(i18n("Move to Next Line"));
   a->setShortcut(QKeySequence(Qt::Key_Down));
   connect(a, SIGNAL(triggered(bool)), SLOT(down()));
 
 
-  a = ac->addAction("move_line_up");
+  a = static_cast<KAction*>(ac->addAction("move_line_up"));
   a->setText(i18n("Move to Previous Line"));
   a->setShortcut(QKeySequence(Qt::Key_Up));
   connect(a, SIGNAL(triggered(bool)), SLOT(up()));
 
 
-  a = ac->addAction("move_cursor_right");
+  a = static_cast<KAction*>(ac->addAction("move_cursor_right"));
   a->setText(i18n("Move Character Right"));
   a->setShortcut(QKeySequence(Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(cursorRight()));
 
 
-  a = ac->addAction("move_cusor_left");
+  a = static_cast<KAction*>(ac->addAction("move_cusor_left"));
   a->setText(i18n("Move Character Left"));
   a->setShortcut(QKeySequence(Qt::Key_Left));
   connect(a, SIGNAL(triggered(bool)), SLOT(cursorLeft()));
 
 
-  a = ac->addAction("select_line_down");
+  a = static_cast<KAction*>(ac->addAction("select_line_down"));
   a->setText(i18n("Select to Next Line"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Down));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftDown()));
 
-  a = ac->addAction("scroll_line_down");
+  a = static_cast<KAction*>(ac->addAction("scroll_line_down"));
   a->setText(i18n("Scroll Line Down"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Down));
   connect(a, SIGNAL(triggered(bool)), SLOT(scrollDown()));
 
 
-  a = ac->addAction("scroll_page_up");
+  a = static_cast<KAction*>(ac->addAction("scroll_page_up"));
   a->setText(i18n("Scroll Page Up"));
   a->setShortcuts(KStandardShortcut::prior());
   connect(a, SIGNAL(triggered(bool)), SLOT(pageUp()));
 
-  a = ac->addAction("select_page_up");
+  a = static_cast<KAction*>(ac->addAction("select_page_up"));
   a->setText(i18n("Select Page Up"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_PageUp));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftPageUp()));
 
-  a = ac->addAction("move_top_of_view");
+  a = static_cast<KAction*>(ac->addAction("move_top_of_view"));
   a->setText(i18n("Move to Top of View"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageUp));
   connect(a, SIGNAL(triggered(bool)), SLOT(topOfView()));
 
-  a = ac->addAction("select_top_of_view");
+  a = static_cast<KAction*>(ac->addAction("select_top_of_view"));
   a->setText(i18n("Select to Top of View"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT +  Qt::Key_PageUp));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftTopOfView()));
 
 
-  a = ac->addAction("scroll_page_down");
+  a = static_cast<KAction*>(ac->addAction("scroll_page_down"));
   a->setText(i18n("Scroll Page Down"));
   a->setShortcuts(KStandardShortcut::next());
   connect(a, SIGNAL(triggered(bool)), SLOT(pageDown()));
 
-  a = ac->addAction("select_page_down");
+  a = static_cast<KAction*>(ac->addAction("select_page_down"));
   a->setText(i18n("Select Page Down"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_PageDown));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftPageDown()));
 
-  a = ac->addAction("move_bottom_of_view");
+  a = static_cast<KAction*>(ac->addAction("move_bottom_of_view"));
   a->setText(i18n("Move to Bottom of View"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageDown));
   connect(a, SIGNAL(triggered(bool)), SLOT(bottomOfView()));
 
-  a = ac->addAction("select_bottom_of_view");
+  a = static_cast<KAction*>(ac->addAction("select_bottom_of_view"));
   a->setText(i18n("Select to Bottom of View"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_PageDown));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftBottomOfView()));
 
-  a = ac->addAction("to_matching_bracket");
+  a = static_cast<KAction*>(ac->addAction("to_matching_bracket"));
   a->setText(i18n("Move to Matching Bracket"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_6));
   connect(a, SIGNAL(triggered(bool)), SLOT(toMatchingBracket()));
 
-  a = ac->addAction("select_matching_bracket");
+  a = static_cast<KAction*>(ac->addAction("select_matching_bracket"));
   a->setText(i18n("Select to Matching Bracket"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_6));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftToMatchingBracket()));
@@ -751,32 +751,32 @@ void KateView::setupEditActions()
   // anders: shortcuts doing any changes should not be created in browserextension
   if ( !m_doc->readOnly() )
   {
-    a = ac->addAction("transpose_char");
+    a = static_cast<KAction*>(ac->addAction("transpose_char"));
     a->setText(i18n("Transpose Characters"));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_T));
     connect(a, SIGNAL(triggered(bool)), SLOT(transpose()));
 
-    a = ac->addAction("delete_line");
+    a = static_cast<KAction*>(ac->addAction("delete_line"));
     a->setText(i18n("Delete Line"));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_K));
     connect(a, SIGNAL(triggered(bool)), SLOT(killLine()));
 
-    a = ac->addAction("delete_word_left");
+    a = static_cast<KAction*>(ac->addAction("delete_word_left"));
     a->setText(i18n("Delete Word Left"));
     a->setShortcuts(KStandardShortcut::deleteWordBack());
     connect(a, SIGNAL(triggered(bool)), SLOT(deleteWordLeft()));
 
-    a = ac->addAction("delete_word_right");
+    a = static_cast<KAction*>(ac->addAction("delete_word_right"));
     a->setText(i18n("Delete Word Right"));
     a->setShortcuts(KStandardShortcut::deleteWordForward());
     connect(a, SIGNAL(triggered(bool)), SLOT(deleteWordRight()));
 
-    a = ac->addAction("delete_next_character");
+    a = static_cast<KAction*>(ac->addAction("delete_next_character"));
     a->setText(i18n("Delete Next Character"));
     a->setShortcut(QKeySequence(Qt::Key_Delete));
     connect(a, SIGNAL(triggered(bool)), SLOT(keyDelete()));
 
-    a = ac->addAction("backspace");
+    a = static_cast<KAction*>(ac->addAction("backspace"));
     a->setText(i18n("Backspace"));
     QList<QKeySequence> scuts;
     scuts << QKeySequence(Qt::Key_Backspace)
@@ -789,7 +789,7 @@ void KateView::setupEditActions()
 #warning REMOVE THIS IN THE RELEASE
 #endif
 
-//     a = ac->addAction("debug_template_code");
+//     a = static_cast<KAction*>(ac->addAction("debug_template_code");
 //     a->setText(i18n("Debug TemplateCode"));
 //     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_1));
 //     connect(a, SIGNAL(triggered(bool)), m_doc,SLOT(testTemplateCode()));
@@ -809,22 +809,22 @@ void KateView::setupCodeFolding()
 {
   KActionCollection *ac=this->actionCollection();
 
-  QAction* a = ac->addAction("folding_toplevel");
+  KAction* a = static_cast<KAction*>(ac->addAction("folding_toplevel"));
   a->setText(i18n("Collapse Toplevel"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Minus));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(collapseToplevelNodes()));
 
-  a = ac->addAction("folding_expandtoplevel");
+  a = static_cast<KAction*>(ac->addAction("folding_expandtoplevel"));
   a->setText(i18n("Expand Toplevel"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandToplevel()));
 
-  a = ac->addAction("folding_collapselocal");
+  a = static_cast<KAction*>(ac->addAction("folding_collapselocal"));
   a->setText(i18n("Collapse One Local Level"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Minus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotCollapseLocal()));
 
-  a = ac->addAction("folding_expandlocal");
+  a = static_cast<KAction*>(ac->addAction("folding_expandlocal"));
   a->setText(i18n("Expand One Local Level"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandLocal()));

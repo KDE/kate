@@ -582,7 +582,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         paint.fillRect(0, fm.height(), range->shiftX() - xStart, fm.height() * (range->viewLineCount() - 1),
           backgroundBrush);
       paint.fillRect(0, fm.height(), range->shiftX() - xStart, fm.height() * (range->viewLineCount() - 1),
-        QBrush(config()->wordWrapMarkerColor(), Qt::DiagCrossPattern));
+        QBrush(config()->wordWrapMarkerColor(), Qt::Dense4Pattern));
     }
 
     // Draw caret

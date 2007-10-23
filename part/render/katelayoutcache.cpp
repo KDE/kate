@@ -354,7 +354,7 @@ void KateLayoutCache::slotEditDone(KateEditInfo* edit)
   } else {
     for (int i = fromLine; i <= toLine; ++i)
       if (m_lineLayouts.contains(i)) {
-        const_cast<KateLineLayoutPtr&>(m_lineLayouts[i])->invalidateLayout();
+        const_cast<KateLineLayoutPtr&>(m_lineLayouts[i])->setLayoutDirty();
         m_lineLayouts.remove(i);
       }
   }

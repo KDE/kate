@@ -274,7 +274,7 @@ void KateMainWindow::setupMainWindow ()
 
 void KateMainWindow::setupActions()
 {
-  QAction *a;
+  KAction *a;
 
   actionCollection()->addAction( KStandardAction::New, "file_new", m_viewManager, SLOT( slotDocumentNew() ) )
   ->setWhatsThis(i18n("Create a new document"));
@@ -285,7 +285,7 @@ void KateMainWindow::setupActions()
   actionCollection()->addAction(fileOpenRecent->objectName(), fileOpenRecent);
   fileOpenRecent->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
-  a = actionCollection()->addAction( "file_save_all" );
+  a = static_cast<KAction*>(actionCollection()->addAction( "file_save_all" ));
   a->setIcon( KIcon("document-save-all") );
   a->setText( i18n("Save A&ll") );
   a->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_L) );
@@ -295,12 +295,12 @@ void KateMainWindow::setupActions()
   actionCollection()->addAction( KStandardAction::Close, "file_close", m_viewManager, SLOT( slotDocumentClose() ) )
   ->setWhatsThis(i18n("Close the current document."));
 
-  a = actionCollection()->addAction( "file_close_other" );
+  a = static_cast<KAction*>(actionCollection()->addAction( "file_close_other" ));
   a->setText( i18n( "Close Other" ) );
   connect( a, SIGNAL( triggered() ), this, SLOT( slotDocumentCloseOther() ) );
   a->setWhatsThis(i18n("Close other open documents."));
 
-  a = actionCollection()->addAction( "file_close_all" );
+  a = static_cast<KAction*>(actionCollection()->addAction( "file_close_all" ));
   a->setText( i18n( "Clos&e All" ) );
   connect( a, SIGNAL( triggered() ), this, SLOT( slotDocumentCloseAll() ) );
   a->setWhatsThis(i18n("Close all open documents."));
@@ -308,7 +308,7 @@ void KateMainWindow::setupActions()
   actionCollection()->addAction( KStandardAction::Quit, "file_quit", this, SLOT( slotFileQuit() ) )
   ->setWhatsThis(i18n("Close this window"));
 
-  a = actionCollection()->addAction( "view_new_view" );
+  a = static_cast<KAction*>(actionCollection()->addAction( "view_new_view" ));
   a->setIcon( KIcon("window-new") );
   a->setText( i18n("&New Window") );
   connect( a, SIGNAL( triggered() ), this, SLOT( newWindow() ) );
@@ -324,11 +324,11 @@ void KateMainWindow::setupActions()
   connect(documentOpenWith->menu(), SIGNAL(aboutToShow()), this, SLOT(mSlotFixOpenWithMenu()));
   connect(documentOpenWith->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotOpenWithMenuAction(QAction*)));
 
-  a = actionCollection()->addAction(KStandardAction::KeyBindings, this, SLOT(editKeys()));
+  a = static_cast<KAction*>(actionCollection()->addAction(KStandardAction::KeyBindings, this, SLOT(editKeys())));
   a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
 
-  a = actionCollection()->addAction(KStandardAction::ConfigureToolbars, "set_configure_toolbars",
-                                    this, SLOT(slotEditToolbars()));
+  a = static_cast<KAction*>(actionCollection()->addAction(KStandardAction::ConfigureToolbars, "set_configure_toolbars",
+                                    this, SLOT(slotEditToolbars())));
   a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
 
   QAction* settingsConfigure = actionCollection()->addAction(KStandardAction::Preferences, "settings_configure",
@@ -341,13 +341,13 @@ void KateMainWindow::setupActions()
 
   if (KatePluginManager::self()->pluginList().count() > 0)
   {
-    a = actionCollection()->addAction( "help_plugins_contents" );
+    a = static_cast<KAction*>(actionCollection()->addAction( "help_plugins_contents" ));
     a->setText( i18n("&Plugins Handbook") );
     connect( a, SIGNAL( triggered() ), this, SLOT( pluginHelp() ) );
     a->setWhatsThis(i18n("This shows help files for various available plugins."));
   }
 
-  a = actionCollection()->addAction( "help_about_editor" );
+  a = static_cast<KAction*>(actionCollection()->addAction( "help_about_editor" ));
   a->setText( i18n("&About Editor Component") );
   connect( a, SIGNAL( triggered() ), this, SLOT( aboutEditor() ) );
   qobject_cast<KAction*>( a )->setGlobalShortcutAllowed(true);
@@ -359,27 +359,27 @@ void KateMainWindow::setupActions()
   slotWindowActivated ();
 
   // session actions
-  a = actionCollection()->addAction( "sessions_new" );
+  a = static_cast<KAction*>(actionCollection()->addAction( "sessions_new" ));
   a->setIcon( KIcon("document-new") );
   a->setText( i18nc("Menu entry Session->New", "&New") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionNew() ) );
-  a = actionCollection()->addAction( "sessions_open" );
+  a = static_cast<KAction*>(actionCollection()->addAction( "sessions_open" ));
   a->setIcon( KIcon("document-open") );
   a->setText( i18n("&Open...") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionOpen() ) );
-  a = actionCollection()->addAction( "sessions_save" );
+  a = static_cast<KAction*>(actionCollection()->addAction( "sessions_save" ));
   a->setIcon( KIcon("document-save") );
   a->setText( i18n("&Save") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionSave() ) );
-  a = actionCollection()->addAction( "sessions_save_as" );
+  a = static_cast<KAction*>(actionCollection()->addAction( "sessions_save_as" ));
   a->setIcon( KIcon("document-save-as") );
   a->setText( i18n("Save &As...") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionSaveAs() ) );
-  a = actionCollection()->addAction( "sessions_save_default" );
+  a = static_cast<KAction*>(actionCollection()->addAction( "sessions_save_default" ));
   a->setIcon( KIcon("document-save-as") );
   a->setText( i18n("Save As &Default...") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionSaveAsDefault() ) );
-  a = actionCollection()->addAction( "sessions_manage" );
+  a = static_cast<KAction*>(actionCollection()->addAction( "sessions_manage" ));
   a->setIcon( KIcon("view-choose") );
   a->setText( i18n("&Manage...") );
   connect( a, SIGNAL( triggered() ), KateSessionManager::self(), SLOT( sessionManage() ) );

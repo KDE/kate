@@ -118,9 +118,6 @@ namespace KateMDI
       setXML( completeDescription, false /*merge*/ );
     }
 
-    if (!actionCollection()->associatedWidgets().contains(m_mw))
-      actionCollection()->setAssociatedWidget(m_mw);
-
     m_toolMenu = new KActionMenu(i18n("Tool &Views"), this);
     actionCollection()->addAction("kate_mdi_toolview_menu", m_toolMenu);
     m_showSidebarsAction = new KToggleAction( i18n("Show Side&bars"), this );
@@ -139,6 +136,8 @@ namespace KateMDI
     // read shortcuts
     actionCollection()->setConfigGroup( "Shortcuts" );
     actionCollection()->readSettings();
+
+    actionCollection()->associateWidget(m_mw);
   }
 
   GUIClient::~GUIClient()

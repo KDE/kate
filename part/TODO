@@ -111,12 +111,12 @@ TODO:
       * show/hide/reorder/merge columns
       * sorting list
       * filtering list
-  * in progress:
-    * implement sorting of items based on metadata, and sorted group headers
-      * needs to react to model changes
     * automatic invocation of code completion
     * multiple code completion providers
     * api improvement: generic way to detect when a completion could be offered, and possibly replaceable with a plugin, so that multiple model completion can be offered
+  * in progress:
+    * implement sorting of items based on metadata, and sorted group headers
+      * needs to react to model changes
     * connect signals from source model to katecompletionmodel and vice-versa
   * todo
     * provide a way to have a small/tiny box? e.g. the word-completion plugin does not need much...
@@ -183,10 +183,10 @@ TODO:
   * needed? probably not
 
 * improved block selection with tabs
-  * block selection on tabs selects too much of the line that contains the tab, because the tab 
-    counts as one character but is rendered as multiple visible spaces. There are several possible 
+  * block selection on tabs selects too much of the line that contains the tab, because the tab
+    counts as one character but is rendered as multiple visible spaces. There are several possible
     solutions:
-    * expand the whole blockselection to include the whole width of the tab 
+    * expand the whole blockselection to include the whole width of the tab
     * cut the tab into multiple spaces
     * implement both and make it configurable :)
 

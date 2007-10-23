@@ -1956,7 +1956,10 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
     //bool justTagged = false;
     for (int z = 0; z < cache()->viewCacheLineCount(); z++)
     {
-      if ((cache()->viewLine(z).virtualLine() > start.line() || (cache()->viewLine(z).virtualLine() == start.line() && cache()->viewLine(z).endCol() >= start.column() && start.column() != -1)) && (cache()->viewLine(z).virtualLine() < end.line() || (cache()->viewLine(z).virtualLine() == end.line() && (cache()->viewLine(z).startCol() <= end.column() || end.column() == -1))))
+      KateTextLayout& line = cache()->viewLine(z);
+      if (!line.isValid() ||
+          ((line.virtualLine() > start.line() || (line.virtualLine() == start.line() && line.endCol() >= start.column() && start.column() != -1)) &&
+           (line.virtualLine() < end.line() || (line.virtualLine() == end.line() && (line.startCol() <= end.column() || end.column() == -1)))))
       {
         //justTagged = true;
         m_leftBorder->update (0, z * renderer()->fontHeight(), m_leftBorder->width(), m_leftBorder->height());
@@ -3080,7 +3083,7 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
   if (tagFrom && (editTagLineStart <= int(m_doc->getRealLine(startLine()))))
     tagAll();
   else
-    tagLines (editTagLineStart, tagFrom ? m_doc->lastLine() : editTagLineEnd, true);
+    tagLines (editTagLineStart, tagFrom ? qMax(m_doc->lastLine() + 1, editTagLineEnd) : editTagLineEnd, true);
 
   if (editOldCursor == m_cursor)
     updateBracketMarks();

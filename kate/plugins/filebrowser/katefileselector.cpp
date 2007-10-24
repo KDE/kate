@@ -280,7 +280,7 @@ void KateFileSelector::readConfig()
 
   // set up the toolbar
   KConfigGroup fileselectorConfigGroup(KGlobal::config(), "fileselector");
-  setupToolbar( fileselectorConfigGroup.readEntry( "toolbar actions", QStringList(), ',' ) );
+  setupToolbar( fileselectorConfigGroup.readEntry( "toolbar actions", QStringList() ) );
 
   cmbPath->setMaxItems( fileselectorConfigGroup.readEntry( "pathcombo history len", 9 ) );
   // if we restore history
@@ -300,13 +300,13 @@ void ::KateFileSelector::readSessionConfig(KConfigBase *config, const QString & 
   dir->readConfig(cgDir);
 
   KConfigGroup cg (config, name );
-  cmbPath->setUrls( cg.readPathListEntry( "dir history" ) );
+  cmbPath->setUrls( cg.readPathEntry( "dir history", QStringList() ) );
 
   KConfigGroup globalConfig( KGlobal::config(), "fileselector" );
 
   if ( globalConfig.readEntry( "restore location", true) || qApp->isSessionRestored() )
   {
-    QString loc( cg.readPathEntry( "location" ) );
+    QString loc( cg.readPathEntry( "location", QString() ) );
     if ( ! loc.isEmpty() )
       setDir( loc );
   }
@@ -797,7 +797,7 @@ void KFSConfigPage::init()
 {
   KConfigGroup config(KGlobal::config(), "fileselector");
   // toolbar
-  QStringList l = config.readEntry( "toolbar actions", QStringList(), ',' );
+  QStringList l = config.readEntry( "toolbar actions", QStringList() );
   if ( l.isEmpty() ) // default toolbar
     l << "up" << "back" << "forward" << "home" <<
     "short view" << "detailed view" <<

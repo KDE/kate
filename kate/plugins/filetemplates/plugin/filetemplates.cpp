@@ -184,7 +184,7 @@ void KateFileTemplates::updateTemplateDirs(const QString &d)
 
   KConfigGroup cg( KGlobal::config(), "KateFileTemplates" );
   QStringList hidden;
-  cg.readEntry( "Hidden", hidden, ';' );
+  cg.readXdgListEntry( "Hidden", hidden ); // XXX this is bogus
 
   for ( QStringList::Iterator it=templates.begin(); it != templates.end(); ++it )
   {
@@ -1175,9 +1175,9 @@ void KateTemplateManager::slotRemoveTemplate()
     {
       KConfigGroup cg( config, "KateFileTemplates" );
       QStringList l;
-      cg.readEntry( "Hidden", l, ';' );
+      cg.readXdgListEntry( "Hidden", l ); // XXX this is bogus
       l << fname;
-      cg.writeEntry( "Hidden", l, ';' );
+      cg.writeXdgListEntry( "Hidden", l ); // XXX this is bogus
     }
 
     // If we removed any files, we should delete a KNewStuff key

@@ -75,7 +75,7 @@ void KateSession::init ()
   // given file exists, use it to load some stuff ;)
   if (!m_sessionFileRel.isEmpty() && KGlobal::dirs()->exists(sessionFile ()))
   {
-    KConfig config (sessionFile (), KConfig::OnlyLocal);
+    KConfig config (sessionFile (), KConfig::SimpleConfig);
 
     // get the document count
     m_documents = config.group("Open Documents").readEntry("Count", 0);
@@ -119,7 +119,7 @@ bool KateSession::create (const QString &name, bool force)
   }
 
   // create the file, write name to it!
-  KConfig config (sessionFile (), KConfig::OnlyLocal);
+  KConfig config (sessionFile (), KConfig::SimpleConfig);
   config.group("General").writeEntry ("Name", m_sessionName);
   config.sync ();
 
@@ -162,7 +162,7 @@ KConfig *KateSession::configRead ()
   if (m_readConfig)
     return m_readConfig;
 
-  return m_readConfig = new KConfig (sessionFile (), KConfig::OnlyLocal);
+  return m_readConfig = new KConfig (sessionFile (), KConfig::SimpleConfig);
 }
 
 KConfig *KateSession::configWrite ()
@@ -173,7 +173,7 @@ KConfig *KateSession::configWrite ()
   if (m_writeConfig)
     return m_writeConfig;
 
-  m_writeConfig = new KConfig (sessionFile (), KConfig::OnlyLocal);
+  m_writeConfig = new KConfig (sessionFile (), KConfig::SimpleConfig);
   m_writeConfig->group("General").writeEntry ("Name", m_sessionName);
 
   return m_writeConfig;
@@ -279,7 +279,7 @@ void KateSessionManager::activateSession (KateSession::Ptr session,
     // if we have no session config object, try to load the default
     // (anonymous/unnamed sessions)
     if ( !sc )
-      sc = new KConfig( defaultSessionFile(), KConfig::OnlyLocal );
+      sc = new KConfig( defaultSessionFile(), KConfig::SimpleConfig );
 
     // load plugin config + plugins
     KatePluginManager::self()->loadConfig (sc);
@@ -294,7 +294,7 @@ void KateSessionManager::activateSession (KateSession::Ptr session,
     {
       // a new, named session, read settings of the default session.
       if ( ! sc->hasGroup("Open MainWindows") )
-        sc = new KConfig( defaultSessionFile(), KConfig::OnlyLocal );
+        sc = new KConfig( defaultSessionFile(), KConfig::SimpleConfig );
 
       int wCount = sc->group("Open MainWindows").readEntry("Count", 1);
 
@@ -611,7 +611,7 @@ void KateSessionManager::sessionSaveAsDefault ()
   QString localSessionFile = KStandardDirs::locateLocal("data", "kate/default.katesession");
 
   // use this local file to store the defaults to
-  KConfig defaultConfig(localSessionFile, KConfig::OnlyLocal);
+  KConfig defaultConfig(localSessionFile, KConfig::SimpleConfig);
   defaultConfig.group("General").writeEntry ("Name", QString());
 
   saveSessionTo(&defaultConfig);

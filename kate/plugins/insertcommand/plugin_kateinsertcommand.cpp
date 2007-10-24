@@ -132,7 +132,7 @@ void PluginKateInsertCommand::slotInsertCommand()
   KUrl docurl = kv->document()->url();
   if (docurl.isLocalFile())
     docdir = docurl.directory();
-  QString lwd( config->readPathEntry("Last WD") );
+  QString lwd( config->readPathEntry("Last WD", QString()) );
   switch ( (int)config->readNumEntry("Start In", 0) )
   {
     case 1:

@@ -80,7 +80,7 @@ void KateSessionMenu::initialize()
   QStringList list = KGlobal::dirs()->findAllResources( "data", "kate/sessions/*.katesession", KStandardDirs::NoDuplicates );
   for (QStringList::ConstIterator it = list.begin(); it != list.end(); ++it)
   {
-    KConfig _config( *it, KConfig::OnlyLocal );
+    KConfig _config( *it, KConfig::SimpleConfig );
     KConfigGroup config(&_config, "General" );
     m_sessions.append( config.readEntry( "Name" ) );
   }

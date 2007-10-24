@@ -2517,15 +2517,16 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
 
       if (m_selChangedByUser)
       {
-        if (m_view->selection())
+        if (m_view->selection()) {
           QApplication::clipboard()->setText(m_view->selectionText (), QClipboard::Selection);
 
-        // Set cursor to edge of selection... which edge depends on what
-        // "direction" the selection was made in
-        if ( m_view->selectionRange().start() < m_selectAnchor )
-          updateCursor( m_view->selectionRange().start() );
-        else
-          updateCursor( m_view->selectionRange().end() );
+          // Set cursor to edge of selection... which edge depends on what
+          // "direction" the selection was made in
+          if ( m_view->selectionRange().start() < m_selectAnchor )
+            updateCursor( m_view->selectionRange().start() );
+          else
+            updateCursor( m_view->selectionRange().end() );
+        }
 
         m_selChangedByUser = false;
       }

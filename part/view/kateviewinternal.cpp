@@ -38,6 +38,7 @@
 #include "katedynamicanimation.h"
 #include "katesmartmanager.h"
 #include "katecompletionwidget.h"
+#include "katenamespace.h"
 
 #include <kcursor.h>
 #include <kdebug.h>
@@ -92,6 +93,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_textHintEnabled(false)
   , m_textHintMouseX(-1)
   , m_textHintMouseY(-1)
+  , m_imPreedit(0L)
   , m_smartDirty(false)
 {
   updateBracketMarkAttributes();
@@ -702,32 +704,6 @@ QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor,
 QPoint KateViewInternal::cursorCoordinates() const
 {
   return cursorToCoordinate(m_displayCursor, false);
-}
-
-QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
-{
-  switch (query) {
-    case Qt::ImMicroFocus:
-      // Cursor placement code is changed for Asian input method that
-      // shows candidate window. This behavior is same as Qt/E 2.3.7
-      // which supports Asian input methods. Asian input methods need
-      // start point of IM selection text to place candidate window as
-      // adjacent to the selection text.
-      return QRect(cursorToCoordinate(m_imPreedit.start()), QSize(0, renderer()->fontHeight()));
-    case Qt::ImFont:
-      return renderer()->currentFont();
-    case Qt::ImCursorPosition:
-      return cursorToCoordinate(m_cursor);
-    case Qt::ImSurroundingText:
-      if (KateTextLine::Ptr l = textLine(m_cursor.line()))
-        return l->string();
-      else
-        return QString();
-    case Qt::ImCurrentSelection:
-      return view()->doc()->text(m_imPreedit);
-    default:
-      return QWidget::inputMethodQuery(query);
-  }
 }
 
 void KateViewInternal::doReturn()
@@ -3090,10 +3066,10 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
   if (editOldCursor == m_cursor)
     updateBracketMarks();
 
-  if (m_imPreedit.start() >= m_imPreedit.end())
+  if (!m_imPreedit)
     updateView(true);
 
-  if ((editOldCursor != m_cursor) && (m_imPreedit.start() >= m_imPreedit.end()))
+  if ((editOldCursor != m_cursor) && (!m_imPreedit))
   {
     m_madeVisible = false;
     updateCursor ( m_cursor, true );
@@ -3128,33 +3104,6 @@ void KateViewInternal::viewSelectionChanged ()
     m_selectionCached.start() = KTextEditor::Cursor::invalid();
 //     updateView(true);
   }
-}
-
-void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
-{
-  if ( m_doc->readOnly() ) {
-    e->ignore();
-    return;
-  }
-
-  if ( m_view->selection() )
-    m_view->removeSelectedText();
-
-  if ( !e->commitString().isEmpty() ) {
-      m_doc->insertText( m_cursor, e->commitString() );
-  }
-
-#if 0
-  if ( m_view->selection() )
-    m_view->removeSelectedText();
-
-  m_imPreedit.setRange(m_cursor, m_cursor);
-  m_imPreeditSelStart = m_cursor;
-
-  m_view->setIMSelectionValue( m_imPreedit, m_imPreedit, true );
-
-  QWidget::inputMethodEvent(e);
-#endif
 }
 
 KateLayoutCache* KateViewInternal::cache( ) const
@@ -3404,89 +3353,117 @@ void KateViewInternal::removeHighlightRange(KTextEditor::SmartRange* range)
   removeWatcher(range, this);
 }
 
-#if 0
 //BEGIN IM INPUT STUFF
-void KateViewInternal::imStartEvent( QIMEvent *e )
+QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
 {
-  if ( m_doc->m_bReadOnly ) {
+  switch (query) {
+    case Qt::ImMicroFocus:
+      // Cursor placement code is changed for Asian input method that
+      // shows candidate window. This behavior is same as Qt/E 2.3.7
+      // which supports Asian input methods. Asian input methods need
+      // start point of IM selection text to place candidate window as
+      // adjacent to the selection text.
+      if (m_imPreedit)
+        return QRect(cursorToCoordinate(m_imPreedit->start()), QSize(0, renderer()->fontHeight()));
+      break;
+
+    case Qt::ImFont:
+      return renderer()->currentFont();
+
+    case Qt::ImCursorPosition:
+      return cursorToCoordinate(m_cursor);
+
+    case Qt::ImSurroundingText:
+      if (KateTextLine::Ptr l = textLine(m_cursor.line()))
+        return l->string();
+      else
+        return QString();
+
+    case Qt::ImCurrentSelection:
+      if (m_imPreedit)
+        return view()->doc()->text(*m_imPreedit);
+      else
+        return QString();
+  }
+
+  return QWidget::inputMethodQuery(query);
+}
+
+void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
+{
+  if ( m_doc->readOnly() ) {
     e->ignore();
     return;
   }
+
+  bool committing = !e->commitString().isEmpty() || e->replacementLength();
+
+  m_view->doc()->editStart(committing, committing ? Kate::UserInputEdit : Kate::InputMethodContextEdit);
 
   if ( m_view->selection() )
     m_view->removeSelectedText();
 
-  m_imPreeditStartLine = m_cursor.line();
-  m_imPreeditStart = m_cursor.column();
-  m_imPreeditLength = 0;
-  m_imPreeditSelStart = m_imPreeditStart;
+  if (!m_imPreedit) {
+    m_imPreedit = m_view->doc()->smartManager()->newSmartRange(KTextEditor::Range(m_cursor, m_cursor), 0L, KTextEditor::SmartRange::ExpandRight);
+    m_view->addInternalHighlight(m_imPreedit);
+  }
 
-  m_view->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, 0, 0, 0, true );
+  if (!e->commitString().isEmpty() || e->replacementLength()) {
+    KTextEditor::Cursor start(m_imPreedit->start().line(), m_imPreedit->start().column() + e->replacementStart());
+    KTextEditor::Cursor removeEnd = start + KTextEditor::Cursor(0, e->replacementLength());
+    m_view->doc()->removeText(KTextEditor::Range(start, removeEnd));
+    m_view->doc()->insertText(start, e->commitString());
+
+    m_view->removeInternalHighlight(m_imPreedit);
+    delete m_imPreedit;
+    m_imPreedit = 0L;
+
+  } else {
+    m_view->doc()->removeText(*m_imPreedit);
+    m_view->doc()->insertText(m_imPreedit->start(), e->preeditString());
+  }
+
+  KTextEditor::Cursor newCursor = m_cursor;
+  bool hideCursor = false;
+  QColor caretColor;
+
+  if (m_imPreedit) {
+    m_imPreedit->clearAndDeleteChildRanges();
+
+    int decorationColumn = 0;
+    foreach (const QInputMethodEvent::Attribute &a, e->attributes()) {
+      if (a.type == QInputMethodEvent::Cursor) {
+        newCursor = m_imPreedit->start() + KTextEditor::Cursor(0, a.start);
+        hideCursor = !a.length;
+        QColor c = qvariant_cast<QColor>(a.value);
+        if (c.isValid())
+          caretColor = c;
+
+      } else if (a.type == QInputMethodEvent::TextFormat) {
+        QTextCharFormat f = qvariant_cast<QTextFormat>(a.value).toCharFormat();
+        if (f.isValid() && decorationColumn <= a.start) {
+          KTextEditor::Range fr(m_imPreedit->start().line(),  m_imPreedit->start().column() + a.start, m_imPreedit->start().line(), a.length);
+          KTextEditor::SmartRange* formatRange = m_view->doc()->smartManager()->newSmartRange(fr, m_imPreedit);
+          KTextEditor::Attribute::Ptr attribute(new KTextEditor::Attribute());
+          attribute->merge(f);
+          formatRange->setAttribute(attribute);
+          decorationColumn = a.start + a.length;
+        }
+      }
+    }
+  }
+
+  renderer()->setDrawCaret(hideCursor);
+  renderer()->setCaretOverrideColor(caretColor);
+
+  m_view->doc()->editEnd();
+
+  if (newCursor != m_cursor)
+    updateCursor(newCursor);
+
+  e->accept();
 }
 
-void KateViewInternal::imComposeEvent( QIMEvent *e )
-{
-  if ( m_doc->m_bReadOnly ) {
-    e->ignore();
-    return;
-  }
-
-  // remove old preedit
-  if ( m_imPreeditLength > 0 ) {
-    m_cursor.setPosition( m_imPreeditStartLine, m_imPreeditStart );
-    m_doc->removeText( m_imPreeditStartLine, m_imPreeditStart,
-                       m_imPreeditStartLine, m_imPreeditStart + m_imPreeditLength );
-  }
-
-  m_imPreeditLength = e->text().length();
-  m_imPreeditSelStart = m_imPreeditStart + e->cursorPos();
-
-  // update selection
-  m_view->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, m_imPreeditStart + m_imPreeditLength,
-                              m_imPreeditSelStart, m_imPreeditSelStart + e->selectionLength(),
-                              true );
-
-  // insert new preedit
-  m_doc->insertText( m_imPreeditStartLine, m_imPreeditStart, e->text() );
-
-
-  // update cursor
-  m_cursor.setPosition( m_imPreeditStartLine, m_imPreeditSelStart );
-  updateCursor( cursor, true );
-
-  updateView( true );
-}
-
-void KateViewInternal::imEndEvent( QIMEvent *e )
-{
-  if ( m_doc->m_bReadOnly ) {
-    e->ignore();
-    return;
-  }
-
-  if ( m_imPreeditLength > 0 ) {
-    m_cursor.setPosition( m_imPreeditStartLine, m_imPreeditStart );
-    m_doc->removeText( m_imPreeditStartLine, m_imPreeditStart,
-                       m_imPreeditStartLine, m_imPreeditStart + m_imPreeditLength );
-  }
-
-  m_view->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, 0, 0, 0, false );
-
-  if ( e->text().length() > 0 ) {
-    m_doc->insertText( m_cursor.line(), m_cursor.column(), e->text() );
-
-    if ( !m_cursorTimer.isActive() && KApplication::cursorFlashTime() > 0 )
-      m_cursorTimer.start ( KApplication::cursorFlashTime() / 2 );
-
-    updateView( true );
-    updateCursor( cursor, true );
-  }
-
-  m_imPreeditStart = 0;
-  m_imPreeditLength = 0;
-  m_imPreeditSelStart = 0;
-}
 //END IM INPUT STUFF
-#endif
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -591,18 +591,16 @@ class KateView : public KTextEditor::View,
    * IM input stuff
    */
   public:
-    void setIMSelectionValue( const KTextEditor::Range& imRange, const KTextEditor::Range& imSelection, bool imComposeEvent );
-    const KTextEditor::Range& imSelection() const;
-    const KTextEditor::Range& imEdit() const;
+    void setImComposeEvent( bool imComposeEvent ) { m_imComposeEvent = imComposeEvent; }
     bool imComposeEvent () const { return m_imComposeEvent; }
 
-  ///Template stuff
-  virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor&, const QString &templateString, const QMap<QString,QString> &initialValues);
-
-
   private:
-    KTextEditor::Range m_imRange, m_imSelection;
     bool m_imComposeEvent;
+
+  ///Template stuff
+  public:
+    virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor&, const QString &templateString, const QMap<QString,QString> &initialValues);
+
 
   /**
    * Accessors to the bars...

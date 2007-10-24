@@ -303,7 +303,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
       inbuiltHighlight->addRange(new KTextEditor::Range(KTextEditor::Cursor(line, al[i]), al[i+1]), specificAttribute(al[i+2]));
     }
     renderRanges.append(inbuiltHighlight);
-    
+
     if (!completionHighlight) {
       // Add arbitrary highlighting ranges to the list
       renderRanges.appendRanges(m_view->internalHighlights(), selectionsOnly, view());
@@ -480,8 +480,6 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       KateTextLayout line = range->viewLine(i);
 
       // Determine the background to use, if any, for the end of this view line
-//       QBrush backgroundBrush;
-//       bool backgroundBrushSet = false;
       backgroundBrushSet = false;
       while (it2.hasNext()) {
         const QTextLayout::FormatRange& fr = it2.peekNext();
@@ -603,16 +601,21 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
       QColor c;
       // Could actually use the real highlighting system for this... would be slower but more accurate for corner cases
-      foreach (QTextLayout::FormatRange r, range->layout()->additionalFormats())
-        if ( (r.start <= cursor->column() ) && ( (r.start + r.length)  > cursor->column()) ) {
-          c = r.format.foreground().color();
-          break;
-        }
-      if (!c.isValid())
-        if (range->layout()->additionalFormats().count())
-          c = range->layout()->additionalFormats().last().format.foreground().color();
-        else
-          c = attribute(KateExtendedAttribute::dsNormal)->foreground().color();
+      if (m_caretOverrideColor.isValid()) {
+        c = m_caretOverrideColor;
+
+      } else {
+        foreach (QTextLayout::FormatRange r, range->layout()->additionalFormats())
+          if ( (r.start <= cursor->column() ) && ( (r.start + r.length)  > cursor->column()) ) {
+            c = r.format.foreground().color();
+            break;
+          }
+        if (!c.isValid())
+          if (range->layout()->additionalFormats().count())
+            c = range->layout()->additionalFormats().last().format.foreground().color();
+          else
+            c = attribute(KateExtendedAttribute::dsNormal)->foreground().color();
+      }
 
       if (cursor->column() <= range->length()) {
         paint.save();
@@ -634,64 +637,6 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       }
     }
   }
-
-  /* Remnants from the old implementation which haven't yet been integrated into the new
-  {
-    bool isIMSel  = false;
-    bool isIMEdit = false;
-
-    while (curCol - startcol < len)
-    {
-      // Only draw after the starting X value
-      if ((int)xPosAfter >= xStart)
-      {
-        // input method edit area
-        isIMEdit = m_view && m_view->isIMEdit( line, curCol );
-
-        // input method selection
-        isIMSel = m_view && m_view->isIMSelection( line, curCol );
-
-          // indentation lines OR
-          || (showIndentLines() && curCol < lastIndentColumn)
-
-          // input method edit area
-          || ( m_view && (isIMEdit != m_view->isIMEdit( line, nextCol )) )
-
-          // input method selection
-          || ( m_view && (isIMSel !=  m_view->isIMSelection( line, nextCol )) )
-
-            if (isIMSel && !isTab)
-            {
-              // input method selection
-              fillColor = m_view->colorGroup().color(QPalette::Foreground);
-            }
-            else if (isIMEdit && !isTab)
-            {
-              // XIM support
-              // input method edit area
-              const QColorGroup& cg = m_view->colorGroup();
-              int h1, s1, v1, h2, s2, v2;
-              cg.color( QPalette::Base ).getHsv( &h1, &s1, &v1 );
-              cg.color( QPalette::Background ).getHsv( &h2, &s2, &v2 );
-              fillColor.setHsv( h1, s1, ( v1 + v2 ) / 2 );
-            }
-
-            if (isIMSel && paintBackground && !isTab)
-            {
-              paint.save();
-              paint.setPen( m_view->colorGroup().color( QPalette::BrightText ) );
-            }
-
-            // Draw preedit's underline
-            if (isIMEdit) {
-              QRect r( oldXPos - xStart, 0, xPosAfter - oldXPos, config()->fontMetrics().height() );
-              paint.drawLine( r.bottomLeft(), r.bottomRight() );
-            }
-
-            // Put pen color back
-            if (isIMSel) paint.restore();
-    }
-  */
 
   // show word wrap marker if desirable
   if ((!isPrinterFriendly()) && config()->wordWrapMarker() && QFontInfo(config()->font()).fixedPitch())
@@ -898,6 +843,11 @@ KTextEditor::Cursor KateRenderer::xToCursor(const KateTextLayout & range, int x,
     ret.setColumn(ret.column() + ((x - (range.width() + range.xOffset())) / spaceWidth()));
 
   return ret;
+}
+
+void KateRenderer::setCaretOverrideColor(const QColor& color)
+{
+  m_caretOverrideColor = color;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

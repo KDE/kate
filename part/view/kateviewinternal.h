@@ -72,9 +72,6 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     KateViewInternal ( KateView *view, KateDocument *doc );
     ~KateViewInternal ();
 
-    // Return the correct micro focus hint
-    virtual QVariant inputMethodQuery(Qt::InputMethodQuery query) const;
-
   //BEGIN EDIT STUFF
   public:
     void editStart ();
@@ -388,19 +385,14 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
    int m_textHintMouseX;
    int m_textHintMouseY;
 
-#if 0
   /**
    * IM input stuff
    */
-  protected:
-    void imStartEvent( QIMEvent *e );
-    void imComposeEvent( QIMEvent *e );
-    void imEndEvent( QIMEvent *e );
-#endif
+  public:
+    virtual QVariant inputMethodQuery(Qt::InputMethodQuery query) const;
 
   private:
-    KTextEditor::Range m_imPreedit;
-    KTextEditor::Cursor m_imPreeditSelStart;
+    KTextEditor::SmartRange* m_imPreedit;
 
   // Arbitrary highlighting
   public:

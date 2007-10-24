@@ -1870,24 +1870,6 @@ bool KateView::wrapCursor ()
 
 //END
 
-//BEGIN IM INPUT STUFF
-void KateView::setIMSelectionValue( const KTextEditor::Range& imRange, const KTextEditor::Range& imSelection, bool imComposeEvent )
-{
-  m_imRange = imRange;
-  m_imSelection = imSelection;
-  m_imComposeEvent = imComposeEvent;
-}
-
-const KTextEditor::Range& KateView::imSelection() const
-{
-  return m_imSelection;
-}
-
-const KTextEditor::Range& KateView::imEdit() const
-{
-  return m_imRange;
-}
-//END IM INPUT STUFF
 
 void KateView::slotTextInserted ( KTextEditor::View *view, const KTextEditor::Cursor &position, const QString &text)
 {

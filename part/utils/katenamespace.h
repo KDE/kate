@@ -28,6 +28,8 @@ namespace Kate
     CloseFileEdit,
     /// Editing performed by the user
     UserInputEdit,
+    /// Editing performed by the user within an input method context
+    InputMethodContextEdit,
     /// Editing from cutting, copying and pasting
     CutCopyPasteEdit,
     /// Editing from search + replace algorithms

@@ -112,6 +112,11 @@ public:
     void setCaretStyle(KateRenderer::caretStyles style);
 
     /**
+     * Set a \a brush with which to override drawing of the caret.  Set to QColor() to clear.
+     */
+    void setCaretOverrideColor(const QColor& color);
+
+    /**
      * @returns whether tabs should be shown (ie. a small mark
      * drawn to identify a tab)
      * @return tabs should be shown
@@ -305,6 +310,7 @@ public:
     bool m_showTabs;
     bool m_showSpaces;
     bool m_printerFriendly;
+    QColor m_caretOverrideColor;
 
     QList<KTextEditor::Attribute::Ptr> m_attributes;
 

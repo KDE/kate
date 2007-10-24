@@ -98,6 +98,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   
   setMinimumSize (0,0);
   setAttribute(Qt::WA_OpaquePaintEvent);
+  //setAttribute(Qt::WA_InputMethodEnabled);
 
   // cursor
   m_cursor.setInsertBehavior (KTextEditor::SmartCursor::MoveOnInsert);
@@ -705,28 +706,28 @@ QPoint KateViewInternal::cursorCoordinates() const
 
 QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
 {
-  /*switch (query) {
-    case Qt::ImMicroFocus: {
-      int line = cache()->displayViewLine(m_displayCursor, true);
-      if (line < 0 || line >= cache()->viewLineCount)
-          return QWidget::inputMethodQuery(query);
-
-      KateRenderer *renderer = renderer();
-
+  switch (query) {
+    case Qt::ImMicroFocus:
       // Cursor placement code is changed for Asian input method that
       // shows candidate window. This behavior is same as Qt/E 2.3.7
       // which supports Asian input methods. Asian input methods need
       // start point of IM selection text to place candidate window as
       // adjacent to the selection text.
-      uint preeditStrLen = renderer->textWidth(textLine(m_imPreeditStartLine), cursor.column()) - renderer->textWidth(textLine(m_imPreeditStartLine), m_imPreeditSelStart);
-      uint x = m_cursorX - m_startX - lineRanges[line].startX() + lineRanges[line].xOffset() - preeditStrLen;
-      uint y = line * renderer->fontHeight();
-
-      return QRect(x, y, 0, renderer->fontHeight());
-    }
-    default:*/
+      return QRect(cursorToCoordinate(m_imPreedit.start()), QSize(0, renderer()->fontHeight()));
+    case Qt::ImFont:
+      return renderer()->currentFont();
+    case Qt::ImCursorPosition:
+      return cursorToCoordinate(m_cursor);
+    case Qt::ImSurroundingText:
+      if (KateTextLine::Ptr l = textLine(m_cursor.line()))
+        return l->string();
+      else
+        return QString();
+    case Qt::ImCurrentSelection:
+      return view()->doc()->text(m_imPreedit);
+    default:
       return QWidget::inputMethodQuery(query);
-  //}
+  }
 }
 
 void KateViewInternal::doReturn()

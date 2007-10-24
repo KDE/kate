@@ -59,7 +59,7 @@ EditorChooser::EditorChooser(QWidget *parent)
 
   KService::List offers = KMimeTypeTrader::self()->query("text/plain", "KTextEditor/Document");
   KConfigGroup config = KSharedConfig::openConfig("default_components")->group("KTextEditor");
-  QString editor = config.readPathEntry("embeddedEditor");
+  QString editor = config.readPathEntry("embeddedEditor", QString());
 
   if (editor.isEmpty()) editor = "katepart";
 
@@ -93,7 +93,7 @@ EditorChooser:: ~EditorChooser()
 void EditorChooser::readAppSetting(const QString& postfix)
 {
   KConfigGroup cg(KGlobal::config(), "KTEXTEDITOR:" + postfix);
-  QString editor = cg.readPathEntry("editor");
+  QString editor = cg.readPathEntry("editor", QString());
   if (editor.isEmpty())
     d->chooser->editorCombo->setCurrentIndex(0);
   else
@@ -117,7 +117,7 @@ KTextEditor::Editor *EditorChooser::editor(const QString& postfix,
 {
   // try to read the used library from the application's config
   KConfigGroup cg(KGlobal::config(), "KTEXTEDITOR:" + postfix);
-  QString editor = cg.readPathEntry("editor");
+  QString editor = cg.readPathEntry("editor", QString());
   if (editor.isEmpty())
   {
     // there is no library set in the application's config,

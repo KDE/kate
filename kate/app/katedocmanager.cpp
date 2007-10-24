@@ -107,6 +107,13 @@ KateDocManager *KateDocManager::self ()
   return KateApp::self()->documentManager ();
 }
 
+QVariant KateDocManager::data( const QModelIndex & index, int role ) const
+{
+  if ( role == OpeningOrderRole)
+    return m_docList.indexOf( data(index, DocumentRole).value<KTextEditor::Document*>() );
+  return QStandardItemModel::data( index, role );
+}
+
 KTextEditor::Document *KateDocManager::createDoc ()
 {
   KTextEditor::Document *doc = (KTextEditor::Document *) m_editor->createDocument(this);
@@ -120,6 +127,7 @@ KTextEditor::Document *KateDocManager::createDoc ()
 
   QStandardItem *modelitem = new QStandardItem(doc->documentName());
   modelitem->setData(QVariant::fromValue(doc), DocumentRole);
+//   modelitem->setData(m_docList.count()-1, OpeningOrderRole);
   modelitem->setEditable(false);
   modelitem->setIcon(KIcon("null"));
   modelitem->setToolTip(doc->url().prettyUrl());
@@ -232,7 +240,7 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
     {
       if (!loadMetaInfos(doc, url))
         doc->openUrl (url);
-    
+
       if ( isTempFile && url.isLocalFile() )
       {
         QFileInfo fi( url.path() );
@@ -252,11 +260,11 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
   }
 
   KTextEditor::Document *doc = 0;
-  
+
   // always new document if url is empty...
   if (!url.isEmpty())
     doc = findDocument (url);
-  
+
   if ( !doc )
   {
     doc = createDoc ();
@@ -354,20 +362,20 @@ bool KateDocManager::closeOtherDocuments(KTextEditor::Document* doc)
 
   for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(true);
-  
+
   for (int i = 0; (i < docs.size()) && res; i++)
   {
     if (docs.at(i) != doc)
         if (! closeDocument(docs.at(i), false) )
           res = false;
   }
-  
+
   for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
   {
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(false);
     KateApp::self()->mainWindow(i)->viewManager()->activateView (m_docList.at(0));
   }
-  
+
   return res;
 }
 

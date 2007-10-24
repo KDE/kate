@@ -74,6 +74,8 @@ class KateConfigDialog : public KPageDialog
     QList<PluginPageListItem*> m_pluginPages;
     QList<KTextEditor::ConfigPage*> m_editorPages;
     KTextEditor::EditorChooser *m_editorChooser;
+
+    class KateFileListConfigPage *filelistConfigPage;
 };
 
 #endif

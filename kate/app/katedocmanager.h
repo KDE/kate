@@ -65,7 +65,9 @@ class KateDocManager : public QStandardItemModel
     KateDocManager (QObject *parent);
     ~KateDocManager ();
 
-    enum CustomRoles {DocumentRole = Qt::UserRole + 1};
+    enum CustomRoles {DocumentRole = Qt::UserRole + 1, OpeningOrderRole, CustomOrderRole };
+
+    virtual QVariant data( const QModelIndex & index, int role = Qt::DisplayRole ) const;
 
     static KateDocManager *self ();
 

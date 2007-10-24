@@ -21,6 +21,7 @@
 #ifndef __KATE_FILELIST_H__
 #define __KATE_FILELIST_H__
 
+
 #include <KSelectAction>
 #include <KActionCollection>
 #include <QListView>
@@ -28,22 +29,61 @@
 class KateFileList: public QListView
 {
     Q_OBJECT
+
+  friend class KateFileListConfigPage;
+
   public:
     KateFileList(QWidget * parent, KActionCollection *actionCollection);
     virtual ~KateFileList();
+//     enum SortType {SortOpening = 0, SortName = 1, SortUrl = 2, SortCustom = 3};
+
+    int sortRole();
+
+    void setShadingEnabled(bool enable);
+    bool shadingEnabled() const;
+
+    const QColor& editShade() const;
+    void setEditShade( const QColor &shade );
+
+    const QColor& viewShade() const;
+    void setViewShade( const QColor &shade );
 
   private:
     QAction* m_windowNext;
     QAction* m_windowPrev;
     KSelectAction* m_sortAction;
-    enum SortType {SortOpening = 0, SortName = 1, SortUrl = 2, SortCustom = 3};
     int m_sortType;
 
   public Q_SLOTS:
     void slotNextDocument();
     void slotPrevDocument();
-    void setSortType(int sortType);
+    void setSortRole(int role);
 
+};
+
+class KateFileListConfigPage : public QWidget {
+  Q_OBJECT
+  public:
+    KateFileListConfigPage( QWidget* parent=0, KateFileList *fl=0 );
+    ~KateFileListConfigPage() {};
+
+    void apply();
+    void reload();
+
+  Q_SIGNALS:
+    void changed();
+
+  private slots:
+    void slotMyChanged();
+
+  private:
+    class QGroupBox *gbEnableShading;
+    class KColorButton *kcbViewShade, *kcbEditShade;
+    class QLabel *lEditShade, *lViewShade, *lSort;
+    class QComboBox *cmbSort;
+    KateFileList *m_filelist;
+
+    bool m_changed;
 };
 
 #endif //__KATE_FILELIST_H__

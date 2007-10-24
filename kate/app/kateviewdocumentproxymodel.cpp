@@ -23,6 +23,12 @@
 
 #include "kateviewdocumentproxymodel.h"
 #include "kateviewdocumentproxymodel.moc"
+#include "katefilelist.h"
+#include "katedocmanager.h"
+
+#include <KColorScheme>
+#include <KConfigGroup>
+#include <KGlobal>
 
 #include <QColor>
 #include <QBrush>
@@ -30,8 +36,21 @@
 
 #include <kdebug.h>
 
-KateViewDocumentProxyModel::KateViewDocumentProxyModel(QObject *parent): QAbstractProxyModel(parent), m_selection(new QItemSelectionModel(this, this)), m_rowCountOffset(0), m_markOpenedTimer(new QTimer(this))
+KateViewDocumentProxyModel::KateViewDocumentProxyModel(QObject *parent)
+  : QAbstractProxyModel(parent)
+  , m_selection(new QItemSelectionModel(this, this))
+  , m_markOpenedTimer(new QTimer(this))
+  , m_rowCountOffset(0)
 {
+  KConfigGroup config(KGlobal::config(), "FileList");
+
+  KColorScheme colors(QPalette::Active);
+  m_editShade = config.readEntry("Edit Shade", colors.foreground(KColorScheme::ActiveText).color() );
+  m_viewShade = config.readEntry("View Shade", colors.foreground(KColorScheme::VisitedText).color() );
+  m_shadingEnabled = config.readEntry("Shading Enabled", true);
+
+  m_sortRole = config.readEntry("SortRole", (int)KateDocManager::OpeningOrderRole);
+
   m_markOpenedTimer->setSingleShot(true);
   connect(m_markOpenedTimer, SIGNAL(timeout()), this, SLOT(slotMarkOpenedTimer()));
   /*    connect(m_selection,SIGNAL(selectionChanged ( const QItemSelection &, const QItemSelection &)),this,SLOT(slotSelectionChanged ( const QItemSelection &, const QItemSelection &)));*/
@@ -164,7 +183,7 @@ void KateViewDocumentProxyModel::opened(const QModelIndex &index)
   m_selection->setCurrentIndex(index, QItemSelectionModel::Clear);
   m_selection->select(index, QItemSelectionModel::SelectCurrent);
   m_selection->setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
-  //m_selection->select(index,QItemSelectionModel::Select);
+  m_selection->select(index,QItemSelectionModel::Select);
   kDebug() << "KateViewDocumentProxyModel::opened-1";
 
   m_current = index;
@@ -198,6 +217,8 @@ void KateViewDocumentProxyModel::modified(const QModelIndex &index)
 
 void KateViewDocumentProxyModel::updateBackgrounds(bool emitSignals)
 {
+  if (!m_shadingEnabled) return;
+
   QMap <QModelIndex, EditViewCount> helper;
   int i = 1;
   foreach (const QModelIndex &idx, m_viewHistory)
@@ -217,9 +238,9 @@ void KateViewDocumentProxyModel::updateBackgrounds(bool emitSignals)
   int ec = m_viewHistory.count();
   for (QMap<QModelIndex, EditViewCount>::iterator it = helper.begin();it != helper.end();++it)
   {
+    QColor shade( m_viewShade );
+    QColor eshade( m_editShade );
     QColor b = QPalette().color(QPalette::Base);
-    QColor shade( 51, 204, 255 );
-    QColor eshade( 255, 102, 153 );
     if (it.value().edit > 0)
     {
       int v = hc - it.value().view;
@@ -259,7 +280,7 @@ QVariant KateViewDocumentProxyModel::data ( const QModelIndex & index, int role 
   {
     //kDebug()<<"BACKGROUNDROLE";
     QBrush br = m_brushes[index];
-    if (br.style() != Qt::NoBrush)
+    if ((br.style() != Qt::NoBrush) && m_shadingEnabled)
       return br;
   }
   return sourceModel()->data(mapToSource(index), role);
@@ -301,6 +322,7 @@ QModelIndex KateViewDocumentProxyModel::index ( int row, int column, const QMode
 
 QModelIndex KateViewDocumentProxyModel::parent ( const QModelIndex & index ) const
 {
+  Q_UNUSED(index)
   return QModelIndex();
   //return mapFromSource(sourceModel()->parent(mapToSource(index)));
 }
@@ -317,20 +339,21 @@ void KateViewDocumentProxyModel::setSourceModel ( QAbstractItemModel * sourceMod
   QAbstractItemModel *sm = this->sourceModel();
   if (sm)
   {
-    disconnect(sm, SIGNAL(columnsAboutToBeInserted ( const QModelIndex & , int , int  )), this, SLOT(slotColumnsAboutToBeInserted ( const QModelIndex & , int , int  )));
-    disconnect(sm, SIGNAL(columnsAboutToBeRemoved ( const QModelIndex & , int , int  )), this, SLOT(slotColumnsAboutToBeRemoved ( const QModelIndex & , int , int  )));
-    disconnect(sm, SIGNAL(columnsInserted ( const QModelIndex & , int , int  )), this, SLOT(slotColumnsInserted ( const QModelIndex & , int , int  )));
-    disconnect(sm, SIGNAL(columnsRemoved ( const QModelIndex & , int , int  )), this, SLOT(slotColumnsRemoved ( const QModelIndex & , int , int  )));
-    disconnect(sm, SIGNAL(dataChanged ( const QModelIndex & , const QModelIndex &  )), this, SLOT(slotDataChanged ( const QModelIndex & , const QModelIndex &  )));
-    disconnect(sm, SIGNAL(headerDataChanged ( Qt::Orientation, int , int  )), this, SLOT(slotHeaderDataChanged ( Qt::Orientation, int , int  )));
-    disconnect(sm, SIGNAL(layoutAboutToBeChanged ()), this, SLOT(slotLayoutAboutToBeChanged ()));
-    disconnect(sm, SIGNAL(layoutChanged ()), this, SLOT(slotLayoutChanged ()));
-    disconnect(sm, SIGNAL(modelAboutToBeReset ()), this, SLOT(slotModelAboutToBeReset ()));
-    disconnect(sm, SIGNAL(modelReset ()), this, SLOT(slotModelReset ()));
-    disconnect(sm, SIGNAL(rowsAboutToBeInserted ( const QModelIndex & , int , int  )), this, SLOT(slotRowsAboutToBeInserted ( const QModelIndex & , int , int  )));
-    disconnect(sm, SIGNAL(rowsAboutToBeRemoved ( const QModelIndex & , int , int  )), this, SLOT(slotRowsAboutToBeRemoved ( const QModelIndex & , int , int  )));
-    disconnect(sm, SIGNAL(rowsInserted ( const QModelIndex & , int , int  )), this, SLOT(slotRowsInserted ( const QModelIndex & , int , int  )));
-    disconnect(sm, SIGNAL(rowsRemoved ( const QModelIndex & , int , int  )), this, SLOT(slotRowsRemoved ( const QModelIndex & , int , int  )));
+    disconnect(sm, 0, this, 0);
+//     disconnect(sm, SIGNAL(columnsAboutToBeInserted ( const QModelIndex & , int , int  )), this, SLOT(slotColumnsAboutToBeInserted ( const QModelIndex & , int , int  )));
+//     disconnect(sm, SIGNAL(columnsAboutToBeRemoved ( const QModelIndex & , int , int  )), this, SLOT(slotColumnsAboutToBeRemoved ( const QModelIndex & , int , int  )));
+//     disconnect(sm, SIGNAL(columnsInserted ( const QModelIndex & , int , int  )), this, SLOT(slotColumnsInserted ( const QModelIndex & , int , int  )));
+//     disconnect(sm, SIGNAL(columnsRemoved ( const QModelIndex & , int , int  )), this, SLOT(slotColumnsRemoved ( const QModelIndex & , int , int  )));
+//     disconnect(sm, SIGNAL(dataChanged ( const QModelIndex & , const QModelIndex &  )), this, SLOT(slotDataChanged ( const QModelIndex & , const QModelIndex &  )));
+//     disconnect(sm, SIGNAL(headerDataChanged ( Qt::Orientation, int , int  )), this, SLOT(slotHeaderDataChanged ( Qt::Orientation, int , int  )));
+//     disconnect(sm, SIGNAL(layoutAboutToBeChanged ()), this, SLOT(slotLayoutAboutToBeChanged ()));
+//     disconnect(sm, SIGNAL(layoutChanged ()), this, SLOT(slotLayoutChanged ()));
+//     disconnect(sm, SIGNAL(modelAboutToBeReset ()), this, SLOT(slotModelAboutToBeReset ()));
+//     disconnect(sm, SIGNAL(modelReset ()), this, SLOT(slotModelReset ()));
+//     disconnect(sm, SIGNAL(rowsAboutToBeInserted ( const QModelIndex & , int , int  )), this, SLOT(slotRowsAboutToBeInserted ( const QModelIndex & , int , int  )));
+//     disconnect(sm, SIGNAL(rowsAboutToBeRemoved ( const QModelIndex & , int , int  )), this, SLOT(slotRowsAboutToBeRemoved ( const QModelIndex & , int , int  )));
+//     disconnect(sm, SIGNAL(rowsInserted ( const QModelIndex & , int , int  )), this, SLOT(slotRowsInserted ( const QModelIndex & , int , int  )));
+//     disconnect(sm, SIGNAL(rowsRemoved ( const QModelIndex & , int , int  )), this, SLOT(slotRowsRemoved ( const QModelIndex & , int , int  )));
   }
   sm = sourceModel;
   if (sm)
@@ -367,6 +390,7 @@ void KateViewDocumentProxyModel::setSourceModel ( QAbstractItemModel * sourceMod
 
 void KateViewDocumentProxyModel::slotColumnsAboutToBeInserted ( const QModelIndex & parent, int start, int end )
 {
+  Q_UNUSED(parent)
   beginInsertColumns(QModelIndex(), start, end);
 }
 
@@ -377,10 +401,16 @@ void KateViewDocumentProxyModel::slotColumnsAboutToBeRemoved ( const QModelIndex
 
 void KateViewDocumentProxyModel::slotColumnsInserted ( const QModelIndex & parent, int start, int end )
 {
+  Q_UNUSED(parent)
+  Q_UNUSED(start)
+  Q_UNUSED(end)
   endInsertColumns();
 }
 void KateViewDocumentProxyModel::slotColumnsRemoved ( const QModelIndex & parent, int start, int end )
 {
+  Q_UNUSED(parent)
+  Q_UNUSED(start)
+  Q_UNUSED(end)
   endRemoveColumns();
 }
 void KateViewDocumentProxyModel::slotDataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight )
@@ -466,6 +496,7 @@ void KateViewDocumentProxyModel::removeItemFromColoring(int line)
 
 void KateViewDocumentProxyModel::slotRowsAboutToBeRemoved ( const QModelIndex & parent, int start, int end )
 {
+  Q_UNUSED(parent)
   for (int row = end;row >= start;row--)
   {
     int removeRow = m_mapFromSource[row];
@@ -496,6 +527,7 @@ void KateViewDocumentProxyModel::slotRowsAboutToBeRemoved ( const QModelIndex & 
 
 void KateViewDocumentProxyModel::slotRowsInserted ( const QModelIndex & parent, int start, int end )
 {
+  Q_UNUSED(parent)
   int cnt = m_mapFromSource.count();
   for (int i = start;i <= end;i++, cnt++)
   {
@@ -515,6 +547,9 @@ void KateViewDocumentProxyModel::slotRowsInserted ( const QModelIndex & parent, 
 }
 void KateViewDocumentProxyModel::slotRowsRemoved ( const QModelIndex & parent, int start, int end )
 {
+  Q_UNUSED(parent)
+  Q_UNUSED(start)
+  Q_UNUSED(end)
   m_rowCountOffset = 0;
 //    endRemoveRows();
   kDebug() << "KateViewDocumentProxyModel::slotRowsRemoved";

@@ -19,7 +19,7 @@
 #ifndef KATEVIEWDOCUMENTPROXYMODEL_H
 #define KATEVIEWDOCUMENTPROXYMODEL_H
 
-#include <QAbstractProxyModel>
+#include <QSortFilterProxyModel>
 #include <QModelIndex>
 #include <QItemSelection>
 #include <QItemSelectionModel>
@@ -27,6 +27,7 @@
 #include <QMimeData>
 #include <Qt>
 #include <QTimer>
+#include <QColor>
 
 class KateViewDocumentProxyModel: public QAbstractProxyModel
 {
@@ -57,6 +58,16 @@ class KateViewDocumentProxyModel: public QAbstractProxyModel
       return m_selection;
     }
 
+    bool shadingEnabled() const { return m_shadingEnabled; }
+    void setShadingEnabled(bool enable) { m_shadingEnabled = enable; }
+    const QColor& editShade() const { return m_editShade; }
+    const QColor& viewShade() const { return m_viewShade; }
+    void setEditShade( const QColor &shade ) { m_editShade = shade; }
+    void setViewShade( const QColor &shade ) { m_viewShade = shade; }
+
+    int sortRole() const { return m_sortRole; }
+    void setSortRole( int role ) { m_sortRole = role; }
+
   private:
     QItemSelectionModel *m_selection;
     QList<QModelIndex> m_viewHistory;
@@ -68,6 +79,10 @@ class KateViewDocumentProxyModel: public QAbstractProxyModel
     QTimer *m_markOpenedTimer;
     int m_rowCountOffset;
     void removeItemFromColoring(int line);
+    QColor m_editShade;
+    QColor m_viewShade;
+    bool m_shadingEnabled;
+    int m_sortRole;
 
   private Q_SLOTS:
     void slotColumnsAboutToBeInserted ( const QModelIndex & parent, int start, int end );

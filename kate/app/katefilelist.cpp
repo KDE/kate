@@ -22,9 +22,22 @@
 #include "katefilelist.h"
 #include "katefilelist.moc"
 #include "kateviewdocumentproxymodel.h"
+#include "katedocmanager.h"
 
 #include <kstandardaction.h>
+#include <kdialog.h>
+#include <kcolorbutton.h>
 #include <KLocale>
+#include <KColorScheme>
+
+#include <QtGui/QCheckBox>
+#include <QtGui/QLabel>
+#include <QtGui/QComboBox>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QGridLayout>
+#include <QtGui/QGroupBox>
+
+#include <kdebug.h>
 //END Includes
 
 
@@ -42,9 +55,8 @@ KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection)
   l << i18n("Opening Order") << i18n("Document Name") << i18n("URL") << i18n("Custom");
   m_sortAction->setItems( l );
 
-  connect( m_sortAction, SIGNAL(triggered(int)), this, SLOT(setSortType(int)) );
+//   connect( m_sortAction, SIGNAL(triggered(int)), this, SLOT(setSortType(int)) );
 
-  m_sortType = SortOpening;
   QPalette p = palette();
   p.setColor(QPalette::Inactive, QPalette::Highlight, p.color(QPalette::Active, QPalette::Highlight));
   p.setColor(QPalette::Inactive, QPalette::HighlightedText, p.color(QPalette::Active, QPalette::HighlightedText));
@@ -54,9 +66,43 @@ KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection)
 KateFileList::~KateFileList()
 {}
 
-void KateFileList::setSortType(int sortType)
+void KateFileList::setSortRole(int role)
 {
-  m_sortType = sortType;
+  qobject_cast<KateViewDocumentProxyModel*>(model())->setSortRole(role);
+}
+
+int KateFileList::sortRole()
+{
+  return qobject_cast<KateViewDocumentProxyModel*>(model())->sortRole();
+}
+
+void KateFileList::setShadingEnabled(bool enable)
+{
+  return qobject_cast<KateViewDocumentProxyModel*>(model())->setShadingEnabled(enable);
+}
+
+bool KateFileList::shadingEnabled() const
+{
+  return qobject_cast<KateViewDocumentProxyModel*>(model())->shadingEnabled();
+}
+
+const QColor& KateFileList::editShade() const
+{
+  return qobject_cast<KateViewDocumentProxyModel*>(model())->editShade();
+}
+
+const QColor& KateFileList::viewShade() const
+{
+  return qobject_cast<KateViewDocumentProxyModel*>(model())->viewShade();
+}
+
+void KateFileList::setEditShade( const QColor &shade )
+{
+  qobject_cast<KateViewDocumentProxyModel*>(model())->setEditShade( shade );
+}
+void KateFileList::setViewShade( const QColor &shade )
+{
+  qobject_cast<KateViewDocumentProxyModel*>(model())->setViewShade( shade );
 }
 
 void KateFileList::slotNextDocument()
@@ -93,5 +139,116 @@ void KateFileList::slotPrevDocument()
   }
 }
 //END KateFileList
+
+//BEGIN KateFileListConfigPage
+KateFileListConfigPage::KateFileListConfigPage( QWidget* parent, KateFileList *fl )
+  :  QWidget( parent ),
+    m_filelist( fl ),
+    m_changed( false )
+{
+  QVBoxLayout *layout = new QVBoxLayout( this );
+  int spacing = KDialog::spacingHint();
+  layout->setSpacing( spacing );
+
+  gbEnableShading = new QGroupBox( i18n("Background Shading"), this );
+  gbEnableShading->setCheckable(true);
+  layout->addWidget( gbEnableShading );
+
+  QGridLayout *lo = new QGridLayout( gbEnableShading, 2, 2 );
+  lo->setMargin(KDialog::marginHint());
+  lo->setSpacing(KDialog::spacingHint());
+
+  kcbViewShade = new KColorButton( gbEnableShading );
+  lViewShade = new QLabel( kcbViewShade, i18n("&Viewed documents' shade:"), gbEnableShading );
+  lo->addWidget( lViewShade, 2, 0 );
+  lo->addWidget( kcbViewShade, 2, 1 );
+
+  kcbEditShade = new KColorButton( gbEnableShading );
+  lEditShade = new QLabel( kcbEditShade, i18n("&Modified documents' shade:"), gbEnableShading );
+  lo->addWidget( lEditShade, 3, 0 );
+  lo->addWidget( kcbEditShade, 3, 1 );
+
+  // sorting
+  QHBoxLayout *lo2 = new QHBoxLayout;
+  layout->addItem( lo2 );
+  lSort = new QLabel( i18n("&Sort by:"), this );
+  lo2->addWidget( lSort );
+  cmbSort = new QComboBox( this );
+  lo2->addWidget( cmbSort );
+  lSort->setBuddy( cmbSort );
+  cmbSort->addItem(i18n("Opening Order"), (int)KateDocManager::OpeningOrderRole);
+  cmbSort->addItem(i18n("Document Name"), (int)Qt::DisplayRole);
+  cmbSort->addItem(i18n("Url"), (int)Qt::ToolTipRole);
+  cmbSort->addItem(i18n("Custom"), (int)KateDocManager::CustomOrderRole);
+
+  layout->insertStretch( -1, 10 );
+
+  gbEnableShading->setWhatsThis( i18n(
+      "When background shading is enabled, documents that have been viewed "
+      "or edited within the current session will have a shaded background. "
+      "The most recent documents have the strongest shade.") );
+  kcbViewShade->setWhatsThis( i18n(
+      "Set the color for shading viewed documents.") );
+  kcbEditShade->setWhatsThis( i18n(
+      "Set the color for modified documents. This color is blended into "
+      "the color for viewed files. The most recently edited documents get "
+      "most of this color.") );
+
+//   cmbSort->setWhatsThis( i18n(
+//       "Set the sorting method for the documents.") );
+
+  reload();
+
+  connect( gbEnableShading, SIGNAL(toggled(bool)), this, SLOT(slotMyChanged()) );
+  connect( kcbViewShade, SIGNAL(changed(const QColor&)), this, SLOT(slotMyChanged()) );
+  connect( kcbEditShade, SIGNAL(changed(const QColor&)), this, SLOT(slotMyChanged()) );
+//   connect( cmbSort, SIGNAL(activated(int)), this, SLOT(slotMyChanged()) );
+}
+
+void KateFileListConfigPage::apply()
+{
+  if ( ! m_changed )
+    return;
+  m_changed = false;
+
+  // Change settings in the filelist
+  m_filelist->setViewShade( kcbViewShade->color() );
+  m_filelist->setEditShade( kcbEditShade->color() );
+  m_filelist->setShadingEnabled( gbEnableShading->isChecked() );
+  m_filelist->setSortRole( cmbSort->itemData(cmbSort->currentItem()).toInt() );
+
+  // write config
+  KConfigGroup config(KGlobal::config(), "FileList");
+  config.writeEntry("Shading Enabled", gbEnableShading->isChecked());
+  // save shade colors if they differ from the color scheme
+  KColorScheme colors(QPalette::Active);
+  if (kcbViewShade->color() != colors.foreground(KColorScheme::VisitedText).color())
+    config.writeEntry("View Shade", kcbViewShade->color());
+  if (kcbEditShade->color() != colors.foreground(KColorScheme::ActiveText).color())
+    config.writeEntry("Edit Shade", kcbEditShade->color());
+  config.writeEntry("SortRole", cmbSort->itemData(cmbSort->currentItem()));
+
+  // repaint the affected items
+  m_filelist->repaint();
+}
+
+void KateFileListConfigPage::reload()
+{
+  // read in from config file
+  KConfigGroup config(KGlobal::config(), "FileList");
+  gbEnableShading->setChecked( config.readEntry("Shading Enabled", m_filelist->shadingEnabled()) );
+  kcbViewShade->setColor( config.readEntry("View Shade", m_filelist->viewShade() ) );
+  kcbEditShade->setColor( config.readEntry("Edit Shade", m_filelist->editShade() ) );
+//   cmbSort->setCurrentItem( cmbSort->findData(m_filelist->sortRole()) );
+  m_changed = false;
+}
+
+void KateFileListConfigPage::slotMyChanged()
+{
+  m_changed = true;
+  emit changed();
+}
+
+//END KateFileListConfigPage
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

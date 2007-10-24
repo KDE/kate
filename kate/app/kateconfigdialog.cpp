@@ -219,7 +219,6 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   connect( fileSelConfigPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
   path.clear();
 #endif
-  KVBox *page = new KVBox();
 #ifdef __GNUC__
 #warning portme
 #endif
@@ -229,13 +228,15 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 #endif
 
   //BEGIN Document List page
-  item = addSubPage( applicationItem, page, i18n("Document List") );
+  filelistConfigPage = new KateFileListConfigPage(this, m_mainWindow->m_fileList);
+  item = addSubPage( applicationItem, filelistConfigPage, i18n("Document List") );
   item->setHeader( i18n("Document List Settings") );
   item->setIcon( KIcon( "fileview-text" ) );
+  connect( filelistConfigPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
   //END Document List page
 
   //BEGIN Plugins page
-  page = new KVBox();
+  KVBox *page = new KVBox();
   KateConfigPluginPage *configPluginPage = new KateConfigPluginPage(page, this);
   connect( configPluginPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
 
@@ -369,9 +370,7 @@ void KateConfigDialog::slotApply()
 #ifdef __GNUC__
 #warning portme
 #endif
-#if 0
     filelistConfigPage->apply();
-#endif
     /*
         KateExternalToolsCommand::self()->reload();
         for (int i=0; i < KateApp::self()->mainWindows(); i++)

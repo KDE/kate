@@ -1608,7 +1608,7 @@ KateJScriptHeaderVector KateJScriptHelpers::findScripts(const QString& rcFile,
                                                         const QString& resourceDir,
                                                         const QStringList &keys)
 {
-  KConfig cfgFile(rcFile, KConfig::CascadeConfig);
+  KConfig cfgFile(rcFile, KConfig::NoGlobals);
   KConfigGroup config = cfgFile.group("General");
 
   bool force = false;

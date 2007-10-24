@@ -701,12 +701,12 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 
     // Read search pattern history
     QStringListModel * const patternHistoryModel = KateHistoryModel::getPatternHistoryModel();
-    QStringList patternHistory = config.readEntry(KEY_PATTERN_HISTORY, empty, ',');
+    QStringList patternHistory = config.readEntry(KEY_PATTERN_HISTORY, empty);
     patternHistoryModel->setStringList(patternHistory);
 
     // Read replacement text history
     QStringListModel * const replacementHistoryModel = KateHistoryModel::getReplacementHistoryModel();
-    QStringList replacementHistory = config.readEntry(KEY_REPLACEMENT_HISTORY, empty, ',');
+    QStringList replacementHistory = config.readEntry(KEY_REPLACEMENT_HISTORY, empty);
     replacementHistoryModel->setStringList(replacementHistory);
   }
 

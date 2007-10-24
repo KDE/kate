@@ -81,7 +81,7 @@ QString KateSchemaManager::printingSchema ()
 }
 
 KateSchemaManager::KateSchemaManager ()
-    : m_config ("kateschemarc", KConfig::CascadeConfig)
+    : m_config ("kateschemarc", KConfig::NoGlobals)
 {
   update ();
 }

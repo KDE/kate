@@ -202,8 +202,8 @@ void ABGlobal::readConfig()
   while ( config->hasGroup( QString("autobookmark%1").arg( n ) ) )
   {
     KConfigGroup cg( config, QString("autobookmark%1").arg( n ) );
-    QStringList filemask = cg.readEntry( "filemask", QStringList(), ';' );
-    QStringList mimemask = cg.readEntry( "mimemask", QStringList(), ';' );
+    QStringList filemask = cg.readXdgListEntry( "filemask" );
+    QStringList mimemask = cg.readXdgListEntry( "mimemask" );
     int flags = cg.readEntry( "flags", 1 );
     AutoBookmarkEnt *e = new AutoBookmarkEnt(
         cg.readEntry( "pattern", "" ),
@@ -235,8 +235,8 @@ void ABGlobal::writeConfig()
     AutoBookmarkEnt *e = m_ents->at( i );
     KConfigGroup cg( config, QString("autobookmark%1").arg( i ) );
     cg.writeEntry( "pattern", e->pattern );
-    cg.writeEntry( "filemask", e->filemask, ';' );
-    cg.writeEntry( "mimemask", e->mimemask, ';' );
+    cg.writeXdgListEntry( "filemask", e->filemask );
+    cg.writeXdgListEntry( "mimemask", e->mimemask );
     cg.writeEntry( "flags", e->flags );
   }
 

@@ -44,7 +44,7 @@ QString KatePartPluginInfo::saveName() const
 
 KatePartPluginManager::KatePartPluginManager()
   : QObject(),
-    m_config(new KConfig("katepartpluginsrc", KConfig::CascadeConfig))
+    m_config(new KConfig("katepartpluginsrc", KConfig::NoGlobals))
 {
   setupPluginList ();
   loadConfig ();

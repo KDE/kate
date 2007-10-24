@@ -69,7 +69,7 @@ KateModeManager::~KateModeManager ()
 //
 void KateModeManager::update ()
 {
-  KConfig config ("katemoderc", KConfig::CascadeConfig);
+  KConfig config ("katemoderc", KConfig::NoGlobals);
 
   QStringList g (config.groupList());
 
@@ -84,8 +84,8 @@ void KateModeManager::update ()
     type->number = z;
     type->name = g[z];
     type->section = cg.readEntry ("Section");
-    type->wildcards = cg.readEntry ("Wildcards", QStringList(), ';');
-    type->mimetypes = cg.readEntry ("Mimetypes", QStringList(), ';');
+    type->wildcards = cg.readXdgListEntry ("Wildcards");
+    type->mimetypes = cg.readXdgListEntry ("Mimetypes");
     type->priority = cg.readEntry ("Priority", 0);
     type->varLine = cg.readEntry ("Variables");
     
@@ -167,7 +167,7 @@ void KateModeManager::update ()
 //
 void KateModeManager::save (const QList<KateFileType *>& v)
 {
-  KConfig katerc("katemoderc", KConfig::CascadeConfig);
+  KConfig katerc("katemoderc", KConfig::NoGlobals);
   KConfigGroup config(&katerc, QString());
 
   QStringList newg;
@@ -176,8 +176,8 @@ void KateModeManager::save (const QList<KateFileType *>& v)
     config.changeGroup(type->name);
 
     config.writeEntry ("Section", type->section);
-    config.writeEntry ("Wildcards", type->wildcards, ';');
-    config.writeEntry ("Mimetypes", type->mimetypes, ';');
+    config.writeXdgListEntry ("Wildcards", type->wildcards);
+    config.writeXdgListEntry ("Mimetypes", type->mimetypes);
     config.writeEntry ("Priority", type->priority);
 
     QString varLine = type->varLine;

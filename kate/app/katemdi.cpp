@@ -137,7 +137,7 @@ namespace KateMDI
     actionCollection()->setConfigGroup( "Shortcuts" );
     actionCollection()->readSettings();
 
-    actionCollection()->associateWidget(m_mw);
+    actionCollection()->setAssociatedWidget(m_mw);
   }
 
   GUIClient::~GUIClient()

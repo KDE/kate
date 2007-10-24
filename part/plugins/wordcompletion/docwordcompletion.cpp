@@ -572,7 +572,7 @@ void DocWordCompletionPluginView::slotCursorMoved()
 
   d->dcRange = KTextEditor::Range::invalid();
 
-  disconnect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, KTextEditor::Cursor&)), this, SLOT(slotCursorMoved()) );
+  disconnect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(slotCursorMoved()) );
 
   KTextEditor::SmartInterface *si =
      qobject_cast<KTextEditor::SmartInterface*>( m_view->document() );

@@ -8,7 +8,7 @@
 	R      : http://www.r-project.org/
 	RKWard : http://rkward.sourceforge.net/
 	-->
-<language version="2.01" kateversion="2.5" name="R Script" section="Scripts" extensions="*.R;*.r;*.S;*.s;*.q" mimetype="" license="GPL">
+<language version="2.02" kateversion="2.5" name="R Script" section="Scripts" extensions="*.R;*.r;*.S;*.s;*.q" mimetype="" license="GPL">
 <highlighting>
 
 	<list name="controls">
@@ -28,6 +28,10 @@
 		<item> FALSE </item>
 		<item> NULL </item>
 		<item> NA </item>
+		<item> NA_integer_ </item>
+		<item> NA_real_ </item>
+		<item> NA_complex_ </item>
+		<item> NA_character_ </item>
 		<item> Inf </item>
 		<item> NaN </item>
 	</list>
@@ -50,7 +54,7 @@
 
 		<context attribute="In Parenthesis" lineEndContext="#stay" name="parenthesis">
 			<LineContinue attribute="Boolean" context="#stay"/>
-			<DetectChar attribute="Keyword" context="#pop" char=")"/>
+			<DetectChar attribute="Symbol" context="#pop" char=")"/>
 
 			<RegExpr attribute="Identifier" context="#stay" String="[a-zA-Z_\.][0-9a-zA-Z_\.]*[\s]*=(?=([^=]|$))"/>
 
@@ -60,6 +64,10 @@
 
 		<context attribute="String" lineEndContext="#stay" name="string">
 			<DetectChar attribute="String" context="#pop" char="&quot;"/>
+			<HlCStringChar attribute="String Char" context="#stay"/>
+		</context>
+		
+		<context attribute="String" lineEndContext="#stay" name="string2">
 			<DetectChar attribute="String" context="#pop" char="'"/>
 			<HlCStringChar attribute="String Char" context="#stay"/>
 		</context>
@@ -75,7 +83,7 @@
 		<!-- This context is not really used, but contains the common rules -->
 		<context name="CommonRules" lineEndContext="#stay" attribute="Normal Text" >
 			<DetectChar attribute="String" context="string" char="&quot;"/>
-			<DetectChar attribute="String" context="string" char="'"/>
+			<DetectChar attribute="String" context="string2" char="'"/>
 			<DetectChar attribute="String" context="backquotedsymbol" char="`"/>
 			<keyword attribute="Control Structure" context="#stay" String="controls"/>
 			<keyword attribute="Reserved Words" context="#stay" String="words"/>
@@ -83,7 +91,7 @@
 			<Int attribute="Int" context="#stay"/>
 			<RegExpr attribute="Keyword" context="#stay" String="[a-zA-Z_]+[a-zA-Z_\.0-9]*(?=[\s]*[(])"/>
 			<RegExpr attribute="Keyword" context="#stay" String="\.[a-zA-Z_\.]+[a-zA-Z_\.0-9]*(?=[\s]*[(])"/>
-			<RegExpr attribute="Keyword" context="parenthesis" String="\("/>
+			<RegExpr attribute="Symbol" context="parenthesis" String="\("/>
 			<StringDetect attribute="Headline" context="Headline" String="##"/>
 			<DetectChar attribute="Comment" context="Comment" char="#"/>
 
@@ -99,11 +107,15 @@
 			<RegExpr attribute="Assign" context="#stay" String="=(?!=)"/>
 
 			<!-- These operators are fine as long as they're followed by something else or end of line. Error otherwise -->
-			<RegExpr attribute="Operator" context="#stay" String="(\+|\-|\*|/|&lt;=|&gt;=|={1,2}|\!=|\|{1,2}|&amp;{1,2}|:{1,2}|\^|@|\$|~)((?!(\+|\-|\*|/|&lt;=|&gt;=|=|\!=|\||&amp;|:|\^|@|\$|~))|$)"/>
-			<RegExpr attribute="Error" context="#stay" String="(\+|\-|\*|/|&lt;=|&gt;=|={1,2}|\!=|\|{1,2}|&amp;{1,2}|:{1,2}|\^|@|\$|~){2,}"/>	
+			<RegExpr attribute="Operator" context="#stay" String="(\+|\-|\*|/|&lt;=|&gt;=|={1,2}|\!=|\|{1,2}|&amp;{1,2}|:{1,3}|\^|@|\$|~)((?!(\+|\-|\*|/|&lt;=|&gt;=|=|\!=|\||&amp;|:|\^|@|\$|~))|$)"/>
+			<RegExpr attribute="Error" context="#stay" String="(\+|\-|\*|/|&lt;=|&gt;=|={1,2}|\!=|\|{1,2}|&amp;{1,2}|:{1,3}|\^|@|\$|~){2,}"/>	
 			<RegExpr attribute="Operator" context="#stay" String="%[^%]*%"/>
 			
 			<DetectChar attribute="Symbol" context="ctx0" char="{" beginRegion="Brace1" />
+
+			<!-- This is needed only to assist variable based indentation -->
+			<DetectChar attribute="Symbol" context="#stay" char="[" />
+			<DetectChar attribute="Symbol" context="#stay" char="]" />
 		</context>
 	</contexts>
 

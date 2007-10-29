@@ -177,8 +177,8 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     void bottom_end(bool sel=false);
 
     inline const KTextEditor::Cursor& getCursor() const { return m_cursor; }
-    QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor, bool realCursor = true) const;
-    QPoint cursorCoordinates() const;
+    QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor, bool realCursor = true, bool includeBorder = true) const;
+    QPoint cursorCoordinates(bool includeBorder = true) const;
 
   // EVENT HANDLING STUFF - IMPORTANT
   private:

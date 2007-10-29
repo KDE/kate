@@ -523,7 +523,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
   doUpdateView(changed, viewLinesScrolled);
 
   if (changed)
-    updateDirty(); //paintText(0, 0, width(), height(), true);
+    updateDirty();
 }
 
 void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
@@ -686,7 +686,7 @@ int KateViewInternal::linesDisplayed() const
   return qMax (1, (h - (h % fh)) / fh);
 }
 
-QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor, bool realCursor ) const
+QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor, bool realCursor, bool includeBorder ) const
 {
   int viewLine = cache()->displayViewLine(realCursor ? toVirtualCursor(cursor) : cursor, true);
 
@@ -696,14 +696,15 @@ QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor,
   int y = viewLine * renderer()->fontHeight();
 
   KateTextLayout layout = cache()->viewLine(viewLine);
-  int x = (int)layout.lineLayout().cursorToX(cursor.column()) /*- layout.startX() */ + m_leftBorder->width() /*+ layout.xOffset()*/;
+  int x = (int)layout.lineLayout().cursorToX(cursor.column());
+  if (includeBorder) x += m_leftBorder->width();
 
   return QPoint(x, y);
 }
 
-QPoint KateViewInternal::cursorCoordinates() const
+QPoint KateViewInternal::cursorCoordinates(bool includeBorder) const
 {
-  return cursorToCoordinate(m_displayCursor, false);
+  return cursorToCoordinate(m_displayCursor, false, includeBorder);
 }
 
 void KateViewInternal::doReturn()
@@ -3066,10 +3067,9 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
   if (editOldCursor == m_cursor)
     updateBracketMarks();
 
-  if (!m_imPreedit)
-    updateView(true);
+  updateView(true);
 
-  if ((editOldCursor != m_cursor) && (!m_imPreedit))
+  if (editOldCursor != m_cursor)
   {
     m_madeVisible = false;
     updateCursor ( m_cursor, true );
@@ -3357,21 +3357,23 @@ void KateViewInternal::removeHighlightRange(KTextEditor::SmartRange* range)
 QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
 {
   switch (query) {
-    case Qt::ImMicroFocus:
+    case Qt::ImMicroFocus: {
       // Cursor placement code is changed for Asian input method that
       // shows candidate window. This behavior is same as Qt/E 2.3.7
       // which supports Asian input methods. Asian input methods need
       // start point of IM selection text to place candidate window as
       // adjacent to the selection text.
+      KTextEditor::Cursor c = m_cursor;
       if (m_imPreedit)
-        return QRect(cursorToCoordinate(m_imPreedit->start()), QSize(0, renderer()->fontHeight()));
-      break;
+        c = m_imPreedit->start();
+      return QRect(cursorToCoordinate(c, true, false), QSize(0, renderer()->fontHeight()));
+    }
 
     case Qt::ImFont:
       return renderer()->currentFont();
 
     case Qt::ImCursorPosition:
-      return cursorToCoordinate(m_cursor);
+      return cursorCoordinates(false);
 
     case Qt::ImSurroundingText:
       if (KateTextLine::Ptr l = textLine(m_cursor.line()))
@@ -3380,8 +3382,8 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
         return QString();
 
     case Qt::ImCurrentSelection:
-      if (m_imPreedit)
-        return view()->doc()->text(*m_imPreedit);
+      if (view()->selection())
+        return view()->selectionText();
       else
         return QString();
   }
@@ -3396,31 +3398,47 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
     return;
   }
 
-  bool committing = !e->commitString().isEmpty() || e->replacementLength();
-
-  m_view->doc()->editStart(committing, committing ? Kate::UserInputEdit : Kate::InputMethodContextEdit);
+  // Finished this input method context?
+  if (m_imPreedit && e->preeditString().isEmpty() && e->commitString().isEmpty()) {
+    m_view->removeInternalHighlight(m_imPreedit);
+    delete m_imPreedit;
+    m_imPreedit = 0L;
+    return;
+  }
 
   if ( m_view->selection() )
     m_view->removeSelectedText();
 
   if (!m_imPreedit) {
-    m_imPreedit = m_view->doc()->smartManager()->newSmartRange(KTextEditor::Range(m_cursor, m_cursor), 0L, KTextEditor::SmartRange::ExpandRight);
+    m_imPreedit = m_view->doc()->smartManager()->newSmartRange(KTextEditor::Range(m_cursor, m_cursor), 0L, KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
     m_view->addInternalHighlight(m_imPreedit);
   }
 
+  m_view->doc()->editStart(false);
+  m_view->doc()->removeText(*m_imPreedit);
+  m_view->doc()->editEnd();
+
   if (!e->commitString().isEmpty() || e->replacementLength()) {
+    KTextEditor::Range preeditRange = *m_imPreedit;
+
     KTextEditor::Cursor start(m_imPreedit->start().line(), m_imPreedit->start().column() + e->replacementStart());
     KTextEditor::Cursor removeEnd = start + KTextEditor::Cursor(0, e->replacementLength());
-    m_view->doc()->removeText(KTextEditor::Range(start, removeEnd));
+
+    m_view->doc()->editStart(true);
+    if (start != removeEnd)
+      m_view->doc()->removeText(KTextEditor::Range(start, removeEnd));
     m_view->doc()->insertText(start, e->commitString());
+    m_view->doc()->editEnd();
 
-    m_view->removeInternalHighlight(m_imPreedit);
-    delete m_imPreedit;
-    m_imPreedit = 0L;
+    // Revert to the same range as above
+    m_imPreedit->setRange(preeditRange);
+  }
 
-  } else {
-    m_view->doc()->removeText(*m_imPreedit);
+  if (!e->preeditString().isEmpty()) {
+    m_view->doc()->editStart(false);
     m_view->doc()->insertText(m_imPreedit->start(), e->preeditString());
+    m_view->doc()->editEnd();
+    // The preedit string gets automatically repositioned
   }
 
   KTextEditor::Cursor newCursor = m_cursor;
@@ -3442,7 +3460,7 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
       } else if (a.type == QInputMethodEvent::TextFormat) {
         QTextCharFormat f = qvariant_cast<QTextFormat>(a.value).toCharFormat();
         if (f.isValid() && decorationColumn <= a.start) {
-          KTextEditor::Range fr(m_imPreedit->start().line(),  m_imPreedit->start().column() + a.start, m_imPreedit->start().line(), a.length);
+          KTextEditor::Range fr(m_imPreedit->start().line(),  m_imPreedit->start().column() + a.start, m_imPreedit->start().line(), m_imPreedit->start().column() + a.start + a.length);
           KTextEditor::SmartRange* formatRange = m_view->doc()->smartManager()->newSmartRange(fr, m_imPreedit);
           KTextEditor::Attribute::Ptr attribute(new KTextEditor::Attribute());
           attribute->merge(f);
@@ -3455,8 +3473,6 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 
   renderer()->setDrawCaret(hideCursor);
   renderer()->setCaretOverrideColor(caretColor);
-
-  m_view->doc()->editEnd();
 
   if (newCursor != m_cursor)
     updateCursor(newCursor);

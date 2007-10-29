@@ -64,8 +64,6 @@ void KateGrepThread::run ()
     for (int i = 0; !m_cancel && i < currentFiles.size(); ++i)
       grepInFile (currentFiles.at(i).absoluteFilePath (), currentFiles.at(i).fileName());
   }
-
-  emit finished ();
 }
 
 void KateGrepThread::grepInFile (const QString &fileName, const QString &baseName)

@@ -299,7 +299,7 @@ void KateGrepDialog::searchFinished ()
 
   addItems();
 
-  delete m_grepThread;
+  m_grepThread->deleteLater();
   m_grepThread = 0;
 }
 

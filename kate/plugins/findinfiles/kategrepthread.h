@@ -46,7 +46,6 @@ class KateGrepThread : public QThread
 
   Q_SIGNALS:
     void foundMatch (const QString &filename, int line, int column, const QString &basename, const QString &lineContent);
-    void finished ();
 
   private:
     bool m_cancel;

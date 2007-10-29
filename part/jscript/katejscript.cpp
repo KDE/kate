@@ -1147,7 +1147,7 @@ const KJS::ClassInfo KateJSView::info = { "KateJSView", 0, &KateJSViewTable, 0 }
 // Reference for testkateregression
 extern const KJS::ClassInfo *testregression_KateJSView_info = &KateJSView::info;
 
-JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec,
+KJS::JSValue* KateJSViewProtoFunc::callAsFunction(KJS::ExecState *exec,
                                              KJS::JSObject *thisObj,
                                              const KJS::List &args)
 {

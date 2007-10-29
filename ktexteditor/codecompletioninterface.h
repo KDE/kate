@@ -27,6 +27,68 @@ namespace KTextEditor {
 
 class CodeCompletionModel;
 
+/**
+ * \brief Code completion extension interface for the View.
+ *
+ * \ingroup kte_group_view_extensions
+ *
+ * \section compiface_intro Introduction
+ *
+ * The CodeCompletionInterface is designed to provide code completion
+ * functionality for a KTextEditor::View. This interface provides the basic
+ * mechanisms to display a list of completions, update this list according
+ * to user input, and allow the user to select a completion.
+ *
+ * Essentially, this provides an item view for the available completions. In
+ * order to use this interface, you will need to implement a
+ * CodeCompletionModel that generates the relevant completions given the
+ * current input.
+ *
+ * \section compiface_access Accessing the CodeCompletionInterface
+ *
+ * The CodeCompletionInterface is an extension interface for a
+ * View, i.e. the View inherits the interface \e provided that the
+ * used KTextEditor library implements the interface. Use qobject_cast to
+ * access the interface:
+ * \code
+ * // view is of type KTextEditor::View*
+ * KTextEditor::CodeCompletionInterface *iface =
+ *     qobject_cast<KTextEditor::CodeCompletionInterface*>( view );
+ *
+ * if( iface ) {
+ *     // the implementation supports the interface
+ *     // do stuff
+ * }
+ * \endcode
+ *
+ * \section compiface_usage Using the CodeCompletionInterface
+ *
+ * The CodeCompletionInterface can be used in different ways, which we
+ * will call "automatic", and "manual".
+ *
+ * \subsection compiface_automatic Automatic
+ *
+ * In automatic mode, the CodeCompletionInterface will take care of
+ * starting and aborting the generation of code completions as
+ * appropriate, when the users inserts or changes text.
+ *
+ * To use the interface in this way, first register a CodeCompletionModel
+ * using registerCompletionModel(). Now call setAutomaticCompletionEnabled()
+ * to enabled automatic completions.
+ *
+ * \subsection compiface_manual Manual
+ * 
+ * If you need more control over when code completions get shown or not,
+ * or which fragment of the text should be considered as the basis for
+ * generated completions, proceed as follows:
+ *
+ * Call setAutomaticCompletionEnabled(false) to disable automatic
+ * completions. To start the generation of code completions for the current
+ * word, call startCompletion(), with the appropriate parameters. To hide the
+ * generated completions, use abortCompletion().
+ *
+ * \see KTextEditor::View, KTextEditor::CodeCompletionModel
+ */
 class KTEXTEDITOR_EXPORT CodeCompletionInterface
 {
   public:
@@ -44,7 +106,9 @@ class KTEXTEDITOR_EXPORT CodeCompletionInterface
 
     /**
      * Abort the currently displayed code completion without executing any currently
-     * selected completion.
+     * selected completion. This is safe, even when the completion box is not currently
+     * active.
+     * \see isCompletionActive()
      */
     virtual void abortCompletion() = 0;
 

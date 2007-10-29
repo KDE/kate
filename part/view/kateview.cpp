@@ -259,7 +259,6 @@ void KateView::setupConnections()
 void KateView::setupActions()
 {
   KActionCollection *ac = this->actionCollection ();
-  ac->setAssociatedWidget(m_viewInternal);
   KAction *a;
 
   m_toggleWriteLock = 0;
@@ -561,6 +560,8 @@ void KateView::setupActions()
 
   slotSelectionChanged ();
 
+  ac->associateWidget(m_viewInternal);
+
   connect (this, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(slotSelectionChanged()));
 }
 
@@ -573,7 +574,6 @@ void KateView::setupEditActions()
 {
   m_editActions = new KActionCollection( static_cast<QObject*>(this) );
   m_editActions->setObjectName( "edit_actions" );
-  m_editActions->setAssociatedWidget(m_viewInternal);
   KActionCollection* ac = m_editActions;
 
   KAction* a = static_cast<KAction*>(ac->addAction("word_left"));
@@ -803,6 +803,8 @@ void KateView::setupEditActions()
     slotGotFocus();
   else
     slotLostFocus();
+
+  m_editActions->associateWidget(m_viewInternal);
 }
 
 void KateView::setupCodeFolding()

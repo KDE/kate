@@ -305,7 +305,7 @@ SmartRange::InsertBehaviors SmartRange::insertBehavior( ) const
 
 void SmartRange::setInsertBehavior(SmartRange::InsertBehaviors behavior)
 {
-  static_cast<SmartCursor*>(m_start)->setInsertBehavior((behavior & ExpandLeft) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
+  static_cast<SmartCursor*>(m_start)->setInsertBehavior((behavior & ExpandLeft) ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
   static_cast<SmartCursor*>(m_end)->setInsertBehavior((behavior & ExpandRight) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
 }
 

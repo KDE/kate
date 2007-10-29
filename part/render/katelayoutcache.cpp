@@ -125,8 +125,12 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
     Q_ASSERT(_viewLine < l->viewLineCount());
 
     if (i < m_textLayouts.count()) {
-      //if (m_textLayouts[i].line() != realLine || m_textLayouts[i].viewLine() != _viewLine || !m_textLayouts[i].isValid())
+      bool dirty = false;
+      if (m_textLayouts[i].line() != realLine || m_textLayouts[i].viewLine() != _viewLine || !m_textLayouts[i].isValid())
+        dirty = true;
       m_textLayouts[i] = l->viewLine(_viewLine);
+      if (dirty)
+        m_textLayouts[i].setDirty(true);
 
     } else {
       m_textLayouts.append(l->viewLine(_viewLine));

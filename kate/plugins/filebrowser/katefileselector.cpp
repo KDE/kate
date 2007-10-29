@@ -264,6 +264,8 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
   connect(dir, SIGNAL(fileSelected(const KFileItem&)), this, SLOT(fileSelected(const KFileItem&)));
 
   readConfig();
+
+  mActionCollection->associateWidget(this);
 }
 
 KateFileSelector::~KateFileSelector()

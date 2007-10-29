@@ -32,7 +32,38 @@ class View;
  * \short An item model for providing code completion, and meta information for
  *        enhanced presentation.
  *
- * \todo write documentation
+ * \section compmodel_intro Introduction
+ *
+ * The CodeCompletionModel is the actual workhorse to provide code completions
+ * in a KTextEditor::View. It is meant to be used in conjunction with the
+ * CodeCompletionInterface. The CodeCompletionModel is not meant to be used as
+ * is. Rather you need to implement a subclass of CodeCompletionModel to actually
+ * generate completions appropriate for your type of Document.
+ *
+ * \section compmodel_implementing Implementing a CodeCompletionModel
+ *
+ * The CodeCompletionModel is a QAbstractItemModel, and can be subclassed in the
+ * same way. It provides default implementations of several members, however, so
+ * in most cases (if your completions are essentially a non-hierarchical, flat list
+ * of matches) you will only need to overload few virtual functions.
+ *
+ * \section compmodel_flatlist Implementing a CodeCompletionModel for a flat list
+ *
+ * For the simple case of a flat list of completions, you will need to:
+ *  - Implement completionInvoked() to actually generate/update the list of completion
+ * matches
+ *  - implement itemData() (or QAbstractItemModel::data()) to return the information that
+ * should be displayed for each match.
+ *  - use setRowCount() to reflect the number of matches.
+ *
+ * \section compmodel_roles_columns Columns and roles
+ *
+ * \todo document the meaning and usage of the columns and roles used by the
+ * CodeCompletionInterface
+ *
+ * \section compmodel_usage Using the new CodeCompletionModel
+ *
+ * To start using your CodeCompletionModel, refer to CodeCompletionInterface.
  *
  * @author Hamish Rodda <rodda@kde.org>
  */
@@ -292,14 +323,59 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
       ManualInvocation
     };
 
+    /**
+     * This function is responsible to generating / updating the list of current
+     * completions. The default implementation does nothing.
+     *
+     * When implementing this function, remember to call setRowCount() (or implement
+     * rowCount()), and to generate the appropriate change notifications (for instance
+     * by calling QAbstractItemModel::reset()).
+     * @param view The view to generate completions for
+     * @param range The range of text to generate completions for
+     * */
     virtual void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
+    /**
+     * This function is responsible for inserting a selected completion into the
+     * document. The default implementation replaces the text that the completions
+     * were based on with the Qt::DisplayRole of the Name column of the given match.
+     *
+     * @param document The document to insert the completion into
+     * @param word The Range that the completions are based on (what the user entered
+     * so far)
+     * @param row The row of the completion match to insert
+     * */
     virtual void executeCompletionItem(Document* document, const Range& word, int row) const;
 
     // Reimplementations
+    /**
+     * Reimplemented from QAbstractItemModel::columnCount(). The default implementation
+     * returns ColumnCount for all indices.
+     * */
     virtual int columnCount ( const QModelIndex & parent = QModelIndex() ) const;
+    /**
+     * Reimplemented from QAbstractItemModel::index(). The default implementation
+     * returns a standard QModelIndex as long as the row and column are valid.
+     * */
     virtual QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
+    /**
+     * Reimplemented from QAbstractItemModel::itemData(). The default implementation
+     * returns a map with the QAbstractItemModel::data() for all roles that are used
+     * by the CodeCompletionInterface. You will need to reimplement either this
+     * function or QAbstractItemModel::data() in your CodeCompletionModel.
+     * */
     virtual QMap<int, QVariant> itemData ( const QModelIndex & index ) const;
+    /**
+     * Reimplemented from QAbstractItemModel::parent(). The default implementation
+     * returns an invalid QModelIndex for all items. This is appropriate for
+     * non-hierarchical / flat lists of completions.
+     * */
     virtual QModelIndex parent ( const QModelIndex & index ) const;
+    /**
+     * Reimplemented from QAbstractItemModel::rowCount(). The default implementation
+     * returns the value set by setRowCount() for invalid (toplevel) indices, and 0
+     * for all other indices. This is appropriate for non-hierarchical / flat lists
+     * of completions
+     * */
     virtual int rowCount ( const QModelIndex & parent = QModelIndex() ) const;
 
   private:

@@ -73,6 +73,7 @@ class ExpandingDelegate : public QItemDelegate
     mutable QList<int> m_currentColumnStarts;
     mutable QList<QTextLayout::FormatRange> m_cachedHighlights;
   
+    mutable Qt::Alignment m_cachedAlignment;
   private:
 
     ExpandingWidgetModel* m_model;

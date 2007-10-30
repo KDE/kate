@@ -60,8 +60,14 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     ///@return whether the row given through index is expandable
     bool isExpandable(const QModelIndex& index) const;
 
+    enum ExpansionType {
+        NotExpanded = 0,
+        ExpandDownwards, //The additional(expanded) information is shown UNDER the original information
+        ExpandUpwards //The additional(expanded) information is shown ABOVE the original information
+    };
+    
     ///Returns whether the given index is currently partially expanded. Does not do any other checks like calling models for data.
-    bool isPartiallyExpanded(const QModelIndex& index) const;
+    ExpansionType isPartiallyExpanded(const QModelIndex& index) const;
 
     ///@return whether row is currently expanded
     bool isExpanded(const QModelIndex & row) const;
@@ -132,7 +138,7 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     int basicRowHeight( const QModelIndex& index ) const;
     
     private:
-    QMap<QPersistentModelIndex, bool> m_partiallyExpanded;
+    QMap<QPersistentModelIndex, ExpansionType> m_partiallyExpanded;
     // Store expanding-widgets and cache whether items can be expanded
     mutable QMap<QPersistentModelIndex, ExpandingType> m_expandState;
     QMap< QPersistentModelIndex, QPointer<QWidget> > m_expandingWidgets; //Map rows to their expanding-widgets

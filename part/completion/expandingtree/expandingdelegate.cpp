@@ -42,7 +42,13 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
     model()->placeExpandingWidget(index);
 
   //Make sure the decorations are painted at the top, because the center of expanded items will be filled with the embedded widget.
-  option.decorationAlignment = Qt::AlignTop;
+  if( model()->isPartiallyExpanded(index) == ExpandingWidgetModel::ExpandUpwards )
+    m_cachedAlignment = Qt::AlignBottom;
+  else
+    m_cachedAlignment = Qt::AlignTop;
+  
+  option.decorationAlignment = m_cachedAlignment;
+  option.displayAlignment = m_cachedAlignment;
   
   //kDebug() << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected);
 
@@ -146,7 +152,9 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
   layout.setAdditionalFormats(additionalFormats);
 
   QTextOption to;
-  to.setAlignment(option.displayAlignment);
+  
+  to.setAlignment( m_cachedAlignment );
+  
   to.setWrapMode(QTextOption::WrapAnywhere);
   layout.setTextOption(to);
 
@@ -155,8 +163,12 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
   line.setLineWidth(rect.width());
   layout.endLayout();
 
-  layout.draw(painter, rect.topLeft());
-
+  //We need to do some hand layouting here
+  if( to.alignment() & Qt::AlignBottom)
+      layout.draw(painter, QPoint((qreal)rect.left(), (qreal)rect.bottom() - line.height()) );
+  else
+      layout.draw(painter, rect.topLeft() );
+  
   return;
 
   //if (painter->fontMetrics().width(text) > textRect.width() && !text.contains(QLatin1Char('\n')))

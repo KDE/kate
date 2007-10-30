@@ -108,8 +108,11 @@ void ExpandingWidgetModel::clearExpanding() {
     m_expandingWidgets.clear();
 }
 
-bool ExpandingWidgetModel::isPartiallyExpanded(const QModelIndex& index) const {
-  return m_partiallyExpanded.contains(firstColumn(index));
+ExpandingWidgetModel::ExpansionType ExpandingWidgetModel::isPartiallyExpanded(const QModelIndex& index) const {
+  if( m_partiallyExpanded.contains(firstColumn(index)) )
+      return m_partiallyExpanded[firstColumn(index)];
+  else
+      return NotExpanded;
 }
 
 void ExpandingWidgetModel::partiallyUnExpand(const QModelIndex& idx_)
@@ -147,14 +150,39 @@ void ExpandingWidgetModel::rowSelected(const QModelIndex& idx_)
 
         if( !isExpanded(idx) && variant.type() == QVariant::String) {
            //kDebug() << "expanding: " << idx;
-          m_partiallyExpanded.insert(idx, true);
+            
+          //Either expand upwards or downwards, choose in a way that 
+          //the visible fields of the new selected entry are not moved.
+          if( oldIndex.isValid() && (oldIndex < idx || (!(oldIndex < idx) && oldIndex.parent() < idx.parent()) ) )
+            m_partiallyExpanded.insert(idx, ExpandUpwards);
+          else
+            m_partiallyExpanded.insert(idx, ExpandDownwards);
 
           //Say that one row above until one row below has changed, so no items will need to be moved(the space that is taken from one item is given to the other)
-          if( oldIndex.isValid() && oldIndex < idx )
+          if( oldIndex.isValid() && oldIndex < idx ) {
             emit dataChanged(oldIndex, idx);
-          else if( oldIndex.isValid() &&  idx < oldIndex )
+            
+            QModelIndex nextLine = idx.sibling(idx.row()+1, idx.column());
+            if( !nextLine.isValid() )
+                nextLine = idx;
+            
+            //This is needed to keep the item we are expanding completely visible. Qt does not scroll the view to keep the item visible.
+            //But we must make sure that it isn't too expensive.
+            //We need to make sure that scrolling is efficient, and the whole content is not repainted.
+            //Since we are scrolling anyway, we can keep the next line visible, which might be a cool feature.
+            
+            //Since this also doesn't work smoothly, leave it for now
+            //treeView()->scrollTo( nextLine, QAbstractItemView::EnsureVisible ); 
+          } else if( oldIndex.isValid() &&  idx < oldIndex ) {
             emit dataChanged(idx, oldIndex);
-          else
+            
+            //For consistency with the down-scrolling, we keep one additional line visible above the current visible.
+            
+            //Since this also doesn't work smoothly, leave it for now
+/*            QModelIndex prevLine = idx.sibling(idx.row()-1, idx.column());
+            if( prevLine.isValid() )
+                treeView()->scrollTo( prevLine );*/
+          } else
             emit dataChanged(idx, idx);
         } else if( oldIndex.isValid() ) {
           //We are not partially expanding a new row, but we previously had a partially expanded row. So signalize that it has been unexpanded.
@@ -180,6 +208,11 @@ QRect ExpandingWidgetModel::partialExpandRect(const QModelIndex& idx_) const
   if( !idx.isValid() )
     return QRect();
   
+  ExpansionType expansion = ExpandDownwards;
+  
+  if( m_partiallyExpanded.find(idx) != m_partiallyExpanded.end() )
+      expansion = m_partiallyExpanded[idx];
+  
     //Get the whole rectangle of the row:
     QModelIndex rightMostIndex = idx;
     QModelIndex tempIndex = idx;
@@ -193,8 +226,16 @@ QRect ExpandingWidgetModel::partialExpandRect(const QModelIndex& idx_) const
     rect.setRight( rightMostRect.right() - 5 );
 
     //These offsets must match exactly those used in ExpandingDelegate::sizeHint()
-    rect.setTop( rect.top() + basicRowHeight(idx) + 5 );
-    rect.setBottom( rightMostRect.bottom() - 5 );
+    int top = rect.top() + 5;
+    int bottom = rightMostRect.bottom() - 5 ;
+    
+    if( expansion == ExpandDownwards )
+        top += basicRowHeight(idx);
+    else
+        bottom -= basicRowHeight(idx);
+    
+    rect.setTop( top );
+    rect.setBottom( bottom );
 
     return rect;
 }

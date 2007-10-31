@@ -31,7 +31,7 @@
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 #include <ktoolinvocation.h>
-#include <libworkspace/kworkspace.h>
+#include <kworkspace/kworkspace.h>
 
 #include <QValidator>
 

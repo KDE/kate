@@ -495,7 +495,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * is treated as line delimiter, so it is possible to insert multiple
      * lines. To append lines at the end of the document, use
      * \code
-     * insertLine( numLines(), text )
+     * insertLine( lines(), text )
      * \endcode
      * \param line line where to insert the text
      * \param text text which should be inserted
@@ -509,7 +509,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * is treated as line delimiter, so it is possible to insert multiple
      * lines. To append lines at the end of the document, use
      * \code
-     * insertLine( numLines(), text )
+     * insertLine( lines(), text )
      * \endcode
      * \param line line where to insert the text
      * \param text text which should be inserted

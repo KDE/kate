@@ -60,7 +60,7 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * Inserts an interactive ediable template text at line "line", column "col".
      * \return true if inserting the string succeeded
      *
-     * Use insertTemplateText(numLines(), ...) to append text at end of document
+     * Use insertTemplateText(lines(), ...) to append text at end of document
      * Template  strings look like
      * "for( int ${index}=0;${index}<10;${index}++) { ${cursor} };"
      * or "%{date}"

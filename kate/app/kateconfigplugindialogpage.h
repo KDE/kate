@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
  
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -20,20 +21,14 @@
 #ifndef __KATE_CONFIGPLUGINDIALOGPAGE_H__
 #define __KATE_CONFIGPLUGINDIALOGPAGE_H__
 
-#include "katemain.h"
-#include "katepluginmanager.h"
-
-#include <K3ListView>
-
 #include <KVBox>
+#include <QTreeWidget>
 
 class KatePluginListItem;
 
-class KatePluginListView : public K3ListView
+class KatePluginListView : public QTreeWidget
 {
     Q_OBJECT
-
-    friend class KatePluginListItem;
 
   public:
     KatePluginListView (QWidget *parent = 0);
@@ -41,8 +36,8 @@ class KatePluginListView : public K3ListView
   Q_SIGNALS:
     void stateChange(KatePluginListItem *, bool);
 
-  private:
-    void stateChanged(KatePluginListItem *, bool);
+  private Q_SLOTS:
+    void stateChanged(QTreeWidgetItem *);
 };
 
 class KateConfigPluginPage: public KVBox
@@ -51,10 +46,6 @@ class KateConfigPluginPage: public KVBox
 
   public:
     KateConfigPluginPage(QWidget *parent, class KateConfigDialog *dialog);
-    ~KateConfigPluginPage()
-    {
-      ;
-    }
 
   private:
     class KateConfigDialog *myDialog;

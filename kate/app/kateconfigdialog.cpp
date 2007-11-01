@@ -48,7 +48,6 @@
 #include <KPageWidgetModel>
 #include <KVBox>
 
-#include <q3buttongroup.h>
 #include <QCheckBox>
 #include <QLabel>
 #include <QLayout>
@@ -58,6 +57,7 @@
 #include <QComboBox>
 #include <QVBoxLayout>
 #include <QFrame>
+#include <QGroupBox>
 
 KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *view )
     : KPageDialog( parent )
@@ -90,7 +90,8 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   layout->setSpacing(KDialog::spacingHint());
 
   // GROUP with the one below: "Behavior"
-  Q3ButtonGroup *buttonGroup = new Q3ButtonGroup( 1, Qt::Horizontal, i18n("&Behavior"), generalFrame );
+  QGroupBox *buttonGroup = new QGroupBox( i18n("&Behavior"), generalFrame );
+  QVBoxLayout *vbox = new QVBoxLayout;
   layout->addWidget( buttonGroup );
 
   // modified files notification
@@ -105,8 +106,12 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   connect( m_modNotifications, SIGNAL( toggled( bool ) ),
            this, SLOT( slotChanged() ) );
 
+  vbox->addWidget(m_modNotifications);
+  buttonGroup->setLayout(vbox);
+
   // GROUP with the one below: "Meta-information"
-  buttonGroup = new Q3ButtonGroup( 1, Qt::Horizontal, i18n("Meta-Information"), generalFrame );
+  buttonGroup = new QGroupBox( i18n("Meta-Information"), generalFrame );
+  vbox = new QVBoxLayout;
   layout->addWidget( buttonGroup );
 
   // save meta infos
@@ -119,19 +124,23 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
                                     "restored if the document has not changed when reopened."));
   connect( m_saveMetaInfos, SIGNAL( toggled( bool ) ), this, SLOT( slotChanged() ) );
 
+  vbox->addWidget(m_saveMetaInfos);
+
   // meta infos days
   KHBox *metaInfos = new KHBox( buttonGroup );
   metaInfos->setEnabled(KateDocManager::self()->getSaveMetaInfos());
+  QLabel *label = new QLabel( i18n("&Delete unused meta-information after:"), metaInfos );
   m_daysMetaInfos = new QSpinBox( metaInfos );
   m_daysMetaInfos->setMaximum( 180 );
   m_daysMetaInfos->setSpecialValueText(i18n("(never)"));
   m_daysMetaInfos->setSuffix(i18n(" day(s)"));
   m_daysMetaInfos->setValue( KateDocManager::self()->getDaysMetaInfos() );
-  QLabel *label = new QLabel( i18n("&Delete unused meta-information after:"), metaInfos );
   label->setBuddy( m_daysMetaInfos );
   connect( m_saveMetaInfos, SIGNAL( toggled( bool ) ), metaInfos, SLOT( setEnabled( bool ) ) );
   connect( m_daysMetaInfos, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
 
+  vbox->addWidget(metaInfos);
+  buttonGroup->setLayout(vbox);
 
   // editor component
   m_editorChooser = new KTextEditor::EditorChooser(generalFrame);
@@ -154,7 +163,8 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   layout->setSpacing(KDialog::spacingHint());
 
   // GROUP with the one below: "Startup"
-  buttonGroup = new Q3ButtonGroup( 1, Qt::Horizontal, i18n("Elements of Sessions"), sessionsFrame );
+  buttonGroup = new QGroupBox( i18n("Elements of Sessions"), sessionsFrame );
+  vbox = new QVBoxLayout;
   layout->addWidget( buttonGroup );
 
   // restore view  config
@@ -163,48 +173,59 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   m_restoreVC->setChecked( cgGeneral.readEntry("Restore Window Configuration", true) );
   m_restoreVC->setWhatsThis( i18n("Check this if you want all your views and frames restored each time you open Kate"));
   connect( m_restoreVC, SIGNAL( toggled( bool ) ), this, SLOT( slotChanged() ) );
+  
+  vbox->addWidget(m_restoreVC);
+  buttonGroup->setLayout(vbox);
 
-  QRadioButton *rb1, *rb2, *rb3;
+  QGroupBox* sessionsStart = new QGroupBox( i18n("Behavior on Application Startup"), sessionsFrame );
+  vbox = new QVBoxLayout;
+  layout->addWidget(sessionsStart);
 
-  m_sessionsStart = new Q3ButtonGroup( 1, Qt::Horizontal, i18n("Behavior on Application Startup"), sessionsFrame );
-  layout->addWidget(m_sessionsStart);
-
-  m_sessionsStart->setRadioButtonExclusive( true );
-  m_sessionsStart->insert( rb1 = new QRadioButton( i18n("&Start new session"), m_sessionsStart ), 0 );
-  m_sessionsStart->insert( rb2 = new QRadioButton( i18n("&Load last-used session"), m_sessionsStart ), 1 );
-  m_sessionsStart->insert( rb3 = new QRadioButton( i18n("&Manually choose a session"), m_sessionsStart ), 2 );
+  m_startNewSessionRadioButton = new QRadioButton( i18n("&Start new session"), sessionsStart );
+  m_loadLastUserSessionRadioButton = new QRadioButton( i18n("&Load last-used session"), sessionsStart );
+  m_manuallyChooseSessionRadioButton = new QRadioButton( i18n("&Manually choose a session"), sessionsStart );
 
   QString sesStart (cgGeneral.readEntry ("Startup Session", "manual"));
   if (sesStart == "new")
-    m_sessionsStart->setButton (0);
+    m_startNewSessionRadioButton->setChecked (true);
   else if (sesStart == "last")
-    m_sessionsStart->setButton (1);
+    m_loadLastUserSessionRadioButton->setChecked (true);
   else
-    m_sessionsStart->setButton (2);
+    m_manuallyChooseSessionRadioButton->setChecked (true);
 
-  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(rb3, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_startNewSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_loadLastUserSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_manuallyChooseSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  
+  vbox->addWidget(m_startNewSessionRadioButton);
+  vbox->addWidget(m_loadLastUserSessionRadioButton);
+  vbox->addWidget(m_manuallyChooseSessionRadioButton);
+  sessionsStart->setLayout(vbox);
 
-  m_sessionsExit = new Q3ButtonGroup( 1, Qt::Horizontal, i18n("Behavior on Application Exit or Session Switch"), sessionsFrame );
-  layout->addWidget(m_sessionsExit);
+  QGroupBox *sessionsExit = new QGroupBox( i18n("Behavior on Application Exit or Session Switch"), sessionsFrame );
+  vbox = new QVBoxLayout;
+  layout->addWidget(sessionsExit);
 
-  m_sessionsExit->setRadioButtonExclusive( true );
-  m_sessionsExit->insert( rb1 = new QRadioButton( i18n("&Do not save session"), m_sessionsExit ), 0 );
-  m_sessionsExit->insert( rb2 = new QRadioButton( i18n("&Save session"), m_sessionsExit ), 1 );
-  m_sessionsExit->insert( rb3 = new QRadioButton( i18n("&Ask user"), m_sessionsExit ), 2 );
+  m_doNotSaveSessionRadioButton = new QRadioButton( i18n("&Do not save session"), sessionsExit );
+  m_saveSessionRadioButton = new QRadioButton( i18n("&Save session"), sessionsExit );
+  m_askUserRadioButton = new QRadioButton( i18n("&Ask user"), sessionsExit );
 
   QString sesExit (cgGeneral.readEntry ("Session Exit", "save"));
   if (sesExit == "discard")
-    m_sessionsExit->setButton (0);
+    m_doNotSaveSessionRadioButton->setChecked (true);
   else if (sesExit == "save")
-    m_sessionsExit->setButton (1);
+    m_saveSessionRadioButton->setChecked (true);
   else
-    m_sessionsExit->setButton (2);
+    m_askUserRadioButton->setChecked (true);
 
-  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(rb3, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_doNotSaveSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_saveSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_askUserRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  
+  vbox->addWidget(m_doNotSaveSessionRadioButton);
+  vbox->addWidget(m_saveSessionRadioButton);
+  vbox->addWidget(m_askUserRadioButton);
+  sessionsExit->setLayout(vbox);
 
   layout->addStretch(1); // :-] works correct without autoadd
   //END Session page
@@ -341,20 +362,16 @@ void KateConfigDialog::slotApply()
 
     cg.writeEntry("Restore Window Configuration", m_restoreVC->isChecked());
 
-    int bu = m_sessionsStart->id (m_sessionsStart->selected());
-
-    if (bu == 0)
+    if (m_startNewSessionRadioButton->isChecked())
       cg.writeEntry ("Startup Session", "new");
-    else if (bu == 1)
+    else if (m_loadLastUserSessionRadioButton->isChecked())
       cg.writeEntry ("Startup Session", "last");
     else
       cg.writeEntry ("Startup Session", "manual");
 
-    bu = m_sessionsExit->id (m_sessionsExit->selected());
-
-    if (bu == 0)
+    if (m_doNotSaveSessionRadioButton->isChecked())
       cg.writeEntry ("Session Exit", "discard");
-    else if (bu == 1)
+    else if (m_saveSessionRadioButton->isChecked())
       cg.writeEntry ("Session Exit", "save");
     else
       cg.writeEntry ("Session Exit", "ask");

@@ -31,6 +31,7 @@
 
 #include <KPageDialog>
 #include <QList>
+#include <QRadioButton>
 
 class QCheckBox;
 class QSpinBox;
@@ -71,8 +72,17 @@ class KateConfigDialog : public KPageDialog
     QCheckBox *m_saveMetaInfos;
     QSpinBox *m_daysMetaInfos;
     QCheckBox *m_restoreVC;
-    Q3ButtonGroup *m_sessionsStart;
-    Q3ButtonGroup *m_sessionsExit;
+
+    // sessions start group:
+    QRadioButton *m_startNewSessionRadioButton;
+    QRadioButton *m_loadLastUserSessionRadioButton;
+    QRadioButton *m_manuallyChooseSessionRadioButton;
+
+    // sessions exit group:
+    QRadioButton *m_doNotSaveSessionRadioButton;
+    QRadioButton *m_saveSessionRadioButton;
+    QRadioButton *m_askUserRadioButton;
+    
     QList<PluginPageListItem*> m_pluginPages;
     QList<KTextEditor::ConfigPage*> m_editorPages;
     KTextEditor::EditorChooser *m_editorChooser;

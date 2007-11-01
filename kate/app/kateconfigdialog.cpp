@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -240,16 +241,16 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   KateConfigPluginPage *configPluginPage = new KateConfigPluginPage(page, this);
   connect( configPluginPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
 
-  KPageWidgetItem *pluginItem = addSubPage( applicationItem, page, i18n("Plugins") );
-  pluginItem->setHeader( i18n("Plugin Manager") );
-  pluginItem->setIcon( KIcon( "connection-established" ) );
+  m_pluginPage = addSubPage( applicationItem, page, i18n("Plugins") );
+  m_pluginPage->setHeader( i18n("Plugin Manager") );
+  m_pluginPage->setIcon( KIcon( "connection-established" ) );
 
   KatePluginList &pluginList (KatePluginManager::self()->pluginList());
   foreach (const KatePluginInfo &plugin, pluginList)
   {
     if  ( plugin.load
           && Kate::pluginConfigPageInterface(plugin.plugin) )
-      addPluginPage (plugin.plugin, pluginItem);
+      addPluginPage (plugin.plugin);
   }
   //END Plugins page
 
@@ -282,7 +283,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 KateConfigDialog::~KateConfigDialog()
 {}
 
-void KateConfigDialog::addPluginPage (Kate::Plugin *plugin, KPageWidgetItem *parentItem)
+void KateConfigDialog::addPluginPage (Kate::Plugin *plugin)
 {
   if (!Kate::pluginConfigPageInterface(plugin))
     return;
@@ -291,13 +292,14 @@ void KateConfigDialog::addPluginPage (Kate::Plugin *plugin, KPageWidgetItem *par
   {
     KVBox *page = new KVBox();
 
-    KPageWidgetItem *item = addSubPage( parentItem, page, Kate::pluginConfigPageInterface(plugin)->configPageName(i) );
+    KPageWidgetItem *item = addSubPage( m_pluginPage, page, Kate::pluginConfigPageInterface(plugin)->configPageName(i) );
     item->setHeader( Kate::pluginConfigPageInterface(plugin)->configPageFullName(i) );
     item->setIcon( Kate::pluginConfigPageInterface(plugin)->configPageIcon(i));
 
     PluginPageListItem *info = new PluginPageListItem;
     info->plugin = plugin;
     info->page = Kate::pluginConfigPageInterface(plugin)->configPage (i, page);
+    info->pageWidgetItem = item;
     connect( info->page, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
     m_pluginPages.append(info);
   }
@@ -315,6 +317,7 @@ void KateConfigDialog::removePluginPage (Kate::Plugin *plugin)
       QWidget *w = m_pluginPages[i]->page->parentWidget();
       delete m_pluginPages[i]->page;
       delete w;
+      removePage(m_pluginPages[i]->pageWidgetItem);
       m_pluginPages.removeAt(i);
       i--;
     }

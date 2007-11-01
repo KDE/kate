@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2007 Mirko Stocker <me@misto.ch>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -40,6 +41,7 @@ struct PluginPageListItem
 {
   Kate::Plugin *plugin;
   Kate::PluginConfigPage *page;
+  KPageWidgetItem *pageWidgetItem;
 };
 
 class KateConfigDialog : public KPageDialog
@@ -51,7 +53,7 @@ class KateConfigDialog : public KPageDialog
     ~KateConfigDialog ();
 
   public:
-    void addPluginPage (Kate::Plugin *plugin, KPageWidgetItem *parent = 0);
+    void addPluginPage (Kate::Plugin *plugin);
     void removePluginPage (Kate::Plugin *plugin);
 
   protected Q_SLOTS:
@@ -74,6 +76,7 @@ class KateConfigDialog : public KPageDialog
     QList<PluginPageListItem*> m_pluginPages;
     QList<KTextEditor::ConfigPage*> m_editorPages;
     KTextEditor::EditorChooser *m_editorChooser;
+    KPageWidgetItem *m_pluginPage;
 
     class KateFileListConfigPage *filelistConfigPage;
 };

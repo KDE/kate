@@ -66,7 +66,7 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
 {
   KatePluginListView* listView = new KatePluginListView(this);
   QStringList headers;
-    headers << "Name" << "Comment";
+    headers << i18n("Name") << i18n("Comment");
   listView->setHeaderLabels(headers);
   listView->setWhatsThis(i18n("Here you can see all available Kate plugins. Those with a check mark are loaded, and will be loaded again the next time Kate is started."));
 

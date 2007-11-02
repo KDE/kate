@@ -38,13 +38,21 @@ install(TARGETS kateinterfaces  DESTINATION ${LIB_INSTALL_DIR} )
 
 set(kate_KDEINIT_SRCS katemain.cpp)
 
+if (WIN32)
+    kde4_add_win32_app_icon(kate_KDEINIT_SRCS ${CMAKE_SOURCE_DIR}/kate/pics/hi16-app-kate.png ${CMAKE_SOURCE_DIR}/kate/pics/hi32-app-kate.png)
+    configure_file(${KDE4_MODULE_DIR}/kde4init_dummy.cpp.in ${CMAKE_CURRENT_BINARY_DIR}/kate_dummy.cpp)
+    list(APPEND kate_KDEINIT_SRCS ${CMAKE_CURRENT_BINARY_DIR}/kate_dummy.cpp)
+    kde4_add_executable(kate ${kate_KDEINIT_SRCS} )
+    target_link_libraries( kate ${QT_QTMAIN_LIBRARY} ${KDE4_KDECORE_LIBS} kateinterfaces )
+else (WIN32)
+    kde4_add_kdeinit_executable( kate ${kate_KDEINIT_SRCS})
 
-kde4_add_kdeinit_executable( kate ${kate_KDEINIT_SRCS})
+    target_link_libraries(kdeinit_kate  ${KDE4_KDECORE_LIBS} kateinterfaces )
 
-target_link_libraries(kdeinit_kate  ${KDE4_KDECORE_LIBS} kateinterfaces )
+    install(TARGETS kdeinit_kate  DESTINATION ${LIB_INSTALL_DIR} )
 
-install(TARGETS kdeinit_kate  DESTINATION ${LIB_INSTALL_DIR} )
+    target_link_libraries( kate kdeinit_kate )
+endif (WIN32)
 
-target_link_libraries( kate kdeinit_kate )
 install(TARGETS kate DESTINATION ${BIN_INSTALL_DIR})
 

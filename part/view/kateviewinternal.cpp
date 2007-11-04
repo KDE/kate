@@ -1340,9 +1340,9 @@ void KateViewInternal::cursorUp(bool sel)
   KateTextLayout pRange = previousLayout();
 
   // Ensure we're in the right spot
-  Q_ASSERT((m_cursor.line() == thisLine.line()) &&
-      (m_cursor.column() >= thisLine.startCol()) &&
-      (!thisLine.wrap() || m_cursor.column() < thisLine.endCol()));
+  Q_ASSERT(m_cursor.line() == thisLine.line());
+  Q_ASSERT(m_cursor.column() >= thisLine.startCol());
+  Q_ASSERT(!thisLine.wrap() || m_cursor.column() < thisLine.endCol());
 
   // Retrieve current cursor x position
   m_cursorX = renderer()->cursorToX(thisLine, m_cursor);

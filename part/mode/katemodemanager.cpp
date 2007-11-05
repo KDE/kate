@@ -113,6 +113,7 @@ void KateModeManager::update ()
       newType = true;
       type = new KateFileType ();
       type->name = modes[i]->name;
+      type->priority = 0;
       m_types.append (type);
       m_name2Type.insert (type->name, type);
     }

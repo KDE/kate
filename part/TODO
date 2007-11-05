@@ -24,6 +24,8 @@ TODO:
   very slow. Opening 50 files in the Kate Application is *very* slow. Needs to be
   vastly improved ...somehow...
 
+* fail to draw background colour on the last viewline of dynamically wrapped lines
+
 **** Refactoring/Cleanups ****
 * code cleanups wherever needed ;)
 

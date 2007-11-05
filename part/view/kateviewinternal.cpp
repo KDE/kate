@@ -2799,7 +2799,7 @@ void KateViewInternal::scrollTimeout ()
 {
   if (m_scrollX || m_scrollY)
   {
-    scrollLines (startPos().line() + (m_scrollY / renderer()->fontHeight()));
+    scrollLines (startPos().line() + (m_scrollY / (int) renderer()->fontHeight()));
     placeCursor( QPoint( m_mouseX, m_mouseY ), true );
   }
 }

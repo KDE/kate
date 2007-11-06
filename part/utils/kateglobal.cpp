@@ -208,11 +208,11 @@ void KateGlobal::writeConfig(KConfig *config)
   KConfigGroup cg(config, "Kate Document Defaults");
   KateDocumentConfig::global()->writeConfig (cg);
 
-  cg.changeGroup("Kate View Defaults");
-  KateViewConfig::global()->writeConfig (cg);
+  KConfigGroup cgDefault(config, "Kate View Defaults");
+  KateViewConfig::global()->writeConfig (cgDefault);
 
-  cg.changeGroup("Kate Renderer Defaults");
-  KateRendererConfig::global()->writeConfig (cg);
+  KConfigGroup cgRenderer(config, "Kate Renderer Defaults");
+  KateRendererConfig::global()->writeConfig (cgRenderer);
 
   config->sync();
 }

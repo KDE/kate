@@ -68,6 +68,8 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
 }
 
 QList<QTextLayout::FormatRange> ExpandingDelegate::createHighlighting(const QModelIndex& index, QStyleOptionViewItem& option) const {
+  Q_UNUSED( index );
+  Q_UNUSED( option );
   return QList<QTextLayout::FormatRange>();
 }
 
@@ -91,6 +93,8 @@ QSize ExpandingDelegate::sizeHint ( const QStyleOptionViewItem & option, const Q
 }
 
 void ExpandingDelegate::changeBackground( int row, int column, QStyleOptionViewItem & option ) const {
+    Q_UNUSED( row );
+    Q_UNUSED( column );
     //Highlight selected items specially
     QColor highlight = option.palette.color( option.palette.currentColorGroup(), QPalette::Highlight );
 

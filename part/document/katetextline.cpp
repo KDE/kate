@@ -251,7 +251,7 @@ bool KateTextLine::searchText (uint startCol, uint endCol, const QString &text, 
       //kDebug()<<"KateTextLine::searchText()"<<index<<"__"<<col<<"__"<<l+index<<"___"<< startCol<<"__"<<endCol<<"----"<<
       //(col>=start_col)<<"---"<<(index >= startCol)<<"---"<<((l + index) <= (int)endCol)<<endl<<text<<endl<<m_text<<endl<<
       //m_text.left(m_text.length()+1-col)<<endl<<(l+index)<<"_"<<index<<"__"<<endCol<<endl;
-    } while ( (col>=start_col) && (index >= startCol) && ((l + index) > (int)endCol) );
+    } while ( (col>=start_col) && (index >= (int)startCol) && ((l + index) > (int)endCol) );
   }
   else
     index = m_text.indexOf (text, startCol, casesensitive?Qt::CaseSensitive:Qt::CaseInsensitive);

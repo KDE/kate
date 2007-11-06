@@ -266,7 +266,7 @@ KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *vi
   {
     KateView *v = (KateView*)view;
     QStringList l;
-    for ( uint i = 0; i < KateHlManager::self()->highlights(); i++ )
+    for ( int i = 0; i < KateHlManager::self()->highlights(); i++ )
       l << KateHlManager::self()->hlName (i);
 
     KateCmdShellCompletion *co = new KateCmdShellCompletion();

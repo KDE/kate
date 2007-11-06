@@ -506,7 +506,7 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
   p.setColor( QPalette::Text, _c );
   m_defaultStyles->viewport()->setPalette( p );
 
-  for ( int i = 0; i < KateHlManager::self()->defaultStyles(); i++ )
+  for ( uint i = 0; i < KateHlManager::self()->defaultStyles(); i++ )
   {
     m_defaultStyles->addItem( KateHlManager::self()->defaultStyleName(i, true), l->at( i ) );
   }

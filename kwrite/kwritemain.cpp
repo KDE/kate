@@ -332,7 +332,7 @@ void KWrite::editToolbars()
   saveMainWindowSettings( KGlobal::config()->group( "MainWindow" ) );
   KEditToolBar dlg(guiFactory());
 
-  connect( &dlg, SIGNAL(newToolbarConfig()), this, SLOT(slotNewToolbarConfig()) );
+  connect( &dlg, SIGNAL(newToolBarConfig()), this, SLOT(slotNewToolbarConfig()) );
   dlg.exec();
 }
 

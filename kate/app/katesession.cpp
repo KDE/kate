@@ -394,12 +394,11 @@ bool KateSessionManager::saveActiveSession (bool tryAsk, bool rememberAsLast)
       // remember to not ask again with right setting
       if (dontAgain)
       {
-        c.changeGroup("General");
-
+        KConfigGroup generalConfig(KGlobal::config(), "General");
         if (res == KDialog::No)
-          c.writeEntry ("Session Exit", "discard");
+          generalConfig.writeEntry ("Session Exit", "discard");
         else
-          c.writeEntry ("Session Exit", "save");
+          generalConfig.writeEntry ("Session Exit", "save");
       }
 
       if (res == KDialog::No)
@@ -527,14 +526,14 @@ bool KateSessionManager::chooseSession ()
   // write back our nice boolean :)
   if (success && chooser->reopenLastSession ())
   {
-    c.changeGroup("General");
+    KConfigGroup generalConfig(KGlobal::config(), "General");
 
     if (res == KateSessionChooser::resultOpen)
-      c.writeEntry ("Startup Session", "last");
+      generalConfig.writeEntry ("Startup Session", "last");
     else if (res == KateSessionChooser::resultNew)
-      c.writeEntry ("Startup Session", "new");
+      generalConfig.writeEntry ("Startup Session", "new");
 
-    c.sync ();
+    generalConfig.sync ();
   }
 
   delete chooser;

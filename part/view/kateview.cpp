@@ -959,11 +959,16 @@ bool KateView::setCursorPositionInternal( const KTextEditor::Cursor& position, u
   QString line_str = m_doc->line( position.line() );
 
   int x = 0;
-  for (int z = 0; z < line_str.length() && z < position.column(); z++) {
+  int z = 0;
+  for (; z < line_str.length() && z < position.column(); z++) {
     if (line_str[z] == QChar('\t')) x += tabwidth - (x % tabwidth); else x++;
   }
 
-  m_viewInternal->updateCursor( position, false, true, calledExternally );
+  if (blockSelectionMode())
+    if (z < position.column())
+      x += position.column() - z;
+
+  m_viewInternal->updateCursor( KTextEditor::Cursor(position.line(), x), false, true, calledExternally );
 
   return true;
 }

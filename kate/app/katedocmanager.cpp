@@ -55,6 +55,7 @@ KateDocManager::KateDocManager (QObject *parent)
     , m_saveMetaInfos(true)
     , m_daysMetaInfos(0)
     , m_documentStillToRestore (0)
+    , m_suppressOpeningErrorDialogs (false)
 {
   // Constructed the beloved editor ;)
   m_editor = KTextEditor::EditorChooser::editor();
@@ -105,6 +106,11 @@ KateDocManager::~KateDocManager ()
 KateDocManager *KateDocManager::self ()
 {
   return KateApp::self()->documentManager ();
+}
+
+void KateDocManager::setSuppressOpeningErrorDialogs (bool suppress)
+{
+  m_suppressOpeningErrorDialogs = suppress;
 }
 
 QVariant KateDocManager::data( const QModelIndex & index, int role ) const
@@ -238,8 +244,12 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
 
     if (!url.isEmpty())
     {
+      doc->setSuppressOpeningErrorDialogs (m_suppressOpeningErrorDialogs);
+
       if (!loadMetaInfos(doc, url))
         doc->openUrl (url);
+
+      doc->setSuppressOpeningErrorDialogs (false);
 
       if ( isTempFile && url.isLocalFile() )
       {
@@ -273,8 +283,12 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
 
     if (!url.isEmpty())
     {
+      doc->setSuppressOpeningErrorDialogs (m_suppressOpeningErrorDialogs);
+
       if (!loadMetaInfos(doc, url))
         doc->openUrl (url);
+
+      doc->setSuppressOpeningErrorDialogs (false);
     }
   }
 

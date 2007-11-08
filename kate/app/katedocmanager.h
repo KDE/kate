@@ -65,6 +65,12 @@ class KateDocManager : public QStandardItemModel
     KateDocManager (QObject *parent);
     ~KateDocManager ();
 
+    /**
+     * should the document manager suppress all opening error dialogs on openUrl?
+     + @param suppress suppress dialogs?
+     */
+    void setSuppressOpeningErrorDialogs (bool suppress);
+
     enum CustomRoles {DocumentRole = Qt::UserRole + 1, OpeningOrderRole, CustomOrderRole };
 
     virtual QVariant data( const QModelIndex & index, int role = Qt::DisplayRole ) const;
@@ -198,6 +204,10 @@ class KateDocManager : public QStandardItemModel
     bool m_restoringDocumentList;
     QString m_openingErrors;
     int m_documentStillToRestore;
+
+    // suppress error dialogs while opening?
+    bool m_suppressOpeningErrorDialogs;
+
   private Q_SLOTS:
     void documentOpened();
 };

@@ -55,13 +55,6 @@ KateApp::KateApp (KCmdLineArgs *args)
     , m_shouldExit(false)
     , m_args (args)
 {
-#ifdef __GNUC__
-#warning "kde4 dbus: port it"
-#endif
-#if 0
-  // Don't handle DCOP requests yet
-  dcopClient()->suspend();
-#endif
   // insert right translations for the katepart
   KGlobal::locale()->insertCatalog("katepart4");
   setQuitOnLastWindowClosed (false);
@@ -77,11 +70,7 @@ KateApp::KateApp (KCmdLineArgs *args)
 
   // session manager up
   m_sessionManager = new KateSessionManager (this);
-
-  // application dcop interface
-
-  ( void ) new KateAppAdaptor( this );
-  QDBusConnection::sessionBus().registerObject( QLatin1String("/MainApplication"), this );
+  
   // real init
   initKate ();
 }
@@ -137,13 +126,10 @@ void KateApp::initKate ()
       return ;
     }
   }
-#ifdef __GNUC__
-#warning "kde4 dbus port it ?"
-#endif
-#if 0
-  // Ok. We are ready for DCOP requests.
-  dcopClient()->resume();
-#endif
+
+  // application dcop interface
+  ( void ) new KateAppAdaptor( this );
+  QDBusConnection::sessionBus().registerObject( QLatin1String("/MainApplication"), this );
 }
 
 void KateApp::restoreKate ()
@@ -283,13 +269,9 @@ void KateApp::shutdownKate (KateMainWindow *win)
     return;
 
   sessionManager()->saveActiveSession(true, true);
-#ifdef __GNUC__
-#warning "kde4: dbus port it"
-#endif
-#if 0
-  // detach the dcopClient
-  dcopClient()->detach();
-#endif
+
+  // unregister...
+  QDBusConnection::sessionBus().unregisterObject( QLatin1String("/MainApplication") );
 
   // cu main windows
   while (!m_mainWindows.isEmpty())
@@ -325,18 +307,22 @@ bool KateApp::openUrl (const KUrl &url, const QString &encoding, bool isTempFile
 
   QTextCodec *codec = encoding.isEmpty() ? 0 : QTextCodec::codecForName(encoding.toLatin1());
 
-  kDebug () << "OPEN URL " << encoding;
-
   // this file is no local dir, open it, else warn
   bool noDir = !url.isLocalFile() || !QDir (url.path()).exists();
 
   if (noDir)
   {
+    // show no errors...
+    documentManager()->setSuppressOpeningErrorDialogs (true);
+
     // open a normal file
     if (codec)
       mainWindow->viewManager()->openUrl( url, codec->name(), true, isTempFile);
     else
       mainWindow->viewManager()->openUrl( url, QString(), true, isTempFile );
+    
+    // back to normal....
+    documentManager()->setSuppressOpeningErrorDialogs (false);
   }
   else
     KMessageBox::sorry( mainWindow,

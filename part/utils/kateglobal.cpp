@@ -49,7 +49,7 @@ KateGlobal::KateGlobal ()
  : KTextEditor::Editor (0)
  , m_aboutData ("katepart", 0, ki18n("Kate Part"), KATEPART_VERSION,
              ki18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
-             ki18n( "(c) 2000-2005 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org")
+             ki18n( "(c) 2000-2007 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org")
  , m_componentData (&m_aboutData)
 {
   // set s_self

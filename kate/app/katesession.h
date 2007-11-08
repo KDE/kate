@@ -34,7 +34,6 @@
 
 class KateSessionManager;
 class KPushButton;
-class KateToolTipMenu;
 
 class QCheckBox;
 

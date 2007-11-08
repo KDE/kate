@@ -33,7 +33,6 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 
-class QString;
 
 /**
     This is a dialog for choosing which of the open files to mail.

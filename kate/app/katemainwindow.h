@@ -41,7 +41,6 @@
 
 class QMenu;
 
-class QListView;
 
 namespace Kate
 {

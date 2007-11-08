@@ -37,8 +37,6 @@ class QLabel;
 class QPixmap;
 class QVBoxLayout;
 
-class KAction;
-class KUrl;
 
 
 #endif

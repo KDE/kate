@@ -10,7 +10,11 @@ kde4_add_kdeinit_executable( kwrite ${kwrite_KDEINIT_SRCS})
 
 target_link_libraries(kdeinit_kwrite ${KDE4_KTEXTEDITOR_LIBS}  ${QT_QT3SUPPORT_LIBRARY} ${QT_QTGUI_LIBRARY} ${KDE4_KIO_LIBS})
 
-install(TARGETS kdeinit_kwrite  DESTINATION ${LIB_INSTALL_DIR} )
+install(TARGETS kdeinit_kwrite 
+        RUNTIME DESTINATION ${BIN_INSTALL_DIR}
+        LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+        ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
+)
 
 target_link_libraries( kwrite kdeinit_kwrite )
 install(TARGETS kwrite DESTINATION ${BIN_INSTALL_DIR})

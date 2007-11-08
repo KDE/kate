@@ -33,6 +33,9 @@
 
 #include <QtCore/QFile>
 
+// use this to turn on over verbose debug output...
+#undef KSD_OVER_VERBOSE
+
 KateSyntaxDocument::KateSyntaxDocument(KConfig *config, bool force)
   : QDomDocument()
   , m_config (config)
@@ -209,7 +212,9 @@ KateSyntaxContextData* KateSyntaxDocument::getSubItems(KateSyntaxContextData* da
 
 bool KateSyntaxDocument::getElement (QDomElement &element, const QString &mainGroupName, const QString &config)
 {
+#ifdef KSD_OVER_VERBOSE
   kDebug(13010) << "Looking for \"" << mainGroupName << "\" -> \"" << config << "\".";
+#endif
 
   QDomNodeList nodes = documentElement().childNodes();
 
@@ -234,12 +239,18 @@ bool KateSyntaxDocument::getElement (QDomElement &element, const QString &mainGr
         }
       }
 
+#ifdef KSD_OVER_VERBOSE
       kDebug(13010) << "WARNING: \""<< config <<"\" wasn't found!";
+#endif
+
       return false;
     }
   }
 
+#ifdef KSD_OVER_VERBOSE
   kDebug(13010) << "WARNING: \""<< mainGroupName <<"\" wasn't found!";
+#endif
+
   return false;
 }
 
@@ -280,7 +291,10 @@ KateSyntaxContextData* KateSyntaxDocument::getGroupInfo(const QString& mainGroup
  */
 QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QString& type, bool clearList)
 {
+#ifdef KSD_OVER_VERBOSE
   kDebug(13010)<<"Create a list of keywords \""<<type<<"\" from \""<<mainGroup<<"\".";
+#endif
+
   if (clearList)
     m_data.clear();
 
@@ -289,14 +303,20 @@ QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QStrin
     QDomElement elem = node.toElement();
     if (elem.tagName() == mainGroup)
     {
+#ifdef KSD_OVER_VERBOSE
       kDebug(13010)<<"\""<<mainGroup<<"\" found.";
+#endif
+
       QDomNodeList nodelist1 = elem.elementsByTagName("list");
 
       for (int l=0; l<nodelist1.count(); l++)
       {
         if (nodelist1.item(l).toElement().attribute("name") == type)
         {
+#ifdef KSD_OVER_VERBOSE
           kDebug(13010)<<"List with attribute name=\""<<type<<"\" found.";
+#endif
+          
           QDomNodeList childlist = nodelist1.item(l).toElement().childNodes();
 
           for (int i=0; i<childlist.count(); i++)
@@ -304,7 +324,8 @@ QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QStrin
             QString element = childlist.item(i).toElement().text().trimmed();
             if (element.isEmpty())
               continue;
-#ifndef NDEBUG
+
+#ifdef KSD_OVER_VERBOSE
             if (i<6)
             {
               kDebug(13010)<<"\""<<element<<"\" added to the list \""<<type<<"\"";
@@ -314,6 +335,7 @@ QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QStrin
               kDebug(13010)<<"... The list continues ...";
             }
 #endif
+
             m_data += element;
           }
 
@@ -333,11 +355,6 @@ QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QStrin
 */
 void KateSyntaxDocument::setupModeList (bool force)
 {
-  struct timeval time_start;
-  struct timeval time_end;
-
-  gettimeofday(&time_start,0);
-//  kDebug()<<"setupModeList-time-enter:"<<time(0);
   // If there's something in myModeList the Mode List was already built so, don't do it again
   if (!myModeList.isEmpty())
     return;
@@ -392,7 +409,9 @@ void KateSyntaxDocument::setupModeList (bool force)
     }
     else
     {
+#ifdef KSD_OVER_VERBOSE
       kDebug (13010) << "UPDATE hl cache for: " << *it;
+#endif
 
       // We're forced to read the xml files or the mode doesn't exist in the katesyntax...rc
       QFile f(*it);
@@ -478,11 +497,6 @@ void KateSyntaxDocument::setupModeList (bool force)
 
   // Syncronize with the file katesyntax...rc
   config.sync();
-//  kDebug()<<"setupModeList-time-leave:"<<time(0);
-  gettimeofday(&time_end,0);
-  kDebug()<<"time-start:"<<time_start.tv_sec % 60<<";;"<<time_start.tv_usec;
-  kDebug()<<"time-end:"<<time_end.tv_sec % 60<<";;"<<time_end.tv_usec;
-
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

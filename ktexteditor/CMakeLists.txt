@@ -27,11 +27,7 @@ kde4_add_library(ktexteditor SHARED ${ktexteditor_LIB_SRCS})
 target_link_libraries(ktexteditor  ${KDE4_KDECORE_LIBS} ${QT_QTDBUS_LIBRARY} kparts )
 
 set_target_properties(ktexteditor PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
-install(TARGETS ktexteditor
-             RUNTIME DESTINATION ${BIN_INSTALL_DIR}
-             LIBRARY DESTINATION ${LIB_INSTALL_DIR}
-             ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
-)
+install(TARGETS ktexteditor  DESTINATION ${LIB_INSTALL_DIR})
 
 ########### install files ###############
 install( FILES

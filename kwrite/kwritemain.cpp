@@ -320,7 +320,7 @@ void KWrite::toggleStatusBar()
 
 void KWrite::editKeys()
 {
-  KShortcutsDialog dlg;
+  KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, this);
   dlg.addCollection(actionCollection());
   if( m_view )
     dlg.addCollection(m_view->actionCollection());
@@ -330,7 +330,7 @@ void KWrite::editKeys()
 void KWrite::editToolbars()
 {
   saveMainWindowSettings( KGlobal::config()->group( "MainWindow" ) );
-  KEditToolBar dlg(guiFactory());
+  KEditToolBar dlg(guiFactory(), this);
 
   connect( &dlg, SIGNAL(newToolBarConfig()), this, SLOT(slotNewToolbarConfig()) );
   dlg.exec();
@@ -776,8 +776,8 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 }
 
 
-KWriteEditorChooser::KWriteEditorChooser(QWidget *):
-  KDialog( 0 )
+KWriteEditorChooser::KWriteEditorChooser(QWidget *parent):
+  KDialog( parent )
 {
     setCaption( i18n("Choose Editor Component") );
     setButtons( Ok | Cancel );

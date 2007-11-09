@@ -48,12 +48,7 @@ if (WIN32)
         ${CMAKE_INSTALL_PREFIX}/share/icons/oxygen/64x64/apps/kate.png
         ${CMAKE_INSTALL_PREFIX}/share/icons/oxygen/128x128/apps/kate.png
     )
-    kde4_add_win32_app_icon(kate ${kate_icons})
-    if(MINGW)
-        list(APPEND kate_KDEINIT_SRCS ${CMAKE_CURRENT_BINARY_DIR}/kate_res.o)
-    else(MINGW)
-        list(APPEND kate_KDEINIT_SRCS ${CMAKE_CURRENT_BINARY_DIR}/kate.rc)
-    endif(MINGW)    
+    kde4_add_win32_app_icon(kate kate_KDEINIT_SRCS ${kate_icons})
     kde4_add_executable(kate ${kate_KDEINIT_SRCS} )
     target_link_libraries( kate ${QT_QTMAIN_LIBRARY} ${KDE4_KDECORE_LIBS} kateinterfaces )
 else (WIN32)

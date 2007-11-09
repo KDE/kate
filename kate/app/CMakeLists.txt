@@ -39,8 +39,16 @@ install(TARGETS kateinterfaces  DESTINATION ${LIB_INSTALL_DIR} )
 set(kate_KDEINIT_SRCS katemain.cpp)
 
 if (WIN32)
+    configure_file(${KDE4_MODULE_DIR}/kde4init_dummy.cpp.in ${CMAKE_CURRENT_BINARY_DIR}/kate_dummy.cpp)
     list(APPEND kate_KDEINIT_SRCS ${CMAKE_CURRENT_BINARY_DIR}/kate_dummy.cpp)
-    kde4_add_win32_app_icon(kate "${kate_KDEINIT_SRCS}" "${CMAKE_INSTALL_PREFIX}/share/icons/oxygen/16x16/apps/kate.png ${CMAKE_INSTALL_PREFIX}/share/icons/oxygen/32x32/apps/kate.png")configure_file(${KDE4_MODULE_DIR}/kde4init_dummy.cpp.in ${CMAKE_CURRENT_BINARY_DIR}/kate_dummy.cpp)
+    set(kate_icons
+        ${CMAKE_INSTALL_PREFIX}/share/icons/oxygen/16x16/apps/kate.png
+        ${CMAKE_INSTALL_PREFIX}/share/icons/oxygen/32x32/apps/kate.png
+        ${CMAKE_INSTALL_PREFIX}/share/icons/oxygen/48x48/apps/kate.png
+        ${CMAKE_INSTALL_PREFIX}/share/icons/oxygen/64x64/apps/kate.png
+        ${CMAKE_INSTALL_PREFIX}/share/icons/oxygen/128x128/apps/kate.png
+    )
+    kde4_add_win32_app_icon(kate ${kate_icons})
     if(MINGW)
         list(APPEND kate_KDEINIT_SRCS ${CMAKE_CURRENT_BINARY_DIR}/kate_res.o)
     else(MINGW)

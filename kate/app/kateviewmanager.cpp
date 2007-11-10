@@ -129,7 +129,7 @@ void KateViewManager::setupActions ()
   a->setWhatsThis(i18n("Split the currently active view horizontally into two views."));
 
   m_closeView = m_mainWindow->actionCollection()->addAction("view_close_current_space");
-  m_closeView->setIcon( KIcon("view-remove") );
+  m_closeView->setIcon( KIcon("view-close") );
   m_closeView->setText( i18n("Cl&ose Current View") );
   m_closeView->setShortcut( Qt::CTRL + Qt::SHIFT + Qt::Key_R );
   connect(m_closeView, SIGNAL(triggered()), this, SLOT(slotCloseCurrentViewSpace()));

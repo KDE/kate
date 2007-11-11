@@ -3092,8 +3092,12 @@ void KateDocument::readSessionConfig(const KConfigGroup &kconfig)
 
 void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
 {
-  if ( this->url().isLocalFile() && !QDir(KGlobal::dirs()->relativeLocation("tmp", this->url().path())).isRoot())
-       return;
+  if ( this->url().isLocalFile() ) {
+    const QString path = this->url().path();
+    if ( KGlobal::dirs()->relativeLocation( "tmp", path ) != path ) {
+      return; // inside tmp resource, do not save
+    }
+  }
   // save url
   kconfig.writeEntry("URL", this->url().prettyUrl() );
 

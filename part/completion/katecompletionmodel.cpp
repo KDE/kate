@@ -1338,7 +1338,7 @@ void KateCompletionModel::Group::addItem( Item i, bool notifyModel )
       prefilter.insert(it, i);
       if (i.isVisible()) {
         int index = rows.indexOf(item.sourceRow());
-        if (index != -1) {
+        if (index == -1) {
           if (notifyModel)
             model->beginInsertRows(groupIndex, rows.count(), rows.count());
 

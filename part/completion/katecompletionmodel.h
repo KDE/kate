@@ -225,7 +225,9 @@ class KateCompletionModel : public ExpandingWidgetModel
       public:
         explicit Group(KateCompletionModel* model);
 
-        void addItem(Item i);
+        void addItem(Item i, bool notifyModel = false);
+        /// Removes the item specified by \a row.  Returns true if a change was made to rows.
+        bool removeItem(const ModelRow& row);
         void resort();
         void refilter();
         void clear();
@@ -243,6 +245,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     };
 
     void createGroups();
+    Group* createItem(KTextEditor::CodeCompletionModel* sourceModel, int row, bool notifyModel = false);
     void clearGroups();
     void hideOrShowGroup(Group* g);
     Group* fetchGroup(int attribute, const QString& scope = QString());

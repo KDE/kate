@@ -48,6 +48,7 @@ class KateCompletionTree : public ExpandingTree
 
   private slots:
     void resizeColumnsSlot();
+
   protected:
     virtual void currentChanged ( const QModelIndex & current, const QModelIndex & previous ); ///Not available as a signal in this way
     virtual void scrollContentsBy(int dx, int dy);

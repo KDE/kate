@@ -408,29 +408,75 @@ void KateCompletionModel::createGroups()
   clearGroups();
 
   foreach (CodeCompletionModel* sourceModel, m_completionModels)
-    for (int i = 0; i < sourceModel->rowCount(); ++i) {
-      QModelIndex sourceIndex = sourceModel->index(i, CodeCompletionModel::Name, QModelIndex());
-
-      int completionFlags = sourceIndex.data(CodeCompletionModel::CompletionRole).toInt();
-      QString scopeIfNeeded = (groupingMethod() & Scope) ? sourceModel->index(i, CodeCompletionModel::Scope, QModelIndex()).data(Qt::DisplayRole).toString() : QString();
-
-      int argumentHintDepth = sourceIndex.data(CodeCompletionModel::ArgumentHintDepth).toInt();
-
-      Group* g;
-      if( argumentHintDepth )
-        g = m_argumentHints;
-      else
-        g = fetchGroup(completionFlags, scopeIfNeeded);
-
-      g->addItem(Item(this, ModelRow(sourceModel, i)));
-    }
+    for (int i = 0; i < sourceModel->rowCount(); ++i)
+      createItem(sourceModel, i);
 
   //debugStats();
 
   resort();
   reset();
+}
 
-  rematch();
+KateCompletionModel::Group* KateCompletionModel::createItem(CodeCompletionModel* sourceModel, int row, bool notifyModel)
+{
+  QModelIndex sourceIndex = sourceModel->index(row, CodeCompletionModel::Name, QModelIndex());
+
+  int completionFlags = sourceIndex.data(CodeCompletionModel::CompletionRole).toInt();
+  QString scopeIfNeeded = (groupingMethod() & Scope) ? sourceModel->index(row, CodeCompletionModel::Scope, QModelIndex()).data(Qt::DisplayRole).toString() : QString();
+
+  int argumentHintDepth = sourceIndex.data(CodeCompletionModel::ArgumentHintDepth).toInt();
+
+  Group* g;
+  if( argumentHintDepth )
+    g = m_argumentHints;
+  else
+    g = fetchGroup(completionFlags, scopeIfNeeded);
+
+  Item item = Item(this, ModelRow(sourceModel, row));
+  item.match(m_currentMatch);
+
+  g->addItem(item, notifyModel);
+
+  return g;
+}
+
+void KateCompletionModel::slotRowsInserted( const QModelIndex & parent, int start, int end )
+{
+  if (!parent.isValid()) {
+    QSet<Group*> affectedGroups;
+
+    for (int i = start; i <= end; ++i)
+      affectedGroups << createItem(static_cast<CodeCompletionModel*>(sender()), i, true);
+
+    foreach (Group* g, affectedGroups)
+      hideOrShowGroup(g);
+
+  } else {
+    kWarning() << "Heirachical code completion models not supported.";
+  }
+}
+
+void KateCompletionModel::slotRowsRemoved( const QModelIndex & parent, int start, int end )
+{
+  if (!parent.isValid()) {
+    QSet<Group*> affectedGroups;
+
+    CodeCompletionModel* source = static_cast<CodeCompletionModel*>(sender());
+
+    for (int i = start; i <= end; ++i) {
+      Group* g = groupForIndex(mapFromSource(parent));
+      Q_ASSERT(g);
+
+      if (g->removeItem(ModelRow(source, i)))
+        affectedGroups << g;
+    }
+
+    foreach (Group* g, affectedGroups)
+      hideOrShowGroup(g);
+
+  } else {
+    kWarning() << "Heirachical code completion models not supported.";
+  }
 }
 
 KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, const QString& scope )
@@ -888,9 +934,10 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
       }
       if (hasGroups())
         beginInsertRows(QModelIndex(), row, row);
+      else
+        beginInsertRows(QModelIndex(), 0, g->rows.count());
       m_rowTable.insert(row, g);
-      if (hasGroups())
-        endInsertRows();
+      endInsertRows();
       m_emptyGroups.removeAll(g);
 
       // Cheating a bit here... we already display these rows
@@ -953,14 +1000,6 @@ bool KateCompletionModel::indexIsItem( const QModelIndex & index ) const
     return true;
 
   return false;
-}
-
-void KateCompletionModel::slotRowsInserted( const QModelIndex & /*parent*/, int /*start*/, int /*end*/ )
-{
-}
-
-void KateCompletionModel::slotRowsRemoved( const QModelIndex & /*parent*/, int /*start*/, int /*end*/ )
-{
 }
 
 void KateCompletionModel::slotModelReset()
@@ -1285,8 +1324,15 @@ QString KateCompletionModel::Item::completionSortingName( ) const
   return m_completionSortingName;
 }
 
-void KateCompletionModel::Group::addItem( Item i )
+void KateCompletionModel::Group::addItem( Item i, bool notifyModel )
 {
+  if (isEmpty)
+    notifyModel = false;
+
+  QModelIndex groupIndex;
+  if (notifyModel)
+    groupIndex = model->indexForGroup(this);
+
   if (model->isSortingEnabled()) {
     QList<Item>::Iterator it = model->isSortingReverse() ? qLowerBound(prefilter.begin(), prefilter.end(), i) : qUpperBound(prefilter.begin(), prefilter.end(), i);
     if (it != prefilter.end()) {
@@ -1294,24 +1340,68 @@ void KateCompletionModel::Group::addItem( Item i )
       prefilter.insert(it, i);
       if (i.isVisible()) {
         int index = rows.indexOf(item.sourceRow());
-        if (index != -1)
+        if (index != -1) {
+          if (notifyModel)
+            model->beginInsertRows(groupIndex, rows.count(), rows.count());
+
           rows.append(i.sourceRow());
-        else
+
+        } else {
+          if (notifyModel)
+            model->beginInsertRows(groupIndex, index, index);
+
           rows.insert(index, i.sourceRow());
+        }
+
+        if (notifyModel)
+          model->endInsertRows();
       }
     } else {
       prefilter.append(i);
-      if (i.isVisible())
-        if (model->isSortingReverse())
+      if (i.isVisible()) {
+        if (model->isSortingReverse()) {
+          if (notifyModel)
+            model->beginInsertRows(groupIndex, 0, 0);
+
           rows.prepend(i.sourceRow());
-        else
+
+        } else {
+          if (notifyModel)
+            model->beginInsertRows(groupIndex, rows.count(), rows.count());
+
           rows.append(i.sourceRow());
+        }
+
+        if (notifyModel)
+          model->endInsertRows();
+      }
     }
 
   } else {
     if (i.isVisible())
       prefilter.append(i);
   }
+}
+
+bool KateCompletionModel::Group::removeItem(const ModelRow& row)
+{
+  for (int pi = 0; pi < prefilter.count(); ++pi)
+    if (prefilter[pi].sourceRow() == row) {
+      int index = rows.indexOf(row);
+      if (index != -1)
+        model->beginRemoveRows(model->indexForGroup(this), index, index);
+
+      rows.removeAt(index);
+      prefilter.removeAt(pi);
+
+      if (index != -1)
+        model->endRemoveRows();
+
+      return index != -1;
+    }
+
+  Q_ASSERT(false);
+  return false;
 }
 
 KateCompletionModel::Group::Group( KateCompletionModel * m )

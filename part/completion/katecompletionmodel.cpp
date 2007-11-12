@@ -939,10 +939,6 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
       m_rowTable.insert(row, g);
       endInsertRows();
       m_emptyGroups.removeAll(g);
-
-      // Cheating a bit here... we already display these rows
-      //beginInsertRows(indexForGroup(g), 0, g->rows.count() - 1);
-      //endInsertRows();
     }
   }
 }
@@ -974,20 +970,22 @@ void KateCompletionModel::deleteRows( Group* g, QMutableListIterator<ModelRow> &
 
 void KateCompletionModel::addRows( Group * g, QMutableListIterator<ModelRow> & filtered, int startRow, const QList<ModelRow> & newItems )
 {
-  bool notify = true;
+  //bool notify = true;
 
   QModelIndex groupIndex = indexForGroup(g);
-  if (hasGroups() && !groupIndex.isValid())
+  //if (hasGroups() && !groupIndex.isValid())
     // Group is currently hidden... don't emit begin/endInsertRows.
-    notify = false;
+    //notify = false;
 
-  if (notify)
+  kDebug() << "Group" << g->title << "addRows" << startRow << "to " << (startRow + newItems.count() - 1);
+
+  //if (notify)
     beginInsertRows(groupIndex, startRow, startRow + newItems.count() - 1);
 
   for (int i = 0; i < newItems.count(); ++i)
     filtered.insert(newItems[i]);
 
-  if (notify)
+  //if (notify)
     endInsertRows();
 }
 

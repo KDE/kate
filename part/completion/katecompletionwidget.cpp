@@ -204,8 +204,9 @@ KateCompletionModel* KateCompletionWidget::model() {
 
 void KateCompletionWidget::rowsInserted(const QModelIndex& parent, int rowFrom, int rowEnd)
 {
-  for (int i = rowFrom; i <= rowEnd; ++i)
-    m_entryList->expand(m_presentationModel->index(i, 0, parent));
+  if (!parent.isValid())
+    for (int i = rowFrom; i <= rowEnd; ++i)
+      m_entryList->expand(m_presentationModel->index(i, 0, parent));
 }
 
 KateView * KateCompletionWidget::view( ) const

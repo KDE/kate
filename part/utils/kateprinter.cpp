@@ -47,6 +47,7 @@
 #include <QtGui/QGroupBox>
 #include <QtGui/QPrintDialog>
 #include <QtGui/QPrinter>
+#include <QtGui/QApplication>
 
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
@@ -73,7 +74,12 @@ bool KatePrinter::print (KateDocument *doc)
   tabs << kphf;
   tabs << kpl;
 
-  QPrintDialog *printDialog = KdePrint::createPrintDialog(&printer, tabs, doc->widget());
+  QWidget *parentWidget=doc->widget();
+
+  if ( !parentWidget )
+    parentWidget=QApplication::activeWindow();
+
+  QPrintDialog *printDialog = KdePrint::createPrintDialog(&printer, tabs, parentWidget);
 
   if ( doc->activeView()->selection() )
     printDialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);

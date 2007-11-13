@@ -414,6 +414,12 @@ class KateDocument : public KTextEditor::Document,
     QVector<KTextEditor::Range> searchRegex (const KTextEditor::Range & inputRange,
         QRegExp & regexp, bool backwards = false);
 
+  private:
+    /**
+     * Return a widget suitable to be used as a dialog parent.
+     */
+    QWidget * dialogParent();
+
   /*
    * Public string processing helpers
    */
@@ -1033,7 +1039,7 @@ class KateDocument : public KTextEditor::Document,
   public:
     void makeAttribs (bool needInvalidate = true);
 
-    static bool checkOverwrite( KUrl u );
+    static bool checkOverwrite( KUrl u, QWidget *parent );
 
   /**
    * Configuration

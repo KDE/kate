@@ -186,12 +186,12 @@ void KateSpell::spellCleanDone()
   K3Spell::spellStatus status = m_kspell->status();
 
   if( status == K3Spell::Error ) {
-    KMessageBox::sorry( 0,
+    KMessageBox::sorry( m_view,
       i18n("The spelling program could not be started. "
            "Please make sure you have set the correct spelling program "
            "and that it is properly configured and in your PATH."));
   } else if( status == K3Spell::Crashed ) {
-    KMessageBox::sorry( 0,
+    KMessageBox::sorry( m_view,
       i18n("The spelling program seems to have crashed."));
   }
 

@@ -31,6 +31,7 @@
 #include <kmessagebox.h>
 #include <kconfiggroup.h>
 
+#include <QtGui/QApplication>
 #include <QtCore/QFile>
 
 // use this to turn on over verbose debug output...
@@ -79,7 +80,7 @@ bool KateSyntaxDocument::setIdentifier(const QString& identifier)
 
       if (!success)
       {
-        KMessageBox::error(0L,i18n("<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>", identifier,
+        KMessageBox::error(QApplication::activeWindow(),i18n("<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>", identifier,
              line, col, i18nc("QXml",errorMsg.toUtf8())));
         return false;
       }
@@ -87,7 +88,7 @@ bool KateSyntaxDocument::setIdentifier(const QString& identifier)
     else
     {
       // Oh o, we couldn't open the file.
-      KMessageBox::error( 0L, i18n("Unable to open %1", identifier) );
+      KMessageBox::error(QApplication::activeWindow(), i18n("Unable to open %1", identifier) );
       return false;
     }
   }

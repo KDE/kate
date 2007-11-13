@@ -48,6 +48,7 @@
 
 #include <QtCore/QSet>
 #include <QtGui/QAction>
+#include <QtGui/QApplication>
 #include <QtCore/QStringList>
 #include <QtCore/QTextStream>
 //END
@@ -1401,7 +1402,7 @@ void KateHighlighting::makeContextList()
 
   // if there have been errors show them
   if (!errorsAndWarnings.isEmpty())
-  KMessageBox::detailedSorry(0L,i18n(
+  KMessageBox::detailedSorry(QApplication::activeWindow(),i18n(
         "There were warning(s) and/or error(s) while parsing the syntax "
         "highlighting configuration."),
         errorsAndWarnings, i18n("Kate Syntax Highlighting Parser"));
@@ -1553,7 +1554,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   if (!KateHlManager::self()->syntax->setIdentifier(ident))
   {
     noHl=true;
-    KMessageBox::information(0L,i18n(
+    KMessageBox::information(QApplication::activeWindow(),i18n(
         "Since there has been an error parsing the highlighting description, "
         "this highlighting will be disabled"));
     return 0;

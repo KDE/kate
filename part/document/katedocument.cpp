@@ -2283,7 +2283,20 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
   return result;
 }
 
+QWidget * KateDocument::dialogParent()
+{
+    QWidget *w=widget();
 
+    if(!w)
+    {
+        w=activeView();
+
+        if(!w)
+            w=QApplication::activeWindow();
+    }
+
+    return w;
+}
 
 QVector<KTextEditor::Range> KateDocument::searchText(
     const KTextEditor::Range & range,
@@ -3432,10 +3445,12 @@ bool KateDocument::openFile()
   //
   // display errors
   //
+  QWidget *parentWidget(dialogParent());
+
   if (!suppressOpeningErrorDialogs())
   {
     if (!success)
-      KMessageBox::error (widget(), i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.", this->url().pathOrUrl()));
+      KMessageBox::error (parentWidget, i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.", this->url().pathOrUrl()));
   }
 
   if (!success) {
@@ -3450,7 +3465,7 @@ bool KateDocument::openFile()
     setReadWrite( false );
 
     if(!suppressOpeningErrorDialogs())
-      KMessageBox::information (widget()
+      KMessageBox::information (parentWidget
         , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", this->url().pathOrUrl())
         , i18n ("Binary File Opened")
         , "Binary File Opened Warning");
@@ -3466,7 +3481,7 @@ bool KateDocument::openFile()
     setReadWrite( false );
 
     if (!suppressOpeningErrorDialogs())
-      KMessageBox::information (widget()
+      KMessageBox::information (parentWidget
         , i18n ("The file %1 was opened with UTF-8 encoding but contained invalid characters."
                 " It is set to read-only mode, as saving might destroy it's content."
                 " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl())
@@ -3486,10 +3501,12 @@ bool KateDocument::openFile()
 
 bool KateDocument::saveFile()
 {
+  QWidget *parentWidget(dialogParent());
+
   //
   // warn -> try to save binary file!!!!!!!
   //
-  if (m_buffer->binary() && (KMessageBox::warningContinueCancel (widget()
+  if (m_buffer->binary() && (KMessageBox::warningContinueCancel (parentWidget
         , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", url().pathOrUrl())
         , i18n ("Trying to Save Binary File")
         , KGuiItem(i18n("Save Nevertheless"))
@@ -3505,13 +3522,13 @@ bool KateDocument::saveFile()
 
       if (!isModified())
       {
-        if (KMessageBox::warningContinueCancel(0,
+        if (KMessageBox::warningContinueCancel(parentWidget,
                str + i18n("Do you really want to save this unmodified file? You could overwrite changed data in the file on disk."),i18n("Trying to Save Unmodified File"),KGuiItem(i18n("Save Nevertheless"))) != KMessageBox::Continue)
           return false;
       }
       else
       {
-        if (KMessageBox::warningContinueCancel(0,
+        if (KMessageBox::warningContinueCancel(parentWidget,
                str + i18n("Do you really want to save this file? Both your open file and the file on disk were changed. There could be some data lost."),i18n("Possible Data Loss"),KGuiItem(i18n("Save Nevertheless"))) != KMessageBox::Continue)
           return false;
       }
@@ -3522,7 +3539,7 @@ bool KateDocument::saveFile()
   // can we encode it if we want to save it ?
   //
   if (!m_buffer->canEncode ()
-       && (KMessageBox::warningContinueCancel(0,
+       && (KMessageBox::warningContinueCancel(parentWidget,
            i18n("The selected encoding cannot encode every unicode character in this document. Do you really want to save it? There could be some data lost."),i18n("Possible Data Loss"),KGuiItem(i18n("Save Nevertheless"))) != KMessageBox::Continue))
   {
     return false;
@@ -3586,7 +3603,7 @@ bool KateDocument::saveFile()
     }
 
     // backup has failed, ask user how to proceed
-    if (!backupSuccess && (KMessageBox::warningContinueCancel (widget()
+    if (!backupSuccess && (KMessageBox::warningContinueCancel (parentWidget
         , i18n ("For file %1 no backup copy could be created before saving."
                 " If an error occurs while saving, you might lose the data of this file."
                 " A reason could be that the media you write to is full or the directory of the file is read-only for you.", url().pathOrUrl())
@@ -3622,7 +3639,7 @@ bool KateDocument::saveFile()
     // add m_file again to dirwatch
     activateDirWatch (oldPath);
 
-    KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", this->url().pathOrUrl()));
+    KMessageBox::error (parentWidget, i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", this->url().pathOrUrl()));
 
     return false;
   }
@@ -3754,8 +3771,10 @@ bool KateDocument::closeUrl()
   {
     if (s_fileChangedDialogsActivated && m_modOnHd)
     {
+      QWidget *parentWidget(dialogParent());
+
       if (!(KMessageBox::warningContinueCancel(
-            widget(),
+            parentWidget,
             reasonedMOHString() + "\n\n" + i18n("Do you really want to continue to close this file? Data loss may occur."),
             i18n("Possible Data Loss"), KGuiItem(i18n("Close Nevertheless")), KStandardGuiItem::cancel(),
             QString("kate_close_modonhd_%1").arg( m_modOnHdReason ) ) == KMessageBox::Continue))
@@ -5132,23 +5151,25 @@ void KateDocument::slotModifiedOnDisk( KTextEditor::View * /*v*/ )
   {
     m_isasking = 1;
 
-    KateModOnHdPrompt p( this, m_modOnHdReason, reasonedMOHString(), widget() );
+    QWidget *parentWidget(dialogParent());
+
+    KateModOnHdPrompt p( this, m_modOnHdReason, reasonedMOHString(), parentWidget );
     switch ( p.exec() )
     {
       case KateModOnHdPrompt::Save:
       {
         m_modOnHd = false;
         KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
-            url().url(),QString(),widget(),i18n("Save File"));
+            url().url(),QString(),parentWidget,i18n("Save File"));
 
         kDebug(13020)<<"got "<<res.URLs.count()<<" URLs";
-        if( ! res.URLs.isEmpty() && ! res.URLs.first().isEmpty() && checkOverwrite( res.URLs.first() ) )
+        if( ! res.URLs.isEmpty() && ! res.URLs.first().isEmpty() && checkOverwrite( res.URLs.first(), parentWidget ) )
         {
           setEncoding( res.encoding );
 
           if( ! saveAs( res.URLs.first() ) )
           {
-            KMessageBox::error( widget(), i18n("Save failed") );
+            KMessageBox::error( parentWidget, i18n("Save failed") );
             m_modOnHd = true;
           }
           else
@@ -5214,8 +5235,10 @@ bool KateDocument::documentReload()
   {
     if (m_modOnHd && s_fileChangedDialogsActivated)
     {
+      QWidget *parentWidget(dialogParent());
+
       int i = KMessageBox::warningYesNoCancel
-                (0, reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
+                (parentWidget, reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
                 i18n("File Was Changed on Disk"), KGuiItem(i18n("&Reload File")), KGuiItem(i18n("&Ignore Changes")));
 
       if ( i != KMessageBox::Yes)
@@ -5294,10 +5317,12 @@ bool KateDocument::documentSave()
 
 bool KateDocument::documentSaveAs()
 {
-  KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
-                url().url(),QString(),0,i18n("Save File"));
+  QWidget *parentWidget(dialogParent());
 
-  if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first() ) )
+  KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
+                url().url(),QString(),parentWidget,i18n("Save File"));
+
+  if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first(), parentWidget ) )
     return false;
 
   setEncoding( res.encoding );
@@ -5883,10 +5908,12 @@ void KateDocument::slotQueryClose_save(bool *handled, bool* abortClosing) {
       *abortClosing=true;
       if (this->url().isEmpty())
       {
-        KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
-                QString(),QString(),0,i18n("Save File"));
+        QWidget *parentWidget(dialogParent());
 
-        if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first() ) ) {
+        KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
+                QString(),QString(),parentWidget,i18n("Save File"));
+
+        if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first(), parentWidget ) ) {
                 *abortClosing=true;
                 return;
         }
@@ -5902,7 +5929,7 @@ void KateDocument::slotQueryClose_save(bool *handled, bool* abortClosing) {
 
 }
 
-bool KateDocument::checkOverwrite( KUrl u )
+bool KateDocument::checkOverwrite( KUrl u, QWidget *parent )
 {
   if( !u.isLocalFile() )
     return true;
@@ -5911,7 +5938,7 @@ bool KateDocument::checkOverwrite( KUrl u )
   if( !info.exists() )
     return true;
 
-  return KMessageBox::Cancel != KMessageBox::warningContinueCancel( 0,
+  return KMessageBox::Cancel != KMessageBox::warningContinueCancel( parent,
     i18n( "A file named \"%1\" already exists. "
           "Are you sure you want to overwrite it?" ,  info.fileName() ),
     i18n( "Overwrite File?" ),

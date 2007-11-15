@@ -444,7 +444,7 @@ void KWrite::writeConfig(KConfigGroup &config)
 {
   config.writeEntry("ShowStatusBar",m_paShowStatusBar->isChecked());
   config.writeEntry("ShowPath",m_paShowPath->isChecked());
-
+  
   config.changeGroup("Recent Files");
   m_recentFiles->saveEntries(config);
 
@@ -499,18 +499,18 @@ void KWrite::saveGlobalProperties(KConfig *_config) //save documents
   for (int z = 1; z <= docList.count(); z++)
   {
      QString buf = QString("Document %1").arg(z);
-     config.changeGroup(buf);
+     KConfigGroup newGroup(_config,buf);
 
      KTextEditor::Document *doc = docList.at(z - 1);
 
      if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
-       iface->writeSessionConfig(config);
+       iface->writeSessionConfig(newGroup);
   }
 
   for (int z = 1; z <= winList.count(); z++)
   {
      QString buf = QString("Window %1").arg(z);
-     config.changeGroup(buf);
+     KConfigGroup newGroup(_config,buf);
 
      config.writeEntry("DocumentNumber",docList.indexOf(winList.at(z-1)->view()->document()) + 1);
   }
@@ -545,11 +545,11 @@ void KWrite::restore()
   for (int z = 1; z <= docs; z++)
   {
      buf = QString("Document %1").arg(z);
-     cg.changeGroup(buf);
+     KConfigGroup newGroup(config,buf);
      doc=editor->createDocument(0);
 
      if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
-       iface->readSessionConfig(cg);
+       iface->readSessionConfig(newGroup);
      docList.append(doc);
   }
 

@@ -1,5 +1,4 @@
 [Desktop Entry]
-Encoding=UTF-8
 GenericName=Text Editor
 GenericName[af]=Teks Redigeerder
 GenericName[ar]=محرر نصوص
@@ -81,7 +80,6 @@ MimeType=text/plain;
 Exec=kwrite %U
 X-KDE-StartupNotify=true
 Icon=kwrite
-Path=
 X-DocPath=kwrite/index.html
 Type=Application
 Terminal=false

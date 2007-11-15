@@ -1,7 +1,6 @@
 [Desktop Entry]
-Encoding=UTF-8
 Type=Service
-ServiceTypes=KCModule
+X-KDE-ServiceTypes=KCModule
 
 X-KDE-Library=ktexteditor_docwordcompletion
 X-KDE-ParentComponents=ktexteditordocwordcompletion

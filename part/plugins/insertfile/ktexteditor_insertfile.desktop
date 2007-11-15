@@ -1,5 +1,4 @@
 [Desktop Entry]
-Encoding=UTF-8
 X-KDE-Library=ktexteditor_insertfile
 X-KDE-PluginInfo-Author=
 X-KDE-PluginInfo-Email=
@@ -12,7 +11,7 @@ X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 X-KDE-ParentApp=kate
 X-KDE-Version=4.0
-ServiceTypes=KTextEditor/Plugin
+X-KDE-ServiceTypes=KTextEditor/Plugin
 Type=Service
 Icon=speaker
 Name=Insert File

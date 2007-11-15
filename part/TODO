@@ -26,6 +26,9 @@ TODO:
 
 * fail to draw background colour on the last viewline of dynamically wrapped lines
 
+* memory usage
+  * we currently use x16 the size of a file when in memory
+
 **** Refactoring/Cleanups ****
 * code cleanups wherever needed ;)
 

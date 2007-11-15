@@ -512,7 +512,7 @@ void KWrite::saveGlobalProperties(KConfig *_config) //save documents
      QString buf = QString("Window %1").arg(z);
      KConfigGroup newGroup(_config,buf);
 
-     config.writeEntry("DocumentNumber",docList.indexOf(winList.at(z-1)->view()->document()) + 1);
+     newGroup.writeEntry("DocumentNumber",docList.indexOf(winList.at(z-1)->view()->document()) + 1);
   }
 }
 

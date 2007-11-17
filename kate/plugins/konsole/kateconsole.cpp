@@ -104,7 +104,7 @@ KateKonsolePluginView::KateKonsolePluginView (Kate::MainWindow *mainWindow)
     : Kate::PluginView (mainWindow)
 {
   // init console
-  QWidget *toolview = mainWindow->createToolView ("kate_private_plugin_katekonsoleplugin", Kate::MainWindow::Bottom, SmallIcon("konsole"), i18n("Terminal"));
+  QWidget *toolview = mainWindow->createToolView ("kate_private_plugin_katekonsoleplugin", Kate::MainWindow::Bottom, SmallIcon("utilities-terminal"), i18n("Terminal"));
   m_console = new KateConsole(mainWindow, toolview);
 }
 
@@ -137,7 +137,7 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
   connect(a, SIGNAL(triggered()), this, SLOT(slotManualSync()));
 
   a = actionCollection()->addAction("katekonsole_tools_toggle_focus");
-  a->setIcon(KIcon("terminal"));
+  a->setIcon(KIcon("utilities-terminal"));
   a->setText(i18n("&Focus Terminal"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotToggleFocus()));
 

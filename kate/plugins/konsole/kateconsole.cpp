@@ -91,7 +91,7 @@ QString KateKonsolePlugin::configPageFullName (uint number) const
 KIcon KateKonsolePlugin::configPageIcon (uint number) const
 {
   if (number != 0) return KIcon();
-  return KIcon("terminal");
+  return KIcon("utilities-terminal");
 }
 
 void KateKonsolePlugin::readConfig()

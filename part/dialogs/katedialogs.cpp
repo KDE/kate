@@ -540,7 +540,7 @@ void KateEditKeyConfiguration::showEvent ( QShowEvent * )
   {
 	m_actionCollection = m_view->editActionCollection();
 
-    QVBoxLayout *layout = new QVBoxLayout(this);	
+    QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(m_shortcutsEditor = new KShortcutsEditor( m_actionCollection, this, false ));
     connect( m_shortcutsEditor, SIGNAL( keyChange() ), this, SLOT( slotChanged() ) );
 
@@ -893,8 +893,9 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   list->setColumnCount(4);
   list->setHeaderLabels(QStringList() << "" << i18n("Name") << i18n("Installed") << i18n("Latest"));
   list->setSelectionMode(QAbstractItemView::MultiSelection);
-  // KDE4 replacement?
-  //list->setAllColumnsShowFocus(true);
+  list->setAllColumnsShowFocus(true);
+  list->setRootIsDecorated(false);
+  list->setColumnWidth(0, 22);
 
   new QLabel(i18n("<b>Note:</b> New versions are selected automatically."), vbox);
   setButtonIcon(User1, KIcon("ok"));
@@ -974,6 +975,7 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
           entry->setIcon(0, SmallIcon(("get-hot-new-stuff")));
         }
       }
+      list->resizeColumnToContents(1);
     }
   }
 }

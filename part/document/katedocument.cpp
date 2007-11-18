@@ -6063,7 +6063,7 @@ void KateDocument::addHighlightToDocument( KTextEditor::SmartRange * topRange, b
   }
 
   foreach (KateView * view, m_views)
-    view->addHighlightRange(topRange);
+    view->addExternalHighlight(topRange, supportDynamic);
 }
 
 void KateDocument::removeHighlightFromDocument( KTextEditor::SmartRange * topRange )
@@ -6072,7 +6072,7 @@ void KateDocument::removeHighlightFromDocument( KTextEditor::SmartRange * topRan
     return;
 
   foreach (KateView * view, m_views)
-    view->removeHighlightRange(topRange);
+    view->removeExternalHighlight(topRange);
 
   m_documentHighlights.removeAll(topRange);
   topRange->removeWatcher(this);

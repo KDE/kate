@@ -111,6 +111,7 @@ class KateDocument : public KTextEditor::Document,
                   QWidget *parentWidget = 0, QObject * = 0);
     ~KateDocument ();
 
+    using ReadWritePart::closeUrl;
     bool closeUrl();
 
     KTextEditor::Editor *editor ();

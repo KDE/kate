@@ -274,10 +274,6 @@ class KateView : public KTextEditor::View,
     const QList<KTextEditor::SmartRange*>& actions() const;
     void clearActions();
 
-    // For the document to pass new document-level highlighting ranges in
-    void addHighlightRange(KTextEditor::SmartRange* range);
-    void removeHighlightRange(KTextEditor::SmartRange* range);
-
   Q_SIGNALS:
     void dynamicHighlightAdded(KateSmartRange* range);
     void dynamicHighlightRemoved(KateSmartRange* range);

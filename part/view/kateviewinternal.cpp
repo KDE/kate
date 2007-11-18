@@ -96,11 +96,15 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_imPreedit(0L)
   , m_smartDirty(false)
 {
+  m_watcherCount1 = 0;
+  m_watcherCount2 = 0;
+  m_watcherCount3 = 0;
+
   updateBracketMarkAttributes();
   
   setMinimumSize (0,0);
   setAttribute(Qt::WA_OpaquePaintEvent);
-  //setAttribute(Qt::WA_InputMethodEnabled);
+  setAttribute(Qt::WA_InputMethodEnabled);
 
   // cursor
   m_cursor.setInsertBehavior (KTextEditor::SmartCursor::MoveOnInsert);
@@ -218,16 +222,20 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   connect(this, SIGNAL(requestViewUpdate()), this, SLOT(updateView()), Qt::QueuedConnection);
 }
 
-void removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
+void KateViewInternal::removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
 {
+  if (range->watchers().contains(this))
+    --m_watcherCount1;
   range->removeWatcher(watcher);
   foreach (KTextEditor::SmartRange* child, range->childRanges())
     removeWatcher(child, watcher);
 }
 
-void addWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
+void KateViewInternal::addWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
 {
+  ++m_watcherCount1;
   range->addWatcher(watcher);
+
   foreach (KTextEditor::SmartRange* child, range->childRanges())
     addWatcher(child, watcher);
 }
@@ -239,10 +247,9 @@ KateViewInternal::~KateViewInternal ()
 
   qDeleteAll(m_dynamicHighlights);
 
-  // FIXME
-  //delete m_bmEnd;
-  //delete m_bmStart;
-  //delete m_bm;
+  delete m_imPreedit;
+
+  //kDebug() << m_watcherCount1 << m_watcherCount2 << m_watcherCount3;
 }
 
 void KateViewInternal::prepareForDynWrapChange()
@@ -1885,9 +1892,14 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
 {
   if (realCursors)
   {
+    cache()->relayoutLines(start.line(), end.line());
+
     //kDebug(13030)<<"realLines is true";
     start = toVirtualCursor(start);
     end = toVirtualCursor(end);
+
+  } else {
+    cache()->relayoutLines(toRealCursor(start).line(), toRealCursor(end).line());
   }
 
   if (end.line() < startLine())
@@ -1913,7 +1925,7 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
     if ((line.virtualLine() > start.line() || (line.virtualLine() == start.line() && line.endCol() >= start.column() && start.column() != -1)) &&
         (line.virtualLine() < end.line() || (line.virtualLine() == end.line() && (line.startCol() <= end.column() || end.column() == -1)))) {
       ret = true;
-      line.setDirty();
+      break;
       //kDebug(13030) << "Tagged line " << line.line();
     }
   }
@@ -3326,6 +3338,7 @@ void KateViewInternal::rangeDeleted( KTextEditor::SmartRange * range )
 void KateViewInternal::childRangeInserted( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
 {
   relayoutRange(*child);
+  ++m_watcherCount2;
   child->addWatcher(this);
 }
 
@@ -3338,18 +3351,25 @@ void KateViewInternal::rangeAttributeChanged( KTextEditor::SmartRange * range, K
 void KateViewInternal::childRangeRemoved( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
 {
   relayoutRange(*child);
+  if (child->watchers().contains(this))
+    --m_watcherCount2;
   child->removeWatcher(this);
 }
 
 void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
 {
   relayoutRange(*range);
+  ++m_watcherCount3;
+  //kDebug() << range;
   addWatcher(range, this);
 }
 
 void KateViewInternal::removeHighlightRange(KTextEditor::SmartRange* range)
 {
   relayoutRange(*range);
+  if (range->watchers().contains(this))
+    --m_watcherCount3;
+  //kDebug() << range;
   removeWatcher(range, this);
 }
 

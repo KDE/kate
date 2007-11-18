@@ -1896,14 +1896,14 @@ void KateView::addInternalHighlight( KTextEditor::SmartRange * topRange )
 {
   m_internalHighlights.append(topRange);
 
-  addHighlightRange(topRange);
+  m_viewInternal->addHighlightRange(topRange);
 }
 
 void KateView::removeInternalHighlight( KTextEditor::SmartRange * topRange )
 {
   m_internalHighlights.removeAll(topRange);
 
-  removeHighlightRange(topRange);
+  m_viewInternal->removeHighlightRange(topRange);
 }
 
 const QList< KTextEditor::SmartRange * > & KateView::internalHighlights( ) const
@@ -1932,7 +1932,7 @@ void KateView::addExternalHighlight( KTextEditor::SmartRange * topRange, bool su
     emit dynamicHighlightAdded(static_cast<KateSmartRange*>(topRange));
   }
 
-  addHighlightRange(topRange);
+  m_viewInternal->addHighlightRange(topRange);
 }
 
 void KateView::removeExternalHighlight( KTextEditor::SmartRange * topRange )
@@ -1950,22 +1950,12 @@ void KateView::removeExternalHighlight( KTextEditor::SmartRange * topRange )
     emit dynamicHighlightRemoved(static_cast<KateSmartRange*>(topRange));
   }
 
-  removeHighlightRange(topRange);
+  m_viewInternal->removeHighlightRange(topRange);
 }
 
 const QList< KTextEditor::SmartRange * > & KateView::externalHighlights( ) const
 {
   return m_externalHighlights;
-}
-
-void KateView::addHighlightRange( KTextEditor::SmartRange * range )
-{
-  m_viewInternal->addHighlightRange(range);
-}
-
-void KateView::removeHighlightRange( KTextEditor::SmartRange * range )
-{
-  m_viewInternal->removeHighlightRange(range);
 }
 
 void KateView::addActions( KTextEditor::SmartRange * topRange )

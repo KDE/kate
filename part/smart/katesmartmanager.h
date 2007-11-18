@@ -24,7 +24,6 @@
 #include <QtCore/QLinkedList>
 
 #include <ktexteditor/smartrange.h>
-#include <ktexteditor/rangefeedback.h>
 
 #include "kateedit.h"
 
@@ -39,7 +38,7 @@ class KateSmartGroup;
  * \todo potential performance optimization: use separate sets for internal and non-internal cursors + ranges
  * \todo potential performance optimization: bypass unhooking routines when clearing
  */
-class KateSmartManager : public QObject, private KTextEditor::SmartRangeWatcher
+class KateSmartManager : public QObject
 {
   Q_OBJECT
 

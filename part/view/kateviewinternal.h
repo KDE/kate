@@ -437,6 +437,10 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
   private:
     QHash<KateSmartRange*, DynamicRangeHL*> m_dynamicHighlights;
     bool m_smartDirty;
+
+    void removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
+    void addWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
+    int m_watcherCount1, m_watcherCount2, m_watcherCount3;
 };
 
 #endif

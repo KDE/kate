@@ -106,9 +106,6 @@ class KateLayoutCache : public QObject
     void viewCacheDebugOutput() const;
     // END
 
-    // Methods for invalidation of layouts
-    // Methods for tagging layouts as dirty
-
 private Q_SLOTS:
     void slotEditDone(KateEditInfo* edit);
 

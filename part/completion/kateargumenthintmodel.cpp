@@ -55,10 +55,14 @@ void KateArgumentHintModel::buildRows() {
       m_rows.push_front(row);//Insert rows in reversed order
     m_rows.push_front( -it.key() );
   }
+  
+  reset();
+  emit contentStateChanged(!m_rows.isEmpty());
 }
 
 KateArgumentHintModel::KateArgumentHintModel( KateCompletionWidget* parent ) : ExpandingWidgetModel(parent), m_parent(parent) {
   connect(parent->model(), SIGNAL(modelReset()), this, SLOT(parentModelReset()));
+  connect(parent->model(), SIGNAL(argumentHintsChanged()), this, SLOT(parentModelReset()));
 }
 
 QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) const {

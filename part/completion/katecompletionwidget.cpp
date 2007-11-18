@@ -131,6 +131,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   // Keep branches expanded
   connect(m_presentationModel, SIGNAL(modelReset()), this, SLOT(modelReset()), Qt::QueuedConnection);
   connect(m_presentationModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(rowsInserted(const QModelIndex&, int, int)));
+  connect(m_argumentHintModel, SIGNAL(contentStateChanged(bool)), this, SLOT(argumentHintsChanged(bool)));
 
   connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(cursorPositionChanged()));
   connect(view()->doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(editDone(KateEditInfo*)), Qt::QueuedConnection);
@@ -214,6 +215,17 @@ KateView * KateCompletionWidget::view( ) const
   return static_cast<KateView*>(const_cast<QObject*>(parent()));
 }
 
+void KateCompletionWidget::argumentHintsChanged(bool hasContent)
+{
+  kDebug() << "showing argument-hints, have rows" << m_argumentHintModel->rowCount(QModelIndex());
+  m_dontShowArgumentHints = !hasContent;
+  
+  if( m_dontShowArgumentHints )
+    m_argumentHintTree->hide();
+  else
+    updateArgumentHintGeometry();
+}
+
 void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTextEditor::CodeCompletionModel * model, KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
   m_isSuspended = false;
@@ -274,8 +286,7 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
 
     m_argumentHintModel->buildRows();
     if( m_argumentHintModel->rowCount(QModelIndex()) != 0 ) {
-      m_dontShowArgumentHints = false;
-      updateArgumentHintGeometry();
+      argumentHintsChanged(true);
     }
   }
 

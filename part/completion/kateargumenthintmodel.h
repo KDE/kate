@@ -48,6 +48,8 @@ class KateArgumentHintModel : public ExpandingWidgetModel {
     virtual int contextMatchQuality(const QModelIndex& row) const;
   public slots:
     void parentModelReset();
+  signals:
+    void contentStateChanged(bool hasContent);
   private:
     KateCompletionModel::Group* group() const;
     KateCompletionModel* model() const;

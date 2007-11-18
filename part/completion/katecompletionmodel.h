@@ -163,6 +163,8 @@ class KateCompletionModel : public ExpandingWidgetModel
 
   Q_SIGNALS:
     void expandIndex(const QModelIndex& index);
+    //Emitted whenever something has changed about the group of argument-hints
+    void argumentHintsChanged();
 
   public Q_SLOTS:
     void setSortingEnabled(bool enable);

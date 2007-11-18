@@ -899,8 +899,10 @@ bool KateCompletionModel::Group::orderBefore(Group* other) const {
 
 void KateCompletionModel::hideOrShowGroup(Group* g)
 {
-  if( g == m_argumentHints )
+  if( g == m_argumentHints ) {
+    emit argumentHintsChanged();
     return; //Never show argument-hints in the normal completion-list
+  }
 
   if (!g->isEmpty) {
     if (g->rows.isEmpty()) {

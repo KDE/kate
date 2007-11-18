@@ -114,6 +114,7 @@ class KateCompletionWidget : public QFrame
     void automaticInvocation();
 
     void updateFocus();
+    void argumentHintsChanged(bool hasContent);
     
   protected:
     virtual void showEvent ( QShowEvent * event );

@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2002-2005 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2002-2007 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002 Christoph Cullmann <cullmann@kde.org>
@@ -261,6 +261,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
     // Bracket mark and corresponding decorative ranges
     KateSmartRange *m_bm, *m_bmStart, *m_bmEnd;
+    bool m_bmHighlighted;
     void updateBracketMarkAttributes();
 
     enum DragState { diNone, diPending, diDragging };
@@ -440,7 +441,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
     void removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
     void addWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
-    int m_watcherCount1, m_watcherCount2, m_watcherCount3;
+    int m_watcherCount1, m_watcherCount3;
 };
 
 #endif

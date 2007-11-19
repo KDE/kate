@@ -2,7 +2,7 @@
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002,2003 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 2002-2005 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2002-2007 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2003 Anakim Border <aborder@sources.sourceforge.net>
    Copyright (C) 2007 Mirko Stocker <me@misto.ch>
 
@@ -69,6 +69,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_bm(doc->smartManager()->newSmartRange())
   , m_bmStart(doc->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
   , m_bmEnd(doc->smartManager()->newSmartRange(KTextEditor::Range(), m_bm))
+  , m_bmHighlighted(false)
   , m_dummy (0)
 
   // stay on cursor will avoid that the view scroll around on press return at beginning
@@ -97,7 +98,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_smartDirty(false)
 {
   m_watcherCount1 = 0;
-  m_watcherCount2 = 0;
   m_watcherCount3 = 0;
 
   updateBracketMarkAttributes();
@@ -224,17 +224,28 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
 void KateViewInternal::removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
 {
-  if (range->watchers().contains(this))
+  if (range->watchers().contains(this)) {
     --m_watcherCount1;
-  range->removeWatcher(watcher);
+    range->removeWatcher(watcher);
+    //kDebug() << *range;
+  }
+
   foreach (KTextEditor::SmartRange* child, range->childRanges())
     removeWatcher(child, watcher);
 }
 
 void KateViewInternal::addWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
 {
-  ++m_watcherCount1;
-  range->addWatcher(watcher);
+  //kDebug() << range << watcher;
+
+  //Q_ASSERT(!range->watchers().contains(watcher));
+
+  if (!range->watchers().contains(watcher)) {
+    range->addWatcher(watcher);
+    ++m_watcherCount1;
+    Q_ASSERT(range->watchers().contains(watcher));
+    //kDebug() << *range;
+  }
 
   foreach (KTextEditor::SmartRange* child, range->childRanges())
     addWatcher(child, watcher);
@@ -249,7 +260,7 @@ KateViewInternal::~KateViewInternal ()
 
   delete m_imPreedit;
 
-  //kDebug() << m_watcherCount1 << m_watcherCount2 << m_watcherCount3;
+  //kDebug() << m_watcherCount1 << m_watcherCount3;
 }
 
 void KateViewInternal::prepareForDynWrapChange()
@@ -1840,8 +1851,11 @@ void KateViewInternal::updateBracketMarkAttributes()
 
 void KateViewInternal::updateBracketMarks()
 {
-  m_doc->removeHighlightFromView(m_view, m_bmStart);
-  m_doc->removeHighlightFromView(m_view, m_bmEnd);
+  if (m_bmHighlighted) {
+    view()->removeInternalHighlight(m_bmStart);
+    view()->removeInternalHighlight(m_bmEnd);
+    m_bmHighlighted = false;
+  }
 
   if ( m_bm->isValid() ) {
     tagRange(*m_bmStart, true);
@@ -1862,8 +1876,9 @@ void KateViewInternal::updateBracketMarks()
     tagRange(*m_bmStart, true);
     tagRange(*m_bmEnd, true);
 
-    m_doc->addHighlightToView(m_view, m_bmStart, true);
-    m_doc->addHighlightToView(m_view, m_bmEnd, true);
+    view()->addInternalHighlight(m_bmStart);
+    view()->addInternalHighlight(m_bmEnd);
+    m_bmHighlighted = true;
   }
 }
 
@@ -3338,8 +3353,7 @@ void KateViewInternal::rangeDeleted( KTextEditor::SmartRange * range )
 void KateViewInternal::childRangeInserted( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
 {
   relayoutRange(*child);
-  ++m_watcherCount2;
-  child->addWatcher(this);
+  addWatcher(child, this);
 }
 
 void KateViewInternal::rangeAttributeChanged( KTextEditor::SmartRange * range, KTextEditor::Attribute::Ptr currentAttribute, KTextEditor::Attribute::Ptr previousAttribute )
@@ -3351,25 +3365,20 @@ void KateViewInternal::rangeAttributeChanged( KTextEditor::SmartRange * range, K
 void KateViewInternal::childRangeRemoved( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
 {
   relayoutRange(*child);
-  if (child->watchers().contains(this))
-    --m_watcherCount2;
-  child->removeWatcher(this);
+  removeWatcher(child, this);
 }
 
 void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
 {
   relayoutRange(*range);
   ++m_watcherCount3;
-  //kDebug() << range;
   addWatcher(range, this);
 }
 
 void KateViewInternal::removeHighlightRange(KTextEditor::SmartRange* range)
 {
   relayoutRange(*range);
-  if (range->watchers().contains(this))
-    --m_watcherCount3;
-  //kDebug() << range;
+  --m_watcherCount3;
   removeWatcher(range, this);
 }
 

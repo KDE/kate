@@ -534,9 +534,7 @@ void KateViewInternal::scrollColumns ( int x )
 // If changed is true, the lines that have been set dirty have been updated.
 void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 {
-#ifndef KTEXTEDITOR_NO_SMART_THREADSAFE
   QMutexLocker lock(m_doc->smartMutex());
-#endif
 
   doUpdateView(changed, viewLinesScrolled);
 
@@ -546,10 +544,6 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 
 void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
 {
-#ifndef KTEXTEDITOR_NO_SMART_THREADSAFE
-  Q_ASSERT(m_doc->isSmartLocked() || thread() == QThread::currentThread());
-#endif
-
   m_updatingView = true;
 
   bool blocked = m_lineScroll->blockSignals(true);
@@ -2691,12 +2685,10 @@ void KateViewInternal::updateDirty( )
 
 void KateViewInternal::paintEvent(QPaintEvent *e)
 {
-#ifndef KTEXTEDITOR_NO_SMART_THREADSAFE
   QMutexLocker lock(m_doc->smartMutex());
 
   if (m_smartDirty)
     doUpdateView();
-#endif
 
   if (debugPainting) kDebug (13030) << "GOT PAINT EVENT: Region" << e->region();
 
@@ -3155,6 +3147,8 @@ KateRenderer * KateViewInternal::renderer( ) const
 
 void KateViewInternal::dynamicHighlightAdded( KateSmartRange * range )
 {
+  QMutexLocker lock(m_doc->smartMutex());
+
   DynamicRangeHL* hl = new DynamicRangeHL(range);
   hl->isView = view() == sender();
 
@@ -3169,6 +3163,8 @@ void KateViewInternal::dynamicHighlightAdded( KateSmartRange * range )
 
 void KateViewInternal::dynamicHighlightRemoved( KateSmartRange * range )
 {
+  QMutexLocker lock(m_doc->smartMutex());
+
   removeWatcher(range, this);
 
   delete m_dynamicHighlights.take(range);
@@ -3176,6 +3172,8 @@ void KateViewInternal::dynamicHighlightRemoved( KateSmartRange * range )
 
 void KateViewInternal::rangeDeleted( KateSmartRange * range )
 {
+  QMutexLocker lock(m_doc->smartMutex());
+
   if (m_dynamicHighlights.contains(range)) {
     delete m_dynamicHighlights.take(range);
     return;
@@ -3201,6 +3199,8 @@ void KateViewInternal::rangeDeleted( KateSmartRange * range )
 
 void KateViewInternal::startDynamic( DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type )
 {
+  QMutexLocker lock(m_doc->smartMutex());
+
   if (type == KTextEditor::Attribute::ActivateMouseIn)
     range->setMouseOver(true);
   else
@@ -3227,6 +3227,8 @@ void KateViewInternal::startDynamic( DynamicRangeHL* hl, KateSmartRange* range, 
 
 void KateViewInternal::endDynamic( DynamicRangeHL* hl, KateSmartRange* range, KTextEditor::Attribute::ActivationType type )
 {
+  QMutexLocker lock(m_doc->smartMutex());
+
   if (type == KTextEditor::Attribute::ActivateMouseIn)
     range->setMouseOver(false);
   else
@@ -3264,6 +3266,8 @@ void KateViewInternal::updateRange(KateSmartRange* range)
 
 void KateViewInternal::dynamicMoved( bool mouse )
 {
+  QMutexLocker lock(m_doc->smartMutex());
+
   foreach (DynamicRangeHL* hl, m_dynamicHighlights) {
     QStack<KTextEditor::SmartRange*> enterStack, exitStack;
     KTextEditor::SmartRange* oldRange = mouse ? hl->mouseOver : hl->caretOver;
@@ -3329,15 +3333,10 @@ void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool rea
 //   kDebug()<<"KateViewInternal::relayoutRange(): startLine:"<<startLine<<" endLine:"<<endLine;
   cache()->relayoutLines(startLine, endLine);
 
-#ifndef KTEXTEDITOR_NO_SMART_THREADSAFE
-  //Q_ASSERT(m_doc->isSmartLocked() || thread() == QThread::currentThread());
   if (!m_smartDirty) {
     m_smartDirty = true;
     emit requestViewUpdate();
   }
-#else
-  emit requestViewUpdate();
-#endif
 }
 
 void KateViewInternal::rangePositionChanged( KTextEditor::SmartRange * range )
@@ -3352,6 +3351,8 @@ void KateViewInternal::rangeDeleted( KTextEditor::SmartRange * range )
 
 void KateViewInternal::childRangeInserted( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
 {
+  QMutexLocker lock(m_doc->smartMutex());
+
   relayoutRange(*child);
   addWatcher(child, this);
 }
@@ -3364,12 +3365,16 @@ void KateViewInternal::rangeAttributeChanged( KTextEditor::SmartRange * range, K
 
 void KateViewInternal::childRangeRemoved( KTextEditor::SmartRange *, KTextEditor::SmartRange * child )
 {
+  QMutexLocker lock(m_doc->smartMutex());
+
   relayoutRange(*child);
   removeWatcher(child, this);
 }
 
 void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
 {
+  QMutexLocker lock(m_doc->smartMutex());
+
   relayoutRange(*range);
   ++m_watcherCount3;
   addWatcher(range, this);
@@ -3377,6 +3382,8 @@ void KateViewInternal::addHighlightRange(KTextEditor::SmartRange* range)
 
 void KateViewInternal::removeHighlightRange(KTextEditor::SmartRange* range)
 {
+  QMutexLocker lock(m_doc->smartMutex());
+
   relayoutRange(*range);
   --m_watcherCount3;
   removeWatcher(range, this);

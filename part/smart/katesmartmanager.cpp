@@ -23,6 +23,7 @@
 #include "katesmartrange.h"
 
 #include <QThread>
+#include <QMutexLocker>
 
 #include <kdebug.h>
 
@@ -178,6 +179,8 @@ KateSmartGroup * KateSmartManager::groupForLine( int line ) const
 
 void KateSmartManager::slotTextChanged(KateEditInfo* edit)
 {
+  QMutexLocker lock(doc()->smartMutex());
+
   KateSmartGroup* firstSmartGroup = groupForLine(edit->oldRange().start().line());
   KateSmartGroup* currentGroup = firstSmartGroup;
 

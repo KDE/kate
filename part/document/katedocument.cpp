@@ -338,6 +338,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
+  // Tell the world that we're about to close (== destruct)
+  emit aboutToClose(this);
+
   // remove file from dirwatch
   deactivateDirWatch ();
 

@@ -229,6 +229,7 @@ void KateCompletionWidget::argumentHintsChanged(bool hasContent)
 void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTextEditor::CodeCompletionModel * model, KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
   m_isSuspended = false;
+  m_inCompletionList = true; //Always start at the top of the completion-list
 
   m_dontShowArgumentHints = true;
 

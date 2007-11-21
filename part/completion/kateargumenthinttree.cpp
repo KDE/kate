@@ -110,6 +110,7 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
   if( geom.width() > maxWidth ) {
     geom.setWidth(maxWidth);
     geom.setHeight(geom.height() + horizontalScrollBar()->height() +2);
+    geom.moveBottom(bottom);
     setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
   }else{
     setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );

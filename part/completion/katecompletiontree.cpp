@@ -51,6 +51,9 @@ KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
   
   // Provide custom highlighting to completion entries
   setItemDelegate(new KateCompletionDelegate(widget()->model(), widget()));
+  
+  ///@todo uncomment this once we're sure it isn't called too often, or maybe use a timer.
+  //connect(widget()->model(), SIGNAL(contentGeometryChanged()), this, SLOT(resizeColumnsSlot()));
 
   // Prevent user from expanding / collapsing with the mouse
   setItemsExpandable(false);
@@ -76,7 +79,8 @@ KateCompletionWidget * KateCompletionTree::widget( ) const
 
 void KateCompletionTree::resizeColumnsSlot()
 {
-  resizeColumns();
+  if(model())
+    resizeColumns();
 }
 
 void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)

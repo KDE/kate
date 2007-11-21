@@ -32,6 +32,7 @@ class KateArgumentHintModel;
 class KateView;
 class QWidget;
 class QTextEdit;
+class QTimer;
 
 /**
  * This class has the responsibility for filtering, sorting, and manipulating
@@ -165,6 +166,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     void expandIndex(const QModelIndex& index);
     //Emitted whenever something has changed about the group of argument-hints
     void argumentHintsChanged();
+    void contentGeometryChanged();
 
   public Q_SLOTS:
     void setSortingEnabled(bool enable);
@@ -176,6 +178,9 @@ class KateCompletionModel : public ExpandingWidgetModel
     void slotRowsInserted( const QModelIndex & parent, int start, int end );
     void slotRowsRemoved( const QModelIndex & parent, int start, int end );
     void slotModelReset();
+    
+    //Updates the best-matches group
+    void updateBestMatches();
 
   private:
     QTreeView* treeView() const;
@@ -280,9 +285,6 @@ class KateCompletionModel : public ExpandingWidgetModel
     void refilter();
     void rematch();
 
-    //Updates the best-matches group
-    void updateBestMatches();
-
     // ### Runtime state
     // General
     QList<KTextEditor::CodeCompletionModel*> m_completionModels;
@@ -292,6 +294,8 @@ class KateCompletionModel : public ExpandingWidgetModel
     // Column merging
     QList< QList<int> > m_columnMerges;
 
+    QTimer* m_updateBestMatchesTimer;
+    
     Group* m_ungrouped;
     Group* m_argumentHints; //The argument-hints will be passed on to another model, to be shown in another widget
     Group* m_bestMatches; //A temporary group used for holding the best matches of all visible items

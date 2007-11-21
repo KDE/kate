@@ -20,6 +20,7 @@
 
 #include <QTextEdit>
 #include <QMultiMap>
+#include <QTimer>
 
 #include <klocale.h>
 #include <kiconloader.h>
@@ -69,6 +70,10 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   m_emptyGroups.append(m_argumentHints);
   m_emptyGroups.append(m_bestMatches);
 
+  m_updateBestMatchesTimer = new QTimer(this);
+  m_updateBestMatchesTimer->setSingleShot(true);
+  connect(m_updateBestMatchesTimer, SIGNAL(timeout()), this, SLOT(updateBestMatches()));
+  
   m_groupHash.insert(0, m_ungrouped);
   m_groupHash.insert(-1, m_argumentHints);
   m_groupHash.insert(BestMatchesProperty, m_argumentHints);
@@ -415,6 +420,7 @@ void KateCompletionModel::createGroups()
 
   resort();
   reset();
+  emit contentGeometryChanged();
 }
 
 KateCompletionModel::Group* KateCompletionModel::createItem(CodeCompletionModel* sourceModel, int row, bool notifyModel)
@@ -450,10 +456,10 @@ void KateCompletionModel::slotRowsInserted( const QModelIndex & parent, int star
 
     foreach (Group* g, affectedGroups)
       hideOrShowGroup(g);
-
   } else {
     kWarning() << "Heirachical code completion models not supported.";
   }
+  emit contentGeometryChanged();
 }
 
 void KateCompletionModel::slotRowsRemoved( const QModelIndex & parent, int start, int end )
@@ -473,7 +479,7 @@ void KateCompletionModel::slotRowsRemoved( const QModelIndex & parent, int start
 
     foreach (Group* g, affectedGroups)
       hideOrShowGroup(g);
-
+    contentGeometryChanged();
   } else {
     kWarning() << "Heirachical code completion models not supported.";
   }
@@ -866,6 +872,7 @@ void KateCompletionModel::changeCompletions( Group * g, const QString & newCompl
   COMPLETE_ADD
 
   hideOrShowGroup(g);
+  emit contentGeometryChanged();
 }
 
 int KateCompletionModel::Group::orderNumber() const {
@@ -901,6 +908,7 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
 {
   if( g == m_argumentHints ) {
     emit argumentHintsChanged();
+    m_updateBestMatchesTimer->start(50); //We have new argument-hints, so we have new best matches
     return; //Never show argument-hints in the normal completion-list
   }
 
@@ -1429,7 +1437,6 @@ void KateCompletionModel::Group::resort( )
       rows.append(i.sourceRow());
 
   model->hideOrShowGroup(this);
-
   //Q_ASSERT(rows.count() == oldRowCount);
 }
 
@@ -1456,6 +1463,8 @@ void KateCompletionModel::resort( )
 
   foreach (Group* g, m_emptyGroups)
     g->resort();
+  
+  emit contentGeometryChanged();
 }
 
 bool KateCompletionModel::Item::isValid( ) const

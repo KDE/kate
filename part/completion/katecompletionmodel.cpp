@@ -420,6 +420,7 @@ void KateCompletionModel::createGroups()
 
   resort();
   reset();
+  updateBestMatches();
   emit contentGeometryChanged();
 }
 
@@ -908,7 +909,7 @@ void KateCompletionModel::hideOrShowGroup(Group* g)
 {
   if( g == m_argumentHints ) {
     emit argumentHintsChanged();
-    m_updateBestMatchesTimer->start(50); //We have new argument-hints, so we have new best matches
+    m_updateBestMatchesTimer->start(200); //We have new argument-hints, so we have new best matches
     return; //Never show argument-hints in the normal completion-list
   }
 
@@ -1772,6 +1773,7 @@ void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
 //Updates the best-matches group
 void KateCompletionModel::updateBestMatches() {
 
+  m_updateBestMatchesTimer->stop();
   //Maps match-qualities to ModelRows paired together with the BestMatchesCount returned by the items.
   typedef QMultiMap<int, QPair<int, ModelRow> > BestMatchMap;
   BestMatchMap matches;

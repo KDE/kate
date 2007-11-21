@@ -122,9 +122,9 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
     for( int a = 0; a < numColumns; a++ )
     {
       QSize s = sizeHintForIndex (current.sibling(current.row(), a));
-      if( s.width() > columnSize[a] && s.width() < 700 )
+      if( s.width() > columnSize[a] && s.width() < 2000 )
         columnSize[a] = s.width();
-      else if( s.width() > 700 )
+      else if( s.width() > 2000 )
         kDebug() << "got invalid size-hint of width " << s.width();
     }
 

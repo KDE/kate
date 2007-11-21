@@ -123,6 +123,7 @@ class KateCompletionWidget : public QFrame
     virtual void focusInEvent ( QFocusEvent * event );
 
   private Q_SLOTS:
+    void modelContentChanged();
     void cursorPositionChanged();
     void editDone(KateEditInfo* edit);
     void modelReset();
@@ -130,6 +131,7 @@ class KateCompletionWidget : public QFrame
     void rowsInserted(const QModelIndex& parent, int row, int rowEnd);
 
   private:
+    void updateAndShow();
     void updateArgumentHintGeometry();
     QModelIndex selectedIndex() const;
 

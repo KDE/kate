@@ -151,6 +151,17 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
 KateCompletionWidget::~KateCompletionWidget() {
 }
 
+void KateCompletionWidget::modelContentChanged() {
+  int realItemCount = 0;
+  foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels())
+    realItemCount += model->rowCount();
+  //kDebug() << "content changed, item count " << realItemCount << "\n" << kBacktrace();
+  if( !m_isSuspended && !isVisible() && realItemCount != 0 ) {
+    //kDebug() << "showing";
+    updateAndShow();
+  }
+}
+
 void KateCompletionWidget::focusInEvent ( QFocusEvent * event ) {
   //Instantly give the focus back
   view()->activateWindow(); //When the completion-widget is clicked, the application-window is deactivated, so re-activate it
@@ -217,7 +228,6 @@ KateView * KateCompletionWidget::view( ) const
 
 void KateCompletionWidget::argumentHintsChanged(bool hasContent)
 {
-  kDebug() << "showing argument-hints, have rows" << m_argumentHintModel->rowCount(QModelIndex());
   m_dontShowArgumentHints = !hasContent;
   
   if( m_dontShowArgumentHints )
@@ -230,6 +240,8 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
 {
   m_isSuspended = false;
   m_inCompletionList = true; //Always start at the top of the completion-list
+  
+  disconnect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
 
   m_dontShowArgumentHints = true;
 
@@ -269,26 +281,32 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
     m_presentationModel->setCompletionModel(model);
   else
     m_presentationModel->setCompletionModels(m_sourceModels);
+  
+  if (!m_presentationModel->completionModels().isEmpty()) {
+    foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels())
+      model->completionInvoked(view(), word, invocationType);
 
+    m_presentationModel->setCurrentCompletion(view()->doc()->text(KTextEditor::Range(m_completionRange->start(), view()->cursorPosition())));
+  }
+  
+  connect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
+  //Now that all models have been notified, check whether the widget should be displayed instantly
+  modelContentChanged();
+}
+
+void KateCompletionWidget::updateAndShow()
+{
   setUpdatesEnabled(false);
 
   updatePosition(true);
 
   if (!m_presentationModel->completionModels().isEmpty()) {
     show();
-
-    foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels()) {
-      model->completionInvoked(view(), word, invocationType);
-    }
-
     m_entryList->resizeColumns(false, true);
-
-    m_presentationModel->setCurrentCompletion(view()->doc()->text(KTextEditor::Range(m_completionRange->start(), view()->cursorPosition())));
-
+    
     m_argumentHintModel->buildRows();
-    if( m_argumentHintModel->rowCount(QModelIndex()) != 0 ) {
+    if( m_argumentHintModel->rowCount(QModelIndex()) != 0 )
       argumentHintsChanged(true);
-    }
   }
 
   setUpdatesEnabled(true);

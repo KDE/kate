@@ -130,6 +130,7 @@ class KateIndentConfigTab : public KateConfigPage
 
   public:
     KateIndentConfigTab(QWidget *parent);
+    ~KateIndentConfigTab();
 
   protected:
     Ui::IndentationConfigWidget *ui;
@@ -150,6 +151,7 @@ class KateSelectConfigTab : public KateConfigPage
 
 public:
   KateSelectConfigTab(QWidget *parent);
+  ~KateSelectConfigTab();
 
 private:
   Ui::CursorConfigWidget *ui;
@@ -167,6 +169,7 @@ class KateEditConfigTab : public KateConfigPage
 
 public:
   KateEditConfigTab(QWidget *parent);
+  ~KateEditConfigTab();
 
 protected:
   Ui::EditConfigWidget *ui;
@@ -221,7 +224,7 @@ class KateEditKeyConfiguration: public KateConfigPage
     bool m_ready;
     KShortcutsEditor* m_shortcutsEditor;
     class KActionCollection *m_actionCollection;
-    
+
     // we use a fake document/view to get the action collection:
     class KateDocument *m_doc;
     class KateView *m_view;
@@ -233,6 +236,7 @@ class KateSaveConfigTab : public KateConfigPage
 
   public:
     KateSaveConfigTab( QWidget *parent );
+    ~KateSaveConfigTab();
 
   public Q_SLOTS:
     void apply();

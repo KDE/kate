@@ -177,6 +177,11 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   setLayout(layout);
 }
 
+KateIndentConfigTab::~KateIndentConfigTab()
+{
+  delete ui;
+}
+
 void KateIndentConfigTab::showWhatsThis(const QString& text)
 {
   QWhatsThis::showText(QCursor::pos(), text);
@@ -271,6 +276,11 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
 
   layout->addWidget(newWidget);
   setLayout(layout);
+}
+
+KateSelectConfigTab::~KateSelectConfigTab()
+{
+  delete ui;
 }
 
 void KateSelectConfigTab::apply ()
@@ -376,6 +386,11 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   setLayout(layout);
 }
 
+KateEditConfigTab::~KateEditConfigTab()
+{
+  delete ui;
+}
+
 void KateEditConfigTab::apply ()
 {
   // try to update the rest of tabs
@@ -472,6 +487,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
 
 KateViewDefaultsConfig::~KateViewDefaultsConfig()
 {
+  delete ui;
 }
 
 void KateViewDefaultsConfig::apply ()
@@ -614,6 +630,11 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
 
   layout->addWidget(tabWidget);
   setLayout(layout);
+}
+
+KateSaveConfigTab::~KateSaveConfigTab()
+{
+  delete ui;
 }
 
 void KateSaveConfigTab::apply()
@@ -1126,6 +1147,7 @@ KateModOnHdPrompt::~KateModOnHdPrompt()
     delete m_diffFile;
     m_diffFile = 0;
   }
+  delete ui;
 }
 
 void KateModOnHdPrompt::slotDiff()

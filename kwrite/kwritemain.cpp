@@ -587,6 +587,8 @@ void KWrite::modifiedChanged()
             m_modDiscPm :
         m_noPm*/
         );
+
+    documentNameChanged(); // update the modified flag in window title
 }
 
 void KWrite::documentNameChanged ()

@@ -32,6 +32,7 @@ Comment[nl]=Open het bijhorende  .h/[.cpp|.c]-bestand
 Comment[pt]=Abre o ficheiro .h/[.cpp|.c] correspondente
 Comment[pt_BR]=Abre o arquivo .h/[.cpp|.c] correspondente
 Comment[sv]=Öppnar den motsvarande .h/[.cpp|.c]-filen
+Comment[uk]=Відкриває відповідний файл .h/[.cpp|.c]
 Comment[x-test]=xxOpens the corresponding .h/[.cpp|.c] filexx
 Comment[zh_CN]=打开对应于当前文件的 .h/[.cpp|.c] 文件
 Comment[zh_TW]=開啟相關的 .h/.cpp/.c 檔

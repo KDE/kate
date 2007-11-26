@@ -768,8 +768,10 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
             t->view()->setCursorPosition (KTextEditor::Cursor (line, column));
         }
         else
+        {
           KMessageBox::sorry(0, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", args->url(z).url()));
           return 1; // see http://bugs.kde.org/show_bug.cgi?id=124708
+        }
       }
     }
   }

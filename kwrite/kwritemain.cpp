@@ -744,6 +744,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
     }
     else
     {
+      int docs_opened = 0;
       for ( int z = 0; z < args->count(); z++ )
       {
         // this file is no local dir, open it, else warn
@@ -751,6 +752,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 
         if (noDir)
         {
+          ++docs_opened;
           KWrite *t = new KWrite();
 
 //          if (Kate::document (t->view()->document()))
@@ -770,9 +772,9 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
         else
         {
           KMessageBox::sorry(0, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", args->url(z).url()));
-          return 1; // see http://bugs.kde.org/show_bug.cgi?id=124708
         }
       }
+      if (!docs_opened) return 1; // see http://bugs.kde.org/show_bug.cgi?id=124708
     }
   }
 

@@ -472,6 +472,12 @@ void KateDocManager::saveAll()
     doc->documentSave();
 }
 
+void KateDocManager::reloadAll()
+{
+  foreach ( KTextEditor::Document *doc, m_docList )
+    doc->documentReload();
+}
+
 void KateDocManager::saveDocumentList (KConfig* config)
 {
   KConfigGroup openDocGroup(config, "Open Documents");

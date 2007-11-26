@@ -18,6 +18,7 @@
     <Separator />
 
     <DefineGroup name="revert_merge" />
+    <Action name="file_reload_all" />
     <DefineGroup name="print_merge" />
     <DefineGroup name="export_merge" />
     <Separator />

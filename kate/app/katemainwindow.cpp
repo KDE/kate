@@ -292,6 +292,11 @@ void KateMainWindow::setupActions()
   connect( a, SIGNAL( triggered() ), KateDocManager::self(), SLOT( saveAll() ) );
   a->setWhatsThis(i18n("Save all open, modified documents to disk."));
 
+  a = static_cast<KAction*>(actionCollection()->addAction( "file_reload_all" ));
+  a->setText( i18n("&Reload All") );
+  connect( a, SIGNAL( triggered() ), KateDocManager::self(), SLOT( reloadAll() ) );
+  a->setWhatsThis(i18n("Reload all open documents."));
+
   actionCollection()->addAction( KStandardAction::Close, "file_close", m_viewManager, SLOT( slotDocumentClose() ) )
   ->setWhatsThis(i18n("Close the current document."));
 

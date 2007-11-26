@@ -270,7 +270,7 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForLine(unsigned int line)
   {
     KateCodeFoldingNode *node = m_root.child(i);
 
-    if ((node->startLineRel<=line) && (line<=node->startLineRel+node->endLineRel))
+    if (node->startLineValid && (node->startLineRel<=line) && (line<=node->startLineRel+node->endLineRel))
     {
       // a region surounds the line, look in the next deeper hierarchy step
       return findNodeForLineDescending(node,line,0);

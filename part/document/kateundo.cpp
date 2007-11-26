@@ -318,7 +318,7 @@ void KateUndoGroup::redo ()
 
   if (m_doc->activeView())
   {
-    for (int z=0; z < m_items.size(); ++z)
+    for (int z = m_items.size() - 1; z >= 0; --z)
       if (m_items[z]->type() != KateUndoGroup::editMarkLineAutoWrapped)
       {
         m_doc->activeKateView()->editSetCursor (m_items[z]->cursorAfter());

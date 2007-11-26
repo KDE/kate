@@ -746,13 +746,13 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
     {
       for ( int z = 0; z < args->count(); z++ )
       {
-        KWrite *t = new KWrite();
-
         // this file is no local dir, open it, else warn
         bool noDir = !args->url(z).isLocalFile() || !QDir (args->url(z).path()).exists();
 
         if (noDir)
         {
+          KWrite *t = new KWrite();
+
 //          if (Kate::document (t->view()->document()))
   //          KTextEditor::Document::setOpenErrorDialogsActivated (false);
 
@@ -768,7 +768,8 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
             t->view()->setCursorPosition (KTextEditor::Cursor (line, column));
         }
         else
-          KMessageBox::sorry( t, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", args->url(z).url()) );
+          KMessageBox::sorry(0, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", args->url(z).url()));
+          return 1; // see http://bugs.kde.org/show_bug.cgi?id=124708
       }
     }
   }

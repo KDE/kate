@@ -440,7 +440,9 @@ KateCompletionModel::Group* KateCompletionModel::createItem(CodeCompletionModel*
     g = fetchGroup(completionFlags, scopeIfNeeded);
 
   Item item = Item(this, ModelRow(sourceModel, row));
-  item.match(m_currentMatch);
+
+  if(g != m_argumentHints)
+    item.match(m_currentMatch);
 
   g->addItem(item, notifyModel);
 
@@ -732,9 +734,11 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
     changeCompletions(m_ungrouped, completion, changeType);
   else {
     foreach (Group* g, m_rowTable)
-      changeCompletions(g, completion, changeType);
+      if(g != m_argumentHints)
+        changeCompletions(g, completion, changeType);
     foreach (Group* g, m_emptyGroups)
-      changeCompletions(g, completion, changeType);
+      if(g != m_argumentHints)
+        changeCompletions(g, completion, changeType);
 
     updateBestMatches();
   }
@@ -750,10 +754,12 @@ void KateCompletionModel::rematch()
 
   } else {
     foreach (Group* g, m_rowTable)
-      changeCompletions(g, m_currentMatch, Change);
+      if(g != m_argumentHints)
+        changeCompletions(g, m_currentMatch, Change);
 
     foreach (Group* g, m_emptyGroups)
-      changeCompletions(g, m_currentMatch, Change);
+      if(g != m_argumentHints)
+        changeCompletions(g, m_currentMatch, Change);
 
     updateBestMatches();
   }
@@ -1537,10 +1543,12 @@ void KateCompletionModel::refilter( )
   m_ungrouped->refilter();
 
   foreach (Group* g, m_rowTable)
-    g->refilter();
+    if(g != m_argumentHints)
+      g->refilter();
 
   foreach (Group* g, m_emptyGroups)
-    g->refilter();
+    if(g != m_argumentHints)
+      g->refilter();
 
   updateBestMatches();
 

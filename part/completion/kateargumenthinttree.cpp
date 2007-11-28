@@ -41,6 +41,7 @@ KateArgumentHintTree::KateArgumentHintTree( KateCompletionWidget* parent ) : Exp
   setFocusPolicy(Qt::NoFocus);
   setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
   setUniformRowHeights(false);
+  setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
   header()->hide();
   setRootIsDecorated(false);
   setIndentation(0);

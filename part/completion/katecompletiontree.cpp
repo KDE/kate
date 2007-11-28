@@ -43,6 +43,7 @@ KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
   setFrameStyle(QFrame::NoFrame);
   setAllColumnsShowFocus(true);
   setAlternatingRowColors(true);
+  setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
   m_resizeTimer = new QTimer(this);
   m_resizeTimer->setSingleShot(true);
@@ -233,7 +234,6 @@ bool KateCompletionTree::nextCompletion()
 
     if (current != oldCurrent && current.isValid()) {
       setCurrentIndex(current);
-
     } else {
       if (firstCurrent.isValid())
         setCurrentIndex(firstCurrent);

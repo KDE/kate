@@ -673,7 +673,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
                 // Selection is match -> replace
                 const QString replacement = m_powerUi->replacement->currentText();
                 afterReplace = m_view->doc()->newSmartRange(match);
-                afterReplace->setInsertBehavior(SmartRange::ExpandRight);
+                afterReplace->setInsertBehavior(SmartRange::ExpandRight | SmartRange::ExpandLeft);
                 replaceMatch(resultRanges, replacement);
 
                 // Find, second try after replaced text
@@ -973,7 +973,7 @@ void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
         if (replacement != NULL) {
             // Track replacement operation
             SmartRange * const afterReplace = m_view->doc()->newSmartRange(match);
-            afterReplace->setInsertBehavior(SmartRange::ExpandRight);
+            afterReplace->setInsertBehavior(SmartRange::ExpandRight | SmartRange::ExpandLeft);
 
             // Replace
             replaceMatch(resultRanges, *replacement, ++matchCounter);

@@ -278,7 +278,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   //BEGIN Editors page
   // editor widgets from kwrite/kwdialog
   KPageWidgetItem *editorItem = addPage( new QWidget, i18n("Editor Component") );
-  editorItem->setIcon( KIcon( "edit" ) );
+  editorItem->setIcon( KIcon( "object-edit" ) );
   editorItem->setHeader( i18n("Editor Component Options") );
 
   for (int i = 0; i < KateDocManager::self()->editor()->configPages (); ++i)

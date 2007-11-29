@@ -243,13 +243,13 @@ bool KateApp::startupKate ()
 
   if (m_args->isSet ("line"))
   {
-    line = m_args->getOption ("line").toInt();
+    line = m_args->getOption ("line").toInt() - 1;
     nav = true;
   }
 
   if (m_args->isSet ("column"))
   {
-    column = m_args->getOption ("column").toInt();
+    column = m_args->getOption ("column").toInt() - 1;
     nav = true;
   }
 

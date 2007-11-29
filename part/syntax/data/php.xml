@@ -3,6 +3,10 @@
 
 Changes:
 
+[ Version 1.31 (2007-11-29) ]
+
+- Add support for backtick operator. This has basically the same syntax as double quotes, so the two share most rules.
+
 [ Version 1.28 (2006-11-02) ]
 
 - Moved the special method names to a dedicated section (the coloration will default to the coloration of functions, but it can be customized independently, to revert to the previous coloration styles, that is, black, and bold).
@@ -18,7 +22,7 @@ Changes:
 
 -->
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.30" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.31" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -6472,6 +6476,7 @@ Changes:
         <keyword attribute="Special method" context="#stay" String="special_methods" />
         <DetectIdentifier />
         <DetectChar attribute="String" context="doblequotestring" char="&quot;" />
+        <DetectChar attribute="String" context="backquotestring" char="`" />
         <DetectChar attribute="String" context="singlequotestring" char="&#39;" />
         <RegExpr attribute="Backslash Code" context="heredoc" String="&lt;&lt;&lt;([A-Za-z_][A-Za-z0-9_]*)" />
         <RegExpr attribute="Variable" context="#stay" String="\$+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*" />
@@ -6490,9 +6495,8 @@ Changes:
       <context name="twolinecomment" attribute="Comment" lineEndContext="#stay">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment" />
       </context>
-      <context name="doblequotestring" attribute="String" lineEndContext="#stay">
-<!-- URL: http://de3.php.net/manual/en/language.types.string.php#language.types.string.syntax.double -->
-        <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="&quot;" />
+      <context name="doublebackquotestringcommon" attribute="String" lineEndContext="#stay">
+<!-- Common rules for double quoted strings and backticks (execution operator) URL: http://de3.php.net/manual/en/language.types.string.php#language.types.string.syntax.double -->
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="\" />
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="n" />
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="r" />
@@ -6503,6 +6507,15 @@ Changes:
         <RegExpr attribute="Variable" context="#stay" String="\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*" />
         <RegExpr attribute="Variable" context="#stay" String="\$\{[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*\}" />
         <RegExpr attribute="Variable" context="#stay" String="\{\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[([0-9]*|&quot;[^&quot;]*&quot;)|'[^']*'|\])*(->[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*)*\}" />
+      </context>
+      <context name="backquotestring" attribute="String" lineEndContext="#stay">
+        <IncludeRules context="doublebackquotestringcommon"/>
+        <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="`" />
+        <DetectChar attribute="String" context="#pop" char="`" />
+      </context>
+      <context name="doblequotestring" attribute="String" lineEndContext="#stay">
+        <IncludeRules context="doublebackquotestringcommon"/>
+        <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="&quot;" />
         <DetectChar attribute="String" context="#pop" char="&quot;" />
       </context>
       <context name="singlequotestring" attribute="String" lineEndContext="#stay">

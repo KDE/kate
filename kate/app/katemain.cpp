@@ -225,13 +225,13 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 
       if (args->isSet ("line"))
       {
-        line = args->getOption ("line").toInt();
+        line = args->getOption ("line").toInt() - 1;
         nav = true;
       }
 
       if (args->isSet ("column"))
       {
-        column = args->getOption ("column").toInt();
+        column = args->getOption ("column").toInt() - 1;
         nav = true;
       }
 

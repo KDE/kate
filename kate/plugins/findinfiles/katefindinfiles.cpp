@@ -41,7 +41,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 
-K_EXPORT_COMPONENT_FACTORY( katefindinfilesplugin, KGenericFactory<KateFindInFilesPlugin>( "KateFindInFilesPlugin" ) )
+K_EXPORT_COMPONENT_FACTORY( katefindinfilesplugin, KGenericFactory<KateFindInFilesPlugin>( "katefindinfilesplugin" ) )
 
 KateFindInFilesPlugin::KateFindInFilesPlugin( QObject* parent, const QStringList& ):
     Kate::Plugin ( (Kate::Application*)parent )

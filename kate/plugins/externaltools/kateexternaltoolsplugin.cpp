@@ -40,7 +40,7 @@
 #include <kgenericfactory.h>
 #include <kauthorized.h>
 
-K_EXPORT_COMPONENT_FACTORY( kateexternaltoolsplugin, KGenericFactory<KateExternalToolsPlugin>( "KateExternalToolsPlugin" ) )
+K_EXPORT_COMPONENT_FACTORY( kateexternaltoolsplugin, KGenericFactory<KateExternalToolsPlugin>( "kateexternaltoolsplugin" ) )
 
 KateExternalToolsPlugin::KateExternalToolsPlugin( QObject* parent, const QStringList& ):
     Kate::Plugin ( (Kate::Application*)parent )

@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Kate Session Menu
+Name[ca]=Menú de sessió del Kate
 Name[de]=Kate-Sitzungsmenü
 Name[el]=Μενού συνεδρίας Kate
 Name[es]=Menú de sesión de Kate
@@ -21,6 +22,7 @@ Name[x-test]=xxKate Session Menuxx
 Name[zh_CN]=Kate 会话菜单
 Name[zh_TW]=Kate 工作階段選單
 Comment=Allows you to open Kate with a specified session, or create a new one
+Comment[ca]=Us permet obrir el Kate amb una sessió indicada, o crear-ne una de nova
 Comment[de]=Erlaubt es, Kate mit einer bestimmten Sitzung zu starten, oder eine neue Sitzung zu erstellen
 Comment[el]=Επιτρέπει το άνοιγμα του Kate με μια καθορισμένη συνεδρία, ή τη δημιουργία μιας νέας
 Comment[es]=Le permite abrir Kate con una sesión especificada, o crear una nueva

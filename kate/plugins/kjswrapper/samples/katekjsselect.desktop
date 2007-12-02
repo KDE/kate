@@ -6,6 +6,7 @@ X-KDE-Library=katekjswrapperplugin
 X-Kate-Version=2.2
 X-Kate-PluginName=katekjsselect
 Name=Select Smallest Enclosing Block
+Name[ca]=Selecciona el bloc de tancament més petit
 Name[de]=Wählt den kleinsten umgebenden Block
 Name[el]=Επιλογή μικρότερου εσώκλειστου τμήματος
 Name[et]=Väikseima sulgeva ploki valik

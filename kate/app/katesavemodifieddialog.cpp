@@ -171,8 +171,10 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEdito
   KGuiItem saveItem = KStandardGuiItem::save();
   saveItem.setText(i18n("&Save Selected"));
   setButtonGuiItem(KDialog::Yes, saveItem);
+  connect(this, SIGNAL(yesClicked()), this, SLOT(slotSaveSelected()));
 
   setButtonGuiItem(KDialog::No, KStandardGuiItem::dontSave());
+  connect(this, SIGNAL(noClicked()), this, SLOT(slotDoNotSave()));
 
   KGuiItem cancelItem = KStandardGuiItem::cancel();
   cancelItem.setText(i18n("&Abort Closing"));
@@ -250,29 +252,27 @@ void KateSaveModifiedDialog::slotSelectAll()
 }
 
 
-void KateSaveModifiedDialog::slotUser2()
+void KateSaveModifiedDialog::slotSaveSelected()
 {
-  kDebug(13001) << "KateSaveModifiedDialog::slotYes()";
   if (doSave(m_documentRoot)) done(QDialog::Accepted);
 }
 
-void KateSaveModifiedDialog::slotUser1()
+void KateSaveModifiedDialog::slotDoNotSave()
 {
   done(QDialog::Accepted);
 }
 
-bool KateSaveModifiedDialog::doSave(QTreeWidgetItem */*root*/)
+bool KateSaveModifiedDialog::doSave(QTreeWidgetItem *root)
 {
-#ifdef __GNUC__
-#warning implement me
-#endif
-#if 0
+kDebug() << root;
   if (root)
   {
-    for (Q3ListViewItem *it = root->firstChild();it;it = it->nextSibling())
+kDebug() << root->childCount();
+    for (int i = 0; i < root->childCount(); ++i)
     {
-      AbstractKateSaveModifiedDialogCheckListItem * cit = (AbstractKateSaveModifiedDialogCheckListItem*)it;
-      if (cit->isOn() && (cit->state() != AbstractKateSaveModifiedDialogCheckListItem::SaveOKState))
+      AbstractKateSaveModifiedDialogCheckListItem * cit = (AbstractKateSaveModifiedDialogCheckListItem*)root->child(i);
+      kDebug() << cit->checkState(0)<<  Qt::Checked<<  cit->state()<<  AbstractKateSaveModifiedDialogCheckListItem::SaveOKState;
+      if (cit->checkState(0) == Qt::Checked && (cit->state() != AbstractKateSaveModifiedDialogCheckListItem::SaveOKState))
       {
         if (!cit->synchronousSave(this /*perhaps that should be the kate mainwindow*/))
         {
@@ -280,15 +280,13 @@ bool KateSaveModifiedDialog::doSave(QTreeWidgetItem */*root*/)
           return false;
         }
       }
-      else if ((!cit->isOn()) && (cit->state() == AbstractKateSaveModifiedDialogCheckListItem::SaveFailedState))
+      else if ((cit->checkState(0) != Qt::Checked) && (cit->state() == AbstractKateSaveModifiedDialogCheckListItem::SaveFailedState))
       {
         cit->setState(AbstractKateSaveModifiedDialogCheckListItem::InitialState);
       }
 
     }
   }
-  return true;
-#endif
   return true;
 }
 

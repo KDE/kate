@@ -35,12 +35,12 @@ class KateSaveModifiedDialog: public KDialog
     virtual ~KateSaveModifiedDialog();
     static bool queryClose(QWidget *parent, QList<KTextEditor::Document*> documents);
   protected:
-    virtual void slotUser2();
-    virtual void slotUser1();
     bool doSave(QTreeWidgetItem *root);
   protected Q_SLOTS:
     void slotSelectAll();
     void slotItemActivated(QTreeWidgetItem*, int);
+    void slotSaveSelected();
+    void slotDoNotSave();
 
   private:
     QTreeWidgetItem *m_projectRoot;

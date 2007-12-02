@@ -40,6 +40,10 @@ class KateFileType
     QString hl;
     bool hlGenerated;
     QString version;
+
+    KateFileType()
+      : number(-1), priority(0), hlGenerated(false)
+    {}
 };
 
 class KateModeManager

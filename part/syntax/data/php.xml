@@ -3,6 +3,10 @@
 
 Changes:
 
+[ Version 1.32 (2007-12-02) ]
+
+- When leaving PHP context, make sure to close all brace regions (braces open a nested phpsource context for this purpose). This is a WORKAROUND for bug #143022 until feature #103257 is available.
+
 [ Version 1.31 (2007-11-29) ]
 
 - Add support for backtick operator. This has basically the same syntax as double quotes, so the two share most rules.
@@ -22,7 +26,7 @@ Changes:
 
 -->
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.31" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.32" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -6462,10 +6466,12 @@ Changes:
     <contexts>
       <context name="start" lineEndContext="#stay" attribute="Normal Text">
           <RegExpr context="phpsource" attribute="Keyword" String="&lt;\?(?:=|php)?" beginRegion="php" />
+        <StringDetect attribute="Keyword" context="#pop" String="?&gt;" endRegion="php" />
       </context>
       <context name="phpsource" attribute="PHP Text" lineEndContext="#stay">
         <DetectSpaces />
-        <StringDetect attribute="Keyword" context="#pop#pop" String="?&gt;" endRegion="php" />
+        <!-- WORKAROUND for bug #143022 / missing feature #103257 -->
+        <StringDetect attribute="Keyword" context="#pop" String="?&gt;" endRegion="Brace1" lookAhead="true" />
         <DetectChar attribute="Comment" context="onelinecomment" char="#" />
         <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="onelinecomment" char="/" char1="/" />
@@ -6485,9 +6491,9 @@ Changes:
         <HlCHex attribute="Hex" context="#stay" />
         <Float attribute="Float" context="#stay" />
         <Int attribute="Decimal" context="#stay" />
-        <DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
-        <DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />
-        <AnyChar attribute="Other" context="#stay" String=";()}{:,[]" />
+        <DetectChar attribute="Normal Text" context="phpsource" char="{" beginRegion="Brace1" />
+        <DetectChar attribute="Normal Text" context="#pop" char="}" endRegion="Brace1" />
+        <AnyChar attribute="Other" context="#stay" String=";():,[]" />
       </context>
       <context name="onelinecomment" attribute="Comment" lineEndContext="#pop">
         <StringDetect attribute="Keyword" context="#pop" lookAhead="true" String="?&gt;" />

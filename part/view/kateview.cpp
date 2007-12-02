@@ -221,9 +221,6 @@ KateView::~KateView()
     m_doc->removeView( this );
   }
 
-  delete m_selection;
-  m_selection = 0L;
-
   foreach (KTextEditor::SmartRange* range, m_externalHighlights)
     removeExternalHighlight(range);
 
@@ -231,6 +228,10 @@ KateView::~KateView()
     removeInternalHighlight(range);
 
   delete m_viewInternal;
+
+  // after m_viewInternal to allow KateViewInternal to disconnect from signal signalRangeDeleted
+  delete m_selection;
+  m_selection = 0L;
 
   delete m_renderer;
 

@@ -76,6 +76,7 @@
 #include <ktoggleaction.h>
 #include <kselectaction.h>
 #include <kactioncollection.h>
+#include <kdeversion.h>
 
 #include <QtGui/QFont>
 #include <QtCore/QFileInfo>
@@ -561,7 +562,13 @@ void KateView::setupActions()
 
   slotSelectionChanged ();
 
-  ac->associateWidget(m_viewInternal);
+  ac->addAssociatedWidget(m_viewInternal);
+  foreach (QAction* action, ac->actions())
+#if QT_VERSION < KDE_MAKE_VERSION(4,4,0)
+    action->setShortcutContext(Qt::WidgetShortcut); // remove after Qt4.4 becomes mandatory
+#else
+    action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+#endif
 
   connect (this, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(slotSelectionChanged()));
 }
@@ -805,7 +812,13 @@ void KateView::setupEditActions()
   else
     slotLostFocus();
 
-  m_editActions->associateWidget(m_viewInternal);
+  m_editActions->addAssociatedWidget(m_viewInternal);
+  foreach (QAction* action, m_editActions->actions())
+#if QT_VERSION < KDE_MAKE_VERSION(4,4,0)
+    action->setShortcutContext(Qt::WidgetShortcut); // remove after Qt4.4 becomes mandatory
+#else
+    action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+#endif
 }
 
 void KateView::setupCodeFolding()

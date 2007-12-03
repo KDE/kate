@@ -37,6 +37,7 @@
 #include <kmessagebox.h>
 #include <kvbox.h>
 #include <kxmlguifactory.h>
+#include <kdeversion.h>
 
 #include <QVBoxLayout>
 #include <QEvent>
@@ -137,7 +138,13 @@ namespace KateMDI
     actionCollection()->setConfigGroup( "Shortcuts" );
     actionCollection()->readSettings();
 
-    actionCollection()->associateWidget(m_mw);
+    actionCollection()->addAssociatedWidget(m_mw);
+    foreach (QAction* action, actionCollection()->actions())
+#if QT_VERSION < KDE_MAKE_VERSION(4,4,0)
+      action->setShortcutContext(Qt::WidgetShortcut); // remove after Qt4.4 becomes mandatory
+#else
+      action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+#endif
   }
 
   GUIClient::~GUIClient()

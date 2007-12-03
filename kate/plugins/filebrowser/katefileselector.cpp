@@ -71,6 +71,7 @@
 #include <ktexteditor/view.h>
 #include <kconfiggroup.h>
 #include <khistorycombobox.h>
+#include <kdeversion.h>
 //END Includes
 
 K_EXPORT_COMPONENT_FACTORY( katefilebrowserplugin, KGenericFactory<KateFileSelectorPlugin>( "katefilebrowserplugin" ) )
@@ -265,7 +266,13 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
 
   readConfig();
 
-  mActionCollection->associateWidget(this);
+  mActionCollection->addAssociatedWidget(this);
+  foreach (QAction* action, mActionCollection->actions())
+#if QT_VERSION < KDE_MAKE_VERSION(4,4,0)
+    action->setShortcutContext(Qt::WidgetShortcut); // remove after Qt4.4 becomes mandatory
+#else
+    action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+#endif
 }
 
 KateFileSelector::~KateFileSelector()

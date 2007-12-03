@@ -1,6 +1,6 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="MediaWiki" section="Markup" version="1.01" kateversion="2.4" extensions="" mimetype="" license="FDL" >
+<language name="MediaWiki" section="Markup" version="1.02" kateversion="2.4" extensions="" mimetype="" license="FDL" >
   <highlighting>
     <contexts>
       <context attribute="Normal" lineEndContext="#stay" name="normal" >
@@ -48,9 +48,12 @@
         <DetectChar char="'" context="Error" attribute="Error" />
       </context>
       <context attribute="Link" lineEndContext="#stay" name="WikiLink" >
-        <DetectChar char="|" attribute="Wiki-Tag" context="#stay" />
+        <DetectChar char="|" attribute="Wiki-Tag" context="WikiLinkDescription" />
         <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" />
         <DetectChar char="'" context="Error" attribute="Error" />
+      </context>
+      <context attribute="Link" lineEndContext="#stay" name="WikiLinkDescription" >
+        <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
       </context>
       <context attribute="Template" lineEndContext="#stay" name="Link" >
         <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" />

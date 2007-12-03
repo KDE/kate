@@ -6468,6 +6468,10 @@ Changes:
           <RegExpr context="phpsource" attribute="Keyword" String="&lt;\?(?:=|php)?" beginRegion="php" />
         <StringDetect attribute="Keyword" context="#pop" String="?&gt;" endRegion="php" />
       </context>
+      <context name="braceregion" lineEndContext="#stay" attribute="Normal Text">
+        <IncludeRules context="phpsource"/>
+        <DetectChar attribute="Normal Text" context="#pop" char="}" endRegion="Brace1" />
+      </context>
       <context name="phpsource" attribute="PHP Text" lineEndContext="#stay">
         <DetectSpaces />
         <!-- WORKAROUND for bug #143022 / missing feature #103257 -->
@@ -6491,8 +6495,7 @@ Changes:
         <HlCHex attribute="Hex" context="#stay" />
         <Float attribute="Float" context="#stay" />
         <Int attribute="Decimal" context="#stay" />
-        <DetectChar attribute="Normal Text" context="phpsource" char="{" beginRegion="Brace1" />
-        <DetectChar attribute="Normal Text" context="#pop" char="}" endRegion="Brace1" />
+        <DetectChar attribute="Normal Text" context="braceregion" char="{" beginRegion="Brace1" />
         <AnyChar attribute="Other" context="#stay" String=";():,[]" />
       </context>
       <context name="onelinecomment" attribute="Comment" lineEndContext="#pop">

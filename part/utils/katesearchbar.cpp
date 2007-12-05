@@ -141,7 +141,7 @@ void KateSearchBar::findPrevious() {
 
 void KateSearchBar::highlight(const Range & range, const QColor & color) {
     SmartRange * const highlight = m_view->doc()->newSmartRange(range, m_topRange);
-    highlight->setInsertBehavior(SmartRange::ExpandRight);
+    highlight->setInsertBehavior(SmartRange::DoNotExpand);
     Attribute::Ptr attribute(new Attribute());
     attribute->setBackground(color);
     highlight->setAttribute(attribute);

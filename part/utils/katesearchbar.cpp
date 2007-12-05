@@ -1,6 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2007 Sebastian Pipping <webmaster@hartwork.org>
    Copyright (C) 2007 Matthew Woehlke <mw_triad@users.sourceforge.net>
+   Copyright (C) 2007 Thomas Friedrichsmeier <thomas.friedrichsmeier@ruhr-uni-bochum.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -947,30 +948,22 @@ void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
 
     // Before first match
     resetHighlights();
-    if (replacement != NULL) {
-        m_view->doc()->editBegin();
-    }
 
+    SmartRange * const workingRange = m_view->doc()->newSmartRange(inputRange);
     int matchCounter = 0;
     for (;;) {
-        const QVector<Range> resultRanges = m_view->doc()->searchText(inputRange, pattern, enabledOptions);
+        const QVector<Range> resultRanges = m_view->doc()->searchText(*workingRange, pattern, enabledOptions);
         Range match = resultRanges[0];
         if (!match.isValid()) {
-            // After last match
-            if (matchCounter > 0) {
-                if (replacement != NULL) {
-                    m_view->doc()->editEnd();
-                }
-
-                if (!repaintHappensElsewhere) {
-                    updateHighlights();
-                }
-            }
             break;
         }
 
         // Work with the match
         if (replacement != NULL) {
+            if (matchCounter == 0) {
+                m_view->doc()->editBegin();
+            }
+
             // Track replacement operation
             SmartRange * const afterReplace = m_view->doc()->newSmartRange(match);
             afterReplace->setInsertBehavior(SmartRange::ExpandRight | SmartRange::ExpandLeft);
@@ -988,40 +981,35 @@ void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
         }
 
         // Continue after match
-        if (match.start() == match.end()) {
+        SmartCursor & workingStart = workingRange->smartStart();
+        workingStart.setPosition(match.end());
+        if (workingStart == match.start()) {
             // Can happen for regex patterns like "^".
             // If we don't advance here we will loop forever...
-            const int line = match.end().line();
-            const int col = match.end().column();
-            const int maxColWithNewline = m_view->doc()->lineLength(line);
-            if (col < maxColWithNewline) {
-                // Advance on same line
-                inputRange.setRange(Cursor(line, col + 1), inputRange.end());
-            } else {
-                // Advance to next line
-                const int maxLine = m_view->doc()->lines() - 1;
-                if (line < maxLine) {
-                    // Next line
-                    inputRange.setRange(Cursor(line + 1, 0), inputRange.end());
-                } else {
-                    // Already at last line
-                    break;
-                }
-            }
-        } else {
-            inputRange.setRange(match.end(), inputRange.end());
+            workingStart.advance(1);
+        } else if (regexMode && !multiLinePattern && workingStart.atEndOfLine()) {
+            // single-line regexps might match the naked line end
+            // therefore we better advance to the next line
+            workingStart.advance(1);
         }
 
-        // Single-line pattern workaround
-        if (regexMode && !multiLinePattern) {
-            const bool FORWARDS = true;
-            fixForSingleLine(inputRange, FORWARDS);
-        }
-
-        if (!inputRange.isValid()) {
+        if (!workingRange->isValid() || workingStart.atEndOfDocument()) {
             break;
         }
     }
+
+    // After last match
+    if (matchCounter > 0) {
+        if (replacement != NULL) {
+            m_view->doc()->editEnd();
+        }
+
+        if (!repaintHappensElsewhere) {
+            updateHighlights();
+        }
+    }
+
+    delete workingRange;
 }
 
 

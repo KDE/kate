@@ -633,6 +633,14 @@ void KateBuffer::removeLine(int i)
   if (i > editTagLineEnd)
     editTagLineEnd = i;
 
+  // make sure tags do not reach past the last line
+  // see https://bugs.kde.org/show_bug.cgi?id=152497
+  if (editTagLineEnd >= m_lines.size())
+    editTagLineEnd = m_lines.size() - 1;
+
+  if (editTagLineStart > editTagLineEnd)
+    editTagLineStart = editTagLineEnd;
+
   // line removed
   editTagLineFrom = true;
 

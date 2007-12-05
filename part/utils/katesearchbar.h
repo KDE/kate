@@ -74,7 +74,7 @@ public Q_SLOTS:
 
     void onForAll(const QString & pattern, KTextEditor::Range inputRange,
             KTextEditor::Search::SearchOptions enabledOptions,
-            const QString * replacement, bool repaintHappensElsewhere);
+            const QString * replacement);
     bool onStep(bool replace, bool forwards = true);
     void onReturnPressed();
 
@@ -108,14 +108,12 @@ private:
     void setChecked(QAction * menuAction, bool checked);
     void enableHighlights(bool enable);
     void resetHighlights();
-    void updateHighlights();
 
     void highlight(const KTextEditor::Range & range, const QColor & color);
     void highlightMatch(const KTextEditor::Range & range);
     void highlightReplacement(const KTextEditor::Range & range);
     void highlightAllMatches(const QString & pattern,
-            KTextEditor::Search::SearchOptions searchOptions,
-            bool repaintHappensElsewhere);
+            KTextEditor::Search::SearchOptions searchOptions);
     void adjustBackground(QPalette & palette, KColorScheme::BackgroundRole newRole);
     void indicateMatch(bool wrapped);
     void indicateMismatch();

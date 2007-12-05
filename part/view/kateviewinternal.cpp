@@ -219,7 +219,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   // but before any other kateviewinternal call
 
   // Thread-safe updateView() mechanism
-  connect(this, SIGNAL(requestViewUpdate()), this, SLOT(updateView()), Qt::QueuedConnection);
+  connect(this, SIGNAL(requestViewUpdate(bool)), this, SLOT(updateView(bool)), Qt::QueuedConnection);
 }
 
 void KateViewInternal::removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
@@ -3335,7 +3335,7 @@ void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool rea
 
   if (!m_smartDirty) {
     m_smartDirty = true;
-    emit requestViewUpdate();
+    emit requestViewUpdate(true);
   }
 }
 

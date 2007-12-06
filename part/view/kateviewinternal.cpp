@@ -1305,7 +1305,7 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
   // Looks like we were asked for something a bit exotic.
   // Return the max/min valid position.
   if (forwards)
-    return KTextEditor::Cursor(m_doc->visibleLines() - 1, m_doc->lineLength(m_doc->visibleLines() - 1));
+    return KTextEditor::Cursor(m_doc->visibleLines() - 1, m_doc->lineLength(m_doc->getRealLine (m_doc->visibleLines() - 1)));
   else
     return KTextEditor::Cursor(0, 0);
 }

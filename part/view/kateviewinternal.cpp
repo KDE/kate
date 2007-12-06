@@ -3430,25 +3430,22 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
     return;
   }
 
-  // Finished this input method context?
-  if (m_imPreedit && e->preeditString().isEmpty() && e->commitString().isEmpty()) {
-    m_view->removeInternalHighlight(m_imPreedit);
-    delete m_imPreedit;
-    m_imPreedit = 0L;
-    return;
-  }
+  //kDebug() << "Event: cursor" << m_cursor << "commit" << e->commitString() << "preedit" << e->preeditString() << "replacement start" << e->replacementStart() << "length" << e->replacementLength();
 
   if ( m_view->selection() )
     m_view->removeSelectedText();
 
+  bool createdPreedit = false;
   if (!m_imPreedit) {
+    createdPreedit = true;
     m_imPreedit = m_view->doc()->smartManager()->newSmartRange(KTextEditor::Range(m_cursor, m_cursor), 0L, KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
-    m_view->addInternalHighlight(m_imPreedit);
   }
 
-  m_view->doc()->editStart(false);
-  m_view->doc()->removeText(*m_imPreedit);
-  m_view->doc()->editEnd();
+  if (!m_imPreedit->isEmpty()) {
+    m_view->doc()->editStart(false);
+    m_view->doc()->removeText(*m_imPreedit);
+    m_view->doc()->editEnd();
+  }
 
   if (!e->commitString().isEmpty() || e->replacementLength()) {
     KTextEditor::Range preeditRange = *m_imPreedit;
@@ -3459,7 +3456,8 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
     m_view->doc()->editStart(true);
     if (start != removeEnd)
       m_view->doc()->removeText(KTextEditor::Range(start, removeEnd));
-    m_view->doc()->insertText(start, e->commitString());
+    if (!e->commitString().isEmpty())
+      m_view->doc()->insertText(start, e->commitString());
     m_view->doc()->editEnd();
 
     // Revert to the same range as above
@@ -3470,7 +3468,21 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
     m_view->doc()->editStart(false);
     m_view->doc()->insertText(m_imPreedit->start(), e->preeditString());
     m_view->doc()->editEnd();
-    // The preedit string gets automatically repositioned
+    // The preedit range gets automatically repositioned
+  }
+
+  // Finished this input method context?
+  if (m_imPreedit && e->preeditString().isEmpty()) {
+    if (!createdPreedit)
+      m_view->removeInternalHighlight(m_imPreedit);
+
+    delete m_imPreedit;
+    m_imPreedit = 0L;
+
+    renderer()->setDrawCaret(false);
+    renderer()->setCaretOverrideColor(QColor());
+
+    return;
   }
 
   KTextEditor::Cursor newCursor = m_cursor;
@@ -3501,6 +3513,9 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
         }
       }
     }
+
+    if (createdPreedit)
+      m_view->addInternalHighlight(m_imPreedit);
   }
 
   renderer()->setDrawCaret(hideCursor);

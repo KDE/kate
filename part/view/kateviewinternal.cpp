@@ -1759,13 +1759,7 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
   }
   else if ( !m_view->config()->persistentSelection() )
   {
-    int oldSelectionStartLine = m_view->selectionRange().start().line();
-    int oldSelectionEndLine = m_view->selectionRange().end().line();
-
     m_view->clearSelection();
-
-    cache()->relayoutLines(oldSelectionStartLine, oldSelectionEndLine);
-    cache()->updateViewCache(startPos());
 
     m_selectionCached = KTextEditor::Range::invalid();
   }
@@ -1923,6 +1917,8 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
     //kDebug(13030)<<"start> endLine"<<start<<" "<<(endLine());
     return false;
   }
+
+  cache()->updateViewCache(startPos());
 
   //kDebug(13030) << "tagLines( [" << start << "], [" << end << "] )";
 

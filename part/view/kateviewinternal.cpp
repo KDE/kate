@@ -1277,17 +1277,16 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
 
         // keep column position
         if (keepX) {
-          ret.setColumn(thisViewLine.endCol() - 1);
           KTextEditor::Cursor realCursor = toRealCursor(virtualCursor);
           KateTextLayout t = cache()->textLayout(realCursor);
           m_cursorX = renderer()->cursorToX(t, realCursor);
 
           if (m_currentMaxX > m_cursorX) {
             m_cursorX = m_currentMaxX;
-
-            realCursor = renderer()->xToCursor(t, m_cursorX, !m_view->wrapCursor());
-            ret.setColumn(realCursor.column());
           }
+
+          realCursor = renderer()->xToCursor(thisViewLine, m_cursorX, !m_view->wrapCursor());
+          ret.setColumn(realCursor.column());
         }
 
         return ret;

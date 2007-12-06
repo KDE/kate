@@ -768,6 +768,12 @@ class KateDocument : public KTextEditor::Document,
 
   public:
     void addView(KTextEditor::View *);
+    /** removes the view from the list of views. The view is *not* deleted.
+     * That's your job. Or, easier, just delete the view in the first place.
+     * It will remove itself. TODO: this could be converted to a private slot
+     * connected to the view's destroyed() signal. It is not currently called
+     * anywhere except from the KateView destructor.
+     */
     void removeView(KTextEditor::View *);
     void setActiveView(KTextEditor::View*);
 

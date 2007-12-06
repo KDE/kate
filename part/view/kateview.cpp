@@ -102,7 +102,6 @@ static void blockFix(KTextEditor::Range& range)
 
 KateView::KateView( KateDocument *doc, QWidget *parent )
     : KTextEditor::View( parent )
-    , m_destructing(false)
     , m_completionWidget(0)
     , m_editActions (0)
     , m_doc( doc )
@@ -213,14 +212,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
 KateView::~KateView()
 {
-  if (!m_destructing) {
-    m_destructing=true;
+  if (!m_doc->singleViewMode())
+    KatePartPluginManager::self()->removeView(this);
 
-    if (!m_doc->singleViewMode())
-      KatePartPluginManager::self()->removeView(this);
-
-    m_doc->removeView( this );
-  }
+  m_doc->removeView( this );
 
   foreach (KTextEditor::SmartRange* range, m_externalHighlights)
     removeExternalHighlight(range);

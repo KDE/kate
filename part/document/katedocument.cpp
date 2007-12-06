@@ -350,10 +350,7 @@ KateDocument::~KateDocument()
 
   // clean up remaining views
   while (!m_views.isEmpty()) {
-    KateView* view = m_views.takeFirst();
-    // tell it not do access the document while destructing
-    view->setDestructing();
-    delete view;
+    delete m_views.takeFirst();
   }
 
   delete m_editCurrentUndo;
@@ -3935,7 +3932,6 @@ void KateDocument::removeView(KTextEditor::View *view) {
 
   m_views.removeAll( (KateView *) view );
   m_textEditViews.removeAll( view  );
-  if (!((KateView*)view)->destructing()) delete view;
 }
 
 void KateDocument::setActiveView(KTextEditor::View* view)

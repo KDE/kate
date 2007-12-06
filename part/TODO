@@ -25,7 +25,7 @@ TODO:
   vastly improved ...somehow...
 
 * memory usage
-  * we currently use x16 the size of a file when in memory
+  * we currently use x16 the size of a file when in memory, if the file does not contain newline characters.
 
 **** Refactoring/Cleanups ****
 * code cleanups wherever needed ;)

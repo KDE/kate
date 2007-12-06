@@ -344,17 +344,16 @@ KateDocument::~KateDocument()
   // remove file from dirwatch
   deactivateDirWatch ();
 
+  // thanks for offering, KPart, but we're already self-destructing
+  setAutoDeleteWidget(false);
+  setAutoDeletePart(false);
+
   // clean up remaining views
-  if (!singleViewMode())
-  {
-    while (m_views.count()>0)
-      delete m_views.takeFirst();
-  }
-  else
-  {
-    // Tell the view it's no longer allowed to access the document.
-    if (m_views.count())
-      m_views.first()->setDestructing();
+  while (!m_views.isEmpty()) {
+    KateView* view = m_views.takeFirst();
+    // tell it not do access the document while destructing
+    view->setDestructing();
+    delete view;
   }
 
   delete m_editCurrentUndo;

@@ -1294,6 +1294,7 @@ KateJScriptManager::KateJScriptManager ()
 KateJScriptManager::~KateJScriptManager ()
 {
   qDeleteAll(m_scripts);
+  qDeleteAll(m_indentationScriptsList);
 }
 
 void KateJScriptManager::collectScripts (bool force)

@@ -158,6 +158,7 @@ class KateEditHistory : public QObject
 
   public:
     explicit KateEditHistory(KateDocument* doc);
+    virtual ~KateEditHistory();
 
     inline KateEditInfoGroup* buffer() const { return m_buffer; }
     //KateEditInfoGroup* redoBuffer() const { return m_redo; }

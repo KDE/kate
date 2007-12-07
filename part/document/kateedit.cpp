@@ -17,6 +17,7 @@
 */
 
 #include "kateedit.h"
+#include "katedocument.h"
 
 KateEditInfo::KateEditInfo(KateDocument* doc, Kate::EditSource source, const KTextEditor::Range& oldRange, const QStringList& oldText, const KTextEditor::Range& newRange, const QStringList& newText)
   : m_doc(doc)
@@ -105,11 +106,17 @@ QStringList KateEditInfo::newText( const KTextEditor::Range & range ) const
 }
 
 KateEditHistory::KateEditHistory( KateDocument * doc )
-  : m_doc(doc)
+  : QObject(doc)
+  , m_doc(doc)
   , m_buffer(new KateEditInfoGroup())
 //  , m_redo(new KateEditInfoGroup())
   , m_revision(0)
 {
+}
+
+KateEditHistory::~KateEditHistory()
+{
+  delete m_buffer;
 }
 
 void KateEditInfoGroup::addEdit( KateEditInfo * edit )

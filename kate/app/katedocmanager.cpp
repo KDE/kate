@@ -100,6 +100,7 @@ KateDocManager::~KateDocManager ()
     }
   }
 
+  qDeleteAll( m_docInfos );
   delete m_metaInfos;
 }
 

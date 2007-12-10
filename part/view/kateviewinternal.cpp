@@ -554,13 +554,9 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
   /* It was observed that height() could be negative here --
      when the main Kate view has 0 as size (during creation),
      and there frame arount KateViewInternal.  In which
-     case, the division below will overflow, and we'll
-     go on allocating huge chunks of data later.
-     
-     The solution for now is "don't create kate view with
-     zero height".  */
-  Q_ASSERT(height() >= 0);     
-  int newSize = (height() / renderer()->fontHeight()) + 1;
+     case we'd set the view cache to 0 (or less!) lines, and
+     start allocating huge chunks of data, later. */
+  int newSize = (qMax (0, height()) / renderer()->fontHeight()) + 1;
   cache()->updateViewCache(startPos(), newSize, viewLinesScrolled);
 
   KTextEditor::Cursor maxStart = maxStartPos(changed);
@@ -571,7 +567,7 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
 
   m_lineScroll->setValue(startPos().line());
   m_lineScroll->setSingleStep(1);
-  m_lineScroll->setPageStep(height() / renderer()->fontHeight());
+  m_lineScroll->setPageStep(qMax (0, height()) / renderer()->fontHeight());
   m_lineScroll->blockSignals(blocked);
 
   if (!m_view->dynWordWrap())

@@ -1196,10 +1196,16 @@ bool KateDocument::wrapText(int startLine, int endLine)
         nw = z;
       }
 
+      bool removeTrailingSpace = false;
       if (z > 0)
       {
-        // cu space
-        editRemoveText (line, z, 1);
+        // So why don't we just remove the trailing space right away?
+        // Well, the (view's) cursor may be directly in front of that space
+        // (user typing text before the last word on the line), and if that
+        // happens, the cursor would be moved to the next line, which is not
+        // what we want (bug #106261)
+        z++;
+        removeTrailingSpace = true;
       }
       else
       {
@@ -1228,6 +1234,11 @@ bool KateDocument::wrapText(int startLine, int endLine)
         editMarkLineAutoWrapped (line+1, true);
 
         endLine++;
+      }
+
+      if (removeTrailingSpace) {
+        // cu space
+        editRemoveText (line + 1, z - 1, 1);
       }
     }
   }

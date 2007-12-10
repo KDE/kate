@@ -551,6 +551,15 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
   if (width() != cache()->viewWidth())
     cache()->setViewWidth(width());
 
+  /* It was observed that height() could be negative here --
+     when the main Kate view has 0 as size (during creation),
+     and there frame arount KateViewInternal.  In which
+     case, the division below will overflow, and we'll
+     go on allocating huge chunks of data later.
+     
+     The solution for now is "don't create kate view with
+     zero height".  */
+  Q_ASSERT(height() >= 0);     
   int newSize = (height() / renderer()->fontHeight()) + 1;
   cache()->updateViewCache(startPos(), newSize, viewLinesScrolled);
 

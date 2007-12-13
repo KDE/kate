@@ -535,7 +535,7 @@ bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd
   QString cmd = _cmd;
 
   // hex, octal, base 9+1
-  QRegExp num("^char *(0?x[0-9A-Fa-f]{1,4}|0[0-7]{1,6}|[0-9]{1,3})$");
+  QRegExp num("^char *(0?x[0-9A-Fa-f]{1,4}|0[0-7]{1,8}|[0-9]{1,5})$");
   if (num.indexIn(cmd)==-1) return false;
 
   cmd=num.cap(1);

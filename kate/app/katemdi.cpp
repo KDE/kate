@@ -124,7 +124,6 @@ namespace KateMDI
     m_showSidebarsAction = new KToggleAction( i18n("Show Side&bars"), this );
     actionCollection()->addAction( "kate_mdi_sidebar_visibility", m_showSidebarsAction );
     m_showSidebarsAction->setShortcut(  Qt::CTRL | Qt::ALT | Qt::SHIFT | Qt::Key_F );
-    m_showSidebarsAction->setCheckedState(KGuiItem(i18n("Hide Side&bars")));
     m_showSidebarsAction->setChecked( m_mw->sidebarsVisible() );
     connect( m_showSidebarsAction, SIGNAL( toggled( bool ) ),
              m_mw, SLOT( setSidebarsVisible( bool ) ) );
@@ -167,8 +166,6 @@ namespace KateMDI
     KToggleAction *a = new ToggleToolViewAction(i18n("Show %1", tv->text),
                        sc, tv, this );
     actionCollection()->addAction( aname.toLatin1(), a );
-
-    a->setCheckedState(KGuiItem(i18n("Hide %1", tv->text)));
 
     m_toolViewActions.append(a);
     m_toolMenu->addAction(a);

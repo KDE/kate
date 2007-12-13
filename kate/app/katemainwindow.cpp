@@ -227,7 +227,6 @@ void KateMainWindow::setupImportantActions ()
   m_paShowPath = new KToggleAction( i18n("Sho&w Path"), this );
   actionCollection()->addAction( "settings_show_full_path", m_paShowPath );
   connect( m_paShowPath, SIGNAL(toggled(bool)), this, SLOT(updateCaption()) );
-  m_paShowPath->setCheckedState(KGuiItem(i18n("Hide Path")));
   m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
 }
 

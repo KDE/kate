@@ -473,6 +473,7 @@ void KateView::setupActions()
   list2.append(i18n("Follow &Line Numbers"));
   list2.append(i18n("&Always On"));
   m_setDynWrapIndicators->setItems(list2);
+  m_setDynWrapIndicators->setEnabled(m_toggleDynWrap->isChecked()); // only synced on real change, later
 
   a = toggleAction = m_toggleFoldingMarkers = new KToggleAction(i18n("Show Folding &Markers"), this);
   ac->addAction("view_folding_markers", a);

@@ -1,6 +1,6 @@
-<?xml version="1.01" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.25" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)" license="LGPL" >
+<language name="LaTeX" version="1.26" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
@@ -16,9 +16,9 @@
         <DetectChar char="\" attribute="Keyword" context="ContrSeq"/>
         <StringDetect String="$$" attribute="Math" context="MathModeDisplay" beginRegion="mathMode" />
         <DetectChar char="$" attribute="Math" context="MathMode" beginRegion="mathMode" />
-        <DetectChar char="%" attribute="Comment" context="Comment"/>
         <RegExpr String="%\s*BEGIN.*$" attribute="Region Marker" context="#stay" beginRegion="regionMarker" firstNonSpace="true" />
         <RegExpr String="%\s*END.*$" attribute="Region Marker" context="#stay" endRegion="regionMarker" firstNonSpace="true" />
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
       </context>
 

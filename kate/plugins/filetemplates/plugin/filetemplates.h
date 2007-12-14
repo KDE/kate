@@ -181,7 +181,7 @@ class KateTemplateWizard : public QWizard
     KateTemplateWizard( QWidget* parent, KateFileTemplates *ktf );
     ~KateTemplateWizard() {}
 
-   virtual int nextId();
+   virtual int nextId() const;
 
   public slots:
     void accept();

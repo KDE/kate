@@ -867,7 +867,7 @@ void KateTemplateWizard::slotStateChanged()
   button( QWizard::NextButton )->setEnabled( sane );
 }
 
-int KateTemplateWizard::nextId()
+int KateTemplateWizard::nextId() const
 {
   switch ( currentId() )
   {

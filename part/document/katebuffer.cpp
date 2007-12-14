@@ -723,7 +723,7 @@ void KateBuffer::updatePreviousNotEmptyLine(int current_line,bool addindent,int 
   bool retVal_folding = false;
   m_regionTree.updateLine (current_line, &foldingList, &retVal_folding, true,false);
 
-  emit tagLines (current_line, current_line);
+  // tagLines() is emitted from KatBuffer::doHighlight()!
 }
 
 void KateBuffer::addIndentBasedFoldingInformation(QVector<int> &foldingList,int linelength,bool addindent,int deindent)

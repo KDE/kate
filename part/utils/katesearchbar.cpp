@@ -1564,7 +1564,9 @@ void KateSearchBar::onMutatePower() {
     }
 
     // Focus
-    m_powerUi->pattern->setFocus(Qt::MouseFocusReason);
+    if (m_widget->isVisible()) {
+        m_powerUi->pattern->setFocus(Qt::MouseFocusReason);
+    }
 }
 
 
@@ -1671,7 +1673,9 @@ void KateSearchBar::onMutateIncremental() {
     }
 
     // Focus
-    m_incUi->pattern->setFocus(Qt::MouseFocusReason);
+    if (m_widget->isVisible()) {
+        m_incUi->pattern->setFocus(Qt::MouseFocusReason);
+    }
 }
 
 

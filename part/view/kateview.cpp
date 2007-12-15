@@ -2493,7 +2493,12 @@ KateGotoBar *KateView::gotoBar ()
   if (m_gotoBar)
     return m_gotoBar;
 
-  return m_gotoBar = new KateGotoBar (m_viewBar);
+  m_gotoBar = new KateGotoBar (m_viewBar);
+#if QT_VERSION < KDE_MAKE_VERSION(4,4,0) // Remove this once Qt 4.4 becomes necessary
+  foreach (QWidget* widget, m_gotoBar->findChildren<QWidget*>())
+    actionCollection ()->addAssociatedWidget(widget);
+#endif
+  return m_gotoBar;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

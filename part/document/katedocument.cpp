@@ -1544,6 +1544,8 @@ bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource
   if (line) {
     KateTextLine::Ptr prevLine = plainKateTextLine(line - 1);
     rangeInserted.start().setPosition(line - 1, prevLine->length());
+  } else {
+    rangeInserted.end().setPosition(line + 1, 0);
   }
 
   history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(rangeInserted.start(), rangeInserted.start()), QStringList(), rangeInserted, QStringList(s)) );

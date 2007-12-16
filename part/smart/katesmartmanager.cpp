@@ -432,7 +432,7 @@ void KateSmartManager::verifyCorrect() const
 
   Q_ASSERT(currentGroup->endLine() == doc()->lines() - 1);
 
-  kDebug() << "Verified correct.";
+  kDebug() << "Verified correct." << currentGroup->endLine() << doc()->lines() - 1;
 }
 
 void KateSmartManager::rangeGotParent( KateSmartRange * range )

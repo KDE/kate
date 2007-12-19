@@ -84,10 +84,6 @@ KWrite::KWrite (KTextEditor::Document *doc)
 
   m_view = qobject_cast<KTextEditor::View*>(doc->createView (this));
 
-  // WORKAROUND: both lines are required; 1st one for about dialog and 2nd one for window
-  QApplication::setWindowIcon(KIcon("accessories-text-editor"));
-  setWindowIcon(KIcon("accessories-text-editor"));
-
   setCentralWidget(m_view);
 
   setupActions();
@@ -677,6 +673,8 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   KCmdLineArgs::addCmdLineOptions( options );
 
   KApplication a;
+
+  QApplication::setWindowIcon(KIcon("accessories-text-editor"));
 
   KGlobal::locale()->insertCatalog("katepart4");
 #if 0

@@ -299,7 +299,8 @@ void KateFileTemplates::refreshMenu( KMenu *menu )
     QString w ( m_templates[ i ]->description );
     if( ! m_templates[ i ]->author.isEmpty() )
     {
-      w.append( "<p>Author: " );
+      w.append( "<p>" );
+      w.append( i18n("Author: ") );
       w.append( m_templates[ i ]->author );
     }
     if ( ! w.isEmpty() )

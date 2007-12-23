@@ -1344,8 +1344,8 @@ void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
     KateCodeFoldingNode *node=nodesForLine.at(i);
     if ( (!node->startLineValid) || (getStartLine(node) != line) )
     {
-      nodesForLine.takeAt(i);
-      if (!node->startLineValid) delete node;
+      nodesForLine.removeAt(i);
+      if (!node->startLineValid) addNodeToRemoveList(node, line);
       i--;
     }
   }

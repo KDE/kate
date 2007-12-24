@@ -23,30 +23,23 @@
 #include "katefileselector.h"
 #include "katefileselector.moc"
 
-#include <QLayout>
 #include <QToolButton>
 #include <khbox.h>
 #include <kvbox.h>
 #include <QLabel>
-
+#include <QLineEdit>
 #include <QApplication>
 #include <QListWidget>
-#include <QScrollBar>
 #include <QSpinBox>
 #include <QGroupBox>
 #include <QCheckBox>
 #include <QRegExp>
-#include <QTimer>
 #include <QDir>
 //Added by qt3to4:
-#include <QPixmap>
 #include <QFocusEvent>
 #include <QEvent>
-#include <QFrame>
 #include <QShowEvent>
-#include <QResizeEvent>
 #include <QVBoxLayout>
-#include <QLineEdit>
 
 #include <kactioncollection.h>
 #include <kactionmenu.h>

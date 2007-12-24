@@ -42,7 +42,6 @@
 //Added by qt3to4:
 #include <QShowEvent>
 
-#include <QApplication>
 #include <QCheckBox>
 #include <QVBoxLayout>
 

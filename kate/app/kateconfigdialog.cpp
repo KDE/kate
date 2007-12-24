@@ -33,28 +33,21 @@
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/EditorChooser>
 
-#include <KComponentData>
+#include <KTextEditor/EditorChooser>
+
 #include <kdebug.h>
 #include <KGlobal>
-#include <KGlobalSettings>
 #include <KIconLoader>
-#include <KListWidget>
 #include <KLocale>
 #include <KConfig>
 #include <kstandardaction.h>
-#include <KStandardDirs>
-#include <KWindowSystem>
-#include <KSeparator>
-#include <KPageWidgetModel>
 #include <KVBox>
 
 #include <QCheckBox>
 #include <QLabel>
-#include <QLayout>
 #include <kpushbutton.h>
 #include <QRadioButton>
 #include <QSpinBox>
-#include <QComboBox>
 #include <QVBoxLayout>
 #include <QFrame>
 #include <QGroupBox>

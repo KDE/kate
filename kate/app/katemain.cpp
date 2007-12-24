@@ -20,18 +20,12 @@
 #include "kateapp.h"
 
 #include <kate_export.h>
-#include <KStandardDirs>
 #include <KLocale>
 #include <KCmdLineArgs>
 #include <KAboutData>
-#include <KGlobal>
-#include <KConfig>
-#include <KComponentData>
 #include <kdebug.h>
-#include <KUrl>
 
 #include <QTextCodec>
-#include <QTextIStream>
 #include <QByteArray>
 #include <QCoreApplication>
 #include <QDBusMessage>

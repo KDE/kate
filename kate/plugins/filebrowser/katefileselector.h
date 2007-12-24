@@ -35,8 +35,6 @@
 //Added by qt3to4:
 #include <QShowEvent>
 #include <QFocusEvent>
-#include <QResizeEvent>
-#include <QLinkedList>
 #include <QEvent>
 #include <kfile.h>
 #include <kurl.h>

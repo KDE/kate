@@ -26,7 +26,6 @@
 #include <kate/plugin.h>
 #include <kate/pluginconfigpageinterface.h>
 
-#include <KTextEditor/Document>
 #include <KTextEditor/EditorChooser>
 
 #include <KPageDialog>

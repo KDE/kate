@@ -30,7 +30,6 @@
 #include <k3process.h>
 #include <kxmlguiclient.h>
 
-#include <QList>
 
 
 class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command

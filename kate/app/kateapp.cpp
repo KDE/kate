@@ -31,19 +31,14 @@
 #include <kdeversion.h>
 #include <KCmdLineArgs>
 #include <KConfig>
-#include <KWindowSystem>
 #include <KTipDialog>
 #include <kdebug.h>
-#include <KLibLoader>
 #include <KMessageBox>
 #include <KLocale>
 #include <KStartupInfo>
 
-#include <QFile>
-#include <QTimer>
 #include <QDir>
 #include <QTextCodec>
-#include <QTextIStream>
 
 #include <stdlib.h>
 #include <sys/types.h>

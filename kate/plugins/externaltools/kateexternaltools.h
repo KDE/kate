@@ -26,9 +26,6 @@
 
 #include <ktexteditor/configpage.h>
 #include <ktexteditor/commandinterface.h>
-#include <KTextEditor/View>
-#include <KTextEditor/Document>
-#include <KTextEditor/Editor>
 
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
@@ -36,7 +33,6 @@
 #include <kate/application.h>
 
 #include <KActionMenu>
-#include <KXmlGuiWindow>
 #include <KDialog>
 #include <KWordMacroExpander>
 

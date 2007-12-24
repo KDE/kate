@@ -35,7 +35,6 @@
 #include <QEvent>
 #include <QDropEvent>
 #include <QVBoxLayout>
-#include <QActionGroup>
 #include <QModelIndex>
 #include <QHash>
 

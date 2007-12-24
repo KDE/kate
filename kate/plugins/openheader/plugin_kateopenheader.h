@@ -22,7 +22,6 @@
 #include <kate/mainwindow.h>
 #include <kxmlguiclient.h>
 
-#include <QList>
 
 class PluginKateOpenHeader : public Kate::Plugin
 {

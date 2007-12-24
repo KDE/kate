@@ -27,7 +27,6 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/ModificationInterface>
 
-#include <QPointer>
 #include <QList>
 #include <QObject>
 #include <QByteArray>

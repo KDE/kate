@@ -51,7 +51,6 @@
 
 #include <QPixmap>
 #include <QVBoxLayout>
-#include <QLayout>
 #include <QGroupBox>
 
 #include <QResizeEvent>

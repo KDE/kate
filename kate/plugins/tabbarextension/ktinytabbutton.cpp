@@ -34,11 +34,8 @@
 
 #include <QApplication>
 #include <QContextMenuEvent>
-#include <QHBoxLayout>
 #include <QIcon>
-#include <QLabel>
 #include <QMenu>
-#include <QMouseEvent>
 #include <QPainter>
 #include <QStyle>
 #include <QStyleOptionButton>

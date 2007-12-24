@@ -24,6 +24,9 @@
 //BEGIN Includes
 #include "kateexternaltools.h"
 #include "kateexternaltools.moc"
+#include <KTextEditor/View>
+#include <KTextEditor/Document>
+#include <KTextEditor/Editor>
 
 #include <KActionCollection>
 #include <KListWidget>
@@ -49,6 +52,7 @@
 #include <QRegExp>
 #include <QToolButton>
 #include <QGridLayout>
+#include <QObject>
 
 #include <qtextedit.h>
 

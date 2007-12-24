@@ -29,8 +29,6 @@
 #include <KConfig>
 
 //Added by qt3to4:
-#include <QList>
-#include <KMessageBox>
 #include <KServiceTypeTrader>
 #include <KConfigGroup>
 #include <kdebug.h>

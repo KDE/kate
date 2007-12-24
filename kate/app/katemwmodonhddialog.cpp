@@ -22,9 +22,7 @@
 
 #include "katedocmanager.h"
 
-#include <KTextEditor/Document>
 
-#include <KIconLoader>
 #include <KLocale>
 #include <KMessageBox>
 #include <kprocess.h>
@@ -34,7 +32,6 @@
 #include <KVBox>
 
 #include <QLabel>
-#include <QLayout>
 #include <QPushButton>
 #include <QTextStream>
 

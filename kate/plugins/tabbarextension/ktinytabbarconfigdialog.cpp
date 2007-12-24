@@ -29,7 +29,6 @@
 
 #include <klocale.h>
 
-#include <QSpinBox>
 
 KTinyTabBarConfigDialog::KTinyTabBarConfigDialog( const KTinyTabBar* tabbar,
                                                   QWidget *parent )

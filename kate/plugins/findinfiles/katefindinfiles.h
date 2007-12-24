@@ -28,7 +28,6 @@
 #include <kxmlguiclient.h>
 
 #include <kvbox.h>
-#include <QLinkedList>
 
 #include <kategrepdialog.h>
 

@@ -19,19 +19,15 @@
 #ifndef _KATE_MAILFILES_DIALOG_H_
 #define _KATE_MAILFILES_DIALOG_H_
 
-#include <KTextEditor/Document>
-#include <KTextEditor/View>
 
 #include <kate/mainwindow.h>
 #include <kate/documentmanager.h>
 
 #include <KDialog>
-#include <KUrl>
 
 #include <QList>
 #include <QLabel>
 #include <QTreeWidget>
-#include <QTreeWidgetItem>
 
 
 /**

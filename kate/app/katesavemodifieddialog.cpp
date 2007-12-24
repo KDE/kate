@@ -19,13 +19,11 @@
 #include "katesavemodifieddialog.h"
 #include "katesavemodifieddialog.moc"
 
-#include <QPixmap>
 #include <QList>
 #include <QTreeWidget>
 #include <QLabel>
 #include <QPushButton>
 
-#include <KApplication>
 #include <KLocale>
 #include <KGuiItem>
 #include <KStandardGuiItem>
@@ -33,7 +31,6 @@
 #include <KIconLoader>
 #include <KMessageBox>
 #include <kdebug.h>
-#include <KComponentData>
 #include <KEncodingFileDialog>
 
 class AbstractKateSaveModifiedDialogCheckListItem: public QTreeWidgetItem

@@ -39,7 +39,6 @@
 #include <kxmlguifactory.h>
 #include <kdeversion.h>
 
-#include <QVBoxLayout>
 #include <QEvent>
 //Added by qt3to4:
 #include <QContextMenuEvent>

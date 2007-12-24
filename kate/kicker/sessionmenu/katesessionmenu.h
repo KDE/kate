@@ -22,7 +22,6 @@
 #define _KateSessionMenu_h_
 
 #include <k3panelmenu.h>
-#include <QObject>
 
 class KateSessionMenu : public K3PanelMenu {
   Q_OBJECT

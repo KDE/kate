@@ -19,10 +19,9 @@
 #include "katemailfilesdialog.h"
 
 #include <KLocale>
-#include <KUrl>
 #include <KVBox>
-
-#include <QEvent>
+#include <KTextEditor/View>
+#include <KTextEditor/Document>
 #include <QLabel>
 #include <QList>
 

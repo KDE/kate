@@ -35,7 +35,6 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
-#include <KToolInvocation>
 
 #include <kgenericfactory.h>
 #include <kauthorized.h>

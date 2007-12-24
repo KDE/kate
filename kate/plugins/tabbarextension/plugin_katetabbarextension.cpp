@@ -44,7 +44,6 @@
 #include <kfiledialog.h>
 
 #include <QPushButton>
-#include <QLayout>
 
 #include <q3groupbox.h>
 #include <QCheckBox>

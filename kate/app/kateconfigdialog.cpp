@@ -69,7 +69,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   enableButton( Apply, false );
 
   KPageWidgetItem *applicationItem = addPage( new QWidget, i18n("Application") );
-  applicationItem->setIcon( KIcon( "kate" ) );
+  applicationItem->setIcon( KIcon( "preferences-other" ) );
   applicationItem->setHeader( i18n("Application Options") );
 
   //BEGIN General page
@@ -149,7 +149,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   QFrame* sessionsFrame = new QFrame;
   item = addSubPage( applicationItem, sessionsFrame, i18n("Sessions") );
   item->setHeader( i18n("Session Management") );
-  item->setIcon( KIcon( "history" ) );
+  item->setIcon( KIcon( "view-history" ) );
 
   layout = new QVBoxLayout( sessionsFrame );
   layout->setMargin(0);
@@ -257,7 +257,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   m_pluginPage = addSubPage( applicationItem, page, i18n("Plugins") );
   m_pluginPage->setHeader( i18n("Plugin Manager") );
-  m_pluginPage->setIcon( KIcon( "connection-established" ) );
+  m_pluginPage->setIcon( KIcon( "preferences-plugin" ) );
 
   KatePluginList &pluginList (KatePluginManager::self()->pluginList());
   foreach (const KatePluginInfo &plugin, pluginList)
@@ -271,7 +271,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   //BEGIN Editors page
   // editor widgets from kwrite/kwdialog
   KPageWidgetItem *editorItem = addPage( new QWidget, i18n("Editor Component") );
-  editorItem->setIcon( KIcon( "object-edit" ) );
+  editorItem->setIcon( KIcon( "accessories-text-editor" ) );
   editorItem->setHeader( i18n("Editor Component Options") );
 
   for (int i = 0; i < KateDocManager::self()->editor()->configPages (); ++i)

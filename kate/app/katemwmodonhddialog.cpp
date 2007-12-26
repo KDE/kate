@@ -116,7 +116,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   KHBox *lo2 = new KHBox ( w );
   QWidget *d = new QWidget (lo2);
   lo2->setStretchFactor (d, 2);
-  btnDiff = new KPushButton( KGuiItem (i18n("&View Difference"), "object-edit"), lo2 );
+  btnDiff = new KPushButton( KGuiItem (i18n("&View Difference"), "document-preview"), lo2 );
 
   btnDiff->setWhatsThis(i18n(
                           "Calculates the difference between the the editor contents and the disk "

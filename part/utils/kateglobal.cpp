@@ -387,10 +387,10 @@ KIcon KateGlobal::configPageIcon (int number) const
       return KIcon("connection-established");
 
     default:
-      return KIcon("object-edit");
+      return KIcon("document-properties");
   }
 
-  return KIcon("object-edit");
+  return KIcon("document-properties");
 }
 
 KateGlobal *KateGlobal::self ()

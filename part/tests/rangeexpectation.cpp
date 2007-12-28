@@ -78,7 +78,7 @@ void RangeExpectation::signalReceived( int signal )
   QVERIFY(m_expectations & signal);
   QCOMPARE(*static_cast<KTextEditor::Range*>(m_smartRange), m_expectedRange);
 
-  signal = int(log(signal) / log(2));
+  signal = int(log((double)signal) / log(2.0));
 
   if (sender())
     m_watcherNotifications[signal]++;

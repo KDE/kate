@@ -136,7 +136,7 @@ void CursorExpectation::signalReceived( int signal )
 
   QVERIFY(m_expectations & signal);
 
-  signal = int(log(signal) / log(2));
+  signal = int(log((double)signal) / log(2.0));
 
   if (sender())
     m_watcherNotifications[signal]++;

@@ -45,8 +45,11 @@ KateViewDocumentProxyModel::KateViewDocumentProxyModel(QObject *parent)
   KConfigGroup config(KGlobal::config(), "FileList");
 
   KColorScheme colors(QPalette::Active);
-  m_editShade = config.readEntry("Edit Shade", colors.foreground(KColorScheme::ActiveText).color() );
-  m_viewShade = config.readEntry("View Shade", colors.foreground(KColorScheme::VisitedText).color() );
+  QColor bg = colors.background().color();
+  m_editShade = KColorUtils::tint(bg, colors.foreground(KColorScheme::ActiveText).color(), 0.5);
+  m_viewShade = KColorUtils::tint(bg, colors.foreground(KColorScheme::VisitedText).color(), 0.5);
+  m_editShade = config.readEntry("Edit Shade", m_editShade);
+  m_viewShade = config.readEntry("View Shade", m_viewShade);
   m_shadingEnabled = config.readEntry("Shading Enabled", true);
 
   m_sortRole = config.readEntry("SortRole", (int)KateDocManager::OpeningOrderRole);

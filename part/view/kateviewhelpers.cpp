@@ -933,7 +933,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 
 static void paintTriangle (QPainter &painter, const QColor &baseColor, int xOffset, int yOffset, int width, int height, bool open)
 {
-  float size = qMin (width, height);
+  qreal size = qMin (width, height);
 
   QColor c = baseColor.dark ();
 
@@ -952,9 +952,9 @@ static void paintTriangle (QPainter &painter, const QColor &baseColor, int xOffs
   // let some border, if possible
   size *= 0.6;
 
-  float halfSize = size / 2;
-  float halfSizeP = halfSize * 0.6;
-  QPointF middle (xOffset + (float)width / 2, yOffset + (float)height / 2);
+  qreal halfSize = size / 2;
+  qreal halfSizeP = halfSize * 0.6;
+  QPointF middle (xOffset + (qreal)width / 2, yOffset + (qreal)height / 2);
 
   if (open)
   {

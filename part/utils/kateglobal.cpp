@@ -369,22 +369,22 @@ KIcon KateGlobal::configPageIcon (int number) const
   switch( number )
   {
     case 0:
-      return KIcon("fileview-text");
+      return KIcon("preferences-desktop-theme");
 
     case 1:
-      return KIcon("color-line");
+      return KIcon("preferences-desktop-color");
 
     case 2:
-      return KIcon("text");
+      return KIcon("accessories-text-editor");
 
     case 3:
       return KIcon("document-save");
 
     case 4:
-      return KIcon("go-jump-locationbar");
+      return KIcon("configure-shortcuts");
 
     case 5:
-      return KIcon("connection-established");
+      return KIcon("network-connect"); // bad icon, please use "preferences-plugin" once available
 
     default:
       return KIcon("document-properties");

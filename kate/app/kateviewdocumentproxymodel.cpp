@@ -27,14 +27,14 @@
 #include "katedocmanager.h"
 
 #include <KColorScheme>
+#include <KColorUtils>
 #include <KConfigGroup>
 #include <KGlobal>
+#include <KDebug>
 
 #include <QColor>
 #include <QBrush>
 #include <QPalette>
-
-#include <kdebug.h>
 
 KateViewDocumentProxyModel::KateViewDocumentProxyModel(QObject *parent)
   : QAbstractProxyModel(parent)
@@ -240,7 +240,6 @@ void KateViewDocumentProxyModel::updateBackgrounds(bool emitSignals)
   {
     QColor shade( m_viewShade );
     QColor eshade( m_editShade );
-    QColor b = QPalette().color(QPalette::Base);
     if (it.value().edit > 0)
     {
       int v = hc - it.value().view;
@@ -253,15 +252,9 @@ void KateViewDocumentProxyModel::updateBackgrounds(bool emitSignals)
         ((shade.blue()*v) + (eshade.blue()*e)) / n
       );
     }
-    // blend in the shade color.
-    // max transperancy < .5, latest is most colored.
-    float t = (0.5 / hc) * (hc - it.value().view + 1);
-    b.setRgb(
-      (int)((b.red()*(1 - t)) + (shade.red()*t)),
-      (int)((b.green()*(1 - t)) + (shade.green()*t)),
-      (int)((b.blue()*(1 - t)) + (shade.blue()*t))
-    );
-    m_brushes[it.key()] = QBrush(b);
+    // blend in the shade color; latest is most colored.
+    double t = double(hc - it.value().view + 1) / double(hc);
+    m_brushes[it.key()] = QBrush(KColorUtils::mix(QPalette().color(QPalette::Base), shade, t));
   }
   foreach(const QModelIndex & key, m_brushes.keys())
   {

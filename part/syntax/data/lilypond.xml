@@ -14,14 +14,14 @@
 	
 <!ENTITY dynamics "ppppp|pppp|ppp|pp|p|mp|mf|f|ff|fff|ffff|fp|sf|sff|sp|spp|sfz|rfz|cr|decr">
 	
-<!ENTITY settings "first-page-number|print-first-page-number|print-page-number|paper-(width|height)|(top|bottom|left)-margin|line-width|(head|foot)-separation|page-top-space|ragged-(bottom|last-bottom|right)|system-count|between-system-(space|padding)|page-breaking-between-system-padding|horizontal-shift|(before|after|between)-title-space|printallheaders|indent|dedication|(sub){,2}title|poet|composer|meter|opus|arranger|instrument|piece|breakbefore|copyright|tagline|mutopia(title|composer|poet|opus|instrument)|date|enteredby|source|style|copyright|maintainer|maintainerEmail|maintainerWeb|moreInfo|lastupdated|texidoc|force-assignment|input-encoding|output-scale|blank-last-page-force|blank-page-force|page-limit-inter-system-space|page-limit-inter-system-space-factor">
+<!ENTITY settings "first-page-number|print-first-page-number|print-page-number|paper-(width|height)|(top|bottom|left|right)-margin|line-width|(head|foot)-separation|page-top-space|ragged-(bottom|last-bottom|right)|system-count|page-count|between-system-(space|padding)|page-breaking-between-system-padding|horizontal-shift|(before|after|between)-title-space|printallheaders|indent|dedication|(sub){,2}title|poet|composer|meter|opus|arranger|instrument|piece|breakbefore|copyright|tagline|mutopia(title|composer|poet|opus|instrument)|date|enteredby|source|style|maintainer|maintainerEmail|maintainerWeb|moreInfo|lastupdated|texidoc|force-assignment|input-encoding|output-scale|blank(-after-score|-last)?-page-force|page-limit-inter-system-space|page-limit-inter-system-space-factor|systemSeparatorMarkup|(even|odd)(Footer|Header)Markup|(book|score|toc)TitleMarkup|tocItemMarkup">
 
 <!ENTITY performers "Beam|Control_track|Drum_note|Dynamic|Key|Lyric|Note|Piano_pedal|Slur|Staff|Swallow|Tempo|Tie|Time_signature">
 <!ENTITY translators "Note_swallow|Rest_swallow|Skip_event_swallow|Timing">
 <!ENTITY engravers "Accidental|Ambitus|Arpeggio|Auto_beam|Axis_group|Balloon|Bar|Bar_number|Beam|Bend|Break_align|Breathing_sign|Chord_name|Chord_tremolo|Clef|Cluster_spanner|Collision|Completion_heads|Custos|Default_bar_line|Dot_column|Dots|Drum_notes|Dynamic|Engraver|Extender|Figured_bass|Figured_bass_position|Fingering|Font_size|Forbid_line_break|Fretboard|Glissando|Grace_beam|Grace|Grace_spacing|Grid_line_span|Grid_point|Grob_pq|Hara_kiri|Horizontal_bracket|Hyphen|Instrument_name|Instrument_switch|Key|Laissez_vibrer|Ledger_line|Ligature_bracket|Lyric|Mark|Measure_grouping|Melody|Mensural_ligature|Metronome_mark|Multi_measure_rest|New_fingering|Note_head_line|Note_heads|Note_name|Note_spacing|Ottava_spanner|Output_property|Page_turn|Paper_column|Parenthesis|Part_combine|Percent_repeat|Phrasing_slur|Piano_pedal_align|Piano_pedal|Pitch_squash|Pitched_trill|Repeat_acknowledge|Repeat_tie|Rest_collision|Rest|Rhythmic_column|Script_column|Script|Script_row|Separating_line_group|Slash_repeat|Slur|Spacing|Span_arpeggio|Span_bar|Spanner_break_forbid|Staff_collecting|Staff_symbol|Stanza_number_align|Stanza_number|Stem|String_number|Swallow|System_start_delimiter|Tab_harmonic|Tab_note_heads|Tab_staff_symbol|Text|Text_spanner|Tie|Time_signature|Translator|Trill_spanner|Tuplet|Tweak|Vaticana_ligature|Vertical_align|Vertically_spaced_contexts|Volta">
 
 ]>
-<language name="LilyPond" section="Other" extensions="*.ly;*.LY" mimetype="" casesensitive="true" author="Wilbert Berendsen (info@wilbertberendsen.nl)" license="LGPL" version="2.00" kateversion="2.4">
+<language name="LilyPond" section="Other" extensions="*.ly;*.LY" mimetype="" casesensitive="true" author="Wilbert Berendsen (info@wilbertberendsen.nl)" license="LGPL" version="2.01" kateversion="2.4">
 	<!-- I borrowed some colors and the drum names from Andrea Primiani's first version. -->
 <highlighting>
 
@@ -609,14 +609,15 @@
 		<RegExpr attribute="Engraver" context="#stay" String="\b(&translators;)_translator\b"/>
 		<keyword attribute="Context" context="#stay" String="contexts"/>
 		<keyword attribute="LayoutObject" context="#stay" String="layoutobjects"/>
-		<keyword attribute="Property" context="#stay" String="properties"/>
 		<RegExpr attribute="Setting" context="#stay" String="\b(&settings;)\b"/>
+		<keyword attribute="Property" context="#stay" String="properties"/>
 		<RegExpr attribute="Articulation" context="#stay" String="[-_^][0-5_.|+&gt;^-]?"/>
 		<RegExpr attribute="Slur" context="#stay" String="\\?[()]"/>
 		<AnyChar attribute="Chord" context="#stay" String="&lt;&gt;"/>
 		<AnyChar attribute="Beam" context="#stay" String="[]"/>
 		<DetectChar attribute="Tie" context="#stay" char="~"/>
 		<RegExpr attribute="Scaling" context="#stay" String="\*\d+([*/]\d+)*"/>
+		<RegExpr attribute="SchemeSubst" context="#stay" String="\$[a-zA-Z:#-]*"/>
 		<RegExpr attribute="OtherCmd" context="#stay" String="\\[A-Za-z]+(-[A-Za-z]+)*"/>
 	</context>
 
@@ -660,6 +661,7 @@
 		<DetectChar attribute="Scheme" context="Scheme" char="#"/>
 		<RegExpr attribute="Markup" context="NoteMode" String="\\score\b"/>
 		<RegExpr attribute="Markup" context="#stay" String="\\(&markupnotextargs;|&markupwithtextargs;)(?![a-zA-Z])"/>
+		<RegExpr attribute="SchemeSubst" context="#stay" String="\$[a-zA-Z:#-]*"/>
 		<RegExpr attribute="OtherCmd" context="#stay" String="\\[A-Za-z]+(-[A-Za-z]+)*"/>
 	</context>
 
@@ -689,7 +691,6 @@
         	<RegExpr attribute="SchemeValue" context="#stay" String="([+-]?\d+(\.\d+)?|[+-]?\.\d+)"/>
 		<RegExpr attribute="SchemeValue" context="#stay" String="#([tf]|[bB][-+]?[01.]+|[oO][-+]?[0-7.]+|[dD][-+]?[0-9.]+|[xX][-+]?[0-9a-fA-F.]+)"/>
 		<RegExpr attribute="SchemeValue" context="#stay" String="[+-](inf|nan)\.0"/>
-		<RegExpr attribute="SchemeSubst" context="#stay" String="\$[a-zA-Z:#-]*"/>
 		<keyword attribute="SchemeKeyword" context="#stay" String="musicexpressions"/>
 		<keyword attribute="Context" context="#stay" String="contexts"/>
 		<keyword attribute="LayoutObject" context="#stay" String="layoutobjects"/>

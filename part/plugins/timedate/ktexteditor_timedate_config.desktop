@@ -7,6 +7,7 @@ X-KDE-FactoryName=ktexteditor_timedate_config
 X-KDE-ParentComponents=ktexteditortimedate
 
 Name=Format of Time & Date insertion
+Name[bg]=Формат на време и дата
 Name[bn_IN]=সময় ও তারিখ সন্নিবেশের বিন্যাস
 Name[ca]=Format d'inserció de la data i l'hora
 Name[cs]=Formát vložení data a času

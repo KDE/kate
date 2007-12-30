@@ -8,7 +8,7 @@
         <!ENTITY noword   "(?![\w$+-])">                <!-- no word, $, + or - following -->
         <!ENTITY pathpart "([\w_@.&#37;*?+-]|\\ )">     <!-- valid character in a file name -->
 ]>
-<language name="Bash" version="2.10" kateversion="2.4" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass;.bashrc;.bash_profile;.bash_login;.profile" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Bash" version="2.11" kateversion="2.4" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass;.bashrc;.bash_profile;.bash_login;.profile" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <!-- (c) 2004 by Wilbert Berendsen (wilbert@kde.nl)
     Changes by Matthew Woehlke (mw_triad@users.sourceforge.net)
@@ -832,23 +832,23 @@
 
       <context attribute="Normal Text" lineEndContext="#stay" name="HereDocQ" dynamic="true">
         <RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
-        <RegExpr attribute="Redirection" context="#pop#pop" String="^%2$" dynamic="true" column="0"/>
+        <RegExpr attribute="Redirection" context="#pop#pop" String="^%2\b" dynamic="true" column="0"/>
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="HereDocNQ" dynamic="true">
         <RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
-        <RegExpr attribute="Redirection" context="#pop#pop" String="^%2$" dynamic="true" column="0"/>
+        <RegExpr attribute="Redirection" context="#pop#pop" String="^%2\b" dynamic="true" column="0"/>
         <IncludeRules context="FindSubstitutions" />
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="HereDocIQ" dynamic="true">
         <RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
-        <RegExpr attribute="Redirection" context="#pop#pop" String="^\t*%2$" dynamic="true" column="0"/>
+        <RegExpr attribute="Redirection" context="#pop#pop" String="^\t*%2\b" dynamic="true" column="0"/>
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="HereDocINQ" dynamic="true">
         <RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
-        <RegExpr attribute="Redirection" context="#pop#pop" String="^\t*%2$" dynamic="true" column="0"/>
+        <RegExpr attribute="Redirection" context="#pop#pop" String="^\t*%2\b" dynamic="true" column="0"/>
         <IncludeRules context="FindSubstitutions" />
       </context>
 

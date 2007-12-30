@@ -2228,7 +2228,8 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   }
 
   // allow composition of AltGr + (q|2|3) on windows
-  if( (e->nativeModifiers() == 0x0242) && !e->text().isEmpty() && m_doc->typeChars ( m_view, e->text() ) )
+  static const int altGR = Qt::ControlModifier | Qt::AltModifier;
+  if( (e->modifiers() & altGR) == altGR && !e->text().isEmpty() && m_doc->typeChars ( m_view, e->text() ) )
   {
     e->accept();
 

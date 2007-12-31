@@ -62,10 +62,11 @@ class AbstractKateSaveModifiedDialogCheckListItem: public QTreeWidgetItem
           setIcon(0, QIcon());
           break;
         case SaveOKState:
-          setIcon(0, loader->loadIcon("ok", KIconLoader::NoGroup,/*height()*/16));
+          setIcon(0, loader->loadIcon("dialog-ok", KIconLoader::NoGroup,/*height()*/16));
+          // "ok" icon should probably be "dialog-success", but we don't have that icon in KDE 4.0
           break;
         case SaveFailedState:
-          setIcon(0, loader->loadIcon("cancel", KIconLoader::NoGroup,/*height()*/16));
+          setIcon(0, loader->loadIcon("dialog-error", KIconLoader::NoGroup,/*height()*/16));
           break;
       }
     }

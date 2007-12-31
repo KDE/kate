@@ -919,7 +919,7 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   list->setColumnWidth(0, 22);
 
   new QLabel(i18n("<b>Note:</b> New versions are selected automatically."), vbox);
-  setButtonIcon(User1, KIcon("ok"));
+  setButtonIcon(User1, KIcon("dialog-ok"));
 
   transferJob = KIO::get(
     KUrl(QString(HLDOWNLOADPATH)

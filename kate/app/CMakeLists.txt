@@ -40,16 +40,13 @@ set(kate_KDEINIT_SRCS katemain.cpp)
 
 if (WIN32)
     configure_file(${KDE4_MODULE_DIR}/kde4init_dummy.cpp.in ${CMAKE_CURRENT_BINARY_DIR}/kate_dummy.cpp)
+
     list(APPEND kate_KDEINIT_SRCS ${CMAKE_CURRENT_BINARY_DIR}/kate_dummy.cpp)
-    set(kate_icons
-        ${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/apps/kate.png
-        ${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/apps/kate.png
-        ${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/apps/kate.png
-        ${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/apps/kate.png
-        ${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/apps/kate.png
-    )
-    kde4_add_win32_app_icon(kate_KDEINIT_SRCS ${kate_icons})
+
+    kde4_add_app_icon(kate_KDEINIT_SRCS "${KDE4_INSTALL_DIR}/share/icons/oxygen/*/apps/kate.png")
+
     kde4_add_executable(kate ${kate_KDEINIT_SRCS} )
+
     target_link_libraries( kate ${QT_QTMAIN_LIBRARY} ${KDE4_KDECORE_LIBS} kateinterfaces )
 else (WIN32)
     kde4_add_kdeinit_executable( kate ${kate_KDEINIT_SRCS})

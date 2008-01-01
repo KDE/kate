@@ -338,6 +338,9 @@ void SmartRange::clearAndDeleteChildRanges( )
 
 void SmartRange::setParentRange( SmartRange * r )
 {
+  if (m_parentRange == r)
+    return;
+
   if (m_parentRange)
     m_parentRange->removeChildRange(this);
 

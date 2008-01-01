@@ -41,7 +41,7 @@ class SmartRange;
  * In addition to its inherited properties, it provides support for:
  * \li several customized text formatting properties
  * \li dynamic highlighting of associated ranges of text
- * \li binding of actions with associated ranges of text
+ * \li binding of actions with associated ranges of text (note: not currently implemented)
  *
  * Implementations are not required to support all properties.
  * In particular, several properties are not supported for dynamic
@@ -51,8 +51,6 @@ class SmartRange;
  * changes that are made to this attribute cannot automatically be
  * redrawn.  Once you have finished changing properties, you should
  * call changed() to force redrawing of affected ranges of text.
- *
- * \todo consider if tracking which ranges use this attribute is needed
  *
  * \sa SmartInterface
  *
@@ -220,6 +218,8 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat, public KShared
      *
      * The following functions allow for KAction%s to be associated with attributes,
      * and thus with ranges which use this attribute.
+     * 
+     * \note This feature is currently not implemented (ETA KDE 4.1).
      * \{
      */
     /**

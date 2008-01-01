@@ -50,7 +50,7 @@ class SmartRangeWatcher;
  * \li adjusting behavior in response to text edits,
  * \li forming a tree structure out of multiple SmartRange%s,
  * \li providing attribute information for the arbitrary highlighting extension,
- * \li allowing KAction%s to be bound to the range, and
+ * \li allowing KAction%s to be bound to the range (note: not currently implemented), and
  * \li providing notification of changes to 3rd party software.
  *
  * As a result of a smart range's close association with a document, and the processing
@@ -425,6 +425,8 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      * \name Action binding
      *
      * The following functions relate to action binding capabilities.
+     *
+     * \note This feature is currently not implemented (ETA KDE 4.1).
      * \{
      */
     /**

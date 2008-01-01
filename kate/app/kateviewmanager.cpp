@@ -113,7 +113,7 @@ void KateViewManager::setupActions ()
    * view splitting
    */
   a = m_mainWindow->actionCollection()->addAction("view_split_vert");
-  a->setIcon( KIcon("view-left-right") );
+  a->setIcon( KIcon("view-split-left-right") );
   a->setText( i18n("Split Ve&rtical") );
   a->setShortcut( Qt::CTRL + Qt::SHIFT + Qt::Key_L );
   connect(a, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceVert()));
@@ -121,7 +121,7 @@ void KateViewManager::setupActions ()
   a->setWhatsThis(i18n("Split the currently active view vertically into two views."));
 
   a = m_mainWindow->actionCollection()->addAction("view_split_horiz");
-  a->setIcon( KIcon("view-top-bottom") );
+  a->setIcon( KIcon("view-split-top-bottom") );
   a->setText( i18n("Split &Horizontal") );
   a->setShortcut( Qt::CTRL + Qt::SHIFT + Qt::Key_T );
   connect(a, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceHoriz()));

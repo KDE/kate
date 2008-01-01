@@ -246,7 +246,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   filelistConfigPage = new KateFileListConfigPage(this, m_mainWindow->m_fileList);
   item = addSubPage( applicationItem, filelistConfigPage, i18n("Document List") );
   item->setHeader( i18n("Document List Settings") );
-  item->setIcon( KIcon( "fileview-text" ) );
+  item->setIcon( KIcon( "view-list-text" ) );
   connect( filelistConfigPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
   //END Document List page
 

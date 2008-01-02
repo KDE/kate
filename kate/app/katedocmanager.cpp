@@ -118,6 +118,9 @@ QVariant KateDocManager::data( const QModelIndex & index, int role ) const
 {
   if ( role == OpeningOrderRole)
     return m_docList.indexOf( data(index, DocumentRole).value<KTextEditor::Document*>() );
+  else if ( role == UrlRole )
+   return data(index, DocumentRole).value<KTextEditor::Document*>()->url().url();
+
   return QStandardItemModel::data( index, role );
 }
 

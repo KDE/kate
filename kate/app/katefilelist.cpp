@@ -1,7 +1,7 @@
 /* This file is part of the KDE project
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
-   Copyright (C) 2001 Anders Lund <anders.lund@lund.tdcadsl.dk>
+   Copyright (C) 2001, 2007 Anders Lund <anders@alweb.dk>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -51,11 +51,13 @@ KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection)
   m_sortAction = new KSelectAction( i18n("Sort &By"), this );
   actionCollection->addAction( "filelist_sortby", m_sortAction );
 
-  QStringList l;
-  l << i18n("Opening Order") << i18n("Document Name") << i18n("URL") << i18n("Custom");
-  m_sortAction->setItems( l );
+  m_sortAction->setItems(QStringList()<<i18n("Opening Order")<<i18n("Document Name")<<i18n("URL")<<i18n("Custom"));
+  m_sortAction->action(0)->setData(SortOpening);
+  m_sortAction->action(1)->setData(SortName);
+  m_sortAction->action(2)->setData(SortUrl);
+  m_sortAction->action(3)->setData(SortCustom);
 
-//   connect( m_sortAction, SIGNAL(triggered(int)), this, SLOT(setSortType(int)) );
+  connect( m_sortAction, SIGNAL(triggered(QAction*)), this, SLOT(setSortRoleFromAction(QAction*)) );
 
   QPalette p = palette();
   p.setColor(QPalette::Inactive, QPalette::Highlight, p.color(QPalette::Active, QPalette::Highlight));
@@ -69,6 +71,15 @@ KateFileList::~KateFileList()
 void KateFileList::setSortRole(int role)
 {
   qobject_cast<KateViewDocumentProxyModel*>(model())->setSortRole(role);
+
+  if (role == SortOpening)
+    m_sortAction->setCurrentItem(0);
+  else if (role == SortName)
+    m_sortAction->setCurrentItem(1);
+  else if (role == SortUrl)
+    m_sortAction->setCurrentItem(2);
+  else
+    m_sortAction->setCurrentItem(3);
 }
 
 int KateFileList::sortRole()
@@ -138,6 +149,11 @@ void KateFileList::slotPrevDocument()
     }
   }
 }
+
+void KateFileList::setSortRoleFromAction(QAction* action)
+{
+  setSortRole(action->data().toInt());
+}
 //END KateFileList
 
 //BEGIN KateFileListConfigPage
@@ -176,10 +192,10 @@ KateFileListConfigPage::KateFileListConfigPage( QWidget* parent, KateFileList *f
   cmbSort = new QComboBox( this );
   lo2->addWidget( cmbSort );
   lSort->setBuddy( cmbSort );
-  cmbSort->addItem(i18n("Opening Order"), (int)KateDocManager::OpeningOrderRole);
-  cmbSort->addItem(i18n("Document Name"), (int)Qt::DisplayRole);
-  cmbSort->addItem(i18n("Url"), (int)Qt::ToolTipRole);
-  cmbSort->addItem(i18n("Custom"), (int)KateDocManager::CustomOrderRole);
+  cmbSort->addItem(i18n("Opening Order"), (int)KateFileList::SortOpening);
+  cmbSort->addItem(i18n("Document Name"), (int)KateFileList::SortName);
+  cmbSort->addItem(i18n("Url"), (int)KateFileList::SortUrl);
+  cmbSort->addItem(i18n("Custom"), (int)KateFileList::SortCustom);
 
   layout->insertStretch( -1, 10 );
 
@@ -202,7 +218,7 @@ KateFileListConfigPage::KateFileListConfigPage( QWidget* parent, KateFileList *f
   connect( gbEnableShading, SIGNAL(toggled(bool)), this, SLOT(slotMyChanged()) );
   connect( kcbViewShade, SIGNAL(changed(const QColor&)), this, SLOT(slotMyChanged()) );
   connect( kcbEditShade, SIGNAL(changed(const QColor&)), this, SLOT(slotMyChanged()) );
-//   connect( cmbSort, SIGNAL(activated(int)), this, SLOT(slotMyChanged()) );
+  connect( cmbSort, SIGNAL(activated(int)), this, SLOT(slotMyChanged()) );
 }
 
 void KateFileListConfigPage::apply()
@@ -239,7 +255,7 @@ void KateFileListConfigPage::reload()
   gbEnableShading->setChecked( config.readEntry("Shading Enabled", m_filelist->shadingEnabled()) );
   kcbViewShade->setColor( config.readEntry("View Shade", m_filelist->viewShade() ) );
   kcbEditShade->setColor( config.readEntry("Edit Shade", m_filelist->editShade() ) );
-//   cmbSort->setCurrentItem( cmbSort->findData(m_filelist->sortRole()) );
+   cmbSort->setCurrentItem( cmbSort->findData(m_filelist->sortRole()) );
   m_changed = false;
 }
 

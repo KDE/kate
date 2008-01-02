@@ -86,9 +86,9 @@ class KateFileSelectorPluginView : public Kate::PluginView
 
     virtual void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
     virtual void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
-    
+
     KateFileSelector * kateFileSelector() const { return m_fileSelector; }
-    
+
   private:
     KateFileSelector *m_fileSelector;
 };

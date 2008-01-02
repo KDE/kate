@@ -1,5 +1,6 @@
 /* This file is part of the KDE project
    Copyright (C) 2006 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2007 Anders Lund <anders@alweb.dk>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -35,6 +36,12 @@ class KateViewDocumentProxyModel: public QAbstractProxyModel
   public:
     KateViewDocumentProxyModel(QObject *parent);
     virtual ~KateViewDocumentProxyModel();
+
+    /**
+     * The sort role affects two things: sorting and insertion of new rows.
+     */
+    enum SortRole { CustomOrderRole = Qt::UserRole + 10 };
+
     virtual QVariant data ( const QModelIndex & index, int role ) const;
     virtual QModelIndex mapFromSource ( const QModelIndex & sourceIndex ) const;
     virtual QItemSelection mapSelectionFromSource ( const QItemSelection & sourceSelection ) const;
@@ -66,16 +73,18 @@ class KateViewDocumentProxyModel: public QAbstractProxyModel
     void setViewShade( const QColor &shade ) { m_viewShade = shade; }
 
     int sortRole() const { return m_sortRole; }
-    void setSortRole( int role ) { m_sortRole = role; }
+    void setSortRole( int role );
+
+    void sort(); ///< sorts the local row order (m_mapToSource) according to sortRole();
 
   private:
     QItemSelectionModel *m_selection;
-    QList<QModelIndex> m_viewHistory;
-    QList<QModelIndex> m_editHistory;
-    QMap<QModelIndex, QBrush> m_brushes;
-    QModelIndex m_current;
-    QList<int> m_mapToSource;
-    QList<int> m_mapFromSource;
+    QList<QModelIndex> m_viewHistory; ///< source index ordered ascending by view access
+    QList<QModelIndex> m_editHistory; ///< source index ordered ascending by edit access
+    QMap<QModelIndex, QBrush> m_brushes; ///< local index => background brush
+    QModelIndex m_current; ///< local index
+    QList<int> m_mapToSource; ///< source index rows, ordered by local row
+    QList<int> m_mapFromSource; ///< local index rows, ordered by source row
     QTimer *m_markOpenedTimer;
     int m_rowCountOffset;
     void removeItemFromColoring(int line);

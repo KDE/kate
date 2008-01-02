@@ -380,10 +380,11 @@ void KateConfigDialog::slotApply()
     cg.writeEntry("Modified Notification", m_modNotifications->isChecked());
     m_mainWindow->modNotification = m_modNotifications->isChecked();
 
+    filelistConfigPage->apply();
+
 #ifdef __GNUC__
 #warning portme
 #endif
-    filelistConfigPage->apply();
     /*
         KateExternalToolsCommand::self()->reload();
         for (int i=0; i < KateApp::self()->mainWindows(); i++)

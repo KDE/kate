@@ -1,5 +1,6 @@
 /* This file is part of the KDE project
    Copyright (C) 2006 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2007 Anders Lund <anders@alweb.dk>
 
    Code taken from katefilelist.cpp:
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
@@ -24,7 +25,6 @@
 #include "kateviewdocumentproxymodel.h"
 #include "kateviewdocumentproxymodel.moc"
 #include "katefilelist.h"
-#include "katedocmanager.h"
 
 #include <KColorScheme>
 #include <KColorUtils>
@@ -45,6 +45,7 @@ KateViewDocumentProxyModel::KateViewDocumentProxyModel(QObject *parent)
   KConfigGroup config(KGlobal::config(), "FileList");
 
   KColorScheme colors(QPalette::Active);
+
   QColor bg = colors.background().color();
   m_editShade = KColorUtils::tint(bg, colors.foreground(KColorScheme::ActiveText).color(), 0.5);
   m_viewShade = KColorUtils::tint(bg, colors.foreground(KColorScheme::VisitedText).color(), 0.5);
@@ -110,8 +111,11 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
   stream >> sourcerow;
   stream >> sourcecolumn;
   kDebug() << sourcerow << "/" << sourcecolumn;
+
   int insertRowAt = row - ((sourcerow < row) ? 1 : 0);
+
   m_rowCountOffset = -1;
+
   beginRemoveRows(parent, sourcerow, sourcerow);
   //m_mapToSource.insert(row,m_mapToSource[sourcerow]);
   int sourceModelRow = m_mapToSource[sourcerow];
@@ -143,6 +147,9 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
   QModelIndex index = createIndex(insertRowAt, 0);
   opened(index);
   m_rowCountOffset = 0;
+
+  m_sortRole = CustomOrderRole;
+
   return true;
 }
 
@@ -179,15 +186,10 @@ class EditViewCount
 
 void KateViewDocumentProxyModel::opened(const QModelIndex &index)
 {
-  kDebug() << "KateViewDocumentProxyModel::opened";
-
+  kDebug(13001) << index;
   if (m_current == index) return;
-  m_selection->select(index, QItemSelectionModel::Clear);
-  m_selection->setCurrentIndex(index, QItemSelectionModel::Clear);
-  m_selection->select(index, QItemSelectionModel::SelectCurrent);
-  m_selection->setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
-  m_selection->select(index,QItemSelectionModel::Select);
-  kDebug() << "KateViewDocumentProxyModel::opened-1";
+
+  m_selection->setCurrentIndex(index, QItemSelectionModel::Clear|QItemSelectionModel::SelectCurrent);
 
   m_current = index;
   m_markOpenedTimer->start(100);
@@ -197,8 +199,9 @@ void KateViewDocumentProxyModel::slotMarkOpenedTimer()
 {
   if (!m_current.isValid()) return;
 
-  m_viewHistory.removeAll(m_current);
-  m_viewHistory.prepend(m_current);
+  QModelIndex index = mapToSource(m_current);
+  m_viewHistory.removeAll(index);
+  m_viewHistory.prepend(index);
 
   while (m_viewHistory.count() > 10) m_viewHistory.removeLast();
 
@@ -206,10 +209,11 @@ void KateViewDocumentProxyModel::slotMarkOpenedTimer()
 
 }
 
-void KateViewDocumentProxyModel::modified(const QModelIndex &index)
+void KateViewDocumentProxyModel::modified(const QModelIndex &proxyIndex)
 {
-  kDebug() << "KateViewDocumentProxyModel::modified";
-
+  kDebug(13001) << "KateViewDocumentProxyModel::modified"<<proxyIndex;
+// FIXME there is an extremely complex path to calls of this, through KateMainWindow.
+  QModelIndex index = mapToSource(proxyIndex);
   m_editHistory.removeAll(index);
   m_editHistory.prepend(index);
 
@@ -255,6 +259,7 @@ void KateViewDocumentProxyModel::updateBackgrounds(bool emitSignals)
         ((shade.blue()*v) + (eshade.blue()*e)) / n
       );
     }
+
     // blend in the shade color; latest is most colored.
     double t = double(hc - it.value().view + 1) / double(hc);
     m_brushes[it.key()] = QBrush(KColorUtils::mix(QPalette().color(QPalette::Base), shade, t));
@@ -279,6 +284,10 @@ QVariant KateViewDocumentProxyModel::data ( const QModelIndex & index, int role 
     if ((br.style() != Qt::NoBrush) && m_shadingEnabled)
       return br;
   }
+
+  if ( role == CustomOrderRole )
+    return index.row();
+
   return sourceModel()->data(mapToSource(index), role);
 }
 
@@ -362,7 +371,7 @@ void KateViewDocumentProxyModel::setSourceModel ( QAbstractItemModel * sourceMod
     connect(sm, SIGNAL(headerDataChanged ( Qt::Orientation, int , int  )), this, SLOT(slotHeaderDataChanged ( Qt::Orientation, int , int  )));
     connect(sm, SIGNAL(layoutAboutToBeChanged ()), this, SLOT(slotLayoutAboutToBeChanged ()));
     connect(sm, SIGNAL(layoutChanged ()), this, SLOT(slotLayoutChanged ()));
-    connect(sm, SIGNAL(modelAboutToBeReset ()), this, SLOT(slotModelAboutToBeReset ()));
+//     connect(sm, SIGNAL(modelAboutToBeReset ()), this, SLOT(slotModelAboutToBeReset ()));
     connect(sm, SIGNAL(modelReset ()), this, SLOT(slotModelReset ()));
     connect(sm, SIGNAL(rowsAboutToBeInserted ( const QModelIndex & , int , int  )), this, SLOT(slotRowsAboutToBeInserted ( const QModelIndex & , int , int  )));
     connect(sm, SIGNAL(rowsAboutToBeRemoved ( const QModelIndex & , int , int  )), this, SLOT(slotRowsAboutToBeRemoved ( const QModelIndex & , int , int  )));
@@ -381,6 +390,8 @@ void KateViewDocumentProxyModel::setSourceModel ( QAbstractItemModel * sourceMod
     m_mapFromSource.append(i);
   }
   QAbstractProxyModel::setSourceModel(sm);
+
+  sort();
 }
 
 
@@ -438,21 +449,10 @@ void KateViewDocumentProxyModel::slotModelReset ()
 }
 void KateViewDocumentProxyModel::slotRowsAboutToBeInserted ( const QModelIndex & parent, int start, int end )
 {
+//   kDebug(13001)<<start<<end;
   //beginInsertRows(mapFromSource(parent),start,end);
   beginInsertRows(mapFromSource(parent), m_mapFromSource.count(), m_mapFromSource.count() + 1 - start + end);
-  QList<QModelIndex> tmpView;
-  QList<QModelIndex> tmpEdit;
   int insertedRange = end - start + 1;
-  foreach (const QModelIndex &idx, m_viewHistory)
-  {
-    if (idx.row() < start) tmpView.append(idx);
-    else tmpView.append(createIndex(idx.row() + insertedRange, idx.column()));
-  }
-  foreach (const QModelIndex &idx, m_editHistory)
-  {
-    if (idx.row() < start) tmpEdit.append(idx);
-    else if (idx.row() > start) tmpEdit.append(createIndex(idx.row() + insertedRange, idx.column()));
-  }
   if (m_current.isValid())
   {
     if (m_current.row() > start)
@@ -460,44 +460,33 @@ void KateViewDocumentProxyModel::slotRowsAboutToBeInserted ( const QModelIndex &
       m_current = createIndex(m_current.row() + insertedRange, m_current.column());
     }
   }
-  m_editHistory = tmpEdit;
-  m_viewHistory = tmpView;
-  m_brushes.clear();
   updateBackgrounds(false);
 
 }
 
 
-void KateViewDocumentProxyModel::removeItemFromColoring(int line)
+void KateViewDocumentProxyModel::removeItemFromColoring(int row)
 {
-  QList<QModelIndex> tmpView;
-  QList<QModelIndex> tmpEdit;
-  foreach (const QModelIndex &idx, m_viewHistory)
-  {
-    if (idx.row() < line) tmpView.append(idx);
-    else if (idx.row() > line)
-      tmpView.append(createIndex(idx.row() - 1, idx.column()));
-  }
-  foreach (const QModelIndex &idx, m_editHistory)
-  {
-    if (idx.row() < line) tmpEdit.append(idx);
-    else if (idx.row() > line) tmpEdit.append(createIndex(idx.row() - 1, idx.column()));
-  }
-  m_editHistory = tmpEdit;
-  m_viewHistory = tmpView;
-  m_brushes.clear();
+//   kDebug(13001)<<row;
+  QModelIndex removeit = mapToSource(createIndex(row, 0));
+  m_editHistory.removeAll(removeit);
+  m_viewHistory.removeAll(removeit);
   updateBackgrounds(false);
 }
 
 
 void KateViewDocumentProxyModel::slotRowsAboutToBeRemoved ( const QModelIndex & parent, int start, int end )
 {
+//   kDebug(13001)<<start<<end;
   Q_UNUSED(parent)
+
   for (int row = end;row >= start;row--)
   {
     int removeRow = m_mapFromSource[row];
+    removeItemFromColoring(removeRow);
     beginRemoveRows(QModelIndex(), removeRow, removeRow);
     m_rowCountOffset--;
+
     for (int i = 0, i2 = 0;i < m_mapToSource.count();i++)
     {
       if (i == removeRow) continue;
@@ -505,17 +494,19 @@ void KateViewDocumentProxyModel::slotRowsAboutToBeRemoved ( const QModelIndex & 
       m_mapToSource[i2] = (x > row) ? (x - 1) : x;
       i2++;
     }
+
     m_mapToSource.removeLast();
     m_mapFromSource.removeLast();
+
     //foreach (int sr, m_mapToSource) kDebug()<<sr;
     //kDebug()<<"**************";
+
     for (int i = 0;i < m_mapToSource.count();i++)
     {
       int tmp = m_mapToSource[i];
       m_mapFromSource[tmp] = i;
     }
     //foreach (int sd, m_mapFromSource) kDebug()<<sd;
-    removeItemFromColoring(removeRow);
     endRemoveRows();
   }
   m_rowCountOffset = 0;
@@ -523,6 +514,7 @@ void KateViewDocumentProxyModel::slotRowsAboutToBeRemoved ( const QModelIndex & 
 
 void KateViewDocumentProxyModel::slotRowsInserted ( const QModelIndex & parent, int start, int end )
 {
+//   kDebug(13001)<<start<<end;
   Q_UNUSED(parent)
   int cnt = m_mapFromSource.count();
   for (int i = start;i <= end;i++, cnt++)
@@ -540,19 +532,78 @@ void KateViewDocumentProxyModel::slotRowsInserted ( const QModelIndex & parent, 
     m_mapToSource[m_mapFromSource[i]] = i;
   }
   endInsertRows();
+  if (m_sortRole == Qt::DisplayRole || m_sortRole == Qt::ToolTipRole)
+    sort();
 }
 void KateViewDocumentProxyModel::slotRowsRemoved ( const QModelIndex & parent, int start, int end )
 {
+//   kDebug(13001)<<start<<end;
   Q_UNUSED(parent)
   Q_UNUSED(start)
   Q_UNUSED(end)
   m_rowCountOffset = 0;
-//    endRemoveRows();
-  kDebug() << "KateViewDocumentProxyModel::slotRowsRemoved";
   foreach(const QModelIndex &key, m_brushes.keys())
   {
     dataChanged(key, key);
   }
+}
+
+void KateViewDocumentProxyModel::setSortRole( int role )
+{
+//   kDebug(13001)<<role;
+  m_sortRole = role;
+  sort();
+}
+
+void KateViewDocumentProxyModel::sort()
+{
+
+  // wouldn't do anything
+  if ( m_sortRole == CustomOrderRole ) return;
+//   kDebug(13001)<<"sorting"<<m_sortRole<<m_mapToSource;
+
+  // we want to maintain selection state
+  // ### would it be possible to make the selection be maintained in the source model?
+  QModelIndex sourceSelected, sourceCurrent;
+  if (m_selection->hasSelection())
+    sourceSelected = mapToSource(m_selection->selectedIndexes().first());
+  sourceCurrent = mapToSource(m_selection->currentIndex());
+
+  switch (m_sortRole) {
+    case KateDocManager::OpeningOrderRole:
+    case CustomOrderRole:
+    {
+      QMap<int,int> sorted;
+      foreach( int row, m_mapToSource )
+        sorted.insert(data(sourceModel()->index(row, 0), m_sortRole).toInt(), m_mapToSource[row]);
+      m_mapToSource = sorted.values();
+    }
+    break;
+    default:
+    {
+      QMap<QString,int> sorted;
+      foreach( int row, m_mapToSource )
+        sorted.insert(data(sourceModel()->index(row, 0), m_sortRole).toString(), m_mapToSource[row]);
+
+      m_mapToSource = sorted.values();
+    }
+  }
+
+  // also reorder m_mapFromSource
+  for (int i = 0;i < m_mapToSource.count();i++)
+  {
+    int tmp = m_mapToSource[i];
+    m_mapFromSource[tmp] = i;
+  }
+
+  // select the correct item.
+  if (sourceSelected.isValid())
+    m_selection->select(mapFromSource(sourceSelected), QItemSelectionModel::ClearAndSelect);
+  if (sourceCurrent.isValid())
+    m_selection->setCurrentIndex(mapFromSource(sourceCurrent), QItemSelectionModel::SelectCurrent);
+
+  updateBackgrounds(false);
+  emit layoutChanged();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

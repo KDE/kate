@@ -196,7 +196,7 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
   coll->action( "home" )->setShortcut( Qt::CTRL + Qt::ALT + Qt::Key_Home );
 
   // bookmarks action!
-  KActionMenu *acmBookmarks = new KActionMenu( KIcon("bookmark"), i18n("Bookmarks"), this );
+  KActionMenu *acmBookmarks = new KActionMenu( KIcon("bookmarks"), i18n("Bookmarks"), this );
   mActionCollection->addAction( "bookmarks", acmBookmarks );
   acmBookmarks->setDelayed( false );
   bookmarkHandler = new KBookmarkHandler( this, acmBookmarks->menu() );

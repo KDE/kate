@@ -28,12 +28,13 @@
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kdatetime.h>
+#include <kconfiggroup.h>
 
 TimeDatePlugin *TimeDatePlugin::plugin = 0;
 
 K_PLUGIN_FACTORY_DEFINITION(TimeDatePluginFactory,
-        registerPlugin<TimeDatePlugin>();
-        registerPlugin<TimeDateConfig>();
+        registerPlugin<TimeDatePlugin>("ktexteditor_timedate");
+        registerPlugin<TimeDateConfig>("ktexteditor_timedate_config");
         )
 K_EXPORT_PLUGIN(TimeDatePluginFactory("ktexteditor_timedate", "ktexteditor_plugins"))
 

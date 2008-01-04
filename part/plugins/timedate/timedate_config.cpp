@@ -27,6 +27,7 @@
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <klineedit.h>
+#include <kconfiggroup.h>
 
 TimeDateConfig::TimeDateConfig(QWidget *parent, const QVariantList &args)
     : KCModule(TimeDatePluginFactory::componentData(), parent, args)

@@ -1,5 +1,6 @@
 [Desktop Entry]
 X-KDE-Library=ktexteditor_timedate
+X-KDE-PluginKeyword=ktexteditor_timedate
 X-KDE-PluginInfo-Author=Rafael Fernández López
 X-KDE-PluginInfo-Email=ereslibre@kde.org
 X-KDE-PluginInfo-Name=ktexteditortimedate
@@ -10,6 +11,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=false
 X-KDE-ParentApp=kate
+X-KDE-Version=4.0
 X-KDE-ServiceTypes=KTextEditor/Plugin
 Type=Service
 Icon=office-calendar

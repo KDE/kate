@@ -123,22 +123,22 @@
              </property>
              <item>
               <property name="text" >
-               <string>Plain text</string>
+               <string>Plain Text</string>
               </property>
              </item>
              <item>
               <property name="text" >
-               <string>Whole words</string>
+               <string>Whole Words</string>
               </property>
              </item>
              <item>
               <property name="text" >
-               <string>Escape sequences</string>
+               <string>Escape Sequences</string>
               </property>
              </item>
              <item>
               <property name="text" >
-               <string>Regular expression</string>
+               <string>Regular Expression</string>
               </property>
              </item>
             </widget>
@@ -286,7 +286,7 @@
             <string>Replace all matches</string>
            </property>
            <property name="text" >
-            <string>Replace &amp;all</string>
+            <string>Replace &amp;All</string>
            </property>
           </widget>
          </item>

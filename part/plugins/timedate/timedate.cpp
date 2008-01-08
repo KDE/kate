@@ -43,6 +43,18 @@ TimeDatePlugin::TimeDatePlugin(QObject *parent, const QVariantList &args)
 {
     Q_UNUSED(args);
 
+    if (localizedTimeDate.isNull())
+    {
+        localizedTimeDate = i18nc("This is a localized string for default time & date printing on kate document."
+                                  "%d means day in XX format."
+                                  "%m means month in XX format."
+                                  "%Y means year in XXXX format."
+                                  "%H means hours in XX format."
+                                  "%M means minutes in XX format."
+                                  "Please, if in your language time or date is written in a different order, change it here",
+                                  "%d-%m-%Y %H:%M");
+    }
+
     plugin = this;
     readConfig();
 }

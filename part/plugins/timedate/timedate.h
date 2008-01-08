@@ -31,15 +31,7 @@
 #include <QtCore/QList>
 #include <QtCore/QVariantList>
 
-static QString localizedTimeDate =
-    I18N_NOOP2("This is a localized string for default time & date printing on kate document."
-               "%e means day in XX format."
-               "%m means month in XX format."
-               "%Y means year in XXXX format."
-               "%H means hours in XX format."
-               "%M means minutes in XX format."
-               "Please, if in your language time or date is written in a different order, change it here",
-               "%e-%m-%Y %H:%M");
+static QString localizedTimeDate = QString();
 
 class TimeDatePlugin
   : public KTextEditor::Plugin

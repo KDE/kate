@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Java" version="1.18" kateversion="2.4" section="Sources" extensions="*.java" mimetype="text/x-java" license="LGPL" author="Alfredo Luiz Foltran Fialho (alfoltran@ig.com.br)">
+<language name="Java" version="1.19" kateversion="2.4" section="Sources" extensions="*.java" mimetype="text/x-java" license="LGPL" author="Alfredo Luiz Foltran Fialho (alfoltran@ig.com.br)">
 	<highlighting>
 		<list name="java15">
 			<item> ACTIVE </item>
@@ -3781,7 +3781,7 @@
 				<RegExpr attribute="Decimal" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1"/>
 				<RegExpr attribute="Decimal" context="#stay" String="//\s*END.*$" endRegion="Region1"/>
 				<DetectChar attribute="String" context="String" char="&quot;"/>
-				<RegExpr attribute="Function" context="Printf" String="\.(format|printf)\b" />
+				<RegExpr attribute="Function" context="EnterPrintf" String="\.(format|printf)\b"/>
 				<Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
 				<Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
 				<DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1"/>
@@ -3791,7 +3791,12 @@
 				<RegExpr attribute="Keyword" context="Imports" String="\b(package|import)\b" />
 				<RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*(/\*\s*\d+\s*\*/\s*)?[(])" />
 				<RegExpr attribute="Symbol" context="Member" String="[.]{1,1}" />
-				<AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
+				<DetectChar attribute="Symbol" context="InFunctionCall" char="("/>
+				<AnyChar attribute="Symbol" context="#stay" String=":!%&amp;+,-/.*&lt;=&gt;?[]|~^&#59;"/>
+			</context>
+			<context attribute="Normal Text" lineEndContext="#stay" name="InFunctionCall">
+				<IncludeRules context="Normal"/>
+				<DetectChar attribute="Symbol" context="#pop" char=")"/>
 			</context>
 			<context attribute="String" lineEndContext="#pop" name="String">
 				<LineContinue attribute="String" context="#stay"/>
@@ -3799,9 +3804,13 @@
 				<RegExpr attribute="String Char" context="#stay" String="\\u[0-9a-fA-F]{4}"/>
 				<DetectChar attribute="String" context="#pop" char="&quot;"/>
 			</context>
-			<context attribute="Printf" lineEndContext="#pop" name="Printf">
-				<DetectChar attribute="Normal Text" context="#pop" char="&#059;" />
+			<context attribute="Normal Text" lineEndContext="#stay" name="EnterPrintf" fallthrough="true" fallthroughContext="#pop">
+				<DetectChar attribute="Symbol" context="Printf" char="("/>
+				<DetectSpaces attribute="Normal Text" context="#stay"/>
+			</context>
+			<context attribute="Printf" lineEndContext="#stay" name="Printf">
 				<DetectChar attribute="String" context="PrintfString" char="&quot;"/>
+				<IncludeRules context="InFunctionCall"/>
 			</context>
 			<context attribute="PrintfString" lineEndContext="#pop" name="PrintfString">
 				<LineContinue attribute="String" context="#stay"/>

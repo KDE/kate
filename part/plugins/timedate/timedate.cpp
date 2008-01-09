@@ -119,7 +119,6 @@ TimeDatePluginView::TimeDatePluginView(const QString &string,
   , m_view(view)
   , m_string(string)
 {
-    view->insertChildClient(this);
     setComponentData(TimeDatePluginFactory::componentData());
 
     KAction *action = new KAction(i18n("Insert Time && Date"), this);

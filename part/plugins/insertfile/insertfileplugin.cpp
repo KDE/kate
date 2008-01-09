@@ -81,7 +81,6 @@ InsertFilePluginView::InsertFilePluginView( KTextEditor::View *view, const char 
 {
   setObjectName( name );
 
-  view->insertChildClient( this );
   setComponentData( InsertFilePluginFactory::componentData() );
   _job = 0;
 

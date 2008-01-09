@@ -1238,7 +1238,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
 
       if (removeTrailingSpace) {
         // cu space
-        editRemoveText (line + 1, z - 1, 1);
+        editRemoveText (line, z - 1, 1);
       }
     }
   }

@@ -1270,6 +1270,7 @@ void KateView::updateRendererConfig()
   m_toggleWWMarker->setChecked( m_renderer->config()->wordWrapMarker()  );
 
   m_viewInternal->updateBracketMarkAttributes();
+  m_viewInternal->updateBracketMarks();
 
   // update the text area
   m_viewInternal->updateView (true);

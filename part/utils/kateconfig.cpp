@@ -992,6 +992,7 @@ KateRendererConfig::KateRendererConfig ()
    m_fontSet (true),
    m_wordWrapMarkerSet (true),
    m_showIndentationLinesSet (true),
+   m_showWholeBracketExpressionSet (true),
    m_backgroundColorSet (true),
    m_selectionColorSet (true),
    m_highlightedLineColorSet (true),
@@ -1021,6 +1022,7 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_fontSet (false),
    m_wordWrapMarkerSet (false),
    m_showIndentationLinesSet (false),
+   m_showWholeBracketExpressionSet (false),
    m_backgroundColorSet (false),
    m_selectionColorSet (false),
    m_highlightedLineColorSet (false),
@@ -1051,6 +1053,8 @@ void KateRendererConfig::readConfig (const KConfigGroup &config)
 
   setShowIndentationLines (config.readEntry( "Show Indentation Lines", false));
 
+  setShowWholeBracketExpression (config.readEntry( "Show Whole Bracket Expression", false));
+
   configEnd ();
 }
 
@@ -1061,6 +1065,8 @@ void KateRendererConfig::writeConfig (KConfigGroup& config)
   config.writeEntry("Word Wrap Marker", wordWrapMarker() );
 
   config.writeEntry("Show Indentation Lines", showIndentationLines());
+
+  config.writeEntry("Show Whole Bracket Expression", showWholeBracketExpression());
 }
 
 void KateRendererConfig::updateConfig ()
@@ -1434,6 +1440,24 @@ void KateRendererConfig::setShowIndentationLines (bool on)
 
   m_showIndentationLinesSet = true;
   m_showIndentationLines = on;
+
+  configEnd ();
+}
+
+bool KateRendererConfig::showWholeBracketExpression () const
+{
+  if (m_showWholeBracketExpressionSet || isGlobal())
+    return m_showWholeBracketExpression;
+
+  return s_global->showWholeBracketExpression();
+}
+
+void KateRendererConfig::setShowWholeBracketExpression (bool on)
+{
+  configStart ();
+
+  m_showWholeBracketExpressionSet = true;
+  m_showWholeBracketExpression = on;
 
   configEnd ();
 }

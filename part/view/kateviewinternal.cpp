@@ -1836,22 +1836,38 @@ void KateViewInternal::updateBracketMarkAttributes()
   bracketFill->setBackground(m_view->m_renderer->config()->highlightedBracketColor());
   bracketFill->setBackgroundFillWhitespace(false);
   bracketFill->setFontBold();
-  
+
   m_bmStart->setAttribute(bracketFill);
   m_bmEnd->setAttribute(bracketFill);
+
+  if (m_view->m_renderer->config()->showWholeBracketExpression()) {
+
+    KTextEditor::Attribute::Ptr expressionFill = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
+    expressionFill->setBackground(m_view->m_renderer->config()->highlightedBracketColor());
+    expressionFill->setBackgroundFillWhitespace(false);
+
+    m_bm->setAttribute(expressionFill);
+  } else {
+    m_bm->setAttribute(KTextEditor::Attribute::Ptr(new KTextEditor::Attribute()));
+  }
 }
 
 void KateViewInternal::updateBracketMarks()
 {
+  bool showWholeBracketExpression = m_view->m_renderer->config()->showWholeBracketExpression();
+  kDebug() << showWholeBracketExpression;
+
   if (m_bmHighlighted) {
     view()->removeInternalHighlight(m_bmStart);
     view()->removeInternalHighlight(m_bmEnd);
+    view()->removeInternalHighlight(m_bm);
     m_bmHighlighted = false;
   }
 
   if ( m_bm->isValid() ) {
     tagRange(*m_bmStart, true);
     tagRange(*m_bmEnd, true);
+    tagRange(*m_bm, true);
   }
 
   // add some limit to this, this is really endless on big files without limit
@@ -1867,9 +1883,15 @@ void KateViewInternal::updateBracketMarks()
 
     tagRange(*m_bmStart, true);
     tagRange(*m_bmEnd, true);
+    if (showWholeBracketExpression) {
+      tagRange(*m_bm, true);
+    }
 
     view()->addInternalHighlight(m_bmStart);
     view()->addInternalHighlight(m_bmEnd);
+    if (showWholeBracketExpression) {
+      view()->addInternalHighlight(m_bm);
+    }
     m_bmHighlighted = true;
   }
 }

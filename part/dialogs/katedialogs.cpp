@@ -464,6 +464,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   ui->cmbDynamicWordWrapIndicator->addItem( i18n("Always On") );
 
   ui->chkShowIndentationLines->setChecked(KateRendererConfig::global()->showIndentationLines());
+  ui->chkShowWholeBracketExpression->setChecked(KateRendererConfig::global()->showWholeBracketExpression());
 
   // What's This? help is in the ui-file
 
@@ -483,6 +484,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   connect(ui->rbSortBookmarksByPosition, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->rbSortBookmarksByCreation, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkShowIndentationLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkShowWholeBracketExpression, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
 KateViewDefaultsConfig::~KateViewDefaultsConfig()
@@ -510,6 +512,7 @@ void KateViewDefaultsConfig::apply ()
 
   KateViewConfig::global()->setBookmarkSort (ui->rbSortBookmarksByPosition->isChecked()?0:1);
   KateRendererConfig::global()->setShowIndentationLines(ui->chkShowIndentationLines->isChecked());
+  KateRendererConfig::global()->setShowWholeBracketExpression(ui->chkShowWholeBracketExpression->isChecked());
 
   KateRendererConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
@@ -527,6 +530,7 @@ void KateViewDefaultsConfig::reload ()
   ui->rbSortBookmarksByPosition->setChecked(KateViewConfig::global()->bookmarkSort()==0);
   ui->rbSortBookmarksByCreation->setChecked(KateViewConfig::global()->bookmarkSort()==1);
   ui->chkShowIndentationLines->setChecked(KateRendererConfig::global()->showIndentationLines());
+  ui->chkShowWholeBracketExpression->setChecked(KateRendererConfig::global()->showWholeBracketExpression());
 }
 
 void KateViewDefaultsConfig::reset () {;}

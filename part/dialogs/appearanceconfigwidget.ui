@@ -276,6 +276,16 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="chkShowWholeBracketExpression" >
+     <property name="whatsThis" >
+      <string>If this is enabled, the whole expression inside matching brackets will be highlighted.</string>
+     </property>
+     <property name="text" >
+      <string>Highlight the whole bracket matching expression</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>

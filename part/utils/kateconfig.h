@@ -490,6 +490,9 @@ class KateRendererConfig : public KateConfig
     bool showIndentationLines () const;
     void setShowIndentationLines (bool on);
 
+    bool showWholeBracketExpression () const;
+    void setShowWholeBracketExpression (bool on);
+
     const QColor &templateBackgroundColor() const;
     const QColor &templateEditablePlaceholderColor() const;
     const QColor &templateFocusedEditablePlaceholderColor() const;
@@ -507,6 +510,7 @@ class KateRendererConfig : public KateConfig
     QFontMetrics m_fontMetrics;
     bool m_wordWrapMarker;
     bool m_showIndentationLines;
+    bool m_showWholeBracketExpression;
     QColor m_backgroundColor;
     QColor m_selectionColor;
     QColor m_highlightedLineColor;
@@ -527,6 +531,7 @@ class KateRendererConfig : public KateConfig
     bool m_fontSet : 1;
     bool m_wordWrapMarkerSet : 1;
     bool m_showIndentationLinesSet : 1;
+    bool m_showWholeBracketExpressionSet : 1;
     bool m_backgroundColorSet : 1;
     bool m_selectionColorSet : 1;
     bool m_highlightedLineColorSet : 1;

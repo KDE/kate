@@ -72,8 +72,6 @@ void KDataToolPlugin::removeView(KTextEditor::View *view)
 KDataToolPluginView::KDataToolPluginView( KTextEditor::View *view )
 	:m_menu(0),m_notAvailable(0)
 {
-
-	view->insertChildClient (this);
 	setComponentData( KDataToolPluginFactory::componentData() );
 
 	m_menu = new KActionMenu(i18n("Data Tools"), this);

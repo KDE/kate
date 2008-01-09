@@ -283,8 +283,6 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
   a->setForeground( colors.foreground(KColorScheme::ActiveText) ); // ### this does 0
   d->liRange->setAttribute( a );
 
-  view->insertChildClient( this );
-
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
 
   KAction *action;

@@ -238,7 +238,14 @@ void KatePartPluginManager::disablePlugin (KatePartPluginInfo &item)
       if (!view)
         continue;
 
+      KXMLGUIFactory *viewFactory = view->factory();
+      if (viewFactory)
+        viewFactory->removeClient(view);
+
       item.plugin->removeView(view);
+
+      if (viewFactory)
+        viewFactory->addClient(view);
     }
   }
 }

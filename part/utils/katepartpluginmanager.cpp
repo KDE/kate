@@ -29,6 +29,7 @@
 #include <ktexteditor/view.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
+#include <kxmlguifactory.h>
 
 #include <kservicetypetrader.h>
 #include <kdebug.h>
@@ -184,6 +185,7 @@ void KatePartPluginManager::loadPlugin (KatePartPluginInfo &item)
   if (item.plugin) return;
 
   item.plugin = KTextEditor::createPlugin (item.service, this);
+  Q_ASSERT(item.plugin);
   item.load = (item.plugin != 0);
 }
 
@@ -202,9 +204,22 @@ void KatePartPluginManager::enablePlugin (KatePartPluginInfo &item)
 
   // register docs and views
   foreach (KTextEditor::Document *doc, KateGlobal::self()->documents()) {
-    item.plugin->addDocument(doc);
-    foreach (KTextEditor::View *view, doc->views())
+    if (!doc)
+      continue;
+
+    foreach (KTextEditor::View *view, doc->views()) {
+      if (!view)
+        continue;
+
+      KXMLGUIFactory *viewFactory = view->factory();
+      if (viewFactory)
+        viewFactory->removeClient(view);
+
       item.plugin->addView(view);
+
+      if (viewFactory)
+        viewFactory->addClient(view);
+    }
   }
 }
 
@@ -216,9 +231,15 @@ void KatePartPluginManager::disablePlugin (KatePartPluginInfo &item)
 
   // de-register docs and views
   foreach (KTextEditor::Document *doc, KateGlobal::self()->documents()) {
-    foreach (KTextEditor::View *view, doc->views())
+    if (!doc)
+      continue;
+
+    foreach (KTextEditor::View *view, doc->views()) {
+      if (!view)
+        continue;
+
       item.plugin->removeView(view);
-    item.plugin->removeDocument(doc);
+    }
   }
 }
 

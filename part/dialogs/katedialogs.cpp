@@ -825,12 +825,12 @@ void KatePartPluginConfigPage::apply ()
   KatePartPluginList &katePluginList = KatePartPluginManager::self()->pluginList();
   for (int i=0; i < plugins.count(); i++) {
     if (plugins[i].isPluginEnabled()) {
-      if (!(katePluginList[i].load && katePluginList[i].plugin)) {
+      if (!katePluginList[i].load) {
         KatePartPluginManager::self()->loadPlugin(katePluginList[i]);
         KatePartPluginManager::self()->enablePlugin(katePluginList[i]);
       }
     } else {
-      if (katePluginList[i].load || katePluginList[i].plugin) {
+      if (katePluginList[i].load) {
         KatePartPluginManager::self()->disablePlugin(katePluginList[i]);
         KatePartPluginManager::self()->unloadPlugin(katePluginList[i]);
       }

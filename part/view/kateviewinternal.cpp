@@ -1855,7 +1855,6 @@ void KateViewInternal::updateBracketMarkAttributes()
 void KateViewInternal::updateBracketMarks()
 {
   bool showWholeBracketExpression = m_view->m_renderer->config()->showWholeBracketExpression();
-  kDebug() << showWholeBracketExpression;
 
   if (m_bmHighlighted) {
     view()->removeInternalHighlight(m_bmStart);

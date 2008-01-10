@@ -65,7 +65,6 @@ KateViewManager::KateViewManager (QWidget *parentW, KateMainWindow *parent)
     , m_mainWindow(parent)
     , m_blockViewCreationAndActivation (false)
     , m_activeViewRunning (false)
-    , m_pendingViewCreation(false)
 {
   // while init
   m_init = true;
@@ -420,12 +419,6 @@ void KateViewManager::reactivateActiveView()
     m_activeStates[view] = false;
     activateView(view);
   }
-  else if (m_pendingViewCreation)
-  {
-    m_pendingViewCreation = false;
-    disconnect(m_pendingDocument, SIGNAL(documentNameChanged(Document *)), this, SLOT(slotPendingDocumentNameChanged()));
-    createView(m_pendingDocument);
-  }
 }
 
 void KateViewManager::activateView ( KTextEditor::View *view )
@@ -533,12 +526,6 @@ void KateViewManager::closeViews(KTextEditor::Document *doc)
 
   if (m_blockViewCreationAndActivation) return;
   QTimer::singleShot(0, this, SIGNAL(viewChanged()));
-}
-
-void KateViewManager::slotPendingDocumentNameChanged()
-{
-  QString c = m_pendingDocument->documentName();
-  setWindowTitle(KStringHandler::lsqueeze(c, 32));
 }
 
 void KateViewManager::splitViewSpace( KateViewSpace* vs, // = 0

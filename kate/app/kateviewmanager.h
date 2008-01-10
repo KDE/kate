@@ -150,8 +150,6 @@ class KateViewManager : public QSplitter
 
   private Q_SLOTS:
     void slotViewChanged();
-    void reactivateActiveView();
-    void slotPendingDocumentNameChanged();
 
     void documentCreated (KTextEditor::Document *doc);
     void documentDeleted (KTextEditor::Document *doc);
@@ -189,15 +187,13 @@ class KateViewManager : public QSplitter
 
     void slotCloseCurrentViewSpace();
 
+    void reactivateActiveView();
+
   private:
     KateMainWindow *m_mainWindow;
     bool m_init;
 
-    QToolButton *m_closeTabButton;
     QAction *m_closeView;
-    QAction *m_closeTab;
-    QAction *m_activateNextTab;
-    QAction *m_activatePrevTab;
     QAction *goNext;
     QAction *goPrev;
 
@@ -208,9 +204,6 @@ class KateViewManager : public QSplitter
     bool m_blockViewCreationAndActivation;
 
     bool m_activeViewRunning;
-
-    bool m_pendingViewCreation;
-    QPointer<KTextEditor::Document> m_pendingDocument;
 
     int m_splitterIndex; // used during saving splitter config.
 };

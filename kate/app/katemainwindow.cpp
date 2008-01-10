@@ -671,6 +671,10 @@ void KateMainWindow::slotConfigure()
   dlg->exec();
 
   delete dlg;
+
+  m_viewManager->reactivateActiveView(); // gui (toolbars...) needs to be updated, because
+                                         // of possible changes that the configure dialog
+                                         // could have done on it, specially for plugins.
 }
 
 KUrl KateMainWindow::activeDocumentUrl()

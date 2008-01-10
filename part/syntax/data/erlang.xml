@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd"
 [
-          <!ENTITY atomstr    "\b[a-z][a-zA-Z0-9@]*\b" >
-          <!ENTITY varstr    "\b[A-Z][a-zA-Z0-9@]*\b" >
+          <!ENTITY atomstr    "\b[a-z][_a-z@-Z0-9]*(?:(?=[^_a-z@-Z0-9])|$)" >
+          <!ENTITY varstr    "\b[_A-Z][_a-z@-Z0-9]*(?:(?=[^_a-z@-Z0-9])|$)" >
           <!-- pragmas defined here, because "keyword" can't handle the leading '-' -->
           <!ENTITY pragmas 
              "^(?:-module|-export|-define|-undef|-ifdef|-ifndef|-else|-endif|-include|-include_lib)" >
@@ -31,11 +31,12 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
   
-   TODO
-   - '@' at the end of an atom or variable gets coded as normal text - fix this!! 
+   Changes 
+   v1-0-2 (2008-01-10) - fixed to '_" in atom and variable names (thanks to Vito De Tullio)
+                                   - fixed highlighting problem when '@' at end of atom/variable
 -->
 
-<language name="Erlang" version="1.01" kateversion="2.5" section="Scripts" extensions="*.erl" mimetype="" author="Bill Ross (bill@emailme.net)" license="LGPL">
+<language name="Erlang" version="1.02" kateversion="2.5" section="Scripts" extensions="*.erl" mimetype="" author="Bill Ross (bill@emailme.net.au)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <!-- ====== s3.8 p 24 of erlang spec ===== -->

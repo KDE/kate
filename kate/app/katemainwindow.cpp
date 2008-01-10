@@ -220,7 +220,7 @@ void KateMainWindow::setupMainWindow ()
 
   m_viewManager = new KateViewManager (centralWidget(), this);
 
-  KateMDI::ToolView *ft = createToolView("kate_filelist", KMultiTabBar::Left, SmallIcon("kmultiple"), i18n("Documents"));
+  KateMDI::ToolView *ft = createToolView("kate_filelist", KMultiTabBar::Left, SmallIcon("document-multiple"), i18n("Documents"));
   m_fileList = new KateFileList(ft, actionCollection());
   m_documentModel = new KateViewDocumentProxyModel(this);
   m_documentModel->setSourceModel(KateDocManager::self());

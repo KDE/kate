@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2007-2008 David Nolden <david.nolden.kdevelop@art-master.de>
    Copyright (C) 2005-2006 Hamish Rodda <rodda@kde.org>
 
    This library is free software; you can redistribute it and/or
@@ -296,6 +297,8 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        * short-cut to go to navigate to the next position within the expanding-widget(if applicable).
        *
        * Return QVariant(true) if the input was used.
+       *
+       * NOTE: In kate, this is triggered with SHIFT+RIGHT_ARROW
        * */
       AccessibilityNext,
       /**
@@ -303,6 +306,8 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        * short-cut to go to navigate to the previous position within the expanding-widget(if applicable).
        *
        * Return QVariant(true) if the input was used.
+       *
+       * NOTE: In kate, this is triggered with SHIFT+LEFT_ARROW
        * */
       AccessibilityPrevious,
       /**
@@ -310,8 +315,35 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        * shortcut to trigger the action associated with the position within the expanding-widget the user has navigated to using AccessibilityNext and AccessibilityPrevious.
        *
        * This should return QVariant(true) if an action was triggered, else QVariant(false) or QVariant().
+       *
+       * NOTE: In kate, this is triggered with SHIFT+RETURN
        * */
-      AccessibilityAccept
+      AccessibilityAccept,
+
+      /**
+       * Using this Role, it is possible to greatly optimize the time needed to process very long completion-lists.
+       *
+       * In the completion-list, the items are usually ordered by some properties like argument-hint depth,
+       * inheritance-depth and attributes. Kate usually has to query the completion-models for these values
+       * for each item in the completion-list in order to extract the argument-hints and correctly sort the
+       * completion-list. However, with a very long completion-list, only a very small fraction of the items is actually
+       * visible.
+       *
+       * By using a tree structure you can give the items in a grouped order to kate, so it does not need to look at each
+       * item and query data in order to initially show the completion-list.
+       *
+       * This is how it works:
+       * - You create a tree-structure for your items
+       * - Every inner node of the tree defines one attribute value that all sub-nodes have in common.
+       *   - When the inner node is queried for GroupRole, it should return the "ExtraItemDataRoles" that all sub-nodes have in common
+       *   - When the inner node is then queried for that exact role, it should return that value.
+       *   - No other queries will be done to inner nodes.
+       * - Every leaf node stands for an actual item in the completion list.
+       *
+       * The whole tree should have the same GroupRole on the same level. The recommended order is: Argument-hint depth, inheritance depth, attributes
+       * In future, this structure information might be used to do ordering/grouping.
+       * */
+      GroupRole
     };
     static const int LastItemDataRole = AccessibilityAccept;
 

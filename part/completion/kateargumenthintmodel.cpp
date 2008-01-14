@@ -42,7 +42,7 @@ void KateArgumentHintModel::buildRows() {
   QMap<int, QList<int> > m_depths; //Map each hint-depth to a list of functions of that depth
   for( int a = 0; a < group()->rows.count(); a++ ) {
     KateCompletionModel::ModelRow source = group()->rows[a];
-    QModelIndex  sourceIndex = source.first->index(source.second, 0);
+    QModelIndex  sourceIndex = source.second.sibling(source.second.row(), 0);
     QVariant v = sourceIndex.data(CodeCompletionModel::ArgumentHintDepth);
     if( v.type() == QVariant::Int ) {
       QList<int>& lst( m_depths[v.toInt()] );
@@ -113,7 +113,7 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
     }
   }
 
-   QModelIndex  sourceIndex = source.first->index(source.second, index.column());
+  QModelIndex  sourceIndex = source.second.sibling(source.second.row(), index.column());
  
   if( !sourceIndex.isValid() ) {
     kDebug() << "KateArgumentHintModel::data: Source-index is not valid";
@@ -127,7 +127,7 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
       QString totalText;
       for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
         if( a != CodeCompletionModel::Scope ) //Skip the scope
-          totalText += source.first->index(source.second, a).data(Qt::DisplayRole).toString() + ' ';
+          totalText += source.second.sibling(source.second.row(), a).data(Qt::DisplayRole).toString() + ' ';
     
       
       return QVariant(totalText);
@@ -136,7 +136,7 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
     {
       //Return that we are doing custom-highlighting of one of the sub-strings does it
       for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
-          if( source.first->index(source.second, a).data(CodeCompletionModel::HighlightingMethod).type() == QVariant::Int ) {
+          if( source.second.sibling(source.second.row(), a).data(CodeCompletionModel::HighlightingMethod).type() == QVariant::Int ) {
             return QVariant(CodeCompletionModel::CustomHighlighting);
           }
     
@@ -148,13 +148,13 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
       
       //Collect strings
       for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
-          strings << source.first->index(source.second, a).data(Qt::DisplayRole).toString();
+          strings << source.second.sibling(source.second.row(), a).data(Qt::DisplayRole).toString();
 
       QList<QVariantList> highlights;
 
       //Collect custom-highlightings
       for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
-          highlights << source.first->index(source.second, a).data(CodeCompletionModel::CustomHighlight).toList();
+          highlights << source.second.sibling(source.second.row(), a).data(CodeCompletionModel::CustomHighlight).toList();
 
       //Replace invalid QTextFormats with match-quality color or yellow.
       for( QList<QVariantList>::iterator it = highlights.begin(); it != highlights.end(); ++it )
@@ -189,7 +189,7 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
     case Qt::DecorationRole:
     {
       //Redirect the decoration to the decoration of the item-column
-      return source.first->index(source.second, CodeCompletionModel::Icon).data(role);
+      return source.second.sibling(source.second.row(), CodeCompletionModel::Icon).data(role);
     }
   }
   
@@ -243,7 +243,7 @@ int KateArgumentHintModel::contextMatchQuality(const QModelIndex& index) const {
   if( !source.first )
     return -1;
   
-   QModelIndex  sourceIndex = source.first->index(source.second, 0);
+   QModelIndex  sourceIndex = source.second.sibling(source.second.row(), 0);
  
   if( !sourceIndex.isValid() )
     return -1;

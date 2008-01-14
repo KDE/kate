@@ -35,6 +35,73 @@
 
 using namespace KTextEditor;
 
+///A helper-class for handling completion-models with hierarchical grouping/optimization
+class HierarchicalModelHandler {
+public:
+  HierarchicalModelHandler(CodeCompletionModel* model);
+  void addValue(CodeCompletionModel::ExtraItemDataRoles role, const QVariant& value);
+  //Walks the index upwards and collects all defined completion-roles on the way
+  void collectRoles(const QModelIndex& index);
+  void takeRole(const QModelIndex& index);
+
+  CodeCompletionModel* model() const;
+  
+  //Assumes that index is a sub-index of the indices where role-values were taken
+  QVariant getData(CodeCompletionModel::ExtraItemDataRoles role, const QModelIndex& index) const;
+
+  bool hasHierarchicalRoles() const;
+  
+  int inheritanceDepth(const QModelIndex& i) const;
+private:
+  typedef QMap<CodeCompletionModel::ExtraItemDataRoles, QVariant> RoleMap;
+  RoleMap m_roleValues;
+  CodeCompletionModel* m_model;
+};
+
+CodeCompletionModel* HierarchicalModelHandler::model() const {
+  return m_model;
+}
+
+bool HierarchicalModelHandler::hasHierarchicalRoles() const {
+  return !m_roleValues.isEmpty();
+}
+
+void HierarchicalModelHandler::collectRoles(const QModelIndex& index) {
+  if( index.parent().isValid() )
+    collectRoles(index.parent());
+  if(m_model->rowCount(index) != 0)
+    takeRole(index);
+}
+
+int HierarchicalModelHandler::inheritanceDepth(const QModelIndex& i) const {
+  return getData(CodeCompletionModel::InheritanceDepth, i).toInt();
+}
+
+void HierarchicalModelHandler::takeRole(const QModelIndex& index) {
+  QVariant v = index.data(CodeCompletionModel::GroupRole);
+  if( v.isValid() && v.canConvert(QVariant::Int) ) {
+    QVariant value = index.data(v.toInt());
+    m_roleValues[(CodeCompletionModel::ExtraItemDataRoles)v.toInt()] = value;
+  }else{
+    kDebug() << "Did not return valid GroupRole in hierarchical completion-model";
+  }
+}
+
+QVariant HierarchicalModelHandler::getData(CodeCompletionModel::ExtraItemDataRoles role, const QModelIndex& index) const {
+  RoleMap::const_iterator it = m_roleValues.find(role);
+  if( it != m_roleValues.end() )
+    return *it;
+  else
+    return index.data(role);
+}
+
+HierarchicalModelHandler::HierarchicalModelHandler(CodeCompletionModel* model) : m_model(model) {
+}
+
+void HierarchicalModelHandler::addValue(CodeCompletionModel::ExtraItemDataRoles role, const QVariant& value) {
+  m_roleValues[role] = value;
+}
+
 KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   : ExpandingWidgetModel(parent)
   , m_matchCaseSensitivity(Qt::CaseInsensitive)
@@ -187,7 +254,7 @@ int KateCompletionModel::contextMatchQuality(const QModelIndex& idx) const {
     return -1;
 
   ModelRow source = g->rows[idx.row()];
-  QModelIndex realIndex = source.first->index(source.second, 0);
+  QModelIndex realIndex = source.second;
 
 
   int bestMatch = -1;
@@ -197,7 +264,7 @@ int KateCompletionModel::contextMatchQuality(const QModelIndex& idx) const {
     if( realIndex.model() != row.first )
       continue; //We can only match within the same source-model
 
-    QModelIndex hintIndex = row.first->index(row.second,0);
+    QModelIndex hintIndex = row.second;
 
     QVariant depth = hintIndex.data(CodeCompletionModel::ArgumentHintDepth);
     if( !depth.isValid() || depth.type() != QVariant::Int || depth.toInt() != 1 )
@@ -248,7 +315,7 @@ int KateCompletionModel::columnCount( const QModelIndex& ) const
 
 KateCompletionModel::ModelRow KateCompletionModel::modelRowPair(const QModelIndex& index) const
 {
-  return qMakePair(static_cast<CodeCompletionModel*>(const_cast<QAbstractItemModel*>(index.model())), index.row());
+  return qMakePair(static_cast<CodeCompletionModel*>(const_cast<QAbstractItemModel*>(index.model())), QPersistentModelIndex(index));
 }
 
 bool KateCompletionModel::hasChildren( const QModelIndex & parent ) const
@@ -375,7 +442,6 @@ QModelIndex KateCompletionModel::indexForGroup( Group * g ) const
   return createIndex(row, 0, 0);
 }
 
-
 void KateCompletionModel::clearGroups( )
 {
   clearExpanding();
@@ -408,13 +474,47 @@ void KateCompletionModel::clearGroups( )
   m_groupHash.insert(BestMatchesProperty, m_bestMatches);
 }
 
+QSet<KateCompletionModel::Group*> KateCompletionModel::createItems(const HierarchicalModelHandler& _handler, const QModelIndex& i, bool notifyModel) {
+  HierarchicalModelHandler handler(_handler);
+  QSet<Group*> ret;
+  
+  if( handler.model()->rowCount(i) == 0 ) {
+    //Leaf node, create an item
+    ret.insert( createItem(handler, i, notifyModel) );
+  } else {
+    //Non-leaf node, take the role from the node, and recurse to the sub-nodes
+    handler.takeRole(i);
+    for(int a = 0; a < handler.model()->rowCount(i); a++)
+      ret += createItems(handler, i.child(a, 0), notifyModel);
+  }
+  
+  return ret;
+}
+
+QSet<KateCompletionModel::Group*> KateCompletionModel::deleteItems(const QModelIndex& i) {
+  QSet<Group*> ret;
+  
+  if( i.model()->rowCount(i) == 0 ) {
+    //Leaf node, delete the item
+    Group* g = groupForIndex(mapFromSource(i));
+    ret.insert(g);
+    g->removeItem(ModelRow(const_cast<CodeCompletionModel*>(static_cast<const CodeCompletionModel*>(i.model())), QPersistentModelIndex(i)));
+  } else {
+    //Non-leaf node
+    for(int a = 0; a < i.model()->rowCount(i); a++)
+      ret += deleteItems(i.child(a, 0));
+  }
+  
+  return ret;
+}
+
 void KateCompletionModel::createGroups()
 {
   clearGroups();
 
   foreach (CodeCompletionModel* sourceModel, m_completionModels)
     for (int i = 0; i < sourceModel->rowCount(); ++i)
-      createItem(sourceModel, i);
+      createItems(HierarchicalModelHandler(sourceModel), sourceModel->index(i, 0));
 
   //debugStats();
 
@@ -424,22 +524,24 @@ void KateCompletionModel::createGroups()
   emit contentGeometryChanged();
 }
 
-KateCompletionModel::Group* KateCompletionModel::createItem(CodeCompletionModel* sourceModel, int row, bool notifyModel)
+KateCompletionModel::Group* KateCompletionModel::createItem(const HierarchicalModelHandler& handler, const QModelIndex& sourceIndex, bool notifyModel)
 {
-  QModelIndex sourceIndex = sourceModel->index(row, CodeCompletionModel::Name, QModelIndex());
+  //QModelIndex sourceIndex = sourceModel->index(row, CodeCompletionModel::Name, QModelIndex());
 
-  int completionFlags = sourceIndex.data(CodeCompletionModel::CompletionRole).toInt();
-  QString scopeIfNeeded = (groupingMethod() & Scope) ? sourceModel->index(row, CodeCompletionModel::Scope, QModelIndex()).data(Qt::DisplayRole).toString() : QString();
+  int completionFlags = handler.getData(CodeCompletionModel::CompletionRole, sourceIndex).toInt();
 
-  int argumentHintDepth = sourceIndex.data(CodeCompletionModel::ArgumentHintDepth).toInt();
+  //Scope is expensive, should not be used with big models
+  QString scopeIfNeeded = (groupingMethod() & Scope) ? sourceIndex.sibling(sourceIndex.row(), CodeCompletionModel::Scope).data(Qt::DisplayRole).toString() : QString();
+
+  int argumentHintDepth = handler.getData(CodeCompletionModel::ArgumentHintDepth, sourceIndex).toInt();
 
   Group* g;
   if( argumentHintDepth )
     g = m_argumentHints;
   else
-    g = fetchGroup(completionFlags, scopeIfNeeded);
+    g = fetchGroup(completionFlags, scopeIfNeeded, handler.hasHierarchicalRoles());
 
-  Item item = Item(this, ModelRow(sourceModel, row));
+  Item item = Item(this, handler, ModelRow(handler.model(), QPersistentModelIndex(sourceIndex)));
 
   if(g != m_argumentHints)
     item.match(m_currentMatch);
@@ -451,45 +553,43 @@ KateCompletionModel::Group* KateCompletionModel::createItem(CodeCompletionModel*
 
 void KateCompletionModel::slotRowsInserted( const QModelIndex & parent, int start, int end )
 {
-  if (!parent.isValid()) {
-    QSet<Group*> affectedGroups;
+  QSet<Group*> affectedGroups;
 
-    for (int i = start; i <= end; ++i)
-      affectedGroups << createItem(static_cast<CodeCompletionModel*>(sender()), i, true);
-
-    foreach (Group* g, affectedGroups)
+  HierarchicalModelHandler handler(static_cast<CodeCompletionModel*>(sender()));
+  if(parent.isValid())
+    handler.collectRoles(parent);
+    
+    
+  for (int i = start; i <= end; ++i)
+    affectedGroups += createItems(handler, parent.isValid() ? parent.child(i, 0) :  handler.model()->index(i, 0), true);
+    
+  foreach (Group* g, affectedGroups)
       hideOrShowGroup(g);
-  } else {
-    kWarning() << "Heirachical code completion models not supported.";
-  }
-  emit contentGeometryChanged();
+  
+    emit contentGeometryChanged();
 }
 
 void KateCompletionModel::slotRowsRemoved( const QModelIndex & parent, int start, int end )
 {
-  if (!parent.isValid()) {
-    QSet<Group*> affectedGroups;
+  CodeCompletionModel* source = static_cast<CodeCompletionModel*>(sender());
 
-    CodeCompletionModel* source = static_cast<CodeCompletionModel*>(sender());
+  QSet<Group*> affectedGroups;
+  
+  for (int i = start; i <= end; ++i) {
+    QModelIndex index = parent.isValid() ? parent.child(i, 0) :  source->index(i, 0);
 
-    for (int i = start; i <= end; ++i) {
-      Group* g = groupForIndex(mapFromSource(parent));
-      Q_ASSERT(g);
-
-      if (g->removeItem(ModelRow(source, i)))
-        affectedGroups << g;
-    }
-
-    foreach (Group* g, affectedGroups)
-      hideOrShowGroup(g);
-    contentGeometryChanged();
-  } else {
-    kWarning() << "Heirachical code completion models not supported.";
+    affectedGroups += deleteItems(index);
   }
+
+  foreach (Group* g, affectedGroups)
+    hideOrShowGroup(g);
+  
+  contentGeometryChanged();
 }
 
-KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, const QString& scope )
+KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, const QString& scope, bool forceGrouping )
 {
+  ///@todo use forceGrouping
   if (!hasGroups())
     return m_ungrouped;
 
@@ -674,7 +774,7 @@ QModelIndex KateCompletionModel::mapToSource( const QModelIndex & proxyIndex ) c
   if (Group* g = groupOfParent(proxyIndex)) {
     if( proxyIndex.row() >= 0 && proxyIndex.row() < g->rows.count() ) {
       ModelRow source = g->rows[proxyIndex.row()];
-      return source.first->index(source.second, proxyIndex.column());
+      return source.second.sibling(source.second.row(), proxyIndex.column());
     }else{
       kDebug("Invalid proxy-index");
     }
@@ -1296,14 +1396,14 @@ Qt::CaseSensitivity KateCompletionModel::sortingCaseSensitivity( ) const
   return m_sortingCaseSensitivity;
 }
 
-KateCompletionModel::Item::Item( KateCompletionModel* m, ModelRow sr )
+KateCompletionModel::Item::Item( KateCompletionModel* m, const HierarchicalModelHandler& handler, ModelRow sr )
   : model(m)
   , m_sourceRow(sr)
   , m_haveCompletionName(false)
   , matchCompletion(true)
   , matchFilters(true)
 {
-  inheritanceDepth = m_sourceRow.first->index(m_sourceRow.second, 0).data(CodeCompletionModel::InheritanceDepth).toInt();
+  inheritanceDepth = handler.getData(CodeCompletionModel::InheritanceDepth, m_sourceRow.second).toInt();
 
   filter();
   match();
@@ -1323,7 +1423,7 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
 
   if( ret == 0 ) {
     // FIXME need to define a better default ordering for multiple model display
-    ret = m_sourceRow.second - rhs.m_sourceRow.second;
+    ret = m_sourceRow.second.row() - rhs.m_sourceRow.second.row();
   }
 
   return model->isSortingReverse() ? ret > 0 : ret < 0;
@@ -1332,7 +1432,7 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
 QString KateCompletionModel::Item::completionSortingName( ) const
 {
   if( !m_haveCompletionName ) {
-    m_completionSortingName = m_sourceRow.first->index(m_sourceRow.second, CodeCompletionModel::Name, QModelIndex()).data(Qt::DisplayRole).toString();
+    m_completionSortingName = m_sourceRow.second.sibling(m_sourceRow.second.row(), CodeCompletionModel::Name).data(Qt::DisplayRole).toString();
     if (model->sortingCaseSensitivity() == Qt::CaseSensitive)
         m_completionSortingName = m_completionSortingName.toLower();
   }
@@ -1476,7 +1576,7 @@ void KateCompletionModel::resort( )
 
 bool KateCompletionModel::Item::isValid( ) const
 {
-  return model && m_sourceRow.first && m_sourceRow.second >= 0;
+  return model && m_sourceRow.first && m_sourceRow.second.row() >= 0;
 }
 
 void KateCompletionModel::Group::clear( )
@@ -1568,7 +1668,7 @@ bool KateCompletionModel::Item::filter( )
   matchFilters = false;
 
   if (model->isFilteringEnabled()) {
-    QModelIndex sourceIndex = m_sourceRow.first->index(m_sourceRow.second, CodeCompletionModel::Name, QModelIndex());
+    QModelIndex sourceIndex = m_sourceRow.second.sibling(m_sourceRow.second.row(), CodeCompletionModel::Name);
 
     if (model->filterContextMatchesOnly()) {
       QVariant contextMatch = sourceIndex.data(CodeCompletionModel::MatchQuality);
@@ -1602,7 +1702,7 @@ bool KateCompletionModel::Item::match(const QString& newCompletion)
     return true;
 
   // Check to see if the item is matched by the current completion string
-  QModelIndex sourceIndex = m_sourceRow.first->index(m_sourceRow.second, CodeCompletionModel::Name, QModelIndex());
+  QModelIndex sourceIndex = m_sourceRow.second.sibling(m_sourceRow.second.row(), CodeCompletionModel::Name);
 
   QString match = newCompletion;
   if (match.isEmpty())

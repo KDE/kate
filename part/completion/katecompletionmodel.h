@@ -22,6 +22,7 @@
 #include <QtGui/QAbstractProxyModel>
 #include <QtCore/QPair>
 #include <QtCore/QList>
+#include <QPersistentModelIndex>
 
 #include <ktexteditor/codecompletionmodel.h>
 
@@ -33,6 +34,7 @@ class KateView;
 class QWidget;
 class QTextEdit;
 class QTimer;
+class HierarchicalModelHandler;
 
 /**
  * This class has the responsibility for filtering, sorting, and manipulating
@@ -186,13 +188,13 @@ class KateCompletionModel : public ExpandingWidgetModel
     QTreeView* treeView() const;
 
     friend class KateArgumentHintModel;
-    typedef QPair<KTextEditor::CodeCompletionModel*, int> ModelRow;
+    typedef QPair<KTextEditor::CodeCompletionModel*, QPersistentModelIndex> ModelRow;
     ModelRow modelRowPair(const QModelIndex& index) const;
 
     // Represents a source row; provides sorting method
     class Item {
       public:
-        Item(KateCompletionModel* model, ModelRow sourceRow);
+        Item(KateCompletionModel* model, const HierarchicalModelHandler& handler, ModelRow sourceRow);
 
         bool isValid() const;
         // Returns true if the item is not filtered and matches the current completion string
@@ -252,10 +254,17 @@ class KateCompletionModel : public ExpandingWidgetModel
     };
 
     void createGroups();
-    Group* createItem(KTextEditor::CodeCompletionModel* sourceModel, int row, bool notifyModel = false);
+    ///Creates all sub-items of index i, or the item corresponding to index i. Returns the affected groups.
+    ///i must be an index in the source model
+    QSet<Group*> createItems(const HierarchicalModelHandler&, const QModelIndex& i, bool notifyModel = false);
+    ///Deletes all sub-items of index i, or the item corresponding to index i. Returns the affected groups.
+    ///i must be an index in the source model
+    QSet<Group*> deleteItems(const QModelIndex& i);
+    Group* createItem(const HierarchicalModelHandler&, const QModelIndex& i, bool notifyModel = false);
     void clearGroups();
     void hideOrShowGroup(Group* g);
-    Group* fetchGroup(int attribute, const QString& scope = QString());
+    /// When forceGrouping is enabled, all given attributes will be used for grouping, regardless of the completion settings.
+    Group* fetchGroup(int attribute, const QString& scope = QString(), bool forceGrouping = false);
     //If this returns nonzero on an index, the index is the header of the returned group
     Group* groupForIndex(const QModelIndex& index) const;
     inline Group* groupOfParent(const QModelIndex& child) const { return static_cast<Group*>(child.internalPointer()); }

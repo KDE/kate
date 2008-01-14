@@ -36,14 +36,14 @@
 KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
   : ExpandingTree(parent), m_needResize(false)
 {
-  setUniformRowHeights(false);
   header()->hide();
   setRootIsDecorated(false);
   setIndentation(0);
   setFrameStyle(QFrame::NoFrame);
   setAllColumnsShowFocus(true);
   setAlternatingRowColors(true);
-  setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+  //We need ScrollPerItem, because ScrollPerPixel is too slow with a very large competion-list(see KDevelop).
+  setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
 
   m_resizeTimer = new QTimer(this);
   m_resizeTimer->setSingleShot(true);

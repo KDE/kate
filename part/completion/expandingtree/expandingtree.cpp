@@ -26,6 +26,7 @@
 
 ExpandingTree::ExpandingTree(QWidget* parent) : QTreeView(parent) {
   m_drawText.documentLayout()->setPaintDevice(this);
+  setUniformRowHeights(false);
 }
 
 void ExpandingTree::drawRow ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const {

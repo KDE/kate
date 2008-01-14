@@ -15,6 +15,7 @@ X-KDE-ServiceTypes=KTextEditor/Plugin
 Type=Service
 Icon=tools-check-spelling
 Name=Data Tools
+Name[el]=Εργαλεία δεδομένων
 Name[eo]=Datumiloj
 Name[ga]=Uirlisí Sonraí
 Name[km]=ឧបករណ៍​ទិន្នន័យ

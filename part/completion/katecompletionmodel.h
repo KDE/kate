@@ -229,6 +229,7 @@ class KateCompletionModel : public ExpandingWidgetModel
         QString completionSortingName() const;
     };
 
+  public:
     // Grouping and sorting of rows
     class Group {
       public:
@@ -253,6 +254,7 @@ class KateCompletionModel : public ExpandingWidgetModel
         bool isEmpty;
     };
 
+  private:
     void createGroups();
     ///Creates all sub-items of index i, or the item corresponding to index i. Returns the affected groups.
     ///i must be an index in the source model

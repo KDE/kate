@@ -511,13 +511,21 @@ void KateCompletionWidget::execute(bool shift)
   KTextEditor::CodeCompletionModel* model = static_cast<KTextEditor::CodeCompletionModel*>(const_cast<QAbstractItemModel*>(toExecute.model()));
   Q_ASSERT(model);
 
-  model->executeCompletionItem(view()->document(), *m_completionRange, toExecute.row());
+  KTextEditor::CodeCompletionModel2* model2 = dynamic_cast<KTextEditor::CodeCompletionModel2*>(model);
+
+  if(model2)
+    model2->executeCompletionItem2(view()->document(), *m_completionRange, toExecute);
+  else if(toExecute.parent().isValid())
+    //The normale CodeCompletionInterface cannot handle feedback for hierarchical models, so just do the replacement
+    view()->document()->replaceText(*m_completionRange, model->data(toExecute.sibling(toExecute.row(), KTextEditor::CodeCompletionModel::Name)).toString());
+  else
+    model->executeCompletionItem(view()->document(), *m_completionRange, toExecute.row());
 
   view()->doc()->editEnd();
 
   hide();
 
-  view()->sendCompletionExecuted(start, model, toExecute.row());
+  view()->sendCompletionExecuted(start, model, toExecute);
 }
 
 void KateCompletionWidget::resizeEvent( QResizeEvent * event )

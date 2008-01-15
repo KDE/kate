@@ -34,6 +34,7 @@
 #include <ktexteditor/configinterface.h>
 
 #include <QtCore/QPointer>
+#include <QModelIndex>
 #include <QtGui/QMenu>
 #include <QtCore/QLinkedList>
 #include <QtCore/QHash>
@@ -202,7 +203,7 @@ class KateView : public KTextEditor::View,
     virtual void setAutomaticInvocationEnabled(bool enabled = true);
 
   Q_SIGNALS:
-    void completionExecuted(KTextEditor::View* view, const KTextEditor::Cursor& position, KTextEditor::CodeCompletionModel* model, int row);
+    void completionExecuted(KTextEditor::View* view, const KTextEditor::Cursor& position, KTextEditor::CodeCompletionModel* model, const QModelIndex&);
     void completionAborted(KTextEditor::View* view);
 
   public Q_SLOTS:
@@ -211,7 +212,7 @@ class KateView : public KTextEditor::View,
   public:
     KateCompletionWidget* completionWidget() const;
     mutable KateCompletionWidget* m_completionWidget;
-    void sendCompletionExecuted(const KTextEditor::Cursor& position, KTextEditor::CodeCompletionModel* model, int row);
+    void sendCompletionExecuted(const KTextEditor::Cursor& position, KTextEditor::CodeCompletionModel* model, const QModelIndex& index);
     void sendCompletionAborted();
 
   //

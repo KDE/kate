@@ -2066,9 +2066,9 @@ void KateView::setAutomaticInvocationEnabled(bool enabled)
   completionWidget()->setAutomaticInvocationEnabled(enabled);
 }
 
-void KateView::sendCompletionExecuted(const KTextEditor::Cursor& position, KTextEditor::CodeCompletionModel* model, int row)
+void KateView::sendCompletionExecuted(const KTextEditor::Cursor& position, KTextEditor::CodeCompletionModel* model, const QModelIndex& index)
 {
-  emit completionExecuted(this, position, model, row);
+  emit completionExecuted(this, position, model, index);
 }
 
 void KateView::sendCompletionAborted()

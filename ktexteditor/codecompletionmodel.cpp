@@ -99,4 +99,13 @@ void CodeCompletionModel::executeCompletionItem(Document* document, const Range&
   document->replaceText(word, data(index(row, Name, QModelIndex())).toString());
 }
 
+CodeCompletionModel2::CodeCompletionModel2(QObject* parent) : CodeCompletionModel(parent)
+{
+}
+
+void CodeCompletionModel2::executeCompletionItem2(Document* document, const Range& word, const QModelIndex& index) const
+{
+  document->replaceText(word, data(index.sibling(index.row(), Name)).toString());
+}
+
 #include "codecompletionmodel.moc"

@@ -139,7 +139,6 @@ void ExpandingWidgetModel::rowSelected(const QModelIndex& idx_)
             m_partiallyExpanded.erase(m_partiallyExpanded.begin());
             //partiallyUnExpand( m_partiallyExpanded.begin().key() );
       }
-    
       //Notify the underlying models that the item was selected, and eventually get back the text for the expanding widget.
       if( !idx.isValid() ) {
         //All items have been unselected
@@ -149,7 +148,6 @@ void ExpandingWidgetModel::rowSelected(const QModelIndex& idx_)
         QVariant variant = data(idx, CodeCompletionModel::ItemSelected);
 
         if( !isExpanded(idx) && variant.type() == QVariant::String) {
-           //kDebug() << "expanding: " << idx;
             
           //Either expand upwards or downwards, choose in a way that 
           //the visible fields of the new selected entry are not moved.
@@ -161,11 +159,31 @@ void ExpandingWidgetModel::rowSelected(const QModelIndex& idx_)
           //Say that one row above until one row below has changed, so no items will need to be moved(the space that is taken from one item is given to the other)
           if( oldIndex.isValid() && oldIndex < idx ) {
             emit dataChanged(oldIndex, idx);
-            
-            QModelIndex nextLine = idx.sibling(idx.row()+1, idx.column());
-            if( !nextLine.isValid() )
-                nextLine = idx;
-            
+
+            if( treeView()->verticalScrollMode() == QAbstractItemView::ScrollPerItem )
+            {
+              //Qt fails to correctly scroll in ScrollPerItem mode, so the selected index is completely visible,
+              //so we do the scrolling by hand.
+              QRect selectedRect = treeView()->visualRect(idx);
+              QRect frameRect = treeView()->frameRect();
+
+              if( selectedRect.bottom() > frameRect.bottom() ) {
+                int diff = selectedRect.bottom() - frameRect.bottom();
+                //We need to scroll down
+                QModelIndex newTopIndex = idx;
+                
+                QModelIndex nextTopIndex = idx;
+                QRect nextRect = treeView()->visualRect(nextTopIndex);
+                while( nextTopIndex.isValid() && nextRect.isValid() && nextRect.top() >= diff ) {
+                  newTopIndex = nextTopIndex;
+                  nextTopIndex = treeView()->indexAbove(nextTopIndex);
+                  if( nextTopIndex.isValid() )
+                    nextRect = treeView()->visualRect(nextTopIndex);
+                }
+                treeView()->scrollTo( newTopIndex, QAbstractItemView::PositionAtTop );
+              }
+            }
+
             //This is needed to keep the item we are expanding completely visible. Qt does not scroll the view to keep the item visible.
             //But we must make sure that it isn't too expensive.
             //We need to make sure that scrolling is efficient, and the whole content is not repainted.
@@ -186,6 +204,7 @@ void ExpandingWidgetModel::rowSelected(const QModelIndex& idx_)
             emit dataChanged(idx, idx);
         } else if( oldIndex.isValid() ) {
           //We are not partially expanding a new row, but we previously had a partially expanded row. So signalize that it has been unexpanded.
+          
             emit dataChanged(oldIndex, oldIndex);
         }
     }

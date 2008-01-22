@@ -89,13 +89,13 @@ PluginView::~PluginView()
   delete tabbar;
 }
 
-void PluginView::readSessionConfig (KConfig* config, const QString& groupPrefix)
+void PluginView::readSessionConfig (KConfigBase* config, const QString& groupPrefix)
 {
   tabbar->load( config, groupPrefix + ":view" );
   updateLocation();
 }
 
-void PluginView::writeSessionConfig (KConfig* config, const QString& groupPrefix)
+void PluginView::writeSessionConfig (KConfigBase* config, const QString& groupPrefix)
 {
   tabbar->save( config, groupPrefix + ":view" );
 }
@@ -256,11 +256,11 @@ Kate::PluginView *KatePluginTabBarExtension::createView (Kate::MainWindow *mainW
 }
 
 
-void KatePluginTabBarExtension::readSessionConfig (KConfig* config, const QString& groupPrefix)
+void KatePluginTabBarExtension::readSessionConfig (KConfigBase* config, const QString& groupPrefix)
 {
 }
 
-void KatePluginTabBarExtension::writeSessionConfig (KConfig* config, const QString& groupPrefix)
+void KatePluginTabBarExtension::writeSessionConfig (KConfigBase* config, const QString& groupPrefix)
 {
 }
 

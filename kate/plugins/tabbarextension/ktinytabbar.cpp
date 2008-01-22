@@ -188,7 +188,7 @@ KTinyTabBar::~KTinyTabBar()
  *       some properties might not be restored correctly (like highlighted
  *       buttons).
  */
-void KTinyTabBar::load( KConfig* config, const QString& group )
+void KTinyTabBar::load( KConfigBase* config, const QString& group )
 {
     KConfigGroup cg( config, group );
 
@@ -229,7 +229,7 @@ void KTinyTabBar::load( KConfig* config, const QString& group )
  * The original group is saved and restored at the end of this function.
  * See @p load() for more information.
  */
-void KTinyTabBar::save( KConfig* config, const QString& group ) const
+void KTinyTabBar::save( KConfigBase* config, const QString& group ) const
 {
     KConfigGroup cg( config, group );
 

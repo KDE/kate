@@ -63,8 +63,8 @@ public:
 
     void updateLocation();
 
-    void readSessionConfig (KConfig* config, const QString& groupPrefix);
-    void writeSessionConfig (KConfig* config, const QString& groupPrefix);
+    void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
+    void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
 public slots:
     void currentTabChanged( int button_id );
@@ -93,11 +93,11 @@ class KatePluginTabBarExtension : public Kate::Plugin, public Kate::PluginConfig
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
-    void readSessionConfig (KConfig* config, const QString& groupPrefix);
-    void writeSessionConfig (KConfig* config, const QString& groupPrefix);
+    void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
+    void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
     // Kate::PluginConfigPageInterface
-    uint configPages () const { return 1; }
+    uint configPages () const { return 0; } // if changed to 1, the config pages appears
     Kate::PluginConfigPage *configPage (uint , QWidget *w, const char *name=0);
     QString configPageName(uint) const { return i18n("Tab Bar Extension"); }
     QString configPageFullName(uint) const { return i18n("Configure Tab Bar Extension"); }

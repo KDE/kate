@@ -35,7 +35,7 @@
 #include <QResizeEvent>
 
 class KTinyTabButton;
-class KConfig;
+class KConfigBase;
 
 /**
  * The \p KTinyTabBar class provides a tab bar, e.g. for tabbed documents and
@@ -80,8 +80,8 @@ public:
     KTinyTabBar( QWidget *parent = 0 );
     virtual ~KTinyTabBar();
 
-    void load( KConfig* config, const QString& group );
-    void save( KConfig* config, const QString& group ) const;
+    void load( KConfigBase* config, const QString& group );
+    void save( KConfigBase* config, const QString& group ) const;
 
     void setLocationTop( bool top );
     bool locationTop() const;

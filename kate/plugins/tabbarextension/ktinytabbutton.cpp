@@ -122,7 +122,6 @@ void KTinyTabButton::paintEvent( QPaintEvent* ev )
         pal.setColor( QPalette::ButtonText, modifiedTabsColor() );
 
 
-    setAutoFillBackground( false );
     switch( tabButtonStyle() )
     {
         case KTinyTabBar::Push:
@@ -132,7 +131,6 @@ void KTinyTabButton::paintEvent( QPaintEvent* ev )
                 || ( isActivated() && highlightActiveTab() )
                 || ( previousTab() && highlightPreviousTab() ) )
             {
-                setAutoFillBackground( true );
                 QColor col( pal.button().color() );
                 col.setRed( ( col.red()*comp + mix.red()*opac ) / 100 );
                 col.setGreen( ( col.green()*comp + mix.green()*opac ) / 100 );

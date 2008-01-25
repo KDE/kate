@@ -126,6 +126,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   m_viewInternal = new KateViewInternal( this, doc );
 
+  // ugly workaround 
+  setLayoutDirection ( Qt::LeftToRight );
+  
   // layouting ;)
   m_vBox = new QVBoxLayout (this);
   m_vBox->setMargin (0);

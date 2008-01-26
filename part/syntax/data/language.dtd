@@ -3,6 +3,7 @@
         modified (c) 2002 Anders Lund <anders@alweb.dk>
         modified (c) 2003 Simon Huerlimann <simon.huerlimann@access.unizh.ch>
         modified (c) 2005 Dominik Haumann <dhdev@gmx.de>
+        modified (c) 2008 Wilbert Berendsen <info@wilbertberendsen.nl>
 
         This file describes the XML format used for syntax highlight descriptions
         for the Kate text editor (http://kate.kde.org), which is part of the KDE
@@ -478,6 +479,8 @@ TODO:
   bold          CDATA   #IMPLIED        Whether this attribute should be renederd using a bold typeface [optional, boolean, default=false]
   underline     CDATA   #IMPLIED        Whether this attribute should be underlined [optional, boolean, default=false]
   strikeOut     CDATA   #IMPLIED        Whether this attribute should be striked out [optional, boolean, default=false]
+  backgroundColor    CDATA #IMPLIED     The background color for this style [optional]
+  selBackgroundColor CDATA #IMPLIED     The background color for this style when text is selected [optional]
 -->
 <!ELEMENT itemData EMPTY>
 <!ATTLIST itemData
@@ -489,4 +492,6 @@ TODO:
   bold          (%boolean;) #IMPLIED
   underline     (%boolean;) #IMPLIED
   strikeOut     (%boolean;) #IMPLIED
+  backgroundColor    CDATA  #IMPLIED
+  selBackgroundColor CDATA  #IMPLIED
 >

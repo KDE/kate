@@ -20,7 +20,7 @@
   <!ENTITY schemename "[a-zA-Z#][^\s(){}[\];$&quot;]*">
   <!ENTITY schemefunc "\b(define|defined\?|define\*(-public)?|define-(\*|builtin-markup-(list-)?command|class|(extra-)?display-method|fonts?|grob-property|ly-syntax(-loc|-simple)?|macro(-public)?|markup-(list-)command|method|module|music-function|post-event-display-method|public(-macro|-toplevel)?|safe-public|span-event-display-method)|defmacro(\*(-public)?)?|lambda\*?|and|or|if|cond|case|let\*?|letrec|begin|do|delay|set!|else|(quasi)?quote|unquote(-splicing)?|(define|let|letrec)-syntax|syntax-rules|not|boolean\?|eq\?|eqv\?|equal\?|pair\?|cons|set-c[ad]r!|c[ad]{1,4}r|null\?|list\?|list|length|append|reverse|list-ref|mem[qv]|member|ass[qv]|assoc|symbol\?|symbol-&gt;string|string-&gt;symbol|number\?|complex\?|real\?|rational\?|integer\?|exact\?|inexact\?|zero\?|positive\?|negative\?|odd\?|even\?|max|min|abs|quotient|remainder|modulo|gcd|lcm|numerator|denominator|floor|ceiling|truncate|round|rationalize|exp|log|sin|cos|tan|asin|acos|atan|sqrt|expt|make-rectangular|make-polar|real-part|imag-part|magnitude|angle|exact-&gt;inexact|inexact-&gt;exact|number-&gt;string|string-&gt;number|char((-ci)?(=\?|&lt;\?|&gt;\?|&lt;=\?|&gt;=\?)|-alphabetic\?|\?|-numeric\?|-whitespace\?|-upper-case\?|-lower-case\?|-&gt;integer|-upcase|-downcase|-ready\?)|integer-&gt;char|make-string|string(\?|-copy|-fill!|-length|-ref|-set!|(-ci)?(=\?|&lt;\?|&gt;\?|&lt;=\?|&gt;=\?)|-append)|substring|make-vector|vector(\?|-length|-ref|-set!|-fill!)?|procedure\?|apply|map|for-each|force|call-with-(current-continuation|(in|out)put-file)|(in|out)put-port\?|current-(in|out)put-port|open-(in|out)put-file|close-(in|out)put-port|eof-object\?|read|(read|peek)-char|write(-char)?|display|newline|call/cc|list-tail|string-&gt;list|list-&gt;string|vector-&gt;list|list-&gt;vector|with-input-from-file|with-output-to-file|load|transcript-(on|off)|eval|dynamic-wind|port\?|values|call-with-values|(scheme-report-|null-|interaction-)environment)(?=($|\s|\)))">
 ]>
-<language name="LilyPond" section="Other" version="2.20" kateversion="2.4" extensions="*.ly;*.LY;*.ily;*.ILY" mimetype="text/x-lilypond" author="Wilbert Berendsen (info@wilbertberendsen.nl)" license="LGPL">
+<language name="LilyPond" section="Other" version="2.20" kateversion="2.4" extensions="*.ly;*.LY;*.ily;*.ILY;*.lyi;*.LYI" mimetype="text/x-lilypond" author="Wilbert Berendsen (info@wilbertberendsen.nl)" license="LGPL">
 
   <!--
     
@@ -35,6 +35,7 @@
     - recognize lilypond words like ChoirStaff etc. only in sections and after \set, \override etc.
     - highlight some standard Scheme function names
     - add \figuremode recognition
+    - all Scheme stuff has a nice, very light background, to show where Lilypond is in Scheme mode.
     
     October, 2007
     New version by Wilbert Berendsen (info@wilbertberendsen.nl)
@@ -261,6 +262,7 @@
       <item> doubleSlurs </item>
       <item> drumPitchTable </item>
       <item> drumStyleTable </item>
+      <item> dynamicAbsoluteVolumeFunction </item>
       <item> explicitClefVisibility </item>
       <item> explicitKeySignatureVisibility </item>
       <item> extendersOverRests </item>
@@ -300,7 +302,9 @@
       <item> measurePosition </item>
       <item> melismaBusyProperties </item>
       <item> metronomeMarkFormatter </item>
+      <item> middleCClefPosition </item>
       <item> middleCPosition </item>
+      <item> middleCOffset </item>
       <item> midiInstrument </item>
       <item> midiMaximumVolume </item>
       <item> midiMinimumVolume </item>
@@ -692,8 +696,8 @@
       
       <context name="chord" attribute="Normal Text" lineEndContext="#stay">
         <DetectChar char="&gt;" context="chordend"/>
-        <AnyChar String="&lt;{}srR" attribute="Invalid"/><!-- no rests in chord allowed -->
         <RegExpr String="&pitch;" context="chordpitch"/>
+        <AnyChar String="&lt;{}srR" attribute="Invalid"/><!-- no rests in chord allowed -->
         <IncludeRules context="music"/>
       </context>
       
@@ -734,13 +738,13 @@
       <!-- Scheme -->
       <context name="scheme" attribute="Scheme" lineEndContext="#stay"
                fallthrough="true" fallthroughContext="scheme2">
-        <DetectSpaces context="scheme2"/>
+        <DetectSpaces/>
       </context>
       
       <context name="scheme2" attribute="Scheme" lineEndContext="#pop#pop">
         <DetectChar char="(" attribute="Scheme Keyword" context="scheme3" beginRegion="scheme"/>
         <IncludeRules context="schemerules"/>
-        <DetectSpaces context="#pop#pop"/>
+        <DetectSpaces lookAhead="true" context="#pop#pop"/>
       </context>
       
       <context name="scheme3" attribute="Scheme" lineEndContext="#stay">
@@ -751,15 +755,15 @@
       <context name="schemerules" attribute="Scheme" lineEndContext="#stay">
         <DetectChar char="(" context="schemerules" beginRegion="scheme"/>
         <DetectChar char=")" context="#pop" endRegion="scheme"/>
-        <DetectChar char="&quot;" context="string"/>
-        <DetectChar char=";" context="commentline"/>
+        <DetectChar char="&quot;" context="schemestring"/>
+        <DetectChar char=";" context="schemecommentline"/>
         <DetectChar char="$" context="schemesub"/>
         <DetectChar char="'" context="schemequote"/>
-        <Detect2Chars char="#" char1="!" context="commentblockscheme" beginRegion="schemecomment"/>
+        <Detect2Chars char="#" char1="!" context="schemecommentblock" beginRegion="schemecomment"/>
         <Detect2Chars char="#" char1="{" attribute="Scheme Keyword" context="schemelily" beginRegion="schemelily"/>
         <keyword String="musicexpressions" attribute="Scheme Keyword"/>
-        <keyword String="contexts" attribute="Context"/>
-        <keyword String="layoutobjects" attribute="Layout Object"/>
+        <keyword String="contexts" attribute="Scheme Keyword"/>
+        <keyword String="layoutobjects" attribute="Scheme Keyword"/>
         <RegExpr String="[-+]?(\d+(\.\d+)?|\.\d+)" attribute="Scheme Value"/>
         <RegExpr String="#(t|f|b[-+]?[01.]+|o[-+]?[0-7.]+|d[-+]?[0-9.]+|x[-+]?[0-9a-f.]+)"
                  insensitive="true" attribute="Scheme Value"/>
@@ -778,14 +782,23 @@
         <IncludeRules context="lilypond"/>
       </context>
       
-      <context name="commentblockscheme" attribute="Comment" lineEndContext="#stay">
-        <Detect2Chars char="!" char1="#" attribute="Comment" context="#pop" endRegion="schemecomment"/>
+      <context name="schemecommentline" attribute="Scheme Comment" lineEndContext="#pop">
+        <IncludeRules context="##Alerts"/>
+      </context>
+      
+      <context name="schemecommentblock" attribute="Scheme Comment" lineEndContext="#stay">
+        <Detect2Chars char="!" char1="#" attribute="Scheme Comment" context="#pop" endRegion="schemecomment"/>
         <IncludeRules context="##Alerts"/>
       </context>
       
       <context name="schemesub" attribute="Scheme Subst" lineEndContext="#pop"
                 fallthrough="true" fallthroughContext="#pop">
         <RegExpr String="&schemename;" attribute="Scheme Subst" context="#pop"/>
+      </context>
+      
+      <context name="schemestring" attribute="Scheme String" lineEndContext="#stay">
+        <DetectChar char="&quot;" attribute="Scheme String" context="#pop"/>
+        <RegExpr String="\\[0fnrtav\\&quot;]"/>
       </context>
       
       <!-- NoteMode -->
@@ -1022,10 +1035,12 @@
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Quoted Text" defStyleNum="dsString"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
-      <itemData name="Scheme" defStyleNum="dsFloat"/>
-      <itemData name="Scheme Keyword" defStyleNum="dsFloat" bold="true"/>
-      <itemData name="Scheme Subst" defStyleNum="dsDecVal" bold="true"/>
-      <itemData name="Scheme Value" defStyleNum="dsDecVal"/>
+      <itemData name="Scheme" defStyleNum="dsFloat" backgroundColor="#fff6ff"/>
+      <itemData name="Scheme Keyword" defStyleNum="dsFloat" bold="true" backgroundColor="#fff6ff"/>
+      <itemData name="Scheme Subst" defStyleNum="dsDecVal" bold="true" backgroundColor="#fff6ff"/>
+      <itemData name="Scheme Value" defStyleNum="dsDecVal" backgroundColor="#fff6ff"/>
+      <itemData name="Scheme String" defStyleNum="dsString" backgroundColor="#fff6ff"/>
+      <itemData name="Scheme Comment" defStyleNum="dsComment" backgroundColor="#fff6ff"/>
       <itemData name="Invalid" defStyleNum="dsError"/>
     </itemDatas>
   </highlighting>

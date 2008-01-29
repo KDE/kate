@@ -7,9 +7,12 @@
   <!ENTITY dynamics "p{1,5}|mp|mf|f{1,4}|s?fp|sff?|spp?|[sr]?fz">
   <!ENTITY scripts "\d+|accent|marcato|staccat(issim)?o|espressivo|tenuto|portato|(up|down)(bow|mordent|prall)|flageolet|thumb|[lr](heel|toe)|open|stopped|turn|reverseturn|trill|mordent|prall(prall|mordent|down|up)?|lineprall|signumcongruentiae|(short|long|verylong)?fermata|segno|(var)?coda">
   <!ENTITY keywords "accepts|alias|consists|defaultchild|denies|description|grobdescriptions|include|invalid|name|objectid|once|remove|sequential|simultaneous|type|version|score|book">
-  <!ENTITY commands "acciaccatura|addQuote|afterGrace|aikenHeads|allowPageTurn|alternative|apply(Context|Music|Output)|appoggiatura|arpeggio(Bracket|Down|Neutral|Up)?|(a|de)scendens|auctum|augmentum|autoBeamO(ff|n)|autochange|balloon(Grob)?Text|bar|barNumberCheck|bendAfter|breathe|break|cadenzaO(ff|n)|caesura|cavum|clef(\s+(treble|violin|G|alto|C|(sub)?bass|F|french|(mezzo)?soprano|(var)?baritone|percussion|tab))?|compressMusic|(end)?(de)?cr|(cue|transposedCue)During|default|deminutum|display(Lily)?Music|divisio(Maior|Maxima|Minima)|(dynamic|dots|phrasingSlur|slur|stem|tie|tuplet)(Down|Neutral|Up)|(empty|fat)Text|featherDurations|figure(mode|s)|finalis|flexa|(french|german|italian|semiGerman)Chords|glissando|grace|harmonic|(unH|h)ideNotes|(hide|show)StaffSwitch|inclinatum|(keep|remove)WithTag|key(\s+&pitch;)?|killCues|label|laissezVibrer|linea|mark|maxima|melisma(End)?|newSpacingSection|no(Beam|Break|PageBreak|PageTurn)|normalsize|octave|oneVoice|oriscus|page(-ref|Break|Turn)|parallelMusic|parenthesize|partcombine|partial(\s*&duration;)?|pes|pitchedTrill|quilisma|quoteDuring|relative(\s+&pitch;)?|RemoveEmptyStaffContext|repeat(\s+(unfold|volta|tremolo|percent)(\s+\d+)?)?|repeatTie|resetRelativeOctave|rest|sacredHarpHeads|scoreTweak|setEasyHeads|set(Hairpin|Text)(Cresc|Decresc|Dim)|setTextDecr|shift(Durations|Off|On{1,3})|(slur|tie)(Both|Dashed|Dotted|Solid)|small|spacingTweaks|(start|stop)(Group|(Text|Trill)Span|Staff)|stemBoth|stropha|super|(sustain|sostenuto)(Down|Up)|table-of-contents|tag|tempo(\s*\d+\.*\s*=\s*\d+)?|times?(\s*\d+/\d+)?|tiny|tocItem|transpose(\s+&pitch;\s*&pitch;)?|transposition(\s+&pitch;)|tweak|unfoldRepeats|virg(ul)?a|voice(One|Two|Three|Four)|withMusicProperty|cm|mm|in|pt|major|minor|ionian|locrian|aeolian|mixolydian|lydian|phrygian|dorian">
+  <!ENTITY deprecatedkeywords "consistsend">
+  <!ENTITY commands "acciaccatura|addQuote|afterGrace|aikenHeads|allowPageTurn|alternative|apply(Context|Music|Output)|appoggiatura|arpeggio(Bracket|Down|Neutral|Up)?|(a|de)scendens|auctum|augmentum|autoBeamO(ff|n)|autochange|balloon(Grob)?Text|bar|barNumberCheck|bendAfter|breathe|break|cadenzaO(ff|n)|caesura|cavum|clef(\s+(treble|violin|G|alto|C|(sub)?bass|F|french|(mezzo)?soprano|(var)?baritone|percussion|tab))?|compressMusic|(end)?(de)?cr|(cue|transposedCue)During|default|deminutum|display(Lily)?Music|divisio(Maior|Maxima|Minima)|(dynamic|dots|phrasingSlur|slur|stem|tie|tuplet)(Down|Neutral|Up)|textLengthO(ff|n)|featherDurations|figure(mode|s)|finalis|flexa|(french|german|italian|semiGerman)Chords|glissando|grace|harmonic|(unH|h)ideNotes|(hide|show)StaffSwitch|inclinatum|(keep|remove)WithTag|key(\s+&pitch;)?|killCues|label|laissezVibrer|linea|mark|maxima|melisma(End)?|newSpacingSection|no(Beam|Break|PageBreak|PageTurn)|normalsize|octave|oneVoice|oriscus|page(-ref|Break|Turn)|parallelMusic|parenthesize|partcombine|partial(\s*&duration;)?|pes|pitchedTrill|quilisma|quoteDuring|relative(\s+&pitch;)?|RemoveEmptyStaffContext|repeat(\s+(unfold|volta|tremolo|percent)(\s+\d+)?)?|repeatTie|resetRelativeOctave|rest|sacredHarpHeads|scoreTweak|easyHeadsO(ff|n)|set(Hairpin|Text)(Cresc|Decresc|Dim)|setTextDecr|shift(Durations|Off|On{1,3})|(slur|tie)(Both|Dashed|Dotted|Solid)|small|spacingTweaks|(start|stop)(Group|(Text|Trill)Span|Staff)|stemBoth|stropha|super|(sustain|sostenuto)(Down|Up)|table-of-contents|tag|tempo(\s*\d+\.*\s*=\s*\d+)?|times?(\s*\d+/\d+)?|tiny|tocItem|transpose(\s+&pitch;\s*&pitch;)?|transposition(\s+&pitch;)|tweak|unfoldRepeats|virg(ul)?a|voice(One|Two|Three|Four)|withMusicProperty|cm|mm|in|pt|major|minor|ionian|locrian|aeolian|mixolydian|lydian|phrygian|dorian">
+  <!ENTITY deprecatedcommands "newpage|script(Up|Down|Both)|(empty|fat)Text|setEasyHeads|(default|voice|modernVoice|piano|forget)Accidentals|(modern(Voice)?|piano)Cautionaries|noResetKey">
   <!ENTITY markupnotextargs "arrow-head|beam|char|double(flat|sharp)|draw-(circle|line)|epsfile|filled-box|flat|fret-diagram(-terse|-verbose)?|fromproperty|justify-(field|string)|lookup|markalphabet|markletter|musicglyph|natural|note-by-number|note|null|semi(flat|sharp)|sesqui(flat|sharp)|sharp|simple|slashed-digit|stencil|strut|tied-lyric|triangle|verbatim-file|wordwrap-field">
   <!ENTITY markupwithtextargs "markup|bigger|bold|box|bracket|caps|(center|general|left|right)-align|circle|column|combine|concat|dir-column|dynamic|fill-line|finger|fontCaps|fontsize|fraction|halign|hbracket|hcenter-in|hcenter|hspace|huge|italic|justify|larger?|line|lower|magnify|medium|normal-size-(sub|super)|normal-text|normalsize|number|on-the-fly|override|pad-(around|markup|to-box|x)|page-ref|postscript|put-adjacent|raise|roman|rotate|sans|small(er)?|smallCaps|sub|super|teeny|text|tiny|translate(-scaled)?|transparent|typewriter|underline|upright|vcenter|whiteout|with-(color|dimensions|url)|wordwrap(-string)?|(markup|column-|justified-|override-|wordwrap-)lines">
+  <!ENTITY deprecatedmarkup "center">
   <!ENTITY headervars "dedication|(sub){,2}title|poet|composer|meter|opus|arranger|instrument|piece|breakbefore|copyright|tagline|mutopia(title|composer|poet|opus|instrument)|date|enteredby|source|style|maintainer(Email|Web)?|moreInfo|lastupdated|texidoc">
   <!ENTITY papervars "annotate-spacing|(print-)?first-page-number|print-page-number|paper-(width|height)|(top|bottom|left|right)-margin|line-width|(head|foot)-separation|page-top-space|ragged-(bottom|last-bottom|right)|page-count|between-system-(space|padding)|page-breaking-between-system-padding|horizontal-shift|(before|after|between)-title-space|printallheaders|indent|force-assignment|input-encoding|output-scale|blank(-after-score|-last)?-page-force|page-limit-inter-system-space(-factor)?|(systemSeparator|(even|odd)(Footer|Header)|(book|score|toc)Title|tocItem)Markup">
   <!ENTITY layoutvars "system-count|indent">
@@ -37,6 +40,7 @@
     - highlight some standard Scheme function names
     - add \figuremode recognition
     - all Scheme stuff has a nice, very light background, to show where Lilypond is in Scheme mode.
+    - mark some deprecated (pre 2.12) LilyPond commands and properties
     
     October, 2007
     New version by Wilbert Berendsen (info@wilbertberendsen.nl)
@@ -304,8 +308,8 @@
       <item> melismaBusyProperties </item>
       <item> metronomeMarkFormatter </item>
       <item> middleCClefPosition </item>
-      <item> middleCPosition </item>
       <item> middleCOffset </item>
+      <item> middleCPosition </item>
       <item> midiInstrument </item>
       <item> midiMaximumVolume </item>
       <item> midiMinimumVolume </item>
@@ -369,6 +373,20 @@
       <item> voltaOnThisStaff </item>
       <item> voltaSpannerDuration </item>
       <item> whichBar </item>
+    </list>
+    <list name="deprecatedproperties">
+      <item> barNumberAlignSymbol </item>
+      <item> centralCPosition </item>
+      <item> extraVerticalExtent </item>
+      <item> fingerHorizontalDirection </item>
+      <item> instr </item>
+      <item> instrument </item>
+      <item> keyAccidentalOrder </item>
+      <item> minimumVerticalExtent </item>
+      <item> rehearsalMarkAlignSymbol </item>
+      <item> soloADue </item>
+      <item> tupletNumberFormatFunction </item>
+      <item> vocNam </item>
     </list>
     <list name="musicexpressions">
       <item> AbsoluteDynamicEvent </item> 
@@ -614,7 +632,7 @@
       <!-- Entry point -->
       <context name="lilypond" attribute="Normal Text" lineEndContext="#stay">
         <IncludeRules context="music"/>
-        <RegExpr String="[a-z]+\s*=" insensitive="true" lookAhead="true" context="assignment"/>
+        <RegExpr String="\b[a-z]+\s*=" insensitive="true" lookAhead="true" context="assignment"/>
       </context>
       
       <!-- Music expressions -->
@@ -674,11 +692,15 @@
         <RegExpr String="\\(header|paper|layout|midi|with)\b" context="section"/>
         <RegExpr String="\\(new|context|change)\b" attribute="Keyword" context="context"/>
         <RegExpr String="\\(un)?set\b" attribute="Keyword" context="set"/>
-        <RegExpr String="\\(override(Property)?|revert|property)&b;" attribute="Keyword" context="override"/>
+        <RegExpr String="\\(override(Property)?|revert)&b;" attribute="Keyword" context="override"/>
         <RegExpr String="\\skip&b;" attribute="Command" context="duration"/>
         <RegExpr String="\\(&keywords;)&b;" attribute="Keyword"/>
         <RegExpr String="\\(&commands;)&b;" attribute="Command"/>
         <RegExpr String="\\(&toplevelvars;)&b;" attribute="Variable"/>
+        <RegExpr String="\\(&deprecatedkeywords;)&b;" attribute="Deprecated Keyword"/>
+        <RegExpr String="\\(&deprecatedcommands;)&b;" attribute="Deprecated Command"/>
+        <RegExpr String="\\(translator|newcontext)\b" attribute="Deprecated Keyword" context="context"/>
+        <RegExpr String="\\property&b;" attribute="Deprecated Keyword" context="override"/>
         <RegExpr String="\\[A-Za-z]+" attribute="User Command"/>
         <DetectChar char="\" attribute="Invalid"/>
       </context>
@@ -954,6 +976,7 @@
         <DetectChar char="{" attribute="Keyword" context="markuprules" beginRegion="markup"/>
         <RegExpr String="\\score\b" attribute="Markup" context="notemode"/>
         <RegExpr String="\\(&markupnotextargs;|&markupwithtextargs;)&b;" attribute="Markup"/>
+        <RegExpr String="\\(&deprecatedmarkup;)&b;" attribute="Deprecated Markup"/>
         <RegExpr String="\\[A-Za-z]+(-[A-Za-z]+)*" attribute="User Command"/>
         <IncludeRules context="basic"/>
       </context>
@@ -976,6 +999,7 @@
         <keyword String="contexts" attribute="Context"/>
         <keyword String="layoutobjects" attribute="Layout Object"/>
         <keyword String="properties" attribute="Property"/>
+        <keyword String="deprecatedproperties" attribute="Deprecated Property"/>
         <RegExpr String="\b(&headervars;|&papervars;|&layoutvars;)\b" attribute="Variable"/>
         <RegExpr String="(&quot;?)\b(&engravers;)\b\1" attribute="Engraver"/>
         <IncludeRules context="default"/>
@@ -987,6 +1011,7 @@
         <DetectSpaces/>
         <keyword String="contexts" attribute="Context" context="context2"/>
         <RegExpr String="[A-Za-z]+" attribute="User Command" context="context2"/>
+        <DetectChar char="{" attribute="Keyword" context="section2" beginRegion="section"/>
       </context>
       
       <context name="context2" attribute="Normal Text" lineEndContext="#stay"
@@ -1002,6 +1027,7 @@
         <keyword String="contexts" attribute="Context"/>
         <DetectChar char="."/>
         <keyword String="properties" attribute="Property" context="#pop"/>
+        <keyword String="deprecatedproperties" attribute="Deprecated Property" context="#pop"/>
         <RegExpr String="[A-Za-z]+" attribute="User Command" context="#pop"/>
       </context>
       
@@ -1048,6 +1074,10 @@
       <itemData name="Scheme Value" defStyleNum="dsDecVal" backgroundColor="#fff6ff"/>
       <itemData name="Scheme String" defStyleNum="dsString" backgroundColor="#fff6ff"/>
       <itemData name="Scheme Comment" defStyleNum="dsComment" backgroundColor="#fff6ff"/>
+      <itemData name="Deprecated Keyword" defStyleNum="dsKeyword" backgroundColor="#fcc"/>
+      <itemData name="Deprecated Command" defStyleNum="dsFunction" backgroundColor="#fcc"/>
+      <itemData name="Deprecated Property" defStyleNum="dsDataType" backgroundColor="#fcc"/>
+      <itemData name="Deprecated Markup" defStyleNum="dsBaseN" color="#009817" backgroundColor="#fcc"/>
       <itemData name="Invalid" defStyleNum="dsError"/>
     </itemDatas>
   </highlighting>

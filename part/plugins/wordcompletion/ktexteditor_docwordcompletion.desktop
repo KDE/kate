@@ -15,6 +15,7 @@ Type=Service
 Icon=document-properties
 X-KDE-Version=4.0
 Name=Word Completion
+Name[af]=Woordvoltooiïng
 Name[ar]=تتمة الكلمات
 Name[be]=Заканчэнне словаў
 Name[bg]=KTextEditor Word Completion Plugin

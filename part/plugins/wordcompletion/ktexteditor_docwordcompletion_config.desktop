@@ -6,6 +6,7 @@ X-KDE-Library=ktexteditor_docwordcompletion
 X-KDE-ParentComponents=ktexteditordocwordcompletion
 
 Name=Behavior
+Name[af]=Gedrag
 Name[ar]=السلوك
 Name[be]=Паводзіны
 Name[bg]=Поведение

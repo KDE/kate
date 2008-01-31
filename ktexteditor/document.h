@@ -85,7 +85,7 @@ class View;
  * A View displays the document's content. As already mentioned a document
  * can have any number of views, all synchronized. Get a list of all views
  * with views(). Only one of the views can be active (i.e. has focus), get
- * it by using activeView(). Create a new view with createView(). Everytime
+ * it by using activeView(). Create a new view with createView(). Every time
  * a new view is created the signal viewCreated() is emitted.
  *
  * \section doc_extensions Document Extension Interfaces
@@ -598,7 +598,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * \see highlightingModes(), setHighlightingMode()
      */
     virtual QString highlightingMode() const = 0;
-    
+
     /**
      * Return a list of the names of all possible modes
      * \return list of mode names
@@ -630,7 +630,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     virtual bool setHighlightingMode(const QString &name) = 0;
 
     /**
-     * Returns the name of the section for a highlight given its index in the highlight 
+     * Returns the name of the section for a highlight given its index in the highlight
      * list (as returned by highlightModes()).
      * You can use this function to build a tree of the highlight names, organized in sections.
      * \param name the name of the highlight for which to find the section name.
@@ -638,7 +638,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     virtual QString highlightingModeSection( int index ) const = 0;
 
     /**
-     * Returns the name of the section for a mode given its index in the highlight 
+     * Returns the name of the section for a mode given its index in the highlight
      * list (as returned by modes()).
      * You can use this function to build a tree of the mode names, organized in sections.
      * \param name the name of the highlight for which to find the section name.
@@ -654,16 +654,16 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     /**
      * Warn anyone listening that the current document's mode has
      * changed.
-     * 
+     *
      * \param document the document whose mode has changed
      * \see setMode()
      */
     void modeChanged(KTextEditor::Document *document);
-    
+
     /**
      * Warn anyone listening that the current document's highlighting mode has
      * changed.
-     * 
+     *
      * \param document the document which's mode has changed
      * \see setHighlightingMode()
      */

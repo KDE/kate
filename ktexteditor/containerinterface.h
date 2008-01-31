@@ -30,13 +30,13 @@ class Document;
 class View;
 
 
-/** 
+/**
  * \brief Class that allows the kpart host to provide some extensions.
  *
- * \ingroup kte_group_editor_extensions 
+ * \ingroup kte_group_editor_extensions
  *
  * The KTextEditor framework allows the kpart host to provide additional
- * services to the kpart. Those services are provided through the 
+ * services to the kpart. Those services are provided through the
  * ContainerInterface class.
  *
  * If the container supports those specific services, it should set an
@@ -71,17 +71,17 @@ class KTEXTEDITOR_EXPORT ContainerInterface
     /** Virtual Destructor */
     virtual ~ContainerInterface();
 
-    /** 
+    /**
      * Set the KTextEditor container.
      *
      * This method is used by the KTextEditor host to set an instance
-     * of a class providing optional container extensions. 
+     * of a class providing optional container extensions.
      *
      * \sa container
      */
     virtual void setContainer( QObject * container ) = 0;
 
-    /** 
+    /**
      * Fetch the container extension.
      *
      * This method is used by the KTextEditor component to know
@@ -92,18 +92,18 @@ class KTEXTEDITOR_EXPORT ContainerInterface
      *
      * <b>Example:</b>
      * \code
-     * // inside the kpart 
+     * // inside the kpart
      *
      * Editor * editor = KTextEditor::EditorChooser::editor();
      * ContainerInterface * iface = qobject_cast<ConainterInterace *>( editor );
-     * SomeContainerExtension * myExt = 
+     * SomeContainerExtension * myExt =
      *     qobject_cast<SomeContainerExtension *>( iface->container() );
      *
      * if (myExt) {
      *     // do some stuff with the specific container extension
      *     // ...
      * } else {
-     *     // too bad, that extesion is not supported.
+     *     // too bad, that extension is not supported.
      * }
      * \endcode
      *
@@ -112,7 +112,7 @@ class KTEXTEDITOR_EXPORT ContainerInterface
     virtual QObject * container() = 0;
 }; // class ContainerInterface
 
-/** 
+/**
  * A container for MDI-capable kpart hosts.
  *
  * The kpart container for the KTextEditor interface may have different
@@ -128,7 +128,7 @@ class KTEXTEDITOR_EXPORT ContainerInterface
  * this class provides is the ability for the <i>kpart component</i> being
  * hosted to do the same.
  *
- * An instance of this extension should be set with 
+ * An instance of this extension should be set with
  * ContainerInterface::setContainerExtension().Check ContainerInterface() to
  * see how to obtain an instance of ContainerInterface. The instance should
  * inherit QObject, inherit MdiContainer, declare the Q_OBJECT macro and
@@ -148,14 +148,14 @@ class KTEXTEDITOR_EXPORT ContainerInterface
  * \endcode
  *
  *
- * To check if the kpart hosts supports the MDI container: 
+ * To check if the kpart hosts supports the MDI container:
  * \code
  * Editor * editor = KTextEditor::EditorChooser::editor();
  * ContainerInterface * iface = qobject_cast<ContainerInterface *>( editor );
  * if (iface) {
  *   MdiContainer * mdiContainer = qobject_cast<MdiContainer *>( iface->container() );
  *   if (MdiContainer != NULL ) {
- *    // great, I can create addtional views
+ *    // great, I can create additional views
  *    // ...
  *   }
  * }
@@ -164,21 +164,21 @@ class KTEXTEDITOR_EXPORT ContainerInterface
 class KTEXTEDITOR_EXPORT MdiContainer
 {
   public:
-    
+
     /** Constructor */
     MdiContainer();
 
     /** Virtual destructor */
     virtual ~MdiContainer();
 
-    /** 
+    /**
      * Set the \p view requested by the part as the active view.
      *
      * \sa activeView
      */
     virtual void setActiveView( View * view )=0;
 
-    /** 
+    /**
      * Get the current activew view.
      *
      * \return the active view.
@@ -187,12 +187,12 @@ class KTEXTEDITOR_EXPORT MdiContainer
      */
     virtual View * activeView()=0;
 
-    /** 
-     * Create a new Document and return it to the kpart. 
+    /**
+     * Create a new Document and return it to the kpart.
      *
      * Canonical implementation is:
      * \code
-     * Document * createDocument() 
+     * Document * createDocument()
      * {
      *     Document * doc;
      *     // set parentQObject to relevant value
@@ -209,7 +209,7 @@ class KTEXTEDITOR_EXPORT MdiContainer
      */
     virtual Document * createDocument()=0;
 
-    /** 
+    /**
      * Closes of document \p doc .
      *
      * The document is about to be closed but is still valid when this
@@ -226,12 +226,12 @@ class KTEXTEDITOR_EXPORT MdiContainer
      */
     virtual bool closeDocument( Document * doc )=0;
 
-    /** 
+    /**
      * Creates a new View and return it to the kpart.
      *
      * Canonical implementation is:
      * \code
-     * View * createView( Document * doc ) 
+     * View * createView( Document * doc )
      * {
      *     // set parentWidget to relevant value
      *     return doc->createView( parentWidget );
@@ -245,15 +245,15 @@ class KTEXTEDITOR_EXPORT MdiContainer
      */
     virtual View * createView( Document * doc )=0;
 
-    /** 
+    /**
      * Closes the View \p view .
      *
      * The view is still valid when this call is made but will be deleted
      * shortly after.
      *
-     * \return true if the removal is authorized and acted, or 
+     * \return true if the removal is authorized and acted, or
      *     false if the container does not support view removing from
-     *     the kpart, or 
+     *     the kpart, or
      */
     virtual bool closeView( View * view )=0;
 }; // class MdiContainer

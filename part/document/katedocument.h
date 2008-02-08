@@ -501,14 +501,14 @@ class KateDocument : public KTextEditor::Document,
     virtual QStringList highlightingModes() const;
     
     /**
-     * Set the current mode of the document by giving it's name
+     * Set the current mode of the document by giving its name
      * \param name name of the mode to use for this document
      * \return \e true on success, otherwise \e false
      */
     virtual bool setMode(const QString &name);
     
     /**
-     * Set the current mode of the document by giving it's name
+     * Set the current mode of the document by giving its name
      * \param name name of the mode to use for this document
      * \return \e true on success, otherwise \e false
      */

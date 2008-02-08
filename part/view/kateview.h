@@ -604,7 +604,7 @@ class KateView : public KTextEditor::View,
     KateGotoBar *gotoBar ();
 
   /**
-   * viewbar + it's widgets
+   * viewbar + its widgets
    * they are created on demand...
    */
   private:

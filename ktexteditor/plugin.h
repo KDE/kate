@@ -58,7 +58,7 @@ class View;
  *
  * As an extension a Plugin can implement the SessionConfigInterface. This
  * interface provides functions to read and write session related settings.
- * If you have session dependant data additionally derive your Plugin from
+ * If you have session dependent data additionally derive your Plugin from
  * this interface and implement the session related functions, for example:
  * \code
  * class MyPlugin : public KTextEditor::Plugin,

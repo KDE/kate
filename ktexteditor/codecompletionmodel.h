@@ -220,7 +220,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        * QWidget*:
        *  If the model returns a QVariant of type QWidget*, the code-completion takes over the given widget
        *  and embeds it into the completion-list under the completion-item. The widget will be automatically deleted at some point.
-       *  The completion-widget will use the height of the widget as a hint for it's preferred size, but it will
+       *  The completion-widget will use the height of the widget as a hint for its preferred size, but it will
        *  resize the widget at will.
        * QString:
        *  If the mode returns a QVariant of type QString, it will create a small html-widget showing the given html-code,

@@ -492,7 +492,7 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
     {
       updateView(false, viewLinesScrolled);
 
-      int scrollHeight = -(viewLinesScrolled * renderer()->fontHeight());
+      int scrollHeight = -(viewLinesScrolled * (int)renderer()->fontHeight());
 
       scroll(0, scrollHeight);
       m_leftBorder->scroll(0, scrollHeight);

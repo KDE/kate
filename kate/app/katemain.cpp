@@ -131,7 +131,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       if (servicesReply.isValid())
         services = servicesReply.value ();
         
-      foreach (QString s, services)
+      foreach (const QString &s, services)
       {
         if (s.startsWith ("org.kde.kate-"))
         {

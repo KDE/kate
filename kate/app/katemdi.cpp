@@ -45,7 +45,7 @@
 #include <QPixmap>
 #include <QChildEvent>
 #include <QSizePolicy>
-
+#include <QDomDocument>
 namespace KateMDI
 {
 

@@ -1350,7 +1350,7 @@ void KateJScriptManager::collectScripts (bool force)
     kDebug (13050) << "type: " << s->type;
     kDebug (13050) << "functions: " << s->functions;
 
-    foreach (QString fun, s->functions)
+    foreach (const QString &fun, s->functions)
       m_function2Script.insert (fun, s);
 
     // remember this.....
@@ -1428,7 +1428,7 @@ bool KateJScriptManager::exec( KTextEditor::View *view, const QString &_cmd, QSt
 
   KJS::List params;
 
-  foreach (QString a, args)
+  foreach (const QString &a, args)
     params.append(KJS::jsString(a));
 
   KJS::JSValue *val = inter->callFunction(kateView, inter->interpreter()->globalObject(), KJS::Identifier(cmd),

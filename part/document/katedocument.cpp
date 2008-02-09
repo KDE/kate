@@ -751,7 +751,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
   if (l)
     insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
 
-  foreach (QString text, textLines)
+  foreach (const QString &text, textLines)
   {
     int pos = 0;
     for (; pos < text.length(); pos++)
@@ -903,7 +903,7 @@ bool KateDocument::insertLines( int line, const QStringList & text )
     return false;
 
   bool success = true;
-  foreach (QString string, text)
+  foreach (const QString &string, text)
     // FIXME assumes no \n in each string
     success &= editInsertLine (line++, string);
 

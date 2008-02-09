@@ -102,7 +102,7 @@ void ArbitraryHighlightTest::slotRangeChanged(SmartRange* range, SmartRange* mos
 
   text = currentRange->document()->textLines(textNeeded);
 
-  foreach (QString string, text) {
+  foreach (const QString &string, text) {
     for (int i = 0; i < string.length(); ++i) {
       if (string.at(i) == openBrace) {
         currentRange = smart()->newSmartRange(current, currentRange->end(), currentRange);

@@ -289,7 +289,7 @@ QString KateModeManager::wildcardsFind (const QString &fileName)
       continue;
     }
 
-    foreach (QString wildcard, type->wildcards)
+    foreach (const QString &wildcard, type->wildcards)
     {
       if (KateWildcardMatcher::exactMatch(fileName, wildcard)) {
         match = type;

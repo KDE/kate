@@ -610,7 +610,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         c = m_caretOverrideColor;
 
       } else {
-        foreach (QTextLayout::FormatRange r, range->layout()->additionalFormats())
+        foreach (const QTextLayout::FormatRange &r, range->layout()->additionalFormats())
           if ( (r.start <= cursor->column() ) && ( (r.start + r.length)  > cursor->column()) ) {
             c = r.format.foreground().color();
             break;

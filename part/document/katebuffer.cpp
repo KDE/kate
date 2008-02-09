@@ -764,7 +764,7 @@ bool KateBuffer::isEmptyLine(KateTextLine::Ptr textline)
   if (l.isEmpty()) return false;
   QString txt=textline->string();
   kDebug(13020)<<"checking empty line regexp";
-  foreach(QRegExp re,l) {
+  foreach(const QRegExp &re,l) {
     if (re.exactMatch(txt)) return true;
   }
   kDebug(13020)<<"no matches";

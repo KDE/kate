@@ -107,8 +107,6 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   if ( (args->isSet("use")) || (::getenv("KATE_PID") != 0))
   {
     // inialize the dbus stuff...
-    QCoreApplication *app = new QCoreApplication (argc, argv);
-    
     // bus interface
     QDBusConnectionInterface *i = QDBusConnection::sessionBus().interface ();
   
@@ -244,8 +242,6 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     
       return 0;
     }
-    
-    delete app;
   }
 
   // construct the real kate app object ;)

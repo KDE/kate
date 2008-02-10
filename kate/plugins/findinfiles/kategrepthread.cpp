@@ -50,12 +50,16 @@ void KateGrepThread::run ()
     if (!currentDir.isReadable ())
       continue;
 
-    // append all dirs to the workqueue
-    QFileInfoList currentSubDirs = currentDir.entryInfoList (QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot | QDir::Readable);
-
-    // append them to the workqueue, if readable
-    for (int i = 0; i < currentSubDirs.size(); ++i)
-      m_workQueue << currentSubDirs.at(i).absoluteFilePath ();
+    // only add subdirs to worklist if we should do recursive search
+    if (m_recursive)
+    {
+      // append all dirs to the workqueue
+      QFileInfoList currentSubDirs = currentDir.entryInfoList (QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot | QDir::Readable);
+  
+      // append them to the workqueue, if readable
+      for (int i = 0; i < currentSubDirs.size(); ++i)
+        m_workQueue << currentSubDirs.at(i).absoluteFilePath ();
+    }
 
     // work with all files in this dir..., use wildcards for them...
     QFileInfoList currentFiles = currentDir.entryInfoList (m_fileWildcards, QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot | QDir::Readable);

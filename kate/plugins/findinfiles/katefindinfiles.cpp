@@ -33,7 +33,6 @@
 #include <kaction.h>
 #include <kactioncollection.h>
 
-#include <kauthorized.h>
 #include <kconfig.h>
 #include <kdebug.h>
 #include <kgenericfactory.h>
@@ -46,10 +45,6 @@ K_EXPORT_COMPONENT_FACTORY( katefindinfilesplugin, KGenericFactory<KateFindInFil
 KateFindInFilesPlugin::KateFindInFilesPlugin( QObject* parent, const QStringList& ):
     Kate::Plugin ( (Kate::Application*)parent )
 {
-  if (!KAuthorized::authorizeKAction("shell_access"))
-  {
-    KMessageBox::sorry(0, i18n ("You do not have enough karma to access a shell or terminal emulation"));
-  }
 }
 
 Kate::PluginView *KateFindInFilesPlugin::createView (Kate::MainWindow *mainWindow)

@@ -51,8 +51,19 @@ class KateEditInfo
     /// Returns true if text is being inserted and removed
     bool isModification() const;
 
-    /// Returns true if this edit is completed and should not be merged with another edit, should the opportunity arise.
+    /**
+     * Indicate that this edit is completed and should not be merged with
+     * another edit should the opportunity arise.
+     *
+     * \return true if this edit is completed
+     */
     bool isEditBoundary() const;
+
+    /**
+     * Set the status of this edit.
+     * \param boundary If the edit is complete, the value should be true,
+     * otherwise it should be false
+     */
     void setEditBoundary(bool boundary);
 
     /**
@@ -61,8 +72,15 @@ class KateEditInfo
      */
     Kate::EditSource editSource() const;
 
-    bool merge(KateEditInfo* edit);
+    /// \internal
+    /// No real implementation
+    bool merge(KateEditInfo* edit) { return false; }
 
+    /**
+     * Returns the starting location of the text occupied by the edit region
+     * before the edit took place.
+     * \return a KTextEditor::Cursor indicating the start location of the edit
+     */
     const KTextEditor::Cursor& start() const { return m_oldRange.start(); }
 
     /**
@@ -76,13 +94,18 @@ class KateEditInfo
      * \sa oldText()
      */
     virtual QString oldTextString(const KTextEditor::Range& range) const;
+    
     /**
      * Returns the text which occupied \p range before this edit took place.
-     * \note \p range must start and end on the same line for all relevant text to be returned.
      * \sa oldText()
      */
     virtual QStringList oldText(const KTextEditor::Range& range) const;
 
+    /**
+     * Returns all of the text that was in place before the edit occurred.
+     * \sa oldText(const KTextEditor::Range&) const
+     * \sa oldTextString(const KTextEditor::Range&) const
+     */ 
     const QStringList& oldText() const;
 
     /**
@@ -91,19 +114,27 @@ class KateEditInfo
     const KTextEditor::Range& newRange() const;
 
     /**
-     * Returns the text which occupied \p range before this edit took place.
-     * \note \p range must start and end on the same line for all relevant text to be returned.
-     * \sa oldText()
+     * Returns the text which occupies \p range after this edit took place.
+     *
+     * \p range must start and end on the same line for all relevant text to be returned.
+     * \sa newText()
+     * \sa newText(const KTextEditor::Range&) const
      */
     virtual QString newTextString(const KTextEditor::Range& range) const;
 
     /**
-     * Returns the text which occupied \p range before this edit took place.
-     * \note \p range must start and end on the same line for all relevant text to be returned.
-     * \sa oldText()
+     * Returns the text which occupies \p range after this edit took place.
+     * \sa newText()
+     * \sa newTextString(const KTextEditor::Range&) const
      */
     virtual QStringList newText(const KTextEditor::Range& range) const;
 
+    /**
+     * Returns the text which occupies the edit region now that the edit
+     * has taken place.
+     * \sa newText(const KTextEditor::Range&) const
+     * \sa newTextString(const KTextEditor::Range&) const
+     */
     const QStringList& newText() const;
 
     inline const KTextEditor::Cursor& translate() const { return m_translate; }

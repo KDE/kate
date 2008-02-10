@@ -57,7 +57,7 @@ class KateEditInfo
 
     /**
      * Returns how this edit was generated.
-     * \sa EditSources
+     * \sa Kate::EditSource
      */
     Kate::EditSource editSource() const;
 

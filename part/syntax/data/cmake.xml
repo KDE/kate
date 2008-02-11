@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<!-- Author: Alexander Neundorf <neundorf@kde.org> //-->
-<!-- cmake 2.4.x syntax highlighting -->
-<!-- dsKeyword, dsDataType, dsDecVal, dsBaseN, dsFloat, dsChar, dsString, dsComment, dsOthers, new in KDE 3.3: dsAlert, dsFunction, dsRegionMarker, dsError -->
-<language name="CMake" version="1.04" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="">
+<!--
+  This file is part of KDE's kate project.
+
+  Copyright 2004 Alexander Neundorf (neundorf@kde.org)
+  Copyright 2005 Dominik Haumann (dhdev@gmx.de)
+  Copyright 2007,2008 Matthew Woehlke (mw_triad@users.sourceforge.net)
+
+ **********************************************************************
+ * This library is free software; you can redistribute it and/or      *
+ * modify it under the terms of the GNU Lesser General Public         *
+ * License as published by the Free Software Foundation; either       *
+ * version 2 of the License, or (at your option) any later version.   *
+ *                                                                    *
+ * This library is distributed in the hope that it will be useful,    *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of     *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU  *
+ * Lesser General Public License for more details.                    *
+ *                                                                    *
+ * You should have received a copy of the GNU Lesser General Public   *
+ * License along with this library; if not, write to the              *
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,   *
+ * Boston, MA  02110-1301, USA.                                       *
+ **********************************************************************
+ -->
+<!-- generated for "cmake version 2.4-patch 6" -->
+<language name="CMake" version="1.05" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <list name = "commands">
@@ -132,6 +154,7 @@
       <item> EXCLUDE_FROM_ALL </item>
       <item> EXISTS </item>
       <item> EXPORT_MACRO </item>
+      <item> EXPR </item>
       <item> EXT </item>
       <item> EXTRA_INCLUDE </item>
       <item> FATAL_ERROR </item>
@@ -232,17 +255,26 @@
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="block" firstNonSpace="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="block" firstNonSpace="true"/>
         <DetectChar attribute="Comment" context="Comment" char="#"/>
-        <RegExpr attribute="Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
+        <RegExpr attribute="Environment Variable" context="#stay" String="\$ENV\{\s*\w+\s*\}"/>
+        <RegExpr attribute="CMake Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
         <RegExpr attribute="Macros" context="#stay" String="\w+\s*(?=\()"/>
       </context>
       <context attribute="Normal Text" lineEndContext="#stay" name="Function Args">
         <DetectChar attribute="Normal Text" context="#pop" char=")"/>
+        <DetectChar attribute="Strings" context="String" char="&quot;"/>
         <keyword attribute="Special Args" context="#stay" String="special_args"/>
         <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
-        <RegExpr attribute="Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
+        <RegExpr attribute="Environment Variable" context="#stay" String="\$ENV\{\s*\w+\s*\}"/>
+        <RegExpr attribute="CMake Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Comment">
         <IncludeRules context="##Alerts" />
+      </context>
+      <context attribute="Strings" lineEndContext="#pop" name="String">
+        <DetectChar attribute="Strings" context="#pop" char="&quot;" />
+        <RegExpr attribute="Escapes" context="#stay" String="\\[&quot;$n\\]" />
+        <RegExpr attribute="Environment Variable" context="#stay" String="\$ENV\{\s*\w+\s*\}"/>
+        <RegExpr attribute="CMake Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
       </context>
 
     </contexts>
@@ -251,7 +283,10 @@
       <itemData name="Special Args" defStyleNum="dsOthers" color="#000000" bold="0" italic="1"/>
       <itemData name="Commands" defStyleNum="dsKeyword"/>
       <itemData name="Macros"  defStyleNum="dsKeyword"/>
-      <itemData name="Variable" defStyleNum="dsDecVal"/>
+      <itemData name="Strings" defStyleNum="dsString"/>
+      <itemData name="Escapes" defStyleNum="dsChar"/>
+      <itemData name="CMake Variable" defStyleNum="dsDecVal"/>
+      <itemData name="Environment Variable" defStyleNum="dsFloat"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
     </itemDatas>

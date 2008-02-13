@@ -113,8 +113,10 @@ QModelIndex DocWordCompletionModel::index(int row, int column, const QModelIndex
 
 int DocWordCompletionModel::rowCount ( const QModelIndex & parent ) const
 {
-  Q_UNUSED( parent );
-  return m_matches.count();
+  if( parent.isValid() )
+    return 0; //Do not make the model look hierarchical
+  else
+    return m_matches.count();
 }
 
 // Scan throughout the entire document for possible completions,

@@ -4,6 +4,7 @@
   <!ENTITY file  "(====|\*\*\*|\-\-\-|diff|Only in .*:).*$">
   <!ENTITY chunk "(\@\@|\d).*$">
   <!ENTITY csep  "(\+\+\+|\-\-\-).*$">
+  <!ENTITY index  "Index:.*">
 ]>
 <!--
     2006-08-02: 1.10 Matthew Woehlke <mw_triad@sourceforge.net>
@@ -11,8 +12,10 @@
       seperate attributes). Recognize 'Only in' from 'diff -r' output.
       There is currently a bug (KATE limitation?) where regions may sometimes
       pick up one line too many.
+    2008-02-13: 1.11 Eduardo Robles Elvira <edulix AT gmail DOT com>
+     Fixed folding.
 -->
-<language name="Diff" version="1.10" kateversion="2.1" section="Other" extensions="*.diff;*patch" mimetype="text/x-patch">
+<language name="Diff" version="1.11" kateversion="2.1" section="Other" extensions="*.diff;*patch" mimetype="text/x-patch">
 
   <highlighting>
 
@@ -22,13 +25,15 @@
         <RegExpr attribute="Header" context="Chunk" String="&chunk;" beginRegion="chunk" column="0"/>
         <RegExpr attribute="Header" context="RChunk" String="\*+$" beginRegion="chunk" column="0"/>
         <RegExpr attribute="File" context="#stay" String="Only in .*:.*$" column="0"/>
-        <RegExpr attribute="File" context="RFile" String="diff.*$" beginRegion="file" column="0"/>
-        <RegExpr attribute="File" context="File" String="(====|\*\*\*|\-\-\-).*$" beginRegion="file" column="0"/>
+        <RegExpr attribute="File" context="RFile" String="diff.*$" Region="chunk" column="0"/>
+        <RegExpr attribute="File" context="#stay" String="====.*$" column="0"/>
+        <RegExpr attribute="File" context="File" String="(\*\*\*|\-\-\-).*$" beginRegion="chunk" column="0"/>
         <IncludeRules context="FindDiff"/>
         <DetectChar attribute="Changed line" context="ChangedOld" char="!" column="0"/>
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="FindDiff">
+        <RegExpr attribute="File" context="#stay" String="\-\-\-.*$" column="0"/>
         <RegExpr attribute="Header" context="#stay" String="&csep;" column="0"/>
         <AnyChar attribute="Added line" context="Added" String="+&gt;" column="0"/>
         <AnyChar attribute="Removed line" context="Removed" String="-&lt;" column="0"/>
@@ -36,31 +41,32 @@
 
       <!-- block contexts -->
       <context attribute="Normal Text" lineEndContext="#stay" name="File">
-        <RegExpr attribute="Header" context="ChunkInFile" String="&chunk;" beginRegion="chunk" column="0"/>
-        <RegExpr attribute="Header" context="RChunkInFile" String="\*+$" beginRegion="block" column="0"/>
-        <RegExpr attribute="File" context="#pop" String="&file;" endRegion="block" lookAhead="true" column="0"/>
-        <DetectChar attribute="Changed line (old)" context="ChangedOld" char="!" column="0"/>
         <IncludeRules context="FindDiff"/>
+        <RegExpr attribute="Header" context="ChunkInFile" String="&chunk;" beginRegion="chunk" column="0"/>
+        <RegExpr attribute="Header" context="RChunkInFile" String="\*+$" beginRegion="chunk" column="0"/>
+        <RegExpr attribute="File" context="#pop" String="&file;" endRegion="chunk" column="0"/>
+        <DetectChar attribute="Changed line (old)" context="ChangedOld" char="!" column="0"/>
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="Chunk">
-        <RegExpr attribute="Header" context="#pop" String="&chunk;" endRegion="block" lookAhead="true" column="0"/>
-        <DetectChar attribute="Changed line (old)" context="ChangedOld" char="!" column="0"/>
         <IncludeRules context="FindDiff"/>
+        <RegExpr attribute="Header" context="#pop" String="&chunk;" endRegion="chunk" lookAhead="true" column="0"/>
+        <DetectChar attribute="Changed line (old)" context="ChangedOld" char="!" column="0"/>
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="ChunkInFile">
-        <RegExpr attribute="Header" context="#pop" String="&chunk;" endRegion="block" lookAhead="true" column="0"/>
-        <RegExpr attribute="File" context="#pop" String="&file;" endRegion="block" lookAhead="true" column="0"/>
-        <DetectChar attribute="Changed line (old)" context="ChangedOld" char="!" column="0"/>
         <IncludeRules context="FindDiff"/>
+        <RegExpr attribute="Header" context="#pop" String="&chunk;" endRegion="chunk" lookAhead="true" column="0"/>
+        <RegExpr attribute="Normal Text" context="#pop" String="&index;" endRegion="chunk" column="0"/>
+        <RegExpr attribute="File" context="#pop" String="&file;" endRegion="chunk" lookAhead="true" column="0"/>
+        <DetectChar attribute="Changed line (old)" context="ChangedOld" char="!" column="0"/>
       </context>
 
       <!-- block contexts (diff -r) -->
       <context attribute="Normal Text" lineEndContext="#stay" name="RFile">
-        <RegExpr attribute="File" context="#pop" String="(diff|Only in .*:).*$" endRegion="block" lookAhead="true" column="0"/>
+        <RegExpr attribute="File" context="#pop" String="(diff|Only in .*:).*$" endRegion="chunk" lookAhead="true" column="0"/>
         <RegExpr attribute="Header" context="#stay" String="&file;" column="0"/>
-        <RegExpr attribute="Header" context="RChunkInFile" String="\*+$" beginRegion="block" column="0"/>
+        <RegExpr attribute="Header" context="RChunkInFile" String="\*+$" beginRegion="chunk" column="0"/>
         <IncludeRules context="File"/>
       </context>
 
@@ -84,7 +90,7 @@
 
       <context attribute="Normal Text" lineEndContext="#stay" name="RChunkInFileNew">
         <RegExpr attribute="Header" context="#pop#pop" String="&chunk;" lookAhead="true" column="0"/>
-        <RegExpr attribute="File" context="#pop#pop" String="&file;" endRegion="block" lookAhead="true" column="0"/>
+        <RegExpr attribute="File" context="#pop#pop" String="&file;" endRegion="chunk" lookAhead="true" column="0"/>
         <DetectChar attribute="Changed line (new)" context="ChangedNew" char="!" column="0"/>
         <IncludeRules context="FindDiff"/>
       </context>

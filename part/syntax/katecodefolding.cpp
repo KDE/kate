@@ -448,7 +448,10 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
     }
     else
     {
-      for (; (node->parentNode) && (getStartLine(node->parentNode)==line) && (node->parentNode->type!=0); node=node->parentNode);
+      for (; (node->parentNode) && (getStartLine(node->parentNode)==line) &&
+              (node->parentNode->type!=0); node=node->parentNode) {
+          ;
+      }
 
       if ((getStartLine(node)==line) && (node->type!=0))
       {

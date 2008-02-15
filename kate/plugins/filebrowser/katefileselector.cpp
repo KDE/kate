@@ -300,6 +300,7 @@ void ::KateFileSelector::readSessionConfig(KConfigBase *config, const QString & 
 
   KConfigGroup cgDir(config, name + ":dir");
   dir->readConfig(cgDir);
+  dir->setView(KFile::Default);
 
   KConfigGroup cg (config, name );
   cmbPath->setUrls( cg.readPathEntry( "dir history", QStringList() ) );

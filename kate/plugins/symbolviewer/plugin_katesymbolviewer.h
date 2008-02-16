@@ -40,6 +40,19 @@
 #include <kiconloader.h>
 #include <kconfig.h>
 
+class KatePluginSymbolViewerView;
+class KatePluginSymbolViewerView2 : public Kate::PluginView
+{
+  Q_OBJECT
+
+  public:
+    KatePluginSymbolViewerView2 (Kate::MainWindow *w);
+    virtual ~KatePluginSymbolViewerView2 ();
+    KatePluginSymbolViewerView* view();
+  private:
+    KatePluginSymbolViewerView *m_view;
+};
+
 class KatePluginSymbolViewerView : public QObject, public KXMLGUIClient
 {
   Q_OBJECT

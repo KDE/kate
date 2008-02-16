@@ -58,6 +58,23 @@
 
 K_EXPORT_COMPONENT_FACTORY( katesymbolviewerplugin, KGenericFactory<KatePluginSymbolViewer>( "katesymbolviewer" ) )
 
+
+KatePluginSymbolViewerView2::KatePluginSymbolViewerView2 (Kate::MainWindow *w)
+    : Kate::PluginView(w)
+{
+    m_view = new KatePluginSymbolViewerView(w);
+}
+
+KatePluginSymbolViewerView2::~KatePluginSymbolViewerView2 ()
+{
+    delete m_view;
+}
+
+KatePluginSymbolViewerView* KatePluginSymbolViewerView2::view()
+{
+    return m_view;
+}
+
 KatePluginSymbolViewerView::KatePluginSymbolViewerView(Kate::MainWindow *w)
 {
     KGlobal::locale()->insertCatalog("katesymbolviewer");
@@ -279,9 +296,9 @@ KatePluginSymbolViewer::~KatePluginSymbolViewer()
 
 Kate::PluginView *KatePluginSymbolViewer::createView (Kate::MainWindow *mainWindow)
 {
-  KatePluginSymbolViewerView *view = new KatePluginSymbolViewerView (mainWindow);
-  m_views.append (view);
-  return (Kate::PluginView *)view;
+  KatePluginSymbolViewerView2 *view = new KatePluginSymbolViewerView2 (mainWindow);
+  m_views.append (view->view());
+  return view;
   //return new KatePluginSymbolViewerView2 (mainWindow);
 }
 

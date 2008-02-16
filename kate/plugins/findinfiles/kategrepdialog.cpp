@@ -58,8 +58,10 @@ KateGrepDialog::KateGrepDialog(QWidget *parent, Kate::MainWindow *mw)
   KComboBox* cmbUrl = cmbDir->comboBox();
   cmbUrl->setDuplicatesEnabled(false);
   cmbUrl->setEditable(true);
-  cmbDir->completionObject()->setMode(KUrlCompletion::DirCompletion);
   cmbDir->setMode( KFile::Directory | KFile::LocalOnly );
+  KUrlCompletion* cmpl = new KUrlCompletion(KUrlCompletion::DirCompletion);
+  cmbUrl->setCompletionObject( cmpl );
+  cmbUrl->setAutoDeleteCompletionObject( true );
 
   cmbFiles->setInsertPolicy(QComboBox::NoInsert);
   cmbFiles->setDuplicatesEnabled(false);

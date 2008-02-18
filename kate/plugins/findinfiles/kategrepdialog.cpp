@@ -111,8 +111,8 @@ KateGrepDialog::KateGrepDialog(QWidget *parent, Kate::MainWindow *mw)
   cmbPattern->installEventFilter( this );
   cmbFiles->installEventFilter( this );
   cmbDir->comboBox()->installEventFilter( this );
-  
-  
+
+
   // add close tab button to tabwidget
   btnCloseTab = new QToolButton( lbResult );
   btnCloseTab->setEnabled(false);
@@ -121,7 +121,7 @@ KateGrepDialog::KateGrepDialog(QWidget *parent, Kate::MainWindow *mw)
   btnCloseTab->adjustSize();
   connect(btnCloseTab, SIGNAL(clicked()), SLOT(slotCloseResultTab()));
   btnCloseTab->hide();
-    
+
   lbResult->setCornerWidget( btnCloseTab, Qt::BottomRight );
   lbResult->setTabCloseActivatePrevious (true);
   connect(lbResult, SIGNAL(closeRequest( QWidget * )), this,
@@ -221,6 +221,7 @@ void KateGrepDialog::itemSelected(QTreeWidgetItem *item, int)
 
   // do it ;)
   m_mw->activeView()->setCursorPosition( KTextEditor::Cursor (linenumber, column) );
+  m_mw->activeView()->setFocus();
 }
 
 void KateGrepDialog::slotSearch()
@@ -255,18 +256,18 @@ void KateGrepDialog::slotSearch()
   btnClear->setEnabled( false );
   btnSearch->setGuiItem( KStandardGuiItem::cancel() );
 
-  
+
   // add a tab for the new search
   QTreeWidget* w = new QTreeWidget();
   connect( w, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
            SLOT(itemSelected(QTreeWidgetItem *, int)) );
-  
+
   // result view, list all matches....
   QStringList headers;
   headers << i18n("File") << i18n("Line") << i18n("Text");
   w->setHeaderLabels(headers);
   w->setIndentation(0);
-  
+
   lbResult->insertTab( w, QIcon(SmallIcon ("system-search")),
                        cmbPattern->currentText(), 0);
   lbResult->setCurrentWidget (w);
@@ -368,9 +369,9 @@ void KateGrepDialog::searchMatchFound(const QString &filename, int line, int col
   // should never happen
   if(lbResult->indexOf(parentTab) < 0)
     return;
- 
+
   QTreeWidget* w = (QTreeWidget*) parentTab;
-  
+
   QTreeWidgetItem* item = new QTreeWidgetItem(w);
   item->setText(0, basename);
   item->setText(1, QString::number (line + 1));
@@ -393,10 +394,10 @@ void KateGrepDialog::slotCloseResultTab()
 void KateGrepDialog::slotCloseResultTab(QWidget* widget)
 {
   lbResult->removePage (widget);
-    
+
   widget->hide();
   delete widget;
-    
+
   if (lbResult->count() == 0)
   {
     btnCloseTab->setEnabled(false);

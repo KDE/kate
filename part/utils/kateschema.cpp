@@ -267,7 +267,7 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
     QColor tmp2( schemeView.background(KColorScheme::AlternateBackground).color() );
     QColor tmp3( schemeView.shade(KColorScheme::LightShade) );
     QColor tmp4( schemeView.shade(KColorScheme::MidShade) );
-    QColor tmp5( schemeView.shade(KColorScheme::MidlightShade) );
+    QColor tmp5( schemeView.shade(KColorScheme::ShadowShade) );
     QColor tmp6( schemeWindow.background().color() );
     QColor tmp7( schemeWindow.foreground().color() );
 

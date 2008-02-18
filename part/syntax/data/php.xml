@@ -26,7 +26,7 @@ Changes:
 
 -->
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.32" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.33" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -60,6 +60,7 @@ Changes:
       <item> class </item>
       <item> clone </item>
       <item> const </item>
+      <item> exception </item>
       <item> extends </item>
       <item> final </item>
       <item> function </item>

@@ -4,7 +4,7 @@ kde4_add_kdeinit_executable(kwrite ${kwrite_KDEINIT_SRCS})
 
 target_link_libraries(kdeinit_kwrite ${KDE4_KTEXTEDITOR_LIBS} ${KDE4_KIO_LIBS})
 
-install(TARGETS kdeinit_kwrite DESTINATION ${LIB_INSTALL_DIR})
+install(TARGETS kdeinit_kwrite DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 target_link_libraries(kwrite kdeinit_kwrite)
 

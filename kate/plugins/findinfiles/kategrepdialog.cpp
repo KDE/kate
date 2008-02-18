@@ -4,6 +4,7 @@
    Copyright (C) 2001, 2004 Anders Lund <anders.lund@lund.tdcadsl.dk>
    Copyright (C) 2007 Dominik Haumann <dhaumann@kde.org>
    Copyright (C) 2007 Flavio Castelli <flavio.castelli@gmail.com>
+   Copyright (C) 2008 Eduardo Robles Elvira <edulix@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -24,6 +25,8 @@
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
+
+#include <kdebug.h>
 
 #include <QCursor>
 #include <QObject>
@@ -226,6 +229,7 @@ void KateGrepDialog::slotSearch()
   if (m_grepThread)
   {
     killThread ();
+    searchFinished();
     return;
   }
 
@@ -280,12 +284,14 @@ void KateGrepDialog::slotSearch()
   liste << reg;
 
   // create the thread object
-  m_grepThread = new KateGrepThread (this, cmbDir->url().toLocalFile (), cbRecursive->isChecked(), wildcards, liste);
+  m_grepThread = new KateGrepThread (this, lbResult->currentPage(), cmbDir->url().toLocalFile (), cbRecursive->isChecked(), wildcards, liste);
 
   // connect feedback signals
+  connect(lbResult, SIGNAL(destroy()), m_grepThread, SLOT(cancel()));
+  connect(lbResult, SIGNAL(destroy()), this, SLOT(searchFinished()));
   connect (m_grepThread, SIGNAL(finished()), this, SLOT(searchFinished()));
-  connect (m_grepThread, SIGNAL(foundMatch (const QString &, int, int, const QString &, const QString &)),
-           this, SLOT(searchMatchFound(const QString &, int, int, const QString &, const QString &)));
+  connect (m_grepThread, SIGNAL(foundMatch (const QString &, int, int, const QString &, const QString &, QWidget *)),
+           this, SLOT(searchMatchFound(const QString &, int, int, const QString &, const QString &, QWidget *)));
 
   // grep
   m_grepThread->start();
@@ -357,9 +363,13 @@ void KateGrepDialog::addItems()
   }
 }
 
-void KateGrepDialog::searchMatchFound(const QString &filename, int line, int column, const QString &basename, const QString &lineContent)
+void KateGrepDialog::searchMatchFound(const QString &filename, int line, int column, const QString &basename, const QString &lineContent, QWidget *parentTab)
 {
-  QTreeWidget* w = (QTreeWidget*) lbResult->currentWidget();
+  // should never happen
+  if(lbResult->indexOf(parentTab) < 0)
+    return;
+ 
+  QTreeWidget* w = (QTreeWidget*) parentTab;
   
   QTreeWidgetItem* item = new QTreeWidgetItem(w);
   item->setText(0, basename);

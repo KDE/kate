@@ -1,5 +1,6 @@
 /* This file is part of the KDE project
    Copyright (C) 2007 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2008 Eduardo Robles Elvira <edulix@gmail.com>
  
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -29,13 +30,14 @@ class KateGrepThread : public QThread
     Q_OBJECT
 
   public:
-    KateGrepThread (QWidget *parent, const QString &dir,
+    KateGrepThread (QWidget *parent, QWidget *parentTab, const QString &dir,
                     bool recursive, const QStringList &fileWildcards,
                     const QList<QRegExp> &searchPattern);
     ~KateGrepThread ();
 
   public:
     void run();
+  public Q_SLOTS:
     void cancel ()
     {
       m_cancel = true;
@@ -45,9 +47,10 @@ class KateGrepThread : public QThread
     void grepInFile (const QString &fileName, const QString &baseName);
 
   Q_SIGNALS:
-    void foundMatch (const QString &filename, int line, int column, const QString &basename, const QString &lineContent);
+    void foundMatch (const QString &filename, int line, int column, const QString &basename, const QString &lineContent, QWidget *parentTab);
 
   private:
+    QWidget* m_parentTab;
     bool m_cancel;
     QStringList m_workQueue;
     bool m_recursive;

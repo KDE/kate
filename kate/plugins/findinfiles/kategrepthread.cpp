@@ -1,5 +1,6 @@
 /* This file is part of the KDE project
    Copyright (C) 2007 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2008 Eduardo Robles Elvira <edulix@gmail.com>
  
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -26,10 +27,11 @@
 #include <QFileInfo>
 #include <QTextStream>
 
-KateGrepThread::KateGrepThread(QWidget *parent, const QString &dir,
-                               bool recursive, const QStringList &fileWildcards,
+KateGrepThread::KateGrepThread(QWidget *parent, QWidget *parentTab,
+                               const QString &dir, bool recursive,
+                               const QStringList &fileWildcards,
                                const QList<QRegExp> &searchPattern)
-    : QThread (parent), m_cancel (false)
+    : QThread (parent), m_parentTab(parentTab), m_cancel (false)
     , m_recursive (recursive), m_fileWildcards (fileWildcards)
     , m_searchPattern (searchPattern)
 {
@@ -105,7 +107,7 @@ void KateGrepThread::grepInFile (const QString &fileName, const QString &baseNam
       if (firstColumn != -1)
       {
         kDebug () << "found match: " << fileName << " : " << lineNumber;
-        emit foundMatch (fileName, lineNumber, firstColumn, baseName, lines.at (0));
+        emit foundMatch (fileName, lineNumber, firstColumn, baseName, lines.at (0), m_parentTab);
       }
 
       // remove first line...

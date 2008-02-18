@@ -3,6 +3,7 @@
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2001 Anders Lund <anders.lund@lund.tdcadsl.dk>
    Copyright (C) 2007 Dominik Haumann <dhaumann@kde.org>
+   Copyright (C) 2008 Eduardo Robles Elvira <edulix@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -60,7 +61,7 @@ class KateGrepDialog : public QWidget, private Ui::FindWidget
     void slotClear();
     void patternTextChanged( const QString &);
     void searchFinished ();
-    void searchMatchFound(const QString &filename, int line, int column, const QString &basename, const QString &lineContent);
+    void searchMatchFound(const QString &filename, int line, int column, const QString &basename, const QString &lineContent, QWidget *parentTab);
     void syncDir();
 
   private:

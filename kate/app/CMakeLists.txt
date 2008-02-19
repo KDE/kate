@@ -31,7 +31,7 @@ kde4_add_library(kateinterfaces SHARED ${kateinterfaces_LIB_SRCS})
 target_link_libraries(kateinterfaces  ${KDE4_KUTILS_LIBS} ${KDE4_KDE3SUPPORT_LIBS}  ${QT_QTXML_LIBRARY} ${KDE4_KTEXTEDITOR_LIBS} )
 
 set_target_properties(kateinterfaces PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
-install(TARGETS kateinterfaces  DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install(TARGETS kateinterfaces ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 
 ########### next target ###############
@@ -53,7 +53,7 @@ else (WIN32)
 
     target_link_libraries(kdeinit_kate  ${KDE4_KDECORE_LIBS} kateinterfaces )
 
-    install(TARGETS kdeinit_kate  DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS} )
+    install(TARGETS kdeinit_kate ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
     target_link_libraries( kate kdeinit_kate )
 endif (WIN32)

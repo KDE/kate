@@ -37,6 +37,10 @@ class KateGrepThread : public QThread
 
   public:
     void run();
+    QWidget* parentTab()
+    {
+      return m_parentTab;
+    }
   public Q_SLOTS:
     void cancel ()
     {

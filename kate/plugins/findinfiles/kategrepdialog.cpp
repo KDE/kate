@@ -393,6 +393,13 @@ void KateGrepDialog::slotCloseResultTab()
 
 void KateGrepDialog::slotCloseResultTab(QWidget* widget)
 {
+  // running search for this tab, cancel...
+  if (m_grepThread && m_grepThread->parentTab() == widget)
+  {
+    killThread();
+    searchFinished();
+  }
+
   lbResult->removePage (widget);
 
   widget->hide();

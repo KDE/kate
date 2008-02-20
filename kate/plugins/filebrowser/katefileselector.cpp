@@ -178,6 +178,7 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
 //  cmbPath->listBox()->installEventFilter( this );
 
   dir = new KDirOperator(KUrl(), this);
+  dir->installEventFilter( this );
   dir->setView(KFile::/* Simple */Detail);
   dir->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
   connect ( dir, SIGNAL( viewChanged(QAbstractItemView *) ),
@@ -447,6 +448,11 @@ void ::KateFileSelector::setDir( KUrl u )
 
 void ::KateFileSelector::fileSelected(const KFileItem & /*file*/)
 {
+  openSelectedFiles();
+}
+
+void ::KateFileSelector::openSelectedFiles()
+{
   const KFileItemList list = dir->selectedItems();
 
   foreach (const KFileItem& item, list)
@@ -585,6 +591,12 @@ void KateFileSelector::showEvent( QShowEvent * )
 
 bool KateFileSelector::eventFilter( QObject* o, QEvent *e )
 {
+  if ( e->type() == QEvent::KeyPress && (
+         ((QKeyEvent*)e)->key() == Qt::Key_Return ||
+         ((QKeyEvent*)e)->key() == Qt::Key_Enter ) )
+  {
+    openSelectedFiles();
+  }
   /*
       This is rather unfortunate, but:
       QComboBox does not support setting the size of the listbox to something

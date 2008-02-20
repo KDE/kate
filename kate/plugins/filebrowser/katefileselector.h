@@ -164,6 +164,7 @@ class KateFileSelector : public KVBox
     void showEvent( QShowEvent * );
     bool eventFilter( QObject *, QEvent * );
     void initialDirChangeHack();
+    void openSelectedFiles();
 
   public:
     Kate::MainWindow* mainWindow()

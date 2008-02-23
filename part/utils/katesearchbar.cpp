@@ -750,7 +750,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
             if (!(found && highlightAll)) {
                 resetHighlights();
             }
-            
+
             highlightReplacement(*afterReplace);
         }
 
@@ -1569,6 +1569,7 @@ void KateSearchBar::onMutatePower() {
 
         // Make [return] in pattern line edit trigger <find next> action
         connect(patternLineEdit, SIGNAL(returnPressed()), this, SLOT(onReturnPressed()));
+        connect(replacementLineEdit, SIGNAL(returnPressed()), this, SLOT(onPowerReplaceNext()));
     }
 
     // Focus

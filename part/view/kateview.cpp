@@ -343,6 +343,7 @@ void KateView::setupActions()
 
     a = m_toggleWriteLock = new KToggleAction(i18n("&Read Only Mode"), this);
     a->setWhatsThis( i18n("Lock/unlock the document for writing") );
+    a->setChecked( !m_doc->isReadWrite() );
     connect(a, SIGNAL(triggered(bool)), SLOT( toggleWriteLock() ));
     ac->addAction("tools_toggle_write_lock", a);
 

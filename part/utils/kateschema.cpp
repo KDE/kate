@@ -32,6 +32,7 @@
 #include "ui_schemaconfigcolortab.h"
 
 #include <kcolorscheme.h>
+#include <kcolorutils.h>
 #include <klocale.h>
 #include <kdialog.h>
 #include <kcolorbutton.h>
@@ -265,9 +266,11 @@ void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
     QColor tmp0( schemeView.background().color() );
     QColor tmp1( schemeSelection.background().color() );
     QColor tmp2( schemeView.background(KColorScheme::AlternateBackground).color() );
-    QColor tmp3( schemeView.shade(KColorScheme::LightShade) );
-    QColor tmp4( schemeView.shade(KColorScheme::MidShade) );
-    QColor tmp5( schemeView.shade(KColorScheme::ShadowShade) );
+  // using KColorUtils::shade wasn't working really well
+    qreal bgLuma = KColorUtils::luma( tmp0 );
+    QColor tmp3( KColorUtils::tint(tmp0, schemeView.decoration(KColorScheme::HoverColor).color()) );
+    QColor tmp4( KColorUtils::shade( tmp0, bgLuma > 0.3 ? -0.15 : 0.03 ) );
+    QColor tmp5( KColorUtils::shade( tmp0, bgLuma > 0.7 ? -0.35 : 0.3 ) );
     QColor tmp6( schemeWindow.background().color() );
     QColor tmp7( schemeWindow.foreground().color() );
 

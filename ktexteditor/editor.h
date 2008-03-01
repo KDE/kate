@@ -266,7 +266,7 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
  * \return the Editor object on success, otherwise NULL
  * \see KTextEditor::EditorChooser::editor()
  */
-KTEXTEDITOR_EXPORT Editor *editor ( const QString &libname );
+KTEXTEDITOR_EXPORT Editor *editor ( const char *libname );
 
 }
 

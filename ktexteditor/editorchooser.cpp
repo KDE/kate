@@ -129,7 +129,7 @@ KTextEditor::Editor *EditorChooser::editor(const QString& postfix,
   KService::Ptr serv = KService::serviceByDesktopName(editor);
   if (serv)
   {
-    KTextEditor::Editor *tmpEd = KTextEditor::editor(serv->library().toLatin1());
+    KTextEditor::Editor *tmpEd = KTextEditor::editor(serv->library());
     if (tmpEd) return tmpEd;
   }
   if (fallBackToKatePart)

@@ -188,7 +188,7 @@ Plugin *KTextEditor::createPlugin ( KService::Ptr service, QObject *parent )
   return KService::createInstance<KTextEditor::Plugin>(service, parent);
 }
 
-Editor *KTextEditor::editor(const char *libname)
+Editor *KTextEditor::editor(const QString &libname)
 {
   KPluginFactory *fact=KPluginLoader(libname).factory();
 

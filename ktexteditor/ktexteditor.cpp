@@ -188,13 +188,34 @@ Plugin *KTextEditor::createPlugin ( KService::Ptr service, QObject *parent )
   return KService::createInstance<KTextEditor::Plugin>(service, parent);
 }
 
+struct KTextEditorFactoryList : public QList<KPluginFactory*>
+{
+  KTextEditorFactoryList() {}
+  ~KTextEditorFactoryList() { qDeleteAll(*this); }
+};
+K_GLOBAL_STATIC(KTextEditorFactoryList, s_factoryList)
+static void cleanupKTextEditorFactoryList()
+{
+  qDeleteAll(*s_factoryList);
+  s_factoryList->clear();
+}
+
 Editor *KTextEditor::editor(const char *libname)
 {
   KPluginFactory *fact=KPluginLoader(libname).factory();
 
   KTextEditor::Factory *ef=qobject_cast<KTextEditor::Factory*>(fact);
 
-  if (!ef) return 0;
+  if (!ef) {
+    delete fact;
+    return 0;
+  }
+
+  // K_GLOBAL_STATIC is cleaned up *after* Q(Core)Application is gone
+  // but we have to cleanup before -> use qAddPostRoutine
+  if(s_factoryList->count() == 0)
+    qAddPostRoutine(cleanupKTextEditorFactoryList);
+  s_factoryList->append(fact);
 
   return ef->editor();
 }

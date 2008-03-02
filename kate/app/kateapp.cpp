@@ -72,11 +72,17 @@ KateApp::KateApp (KCmdLineArgs *args)
 
 KateApp::~KateApp ()
 {
+  // cu session manager
+  delete m_sessionManager;
+
   // cu plugin manager
   delete m_pluginManager;
 
   // delete this now, or we crash
   delete m_docManager;
+
+  // cu kate app
+  delete m_application;
 }
 
 KateApp *KateApp::self ()

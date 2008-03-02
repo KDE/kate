@@ -102,6 +102,8 @@ KateDocManager::~KateDocManager ()
 
   qDeleteAll( m_docInfos );
   delete m_metaInfos;
+  delete m_documentManager;
+  // delete m_editor; don't delete this here - it's cleaned up when the plugin is unloaded
 }
 
 KateDocManager *KateDocManager::self ()

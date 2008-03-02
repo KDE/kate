@@ -111,8 +111,7 @@ bool tabLessThan( const KTinyTabButton* a, const KTinyTabButton* b )
  * The default values are in detail:
  *  - minimum tab width: 70 pixel
  *  - maximum tab width: 150 pixel
- *  - fixed tab height : 18 pixel. Note that the icon's size is 16 pixel.
- *                       Because of 2 pixel margin 18 pixel is the optimum.
+ *  - fixed tab height : 22 pixel. Note that the icon's size is 16 pixel.
  *  - number of rows: 1 row.
  *  .
  */
@@ -122,7 +121,7 @@ KTinyTabBar::KTinyTabBar( QWidget *parent )
     m_minimumTabWidth = 70;
     m_maximumTabWidth = 150;
 
-    m_tabHeight = 18;
+    m_tabHeight = 22;
 
     m_locationTop = false;
     m_numRows = 1;

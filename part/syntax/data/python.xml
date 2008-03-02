@@ -3,7 +3,8 @@
 <!-- Python syntax highlightning v0.9 by Per Wigren -->
 <!-- Python syntax highlighting v1.9 by Michael Bueker (improved keyword differentiation) -->
 <!-- Python syntax highlighting v1.97 by Paul Giannaros -->
-<language name="Python" version="1.98" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
+<!-- Python syntax highlighting v1.99 by Primoz Anzur -->
+<language name="Python" version="1.99" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -46,7 +47,9 @@
 			<item> yield </item>
 		</list>
 		<list name="builtinfuncs">
+			<item> __future__ </item>
 			<item> __import__ </item>
+			<item> __name__ </item>
 			<item> abs </item>
 			<item> all </item>
 			<item> any </item>
@@ -133,6 +136,71 @@
 			<item> SLOT </item>
 			<item> connect </item>
 		</list>
+		<list name="overloaders">
+			<item>__new__</item>
+			<item>__init__</item>
+			<item>__del__</item>
+			<item>__repr__</item>
+			<item>__str__</item>
+			<item>__lt__</item>
+			<item>__le__</item>
+			<item>__eq__</item>
+			<item>__ne__</item>
+			<item>__gt__</item>
+			<item>__ge__</item>
+			<item>__cmp__</item>
+			<item>__rcmp__</item>
+			<item>__hash__</item>
+			<item>__nonzero__</item>
+			<item>__unicode__</item>
+		</list>
+		<list name="exceptions">
+			<item>ArithmeticError</item>
+			<item>AssertionError</item>
+			<item>AttributeError</item>
+			<item>BaseException</item>
+			<item>DeprecationWarning</item>
+			<item>EnvironmentError</item>
+			<item>EOFError</item>
+			<item>Exception</item>
+			<item>FloatingPointError</item>
+			<item>FutureWarning</item>
+			<item>GeneratorExit</item>
+			<item>IOError</item>
+			<item>ImportError</item>
+			<item>ImportWarning</item>
+			<item>IndexError</item>
+			<item>KeyError</item>
+			<item>KeyboardInterrupt</item>
+			<item>LookupError</item>
+			<item>MemoryError</item>
+			<item>NameError</item>
+			<item>NotImplementedError</item>
+			<item>OSError</item>
+			<item>OverflowError</item>
+			<item>PendingDeprecationWarning</item>
+			<item>ReferenceError</item>
+			<item>RuntimeError</item>
+			<item>RuntimeWarning</item>
+			<item>StandardError</item>
+			<item>StopIteration</item>
+			<item>SyntaxError</item>
+			<item>SyntaxWarning</item>
+			<item>SystemError</item>
+			<item>SystemExit</item>
+			<item>TypeError</item>
+			<item>UnboundLocalError</item>
+			<item>UserWarning</item>
+			<item>UnicodeError</item>
+			<item>UnicodeWarning</item>
+			<item>UnicodeEncodeError</item>
+			<item>UnicodeDecodeError</item>
+			<item>UnicodeTranslateError</item>
+			<item>ValueError</item>
+			<item>Warning</item>
+			<item>WindowsError</item>
+			<item>ZeroDivisionError</item>
+		</list>
 		<contexts>
 			<context name="Normal" attribute="Normal Text" lineEndContext="#stay">
 				<keyword attribute="Preprocessor" String="prep" context="#stay"/>
@@ -143,6 +211,8 @@
 				<keyword attribute="Builtin Function" String="builtinfuncs" context="#stay"/>
 				<keyword attribute="Special Variable" String="specialvars" context="#stay"/>
 				<keyword attribute="Extensions" String="bindings" context="#stay"/>
+				<keyword attribute="Exceptions" String="exceptions" context="#stay"/>
+				<keyword attribute="Overloaders" String="overloaders" context="#stay"/>
 				<RegExpr attribute="Normal" String="[a-zA-Z_][a-zA-Z_0-9]+" context="#stay"/>
 
 				<RegExpr attribute="Complex" String=" ((([0-9]*\.[0-9]+|[0-9]+\.)|([0-9]+|([0-9]*\.[0-9]+|[0-9]+\.))[eE](\+|-)?[0-9]+)|[0-9]+)[jJ]" context="#stay"/>
@@ -266,6 +336,8 @@
 			<itemData name="Builtin Function" defStyleNum="dsDataType"/>
 			<itemData name="Special Variable" defStyleNum="dsOthers"/>
 			<itemData name="Extensions" defStyleNum="dsOthers" color="#0095ff" selColor="#ffffff" bold="1" italic="0"/>
+			<itemData name="Exceptions" defStyleNum="dsOthers" color="#054d00" selColor="#ffffff" bold="1" italic="0"/>
+			<itemData name="Overloaders" defStyleNum="dsOthers" color="#000e52" selColor="#ffffff" bold="1" italic="0"/>
 			<itemData name="Preprocessor" defStyleNum="dsChar"/>
 			<itemData name="String Char" defStyleNum="dsChar"/>
 			<itemData name="Long" defStyleNum="dsOthers"/>

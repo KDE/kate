@@ -28,6 +28,7 @@
 
 #include <kdebug.h>
 
+#include <QClipboard>
 #include <QCursor>
 #include <QObject>
 #include <QRegExp>
@@ -262,6 +263,9 @@ void KateGrepDialog::slotSearch()
   connect( w, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
            SLOT(itemSelected(QTreeWidgetItem *, int)) );
 
+  // event filter to fish ctrl+c/copy-event
+  w->installEventFilter(this);
+
   // result view, list all matches....
   QStringList headers;
   headers << i18n("File") << i18n("Line") << i18n("Text");
@@ -373,12 +377,20 @@ void KateGrepDialog::searchMatchFound(const QString &filename, int line, int col
   QTreeWidget* w = (QTreeWidget*) parentTab;
 
   QTreeWidgetItem* item = new QTreeWidgetItem(w);
+  // visible text
   item->setText(0, basename);
   item->setText(1, QString::number (line + 1));
   item->setText(2, lineContent.trimmed());
+
+  // used to read from when activating an item
   item->setData(0, Qt::UserRole, filename);
   item->setData(1, Qt::UserRole, line);
   item->setData(2, Qt::UserRole, column);
+
+  // add tooltips in all columns
+  item->setData(0, Qt::ToolTipRole, filename);
+  item->setData(1, Qt::ToolTipRole, filename);
+  item->setData(2, Qt::ToolTipRole, filename);
 }
 
 void KateGrepDialog::slotClear()
@@ -414,12 +426,26 @@ void KateGrepDialog::slotCloseResultTab(QWidget* widget)
 
 bool KateGrepDialog::eventFilter( QObject *o, QEvent *e )
 {
-  if ( e->type() == QEvent::KeyPress && (
-         ((QKeyEvent*)e)->key() == Qt::Key_Return ||
-         ((QKeyEvent*)e)->key() == Qt::Key_Enter ) )
+  if ( e->type() == QEvent::KeyPress )
   {
-    slotSearch();
-    return true;
+    QKeyEvent *ke = static_cast<QKeyEvent*>(e);
+    if ( ke->key() == Qt::Key_Return || ke->key() == Qt::Key_Enter )
+    {
+      slotSearch();
+      e->accept();
+      return true;
+    }
+    else if (qobject_cast<QTreeWidget*>(o) && (ke == QKeySequence::Copy))
+    {
+      // user pressed ctrl+c -> copy full URL to the clipboard
+      QTreeWidget *tw = static_cast<QTreeWidget*>(o);
+      QModelIndex idx = tw->model()->index(tw->currentIndex().row(), 0);
+      QVariant variant = tw->model()->data(idx, Qt::UserRole);
+      if (variant.type() == QVariant::String)
+          QApplication::clipboard()->setText(variant.toString());
+      e->accept();
+      return true;
+    }
   }
 
   return QWidget::eventFilter( o, e );

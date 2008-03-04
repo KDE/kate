@@ -207,7 +207,7 @@ void KWrite::setupStatusBar()
   statusBar()->addWidget( m_insertModeLabel, 0 );
   m_insertModeLabel->setAlignment( Qt::AlignCenter );
 
-  m_selectModeLabel = new QLabel( i18n(" LINE "), statusBar() );
+  m_selectModeLabel = new QLabel( i18nc("@info:status Statusbar label for line selection mode", " LINE "), statusBar() );
   statusBar()->addWidget( m_selectModeLabel, 0 );
   m_selectModeLabel->setAlignment( Qt::AlignCenter );
 
@@ -546,13 +546,15 @@ void KWrite::cursorPositionChanged ( KTextEditor::View *view )
   KTextEditor::Cursor position (view->cursorPositionVirtual());
 
   m_lineColLabel->setText(
-    i18n(" Line: %1 Col: %2 ", KGlobal::locale()->formatNumber(position.line()+1, 0),
-                               KGlobal::locale()->formatNumber(position.column()+1, 0)) );
+    i18nc("@info:status Statusbar label for cursor line and column position", 
+    	" Line: %1 Col: %2 ", position.line()+1, position.column()+1) ) ;
 }
 
 void KWrite::selectionChanged (KTextEditor::View *view)
 {
-  m_selectModeLabel->setText( view->blockSelection() ? i18n(" BLOCK ") : i18n(" LINE ") );
+  m_selectModeLabel->setText( 
+  	view->blockSelection() ? i18nc("@info:status Statusbar label for block selection mode", " BLOCK ") : 
+				i18nc("@info:status Statusbar label for line selection mode", " LINE ") );
 }
 
 void KWrite::informationMessage (KTextEditor::View *view, const QString &message)

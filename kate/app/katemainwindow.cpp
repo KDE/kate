@@ -766,10 +766,7 @@ void KateMainWindow::tipOfTheDay()
 
 void KateMainWindow::slotFullScreen(bool t)
 {
-  if (t)
-    showFullScreen();
-  else
-    showNormal();
+  KToggleFullScreenAction::setFullScreen(this, t);
 }
 
 bool KateMainWindow::event( QEvent *e )

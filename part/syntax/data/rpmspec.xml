@@ -24,6 +24,8 @@
                 <item> Provides </item>
                 <item> PreReq </item>
                 <item> Requires </item>
+                <item> Enhances </item>
+                <item> Suggests </item>
                 <item> BuildArch </item>
                 <item> BuildArchitectures </item>
                 <item> BuildConflicts </item>

@@ -338,7 +338,6 @@ void KateMainWindow::setupActions()
   a = actionCollection()->addAction( "help_about_editor" );
   a->setText( i18n("&About Editor Component") );
   connect( a, SIGNAL( triggered() ), this, SLOT( aboutEditor() ) );
-  a->setGlobalShortcutAllowed(true);
 
   connect(m_viewManager, SIGNAL(viewChanged()), m_mainWindow, SIGNAL(viewChanged()));
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotWindowActivated()));

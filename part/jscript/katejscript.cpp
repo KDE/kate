@@ -29,6 +29,7 @@
 #include "katetextline.h"
 #include "katerenderer.h"
 
+#include <iostream>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -173,7 +174,9 @@ KJS::JSValue* KateJSGlobalFunctions::callAsFunction (KJS::ExecState *exec, KJS::
 {
   switch (id) {
     case Debug:
-      kDebug(13051) << args[0]->toString(exec).qstring();
+      // Don't use kDebug here -- it makes developing indenters without a debug
+      // build almost impossible for new people
+      std::cerr << qPrintable(args[0]->toString(exec).qstring()) << std::endl;
       return KJS::jsUndefined();
     default:
       break;

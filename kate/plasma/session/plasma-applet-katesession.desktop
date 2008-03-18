@@ -1,0 +1,16 @@
+[Desktop Entry]
+Name=Kate Session Applet
+Comment=Kate Session Launcher
+Type=Service
+X-KDE-ServiceTypes=Plasma/Applet
+
+X-KDE-Library=plasma_applet_katesession
+X-KDE-PluginInfo-Author=Montel Laurent
+X-KDE-PluginInfo-Email=montel@kde.org
+X-KDE-PluginInfo-Name=katesession
+X-KDE-PluginInfo-Version=pre0.1
+X-KDE-PluginInfo-Version=Utilities
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+

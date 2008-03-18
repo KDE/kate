@@ -19,17 +19,22 @@
 
 #include "katesessionapplet.h"
 #include <QStyleOptionGraphicsItem>
-#include <QListWidget>
+#include <QTreeView>
 #include <QVBoxLayout>
 #include <QGraphicsGridLayout>
 #include <KStandardDirs>
 #include <KIconLoader>
+#include <KInputDialog>
+#include <KMessageBox>
+#include <KStandardGuiItem>
 #include <plasma/layouts/boxlayout.h>
 #include <plasma/widgets/icon.h>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsGridLayout>
 #include <QListWidgetItem>
+#include <QStandardItemModel>
 #include <KIcon>
+#include <KToolInvocation>
 
 KateSessionApplet::KateSessionApplet(QObject *parent, const QVariantList &args)
     : Plasma::Applet(parent, args), m_icon( 0 ), m_proxy(0), m_layout( 0 )
@@ -50,10 +55,15 @@ void KateSessionApplet::init()
     QVBoxLayout *l_layout = new QVBoxLayout();
     l_layout->setSpacing(0);
     l_layout->setMargin(0);
-    m_listView= new QListWidget(m_widget);
+    m_listView= new QTreeView(m_widget);
+    m_listView->setRootIsDecorated(false);
+    m_listView->setHeaderHidden(true);
+    m_listView->setMouseTracking(true);
+    m_kateModel = new QStandardItemModel(this);
+    m_listView->setModel(m_kateModel);
     m_listView->setMouseTracking(true);
     initSessionFiles();
-    connect(m_listView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(slotOnItemClicked(QListWidgetItem*)));
+    connect(m_listView, SIGNAL(clicked (const QModelIndex &)), this, SLOT(slotOnItemClicked(const QModelIndex &)));
     l_layout->addWidget( m_listView );
     m_widget->setLayout( l_layout );
     m_widget->adjustSize();
@@ -131,24 +141,37 @@ QSizeF KateSessionApplet::contentSizeHint() const
 
 void KateSessionApplet::initSessionFiles()
 {
+    int index = 0;
 
+    QStandardItem *item = new QStandardItem();
+    item->setData(i18n("Start Kate (no arguments)"), Qt::DisplayRole);
+    item->setData( KIcon( "kate" ), Qt::DecorationRole );
+    item->setData( index++, Index );
+    m_kateModel->appendRow(item);
 
-    // no session - exec 'kate'
-    //insertItem( KIcon("kate"), i18n("Start Kate (no arguments)"), id++ );
+    item = new QStandardItem();
+    item->setData( i18n("New Kate Session"), Qt::DisplayRole);
+    item->setData( KIcon( "document-new" ), Qt::DecorationRole );
+    item->setData( index++, Index );
+    m_kateModel->appendRow(item);
 
-    // new session - prompt for a name and  exec 'kate --start NAME'
-    //insertItem( KIcon("new"), i18n("New Kate Session"), id++ );
-
-    // new anonymous session, 'kate --start ""'
-    //insertItem( KIcon("new"), i18n("New Anonymous Session"), id++ );
+    item = new QStandardItem();
+    item->setData( i18n("New Anonymous Session"), Qt::DisplayRole);
+    item->setData( index++, Index );
+    item->setData( KIcon( "document-new" ), Qt::DecorationRole );
+    m_kateModel->appendRow(item);
 
     QStringList list = KGlobal::dirs()->findAllResources( "data", "kate/sessions/*.katesession", KStandardDirs::NoDuplicates );
     for (QStringList::ConstIterator it = list.begin(); it != list.end(); ++it)
     {
         KConfig _config( *it, KConfig::SimpleConfig );
         KConfigGroup config(&_config, "General" );
-        m_listView->addItem( config.readEntry( "Name" ) );
-        //sessions.append( config.readEntry( "Name" ) );
+        QString name =  config.readEntry( "Name" );
+        m_sessions.append( name );
+        item = new QStandardItem();
+        item->setData(name, Qt::DisplayRole);
+        item->setData( index++, Index );
+        m_kateModel->appendRow( item);
     }
 }
 
@@ -179,62 +202,55 @@ void KateSessionApplet::slotOpenMenu()
     m_widget->clearFocus();
 }
 
-void KateSessionApplet::slotOnItemClicked( QListWidgetItem *)
+void KateSessionApplet::slotOnItemClicked(const QModelIndex &index)
 {
-}
+    if ( m_icon )
+        m_widget->hide();
+    int id = index.data(Index).toInt();
+    QStringList args;
+    if ( id > 0 )
+        args << "--start";
 
+    // If a new session is requested we try to ask for a name.
+    if ( id == 1 )
+    {
+        bool ok (false);
+        QString name = KInputDialog::getText( i18n("Session Name"),
+                                              i18n("Please enter a name for the new session"),
+                                              QString(),
+                                              &ok/*, 0, new Validator( m_parent )*/ );
+        if ( ! ok )
+            return;
+
+        if ( name.isEmpty() && KMessageBox::questionYesNo( 0,
+                                                           i18n("An unnamed session will not be saved automatically. "
+                                                                "Do you want to create such a session?"),
+                                                           i18n("Create anonymous session?"),
+                                                           KStandardGuiItem::yes(), KStandardGuiItem::cancel(),
+                                                           "kate_session_button_create_anonymous" ) == KMessageBox::No )
+            return;
+
+        if ( m_sessions.contains( name ) &&
+             KMessageBox::warningYesNo( 0,
+                                        i18n("You already have a session named %1. Do you want to open that session?", name ),
+                                        i18n("Session exists") ) == KMessageBox::No )
+            return;
 #if 0
-void KateSessionMenu::slotExec( int id )
-{
-  if ( id < 0 )
-    return;
+        else
+            //TODO rebuild menu
+#endif
+        args << name;
+    }
 
-  QStringList args;
-  if ( id > 0 )
-    args << "--start";
+    else if ( id == 2 )
+        args << "";
 
-  // If a new session is requested we try to ask for a name.
-  if ( id == 1 )
-  {
-    bool ok (false);
-    QString name = KInputDialog::getText( i18n("Session Name"),
-                                          i18n("Please enter a name for the new session"),
-                                          QString(),
-                                          &ok, 0, new Validator( m_parent ) );
-    if ( ! ok )
-      return;
+    else if ( id > 2 )
+        args << m_sessions[ id-3 ];
 
-    if ( name.isEmpty() && KMessageBox::questionYesNo( 0,
-                          i18n("An unnamed session will not be saved automatically. "
-                               "Do you want to create such a session?"),
-                          i18n("Create anonymous session?"),
-                          KStandardGuiItem::yes(), KStandardGuiItem::cancel(),
-                          "kate_session_button_create_anonymous" ) == KMessageBox::No )
-      return;
-
-    if ( m_sessions.contains( name ) &&
-         KMessageBox::warningYesNo( 0,
-                                    i18n("You already have a session named %1. Do you want to open that session?", name ),
-                                    i18n("Session exists") ) == KMessageBox::No )
-      return;
-    else
-      // mark the menu as dirty so that it gets rebuild at next display
-      // to show the new session
-      setInitialized( false );
-
-    args << name;
-  }
-
-  else if ( id == 2 )
-    args << "";
-
-  else if ( id > 2 )
-    args << m_sessions[ id-3 ];
-
-   KToolInvocation::kdeinitExec("kate", args);
+    KToolInvocation::kdeinitExec("kate", args);
 }
 
-#endif
 
 
 #include "katesessionapplet.moc"

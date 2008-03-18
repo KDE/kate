@@ -24,11 +24,12 @@
 #include <plasma/dialog.h>
 
 class QPainter;
-class QListWidget;
+class QTreeView;
 class QStyleOptionGraphicsItem;
 class QGraphicsProxyWidget;
 class QGraphicsGridLayout;
-class QListWidgetItem;
+class QStandardItemModel;
+class QModelIndex;
 
 namespace Plasma
 {
@@ -50,18 +51,27 @@ public:
     Qt::Orientations expandingDirections() const;
     QSizeF contentSizeHint() const;
     void initSysTray();
+
+    enum SpecificRoles {
+        Index = Qt::UserRole+1
+    };
+
 protected slots:
     void slotOpenMenu();
-    void slotOnItemClicked( QListWidgetItem* );
+    void slotOnItemClicked(const QModelIndex &index);
+
 protected:
     void initSessionFiles();
 private:
     Plasma::Dialog *m_widget;
-    QListWidget *m_listView;
+    QTreeView *m_listView;
     Plasma::Icon *m_icon;
     QGraphicsProxyWidget * m_proxy;
     QGraphicsGridLayout* m_layout;
+    QStandardItemModel *m_kateModel;
+    QStringList m_sessions;
 };
+
 K_EXPORT_PLASMA_APPLET(sessionapplet, KateSessionApplet )
 
 #endif

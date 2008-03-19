@@ -6,6 +6,7 @@ Icon=kpybrowser
 Comment=
 Terminal=false
 Name=KPyBrowser
+Name[nb]=KPy-visning
 Name[ne]=केडीई पाइथोन ब्राउजर
 Name[sr]=К‑пи‑прегледач
 Name[sr@latin]=K‑Py‑pregledač

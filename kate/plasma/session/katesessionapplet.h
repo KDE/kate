@@ -70,7 +70,6 @@ private:
     QTreeView *m_listView;
     Plasma::Icon *m_icon;
     QGraphicsProxyWidget * m_proxy;
-    //QGraphicsGridLayout* m_layout;
     Plasma::BoxLayout *m_layout;
     QStandardItemModel *m_kateModel;
     QStringList m_sessions;

@@ -63,16 +63,22 @@ void KateSessionApplet::init()
     QVBoxLayout *l_layout = new QVBoxLayout();
     l_layout->setSpacing(0);
     l_layout->setMargin(0);
+
     m_listView= new QTreeView(m_widget);
     m_listView->setRootIsDecorated(false);
     m_listView->setHeaderHidden(true);
     m_listView->setMouseTracking(true);
+
     m_kateModel = new QStandardItemModel(this);
     m_listView->setModel(m_kateModel);
     m_listView->setMouseTracking(true);
+
     initSessionFiles();
+
     connect(m_listView, SIGNAL(clicked (const QModelIndex &)), this, SLOT(slotOnItemClicked(const QModelIndex &)));
+
     l_layout->addWidget( m_listView );
+
     m_widget->setLayout( l_layout );
     m_widget->adjustSize();
 
@@ -107,21 +113,8 @@ void KateSessionApplet::constraintsUpdated(Plasma::Constraints constraints)
             m_proxy = new QGraphicsProxyWidget(this);
             m_proxy->setWidget(m_widget);
             m_proxy->show();
-            /*
+            setMinimumContentSize(m_widget->size());
 
-            m_layout = new QGraphicsGridLayout;
-            m_widget->setWindowFlags(Qt::Widget);
-            m_layout->setSpacing(0);
-
-            m_proxy = new QGraphicsProxyWidget;
-            m_proxy->setWidget(m_widget);
-            m_proxy->show();
-
-            m_layout->addItem( m_proxy, 0, 0, 1, 2);
-            m_form = new QGraphicsWidget(this);
-            m_form->setLayout(m_layout);
-            m_form->resize(contentSize());
-            */
         }
     }
 
@@ -157,7 +150,6 @@ QSizeF KateSessionApplet::contentSizeHint() const
     default:
         break;
     }
-
     return sizeHint;
 }
 

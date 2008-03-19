@@ -59,6 +59,7 @@ public:
 protected slots:
     void slotOpenMenu();
     void slotOnItemClicked(const QModelIndex &index);
+    void slotUpdateSessionMenu();
 
 protected:
     void initSessionFiles();

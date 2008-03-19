@@ -35,12 +35,20 @@
 #include <QStandardItemModel>
 #include <KIcon>
 #include <KToolInvocation>
+#include <KDirWatch>
 
 KateSessionApplet::KateSessionApplet(QObject *parent, const QVariantList &args)
     : Plasma::Applet(parent, args), m_icon( 0 ), m_proxy(0), m_layout( 0 )
 {
     int iconSize = IconSize(KIconLoader::Desktop);
     resize(iconSize, iconSize);
+    KDirWatch *dirwatch = new KDirWatch( this );
+    QStringList lst = KGlobal::dirs()->findDirs( "data", "kate/sessions/" );
+    for ( int i = 0; i < lst.count(); i++ )
+    {
+        dirwatch->addDir( lst[i] );
+    }
+    connect( dirwatch, SIGNAL(dirty (const QString &) ), this, SLOT( slotUpdateSessionMenu() ) );
 }
 
 KateSessionApplet::~KateSessionApplet()
@@ -137,6 +145,12 @@ QSizeF KateSessionApplet::contentSizeHint() const
     }
 
     return sizeHint;
+}
+
+void KateSessionApplet::slotUpdateSessionMenu()
+{
+    m_kateModel->clear();
+    initSessionFiles();
 }
 
 void KateSessionApplet::initSessionFiles()

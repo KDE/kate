@@ -263,10 +263,6 @@ void KateSessionApplet::slotOnItemClicked(const QModelIndex &index)
                                         i18n("You already have a session named %1. Do you want to open that session?", name ),
                                         i18n("Session exists") ) == KMessageBox::No )
             return;
-#if 0
-        else
-            //TODO rebuild menu
-#endif
         args << name;
     }
 

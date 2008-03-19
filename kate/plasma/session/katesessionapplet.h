@@ -30,10 +30,12 @@ class QGraphicsProxyWidget;
 class QGraphicsGridLayout;
 class QStandardItemModel;
 class QModelIndex;
+class QGraphicsWidget;
 
 namespace Plasma
 {
     class Icon;
+    class BoxLayout;
 }
 
 class KateSessionApplet : public Plasma::Applet
@@ -68,9 +70,12 @@ private:
     QTreeView *m_listView;
     Plasma::Icon *m_icon;
     QGraphicsProxyWidget * m_proxy;
-    QGraphicsGridLayout* m_layout;
+    //QGraphicsGridLayout* m_layout;
+    Plasma::BoxLayout *m_layout;
     QStandardItemModel *m_kateModel;
     QStringList m_sessions;
+    QGraphicsWidget *m_form;
+
 };
 
 K_EXPORT_PLASMA_APPLET(sessionapplet, KateSessionApplet )

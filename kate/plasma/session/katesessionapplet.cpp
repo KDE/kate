@@ -100,14 +100,28 @@ void KateSessionApplet::constraintsUpdated(Plasma::Constraints constraints)
         } else {
             delete m_icon;
             m_icon = 0;
-            m_layout = new QGraphicsGridLayout;
+
             m_widget->setWindowFlags(Qt::Widget);
+            m_layout = new Plasma::BoxLayout(Plasma::BoxLayout::LeftToRight, this);
             m_layout->setSpacing(0);
             m_proxy = new QGraphicsProxyWidget(this);
             m_proxy->setWidget(m_widget);
             m_proxy->show();
+            /*
+
+            m_layout = new QGraphicsGridLayout;
+            m_widget->setWindowFlags(Qt::Widget);
+            m_layout->setSpacing(0);
+
+            m_proxy = new QGraphicsProxyWidget;
+            m_proxy->setWidget(m_widget);
+            m_proxy->show();
+
             m_layout->addItem( m_proxy, 0, 0, 1, 2);
-            m_proxy->resize(contentSize());
+            m_form = new QGraphicsWidget(this);
+            m_form->setLayout(m_layout);
+            m_form->resize(contentSize());
+            */
         }
     }
 

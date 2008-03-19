@@ -214,11 +214,11 @@ void KateSessionApplet::slotOnItemClicked(const QModelIndex &index)
     // If a new session is requested we try to ask for a name.
     if ( id == 1 )
     {
-        bool ok (false);
+        bool ok = false;
         QString name = KInputDialog::getText( i18n("Session Name"),
                                               i18n("Please enter a name for the new session"),
                                               QString(),
-                                              &ok/*, 0, new Validator( m_parent )*/ );
+                                              &ok );
         if ( ! ok )
             return;
 

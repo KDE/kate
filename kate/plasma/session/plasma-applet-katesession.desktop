@@ -2,6 +2,7 @@
 Name=Kate Session Applet
 Comment=Kate Session Launcher
 Type=Service
+Icon=kate
 X-KDE-ServiceTypes=Plasma/Applet
 
 X-KDE-Library=plasma_applet_katesession

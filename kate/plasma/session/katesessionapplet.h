@@ -27,7 +27,6 @@ class QPainter;
 class QTreeView;
 class QStyleOptionGraphicsItem;
 class QGraphicsProxyWidget;
-class QGraphicsGridLayout;
 class QStandardItemModel;
 class QModelIndex;
 class QGraphicsWidget;

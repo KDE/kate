@@ -72,7 +72,6 @@ private:
     Plasma::BoxLayout *m_layout;
     QStandardItemModel *m_kateModel;
     QStringList m_sessions;
-    QGraphicsWidget *m_form;
 
 };
 

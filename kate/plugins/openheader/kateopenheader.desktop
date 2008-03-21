@@ -25,6 +25,7 @@ Name[sv]=Kate öppna deklarationsfil
 Name[x-test]=xxKate OpenHeaderxx
 Comment=Opens the corresponding .h/[.cpp|.c] file
 Comment[ca]=Obre el fitxer .h/[.cpp|.c] corresponent
+Comment[da]=Åbner den tilhørende .h/[.cpp|.c]-fil
 Comment[de]=Öffnet die zusammengehörigen .h/[.cpp|.c]-Dateien
 Comment[el]=Άνοιγμα του αντίστοιχου αρχείου .h/[.cpp|.c]
 Comment[es]=Abre el correspondiente archivo .h/[.cpp|.c]

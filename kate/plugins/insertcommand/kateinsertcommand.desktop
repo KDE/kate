@@ -33,6 +33,7 @@ Name[zh_CN]=Kate 命令插入
 Name[zh_TW]=Kate 插入指令
 Comment=Insert shell command output into a document
 Comment[ca]=Insereix la sortida d'ordres del shell en un document
+Comment[da]=Indsæt output fra skalkommando i et dokument
 Comment[de]=Fügt die Ausgabe eines Shell-Befehls in das Dokument ein
 Comment[el]=Εισαγωγή εξόδου εντολής κελύφους σε ένα έγγραφο
 Comment[es]=Insertar la salida de una orden de la consola en un documento

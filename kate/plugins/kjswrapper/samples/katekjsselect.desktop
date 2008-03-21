@@ -7,6 +7,7 @@ X-Kate-Version=2.2
 X-Kate-PluginName=katekjsselect
 Name=Select Smallest Enclosing Block
 Name[ca]=Selecciona el bloc de tancament més petit
+Name[da]=Vælg mindste omsluttende blok
 Name[de]=Wählt den kleinsten umgebenden Block
 Name[el]=Επιλογή μικρότερου εσώκλειστου τμήματος
 Name[es]=Seleccionar el bloque de cierre más pequeño

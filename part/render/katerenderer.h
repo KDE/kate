@@ -203,6 +203,14 @@ public:
     void layoutLine(KateLineLayoutPtr line, int maxwidth = -1, bool cacheLayout = false) const;
 
     /**
+     * A QString::isRightToLeft() on steroids. This function will guess the best direction
+     * of this line/paragraph by measuring which type of characters is mostly available
+     * on that line. If the number of LTR characters is the same as RTL characters, this
+     * method will return false.
+     */
+    bool isLineRightToLeft( KateLineLayoutPtr lineLayout ) const;
+
+    /**
      * The ultimate decoration creation function.
      *
      * \param range line to return decoration for

@@ -764,8 +764,14 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   // Qt's text renderer ("scribe") version 4.2 assumes a "higher-level protocol"
   // (such as KatePart) will specify the paragraph level, so it does not apply P2 & P3
   // by itself. If this ever change in Qt, the next code block could be removed.
-  if (lineLayout->textLine()->string().isRightToLeft())
-    opt.setTextDirection(Qt::RightToLeft);
+  if (isLineRightToLeft(lineLayout)) {
+      opt.setAlignment( Qt::AlignRight );
+      opt.setTextDirection( Qt::RightToLeft );
+  }
+  else {
+      opt.setAlignment( Qt::AlignLeft );
+      opt.setTextDirection( Qt::LeftToRight );
+  }
 
   l->setTextOption(opt);
 
@@ -816,6 +822,52 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   l->endLayout();
 
   lineLayout->setLayout(l);
+}
+
+
+// 1) QString::isRightToLeft() sux
+// 2) QString::isRightToLeft() is marked as internal (WTF?)
+// 3) QString::isRightToLeft() does not seem to work on my setup
+// 4) isStringRightToLeft() should behave much better then QString::isRightToLeft() therefore:
+// 5) isStringRightToLeft() kicks ass
+bool KateRenderer::isLineRightToLeft( KateLineLayoutPtr lineLayout ) const
+{
+  QString s = lineLayout->textLine()->string();
+  int i = s.length();
+  int RTLchars = 0;
+  int LTRchars = 0;
+
+  // borrowed from QString::updateProperties()
+  while( i != 0 )
+  {
+    QChar c = s.at(i-1);
+
+    switch(c.direction()) {
+      case QChar::DirL:
+      case QChar::DirLRO:
+      case QChar::DirLRE:
+          LTRchars ++;
+          break;
+
+      case QChar::DirR:
+      case QChar::DirAL:
+      case QChar::DirRLO:
+      case QChar::DirRLE:
+          RTLchars ++;
+          break;
+
+      default:
+          break;
+    }
+    i --;
+  }
+
+  if (RTLchars > LTRchars){
+    return true;
+  }
+  else if (LTRchars >= RTLchars) {
+      return false;
+  }
 }
 
 int KateRenderer::cursorToX(const KateTextLayout& range, int col) const

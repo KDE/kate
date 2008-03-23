@@ -188,10 +188,10 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
            this, SLOT( selectorViewChanged(QAbstractItemView *) ) );
   setStretchFactor(dir, 2);
   dir->setSizePolicy (QSizePolicy (QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
-
   KActionCollection *coll = dir->actionCollection();
   // some shortcuts of diroperator that clashes with Kate
-  coll->action( "delete" )->setShortcut( Qt::ALT + Qt::Key_Delete );
+  coll->action( "delete" )->setShortcut( Qt::ALT + Qt::SHIFT + Qt::Key_Delete );
+  coll->action( "trash" )->setShortcut( Qt::ALT + Qt::Key_Delete );
   coll->action( "reload" )->setShortcut( Qt::ALT + Qt::Key_F5 );
   coll->action( "back" )->setShortcut( Qt::ALT + Qt::SHIFT + Qt::Key_Left );
   coll->action( "forward" )->setShortcut( Qt::ALT + Qt::SHIFT + Qt::Key_Right );

@@ -31,6 +31,7 @@
 #include <KPushButton>
 #include <KVBox>
 
+#include <QHeaderView>
 #include <QLabel>
 #include <QPushButton>
 #include <QTextStream>
@@ -105,10 +106,13 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
 
   QStringList l;
   l << "" << i18n("Modified") << i18n("Created") << i18n("Deleted");
-  for ( uint i = 0; i < docs.size(); i++ )
+  for ( int i = 0; i < docs.size(); i++ )
   {
     new KateDocItem( docs[i], l[ (uint)KateDocManager::self()->documentInfo( docs[i] )->modifiedOnDiscReason ], twDocuments );
   }
+  twDocuments->header()->setStretchLastSection(false);
+  twDocuments->header()->setResizeMode(0, QHeaderView::Stretch);
+  twDocuments->header()->setResizeMode(1, QHeaderView::ResizeToContents);
 
   connect( twDocuments, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), this, SLOT(slotSelectionChanged(QTreeWidgetItem *, QTreeWidgetItem *)) );
 

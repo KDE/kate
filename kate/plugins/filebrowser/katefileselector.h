@@ -28,14 +28,9 @@
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
 #include <kate/pluginconfigpageinterface.h>
-#include <kdiroperator.h>
 #include <kurlcombobox.h>
 
 #include <kvbox.h>
-//Added by qt3to4:
-#include <QShowEvent>
-#include <QFocusEvent>
-#include <QEvent>
 #include <kfile.h>
 #include <kurl.h>
 #include <ktoolbar.h>
@@ -43,6 +38,8 @@
 
 class KActionCollection;
 class KActionSelector;
+class KDirOperator;
+class KFileItem;
 class KHistoryComboBox;
 class QToolButton;
 class QCheckBox;

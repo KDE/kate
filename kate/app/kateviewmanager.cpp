@@ -35,7 +35,6 @@
 #include <KActionCollection>
 #include <KCmdLineArgs>
 #include <kdebug.h>
-#include <KDirOperator>
 #include <KEncodingFileDialog>
 #include <KIconLoader>
 #include <KGlobal>

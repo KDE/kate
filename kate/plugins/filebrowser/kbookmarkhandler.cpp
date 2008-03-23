@@ -24,6 +24,7 @@
 #include <QByteArray>
 
 #include <kbookmarkimporter.h>
+#include <kdiroperator.h>
 #include <kmenu.h>
 #include <ksavefile.h>
 #include <kstandarddirs.h>

@@ -27,8 +27,6 @@
 #include <kmenu.h>
 #include <ksavefile.h>
 #include <kstandarddirs.h>
-#include <kdiroperator.h>
-#include <kaction.h>
 #include <kdebug.h>
 
 #include "katefileselector.h"

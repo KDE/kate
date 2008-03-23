@@ -1,8 +1,10 @@
 [Desktop Entry]
 Name=Kate Session Applet
+Name[ga]=Feidhmchláirín Seisiúin Kate
 Name[pt]='Applet' de Sessões do Kate
 Name[pt_BR]='Applet' de Sessões do Kate
 Comment=Kate Session Launcher
+Comment[ga]=Tosaitheoir Seisiúin Kate
 Comment[pt]=Lançamento de Sessões do Kate
 Comment[pt_BR]=Lançamento de Sessões do Kate
 Type=Service

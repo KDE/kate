@@ -179,6 +179,10 @@ bool KateApp::startupKate ()
       return false;
     }
   }
+  else
+  {
+    sessionManager()->activateSession( KateSession::Ptr(new KateSession (sessionManager(), QString())), false, false );
+  }
 
   // oh, no mainwindow, create one, should not happen, but make sure ;)
   if (mainWindows() == 0)

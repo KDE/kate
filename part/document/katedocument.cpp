@@ -3495,7 +3495,7 @@ bool KateDocument::openFile()
     if (!suppressOpeningErrorDialogs())
       KMessageBox::information (parentWidget
         , i18n ("The file %1 was opened with UTF-8 encoding but contained invalid characters."
-                " It is set to read-only mode, as saving might destroy it's content."
+                " It is set to read-only mode, as saving might destroy its content."
                 " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl())
         , i18n ("Broken UTF-8 File Opened")
         , "Broken UTF-8 File Opened Warning");

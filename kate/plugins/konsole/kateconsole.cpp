@@ -126,6 +126,9 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
     , m_mw (mw)
     , m_toolView (parent)
 {
+  // this must be called before putting anything into actionCollection()
+  setComponentData (KComponentData("kate"));
+
   QAction* a = actionCollection()->addAction("katekonsole_tools_pipe_to_terminal");
   a->setIcon(KIcon("pipe"));
   a->setText(i18n("&Pipe to Terminal"));
@@ -140,7 +143,6 @@ KateConsole::KateConsole (Kate::MainWindow *mw, QWidget *parent)
   a->setText(i18n("&Focus Terminal"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotToggleFocus()));
 
-  setComponentData (KComponentData("kate"));
   setXMLFile("plugins/katekonsole/ui.rc");
   m_mw->guiFactory()->addClient (this);
 

@@ -957,11 +957,11 @@ static void pause(int msec)
 /**
  * returns a unique file name
  * (Cannot have QTemporaryFile as it won't return a file name without actually
- * opening the file. Besides, it contains an indeterminate id which differs 
+ * opening the file. Besides, it contains an indeterminate id which differs
  * between processes.)
  */
 static QString getTempFileName(const QString &name) {
-    return QDir::tempPath()+"testkateregression-"+name;
+    return QDir::tempPath()+"/testkateregression-"+name;
 }
 
 /** writes an ipc-variable */

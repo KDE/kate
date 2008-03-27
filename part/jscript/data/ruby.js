@@ -211,5 +211,5 @@ function indent(line, indentWidth, ch)
     }
 
     // Keep current
-    return -1;
+    return prevStmtInd;
 }

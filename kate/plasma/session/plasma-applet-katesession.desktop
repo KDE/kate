@@ -1,11 +1,13 @@
 [Desktop Entry]
 Name=Kate Session Applet
+Name[es]=Applet de sesiones de Kate
 Name[ga]=Feidhmchláirín Seisiúin Kate
 Name[pt]='Applet' de Sessões do Kate
 Name[pt_BR]='Applet' de Sessões do Kate
 Name[x-test]=xxKate Session Appletxx
 Name[zh_TW]=Kate 工作階段小程式
 Comment=Kate Session Launcher
+Comment[es]=Lanzador de sesiones de Kate
 Comment[ga]=Tosaitheoir Seisiúin Kate
 Comment[pt]=Lançamento de Sessões do Kate
 Comment[pt_BR]=Lançamento de Sessões do Kate

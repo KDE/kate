@@ -175,18 +175,7 @@ function indent(line, indentWidth, ch)
         return -2;
     }
 
-    var prevStmtStartAttr = document.attribute(prevStmt, prevStmtInd);
-    dbg("StartAttr: " + prevStmtStartAttr);
-
-    // Find comments
-    if (prevStmtStartAttr == 30) {
-        // Use same indent after comment
-        return -1;
-    }
-
-    var string = document.line(line);
-
-    if (rxUnindent.test(string)) {
+    if (rxUnindent.test(document.line(line))) {
         var startLine = findBlockStart(line);
         dbg("currLine: " + line);
         dbg("StartLine: " + startLine);

@@ -44,7 +44,7 @@ function dbg(s) {
 }
 
 
-var triggerCharacters = ":}])";
+var triggerCharacters = ":}]";
 
 // General notes:
 // indent() returns the amount of characters (in spaces) to be indented.
@@ -75,22 +75,19 @@ function indent(line, indentWidth, character) {
     if(lastLine.endsWith(':')) {
         return document.firstVirtualColumn(line - 1) + indentWidth;
     }
-    // generally, when a brace/paren is on its own at the end of a regular line
+    // generally, when a brace is on its own at the end of a regular line
     // (i.e a data structure is being started), indent is wanted.
     // For example:
     // dictionary = {
     //     'foo': 'bar',
     // }
-    // someTuple = (
-    //     'word',
-    // )
     // etc..
-    else if(lastCharacter == "{" || lastCharacter == "[" || lastCharacter == "(") {
+    else if(lastCharacter == '{' || lastCharacter == '[') {
         return document.firstVirtualColumn(line - 1) + indentWidth;
     }
     // relatively simplistic heuristic for determining whether or not to unindent:
     // if a }]) has been typed and it's the sole letter on the line, unindent
-    else if((character == '}' || character == ']' || character == ')') && (currentLine.sansWhiteSpace().length == 1)) {
+    else if((character == '}' || character == ']') && (currentLine.sansWhiteSpace().length == 1)) {
         return Math.max(0, document.firstVirtualColumn(line - 1) - indentWidth);
     }
     // finally, a raise, pass, and continue should unindent

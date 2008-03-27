@@ -44,6 +44,20 @@ function dbg(s)
     debug("\u001B[44m" + s + "\u001B[0m");
 }
 
+function isCommentAttr(line, column)
+{
+    return document.attribute(line, column) == 30;
+}
+
+function findPrevNonCommentLine(line)
+{
+    line = document.prevNonEmptyLine(line);
+    while (line > 0 && isCommentAttr(line, document.firstColumn(line))) {
+        line = document.prevNonEmptyLine(line - 1);
+    }
+    return line;
+}
+
 function isStmtContinuing(line)
 {
     // Check for operators at end of line
@@ -60,7 +74,7 @@ function findStmtStart(currLine)
     do {
         if (l == 0) return 0;
         p = l;
-        l = document.prevNonEmptyLine(l - 1);
+        l = findPrevNonCommentLine(l - 1);
     } while (isStmtContinuing(l));
     return p;
 }
@@ -88,7 +102,7 @@ function findBlockStart(currLine)
     while (true) {
         if (l < 0) return -1;
 
-        l = document.prevNonEmptyLine(l - 1);
+        l = findPrevNonCommentLine(l - 1);
         if (isBlockEnd(l)) {
             dbg("End line: " + l);
             nested++;
@@ -136,7 +150,7 @@ function indent(line, indentWidth, ch)
     if (!isValidTrigger(line, ch))
         return -2;
 
-    var prevLine = document.prevNonEmptyLine(line - 1);
+    var prevLine = findPrevNonCommentLine(line - 1);
     if (prevLine < 0)
         return -2; // Can't indent the first line
 

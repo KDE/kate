@@ -61,7 +61,7 @@ function findPrevNonCommentLine(line)
 function isStmtContinuing(line)
 {
     // Check for operators at end of line
-    var rx = /(\+|\-|\*|\/|\=|&&|\|\||and|or|\\)\s*$/;
+    var rx = /(\+|\-|\*|\/|\=|&&|\|\||and|or|,|\\)\s*$/;
 
     // TODO: Handle blank lines/comments after operators (but not after '\')
 

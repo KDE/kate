@@ -46,13 +46,16 @@ function dbg(s)
 
 function isCommentAttr(line, column)
 {
-    return document.attribute(line, column) == 30;
+    var attr = document.attribute(line, column);
+    return (attr == 30 || attr == 31);
 }
 
+// Return the closest non-empty line, ignoring comments
+// (result <= line). Return -1 if the document
 function findPrevNonCommentLine(line)
 {
     line = document.prevNonEmptyLine(line);
-    while (line > 0 && isCommentAttr(line, document.firstColumn(line))) {
+    while (line >= 0 && isCommentAttr(line, document.firstColumn(line))) {
         line = document.prevNonEmptyLine(line - 1);
     }
     return line;
@@ -63,20 +66,30 @@ function isStmtContinuing(line)
     // Check for operators at end of line
     var rx = /(\+|\-|\*|\/|\=|&&|\|\||and|or|,|\\)\s*$/;
 
-    // TODO: Handle blank lines/comments after operators (but not after '\')
-
     return rx.test(document.line(line));
 }
 
+// Return the first line that is not preceeded by a "continuing" line.
+// Return currLine if currLine <= 0
 function findStmtStart(currLine)
 {
     var p, l = currLine;
     do {
-        if (l == 0) return 0;
+        if (l <= 0) return l;
         p = l;
         l = findPrevNonCommentLine(l - 1);
     } while (isStmtContinuing(l));
     return p;
+}
+
+// Returns a tuple that contains the first and last line of the
+// previous statement before line.
+function findPrevStmt(line)
+{
+    var stmtEnd = findPrevNonCommentLine(line);
+    var stmtStart = findStmtStart(stmtEnd);
+
+    return {start: stmtStart, end: stmtEnd};
 }
 
 function isBlockStart(currLine)
@@ -104,17 +117,38 @@ function findBlockStart(currLine)
 
         l = findPrevNonCommentLine(l - 1);
         if (isBlockEnd(l)) {
-            dbg("End line: " + l);
             nested++;
         }
         if (isBlockStart(l)) {
-            dbg("Start line: " + l);
             if (nested == 0)
                 return l;
             else
                 nested--;
         }
     }
+}
+
+// Return the string representing a possible multi-line statement
+// defined by stmt.start and stmt.end
+function getStmtStr(stmt)
+{
+    var str = "";
+    for (var l = stmt.start; l <= stmt.end; ++l) {
+        str += document.line(l).replace(/\\$/, ' ');
+        if (l < stmt.end)
+            str += "\n"
+    }
+    return str;
+}
+
+// Return document.attribute at the given offset in a statement
+function getStmtAttr(stmt, offset)
+{
+    var line = stmt.start;
+    while (line < stmt.end && document.lineLength(line) < offset) {
+        offset -= document.lineLength(line++) + 1;
+    }
+    return document.attribute(line, offset);
 }
 
 // check if the trigger characters are in the right context,
@@ -150,25 +184,25 @@ function indent(line, indentWidth, ch)
     if (!isValidTrigger(line, ch))
         return -2;
 
-    var prevLine = findPrevNonCommentLine(line - 1);
-    if (prevLine < 0)
+    var prevStmt = findPrevStmt(line - 1);
+    dbg("start: " + prevStmt.start + ", end: " + prevStmt.end);
+
+    if (prevStmt.end < 0)
         return -2; // Can't indent the first line
 
-    var prevStmt = findStmtStart(prevLine);
-    var prevStmtStr = "";
-    for (l = prevStmt; l <= prevLine; ++l) {
-        prevStmtStr += document.line(l).replace(/\\?$/, '\n');
-    }
-    var prevStmtInd = document.firstVirtualColumn(prevStmt);
+    var prevStmtStr = getStmtStr(prevStmt);
+    dbg("foo"); //FIXME Removing this caused testkateregression to crash the same place as when running indent/csmart
+
+    var prevStmtInd = document.firstVirtualColumn(prevStmt.start);
 
     // Handle indenting of multiline statements.
     // Manually indenting to be able to force spaces.
-    if (isStmtContinuing(prevLine) && (prevLine == line-1 || RegExp.$1 != "\\")) {
-        var len = document.firstColumn(prevLine);
-        var str = document.line(prevLine).substr(0, len);
+    if (isStmtContinuing(prevStmt.end) && (prevStmt.end == line-1 || RegExp.$1 != "\\")) {
+        var len = document.firstColumn(prevStmt.end);
+        var str = document.line(prevStmt.end).substr(0, len);
         if (!document.startsWith(line, str)) {
             document.removeText(line, 0, line, document.firstColumn(line));
-            if (prevStmt == prevLine)
+            if (prevStmt.start == prevStmt.end)
                 str += "    ";
             document.insertText(line, 0, str);
         }

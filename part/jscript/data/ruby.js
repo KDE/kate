@@ -1,5 +1,5 @@
 /** kate-script
- * name: Ruby Indenter
+ * name: Ruby
  * license: LGPL
  * author: Robin Pedersen <robin.pedersen@runbox.com>
  * version: 1

@@ -87,6 +87,42 @@ function findStmtStart(currLine)
   return p;
 }
 
+// Statement class
+function Statement(start, end)
+{
+  this.start = start;
+  this.end = end;
+
+  // Convert to string for debugging
+  this.toString = function() {
+    return "{" + this.start + "," + this.end + "}";
+  }
+
+  // Return document.attribute at the given offset in a statement
+  this.attribute = function(offset) {
+    var line = this.start;
+    while (line < this.end && document.lineLength(line) < offset) {
+      offset -= document.lineLength(line++) + 1;
+    }
+    return document.attribute(line, offset);
+  }
+
+  this.indent = function() {
+    return document.firstVirtualColumn(this.start)
+  }
+
+  // Return the content of the statement from the document
+  this.content = function() {
+    var str = "";
+    for (var l = this.start; l <= this.end; l++) {
+      str += document.line(l).replace(/\\$/, ' ');
+      if (l < this.end)
+        str += "\n"
+    }
+    return str;
+  }
+}
+
 // Returns a tuple that contains the first and last line of the
 // previous statement before line.
 function findPrevStmt(line)
@@ -94,18 +130,18 @@ function findPrevStmt(line)
   var stmtEnd = findPrevNonCommentLine(line);
   var stmtStart = findStmtStart(stmtEnd);
 
-  return {start: stmtStart, end: stmtEnd};
+  return new Statement(stmtStart, stmtEnd);
 }
 
 function isBlockStart(stmt)
 {
-  var str = getStmtStr(stmt);
+  var str = stmt.content();
 
   if (rxIndent.test(str))
     return true;
 
   var p = str.search(/(do|\{)(\s+\|.*\||\s*)$/);
-  if (p != -1 && !isComment(getStmtAttr(stmt, p)))
+  if (p != -1 && !isComment(stmt.attribute(p)))
     return true;
 
   return false;
@@ -113,7 +149,7 @@ function isBlockStart(stmt)
 
 function isBlockEnd(stmt)
 {
-  var str = getStmtStr(stmt);
+  var str = stmt.content();
 
   return rxUnindent.test(str);
 }
@@ -121,7 +157,7 @@ function isBlockEnd(stmt)
 function findBlockStart(line)
 {
   var nested = 0;
-  var stmt = {start: line, end: line};
+  var stmt = new Statement(line, line);
   while (true) {
     if (stmt.start < 0) return stmt;
 
@@ -136,29 +172,6 @@ function findBlockStart(line)
         nested--;
     }
   }
-}
-
-// Return the string representing a possible multi-line statement
-// defined by stmt.start and stmt.end
-function getStmtStr(stmt)
-{
-  var str = "";
-  for (var l = stmt.start; l <= stmt.end; ++l) {
-    str += document.line(l).replace(/\\$/, ' ');
-    if (l < stmt.end)
-      str += "\n"
-  }
-  return str;
-}
-
-// Return document.attribute at the given offset in a statement
-function getStmtAttr(stmt, offset)
-{
-  var line = stmt.start;
-  while (line < stmt.end && document.lineLength(line) < offset) {
-    offset -= document.lineLength(line++) + 1;
-  }
-  return document.attribute(line, offset);
 }
 
 // check if the trigger characters are in the right context,
@@ -187,10 +200,8 @@ function indent(line, indentWidth, ch)
   if (prevStmt.end < 0)
     return -2; // Can't indent the first line
 
-  var prevStmtStr = getStmtStr(prevStmt);
-  dbg("foo"); //FIXME Removing this caused testkateregression to crash the same place as when running indent/csmart
-
-  var prevStmtInd = document.firstVirtualColumn(prevStmt.start);
+  var prevStmtStr = prevStmt.content();
+  var prevStmtInd = prevStmt.indent();
 
   // Handle indenting of multiline statements.
   // Manually indenting to be able to force spaces.
@@ -209,9 +220,9 @@ function indent(line, indentWidth, ch)
   if (rxUnindent.test(document.line(line))) {
     var startStmt = findBlockStart(line);
     dbg("currLine: " + line);
-    dbg("StartLine: {" + startStmt.start + "," + startStmt.end + "}");
+    dbg("StartLine: " + startStmt.toString());
     if (startStmt.start >= 0)
-      return document.firstVirtualColumn(startStmt.start);
+      return startStmt.indent();
     else
       return -2;
   }
@@ -220,7 +231,7 @@ function indent(line, indentWidth, ch)
     return prevStmtInd + indentWidth;
   } else {
     var p = prevStmtStr.search(/(do|\{)(\s+\|.*\||\s*)$/);
-    if (p != -1 && !isComment(getStmtAttr(prevStmt, p))) {
+    if (p != -1 && !isComment(prevStmt.attribute(p))) {
       return prevStmtInd + indentWidth;
     } else if (prevStmtStr.search(/[\[\{]\s*$/) != -1) {
       return prevStmtInd + indentWidth;

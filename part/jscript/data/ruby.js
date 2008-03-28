@@ -163,7 +163,7 @@ function indent(line, indentWidth, ch)
 
     // Handle indenting of multiline statements.
     // Manually indenting to be able to force spaces.
-    if (isStmtContinuing(prevLine)) {
+    if (isStmtContinuing(prevLine) && (prevLine == line-1 || RegExp.$1 != "\\")) {
         var len = document.firstColumn(prevLine);
         var str = document.line(prevLine).substr(0, len);
         if (!document.startsWith(line, str)) {

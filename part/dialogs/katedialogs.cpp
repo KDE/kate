@@ -382,6 +382,9 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   tabWidget->insertTab(1, selectConfigTab, i18n("Cursor & Selection"));
   tabWidget->insertTab(2, indentConfigTab, i18n("Indentation"));
 
+  connect(selectConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
+  connect(indentConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
+
   layout->addWidget(tabWidget);
   setLayout(layout);
 }
@@ -631,6 +634,8 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   // add all tabs
   tabWidget->insertTab(0, tmpWidget, i18n("General"));
   tabWidget->insertTab(1, modeConfigPage, i18n("Modes & Filetypes"));
+
+  connect(modeConfigPage, SIGNAL(changed()), this, SLOT(slotChanged()));
 
   layout->addWidget(tabWidget);
   setLayout(layout);

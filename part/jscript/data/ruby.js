@@ -217,9 +217,6 @@ function indent(line, indentWidth, ch)
             return document.firstVirtualColumn(startLine);
         else
             return -2;
-    } else if (ch != "" && ch != "\n") {
-        // Ignore other typing
-        return -2;
     }
 
     if (rxIndent.test(prevStmtStr)) {

@@ -862,12 +862,7 @@ bool KateRenderer::isLineRightToLeft( KateLineLayoutPtr lineLayout ) const
     i --;
   }
 
-  if (RTLchars > LTRchars){
-    return true;
-  }
-  else if (LTRchars >= RTLchars) {
-      return false;
-  }
+  return (RTLchars > LTRchars);
 }
 
 int KateRenderer::cursorToX(const KateTextLayout& range, int col) const

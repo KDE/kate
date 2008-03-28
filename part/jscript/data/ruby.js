@@ -44,10 +44,15 @@ function dbg(s)
   debug("\u001B[44m" + s + "\u001B[0m");
 }
 
+function isComment(attr)
+{
+  return (attr == 30 || attr == 31);
+}
+
 function isCommentAttr(line, column)
 {
   var attr = document.attribute(line, column);
-  return (attr == 30 || attr == 31);
+  return isComment(attr);
 }
 
 // Return the closest non-empty line, ignoring comments
@@ -94,11 +99,16 @@ function findPrevStmt(line)
 
 function isBlockStart(currLine)
 {
-  var rx0 = rxIndent;
-  var rx1 = /(do|\{)(\s+\|.*\||\s*)$/;
   var currStr = document.line(currLine);
 
-  return (rx0.test(currStr) || rx1.test(currStr))
+  if (rxIndent.test(currStr))
+    return true;
+
+  var p = currStr.search(/(do|\{)(\s+\|.*\||\s*)$/);
+  if (p != -1 && !isCommentAttr(currLine, p))
+    return true;
+
+  return false;
 }
 
 function isBlockEnd(currLine)
@@ -164,19 +174,6 @@ function isValidTrigger(line, ch)
   return false;
 }
 
-// TODO: Make an API where multiline statements are passed around like this:
-//
-// function foo()
-// {
-//    return {start: 10, end: 20};
-// }
-//
-// var ret = foo();
-// var a = ret.start;
-// var b = ret.end;
-// dbg("a = " + a);
-// dbg("b = " + b);
-
 // indent gets three arguments: line, indentwidth in spaces,
 // typed character indent
 function indent(line, indentWidth, ch)
@@ -223,7 +220,7 @@ function indent(line, indentWidth, ch)
     return prevStmtInd + indentWidth;
   } else {
     var p = prevStmtStr.search(/(do|\{)(\s+\|.*\||\s*)$/);
-    if (p != -1) {
+    if (p != -1 && !isComment(getStmtAttr(prevStmt, p))) {
       return prevStmtInd + indentWidth;
     } else if (prevStmtStr.search(/[\[\{]\s*$/) != -1) {
       return prevStmtInd + indentWidth;

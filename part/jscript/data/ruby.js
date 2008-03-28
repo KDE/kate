@@ -97,41 +97,41 @@ function findPrevStmt(line)
   return {start: stmtStart, end: stmtEnd};
 }
 
-function isBlockStart(currLine)
+function isBlockStart(stmt)
 {
-  var currStr = document.line(currLine);
+  var str = getStmtStr(stmt);
 
-  if (rxIndent.test(currStr))
+  if (rxIndent.test(str))
     return true;
 
-  var p = currStr.search(/(do|\{)(\s+\|.*\||\s*)$/);
-  if (p != -1 && !isCommentAttr(currLine, p))
+  var p = str.search(/(do|\{)(\s+\|.*\||\s*)$/);
+  if (p != -1 && !isComment(getStmtAttr(stmt, p)))
     return true;
 
   return false;
 }
 
-function isBlockEnd(currLine)
+function isBlockEnd(stmt)
 {
-  var currStr = document.line(currLine);
+  var str = getStmtStr(stmt);
 
-  return rxUnindent.test(currStr);
+  return rxUnindent.test(str);
 }
 
-function findBlockStart(currLine)
+function findBlockStart(line)
 {
   var nested = 0;
-  var l = currLine;
+  var stmt = {start: line, end: line};
   while (true) {
-    if (l < 0) return -1;
+    if (stmt.start < 0) return stmt;
 
-    l = findPrevNonCommentLine(l - 1);
-    if (isBlockEnd(l)) {
+    stmt = findPrevStmt(stmt.start - 1);
+    if (isBlockEnd(stmt)) {
       nested++;
     }
-    if (isBlockStart(l)) {
+    if (isBlockStart(stmt)) {
       if (nested == 0)
-        return l;
+        return stmt;
       else
         nested--;
     }
@@ -207,11 +207,11 @@ function indent(line, indentWidth, ch)
   }
 
   if (rxUnindent.test(document.line(line))) {
-    var startLine = findBlockStart(line);
+    var startStmt = findBlockStart(line);
     dbg("currLine: " + line);
-    dbg("StartLine: " + startLine);
-    if (startLine >= 0)
-      return document.firstVirtualColumn(startLine);
+    dbg("StartLine: {" + startStmt.start + "," + startStmt.end + "}");
+    if (startStmt.start >= 0)
+      return document.firstVirtualColumn(startStmt.start);
     else
       return -2;
   }

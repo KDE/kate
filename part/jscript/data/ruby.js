@@ -227,15 +227,10 @@ function indent(line, indentWidth, ch)
       return -2;
   }
 
-  if (rxIndent.test(prevStmtStr)) {
+  if (isBlockStart(prevStmt)) {
     return prevStmtInd + indentWidth;
-  } else {
-    var p = prevStmtStr.search(/(do|\{)(\s+\|.*\||\s*)$/);
-    if (p != -1 && !isComment(prevStmt.attribute(p))) {
-      return prevStmtInd + indentWidth;
-    } else if (prevStmtStr.search(/[\[\{]\s*$/) != -1) {
-      return prevStmtInd + indentWidth;
-    }
+  } else if (prevStmtStr.search(/[\[\{]\s*$/) != -1) {
+    return prevStmtInd + indentWidth;
   }
 
   // Keep current

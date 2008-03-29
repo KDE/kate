@@ -56,6 +56,8 @@ KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection)
   m_sortAction->action(1)->setData(SortName);
   m_sortAction->action(2)->setData(SortUrl);
   m_sortAction->action(3)->setData(SortCustom);
+  KConfigGroup config(KGlobal::config(), "FileList");
+  setSortRole( config.readEntry("SortRole", (int)KateDocManager::OpeningOrderRole) );
 
   connect( m_sortAction, SIGNAL(triggered(QAction*)), this, SLOT(setSortRoleFromAction(QAction*)) );
 
@@ -65,19 +67,13 @@ KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection)
   setPalette(p);
 }  
 
-void KateFileList::readConfig( const KConfigGroup &config )
-{
-  Q_ASSERT( model() );
-  setShadingEnabled( config.readEntry("Shading Enabled", false) );
-  setSortRole( config.readEntry("SortRole", (int)KateFileList::SortOpening) ); 
-}
-
 KateFileList::~KateFileList()
 {}
 
 void KateFileList::setSortRole(int role)
 {
-  qobject_cast<KateViewDocumentProxyModel*>(model())->setSortRole(role);
+  if (model())
+    qobject_cast<KateViewDocumentProxyModel*>(model())->setSortRole(role);
 
   if (role == SortOpening)
     m_sortAction->setCurrentItem(0);

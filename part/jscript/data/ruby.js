@@ -49,6 +49,11 @@ function isComment(attr)
   return (attr == 30 || attr == 31);
 }
 
+function isString(attr)
+{
+  return (attr == 13 || attr == 14);
+}
+
 function isCommentAttr(line, column)
 {
   var attr = document.attribute(line, column);
@@ -140,10 +145,17 @@ function isBlockStart(stmt)
   if (rxIndent.test(str))
     return true;
 
-  var p = str.search(/(\bdo\b|\{)\s*(\|.*\|)?$/);
-  if (p != -1 && !isComment(stmt.attribute(p)))
-    return true;
-
+  var p = str.search(/((\bdo\b|\{)(\s*\|.*\|)?\s*)/);
+  if (p != -1) {
+    var attr = stmt.attribute(p);
+    if (!isString(attr) && !isComment(attr)) {
+      var end = p + RegExp.$1.length;
+      if (end == str.length)
+        return true;
+      if (isComment(stmt.attribute(end)))
+        return true;
+    }
+  }
   return false;
 }
 

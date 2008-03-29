@@ -442,7 +442,7 @@ QString KateDocument::text( const KTextEditor::Range& range, bool blockwise ) co
     kWarning() << k_funcinfo << "Text requested for invalid range" << range;
     return QString();
   }
-  
+
   if ( blockwise && (range.start().column() > range.end().column()) )
     return QString ();
 
@@ -1276,7 +1276,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &str, Kate:
   if (!l)
     return false;
 
-  editStart (editSource);
+  editStart (true, editSource);
 
   editAddUndo (KateUndoGroup::editInsertText, line, col, s.length(), s);
 
@@ -1305,7 +1305,7 @@ bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource
   if (!l)
     return false;
 
-  editStart (editSource);
+  editStart (true, editSource);
 
   editAddUndo (KateUndoGroup::editRemoveText, line, col, len, l->string().mid(col, len));
 
@@ -1509,7 +1509,7 @@ bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource
   if ( line > lines() )
     return false;
 
-  editStart (editSource);
+  editStart (true, editSource);
 
   editAddUndo (KateUndoGroup::editInsertLine, line, 0, s.length(), s);
 
@@ -1570,7 +1570,7 @@ bool KateDocument::editRemoveLine ( int line, Kate::EditSource editSource )
   if ( lines() == 1 )
     return editRemoveText (0, 0, m_buffer->line(0)->length());
 
-  editStart (editSource);
+  editStart (true, editSource);
 
   QString oldText = this->line(line);
 
@@ -1729,7 +1729,7 @@ void KateDocument::updateModified()
 
   // This will print out the pattern information
 
-  kDebug(13020) 
+  kDebug(13020)
     << "Pattern:" << static_cast<unsigned int>(currentPattern) << endl;
 
   for (uint patternIndex = 0; patternIndex < patternCount; ++patternIndex)
@@ -5060,11 +5060,11 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
 
   int minLine = qMax( range.start().line() - maxLines, 0 );
   int maxLine = qMin( range.start().line() + maxLines, documentEnd().line() );
-  
+
   range.end() = range.start();
   KateDocCursor cursor(range.start(), this);
   uchar validAttr = cursor.currentAttrib();
-  
+
   while( cursor.line() >= minLine && cursor.line() <= maxLine ) {
 
     if( forward )
@@ -5074,7 +5074,7 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
 
     if( !cursor.validPosition() )
       return false;
-    
+
     if( cursor.currentAttrib() == validAttr )
     {
       /* Check for match */
@@ -5083,7 +5083,7 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
         nesting++;
       } else if( c == opposite ) {
         if( nesting == 0 ) {
-          if( forward ) 
+          if( forward )
             range.end() = cursor;
           else
             range.start() = cursor;

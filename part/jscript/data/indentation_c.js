@@ -29,6 +29,12 @@ var cfgIndentCase = true;
 
 // indent after 'namespace'?
 var cfgIndentNamespace = true;
+
+// auto insert '*' in C-comments
+var cfgAutoInsertStar = false;
+
+// auto insert '//' after C++-comments
+var cfgAutoInsertSlashes = false;
 //END USER CONFIGURATION
 
 // indent gets three arguments: line, indentwidth in spaces, typed character
@@ -243,12 +249,15 @@ function tryCComment(line)
     var char2 = document.charAt(currentLine, firstPos + 1);
 
     if (char1 == '/' && char2 == '*') {
-        indentation = document.firstVirtualColumn(currentLine) + 1;
-        // only add '*', if there is none yet.
-        if (document.firstChar(line) != '*')
-            document.insertText(line, view.cursorPosition().column, '*');
-        if (!document.isSpace(line, document.firstColumn(line) + 1))
-            document.insertText(line, document.firstColumn(line) + 1, ' ');
+        indentation = document.firstVirtualColumn(currentLine);
+	if (cfgAutoInsertStar) {
+            // only add '*', if there is none yet.
+            indentation += 1;
+            if (document.firstChar(line) != '*')
+                document.insertText(line, view.cursorPosition().column, '*');
+            if (!document.isSpace(line, document.firstColumn(line) + 1))
+                document.insertText(line, document.firstColumn(line) + 1, ' ');
+        }
     } else if (char1 == '*' && (firstPos == lastPos || document.isSpace(currentLine, firstPos + 1))) {
         var currentString = document.line(currentLine);
         currentString.search(/^\s*\*(\s*)/);
@@ -257,7 +266,7 @@ function tryCComment(line)
         var end = RegExp.$1;
         indentation = document.firstVirtualColumn(currentLine);
         // only add '*', if there is none yet.
-        if (document.firstChar(line) != '*') {
+        if (cfgAutoInsertStar && document.firstChar(line) != '*') {
             document.insertText(line, view.cursorPosition().column, '*');
             if (!document.isSpace(line, document.firstColumn(line) + 1))
                 document.insertText(line, document.firstColumn(line) + 1, ' ');
@@ -292,17 +301,19 @@ function tryCppComment(line)
         var char4 = currentString.charAt(firstPos + 3);
         indentation = document.firstVirtualColumn(currentLine);
 
-        if (char3 == '/' && char4 == '/') {
-            // match ////... and replace by only two: //
-            currentString.search(/^\s*(\/\/)/);
-        } else if (char3 == '/' || char3 == '!') {
-            // match ///, //!, ///< and //!
-            currentString.search(/^\s*(\/\/[/!][<]?\s*)/);
-        } else {
-            // only //, nothing else
-            currentString.search(/^\s*(\/\/\s*)/);
+        if (cfgAutoInsertSlashes) {
+            if (char3 == '/' && char4 == '/') {
+                // match ////... and replace by only two: //
+                currentString.search(/^\s*(\/\/)/);
+            } else if (char3 == '/' || char3 == '!') {
+                // match ///, //!, ///< and //!
+                currentString.search(/^\s*(\/\/[/!][<]?\s*)/);
+            } else {
+                // only //, nothing else
+                currentString.search(/^\s*(\/\/\s*)/);
+            }
+            document.insertText(line, view.cursorPosition().column, RegExp.$1);
         }
-        document.insertText(line, view.cursorPosition().column, RegExp.$1);
     }
 
     if (indentation != -1) debug("tryCppComment: success in line " + currentLine);

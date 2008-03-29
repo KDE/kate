@@ -1499,12 +1499,6 @@ void KateSearchBar::onMutatePower() {
         QLineEdit * const replacementLineEdit = m_powerUi->pattern->lineEdit();
         Q_ASSERT(replacementLineEdit != NULL);
         replacementLineEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
-
-        // Shortcut hack
-        #if QT_VERSION < KDE_MAKE_VERSION(4,4,0) // Remove this once Qt 4.4 becomes necessary
-        foreach (QWidget* widget, m_widget->findChildren<QWidget*>())
-            m_view->actionCollection ()->addAssociatedWidget(widget);
-        #endif
     }
 
     // Guess settings from context
@@ -1635,12 +1629,6 @@ void KateSearchBar::onMutateIncremental() {
 
         // Focus proxy
         centralWidget()->setFocusProxy(m_incUi->pattern);
-
-        // Shortcut hack
-        #if QT_VERSION < KDE_MAKE_VERSION(4,4,0) // Remove this once Qt 4.4 becomes necessary
-        foreach (QWidget* widget, m_widget->findChildren<QWidget*>())
-            m_view->actionCollection ()->addAssociatedWidget(widget);
-        #endif
     }
 
     // Guess settings from context

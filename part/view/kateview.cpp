@@ -567,11 +567,7 @@ void KateView::setupActions()
 
   ac->addAssociatedWidget(m_viewInternal);
   foreach (QAction* action, ac->actions())
-#if QT_VERSION < KDE_MAKE_VERSION(4,4,0)
-    action->setShortcutContext(Qt::WidgetShortcut); // remove after Qt4.4 becomes mandatory
-#else
     action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-#endif
 
   connect (this, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(slotSelectionChanged()));
 }
@@ -817,11 +813,7 @@ void KateView::setupEditActions()
 
   m_editActions->addAssociatedWidget(m_viewInternal);
   foreach (QAction* action, m_editActions->actions())
-#if QT_VERSION < KDE_MAKE_VERSION(4,4,0)
-    action->setShortcutContext(Qt::WidgetShortcut); // remove after Qt4.4 becomes mandatory
-#else
     action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-#endif
 }
 
 void KateView::setupCodeFolding()
@@ -2502,10 +2494,6 @@ KateGotoBar *KateView::gotoBar ()
     return m_gotoBar;
 
   m_gotoBar = new KateGotoBar (m_viewBar);
-#if QT_VERSION < KDE_MAKE_VERSION(4,4,0) // Remove this once Qt 4.4 becomes necessary
-  foreach (QWidget* widget, m_gotoBar->findChildren<QWidget*>())
-    actionCollection ()->addAssociatedWidget(widget);
-#endif
   return m_gotoBar;
 }
 

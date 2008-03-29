@@ -140,7 +140,7 @@ function isBlockStart(stmt)
   if (rxIndent.test(str))
     return true;
 
-  var p = str.search(/(do|\{)(\s+\|.*\||\s*)$/);
+  var p = str.search(/(\bdo\b|\{)\s*(\|.*\|)?$/);
   if (p != -1 && !isComment(stmt.attribute(p)))
     return true;
 

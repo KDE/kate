@@ -33,6 +33,9 @@ var cfgIndentNamespace = true;
 // auto insert '*' in C-comments
 var cfgAutoInsertStar = false;
 
+// snap '/' to '*/' in C-comments
+var cfgSnapSlash = false;
+
 // auto insert '//' after C++-comments
 var cfgAutoInsertSlashes = false;
 //END USER CONFIGURATION
@@ -553,7 +556,7 @@ function processChar(line, c)
         if (indentation == -1)
             indentation = -2;
         return indentation;
-    } else if (c == '/' && lastPos == column - 1) {
+    } else if (cfgSnapSlash && c == '/' && lastPos == column - 1) {
         // try to snap the string "* /" to "*/"
         var currentString = document.line(line);
         if (currentString.search(/^(\s*)\*\s+\/\s*$/) != -1) {

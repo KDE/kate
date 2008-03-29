@@ -24,20 +24,11 @@
  */
 
 //BEGIN USER CONFIGURATION
-// indent 'case' and 'default' in a switch?
-var cfgIndentCase = true;
-
-// indent after 'namespace'?
-var cfgIndentNamespace = true;
-
-// auto insert '*' in C-comments
-var cfgAutoInsertStar = false;
-
-// snap '/' to '*/' in C-comments
-var cfgSnapSlash = false;
-
-// auto insert '//' after C++-comments
-var cfgAutoInsertSlashes = false;
+var cfgIndentCase = true;         // indent 'case' and 'default' in a switch?
+var cfgIndentNamespace = true;    // indent after 'namespace'?
+var cfgAutoInsertStar = false;    // auto insert '*' in C-comments
+var cfgSnapSlash = false;         // snap '/' to '*/' in C-comments
+var cfgAutoInsertSlashes = false; // auto insert '//' after C++-comments
 //END USER CONFIGURATION
 
 // indent gets three arguments: line, indentwidth in spaces, typed character

@@ -250,7 +250,7 @@ function tryCComment(line)
 
     if (char1 == '/' && char2 == '*') {
         indentation = document.firstVirtualColumn(currentLine);
-	if (cfgAutoInsertStar) {
+        if (cfgAutoInsertStar) {
             // only add '*', if there is none yet.
             indentation += 1;
             if (document.firstChar(line) != '*')

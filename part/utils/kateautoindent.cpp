@@ -261,7 +261,7 @@ void KateAutoIndent::indent (KateView *view, const KTextEditor::Range &range)
     return;
 
   doc->pushEditState();
-  doc->editStart (view);
+  doc->editStart();
   // loop over all lines given...
   for (int line = range.start().line () < 0 ? 0 : range.start().line ();
        line <= qMin (range.end().line (), doc->lines()-1); ++line)

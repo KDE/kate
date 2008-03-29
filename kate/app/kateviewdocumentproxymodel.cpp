@@ -532,7 +532,7 @@ void KateViewDocumentProxyModel::slotRowsInserted ( const QModelIndex & parent, 
     m_mapToSource[m_mapFromSource[i]] = i;
   }
   endInsertRows();
-  if (m_sortRole == Qt::DisplayRole || m_sortRole == Qt::ToolTipRole)
+  if (m_sortRole == Qt::DisplayRole || m_sortRole == KateDocManager::UrlRole)
     sort();
 }
 void KateViewDocumentProxyModel::slotRowsRemoved ( const QModelIndex & parent, int start, int end )

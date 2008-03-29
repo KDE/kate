@@ -24,6 +24,8 @@
 
 #include <KSelectAction>
 #include <KActionCollection>
+#include <KConfigGroup>
+
 #include <QListView>
 
 #include "kateviewdocumentproxymodel.h"
@@ -54,6 +56,8 @@ class KateFileList: public QListView
 
     const QColor& viewShade() const;
     void setViewShade( const QColor &shade );
+    
+    void readConfig( const KConfigGroup &config );
 
   private:
     QAction* m_windowNext;

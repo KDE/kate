@@ -63,6 +63,13 @@ KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection)
   p.setColor(QPalette::Inactive, QPalette::Highlight, p.color(QPalette::Active, QPalette::Highlight));
   p.setColor(QPalette::Inactive, QPalette::HighlightedText, p.color(QPalette::Active, QPalette::HighlightedText));
   setPalette(p);
+}  
+
+void KateFileList::readConfig( const KConfigGroup &config )
+{
+  Q_ASSERT( model() );
+  setShadingEnabled( config.readEntry("Shading Enabled", false) );
+  setSortRole( config.readEntry("SortRole", (int)KateFileList::SortOpening) ); 
 }
 
 KateFileList::~KateFileList()

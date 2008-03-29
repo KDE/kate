@@ -243,7 +243,7 @@ void KateMainWindow::setupMainWindow ()
   connect(m_fileList, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showFileListPopup(const QPoint&)));
   m_fileList->setContextMenuPolicy(Qt::CustomContextMenu);
   //filelist = new KateFileList (this, m_viewManager, ft);
-  //filelist->readConfig(KateApp::self()->config(), "Filelist");
+  m_fileList->readConfig(KConfigGroup(KGlobal::config(), "FileList"));
 
 #if 0
   KateMDI::ToolView *t = createToolView("kate_fileselector", KMultiTabBar::Left, SmallIcon("document-open"), i18n("Filesystem Browser"));

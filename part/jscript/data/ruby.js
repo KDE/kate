@@ -73,8 +73,12 @@ function findPrevNonCommentLine(line)
 
 function isStmtContinuing(line)
 {
+  // TODO: Continuing if line ends with / operator, but not /regexp/
+  //       Ignoring / for now, because it's probably far less common
+  //       to have lines ending with division than regexp
+
   // Check for operators at end of line
-  var rx = /(\+|\-|\*|\/|\=|&&|\|\||and|or|,|\\)\s*$/;
+  var rx = /(\+|\-|\*|\=|&&|\|\||and|or|,|\\)\s*$/;
 
   return rx.test(document.line(line));
 }

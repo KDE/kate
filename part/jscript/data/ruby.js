@@ -236,8 +236,6 @@ function indent(line, indentWidth, ch)
 
   if (rxUnindent.test(document.line(line))) {
     var startStmt = findBlockStart(line);
-    dbg("currLine: " + line);
-    dbg("StartLine: " + startStmt.toString());
     if (startStmt.start >= 0)
       return startStmt.indent();
     else

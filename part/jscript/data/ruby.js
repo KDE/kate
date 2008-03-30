@@ -122,7 +122,7 @@ function Statement(start, end)
     for (var l = this.start; l <= this.end; l++) {
       str += document.line(l).replace(/\\$/, ' ');
       if (l < this.end)
-        str += "\n"
+        str += " "
     }
     return str;
   }
@@ -145,11 +145,12 @@ function isBlockStart(stmt)
   if (rxIndent.test(str))
     return true;
 
-  var p = str.search(/((\bdo\b|\{)(\s*\|.*\|)?\s*)/);
-  if (p != -1) {
-    var attr = stmt.attribute(p);
+  var rx = /(.*)((\bdo\b|\{)(\s*\|.*\|)?\s*)/;
+  if (rx.test(str)) {
+    var start = RegExp.$1.length;
+    var attr = stmt.attribute(start);
     if (!isString(attr) && !isComment(attr)) {
-      var end = p + RegExp.$1.length;
+      var end = start + RegExp.$2.length;
       if (end == str.length)
         return true;
       if (isComment(stmt.attribute(end)))

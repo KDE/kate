@@ -118,13 +118,13 @@ function Statement(start, end)
 
   // Return the content of the statement from the document
   this.content = function() {
-    var str = "";
+    var cnt = "";
     for (var l = this.start; l <= this.end; l++) {
-      str += document.line(l).replace(/\\$/, ' ');
+      cnt += document.line(l).replace(/\\$/, ' ');
       if (l < this.end)
-        str += " "
+        cnt += " "
     }
-    return str;
+    return cnt;
   }
 }
 
@@ -140,15 +140,15 @@ function findPrevStmt(line)
 
 function isBlockStart(stmt)
 {
-  var str = stmt.content();
-  var len = str.length;
+  var cnt = stmt.content();
+  var len = cnt.length;
 
-  if (rxIndent.test(str))
+  if (rxIndent.test(cnt))
     return true;
 
   var pos = 0;
   var rx = /(.*?)((\bdo\b|\{)(\s*\|.*\|)?\s*)/;
-  while (rx.test(str)) {
+  while (rx.test(cnt)) {
     var start = pos + RegExp.$1.length;
     var end = start + RegExp.$2.length;
     var attr = stmt.attribute(start);
@@ -158,7 +158,7 @@ function isBlockStart(stmt)
       if (isComment(stmt.attribute(end)))
         return true;
     }
-    str = str.substring(end - pos, len - pos);
+    cnt = cnt.substring(end - pos, len - pos);
     pos = end;
   }
   return false;
@@ -166,9 +166,9 @@ function isBlockStart(stmt)
 
 function isBlockEnd(stmt)
 {
-  var str = stmt.content();
+  var cnt = stmt.content();
 
-  return rxUnindent.test(str);
+  return rxUnindent.test(cnt);
 }
 
 function findBlockStart(line)
@@ -217,7 +217,7 @@ function indent(line, indentWidth, ch)
   if (prevStmt.end < 0)
     return -2; // Can't indent the first line
 
-  var prevStmtStr = prevStmt.content();
+  var prevStmtCnt = prevStmt.content();
   var prevStmtInd = prevStmt.indent();
 
   // Handle indenting of multiline statements.
@@ -246,7 +246,7 @@ function indent(line, indentWidth, ch)
 
   if (isBlockStart(prevStmt)) {
     return prevStmtInd + indentWidth;
-  } else if (prevStmtStr.search(/[\[\{]\s*$/) != -1) {
+  } else if (prevStmtCnt.search(/[\[\{]\s*$/) != -1) {
     return prevStmtInd + indentWidth;
   }
 

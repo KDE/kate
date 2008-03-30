@@ -202,7 +202,7 @@ void KWrite::setupActions()
     a=new KAction(i18n("Choose Editor..."), this);
     actionCollection()->addAction("settings_choose_editor", a);
     connect(a, SIGNAL(triggered(bool)), SLOT(changeEditor()));
-    a->setWhatsThis(i18n("Override the system wide setting for the default editing component"));
+    a->setWhatsThis(i18n("Override the system-wide setting for the default editing component"));
 
     actionCollection()->addAction( KStandardAction::Quit, this, SLOT(close()) )
         ->setWhatsThis(i18n("Close the current document view"));

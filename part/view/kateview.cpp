@@ -317,7 +317,7 @@ void KateView::setupActions()
 
     a = ac->addAction("tools_cleanIndent");
     a->setText(i18n("&Clean Indentation"));
-    a->setWhatsThis(i18n("Use this to clean the indentation of a selected block of text (only tabs/only spaces)<br /><br />"
+    a->setWhatsThis(i18n("Use this to clean the indentation of a selected block of text (only tabs/only spaces).<br /><br />"
         "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
     connect(a, SIGNAL(triggered(bool)), SLOT(cleanIndent()));
 

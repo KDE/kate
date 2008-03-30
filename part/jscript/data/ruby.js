@@ -92,7 +92,7 @@ function findStmtStart(currLine)
     if (l <= 0) return l;
     p = l;
     l = findPrevNonCommentLine(l - 1);
-  } while (isStmtContinuing(l));
+  } while (isStmtContinuing(l) && (l == p-1 || RegExp.$1 != "\\"));
   return p;
 }
 

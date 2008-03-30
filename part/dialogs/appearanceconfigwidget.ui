@@ -208,7 +208,7 @@
       <item>
        <widget class="QCheckBox" name="chkScrollbarMarks" >
         <property name="whatsThis" >
-         <string>&lt;p>If this option is checked, every new view will show marks on the vertical scrollbar.&lt;/p>&lt;p>These marks will, for instance, show bookmarks.&lt;/p></string>
+         <string>&lt;p>If this option is checked, every new view will show marks on the vertical scrollbar.&lt;/p>&lt;p>These marks will show bookmarks, for instance.&lt;/p></string>
         </property>
         <property name="text" >
          <string>Show &amp;scrollbar marks</string>

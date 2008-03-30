@@ -410,7 +410,7 @@ void KateView::setupActions()
 
   KateModeMenu *ftm = new KateModeMenu (i18n("&Mode"), this);
   ac->addAction("tools_mode", ftm);
-  ftm->setWhatsThis(i18n("Here you can choose which mode should be used for the current document. This will influence the used highlighting and folding for example."));
+  ftm->setWhatsThis(i18n("Here you can choose which mode should be used for the current document. This will influence the highlighting and folding being used, for example."));
   ftm->updateMenu (m_doc);
 
   KateHighlightingMenu *menu = new KateHighlightingMenu (i18n("&Highlighting"), this);
@@ -502,7 +502,7 @@ void KateView::setupActions()
 
   a = m_toggleScrollBarMarks = toggleAction = new KToggleAction(i18n("Show Scroll&bar Marks"), this);
   ac->addAction("view_scrollbar_marks", a);
-  a->setWhatsThis(i18n("Show/hide the marks on the vertical scrollbar.<br /><br />The marks, for instance, show bookmarks."));
+  a->setWhatsThis(i18n("Show/hide the marks on the vertical scrollbar.<br /><br />The marks show bookmarks, for instance."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleScrollBarMarks()));
 
   a = toggleAction = m_toggleWWMarker = new KToggleAction(i18n("Show Static &Word Wrap Marker"), this);

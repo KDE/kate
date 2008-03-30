@@ -141,21 +141,25 @@ function findPrevStmt(line)
 function isBlockStart(stmt)
 {
   var str = stmt.content();
+  var len = str.length;
 
   if (rxIndent.test(str))
     return true;
 
-  var rx = /(.*)((\bdo\b|\{)(\s*\|.*\|)?\s*)/;
-  if (rx.test(str)) {
-    var start = RegExp.$1.length;
+  var pos = 0;
+  var rx = /(.*?)((\bdo\b|\{)(\s*\|.*\|)?\s*)/;
+  while (rx.test(str)) {
+    var start = pos + RegExp.$1.length;
+    var end = start + RegExp.$2.length;
     var attr = stmt.attribute(start);
     if (!isString(attr) && !isComment(attr)) {
-      var end = start + RegExp.$2.length;
-      if (end == str.length)
+      if (end == len)
         return true;
       if (isComment(stmt.attribute(end)))
         return true;
     }
+    str = str.substring(end - pos, len - pos);
+    pos = end;
   }
   return false;
 }

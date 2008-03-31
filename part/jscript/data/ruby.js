@@ -124,9 +124,9 @@ function Statement(start, end)
   this.content = function() {
     var cnt = "";
     for (var l = this.start; l <= this.end; l++) {
-      cnt += document.line(l).replace(/\\$/, ' ');
+      cnt += document.line(l).replace(/\\$/, " ");
       if (l < this.end)
-        cnt += " "
+        cnt += " ";
     }
     return cnt;
   }

@@ -114,7 +114,8 @@ class OutputFunction;
 
 /**
  * Customizing output to result-files. Writing any output into result files
- * inhibits outputting the content of the katepart after script execution, enabling one to check for coordinates and the like.
+ * inhibits outputting the content of the katepart after script execution,
+ * enabling one to check for coordinates and the like.
  * @internal
  */
 class OutputObject : public KJS::JSObject
@@ -161,7 +162,7 @@ class OutputFunction : public KJS::JSObject
 class RegressionTest : public QObject
 {
   Q_OBJECT
-public:
+  public:
 
     RegressionTest(KateDocument *part, KConfig *baseConfig,
                    const QString &baseDir, const QString &outputDir,
@@ -216,12 +217,12 @@ public:
 
     static RegressionTest *curr;
 
-private:
+  private:
     void printDescription(const QString& description);
 
     static bool svnIgnored( const QString &filename );
 
-private:
+  private:
     /**
      * evaluate script given by \c filename within the context of \c interp.
      * @param ignore if \c true don't evaluate if script does not exist but
@@ -237,10 +238,11 @@ private:
      */
     QStringList concatListFiles(const QString &relPath, const QString &filename);
 
-private Q_SLOTS:
+  private Q_SLOTS:
     void slotOpenURL(const KUrl &url, const KParts::OpenUrlArguments&, const KParts::BrowserArguments&);
     void resizeTopLevelWidget( int, int );
 
 };
 
 #endif
+// kate: space-indent on; indent-width 2; replace-tabs on;

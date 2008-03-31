@@ -66,7 +66,7 @@ class KateExternalToolsMenuAction : public KActionMenu
 
     Q_OBJECT
   public:
-    KateExternalToolsMenuAction( const QString &text, QObject *parent, class Kate::MainWindow *mw = 0 );
+    KateExternalToolsMenuAction( const QString &text, class KActionCollection *collection, QObject *parent, class Kate::MainWindow *mw = 0 );
     ~KateExternalToolsMenuAction()
     {}
 

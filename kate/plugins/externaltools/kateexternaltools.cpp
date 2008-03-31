@@ -250,18 +250,21 @@ KateExternalToolAction::KateExternalToolAction( QObject *parent, KateExternalToo
 
 bool KateExternalToolAction::expandMacro( const QString &str, QStringList &ret )
 {
-#if 0
-  KateMainWindow *mw = (KateMainWindow*)parent()->parent();
+  Kate::MainWindow *mw = qobject_cast<Kate::MainWindow*>(parent()->parent());
+  Q_ASSERT(mw);
 
-  KTextEditor::View *view = mw->viewManager()->activeView();
+  KTextEditor::View *view = mw->activeView();
   if ( ! view ) return false;
 
+  KTextEditor::Document *doc = view->document();
+  KUrl url = doc->url();
+
   if ( str == "URL" )
-    ret += mw->activeDocumentUrl().url();
+    ret += url.url();
   else if ( str == "directory" ) // directory of current doc
-    ret += mw->activeDocumentUrl().directory();
+    ret += url.directory();
   else if ( str == "filename" )
-    ret += mw->activeDocumentUrl().fileName();
+    ret += url.fileName();
   else if ( str == "line" ) // cursor line of current doc
     ret += QString::number( view->cursorPosition().line() );
   else if ( str == "col" ) // cursor col of current doc
@@ -269,17 +272,16 @@ bool KateExternalToolAction::expandMacro( const QString &str, QStringList &ret )
   else if ( str == "selection" ) // selection of current doc if any
     ret += view->selectionText();
   else if ( str == "text" ) // text of current doc
-    ret += view->document()->text();
+    ret += doc->text();
   else if ( str == "URLs" )
   {
-    foreach( KTextEditor::Document *doc, KateDocManager::self()->documentList())
-    if ( ! doc->url().isEmpty() )
-      ret += doc->url().url();
+    foreach( KTextEditor::Document *it, Kate::documentManager()->documents())
+    if ( ! it->url().isEmpty() )
+      ret += it->url().url();
   }
   else
     return false;
 
-#endif
   return true;
 }
 
@@ -290,14 +292,14 @@ KateExternalToolAction::~KateExternalToolAction()
 
 void KateExternalToolAction::slotRun()
 {
-#if 0
   // expand the macros in command if any,
   // and construct a command with an absolute path
   QString cmd = tool->command;
 
+  Kate::MainWindow *mw = qobject_cast<Kate::MainWindow*>(parent()->parent());
   if ( ! expandMacrosShellQuote( cmd ) )
   {
-    KMessageBox::sorry( (KateMainWindow*)parent()->parent(),
+    KMessageBox::sorry( 0,
                         i18n("Failed to expand the command '%1'.", cmd ),
                         i18n( "Kate External Tools") );
     return;
@@ -305,26 +307,26 @@ void KateExternalToolAction::slotRun()
   kDebug(13001) << "externaltools: Running command: " << cmd;
 
   // save documents if requested
-  KateMainWindow *mw = (KateMainWindow*)parent()->parent();
   if ( tool->save == 1 )
-    mw->viewManager()->activeView()->document()->save();
-  else if ( tool->save == 2 )
-    mw->actionCollection()->action("file_save_all")->trigger();
+    mw->activeView()->document()->save();
+// FIXME
+//   else if ( tool->save == 2 )
+//     mw->actionCollection()->action("file_save_all")->trigger();
 
-  KRun::runCommand( cmd, tool->tryexec, tool->icon );
-#endif
+  KRun::runCommand( cmd, tool->tryexec, tool->icon, 0 );
 }
 //END KateExternalToolAction
 
 //BEGIN KateExternalToolsMenuAction
 KateExternalToolsMenuAction::KateExternalToolsMenuAction( const QString &text,
+    KActionCollection *collection,
     QObject *parent,
     Kate::MainWindow *mw )
     : KActionMenu( text, parent ),
     mainwindow( mw )
 {
 
-  m_actionCollection = new KActionCollection( (QWidget*) mainwindow );
+  m_actionCollection = collection;
 
   // connect to view changed...
   connect(mw, SIGNAL(viewChanged()), this, SLOT(slotDocumentChanged()));

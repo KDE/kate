@@ -26,6 +26,8 @@
 
 #include <kxmlguiclient.h>
 
+#include "kateexternaltools.h"
+
 
 namespace KParts
 {
@@ -57,6 +59,8 @@ class KateExternalToolsPluginView : public Kate::PluginView, public KXMLGUIClien
      * Virtual destructor.
      */
     ~KateExternalToolsPluginView ();
+
+    KateExternalToolsMenuAction *externalTools;
 };
 
 #endif

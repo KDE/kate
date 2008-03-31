@@ -71,16 +71,39 @@ function findPrevNonCommentLine(line)
   return line;
 }
 
+function isLineContinuing(line)
+{
+  return /\\$/.test(document.line(line));
+}
+
 function isStmtContinuing(line)
 {
   // TODO: Continuing if line ends with / operator, but not /regexp/
   //       Ignoring / for now, because it's probably far less common
   //       to have lines ending with division than regexp
 
-  // Check for operators at end of line
-  var rx = /(\+|\-|\*|\=|&&|\|\||and|or|,|\\)\s*$/;
+  var cnt = document.line(line);
+  var len = cnt.length;
 
-  return rx.test(document.line(line));
+  // TODO:  Duplicate code here and in 'isBlockStart'
+
+  // Check for operators at end of line
+  var pos = 0;
+  var rx = /(.*?)((\+|\-|\*|\=|&&|\|\||and|or|,)\s*)/;
+  while (rx.test(cnt)) {
+    var start = pos + RegExp.$1.length;
+    var end = start + RegExp.$2.length;
+    var attr = document.attribute(line, start);
+    if (!isString(attr) && !isComment(attr)) {
+      if (end == len)
+        return true;
+      if (isComment(document.attribute(line, end)))
+        return true;
+    }
+    cnt = cnt.substring(end - pos, len - pos);
+    pos = end;
+  }
+  return false;
 }
 
 // Return the first line that is not preceeded by a "continuing" line.
@@ -92,7 +115,7 @@ function findStmtStart(currLine)
     if (l <= 0) return l;
     p = l;
     l = findPrevNonCommentLine(l - 1);
-  } while (isStmtContinuing(l) && (l == p-1 || RegExp.$1 != "\\"));
+  } while ((l == p-1 && isLineContinuing(l)) || isStmtContinuing(l));
   return p;
 }
 
@@ -216,8 +239,6 @@ function indent(line, indentWidth, ch)
     return -2;
 
   var prevStmt = findPrevStmt(line - 1);
-  dbg("start: " + prevStmt.start + ", end: " + prevStmt.end);
-
   if (prevStmt.end < 0)
     return -2; // Can't indent the first line
 
@@ -226,7 +247,7 @@ function indent(line, indentWidth, ch)
 
   // Handle indenting of multiline statements.
   // Manually indenting to be able to force spaces.
-  if (isStmtContinuing(prevStmt.end) && (prevStmt.end == line-1 || RegExp.$1 != "\\")) {
+  if ((prevStmt.end == line-1 && isLineContinuing(prevStmt.end)) || isStmtContinuing(prevStmt.end)) {
     var len = document.firstColumn(prevStmt.end);
     var str = document.line(prevStmt.end).substr(0, len);
     if (!document.startsWith(line, str)) {

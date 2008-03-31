@@ -25,6 +25,8 @@
 #include <kiconloader.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
+#include <ktexteditor/editor.h>
+#include <kate/application.h>
 
 #include <kparts/part.h>
 #include <kaction.h>
@@ -57,6 +59,11 @@ KateExternalToolsPluginView::KateExternalToolsPluginView (Kate::MainWindow *main
 
   if (KAuthorized::authorizeKAction("shell_access"))
   {
+    KTextEditor::CommandInterface* cmdIface =
+      qobject_cast<KTextEditor::CommandInterface*>( Kate::application()->editor() );
+    if( cmdIface )
+      cmdIface->registerCommand( KateExternalToolsCommand::self() );
+
     externalTools = new KateExternalToolsMenuAction( i18n("External Tools"), actionCollection(), mainWindow, mainWindow );
     actionCollection()->addAction("tools_external", externalTools);
     externalTools->setWhatsThis( i18n("Launch external helper applications") );
@@ -71,21 +78,4 @@ KateExternalToolsPluginView::KateExternalToolsPluginView (Kate::MainWindow *main
 KateExternalToolsPluginView::~KateExternalToolsPluginView ()
 {}
 
-/*
-  if ( KAuthorized::authorize("shell_access") )
-  {
-    KTextEditor::CommandInterface* cmdIface =
-        qobject_cast<KTextEditor::CommandInterface*>( KateDocManager::self()->editor() );
-    if( cmdIface )
-      cmdIface->registerCommand( KateExternalToolsCommand::self() );
-  }
-
-    if ( KAuthorized::authorize("shell_access") )
-  {
-    externalTools = new KateExternalToolsMenuAction( i18n("External Tools"), this, this );
-    actionCollection()->addAction( "tools_external", externalTools );
-    externalTools->setWhatsThis( i18n("Launch external helper applications") );
-  }
-  */
 // kate: space-indent on; indent-width 2; replace-tabs on;
-

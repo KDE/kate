@@ -299,7 +299,7 @@ void KateExternalToolAction::slotRun()
   Kate::MainWindow *mw = qobject_cast<Kate::MainWindow*>(parent()->parent());
   if ( ! expandMacrosShellQuote( cmd ) )
   {
-    KMessageBox::sorry( 0,
+    KMessageBox::sorry( mw->window(),
                         i18n("Failed to expand the command '%1'.", cmd ),
                         i18n( "Kate External Tools") );
     return;
@@ -309,11 +309,19 @@ void KateExternalToolAction::slotRun()
   // save documents if requested
   if ( tool->save == 1 )
     mw->activeView()->document()->save();
-// FIXME
-//   else if ( tool->save == 2 )
-//     mw->actionCollection()->action("file_save_all")->trigger();
+  else if ( tool->save == 2 )
+  {
+    foreach (KXMLGUIClient *client, mw->guiFactory()->clients())
+    {
+      if (QAction *a = client->actionCollection()->action("file_save_all"))
+      {
+        a->trigger();
+        break;
+      }
+    }
+  }
 
-  KRun::runCommand( cmd, tool->tryexec, tool->icon, 0 );
+  KRun::runCommand( cmd, tool->tryexec, tool->icon, mw->window() );
 }
 //END KateExternalToolAction
 

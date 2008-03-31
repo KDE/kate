@@ -28,7 +28,7 @@
 
 
 // specifies the characters which should trigger indent, beside the default '\n'
-triggerCharacters = "cdefhilnrsuw}]";
+var triggerCharacters = "cdefhilnrsuw}]";
 
 // Indent after lines that match this regexp
 var rxIndent = /^\s*(def|if|unless|for|while|until|class|module|else|elsif|case|when|begin|rescue|ensure|catch)\b/;

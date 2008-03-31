@@ -89,7 +89,7 @@ function isStmtContinuing(line)
 
   // Check for operators at end of line
   var pos = 0;
-  var rx = /(.*?)((\+|\-|\*|\=|&&|\|\||and|or|,)\s*)/;
+  var rx = /(.*?)((\+|\-|\*|\=|&&|\|\||\band\b|\bor\b|,)\s*)/;
   while (rx.test(cnt)) {
     var start = pos + RegExp.$1.length;
     var end = start + RegExp.$2.length;

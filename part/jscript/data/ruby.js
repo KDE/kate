@@ -76,34 +76,48 @@ function isLineContinuing(line)
   return /\\$/.test(document.line(line));
 }
 
+// Look for a pattern at the end of the statement.
+//
+// Returns true if the pattern is found, in a position
+// that is not inside a string or a comment, and the position +
+// RegExp.$1 is either the end of the statement, or a comment.
+function testAtEnd(stmt, rx)
+{
+  var cnt = stmt.content();
+  var pos = 0;
+  var len = cnt.length;
+
+  // Check for operators at end of line
+  var p = cnt.search(rx);
+  while (p != -1) {
+    var start = pos + p;
+    var end = start + RegExp.$1.length;
+    var attr = stmt.attribute(start);
+    if (!isString(attr) && !isComment(attr)) {
+      if (end == len)
+        return true;
+      if (isComment(stmt.attribute(end)))
+        return true;
+    }
+
+    // Find next match
+    pos = end;
+    rest = cnt.substring(end, len);
+    p = rest.search(rx);
+  }
+  return false;
+}
+
 function isStmtContinuing(line)
 {
   // TODO: Continuing if line ends with / operator, but not /regexp/
   //       Ignoring / for now, because it's probably far less common
   //       to have lines ending with division than regexp
 
-  var cnt = document.line(line);
-  var len = cnt.length;
+  var stmt = new Statement(line, line);
+  var rx = /((\+|\-|\*|\=|&&|\|\||\band\b|\bor\b|,)\s*)/;
 
-  // TODO:  Duplicate code here and in 'isBlockStart'
-
-  // Check for operators at end of line
-  var pos = 0;
-  var rx = /(.*?)((\+|\-|\*|\=|&&|\|\||\band\b|\bor\b|,)\s*)/;
-  while (rx.test(cnt)) {
-    var start = pos + RegExp.$1.length;
-    var end = start + RegExp.$2.length;
-    var attr = document.attribute(line, start);
-    if (!isString(attr) && !isComment(attr)) {
-      if (end == len)
-        return true;
-      if (isComment(document.attribute(line, end)))
-        return true;
-    }
-    cnt = cnt.substring(end - pos, len - pos);
-    pos = end;
-  }
-  return false;
+  return testAtEnd(stmt, rx);
 }
 
 // Return the first line that is not preceeded by a "continuing" line.
@@ -173,22 +187,9 @@ function isBlockStart(stmt)
   if (rxIndent.test(cnt))
     return true;
 
-  var pos = 0;
-  var rx = /(.*?)((\bdo\b|\{)(\s*\|.*\|)?\s*)/;
-  while (rx.test(cnt)) {
-    var start = pos + RegExp.$1.length;
-    var end = start + RegExp.$2.length;
-    var attr = stmt.attribute(start);
-    if (!isString(attr) && !isComment(attr)) {
-      if (end == len)
-        return true;
-      if (isComment(stmt.attribute(end)))
-        return true;
-    }
-    cnt = cnt.substring(end - pos, len - pos);
-    pos = end;
-  }
-  return false;
+  var rx = /((\bdo\b|\{)(\s*\|.*\|)?\s*)/;
+
+  return testAtEnd(stmt, rx);
 }
 
 function isBlockEnd(stmt)

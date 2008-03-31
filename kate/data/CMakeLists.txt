@@ -1,5 +1,5 @@
 install( FILES kate.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES katerc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install( FILES default.katesession tips kateui.rc externaltools DESTINATION  ${DATA_INSTALL_DIR}/kate )
+install( FILES default.katesession tips kateui.rc DESTINATION  ${DATA_INSTALL_DIR}/kate )
 install( FILES kateplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )
 install( FILES kate-2.4.upd  DESTINATION  ${KCONF_UPDATE_INSTALL_DIR} )

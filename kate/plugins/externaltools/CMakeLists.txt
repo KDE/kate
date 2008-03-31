@@ -12,4 +12,4 @@ install(TARGETS kateexternaltoolsplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kate/plugins/kateexternaltools )
 install( FILES kateexternaltoolsplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
-
+install( FILES externaltools DESTINATION ${DATA_INSTALL_DIR}/kate )

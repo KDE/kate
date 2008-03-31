@@ -1,9 +1,9 @@
 [Global]
-tools=externaltool_CVSLogforCurrentDocument,externaltool_CervisiaDirectoryofCurrentDocument,externaltool_CompareCurrentDocumenttoCVS,externaltool_CompareDirectoryofCurrentDocumenttoCVS,externaltool_EmailCVSDiffforCurrentDocument,---,externaltool_RunScript,---,externaltool_GoogleSelection
+tools=externaltool_CVSLogforCurrentDocument,externaltool_CervisiaDirectoryofCurrentDocument,externaltool_CompareCurrentDocumenttoRCS,externaltool_CompareDirectoryofCurrentDocumenttoRCS,externaltool_EmailCVSDiffforCurrentDocument,---,externaltool_RunScript,---,externaltool_GoogleSelection
 
 [Shortcuts]
 externaltool_CVSLogforCurrentDocument=Shift+F10
-externaltool_CompareCurrentDocumenttoCVS=Shift+F11
+externaltool_CompareCurrentDocumenttoRCS=Shift+F11
 externaltool_RunScript=Ctrl+Shift+X
 
 [externaltool_CVSLogforCurrentDocument]
@@ -26,14 +26,14 @@ mimetypes=
 name=Cervisia (Directory of Current Document)
 save=0
 
-[externaltool_CompareCurrentDocumenttoCVS]
-acname=externaltool_CompareCurrentDocumenttoCVS
-cmdname=cvs-diff
-command=cd %directory\nif [ -d CVS ] && grep %filename CVS/Entries 2>&1 >/dev/null ; then\n  cvs diff %filename|kompare -o -\nelse\n  kdialog --title Error --msgbox "The file '%filename' is not in CVS."\nfi
+[externaltool_CompareCurrentDocumenttoRCS]
+acname=externaltool_CompareCurrentDocumenttoRCS
+cmdname=document-diff
+command=cd %directory\nif [ -d .svn ] && grep %filename .svn/entries 2>&1 >/dev/null ; then\n  svn diff %filename|kompare -o -\nelif [ -d CVS ] && grep %filename CVS/Entries 2>&1 >/dev/null ; then\n  cvs diff -ub %filename|kompare -o -\nelse\n  kdialog --title Error --msgbox "The file '%filename' is not under revision control."\nfi\n
 executable=kompare
 icon=kompare
 mimetypes=
-name=Compare Current Document to CVS
+name=Compare Current Document to Version Control System
 save=1
 
 [externaltool_EmailCVSDiffforCurrentDocument]
@@ -66,10 +66,10 @@ mimetypes=
 name=Run Script
 save=1
 
-[externaltool_CompareDirectoryofCurrentDocumenttoCVS]
-acname=externaltool_CompareDirectoryofCurrentDocumenttoCVS
+[externaltool_CompareDirectoryofCurrentDocumenttoRCS]
+acname=externaltool_CompareDirectoryofCurrentDocumenttoRCS
 cmdname=
-command=cd %directory\nif [ -d CVS ] ; then\n  cvs diff -ub |kompare -o -\nelse\n  kdialog --title Error --msgbox "The directory '%directory' does not appear to be a cvs sandbox."\nfi
+command=cd %directory\nif [ -d .svn ] ; then\n  svn diff |kompare -o -\nelif [ -d CVS ] ; then\n  cvs diff -ub |kompare -o -\nelse\n  kdialog --title Error --msgbox "The directory '%directory' does not appear to be under revision control."\nfi
 executable=kompare
 icon=kompare
 mimetypes=

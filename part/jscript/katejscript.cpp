@@ -1524,7 +1524,7 @@ const QString &KateIndentJScript::triggerCharacters(KateView* view)
     m_triggerCharacters = QString();
   }
 
-  kDebug () << "trigger chars: '" << m_triggerCharacters << "'";
+  kDebug(13060) << "trigger chars: '" << m_triggerCharacters << "'";
 
   return m_triggerCharacters;
 }
@@ -1554,7 +1554,7 @@ int KateIndentJScript::indent(KateView* view,
   }
 
   const int indentLevel = val->toInt32(m_script->interpreter()->globalExec());
-  kDebug() << "new indentation: " << indentLevel;
+  kDebug(13060) << "new indentation: " << indentLevel;
   return indentLevel;
 }
 //END KateIndentJScript

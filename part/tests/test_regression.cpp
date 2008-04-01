@@ -346,6 +346,9 @@ KJS::UString OutputObject::className() const
 OutputFunction::OutputFunction(KJS::ExecState *exec, OutputObject *output, int _id, int length)
   : o(output)
 {
+  Q_UNUSED(exec);
+  Q_UNUSED(output);
+
   id = _id;
   if (length >= 0)
     putDirect("length",length);
@@ -358,6 +361,8 @@ bool OutputFunction::implementsCall() const
 
 KJS::JSValue *OutputFunction::callAsFunction(KJS::ExecState *exec, KJS::JSObject *thisObj, const KJS::List &args)
 {
+  Q_UNUSED(thisObj);
+
   QByteArray buffer;
 
   RegressionTest::createMissingDirs(o->filename);
@@ -479,21 +484,21 @@ int main(int argc, char *argv[])
 
   if ( args->count() < 1 && baseDir.isEmpty() ) {
     printf("For regression testing, make sure to have checked out the kate regression\n"
-        "testsuite from svn:\n"
-        "\tsvn co \"https://<user>@svn.kde.org:/home/kde/trunk/tests/katetests/regression\"\n"
-        "Remember the root path into which you checked out the testsuite.\n"
-        "\n");
+           "testsuite from svn:\n"
+           "\tsvn co \"https://<user>@svn.kde.org:/home/kde/trunk/tests/katetests/regression\"\n"
+           "Remember the root path into which you checked out the testsuite.\n"
+           "\n");
     printf("%s needs the root path of the kate regression\n"
-        "testsuite to function properly\n"
-        "By default, the root path is looked up in the file\n"
-        "\t%s\n"
-        "If it doesn't exist yet, create it by invoking\n"
-        "\techo \"<root-path>\" > %s\n"
-        "You may override the location by specifying the root explicitly on the\n"
-        "command line with option -b\n"
-        "", argv[0],
-        baseDirConfigFile.constData(),
-        baseDirConfigFile.constData());
+           "testsuite to function properly\n"
+           "By default, the root path is looked up in the file\n"
+           "\t%s\n"
+           "If it doesn't exist yet, create it by invoking\n"
+           "\techo \"<root-path>\" > %s\n"
+           "You may override the location by specifying the root explicitly on the\n"
+           "command line with option -b\n"
+           "", argv[0],
+           baseDirConfigFile.constData(),
+           baseDirConfigFile.constData());
     ::exit( 1 );
   }
 
@@ -546,18 +551,18 @@ int main(int argc, char *argv[])
     KConfig dc( "kdebugrc", KConfig::SimpleConfig );
     // FIXME adapt to kate
     static int areas[] = { 1000, 13000, 13001, 13002, 13010,
-      13020, 13025, 13030, 13033, 13035,
-      13040, 13050, 13051, 7000, 7006, 170,
-      171, 7101, 7002, 7019, 7027, 7014,
-      7001, 7011, 6070, 6080, 6090, 0};
-      int channel = args->isSet( "debug" ) ? 2 : 4;
-      for ( int i = 0; areas[i]; ++i ) {
-        KConfigGroup group = dc.group( QString::number( areas[i] ) );
-        group.writeEntry( "InfoOutput", channel );
-      }
-      dc.sync();
+        13020, 13025, 13030, 13033, 13035,
+        13040, 13050, 13051, 7000, 7006, 170,
+        171, 7101, 7002, 7019, 7027, 7014,
+        7001, 7011, 6070, 6080, 6090, 0};
+    int channel = args->isSet( "debug" ) ? 2 : 4;
+    for ( int i = 0; areas[i]; ++i ) {
+      KConfigGroup group = dc.group( QString::number( areas[i] ) );
+      group.writeEntry( "InfoOutput", channel );
+    }
+    dc.sync();
 
-      kClearDebugConfig();
+    kClearDebugConfig();
   }
 
   // create widgets
@@ -766,9 +771,9 @@ RegressionTest::~RegressionTest()
 {
   // Important! Delete comparison config *first* as saver config
   // might point to the same physical file.
-  KConfig *tmp = m_failureComp->config();
+  KConfig *tmp = m_failureComp ? m_failureComp->config() : 0;
   delete m_failureComp;
-  if (tmp != m_failureSave->config()) {
+  if (m_failureSave && tmp != m_failureSave->config()) {
     delete tmp;
     tmp = m_failureSave->config();
   }
@@ -824,7 +829,7 @@ bool RegressionTest::runTests(QString relPath, bool mustExist, int known_failure
     QStringList ignoreFiles = readListFile(  m_baseDir + "/tests/"+relPath+"/ignore" );
     QStringList failureFiles = readListFile(  m_baseDir + "/tests/"+relPath+"/KNOWN_FAILURES" );
 
-	// Run each test in this directory, recusively
+    // Run each test in this directory, recusively
     QDir sourceDir(m_baseDir + "/tests/"+relPath);
     for (uint fileno = 0; fileno < sourceDir.count(); fileno++) {
       QString filename = sourceDir[fileno];
@@ -999,8 +1004,8 @@ static QString readVariable(const QString &varName)
 void RegressionTest::doFailureReport( const QString& test, int failures )
 {
   if ( failures == NoFailure ) {
-      ::unlink( QFile::encodeName( m_outputDir + '/' + test + "-compare.html" ) );
-      return;
+    ::unlink( QFile::encodeName( m_outputDir + '/' + test + "-compare.html" ) );
+    return;
   }
 
   createLink( test, failures );
@@ -1060,36 +1065,36 @@ void RegressionTest::doFailureReport( const QString& test, int failures )
       .arg( relpath+"/baseline/"+test+"-dump.png" )
       .arg( testFile+"-dump.png" );
   cl += QString( "function toggleVisible(visible) {\n"
-      "     document.getElementById('render').style.visibility= visible == 'render' ? 'visible' : 'hidden';\n"
-      "     document.getElementById('image').style.visibility= visible == 'image' ? 'visible' : 'hidden';\n"
-      "     document.getElementById('dom').style.visibility= visible == 'dom' ? 'visible' : 'hidden';\n"
-      "}\n"
-      "function show() { document.getElementById('image').src = pics[t].src; "
-      "document.getElementById('image').style.borderColor = t && !doflicker ? 'red' : 'gray';\n"
-      "toggleVisible('image');\n"
-      "}" );
+                 "     document.getElementById('render').style.visibility= visible == 'render' ? 'visible' : 'hidden';\n"
+                 "     document.getElementById('image').style.visibility= visible == 'image' ? 'visible' : 'hidden';\n"
+                 "     document.getElementById('dom').style.visibility= visible == 'dom' ? 'visible' : 'hidden';\n"
+                 "}\n"
+                 "function show() { document.getElementById('image').src = pics[t].src; "
+                 "document.getElementById('image').style.borderColor = t && !doflicker ? 'red' : 'gray';\n"
+                 "toggleVisible('image');\n"
+                 "}" );
   cl += QString ( "function runSlideShow(){\n"
-      "   document.getElementById('image').src = pics[t].src;\n"
-      "   if (doflicker)\n"
-      "       t = 1 - t;\n"
-      "   setTimeout('runSlideShow()', 200);\n"
-      "}\n"
-      "function m(b) { if (b == lastb) return; document.getElementById('b'+b).className='buttondown';\n"
-      "                var e = document.getElementById('b'+lastb);\n"
-      "                 if(e) e.className='button';\n"
-      "                 lastb = b;\n"
-      "}\n"
-      "function showRender() { doflicker=0;toggleVisible('render')\n"
-      "}\n"
-      "function showDom() { doflicker=0;toggleVisible('dom')\n"
-      "}\n"
-      "</script>\n");
+                  "   document.getElementById('image').src = pics[t].src;\n"
+                  "   if (doflicker)\n"
+                  "       t = 1 - t;\n"
+                  "   setTimeout('runSlideShow()', 200);\n"
+                  "}\n"
+                  "function m(b) { if (b == lastb) return; document.getElementById('b'+b).className='buttondown';\n"
+                  "                var e = document.getElementById('b'+lastb);\n"
+                  "                 if(e) e.className='button';\n"
+                  "                 lastb = b;\n"
+                  "}\n"
+                  "function showRender() { doflicker=0;toggleVisible('render')\n"
+                  "}\n"
+                  "function showDom() { doflicker=0;toggleVisible('dom')\n"
+                  "}\n"
+                  "</script>\n");
 
   cl += QString ("<style>\n"
-      ".buttondown { cursor: pointer; padding: 0px 20px; color: white; background-color: blue; border: inset blue 2px;}\n"
-      ".button { cursor: pointer; padding: 0px 20px; color: black; background-color: white; border: outset blue 2px;}\n"
-      ".diff { position: absolute; left: 10px; top: 100px; visibility: hidden; border: 1px black solid; background-color: white; color: black; /* width: 800; height: 600; overflow: scroll; */ }\n"
-      "</style>\n" );
+                 ".buttondown { cursor: pointer; padding: 0px 20px; color: white; background-color: blue; border: inset blue 2px;}\n"
+                 ".button { cursor: pointer; padding: 0px 20px; color: black; background-color: white; border: outset blue 2px;}\n"
+                 ".diff { position: absolute; left: 10px; top: 100px; visibility: hidden; border: 1px black solid; background-color: white; color: black; /* width: 800; height: 600; overflow: scroll; */ }\n"
+                 "</style>\n" );
 
   cl += QString( "<body onload=\"m(5); toggleVisible('dom');\"" );
   cl += QString(" text=black bgcolor=gray>\n<h1>%3</h1>\n" ).arg( test );
@@ -1103,8 +1108,8 @@ void RegressionTest::doFailureReport( const QString& test, int failures )
         .arg( relpath+"/tests/"+test );
 
   cl += QString( "<hr>"
-      "<img style='border: solid 5px gray' src=\"%1\" id='image'>" )
-      .arg( relpath+"/baseline/"+test+"-dump.png" );
+                 "<img style='border: solid 5px gray' src=\"%1\" id='image'>" )
+    .arg( relpath+"/baseline/"+test+"-dump.png" );
 
   cl += "<div id='render' class='diff'>" + renderDiff + "</div>";
   cl += "<div id='dom' class='diff'>" + domDiff + "</div>";

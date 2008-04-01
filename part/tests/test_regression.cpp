@@ -1136,7 +1136,7 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
   // inject commands
   for (QStringList::ConstIterator cit = commands.begin(); cit != commands.end(); ++cit) {
     QString str = (*cit).trimmed();
-    kDebug() << "command: " << str;
+//     kDebug() << "command: " << str;
     if (str.isEmpty() || str.startsWith("#")) continue;
     KTextEditor::Command *cmd = KateCmd::self()->queryCommand(str);
     if (cmd) {

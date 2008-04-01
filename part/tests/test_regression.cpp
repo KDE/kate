@@ -23,6 +23,7 @@
  *
  */
 
+//BEGIN Includes
 #include "test_regression.h"
 
 #include <stdlib.h>
@@ -77,6 +78,7 @@
 #include "kateglobal.h"
 //#include "../interfaces/katecmd.h"
 #include "interfaces/ktexteditor/commandinterface.h"
+//END Includes
 
 using namespace KJS;
 
@@ -743,8 +745,6 @@ RegressionTest::RegressionTest(KateDocument *part, KConfig *baseConfig,
 
   curr = this;
 }
-
-//#include <qobjectlist.h>
 
 static QStringList readListFile( const QString &filename )
 {

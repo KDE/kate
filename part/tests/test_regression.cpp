@@ -76,7 +76,6 @@
 #include "kateconfig.h"
 #include "katecmd.h"
 #include "kateglobal.h"
-//#include "../interfaces/katecmd.h"
 #include "interfaces/ktexteditor/commandinterface.h"
 //END Includes
 

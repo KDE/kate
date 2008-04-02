@@ -449,6 +449,7 @@ int main(int argc, char *argv[])
   options.add("test <filename>", ki18n("Only run a single test. Multiple options allowed."));
   options.add("o");
   options.add("output <directory>", ki18n("Put output in <directory> instead of <base_dir>/output"));
+  options.add("fork", ki18n("Run each test case in a separate process."));
   options.add("+[base_dir]", ki18n("Directory containing tests, basedir and output directories. Only regarded if -b is not specified."));
   options.add("+[testcases]", ki18n("Relative path to testcase, or directory of testcases to be run (equivalent to -t)."));
 
@@ -606,7 +607,8 @@ int main(int argc, char *argv[])
       &cfg,
       baseDir,
       args->getOption("output"),
-      args->isSet("genoutput"));
+      args->isSet("genoutput"),
+      args->isSet("fork"));
 
   regressionTest->m_keepOutput = args->isSet("keep-output");
   regressionTest->m_showGui = args->isSet("show");
@@ -706,7 +708,8 @@ RegressionTest *RegressionTest::curr = 0;
 
 RegressionTest::RegressionTest(KateDocument *part, KConfig *baseConfig,
                                const QString &baseDir,
-                               const QString &outputDir, bool _genOutput)
+                               const QString &outputDir, bool _genOutput,
+                               bool fork)
   : QObject(part)
 {
   m_part = part;
@@ -723,6 +726,7 @@ RegressionTest::RegressionTest(KateDocument *part, KConfig *baseConfig,
   createMissingDirs(m_outputDir + '/');
   m_keepOutput = false;
   m_genOutput = _genOutput;
+  m_fork = fork;
   m_failureComp = 0;
   m_failureSave = 0;
   m_showGui = false;
@@ -1151,7 +1155,7 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
 //   Q_ASSERT(m_part->config()->configFlags() & KateDocumentConfig::cfDoxygenAutoTyping);
 
   bool script_error = false;
-  pid_t pid = fork();
+  pid_t pid = m_fork ? fork() : 0;
   if (pid == 0) {
     // Execute script
     TestJScriptEnv jsenv(m_part);
@@ -1159,12 +1163,15 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
     jsenv.output()->setOutputFile( ( m_genOutput ? m_baseDir + "/baseline/" : m_outputDir + '/' ) + filename + "-result" );
     script_error = evalJS(*jsenv.interpreter(), m_baseDir + "/tests/"+QFileInfo(filename).dir().path()+"/.kateconfig-script", true)
         && evalJS(*jsenv.interpreter(), m_baseDir + "/tests/"+filename+"-script");
-    writeVariable("script_error", QString::number(script_error));
-    writeVariable("m_errors", QString::number(m_errors));
-    writeVariable("m_outputCustomised", QString::number(m_outputCustomised));
-    writeVariable("m_part.text", m_part->text());
-    signal(SIGABRT, SIG_DFL);   // Dr. Konqi, no interference please
-    ::abort();  // crash, don't let Qt/KDE do any fancy deinit stuff
+
+    if (m_fork) {
+      writeVariable("script_error", QString::number(script_error));
+      writeVariable("m_errors", QString::number(m_errors));
+      writeVariable("m_outputCustomised", QString::number(m_outputCustomised));
+      writeVariable("m_part.text", m_part->text());
+      signal(SIGABRT, SIG_DFL);   // Dr. Konqi, no interference please
+      ::abort();  // crash, don't let Qt/KDE do any fancy deinit stuff
+    }
   } else if (pid == -1) {
     // whoops, will fail later on comparison
     m_errors++;

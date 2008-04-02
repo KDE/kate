@@ -166,7 +166,7 @@ class RegressionTest : public QObject
 
     RegressionTest(KateDocument *part, KConfig *baseConfig,
                    const QString &baseDir, const QString &outputDir,
-                   bool _genOutput);
+                   bool _genOutput, bool fork);
     ~RegressionTest();
 
     enum OutputType { ResultDocument };
@@ -192,6 +192,7 @@ class RegressionTest : public QObject
     QString m_baseDir;
     QString m_outputDir;
     bool m_genOutput;
+    bool m_fork;
     QString m_currentBase;
     KConfigGroup *m_failureComp;
     KConfigGroup *m_failureSave;

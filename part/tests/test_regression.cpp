@@ -36,6 +36,7 @@
 #include <pwd.h>
 #include <signal.h>
 
+#include <kjs/collector.h>
 #include <kapplication.h>
 #include <kglobal.h>
 #include <kstandarddirs.h>
@@ -133,7 +134,8 @@ KateViewObject::KateViewObject(ExecState *exec, KateView *v, JSObject *fallback)
 // put a function
 #define PUT_FUNC(name, enumval) \
         putDirect(#name, new KateViewFunction(exec,v,KateViewFunction::enumval,1), DontEnum)
-//   fallback->ref();
+
+  KJS::Collector::protect(fallback);
 
   PUT_FUNC(keyReturn, KeyReturn);
   PUT_FUNC(enter, KeyReturn);
@@ -194,7 +196,7 @@ KateViewObject::KateViewObject(ExecState *exec, KateView *v, JSObject *fallback)
 
 KateViewObject::~KateViewObject()
 {
-//   fallback->deref();
+  KJS::Collector::unprotect(fallback);
 }
 
 const ClassInfo *KateViewObject::classInfo() const

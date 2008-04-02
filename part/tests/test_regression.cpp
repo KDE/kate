@@ -45,7 +45,6 @@
 
 #include <kaction.h>
 #include <kcmdlineargs.h>
-//#include "katefactory.h"
 #include <kio/job.h>
 #include <kmainwindow.h>
 #include <kconfig.h>
@@ -571,7 +570,6 @@ int main(int argc, char *argv[])
   }
 
   // create widgets
-//   KateFactory *fac = KateFactory::self();
   toplevel = new KMainWindow();
   KateDocument *part = new KateDocument(/*bSingleViewMode*/true,
                                         /*bBrowserView*/false,
@@ -699,7 +697,6 @@ int main(int argc, char *argv[])
   delete regressionTest;
   delete part;
   delete toplevel;
-//   delete fac;
 
   return rv;
 }

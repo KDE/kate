@@ -43,8 +43,7 @@ function dbg(s) {
     debug("\u001B[34m" + s + "\u001B[0m");
 }
 
-// XX forget for now
-// var triggerCharacters = "}]";
+var triggerCharacters = "";
 
 // General notes:
 // indent() returns the amount of characters (in spaces) to be indented.
@@ -54,7 +53,7 @@ function dbg(s) {
 
 function indent(line, indentWidth, character) {
 //     dbg(document.attribute.toString());
-//     dbg("character: " + character);
+    dbg("indent character: " + character);
 //     dbg("line text: " + document.line(line));
     var currentLine = document.line(line);
     var lastLine = document.line(line - 1);
@@ -67,7 +66,7 @@ function indent(line, indentWidth, character) {
     var lastLetterType = document.attribute(line - 1, document.lineLength(line - 1) - 1);
     // 19 = docstring or comment, 20 = string
     if((lastLetterType == 19 || lastLetterType == 20) && lastCharacter != "\"" && lastCharacter != "'") {
-//         dbg("attributes that we don't want! Returning");
+        dbg("attributes that we don't want! Returning");
         return -1;
     }
     // otherwise, check the line contents
@@ -102,6 +101,7 @@ function indent(line, indentWidth, character) {
         dbg('unindenting line for keyword');
         return Math.max(0, document.firstVirtualColumn(line - 1) - indentWidth);
     }
+    dbg('continuing with regular indent');
     return -1;
 }
 

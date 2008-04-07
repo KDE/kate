@@ -254,6 +254,8 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
 
       if (!loadMetaInfos(doc, url))
         doc->openUrl (url);
+      else if (! encoding.isEmpty()) // set encoding again if provided, as metainfos sets it.
+        doc->setEncoding(encoding);
 
       doc->setSuppressOpeningErrorDialogs (false);
 

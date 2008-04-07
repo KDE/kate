@@ -225,7 +225,7 @@ void KateViewDocumentProxyModel::modified(const QModelIndex &proxyIndex)
 void KateViewDocumentProxyModel::updateBackgrounds(bool emitSignals)
 {
   if (!m_shadingEnabled) return;
-
+kDebug()<<emitSignals;
   QMap <QModelIndex, EditViewCount> helper;
   int i = 1;
   foreach (const QModelIndex &idx, m_viewHistory)

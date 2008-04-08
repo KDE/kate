@@ -129,7 +129,7 @@ class KateIconBorder : public QWidget
     void toggleRegionVisibility( unsigned int );
 
   protected Q_SLOTS:
-    void blockRangeDeleted();
+    void foldingRangeDeleted();
 
   private:
     void paintEvent( QPaintEvent* );
@@ -162,7 +162,7 @@ class KateIconBorder : public QWidget
     mutable QPixmap m_arrow;
     mutable QColor m_oldBackgroundColor;
 
-    KTextEditor::SmartRange *m_blockRange;
+    KTextEditor::SmartRange *m_foldingRange;
     int m_lastBlockLine;
     void showBlock(int line);
     void hideBlock();

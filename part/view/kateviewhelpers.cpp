@@ -716,7 +716,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_cachedLNWidth( 0 )
   , m_maxCharWidth( 0 )
   , iconPaneWidth (16)
-  , m_blockRange(0)
+  , m_foldingRange(0)
   , m_lastBlockLine(-1)
 {
 
@@ -769,7 +769,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   updateFont();
 }
 
-KateIconBorder::~KateIconBorder() {delete m_blockRange;}
+KateIconBorder::~KateIconBorder() {delete m_foldingRange;}
 
 void KateIconBorder::setIconBorderOn( bool enable )
 {
@@ -1170,8 +1170,8 @@ void KateIconBorder::showBlock(int line) {
   if (line==m_lastBlockLine) return;
   //kDebug()<<"showBlock: 2";
   m_lastBlockLine=line;
-  delete m_blockRange;
-  m_blockRange=0;
+  delete m_foldingRange;
+  Q_ASSERT(m_foldingRange == 0); // foldingRangeDeleted() sets it to 0
   KateCodeFoldingTree *tree=m_doc->foldingTree();
   if (tree) {
     //kDebug()<<"showBlock: 3";
@@ -1180,29 +1180,29 @@ void KateIconBorder::showBlock(int line) {
     KTextEditor::Cursor end;
     if (node != tree->rootNode () && node->getBegin(tree,&beg) && node->getEnd(tree,&end)) {
       kDebug()<<"BEGIN"<<beg<<"END"<<end;
-      m_blockRange=m_doc->newSmartRange(KTextEditor::Range(beg,end));
+      m_foldingRange=m_doc->newSmartRange(KTextEditor::Range(beg,end));
       KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
       attr->setBackground(foldingColor(0,line,false));
-      m_blockRange->setAttribute(attr);
-      m_doc->addHighlightToView(m_view,m_blockRange,false);
+      m_foldingRange->setAttribute(attr);
+      m_doc->addHighlightToView(m_view,m_foldingRange,false);
 
       // (dh) In order to prevent a dangling pointer on document reload (F5) set the smart range
       // pointer to null, if the range is deleted (http://bugs.kde.org/show_bug.cgi?id=160527)
-      KTextEditor::SmartRangeNotifier *notifier = m_blockRange->primaryNotifier();
-      connect(notifier, SIGNAL(rangeDeleted(KTextEditor::SmartRange*)), this, SLOT(blockRangeDeleted()));
+      KTextEditor::SmartRangeNotifier *notifier = m_foldingRange->primaryNotifier();
+      connect(notifier, SIGNAL(rangeDeleted(KTextEditor::SmartRange*)), this, SLOT(foldingRangeDeleted()));
     }
   }
 }
 
-void KateIconBorder::blockRangeDeleted()
+void KateIconBorder::foldingRangeDeleted()
 {
-  m_blockRange = 0;
+  m_foldingRange = 0;
 }
 
 void KateIconBorder::hideBlock() {
   m_lastBlockLine=-1;
-  delete m_blockRange;
-  m_blockRange=0;
+  delete m_foldingRange;
+  Q_ASSERT(m_foldingRange == 0); // foldingRangeDeleted() sets it to 0
 }
 
 void KateIconBorder::mouseMoveEvent( QMouseEvent* e )

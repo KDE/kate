@@ -128,6 +128,9 @@ class KateIconBorder : public QWidget
   Q_SIGNALS:
     void toggleRegionVisibility( unsigned int );
 
+  protected Q_SLOTS:
+    void blockRangeDeleted();
+
   private:
     void paintEvent( QPaintEvent* );
     void paintBorder (int x, int y, int width, int height);

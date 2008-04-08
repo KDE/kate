@@ -24,6 +24,7 @@
 
 #include "katecmd.h"
 #include <ktexteditor/attribute.h>
+#include <ktexteditor/rangefeedback.h>
 #include "katecodefolding.h"
 #include "kateconfig.h"
 #include "katedocument.h"
@@ -1184,8 +1185,18 @@ void KateIconBorder::showBlock(int line) {
       attr->setBackground(foldingColor(0,line,false));
       m_blockRange->setAttribute(attr);
       m_doc->addHighlightToView(m_view,m_blockRange,false);
+
+      // (dh) In order to prevent a dangling pointer on document reload (F5) set the smart range
+      // pointer to null, if the range is deleted (http://bugs.kde.org/show_bug.cgi?id=160527)
+      KTextEditor::SmartRangeNotifier *notifier = m_blockRange->primaryNotifier();
+      connect(notifier, SIGNAL(rangeDeleted(KTextEditor::SmartRange*)), this, SLOT(blockRangeDeleted()));
     }
   }
+}
+
+void KateIconBorder::blockRangeDeleted()
+{
+  m_blockRange = 0;
 }
 
 void KateIconBorder::hideBlock() {

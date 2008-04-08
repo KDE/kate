@@ -139,6 +139,7 @@ class KateIconBorder : public QWidget
     void mouseMoveEvent( QMouseEvent* );
     void mouseReleaseEvent( QMouseEvent* );
     void mouseDoubleClickEvent( QMouseEvent* );
+    void leaveEvent(QEvent *event);
 
     void showMarkMenu( uint line, const QPoint& pos );
 

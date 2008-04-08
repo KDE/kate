@@ -1216,6 +1216,12 @@ void KateIconBorder::hideBlock() {
   Q_ASSERT(m_foldingRange == 0); // foldingRangeDeleted() sets it to 0
 }
 
+void KateIconBorder::leaveEvent(QEvent *event)
+{
+  hideBlock();
+  QWidget::leaveEvent(event);
+}
+
 void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
 {
   const KateTextLayout& t = m_viewInternal->yToKateTextLayout(e->y());

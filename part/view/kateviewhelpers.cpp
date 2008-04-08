@@ -1165,32 +1165,43 @@ void KateIconBorder::mousePressEvent( QMouseEvent* e )
   QWidget::mousePressEvent(e);
 }
 
-void KateIconBorder::showBlock(int line) {
-  //kDebug()<<"showBlock: 1";
-  if (line==m_lastBlockLine) return;
-  //kDebug()<<"showBlock: 2";
-  m_lastBlockLine=line;
-  delete m_foldingRange;
-  Q_ASSERT(m_foldingRange == 0); // foldingRangeDeleted() sets it to 0
-  KateCodeFoldingTree *tree=m_doc->foldingTree();
+void KateIconBorder::showBlock(int line)
+{
+  if (line == m_lastBlockLine) return;
+  m_lastBlockLine = line;
+
+  // get the new range, that should be highlighted
+  KTextEditor::Range newRange = KTextEditor::Range::invalid();
+  KateCodeFoldingTree *tree = m_doc->foldingTree();
   if (tree) {
-    //kDebug()<<"showBlock: 3";
     KateCodeFoldingNode *node = tree->findNodeForLine(line);
     KTextEditor::Cursor beg;
     KTextEditor::Cursor end;
-    if (node != tree->rootNode () && node->getBegin(tree,&beg) && node->getEnd(tree,&end)) {
-      kDebug()<<"BEGIN"<<beg<<"END"<<end;
-      m_foldingRange=m_doc->newSmartRange(KTextEditor::Range(beg,end));
-      KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
-      attr->setBackground(foldingColor(0,line,false));
-      m_foldingRange->setAttribute(attr);
-      m_doc->addHighlightToView(m_view,m_foldingRange,false);
-
-      // (dh) In order to prevent a dangling pointer on document reload (F5) set the smart range
-      // pointer to null, if the range is deleted (http://bugs.kde.org/show_bug.cgi?id=160527)
-      KTextEditor::SmartRangeNotifier *notifier = m_foldingRange->primaryNotifier();
-      connect(notifier, SIGNAL(rangeDeleted(KTextEditor::SmartRange*)), this, SLOT(foldingRangeDeleted()));
+    if (node != tree->rootNode () && node->getBegin(tree, &beg) && node->getEnd(tree, &end)) {
+      newRange = KTextEditor::Range(beg, end);
     }
+  }
+
+  if (newRange.isValid() && m_foldingRange && *m_foldingRange == newRange) {
+    // new range equals the old one, nothing to do.
+    return;
+  } else { // the ranges differ, delete the old, if it exists
+    delete m_foldingRange;
+    Q_ASSERT(m_foldingRange == 0); // foldingRangeDeleted() sets it to 0
+  }
+
+  if (newRange.isValid()) {
+    kDebug(13025) << "new folding hl-range:" << newRange;
+    m_foldingRange = m_doc->newSmartRange(newRange);
+    KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
+    attr->setBackground(foldingColor(0, line, false));
+    m_foldingRange->setAttribute(attr);
+    m_doc->addHighlightToView(m_view, m_foldingRange, false);
+
+    // (dh) In order to prevent a dangling pointer on document reload (F5) set the smart range
+    // pointer to null, if the range is deleted (http://bugs.kde.org/show_bug.cgi?id=160527)
+    KTextEditor::SmartRangeNotifier *notifier = m_foldingRange->primaryNotifier();
+    connect(notifier, SIGNAL(rangeDeleted(KTextEditor::SmartRange*)), this, SLOT(foldingRangeDeleted()));
   }
 }
 

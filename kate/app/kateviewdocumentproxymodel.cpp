@@ -187,12 +187,13 @@ class EditViewCount
 void KateViewDocumentProxyModel::opened(const QModelIndex &index)
 {
   kDebug(13001) << index;
-  if (m_current == index) return;
+//  if (m_current == index) return;
 
   m_selection->setCurrentIndex(index, QItemSelectionModel::Clear|QItemSelectionModel::SelectCurrent);
 
   m_current = index;
   m_markOpenedTimer->start(100);
+  sort();
 }
 
 void KateViewDocumentProxyModel::slotMarkOpenedTimer()

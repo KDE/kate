@@ -26,7 +26,7 @@
 #include <QItemSelectionModel>
 #include <QList>
 #include <QMimeData>
-#include <Qt>
+#include <QtCore/qnamespace.h>
 #include <QTimer>
 #include <QColor>
 

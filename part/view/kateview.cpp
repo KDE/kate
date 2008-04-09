@@ -849,10 +849,17 @@ void KateView::slotExpandToplevel()
 void KateView::slotCollapseLocal()
 {
   int realLine = m_doc->foldingTree()->collapseOne(cursorPosition().line());
-  if (realLine != -1)
+  if (realLine != -1) {
     // TODO rodda: fix this to only set line and allow internal view to chose column
     // Explicitly call internal because we want this to be registered as an internal call
-    setCursorPositionInternal(KTextEditor::Cursor(realLine, virtualCursorColumn()), m_doc->config()->tabWidth());
+
+    // (dh) current solution: use current virtual cursor column and map it to
+    //      the real column of the new cursor line
+    KateTextLine::Ptr textLine = m_doc->plainKateTextLine(realLine);
+    if (!textLine) return;
+    KTextEditor::Cursor cc = KTextEditor::Cursor(realLine, textLine->fromVirtualColumn(virtualCursorColumn(), m_doc->config()->tabWidth()));
+    setCursorPositionInternal(cc, 1);
+  }
 }
 
 void KateView::slotExpandLocal()

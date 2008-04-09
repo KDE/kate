@@ -199,12 +199,12 @@ int KateTextLine::fromVirtualColumn (int column, int tabWidth) const
   int z = 0;
   for (; z < zmax; ++z)
   {
+    if (x == column)
+      break;
     if (unicode[z] == QChar('\t'))
       x += tabWidth - (x % tabWidth);
     else
       ++x;
-    if (x == column)
-      break;
   }
 
   return z;

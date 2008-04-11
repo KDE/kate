@@ -34,13 +34,14 @@ class QToolButton;
 class QShowEvent;
 class QTreeWidgetItem;
 class KConfig;
+class KateFindInFilesView;
 
 class KateGrepDialog : public QWidget, private Ui::FindWidget
 {
     Q_OBJECT
 
   public:
-    KateGrepDialog(QWidget *parent, Kate::MainWindow *mw);
+    KateGrepDialog(QWidget *parent, Kate::MainWindow *mw, KateFindInFilesView *view);
     ~KateGrepDialog();
 
     // read and write session config
@@ -50,6 +51,7 @@ class KateGrepDialog : public QWidget, private Ui::FindWidget
   protected:
     bool eventFilter( QObject *, QEvent * );
     void showEvent(QShowEvent* event);
+    void keyPressEvent(QKeyEvent *event);
 
     void addItems();
 
@@ -72,8 +74,9 @@ class KateGrepDialog : public QWidget, private Ui::FindWidget
     QStringList lastSearchPaths;
     QStringList lastSearchFiles;
     QToolButton* btnCloseTab;
-    
+
     KateGrepThread *m_grepThread;
+    KateFindInFilesView *m_view;
 };
 
 #endif

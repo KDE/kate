@@ -58,7 +58,7 @@ Kate::PluginView *KateFindInFilesPlugin::createView (Kate::MainWindow *mainWindo
 KateFindInFilesView::KateFindInFilesView (Kate::MainWindow *mw)
     : Kate::PluginView (mw)
     , m_toolView (mw->createToolView ("kate_private_plugin_katefindinfilesplugin", Kate::MainWindow::Bottom, SmallIcon("edit-find"), i18n("Find in Files")))
-    , m_grepDialog (new KateGrepDialog (m_toolView, mw))
+    , m_grepDialog (new KateGrepDialog (m_toolView, mw, this))
 {}
 
 /*
@@ -78,6 +78,11 @@ void KateFindInFilesView::writeSessionConfig (KConfigBase* config, const QString
 {
   KConfigGroup cg(config, groupPrefix + ":find-in-files");
   m_grepDialog->writeSessionConfig(cg);
+}
+
+QWidget *KateFindInFilesView::toolView() const
+{
+  return m_toolView;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

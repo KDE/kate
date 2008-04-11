@@ -22,6 +22,7 @@
 */
 
 #include "kategrepdialog.h"
+#include "katefindinfiles.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -45,8 +46,8 @@
 #include <kmessagebox.h>
 #include <kurlcompletion.h>
 
-KateGrepDialog::KateGrepDialog(QWidget *parent, Kate::MainWindow *mw)
-    : QWidget(parent), m_mw (mw), m_grepThread (0)
+KateGrepDialog::KateGrepDialog(QWidget *parent, Kate::MainWindow *mw, KateFindInFilesView *view)
+    : QWidget(parent), m_mw (mw), m_grepThread (0), m_view(view)
 {
   setupUi(this);
   setWindowTitle(i18n("Find in Files"));
@@ -292,8 +293,8 @@ void KateGrepDialog::slotSearch()
   m_grepThread = new KateGrepThread (this, lbResult->currentPage(), cmbDir->url().toLocalFile (), cbRecursive->isChecked(), wildcards, liste);
 
   // connect feedback signals
-  connect(lbResult, SIGNAL(destroy()), m_grepThread, SLOT(cancel()));
-  connect(lbResult, SIGNAL(destroy()), this, SLOT(searchFinished()));
+  connect(lbResult, SIGNAL(destroyed()), m_grepThread, SLOT(cancel()));
+  connect(lbResult, SIGNAL(destroyed()), this, SLOT(searchFinished()));
   connect (m_grepThread, SIGNAL(finished()), this, SLOT(searchFinished()));
   connect (m_grepThread, SIGNAL(foundMatch (const QString &, int, int, const QString &, const QString &, QWidget *)),
            this, SLOT(searchMatchFound(const QString &, int, int, const QString &, const QString &, QWidget *)));
@@ -473,12 +474,16 @@ void KateGrepDialog::showEvent(QShowEvent* event)
 }
 
 
-#if 0
-
-void KateMainWindow::slotKateGrepDialogItemSelected(const QString &filename, int linenumber)
+void KateGrepDialog::keyPressEvent(QKeyEvent *event)
 {
+  if (event->key() == Qt::Key_Escape)
+  {
+    m_mw->hideToolView(m_view->toolView());
+    event->accept();
+    return;
+  }
+  QWidget::keyPressEvent(event);
 }
-#endif
 
 #include "kategrepdialog.moc"
 

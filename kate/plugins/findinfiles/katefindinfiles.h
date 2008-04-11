@@ -79,6 +79,8 @@ class KateFindInFilesView : public Kate::PluginView
     void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
     void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
+    QWidget *toolView() const;
+
   private:
     /**
      * toolview for this console

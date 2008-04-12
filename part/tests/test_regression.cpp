@@ -1019,12 +1019,14 @@ void RegressionTest::doFailureReport( const QString& test, int failures )
   QString renderDiff;
   QString domDiff;
 
-  QString relOutputDir = makeRelativePath(m_baseDir, m_outputDir);
-
-  // are blocking reads possible with K3Process?
   char pwd[PATH_MAX];
   (void) getcwd( pwd, PATH_MAX );
   chdir( QFile::encodeName( m_baseDir ) );
+  QString resolvedBaseDir = QDir::currentPath();
+
+  QString relOutputDir = makeRelativePath(resolvedBaseDir/*m_baseDir*/, m_outputDir);
+
+  // are blocking reads possible with K3Process?
 
   if ( failures & ResultFailure ) {
     domDiff += "<pre>";
@@ -1035,6 +1037,7 @@ void RegressionTest::doFailureReport( const QString& test, int failures )
     diff.start("diff", args);
     diff.waitForFinished();
     QByteArray out = diff.readAllStandardOutput();
+    QByteArray err = diff.readAllStandardError();
     QTextStream *is = new QTextStream( out, QFile::ReadOnly );
     for ( int line = 0; line < 100 && !is->atEnd(); ++line ) {
       QString l = is->readLine();
@@ -1044,13 +1047,18 @@ void RegressionTest::doFailureReport( const QString& test, int failures )
     }
     delete is;
     domDiff += "</pre>";
+    if (!err.isEmpty()) {
+      qWarning(("cwd: "+QFile::encodeName(resolvedBaseDir)+", basedir "+QFile::encodeName( m_baseDir)).constData());
+      qWarning((QLatin1String("diff ")+args.join(" ")).toLatin1());
+      qWarning(("Errors: "+err).constData());
+    }
   }
 
   chdir( pwd );
 
     // create a relative path so that it works via web as well. ugly
   QString relpath = makeRelativePath(m_outputDir + '/'
-      + QFileInfo(test).dir().path(), m_baseDir);
+      + QFileInfo(test).dir().path(), resolvedBaseDir/*m_baseDir*/);
 
   compare.open( QFile::WriteOnly|QFile::Truncate );
   QString cl;

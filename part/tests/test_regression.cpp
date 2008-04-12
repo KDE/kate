@@ -1043,6 +1043,7 @@ void RegressionTest::doFailureReport( const QString& test, int failures )
       QString l = is->readLine();
       l = l.replace( '<', "&lt;" );
       l = l.replace( '>', "&gt;" );
+      l = l.replace( QRegExp("(\t+)"), "<span style=\"background:lightblue\">\\1</span>" );
       domDiff += l  + '\n';
     }
     delete is;

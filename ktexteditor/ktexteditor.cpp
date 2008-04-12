@@ -188,16 +188,20 @@ Plugin *KTextEditor::createPlugin ( KService::Ptr service, QObject *parent )
   return KService::createInstance<KTextEditor::Plugin>(service, parent);
 }
 
-struct KTextEditorFactoryList : public QList<KPluginFactory*>
+struct KTextEditorFactorySet : public QSet<KPluginFactory*>
 {
-  KTextEditorFactoryList() {}
-  ~KTextEditorFactoryList() { qDeleteAll(*this); }
+  KTextEditorFactorySet();
+  ~KTextEditorFactorySet();
 };
-K_GLOBAL_STATIC(KTextEditorFactoryList, s_factoryList)
-static void cleanupKTextEditorFactoryList()
-{
-  qDeleteAll(*s_factoryList);
-  s_factoryList->clear();
+K_GLOBAL_STATIC(KTextEditorFactorySet, s_factories)
+KTextEditorFactorySet::KTextEditorFactorySet() {
+  // K_GLOBAL_STATIC is cleaned up *after* Q(Core)Application is gone
+  // but we have to cleanup before -> use qAddPostRoutine
+  qAddPostRoutine(s_factories.destroy);
+}
+KTextEditorFactorySet::~KTextEditorFactorySet() {
+  qRemovePostRoutine(s_factories.destroy); // post routine is installed!
+  qDeleteAll(*this);
 }
 
 Editor *KTextEditor::editor(const char *libname)
@@ -211,11 +215,7 @@ Editor *KTextEditor::editor(const char *libname)
     return 0;
   }
 
-  // K_GLOBAL_STATIC is cleaned up *after* Q(Core)Application is gone
-  // but we have to cleanup before -> use qAddPostRoutine
-  if(s_factoryList->count() == 0)
-    qAddPostRoutine(cleanupKTextEditorFactoryList);
-  s_factoryList->append(fact);
+  s_factories->insert(fact);
 
   return ef->editor();
 }

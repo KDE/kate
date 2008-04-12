@@ -3487,7 +3487,8 @@ bool KateDocument::openFile()
   }
 
   // warn: opened broken utf-8 file...
-  if (m_buffer->brokenUTF8())
+  // only warn if not already a binary file!
+  else if (m_buffer->brokenUTF8())
   {
     // this file can't be saved again without killing it
     setReadWrite( false );

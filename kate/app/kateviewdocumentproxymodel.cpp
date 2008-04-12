@@ -78,6 +78,7 @@ QMimeData *KateViewDocumentProxyModel::mimeData(const QModelIndexList &indexes) 
   {
     if (index.isValid())
     {
+      kDebug()<<"mimeData:"<<index;
       stream << index.row() << index.column();
     }
   }
@@ -114,39 +115,41 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
 
   int insertRowAt = row - ((sourcerow < row) ? 1 : 0);
 
-  m_rowCountOffset = -1;
+
 
   beginRemoveRows(parent, sourcerow, sourcerow);
-  //m_mapToSource.insert(row,m_mapToSource[sourcerow]);
+
   int sourceModelRow = m_mapToSource[sourcerow];
-  //m_mapToSource[sourcerow]=-1;
+
   for (int i = sourcerow;i < m_mapToSource.count() - 1;i++)
     m_mapToSource[i] = m_mapToSource[i+1];
-  for (int i = 0;i < m_mapToSource.count() - 1;i++)
-  {
-    int tmp = m_mapToSource[sourcerow];
-    m_mapFromSource[tmp] = i;
-  }
-//        foreach (int i,m_mapToSource) kDebug()<<i;
-//        kDebug()<<"***********";
-//        foreach (int i,m_mapFromSource) kDebug()<<i;
-  endRemoveRows();
-  beginInsertRows(parent, insertRowAt, insertRowAt);
-  m_mapToSource.insert(insertRowAt, sourceModelRow);
   m_mapToSource.removeLast();
+
   for (int i = 0;i < m_mapToSource.count();i++)
   {
     int tmp = m_mapToSource[i];
     m_mapFromSource[tmp] = i;
   }
-//        kDebug()<<"--------------";
-//        foreach (int i,m_mapToSource) kDebug()<<i;
-//        kDebug()<<"***********";
-//        foreach (int i,m_mapFromSource) kDebug()<<i;
-  endInsertRows();
-  QModelIndex index = createIndex(insertRowAt, 0);
-  opened(index);
-  m_rowCountOffset = 0;
+
+  endRemoveRows();
+
+   kDebug()<<sourcerow<<"/////"<<insertRowAt;
+// 
+    beginInsertRows(parent, insertRowAt, insertRowAt);
+    m_mapToSource.insert(insertRowAt, sourceModelRow);
+
+    for (int i = 0;i < m_mapToSource.count();i++)
+    {
+      int tmp = m_mapToSource[i];
+      m_mapFromSource[tmp] = i;
+    }
+// 
+   kDebug()<<"m_mapFromSource"<<m_mapFromSource;
+   kDebug()<<"m_mapToSource"<<m_mapToSource;
+// 
+    endInsertRows();
+    QModelIndex index = createIndex(insertRowAt, 0);
+    opened(index);
 
   m_sortRole = CustomOrderRole;
 
@@ -263,6 +266,7 @@ kDebug()<<emitSignals;
 
     // blend in the shade color; latest is most colored.
     double t = double(hc - it.value().view + 1) / double(hc);
+
     m_brushes[it.key()] = QBrush(KColorUtils::mix(QPalette().color(QPalette::Base), shade, t));
   }
   foreach(const QModelIndex & key, m_brushes.keys())
@@ -311,6 +315,7 @@ QItemSelection KateViewDocumentProxyModel::mapSelectionToSource ( const QItemSel
 QModelIndex KateViewDocumentProxyModel::mapToSource ( const QModelIndex & proxyIndex ) const
 {
   if (!proxyIndex.isValid()) return QModelIndex();
+  if (proxyIndex.row()>=m_mapToSource.count()) return QModelIndex();
   return sourceModel()->index(m_mapToSource[proxyIndex.row()], proxyIndex.column(), QModelIndex());
 }
 

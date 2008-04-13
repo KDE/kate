@@ -130,7 +130,7 @@ class KateDocument : public KTextEditor::Document,
     bool browserView () const { return m_bBrowserView; }
     bool singleViewMode () const { return m_bSingleViewMode; }
     KateBrowserExtension *browserExtension () { return m_extension; }
-    bool simpleMode () const;
+    static bool simpleMode ();
 
   private:
     // only to make part work, don't change it !

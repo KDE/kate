@@ -50,6 +50,18 @@ class DocWordCompletionModel
     DocWordCompletionModel( QObject *parent );
     ~DocWordCompletionModel();
 
+    /**
+     * This function is responsible to generating / updating the list of current
+     * completions. The default implementation does nothing.
+     *
+     * When implementing this function, remember to call setRowCount() (or implement
+     * rowCount()), and to generate the appropriate change notifications (for instance
+     * by calling QAbstractItemModel::reset()).
+     * @param view The view to generate completions for
+     * @param range The range of text to generate completions for
+     * */
+    void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
+
     void saveMatches( KTextEditor::View* view,
                             const KTextEditor::Range& range);
 

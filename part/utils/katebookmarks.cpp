@@ -68,6 +68,7 @@ KateBookmarks::KateBookmarks( KateView* view, Sorting sort )
   : QObject( view )
   , m_view( view )
   , m_sorting( sort )
+  , m_bookmarkClear (0)
 {
   setObjectName( "kate bookmarks" );
   connect (view->doc(), SIGNAL( marksChanged( KTextEditor::Document* ) ), this, SLOT( marksChanged() ));
@@ -299,7 +300,8 @@ void KateBookmarks::goPrevious()
 
 void KateBookmarks::marksChanged ()
 {
-  m_bookmarkClear->setEnabled( !m_view->doc()->marks().isEmpty() );
+  if (m_bookmarkClear)
+    m_bookmarkClear->setEnabled( !m_view->doc()->marks().isEmpty() );
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

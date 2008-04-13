@@ -119,6 +119,13 @@ int DocWordCompletionModel::rowCount ( const QModelIndex & parent ) const
     return m_matches.count();
 }
 
+void DocWordCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType)
+{
+  kDebug () << "invoked the complete trash impl...";
+  saveMatches( view, range );
+}
+
+
 // Scan throughout the entire document for possible completions,
 // ignoring any dublets
 const QStringList DocWordCompletionModel::allMatches( KTextEditor::View *view, const KTextEditor::Range &range, int minAdditionalLength ) const
@@ -384,6 +391,7 @@ void DocWordCompletionPluginView::popupCompletionList()
 
 void DocWordCompletionPluginView::toggleAutoPopup()
 {
+  return;
   if ( d->autopopup->isChecked() ) {
     if ( ! connect( m_view, SIGNAL(textInserted ( KTextEditor::View *, const KTextEditor::Cursor &, const QString & )),
          this, SLOT(autoPopupCompletionList()) ))
@@ -401,6 +409,8 @@ void DocWordCompletionPluginView::toggleAutoPopup()
 // for autopopup FIXME - don't pop up if reuse word is inserting
 void DocWordCompletionPluginView::autoPopupCompletionList()
 {
+  return;
+
   if ( ! m_view->hasFocus() ) return;
   KTextEditor::Range r = range();
   if ( r.columnWidth() >= (int)d->treshold )

@@ -58,7 +58,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_entryList(new KateCompletionTree(this))
   , m_argumentHintModel(new KateArgumentHintModel(this))
   , m_argumentHintTree(new KateArgumentHintTree(this))
-  , m_automaticInvocation(false)
+  , m_automaticInvocation(true)
   , m_automaticInvocationDelay(300)
   , m_filterInstalled(false)
   , m_configWidget(new KateCompletionConfig(m_presentationModel, view()))
@@ -77,26 +77,6 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_entryList->setModel(m_presentationModel);
   m_argumentHintTree->setModel(m_argumentHintModel);
 
-  m_statusBar = new QWidget(this);
-  m_statusBar->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed );
-
-  m_sortButton = new QToolButton(m_statusBar);
-  m_sortButton->setIcon(KIcon("sort"));
-  m_sortButton->setCheckable(true);
-  connect(m_sortButton, SIGNAL(toggled(bool)), m_presentationModel, SLOT(setSortingEnabled(bool)));
-
-  m_sortText = new QLabel(i18n("Sort: None"), m_statusBar);
-
-  m_filterButton = new QToolButton(m_statusBar);
-  m_filterButton->setIcon(KIcon("view-filter"));
-  m_filterButton->setCheckable(true);
-  connect(m_filterButton, SIGNAL(toggled(bool)), m_presentationModel, SLOT(setFilteringEnabled(bool)));
-
-  m_filterText = new QLabel(i18n("Filter: None"), m_statusBar);
-
-  m_configButton = new QPushButton(KIcon("configure"), i18n("Setup"), m_statusBar);
-  connect(m_configButton, SIGNAL(pressed()), SLOT(showConfig()));
-
   m_automaticInvocationTimer = new QTimer(this);
   m_automaticInvocationTimer->setSingleShot(true);
   connect(m_automaticInvocationTimer, SIGNAL(timeout()), this, SLOT(automaticInvocation()));
@@ -105,27 +85,8 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_updateFocusTimer->setSingleShot(true);
   connect(m_updateFocusTimer, SIGNAL(timeout()), this, SLOT(updateFocus()));
 
-  QSizeGrip* sg = new QSizeGrip(m_statusBar);
-
-  QHBoxLayout* statusLayout = new QHBoxLayout(m_statusBar);
-  statusLayout->addWidget(m_sortButton);
-  statusLayout->addWidget(m_sortText);
-  statusLayout->addSpacing(8);
-  statusLayout->addWidget(m_filterButton);
-  statusLayout->addWidget(m_filterText);
-  statusLayout->addSpacing(8);
-  statusLayout->addStretch();
-  QVBoxLayout* gripLayout = new QVBoxLayout();
-  gripLayout->addStretch();
-  statusLayout->addWidget(m_configButton);
-  gripLayout->addWidget(sg);
-  statusLayout->addLayout(gripLayout);
-  statusLayout->setMargin(0);
-  statusLayout->setSpacing(2);
-
   QVBoxLayout* vl = new QVBoxLayout(this);
   vl->addWidget(m_entryList);
-  vl->addWidget(m_statusBar);
   vl->setMargin(0);
 
   // Keep branches expanded
@@ -155,9 +116,9 @@ void KateCompletionWidget::modelContentChanged() {
   int realItemCount = 0;
   foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels())
     realItemCount += model->rowCount();
-  //kDebug() << "content changed, item count " << realItemCount << "\n" << kBacktrace();
+  kDebug() << "content changed, item count " << realItemCount << "\n";
   if( !m_isSuspended && !isVisible() && realItemCount != 0 ) {
-    //kDebug() << "showing";
+    kDebug() << "showing";
     updateAndShow();
   }
 }
@@ -278,14 +239,18 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   cursorPositionChanged();
 
   if (model)
+    model->completionInvoked(view(), word, invocationType);
+  else
+    foreach (KTextEditor::CodeCompletionModel* model, m_sourceModels)
+      model->completionInvoked(view(), word, invocationType);
+
+  kDebug () << "msdofjdsoifdsflkdsjf";
+  if (model)
     m_presentationModel->setCompletionModel(model);
   else
     m_presentationModel->setCompletionModels(m_sourceModels);
-  
-  if (!m_presentationModel->completionModels().isEmpty()) {
-    foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels())
-      model->completionInvoked(view(), word, invocationType);
 
+  if (!m_presentationModel->completionModels().isEmpty()) {
     m_presentationModel->setCurrentCompletion(view()->doc()->text(KTextEditor::Range(m_completionRange->start(), view()->cursorPosition())));
   }
   
@@ -422,7 +387,7 @@ void KateCompletionWidget::updateHeight()
 void KateCompletionWidget::cursorPositionChanged( )
 {
   if (!isCompletionActive())  {
-    m_presentationModel->setCurrentCompletion(QString());
+//    m_presentationModel->setCurrentCompletion(QString());
     return;
   }
 
@@ -443,7 +408,7 @@ void KateCompletionWidget::cursorPositionChanged( )
 
 bool KateCompletionWidget::isCompletionActive( ) const
 {
-  bool ret = !isHidden();
+  bool ret = isVisible();
   if (ret)
     Q_ASSERT(m_completionRange && m_completionRange->isValid());
 

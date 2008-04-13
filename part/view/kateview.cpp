@@ -561,7 +561,9 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Look up a piece of text or regular expression and replace the result with some given text."));
 
   m_spell->createActions( ac );
-  m_bookmarks->createActions( ac );
+
+  if (!m_doc->simpleMode ())
+    m_bookmarks->createActions( ac );
 
   slotSelectionChanged ();
 

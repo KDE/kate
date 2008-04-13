@@ -457,6 +457,9 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   ui = new Ui::AppearanceConfigWidget();
   ui->setupUi( this );
 
+  if (KateDocument::simpleMode ())
+    ui->gbSortBookmarks->hide ();
+
   ui->cmbDynamicWordWrapIndicator->addItem( i18n("Off") );
   ui->cmbDynamicWordWrapIndicator->addItem( i18n("Follow Line Numbers") );
   ui->cmbDynamicWordWrapIndicator->addItem( i18n("Always On") );

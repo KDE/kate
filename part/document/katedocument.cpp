@@ -999,13 +999,6 @@ void KateDocument::undoStart()
 {
   if (m_editCurrentUndo || (m_activeView && activeKateView()->imComposeEvent())) return;
 
-  // Make sure the buffer doesn't get bigger than requested
-  if ((config()->undoSteps() > 0) && (undoItems.count() > (int)config()->undoSteps()))
-  {
-    delete undoItems.takeFirst();
-    docWasSavedWhenUndoWasEmpty = false;
-  }
-
   // new current undo item
   m_editCurrentUndo = new KateUndoGroup(this);
 }
@@ -1629,16 +1622,6 @@ uint KateDocument::undoCount () const
 uint KateDocument::redoCount () const
 {
   return redoItems.count ();
-}
-
-uint KateDocument::undoSteps () const
-{
-  return m_config->undoSteps();
-}
-
-void KateDocument::setUndoSteps(uint steps)
-{
-  m_config->setUndoSteps (steps);
 }
 
 void KateDocument::undo()
@@ -5606,8 +5589,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
       }
       else if ( var == "word-wrap-column" && checkIntValue( val, &n ) && n > 0 ) // uint, but hard word wrap at 0 will be no fun ;)
         m_config->setWordWrapAt( n );
-      else if ( var == "undo-steps" && checkIntValue( val, &n ) && n >= 0 )
-        setUndoSteps( n );
 
       // STRING SETTINGS
       else if ( var == "eol" || var == "end-of-line" )

@@ -369,9 +369,6 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   ui->chkAutoBrackets->setChecked( configFlags & KateDocumentConfig::cfAutoBrackets );
   connect(ui->chkAutoBrackets, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  ui->sbMaxUndos->setValue( KateDocumentConfig::global()->undoSteps() );
-  connect(ui->sbMaxUndos, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-
   // What is this? help is in the ui-file
 
   internalLayout->addWidget(newWidget);
@@ -427,8 +424,6 @@ void KateEditConfigTab::apply ()
   KateDocumentConfig::global()->setWordWrapAt(ui->sbWordWrap->value());
   KateDocumentConfig::global()->setWordWrap(ui->chkStaticWordWrap->isChecked());
   KateDocumentConfig::global()->setTabWidth(ui->sbTabWidth->value());
-
-  KateDocumentConfig::global()->setUndoSteps( qMax(0,ui->sbMaxUndos->value()) );
 
   KateRendererConfig::global()->setWordWrapMarker (ui->chkShowStaticWordWrapMarker->isChecked());
 

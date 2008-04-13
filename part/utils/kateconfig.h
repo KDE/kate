@@ -152,9 +152,6 @@ class KateDocumentConfig : public KateConfig
     unsigned int wordWrapAt () const;
     void setWordWrapAt (unsigned int col);
 
-    uint undoSteps () const;
-    void setUndoSteps ( uint undoSteps );
-
     bool pageUpDownMovesCursor () const;
     void setPageUpDownMovesCursor (bool on);
 
@@ -240,7 +237,6 @@ class KateDocumentConfig : public KateConfig
     bool m_allowEolDetection;
     int m_eol;
     uint m_backupFlags;
-    uint m_undoSteps;
     int m_searchDirConfigDepth;
     KEncodingDetector::AutoDetectScript m_scriptForEncodingAutoDetection;
     QString m_encoding;
@@ -253,7 +249,6 @@ class KateDocumentConfig : public KateConfig
     bool m_wordWrapSet : 1;
     bool m_wordWrapAtSet : 1;
     bool m_pageUpDownMovesCursorSet : 1;
-    bool m_undoStepsSet : 1;
     uint m_configFlagsSet;
     bool m_encodingSet : 1;
     bool m_eolSet : 1;

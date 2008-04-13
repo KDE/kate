@@ -335,12 +335,9 @@ class KateDocument : public KTextEditor::Document,
     void clearUndo ();
     void clearRedo ();
 
-    void setUndoSteps ( uint steps );
-
   public:
     uint undoCount () const;
     uint redoCount () const;
-    uint undoSteps () const;
     class KateEditHistory* history() const { return m_editHistory; }
 
   private:

@@ -96,7 +96,6 @@ KateDocumentConfig::KateDocumentConfig ()
    m_wordWrapSet (true),
    m_wordWrapAtSet (true),
    m_pageUpDownMovesCursorSet (true),
-   m_undoStepsSet (true),
    m_configFlagsSet (0xFFFF),
    m_encodingSet (true),
    m_eolSet (true),
@@ -123,7 +122,6 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_wordWrapSet (false),
    m_wordWrapAtSet (false),
    m_pageUpDownMovesCursorSet (false),
-   m_undoStepsSet (false),
    m_configFlagsSet (0),
    m_encodingSet (false),
    m_eolSet (false),
@@ -156,7 +154,6 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   setWordWrap (config.readEntry("Word Wrap", false));
   setWordWrapAt (config.readEntry("Word Wrap Column", 80));
   setPageUpDownMovesCursor (config.readEntry("PageUp/PageDown Moves Cursor", false));
-  setUndoSteps(config.readEntry("Undo Steps", 0));
 
   setConfigFlags (config.readEntry("Basic Config Flags", KateDocumentConfig::cfTabIndents
     | KateDocumentConfig::cfWrapCursor
@@ -193,8 +190,6 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Word Wrap Column", wordWrapAt());
 
   config.writeEntry("PageUp/PageDown Moves Cursor", pageUpDownMovesCursor());
-
-  config.writeEntry("Undo Steps", undoSteps());
 
   config.writeEntry("Basic Config Flags", configFlags());
 
@@ -342,24 +337,6 @@ void KateDocumentConfig::setWordWrapAt (unsigned int col)
 
   m_wordWrapAtSet = true;
   m_wordWrapAt = col;
-
-  configEnd ();
-}
-
-uint KateDocumentConfig::undoSteps () const
-{
-  if (m_undoStepsSet || isGlobal())
-    return m_undoSteps;
-
-  return s_global->undoSteps();
-}
-
-void KateDocumentConfig::setUndoSteps (uint undoSteps)
-{
-  configStart ();
-
-  m_undoStepsSet = true;
-  m_undoSteps = undoSteps;
 
   configEnd ();
 }

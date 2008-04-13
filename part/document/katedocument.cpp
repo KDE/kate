@@ -3693,7 +3693,7 @@ void KateDocument::readDirConfig ()
     // only search as deep as specified or not at all ;)
     while (depth > -1)
     {
-      kDebug (13020) << "search for config file in path: " << currentDir;
+      //kDebug (13020) << "search for config file in path: " << currentDir;
 
       // try to open config file in this dir
       QFile f (currentDir + "/.kateconfig");

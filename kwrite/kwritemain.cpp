@@ -73,6 +73,9 @@ KWrite::KWrite (KTextEditor::Document *doc)
       kapp->exit(1);
     }
 
+    // set simple mode
+    editor->setSimpleMode (true);
+
     doc = editor->createDocument(0);
 
     // enable the modified on disk warning dialogs if any
@@ -159,11 +162,6 @@ void KWrite::setupActions()
   connect( a, SIGNAL(triggered()), this, SLOT(newView()) );
   a->setWhatsThis(i18n("Create another view containing the current document"));
 
-  a = actionCollection()->addAction( "settings_choose_editor" );
-  a->setText( i18n("Choose Editor...") );
-  connect( a, SIGNAL(triggered()), this, SLOT(changeEditor()) );
-  a->setWhatsThis(i18n("Override the system wide setting for the default editing component"));
-
   actionCollection()->addAction( KStandardAction::Quit, this, SLOT(close()) )
     ->setWhatsThis(i18n("Close the current document view"));
 
@@ -247,12 +245,6 @@ bool KWrite::queryClose()
   }
 
   return false;
-}
-
-void KWrite::changeEditor()
-{
-  KWriteEditorChooser choose(this);
-  choose.exec();
 }
 
 void KWrite::slotFlush ()
@@ -490,6 +482,9 @@ void KWrite::restore()
                                   "please check your KDE installation."));
     kapp->exit(1);
   }
+
+  // simple mode
+  editor->setSimpleMode (true);
 
   int docs, windows;
   QString buf;

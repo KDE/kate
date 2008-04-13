@@ -70,7 +70,6 @@ class KWrite : public KParts::MainWindow
     void toggleStatusBar();
     void editKeys();
     void editToolbars();
-    void changeEditor();
     void aboutEditor();
 
   private Q_SLOTS:

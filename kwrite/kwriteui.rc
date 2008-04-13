@@ -57,7 +57,6 @@
     <DefineGroup name="configure_merge" append="save_merge"/>
     <Action name="options_configure_toolbars"/>
     <Action name="settings_configure" append="configure_merge"/>
-    <Action name="settings_choose_editor" append="save_merge"/>
   </Menu>
 
   <Menu name="help" noMerge="1"><text>&amp;Help</text>

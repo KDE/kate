@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="43">
+<kpartgui name="KatePartView" version="44">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save" group="save_merge" />
@@ -21,7 +21,6 @@
     <Separator group="edit_paste_merge" />
     <Action name="edit_select_all" group="edit_select_merge" />
     <Action name="edit_deselect" group="edit_select_merge" />
-    <Action name="set_verticalSelect" group="edit_select_merge" />
     <Separator group="edit_select_merge" />
     <Action name="set_insert" group="edit_select_merge" />
     <Separator group="edit_select_merge" />
@@ -36,29 +35,12 @@
   </Menu>
 
   <Menu name="view" noMerge="1"><text>&amp;View</text>
-    <Action name="switch_to_cmd_line" group="view_operations" />
-    <Separator group="view_operations" />
-    <Action name="view_schemas" group="view_operations" />
-    <Separator group="view_operations" />
     <Action name="view_dynamic_word_wrap" group="view_operations" />
     <Action name="dynamic_word_wrap_indicators" group="view_operations" />
     <Action name="view_word_wrap_marker" group="view_operations" />
     <Separator group="view_operations" />
-    <Action name="view_border" group="view_operations" />
     <Action name="view_line_numbers" group="view_operations" />
-    <Action name="view_scrollbar_marks" group="view_operations" />
-    <Separator group="view_operations" />
-    <Action name="view_folding_markers" group="view_operations" />
-    <Menu name="codefolding" group="view_operations"><text>&amp;Code Folding</text>
-      <Action name="folding_toplevel" group="view_operations" />
-      <Action name="folding_expandtoplevel" group="view_operations" />
-      <Action name="folding_collapselocal" group="view_operations" />
-      <Action name="folding_expandlocal" group="view_operations" />
-    </Menu>
-    <Separator group="view_operations" />
   </Menu>
-
-  <Action name="bookmarks" />
 
   <Menu name="tools" noMerge="1"><text>&amp;Tools</text>
     <Action name="tools_toggle_write_lock" group="tools_operations" />

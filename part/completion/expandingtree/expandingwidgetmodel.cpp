@@ -15,6 +15,9 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
+#include "expandingwidgetmodel.h"
+
 #include <QTreeView>
 #include <QTextEdit>
 #include <QModelIndex>
@@ -22,7 +25,6 @@
 #include <ktexteditor/codecompletionmodel.h>
 #include <kiconloader.h>
 #include "expandingdelegate.h"
-#include "expandingwidgetmodel.h"
 
 QIcon ExpandingWidgetModel::m_expandedIcon;
 QIcon ExpandingWidgetModel::m_collapsedIcon;

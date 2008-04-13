@@ -16,12 +16,13 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "kateargumenthinttree.h"
+
 #include <QHeaderView>
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QScrollBar>
 
-#include "kateargumenthinttree.h"
 #include "kateargumenthintmodel.h"
 #include "katecompletionwidget.h"
 #include "expandingtree/expandingwidgetmodel.h"

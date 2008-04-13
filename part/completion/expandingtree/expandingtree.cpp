@@ -16,12 +16,13 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "expandingtree.h"
+
 #include <QTextLayout>
 #include <QTextDocument>
 #include <QAbstractTextDocumentLayout>
 #include <QPainter>
 #include <kdebug.h>
-#include "expandingtree.h"
 #include "expandingwidgetmodel.h"
 
 ExpandingTree::ExpandingTree(QWidget* parent) : QTreeView(parent) {

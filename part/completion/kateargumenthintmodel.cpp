@@ -16,11 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "kateargumenthintmodel.h"
+
 #include <QTextFormat>
 #include <QGridLayout>
 
 #include <ktexteditor/codecompletionmodel.h>
-#include "kateargumenthintmodel.h"
 #include "katecompletionwidget.h"
 #include "kateargumenthinttree.h"
 #include "katecompletiontree.h"

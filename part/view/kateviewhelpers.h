@@ -42,6 +42,7 @@ class KateLineInfo;
 namespace KTextEditor {
   class Command;
   class SmartRange;
+  class AnnotationModel;
 }
 
 /**
@@ -109,8 +110,9 @@ class KateIconBorder : public QWidget
     void updateFont();
     int lineNumberWidth() const;
 
-    void setIconBorderOn(     bool enable );
-    void setLineNumbersOn(    bool enable );
+    void setIconBorderOn(       bool enable );
+    void setLineNumbersOn(      bool enable );
+    void setAnnotationBorderOn( bool enable );
     void setDynWrapIndicators(int state );
     int dynWrapIndicators()  const { return m_dynWrapIndicators; }
     bool dynWrapIndicatorsOn() const { return m_dynWrapIndicatorsOn; }
@@ -118,16 +120,20 @@ class KateIconBorder : public QWidget
     void toggleIconBorder()     { setIconBorderOn(     !iconBorderOn() );     }
     void toggleLineNumbers()    { setLineNumbersOn(    !lineNumbersOn() );    }
     void toggleFoldingMarkers() { setFoldingMarkersOn( !foldingMarkersOn() ); }
-    bool iconBorderOn()       const { return m_iconBorderOn;     }
-    bool lineNumbersOn()      const { return m_lineNumbersOn;    }
-    bool foldingMarkersOn()   const { return m_foldingMarkersOn; }
+    inline bool iconBorderOn()       const { return m_iconBorderOn;       }
+    inline bool lineNumbersOn()      const { return m_lineNumbersOn;      }
+    inline bool foldingMarkersOn()   const { return m_foldingMarkersOn;   }
+    inline bool annotationBorderOn() const { return m_annotationBorderOn; }
 
-    enum BorderArea { None, LineNumbers, IconBorder, FoldingMarkers };
+    enum BorderArea { None, LineNumbers, IconBorder, FoldingMarkers, AnnotationBorder };
     BorderArea positionToArea( const QPoint& ) const;
 
   Q_SIGNALS:
     void toggleRegionVisibility( unsigned int );
-
+  public Q_SLOTS:
+    void updateAnnotationBorderWidth();
+    void updateAnnotationLine( int line );
+    void annotationModelChanged( KTextEditor::AnnotationModel* oldmodel, KTextEditor::AnnotationModel* newmodel );
   protected Q_SLOTS:
     void foldingRangeDeleted();
 
@@ -143,6 +149,12 @@ class KateIconBorder : public QWidget
 
     void showMarkMenu( uint line, const QPoint& pos );
 
+    void showAnnotationTooltip( int line, const QPoint& pos );
+    void hideAnnotationTooltip();
+    void removeAnnotationHovering();
+    void showAnnotationMenu( int line, const QPoint& pos);
+    int annotationLineWidth( int line );
+
     KateView *m_view;
     KateDocument *m_doc;
     KateViewInternal *m_viewInternal;
@@ -151,6 +163,7 @@ class KateIconBorder : public QWidget
     bool m_lineNumbersOn:1;
     bool m_foldingMarkersOn:1;
     bool m_dynWrapIndicatorsOn:1;
+    bool m_annotationBorderOn:1;
     int m_dynWrapIndicators;
 
     int m_lastClickedLine;
@@ -159,6 +172,7 @@ class KateIconBorder : public QWidget
 
     int m_maxCharWidth;
     int iconPaneWidth;
+    int m_annotationBorderWidth;
 
     mutable QPixmap m_arrow;
     mutable QColor m_oldBackgroundColor;
@@ -171,6 +185,7 @@ class KateIconBorder : public QWidget
     QBrush m_foldingColors[MAXFOLDINGCOLORS];
     QBrush m_foldingColorsSolid[MAXFOLDINGCOLORS];
     const QBrush &foldingColor(KateLineInfo *, int,bool solid);
+    QString m_hoveredAnnotationText;
 };
 
 class KateViewEncodingAction : public KCodecAction

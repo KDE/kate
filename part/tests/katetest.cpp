@@ -27,6 +27,7 @@
 #include <ktexteditor/modificationinterface.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/editorchooser.h>
+#include <ktexteditor/annotationinterface.h>
 
 #include <kio/netaccess.h>
 
@@ -78,6 +79,7 @@
 
 #include "arbitraryhighlighttest.h"
 #include "codecompletiontest.h"
+#include "annotationmodeltest.h"
 
 // StatusBar field IDs
 #define KWRITE_ID_GEN 1
@@ -118,6 +120,17 @@ KWrite::KWrite (KTextEditor::Document *doc)
   m_view = qobject_cast<KTextEditor::View*>(doc->createView (this));
 
   new CodeCompletionTest(m_view);
+
+  // Test for the annotation interface
+  AnnotationModelTest* annomodel = new AnnotationModelTest();
+  if( qobject_cast<KTextEditor::AnnotationInterface*>(doc) )
+    qobject_cast<KTextEditor::AnnotationInterface*>(doc)->setAnnotationModel(annomodel);
+
+  if( qobject_cast<KTextEditor::AnnotationViewInterface*>(m_view) )
+    qobject_cast<KTextEditor::AnnotationViewInterface*>(m_view)->setAnnotationBorderVisible(true);
+
+  connect(m_view, SIGNAL(annotationContextMenuAboutToShow( KTextEditor::View*, QMenu*, int )), annomodel, SLOT(annotationContextMenuAboutToShow( KTextEditor::View*, QMenu*, int )));
+  connect(m_view, SIGNAL(annotationActivated( KTextEditor::View*, int )), annomodel, SLOT(annotationActivated( KTextEditor::View*, int )));
 
   setCentralWidget(m_view);
 
@@ -444,7 +457,7 @@ void KWrite::writeConfig(KConfigGroup &config)
 {
   config.writeEntry("ShowStatusBar",m_paShowStatusBar->isChecked());
   config.writeEntry("ShowPath",m_paShowPath->isChecked());
-  
+
   config.changeGroup("Recent Files");
   m_recentFiles->saveEntries(config);
 

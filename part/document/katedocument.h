@@ -41,6 +41,7 @@
 #include <ktexteditor/modificationinterface.h>
 #include <ktexteditor/smartinterface.h>
 #include <ktexteditor/rangefeedback.h>
+#include <ktexteditor/annotationinterface.h>
 
 #include "katetextline.h"
 #include "kateautoindent.h"
@@ -96,7 +97,8 @@ class KateDocument : public KTextEditor::Document,
                      public KTextEditor::VariableInterface,
                      public KTextEditor::ModificationInterface,
                      public KTextEditor::SmartInterface,
-                     private KTextEditor::SmartRangeWatcher
+                     private KTextEditor::SmartRangeWatcher,
+                     public KTextEditor::AnnotationInterface
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::SessionConfigInterface)
@@ -105,6 +107,7 @@ class KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::VariableInterface)
   Q_INTERFACES(KTextEditor::ModificationInterface)
   Q_INTERFACES(KTextEditor::SmartInterface)
+  Q_INTERFACES(KTextEditor::AnnotationInterface)
 
   public:
     explicit KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
@@ -373,9 +376,9 @@ class KateDocument : public KTextEditor::Document,
         const KTextEditor::Range & range,
         const QString & pattern,
         const KTextEditor::Search::SearchOptions options);
-        
+
     KTextEditor::Search::SearchOptions supportedSearchOptions() const;
-  
+
   //
   // internal implementation....
   //
@@ -475,36 +478,36 @@ class KateDocument : public KTextEditor::Document,
     /**
      * Return the name of the currently used mode
      * \return name of the used mode
-     * 
+     *
      */
     virtual QString mode() const;
 
     /**
      * Return the name of the currently used mode
      * \return name of the used mode
-     * 
+     *
      */
     virtual QString highlightingMode() const;
-    
+
     /**
      * Return a list of the names of all possible modes
      * \return list of mode names
      */
     virtual QStringList modes() const;
-    
+
     /**
      * Return a list of the names of all possible modes
      * \return list of mode names
      */
     virtual QStringList highlightingModes() const;
-    
+
     /**
      * Set the current mode of the document by giving its name
      * \param name name of the mode to use for this document
      * \return \e true on success, otherwise \e false
      */
     virtual bool setMode(const QString &name);
-    
+
     /**
      * Set the current mode of the document by giving its name
      * \param name name of the mode to use for this document
@@ -512,7 +515,7 @@ class KateDocument : public KTextEditor::Document,
      */
     virtual bool setHighlightingMode(const QString &name);
     /**
-     * Returns the name of the section for a highlight given its index in the highlight 
+     * Returns the name of the section for a highlight given its index in the highlight
      * list (as returned by highlightModes()).
      * You can use this function to build a tree of the highlight names, organized in sections.
      * \param name the name of the highlight for which to find the section name.
@@ -520,7 +523,7 @@ class KateDocument : public KTextEditor::Document,
     virtual QString highlightingModeSection( int index ) const;
 
     /**
-     * Returns the name of the section for a mode given its index in the highlight 
+     * Returns the name of the section for a mode given its index in the highlight
      * list (as returned by modes()).
      * You can use this function to build a tree of the mode names, organized in sections.
      * \param name the name of the highlight for which to find the section name.
@@ -536,15 +539,15 @@ class KateDocument : public KTextEditor::Document,
     /**
      * Warn anyone listening that the current document's mode has
      * changed.
-     * 
+     *
      * \param document the document which's mode has changed
      */
     void modeChanged(KTextEditor::Document *document);
-    
+
     /**
      * Warn anyone listening that the current document's highlighting mode has
      * changed.
-     * 
+     *
      * \param document the document which's mode has changed
      */
     void highlightingModeChanged(KTextEditor::Document *document);
@@ -705,6 +708,20 @@ class KateDocument : public KTextEditor::Document,
     QList<KTextEditor::SmartRange*> m_documentHighlights;
     QList<KTextEditor::SmartRange*> m_documentDynamicHighlights;
     QList<KTextEditor::SmartRange*> m_documentActions;
+
+  //
+  // Annotation Interface
+  //
+  public:
+
+    virtual void setAnnotationModel( KTextEditor::AnnotationModel* model );
+    virtual KTextEditor::AnnotationModel* annotationModel() const;
+
+  Q_SIGNALS:
+    void annotationModelChanged( KTextEditor::AnnotationModel*, KTextEditor::AnnotationModel* );
+
+  private:
+    KTextEditor::AnnotationModel* m_annotationModel;
 
   //
   // KParts::ReadWrite stuff

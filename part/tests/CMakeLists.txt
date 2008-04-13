@@ -12,6 +12,7 @@ set(katetest_SRCS
 katetest.cpp
 arbitraryhighlighttest.cpp
 codecompletiontest.cpp
+annotationmodeltest.cpp
 )
 
 

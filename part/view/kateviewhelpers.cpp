@@ -24,6 +24,7 @@
 
 #include "katecmd.h"
 #include <ktexteditor/attribute.h>
+#include <ktexteditor/annotationinterface.h>
 #include <ktexteditor/rangefeedback.h>
 #include "katecodefolding.h"
 #include "kateconfig.h"
@@ -56,6 +57,8 @@
 #include <QtGui/QPen>
 #include <QtGui/QBoxLayout>
 #include <QtGui/QToolButton>
+#include <QtGui/QToolTip>
+#include <QtGui/QAction>
 
 #include <math.h>
 
@@ -277,7 +280,7 @@ KateCmdLine::KateCmdLine (KateView *view, KateViewBar *viewBar)
     topLayout->setMargin(0);
     m_lineEdit = new KateCmdLineEdit (this, view);
     topLayout->addWidget (m_lineEdit);
-    
+
     setFocusProxy (m_lineEdit);
 }
 
@@ -712,10 +715,12 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_lineNumbersOn( false )
   , m_foldingMarkersOn( false )
   , m_dynWrapIndicatorsOn( false )
+  , m_annotationBorderOn( false )
   , m_dynWrapIndicators( 0 )
   , m_cachedLNWidth( 0 )
   , m_maxCharWidth( 0 )
   , iconPaneWidth (16)
+  , m_annotationBorderWidth (6)
   , m_foldingRange(0)
   , m_lastBlockLine(-1)
 {
@@ -783,6 +788,29 @@ void KateIconBorder::setIconBorderOn( bool enable )
   QTimer::singleShot( 0, this, SLOT(update()) );
 }
 
+void KateIconBorder::setAnnotationBorderOn( bool enable )
+{
+  if( enable == m_annotationBorderOn )
+    return;
+
+  m_annotationBorderOn = enable;
+
+  emit m_view->annotationBorderVisibilityChanged(m_view, enable);
+
+  updateGeometry();
+}
+
+void KateIconBorder::removeAnnotationHovering()
+{
+  // remove hovering if it's still there
+  if (m_annotationBorderOn && !m_hoveredAnnotationText.isEmpty())
+  {
+    m_hoveredAnnotationText = QString();
+    hideAnnotationTooltip();
+    QTimer::singleShot( 0, this, SLOT(update()) );
+  }
+}
+
 void KateIconBorder::setLineNumbersOn( bool enable )
 {
   if( enable == m_lineNumbersOn )
@@ -823,17 +851,31 @@ void KateIconBorder::setFoldingMarkersOn( bool enable )
 
 QSize KateIconBorder::sizeHint() const
 {
+  kDebug() << "calculating sizehint";
   int w = 0;
 
   if (m_iconBorderOn)
     w += iconPaneWidth + 1;
 
+  kDebug() << "after icon border" << w;
+
+  if (m_annotationBorderOn)
+  {
+    kDebug() << "calulating anno border";
+    w += m_annotationBorderWidth + 1;
+  }
+  kDebug() << "after anno border" << w;
+
   if (m_lineNumbersOn || (m_view->dynWordWrap() && m_dynWrapIndicatorsOn)) {
-    w += lineNumberWidth();
+    w += lineNumberWidth() + 1;
   }
 
+  kDebug() << "after line border" << w;
+
   if (m_foldingMarkersOn)
-    w += iconPaneWidth;
+    w += iconPaneWidth + 1;
+
+  kDebug() << "after folding border" << w;
 
   w += 4;
 
@@ -934,6 +976,8 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 
 static void paintTriangle (QPainter &painter, const QColor &baseColor, int xOffset, int yOffset, int width, int height, bool open)
 {
+  painter.setRenderHint(QPainter::Antialiasing);
+
   qreal size = qMin (width, height);
 
   QColor c = baseColor.dark ();
@@ -967,6 +1011,8 @@ static void paintTriangle (QPainter &painter, const QColor &baseColor, int xOffs
     QPointF points[3] = { middle+QPointF(-halfSizeP, -halfSize), middle+QPointF(-halfSizeP, halfSize), middle+QPointF(halfSizeP, 0) };
     painter.drawConvexPolygon(points, 3);
   }
+
+  painter.setRenderHint(QPainter::Antialiasing, false);
 }
 
 void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
@@ -1002,7 +1048,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   int w( this->width() );                     // sane value/calc only once
 
   QPainter p ( this );
-  p.setRenderHints (QPainter::Antialiasing);
+  p.setRenderHints (QPainter::TextAntialiasing);
   p.setFont ( m_view->renderer()->config()->font() ); // for line numbers
   // the line number color is for the line numbers, vertical separator lines
   // and for for the code folding lines.
@@ -1018,6 +1064,9 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
       m_doc->lineInfo(&oldInfo,m_viewInternal->cache()->viewLine(startz).line()-1);
   }
 
+  KTextEditor::AnnotationModel *model = m_view->annotationModel() ?
+      m_view->annotationModel() : m_doc->annotationModel();
+
   for (uint z=startz; z <= endz; z++)
   {
     int y = h * z;
@@ -1026,7 +1075,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     if (z < lineRangesSize)
       realLine = m_viewInternal->cache()->viewLine(z).line();
 
-    int lnX ( 0 );
+    int lnX = 0;
 
     p.fillRect( 0, y, w-4, h, m_view->renderer()->config()->iconBarColor() );
     p.fillRect( w-4, y, 4, h, m_view->renderer()->config()->backgroundColor() );
@@ -1036,8 +1085,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     {
       p.setPen ( m_view->renderer()->config()->lineNumberColor() );
       p.setBrush ( m_view->renderer()->config()->lineNumberColor() );
-
-      p.drawLine(lnX+iconPaneWidth, y, lnX+iconPaneWidth, y+h);
+      p.drawLine(lnX+iconPaneWidth+1, y, lnX+iconPaneWidth+1, y+h);
 
       if( (realLine > -1) && (m_viewInternal->cache()->viewLine(z).startCol() == 0) )
       {
@@ -1070,23 +1118,94 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         }
       }
 
-      lnX += iconPaneWidth + 1;
+      lnX += iconPaneWidth + 2;
+    }
+
+    // annotation information
+    if( m_annotationBorderOn )
+    {
+      // Draw a border line between annotations and the line numbers
+      p.setPen ( m_view->renderer()->config()->lineNumberColor() );
+      p.setBrush ( m_view->renderer()->config()->lineNumberColor() );
+
+      int borderWidth = m_annotationBorderWidth;
+      p.drawLine(lnX+borderWidth+1, y, lnX+borderWidth+1, y+h);
+
+      if( (realLine > -1) && model )
+      {
+        // Fetch data from the model
+        QVariant text = model->data( realLine, Qt::DisplayRole );
+        QVariant foreground = model->data( realLine, Qt::ForegroundRole );
+        QVariant background = model->data( realLine, Qt::BackgroundRole );
+        // Fill the background
+        if( background.isValid() )
+        {
+          p.fillRect( lnX, y, borderWidth + 1, h, background.value<QBrush>() );
+        }
+        // Set the pen for drawing the foreground
+        if( foreground.isValid() )
+        {
+          p.setBrush( foreground.value<QBrush>() );
+        }
+
+        // Draw a border around all adjacent entries that have the same text as the currently hovered one
+        if( m_hoveredAnnotationText == text.toString() )
+        {
+          p.drawLine( lnX, y, lnX, y+h );
+          p.drawLine( lnX+borderWidth, y, lnX+borderWidth, y+h );
+
+          QVariant beforeText = model->data( realLine-1, Qt::DisplayRole );
+          QVariant afterText = model->data( realLine+1, Qt::DisplayRole );
+          if( (beforeText.isValid() && beforeText.canConvert<QString>()
+              && text.isValid() && text.canConvert<QString>()
+              && beforeText.toString() != text.toString() || realLine == 0)
+              && m_viewInternal->cache()->viewLine(z).viewLine() == 0)
+          {
+            p.drawLine( lnX+1, y, lnX+borderWidth, y );
+          }
+
+          if( ((afterText.isValid() && afterText.canConvert<QString>()
+              && text.isValid() && text.canConvert<QString>()
+              && afterText.toString() != text.toString())
+                || realLine == m_view->doc()->lines() - 1)
+              && m_viewInternal->cache()->viewLine(z).viewLine() == m_viewInternal->cache()->viewLineCount(realLine)-1)
+          {
+            p.drawLine( lnX+1, y+h-1, lnX+borderWidth, y+h-1 );
+          }
+        }
+        if( foreground.isValid() )
+        {
+          QPen pen = p.pen();
+          pen.setWidth( 1 );
+          p.setPen( pen );
+        }
+
+        // Now draw the normal text
+        if( text.isValid() && text.canConvert<QString>() && (m_viewInternal->cache()->viewLine(z).startCol() == 0)  )
+        {
+          p.drawText( lnX+3, y, borderWidth-3, h, Qt::AlignLeft|Qt::AlignVCenter, text.toString() );
+        }
+      }
+
+      // adjust current X position and reset the pen and brush
+      lnX += borderWidth + 2;
+
+      p.setPen ( m_view->renderer()->config()->lineNumberColor() );
+      p.setBrush ( m_view->renderer()->config()->lineNumberColor() );
     }
 
     // line number
     if( m_lineNumbersOn || (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) )
     {
-      lnX +=2;
-
       if (realLine > -1)
         if (m_viewInternal->cache()->viewLine(z).startCol() == 0) {
           if (m_lineNumbersOn)
-            p.drawText( lnX + 1, y, lnWidth-4, h, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
+            p.drawText( lnX, y, lnWidth-4, h, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
         } else if (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) {
-          p.drawPixmap(lnX + lnWidth - m_arrow.width() - 4, y, m_arrow);
+          p.drawPixmap(lnX + lnWidth - m_arrow.width() - 2, y, m_arrow);
         }
 
-      lnX += lnWidth;
+      lnX += lnWidth + 2;
     }
 
     // folding markers
@@ -1122,7 +1241,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         oldInfo = info;
       }
 
-      lnX += iconPaneWidth;
+      lnX += iconPaneWidth + 2;
     }
   }
 }
@@ -1134,6 +1253,11 @@ KateIconBorder::BorderArea KateIconBorder::positionToArea( const QPoint& p ) con
     x += iconPaneWidth;
     if( p.x() <= x )
       return IconBorder;
+  }
+  if( this->m_annotationBorderOn ) {
+    x += m_annotationBorderWidth;
+    if( p.x() <= x )
+      return AnnotationBorder;
   }
   if( m_lineNumbersOn || m_dynWrapIndicators ) {
     x += lineNumberWidth();
@@ -1153,7 +1277,7 @@ void KateIconBorder::mousePressEvent( QMouseEvent* e )
   const KateTextLayout& t = m_viewInternal->yToKateTextLayout(e->y());
   if (t.isValid()) {
     m_lastClickedLine = t.line();
-    if ( positionToArea( e->pos() ) != IconBorder )
+    if ( positionToArea( e->pos() ) != IconBorder && positionToArea( e->pos() ) != AnnotationBorder )
     {
       QMouseEvent forward( QEvent::MouseButtonPress,
         QPoint( 0, e->y() ), e->button(), e->buttons(),e->modifiers() );
@@ -1219,6 +1343,8 @@ void KateIconBorder::hideBlock() {
 void KateIconBorder::leaveEvent(QEvent *event)
 {
   hideBlock();
+  removeAnnotationHovering();
+
   QWidget::leaveEvent(event);
 }
 
@@ -1228,12 +1354,34 @@ void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
   if (t.isValid()) {
     if ( positionToArea( e->pos() ) == FoldingMarkers) showBlock(t.line());
     else hideBlock();
+    if ( positionToArea( e->pos() ) == AnnotationBorder )
+    {
+      KTextEditor::AnnotationModel *model = m_view->annotationModel() ?
+        m_view->annotationModel() : m_doc->annotationModel();
+      if (model)
+      {
+        m_hoveredAnnotationText = model->data( t.line(), Qt::DisplayRole ).toString();
+        showAnnotationTooltip( t.line(), e->globalPos() );
+        QTimer::singleShot( 0, this, SLOT(update()) );
+      }
+    }
+    else
+    {
+      m_hoveredAnnotationText = QString();
+      hideAnnotationTooltip();
+      QTimer::singleShot( 0, this, SLOT(update()) );
+    }
     if ( positionToArea( e->pos() ) != IconBorder )
     {
       QMouseEvent forward( QEvent::MouseMove,
         QPoint( 0, e->y() ), e->button(), e->buttons(),e->modifiers() );
       m_viewInternal->mouseMoveEvent( &forward );
     }
+  }
+  else
+  {
+    // remove hovering if it's still there
+    removeAnnotationHovering();
   }
 
   QWidget::mouseMoveEvent(e);
@@ -1271,6 +1419,14 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
         emit toggleRegionVisibility(cursorOnLine);
       }
     }
+
+    if ( area == AnnotationBorder ) {
+      if( e->button() == Qt::LeftButton && KGlobalSettings::singleClick() ) {
+        emit m_view->annotationActivated( m_view, cursorOnLine );
+      } else if ( e->button() == Qt::RightButton ) {
+        showAnnotationMenu( cursorOnLine, e->globalPos() );
+      }
+    }
   }
 
   QMouseEvent forward( QEvent::MouseButtonRelease,
@@ -1280,6 +1436,16 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
 
 void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
 {
+  int cursorOnLine = m_viewInternal->yToKateTextLayout(e->y()).line();
+
+  if (cursorOnLine == m_lastClickedLine &&
+      cursorOnLine <= m_doc->lastLine() )
+  {
+    BorderArea area = positionToArea( e->pos() );
+    if( area == AnnotationBorder && !KGlobalSettings::singleClick() ) {
+      emit m_view->annotationActivated( m_view, cursorOnLine );
+    }
+  }
   QMouseEvent forward( QEvent::MouseButtonDblClick,
     QPoint( 0, e->y() ), e->button(), e->buttons(),e->modifiers() );
   m_viewInternal->mouseDoubleClickEvent( &forward );
@@ -1347,6 +1513,96 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
     }
   }
 }
+
+void KateIconBorder::showAnnotationTooltip( int line, const QPoint& pos )
+{
+  KTextEditor::AnnotationModel *model = m_view->annotationModel() ?
+    m_view->annotationModel() : m_doc->annotationModel();
+
+  if( model )
+  {
+    QVariant data = model->data( line, Qt::ToolTipRole );
+    QString tip = data.toString();
+    if (!tip.isEmpty())
+      QToolTip::showText( pos, data.toString(), this );
+  }
+}
+
+
+int KateIconBorder::annotationLineWidth( int line )
+{
+  KTextEditor::AnnotationModel *model = m_view->annotationModel() ?
+    m_view->annotationModel() : m_doc->annotationModel();
+
+  if( model )
+  {
+    QVariant data = model->data( line, Qt::DisplayRole );
+    return data.toString().length() * m_maxCharWidth + 8;
+  }
+  return 8;
+}
+
+void KateIconBorder::updateAnnotationLine( int line )
+{
+  if( annotationLineWidth(line) > m_annotationBorderWidth )
+  {
+    m_annotationBorderWidth = annotationLineWidth(line);
+    updateGeometry();
+
+    QTimer::singleShot( 0, this, SLOT(update()) );
+  }
+}
+
+void KateIconBorder::showAnnotationMenu( int line, const QPoint& pos)
+{
+  KMenu menu;
+  QAction a("Disable Annotation Bar", &menu);
+  menu.addAction(&a);
+  emit m_view->annotationContextMenuAboutToShow( m_view, &menu, line  );
+  if (menu.exec(pos) == &a)
+    m_view->setAnnotationBorderVisible(false);
+}
+
+void KateIconBorder::hideAnnotationTooltip()
+{
+  QToolTip::hideText();
+}
+
+void KateIconBorder::updateAnnotationBorderWidth( )
+{
+  m_annotationBorderWidth = 6;
+  KTextEditor::AnnotationModel *model = m_view->annotationModel() ?
+    m_view->annotationModel() : m_doc->annotationModel();
+
+  if( model ) {
+    for( int i = 0; i < m_view->doc()->lines(); i++ ) {
+      int curwidth = annotationLineWidth( i );
+      if( curwidth > m_annotationBorderWidth )
+        m_annotationBorderWidth = curwidth;
+    }
+  }
+
+  updateGeometry();
+
+  QTimer::singleShot( 0, this, SLOT(update()) );
+}
+
+
+
+void KateIconBorder::annotationModelChanged( KTextEditor::AnnotationModel * oldmodel, KTextEditor::AnnotationModel * newmodel )
+{
+  if( oldmodel )
+  {
+    oldmodel->disconnect( this );
+  }
+  if( newmodel )
+  {
+    connect( newmodel, SIGNAL(reset()), this, SLOT(updateAnnotationBorderWidth()) );
+    connect( newmodel, SIGNAL(lineChanged( int )), this, SLOT(updateAnnotationLine( int )) );
+  }
+  updateAnnotationBorderWidth();
+}
+
 //END KateIconBorder
 
 KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject *parent)
@@ -1492,6 +1748,7 @@ void KateViewBar::keyPressEvent(QKeyEvent* event)
     return;
   }
   QWidget::keyPressEvent(event);
+
 }
 
 void KateViewBar::hideEvent(QHideEvent* event)
@@ -1503,3 +1760,6 @@ void KateViewBar::hideEvent(QHideEvent* event)
 //END KateViewBar related classes
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
+
+
+

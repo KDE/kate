@@ -226,6 +226,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   lastRedoGroupWhenSaved( 0 ),
   docWasSavedWhenUndoWasEmpty( true ),
   docWasSavedWhenRedoWasEmpty( true ),
+  m_annotationModel( 0 ),
   m_indenter(this),
   m_modOnHd (false),
   m_modOnHdReason (OnDiskUnmodified),
@@ -6276,6 +6277,19 @@ KateDocument::LoadSaveFilterCheckPlugins* KateDocument::loadSaveFilterCheckPlugi
   return s_loadSaveFilterCheckPlugins;
 }
 
+//BEGIN KTextEditor::AnnotationInterface
+void KateDocument::setAnnotationModel( KTextEditor::AnnotationModel* model )
+{
+  KTextEditor::AnnotationModel* oldmodel = m_annotationModel;
+  m_annotationModel = model;
+  emit annotationModelChanged(oldmodel, m_annotationModel);
+}
+
+KTextEditor::AnnotationModel* KateDocument::annotationModel() const
+{
+  return m_annotationModel;
+}
+//END KTextEditor::AnnotationInterface
 
 //TAKEN FROM kparts.h
 bool KateDocument::queryClose()
@@ -6321,9 +6335,6 @@ bool KateDocument::queryClose()
         return false;
     }
 }
-
-
-
 
 // Kill our helpers again
 #ifdef FAST_DEBUG_ENABLE

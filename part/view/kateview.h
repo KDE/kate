@@ -32,6 +32,7 @@
 #include <ktexteditor/templateinterface.h>
 #include <ktexteditor/rangefeedback.h>
 #include <ktexteditor/configinterface.h>
+#include <ktexteditor/annotationinterface.h>
 
 #include <QtCore/QPointer>
 #include <QModelIndex>
@@ -40,6 +41,11 @@
 #include <QtCore/QHash>
 
 #include <kdebug.h>
+
+namespace KTextEditor
+{
+  class AnnotationModel;
+}
 
 class KateDocument;
 class KateBookmarks;
@@ -71,7 +77,8 @@ class KateView : public KTextEditor::View,
                  public KTextEditor::TemplateInterface,
                  public KTextEditor::CodeCompletionInterface,
                  public KTextEditor::ConfigInterface,
-		 private KTextEditor::SmartRangeWatcher
+                 private KTextEditor::SmartRangeWatcher,
+                 public KTextEditor::AnnotationViewInterface
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::TextHintInterface)
@@ -79,6 +86,7 @@ class KateView : public KTextEditor::View,
     Q_INTERFACES(KTextEditor::TemplateInterface)
     Q_INTERFACES(KTextEditor::ConfigInterface)
     Q_INTERFACES(KTextEditor::CodeCompletionInterface)
+    Q_INTERFACES(KTextEditor::AnnotationViewInterface)
     friend class KateViewInternal;
     friend class KateIconBorder;
     friend class KateSearchBar;
@@ -345,6 +353,23 @@ class KateView : public KTextEditor::View,
 
     void updateView (bool changed = false);
   //END
+
+  //
+  // KTextEditor::AnnotationView
+  //
+  public:
+    void setAnnotationModel( KTextEditor::AnnotationModel* model );
+    KTextEditor::AnnotationModel* annotationModel() const;
+    void setAnnotationBorderVisible( bool visible);
+    bool isAnnotationBorderVisible() const;
+
+  Q_SIGNALS:
+    void annotationContextMenuAboutToShow( KTextEditor::View* view, QMenu* menu, int line );
+    void annotationActivated( KTextEditor::View* view, int line );
+    void annotationBorderVisibilityChanged( View* view, bool visible );
+
+  private:
+    KTextEditor::AnnotationModel* m_annotationModel;
 
   //
   // KTextEditor::View

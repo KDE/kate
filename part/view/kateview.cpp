@@ -105,6 +105,7 @@ static void blockFix(KTextEditor::Range& range)
 KateView::KateView( KateDocument *doc, QWidget *parent )
     : KTextEditor::View( parent )
     , m_completionWidget(0)
+    , m_annotationModel(0)
     , m_editActions (0)
     , m_doc( doc )
     , m_spell( new KateSpell( this ) )
@@ -131,7 +132,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   // ugly workaround:
   // Force the layout to be left-to-right even on RTL deskstop, as discussed
   // on the mailing list. This will cause the lines and icons panel to be on
-  // the left, even for Arabic/Hebrew/Farsi/whatever users.  
+  // the left, even for Arabic/Hebrew/Farsi/whatever users.
   setLayoutDirection ( Qt::LeftToRight );
 
   // layouting ;)
@@ -255,6 +256,9 @@ void KateView::setupConnections()
            this, SLOT(slotSaveCanceled(const QString&)) );
   connect( m_viewInternal, SIGNAL(dropEventPass(QDropEvent*)),
            this,           SIGNAL(dropEventPass(QDropEvent*)) );
+
+  connect( m_doc, SIGNAL(annotationModelChanged( KTextEditor::AnnotationModel*, KTextEditor::AnnotationModel* )),
+           m_viewInternal->m_leftBorder, SLOT(annotationModelChanged( KTextEditor::AnnotationModel*, KTextEditor::AnnotationModel* )) );
 
   if ( m_doc->browserView() )
   {
@@ -2510,4 +2514,28 @@ KateGotoBar *KateView::gotoBar ()
   return m_gotoBar;
 }
 
+void KateView::setAnnotationModel( KTextEditor::AnnotationModel* model )
+{
+  KTextEditor::AnnotationModel* oldmodel = m_annotationModel;
+  m_annotationModel = model;
+  m_viewInternal->m_leftBorder->annotationModelChanged(oldmodel, m_annotationModel);
+}
+
+KTextEditor::AnnotationModel* KateView::annotationModel() const
+{
+  return m_annotationModel;
+}
+
+void KateView::setAnnotationBorderVisible( bool visible )
+{
+  m_viewInternal->m_leftBorder->setAnnotationBorderOn( visible );
+}
+
+bool KateView::isAnnotationBorderVisible() const
+{
+  return m_viewInternal->m_leftBorder->annotationBorderOn();
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;
+
+

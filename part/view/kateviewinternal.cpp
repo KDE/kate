@@ -2974,17 +2974,31 @@ void KateViewInternal::dropEvent( QDropEvent* event )
     // use one transaction
     m_doc->editStart ();
 
+
+    
     // on move: remove selected text; on copy: duplicate text
+    KTextEditor::Cursor startCursor1(m_cursor);
     m_doc->insertText(m_cursor, text );
+
+    KateSmartCursor startCursor(startCursor1,m_doc);
 
     if ( event->dropAction() != Qt::CopyAction )
       m_view->removeSelectedText();
 
+    
+
     m_doc->editEnd ();
 
     placeCursor( event->pos() );
-
     event->acceptProposedAction();
+    updateView();
+
+    KateSmartCursor endCursor1(startCursor,m_doc);
+    endCursor1.advance(text.length(),KTextEditor::SmartCursor::ByCharacter);
+    KTextEditor::Cursor endCursor(endCursor1);
+    kDebug()<<startCursor<<"---("<<text.length()<<")---"<<endCursor;
+    m_view->setSelection(KTextEditor::Range(startCursor,endCursor));
+
     updateView();
   }
 

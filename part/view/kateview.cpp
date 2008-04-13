@@ -88,6 +88,8 @@
 #include <QtCore/QTextStream>
 #include <QtCore/QMimeData>
 #include <QtCore/QTextCodec>
+
+#include <kcursor.h>
 //END includes
 
 static void blockFix(KTextEditor::Range& range)
@@ -208,6 +210,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   updateConfig ();
 
   slotHlChanged();
+  KCursor::setAutoHideCursor( this, true );
+  KCursor::setAutoHideCursor( m_viewInternal, true );
   /*test texthint
   connect(this,SIGNAL(needTextHint(int, int, QString &)),
   this,SLOT(slotNeedTextHint(int, int, QString &)));

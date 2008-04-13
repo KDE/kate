@@ -1176,7 +1176,6 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   m_fontMetrics = QFontMetrics(m_font);
   m_fontSet = true;
 
-  kDebug()<<"Loading template colors "<<this;
   m_templateBackgroundColor=config.readEntry(QString("Color Template Background"),QColor(0xcc,0xcc,0xcc));
   m_templateEditablePlaceholderColor = config.readEntry(QString("Color Template Editable Placeholder"),QColor(0xcc,0xff,0xcc));
   m_templateFocusedEditablePlaceholderColor=config.readEntry(QString("Color Template Focused Editable Placeholder"),QColor(0x66,0xff,0x66));

@@ -85,7 +85,7 @@ void KatePartPluginManager::setupPluginList ()
 
 void KatePartPluginManager::addDocument(KTextEditor::Document *doc)
 {
-  kDebug() << doc << endl;
+  //kDebug() << doc << endl;
   for (KatePartPluginList::iterator it = m_pluginList.begin();
       it != m_pluginList.end(); ++it)
   {
@@ -97,7 +97,7 @@ void KatePartPluginManager::addDocument(KTextEditor::Document *doc)
 
 void KatePartPluginManager::removeDocument(KTextEditor::Document *doc)
 {
-  kDebug() << doc << endl;
+  //kDebug() << doc << endl;
   for (KatePartPluginList::iterator it = m_pluginList.begin();
       it != m_pluginList.end(); ++it)
   {
@@ -109,7 +109,7 @@ void KatePartPluginManager::removeDocument(KTextEditor::Document *doc)
 
 void KatePartPluginManager::addView(KTextEditor::View *view)
 {
-  kDebug() << view << endl;
+  //kDebug() << view << endl;
   for (KatePartPluginList::iterator it = m_pluginList.begin();
       it != m_pluginList.end(); ++it)
   {
@@ -121,7 +121,7 @@ void KatePartPluginManager::addView(KTextEditor::View *view)
 
 void KatePartPluginManager::removeView(KTextEditor::View *view)
 {
-  kDebug() << view << endl;
+  //kDebug() << view << endl;
   for (KatePartPluginList::iterator it = m_pluginList.begin();
       it != m_pluginList.end(); ++it)
   {

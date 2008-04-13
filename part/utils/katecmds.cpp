@@ -27,7 +27,6 @@
 #include "katetextline.h"
 #include "katesyntaxmanager.h"
 #include "kateglobal.h"
-#include "katejscript.h"
 #include "katerenderer.h"
 #include "katecmd.h"
 

@@ -41,7 +41,7 @@
 KateScriptManager::KateScriptManager() : KTextEditor::Command()
 {
   // false = force (ignore cache)
-  collect("katepartjscriptrc", "katepart/jscript/*.js", false);
+  collect("katepartscriptrc", "katepart/script/*.js", false);
 }
 
 KateScriptManager::~KateScriptManager()

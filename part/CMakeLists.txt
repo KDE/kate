@@ -18,8 +18,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/completion
   ${CMAKE_CURRENT_SOURCE_DIR}/dialogs
   ${CMAKE_CURRENT_SOURCE_DIR}/document
-  ${CMAKE_CURRENT_SOURCE_DIR}/jscript
-   ${CMAKE_CURRENT_SOURCE_DIR}/script
+  ${CMAKE_CURRENT_SOURCE_DIR}/script
   ${CMAKE_CURRENT_SOURCE_DIR}/mode
   ${CMAKE_CURRENT_SOURCE_DIR}/render
   ${CMAKE_CURRENT_SOURCE_DIR}/smart
@@ -68,7 +67,6 @@ document/kateedit.cpp
 document/kateundo.cpp
 
 # scripting
-#jscript/katejscript.cpp
 script/katescript.cpp
 script/kateindentscript.cpp
 script/katescriptmanager.cpp
@@ -155,9 +153,9 @@ kde4_add_plugin(katepart ${katepart_PART_SRCS})
 target_link_libraries(katepart ${KDE4_KDECORE_LIBS} kutils ktexteditor kjs kde3support QtScript)
 
 if(KDE4_ENABLE_FINAL)
-	macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
+	macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp )
 else(KDE4_ENABLE_FINAL)
-	macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
+	macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/script/katescript.cpp )
 endif(KDE4_ENABLE_FINAL)
 
 # install the stuff

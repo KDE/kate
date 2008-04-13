@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="44">
+<kpartgui name="KatePartView" version="45">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save" group="save_merge" />
@@ -45,14 +45,6 @@
   <Menu name="tools" noMerge="1"><text>&amp;Tools</text>
     <Action name="tools_toggle_write_lock" group="tools_operations" />
     <Separator group="tools_operations" />
-    <Action name="tools_mode" group="tools_operations" />
-    <Action name="tools_highlighting" group="tools_operations" />
-    <Action name="tools_indentation" group="tools_operations" />
-    <Action name="set_encoding" group="tools_operations" />
-    <Action name="set_eol" group="tools_operations" />
-    <Separator group="tools_operations" />
-    <Action name="tools_invoke_code_completion" group="tools_operations" />
-    <Separator group="tools_operations" />
     <Action name="tools_spelling" group="tools_operations" />
     <Action name="tools_spelling_from_cursor" group="tools_operations" />
     <Action name="tools_spelling_selection" group="tools_operations" />
@@ -61,9 +53,6 @@
     <Action name="tools_unindent" group="tools_operations" />
     <Action name="tools_cleanIndent" group="tools_operations" />
     <Action name="tools_align" group="tools_operations" />
-    <Separator group="tools_operations" />
-    <Action name="tools_comment" group="tools_operations" />
-    <Action name="tools_uncomment" group="tools_operations" />
     <Separator group="tools_operations" />
     <Action name="tools_uppercase" group="tools_operations" />
     <Action name="tools_lowercase" group="tools_operations" />
@@ -85,8 +74,6 @@
   <Separator group="popup_operations" />
   <Action name="edit_select_all" group="popup_operations" />
   <Action name="edit_deselect" group="popup_operations" />
-  <Separator group="popup_operations" />
-  <Action name="bookmarks" group="popup_operations" />
   <Separator group="popup_operations" />
 </Menu>
 

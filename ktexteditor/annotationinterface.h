@@ -143,9 +143,7 @@ class KTEXTEDITOR_EXPORT AnnotationModel : public QObject
  *
  * \section annoiface_usage Using the AnnotationInterface
  *
- * To use the interface simply set your own AnnotationModel via the
- * \ref setAnnotationModel() method.
- *
+ * \since 4.1
  * \see KTextEditor::AnnotationModel, KTextEditor::AnnotationViewInterface
  */
 class KTEXTEDITOR_EXPORT AnnotationInterface
@@ -206,6 +204,7 @@ class KTEXTEDITOR_EXPORT AnnotationInterface
  * }
  * \endcode
  *
+ * \since 4.1
  */
 class KTEXTEDITOR_EXPORT AnnotationViewInterface : public AnnotationInterface
 {

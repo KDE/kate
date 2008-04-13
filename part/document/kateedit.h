@@ -144,9 +144,6 @@ class KateEditInfo
     bool isReferenced() const;
 
   private:
-    void undo();
-    void redo();
-
     KateDocument* m_doc;
     Kate::EditSource m_editSource;
     bool m_editBoundary;
@@ -200,8 +197,6 @@ class KateEditHistory : public QObject
     QList<KateEditInfo*> editsBetweenRevisions(int from, int to = -1) const;
 
     void doEdit(KateEditInfo* edit) { buffer()->addEdit(edit); emit editDone(edit); }
-    //void undo();
-    //void redo();
 
   Q_SIGNALS:
     void editDone(KateEditInfo* edit);

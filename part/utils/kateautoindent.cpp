@@ -24,7 +24,8 @@
 #include "kateconfig.h"
 #include "katehighlight.h"
 #include "kateglobal.h"
-#include "katejscript.h"
+#include "kateindentscript.h"
+#include "katescriptmanager.h"
 #include "kateview.h"
 #include "kateextendedattribute.h"
 #include "katedocument.h"
@@ -50,7 +51,7 @@ QStringList KateAutoIndent::listModes ()
 int KateAutoIndent::modeCount ()
 {
   // inbuild modes + scripts
-  return 2 +  KateGlobal::self()->jscriptManager()->indentationScripts();
+  return 2 +  KateGlobal::self()->scriptManager()->indentationScripts();
 }
 
 
@@ -62,7 +63,7 @@ QString KateAutoIndent::modeName (int mode)
   if (mode == 1)
     return QString ("normal");
 
-  return KateGlobal::self()->jscriptManager()->indentationScriptByIndex(mode-2)->basename ();
+  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->information().baseName;
 }
 
 QString KateAutoIndent::modeDescription (int mode)
@@ -73,7 +74,7 @@ QString KateAutoIndent::modeDescription (int mode)
   if (mode == 1)
     return i18nc ("Autoindent mode", "Normal");
 
-  return KateGlobal::self()->jscriptManager()->indentationScriptByIndex(mode-2)->info()->name;
+  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->information().name;
 }
 
 uint KateAutoIndent::modeNumber (const QString &name)
@@ -219,7 +220,7 @@ void KateAutoIndent::setMode (const QString &name)
   }
 
   // handle script indenters, if any for this name...
-  KateIndentJScript *script = KateGlobal::self()->jscriptManager()->indentationScript(name);
+  KateIndentScript *script = KateGlobal::self()->scriptManager()->indenter(name);
   if ( script )
   {
     m_script = script;
@@ -293,11 +294,15 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
     return;
 
   // does the script allow this char as trigger?
+#if 0
   if (typedChar != '\n' && !m_script->triggerCharacters(view).contains(typedChar))
     return;
 
   // let the script indent for us...
   scriptIndent (view, position, typedChar);
+#else
+  return;
+#endif
 }
 //END KateAutoIndent
 

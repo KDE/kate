@@ -26,7 +26,7 @@
 #include "katemodemanager.h"
 #include "kateschema.h"
 #include "kateconfig.h"
-#include "katejscript.h"
+#include "katescriptmanager.h"
 #include "katecmd.h"
 #include "katebuffer.h"
 #include "katepartpluginmanager.h"
@@ -128,9 +128,9 @@ KateGlobal::KateGlobal ()
   m_viewConfig = new KateViewConfig ();
   m_rendererConfig = new KateRendererConfig ();
 
-  // create script man (search scripts) + register commands
-  m_jscriptManager = new KateJScriptManager ();
-  KateCmd::self()->registerCommand (m_jscriptManager);
+  // create script manager (search scripts) + register commands
+  m_scriptManager = new KateScriptManager ();
+  KateCmd::self()->registerCommand (m_scriptManager);
 
   //
   // plugin manager
@@ -166,7 +166,7 @@ KateGlobal::~KateGlobal()
   qDeleteAll (m_cmds);
 
   // cu managers
-  delete m_jscriptManager;
+  delete m_scriptManager;
   delete m_hlManager;
   delete m_cmdManager;
 

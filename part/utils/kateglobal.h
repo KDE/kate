@@ -19,7 +19,7 @@
 #ifndef __KATE_GLOBAL_H__
 #define __KATE_GLOBAL_H__
 
-#include "katejscript.h"
+#include "katescript.h"
 
 #include <ktexteditor/editor.h>
 
@@ -44,7 +44,7 @@ class KateRendererConfig;
 class KateDocument;
 class KateRenderer;
 class KateView;
-class KateJScriptManager;
+class KateScriptManager;
 class KDirWatch;
 class KateHlManager;
 class KateCmd;
@@ -259,9 +259,9 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     KateRendererConfig *rendererConfig () { return m_rendererConfig; }
 
     /**
-     * Global javascript collection
+     * Global script collection
      */
-    KateJScriptManager *jscriptManager () { return m_jscriptManager; }
+    KateScriptManager *scriptManager () { return m_scriptManager; }
 
     /**
      * hl manager
@@ -382,9 +382,9 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     QList<KTextEditor::Command *> m_cmds;
 
     /**
-     * js script manager
+     * script manager
      */
-    KateJScriptManager *m_jscriptManager;
+    KateScriptManager *m_scriptManager;
 
     /**
      * hl manager

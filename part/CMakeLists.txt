@@ -11,7 +11,7 @@ add_subdirectory( syntax/data )
 add_subdirectory( jscript/data )
 
 add_subdirectory( plugins )
-add_subdirectory( tests )
+# add_subdirectory( tests )
 
 # includes
 include_directories(
@@ -19,6 +19,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/dialogs
   ${CMAKE_CURRENT_SOURCE_DIR}/document
   ${CMAKE_CURRENT_SOURCE_DIR}/jscript
+   ${CMAKE_CURRENT_SOURCE_DIR}/script
   ${CMAKE_CURRENT_SOURCE_DIR}/mode
   ${CMAKE_CURRENT_SOURCE_DIR}/render
   ${CMAKE_CURRENT_SOURCE_DIR}/smart
@@ -31,14 +32,14 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/kutils
   ${KDE4_KIO_INCLUDES})
 
-# kjs hash stuff
-set(CREATE_HASH_TABLE ${CMAKE_SOURCE_DIR}/kjs/create_hash_table )
-
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
-   COMMAND ${PERL_EXECUTABLE} ${CREATE_HASH_TABLE} ${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp -n Kate >
-   ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
-   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp
-)
+## kjs hash stuff
+#set(CREATE_HASH_TABLE ${CMAKE_SOURCE_DIR}/kjs/create_hash_table )
+#
+#add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
+#   COMMAND ${PERL_EXECUTABLE} ${CREATE_HASH_TABLE} ${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp -n Kate >
+#   ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
+#   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp
+#)
 
 # our sources
 set(katepart_PART_SRCS
@@ -67,7 +68,10 @@ document/kateedit.cpp
 document/kateundo.cpp
 
 # scripting
-jscript/katejscript.cpp
+#jscript/katejscript.cpp
+script/katescript.cpp
+script/kateindentscript.cpp
+script/katescriptmanager.cpp
 
 # mode (modemanager and co)
 mode/katemodemanager.cpp
@@ -146,11 +150,13 @@ kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 kde4_add_plugin(katepart ${katepart_PART_SRCS})
 
 # linking
-target_link_libraries(katepart ${KDE4_KDECORE_LIBS} kutils ktexteditor kjs kde3support )
+# XX adding QtScript here probably isn't the right way to do it (e.g there are no checks that
+# it exist). Suggestions?
+target_link_libraries(katepart ${KDE4_KDECORE_LIBS} kutils ktexteditor kjs kde3support QtScript)
 
 if(KDE4_ENABLE_FINAL)
 	macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
-else(KDE4_ENABLE_FINAL)		
+else(KDE4_ENABLE_FINAL)
 	macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h )
 endif(KDE4_ENABLE_FINAL)
 
@@ -170,15 +176,15 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
 
 #include_directories( ${KDE4_KDECORE_INCLUDES} )
 
-set(testkateregression_SRCS ${katepart_PART_SRCS} tests/test_regression.cpp tests/test_regression.h )
+# set(testkateregression_SRCS ${katepart_PART_SRCS} tests/test_regression.cpp tests/test_regression.h )
 
 
-kde4_add_executable(testkateregression NOGUI RUN_UNINSTALLED ${testkateregression_SRCS})
+# kde4_add_executable(testkateregression NOGUI RUN_UNINSTALLED ${testkateregression_SRCS})
 
-target_link_libraries(testkateregression  ${KDE4_KDECORE_LIBS} kutils ktexteditor kjs kde3support )
+# target_link_libraries(testkateregression  ${KDE4_KDECORE_LIBS} kutils ktexteditor kjs kde3support )
 
 #add_dependencies(check testkateregression)
 
-add_custom_target(check ${CMAKE_CURRENT_BINARY_DIR}/testkateregression DEPENDS testkateregression WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
+# add_custom_target(check ${CMAKE_CURRENT_BINARY_DIR}/testkateregression DEPENDS testkateregression WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
 
 endif(NOT MINGW)

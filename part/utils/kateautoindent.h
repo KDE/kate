@@ -27,7 +27,7 @@
 #include <kactionmenu.h>
 
 class KateDocument;
-class KateIndentJScript;
+class KateIndentScript;
 
 /**
  * Provides Auto-Indent functionality for katepart.
@@ -190,7 +190,7 @@ class KateAutoIndent
     bool  keepExtra;    //!< Keep indentation that is not on indentation boundaries
     QString m_mode;
     bool m_normal;
-    KateIndentJScript *m_script;
+    KateIndentScript *m_script;
 };
 
 /**

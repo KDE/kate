@@ -201,6 +201,9 @@ class KateDocumentConfig : public KateConfig
     bool allowEolDetection () const;
     void setAllowEolDetection (bool on);
 
+    bool allowSimpleMode () const;
+    void setAllowSimpleMode (bool on);
+
     enum BackupFlags
     {
       LocalFiles=1,
@@ -235,6 +238,7 @@ class KateDocumentConfig : public KateConfig
     bool m_wordWrap;
     bool m_pageUpDownMovesCursor;
     bool m_allowEolDetection;
+    bool m_allowSimpleMode;
     int m_eol;
     uint m_backupFlags;
     int m_searchDirConfigDepth;
@@ -253,6 +257,7 @@ class KateDocumentConfig : public KateConfig
     bool m_encodingSet : 1;
     bool m_eolSet : 1;
     bool m_allowEolDetectionSet : 1;
+    bool m_allowSimpleModeSet : 1;
     bool m_backupFlagsSet : 1;
     bool m_searchDirConfigDepthSet : 1;
     bool m_backupPrefixSet : 1;

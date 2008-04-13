@@ -1,23 +1,34 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="40">
+<kpartgui name="KatePartView" version="43">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
+    <Action name="file_save" group="save_merge" />
     <Action name="file_save_as" group="save_merge" />
     <Action name="file_reload" group="revert_merge" />
+    <Action name="file_print" group="print_merge" />
     <Separator group="print_merge" />
     <Action name="file_export_html" group="print_merge"/>
   </Menu>
 
   <Menu name="edit" noMerge="1"><text>&amp;Edit</text>
+    <Action name="edit_undo" group="edit_undo_merge" />
+    <Action name="edit_redo" group="edit_undo_merge" />
+    <Separator group="edit_undo_merge" />
+    <Action name="edit_cut" group="edit_paste_merge" />
+    <Action name="edit_copy" group="edit_paste_merge" />
     <Action name="edit_copy_html" group="edit_paste_merge" />
+    <Action name="edit_paste" group="edit_paste_merge" />
     <Separator group="edit_paste_merge" />
     <Action name="edit_select_all" group="edit_select_merge" />
     <Action name="edit_deselect" group="edit_select_merge" />
     <Action name="set_verticalSelect" group="edit_select_merge" />
     <Separator group="edit_select_merge" />
+    <Action name="set_insert" group="edit_select_merge" />
+    <Separator group="edit_select_merge" />
     <Action name="edit_find" group="edit_find_merge" />
     <Action name="edit_find_next" group="edit_find_merge" />
     <Action name="edit_find_prev" group="edit_find_merge" />
+    <Action name="edit_replace" group="edit_find_merge" />
     <Action name="edit_find_selected" group="edit_find_merge" />
     <Action name="edit_find_selected_backwards" group="edit_find_merge" />
     <Separator group="edit_find_merge" />
@@ -47,16 +58,22 @@
     <Separator group="view_operations" />
   </Menu>
 
+  <Action name="bookmarks" />
 
-  <Menu name="tools"><text>&amp;Tools</text>
-    <Action name="bookmarks" />
+  <Menu name="tools" noMerge="1"><text>&amp;Tools</text>
+    <Action name="tools_toggle_write_lock" group="tools_operations" />
     <Separator group="tools_operations" />
-    <Action name="set_filetype" group="tools_operations" />
-    <Action name="set_highlight" group="tools_operations" />
+    <Action name="tools_mode" group="tools_operations" />
+    <Action name="tools_highlighting" group="tools_operations" />
+    <Action name="tools_indentation" group="tools_operations" />
     <Action name="set_encoding" group="tools_operations" />
     <Action name="set_eol" group="tools_operations" />
     <Separator group="tools_operations" />
+    <Action name="tools_invoke_code_completion" group="tools_operations" />
+    <Separator group="tools_operations" />
     <Action name="tools_spelling" group="tools_operations" />
+    <Action name="tools_spelling_from_cursor" group="tools_operations" />
+    <Action name="tools_spelling_selection" group="tools_operations" />
     <Separator group="tools_operations" />
     <Action name="tools_indent" group="tools_operations" />
     <Action name="tools_unindent" group="tools_operations" />
@@ -79,22 +96,23 @@
   </Menu>
 </MenuBar>
 
-<Menu name="ktexteditor_popup" noMerge="1">
-  <Action name="edit_undo" group="popup_operations" />
-  <Action name="edit_redo" group="popup_operations" />
-  <Separator group="popup_operations" />
+<Menu name="ktexteditor_popup" noMerge="0">
   <Action name="edit_cut" group="popup_operations" />
   <Action name="edit_copy" group="popup_operations" />
   <Action name="edit_paste" group="popup_operations" />
+  <Separator group="popup_operations" />
+  <Action name="edit_select_all" group="popup_operations" />
+  <Action name="edit_deselect" group="popup_operations" />
   <Separator group="popup_operations" />
   <Action name="bookmarks" group="popup_operations" />
   <Separator group="popup_operations" />
 </Menu>
 
 <ToolBar name="mainToolBar" noMerge="1"><text>Main Toolbar</text>
-  <Action name="edit_find" group="find_operations" />
-  <Action name="incFontSizes" group="zoom_operations" />
-  <Action name="decFontSizes" group="zoom_operations" />
+  <Action name="file_save" group="file_operations" />
+  <Action name="file_save_as" group="file_operations" />
+  <Action name="edit_undo" group="edit_operations" />
+  <Action name="edit_redo" group="edit_operations" />
 </ToolBar>
 
 </kpartgui>

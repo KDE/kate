@@ -100,6 +100,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_encodingSet (true),
    m_eolSet (true),
    m_allowEolDetectionSet (false),
+   m_allowSimpleModeSet (false),
    m_backupFlagsSet (true),
    m_searchDirConfigDepthSet (true),
    m_backupPrefixSet (true),
@@ -126,6 +127,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_encodingSet (false),
    m_eolSet (false),
    m_allowEolDetectionSet (false),
+   m_allowSimpleModeSet (false),
    m_backupFlagsSet (false),
    m_searchDirConfigDepthSet (false),
    m_backupPrefixSet (false),
@@ -166,6 +168,8 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   setEol (config.readEntry("End of Line", 0));
   setAllowEolDetection (config.readEntry("Allow End of Line Detection", true));
 
+  setAllowSimpleMode (config.readEntry("Allow Simple Mode", true));
+
   setBackupFlags (config.readEntry("Backup Config Flags", 1));
 
   setSearchDirConfigDepth (config.readEntry("Search Dir Config Depth", 3));
@@ -198,6 +202,8 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
 
   config.writeEntry("End of Line", eol());
   config.writeEntry("Allow End of Line Detection", allowEolDetection());
+
+  config.writeEntry("Allow Simple Mode", allowSimpleMode());
 
   config.writeEntry("Backup Config Flags", backupFlags());
 
@@ -516,6 +522,25 @@ void KateDocumentConfig::setAllowEolDetection (bool on)
 
   m_allowEolDetectionSet = true;
   m_allowEolDetection = on;
+
+  configEnd ();
+}
+
+
+bool KateDocumentConfig::allowSimpleMode () const
+{
+  if (m_allowSimpleModeSet || isGlobal())
+    return m_allowSimpleMode;
+
+  return s_global->allowSimpleMode();
+}
+
+void KateDocumentConfig::setAllowSimpleMode (bool on)
+{
+  configStart ();
+
+  m_allowSimpleModeSet = true;
+  m_allowSimpleMode = on;
 
   configEnd ();
 }

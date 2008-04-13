@@ -6266,6 +6266,10 @@ bool KateDocument::isSmartLocked() const
   return smartLocked;
 }
 
+bool KateDocument::simpleMode () const
+{
+  return KateGlobal::self()->simpleMode () && config()->allowSimpleMode ();
+}
 
 KateDocument::LoadSaveFilterCheckPlugins* KateDocument::loadSaveFilterCheckPlugins()
 {

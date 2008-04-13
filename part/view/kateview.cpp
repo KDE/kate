@@ -184,14 +184,14 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   setFocusProxy( m_viewInternal );
   setFocusPolicy( Qt::StrongFocus );
 
-  if (!doc->singleViewMode()) {
-    setXMLFile( "katepartui.rc" );
-  } else {
-    if( doc->readOnly() )
-      setXMLFile( "katepartreadonlyui.rc" );
-    else
-      setXMLFile( "katepartui.rc" );
-  }
+  // default ui file with all features
+  QString uifile = "katepartui.rc";
+
+  // simple mode
+  if (doc->simpleMode ())
+    uifile = "katepartsimpleui.rc";
+
+  setXMLFile( uifile );
 
   setupConnections();
   setupActions();

@@ -70,6 +70,9 @@ class KateFactory : public KTextEditor::Factory
       // should we be readonly?
       bool bWantReadOnly = (bWantBrowserView || ( classname == "KParts::ReadOnlyPart" ));
 
+      // set simple mode on for read-only part per default
+      KateGlobal::self ()->setSimpleMode (bWantReadOnly);
+
       KParts::ReadWritePart *part = new KateDocument (bWantSingleView, bWantBrowserView, bWantReadOnly, parentWidget, parent);
       part->setReadWrite( !bWantReadOnly );
 

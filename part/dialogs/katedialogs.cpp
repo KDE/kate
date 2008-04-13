@@ -487,6 +487,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   connect(ui->rbSortBookmarksByCreation, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkShowIndentationLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkShowWholeBracketExpression, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkDeveloperMode, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
 KateViewDefaultsConfig::~KateViewDefaultsConfig()
@@ -516,6 +517,8 @@ void KateViewDefaultsConfig::apply ()
   KateRendererConfig::global()->setShowIndentationLines(ui->chkShowIndentationLines->isChecked());
   KateRendererConfig::global()->setShowWholeBracketExpression(ui->chkShowWholeBracketExpression->isChecked());
 
+  KateDocumentConfig::global()->setAllowSimpleMode (!ui->chkDeveloperMode->isChecked());
+
   KateRendererConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
 }
@@ -533,6 +536,7 @@ void KateViewDefaultsConfig::reload ()
   ui->rbSortBookmarksByCreation->setChecked(KateViewConfig::global()->bookmarkSort()==1);
   ui->chkShowIndentationLines->setChecked(KateRendererConfig::global()->showIndentationLines());
   ui->chkShowWholeBracketExpression->setChecked(KateRendererConfig::global()->showWholeBracketExpression());
+  ui->chkDeveloperMode->setChecked(!KateDocumentConfig::global()->allowSimpleMode());
 }
 
 void KateViewDefaultsConfig::reset () {;}

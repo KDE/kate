@@ -46,6 +46,8 @@ class View;
  * interfaces. It only has a single method to override which is the \ref data()
  * method to provide the actual data for a line and role combination.
  *
+ * \since 4.1
+ * \see KTextEditor::AnnotationInterface, KTextEditor::AnnotationViewInterface
  */
 class KTEXTEDITOR_EXPORT AnnotationModel : public QObject
 {
@@ -57,7 +59,7 @@ class KTEXTEDITOR_EXPORT AnnotationModel : public QObject
     /**
      * data() is used to retrieve the information needed to present the
      * annotation information from the annotation model. The provider
-     * should return useful information at least for the
+     * should return useful information for the line and the data role.
      *
      * \param line the line for which the data is to be retrieved
      * \param role the role to identify which kind of annotation is to be retrieved
@@ -73,8 +75,26 @@ class KTEXTEDITOR_EXPORT AnnotationModel : public QObject
     virtual QVariant data( int line, Qt::ItemDataRole role ) const = 0;
 
   Q_SIGNALS:
-    virtual void reset() = 0;
-    virtual void lineChanged( int line ) = 0;
+    /**
+     * The model should emit the signal reset() when the text of almost all
+     * lines changes. In most cases it is enough to call lineChanged().
+     *
+     * \note Kate Part implementation details: Whenever reset() is emitted Kate
+     *       Part iterates over all lines of the document. Kate Part searches
+     *       for the longest text to determine the annotation border's width.
+     *
+     * \see lineChanged()
+     */
+    void reset();
+
+    /**
+     * The model should emit the signal lineChanged() when a line has to be
+     * updated.
+     *
+     * \note Kate Part implementation details: lineChanged() repaints the whole
+     *       annotation border automatically.
+     */
+    void lineChanged( int line );
 };
 
 
@@ -87,8 +107,22 @@ class KTEXTEDITOR_EXPORT AnnotationModel : public QObject
  *
  * The AnnotationInterface is designed to provide line annotation information
  * for a document. This interface provides means to associate a document with a
- * line annotation provider, which provides some annotation information for
- * each line in the document.
+ * annotation model, which provides some annotation information for each line
+ * in the document.
+ *
+ * Setting a model for a Document makes the model data available for all views.
+ * If you only want to provide annotations in exactly one view, you can use
+ * the AnnotationViewInterface directly. See the AnnotationViewInterface for
+ * further details. To summarize, the two use cases are
+ * - (1) show annotations in all views. This means you set an AnnotationModel
+ *       with this interface, and then call setAnnotationBorderVisible() for
+ *       each view.
+ * - (2) show annotations only in one view. This means to \e not use this
+ *       interface. Instead, use the AnnotationViewInterface, which inherits
+ *       this interface. This means you set a model for the specific View.
+ *
+ * If you set a model to the Document \e and the View, the View's model has
+ * higher priority.
  *
  * \section annoiface_access Accessing the AnnotationInterface
  *
@@ -112,7 +146,7 @@ class KTEXTEDITOR_EXPORT AnnotationModel : public QObject
  * To use the interface simply set your own AnnotationModel via the
  * \ref setAnnotationModel() method.
  *
- * \see KTextEditor::AnnotationModel
+ * \see KTextEditor::AnnotationModel, KTextEditor::AnnotationViewInterface
  */
 class KTEXTEDITOR_EXPORT AnnotationInterface
 {
@@ -144,21 +178,26 @@ class KTEXTEDITOR_EXPORT AnnotationInterface
  *
  * \section annoview_intro Introduction
  *
- * The AnnotationViewInterface provides means to interact with the
- * annotation border that is provided for annotated documents. This interface
- * allows to react on clicks, double clicks on and provde context menus for the
- * annotation border.
+ * The AnnotationViewInterface allows to do two things:
+ * - (1) show/hide the annotation border along with the possibility to add actions
+ *       into its context menu.
+ * - (2) set a separate AnnotationModel for the View: Not that this interface
+ *       inherits the AnnotationInterface.
+ *
+ * For a more detailed explanation about whether you want an AnnotationModel
+ * in the Document or the View, read the detailed documentation about the
+ * AnnotationInterface.
  *
  * \section annoview_access Accessing the AnnotationViewInterface
  *
- * The AnnoationViewInterface is an extension interface for a
+ * The AnnotationViewInterface is an extension interface for a
  * View, i.e. the View inherits the interface \e provided that the
  * used KTextEditor library implements the interface. Use qobject_cast to
  * access the interface:
  * \code
  * // view is of type KTextEditor::View*
  * KTextEditor::AnnotationViewInterface *iface =
- *     qobject_cast<KTextEditor::AnnoationViewInterface*>( view );
+ *     qobject_cast<KTextEditor::AnnotationViewInterface*>( view );
  *
  * if( iface ) {
  *     // the implementation supports the interface
@@ -175,12 +214,14 @@ class KTEXTEDITOR_EXPORT AnnotationViewInterface : public AnnotationInterface
 
     /**
      * This function can be used to show or hide the annotation border
-     * @param visible if true the annotation border is shown, else its hidden.
+     * The annotation border is hidden by default.
+     *
+     * @param visible if \e true the annotation border is shown, otherwise hidden
      */
     virtual void setAnnotationBorderVisible( bool visible ) = 0;
 
     /**
-     * Checks whether the annotation border is visible for the view.
+     * Checks whether the View's annotation border is visible.
      */
     virtual bool isAnnotationBorderVisible() const = 0;
 
@@ -191,13 +232,17 @@ class KTEXTEDITOR_EXPORT AnnotationViewInterface : public AnnotationInterface
     /**
      * This signal is emitted before a context menu is shown on the annotation
      * border for the given line and view.
+     *
+     * \note Kate Part implementation detail: In Kate Part, the menu has an
+     *       entry to hide the annotation border.
+     *
      * \param view the view that the annotation border belongs to
      * \param menu the context menu that will be shown
      * \param line the annotated line for which the context menu is shown
      *
      * \see setAnnotationContextMenu()
      */
-    virtual void annotationContextMenuAboutToShow( View* view, QMenu* menu, int line ) = 0;
+    virtual void annotationContextMenuAboutToShow( KTextEditor::View* view, QMenu* menu, int line ) = 0;
 
     /**
      * This signal is emitted when an entry on the annotation border was activated,
@@ -207,7 +252,7 @@ class KTEXTEDITOR_EXPORT AnnotationViewInterface : public AnnotationInterface
      * \param view the view to which the activated border belongs to
      * \param line the document line that the activated posistion belongs to
      */
-    virtual void annotationActivated( View* view, int line ) = 0;
+    virtual void annotationActivated( KTextEditor::View* view, int line ) = 0;
 
     /**
      * This signal is emitted when the annotation border is shown or hidden.
@@ -215,7 +260,7 @@ class KTEXTEDITOR_EXPORT AnnotationViewInterface : public AnnotationInterface
      * \param view the view to which the border belongs to
      * \param visible the current visibility state
      */
-    virtual void annotationBorderVisibilityChanged( View* view, bool visible ) = 0;
+    virtual void annotationBorderVisibilityChanged( KTextEditor::View* view, bool visible ) = 0;
 
 };
 

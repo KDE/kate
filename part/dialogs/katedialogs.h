@@ -80,6 +80,7 @@ namespace Ui
   class EditConfigWidget;
   class IndentationConfigWidget;
   class OpenSaveConfigWidget;
+  class OpenSaveConfigAdvWidget;
 }
 
 class KateConfigPage : public KTextEditor::ConfigPage
@@ -257,6 +258,7 @@ class KateSaveConfigTab : public KateConfigPage
 
   private:
     Ui::OpenSaveConfigWidget* ui;
+    Ui::OpenSaveConfigAdvWidget* uiadv;
     ModeConfigPage *modeConfigPage;
 };
 

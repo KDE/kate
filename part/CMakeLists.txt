@@ -133,6 +133,7 @@ dialogs/editconfigwidget.ui
 dialogs/filetypeconfigwidget.ui
 dialogs/indentationconfigwidget.ui
 dialogs/opensaveconfigwidget.ui
+dialogs/opensaveconfigadvwidget.ui
 dialogs/modonhdwidget.ui
 dialogs/schemaconfigcolortab.ui
 dialogs/completionconfigwidget.ui

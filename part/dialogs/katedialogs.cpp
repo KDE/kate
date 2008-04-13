@@ -46,6 +46,7 @@
 #include "ui_editconfigwidget.h"
 #include "ui_indentationconfigwidget.h"
 #include "ui_opensaveconfigwidget.h"
+#include "ui_opensaveconfigadvwidget.h"
 
 #include <ktexteditor/plugin.h>
 
@@ -606,7 +607,11 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   ui = new Ui::OpenSaveConfigWidget();
   ui->setupUi( newWidget );
 
-//  layout->setSpacing( KDialog::spacingHint() );
+  QWidget *tmpWidget2 = new QWidget(tabWidget);
+  QVBoxLayout *internalLayout2 = new QVBoxLayout;
+  QWidget *newWidget2 = new QWidget(tabWidget);
+  uiadv = new Ui::OpenSaveConfigAdvWidget();
+  uiadv->setupUi( newWidget2 );
 
   // What's this help is added in ui/opensaveconfigwidget.ui
   reload();
@@ -620,18 +625,21 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect( ui->cmbEOL, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect( ui->chkDetectEOL, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect( ui->chkBackupLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect( ui->chkBackupRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect( ui->sbConfigFileSearchDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  connect( ui->edtBackupPrefix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-  connect( ui->edtBackupSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( uiadv->chkBackupLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( uiadv->chkBackupRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( uiadv->sbConfigFileSearchDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  connect( uiadv->edtBackupPrefix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( uiadv->edtBackupSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 
   internalLayout->addWidget(newWidget);
   tmpWidget->setLayout(internalLayout);
+  internalLayout2->addWidget(newWidget2);
+  tmpWidget2->setLayout(internalLayout2);
 
   // add all tabs
   tabWidget->insertTab(0, tmpWidget, i18n("General"));
-  tabWidget->insertTab(1, modeConfigPage, i18n("Modes & Filetypes"));
+  tabWidget->insertTab(1, tmpWidget2, i18n("Advanced"));
+  tabWidget->insertTab(2, modeConfigPage, i18n("Modes & Filetypes"));
 
   connect(modeConfigPage, SIGNAL(changed()), this, SLOT(slotChanged()));
 
@@ -655,26 +663,26 @@ void KateSaveConfigTab::apply()
 
   KateDocumentConfig::global()->configStart ();
 
-  if ( ui->edtBackupSuffix->text().isEmpty() && ui->edtBackupPrefix->text().isEmpty() ) {
+  if ( uiadv->edtBackupSuffix->text().isEmpty() && uiadv->edtBackupPrefix->text().isEmpty() ) {
     KMessageBox::information(
                 this,
                 i18n("You did not provide a backup suffix or prefix. Using default suffix: '~'"),
                 i18n("No Backup Suffix or Prefix")
                         );
-    ui->edtBackupSuffix->setText( "~" );
+    uiadv->edtBackupSuffix->setText( "~" );
   }
 
   uint f( 0 );
-  if ( ui->chkBackupLocalFiles->isChecked() )
+  if ( uiadv->chkBackupLocalFiles->isChecked() )
     f |= KateDocumentConfig::LocalFiles;
-  if ( ui->chkBackupRemoteFiles->isChecked() )
+  if ( uiadv->chkBackupRemoteFiles->isChecked() )
     f |= KateDocumentConfig::RemoteFiles;
 
   KateDocumentConfig::global()->setBackupFlags(f);
-  KateDocumentConfig::global()->setBackupPrefix(ui->edtBackupPrefix->text());
-  KateDocumentConfig::global()->setBackupSuffix(ui->edtBackupSuffix->text());
+  KateDocumentConfig::global()->setBackupPrefix(uiadv->edtBackupPrefix->text());
+  KateDocumentConfig::global()->setBackupSuffix(uiadv->edtBackupSuffix->text());
 
-  KateDocumentConfig::global()->setSearchDirConfigDepth(ui->sbConfigFileSearchDepth->value());
+  KateDocumentConfig::global()->setSearchDirConfigDepth(uiadv->sbConfigFileSearchDepth->value());
 
   uint configFlags = KateDocumentConfig::global()->configFlags();
 
@@ -743,14 +751,14 @@ void KateSaveConfigTab::reload()
 
   const uint configFlags = KateDocumentConfig::global()->configFlags();
   ui->chkRemoveTrailingSpaces->setChecked(configFlags & KateDocumentConfig::cfRemoveSpaces);
-  ui->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
+  uiadv->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
 
   // other stuff
   uint f ( KateDocumentConfig::global()->backupFlags() );
-  ui->chkBackupLocalFiles->setChecked( f & KateDocumentConfig::LocalFiles );
-  ui->chkBackupRemoteFiles->setChecked( f & KateDocumentConfig::RemoteFiles );
-  ui->edtBackupPrefix->setText( KateDocumentConfig::global()->backupPrefix() );
-  ui->edtBackupSuffix->setText( KateDocumentConfig::global()->backupSuffix() );
+  uiadv->chkBackupLocalFiles->setChecked( f & KateDocumentConfig::LocalFiles );
+  uiadv->chkBackupRemoteFiles->setChecked( f & KateDocumentConfig::RemoteFiles );
+  uiadv->edtBackupPrefix->setText( KateDocumentConfig::global()->backupPrefix() );
+  uiadv->edtBackupSuffix->setText( KateDocumentConfig::global()->backupSuffix() );
 }
 
 void KateSaveConfigTab::reset()
@@ -762,10 +770,10 @@ void KateSaveConfigTab::defaults()
 {
   modeConfigPage->defaults();
 
-  ui->chkBackupLocalFiles->setChecked( true );
-  ui->chkBackupRemoteFiles->setChecked( false );
-  ui->edtBackupPrefix->setText( "" );
-  ui->edtBackupSuffix->setText( "~" );
+  uiadv->chkBackupLocalFiles->setChecked( true );
+  uiadv->chkBackupRemoteFiles->setChecked( false );
+  uiadv->edtBackupPrefix->setText( "" );
+  uiadv->edtBackupSuffix->setText( "~" );
 }
 
 //END KateSaveConfigTab

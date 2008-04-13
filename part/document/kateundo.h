@@ -104,14 +104,14 @@ class KateUndoGroup
      * singleType
      * @return the type if it's only one type, or editInvalid if it contains multiple types.
      */
-    KateUndoGroup::UndoType singleType();
+    KateUndoGroup::UndoType singleType() const;
 
     /**
      * are we only of this type ?
      * @param type type to query
      * @return we contain only the given type
      */
-    bool isOnlyType(KateUndoGroup::UndoType type);
+    bool isOnlyType(KateUndoGroup::UndoType type) const;
 
     /**
      * add an undo item

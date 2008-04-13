@@ -52,7 +52,7 @@
      * (and probably better here too)
      * @return validity
      */
-    bool isValid();
+    bool isValid() const;
 
     /**
      * merge an undo item
@@ -154,7 +154,7 @@ KateUndo::~KateUndo ()
 {
 }
 
-bool KateUndo::isValid()
+bool KateUndo::isValid() const
 {
   if (m_type == KateUndoGroup::editInsertText || m_type == KateUndoGroup::editRemoveText)
     if (len() == 0)
@@ -191,65 +191,61 @@ bool KateUndo::merge(KateUndo* u)
 
 void KateUndo::undo (KateDocument *doc)
 {
-  if (m_type == KateUndoGroup::editInsertText)
-  {
-    doc->editRemoveText (m_line, m_col, m_len);
-  }
-  else if (m_type == KateUndoGroup::editRemoveText)
-  {
-    doc->editInsertText (m_line, m_col, m_text);
-  }
-  else if (m_type == KateUndoGroup::editWrapLine)
-  {
-    doc->editUnWrapLine (m_line, (m_text == "1"), m_len);
-  }
-  else if (m_type == KateUndoGroup::editUnWrapLine)
-  {
-    doc->editWrapLine (m_line, m_col, (m_text == "1"));
-  }
-  else if (m_type == KateUndoGroup::editInsertLine)
-  {
-    doc->editRemoveLine (m_line);
-  }
-  else if (m_type == KateUndoGroup::editRemoveLine)
-  {
-    doc->editInsertLine (m_line, m_text);
-  }
-  else if (m_type == KateUndoGroup::editMarkLineAutoWrapped)
-  {
-    doc->editMarkLineAutoWrapped (m_line, m_col == 0);
+  switch(m_type) {
+    case KateUndoGroup::editInsertText:
+      doc->editRemoveText (m_line, m_col, m_len);
+      break;
+    case KateUndoGroup::editRemoveText:
+      doc->editInsertText (m_line, m_col, m_text);
+      break;
+    case KateUndoGroup::editWrapLine:
+      doc->editUnWrapLine (m_line, (m_text == "1"), m_len);
+      break;
+    case KateUndoGroup::editUnWrapLine:
+      doc->editWrapLine (m_line, m_col, (m_text == "1"));
+      break;
+    case KateUndoGroup::editInsertLine:
+      doc->editRemoveLine (m_line);
+      break;
+    case KateUndoGroup::editRemoveLine:
+      doc->editInsertLine (m_line, m_text);
+      break;
+    case KateUndoGroup::editMarkLineAutoWrapped:
+      doc->editMarkLineAutoWrapped (m_line, m_col == 0);
+      break;
+    default:
+      kDebug(13020) << "Unknown KateUndoGroup enum:" << static_cast<unsigned int>(m_type);
+      break;
   }
 }
 
 void KateUndo::redo (KateDocument *doc)
 {
-  if (m_type == KateUndoGroup::editRemoveText)
-  {
-    doc->editRemoveText (m_line, m_col, m_len);
-  }
-  else if (m_type == KateUndoGroup::editInsertText)
-  {
-    doc->editInsertText (m_line, m_col, m_text);
-  }
-  else if (m_type == KateUndoGroup::editUnWrapLine)
-  {
-    doc->editUnWrapLine (m_line, (m_text == "1"), m_len);
-  }
-  else if (m_type == KateUndoGroup::editWrapLine)
-  {
-    doc->editWrapLine (m_line, m_col, (m_text == "1"));
-  }
-  else if (m_type == KateUndoGroup::editRemoveLine)
-  {
-    doc->editRemoveLine (m_line);
-  }
-  else if (m_type == KateUndoGroup::editInsertLine)
-  {
-    doc->editInsertLine (m_line, m_text);
-  }
-  else if (m_type == KateUndoGroup::editMarkLineAutoWrapped)
-  {
-    doc->editMarkLineAutoWrapped (m_line, m_col == 1);
+  switch(m_type) {
+    case KateUndoGroup::editRemoveText:
+      doc->editRemoveText (m_line, m_col, m_len);
+      break;
+    case KateUndoGroup::editInsertText:
+      doc->editInsertText (m_line, m_col, m_text);
+      break;
+    case KateUndoGroup::editUnWrapLine:
+      doc->editUnWrapLine (m_line, (m_text == "1"), m_len);
+      break;
+    case KateUndoGroup::editWrapLine:
+      doc->editWrapLine (m_line, m_col, (m_text == "1"));
+      break;
+    case KateUndoGroup::editRemoveLine:
+      doc->editRemoveLine (m_line);
+      break;
+    case KateUndoGroup::editInsertLine:
+      doc->editInsertLine (m_line, m_text);
+      break;
+    case KateUndoGroup::editMarkLineAutoWrapped:
+      doc->editMarkLineAutoWrapped (m_line, m_col == 1);
+      break;
+    default:
+      kDebug(13020) << "Unknown KateUndoGroup enum:" << static_cast<unsigned int>(m_type);
+      break;
   }
 }
 
@@ -360,30 +356,31 @@ bool KateUndoGroup::merge(KateUndoGroup* newGroup,bool complex)
   return false;
 }
 
-void KateUndoGroup::safePoint (bool safePoint) {
+void KateUndoGroup::safePoint (bool safePoint)
+{
   m_safePoint=safePoint;
 }
 
-KateUndoGroup::UndoType KateUndoGroup::singleType()
+KateUndoGroup::UndoType KateUndoGroup::singleType() const
 {
   KateUndoGroup::UndoType ret = editInvalid;
 
-  for (int i=0; i < m_items.size(); ++i) {
+  Q_FOREACH(const KateUndo *item, m_items) {
     if (ret == editInvalid)
-      ret = m_items[i]->type();
-    else if (ret != m_items[i]->type())
+      ret = item->type();
+    else if (ret != item->type())
       return editInvalid;
   }
 
   return ret;
 }
 
-bool KateUndoGroup::isOnlyType(KateUndoGroup::UndoType type)
+bool KateUndoGroup::isOnlyType(KateUndoGroup::UndoType type) const
 {
   if (type == editInvalid) return false;
 
-  for (int i=0; i < m_items.size(); ++i)
-    if (m_items[i]->type() != type)
+  Q_FOREACH(const KateUndo *item, m_items)
+    if (item->type() != type)
       return false;
 
   return true;

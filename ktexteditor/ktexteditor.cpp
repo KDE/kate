@@ -71,15 +71,34 @@ Factory::~Factory()
 {
 }
 
+class KTextEditor::EditorPrivate {
+  public:
+    EditorPrivate()
+      : simpleMode (false) { }
+    bool simpleMode;
+};
+
 Editor::Editor( QObject *parent )
  : QObject ( parent )
- , d(0)
+ , d(new KTextEditor::EditorPrivate())
 {
 }
 
 Editor::~Editor()
 {
+  delete d;
 }
+
+void Editor::setSimpleMode (bool on)
+{
+  d->simpleMode = on;
+}
+
+bool Editor::simpleMode () const
+{
+  return d->simpleMode;
+}
+
 
 class KTextEditor::DocumentPrivate {
   public:

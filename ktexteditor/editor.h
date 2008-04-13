@@ -117,6 +117,26 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
      */
     virtual ~Editor ();
 
+  /**
+   * Switch editor to simple mode for average users
+   */
+  public:
+    /**
+     * Switch the editor to a simple mode which will hide advanced
+     * stuff from average user or switch it back to normal mode.
+     * This mode will only affect documents/views created after the
+     * change.
+     * \param on turn simple mode on or not
+     */
+    void setSimpleMode (bool on);
+
+    /**
+     * Query the editor whether simple mode is on or not.
+     * \return \e true if simple mode is on, otherwise \e false
+     * \see setSimpleMode()
+     */
+    bool simpleMode () const;
+
   /*
    * Methods to create and manage the documents.
    */

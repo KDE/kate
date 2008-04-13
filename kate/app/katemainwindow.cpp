@@ -241,7 +241,8 @@ void KateMainWindow::setupMainWindow ()
   connect(m_fileList, SIGNAL(activated(const QModelIndex&)), m_documentModel, SLOT(opened(const QModelIndex&)));
   connect(m_fileList, SIGNAL(activated(const QModelIndex&)), m_viewManager, SLOT(activateDocument(const QModelIndex &)));
   connect(m_fileList, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showFileListPopup(const QPoint&)));
-  m_fileList->setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(m_fileList, SIGNAL(closeDocument(KTextEditor::Document*)),m_viewManager,SLOT(slotDocumentClose(KTextEditor::Document*)));
+  connect(m_fileList, SIGNAL(closeOtherDocument(KTextEditor::Document*)),this,SLOT(slotDocumentCloseOther(KTextEditor::Document*)));
   //filelist = new KateFileList (this, m_viewManager, ft);
 //   m_fileList->readConfig(KConfigGroup(KGlobal::config(), "FileList"));
 
@@ -380,6 +381,13 @@ void KateMainWindow::slotDocumentCloseAll()
 {
   if (queryClose_internal())
     KateDocManager::self()->closeAllDocuments(false);
+}
+
+
+void KateMainWindow::slotDocumentCloseOther(KTextEditor::Document *document)
+{
+  if (queryClose_internal(document))
+    KateDocManager::self()->closeOtherDocuments(document);
 }
 
 void KateMainWindow::slotDocumentCloseOther()

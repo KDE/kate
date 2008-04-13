@@ -186,24 +186,31 @@ void KateViewManager::slotDocumentOpen ()
   }
 }
 
+void KateViewManager::slotDocumentClose(KTextEditor::Document *document) {
+// prevent close document if only one view alive and the document of
+  // it is not modified and empty !!!
+  if ( (KateDocManager::self()->documents() == 1)
+       && !document->isModified()
+       && document->url().isEmpty()
+       && document->documentEnd() == KTextEditor::Cursor::start() )
+  {
+    document->closeUrl();
+    return;
+  }
+
+  // close document
+  KateDocManager::self()->closeDocument (document);
+}
+
+
 void KateViewManager::slotDocumentClose ()
 {
   // no active view, do nothing
   if (!activeView()) return;
 
-  // prevent close document if only one view alive and the document of
-  // it is not modified and empty !!!
-  if ( (KateDocManager::self()->documents() == 1)
-       && !activeView()->document()->isModified()
-       && activeView()->document()->url().isEmpty()
-       && activeView()->document()->documentEnd() == KTextEditor::Cursor::start() )
-  {
-    activeView()->document()->closeUrl();
-    return;
-  }
+  slotDocumentClose(activeView()->document());
 
-  // close document
-  KateDocManager::self()->closeDocument ((KTextEditor::Document*)activeView()->document());
+  
 }
 
 KTextEditor::Document *KateViewManager::openUrl (const KUrl &url, const QString& encoding, bool activate, bool isTempFile)

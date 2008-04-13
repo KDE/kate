@@ -221,6 +221,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
   private Q_SLOTS:
     void slotDocumentCloseAll();
     void slotDocumentCloseOther();
+    void slotDocumentCloseOther(KTextEditor::Document *document);
     void slotDocModified(KTextEditor::Document *document);
   private:
     static uint uniqueID;

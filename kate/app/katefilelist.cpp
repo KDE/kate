@@ -36,7 +36,7 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QGridLayout>
 #include <QtGui/QGroupBox>
-
+#include <QContextMenuEvent>
 #include <kdebug.h>
 //END Includes
 
@@ -47,6 +47,14 @@ KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection)
 {
   m_windowNext = actionCollection->addAction(KStandardAction::Back, this, SLOT(slotPrevDocument()));
   m_windowPrev = actionCollection->addAction(KStandardAction::Forward, this, SLOT(slotNextDocument()));
+
+  m_filelistCloseDocument=actionCollection->addAction( KStandardAction::Close, "filelist_close", this, SLOT( slotDocumentClose() ) );
+  m_filelistCloseDocument->setWhatsThis(i18n("Close the current document."));
+
+  m_filelistCloseDocumentOther = actionCollection->addAction( "filelist_close_other" );
+  m_filelistCloseDocumentOther->setText( i18n( "Close Other" ) );
+  connect( m_filelistCloseDocumentOther, SIGNAL( triggered() ), this, SLOT( slotDocumentCloseOther() ) );
+  m_filelistCloseDocumentOther->setWhatsThis(i18n("Close other open documents."));
 
   m_sortAction = new KSelectAction( i18n("Sort &By"), this );
   actionCollection->addAction( "filelist_sortby", m_sortAction );
@@ -69,6 +77,42 @@ KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection)
 
 KateFileList::~KateFileList()
 {}
+
+void KateFileList::mousePressEvent ( QMouseEvent * event ) {
+  m_previouslySelected = selectionModel()->currentIndex();
+  QListView::mousePressEvent(event);
+}
+
+void KateFileList::mouseReleaseEvent ( QMouseEvent * event ) {
+  kDebug()<<"KateFileList::mouseReleaseEvent";
+  m_previouslySelected = QModelIndex();
+  QListView::mouseReleaseEvent(event);
+}
+
+void KateFileList::contextMenuEvent ( QContextMenuEvent * event ) {
+  m_indexContextMenu=selectionModel()->currentIndex();
+  emit customContextMenuRequested(static_cast<QContextMenuEvent *>(event)->pos());
+  if (m_previouslySelected.isValid()) {
+    selectionModel()->select(m_previouslySelected,QItemSelectionModel::SelectCurrent);
+    selectionModel()->setCurrentIndex(m_previouslySelected,QItemSelectionModel::SelectCurrent);
+  }
+  event->accept();
+}
+
+void KateFileList::slotDocumentClose() {
+  m_previouslySelected = QModelIndex();
+  QVariant v = m_indexContextMenu.data(KateDocManager::DocumentRole);
+  if (!v.isValid()) return;
+  emit closeDocument(v.value<KTextEditor::Document*>());
+}
+
+void KateFileList::slotDocumentCloseOther() {
+  QVariant v = m_indexContextMenu.data(KateDocManager::DocumentRole);
+  if (!v.isValid()) return;
+  m_previouslySelected = m_indexContextMenu;
+  emit closeOtherDocument(v.value<KTextEditor::Document*>());
+}
+
 
 void KateFileList::setSortRole(int role)
 {

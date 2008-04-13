@@ -60,14 +60,29 @@ class KateFileList: public QListView
   private:
     QAction* m_windowNext;
     QAction* m_windowPrev;
+    QAction* m_filelistCloseDocument;
+    QAction* m_filelistCloseDocumentOther;
     KSelectAction* m_sortAction;
+    QPersistentModelIndex m_previouslySelected;
+    QPersistentModelIndex m_indexContextMenu;
     int m_sortType;
 
   public Q_SLOTS:
     void slotNextDocument();
     void slotPrevDocument();
+    void slotDocumentClose();
+    void slotDocumentCloseOther();
     void setSortRole(int role);
     void setSortRoleFromAction(QAction*);
+
+  protected:
+    virtual void mousePressEvent ( QMouseEvent * event );
+    virtual void mouseReleaseEvent ( QMouseEvent * event );
+    virtual void contextMenuEvent ( QContextMenuEvent * event );
+
+  Q_SIGNALS:
+    void closeDocument(KTextEditor::Document*);
+    void closeOtherDocument(KTextEditor::Document*);
 };
 
 class KateFileListConfigPage : public QWidget {

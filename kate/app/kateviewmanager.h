@@ -91,6 +91,7 @@ class KateViewManager : public QSplitter
     void slotDocumentNew ();
     void slotDocumentOpen ();
     void slotDocumentClose ();
+    void slotDocumentClose (KTextEditor::Document *document);
 
     void setActiveSpace ( KateViewSpace* vs );
     void setActiveView ( KTextEditor::View* view );

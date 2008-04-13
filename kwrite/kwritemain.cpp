@@ -378,7 +378,7 @@ void KWrite::readConfig(KSharedConfigPtr config)
 {
   KConfigGroup cfg( config, "General Options");
 
-  m_paShowStatusBar->setChecked( cfg.readEntry("ShowStatusBar", false) );
+  m_paShowStatusBar->setChecked( cfg.readEntry("ShowStatusBar", true) );
   m_paShowPath->setChecked( cfg.readEntry("ShowPath", false) );
 
   m_recentFiles->loadEntries( config->group( "Recent Files" ));

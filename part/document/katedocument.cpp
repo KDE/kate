@@ -1729,8 +1729,7 @@ void KateDocument::updateModified()
 
   // This will print out the pattern information
 
-  kDebug(13020)
-    << "Pattern:" << static_cast<unsigned int>(currentPattern) << endl;
+  kDebug(13020) << "Pattern:" << static_cast<unsigned int>(currentPattern);
 
   for (uint patternIndex = 0; patternIndex < patternCount; ++patternIndex)
   {
@@ -1771,7 +1770,7 @@ void KateDocument::clearRedo()
 KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRange, const QString &text, bool casesensitive, bool backwards)
 {
   FAST_DEBUG("KateDocument::searchText( " << inputRange.start().line() << ", "
-    << inputRange.start().column() << ", " << text << ", " << backwards << " )" << endl);
+    << inputRange.start().column() << ", " << text << ", " << backwards << " )");
   if (text.isEmpty() || !inputRange.isValid() || (inputRange.start() == inputRange.end()))
   {
     return KTextEditor::Range::invalid();
@@ -1877,13 +1876,13 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
           hayLinesWindow[hayLinesZeroIndex] = textLine;
 
           FAST_DEBUG("searchText | filling slot " << hayLinesZeroIndex << " with line "
-            << j - 1 << ": " << hayLinesWindow[hayLinesZeroIndex]->string() << endl);
+            << j - 1 << ": " << hayLinesWindow[hayLinesZeroIndex]->string());
         }
         else
         {
           hayLinesWindow[hayLinesZeroIndex] = m_buffer->plainLine(j + numNeedleLines);
           FAST_DEBUG("searchText | filling slot " << hayLinesZeroIndex << " with line "
-            << j + numNeedleLines << ": " << hayLinesWindow[hayLinesZeroIndex]->string() << endl);
+            << j + numNeedleLines << ": " << hayLinesWindow[hayLinesZeroIndex]->string());
           hayLinesZeroIndex = (hayLinesZeroIndex + 1) % numNeedleLines;
         }
       }
@@ -1902,7 +1901,7 @@ KTextEditor::Range KateDocument::searchText (const KTextEditor::Range & inputRan
     const int forInit  = backwards ? forMax : forMin;
     const int forInc   = backwards ? -1 : +1;
     FAST_DEBUG("searchText | single line " << (backwards ? forMax : forMin) << ".."
-      << (backwards ? forMin : forMax) << endl);
+      << (backwards ? forMin : forMax));
     for (int j = forInit; (forMin <= j) && (j <= forMax); j += forInc)
     {
       KateTextLine::Ptr textLine = m_buffer->plainLine(j);
@@ -1958,7 +1957,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
     bool backwards)
 {
   FAST_DEBUG("KateDocument::searchRegex( " << inputRange.start().line() << ", "
-    << inputRange.start().column() << ", " << regexp.pattern() << ", " << backwards << " )" << endl);
+    << inputRange.start().column() << ", " << regexp.pattern() << ", " << backwards << " )");
   if (regexp.isEmpty() || !regexp.isValid() || !inputRange.isValid() || (inputRange.start() == inputRange.end()))
   {
     QVector<KTextEditor::Range> result;
@@ -2208,7 +2207,7 @@ QVector<KTextEditor::Range> KateDocument::searchRegex(
     const int forInit  = backwards ? forMax : forMin;
     const int forInc   = backwards ? -1 : +1;
     FAST_DEBUG("single line " << (backwards ? forMax : forMin) << ".."
-      << (backwards ? forMin : forMax) << endl);
+      << (backwards ? forMin : forMax));
     for (int j = forInit; (forMin <= j) && (j <= forMax); j += forInc)
     {
       KateTextLine::Ptr textLine = m_buffer->plainLine(j);

@@ -150,7 +150,7 @@ kde4_add_plugin(katepart ${katepart_PART_SRCS})
 # linking
 # XX adding QtScript here probably isn't the right way to do it (e.g there are no checks that
 # it exist). Suggestions?
-target_link_libraries(katepart ${KDE4_KDECORE_LIBS} kutils ktexteditor kjs kde3support QtScript)
+target_link_libraries(katepart ${KDE4_KDECORE_LIBS} kutils ktexteditor kjs kde3support ${QT_QTSCRIPT_LIBRARY})
 
 if(KDE4_ENABLE_FINAL)
 	macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp )

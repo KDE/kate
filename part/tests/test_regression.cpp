@@ -1049,9 +1049,9 @@ void RegressionTest::doFailureReport( const QString& test, int failures )
     delete is;
     domDiff += "</pre>";
     if (!err.isEmpty()) {
-      qWarning(("cwd: "+QFile::encodeName(resolvedBaseDir)+", basedir "+QFile::encodeName( m_baseDir)).constData());
-      qWarning((QLatin1String("diff ")+args.join(" ")).toLatin1());
-      qWarning(("Errors: "+err).constData());
+      qWarning() << "cwd: " << QFile::encodeName(resolvedBaseDir) << ", basedir " << QFile::encodeName( m_baseDir);
+      qWarning() << "diff " << args.join(" ");
+      qWarning() << "Errors: " << err;
     }
   }
 

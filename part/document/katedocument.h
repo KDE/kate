@@ -1042,6 +1042,8 @@ class KateDocument : public KTextEditor::Document,
     void slotQueryClose_save(bool *handled, bool* abortClosing);
 
   public:
+    virtual bool queryClose();
+
     void makeAttribs (bool needInvalidate = true);
 
     static bool checkOverwrite( KUrl u, QWidget *parent );

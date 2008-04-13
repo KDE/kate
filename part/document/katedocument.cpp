@@ -6278,6 +6278,53 @@ KateDocument::LoadSaveFilterCheckPlugins* KateDocument::loadSaveFilterCheckPlugi
 }
 
 
+//TAKEN FROM kparts.h
+bool KateDocument::queryClose()
+{
+    if ( !isReadWrite() || !isModified() )
+        return true;
+
+    QString docName = documentName();
+
+    QWidget *parentWidget=widget();
+    if(!parentWidget) parentWidget=QApplication::activeWindow();
+
+    int res = KMessageBox::warningYesNoCancel( parentWidget,
+                                               i18n( "The document \"%1\" has been modified.\n"
+                                                     "Do you want to save your changes or discard them?" ,  docName ),
+                                               i18n( "Close Document" ), KStandardGuiItem::save(), KStandardGuiItem::discard() );
+
+    bool abortClose=false;
+    bool handled=false;
+
+    switch(res) {
+    case KMessageBox::Yes :
+        sigQueryClose(&handled,&abortClose);
+        if (!handled)
+        {
+            if (url().isEmpty())
+            {
+                KUrl url = KFileDialog::getSaveUrl(KUrl(), QString(), parentWidget);
+                if (url.isEmpty())
+                    return false;
+
+                saveAs( url );
+            }
+            else
+            {
+                save();
+            }
+        } else if (abortClose) return false;
+        return waitSaveComplete();
+    case KMessageBox::No :
+        return true;
+    default : // case KMessageBox::Cancel :
+        return false;
+    }
+}
+
+
+
 
 // Kill our helpers again
 #ifdef FAST_DEBUG_ENABLE

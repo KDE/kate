@@ -8,7 +8,7 @@ add_subdirectory( data )
 add_subdirectory( syntax/data )
 
 # jscripts for the part
-add_subdirectory( jscript/data )
+add_subdirectory( script/data )
 
 add_subdirectory( plugins )
 # add_subdirectory( tests )

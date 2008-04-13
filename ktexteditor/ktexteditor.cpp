@@ -52,6 +52,8 @@
 #include "documentadaptor_p.h"
 #include "documentadaptor_p.moc"
 
+#include "annotationinterface.h"
+#include "annotationinterface.moc"
 
 //#include <kaction.h>
 #include <kparts/factory.h>

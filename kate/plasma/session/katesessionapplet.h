@@ -30,11 +30,11 @@ class QGraphicsProxyWidget;
 class QStandardItemModel;
 class QModelIndex;
 class QGraphicsWidget;
+class QGraphicsLinearLayout;
 
 namespace Plasma
 {
     class Icon;
-    class BoxLayout;
 }
 
 class KateSessionApplet : public Plasma::Applet
@@ -69,7 +69,7 @@ private:
     QTreeView *m_listView;
     Plasma::Icon *m_icon;
     QGraphicsProxyWidget * m_proxy;
-    Plasma::BoxLayout *m_layout;
+    QGraphicsLinearLayout *m_layout;
     QStandardItemModel *m_kateModel;
     QStringList m_sessions;
 

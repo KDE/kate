@@ -36,6 +36,7 @@
 #include <KIcon>
 #include <KToolInvocation>
 #include <KDirWatch>
+#include <QGraphicsLinearLayout>
 
 KateSessionApplet::KateSessionApplet(QObject *parent, const QVariantList &args)
     : Plasma::Applet(parent, args), m_icon( 0 ), m_proxy(0), m_layout( 0 )
@@ -108,20 +109,22 @@ void KateSessionApplet::constraintsUpdated(Plasma::Constraints constraints)
             m_icon = 0;
 
             m_widget->setWindowFlags(Qt::Widget);
-            m_layout = new Plasma::BoxLayout(Plasma::BoxLayout::LeftToRight, this);
+            m_layout = new QGraphicsLinearLayout();
+            m_layout->setContentsMargins(0,0,0,0);
             m_layout->setSpacing(0);
             m_proxy = new QGraphicsProxyWidget(this);
             m_proxy->setWidget(m_widget);
             m_proxy->show();
+            setLayout( m_layout );
             //Laurent size fixed until I was able to resize it correctly
-            setMinimumContentSize(m_widget->size());
-            setMaximumContentSize(m_widget->size());
+            //setMinimumContentSize(m_widget->size());
+            //setMaximumContentSize(m_widget->size());
 
         }
     }
 
     if (m_icon && constraints & Plasma::SizeConstraint) {
-        m_icon->resize(contentSize());
+        m_icon->resize(geometry().size());
     }
 }
 
@@ -141,7 +144,7 @@ Qt::Orientations KateSessionApplet::expandingDirections() const
 
 QSizeF KateSessionApplet::contentSizeHint() const
 {
-    QSizeF sizeHint = contentSize();
+    QSizeF sizeHint = geometry().size();
     switch (formFactor()) {
     case Plasma::Vertical:
         sizeHint.setHeight(sizeHint.width());
@@ -206,9 +209,8 @@ void KateSessionApplet::initSysTray()
     m_widget->setWindowFlags(Qt::Popup);
 
     m_icon = new Plasma::Icon(KIcon("kate"), QString(), this);
-    setMinimumContentSize(m_icon->sizeFromIconSize(IconSize(KIconLoader::Small)));
     connect(m_icon, SIGNAL(clicked()), this, SLOT(slotOpenMenu()));
-    m_icon->resize(contentSize());
+    m_icon->resize(m_icon->sizeFromIconSize(IconSize(KIconLoader::Small)));
     updateGeometry();
 }
 

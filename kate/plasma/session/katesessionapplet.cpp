@@ -27,7 +27,6 @@
 #include <KInputDialog>
 #include <KMessageBox>
 #include <KStandardGuiItem>
-#include <plasma/layouts/boxlayout.h>
 #include <plasma/widgets/icon.h>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsGridLayout>

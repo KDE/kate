@@ -1244,6 +1244,10 @@ bool KateDocument::wrapText(int startLine, int endLine)
 void KateDocument::editAddUndo (int type, uint line, uint col, uint len, const QString &text)
 {
   if (editIsRunning && editWithUndo && m_editCurrentUndo) {
+    if(activeKateView()) {
+      const KTextEditor::Cursor c = activeKateView()->cursorPosition();
+      m_editCurrentUndo->addItem(KateUndoGroup::editCursorMove, c.line(), c.column(), 0, QString());
+    }
     m_editCurrentUndo->addItem(static_cast<KateUndoGroup::UndoType>(type), line, col, len, text);
 
     // Clear redo buffer

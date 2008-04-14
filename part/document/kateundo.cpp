@@ -75,16 +75,6 @@
     void redo (KateDocument *doc);
 
     /**
-     * The cursor before the action took place
-     */
-    KTextEditor::Cursor cursorBefore() const;
-
-    /**
-     * The cursor after the action took place
-     */
-    KTextEditor::Cursor cursorAfter() const;
-
-    /**
      * type of item
      * @return type
      */
@@ -213,6 +203,10 @@ void KateUndo::undo (KateDocument *doc)
     case KateUndoGroup::editMarkLineAutoWrapped:
       doc->editMarkLineAutoWrapped (m_line, m_col == 0);
       break;
+    case KateUndoGroup::editCursorMove:
+      if(doc->activeKateView())
+        doc->activeKateView()->editSetCursor (KTextEditor::Cursor(m_line, m_col));
+      break;
     default:
       kDebug(13020) << "Unknown KateUndoGroup enum:" << static_cast<unsigned int>(m_type);
       break;
@@ -243,30 +237,14 @@ void KateUndo::redo (KateDocument *doc)
     case KateUndoGroup::editMarkLineAutoWrapped:
       doc->editMarkLineAutoWrapped (m_line, m_col == 1);
       break;
+    case KateUndoGroup::editCursorMove:
+      if(doc->activeKateView())
+        doc->activeKateView()->editSetCursor (KTextEditor::Cursor(m_line, m_col));
+      break;
     default:
       kDebug(13020) << "Unknown KateUndoGroup enum:" << static_cast<unsigned int>(m_type);
       break;
   }
-}
-
-KTextEditor::Cursor KateUndo::cursorBefore() const
-{
-  if (m_type == KateUndoGroup::editInsertLine || m_type == KateUndoGroup::editUnWrapLine)
-    return KTextEditor::Cursor(m_line+1, m_col);
-  else if (m_type == KateUndoGroup::editRemoveText)
-    return KTextEditor::Cursor(m_line, m_col+m_len);
-
-  return KTextEditor::Cursor(m_line, m_col);
-}
-
-KTextEditor::Cursor KateUndo::cursorAfter() const
-{
-  if (m_type == KateUndoGroup::editRemoveLine || m_type == KateUndoGroup::editWrapLine)
-    return KTextEditor::Cursor(m_line+1, m_col);
-  else if (m_type == KateUndoGroup::editInsertText)
-    return KTextEditor::Cursor(m_line, m_col+m_len);
-
-  return KTextEditor::Cursor(m_line, m_col);
 }
 
 KateUndoGroup::KateUndoGroup (KateDocument *doc)
@@ -289,16 +267,6 @@ void KateUndoGroup::undo ()
   for (int i=m_items.size()-1; i >= 0; --i)
     m_items[i]->undo(m_doc);
 
-  if (m_doc->activeView())
-  {
-    for (int z=0; z < m_items.size(); ++z)
-      if (m_items[z]->type() != KateUndoGroup::editMarkLineAutoWrapped)
-      {
-        m_doc->activeKateView()->editSetCursor (m_items[z]->cursorBefore());
-        break;
-      }
-  }
-
   m_doc->editEnd ();
 }
 
@@ -311,16 +279,6 @@ void KateUndoGroup::redo ()
 
   for (int i=0; i < m_items.size(); ++i)
     m_items[i]->redo(m_doc);
-
-  if (m_doc->activeView())
-  {
-    for (int z = m_items.size() - 1; z >= 0; --z)
-      if (m_items[z]->type() != KateUndoGroup::editMarkLineAutoWrapped)
-      {
-        m_doc->activeKateView()->editSetCursor (m_items[z]->cursorAfter());
-        break;
-      }
-  }
 
   m_doc->editEnd ();
 }

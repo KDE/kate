@@ -211,7 +211,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   updateConfig ();
 
   slotHlChanged();
-//   KCursor::setAutoHideCursor( this, true );
   KCursor::setAutoHideCursor( m_viewInternal, true );
   /*test texthint
   connect(this,SIGNAL(needTextHint(int, int, QString &)),

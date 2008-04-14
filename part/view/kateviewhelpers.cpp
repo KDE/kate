@@ -851,31 +851,22 @@ void KateIconBorder::setFoldingMarkersOn( bool enable )
 
 QSize KateIconBorder::sizeHint() const
 {
-  kDebug() << "calculating sizehint";
   int w = 0;
 
   if (m_iconBorderOn)
     w += iconPaneWidth + 1;
 
-  kDebug() << "after icon border" << w;
-
   if (m_annotationBorderOn)
   {
-    kDebug() << "calulating anno border";
     w += m_annotationBorderWidth + 1;
   }
-  kDebug() << "after anno border" << w;
 
   if (m_lineNumbersOn || (m_view->dynWordWrap() && m_dynWrapIndicatorsOn)) {
     w += lineNumberWidth() + 1;
   }
 
-  kDebug() << "after line border" << w;
-
   if (m_foldingMarkersOn)
     w += iconPaneWidth + 1;
-
-  kDebug() << "after folding border" << w;
 
   w += 4;
 

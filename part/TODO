@@ -2,7 +2,6 @@ TODO:
 
 **** Bugs ****
 * access of deleted cursors by the dynamic hl stuff
-* cursor position after undo
 
 * arbitrary highlighting
   * failure to redraw when the cursor is off the screen and the highlighting changes
@@ -19,21 +18,11 @@ TODO:
   * current highlighter not selected (regression)
   * controls seem to need to be clicked twice?
 
-* since KDE4 we have a Mode for every Highlighting file. Opening a file leads to a
-  call of QString KateModeManager::wildcardsFind (const QString &fileName), which is
-  very slow. Opening 50 files in the Kate Application is *very* slow. Needs to be
-  vastly improved ...somehow...
-
 * memory usage
   * we currently use x16 the size of a file when in memory, if the file does not contain newline characters.
 
 **** Refactoring/Cleanups ****
 * code cleanups wherever needed ;)
-
-* KateViewInternal to be completely hidden from view for almost everything but
-  the view itself.
-
-  -> in progress, almost done for most parts, viewinternal only visible to friends of KateView
 
 * Separate more functionality from KateDocument (selections moving to KateView,
   a plugin manager class, a config class, etc)
@@ -41,6 +30,8 @@ TODO:
   -> in progress:
       * config classes already in place
       * selection moved to KateView
+      * plugin manager class exists, too
+      * anything missing???
 
 * Memory usage and leak auditing
   * KateHlContext::items needs to be implicitly shared + autodelete
@@ -53,9 +44,6 @@ TODO:
   -> DONE ;) whitespaces are no cleaned at load time, the magic clean on save stuff is gone
     -> is bug 115175 fixed?
   Ah, but there are bugs:
-  * indenting a block of text will create whitespace on lines that were empty to start with
-    -> could be fixed by adapting KateNormalIndent::indent()
-       -> already fixed. ::indent does not add spaces if there are none.
 
 * BiDi finally, using Scribe
   * just needs porting of deprecated calls, and testing
@@ -95,8 +83,6 @@ TODO:
   * needed for potential:
     * separate threads for processing of bracket marks,
     * third party processing
-
-* More robust history including cursor position history
 
 * More featureful code completion including syntax highlighted entries
   * done:
@@ -151,6 +137,7 @@ TODO:
 
 * Modular input subsystem, to support emulation of other editors in a clean way
   -> see also scripting and idea with extending the command line
+  -> in progress to some degree (vi mode)
 
 * Improved input modes especially in block selection
 
@@ -162,14 +149,10 @@ TODO:
 * Whatever else is needed for multiuser editing (and perhaps put most of it
   inside the part, so eg. kate, kdevelop, quanta etc. could all use it)
 
-* Scripting using kjs (in progress)
+* Scripting using QtScript (in progress)
   * finish API
     * KateJSDocument: search, searchBackward, etc
     * add API so that scripts can save&load data (remember: we don't have persistent loaded scripts right now)
-    * add mode to command line, where every keystroke executes a script (vim like command mode)
-      * idea: F7 -> command mode, if you hit ':' you can use the cmd line just like now and type eg. set-highlight c++;
-  * evaluate again QtScript. The really good Qt-integration and documentation
-    is a big win.
 
 * Good interface for JavaScript indentation scripts
   It is a good idea to look how other editors deal with indentation, I think vim & emacs are good

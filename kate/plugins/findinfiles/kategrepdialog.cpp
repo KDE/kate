@@ -296,8 +296,8 @@ void KateGrepDialog::slotSearch()
   connect(lbResult, SIGNAL(destroyed()), m_grepThread, SLOT(cancel()));
   connect(lbResult, SIGNAL(destroyed()), this, SLOT(searchFinished()));
   connect (m_grepThread, SIGNAL(finished()), this, SLOT(searchFinished()));
-  connect (m_grepThread, SIGNAL(foundMatch (const QString &, int, int, const QString &, const QString &, QWidget *)),
-           this, SLOT(searchMatchFound(const QString &, int, int, const QString &, const QString &, QWidget *)));
+  connect (m_grepThread, SIGNAL(foundMatch (const QString &, const QString &, int, int, const QString &, const QString &, QWidget *)),
+           this, SLOT(searchMatchFound(const QString &, const QString &, int, int, const QString &, const QString &, QWidget *)));
 
   // grep
   m_grepThread->start();
@@ -369,7 +369,7 @@ void KateGrepDialog::addItems()
   }
 }
 
-void KateGrepDialog::searchMatchFound(const QString &filename, int line, int column, const QString &basename, const QString &lineContent, QWidget *parentTab)
+void KateGrepDialog::searchMatchFound(const QString &filename, const QString &relname, int line, int column, const QString &basename, const QString &lineContent, QWidget *parentTab)
 {
   // should never happen
   if(lbResult->indexOf(parentTab) < 0)
@@ -379,7 +379,7 @@ void KateGrepDialog::searchMatchFound(const QString &filename, int line, int col
 
   QTreeWidgetItem* item = new QTreeWidgetItem(w);
   // visible text
-  item->setText(0, basename);
+  item->setText(0, relname);
   item->setText(1, QString::number (line + 1));
   item->setText(2, lineContent.trimmed());
 

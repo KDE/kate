@@ -63,7 +63,7 @@ class KateGrepDialog : public QWidget, private Ui::FindWidget
     void slotClear();
     void patternTextChanged( const QString &);
     void searchFinished ();
-    void searchMatchFound(const QString &filename, int line, int column, const QString &basename, const QString &lineContent, QWidget *parentTab);
+    void searchMatchFound(const QString &filename, const QString &relname, int line, int column, const QString &basename, const QString &lineContent, QWidget *parentTab);
     void syncDir();
 
   private:

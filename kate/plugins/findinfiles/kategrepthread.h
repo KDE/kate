@@ -51,7 +51,7 @@ class KateGrepThread : public QThread
     void grepInFile (const QString &fileName, const QString &baseName);
 
   Q_SIGNALS:
-    void foundMatch (const QString &filename, int line, int column, const QString &basename, const QString &lineContent, QWidget *parentTab);
+    void foundMatch (const QString &filename, const QString &relname, int line, int column, const QString &basename, const QString &lineContent, QWidget *parentTab);
 
   private:
     QWidget* m_parentTab;
@@ -60,6 +60,7 @@ class KateGrepThread : public QThread
     bool m_recursive;
     QStringList m_fileWildcards;
     QList<QRegExp> m_searchPattern;
+    QString m_dir;
 };
 
 #endif

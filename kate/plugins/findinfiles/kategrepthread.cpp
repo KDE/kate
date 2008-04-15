@@ -36,6 +36,8 @@ KateGrepThread::KateGrepThread(QWidget *parent, QWidget *parentTab,
     , m_searchPattern (searchPattern)
 {
   m_workQueue << dir;
+  QDir baseDir(dir);
+  m_dir = baseDir.absolutePath() + '/';
 }
 
 KateGrepThread::~KateGrepThread ()
@@ -107,7 +109,11 @@ void KateGrepThread::grepInFile (const QString &fileName, const QString &baseNam
       if (firstColumn != -1)
       {
         kDebug () << "found match: " << fileName << " : " << lineNumber;
-        emit foundMatch (fileName, lineNumber, firstColumn, baseName, lines.at (0), m_parentTab);
+        QString relName = fileName;
+        if (relName.startsWith(m_dir)) {
+          relName.remove(0, m_dir.size());
+        }
+        emit foundMatch (fileName, relName, lineNumber, firstColumn, baseName, lines.at (0), m_parentTab);
       }
 
       // remove first line...

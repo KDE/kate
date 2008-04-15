@@ -41,6 +41,12 @@
     KateUndo (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text);
 
     /**
+      * Constructor, type is selectionRange
+      * @param selection selection to remember
+      */
+    KateUndo (const KTextEditor::Range &selection);
+
+    /**
      * Destructor
      */
     ~KateUndo ();
@@ -104,6 +110,11 @@
      */
     inline const QString& text() const { return m_text; }
 
+    /**
+     * saved selection
+     * @return selection
+     */
+    inline const KTextEditor::Range &selection() const { return m_selection; }
   private:
     /**
      * type
@@ -129,6 +140,11 @@
      * text
      */
     QString m_text;
+
+    /**
+     * selection
+     */
+    KTextEditor::Range m_selection;
 };
 
 KateUndo::KateUndo (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text)
@@ -137,6 +153,12 @@ KateUndo::KateUndo (KateUndoGroup::UndoType type, uint line, uint col, uint len,
   m_col (col),
   m_len (len),
   m_text (text)
+{
+}
+
+KateUndo::KateUndo (const KTextEditor::Range &selection)
+: m_type (KateUndoGroup::selectionRange),
+  m_selection (selection)
 {
 }
 
@@ -207,8 +229,12 @@ void KateUndo::undo (KateDocument *doc)
       if(doc->activeKateView())
         doc->activeKateView()->editSetCursor (KTextEditor::Cursor(m_line, m_col));
       break;
+    case KateUndoGroup::selectionRange:
+      if(doc->activeKateView())
+        doc->activeKateView()->setSelection (selection());
+      break;
     default:
-      kDebug(13020) << "Unknown KateUndoGroup enum:" << static_cast<unsigned int>(m_type);
+      kDebug(13020) << "Unknown KateUndoGroup enum:" << static_cast<int>(m_type);
       break;
   }
 }
@@ -241,8 +267,12 @@ void KateUndo::redo (KateDocument *doc)
       if(doc->activeKateView())
         doc->activeKateView()->editSetCursor (KTextEditor::Cursor(m_line, m_col));
       break;
+    case KateUndoGroup::selectionRange:
+      if(doc->activeKateView())
+        doc->activeKateView()->setSelection (selection());
+      break;
     default:
-      kDebug(13020) << "Unknown KateUndoGroup enum:" << static_cast<unsigned int>(m_type);
+      kDebug(13020) << "Unknown KateUndoGroup enum:" << static_cast<int>(m_type);
       break;
   }
 }
@@ -286,6 +316,11 @@ void KateUndoGroup::redo ()
 void KateUndoGroup::addItem (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text)
 {
   addItem(new KateUndo(type, line, col, len, text));
+}
+
+void KateUndoGroup::addItem (const KTextEditor::Range &selection)
+{
+  addItem(new KateUndo(selection));
 }
 
 void KateUndoGroup::addItem(KateUndo* u)
@@ -343,5 +378,17 @@ bool KateUndoGroup::isOnlyType(KateUndoGroup::UndoType type) const
 
   return true;
 }
+
+bool KateUndoGroup::contains(KateUndoGroup::UndoType type) const
+{
+  if (type == editInvalid) return false;
+
+  Q_FOREACH(const KateUndo *item, m_items)
+    if (item->type() == type)
+      return true;
+
+  return false;
+}
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

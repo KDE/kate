@@ -23,6 +23,8 @@
 
 #include <QtCore/QList>
 
+#include "ktexteditor/range.h"
+
 
 class KateDocument;
 class KateUndo;
@@ -69,6 +71,7 @@ class KateUndoGroup
       editRemoveLine,
       editMarkLineAutoWrapped,
       editCursorMove,
+      selectionRange,
       editInvalid
     };
 
@@ -81,6 +84,12 @@ class KateUndoGroup
      * @param text text removed/inserted
      */
     void addItem (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text);
+
+    /**
+     * add an item to the group, the type is selectionRange 
+     * @param selection selection to remember
+     */
+    void addItem (const KTextEditor::Range &selection);
 
     /**
      * merge this group with an other
@@ -99,6 +108,13 @@ class KateUndoGroup
      * is this undogroup empty?
      */
     bool isEmpty () const { return m_items.isEmpty(); }
+
+    /**
+     * do we already have an item of this type?
+     * @param type type to query
+     * @return we contain only the given type
+     */
+    bool contains(KateUndoGroup::UndoType type) const;
 
   private:
     /**

@@ -22,7 +22,7 @@
 
 #include <ktexteditor/ktexteditor_export.h>
 
-#include <QObject>
+#include <QtCore/QObject>
 
 class QMenu;
 

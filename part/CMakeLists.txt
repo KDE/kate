@@ -11,6 +11,8 @@ add_subdirectory( syntax/data )
 add_subdirectory( script/data )
 
 add_subdirectory( plugins )
+
+# tests
 # add_subdirectory( tests )
 
 # includes
@@ -30,15 +32,6 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/kjsembed
   ${CMAKE_SOURCE_DIR}/kutils
   ${KDE4_KIO_INCLUDES})
-
-## kjs hash stuff
-#set(CREATE_HASH_TABLE ${CMAKE_SOURCE_DIR}/kjs/create_hash_table )
-#
-#add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
-#   COMMAND ${PERL_EXECUTABLE} ${CREATE_HASH_TABLE} ${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp -n Kate >
-#   ${CMAKE_CURRENT_BINARY_DIR}/katejscript.lut.h
-#   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/jscript/katejscript.cpp
-#)
 
 # our sources
 set(katepart_PART_SRCS
@@ -125,7 +118,6 @@ utils/katehistorymodel.cpp
 
 )
 
-
 set( katepart_PART_UI
 dialogs/appearanceconfigwidget.ui
 dialogs/commandmenuconfigwidget.ui
@@ -148,9 +140,7 @@ kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 kde4_add_plugin(katepart ${katepart_PART_SRCS})
 
 # linking
-# XX adding QtScript here probably isn't the right way to do it (e.g there are no checks that
-# it exist). Suggestions?
-target_link_libraries(katepart ${KDE4_KDECORE_LIBS} kutils ktexteditor kjs kde3support ${QT_QTSCRIPT_LIBRARY})
+target_link_libraries(katepart ${KDE4_KDECORE_LIBS} kutils ktexteditor kde3support ${QT_QTSCRIPT_LIBRARY})
 
 if(KDE4_ENABLE_FINAL)
 	macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepart_final_cpp.cpp )
@@ -160,7 +150,6 @@ endif(KDE4_ENABLE_FINAL)
 
 # install the stuff
 install(TARGETS katepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
-
 
 ########### next target ###############
 

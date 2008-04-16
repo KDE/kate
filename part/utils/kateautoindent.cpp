@@ -220,7 +220,7 @@ void KateAutoIndent::setMode (const QString &name)
   }
 
   // handle script indenters, if any for this name...
-  KateIndentScript *script = KateGlobal::self()->scriptManager()->indenter(name);
+  KateIndentScript *script = KateGlobal::self()->scriptManager()->indentationScript(name);
   if ( script )
   {
     m_script = script;

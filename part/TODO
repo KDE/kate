@@ -24,15 +24,6 @@ TODO:
 **** Refactoring/Cleanups ****
 * code cleanups wherever needed ;)
 
-* Separate more functionality from KateDocument (selections moving to KateView,
-  a plugin manager class, a config class, etc)
-
-  -> in progress:
-      * config classes already in place
-      * selection moved to KateView
-      * plugin manager class exists, too
-      * anything missing???
-
 * Memory usage and leak auditing
   * KateHlContext::items needs to be implicitly shared + autodelete
 

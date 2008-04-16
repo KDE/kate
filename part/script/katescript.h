@@ -19,16 +19,17 @@
 #ifndef KATE_SCRIPT_H
 #define KATE_SCRIPT_H
 
-
 #include <QtCore/QObject>
 #include <QtCore/QHash>
 #include <QtCore/QStringList>
 
 #include <QtScript/QScriptValue>
+#include <QtScript/QScriptable>
 
-class QString;
 class QScriptEngine;
 
+class KateDocument;
+class KateView;
 
 namespace Kate {
   enum ScriptType {
@@ -38,7 +39,6 @@ namespace Kate {
     UnknownScript
   };
 }
-
 
 //BEGIN KateScriptInformation
 
@@ -88,6 +88,37 @@ class KateScriptInformation {
 
 //END
 
+/**
+ * wrapper for a document
+ */
+class KateScriptDocument : public QObject, protected QScriptable
+{
+  Q_OBJECT
+
+  public:
+    KateScriptDocument ();
+
+    void setDocument (KateDocument *document) { m_document = document; }
+
+  private:
+    KateDocument *m_document;
+};
+
+/**
+ * wrapper for a view
+ */
+class KateScriptView : public QObject, protected QScriptable
+{
+  Q_OBJECT
+
+  public:
+    KateScriptView ();
+
+    void setView (KateView *view) { m_view = view; }
+
+  private:
+    KateView *m_view;
+};
 
 //BEGIN KateScript
 
@@ -118,6 +149,12 @@ class KateScript {
      * Subsequent calls to load will return the value it returned the first time.
      */
     bool load();
+
+    /**
+     * set view for this script for the execution
+     * will trigger load!
+     */
+    bool setView (KateView *view);
 
     /**
      * Get a QScriptValue for a global item in the script given its name, or an
@@ -151,6 +188,11 @@ class KateScript {
   protected:
     /** The Qt interpreter for this script */
     QScriptEngine *m_engine;
+
+  private:
+    /** document/view wrapper objects */
+    KateScriptDocument *m_document;
+    KateScriptView *m_view;
 };
 
 //END

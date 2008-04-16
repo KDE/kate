@@ -17,10 +17,9 @@
 /// Boston, MA 02110-1301, USA.
 
 #include "katescript.h"
+#include "kateview.h"
+#include "katedocument.h"
 
-#include <iostream>
-
-#include <QString>
 #include <QFile>
 
 #include <QScriptEngine>
@@ -29,18 +28,30 @@
 #include <kdebug.h>
 #include <klocale.h>
 
+KateScriptDocument::KateScriptDocument ()
+ : QObject ()
+ , m_document (0)
+{
+}
+
+KateScriptView::KateScriptView ()
+ : QObject ()
+ , m_view (0)
+{
+}
 
 KateScript::KateScript(const QString &url, const KateScriptInformation &information) :
     m_loaded(false), m_url(url), m_information(information), m_engine(0)
+  , m_document (0), m_view (0)
 {
 }
 
 KateScript::~KateScript()
 {
-  if(m_engine) {
-    delete m_engine;
-    m_engine = 0;
-  }
+  // remove data...
+  delete m_engine;
+  delete m_document;
+  delete m_view;
 }
 
 void KateScript::displayBacktrace(const QString &header)
@@ -48,11 +59,11 @@ void KateScript::displayBacktrace(const QString &header)
   if(!m_engine) {
     kDebug(13050) << "KateScript::displayBacktrace: no engine, cannot display error\n";
   }
-  std::cerr << "\033[31m";
+  kDebug(13050) << "\033[31m";
   if(!header.isNull())
-    std::cerr << qPrintable(header) << '\n';
-  std::cerr << qPrintable(m_engine->uncaughtExceptionBacktrace().join("\n"));
-  std::cerr << "\033[0m";
+    kDebug(13050) << qPrintable(header) << '\n';
+  kDebug(13050) << qPrintable(m_engine->uncaughtExceptionBacktrace().join("\n"));
+  kDebug(13050) << "\033[0m";
 }
 
 QScriptValue KateScript::global(const QString &name)
@@ -75,6 +86,7 @@ bool KateScript::load()
 {
   if(m_loaded)
     return m_loadSuccessful;
+
   m_loaded = true;
   // read the file into memory
   QString filename = QFile::encodeName(m_url);
@@ -98,10 +110,24 @@ bool KateScript::load()
     m_loadSuccessful = false;
     return false;
   }
+
+  // set the view/document objects as necessary
+  m_engine->globalObject().setProperty("document", m_engine->newQObject(m_document = new KateScriptDocument ()));
+  m_engine->globalObject().setProperty("view", m_engine->newQObject(m_view = new KateScriptView ()));
+
   // yip yip!
   m_loadSuccessful = true;
   return true;
 }
 
+bool KateScript::setView (KateView *view)
+{
+  if (!load())
+    return false;
+
+  // setup the stuff
+  m_document->setDocument (view->doc());
+  m_view->setView (view);
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

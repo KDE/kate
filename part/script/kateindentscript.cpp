@@ -49,15 +49,13 @@ int KateIndentScript::indent(KateView* view, const KTextEditor::Cursor& position
                              QChar typedCharacter, int indentWidth)
 {
   // if it hasn't loaded or we can't load, return
-  if(!load())
+  if(!setView(view))
     return -2;
+
   QScriptValue indentFunction = function("indent");
   if(!indentFunction.isValid()) {
     return -2;
   }
-  // set the view/document objects as necessary
-  m_engine->globalObject().setProperty("view", m_engine->newQObject(view));
-  m_engine->globalObject().setProperty("document", m_engine->newQObject(view->document()));
   // add the arguments that we are going to pass to the function
   QScriptValueList arguments;
   arguments << QScriptValue(m_engine, position.line());

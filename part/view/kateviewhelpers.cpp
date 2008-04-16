@@ -34,6 +34,7 @@
 #include "kateviewinternal.h"
 #include "katelayoutcache.h"
 #include "katetextlayout.h"
+#include "katesmartrange.h"
 
 #include <kapplication.h>
 #include <kglobalsettings.h>
@@ -1302,33 +1303,24 @@ void KateIconBorder::showBlock(int line)
     return;
   } else { // the ranges differ, delete the old, if it exists
     delete m_foldingRange;
-    Q_ASSERT(m_foldingRange == 0); // foldingRangeDeleted() sets it to 0
+    m_foldingRange = 0;
   }
 
   if (newRange.isValid()) {
     kDebug(13025) << "new folding hl-range:" << newRange;
     m_foldingRange = m_doc->newSmartRange(newRange);
+    static_cast<KateSmartRange*>(m_foldingRange)->setInternal();
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
     attr->setBackground(foldingColor(0, line, false));
     m_foldingRange->setAttribute(attr);
     m_doc->addHighlightToView(m_view, m_foldingRange, false);
-
-    // (dh) In order to prevent a dangling pointer on document reload (F5) set the smart range
-    // pointer to null, if the range is deleted (http://bugs.kde.org/show_bug.cgi?id=160527)
-    KTextEditor::SmartRangeNotifier *notifier = m_foldingRange->primaryNotifier();
-    connect(notifier, SIGNAL(rangeDeleted(KTextEditor::SmartRange*)), this, SLOT(foldingRangeDeleted()));
   }
-}
-
-void KateIconBorder::foldingRangeDeleted()
-{
-  m_foldingRange = 0;
 }
 
 void KateIconBorder::hideBlock() {
   m_lastBlockLine=-1;
   delete m_foldingRange;
-  Q_ASSERT(m_foldingRange == 0); // foldingRangeDeleted() sets it to 0
+  m_foldingRange = 0;
 }
 
 void KateIconBorder::leaveEvent(QEvent *event)

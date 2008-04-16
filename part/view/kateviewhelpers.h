@@ -134,8 +134,6 @@ class KateIconBorder : public QWidget
     void updateAnnotationBorderWidth();
     void updateAnnotationLine( int line );
     void annotationModelChanged( KTextEditor::AnnotationModel* oldmodel, KTextEditor::AnnotationModel* newmodel );
-  protected Q_SLOTS:
-    void foldingRangeDeleted();
 
   private:
     void paintEvent( QPaintEvent* );

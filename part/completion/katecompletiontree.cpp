@@ -181,24 +181,24 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
   int newIndentWidth = columnViewportPosition(modelIndexOfName);
 
   int scrollBarWidth = verticalScrollBar()->width();
-  int newMinWidth = totalColumnsWidth /*+ scrollBarWidth*/;
+  int newMinWidth = totalColumnsWidth;
 
-  int minWidth = qMax(500, newMinWidth);
+  int targetWidth = qMax(500, newMinWidth);
 
   //kDebug() << "New min width: " << minWidth << " Old min: " << minimumWidth() << " width " << width();
-  setMinimumWidth(minWidth);
+  setMinimumWidth(targetWidth);
 
   if (!fromResizeEvent && (firstShow || oldIndentWidth != newIndentWidth))
   {
     //Never allow a completion-widget to be wider than 2/3 of the screen
     int maxWidth = (QApplication::desktop()->screenGeometry(widget()->view()).width()*3) / 4;
-    int newWidth = qMin(maxWidth, minWidth); 
+    int newWidth = qMin(maxWidth, targetWidth); 
     //kDebug() << "fromResize " << fromResizeEvent << " indexOfName " << modelIndexOfName << " oldI " << oldIndentWidth << " newI " << newIndentWidth << " minw " << minWidth << " w " << widget()->width() << " newW " << newWidth;
     widget()->resize(newWidth + scrollBarWidth, widget()->height());
   }
 
-  if( totalColumnsWidth ) //Set the size of the last column to fill the whole rest of the widget
-    setColumnWidth(numColumns-1, width() - totalColumnsWidth + columnSize[numColumns-1]);
+  //if( totalColumnsWidth ) //Set the size of the last column to fill the whole rest of the widget
+  setColumnWidth(numColumns-1, viewport()->width() - columnViewportPosition(numColumns-1));
   
   if (oldIndentWidth != newIndentWidth)
     widget()->updatePosition();

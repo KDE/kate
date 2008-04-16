@@ -67,8 +67,8 @@ static void ssort( QVector<uint> &a, int max )
 KateBookmarks::KateBookmarks( KateView* view, Sorting sort )
   : QObject( view )
   , m_view( view )
-  , m_sorting( sort )
   , m_bookmarkClear (0)
+  , m_sorting( sort )
 {
   setObjectName( "kate bookmarks" );
   connect (view->doc(), SIGNAL( marksChanged( KTextEditor::Document* ) ), this, SLOT( marksChanged() ));

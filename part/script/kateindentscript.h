@@ -29,8 +29,14 @@
 class KateIndentScript : public KateScript {
   public:
     KateIndentScript(const QString &url, const KateScriptInformation &information);
+
+    const QString &triggerCharacters(KateView* view);
     int indent(KateView* view, const KTextEditor::Cursor& position, QChar typedCharacter,
                int indentWidth);
+
+  private:
+    QString m_triggerCharacters;
+    bool m_triggerCharactersSet;
 };
 
 

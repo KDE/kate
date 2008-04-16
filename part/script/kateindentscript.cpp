@@ -26,8 +26,23 @@
 #include "kateindentscript.h"
 
 KateIndentScript::KateIndentScript(const QString &url, const KateScriptInformation &information)
-  : KateScript(url, information)
+  : KateScript(url, information), m_triggerCharactersSet (false)
 {
+}
+
+const QString &KateIndentScript::triggerCharacters(KateView* view)
+{
+  // already set, perfect, just return...
+  if (m_triggerCharactersSet)
+    return m_triggerCharacters;
+
+  m_triggerCharactersSet = true;
+  
+  m_triggerCharacters = global ("triggerCharacters").toString ();
+
+  kDebug () << "trigger chars: '" << m_triggerCharacters << "'";
+
+  return m_triggerCharacters;
 }
 
 int KateIndentScript::indent(KateView* view, const KTextEditor::Cursor& position,

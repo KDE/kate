@@ -294,15 +294,11 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
     return;
 
   // does the script allow this char as trigger?
-#if 0
   if (typedChar != '\n' && !m_script->triggerCharacters(view).contains(typedChar))
     return;
 
   // let the script indent for us...
   scriptIndent (view, position, typedChar);
-#else
-  return;
-#endif
 }
 //END KateAutoIndent
 

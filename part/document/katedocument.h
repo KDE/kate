@@ -180,6 +180,10 @@ class KateDocument : public KTextEditor::Document,
 
     bool replaceText ( const KTextEditor::Range &range, const QString &s, bool block = false );
 
+    // unhide method...
+    bool replaceText (const KTextEditor::Range &r, const QStringList &l, bool b)
+    { return KTextEditor::Document::replaceText (r, l, b); }
+
   public:
     virtual QString text ( const KTextEditor::Range &range, bool blockwise = false ) const;
     virtual QStringList textLines ( const KTextEditor::Range& range, bool block = false ) const;

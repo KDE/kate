@@ -242,6 +242,10 @@ class KateView : public KTextEditor::View,
   public Q_SLOTS:
     virtual bool setSelection ( const KTextEditor::Range &selection );
 
+    // unhide method...
+    bool setSelection (const KTextEditor::Cursor &c, int i, bool b)
+    { return KTextEditor::View::setSelection (c, i, b); }
+
     virtual bool removeSelection () { return clearSelection(); }
 
     virtual bool removeSelectionText () { return removeSelectedText(); }

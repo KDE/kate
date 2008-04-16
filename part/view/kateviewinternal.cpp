@@ -1897,6 +1897,7 @@ void KateViewInternal::updateBracketMarks()
 
 bool KateViewInternal::tagLine(const KTextEditor::Cursor& virtualCursor)
 {
+  QMutexLocker lock(m_doc->smartMutex());
   // FIXME may be a more efficient way for this
   if ((int)m_doc->getRealLine(virtualCursor.line()) > m_doc->lastLine())
     return false;
@@ -1918,6 +1919,7 @@ bool KateViewInternal::tagLines( int start, int end, bool realLines )
 
 bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor end, bool realCursors)
 {
+  QMutexLocker lock(m_doc->smartMutex());
   if (realCursors)
   {
     cache()->relayoutLines(start.line(), end.line());
@@ -2004,6 +2006,7 @@ bool KateViewInternal::tagRange(const KTextEditor::Range& range, bool realCursor
 
 void KateViewInternal::tagAll()
 {
+  QMutexLocker lock(m_doc->smartMutex());
   //kDebug(13030) << "tagAll()";
   for (int z = 0; z < cache()->viewCacheLineCount(); z++)
     cache()->viewLine(z).setDirty();

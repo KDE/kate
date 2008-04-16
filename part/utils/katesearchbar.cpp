@@ -77,6 +77,7 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar, bool initAsPower)
 
     // Init highlight
     m_topRange = m_view->doc()->newSmartRange(m_view->doc()->documentRange());
+    static_cast<KateSmartRange*>(m_topRange)->setInternal();
     m_topRange->setInsertBehavior(SmartRange::ExpandRight);
     enableHighlights(true);
 

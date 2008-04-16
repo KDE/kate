@@ -65,7 +65,7 @@ class KateScriptInformation {
     Kate::ScriptType type;
     /**
      * If this script is an indenter, then the indentLanguages member specifies
-     * which languages this is an indenter for. The values must correspond with 
+     * which languages this is an indenter for. The values must correspond with
      * the name of a programming language given in a highlighting file (e.g "TI Basic")
      */
     QStringList indentLanguages;
@@ -98,19 +98,19 @@ class KateScript {
   public:
     /**
      * Create a new script representation, passing a file @p url to it and a
-     * KateScriptInformation instance. Loading of the script will happen 
+     * KateScriptInformation instance. Loading of the script will happen
      * lazily
      */
     KateScript(const QString &url, const KateScriptInformation &information);
     ~KateScript();
-    
+
     /** The script's URL */
     const QString &url() { return m_url; }
-    
+
     /** Metadata for the script */
-    const KateScriptInformation &information() { return m_information; };
-    
-    /** 
+    const KateScriptInformation &information() { return m_information; }
+
+    /**
      * Load the script. If loading is successful, returns true. Otherwise, returns
      * returns false and an error message will be set (see errorMessage()).
      * Note that you don't have to call this -- it is called as necessary by the
@@ -118,22 +118,22 @@ class KateScript {
      * Subsequent calls to load will return the value it returned the first time.
      */
     bool load();
-    
+
     /**
      * Get a QScriptValue for a global item in the script given its name, or an
      * invalid QScriptValue if no such global item exists.
      */
     QScriptValue global(const QString &name);
-    
+
     /**
      * Return a function in the script of the given name, or an invalid QScriptValue
      * if no such function exists.
      */
     QScriptValue function(const QString &name);
-    
+
     /** Return a context-specific error message */
     const QString &errorMessage() { return m_errorMessage; }
-    
+
     /** Displays the backtrace when a script has errored out */
     void displayBacktrace(const QString &header = QString());
   private:
@@ -147,7 +147,7 @@ class KateScript {
     KateScriptInformation m_information;
     /** An error message set when an error occurs */
     QString m_errorMessage;
-  
+
   protected:
     /** The Qt interpreter for this script */
     QScriptEngine *m_engine;

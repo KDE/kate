@@ -301,7 +301,7 @@ function tryCppComment(line)
                 currentString.search(/^\s*(\/\/)/);
             } else if (char3 == '/' || char3 == '!') {
                 // match ///, //!, ///< and //!
-                currentString.search(/^\s*(\/\/[/!][<]?\s*)/);
+                currentString.search(/^\s*(\/\/[\/!][<]?\s*)/);
             } else {
                 // only //, nothing else
                 currentString.search(/^\s*(\/\/\s*)/);

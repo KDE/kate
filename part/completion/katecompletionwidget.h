@@ -108,19 +108,19 @@ class KateCompletionWidget : public QFrame
   public Q_SLOTS:
     void abortCompletion();
     void showConfig();
-    void viewFocusIn();
-    void viewFocusOut();
+/*    void viewFocusIn();
+    void viewFocusOut();*/
     void updatePositionSlot();
     void automaticInvocation();
 
-    void updateFocus();
+/*    void updateFocus();*/
     void argumentHintsChanged(bool hasContent);
     
   protected:
     virtual void showEvent ( QShowEvent * event );
     virtual void resizeEvent ( QResizeEvent * event );
     virtual void hideEvent ( QHideEvent * event );
-    virtual void focusInEvent ( QFocusEvent * event );
+//    virtual void focusInEvent ( QFocusEvent * event );
 
   private Q_SLOTS:
     void modelContentChanged();
@@ -151,7 +151,7 @@ class KateCompletionWidget : public QFrame
     KateArgumentHintTree* m_argumentHintTree;
 
     QTimer* m_automaticInvocationTimer;
-    QTimer* m_updateFocusTimer;
+    //QTimer* m_updateFocusTimer;
     QWidget* m_statusBar;
     QToolButton* m_sortButton;
     QLabel* m_sortText;

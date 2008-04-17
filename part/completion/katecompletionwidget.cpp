@@ -52,7 +52,7 @@
 //#include "modeltest.h"
 
 KateCompletionWidget::KateCompletionWidget(KateView* parent)
-  : QFrame(parent, Qt::Tool | Qt::FramelessWindowHint)
+  : QFrame(parent, Qt::ToolTip)
   , m_presentationModel(new KateCompletionModel(this))
   , m_completionRange(0L)
   , m_entryList(new KateCompletionTree(this))
@@ -68,22 +68,18 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_expandedAddedHeightBase(0)
   , m_expandingAddedHeight(0)
 {
-  //new ModelTest(m_presentationModel, this);
 
   setFrameStyle( QFrame::Box | QFrame::Plain );
   setLineWidth( 1 );
   //setWindowOpacity(0.8);
 
   m_entryList->setModel(m_presentationModel);
+  m_argumentHintTree->setParent(0, Qt::ToolTip);
   m_argumentHintTree->setModel(m_argumentHintModel);
 
   m_automaticInvocationTimer = new QTimer(this);
   m_automaticInvocationTimer->setSingleShot(true);
   connect(m_automaticInvocationTimer, SIGNAL(timeout()), this, SLOT(automaticInvocation()));
-
-  m_updateFocusTimer = new QTimer(this);
-  m_updateFocusTimer->setSingleShot(true);
-  connect(m_updateFocusTimer, SIGNAL(timeout()), this, SLOT(updateFocus()));
 
   QVBoxLayout* vl = new QVBoxLayout(this);
   vl->addWidget(m_entryList);
@@ -96,14 +92,13 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
 
   connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(cursorPositionChanged()));
   connect(view()->doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(editDone(KateEditInfo*)), Qt::QueuedConnection);
-  connect(view(), SIGNAL(focusOut(KTextEditor::View*)), this, SLOT(viewFocusOut()));
-  connect(view(), SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(viewFocusIn()));
   connect(view(), SIGNAL(verticalScrollPositionChanged (KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(updatePositionSlot()));
 
   // This is a non-focus widget, it is passed keyboard input from the view
 
   //We need to do this, because else the focus goes to nirvana without any control when the completion-widget is clicked.
   setFocusPolicy(Qt::ClickFocus);
+  m_argumentHintTree->setFocusPolicy(Qt::ClickFocus);
 
   foreach (QWidget* childWidget, findChildren<QWidget*>())
     childWidget->setFocusPolicy(Qt::NoFocus);
@@ -124,42 +119,6 @@ void KateCompletionWidget::modelContentChanged() {
   m_entryList->setCurrentIndex(model()->index(0,0));
   if(!model()->indexIsItem(m_entryList->currentIndex()))
     m_entryList->setCurrentIndex(model()->index(0,0, m_entryList->currentIndex()));
-}
-
-void KateCompletionWidget::focusInEvent ( QFocusEvent * event ) {
-  //Instantly give the focus back
-  view()->activateWindow(); //When the completion-widget is clicked, the application-window is deactivated, so re-activate it
-  view()->setFocus(Qt::OtherFocusReason);
-  event->accept();
-  QFrame::focusInEvent(event);
-}
-
-void KateCompletionWidget::updateFocus() {
-  if( isCompletionActive() ) {
-    bool childHasFocus = QApplication::focusWidget() ? isAncestorOf(QApplication::focusWidget()) : false;
-    if(!childHasFocus && !view()->hasFocus()) {
-      if(isVisible()) {
-        hide();
-        m_isSuspended = true;
-      }
-    }else if(childHasFocus) {
-      //Whenever the completion-widget gets the focus by clicking, move it back to the text-view.
-      view()->activateWindow(); //When the completion-widget is clicked, the application-window is deactivated, so re-activate it
-      view()->setFocus(Qt::OtherFocusReason);
-    }
-  }
-}
-
-void KateCompletionWidget::viewFocusOut() {
-    //Check whether the view is still visible in a short time. If it isn't, hide the completion-widget.
-    m_updateFocusTimer->start(100);
-}
-
-void KateCompletionWidget::viewFocusIn() {
-  if( m_isSuspended ) {
-    show();
-    m_isSuspended = false;
-  }
 }
 
 KateArgumentHintTree* KateCompletionWidget::argumentHintTree() const {

@@ -2708,6 +2708,12 @@ void KateViewInternal::updateDirty( )
   }
 }
 
+void KateViewInternal::hideEvent(QHideEvent* e)
+{
+  if(m_view->isCompletionActive())
+    m_view->completionWidget()->abortCompletion();
+}
+
 void KateViewInternal::paintEvent(QPaintEvent *e)
 {
   QMutexLocker lock(m_doc->smartMutex());

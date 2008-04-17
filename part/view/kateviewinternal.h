@@ -184,6 +184,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
   private:
     void fixDropEvent(QDropEvent *event);
   protected:
+    virtual void hideEvent(QHideEvent* e);
     virtual void paintEvent(QPaintEvent *e);
     virtual bool eventFilter( QObject *obj, QEvent *e );
     virtual void keyPressEvent( QKeyEvent* );

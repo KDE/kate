@@ -24,6 +24,7 @@
 
 #include <klocale.h>
 #include <kiconloader.h>
+#include <kapplication.h>
 
 #include "katecompletionwidget.h"
 #include "katecompletiontree.h"
@@ -172,6 +173,7 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
       return QVariant( m_expandedIcon );
   }
 
+  //groupOfParent returns a group when the index is a member of that group, but not the group head/label.
   if (!hasGroups() || groupOfParent(index)) {
     switch (role) {
       case Qt::TextAlignmentRole:
@@ -215,13 +217,14 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
       return ExpandingWidgetModel::data(index, role);
   }
 
+  //Returns a nonzero group if this index is the head of a group(A Label in the list)
   Group* g = groupForIndex(index);
 
   if (g) {
     switch (role) {
       case Qt::DisplayRole:
         if (!index.column())
-          return g->title;
+          return " " + g->title;
         break;
 
       case Qt::FontRole:
@@ -233,10 +236,9 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
         break;
 
       case Qt::ForegroundRole:
-        return QColor(Qt::white);
-
+        return KApplication::kApplication()->palette().toolTipText().color();
       case Qt::BackgroundRole:
-        return QColor(Qt::black);
+        return KApplication::kApplication()->palette().toolTipBase().color();
     }
   }
 
@@ -614,11 +616,11 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
 
   if (groupingMethod() & ScopeType) {
     if (attribute & KTextEditor::CodeCompletionModel::GlobalScope)
-      st = "Global Scope";
+      st = "Global";
     else if (attribute & KTextEditor::CodeCompletionModel::NamespaceScope)
-      st = "Namespace Scope";
+      st = "Namespace";
     else if (attribute & KTextEditor::CodeCompletionModel::LocalScope)
-      st = "Local Scope";
+      st = "Local";
 
     ret->title = st;
   }

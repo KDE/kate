@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Javadoc" version="1.03" kateversion="2.4" section="Markup" extensions="" license="LGPL" author="Alfredo Luiz Foltran Fialho (alfoltran@ig.com.br)">
+<language name="Javadoc" version="1.04" kateversion="2.4" section="Markup" extensions="" license="LGPL" author="Alfredo Luiz Foltran Fialho (alfoltran@ig.com.br)">
 	<highlighting>
 		<contexts>
 			<context name="Start" attribute="Normal Text" lineEndContext="#stay">
 				<IncludeRules context="FindJavadoc" />
 			</context>
 			<context name="FindJavadoc" attribute="Normal Text" lineEndContext="#stay">
+				<StringDetect attribute="JavadocFS" context="#stay" String="/**/"/>
 				<StringDetect attribute="JavadocFS" context="JavadocFSar" String="/**" beginRegion="Javadoc"/>
 			</context>
 			<context attribute="JavadocFS" lineEndContext="#stay" name="JavadocFSar">

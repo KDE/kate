@@ -62,7 +62,7 @@ KateCompletionTree::KateCompletionTree(KateCompletionWidget* parent)
 
 void KateCompletionTree::currentChanged ( const QModelIndex & current, const QModelIndex & previous ) {
   widget()->model()->rowSelected(current);
-  QTreeView::currentChanged(current, previous);
+  ExpandingTree::currentChanged(current, previous);
 }
 
 void KateCompletionTree::scrollContentsBy( int dx, int dy )
@@ -145,6 +145,8 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
   }
 
   int totalColumnsWidth = 0;
+  
+  int maxWidth = (QApplication::desktop()->screenGeometry(widget()->view()).width()*3) / 4;
 
   ///Step 2: Update column-sizes
   if( changed ) {
@@ -159,6 +161,28 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
         minimumResize = diff;
       if( diff > maximumResize )
         maximumResize = diff;
+    }
+
+    int noReduceTotalWidth = 0; //The total width of the widget of no columns are reduced
+    for( int n = 0; n < numColumns; n++ ) {
+      if(columnSize[n] < columnWidth(n))
+        noReduceTotalWidth += columnWidth(n);
+      else
+        noReduceTotalWidth += columnSize[n];
+    }
+
+    //Check whether we can afford to reduce none of the columns
+    //Only reduce size if we widget would else be too wide.
+  bool noReduce = noReduceTotalWidth < maxWidth;
+
+    if(noReduce) {
+      totalColumnsWidth = 0;
+      for( int n = 0; n < numColumns; n++ ) {
+      	if(columnSize[n] < columnWidth(n))
+          columnSize[n] = columnWidth(n);
+
+        totalColumnsWidth += columnSize[n];
+      }
     }
 
     if( minimumResize > -40 && maximumResize == 0 ) {
@@ -191,7 +215,6 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
   if (!fromResizeEvent && (firstShow || oldIndentWidth != newIndentWidth))
   {
     //Never allow a completion-widget to be wider than 2/3 of the screen
-    int maxWidth = (QApplication::desktop()->screenGeometry(widget()->view()).width()*3) / 4;
     int newWidth = qMin(maxWidth, targetWidth); 
     //kDebug() << "fromResize " << fromResizeEvent << " indexOfName " << modelIndexOfName << " oldI " << oldIndentWidth << " newI " << newIndentWidth << " minw " << minWidth << " w " << widget()->width() << " newW " << newWidth;
     widget()->resize(newWidth + scrollBarWidth, widget()->height());

@@ -34,6 +34,8 @@
 #include <kdebug.h>
 #include <kmenu.h>
 
+#include <iostream>
+
 #include <cctype>
 
 //BEGIN KateAutoIndent
@@ -225,11 +227,12 @@ void KateAutoIndent::setMode (const QString &name)
   {
     m_script = script;
     m_mode = name;
-    return;
   }
-
-  // default: none
-  m_mode = QString ("none");
+  else {
+    // default: none
+    m_mode = QString ("none");
+  }
+  std::cerr << "mode: " << qPrintable(m_mode) << '\n';
 }
 
 void KateAutoIndent::updateConfig ()
@@ -294,7 +297,7 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
     return;
 
   // does the script allow this char as trigger?
-  if (typedChar != '\n' && !m_script->triggerCharacters(view).contains(typedChar))
+  if (typedChar != '\n' && !m_script->triggerCharacters().contains(typedChar))
     return;
 
   // let the script indent for us...

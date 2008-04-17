@@ -27,6 +27,7 @@
 #include <QtScript/QScriptable>
 
 class QScriptEngine;
+class QScriptContext;
 
 class KateDocument;
 class KateView;
@@ -37,6 +38,11 @@ namespace Kate {
     IndentationScript,
     /** Don't know what kind of script this is */
     UnknownScript
+  };
+  
+  /** Top-level script functions */
+  namespace Script {
+    QScriptValue debug(QScriptContext *context, QScriptEngine *engine);
   };
 }
 
@@ -172,8 +178,11 @@ class KateScript {
     const QString &errorMessage() { return m_errorMessage; }
 
     /** Displays the backtrace when a script has errored out */
-    void displayBacktrace(const QString &header = QString());
+    void displayBacktrace(const QScriptValue &error, const QString &header = QString());
   private:
+    /** Add our custom functions to m_engine when it has been initialised */
+    void initEngine();
+    
     /** Whether or not there has been a call to load */
     bool m_loaded;
     /** Whether or not the script loaded successfully into memory */

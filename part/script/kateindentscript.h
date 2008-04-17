@@ -22,6 +22,8 @@
 #include "katescript.h"
 #include "kateview.h"
 
+class KateScriptDocument;
+
 /**
  * A specialised class for scripts that are of type 
  * KateScriptInformation::IndentationScript
@@ -30,7 +32,7 @@ class KateIndentScript : public KateScript {
   public:
     KateIndentScript(const QString &url, const KateScriptInformation &information);
 
-    const QString &triggerCharacters(KateView* view);
+    const QString &triggerCharacters();
     int indent(KateView* view, const KTextEditor::Cursor& position, QChar typedCharacter,
                int indentWidth);
 

@@ -24,10 +24,26 @@
 
 #include <QScriptEngine>
 #include <QScriptValue>
+#include <QScriptContext>
 
 #include <kdebug.h>
 #include <klocale.h>
 
+#include <iostream>
+
+
+namespace Kate {
+  namespace Script {
+    QScriptValue debug(QScriptContext *context, QScriptEngine *engine) {
+      QStringList message;
+      for(int i = 0; i < context->argumentCount(); ++i) {
+        message << context->argument(i).toString();
+      }
+      // debug in blue to distance from other debug output if necessary
+      std::cerr << "\033[34m" << qPrintable(message.join(" ")) << "\033[0m\n";
+    }
+  }
+}
 KateScriptDocument::KateScriptDocument ()
  : QObject ()
  , m_document (0)
@@ -54,16 +70,19 @@ KateScript::~KateScript()
   delete m_view;
 }
 
-void KateScript::displayBacktrace(const QString &header)
+void KateScript::displayBacktrace(const QScriptValue &error, const QString &header)
 {
   if(!m_engine) {
     kDebug(13050) << "KateScript::displayBacktrace: no engine, cannot display error\n";
+    return;
   }
-  kDebug(13050) << "\033[31m";
+  std::cerr << "\033[31m";
   if(!header.isNull())
-    kDebug(13050) << qPrintable(header) << '\n';
-  kDebug(13050) << qPrintable(m_engine->uncaughtExceptionBacktrace().join("\n"));
-  kDebug(13050) << "\033[0m";
+    std::cerr << qPrintable(header) << ":\n";
+  if(error.isError())
+    std::cerr << qPrintable(error.toString()) << '\n';
+  std::cerr << qPrintable(m_engine->uncaughtExceptionBacktrace().join("\n"));
+  std::cerr << "\033[0m" << '\n';
 }
 
 QScriptValue KateScript::global(const QString &name)
@@ -105,26 +124,29 @@ bool KateScript::load()
   m_engine = new QScriptEngine();
   QScriptValue result = m_engine->evaluate(source, m_url);
   if(m_engine->hasUncaughtException()) {
-    displayBacktrace(QString("Error loading %1\n").arg(m_url));
-    m_errorMessage = i18n("Error loading indent script %1", filename);
+    displayBacktrace(result, QString("Error loading %1\n").arg(m_url));
+    m_errorMessage = i18n("Error loading script %1", filename);
     m_loadSuccessful = false;
     return false;
   }
-
-  // set the view/document objects as necessary
-  m_engine->globalObject().setProperty("document", m_engine->newQObject(m_document = new KateScriptDocument ()));
-  m_engine->globalObject().setProperty("view", m_engine->newQObject(m_view = new KateScriptView ()));
-
   // yip yip!
+  initEngine();
   m_loadSuccessful = true;
   return true;
 }
 
-bool KateScript::setView (KateView *view)
+void KateScript::initEngine() {
+  // set the view/document objects as necessary
+  m_engine->globalObject().setProperty("document", m_engine->newQObject(m_document = new KateScriptDocument ()));
+  m_engine->globalObject().setProperty("view", m_engine->newQObject(m_view = new KateScriptView ()));
+
+  m_engine->globalObject().setProperty("debug", m_engine->newFunction(Kate::Script::debug));
+}
+
+bool KateScript::setView(KateView *view)
 {
   if (!load())
     return false;
-
   // setup the stuff
   m_document->setDocument (view->doc());
   m_view->setView (view);

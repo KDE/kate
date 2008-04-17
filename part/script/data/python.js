@@ -11,7 +11,7 @@
 // niceties
 
 String.prototype.startsWith = function(prefix) {
-    return this.substr(0, prefix.length) == prefix;
+    return this.substring(0, prefix.length) == prefix;
 }
 
 String.prototype.endsWith = function(suffix) {
@@ -56,6 +56,7 @@ function indent(line, indentWidth, character) {
     dbg("indent character: " + character);
 //     dbg("line text: " + document.line(line));
     var currentLine = document.line(line);
+    dbg("current line: " + currentLine);
     var lastLine = document.line(line - 1);
     var lastCharacter = lastLine.lastCharacter();
     // we can't really indent line 0

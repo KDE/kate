@@ -22,15 +22,15 @@
 #include "katedocument.h"
 #include "kateview.h"
 
-
 #include "kateindentscript.h"
+
 
 KateIndentScript::KateIndentScript(const QString &url, const KateScriptInformation &information)
   : KateScript(url, information), m_triggerCharactersSet (false)
 {
 }
 
-const QString &KateIndentScript::triggerCharacters(KateView* view)
+const QString &KateIndentScript::triggerCharacters()
 {
   // already set, perfect, just return...
   if (m_triggerCharactersSet)
@@ -38,7 +38,7 @@ const QString &KateIndentScript::triggerCharacters(KateView* view)
 
   m_triggerCharactersSet = true;
   
-  m_triggerCharacters = global ("triggerCharacters").toString ();
+  m_triggerCharacters = global("triggerCharacters").toString ();
 
   kDebug () << "trigger chars: '" << m_triggerCharacters << "'";
 
@@ -65,12 +65,12 @@ int KateIndentScript::indent(KateView* view, const KTextEditor::Cursor& position
   QScriptValue result = indentFunction.call(QScriptValue(), arguments);
   // error during the calling?
   if(m_engine->hasUncaughtException()) {
-    displayBacktrace(QString("Error calling indent()\n"));
+    displayBacktrace(result, "Error calling indent()");
     return -2;
   }
   int indentAmount = result.toInteger();
   if(m_engine->hasUncaughtException()) {
-    displayBacktrace(QString("Bad return type (must be integer)\n"));
+    displayBacktrace(QScriptValue(), "Bad return type (must be integer)");
     return -2;
   }
   return indentAmount;

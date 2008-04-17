@@ -103,11 +103,16 @@ QModelIndex ExpandingWidgetModel::partiallyExpandedRow() const {
 }
 
 void ExpandingWidgetModel::clearExpanding() {
+    
     clearMatchQualities();
-    m_expandState.clear();
+    QMap<QPersistentModelIndex,ExpandingWidgetModel::ExpandingType> oldExpandState = m_expandState;
     foreach( QPointer<QWidget> widget, m_expandingWidgets )
       delete widget;
     m_expandingWidgets.clear();
+    m_expandState.clear();
+
+    for( QMap<QPersistentModelIndex, ExpandingWidgetModel::ExpandingType>::const_iterator it = oldExpandState.begin(); it != oldExpandState.end(); ++it )
+      emit dataChanged(it.key(), it.key());
 }
 
 ExpandingWidgetModel::ExpansionType ExpandingWidgetModel::isPartiallyExpanded(const QModelIndex& index) const {

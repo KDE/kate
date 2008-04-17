@@ -116,11 +116,14 @@ void KateCompletionWidget::modelContentChanged() {
   int realItemCount = 0;
   foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels())
     realItemCount += model->rowCount();
-  kDebug() << "content changed, item count " << realItemCount << "\n";
   if( !m_isSuspended && !isVisible() && realItemCount != 0 ) {
     kDebug() << "showing";
     updateAndShow();
   }
+  //With each filtering items can be added or removed, so we have to reset the current index here so we always have a selected item
+  m_entryList->setCurrentIndex(model()->index(0,0));
+  if(!model()->indexIsItem(m_entryList->currentIndex()))
+    m_entryList->setCurrentIndex(model()->index(0,0, m_entryList->currentIndex()));
 }
 
 void KateCompletionWidget::focusInEvent ( QFocusEvent * event ) {

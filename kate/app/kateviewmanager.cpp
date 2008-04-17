@@ -210,7 +210,7 @@ void KateViewManager::slotDocumentClose ()
 
   slotDocumentClose(activeView()->document());
 
-  
+
 }
 
 KTextEditor::Document *KateViewManager::openUrl (const KUrl &url, const QString& encoding, bool activate, bool isTempFile)
@@ -443,6 +443,7 @@ void KateViewManager::activateView ( KTextEditor::View *view )
     setActiveView (view);
 
     mainWindow()->setUpdatesEnabled( false );
+    bool toolbarVisible = mainWindow()->toolBar()->isVisible();
     mainWindow()->toolBar()->hide();
 
     if (guiMergedView)
@@ -453,7 +454,8 @@ void KateViewManager::activateView ( KTextEditor::View *view )
     if (!m_blockViewCreationAndActivation)
       mainWindow()->guiFactory()->addClient( view );
 
-    mainWindow()->toolBar()->show();
+    if (toolbarVisible)
+      mainWindow()->toolBar()->show();
     mainWindow()->setUpdatesEnabled( true );
 
     emit viewChanged();
@@ -712,7 +714,7 @@ void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
     // kill bad children
     while (count())
       delete widget (0);
-  
+
     KateViewSpace* vs = new KateViewSpace( this, 0 );
     addWidget (vs);
     vs->setActive( true );
@@ -781,7 +783,7 @@ void KateViewManager::restoreSplitter( const KConfigBase* configBase, const QStr
     {
       KateViewSpace* vs = new KateViewSpace( this, 0 );
       m_viewSpaceList.append( vs );
-      // make active so that the view created in restoreConfig has this 
+      // make active so that the view created in restoreConfig has this
       // new view space as parent.
       setActiveSpace( vs );
 

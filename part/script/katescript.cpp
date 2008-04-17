@@ -150,6 +150,7 @@ bool KateScript::setView(KateView *view)
   // setup the stuff
   m_document->setDocument (view->doc());
   m_view->setView (view);
+  return true;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

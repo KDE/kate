@@ -48,7 +48,9 @@ KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection)
   m_windowNext = actionCollection->addAction(KStandardAction::Back, this, SLOT(slotPrevDocument()));
   m_windowPrev = actionCollection->addAction(KStandardAction::Forward, this, SLOT(slotNextDocument()));
 
-  m_filelistCloseDocument=actionCollection->addAction( KStandardAction::Close, "filelist_close", this, SLOT( slotDocumentClose() ) );
+  m_filelistCloseDocument=actionCollection->addAction( "filelist_close" );
+  m_filelistCloseDocument->setText( i18n( "Close" ) );
+  connect( m_filelistCloseDocument, SIGNAL( triggered() ), this, SLOT( slotDocumentClose() ) );
   m_filelistCloseDocument->setWhatsThis(i18n("Close the current document."));
 
   m_filelistCloseDocumentOther = actionCollection->addAction( "filelist_close_other" );

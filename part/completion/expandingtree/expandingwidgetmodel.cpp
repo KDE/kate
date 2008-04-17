@@ -112,7 +112,8 @@ void ExpandingWidgetModel::clearExpanding() {
     m_expandState.clear();
 
     for( QMap<QPersistentModelIndex, ExpandingWidgetModel::ExpandingType>::const_iterator it = oldExpandState.begin(); it != oldExpandState.end(); ++it )
-      emit dataChanged(it.key(), it.key());
+      if(it.value() == Expanded)
+      	emit dataChanged(it.key(), it.key());
 }
 
 ExpandingWidgetModel::ExpansionType ExpandingWidgetModel::isPartiallyExpanded(const QModelIndex& index) const {

@@ -20,6 +20,7 @@
 
 #include <QTextFormat>
 #include <QGridLayout>
+#include <kapplication.h>
 
 #include <ktexteditor/codecompletionmodel.h>
 #include "katecompletionwidget.h"
@@ -77,9 +78,9 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
     if( role == Qt::DisplayRole && index.column() == 0 ) {
       return QString("Depth %1").arg(-m_rows[index.row()]);
     } else if( role == Qt::BackgroundRole ) {
-      return QColor(Qt::black);
+      return KApplication::kApplication()->palette().toolTipBase().color();
     }else if( role == Qt::ForegroundRole ) {
-      return QColor(Qt::white);
+      return KApplication::kApplication()->palette().toolTipText().color();
     }else{
       return QVariant();
     }

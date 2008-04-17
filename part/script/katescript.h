@@ -43,7 +43,7 @@ namespace Kate {
   /** Top-level script functions */
   namespace Script {
     QScriptValue debug(QScriptContext *context, QScriptEngine *engine);
-  };
+  }
 }
 
 //BEGIN KateScriptInformation

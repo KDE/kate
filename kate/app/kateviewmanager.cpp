@@ -444,7 +444,8 @@ void KateViewManager::activateView ( KTextEditor::View *view )
 
     mainWindow()->setUpdatesEnabled( false );
     bool toolbarVisible = mainWindow()->toolBar()->isVisible();
-    mainWindow()->toolBar()->hide();
+    if (toolbarVisible)
+      mainWindow()->toolBar()->hide(); // hide to avoid toolbar flickering
 
     if (guiMergedView)
       mainWindow()->guiFactory()->removeClient( guiMergedView );

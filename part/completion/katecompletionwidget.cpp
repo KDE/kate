@@ -78,6 +78,9 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_argumentHintTree->setParent(0, Qt::ToolTip);
   m_argumentHintTree->setModel(m_argumentHintModel);
 
+  connect(m_entryList->verticalScrollBar(), SIGNAL(valueChanged(int)), m_presentationModel, SLOT(placeExpandingWidgets()));
+  connect(m_argumentHintTree->verticalScrollBar(), SIGNAL(valueChanged(int)), m_argumentHintModel, SLOT(placeExpandingWidgets()));
+
   m_automaticInvocationTimer = new QTimer(this);
   m_automaticInvocationTimer->setSingleShot(true);
   connect(m_automaticInvocationTimer, SIGNAL(timeout()), this, SLOT(automaticInvocation()));

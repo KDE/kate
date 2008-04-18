@@ -359,8 +359,8 @@ void ExpandingWidgetModel::placeExpandingWidget(const QModelIndex& idx_)
         return;
       
       QRect rect = treeView()->visualRect(idx);
-      
-      if( !rect.isValid() ) {
+
+      if( !rect.isValid() || rect.bottom() < 0 || rect.top() >= treeView()->height() ) {
           //The item is currently not visible
           w->hide();
           return;

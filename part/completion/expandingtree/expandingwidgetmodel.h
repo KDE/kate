@@ -103,9 +103,6 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     ///Also shows the partial-expanding-widget when it should be visible.
     void placeExpandingWidget(const QModelIndex & row);
     
-    ///Place all expanding-widgets to the correct positions
-    void placeExpandingWidgets();
-    
     virtual QTreeView* treeView() const = 0;
     
     ///Should return true if the given row should be painted like a contained item(as opposed to label-rows etc.)
@@ -116,6 +113,10 @@ class ExpandingWidgetModel : public QAbstractTableModel {
 
     ///Returns the first row that is currently partially expanded.
     QModelIndex partiallyExpandedRow() const;
+
+    public slots:
+    ///Place or hides all expanding-widgets to the correct positions. Should be called after the view was scrolled.
+    void placeExpandingWidgets();
 
     protected:
     /**

@@ -129,7 +129,7 @@ class KateCompletionWidget : public QFrame
     void modelReset();
     void startCharacterDeleted(KTextEditor::SmartCursor* cursor, bool deletedBefore);
     void rowsInserted(const QModelIndex& parent, int row, int rowEnd);
-
+    void viewFocusOut();
   private:
     void updateAndShow();
     void updateArgumentHintGeometry();

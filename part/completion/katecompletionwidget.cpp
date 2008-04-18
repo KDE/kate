@@ -80,6 +80,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
 
   connect(m_entryList->verticalScrollBar(), SIGNAL(valueChanged(int)), m_presentationModel, SLOT(placeExpandingWidgets()));
   connect(m_argumentHintTree->verticalScrollBar(), SIGNAL(valueChanged(int)), m_argumentHintModel, SLOT(placeExpandingWidgets()));
+  connect(view(), SIGNAL(focusOut(KTextEditor::View*)), this, SLOT(viewFocusOut()));
 
   m_automaticInvocationTimer = new QTimer(this);
   m_automaticInvocationTimer->setSingleShot(true);
@@ -109,6 +110,10 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
 }
 
 KateCompletionWidget::~KateCompletionWidget() {
+}
+
+void KateCompletionWidget::viewFocusOut() {
+  abortCompletion();
 }
 
 void KateCompletionWidget::modelContentChanged() {

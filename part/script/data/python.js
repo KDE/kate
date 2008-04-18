@@ -53,28 +53,25 @@ var triggerCharacters = "";
 
 function indent(line, indentWidth, character) {
 //     dbg(document.attribute.toString());
-    dbg("indent character: " + character);
+//     dbg("indent character: " + character);
 //     dbg("line text: " + document.line(line));
     var currentLine = document.line(line);
-    dbg("current line: " + currentLine);
+//     dbg("current line: " + currentLine);
     var lastLine = document.line(line - 1);
     var lastCharacter = lastLine.lastCharacter();
     // we can't really indent line 0
     if(line == 0)
         return -2;
-    // check what state the last character of the previous line is in -- if 
-    // it's a string/comment, we don't want to go any further
-    var lastLetterType = document.attribute(line - 1, document.lineLength(line - 1) - 1);
-    // 19 = docstring or comment, 20 = string
-    if((lastLetterType == 19 || lastLetterType == 20) && lastCharacter != "\"" && lastCharacter != "'") {
-        dbg("attributes that we don't want! Returning");
+    // make sure the last line is code
+    if(!document.isCode(line - 1, document.lineLength(line - 1) - 1) && lastCharacter != "\"" && lastCharacter != "'") {
+//         dbg("attributes that we don't want! Returning");
         return -1;
     }
     // otherwise, check the line contents
     // for :, we simply indent
-    dbg('line without white space: ' + currentLine.sansWhiteSpace().length);
+//     dbg('line without white space: ' + currentLine.sansWhiteSpace().length);
     if(lastLine.endsWith(':')) {
-        dbg('indenting line for :');
+//         dbg('indenting line for :');
         return document.firstVirtualColumn(line - 1) + indentWidth;
     }
     // generally, when a brace is on its own at the end of a regular line
@@ -85,7 +82,7 @@ function indent(line, indentWidth, character) {
     // }
     // etc..
     else if(lastCharacter == '{' || lastCharacter == '[') {
-        dbg('indenting for { or [');
+//         dbg('indenting for { or [');
         return document.firstVirtualColumn(line - 1) + indentWidth;
     }
     // XX this introduces irritating bugs. Commenting it out for now
@@ -99,10 +96,10 @@ function indent(line, indentWidth, character) {
     // finally, a raise, pass, and continue should unindent
     lastLine = lastLine.stripWhiteSpace();
     if(lastLine == 'continue' || lastLine == 'pass' || lastLine == 'raise' || lastLine.startsWith('raise ')) {
-        dbg('unindenting line for keyword');
+//         dbg('unindenting line for keyword');
         return Math.max(0, document.firstVirtualColumn(line - 1) - indentWidth);
     }
-    dbg('continuing with regular indent');
+//     dbg('continuing with regular indent');
     return -1;
 }
 

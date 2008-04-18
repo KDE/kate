@@ -111,7 +111,7 @@ class KateScriptManager : public KTextEditor::Command
 
     /**
      * hash of all existing indenter scripts
-     * hashs basename -> script
+     * hashes basename -> script
      */
     QHash<QString, KateIndentScript*> m_indentationScripts;
 

@@ -63,6 +63,8 @@ document/kateundo.cpp
 script/katescript.cpp
 script/kateindentscript.cpp
 script/katescriptmanager.cpp
+# scripting wrappers
+script/katescriptdocument.cpp
 
 # mode (modemanager and co)
 mode/katemodemanager.cpp

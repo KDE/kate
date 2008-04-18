@@ -17,6 +17,7 @@
 /// Boston, MA 02110-1301, USA.
 
 #include "katescript.h"
+#include "katescriptdocument.h"
 #include "kateview.h"
 #include "katedocument.h"
 
@@ -34,6 +35,7 @@
 
 namespace Kate {
   namespace Script {
+
     QScriptValue debug(QScriptContext *context, QScriptEngine *engine) {
       QStringList message;
       for(int i = 0; i < context->argumentCount(); ++i) {
@@ -41,18 +43,18 @@ namespace Kate {
       }
       // debug in blue to distance from other debug output if necessary
       std::cerr << "\033[34m" << qPrintable(message.join(" ")) << "\033[0m\n";
+      return engine->nullValue();
     }
+
   }
 }
-KateScriptDocument::KateScriptDocument ()
- : QObject ()
- , m_document (0)
+
+KateScriptView::KateScriptView() : QObject(), m_view (0)
 {
 }
 
-KateScriptView::KateScriptView ()
- : QObject ()
- , m_view (0)
+KateScriptCursor::KateScriptCursor(uint line, uint column, QObject *parent)
+  : QObject(parent), m_line(line), m_column(column)
 {
 }
 
@@ -64,10 +66,12 @@ KateScript::KateScript(const QString &url, const KateScriptInformation &informat
 
 KateScript::~KateScript()
 {
-  // remove data...
-  delete m_engine;
-  delete m_document;
-  delete m_view;
+  if(m_loadSuccessful) {
+    // remove data...
+    delete m_engine;
+    delete m_document;
+    delete m_view;
+  }
 }
 
 void KateScript::displayBacktrace(const QScriptValue &error, const QString &header)
@@ -137,8 +141,8 @@ bool KateScript::load()
 
 void KateScript::initEngine() {
   // set the view/document objects as necessary
-  m_engine->globalObject().setProperty("document", m_engine->newQObject(m_document = new KateScriptDocument ()));
-  m_engine->globalObject().setProperty("view", m_engine->newQObject(m_view = new KateScriptView ()));
+  m_engine->globalObject().setProperty("document", m_engine->newQObject(m_document = new KateScriptDocument()));
+  m_engine->globalObject().setProperty("view", m_engine->newQObject(m_view = new KateScriptView()));
 
   m_engine->globalObject().setProperty("debug", m_engine->newFunction(Kate::Script::debug));
 }

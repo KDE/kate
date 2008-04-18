@@ -65,6 +65,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_inCompletionList(false)
   , m_isSuspended(false)
   , m_dontShowArgumentHints(false)
+  , m_needShow(false)
   , m_expandedAddedHeightBase(0)
   , m_expandingAddedHeight(0)
 {
@@ -111,8 +112,8 @@ void KateCompletionWidget::modelContentChanged() {
   int realItemCount = 0;
   foreach (KTextEditor::CodeCompletionModel* model, m_presentationModel->completionModels())
     realItemCount += model->rowCount();
-  if( !m_isSuspended && !isVisible() && realItemCount != 0 ) {
-    kDebug() << "showing";
+  if( !m_isSuspended && (!isVisible() || m_needShow) && realItemCount != 0 ) {
+    m_needShow = false;
     updateAndShow();
   }
   //With each filtering items can be added or removed, so we have to reset the current index here so we always have a selected item
@@ -163,7 +164,8 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
 {
   m_isSuspended = false;
   m_inCompletionList = true; //Always start at the top of the completion-list
-  
+  m_needShow = true;
+
   disconnect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
 
   m_dontShowArgumentHints = true;
@@ -290,8 +292,6 @@ void KateCompletionWidget::updateArgumentHintGeometry()
 
 void KateCompletionWidget::updateHeight()
 {
-  kDebug() << "updateHeight(), height: " << geometry().height() << " current added-height: " << m_expandingAddedHeight;
-
   QRect geom = geometry();
 
   int baseHeight = geom.height() - m_expandingAddedHeight;
@@ -370,11 +370,7 @@ void KateCompletionWidget::cursorPositionChanged( )
 
 bool KateCompletionWidget::isCompletionActive( ) const
 {
-  bool ret = isVisible();
-  if (ret)
-    Q_ASSERT(m_completionRange && m_completionRange->isValid());
-
-  return ret;
+  return m_completionRange && isVisible();
 }
 
 void KateCompletionWidget::abortCompletion( )
@@ -383,17 +379,18 @@ void KateCompletionWidget::abortCompletion( )
 
   m_isSuspended = false;
 
-  if (!isCompletionActive())
-    return;
-
-  hide();
+  bool wasActive = isCompletionActive();
 
   clear();
+
+  if(isVisible())
+    hide();
 
   delete m_completionRange;
   m_completionRange = 0L;
 
-  view()->sendCompletionAborted();
+  if (wasActive)
+    view()->sendCompletionAborted();
 }
 
 void KateCompletionWidget::clear() {
@@ -475,7 +472,6 @@ void KateCompletionWidget::showEvent ( QShowEvent * event )
 void KateCompletionWidget::hideEvent( QHideEvent * event )
 {
   QWidget::hideEvent(event);
-
   m_argumentHintTree->hide();
 
   if (isCompletionActive())

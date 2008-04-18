@@ -168,6 +168,7 @@ class KateCompletionWidget : public QFrame
     bool m_inCompletionList; //Are we in the completion-list? If not, we're in the argument-hint list
     bool m_isSuspended;
     bool m_dontShowArgumentHints; //Used temporarily to prevent flashing
+    bool m_needShow;
 
     int m_expandedAddedHeightBase;
     int m_expandingAddedHeight;

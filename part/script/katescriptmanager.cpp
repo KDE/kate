@@ -321,7 +321,7 @@ bool KateScriptManager::help(KTextEditor::View *, const QString &cmd, QString &m
 {
 #if 0
   if (cmd == "js-run-myself") {
-    msg = i18n("This executes the current document as a javascript within kate");
+    msg = i18n("This executes the current document as JavaScript within Kate.");
     return true;
   }
 

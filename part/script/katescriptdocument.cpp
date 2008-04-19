@@ -122,7 +122,32 @@ KateScriptCursor *KateScriptDocument::anchor(uint line, uint column, QChar chara
   }
   return 0;
 }
+    
+bool KateScriptDocument::startsWith (int line, const QString &pattern, bool skipWhiteSpaces)
+{
+  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
 
+  if (!textLine)
+    return false;
+
+  if (skipWhiteSpaces)   
+    return textLine->matchesAt(textLine->firstChar(), pattern);
+
+  return textLine->startsWith (pattern);
+}
+
+bool KateScriptDocument::endsWith (int line, const QString &pattern, bool skipWhiteSpaces)
+{
+  KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
+
+  if (!textLine)
+    return false;
+
+  if (skipWhiteSpaces)   
+    return textLine->matchesAt(textLine->lastChar() - pattern.length() + 1, pattern);
+
+  return textLine->endsWith (pattern);
+}
 
 //BEGIN Automatically generated
 

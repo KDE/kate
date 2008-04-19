@@ -104,6 +104,8 @@ class KateScriptDocument : public QObject, protected QScriptable
         
     Q_INVOKABLE bool isCode(uint line, uint column);
     
+    Q_INVOKABLE bool startsWith (int line, const QString &pattern, bool skipWhiteSpaces);
+    Q_INVOKABLE bool endsWith (int line, const QString &pattern, bool skipWhiteSpaces);
   
   private:
     bool _isCode(int defaultStyle);

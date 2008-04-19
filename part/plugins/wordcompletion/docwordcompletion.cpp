@@ -274,6 +274,8 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
     m_dWCompletionModel( completionModel ),
     d( new DocWordCompletionPluginViewPrivate )
 {
+  setComponentData( DocWordCompletionFactory::componentData() );
+
 //   setObjectName( name );
   d->isCompleting = false;
   d->treshold = treshold;
@@ -316,7 +318,6 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold,
     connect( action, SIGNAL( triggered() ), this, SLOT(shellComplete()) );
   }
 
-  setComponentData( DocWordCompletionFactory::componentData() );
 
   action = new KAction( i18n("Reuse Word Above"), this );
   actionCollection()->addAction( "doccomplete_bw", action );

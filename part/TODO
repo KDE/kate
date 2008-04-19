@@ -141,9 +141,8 @@ TODO:
   inside the part, so eg. kate, kdevelop, quanta etc. could all use it)
 
 * Scripting using QtScript (in progress)
-  * finish API
-    * KateJSDocument: search, searchBackward, etc
-    * add API so that scripts can save&load data (remember: we don't have persistent loaded scripts right now)
+  * design stable API for KDE >= 4.1
+  * add API so that scripts can save&load data (remember: we don't have persistent loaded scripts right now)
 
 * Good interface for JavaScript indentation scripts
   It is a good idea to look how other editors deal with indentation, I think vim & emacs are good

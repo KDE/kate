@@ -33,7 +33,7 @@ class KateDocument;
 class KateView;
 
 class KateScriptDocument;
-
+class KateScriptView;
 
 namespace Kate {
   enum ScriptType {
@@ -96,37 +96,6 @@ class KateScriptInformation {
 };
 
 //END
-
-
-/**
- * wrapper for a view
- */
-class KateScriptView : public QObject, protected QScriptable
-{
-  Q_OBJECT
-  public:
-    KateScriptView ();
-    void setView (KateView *view) { m_view = view; }
-  private:
-    KateView *m_view;
-};
-
-/**
- * Cursor wrapper -- used only when returning
- */
-class KateScriptCursor : public QObject
-{
-  Q_OBJECT
-  Q_PROPERTY(uint line READ line)
-  Q_PROPERTY(uint column READ column)
-  public:
-    KateScriptCursor(uint line, uint column, QObject *parent=0);
-    uint line() { return m_line; }
-    uint column() { return m_column; }
-  private:
-    uint m_line;
-    uint m_column;
-};
 
 //BEGIN KateScript
 

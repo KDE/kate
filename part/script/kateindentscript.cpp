@@ -68,7 +68,7 @@ int KateIndentScript::indent(KateView* view, const KTextEditor::Cursor& position
     displayBacktrace(result, "Error calling indent()");
     return -2;
   }
-  int indentAmount = result.toInteger();
+  int indentAmount = result.toInt32 ();
   if(m_engine->hasUncaughtException()) {
     displayBacktrace(QScriptValue(), "Bad return type (must be integer)");
     return -2;

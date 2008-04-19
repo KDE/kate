@@ -18,6 +18,7 @@
 
 #include "katescript.h"
 #include "katescriptdocument.h"
+#include "katescriptview.h"
 #include "kateview.h"
 #include "katedocument.h"
 
@@ -32,6 +33,27 @@
 
 #include <iostream>
 
+/**
+ * metatype register
+ */
+Q_DECLARE_METATYPE(KTextEditor::Cursor);
+
+/**
+ * conversion functions
+ */
+static QScriptValue cursorToScriptValue(QScriptEngine *engine, const KTextEditor::Cursor &cursor)
+{
+  QScriptValue obj = engine->newObject();
+  obj.setProperty("line", QScriptValue(engine, cursor.line()));
+  obj.setProperty("column", QScriptValue(engine, cursor.column()));
+  return obj;
+}
+
+static void cursorFromScriptValue(const QScriptValue &obj, KTextEditor::Cursor &cursor)
+{
+  cursor.setLine (obj.property("line").toInt32());
+  cursor.setColumn (obj.property("column").toInt32());
+}
 
 namespace Kate {
   namespace Script {
@@ -47,15 +69,6 @@ namespace Kate {
     }
 
   }
-}
-
-KateScriptView::KateScriptView() : QObject(), m_view (0)
-{
-}
-
-KateScriptCursor::KateScriptCursor(uint line, uint column, QObject *parent)
-  : QObject(parent), m_line(line), m_column(column)
-{
 }
 
 KateScript::KateScript(const QString &url, const KateScriptInformation &information) :
@@ -124,8 +137,13 @@ bool KateScript::load()
   stream.setCodec("UTF-8");
   QString source = stream.readAll();
   file.close();
+
   // evaluate it
   m_engine = new QScriptEngine();
+
+  // register our types
+  qScriptRegisterMetaType (m_engine, cursorToScriptValue, cursorFromScriptValue);
+
   QScriptValue result = m_engine->evaluate(source, m_url);
   if(m_engine->hasUncaughtException()) {
     displayBacktrace(result, QString("Error loading %1\n").arg(m_url));

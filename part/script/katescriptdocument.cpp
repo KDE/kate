@@ -85,7 +85,7 @@ int KateScriptDocument::fromVirtualColumn(int line, int virtualColumn)
   return textLine->fromVirtualColumn(virtualColumn, tabWidth);
 }
 
-KateScriptCursor *KateScriptDocument::anchor(int line, int column, QChar character)
+KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar character)
 {
   KateDocCursor cursor(line, column, m_document);
   QList<KTextEditor::Attribute::Ptr> attributes =
@@ -96,7 +96,7 @@ KateScriptCursor *KateScriptDocument::anchor(int line, int column, QChar charact
   if (lc == '(') rc = ')';
   else if (lc == '{') rc = '}';
   else if (lc == '[') rc = ']';
-  else return 0;
+  else return KTextEditor::Cursor::invalid ();
 
   // Move backwards char by char and find the opening character
   while (cursor.moveBackward(1)) {
@@ -117,10 +117,10 @@ KateScriptCursor *KateScriptDocument::anchor(int line, int column, QChar charact
     }
 
     if (count == 0) {
-      return new KateScriptCursor(line, column);
+      return KTextEditor::Cursor (line, column);
     }
   }
-  return 0;
+  return KTextEditor::Cursor::invalid ();
 }
     
 bool KateScriptDocument::startsWith (int line, const QString &pattern, bool skipWhiteSpaces)

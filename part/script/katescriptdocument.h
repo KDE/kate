@@ -21,8 +21,9 @@
 #include <QObject>
 #include <QtScript/QScriptable>
 
+#include <ktexteditor/cursor.h>
+
 class KateDocument;
-class KateScriptCursor;
 
 /**
  * Thinish wrapping around KateDocument, exposing the methods we want exposed
@@ -100,7 +101,7 @@ class KateScriptDocument : public QObject, protected QScriptable
     Q_INVOKABLE int toVirtualColumn(int line, int column);
     Q_INVOKABLE int fromVirtualColumn(int line, int virtualColumn);
     
-    Q_INVOKABLE KateScriptCursor *anchor(int line, int column, QChar character);
+    Q_INVOKABLE KTextEditor::Cursor anchor(int line, int column, QChar character);
         
     Q_INVOKABLE bool isCode(int line, int column);
     

@@ -37,7 +37,6 @@
 
 #include "katescriptmanager.h"
 
-
 KateScriptManager::KateScriptManager() : KTextEditor::Command()
 {
   // false = force (ignore cache)

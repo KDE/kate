@@ -38,7 +38,7 @@ KateDocument *KateScriptDocument::document()
   return m_document;
 }
 
-bool KateScriptDocument::isCode(uint line, uint column)
+bool KateScriptDocument::isCode(int line, int column)
 {
   KateDocCursor cursor(line, column, m_document);
   QList<KTextEditor::Attribute::Ptr> attributes = m_document->highlight()->attributes(((KateView*) m_document->activeView())->renderer()->config()->schema());
@@ -48,7 +48,7 @@ bool KateScriptDocument::isCode(uint line, uint column)
 }
 
 
-int KateScriptDocument::firstVirtualColumn(uint line)
+int KateScriptDocument::firstVirtualColumn(int line)
 {
   const int tabWidth = m_document->config()->tabWidth();
   KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
@@ -58,7 +58,7 @@ int KateScriptDocument::firstVirtualColumn(uint line)
   return textLine->indentDepth(tabWidth);
 }
 
-int KateScriptDocument::lastVirtualColumn(uint line)
+int KateScriptDocument::lastVirtualColumn(int line)
 {
   const int tabWidth = m_document->config()->tabWidth();
   KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
@@ -68,7 +68,7 @@ int KateScriptDocument::lastVirtualColumn(uint line)
   return textLine->toVirtualColumn(lastPos, tabWidth);
 }
 
-int KateScriptDocument::toVirtualColumn(uint line, uint column)
+int KateScriptDocument::toVirtualColumn(int line, int column)
 {
   const int tabWidth = m_document->config()->tabWidth();
   KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
@@ -76,7 +76,7 @@ int KateScriptDocument::toVirtualColumn(uint line, uint column)
   return textLine->toVirtualColumn(column, tabWidth);
 }
 
-int KateScriptDocument::fromVirtualColumn(uint line, uint virtualColumn)
+int KateScriptDocument::fromVirtualColumn(int line, int virtualColumn)
 {
   const int tabWidth = m_document->config()->tabWidth();
   KateTextLine::Ptr textLine = m_document->plainKateTextLine(line);
@@ -85,7 +85,7 @@ int KateScriptDocument::fromVirtualColumn(uint line, uint virtualColumn)
   return textLine->fromVirtualColumn(virtualColumn, tabWidth);
 }
 
-KateScriptCursor *KateScriptDocument::anchor(uint line, uint column, QChar character)
+KateScriptCursor *KateScriptDocument::anchor(int line, int column, QChar character)
 {
   KateDocCursor cursor(line, column, m_document);
   QList<KTextEditor::Attribute::Ptr> attributes =
@@ -181,28 +181,28 @@ QString KateScriptDocument::text()
   return m_document->text();
 }
 
-QString KateScriptDocument::textRange(uint i, uint j, uint k, uint l)
+QString KateScriptDocument::textRange(int i, int j, int k, int l)
 {
   return m_document->text(KTextEditor::Range(i, j, k, l));
 }
 
-QString KateScriptDocument::line(uint i)
+QString KateScriptDocument::line(int i)
 {
   return m_document->line (i);
 }
 
-QString KateScriptDocument::wordAt(uint i, uint j)
+QString KateScriptDocument::wordAt(int i, int j)
 {
   return m_document->getWord(KTextEditor::Cursor(i, j));
 }
 
-QString KateScriptDocument::charAt(uint i, uint j)
+QString KateScriptDocument::charAt(int i, int j)
 {
   const QChar c = m_document->character (KTextEditor::Cursor(i, j));
   return c.isNull() ? "" : QString(c);
 }
 
-QString KateScriptDocument::firstChar(uint i)
+QString KateScriptDocument::firstChar(int i)
 {
   KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
   if(!textLine) return "";
@@ -211,7 +211,7 @@ QString KateScriptDocument::firstChar(uint i)
   return c.isNull() ? "" : QString(c);
 }
 
-QString KateScriptDocument::lastChar(uint i)
+QString KateScriptDocument::lastChar(int i)
 {
   KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
   if(!textLine) return "";
@@ -220,12 +220,12 @@ QString KateScriptDocument::lastChar(uint i)
   return c.isNull() ? "" : QString(c);
 }
 
-bool KateScriptDocument::isSpace(uint i, uint j)
+bool KateScriptDocument::isSpace(int i, int j)
 {
   return m_document->character (KTextEditor::Cursor(i, j)).isSpace();
 }
 
-bool KateScriptDocument::matchesAt(uint i, uint j, const QString &s)
+bool KateScriptDocument::matchesAt(int i, int j, const QString &s)
 {
   KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
   return textLine ? textLine->matchesAt(j, s) : false;
@@ -241,34 +241,34 @@ bool KateScriptDocument::clear()
   return m_document->clear();
 }
 
-bool KateScriptDocument::truncate(uint i, uint j)
+bool KateScriptDocument::truncate(int i, int j)
 {
   KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
   if(textLine) textLine->truncate(j);
   return static_cast<bool>(textLine);
 }
 
-bool KateScriptDocument::insertText(uint i, uint j, const QString &s)
+bool KateScriptDocument::insertText(int i, int j, const QString &s)
 {
   return m_document->insertText (KTextEditor::Cursor(i, j), s);
 }
 
-bool KateScriptDocument::removeText(uint i, uint j, uint k, uint l)
+bool KateScriptDocument::removeText(int i, int j, int k, int l)
 {
   return m_document->removeText(KTextEditor::Range(i, j, k, l));
 }
 
-bool KateScriptDocument::insertLine(uint i, const QString &s)
+bool KateScriptDocument::insertLine(int i, const QString &s)
 {
   return m_document->insertLine (i, s);
 }
 
-bool KateScriptDocument::removeLine(uint i)
+bool KateScriptDocument::removeLine(int i)
 {
   return m_document->removeLine (i);
 }
 
-void KateScriptDocument::joinLines(uint i, uint j)
+void KateScriptDocument::joinLines(int i, int j)
 {
   m_document->joinLines (i, j);
   return;
@@ -284,7 +284,7 @@ int KateScriptDocument::length()
   return m_document->totalCharacters();
 }
 
-int KateScriptDocument::lineLength(uint i)
+int KateScriptDocument::lineLength(int i)
 {
   return m_document->lineLength(i);
 }
@@ -301,33 +301,33 @@ void KateScriptDocument::editEnd()
   return;
 }
 
-int KateScriptDocument::firstColumn(uint i)
+int KateScriptDocument::firstColumn(int i)
 {
   KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
   return textLine ? textLine->firstChar() : -1;
 }
 
-int KateScriptDocument::lastColumn(uint i)
+int KateScriptDocument::lastColumn(int i)
 {
   KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
   return textLine ? textLine->lastChar() : -1;
 }
 
-int KateScriptDocument::prevNonSpaceColumn(uint i, uint j)
+int KateScriptDocument::prevNonSpaceColumn(int i, int j)
 {
   KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
   if(!textLine) return -1;
   return textLine->previousNonSpaceChar(j);
 }
 
-int KateScriptDocument::nextNonSpaceColumn(uint i, uint j)
+int KateScriptDocument::nextNonSpaceColumn(int i, int j)
 {
   KateTextLine::Ptr textLine = m_document->plainKateTextLine(i);
   if(!textLine) return -1;
   return textLine->nextNonSpaceChar(j);
 }
 
-int KateScriptDocument::prevNonEmptyLine(uint i)
+int KateScriptDocument::prevNonEmptyLine(int i)
 {
   const int startLine = i;
   for (int currentLine = startLine; currentLine >= 0; --currentLine) {
@@ -340,7 +340,7 @@ int KateScriptDocument::prevNonEmptyLine(uint i)
   return -1;
 }
 
-int KateScriptDocument::nextNonEmptyLine(uint i)
+int KateScriptDocument::nextNonEmptyLine(int i)
 {
   const int startLine = i;
   for (int currentLine = startLine; currentLine < m_document->lines(); ++currentLine) {
@@ -353,37 +353,37 @@ int KateScriptDocument::nextNonEmptyLine(uint i)
   return -1;
 }
 
-bool KateScriptDocument::isInWord(const QString &s, uint i)
+bool KateScriptDocument::isInWord(const QString &s, int i)
 {
   return m_document->highlight()->isInWord(s.at(0), i);
 }
 
-bool KateScriptDocument::canBreakAt(const QString &s, uint i)
+bool KateScriptDocument::canBreakAt(const QString &s, int i)
 {
   return m_document->highlight()->canBreakAt(s.at(0), i);
 }
 
-bool KateScriptDocument::canComment(uint i, uint j)
+bool KateScriptDocument::canComment(int i, int j)
 {
   return m_document->highlight()->canComment(i, j);
 }
 
-QString KateScriptDocument::commentMarker(uint i)
+QString KateScriptDocument::commentMarker(int i)
 {
   return m_document->highlight()->getCommentSingleLineStart(i);
 }
 
-QString KateScriptDocument::commentStart(uint i)
+QString KateScriptDocument::commentStart(int i)
 {
   return m_document->highlight()->getCommentStart(i);
 }
 
-QString KateScriptDocument::commentEnd(uint i)
+QString KateScriptDocument::commentEnd(int i)
 {
   return m_document->highlight()->getCommentEnd(i);
 }
 
-int KateScriptDocument::attribute(uint i, uint j)
+int KateScriptDocument::attribute(int i, int j)
 {
   KateTextLine::Ptr textLine = m_document->kateTextLine(i);
   if(!textLine) return 0;

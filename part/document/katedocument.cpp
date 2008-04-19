@@ -233,6 +233,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   s_fileChangedDialogsActivated (false),
   m_tabInterceptor(0)
 {
+  setComponentData ( KateGlobal::self()->componentData () );
+
   m_undoComplexMerge=false;
 
   QString pathName ("/Kate/Document/%1");
@@ -259,7 +261,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   hlSetByUser = false;
   m_fileTypeSetByUser = false;
-  setComponentData( KateGlobal::self()->componentData() );
 
   editSessionNumber = 0;
   editIsRunning = false;

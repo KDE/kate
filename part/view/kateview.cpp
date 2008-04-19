@@ -121,6 +121,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_searchBar (0)
     , m_gotoBar (0)
 {
+  setComponentData ( KateGlobal::self()->componentData () );
+
   KateGlobal::self()->registerView( this );
 
   m_config = new KateViewConfig (this);
@@ -181,7 +183,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   // this really is needed :)
   m_viewInternal->updateView ();
 
-  setComponentData( KateGlobal::self()->componentData() );
   doc->addView( this );
 
   setFocusProxy( m_viewInternal );

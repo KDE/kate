@@ -274,7 +274,7 @@ void KWrite::slotOpen( const KUrl& url )
 
   if (!KIO::NetAccess::exists(url, KIO::NetAccess::SourceSide, this))
   {
-    KMessageBox::error (this, i18n("The given file could not be read, check if it exists or if it is readable for the current user."));
+    KMessageBox::error (this, i18n("The file given could not be read; check whether it exists or is readable for the current user."));
     return;
   }
 

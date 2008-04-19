@@ -18,23 +18,23 @@
 #ifndef KATE_SCRIPT_DOCUMENT_H
 #define KATE_SCRIPT_DOCUMENT_H
 
-#include "katedocument.h"
-
 #include <QObject>
+#include <QtScript/QScriptable>
 
-class QString;
-
+class KateDocument;
 class KateScriptCursor;
-
 
 /**
  * Thinish wrapping around KateDocument, exposing the methods we want exposed
  * and adding some helper methods.
+ *
+ * We inherit from QScriptable to have more thight access to the scripting
+ * engine.
  * 
  * setDocument _must_ be called before using any other method. This is not checked
  * for the sake of speed.
  */
-class KateScriptDocument : public QObject
+class KateScriptDocument : public QObject, protected QScriptable
 {
   /// Properties are accessible with a nicer syntax from JavaScript
   Q_OBJECT

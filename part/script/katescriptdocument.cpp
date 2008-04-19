@@ -17,21 +17,26 @@
 
 #include "katescriptdocument.h"
 
+#include "katedocument.h"
 #include "kateview.h"
 #include "katerenderer.h"
 #include "katehighlight.h"
-
 #include "katescript.h"
-
 
 KateScriptDocument::KateScriptDocument(QObject *parent)
   : QObject(parent), m_document(0)
 {
 }
 
+void KateScriptDocument::setDocument(KateDocument *document)
+{
+  m_document = document;
+}
 
-void KateScriptDocument::setDocument(KateDocument *document) { m_document = document; }
-KateDocument *KateScriptDocument::document() { return m_document; }
+KateDocument *KateScriptDocument::document()
+{
+  return m_document;
+}
 
 bool KateScriptDocument::isCode(uint line, uint column)
 {

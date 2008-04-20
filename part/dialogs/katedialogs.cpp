@@ -45,6 +45,7 @@
 #include "ui_cursorconfigwidget.h"
 #include "ui_editconfigwidget.h"
 #include "ui_indentationconfigwidget.h"
+#include "ui_completionconfigtab.h"
 #include "ui_opensaveconfigwidget.h"
 #include "ui_opensaveconfigadvwidget.h"
 
@@ -238,6 +239,55 @@ void KateIndentConfigTab::reload ()
 }
 //END KateIndentConfigTab
 
+//BEGIN KateCompletionConfigTab
+KateCompletionConfigTab::KateCompletionConfigTab(QWidget *parent)
+  : KateConfigPage(parent)
+{
+  // This will let us have more separation between this page and
+  // the KTabWidget edge (ereslibre)
+  QVBoxLayout *layout = new QVBoxLayout;
+  QWidget *newWidget = new QWidget(this);
+
+  ui = new Ui::CompletionConfigTab ();
+  ui->setupUi( newWidget );
+
+  // What's This? help can be found in the ui file
+
+  reload ();
+
+  //
+  // after initial reload, connect the stuff for the changed () signal
+  //
+
+  layout->addWidget(newWidget);
+  setLayout(layout);
+}
+
+KateCompletionConfigTab::~KateCompletionConfigTab()
+{
+  delete ui;
+}
+
+void KateCompletionConfigTab::showWhatsThis(const QString& text)
+{
+  QWhatsThis::showText(QCursor::pos(), text);
+}
+
+void KateCompletionConfigTab::apply ()
+{
+  // nothing changed, no need to apply stuff
+  if (!hasChanged())
+    return;
+  m_changed = false;
+
+}
+
+void KateCompletionConfigTab::reload ()
+{
+
+}
+//END KateCompletionConfigTab
+
 //BEGIN KateSelectConfigTab
 KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   : KateConfigPage(parent)
@@ -325,6 +375,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   : KateConfigPage(parent)
   , selectConfigTab(new KateSelectConfigTab(this))
   , indentConfigTab(new KateIndentConfigTab(this))
+  , completionConfigTab (new KateCompletionConfigTab(this))
 {
   // FIXME: Is really needed to move all this code below to another class,
   // since it is another tab itself on the config dialog. This means we should
@@ -379,9 +430,11 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   tabWidget->insertTab(0, tmpWidget, i18n("General"));
   tabWidget->insertTab(1, selectConfigTab, i18n("Cursor & Selection"));
   tabWidget->insertTab(2, indentConfigTab, i18n("Indentation"));
+  tabWidget->insertTab(3, completionConfigTab, i18n("Auto Completion"));
 
   connect(selectConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
   connect(indentConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
+  connect(completionConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
 
   layout->addWidget(tabWidget);
   setLayout(layout);
@@ -397,6 +450,7 @@ void KateEditConfigTab::apply ()
   // try to update the rest of tabs
   selectConfigTab->apply();
   indentConfigTab->apply();
+  completionConfigTab->apply();
 
   // nothing changed, no need to apply stuff
   if (!hasChanged())
@@ -436,18 +490,21 @@ void KateEditConfigTab::reload ()
 {
   selectConfigTab->reload();
   indentConfigTab->reload();
+  completionConfigTab->reload();
 }
 
 void KateEditConfigTab::reset ()
 {
   selectConfigTab->reset();
   indentConfigTab->reset();
+  completionConfigTab->reset();
 }
 
 void KateEditConfigTab::defaults ()
 {
   selectConfigTab->defaults();
   indentConfigTab->defaults();
+  completionConfigTab->defaults();
 }
 //END KateEditConfigTab
 

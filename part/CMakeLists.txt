@@ -125,6 +125,7 @@ set( katepart_PART_UI
 dialogs/appearanceconfigwidget.ui
 dialogs/commandmenuconfigwidget.ui
 dialogs/commandmenueditwidget.ui
+dialogs/completionconfigtab.ui
 dialogs/cursorconfigwidget.ui
 dialogs/editconfigwidget.ui
 dialogs/filetypeconfigwidget.ui

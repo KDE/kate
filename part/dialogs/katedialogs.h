@@ -81,6 +81,7 @@ namespace Ui
   class IndentationConfigWidget;
   class OpenSaveConfigWidget;
   class OpenSaveConfigAdvWidget;
+  class CompletionConfigTab;
 }
 
 class KateConfigPage : public KTextEditor::ConfigPage
@@ -146,6 +147,27 @@ class KateIndentConfigTab : public KateConfigPage
     void showWhatsThis(const QString& text);
 };
 
+class KateCompletionConfigTab : public KateConfigPage
+{
+  Q_OBJECT
+
+  public:
+    KateCompletionConfigTab(QWidget *parent);
+    ~KateCompletionConfigTab();
+
+  protected:
+    Ui::CompletionConfigTab *ui;
+
+  public Q_SLOTS:
+    void apply ();
+    void reload ();
+    void reset () {}
+    void defaults () {}
+
+  private Q_SLOTS:
+    void showWhatsThis(const QString& text);
+};
+
 class KateSelectConfigTab : public KateConfigPage
 {
   Q_OBJECT
@@ -184,6 +206,7 @@ public Q_SLOTS:
 private:
   KateSelectConfigTab *selectConfigTab;
   KateIndentConfigTab *indentConfigTab;
+  KateCompletionConfigTab *completionConfigTab;
 };
 
 class KateViewDefaultsConfig : public KateConfigPage

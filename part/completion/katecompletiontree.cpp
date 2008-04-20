@@ -111,7 +111,6 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
   int numColumns = model()->columnCount();
   
   QVector<int> columnSize(numColumns, 5);
-  columnSize[0] = 50;
 
   QModelIndex current = indexAt(QPoint(1,1));
 
@@ -207,7 +206,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
   int scrollBarWidth = verticalScrollBar()->width();
   int newMinWidth = totalColumnsWidth;
 
-  int targetWidth = qMax(500, newMinWidth);
+  int targetWidth = qMax(100, newMinWidth);
 
   //kDebug() << "New min width: " << minWidth << " Old min: " << minimumWidth() << " width " << width();
   setMinimumWidth(targetWidth);

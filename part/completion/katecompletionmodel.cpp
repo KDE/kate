@@ -130,7 +130,6 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   m_argumentHints->attribute = -1;
   m_bestMatches->attribute = BestMatchesProperty;
 
-  m_ungrouped->title = i18n("Other");
   m_argumentHints->title = i18n("Argument-hints");
   m_bestMatches->title = i18n("Best matches");
 

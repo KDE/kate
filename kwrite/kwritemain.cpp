@@ -659,6 +659,8 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   aboutData.addCredit (ki18n("Carsten Pfeiffer"), ki18n("Very nice help"));
   aboutData.addCredit (ki18n("All people who have contributed and I have forgotten to mention"));
 
+  aboutData.setProgramIconName ("accessories-text-editor");
+
   KCmdLineArgs::init( argc, argv, &aboutData );
 
   KCmdLineOptions options;
@@ -670,8 +672,6 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   KCmdLineArgs::addCmdLineOptions( options );
 
   KApplication a;
-
-  QApplication::setWindowIcon(KIcon("accessories-text-editor"));
 
   KGlobal::locale()->insertCatalog("katepart4");
 #if 0

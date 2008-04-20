@@ -75,6 +75,10 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   //setWindowOpacity(0.8);
 
   m_entryList->setModel(m_presentationModel);
+  m_entryList->setColumnWidth(0, 0); //These will be determined automatically in KateCompletionTree::resizeColumns
+  m_entryList->setColumnWidth(1, 0);
+  m_entryList->setColumnWidth(2, 0);
+
   m_argumentHintTree->setParent(0, Qt::ToolTip);
   m_argumentHintTree->setModel(m_argumentHintModel);
 
@@ -124,10 +128,20 @@ void KateCompletionWidget::modelContentChanged() {
     m_needShow = false;
     updateAndShow();
   }
+
+  if(m_presentationModel->rowCount(QModelIndex()) == 0 && m_argumentHintModel->rowCount(QModelIndex()) == 0) {
+    kDebug() << "hiding because no content";
+    hide();
+    return;
+  }
+
   //With each filtering items can be added or removed, so we have to reset the current index here so we always have a selected item
   m_entryList->setCurrentIndex(model()->index(0,0));
-  if(!model()->indexIsItem(m_entryList->currentIndex()))
-    m_entryList->setCurrentIndex(model()->index(0,0, m_entryList->currentIndex()));
+  if(!model()->indexIsItem(m_entryList->currentIndex())) {
+    QModelIndex firstIndex = model()->index(0,0, m_entryList->currentIndex());
+    m_entryList->setCurrentIndex(firstIndex);
+    //m_entryList->scrollTo(firstIndex, QAbstractItemView::PositionAtTop);
+  }
 }
 
 KateArgumentHintTree* KateCompletionWidget::argumentHintTree() const {

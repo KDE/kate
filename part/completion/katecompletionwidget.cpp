@@ -58,7 +58,6 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   , m_entryList(new KateCompletionTree(this))
   , m_argumentHintModel(new KateArgumentHintModel(this))
   , m_argumentHintTree(new KateArgumentHintTree(this))
-  , m_automaticInvocation(true)
   , m_automaticInvocationDelay(300)
   , m_filterInstalled(false)
   , m_configWidget(new KateCompletionConfig(m_presentationModel, view()))
@@ -723,16 +722,6 @@ void KateCompletionWidget::unregisterCompletionModel(KTextEditor::CodeCompletion
   m_sourceModels.removeAll(model);
 }
 
-bool KateCompletionWidget::isAutomaticInvocationEnabled() const
-{
-  return m_automaticInvocation;
-}
-
-void KateCompletionWidget::setAutomaticInvocationEnabled(bool enabled)
-{
-  m_automaticInvocation = enabled;
-}
-
 int KateCompletionWidget::automaticInvocationDelay() const {
   return m_automaticInvocationDelay;
 }
@@ -744,7 +733,7 @@ void KateCompletionWidget::setAutomaticInvocationDelay(int delay) {
 
 void KateCompletionWidget::editDone(KateEditInfo * edit)
 {
-  if (!isAutomaticInvocationEnabled()
+  if (!view()->config()->automaticCompletionInvocation()
        || (edit->editSource() != Kate::UserInputEdit)
        || edit->isRemoval()
        || isCompletionActive()

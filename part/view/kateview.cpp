@@ -2074,12 +2074,12 @@ void KateView::unregisterCompletionModel(KTextEditor::CodeCompletionModel* model
 
 bool KateView::isAutomaticInvocationEnabled() const
 {
-  return completionWidget()->isAutomaticInvocationEnabled();
+  return m_config->automaticCompletionInvocation();
 }
 
 void KateView::setAutomaticInvocationEnabled(bool enabled)
 {
-  completionWidget()->setAutomaticInvocationEnabled(enabled);
+  config()->setAutomaticCompletionInvocation(enabled);
 }
 
 void KateView::sendCompletionExecuted(const KTextEditor::Cursor& position, KTextEditor::CodeCompletionModel* model, const QModelIndex& index)

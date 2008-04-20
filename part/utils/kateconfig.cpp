@@ -634,6 +634,7 @@ KateViewConfig::KateViewConfig ()
    m_searchFlagsSet (true),
    m_defaultMarkTypeSet (true),
    m_persistentSelectionSet (true),
+   m_automaticCompletionInvocationSet (true),
    m_view (0)
 {
   s_global = this;
@@ -657,6 +658,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_searchFlagsSet (false),
    m_defaultMarkTypeSet (false),
    m_persistentSelectionSet (false),
+   m_automaticCompletionInvocationSet (false),
    m_view (view)
 {
 }
@@ -699,6 +701,8 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 
   setPersistentSelection (config.readEntry( "Persistent Selection", false ));
 
+  setAutomaticCompletionInvocation (config.readEntry( "Auto Completion", true ));
+
   if (isGlobal()) {
     QStringList empty;
 
@@ -739,6 +743,8 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Default Mark Type", defaultMarkType());
 
   config.writeEntry("Persistent Selection", persistentSelection());
+
+  config.writeEntry( "Auto Completion", automaticCompletionInvocation());
 
   if (isGlobal()) {
     // Write search pattern history
@@ -981,6 +987,24 @@ void KateViewConfig::setPersistentSelection (bool on)
 
   m_persistentSelectionSet = true;
   m_persistentSelection = on;
+
+  configEnd ();
+}
+
+bool KateViewConfig::automaticCompletionInvocation () const
+{
+  if (m_automaticCompletionInvocationSet || isGlobal())
+    return m_automaticCompletionInvocation;
+
+  return s_global->automaticCompletionInvocation();
+}
+
+void KateViewConfig::setAutomaticCompletionInvocation (bool on)
+{
+  configStart ();
+
+  m_automaticCompletionInvocationSet = true;
+  m_automaticCompletionInvocation = on;
 
   configEnd ();
 }

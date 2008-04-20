@@ -259,6 +259,8 @@ KateCompletionConfigTab::KateCompletionConfigTab(QWidget *parent)
   // after initial reload, connect the stuff for the changed () signal
   //
 
+  connect(ui->chkAutoCompletionEnabled, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
   layout->addWidget(newWidget);
   setLayout(layout);
 }
@@ -280,11 +282,14 @@ void KateCompletionConfigTab::apply ()
     return;
   m_changed = false;
 
+  KateViewConfig::global()->configStart ();
+  KateViewConfig::global()->setAutomaticCompletionInvocation (ui->chkAutoCompletionEnabled->isChecked());
+  KateViewConfig::global()->configEnd ();
 }
 
 void KateCompletionConfigTab::reload ()
 {
-
+  ui->chkAutoCompletionEnabled->setChecked( KateViewConfig::global()->automaticCompletionInvocation () );
 }
 //END KateCompletionConfigTab
 

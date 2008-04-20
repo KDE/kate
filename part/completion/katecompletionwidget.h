@@ -73,9 +73,6 @@ class KateCompletionWidget : public QFrame
     void registerCompletionModel(KTextEditor::CodeCompletionModel* model);
     void unregisterCompletionModel(KTextEditor::CodeCompletionModel* model);
     
-    bool isAutomaticInvocationEnabled() const;
-    void setAutomaticInvocationEnabled(bool enabled = true);
-
     int automaticInvocationDelay() const;
     void setAutomaticInvocationDelay(int delay);
     
@@ -160,7 +157,6 @@ class KateCompletionWidget : public QFrame
     QPushButton* m_configButton;
 
     QString m_automaticInvocationLine;
-    bool m_automaticInvocation;
     int m_automaticInvocationDelay;
     bool m_filterInstalled;
 

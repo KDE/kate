@@ -369,6 +369,9 @@ class KateViewConfig : public KateConfig
       WordSelection = 4
     };
 
+    bool automaticCompletionInvocation () const;
+    void setAutomaticCompletionInvocation (bool on);
+
   private:
     bool m_dynWordWrap;
     int m_dynWordWrapIndicators;
@@ -382,6 +385,7 @@ class KateViewConfig : public KateConfig
     long m_searchFlags;
     uint m_defaultMarkType;
     bool m_persistentSelection;
+    bool m_automaticCompletionInvocation;
 
     bool m_dynWordWrapSet : 1;
     bool m_dynWordWrapIndicatorsSet : 1;
@@ -395,6 +399,7 @@ class KateViewConfig : public KateConfig
     bool m_searchFlagsSet : 1;
     bool m_defaultMarkTypeSet : 1;
     bool m_persistentSelectionSet : 1;
+    bool m_automaticCompletionInvocationSet : 1;
 
   private:
     static KateViewConfig *s_global;

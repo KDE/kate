@@ -209,6 +209,35 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
       return text;
     }
 
+    if(role == CodeCompletionModel::HighlightingMethod)
+    {
+      //Return that we are doing custom-highlighting of one of the sub-strings does it. Unfortunately internal highlighting does not work for the other substrings.
+      foreach (int column, m_columnMerges[index.column()]) {
+	QModelIndex sourceIndex = mapToSource(createIndex(index.row(), column, index.internalPointer()));
+	QVariant method = sourceIndex.data(CodeCompletionModel::HighlightingMethod);
+	if( method.type() == QVariant::Int && method.toInt() ==  CodeCompletionModel::CustomHighlighting)
+	  return QVariant(CodeCompletionModel::CustomHighlighting);
+      }
+      return QVariant();
+    }
+    if(role == CodeCompletionModel::CustomHighlight)
+    {
+      //Merge custom highlighting if multiple columns were merged
+      QStringList strings;
+      
+      //Collect strings
+      foreach (int column, m_columnMerges[index.column()])
+          strings << mapToSource(createIndex(index.row(), column, index.internalPointer())).data(Qt::DisplayRole).toString();
+
+      QList<QVariantList> highlights;
+
+      //Collect custom-highlightings
+      foreach (int column, m_columnMerges[index.column()])
+          highlights << mapToSource(createIndex(index.row(), column, index.internalPointer())).data(CodeCompletionModel::CustomHighlight).toList();
+
+      return mergeCustomHighlighting( strings, highlights );
+    }
+
     QVariant v = mapToSource(index).data(role);
     if( v.isValid() )
       return v;

@@ -1588,6 +1588,7 @@ void KateIconBorder::annotationModelChanged( KTextEditor::AnnotationModel * oldm
 
 //END KateIconBorder
 
+//BEGIN KateViewEncodingAction
 KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject *parent)
        : KCodecAction(text, parent,true), doc(_doc), view (_view)
 {
@@ -1628,8 +1629,7 @@ void KateViewEncodingAction::setScriptForEncodingAutoDetection (KEncodingDetecto
     doc->setScriptForEncodingAutoDetection(script);
   view->reloadFile();
 }
-
-
+//END KateViewEncodingAction
 
 //BEGIN KateViewBar related classes
 

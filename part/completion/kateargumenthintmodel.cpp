@@ -137,10 +137,11 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
     case CodeCompletionModel::HighlightingMethod:
     {
       //Return that we are doing custom-highlighting of one of the sub-strings does it
-      for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
-          if( source.second.sibling(source.second.row(), a).data(CodeCompletionModel::HighlightingMethod).type() == QVariant::Int ) {
+      for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ ) {
+          QVariant method = source.second.sibling(source.second.row(), a).data(CodeCompletionModel::HighlightingMethod);
+          if( method.type() == QVariant::Int && method.toInt() ==  CodeCompletionModel::CustomHighlighting)
             return QVariant(CodeCompletionModel::CustomHighlighting);
-          }
+      }
     
       return QVariant();
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Debian Changelog" version="0.62" kateversion="2.4" section="Other" extensions="" mimetype="">
+<language name="Debian Changelog" version="0.63" kateversion="2.4" section="Other" extensions="" mimetype="">
     <highlighting>
         <list name="keywords">
             <item>urgency</item>
@@ -8,10 +8,57 @@
 
         <list name="distributions">
             <item>stable</item>
+            <item>stable-security</item>
             <item>testing</item>
+            <item>testing-proposed-updates</item>
             <item>frozen</item>
             <item>unstable</item>
             <item>experimental</item>
+            <item>UNRELEASED</item>
+            <!-- Debian releases -->
+            <item>sarge-backports</item>
+            <item>sarge-volatile</item>
+            <item>etch-backports</item>
+            <item>etch-volatile</item>
+            <item>lenny-backports</item>
+            <item>lenny-volatile</item>
+            <!-- Ubuntu releases -->
+            <item>dapper</item>
+            <item>dapper-security</item>
+            <item>dapper-proposed</item>
+            <item>dapper-updates</item>
+            <item>dapper-backports</item>
+            <item>dapper-commercial</item>
+            <item>edgy</item>
+            <item>edgy-security</item>
+            <item>edgy-proposed</item>
+            <item>edgy-updates</item>
+            <item>edgy-backports</item>
+            <item>edgy-commercial</item>
+            <item>feisty</item>
+            <item>feisty-security</item>
+            <item>feisty-proposed</item>
+            <item>feisty-updates</item>
+            <item>feisty-backports</item>
+            <item>feisty-commercial</item>
+            <item>gutsy</item>
+            <item>gutsy-security</item>
+            <item>gutsy-proposed</item>
+            <item>gutsy-updates</item>
+            <item>gutsy-backports</item>
+            <item>gutsy-partner</item>
+            <item>hardy</item>
+            <item>hardy-security</item>
+            <item>hardy-proposed</item>
+            <item>hardy-updates</item>
+            <item>hardy-backports</item>
+            <item>hardy-partner</item>
+            <item>ibex</item>
+            <item>ibex-security</item>
+            <item>ibex-proposed</item>
+            <item>ibex-updates</item>
+            <item>ibex-backports</item>
+            <item>ibex-partner</item>
         </list>
 
         <list name="urgencies">
@@ -20,6 +67,7 @@
             <item>high</item>
             <item>emergency</item>
             <item>bug</item>
+            <item>critical</item>
         </list>
 
         <contexts>

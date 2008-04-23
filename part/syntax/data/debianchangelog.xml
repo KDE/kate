@@ -23,7 +23,7 @@
         </list>
 
         <contexts>
-            <context attribute="Normal Text" lineEndContext="#stay">
+            <context attribute="Normal Text" lineEndContext="#stay" name="INIT">
                 <RegExpr attribute="Keyword" context="Head" String="[^ ]*" column="0"/>
                 <RegExpr attribute="Email" context="#stay" String="&lt;.*@.*&gt;"/>
                 <RegExpr attribute="Keyword" context="#stay" String=" \-\-" column="0"/>

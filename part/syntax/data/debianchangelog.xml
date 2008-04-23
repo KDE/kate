@@ -76,7 +76,7 @@
                 <RegExpr attribute="Email" context="#stay" String="&lt;.*@.*&gt;"/>
                 <RegExpr attribute="Keyword" context="#stay" String=" \-\-" column="0"/>
                 <RegExpr attribute="Keyword" context="#stay" String="  \*" column="0"/>
-                <RegExpr attribute="Bug" context="#stay" String="[Cc][Ll][Oo][Ss][Ee][Ss]:[\s]*(([Bb][Uu][Gg]\s*)?#\s*\d+)(\s*, *([Bb[Uu][Gg]\s*)?#\s*\d+)*"/>
+                <RegExpr attribute="Bug" context="#stay" String="closes:[\s]*((bug\s*)?#\s*\d+)(\s*, *(bug\s*)?#\s*\d+)*" insensitive="true"/>
             </context>
 
             <context attribute="Normal Text" lineEndContext="#pop" name="Head">

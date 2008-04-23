@@ -103,6 +103,6 @@
     </highlighting>
 
     <general>
-        <keywords casesensitive="1" />
+        <keywords casesensitive="1" weakDeliminator="-"/>
     </general>
 </language>

@@ -74,7 +74,7 @@ QMimeData *KateViewDocumentProxyModel::mimeData(const QModelIndexList &indexes) 
 
   QDataStream stream(&encodedData, QIODevice::WriteOnly);
 
-  foreach (QModelIndex index, indexes)
+  foreach (const QModelIndex &index, indexes)
   {
     if (index.isValid())
     {

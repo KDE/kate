@@ -414,9 +414,11 @@ void KateLayoutCache::setWrap( bool wrap )
 
 void KateLayoutCache::relayoutLines( int startRealLine, int endRealLine )
 {
-  for (int i = startRealLine; i <= endRealLine; ++i)
-    if (m_lineLayouts.contains(i))
-      m_lineLayouts[i]->setLayoutDirty();
+  for (int i = startRealLine; i <= endRealLine; ++i) {
+    QMap<int, KateLineLayoutPtr>::iterator it = m_lineLayouts.find(i);
+    if (it != m_lineLayouts.end())
+      (*it)->setLayoutDirty();
+  }
 }
 
 #include "katelayoutcache.moc"

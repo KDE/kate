@@ -180,7 +180,7 @@ void KateScriptManager::collect(const QString& resourceFile,
         }
         information.priority = convertedToInt ? priority : 0;
         KateIndentScript *script = new KateIndentScript(*fileit, information);
-        foreach(QString language, information.indentLanguages) {
+        foreach(const QString &language, information.indentLanguages) {
           m_languageToIndenters[language.toLower()].push_back(script);
         }
         m_scripts.push_back(script);

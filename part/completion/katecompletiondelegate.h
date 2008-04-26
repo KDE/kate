@@ -29,6 +29,7 @@ class KateCompletionDelegate : public ExpandingDelegate {
     KateCompletionWidget* widget() const;
     KateDocument* document() const;
   protected:
+    virtual void adjustStyle( const QModelIndex& index, QStyleOptionViewItem & option ) const;
     mutable int m_cachedRow;
     mutable QList<int> m_cachedColumnStarts;
     virtual void heightChanged() const;

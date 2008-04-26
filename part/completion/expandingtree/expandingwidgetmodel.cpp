@@ -78,7 +78,7 @@ QVariant ExpandingWidgetModel::data( const QModelIndex & index, int role ) const
         if( color )
           return QBrush( color );
       }
-      
+      ///@todo Choose a color from the color scheme
       //Use a special background-color for expanded items
       if( isExpanded(index) ) {
         if( index.row() & 1 )

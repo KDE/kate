@@ -114,6 +114,9 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     ///Returns the first row that is currently partially expanded.
     QModelIndex partiallyExpandedRow() const;
 
+    ///Returns the match-color for the given index, or zero if match-quality could not be computed.
+    uint matchColor(const QModelIndex& index) const;
+    
     public slots:
     ///Place or hides all expanding-widgets to the correct positions. Should be called after the view was scrolled.
     void placeExpandingWidgets();
@@ -124,9 +127,6 @@ class ExpandingWidgetModel : public QAbstractTableModel {
      * */
     virtual int contextMatchQuality(const QModelIndex & index) const = 0;
 
-    ///Returns the match-color for the given index, or zero if match-quality could not be computed.
-    uint matchColor(const QModelIndex& index) const;
-    
     //Makes sure m_expandedIcon and m_collapsedIcon are loaded
     void cacheIcons() const;
     

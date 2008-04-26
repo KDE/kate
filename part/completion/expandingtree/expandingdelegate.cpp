@@ -36,7 +36,7 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
 {
   QStyleOptionViewItem option(optionOld);
 
-  changeBackground(index.row(), index.column(), option);
+  adjustStyle(index, option);
     
   if( index.column() == 0 )
     model()->placeExpandingWidget(index);
@@ -92,16 +92,8 @@ QSize ExpandingDelegate::sizeHint ( const QStyleOptionViewItem & option, const Q
   return s;
 }
 
-void ExpandingDelegate::changeBackground( int row, int column, QStyleOptionViewItem & option ) const {
-    Q_UNUSED( row );
-    Q_UNUSED( column );
-    //Highlight selected items specially
-    QColor highlight = option.palette.color( option.palette.currentColorGroup(), QPalette::Highlight );
-
-    highlight.setRgb(0x45aed0);
-
-    for(int a = 0; a <=2; a++ )
-      option.palette.setColor( (QPalette::ColorGroup)a, QPalette::Highlight, highlight );
+void ExpandingDelegate::adjustStyle( const QModelIndex& index, QStyleOptionViewItem & option ) const
+{
 }
 
 void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & text ) const

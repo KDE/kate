@@ -37,6 +37,21 @@ KateCompletionDelegate::KateCompletionDelegate(ExpandingWidgetModel* model, Kate
 {
 }
 
+void KateCompletionDelegate::adjustStyle( const QModelIndex& index, QStyleOptionViewItem & option ) const {
+    if(index.column() == 0) {
+        //We always want to use the match-color if available, also for highlighted items.
+        ///@todo Only do this for the "current" item, for others the model is asked for the match color.
+        uint color = model()->matchColor(index);
+        if(color != 0) {
+            QColor match(color);
+        
+            for(int a = 0; a <=2; a++ )
+            option.palette.setColor( (QPalette::ColorGroup)a, QPalette::Highlight, match );
+        }
+    }
+}
+
+
 KateRenderer * KateCompletionDelegate::renderer( ) const
 {
   return widget()->view()->renderer();

@@ -52,8 +52,8 @@ class ExpandingDelegate : public QItemDelegate
     
     ExpandingWidgetModel* model() const;
   protected:
-    //column may be -1 if unknown
-    void changeBackground( int row, int column, QStyleOptionViewItem & option ) const;
+    //Called right before paint to allow last-minute changes to the style
+    virtual void adjustStyle( const QModelIndex& index, QStyleOptionViewItem & option ) const;
     virtual void drawDisplay ( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & text ) const;
     virtual QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const;
     virtual bool editorEvent ( QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index );

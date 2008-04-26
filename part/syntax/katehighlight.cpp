@@ -552,7 +552,7 @@ void KateHighlighting::getKateExtendedAttributeListCopy( const QString &schema, 
 
   list.clear();
 
-  foreach (KateExtendedAttribute::Ptr attribute, attributes)
+  foreach (const KateExtendedAttribute::Ptr &attribute, attributes)
     list.append(KateExtendedAttribute::Ptr(new KateExtendedAttribute(*attribute.data())));
 }
 

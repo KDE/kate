@@ -70,8 +70,6 @@ class KateUndoGroup
       editInsertLine,
       editRemoveLine,
       editMarkLineAutoWrapped,
-      editCursorMove,
-      selectionRange,
       editInvalid
     };
 
@@ -86,10 +84,16 @@ class KateUndoGroup
     void addItem (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text);
 
     /**
-     * add an item to the group, the type is selectionRange 
+     * sets the text selection range for the edit group.
      * @param selection selection to remember
      */
-    void addItem (const KTextEditor::Range &selection);
+    void setSelection (const KTextEditor::Range &selection);
+
+    /**
+     * sets the cursor position for the edit group.
+     * @param selection selection to remember
+     */
+    void setCursorPosition (const KTextEditor::Cursor &cursor);
 
     /**
      * merge this group with an other
@@ -108,13 +112,6 @@ class KateUndoGroup
      * is this undogroup empty?
      */
     bool isEmpty () const { return m_items.isEmpty(); }
-
-    /**
-     * do we already have an item of this type?
-     * @param type type to query
-     * @return we contain only the given type
-     */
-    bool contains(KateUndoGroup::UndoType type) const;
 
   private:
     /**
@@ -151,6 +148,16 @@ class KateUndoGroup
      * prohibit merging with the next group
      */
     bool m_safePoint;
+
+    /**
+     * the text selection of the active view before the edit step
+     */
+    KTextEditor::Range m_selection;
+
+    /**
+     * the cursor position of the active view before the edit step
+     */
+    KTextEditor::Cursor m_cursor;
 };
 
 #endif

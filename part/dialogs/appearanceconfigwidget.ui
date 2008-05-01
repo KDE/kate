@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>510</width>
-    <height>486</height>
+    <width>527</width>
+    <height>555</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
@@ -228,8 +228,11 @@
      <layout class="QVBoxLayout" name="verticalLayout" >
       <item>
        <widget class="QCheckBox" name="chkDeveloperMode" >
+        <property name="toolTip" >
+         <string>Changing this mode affects only newly opened / created documents. In KWrite a restart is recommended</string>
+        </property>
         <property name="text" >
-         <string>Enable developer mode</string>
+         <string>Enable power user mode (KDE 3 mode)</string>
         </property>
        </widget>
       </item>

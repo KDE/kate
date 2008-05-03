@@ -475,7 +475,7 @@ int main(int argc, char *argv[])
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs( );
 
   QString baseDir = args->getOption("base");
-  QByteArray homeDir = ::getenv("HOME");
+  QByteArray homeDir = qgetenv("HOME");
   QByteArray baseDirConfigFile(homeDir + QByteArray(BASE_DIR_CONFIG));
   {
     QFile baseDirConfig(baseDirConfigFile);
@@ -588,7 +588,7 @@ int main(int argc, char *argv[])
   // we're not interested
   toplevel->statusBar()->hide();
 
-  if (!getenv("KDE_DEBUG")) {
+  if (qgetenv("KDE_DEBUG").isEmpty()) {
     // set ulimits
     rlimit vmem_limit = { 256*1024*1024, RLIM_INFINITY };	// 256Mb Memory should suffice
 #if defined(RLIMIT_AS)

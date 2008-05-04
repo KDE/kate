@@ -411,7 +411,7 @@ int main(int argc, char *argv[])
   for ( int i = 0; i < 2; i++ ) {
     QFileInfo sourceDir(QFile::encodeName( baseDir ) + '/' + subdirs[i]);
     if ( !sourceDir.exists() || !sourceDir.isDir() ) {
-      fprintf(stderr,"ERROR: Source directory \"%s/%s\": no such directory.\n", (const char *)baseDir.toLatin1(), subdirs[i]);
+      fprintf(stderr,"ERROR: Source directory \"%s/%s\": no such directory.\n", baseDir.toLatin1().constData(), subdirs[i]);
       exit(1);
     }
   }
@@ -469,11 +469,7 @@ int main(int argc, char *argv[])
 
   mw->setCentralWidget( part->widget() );
 
-  bool visual = false;
   if (args->isSet("show"))
-    visual = true;
-
-  if ( visual )
     mw->show();
 
   // we're not interested
@@ -501,7 +497,6 @@ int main(int argc, char *argv[])
       args->isSet("fork")));
 
   regressionTest->m_keepOutput = args->isSet("keep-output");
-  regressionTest->m_showGui = args->isSet("show");
 
   {
     QString failureSnapshot = args->getOption("cmp-failures");
@@ -573,7 +568,6 @@ RegressionTest::RegressionTest(KateDocument *part, KConfig *baseConfig,
   m_fork = fork;
   m_failureComp = 0;
   m_failureSave = 0;
-  m_showGui = false;
   m_passes_work = m_passes_fail = m_passes_new = 0;
   m_failures_work = m_failures_fail = m_failures_new = 0;
   m_errors = 0;
@@ -1048,7 +1042,7 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
 
   if (!script_error) goto bail_out;
 
-  if (m_showGui) kapp->processEvents();
+  kapp->processEvents();
 
   if ( m_genOutput ) {
     reportResult(checkOutput(filename+"-result"), "result");

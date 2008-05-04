@@ -258,7 +258,6 @@ class RegressionTest : public QObject
 
     bool m_keepOutput;
     bool m_getOutput;
-    bool m_showGui;
     int m_passes_work;
     int m_passes_fail;
     int m_passes_new;

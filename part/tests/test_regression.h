@@ -24,15 +24,18 @@
 #ifndef TEST_REGRESSION_H
 #define TEST_REGRESSION_H
 
-#include "katejscript.h"
-#include "kateview.h"
+#include "katescriptview.h"
+#include "katescriptdocument.h"
+
 #include <kurl.h>
+#include <kconfig.h>
+
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
-#include <kjs/ustring.h>
-#include <kjs/object.h>
-#include <kjs/interpreter.h>
-#include <kconfig.h>
+#include <QtScript/QScriptValue>
+#include <QtScript/QScriptable>
+
+class QScriptEngine;
 
 class KateDocument;
 class KateView;
@@ -43,73 +46,130 @@ namespace KParts {
   struct BrowserArguments;
 }
 
+class KateViewObject;
+class KateDocumentObject;
+#if 0 // disabled custom output
 class OutputObject;
+#endif
 
 /**
  * @internal
  * The backbone of Kate's automatic regression tests.
  */
-class TestJScriptEnv : public KateJSInterpreterContext
+class TestScriptEnv : public QObject
 {
   public:
-    explicit TestJScriptEnv(KateDocument *part);
-    virtual ~TestJScriptEnv();
+    explicit TestScriptEnv(KateDocument *part);
 
+    QScriptEngine *engine() const { return m_engine; }
+
+#if 0 // disabled custom output
     /** returns the output object */
     OutputObject *output() const { return m_output; }
 
   protected:
     OutputObject *m_output;
+#endif // disabled custom output
+
+  private:
+    QScriptEngine *m_engine;
+    KateViewObject *m_viewObj;
+    KateDocumentObject *m_docObj;
 };
 
 /**
  * @internal
  */
-class KateViewObject : public KJS::JSObject
+class KateViewObject : public KateScriptView
 {
+    Q_OBJECT
+
   public:
-    KateViewObject(KJS::ExecState *exec, KateView *v, KJS::JSObject *fallback);
-    virtual ~KateViewObject();
 
-    virtual const KJS::ClassInfo *classInfo() const;
-//     virtual KJS::JSValue *get(KJS::ExecState *exec, const KJS::Identifier &propertyName) const;
+    explicit KateViewObject(KateView *view);
 
-    virtual bool getOwnPropertySlot(KJS::ExecState *, const KJS::Identifier&, KJS::PropertySlot&);
-    virtual bool getOwnPropertySlot(KJS::ExecState *, unsigned index, KJS::PropertySlot&);
+    Q_INVOKABLE bool setCursorPosition(int row, int col);
+
+    // Edit functions
+    Q_INVOKABLE void keyReturn(int cnt = 1);
+    Q_INVOKABLE void backspace(int cnt = 1);
+    Q_INVOKABLE void deleteWordLeft(int cnt = 1);
+    Q_INVOKABLE void keyDelete(int cnt = 1);
+    Q_INVOKABLE void deleteWordRight(int cnt = 1);
+    Q_INVOKABLE void transpose(int cnt = 1);
+    Q_INVOKABLE void cursorLeft(int cnt = 1);
+    Q_INVOKABLE void shiftCursorLeft(int cnt = 1);
+    Q_INVOKABLE void cursorRight(int cnt = 1);
+    Q_INVOKABLE void shiftCursorRight(int cnt = 1);
+    Q_INVOKABLE void wordLeft(int cnt = 1);
+    Q_INVOKABLE void shiftWordLeft(int cnt = 1);
+    Q_INVOKABLE void wordRight(int cnt = 1);
+    Q_INVOKABLE void shiftWordRight(int cnt = 1);
+    Q_INVOKABLE void home(int cnt = 1);
+    Q_INVOKABLE void shiftHome(int cnt = 1);
+    Q_INVOKABLE void end(int cnt = 1);
+    Q_INVOKABLE void shiftEnd(int cnt = 1);
+    Q_INVOKABLE void up(int cnt = 1);
+    Q_INVOKABLE void shiftUp(int cnt = 1);
+    Q_INVOKABLE void down(int cnt = 1);
+    Q_INVOKABLE void shiftDown(int cnt = 1);
+    Q_INVOKABLE void scrollUp(int cnt = 1);
+    Q_INVOKABLE void scrollDown(int cnt = 1);
+    Q_INVOKABLE void topOfView(int cnt = 1);
+    Q_INVOKABLE void shiftTopOfView(int cnt = 1);
+    Q_INVOKABLE void bottomOfView(int cnt = 1);
+    Q_INVOKABLE void shiftBottomOfView(int cnt = 1);
+    Q_INVOKABLE void pageUp(int cnt = 1);
+    Q_INVOKABLE void shiftPageUp(int cnt = 1);
+    Q_INVOKABLE void pageDown(int cnt = 1);
+    Q_INVOKABLE void shiftPageDown(int cnt = 1);
+    Q_INVOKABLE void top(int cnt = 1);
+    Q_INVOKABLE void shiftTop(int cnt = 1);
+    Q_INVOKABLE void bottom(int cnt = 1);
+    Q_INVOKABLE void shiftBottom(int cnt = 1);
+    Q_INVOKABLE void toMatchingBracket(int cnt = 1);
+    Q_INVOKABLE void shiftToMatchingBracket(int cnt = 1);
+
+    Q_INVOKABLE bool type(const QString& str);
+
+    // Aliases
+    Q_INVOKABLE void enter(int cnt = 1);            // KeyReturn
+    Q_INVOKABLE void cursorPrev(int cnt = 1);       // CursorLeft
+    Q_INVOKABLE void left(int cnt = 1);             // CursorLeft
+    Q_INVOKABLE void prev(int cnt = 1);             // CursorLeft
+    Q_INVOKABLE void shiftCursorPrev(int cnt = 1);  // ShiftCursorLeft
+    Q_INVOKABLE void shiftLeft(int cnt = 1);        // ShiftCursorLeft
+    Q_INVOKABLE void shiftPrev(int cnt = 1);        // ShiftCursorLeft
+    Q_INVOKABLE void cursorNext(int cnt = 1);       // CursorRight
+    Q_INVOKABLE void right(int cnt = 1);            // CursorRight
+    Q_INVOKABLE void next(int cnt = 1);             // CursorRight
+    Q_INVOKABLE void shiftCursorNext(int cnt = 1);  // ShiftCursorRight
+    Q_INVOKABLE void shiftRight(int cnt = 1);       // ShiftCursorRight
+    Q_INVOKABLE void shiftNext(int cnt = 1);        // ShiftCursorRight
+    Q_INVOKABLE void wordPrev(int cnt = 1);         // WordLeft
+    Q_INVOKABLE void shiftWordPrev(int cnt = 1);    // ShiftWordLeft
+    Q_INVOKABLE void wordNext(int cnt = 1);         // WordRight
+    Q_INVOKABLE void shiftWordNext(int cnt = 1);    // ShiftWordRight
 
   private:
-    // evil hack I: class layout of katejscript/KateJSView must be duplicated
-    // here, structurally as well as functionally
-    KateView *view;
-    // end evil hack
-    KJS::JSObject *fallback;
-
-    static const KJS::ClassInfo info;
+    Q_DISABLE_COPY(KateViewObject)
 };
 
 /**
  * @internal
  */
-class KateViewFunction : public KJS::JSObject
+class KateDocumentObject : public KateScriptDocument
 {
+    Q_OBJECT
+
   public:
-    KateViewFunction(KJS::ExecState *exec, KateView *v, int _id, int length);
+    explicit KateDocumentObject(KateDocument* doc);
 
-    bool implementsCall() const;
-    virtual KJS::JSValue *callAsFunction(KJS::ExecState *exec, KJS::JSObject *thisObj, const KJS::List &args);
-
-    enum { KeyReturn, Type, Backspace, DeleteWordLeft, KeyDelete,
-      DeleteWordRight, Transpose, CursorLeft, ShiftCursorLeft, CursorRight,
-      ShiftCursorRight, WordLeft, ShiftWordLeft, WordRight, ShiftWordRight,
-      Home, ShiftHome, End, ShiftEnd, Up, ShiftUp, Down, ShiftDown, ScrollUp,
-      ScrollDown, TopOfView, ShiftTopOfView, BottomOfView, ShiftBottomOfView,
-      PageUp, ShiftPageUp, PageDown, ShiftPageDown, Top, ShiftTop, Bottom,
-      ShiftBottom, ToMatchingBracket, ShiftToMatchingBracket };
   private:
-    KateView *m_view;
-    int id;
+    Q_DISABLE_COPY(KateDocumentObject)
 };
 
+#if 0 // disabled custom output
 class OutputFunction;
 
 /**
@@ -155,6 +215,7 @@ class OutputFunction : public KJS::JSObject
     OutputObject *o;
     int id;
 };
+#endif // disabled custom output
 
 /**
  * @internal
@@ -224,13 +285,15 @@ class RegressionTest : public QObject
     static bool svnIgnored( const QString &filename );
 
   private:
+
     /**
      * evaluate script given by \c filename within the context of \c interp.
      * @param ignore if \c true don't evaluate if script does not exist but
      * return true nonetheless.
      * @return true if script was valid, false otherwise
      */
-    bool evalJS( KJS::Interpreter &interp, const QString &filename, bool ignore = false);
+    bool evalJS(QScriptEngine *engine, const QString &filename, bool ignore = false);
+
     /**
      * concatenate contents of all list files down to but not including the
      * tests directory.

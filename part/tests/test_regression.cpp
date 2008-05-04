@@ -26,8 +26,30 @@
 //BEGIN Includes
 #include "test_regression.h"
 
-#include <stdlib.h>
-#include <limits.h>
+#include "kateview.h"
+#include "katedocument.h"
+#include "katedocumenthelpers.h"
+#include "kateconfig.h"
+#include "katecmd.h"
+#include "kateglobal.h"
+#include "interfaces/ktexteditor/commandinterface.h"
+
+#include <kapplication.h>
+#include <kglobal.h>
+#include <kstandarddirs.h>
+#include <kaction.h>
+#include <kcmdlineargs.h>
+#include <kmainwindow.h>
+#include <kconfig.h>
+#include <kconfiggroup.h>
+#include <kglobalsettings.h>
+#include <kdefakes.h>
+#include <kstatusbar.h>
+#include <kio/job.h>
+
+#include <cstdio>
+#include <cstdlib>
+#include <climits>
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <sys/types.h>
@@ -36,281 +58,155 @@
 #include <pwd.h>
 #include <signal.h>
 
-#include <kjs/collector.h>
-#include <kapplication.h>
-#include <kglobal.h>
-#include <kstandarddirs.h>
-#include <QtCore/QFile>
-#include <stdio.h>
-
-#include <kaction.h>
-#include <kcmdlineargs.h>
-#include <kio/job.h>
-#include <kmainwindow.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kglobalsettings.h>
-#include <kdefakes.h>
-
-#include <QtGui/QColor>
-#include <QtGui/QCursor>
-#include <QtCore/QDir>
-#include <QtGui/QKeyEvent>
 #include <QtCore/QObject>
-#include <QtGui/QPushButton>
-//#include <qscrollview.h>
+#include <QtCore/QFile>
+#include <QtCore/QDir>
 #include <QtCore/QString>
 #include <QtCore/QRegExp>
 #include <QtCore/QTextStream>
 #include <QtCore/QList>
-#include <QtGui/QImage>
 #include <QtCore/QTimer>
-#include <kstatusbar.h>
 #include <QtCore/QFileInfo>
 #include <QtCore/Q_PID>
+#include <QtCore/QEvent>
 
-#include "katedocument.h"
-#include "kateview.h"
-#include "katejscript.h"
-#include "katedocumenthelpers.h"
-#include "kateconfig.h"
-#include "katecmd.h"
-#include "kateglobal.h"
-#include "interfaces/ktexteditor/commandinterface.h"
+#include <QtScript/QScriptEngine>
 //END Includes
-
-using namespace KJS;
 
 #define BASE_DIR_CONFIG "/.testkateregression"
 #define UNIQUE_HOME_DIR "/var/tmp/%1_kate4_non_existent"
 
 static KMainWindow *toplevel;
 
-//BEGIN TestJScriptEnv
+//BEGIN TestScriptEnv
 
-TestJScriptEnv::TestJScriptEnv(KateDocument *part)
-  : KateJSInterpreterContext()
+TestScriptEnv::TestScriptEnv(KateDocument *part)
+  : m_engine(0), m_viewObj(0), m_docObj(0)
 {
-  ExecState *exec = m_interpreter->globalExec();
+  m_engine = new QScriptEngine(this);
 
-  KJS::JSObject *wd = wrapDocument(exec, part);
-  KateView *v = static_cast<KateView *>(part->widget());
-  KJS::JSObject *wv = new KateViewObject(exec, v, wrapView(exec, v));
+  KateView *view = qobject_cast<KateView *>(part->widget());
 
-  // remove properties pointing to stale objects
-  m_interpreter->globalObject()->deleteProperty(exec, "document");
-  m_interpreter->globalObject()->deleteProperty(exec, "view");
+  m_viewObj = new KateViewObject(view);
+  QScriptValue sv = m_engine->newQObject(m_viewObj);
 
-  m_view = wv;
-  m_document = wd;
+  m_engine->globalObject().setProperty("view", sv);
+  m_engine->globalObject().setProperty("v", sv);
+
+  m_docObj = new KateDocumentObject(view->doc());
+  QScriptValue sd = m_engine->newQObject(m_docObj);
+
+  m_engine->globalObject().setProperty("document", sd);
+  m_engine->globalObject().setProperty("d", sd);
+
+#if 0 // disabled custom output
   m_output = new OutputObject(exec, part, v);
 
-  // recreate properties
-  m_interpreter->globalObject()->put(exec, "document", m_document);
-  m_interpreter->globalObject()->put(exec, "view", m_view);
   // create new properties
   m_interpreter->globalObject()->put(exec, "output", m_output);
-  // add convenience shortcuts
-  m_interpreter->globalObject()->put(exec, "d", m_document);
-  m_interpreter->globalObject()->put(exec, "v", m_view);
-  m_interpreter->globalObject()->put(exec, "out", m_output);
-  m_interpreter->globalObject()->put(exec, "o", m_output);
-
+#endif // disabled custom output
 }
-
-TestJScriptEnv::~TestJScriptEnv()
-{
-}
-
-//END TestJScriptEnv
+//END TestScriptEnv
 
 //BEGIN KateViewObject
 
-KateViewObject::KateViewObject(ExecState *exec, KateView *v, JSObject *fallback)
-  : view(v), fallback(fallback)
+KateViewObject::KateViewObject(KateView *view)
+  : KateScriptView()
 {
-// put a function
-#define PUT_FUNC(name, enumval) \
-        putDirect(#name, new KateViewFunction(exec,v,KateViewFunction::enumval,1), DontEnum)
-
-  KJS::Collector::protect(fallback);
-
-  PUT_FUNC(keyReturn, KeyReturn);
-  PUT_FUNC(enter, KeyReturn);
-  PUT_FUNC(type, Type);
-  PUT_FUNC(keyDelete, KeyDelete);
-  PUT_FUNC(deleteWordRight, DeleteWordRight);
-  PUT_FUNC(transpose, Transpose);
-  PUT_FUNC(cursorLeft, CursorLeft);
-  PUT_FUNC(cursorPrev, CursorLeft);
-  PUT_FUNC(left, CursorLeft);
-  PUT_FUNC(prev, CursorLeft);
-  PUT_FUNC(shiftCursorLeft, ShiftCursorLeft);
-  PUT_FUNC(shiftCursorPrev, ShiftCursorLeft);
-  PUT_FUNC(shiftLeft, ShiftCursorLeft);
-  PUT_FUNC(shiftPrev, ShiftCursorLeft);
-  PUT_FUNC(cursorRight, CursorRight);
-  PUT_FUNC(cursorNext, CursorRight);
-  PUT_FUNC(right, CursorRight);
-  PUT_FUNC(next, CursorRight);
-  PUT_FUNC(shiftCursorRight, ShiftCursorRight);
-  PUT_FUNC(shiftCursorNext, ShiftCursorRight);
-  PUT_FUNC(shiftRight, ShiftCursorRight);
-  PUT_FUNC(shiftNext, ShiftCursorRight);
-  PUT_FUNC(wordLeft, WordLeft);
-  PUT_FUNC(wordPrev, WordLeft);
-  PUT_FUNC(shiftWordLeft, ShiftWordLeft);
-  PUT_FUNC(shiftWordPrev, ShiftWordLeft);
-  PUT_FUNC(wordRight, WordRight);
-  PUT_FUNC(wordNext, WordRight);
-  PUT_FUNC(shiftWordRight, ShiftWordRight);
-  PUT_FUNC(shiftWordNext, ShiftWordRight);
-  PUT_FUNC(home, Home);
-  PUT_FUNC(shiftHome, ShiftHome);
-  PUT_FUNC(end, End);
-  PUT_FUNC(shiftEnd, ShiftEnd);
-  PUT_FUNC(up, Up);
-  PUT_FUNC(shiftUp, ShiftUp);
-  PUT_FUNC(down, Down);
-  PUT_FUNC(shiftDown, ShiftDown);
-  PUT_FUNC(scrollUp, ScrollUp);
-  PUT_FUNC(scrollDown, ScrollDown);
-  PUT_FUNC(topOfView, TopOfView);
-  PUT_FUNC(shiftTopOfView, ShiftTopOfView);
-  PUT_FUNC(bottomOfView, BottomOfView);
-  PUT_FUNC(shiftBottomOfView, ShiftBottomOfView);
-  PUT_FUNC(pageUp, PageUp);
-  PUT_FUNC(shiftPageUp, ShiftPageUp);
-  PUT_FUNC(pageDown, PageDown);
-  PUT_FUNC(shiftPageDown, ShiftPageDown);
-  PUT_FUNC(top, Top);
-  PUT_FUNC(shiftTop, ShiftTop);
-  PUT_FUNC(bottom, Bottom);
-  PUT_FUNC(shiftBottom, ShiftBottom);
-  PUT_FUNC(toMatchingBracket, ToMatchingBracket);
-  PUT_FUNC(shiftToMatchingBracket, ShiftToMatchingBracket);
-#undef PUT_FUNC
+  setView(view);
 }
 
-KateViewObject::~KateViewObject()
+bool KateViewObject::setCursorPosition(int row, int col)
 {
-  KJS::Collector::unprotect(fallback);
+  return view()->setCursorPosition(KTextEditor::Cursor(row, col));
 }
 
-const ClassInfo *KateViewObject::classInfo() const
-{
-  return &info;
+// Implements a function that calls an edit function repeatedly as specified by
+// its first parameter (once if not specified).
+#define REP_CALL(func) \
+void KateViewObject::func(int cnt) {  \
+  while (cnt--) { view()->func(); }   \
+}
+REP_CALL(keyReturn);
+REP_CALL(backspace);
+REP_CALL(deleteWordLeft);
+REP_CALL(keyDelete);
+REP_CALL(deleteWordRight);
+REP_CALL(transpose);
+REP_CALL(cursorLeft);
+REP_CALL(shiftCursorLeft);
+REP_CALL(cursorRight);
+REP_CALL(shiftCursorRight);
+REP_CALL(wordLeft);
+REP_CALL(shiftWordLeft);
+REP_CALL(wordRight);
+REP_CALL(shiftWordRight);
+REP_CALL(home);
+REP_CALL(shiftHome);
+REP_CALL(end);
+REP_CALL(shiftEnd);
+REP_CALL(up);
+REP_CALL(shiftUp);
+REP_CALL(down);
+REP_CALL(shiftDown);
+REP_CALL(scrollUp);
+REP_CALL(scrollDown);
+REP_CALL(topOfView);
+REP_CALL(shiftTopOfView);
+REP_CALL(bottomOfView);
+REP_CALL(shiftBottomOfView);
+REP_CALL(pageUp);
+REP_CALL(shiftPageUp);
+REP_CALL(pageDown);
+REP_CALL(shiftPageDown);
+REP_CALL(top);
+REP_CALL(shiftTop);
+REP_CALL(bottom);
+REP_CALL(shiftBottom);
+REP_CALL(toMatchingBracket);
+REP_CALL(shiftToMatchingBracket);
+#undef REP_CALL
+
+bool KateViewObject::type(const QString& str) {
+  return view()->doc()->typeChars(view(), str);
 }
 
-extern const KJS::ClassInfo *testregression_KateJSView_info; // from katejscript.cpp
-const KJS::ClassInfo KateViewObject::info = { "KateViewObject", testregression_KateJSView_info, 0, 0 };
-
-#if 0
-JSValue *KateViewObject::get(ExecState *exec, const Identifier &propertyName) const
-{
-  JSValue *val = getDirect(propertyName);
-  if (val)
-    return val;
-
-  return fallback->get(exec, propertyName);
+#define ALIAS(alias, func) \
+void KateViewObject::alias(int cnt) { \
+  func(cnt);                          \
 }
-#endif
-
-bool KateViewObject::getOwnPropertySlot(KJS::ExecState *exec, const KJS::Identifier &name, KJS::PropertySlot &slot)
-{
-  bool res = JSObject::getOwnPropertySlot(exec, name, slot);
-  if (res)
-    return true;
-
-  return fallback->getPropertySlot(exec, name, slot);
-}
-
-bool KateViewObject::getOwnPropertySlot(KJS::ExecState *exec, unsigned index, KJS::PropertySlot &slot)
-{
-  bool res = JSObject::getOwnPropertySlot(exec, index, slot);
-  if (res)
-    return true;
-
-  return fallback->getPropertySlot(exec, index, slot);
-}
+ALIAS(enter, keyReturn);
+ALIAS(cursorPrev, cursorLeft);
+ALIAS(left, cursorLeft);
+ALIAS(prev, cursorLeft);
+ALIAS(shiftCursorPrev, shiftCursorLeft);
+ALIAS(shiftLeft, shiftCursorLeft);
+ALIAS(shiftPrev, shiftCursorLeft);
+ALIAS(cursorNext, cursorRight);
+ALIAS(right, cursorRight);
+ALIAS(next, cursorRight);
+ALIAS(shiftCursorNext, shiftCursorRight);
+ALIAS(shiftRight, shiftCursorRight);
+ALIAS(shiftNext, shiftCursorRight);
+ALIAS(wordPrev, wordLeft);
+ALIAS(shiftWordPrev, shiftWordLeft);
+ALIAS(wordNext, wordRight);
+ALIAS(shiftWordNext, shiftWordRight);
+#undef ALIAS
 
 //END KateViewObject
 
-//BEGIN KateViewFunction
+//BEGIN KateDocumentObject
 
-KateViewFunction::KateViewFunction(ExecState * /*exec*/, KateView *v, int _id, int length)
+KateDocumentObject::KateDocumentObject(KateDocument *doc)
+  : KateScriptDocument()
 {
-  m_view = v;
-  id = _id;
-  putDirect("length",length);
+  setDocument(doc);
 }
 
-bool KateViewFunction::implementsCall() const
-{
-  return true;
-}
+//END KateDocumentObject
 
-JSValue *KateViewFunction::callAsFunction(ExecState *exec, JSObject * /*thisObj*/, const List &args)
-{
-  // calls a function repeatedly as specified by its first parameter (once
-  // if not specified).
-#define REP_CALL(enumval, func) \
-        case enumval: {\
-          int cnt = 1;\
-          if (args.size() > 0) cnt = args[0]->toInt32(exec);\
-          while (cnt-- > 0) { m_view->func(); }\
-          return jsUndefined();\
-        }
-  switch (id) {
-    REP_CALL(KeyReturn, keyReturn);
-    REP_CALL(KeyDelete, keyDelete);
-    REP_CALL(DeleteWordRight, deleteWordRight);
-    REP_CALL(Transpose, transpose);
-    REP_CALL(CursorLeft, cursorLeft);
-    REP_CALL(ShiftCursorLeft, shiftCursorLeft);
-    REP_CALL(CursorRight, cursorRight);
-    REP_CALL(ShiftCursorRight, shiftCursorRight);
-    REP_CALL(WordLeft, wordLeft);
-    REP_CALL(ShiftWordLeft, shiftWordLeft);
-    REP_CALL(WordRight, wordRight);
-    REP_CALL(ShiftWordRight, shiftWordRight);
-    REP_CALL(Home, home);
-    REP_CALL(ShiftHome, shiftHome);
-    REP_CALL(End, end);
-    REP_CALL(ShiftEnd, shiftEnd);
-    REP_CALL(Up, up);
-    REP_CALL(ShiftUp, shiftUp);
-    REP_CALL(Down, down);
-    REP_CALL(ShiftDown, shiftDown);
-    REP_CALL(ScrollUp, scrollUp);
-    REP_CALL(ScrollDown, scrollDown);
-    REP_CALL(TopOfView, topOfView);
-    REP_CALL(ShiftTopOfView, shiftTopOfView);
-    REP_CALL(BottomOfView, bottomOfView);
-    REP_CALL(ShiftBottomOfView, shiftBottomOfView);
-    REP_CALL(PageUp, pageUp);
-    REP_CALL(ShiftPageUp, shiftPageUp);
-    REP_CALL(PageDown, pageDown);
-    REP_CALL(ShiftPageDown, shiftPageDown);
-    REP_CALL(Top, top);
-    REP_CALL(ShiftTop, shiftTop);
-    REP_CALL(Bottom, bottom);
-    REP_CALL(ShiftBottom, shiftBottom);
-    REP_CALL(ToMatchingBracket, toMatchingBracket);
-    REP_CALL(ShiftToMatchingBracket, shiftToMatchingBracket);
-    case Type: {
-      UString str = args[0]->toString(exec);
-      QString res = str.qstring();
-      return jsBoolean(m_view->doc()->typeChars(m_view, res));
-    }
-  }
-
-  return jsUndefined();
-#undef REP_CALL
-}
-
-//END KateViewFunction
-
+#if 0 // disabled custom output
 //BEGIN OutputObject
 
 OutputObject::OutputObject(KJS::ExecState *exec, KateDocument *d, KateView *v)
@@ -378,37 +274,37 @@ KJS::JSValue *OutputFunction::callAsFunction(KJS::ExecState *exec, KJS::JSObject
 
   switch (id) {
     case Write:
-      case Writeln: {
-        // Gather all parameters and concatenate to string
-        QString res;
-        for (int i = 0; i < args.size(); i++) {
-          res += args[i]->toString(exec).qstring();
-        }
-
-        if (id == Writeln)
-          res += '\n';
-
-        buffer = res.toUtf8();
-        break;
+    case Writeln: {
+      // Gather all parameters and concatenate to string
+      QString res;
+      for (int i = 0; i < args.size(); i++) {
+        res += args[i]->toString(exec).qstring();
       }
+
+      if (id == Writeln)
+        res += '\n';
+
+      buffer = res.toUtf8();
+      break;
+    }
     case WriteCursorPositionln:
-      case WriteCursorPosition: {
-        // Gather all parameters and concatenate to string
-        QString res;
-        for (int i = 0; i < args.size(); i++) {
-          res += args[i]->toString(exec).qstring();
-        }
-
-        // Append cursor position
-        KTextEditor::Cursor c = o->view->cursorPosition();
-        res += '(' + QString::number(c.line()) + ',' + QString::number(c.column()) + ')';
-
-        if (id == WriteCursorPositionln)
-          res += '\n';
-
-        buffer = res.toUtf8();
-        break;
+    case WriteCursorPosition: {
+      // Gather all parameters and concatenate to string
+      QString res;
+      for (int i = 0; i < args.size(); i++) {
+        res += args[i]->toString(exec).qstring();
       }
+
+      // Append cursor position
+      KTextEditor::Cursor c = o->view->cursorPosition();
+      res += '(' + QString::number(c.line()) + ',' + QString::number(c.column()) + ')';
+
+      if (id == WriteCursorPositionln)
+        res += '\n';
+
+      buffer = res.toUtf8();
+      break;
+    }
   }
 
   out.write(buffer);
@@ -417,6 +313,7 @@ KJS::JSValue *OutputFunction::callAsFunction(KJS::ExecState *exec, KJS::JSObject
 }
 
 //END OutputFunction
+#endif // disabled custom output
 
 // -------------------------------------------------------------------------
 
@@ -1165,11 +1062,13 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
   pid_t pid = m_fork ? fork() : 0;
   if (pid == 0) {
     // Execute script
-    TestJScriptEnv jsenv(m_part);
+    TestScriptEnv jsenv(m_part);
+#if 0 // disabled custom output
     jsenv.output()->setChangedFlag(&m_outputCustomised);
     jsenv.output()->setOutputFile( ( m_genOutput ? m_baseDir + "/baseline/" : m_outputDir + '/' ) + filename + "-result" );
-    script_error = evalJS(*jsenv.interpreter(), m_baseDir + "/tests/"+QFileInfo(filename).dir().path()+"/.kateconfig-script", true)
-        && evalJS(*jsenv.interpreter(), m_baseDir + "/tests/"+filename+"-script");
+#endif // disabled custom output
+    script_error = evalJS(jsenv.engine(), m_baseDir + "/tests/"+QFileInfo(filename).dir().path()+"/.kateconfig-script", true)
+        && evalJS(jsenv.engine(), m_baseDir + "/tests/"+filename+"-script");
 
     if (m_fork) {
       writeVariable("script_error", QString::number(script_error));
@@ -1223,45 +1122,39 @@ bail_out:
   m_part->closeUrl();
 }
 
-bool RegressionTest::evalJS(Interpreter &interp, const QString &filename, bool ignore_nonexistent)
+bool RegressionTest::evalJS(QScriptEngine *engine, const QString &filename, bool ignore_nonexistent)
 {
-  QString fullSourceName = filename;
-  QFile sourceFile(fullSourceName);
+  QFile sourceFile(filename);
 
   if (!sourceFile.open(QFile::ReadOnly)) {
     if (!ignore_nonexistent) {
-      fprintf(stderr,"ERROR reading file %s\n",fullSourceName.toLatin1().constData());
+      fprintf(stderr,"ERROR reading file %s\n",filename.toLatin1().constData());
       m_errors++;
     }
     return ignore_nonexistent;
   }
 
-  QTextStream stream ( &sourceFile );
-  stream.setCodec( "UTF8" );
+  QTextStream stream(&sourceFile);
+  stream.setCodec("UTF8");
   QString code = stream.readAll();
   sourceFile.close();
 
   saw_failure = false;
   ignore_errors = false;
-  Completion c = interp.evaluate(fullSourceName, 1, UString( code ) );
+
+  QScriptValue result = engine->evaluate(code, filename, 1);
 
   if ( /*report_result &&*/ !ignore_errors) {
-    if (c.complType() == Throw) {
+    if (result.isError()) {
       fprintf(stderr, "eval script failed\n");
-      QString errmsg = c.value()->toString(interp.globalExec()).qstring();
-      printf( "ERROR: %s (%s)\n",filename.toLatin1().constData(), errmsg.toLatin1().constData());
+      QString errmsg = result.toString();
+      printf( "ERROR: %s (%s)\n", filename.toLatin1().constData(), errmsg.toLatin1().constData());
       m_errors++;
       return false;
     }
   }
   return true;
 }
-
-class GlobalImp : public JSObject
-{
-  public:
-    virtual UString className() const { return "global"; }
-};
 
 RegressionTest::CheckResult RegressionTest::checkOutput(const QString &againstFilename)
 {

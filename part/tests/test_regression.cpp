@@ -47,6 +47,7 @@
 #include <kstatusbar.h>
 #include <kio/job.h>
 
+#include <memory>
 #include <cstdio>
 #include <cstdlib>
 #include <climits>
@@ -76,7 +77,7 @@
 #define BASE_DIR_CONFIG "/.testkateregression"
 #define UNIQUE_HOME_DIR "/var/tmp/%1_kate4_non_existent"
 
-static KMainWindow *toplevel;
+static std::auto_ptr<KMainWindow> toplevel;
 
 //BEGIN TestScriptEnv
 
@@ -443,8 +444,6 @@ int main(int argc, char *argv[])
                   );
   cfg.sync();
 
-  int rv = 1;
-
   {
     KConfig dc( "kdebugrc", KConfig::SimpleConfig );
     // FIXME adapt to kate
@@ -464,11 +463,8 @@ int main(int argc, char *argv[])
   }
 
   // create widgets
-  toplevel = new KMainWindow();
-  KateDocument *part = new KateDocument(/*bSingleViewMode*/true,
-                                        /*bBrowserView*/false,
-                                        /*bReadOnly*/false,
-                                        /*parentWidget*/toplevel);
+  toplevel.reset(new KMainWindow());
+  std::auto_ptr<KateDocument> part(new KateDocument(true, false, false, toplevel.get()));
   part->setObjectName("testkate");
 
   toplevel->setCentralWidget( part->widget() );
@@ -497,12 +493,12 @@ int main(int argc, char *argv[])
   }
 
   // run the tests
-  RegressionTest *regressionTest = new RegressionTest(part,
+  std::auto_ptr<RegressionTest> regressionTest(new RegressionTest(part.get(),
       &cfg,
       baseDir,
       args->getOption("output"),
       args->isSet("genoutput"),
-      args->isSet("fork"));
+      args->isSet("fork")));
 
   regressionTest->m_keepOutput = args->isSet("keep-output");
   regressionTest->m_showGui = args->isSet("show");
@@ -584,15 +580,7 @@ int main(int argc, char *argv[])
   }
 
   // Only return a 0 exit code if all tests were successful
-  if (regressionTest->m_failures_work == 0 && regressionTest->m_errors == 0)
-    rv = 0;
-
-  // cleanup
-  delete regressionTest;
-  delete part;
-  delete toplevel;
-
-  return rv;
+  return (regressionTest->m_failures_work == 0 && regressionTest->m_errors == 0) ? 0 : 1;
 }
 
 // -------------------------------------------------------------------------
@@ -704,7 +692,7 @@ bool RegressionTest::runTests(QString relPath, bool mustExist, int known_failure
 {
   m_currentOutput.clear();
 
-  if (!QFile(m_baseDir + "/tests/"+relPath).exists()) {
+  if (!QFile(m_baseDir + "/tests/" + relPath).exists()) {
     fprintf(stderr,"%s: No such file or directory\n",relPath.toLatin1().constData());
     return false;
   }

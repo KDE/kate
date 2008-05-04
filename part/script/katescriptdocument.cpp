@@ -118,7 +118,7 @@ KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar chara
     }
 
     if (count == 0) {
-      return KTextEditor::Cursor (line, column);
+      return cursor;
     }
   }
   return KTextEditor::Cursor::invalid ();

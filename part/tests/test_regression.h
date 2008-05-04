@@ -212,7 +212,8 @@ class OutputObject : public QObject, protected QScriptable
  */
 class RegressionTest : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
+
   public:
 
     RegressionTest(KateDocument *part, KConfig *baseConfig,
@@ -227,7 +228,7 @@ class RegressionTest : public QObject
     bool runTests(QString relPath = QString(), bool mustExist = false, int known_failure = NoFailure);
     bool allTestsSucceeded() const;
 
-    bool reportResult( bool passed, const QString & description = QString(), bool *newfailure = 0 );
+    bool reportResult(bool passed, const QString & description = QString(), bool *newfailure = 0 );
     bool reportResult(CheckResult result, const QString & description = QString(), bool *newfailure = 0 );
 
     void printSummary();
@@ -240,6 +241,8 @@ class RegressionTest : public QObject
 
     void createLink( const QString& test, int failures );
     void doFailureReport( const QString& test, int failures );
+
+  private:
 
     KateDocument *m_part;
     KateView *m_view;

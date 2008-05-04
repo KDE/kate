@@ -36,6 +36,7 @@
 #include <QtScript/QScriptable>
 
 class QScriptEngine;
+class KCmdLineArgs;
 
 class KateDocument;
 class KateView;
@@ -215,8 +216,7 @@ class RegressionTest : public QObject
   public:
 
     RegressionTest(KateDocument *part, KConfig *baseConfig,
-                   const QString &baseDir, const QString &outputDir,
-                   bool _genOutput, bool fork);
+                   const QString &baseDir, KCmdLineArgs *args);
     ~RegressionTest();
 
     enum OutputType { ResultDocument };

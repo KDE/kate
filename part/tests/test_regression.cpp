@@ -489,14 +489,7 @@ int main(int argc, char *argv[])
   }
 
   // run the tests
-  std::auto_ptr<RegressionTest> regressionTest(new RegressionTest(part.get(),
-      &cfg,
-      baseDir,
-      args->getOption("output"),
-      args->isSet("genoutput"),
-      args->isSet("fork")));
-
-  regressionTest->m_keepOutput = args->isSet("keep-output");
+  std::auto_ptr<RegressionTest> regressionTest(new RegressionTest(part.get(), &cfg, baseDir, args));
 
   {
     QString failureSnapshot = args->getOption("cmp-failures");
@@ -546,9 +539,7 @@ int main(int argc, char *argv[])
 RegressionTest *RegressionTest::curr = 0;
 
 RegressionTest::RegressionTest(KateDocument *part, KConfig *baseConfig,
-                               const QString &baseDir,
-                               const QString &outputDir, bool _genOutput,
-                               bool fork)
+                               const QString &baseDir, KCmdLineArgs *args)
   : QObject(part)
 {
   m_part = part;
@@ -558,14 +549,16 @@ RegressionTest::RegressionTest(KateDocument *part, KConfig *baseConfig,
   m_baseDir = m_baseDir.replace( "//", "/" );
   if ( m_baseDir.endsWith( "/" ) )
     m_baseDir = m_baseDir.left( m_baseDir.length() - 1 );
+
+  QString outputDir = args->getOption("output");
   if (outputDir.isEmpty())
     m_outputDir = m_baseDir + "/output";
   else
     m_outputDir = outputDir;
   createMissingDirs(m_outputDir + '/');
-  m_keepOutput = false;
-  m_genOutput = _genOutput;
-  m_fork = fork;
+  m_keepOutput = args->isSet("keep-output");
+  m_genOutput = args->isSet("genoutput");
+  m_fork = args->isSet("fork");
   m_failureComp = 0;
   m_failureSave = 0;
   m_passes_work = m_passes_fail = m_passes_new = 0;

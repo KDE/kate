@@ -80,8 +80,8 @@ static KMainWindow *toplevel;
 
 //BEGIN TestScriptEnv
 
-TestScriptEnv::TestScriptEnv(KateDocument *part)
-  : m_engine(0), m_viewObj(0), m_docObj(0)
+TestScriptEnv::TestScriptEnv(KateDocument *part, bool &cflag)
+  : m_engine(0), m_viewObj(0), m_docObj(0), m_output(0)
 {
   m_engine = new QScriptEngine(this);
 
@@ -99,12 +99,12 @@ TestScriptEnv::TestScriptEnv(KateDocument *part)
   m_engine->globalObject().setProperty("document", sd);
   m_engine->globalObject().setProperty("d", sd);
 
-#if 0 // disabled custom output
-  m_output = new OutputObject(exec, part, v);
+  m_output = new OutputObject(view, cflag);
+  QScriptValue so = m_engine->newQObject(m_output);
 
-  // create new properties
-  m_interpreter->globalObject()->put(exec, "output", m_output);
-#endif // disabled custom output
+  m_engine->globalObject().setProperty("output", so);
+  m_engine->globalObject().setProperty("out", so);
+  m_engine->globalObject().setProperty("o", so);
 }
 //END TestScriptEnv
 
@@ -206,114 +206,112 @@ KateDocumentObject::KateDocumentObject(KateDocument *doc)
 
 //END KateDocumentObject
 
-#if 0 // disabled custom output
 //BEGIN OutputObject
 
-OutputObject::OutputObject(KJS::ExecState *exec, KateDocument *d, KateView *v)
-  : doc(d), view(v), changed(0)
-{
-  putDirect("write", new OutputFunction(exec,this,OutputFunction::Write,-1), DontEnum);
-  putDirect("print", new OutputFunction(exec,this,OutputFunction::Write,-1), DontEnum);
-  putDirect("writeln", new OutputFunction(exec,this,OutputFunction::Writeln,-1), DontEnum);
-  putDirect("println", new OutputFunction(exec,this,OutputFunction::Writeln,-1), DontEnum);
-  putDirect("writeLn", new OutputFunction(exec,this,OutputFunction::Writeln,-1), DontEnum);
-  putDirect("printLn", new OutputFunction(exec,this,OutputFunction::Writeln,-1), DontEnum);
-
-  putDirect("writeCursorPosition", new OutputFunction(exec,this,OutputFunction::WriteCursorPosition,-1), DontEnum);
-  putDirect("cursorPosition", new OutputFunction(exec,this,OutputFunction::WriteCursorPosition,-1), DontEnum);
-  putDirect("pos", new OutputFunction(exec,this,OutputFunction::WriteCursorPosition,-1), DontEnum);
-  putDirect("writeCursorPositionln", new OutputFunction(exec,this,OutputFunction::WriteCursorPositionln,-1), DontEnum);
-  putDirect("cursorPositionln", new OutputFunction(exec,this,OutputFunction::WriteCursorPositionln,-1), DontEnum);
-  putDirect("posln", new OutputFunction(exec,this,OutputFunction::WriteCursorPositionln,-1), DontEnum);
-
-}
-
-OutputObject::~OutputObject()
+OutputObject::OutputObject(KateView *v, bool &cflag)
+  : view(v), cflag(cflag)
 {
 }
 
-KJS::UString OutputObject::className() const
+void OutputObject::output(bool cp, bool ln)
 {
-  return UString("OutputObject");
+  RegressionTest::createMissingDirs(filename);
+  QFile out(filename);
+
+  QString str;
+  for (int i = 0; i < context()->argumentCount(); ++i) {
+    QScriptValue arg = context()->argument(i);
+    str += arg.toString();
+  }
+
+  if (cp) {
+    KTextEditor::Cursor c = view->cursorPosition();
+    str += '(' + QString::number(c.line()) + ',' + QString::number(c.column()) + ')';
+  }
+
+  if (ln) {
+    str += '\n';
+  }
+
+  QFile::OpenMode mode = QFile::WriteOnly | (cflag ? QFile::Append : QFile::Truncate);
+  if (!out.open(mode)) {
+    fprintf(stderr, "ERROR: Could not append to %s\n", filename.toLatin1().constData());
+  }
+  out.write(str.toUtf8());
+  cflag = true;
+}
+
+void OutputObject::write()
+{
+  output(false, false);
+}
+
+void OutputObject::writeln()
+{
+  output(false, true);
+}
+
+void OutputObject::writeLn()
+{
+  output(false, true);
+}
+
+void OutputObject::print()
+{
+  output(false, false);
+}
+
+void OutputObject::println()
+{
+  output(false, true);
+}
+
+void OutputObject::printLn()
+{
+  output(false, true);
+}
+
+void OutputObject::writeCursorPosition()
+{
+  output(true, false);
+}
+
+void OutputObject::writeCursorPositionln()
+{
+  output(true, true);
+}
+
+void OutputObject::cursorPosition()
+{
+  output(true, false);
+}
+
+void OutputObject::cursorPositionln()
+{
+  output(true, true);
+}
+
+void OutputObject::cursorPositionLn()
+{
+  output(true, true);
+}
+
+void OutputObject::pos()
+{
+  output(true, false);
+}
+
+void OutputObject::posln()
+{
+  output(true, true);
+}
+
+void OutputObject::posLn()
+{
+  output(true, true);
 }
 
 //END OutputObject
-
-//BEGIN OutputFunction
-
-OutputFunction::OutputFunction(KJS::ExecState *exec, OutputObject *output, int _id, int length)
-  : o(output)
-{
-  Q_UNUSED(exec);
-  Q_UNUSED(output);
-
-  id = _id;
-  if (length >= 0)
-    putDirect("length",length);
-}
-
-bool OutputFunction::implementsCall() const
-{
-  return true;
-}
-
-KJS::JSValue *OutputFunction::callAsFunction(KJS::ExecState *exec, KJS::JSObject *thisObj, const KJS::List &args)
-{
-  Q_UNUSED(thisObj);
-
-  QByteArray buffer;
-
-  RegressionTest::createMissingDirs(o->filename);
-  QFile out(o->filename);
-//   kDebug() << "$$$$$$$$$ outfile " << o->filename << " changed " << *o->changed;
-  QFile::OpenMode mode = QFile::WriteOnly;
-  mode |= *o->changed ? QFile::Append : QFile::Truncate;
-  if (!out.open(mode)) {
-    fprintf(stderr, "ERROR: Could not append to %s\n", o->filename.toLatin1().constData());
-  }
-
-  switch (id) {
-    case Write:
-    case Writeln: {
-      // Gather all parameters and concatenate to string
-      QString res;
-      for (int i = 0; i < args.size(); i++) {
-        res += args[i]->toString(exec).qstring();
-      }
-
-      if (id == Writeln)
-        res += '\n';
-
-      buffer = res.toUtf8();
-      break;
-    }
-    case WriteCursorPositionln:
-    case WriteCursorPosition: {
-      // Gather all parameters and concatenate to string
-      QString res;
-      for (int i = 0; i < args.size(); i++) {
-        res += args[i]->toString(exec).qstring();
-      }
-
-      // Append cursor position
-      KTextEditor::Cursor c = o->view->cursorPosition();
-      res += '(' + QString::number(c.line()) + ',' + QString::number(c.column()) + ')';
-
-      if (id == WriteCursorPositionln)
-        res += '\n';
-
-      buffer = res.toUtf8();
-      break;
-    }
-  }
-
-  out.write(buffer);
-  *o->changed = true;
-  return jsUndefined();
-}
-
-//END OutputFunction
-#endif // disabled custom output
 
 // -------------------------------------------------------------------------
 
@@ -1062,11 +1060,8 @@ void RegressionTest::testStaticFile(const QString & filename, const QStringList 
   pid_t pid = m_fork ? fork() : 0;
   if (pid == 0) {
     // Execute script
-    TestScriptEnv jsenv(m_part);
-#if 0 // disabled custom output
-    jsenv.output()->setChangedFlag(&m_outputCustomised);
+    TestScriptEnv jsenv(m_part, m_outputCustomised);
     jsenv.output()->setOutputFile( ( m_genOutput ? m_baseDir + "/baseline/" : m_outputDir + '/' ) + filename + "-result" );
-#endif // disabled custom output
     script_error = evalJS(jsenv.engine(), m_baseDir + "/tests/"+QFileInfo(filename).dir().path()+"/.kateconfig-script", true)
         && evalJS(jsenv.engine(), m_baseDir + "/tests/"+filename+"-script");
 

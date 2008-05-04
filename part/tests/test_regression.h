@@ -48,9 +48,7 @@ namespace KParts {
 
 class KateViewObject;
 class KateDocumentObject;
-#if 0 // disabled custom output
 class OutputObject;
-#endif
 
 /**
  * @internal
@@ -59,22 +57,19 @@ class OutputObject;
 class TestScriptEnv : public QObject
 {
   public:
-    explicit TestScriptEnv(KateDocument *part);
+    explicit TestScriptEnv(KateDocument *part, bool &cflag);
 
     QScriptEngine *engine() const { return m_engine; }
 
-#if 0 // disabled custom output
     /** returns the output object */
     OutputObject *output() const { return m_output; }
-
-  protected:
-    OutputObject *m_output;
-#endif // disabled custom output
 
   private:
     QScriptEngine *m_engine;
     KateViewObject *m_viewObj;
     KateDocumentObject *m_docObj;
+
+    OutputObject *m_output;
 };
 
 /**
@@ -169,53 +164,47 @@ class KateDocumentObject : public KateScriptDocument
     Q_DISABLE_COPY(KateDocumentObject)
 };
 
-#if 0 // disabled custom output
-class OutputFunction;
-
 /**
  * Customizing output to result-files. Writing any output into result files
  * inhibits outputting the content of the katepart after script execution,
  * enabling one to check for coordinates and the like.
  * @internal
  */
-class OutputObject : public KJS::JSObject
+class OutputObject : public QObject, protected QScriptable
 {
+    Q_OBJECT
+
   public:
-    OutputObject(KJS::ExecState *exec, KateDocument *d, KateView *v);
-    virtual ~OutputObject();
+    OutputObject(KateView *v, bool &cflag);
 
-    virtual KJS::UString className() const;
-
-    void setChangedFlag(bool *flag) { changed = flag; }
     void setOutputFile(const QString &filename) { this->filename = filename; }
 
+    void output(bool cp, bool ln);
+
+    Q_INVOKABLE void write();
+    Q_INVOKABLE void writeln();
+    Q_INVOKABLE void writeLn();
+
+    Q_INVOKABLE void print();
+    Q_INVOKABLE void println();
+    Q_INVOKABLE void printLn();
+
+    Q_INVOKABLE void writeCursorPosition();
+    Q_INVOKABLE void writeCursorPositionln();
+
+    Q_INVOKABLE void cursorPosition();
+    Q_INVOKABLE void cursorPositionln();
+    Q_INVOKABLE void cursorPositionLn();
+
+    Q_INVOKABLE void pos();
+    Q_INVOKABLE void posln();
+    Q_INVOKABLE void posLn();
+
   private:
-    KateDocument *doc;
     KateView *view;
-    bool *changed;
+    bool &cflag;
     QString filename;
-
-    friend class OutputFunction;
 };
-
-/**
- * Customizing output to result-files.
- * @internal
- */
-class OutputFunction : public KJS::JSObject
-{
-  public:
-    OutputFunction(KJS::ExecState *exec, OutputObject *obj, int _id, int length);
-
-    bool implementsCall() const;
-    virtual KJS::JSValue *callAsFunction(KJS::ExecState *exec, KJS::JSObject *thisObj, const KJS::List &args);
-
-    enum { Write, Writeln, WriteCursorPosition, WriteCursorPositionln };
-  private:
-    OutputObject *o;
-    int id;
-};
-#endif // disabled custom output
 
 /**
  * @internal

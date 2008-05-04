@@ -536,8 +536,6 @@ int main(int argc, char *argv[])
 
 // -------------------------------------------------------------------------
 
-RegressionTest *RegressionTest::curr = 0;
-
 RegressionTest::RegressionTest(KateDocument *part, KConfig *baseConfig,
                                const QString &baseDir, KCmdLineArgs *args)
   : QObject(part)
@@ -577,8 +575,6 @@ RegressionTest::RegressionTest(KateDocument *part, KConfig *baseConfig,
   s = "<html><frameset cols=150,*><frame src=links.html><frame name=content src=empty.html>";
   f.write( s.toLatin1(), s.length() );
   f.close();
-
-  curr = this;
 }
 
 static QStringList readListFile( const QString &filename )
@@ -640,8 +636,6 @@ QStringList RegressionTest::concatListFiles(const QString &relPath, const QStrin
 
 bool RegressionTest::runTests(QString relPath, bool mustExist, int known_failure)
 {
-  m_currentOutput.clear();
-
   if (!QFile(m_baseDir + "/tests/" + relPath).exists()) {
     fprintf(stderr,"%s: No such file or directory\n",relPath.toLatin1().constData());
     return false;
@@ -683,7 +677,7 @@ bool RegressionTest::runTests(QString relPath, bool mustExist, int known_failure
 
     QString relativeDir = QFileInfo(relPath).dir().path();
     QString filename = info.fileName();
-    m_currentBase = m_baseDir + "/tests/"+relativeDir;
+    QString currentBase = m_baseDir + "/tests/"+relativeDir;
     m_currentCategory = relativeDir;
     m_currentTest = filename;
     m_known_failures = known_failure;
@@ -692,7 +686,7 @@ bool RegressionTest::runTests(QString relPath, bool mustExist, int known_failure
     // directory-specific commands
     QStringList commands = concatListFiles(relPath, ".kateconfig-commands");
     // testcase-specific commands
-    commands += readListFile(m_currentBase + '/' + filename + "-commands");
+    commands += readListFile(currentBase + '/' + filename + "-commands");
 
     rereadConfig(); // reset options to default
     if ( filename.endsWith(".txt") ) {
@@ -1077,19 +1071,14 @@ bool RegressionTest::evalJS(QScriptEngine *engine, const QString &filename, bool
   QString code = stream.readAll();
   sourceFile.close();
 
-  saw_failure = false;
-  ignore_errors = false;
-
   QScriptValue result = engine->evaluate(code, filename, 1);
 
-  if ( /*report_result &&*/ !ignore_errors) {
-    if (result.isError()) {
-      fprintf(stderr, "eval script failed\n");
-      QString errmsg = result.toString();
-      printf( "ERROR: %s (%s)\n", filename.toLatin1().constData(), errmsg.toLatin1().constData());
-      m_errors++;
-      return false;
-    }
+  if (result.isError()) {
+    fprintf(stderr, "eval script failed\n");
+    QString errmsg = result.toString();
+    printf( "ERROR: %s (%s)\n", filename.toLatin1().constData(), errmsg.toLatin1().constData());
+    m_errors++;
+    return false;
   }
   return true;
 }

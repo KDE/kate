@@ -251,11 +251,9 @@ class RegressionTest : public QObject
     QString m_outputDir;
     bool m_genOutput;
     bool m_fork;
-    QString m_currentBase;
     KConfigGroup *m_failureComp;
     KConfigGroup *m_failureSave;
 
-    QString m_currentOutput;
     QString m_currentCategory;
     QString m_currentTest;
 
@@ -268,12 +266,8 @@ class RegressionTest : public QObject
     int m_failures_fail;
     int m_failures_new;
     int m_errors;
-    bool saw_failure;
-    bool ignore_errors;
     int m_known_failures;
     bool m_outputCustomised;
-
-    static RegressionTest *curr;
 
   private:
     void printDescription(const QString& description);

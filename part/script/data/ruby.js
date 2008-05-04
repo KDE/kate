@@ -88,10 +88,10 @@ function testAtEnd(stmt, rx)
   var len = cnt.length;
 
   // Check for operators at end of line
-  var p = cnt.search(rx);
-  while (p != -1) {
-    var start = pos + p;
-    var end = start + RegExp.$1.length;
+  var res = rx.exec(cnt);
+  while (res) {
+    var start = pos + res[1].length;
+    var end = start + res[2].length;
     var attr = stmt.attribute(start);
     if (!isString(attr) && !isComment(attr)) {
       if (end == len)
@@ -103,7 +103,7 @@ function testAtEnd(stmt, rx)
     // Find next match
     pos = end;
     rest = cnt.substring(end, len);
-    p = rest.search(rx);
+    res = rx.exec(rest);
   }
   return false;
 }
@@ -115,7 +115,7 @@ function isStmtContinuing(line)
   //       to have lines ending with division than regexp
 
   var stmt = new Statement(line, line);
-  var rx = /((\+|\-|\*|\=|&&|\|\||\band\b|\bor\b|,)\s*)/;
+  var rx = /^(.*)((\+|\-|\*|\=|&&|\|\||\band\b|\bor\b|,)\s*)/;
 
   return testAtEnd(stmt, rx);
 }
@@ -187,7 +187,7 @@ function isBlockStart(stmt)
   if (rxIndent.test(cnt))
     return true;
 
-  var rx = /((\bdo\b|\{)(\s*\|.*\|)?\s*)/;
+  var rx = /(.*)((\bdo\b|\{)(\s*\|.*\|)?\s*)/;
 
   return testAtEnd(stmt, rx);
 }
@@ -225,8 +225,10 @@ function isValidTrigger(line, ch)
 {
   if (ch == "" || ch == "\n")
     return true; // Explicit align or new line
-  if (rxUnindent.test(document.line(line))) {
-    if (RegExp.$3 == "")
+
+  var res = rxUnindent.exec(document.line(line));
+  if (res) {
+    if (res[3] == "")
       return true; // Exact match
   }
   return false;
@@ -250,8 +252,8 @@ function indent(line, indentWidth, ch)
   // Manually indenting to be able to force spaces.
   if ((prevStmt.end == line-1 && isLineContinuing(prevStmt.end)) || isStmtContinuing(prevStmt.end)) {
     var len = document.firstColumn(prevStmt.end);
-    var str = document.line(prevStmt.end).substr(0, len);
-    if (!document.startsWith(line, str)) {
+    var str = document.line(prevStmt.end).substring(0, len);
+    if (!document.startsWith(line, str, false)) {
       document.removeText(line, 0, line, document.firstColumn(line));
       if (prevStmt.start == prevStmt.end)
         str += "    ";

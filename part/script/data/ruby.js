@@ -90,8 +90,8 @@ function testAtEnd(stmt, rx)
   // Check for operators at end of line
   var res = rx.exec(cnt);
   while (res) {
-    var start = pos + res[1].length;
-    var end = start + res[2].length;
+    var start = pos + res.index;
+    var end = start + res[1].length;
     var attr = stmt.attribute(start);
     if (!isString(attr) && !isComment(attr)) {
       if (end == len)
@@ -115,7 +115,7 @@ function isStmtContinuing(line)
   //       to have lines ending with division than regexp
 
   var stmt = new Statement(line, line);
-  var rx = /^(.*)((\+|\-|\*|\=|&&|\|\||\band\b|\bor\b|,)\s*)/;
+  var rx = /((\+|\-|\*|\=|&&|\|\||\band\b|\bor\b|,)\s*)/;
 
   return testAtEnd(stmt, rx);
 }
@@ -187,7 +187,7 @@ function isBlockStart(stmt)
   if (rxIndent.test(cnt))
     return true;
 
-  var rx = /(.*)((\bdo\b|\{)(\s*\|.*\|)?\s*)/;
+  var rx = /((\bdo\b|\{)(\s*\|.*\|)?\s*)/;
 
   return testAtEnd(stmt, rx);
 }

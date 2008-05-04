@@ -127,44 +127,44 @@ bool KateViewObject::setCursorPosition(int row, int col)
 void KateViewObject::func(int cnt) {  \
   while (cnt--) { view()->func(); }   \
 }
-REP_CALL(keyReturn);
-REP_CALL(backspace);
-REP_CALL(deleteWordLeft);
-REP_CALL(keyDelete);
-REP_CALL(deleteWordRight);
-REP_CALL(transpose);
-REP_CALL(cursorLeft);
-REP_CALL(shiftCursorLeft);
-REP_CALL(cursorRight);
-REP_CALL(shiftCursorRight);
-REP_CALL(wordLeft);
-REP_CALL(shiftWordLeft);
-REP_CALL(wordRight);
-REP_CALL(shiftWordRight);
-REP_CALL(home);
-REP_CALL(shiftHome);
-REP_CALL(end);
-REP_CALL(shiftEnd);
-REP_CALL(up);
-REP_CALL(shiftUp);
-REP_CALL(down);
-REP_CALL(shiftDown);
-REP_CALL(scrollUp);
-REP_CALL(scrollDown);
-REP_CALL(topOfView);
-REP_CALL(shiftTopOfView);
-REP_CALL(bottomOfView);
-REP_CALL(shiftBottomOfView);
-REP_CALL(pageUp);
-REP_CALL(shiftPageUp);
-REP_CALL(pageDown);
-REP_CALL(shiftPageDown);
-REP_CALL(top);
-REP_CALL(shiftTop);
-REP_CALL(bottom);
-REP_CALL(shiftBottom);
-REP_CALL(toMatchingBracket);
-REP_CALL(shiftToMatchingBracket);
+REP_CALL(keyReturn)
+REP_CALL(backspace)
+REP_CALL(deleteWordLeft)
+REP_CALL(keyDelete)
+REP_CALL(deleteWordRight)
+REP_CALL(transpose)
+REP_CALL(cursorLeft)
+REP_CALL(shiftCursorLeft)
+REP_CALL(cursorRight)
+REP_CALL(shiftCursorRight)
+REP_CALL(wordLeft)
+REP_CALL(shiftWordLeft)
+REP_CALL(wordRight)
+REP_CALL(shiftWordRight)
+REP_CALL(home)
+REP_CALL(shiftHome)
+REP_CALL(end)
+REP_CALL(shiftEnd)
+REP_CALL(up)
+REP_CALL(shiftUp)
+REP_CALL(down)
+REP_CALL(shiftDown)
+REP_CALL(scrollUp)
+REP_CALL(scrollDown)
+REP_CALL(topOfView)
+REP_CALL(shiftTopOfView)
+REP_CALL(bottomOfView)
+REP_CALL(shiftBottomOfView)
+REP_CALL(pageUp)
+REP_CALL(shiftPageUp)
+REP_CALL(pageDown)
+REP_CALL(shiftPageDown)
+REP_CALL(top)
+REP_CALL(shiftTop)
+REP_CALL(bottom)
+REP_CALL(shiftBottom)
+REP_CALL(toMatchingBracket)
+REP_CALL(shiftToMatchingBracket)
 #undef REP_CALL
 
 bool KateViewObject::type(const QString& str) {
@@ -175,23 +175,23 @@ bool KateViewObject::type(const QString& str) {
 void KateViewObject::alias(int cnt) { \
   func(cnt);                          \
 }
-ALIAS(enter, keyReturn);
-ALIAS(cursorPrev, cursorLeft);
-ALIAS(left, cursorLeft);
-ALIAS(prev, cursorLeft);
-ALIAS(shiftCursorPrev, shiftCursorLeft);
-ALIAS(shiftLeft, shiftCursorLeft);
-ALIAS(shiftPrev, shiftCursorLeft);
-ALIAS(cursorNext, cursorRight);
-ALIAS(right, cursorRight);
-ALIAS(next, cursorRight);
-ALIAS(shiftCursorNext, shiftCursorRight);
-ALIAS(shiftRight, shiftCursorRight);
-ALIAS(shiftNext, shiftCursorRight);
-ALIAS(wordPrev, wordLeft);
-ALIAS(shiftWordPrev, shiftWordLeft);
-ALIAS(wordNext, wordRight);
-ALIAS(shiftWordNext, shiftWordRight);
+ALIAS(enter, keyReturn)
+ALIAS(cursorPrev, cursorLeft)
+ALIAS(left, cursorLeft)
+ALIAS(prev, cursorLeft)
+ALIAS(shiftCursorPrev, shiftCursorLeft)
+ALIAS(shiftLeft, shiftCursorLeft)
+ALIAS(shiftPrev, shiftCursorLeft)
+ALIAS(cursorNext, cursorRight)
+ALIAS(right, cursorRight)
+ALIAS(next, cursorRight)
+ALIAS(shiftCursorNext, shiftCursorRight)
+ALIAS(shiftRight, shiftCursorRight)
+ALIAS(shiftNext, shiftCursorRight)
+ALIAS(wordPrev, wordLeft)
+ALIAS(shiftWordPrev, shiftWordLeft)
+ALIAS(wordNext, wordRight)
+ALIAS(shiftWordNext, shiftWordRight)
 #undef ALIAS
 
 //END KateViewObject

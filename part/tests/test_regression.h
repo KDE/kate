@@ -225,8 +225,13 @@ class RegressionTest : public QObject
     CheckResult checkOutput(const QString& againstFilename);
     enum FailureType { NoFailure = 0, AllFailure = 1, ResultFailure = 4, NewFailure = 65536 };
     bool runTests(QString relPath = QString(), bool mustExist = false, int known_failure = NoFailure);
+    bool allTestsSucceeded() const;
+
     bool reportResult( bool passed, const QString & description = QString(), bool *newfailure = 0 );
     bool reportResult(CheckResult result, const QString & description = QString(), bool *newfailure = 0 );
+
+    void printSummary();
+
     void rereadConfig();
     static void createMissingDirs(const QString &path);
 

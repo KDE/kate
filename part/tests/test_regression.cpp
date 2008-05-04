@@ -77,7 +77,7 @@
 #define BASE_DIR_CONFIG "/.testkateregression"
 #define UNIQUE_HOME_DIR "/var/tmp/%1_kate4_non_existent"
 
-static std::auto_ptr<KMainWindow> toplevel;
+static KMainWindow* toplevel;
 
 //BEGIN TestScriptEnv
 
@@ -463,21 +463,21 @@ int main(int argc, char *argv[])
   }
 
   // create widgets
-  toplevel.reset(new KMainWindow());
-  std::auto_ptr<KateDocument> part(new KateDocument(true, false, false, toplevel.get()));
+  std::auto_ptr<KMainWindow> mw(toplevel = new KMainWindow());
+  std::auto_ptr<KateDocument> part(new KateDocument(true, false, false, mw.get()));
   part->setObjectName("testkate");
 
-  toplevel->setCentralWidget( part->widget() );
+  mw->setCentralWidget( part->widget() );
 
   bool visual = false;
   if (args->isSet("show"))
     visual = true;
 
   if ( visual )
-    toplevel->show();
+    mw->show();
 
   // we're not interested
-  toplevel->statusBar()->hide();
+  mw->statusBar()->hide();
 
   if (qgetenv("KDE_DEBUG").isEmpty()) {
     // set ulimits
@@ -538,49 +538,12 @@ int main(int argc, char *argv[])
     if (args->isSet("genoutput")) {
       printf("\nOutput generation completed.\n");
     } else {
-      printf("\nTests completed.\n");
-      printf("Total:    %d\n",
-             regressionTest->m_passes_work +
-             regressionTest->m_passes_fail +
-             regressionTest->m_failures_work +
-             regressionTest->m_failures_fail +
-             regressionTest->m_errors);
-      printf("Passes:   %d",regressionTest->m_passes_work);
-      if ( regressionTest->m_passes_fail )
-        printf( " (%d unexpected passes)", regressionTest->m_passes_fail );
-      if (regressionTest->m_passes_new)
-        printf(" (%d new since %s)", regressionTest->m_passes_new, regressionTest->m_failureComp->name().toLatin1().constData());
-      printf( "\n" );
-      printf("Failures: %d",regressionTest->m_failures_work);
-      if ( regressionTest->m_failures_fail )
-        printf( " (%d expected failures)", regressionTest->m_failures_fail );
-      if ( regressionTest->m_failures_new )
-        printf(" (%d new since %s)", regressionTest->m_failures_new, regressionTest->m_failureComp->name().toLatin1().constData());
-      printf( "\n" );
-      if ( regressionTest->m_errors )
-        printf("Errors:   %d\n",regressionTest->m_errors);
-
-      QFile list( regressionTest->m_outputDir + "/links.html" );
-      list.open( QFile::WriteOnly|QFile::Append );
-      QString link, cl;
-      link = QString( "<hr>%1 failures. (%2 expected failures)" )
-          .arg(regressionTest->m_failures_work )
-          .arg(regressionTest->m_failures_fail );
-      if (regressionTest->m_failures_new)
-        link += QString(" <span style=\"color:red;font-weight:bold\">(%1 new failures since %2)</span>")
-            .arg(regressionTest->m_failures_new)
-            .arg(regressionTest->m_failureComp->name());
-      if (regressionTest->m_passes_new)
-        link += QString(" <p style=\"color:green;font-weight:bold\">%1 new passes since %2</p>")
-            .arg(regressionTest->m_passes_new)
-            .arg(regressionTest->m_failureComp->name());
-      list.write( link.toLatin1(), link.length() );
-      list.close();
+      regressionTest->printSummary();
     }
   }
 
   // Only return a 0 exit code if all tests were successful
-  return (regressionTest->m_failures_work == 0 && regressionTest->m_errors == 0) ? 0 : 1;
+  return regressionTest->allTestsSucceeded() ? 0 : 1;
 }
 
 // -------------------------------------------------------------------------
@@ -764,6 +727,11 @@ bool RegressionTest::runTests(QString relPath, bool mustExist, int known_failure
   }
 
   return true;
+}
+
+bool RegressionTest::allTestsSucceeded() const
+{
+  return m_failures_work == 0 && m_errors == 0;
 }
 
 void RegressionTest::createLink( const QString& test, int failures )
@@ -1290,6 +1258,55 @@ void RegressionTest::printDescription(const QString& description)
 
   printf("\n");
   fflush(stdout);
+}
+
+void RegressionTest::printSummary()
+{
+  printf("\nTests completed.\n");
+  printf("Total:    %d\n", m_passes_work + m_passes_fail +
+      m_failures_work + m_failures_fail + m_errors);
+
+  //BEGIN Passes
+  printf("Passes:   %d", m_passes_work);
+  if (m_passes_fail > 0)
+    printf(" (%d unexpected passes)", m_passes_fail);
+  if (m_passes_new > 0)
+    printf(" (%d new since %s)", m_passes_new, m_failureComp->name().toLatin1().constData());
+  printf("\n");
+  //END Passes
+
+  //BEGIN Failures
+  printf("Failures: %d", m_failures_work);
+  if (m_failures_fail > 0)
+    printf(" (%d expected failures)", m_failures_fail);
+  if (m_failures_new > 0)
+    printf(" (%d new since %s)", m_failures_new, m_failureComp->name().toLatin1().constData());
+  printf("\n");
+  //END Failures
+
+  if (m_errors > 0)
+    printf("Errors:   %d\n", m_errors);
+
+  //BEGIN html
+  QFile list(m_outputDir + "/links.html");
+  list.open(QFile::WriteOnly | QFile::Append);
+
+  QTextStream ts(&list);
+  ts << QString("<hr>%1 failures. (%2 expected failures)")
+      .arg(m_failures_work)
+      .arg(m_failures_fail);
+  if (m_failures_new > 0) {
+    ts << QString(" <span style=\"color:red;font-weight:bold\">(%1 new failures since %2)</span>")
+        .arg(m_failures_new)
+        .arg(m_failureComp->name());
+  }
+  if (m_passes_new > 0) {
+    ts << QString(" <p style=\"color:green;font-weight:bold\">%1 new passes since %2</p>")
+        .arg(m_passes_new)
+        .arg(m_failureComp->name());
+  }
+  list.close();
+  //END html
 }
 
 void RegressionTest::createMissingDirs(const QString & filename)

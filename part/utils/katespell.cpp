@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2008 Mirko Stocker <me@misto.ch>
    Copyright (C) 2004-2005 Anders Lund <anders@alweb.dk>
    Copyright (C) 2003 Clarence Dang <dang@kde.org>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
@@ -31,25 +32,24 @@
 #include <kactioncollection.h>
 #include <kicon.h>
 #include <kstandardaction.h>
-#include <k3spell.h>
+#include <sonnet/dialog.h>
+#include <sonnet/backgroundchecker.h>
+
 #include <kdebug.h>
 #include <kmessagebox.h>
 
 KateSpell::KateSpell( KateView* view )
   : QObject( view )
   , m_view (view)
-  , m_kspell (0)
+  , m_sonnetDialog(0)
 {
 }
 
 KateSpell::~KateSpell()
 {
-  // kspell stuff
-  if( m_kspell )
+  if( m_sonnetDialog )
   {
-    m_kspell->setAutoDelete(true);
-    m_kspell->cleanUp(); // need a way to wait for this to complete
-    delete m_kspell;
+    delete m_sonnetDialog;
   }
 }
 
@@ -97,43 +97,27 @@ void KateSpell::spellcheck( const KTextEditor::Cursor &from, const KTextEditor::
 
   if ( to.line() == 0 && to.column() == 0 )
   {
-    int lln = m_view->doc()->lastLine();
-    m_spellEnd.setLine( lln );
-    m_spellEnd.setColumn( m_view->doc()->lineLength( lln ) );
+    m_spellEnd = m_view->doc()->documentEnd();
   }
 
   m_spellPosCursor = from;
   m_spellLastPos = 0;
 
-  QString mt = m_view->doc()->mimeType()/*->name()*/;
+  if ( !m_sonnetDialog )
+  {
+    m_sonnetDialog = new Sonnet::Dialog(new Sonnet::BackgroundChecker(this), m_view);
 
-  K3Spell::SpellerType type = K3Spell::Text;
-  if ( mt == "text/x-tex" || mt == "text/x-latex" /*deprecated name*/ )
-    type = K3Spell::TeX;
-  else if ( mt == "text/html" || mt == "application/xml" )
-    type = K3Spell::HTML;
+    connect(m_sonnetDialog,SIGNAL(done(const QString&)),this,SLOT(spellResult()));
 
-  m_kspell = new K3Spell( 0, i18n("Spellcheck"),
-                         this, SLOT(ready(K3Spell *)), 0, true, false, type );
+    connect(m_sonnetDialog,SIGNAL(replace(const QString&,int,const QString&)),
+        this,SLOT(corrected(const QString&,int,const QString&)));
 
-  connect( m_kspell, SIGNAL(death()),
-           this, SLOT(spellCleanDone()) );
+    connect(m_sonnetDialog,SIGNAL(misspelling(const QString&,int)),
+        this,SLOT(misspelling(const QString&,int)));
+  }
 
-  connect( m_kspell, SIGNAL(misspelling(const QString&, const QStringList&, unsigned int)),
-           this, SLOT(misspelling(const QString&, const QStringList&, unsigned int)) );
-  connect( m_kspell, SIGNAL(corrected(const QString&, const QString&, unsigned int)),
-           this, SLOT(corrected(const QString&, const QString&, unsigned int)) );
-  connect( m_kspell, SIGNAL(done(const QString&)),
-           this, SLOT(spellResult(const QString&)) );
-}
-
-void KateSpell::ready(K3Spell *)
-{
-  m_kspell->setProgressResolution( 1 );
-
-  m_kspell->check( m_view->doc()->text( KTextEditor::Range(m_spellStart, m_spellEnd) ) );
-
-  kDebug (13020) << "SPELLING READY STATUS: " << m_kspell->status ();
+  m_sonnetDialog->setBuffer(m_view->doc()->text( KTextEditor::Range(m_spellStart, m_spellEnd) ));
+  m_sonnetDialog->show();
 }
 
 KTextEditor::Cursor KateSpell::locatePosition( int pos )
@@ -160,7 +144,7 @@ KTextEditor::Cursor KateSpell::locatePosition( int pos )
   return m_spellPosCursor;
 }
 
-void KateSpell::misspelling( const QString& origword, const QStringList&, unsigned int pos )
+void KateSpell::misspelling( const QString& origword, int pos )
 {
   KTextEditor::Cursor cursor = locatePosition( pos );
 
@@ -168,37 +152,16 @@ void KateSpell::misspelling( const QString& origword, const QStringList&, unsign
   m_view->setSelection( KTextEditor::Range(cursor, origword.length()) );
 }
 
-void KateSpell::corrected( const QString& originalword, const QString& newword, unsigned int pos )
+void KateSpell::corrected( const QString& originalword, int pos, const QString& newword)
 {
   KTextEditor::Cursor cursor = locatePosition( pos );
 
   m_view->doc()->replaceText( KTextEditor::Range(cursor, originalword.length()), newword );
 }
 
-void KateSpell::spellResult( const QString& )
+void KateSpell::spellResult()
 {
   m_view->clearSelection();
-  m_kspell->cleanUp();
-}
-
-void KateSpell::spellCleanDone()
-{
-  K3Spell::spellStatus status = m_kspell->status();
-
-  if( status == K3Spell::Error ) {
-    KMessageBox::sorry( m_view,
-      i18n("The spelling program could not be started. "
-           "Please make sure you have set the correct spelling program "
-           "and that it is properly configured and in your PATH."));
-  } else if( status == K3Spell::Crashed ) {
-    KMessageBox::sorry( m_view,
-      i18n("The spelling program seems to have crashed."));
-  }
-
-  delete m_kspell;
-  m_kspell = 0;
-
-  kDebug (13020) << "SPELLING END";
 }
 //END
 

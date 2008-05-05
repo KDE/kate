@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2008 Mirko Stocker <me@misto.ch>
    Copyright (C) 2004-2005 Anders Lund <anders@alweb.dk>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001-2004 Christoph Cullmann <cullmann@kde.org>
@@ -31,7 +32,9 @@ class KateView;
 
 class KAction;
 class KActionCollection;
-class K3Spell;
+namespace Sonnet {
+    class Dialog;
+}
 
 class KateSpell : public QObject
 {
@@ -49,7 +52,7 @@ class KateSpell : public QObject
   private Q_SLOTS:
     void spellcheckFromCursor();
 
-    // defined here in anticipation of pr view selections ;)
+    // defined here in anticipation of per view selections ;)
     void spellcheckSelection();
 
     void spellcheck();
@@ -62,11 +65,9 @@ class KateSpell : public QObject
       */
     void spellcheck( const KTextEditor::Cursor &from, const KTextEditor::Cursor &to=KTextEditor::Cursor() );
 
-    void ready(K3Spell *);
-    void misspelling( const QString&, const QStringList&, unsigned int );
-    void corrected  ( const QString&, const QString&, unsigned int);
-    void spellResult( const QString& );
-    void spellCleanDone();
+    void misspelling( const QString&, int );
+    void corrected  ( const QString&, int, const QString&);
+    void spellResult( );
 
   private:
     KTextEditor::Cursor locatePosition( int pos );
@@ -74,7 +75,7 @@ class KateSpell : public QObject
     KateView *m_view;
     KAction *m_spellcheckSelection;
 
-    K3Spell *m_kspell;
+    Sonnet::Dialog *m_sonnetDialog;
 
     // define the part of the text to check
     KTextEditor::Cursor m_spellStart, m_spellEnd;

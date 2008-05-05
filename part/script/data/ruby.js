@@ -36,12 +36,10 @@ var rxIndent = /^\s*(def|if|unless|for|while|until|class|module|else|elsif|case|
 // Unindent lines that match this regexp
 var rxUnindent = /^\s*((end|when|else|elsif|rescue|ensure)\b|[\]\}])(.*)$/;
 
-
-// debug to the term in blue so that it's easier to make out amongst all
-// of Kate's other debug output.
-function dbg(s)
+function assert(cond)
 {
-  debug("\u001B[44m" + s + "\u001B[0m");
+  if (!cond)
+    throw "assertion failure";
 }
 
 function isComment(attr)
@@ -80,30 +78,27 @@ function isLineContinuing(line)
 //
 // Returns true if the pattern is found, in a position
 // that is not inside a string or a comment, and the position +
-// RegExp.$1 is either the end of the statement, or a comment.
+// the length of the matching part is either the end of the
+// statement, or a comment.
+//
+// The regexp must be global, and the search is continued until
+// a match is found, or the end of the string is reached.
 function testAtEnd(stmt, rx)
 {
-  var cnt = stmt.content();
-  var pos = 0;
-  var len = cnt.length;
+  assert(rx.global);
 
-  // Check for operators at end of line
-  var res = rx.exec(cnt);
-  while (res) {
-    var start = pos + res.index;
-    var end = start + res[1].length;
+  var cnt = stmt.content();
+  var res;
+  while (res = rx.exec(cnt)) {
+    var start = res.index;
+    var end = rx.lastIndex;
     var attr = stmt.attribute(start);
     if (!isString(attr) && !isComment(attr)) {
-      if (end == len)
+      if (end == cnt.length)
         return true;
       if (isComment(stmt.attribute(end)))
         return true;
     }
-
-    // Find next match
-    pos = end;
-    rest = cnt.substring(end, len);
-    res = rx.exec(rest);
   }
   return false;
 }
@@ -115,7 +110,7 @@ function isStmtContinuing(line)
   //       to have lines ending with division than regexp
 
   var stmt = new Statement(line, line);
-  var rx = /((\+|\-|\*|\=|&&|\|\||\band\b|\bor\b|,)\s*)/;
+  var rx = /((\+|\-|\*|\=|&&|\|\||\band\b|\bor\b|,)\s*)/g;
 
   return testAtEnd(stmt, rx);
 }
@@ -187,7 +182,7 @@ function isBlockStart(stmt)
   if (rxIndent.test(cnt))
     return true;
 
-  var rx = /((\bdo\b|\{)(\s*\|.*\|)?\s*)/;
+  var rx = /((\bdo\b|\{)(\s*\|.*\|)?\s*)/g;
 
   return testAtEnd(stmt, rx);
 }

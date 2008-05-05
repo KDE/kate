@@ -52,11 +52,11 @@ class KateRenderer
 {
 public:
     /**
-     * Style of Caret (Insert or Replace mode)
+     * Style of Caret (Vertical line or block)
      */
     enum caretStyles {
-      Insert,
-      Replace
+      Line,
+      Block
     };
 
     /**

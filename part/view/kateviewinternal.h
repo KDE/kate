@@ -33,6 +33,7 @@
 #include "katelinelayout.h"
 #include "katetextline.h"
 #include "katedocument.h"
+#include "katevicommandparser.h"
 
 #include <QtCore/QPoint>
 #include <QtCore/QTimer>
@@ -443,6 +444,12 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     void removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
     void addWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
     int m_watcherCount1, m_watcherCount3;
+
+  // vi Mode
+  private:
+    bool m_viInputMode;
+    ViMode m_currentViMode;
+    KateViCommandParser* m_viCommandParser;
 };
 
 #endif

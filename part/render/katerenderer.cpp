@@ -42,7 +42,7 @@ static const QChar tabChar('\t');
 static const QChar spaceChar(' ');
 
 KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
-  : m_doc(doc), m_view (view), m_caretStyle(KateRenderer::Insert)
+  : m_doc(doc), m_view (view), m_caretStyle(KateRenderer::Line)
     , m_drawCaret(true)
     , m_showSelections(true)
     , m_showTabs(true)
@@ -593,7 +593,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       // Make the caret the desired width
       int caretWidth = 2;
       QTextLine line = range->layout()->lineForTextPosition(cursor->column());
-      if (caretStyle() == Replace) {
+      if (caretStyle() == Block || (m_view->viInputMode() && m_view->getCurrentViMode() == NormalMode)) {
         if (line.isValid() && cursor->column() < range->length()) {
           caretWidth = int(line.cursorToX(cursor->column() + 1) - line.cursorToX(cursor->column()));
           if (caretWidth < 0)

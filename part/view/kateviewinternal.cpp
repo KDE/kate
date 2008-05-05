@@ -5,6 +5,7 @@
    Copyright (C) 2002-2007 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2003 Anakim Border <aborder@sources.sourceforge.net>
    Copyright (C) 2007 Mirko Stocker <me@misto.ch>
+   Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
 
    Based on:
      KWriteView : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -96,6 +97,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_textHintMouseY(-1)
   , m_imPreedit(0L)
   , m_smartDirty(false)
+  , m_viInputMode(false)
+  , m_currentViMode(NormalMode)
+  , m_viCommandParser(0)
 {
   m_watcherCount1 = 0;
   m_watcherCount3 = 0;
@@ -191,6 +195,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   setMouseTracking(true);
 
   m_dragInfo.state = diNone;
+
+  // FIXME: not necessary if not using the vi input mode
+  m_viCommandParser = new KateViCommandParser(m_view);
 
   // timers
   connect( &m_dragScrollTimer, SIGNAL( timeout() ),
@@ -2075,7 +2082,12 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
       QKeyEvent *k = static_cast<QKeyEvent *>(e);
 
       if (k->key() == Qt::Key_Escape) {
-        if (m_view->isCompletionActive()) {
+
+        if (m_view->viInputMode() && m_view->getCurrentViMode() == InsertMode) {
+          // if vi input mode is active, go to normal mode
+          m_view->viEnterNormalMode();
+          return true;
+        } else if (m_view->isCompletionActive()) {
           m_view->abortCompletion();
           return true;
         } else if (m_view->m_viewBar->isVisible()) {
@@ -2134,6 +2146,12 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
   // Note: AND'ing with <Shift> is a quick hack to fix Key_Enter
   const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
+
+  if (m_view->viInputMode() && m_view->getCurrentViMode() != InsertMode) {
+    m_viCommandParser->eatKey(e->key());
+    return;
+  }
+
 
   if (m_view->isCompletionActive())
   {
@@ -2736,7 +2754,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
   paint.setRenderHints (QPainter::Antialiasing);
 
   // TODO put in the proper places
-  renderer()->setCaretStyle(m_view->isOverwriteMode() ? KateRenderer::Replace : KateRenderer::Insert);
+  renderer()->setCaretStyle(m_view->isOverwriteMode() ? KateRenderer::Block : KateRenderer::Line);
   renderer()->setShowTabs(m_doc->config()->configFlags() & KateDocumentConfig::cfShowTabs);
   renderer()->setShowTrailingSpaces(m_doc->config()->configFlags() & KateDocumentConfig::cfShowSpaces);
 
@@ -2856,7 +2874,7 @@ void KateViewInternal::scrollTimeout ()
 
 void KateViewInternal::cursorTimeout ()
 {
-  if (!debugPainting) {
+  if (!debugPainting && !m_view->viInputMode()) {
     renderer()->setDrawCaret(!renderer()->drawCaret());
     paintCursor();
   }

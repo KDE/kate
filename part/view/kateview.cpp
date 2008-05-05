@@ -89,7 +89,6 @@
 #include <QtCore/QMimeData>
 #include <QtCore/QTextCodec>
 
-#include <kcursor.h>
 //END includes
 
 static void blockFix(KTextEditor::Range& range)

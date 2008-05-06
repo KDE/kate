@@ -859,9 +859,9 @@
 			<itemData name="Error" defStyleNum="dsError" />
 			<itemData name="Alert" defStyleNum="dsAlert" />
 
-			<itemData name="Delimiter" defStyleNum="dsChar"/>
+            <itemData name="Delimiter" defStyleNum="dsNormal" color="#FF9FEC"/>
 			<itemData name="Expression" defStyleNum="dsOthers"/>
-			<itemData name="Operator" defStyleNum="dsChar"/>
+			<itemData name="Operator" defStyleNum="dsNormal" color="#FF9FEC"/>
 		</itemDatas>
 	</highlighting>
 	<general>

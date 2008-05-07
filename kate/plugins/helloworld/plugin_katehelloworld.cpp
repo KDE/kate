@@ -2,6 +2,9 @@
 #include "plugin_katehelloworld.h"
 #include "plugin_katehelloworld.moc"
 
+#include <kate/application.h>
+#include <ktexteditor/view.h>
+
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <klocale.h>

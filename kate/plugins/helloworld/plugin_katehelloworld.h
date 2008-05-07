@@ -1,14 +1,10 @@
+
 #ifndef _PLUGIN_KATE_HELLOWORLD_H_
 #define _PLUGIN_KATE_HELLOWORLD_H_
 
-#include <kate/application.h>
-#include <kate/documentmanager.h>
-#include <ktexteditor/document.h>
 #include <kate/mainwindow.h>
 #include <kate/plugin.h>
-#include <ktexteditor/view.h>
-
-#include <QList>
+#include <kxmlguiclient.h>
 
 class KatePluginHelloWorld : public Kate::Plugin
 {

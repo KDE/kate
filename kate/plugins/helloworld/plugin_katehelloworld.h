@@ -15,9 +15,6 @@ class KatePluginHelloWorld : public Kate::Plugin
     virtual ~KatePluginHelloWorld();
 
     Kate::PluginView *createView( Kate::MainWindow *mainWindow );
-
-  public slots:
-    void slotInsertHello();
 };
 
 class KatePluginHelloWorldView : public Kate::PluginView, public KXMLGUIClient
@@ -30,6 +27,9 @@ class KatePluginHelloWorldView : public Kate::PluginView, public KXMLGUIClient
 
     virtual void readSessionConfig( KConfigBase* config, const QString& groupPrefix );
     virtual void writeSessionConfig( KConfigBase* config, const QString& groupPrefix );
+
+  public slots:
+    void slotInsertHello();
 };
 
 #endif

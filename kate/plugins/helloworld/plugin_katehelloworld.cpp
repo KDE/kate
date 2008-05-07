@@ -23,40 +23,39 @@ KatePluginHelloWorld::~KatePluginHelloWorld()
 
 Kate::PluginView *KatePluginHelloWorld::createView( Kate::MainWindow *mainWindow )
 {
-  KatePluginHelloWorldView *view = new KatePluginHelloWorldView( mainWindow );
-
-  KAction* a = view->actionCollection()->addAction( "edit_insert_helloworld" );
-  a->setText( i18n("Insert Hello World") );
-  connect( a, SIGNAL( triggered(bool) ), this, SLOT( slotInsertHello() ) );
-
-  mainWindow->guiFactory()->addClient( view );
-
-  return view;
-}
-
-void KatePluginHelloWorld::slotInsertHello()
-{
-  if (!application()->activeMainWindow()) {
-    return;
-  }
-
-  KTextEditor::View *kv = application()->activeMainWindow()->activeView();
-
-  if (kv) {
-    kv->insertText( "Hello World" );
-  }
+  return new KatePluginHelloWorldView( mainWindow );
 }
 
 
-KatePluginHelloWorldView::KatePluginHelloWorldView( Kate::MainWindow *mainWindow )
-    : Kate::PluginView( mainWindow )
+KatePluginHelloWorldView::KatePluginHelloWorldView( Kate::MainWindow *win )
+    : Kate::PluginView( win )
 {
   setComponentData( KComponentData("kate") );
   setXMLFile( "plugins/katehelloworld/ui.rc" );
+
+  KAction *a = actionCollection()->addAction( "edit_insert_helloworld" );
+  a->setText( i18n("Insert Hello World") );
+  connect( a, SIGNAL( triggered(bool) ), this, SLOT( slotInsertHello() ) );
+
+  mainWindow()->guiFactory()->addClient( this );
 }
 
 KatePluginHelloWorldView::~KatePluginHelloWorldView()
 {
+  mainWindow()->guiFactory()->removeClient( this );
+}
+
+void KatePluginHelloWorldView::slotInsertHello()
+{
+  if (!mainWindow()) {
+    return;
+  }
+
+  KTextEditor::View *kv = mainWindow()->activeView();
+
+  if (kv) {
+    kv->insertText( "Hello World" );
+  }
 }
 
 void KatePluginHelloWorldView::readSessionConfig( KConfigBase* config, const QString& groupPrefix )

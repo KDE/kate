@@ -2,7 +2,8 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Makefile syntaxfile v0.9 by Per Wigren <wigren@home.se> -->
 <!-- Modified by Joseph Wenninger <jowenn@kde.org> -->
-<language name="Makefile" version="1.09" kateversion="2.4" section="Other" extensions="GNUmakefile;Makefile*;makefile*" mimetype="text/x-makefile" author="Per Wigren (wigren@home.se)" license="">
+<!-- Modified by Rui Santana <santana.rui@gmail.com> -->
+<language name="Makefile" version="1.10" kateversion="2.4" section="Other" extensions="GNUmakefile;Makefile*;makefile*" mimetype="text/x-makefile" author="Per Wigren (wigren@home.se)" license="">
   <highlighting>
     <list name = "keywords">
       <item> include </item>
@@ -15,20 +16,57 @@
       <item> ifndef </item>
       <item> ifneq </item>
     </list>
+    <list name = "functions">
+        <item> call </item>
+        <item> subst </item>
+        <item> patsubst </item>
+        <item> strip </item>
+        <item> findstring </item>
+        <item> filter </item>
+        <item> filter-out </item>
+        <item> sort </item>
+        <item> word </item>
+        <item> wordlist </item>
+        <item> words </item>
+        <item> firstword </item>
+        <item> lastword </item>
+        <item> dir </item>
+        <item> notdir </item>
+        <item> suffix </item>
+        <item> basename </item>
+        <item> addsuffix </item>
+        <item> addprefix </item>
+        <item> join </item>
+        <item> wildcard </item>
+        <item> realpath </item>
+        <item> abspath </item>
+        <item> if </item>
+        <item> or </item>
+        <item> and </item>
+        <item> foreach </item>
+        <item> value </item>
+        <item> eval </item>
+        <item> origin </item>
+        <item> flavor </item>
+        <item> shell </item>
+        <item> error </item>
+        <item> warning </item>
+        <item> info </item>
+    </list>
 
     <contexts>
       <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
-        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <keyword attribute="Keyword"  context="#stay" String="keywords"/>
         <RegExpr attribute="Variable" context="Value" String="[_\w\d]*\s*(?=:=|=)"/>
-        <RegExpr attribute="Target" context="#stay" String="[_\w\d-]*\s*:" firstNonSpace="true"/>
-        <RegExpr attribute="Section" context="#stay" String="^[.].*:"/>
+        <RegExpr attribute="Target"   context="#stay" String="[_\w\d-]*\s*:" firstNonSpace="true"/>
+        <RegExpr attribute="Section"  context="#stay" String="^[.].*:"/>
         <DetectChar attribute="String" context="String" char="&quot;"/>
-        <RegExpr attribute="Operator" context="VarFromNormal" String="[$][\({]"/>
+        <RegExpr attribute="Operator"  context="VarFromNormal" String="[$][\({]"/>
         <Detect2Chars attribute="Special" context="#stay" char="\" char1="#"/>
         <Detect2Chars attribute="Special" context="#stay" char="\" char1="\"/>
         <AnyChar attribute="Operator" context="#stay" String="+*=%$():\&#059;"/>
         <AnyChar attribute="Operator" context="Commands" String="@-" firstNonSpace="true"/>
-        <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
+        <RegExpr attribute="Comment"  context="#stay" String="#.*$"/>
       </context>
 
       <context attribute="String" lineEndContext="#pop" name="String">
@@ -51,7 +89,13 @@
       </context>
 
       <context name="VarFromNormal" attribute="Variable" lineEndContext="#stay">
+        <keyword attribute="Keyword" context="FunctionCall" String="functions"/>
         <AnyChar attribute="Operator" String=")}" context="#pop"/>
+      </context>
+
+      <context name="FunctionCall" attribute="String" lineEndContext="#stay">
+        <RegExpr attribute="Operator" context="VarFromNormal" String="[$][\({]"/>
+        <AnyChar attribute="Operator" String=")}" context="#pop#pop"/>
       </context>
 
       <context name="Commands" attribute="Normal Text" lineEndContext="#pop">
@@ -70,7 +114,7 @@
       <itemData name="Section"     defStyleNum="dsOthers"/>
       <itemData name="Operator"    defStyleNum="dsChar"/>
       <itemData name="Commands"    defStyleNum="dsBaseN"/>
-      <itemData name="Special"    defStyleNum="dsFloat"/>
+      <itemData name="Special"     defStyleNum="dsFloat"/>
     </itemDatas>
   </highlighting>
   <general>

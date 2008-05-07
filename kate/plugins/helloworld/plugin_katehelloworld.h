@@ -10,7 +10,7 @@
 
 #include <QList>
 
-class KatePluginHelloWorld : public Kate::Plugin, Kate::PluginViewInterface
+class KatePluginHelloWorld : public Kate::Plugin
 {
   Q_OBJECT
 
@@ -18,20 +18,22 @@ class KatePluginHelloWorld : public Kate::Plugin, Kate::PluginViewInterface
     explicit KatePluginHelloWorld( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~KatePluginHelloWorld();
 
-    void storeGeneralConfig(KConfig* config,const QString& groupPrefix);
-    void loadGeneralConfig(KConfig* config,const QString& groupPrefix);
-
-    void addView (Kate::MainWindow *win);
-    void removeView (Kate::MainWindow *win);
-
-    void storeViewConfig(KConfig* config, Kate::MainWindow* mainwindow, const QString& groupPrefix);
-    void loadViewConfig(KConfig* config, Kate::MainWindow* mainwindow, const QString& groupPrefix);
+    Kate::PluginView *createView( Kate::MainWindow *mainWindow );
 
   public slots:
-    void slotInsertHello();  
-    
-  private:
-    QList<class PluginView*> m_views; 
+    void slotInsertHello();
+};
+
+class KatePluginHelloWorldView : public Kate::PluginView, public KXMLGUIClient
+{
+    Q_OBJECT
+
+  public:
+    KatePluginHelloWorldView( Kate::MainWindow *mainWindow );
+    ~KatePluginHelloWorldView();
+
+    virtual void readSessionConfig( KConfigBase* config, const QString& groupPrefix );
+    virtual void writeSessionConfig( KConfigBase* config, const QString& groupPrefix );
 };
 
 #endif

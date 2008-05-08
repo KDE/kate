@@ -89,7 +89,12 @@ QMimeData *KateViewDocumentProxyModel::mimeData(const QModelIndexList &indexes) 
 bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
     Qt::DropAction action, int row, int column, const QModelIndex &parent)
 {
-  if ( (row == -1) || (row == -1) ) return false;
+  if ( (row == -1) || (column == -1) )
+  {
+    // dropping into empty space, let's consider this "at the very bottom".
+    row = m_mapToSource.count();
+    column = 0;
+  }
 
   if (action == Qt::IgnoreAction)
     return true;

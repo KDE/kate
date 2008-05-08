@@ -50,6 +50,7 @@ KateFileList::KateFileList(QWidget *parent, KActionCollection *actionCollection)
 
   m_filelistCloseDocument=actionCollection->addAction( "filelist_close" );
   m_filelistCloseDocument->setText( i18n( "Close" ) );
+  m_filelistCloseDocument->setIcon( SmallIcon("window-close") );
   connect( m_filelistCloseDocument, SIGNAL( triggered() ), this, SLOT( slotDocumentClose() ) );
   m_filelistCloseDocument->setWhatsThis(i18n("Close the current document."));
 

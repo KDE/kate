@@ -1429,21 +1429,39 @@ void KateSearchBar::onPowerModeChanged(int index, bool invokedByUserAction) {
 
 
 void KateSearchBar::onMutatePower() {
-    // Coming from power search?
-    const bool fromReplace = (m_powerUi != NULL) && (m_widget->isVisible());
-    if (fromReplace) {
-        QLineEdit * const patternLineEdit = m_powerUi->pattern->lineEdit();
-        Q_ASSERT(patternLineEdit != NULL);
-        patternLineEdit->selectAll();
-        m_powerUi->pattern->setFocus(Qt::MouseFocusReason);
-        return;
+    QString initialPattern;
+    bool selectionOnly = false;
+
+    // Guess settings from context: init pattern with current selection
+    const bool selected = m_view->selection();
+    if (selected) {
+        const Range & selection = m_view->selectionRange();
+        if (selection.onSingleLine()) {
+            // ... with current selection
+            initialPattern = m_view->selectionText();
+        } else {
+            // Enable selection only
+            selectionOnly = true;
+        }
     }
 
-    // Coming from incremental search?
-    const bool fromIncremental = (m_incUi != NULL) && (m_widget->isVisible());
-    QString initialPattern;
-    if (fromIncremental) {
-        initialPattern = m_incUi->pattern->displayText();
+    // If there's no new selection, we'll use the existing pattern
+    if (initialPattern.isNull()) {
+        // Coming from power search?
+        const bool fromReplace = (m_powerUi != NULL) && (m_widget->isVisible());
+        if (fromReplace) {
+            QLineEdit * const patternLineEdit = m_powerUi->pattern->lineEdit();
+            Q_ASSERT(patternLineEdit != NULL);
+            patternLineEdit->selectAll();
+            m_powerUi->pattern->setFocus(Qt::MouseFocusReason);
+            return;
+        }
+
+        // Coming from incremental search?
+        const bool fromIncremental = (m_incUi != NULL) && (m_widget->isVisible());
+        if (fromIncremental) {
+            initialPattern = m_incUi->pattern->displayText();
+        }
     }
 
     // Create dialog
@@ -1502,22 +1520,6 @@ void KateSearchBar::onMutatePower() {
         replacementLineEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
     }
 
-    // Guess settings from context
-    bool selectionOnly = false;
-    if (!fromIncremental) {
-        // Init pattern with current selection
-        const bool selected = m_view->selection();
-        if (selected) {
-            const Range & selection = m_view->selectionRange();
-            if (selection.onSingleLine()) {
-                // ... with current selection
-                initialPattern = m_view->selectionText();
-            } else {
-                // Enable selection only
-                selectionOnly = true;
-            }
-        }
-    }
     setChecked(m_powerUi->selectionOnly, selectionOnly);
 
     // Restore previous settings
@@ -1576,19 +1578,33 @@ void KateSearchBar::onMutatePower() {
 
 
 void KateSearchBar::onMutateIncremental() {
-    // Coming from incremental search?
-    const bool fromIncremental = (m_incUi != NULL) && (m_widget->isVisible());
     QString initialPattern;
-    if (fromIncremental) {
-        m_incUi->pattern->selectAll();
-        m_incUi->pattern->setFocus(Qt::MouseFocusReason);
-        return;
+
+    // Guess settings from context: init pattern with current selection
+    const bool selected = m_view->selection();
+    if (selected) {
+        const Range & selection = m_view->selectionRange();
+        if (selection.onSingleLine()) {
+            // ... with current selection
+            initialPattern = m_view->selectionText();
+        }
     }
 
-    // Coming from power search?
-    const bool fromReplace = (m_powerUi != NULL) && (m_widget->isVisible());
-    if (fromReplace) {
-        initialPattern = m_powerUi->pattern->currentText();
+    // If there's no new selection, we'll use the existing pattern
+    if (initialPattern.isNull()) {
+        // Coming from incremental search?
+        const bool fromIncremental = (m_incUi != NULL) && (m_widget->isVisible());
+        if (fromIncremental) {
+            m_incUi->pattern->selectAll();
+            m_incUi->pattern->setFocus(Qt::MouseFocusReason);
+            return;
+        }
+
+        // Coming from power search?
+        const bool fromReplace = (m_powerUi != NULL) && (m_widget->isVisible());
+        if (fromReplace) {
+            initialPattern = m_powerUi->pattern->currentText();
+        }
     }
 
     // Create dialog
@@ -1630,19 +1646,6 @@ void KateSearchBar::onMutateIncremental() {
 
         // Focus proxy
         centralWidget()->setFocusProxy(m_incUi->pattern);
-    }
-
-    // Guess settings from context
-    if (!fromReplace) {
-        // Init pattern with current selection
-        const bool selected = m_view->selection();
-        if (selected) {
-            const Range & selection = m_view->selectionRange();
-            if (selection.onSingleLine()) {
-                // ... with current selection
-                initialPattern = m_view->selectionText();
-            }
-        }
     }
 
     // Restore previous settings

@@ -1,8 +1,8 @@
 <!DOCTYPE UI><UI version="3.1" stdsetdef="1">
-<class>CWidgetSnippetsBase</class>
+<class>KateSnippetsWidgetBase</class>
 <widget class="QWidget">
     <property name="name">
-        <cstring>CWidgetSnippetsBase</cstring>
+        <cstring>KateSnippetsWidgetBase</cstring>
     </property>
     <property name="enabled">
         <bool>true</bool>
@@ -199,11 +199,8 @@
     </image>
 </images>
 <includes>
-    <include location="local" impldecl="in implementation">CWidgetSnippetsBase.ui.h</include>
+    <include location="local" impldecl="in implementation">KateSnippetsWidgetBase.ui.h</include>
 </includes>
-<signals>
-    <signal>lalala()</signal>
-</signals>
 <slots>
     <slot>init()</slot>
 </slots>

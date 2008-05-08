@@ -17,50 +17,15 @@
    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef _PLUGIN_KATESNIPPETS_H_
-#define _PLUGIN_KATESNIPPETS_H_
+#include "katesnippet.h"
 
-#include <kate/mainwindow.h>
-#include <kate/plugin.h>
-#include <kxmlguiclient.h>
-#include <kconfig.h>
-
-class KateSnippetsWidget;
-
-
-class KatePluginSnippets : public Kate::Plugin
+KateSnippet::KateSnippet(QString key, QString value, Q3ListViewItem *lvi)
+    : m_key(key), m_value(value), m_listViewItem(lvi)
 {
-  Q_OBJECT
+}
 
-  public:
-    explicit KatePluginSnippets( QObject* parent = 0, const QStringList& = QStringList() );
-    virtual ~KatePluginSnippets();
-
-    Kate::PluginView *createView( Kate::MainWindow *mainWindow );
-};
-
-
-class KatePluginSnippetsView : public Kate::PluginView, public KXMLGUIClient
+KateSnippet::~KateSnippet()
 {
-  Q_OBJECT
-
-  public:
-    explicit KatePluginSnippetsView( Kate::MainWindow *w );
-    virtual ~KatePluginSnippetsView();
-
-  protected:
-    KateSnippetsWidget *kateSnippetsWidget() const { return m_snippetsWidget; }
-
-  protected Q_SLOTS:
-    void readConfig();
-    void writeConfig();
-
-  private:
-    KConfig *m_config;
-    QWidget *m_dock;
-    KateSnippetsWidget *m_snippetsWidget;
-};
-
-#endif
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

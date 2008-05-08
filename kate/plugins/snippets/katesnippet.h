@@ -17,48 +17,30 @@
    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef _PLUGIN_KATESNIPPETS_H_
-#define _PLUGIN_KATESNIPPETS_H_
+#ifndef KATESNIPPET_H
+#define KATESNIPPET_H
 
-#include <kate/mainwindow.h>
-#include <kate/plugin.h>
-#include <kxmlguiclient.h>
-#include <kconfig.h>
-
-class KateSnippetsWidget;
+#include <q3listview.h>
+#include <qstring.h>
 
 
-class KatePluginSnippets : public Kate::Plugin
+class KateSnippet
 {
-  Q_OBJECT
-
   public:
-    explicit KatePluginSnippets( QObject* parent = 0, const QStringList& = QStringList() );
-    virtual ~KatePluginSnippets();
+    KateSnippet( QString key, QString value, Q3ListViewItem *lvi );
+    ~KateSnippet();
 
-    Kate::PluginView *createView( Kate::MainWindow *mainWindow );
-};
+    QString key() const                   { return m_key; }
+    QString value() const                 { return m_value; }
+    Q3ListViewItem* listViewItem() const  { return m_listViewItem; }
 
-
-class KatePluginSnippetsView : public Kate::PluginView, public KXMLGUIClient
-{
-  Q_OBJECT
-
-  public:
-    explicit KatePluginSnippetsView( Kate::MainWindow *w );
-    virtual ~KatePluginSnippetsView();
+    void setKey(const QString& key)       { m_key   = key; }
+    void setValue(const QString& value)   { m_value = value; }
 
   protected:
-    KateSnippetsWidget *kateSnippetsWidget() const { return m_snippetsWidget; }
-
-  protected Q_SLOTS:
-    void readConfig();
-    void writeConfig();
-
-  private:
-    KConfig *m_config;
-    QWidget *m_dock;
-    KateSnippetsWidget *m_snippetsWidget;
+    QString            m_key;
+    QString            m_value;
+    Q3ListViewItem    *m_listViewItem;
 };
 
 #endif

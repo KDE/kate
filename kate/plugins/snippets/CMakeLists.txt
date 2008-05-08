@@ -4,16 +4,15 @@
 
 ########### next target ###############
 
-set(katesnippetsplugin_PART_SRCS 
-   plugin_katesnippets.cpp 
-   cwidgetsnippets.h 
-   cwidgetsnippets.cpp 
-   csnippet.h 
-   csnippet.cpp 
-   CWidgetSnippetsBase.ui.h )
+set(katesnippetsplugin_PART_SRCS
+   plugin_katesnippets.cpp
+   katesnippetswidget.h
+   katesnippetswidget.cpp
+   katesnippet.cpp
+   KateSnippetsWidgetBase.ui.h )
 
 
-kde4_add_ui3_files(katesnippetsplugin_PART_SRCS CWidgetSnippetsBase.ui )
+kde4_add_ui3_files(katesnippetsplugin_PART_SRCS KateSnippetsWidgetBase.ui )
 
 kde4_add_plugin(katesnippetsplugin ${katesnippetsplugin_PART_SRCS})
 

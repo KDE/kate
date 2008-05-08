@@ -1,341 +1,85 @@
-/*
- * Copyright (C) 2004 Stephan Möres <Erdling@gmx.net>
- */
+/* This file is part of the KDE project
+   Copyright (C) 2004 Stephan Möres <Erdling@gmx.net>
+   Copyright (C) 2008 Jakob Petsovits <jpetso@gmx.at>
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation, Inc.,
+   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+*/
 
 #include "plugin_katesnippets.h"
+#include "plugin_katesnippets.moc"
+
+#include "katesnippetswidget.h"
 
 #include <kaction.h>
 #include <klocale.h>
-#include <kstandarddirs.h>
 #include <kgenericfactory.h>
-#include <QDate>
-#include <QTime>
+#include <kiconloader.h>
+
 // let the world know ...
-K_EXPORT_COMPONENT_FACTORY(katesnippetsplugin, KGenericFactory<KatePluginSnippets>( "katesnippets" ) )
+K_EXPORT_COMPONENT_FACTORY( katesnippetsplugin, KGenericFactory<KatePluginSnippets>( "katesnippets" ) )
 
 
-// < IMPLEMENTAIONS for KatePluginSnippetsView >
-//
-//
-
-/**
- * ctor KatePluginSnippetsView
- * @param w
- * @return
- */
-KatePluginSnippetsView::KatePluginSnippetsView(Kate::MainWindow *w, QWidget *dock) : CWidgetSnippets(dock,"snippetswidget")
-  , dock (dock)
-{
-  setComponentData (KComponentData("kate"));
-  setXMLFile("plugins/katesnippets/plugin_katesnippets.rc");
-
-  w->guiFactory()->addClient (this);
-  win = w;
-
-
-  //<make connections>
-  connect (
-    lvSnippets, SIGNAL( selectionChanged(Q3ListViewItem *) ),
-    this, SLOT( slot_lvSnippetsSelectionChanged(Q3ListViewItem *) )
-  );
-  connect (
-    lvSnippets, SIGNAL( doubleClicked (Q3ListViewItem *) ),
-    this, SLOT( slot_lvSnippetsClicked(Q3ListViewItem  *) )
-  );
-  connect (
-    lvSnippets, SIGNAL( itemRenamed(Q3ListViewItem *, int, const QString &) ),
-    this, SLOT( slot_lvSnippetsItemRenamed(Q3ListViewItem *, int, const QString &) )
-  );
-
-  connect (
-    btnNew, SIGNAL( clicked () ),
-    this, SLOT( slot_btnNewClicked() )
-  );
-  connect (
-    btnSave, SIGNAL( clicked () ),
-    this, SLOT( slot_btnSaveClicked() )
-  );
-  connect (
-    btnDelete, SIGNAL( clicked () ),
-    this, SLOT( slot_btnDeleteClicked() )
-  );
-  //</make connections>
-
-  lSnippets.setAutoDelete( true ); // the list owns the objects
-
-  config = new KConfig("katesnippetspluginrc");
-  readConfig();
-
-  // set text of selected item at startup
-  slot_lvSnippetsSelectionChanged(lvSnippets->selectedItem() );
-}
-
-
-/**
- * dtor KatePluginSnippetsView
- * @return
- */
-KatePluginSnippetsView::~ KatePluginSnippetsView() {
-  writeConfig();
-
-  win->guiFactory()->removeClient(this);
-}
-
-
-//
-//
-// < IMPLEMENTAIONS for KatePluginSnippetsView >
-
-
-
-
-// < IMPLEMENTAIONS for KatePluginSnippets >
-//
-//
-
-/**
- * ctor KatePluginSnippets
- * @param parent
- * @param name
- * @return
- */
 KatePluginSnippets::KatePluginSnippets( QObject* parent, const QStringList& )
     : Kate::Plugin ( (Kate::Application*)parent, "KatePluginSnippets" ) {}
 
-/**
- * dtor KatePluginSnippets
- * @return
- */
 KatePluginSnippets::~KatePluginSnippets() {}
 
-void KatePluginSnippets::storeViewConfig(KConfig* config, Kate::MainWindow* win, const QString& groupPrefix)
+Kate::PluginView *KatePluginSnippets::createView( Kate::MainWindow *mainWindow )
 {
-  // TODO: FIXME: port to new Kate interfaces
+  return new KatePluginSnippetsView( mainWindow );
 }
 
-void KatePluginSnippets::loadViewConfig(KConfig* config, Kate::MainWindow*win, const QString& groupPrefix)
+
+KatePluginSnippetsView::KatePluginSnippetsView( Kate::MainWindow *mainWin )
+    : Kate::PluginView( mainWin )
 {
-  // TODO: FIXME: port to new Kate interfaces
+  m_dock = mainWindow()->createToolView(
+    "kate_plugin_snippets",
+    Kate::MainWindow::Left,
+    SmallIcon("insert-text"),
+    i18n("Snippets")
+  );
+  m_snippetsWidget = new KateSnippetsWidget( mainWindow(), m_dock, "snippetswidget" );
+
+  // write the settings when the user clicks Save in the widget
+  connect( m_snippetsWidget, SIGNAL( saveRequested() ), this, SLOT( writeConfig() ) );
+
+  setComponentData( KComponentData("kate") );
+  setXMLFile( "plugins/katesnippets/plugin_katesnippets.rc" );
+  mainWindow()->guiFactory()->addClient( this );
+
+  m_config = new KConfig( "katesnippetspluginrc" );
+  readConfig();
 }
 
-void KatePluginSnippets::storeGeneralConfig(KConfig* config, const QString& groupPrefix)
+KatePluginSnippetsView::~KatePluginSnippetsView()
 {
-  // TODO: FIXME: port to new Kate interfaces
+  writeConfig();
+  mainWindow()->guiFactory()->removeClient( this );
+  delete m_dock; // includes m_snippetsWidget
+  delete m_config;
 }
 
-void KatePluginSnippets::loadGeneralConfig(KConfig* config, const QString& groupPrefix)
+void KatePluginSnippetsView::readConfig()
 {
-  // TODO: FIXME: port to new Kate interfaces
+  kateSnippetsWidget()->readConfig( m_config, "Snippets" );
 }
 
-/**
- *
- * @param win
- */
-void KatePluginSnippets::addView(Kate::MainWindow *win)
+void KatePluginSnippetsView::writeConfig()
 {
-  QWidget *dock = win->createToolView(
-              "kate_plugin_snippets",
-              Kate::MainWindow::Left,
-              SmallIcon("help-contents"),
-              i18n("Snippets"));
-
-  KatePluginSnippetsView *view = new KatePluginSnippetsView (win,dock);
-  m_views.append(view);
+  kateSnippetsWidget()->writeConfig( m_config, "Snippets" );
 }
 
-
-/**
- *
- * @param win
- */
-void KatePluginSnippets::removeView(Kate::MainWindow *win) {
-  for (uint z=0; z < m_views.count(); z++)
-    if (m_views.at(z)->win == win) {
-      KatePluginSnippetsView *view = m_views.at(z);
-      m_views.remove (view);
-      delete view->dock;
-    }
-}
-
-/**
- *
- * @param item
- */
-void KatePluginSnippetsView::slot_lvSnippetsSelectionChanged(Q3ListViewItem  * item) {
-  CSnippet *snippet;
-  if ( (snippet = findSnippetByListViewItem(item))!= NULL ) {
-    teSnippetText->setText(snippet->getValue());
-  }
-
-}
-
-
-/**
- * Special meaning of <mark/> and <cursor/> ...
- * @param item
- */
-void KatePluginSnippetsView::slot_lvSnippetsClicked (Q3ListViewItem  * item) {
-  KTextEditor::View *kv = win->activeView();
-  CSnippet *snippet;
-
-  if (kv) {
-    if ( (snippet = findSnippetByListViewItem(item))!= NULL ) {
-      QString sText = snippet->getValue();
-      QString sSelection = "";
-
-      if ( kv->selection() ) {
-        sSelection = kv->selectionText();
-        // clear selection
-        kv->removeSelectionText();
-      }
-
-      sText.replace( QRegExp("<mark/>"), sSelection );
-      sText.replace( QRegExp("<date/>"), QDate::currentDate().toString(Qt::LocalDate) );
-      sText.replace( QRegExp("<time/>"), QTime::currentTime().toString(Qt::LocalDate) );
-      kv->document()->insertText ( kv->cursorPosition(), sText );
-    }
-    kv->setFocus();
-  }
-}
-
-
-/**
- *
- * @param lvi
- * @param
- * @param text
- */
-void KatePluginSnippetsView::slot_lvSnippetsItemRenamed(Q3ListViewItem *lvi,int /*col*/, const QString& text) {
-  CSnippet *snippet;
-  if ( (snippet = findSnippetByListViewItem(lvi)) != NULL ) {
-    snippet->setKey( text );
-    writeConfig();
-  }
-}
-
-
-/**
- *
- */
-void KatePluginSnippetsView::slot_btnNewClicked() {
-  QString sKey = "New Snippet";
-  QString sValue = "";
-
-  Q3ListViewItem *lvi = insertItem(sKey, true);
-  lSnippets.append( new CSnippet(sKey, sValue, lvi) );
-}
-
-
-/**
- *
- */
-void KatePluginSnippetsView::slot_btnSaveClicked() {
-  CSnippet *snippet;
-  Q3ListViewItem *lvi = lvSnippets->selectedItem();
-  if ( (snippet = findSnippetByListViewItem(lvi)) != NULL ) {
-    snippet->setValue(teSnippetText->text() );
-    writeConfig();
-  }
-}
-
-
-/**
- *
- */
-void KatePluginSnippetsView::slot_btnDeleteClicked() {
-  CSnippet *snippet;
-  Q3ListViewItem *lvi = lvSnippets->selectedItem();
-
-
-  if ( (snippet = findSnippetByListViewItem(lvi)) != NULL ) {
-    lvSnippets->takeItem(lvi);
-    lSnippets.remove(snippet);
-  }
-}
-
-
-/**
- *
- */
-void KatePluginSnippetsView::readConfig() {
-  QString sKey, sValue;
-  Q3ListViewItem *lvi;
-
-  KConfigGroup cg( config, "Snippets" );
-
-  int iNrOfSnippets = cg.readEntry("NumberOfSnippets", "0").toInt() ;
-  for (int i=0; i < iNrOfSnippets; i++) {
-    QStringList slFields;
-    slFields = cg.readEntry ( QString::number(i),QStringList() );
-
-    sKey   = slFields[0];
-    sValue = slFields[1];
-
-    lvi = insertItem(sKey, false);
-
-    lSnippets.append( new CSnippet(sKey, sValue, lvi, this) );
-  }
-
-  // <defaults>
-  if ( iNrOfSnippets == 0 ) {
-    sKey	= "DEBUG variable";
-    sValue = "## < DEBUG >\nout \"<pre>\\$<mark/> : \\\"$<mark/>\\\"\\n</pre>\"\n## </DEBUG >\n";
-    lvi = insertItem(sKey, false);
-    lSnippets.append( new CSnippet(sKey, sValue, lvi, this) );
-
-    sKey	= "proc-header";
-    sValue	= "## [created : <date/>, <time/>]\n## Description:\n## ============\n## The function \"<mark/>\" ...\n##\n##\n##\n##\n## Input:\n## ======\n##\n##\n##\nproc <mark/> {args} {\n\n	## add your code here\n\n	return \"\"\n}\n";
-    lvi = insertItem(sKey, false);
-    lSnippets.append( new CSnippet(sKey, sValue, lvi, this) );
-  }
-  // </defaults>
-
-}
-
-
-/**
- *
- */
-void KatePluginSnippetsView::writeConfig() {
-  KConfigGroup( config, "Snippets" );
-
-  int iNrOfSnippets = lSnippets.count();
-
-  cg.writeEntry("NumberOfSnippets", iNrOfSnippets );
-
-  int i=0;
-
-  CSnippet *snippet;
-  for ( snippet = lSnippets.first(); snippet; snippet = lSnippets.next() ) {
-    QStringList slFields;
-    slFields.append( snippet->getKey() );
-    slFields.append( snippet->getValue() );
-
-    cg.writeEntry ( QString::number(i), slFields, ',' );
-    i++;
-  }
-  // sync to disc ...
-  config->sync();
-}
-
-
-/**
- *
- * @param item
- * @return
- */
-CSnippet* KatePluginSnippetsView::findSnippetByListViewItem(Q3ListViewItem *item) {
-  CSnippet *snippet = NULL;
-  for ( snippet = lSnippets.first(); snippet; snippet = lSnippets.next() ) {
-    if ( snippet->getListViewItem() == item)
-      break;
-  }
-  return snippet;
-}
-
-//
-//
-// < IMPLEMENTAIONS for KatePluginSnippets >
-
-#include "plugin_katesnippets.moc"
+// kate: space-indent on; indent-width 2; replace-tabs on;

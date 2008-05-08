@@ -51,6 +51,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <climits>
+#include <limits.h>
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <sys/types.h>

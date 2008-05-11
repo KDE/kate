@@ -24,7 +24,7 @@
 #include <QtGui/QPainter>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QAction>
-#include <QtGui/QItemDelegate>
+#include <QtGui/QStyledItemDelegate>
 #include <QtGui/QHeaderView>
 
 #include <klocale.h>
@@ -38,7 +38,7 @@
 #include "kateextendedattribute.h"
 
 //BEGIN KateStyleTreeDelegate
-class KateStyleTreeDelegate : public QItemDelegate
+class KateStyleTreeDelegate : public QStyledItemDelegate
 {
   public:
     KateStyleTreeDelegate(KateStyleTreeWidget* widget);
@@ -367,16 +367,16 @@ void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem
       styleContextItem.palette.setBrush(QPalette::HighlightedText, brush);
     }
 	
-    return QItemDelegate::paint(painter, styleContextItem, index);
+    return QStyledItemDelegate::paint(painter, styleContextItem, index);
   }
   
   if (!columns.contains(index.column())) {
-    return QItemDelegate::paint(painter, option, index);
+    return QStyledItemDelegate::paint(painter, option, index);
   }
 
   QVariant displayData = index.model()->data(index);
   if (displayData.type() != QVariant::Brush)
-    return QItemDelegate::paint(painter, option, index);
+    return QStyledItemDelegate::paint(painter, option, index);
 
   QBrush brush = qVariantValue<QBrush>(displayData);
 

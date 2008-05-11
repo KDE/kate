@@ -27,7 +27,7 @@
 #include "expandingwidgetmodel.h"
 
 ExpandingDelegate::ExpandingDelegate(ExpandingWidgetModel* model, QObject* parent)
-  : QItemDelegate(parent)
+  : QStyledItemDelegate(parent)
   , m_model(model)
 {
 }
@@ -55,7 +55,7 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
   m_cachedHighlights.clear();
 
   if (!model()->indexIsItem(index) )
-      return QItemDelegate::paint(painter, option, index);
+      return QStyledItemDelegate::paint(painter, option, index);
 
   m_currentColumnStart = 0;
   m_cachedHighlights = createHighlighting(index, option);
@@ -64,7 +64,7 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
   foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
     kDebug() << fr.start << " len " << fr.length << " format ";*/
 
-  QItemDelegate::paint(painter, option, index);
+  QStyledItemDelegate::paint(painter, option, index);
 }
 
 QList<QTextLayout::FormatRange> ExpandingDelegate::createHighlighting(const QModelIndex& index, QStyleOptionViewItem& option) const {
@@ -74,12 +74,12 @@ QList<QTextLayout::FormatRange> ExpandingDelegate::createHighlighting(const QMod
 }
 
 QSize ExpandingDelegate::basicSizeHint( const QModelIndex& index ) const {
-  return QItemDelegate::sizeHint( QStyleOptionViewItem(), index );
+  return QStyledItemDelegate::sizeHint( QStyleOptionViewItem(), index );
 }
 
 QSize ExpandingDelegate::sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const
 {
-  QSize s = QItemDelegate::sizeHint( option, index );
+  QSize s = QStyledItemDelegate::sizeHint( option, index );
   if( model()->isExpanded(index) && model()->expandingWidget( index ) )
   {
     QWidget* widget = model()->expandingWidget( index );

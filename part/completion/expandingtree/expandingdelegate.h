@@ -20,7 +20,7 @@
 #ifndef ExpandingDelegate_H
 #define ExpandingDelegate_H
 
-#include <QtGui/QItemDelegate>
+#include <QtGui/QStyledItemDelegate>
 #include <QtGui/QTextLine>
 #include <QModelIndex>
 #include <QPoint>
@@ -36,7 +36,7 @@ class QVariant;
  * This is a delegate that cares, together with ExpandingWidgetModel, about embedded widgets in tree-view.
  * */
 
-class ExpandingDelegate : public QItemDelegate
+class ExpandingDelegate : public QStyledItemDelegate
 {
   Q_OBJECT
 
@@ -47,7 +47,7 @@ class ExpandingDelegate : public QItemDelegate
     // Overridden to create highlighting for current index
     virtual void paint ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
 
-    // Returns the basic size-hint as reported by QItemDelegate
+    // Returns the basic size-hint as reported by QStyledItemDelegate
     QSize basicSizeHint( const QModelIndex& index ) const;
     
     ExpandingWidgetModel* model() const;

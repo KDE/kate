@@ -66,7 +66,6 @@
 #include <QtGui/QPolygon>
 #include <QtGui/QGroupBox>
 #include <QtGui/QTreeWidget>
-#include <QtGui/QItemDelegate>
 //END
 
 

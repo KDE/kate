@@ -21,6 +21,7 @@
 #define ExpandingDelegate_H
 
 #include <QtGui/QStyledItemDelegate>
+#include <QItemDelegate>
 #include <QtGui/QTextLine>
 #include <QModelIndex>
 #include <QPoint>

@@ -161,7 +161,7 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
 
   //We need to do some hand layouting here
   if( to.alignment() & Qt::AlignBottom)
-      layout.draw(painter, QPoint((qreal)rect.left(), (qreal)rect.bottom() - line.height()) );
+      layout.draw(painter, QPoint(rect.left(), rect.bottom() - (int)line.height()) );
   else
       layout.draw(painter, rect.topLeft() );
   

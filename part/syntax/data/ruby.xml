@@ -198,7 +198,7 @@
 				
 				<!-- "def" - "end" blocks -->
 				<!-- check for statement modifiers with regexes -->
-                <DetectChar attribute="Operator" char="{" context="Find closing block brace" beginRegion="def block"/>
+				<DetectChar attribute="Operator" char="{" context="Find closing block brace" beginRegion="def block"/>
 				<RegExpr attribute="Keyword" String="(\=|\(|\[|\{)\s*(if|unless|while|until)\b" context="#stay" beginRegion="def block"/>
 				<RegExpr attribute="Keyword" String="(while|until)\b(?!.*\bdo\b)" context="#stay" beginRegion="def block" firstNonSpace="true"/>
 				<RegExpr attribute="Keyword" String="\;\s*(while|until)\b(?!.*\bdo\b)" context="#stay" beginRegion="def block"/>
@@ -310,10 +310,10 @@
 				<IncludeRules context="Normal"/>
 			</context>
 
-            <context name="Find closing block brace" attribute="Normal Text" lineEndContext="#stay">
-                <DetectChar attribute="Operator" char="}" context="#pop" endRegion="def block"/>
-                <IncludeRules context="Normal"/>
-            </context>
+			<context name="Find closing block brace" attribute="Normal Text" lineEndContext="#stay">
+				<DetectChar attribute="Operator" char="}" context="#pop" endRegion="def block"/>
+				<IncludeRules context="Normal"/>
+			</context>
 			
 			<context name="Quoted String" attribute="String" lineEndContext="#stay">
 				<StringDetect attribute="String" String="\\" context="#stay"/>
@@ -858,8 +858,8 @@
 			<!-- use these to mark errors and alerts things -->
 			<itemData name="Error" defStyleNum="dsError" />
 			<itemData name="Alert" defStyleNum="dsAlert" />
-
-            <itemData name="Delimiter" defStyleNum="dsNormal" color="#FF9FEC"/>
+			
+			<itemData name="Delimiter" defStyleNum="dsNormal" color="#FF9FEC"/>
 			<itemData name="Expression" defStyleNum="dsOthers"/>
 			<itemData name="Operator" defStyleNum="dsNormal" color="#FF9FEC"/>
 		</itemDatas>

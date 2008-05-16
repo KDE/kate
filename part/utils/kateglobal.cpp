@@ -384,7 +384,7 @@ KIcon KateGlobal::configPageIcon (int number) const
       return KIcon("configure-shortcuts");
 
     case 5:
-      return KIcon("network-connect"); // bad icon, please use "preferences-plugin" once available
+      return KIcon("preferences-plugin");
 
     default:
       return KIcon("document-properties");

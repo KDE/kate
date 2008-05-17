@@ -248,7 +248,7 @@ void KateConsole::slotSync()
       && m_mw->activeView()->document()->url().isLocalFile() ) {
       cd(KUrl( m_mw->activeView()->document()->url().directory() ));
     } else if ( !m_mw->activeView()->document()->url().isEmpty() ) {
-      sendInput( "### " + i18n("Sorry, can not cd into '%1'", m_mw->activeView()->document()->url().directory() ) + "\n" );
+      sendInput( "### " + i18n("Sorry, can not cd into '%1'", m_mw->activeView()->document()->url().directory() ) + '\n' );
     }
   }
 }

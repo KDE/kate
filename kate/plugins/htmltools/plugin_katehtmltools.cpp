@@ -146,9 +146,9 @@ void PluginKateHtmlTools::slipInHTMLtag (KTextEditor::View & view, QString text)
     view.removeSelectionText ();
   int line = 0, col = 0;
   view.cursorPosition ().position (line, col);
-  QString pre ("<" + text + ">");
+  QString pre ('<' + text + '>');
   QString post;
-  if (list.count () > 0)  post = "</" + list[0] + ">";
+  if (list.count () > 0)  post = "</" + list[0] + '>';
   view.document()->insertText (KTextEditor::Cursor (line,col),pre + marked + post);
 
   //  all this muck to leave the cursor exactly where the user

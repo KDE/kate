@@ -195,7 +195,7 @@ void PluginKateXMLCheckView::slotProcExited(K3Process*)
 		if( m_dtdname.isEmpty() ) {
 			msg = "No DOCTYPE found, will only check well-formedness.";
 		} else {
-			msg = "'" + m_dtdname + "' not found, will only check well-formedness.";
+			msg = '\'' + m_dtdname + "' not found, will only check well-formedness.";
 		}
 		(void)new Q3ListViewItem(this, QString("1").rightJustified(4,' '), "", "", msg);
 		list_count++;
@@ -219,7 +219,7 @@ void PluginKateXMLCheckView::slotProcExited(K3Process*)
 			} else if( caret_pos != -1 || line_count == lines.size() ) {
 				// TODO: this fails if "^" occurs in the real text?!
 				if( line_count == lines.size() && caret_pos == -1 ) {
-					msg = msg+"\n"+line;
+					msg = msg+'\n'+line;
 				}
 				QString col = QString::number(caret_pos);
 				if( col == "-1" ) {
@@ -230,7 +230,7 @@ void PluginKateXMLCheckView::slotProcExited(K3Process*)
 				item = new Q3ListViewItem(this, QString::number(list_count).rightJustified(4,' '), linenumber, col, msg);
 				item->setMultiLinesEnabled(true);
 			} else {
-				msg = msg+"\n"+line;
+				msg = msg+'\n'+line;
 			}
 		}
 		sort();	// TODO?: insert in right order
@@ -310,7 +310,7 @@ bool PluginKateXMLCheckView::slotValidate()
     	KComponentData ins("katexmlcheckplugin");
 		QString catalogs;
 		catalogs += ins.dirs()->findResource("data", "ksgmltools2/customization/catalog");
-		catalogs += ":";
+		catalogs += ':';
 		catalogs += ins.dirs()->findResource("data", "ksgmltools2/docbook/xml-dtd-4.1.2/docbook.cat");
 		kDebug() << "catalogs: " << catalogs;
 		setenv("SGML_CATALOG_FILES", QFile::encodeName( catalogs ).data(), 1);

@@ -604,14 +604,14 @@ void PluginKateXMLTools::slotInsertElement()
 
     if ( dtd && dtd->allowedElements(list[0]).contains("__EMPTY") )
     {
-      pre = "<" + text + "/>";
+      pre = '<' + text + "/>";
       if ( adjust )
         adjust++; // for the "/"
     }
     else
     {
-      pre = "<" + text + ">";
-      post ="</" + list[0] + ">";
+      pre = '<' + text + '>';
+      post ="</" + list[0] + '>';
     }
 
     QString marked;
@@ -642,7 +642,7 @@ void PluginKateXMLTools::slotCloseElement()
   QString parentElement = getParentElement( *kv, false );
 
   //kDebug() << "parentElement: '" << parentElement << "'";
-  QString closeTag = "</" + parentElement + ">";
+  QString closeTag = "</" + parentElement + '>';
   if( ! parentElement.isEmpty() )
     kv->insertText( closeTag );
 }
@@ -676,7 +676,7 @@ void PluginKateXMLTools::filterInsertString( KTextEditor::CompletionItem *ce, QS
     // and we want the correct completion even if the user started typing
     // e.g. in lower case but the entity is in upper case
     kv->getDoc()->removeText( line, col - (ce->text.length() - text->length()), line, col );
-    *text = ce->text + ";";
+    *text = ce->text + ';';
   }
 
   else if( m_mode == attributes )
@@ -686,7 +686,7 @@ void PluginKateXMLTools::filterInsertString( KTextEditor::CompletionItem *ce, QS
     if( !rightCh.isEmpty() && rightCh != ">" && rightCh != "/" && rightCh != " " )
     {	// TODO: other whitespaces
       // add space in front of the next attribute
-      *text = *text + " ";
+      *text = *text + ' ';
       m_correctPos--;
     }
   }
@@ -735,7 +735,7 @@ void PluginKateXMLTools::filterInsertString( KTextEditor::CompletionItem *ce, QS
     if ( isEmptyTag )
       str = "/>";
     else
-      str = "></" + ce->text + ">";
+      str = "></" + ce->text + '>';
     *text = *text + str;
 
     // Place the cursor where it is most likely wanted:
@@ -1105,7 +1105,7 @@ QStringList PluginKateXMLTools::sortQStringList( QStringList list ) {
       // entities, but they should be sorted next to each other.
       // TODO: currently it's undefined if e.g. "A" or "a" comes first, it depends on
       // the meta DTD ( really? it seems to work okay?!? )
-      mapList[str.lower()+"_"] = str;
+      mapList[str.lower()+'_'] = str;
     }
     else
       mapList[str.lower()] = str;

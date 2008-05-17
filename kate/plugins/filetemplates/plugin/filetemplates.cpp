@@ -413,7 +413,7 @@ void KateFileTemplates::slotOpenTemplate( const KUrl &url )
         continue; // skip this line
       }
       if ( numlines )
-        str += "\n";
+        str += '\n';
       str += tmp;
       numlines++;
     }
@@ -721,7 +721,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   QString sEmail = map["email"];
   QString _s = sFullname;
   if ( ! sEmail.isEmpty() )
-    _s += " <" + sEmail + ">";
+    _s += " <" + sEmail + '>';
   kti->leAuthor->setText( _s );
 
   // 3) chose a location - either the template directory (default) or
@@ -983,7 +983,7 @@ void KateTemplateWizard::accept()
           continue;
 
         trymore = false;
-        tmp += "\n" + ln;
+        tmp += '\n' + ln;
       }
 
       file.close();

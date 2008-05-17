@@ -17,6 +17,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#include "kbookmarkhandler.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,7 +33,6 @@
 
 #include "katefileselector.h"
 
-#include "kbookmarkhandler.h"
 #include "kbookmarkhandler.moc"
 
 KBookmarkHandler::KBookmarkHandler( KateFileSelector *parent, KMenu* kpopupmenu )

@@ -29,7 +29,6 @@
 #include <KStandardGuiItem>
 #include <plasma/widgets/icon.h>
 #include <QGraphicsProxyWidget>
-#include <QGraphicsGridLayout>
 #include <QListWidgetItem>
 #include <QStandardItemModel>
 #include <KIcon>

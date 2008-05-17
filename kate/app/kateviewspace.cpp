@@ -17,8 +17,9 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include <KTextEditor/SessionConfigInterface>
 #include "kateviewspace.h"
+
+#include <KTextEditor/SessionConfigInterface>
 #include "kateviewspace.moc"
 
 #include "katemainwindow.h"
@@ -26,7 +27,6 @@
 #include "katedocmanager.h"
 #include "kateapp.h"
 #include "katesession.h"
-
 
 #include <KLocale>
 #include <KSqueezedTextLabel>

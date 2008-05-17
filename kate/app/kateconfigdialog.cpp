@@ -33,8 +33,6 @@
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/EditorChooser>
 
-#include <KTextEditor/EditorChooser>
-
 #include <kdebug.h>
 #include <KGlobal>
 #include <KIconLoader>

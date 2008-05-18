@@ -53,7 +53,7 @@ class KateCmd
 
 /**
  * A KCompletion object that completes last ?unquoted? word in the string
- * passed. Dont mistake "shell" for anything related to quoting, this
+ * passed. Do not mistake "shell" for anything related to quoting, this
  * simply mimics shell tab completion by completing the last word in the
  * provided text.
  */

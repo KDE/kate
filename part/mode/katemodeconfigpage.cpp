@@ -33,7 +33,7 @@
 #include <kmimetype.h>
 #include <kmimetypechooser.h>
 #include <kdebug.h>
-#include <kiconloader.h>
+#include <kicon.h>
 #include <knuminput.h>
 #include <klocale.h>
 #include <kmenu.h>
@@ -78,7 +78,7 @@ ModeConfigPage::ModeConfigPage( QWidget *parent )
   connect( ui->cmbFiletypes, SIGNAL(activated(int)), this, SLOT(typeChanged(int)) );
   connect( ui->btnNew, SIGNAL(clicked()), this, SLOT(newType()) );
   connect( ui->btnDelete, SIGNAL(clicked()), this, SLOT(deleteType()) );
-  ui->btnMimeTypes->setIcon(QIcon(SmallIcon("wizard")));
+  ui->btnMimeTypes->setIcon(KIcon("tools-wizard"));
   connect(ui->btnMimeTypes, SIGNAL(clicked()), this, SLOT(showMTDlg()));
   connect( ui->btnDownload, SIGNAL(clicked()), this, SLOT(hlDownload()) );
 

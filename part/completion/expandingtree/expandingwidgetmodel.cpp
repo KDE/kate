@@ -19,11 +19,13 @@
 #include "expandingwidgetmodel.h"
 
 #include <QTreeView>
-#include <QTextEdit>
 #include <QModelIndex>
 #include <QBrush>
+
 #include <ktexteditor/codecompletionmodel.h>
 #include <kiconloader.h>
+#include <ktextedit.h>
+
 #include "expandingdelegate.h"
 
 QIcon ExpandingWidgetModel::m_expandedIcon;
@@ -314,7 +316,7 @@ void ExpandingWidgetModel::setExpanded(QModelIndex idx_, bool expanded)
         m_expandingWidgets[idx] = v.value<QWidget*>();
       } else if( v.canConvert<QString>() ) {
         //Create a html widget that shows the given string
-        QTextEdit* edit = new QTextEdit( v.value<QString>() );
+        KTextEdit* edit = new KTextEdit( v.value<QString>() );
         edit->setReadOnly(true);
         edit->resize(200, 50); //Make the widget small so it embeds nicely.
         m_expandingWidgets[idx] = edit;

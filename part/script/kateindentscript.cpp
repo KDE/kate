@@ -16,14 +16,13 @@
 /// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 /// Boston, MA 02110-1301, USA.
 
+#include "kateindentscript.h"
+
 #include <QScriptValue>
 #include <QScriptEngine>
 
 #include "katedocument.h"
 #include "kateview.h"
-
-#include "kateindentscript.h"
-
 
 KateIndentScript::KateIndentScript(const QString &url, const KateScriptInformation &information)
   : KateScript(url, information), m_triggerCharactersSet (false)

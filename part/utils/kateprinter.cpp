@@ -520,7 +520,7 @@ bool KatePrinter::print (KateDocument *doc)
               y += innerMargin;
               paint.setFont(_titleFont);
               paint.setPen(_defaultPen);
-              paint.drawText( _x, y, _w, fontHeight, Qt::AlignTop, _hl + " " + i18n("text") );
+              paint.drawText( _x, y, _w, fontHeight, Qt::AlignTop, _hl + ' ' + i18n("text") );
               y += fontHeight;
               _i = 0;
             }
@@ -608,7 +608,7 @@ bool KatePrinter::print (KateDocument *doc)
       }
 
       // If the line is too long (too many 'viewlines') to fit the remaining vertical space,
-      // clip and adjust the painter position as nessecary
+      // clip and adjust the painter position as necessary
       int _lines = (*rangeptr)->viewLineCount()-remainder; // number of "sublines" to paint.
       int _yadjust = remainder * fontHeight; // if we need to clip at the start of the line, it's this much.
       bool _needWrap = (fontHeight*_lines > maxHeight-y);

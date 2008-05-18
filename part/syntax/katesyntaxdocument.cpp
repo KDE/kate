@@ -496,7 +496,7 @@ void KateSyntaxDocument::setupModeList (bool force)
     }
   }
 
-  // Syncronize with the file katesyntax...rc
+  // Synchronize with the file katesyntax...rc
   config.sync();
 }
 

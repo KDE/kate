@@ -19,6 +19,8 @@
 /// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 /// Boston, MA 02110-1301, USA.
 
+#include "katescriptmanager.h"
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -34,8 +36,6 @@
 #include <kstandarddirs.h>
 
 #include "kateglobal.h"
-
-#include "katescriptmanager.h"
 
 KateScriptManager::KateScriptManager() : KTextEditor::Command()
 {

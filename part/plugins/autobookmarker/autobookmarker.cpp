@@ -33,8 +33,9 @@
 #include <kconfig.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
-#include <kiconloader.h>
+#include <kicon.h>
 #include <k3listview.h>
+#include <klineedit.h>
 #include <klocale.h>
 #include <kmimetype.h>
 #include <kmimetypechooser.h>
@@ -44,7 +45,6 @@
 #include <QtGui/QCheckBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
-#include <QtGui/QLineEdit>
 #include <Qt3Support/Q3ListView>
 #include <QtGui/QPushButton>
 #include <QtGui/QToolButton>
@@ -287,7 +287,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
   lo->setSpacing( KDialog::spacingHint() );
 
   QLabel *l = new QLabel( i18n("&Pattern:"), w );
-  lePattern = new QLineEdit( e->pattern, w );
+  lePattern = new KLineEdit( e->pattern, w );
   l->setBuddy( lePattern );
   lo->addWidget( l, 0, 0 );
   lo->addMultiCellWidget(  lePattern, 0, 0, 1, 2 );
@@ -312,7 +312,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
       "in the kate manual.</p>") );
 
   l = new QLabel( i18n("&File mask:"), w );
-  leFileMask = new QLineEdit( e->filemask.join( "; " ), w );
+  leFileMask = new KLineEdit( e->filemask.join( "; " ), w );
   l->setBuddy( leFileMask );
   lo->addWidget( l, 3, 0 );
   lo->addMultiCellWidget( leFileMask, 3, 3, 1, 2 );
@@ -323,7 +323,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
       "easily fill out both lists.</p>" ) );
 
   l = new QLabel( i18n("MIME &types:"), w );
-  leMimeTypes = new QLineEdit( e->mimemask.join( "; " ), w );
+  leMimeTypes = new KLineEdit( e->mimemask.join( "; " ), w );
   l->setBuddy( leMimeTypes );
   lo->addWidget( l, 4, 0 );
   lo->addWidget( leMimeTypes, 4, 1 );
@@ -335,7 +335,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
 
   QToolButton *btnMTW = new QToolButton(w);
   lo->addWidget( btnMTW, 4, 2 );
-  btnMTW->setIcon(QIcon(SmallIcon("wizard")));
+  btnMTW->setIcon(KIcon("tools-wizard"));
   connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
   btnMTW->setWhatsThis(i18n(
       "<p>Click this button to display a checkable list of mimetypes available "

@@ -20,8 +20,8 @@
     Copyright Anders Lund <anders.lund@lund.tdcadsl.dk>, 2003
 */
 
-#ifndef _AUTOBOOKMARKER_H_
-#define _AUTOBOOKMARKER_H_
+#ifndef AUTOBOOKMARKER_H
+#define AUTOBOOKMARKER_H
 
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/configinterfaceextension.h>
@@ -29,9 +29,6 @@
 #include <kdialog.h>
 
 #include <Qt3Support/Q3PtrList>
-//Added by qt3to4:
-#include <QtGui/QPixmap>
-#include <QtCore/QVariantList>
 
 class AutoBookmarkEnt
 {
@@ -130,7 +127,7 @@ class AutoBookmarkerEntEditor : public KDialog
   void showMTDlg();
     void slotPatternChanged( const QString& );
   private:
-    class QLineEdit *lePattern, *leMimeTypes, *leFileMask;
+    class KLineEdit *lePattern, *leMimeTypes, *leFileMask;
     class QCheckBox *cbCS, *cbMM;
     AutoBookmarkEnt *e;
 };

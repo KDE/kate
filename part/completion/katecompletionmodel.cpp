@@ -252,7 +252,7 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
     switch (role) {
       case Qt::DisplayRole:
         if (!index.column())
-          return " " + g->title;
+          return ' ' + g->title;
         break;
 
       case Qt::FontRole:

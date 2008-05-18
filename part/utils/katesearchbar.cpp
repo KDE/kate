@@ -936,7 +936,7 @@ void KateSearchBar::onForAll(const QString & pattern, Range inputRange,
         KateDocument::repairPattern(patternCopy, multiLinePattern);
     }
 
-    // Clear backwards flag, this algorithm is for foward mode
+    // Clear backwards flag, this algorithm is for forward mode
     if (enabledOptions.testFlag(Search::Backwards)) {
         enabledOptions &= ~Search::SearchOptions(Search::Backwards);
     }
@@ -1148,7 +1148,7 @@ QVector<QString> KateSearchBar::getCapturePatterns(const QString & pattern) {
 void KateSearchBar::addMenuEntry(QMenu * menu, QVector<QString> & insertBefore, QVector<QString> & insertAfter,
         uint & walker, const QString & before, const QString after, const QString description,
         const QString & realBefore, const QString & realAfter) {
-    QAction * const action = menu->addAction(before + after + "\t" + description);
+    QAction * const action = menu->addAction(before + after + '\t' + description);
     insertBefore[walker] = QString(realBefore.isEmpty() ? before : realBefore);
     insertAfter[walker] = QString(realAfter.isEmpty() ? after : realAfter);
     action->setData(QVariant(walker++));
@@ -1172,10 +1172,10 @@ void KateSearchBar::showAddMenu(bool forPattern) {
             popupMenu->addSeparator();
             addMenuEntry(popupMenu, insertBefore, insertAfter, walker, ".", "", i18n("Any single character (excluding line breaks)"));
             popupMenu->addSeparator();
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "+", "", i18n("One or more occurences"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "*", "", i18n("Zero or more occurences"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "?", "", i18n("Zero or one occurences"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "{a", ",b}", i18n("<a> through <b> occurences"), "{", ",}");
+            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "+", "", i18n("One or more occurrences"));
+            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "*", "", i18n("Zero or more occurrences"));
+            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "?", "", i18n("Zero or one occurrences"));
+            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "{a", ",b}", i18n("<a> through <b> occurrences"), "{", ",}");
             popupMenu->addSeparator();
             addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "(", ")", i18n("Group, capturing"));
             addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "|", "", i18n("Or"));
@@ -1197,7 +1197,7 @@ void KateSearchBar::showAddMenu(bool forPattern) {
                         ? (QString(" = (") + capturePatterns[i - 1].left(30)) + QString(")")
                         : QString();
                 addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\" + number, "",
-                        i18n("Reference") + " " + number + captureDetails);
+                        i18n("Reference") + ' ' + number + captureDetails);
             }
 
             popupMenu->addSeparator();

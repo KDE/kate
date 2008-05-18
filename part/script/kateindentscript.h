@@ -25,7 +25,7 @@
 class KateScriptDocument;
 
 /**
- * A specialised class for scripts that are of type 
+ * A specialized class for scripts that are of type 
  * KateScriptInformation::IndentationScript
  */
 class KateIndentScript : public KateScript {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.26" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)" license="LGPL" >
+<language name="LaTeX" version="1.28" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (braun@physik.fu-berlin.de)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
@@ -9,17 +9,24 @@
         <RegExpr String="\\end(?=[^a-zA-Z])" attribute="Structure" context="FindEnvironment" endRegion="block" />
         <RegExpr String="\\(label|pageref|ref|vpageref|vref|cite)(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
         <RegExpr String="\\(part|chapter|section|subsection|subsubsection|paragraph|subparagraph)\*?\s*(?=[\{\[])" attribute="Structure" context="Sectioning"/>
+        <RegExpr String="\\(footnote)\*?\s*(?=[\{\[])" attribute="Footnote" context="Footnoting"/>
         <RegExpr String="\\(re)?newcommand(?=[^a-zA-Z])" attribute="Keyword" context="NewCommand"/>
         <RegExpr String="\\(e|g|x)?def(?=[^a-zA-Z])" attribute="Keyword" context="DefCommand"/>
+	<RegExpr String="&lt;&lt;.*&gt;&gt;=" attribute="Normal Text" context="NoWeb" />
         <StringDetect String="\(" attribute="Math" context="MathMode" beginRegion="mathMode" />
         <StringDetect String="\[" attribute="Math" context="MathModeEquation" beginRegion="mathMode" />
         <DetectChar char="\" attribute="Keyword" context="ContrSeq"/>
         <StringDetect String="$$" attribute="Math" context="MathModeDisplay" beginRegion="mathMode" />
         <DetectChar char="$" attribute="Math" context="MathMode" beginRegion="mathMode" />
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
         <RegExpr String="%\s*BEGIN.*$" attribute="Region Marker" context="#stay" beginRegion="regionMarker" firstNonSpace="true" />
         <RegExpr String="%\s*END.*$" attribute="Region Marker" context="#stay" endRegion="regionMarker" firstNonSpace="true" />
-        <DetectChar char="%" attribute="Comment" context="Comment"/>
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+      </context>
+
+	<!-- NoWeb -->
+      <context name="NoWeb" attribute="Normal Text" lineEndContext="#stay" >
+	<RegExpr String="^\s*@\s*" attribute="Normal Text" context="#pop" />
       </context>
 
       <!-- LaTeX sectioning commands -->
@@ -57,6 +64,43 @@
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
         <RegExpr String="[a-zA-Z]+\*?" attribute="Structure Keyword Mathmode" context="#pop"/>
         <RegExpr String="[^a-zA-Z]" attribute="Structure Keyword Mathmode" context="#pop" /> 
+      </context>
+
+      <!-- LaTeX Footnote commands -->
+      <context name="Footnoting" attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop">
+        <RegExpr String="\[[^\]]*\]" attribute="Normal Text" context="#stay"/>
+        <DetectChar char=" " attribute="Normal Text" context="#stay"/>
+        <DetectChar char="{" attribute="Normal Text" context="FootnotingInside"/>
+        <DetectChar char="}" attribute="Normal Text" context="#pop"/>
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
+      </context>
+      <context name="FootnotingInside" attribute="Footnote Text" lineEndContext="#stay">
+        <DetectChar char="{" attribute="Normal Text" context="FootnotingInside"/>
+        <DetectChar char="}" attribute="Normal Text" context="#pop"/>
+        <StringDetect String="\(" attribute="Footnote Math" context="FootnotingMathMode" beginRegion="mathMode" />
+        <DetectChar char="\" attribute="Footnote Keyword" context="FootnotingContrSeq"/>
+        <DetectChar char="$" attribute="Footnote Math" context="FootnotingMathMode" beginRegion="mathMode" />
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
+        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+      </context>
+      <context name="FootnotingContrSeq" attribute="Keyword" lineEndContext="#pop">
+         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+        <RegExpr String="[a-zA-Z]+(\+?|\*{0,3})" attribute="Footnote Keyword" context="#pop"/>
+        <RegExpr String="[^a-zA-Z]" attribute="Footnote Keyword" context="#pop" />
+      </context>
+      <context name="FootnotingMathMode" attribute="Footnote Math" lineEndContext="#stay">
+        <StringDetect String="$$" attribute="Error" context="#stay" />
+        <DetectChar char="$" attribute="Footnote Math" context="#pop" endRegion="mathMode" />
+        <Detect2Chars char="\" char1=")" attribute="Footnote Math" context="#pop" endRegion="mathMode" />
+        <Detect2Chars char="\" char1="]" attribute="Error" context="#stay" />
+        <DetectChar char="\" attribute="Footnote Keyword Mathmode" context="FootnotingMathContrSeq"/>
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
+        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+      </context>
+      <context name="FootnotingMathContrSeq" attribute="Footnote Keyword Mathmode" lineEndContext="#pop">
+        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+        <RegExpr String="[a-zA-Z]+\*?" attribute="Footnote Keyword Mathmode" context="#pop"/>
+        <RegExpr String="[^a-zA-Z]" attribute="Footnote Keyword Mathmode" context="#pop" /> 
       </context>
 
       <!-- LaTeX commands \newcommand and \renewcommand -->
@@ -139,6 +183,7 @@
         <RegExpr String="(verbatim|boxedverbatim)" attribute="Environment" context="VerbatimEnv"/>
         <RegExpr String="(equation|displaymath|eqnarray|subeqnarray|math|multline|gather|align|flalign)" attribute="Environment" context="MathEnv"/>
         <RegExpr String="(alignat|xalignat|xxalignat)" attribute="Environment" context="MathEnvParam"/>
+        <RegExpr String="(tabular|supertabular|mpsupertabular|xtabular|mpxtabular|longtable)" attribute="Environment" context="TabEnv"/>
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
         <RegExpr String="[a-zA-Z]" attribute="Environment" context="LatexEnv"/>
         <RegExpr String="\s+" attribute="Error" context="#pop"/>
@@ -228,6 +273,28 @@
         <DetectChar char="}" attribute="Normal Text" context="#pop#pop#pop#pop#pop"  endRegion="block"/>
       </context>
 
+          <!-- environment type 9: tabular -->
+      <context name="TabEnv" attribute="Environment" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop#pop#pop">
+        <DetectChar char="}" attribute="Normal Text" context="Tab"/>
+        <RegExpr String="[a-zA-Z]" attribute="Environment" lookAhead="true" context="#pop"/>
+        <IncludeRules context="EnvCommon" />
+       </context>
+
+      <!-- parse tabular text -->
+      <context name="Tab" attribute="Tab" lineEndContext="#stay">
+	<DetectChar char="&amp;" attribute="Ampersand" context="#stay"/>
+	<RegExpr String="@\{.*\}" minimal="true" attribute="Column Separator" context="#stay"/>
+        <RegExpr String="\\end(?=\s*\{(tabular|supertabular|mpsupertabular|xtabular|mpxtabular|longtable)\*?\})" attribute="Structure"  context="TabFindEnd"/>
+	<IncludeRules context="Normal Text" />
+      </context>
+
+      <!-- end of tabular environment -->
+      <context name="TabFindEnd" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
+        <RegExpr String="\s*\{" attribute="Normal Text" context="#stay"/>
+        <RegExpr String="(tabular|supertabular|mpsupertabular|xtabular|mpxtabular|longtable)\*?" attribute="Environment" context="#stay"/>
+        <DetectChar char="}" attribute="Normal Text" context="#pop#pop#pop#pop#pop" endRegion="block"/>
+      </context>
+
       <!-- math mode: starting with $ or \( -->
       <context name="MathMode" attribute="Math" lineEndContext="#stay">
         <StringDetect String="$$" attribute="Error" context="#stay" />
@@ -315,11 +382,18 @@
       <itemData name="Verbatim" defStyleNum="dsNormal" color="#a08000" selColor="#80D0FF" bold="0" italic="0"/>
       <itemData name="Region Marker" defStyleNum="dsRegionMarker" />
       <itemData name="Bullet" defStyleNum="dsNormal" color="#FF00C4" bold="1" underline="1"/>
+      <itemData name="Ampersand" defStyleNum="dsNormal" color="#002793" bold="1" />
+      <itemData name="Column Separator" defStyleNum="dsNormal" color="#002793" />
       <itemData name="Alert" defStyleNum="dsAlert" />
       <itemData name="Structure Text" defStyleNum="dsNormal" color="#000000" selColor="#FFFFFF" bold="1" italic="0"/>
       <itemData name="Structure Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="1" italic="0"/>
       <itemData name="Structure Math" defStyleNum="dsNormal" color="#00A000" selColor="#FF40FF"  bold="1" italic="0"/>
       <itemData name="Structure Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="1" italic="0"/>
+      <itemData name="Footnote" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="0" italic="0"/>
+      <itemData name="Footnote Text" defStyleNum="dsNormal" color="#000000" selColor="#FFFFFF" bold="0" italic="0"/>
+      <itemData name="Footnote Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="0" italic="0"/>
+      <itemData name="Footnote Math" defStyleNum="dsNormal" color="#00A000" selColor="#FF40FF"  bold="0" italic="0"/>
+      <itemData name="Footnote Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="0" italic="0"/>
      </itemDatas>
   </highlighting>
 

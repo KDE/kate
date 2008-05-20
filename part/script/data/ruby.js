@@ -92,8 +92,7 @@ function testAtEnd(stmt, rx)
   while (res = rx.exec(cnt)) {
     var start = res.index;
     var end = rx.lastIndex;
-    var attr = stmt.attribute(start);
-    if (!isString(attr) && !isComment(attr)) {
+    if (stmt.isCode(start)) {
       if (end == cnt.length)
         return true;
       if (isComment(stmt.attribute(end)))
@@ -105,12 +104,8 @@ function testAtEnd(stmt, rx)
 
 function isStmtContinuing(line)
 {
-  // TODO: Continuing if line ends with / operator, but not /regexp/
-  //       Ignoring / for now, because it's probably far less common
-  //       to have lines ending with division than regexp
-
   var stmt = new Statement(line, line);
-  var rx = /((\+|\-|\*|\=|&&|\|\||\band\b|\bor\b|,)\s*)/g;
+  var rx = /((\+|\-|\*|\/|\=|&&|\|\||\band\b|\bor\b|,)\s*)/g;
 
   return testAtEnd(stmt, rx);
 }
@@ -146,6 +141,15 @@ function Statement(start, end)
       offset -= document.lineLength(line++) + 1;
     }
     return document.attribute(line, offset);
+  }
+
+  // Return document.isCode at the given offset in a statement
+  this.isCode = function(offset) {
+    var line = this.start;
+    while (line < this.end && document.lineLength(line) < offset) {
+      offset -= document.lineLength(line++) + 1;
+    }
+    return document.isCode(line, offset);
   }
 
   this.indent = function() {

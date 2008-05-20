@@ -24,13 +24,8 @@
 -->
 
 <!--
-	TODO:	* Regular expressions spanning over multiple lines
-				work only if newlines are escaped.
-			* "Nested" HERE documents aren't recognized.
-			* Division is detected correctly only, if whitespace
-				is around the "/" operator.
-				E.g.:	detected correctly:				1 / 2
-					"/" interpreted as regex start:		1/2
+	TODO:	* "Nested" HERE documents aren't recognized.
+			* Division after gdl contexts is interpreted as regexp
 -->
 
 <!-- Hold the "language" opening tag on a single line, as mentioned in "language.dtd". -->
@@ -219,37 +214,37 @@
 				<Detect2Chars attribute="Operator" char="." char1="." context="#stay"/>
 				
 				<!-- marks a message (being sent, not defined) -->
-				<RegExpr attribute="Message" String="\.[_a-z][_a-zA-Z0-9]*(\?|\!|\b)" context="#stay"/>
+				<RegExpr attribute="Message" String="\.[_a-z][_a-zA-Z0-9]*(\?|\!|\b)" context="check_div_2"/>
 				
 				<!-- Check for "ASCII code operator". e.g.: ?a -->
-				<RegExpr attribute="Dec" String="\s\?(\\M\-)?(\\C\-)?\\?\S" context="#stay"/>
+				<RegExpr attribute="Dec" String="\s\?(\\M\-)?(\\C\-)?\\?\S" context="check_div_1"/>
 				
 				<keyword attribute="Keyword" String="keywords" context="#stay"/>
-				<keyword attribute="Attribute Definition" String="attribute-definitions"  context="#stay"/>
-				<keyword attribute="Access Control" String="access-control" context="#stay"/>
+				<keyword attribute="Attribute Definition" String="attribute-definitions"  context="check_div_2"/>
+				<keyword attribute="Access Control" String="access-control" context="check_div_2"/>
 				<keyword attribute="Definition" String="definitions"  context="#stay" />
-				<keyword attribute="Pseudo variable" String="pseudo-variables"  context="#stay"/>
-				<keyword attribute="Default globals" String="default-globals" context="#stay"/>
-				<keyword attribute="Kernel methods" String="kernel-methods" context="#stay"/>
+				<keyword attribute="Pseudo variable" String="pseudo-variables"  context="check_div_1"/>
+				<keyword attribute="Default globals" String="default-globals" context="check_div_2"/>
+				<keyword attribute="Kernel methods" String="kernel-methods" context="check_div_2"/>
 				
 				<!-- (global) vars starting with $
 						Match them before $_.
 				-->
-				<RegExpr attribute="Global Variable" String="\$[a-zA-Z_0-9]+" context="#stay"/>
-				<RegExpr attribute="Global Variable" String="\$\-[a-zA-z_]\b" context="#stay"/>
+				<RegExpr attribute="Global Variable" String="\$[a-zA-Z_0-9]+" context="check_div_1"/>
+				<RegExpr attribute="Global Variable" String="\$\-[a-zA-z_]\b" context="check_div_1"/>
 				<!-- special-character globals -->
-				<RegExpr attribute="Default globals" String="\$[\d_*`\!:?'/\\\-\&amp;&quot;]" context="#stay"/>
-				<RegExpr attribute="Global Constant" String="\b[_A-Z]+[A-Z_0-9]+\b" context="#stay"/>
+				<RegExpr attribute="Default globals" String="\$[\d_*`\!:?'/\\\-\&amp;&quot;]" context="check_div_1"/>
+				<RegExpr attribute="Global Constant" String="\b[_A-Z]+[A-Z_0-9]+\b" context="check_div_2"/>
 				<!-- Generally a module or class name like "File", "MyModule_1", .. -->
-				<RegExpr attribute="Constant" String="\b[A-Z]+_*([0-9]|[a-z])[_a-zA-Z0-9]*\b" context="#stay"/>
+				<RegExpr attribute="Constant" String="\b[A-Z]+_*([0-9]|[a-z])[_a-zA-Z0-9]*\b" context="check_div_2"/>
 				
-				<RegExpr attribute="Hex" String="\b\-?0[xX][_0-9a-fA-F]+" context="#stay"/>
-				<RegExpr attribute="Bin" String="\b\-?0[bB][_01]+" context="#stay"/>
-				<RegExpr attribute="Octal" String="\b\-?0[1-7][_0-7]*" context="#stay"/>
-				<RegExpr attribute="Float" String="\b\-?[0-9][0-9_]*\.[0-9][0-9_]*([eE]\-?[1-9][0-9]*(\.[0-9]*)?)?" context="#stay"/>
-				<RegExpr attribute="Dec" String="\b\-?[1-9][0-9_]*\b" context="#stay"/>
-				<Int attribute="Dec" context="#stay"/>
-				<HlCChar attribute="Char" context="#stay"/>
+				<RegExpr attribute="Hex" String="\b\-?0[xX][_0-9a-fA-F]+" context="check_div_1"/>
+				<RegExpr attribute="Bin" String="\b\-?0[bB][_01]+" context="check_div_1"/>
+				<RegExpr attribute="Octal" String="\b\-?0[1-7][_0-7]*" context="check_div_1"/>
+				<RegExpr attribute="Float" String="\b\-?[0-9][0-9_]*\.[0-9][0-9_]*([eE]\-?[1-9][0-9]*(\.[0-9]*)?)?" context="check_div_1"/>
+				<RegExpr attribute="Dec" String="\b\-?[1-9][0-9_]*\b" context="check_div_1"/>
+				<Int attribute="Dec" context="check_div_1"/>
+				<HlCChar attribute="Char" context="check_div_1"/>
 				
 				<!-- Check for =begin before assignment operator. -->
 				<StringDetect attribute="Blockcomment" String="=begin" context="Embedded documentation" beginRegion="comment block" column="0"/>
@@ -267,7 +262,7 @@
 				<DetectChar attribute="Operator" char="." context="#stay"/>
 				<Detect2Chars attribute="Operator" char="&amp;" char1="&amp;" context="#stay"/>
 				<Detect2Chars attribute="Operator" char="|" char1="|" context="#stay"/>
-				<RegExpr attribute="Operator" String="\s[\?\:\%/]\s" context="#stay"/>
+				<RegExpr attribute="Operator" String="\s[\?\:\%]\s" context="#stay"/>
 				<RegExpr attribute="Operator" String="[|&amp;&lt;&gt;\^\+*~\-=]+" context="#stay"/>
 				<!-- regexp hack -->
 				<RegExpr attribute="Operator" String="\s!" context="#stay"/>
@@ -275,7 +270,7 @@
 				<StringDetect attribute="Operator" String="%=" context="#stay" insensitive="0"/>
 				<Detect2Chars attribute="Operator" char=":" char1=":" context="Member Access"/>
 				
-				<RegExpr attribute="Symbol" String=":[a-zA-Z_][a-zA-Z0-9_]*" context="#stay"/>
+				<RegExpr attribute="Symbol" String=":[a-zA-Z_][a-zA-Z0-9_]*" context="check_div_1"/>
 				
 				<DetectChar attribute="String" char="&quot;" context="Quoted String"/>
 				<DetectChar attribute="Raw String" char="'" context="Apostrophed String"/>
@@ -288,12 +283,13 @@
 				<RegExpr attribute="Comment" String="#"  context="Comment Line" firstNonSpace="true"/>
 				<RegExpr attribute="Comment" String="(\b|\s)#"  context="General Comment"/>
 				
-				<RegExpr attribute="Delimiter" String="[\[\]]+"  context="#stay"/>
+				<DetectChar attribute="Delimiter" char="["  context="#stay"/>
+				<DetectChar attribute="Delimiter" char="]"  context="check_div_1"/>
 				<DetectChar attribute="Delimiter" char="{" context="#stay" beginRegion="def block"/>
-				<DetectChar attribute="Delimiter" char="}" context="#stay" endRegion="def block"/>
+				<DetectChar attribute="Delimiter" char="}" context="check_div_1" endRegion="def block"/>
 				
-				<RegExpr attribute="Instance Variable" String="@[a-zA-Z_0-9]+" context="#stay"/>
-				<RegExpr attribute="Class Variable" String="@@[a-zA-Z_0-9]+" context="#stay"/>
+				<RegExpr attribute="Instance Variable" String="@[a-zA-Z_0-9]+" context="check_div_1"/>
+				<RegExpr attribute="Class Variable" String="@@[a-zA-Z_0-9]+" context="check_div_1"/>
 				
 				<!-- handle the different regular expression formats -->
 				<DetectChar attribute="Regular Expression" char="/" context="RegEx 1"/>
@@ -302,8 +298,48 @@
 				<!-- this moves to the next context to separate out the exact nature of the GDL input -->
 				<RegExpr attribute="GDL input" context="find_gdl_input" String="\s*[%](?=[Qqxw]?[^\s])" beginRegion="GdlInput" />
 				
+				<DetectChar attribute="Normal Text" char=")" context="check_div_1"/>
+				<DetectIdentifier attribute="Normal Text" context="check_div_2"/>
+
 			</context>
 			
+			<!-- In the following contexts, a slash character ('/') is a division operator -->
+			<!-- Everywhere else, it's a regular expression delimiter -->
+			
+			<!-- A slash is always a division operator, even if preceeded by whitespace -->
+			<context name="check_div_1" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop" lineEndContext="#pop">
+				<RegExpr attribute="Normal Text" String="\s*" context="#stay"/>
+				<DetectChar attribute="Operator" char="/" context="#pop"/>
+			</context>
+			
+			<!-- Same as check_div_1, but with double pop to exit the surrounding context -->
+			<context name="check_div_1_pop" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop#pop" lineEndContext="#pop#pop">
+				<RegExpr attribute="Normal Text" String="\s*" context="#stay"/>
+				<DetectChar attribute="Operator" char="/" context="#pop#pop"/>
+			</context>
+
+			<!-- A slash is division operator if it's the first character, or if preceeded and followed by whitespace -->
+			<context name="check_div_2" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop" lineEndContext="#pop">
+				<DetectChar attribute="Operator" char="/" context="#pop"/>
+				<RegExpr attribute="Normal Text" String="\s+" context="check_div_2_internal"/>
+			</context>
+			
+			<!-- Internal context used by check_div_2 -->
+			<context name="check_div_2_internal" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop#pop" lineEndContext="#pop#pop">
+				<RegExpr attribute="Operator" String="/(?=\s)" context="#pop#pop"/>
+			</context>
+			
+			<!-- Same as check_div_2, but with double pop to exit the surrounding context -->
+			<context name="check_div_2_pop" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop#pop" lineEndContext="#pop#pop">
+				<DetectChar attribute="Operator" char="/" context="#pop#pop"/>
+				<RegExpr attribute="Normal Text" String="\s+" context="check_div_2_pop_internal"/>
+			</context>
+			
+			<!-- Internal context used by check_div_2_pop -->
+			<context name="check_div_2_pop_internal" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop#pop#pop" lineEndContext="#pop#pop#pop">
+				<RegExpr attribute="Operator" String="/(?=\s)" context="#pop#pop#pop"/>
+			</context>
+
 			<context name="Line Continue" attribute="Normal Text" lineEndContext="#pop">
 				<RegExpr attribute="Keyword" String="(while|until)\b(?!.*\bdo\b)" context="#stay" firstNonSpace="true"/>
 				<RegExpr attribute="Keyword" String="(if|unless)\b" context="#stay" firstNonSpace="true"/>
@@ -311,7 +347,7 @@
 			</context>
 
 			<context name="Find closing block brace" attribute="Normal Text" lineEndContext="#stay">
-				<DetectChar attribute="Operator" char="}" context="#pop" endRegion="def block"/>
+				<DetectChar attribute="Operator" char="}" context="check_div_1_pop" endRegion="def block"/>
 				<IncludeRules context="Normal"/>
 			</context>
 			
@@ -321,14 +357,14 @@
 				<RegExpr attribute="Substitution" String="#@{1,2}" context="Short Subst"/>
 				<Detect2Chars attribute="Substitution" char="#" char1="{" context="Subst"/>
 				<!--HlCChar attribute="Char" context="#pop"/-->
-				<DetectChar char="&quot;" attribute="String" context="#pop"/>
+				<DetectChar char="&quot;" attribute="String" context="check_div_1_pop"/>
 			</context>
 			
 			<context name="Apostrophed String" attribute="Raw String" lineEndContext="#stay">
 				<!-- <HlCChar attribute="Char" context="#pop"/> -->
 				<StringDetect attribute="String" String="\\" context="#stay"/>
 				<RegExpr attribute="String" String="\\\'" context="#stay"/>
-				<DetectChar char="'" attribute="Raw String" context="#pop"/>
+				<DetectChar char="'" attribute="Raw String" context="check_div_1_pop"/>
 			</context>
 			
 			<context name="Command String" attribute="Command" lineEndContext="#stay">
@@ -336,8 +372,8 @@
 				<RegExpr attribute="String" String="\\\`" context="#stay"/>
 				<RegExpr attribute="Substitution" String="#@{1,2}" context="Short Subst"/>
 				<Detect2Chars attribute="Substitution" char="#" char1="{" context="Subst"/>
-				<HlCChar attribute="Char" context="#pop"/>
-				<DetectChar char="`" attribute="Command" context="#pop"/>
+				<HlCChar attribute="Char" context="check_div_1_pop"/>
+				<DetectChar char="`" attribute="Command" context="check_div_1_pop"/>
 			</context>
 			
 			<context name="Embedded documentation" attribute="Comment" lineEndContext="#stay">
@@ -346,10 +382,9 @@
 			
 			<context name="RegEx 1" attribute="Regular Expression" lineEndContext="#stay">
 				<RegExpr attribute="Regular Expression" String="\\\/" context="#stay"/>
-				<RegExpr attribute="Regular Expression" String="[^\\]$" context="#pop"/>
 				<RegExpr attribute="Substitution" String="#@{1,2}" context="Short Subst"/>
 				<Detect2Chars attribute="Substitution" char="#" char1="{" context="Subst"/>
-				<RegExpr attribute="Regular Expression" String="/[uiomxn]*" context="#pop"/>
+				<RegExpr attribute="Regular Expression" String="/[uiomxn]*" context="check_div_1_pop"/>
 			</context>
 			
 			<!-- Substitutions can be nested -->
@@ -368,11 +403,11 @@
 			<!-- This handles access of nested module classes and class methods -->
 			<context name="Member Access" attribute="Member" lineEndContext="#pop">
 				<!-- marks a message (being sent, not defined) -->
-				<RegExpr attribute="Message" String="\.?[_a-z]\w*(\?|\!)?(?=[^\w\d\.\:])" context="#pop"/>
+				<RegExpr attribute="Message" String="\.?[_a-z]\w*(\?|\!)?(?=[^\w\d\.\:])" context="check_div_2_pop"/>
 				<RegExpr attribute="Message" String="\.?[_a-z]\w*(\?|\!)?" context="#stay"/>
-				<RegExpr attribute="Constant" String="[A-Z]+_*(\d|[a-z])\w*(?=[^\w\d\.\:])" context="#pop"/>
+				<RegExpr attribute="Constant" String="[A-Z]+_*(\d|[a-z])\w*(?=[^\w\d\.\:])" context="check_div_2_pop"/>
 				<RegExpr attribute="Constant" String="[A-Z]+_*([0-9]|[a-z])\w*" context="#stay"/>
-				<RegExpr attribute="Constant Value" String="[_A-Z][_A-Z0-9]*(?=[^\w\d\.\:])" context="#pop"/>
+				<RegExpr attribute="Constant Value" String="[_A-Z][_A-Z0-9]*(?=[^\w\d\.\:])" context="check_div_2_pop"/>
 				<RegExpr attribute="Constant Value" String="[_A-Z][_A-Z0-9]*" context="#stay"/>
 				<Detect2Chars attribute="Operator" char=":" char1=":" context="#stay"/>
 				<DetectChar attribute="Member" char="." context="#stay"/>

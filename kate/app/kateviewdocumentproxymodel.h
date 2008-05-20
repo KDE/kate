@@ -20,6 +20,8 @@
 #ifndef KATEVIEWDOCUMENTPROXYMODEL_H
 #define KATEVIEWDOCUMENTPROXYMODEL_H
 
+#include <kconfigbase.h>
+
 #include <QSortFilterProxyModel>
 #include <QModelIndex>
 #include <QItemSelection>
@@ -76,6 +78,9 @@ class KateViewDocumentProxyModel: public QAbstractProxyModel
     void setSortRole( int role );
 
     void sort(); ///< sorts the local row order (m_mapToSource) according to sortRole();
+
+    virtual void readSessionConfig( const KConfigBase *config, const QString & name );
+    virtual void writeSessionConfig( KConfigBase *config, const QString & name );
 
   private:
     QItemSelectionModel *m_selection;

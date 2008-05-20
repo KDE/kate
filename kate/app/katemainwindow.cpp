@@ -175,7 +175,13 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   readOptions();
 
   if (sconfig)
+  {
+    int id = KateApp::self()->mainWindowID (this);
+    m_documentModel->readSessionConfig( sconfig,
+        QString("DocumentModel:MainWindow:%1").arg(id) );
+
     m_viewManager->restoreViewConfiguration (KConfigGroup(sconfig, sgroup) );
+  }
 
   finishRestore ();
 
@@ -873,6 +879,9 @@ void KateMainWindow::saveProperties(KConfigGroup& config)
       }
   }
 
+  m_documentModel->writeSessionConfig( config.config(),
+      QString("DocumentModel:MainWindow:%1").arg(id) );
+
   fileOpenRecent->saveEntries( KConfigGroup(config.config(), "Recent Files" ) );
   m_viewManager->saveViewConfiguration (config);
 }
@@ -888,6 +897,10 @@ void KateMainWindow::readProperties(const KConfigGroup& config)
   KatePluginManager::self()->enableAllPluginsGUI (this, configBase);
 
   finishRestore ();
+
+  int id = KateApp::self()->mainWindowID (this);
+  m_documentModel->readSessionConfig( config.config(),
+      QString("DocumentModel:MainWindow:%1").arg(id) );
 
   fileOpenRecent->loadEntries( KConfigGroup(config.config(), "Recent Files" ) );
   m_viewManager->restoreViewConfiguration (config);

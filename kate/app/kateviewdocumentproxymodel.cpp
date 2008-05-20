@@ -617,4 +617,22 @@ void KateViewDocumentProxyModel::sort()
   emit layoutChanged();
 }
 
+void KateViewDocumentProxyModel::readSessionConfig( const KConfigBase *config, const QString & name ) {
+  KConfigGroup cg( config, name );
+  m_sortRole = cg.readEntry( "SortRole", m_sortRole );
+
+  // Make sure the new order is only applied if file list and map are in sync.
+  QList<int> mapToSource = cg.readEntry( "Order", m_mapToSource );
+  if (mapToSource.count() == m_mapToSource.count()) {
+    m_mapToSource = mapToSource;
+  }
+  sort(); // also reorders m_mapFromSource
+}
+
+void KateViewDocumentProxyModel::writeSessionConfig( KConfigBase *config, const QString & name ) {
+  KConfigGroup cg( config, name );
+  cg.writeEntry( "SortRole", m_sortRole );
+  cg.writeEntry( "Order", m_mapToSource );
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

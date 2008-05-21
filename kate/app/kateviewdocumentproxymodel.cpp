@@ -568,9 +568,6 @@ void KateViewDocumentProxyModel::setSortRole( int role )
 
 void KateViewDocumentProxyModel::sort()
 {
-
-  // wouldn't do anything
-  if ( m_sortRole == CustomOrderRole ) return;
 //   kDebug(13001)<<"sorting"<<m_sortRole<<m_mapToSource;
 
   // we want to maintain selection state

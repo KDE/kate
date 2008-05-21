@@ -3,7 +3,6 @@ Type=Service
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=ktexteditor_timedate
 X-KDE-PluginKeyword=ktexteditor_timedate_config
-X-KDE-FactoryName=ktexteditor_timedate_config
 X-KDE-ParentComponents=ktexteditortimedate
 Name=Format of Time & Date insertion
 Name[af]=Formaat van tyd en datum invoeging

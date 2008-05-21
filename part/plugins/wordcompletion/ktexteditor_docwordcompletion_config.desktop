@@ -4,6 +4,7 @@ X-KDE-ServiceTypes=KCModule
 
 X-KDE-Library=ktexteditor_docwordcompletion
 X-KDE-ParentComponents=ktexteditordocwordcompletion
+X-KDE-PluginKeyword=ktexteditor_docwordcompletion_config
 
 Name=Behavior
 Name[af]=Gedrag

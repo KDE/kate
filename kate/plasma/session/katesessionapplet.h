@@ -44,13 +44,9 @@ public:
     KateSessionApplet(QObject *parent, const QVariantList &args);
     ~KateSessionApplet();
 
-    void paintInterface(QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &rect);
-
     void init();
 
     void constraintsUpdated(Plasma::Constraints constraints);
-    Qt::Orientations expandingDirections() const;
-    QSizeF contentSizeHint() const;
     void initSysTray();
 
     enum SpecificRoles {

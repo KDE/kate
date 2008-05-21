@@ -64,6 +64,7 @@ void KateSessionApplet::init()
     l_layout->setMargin(0);
 
     m_listView= new QTreeView(m_widget);
+    m_listView->setEditTriggers( QAbstractItemView::NoEditTriggers );
     m_listView->setRootIsDecorated(false);
     m_listView->setHeaderHidden(true);
     m_listView->setMouseTracking(true);
@@ -124,36 +125,6 @@ void KateSessionApplet::constraintsUpdated(Plasma::Constraints constraints)
     if (m_icon && constraints & Plasma::SizeConstraint) {
         m_icon->resize(geometry().size());
     }
-}
-
-void KateSessionApplet::paintInterface(QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &rect)
-{
-    Applet::paintInterface(p,option,rect);
-}
-
-Qt::Orientations KateSessionApplet::expandingDirections() const
-{
-    if (formFactor() == Plasma::Horizontal) {
-        return Qt::Vertical;
-    } else {
-        return Qt::Horizontal;
-    }
-}
-
-QSizeF KateSessionApplet::contentSizeHint() const
-{
-    QSizeF sizeHint = geometry().size();
-    switch (formFactor()) {
-    case Plasma::Vertical:
-        sizeHint.setHeight(sizeHint.width());
-        break;
-    case Plasma::Horizontal:
-        sizeHint.setWidth(sizeHint.height());
-        break;
-    default:
-        break;
-    }
-    return sizeHint;
 }
 
 void KateSessionApplet::slotUpdateSessionMenu()

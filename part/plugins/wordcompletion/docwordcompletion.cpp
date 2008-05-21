@@ -662,7 +662,7 @@ void DocWordCompletionPluginView::slotVariableChanged( KTextEditor::Document*,co
 #include "docwordcompletion_config.h"
 K_PLUGIN_FACTORY_DEFINITION(DocWordCompletionFactory,
         registerPlugin<DocWordCompletionConfig>("ktexteditor_docwordcompletion_config");
-        registerPlugin<DocWordCompletionPlugin>();
+        registerPlugin<DocWordCompletionPlugin>("ktexteditor_docwordcompletion");
         )
 K_EXPORT_PLUGIN(DocWordCompletionFactory("ktexteditor_docwordcompletion", "ktexteditor_plugins"))
 

@@ -84,7 +84,7 @@ class DocWordCompletionPlugin
   public:
     explicit DocWordCompletionPlugin( QObject *parent,
                             const QVariantList &args );
-    virtual ~DocWordCompletionPlugin(){kDebug()<<"~DocWordCompletionPlugin";}
+    virtual ~DocWordCompletionPlugin(){ plugin = 0; kDebug()<<"~DocWordCompletionPlugin";}
 
     static DocWordCompletionPlugin *self() { return plugin; }
 

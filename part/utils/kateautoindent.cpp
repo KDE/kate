@@ -248,11 +248,26 @@ void KateAutoIndent::updateConfig ()
 
 bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &range, int change)
 {
+  QList<int> skippedLines;
+
   // loop over all lines given...
   for (int line = range.start().line () < 0 ? 0 : range.start().line ();
        line <= qMin (range.end().line (), doc->lines()-1); ++line)
   {
+    // don't indent empty lines
+    if (doc->line(line).isEmpty())
+    {
+      skippedLines.append (line);
+      continue;
+    }
     doIndent (view, line, change * indentWidth, true, keepExtra);
+  }
+
+  if (skippedLines.count() > range.numberOfLines())
+  {
+    // all lines were empty, so indent them nevertheless
+    foreach (int line, skippedLines)
+      doIndent (view, line, change * indentWidth, true, keepExtra);
   }
 
   return true;

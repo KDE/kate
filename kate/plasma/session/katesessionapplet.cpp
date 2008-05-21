@@ -84,7 +84,7 @@ void KateSessionApplet::init()
 
 }
 
-void KateSessionApplet::constraintsUpdated(Plasma::Constraints constraints)
+void KateSessionApplet::constraintsEvent(Plasma::Constraints constraints)
 {
     // on the panel we don't want a background, and our proxy widget in Planar has one
     setBackgroundHints(NoBackground);

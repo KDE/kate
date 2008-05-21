@@ -46,7 +46,6 @@ public:
 
     void init();
 
-    void constraintsUpdated(Plasma::Constraints constraints);
     void initSysTray();
 
     enum SpecificRoles {
@@ -59,6 +58,7 @@ protected slots:
     void slotUpdateSessionMenu();
 
 protected:
+    void constraintsEvent(Plasma::Constraints constraints);
     void initSessionFiles();
 private:
     Plasma::Dialog *m_widget;

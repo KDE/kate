@@ -19,6 +19,8 @@
 /// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 /// Boston, MA 02110-1301, USA.
 
+#define KDE_DEFAULT_DEBUG_AREA 13050
+
 #include "katescriptmanager.h"
 
 #include <sys/types.h>
@@ -140,7 +142,7 @@ void KateScriptManager::collect(const QString& resourceFile,
     information.baseName = baseName;
     information.name = pairs.take("name");
     if(information.name.isNull()) {
-      std::cerr << "Script value error: No name specified in script meta data: "
+      kDebug() << "Script value error: No name specified in script meta data: "
                 << qPrintable(*fileit) << '\n';
       continue;
     }
@@ -167,7 +169,7 @@ void KateScriptManager::collect(const QString& resourceFile,
         }
         else {
           information.indentLanguages = QStringList() << information.name;
-          std::cerr << "Script value warning: No indent-languages specified for indent "
+          kDebug() << "Script value warning: No indent-languages specified for indent "
                     << "script " << qPrintable(*fileit) << ". Using the name ("
                     << qPrintable(information.name) << ")\n";
         }
@@ -175,7 +177,7 @@ void KateScriptManager::collect(const QString& resourceFile,
         bool convertedToInt;
         int priority = pairs.take("priority").toInt(&convertedToInt);
         if(!convertedToInt) {
-          std::cerr << "Script value warning: Unexpected or no priority value "
+          kDebug() << "Script value warning: Unexpected or no priority value "
                     << "in: " << qPrintable(*fileit) << ". Setting priority to 0\n";
         }
         information.priority = convertedToInt ? priority : 0;
@@ -191,7 +193,7 @@ void KateScriptManager::collect(const QString& resourceFile,
       }
       case Kate::UnknownScript:
       default:
-        std::cerr << "Script value warning: Unknown type ('" << qPrintable(type) << "'): "
+        kDebug() << "Script value warning: Unknown type ('" << qPrintable(type) << "'): "
                   << qPrintable(*fileit) << '\n';
         m_scripts.push_back(new KateScript(*fileit, information));
     }
@@ -201,15 +203,15 @@ void KateScriptManager::collect(const QString& resourceFile,
 
  // XX Test
   if(indenter("Python")) {
-    std::cout << "Python: " << indenter("Python")->global("triggerCharacters").isValid() << "\n";
-    std::cout << "Python: " << indenter("Python")->function("triggerCharacters").isValid() << "\n";
-    std::cout << "Python: " << indenter("Python")->global("blafldsjfklas").isValid() << "\n";
-    std::cout << "Python: " << indenter("Python")->function("indent").isValid() << "\n";
+    kDebug() << "Python: " << indenter("Python")->global("triggerCharacters").isValid() << "\n";
+    kDebug() << "Python: " << indenter("Python")->function("triggerCharacters").isValid() << "\n";
+    kDebug() << "Python: " << indenter("Python")->global("blafldsjfklas").isValid() << "\n";
+    kDebug() << "Python: " << indenter("Python")->function("indent").isValid() << "\n";
   }
   if(indenter("C"))
-    std::cout << "C: " << qPrintable(indenter("C")->url()) << "\n";
+    kDebug() << "C: " << qPrintable(indenter("C")->url()) << "\n";
   if(indenter("lisp"))
-    std::cout << "LISP: " << qPrintable(indenter("Lisp")->url()) << "\n";
+    kDebug() << "LISP: " << qPrintable(indenter("Lisp")->url()) << "\n";
   config.sync();
 }
 
@@ -226,7 +228,7 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
 
   QFile file(QFile::encodeName(url));
   if(!file.open(QIODevice::ReadOnly)) {
-    std::cerr << "Script parse error: Cannot open file " << qPrintable(url) << '\n';
+    kDebug() << "Script parse error: Cannot open file " << qPrintable(url) << '\n';
     return false;
   }
 
@@ -234,7 +236,7 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
   QTextStream ts(&file);
   ts.setCodec("UTF-8");
   if(!ts.readLine().contains("kate-script")) {
-    std::cerr << "Script parse error: No header found in " << qPrintable(url) << '\n';
+    kDebug() << "Script parse error: No header found in " << qPrintable(url) << '\n';
     file.close();
     return false;
   }

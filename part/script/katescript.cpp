@@ -16,6 +16,8 @@
 /// the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 /// Boston, MA 02110-1301, USA.
 
+#define KDE_DEFAULT_DEBUG_AREA 13050
+
 #include "katescript.h"
 #include "katescriptdocument.h"
 #include "katescriptview.h"
@@ -64,7 +66,7 @@ namespace Kate {
         message << context->argument(i).toString();
       }
       // debug in blue to distance from other debug output if necessary
-      std::cerr << "\033[34m" << qPrintable(message.join(" ")) << "\033[0m\n";
+      kDebug() << "\033[34m" << qPrintable(message.join(" ")) << "\033[0m\n";
       return engine->nullValue();
     }
 
@@ -93,13 +95,13 @@ void KateScript::displayBacktrace(const QScriptValue &error, const QString &head
     kDebug(13050) << "KateScript::displayBacktrace: no engine, cannot display error\n";
     return;
   }
-  std::cerr << "\033[31m";
+  kDebug() << "\033[31m";
   if(!header.isNull())
-    std::cerr << qPrintable(header) << ":\n";
+    kDebug() << qPrintable(header) << ":\n";
   if(error.isError())
-    std::cerr << qPrintable(error.toString()) << '\n';
-  std::cerr << qPrintable(m_engine->uncaughtExceptionBacktrace().join("\n"));
-  std::cerr << "\033[0m" << '\n';
+    kDebug() << qPrintable(error.toString()) << '\n';
+  kDebug() << qPrintable(m_engine->uncaughtExceptionBacktrace().join("\n"));
+  kDebug() << "\033[0m" << '\n';
 }
 
 QScriptValue KateScript::global(const QString &name)

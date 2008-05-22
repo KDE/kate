@@ -23,6 +23,8 @@
  *
  */
 
+#define KDE_DEFAULT_DEBUG_AREA 13050
+
 //BEGIN Includes
 #include "test_regression.h"
 
@@ -73,6 +75,7 @@
 #include <QtCore/QEvent>
 
 #include <QtScript/QScriptEngine>
+
 //END Includes
 
 #define BASE_DIR_CONFIG "/.testkateregression"

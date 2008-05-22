@@ -15,6 +15,9 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
+#define KDE_DEFAULT_DEBUG_AREA 13035
+
 #include "expandingdelegate.h"
 
 #include <QtGui/QTextLine>

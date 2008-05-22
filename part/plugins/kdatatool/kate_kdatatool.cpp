@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#define KDE_DEFAULT_DEBUG_AREA 13040
+
 //BEGIN includes
 #include "kate_kdatatool.h"
 #include "kate_kdatatool.moc"

@@ -25,6 +25,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#define KDE_DEFAULT_DEBUG_AREA 13030
+
 #include "kateviewinternal.h"
 #include "kateviewinternal.moc"
 

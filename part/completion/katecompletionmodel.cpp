@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#define KDE_DEFAULT_DEBUG_AREA 13035
+
 #include "katecompletionmodel.h"
 
 #include <QTextEdit>

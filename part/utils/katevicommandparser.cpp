@@ -112,5 +112,5 @@ void KateViCommandParser::reset( )
   m_keys = "";
   m_count = 0;
   m_gettingCount = true;
-  m_findWaitingForChar = true;
+  m_findWaitingForChar = false;
 }

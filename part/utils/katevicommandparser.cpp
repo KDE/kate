@@ -21,14 +21,14 @@
 
 #include <kdebug.h>
 
-KateViCommandParser:: KateViCommandParser(KateView* view)
-: m_view(view)
+KateViCommandParser:: KateViCommandParser( KateView * view )
+: m_view( view )
 {
   // initialise with start configuration
-  reset();
+  reset( );
 }
 
-KateViCommandParser::~KateViCommandParser()
+KateViCommandParser::~KateViCommandParser( )
 {
 }
 
@@ -36,70 +36,76 @@ KateViCommandParser::~KateViCommandParser()
  * parses a key stroke to check if it's a valid (part of) a command
  * @return true if a command is completed, false otherwise
  */
-bool KateViCommandParser::eatKey(QKeyEvent *e)
+bool KateViCommandParser::eatKey( QKeyEvent * e )
 {
-  int keyCode = e->key();
+  int keyCode = e->key( );
 
   // if keyCode is a number
-  if (m_gettingCount && keyCode >= 0x30 && keyCode <= 0x39) {
-    m_count*=10;
-    m_count+= keyCode-0x30;
-    kDebug(13070) << "count: " << m_count;
+  if ( m_gettingCount && keyCode >= 0x30 && keyCode <= 0x39 ) {
+    m_count *= 10;
+    m_count += keyCode-0x30;
+    kDebug( 13070 ) << "count: " << m_count;
 
     return false;
   }
 
   m_gettingCount = false;
 
-  switch (keyCode) {
+  switch ( keyCode ) {
   case Qt::Key_A:
-    if (e->modifiers() == Qt::ShiftModifier)
-      m_view->viEnterInsertModeAppendEOL();
-    else
-      m_view->viEnterInsertModeAppend();
+    if ( e->modifiers( ) == Qt::ShiftModifier ) {
+      m_view->viEnterInsertModeAppendEOL( );
+    } else {
+      m_view->viEnterInsertModeAppend( );
+    }
     break;
   case Qt::Key_H:
-    if (e->modifiers() == Qt::ShiftModifier)
+    if ( e->modifiers( ) == Qt::ShiftModifier ) {
       ;// TODO
-    else
-      m_view->cursorLeft();
+    } else {
+      m_view->cursorLeft( );
+    }
     break;
   case Qt::Key_I:
-    if (e->modifiers() == Qt::ShiftModifier)
+    if ( e->modifiers( ) == Qt::ShiftModifier ) {
       ;// TODO
-    else
-      m_view->viEnterInsertMode();
+    } else {
+      m_view->viEnterInsertMode( );
+    }
     break;
   case Qt::Key_J:
-    if (e->modifiers() == Qt::ShiftModifier)
+    if ( e->modifiers( ) == Qt::ShiftModifier ) {
       ;// TODO
-    else
-      m_view->viLineDown();
+    } else {
+      m_view->viLineDown( );
+    }
     break;
   case Qt::Key_K:
-    if (e->modifiers() == Qt::ShiftModifier)
+    if ( e->modifiers( ) == Qt::ShiftModifier ) {
       ;// TODO
-    else
-      m_view->viLineUp();
+    } else {
+      m_view->viLineUp( );
+    }
     break;
   case Qt::Key_L:
-    if (e->modifiers() == Qt::ShiftModifier)
+    if ( e->modifiers( ) == Qt::ShiftModifier ) {
       ;// TODO
-    else
-      m_view->cursorRight();
+    } else {
+      m_view->cursorRight( );
+    }
   default:
-    reset();
+    reset( );
     return false;
   }
 
-  reset();
+  reset( );
   return true;
 }
 
 /**
  * (re)set to start configuration
  */
-void KateViCommandParser::reset()
+void KateViCommandParser::reset( )
 {
   m_count = 0;
   m_gettingCount = true;

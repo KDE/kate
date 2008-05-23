@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _KATE_VI_COMMAND_PARSER
-#define _KATE_VI_COMMAND_PARSER
+#ifndef KATE_VI_COMMAND_PARSER
+#define KATE_VI_COMMAND_PARSER
 
 #include "kateview.h"
 
@@ -33,14 +33,14 @@
 
 class KateViCommandParser
 {
-public:
-  KateViCommandParser(KateView* view);
-  ~KateViCommandParser();
+  public:
+  KateViCommandParser( KateView * view );
+  ~KateViCommandParser( );
 
-  bool eatKey(QKeyEvent *e);
+  bool eatKey( QKeyEvent * e );
 
-private:
-  void reset();
+  private:
+  void reset( );
 
   QVector<int> m_keys;
   KateView *m_view;

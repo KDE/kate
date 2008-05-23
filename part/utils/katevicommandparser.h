@@ -21,8 +21,8 @@
 #define KATE_VI_COMMAND_PARSER
 
 #include "kateview.h"
+#include "kateviewinternal.h"
 
-#include <QVector>
 #include <QKeyEvent>
 
 /**
@@ -42,10 +42,12 @@ class KateViCommandParser
   private:
   void reset( );
 
-  QVector<int> m_keys;
+  QString m_keys;
   KateView *m_view;
+  KateViewInternal *m_viewInternal;
   unsigned int m_count;
   bool m_gettingCount;
+  bool m_findWaitingForChar;
 };
 
 #endif

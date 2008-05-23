@@ -40,59 +40,61 @@ bool KateViCommandParser::eatKey( QKeyEvent * e )
 {
   int keyCode = e->key( );
 
-  // if keyCode is a number
-  if ( m_gettingCount && keyCode >= 0x30 && keyCode <= 0x39 ) {
+  if ( m_findWaitingForChar ) {
+    reset( );
+    return true;
+  }
+
+  // if keyCode is a number, append a digit to m_count
+  if ( m_gettingCount && keyCode >= Qt::Key_0 && keyCode <= Qt::Key_9 ) {
     m_count *= 10;
-    m_count += keyCode-0x30;
+    m_count += keyCode-Qt::Key_0;
     kDebug( 13070 ) << "count: " << m_count;
 
     return false;
   }
 
-  m_gettingCount = false;
+  if ( m_gettingCount ) {
+    m_gettingCount = false;
+  }
 
-  switch ( keyCode ) {
-  case Qt::Key_A:
-    if ( e->modifiers( ) == Qt::ShiftModifier ) {
-      m_view->viEnterInsertModeAppendEOL( );
-    } else {
-      m_view->viEnterInsertModeAppend( );
-    }
+  char key = ( char )( e->key( ) );
+  if ( e->modifiers( ) != Qt::ShiftModifier ) {
+    key += 0x20;
+  }
+  kDebug( 13070 ) << key;
+
+  // deal with simple one-key commands quick'n'easy
+  switch ( key ) {
+  case 'a':
+    m_view->viEnterInsertModeAppend( );
     break;
-  case Qt::Key_H:
-    if ( e->modifiers( ) == Qt::ShiftModifier ) {
-      ;// TODO
-    } else {
-      m_view->cursorLeft( );
-    }
+  case 'A':
+    m_view->viEnterInsertModeAppendEOL( );
     break;
-  case Qt::Key_I:
-    if ( e->modifiers( ) == Qt::ShiftModifier ) {
-      ;// TODO
-    } else {
-      m_view->viEnterInsertMode( );
-    }
+  case 'f':
+  case 'F':
+  case 't':
+  case 'T':
+    m_findWaitingForChar = true;
+    m_keys.append( key );
+    return false;
     break;
-  case Qt::Key_J:
-    if ( e->modifiers( ) == Qt::ShiftModifier ) {
-      ;// TODO
-    } else {
-      m_view->viLineDown( );
-    }
+  case 'h':
+    m_view->cursorLeft( );
     break;
-  case Qt::Key_K:
-    if ( e->modifiers( ) == Qt::ShiftModifier ) {
-      ;// TODO
-    } else {
-      m_view->viLineUp( );
-    }
+  case 'i':
+    m_view->viEnterInsertMode( );
     break;
-  case Qt::Key_L:
-    if ( e->modifiers( ) == Qt::ShiftModifier ) {
-      ;// TODO
-    } else {
-      m_view->cursorRight( );
-    }
+  case 'j':
+    m_view->viLineDown( );
+    break;
+  case 'k':
+    m_view->viLineUp( );
+    break;
+  case 'l':
+    m_view->cursorRight( );
+    break;
   default:
     reset( );
     return false;
@@ -107,6 +109,8 @@ bool KateViCommandParser::eatKey( QKeyEvent * e )
  */
 void KateViCommandParser::reset( )
 {
+  m_keys = "";
   m_count = 0;
   m_gettingCount = true;
+  m_findWaitingForChar = true;
 }

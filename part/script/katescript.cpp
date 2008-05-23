@@ -74,7 +74,7 @@ namespace Kate {
 }
 
 KateScript::KateScript(const QString &url, const KateScriptInformation &information) :
-    m_loaded(false), m_url(url), m_information(information), m_engine(0)
+    m_loaded(false), m_loadSuccessful(false), m_url(url), m_information(information), m_engine(0)
   , m_document (0), m_view (0)
 {
 }

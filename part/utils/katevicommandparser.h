@@ -23,6 +23,7 @@
 #include "kateview.h"
 
 #include <QVector>
+#include <QKeyEvent>
 
 /**
  * A finite state machine for Kate's vi mode. This class will receive key
@@ -36,11 +37,15 @@ public:
   KateViCommandParser(KateView* view);
   ~KateViCommandParser();
 
-  bool eatKey(int keyCode);
+  bool eatKey(QKeyEvent *e);
 
 private:
-  QVector<int> keys;
+  void reset();
+
+  QVector<int> m_keys;
   KateView *m_view;
+  unsigned int m_count;
+  bool m_gettingCount;
 };
 
 #endif

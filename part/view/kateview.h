@@ -467,6 +467,10 @@ class KateView : public KTextEditor::View,
 
     void viEnterNormalMode();
     void viEnterInsertMode();
+    void viEnterInsertModeAppend();
+    void viEnterInsertModeAppendEOL();
+    void viLineDown();
+    void viLineUp();
 
   // config file / session management functions
   public:

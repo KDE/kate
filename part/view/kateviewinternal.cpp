@@ -2151,7 +2151,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
 
   if (m_view->viInputMode() && m_view->getCurrentViMode() != InsertMode) {
-    m_viCommandParser->eatKey(e->key());
+    m_viCommandParser->eatKey(e);
     return;
   }
 

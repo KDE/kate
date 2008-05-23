@@ -24,19 +24,83 @@
 KateViCommandParser:: KateViCommandParser(KateView* view)
 : m_view(view)
 {
+  // initialise with start configuration
+  reset();
 }
 
 KateViCommandParser::~KateViCommandParser()
 {
 }
 
-bool KateViCommandParser::eatKey(int key)
+/**
+ * parses a key stroke to check if it's a valid (part of) a command
+ * @return true if a command is completed, false otherwise
+ */
+bool KateViCommandParser::eatKey(QKeyEvent *e)
 {
-  kDebug(13070) << "Yum! Key eaten: " << (char)key << "(" << key << ")";
+  int keyCode = e->key();
 
-  // FIXME: temporary hack
-  if (key == Qt::Key_I)
-    m_view->viEnterInsertMode();
+  // if keyCode is a number
+  if (m_gettingCount && keyCode >= 0x30 && keyCode <= 0x39) {
+    m_count*=10;
+    m_count+= keyCode-0x30;
+    kDebug(13070) << "count: " << m_count;
 
-  return false;
+    return false;
+  }
+
+  m_gettingCount = false;
+
+  switch (keyCode) {
+  case Qt::Key_A:
+    if (e->modifiers() == Qt::ShiftModifier)
+      m_view->viEnterInsertModeAppendEOL();
+    else
+      m_view->viEnterInsertModeAppend();
+    break;
+  case Qt::Key_H:
+    if (e->modifiers() == Qt::ShiftModifier)
+      ;// TODO
+    else
+      m_view->cursorLeft();
+    break;
+  case Qt::Key_I:
+    if (e->modifiers() == Qt::ShiftModifier)
+      ;// TODO
+    else
+      m_view->viEnterInsertMode();
+    break;
+  case Qt::Key_J:
+    if (e->modifiers() == Qt::ShiftModifier)
+      ;// TODO
+    else
+      m_view->viLineDown();
+    break;
+  case Qt::Key_K:
+    if (e->modifiers() == Qt::ShiftModifier)
+      ;// TODO
+    else
+      m_view->viLineUp();
+    break;
+  case Qt::Key_L:
+    if (e->modifiers() == Qt::ShiftModifier)
+      ;// TODO
+    else
+      m_view->cursorRight();
+  default:
+    reset();
+    return false;
+  }
+
+  reset();
+  return true;
+}
+
+/**
+ * (re)set to start configuration
+ */
+void KateViCommandParser::reset()
+{
+  m_count = 0;
+  m_gettingCount = true;
 }

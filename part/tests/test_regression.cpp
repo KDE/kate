@@ -23,8 +23,6 @@
  *
  */
 
-#define KDE_DEFAULT_DEBUG_AREA 13050
-
 //BEGIN Includes
 #include "test_regression.h"
 

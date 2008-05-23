@@ -20,8 +20,6 @@
    Boston, MA 02111-13020, USA.
 */
 
-#define KDE_DEFAULT_DEBUG_AREA 13020
-
 //BEGIN includes
 #include "katedocument.h"
 #include "katedocument.moc"

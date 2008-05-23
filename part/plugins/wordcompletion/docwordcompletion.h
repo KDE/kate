@@ -26,8 +26,6 @@
 
 */
 
-#define KDE_DEFAULT_DEBUG_AREA 13040
-
 #ifndef _DocWordCompletionPlugin_h_
 #define _DocWordCompletionPlugin_h_
 

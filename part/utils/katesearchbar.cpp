@@ -18,8 +18,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#define KDE_DEFAULT_DEBUG_AREA 13050
-
 #include "katesearchbar.h"
 #include "kateview.h"
 #include "katedocument.h"

@@ -618,7 +618,7 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
  */
 void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bool force, bool center, bool calledExternally)
 {
-  //kDebug(13030) << "MakeVisible start " << startPos() << " end " << endPos() << " -> request: " << c;// , new start [" << scroll.line << "," << scroll.col << "] lines " << (linesDisplayed() - 1) << " height " << height() << endl;
+  //kDebug(13030) << "MakeVisible start " << startPos() << " end " << endPos() << " -> request: " << c;// , new start [" << scroll.line << "," << scroll.col << "] lines " << (linesDisplayed() - 1) << " height " << height();
     // if the line is in a folded region, unfold all the way up
     //if ( m_doc->foldingTree()->findNodeForLine( c.line )->visible )
     //  kDebug(13030)<<"line ("<<c.line<<") should be visible";

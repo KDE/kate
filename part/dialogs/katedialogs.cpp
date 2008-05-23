@@ -1025,7 +1025,7 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
   }
 
   listData+=QString(data);
-  kDebug(13000)<<QString("CurrentListData: ")<<listData<<endl;
+  kDebug(13000)<<QString("CurrentListData: ")<<listData;
   kDebug(13000)<<QString("Data length: %1").arg(data.size());
   kDebug(13000)<<QString("listData length: %1").arg(listData.length());
   if (data.size()==0)

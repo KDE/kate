@@ -268,6 +268,7 @@ KateViewInternal::~KateViewInternal ()
   qDeleteAll(m_dynamicHighlights);
 
   delete m_imPreedit;
+  delete m_viCommandParser;
 
   //kDebug() << m_watcherCount1 << m_watcherCount3;
 }

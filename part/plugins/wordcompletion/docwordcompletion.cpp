@@ -121,7 +121,7 @@ int DocWordCompletionModel::rowCount ( const QModelIndex & parent ) const
 
 void DocWordCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType)
 {
-  kDebug () << "invoked the complete trash impl...";
+  kDebug( 13040 ) << "invoked the complete trash impl...";
   saveMatches( view, range );
 }
 
@@ -462,7 +462,7 @@ void DocWordCompletionPluginView::complete( bool fw )
 
   if ( d->dcRange.isValid() )
   {
-    //kDebug()<<"CONTINUE "<<d->dcRange;
+    //kDebug( 13040 )<<"CONTINUE "<<d->dcRange;
     // this is a repeted activation
 
     // if we are back to where we started, reset.
@@ -486,7 +486,7 @@ void DocWordCompletionPluginView::complete( bool fw )
   }
   else // new completion, reset all
   {
-    //kDebug()<<"RESET FOR NEW";
+    //kDebug( 13040 )<<"RESET FOR NEW";
     d->dcRange = r;
     d->liRange->setRange( KTextEditor::Range( r.end(), 0 ) );
     d->dcCursor = r.start();
@@ -507,14 +507,14 @@ void DocWordCompletionPluginView::complete( bool fw )
 
   while ( true )
   {
-    //kDebug()<<"SEARCHING FOR "<<d->re.pattern()<<" "<<ln<<" at "<<d->dcCursor;
+    //kDebug( 13040 )<<"SEARCHING FOR "<<d->re.pattern()<<" "<<ln<<" at "<<d->dcCursor;
     pos = fw ?
       d->re.indexIn( ln, d->dcCursor.column() ) :
       d->re.lastIndexIn( ln, d->dcCursor.column() );
 
     if ( pos > -1 ) // we matched a word
     {
-      //kDebug()<<"USABLE MATCH";
+      //kDebug( 13040 )<<"USABLE MATCH";
       QString m = d->re.cap( 1 );
       if ( m != doc->text( *d->liRange ) && (d->dcCursor.line() != d->dcRange.start().line() || pos != d->dcRange.start().column() ) )
       {
@@ -532,7 +532,7 @@ void DocWordCompletionPluginView::complete( bool fw )
       // equal to last one, continue
       else
       {
-        //kDebug()<<"SKIPPING, EQUAL MATCH";
+        //kDebug( 13040 )<<"SKIPPING, EQUAL MATCH";
         d->dcCursor.setColumn( pos ); // for next try
 
         if ( fw )
@@ -563,7 +563,7 @@ void DocWordCompletionPluginView::complete( bool fw )
 
     else  // no match
     {
-      //kDebug()<<"NO MATCH";
+      //kDebug( 13040 )<<"NO MATCH";
       if ( (! fw && d->dcCursor.line() == 0 ) || ( fw && d->dcCursor.line() >= doc->lines() ) )
       {
         KNotification::beep();

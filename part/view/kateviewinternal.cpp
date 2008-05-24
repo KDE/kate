@@ -234,7 +234,7 @@ void KateViewInternal::removeWatcher(KTextEditor::SmartRange* range, KTextEditor
   if (range->watchers().contains(this)) {
     --m_watcherCount1;
     range->removeWatcher(watcher);
-    //kDebug() << *range;
+    //kDebug( 13030 ) << *range;
   }
 
   foreach (KTextEditor::SmartRange* child, range->childRanges())
@@ -243,7 +243,7 @@ void KateViewInternal::removeWatcher(KTextEditor::SmartRange* range, KTextEditor
 
 void KateViewInternal::addWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher)
 {
-  //kDebug() << range << watcher;
+  //kDebug( 13030 ) << range << watcher;
 
   //Q_ASSERT(!range->watchers().contains(watcher));
 
@@ -251,7 +251,7 @@ void KateViewInternal::addWatcher(KTextEditor::SmartRange* range, KTextEditor::S
     range->addWatcher(watcher);
     ++m_watcherCount1;
     Q_ASSERT(range->watchers().contains(watcher));
-    //kDebug() << *range;
+    //kDebug( 13030 ) << *range;
   }
 
   foreach (KTextEditor::SmartRange* child, range->childRanges())
@@ -268,7 +268,7 @@ KateViewInternal::~KateViewInternal ()
   delete m_imPreedit;
   delete m_viCommandParser;
 
-  //kDebug() << m_watcherCount1 << m_watcherCount3;
+  //kDebug( 13030 ) << m_watcherCount1 << m_watcherCount3;
 }
 
 void KateViewInternal::prepareForDynWrapChange()
@@ -2722,7 +2722,7 @@ void KateViewInternal::updateDirty( )
     updateRegion += QRect(0, currentRectStart, width(), currentRectEnd);
 
   if (!updateRegion.isEmpty()) {
-    if (debugPainting) kDebug() << k_funcinfo << "Update dirty region " << updateRegion;
+    if (debugPainting) kDebug( 13030 ) << k_funcinfo << "Update dirty region " << updateRegion;
     update(updateRegion);
   }
 }
@@ -2773,7 +2773,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
     }
     else
     {
-      //kDebug()<<"KateViewInternal::paintEvent(QPaintEvent *e):cache()->viewLine"<<z;
+      //kDebug( 13030 )<<"KateViewInternal::paintEvent(QPaintEvent *e):cache()->viewLine"<<z;
       KateTextLayout& thisLine = cache()->viewLine(z);
 
       if (!thisLine.viewLine() || z == startz) {
@@ -3024,7 +3024,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
     KateSmartCursor endCursor1(startCursor,m_doc);
     endCursor1.advance(text.length(),KTextEditor::SmartCursor::ByCharacter);
     KTextEditor::Cursor endCursor(endCursor1);
-    kDebug()<<startCursor<<"---("<<text.length()<<")---"<<endCursor;
+    kDebug( 13030 )<<startCursor<<"---("<<text.length()<<")---"<<endCursor;
     m_view->setSelection(KTextEditor::Range(startCursor,endCursor));
 
     updateView();
@@ -3323,7 +3323,7 @@ void KateViewInternal::endDynamic( DynamicRangeHL* hl, KateSmartRange* range, KT
 
 void KateViewInternal::updateRange(KateSmartRange* range)
 {
-  //kDebug() << *range;
+  //kDebug( 13030 ) << *range;
   tagRange(*range, true);
   updateDirty();
 }
@@ -3394,7 +3394,7 @@ void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool rea
   int startLine = realCursors ? range.start().line() : toRealCursor(range.start()).line();
   int endLine = realCursors ? range.end().line() : toRealCursor(range.end()).line();
 
-//   kDebug()<<"KateViewInternal::relayoutRange(): startLine:"<<startLine<<" endLine:"<<endLine;
+//   kDebug( 13030 )<<"KateViewInternal::relayoutRange(): startLine:"<<startLine<<" endLine:"<<endLine;
   cache()->relayoutLines(startLine, endLine);
 
   if (!m_smartDirty) {
@@ -3498,7 +3498,7 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
     return;
   }
 
-  //kDebug() << "Event: cursor" << m_cursor << "commit" << e->commitString() << "preedit" << e->preeditString() << "replacement start" << e->replacementStart() << "length" << e->replacementLength();
+  //kDebug( 13030 ) << "Event: cursor" << m_cursor << "commit" << e->commitString() << "preedit" << e->preeditString() << "replacement start" << e->replacementStart() << "length" << e->replacementLength();
 
   if ( m_view->selection() )
     m_view->removeSelectedText();

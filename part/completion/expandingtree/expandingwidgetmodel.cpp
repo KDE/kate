@@ -219,7 +219,7 @@ void ExpandingWidgetModel::rowSelected(const QModelIndex& idx_)
         }
     }
   }else{
-    kDebug() << "ExpandingWidgetModel::rowSelected: Row is already partially expanded";
+    kDebug( 13035 ) << "ExpandingWidgetModel::rowSelected: Row is already partially expanded";
   }
 }
 
@@ -294,7 +294,7 @@ void ExpandingWidgetModel::setExpanded(QModelIndex idx_, bool expanded)
 {
   QModelIndex idx(firstColumn(idx_));
     
-  //kDebug() << "Setting expand-state of row " << idx.row() << " to " << expanded;
+  //kDebug( 13035 ) << "Setting expand-state of row " << idx.row() << " to " << expanded;
   if( !idx.isValid() )
     return;
   
@@ -341,7 +341,7 @@ int ExpandingWidgetModel::basicRowHeight( const QModelIndex& idx_ ) const
     
     ExpandingDelegate* delegate = dynamic_cast<ExpandingDelegate*>( treeView()->itemDelegate(idx) );
     if( !delegate || !idx.isValid() ) {
-    kDebug() << "ExpandingWidgetModel::basicRowHeight: Could not get delegate";
+    kDebug( 13035 ) << "ExpandingWidgetModel::basicRowHeight: Could not get delegate";
     return 15;
     }
     return delegate->basicSizeHint( idx ).height();
@@ -460,7 +460,7 @@ QList<QVariant> mergeCustomHighlighting( int leftSize, const QList<QVariant>& le
       ++it;
       ret << *it;
       if(!(*it).value<QTextFormat>().isValid())
-        kDebug() << "Text-format is invalid";
+        kDebug( 13035 ) << "Text-format is invalid";
       ++it;
     }
   }

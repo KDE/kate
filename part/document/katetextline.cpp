@@ -233,7 +233,7 @@ bool KateTextLine::searchText (uint startCol, uint endCol, const QString &text, 
 {
   int index;
 
-  //kDebug()<<"KateTextLine::searchText()"<<startCol<<"__"<<casesensitive<<"___"<< backwards;
+  //kDebug( 13020 )<<"KateTextLine::searchText()"<<startCol<<"__"<<casesensitive<<"___"<< backwards;
   
   int l = text.length();
 
@@ -249,7 +249,7 @@ bool KateTextLine::searchText (uint startCol, uint endCol, const QString &text, 
     do {
       index = m_text.lastIndexOf( text, col, casesensitive?Qt::CaseSensitive:Qt::CaseInsensitive);
       col--;
-      //kDebug()<<"KateTextLine::searchText()"<<index<<"__"<<col<<"__"<<l+index<<"___"<< startCol<<"__"<<endCol<<"----"<<
+      //kDebug( 13020 )<<"KateTextLine::searchText()"<<index<<"__"<<col<<"__"<<l+index<<"___"<< startCol<<"__"<<endCol<<"----"<<
       //(col>=start_col)<<"---"<<(index >= startCol)<<"---"<<((l + index) <= (int)endCol)<<endl<<text<<endl<<m_text<<endl<<
       //m_text.left(m_text.length()+1-col)<<endl<<(l+index)<<"_"<<index<<"__"<<endCol<<endl;
     } while ( (col>=start_col) && (index >= (int)startCol) && ((l + index) > (int)endCol) );
@@ -304,7 +304,7 @@ bool KateTextLine::searchText (uint startCol, const QRegExp &regexp, uint *found
 
 void KateTextLine::addAttribute (int start, int length, int attribute)
 {
-//  kDebug () << "addAttribute: " << start << " " << length << " " << attribute;
+//  kDebug( 13020 ) << "addAttribute: " << start << " " << length << " " << attribute;
 
   // try to append to previous range
   if ((m_attributesList.size() > 2) && (m_attributesList[m_attributesList.size()-1] == attribute)

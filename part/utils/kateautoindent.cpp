@@ -232,7 +232,7 @@ void KateAutoIndent::setMode (const QString &name)
     // default: none
     m_mode = QString ("none");
   }
-  kDebug() << "mode: " << qPrintable(m_mode) << '\n';
+  kDebug( 13060 ) << "mode: " << qPrintable(m_mode) << '\n';
 }
 
 void KateAutoIndent::updateConfig ()

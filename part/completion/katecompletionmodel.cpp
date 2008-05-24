@@ -84,7 +84,7 @@ void HierarchicalModelHandler::takeRole(const QModelIndex& index) {
     QVariant value = index.data(v.toInt());
     m_roleValues[(CodeCompletionModel::ExtraItemDataRoles)v.toInt()] = value;
   }else{
-    kDebug() << "Did not return valid GroupRole in hierarchical completion-model";
+    kDebug( 13035 ) << "Did not return valid GroupRole in hierarchical completion-model";
   }
 }
 
@@ -391,7 +391,7 @@ QModelIndex KateCompletionModel::index( int row, int column, const QModelIndex &
       return QModelIndex();
     }
 
-    //kDebug() << "Returning index for child " << row << " of group " << g;
+    //kDebug( 13035 ) << "Returning index for child " << row << " of group " << g;
     return createIndex(row, column, g);
   }
 
@@ -400,7 +400,7 @@ QModelIndex KateCompletionModel::index( int row, int column, const QModelIndex &
     return QModelIndex();
   }
 
-  //kDebug() << "Returning index for group " << m_rowTable[row];
+  //kDebug( 13035 ) << "Returning index for group " << m_rowTable[row];
   return createIndex(row, column, 0);
 }
 
@@ -624,7 +624,7 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
     return m_ungrouped;
 
   int groupingAttribute = groupingAttributes(attribute);
-  //kDebug() << attribute << " " << groupingAttribute;
+  //kDebug( 13035 ) << attribute << " " << groupingAttribute;
 
   if (m_groupHash.contains(groupingAttribute))
     if (groupingMethod() & Scope) {
@@ -773,10 +773,10 @@ int KateCompletionModel::rowCount( const QModelIndex & parent ) const
 {
   if (!parent.isValid())
     if (hasGroups()) {
-      //kDebug() << "Returning row count for toplevel " << m_rowTable.count();
+      //kDebug( 13035 ) << "Returning row count for toplevel " << m_rowTable.count();
       return m_rowTable.count();
     } else {
-      //kDebug() << "Returning ungrouped row count for toplevel " << m_ungrouped->rows.count();
+      //kDebug( 13035 ) << "Returning ungrouped row count for toplevel " << m_ungrouped->rows.count();
       return m_ungrouped->rows.count();
     }
 
@@ -786,7 +786,7 @@ int KateCompletionModel::rowCount( const QModelIndex & parent ) const
   if (!g)
     return 0;
 
-  //kDebug() << "Returning row count for group " << g << " as " << g->rows.count();
+  //kDebug( 13035 ) << "Returning row count for group " << g << " as " << g->rows.count();
   return g->rows.count();
 }
 
@@ -858,7 +858,7 @@ void KateCompletionModel::setCurrentCompletion( const QString & completion )
     changeType = Narrow;
   }
 
-  kDebug() << "Old match: " << m_currentMatch << ", new: " << completion << ", type: " << changeType;
+  kDebug( 13035 ) << "Old match: " << m_currentMatch << ", new: " << completion << ", type: " << changeType;
 
   if (!hasGroups())
     changeCompletions(m_ungrouped, completion, changeType);
@@ -1124,7 +1124,7 @@ void KateCompletionModel::addRows( Group * g, QMutableListIterator<ModelRow> & f
     // Group is currently hidden... don't emit begin/endInsertRows.
     //notify = false;
 
-  kDebug() << "Group" << g->title << "addRows" << startRow << "to " << (startRow + newItems.count() - 1);
+  kDebug( 13035 ) << "Group" << g->title << "addRows" << startRow << "to " << (startRow + newItems.count() - 1);
 
   //if (notify)
     beginInsertRows(groupIndex, startRow, startRow + newItems.count() - 1);
@@ -1157,11 +1157,11 @@ void KateCompletionModel::slotModelReset()
 void KateCompletionModel::debugStats()
 {
   if (!hasGroups())
-    kDebug() << "Model groupless, " << m_ungrouped->rows.count() << " items.";
+    kDebug( 13035 ) << "Model groupless, " << m_ungrouped->rows.count() << " items.";
   else {
-    kDebug() << "Model grouped (" << m_rowTable.count() << " groups):";
+    kDebug( 13035 ) << "Model grouped (" << m_rowTable.count() << " groups):";
     foreach (Group* g, m_rowTable)
-      kDebug() << "Group" << g << "count" << g->rows.count();
+      kDebug( 13035 ) << "Group" << g << "count" << g->rows.count();
   }
 }
 
@@ -1263,7 +1263,7 @@ int KateCompletionModel::translateColumn( int sourceColumn ) const
     columnMerge += "] ";
   }
 
-  kDebug() << k_funcinfo << columnMerge;*/
+  kDebug( 13035 ) << k_funcinfo << columnMerge;*/
 
   int c = 0;
   foreach (const QList<int>& list, m_columnMerges) {
@@ -1443,7 +1443,7 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
 {
   int ret = 0;
 
-    //kDebug() << c1 << " c/w " << c2 << " -> " << (model->isSortingReverse() ? ret > 0 : ret < 0) << " (" << ret << ")";
+    //kDebug( 13035 ) << c1 << " c/w " << c2 << " -> " << (model->isSortingReverse() ? ret > 0 : ret < 0) << " (" << ret << ")";
 
   if( model->isSortingByInheritanceDepth() )
     ret = inheritanceDepth - rhs.inheritanceDepth;

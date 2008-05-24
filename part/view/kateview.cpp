@@ -2456,7 +2456,7 @@ QMenu * KateView::defaultContextMenu(QMenu* menu) const
     menu->addActions(popupwidget->actions());
 
   } else {
-    kDebug() << "no ktexteditor_popup container found; populating manually";
+    kDebug( 13030 ) << "no ktexteditor_popup container found; populating manually";
     menu->addAction(m_editUndo);
     menu->addAction(m_editRedo);
     menu->addSeparator();

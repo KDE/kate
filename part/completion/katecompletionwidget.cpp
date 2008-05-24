@@ -129,7 +129,7 @@ void KateCompletionWidget::modelContentChanged() {
   }
 
   if(m_presentationModel->rowCount(QModelIndex()) == 0 && m_argumentHintModel->rowCount(QModelIndex()) == 0) {
-    kDebug() << "hiding because no content";
+    kDebug( 13035 ) << "hiding because no content";
     hide();
     return;
   }
@@ -229,7 +229,7 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
     foreach (KTextEditor::CodeCompletionModel* model, m_sourceModels)
       model->completionInvoked(view(), word, invocationType);
 
-  kDebug () << "msdofjdsoifdsflkdsjf";
+  kDebug( 13035 ) << "msdofjdsoifdsflkdsjf";
   if (model)
     m_presentationModel->setCompletionModel(model);
   else
@@ -328,32 +328,32 @@ void KateCompletionWidget::updateHeight()
   if( baseHeight < 300 ) {
     baseHeight = 300; //Here we enforce a minimum desirable height
     m_expandingAddedHeight = 0;
-//     kDebug() << "Resetting baseHeight and m_expandingAddedHeight";
+//     kDebug( 13035 ) << "Resetting baseHeight and m_expandingAddedHeight";
   }
 
   int newExpandingAddedHeight = 0;
 
-//   kDebug() << "baseHeight: " << baseHeight;
+//   kDebug( 13035 ) << "baseHeight: " << baseHeight;
 
   newExpandingAddedHeight = model()->expandingWidgetsHeight();
 
-//   kDebug() << "new newExpandingAddedHeight: " << newExpandingAddedHeight;
+//   kDebug( 13035 ) << "new newExpandingAddedHeight: " << newExpandingAddedHeight;
 
   int screenBottom = QApplication::desktop()->screenGeometry(view()).bottom();
 
   int bottomPosition = baseHeight + newExpandingAddedHeight + geometry().top();
 //  int targetHeight = baseHeight + newExpandingAddedHeight;
-//   kDebug() << "targetHeight: " << targetHeight;
+//   kDebug( 13035 ) << "targetHeight: " << targetHeight;
 
-//   kDebug() << "screen-bottom: " << screenBottom << " bottomPosition: " << bottomPosition;
+//   kDebug( 13035 ) << "screen-bottom: " << screenBottom << " bottomPosition: " << bottomPosition;
 
   if( bottomPosition > screenBottom-50 ) {
     newExpandingAddedHeight -= bottomPosition - (screenBottom-50);
-//     kDebug() << "Too high, moved bottomPosition to: " << baseHeight + newExpandingAddedHeight + geometry().top() << " changed newExpandingAddedHeight to " << newExpandingAddedHeight;
+//     kDebug( 13035 ) << "Too high, moved bottomPosition to: " << baseHeight + newExpandingAddedHeight + geometry().top() << " changed newExpandingAddedHeight to " << newExpandingAddedHeight;
   }
 
   int finalHeight = baseHeight+newExpandingAddedHeight;
-//   kDebug() << "finalHeight: " << finalHeight;
+//   kDebug( 13035 ) << "finalHeight: " << finalHeight;
   if( finalHeight < 50 ) {
     return;
   }

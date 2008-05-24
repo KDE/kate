@@ -64,7 +64,7 @@ namespace Kate {
         message << context->argument(i).toString();
       }
       // debug in blue to distance from other debug output if necessary
-      kDebug() << "\033[34m" << qPrintable(message.join(" ")) << "\033[0m\n";
+      kDebug( 13050 ) << "\033[34m" << qPrintable(message.join(" ")) << "\033[0m\n";
       return engine->nullValue();
     }
 
@@ -93,13 +93,13 @@ void KateScript::displayBacktrace(const QScriptValue &error, const QString &head
     kDebug(13050) << "KateScript::displayBacktrace: no engine, cannot display error\n";
     return;
   }
-  kDebug() << "\033[31m";
+  kDebug( 13050 ) << "\033[31m";
   if(!header.isNull())
-    kDebug() << qPrintable(header) << ":\n";
+    kDebug( 13050 ) << qPrintable(header) << ":\n";
   if(error.isError())
-    kDebug() << qPrintable(error.toString()) << '\n';
-  kDebug() << qPrintable(m_engine->uncaughtExceptionBacktrace().join("\n"));
-  kDebug() << "\033[0m" << '\n';
+    kDebug( 13050 ) << qPrintable(error.toString()) << '\n';
+  kDebug( 13050 ) << qPrintable(m_engine->uncaughtExceptionBacktrace().join("\n"));
+  kDebug( 13050 ) << "\033[0m" << '\n';
 }
 
 QScriptValue KateScript::global(const QString &name)

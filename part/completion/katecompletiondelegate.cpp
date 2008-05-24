@@ -117,7 +117,7 @@ QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const
       len += text.length();
     }
 
-    //kDebug() << "About to highlight with mode " << highlightMethod << " text [" << thisLine->string() << "]";
+    //kDebug( 13035 ) << "About to highlight with mode " << highlightMethod << " text [" << thisLine->string() << "]";
 
     if (highlightMethod & KTextEditor::CodeCompletionModel::InternalHighlighting) {
       KateTextLine::Ptr previousLine;

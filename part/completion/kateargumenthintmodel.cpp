@@ -69,7 +69,7 @@ KateArgumentHintModel::KateArgumentHintModel( KateCompletionWidget* parent ) : E
 
 QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) const {
   if( index.row() <  0 || index.row() >= m_rows.count() ) {
-    //kDebug() << "KateArgumentHintModel::data: index out of bound: " << index.row() << " total rows: " << m_rows.count();
+    //kDebug( 13035 ) << "KateArgumentHintModel::data: index out of bound: " << index.row() << " total rows: " << m_rows.count();
     return QVariant();
   }
 
@@ -87,13 +87,13 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
   }
 
   if( m_rows[index.row()] <  0 || m_rows[index.row()] >= group()->rows.count() ) {
-    kDebug() << "KateArgumentHintModel::data: index out of bound: " << m_rows[index.row()] << " total rows: " << group()->rows.count();
+    kDebug( 13035 ) << "KateArgumentHintModel::data: index out of bound: " << m_rows[index.row()] << " total rows: " << group()->rows.count();
     return QVariant();
   }
   
   KateCompletionModel::ModelRow source = group()->rows[m_rows[index.row()]];
   if( !source.first ) {
-    kDebug() << "KateArgumentHintModel::data: Row does not exist in source";
+    kDebug( 13035 ) << "KateArgumentHintModel::data: Row does not exist in source";
     return QVariant();
   }
 
@@ -118,7 +118,7 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
   QModelIndex  sourceIndex = source.second.sibling(source.second.row(), index.column());
  
   if( !sourceIndex.isValid() ) {
-    kDebug() << "KateArgumentHintModel::data: Source-index is not valid";
+    kDebug( 13035 ) << "KateArgumentHintModel::data: Source-index is not valid";
     return QVariant();
   }
 

@@ -39,7 +39,7 @@ const QString &KateIndentScript::triggerCharacters()
   
   m_triggerCharacters = global("triggerCharacters").toString();
 
-  kDebug() << "trigger chars: '" << m_triggerCharacters << "'";
+  kDebug( 13050 ) << "trigger chars: '" << m_triggerCharacters << "'";
 
   return m_triggerCharacters;
 }

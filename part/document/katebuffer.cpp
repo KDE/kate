@@ -851,15 +851,15 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     m_highlight->doHighlight (prevLine.data(), textLine.data(), foldingList, ctxChanged);
 
     // debug stuff
-    //kDebug () << "current line to hl: " << current_line + buf->startLine();
-    //kDebug () << "text length: " << textLine->length() << " attribute list size: " << textLine->attributesList().size();
+    //kDebug( 13020 ) << "current line to hl: " << current_line + buf->startLine();
+    //kDebug( 13020 ) << "text length: " << textLine->length() << " attribute list size: " << textLine->attributesList().size();
     /*
     const QVector<int> &ml (textLine->attributesList());
     for (int i=2; i < ml.size(); i+=3)
     {
-      kDebug () << "start: " << ml[i-2] << " len: " << ml[i-1] << " at: " << ml[i] << " ";
+      kDebug( 13020 ) << "start: " << ml[i-2] << " len: " << ml[i-1] << " at: " << ml[i] << " ";
     }
-    kDebug ();
+    kDebug( 13020 );
 */
     //
     // indentation sensitive folding

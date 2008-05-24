@@ -62,7 +62,7 @@ int KateTextLayout::xOffset() const
 
 void KateTextLayout::debugOutput() const
 {
-  kDebug() << "KateTextLayout: " << m_lineLayout << " valid " << isValid() << " line " << m_lineLayout->line() << " (" << line() << ") cols [" << startCol() << " -> " << endCol() << "] x [" << startX() << " -> " << endX() << " off " << m_lineLayout->shiftX() << "] wrap " << wrap();
+  kDebug( 13033 ) << "KateTextLayout: " << m_lineLayout << " valid " << isValid() << " line " << m_lineLayout->line() << " (" << line() << ") cols [" << startCol() << " -> " << endCol() << "] x [" << startX() << " -> " << endX() << " off " << m_lineLayout->shiftX() << "] wrap " << wrap();
 }
 
 bool operator> (const KateTextLayout& r, const KTextEditor::Cursor& c)

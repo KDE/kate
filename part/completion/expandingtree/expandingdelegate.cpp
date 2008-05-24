@@ -51,7 +51,7 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
   option.decorationAlignment = m_cachedAlignment;
   option.displayAlignment = m_cachedAlignment;
   
-  //kDebug() << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected);
+  //kDebug( 13035 ) << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected);
 
   m_cachedHighlights.clear();
 
@@ -61,9 +61,9 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
   m_currentColumnStart = 0;
   m_cachedHighlights = createHighlighting(index, option);
 
-  /*kDebug() << "Highlights for line:";
+  /*kDebug( 13035 ) << "Highlights for line:";
   foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
-    kDebug() << fr.start << " len " << fr.length << " format ";*/
+    kDebug( 13035 ) << fr.start << " len " << fr.length << " format ";*/
 
   QStyledItemDelegate::paint(painter, option, index);
 }
@@ -127,7 +127,7 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
     format.length = m_cachedHighlights[i].length;
     format.format = m_cachedHighlights[i].format;
 
-/*    kDebug() << "using highlight for " << format.start << " len " << format.length;*/
+/*    kDebug( 13035 ) << "using highlight for " << format.start << " len " << format.length;*/
     
     additionalFormats.append(format);
   }
@@ -142,9 +142,9 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
     additionalFormats.append(format);
   }
 
-  /*kDebug() << "Highlights for text [" << text << "] col start " << m_currentColumnStart << ":";
+  /*kDebug( 13035 ) << "Highlights for text [" << text << "] col start " << m_currentColumnStart << ":";
   foreach (const QTextLayout::FormatRange& fr, additionalFormats)
-    kDebug() << fr.start << " len " << fr.length << "foreground" << fr.format.foreground() << "background" << fr.format.background();*/
+    kDebug( 13035 ) << fr.start << " len " << fr.length << "foreground" << fr.format.foreground() << "background" << fr.format.background();*/
 
   layout.setAdditionalFormats(additionalFormats);
 

@@ -129,7 +129,7 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
       if( s.width() > columnSize[a] && s.width() < 2000 )
         columnSize[a] = s.width();
       else if( s.width() > 2000 )
-        kDebug() << "got invalid size-hint of width " << s.width();
+        kDebug( 13035 ) << "got invalid size-hint of width " << s.width();
     }
 
     QModelIndex oldCurrent = current;
@@ -208,14 +208,14 @@ void KateCompletionTree::resizeColumns(bool fromResizeEvent, bool firstShow)
 
   int targetWidth = qMax(100, newMinWidth);
 
-  //kDebug() << "New min width: " << minWidth << " Old min: " << minimumWidth() << " width " << width();
+  //kDebug( 13035 ) << "New min width: " << minWidth << " Old min: " << minimumWidth() << " width " << width();
   setMinimumWidth(targetWidth);
 
   if (!fromResizeEvent && (firstShow || oldIndentWidth != newIndentWidth))
   {
     //Never allow a completion-widget to be wider than 2/3 of the screen
     int newWidth = qMin(maxWidth, targetWidth); 
-    //kDebug() << "fromResize " << fromResizeEvent << " indexOfName " << modelIndexOfName << " oldI " << oldIndentWidth << " newI " << newIndentWidth << " minw " << minWidth << " w " << widget()->width() << " newW " << newWidth;
+    //kDebug( 13035 ) << "fromResize " << fromResizeEvent << " indexOfName " << modelIndexOfName << " oldI " << oldIndentWidth << " newI " << newIndentWidth << " minw " << minWidth << " w " << widget()->width() << " newW " << newWidth;
     widget()->resize(newWidth + (verticalScrollBar()->isVisible() ? scrollBarWidth : 0), widget()->height());
   }
 

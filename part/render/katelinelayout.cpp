@@ -204,7 +204,7 @@ bool KateLineLayout::isOutsideDocument( ) const
 
 void KateLineLayout::debugOutput() const
 {
-  kDebug() << "KateLineLayout: " << this << " valid " << isValid() << " line " << line() << " length " << length() << " width " << width() << " viewLineCount " << viewLineCount();
+  kDebug( 13033 ) << "KateLineLayout: " << this << " valid " << isValid() << " line " << line() << " length " << length() << " width " << width() << " viewLineCount " << viewLineCount();
 }
 
 int KateLineLayout::viewLineForColumn( int column ) const

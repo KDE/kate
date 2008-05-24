@@ -87,7 +87,7 @@
 // #define FAST_DEBUG_ENABLE
 
 #ifdef FAST_DEBUG_ENABLE
-# define FAST_DEBUG(x) (kDebug() << x)
+# define FAST_DEBUG(x) (kDebug( 13020 ) << x)
 #else
 # define FAST_DEBUG(x)
 #endif
@@ -3560,8 +3560,8 @@ bool KateDocument::saveFile()
     KUrl u( url() );
     u.setFileName( config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
 
-    kDebug () << "backup src file name: " << url();
-    kDebug () << "backup dst file name: " << u;
+    kDebug( 13020 ) << "backup src file name: " << url();
+    kDebug( 13020 ) << "backup dst file name: " << u;
 
     // handle the backup...
     bool backupSuccess = false;
@@ -3591,7 +3591,7 @@ bool KateDocument::saveFile()
       KIO::UDSEntry fentry;
       if (KIO::NetAccess::stat (url(), fentry, kapp->activeWindow()))
       {
-        kDebug () << "stating succesfull: " << url();
+        kDebug( 13020 ) << "stating succesfull: " << url();
         KFileItem item (fentry, url());
         perms = item.permissions();
 

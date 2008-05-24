@@ -140,7 +140,7 @@ void KateScriptManager::collect(const QString& resourceFile,
     information.baseName = baseName;
     information.name = pairs.take("name");
     if(information.name.isNull()) {
-      kDebug() << "Script value error: No name specified in script meta data: "
+      kDebug( 13050 ) << "Script value error: No name specified in script meta data: "
                 << qPrintable(*fileit) << '\n';
       continue;
     }
@@ -167,7 +167,7 @@ void KateScriptManager::collect(const QString& resourceFile,
         }
         else {
           information.indentLanguages = QStringList() << information.name;
-          kDebug() << "Script value warning: No indent-languages specified for indent "
+          kDebug( 13050 ) << "Script value warning: No indent-languages specified for indent "
                     << "script " << qPrintable(*fileit) << ". Using the name ("
                     << qPrintable(information.name) << ")\n";
         }
@@ -175,7 +175,7 @@ void KateScriptManager::collect(const QString& resourceFile,
         bool convertedToInt;
         int priority = pairs.take("priority").toInt(&convertedToInt);
         if(!convertedToInt) {
-          kDebug() << "Script value warning: Unexpected or no priority value "
+          kDebug( 13050 ) << "Script value warning: Unexpected or no priority value "
                     << "in: " << qPrintable(*fileit) << ". Setting priority to 0\n";
         }
         information.priority = convertedToInt ? priority : 0;
@@ -191,7 +191,7 @@ void KateScriptManager::collect(const QString& resourceFile,
       }
       case Kate::UnknownScript:
       default:
-        kDebug() << "Script value warning: Unknown type ('" << qPrintable(type) << "'): "
+        kDebug( 13050 ) << "Script value warning: Unknown type ('" << qPrintable(type) << "'): "
                   << qPrintable(*fileit) << '\n';
         m_scripts.push_back(new KateScript(*fileit, information));
     }
@@ -201,15 +201,15 @@ void KateScriptManager::collect(const QString& resourceFile,
 
  // XX Test
   if(indenter("Python")) {
-    kDebug() << "Python: " << indenter("Python")->global("triggerCharacters").isValid() << "\n";
-    kDebug() << "Python: " << indenter("Python")->function("triggerCharacters").isValid() << "\n";
-    kDebug() << "Python: " << indenter("Python")->global("blafldsjfklas").isValid() << "\n";
-    kDebug() << "Python: " << indenter("Python")->function("indent").isValid() << "\n";
+    kDebug( 13050 ) << "Python: " << indenter("Python")->global("triggerCharacters").isValid() << "\n";
+    kDebug( 13050 ) << "Python: " << indenter("Python")->function("triggerCharacters").isValid() << "\n";
+    kDebug( 13050 ) << "Python: " << indenter("Python")->global("blafldsjfklas").isValid() << "\n";
+    kDebug( 13050 ) << "Python: " << indenter("Python")->function("indent").isValid() << "\n";
   }
   if(indenter("C"))
-    kDebug() << "C: " << qPrintable(indenter("C")->url()) << "\n";
+    kDebug( 13050 ) << "C: " << qPrintable(indenter("C")->url()) << "\n";
   if(indenter("lisp"))
-    kDebug() << "LISP: " << qPrintable(indenter("Lisp")->url()) << "\n";
+    kDebug( 13050 ) << "LISP: " << qPrintable(indenter("Lisp")->url()) << "\n";
   config.sync();
 }
 
@@ -226,7 +226,7 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
 
   QFile file(QFile::encodeName(url));
   if(!file.open(QIODevice::ReadOnly)) {
-    kDebug() << "Script parse error: Cannot open file " << qPrintable(url) << '\n';
+    kDebug( 13050 ) << "Script parse error: Cannot open file " << qPrintable(url) << '\n';
     return false;
   }
 
@@ -234,7 +234,7 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
   QTextStream ts(&file);
   ts.setCodec("UTF-8");
   if(!ts.readLine().contains("kate-script")) {
-    kDebug() << "Script parse error: No header found in " << qPrintable(url) << '\n';
+    kDebug( 13050 ) << "Script parse error: No header found in " << qPrintable(url) << '\n';
     file.close();
     return false;
   }

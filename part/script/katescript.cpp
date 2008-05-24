@@ -31,8 +31,6 @@
 #include <kdebug.h>
 #include <klocale.h>
 
-#include <iostream>
-
 /**
  * metatype register
  */

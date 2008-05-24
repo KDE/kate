@@ -34,8 +34,6 @@
 #include <kdebug.h>
 #include <kmenu.h>
 
-#include <iostream>
-
 #include <cctype>
 
 //BEGIN KateAutoIndent

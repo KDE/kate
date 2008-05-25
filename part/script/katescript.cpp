@@ -22,6 +22,8 @@
 #include "kateview.h"
 #include "katedocument.h"
 
+#include <iostream>
+
 #include <QFile>
 
 #include <QScriptEngine>
@@ -88,16 +90,16 @@ KateScript::~KateScript()
 void KateScript::displayBacktrace(const QScriptValue &error, const QString &header)
 {
   if(!m_engine) {
-    kDebug(13050) << "KateScript::displayBacktrace: no engine, cannot display error\n";
+    std::cerr << "KateScript::displayBacktrace: no engine, cannot display error\n";
     return;
   }
   kDebug( 13050 ) << "\033[31m";
   if(!header.isNull())
-    kDebug( 13050 ) << qPrintable(header) << ":\n";
+    std::cerr << qPrintable(header) << ":\n";
   if(error.isError())
-    kDebug( 13050 ) << qPrintable(error.toString()) << '\n';
-  kDebug( 13050 ) << qPrintable(m_engine->uncaughtExceptionBacktrace().join("\n"));
-  kDebug( 13050 ) << "\033[0m" << '\n';
+    std::cerr << qPrintable(error.toString()) << '\n';
+    std::cerr << qPrintable(m_engine->uncaughtExceptionBacktrace().join("\n"));
+    std::cerr << "\033[0m" << '\n';
 }
 
 QScriptValue KateScript::global(const QString &name)

@@ -46,7 +46,6 @@ public:
 
     void init();
 
-    void initSysTray();
 
     enum SpecificRoles {
         Index = Qt::UserRole+1
@@ -58,7 +57,7 @@ protected slots:
     void slotUpdateSessionMenu();
 
 protected:
-    void constraintsEvent(Plasma::Constraints constraints);
+    void constraintsUpdated(Plasma::Constraints constraints);
     void initSessionFiles();
 private:
     Plasma::Dialog *m_widget;
@@ -68,7 +67,7 @@ private:
     QGraphicsLinearLayout *m_layout;
     QStandardItemModel *m_kateModel;
     QStringList m_sessions;
-
+    bool m_closePopup;
 };
 
 K_EXPORT_PLASMA_APPLET(sessionapplet, KateSessionApplet )

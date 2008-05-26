@@ -104,6 +104,11 @@ function testAtEnd(stmt, rx)
 
 function isStmtContinuing(line)
 {
+  // Is there an open parentesis?
+  var anch = lastAnchor(line+1);
+  if (anch.line >= 0 && (anch.ch == '(' || anch.ch == '['))
+    return true;
+
   var stmt = new Statement(line, line);
   var rx = /((\+|\-|\*|\/|\=|&&|\|\||\band\b|\bor\b|,)\s*)/g;
 
@@ -233,6 +238,39 @@ function isValidTrigger(line, ch)
   return false;
 }
 
+// Helper function to compare two KTextEditor::Cursor objects.
+// Returns 0 if equal, 1 if ca > cb, -1 if ca < cb
+function compare(ca, cb)
+{
+  if (ca.line == cb.line) {
+    if (ca.column == cb.column)
+      return 0;
+    else
+      return (ca.column > cb.column) ? 1 : -1;
+  }
+  return (ca.line > cb.line) ? 1 : -1;
+}
+
+// Find the last open bracket before the current line.
+// Result is a KTextEditor::Cursor object, with an extra attribute, 'ch'
+// containing the type of bracket.
+function lastAnchor(line)
+{
+  var anch = document.anchor(line, 0, '(');
+  anch.ch = '(';
+  var tmp1 = document.anchor(line, 0, '{');
+  tmp1.ch = '{';
+  var tmp2 = document.anchor(line, 0, '[');
+  tmp2.ch = '[';
+
+  if (compare(tmp1, anch) == 1)
+    anch = tmp1;
+  if (compare(tmp2, anch) == 1)
+    anch = tmp2;
+
+  return anch;
+}
+
 // indent gets three arguments: line, indentwidth in spaces,
 // typed character indent
 function indent(line, indentWidth, ch)
@@ -246,6 +284,18 @@ function indent(line, indentWidth, ch)
 
   var prevStmtCnt = prevStmt.content();
   var prevStmtInd = prevStmt.indent();
+
+  var anch = lastAnchor(line);
+  if (anch.line >= 0) {
+    var hasComma = testAtEnd(prevStmt, /,\s*/g);
+    // TODO Make helper functions to test these conditions:
+    if (anch.ch != '{' && anch.column < document.lastColumn(anch.line) && !isCommentAttr(anch.line, document.nextNonSpaceColumn(anch.line, anch.column))) {
+      // TODO This is alignment, should force using spaces instead of tabs:
+      return document.toVirtualColumn(anch.line, anch.column) + (hasComma ? 1 : 0);
+    } else {
+      return document.firstVirtualColumn(anch.line) + ((anch.line == prevStmt.end || hasComma) ? indentWidth : 0);
+    }
+  }
 
   // Handle indenting of multiline statements.
   // Manually indenting to be able to force spaces.

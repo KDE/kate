@@ -45,10 +45,10 @@ class KateViNormalMode {
     void commandCursorDown();
     void commandCursorUp();
 
-    void commandFindChar( char c );
-    void commandFindCharBackwards( char c );
-    void commandToChar( char c );
-    void commandToCharBackwards( char c );
+    void commandFindChar( QChar c );
+    void commandFindCharBackwards( QChar c );
+    void commandToChar( QChar c );
+    void commandToCharBackwards( QChar c );
 
   private:
     void reset();

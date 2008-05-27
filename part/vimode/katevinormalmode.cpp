@@ -42,15 +42,14 @@ KateViNormalMode::~KateViNormalMode()
 bool KateViNormalMode::handleKeypress( QKeyEvent *e )
 {
   int keyCode = e->key();
+  QString text = e->text();
 
-  if ( keyCode > 255 ) {
+  // don't act on ctrl/alt/meta keypresses
+  if ( text.isEmpty() ) {
     return false;
   }
 
-  char key = ( char )( keyCode );
-  if ( e->modifiers() != Qt::ShiftModifier ) {
-    key += 0x20;
-  }
+  QChar key = text.at( 0 );
   kDebug( 13070 ) << key << "(" << keyCode << ")";
 
 
@@ -89,7 +88,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   }
 
   // deal with simple one-key commands quick'n'easy
-  switch ( key ) {
+  switch ( key.toAscii() ) {
   case 'a':
     enterInsertModeAppend();
     break;
@@ -221,7 +220,7 @@ void KateViNormalMode::commandCursorRight()
   //m_viewInternal->repaint();
 }
 
-void KateViNormalMode::commandFindChar( char c )
+void KateViNormalMode::commandFindChar( QChar c )
 {
   KTextEditor::Cursor cursor ( m_view->cursorPositionVirtual() );
   QString line = getLine();
@@ -233,7 +232,7 @@ void KateViNormalMode::commandFindChar( char c )
   }
 }
 
-void KateViNormalMode::commandFindCharBackwards( char c )
+void KateViNormalMode::commandFindCharBackwards( QChar c )
 {
   KTextEditor::Cursor cursor ( m_view->cursorPositionVirtual() );
   QString line = getLine();
@@ -252,7 +251,7 @@ void KateViNormalMode::commandFindCharBackwards( char c )
   }
 }
 
-void KateViNormalMode::commandToChar( char c )
+void KateViNormalMode::commandToChar( QChar c )
 {
   KTextEditor::Cursor cursor ( m_view->cursorPositionVirtual() );
   QString line = getLine();
@@ -264,7 +263,7 @@ void KateViNormalMode::commandToChar( char c )
   }
 }
 
-void KateViNormalMode::commandToCharBackwards( char c )
+void KateViNormalMode::commandToCharBackwards( QChar c )
 {
   KTextEditor::Cursor cursor ( m_view->cursorPositionVirtual() );
   QString line = getLine();

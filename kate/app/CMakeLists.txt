@@ -58,5 +58,5 @@ else (WIN32)
     target_link_libraries( kate kdeinit_kate )
 endif (WIN32)
 
-install(TARGETS kate DESTINATION ${BIN_INSTALL_DIR})
+install(TARGETS kate ${INSTALL_TARGETS_DEFAULT_ARGS})
 

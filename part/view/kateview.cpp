@@ -2494,49 +2494,6 @@ void KateView::viEnterNormalMode( )
   emit viewEditModeChanged(this,viewEditMode());
 }
 
-void KateView::viEnterInsertMode( )
-{
-  changeViMode(InsertMode);
-  m_viewInternal->repaint ();
-
-  m_editActions->addAssociatedWidget(m_viewInternal);
-
-  emit viewModeChanged(this);
-  emit viewEditModeChanged(this,viewEditMode());
-}
-
-void KateView::viEnterInsertModeAppend( )
-{
-  changeViMode(InsertMode);
-  m_viewInternal->cursorRight();
-  m_viewInternal->repaint ();
-
-  emit viewModeChanged(this);
-  emit viewEditModeChanged(this,viewEditMode());
-}
-
-void KateView::viEnterInsertModeAppendEOL( )
-{
-  changeViMode(InsertMode);
-  m_viewInternal->end();
-  //m_viewInternal->repaint ();
-
-  emit viewModeChanged(this);
-  emit viewEditModeChanged(this,viewEditMode());
-}
-
-void KateView::viLineDown( )
-{
-  m_viewInternal->cursorDown();
-  //m_viewInternal->repaint ();
-}
-
-void KateView::viLineUp( )
-{
-  m_viewInternal->cursorUp();
-  //m_viewInternal->repaint ();
-}
-
 // BEGIN ConfigInterface stuff
 QStringList KateView::configKeys() const
 {

@@ -197,8 +197,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   m_dragInfo.state = diNone;
 
   if ( m_view->config( )->viInputMode( ) ) {
-    kDebug( 13070 ) << "Vi Input Mode enabled, creating a KateViCommandParser instance";
-    m_viCommandParser = new KateViCommandParser( m_view );
+    kDebug( 13070 ) << "Vi Input Mode enabled, creating a KateViNormalMode instance";
+    m_viCommandParser = new KateViNormalMode( m_view, this );
   }
 
   // timers
@@ -2150,8 +2150,8 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   // Note: AND'ing with <Shift> is a quick hack to fix Key_Enter
   const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
 
-  if (m_view->viInputMode() && m_view->getCurrentViMode() != InsertMode) {
-    m_viCommandParser->eatKey(e);
+  if ( m_view->viInputMode() && m_view->getCurrentViMode() != InsertMode ) {
+    m_viCommandParser->handleKeypress( e );
     return;
   }
 

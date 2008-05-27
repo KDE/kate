@@ -99,6 +99,7 @@ class KateView : public KTextEditor::View,
     friend class KateViewInternal;
     friend class KateIconBorder;
     friend class KateSearchBar;
+    friend class KateViNormalMode;
 
   public:
     KateView( KateDocument* doc, QWidget* parent );
@@ -466,11 +467,6 @@ class KateView : public KTextEditor::View,
     void gotoLine();
 
     void viEnterNormalMode();
-    void viEnterInsertMode();
-    void viEnterInsertModeAppend();
-    void viEnterInsertModeAppendEOL();
-    void viLineDown();
-    void viLineUp();
 
   // config file / session management functions
   public:

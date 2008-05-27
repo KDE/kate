@@ -104,7 +104,7 @@ view/kateviewhelpers.cpp
 
 # vi input mode
 
-vimode/katevicommandparser.cpp
+vimode/katevinormalmode.cpp
 
 # generic stuff, unsorted...
 utils/katesearchbar.cpp

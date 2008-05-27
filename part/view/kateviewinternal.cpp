@@ -99,7 +99,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_smartDirty(false)
   , m_viInputMode(false)
   , m_currentViMode(NormalMode)
-  , m_viCommandParser(0)
+  , m_viNormalMode(0)
 {
   m_watcherCount1 = 0;
   m_watcherCount3 = 0;
@@ -196,11 +196,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   m_dragInfo.state = diNone;
 
-  if ( m_view->config( )->viInputMode( ) ) {
-    kDebug( 13070 ) << "Vi Input Mode enabled, creating a KateViNormalMode instance";
-    m_viCommandParser = new KateViNormalMode( m_view, this );
-  }
-
   // timers
   connect( &m_dragScrollTimer, SIGNAL( timeout() ),
              this, SLOT( doDragScroll() ) );
@@ -268,7 +263,8 @@ KateViewInternal::~KateViewInternal ()
   qDeleteAll(m_dynamicHighlights);
 
   delete m_imPreedit;
-  delete m_viCommandParser;
+  if ( m_viNormalMode )
+    delete m_viNormalMode;
 
   //kDebug( 13030 ) << m_watcherCount1 << m_watcherCount3;
 }
@@ -2151,7 +2147,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
 
   if ( m_view->viInputMode() && m_view->getCurrentViMode() != InsertMode ) {
-    m_viCommandParser->handleKeypress( e );
+    getViNormalMode()->handleKeypress( e );
     return;
   }
 
@@ -3598,5 +3594,12 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 }
 
 //END IM INPUT STUFF
+
+KateViNormalMode* KateViewInternal::getViNormalMode()
+{
+  if ( !m_viNormalMode )
+    m_viNormalMode = new KateViNormalMode( m_view, this );
+  return m_viNormalMode;
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

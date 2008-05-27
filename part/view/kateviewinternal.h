@@ -451,7 +451,8 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
   private:
     bool m_viInputMode;
     ViMode m_currentViMode;
-    KateViNormalMode* m_viCommandParser;
+    KateViNormalMode* m_viNormalMode;
+    KateViNormalMode* getViNormalMode();
 };
 
 #endif

@@ -114,10 +114,12 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
   KateLineLayoutPtr l = line(realLine);
   for (int i = 0; i < newViewLineCount; ++i) {
     if (!l) {
-      if (i < m_textLayouts.count() && m_textLayouts[i].isValid())
-        m_textLayouts[i] = KateTextLayout::invalid();
-      else
+      if (i < m_textLayouts.count()) {
+        if (m_textLayouts[i].isValid())
+          m_textLayouts[i] = KateTextLayout::invalid();
+      } else {
         m_textLayouts.append(KateTextLayout::invalid());
+      }
       continue;
     }
 

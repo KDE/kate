@@ -196,8 +196,10 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   m_dragInfo.state = diNone;
 
-  // FIXME: not necessary if not using the vi input mode
-  m_viCommandParser = new KateViCommandParser(m_view);
+  if ( m_view->config( )->viInputMode( ) ) {
+    kDebug( 13070 ) << "Vi Input Mode enabled, creating a KateViCommandParser instance";
+    m_viCommandParser = new KateViCommandParser( m_view );
+  }
 
   // timers
   connect( &m_dragScrollTimer, SIGNAL( timeout() ),

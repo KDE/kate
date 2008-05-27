@@ -74,6 +74,19 @@ function isLineContinuing(line)
   return /\\$/.test(document.line(line));
 }
 
+// Return true if the given column is at least equal to the column that
+// contains the last non-whitespace character at the given line, or if
+// the rest of the line is a comment.
+function isLastCodeColumn(line, column)
+{
+  if (column >= document.lastColumn(line))
+    return true;
+  else if (isCommentAttr(line, document.nextNonSpaceColumn(line, column)))
+    return true;
+  else
+    return false;
+}
+
 // Look for a pattern at the end of the statement.
 //
 // Returns true if the pattern is found, in a position
@@ -285,11 +298,11 @@ function indent(line, indentWidth, ch)
   var prevStmtCnt = prevStmt.content();
   var prevStmtInd = prevStmt.indent();
 
+  // Are we inside a parameter list, array or hash?
   var anch = lastAnchor(line);
   if (anch.line >= 0) {
     var hasComma = testAtEnd(prevStmt, /,\s*/g);
-    // TODO Make helper functions to test these conditions:
-    if (anch.ch != '{' && anch.column < document.lastColumn(anch.line) && !isCommentAttr(anch.line, document.nextNonSpaceColumn(anch.line, anch.column))) {
+    if (anch.ch != '{' && !isLastCodeColumn(anch.line, anch.column)) {
       // TODO This is alignment, should force using spaces instead of tabs:
       return document.toVirtualColumn(anch.line, anch.column) + (hasComma ? 1 : 0);
     } else {

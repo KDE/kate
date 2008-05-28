@@ -301,12 +301,12 @@ function indent(line, indentWidth, ch)
   // Are we inside a parameter list, array or hash?
   var anch = lastAnchor(line, 0);
   if (anch.line >= 0) {
-    var hasComma = testAtEnd(prevStmt, /,\s*/g);
-    if (!isLastCodeColumn(anch.line, anch.column)) {
+    var shouldIndent = (anch.line == prevStmt.end) || testAtEnd(prevStmt, /,\s*/g);
+    if (!isLastCodeColumn(anch.line, anch.column) || lastAnchor(anch.line, anch.column).line >= 0) {
       // TODO This is alignment, should force using spaces instead of tabs:
-      return document.toVirtualColumn(anch.line, anch.column) + (hasComma ? 1 : 0);
+      return document.toVirtualColumn(anch.line, anch.column) + (shouldIndent ? 1 : 0);
     } else {
-      return document.firstVirtualColumn(anch.line) + ((anch.line == prevStmt.end || hasComma) ? indentWidth : 0);
+      return document.firstVirtualColumn(anch.line) + (shouldIndent ? indentWidth : 0);
     }
   }
 

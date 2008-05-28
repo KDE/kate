@@ -119,7 +119,7 @@ function isStmtContinuing(line)
 {
   // Is there an open parentesis?
   var anch = lastAnchor(line+1);
-  if (anch.line >= 0 && (anch.ch == '(' || anch.ch == '['))
+  if (anch.line >= 0)
     return true;
 
   var stmt = new Statement(line, line);
@@ -302,7 +302,7 @@ function indent(line, indentWidth, ch)
   var anch = lastAnchor(line);
   if (anch.line >= 0) {
     var hasComma = testAtEnd(prevStmt, /,\s*/g);
-    if (anch.ch != '{' && !isLastCodeColumn(anch.line, anch.column)) {
+    if (!isLastCodeColumn(anch.line, anch.column)) {
       // TODO This is alignment, should force using spaces instead of tabs:
       return document.toVirtualColumn(anch.line, anch.column) + (hasComma ? 1 : 0);
     } else {

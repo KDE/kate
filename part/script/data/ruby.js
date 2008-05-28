@@ -118,7 +118,7 @@ function testAtEnd(stmt, rx)
 function isStmtContinuing(line)
 {
   // Is there an open parentesis?
-  var anch = lastAnchor(line+1);
+  var anch = lastAnchor(line+1, 0);
   if (anch.line >= 0)
     return true;
 
@@ -267,13 +267,13 @@ function compare(ca, cb)
 // Find the last open bracket before the current line.
 // Result is a KTextEditor::Cursor object, with an extra attribute, 'ch'
 // containing the type of bracket.
-function lastAnchor(line)
+function lastAnchor(line, column)
 {
-  var anch = document.anchor(line, 0, '(');
+  var anch = document.anchor(line, column, '(');
   anch.ch = '(';
-  var tmp1 = document.anchor(line, 0, '{');
+  var tmp1 = document.anchor(line, column, '{');
   tmp1.ch = '{';
-  var tmp2 = document.anchor(line, 0, '[');
+  var tmp2 = document.anchor(line, column, '[');
   tmp2.ch = '[';
 
   if (compare(tmp1, anch) == 1)
@@ -299,7 +299,7 @@ function indent(line, indentWidth, ch)
   var prevStmtInd = prevStmt.indent();
 
   // Are we inside a parameter list, array or hash?
-  var anch = lastAnchor(line);
+  var anch = lastAnchor(line, 0);
   if (anch.line >= 0) {
     var hasComma = testAtEnd(prevStmt, /,\s*/g);
     if (!isLastCodeColumn(anch.line, anch.column)) {

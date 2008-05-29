@@ -447,22 +447,22 @@
 				<RegExpr attribute="Keyword" context="indented_heredoc" String="&quot;?(\w+)&quot;?" />
 			</context>
 			<!-- these are the real heredoc contexts -->
-			<context name="indented_heredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+			<context name="indented_heredoc" attribute="Here Document" lineEndContext="#stay" dynamic="true">
 <!--				<RegExpr attribute="Keyword" context="#pop#pop" String="^\s*%1$" dynamic="true" endRegion="HereDocument"/>-->
 				<RegExpr attribute="Keyword" context="#pop#pop" String="%1$" dynamic="true" endRegion="HereDocument" firstNonSpace="true"/>
 				<IncludeRules context="heredoc_rules" />
 			</context>
-			<context name="apostrophed_indented_heredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+			<context name="apostrophed_indented_heredoc" attribute="Here Document" lineEndContext="#stay" dynamic="true">
 <!--				<RegExpr attribute="Keyword" context="#pop#pop" String="^\s*%1$" dynamic="true" endRegion="HereDocument"/>-->
 				<RegExpr attribute="Keyword" context="#pop#pop" String="%1$" dynamic="true" endRegion="HereDocument" firstNonSpace="true"/>
 			</context>
 			
-			<context name="normal_heredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+			<context name="normal_heredoc" attribute="Here Document" lineEndContext="#stay" dynamic="true">
 <!--				<RegExpr attribute="Keyword" context="#pop#pop" String="^%1$" dynamic="true" endRegion="HereDocument"/>-->
 				<RegExpr attribute="Keyword" context="#pop#pop" String="%1$" dynamic="true" endRegion="HereDocument" column="0"/>
 				<IncludeRules context="heredoc_rules" />
 			</context>
-			<context name="apostrophed_normal_heredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+			<context name="apostrophed_normal_heredoc" attribute="Here Document" lineEndContext="#stay" dynamic="true">
 <!--				<RegExpr attribute="Keyword" context="#pop#pop" String="^%1$" dynamic="true" endRegion="HereDocument"/>-->
 				<RegExpr attribute="Keyword" context="#pop#pop" String="%1$" dynamic="true" endRegion="HereDocument" column="0"/>
 			</context>
@@ -894,6 +894,8 @@
 			<itemData name="Blockcomment" defStyleNum="dsComment"/>
 			<itemData name="Region Marker" defStyleNum="dsNormal" color="#0000ff"/>
 			<itemData name="RDoc Value" defStyleNum="dsOthers"/>
+			
+			<itemData name="Here Document" defStyleNum="dsOthers">
 			
 			<!-- use these to mark errors and alerts things -->
 			<itemData name="Error" defStyleNum="dsError" />

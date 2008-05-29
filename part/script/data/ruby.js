@@ -81,7 +81,7 @@ function isLastCodeColumn(line, column)
 {
   if (column >= document.lastColumn(line))
     return true;
-  else if (isCommentAttr(line, document.nextNonSpaceColumn(line, column)))
+  else if (isCommentAttr(line, document.nextNonSpaceColumn(line, column+1)))
     return true;
   else
     return false;

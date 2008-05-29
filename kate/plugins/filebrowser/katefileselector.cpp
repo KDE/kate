@@ -829,7 +829,16 @@ void KFSConfigPage::init()
     else
       ac = fileSelector->dirOperator()->actionCollection()->action( (*it).toLatin1().constData() );
     if ( ac )
-      new ActionLBItem( lb, ac->icon(), ac->text().replace( re, "" ), *it );
+    {
+      QString text = ac->text().replace( re, "" );
+      // CJK languages need a filtering message for action texts in lists,
+      // to remove special accelerators that they use.
+      // The exact same filtering message exists in kdelibs; hence,
+      // avoid extraction here and let it be sourced from kdelibs.
+      #define i18ncX i18nc
+      text = i18ncX( "@item:intable Action name in toolbar editor", "%1", text );
+      new ActionLBItem( lb, ac->icon(), text, *it );
+    }
   }
 
   // sync

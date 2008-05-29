@@ -307,7 +307,7 @@ function indent(line, indentWidth, ch)
       if (shouldIndent) {
         anch.column += 1;
         var nextCol = document.nextNonSpaceColumn(anch.line, anch.column);
-        if (nextCol > 0)
+        if (nextCol > 0 && !isCommentAttr(anch.line, nextCol))
           anch.column = nextCol;
       }
       return document.toVirtualColumn(anch.line, anch.column);

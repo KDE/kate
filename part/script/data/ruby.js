@@ -317,17 +317,15 @@ function indent(line, indentWidth, ch)
   }
 
   // Handle indenting of multiline statements.
-  // Manually indenting to be able to force spaces.
   if ((prevStmt.end == line-1 && isLineContinuing(prevStmt.end)) || isStmtContinuing(prevStmt.end)) {
-    var len = document.firstColumn(prevStmt.end);
-    var str = document.line(prevStmt.end).substring(0, len);
-    if (!document.startsWith(line, str, false)) {
-      document.removeText(line, 0, line, document.firstColumn(line));
-      if (prevStmt.start == prevStmt.end)
-        str += "    ";
-      document.insertText(line, 0, str);
+    if (prevStmt.start == prevStmt.end) {
+      if (ch == '' && document.firstVirtualColumn(line) > document.firstVirtualColumn(prevStmt.end)) {
+        return -2; // Don't force a specific indent level when aligning manually
+      }
+      return prevStmtInd + indentWidth * 2;
+    } else {
+      return document.firstVirtualColumn(prevStmt.end);
     }
-    return -2;
   }
 
   if (rxUnindent.test(document.line(line))) {

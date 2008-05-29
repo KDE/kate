@@ -895,7 +895,7 @@
 			<itemData name="Region Marker" defStyleNum="dsNormal" color="#0000ff"/>
 			<itemData name="RDoc Value" defStyleNum="dsOthers"/>
 			
-			<itemData name="Here Document" defStyleNum="dsOthers">
+			<itemData name="Here Document" defStyleNum="dsOthers"/>
 			
 			<!-- use these to mark errors and alerts things -->
 			<itemData name="Error" defStyleNum="dsError" />

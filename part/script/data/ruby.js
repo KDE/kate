@@ -255,13 +255,13 @@ function isValidTrigger(line, ch)
 // Returns 0 if equal, 1 if ca > cb, -1 if ca < cb
 function compare(ca, cb)
 {
-  if (ca.line == cb.line) {
-    if (ca.column == cb.column)
-      return 0;
-    else
-      return (ca.column > cb.column) ? 1 : -1;
+  if (ca.line != cb.line) {
+    return (ca.line > cb.line) ? 1 : -1;
+  } else if (ca.column != cb.column) {
+    return (ca.column > cb.column) ? 1 : -1;
+  } else {
+    return 0;
   }
-  return (ca.line > cb.line) ? 1 : -1;
 }
 
 // Find the last open bracket before the current line.

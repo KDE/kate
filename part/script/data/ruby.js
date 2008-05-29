@@ -304,7 +304,13 @@ function indent(line, indentWidth, ch)
     var shouldIndent = (anch.line == prevStmt.end) || testAtEnd(prevStmt, /,\s*/g);
     if (!isLastCodeColumn(anch.line, anch.column) || lastAnchor(anch.line, anch.column).line >= 0) {
       // TODO This is alignment, should force using spaces instead of tabs:
-      return document.toVirtualColumn(anch.line, anch.column) + (shouldIndent ? 1 : 0);
+      if (shouldIndent) {
+        anch.column += 1;
+        var nextCol = document.nextNonSpaceColumn(anch.line, anch.column);
+        if (nextCol > 0)
+          anch.column = nextCol;
+      }
+      return document.toVirtualColumn(anch.line, anch.column);
     } else {
       return document.firstVirtualColumn(anch.line) + (shouldIndent ? indentWidth : 0);
     }

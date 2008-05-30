@@ -22,13 +22,15 @@
 #include <QtGui/QPainter>
 #include <QtGui/QBrush>
 #include <QKeyEvent>
+#include <QTreeView>
+#include <QApplication>
 
 #include <kdebug.h>
 
 #include "expandingwidgetmodel.h"
 
 ExpandingDelegate::ExpandingDelegate(ExpandingWidgetModel* model, QObject* parent)
-  : QStyledItemDelegate(parent)
+  : QItemDelegate(parent)
   , m_model(model)
 {
 }
@@ -56,7 +58,7 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
   m_cachedHighlights.clear();
 
   if (!model()->indexIsItem(index) )
-      return QStyledItemDelegate::paint(painter, option, index);
+      return QItemDelegate::paint(painter, option, index);
 
   m_currentColumnStart = 0;
   m_cachedHighlights = createHighlighting(index, option);
@@ -65,7 +67,7 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
   foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
     kDebug( 13035 ) << fr.start << " len " << fr.length << " format ";*/
 
-  QStyledItemDelegate::paint(painter, option, index);
+  QItemDelegate::paint(painter, option, index);
 }
 
 QList<QTextLayout::FormatRange> ExpandingDelegate::createHighlighting(const QModelIndex& index, QStyleOptionViewItem& option) const {
@@ -75,12 +77,12 @@ QList<QTextLayout::FormatRange> ExpandingDelegate::createHighlighting(const QMod
 }
 
 QSize ExpandingDelegate::basicSizeHint( const QModelIndex& index ) const {
-  return QStyledItemDelegate::sizeHint( QStyleOptionViewItem(), index );
+  return QItemDelegate::sizeHint( QStyleOptionViewItem(), index );
 }
 
 QSize ExpandingDelegate::sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const
 {
-  QSize s = QStyledItemDelegate::sizeHint( option, index );
+  QSize s = QItemDelegate::sizeHint( option, index );
   if( model()->isExpanded(index) && model()->expandingWidget( index ) )
   {
     QWidget* widget = model()->expandingWidget( index );
@@ -171,6 +173,14 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
   //if (painter->fontMetrics().width(text) > textRect.width() && !text.contains(QLatin1Char('\n')))
       //str = elidedText(option.fontMetrics, textRect.width(), option.textElideMode, text);
   //qt_format_text(option.font, textRect, option.displayAlignment, str, 0, 0, 0, 0, painter);
+}
+
+void ExpandingDelegate::drawBackground ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const {
+    QStyleOptionViewItemV4 opt = option;
+    //initStyleOption(&opt, index);
+
+    QStyle *style = model()->treeView()->style() ? model()->treeView()->style() : QApplication::style();
+    style->drawControl(QStyle::CE_ItemViewItem, &opt, painter);
 }
 
 ExpandingWidgetModel* ExpandingDelegate::model() const {

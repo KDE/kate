@@ -20,7 +20,7 @@
 #ifndef ExpandingDelegate_H
 #define ExpandingDelegate_H
 
-#include <QtGui/QStyledItemDelegate>
+#include <QtGui/QItemDelegate>
 #include <QItemDelegate>
 #include <QtGui/QTextLine>
 #include <QModelIndex>
@@ -32,12 +32,13 @@ class KateDocument;
 class KateTextLine;
 class ExpandingWidgetModel;
 class QVariant;
+class QStyleOptionViewItem;
 
 /**
  * This is a delegate that cares, together with ExpandingWidgetModel, about embedded widgets in tree-view.
  * */
 
-class ExpandingDelegate : public QStyledItemDelegate
+class ExpandingDelegate : public QItemDelegate
 {
   Q_OBJECT
 
@@ -48,7 +49,7 @@ class ExpandingDelegate : public QStyledItemDelegate
     // Overridden to create highlighting for current index
     virtual void paint ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
 
-    // Returns the basic size-hint as reported by QStyledItemDelegate
+    // Returns the basic size-hint as reported by QItemDelegate
     QSize basicSizeHint( const QModelIndex& index ) const;
     
     ExpandingWidgetModel* model() const;
@@ -58,7 +59,7 @@ class ExpandingDelegate : public QStyledItemDelegate
     virtual void drawDisplay ( QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect, const QString & text ) const;
     virtual QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const;
     virtual bool editorEvent ( QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index );
-
+    virtual void drawBackground ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
     //option can be changed
     virtual QList<QTextLayout::FormatRange> createHighlighting(const QModelIndex& index, QStyleOptionViewItem& option) const;
 
@@ -70,6 +71,9 @@ class ExpandingDelegate : public QStyledItemDelegate
     //Called when an item was expanded/unexpanded and the height changed
     virtual void heightChanged() const;
   
+    //Initializes the style options from the index
+    void initStyleOption(QStyleOptionViewItem *option, const QModelIndex &index) const;
+    
     mutable int m_currentColumnStart; //Text-offset for custom highlighting, will be applied to m_cachedHighlights(Only highlights starting after this will be used). Shoult be zero of the highlighting is not taken from kate.
     mutable QList<int> m_currentColumnStarts;
     mutable QList<QTextLayout::FormatRange> m_cachedHighlights;

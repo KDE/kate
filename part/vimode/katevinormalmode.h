@@ -22,6 +22,7 @@
 
 #include "kateview.h"
 #include "kateviewinternal.h"
+#include "katevinormalmodecommand.h"
 
 #include <QKeyEvent>
 
@@ -45,13 +46,16 @@ class KateViNormalMode {
     void commandCursorDown();
     void commandCursorUp();
 
-    void commandFindChar( QChar c );
-    void commandFindCharBackwards( QChar c );
-    void commandToChar( QChar c );
-    void commandToCharBackwards( QChar c );
+    bool commandFindChar();
+    bool commandFindCharBackwards();
+    bool commandToChar();
+    bool commandToCharBackwards();
+
+    unsigned int getCount() { return m_count; }
 
   private:
     void reset();
+    void initializeCommands();
     QString getLine( int lineNumber = -1 );
 
     KateView *m_view;
@@ -60,6 +64,9 @@ class KateViNormalMode {
     unsigned int m_count;
     bool m_gettingCount;
     bool m_findWaitingForChar;
+
+    QVector<KateViNormalModeCommand *> m_commands;
+    QVector<int> m_matches;
 };
 
 #endif

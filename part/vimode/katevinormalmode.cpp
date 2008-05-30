@@ -19,7 +19,6 @@
 
 #include "katevinormalmode.h"
 
-#include <ctype.h>
 #include <ktexteditor/cursor.h>
 
 KateViNormalMode::KateViNormalMode( KateView * view, KateViewInternal * viewInternal )
@@ -27,8 +26,8 @@ KateViNormalMode::KateViNormalMode( KateView * view, KateViewInternal * viewInte
   m_view = view;
   m_viewInternal = viewInternal;
 
-  // initialise with start configuration
-  reset();
+  initializeCommands();
+  reset(); // initialise with start configuration
 }
 
 KateViNormalMode::~KateViNormalMode()
@@ -41,6 +40,7 @@ KateViNormalMode::~KateViNormalMode()
  */
 bool KateViNormalMode::handleKeypress( QKeyEvent *e )
 {
+  m_matches.clear();
   int keyCode = e->key();
   QString text = e->text();
 
@@ -53,26 +53,26 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   kDebug( 13070 ) << key << "(" << keyCode << ")";
 
 
-  if ( m_findWaitingForChar ) {
-    switch ( m_keys[ m_keys.size() -1 ].toAscii() ) {
-    case 'f':
-      commandFindChar( key );
-      break;
-    case 't':
-      commandToChar( key );
-      break;
-    case 'F':
-      commandFindCharBackwards( key );
-      break;
-    case 'T':
-      commandToCharBackwards( key );
-      break;
-    default:
-      kError( 13070 ) << "Error: m_findWaitingForChar should not be true, m_keys=" << m_keys;
-    }
-    reset();
-    return true;
-  }
+  //if ( m_findWaitingForChar ) {
+  //  switch ( m_keys[ m_keys.size() -1 ].toAscii() ) {
+  //  case 'f':
+  //    commandFindChar();
+  //    break;
+  //  case 't':
+  //    commandToChar( key );
+  //    break;
+  //  case 'F':
+  //    commandFindCharBackwards( key );
+  //    break;
+  //  case 'T':
+  //    commandToCharBackwards( key );
+  //    break;
+  //  default:
+  //    kError( 13070 ) << "Error: m_findWaitingForChar should not be true, m_keys=" << m_keys;
+  //  }
+  //  reset();
+  //  return true;
+  //}
 
   // if keyCode is a number, append it to m_count
   if ( m_gettingCount && keyCode >= Qt::Key_0 && keyCode <= Qt::Key_9 ) {
@@ -87,44 +87,63 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     m_gettingCount = false;
   }
 
-  // deal with simple one-key commands quick'n'easy
-  switch ( key.toAscii() ) {
-  case 'a':
-    enterInsertModeAppend();
-    break;
-  case 'A':
-    enterInsertModeAppendEOL();
-    break;
-  case 'f':
-  case 'F':
-  case 't':
-  case 'T':
-    m_findWaitingForChar = true;
-    m_keys.append( key );
-    return false;
-    break;
-  case 'h':
-    commandCursorLeft();
-    break;
-  case 'i':
-    enterInsertMode();
-    break;
-  case 'j':
-    commandCursorDown();
-    break;
-  case 'k':
-    commandCursorUp();
-    break;
-  case 'l':
-    commandCursorRight();
-    break;
-  default:
+  m_keys.append( key );
+
+  for ( int i = 0; i < m_commands.size(); i++ ) {
+    if ( m_commands.at( i )->matches( m_keys ) )
+      m_matches.push_back( i );
+  }
+
+  kDebug( 13070 ) << "'" << m_keys << "' MATCHES: " << m_matches.size();
+
+  if ( m_matches.size() == 1 ) {
+    if ( m_commands.at( m_matches.at( 0 ) )->matchesExact( m_keys ) ) {
+      m_commands.at( m_matches.at( 0 ) )->execute();
+      reset();
+      return true;
+    }
+  } else if ( m_matches.size() == 0 ) {
     reset();
     return false;
   }
 
-  reset();
-  return true;
+  // deal with simple one-key commands quick'n'easy
+  //switch ( key.toAscii() ) {
+  //case 'a':
+  //  enterInsertModeAppend();
+  //  break;
+  //case 'A':
+  //  enterInsertModeAppendEOL();
+  //  break;
+  //case 'f':
+  //case 'F':
+  //case 't':
+  //case 'T':
+  //  m_findWaitingForChar = true;
+  //  m_keys.append( key );
+  //  return false;
+  //  break;
+  //case 'h':
+  //  commandCursorLeft();
+  //  break;
+  //case 'i':
+  //  enterInsertMode();
+  //  break;
+  //case 'j':
+  //  commandCursorDown();
+  //  break;
+  //case 'k':
+  //  commandCursorUp();
+  //  break;
+  //case 'l':
+  //  commandCursorRight();
+  //  break;
+  //default:
+  //  reset();
+  //  return false;
+  //}
+
+  return false;
 }
 
 /**
@@ -133,10 +152,12 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
  */
 void KateViNormalMode::reset()
 {
+  kDebug( 1301 ) << "***RESET***";
   m_keys = "";
   m_count = 0;
   m_gettingCount = true;
   m_findWaitingForChar = false;
+  m_matches.clear();
 }
 
 QString KateViNormalMode::getLine( int lineNumber )
@@ -220,26 +241,33 @@ void KateViNormalMode::commandCursorRight()
   //m_viewInternal->repaint();
 }
 
-void KateViNormalMode::commandFindChar( QChar c )
+bool KateViNormalMode::commandFindChar()
 {
   KTextEditor::Cursor cursor ( m_view->cursorPositionVirtual() );
   QString line = getLine();
-  int matchColumn = line.indexOf( c, cursor.column() );
+  int matchColumn = line.indexOf( m_keys.at( m_keys.size()-1 ), cursor.column() );
+
+  kDebug( 13070 ) << "Looking for '" << m_keys.at( m_keys.size()-1 ) << "' from column " << cursor.column();
 
   if ( matchColumn >= 0 ) {
     cursor.setColumn( matchColumn );
     m_viewInternal->updateCursor( cursor );
+    return true;
   }
+
+  return false;
 }
 
-void KateViNormalMode::commandFindCharBackwards( QChar c )
+bool KateViNormalMode::commandFindCharBackwards()
 {
   KTextEditor::Cursor cursor ( m_view->cursorPositionVirtual() );
   QString line = getLine();
 
+  kDebug( 13070 ) << "Looking for '" << m_keys.at( m_keys.size()-1 ) << "' from column " << cursor.column() << " (backwards)";
+
   int matchColumn = -1;
   for ( int i = cursor.column()-1; i > 0; i-- ) {
-    if ( line.at( i ) == c ) {
+    if ( line.at( i ) == m_keys.at( m_keys.size()-1 ) ) {
       matchColumn = i;
       break;
     }
@@ -248,29 +276,35 @@ void KateViNormalMode::commandFindCharBackwards( QChar c )
   if ( matchColumn >= 0 ) {
     cursor.setColumn( matchColumn );
     m_viewInternal->updateCursor( cursor );
+    return true;
   }
+
+  return false;
 }
 
-void KateViNormalMode::commandToChar( QChar c )
+bool KateViNormalMode::commandToChar()
 {
   KTextEditor::Cursor cursor ( m_view->cursorPositionVirtual() );
   QString line = getLine();
-  int matchColumn = line.indexOf( c, cursor.column() );
+  int matchColumn = line.indexOf( m_keys.at( m_keys.size()-1 ), cursor.column() );
   
   if ( matchColumn >= 0 ) {
     cursor.setColumn( matchColumn-1 );
     m_viewInternal->updateCursor( cursor );
+    return true;
   }
+
+  return false;
 }
 
-void KateViNormalMode::commandToCharBackwards( QChar c )
+bool KateViNormalMode::commandToCharBackwards()
 {
   KTextEditor::Cursor cursor ( m_view->cursorPositionVirtual() );
   QString line = getLine();
 
   int matchColumn = -1;
   for ( int i = cursor.column()-1; i > 0; i-- ) {
-    if ( line.at( i ) == c ) {
+    if ( line.at( i ) == m_keys.at( m_keys.size()-1 ) ) {
       matchColumn = i;
       break;
     }
@@ -279,5 +313,16 @@ void KateViNormalMode::commandToCharBackwards( QChar c )
   if ( matchColumn >= 0 ) {
     cursor.setColumn( matchColumn+1 );
     m_viewInternal->updateCursor( cursor );
+    return true;
   }
+
+  return false;
+}
+
+void KateViNormalMode::initializeCommands()
+{
+  m_commands.push_back( new KateViNormalModeCommand( this, "f.", &KateViNormalMode::commandFindChar, true ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "F.", &KateViNormalMode::commandFindCharBackwards, true ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "t.", &KateViNormalMode::commandToChar, true ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "T.", &KateViNormalMode::commandToCharBackwards, true ) );
 }

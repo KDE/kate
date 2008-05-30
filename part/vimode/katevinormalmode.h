@@ -25,6 +25,7 @@
 #include "katevinormalmodecommand.h"
 
 #include <QKeyEvent>
+#include <ktexteditor/cursor.h>
 
 /**
  * Commands for the vi normal mode
@@ -67,6 +68,7 @@ class KateViNormalMode {
     void reset();
     void initializeCommands();
     QString getLine( int lineNumber = -1 ) const;
+    void goToStickyColumn( KTextEditor::Cursor &c );
 
     KateView *m_view;
     KateViewInternal *m_viewInternal;
@@ -77,6 +79,8 @@ class KateViNormalMode {
 
     QVector<KateViNormalModeCommand *> m_commands;
     QVector<int> m_matches;
+
+    int m_stickyColumn;
 };
 
 #endif

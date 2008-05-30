@@ -19,12 +19,11 @@
 
 #include "katevinormalmode.h"
 
-#include <ktexteditor/cursor.h>
-
 KateViNormalMode::KateViNormalMode( KateView * view, KateViewInternal * viewInternal )
 {
   m_view = view;
   m_viewInternal = viewInternal;
+  m_stickyColumn = -1;
 
   initializeCommands();
   reset(); // initialise with start configuration
@@ -120,6 +119,22 @@ QString KateViNormalMode::getLine( int lineNumber ) const
   return line;
 }
 
+void KateViNormalMode::goToStickyColumn( KTextEditor::Cursor &c )
+{
+  kDebug( 13070 ) << m_stickyColumn;
+
+  // if sticky is set, check if we can co back to the sticky column in the new
+  // line. if line is longer than previous line, but shorter than sticky, go
+  // to the last column
+  if ( m_stickyColumn != -1 ) {
+    if ( getLine( c.line() ).length()-1 > m_stickyColumn )
+      c.setColumn( m_stickyColumn );
+    else if ( getLine( c.line() ).length()-1 > c.column() )
+      c.setColumn( getLine( c.line() ).length()-1 );
+  }
+
+}
+
 /**
  * enter insert mode at the cursor position
  */
@@ -179,10 +194,19 @@ bool KateViNormalMode::commandGoDown()
 {
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
 
+  // don't go below the last line
   if ( m_viewInternal->m_doc->numVisLines()-1 > cursor.line() ) {
     cursor.setLine( cursor.line()+1 );
-    if ( getLine( cursor.line() ).length()-1 < cursor.column() )
+
+    goToStickyColumn( cursor );
+
+    // if the line below is shorter than the current cursor column, set sticky
+    // to the old value and go to the last character of the previous line
+    if ( getLine( cursor.line() ).length()-1 < cursor.column() ) {
+      if ( m_stickyColumn == -1 )
+        m_stickyColumn = cursor.column();
       cursor.setColumn( getLine( cursor.line() ).length()-1 );
+    }
 
     m_viewInternal->updateCursor( cursor );
     return true;
@@ -202,10 +226,19 @@ bool KateViNormalMode::commandGoUp()
 {
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
 
+  // don't go above the first line
   if ( cursor.line() > 0 ) {
     cursor.setLine( cursor.line()-1 );
-    if ( getLine( cursor.line() ).length()-1 < cursor.column() )
+
+    goToStickyColumn( cursor );
+
+    // if the line above is shorter than the current cursor column, set sticky
+    // to the old value and go to the last character of the previous line
+    if ( getLine( cursor.line() ).length()-1 < cursor.column() ) {
+      if ( m_stickyColumn == -1 )
+        m_stickyColumn = cursor.column();
       cursor.setColumn( getLine( cursor.line() ).length()-1 );
+    }
 
     m_viewInternal->updateCursor( cursor );
     return true;
@@ -219,6 +252,9 @@ bool KateViNormalMode::commandGoLeft()
 {
   KTextEditor::Cursor cursor ( m_view->cursorPositionVirtual() );
 
+  if ( m_stickyColumn != -1 )
+    m_stickyColumn = -1;
+
   if ( cursor.column() != 0 )
     m_view->cursorLeft();
   //m_viewInternal->repaint();
@@ -227,6 +263,9 @@ bool KateViNormalMode::commandGoLeft()
 bool KateViNormalMode::commandGoRight()
 {
   KTextEditor::Cursor cursor ( m_view->cursorPositionVirtual() );
+
+  if ( m_stickyColumn != -1 )
+    m_stickyColumn = -1;
 
   if ( cursor.column() != getLine().length()-1 )
     m_view->cursorRight();

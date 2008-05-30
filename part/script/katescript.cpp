@@ -102,6 +102,11 @@ void KateScript::displayBacktrace(const QScriptValue &error, const QString &head
     std::cerr << "\033[0m" << '\n';
 }
 
+void KateScript::clearExceptions()
+{
+  m_engine->clearExceptions();
+}
+
 QScriptValue KateScript::global(const QString &name)
 {
   // load the script if necessary

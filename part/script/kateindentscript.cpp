@@ -36,7 +36,7 @@ const QString &KateIndentScript::triggerCharacters()
     return m_triggerCharacters;
 
   m_triggerCharactersSet = true;
-  
+
   m_triggerCharacters = global("triggerCharacters").toString();
 
   kDebug( 13050 ) << "trigger chars: '" << m_triggerCharacters << "'";
@@ -51,6 +51,7 @@ int KateIndentScript::indent(KateView* view, const KTextEditor::Cursor& position
   if(!setView(view))
     return -2;
 
+  clearExceptions();
   QScriptValue indentFunction = function("indent");
   if(!indentFunction.isValid()) {
     return -2;
@@ -65,7 +66,7 @@ int KateIndentScript::indent(KateView* view, const KTextEditor::Cursor& position
   // error during the calling?
   if(m_engine->hasUncaughtException()) {
     displayBacktrace(result, "Error calling indent()");
-    m_engine->clearExceptions();
+    return -2;
   }
   int indentAmount = result.toInt32 ();
   if(m_engine->hasUncaughtException()) {

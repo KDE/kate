@@ -43,7 +43,7 @@ namespace Kate {
     /** Don't know what kind of script this is */
     UnknownScript
   };
-  
+
   /** Top-level script functions */
   namespace Script {
     QScriptValue debug(QScriptContext *context, QScriptEngine *engine);
@@ -151,10 +151,14 @@ class KateScript {
 
     /** Displays the backtrace when a script has errored out */
     void displayBacktrace(const QScriptValue &error, const QString &header = QString());
+
+    /** Clears any uncaught exceptions in the script engine. */
+    void clearExceptions();
+
   private:
     /** Add our custom functions to m_engine when it has been initialised */
     void initEngine();
-    
+
     /** Whether or not there has been a call to load */
     bool m_loaded;
     /** Whether or not the script loaded successfully into memory */

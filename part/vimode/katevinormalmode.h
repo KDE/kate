@@ -37,26 +37,36 @@ class KateViNormalMode {
 
     bool handleKeypress( QKeyEvent *e );
 
-    void enterInsertMode();
-    void enterInsertModeAppend();
-    void enterInsertModeAppendEOL();
+    bool commandEnterInsertMode();
+    bool commandEnterInsertModeAppend();
+    bool commandEnterInsertModeAppendEOL();
 
-    void commandCursorLeft();
-    void commandCursorRight();
-    void commandCursorDown();
-    void commandCursorUp();
+    bool commandGoLeft();
+    bool commandGoRight();
+    bool commandGoDown();
+    bool commandGoUp();
+    bool commandGoDownDisplayLine();
+    bool commandGoUpDisplayLine();
 
     bool commandFindChar();
-    bool commandFindCharBackwards();
+    bool commandFindCharBackward();
     bool commandToChar();
-    bool commandToCharBackwards();
+    bool commandToCharBackward();
 
-    unsigned int getCount() { return m_count; }
+    bool commandGoToFirstCharacterOfLine();
+    bool commandGoToEOL();
+
+    bool commandGoWordForward();
+    bool commandGoWordBackward();
+    bool commandGoWORDForward();
+    bool commandGoWORDBackward();
+
+    unsigned int getCount() const { return ( m_count > 0 ) ? m_count : 1; }
 
   private:
     void reset();
     void initializeCommands();
-    QString getLine( int lineNumber = -1 );
+    QString getLine( int lineNumber = -1 ) const;
 
     KateView *m_view;
     KateViewInternal *m_viewInternal;

@@ -29,15 +29,15 @@ class KateViNormalModeCommand {
     KateViNormalModeCommand( KateViNormalMode *parent, QString pattern, bool(KateViNormalMode::*pt2Func)(), bool regex = true );
     ~KateViNormalModeCommand();
 
-    bool matches( QString pattern );
-    bool matchesExact( QString pattern );
-    void execute();
+    bool matches( QString pattern ) const;
+    bool matchesExact( QString pattern ) const;
+    bool execute() const;
 
   private:
     KateViNormalMode *m_parent;
     QString m_pattern;
     bool m_regex;
-    bool (KateViNormalMode::*m_pt2Func)();
+    bool (KateViNormalMode::*m_ptr2commandMethod)();
 };
 
 #endif

@@ -19,24 +19,24 @@
 
 #include "katevinormalmodecommand.h"
 
-KateViNormalModeCommand::KateViNormalModeCommand( KateViNormalMode *parent, QString pattern, bool(KateViNormalMode::*pt2Func)(), bool regex )
+KateViNormalModeCommand::KateViNormalModeCommand( KateViNormalMode *parent, QString pattern, bool(KateViNormalMode::*commandMethod)(), bool regex )
 {
   m_parent = parent;
   m_pattern = pattern;
   m_regex = regex;
-  m_pt2Func = pt2Func;
+  m_ptr2commandMethod = commandMethod;
 }
 
 KateViNormalModeCommand::~KateViNormalModeCommand()
 {
 }
 
-void KateViNormalModeCommand::execute()
+bool KateViNormalModeCommand::execute() const
 {
-  (m_parent->*m_pt2Func)();
+  return (m_parent->*m_ptr2commandMethod)();
 }
 
-bool KateViNormalModeCommand::matches( QString pattern )
+bool KateViNormalModeCommand::matches( QString pattern ) const
 {
   if ( !m_regex )
     return m_pattern.startsWith( pattern );
@@ -47,8 +47,9 @@ bool KateViNormalModeCommand::matches( QString pattern )
   }
 }
 
-bool KateViNormalModeCommand::matchesExact( QString pattern )
+bool KateViNormalModeCommand::matchesExact( QString pattern ) const
 {
+  kDebug( 13070 ) << pattern << " " << m_pattern;
   if ( !m_regex )
     return ( m_pattern == pattern );
   else {

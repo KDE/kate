@@ -148,12 +148,11 @@ class ExpandingWidgetModel : public QAbstractTableModel {
 
 
 /**
- * It is assumed that between each two strings, one space is inserted.
  * Helper-function to merge custom-highlighting variant-lists.
  *
  * @param stings A list of strings that should be merged
  * @param highlights One variant-list for highlighting, as described in the kde header ktextedtor/codecompletionmodel.h
  * @param gapBetweenStrings How many signs are inserted between 2 strings?
  * */
-QList<QVariant> mergeCustomHighlighting( QStringList strings, QList<QVariantList> highlights, int gapBetweenStrings = 1 );
+QList<QVariant> mergeCustomHighlighting( QStringList strings, QList<QVariantList> highlights, int gapBetweenStrings = 0 );
 #endif

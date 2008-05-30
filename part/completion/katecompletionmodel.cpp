@@ -235,7 +235,7 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
       foreach (int column, m_columnMerges[index.column()])
           highlights << mapToSource(createIndex(index.row(), column, index.internalPointer())).data(CodeCompletionModel::CustomHighlight).toList();
 
-      return mergeCustomHighlighting( strings, highlights );
+      return mergeCustomHighlighting( strings, highlights, 0 );
     }
 
     QVariant v = mapToSource(index).data(role);
@@ -1863,7 +1863,7 @@ void KateCompletionModel::addCompletionModel(KTextEditor::CodeCompletionModel * 
 
 void KateCompletionModel::setCompletionModel(KTextEditor::CodeCompletionModel* model)
 {
-  clearCompletionModels(true);
+  clearCompletionModels();
   addCompletionModel(model);
 }
 
@@ -1872,7 +1872,7 @@ void KateCompletionModel::setCompletionModels(const QList<KTextEditor::CodeCompl
   //if (m_completionModels == models)
     //return;
 
-  clearCompletionModels(true);
+  clearCompletionModels();
 
   m_completionModels = models;
 
@@ -1982,7 +1982,7 @@ void KateCompletionModel::rowSelected(const QModelIndex& row) {
   widget()->argumentHintModel()->emitDataChanged(start, end);
 }
 
-void KateCompletionModel::clearCompletionModels(bool skipReset)
+void KateCompletionModel::clearCompletionModels()
 {
   foreach (CodeCompletionModel * model, m_completionModels)
     model->disconnect(this);
@@ -1991,8 +1991,7 @@ void KateCompletionModel::clearCompletionModels(bool skipReset)
 
   clearGroups();
 
-  if (!skipReset)
-    reset();
+  reset();
 }
 
 #include "katecompletionmodel.moc"

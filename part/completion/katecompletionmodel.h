@@ -51,7 +51,7 @@ class KateCompletionModel : public ExpandingWidgetModel
     ~KateCompletionModel();
 
     QList<KTextEditor::CodeCompletionModel*> completionModels() const;
-    void clearCompletionModels(bool skipReset = false);
+    void clearCompletionModels();
     void addCompletionModel(KTextEditor::CodeCompletionModel* model);
     void setCompletionModel(KTextEditor::CodeCompletionModel* model);
     void setCompletionModels(const QList<KTextEditor::CodeCompletionModel*>& models);

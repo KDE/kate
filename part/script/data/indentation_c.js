@@ -458,14 +458,14 @@ function tryStatement(line)
 
     var indentation = -1;
     var currentString = document.line(currentLine);
-    var column = currentString.search(/^(.*)(,|[)];)\s*(\/\/.*|\/\*.*\*\/\s*)?$/);
-    if (column == 0) {
-        var comma = (RegExp.$2.length == 1);
-        var cursor = document.anchor(currentLine, RegExp.$1.length, '(');
+    var result = /^(.*)(,|[)];)\s*(\/\/.*|\/\*.*\*\/\s*)?$/.exec(currentString);
+    if (result != null && result.index == 0) {
+        var comma = (result[2].length == 1);
+        var cursor = document.anchor(currentLine, result[1].length, '(');
         if (cursor) {
             if (comma) {
                 currentLine = cursor.line;
-                column = cursor.column + 1;
+                var column = cursor.column + 1;
                 var lastColumn = document.lastColumn(currentLine);
                 while (column < lastColumn && document.isSpace(currentLine, ++column));
                 indentation = document.toVirtualColumn(currentLine, column);

@@ -187,7 +187,7 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
       }
       
       
-      return mergeCustomHighlighting( strings, highlights );
+      return mergeCustomHighlighting( strings, highlights, 1 );
     }
     case Qt::DecorationRole:
     {

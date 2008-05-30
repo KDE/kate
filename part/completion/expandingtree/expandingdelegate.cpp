@@ -128,6 +128,9 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
     format.start = m_cachedHighlights[i].start - m_currentColumnStart;
     format.length = m_cachedHighlights[i].length;
     format.format = m_cachedHighlights[i].format;
+    
+    if(option.state & QStyle::State_Selected)  //If the item is selected, we must override the color, because else we will have contrast problems
+        format.format.setForeground(option.palette.brush(QPalette::Normal, QPalette::HighlightedText));
 
 /*    kDebug( 13035 ) << "using highlight for " << format.start << " len " << format.length;*/
     

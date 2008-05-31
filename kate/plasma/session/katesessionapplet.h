@@ -70,6 +70,6 @@ private:
     bool m_closePopup;
 };
 
-K_EXPORT_PLASMA_APPLET(sessionapplet, KateSessionApplet )
+K_EXPORT_PLASMA_APPLET(katesession, KateSessionApplet )
 
 #endif

@@ -255,9 +255,12 @@ bool KateViNormalMode::commandGoLeft()
   if ( m_stickyColumn != -1 )
     m_stickyColumn = -1;
 
-  if ( cursor.column() != 0 )
+  if ( cursor.column() != 0 ) {
     m_view->cursorLeft();
+    return true;
+  }
   //m_viewInternal->repaint();
+  return false;
 }
 
 bool KateViNormalMode::commandGoRight()
@@ -267,9 +270,12 @@ bool KateViNormalMode::commandGoRight()
   if ( m_stickyColumn != -1 )
     m_stickyColumn = -1;
 
-  if ( cursor.column() != getLine().length()-1 )
+  if ( cursor.column() != getLine().length()-1 ) {
     m_view->cursorRight();
+    return true;
+  }
   //m_viewInternal->repaint();
+  return false;
 }
 
 bool KateViNormalMode::commandFindChar()

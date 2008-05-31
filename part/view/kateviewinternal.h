@@ -33,7 +33,6 @@
 #include "katelinelayout.h"
 #include "katetextline.h"
 #include "katedocument.h"
-#include "katevinormalmode.h"
 
 #include <QtCore/QPoint>
 #include <QtCore/QTimer>
@@ -47,7 +46,6 @@ class KateIconBorder;
 class KateScrollBar;
 class KateSmartRange;
 class KateTextLayout;
-class KateViNormalMode; // why is this needed? the declaration is included with katevicommandparser.h above
 
 class QScrollBar;
 
@@ -61,7 +59,6 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     friend class CalculatingCursor;
     friend class BoundedCursor;
     friend class WrappingCursor;
-    friend class KateViNormalMode;
 
   public:
     enum Bias
@@ -446,13 +443,6 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     void removeWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
     void addWatcher(KTextEditor::SmartRange* range, KTextEditor::SmartRangeWatcher* watcher);
     int m_watcherCount1, m_watcherCount3;
-
-  // vi Mode
-  private:
-    bool m_viInputMode;
-    ViMode m_currentViMode;
-    KateViNormalMode* m_viNormalMode;
-    KateViNormalMode* getViNormalMode();
 };
 
 #endif

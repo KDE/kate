@@ -26,7 +26,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/smart
   ${CMAKE_CURRENT_SOURCE_DIR}/syntax
   ${CMAKE_CURRENT_SOURCE_DIR}/utils
-  ${CMAKE_CURRENT_SOURCE_DIR}/vimode
   ${CMAKE_CURRENT_SOURCE_DIR}/view
   ${CMAKE_SOURCE_DIR}/kde3support
   ${CMAKE_SOURCE_DIR}/kde3support/kdeui
@@ -101,11 +100,6 @@ syntax/kateextendedattribute.cpp
 view/kateview.cpp
 view/kateviewinternal.cpp
 view/kateviewhelpers.cpp
-
-# vi input mode
-
-vimode/katevinormalmode.cpp
-vimode/katevinormalmodecommand.cpp
 
 # generic stuff, unsorted...
 utils/katesearchbar.cpp

@@ -359,9 +359,6 @@ class KateViewConfig : public KateConfig
     bool persistentSelection () const;
     void setPersistentSelection (bool on);
 
-    bool viInputMode () const;
-    void setViInputMode (bool on);
-
     // Do we still need the enum and related functions below?
     enum TextToSearch
     {
@@ -388,7 +385,6 @@ class KateViewConfig : public KateConfig
     long m_searchFlags;
     uint m_defaultMarkType;
     bool m_persistentSelection;
-    bool m_viInputMode;
     bool m_automaticCompletionInvocation;
 
     bool m_dynWordWrapSet : 1;
@@ -403,7 +399,6 @@ class KateViewConfig : public KateConfig
     bool m_searchFlagsSet : 1;
     bool m_defaultMarkTypeSet : 1;
     bool m_persistentSelectionSet : 1;
-    bool m_viInputModeSet : 1;
     bool m_automaticCompletionInvocationSet : 1;
 
   private:

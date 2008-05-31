@@ -67,16 +67,6 @@ class KSelectAction;
 
 class QVBoxLayout;
 
-/**
- * The four vi modes supported by Kate's vi input mode
- */
-enum ViMode {
-  NormalMode,
-  InsertMode,
-  CommandLineMode,
-  VisualMode
-};
-
 //
 // Kate KTextEditor::View class ;)
 //
@@ -99,7 +89,6 @@ class KateView : public KTextEditor::View,
     friend class KateViewInternal;
     friend class KateIconBorder;
     friend class KateSearchBar;
-    friend class KateViNormalMode;
 
   public:
     KateView( KateDocument* doc, QWidget* parent );
@@ -466,8 +455,6 @@ class KateView : public KTextEditor::View,
 
     void gotoLine();
 
-    void viEnterNormalMode();
-
   // config file / session management functions
   public:
     void readSessionConfig(const KConfigGroup&);
@@ -491,7 +478,6 @@ class KateView : public KTextEditor::View,
     void toggleLineNumbersOn();
     void toggleScrollBarMarks();
     void toggleDynWordWrap ();
-    void toggleViInputMode ();
     void setDynWrapIndicators(int mode);
 
   public:
@@ -554,7 +540,6 @@ class KateView : public KTextEditor::View,
     void setupConnections();
     void setupActions();
     void setupEditActions();
-    void setupViNormalModeActions();
     void setupCodeFolding();
 
     KActionCollection*     m_editActions;
@@ -658,28 +643,6 @@ class KateView : public KTextEditor::View,
     KateCmdLine *m_cmdLine;
     KateSearchBar *m_searchBar;
     KateGotoBar *m_gotoBar;
-
-  // vi Mode
-  public:
-    /**
-     * @return boolean indicating whether vi mode is active or not
-     */
-    bool viInputMode() const;
-
-    /**
-     * @return The current vi mode, InsertMode if the vi input mode is not
-     * used
-     */
-    ViMode getCurrentViMode() const;
-
-    /**
-     * changes the current vi mode to the given mode
-     */
-    void changeViMode(ViMode newMode);
-
-  //private:
-  //  bool m_viInputMode;
-  //  ViMode m_currentViMode;
 };
 
 #endif

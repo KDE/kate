@@ -97,9 +97,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_textHintMouseY(-1)
   , m_imPreedit(0L)
   , m_smartDirty(false)
-  , m_viInputMode(false)
-  , m_currentViMode(NormalMode)
-  , m_viNormalMode(0)
 {
   m_watcherCount1 = 0;
   m_watcherCount3 = 0;
@@ -263,8 +260,6 @@ KateViewInternal::~KateViewInternal ()
   qDeleteAll(m_dynamicHighlights);
 
   delete m_imPreedit;
-  if ( m_viNormalMode )
-    delete m_viNormalMode;
 
   //kDebug( 13030 ) << m_watcherCount1 << m_watcherCount3;
 }
@@ -2082,11 +2077,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
       if (k->key() == Qt::Key_Escape) {
 
-        if (m_view->viInputMode() && m_view->getCurrentViMode() == InsertMode) {
-          // if vi input mode is active, go to normal mode
-          m_view->viEnterNormalMode();
-          return true;
-        } else if (m_view->isCompletionActive()) {
+        if (m_view->isCompletionActive()) {
           m_view->abortCompletion();
           return true;
         } else if (m_view->m_viewBar->isVisible()) {
@@ -2145,12 +2136,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
   // Note: AND'ing with <Shift> is a quick hack to fix Key_Enter
   const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
-
-  if ( m_view->viInputMode() && m_view->getCurrentViMode() != InsertMode ) {
-    getViNormalMode()->handleKeypress( e );
-    return;
-  }
-
 
   if (m_view->isCompletionActive())
   {
@@ -2873,7 +2858,7 @@ void KateViewInternal::scrollTimeout ()
 
 void KateViewInternal::cursorTimeout ()
 {
-  if (!debugPainting && !m_view->viInputMode()) {
+  if (!debugPainting) {
     renderer()->setDrawCaret(!renderer()->drawCaret());
     paintCursor();
   }
@@ -3594,12 +3579,5 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 }
 
 //END IM INPUT STUFF
-
-KateViNormalMode* KateViewInternal::getViNormalMode()
-{
-  if ( !m_viNormalMode )
-    m_viNormalMode = new KateViNormalMode( m_view, this );
-  return m_viNormalMode;
-}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

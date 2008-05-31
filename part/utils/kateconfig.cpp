@@ -634,7 +634,6 @@ KateViewConfig::KateViewConfig ()
    m_searchFlagsSet (true),
    m_defaultMarkTypeSet (true),
    m_persistentSelectionSet (true),
-   m_viInputModeSet (true),
    m_automaticCompletionInvocationSet (true),
    m_view (0)
 {
@@ -659,7 +658,6 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_searchFlagsSet (false),
    m_defaultMarkTypeSet (false),
    m_persistentSelectionSet (false),
-   m_viInputModeSet (false),
    m_automaticCompletionInvocationSet (false),
    m_view (view)
 {
@@ -702,9 +700,6 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setDefaultMarkType (config.readEntry( "Default Mark Type", int(KTextEditor::MarkInterface::markType01) ));
 
   setPersistentSelection (config.readEntry( "Persistent Selection", false ));
-
-  setViInputMode (config.readEntry( "Vi Input Mode", false));
-  kDebug(13070) << "Vi Input Mode: " << viInputMode();
 
   setAutomaticCompletionInvocation (config.readEntry( "Auto Completion", true ));
 
@@ -992,24 +987,6 @@ void KateViewConfig::setPersistentSelection (bool on)
 
   m_persistentSelectionSet = true;
   m_persistentSelection = on;
-
-  configEnd ();
-}
-
-bool KateViewConfig::viInputMode () const
-{
-  if (m_viInputModeSet || isGlobal())
-    return m_viInputMode;
-
-  return s_global->viInputMode();
-}
-
-void KateViewConfig::setViInputMode (bool on)
-{
-  configStart ();
-
-  m_viInputModeSet = true;
-  m_viInputMode = on;
 
   configEnd ();
 }

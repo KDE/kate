@@ -593,7 +593,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       // Make the caret the desired width
       int caretWidth = 2;
       QTextLine line = range->layout()->lineForTextPosition(cursor->column());
-      if (caretStyle() == Block || (m_view->viInputMode() && m_view->getCurrentViMode() == NormalMode)) {
+      if (caretStyle() == Block) {
         if (line.isValid() && cursor->column() < range->length()) {
           caretWidth = int(line.cursorToX(cursor->column() + 1) - line.cursorToX(cursor->column()));
           if (caretWidth < 0)

@@ -379,9 +379,43 @@ key, val = x.split(/=/,2)
 
 # the following are division operators
 # it's a bit tricky to keep the operator apart from the regexp
-# we currently require a space after the operator, but that is not quite right either
 result = 8 / 4
 result /= divisor
+
+# 2008-06-01 regexp and division operator syntax has been fixed:
+result = 8/4    # division
+result = 8/foo  # division
+result = /8/    # regexp
+result = 8//4/  # division and regexp
+
+10/10           # division
+10/ 10          # division
+10 /10          # division
+10 / 10         # division
+
+foo/10          # division
+foo/ 10         # division
+foo /10/        # regexp
+foo / 10        # division
+
+foo/10/10       # both division
+total/count/2   # both division
+total/(count/2) # both division
+
+@foo/10         # division
+@foo /10        # division
+
+"hello"/10      # division
+"hello" / 10    # division
+
+/regexp//10     # division
+/regexp/ / 10   # division
+
+Math::PI/10     # division
+Math::foo /rx/  # regexp
+
+# mix in any way you want
+result = 10//regexp//20/foo//regexp//20
 
 # test cases for general delimited input
 # quoted strings

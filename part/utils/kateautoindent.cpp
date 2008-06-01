@@ -201,16 +201,8 @@ void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &po
   doIndent (view, position.line(), newIndentInChars, false);
 }
 
-void KateAutoIndent::setMode (const QString &_name)
+void KateAutoIndent::setMode (const QString &name)
 {
-  QString name;
-  
-  ///@todo This is a hack to stay compatible with old katelines and .kateconfigs, solve it properly(rename indentation_c to cstyle?)
-  if(_name == "cstyle")
-    name = "indentation_c";
-  else
-    name = _name;
-  
   // bail out, already set correct mode...
   if (m_mode == name)
     return;

@@ -1,5 +1,5 @@
 /** kate-script
- * name: C Indenter
+ * name: C Style
  * license: LGPL
  * author: Dominik Haumann <dhdev@gmx.de>
  * version: 1

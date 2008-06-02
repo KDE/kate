@@ -281,8 +281,7 @@
 				
 				<RegExpr attribute="Comment" String="#\s*BEGIN.*$"  context="#stay" beginRegion="marker" column="0"/>
 				<RegExpr attribute="Comment" String="#\s*END.*$"  context="#stay" endRegion="marker" column="0"/>
-				<RegExpr attribute="Comment" String="#"  context="Comment Line" firstNonSpace="true"/>
-				<RegExpr attribute="Comment" String="(\b|\s)#"  context="General Comment"/>
+				<DetectChar attribute="Comment" char="#" context="General Comment"/>
 				
 				<DetectChar attribute="Delimiter" char="["  context="#stay"/>
 				<DetectChar attribute="Delimiter" char="]"  context="check_div_1"/>
@@ -309,21 +308,18 @@
 			
 			<!-- A slash is always a division operator, even if preceeded by whitespace -->
 			<context name="check_div_1" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop" lineEndContext="#pop">
-				<RegExpr String="\s*[^\s/]" lookAhead="true" context="#pop"/>
 				<RegExpr attribute="Normal Text" String="\s*" context="#stay"/>
 				<DetectChar attribute="Operator" char="/" context="#pop"/>
 			</context>
 			
 			<!-- Same as check_div_1, but with double pop to exit the surrounding context -->
 			<context name="check_div_1_pop" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop#pop" lineEndContext="#pop#pop">
-				<RegExpr String="\s*[^\s/]" lookAhead="true" context="#pop#pop"/>
 				<RegExpr attribute="Normal Text" String="\s*" context="#stay"/>
 				<DetectChar attribute="Operator" char="/" context="#pop#pop"/>
 			</context>
 
 			<!-- A slash is division operator if it's the first character, or if preceeded and followed by whitespace -->
 			<context name="check_div_2" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop" lineEndContext="#pop">
-				<RegExpr String="\s*[^\s/]" lookAhead="true" context="#pop"/>
 				<DetectChar attribute="Operator" char="/" context="#pop"/>
 				<RegExpr attribute="Normal Text" String="\s+" context="check_div_2_internal"/>
 			</context>
@@ -335,7 +331,6 @@
 			
 			<!-- Same as check_div_2, but with double pop to exit the surrounding context -->
 			<context name="check_div_2_pop" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop#pop" lineEndContext="#pop#pop">
-				<RegExpr String="\s*[^\s/]" lookAhead="true" context="#pop#pop"/>
 				<DetectChar attribute="Operator" char="/" context="#pop#pop"/>
 				<RegExpr attribute="Normal Text" String="\s+" context="check_div_2_pop_internal"/>
 			</context>

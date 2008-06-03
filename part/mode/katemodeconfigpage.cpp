@@ -144,10 +144,11 @@ void ModeConfigPage::update ()
   ui->cmbFiletypes->clear ();
 
   foreach (KateFileType *type, m_types) {
+    QString typeName = i18nc("Language", type->name.toUtf8());
     if (type->section.length() > 0)
-      ui->cmbFiletypes->addItem(type->section + QString ("/") + type->name);
+      ui->cmbFiletypes->addItem(type->section + QString ("/") + typeName);
     else
-      ui->cmbFiletypes->addItem(type->name);
+      ui->cmbFiletypes->addItem(typeName);
   }
 
   ui->cmbFiletypes->setCurrentIndex (0);

@@ -116,7 +116,7 @@ void KateRegression::testAll()
   Cursor* cursorStartOfEdit = smart()->newSmartCursor(Cursor(1,5), SmartCursor::StayOnInsert);
   Cursor* cursorEndOfEdit = smart()->newSmartCursor(Cursor(1,5), SmartCursor::MoveOnInsert);
 
-  Range* rangeEdit = smart()->newSmartRange(*cursorStartOfEdit, *cursorEndOfEdit, 0L, SmartRange::ExpandRight);
+  Range* rangeEdit = smart()->newSmartRange(*cursorStartOfEdit, *cursorEndOfEdit, 0L, SmartRange::ExpandLeft | SmartRange::ExpandRight);
 
   Cursor* cursorPastEdit = smart()->newSmartCursor(Cursor(1,6));
   Cursor* cursorEOL = smart()->newSmartCursor(m_doc->endOfLine(1), SmartCursor::StayOnInsert);

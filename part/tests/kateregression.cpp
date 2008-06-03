@@ -209,6 +209,14 @@ void KateRegression::testSmartCursor( )
   QCOMPARE(*advanceCursor, m_doc->documentRange().end());
 }
 
+void KateRegression::testCornerCaseInsertion()
+{
+  Range* rangeEdit = smart()->newSmartRange(Range(0,0,0,0), 0L);
+
+  m_doc->insertText(Cursor(0,0), "\n");
+  QCOMPARE(*rangeEdit, Range(1,0,1,0));
+}
+
 void KateRegression::checkSignalExpectations( )
 {
   foreach (CursorExpectation* e, m_cursorExpectations)

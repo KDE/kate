@@ -65,6 +65,7 @@ class KateRegression : public QObject
     void testSmartCursor();
     void testSmartRange();
     void testRangeTree();
+    void testCornerCaseInsertion();
 
   private:
     void checkRange(KTextEditor::Range& valid);

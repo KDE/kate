@@ -131,6 +131,9 @@ class KateSmartCursor : public KTextEditor::SmartCursor
 
     bool  m_isInternal        :1;
 
+    // Hack for corner case as documented in translate()
+    bool  m_bypassTranslation :1;
+
     KateSmartCursorNotifier* m_notifier;
     KTextEditor::SmartCursorWatcher* m_watcher;
 };

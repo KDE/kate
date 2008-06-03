@@ -31,6 +31,7 @@ KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEdito
   , m_oldGroupLineStart(-1)
   , m_lastPosition(position)
   , m_isInternal(false)
+  , m_bypassTranslation(false)
   , m_notifier(0L)
   , m_watcher(0L)
 {
@@ -51,6 +52,7 @@ KateSmartCursor::KateSmartCursor( KTextEditor::Document * doc, KTextEditor::Smar
   , m_feedbackEnabled(false)
   , m_oldGroupLineStart(-1)
   , m_isInternal(false)
+  , m_bypassTranslation(false)
   , m_notifier(0L)
   , m_watcher(0L)
 {
@@ -180,9 +182,18 @@ void KateSmartCursor::setWatcher( KTextEditor::SmartCursorWatcher * watcher )
 
 bool KateSmartCursor::translate( const KateEditInfo & edit )
 {
+  if (m_bypassTranslation) {
+    // This cursor has already been moved
+    m_bypassTranslation = false;
+    return true;
+  }
+
   // If this cursor is before the edit, no action is required
   if (*this < edit.start())
     return false;
+
+  // Calculate the new position
+  KTextEditor::Cursor newPos;
 
   // If this cursor is on a line affected by the edit
   if (edit.oldRange().overlapsLine(line())) {
@@ -193,8 +204,6 @@ bool KateSmartCursor::translate( const KateEditInfo & edit )
         return false;
     }
 
-    // Calculate the new position
-    KTextEditor::Cursor newPos;
     if (edit.oldRange().contains(*this)) {
       if (insertBehavior() == KTextEditor::SmartCursor::MoveOnInsert)
         newPos = edit.newRange().end();
@@ -205,17 +214,34 @@ bool KateSmartCursor::translate( const KateEditInfo & edit )
       newPos = *this + edit.translate();
     }
 
-    if (newPos != *this) {
-      setPositionInternal(newPos);
-      return true;
-    }
-
-    return false;
+  } else {
+    // just need to adjust line number
+    newPos.setPosition(line() + edit.translate().line(), column());
   }
 
-  // just need to adjust line number
-  setLineInternal(line() + edit.translate().line());
-  return true;
+  if (newPos != *this) {
+    // Catch corner case where the range is non-expanding, is zero length, and then the
+    // start cursor would otherwise be placed before the end cursor.
+    if (KTextEditor::SmartRange* range = smartRange()) {
+      if (&(range->smartStart()) == this) {
+        if (*this == edit.start()) {
+          if (range->insertBehavior() == KTextEditor::SmartRange::DoNotExpand) {
+            if (range->end() == *this) {
+              KateSmartCursor* end = static_cast<KateSmartCursor*>(&(range->smartEnd()));
+              end->setPositionInternal(newPos);
+              // Don't let the end cursor get translated again
+              end->m_bypassTranslation = true;
+            }
+          }
+        }
+      }
+    }
+
+    setPositionInternal(newPos);
+    return true;
+  }
+
+  return false;
 }
 
 bool KateSmartCursor::cursorMoved( ) const

@@ -405,7 +405,6 @@ KateSchemaConfigFontTab::KateSchemaConfigFontTab()
   QGridLayout *grid = new QGridLayout( this );
 
   m_fontchooser = new KFontChooser ( this, false, QStringList(), false );
-  m_fontchooser->enableColumn(KFontChooser::StyleList, false);
   grid->addWidget( m_fontchooser, 0, 0);
 
   m_schema = -1;

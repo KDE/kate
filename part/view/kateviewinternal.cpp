@@ -431,6 +431,7 @@ void KateViewInternal::scrollNextLine()
 KTextEditor::Cursor KateViewInternal::maxStartPos(bool changed)
 {
   m_usePlainLines = true;
+  cache()->setAcceptDirtyLayouts(true);
 
   if (m_cachedMaxStartPos.line() == -1 || changed)
   {
@@ -440,6 +441,7 @@ KTextEditor::Cursor KateViewInternal::maxStartPos(bool changed)
   }
 
   m_usePlainLines = false;
+  cache()->setAcceptDirtyLayouts(false);
 
   return m_cachedMaxStartPos;
 }

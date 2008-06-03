@@ -57,6 +57,8 @@ class KateLayoutCache : public QObject
     bool wrap() const;
     void setWrap(bool wrap);
 
+    void setAcceptDirtyLayouts(bool accept);
+
     // BEGIN generic methods to get/set layouts
     /**
      * Returns the KateLineLayout for the specified line.
@@ -131,6 +133,7 @@ private:
 
     int m_viewWidth;
     bool m_wrap;
+    bool m_acceptDirtyLayouts;
 };
 
 #endif

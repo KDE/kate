@@ -35,6 +35,7 @@ KateLayoutCache::KateLayoutCache(KateRenderer* renderer, QObject* parent)
   , m_startPos(-1,-1)
   , m_viewWidth(0)
   , m_wrap(false)
+  , m_acceptDirtyLayouts(false)
 {
   Q_ASSERT(m_renderer);
 
@@ -158,13 +159,18 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine ) const
 {
   if (m_lineLayouts.contains(realLine)) {
     KateLineLayoutPtr l = m_lineLayouts[realLine];
+
     if (virtualLine != -1)
       l->setVirtualLine(virtualLine);
+
     if (!l->isValid())
       m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
-    else if (l->isLayoutDirty())
+
+    else if (l->isLayoutDirty() && !m_acceptDirtyLayouts)
       m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
-    Q_ASSERT(l->isValid() && !l->isLayoutDirty());
+
+    Q_ASSERT(l->isValid() && (!l->isLayoutDirty() || m_acceptDirtyLayouts));
+
     return l;
   }
 
@@ -175,6 +181,10 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine ) const
   l->setLine(realLine, virtualLine);
   m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
   Q_ASSERT(l->isValid());
+
+  if (m_acceptDirtyLayouts)
+    // Mark it dirty, because it may not have the syntax highlighting applied
+    l->setLayoutDirty(true);
 
   m_lineLayouts.insert(realLine, l);
   return l;
@@ -416,11 +426,19 @@ void KateLayoutCache::setWrap( bool wrap )
 
 void KateLayoutCache::relayoutLines( int startRealLine, int endRealLine )
 {
+  if (startRealLine > endRealLine)
+    kWarning() << "start" << startRealLine << "before end" << endRealLine;
+
   for (int i = startRealLine; i <= endRealLine; ++i) {
     QMap<int, KateLineLayoutPtr>::iterator it = m_lineLayouts.find(i);
     if (it != m_lineLayouts.end())
       (*it)->setLayoutDirty();
   }
+}
+
+void KateLayoutCache::setAcceptDirtyLayouts(bool accept)
+{
+  m_acceptDirtyLayouts = accept;
 }
 
 #include "katelayoutcache.moc"

@@ -53,18 +53,21 @@ KateIndentScript *KateScriptManager::indenter(const QString &language)
   foreach(KateIndentScript *indenter, m_languageToIndenters.value(language.toLower())) {
     // don't overwrite if there is already a result with a higher priority
     if(highestPriorityIndenter && indenter->information().priority < highestPriorityIndenter->information().priority) {
-      kDebug(13050) << "KateScriptManager::indenter: Not overwriting indenter for '"
-                    << language << "' as the priority isn't big enough (" <<
-                    indenter->information().priority << " < "
+      kDebug(13050) << "Not overwriting indenter for"
+                    << language << "as the priority isn't big enough (" <<
+                    indenter->information().priority << '<'
                     << highestPriorityIndenter->information().priority << ')';
     }
     else {
       highestPriorityIndenter = indenter;
     }
   }
-  if(!highestPriorityIndenter) {
-    kDebug(13050) << "KateScriptManager::indenter: No indenter for " << language;
+  if(highestPriorityIndenter) {
+    kDebug(13050) << "Found indenter" << highestPriorityIndenter->url() << "for" << language;
+  } else {
+    kDebug(13050) << "No indenter for" << language;
   }
+  
   return highestPriorityIndenter;
 }
 
@@ -184,8 +187,8 @@ void KateScriptManager::collect(const QString& resourceFile,
         }
         m_scripts.push_back(script);
 
- m_indentationScripts.insert (information.baseName, script);
-    m_indentationScriptsList.append(script);
+        m_indentationScripts.insert(information.baseName, script);
+        m_indentationScriptsList.append(script);
         break;
       }
       case Kate::UnknownScript:

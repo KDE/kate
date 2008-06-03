@@ -1,10 +1,12 @@
 /** kate-script
  * name: Ruby
  * license: LGPL
- * author: Robin Pedersen <robin.pedersen@runbox.com>
+ * author: Robin Pedersen <robinpeder@gmail.com>
  * version: 1
  * kate-version: 3.0
  * type: indentation
+ * indent-languages: ruby
+ * priority: 0
  *
  * This file is part of the Kate Project.
  *

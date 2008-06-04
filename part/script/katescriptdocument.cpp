@@ -39,15 +39,49 @@ KateDocument *KateScriptDocument::document()
   return m_document;
 }
 
-bool KateScriptDocument::isCode(int line, int column)
+int KateScriptDocument::defStyleNum(int line, int column)
 {
   KateDocCursor cursor(line, column, m_document);
   QList<KTextEditor::Attribute::Ptr> attributes = m_document->highlight()->attributes(((KateView*) m_document->activeView())->renderer()->config()->schema());
   KTextEditor::Attribute::Ptr a = attributes[cursor.currentAttrib()];
-  const int defaultStyle = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
+  return a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
+}
+
+bool KateScriptDocument::isCode(int line, int column)
+{
+  const int defaultStyle = defStyleNum(line, column);
   return _isCode(defaultStyle);
 }
 
+bool KateScriptDocument::isComment(int line, int column)
+{
+  const int defaultStyle = defStyleNum(line, column);
+  return defaultStyle == KateExtendedAttribute::dsComment;
+}
+  
+bool KateScriptDocument::isString(int line, int column)
+{
+  const int defaultStyle = defStyleNum(line, column);
+  return defaultStyle == KateExtendedAttribute::dsString;
+}
+
+bool KateScriptDocument::isRegionMarker(int line, int column)
+{
+  const int defaultStyle = defStyleNum(line, column);
+  return defaultStyle == KateExtendedAttribute::dsRegionMarker;
+}
+
+bool KateScriptDocument::isChar(int line, int column)
+{
+  const int defaultStyle = defStyleNum(line, column);
+  return defaultStyle == KateExtendedAttribute::dsChar;
+}
+
+bool KateScriptDocument::isOthers(int line, int column)
+{
+  const int defaultStyle = defStyleNum(line, column);
+  return defaultStyle == KateExtendedAttribute::dsOthers;
+}
 
 int KateScriptDocument::firstVirtualColumn(int line)
 {

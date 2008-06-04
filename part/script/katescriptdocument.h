@@ -103,8 +103,15 @@ class KateScriptDocument : public QObject, protected QScriptable
     Q_INVOKABLE int fromVirtualColumn(int line, int virtualColumn);
     
     Q_INVOKABLE KTextEditor::Cursor anchor(int line, int column, QChar character);
-        
+    
+    Q_INVOKABLE int defStyleNum(int line, int column);
     Q_INVOKABLE bool isCode(int line, int column);
+    Q_INVOKABLE bool isComment(int line, int column);
+    Q_INVOKABLE bool isString(int line, int column);
+    Q_INVOKABLE bool isRegionMarker(int line, int column);
+    Q_INVOKABLE bool isChar(int line, int column);
+    Q_INVOKABLE bool isOthers(int line, int column);
+
     
     Q_INVOKABLE bool startsWith (int line, const QString &pattern, bool skipWhiteSpaces);
     Q_INVOKABLE bool endsWith (int line, const QString &pattern, bool skipWhiteSpaces);

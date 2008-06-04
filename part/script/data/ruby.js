@@ -103,7 +103,7 @@ function testAtEnd(stmt, rx)
 
 function isStmtContinuing(line)
 {
-  // Is there an open parentesis?
+  // Is there an open parenthesis?
   var anch = lastAnchor(line+1, 0);
   if (anch.line >= 0)
     return true;
@@ -114,7 +114,7 @@ function isStmtContinuing(line)
   return testAtEnd(stmt, rx);
 }
 
-// Return the first line that is not preceeded by a "continuing" line.
+// Return the first line that is not preceded by a "continuing" line.
 // Return currLine if currLine <= 0
 function findStmtStart(currLine)
 {
@@ -166,6 +166,7 @@ function Statement(start, end)
     return document.isComment(cur.line, cur.column);
   }
 
+  // Return the indent at the beginning of the statement
   this.indent = function() {
     return document.firstVirtualColumn(this.start)
   }
@@ -280,7 +281,7 @@ function lastAnchor(line, column)
   return anch;
 }
 
-// indent gets three arguments: line, indentwidth in spaces,
+// indent gets three arguments: line, indentWidth in spaces,
 // typed character indent
 function indent(line, indentWidth, ch)
 {

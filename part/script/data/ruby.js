@@ -137,32 +137,33 @@ function Statement(start, end)
   this.toString = function() {
     return "{" + this.start + "," + this.end + "}";
   }
-
-  // Return document.attribute at the given offset in a statement
-  this.attribute = function(offset) {
+  
+  // Return an object having 'line' and 'column' set to the given offset in a statement
+  this.offsetToCursor = function(offset) {
+    // TODO Provide helper function for this when API is converted to using cursors:
     var line = this.start;
     while (line < this.end && document.lineLength(line) < offset) {
       offset -= document.lineLength(line++) + 1;
     }
-    return document.attribute(line, offset);
+    return {line: line, column: offset};
+  }
+
+  // Return document.attribute at the given offset in a statement
+  this.attribute = function(offset) {
+    var cur = this.offsetToCursor(offset);
+    return document.attribute(cur.line, cur.column);
   }
 
   // Return document.isCode at the given offset in a statement
   this.isCode = function(offset) {
-    var line = this.start;
-    while (line < this.end && document.lineLength(line) < offset) {
-      offset -= document.lineLength(line++) + 1;
-    }
-    return document.isCode(line, offset);
+    var cur = this.offsetToCursor(offset);
+    return document.isCode(cur.line, cur.column);
   }
 
   // Return document.isComment at the given offset in a statement
   this.isComment = function(offset) {
-    var line = this.start;
-    while (line < this.end && document.lineLength(line) < offset) {
-      offset -= document.lineLength(line++) + 1;
-    }
-    return document.isComment(line, offset);
+    var cur = this.offsetToCursor(offset);
+    return document.isComment(cur.line, cur.column);
   }
 
   this.indent = function() {

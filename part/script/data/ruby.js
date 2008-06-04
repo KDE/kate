@@ -44,28 +44,12 @@ function assert(cond)
     throw "assertion failure";
 }
 
-function isComment(attr)
-{
-  return (attr == 30 || attr == 31);
-}
-
-function isString(attr)
-{
-  return (attr == 13 || attr == 14);
-}
-
-function isCommentAttr(line, column)
-{
-  var attr = document.attribute(line, column);
-  return isComment(attr);
-}
-
 // Return the closest non-empty line, ignoring comments
 // (result <= line). Return -1 if the document
 function findPrevNonCommentLine(line)
 {
   line = document.prevNonEmptyLine(line);
-  while (line >= 0 && isCommentAttr(line, document.firstColumn(line))) {
+  while (line >= 0 && document.isComment(line, document.firstColumn(line))) {
     line = document.prevNonEmptyLine(line - 1);
   }
   return line;
@@ -83,7 +67,7 @@ function isLastCodeColumn(line, column)
 {
   if (column >= document.lastColumn(line))
     return true;
-  else if (isCommentAttr(line, document.nextNonSpaceColumn(line, column+1)))
+  else if (document.isComment(line, document.nextNonSpaceColumn(line, column+1)))
     return true;
   else
     return false;
@@ -110,7 +94,7 @@ function testAtEnd(stmt, rx)
     if (stmt.isCode(start)) {
       if (end == cnt.length)
         return true;
-      if (isComment(stmt.attribute(end)))
+      if (stmt.isComment(end))
         return true;
     }
   }
@@ -170,6 +154,15 @@ function Statement(start, end)
       offset -= document.lineLength(line++) + 1;
     }
     return document.isCode(line, offset);
+  }
+
+  // Return document.isComment at the given offset in a statement
+  this.isComment = function(offset) {
+    var line = this.start;
+    while (line < this.end && document.lineLength(line) < offset) {
+      offset -= document.lineLength(line++) + 1;
+    }
+    return document.isComment(line, offset);
   }
 
   this.indent = function() {
@@ -314,7 +307,7 @@ function indent(line, indentWidth, ch)
       if (shouldIndent) {
         anch.column += 1;
         var nextCol = document.nextNonSpaceColumn(anch.line, anch.column);
-        if (nextCol > 0 && !isCommentAttr(anch.line, nextCol))
+        if (nextCol > 0 && !document.isComment(anch.line, nextCol))
           anch.column = nextCol;
       }
       return document.toVirtualColumn(anch.line, anch.column);

@@ -128,6 +128,9 @@ QVariant KateDocManager::data( const QModelIndex & index, int role ) const
 
 KTextEditor::Document *KateDocManager::createDoc ()
 {
+
+  kdDebug()<<"createDoc"<<endl;
+
   KTextEditor::Document *doc = (KTextEditor::Document *) m_editor->createDocument(this);
 
   // turn of the editorpart's own modification dialog, we have our own one, too!
@@ -169,6 +172,7 @@ void KateDocManager::slotDocumentNameChanged(KTextEditor::Document* doc)
     QStandardItem *it = item(i);
     if (it->data(KateDocManager::DocumentRole).value<KTextEditor::Document*>() == doc)
     {
+      kDebug()<<"docname changed: "<<it->text()<<"----->"<<doc->documentName();
       it->setText(doc->documentName());
       break;
     }
@@ -177,6 +181,8 @@ void KateDocManager::slotDocumentNameChanged(KTextEditor::Document* doc)
 
 void KateDocManager::deleteDoc (KTextEditor::Document *doc)
 {
+  kdDebug()<<"deleting document with name:"<<doc->documentName();
+  int remove_row=-1;
   int rows = rowCount();
   m_documentItemMapping.remove(doc);
   for (int i = 0;i < rows;i++)
@@ -184,7 +190,7 @@ void KateDocManager::deleteDoc (KTextEditor::Document *doc)
     QStandardItem *it = item(i);
     if (it->data(KateDocManager::DocumentRole).value<KTextEditor::Document*>() == doc)
     {
-      removeRow(i);
+      remove_row=i;
       break;
     }
   }
@@ -200,6 +206,13 @@ void KateDocManager::deleteDoc (KTextEditor::Document *doc)
   // document is gone, emit our signals
   emit documentDeleted (doc);
   emit m_documentManager->documentDeleted (doc);
+
+  for (int i=0;i<rowCount();i++) {
+	kdDebug()<<data(index(i,0),Qt::DisplayRole)<<(i==remove_row?"REMOVING":"");
+  }
+  if (remove_row>-1)
+      removeRow(remove_row);
+
 }
 
 KTextEditor::Document *KateDocManager::document (uint n)

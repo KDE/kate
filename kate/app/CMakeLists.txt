@@ -22,6 +22,7 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp katemainwindowadaptor.cpp
    katemdi.cpp
    katedocmanageradaptor.cpp
    kateviewdocumentproxymodel.cpp
+#   modeltest.cpp
    )
 
 

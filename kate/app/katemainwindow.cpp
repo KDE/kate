@@ -35,6 +35,7 @@
 #include "katesession.h"
 #include "katemainwindowadaptor.h"
 #include "kateviewdocumentproxymodel.h"
+//#include "modeltest.h"
 
 #include <kate/mainwindow.h>
 
@@ -230,6 +231,7 @@ void KateMainWindow::setupMainWindow ()
   m_fileList = new KateFileList(ft, actionCollection());
   m_documentModel = new KateViewDocumentProxyModel(this);
   m_documentModel->setSourceModel(KateDocManager::self());
+//  new ModelTest(m_documentModel,this);
   m_fileList->setModel(m_documentModel);
   m_fileList->setSelectionModel(m_documentModel->selection());
   m_fileList->setDragEnabled(true);

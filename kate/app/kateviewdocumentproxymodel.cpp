@@ -135,7 +135,7 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
     int tmp = m_mapToSource[i];
     m_mapFromSource[tmp] = i;
   }
-
+  m_rowCountOffset--;
   endRemoveRows();
 
    kDebug()<<sourcerow<<"/////"<<insertRowAt;
@@ -152,6 +152,7 @@ bool KateViewDocumentProxyModel::dropMimeData(const QMimeData *data,
    kDebug()<<"m_mapFromSource"<<m_mapFromSource;
    kDebug()<<"m_mapToSource"<<m_mapToSource;
 // 
+    m_rowCountOffset++;
     endInsertRows();
     QModelIndex index = createIndex(insertRowAt, 0);
     opened(index);
@@ -172,10 +173,15 @@ Qt::DropActions KateViewDocumentProxyModel::supportedDropActions () const
 Qt::ItemFlags KateViewDocumentProxyModel::flags ( const QModelIndex & index ) const
 {
   Qt::ItemFlags f = QAbstractProxyModel::flags(index);
-  if (index.isValid())
-    f = (f & ~(Qt::ItemIsDropEnabled)) | Qt::ItemIsDragEnabled;
+  if (index.isValid()) {
+    if (m_sortRole==CustomOrderRole) {
+        f = (f & ~(Qt::ItemIsDropEnabled)) | Qt::ItemIsDragEnabled;
+    } else {
+        f = (f & ~(Qt::ItemIsDropEnabled)) & ~(Qt::ItemIsDragEnabled);
+    }
+  }
   else
-    f = f | Qt::ItemIsDropEnabled | Qt::ItemIsDragEnabled;
+    f = f | Qt::ItemIsDropEnabled; // | Qt::ItemIsDragEnabled;
   return f;
 }
 
@@ -298,6 +304,10 @@ QVariant KateViewDocumentProxyModel::data ( const QModelIndex & index, int role 
   if ( role == CustomOrderRole )
     return index.row();
 
+
+/*  kDebug()<<index;
+  kDebug()<<mapToSource(index);*/
+
   return sourceModel()->data(mapToSource(index), role);
 }
 
@@ -331,8 +341,9 @@ int KateViewDocumentProxyModel::columnCount ( const QModelIndex & parent) const
 
 QModelIndex KateViewDocumentProxyModel::index ( int row, int column, const QModelIndex & parent) const
 {
-  if (parent.isValid()) return createIndex(-1, -1);
-  if (row >= rowCount(parent)) return createIndex(-1, 1);
+  if ( (row<0) || (column<0) ) return QModelIndex();
+  if (parent.isValid()) return QModelIndex();
+  if (row >= rowCount(parent)) return QModelIndex();
   return createIndex(row, column);
 }
 
@@ -437,7 +448,7 @@ void KateViewDocumentProxyModel::slotDataChanged ( const QModelIndex & topLeft, 
 }
 void KateViewDocumentProxyModel::slotHeaderDataChanged ( Qt::Orientation orientation, int first, int last )
 {
-  emit headerDataChanged(orientation, first, last);
+//  emit headerDataChanged(orientation, first, last);
 }
 void KateViewDocumentProxyModel::slotLayoutAboutToBeChanged ()
 {
@@ -462,7 +473,7 @@ void KateViewDocumentProxyModel::slotRowsAboutToBeInserted ( const QModelIndex &
 {
 //   kDebug(13001)<<start<<end;
   //beginInsertRows(mapFromSource(parent),start,end);
-  beginInsertRows(mapFromSource(parent), m_mapFromSource.count(), m_mapFromSource.count() + 1 - start + end);
+  beginInsertRows(mapFromSource(parent), m_mapFromSource.count(), m_mapFromSource.count() - start + end);
   int insertedRange = end - start + 1;
   if (m_current.isValid())
   {
@@ -491,11 +502,13 @@ void KateViewDocumentProxyModel::slotRowsAboutToBeRemoved ( const QModelIndex & 
 //   kDebug(13001)<<start<<end;
   Q_UNUSED(parent)
 
+  beginRemoveRows(QModelIndex(), m_mapFromSource[start], m_mapFromSource[end]);
+
   for (int row = end;row >= start;row--)
   {
     int removeRow = m_mapFromSource[row];
     removeItemFromColoring(removeRow);
-    beginRemoveRows(QModelIndex(), removeRow, removeRow);
+
     m_rowCountOffset--;
 
     for (int i = 0, i2 = 0;i < m_mapToSource.count();i++)
@@ -509,8 +522,8 @@ void KateViewDocumentProxyModel::slotRowsAboutToBeRemoved ( const QModelIndex & 
     m_mapToSource.removeLast();
     m_mapFromSource.removeLast();
 
-    //foreach (int sr, m_mapToSource) kDebug()<<sr;
-    //kDebug()<<"**************";
+    foreach (int sr, m_mapToSource) kDebug()<<sr;
+    kDebug()<<"**************";
 
     for (int i = 0;i < m_mapToSource.count();i++)
     {
@@ -518,7 +531,9 @@ void KateViewDocumentProxyModel::slotRowsAboutToBeRemoved ( const QModelIndex & 
       m_mapFromSource[tmp] = i;
     }
     //foreach (int sd, m_mapFromSource) kDebug()<<sd;
-    endRemoveRows();
+
+    for (int i=0;i<m_mapToSource.size();i++)
+	kDebug()<<data(createIndex(i,0),Qt::DisplayRole);
   }
   m_rowCountOffset = 0;
 }
@@ -552,6 +567,10 @@ void KateViewDocumentProxyModel::slotRowsRemoved ( const QModelIndex & parent, i
   Q_UNUSED(parent)
   Q_UNUSED(start)
   Q_UNUSED(end)
+
+  endRemoveRows();
+
+
   m_rowCountOffset = 0;
   foreach(const QModelIndex &key, m_brushes.keys())
   {
@@ -590,9 +609,11 @@ void KateViewDocumentProxyModel::sort()
     default:
     {
       QMap<QString,int> sorted;
-      foreach( int row, m_mapToSource )
-        sorted.insert(data(sourceModel()->index(row, 0), m_sortRole).toString(), m_mapToSource[row]);
-
+      foreach( int row, m_mapToSource ) {
+	QString key=data(sourceModel()->index(row, 0), m_sortRole).toString();
+        if (key.isEmpty()) key=QString("kate-internal-untitled:/%1").arg(row);
+	sorted.insert(key, m_mapToSource[row]);
+      }
       m_mapToSource = sorted.values();
     }
   }

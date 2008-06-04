@@ -2586,6 +2586,11 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
   }
 }
 
+void KateViewInternal::leaveEvent( QEvent* )
+{
+  m_textHintTimer.stop();
+}
+
 void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
 {
   // FIXME only do this if needing to track mouse movement
@@ -2668,8 +2673,10 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
         setCursor(m_mouseCursor);
       }
     }
-
-    if (m_textHintEnabled)
+    //We need to check whether the mouse position is actually within the widget,
+    //because other widgets like the icon border forward their events to this,
+    //and we will create invalid text hint requests if we don't check
+    if (m_textHintEnabled && geometry().contains(mapFromGlobal(e->globalPos())))
     {
        m_textHintTimer.start(m_textHintTimeout);
        m_textHintMouseX=e->x();
@@ -2890,9 +2897,6 @@ void KateViewInternal::focusInEvent (QFocusEvent *)
 {
   if (KApplication::cursorFlashTime() > 0)
     m_cursorTimer.start ( KApplication::cursorFlashTime() / 2 );
-
-  if (m_textHintEnabled)
-    m_textHintTimer.start( m_textHintTimeout );
 
   paintCursor();
 

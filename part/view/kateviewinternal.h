@@ -194,6 +194,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     virtual void mouseDoubleClickEvent( QMouseEvent* );
     virtual void mouseReleaseEvent(     QMouseEvent* );
     virtual void mouseMoveEvent(        QMouseEvent* );
+    virtual void leaveEvent( QEvent* );
     virtual void dragEnterEvent( QDragEnterEvent* );
     virtual void dragMoveEvent( QDragMoveEvent* );
     virtual void dropEvent( QDropEvent* );

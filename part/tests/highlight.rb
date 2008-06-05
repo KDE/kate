@@ -414,6 +414,21 @@ total/(count/2) # both division
 Math::PI/10     # division
 Math::foo /rx/  # regexp
 
+# 2008-06-05 similar fix for modulo operator:
+
+10%4            # modulo
+10 %4           # modulo
+10% 4           # modulo
+10 % 4          # modulo
+
+foo%4           # modulo
+foo %4          # modulo
+foo% 4          # modulo
+foo % 4         # modulo
+
+foo = %|blah|   # GDL input
+foo % %|blah|   # modulo and GDL
+
 # mix in any way you want
 result = 10//regexp//20/foo//regexp//20
 

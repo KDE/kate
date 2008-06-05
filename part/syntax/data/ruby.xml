@@ -309,34 +309,36 @@
 			<!-- A slash is always a division operator, even if preceeded by whitespace -->
 			<context name="check_div_1" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop" lineEndContext="#pop">
 				<RegExpr attribute="Normal Text" String="\s*" context="#stay"/>
-				<DetectChar attribute="Operator" char="/" context="#pop"/>
+				<AnyChar attribute="Operator" String="/%" context="#pop"/>
 			</context>
 			
 			<!-- Same as check_div_1, but with double pop to exit the surrounding context -->
 			<context name="check_div_1_pop" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop#pop" lineEndContext="#pop#pop">
 				<RegExpr attribute="Normal Text" String="\s*" context="#stay"/>
-				<DetectChar attribute="Operator" char="/" context="#pop#pop"/>
+				<AnyChar attribute="Operator" String="/%" context="#pop#pop"/>
 			</context>
 
 			<!-- A slash is division operator if it's the first character, or if preceeded and followed by whitespace -->
 			<context name="check_div_2" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop" lineEndContext="#pop">
-				<DetectChar attribute="Operator" char="/" context="#pop"/>
+				<AnyChar attribute="Operator" String="/%" context="#pop"/>
 				<RegExpr attribute="Normal Text" String="\s+" context="check_div_2_internal"/>
 			</context>
 			
 			<!-- Internal context used by check_div_2 -->
 			<context name="check_div_2_internal" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop#pop" lineEndContext="#pop#pop">
+				<DetectChar attribute="Operator" char="%" context="#pop#pop"/>
 				<RegExpr attribute="Operator" String="/(?=\s)" context="#pop#pop"/>
 			</context>
 			
 			<!-- Same as check_div_2, but with double pop to exit the surrounding context -->
 			<context name="check_div_2_pop" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop#pop" lineEndContext="#pop#pop">
-				<DetectChar attribute="Operator" char="/" context="#pop#pop"/>
+				<AnyChar attribute="Operator" String="/%" context="#pop#pop"/>
 				<RegExpr attribute="Normal Text" String="\s+" context="check_div_2_pop_internal"/>
 			</context>
 			
 			<!-- Internal context used by check_div_2_pop -->
 			<context name="check_div_2_pop_internal" attribute="Normal Text" fallthrough="true" fallthroughContext="#pop#pop#pop" lineEndContext="#pop#pop#pop">
+				<DetectChar attribute="Operator" char="%" context="#pop#pop#pop"/>
 				<RegExpr attribute="Operator" String="/(?=\s)" context="#pop#pop#pop"/>
 			</context>
 

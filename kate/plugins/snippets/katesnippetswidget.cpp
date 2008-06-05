@@ -22,6 +22,7 @@
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/templateinterface.h>
 
 #include <klocale.h>
 
@@ -168,7 +169,8 @@ void KateSnippetsWidget::slotSnippetItemClicked( Q3ListViewItem  *item )
       text.replace( "<mark/>", selection );
       text.replace( "<date/>", QDate::currentDate().toString(Qt::LocalDate) );
       text.replace( "<time/>", QTime::currentTime().toString(Qt::LocalDate) );
-      kv->document()->insertText( kv->cursorPosition(), text );
+      KTextEditor::TemplateInterface *ti=qobject_cast<KTextEditor::TemplateInterface*>(kv->document()->activeView());
+      if (ti) ti->insertTemplateText(kv->cursorPosition(), text,QMap<QString,QString>() );
     }
     kv->setFocus();
   }

@@ -25,6 +25,8 @@
 
 #include <kdebug.h>
 
+//#define DEBUG_KATESMARTCURSOR
+
 KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEditor::Document* doc, KTextEditor::SmartCursor::InsertBehavior insertBehavior)
   : KTextEditor::SmartCursor(position, doc, insertBehavior)
   , m_feedbackEnabled(false)
@@ -45,6 +47,10 @@ KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEdito
   m_smartGroup = kateDocument()->smartManager()->groupForLine(m_line);
   m_line = m_line - m_smartGroup->startLine();
   m_smartGroup->joined(this);
+
+#ifdef DEBUG_KATESMARTCURSOR
+  kDebug(0) << "Cursor created at " << *this;
+#endif
 }
 
 KateSmartCursor::KateSmartCursor( KTextEditor::Document * doc, KTextEditor::SmartCursor::InsertBehavior insertBehavior )
@@ -60,6 +66,10 @@ KateSmartCursor::KateSmartCursor( KTextEditor::Document * doc, KTextEditor::Smar
   m_smartGroup = kateDocument()->smartManager()->groupForLine(m_line);
   m_line = m_line - m_smartGroup->startLine();
   m_smartGroup->joined(this);
+
+#ifdef DEBUG_KATESMARTCURSOR
+  kDebug(0) << this << "Cursor created at " << *this;
+#endif
 }
 
 KateSmartCursor::~KateSmartCursor()
@@ -156,6 +166,10 @@ void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool
   if (!internal)
     // Tell the range about this
     cursorChangedDirectly(old);
+
+#ifdef DEBUG_KATESMARTCURSOR
+  kDebug(0) << this << "Cursor moved from" << old << "to" << *this;
+#endif
 }
 
 KTextEditor::SmartCursorNotifier* KateSmartCursor::notifier( )
@@ -182,10 +196,18 @@ void KateSmartCursor::setWatcher( KTextEditor::SmartCursorWatcher * watcher )
 
 bool KateSmartCursor::translate( const KateEditInfo & edit )
 {
+#ifdef DEBUG_KATESMARTCURSOR
+  kDebug(0) << this << "Translating cursor" << *this << "from " << edit.oldRange() << "to" << edit.newRange() << edit.editSource() << &edit;
+#endif
+
   if (m_bypassTranslation) {
-    // This cursor has already been moved
-    m_bypassTranslation = false;
-    return true;
+    if (m_bypassTranslation == &edit) {
+      // This cursor has already been moved for this edit
+      m_bypassTranslation = 0;
+      return true;
+    }
+
+    m_bypassTranslation = 0;
   }
 
   // If this cursor is before the edit, no action is required
@@ -230,7 +252,7 @@ bool KateSmartCursor::translate( const KateEditInfo & edit )
               KateSmartCursor* end = static_cast<KateSmartCursor*>(&(range->smartEnd()));
               end->setPositionInternal(newPos);
               // Don't let the end cursor get translated again
-              end->m_bypassTranslation = true;
+              end->m_bypassTranslation = &edit;
             }
           }
         }

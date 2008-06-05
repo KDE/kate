@@ -267,6 +267,9 @@ int KateLayoutCache::displayViewLine(const KTextEditor::Cursor& virtualCursor, b
   KTextEditor::Cursor work = viewCacheStart();
   work.setLine(m_renderer->doc()->getVirtualLine(work.line()));
 
+  if (!work.isValid())
+    return virtualCursor.line();
+
   int limit = m_textLayouts.count();
 
   // Efficient non-word-wrapped path

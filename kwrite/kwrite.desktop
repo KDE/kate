@@ -98,4 +98,4 @@ Terminal=false
 InitialPreference=8
 X-DBUS-StartupType=Multi
 X-DBUS-ServiceName=org.kate-editor.kwrite
-Categories=Qt;KDE;TextEditor;
+Categories=Qt;KDE;Utility;TextEditor;

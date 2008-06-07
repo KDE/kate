@@ -53,8 +53,7 @@
 #include <QToolButton>
 #include <QGridLayout>
 #include <QObject>
-
-#include <qtextedit.h>
+#include <QTextEdit>
 
 #include <unistd.h>
 //END Includes
@@ -814,7 +813,7 @@ void KateExternalToolsConfigWidget::slotNew()
 
     // This is sticky, it does not change again, so that shortcuts sticks
     // TODO check for dups
-    t->acname = "externaltool_" + QString(t->name).replace( QRegExp("\\W+"), "" );
+    t->acname = "externaltool_" + QString(t->name).remove( QRegExp("\\W+") );
 
     new ToolItem ( lbTools, t->icon.isEmpty() ? blankIcon() : SmallIcon( t->icon ), t );
 

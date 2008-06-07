@@ -830,7 +830,7 @@ void KFSConfigPage::init()
       ac = fileSelector->dirOperator()->actionCollection()->action( (*it).toLatin1().constData() );
     if ( ac )
     {
-      QString text = ac->text().replace( re, "" );
+      QString text = ac->text().remove( re );
       // CJK languages need a filtering message for action texts in lists,
       // to remove special accelerators that they use.
       // The exact same filtering message exists in kdelibs; hence,

@@ -115,16 +115,16 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
             {
              stripped += currline.right(currline.length());
              stripped = stripped.simplified();
-             stripped.replace("*","");
-             stripped.replace("+","");
-             stripped.replace("$","");
+             stripped.remove("*");
+             stripped.remove("+");
+             stripped.remove("$");
              if(blockend==0)
                {
                 fnd = stripped.indexOf(' ');
                 stripped = currline.right(currline.length()-fnd-1);
                }
-             stripped.replace(" ","");
-             fnd = stripped.indexOf("!");
+             stripped.remove(" ");
+             fnd = stripped.indexOf('!');
              if(fnd>0)
                {
                 stripped = stripped.left(fnd);
@@ -134,10 +134,10 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
 
              if((paro==parc || mainprog) && stripped.endsWith('&', Qt::CaseInsensitive)==false)
                {
-                stripped.replace("&","");
+                stripped.remove("&");
                 if(mainprog && stripped.indexOf('(')<0 && stripped.indexOf(')')<0)
                     stripped.prepend("Main: ");
-                if(stripped.indexOf("=")==-1)
+                if(stripped.indexOf('=')==-1)
                   {
                    if (treeMode)
                      {
@@ -203,10 +203,10 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
            {
             stripped += currline.right(currline.length());
             stripped = stripped.trimmed();
-            stripped.replace( "function", "" );
-            stripped.replace("*","");
-            stripped.replace("+","");
-            stripped.replace("$","");
+            stripped.remove( "function" );
+            stripped.remove("*");
+            stripped.remove("+");
+            stripped.remove("$");
             stripped = stripped.simplified();
             fnd = stripped.indexOf('!');
             if(fnd>0)
@@ -217,9 +217,9 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
             paro+=currline.count(')', Qt::CaseSensitive);
             parc+=currline.count('(', Qt::CaseSensitive);
 
-            if(paro==parc && stripped.endsWith("&",false)==false)
+            if(paro==parc && stripped.endsWith("&", false)==false)
               {
-               stripped.replace("&","");
+               stripped.remove("&");
               if (treeMode)
                 {
                  node = new QTreeWidgetItem(funcNode, lastFuncNode);

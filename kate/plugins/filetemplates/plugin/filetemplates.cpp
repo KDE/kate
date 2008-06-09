@@ -897,7 +897,7 @@ void KateTemplateWizard::accept()
     else
       suggestion = kti->leTemplate->text();
 
-    suggestion.remove(" ");
+    suggestion.remove(' ');
 
     if ( ! suggestion.endsWith(".katetemplate") )
       suggestion.append(".katetemplate");

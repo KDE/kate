@@ -259,6 +259,13 @@ bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &ran
       skippedLines.append (line);
       continue;
     }
+    // don't indent the last line when the cursor is on the first column
+    if (line == range.end().line() && range.end().column() == 0)
+    {
+      skippedLines.append (line);
+      continue;
+    }
+        
     doIndent (view, line, change * indentWidth, true, keepExtra);
   }
 

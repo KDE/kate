@@ -1260,15 +1260,13 @@ void KateDocument::editAddUndo (int type, uint line, uint col, uint len, const Q
   }
 }
 
-bool KateDocument::editInsertText ( int line, int col, const QString &str, Kate::EditSource editSource )
+bool KateDocument::editInsertText ( int line, int col, const QString &s, Kate::EditSource editSource )
 {
   if (line < 0 || col < 0)
     return false;
 
   if (!isReadWrite())
     return false;
-
-  QString s = str;
 
   KateTextLine::Ptr l = m_buffer->line(line);
 
@@ -1283,7 +1281,7 @@ bool KateDocument::editInsertText ( int line, int col, const QString &str, Kate:
 
   m_buffer->changeLine(line);
 
-  history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(line, col, line, col), QStringList(), KTextEditor::Range(line, col, line, col + s.length()), QStringList(str)) );
+  history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(line, col, line, col), QStringList(), KTextEditor::Range(line, col, line, col + s.length()), QStringList(s)) );
   emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col, line, col + s.length()));
 
   editEnd();

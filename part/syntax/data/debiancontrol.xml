@@ -21,7 +21,7 @@
             </context>
 
             <context attribute="Value" lineEndContext="#pop" name="Field">
-                <RegExpr attribute="Email" context="#stay" String="&lt;.*@.*&gt;"/>
+                <RegExpr attribute="Email" context="#stay" String="&lt;.*@.*&gt;" minimal="true"/>
                 <Detect2Chars attribute="Keyword" context="Variable" char="$" char1="{"/>
             </context>
 
@@ -30,7 +30,7 @@
             </context>
 
             <context attribute="Value" lineEndContext="#pop" name="DependencyField">
-                <RegExpr attribute="Email" context="#stay" String="&lt;.*@.*&gt;"/>
+                <RegExpr attribute="Email" context="#stay" String="&lt;.*@.*&gt;" minimal="true"/>
                 <Detect2Chars attribute="Keyword" context="Variable" char="$" char1="{"/>
                 <RegExpr attribute="Keyword" context="#stay" String="[,\|]"/>
                 <DetectChar attribute="Keyword" context="Constrain" char="("/>

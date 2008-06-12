@@ -75,7 +75,7 @@ void KTinyTabBarConfigPage::setupGUI( QWidget* parent )
 
     // Appearance tab
     QGridLayout* glAppearance = new QGridLayout( tabAppearance, 2, 2, KDialog::marginHint(), KDialog::spacingHint() );
-    QGroupBox* gbLocation = new QGroupBox( i18n( "Location" ), tabAppearance );
+    QGroupBox* gbLocation = new QGroupBox( i18nc( "Title of a groupbox that decides where the tabbar will be located", "Location" ), tabAppearance );
     QGroupBox* gbRows = new QGroupBox( i18n( "Rows" ), tabAppearance );
     QGroupBox* gbSortBy = new QGroupBox( i18n( "Sort By" ), tabAppearance );
     QGroupBox* gbTabSizes = new QGroupBox( i18n( "Tab Sizes" ), tabAppearance );

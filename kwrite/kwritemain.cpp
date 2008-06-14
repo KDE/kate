@@ -622,7 +622,7 @@ void KWrite::modeChanged ( KTextEditor::Document *document )
 
 extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 {
-  KAboutData aboutData ( "kwrite", "kate",
+  KAboutData aboutData ( "kwrite", 0,
                          ki18n("KWrite"),
                          KDE_VERSION_STRING,
                          ki18n( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,

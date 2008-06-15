@@ -48,4 +48,4 @@ Type=Application
 Terminal=false
 X-DBUS-StartupType=Multi
 X-DBUS-ServiceName=org.kate-editor.kate
-Categories=Qt;KDE;TextEditor;
+Categories=Qt;KDE;Utility;TextEditor;

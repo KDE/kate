@@ -755,7 +755,7 @@ void KateRenderer::layoutLine(KateLineLayoutPtr lineLayout, int maxwidth, bool c
   QTextOption opt;
   opt.setFlags(QTextOption::IncludeTrailingSpaces);
   opt.setTabStop(m_tabWidth * config()->fontMetrics().width(spaceChar));
-  opt.setWrapMode(QTextOption::WrapAnywhere);//QTextOption::WrapAtWordBoundaryOrAnywhere);
+  opt.setWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
 
   // Find the first strong character in the string.
   // If it is an RTL character, set the base layout direction of the string to RTL.

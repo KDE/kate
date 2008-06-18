@@ -1859,6 +1859,7 @@ void KateViewInternal::updateBracketMarks()
 {
   bool showWholeBracketExpression = m_view->m_renderer->config()->showWholeBracketExpression();
 
+  QMutexLocker lock(m_doc->smartMutex());
   if (m_bmHighlighted) {
     view()->removeInternalHighlight(m_bmStart);
     view()->removeInternalHighlight(m_bmEnd);

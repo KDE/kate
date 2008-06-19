@@ -286,7 +286,7 @@ void KateTemplateHandler::slotTextInserted(KTextEditor::Document*, const KTextEd
     m_doc->insertText( m_currentRange->start(), sourceText );
     m_currentRange->setRange(KTextEditor::Range(start,m_currentRange->end()));
     m_doc->activeView()->setSelection( *m_currentRange );
-    kdDebug()<<"inserted a replaceable space:"<<m_currentRange->start().line()<<"/"<<m_currentRange->start().column()<<"+++"<<m_currentRange->end().line()<<"/"<<m_currentRange->end().column();
+    kDebug()<<"inserted a replaceable space:"<<m_currentRange->start().line()<<"/"<<m_currentRange->start().column()<<"+++"<<m_currentRange->end().line()<<"/"<<m_currentRange->end().column();
   }
   else {
    if (ph->isReplacableSpace && sourceText.startsWith(' ')) {

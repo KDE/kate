@@ -65,7 +65,7 @@ KateDocument * KateSmartManager::doc( ) const
 KateSmartCursor * KateSmartManager::newSmartCursor( const Cursor & position, SmartCursor::InsertBehavior insertBehavior, bool internal )
 {
   KateSmartCursor* c;
-  if (usingRevision() != -1)
+  if (usingRevision() != -1 && !internal)
     c = new KateSmartCursor(translateFromRevision(position), doc(), insertBehavior);
   else
     c = new KateSmartCursor(position, doc(), insertBehavior);
@@ -79,7 +79,7 @@ KateSmartRange * KateSmartManager::newSmartRange( const Range & range, SmartRang
 {
   KateSmartRange* newRange;
 
-  if (usingRevision() != -1)
+  if (usingRevision() != -1 && !internal)
     newRange = new KateSmartRange(translateFromRevision(range), doc(), parent, insertBehavior);
   else
     newRange = new KateSmartRange(range, doc(), parent, insertBehavior);
@@ -93,7 +93,7 @@ KateSmartRange * KateSmartManager::newSmartRange( const Range & range, SmartRang
 
 KateSmartRange * KateSmartManager::newSmartRange( KateSmartCursor * start, KateSmartCursor * end, SmartRange * parent, SmartRange::InsertBehaviors insertBehavior, bool internal )
 {
-  if (usingRevision() != -1) {
+  if (usingRevision() != -1 && !internal) {
     *start = translateFromRevision(*start, (insertBehavior & SmartRange::ExpandLeft) ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
     *end = translateFromRevision(*end, (insertBehavior & SmartRange::ExpandRight) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
   }

@@ -64,6 +64,8 @@ KateDocument * KateSmartManager::doc( ) const
 
 KateSmartCursor * KateSmartManager::newSmartCursor( const Cursor & position, SmartCursor::InsertBehavior insertBehavior, bool internal )
 {
+  QMutexLocker l(internal ? doc()->smartMutex() : 0);
+
   KateSmartCursor* c;
   if (usingRevision() != -1 && !internal)
     c = new KateSmartCursor(translateFromRevision(position), doc(), insertBehavior);
@@ -77,6 +79,8 @@ KateSmartCursor * KateSmartManager::newSmartCursor( const Cursor & position, Sma
 
 KateSmartRange * KateSmartManager::newSmartRange( const Range & range, SmartRange * parent, SmartRange::InsertBehaviors insertBehavior, bool internal )
 {
+  QMutexLocker l(internal ? doc()->smartMutex() : 0);
+
   KateSmartRange* newRange;
 
   if (usingRevision() != -1 && !internal)
@@ -93,6 +97,8 @@ KateSmartRange * KateSmartManager::newSmartRange( const Range & range, SmartRang
 
 KateSmartRange * KateSmartManager::newSmartRange( KateSmartCursor * start, KateSmartCursor * end, SmartRange * parent, SmartRange::InsertBehaviors insertBehavior, bool internal )
 {
+  QMutexLocker l(internal ? doc()->smartMutex() : 0);
+
   if (usingRevision() != -1 && !internal) {
     *start = translateFromRevision(*start, (insertBehavior & SmartRange::ExpandLeft) ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
     *end = translateFromRevision(*end, (insertBehavior & SmartRange::ExpandRight) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);

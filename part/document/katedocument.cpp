@@ -3409,6 +3409,9 @@ bool KateDocument::openFile()
       }
     }
   }
+  
+  // Inform that the text has changed (required as we're not inside the usual editStart/End stuff)
+  emit textChanged (this);
 
   //
   // update views

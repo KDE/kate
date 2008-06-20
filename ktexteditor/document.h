@@ -581,6 +581,17 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      */
     void aboutToClose(KTextEditor::Document *document);
 
+    /**
+     * Warn anyone listening that the current document is about to reload.
+     * At this point all of the information is still accessible, such as the text,
+     * cursors and ranges.
+     *
+     * Any modifications made to the document at this point will be lost.
+     *
+     * \param document the document being reloaded
+     */
+    void aboutToReload(KTextEditor::Document *document);
+
   /*
    * Access to the mode/highlighting subsystem
    */

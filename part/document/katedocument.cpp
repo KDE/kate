@@ -3788,7 +3788,8 @@ bool KateDocument::closeUrl()
     return false;
 
   // Tell the world that we're about to go ahead with the close
-  emit aboutToClose(this);
+  if (!m_reloading)
+    emit aboutToClose(this);
 
   // remove file from dirwatch
   deactivateDirWatch ();

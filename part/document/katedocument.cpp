@@ -5251,6 +5251,8 @@ bool KateDocument::documentReload()
         return false;
       }
     }
+    
+    emit aboutToReload(this);
 
     if (clearOnDocumentReload())
       m_smartManager->clear(false);

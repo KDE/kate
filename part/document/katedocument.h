@@ -690,8 +690,6 @@ class KateDocument : public KTextEditor::Document,
 
     KateSmartManager* smartManager() const { return m_smartManager; }
 
-    bool isSmartLocked() const;
-
   Q_SIGNALS:
     void dynamicHighlightAdded(KateSmartRange* range);
     void dynamicHighlightRemoved(KateSmartRange* range);

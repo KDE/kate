@@ -6266,16 +6266,6 @@ void KateDocument::rangeDeleted( KTextEditor::SmartRange * range )
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
 
-bool KateDocument::isSmartLocked() const
-{
-  bool smartLocked = true;
-  if (smartMutex()->tryLock()) {
-    smartMutex()->unlock();
-    smartLocked = false;
-  }
-  return smartLocked;
-}
-
 bool KateDocument::simpleMode ()
 {
   return KateGlobal::self()->simpleMode () && KateGlobal::self()->documentConfig()->allowSimpleMode ();

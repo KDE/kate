@@ -212,6 +212,8 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
  *
  * If you prefer to receive notifications via QObject signals, see SmartRangeNotifier.
  *
+ * Before destruction, you must unregister the watcher from any ranges it is watching.
+ *
  * \sa SmartRange, SmartRangeNotifier
  *
  * \author Hamish Rodda \<rodda@kde.org\>

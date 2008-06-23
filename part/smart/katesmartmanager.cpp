@@ -597,14 +597,14 @@ Cursor KateSmartManager::translateFromRevision(const Cursor& cursor, SmartCursor
 
 Range KateSmartManager::translateFromRevision(const Range& range, KTextEditor::SmartRange::InsertBehaviors insertBehavior) const
 {
-  Range ret = range;
+  Cursor start = range.start(), end = range.end();
 
   foreach (KateEditInfo* edit, doc()->history()->editsBetweenRevisions(usingRevision())) {
-    translate(edit, ret.start(), insertBehavior & KTextEditor::SmartRange::ExpandLeft ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
-    translate(edit, ret.end(), insertBehavior & KTextEditor::SmartRange::ExpandRight ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
+    translate(edit, start, insertBehavior & KTextEditor::SmartRange::ExpandLeft ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
+    translate(edit, end, insertBehavior & KTextEditor::SmartRange::ExpandRight ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
   }
 
-  return ret;
+  return Range(start, end);
 }
 
 #include "katesmartmanager.moc"

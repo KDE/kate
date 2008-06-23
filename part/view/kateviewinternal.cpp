@@ -3463,7 +3463,10 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
       return renderer()->currentFont();
 
     case Qt::ImCursorPosition:
-      return cursorCoordinates(false);
+      if (m_imPreedit)
+        return cursorToCoordinate(m_imPreedit->start(), true, false);
+      else
+        return cursorCoordinates(false);
 
     case Qt::ImSurroundingText:
       if (KateTextLine::Ptr l = textLine(m_cursor.line()))

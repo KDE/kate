@@ -101,7 +101,7 @@ QModelIndex ExpandingWidgetModel::partiallyExpandedRow() const {
     if( m_partiallyExpanded.isEmpty() )
         return QModelIndex();
     else
-        return m_partiallyExpanded.begin().key();
+        return m_partiallyExpanded.constBegin().key();
 }
 
 void ExpandingWidgetModel::clearExpanding() {
@@ -113,7 +113,7 @@ void ExpandingWidgetModel::clearExpanding() {
     m_expandingWidgets.clear();
     m_expandState.clear();
 
-    for( QMap<QPersistentModelIndex, ExpandingWidgetModel::ExpandingType>::const_iterator it = oldExpandState.begin(); it != oldExpandState.end(); ++it )
+    for( QMap<QPersistentModelIndex, ExpandingWidgetModel::ExpandingType>::const_iterator it = oldExpandState.constBegin(); it != oldExpandState.constEnd(); ++it )
       if(it.value() == Expanded)
       	emit dataChanged(it.key(), it.key());
 }
@@ -239,7 +239,7 @@ QRect ExpandingWidgetModel::partialExpandRect(const QModelIndex& idx_) const
   
   ExpansionType expansion = ExpandDownwards;
   
-  if( m_partiallyExpanded.find(idx) != m_partiallyExpanded.end() )
+  if( m_partiallyExpanded.find(idx) != m_partiallyExpanded.constEnd() )
       expansion = m_partiallyExpanded[idx];
   
     //Get the whole rectangle of the row:
@@ -393,7 +393,7 @@ void ExpandingWidgetModel::placeExpandingWidget(const QModelIndex& idx_)
 }
 
 void ExpandingWidgetModel::placeExpandingWidgets() {
-  for( QMap<QPersistentModelIndex, QPointer<QWidget> >::const_iterator it = m_expandingWidgets.begin(); it != m_expandingWidgets.end(); ++it ) {
+  for( QMap<QPersistentModelIndex, QPointer<QWidget> >::const_iterator it = m_expandingWidgets.constBegin(); it != m_expandingWidgets.constEnd(); ++it ) {
     placeExpandingWidget(it.key());
   }
 }
@@ -401,7 +401,7 @@ void ExpandingWidgetModel::placeExpandingWidgets() {
 int ExpandingWidgetModel::expandingWidgetsHeight() const
 {
   int sum = 0;
-  for( QMap<QPersistentModelIndex, QPointer<QWidget> >::const_iterator it = m_expandingWidgets.begin(); it != m_expandingWidgets.end(); ++it ) {
+  for( QMap<QPersistentModelIndex, QPointer<QWidget> >::const_iterator it = m_expandingWidgets.constBegin(); it != m_expandingWidgets.constEnd(); ++it ) {
     if( isExpanded(it.key() ) && (*it) )
       sum += (*it)->height();
   }
@@ -441,13 +441,13 @@ QList<QVariant> mergeCustomHighlighting( int leftSize, const QList<QVariant>& le
     ret << QVariant(rightSize);
     ret << QTextFormat(QTextFormat::CharFormat);
   } else {
-    QList<QVariant>::const_iterator it = right.begin();
-    while( it != right.end() ) {
+    QList<QVariant>::const_iterator it = right.constBegin();
+    while( it != right.constEnd() ) {
       {
         QList<QVariant>::const_iterator testIt = it;
         for(int a = 0; a < 2; a++) {
           ++testIt;
-          if(testIt == right.end()) {
+          if(testIt == right.constEnd()) {
             kWarning() << "Length of input is not multiple of 3";
             break;
           }

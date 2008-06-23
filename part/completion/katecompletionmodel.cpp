@@ -162,7 +162,7 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
   if (!hasCompletionModel() || !index.isValid())
     return QVariant();
 
-  if( isExpandable(index) && role == Qt::DecorationRole && index.column() == KTextEditor::CodeCompletionModel::Prefix )
+  if( role == Qt::DecorationRole && index.column() == KTextEditor::CodeCompletionModel::Prefix && isExpandable(index) )
   {
     cacheIcons();
 

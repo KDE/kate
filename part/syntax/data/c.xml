@@ -46,6 +46,15 @@
       <item> unsigned </item>
       <item> void </item>
       <item> volatile </item>
+      <item> int8_t </item>
+      <item> int16_t </item>
+      <item> int32_t </item>
+      <item> int64_t </item>
+      <item> uint8_t </item>
+      <item> uint16_t </item>
+      <item> uint32_t </item>
+      <item> uint64_t </item>
+      <item> wchar_t </item>
       <item> _Imaginary </item>
       <item> _Complex </item>
       <item> _Bool </item>

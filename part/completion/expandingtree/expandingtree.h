@@ -28,6 +28,7 @@ class ExpandingTree : public QTreeView {
    ExpandingTree(QWidget* parent);
   protected:
     virtual void drawRow ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
+    virtual int sizeHintForColumn ( int column ) const;
   private:
     mutable QTextDocument m_drawText;
 };

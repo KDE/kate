@@ -55,3 +55,6 @@ void ExpandingTree::drawRow ( QPainter * painter, const QStyleOptionViewItem & o
   }
 }
 
+int ExpandingTree::sizeHintForColumn ( int column ) const {
+    return columnWidth( column );
+}

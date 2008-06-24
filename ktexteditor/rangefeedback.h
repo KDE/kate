@@ -90,7 +90,9 @@ class KTEXTEDITOR_EXPORT SmartRangeNotifier : public QObject
     void rangeContentsChanged(KTextEditor::SmartRange* range);
 
     /**
-     * The contents of the range changed.  This notification is special in that it is only emitted by
+     * The contents of the range changed.
+     *
+     * \warning This notification is special in that it is only emitted by
      * the top range of a heirachy, and also gives the furthest descendant child range which still
      * encompasses the whole change (see \p contents).
      *

@@ -100,8 +100,10 @@ KateSmartRange * KateSmartManager::newSmartRange( KateSmartCursor * start, KateS
   QMutexLocker l(internal ? doc()->smartMutex() : 0);
 
   if (usingRevision() != -1 && !internal) {
-    *start = translateFromRevision(*start, (insertBehavior & SmartRange::ExpandLeft) ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
-    *end = translateFromRevision(*end, (insertBehavior & SmartRange::ExpandRight) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
+    KTextEditor::Cursor tempStart = translateFromRevision(*start, (insertBehavior & SmartRange::ExpandLeft) ? SmartCursor::StayOnInsert : SmartCursor::MoveOnInsert);
+    KTextEditor::Cursor tempEnd = translateFromRevision(*end, (insertBehavior & SmartRange::ExpandRight) ? SmartCursor::MoveOnInsert : SmartCursor::StayOnInsert);
+    *start = tempStart;
+    *end = tempEnd;
   }
 
   KateSmartRange* newRange = new KateSmartRange(start, end, parent, insertBehavior);

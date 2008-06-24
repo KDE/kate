@@ -39,10 +39,7 @@ RangeExpectation::RangeExpectation(KTextEditor::Range* range, RangeSignals signa
   // TODO could switch to auto connection
   connect(m_smartRange->primaryNotifier(), SIGNAL(rangePositionChanged(KTextEditor::SmartRange*)),        SLOT(rangePositionChanged(KTextEditor::SmartRange*)));
   connect(m_smartRange->primaryNotifier(), SIGNAL(rangeContentsChanged(KTextEditor::SmartRange*)),        SLOT(rangeContentsChanged(KTextEditor::SmartRange*)));
-  //connect(m_smartRange->primaryNotifier(), SIGNAL(boundaryDeleted(KTextEditor::SmartRange*,bool)),   SLOT(boundaryDeleted(KTextEditor::SmartRange*,bool)));
   connect(m_smartRange->primaryNotifier(), SIGNAL(rangeEliminated(KTextEditor::SmartRange*)),             SLOT(rangeEliminated(KTextEditor::SmartRange*)));
-  //connect(m_smartRange->primaryNotifier(), SIGNAL(firstCharacterDeleted(KTextEditor::SmartRange*)),  SLOT(firstCharacterDeleted(KTextEditor::SmartRange*)));
-  //connect(m_smartRange->primaryNotifier(), SIGNAL(lastCharacterDeleted(KTextEditor::SmartRange*)),   SLOT(lastCharacterDeleted(KTextEditor::SmartRange*)));
 
   m_smartRange->addWatcher(this);
 
@@ -57,33 +54,55 @@ RangeExpectation::~ RangeExpectation( )
 
 void RangeExpectation::checkExpectationsFulfilled( ) const
 {
-  for (int i = 0; i < numSignals; ++i) {
-    int j = 2 << (i - 1);
-    if (m_expectations & j) {
-      if (m_notifierNotifications[i] == 0)
-        QFAIL(QString("Notifier: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
-      else if (m_notifierNotifications[i] > 1)
-        QFAIL(QString("Notifier: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
+  bool fulfilled = true;
 
-      if (m_watcherNotifications[i] == 0)
-        QFAIL(QString("Watcher: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
-      else if (m_watcherNotifications[i] > 1)
-        QFAIL(QString("Watcher: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
-    }
+  if (m_expectedRange.isValid())
+    QCOMPARE(*static_cast<KTextEditor::Range*>(m_smartRange), m_expectedRange);
+
+  for (int i = 0; i < numSignals; ++i) {
+    int j = 1 << i;
+    int countExpected = (m_expectations & j) ? 1 : 0;
+
+    if (m_notifierNotifications[i] < countExpected)
+      { fulfilled = false; kDebug() << "Notifier: Expected to be notified of %1." << nameForSignal(j); }
+    else if (m_notifierNotifications[i] > countExpected)
+      if (countExpected)
+        { fulfilled = false; kDebug() << "Notifier: Notified more than once about %1." << nameForSignal(j); }
+      else
+        { fulfilled = false; kDebug() << "Notifier: Notified incorrectly about %1." << nameForSignal(j); }
+
+    if (m_watcherNotifications[i] < countExpected)
+      { fulfilled = false; kDebug() << "Watcher: Expected to be notified of %1." << nameForSignal(j); }
+    else if (m_watcherNotifications[i] > countExpected)
+      if (countExpected)
+        { fulfilled = false; kDebug() << "Watcher: Notified more than once about %1." << nameForSignal(j); }
+      else
+        { fulfilled = false; kDebug() << "Watcher: Notified incorrectly about %1." << nameForSignal(j); }
   }
+  QVERIFY(fulfilled);
 }
 
 void RangeExpectation::signalReceived( int signal )
 {
-  QVERIFY(m_expectations & signal);
-  QCOMPARE(*static_cast<KTextEditor::Range*>(m_smartRange), m_expectedRange);
+  switch (signal) {
+    case PositionChanged:
+      signal = 0;
+      break;
+    case ContentsChanged:
+      signal = 1;
+      break;
+    case Eliminated:
+      signal = 2;
+      break;
+  }
 
-  signal = int(log((double)signal) / log(2.0));
-
-  if (sender())
+  if (!sender()) {
+    Q_ASSERT(!m_watcherNotifications[signal]);
     m_watcherNotifications[signal]++;
-  else
+  } else {
+    Q_ASSERT(!m_notifierNotifications[signal]);
     m_notifierNotifications[signal]++;
+  }
 }
 
 void RangeExpectation::rangePositionChanged( KTextEditor::SmartRange * range )
@@ -98,53 +117,21 @@ void RangeExpectation::rangeContentsChanged( KTextEditor::SmartRange * range )
   signalReceived(ContentsChanged);
 }
 
-/*void RangeExpectation::boundaryDeleted( KTextEditor::SmartRange * range, bool start )
-{
-  QCOMPARE(range, m_smartRange);
-
-  if (start) {
-    signalReceived(StartBoundaryDeleted);
-
-  } else {
-    signalReceived(EndBoundaryDeleted);
-  }
-}*/
-
 void RangeExpectation::rangeEliminated( KTextEditor::SmartRange * range )
 {
   QCOMPARE(range, m_smartRange);
   signalReceived(Eliminated);
 }
 
-/*void RangeExpectation::firstCharacterDeleted( KTextEditor::SmartRange * range )
-{
-  QCOMPARE(range, m_smartRange);
-  signalReceived(FirstCharacterDeleted);
-}
-
-void RangeExpectation::lastCharacterDeleted( KTextEditor::SmartRange * range )
-{
-  QCOMPARE(range, m_smartRange);
-  signalReceived(LastCharacterDeleted);
-}*/
-
 QString RangeExpectation::nameForSignal( int signal ) const
 {
   switch (signal) {
     case PositionChanged:
-      return "position change";
+      return "range position change";
     case ContentsChanged:
-      return "content change";
-    /*case StartBoundaryDeleted:
-      return "starting boundary deletion";
-    case EndBoundaryDeleted:
-      return "ending boundary deletion";*/
+      return "range content change";
     case Eliminated:
       return "elimination of the range";
-    /*case FirstCharacterDeleted:
-      return "first character deletion";
-    case LastCharacterDeleted:
-      return "last character deletion";*/
     default:
       return "[invalid signal]";
   }

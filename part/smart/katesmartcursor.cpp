@@ -29,11 +29,12 @@
 
 KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEditor::Document* doc, KTextEditor::SmartCursor::InsertBehavior insertBehavior)
   : KTextEditor::SmartCursor(position, doc, insertBehavior)
-  , m_feedbackEnabled(false)
   , m_oldGroupLineStart(-1)
   , m_lastPosition(position)
   , m_isInternal(false)
-  , m_bypassTranslation(false)
+  , m_feedbackEnabled(false)
+  , m_lastPositionNeeded(false)
+  , m_bypassTranslation(0)
   , m_notifier(0L)
   , m_watcher(0L)
 {
@@ -49,16 +50,17 @@ KateSmartCursor::KateSmartCursor(const KTextEditor::Cursor& position, KTextEdito
   m_smartGroup->joined(this);
 
 #ifdef DEBUG_KATESMARTCURSOR
-  kDebug(0) << "Cursor created at " << *this;
+  kDebug() << "Cursor created at " << *this;
 #endif
 }
 
 KateSmartCursor::KateSmartCursor( KTextEditor::Document * doc, KTextEditor::SmartCursor::InsertBehavior insertBehavior )
   : KTextEditor::SmartCursor(KTextEditor::Cursor(), doc, insertBehavior)
-  , m_feedbackEnabled(false)
   , m_oldGroupLineStart(-1)
+  , m_feedbackEnabled(false)
   , m_isInternal(false)
-  , m_bypassTranslation(false)
+  , m_lastPositionNeeded(false)
+  , m_bypassTranslation(0)
   , m_notifier(0L)
   , m_watcher(0L)
 {
@@ -68,7 +70,7 @@ KateSmartCursor::KateSmartCursor( KTextEditor::Document * doc, KTextEditor::Smar
   m_smartGroup->joined(this);
 
 #ifdef DEBUG_KATESMARTCURSOR
-  kDebug(0) << this << "Cursor created at " << *this;
+  kDebug() << this << "Cursor created at " << *this;
 #endif
 }
 
@@ -114,6 +116,9 @@ bool KateSmartCursor::atEndOfLine( ) const
 void KateSmartCursor::checkFeedback()
 {
   bool feedbackNeeded = m_watcher || m_notifier;
+
+  m_lastPositionNeeded = feedbackNeeded || (range() && static_cast<KateSmartRange*>(range())->feedbackEnabled());
+
   if (m_feedbackEnabled != feedbackNeeded) {
     m_smartGroup->changeCursorFeedback(this);
     m_feedbackEnabled = feedbackNeeded;
@@ -139,7 +144,7 @@ void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool
   KTextEditor::Cursor old = *this;
 
   // Remember this position if the feedback system needs it
-  if (m_feedbackEnabled)
+  if (m_lastPositionNeeded)
     m_lastPosition = *this;
 
   // Deal with crossing a smart group border
@@ -159,7 +164,7 @@ void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool
   }
 
   // Forget this position change if the feedback system doesn't need it
-  if (!m_feedbackEnabled)
+  if (!m_lastPositionNeeded)
     m_lastPosition = *this;
 
   // Adjustments only needed for non-internal position changes...
@@ -168,7 +173,7 @@ void KateSmartCursor::setPositionInternal( const KTextEditor::Cursor & pos, bool
     cursorChangedDirectly(old);
 
 #ifdef DEBUG_KATESMARTCURSOR
-  kDebug(0) << this << "Cursor moved from" << old << "to" << *this;
+  kDebug() << this << "Cursor moved from" << old << "to" << *this;
 #endif
 }
 
@@ -197,7 +202,7 @@ void KateSmartCursor::setWatcher( KTextEditor::SmartCursorWatcher * watcher )
 bool KateSmartCursor::translate( const KateEditInfo & edit )
 {
 #ifdef DEBUG_KATESMARTCURSOR
-  kDebug(0) << this << "Translating cursor" << *this << "from " << edit.oldRange() << "to" << edit.newRange() << edit.editSource() << &edit;
+  kDebug() << this << "Translating cursor" << *this << "from " << edit.oldRange() << "to" << edit.newRange() << edit.editSource() << &edit;
 #endif
 
   if (m_bypassTranslation) {

@@ -96,13 +96,13 @@ QString CursorExpectation::nameForSignal( int signal ) const
 {
   switch (signal) {
     case CharacterDeletedBefore:
-      return "a character to be deleted before cursor";
+      return "a character to be deleted before the cursor";
     case CharacterDeletedAfter:
-      return "a character to be deleted after cursor";
+      return "a character to be deleted after the cursor";
     case CharacterInsertedBefore:
-      return "a character to be inserted before cursor";
+      return "a character to be inserted before the cursor";
     case CharacterInsertedAfter:
-      return "a character to be inserted after cursor";
+      return "a character to be inserted after the cursor";
     case PositionChanged:
       return "the cursor's position change";
     case PositionDeleted:
@@ -114,20 +114,28 @@ QString CursorExpectation::nameForSignal( int signal ) const
 
 void CursorExpectation::checkExpectationsFulfilled( ) const
 {
+  bool fulfilled = true;
   for (int i = 0; i < numSignals; ++i) {
-    int j = 2 << (i - 1);
-    if (m_expectations & j) {
-      if (m_notifierNotifications[i] == 0)
-        QFAIL(QString("Notifier: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
-      else if (m_notifierNotifications[i] > 1)
-        QFAIL(QString("Notifier: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
+    int j = 1 << i;
+    int countExpected = (m_expectations & j) ? 1 : 0;
 
-      if (m_watcherNotifications[i] == 0)
-        QFAIL(QString("Watcher: Expected to be notified of %1.").arg(nameForSignal(j)).toLatin1());
-      else if (m_watcherNotifications[i] > 1)
-        QFAIL(QString("Watcher: Notified more than once about %1.").arg(nameForSignal(j)).toLatin1());
-    }
+    if (m_notifierNotifications[i] < countExpected)
+      { fulfilled = false; kDebug() << "Notifier: Expected to be notified of %1." << nameForSignal(j); }
+    else if (m_notifierNotifications[i] > countExpected)
+      if (countExpected)
+        { fulfilled = false; kDebug() << "Notifier: Notified more than once about %1." << nameForSignal(j); }
+      else
+        { fulfilled = false; kDebug() << "Notifier: Notified incorrectly about %1." << nameForSignal(j); }
+
+    if (m_watcherNotifications[i] < countExpected)
+      { fulfilled = false; kDebug() << "Watcher: Expected to be notified of %1." << nameForSignal(j); }
+    else if (m_watcherNotifications[i] > countExpected)
+      if (countExpected)
+        { fulfilled = false; kDebug() << "Watcher: Notified more than once about %1." << nameForSignal(j); }
+      else
+        { fulfilled = false; kDebug() << "Watcher: Notified incorrectly about %1." << nameForSignal(j); }
   }
+  QVERIFY(fulfilled);
 }
 
 void CursorExpectation::signalReceived( int signal )
@@ -136,9 +144,29 @@ void CursorExpectation::signalReceived( int signal )
 
   QVERIFY(m_expectations & signal);
 
-  signal = int(log((double)signal) / log(2.0));
+  // Can't think of the algorithm right now
+  switch (signal) {
+    case CharacterDeletedBefore:
+      signal = 0;
+      break;
+    case CharacterDeletedAfter:
+      signal = 1;
+      break;
+    case CharacterInsertedBefore:
+      signal = 2;
+      break;
+    case CharacterInsertedAfter:
+      signal = 3;
+      break;
+    case PositionChanged:
+      signal = 4;
+      break;
+    case PositionDeleted:
+      signal = 5;
+      break;
+  }
 
-  if (sender())
+  if (!sender())
     m_watcherNotifications[signal]++;
   else
     m_notifierNotifications[signal]++;

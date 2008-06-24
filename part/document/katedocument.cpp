@@ -846,7 +846,9 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
       if ( (m_buffer->plainLine(range.start().line())->length() - range.start().column()) > 0 )
         editRemoveText(range.start().line(), range.start().column(), m_buffer->plainLine(range.start().line())->length() - range.start().column());
 
-      editRemoveText (range.start().line() + 1, 0, range.end().column());
+      if (range.end().column())
+        editRemoveText (range.start().line() + 1, 0, range.end().column());
+
       editUnWrapLine (range.start().line());
     }
     else
@@ -3409,7 +3411,7 @@ bool KateDocument::openFile()
       }
     }
   }
-  
+
   // Inform that the text has changed (required as we're not inside the usual editStart/End stuff)
   emit textChanged (this);
 
@@ -5255,7 +5257,7 @@ bool KateDocument::documentReload()
         return false;
       }
     }
-    
+
     emit aboutToReload(this);
 
     if (clearOnDocumentReload())

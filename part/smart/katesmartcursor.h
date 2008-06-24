@@ -119,7 +119,6 @@ class KateSmartCursor : public KTextEditor::SmartCursor
 
   private:
     KateSmartGroup* m_smartGroup;
-    bool m_feedbackEnabled  :1;
     mutable int m_oldGroupLineStart;
 
     /**
@@ -129,7 +128,9 @@ class KateSmartCursor : public KTextEditor::SmartCursor
      */
     Cursor m_lastPosition;
 
-    bool  m_isInternal        :1;
+    bool m_feedbackEnabled     :1;
+    bool  m_isInternal         :1;
+    bool  m_lastPositionNeeded :1;
 
     // Hack for corner case as documented in translate()
     const void*  m_bypassTranslation;

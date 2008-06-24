@@ -251,6 +251,7 @@ void KateSmartManager::slotTextChanged(KateEditInfo* edit)
   for (KateSmartGroup* smartGroup = firstSmartGroup; smartGroup; smartGroup = smartGroup->next()) {
     if (groupChanged) {
       groupChanged = smartGroup->startLine() <= edit->oldRange().end().line();
+      // Don't continue iterating if no line translation occurred.
       if (!groupChanged && !edit->translate().line())
         break;
     }
@@ -279,8 +280,10 @@ KateSmartRange* KateSmartManager::feedbackRange( const KateEditInfo& edit, KateS
   KateSmartRange* mostSpecific = 0L;
 
   // This range preceeds the edit... no more to do
-  if (range->end() < edit.start())
+  if (range->end() < edit.start() || range->end() == edit.start() && !range->isEmpty()) {
+    //kDebug() << "Not feeding back to " << *range << "as edit start" << edit.start();
     return mostSpecific;
+  }
 
   foreach (SmartRange* child, range->childRanges())
     if (!mostSpecific)
@@ -288,12 +291,18 @@ KateSmartRange* KateSmartManager::feedbackRange( const KateEditInfo& edit, KateS
     else
       feedbackRange(edit, static_cast<KateSmartRange*>(child));
 
-  if (range->start() > edit.oldRange().end()) {
+  //kDebug() << "edit" << edit.oldRange() << edit.newRange() << "last at" << range->kStart().lastPosition() << range->kEnd().lastPosition() << "now" << *range;
+
+  if (range->start() > edit.newRange().end() ||
+      (range->start() == edit.newRange().end() && range->kStart().lastPosition() == edit.oldRange().end()))
+  {
     // This range is after the edit... has only been shifted
+    //kDebug() << "Feeding back shifted to " << *range;
     range->shifted();
 
   } else {
     // This range is within the edit.
+    //kDebug() << "Feeding back translated to " << *range;
     if (!mostSpecific)
       if (range->start() < edit.oldRange().start() && range->end() > edit.oldRange().end())
         mostSpecific = range;

@@ -19,6 +19,8 @@
 #ifndef KATELAYOUTCACHE_H
 #define KATELAYOUTCACHE_H
 
+#include <QThreadStorage>
+
 #include <ktexteditor/range.h>
 
 #include "katetextlayout.h"
@@ -57,6 +59,7 @@ class KateLayoutCache : public QObject
     bool wrap() const;
     void setWrap(bool wrap);
 
+    bool acceptDirtyLayouts() const;
     void setAcceptDirtyLayouts(bool accept);
 
     // BEGIN generic methods to get/set layouts
@@ -133,7 +136,8 @@ private:
 
     int m_viewWidth;
     bool m_wrap;
-    bool m_acceptDirtyLayouts;
+
+    QThreadStorage<bool*> m_acceptDirtyLayouts;
 };
 
 #endif

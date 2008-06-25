@@ -88,6 +88,7 @@
 #include <QtCore/QTextStream>
 #include <QtCore/QMimeData>
 #include <QtCore/QTextCodec>
+#include <QtCore/QMutexLocker>
 
 //END includes
 
@@ -977,6 +978,8 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
 
 bool KateView::setCursorPositionInternal( const KTextEditor::Cursor& position, uint tabwidth, bool calledExternally )
 {
+  QMutexLocker lock(m_doc->smartMutex());
+
   KateTextLine::Ptr l = m_doc->kateTextLine( position.line() );
 
   if (!l)
@@ -1422,6 +1425,8 @@ void KateView::notifyMousePositionChanged(const KTextEditor::Cursor& newPosition
 
 bool KateView::setSelection( const KTextEditor::Range &selection )
 {
+  QMutexLocker l(m_doc->smartMutex());
+
   KTextEditor::Range oldSelection = *m_selection;
   *m_selection = selection;
 
@@ -1441,6 +1446,8 @@ bool KateView::clearSelection()
 
 bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
 {
+  QMutexLocker l(m_doc->smartMutex());
+
   if( !selection() )
     return false;
 
@@ -1471,6 +1478,8 @@ bool KateView::selection() const
 
 QString KateView::selectionText() const
 {
+  QMutexLocker l(m_doc->smartMutex());
+
   KTextEditor::Range range = *m_selection;
 
   if ( blockSelect )
@@ -1481,6 +1490,8 @@ QString KateView::selectionText() const
 
 bool KateView::removeSelectedText()
 {
+  QMutexLocker l(m_doc->smartMutex());
+
   if (!selection())
     return false;
 
@@ -1868,6 +1879,8 @@ bool KateView::blockSelectionMode () const
 
 bool KateView::setBlockSelectionMode (bool on)
 {
+  QMutexLocker l(m_doc->smartMutex());
+
   if (on != blockSelect)
   {
     blockSelect = on;
@@ -2381,7 +2394,11 @@ void KateView::shiftToMatchingBracket( )
 
 const KTextEditor::Range & KateView::selectionRange( ) const
 {
-  return *m_selection;
+  QMutexLocker l(m_doc->smartMutex());
+
+  m_holdSelectionRangeForAPI = *m_selection;
+
+  return m_holdSelectionRangeForAPI;
 }
 
 KTextEditor::Document * KateView::document( ) const
@@ -2493,6 +2510,11 @@ KateCmdLine *KateView::cmdLine ()
     return m_cmdLine;
 
   return m_cmdLine = new KateCmdLine (this, m_viewBar);
+}
+
+KateViewBar *KateView::viewBar() const
+{
+  return m_viewBar;
 }
 
 KateSearchBar *KateView::searchBar (bool initHintAsPower)

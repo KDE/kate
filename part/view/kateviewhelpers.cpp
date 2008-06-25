@@ -1536,7 +1536,7 @@ void KateViewEncodingAction::setScriptForEncodingAutoDetection (KEncodingDetecto
 //BEGIN KateViewBar related classes
 
 KateViewBarWidget::KateViewBarWidget (KateViewBar *viewBar)
- : QWidget (), m_viewBar (viewBar)
+ : QWidget (viewBar), m_viewBar (viewBar)
 {
   m_viewBar->addBarWidget (this);
 

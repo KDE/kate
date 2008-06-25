@@ -536,18 +536,17 @@ void KateSmartManager::clear( bool includingInternal )
 
 void KateSmartManager::useRevision(int revision)
 {
-  if (revision == -1)
-    // Clear current revision use
-    m_usingRevision.remove(QThread::currentThread());
-  else
-    m_usingRevision[QThread::currentThread()] = revision;
+  if (!m_usingRevision.hasLocalData())
+    m_usingRevision.setLocalData(new int);
+
+  *m_usingRevision.localData() = revision;
 }
 
 int KateSmartManager::usingRevision() const
 {
-  if (m_usingRevision.contains(QThread::currentThread())) {
-    return m_usingRevision[QThread::currentThread()];
-  }
+  if (m_usingRevision.hasLocalData())
+    return *m_usingRevision.localData();
+
   return -1;
 }
 

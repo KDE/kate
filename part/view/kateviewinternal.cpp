@@ -102,7 +102,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   m_watcherCount3 = 0;
 
   updateBracketMarkAttributes();
-  
+
   setMinimumSize (0,0);
   setAttribute(Qt::WA_OpaquePaintEvent);
   setAttribute(Qt::WA_InputMethodEnabled);
@@ -180,6 +180,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   // event filter
   installEventFilter(this);
+  m_view->viewBar()->installEventFilter(this);
 
   // im
   setAttribute(Qt::WA_InputMethodEnabled, true);
@@ -706,8 +707,17 @@ int KateViewInternal::linesDisplayed() const
   return qMax (1, (h - (h % fh)) / fh);
 }
 
+KTextEditor::Cursor KateViewInternal::getCursor() const
+{
+  QMutexLocker l(m_doc->smartMutex());
+
+  return m_cursor;
+}
+
 QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor, bool realCursor, bool includeBorder ) const
 {
+  QMutexLocker l(m_doc->smartMutex());
+
   int viewLine = cache()->displayViewLine(realCursor ? toVirtualCursor(cursor) : cursor, true);
 
   if (viewLine < 0 || viewLine >= cache()->viewCacheLineCount())
@@ -2074,29 +2084,60 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
   switch( e->type() )
   {
-    case QEvent::KeyPress:
+    case QEvent::ChildAdded:
+    case QEvent::ChildRemoved: {
+      QChildEvent* c = static_cast<QChildEvent*>(e);
+      if (c->added()) {
+        c->child()->installEventFilter(this);
+        /*foreach (QWidget* child, c->child()->findChildren<QWidget*>())
+          child->installEventFilter(this);*/
+
+      } else if (c->removed()) {
+        c->child()->removeEventFilter(this);
+
+        /*foreach (QWidget* child, c->child()->findChildren<QWidget*>())
+          child->removeEventFilter(this);*/
+      }
+    } break;
+
+    case QEvent::ShortcutOverride:
     {
       QKeyEvent *k = static_cast<QKeyEvent *>(e);
 
       if (k->key() == Qt::Key_Escape) {
-
         if (m_view->isCompletionActive()) {
           m_view->abortCompletion();
+          k->accept();
+          //kDebug() << obj << "shortcut override" << k->key() << "aborting completion";
           return true;
-        } else if (m_view->m_viewBar->isVisible()) {
-          m_view->m_viewBar->hide();
+        } else if (m_view->viewBar()->isVisible()) {
+          m_view->viewBar()->hide();
+          k->accept();
+          //kDebug() << obj << "shortcut override" << k->key() << "closing view bar";
           return true;
-        } else if (!m_view->config()->persistentSelection()) {
+        } else if (!m_view->config()->persistentSelection() && m_view->selection()) {
           m_view->clearSelection();
+          k->accept();
+          //kDebug() << obj << "shortcut override" << k->key() << "clearing selection";
           return true;
         }
       }
-      else if ( !((k->modifiers() & Qt::ControlModifier) || (k->modifiers() & Qt::AltModifier)) )
-      {
+    } break;
+
+    case QEvent::KeyPress:
+    {
+      QKeyEvent *k = static_cast<QKeyEvent *>(e);
+
+      // Override all other single key shortcuts which do not use a modifier other than Shift
+      if (obj == this && (!k->modifiers() || k->modifiers() == Qt::ShiftModifier)) {
         keyPressEvent( k );
-        return k->isAccepted();
+        if (k->isAccepted()) {
+          //kDebug() << obj << "shortcut override" << k->key() << "using keystroke";
+          return true;
+        }
       }
 
+      //kDebug() << obj << "shortcut override" << k->key() << "ignoring";
     } break;
 
     case QEvent::DragMove:
@@ -2722,6 +2763,7 @@ void KateViewInternal::updateDirty( )
 
 void KateViewInternal::hideEvent(QHideEvent* e)
 {
+  Q_UNUSED(e);
   if(m_view->isCompletionActive())
     m_view->completionWidget()->abortCompletion();
 }
@@ -2993,7 +3035,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
     m_doc->editStart ();
 
 
-    
+
     // on move: remove selected text; on copy: duplicate text
     KTextEditor::Cursor startCursor1(m_cursor);
     m_doc->insertText(m_cursor, text );
@@ -3003,7 +3045,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
     if ( event->dropAction() != Qt::CopyAction )
       m_view->removeSelectedText();
 
-    
+
 
     m_doc->editEnd ();
 

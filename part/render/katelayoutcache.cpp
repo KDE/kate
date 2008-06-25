@@ -35,7 +35,6 @@ KateLayoutCache::KateLayoutCache(KateRenderer* renderer, QObject* parent)
   , m_startPos(-1,-1)
   , m_viewWidth(0)
   , m_wrap(false)
-  , m_acceptDirtyLayouts(false)
 {
   Q_ASSERT(m_renderer);
 
@@ -166,10 +165,10 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine ) const
     if (!l->isValid())
       m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
 
-    else if (l->isLayoutDirty() && !m_acceptDirtyLayouts)
+    else if (l->isLayoutDirty() && !acceptDirtyLayouts())
       m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
 
-    Q_ASSERT(l->isValid() && (!l->isLayoutDirty() || m_acceptDirtyLayouts));
+    Q_ASSERT(l->isValid() && (!l->isLayoutDirty() || acceptDirtyLayouts()));
 
     return l;
   }
@@ -182,7 +181,7 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine ) const
   m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
   Q_ASSERT(l->isValid());
 
-  if (m_acceptDirtyLayouts)
+  if (acceptDirtyLayouts())
     // Mark it dirty, because it may not have the syntax highlighting applied
     l->setLayoutDirty(true);
 
@@ -439,9 +438,20 @@ void KateLayoutCache::relayoutLines( int startRealLine, int endRealLine )
   }
 }
 
+bool KateLayoutCache::acceptDirtyLayouts() const
+{
+  if (m_acceptDirtyLayouts.hasLocalData())
+    return *m_acceptDirtyLayouts.localData();
+
+  return false;
+}
+
 void KateLayoutCache::setAcceptDirtyLayouts(bool accept)
 {
-  m_acceptDirtyLayouts = accept;
+  if (!m_acceptDirtyLayouts.hasLocalData())
+    m_acceptDirtyLayouts.setLocalData(new bool);
+
+  *m_acceptDirtyLayouts.localData() = accept;
 }
 
 #include "katelayoutcache.moc"

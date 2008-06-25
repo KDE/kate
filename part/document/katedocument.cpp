@@ -3972,6 +3972,9 @@ uint KateDocument::toVirtualColumn( const KTextEditor::Cursor& cursor )
 
 bool KateDocument::typeChars ( KateView *view, const QString &chars )
 {
+  // Because we want to access text before starting an edit, lock the smart mutex now
+  QMutexLocker l(smartMutex());
+
   KateTextLine::Ptr textLine = m_buffer->plainLine(view->cursorPosition().line ());
 
   if (!textLine)

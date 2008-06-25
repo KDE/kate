@@ -22,6 +22,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QSet>
 #include <QtCore/QLinkedList>
+#include <QtCore/QThreadStorage>
 
 #include <ktexteditor/smartrange.h>
 
@@ -100,7 +101,7 @@ class KateSmartManager : public QObject
     QSet<KateSmartRange*> m_topRanges;
     KateSmartGroup* m_invalidGroup;
     bool m_clearing;
-    QHash<QThread*, int> m_usingRevision;
+    QThreadStorage<int*> m_usingRevision;
 };
 
 /**

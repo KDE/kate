@@ -74,7 +74,7 @@ class KateEditInfo
 
     /// \internal
     /// No real implementation
-    bool merge(KateEditInfo* edit) { return false; }
+    //bool merge(KateEditInfo* edit) { return false; }
 
     /**
      * Returns the starting location of the text occupied by the edit region
@@ -94,7 +94,7 @@ class KateEditInfo
      * \sa oldText()
      */
     virtual QString oldTextString(const KTextEditor::Range& range) const;
-    
+
     /**
      * Returns the text which occupied \p range before this edit took place.
      * \sa oldText()
@@ -105,7 +105,7 @@ class KateEditInfo
      * Returns all of the text that was in place before the edit occurred.
      * \sa oldText(const KTextEditor::Range&) const
      * \sa oldTextString(const KTextEditor::Range&) const
-     */ 
+     */
     const QStringList& oldText() const;
 
     /**

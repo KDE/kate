@@ -78,7 +78,7 @@ KateSearchBar::KateSearchBar(KateViewBar * viewBar, bool initAsPower)
     // Init highlight
     m_topRange = m_view->doc()->newSmartRange(m_view->doc()->documentRange());
     static_cast<KateSmartRange*>(m_topRange)->setInternal();
-    m_topRange->setInsertBehavior(SmartRange::ExpandRight);
+    m_topRange->setInsertBehavior(SmartRange::ExpandLeft | SmartRange::ExpandRight);
     enableHighlights(true);
 
 
@@ -1486,7 +1486,7 @@ void KateSearchBar::onMutatePower() {
         }
 
         // Add power widget
-        m_widget = new QWidget;
+        m_widget = new QWidget(this);
         m_powerUi = new Ui::PowerSearchBar;
         m_powerUi->setupUi(m_widget);
         m_layout->addWidget(m_widget);
@@ -1624,7 +1624,7 @@ void KateSearchBar::onMutateIncremental() {
         }
 
         // Add incremental widget
-        m_widget = new QWidget;
+        m_widget = new QWidget(this);
         m_incUi = new Ui::IncrementalSearchBar;
         m_incUi->setupUi(m_widget);
         m_layout->addWidget(m_widget);

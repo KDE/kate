@@ -264,6 +264,10 @@ class KateView : public KTextEditor::View,
     virtual bool blockSelection() const { return blockSelectionMode(); }
     virtual const KTextEditor::Range &selectionRange() const;
 
+  private:
+    // TODO KDE5: remove
+    mutable KTextEditor::Range m_holdSelectionRangeForAPI;
+
   //
   // Arbitrary Syntax HL + Action extensions
   //
@@ -627,6 +631,7 @@ class KateView : public KTextEditor::View,
    * Accessors to the bars...
    */
   public:
+    KateViewBar *viewBar() const;
     KateCmdLine *cmdLine ();
     KateSearchBar *searchBar (bool initHintAsPower = false);
     KateGotoBar *gotoBar ();

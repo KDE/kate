@@ -6,7 +6,7 @@ set(ktexteditor_kdatatool_PART_SRCS kate_kdatatool.cpp )
 
 kde4_add_plugin(ktexteditor_kdatatool ${ktexteditor_kdatatool_PART_SRCS})
 
-target_link_libraries(ktexteditor_kdatatool  ${KDE4_KDECORE_LIBS} ktexteditor )
+target_link_libraries(ktexteditor_kdatatool  ${KDE4_KDECORE_LIBS} ktexteditor kio kdeui )
 
 install(TARGETS ktexteditor_kdatatool  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

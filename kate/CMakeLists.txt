@@ -15,4 +15,4 @@ if( PLASMA_FOUND )
    add_subdirectory(plasma)
 endif(PLASMA_FOUND)
 
-install( FILES kate_export.h DESTINATION ${INCLUDE_INSTALL_DIR} )
+install( FILES kate_export.h DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)

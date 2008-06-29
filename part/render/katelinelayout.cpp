@@ -117,7 +117,7 @@ KateDocument* KateLineLayout::doc() const
 
 bool KateLineLayout::isValid( ) const
 {
-  return line() != -1 && textLine() && layout();
+  return line() != -1 && layout() && textLine();
 }
 
 QTextLayout* KateLineLayout::layout() const

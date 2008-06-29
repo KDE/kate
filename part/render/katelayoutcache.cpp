@@ -351,7 +351,7 @@ void KateLayoutCache::slotEditDone(KateEditInfo* edit)
     QMap<int, KateLineLayoutPtr> oldMap = m_lineLayouts;
     m_lineLayouts.clear();
 
-    QMapIterator<int, KateLineLayoutPtr> it = oldMap;
+    QMutableMapIterator<int, KateLineLayoutPtr> it = oldMap;
     while (it.hasNext()) {
       it.next();
 
@@ -364,16 +364,15 @@ void KateLayoutCache::slotEditDone(KateEditInfo* edit)
         m_lineLayouts.insert(it.key(), it.value());
 
       } else {
-        //gets deleted when oldMap goes but invalidate it just in case
-        const_cast<KateLineLayoutPtr&>(it.value())->invalidateLayout();
+        // invalidate the removed layout, other shared pointers might exist!!!
+        it.value()->clear();
       }
     }
 
   } else {
     for (int i = fromLine; i <= toLine; ++i)
       if (m_lineLayouts.contains(i)) {
-        const_cast<KateLineLayoutPtr&>(m_lineLayouts[i])->setLayoutDirty();
-        m_lineLayouts.remove(i);
+        m_lineLayouts[i]->setLayoutDirty();
       }
   }
 }

@@ -67,7 +67,7 @@ void KateHlItem::dynamicSubstitute(QString &str, const QStringList *args)
     {
       char c = str[i + 1].toLatin1();
       if (c == '%')
-        str.replace(i, 1, "");
+        str.remove(i, 1);
       else if (c >= '0' && c <= '9')
       {
         if ((int)(c - '0') < args->size())
@@ -77,7 +77,7 @@ void KateHlItem::dynamicSubstitute(QString &str, const QStringList *args)
         }
         else
         {
-          str.replace(i, 2, "");
+          str.remove(i, 2);
           --i;
         }
       }

@@ -545,7 +545,7 @@ bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd
   int base=10;
   if (cmd[0]=='x' || cmd.startsWith(QLatin1String("0x")))
   {
-    cmd.replace(QRegExp("^0?x"), "");
+    cmd.remove(QRegExp("^0?x"));
     base=16;
   }
   else if (cmd[0]=='0')

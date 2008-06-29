@@ -126,7 +126,7 @@ class KatePythonEncodingCheck: public LoadSaveFilterCheckPlugin {
       kDebug(13020)<<"KatePythonEncodingCheck::preSavePostDialogCheck";
       //QString codec=document->config()->codec()->name().toLower();
       QString codec=document->encoding().toLower();
-      codec.replace(" ","-");
+      codec.replace(' ','-');
 //	"#\s*-\*\-\s*coding[:=]\s*([-\w.]+)\s*-\*-\s*$"
       bool firstIsInterpreter=false;
       QRegExp encoding_regex(QString("#\\s*-\\*\\-\\s*coding[:=]\\s*%1\\s*-\\*-\\s*$").arg(codec));

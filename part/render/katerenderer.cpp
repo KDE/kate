@@ -331,7 +331,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
         selectionHighlight->addRange(new KTextEditor::Range(line, 0, line + 1, 0), backgroundAttribute);
       else
         if(m_view->blockSelection() && m_view->selectionRange().overlapsLine(line))
-          selectionHighlight->addRange(new KTextEditor::Range(line, m_view->selectionRange().start().column(), line, m_view->selectionRange().end().column()), backgroundAttribute);        
+          selectionHighlight->addRange(new KTextEditor::Range(line, m_view->selectionRange().start().column(), line, m_view->selectionRange().end().column()), backgroundAttribute);
         else
           selectionHighlight->addRange(new KTextEditor::Range(m_view->selectionRange()), backgroundAttribute);
 
@@ -350,7 +350,7 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
       } else {
         KTextEditor::Range rangeNeeded = m_view->selectionRange().encompass(m_dynamicRegion.boundingRange());
         rangeNeeded &= KTextEditor::Range(line, 0, line + 1, 0);
-  
+
         currentPosition = qMax(KTextEditor::Cursor(line, 0), rangeNeeded.start());
         endPosition = qMin(KTextEditor::Cursor(line + 1, 0), rangeNeeded.end());
       }
@@ -391,10 +391,10 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const KateText
         if(m_view->blockSelection()) {
           int minSelectionColumn = qMin(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
           int maxSelectionColumn = qMax(m_view->selectionRange().start().column(), m_view->selectionRange().end().column());
- 
+
           if(currentPosition.column() >= minSelectionColumn && currentPosition.column() < maxSelectionColumn)
             assignSelectionBrushesFromAttribute(fr, a);
-        
+
         } else if (m_view->selection() && m_view->selectionRange().contains(currentPosition)) {
           assignSelectionBrushesFromAttribute(fr, a);
         }
@@ -429,7 +429,6 @@ void KateRenderer::assignSelectionBrushesFromAttribute(QTextLayout::FormatRange&
 The ultimate line painting function.
 Currently missing features:
 - draw indent lines
-- draw input method hints
 */
 void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int xStart, int xEnd, const KTextEditor::Cursor* cursor)
 {
@@ -517,24 +516,30 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
       backgroundDetermined:
 
-      // Draw selection outside of areas where text is rendered
+      // Draw selection or background color outside of areas where text is rendered
       if (!m_printerFriendly ) {
+        bool draw = false;
+        QBrush drawBrush;
         if (m_view->selection() && !m_view->blockSelection() && m_view->lineEndSelected(line.end(true))) {
-          int width= xEnd - xStart;
-          int height= fm.height() * (i + 1);
+          draw = true;
+          drawBrush = config()->selectionColor();
+        } else if (backgroundBrushSet && !m_view->blockSelection()) {
+          draw = true;
+          drawBrush = backgroundBrush;
+        }
+
+        if (draw) {
           int fillStartX = line.endX() - line.startX() + line.xOffset() - xStart;
           int fillStartY = fm.height() * i;
- 
-          QRect area(fillStartX, fillStartY, width, height);
-          paint.fillRect(area, config()->selectionColor());
+          int width= xEnd - xStart - fillStartX;
+          int height= fm.height();
 
-        } else if (backgroundBrushSet && !m_view->blockSelection()) {
-          // Draw text background outside of areas where text is rendered.
-          QRect area(line.endX() /*+ line.xOffset()*/ - line.startX() +  (i==0?0:range->shiftX()) - xStart/*-(i*xEnd)*/, fm.height() * i, xEnd - xStart, fm.height() /** (i + 1)*/);
-          paint.fillRect(area, /*QBrush(Qt::red));*/backgroundBrush);
-  //         kDebug( 13033 )<<i<<":backgroundBrush:"<<backgroundBrush<<"---"<<xEnd<<"/"<<xStart;
-  //         kDebug( 13033 )<<line.endX()<<"---"<<line.xOffset();
-          //kDebug( 13033 )<<i<<"----"<<area;
+          // reverse X for right-aligned lines
+          if (range->layout()->textOption().alignment() == Qt::AlignRight)
+            fillStartX = 0;
+
+          QRect area(fillStartX, fillStartY, width, height);
+          paint.fillRect(area, drawBrush);
         }
       }
       // Draw indent lines

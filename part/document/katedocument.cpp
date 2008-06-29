@@ -1381,8 +1381,8 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
     m_buffer->insertLine (line+1, textLine);
     m_buffer->changeLine(line);
 
-   QList<KTextEditor::Mark*> list;
-  for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
+    QList<KTextEditor::Mark*> list;
+    for (QHash<int, KTextEditor::Mark*>::const_iterator i = m_marks.constBegin(); i != m_marks.constEnd(); ++i)
     {
       if( i.value()->line >= line )
       {
@@ -1404,6 +1404,8 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
     // yes, we added a new line !
     if (newLineAdded)
       (*newLineAdded) = true;
+
+    history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(line, col, line, col + pos), QStringList(), KTextEditor::Range(line, col, line+1, pos), QStringList()) );
   }
   else
   {
@@ -1416,10 +1418,11 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
     // no, no new line added !
     if (newLineAdded)
       (*newLineAdded) = false;
+
+    history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(line, col, line+1, 0), QStringList(), KTextEditor::Range(line, col, line+1, pos), QStringList()) );
   }
 
-  history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(line, col, line, col), QStringList(), KTextEditor::Range(line, col, line+1, 0), QStringList(QString())) );
-  emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col, line+1, 0));
+  emit KTextEditor::Document::textInserted(this, KTextEditor::Range(line, col, line+1, pos));
 
   editEnd ();
 

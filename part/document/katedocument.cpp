@@ -4039,6 +4039,8 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   if (buf.isEmpty())
     return false;
 
+  l.unlock(); //editStart will lock the smart-mutex again, and it must be un-locked within editEnd. So unlock here.
+  
   editStart ();
 
   if (!view->config()->persistentSelection() && view->selection() )

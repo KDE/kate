@@ -3066,6 +3066,9 @@ void KateDocument::bufferHlChanged ()
   // update all views
   makeAttribs(false);
 
+  // deactivate indenter if necessary
+  m_indenter.checkRequiredStyle();
+
   emit highlightingModeChanged(this);
 }
 

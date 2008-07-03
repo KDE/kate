@@ -44,6 +44,7 @@ class KateSyntaxModeListItem
     QString priority;       /**< Priority (mapped to an integer?) for conflict-
                                  resolution when the same file extension has
                                  multiple highlihgting definitions. */
+    QString style;          ///< Default styles provided by the highlighter
     QString author;         ///< Author's name
     QString license;        ///< License; for example: "LGPL"
     bool hidden;            ///< Hides the mode from Kate's menus

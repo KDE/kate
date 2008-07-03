@@ -80,6 +80,7 @@ TODO
   name:        The name of this syntax description. Used in the Highlightning Mode menu
   section:     The logical group to which this syntax description belongs. Used for sub menus
   extensions:  A file glob or pattern to decide for which documents to use this syntax description
+  style:       Attribute style that this highlighter provides to kate scripts [optional]
   mimetype:    A list of mimetypes to decide for which documents to use this syntax description [optional]
   version:     Version number of this syntax description [optional]
   kateversion: Kate version required for using this file [optional]
@@ -101,6 +102,7 @@ WARNING: due to helper scripts, the language opening tag must be on a
   name          CDATA       #REQUIRED
   section       NMTOKEN     #REQUIRED
   extensions    CDATA       #REQUIRED
+  style         CDATA       #IMPLIED
   mimetype      CDATA       #IMPLIED
   version       CDATA       #IMPLIED
   kateversion   CDATA       #IMPLIED

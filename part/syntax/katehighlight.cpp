@@ -91,6 +91,7 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
     iHidden = def->hidden;
     identifier = def->identifier;
     iVersion=def->version;
+    iStyle = def->style;
     iAuthor=def->author;
     iLicense=def->license;
   }

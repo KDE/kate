@@ -22,6 +22,8 @@
 #include "katescript.h"
 #include "kateview.h"
 
+#include <QtCore/QPair>
+
 class KateScriptDocument;
 
 /**
@@ -33,8 +35,13 @@ class KateIndentScript : public KateScript {
     KateIndentScript(const QString &url, const KateScriptInformation &information);
 
     const QString &triggerCharacters();
-    int indent(KateView* view, const KTextEditor::Cursor& position, QChar typedCharacter,
-               int indentWidth);
+
+    /**
+     * Returns a pair where the first value is the indent amount, and the second
+     * value is the alignment.
+     */
+    QPair<int, int> indent(KateView* view, const KTextEditor::Cursor& position, QChar typedCharacter,
+                           int indentWidth);
 
   private:
     QString m_triggerCharacters;

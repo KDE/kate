@@ -143,6 +143,7 @@ class KateHighlighting
     const QString &section() const {return iSection;}
     bool hidden() const {return iHidden;}
     const QString &version() const {return iVersion;}
+    const QString &style() const { return iStyle; }
     const QString &author () const { return iAuthor; }
     const QString &license () const { return iLicense; }
     const QString &getIdentifier() const {return identifier;}
@@ -291,6 +292,7 @@ class KateHighlighting
     bool iHidden;
     QString identifier;
     QString iVersion;
+    QString iStyle;
     QString iAuthor;
     QString iLicense;
     QString m_indentation;

@@ -36,6 +36,9 @@
 
 #include <cctype>
 
+const QString MODE_NONE = QLatin1String("none");
+const QString MODE_NORMAL = QLatin1String("normal");
+
 //BEGIN KateAutoIndent
 
 QStringList KateAutoIndent::listModes ()
@@ -58,10 +61,10 @@ int KateAutoIndent::modeCount ()
 QString KateAutoIndent::modeName (int mode)
 {
   if (mode == 0 || mode >= modeCount ())
-    return QString ("none");
+    return MODE_NONE;
 
   if (mode == 1)
-    return QString ("normal");
+    return MODE_NORMAL;
 
   return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->information().baseName;
 }
@@ -75,6 +78,14 @@ QString KateAutoIndent::modeDescription (int mode)
     return i18nc ("Autoindent mode", "Normal");
 
   return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->information().name;
+}
+
+QString KateAutoIndent::modeRequiredStyle(int mode)
+{
+  if (mode == 0 || mode == 1 || mode >= modeCount())
+    return QString();
+
+  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->information().requiredStyle;
 }
 
 uint KateAutoIndent::modeNumber (const QString &name)
@@ -96,24 +107,25 @@ KateAutoIndent::~KateAutoIndent ()
 {
 }
 
-QString KateAutoIndent::tabString (int length) const
+QString KateAutoIndent::tabString (int length, int align) const
 {
   QString s;
   length = qMin (length, 256); // sanity check for large values of pos
+  int spaces = qBound(0, align - length, 256);
 
   if (!useSpaces)
   {
     s.append (QString (length / tabWidth, '\t'));
     length = length % tabWidth;
   }
-  s.append (QString (length, ' '));
+  s.append(QString(length + spaces, ' '));
 
   return s;
 }
 
-bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces )
+bool KateAutoIndent::doIndent(KateView *view, int line, int indentDepth, int align)
 {
-  kDebug (13060) << "doIndent: line: " << line << " change: " << change << " relative: " << relative;
+  kDebug (13060) << "doIndent: line: " << line << " indentDepth: " << indentDepth << " align: " << align;
 
   KateTextLine::Ptr textline = doc->plainKateTextLine(line);
 
@@ -121,48 +133,50 @@ bool KateAutoIndent::doIndent ( KateView *view, int line, int change, bool relat
   if (!textline)
     return false;
 
-  int extraSpaces = 0;
-
-  // get indent width of current line
-  int indentDepth = (relative || keepExtraSpaces) ? textline->indentDepth (tabWidth) : 0;
-
-  // for relative change, check for extra spaces
-  if (relative)
-  {
-    extraSpaces = indentDepth % indentWidth;
-
-    indentDepth += change;
-
-    // if keepExtraSpaces is off, snap to a multiple of the indentWidth
-    if (!keepExtraSpaces && extraSpaces > 0)
-    {
-      if (change < 0)
-        indentDepth += indentWidth - extraSpaces;
-      else
-        indentDepth -= extraSpaces;
-    }
-  } else {
-    indentDepth = change;
-  }
-
   // sanity check
   if (indentDepth < 0)
     indentDepth = 0;
 
-  QString indentString = tabString (indentDepth);
+  QString indentString = tabString (indentDepth, align);
 
   int first_char = textline->firstChar();
 
   if (first_char < 0)
     first_char = textline->length();
 
-  // remove trailing spaces, then insert the leading indentation
+  // remove leading whitespace, then insert the leading indentation
   doc->editStart (view);
   doc->editRemoveText (line, 0, first_char);
   doc->editInsertText (line, 0, indentString);
   doc->editEnd ();
 
   return true;
+}
+
+bool KateAutoIndent::doIndentRelative(KateView *view, int line, int change)
+{
+  kDebug (13060) << "doIndentRelative: line: " << line << " change: " << change;
+
+  KateTextLine::Ptr textline = doc->plainKateTextLine(line);
+
+  // get indent width of current line
+  int indentDepth = textline->indentDepth (tabWidth);
+  int extraSpaces = indentDepth % indentWidth;
+
+  // add change
+  indentDepth += change;
+
+  // if keepExtra is off, snap to a multiple of the indentWidth
+  if (!keepExtra && extraSpaces > 0)
+  {
+    if (change < 0)
+      indentDepth += indentWidth - extraSpaces;
+    else
+      indentDepth -= extraSpaces;
+  }
+
+  // do indent
+  return doIndent(view, line, indentDepth);
 }
 
 void KateAutoIndent::keepIndent ( KateView *view, int line )
@@ -177,12 +191,13 @@ void KateAutoIndent::keepIndent ( KateView *view, int line )
   if (!textline)
     return;
 
-  doIndent (view, line, textline->indentDepth (tabWidth), false);
+  doIndent (view, line, textline->indentDepth (tabWidth));
 }
 
 void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
 {
-  int newIndentInChars = m_script->indent (view, position, typedChar, indentWidth);
+  QPair<int, int> result = m_script->indent (view, position, typedChar, indentWidth);
+  int newIndentInChars = result.first;
 
   // handle negative values special
   if (newIndentInChars < -1)
@@ -197,8 +212,18 @@ void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &po
     return;
   }
 
+  int align = result.second;
+  if (align > 0)
+    kDebug (13060) << "Align: " << align;
+
   // we got a positive or zero indent to use...
-  doIndent (view, position.line(), newIndentInChars, false);
+  doIndent (view, position.line(), newIndentInChars, align);
+}
+
+bool KateAutoIndent::isStyleProvided(KateIndentScript *script)
+{
+  QString requiredStyle = script->information().requiredStyle;
+  return (requiredStyle.isEmpty() || requiredStyle == doc->highlight()->style());
 }
 
 void KateAutoIndent::setMode (const QString &name)
@@ -212,26 +237,56 @@ void KateAutoIndent::setMode (const QString &name)
   m_normal = false;
 
   // first, catch easy stuff... normal mode and none, easy...
-  if ( name.isEmpty() || name == QLatin1String ("none") || name == QLatin1String ("normal") )
+  if ( name.isEmpty() || name == MODE_NONE )
   {
-    m_normal = (name == QLatin1String ("normal"));
-    m_mode = m_normal ? QString ("normal") : QString ("none");
+    m_mode = MODE_NONE;
     return;
   }
-
+  
+  if ( name == MODE_NORMAL )
+  {
+    m_normal = true;
+    m_mode = MODE_NORMAL;
+    return;
+  }
+  
   // handle script indenters, if any for this name...
   KateIndentScript *script = KateGlobal::self()->scriptManager()->indentationScript(name);
   if ( script )
   {
-    m_script = script;
-    m_mode = name;
+    if (isStyleProvided(script))
+    {
+      m_script = script;
+      m_mode = name;
+      
+      kDebug( 13060 ) << "mode: " << name << "accepted";
+      return;
+    }
+    else
+    {
+      kWarning( 13060 ) << "mode" << name << "requires a different highlight style";
+    }
   }
-  else {
-    // default: none
+  else 
+  {
     kWarning( 13060 ) << "mode" << name << "does not exist";
-    m_mode = QString ("normal");
   }
-  kDebug( 13060 ) << "mode: " << qPrintable(m_mode) << '\n';
+  
+  // Fall back to normal
+  m_normal = true;
+  m_mode = MODE_NORMAL;
+}
+
+void KateAutoIndent::checkRequiredStyle()
+{
+  if (m_script)
+  {
+    if (!isStyleProvided(m_script))
+    {
+      kDebug( 13060 ) << "mode" << m_mode << "requires a different highlight style";
+      doc->config()->setIndentationMode(MODE_NORMAL);
+    }
+  }
 }
 
 void KateAutoIndent::updateConfig ()
@@ -265,15 +320,15 @@ bool KateAutoIndent::changeIndent (KateView *view, const KTextEditor::Range &ran
       skippedLines.append (line);
       continue;
     }
-        
-    doIndent (view, line, change * indentWidth, true, keepExtra);
+
+    doIndentRelative(view, line, change * indentWidth);
   }
 
   if (skippedLines.count() > range.numberOfLines())
   {
     // all lines were empty, so indent them nevertheless
     foreach (int line, skippedLines)
-      doIndent (view, line, change * indentWidth, true, keepExtra);
+      doIndentRelative(view, line, change * indentWidth);
   }
 
   return true;
@@ -343,6 +398,9 @@ void KateViewIndentationAction::slotAboutToShow()
     QAction *action = menu()->addAction( '&' + KateAutoIndent::modeDescription(z).replace('&', "&&") );
     action->setCheckable( true );
     action->setData( z );
+
+    QString requiredStyle = KateAutoIndent::modeRequiredStyle(z);
+    action->setEnabled(requiredStyle.isEmpty() || requiredStyle == doc->highlight()->style());
 
     if ( doc->config()->indentationMode() == KateAutoIndent::modeName (z) )
       action->setChecked( true );

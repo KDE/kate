@@ -400,6 +400,7 @@ void KateSyntaxDocument::setupModeList (bool force)
       mli->extension  = config.readEntry("extension");
       mli->version    = config.readEntry("version");
       mli->priority   = config.readEntry("priority");
+      mli->style      = config.readEntry("style");
       mli->author    = config.readEntry("author");
       mli->license   = config.readEntry("license");
       mli->hidden   =  config.readEntry("hidden", false);
@@ -446,6 +447,7 @@ void KateSyntaxDocument::setupModeList (bool force)
               mli->extension = root.attribute("extensions");
               mli->version   = root.attribute("version");
               mli->priority  = root.attribute("priority");
+              mli->style     = root.attribute("style");
               mli->author    = root.attribute("author");
               mli->license   = root.attribute("license");
 
@@ -462,6 +464,7 @@ void KateSyntaxDocument::setupModeList (bool force)
               config.writeEntry("extension",mli->extension);
               config.writeEntry("version",mli->version);
               config.writeEntry("priority",mli->priority);
+              config.writeEntry("style",mli->style);
               config.writeEntry("author",mli->author);
               config.writeEntry("license",mli->license);
               config.writeEntry("hidden",mli->hidden);

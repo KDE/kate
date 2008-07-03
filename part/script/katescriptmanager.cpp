@@ -162,6 +162,8 @@ void KateScriptManager::collect(const QString& resourceFile,
     // now, cast accordingly based on type
     switch(information.type) {
       case Kate::IndentationScript: {
+        // required style?
+        information.requiredStyle = pairs.take("required-syntax-style");
         // which languages does this support?
         QString indentLanguages = pairs.take("indent-languages");
         if(!indentLanguages.isNull()) {

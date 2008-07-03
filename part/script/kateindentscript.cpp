@@ -44,17 +44,17 @@ const QString &KateIndentScript::triggerCharacters()
   return m_triggerCharacters;
 }
 
-int KateIndentScript::indent(KateView* view, const KTextEditor::Cursor& position,
-                             QChar typedCharacter, int indentWidth)
+QPair<int, int> KateIndentScript::indent(KateView* view, const KTextEditor::Cursor& position,
+                                         QChar typedCharacter, int indentWidth)
 {
   // if it hasn't loaded or we can't load, return
   if(!setView(view))
-    return -2;
+    return qMakePair(-2,-2);
 
   clearExceptions();
   QScriptValue indentFunction = function("indent");
   if(!indentFunction.isValid()) {
-    return -2;
+    return qMakePair(-2,-2);
   }
   // add the arguments that we are going to pass to the function
   QScriptValueList arguments;
@@ -66,14 +66,21 @@ int KateIndentScript::indent(KateView* view, const KTextEditor::Cursor& position
   // error during the calling?
   if(m_engine->hasUncaughtException()) {
     displayBacktrace(result, "Error calling indent()");
-    return -2;
+    return qMakePair(-2,-2);
   }
-  int indentAmount = result.toInt32 ();
+  int indentAmount = -2;
+  int alignAmount = -2;
+  if (result.isArray()) {
+    indentAmount = result.property(0).toInt32();
+    alignAmount = result.property(1).toInt32();
+  } else {
+    indentAmount = result.toInt32();
+  }
   if(m_engine->hasUncaughtException()) {
     displayBacktrace(QScriptValue(), "Bad return type (must be integer)");
-    return -2;
+    return qMakePair(-2,-2);
   }
-  return indentAmount;
+  return qMakePair(indentAmount, alignAmount);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

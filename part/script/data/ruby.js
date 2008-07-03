@@ -5,6 +5,7 @@
  * version: 1
  * kate-version: 3.0
  * type: indentation
+ * required-syntax-style: ruby
  * indent-languages: ruby
  * priority: 0
  *
@@ -312,7 +313,8 @@ function indent(line, indentWidth, ch)
         if (nextCol > 0 && !document.isComment(anch.line, nextCol))
           anch.column = nextCol;
       }
-      return document.toVirtualColumn(anch.line, anch.column);
+      // Keep indent of previous statement, while aligning to the anchor column
+      return [prevStmtInd, document.toVirtualColumn(anch.line, anch.column)];
     } else {
       return document.firstVirtualColumn(anch.line) + (shouldIndent ? indentWidth : 0);
     }

@@ -59,6 +59,13 @@ class KateAutoIndent
      * @return mode index
      */
     static QString modeDescription (int mode);
+    
+    /**
+     * Return the syntax highlighting style required to use this mode
+     * @param mode mode index
+     * @return required style, or empty if the mode doesn't require any style
+     */
+    static QString modeRequiredStyle(int mode);
 
     /**
      * Maps name -> index
@@ -96,22 +103,30 @@ class KateAutoIndent
      * Produces a string with the proper indentation characters for its length.
      *
      * @param length The length of the indention in characters.
+     * @param align Length of alignment, ignored if less of equal to length
      * @return A QString representing @p length characters (factoring in tabs and spaces)
      */
-    QString tabString (int length) const;
+    QString tabString (int length, int align) const;
 
     /**
-     * Change the indent of the specified line by the number of levels
-     * specified by change.
-     * positive values will indent more, negative values will unindent...
-     * if relative is not true, the change will be used to set the indent level of the line
+     * Set the indent level of the line.
      * \param view the current active view
      * \param line line to change indent for
-     * \param change change the indentation by given number of SPACES
-     * \param relative is the change a relative change to the current indent level or should
-     * the indent of the given line be set to the given indentation level
+     * \param change set indentation to given number of spaces
+     * \param align if align is higher than indentDepth, the difference 
+     * represents a number of spaces to be added after the indent
      */
-    bool doIndent ( KateView *view, int line, int change, bool relative, bool keepExtraSpaces = false );
+    bool doIndent(KateView *view, int line, int indentDepth, int align = 0);
+    
+    /**
+     * Change the indent of the specified line by the number of levels
+     * specified by change. Positive values will indent more, negative values 
+     * will indent less.
+     * \param view the current active view
+     * \param line line to change indent for
+     * \param change change the indentation by given number of spaces
+     */
+    bool doIndentRelative(KateView *view, int line, int change);
 
     /**
      * Reuse the indent of the previous line
@@ -128,6 +143,12 @@ class KateAutoIndent
      */
     void scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar);
 
+    /**
+     * Return true if the required style for the script is provided by the 
+     * current highlighter.
+     */
+    bool isStyleProvided(KateIndentScript *script);
+
   public:
     /**
      * Switch indenter
@@ -136,6 +157,13 @@ class KateAutoIndent
      * @param name indention mode wanted
      */
     void setMode (const QString &name);
+
+    /**
+     * Check if the current highlighting mode provides the style required by the 
+     * current indenter. If not, deactivate the indenter by changing to "normal" 
+     * mode.
+     */
+    void checkRequiredStyle();
 
     /**
      * mode name

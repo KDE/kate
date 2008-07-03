@@ -74,6 +74,12 @@ class KateScriptInformation {
      */
     Kate::ScriptType type;
     /**
+     * If this is an indenter, then this specifies the required syntax 
+     * highlighting style that must be used for this indenter to work properly.
+     * If this property is empty, the indenter doesn't require a specific style.
+     */
+    QString requiredStyle;
+    /**
      * If this script is an indenter, then the indentLanguages member specifies
      * which languages this is an indenter for. The values must correspond with
      * the name of a programming language given in a highlighting file (e.g "TI Basic")

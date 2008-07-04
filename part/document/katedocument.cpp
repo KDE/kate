@@ -339,8 +339,15 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
+  // Grab the smart lock
+  // - make sure no other thread is using other parts of kate
+  // - until aboutToClose has been emitted, and thus clients should no longer access this document
+  smartMutex()->lock();
+
   // Tell the world that we're about to close (== destruct)
   emit aboutToClose(this);
+
+  smartMutex()->unlock();
 
   // remove file from dirwatch
   deactivateDirWatch ();
@@ -4043,7 +4050,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
     return false;
 
   l.unlock(); //editStart will lock the smart-mutex again, and it must be un-locked within editEnd. So unlock here.
-  
+
   editStart ();
 
   if (!view->config()->persistentSelection() && view->selection() )

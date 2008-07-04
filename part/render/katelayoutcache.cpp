@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2005 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2008 Dominik Haumann <dhaumann kde org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -19,6 +20,7 @@
 #include "katelayoutcache.h"
 
 #include <QtCore/QMutex>
+#include <QtAlgorithms>
 
 #include "katerenderer.h"
 #include "kateview.h"
@@ -28,6 +30,110 @@
 #include <kdebug.h>
 
 static bool enableLayoutCache = false;
+
+//BEGIN KateLineLayoutMap
+KateLineLayoutMap::KateLineLayoutMap()
+{
+}
+
+KateLineLayoutMap::~KateLineLayoutMap()
+{
+}
+
+bool lessThan(const KateLineLayoutMap::LineLayoutPair& lhs,
+              const KateLineLayoutMap::LineLayoutPair& rhs)
+{
+  return lhs.first < rhs.first;
+}
+
+void KateLineLayoutMap::clear()
+{
+}
+
+bool KateLineLayoutMap::contains(int i) const
+{
+  LineLayoutMap::const_iterator it =
+    qBinaryFind(m_lineLayouts.constBegin(), m_lineLayouts.constEnd(), LineLayoutPair(i,KateLineLayoutPtr()), lessThan);
+  return (it != m_lineLayouts.constEnd());
+}
+
+void KateLineLayoutMap::insert(int realLine, const KateLineLayoutPtr& lineLayoutPtr)
+{
+  LineLayoutMap::iterator it =
+    qBinaryFind(m_lineLayouts.begin(), m_lineLayouts.end(), LineLayoutPair(realLine,KateLineLayoutPtr()), lessThan);
+  if (it != m_lineLayouts.end()) {
+    (*it).second = lineLayoutPtr;
+  } else {
+    it = qUpperBound(m_lineLayouts.begin(), m_lineLayouts.end(), LineLayoutPair(realLine,KateLineLayoutPtr()), lessThan);
+    m_lineLayouts.insert(it, LineLayoutPair(realLine, lineLayoutPtr));
+  }
+}
+
+void KateLineLayoutMap::viewWidthIncreased()
+{
+  LineLayoutMap::iterator it = m_lineLayouts.begin();
+  for ( ; it != m_lineLayouts.end(); ++it) {
+    if ((*it).second->viewLineCount() > 1)
+      (*it).second->invalidateLayout();
+  }
+}
+
+void KateLineLayoutMap::viewWidthDecreased(int newWidth)
+{
+  LineLayoutMap::iterator it = m_lineLayouts.begin();
+  for ( ; it != m_lineLayouts.end(); ++it) {
+    if ((*it).second->viewLineCount() > 1 || (*it).second->width() > newWidth)
+      (*it).second->invalidateLayout();
+  }
+}
+
+void KateLineLayoutMap::relayoutLines(int startRealLine, int endRealLine)
+{
+  LineLayoutMap::iterator start =
+      qLowerBound(m_lineLayouts.begin(), m_lineLayouts.end(), LineLayoutPair(startRealLine, KateLineLayoutPtr()), lessThan);
+  LineLayoutMap::iterator end =
+      qUpperBound(start, m_lineLayouts.end(), LineLayoutPair(endRealLine, KateLineLayoutPtr()), lessThan);
+
+  while (start != end) {
+    (*start).second->setLayoutDirty();
+    ++start;
+  }
+}
+
+void KateLineLayoutMap::slotEditDone(int fromLine, int toLine, int shiftAmount)
+{
+  LineLayoutMap::iterator start =
+      qLowerBound(m_lineLayouts.begin(), m_lineLayouts.end(), LineLayoutPair(fromLine, KateLineLayoutPtr()), lessThan);
+  LineLayoutMap::iterator end =
+      qUpperBound(start, m_lineLayouts.end(), LineLayoutPair(toLine, KateLineLayoutPtr()), lessThan);
+  LineLayoutMap::iterator it;
+
+  if (shiftAmount != 0) {
+    for (it = end; it != m_lineLayouts.end(); ++it) {
+      (*it).first += shiftAmount;
+      (*it).second->setLine((*it).second->line() + shiftAmount);
+    }
+
+    for (it = start; it != end; ++it) {
+      (*it).second->clear();
+    }
+
+    m_lineLayouts.erase(start, end);
+  } else {
+    for (it = start; it != end; ++it) {
+      (*it).second->setLayoutDirty();
+    }
+  }
+}
+
+
+KateLineLayoutPtr& KateLineLayoutMap::operator[](int i)
+{
+  LineLayoutMap::iterator it =
+    qBinaryFind(m_lineLayouts.begin(), m_lineLayouts.end(), LineLayoutPair(i, KateLineLayoutPtr()), lessThan);
+  return (*it).second;
+}
+//END KateLineLayoutMap
 
 KateLayoutCache::KateLayoutCache(KateRenderer* renderer, QObject* parent)
   : QObject(parent)
@@ -347,34 +453,7 @@ void KateLayoutCache::slotEditDone(KateEditInfo* edit)
   int toLine = edit->oldRange().end().line();
   int shiftAmount = edit->translate().line();
 
-  if (shiftAmount) {
-    QMap<int, KateLineLayoutPtr> oldMap = m_lineLayouts;
-    m_lineLayouts.clear();
-
-    QMutableMapIterator<int, KateLineLayoutPtr> it = oldMap;
-    while (it.hasNext()) {
-      it.next();
-
-      if (it.key() > toLine) {
-        KateLineLayoutPtr layout = it.value();
-        layout->setLine(layout->line() + shiftAmount);
-        m_lineLayouts.insert(it.key() + shiftAmount, layout);
-
-      } else if (it.key() < fromLine) {
-        m_lineLayouts.insert(it.key(), it.value());
-
-      } else {
-        // invalidate the removed layout, other shared pointers might exist!!!
-        it.value()->clear();
-      }
-    }
-
-  } else {
-    for (int i = fromLine; i <= toLine; ++i)
-      if (m_lineLayouts.contains(i)) {
-        m_lineLayouts[i]->setLayoutDirty();
-      }
-  }
+  m_lineLayouts.slotEditDone(fromLine, toLine, shiftAmount);
 }
 
 void KateLayoutCache::clear( )
@@ -395,22 +474,9 @@ void KateLayoutCache::setViewWidth( int width )
 
   // Only get rid of layouts that we have to
   if (wider) {
-    QMapIterator<int, KateLineLayoutPtr> it = m_lineLayouts;
-    while (it.hasNext()) {
-      it.next();
-
-      if (it.value()->viewLineCount() > 1)
-        const_cast<KateLineLayoutPtr&>(it.value())->invalidateLayout();
-    }
-
+    m_lineLayouts.viewWidthIncreased();
   } else {
-    QMapIterator<int, KateLineLayoutPtr> it = m_lineLayouts;
-    while (it.hasNext()) {
-      it.next();
-
-      if (it.value()->viewLineCount() > 1 || it.value()->width() > m_viewWidth)
-        const_cast<KateLineLayoutPtr&>(it.value())->invalidateLayout();
-    }
+    m_lineLayouts.viewWidthDecreased(width);
   }
 }
 
@@ -430,11 +496,7 @@ void KateLayoutCache::relayoutLines( int startRealLine, int endRealLine )
   if (startRealLine > endRealLine)
     kWarning() << "start" << startRealLine << "before end" << endRealLine;
 
-  for (int i = startRealLine; i <= endRealLine; ++i) {
-    QMap<int, KateLineLayoutPtr>::iterator it = m_lineLayouts.find(i);
-    if (it != m_lineLayouts.end())
-      (*it)->setLayoutDirty();
-  }
+  m_lineLayouts.relayoutLines(startRealLine, endRealLine);
 }
 
 bool KateLayoutCache::acceptDirtyLayouts() const
@@ -454,3 +516,5 @@ void KateLayoutCache::setAcceptDirtyLayouts(bool accept)
 }
 
 #include "katelayoutcache.moc"
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

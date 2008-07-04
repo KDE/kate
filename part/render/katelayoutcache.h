@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2005 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2008 Dominik Haumann <dhaumann kde org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -20,6 +21,7 @@
 #define KATELAYOUTCACHE_H
 
 #include <QThreadStorage>
+#include <QPair>
 
 #include <ktexteditor/range.h>
 
@@ -29,6 +31,36 @@ class KateRenderer;
 class KateEditInfo;
 
 namespace KTextEditor { class Document; }
+
+class KateLineLayoutMap
+{
+  public:
+    KateLineLayoutMap();
+    ~KateLineLayoutMap();
+
+    inline void clear();
+
+    inline bool contains(int i) const;
+
+    inline void insert(int realLine, const KateLineLayoutPtr& lineLayoutPtr);
+
+    inline void viewWidthIncreased();
+    inline void viewWidthDecreased(int newWidth);
+
+    inline void relayoutLines(int startRealLine, int endRealLine);
+
+    inline void slotEditDone(int fromLine, int toLine, int shiftAmount);
+
+    KateLineLayoutPtr& operator[](int i);
+
+    //static bool lessThan(const LineLayoutPair& lhs, const LineLayoutPair& rhs);
+
+    typedef QPair<int, KateLineLayoutPtr> LineLayoutPair;
+  private:
+    typedef QVector<LineLayoutPair> LineLayoutMap;
+    LineLayoutMap m_lineLayouts;
+};
+
 
 /**
  * This class handles Kate's caching of layouting information (in KateLineLayout
@@ -128,7 +160,7 @@ private:
      * Layouts which are not within the current view cache and whose
      * refcount == 1 are only known to the cache and can be safely deleted.
      */
-    mutable QMap<int, KateLineLayoutPtr> m_lineLayouts;
+    mutable KateLineLayoutMap m_lineLayouts;
 
     // Convenience vector for quick direct access to the specific text layout
     KTextEditor::Cursor m_startPos;
@@ -141,3 +173,5 @@ private:
 };
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

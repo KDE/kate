@@ -76,13 +76,15 @@ void KateDynamicAnimation::init( )
   if (effects & Attribute::EffectFadeIn) {
     // Sequence starts at 0
   } else {
-    m_sequence = 100;
+    m_sequence = 100 - s_granularity;
   }
 
   m_range->addDynamic(this);
 
   m_timer->setInterval(25);
   m_timer->start();
+
+  timeout();
 }
 
 KateSmartRange * KateDynamicAnimation::range( ) const

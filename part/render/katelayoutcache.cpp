@@ -73,7 +73,7 @@ void KateLineLayoutMap::viewWidthIncreased()
 {
   LineLayoutMap::iterator it = m_lineLayouts.begin();
   for ( ; it != m_lineLayouts.end(); ++it) {
-    if ((*it).second->viewLineCount() > 1)
+    if ((*it).second->isValid() && (*it).second->viewLineCount() > 1)
       (*it).second->invalidateLayout();
   }
 }

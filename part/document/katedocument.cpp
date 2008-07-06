@@ -339,15 +339,10 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
-  // Grab the smart lock
-  // - make sure no other thread is using other parts of kate
-  // - until aboutToClose has been emitted, and thus clients should no longer access this document
-  smartMutex()->lock();
-
   // Tell the world that we're about to close (== destruct)
+  // Apps must receive this in a direct signal-slot connection, and prevent
+  // any further use of interfaces once they return.
   emit aboutToClose(this);
-
-  smartMutex()->unlock();
 
   // remove file from dirwatch
   deactivateDirWatch ();

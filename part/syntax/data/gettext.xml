@@ -3,10 +3,10 @@
 <!--
   This file is part of KDE's kate project.
 
-  copyright   : (C) 2004 by Dominik Haumann
-  email       : dhdev at gmx dot de
+  Copyright 2004, Dominik Haumann <dhdev@gmx.de>
+  Copyright 2008, Chusslove Illich <caslav.ilic@gmx.net>
 
-  last change : 2004-03-18
+  Last change: 2008-01-30
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
   Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
   Boston, MA  02110-1301, USA.
  -->
-<language name="GNU Gettext" version="1.03" kateversion="2.4" section="Markup" extensions="*.po;*.pot" mimetype="text/x-gettext-translation" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language name="GNU Gettext" version="2.00" kateversion="2.4" section="Markup" extensions="*.po;*.pot" mimetype="text/x-gettext-translation" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
 
     <contexts>
@@ -31,29 +31,113 @@
         <RegExpr attribute = "Keyword" String = "^(msgid_plural|msgid|msgstr|msgctxt)" context="#stay"/>
         <RegExpr attribute = "Automatic Comment" String = "#\..*$" context="#stay" firstNonSpace="true"/>
         <RegExpr attribute = "Reference" String = "#:.*$" context="#stay" firstNonSpace="true"/>
-        <RegExpr attribute = "Flag" String = "#,.*$" context="#stay" firstNonSpace="true"/>
+        <StringDetect attribute = "Flag" String = "#," context="Flags" firstNonSpace="true"/>
+        <StringDetect attribute = "StringPrevious" String = "#|" context="Previous" firstNonSpace="true"/>
         <RegExpr attribute = "Translator Comment" String = "#.*$" context="#stay" firstNonSpace="true"/>
         <RegExpr attribute = "Char" String="\\." context="#stay"/>
         <DetectChar attribute = "String" char="&quot;" context="String"/>
         <RegExpr attribute = "Index" String="\[\d+\]" context="#stay"/>
       </context>
+
+      <!--
+        Make fuzzy-flag stand out from the rest, being the most important.
+      -->
+      <context name = "Flags" attribute = "Flag" lineEndContext="#pop">
+         <StringDetect attribute = "FlagFuzzy" String="fuzzy" context="#stay"/>
+      </context>
+
+      <!--
+        Tag-context should be carried over if split by string continuation,
+        to not loose markup highlighting when that happens.
+      -->
       <context name = "String" attribute = "String" lineEndContext="#stay">
         <RegExpr attribute = "Char" String="\\." context="#stay"/>
+        <RegExpr attribute = "Entity" String="&amp;([a-zA-Z0-9_.-]+|#[0-9]+);" context="#stay"/>
+        <DetectChar attribute = "StringTag" char="&lt;" context="StringTag"/>
+        <DetectChar attribute = "String" char="&quot;" context="StringWrap"/>
+      </context>
+      <context name = "StringTag" attribute = "StringTag" lineEndContext="#stay">
+        <RegExpr attribute = "Char" String="\\." context="#stay"/>
+        <DetectChar attribute = "StringTag" char="&gt;" context="#pop"/>
+        <DetectChar attribute = "String" char="&quot;" context="StringWrapSub"/>
+      </context>
+      <context name = "StringWrap" lineEndContext="#stay">
         <DetectChar attribute = "String" char="&quot;" context="#pop"/>
+        <RegExpr String="." lookAhead="true" context="#pop#pop"/>
+      </context>
+      <context name = "StringWrapSub" lineEndContext="#stay">
+        <DetectChar attribute = "String" char="&quot;" context="#pop"/>
+        <RegExpr String="." lookAhead="true" context="#pop#pop#pop"/>
+      </context>
+
+      <!--
+        Previous strings are those in #| comments, introduced by Gettext 0.16.
+        They should have all the same highlight types as normal strings.
+        A special addition are embedded diff-segments: {+...+} and {-...-},
+        which are not Gettext standard, but some tools can produce them.
+      -->
+      <context name = "Previous" attribute = "Normal Text" lineEndContext="#pop">
+        <RegExpr attribute = "KeywordPrevious" String = "(msgctxt|msgid_plural|msgid)" context="#stay"/>
+        <RegExpr attribute = "CharPrevious" String="\\." context="#stay"/>
+        <DetectChar attribute = "StringPrevious" char="&quot;" context="StringPrevious"/>
+      </context>
+      <context name = "StringPrevious" attribute = "StringPrevious" lineEndContext="#stay">
+        <RegExpr attribute = "CharPrevious" String="\\." context="#stay"/>
+        <RegExpr attribute = "EntityPrevious" String="&amp;([a-zA-Z0-9_.-]+|#[0-9]+);" context="#stay"/>
+        <StringDetect attribute = "StringDiffNew" String="{+" context="StringDiffNew"/>
+        <StringDetect attribute = "StringDiffOld" String="{-" context="StringDiffOld"/>
+        <DetectChar attribute = "StringTagPrevious" char="&lt;" context="StringTagPrevious"/>
+        <DetectChar attribute = "StringPrevious" char="&quot;" context="StringWrapPrevious"/>
+      </context>
+      <context name = "StringTagPrevious" attribute = "StringTagPrevious" lineEndContext="#stay">
+        <RegExpr attribute = "Char" String="\\." context="#stay"/>
+        <StringDetect attribute = "StringDiffNew" String="{+" context="StringDiffNew"/>
+        <StringDetect attribute = "StringDiffOld" String="{-" context="StringDiffOld"/>
+        <DetectChar attribute = "StringTagPrevious" char="&gt;" context="#pop"/>
+        <DetectChar attribute = "StringPrevious" char="&quot;" context="StringWrapSubPrevious"/>
+      </context>
+      <context name = "StringDiffNew" attribute = "StringDiffNew" lineEndContext="#stay">
+        <RegExpr attribute = "Char" String="\\." context="#stay"/>
+        <StringDetect attribute = "StringDiffNew" String="+}" context="#pop"/>
+        <DetectChar attribute = "StringPrevious" char="&quot;" context="StringWrapSubPrevious"/>
+      </context>
+      <context name = "StringDiffOld" attribute = "StringDiffOld" lineEndContext="#stay">
+        <RegExpr attribute = "Char" String="\\." context="#stay"/>
+        <StringDetect attribute = "StringDiffOld" String="-}" context="#pop"/>
+        <DetectChar attribute = "StringPrevious" char="&quot;" context="StringWrapSubPrevious"/>
+      </context>
+      <context name = "StringWrapPrevious" lineEndContext="#stay">
+        <RegExpr String="[^#]" firstNonSpace="true" lookAhead="true" context="#pop#pop"/>
+        <RegExpr attribute = "StringPrevious" String="(#\|)? *&quot;" context="#pop"/>
+        <RegExpr String="." lookAhead="true" context="#pop#pop"/>
+      </context>
+      <context name = "StringWrapSubPrevious" lineEndContext="#stay">
+        <RegExpr String="[^#]" firstNonSpace="true" lookAhead="true" context="#pop#pop#pop"/>
+        <RegExpr attribute = "StringPrevious" String="(#\|)? *&quot;" context="#pop"/>
+        <RegExpr String="." lookAhead="true" context="#pop#pop#pop"/>
       </context>
     </contexts>
 
     <itemDatas>
       <itemData name = "Normal Text" defStyleNum ="dsNormal"/>
       <itemData name = "Keyword" defStyleNum ="dsKeyword"/>
-      <itemData name = "String" defStyleNum ="dsString"/>
+      <itemData name = "KeywordPrevious" defStyleNum ="dsKeyword" italic="true" color="#006060"/>
+      <itemData name = "String" defStyleNum ="dsString" color="#ff0000"/>
+      <itemData name = "StringPrevious" defStyleNum ="dsString" italic="true" color="#008080"/>
       <itemData name = "Translator Comment" defStyleNum ="dsComment"/>
       <itemData name = "Automatic Comment" defStyleNum ="dsComment" color="#0000ff"/>
       <itemData name = "Reference" defStyleNum ="dsComment" color="#0000ff"/>
       <itemData name = "Flag" defStyleNum ="dsComment" color="#0000ff"/>
+      <itemData name = "FlagFuzzy" defStyleNum ="dsComment" color="#800080" bold="true"/>
       <itemData name = "Char" defStyleNum ="dsChar"/>
-
+      <itemData name = "CharPrevious" defStyleNum ="dsChar" italic="true" color="#00c040"/>
+      <itemData name = "Entity" defStyleNum ="dsString" color="#ff0040" bold="true"/>
+      <itemData name = "EntityPrevious" defStyleNum ="dsString" color="#40c080" bold="true" italic="true"/>
+      <itemData name = "StringTag" defStyleNum ="dsString" color="#c00000" bold="true"/>
+      <itemData name = "StringTagPrevious" defStyleNum ="dsString" color="#006060" bold="true"/>
       <itemData name = "Index" defStyleNum ="dsDecVal"/>
+      <itemData name = "StringDiffNew" defStyleNum ="dsString" italic="true" color="#0060f0"/>
+      <itemData name = "StringDiffOld" defStyleNum ="dsString" italic="true" color="#f00060"/>
     </itemDatas>
   </highlighting>
   <general>

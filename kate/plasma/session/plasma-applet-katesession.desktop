@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Kate Session Applet
+Name[ca]=Miniaplicació de sessió del Kate
 Name[da]=Panelprogram til Kate-session
 Name[de]=Miniprogramm für Kate-Sitzungsverwaltung
 Name[el]=Μικροεφαρμογή συνεδρίας Kate
@@ -24,6 +25,7 @@ Name[x-test]=xxKate Session Appletxx
 Name[zh_CN]=Kate 会话小程序
 Name[zh_TW]=Kate 工作階段小程式
 Comment=Kate Session Launcher
+Comment[ca]=Executador de sessió del Kate
 Comment[da]=Kate sessionstarter
 Comment[de]=Kate-Sitzung starten
 Comment[el]=Εκτελεστής συνεδρίας Kate
@@ -33,7 +35,7 @@ Comment[fr]=Lanceur de session pour Kate
 Comment[ga]=Tosaitheoir Seisiúin Kate
 Comment[gl]=Lanzador de sesións de Kate
 Comment[it]=Avviatore di sessioni di Kate
-Comment[ja]=Kate セッションランチャー
+Comment[ja]=Kate のセッションを開始します
 Comment[km]=កម្មវិធី​ចាប់ផ្ដើម​សម័យ Kate
 Comment[lv]=Kate sesiju palaidējs
 Comment[nds]=Kate-Törnstarter

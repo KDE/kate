@@ -29,6 +29,7 @@ RangeExpectation::RangeExpectation(KTextEditor::Range* range, RangeSignals signa
   : m_smartRange(dynamic_cast<KTextEditor::SmartRange*>(range))
   , m_expectedRange(rangeExpected)
   , m_expectations(signalsExpected)
+  , m_smartRangeDeleted(false)
 {
   Q_ASSERT(m_smartRange);
   for (int i = 0; i < numSignals; ++i) {
@@ -40,6 +41,7 @@ RangeExpectation::RangeExpectation(KTextEditor::Range* range, RangeSignals signa
   connect(m_smartRange->primaryNotifier(), SIGNAL(rangePositionChanged(KTextEditor::SmartRange*)),        SLOT(rangePositionChanged(KTextEditor::SmartRange*)));
   connect(m_smartRange->primaryNotifier(), SIGNAL(rangeContentsChanged(KTextEditor::SmartRange*)),        SLOT(rangeContentsChanged(KTextEditor::SmartRange*)));
   connect(m_smartRange->primaryNotifier(), SIGNAL(rangeEliminated(KTextEditor::SmartRange*)),             SLOT(rangeEliminated(KTextEditor::SmartRange*)));
+  connect(m_smartRange->primaryNotifier(), SIGNAL(rangeDeleted(KTextEditor::SmartRange*)),                SLOT(rangeDeleted(KTextEditor::SmartRange*)));
 
   m_smartRange->addWatcher(this);
 
@@ -48,8 +50,10 @@ RangeExpectation::RangeExpectation(KTextEditor::Range* range, RangeSignals signa
 
 RangeExpectation::~ RangeExpectation( )
 {
-  m_smartRange->removeWatcher(this);
-  m_smartRange->deletePrimaryNotifier();
+  if (!m_smartRangeDeleted) {
+    m_smartRange->removeWatcher(this);
+    m_smartRange->deletePrimaryNotifier();
+  }
 }
 
 void RangeExpectation::checkExpectationsFulfilled( ) const
@@ -64,20 +68,20 @@ void RangeExpectation::checkExpectationsFulfilled( ) const
     int countExpected = (m_expectations & j) ? 1 : 0;
 
     if (m_notifierNotifications[i] < countExpected)
-      { fulfilled = false; kDebug() << "Notifier: Expected to be notified of %1." << nameForSignal(j); }
+      { fulfilled = false; kDebug() << "Notifier: Expected to be notified of" << nameForSignal(j); }
     else if (m_notifierNotifications[i] > countExpected)
       if (countExpected)
-        { fulfilled = false; kDebug() << "Notifier: Notified more than once about %1." << nameForSignal(j); }
+        { fulfilled = false; kDebug() << "Notifier: Notified more than once about" << nameForSignal(j); }
       else
-        { fulfilled = false; kDebug() << "Notifier: Notified incorrectly about %1." << nameForSignal(j); }
+        { fulfilled = false; kDebug() << "Notifier: Notified incorrectly about" << nameForSignal(j); }
 
     if (m_watcherNotifications[i] < countExpected)
-      { fulfilled = false; kDebug() << "Watcher: Expected to be notified of %1." << nameForSignal(j); }
+      { fulfilled = false; kDebug() << "Watcher: Expected to be notified of" << nameForSignal(j); }
     else if (m_watcherNotifications[i] > countExpected)
       if (countExpected)
-        { fulfilled = false; kDebug() << "Watcher: Notified more than once about %1." << nameForSignal(j); }
+        { fulfilled = false; kDebug() << "Watcher: Notified more than once about" << nameForSignal(j); }
       else
-        { fulfilled = false; kDebug() << "Watcher: Notified incorrectly about %1." << nameForSignal(j); }
+        { fulfilled = false; kDebug() << "Watcher: Notified incorrectly about" << nameForSignal(j); }
   }
   QVERIFY(fulfilled);
 }
@@ -94,13 +98,16 @@ void RangeExpectation::signalReceived( int signal )
     case Eliminated:
       signal = 2;
       break;
+    case Deleted:
+      signal = 3;
+      break;
   }
 
   if (!sender()) {
-    Q_ASSERT(!m_watcherNotifications[signal]);
+    //Q_ASSERT(!m_watcherNotifications[signal]);
     m_watcherNotifications[signal]++;
   } else {
-    Q_ASSERT(!m_notifierNotifications[signal]);
+    //Q_ASSERT(!m_notifierNotifications[signal]);
     m_notifierNotifications[signal]++;
   }
 }
@@ -123,6 +130,13 @@ void RangeExpectation::rangeEliminated( KTextEditor::SmartRange * range )
   signalReceived(Eliminated);
 }
 
+void RangeExpectation::rangeDeleted( KTextEditor::SmartRange * range )
+{
+  QCOMPARE(range, m_smartRange);
+  signalReceived(Deleted);
+  m_smartRangeDeleted = true;
+}
+
 QString RangeExpectation::nameForSignal( int signal ) const
 {
   switch (signal) {
@@ -132,6 +146,8 @@ QString RangeExpectation::nameForSignal( int signal ) const
       return "range content change";
     case Eliminated:
       return "elimination of the range";
+    case Deleted:
+      return "deletion of the range";
     default:
       return "[invalid signal]";
   }

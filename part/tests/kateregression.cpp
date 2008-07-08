@@ -213,6 +213,16 @@ void KateRegression::testAll()
   m_doc->removeText(Range(m_doc->endOfLine(1), Cursor(2, 0)));
 
   checkSignalExpectations();
+
+  new RangeExpectation(rangeEdit, RangeExpectation::Deleted);
+  new RangeExpectation(rangePreEdit);
+  new CursorExpectation(cursorPastEdit, CursorExpectation::Deleted);
+  new CursorExpectation(cursorEOL);
+
+  delete rangeEdit;
+  delete cursorPastEdit;
+
+  checkSignalExpectations();
 }
 
 void KateRegression::testSmartCursor( )

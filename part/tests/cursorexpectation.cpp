@@ -30,6 +30,7 @@ CursorExpectation::CursorExpectation(KTextEditor::Cursor* cursor, CursorSignals 
   : m_smartCursor(dynamic_cast<KTextEditor::SmartCursor*>(cursor))
   , m_expectedCursor(positionExpected)
   , m_expectations(signalsExpected)
+  , m_smartCursorDeleted(false)
 {
   Q_ASSERT(m_smartCursor);
   for (int i = 0; i < numSignals; ++i) {
@@ -44,6 +45,7 @@ CursorExpectation::CursorExpectation(KTextEditor::Cursor* cursor, CursorSignals 
   connect(m_smartCursor->notifier(), SIGNAL(characterInserted(KTextEditor::SmartCursor*, bool)),  SLOT(characterInserted(KTextEditor::SmartCursor*, bool)));
   connect(m_smartCursor->notifier(), SIGNAL(positionChanged(KTextEditor::SmartCursor*)),          SLOT(positionChanged(KTextEditor::SmartCursor*)));
   connect(m_smartCursor->notifier(), SIGNAL(positionDeleted(KTextEditor::SmartCursor*)),          SLOT(positionDeleted(KTextEditor::SmartCursor*)));
+  connect(m_smartCursor->notifier(), SIGNAL(deleted(KTextEditor::SmartCursor*)),                  SLOT(deleted(KTextEditor::SmartCursor*)));
 
   m_smartCursor->setWatcher(this);
 
@@ -52,8 +54,10 @@ CursorExpectation::CursorExpectation(KTextEditor::Cursor* cursor, CursorSignals 
 
 CursorExpectation::~CursorExpectation()
 {
-  m_smartCursor->setWatcher(0L);
-  m_smartCursor->deleteNotifier();
+  if (!m_smartCursorDeleted) {
+    m_smartCursor->setWatcher(0L);
+    m_smartCursor->deleteNotifier();
+  }
 }
 
 void CursorExpectation::characterDeleted( KTextEditor::SmartCursor * cursor, bool deletedBefore )
@@ -92,6 +96,13 @@ void CursorExpectation::positionDeleted( KTextEditor::SmartCursor * cursor )
   signalReceived(PositionDeleted);
 }
 
+void CursorExpectation::deleted( KTextEditor::SmartCursor * cursor )
+{
+  QCOMPARE(cursor, m_smartCursor);
+  signalReceived(Deleted);
+  m_smartCursorDeleted = true;
+}
+
 QString CursorExpectation::nameForSignal( int signal ) const
 {
   switch (signal) {
@@ -106,7 +117,9 @@ QString CursorExpectation::nameForSignal( int signal ) const
     case PositionChanged:
       return "the cursor's position change";
     case PositionDeleted:
-      return "the cursor's position change";
+      return "the cursor's position deleted";
+    case Deleted:
+      return "the cursor being deleted";
     default:
       return "[invalid signal]";
   }
@@ -120,20 +133,20 @@ void CursorExpectation::checkExpectationsFulfilled( ) const
     int countExpected = (m_expectations & j) ? 1 : 0;
 
     if (m_notifierNotifications[i] < countExpected)
-      { fulfilled = false; kDebug() << "Notifier: Expected to be notified of %1." << nameForSignal(j); }
+      { fulfilled = false; kDebug() << "Notifier: Expected to be notified of" << nameForSignal(j); }
     else if (m_notifierNotifications[i] > countExpected)
       if (countExpected)
-        { fulfilled = false; kDebug() << "Notifier: Notified more than once about %1." << nameForSignal(j); }
+        { fulfilled = false; kDebug() << "Notifier: Notified more than once about" << nameForSignal(j); }
       else
-        { fulfilled = false; kDebug() << "Notifier: Notified incorrectly about %1." << nameForSignal(j); }
+        { fulfilled = false; kDebug() << "Notifier: Notified incorrectly about" << nameForSignal(j); }
 
     if (m_watcherNotifications[i] < countExpected)
-      { fulfilled = false; kDebug() << "Watcher: Expected to be notified of %1." << nameForSignal(j); }
+      { fulfilled = false; kDebug() << "Watcher: Expected to be notified of" << nameForSignal(j); }
     else if (m_watcherNotifications[i] > countExpected)
       if (countExpected)
-        { fulfilled = false; kDebug() << "Watcher: Notified more than once about %1." << nameForSignal(j); }
+        { fulfilled = false; kDebug() << "Watcher: Notified more than once about" << nameForSignal(j); }
       else
-        { fulfilled = false; kDebug() << "Watcher: Notified incorrectly about %1." << nameForSignal(j); }
+        { fulfilled = false; kDebug() << "Watcher: Notified incorrectly about" << nameForSignal(j); }
   }
   QVERIFY(fulfilled);
 }
@@ -163,6 +176,9 @@ void CursorExpectation::signalReceived( int signal )
       break;
     case PositionDeleted:
       signal = 5;
+      break;
+    case Deleted:
+      signal = 6;
       break;
   }
 

@@ -33,9 +33,10 @@ class RangeExpectation : public QObject, public KTextEditor::SmartRangeWatcher
       NoSignal = 0x0,
       PositionChanged = 0x1,
       ContentsChanged = 0x2,
-      Eliminated = 0x4
+      Eliminated = 0x4,
+      Deleted = 0x8
     };
-    static const int numSignals = 3;
+    static const int numSignals = 4;
     Q_DECLARE_FLAGS(RangeSignals, RangeSignal)
 
     RangeExpectation(KTextEditor::Range* range, RangeSignals signalsExpected = NoSignal, const KTextEditor::Range& rangeExpected = KTextEditor::Range::invalid());
@@ -50,6 +51,7 @@ class RangeExpectation : public QObject, public KTextEditor::SmartRangeWatcher
     virtual void rangeEliminated(KTextEditor::SmartRange* range);
     //virtual void firstCharacterDeleted(KTextEditor::SmartRange* range);
     //virtual void lastCharacterDeleted(KTextEditor::SmartRange* range);
+    virtual void rangeDeleted(KTextEditor::SmartRange* range);
 
   private:
     QString nameForSignal(int signal) const;
@@ -62,6 +64,7 @@ class RangeExpectation : public QObject, public KTextEditor::SmartRangeWatcher
 
     int m_notifierNotifications[numSignals];
     int m_watcherNotifications[numSignals];
+    bool m_smartRangeDeleted;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(RangeExpectation::RangeSignals)

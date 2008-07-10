@@ -20,7 +20,7 @@
 #include "katevirange.h"
 
     KateViRange::KateViRange( int slin, int scol, int elin, int ecol, ViMotion::MotionType inc )
-  : startColumn( scol ), startLine( slin ), endColumn( ecol ), endLine( elin ), motionType( inc )
+  : startLine( slin ), startColumn( scol ), endLine( elin ), endColumn( ecol ), motionType( inc )
 {
   valid = true;
 }
@@ -28,7 +28,7 @@
 // for motions which only return a position, in constrast to "text objects"
 // which returns a range
     KateViRange::KateViRange( int elin, int ecol, ViMotion::MotionType inc )
-  : endColumn( ecol ), endLine( elin ), motionType( inc )
+  : endLine( elin ), endColumn( ecol ), motionType( inc )
 {
   startLine = -1;
   startColumn = -1;

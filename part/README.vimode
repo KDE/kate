@@ -1,0 +1,17 @@
+To enable the vi input mode, put "Vi Input Mode=true" under [Kate View Defaults]
+in your katerc.  If you would like to allow the vi input mode to steal key
+bindings from Kate, add "Vi Input Mode Steal Keys=true" as well. There will be a
+better solution for this eventually. Key bindings not used by the vi input mode
+will be sent to Kate even if key stealing is on.
+
+
+
+Vim incompatibilities:
+
+1)
+	Kate:	'O' and 'o' opens [count] new lines and puts you in insert mode
+	Vim:	'O' and 'o' opens a new line and inserts text [count] times when exiting insert mode
+
+2)
+	Kate:	U and <c-r> is redo
+	Vim:	<c-r> undoes, U is used to "undo all latest changes on one line"

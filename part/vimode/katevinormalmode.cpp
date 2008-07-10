@@ -1588,6 +1588,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViNormalModeCommand( this, "/", &KateViNormalMode::commandSearch, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "u", &KateViNormalMode::commandUndo, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "<c-r>", &KateViNormalMode::commandRedo, false ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "U", &KateViNormalMode::commandRedo, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "m.", &KateViNormalMode::commandSetMark, true, false) );
   m_commands.push_back( new KateViNormalModeCommand( this, "n", &KateViNormalMode::commandFindNext, false) );
   m_commands.push_back( new KateViNormalModeCommand( this, "N", &KateViNormalMode::commandFindPrev, false) );

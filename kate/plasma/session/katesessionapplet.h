@@ -20,54 +20,38 @@
 #ifndef _KATESESSIONAPPLET_H_
 #define _KATESESSIONAPPLET_H_
 
-#include <plasma/applet.h>
-#include <plasma/dialog.h>
+#include <plasmaappletdialog.h>
 
-class QPainter;
 class QTreeView;
-class QStyleOptionGraphicsItem;
 class QGraphicsProxyWidget;
 class QStandardItemModel;
 class QModelIndex;
-class QGraphicsWidget;
-class QGraphicsLinearLayout;
 
-namespace Plasma
-{
-    class Icon;
-}
 
-class KateSessionApplet : public Plasma::Applet
+class KateSessionApplet : public PlasmaAppletDialog
 {
     Q_OBJECT
 public:
     KateSessionApplet(QObject *parent, const QVariantList &args);
     ~KateSessionApplet();
 
-    void init();
-
+    QWidget *widget();
 
     enum SpecificRoles {
         Index = Qt::UserRole+1
     };
 
 protected slots:
-    void slotOpenMenu();
     void slotOnItemClicked(const QModelIndex &index);
     void slotUpdateSessionMenu();
 
 protected:
-    void constraintsUpdated(Plasma::Constraints constraints);
     void initSessionFiles();
+    void initialize();
 private:
-    Plasma::Dialog *m_widget;
     QTreeView *m_listView;
-    Plasma::Icon *m_icon;
-    QGraphicsProxyWidget * m_proxy;
-    QGraphicsLinearLayout *m_layout;
     QStandardItemModel *m_kateModel;
     QStringList m_sessions;
-    bool m_closePopup;
 };
 
 K_EXPORT_PLASMA_APPLET(katesession, KateSessionApplet )

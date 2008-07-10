@@ -39,10 +39,8 @@
 
 
 KateSessionApplet::KateSessionApplet(QObject *parent, const QVariantList &args)
-    : Plasma::Applet(parent, args), m_icon( 0 ), m_proxy(0), m_layout( 0 ),m_closePopup( false )
+    : PlasmaAppletDialog(parent, args), m_listView( 0 )
 {
-    int iconSize = IconSize(KIconLoader::Desktop);
-    resize(iconSize, iconSize);
     KDirWatch *dirwatch = new KDirWatch( this );
     QStringList lst = KGlobal::dirs()->findDirs( "data", "kate/sessions/" );
     for ( int i = 0; i < lst.count(); i++ )
@@ -54,91 +52,40 @@ KateSessionApplet::KateSessionApplet(QObject *parent, const QVariantList &args)
 
 KateSessionApplet::~KateSessionApplet()
 {
-    delete m_widget;
-    delete m_icon;
 }
 
-void KateSessionApplet::init()
+void KateSessionApplet::initialize()
 {
-    setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-    setMaximumSize(INT_MAX, INT_MAX);
-    m_layout = new QGraphicsLinearLayout(this);
-    m_layout->setContentsMargins(0, 0, 0, 0);
-    m_layout->setSpacing(0);
-    m_layout->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-    m_layout->setMaximumSize(INT_MAX, INT_MAX);
-    m_layout->setOrientation(Qt::Horizontal);
-    setLayout(m_layout);
-
     m_icon = new Plasma::Icon(KIcon("kate"), QString(), this);
-    connect(m_icon, SIGNAL(clicked()), this, SLOT(slotOpenMenu()));
-
-    m_widget = new Plasma::Dialog();
-
-    m_proxy = new QGraphicsProxyWidget(this);
-
-
-    QVBoxLayout *l_layout = new QVBoxLayout();
-    l_layout->setSpacing(0);
-    l_layout->setMargin(0);
-
-    m_listView= new QTreeView(m_widget);
-    m_listView->setEditTriggers( QAbstractItemView::NoEditTriggers );
-    m_listView->setRootIsDecorated(false);
-    m_listView->setHeaderHidden(true);
-    m_listView->setMouseTracking(true);
-
-    m_kateModel = new QStandardItemModel(this);
-    m_listView->setModel(m_kateModel);
-    m_listView->setMouseTracking(true);
-
-    initSessionFiles();
-
-
-    if (KGlobalSettings::singleClick()) {
-        connect(m_listView, SIGNAL(clicked(const QModelIndex &)),
-                this, SLOT(slotOnItemClicked(const QModelIndex &)));
-    } else {
-        connect(m_listView, SIGNAL(doubleClicked(const QModelIndex &)),
-                this, SLOT(slotOnItemClicked(const QModelIndex &)));
-    }
-
-    l_layout->addWidget( m_listView );
-
-    m_widget->setLayout( l_layout );
-    m_widget->adjustSize();
-    constraintsUpdated(Plasma::FormFactorConstraint);
 }
 
-void KateSessionApplet::constraintsUpdated(Plasma::Constraints constraints)
+QWidget *KateSessionApplet::widget()
 {
-    if (constraints & Plasma::FormFactorConstraint) {
-        // Plasma::Dialog already has standard background
-        setBackgroundHints(NoBackground);
-        m_layout->removeAt(0);
-        switch (formFactor()) {
-        case Plasma::Planar:
-        case Plasma::MediaCenter:
-            m_closePopup = false;
-            setAspectRatioMode(Plasma::IgnoreAspectRatio);
-            m_widget->setWindowFlags(Qt::Widget);
-            m_proxy->setWidget(m_widget);
-            m_proxy->show();
-            m_layout->addItem(m_proxy);
-            setMinimumSize( 300, 300 );
-            break;
-        case Plasma::Horizontal:
-        case Plasma::Vertical:
-            m_closePopup = true;
-            setAspectRatioMode(Plasma::Square);
-            m_widget->setWindowFlags(Qt::Popup);
-            m_proxy->setWidget(0);
-            m_proxy->hide();
-            m_layout->addItem(m_icon);
-            break;
+    if ( !m_listView )
+    {
+        m_listView= new QTreeView(m_dialog);
+        m_listView->setEditTriggers( QAbstractItemView::NoEditTriggers );
+        m_listView->setRootIsDecorated(false);
+        m_listView->setHeaderHidden(true);
+        m_listView->setMouseTracking(true);
+
+        m_kateModel = new QStandardItemModel(this);
+        m_listView->setModel(m_kateModel);
+        m_listView->setMouseTracking(true);
+
+        initSessionFiles();
+
+        if (KGlobalSettings::singleClick()) {
+            connect(m_listView, SIGNAL(clicked(const QModelIndex &)),
+                    this, SLOT(slotOnItemClicked(const QModelIndex &)));
+        } else {
+            connect(m_listView, SIGNAL(doubleClicked(const QModelIndex &)),
+                    this, SLOT(slotOnItemClicked(const QModelIndex &)));
         }
     }
+    return m_listView;
 }
+
 
 void KateSessionApplet::slotUpdateSessionMenu()
 {
@@ -182,22 +129,10 @@ void KateSessionApplet::initSessionFiles()
     }
 }
 
-void KateSessionApplet::slotOpenMenu()
-{
-    if (m_widget->isVisible()) {
-        m_widget->hide();
-    } else {
-        m_widget->move(popupPosition(m_widget->sizeHint()));
-        m_widget->show();
-    }
-    m_widget->clearFocus();
-}
-
-
 void KateSessionApplet::slotOnItemClicked(const QModelIndex &index)
 {
     if ( m_closePopup )
-        m_widget->hide();
+        m_dialog->hide();
     int id = index.data(Index).toInt();
     QStringList args;
     if ( id > 0 )

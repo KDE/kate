@@ -24,7 +24,7 @@ namespace ViMotion {
     enum MotionType {
         ExclusiveMotion, InclusiveMotion
     };
-};
+}
 
 class KateViRange
 {

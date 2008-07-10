@@ -97,6 +97,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_textHintMouseY(-1)
   , m_imPreedit(0L)
   , m_smartDirty(false)
+  , m_viInputMode(false)
+  , m_currentViMode(NormalMode)
+  , m_viNormalMode(0)
 {
   m_watcherCount1 = 0;
   m_watcherCount3 = 0;
@@ -261,6 +264,8 @@ KateViewInternal::~KateViewInternal ()
   qDeleteAll(m_dynamicHighlights);
 
   delete m_imPreedit;
+  if ( m_viNormalMode )
+    delete m_viNormalMode;
 
   //kDebug( 13030 ) << m_watcherCount1 << m_watcherCount3;
 }
@@ -2104,8 +2109,18 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
     {
       QKeyEvent *k = static_cast<QKeyEvent *>(e);
 
+      // if the vi input mode key stealing is on, steal all key presses. they will be re-posted if not needed
+      if (m_view->viInputMode() && m_view->viInputModeStealKeys() && m_view->getCurrentViMode() == NormalMode) {
+        k->accept();
+        return true;
+      }
+
       if (k->key() == Qt::Key_Escape) {
-        if (m_view->isCompletionActive()) {
+        if (m_view->viInputMode() && m_view->getCurrentViMode() == InsertMode) {
+          // if vi input mode is active, go to normal mode
+          m_view->viEnterNormalMode();
+          return true;
+        } else if (m_view->isCompletionActive()) {
           m_view->abortCompletion();
           k->accept();
           //kDebug() << obj << "shortcut override" << k->key() << "aborting completion";
@@ -2180,6 +2195,18 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
   // Note: AND'ing with <Shift> is a quick hack to fix Key_Enter
   const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
+
+  if ( m_view->viInputMode() && m_view->getCurrentViMode() != InsertMode ) {
+    if ( getViNormalMode()->handleKeypress( e ) ) {
+      return;
+    } else {
+      // we didn't need that keypress, un-steal it :-)
+      QEvent *ffs = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
+      QCoreApplication::postEvent( parent(), ffs );
+      return;
+    }
+  }
+
 
   if (m_view->isCompletionActive())
   {
@@ -2910,7 +2937,7 @@ void KateViewInternal::scrollTimeout ()
 
 void KateViewInternal::cursorTimeout ()
 {
-  if (!debugPainting) {
+  if (!debugPainting && !m_view->viInputMode()) {
     renderer()->setDrawCaret(!renderer()->drawCaret());
     paintCursor();
   }
@@ -3631,5 +3658,12 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 }
 
 //END IM INPUT STUFF
+
+KateViNormalMode* KateViewInternal::getViNormalMode()
+{
+  if ( !m_viNormalMode )
+    m_viNormalMode = new KateViNormalMode( m_view, this );
+  return m_viNormalMode;
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

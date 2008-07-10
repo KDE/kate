@@ -634,6 +634,8 @@ KateViewConfig::KateViewConfig ()
    m_searchFlagsSet (true),
    m_defaultMarkTypeSet (true),
    m_persistentSelectionSet (true),
+   m_viInputModeSet (true),
+   m_viInputModeStealKeysSet (true),
    m_automaticCompletionInvocationSet (true),
    m_view (0)
 {
@@ -658,6 +660,8 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_searchFlagsSet (false),
    m_defaultMarkTypeSet (false),
    m_persistentSelectionSet (false),
+   m_viInputModeSet (false),
+   m_viInputModeStealKeysSet (false),
    m_automaticCompletionInvocationSet (false),
    m_view (view)
 {
@@ -700,6 +704,12 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setDefaultMarkType (config.readEntry( "Default Mark Type", int(KTextEditor::MarkInterface::markType01) ));
 
   setPersistentSelection (config.readEntry( "Persistent Selection", false ));
+
+  setViInputMode (config.readEntry( "Vi Input Mode", false));
+  kDebug(13070) << "Vi Input Mode: " << viInputMode();
+
+  setViInputModeStealKeys (config.readEntry( "Vi Input Mode Steal Keys", false));
+  kDebug(13070) << "Vi Input Mode steal keys: " << viInputModeStealKeys();
 
   setAutomaticCompletionInvocation (config.readEntry( "Auto Completion", true ));
 
@@ -990,6 +1000,43 @@ void KateViewConfig::setPersistentSelection (bool on)
 
   configEnd ();
 }
+
+bool KateViewConfig::viInputMode () const
+{
+  if (m_viInputModeSet || isGlobal())
+    return m_viInputMode;
+
+  return s_global->viInputMode();
+}
+
+void KateViewConfig::setViInputMode (bool on)
+{
+  configStart ();
+
+  m_viInputModeSet = true;
+  m_viInputMode = on;
+
+  configEnd ();
+}
+
+bool KateViewConfig::viInputModeStealKeys () const
+{
+  if (m_viInputModeStealKeysSet || isGlobal())
+    return m_viInputModeStealKeys;
+
+  return s_global->viInputModeStealKeys();
+}
+
+void KateViewConfig::setViInputModeStealKeys (bool on)
+{
+  configStart ();
+
+  m_viInputModeStealKeysSet = true;
+  m_viInputModeStealKeys = on;
+
+  configEnd ();
+}
+
 
 bool KateViewConfig::automaticCompletionInvocation () const
 {

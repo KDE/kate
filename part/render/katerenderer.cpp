@@ -598,7 +598,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       // Make the caret the desired width
       int caretWidth = 2;
       QTextLine line = range->layout()->lineForTextPosition(cursor->column());
-      if (caretStyle() == Block) {
+      if (caretStyle() == Block || (m_view->viInputMode() && m_view->getCurrentViMode() == NormalMode)) {
         if (line.isValid() && cursor->column() < range->length()) {
           caretWidth = int(line.cursorToX(cursor->column() + 1) - line.cursorToX(cursor->column()));
           if (caretWidth < 0)
@@ -625,6 +625,11 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
             c = range->layout()->additionalFormats().last().format.foreground().color();
           else
             c = attribute(KateExtendedAttribute::dsNormal)->foreground().color();
+      }
+
+      // make it possible to see the selected character in the vi input mode's normal mode
+      if (m_view->viInputMode() && m_view->getCurrentViMode() == NormalMode) {
+        c.setAlpha(128);
       }
 
       if (cursor->column() <= range->length()) {

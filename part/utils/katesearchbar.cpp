@@ -242,7 +242,10 @@ void KateSearchBar::indicateNothing() {
 
 /*static*/ void KateSearchBar::selectRange(KateView * view, const KTextEditor::Range & range) {
     view->setCursorPositionInternal(range.start(), 1);
-    view->setSelection(range);
+
+    // don't make a selection if the vi input mode is used
+    if (!view->viInputMode())
+        view->setSelection(range);
 }
 
 
@@ -642,7 +645,14 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
         if (fromCursor) {
             const Cursor cursorPos = m_view->cursorPosition();
             if (forwards) {
-                inputRange.setRange(cursorPos, m_view->doc()->documentEnd());
+                // if the vi input mode is used, the cursor will stay a the first character of the
+                // matched pattern (no selection will be made), so the next search should start from
+                // match column + 1
+                if (!m_view->viInputMode()) {
+                    inputRange.setRange(cursorPos, m_view->doc()->documentEnd());
+                } else {
+                    inputRange.setRange(Cursor(cursorPos.line(), cursorPos.column()+1), m_view->doc()->documentEnd());
+                }
             } else {
                 inputRange.setRange(Cursor(0, 0), cursorPos);
             }

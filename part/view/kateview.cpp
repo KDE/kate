@@ -883,6 +883,19 @@ QString KateView::viewMode () const
   if (!m_doc->isReadWrite())
     return i18n ("R/O");
 
+  if (viInputMode()) {
+    switch (getCurrentViMode()) {
+    case InsertMode:
+      return i18n("VI: INSERT MODE");
+    case NormalMode:
+      return i18n("VI: NORMAL MODE");
+    case VisualMode:
+      return i18n("VI: VISUAL");
+    case CommandLineMode:
+      return i18n("VI: COMMAND LINE");
+    }
+  }
+
   return isOverwriteMode() ? i18n("OVR") : i18n ("INS");
 }
 
@@ -1148,6 +1161,35 @@ void KateView::disableTextHints()
   m_viewInternal->disableTextHints();
 }
 
+bool KateView::viInputMode() const
+{
+  return m_viewInternal->m_viInputMode;
+}
+
+bool KateView::viInputModeStealKeys() const
+{
+  return m_viewInternal->m_viInputModeStealKeys;
+}
+
+
+ViMode KateView::getCurrentViMode() const
+{
+    return m_viewInternal->m_currentViMode;
+}
+
+void KateView::toggleViInputMode()
+{
+  config()->setViInputMode (!config()->viInputMode());
+}
+
+void KateView::changeViMode(ViMode newMode)
+{
+    if (newMode == InsertMode) {
+        m_editActions->addAssociatedWidget(m_viewInternal);
+    }
+    m_viewInternal->m_currentViMode = newMode;
+}
+
 void KateView::slotNeedTextHint(int line, int col, QString &text)
 {
   text=QString("test %1 %2").arg(line).arg(col);
@@ -1262,6 +1304,12 @@ void KateView::updateConfig ()
   m_bookmarks->setSorting( (KateBookmarks::Sorting) config()->bookmarkSort() );
 
   m_viewInternal->setAutoCenterLines(config()->autoCenterLines ());
+
+  // vi input mode
+  m_viewInternal->m_viInputMode = config()->viInputMode();
+
+  // whether vi input mode should override actions or not
+  m_viewInternal->m_viInputModeStealKeys = config()->viInputModeStealKeys();
 }
 
 void KateView::updateDocumentConfig()
@@ -2461,6 +2509,20 @@ void KateView::aboutToShowContextMenu( )
   QMenu* menu = qobject_cast<QMenu*>(sender());
   if (menu)
     emit contextMenuAboutToShow(this, menu);
+}
+
+void KateView::viEnterNormalMode( )
+{
+  changeViMode(NormalMode);
+  if ( m_viewInternal->getCursor().column() > 0 ) {
+      m_viewInternal->cursorLeft();
+  }
+  m_viewInternal->repaint ();
+
+  m_editActions->removeAssociatedWidget(m_viewInternal);
+
+  emit viewModeChanged(this);
+  emit viewEditModeChanged(this,viewEditMode());
 }
 
 // BEGIN ConfigInterface stuff

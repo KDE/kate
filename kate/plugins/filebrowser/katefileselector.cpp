@@ -329,7 +329,7 @@ void ::KateFileSelector::setupToolbar( QStringList actions )
   {
     // reasonable collection for default toolbar
     actions << "up" << "back" << "forward" << "home" <<
-    "short view" << "detailed view" <<
+    "short view" << "detailed view" << "tree view" <<
     "bookmarks" << "sync_dir";
   }
   QAction *ac;
@@ -808,7 +808,7 @@ void KFSConfigPage::init()
   QStringList l = config.readEntry( "toolbar actions", QStringList() );
   if ( l.isEmpty() ) // default toolbar
     l << "up" << "back" << "forward" << "home" <<
-    "short view" << "detailed view" <<
+    "short view" << "detailed view" << "tree view" <<
     "bookmarks" << "sync_dir";
 
   // actions from diroperator + two of our own
@@ -817,6 +817,7 @@ void KFSConfigPage::init()
   "reload" << "mkdir" << "delete" <<
   "short view" << "detailed view" /*<< "view menu" <<
                   "show hidden" << "properties"*/ <<
+  "tree view" << "detailed tree view" <<
   "bookmarks" << "sync_dir";
   QRegExp re("&(?=[^&])");
   QAction *ac;

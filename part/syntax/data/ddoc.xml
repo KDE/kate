@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!--
+  This file is part of KDE's kate project.
+
+  Copyright 2007-2008 Kate project.
+  
+  Author: Diggory Hardy <diggory.hardy@gmail.com>
+  
+  This contains highlighting for Ddoc, the D language embedded documentation comments. Implemented
+  for d.xml version 1.46.
+  
+  Macros are highlighted but the macro name and macro contents/parameters are not highlighted
+  differently. Currently the only way I can think of doing this is by matching the macro using a
+  RegExpr matching $(XX where XX are the first symbols before any spaces. If anyone has a better
+  idea please let me know.
+  
+  Section names are matched, but too often since it can't really check that they're the first non-
+  whitespace item excluding a leading * or +. They could easily be made to match too little instead
+  of too much by adding firstNonSpace="true".
+  
+  Code sections are matched, and formatted by using the standard d highlighting rules. This looks
+  good as far as I've tested it, but could lead to some confusion. Note that it does make
+  unhighlighted non-identifiers (i.e. things not matching [a-zA-Z_][a-zA-Z0-9_]*) italic.
+  
+  Updates:
+  2008.02.22    ddoc 1.14			Fixes/improvements for macros. Highlights first symbol and non-symbols before as errors; matches embedded brackets () properly.
+  2007.11.15	ddoc 1.13			Fixed a couple of bugs found by checkdtd and changed the version number format.
+  2007.11.5	ddoc 1.12			Fixed: correct matching of things like /***/ .
+  2007.10.11	ddoc 1.11			Safety catch: check for unterminated code sections (i.e. check for end of ddoc comment even in code sections).
+  						Used DetectIdentifier to (presumably) improve performance.
+  2007.10.9	ddoc 1.10			Enabled embedded ddoc code highlighting
+  2007.10.9	ddoc 1.00			Initial version
+
+ **********************************************************************
+ * This library is free software; you can redistribute it and/or      *
+ * modify it under the terms of the GNU Lesser General Public         *
+ * License as published by the Free Software Foundation; either       *
+ * version 2 of the License, or (at your option) any later version.   *
+ *                                                                    *
+ * This library is distributed in the hope that it will be useful,    *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of     *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU  *
+ * Lesser General Public License for more details.                    *
+ *                                                                    *
+ * You should have received a copy of the GNU Lesser General Public   *
+ * License along with this library; if not, write to the              *
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,   *
+ * Boston, MA  02110-1301, USA.                                       *
+ **********************************************************************
+ -->
+<language name="Ddoc" version="1.14" kateversion="2.5" section="Markup" author="Diggory Hardy (diggory.hardy@gmail.com)" license="LGPL" extensions="">
+  <highlighting>
+    <contexts>
+      <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+        <RegExpr attribute="Comment" context="DdocLine" String="/{3,}"/>
+        <RegExpr attribute="Comment" context="DdocBlock" String="/\*{2,}(?!/)" beginRegion="DdocBlock"/>
+        <RegExpr attribute="Comment" context="DdocNested" String="/\+{2,}(?!/)" beginRegion="DdocNested"/>
+      </context>
+      
+      <context name="DdocLine" attribute="Ddoc" lineEndContext="#pop">
+        <DetectSpaces />
+        <DetectIdentifier attribute="Ddoc"/>
+        <Detect2Chars attribute="Macros" context="DdocMacro" char="$" char1="(" />
+        <RegExpr attribute="DdocSection" context="#stay" String="[\w_]+:($|\s)" />
+        <IncludeRules context="##Alerts" />
+      </context>
+      
+      <context name="DdocBlock" attribute="Ddoc" lineEndContext="#stay">
+        <DetectSpaces />
+        <DetectIdentifier attribute="Ddoc"/>
+        <RegExpr attribute="Comment" context="#pop" String="\*+/" endRegion="DdocBlock"/>
+        <DetectChar attribute="Comment" context="#stay" char="*" firstNonSpace="true" />
+        
+        <Detect2Chars attribute="Macros" context="DdocMacro" char="$" char1="(" />
+        <RegExpr attribute="DdocSection" context="#stay" String="[\w_]+:($|\s)" />
+        <IncludeRules context="##Alerts" />
+        
+        <!-- Avoid matching this; do it this way since (^|\s)-* always matches .- and \s-* never
+             matches .- (spaces have already been matched); however -*($|\s) matches just fine.
+             Also can't use \b since - is not a word character. -->
+        <RegExpr attribute="Ddoc" context="#stay" String="[^-]-{3,}" />
+        <RegExpr attribute="Comment" context="DdocBlockCode" String="-{3,}($|\s)" />
+      </context>
+      
+      <context name="DdocNested" attribute="Ddoc" lineEndContext="#stay">
+        <DetectSpaces />
+        <DetectIdentifier attribute="Ddoc"/>
+        <!-- Ddoc recognises nested comments/ddoc, but ignores them as far as formatting is concerned. -->
+        <Detect2Chars attribute="Ddoc" context="DdocNested2" char="/" char1="+"/>
+        <RegExpr attribute="Comment" context="#pop" String="\++/" endRegion="DdocNested"/>
+        <DetectChar attribute="Comment" context="#stay" char="+" firstNonSpace="true" />
+        
+        <Detect2Chars attribute="Macros" context="DdocMacro" char="$" char1="(" />
+        <RegExpr attribute="DdocSection" context="#stay" String="[\w_]+:($|\s)" />
+        <IncludeRules context="##Alerts" />
+        
+        <!-- As above. -->
+        <RegExpr attribute="Ddoc" context="#stay" String="[^-]-{3,}" />
+        <RegExpr attribute="Comment" context="DdocNestedCode" String="-{3,}($|\s)" />
+      </context>
+      
+      <context name="DdocNested2" attribute="Ddoc" lineEndContext="#stay">
+        <DetectSpaces />
+        <DetectIdentifier attribute="Ddoc"/>
+        <!-- Identical to DdocNested except that nested comments don't recieve any formatting -->
+        <RegExpr attribute="Ddoc" context="#pop" String="\++/"/>
+        <!-- The above rules should match before the unwanted rule in DdocNested -->
+        <IncludeRules context="DdocNested" />
+      </context>
+      
+      <!-- When entering a macro: provides highlighting for first symbol (macro name) -->
+      <context name="DdocMacro" attribute="Error" lineEndContext="#stay">
+        <DetectSpaces attribute="Macro Text" /> <!-- avoid showing space as an error -->
+        
+        <DetectChar attribute="Macros" context="#pop" char=")" /> <!-- early end of macro -->
+        <IncludeRules context="MacroRules" />
+        
+        <!-- first symbol of macro -->
+        <DetectIdentifier attribute="Macros" context="DdocMacro2" />
+      </context>
+      <!-- For rest of macro -->
+      <context name="DdocMacro2" attribute="Macro Text" lineEndContext="#stay">
+        <DetectChar attribute="Macros" context="#pop#pop" char=")" /> <!-- end of macro -->
+        <IncludeRules context="MacroRules" />
+      </context>
+      <!-- For embedded brackets (yeah, extra work to ignore them) -->
+      <context name="DdocMacro3" attribute="Macro Text" lineEndContext="#stay">
+        <DetectChar attribute="Macro Text" context="#pop" char=")" /> <!-- end of embedded brackets -->
+        <IncludeRules context="MacroRules" />
+      </context>
+      <!-- Rules common to all macros -->
+      <context name="MacroRules" attribute="Macro Text" lineEndContext="#stay">
+        <Detect2Chars attribute="Macros" context="DdocMacro" char="$" char1="(" /> <!-- embedded -->
+        <DetectChar attribute="Macro Text" context="DdocMacro3" char="(" /> <!-- extra brackets -->
+        
+        <DetectChar attribute="Comment" context="#stay" char="*" firstNonSpace="true" />
+      </context>
+      
+      <context name="DdocBlockCode" attribute="DdocCode" lineEndContext="#stay">
+        <DetectSpaces />
+        <!-- See update 1.11 -->
+        <RegExpr attribute="Comment" context="#pop#pop" String="\*+/" endRegion="DdocBlock"/>
+        <DetectChar attribute="Comment" context="#stay" char="*" firstNonSpace="true" />
+        <!-- As above. -->
+        <RegExpr attribute="DdocCode" context="#stay" String="[^-]-{3,}" />
+        <RegExpr attribute="Comment" context="#pop" String="-{3,}($|\s)" />
+        <IncludeRules context="##D" />
+      </context>
+      <context name="DdocNestedCode" attribute="DdocCode" lineEndContext="#stay">
+        <DetectSpaces />
+        <!-- See update 1.11 -->
+        <RegExpr attribute="Comment" context="#pop#pop" String="\++/" endRegion="DdocNested"/>
+        <DetectChar attribute="Comment" context="#stay" char="+" firstNonSpace="true" />
+        <!-- As above. -->
+        <RegExpr attribute="DdocCode" context="#stay" String="[^-]-{3,}" />
+        <RegExpr attribute="Comment" context="#pop" String="-{3,}($|\s)" />
+        <IncludeRules context="##D" />
+      </context>
+    </contexts>
+    
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal" />
+      <itemData name="Macros"      defStyleNum="dsOthers" color="#bf5fbf" selColor="#ffffff" bold="1" italic="0" />
+      <itemData name="Macro Text"  defStyleNum="dsNormal" color="#bf7fff" selColor="#ffffff" bold="0" italic="0" />
+      <itemData name="Comment"     defStyleNum="dsComment"/>
+      <itemData name="Ddoc"        defStyleNum="dsComment" color="#7f7fff" />
+      <itemData name="DdocSection" defStyleNum="dsKeyword" color="#7f7fff" bold="1" />
+      <itemData name="DdocCode"    defStyleNum="dsNormal" italic="1" />
+      
+      <itemData name="Error"       defStyleNum="dsError"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <keywords casesensitive="0" />
+  </general>
+</language>

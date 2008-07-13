@@ -3048,7 +3048,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
       priv = m_doc->ownedView( vi->m_view );
 
     // dropped on a text selection area?
-    bool selected = isTargetSelected( event->pos() );
+    bool selected = m_view->cursorSelected(m_cursor);
 
     if( priv && selected ) {
       // this is a drag that we started and dropped on our selection

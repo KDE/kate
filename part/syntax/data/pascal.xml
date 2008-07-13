@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Pascal" version="1.21" kateversion="2.3" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal">
+<language name="Pascal" version="1.22" kateversion="2.5.9" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal" author="Unnamed people and Liu Sizhuang(oldherl@gmail.com)">
   <highlighting>
     <list name="keywords">
       <item> and </item>
@@ -105,6 +105,8 @@
       <item> Byte </item>
       <item> Word </item>
       <item> LongWord </item>
+      <item> DWord </item>
+      <item> QWord </item>
       <item> Char </item>
       <item> AnsiChar </item>
       <item> WideChar </item>
@@ -131,24 +133,38 @@
     <list name="attention">
       <item> FIXME </item>
       <item> TODO </item>
+      <item> NOTE </item>
       <item> ### </item>
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <RegExpr attribute="Keyword" context="#stay" String="\b(begin|case|record)(?=(\{[^}]*(\}|$)|\(\*.*(\*\)|$))*([\s]|$|//))" insensitive="true" beginRegion="Region1"/>
         <RegExpr attribute="ISO/Delphi Extended" context="#stay" String="\b((object|class)(?=(\(.*\))?(\{[^}]*(\}|$)|\(\*.*(\*\)|$))*;?([\s]|$|//))|try(?=(\{[^}]*(\}|$)|\(\*.*(\*\)|$))*([\s]|$|//)))" insensitive="true" beginRegion="Region1"/>
-        <RegExpr attribute="Keyword" context="#stay" String="\bend(?=((\{[^}]*(\}|$)|\(\*.*(\*\)|$))*)([.;\s]|$)|//|$)" insensitive="true" endRegion="Region1"/>
+	<RegExpr attribute="Keyword" context="#stay" String="\bend(?=((\{[^}]*(\}|$)|\(\*.*(\*\)|$))*)([.;\s]|$)|//|$)" insensitive="true" endRegion="Region1"/>
+
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="ISO/Delphi Extended" context="#stay" String="ISO/Delphi Extended"/>
         <keyword attribute="Type" context="#stay" String="types"/>
         <Float attribute="Number" context="#stay"/>
-        <Int attribute="Number" context="#stay"/>
+	<Int attribute="Number" context="#stay"/>
+	<DetectChar attribute="Hex" context="Hex" char="$" />
+	<DetectChar attribute="String" context="CharNum" char="#" />
         <DetectChar attribute="String" context="String" char="&apos;" />
         <StringDetect attribute="Directive" context="Prep1" String="(*$"/>
         <Detect2Chars attribute="Directive" context="Prep2" char="{" char1="$"/>
         <DetectChar attribute="Comment" context="Comment1" char="{"            beginRegion="Region2"/>
         <Detect2Chars attribute="Comment" context="Comment2" char="(" char1="*" beginRegion="Region3"/>
         <Detect2Chars attribute="Comment" context="Comment3" char="/" char1="/"/>
+      </context>
+      <context attribute="String" lineEndContext="#pop" name="CharNum">
+	      <DetectChar attribute="Hex" context="HexCharNum" char="$" />
+	      <RegExpr String="[^0-9]" context="#pop"/>
+      </context>
+      <context attribute="Hex" lineEndContext="#pop" name="HexCharNum">
+	      <RegExpr String="[^a-fA-F0-9]" context="#pop#pop"/>
+      </context>
+      <context attribute="Hex" lineEndContext="#pop" name="Hex">
+	      <RegExpr String="[^a-fA-F0-9]" context="#pop"/>
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">
         <DetectChar attribute="String" context="#pop" char="&apos;"/>
@@ -172,7 +188,8 @@
       </context>
     </contexts>
     <itemDatas>
-      <itemData name="Normal Text" defStyleNum="dsNormal" />
+      <itemData name="Normal Text" defStyleNum="dsNormal"  />
+      <itemData name="Hex"         defStyleNum="dsBaseN"   />
       <itemData name="Keyword"     defStyleNum="dsKeyword" />
       <itemData name="ISO/Delphi Extended"  defStyleNum="dsKeyword" color="#000080" />
       <itemData name="Type"  defStyleNum="dsDataType"/>

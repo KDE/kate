@@ -563,6 +563,78 @@ KTextEditor::Cursor KateViNormalMode::findPrevWORDStart( int fromLine, int fromC
   return KTextEditor::Cursor( l, c );
 }
 
+KTextEditor::Cursor KateViNormalMode::findWordEnd( int fromLine, int fromColumn ) const
+{
+  QString line = getLine( fromLine );
+
+  QString endOfWordPattern = "\\S\\s|\\S$|\\w\\W|\\S\\b";
+
+  if ( m_extraWordCharacters.length() > 0 ) {
+   endOfWordPattern.append( "|["+m_extraWordCharacters+"][^" +m_extraWordCharacters+']' );
+  }
+
+  QRegExp endOfWORD( endOfWordPattern );
+
+  int l = fromLine;
+  int c = fromColumn;
+
+  bool found = false;
+
+  while ( !found ) {
+      int c1 = endOfWORD.indexIn( line, c+1 );
+
+      if ( c1 != -1 ) {
+          found = true;
+          c = c1;
+      } else {
+          if ( l >= m_view->doc()->lines()-1 ) {
+              c = line.length()-1;
+              return KTextEditor::Cursor( l, c );
+          } else {
+              c = -1;
+              line = getLine( ++l );
+
+              continue;
+          }
+      }
+  }
+
+  return KTextEditor::Cursor( l, c );
+}
+
+KTextEditor::Cursor KateViNormalMode::findWORDEnd( int fromLine, int fromColumn ) const
+{
+  QString line = getLine( fromLine );
+
+  QRegExp endOfWORD( "\\S\\s|\\S$" );
+
+  int l = fromLine;
+  int c = fromColumn;
+
+  bool found = false;
+
+  while ( !found ) {
+      int c1 = endOfWORD.indexIn( line, c+1 );
+
+      if ( c1 != -1 ) {
+          found = true;
+          c = c1;
+      } else {
+          if ( l >= m_view->doc()->lines()-1 ) {
+              c = line.length()-1;
+              return KTextEditor::Cursor( l, c );
+          } else {
+              c = -1;
+              line = getLine( ++l );
+
+              continue;
+          }
+      }
+  }
+
+  return KTextEditor::Cursor( l, c );
+}
+
 void KateViNormalMode::addToNumberedRegister( const QString &text )
 {
   if ( m_numberedRegisters->size() == 9 ) {
@@ -733,6 +805,36 @@ KateViRange KateViNormalMode::motionWORDBackward()
   r.endLine = c.line();
 
   return r;
+}
+
+KateViRange KateViNormalMode::motionToEndOfWord()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+    KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+        c = findWordEnd( c.line(), c.column() );
+    }
+
+    r.endColumn = c.column();
+    r.endLine = c.line();
+
+    return r;
+}
+
+KateViRange KateViNormalMode::motionToEndOfWORD()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+    KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+        c = findWORDEnd( c.line(), c.column() );
+    }
+
+    r.endColumn = c.column();
+    r.endLine = c.line();
+
+    return r;
 }
 
 bool KateViNormalMode::commandDeleteLine()
@@ -1610,6 +1712,8 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "W", &KateViNormalMode::motionWORDForward ) );
   m_motions.push_back( new KateViMotion( this, "b", &KateViNormalMode::motionWordBackward ) );
   m_motions.push_back( new KateViMotion( this, "B", &KateViNormalMode::motionWORDBackward ) );
+  m_motions.push_back( new KateViMotion( this, "e", &KateViNormalMode::motionToEndOfWord ) );
+  m_motions.push_back( new KateViMotion( this, "E", &KateViNormalMode::motionToEndOfWORD ) );
   m_motions.push_back( new KateViMotion( this, "|", &KateViNormalMode::motionToScreenColumn ) );
   m_motions.push_back( new KateViMotion( this, "%", &KateViNormalMode::motionToMatchingBracket ) );
   m_motions.push_back( new KateViMotion( this, "`.", &KateViNormalMode::motionToMark, true ) );

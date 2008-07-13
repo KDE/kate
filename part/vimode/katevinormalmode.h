@@ -109,6 +109,9 @@ class KateViNormalMode : public QObject {
     KateViRange motionWORDForward();
     KateViRange motionWORDBackward();
 
+    KateViRange motionToEndOfWord();
+    KateViRange motionToEndOfWORD();
+
     KateViRange motionFindChar();
     KateViRange motionFindCharBackward();
     KateViRange motionToChar();
@@ -149,6 +152,8 @@ class KateViNormalMode : public QObject {
     KTextEditor::Cursor findNextWORDStart( int fromLine, int fromColumn ) const;
     KTextEditor::Cursor findPrevWordStart( int fromLine, int fromColumn ) const;
     KTextEditor::Cursor findPrevWORDStart( int fromLine, int fromColumn ) const;
+    KTextEditor::Cursor findWordEnd( int fromLine, int fromColumn ) const;
+    KTextEditor::Cursor findWORDEnd( int fromLine, int fromColumn ) const;
     void addToNumberedRegister( const QString &text );
     //void setRegister( const QChar &reg, const QString &text );
     void fillRegister( const QChar &reg, const QString &text);

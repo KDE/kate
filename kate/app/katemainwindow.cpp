@@ -35,6 +35,7 @@
 #include "katesession.h"
 #include "katemainwindowadaptor.h"
 #include "kateviewdocumentproxymodel.h"
+#include "kateviewspace.h"
 //#include "modeltest.h"
 
 #include <kate/mainwindow.h>
@@ -637,6 +638,17 @@ void KateMainWindow::slotDropEvent( QDropEvent * event )
   if (event->mimeData() == 0) return;
   KUrl::List textlist = KUrl::List::fromMimeData(event->mimeData());
 
+  // Try to get the KTextEditor::View that sent this, and activate it, so that the file opens in the
+  // view where it was dropped
+  KTextEditor::View *kVsender = qobject_cast<KTextEditor::View *>(QObject::sender());
+  if (kVsender != 0) {
+    QWidget *parent = kVsender->parentWidget();
+    if (parent != 0) {
+      KateViewSpace* vs = qobject_cast<KateViewSpace *>(parent->parentWidget());
+      if (vs != 0) m_viewManager->setActiveSpace(vs);
+    }
+  }
+  
   for (KUrl::List::Iterator i = textlist.begin(); i != textlist.end(); ++i)
   {
     m_viewManager->openUrl (*i);

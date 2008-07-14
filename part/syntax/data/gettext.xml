@@ -6,7 +6,7 @@
   Copyright 2004, Dominik Haumann <dhdev@gmx.de>
   Copyright 2008, Chusslove Illich <caslav.ilic@gmx.net>
 
-  Last change: 2008-01-30
+  Last change: 2008-07-12
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Library General Public
@@ -77,9 +77,10 @@
         which are not Gettext standard, but some tools can produce them.
       -->
       <context name = "Previous" attribute = "Normal Text" lineEndContext="#pop">
-        <RegExpr attribute = "KeywordPrevious" String = "(msgctxt|msgid_plural|msgid)" context="#stay"/>
+        <RegExpr attribute = "KeywordPrevious" String = "(msgctxt|msgid_plural|msgid|msgstr)" context="#stay"/>
         <RegExpr attribute = "CharPrevious" String="\\." context="#stay"/>
         <DetectChar attribute = "StringPrevious" char="&quot;" context="StringPrevious"/>
+        <RegExpr attribute = "IndexPrevious" String="\[\d+\]" context="#stay"/>
       </context>
       <context name = "StringPrevious" attribute = "StringPrevious" lineEndContext="#stay">
         <RegExpr attribute = "CharPrevious" String="\\." context="#stay"/>
@@ -134,8 +135,9 @@
       <itemData name = "Entity" defStyleNum ="dsString" color="#ff0040" bold="true"/>
       <itemData name = "EntityPrevious" defStyleNum ="dsString" color="#40c080" bold="true" italic="true"/>
       <itemData name = "StringTag" defStyleNum ="dsString" color="#c00000" bold="true"/>
-      <itemData name = "StringTagPrevious" defStyleNum ="dsString" color="#006060" bold="true"/>
-      <itemData name = "Index" defStyleNum ="dsDecVal"/>
+      <itemData name = "StringTagPrevious" defStyleNum ="dsString" color="#006060" bold="true" italic="true"/>
+      <itemData name = "Index" defStyleNum ="dsDecVal" color="#0000ff"/>
+      <itemData name = "IndexPrevious" defStyleNum ="dsDecVal" italic="true" color="#000000"/>
       <itemData name = "StringDiffNew" defStyleNum ="dsString" italic="true" color="#0060f0"/>
       <itemData name = "StringDiffOld" defStyleNum ="dsString" italic="true" color="#f00060"/>
     </itemDatas>

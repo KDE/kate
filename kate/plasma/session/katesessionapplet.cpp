@@ -83,6 +83,7 @@ QWidget *KateSessionApplet::widget()
                     this, SLOT(slotOnItemClicked(const QModelIndex &)));
         }
     }
+    m_icon->resize(contentsRect().size());
     return m_listView;
 }
 

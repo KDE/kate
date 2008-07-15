@@ -657,8 +657,12 @@ void KateViNormalMode::fillRegister( const QChar &reg, const QString &text )
     return;
   }
 
-  if ( reg >= '1' && reg <= '9' ) {
+  if ( reg >= '1' && reg <= '9' ) { // "kill ring" registers
     addToNumberedRegister( text );
+  } else if ( reg == '+' ) { // system clipboard register
+      QApplication::clipboard()->setText( text,  QClipboard::Clipboard );
+  } else if ( reg == '*' ) { // system selection register
+      QApplication::clipboard()->setText( text, QClipboard::Selection );
   } else {
     m_registers->insert( reg, text );
   }

@@ -98,9 +98,10 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   connect(m_presentationModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SLOT(rowsInserted(const QModelIndex&, int, int)));
   connect(m_argumentHintModel, SIGNAL(contentStateChanged(bool)), this, SLOT(argumentHintsChanged(bool)));
 
-  connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), SLOT(cursorPositionChanged()));
+  // These must be queued connections so that we're not holding the smart lock when we ask for the model to update.
+  connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(cursorPositionChanged()), Qt::QueuedConnection);
   connect(view()->doc()->history(), SIGNAL(editDone(KateEditInfo*)), SLOT(editDone(KateEditInfo*)), Qt::QueuedConnection);
-  connect(view(), SIGNAL(verticalScrollPositionChanged (KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(updatePositionSlot()));
+  connect(view(), SIGNAL(verticalScrollPositionChanged (KTextEditor::View*, const KTextEditor::Cursor&)), this, SLOT(updatePositionSlot()), Qt::QueuedConnection);
 
   // This is a non-focus widget, it is passed keyboard input from the view
 
@@ -174,7 +175,7 @@ KateView * KateCompletionWidget::view( ) const
 void KateCompletionWidget::argumentHintsChanged(bool hasContent)
 {
   m_dontShowArgumentHints = !hasContent;
-  
+
   if( m_dontShowArgumentHints )
     m_argumentHintTree->hide();
   else
@@ -238,7 +239,7 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   if (!m_presentationModel->completionModels().isEmpty()) {
     m_presentationModel->setCurrentCompletion(view()->doc()->text(KTextEditor::Range(m_completionRange->start(), view()->cursorPosition())));
   }
-  
+
   connect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
   //Now that all models have been notified, check whether the widget should be displayed instantly
   modelContentChanged();
@@ -253,7 +254,7 @@ void KateCompletionWidget::updateAndShow()
   if (!m_presentationModel->completionModels().isEmpty()) {
     show();
     m_entryList->resizeColumns(false, true);
-    
+
     m_argumentHintModel->buildRows();
     if( m_argumentHintModel->rowCount(QModelIndex()) != 0 )
       argumentHintsChanged(true);

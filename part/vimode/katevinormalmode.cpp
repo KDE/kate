@@ -814,7 +814,7 @@ KateViRange KateViNormalMode::motionWORDBackward()
 KateViRange KateViNormalMode::motionToEndOfWord()
 {
     KTextEditor::Cursor c( m_view->cursorPosition() );
-    KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
+    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
 
     for ( unsigned int i = 0; i < getCount(); i++ ) {
         c = findWordEnd( c.line(), c.column() );
@@ -829,7 +829,7 @@ KateViRange KateViNormalMode::motionToEndOfWord()
 KateViRange KateViNormalMode::motionToEndOfWORD()
 {
     KTextEditor::Cursor c( m_view->cursorPosition() );
-    KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
+    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
 
     for ( unsigned int i = 0; i < getCount(); i++ ) {
         c = findWORDEnd( c.line(), c.column() );

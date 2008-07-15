@@ -356,7 +356,7 @@ QString KateViNormalMode::getLine( int lineNumber ) const
   return line;
 }
 
-KTextEditor::Cursor KateViNormalMode::findNextWordStart( int fromLine, int fromColumn ) const
+KTextEditor::Cursor KateViNormalMode::findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   QString line = getLine( fromLine );
 
@@ -382,14 +382,16 @@ KTextEditor::Cursor KateViNormalMode::findNextWordStart( int fromLine, int fromC
     int c3 = nonWordAfterWord.indexIn( line, c + 1 );
 
     if ( c1 == -1 && c2 == -1 && c3 == -1 ) {
-      if ( l >= m_view->doc()->lines()-1 ) {
-        c = line.length()-1;
-        return KTextEditor::Cursor( l, c );
-      } else {
-        c = 0;
-        l++;
+        if ( onlyCurrentLine ) {
+            return KTextEditor::Cursor( l, c );
+        } else if ( l >= m_view->doc()->lines()-1 ) {
+            c = line.length()-1;
+            return KTextEditor::Cursor( l, c );
+        } else {
+            c = 0;
+            l++;
 
-        line = getLine( l );
+            line = getLine( l );
 
         if ( line.length() == 0 || !line.at( c ).isSpace() ) {
           found = true;
@@ -416,7 +418,7 @@ KTextEditor::Cursor KateViNormalMode::findNextWordStart( int fromLine, int fromC
   return KTextEditor::Cursor( l, c );
 }
 
-KTextEditor::Cursor KateViNormalMode::findNextWORDStart( int fromLine, int fromColumn ) const
+KTextEditor::Cursor KateViNormalMode::findNextWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   KTextEditor::Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
@@ -432,7 +434,9 @@ KTextEditor::Cursor KateViNormalMode::findNextWORDStart( int fromLine, int fromC
     c = startOfWORD.indexIn( line, c+1 );
 
     if ( c == -1 ) {
-      if ( l >= m_view->doc()->lines()-1 ) {
+      if ( onlyCurrentLine ) {
+          return KTextEditor::Cursor( l, c );
+      } else if ( l >= m_view->doc()->lines()-1 ) {
         c = line.length()-1;
         break;
       } else {
@@ -456,7 +460,7 @@ KTextEditor::Cursor KateViNormalMode::findNextWORDStart( int fromLine, int fromC
   return KTextEditor::Cursor( l, c );
 }
 
-KTextEditor::Cursor KateViNormalMode::findPrevWordStart( int fromLine, int fromColumn ) const
+KTextEditor::Cursor KateViNormalMode::findPrevWordStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   QString line = getLine( fromLine );
 
@@ -484,7 +488,9 @@ KTextEditor::Cursor KateViNormalMode::findPrevWordStart( int fromLine, int fromC
     int c4 = startOfLine.lastIndexIn( line, -line.length()+c-1 );
 
     if ( c1 == -1 && c2 == -1 && c3 == -1 && c4 == -1 ) {
-      if ( l <= 0 ) {
+      if ( onlyCurrentLine ) {
+          return KTextEditor::Cursor( l, c );
+      } else if ( l <= 0 ) {
         return KTextEditor::Cursor( 0, 0 );
       } else {
         line = getLine( --l );
@@ -518,7 +524,7 @@ KTextEditor::Cursor KateViNormalMode::findPrevWordStart( int fromLine, int fromC
   return KTextEditor::Cursor( l, c );
 }
 
-KTextEditor::Cursor KateViNormalMode::findPrevWORDStart( int fromLine, int fromColumn ) const
+KTextEditor::Cursor KateViNormalMode::findPrevWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   QString line = getLine( fromLine );
 
@@ -535,7 +541,9 @@ KTextEditor::Cursor KateViNormalMode::findPrevWORDStart( int fromLine, int fromC
     int c2 = startOfLineWORD.lastIndexIn( line, -line.length()+c-1 );
 
     if ( c1 == -1 && c2 == -1 ) {
-      if ( l <= 0 ) {
+      if ( onlyCurrentLine ) {
+          return KTextEditor::Cursor( l, c );
+      } else if ( l <= 0 ) {
         return KTextEditor::Cursor( 0, 0 );
       } else {
         line = getLine( --l );
@@ -563,7 +571,7 @@ KTextEditor::Cursor KateViNormalMode::findPrevWORDStart( int fromLine, int fromC
   return KTextEditor::Cursor( l, c );
 }
 
-KTextEditor::Cursor KateViNormalMode::findWordEnd( int fromLine, int fromColumn ) const
+KTextEditor::Cursor KateViNormalMode::findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   QString line = getLine( fromLine );
 
@@ -587,7 +595,9 @@ KTextEditor::Cursor KateViNormalMode::findWordEnd( int fromLine, int fromColumn 
           found = true;
           c = c1;
       } else {
-          if ( l >= m_view->doc()->lines()-1 ) {
+          if ( onlyCurrentLine ) {
+              return KTextEditor::Cursor( l, c );
+          } else if ( l >= m_view->doc()->lines()-1 ) {
               c = line.length()-1;
               return KTextEditor::Cursor( l, c );
           } else {
@@ -602,7 +612,7 @@ KTextEditor::Cursor KateViNormalMode::findWordEnd( int fromLine, int fromColumn 
   return KTextEditor::Cursor( l, c );
 }
 
-KTextEditor::Cursor KateViNormalMode::findWORDEnd( int fromLine, int fromColumn ) const
+KTextEditor::Cursor KateViNormalMode::findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine ) const
 {
   QString line = getLine( fromLine );
 
@@ -620,7 +630,9 @@ KTextEditor::Cursor KateViNormalMode::findWORDEnd( int fromLine, int fromColumn 
           found = true;
           c = c1;
       } else {
-          if ( l >= m_view->doc()->lines()-1 ) {
+          if ( onlyCurrentLine ) {
+              return KTextEditor::Cursor( l, c );
+          } else if ( l >= m_view->doc()->lines()-1 ) {
               c = line.length()-1;
               return KTextEditor::Cursor( l, c );
           } else {
@@ -633,6 +645,29 @@ KTextEditor::Cursor KateViNormalMode::findWORDEnd( int fromLine, int fromColumn 
   }
 
   return KTextEditor::Cursor( l, c );
+}
+
+// FIXME: i" won't work if the cursor is on one of the double quote chars
+KateViRange KateViNormalMode::findSurrounding( QChar c, bool inner )
+{
+  KTextEditor::Cursor cursor( m_view->cursorPosition() );
+  QString line = getLine();
+
+  int col1 = line.lastIndexOf( c, cursor.column() );
+  int col2 = line.indexOf( c, cursor.column() );
+
+  if ( inner ) {
+      col1++;
+      col2--;
+  }
+
+  KateViRange r( cursor.line(), col1, cursor.line(), col2, ViMotion::InclusiveMotion );
+
+  if ( col1 == -1 || col2 == -1 || col1 > col2 ) {
+      r.valid = false;
+  }
+
+  return r;
 }
 
 void KateViNormalMode::addToNumberedRegister( const QString &text )
@@ -1630,51 +1665,129 @@ KateViRange KateViNormalMode::motionToMarkLine()
   return r;
 }
 
+KateViRange KateViNormalMode::textObjectAWord()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+
+    KTextEditor::Cursor c1 = findPrevWordStart( c.line(), c.column()+1, true );
+    KTextEditor::Cursor c2( c );
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+        c2 = findNextWordStart( c2.line(), c2.column(), true );
+    }
+
+    KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
+
+    // sanity check
+    if ( c1.line() != c2.line() || c1.column() > c2.column() ) {
+        r.valid = false;
+    } else {
+        r.startLine = c1.line();
+        r.endLine = c2.line();
+        r.startColumn = c1.column();
+        r.endColumn = c2.column();
+    }
+
+    return r;
+}
+
 KateViRange KateViNormalMode::textObjectInnerWord()
 {
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
-  QString line = getLine();
+    KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  int matchColumnRight = cursor.column();
-  int matchColumnLeft = cursor.column();
+    KTextEditor::Cursor c1 = findPrevWordStart( c.line(), c.column()+1, true );
+    // need to start search in column-1 because it might be a one-character word
+    KTextEditor::Cursor c2( c.line(), c.column()-1 );
 
-  /*
-  // left position
-  for ( int i = cursor.column()-1; i >= 0; i-- ) {
-    if ( line.at( i ) == m_keys.right( 1 ) ) {
-      matchColumnLeft = i;
-      break;
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+        c2 = findWordEnd( c2.line(), c2.column(), true );
     }
-  }
-  */
 
-  /*
-  // right position
-  for ( int i = cursor.column()+1; i < getLine().length()-1; i++ ) {
-    if ( line.at( i ) == m_keys.right( 1 ) ) {
-      matchColumnRight = i;
-      break;
+    KateViRange r;
+
+    // sanity check
+    if ( c1.line() != c2.line() || c1.column() > c2.column() ) {
+        r.valid = false;
+    } else {
+        r.startLine = c1.line();
+        r.endLine = c2.line();
+        r.startColumn = c1.column();
+        r.endColumn = c2.column();
     }
-  }
-  */
 
-  return KateViRange( cursor.line(), matchColumnLeft, cursor.line(), matchColumnRight, ViMotion::InclusiveMotion );
+    return r;
+}
+
+KateViRange KateViNormalMode::textObjectAWORD()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+
+    KTextEditor::Cursor c1 = findPrevWORDStart( c.line(), c.column()+1, true );
+    KTextEditor::Cursor c2( c );
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+        c2 = findNextWORDStart( c2.line(), c2.column(), true );
+    }
+
+    KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
+
+    // sanity check
+    if ( c1.line() != c2.line() || c1.column() > c2.column() ) {
+        r.valid = false;
+    } else {
+        r.startLine = c1.line();
+        r.endLine = c2.line();
+        r.startColumn = c1.column();
+        r.endColumn = c2.column();
+    }
+
+    return r;
+}
+
+KateViRange KateViNormalMode::textObjectInnerWORD()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+
+    KTextEditor::Cursor c1 = findPrevWORDStart( c.line(), c.column()+1, true );
+    KTextEditor::Cursor c2( c );
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+        c2 = findWORDEnd( c2.line(), c2.column(), true );
+    }
+
+    KateViRange r;
+
+    // sanity check
+    if ( c1.line() != c2.line() || c1.column() > c2.column() ) {
+        r.valid = false;
+    } else {
+        r.startLine = c1.line();
+        r.endLine = c2.line();
+        r.startColumn = c1.column();
+        r.endColumn = c2.column();
+    }
+
+    return r;
+}
+
+KateViRange KateViNormalMode::textObjectAQuoteDouble()
+{
+    return findSurrounding( '"', false );
 }
 
 KateViRange KateViNormalMode::textObjectInnerQuoteDouble()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
-  QString line = getLine();
+    return findSurrounding( '"', true );
+}
 
-  int col1 = line.lastIndexOf( '"', c.column() )+1;
-  int col2 = line.indexOf( '"', c.column() )-1;
+KateViRange KateViNormalMode::textObjectAQuoteSingle()
+{
+    return findSurrounding( '\'', false );
+}
 
-  KateViRange r( c.line(), col1, c.line(), col2, ViMotion::InclusiveMotion );
-  if ( col1 == -1 || col2 == -1 ) {
-      r.valid = false;
-  }
-
-  return r;
+KateViRange KateViNormalMode::textObjectInnerQuoteSingle()
+{
+    return findSurrounding( '\'', true );
 }
 
 void KateViNormalMode::initializeCommands()
@@ -1744,5 +1857,9 @@ void KateViNormalMode::initializeCommands()
 
   // text objects
   m_motions.push_back( new KateViMotion( this, "iw", &KateViNormalMode::textObjectInnerWord ) );
+  m_motions.push_back( new KateViMotion( this, "aw", &KateViNormalMode::textObjectAWord ) );
   m_motions.push_back( new KateViMotion( this, "i\"", &KateViNormalMode::textObjectInnerQuoteDouble ) );
+  m_motions.push_back( new KateViMotion( this, "a\"", &KateViNormalMode::textObjectAQuoteDouble ) );
+  m_motions.push_back( new KateViMotion( this, "i'", &KateViNormalMode::textObjectInnerQuoteSingle ) );
+  m_motions.push_back( new KateViMotion( this, "a'", &KateViNormalMode::textObjectAQuoteSingle ) );
 }

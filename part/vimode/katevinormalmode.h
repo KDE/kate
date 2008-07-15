@@ -132,8 +132,16 @@ class KateViNormalMode : public QObject {
 
     // TEXT OBJECTS
 
+    KateViRange textObjectAWord();
     KateViRange textObjectInnerWord();
+    KateViRange textObjectAWORD();
+    KateViRange textObjectInnerWORD();
+
+    KateViRange textObjectAQuoteDouble();
     KateViRange textObjectInnerQuoteDouble();
+
+    KateViRange textObjectAQuoteSingle();
+    KateViRange textObjectInnerQuoteSingle();
 
     unsigned int getCount() const { return ( m_count > 0 ) ? m_count : 1; }
     QChar getRegister( const QChar &defaultReg ) const;
@@ -149,12 +157,13 @@ class KateViNormalMode : public QObject {
     void removeDone(); // called when a command removing text is done
     void initializeCommands();
     QString getLine( int lineNumber = -1 ) const;
-    KTextEditor::Cursor findNextWordStart( int fromLine, int fromColumn ) const;
-    KTextEditor::Cursor findNextWORDStart( int fromLine, int fromColumn ) const;
-    KTextEditor::Cursor findPrevWordStart( int fromLine, int fromColumn ) const;
-    KTextEditor::Cursor findPrevWORDStart( int fromLine, int fromColumn ) const;
-    KTextEditor::Cursor findWordEnd( int fromLine, int fromColumn ) const;
-    KTextEditor::Cursor findWORDEnd( int fromLine, int fromColumn ) const;
+    KTextEditor::Cursor findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    KTextEditor::Cursor findNextWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    KTextEditor::Cursor findPrevWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    KTextEditor::Cursor findPrevWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    KTextEditor::Cursor findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    KTextEditor::Cursor findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
+    KateViRange findSurrounding( QChar c, bool inner );
     void addToNumberedRegister( const QString &text );
     //void setRegister( const QChar &reg, const QString &text );
     void fillRegister( const QChar &reg, const QString &text);

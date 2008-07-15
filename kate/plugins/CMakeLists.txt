@@ -23,5 +23,8 @@ add_subdirectory( filetemplates )
 add_subdirectory( openheader )
 #add_subdirectory( xmltools )
 #add_subdirectory( xmlcheck )
-#add_subdirectory( snippets )
+add_subdirectory( snippets )
 MESSAGE( STATUS "remember to find maintainers for these plugins and port them to the kate 3.0 interfaces...")
+
+# Example plugin, not meant to be built for production use.
+#add_subdirectory( helloworld )

@@ -27,8 +27,8 @@ Kate::PluginView *KatePluginHelloWorld::createView( Kate::MainWindow *mainWindow
 }
 
 
-KatePluginHelloWorldView::KatePluginHelloWorldView( Kate::MainWindow *win )
-    : Kate::PluginView( win )
+KatePluginHelloWorldView::KatePluginHelloWorldView( Kate::MainWindow *mainWin )
+    : Kate::PluginView( mainWin )
 {
   setComponentData( KComponentData("kate") );
   setXMLFile( "plugins/katehelloworld/ui.rc" );

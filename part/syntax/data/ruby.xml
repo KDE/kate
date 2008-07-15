@@ -248,7 +248,7 @@
 				<HlCChar attribute="Char" context="check_div_1"/>
 				
 				<!-- Check for =begin before assignment operator. -->
-				<StringDetect attribute="Blockcomment" String="=begin" context="Embedded documentation" beginRegion="comment block" column="0"/>
+				<RegExpr attribute="Blockcomment" String="^=begin(?:\s|$)" context="Embedded documentation" beginRegion="comment block" column="0"/>
 				
 				<!-- recognize the beginning of a HEREDOC
 					This uses new features in Kate 2.3 and later
@@ -379,7 +379,7 @@
 			</context>
 			
 			<context name="Embedded documentation" attribute="Comment" lineEndContext="#stay">
-				<StringDetect attribute="Comment" String="=end" context="#pop" endRegion="comment block" column="0"/>
+				<RegExpr attribute="Comment" String="^=end(?:\s.*|$)" context="#pop" endRegion="comment block" column="0"/>
 			</context>
 			
 			<context name="RegEx 1" attribute="Regular Expression" lineEndContext="#stay">

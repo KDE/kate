@@ -1420,7 +1420,7 @@ KateViRange KateViNormalMode::motionToEOL()
   return r;
 }
 
-KateViRange KateViNormalMode::motionToFirstCharacterOfLine()
+KateViRange KateViNormalMode::motionToColumn0()
 {
   if ( m_stickyColumn != -1 )
     m_stickyColumn = -1;
@@ -1430,6 +1430,24 @@ KateViRange KateViNormalMode::motionToFirstCharacterOfLine()
   KateViRange r( cursor.line(), 0, ViMotion::ExclusiveMotion );
 
   return r;
+}
+
+KateViRange KateViNormalMode::motionToFirstCharacterOfLine()
+{
+  if ( m_stickyColumn != -1 )
+    m_stickyColumn = -1;
+
+    KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+    QRegExp nonSpace( "\\S" );
+    int c = getLine().indexOf( nonSpace );
+
+    KateViRange r( cursor.line(), c, ViMotion::ExclusiveMotion );
+
+    if ( c == -1 ) {
+        r.valid = false;
+    }
+
+    return r;
 }
 
 KateViRange KateViNormalMode::motionFindChar()
@@ -1705,7 +1723,8 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "k", &KateViNormalMode::motionUp ) );
   m_motions.push_back( new KateViMotion( this, "l", &KateViNormalMode::motionRight ) );
   m_motions.push_back( new KateViMotion( this, "$", &KateViNormalMode::motionToEOL ) );
-  m_motions.push_back( new KateViMotion( this, "0", &KateViNormalMode::motionToFirstCharacterOfLine ) );
+  m_motions.push_back( new KateViMotion( this, "0", &KateViNormalMode::motionToColumn0 ) );
+  m_motions.push_back( new KateViMotion( this, "^", &KateViNormalMode::motionToFirstCharacterOfLine ) );
   m_motions.push_back( new KateViMotion( this, "f.", &KateViNormalMode::motionFindChar, true ) );
   m_motions.push_back( new KateViMotion( this, "F.", &KateViNormalMode::motionFindCharBackward, true ) );
   m_motions.push_back( new KateViMotion( this, "t.", &KateViNormalMode::motionToChar, true ) );

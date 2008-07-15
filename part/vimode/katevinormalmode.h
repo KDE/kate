@@ -118,6 +118,7 @@ class KateViNormalMode : public QObject {
     KateViRange motionToCharBackward();
 
     KateViRange motionToEOL();
+    KateViRange motionToColumn0();
     KateViRange motionToFirstCharacterOfLine();
 
     KateViRange motionToLineFirst();

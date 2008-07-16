@@ -148,6 +148,12 @@ class KateViNormalMode : public QObject {
     KateViRange textObjectAQuoteSingle();
     KateViRange textObjectInnerQuoteSingle();
 
+    KateViRange textObjectAParen();
+    KateViRange textObjectInnerParen();
+
+    KateViRange textObjectABracket();
+    KateViRange textObjectInnerBracket();
+
     unsigned int getCount() const { return ( m_count > 0 ) ? m_count : 1; }
     QChar getRegister( const QChar &defaultReg ) const;
     QString getRegisterContent( const QChar &reg ) const;
@@ -168,7 +174,7 @@ class KateViNormalMode : public QObject {
     KTextEditor::Cursor findPrevWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KTextEditor::Cursor findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KTextEditor::Cursor findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KateViRange findSurrounding( QChar c, bool inner );
+    KateViRange findSurrounding( QChar c1, QChar c2, bool inner = false );
     void addToNumberedRegister( const QString &text );
     //void setRegister( const QChar &reg, const QString &text );
     void fillRegister( const QChar &reg, const QString &text);

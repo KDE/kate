@@ -647,24 +647,24 @@ KTextEditor::Cursor KateViNormalMode::findWORDEnd( int fromLine, int fromColumn,
   return KTextEditor::Cursor( l, c );
 }
 
-// FIXME: i" won't work if the cursor is on one of the double quote chars
-KateViRange KateViNormalMode::findSurrounding( QChar c, bool inner )
+// FIXME: i" won't work if the cursor is on one of the chars
+KateViRange KateViNormalMode::findSurrounding( QChar c1, QChar c2, bool inner )
 {
   KTextEditor::Cursor cursor( m_view->cursorPosition() );
   QString line = getLine();
 
-  int col1 = line.lastIndexOf( c, cursor.column() );
-  int col2 = line.indexOf( c, cursor.column() );
-
-  if ( inner ) {
-      col1++;
-      col2--;
-  }
+  int col1 = line.lastIndexOf( c1, cursor.column() );
+  int col2 = line.indexOf( c2, cursor.column() );
 
   KateViRange r( cursor.line(), col1, cursor.line(), col2, ViMotion::InclusiveMotion );
 
   if ( col1 == -1 || col2 == -1 || col1 > col2 ) {
       r.valid = false;
+  }
+
+  if ( inner ) {
+      r.startColumn++;
+      r.endColumn--;
   }
 
   return r;
@@ -1812,22 +1812,42 @@ KateViRange KateViNormalMode::textObjectInnerWORD()
 
 KateViRange KateViNormalMode::textObjectAQuoteDouble()
 {
-    return findSurrounding( '"', false );
+    return findSurrounding( '"', '"', false );
 }
 
 KateViRange KateViNormalMode::textObjectInnerQuoteDouble()
 {
-    return findSurrounding( '"', true );
+    return findSurrounding( '"', '"', true );
 }
 
 KateViRange KateViNormalMode::textObjectAQuoteSingle()
 {
-    return findSurrounding( '\'', false );
+    return findSurrounding( '\'', '\'', false );
 }
 
 KateViRange KateViNormalMode::textObjectInnerQuoteSingle()
 {
-    return findSurrounding( '\'', true );
+    return findSurrounding( '\'', '\'', true );
+}
+
+KateViRange KateViNormalMode::textObjectAParen()
+{
+    return findSurrounding( '(', ')', false );
+}
+
+KateViRange KateViNormalMode::textObjectInnerParen()
+{
+    return findSurrounding( '(', ')', true );
+}
+
+KateViRange KateViNormalMode::textObjectABracket()
+{
+    return findSurrounding( '[', ']', false );
+}
+
+KateViRange KateViNormalMode::textObjectInnerBracket()
+{
+    return findSurrounding( '[', ']', true );
 }
 
 void KateViNormalMode::initializeCommands()
@@ -1904,4 +1924,8 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "a\"", &KateViNormalMode::textObjectAQuoteDouble ) );
   m_motions.push_back( new KateViMotion( this, "i'", &KateViNormalMode::textObjectInnerQuoteSingle ) );
   m_motions.push_back( new KateViMotion( this, "a'", &KateViNormalMode::textObjectAQuoteSingle ) );
+  m_motions.push_back( new KateViMotion( this, "i[()]", &KateViNormalMode::textObjectInnerParen, true ) );
+  m_motions.push_back( new KateViMotion( this, "a[()]", &KateViNormalMode::textObjectAParen, true ) );
+  m_motions.push_back( new KateViMotion( this, "i[\\[\\]]", &KateViNormalMode::textObjectInnerBracket, true ) );
+  m_motions.push_back( new KateViMotion( this, "a[\\[\\]]", &KateViNormalMode::textObjectABracket, true ) );
 }

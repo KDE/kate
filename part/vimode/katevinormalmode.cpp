@@ -1173,16 +1173,6 @@ bool KateViNormalMode::commandFormatLines()
   return false;
 }
 
-bool KateViNormalMode::commandAddIndentation()
-{
-  return false;
-}
-
-bool KateViNormalMode::commandRemoveIndentation()
-{
-  return false;
-}
-
 bool KateViNormalMode::commandPaste()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
@@ -1335,6 +1325,56 @@ bool KateViNormalMode::commandFindNext()
     m_view->findNext();
 
     return true;
+}
+
+bool KateViNormalMode::commandIndentLine()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+        m_view->doc()->indent( m_view, c.line()+i, 1 );
+    }
+
+    return true;
+}
+
+bool KateViNormalMode::commandUnindentLine()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+        m_view->doc()->indent( m_view, c.line()+i, -1 );
+    }
+
+    return true;
+}
+
+bool KateViNormalMode::commandIndentLines()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+
+  int line1 = ( m_commandRange.startLine != -1 ? m_commandRange.startLine : c.line() );
+  int line2 = m_commandRange.endLine;
+
+  for ( int i = line1; i <= line2; i++ ) {
+      m_view->doc()->indent( m_view, i, 1 );
+  }
+
+  return true;
+}
+
+bool KateViNormalMode::commandUnindentLines()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+
+  int line1 = ( m_commandRange.startLine != -1 ? m_commandRange.startLine : c.line() );
+  int line2 = m_commandRange.endLine;
+
+  for ( int i = line1; i <= line2; i++ ) {
+      m_view->doc()->indent( m_view, i, -1 );
+  }
+
+  return true;
 }
 
 KateViRange KateViNormalMode::motionDown()
@@ -1816,8 +1856,6 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViNormalModeCommand( this, "y", &KateViNormalMode::commandYank, false, true ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "yy", &KateViNormalMode::commandYankLine, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "Y", &KateViNormalMode::commandYankToEOL, false, true ) );
-  m_commands.push_back( new KateViNormalModeCommand( this, ">", &KateViNormalMode::commandAddIndentation, false, true ) );
-  m_commands.push_back( new KateViNormalModeCommand( this, "<", &KateViNormalMode::commandRemoveIndentation, false, true ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "p", &KateViNormalMode::commandPaste, false, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "P", &KateViNormalMode::commandPasteBefore, false, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "r.", &KateViNormalMode::commandReplaceCharacter, true ) );
@@ -1826,9 +1864,13 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViNormalModeCommand( this, "u", &KateViNormalMode::commandUndo, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "<c-r>", &KateViNormalMode::commandRedo, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "U", &KateViNormalMode::commandRedo, false ) );
-  m_commands.push_back( new KateViNormalModeCommand( this, "m.", &KateViNormalMode::commandSetMark, true, false) );
-  m_commands.push_back( new KateViNormalModeCommand( this, "n", &KateViNormalMode::commandFindNext, false) );
-  m_commands.push_back( new KateViNormalModeCommand( this, "N", &KateViNormalMode::commandFindPrev, false) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "m.", &KateViNormalMode::commandSetMark, true, false ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "n", &KateViNormalMode::commandFindNext, false ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "N", &KateViNormalMode::commandFindPrev, false ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, ">>", &KateViNormalMode::commandIndentLine, false ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "<<", &KateViNormalMode::commandUnindentLine, false ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, ">", &KateViNormalMode::commandIndentLines, false, true ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "<", &KateViNormalMode::commandUnindentLines, false, true ) );
 
   // regular motions
   m_motions.push_back( new KateViMotion( this, "h", &KateViNormalMode::motionLeft ) );

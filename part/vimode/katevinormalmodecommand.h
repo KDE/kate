@@ -28,9 +28,9 @@ class KateViNormalMode;
 class KateViNormalModeCommand {
   public:
     KateViNormalModeCommand( KateViNormalMode *parent, QString pattern,
-        bool (KateViNormalMode::*pt2Func)(), bool regex = true );
+        bool ( KateViNormalMode::*pt2Func)(), bool regex = true );
     KateViNormalModeCommand( KateViNormalMode *parent, QString pattern,
-        bool (KateViNormalMode::*pt2Func)(), bool regex, bool needsMotionOrTextObject );
+        bool ( KateViNormalMode::*pt2Func)(), bool regex, bool needsMotionOrTextObject );
     ~KateViNormalModeCommand();
 
     bool matches( QString pattern ) const;
@@ -44,7 +44,7 @@ class KateViNormalModeCommand {
     QString m_pattern;
     bool m_needsMotionOrTextObject;
     bool m_regex;
-    bool (KateViNormalMode::*m_ptr2commandMethod)();
+    bool ( KateViNormalMode::*m_ptr2commandMethod)();
     KateViKeySequenceParser *m_keyParser;
 };
 

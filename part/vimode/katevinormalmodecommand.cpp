@@ -20,7 +20,7 @@
 #include "katevinormalmodecommand.h"
 
 KateViNormalModeCommand::KateViNormalModeCommand( KateViNormalMode *parent, QString pattern,
-    bool(KateViNormalMode::*commandMethod)(), bool regex )
+    bool( KateViNormalMode::*commandMethod)(), bool regex )
 {
   m_keyParser = new KateViKeySequenceParser();
 
@@ -32,7 +32,7 @@ KateViNormalModeCommand::KateViNormalModeCommand( KateViNormalMode *parent, QStr
 }
 
 KateViNormalModeCommand::KateViNormalModeCommand( KateViNormalMode *parent, QString pattern,
-    bool(KateViNormalMode::*commandMethod)(), bool regex, bool needsMotionOrTextObject )
+    bool( KateViNormalMode::*commandMethod)(), bool regex, bool needsMotionOrTextObject )
 {
   m_parent = parent;
   m_pattern = pattern;
@@ -48,7 +48,7 @@ KateViNormalModeCommand::~KateViNormalModeCommand()
 
 bool KateViNormalModeCommand::execute() const
 {
-  return (m_parent->*m_ptr2commandMethod)();
+  return ( m_parent->*m_ptr2commandMethod)();
 }
 
 bool KateViNormalModeCommand::matches( QString pattern ) const

@@ -97,6 +97,11 @@ class KateViNormalMode : public QObject {
     bool commandFindNext();
     bool commandFindPrev();
 
+    bool commandIndentLine();
+    bool commandUnindentLine();
+    bool commandIndentLines();
+    bool commandUnindentLines();
+
     // MOTIONS
 
     KateViRange motionLeft();

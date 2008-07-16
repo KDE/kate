@@ -542,6 +542,12 @@ const QString KateViKeySequenceParser::encodeKeySequence( const QString &keys )
     }
     else {
       if ( c == '<' ) {
+        // if there's no closing '>', or if there is an opening '<' before the next '>', interpret as a literal '<'
+        QString rest = keys.mid( i );
+        if ( rest.indexOf( '>', 1 ) == -1 || ( rest.indexOf( '<', 1 ) < rest.indexOf( '>', 1 ) && rest.indexOf( '<', 1 ) != -1 ) ) {
+          encodedSequence.append( c );
+          continue;
+        }
         startOfBlock = i;
         insideTag = true;
         continue;

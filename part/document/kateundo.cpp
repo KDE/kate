@@ -242,8 +242,10 @@ void KateUndo::redo (KateDocument *doc)
 KateUndoGroup::KateUndoGroup (KateDocument *doc)
   : m_doc (doc)
   , m_safePoint(false)
-  , m_selection(-1, -1, -1, -1)
-  , m_cursor(-1, -1)
+  , m_undoSelection(-1, -1, -1, -1)
+  , m_redoSelection(-1, -1, -1, -1)
+  , m_undoCursor(-1, -1)
+  , m_redoCursor(-1, -1)
 {
 }
 
@@ -263,10 +265,13 @@ void KateUndoGroup::undo ()
     m_items[i]->undo(m_doc);
 
   if (KateView *view = m_doc->activeKateView()) {
-    if (m_selection.isValid())
-      view->setSelection(m_selection);
-    if (m_cursor.isValid())
-      view->editSetCursor(m_cursor);
+    if (m_undoSelection.isValid())
+      view->setSelection(m_undoSelection);
+    else
+      view->clearSelection();
+
+    if (m_undoCursor.isValid())
+      view->editSetCursor(m_undoCursor);
   }
 
   m_doc->editEnd ();
@@ -283,10 +288,13 @@ void KateUndoGroup::redo ()
     m_items[i]->redo(m_doc);
 
   if (KateView *view = m_doc->activeKateView()) {
-    if (m_selection.isValid())
-      view->setSelection(m_selection);
-    if (m_cursor.isValid())
-      view->editSetCursor(m_cursor);
+    if (m_redoSelection.isValid())
+      view->setSelection(m_redoSelection);
+    else
+      view->clearSelection();
+
+    if (m_redoCursor.isValid())
+      view->editSetCursor(m_redoCursor);
   }
 
   m_doc->editEnd ();
@@ -297,16 +305,24 @@ void KateUndoGroup::addItem (KateUndoGroup::UndoType type, uint line, uint col, 
   addItem(new KateUndo(type, line, col, len, text));
 }
 
-void KateUndoGroup::setSelection(const KTextEditor::Range &selection)
+void KateUndoGroup::setUndoSelection(const KTextEditor::Range &selection)
 {
-  if (!m_selection.isValid())
-    m_selection = selection;
+  m_undoSelection = selection;
 }
 
-void KateUndoGroup::setCursorPosition(const KTextEditor::Cursor &cursor)
+void KateUndoGroup::setRedoSelection(const KTextEditor::Range &selection)
 {
-  if (!m_cursor.isValid())
-    m_cursor = cursor;
+  m_redoSelection = selection;
+}
+
+void KateUndoGroup::setUndoCursor(const KTextEditor::Cursor &cursor)
+{
+  m_undoCursor = cursor;
+}
+
+void KateUndoGroup::setRedoCursor(const KTextEditor::Cursor &cursor)
+{
+  m_redoCursor = cursor;
 }
 
 void KateUndoGroup::addItem(KateUndo* u)
@@ -330,6 +346,8 @@ bool KateUndoGroup::merge(KateUndoGroup* newGroup,bool complex)
       u = newGroup->m_items.isEmpty() ? 0 : newGroup->m_items.takeFirst ();
     }
     if (newGroup->m_safePoint) safePoint();
+    m_redoCursor = newGroup->m_redoCursor;
+    m_redoSelection = newGroup->m_redoSelection;
     return true;
   }
   return false;

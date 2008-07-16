@@ -765,18 +765,22 @@ void KateViewInternal::doTranspose()
 
 void KateViewInternal::doDeleteWordLeft()
 {
+  m_doc->editStart();
   wordLeft( true );
   KTextEditor::Range selection = m_view->selectionRange();
   m_view->removeSelectedText();
+  m_doc->editEnd();
   tagRange(selection, true);
   updateDirty();
 }
 
 void KateViewInternal::doDeleteWordRight()
 {
+  m_doc->editStart();
   wordRight( true );
   KTextEditor::Range selection = m_view->selectionRange();
   m_view->removeSelectedText();
+  m_doc->editEnd();
   tagRange(selection, true);
   updateDirty();
 }
@@ -3058,34 +3062,43 @@ void KateViewInternal::dropEvent( QDropEvent* event )
 
     fixDropEvent(event);
 
+    // fix the cursor position before editStart(), so that it is correctly
+    // stored for the undo action; also only for moving text we want to restore
+    // the previous selection in undo steps
+    KTextEditor::Cursor targetCursor(m_cursor); // backup current cursor
+    KTextEditor::Range undoSelection = KTextEditor::Range::invalid(); // backup current selection
+    if ( event->dropAction() != Qt::CopyAction ) {
+      editSetCursor(m_view->selectionRange().end());
+      undoSelection = m_view->selectionRange();
+    } else {
+      if (m_view->selection()) {
+        undoSelection = m_view->selectionRange();
+        m_view->clearSelection();
+      }
+    }
+
+
     // use one transaction
     m_doc->editStart ();
 
-
-
     // on move: remove selected text; on copy: duplicate text
-    KTextEditor::Cursor startCursor1(m_cursor);
-    m_doc->insertText(m_cursor, text );
+    m_doc->insertText(targetCursor, text );
 
-    KateSmartCursor startCursor(startCursor1,m_doc);
+    KateSmartCursor startCursor(targetCursor,m_doc);
 
     if ( event->dropAction() != Qt::CopyAction )
-      m_view->removeSelectedText();
-
-
-
-    m_doc->editEnd ();
-
-    placeCursor( event->pos() );
-    event->acceptProposedAction();
-    updateView();
+      m_doc->removeText(undoSelection);
 
     KateSmartCursor endCursor1(startCursor,m_doc);
     endCursor1.advance(text.length(),KTextEditor::SmartCursor::ByCharacter);
     KTextEditor::Cursor endCursor(endCursor1);
     kDebug( 13030 )<<startCursor<<"---("<<text.length()<<")---"<<endCursor;
     m_view->setSelection(KTextEditor::Range(startCursor,endCursor));
+    editSetCursor(endCursor);
 
+    m_doc->editEnd ();
+
+    event->acceptProposedAction();
     updateView();
   }
 

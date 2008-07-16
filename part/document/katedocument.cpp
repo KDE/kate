@@ -1006,6 +1006,10 @@ void KateDocument::undoStart()
 
   // new current undo item
   m_editCurrentUndo = new KateUndoGroup(this);
+  if (m_activeView) {
+    m_editCurrentUndo->setUndoCursor(m_activeView->cursorPosition());
+    m_editCurrentUndo->setUndoSelection(m_activeView->selectionRange());
+  }
 }
 
 void KateDocument::undoEnd()
@@ -1016,6 +1020,11 @@ void KateDocument::undoEnd()
   if (m_editCurrentUndo)
   {
     bool changedUndo = false;
+
+    if (m_activeView) {
+        m_editCurrentUndo->setRedoCursor(m_activeView->cursorPosition());
+        m_editCurrentUndo->setRedoSelection(m_activeView->selectionRange());
+    }
 
     if (m_editCurrentUndo->isEmpty())
       delete m_editCurrentUndo;
@@ -1249,11 +1258,6 @@ bool KateDocument::wrapText(int startLine, int endLine)
 void KateDocument::editAddUndo (int type, uint line, uint col, uint len, const QString &text)
 {
   if (editIsRunning && editWithUndo && m_editCurrentUndo) {
-    // save selection and cursor position
-    if (KateView *view = activeKateView()) {
-      m_editCurrentUndo->setCursorPosition(view->cursorPosition());
-      m_editCurrentUndo->setSelection(view->selectionRange());
-    }
     m_editCurrentUndo->addItem(static_cast<KateUndoGroup::UndoType>(type), line, col, len, text);
 
     // Clear redo buffer

@@ -84,16 +84,28 @@ class KateUndoGroup
     void addItem (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text);
 
     /**
-     * sets the text selection range for the edit group.
+     * sets the undo text selection range for the edit group.
      * @param selection selection to remember
      */
-    void setSelection (const KTextEditor::Range &selection);
+    void setUndoSelection (const KTextEditor::Range &selection);
 
     /**
-     * sets the cursor position for the edit group.
+     * sets the redo text selection range for the edit group.
      * @param selection selection to remember
      */
-    void setCursorPosition (const KTextEditor::Cursor &cursor);
+    void setRedoSelection (const KTextEditor::Range &selection);
+
+    /**
+     * sets the undo cursor position for the edit group.
+     * @param selection selection to remember
+     */
+    void setUndoCursor(const KTextEditor::Cursor &cursor);
+
+    /**
+     * sets the redo cursor position for the edit group.
+     * @param selection selection to remember
+     */
+    void setRedoCursor(const KTextEditor::Cursor &cursor);
 
     /**
      * merge this group with an other
@@ -152,12 +164,22 @@ class KateUndoGroup
     /**
      * the text selection of the active view before the edit step
      */
-    KTextEditor::Range m_selection;
+    KTextEditor::Range m_undoSelection;
+
+    /**
+     * the text selection of the active view after the edit step
+     */
+    KTextEditor::Range m_redoSelection;
 
     /**
      * the cursor position of the active view before the edit step
      */
-    KTextEditor::Cursor m_cursor;
+    KTextEditor::Cursor m_undoCursor;
+
+    /**
+     * the cursor position of the active view after the edit step
+     */
+    KTextEditor::Cursor m_redoCursor;
 };
 
 #endif

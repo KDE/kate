@@ -20,7 +20,7 @@
 #ifndef _KATESESSIONAPPLET_H_
 #define _KATESESSIONAPPLET_H_
 
-#include <plasmaappletdialog.h>
+#include <plasma/popupapplet.h>
 
 class QTreeView;
 class QGraphicsProxyWidget;
@@ -28,7 +28,7 @@ class QStandardItemModel;
 class QModelIndex;
 
 
-class KateSessionApplet : public PlasmaAppletDialog
+class KateSessionApplet : public Plasma::PopupApplet
 {
     Q_OBJECT
 public:
@@ -47,7 +47,6 @@ protected slots:
 
 protected:
     void initSessionFiles();
-    void initialize();
 private:
     QTreeView *m_listView;
     QStandardItemModel *m_kateModel;

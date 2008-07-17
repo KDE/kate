@@ -39,7 +39,7 @@
 
 
 KateSessionApplet::KateSessionApplet(QObject *parent, const QVariantList &args)
-    : PlasmaAppletDialog(parent, args), m_listView( 0 )
+    : Plasma::PopupApplet(parent, args), m_listView( 0 )
 {
     KDirWatch *dirwatch = new KDirWatch( this );
     QStringList lst = KGlobal::dirs()->findDirs( "data", "kate/sessions/" );
@@ -48,22 +48,19 @@ KateSessionApplet::KateSessionApplet(QObject *parent, const QVariantList &args)
         dirwatch->addDir( lst[i] );
     }
     connect( dirwatch, SIGNAL(dirty (const QString &) ), this, SLOT( slotUpdateSessionMenu() ) );
+    setIcon( "kate" );
 }
 
 KateSessionApplet::~KateSessionApplet()
 {
-}
-
-void KateSessionApplet::initialize()
-{
-    m_icon = new Plasma::Icon(KIcon("kate"), QString(), this);
+    delete m_listView;
 }
 
 QWidget *KateSessionApplet::widget()
 {
     if ( !m_listView )
     {
-        m_listView= new QTreeView(m_dialog);
+        m_listView= new QTreeView();
         m_listView->setEditTriggers( QAbstractItemView::NoEditTriggers );
         m_listView->setRootIsDecorated(false);
         m_listView->setHeaderHidden(true);
@@ -83,7 +80,6 @@ QWidget *KateSessionApplet::widget()
                     this, SLOT(slotOnItemClicked(const QModelIndex &)));
         }
     }
-    m_icon->resize(contentsRect().size());
     return m_listView;
 }
 
@@ -132,8 +128,7 @@ void KateSessionApplet::initSessionFiles()
 
 void KateSessionApplet::slotOnItemClicked(const QModelIndex &index)
 {
-    if ( m_closePopup )
-        m_dialog->hide();
+    hidePopup();
     int id = index.data(Index).toInt();
     QStringList args;
     if ( id > 0 )

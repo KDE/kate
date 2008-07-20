@@ -27,7 +27,6 @@
 
 #include <QSpinBox>
 #include <QGroupBox>
-#include <QTabWidget>
 #include <QPushButton>
 #include <QCheckBox>
 #include <QLabel>
@@ -42,6 +41,7 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <kcolorbutton.h>
+#include <ktabwidget.h>
 
 #include <kdebug.h>
 
@@ -63,7 +63,7 @@ void KTinyTabBarConfigPage::setupGUI( QWidget* parent )
     QVBoxLayout* top = new QVBoxLayout( parent );
     top->setSpacing( KDialog::spacingHint() );
     top->setMargin( 0 );
-    QTabWidget* tabWidget = new QTabWidget( parent );
+    KTabWidget* tabWidget = new KTabWidget( parent );
     top->addWidget( tabWidget );
     QGroupBox* gbPreview = new QGroupBox( i18n( "Preview" ), this );
     top->addWidget( gbPreview );

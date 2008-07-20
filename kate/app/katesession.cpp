@@ -187,8 +187,8 @@ void KateSession::makeAnonymous()
   delete m_writeConfig;
   m_writeConfig = 0;
 
-  m_sessionFileRel = QString();
-  m_sessionName = QString();
+  m_sessionFileRel.clear();
+  m_sessionName.clear();
 }
 
 //END KateSession

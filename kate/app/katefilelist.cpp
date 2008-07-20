@@ -29,10 +29,10 @@
 #include <kcolorbutton.h>
 #include <KLocale>
 #include <KColorScheme>
+#include <KComboBox>
 
 #include <QtGui/QCheckBox>
 #include <QtGui/QLabel>
-#include <QtGui/QComboBox>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QGridLayout>
 #include <QtGui/QGroupBox>
@@ -239,7 +239,7 @@ KateFileListConfigPage::KateFileListConfigPage( QWidget* parent, KateFileList *f
   layout->addItem( lo2 );
   lSort = new QLabel( i18n("&Sort by:"), this );
   lo2->addWidget( lSort );
-  cmbSort = new QComboBox( this );
+  cmbSort = new KComboBox( this );
   lo2->addWidget( cmbSort );
   lSort->setBuddy( cmbSort );
   cmbSort->addItem(i18n("Opening Order"), (int)KateFileList::SortOpening);
@@ -305,7 +305,7 @@ void KateFileListConfigPage::reload()
   gbEnableShading->setChecked( config.readEntry("Shading Enabled", m_filelist->shadingEnabled()) );
   kcbViewShade->setColor( config.readEntry("View Shade", m_filelist->viewShade() ) );
   kcbEditShade->setColor( config.readEntry("Edit Shade", m_filelist->editShade() ) );
-   cmbSort->setCurrentItem( cmbSort->findData(m_filelist->sortRole()) );
+  cmbSort->setCurrentIndex( cmbSort->findData(m_filelist->sortRole()) );
   m_changed = false;
 }
 

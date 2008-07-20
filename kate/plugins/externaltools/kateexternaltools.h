@@ -227,10 +227,10 @@ class KateExternalToolServiceEditor : public KDialog
     explicit KateExternalToolServiceEditor( KateExternalTool *tool = 0,
         	                            QWidget *parent = 0, const char *name = 0 );
 
-    class QLineEdit *leName, *leExecutable, *leMimetypes, *leCmdLine;
+    class KLineEdit *leName, *leExecutable, *leMimetypes, *leCmdLine;
     class QTextEdit *teCommand;
     class KIconButton *btnIcon;
-    class QComboBox *cmbSave;
+    class KComboBox *cmbSave;
 
   private Q_SLOTS:
     /**

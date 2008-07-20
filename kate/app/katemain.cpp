@@ -104,7 +104,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
   // now, first try to contact running kate instance if needed
-  if ( (args->isSet("use")) || (::getenv("KATE_PID") != 0))
+  if ( (args->isSet("use")) || (!qgetenv("KATE_PID").isEmpty()))
   {
     // inialize the dbus stuff...
     // bus interface
@@ -114,11 +114,11 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     QString serviceName;
   
     // two possibilities: pid given or not...
-    if ( (args->isSet("pid")) || (::getenv("KATE_PID") != 0))
+    if ( (args->isSet("pid")) || (!qgetenv("KATE_PID").isEmpty()))
     {
       QString usePid;
       if (args->isSet("pid")) usePid = args->getOption("pid");
-      else usePid = QString::fromLocal8Bit(::getenv("KATE_PID"));
+      else usePid = QString::fromLocal8Bit(qgetenv("KATE_PID"));
       
       serviceName = "org.kde.kate-" + usePid;
     }

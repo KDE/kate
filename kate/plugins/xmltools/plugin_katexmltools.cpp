@@ -121,8 +121,8 @@ PluginKateXMLTools::PluginKateXMLTools( QObject* parent, const QStringList& )
 {
   //kDebug() << "PluginKateXMLTools constructor called";
 
-  m_dtdString = QString();
-  m_urlString = QString();
+  m_dtdString.clear();
+  m_urlString.clear();
   m_docToAssignTo = 0L;
 
   m_mode = none;

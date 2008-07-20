@@ -149,8 +149,8 @@ class KateTemplateInfoWidget : public QWidget
 
     TemplateInfo *info;
 
-    class QLineEdit *leTemplate, *leDocumentName, *leDescription, *leAuthor;
-    class QComboBox *cmbGroup;
+    class KLineEdit *leTemplate, *leDocumentName, *leDescription, *leAuthor;
+    class KComboBox *cmbGroup;
     class QPushButton *btnHighlight;
     class KIconButton *ibIcon;
 
@@ -205,7 +205,7 @@ class KateTemplateWizard : public QWizard
     // location page
     class QButtonGroup *bgLocation;
     class KUrlRequester *urLocation;
-    class QLineEdit *leTemplateFileName;
+    class KLineEdit *leTemplateFileName;
 
     // macro replacement page
     class QCheckBox *cbRRealname, *cbRUsername, *cbREmail;

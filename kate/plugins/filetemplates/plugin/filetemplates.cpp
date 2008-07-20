@@ -26,6 +26,7 @@
 #include <kaction.h>
 #include <kactionmenu.h>
 #include <kactioncollection.h>
+#include <kcombobox.h>
 #include <kconfig.h>
 #include <kdialog.h>
 #include <kdirwatch.h>
@@ -34,6 +35,7 @@
 #include <kicondialog.h>
 #include <kiconloader.h>
 #include <kio/netaccess.h>
+#include <klineedit.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 // #include <knewstuff2/core/entry.h>
@@ -46,12 +48,10 @@
 
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
-#include <qcombobox.h>
 #include <qcursor.h>
 #include <qdatetime.h>
 #include <qlabel.h>
 #include <qlayout.h>
-#include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qregexp.h>
@@ -531,7 +531,7 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
   QLabel *l = new QLabel( i18n("&Template:"), this );
   KHBox *hb = new KHBox( this );
   hb->setSpacing( KDialog::spacingHint() );
-  leTemplate = new QLineEdit( hb );
+  leTemplate = new KLineEdit( hb );
   l->setBuddy( leTemplate );
   leTemplate->setToolTip( i18n("<p>This string is used as the template's name "
       "and is displayed, for example, in the Template menu. It should describe the "
@@ -541,7 +541,7 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
       "Press to select or change the icon for this template") );
 
   l = new QLabel( i18n("&Group:"), this );
-  cmbGroup = new QComboBox( true, this );
+  cmbGroup = new KComboBox( true, this );
   cmbGroup->insertStringList( kft->groups() );
   l->setBuddy( cmbGroup );
   cmbGroup->setToolTip(i18n("<p>The group is used for choosing a "
@@ -549,7 +549,7 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
       "<p>You can type any string to add a new group to your menu.</p>") );
 
   l = new QLabel( i18n("Document &name:"), this );
-  leDocumentName = new QLineEdit( this );
+  leDocumentName = new KLineEdit( this );
   l->setBuddy( leDocumentName );
   leDocumentName->setToolTip( i18n("<p>This string will be used to set a name "
       "for the new document, to display in the title bar and file list.</p>"
@@ -566,14 +566,14 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
     "template. If 'None' is chosen, the property will not be set.</p>") );
 
   l = new QLabel( i18n("&Description:"), this );
-  leDescription = new QLineEdit( this );
+  leDescription = new KLineEdit( this );
   l->setBuddy( leDescription );
   leDescription->setToolTip(i18n("<p>This string is used, for example, as "
       "context help for this template (such as the 'whatsthis' help for the "
       "menu item.)</p>") );
 
   l = new QLabel( i18n("&Author:"), this );
-  leAuthor = new QLineEdit( this );
+  leAuthor = new KLineEdit( this );
   l->setBuddy( leAuthor );
   leAuthor->setToolTip(i18n("<p>You can set this if you want to share your "
       "template with other users.</p>"
@@ -744,7 +744,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   rb->setChecked( true );
 
   glo->addMultiCell( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 3, 4, 1, 1 );
-  leTemplateFileName = new QLineEdit( page );
+  leTemplateFileName = new KLineEdit( page );
   QLabel *l = new QLabel( leTemplateFileName, i18n("Template &file name:"), page );
 
   glo->addWidget( l, 3, 2 );

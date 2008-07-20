@@ -37,6 +37,8 @@
 #include <KXmlGuiWindow>
 #include <KConfig>
 #include <KConfigGroup>
+#include <KComboBox>
+#include <KLineEdit>
 #include <KRun>
 #include <KIconDialog>
 #include <KMenu>
@@ -44,10 +46,8 @@
 #include <kdebug.h>
 
 #include <QBitmap>
-#include <QComboBox>
 #include <QFile>
 #include <QLabel>
-#include <QLineEdit>
 #include <QPushButton>
 #include <QRegExp>
 #include <QToolButton>
@@ -103,9 +103,13 @@ bool KateExternalTool::checkExec()
       // !!! Sergey A. Sukiyazov <corwin@micom.don.ru> !!!
       // Environment PATH may contain filenames in 8bit locale cpecified
       // encoding (Like a filenames).
-      QString path = QFile::decodeName(::getenv("PATH"));
-      QStringList dirs = path.split(':', QString::SkipEmptyParts);
-      QStringList::Iterator it(dirs.begin());
+      const QString path = QFile::decodeName(qgetenv("PATH"));
+#ifdef Q_WS_WIN
+      const QStringList dirs = path.split(';', QString::SkipEmptyParts);
+#else
+      const QStringList dirs = path.split(':', QString::SkipEmptyParts);
+#endif
+      QStringList::ConstIterator it(dirs.begin());
       bool match = false;
       for (; it != dirs.end(); ++it)
       {
@@ -489,7 +493,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor( KateExternalTool *
 
   QLabel *l;
 
-  leName = new QLineEdit( w );
+  leName = new KLineEdit( w );
   lo->addWidget( leName, 1, 2 );
   l = new QLabel( w );
   l->setBuddy( leName );
@@ -531,7 +535,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor( KateExternalTool *
                             "<li><code>%text</code> - the text of the current document.</li></ul>" ) );
 
 
-  leExecutable = new QLineEdit( w );
+  leExecutable = new KLineEdit( w );
   lo->addWidget( leExecutable, 3, 2, 1, 2 );
   l = new QLabel( w );
   l->setBuddy( leExecutable );
@@ -544,7 +548,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor( KateExternalTool *
                                "should be displayed; if not set, the first word of <em>command</em> "
                                "will be used.") );
 
-  leMimetypes = new QLineEdit( w );
+  leMimetypes = new KLineEdit( w );
   lo->addWidget( leMimetypes, 4, 2 );
   l = new QLabel( w );
   l->setBuddy( leMimetypes );
@@ -564,7 +568,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor( KateExternalTool *
   btnMTW->setWhatsThis(i18n(
                          "Click for a dialog that can help you creating a list of mimetypes.") );
 
-  cmbSave = new QComboBox(w);
+  cmbSave = new KComboBox(w);
   lo->addWidget( cmbSave, 5, 2, 1, 2 );
   l = new QLabel( w );
   l->setBuddy( cmbSave );
@@ -581,7 +585,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor( KateExternalTool *
                           "an application like, for example, an FTP client.") );
 
 
-  leCmdLine = new QLineEdit( w );
+  leCmdLine = new KLineEdit( w );
   lo->addWidget( leCmdLine, 6, 2, 1, 2 );
   l = new QLabel( i18n("&Command line name:"), w );
   l->setBuddy( leCmdLine );

@@ -637,7 +637,7 @@ bool PluginKateMakeView::slotValidate()
 	doc->save();
 	KUrl url(doc->url());
 
-	output_line = QString();
+	output_line.clear();
 	ErrorMessage::resetSerial();
 	found_error=false;
 

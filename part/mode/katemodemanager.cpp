@@ -18,7 +18,6 @@
 
 //BEGIN Includes
 #include "katemodemanager.h"
-#include "katemodemanager.moc"
 #include "katewildcardmatcher.h"
 
 #include "katedocument.h"

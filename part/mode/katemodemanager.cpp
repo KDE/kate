@@ -46,7 +46,6 @@
 
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
-#include <QtGui/QLineEdit>
 #include <QtGui/QPushButton>
 #include <QtGui/QToolButton>
 #include <kvbox.h>

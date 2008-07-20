@@ -93,7 +93,6 @@
 #include <QtGui/QGroupBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
-#include <QtGui/QLineEdit>
 #include <QtCore/QMap>
 #include <QtCore/QObject>
 #include <QtGui/QPainter>

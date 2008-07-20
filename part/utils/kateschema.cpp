@@ -55,7 +55,6 @@
 #include <QtGui/QLabel>
 #include <QtCore/QTextCodec>
 #include <QtGui/QLayout>
-#include <QtGui/QLineEdit>
 #include <QtGui/QPainter>
 #include <QtCore/QObject>
 #include <QtGui/QPixmap>

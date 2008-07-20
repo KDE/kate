@@ -66,7 +66,6 @@ class KProcess;
 
 class QCheckBox;
 class QLabel;
-class QLineEdit;
 class QSpinBox;
 class QToolButton;
 class QCheckBox;
@@ -273,8 +272,6 @@ class KateSaveConfigTab : public KateConfigPage
     //KComboBox *m_encoding, *m_encodingDetection, *m_eol;
     QCheckBox *cbLocalFiles, *cbRemoteFiles;
     QCheckBox *replaceTabs, *removeSpaces, *allowEolDetection;
-    QLineEdit *leBuPrefix;
-    QLineEdit *leBuSuffix;
     KIntNumInput *dirSearchDepth;
     class QSpinBox *blockCount;
     class QLabel *blockCountLabel;

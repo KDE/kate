@@ -50,7 +50,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="editorCombo" />
+      <widget class="KComboBox" name="editorCombo" />
      </item>
     </layout>
    </item>

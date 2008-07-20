@@ -31,7 +31,7 @@
 #include <QtCore/QList>
 #include <QtCore/QVariantList>
 
-static QString localizedTimeDate = QString();
+static QString localizedTimeDate;
 
 class TimeDatePlugin
   : public KTextEditor::Plugin

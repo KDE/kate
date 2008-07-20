@@ -36,6 +36,7 @@
 #include <kglobal.h>
 #include <kcharsets.h>
 #include <kencodingdetector.h>
+#include <kde_file.h>
 
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
@@ -391,8 +392,8 @@ bool KateBuffer::openFile (const QString &m_file)
   KateFileLoader file (m_file, m_doc->config()->codec(), m_doc->config()->configFlags() & KateDocumentConfig::cfRemoveSpaces, m_doc->scriptForEncodingAutoDetection());
 
   bool ok = false;
-  struct stat sbuf;
-  if (stat(QFile::encodeName(m_file), &sbuf) == 0)
+  KDE_struct_stat sbuf;
+  if (KDE_stat(QFile::encodeName(m_file), &sbuf) == 0)
   {
     if (S_ISREG(sbuf.st_mode) && file.open())
       ok = true;

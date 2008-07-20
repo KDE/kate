@@ -40,6 +40,7 @@
 #include <kdeprintdialog.h>
 #include <kurl.h>
 #include <kuser.h> // for loginName
+#include <klineedit.h>
 
 #include <QtGui/QPainter>
 #include <QtGui/QCheckBox>
@@ -51,7 +52,6 @@
 
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
-#include <QtGui/QLineEdit>
 #include <QtGui/QSpinBox>
 #include <QtCore/QStringList>
 #include <kvbox.h>
@@ -735,9 +735,9 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   grid->addWidget(hbHeaderFormat, 0, 1);
 
   hbHeaderFormat->setSpacing( sp );
-  leHeaderLeft = new QLineEdit( hbHeaderFormat );
-  leHeaderCenter = new QLineEdit( hbHeaderFormat );
-  leHeaderRight = new QLineEdit( hbHeaderFormat );
+  leHeaderLeft = new KLineEdit( hbHeaderFormat );
+  leHeaderCenter = new KLineEdit( hbHeaderFormat );
+  leHeaderRight = new KLineEdit( hbHeaderFormat );
   lHeaderFormat->setBuddy( leHeaderLeft );
 
   grid->addWidget(new QLabel( i18n("Colors:"), gbHeader ), 1, 0);
@@ -765,9 +765,9 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   grid->addWidget(hbFooterFormat, 0, 1);
 
   hbFooterFormat->setSpacing( sp );
-  leFooterLeft = new QLineEdit( hbFooterFormat );
-  leFooterCenter = new QLineEdit( hbFooterFormat );
-  leFooterRight = new QLineEdit( hbFooterFormat );
+  leFooterLeft = new KLineEdit( hbFooterFormat );
+  leFooterCenter = new KLineEdit( hbFooterFormat );
+  leFooterRight = new KLineEdit( hbFooterFormat );
   lFooterFormat->setBuddy( leFooterLeft );
 
   grid->addWidget(new QLabel( i18n("Colors:"), gbFooter ), 1, 0);

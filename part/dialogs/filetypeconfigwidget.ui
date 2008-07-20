@@ -35,7 +35,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="cmbFiletypes" >
+      <widget class="KComboBox" name="cmbFiletypes" >
        <property name="whatsThis" >
         <string>Select the filetype you want to change.</string>
        </property>
@@ -93,7 +93,7 @@
        </widget>
       </item>
       <item row="0" column="1" >
-       <widget class="QLineEdit" name="edtName" >
+       <widget class="KLineEdit" name="edtName" >
         <property name="whatsThis" >
          <string>The name of the filetype will be the text of the corresponding menu item.</string>
         </property>
@@ -110,7 +110,7 @@
        </widget>
       </item>
       <item row="1" column="1" >
-       <widget class="QLineEdit" name="edtSection" >
+       <widget class="KLineEdit" name="edtSection" >
         <property name="whatsThis" >
          <string>The section name is used to organize the file types in menus.</string>
         </property>
@@ -127,7 +127,7 @@
        </widget>
       </item>
       <item row="2" column="1" >
-       <widget class="QLineEdit" name="edtVariables" >
+       <widget class="KLineEdit" name="edtVariables" >
         <property name="whatsThis" >
          <string>&lt;p>This string allows to configure Kate's settings for the files selected by this mimetype using Kate variables. Almost any configuration option can be set, such as highlight, indent-mode, encoding, etc.&lt;/p>&lt;p>For a full list of known variables, see the manual.&lt;/p></string>
         </property>
@@ -154,7 +154,7 @@
        </widget>
       </item>
       <item row="4" column="1" >
-       <widget class="QLineEdit" name="edtFileExtensions" >
+       <widget class="KLineEdit" name="edtFileExtensions" >
         <property name="whatsThis" >
          <string>The wildcards mask allows to select files by filename. A typical mask uses an asterisk and the file extension, for example &lt;code>*.txt; *.text&lt;/code>. The string is a semicolon-separated list of masks.</string>
         </property>
@@ -188,7 +188,7 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="edtMimeTypes" >
+         <widget class="KLineEdit" name="edtMimeTypes" >
           <property name="whatsThis" >
            <string>The mime type mask allows to select files by mimetype. The string is a semicolon-separated list of mimetypes, for example &lt;code>text/plain; text/english&lt;/code>.</string>
           </property>
@@ -221,7 +221,7 @@
        </widget>
       </item>
       <item row="3" column="1" >
-       <widget class="QComboBox" name="cmbHl" />
+       <widget class="KComboBox" name="cmbHl" />
       </item>
      </layout>
     </widget>

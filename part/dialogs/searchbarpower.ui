@@ -51,7 +51,7 @@
           <number>2</number>
          </property>
          <item>
-          <widget class="QComboBox" name="pattern" >
+          <widget class="KComboBox" name="pattern" >
            <property name="sizePolicy" >
             <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
              <horstretch>0</horstretch>
@@ -117,7 +117,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QComboBox" name="searchMode" >
+            <widget class="KComboBox" name="searchMode" >
              <property name="toolTip" >
               <string>Search mode</string>
              </property>
@@ -341,7 +341,7 @@
           <number>2</number>
          </property>
          <item>
-          <widget class="QComboBox" name="replacement" >
+          <widget class="KComboBox" name="replacement" >
            <property name="sizePolicy" >
             <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
              <horstretch>0</horstretch>

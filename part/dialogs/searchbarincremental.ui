@@ -48,7 +48,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="pattern" >
+      <widget class="KLineEdit" name="pattern" >
        <property name="sizePolicy" >
         <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
          <horstretch>1</horstretch>

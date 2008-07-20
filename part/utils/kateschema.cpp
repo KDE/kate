@@ -48,6 +48,7 @@
 #include <kaboutdata.h>
 #include <ktexteditor/markinterface.h>
 #include <khbox.h>
+#include <ktabwidget.h>
 
 #include <QtGui/QCheckBox>
 #include <QtGui/QDialog>
@@ -62,7 +63,6 @@
 #include <QtGui/QRadioButton>
 #include <QtGui/QSpinBox>
 #include <QtCore/QStringList>
-#include <QtGui/QTabWidget>
 #include <QtGui/QPolygon>
 #include <QtGui/QGroupBox>
 #include <QtGui/QTreeWidget>
@@ -549,7 +549,7 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigFontC
 
   hbHl->setSpacing( KDialog::spacingHint() );
   QLabel *lHl = new QLabel( i18n("H&ighlight:"), hbHl );
-  hlCombo = new QComboBox( hbHl );
+  hlCombo = new KComboBox( hbHl );
   hlCombo->setEditable( false );
   lHl->setBuddy( hlCombo );
   connect( hlCombo, SIGNAL(activated(int)),
@@ -706,7 +706,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument * )
   layout->addWidget(hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
   QLabel *lHl = new QLabel( i18n("&Schema:"), hbHl );
-  schemaCombo = new QComboBox( hbHl );
+  schemaCombo = new KComboBox( hbHl );
   schemaCombo->setEditable( false );
   lHl->setBuddy( schemaCombo );
   connect( schemaCombo, SIGNAL(activated(int)),
@@ -718,7 +718,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument * )
   btndel = new QPushButton( i18n("&Delete"), hbHl );
   connect( btndel, SIGNAL(clicked()), this, SLOT(deleteSchema()) );
 
-  m_tabWidget = new QTabWidget ( this );
+  m_tabWidget = new KTabWidget ( this );
   layout->addWidget (m_tabWidget);
 
   connect (m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT (newCurrentPage(int)));
@@ -743,7 +743,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument * )
   layout->addWidget (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
   lHl = new QLabel( i18n("&Default schema for %1:", KGlobal::mainComponent().aboutData()->programName ()), hbHl );
-  defaultSchemaCombo = new QComboBox( hbHl );
+  defaultSchemaCombo = new KComboBox( hbHl );
   defaultSchemaCombo->setEditable( false );
   lHl->setBuddy( defaultSchemaCombo );
 

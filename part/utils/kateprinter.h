@@ -30,7 +30,7 @@ class QCheckBox;
 class QComboBox;
 class QGroupBox;
 class QLabel;
-class QLineEdit;
+class KLineEdit;
 class QSpinBox;
 
 class KatePrinter
@@ -102,10 +102,10 @@ class KatePrintHeaderFooter : public QWidget
     QCheckBox *cbEnableHeader, *cbEnableFooter;
     QLabel *lFontPreview;
     QGroupBox *gbHeader, *gbFooter;
-    QLineEdit *leHeaderLeft, *leHeaderCenter, *leHeaderRight;
+    KLineEdit *leHeaderLeft, *leHeaderCenter, *leHeaderRight;
     KColorButton *kcbtnHeaderFg, *kcbtnHeaderBg;
     QCheckBox *cbHeaderEnableBgColor;
-    QLineEdit *leFooterLeft, *leFooterCenter, *leFooterRight;
+    KLineEdit *leFooterLeft, *leFooterCenter, *leFooterRight;
     KColorButton *kcbtnFooterFg, *kcbtnFooterBg;
     QCheckBox *cbFooterEnableBgColor;
 };

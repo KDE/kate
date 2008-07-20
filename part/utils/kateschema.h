@@ -36,7 +36,8 @@ class KateStyleTreeWidget;
 
 class QAction;
 class QActionGroup;
-class QComboBox;
+class KComboBox;
+class KTabWidget;
 
 namespace Ui { class SchemaConfigColorTab; }
 
@@ -228,7 +229,7 @@ class KateSchemaConfigHighlightTab : public QWidget
   private:
     KateSchemaConfigFontColorTab *m_defaults;
 
-    QComboBox *hlCombo;
+    KComboBox *hlCombo;
     KateStyleTreeWidget *m_styles;
 
     int m_schema;
@@ -263,10 +264,10 @@ class KateSchemaConfigPage : public KateConfigPage
     int m_lastSchema;
     int m_defaultSchema;
 
-    class QTabWidget *m_tabWidget;
+    class KTabWidget *m_tabWidget;
     class QPushButton *btndel;
-    class QComboBox *defaultSchemaCombo;
-    class QComboBox *schemaCombo;
+    class KComboBox *defaultSchemaCombo;
+    class KComboBox *schemaCombo;
     KateSchemaConfigColorTab *m_colorTab;
     KateSchemaConfigFontTab *m_fontTab;
     KateSchemaConfigFontColorTab *m_fontColorTab;

@@ -96,14 +96,14 @@
        <number>6</number>
       </property>
       <item row="3" column="1" >
-       <widget class="QLineEdit" name="edtBackupSuffix" >
+       <widget class="KLineEdit" name="edtBackupSuffix" >
         <property name="whatsThis" >
          <string>Enter the suffix to append to the backup file names.</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1" >
-       <widget class="QLineEdit" name="edtBackupPrefix" >
+       <widget class="KLineEdit" name="edtBackupPrefix" >
         <property name="whatsThis" >
          <string>Enter the prefix to prepend to the backup file names.</string>
         </property>

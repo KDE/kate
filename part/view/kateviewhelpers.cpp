@@ -378,7 +378,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     clear();
     KateCmd::self()->appendHistory( cmd );
     m_histpos = KateCmd::self()->historyLength();
-    m_oldText = QString ();
+    m_oldText.clear();
     return;
   }
 
@@ -397,7 +397,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
       {
         KateCmd::self()->appendHistory( cmd );
         m_histpos = KateCmd::self()->historyLength();
-        m_oldText = QString ();
+        m_oldText.clear();
 
         if (msg.length() > 0)
           setText (i18n ("Success: ") + msg);
@@ -708,7 +708,7 @@ void KateIconBorder::removeAnnotationHovering()
   // remove hovering if it's still there
   if (m_annotationBorderOn && !m_hoveredAnnotationText.isEmpty())
   {
-    m_hoveredAnnotationText = QString();
+    m_hoveredAnnotationText.clear();
     hideAnnotationTooltip();
     QTimer::singleShot( 0, this, SLOT(update()) );
   }
@@ -1252,7 +1252,7 @@ void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
     }
     else
     {
-      m_hoveredAnnotationText = QString();
+      m_hoveredAnnotationText.clear();
       hideAnnotationTooltip();
       QTimer::singleShot( 0, this, SLOT(update()) );
     }

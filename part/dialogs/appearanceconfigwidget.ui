@@ -57,7 +57,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="cmbDynamicWordWrapIndicator" >
+         <widget class="KComboBox" name="cmbDynamicWordWrapIndicator" >
           <property name="whatsThis" >
            <string>Choose when the Dynamic Word Wrap Indicators should be displayed.</string>
           </property>

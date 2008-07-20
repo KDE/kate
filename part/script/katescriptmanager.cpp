@@ -33,6 +33,7 @@
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include <kstandarddirs.h>
+#include <kde_file.h>
 
 #include "kateglobal.h"
 
@@ -104,9 +105,9 @@ void KateScriptManager::collect(const QString& resourceFile,
     config.changeGroup(group);
 
     // stat the file to get the last-modified-time
-    struct stat sbuf;
+    KDE_struct_stat sbuf;
     memset(&sbuf, 0, sizeof(sbuf));
-    stat(QFile::encodeName(*fileit), &sbuf);
+    KDE_stat(QFile::encodeName(*fileit), &sbuf);
 
     // check whether file is already cached
     bool useCache = false;

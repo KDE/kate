@@ -80,7 +80,7 @@
          </widget>
         </item>
         <item row="2" column="1" >
-         <widget class="QComboBox" name="cmbEOL" >
+         <widget class="KComboBox" name="cmbEOL" >
           <item>
            <property name="text" >
             <string>UNIX</string>
@@ -99,10 +99,10 @@
          </widget>
         </item>
         <item row="0" column="1" >
-         <widget class="QComboBox" name="cmbEncoding" />
+         <widget class="KComboBox" name="cmbEncoding" />
         </item>
         <item row="1" column="1" >
-         <widget class="QComboBox" name="cmbEncodingDetection" />
+         <widget class="KComboBox" name="cmbEncodingDetection" />
         </item>
        </layout>
       </item>

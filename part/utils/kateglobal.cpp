@@ -30,6 +30,7 @@
 #include "katecmd.h"
 #include "katebuffer.h"
 #include "katepartpluginmanager.h"
+#include "kateviglobal.h"
 
 #include <klocale.h>
 #include <kservicetypetrader.h>
@@ -124,6 +125,11 @@ KateGlobal::KateGlobal ()
   //
   m_schemaManager = new KateSchemaManager ();
 
+  //
+  // vi input mode global
+  //
+  m_viInputModeGlobal = new KateViGlobal ();
+
   // config objects
   m_documentConfig = new KateDocumentConfig ();
   m_viewConfig = new KateViewConfig ();
@@ -170,6 +176,8 @@ KateGlobal::~KateGlobal()
   delete m_scriptManager;
   delete m_hlManager;
   delete m_cmdManager;
+
+  delete m_viInputModeGlobal;
 
   s_self = 0;
 }

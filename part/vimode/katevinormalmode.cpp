@@ -19,6 +19,8 @@
 
 #include "katevinormalmode.h"
 #include "katesmartmanager.h"
+#include "kateglobal.h"
+#include "kateviglobal.h"
 #include <QApplication>
 #include <QList>
 
@@ -28,8 +30,7 @@ KateViNormalMode::KateViNormalMode( KateView * view, KateViewInternal * viewInte
   m_viewInternal = viewInternal;
   m_stickyColumn = -1;
   m_extraWordCharacters = ""; // FIXME: make configurable
-  m_numberedRegisters = new QList<QString>;
-  m_registers = new QMap<QChar, QString>;
+  m_defaultRegister = '"';
   m_marks = new QMap<QChar, KTextEditor::SmartCursor*>;
   m_keyParser = new KateViKeySequenceParser();
 
@@ -42,8 +43,6 @@ KateViNormalMode::KateViNormalMode( KateView * view, KateViewInternal * viewInte
 KateViNormalMode::~KateViNormalMode()
 {
   disconnect( m_view->doc(), SIGNAL( textRemoved( const QString& ) ), this, SLOT( textRemoved( const QString& ) ) );
-  delete m_numberedRegisters;
-  delete m_registers;
   delete m_marks;
   delete m_keyParser;
 }
@@ -269,7 +268,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
 /**
  * @return the register given for the command. If no register was given, defaultReg is returned.
  */
-QChar KateViNormalMode::getRegister( const QChar &defaultReg ) const
+QChar KateViNormalMode::getChosenRegister( const QChar &defaultReg ) const
 {
   QChar reg = ( m_register != QChar::Null ) ? m_register : defaultReg;
 
@@ -278,23 +277,8 @@ QChar KateViNormalMode::getRegister( const QChar &defaultReg ) const
 
 QString KateViNormalMode::getRegisterContent( const QChar &reg ) const
 {
-  QString regContent;
-
-  if ( reg >= '1' && reg <= '9' ) { // numbered register
-    regContent = m_numberedRegisters->at( QString( reg ).toInt()-1 );
-  } else if ( reg == '+' ) { // system clipboard register
-      regContent = QApplication::clipboard()->text( QClipboard::Clipboard );
-  } else if ( reg == '*' ) { // system selection register
-      regContent = QApplication::clipboard()->text( QClipboard::Selection );
-  } else { // regular, named register
-    if ( !m_registers->contains( reg ) ) {
-      error( QString ("Nothing in register ") + reg );
-    } else {
-      regContent = m_registers->value( reg );
-    }
-  }
-
-  return regContent;
+    kDebug( 13070 ) << reg;
+    return KateGlobal::self()->viInputModeGlobal()->getRegisterContent( reg );
 }
 
 void KateViNormalMode::error( const QString &errorMsg ) const
@@ -313,9 +297,9 @@ void KateViNormalMode::removeDone()
 
   // multi-line deletes goes to register '1', small deletes (less than one line) to register '-'
   if ( m_registerTemp.indexOf( '\n' ) != -1 ) {
-    reg = getRegister( '1' );
+    reg = getChosenRegister( '1' );
   } else {
-    reg = getRegister( '-' );
+    reg = getChosenRegister( '-' );
   }
 
   fillRegister( reg, m_registerTemp );
@@ -670,44 +654,10 @@ KateViRange KateViNormalMode::findSurrounding( QChar c1, QChar c2, bool inner )
   return r;
 }
 
-void KateViNormalMode::addToNumberedRegister( const QString &text )
-{
-  if ( m_numberedRegisters->size() == 9 ) {
-    m_numberedRegisters->removeLast();
-  }
-
-  // register 0 is used for the last yank command, so insert at position 1
-  m_numberedRegisters->prepend( text );
-
-  kDebug( 13070 ) << "Register 1-9:";
-  for ( int i = 0; i < m_numberedRegisters->size(); i++ ) {
-      kDebug( 13070 ) << "\t Register " << i+1 << ": " << m_numberedRegisters->at( i );
-  }
-}
 
 void KateViNormalMode::fillRegister( const QChar &reg, const QString &text )
 {
-  // the specified register is the "black hole register", don't do anything
-  if ( reg == '_' ) {
-    return;
-  }
-
-  if ( reg >= '1' && reg <= '9' ) { // "kill ring" registers
-    addToNumberedRegister( text );
-  } else if ( reg == '+' ) { // system clipboard register
-      QApplication::clipboard()->setText( text,  QClipboard::Clipboard );
-  } else if ( reg == '*' ) { // system selection register
-      QApplication::clipboard()->setText( text, QClipboard::Selection );
-  } else {
-    m_registers->insert( reg, text );
-  }
-
-  kDebug( 13070 ) << "Register " << reg << " set to " << text;
-
-  if ( reg == '0' || reg == '1' || reg == '-' ) {
-    m_defaultRegister = reg;
-    kDebug( 13070 ) << "Register " << '"' << " set to point to \"" << reg;
-  }
+    KateGlobal::self()->viInputModeGlobal()->fillRegister( reg, text );
 }
 
 /**
@@ -1144,7 +1094,7 @@ bool KateViNormalMode::commandYank()
     }
   }
 
-  fillRegister( getRegister( '0' ), yankedText );
+  fillRegister( getChosenRegister( '0' ), yankedText );
 
   return r;
 }
@@ -1158,7 +1108,7 @@ bool KateViNormalMode::commandYankLine()
   for ( unsigned int i = 0; i < getCount(); i++ ) {
       lines.append( getLine( linenum + i ) + '\n' );
   }
-  fillRegister( getRegister( '0' ), lines );
+  fillRegister( getChosenRegister( '0' ), lines );
 
   return true;
 }
@@ -1176,7 +1126,7 @@ bool KateViNormalMode::commandFormatLines()
 bool KateViNormalMode::commandPaste()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
-  QChar reg = getRegister( m_defaultRegister );
+  QChar reg = getChosenRegister( m_defaultRegister );
 
   QString textToInsert = getRegisterContent( reg );
 
@@ -1204,7 +1154,7 @@ bool KateViNormalMode::commandPaste()
 bool KateViNormalMode::commandPasteBefore()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
-  QChar reg = getRegister( m_defaultRegister );
+  QChar reg = getChosenRegister( m_defaultRegister );
 
   QString textToInsert = getRegisterContent( reg );
 

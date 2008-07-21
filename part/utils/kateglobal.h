@@ -49,6 +49,7 @@ class KDirWatch;
 class KateHlManager;
 class KateCmd;
 class KatePartPluginManager;
+class KateViGlobal;
 
 namespace Kate {
   class Command;
@@ -276,6 +277,12 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     KateCmd *cmdManager () { return m_cmdManager; }
 
     /**
+     * vi input mode global
+     * @return vi input mode global
+     */
+    KateViGlobal *viInputModeGlobal () { return m_viInputModeGlobal; }
+
+    /**
      * register given command
      * this works global, for all documents
      * @param cmd command to register
@@ -395,6 +402,11 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * command manager
      */
     KateCmd *m_cmdManager;
+
+    /**
+     * vi input mode global
+     */
+    KateViGlobal *m_viInputModeGlobal;
 
     QList<KTextEditor::Document*> m_docs;
 };

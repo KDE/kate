@@ -4,7 +4,7 @@ set(kateexternaltoolsplugin_PART_SRCS kateexternaltoolsplugin.cpp kateexternalto
 kde4_add_plugin(kateexternaltoolsplugin ${kateexternaltoolsplugin_PART_SRCS})
 
 
-target_link_libraries(kateexternaltoolsplugin ${KDE4_KDECORE_LIBS} kateinterfaces )
+target_link_libraries(kateexternaltoolsplugin ${KDE4_KDECORE_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${KDE4_KPARTS_LIBS} kateinterfaces )
 
 install(TARGETS kateexternaltoolsplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

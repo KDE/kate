@@ -11,7 +11,7 @@ kde4_add_plugin(kateopenheaderplugin ${kateopenheaderplugin_PART_SRCS})
 
 
 
-target_link_libraries(kateopenheaderplugin  kateinterfaces ${KDE4_KIO_LIBS})
+target_link_libraries(kateopenheaderplugin  kateinterfaces ${KDE4_KIO_LIBS} ${KDE4_KPARTS_LIBS})
 
 install(TARGETS kateopenheaderplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

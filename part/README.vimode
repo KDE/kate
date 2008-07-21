@@ -15,3 +15,7 @@ Vim incompatibilities:
 2)
 	Kate:	U and <c-r> is redo
 	Vim:	<c-r> undoes, U is used to "undo all latest changes on one line"
+
+3)
+	Kate:	:print is an alias to :hardcopy
+	Vim:	:print prints the lines of the given range like its grandfather ed

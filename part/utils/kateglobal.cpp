@@ -455,4 +455,13 @@ QStringList KateGlobal::commandList() const
 //END command interface
 
 
+//BEGIN container interface
+QObject * KateGlobal::container()
+{return m_container.data();}
+
+void KateGlobal::setContainer( QObject * container )
+{m_container=container;}
+//END container interface
+
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

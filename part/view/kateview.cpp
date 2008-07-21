@@ -116,14 +116,22 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_selection(m_doc->smartManager()->newSmartRange(KTextEditor::Range::invalid(), 0L, KTextEditor::SmartRange::ExpandRight))
     , blockSelect (false)
     , m_imComposeEvent( false )
-    , m_viewBar (new KateViewBar (this))
+    , m_viewBar (0)
     , m_cmdLine (0)
     , m_searchBar (0)
     , m_gotoBar (0)
 {
+
   setComponentData ( KateGlobal::self()->componentData () );
 
   KateGlobal::self()->registerView( this );
+
+  KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
+  QWidget *barParent=viewBarContainer?viewBarContainer->getViewBarParent(this,KTextEditor::ViewBarContainer::BottomBar):0;
+  
+  m_externalViewBar=barParent;
+
+  m_viewBar=new KateViewBar (m_externalViewBar?barParent:this,this);
 
   m_config = new KateViewConfig (this);
 
@@ -178,7 +186,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   hbox->addWidget (m_viewInternal->m_dummy);
 
   // add viewbar...
-  m_vBox->addWidget(m_viewBar);
+  if (barParent)
+    viewBarContainer->addViewBarToLayout(this,m_viewBar,KTextEditor::ViewBarContainer::BottomBar);
+  else
+    m_vBox->addWidget(m_viewBar);
 
   // this really is needed :)
   m_viewInternal->updateView ();
@@ -223,6 +234,12 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
 KateView::~KateView()
 {
+  if (m_externalViewBar) {
+    KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
+    if (viewBarContainer) viewBarContainer->deleteViewBarForView(this,KTextEditor::ViewBarContainer::BottomBar);
+    m_viewBar=0;
+  }
+
   if (!m_doc->singleViewMode())
     KatePartPluginManager::self()->removeView(this);
 
@@ -243,6 +260,7 @@ KateView::~KateView()
   delete m_renderer;
 
   delete m_config;
+
   KateGlobal::self()->deregisterView (this);
 }
 
@@ -901,6 +919,8 @@ QString KateView::viewMode () const
 
 void KateView::slotGotFocus()
 {
+  kDebug(13020) << "KateView::slotGotFocus";
+
   foreach(QAction *action, editActionCollection()->actions())
     action->setEnabled(true);
   emit focusIn ( this );
@@ -908,8 +928,14 @@ void KateView::slotGotFocus()
 
 void KateView::slotLostFocus()
 {
+  kDebug(13020) << "KateView::slotLostFocus";
   foreach(QAction *action, editActionCollection()->actions())
     action->setEnabled(false);
+
+//jowenn: what was that for ?
+//   if (m_viewBar->isVisibleTo(m_viewBar->parentWidget()) && (m_viewBar->parentWidget() !=this) )
+//     m_viewBar->hide();
+//   m_viewBar->hide();
   emit focusOut ( this );
 }
 

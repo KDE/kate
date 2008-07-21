@@ -26,6 +26,7 @@
 #include <ktexteditor/attribute.h>
 #include <ktexteditor/annotationinterface.h>
 #include <ktexteditor/rangefeedback.h>
+#include <ktexteditor/containerinterface.h>
 #include "katecodefolding.h"
 #include "kateconfig.h"
 #include "katedocument.h"
@@ -35,6 +36,7 @@
 #include "katelayoutcache.h"
 #include "katetextlayout.h"
 #include "katesmartrange.h"
+#include "kateglobal.h"
 
 #include <kapplication.h>
 #include <kglobalsettings.h>
@@ -1568,6 +1570,7 @@ void KateViewBarWidget::showBar ()
 
 void KateViewBarWidget::hideBar ()
 {
+  kDebug()<<"entered";
   // let the barwidget do some stuff on hide, perhaps even say: no, don't hide me...
   if (!hideIsTriggered ())
     return;
@@ -1597,8 +1600,8 @@ QSize KateStackedLayout::minimumSize() const
 
 
 
-KateViewBar::KateViewBar (KateView *view)
- : QWidget (view), m_view (view)
+KateViewBar::KateViewBar (QWidget *parent, KateView *view)
+ : QWidget (parent), m_view (view)
 {
   m_stack = new KateStackedLayout(this);
   hide ();
@@ -1617,12 +1620,23 @@ void KateViewBar::showBarWidget (KateViewBarWidget *barWidget)
   // raise correct widget
   m_stack->setCurrentWidget (barWidget);
   kDebug(13025)<<"show barwidget " << barWidget;
-  show ();
+  
+  if (m_view->externalViewBar()) {
+    KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
+    if (viewBarContainer)
+      viewBarContainer->showViewBarForView(m_view,KTextEditor::ViewBarContainer::BottomBar);
+  } else
+    show ();
 }
 
 void KateViewBar::hideBarWidget ()
 {
-  hide();
+  if (m_view->externalViewBar()) {
+    KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
+    if (viewBarContainer)
+      viewBarContainer->hideViewBarForView(m_view,KTextEditor::ViewBarContainer::BottomBar);
+  } else
+    hide ();
   kDebug(13025)<<"hide barwidget";
 }
 
@@ -1638,8 +1652,8 @@ void KateViewBar::keyPressEvent(QKeyEvent* event)
 
 void KateViewBar::hideEvent(QHideEvent* event)
 {
-  if (!event->spontaneous())
-    m_view->setFocus();
+//   if (!event->spontaneous())
+//     m_view->setFocus();
 }
 
 //END KateViewBar related classes

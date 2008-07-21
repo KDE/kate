@@ -27,6 +27,7 @@
 #include <kcomponentdata.h>
 #include <kaboutdata.h>
 #include <ktexteditor/commandinterface.h>
+#include <ktexteditor/containerinterface.h>
 #include <QtCore/QList>
 
 /**
@@ -62,10 +63,11 @@ namespace Kate {
  * or view stay around, here is the place to put things
  * which are needed and shared by all this objects ;)
  */
-class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterface
+class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterface, public KTextEditor::ContainerInterface
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::CommandInterface)
+  Q_INTERFACES(KTextEditor::ContainerInterface)
 
   private:
     /**
@@ -317,6 +319,18 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      */
     QStringList commandList() const;
 
+
+    /**
+     * Get the currently associated Container object
+     * \return container object
+     */
+    QObject * container();
+
+    /**
+     * Set the associated container object
+     */
+    void setContainer( QObject * container );
+
   private:
     /**
      * instance of this factory
@@ -409,6 +423,11 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
     KateViGlobal *m_viInputModeGlobal;
 
     QList<KTextEditor::Document*> m_docs;
+
+    /**
+     * container interface
+     */
+    QPointer<QObject> m_container;
 };
 
 #endif

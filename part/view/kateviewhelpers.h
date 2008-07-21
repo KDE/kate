@@ -247,7 +247,7 @@ class KateViewBar : public QWidget
   friend class KateViewBarWidget;
 
   public:
-    KateViewBar (KateView *view);
+    KateViewBar (QWidget *parent,KateView *view);
 
     KateView *view () { return m_view; }
 
@@ -258,6 +258,7 @@ class KateViewBar : public QWidget
   private:
     void addBarWidget (KateViewBarWidget *newBarWidget);
     void showBarWidget (KateViewBarWidget *barWidget);
+  public:
     void hideBarWidget ();
 
   private:

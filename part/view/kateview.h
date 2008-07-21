@@ -650,12 +650,13 @@ class KateView : public KTextEditor::View,
     KateCmdLine *cmdLine ();
     KateSearchBar *searchBar (bool initHintAsPower = false);
     KateGotoBar *gotoBar ();
-
+    inline bool externalViewBar(){return m_externalViewBar;}
   /**
    * viewbar + its widgets
    * they are created on demand...
    */
   private:
+    bool m_externalViewBar;
     // created in constructor of the view
     KateViewBar *m_viewBar;
 

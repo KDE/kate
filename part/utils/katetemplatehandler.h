@@ -72,7 +72,7 @@ class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 		void generateRangeTable(const KTextEditor::Cursor& insertPosition, const QString& insertString, const QList<KateTemplateHandlerPlaceHolderInfo> &buildList);
 		int m_currentTabStop;
 		KTextEditor::SmartRange *m_currentRange;
-		void locateRange(const KTextEditor::Cursor &cursor );
+		void locateRange(const KTextEditor::Cursor &cursor, const KTextEditor::Cursor &cursor2 );
 		bool m_initOk;
 		bool m_recursion;
                 KTextEditor::SmartRange* m_templateRange;

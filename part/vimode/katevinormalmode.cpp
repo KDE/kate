@@ -200,10 +200,15 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
 
             if ( r.valid ) {
               kDebug( 13070 ) << "no command given, going to position (" << r.endLine << "," << r.endColumn << ")";
-              KTextEditor::Cursor c;
-              c.setLine( r.endLine );
-              c.setColumn( r.endColumn );
-              m_viewInternal->updateCursor( c );
+              KTextEditor::Cursor cursor;
+              cursor.setLine( r.endLine );
+              cursor.setColumn( r.endColumn );
+
+              if ( r.jump ) {
+                  addCurrentPositionToJumpList();
+              }
+
+              m_viewInternal->updateCursor( cursor );
             } else {
               kDebug( 13070 ) << "invalid position";
             }
@@ -649,6 +654,15 @@ KateViRange KateViNormalMode::findSurrounding( QChar c1, QChar c2, bool inner )
 void KateViNormalMode::fillRegister( const QChar &reg, const QString &text )
 {
     KateGlobal::self()->viInputModeGlobal()->fillRegister( reg, text );
+}
+
+void KateViNormalMode::addCurrentPositionToJumpList()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+
+    KateSmartCursor *cursor = m_view->doc()->smartManager()->newSmartCursor( c );
+
+    m_marks->insert( '\'', cursor );
 }
 
 /**
@@ -1582,16 +1596,21 @@ KateViRange KateViNormalMode::motionToCharBackward()
 
 KateViRange KateViNormalMode::motionToLineFirst()
 {
-    return KateViRange( getCount()-1, 0, ViMotion::InclusiveMotion );
+    KateViRange r( getCount()-1, 0, ViMotion::InclusiveMotion );
+    r.jump = true;
+
+    return r;
 }
 
 KateViRange KateViNormalMode::motionToLineLast()
 {
-    KateViRange r( m_view->doc()->lines()-1, 0, ViMotion::InclusiveMotion );
+  KateViRange r( m_view->doc()->lines()-1, 0, ViMotion::InclusiveMotion );
 
   if ( getCount()-1 != 0 ) {
     r.endLine = getCount()-1;
   }
+
+  r.jump = true;
 
   return r;
 }
@@ -1623,15 +1642,24 @@ KateViRange KateViNormalMode::motionToMark()
 {
   KateViRange r;
 
+  QChar reg = m_keys.at( m_keys.size()-1 );
+
+  // ` and ' is the same register (position before jump)
+  if ( reg == '`' ) {
+      reg = '\'';
+  }
+
   KTextEditor::SmartCursor* cursor;
-  if ( m_marks->contains( m_keys.at( m_keys.size()-1 ) ) ) {
-    cursor = m_marks->value( m_keys.at( m_keys.size()-1 ) );
+  if ( m_marks->contains( reg ) ) {
+    cursor = m_marks->value( reg );
     r.endLine = cursor->line();
     r.endColumn = cursor->column();
   } else {
     error(QString("Mark not set: ") + m_keys.right( 1 ) );
     r.valid = false;
   }
+
+  r.jump = true;
 
   return r;
 }
@@ -1640,6 +1668,8 @@ KateViRange KateViNormalMode::motionToMarkLine()
 {
   KateViRange r = motionToMark();
   r.endColumn = 0; // FIXME: should be first non-blank on line
+
+  r.jump = true;
 
   return r;
 }

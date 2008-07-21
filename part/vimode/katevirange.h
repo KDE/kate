@@ -39,6 +39,7 @@ class KateViRange
     int endLine, endColumn;
     ViMotion::MotionType motionType;
     bool valid;
+    bool jump;
 };
 
 #endif

@@ -158,6 +158,7 @@ class KateViNormalMode : public QObject {
     QChar getChosenRegister( const QChar &defaultReg ) const;
     QString getRegisterContent( const QChar &reg ) const;
     void fillRegister( const QChar &reg, const QString &text);
+    void addCurrentPositionToJumpList();
 
     void error( const QString &errorMsg ) const;
 

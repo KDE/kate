@@ -23,6 +23,7 @@
   : startLine( slin ), startColumn( scol ), endLine( elin ), endColumn( ecol ), motionType( inc )
 {
   valid = true;
+  jump = false;
 }
 
 // for motions which only return a position, in constrast to "text objects"
@@ -33,6 +34,7 @@
   startLine = -1;
   startColumn = -1;
   valid = true;
+  jump = false;
 }
 
 KateViRange::KateViRange()
@@ -42,5 +44,6 @@ KateViRange::KateViRange()
   endLine = -1;
   endColumn = -1;
   valid = true;
+  jump = false;
   motionType = ViMotion::InclusiveMotion;
 }

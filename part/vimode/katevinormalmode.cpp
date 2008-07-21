@@ -85,11 +85,6 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
 
     QString fafa = m_keyParser->encodeKeySequence( keyPress );
 
-    //key = QChar( viKeyCode );
-    //kDebug( 13070 ) << "Super key code: " << viKeyCode << " modifiers: " << modifiers << " " << key.unicode();
-    kDebug( 13070 ) << fafa << "   " << (int)(e->key()) << fafa.length();
-    kDebug( 13070 ) << "^--- fafa " << keyCode;
-
     key = fafa.at( 0 );
   }
   else {
@@ -123,7 +118,6 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   m_keys.append( key );
 
   if ( m_keys[ 0 ] == Qt::Key_QuoteDbl ) {
-    kDebug( 13070 ) << "Double quote!";
     if ( m_keys.size() < 2 ) {
       return true; // waiting for a register
     }
@@ -194,13 +188,11 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     for ( int i = 0; i < m_motions.size(); i++ ) {
       //kDebug( 13070 )  << "\tchecking " << m_keys.mid( checkFrom )  << " against " << m_motions.at( i )->pattern();
       if ( m_motions.at( i )->matches( m_keys.mid( checkFrom ) ) ) {
-        kDebug( 13070 )  << m_keys.mid( checkFrom ) << " matcher!";
+        kDebug( 13070 )  << m_keys.mid( checkFrom ) << " matches!";
         m_matchingMotions.push_back( i );
 
         // if it matches exact, we have found the motion command to execute
         if ( m_motions.at( i )->matchesExact( m_keys.mid( checkFrom ) ) ) {
-          kDebug( 13070 )  << "Bingo!"; // <--------- !
-
           if ( checkFrom == 0 ) {
             // no command given before motion, just move the cursor to wherever
             // the motion says it should go to
@@ -277,7 +269,6 @@ QChar KateViNormalMode::getChosenRegister( const QChar &defaultReg ) const
 
 QString KateViNormalMode::getRegisterContent( const QChar &reg ) const
 {
-    kDebug( 13070 ) << reg;
     return KateGlobal::self()->viInputModeGlobal()->getRegisterContent( reg );
 }
 
@@ -1033,8 +1024,6 @@ bool KateViNormalMode::commandJoinLines()
   if ( n > m_view->doc()->lines()-1-c.line() ) {
       n = m_view->doc()->lines()-1-c.line(); // FIXME
   }
-
-  kDebug( 13070 ) << "Joining " << n << " lines from line " << c.line();
 
   m_view->doc()->joinLines( c.line(), c.line()+n );
 

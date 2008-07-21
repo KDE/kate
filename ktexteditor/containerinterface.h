@@ -1,5 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2007 Philippe Fremy (phil at freehackers dot org)
+   Copyright (C) 2008 Joseph Wenninger (jowenn@kde.org)
+
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -49,7 +51,7 @@ class View;
  * \code
  * // inside the kpart host
  * Editor * editor = KTextEditor::EditorChooser::editor();
- * ContainerInterface * iface = qobject_cast<ConainterInterace *>( editor );
+ * ContainerInterface * iface = qobject_cast<ContainerInterface *>( editor );
  * if (iface != NULL) {
  *   iface->setContainer( myContainerExtension );
  * } else {
@@ -258,8 +260,51 @@ class KTEXTEDITOR_EXPORT MdiContainer
     virtual bool closeView( View * view )=0;
 }; // class MdiContainer
 
+
+/**
+ * An application providing a centralized place for horizontal view bar containers (eg search bars) has
+ * to implement this
+ * @since 4.2
+ */
+class KTEXTEDITOR_EXPORT ViewBarContainer
+{
+  public:
+    enum Position{LeftBar=0,TopBar=1,RightBar=2,BottomBar=3};
+    /** Constructor */
+    ViewBarContainer();
+
+    /** Virtual destructor */
+    virtual ~ViewBarContainer();
+
+    /** At this point the views parent window has to be already set, so this has to be called after any reparentings
+    * eg.: The implementation in Kate uses view->window() to determine where to place of the container
+    * if 0 is returned, the view has to handle the bar internally
+    */
+    virtual QWidget* getViewBarParent(View *view,enum Position position)=0;
+
+    /** It is advisable to store only QPointers to the bar and it's children in the caller after this point.
+     *  The container may at any point delete the bar, eg if the container is destroyed
+     *  The caller has to ensure that bar->parentWidget() ist teh widget returned by the previous function
+     */
+    virtual void addViewBarToLayout(View *view,QWidget *bar,enum Position position)=0;
+    
+    ///show hide a view bar. The implementor of this interface has to take care for not showing 
+    /// the bars of unfocused views, if needed
+    virtual void showViewBarForView(View *view,enum Position position)=0;
+    virtual void hideViewBarForView(View *view,enum Position position)=0;
+
+    /**
+     * The view should not delete the bar by itself, but tell the container to delete the bar.
+     * This is for instance usefull, in the destructor of the view. The bar must not life longer
+     * than the view.
+     */
+    virtual void deleteViewBarForView(View *view,enum Position position)=0;
+
+};
+
 } // namespace KTextEditor
 
 Q_DECLARE_INTERFACE(KTextEditor::ContainerInterface, "org.kde.KTextEditor.ContainerInterface")
-
+Q_DECLARE_INTERFACE(KTextEditor::MdiContainer, "org.kde.KTextEditor.MdiContainer")
+Q_DECLARE_INTERFACE(KTextEditor::ViewBarContainer, "org.kde.KTextEditor.ViewBarContainer")
 #endif // KDELIBS_KTEXTEDITOR_CONTAINER_EXTENSION_H

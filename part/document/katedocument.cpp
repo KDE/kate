@@ -1103,12 +1103,12 @@ void KateDocument::editEnd ()
   if (editWithUndo)
     undoEnd();
 
-  // Was locked in editStart
-  smartMutex()->unlock();
-
   // edit end for all views !!!!!!!!!
   foreach(KateView *view, m_views)
     view->editEnd (m_buffer->editTagStart(), m_buffer->editTagEnd(), m_buffer->editTagFrom());
+
+  // Was locked in editStart
+  smartMutex()->unlock();
 
   if (m_buffer->editChanged())
   {

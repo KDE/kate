@@ -298,6 +298,9 @@ bool KateViewManager::createView ( KTextEditor::Document *doc )
   connect(view, SIGNAL(focusIn(KTextEditor::View *)), this, SLOT(activateSpace(KTextEditor::View *)));
 
   activeViewSpace()->addView( view );
+   
+  viewCreated(view);
+  
   activateView( view );
 
   return true;
@@ -788,8 +791,8 @@ void KateViewManager::restoreSplitter( const KConfigBase* configBase, const QStr
       // new view space as parent.
       setActiveSpace( vs );
 
-      vs->restoreConfig (this, configBase, *it);
       parent->addWidget( vs );
+      vs->restoreConfig (this, configBase, *it);
       vs->show();
     }
     else

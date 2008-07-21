@@ -76,6 +76,25 @@
 
 uint KateMainWindow::uniqueID = 1;
 
+KateContainerStackedLayout::KateContainerStackedLayout(QWidget* parent)
+  : QStackedLayout(parent)
+{}
+
+QSize KateContainerStackedLayout::sizeHint() const
+{
+  if (currentWidget())
+    return currentWidget()->sizeHint();
+  return QStackedLayout::sizeHint();
+}
+
+QSize KateContainerStackedLayout::minimumSize() const
+{
+  if (currentWidget())
+    return currentWidget()->minimumSize();
+  return QStackedLayout::minimumSize();
+}
+
+
 KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
     : KateMDI::MainWindow (0)
 {
@@ -227,6 +246,10 @@ void KateMainWindow::setupMainWindow ()
   setToolViewStyle( KMultiTabBar::KDEV3ICON );
 
   m_viewManager = new KateViewManager (centralWidget(), this);
+  ((QBoxLayout*)(centralWidget()->layout()))->setStretchFactor(m_viewManager,100);
+  m_horizontalViewBarContainer=new QWidget(centralWidget());
+  m_containerstack = new KateContainerStackedLayout(m_horizontalViewBarContainer);
+
 
   KateMDI::ToolView *ft = createToolView("kate_filelist", KMultiTabBar::Left, SmallIcon("document-multiple"), i18n("Documents"));
   m_fileList = new KateFileList(ft, actionCollection());
@@ -350,8 +373,10 @@ void KateMainWindow::setupActions()
   connect( a, SIGNAL( triggered() ), this, SLOT( aboutEditor() ) );
 
   connect(m_viewManager, SIGNAL(viewChanged()), m_mainWindow, SIGNAL(viewChanged()));
+  connect(m_viewManager, SIGNAL(viewCreated(KTextEditor::View *)), m_mainWindow, SIGNAL(viewCreated(KTextEditor::View *)));
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotWindowActivated()));
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotUpdateOpenWith()));
+  connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotUpdateHorizontalViewBar()));
 
   slotWindowActivated ();
 
@@ -971,4 +996,22 @@ void KateMainWindow::restoreWindowConfig(const KConfigGroup &config)
   restoreWindowSize(config);
   setWindowState( QFlags<Qt::WindowState>(config.readEntry("WindowState", int(Qt::WindowActive))) );
 }
+
+void KateMainWindow::slotUpdateHorizontalViewBar()
+{
+  kDebug()<<"slotUpdateHorizontalViewBar()"<<endl;
+  KTextEditor::View *view=m_viewManager->activeView();
+  BarState bs=m_viewBarMapping[view];
+  if (bs.bar() && bs.state()) {
+    m_containerstack->setCurrentWidget(bs.bar());
+    m_containerstack->currentWidget()->show();
+    m_horizontalViewBarContainer->show();
+  } else {
+    QWidget *wid=m_containerstack->currentWidget();
+    if (wid) wid->hide();
+    kDebug()<<wid<<"hiding container"<<endl;
+    m_horizontalViewBarContainer->hide();
+  }
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

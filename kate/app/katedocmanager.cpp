@@ -24,10 +24,12 @@
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
 #include "katedocmanageradaptor.h"
+#include "katecontainer.h"
 
 #include <KTextEditor/View>
 #include <KTextEditor/SessionConfigInterface>
 #include <KTextEditor/EditorChooser>
+#include <KTextEditor/ContainerInterface>
 
 #include <KParts/Factory>
 
@@ -60,6 +62,12 @@ KateDocManager::KateDocManager (QObject *parent)
   // Constructed the beloved editor ;)
   m_editor = KTextEditor::EditorChooser::editor();
 
+  KTextEditor::ContainerInterface * iface = qobject_cast<KTextEditor::ContainerInterface *>( m_editor );
+  if (iface != NULL) {
+    iface->setContainer( new KateContainer(KateApp::self()) );
+  } else {
+    kDebug()<<"Editor does not support the container interface";
+  }
   // read in editor config
   m_editor->readConfig(KGlobal::config().data());
 
@@ -129,7 +137,7 @@ QVariant KateDocManager::data( const QModelIndex & index, int role ) const
 KTextEditor::Document *KateDocManager::createDoc ()
 {
 
-  kdDebug()<<"createDoc"<<endl;
+  kDebug()<<"createDoc"<<endl;
 
   KTextEditor::Document *doc = (KTextEditor::Document *) m_editor->createDocument(this);
 
@@ -181,7 +189,7 @@ void KateDocManager::slotDocumentNameChanged(KTextEditor::Document* doc)
 
 void KateDocManager::deleteDoc (KTextEditor::Document *doc)
 {
-  kdDebug()<<"deleting document with name:"<<doc->documentName();
+  kDebug()<<"deleting document with name:"<<doc->documentName();
   int remove_row=-1;
   int rows = rowCount();
   m_documentItemMapping.remove(doc);
@@ -208,7 +216,7 @@ void KateDocManager::deleteDoc (KTextEditor::Document *doc)
   emit m_documentManager->documentDeleted (doc);
 
   for (int i=0;i<rowCount();i++) {
-	kdDebug()<<data(index(i,0),Qt::DisplayRole)<<(i==remove_row?"REMOVING":"");
+	kDebug()<<data(index(i,0),Qt::DisplayRole)<<(i==remove_row?"REMOVING":"");
   }
   if (remove_row>-1)
       removeRow(remove_row);

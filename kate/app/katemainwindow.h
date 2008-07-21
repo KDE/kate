@@ -55,6 +55,18 @@ class KateExternalToolsMenuAction;
 class KateViewDocumentProxyModel;
 class KateViewManager;
 
+#include <QtGui/QStackedLayout>
+// Helper layout class to always provide minimum size
+class KateContainerStackedLayout : public QStackedLayout
+{
+  Q_OBJECT
+public:
+  KateContainerStackedLayout(QWidget* parent);
+  virtual QSize sizeHint() const;
+  virtual QSize minimumSize() const;
+};
+
+
 class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBase
 {
     Q_OBJECT
@@ -213,6 +225,17 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
       return m_pluginViews;
     }
 
+    inline QWidget *horizontalViewBarContainer() {return m_horizontalViewBarContainer;}
+    inline void addToHorizontalViewBarContainer(KTextEditor::View *view,QWidget *bar){m_containerstack->addWidget (bar); m_viewBarMapping[view]=BarState(bar);}
+    inline void hideHorizontalViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_viewBarMapping.value(view); bar=state.bar(); if (bar) {m_containerstack->setCurrentWidget(bar); bar->hide(); state.setState(false); m_viewBarMapping[view]=state;} m_horizontalViewBarContainer->hide();}
+    inline void showHorizontalViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_viewBarMapping.value(view); bar=state.bar();  if (bar) {m_containerstack->setCurrentWidget(bar); bar->show(); state.setState(true); m_viewBarMapping[view]=state;  m_horizontalViewBarContainer->show();}}
+    inline void deleteHorizontalViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_viewBarMapping.take(view); bar=state.bar();  if (bar) {if (m_containerstack->currentWidget()==bar) m_horizontalViewBarContainer->hide(); delete bar;}}
+
+
+  private Q_SLOTS:
+    void slotUpdateHorizontalViewBar();
+
+    
   private Q_SLOTS:
     void showFileListPopup(const QPoint& pos);
   protected:
@@ -258,6 +281,21 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     // options: show statusbar + show path
     KToggleAction *m_paShowPath;
     KToggleAction *m_paShowStatusBar;
+    QWidget *m_horizontalViewBarContainer;
+    KateContainerStackedLayout *m_containerstack;
+    class BarState{
+      public:
+        BarState():m_bar(0),m_state(false){}
+        BarState(QWidget* bar):m_bar(bar),m_state(false){}
+        ~BarState(){}
+        QWidget *bar(){return m_bar;}
+        bool state(){return m_state;}
+        void setState(bool state){m_state=state;}
+      private:
+        QWidget *m_bar;
+        bool m_state;
+    };
+    QHash<KTextEditor::View*,BarState> m_viewBarMapping;
 };
 
 #endif

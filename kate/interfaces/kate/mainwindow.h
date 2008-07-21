@@ -154,6 +154,13 @@ namespace Kate
        */
       void viewChanged ();
 
+      /**
+       * This signal is emitted whenever a new view is created
+       * @since 4.2
+       */
+
+      void viewCreated(KTextEditor::View * view);
+
       /*
        * ToolView stuff, here all stuff belong which allows to
        * add/remove and manipulate the toolview of this main windows

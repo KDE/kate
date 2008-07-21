@@ -77,6 +77,7 @@ class KateViewManager : public QSplitter
 
     void setViewActivationBlocked (bool block);
 
+
   public:
     void closeViews(KTextEditor::Document *doc);
     KateMainWindow *mainWindow();
@@ -105,6 +106,7 @@ class KateViewManager : public QSplitter
   Q_SIGNALS:
     void statChanged ();
     void viewChanged ();
+    void viewCreated (KTextEditor::View *);
 
   public:
     inline QList<KTextEditor::View*> &viewList ()

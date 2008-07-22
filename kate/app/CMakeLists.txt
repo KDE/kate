@@ -32,9 +32,9 @@ kde4_add_library(kateinterfaces SHARED ${kateinterfaces_LIB_SRCS})
 
 target_link_libraries(kateinterfaces  ${KDE4_KUTILS_LIBS} ${KDE4_KDE3SUPPORT_LIBS}  ${QT_QTXML_LIBRARY} ${KDE4_KTEXTEDITOR_LIBS} ${KDE4_KPARTS_LIBS})
 
-_kde4_target_link_interface_libraries(kateinterfaces ${KDE4_KPARTS_LIBS})
 
-set_target_properties(kateinterfaces PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
+set_target_properties(kateinterfaces PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} ${KDE4_DISABLE_PROPERTY_}LINK_INTERFACE_LIBRARIES "${KDE4_KPARTS_LIBS}" )
+
 install(TARGETS kateinterfaces ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 

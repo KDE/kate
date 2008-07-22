@@ -886,6 +886,11 @@ bool KateViNormalMode::commandDeleteToEOL()
   bool r = commandDelete();
 
   c.setColumn( m_view->doc()->lineLength( c.line() )-1 );
+
+  if ( c.column() < 0 ) {
+    c.setColumn( 0 );
+  }
+
   m_viewInternal->updateCursor( c );
 
   removeDone();

@@ -558,7 +558,6 @@ class KateView : public KTextEditor::View,
     void setupConnections();
     void setupActions();
     void setupEditActions();
-    void setupViNormalModeActions();
     void setupCodeFolding();
 
     KActionCollection*     m_editActions;
@@ -678,7 +677,7 @@ class KateView : public KTextEditor::View,
     bool viInputModeStealKeys() const;
 
     /**
-     * @return The current vi mode, InsertMode if the vi input mode is not
+     * @return The current vi mode
      * used
      */
     ViMode getCurrentViMode() const;

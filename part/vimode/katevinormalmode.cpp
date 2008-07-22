@@ -83,9 +83,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     //keyPress.append( m_keyParser->qt2vi( keyCode ) );
     keyPress.append( '>' );
 
-    QString fafa = m_keyParser->encodeKeySequence( keyPress );
-
-    key = fafa.at( 0 );
+    key = m_keyParser->encodeKeySequence( keyPress ).at( 0 );
   }
   else {
     key = text.at( 0 );

@@ -40,6 +40,8 @@
 #include "katesmartmanager.h"
 #include "katecompletionwidget.h"
 #include "katenamespace.h"
+#include "katevinormalmode.h"
+#include "kateviinsertmode.h"
 
 #include <kcursor.h>
 #include <kdebug.h>
@@ -100,6 +102,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_viInputMode(false)
   , m_currentViMode(NormalMode)
   , m_viNormalMode(0)
+  , m_viInsertMode (0)
 {
   m_watcherCount1 = 0;
   m_watcherCount3 = 0;
@@ -2113,18 +2116,8 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
     {
       QKeyEvent *k = static_cast<QKeyEvent *>(e);
 
-      // if the vi input mode key stealing is on, steal all key presses. they will be re-posted if not needed
-      if (m_view->viInputMode() && m_view->viInputModeStealKeys() && m_view->getCurrentViMode() == NormalMode) {
-        k->accept();
-        return true;
-      }
-
       if (k->key() == Qt::Key_Escape) {
-        if (m_view->viInputMode() && m_view->getCurrentViMode() == InsertMode) {
-          // if vi input mode is active, go to normal mode
-          m_view->viEnterNormalMode();
-          return true;
-        } else if (m_view->isCompletionActive()) {
+        if (m_view->isCompletionActive()) {
           m_view->abortCompletion();
           k->accept();
           //kDebug() << obj << "shortcut override" << k->key() << "aborting completion";
@@ -2141,6 +2134,14 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
           return true;
         }
       }
+
+      // if vi input mode key stealing is on, override kate shortcuts
+      if (m_view->viInputMode() && m_view->viInputModeStealKeys() &&  ( m_view->getCurrentViMode() == NormalMode ||
+              ( m_view->getCurrentViMode() == InsertMode && k->modifiers() == Qt::ControlModifier ) ) ) {
+        k->accept();
+        return true;
+      }
+
     } break;
 
     case QEvent::KeyPress:
@@ -2200,14 +2201,20 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   // Note: AND'ing with <Shift> is a quick hack to fix Key_Enter
   const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
 
-  if ( m_view->viInputMode() && m_view->getCurrentViMode() != InsertMode ) {
-    if ( getViNormalMode()->handleKeypress( e ) ) {
-      return;
-    } else {
-      // we didn't need that keypress, un-steal it :-)
-      QEvent *ffs = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
-      QCoreApplication::postEvent( parent(), ffs );
-      return;
+  if ( m_view->viInputMode() ) {
+    if ( m_view->getCurrentViMode() == InsertMode ) {
+        if ( getViInsertMode()->handleKeypress( e ) )
+            return;
+    }
+    else if ( m_view->getCurrentViMode() == NormalMode ) {
+        if ( getViNormalMode()->handleKeypress( e ) ) {
+            return;
+        } else {
+            // we didn't need that keypress, un-steal it :-)
+            QEvent *copy = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
+            QCoreApplication::postEvent( parent(), copy );
+            return;
+        }
     }
   }
 
@@ -3678,5 +3685,13 @@ KateViNormalMode* KateViewInternal::getViNormalMode()
     m_viNormalMode = new KateViNormalMode( m_view, this );
   return m_viNormalMode;
 }
+
+KateViInsertMode* KateViewInternal::getViInsertMode()
+{
+  if ( !m_viInsertMode )
+    m_viInsertMode = new KateViInsertMode( m_view, this );
+  return m_viInsertMode;
+}
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

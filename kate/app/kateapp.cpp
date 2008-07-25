@@ -152,11 +152,6 @@ void KateApp::restoreKate ()
   // oh, no mainwindow, create one, should not happen, but make sure ;)
   if (mainWindows() == 0)
     newMainWindow ();
-
-#ifdef Q_WS_X11
-  // notify about start
-  KStartupInfo::setNewStartupId( activeMainWindow(), startupId());
-#endif
 }
 
 bool KateApp::startupKate ()

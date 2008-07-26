@@ -182,8 +182,6 @@ KateFileSelector::KateFileSelector( Kate::MainWindow *mainWindow,
   dir->installEventFilter( this );
   dir->setView(KFile::/* Simple */Detail);
   dir->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
-  if (KGlobalSettings::singleClick())
-    dir->setOnlyDoubleClickSelectsFiles(false);
   connect ( dir, SIGNAL( viewChanged(QAbstractItemView *) ),
            this, SLOT( selectorViewChanged(QAbstractItemView *) ) );
   setStretchFactor(dir, 2);

@@ -572,6 +572,7 @@ class KateView : public KTextEditor::View,
     KSelectAction*         m_setDynWrapIndicators;
     KToggleAction*         m_toggleWWMarker;
     KAction*               m_switchCmdLine;
+    KToggleAction*         m_viInputModeAction;
 
     KSelectAction*         m_setEndOfLine;
 

@@ -544,6 +544,11 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Show/hide the command line on the bottom of the view."));
   connect(a, SIGNAL(triggered(bool)), SLOT(switchToCmdLine()));
 
+  a = m_viInputModeAction = new KToggleAction(i18n("&VI input mode"), this);
+  ac->addAction("view_vi_input_mode", a);
+  a->setWhatsThis( i18n("Activate/deactivate VI input mode" ));
+  connect(a, SIGNAL(triggered(bool)), SLOT( toggleViInputMode() ));
+
   a = m_setEndOfLine = new KSelectAction(i18n("&End of Line"), this);
   ac->addAction("set_eol", a);
   a->setWhatsThis(i18n("Choose which line endings should be used, when you save the document"));
@@ -1323,6 +1328,9 @@ void KateView::updateConfig ()
   // misc edit
   m_toggleBlockSelection->setChecked( blockSelectionMode() );
   m_toggleInsert->setChecked( isOverwriteMode() );
+
+  // vi modes
+  m_viInputModeAction->setChecked( config()->viInputMode() );
 
   updateFoldingConfig ();
 

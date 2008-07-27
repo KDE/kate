@@ -1211,6 +1211,8 @@ ViMode KateView::getCurrentViMode() const
 void KateView::toggleViInputMode()
 {
   config()->setViInputMode (!config()->viInputMode());
+  emit viewModeChanged(this);
+  emit viewEditModeChanged(this,viewEditMode());
 }
 
 void KateView::changeViMode(ViMode newMode)

@@ -2288,191 +2288,229 @@ void KateView::capitalize( )
 
 void KateView::keyReturn( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doReturn();
 }
 
 void KateView::backspace( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doBackspace();
 }
 
 void KateView::deleteWordLeft( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doDeleteWordLeft();
 }
 
 void KateView::keyDelete( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doDelete();
 }
 
 void KateView::deleteWordRight( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doDeleteWordRight();
 }
 
 void KateView::transpose( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->doTranspose();
 }
 
 void KateView::cursorLeft( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorLeft();
 }
 
 void KateView::shiftCursorLeft( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorLeft(true);
 }
 
 void KateView::cursorRight( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorRight();
 }
 
 void KateView::shiftCursorRight( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorRight(true);
 }
 
 void KateView::wordLeft( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->wordLeft();
 }
 
 void KateView::shiftWordLeft( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->wordLeft(true);
 }
 
 void KateView::wordRight( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->wordRight();
 }
 
 void KateView::shiftWordRight( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->wordRight(true);
 }
 
 void KateView::home( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->home();
 }
 
 void KateView::shiftHome( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->home(true);
 }
 
 void KateView::end( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->end();
 }
 
 void KateView::shiftEnd( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->end(true);
 }
 
 void KateView::up( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorUp();
 }
 
 void KateView::shiftUp( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorUp(true);
 }
 
 void KateView::down( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorDown();
 }
 
 void KateView::shiftDown( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorDown(true);
 }
 
 void KateView::scrollUp( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->scrollUp();
 }
 
 void KateView::scrollDown( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->scrollDown();
 }
 
 void KateView::topOfView( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->topOfView();
 }
 
 void KateView::shiftTopOfView( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->topOfView(true);
 }
 
 void KateView::bottomOfView( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->bottomOfView();
 }
 
 void KateView::shiftBottomOfView( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->bottomOfView(true);
 }
 
 void KateView::pageUp( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->pageUp();
 }
 
 void KateView::shiftPageUp( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->pageUp(true);
 }
 
 void KateView::pageDown( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->pageDown();
 }
 
 void KateView::shiftPageDown( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->pageDown(true);
 }
 
 void KateView::top( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->top_home();
 }
 
 void KateView::shiftTop( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->top_home(true);
 }
 
 void KateView::bottom( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->bottom_end();
 }
 
 void KateView::shiftBottom( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->bottom_end(true);
 }
 
 void KateView::toMatchingBracket( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorToMatchingBracket();
 }
 
 void KateView::shiftToMatchingBracket( )
 {
+  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorToMatchingBracket(true);
 }
 

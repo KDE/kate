@@ -456,7 +456,7 @@ void KateViKeySequenceParser::initKeyTables()
   m_nameToKeyCode->insert( QString( " " ), 339 );
   //m_nameToKeyCode->insert( QString( "<" ), 341 );
 
-  foreach( QString str, m_nameToKeyCode->keys() ) {
+  foreach( const QString& str, m_nameToKeyCode->keys() ) {
       m_keyCodeToName->insert( m_nameToKeyCode->value( str ), str );
   }
 }

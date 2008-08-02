@@ -491,7 +491,7 @@ const QString KateViKeySequenceParser::encodeKeySequence( const QString &keys )
         if ( keys.mid( i ).indexOf( '-' ) != -1 && keys.mid( i ).indexOf( '-' ) < keys.mid( i ).indexOf( '>' ) ) {
           QStringList tokens = keys.mid( i, keys.mid( i ).indexOf( '>' ) ).toLower().split( '-' );
 
-          foreach ( QString str, tokens ) {
+          foreach ( const QString& str, tokens ) {
             if ( str == "s" && ( keyCodeTemp & 0x01 ) != 0x1  )
               keyCodeTemp += 0x1;
             else if ( str == "c" && ( keyCodeTemp & 0x02 ) != 0x2 )

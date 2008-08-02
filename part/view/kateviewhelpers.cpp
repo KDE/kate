@@ -39,6 +39,7 @@
 #include "kateglobal.h"
 
 #include <kapplication.h>
+#include <kcolorscheme.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
 #include <knotification.h>
@@ -629,46 +630,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_foldingRange(0)
   , m_lastBlockLine(-1)
 {
-
-        for (int i=0;i<MAXFOLDINGCOLORS;i++) {
-          int r,g,b;
-  /*
-          if (info.depth<16) {
-            r=0xff;
-            g=0xff;
-            b=0xff-0x10*info.depth;
-          } else if (info.depth<32) {
-            r=0xff-0x10*(info.depth-16); g=0xff;b=0;
-          } else if (info.depth<48) {
-            //r=0;g=0xff;b=0x10*(info.depth-32);
-            r=0;g=0xff-0x10*(info.depth-32);b=0;
-          } else {
-            //r=0;g=0xff;b=0xff;
-            r=0;g=0;b=0;
-          }
-  */
-          if (i==0) {
-            r=0xff;
-            g=0xff;
-            b=0xff;
-          } else
-          if (i<3) {
-            r=0xff;
-            g=0xff;
-            b=0xff-0x40-0x40*i;
-          } else if (i<7) {
-            r=0xff-0x40*(i-3); g=0xff;b=0;
-          } else if (i<15) {
-            //r=0;g=0xff;b=0x10*(info.depth-32);
-            //r=0;g=0xff-0x40*(i-7);b=0;    // 0x40 creates negative values!
-            r=0;g=0xff-0x10*(i-7);b=0;
-          } else {
-            //r=0;g=0xff;b=0xff;
-            r=0;g=0;b=0;
-          }
-          m_foldingColors[i]=QBrush(QColor(r,g,b,0x88),Qt::SolidPattern /*Qt::Dense4Pattern*/);
-          m_foldingColorsSolid[i]=QBrush(QColor(r,g,b),Qt::SolidPattern);
-       }
+  initializeFoldingColors();
 
   setAttribute( Qt::WA_StaticContents );
   setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Minimum );
@@ -678,6 +640,78 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
 
   updateFont();
 }
+
+void KateIconBorder::initializeFoldingColors()
+{
+  // the idea is that we make a gradient from the background color,
+  // to the neutral text color, to the positive text color.
+  // perhaps this is semantic abuse, but it looks good and it's
+  // better than hardcoded values in that it adjusts to the colorscheme.
+  
+  const int half_colors = MAXFOLDINGCOLORS / 2;
+  
+  const KColorScheme scheme( QPalette::Normal );
+  
+  // we generate gradients with HSV so that it looks nicer to humans,
+  // so first convert the colors
+  
+  const QColor background( scheme.background().color() );
+  qreal bh, bs, bv;
+  background.getHsvF( &bh, &bs, &bv );
+  
+  const QColor middle( scheme.foreground( KColorScheme::NeutralText ).color() );
+  qreal mh, ms, mv;
+  middle.getHsvF( &mh, &ms, &mv );
+  
+  const QColor final( scheme.foreground( KColorScheme::PositiveText ).color() );
+  qreal fh, fs, fv;
+  final.getHsvF( &fh, &fs, &fv );
+  
+  // some colors may be achromatic, propagate chromas from others
+  // bh-->mh-->fh-->mh-->bh so that if any is chromatic, other become, too
+  if( -1 == mh )
+    mh = bh;
+  if( -1 == fh )
+    fh = mh;
+  if( -1 == mh )
+    mh = fh;
+  if( -1 == bh )
+    bh = mh;
+  
+  { // first half of the gradient
+    const qreal dh = (mh - bh) / half_colors;
+    const qreal ds = (ms - bs) / half_colors;
+    const qreal dv = (mv - bv) / half_colors;
+    
+    for( int i = 0; i < half_colors; i++ ) {
+      const qreal h = bh + dh * i;
+      const qreal s = bs + ds * i;
+      const qreal v = bv + dv * i;
+      m_foldingColors[i] = QBrush( QColor::fromHsvF( h, s, v, 0.5 ),
+                                  Qt::SolidPattern );
+      m_foldingColorsSolid[i] = QBrush( QColor::fromHsvF( h, s, v ),
+                                  Qt::SolidPattern );
+    }
+  }
+
+  { // second half of the gradient
+    const int num_colors = MAXFOLDINGCOLORS - half_colors;
+    const qreal dh = (fh - mh) / num_colors;
+    const qreal ds = (fs - ms) / num_colors;
+    const qreal dv = (fv - mv) / num_colors;
+    
+    for( int i = 0; i < num_colors; i++ ) {
+      const qreal h = mh + dh * i;
+      const qreal s = ms + ds * i;
+      const qreal v = mv + dv * i;
+      m_foldingColors[i + half_colors] = QBrush( QColor::fromHsvF( h, s, v, 0.5 ),
+                                  Qt::SolidPattern );
+      m_foldingColorsSolid[i + half_colors] = QBrush( QColor::fromHsvF( h, s, v ),
+                                  Qt::SolidPattern );
+    }
+  }
+}
+
 
 KateIconBorder::~KateIconBorder() {delete m_foldingRange;}
 

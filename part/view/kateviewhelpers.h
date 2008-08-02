@@ -184,6 +184,8 @@ class KateIconBorder : public QWidget
     QBrush m_foldingColorsSolid[MAXFOLDINGCOLORS];
     const QBrush &foldingColor(KateLineInfo *, int,bool solid);
     QString m_hoveredAnnotationText;
+    
+    void initializeFoldingColors();
 };
 
 class KateViewEncodingAction : public KCodecAction

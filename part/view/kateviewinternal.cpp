@@ -1011,6 +1011,8 @@ void KateViewInternal::cursorLeft(  bool sel )
 {
   if( m_view->isCompletionActive() && view()->completionWidget()->cursorLeft(sel) )
     return;
+  
+  QMutexLocker l(m_doc->smartMutex());
 
   if ( ! m_view->wrapCursor() && m_cursor.column() == 0 )
     return;
@@ -1022,6 +1024,9 @@ void KateViewInternal::cursorRight( bool sel )
 {
   if( m_view->isCompletionActive() && view()->completionWidget()->cursorRight(sel) )
     return;
+  
+  QMutexLocker l(m_doc->smartMutex());
+  
   moveChar( KateViewInternal::right, sel );
 }
 
@@ -1158,6 +1163,8 @@ void KateViewInternal::end( bool sel )
     view()->completionWidget()->bottom();
     return;
   }
+  
+  QMutexLocker lock(m_doc->smartMutex());
 
   KateTextLayout layout = currentLayout();
 
@@ -1371,6 +1378,8 @@ void KateViewInternal::cursorUp(bool sel)
     return;
   }
 
+  QMutexLocker l(m_doc->smartMutex());
+  
   if (m_displayCursor.line() == 0 && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == 0))
     return;
 
@@ -1403,6 +1412,8 @@ void KateViewInternal::cursorDown(bool sel)
     view()->completionWidget()->cursorDown(sel);
     return;
   }
+  
+  QMutexLocker l(m_doc->smartMutex());
 
   if ((m_displayCursor.line() >= m_doc->numVisLines() - 1) && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == cache()->lastViewLine(m_cursor.line())))
     return;
@@ -1506,6 +1517,8 @@ void KateViewInternal::pageUp( bool sel )
     return;
   }
 
+  QMutexLocker l(m_doc->smartMutex());
+  
   // remember the view line and x pos
   int viewLine = cache()->displayViewLine(m_displayCursor);
   bool atTop = startPos().atStartOfDocument();
@@ -1551,6 +1564,8 @@ void KateViewInternal::pageDown( bool sel )
     return;
   }
 
+  QMutexLocker l(m_doc->smartMutex());
+  
   // remember the view line
   int viewLine = cache()->displayViewLine(m_displayCursor);
   bool atEnd = startPos() >= m_cachedMaxStartPos;
@@ -1648,6 +1663,8 @@ void KateViewInternal::top_home( bool sel )
     view()->completionWidget()->top();
     return;
   }
+  
+  QMutexLocker l(m_doc->smartMutex());
 
   KTextEditor::Cursor c( 0, 0 );
   updateSelection( c, sel );
@@ -1660,6 +1677,8 @@ void KateViewInternal::bottom_end( bool sel )
     view()->completionWidget()->bottom();
     return;
   }
+  
+  QMutexLocker l(m_doc->smartMutex());
 
   KTextEditor::Cursor c( m_doc->lastLine(), m_doc->lineLength( m_doc->lastLine() ) );
   updateSelection( c, sel );

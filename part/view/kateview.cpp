@@ -2324,25 +2324,21 @@ void KateView::transpose( )
 
 void KateView::cursorLeft( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorLeft();
 }
 
 void KateView::shiftCursorLeft( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorLeft(true);
 }
 
 void KateView::cursorRight( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorRight();
 }
 
 void KateView::shiftCursorRight( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorRight(true);
 }
 
@@ -2384,37 +2380,31 @@ void KateView::shiftHome( )
 
 void KateView::end( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->end();
 }
 
 void KateView::shiftEnd( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->end(true);
 }
 
 void KateView::up( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorUp();
 }
 
 void KateView::shiftUp( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorUp(true);
 }
 
 void KateView::down( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorDown();
 }
 
 void KateView::shiftDown( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->cursorDown(true);
 }
 
@@ -2456,49 +2446,41 @@ void KateView::shiftBottomOfView( )
 
 void KateView::pageUp( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->pageUp();
 }
 
 void KateView::shiftPageUp( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->pageUp(true);
 }
 
 void KateView::pageDown( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->pageDown();
 }
 
 void KateView::shiftPageDown( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->pageDown(true);
 }
 
 void KateView::top( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->top_home();
 }
 
 void KateView::shiftTop( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->top_home(true);
 }
 
 void KateView::bottom( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->bottom_end();
 }
 
 void KateView::shiftBottom( )
 {
-  QMutexLocker l(m_doc->smartMutex());
   m_viewInternal->bottom_end(true);
 }
 

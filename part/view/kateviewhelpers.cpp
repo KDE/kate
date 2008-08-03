@@ -1671,6 +1671,7 @@ void KateViewBar::hideBarWidget ()
       viewBarContainer->hideViewBarForView(m_view,KTextEditor::ViewBarContainer::BottomBar);
   } else
     hide ();
+  m_view->setFocus();
   kDebug(13025)<<"hide barwidget";
 }
 

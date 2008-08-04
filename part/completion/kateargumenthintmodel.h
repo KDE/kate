@@ -42,6 +42,9 @@ class KateArgumentHintModel : public ExpandingWidgetModel {
 
     void emitDataChanged( const QModelIndex& start, const QModelIndex& end );
     
+    //Returns the index in the source-model for an index within this model
+    QModelIndex mapToSource( const QModelIndex & proxyIndex ) const;
+    
     void buildRows();
     void clear();
   protected:

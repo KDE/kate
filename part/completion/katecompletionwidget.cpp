@@ -428,21 +428,24 @@ void KateCompletionWidget::execute(bool shift)
   if (!isCompletionActive())
     return;
 
+  QModelIndex index = selectedIndex();
+  
   if( shift ) {
-    QModelIndex index = selectedIndex();
-
     if( index.isValid() )
       index.data(KTextEditor::CodeCompletionModel::AccessibilityAccept);
 
     return;
   }
 
-  QModelIndex toExecute = m_entryList->selectionModel()->currentIndex();
-
-  if (!toExecute.isValid())
+  if (!index.isValid())
     return abortCompletion();
 
-  toExecute = m_presentationModel->mapToSource(toExecute);
+  QModelIndex toExecute;
+  
+  if(index.model() == m_presentationModel)
+    toExecute = m_presentationModel->mapToSource(index);
+  else
+    toExecute = m_argumentHintModel->mapToSource(index);
 
   if (!toExecute.isValid()) {
     kWarning() << k_funcinfo << "Could not map index" << m_entryList->selectionModel()->currentIndex() << "to source index.";

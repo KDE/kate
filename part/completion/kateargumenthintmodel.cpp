@@ -34,6 +34,24 @@ void KateArgumentHintModel::clear() {
   clearExpanding();
 }
 
+QModelIndex KateArgumentHintModel::mapToSource( const QModelIndex & index ) const {
+  if( index.row() <  0 || index.row() >= m_rows.count() )
+    return QModelIndex();
+    
+  if( m_rows[index.row()] <  0 || m_rows[index.row()] >= group()->rows.count() )
+    return QModelIndex();
+  
+  KateCompletionModel::ModelRow source = group()->rows[m_rows[index.row()]];
+  if( !source.first ) {
+    kDebug( 13035 ) << "KateArgumentHintModel::data: Row does not exist in source";
+    return QModelIndex();
+  }
+
+  QModelIndex  sourceIndex = source.second.sibling(source.second.row(), index.column());
+  
+  return sourceIndex;
+}
+
 void KateArgumentHintModel::parentModelReset() {
   clear();
   buildRows();

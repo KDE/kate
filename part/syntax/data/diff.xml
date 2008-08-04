@@ -108,10 +108,10 @@
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="File"  defStyleNum="dsKeyword"/>
       <itemData name="Header"  defStyleNum="dsDataType"/>
-      <itemData name="Removed line"  defStyleNum="dsOthers" color="#FF0000"/>
-      <itemData name="Added line"  defStyleNum="dsString" color="#0000FF"/>
-      <itemData name="Changed line (old)"  defStyleNum="dsOthers" color="#FF0000"/>
-      <itemData name="Changed line (new)"  defStyleNum="dsString" color="#0000FF"/>
+      <itemData name="Removed line"  defStyleNum="dsString" color="#FF0000"/>
+      <itemData name="Added line"  defStyleNum="dsOthers" color="#0000FF"/>
+      <itemData name="Changed line (old)"  defStyleNum="dsString" color="#FF0000"/>
+      <itemData name="Changed line (new)"  defStyleNum="dsOthers" color="#0000FF"/>
     </itemDatas>
 
   </highlighting>

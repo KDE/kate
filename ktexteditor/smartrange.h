@@ -414,6 +414,9 @@ class KTEXTEDITOR_EXPORT SmartRange : public Range
      *
      * \param attribute Attribute to assign to this range. If null, simply
      *                  removes the previous Attribute.
+     * 
+     * \note \ref SmartInterface::addHighlightToDocument must be called with the top-range before
+     *       the highlighting can work.
      */
     void setAttribute(Attribute::Ptr attribute);
     //END

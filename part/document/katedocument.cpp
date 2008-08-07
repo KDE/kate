@@ -3934,6 +3934,11 @@ void KateDocument::addView(KTextEditor::View *view) {
   m_views.append( static_cast<KateView*>(view) );
   m_textEditViews.append( view );
 
+  foreach(KTextEditor::SmartRange* highlight, m_documentHighlights) {
+    Q_ASSERT(dynamic_cast<KateView*>(view));
+    static_cast<KateView*>(view)->addExternalHighlight(highlight, m_documentDynamicHighlights.contains(highlight));
+}
+
   // apply the view & renderer vars from the file type
   if (!m_fileType.isEmpty())
       readVariableLine(KateGlobal::self()->modeManager()->fileType(m_fileType).varLine, true);

@@ -469,6 +469,7 @@ void ::KateFileSelector::cmbPathReturnPressed( const QString& u )
   
   //dir->setFocus(); // is it really useful to set focus here?
   dir->setUrl( typedURL, true );
+  qobject_cast<KUrlCompletion *>( cmbPath->completionObject() )->setDir( typedURL.pathOrUrl() );
 
   // strip password (noop if there's none)
   typedURL.setPass( QString() );
@@ -481,6 +482,7 @@ void ::KateFileSelector::cmbPathReturnPressed( const QString& u )
 void ::KateFileSelector::dirUrlEntered( const KUrl& u )
 {
   cmbPath->setUrl( u );
+  qobject_cast<KUrlCompletion *>( cmbPath->completionObject() )->setDir( u.pathOrUrl() );
 }
 
 void ::KateFileSelector::dirFinishedLoading()

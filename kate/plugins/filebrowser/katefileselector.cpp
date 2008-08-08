@@ -464,16 +464,18 @@ void ::KateFileSelector::cmbPathActivated( const KUrl& u )
 
 void ::KateFileSelector::cmbPathReturnPressed( const QString& u )
 {
-  KUrl typedURL( u );
-  if ( typedURL.hasPass() )
-    typedURL.setPass( QString() );
+  // construct so that relative urls are ok
+  KUrl typedURL( dir->url(), u );
+  
+  //dir->setFocus(); // is it really useful to set focus here?
+  dir->setUrl( typedURL, true );
 
+  // strip password (noop if there's none)
+  typedURL.setPass( QString() );
   QStringList urls = cmbPath->urls();
   urls.removeAll( typedURL.url() );
   urls.prepend( typedURL.url() );
   cmbPath->setUrls( urls, KUrlComboBox::RemoveBottom );
-  dir->setFocus();
-  dir->setUrl( KUrl(u), true );
 }
 
 void ::KateFileSelector::dirUrlEntered( const KUrl& u )

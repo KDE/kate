@@ -757,9 +757,9 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setConfigFlags(configFlags);
 
   KateDocumentConfig::global()->setEncoding((ui->cmbEncoding->currentIndex() == 0) ? "" : KGlobal::charsets()->encodingForName(ui->cmbEncoding->currentText()));
-  KateDocumentConfig::global()->setEncodingAutoDetectionScript(
-      (KEncodingDetector::AutoDetectScript)ui->cmbEncodingDetection->itemData(ui->cmbEncodingDetection->currentIndex()).toUInt());
-
+  KateDocumentConfig::global()->setEncodingProberType(
+      (KEncodingProber::ProberType)ui->cmbEncodingDetection->itemData(ui->cmbEncodingDetection->currentIndex()).toUInt());
+      
   KateDocumentConfig::global()->setEol(ui->cmbEOL->currentIndex());
   KateDocumentConfig::global()->setAllowEolDetection(ui->chkDetectEOL->isChecked());
 
@@ -796,20 +796,20 @@ void KateSaveConfigTab::reload()
 
   // encoding detection
   ui->cmbEncodingDetection->clear ();
-  ui->cmbEncodingDetection->addItem (i18n("Disabled"));
+  ui->cmbEncodingDetection->addItem (i18n("Universal"), QVariant((uint)KEncodingProber::Universal));
   ui->cmbEncodingDetection->setCurrentIndex(0);
 
-  foreach(const QStringList &encodingsForScript, KGlobal::charsets()->encodingsByScript())
-  {
-    KEncodingDetector::AutoDetectScript scri=KEncodingDetector::scriptForName(encodingsForScript.at(0));
-    if (KEncodingDetector::hasAutoDetectionForScript(scri))
-    {
-      ui->cmbEncodingDetection->addItem (encodingsForScript.at(0),QVariant((uint)scri));
-      if (scri==KateDocumentConfig::global()->encodingAutoDetectionScript())
-        ui->cmbEncodingDetection->setCurrentIndex(ui->cmbEncodingDetection->count()-1);
-    }
+  QStringList items;
+  foreach (const QStringList &encodingsForScript, KGlobal::charsets()->encodingsByScript())
+    items << encodingsForScript.at(0);
+  items.sort();
+  foreach (QString item, items) {
+    KEncodingProber::ProberType scri=KEncodingProber::proberTypeForName(item);
+    ui->cmbEncodingDetection->addItem (item, QVariant((uint)scri));
+    if (scri==KateDocumentConfig::global()->encodingProberType())
+      ui->cmbEncodingDetection->setCurrentIndex(ui->cmbEncodingDetection->count()-1);
   }
-
+  
   // eol
   ui->cmbEOL->setCurrentIndex(KateDocumentConfig::global()->eol());
   ui->chkDetectEOL->setChecked(KateDocumentConfig::global()->allowEolDetection());

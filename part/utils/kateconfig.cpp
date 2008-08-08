@@ -89,7 +89,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_tabHandling (tabSmart),
    m_configFlags (0),
    m_wordWrapAt (80),
-   m_scriptForEncodingAutoDetection(KEncodingDetector::None),
+   m_proberTypeForEncodingAutoDetection(KEncodingProber::Universal),
    m_tabWidthSet (true),
    m_indentationWidthSet (true),
    m_indentationModeSet (true),
@@ -134,7 +134,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_backupSuffixSet (false),
    m_doc (doc)
 {
-  m_scriptForEncodingAutoDetection=s_global->encodingAutoDetectionScript();
+  m_proberTypeForEncodingAutoDetection=s_global->encodingProberType();
 }
 
 KateDocumentConfig::~KateDocumentConfig ()
@@ -163,7 +163,7 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
     | KateDocumentConfig::cfSmartHome));
 
   setEncoding (config.readEntry("Encoding", ""));
-  setEncodingAutoDetectionScript ((KEncodingDetector::AutoDetectScript)config.readEntry("Script for Encoding Autodetection", 0));
+  setEncodingProberType ((KEncodingProber::ProberType)config.readEntry("ProberType for Encoding Autodetection", 0));
 
   setEol (config.readEntry("End of Line", 0));
   setAllowEolDetection (config.readEntry("Allow End of Line Detection", true));
@@ -198,7 +198,7 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Basic Config Flags", configFlags());
 
   config.writeEntry("Encoding", encoding());
-  config.writeEntry("Script for Encoding Autodetection", (int)encodingAutoDetectionScript());
+  config.writeEntry("ProberType for Encoding Autodetection", (int)encodingProberType());
 
   config.writeEntry("End of Line", eol());
   config.writeEntry("Allow End of Line Detection", allowEolDetection());
@@ -443,9 +443,9 @@ bool KateDocumentConfig::setEncoding (const QString &encoding, bool resetDetecti
   if (resetDetection)
   {
     if (!m_encodingSet || encoding.isEmpty())
-      m_scriptForEncodingAutoDetection=s_global->encodingAutoDetectionScript();
+      m_proberTypeForEncodingAutoDetection=s_global->encodingProberType();
     else
-      m_scriptForEncodingAutoDetection = KEncodingDetector::None;
+      m_proberTypeForEncodingAutoDetection = KEncodingProber::Universal;
   }
   m_encodingSet = true;
   m_encoding = codec->name();
@@ -462,16 +462,16 @@ bool KateDocumentConfig::isSetEncoding () const
   return m_encodingSet;
 }
 
-KEncodingDetector::AutoDetectScript KateDocumentConfig::encodingAutoDetectionScript() const
+KEncodingProber::ProberType KateDocumentConfig::encodingProberType() const
 {
-  return m_scriptForEncodingAutoDetection;
+  return m_proberTypeForEncodingAutoDetection;
 }
 
-void KateDocumentConfig::setEncodingAutoDetectionScript(KEncodingDetector::AutoDetectScript script)
+void KateDocumentConfig::setEncodingProberType(KEncodingProber::ProberType proberType)
 {
   configStart ();
 
-  m_scriptForEncodingAutoDetection=script;
+  m_proberTypeForEncodingAutoDetection=proberType;
 
   configEnd ();
 

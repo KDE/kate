@@ -1530,20 +1530,14 @@ void KateIconBorder::annotationModelChanged( KTextEditor::AnnotationModel * oldm
 KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject *parent)
        : KCodecAction(text, parent,true), doc(_doc), view (_view)
 {
-  connect(this,SIGNAL(triggered(KEncodingDetector::AutoDetectScript)),this,SLOT(setScriptForEncodingAutoDetection(KEncodingDetector::AutoDetectScript)));
+  connect(this,SIGNAL(triggered(KEncodingProber::ProberType)),this,SLOT(setProberTypeForEncodingAutoDetection(KEncodingProber::ProberType)));
   connect(this,SIGNAL(triggered(const QString&)),this,SLOT(setEncoding(const QString&)));
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
 void KateViewEncodingAction::slotAboutToShow()
 {
-  if (doc->scriptForEncodingAutoDetection()==KEncodingDetector::None)
-  {
-    if (!setCurrentCodec(doc->encoding()))
-      kWarning() << "KateViewEncodingAction: cannot set current "<<doc->encoding();
-  }
-  else
-    setCurrentAutoDetectScript(doc->scriptForEncodingAutoDetection());
+  setCurrentProberType(doc->proberTypeForEncodingAutoDetection());
 }
 
 void KateViewEncodingAction::setEncoding (const QString &e)
@@ -1554,17 +1548,9 @@ void KateViewEncodingAction::setEncoding (const QString &e)
   view->reloadFile();
 
 }
-void KateViewEncodingAction::setScriptForEncodingAutoDetection (KEncodingDetector::AutoDetectScript script)
+void KateViewEncodingAction::setProberTypeForEncodingAutoDetection (KEncodingProber::ProberType proberType)
 {
-  if (script==KEncodingDetector::SemiautomaticDetection)
-  {
-    doc->setEncoding("");
-#ifdef DECODE_DEBUG
-    kWarning() << "KEncodingDetector::SemiautomaticDetection " <<doc->encoding();
-#endif
-  }
-  else
-    doc->setScriptForEncodingAutoDetection(script);
+  doc->setProberTypeForEncodingAutoDetection(proberType);
   view->reloadFile();
 }
 //END KateViewEncodingAction

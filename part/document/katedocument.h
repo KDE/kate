@@ -31,7 +31,7 @@
 #include <kmimetype.h>
 #include <klocale.h>
 #include <kshortcut.h>
-#include <kencodingdetector.h>
+#include <kencodingprober.h>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/sessionconfiginterface.h>
@@ -959,8 +959,8 @@ class KateDocument : public KTextEditor::Document,
   public:
     bool setEncoding (const QString &e);
     const QString &encoding() const;
-    void setScriptForEncodingAutoDetection (KEncodingDetector::AutoDetectScript);
-    KEncodingDetector::AutoDetectScript scriptForEncodingAutoDetection() const;
+    void setProberTypeForEncodingAutoDetection (KEncodingProber::ProberType);
+    KEncodingProber::ProberType proberTypeForEncodingAutoDetection() const;
 
 
   public Q_SLOTS:

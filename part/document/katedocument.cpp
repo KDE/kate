@@ -5417,14 +5417,14 @@ const QString &KateDocument::encoding() const
   return m_config->encoding();
 }
 
-void KateDocument::setScriptForEncodingAutoDetection (KEncodingDetector::AutoDetectScript script)
+void KateDocument::setProberTypeForEncodingAutoDetection (KEncodingProber::ProberType proberType)
 {
-  m_config->setEncodingAutoDetectionScript(script);
+  m_config->setEncodingProberType(proberType);
 }
 
-KEncodingDetector::AutoDetectScript KateDocument::scriptForEncodingAutoDetection() const
+KEncodingProber::ProberType KateDocument::proberTypeForEncodingAutoDetection() const
 {
-  return m_config->encodingAutoDetectionScript();
+  return m_config->encodingProberType();
 }
 
 void KateDocument::updateConfig ()

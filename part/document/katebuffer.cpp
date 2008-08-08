@@ -35,7 +35,7 @@
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kcharsets.h>
-#include <kencodingdetector.h>
+#include <kencodingprober.h>
 #include <kde_file.h>
 
 #include <QtCore/QFile>
@@ -65,13 +65,23 @@ static const int KATE_HL_LOOKAHEAD = 64;
  */
 static const int KATE_MAX_DYNAMIC_CONTEXTS = 512;
 
-class KateFileLoader: private KEncodingDetector
+class KateFileLoader
 {
+  enum MIB
+  {
+    MibLatin1  = 4,
+    Mib8859_8  = 85,
+    MibUtf8    = 106,
+    MibUcs2    = 1000,
+    MibUtf16   = 1015,
+    MibUtf16BE = 1013,
+    MibUtf16LE = 1014
+  };  
   public:
-    KateFileLoader (const QString &filename, QTextCodec *codec, bool removeTrailingSpaces, KEncodingDetector::AutoDetectScript script)
-      : KEncodingDetector(codec,
-                          script==KEncodingDetector::None?KEncodingDetector::UserChosenEncoding:KEncodingDetector::DefaultEncoding,
-                          script)
+    KateFileLoader (const QString &filename, QTextCodec *codec, bool removeTrailingSpaces, KEncodingProber::ProberType proberType)
+      : m_codec(codec)
+      , m_prober(new KEncodingProber(proberType))
+      , m_multiByte(0)
       , m_eof (false) // default to not eof
       , m_lastWasEndOfLine (true) // at start of file, we had a virtual newline
       , m_lastWasR (false) // we have not found a \r as last char
@@ -105,7 +115,9 @@ class KateFileLoader: private KEncodingDetector
         {
           // fixes utf16 LE
           //may change codec if autodetection was set or BOM was found
-          analyze(m_buffer.data(), c);
+          m_prober->feed(m_buffer.data(), c);
+          if (m_prober->confidence() > 0.5)
+            m_codec = QTextCodec::codecForName(m_prober->encodingName());
           m_utf8Borked=errorsIfUtf8(m_buffer.data(), c);
           m_binary=processNull(m_buffer.data(), c);
           m_text = decoder()->toUnicode(m_buffer, c);
@@ -141,7 +153,7 @@ class KateFileLoader: private KEncodingDetector
       return false;
     }
 
-    inline const char* actualEncoding () const { return encoding(); }
+    inline const char* actualEncoding () const { return m_codec->name().constData(); }
 
     // no new lines around ?
     inline bool eof () const { return m_eof && !m_lastWasEndOfLine && (m_lastLineStart == m_text.length()); }
@@ -154,6 +166,94 @@ class KateFileLoader: private KEncodingDetector
 
     // broken utf8?
     inline bool brokenUTF8 () const { return m_utf8Borked; }
+    
+    inline QTextDecoder* decoder() const { return m_codec->makeDecoder(); }
+
+    bool errorsIfUtf8 (const char* data, int length)
+    {
+        if (m_codec->mibEnum()!=MibUtf8)
+            return false; //means no errors
+        // #define highest1Bits (unsigned char)0x80
+        // #define highest2Bits (unsigned char)0xC0
+        // #define highest3Bits (unsigned char)0xE0
+        // #define highest4Bits (unsigned char)0xF0
+        // #define highest5Bits (unsigned char)0xF8
+        static const unsigned char highest1Bits = 0x80;
+        static const unsigned char highest2Bits = 0xC0;
+        static const unsigned char highest3Bits = 0xE0;
+        static const unsigned char highest4Bits = 0xF0;
+        static const unsigned char highest5Bits = 0xF8;
+
+        for (int i=0; i<length; ++i)
+        {
+            unsigned char c = data[i];
+
+            if (m_multiByte>0)
+            {
+                if ((c & highest2Bits) == 0x80)
+                {
+                    --(m_multiByte);
+                    continue;
+                }
+                return true;
+            }
+
+            // most significant bit zero, single char
+            if ((c & highest1Bits) == 0x00)
+                continue;
+
+            // 110xxxxx => init 1 following bytes
+            if ((c & highest3Bits) == 0xC0)
+            {
+                m_multiByte = 1;
+                continue;
+            }
+
+            // 1110xxxx => init 2 following bytes
+            if ((c & highest4Bits) == 0xE0)
+            {
+                m_multiByte = 2;
+                continue;
+            }
+
+            // 11110xxx => init 3 following bytes
+            if ((c & highest5Bits) == 0xF0)
+            {
+                m_multiByte = 3;
+                continue;
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    bool processNull(char *data, int len)
+    {
+      bool bin=false;
+      if(is16Bit(m_codec))
+      {
+        for (int i=1; i < len; i+=2)
+        {
+          if ((data[i]=='\0') && (data[i-1]=='\0'))
+          {
+            bin=true;
+            data[i]=' ';
+          }
+        }
+        return bin;
+      }
+      // replace '\0' by spaces, for buggy pages
+      int i = len-1;
+      while(--i>=0)
+      {
+        if(data[i]==0)
+        {
+          bin=true;
+          data[i]=' ';
+        }
+      }
+      return bin;
+    }
 
     // should spaces be ignored at end of line?
     inline bool removeTrailingSpaces () const { return m_removeTrailingSpaces; }
@@ -259,8 +359,24 @@ class KateFileLoader: private KEncodingDetector
       }
     }
 
+  bool is16Bit(QTextCodec* codec)
+  {
+    switch (codec->mibEnum())
+    {
+      case MibUtf16:
+      case MibUtf16BE:
+      case MibUtf16LE:
+      case MibUcs2:
+        return true;
+      default:
+        return false;
+    }
+  }
 
   private:
+    QTextCodec *m_codec;
+    KEncodingProber *m_prober;
+    int m_multiByte;
     bool m_eof;
     bool m_lastWasEndOfLine;
     bool m_lastWasR;
@@ -389,7 +505,7 @@ bool KateBuffer::openFile (const QString &m_file)
    QTime t;
     t.start();
 
-  KateFileLoader file (m_file, m_doc->config()->codec(), m_doc->config()->configFlags() & KateDocumentConfig::cfRemoveSpaces, m_doc->scriptForEncodingAutoDetection());
+  KateFileLoader file (m_file, m_doc->config()->codec(), m_doc->config()->configFlags() & KateDocumentConfig::cfRemoveSpaces, m_doc->proberTypeForEncodingAutoDetection());
 
   bool ok = false;
   KDE_struct_stat sbuf;

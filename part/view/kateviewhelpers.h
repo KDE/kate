@@ -22,6 +22,7 @@
 #define __KATE_VIEW_HELPERS_H__
 
 #include <kcodecaction.h>
+#include <kencodingprober.h>
 #include <klineedit.h>
 
 #include <QtGui/QPixmap>
@@ -203,7 +204,7 @@ class KateViewEncodingAction : public KCodecAction
 
   private Q_SLOTS:
     void setEncoding (const QString &e);
-    void setScriptForEncodingAutoDetection (KEncodingDetector::AutoDetectScript);
+    void setProberTypeForEncodingAutoDetection (KEncodingProber::ProberType);
     void slotAboutToShow();
 };
 

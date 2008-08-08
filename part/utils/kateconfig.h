@@ -20,7 +20,7 @@
 #define __KATE_CONFIG_H__
 
 #include <ktexteditor/markinterface.h>
-#include <kencodingdetector.h>
+#include <kencodingprober.h>
 
 #include <QtCore/QBitRef>
 #include <QtGui/QColor>
@@ -183,8 +183,8 @@ class KateDocumentConfig : public KateConfig
     const QString &encoding () const;
     bool setEncoding (const QString &encoding,bool resetDetection=true);
     bool isSetEncoding () const;
-    KEncodingDetector::AutoDetectScript encodingAutoDetectionScript() const;
-    void setEncodingAutoDetectionScript(KEncodingDetector::AutoDetectScript);
+    KEncodingProber::ProberType encodingProberType() const;
+    void setEncodingProberType(KEncodingProber::ProberType);
 
     enum Eol
     {
@@ -242,7 +242,7 @@ class KateDocumentConfig : public KateConfig
     int m_eol;
     uint m_backupFlags;
     int m_searchDirConfigDepth;
-    KEncodingDetector::AutoDetectScript m_scriptForEncodingAutoDetection;
+    KEncodingProber::ProberType m_proberTypeForEncodingAutoDetection;
     QString m_encoding;
     QString m_backupPrefix;
     QString m_backupSuffix;

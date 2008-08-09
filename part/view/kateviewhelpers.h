@@ -21,7 +21,7 @@
 #ifndef __KATE_VIEW_HELPERS_H__
 #define __KATE_VIEW_HELPERS_H__
 
-#include <kcodecaction.h>
+#include <kselectaction.h>
 #include <kencodingprober.h>
 #include <klineedit.h>
 
@@ -189,19 +189,67 @@ class KateIconBorder : public QWidget
     void initializeFoldingColors();
 };
 
-class KateViewEncodingAction : public KCodecAction
+class KateViewEncodingAction: public KSelectAction
 {
   Q_OBJECT
-
+  
+  Q_PROPERTY(QString codecName READ currentCodecName WRITE setCurrentCodec)
+  Q_PROPERTY(int codecMib READ currentCodecMib)
+  
   public:
     KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject *parent);
 
     ~KateViewEncodingAction(){}
+    
+    KEncodingProber::ProberType currentProberType() const;
 
+    bool setCurrentProberType(KEncodingProber::ProberType);
+    
+    int mibForName(const QString &codecName, bool *ok = 0) const;
+    QTextCodec *codecForMib(int mib) const;
+    
+    QTextCodec *currentCodec() const;
+    bool setCurrentCodec(QTextCodec *codec);
+    
+    QString currentCodecName() const;
+    bool setCurrentCodec(const QString &codecName);
+    
+    int currentCodecMib() const;
+    bool setCurrentCodec(int mib);
+    
+  Q_SIGNALS:
+    /**
+    * Specific (proper) codec was selected
+    */
+    void triggered(QTextCodec *codec);
+    
+    /**
+    * Specific (proper) codec was selected
+    *
+    * @returns codec name
+    */
+    void triggered(const QString&);
+        
+        /**
+        * Autodetection has been selected.
+        * emits KEncodingDetector::SemiautomaticDetection if Default was selected.
+        *
+        * Applicable only if showAutoOptions in c'tor was true
+        */
+    void triggered(KEncodingProber::ProberType);
+        
+        /**
+        * If showAutoOptions==true, then better handle triggered(KEncodingDetector::AutoDetectScript) signal
+        */
+    void defaultItemTriggered();    
+        
   private:
     KateDocument* doc;
     KateView *view;
-
+    class Private;
+    Private* const d;
+    Q_PRIVATE_SLOT( d, void _k_subActionTriggered(QAction*) )
+    
   private Q_SLOTS:
     void setEncoding (const QString &e);
     void setProberTypeForEncodingAutoDetection (KEncodingProber::ProberType);

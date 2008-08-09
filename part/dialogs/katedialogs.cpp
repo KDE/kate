@@ -796,8 +796,11 @@ void KateSaveConfigTab::reload()
 
   // encoding detection
   ui->cmbEncodingDetection->clear ();
-  ui->cmbEncodingDetection->addItem (i18n("Universal"), QVariant((uint)KEncodingProber::Universal));
+  
+  ui->cmbEncodingDetection->addItem (i18n("Disabled"), QVariant((uint)KEncodingProber::None));
   ui->cmbEncodingDetection->setCurrentIndex(0);
+  
+  ui->cmbEncodingDetection->addItem (i18n("Universal"), QVariant((uint)KEncodingProber::Universal));
 
   QStringList items;
   foreach (const QStringList &encodingsForScript, KGlobal::charsets()->encodingsByScript())

@@ -1565,10 +1565,13 @@ void KateViewEncodingAction::Private::init(bool showAutoOptions)
   QList<KSelectAction *> actions;
   
   q->setToolBarMode(MenuMode);
-  defaultAction = q->addAction(i18nc("Encodings menu", "Autodetect"));
-  defaultAction->setData(QVariant((uint)KEncodingProber::Universal));
-  q->menu()->addSeparator();
+  defaultAction = q->addAction(i18nc("Encodings menu", "Disabled"));
+  defaultAction->setData(QVariant((uint)KEncodingProber::None));
   
+  q->addAction(i18nc("Encodings menu", "Autodetect"))->setData(QVariant((uint)KEncodingProber::Universal));
+  
+  q->menu()->addSeparator();
+
   int i;
   foreach(const QStringList &encodingsForScript, KGlobal::charsets()->encodingsByScript())
   {
@@ -1643,21 +1646,29 @@ void KateViewEncodingAction::setProberTypeForEncodingAutoDetection (KEncodingPro
 KEncodingProber::ProberType KateViewEncodingAction::currentProberType() const
 {
   return d->currentSubAction->data().isNull()?
-  KEncodingProber::Universal:
+  KEncodingProber::None:
   (KEncodingProber::ProberType)d->currentSubAction->data().toUInt();
 }
 
 bool KateViewEncodingAction::setCurrentProberType(KEncodingProber::ProberType scri)
 {
     int i;
-    if (scri == KEncodingProber::Universal) 
+    
+    if (scri == KEncodingProber::None) 
     {
       d->currentSubAction=actions().at(0);
       d->currentSubAction->trigger();
       return true;
     }
     
-    for (i=1;i<actions().size();++i)
+    if (scri == KEncodingProber::Universal) 
+    {
+      d->currentSubAction=actions().at(1);
+      d->currentSubAction->trigger();
+      return true;
+    }
+    
+    for (i=2;i<actions().size();++i)
     {
       if (actions().at(i)->menu())
       {
@@ -1730,7 +1741,7 @@ bool KateViewEncodingAction::setCurrentCodec( QTextCodec *codec )
     return false;
   
   int i,j;
-  for (i=1;i<actions().size();++i)
+  for (i=2;i<actions().size();++i)
   {
     if (actions().at(i)->menu())
     {

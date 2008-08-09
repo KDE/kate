@@ -1558,7 +1558,7 @@ class KateViewEncodingAction::Private
 bool lessThanAction(KSelectAction *a, KSelectAction *b)
 {
   return a->text() < b->text();
-};
+}
 
 void KateViewEncodingAction::Private::init(bool showAutoOptions)
 {

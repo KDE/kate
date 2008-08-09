@@ -94,7 +94,6 @@ class KateFileLoader
       , m_file (filename)
       , m_buffer (qMin (m_file.size() == 0 ? KATE_FILE_LOADER_BS : m_file.size(), KATE_FILE_LOADER_BS), 0) // handle zero sized files special, like in /proc
     {
-      kDebug (13020) << "OPEN USES ENCODING: " << codec->name();
     }
 
     ~KateFileLoader ()
@@ -115,12 +114,14 @@ class KateFileLoader
         {
           // fixes utf16 LE
           //may change codec if autodetection was set or BOM was found
+          kDebug (13020) << "PROBER TYPE: " << KEncodingProber::nameForProberType(m_prober->proberType());
           m_prober->feed(m_buffer.data(), c);
           if (m_prober->confidence() > 0.5)
             m_codec = QTextCodec::codecForName(m_prober->encodingName());
           m_utf8Borked=errorsIfUtf8(m_buffer.data(), c);
           m_binary=processNull(m_buffer.data(), c);
           m_text = decoder()->toUnicode(m_buffer, c);
+          kDebug (13020) << "OPEN USES ENCODING: " << m_codec->name();
         }
 
         m_eof = (c == -1) || (c == 0);

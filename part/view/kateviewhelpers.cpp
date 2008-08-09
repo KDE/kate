@@ -1593,7 +1593,6 @@ void KateViewEncodingAction::Private::init(bool showAutoOptions)
   qSort(actions.begin(), actions.end(), lessThanAction);
   foreach (KSelectAction *action, actions)
     q->addAction(action);
-  q->setCurrentItem(0);
 }
 
 void KateViewEncodingAction::Private::_k_subActionTriggered(QAction *action)

@@ -445,7 +445,7 @@ bool KateDocumentConfig::setEncoding (const QString &encoding, bool resetDetecti
     if (!m_encodingSet || encoding.isEmpty())
       m_proberTypeForEncodingAutoDetection=s_global->encodingProberType();
     else
-      m_proberTypeForEncodingAutoDetection = KEncodingProber::Universal;
+      m_proberTypeForEncodingAutoDetection = KEncodingProber::None;
   }
   m_encodingSet = true;
   m_encoding = codec->name();

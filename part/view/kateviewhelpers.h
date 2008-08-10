@@ -232,17 +232,14 @@ class KateViewEncodingAction: public KSelectAction
         
         /**
         * Autodetection has been selected.
-        * emits KEncodingDetector::SemiautomaticDetection if Default was selected.
         *
         * Applicable only if showAutoOptions in c'tor was true
         */
     void triggered(KEncodingProber::ProberType);
         
-        /**
-        * If showAutoOptions==true, then better handle triggered(KEncodingDetector::AutoDetectScript) signal
-        */
-    void defaultItemTriggered();    
-        
+  protected Q_SLOTS:
+    virtual void actionTriggered(QAction*);    
+    
   private:
     KateDocument* doc;
     KateView *view;

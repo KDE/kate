@@ -1568,7 +1568,8 @@ void KateViewEncodingAction::Private::init(bool showAutoOptions)
   defaultAction = q->addAction(i18nc("Encodings menu", "Disabled"));
   defaultAction->setData(QVariant((uint)KEncodingProber::None));
   
-  q->addAction(i18nc("Encodings menu", "Autodetect"))->setData(QVariant((uint)KEncodingProber::Universal));
+  QAction *tmp = q->addAction(i18nc("Encodings menu", "Autodetect"));
+  tmp->setData(QVariant((uint)KEncodingProber::Universal));
   
   q->menu()->addSeparator();
 
@@ -1621,6 +1622,14 @@ KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_vi
   connect(this,SIGNAL(triggered(KEncodingProber::ProberType)),this,SLOT(setProberTypeForEncodingAutoDetection(KEncodingProber::ProberType)));
   connect(this,SIGNAL(triggered(const QString&)),this,SLOT(setEncoding(const QString&)));
   connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+}
+
+void KateViewEncodingAction::actionTriggered(QAction *action)
+{
+  if (action == d->defaultAction)
+    emit triggered(KEncodingProber::None);
+  else
+    emit triggered(KEncodingProber::Universal);
 }
 
 void KateViewEncodingAction::slotAboutToShow()

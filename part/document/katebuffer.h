@@ -28,7 +28,7 @@
 class KateLineInfo;
 class KateDocument;
 class KateHighlighting;
-
+class KateBufferBlock;
 
 /**
  * The KateBuffer class maintains a collections of lines.
@@ -161,6 +161,14 @@ class KateBuffer : public QObject
   public:
     /**
      * Return line @p line
+     * Highlighting won't be triggered, use this, if you need only 
+     * the text of the line for example, in search/replace or other
+     * pure text manipulation functions
+     */
+    KateTextLine::Ptr plainLine(int line);
+
+    /**
+     * Return line @p line
      * Highlighting will be updated, if needed
      * Only use this function if you really need the highlighting information,
      * otherwise use for better speed @ref plainLine
@@ -168,30 +176,14 @@ class KateBuffer : public QObject
     KateTextLine::Ptr line(int line);
     
     /**
-     * Return line @p line
-     * Highlighting won't be triggered, use this, if you need only 
-     * the text of the line for example, in search/replace or other
-     * pure text manipulation functions
+     * Return the total number of lines in the buffer.
      */
-    inline KateTextLine::Ptr plainLine(int line)
-    {
-      // valid line at all?
-      if (line < 0 || line >= m_lines.size())
-        return KateTextLine::Ptr();
-
-      // return requested line
-      return m_lines[line];
-    }
+    inline int count() const { return m_lines; }
     
     /**
      * Return the total number of lines in the buffer.
      */
-    inline int count() const { return m_lines.size(); }
-    
-    /**
-     * Return the total number of lines in the buffer.
-     */
-    inline int lines() const { return m_lines.size(); }
+    inline int lines() const { return m_lines; }
 
     /**
      * Mark line @p i as changed !
@@ -207,13 +199,13 @@ class KateBuffer : public QObject
      * Remove line @p i
      */
     void removeLine(int i);
-  
+
   private:
      inline void addIndentBasedFoldingInformation(QVector<int> &foldingList,int linelength,bool addindent,int deindent);
      inline void updatePreviousNotEmptyLine(int current_line,bool addindent,int deindent);
 
   public:
-    inline int countVisible () { return m_lines.size() - m_regionTree.getHiddenLinesCount(m_lines.size()); }
+    inline int countVisible () { return m_lines - m_regionTree.getHiddenLinesCount(m_lines); }
 
     inline int lineNumber (int visibleLine) { return m_regionTree.getRealLine (visibleLine); }
 
@@ -280,7 +272,12 @@ class KateBuffer : public QObject
     /**
      * current line count
      */
-    QVector<KateTextLine::Ptr> m_lines;
+    QVector<KateBufferBlock*> m_blocks;
+
+    /**
+     * count of lines
+     */
+    int m_lines;
 
     /**
      * binary file loaded ?

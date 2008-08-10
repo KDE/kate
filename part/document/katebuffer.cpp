@@ -405,6 +405,11 @@ class KateBufferBlock
     KateBufferBlock (int _start) : start (_start) {}
 
     /**
+     * get line with absolute line number
+     */
+    KateTextLine::Ptr line (int i) { return lines[i - start]; }
+
+    /**
      * lines contained in this buffer
      */
     QVector<KateTextLine::Ptr> lines;
@@ -427,6 +432,7 @@ KateBuffer::KateBuffer(KateDocument *doc)
    editTagLineFrom (false),
    editChangesDone (false),
    m_doc (doc),
+   m_lastUsedBlock (0),
    m_lines (0),
    m_binary (false),
    m_brokenUTF8 (false),
@@ -517,6 +523,7 @@ void KateBuffer::clear()
 
   // kill all blocks
   qDeleteAll (m_blocks);
+  m_lastUsedBlock = 0;
   m_blocks.clear ();
   
   // one block
@@ -693,14 +700,52 @@ bool KateBuffer::saveFile (const QString &m_file)
   return (file.error() == QFile::NoError);
 }
 
+int KateBuffer::findBlock (int line)
+{
+  // invalid line!
+  if (line < 0 || line >= m_lines)
+    return -1;
+
+  // reset invalid last blocks
+  if (m_lastUsedBlock < 0 || m_lastUsedBlock >= m_blocks.size())
+    m_lastUsedBlock = 0;
+
+  forever
+  {
+    int start = m_blocks[m_lastUsedBlock]->start;
+    int lines = m_blocks[m_lastUsedBlock]->lines.size ();
+
+    if (start <= line && line < (start + lines))
+      return m_lastUsedBlock;
+
+    if (line < start)
+      m_lastUsedBlock--;
+    else
+      m_lastUsedBlock++;
+  }
+
+  return -1;
+}
+
+void KateBuffer::fixBlocksFrom (int lastValidBlock)
+{
+  int lastLine = m_blocks[lastValidBlock]->start + m_blocks[lastValidBlock]->lines.size();
+  for (int i = lastValidBlock + 1; i < m_blocks.size(); ++i)
+  {
+    m_blocks[i]->start = lastLine;
+    lastLine += m_blocks[i]->lines.size();
+  }
+}
+
 KateTextLine::Ptr KateBuffer::plainLine(int line)
 {
    // valid line at all?
-   if (line < 0 || line >= m_lines)
+   int block = findBlock (line);
+   if (block == -1)
      return KateTextLine::Ptr();
 
    // return requested line
-   return m_blocks[0]->lines[line];
+   return m_blocks[block]->line (line);
 }  
 
 KateTextLine::Ptr KateBuffer::line (int line)
@@ -748,9 +793,15 @@ void KateBuffer::insertLine(int i, KateTextLine::Ptr line)
   if (i < 0 || i > m_lines)
     return;
 
+  // get block
+  int block = findBlock (i);
+  if (block == -1)
+    block = m_blocks.size() - 1;
+
   // insert line
-  m_blocks[0]->lines.insert (i - m_blocks[0]->start, line);
+  m_blocks[block]->lines.insert (i - m_blocks[block]->start, line);
   m_lines++;
+  fixBlocksFrom (block);
 
   if (m_lineHighlightedMax > i)
     m_lineHighlightedMax++;
@@ -779,12 +830,15 @@ void KateBuffer::insertLine(int i, KateTextLine::Ptr line)
 
 void KateBuffer::removeLine(int i)
 {
-  if (i < 0 || i >= m_lines)
+  int block = findBlock (i);
+
+  if (block == -1)
     return;
 
   // remove line
-  m_blocks[0]->lines.remove (i - m_blocks[0]->start);
+  m_blocks[block]->lines.remove (i - m_blocks[block]->start);
   m_lines--;
+  fixBlocksFrom (block);
 
   if (m_lineHighlightedMax > i)
     m_lineHighlightedMax--;

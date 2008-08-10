@@ -238,6 +238,10 @@ class KateBuffer : public QObject
     void codeFoldingColumnUpdate(int lineNr);
 
   private:
+    int findBlock (int line);
+
+    void fixBlocksFrom (int lastValidBlock);
+
     /**
      * Highlight information needs to be updated.
      *
@@ -273,6 +277,11 @@ class KateBuffer : public QObject
      * current line count
      */
     QVector<KateBufferBlock*> m_blocks;
+
+    /**
+     * last used block
+     */
+    int m_lastUsedBlock;
 
     /**
      * count of lines

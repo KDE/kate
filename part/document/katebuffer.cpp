@@ -277,20 +277,16 @@ class KateFileLoader
           {
             int c = m_file.read (m_buffer.data(), m_buffer.size());
 
-            int readString = 0;
+            // kill the old lines...
+            m_text.remove (0, m_lastLineStart);
+
+            // if any text is there, append it....
             if (c > 0)
             {
               m_binary=processNull(m_buffer.data(), c)||m_binary;
               m_utf8Borked=m_utf8Borked||errorsIfUtf8(m_buffer.data(), c);
-
-              QString str (decoder()->toUnicode (m_buffer.data(), c));
-              readString = str.length();
-
-              m_text = m_text.mid (m_lastLineStart, m_position-m_lastLineStart)
-                       + str;
+              m_text.append (decoder()->toUnicode (m_buffer.data(), c));
             }
-            else
-              m_text = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
 
             // is file completely read ?
             m_eof = (c == -1) || (c == 0);

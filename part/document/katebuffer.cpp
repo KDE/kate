@@ -68,7 +68,7 @@ static const int KATE_MAX_DYNAMIC_CONTEXTS = 512;
 /**
  * allowed lines per buffer block on loading
  */
-static const int KATE_MAX_LINES_PER_BUFFER = 4 * 1024;
+static const int KATE_MAX_LINES_PER_BLOCK = 4 * 1024;
 
 class KateFileLoader
 {
@@ -577,7 +577,6 @@ bool KateBuffer::openFile (const QString &m_file)
   m_lines = 0;
 
   // read in all lines...
-  int bindex = 0;
   while ( !file.eof() )
   {
     int offset = 0, length = 0;
@@ -597,7 +596,11 @@ bool KateBuffer::openFile (const QString &m_file)
     }
 
     KateTextLine::Ptr textLine (new KateTextLine (unicodeData, length));
-    m_blocks[bindex]->lines.append (textLine);
+    
+    if (m_blocks.last()->lines.size() >= KATE_MAX_LINES_PER_BLOCK)
+      m_blocks.append (new KateBufferBlock (m_lines));
+
+    m_blocks.last()->lines.append (textLine);    
     m_lines++;
   }
 

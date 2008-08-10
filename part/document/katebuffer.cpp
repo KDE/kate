@@ -1050,8 +1050,13 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
   }
 
   // get previous line, if any
-  KateTextLine::Ptr prevLine = plainLine (startLine-1);
-  
+  KateTextLine::Ptr prevLine;
+
+  if (startLine >= 1)
+    prevLine = plainLine (startLine-1);
+  else
+    prevLine = new KateTextLine ();
+
   // does we need to emit a signal for the folding changes ?
   bool codeFoldingUpdate = false;
 

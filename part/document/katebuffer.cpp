@@ -68,7 +68,7 @@ static const int KATE_MAX_DYNAMIC_CONTEXTS = 512;
 /**
  * allowed lines per buffer block on loading
  */
-static const int KATE_MAX_LINES_PER_BLOCK = 4 * 1024;
+static const int KATE_AVERAGE_LINES_PER_BLOCK = 4 * 1024;
 
 class KateFileLoader
 {
@@ -570,7 +570,7 @@ bool KateBuffer::openFile (const QString &m_file)
 
     KateTextLine::Ptr textLine (new KateTextLine (unicodeData, length));
     
-    if (m_blocks.last()->lines.size() >= KATE_MAX_LINES_PER_BLOCK)
+    if (m_blocks.last()->lines.size() >= KATE_AVERAGE_LINES_PER_BLOCK)
       m_blocks.append (new KateBufferBlock (m_lines));
 
     m_blocks.last()->lines.append (textLine);    
@@ -705,7 +705,53 @@ int KateBuffer::findBlock (int line)
 
 void KateBuffer::fixBlocksFrom (int lastValidBlock)
 {
-  int lastLine = m_blocks[lastValidBlock]->start + m_blocks[lastValidBlock]->lines.size();
+  /**
+   * fix the start line of all blocks following the block modified :)
+   */
+
+  // last block with valid start
+  KateBufferBlock *block = m_blocks[lastValidBlock];
+
+  // lines in block
+  int blockLines = block->lines.size();
+
+  // remember last correct lastline
+  int lastLine = block->start + blockLines;
+ 
+  // kill empty blocks
+  if (blockLines == 0 && m_blocks.size() > 0)
+  {
+    delete block;
+    m_blocks.remove (lastValidBlock);
+
+    // set new last valid block, it's even ok to have here -1!
+    lastValidBlock--;
+
+    // adjust last used block in all cases
+    m_lastUsedBlock--;
+  }
+  else if (blockLines > (2*KATE_AVERAGE_LINES_PER_BLOCK)) // try to balance blocks
+  {
+    int linesToStay = blockLines - KATE_AVERAGE_LINES_PER_BLOCK;
+
+    // construct new block
+    KateBufferBlock *newBlock = new KateBufferBlock (lastLine - KATE_AVERAGE_LINES_PER_BLOCK);
+    m_blocks.insert (lastValidBlock+1, newBlock);
+
+    // move lines
+    newBlock->lines.resize (KATE_AVERAGE_LINES_PER_BLOCK);
+    for (int i = 0; i < KATE_AVERAGE_LINES_PER_BLOCK; ++i)
+      newBlock->lines[i] = block->lines[linesToStay + i];
+
+    // resize old block
+    block->lines.resize (linesToStay);
+
+    // new block is current
+    block = newBlock;
+    lastValidBlock++;
+  }
+  
+  // loop over all blocks behind last correct to fix start line
   for (int i = lastValidBlock + 1; i < m_blocks.size(); ++i)
   {
     m_blocks[i]->start = lastLine;

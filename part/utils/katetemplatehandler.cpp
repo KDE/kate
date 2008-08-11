@@ -266,7 +266,7 @@ void KateTemplateHandler::slotTextInserted(KTextEditor::Document*, const KTextEd
 
   kDebug(13020)<<cur.line()<<"/"<<cur.column()<<"---"<<m_currentRange->start().line()<<"/"<<m_currentRange->start().column()<<"+++"<<m_currentRange->end().line()<<"/"<<m_currentRange->end().column();
 
-  kdDebug(13020)<<m_doc->text(range);
+  kDebug(13020)<<m_doc->text(range);
 
   if ( ( !m_currentRange ) ||
        ( ( !m_currentRange->contains( cur ) ) && ( ! ( ( m_currentRange->start() == m_currentRange->end() ) && ( (m_currentRange->end() == cur) || 

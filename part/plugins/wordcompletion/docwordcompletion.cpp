@@ -87,6 +87,7 @@ QVariant DocWordCompletionModel::data(const QModelIndex& index, int role) const
   switch ( role )
   {
     case Qt::DisplayRole:
+      //kDebug( 13040 ) << ">>" << m_matches.at( index.row() ) << "<<";
       return m_matches.at( index.row() );
     case CompletionRole:
       return (int)FirstProperty|LastProperty|Public;
@@ -376,6 +377,7 @@ void DocWordCompletionPluginView::completeForwards()
 // Pop up the editors completion list if applicable
 void DocWordCompletionPluginView::popupCompletionList()
 {
+  kDebug( 13040 ) << "entered ...";
   KTextEditor::Range r = range();
 
   if ( r.isEmpty() )
@@ -383,11 +385,15 @@ void DocWordCompletionPluginView::popupCompletionList()
 
   m_dWCompletionModel->saveMatches( m_view, r );
 
+  kDebug( 13040 ) << "after save matches ...";
+
   if ( ! m_dWCompletionModel->rowCount(QModelIndex()) ) return;
 
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>( m_view );
-  if ( cci && ! cci->isCompletionActive() )
+  if ( cci && ! cci->isCompletionActive() ) {
+    kDebug( 13040 ) << "calling start_completion ...";
     cci->startCompletion( r, m_dWCompletionModel );
+  }
 }
 
 void DocWordCompletionPluginView::toggleAutoPopup()

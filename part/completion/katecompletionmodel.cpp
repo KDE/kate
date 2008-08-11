@@ -248,7 +248,7 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
   //Returns a nonzero group if this index is the head of a group(A Label in the list)
   Group* g = groupForIndex(index);
 
-  if (g) {
+  if (g && (!g->isEmpty)) {
     switch (role) {
       case Qt::DisplayRole:
         if (!index.column())
@@ -626,7 +626,7 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
   int groupingAttribute = groupingAttributes(attribute);
   //kDebug( 13035 ) << attribute << " " << groupingAttribute;
 
-  if (m_groupHash.contains(groupingAttribute))
+  if (m_groupHash.contains(groupingAttribute)) {
     if (groupingMethod() & Scope) {
       for (QHash<int, Group*>::ConstIterator it = m_groupHash.find(groupingAttribute); it != m_groupHash.constEnd() && it.key() == groupingAttribute; ++it)
         if (it.value()->scope == scope)
@@ -634,7 +634,7 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
     } else {
       return m_groupHash.value(groupingAttribute);
     }
-
+  }
   Group* ret = new Group(this);
 
   ret->attribute = attribute;
@@ -714,16 +714,19 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
 
 bool KateCompletionModel::hasGroups( ) const
 {
-  return m_groupingEnabled;
+  //kDebug( 13035 ) << "m_groupHash.size()"<<m_groupHash.size();
+  //kDebug( 13035 ) << "m_rowTable.count()"<<m_rowTable.count();
+  return m_groupingEnabled && (m_rowTable.count()>1); // && (m_groupHash.size()>1);
 }
 
 KateCompletionModel::Group* KateCompletionModel::groupForIndex( const QModelIndex & index ) const
 {
-  if (!index.isValid())
+  if (!index.isValid()) {
     if (!hasGroups())
       return m_ungrouped;
     else
       return 0L;
+  }
 
   if (groupOfParent(index))
     return 0L;
@@ -771,7 +774,7 @@ QModelIndex KateCompletionModel::parent( const QModelIndex & index ) const
 
 int KateCompletionModel::rowCount( const QModelIndex & parent ) const
 {
-  if (!parent.isValid())
+  if (!parent.isValid()) {
     if (hasGroups()) {
       //kDebug( 13035 ) << "Returning row count for toplevel " << m_rowTable.count();
       return m_rowTable.count();
@@ -779,6 +782,7 @@ int KateCompletionModel::rowCount( const QModelIndex & parent ) const
       //kDebug( 13035 ) << "Returning ungrouped row count for toplevel " << m_ungrouped->rows.count();
       return m_ungrouped->rows.count();
     }
+  }
 
   Group* g = groupForIndex(parent);
 
@@ -1995,3 +1999,4 @@ void KateCompletionModel::clearCompletionModels()
 }
 
 #include "katecompletionmodel.moc"
+// kate: space-indent on; indent-width 2; replace-tabs on;

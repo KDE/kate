@@ -28,7 +28,33 @@
 class KateLineInfo;
 class KateDocument;
 class KateHighlighting;
-class KateBufferBlock;
+
+/**
+ * Block inside the buffer
+ */
+class KateBufferBlock
+{
+  public:
+    /**
+     * new block
+     */
+    KateBufferBlock (int _start) : start (_start) {}
+
+    /**
+     * get line with absolute line number
+     */
+    inline KateTextLine::Ptr line (int i) { return lines[i - start]; }
+
+    /**
+     * lines contained in this buffer
+     */
+    QVector<KateTextLine::Ptr> lines;
+
+    /**
+     * start line
+     */
+    int start;
+};
 
 /**
  * The KateBuffer class maintains a collections of lines.
@@ -165,7 +191,16 @@ class KateBuffer : public QObject
      * the text of the line for example, in search/replace or other
      * pure text manipulation functions
      */
-    KateTextLine::Ptr plainLine(int line);
+    inline KateTextLine::Ptr plainLine (int line)
+    {
+        // valid line at all?
+        int block = findBlock (line);
+        if (block == -1)
+          return KateTextLine::Ptr();
+
+        // return requested line
+        return m_blocks[block]->line (line);
+    }
 
     /**
      * Return line @p line

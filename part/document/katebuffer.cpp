@@ -394,33 +394,6 @@ class KateFileLoader
 };
 
 /**
- * Block inside the buffer
- */
-class KateBufferBlock
-{
-  public:
-    /**
-     * new block
-     */
-    KateBufferBlock (int _start) : start (_start) {}
-
-    /**
-     * get line with absolute line number
-     */
-    KateTextLine::Ptr line (int i) { return lines[i - start]; }
-
-    /**
-     * lines contained in this buffer
-     */
-    QVector<KateTextLine::Ptr> lines;
-
-    /**
-     * start line
-     */
-    int start;
-};
-
-/**
  * Create an empty buffer. (with one block with one empty line)
  */
 KateBuffer::KateBuffer(KateDocument *doc)
@@ -739,17 +712,6 @@ void KateBuffer::fixBlocksFrom (int lastValidBlock)
     lastLine += m_blocks[i]->lines.size();
   }
 }
-
-KateTextLine::Ptr KateBuffer::plainLine(int line)
-{
-   // valid line at all?
-   int block = findBlock (line);
-   if (block == -1)
-     return KateTextLine::Ptr();
-
-   // return requested line
-   return m_blocks[block]->line (line);
-}  
 
 KateTextLine::Ptr KateBuffer::line (int line)
 {

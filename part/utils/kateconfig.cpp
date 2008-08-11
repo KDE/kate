@@ -682,7 +682,8 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 {
   configStart ();
 
-  setDynWordWrap (config.readEntry( "Dynamic Word Wrap", true ));
+  // default off again, until this is usable for large size documents
+  setDynWordWrap (config.readEntry( "Dynamic Word Wrap", false ));
   setDynWordWrapIndicators (config.readEntry( "Dynamic Word Wrap Indicators", 1 ));
   setDynWordWrapAlignIndent (config.readEntry( "Dynamic Word Wrap Align Indent", 80 ));
 

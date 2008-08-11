@@ -126,6 +126,9 @@ KWrite::KWrite (KTextEditor::Document *doc)
 
   updateStatus ();
   show ();
+
+  // give view focus
+  m_view->setFocus (Qt::OtherFocusReason);
 }
 
 KWrite::~KWrite()

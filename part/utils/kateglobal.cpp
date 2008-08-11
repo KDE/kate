@@ -36,6 +36,7 @@
 #include <kservicetypetrader.h>
 #include <kdirwatch.h>
 #include <kdebug.h>
+#include <kdeversion.h>
 #include <kpagedialog.h>
 #include <kpagewidgetmodel.h>
 #include <kiconloader.h>
@@ -46,9 +47,14 @@ KateGlobal *KateGlobal::s_self = 0;
 
 int KateGlobal::s_ref = 0;
 
+QString KateGlobal::katePartVersion()
+{
+  return QString("%1.%2").arg(KDE::versionMajor() - 1).arg(KDE::versionMinor());
+}
+
 KateGlobal::KateGlobal ()
  : KTextEditor::Editor (0)
- , m_aboutData ("katepart", 0, ki18n("Kate Part"), KATEPART_VERSION,
+ , m_aboutData ("katepart", 0, ki18n("Kate Part"), katePartVersion().toLatin1(),
              ki18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
              ki18n( "(c) 2000-2007 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org")
  , m_componentData (&m_aboutData)

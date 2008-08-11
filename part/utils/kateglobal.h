@@ -30,12 +30,6 @@
 #include <ktexteditor/containerinterface.h>
 #include <QtCore/QList>
 
-/**
- * katepart version must be a string in double quotes, format: "x.x"
- * it is used for the version in the aboutdata + hl stuff
- */
-#define KATEPART_VERSION "3.0"
-
 class KateCmd;
 class KateModeManager;
 class KateSchemaManager;
@@ -173,6 +167,12 @@ class KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterf
      * decrement reference counter
      */
     static void decRef () { if (s_ref > 0) --s_ref; if (s_ref == 0) { delete s_self; s_self = 0L; } }
+
+    /**
+     * Returns the current version of Kate Part: KDE X.Y.Z contains Kate Part X-1.Y
+     * @return version of type x.y, e.g. 3.2
+     */
+    static QString katePartVersion();
 
     /**
      * public accessor to the instance

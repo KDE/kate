@@ -298,6 +298,7 @@
         <RegExpr attribute="Region" context="#stay" String="/\*\s*@\}\s*\*/"   endRegion="MemberGroup"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="LineComment">
+        <LineContinue attribute="Comment" context="#stay"/>
         <DetectSpaces />
         <IncludeRules context="##Alerts" />
         <keyword attribute="Tags" context="#stay" String="TagOnly" />

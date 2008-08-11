@@ -204,6 +204,7 @@
       </context>
 
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
+        <LineContinue attribute="Comment" context="#stay"/>
         <DetectSpaces />
         <IncludeRules context="##Alerts" />
         <DetectIdentifier />

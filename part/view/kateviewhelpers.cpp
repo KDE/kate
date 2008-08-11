@@ -1634,7 +1634,7 @@ void KateViewEncodingAction::actionTriggered(QAction *action)
 
 void KateViewEncodingAction::slotAboutToShow()
 {
-  setCurrentProberType(doc->proberTypeForEncodingAutoDetection());
+  // setCurrentProberType(doc->proberTypeForEncodingAutoDetection());
 }
 
 void KateViewEncodingAction::setEncoding (const QString &e)

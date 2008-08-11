@@ -48,6 +48,7 @@ bool lessThan(const KateLineLayoutMap::LineLayoutPair& lhs,
 
 void KateLineLayoutMap::clear()
 {
+  m_lineLayouts.clear();
 }
 
 bool KateLineLayoutMap::contains(int i) const

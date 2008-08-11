@@ -68,7 +68,7 @@ KateIndentScript *KateScriptManager::indenter(const QString &language)
   } else {
     kDebug(13050) << "No indenter for" << language;
   }
-  
+
   return highestPriorityIndenter;
 }
 
@@ -81,8 +81,8 @@ void KateScriptManager::collect(const QString& resourceFile,
 
   force = false;
   // If KatePart version does not match, better force a true reload
-  if(QString(KATEPART_VERSION) != config.readEntry("kate-version", QString("0.0"))) {
-    config.writeEntry("kate-version", QString(KATEPART_VERSION));
+  if(KateGlobal::katePartVersion() != config.readEntry("kate-version", QString("0.0"))) {
+    config.writeEntry("kate-version", KateGlobal::katePartVersion());
     force = true;
   }
   // get a list of all .js files
@@ -201,7 +201,7 @@ void KateScriptManager::collect(const QString& resourceFile,
         m_scripts.push_back(new KateScript(*fileit, information));
     }
   }
- 
+
 
 
  // XX Test

@@ -759,7 +759,7 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setEncoding((ui->cmbEncoding->currentIndex() == 0) ? "" : KGlobal::charsets()->encodingForName(ui->cmbEncoding->currentText()));
   KateDocumentConfig::global()->setEncodingProberType(
       (KEncodingProber::ProberType)ui->cmbEncodingDetection->itemData(ui->cmbEncodingDetection->currentIndex()).toUInt());
-      
+
   KateDocumentConfig::global()->setEol(ui->cmbEOL->currentIndex());
   KateDocumentConfig::global()->setAllowEolDetection(ui->chkDetectEOL->isChecked());
 
@@ -796,10 +796,10 @@ void KateSaveConfigTab::reload()
 
   // encoding detection
   ui->cmbEncodingDetection->clear ();
-  
+
   ui->cmbEncodingDetection->addItem (i18n("Disabled"), QVariant((uint)KEncodingProber::None));
   ui->cmbEncodingDetection->setCurrentIndex(0);
-  
+
   ui->cmbEncodingDetection->addItem (i18n("Universal"), QVariant((uint)KEncodingProber::Universal));
 
   QStringList items;
@@ -812,7 +812,7 @@ void KateSaveConfigTab::reload()
     if (scri==KateDocumentConfig::global()->encodingProberType())
       ui->cmbEncodingDetection->setCurrentIndex(ui->cmbEncodingDetection->count()-1);
   }
-  
+
   // eol
   ui->cmbEOL->setCurrentIndex(KateDocumentConfig::global()->eol());
   ui->chkDetectEOL->setChecked(KateDocumentConfig::global()->allowEolDetection());
@@ -1007,7 +1007,7 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   transferJob = KIO::get(
     KUrl(QString(HLDOWNLOADPATH)
        + QString("update-")
-       + QString(KATEPART_VERSION)
+       + KateGlobal::katePartVersion()
        + QString(".xml")), KIO::Reload );
   connect(transferJob, SIGNAL(data(KIO::Job *, const QByteArray &)),
     this, SLOT(listDataReceived(KIO::Job *, const QByteArray &)));

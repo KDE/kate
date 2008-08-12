@@ -234,23 +234,28 @@ void KateBtBrowserPluginView::itemActivated(QTreeWidgetItem* item, int column)
     QString file = QDir::fromNativeSeparators(item->data(1, Qt::ToolTipRole).toString());
     file = QDir::cleanPath(file);
 
-    // try to match the backtrace forms ".*/foo/bar.txt" and "foo/bar.txt"
-    static QRegExp rx1("/([^/]+)/([^/]+)$");
-    int idx = rx1.indexIn(file);
-    if (idx != -1) {
-      file = rx1.cap(1) + '/' + rx1.cap(2);
-    } else {
-      static QRegExp rx2("([^/]+)/([^/]+)$");
-      idx = rx2.indexIn(file);
+    QString path = file;
+    // if not absolute path + exists, try to find with index
+    if (!QFile::exists(path)) {
+      // try to match the backtrace forms ".*/foo/bar.txt" and "foo/bar.txt"
+      static QRegExp rx1("/([^/]+)/([^/]+)$");
+      int idx = rx1.indexIn(file);
       if (idx != -1) {
-        // file is of correct form
+        file = rx1.cap(1) + '/' + rx1.cap(2);
       } else {
-        kDebug() << "file patter did not match:" << file;
-        setStatus(i18n("Could not find file '%1'", file));
-        return;
+        static QRegExp rx2("([^/]+)/([^/]+)$");
+        idx = rx2.indexIn(file);
+        if (idx != -1) {
+          // file is of correct form
+        } else {
+          kDebug() << "file patter did not match:" << file;
+          setStatus(i18n("Could not find file '%1'", file));
+          return;
+        }
       }
+      path = KateBtBrowserPlugin::self().database().value(file);
     }
-    QString path = KateBtBrowserPlugin::self().database().value(file);
+
     if (!path.isEmpty() && QFile::exists(path)) {
       KUrl url(path);
       KTextEditor::View* kv = mw->openUrl(url);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- PostgreSQL SQL, syntax definition based on sql.xml by Yury Lebedev -->
-<language name="SQL (PostgreSQL)" version="1.08" kateversion="2.4" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Shane Wright (me@shanewright.co.uk)" license="">
+<language name="SQL (PostgreSQL)" version="1.09" kateversion="2.4" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Shane Wright (me@shanewright.co.uk)" license="">
   <highlighting>
     <list name="keywords">
       <item> ABORT </item>
@@ -754,6 +754,10 @@
         <AnyChar attribute="Symbol" context="#stay" String=":&#38;"/>
         <RegExpr attribute="Symbol" context="#stay" String="/$" column="0"/>
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="@@?[^@ \t\r\n]" column="0"/>
+        <RegExpr attribute="Operator" context="MultiLineString" String="\$([^$]*)\$" dynamic="true"/>
+      </context>
+      <context name="MultiLineString" attribute="String" lineEndContext="#stay" dynamic="true">
+          <RegExpr attribute="Operator" context="Normal" String="\$%1\$" dynamic="true"/>
       </context>
       <context name="String" attribute="String" lineEndContext="#stay">
         <LineContinue attribute="String" context="#pop"/>

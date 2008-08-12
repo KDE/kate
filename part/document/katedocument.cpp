@@ -1413,7 +1413,7 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
     if (newLineAdded)
       (*newLineAdded) = true;
 
-    history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(line, col, line, col + pos), QStringList(), KTextEditor::Range(line, col, line+1, 0), QStringList()) );
+    history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(line, col, line, col), QStringList(), KTextEditor::Range(line, col, line+1, 0), QStringList()) );
   }
   else
   {

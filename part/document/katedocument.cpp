@@ -3353,14 +3353,14 @@ bool KateDocument::openFile()
 
   bool success = m_buffer->openFile (localFilePath());
 
+  emit KTextEditor::Document::textInserted(this, documentRange());
+  history()->doEdit( new KateEditInfo(this, Kate::OpenFileEdit, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
+
   //
   // yeah, success
   //
   if (success)
   {
-    emit KTextEditor::Document::textInserted(this, documentRange());
-    history()->doEdit( new KateEditInfo(this, Kate::OpenFileEdit, KTextEditor::Range(0,0,0,0), QStringList(), documentRange(), QStringList()) );
-
     // update file type
     updateFileType (KateGlobal::self()->modeManager()->fileType (this));
 

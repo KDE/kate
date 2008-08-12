@@ -41,6 +41,7 @@
 #include "katetemplatehandler.h"
 #include "katesmartmanager.h"
 #include <ktexteditor/plugin.h>
+#include <ktexteditor/loadsavefiltercheckplugin.h>
 #include "kateedit.h"
 #include "katebuffer.h"
 #include "kateundo.h"
@@ -70,6 +71,8 @@
 #include <ktemporaryfile.h>
 #include <kcodecs.h>
 #include <kstandarddirs.h>
+
+#include <services/kservicetypetrader.h>
 
 #include <QtDBus/QtDBus>
 #include <QtCore/QTimer>
@@ -104,111 +107,64 @@ class KatePartPluginItem
 
 static int dummy = 0;
 
-#ifdef __GNUC__
-#warning consider moving this to KTextEditor
-#endif
-class LoadSaveFilterCheckPlugin {
-  public:
-    LoadSaveFilterCheckPlugin() {}
-    virtual ~LoadSaveFilterCheckPlugin(){}
-    /*this one should be called once everything is set up for saving (especially the encoding has been determind (example: used for checking python source encoding headers))*/
-    virtual bool preSavePostDialogFilterCheck(KTextEditor::Document *document) =0;
-    /*this one should be called once the document has been completely loaded and configured (encoding,highlighting, ...))*/
-    virtual void postLoadFilter(KTextEditor::Document *document) =0;
-};
-
-class KatePythonEncodingCheck: public LoadSaveFilterCheckPlugin {
-  public:
-    KatePythonEncodingCheck():LoadSaveFilterCheckPlugin(){interpreterLine=QRegExp(QString("#!.*$"));}
-    virtual ~KatePythonEncodingCheck(){}
-    virtual bool preSavePostDialogFilterCheck(KTextEditor::Document *document)
-    {
-      kDebug(13020)<<"KatePythonEncodingCheck::preSavePostDialogCheck";
-      //QString codec=document->config()->codec()->name().toLower();
-      QString codec=document->encoding().toLower();
-      codec.replace(' ','-');
-//	"#\s*-\*\-\s*coding[:=]\s*([-\w.]+)\s*-\*-\s*$"
-      bool firstIsInterpreter=false;
-      QRegExp encoding_regex(QString("#\\s*-\\*\\-\\s*coding[:=]\\s*%1\\s*-\\*-\\s*$").arg(codec));
-      bool correctencoding=false;
-      if (document->lines()>0)
-      {
-        if (encoding_regex.exactMatch(document->line(0))) correctencoding=true;
-        else if (document->lines()>1) {
-          if (interpreterLine.exactMatch(document->line(0)))
-          {
-            firstIsInterpreter=true;
-            if (encoding_regex.exactMatch(document->line(1))) correctencoding=true;
-          }
-        }
-      }
-      if (!correctencoding) {
-        QString addLine(QString("# -*- coding: %1 -*-").arg(codec));
-        int what=KMessageBox::warningYesNoCancel (document->activeView()
-        , i18n ("You are trying to save a python file as non ASCII, without specifiying a correct source encoding line for encoding \"%1\"", codec)
-        , i18n ("No encoding header")
-        , KGuiItem(i18n("Insert: %1",addLine))
-        , KGuiItem(i18n("Save Nevertheless"))
-        , KStandardGuiItem::cancel(), "OnSave-WrongPythonEncodingHeader");
-        switch (what) {
-          case KMessageBox::Yes:
-          {
-            int line=firstIsInterpreter?1:0;
-            QRegExp checkReplace_regex(QString("#\\s*-\\*\\-\\s*coding[:=]\\s*[-\\w]+\\s*-\\*-\\s*$"));
-            if (checkReplace_regex.exactMatch(document->line(line)))
-              document->removeLine(line);
-            document->insertLine(line,addLine);
-            break;
-          }
-          case KMessageBox::No:
-            return true;
-            break;
-          default:
-            return false;
-            break;
-        }
-      }
-      return true;
-    }
-    virtual void postLoadFilter(KTextEditor::Document*){    }
-    private:
-      QRegExp interpreterLine;
-};
 
 class KateDocument::LoadSaveFilterCheckPlugins
 {
   public:
-    LoadSaveFilterCheckPlugins() { m_plugins["python-encoding"]=new KatePythonEncodingCheck();}
+    LoadSaveFilterCheckPlugins() {
+      KService::List traderList = KServiceTypeTrader::self()->query("KTextEditor/LoadSaveFilterCheckPlugin");
+
+      foreach(const KService::Ptr &ptr, traderList)
+      {
+        QString libname;
+        libname=ptr->library();
+        libname=libname.right(libname.length()-12); //ktexteditor_ == 12
+        m_plugins[libname]=0;//new KatePythonEncodingCheck();
+      }
+
+    }
     ~LoadSaveFilterCheckPlugins() {
-      QHashIterator<QString,LoadSaveFilterCheckPlugin*>i(m_plugins);
+      if ( m_plugins.count()==0) return;
+      QHashIterator<QString,KTextEditor::LoadSaveFilterCheckPlugin*>i(m_plugins);
         while (i.hasNext())
           i.next();
           delete i.value();
       m_plugins.clear();
     }
-    bool preSavePostDialogFilterCheck(const QString& pluginName,KateDocument *document) {
-      LoadSaveFilterCheckPlugin *plug=getPlugin(pluginName);
-      if (!plug) return false;
+    bool preSavePostDialogFilterCheck(const QString& pluginName,KateDocument *document,QWidget *parentWidget) {
+      KTextEditor::LoadSaveFilterCheckPlugin *plug=getPlugin(pluginName);
+      if (!plug) {
+        if (KMessageBox::warningContinueCancel (parentWidget
+        , i18n ("The filter/check plugin '%1' could not be found, still continue saving of %2", pluginName,document->url().pathOrUrl())
+        , i18n ("Saving problems")
+        , KGuiItem(i18n("Save Nevertheless"))
+        , KStandardGuiItem::cancel()) != KMessageBox::Continue)
+          return false;
+        else
+          return true;
+      }
       return plug->preSavePostDialogFilterCheck(document);
     }
     void postLoadFilter(const QString& pluginName,KateDocument *document) {
-      LoadSaveFilterCheckPlugin *plug=getPlugin(pluginName);
+      KTextEditor::LoadSaveFilterCheckPlugin *plug=getPlugin(pluginName);
       if (!plug) return;
       plug->postLoadFilter(document);
     }
+    bool postSaveFilterCheck(const QString& pluginName,KateDocument *document,bool created) {
+      KTextEditor::LoadSaveFilterCheckPlugin *plug=getPlugin(pluginName);
+      if (!plug) return false;
+      return plug->postSaveFilterCheck(document,created);
+    }
   private:
-    LoadSaveFilterCheckPlugin *getPlugin(const QString & pluginName)
+    KTextEditor::LoadSaveFilterCheckPlugin *getPlugin(const QString & pluginName)
     {
-      if (!m_plugins.contains(pluginName))
-      {
-#ifdef __GNUC__
-#warning implement dynamic loading here
-#endif
-      }
       if (!m_plugins.contains(pluginName)) return 0;
+      if (!m_plugins[pluginName]) {
+        m_plugins[pluginName]=KLibLoader::createInstance<KTextEditor::LoadSaveFilterCheckPlugin>( "ktexteditor_"+pluginName);
+      }
       return m_plugins[pluginName];
     }
-    QHash <QString,LoadSaveFilterCheckPlugin*> m_plugins;
+    QHash <QString,KTextEditor::LoadSaveFilterCheckPlugin*> m_plugins;
 };
 
 //BEGIN d'tor, c'tor
@@ -3634,12 +3590,15 @@ bool KateDocument::saveFile()
     }
   }
 
+  // update file type
+  updateFileType (KateGlobal::self()->modeManager()->fileType (this));
+
   if (!m_preSavePostDialogFilterChecks.isEmpty())
   {
     LoadSaveFilterCheckPlugins *lscps=loadSaveFilterCheckPlugins();
     foreach(const QString& checkplugin, m_preSavePostDialogFilterChecks)
     {
-       if (lscps->preSavePostDialogFilterCheck(checkplugin,this)==false)
+       if (lscps->preSavePostDialogFilterCheck(checkplugin,this,parentWidget)==false)
          return false;
     }
   }
@@ -3670,7 +3629,7 @@ bool KateDocument::saveFile()
   activateDirWatch ();
 
   // update file type
-  updateFileType (KateGlobal::self()->modeManager()->fileType (this));
+//  updateFileType (KateGlobal::self()->modeManager()->fileType (this));
 
   // read dir config (if possible and wanted)
   if ( url().isLocalFile())
@@ -3700,6 +3659,19 @@ bool KateDocument::saveFile()
   // url may have changed...
   emit documentUrlChanged (this);
 
+
+#warning IMPLEMENT ME
+#if 0
+  if (!m_postSaveFilterChecks.isEmpty())
+  {
+    LoadSaveFilterCheckPlugins *lscps1=loadSaveFilterCheckPlugins();
+    foreach(const QString& checkplugin, m_postSaveFilterChecks)
+    {
+       if (lscps1->postSFilterCheck(checkplugin,this)==false)
+         break;
+    }
+  }
+#endif
   //
   // return success
   //
@@ -6369,3 +6341,4 @@ bool KateDocument::queryClose()
 #endif
 #undef FAST_DEBUG
 
+// kate: space-indent on; indent-width 2; replace-tabs on;

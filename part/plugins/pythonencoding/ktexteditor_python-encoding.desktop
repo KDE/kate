@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KTextEditor/LoadSaveFilterCheckPlugin
+X-KDE-Library=ktexteditor_python-encoding
+Name=Python encoding checker/adder
+Comment=While saving check encoding of python files and add an encoding line

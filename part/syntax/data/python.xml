@@ -229,8 +229,8 @@
 				<RegExpr attribute="Raw String" String="[rR]&quot;" context="Raw Q-string"/>
 
 				<RegExpr attribute="Comment" String="#.*$" context="#stay"/>
-				<RegExpr attribute="Comment" String="^\s*'''" context="Tripple A-comment" beginRegion="Tripple A-region"/>
-				<RegExpr attribute="Comment" String="^\s*&quot;&quot;&quot;" context="Tripple Q-comment" beginRegion="Tripple Q-region"/>
+				<RegExpr attribute="Comment" String="^\s*u?'''" context="Tripple A-comment" beginRegion="Tripple A-region"/>
+				<RegExpr attribute="Comment" String="^\s*u?&quot;&quot;&quot;" context="Tripple Q-comment" beginRegion="Tripple Q-region"/>
 
 				<StringDetect attribute="String" String="'''" context="Tripple A-string" beginRegion="Tripple A-region"/>
 				<StringDetect attribute="String" String="&quot;&quot;&quot;" context="Tripple Q-string" beginRegion="Tripple Q-region"/>

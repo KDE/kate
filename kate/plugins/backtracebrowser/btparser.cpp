@@ -82,7 +82,7 @@ static BtInfo parseBtLine(const QString& line)
   // a) #24 0xb688ff8e in QApplication::notify (this=0xbf997e8c, receiver=0x82607e8, e=0xbf997074) at kernel/qapplication.cpp:3115
   // b) #39 0xb634211c in g_main_context_dispatch () from /usr/lib/libglib-2.0.so.0
   // c) #41 0x0805e690 in ?? ()
-  // d) #5  0xffffe410 in __kernel_vsyscall ()
+  // d) #5  0xffffe410 in __kernel_vsyscall ()
 
 
   // try a) cap #number(1), address(2), function(3), filename(4), linenumber(5)
@@ -130,7 +130,7 @@ static BtInfo parseBtLine(const QString& line)
     return info;
   }
 
-  // try d) #5  0xffffe410 in __kernel_vsyscall ()
+  // try d) #5  0xffffe410 in __kernel_vsyscall ()
   static QRegExp rxd("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)$");
   index = rxd.indexIn(line);
   if (index == 0) {

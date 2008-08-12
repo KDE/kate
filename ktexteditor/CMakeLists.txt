@@ -64,12 +64,10 @@ install( FILES
     configinterface.h
     containerinterface.h
     annotationinterface.h
+    loadsavefiltercheckplugin.h
     DESTINATION  ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
 
 install( FILES ktexteditor.desktop ktexteditorplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )
 install( FILES kcm_ktexteditor.desktop  DESTINATION  ${DATA_INSTALL_DIR}/kcm_componentchooser )
 
-
-
-
-
+install( FILES ktexteditor_loadsavefiltercheckplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )

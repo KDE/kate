@@ -55,6 +55,9 @@
 #include "annotationinterface.h"
 #include "annotationinterface.moc"
 
+#include "loadsavefiltercheckplugin.h"
+#include "loadsavefiltercheckplugin.moc"
+
 //#include <kaction.h>
 #include <kparts/factory.h>
 #include <kpluginfactory.h>
@@ -424,6 +427,19 @@ bool DocumentAdaptor::insertLines(int line, const QStringList& text) {
 bool DocumentAdaptor::removeLine(int line) {
   return m_document->removeLine(line);
 }
+
+class KTextEditor::LoadSaveFilterCheckPluginPrivate {
+  public:
+    LoadSaveFilterCheckPluginPrivate(){}
+    ~LoadSaveFilterCheckPluginPrivate(){}
+};
+
+LoadSaveFilterCheckPlugin::LoadSaveFilterCheckPlugin(QObject *parent):
+    QObject(),
+    d(new LoadSaveFilterCheckPluginPrivate()) { }
+
+LoadSaveFilterCheckPlugin::~LoadSaveFilterCheckPlugin() { delete d; }
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

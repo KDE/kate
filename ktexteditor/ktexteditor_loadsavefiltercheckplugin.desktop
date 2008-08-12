@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=ServiceType
+X-KDE-ServiceType=KTextEditor/LoadSaveFilterCheckPlugin
+X-KDE-Derived=
+Comment=KTextEditor load/save filter/check plugin

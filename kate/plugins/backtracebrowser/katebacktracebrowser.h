@@ -50,6 +50,9 @@ class KateBtBrowserPlugin: public Kate::Plugin, public Kate::PluginConfigPageInt
 
     void startIndexer();
 
+  signals:
+    void newStatus(const QString&);
+
   //
   // PluginConfigPageInterface
   //

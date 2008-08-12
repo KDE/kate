@@ -12,6 +12,7 @@ add_subdirectory( mailfiles )
 
 add_subdirectory( tabbarextension )
 add_subdirectory( symbolviewer )
+add_subdirectory( backtracebrowser )
 
 add_subdirectory( quickdocumentswitcher )
 

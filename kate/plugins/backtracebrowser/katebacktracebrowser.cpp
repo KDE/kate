@@ -78,6 +78,9 @@ KateBtBrowserPlugin& KateBtBrowserPlugin::self()
 Kate::PluginView *KateBtBrowserPlugin::createView (Kate::MainWindow *mainWindow)
 {
   KateBtBrowserPluginView* pv = new KateBtBrowserPluginView (mainWindow);
+  connect(this, SIGNAL(newStatus(const QString&)),
+          pv, SLOT(setStatus(const QString&)));
+  pv->setStatus(i18n("Indexed files: %1", db.size()));
   return pv;
 }
 
@@ -101,6 +104,7 @@ void KateBtBrowserPlugin::startIndexer()
   indexer.setSearchPaths(cg.readEntry("search-folders", QStringList()));
   indexer.setFilter(cg.readEntry("file-extensions", fileExtensions));
   indexer.start();
+  emit newStatus(i18n("Indexing files..."));
 }
 
 uint KateBtBrowserPlugin::configPages () const
@@ -215,6 +219,12 @@ void KateBtBrowserPluginView::loadBacktrace(const QString& bt)
   lstBacktrace->resizeColumnToContents(0);
   lstBacktrace->resizeColumnToContents(1);
   lstBacktrace->resizeColumnToContents(2);
+
+  if (lstBacktrace->topLevelItemCount()) {
+    setStatus(i18n("Loading backtrace succeeded"));
+  } else {
+    setStatus(i18n("Loading backtrace failed"));
+  }
 }
 
 
@@ -249,7 +259,7 @@ void KateBtBrowserPluginView::itemActivated(QTreeWidgetItem* item, int column)
           // file is of correct form
         } else {
           kDebug() << "file patter did not match:" << file;
-          setStatus(i18n("Could not find file '%1'", file));
+          setStatus(i18n("File not found: %1", file));
           return;
         }
       }
@@ -261,7 +271,7 @@ void KateBtBrowserPluginView::itemActivated(QTreeWidgetItem* item, int column)
       KTextEditor::View* kv = mw->openUrl(url);
       kv->setCursorPosition(KTextEditor::Cursor(line - 1, 0));
       kv->setFocus();
-      setStatus(i18n("Opened file '%1'", file));
+      setStatus(i18n("Opened file: %1", file));
     }
   } else {
     setStatus(i18n("No debugging information available"));

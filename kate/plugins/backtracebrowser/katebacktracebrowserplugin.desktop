@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katebacktracebrowserplugin
+X-Kate-Version=3.0
+Name=Kate Backtrace Browser
+Comment=Backtrace navigation tool view
+author=Dominik Haumann, dhdev@gmx.de

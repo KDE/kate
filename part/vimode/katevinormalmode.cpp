@@ -1165,30 +1165,18 @@ bool KateViNormalMode::commandYank()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  int line1 = ( m_commandRange.startLine != -1 ? m_commandRange.startLine : c.line() );
-  int line2 = m_commandRange.endLine;
-
   bool r = false;
   QString yankedText;
 
-  if ( line1 == line2 ) { // characterwise
-    int startColumn = ( m_commandRange.startColumn != -1 ? m_commandRange.startColumn : c.column() );
-    int endColumn = m_commandRange.endColumn;
-    if ( m_commandRange.isInclusive() ) {
-      endColumn++;
-    } else {
-      startColumn--;
-    }
-
-    int len = endColumn - startColumn;
-
-    yankedText = getLine().mid( startColumn, len );
+  if ( m_commandRange.startLine == -1 ) {
+    m_commandRange.startLine = c.line();
+    m_commandRange.startColumn = c.column();
   }
-  else { // linewise
-    for ( int i = ( line1 < line2 ? line1 : line2 ); i <= ( line1 < line2 ? line2 : line1 ); i++ ) {
-      yankedText.append(getLine( i ) + '\n' );
-    }
-  }
+
+  bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
+      && m_view->getCurrentViMode() != VisualMode );
+
+  yankedText = getRange( m_commandRange, linewise );
 
   fillRegister( getChosenRegister( '0' ), yankedText );
 

@@ -150,6 +150,7 @@ void KatePluginSymbolViewerView::slotInsertSymbol()
       dock = win->createToolView("kate_plugin_symbolviewer", Kate::MainWindow::Left, cls, i18n("Symbol List"));
 
       symbols = new QTreeWidget(dock);
+      symbols->setLayoutDirection( Qt::LeftToRight );
       treeMode = 0;
 
       connect(symbols, SIGNAL(itemActivated(QTreeWidgetItem *, int)), this, SLOT(goToSymbol(QTreeWidgetItem *)));

@@ -312,10 +312,17 @@ bool KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
 const QString KateViNormalMode::getRange( KateViRange &r, bool linewise) const
 {
   QString s;
+
+  if ( linewise ) {
+    r.startColumn = 0;
+    r.endColumn = getLine( r.endLine ).length();
+  }
+
   KTextEditor::Range range( r.startLine, r.startColumn, r.endLine, r.endColumn);
 
   if ( linewise ) {
-      s = m_view->doc()->textLines( range ).join( QChar( '\n' ) );
+    s = m_view->doc()->textLines( range ).join( QChar( '\n' ) );
+    s.append( QChar( '\n' ) );
   } else {
       s = m_view->doc()->text( range );
   }

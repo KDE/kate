@@ -305,6 +305,20 @@ void KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
   removeDone();
 }
 
+const QString KateViNormalMode::getRange( KateViRange &r, bool linewise) const
+{
+  QString s;
+  KTextEditor::Range range( r.startLine, r.startColumn, r.endLine, r.endColumn);
+
+  if ( linewise ) {
+      s = m_view->doc()->textLines( range ).join( QChar( '\n' ) );
+  } else {
+      s = m_view->doc()->text( range );
+  }
+
+  return s;
+}
+
 /**
  * (re)set to start configuration. This is done when a command is completed
  * executed or when a command is aborted

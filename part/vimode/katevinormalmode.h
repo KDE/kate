@@ -170,6 +170,7 @@ class KateViNormalMode : public QObject {
 
   protected:
     void deleteRange( KateViRange &r, bool linewise = true );
+    const QString getRange( KateViRange &r, bool linewise = true ) const;
     void reset();
     virtual void esc();
     void removeDone(); // called when a command removing text is done

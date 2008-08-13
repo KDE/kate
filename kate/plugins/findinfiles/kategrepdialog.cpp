@@ -37,6 +37,7 @@
 #include <QToolButton>
 #include <QToolTip>
 #include <QTreeWidget>
+#include <QHeaderView>
 
 #include <kacceleratormanager.h>
 #include <kconfig.h>
@@ -272,6 +273,7 @@ void KateGrepDialog::slotSearch()
   headers << i18n("File") << i18n("Line") << i18n("Text");
   w->setHeaderLabels(headers);
   w->setIndentation(0);
+//   w->header()->setResizeMode(QHeaderView::ResizeToContents);
 
   lbResult->insertTab( w, QIcon(SmallIcon ("system-search")),
                        cmbPattern->currentText(), 0);
@@ -313,7 +315,8 @@ void KateGrepDialog::searchFinished ()
 
   addItems();
 
-  m_grepThread->deleteLater();
+  if (m_grepThread)
+    m_grepThread->deleteLater();
   m_grepThread = 0;
 }
 

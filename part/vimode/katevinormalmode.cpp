@@ -291,6 +291,17 @@ void KateViNormalMode::removeDone()
   m_registerTemp.clear();
 }
 
+void KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
+{
+  if ( linewise ) {
+    for ( int i = 0; i < m_commandRange.endLine-m_commandRange.startLine; i++ ) {
+      m_view->doc()->removeLine( m_commandRange.startLine+i );
+    }
+  } else {
+    //m_view->doc()->removeText( range );
+  }
+}
+
 /**
  * (re)set to start configuration. This is done when a command is completed
  * executed or when a command is aborted

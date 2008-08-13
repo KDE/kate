@@ -902,54 +902,53 @@ bool KateViNormalMode::commandDelete()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  int line1 = ( m_commandRange.startLine != -1 ? m_commandRange.startLine : c.line() );
-  int line2 = m_commandRange.endLine;
-
-  bool r = false;
-
-  if ( line1 == line2 ) { // characterwise
-    int endColumn = m_commandRange.endColumn;
-    if ( m_commandRange.isInclusive() )
-      endColumn++;
-
-    if ( m_commandRange.startColumn != -1 ) {
-        c.setColumn( m_commandRange.startColumn );
-    }
-
-    KTextEditor::Range range( c, KTextEditor::Cursor( c.line(), endColumn ) );
-    r = m_view->doc()->removeText( range );
-  }
-  else { // linewise FIXME: not necessarily true: w (word forward) and others are always characterwise
-    for ( int i = ( line1 < line2 ? line1 : line2 ); i <= ( line1 < line2 ? line2 : line1 ); i++ ) {
-      r = m_view->doc()->removeLine( ( line1 < line2 ? line1 : line2 ) );
-    }
+  if ( m_commandRange.startLine == -1 ) {
+    m_commandRange.startLine = c.line();
+    m_commandRange.startColumn = c.column();
   }
 
-  removeDone();
+  bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
+      && m_view->getCurrentViMode() != VisualMode );
 
-  return r;
+  return deleteRange( m_commandRange, linewise );
 }
 
 bool KateViNormalMode::commandDeleteToEOL()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  m_commandRange.startLine = -1;
-  m_commandRange.startColumn = -1;
   m_commandRange.endLine = c.line();
   m_commandRange.endColumn = m_view->doc()->lineLength( c.line() )-1;
 
-  bool r = commandDelete();
+  if ( m_view->getCurrentViMode() == NormalMode ) {
+    m_commandRange.startLine = c.line();
+    m_commandRange.startColumn = c.column();
+  }
 
-  c.setColumn( m_view->doc()->lineLength( c.line() )-1 );
+  // can only be true for visual mode
+  bool linewise = ( m_commandRange.startLine != m_commandRange.endLine );
 
+  bool r = deleteRange( m_commandRange, linewise );
+
+  if ( !linewise ) {
+    c.setColumn( m_view->doc()->lineLength( c.line() )-1 );
+  } else {
+    c.setLine( m_commandRange.startLine-1 );
+    c.setColumn( m_commandRange.startColumn );
+  }
+
+  // make sure cursor position is valid after deletion
+  if ( c.line() < 0 ) {
+    c.setLine( 0 );
+  }
+  if ( c.column() > m_view->doc()->lineLength( c.line() )-1 ) {
+    c.setColumn( m_view->doc()->lineLength( c.line() )-1 );
+  }
   if ( c.column() < 0 ) {
     c.setColumn( 0 );
   }
 
   m_viewInternal->updateCursor( c );
-
-  removeDone();
 
   return r;
 }
@@ -1094,8 +1093,15 @@ bool KateViNormalMode::commandJoinLines()
 
   int n = getCount();
 
+  // if we were given a range of lines, this information overrides the previous
+  if ( m_commandRange.startLine != -1 && m_commandRange.endLine != -1 ) {
+    c.setLine ( m_commandRange.startLine );
+    n = m_commandRange.endLine-m_commandRange.startLine;
+  }
+
+  // make sure we don't try to join lines past the document end
   if ( n > m_view->doc()->lines()-1-c.line() ) {
-      n = m_view->doc()->lines()-1-c.line(); // FIXME
+      n = m_view->doc()->lines()-1-c.line();
   }
 
   m_view->doc()->joinLines( c.line(), c.line()+n );
@@ -1105,7 +1111,24 @@ bool KateViNormalMode::commandJoinLines()
 
 bool KateViNormalMode::commandChange()
 {
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+
+  if ( m_commandRange.startLine == -1 ) {
+    m_commandRange.startLine = c.line();
+  }
+
+  bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
+      && m_view->getCurrentViMode() != VisualMode );
+
   commandDelete();
+
+  // if we deleted several lines, insert an empty line and put the cursor there
+  if ( linewise ) {
+    m_view->doc()->insertLine( m_commandRange.startLine, QString() );
+    c.setLine( m_commandRange.startLine );
+    m_viewInternal->updateCursor( c );
+  }
+
   commandEnterInsertMode();
 
   return true;

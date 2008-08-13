@@ -48,6 +48,7 @@ class KateSmartRange;
 class KateTextLayout;
 class KateViNormalMode;
 class KateViInsertMode;
+class KateViVisualMode;
 
 class QScrollBar;
 
@@ -453,8 +454,13 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     bool m_viInputMode;
     bool m_viInputModeStealKeys;
     ViMode m_currentViMode;
+
     KateViNormalMode* m_viNormalMode;
     KateViNormalMode* getViNormalMode();
+
+    KateViVisualMode* m_viVisualMode;
+    KateViVisualMode* getViVisualMode();
+
     KateViInsertMode* m_viInsertMode;
     KateViInsertMode* getViInsertMode();
 };

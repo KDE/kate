@@ -52,6 +52,8 @@ class KateViNormalMode : public QObject {
     bool commandEnterInsertModeAppend();
     bool commandEnterInsertModeAppendEOL();
 
+    bool commandEnterVisualMode();
+
     bool commandDelete();
     bool commandDeleteToEOL();
     bool commandDeleteLine();
@@ -165,7 +167,7 @@ class KateViNormalMode : public QObject {
   private slots:
     void textRemoved( const QString &text );
 
-  private:
+  protected:
     void reset();
     void removeDone(); // called when a command removing text is done
     void initializeCommands();

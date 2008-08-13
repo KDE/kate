@@ -20,6 +20,8 @@
 #include "kateviinsertmode.h"
 #include "kateview.h"
 #include "kateviewinternal.h"
+#include "katesmartrange.h"
+#include "katecursor.h"
 
 KateViInsertMode::KateViInsertMode( KateView * view, KateViewInternal * viewInternal )
 {
@@ -48,6 +50,7 @@ bool KateViInsertMode::handleKeypress( QKeyEvent *e )
         case Qt::Key_C:
             m_view->viEnterNormalMode();
             return true;
+            break;
         default:
             return false;
         }

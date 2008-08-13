@@ -100,6 +100,7 @@ class KateView : public KTextEditor::View,
     friend class KateIconBorder;
     friend class KateSearchBar;
     friend class KateViNormalMode;
+    friend class KateViVisualMode;
 
   public:
     KateView( KateDocument* doc, QWidget* parent );
@@ -471,6 +472,7 @@ class KateView : public KTextEditor::View,
     void gotoLine();
 
     void viEnterNormalMode();
+    void viEnterVisualMode();
 
   // config file / session management functions
   public:

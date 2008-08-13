@@ -719,6 +719,16 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
   return true;
 }
 
+bool KateViNormalMode::commandEnterVisualMode()
+{
+  m_view->changeViMode( VisualMode );
+  m_viewInternal->repaint ();
+
+  emit m_view->viewModeChanged( m_view );
+
+  return true;
+}
+
 KateViRange KateViNormalMode::motionWordForward()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
@@ -1086,13 +1096,17 @@ bool KateViNormalMode::commandYank()
   QString yankedText;
 
   if ( line1 == line2 ) { // characterwise
+    int startColumn = ( m_commandRange.startColumn != -1 ? m_commandRange.startColumn : c.column() );
     int endColumn = m_commandRange.endColumn;
-    if ( m_commandRange.isInclusive() )
+    if ( m_commandRange.isInclusive() ) {
       endColumn++;
+    } else {
+      startColumn--;
+    }
 
-    int len = endColumn - c.column();
+    int len = endColumn - startColumn;
 
-    yankedText = getLine().mid( c.column(), len );
+    yankedText = getLine().mid( startColumn, len );
   }
   else { // linewise
     for ( int i = ( line1 < line2 ? line1 : line2 ); i <= ( line1 < line2 ? line2 : line1 ); i++ ) {
@@ -1827,6 +1841,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViNormalModeCommand( this, "a", &KateViNormalMode::commandEnterInsertModeAppend, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "A", &KateViNormalMode::commandEnterInsertModeAppendEOL, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "i", &KateViNormalMode::commandEnterInsertMode, false ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "v", &KateViNormalMode::commandEnterVisualMode, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "o", &KateViNormalMode::commandOpenNewLineUnder, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "O", &KateViNormalMode::commandOpenNewLineOver, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "J", &KateViNormalMode::commandJoinLines, false ) );

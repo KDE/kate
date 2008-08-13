@@ -1220,6 +1220,7 @@ void KateView::changeViMode(ViMode newMode)
     if (newMode == InsertMode) {
         m_editActions->addAssociatedWidget(m_viewInternal);
     }
+
     m_viewInternal->m_currentViMode = newMode;
 }
 
@@ -2569,8 +2570,11 @@ void KateView::aboutToShowContextMenu( )
 
 void KateView::viEnterNormalMode( )
 {
-  changeViMode(NormalMode);
-  if ( m_viewInternal->getCursor().column() > 0 ) {
+  bool moveCursorRight = getCurrentViMode() == InsertMode;
+
+  this->changeViMode(NormalMode);
+
+  if ( moveCursorRight && m_viewInternal->getCursor().column() > 0 ) {
       m_viewInternal->cursorLeft();
   }
   m_viewInternal->repaint ();
@@ -2578,10 +2582,22 @@ void KateView::viEnterNormalMode( )
   m_editActions->removeAssociatedWidget(m_viewInternal);
 
   emit viewModeChanged(this);
-  emit viewEditModeChanged(this,viewEditMode());
+  emit viewEditModeChanged(this, viewEditMode());
 }
 
-// BEGIN ConfigInterface stuff
+void KateView::viEnterVisualMode( )
+{
+  changeViMode(VisualMode);
+
+  m_viewInternal->repaint ();
+
+  m_editActions->removeAssociatedWidget(m_viewInternal);
+
+  emit viewModeChanged(this);
+  emit viewEditModeChanged(this, viewEditMode());
+}
+
+// BEGIN ConfigInterface stff
 QStringList KateView::configKeys() const
 {
   return QStringList() << "icon-bar" << "line-numbers" << "dynamic-word-wrap";

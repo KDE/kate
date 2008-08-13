@@ -41,6 +41,7 @@
 #include "katecompletionwidget.h"
 #include "katenamespace.h"
 #include "katevinormalmode.h"
+#include "katevivisualmode.h"
 #include "kateviinsertmode.h"
 
 #include <kcursor.h>
@@ -103,6 +104,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_currentViMode(NormalMode)
   , m_viNormalMode(0)
   , m_viInsertMode (0)
+  , m_viVisualMode (0)
 {
   m_watcherCount1 = 0;
   m_watcherCount3 = 0;
@@ -267,8 +269,13 @@ KateViewInternal::~KateViewInternal ()
   qDeleteAll(m_dynamicHighlights);
 
   delete m_imPreedit;
+
   if ( m_viNormalMode )
     delete m_viNormalMode;
+  if ( m_viInsertMode )
+    delete m_viInsertMode;
+  if ( m_viVisualMode )
+    delete m_viVisualMode;
 
   //kDebug( 13030 ) << m_watcherCount1 << m_watcherCount3;
 }
@@ -2158,7 +2165,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
       }
 
       // if vi input mode key stealing is on, override kate shortcuts
-      if (m_view->viInputMode() && m_view->viInputModeStealKeys() &&  ( m_view->getCurrentViMode() == NormalMode ||
+      if (m_view->viInputMode() && m_view->viInputModeStealKeys() &&  ( m_view->getCurrentViMode() != InsertMode ||
               ( m_view->getCurrentViMode() == InsertMode && k->modifiers() == Qt::ControlModifier ) ) ) {
         k->accept();
         return true;
@@ -2230,6 +2237,16 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     }
     else if ( m_view->getCurrentViMode() == NormalMode ) {
         if ( getViNormalMode()->handleKeypress( e ) ) {
+            return;
+        } else {
+            // we didn't need that keypress, un-steal it :-)
+            QEvent *copy = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
+            QCoreApplication::postEvent( parent(), copy );
+            return;
+        }
+    }
+    else if ( m_view->getCurrentViMode() == VisualMode ) {
+        if ( getViVisualMode()->handleKeypress( e ) ) {
             return;
         } else {
             // we didn't need that keypress, un-steal it :-)
@@ -3699,6 +3716,13 @@ KateViNormalMode* KateViewInternal::getViNormalMode()
   if ( !m_viNormalMode )
     m_viNormalMode = new KateViNormalMode( m_view, this );
   return m_viNormalMode;
+}
+
+KateViVisualMode* KateViewInternal::getViVisualMode()
+{
+  if ( !m_viVisualMode )
+    m_viVisualMode = new KateViVisualMode( m_view, this );
+  return m_viVisualMode;
 }
 
 KateViInsertMode* KateViewInternal::getViInsertMode()

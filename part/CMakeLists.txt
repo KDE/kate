@@ -111,6 +111,7 @@ vimode/katevimotion.cpp
 vimode/katevirange.cpp
 vimode/katevikeysequenceparser.cpp
 vimode/kateviglobal.cpp
+vimode/katevivisualmode.cpp
 
 # generic stuff, unsorted...
 utils/katesearchbar.cpp

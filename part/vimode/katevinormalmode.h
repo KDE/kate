@@ -169,7 +169,7 @@ class KateViNormalMode : public QObject {
     void textRemoved( const QString &text );
 
   protected:
-    void deleteRange( KateViRange &r, bool linewise = true );
+    bool deleteRange( KateViRange &r, bool linewise = true );
     const QString getRange( KateViRange &r, bool linewise = true ) const;
     void reset();
     virtual void esc();

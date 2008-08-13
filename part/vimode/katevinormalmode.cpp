@@ -292,17 +292,21 @@ void KateViNormalMode::removeDone()
   m_registerTemp.clear();
 }
 
-void KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
+bool KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
 {
+  bool res = false;
+
   if ( linewise ) {
-    for ( int i = 0; i < m_commandRange.endLine-m_commandRange.startLine; i++ ) {
-      m_view->doc()->removeLine( m_commandRange.startLine+i );
+    for ( int i = 0; i < m_commandRange.endLine-m_commandRange.startLine+1; i++ ) {
+      res = m_view->doc()->removeLine( m_commandRange.startLine );
     }
   } else {
-      m_view->doc()->removeText( KTextEditor::Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
+      if ( r.motionType == ViMotion::InclusiveMotion ) r.endColumn++;
+      res = m_view->doc()->removeText( KTextEditor::Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
   }
 
   removeDone();
+  return res;
 }
 
 const QString KateViNormalMode::getRange( KateViRange &r, bool linewise) const

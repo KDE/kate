@@ -301,6 +301,8 @@ void KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
   } else {
       m_view->doc()->removeText( KTextEditor::Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
   }
+
+  removeDone();
 }
 
 /**

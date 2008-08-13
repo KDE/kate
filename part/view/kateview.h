@@ -74,7 +74,8 @@ enum ViMode {
   NormalMode,
   InsertMode,
   CommandLineMode,
-  VisualMode
+  VisualMode,
+  VisualLineMode
 };
 
 //

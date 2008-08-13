@@ -910,13 +910,15 @@ QString KateView::viewMode () const
   if (viInputMode()) {
     switch (getCurrentViMode()) {
     case InsertMode:
-      return i18n("VI: INSERT MODE");
+      return i18n("-- VI: INSERT MODE --");
     case NormalMode:
-      return i18n("VI: NORMAL MODE");
+      return i18n("-- VI: NORMAL MODE --");
     case VisualMode:
-      return i18n("VI: VISUAL");
+      return i18n("-- VI: VISUAL --");
+    case VisualLineMode:
+      return i18n("-- VI: VISUAL LINE --");
     case CommandLineMode:
-      return i18n("VI: COMMAND LINE");
+      return i18n("-- VI: COMMAND LINE --");
     }
   }
 
@@ -2588,7 +2590,11 @@ void KateView::viEnterNormalMode( )
 
 void KateView::viEnterVisualMode( bool visualLine )
 {
-  changeViMode(VisualMode);
+  if ( !visualLine ) {
+    changeViMode(VisualMode);
+  } else {
+    changeViMode(VisualLineMode);
+  }
 
   m_viewInternal->repaint ();
   m_viewInternal->getViVisualMode()->init();

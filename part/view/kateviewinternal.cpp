@@ -2245,7 +2245,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
             return;
         }
     }
-    else if ( m_view->getCurrentViMode() == VisualMode ) {
+    else if ( m_view->getCurrentViMode() == VisualMode || m_view->getCurrentViMode() == VisualLineMode ) {
         if ( getViVisualMode()->handleKeypress( e ) ) {
             return;
         } else {

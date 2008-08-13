@@ -381,11 +381,11 @@ void KateGrepDialog::searchMatchFound(const QString &filename, const QString &re
   if(lbResult->indexOf(parentTab) < 0)
     return;
 
-  QTreeWidget* w = (QTreeWidget*) parentTab;
-
+  QList<QTreeWidgetItem *> items;
   for (int i = 0; i < lines.size(); ++i)
   {
-    QTreeWidgetItem* item = new QTreeWidgetItem(w);
+    QTreeWidgetItem* item = new QTreeWidgetItem();
+
     // visible text
     item->setText(0, relname);
     item->setText(1, QString::number (lines[i] + 1));
@@ -400,7 +400,11 @@ void KateGrepDialog::searchMatchFound(const QString &filename, const QString &re
     item->setData(0, Qt::ToolTipRole, filename);
     item->setData(1, Qt::ToolTipRole, filename);
     item->setData(2, Qt::ToolTipRole, filename);
+
+    items.append (item);
   }
+
+  ((QTreeWidget*) parentTab)->addTopLevelItems (items);
 }
 
 void KateGrepDialog::slotClear()

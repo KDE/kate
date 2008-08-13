@@ -47,6 +47,7 @@
 #include "katesmartrange.h"
 #include "katesearchbar.h"
 #include "katepartpluginmanager.h"
+#include "katevivisualmode.h"
 
 #include <ktexteditor/cursorfeedback.h>
 
@@ -2590,8 +2591,7 @@ void KateView::viEnterVisualMode( )
   changeViMode(VisualMode);
 
   m_viewInternal->repaint ();
-
-  m_editActions->removeAssociatedWidget(m_viewInternal);
+  m_viewInternal->getViVisualMode()->init();
 
   emit viewModeChanged(this);
   emit viewEditModeChanged(this, viewEditMode());

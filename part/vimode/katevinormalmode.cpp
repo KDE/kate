@@ -64,7 +64,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
 
   // escape key aborts current command
   if ( keyCode == Qt::Key_Escape ) {
-    reset();
+    esc();
     return true;
   }
 
@@ -310,6 +310,11 @@ void KateViNormalMode::reset()
   m_matchingMotions.clear();
   m_awaitingMotionOrTextObject.clear();
   m_motionOperatorIndex = 0;
+}
+
+void KateViNormalMode::esc()
+{
+    reset();
 }
 
 QString KateViNormalMode::getLine( int lineNumber ) const
@@ -726,10 +731,11 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
 
 bool KateViNormalMode::commandEnterVisualMode()
 {
-  m_view->changeViMode( VisualMode );
-  m_viewInternal->repaint ();
+  m_view->viEnterVisualMode();
+  //m_view->changeViMode( VisualMode );
+  //m_viewInternal->repaint ();
 
-  emit m_view->viewModeChanged( m_view );
+  //emit m_view->viewModeChanged( m_view );
 
   return true;
 }

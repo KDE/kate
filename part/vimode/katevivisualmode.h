@@ -31,11 +31,12 @@ class KateViVisualMode : public KateViNormalMode {
     ~KateViVisualMode();
 
   //bool handleKeypress( QKeyEvent *e );
-
+    void init();
 
   private:
     void highlight();
     void goToPos( KateViRange r );
+    void esc();
     KTextEditor::Cursor start;
     KTextEditor::SmartRange * m_topRange;
     KTextEditor::SmartRange * highlightRange;

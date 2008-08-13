@@ -15,9 +15,11 @@ KateViVisualMode::KateViVisualMode( KateView *view, KateViewInternal *viewIntern
   // Retrieve the SmartInterface
   KTextEditor::SmartInterface* smart = qobject_cast<KTextEditor::SmartInterface*>( m_view->doc() );
 
-  KTextEditor::Range r( 0,2, 4, 40 );
+  KTextEditor::Range r;
   highlightRange = m_view->doc()->newSmartRange( r, m_topRange );
   attribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
+  attribute->setBackground(QColor(0xdd, 0xdd, 0xdd)); // FIXME: don't use hard coded colour
+  highlightRange->setInsertBehavior(KTextEditor::SmartRange::DoNotExpand);
 }
 
 KateViVisualMode::~KateViVisualMode()
@@ -26,41 +28,32 @@ KateViVisualMode::~KateViVisualMode()
 
 void KateViVisualMode::highlight()
 {
-  highlightRange->setInsertBehavior(KTextEditor::SmartRange::DoNotExpand);
-  attribute->setBackground(QColor(0xdd, 0xdd, 0xdd));
+  // FIXME: HACK to avoid highlight bug - remove highlighing and re-set it
+  highlightRange->setAttribute(static_cast<KTextEditor::Attribute::Ptr>(0));
   highlightRange->setAttribute(attribute);
-}
 
-//bool KateViVisualMode::handleKeypress( QKeyEvent *e )
-//{
-//  int keyCode = e->key();
-//  QString text = e->text();
-//
-//  // ignore modifier keys alone
-//  if ( keyCode == Qt::Key_Shift || keyCode == Qt::Key_Control
-//      || keyCode == Qt::Key_Alt || keyCode == Qt::Key_Meta ) {
-//    return false;
-//  }
-//
-//  if ( keyCode == Qt::Key_H ) {
-//    kDebug( 13070 ) << "                    H";
-//    m_viewInternal->cursorLeft();
-//    highlight();
-//  }
-//  else if ( keyCode == Qt::Key_L ) {
-//    kDebug( 13070 ) << "                    L";
-//    m_viewInternal->cursorRight();
-//    highlight();
-//  }
-//
-//  if ( keyCode == Qt::Key_Escape ) {
-//    m_view->viEnterNormalMode();
-//    return true;
-//  }
-//
-//  return false;
-//}
+  highlightRange->setRange( KTextEditor::Range( start, m_view->cursorPosition() ) );
+}
 
 void KateViVisualMode::goToPos( KateViRange r )
 {
+  KTextEditor::Cursor cursor;
+  cursor.setLine( r.endLine );
+  cursor.setColumn( r.endColumn );
+
+  m_viewInternal->updateCursor( cursor );
+  highlight();
+}
+
+void KateViVisualMode::esc()
+{
+    // remove highlighting
+    highlightRange->setAttribute(static_cast<KTextEditor::Attribute::Ptr>(0));
+    m_view->viEnterNormalMode();
+}
+
+void KateViVisualMode::init()
+{
+    start = m_view->cursorPosition();
+    highlightRange->setAttribute(attribute);
 }

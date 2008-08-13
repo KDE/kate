@@ -2586,12 +2586,13 @@ void KateView::viEnterNormalMode( )
   emit viewEditModeChanged(this, viewEditMode());
 }
 
-void KateView::viEnterVisualMode( )
+void KateView::viEnterVisualMode( bool visualLine )
 {
   changeViMode(VisualMode);
 
   m_viewInternal->repaint ();
   m_viewInternal->getViVisualMode()->init();
+  m_viewInternal->getViVisualMode()->setVisualLine( visualLine );
 
   emit viewModeChanged(this);
   emit viewEditModeChanged(this, viewEditMode());

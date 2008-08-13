@@ -741,13 +741,16 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
   return true;
 }
 
+bool KateViNormalMode::commandEnterVisualLineMode()
+{
+  m_view->viEnterVisualMode( true );
+
+  return true;
+}
+
 bool KateViNormalMode::commandEnterVisualMode()
 {
   m_view->viEnterVisualMode();
-  //m_view->changeViMode( VisualMode );
-  //m_viewInternal->repaint ();
-
-  //emit m_view->viewModeChanged( m_view );
 
   return true;
 }
@@ -1865,6 +1868,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViNormalModeCommand( this, "A", &KateViNormalMode::commandEnterInsertModeAppendEOL, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "i", &KateViNormalMode::commandEnterInsertMode, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "v", &KateViNormalMode::commandEnterVisualMode, false ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "V", &KateViNormalMode::commandEnterVisualLineMode, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "o", &KateViNormalMode::commandOpenNewLineUnder, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "O", &KateViNormalMode::commandOpenNewLineOver, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "J", &KateViNormalMode::commandJoinLines, false ) );

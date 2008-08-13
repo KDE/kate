@@ -12,8 +12,7 @@ KateViVisualMode::KateViVisualMode( KateView *view, KateViewInternal *viewIntern
 
   m_view->addInternalHighlight(m_topRange);
 
-  // Retrieve the SmartInterface
-  KTextEditor::SmartInterface* smart = qobject_cast<KTextEditor::SmartInterface*>( m_view->doc() );
+  m_visualLine = false;
 
   KTextEditor::Range r;
   highlightRange = m_view->doc()->newSmartRange( r, m_topRange );
@@ -34,7 +33,15 @@ void KateViVisualMode::highlight()
   highlightRange->setAttribute(static_cast<KTextEditor::Attribute::Ptr>(0));
   highlightRange->setAttribute(attribute);
 
-  highlightRange->setRange( KTextEditor::Range( m_start, m_view->cursorPosition() ) );
+  KTextEditor::Cursor c1 = m_start;
+  KTextEditor::Cursor c2 = m_view->cursorPosition();
+
+  if ( m_visualLine ) {
+      c1.setColumn( ( c1 < c2 ) ? 0 : getLine( m_start.line() ).length() );
+      c2.setColumn( ( c1 < c2 ) ? getLine().length() : 0 );
+  }
+
+  highlightRange->setRange( KTextEditor::Range( c1, c2 ) );
 }
 
 void KateViVisualMode::goToPos( KateViRange r )
@@ -65,6 +72,8 @@ void KateViVisualMode::esc()
     highlightRange->setAttribute(static_cast<KTextEditor::Attribute::Ptr>(0));
 
     m_awaitingMotionOrTextObject.push_back( 0 ); // search for text objects/motion from char 0
+
+    m_visualLine = false;
 
     // only switch to normal mode if still in visual mode. commands like c, s, ...
     // can have switched to insert mode

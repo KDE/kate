@@ -33,11 +33,14 @@ class KateViVisualMode : public KateViNormalMode {
   //bool handleKeypress( QKeyEvent *e );
     void init();
 
+    void setVisualLine( bool l ) { m_visualLine = l; }
+
   private:
     void initializeCommands();
     void highlight();
     void goToPos( KateViRange r );
     void esc();
+    bool m_visualLine;
     KTextEditor::Cursor m_start;
     KTextEditor::SmartRange * m_topRange;
     KTextEditor::SmartRange * highlightRange;

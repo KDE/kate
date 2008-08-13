@@ -262,6 +262,7 @@ void KateGrepDialog::slotSearch()
 
   // add a tab for the new search
   QTreeWidget* w = new QTreeWidget();
+  w->setUniformRowHeights (true); // try to optimize inserts
   connect( w, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
            SLOT(itemSelected(QTreeWidgetItem *, int)) );
 

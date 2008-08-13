@@ -3,7 +3,8 @@
 <!-- Makefile syntaxfile v0.9 by Per Wigren <wigren@home.se> -->
 <!-- Modified by Joseph Wenninger <jowenn@kde.org> -->
 <!-- Modified by Rui Santana <santana.rui@gmail.com> -->
-<language name="Makefile" version="1.10" kateversion="2.4" section="Other" extensions="GNUmakefile;Makefile*;makefile*" mimetype="text/x-makefile" author="Per Wigren (wigren@home.se)" license="">
+<!-- small priority to allow for example Makefile.cpp to be detected as cpp file -->
+<language name="Makefile" version="1.10" kateversion="2.4" section="Other" extensions="GNUmakefile;Makefile;makefile;GNUmakefile.*;Makefile.*;makefile.*" mimetype="text/x-makefile" author="Per Wigren (wigren@home.se)" license="">
   <highlighting>
     <list name = "keywords">
       <item> include </item>

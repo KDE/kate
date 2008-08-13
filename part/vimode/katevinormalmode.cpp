@@ -198,15 +198,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
 
             if ( r.valid ) {
               kDebug( 13070 ) << "no command given, going to position (" << r.endLine << "," << r.endColumn << ")";
-              KTextEditor::Cursor cursor;
-              cursor.setLine( r.endLine );
-              cursor.setColumn( r.endColumn );
-
-              if ( r.jump ) {
-                  addCurrentPositionToJumpList();
-              }
-
-              m_viewInternal->updateCursor( cursor );
+              goToPos( r );
             } else {
               kDebug( 13070 ) << "invalid position";
             }
@@ -646,6 +638,19 @@ KateViRange KateViNormalMode::findSurrounding( QChar c1, QChar c2, bool inner )
   }
 
   return r;
+}
+
+void KateViNormalMode::goToPos( KateViRange r )
+{
+  KTextEditor::Cursor cursor;
+  cursor.setLine( r.endLine );
+  cursor.setColumn( r.endColumn );
+
+  if ( r.jump ) {
+    addCurrentPositionToJumpList();
+  }
+
+  m_viewInternal->updateCursor( cursor );
 }
 
 

@@ -23,15 +23,19 @@
 #include "katevinormalmode.h"
 #include <ktexteditor/cursor.h>
 
+class KateViRange;
+
 class KateViVisualMode : public KateViNormalMode {
   public:
     KateViVisualMode( KateView *view, KateViewInternal *viewInternal );
     ~KateViVisualMode();
 
-  bool handleKeypress( QKeyEvent *e );
+  //bool handleKeypress( QKeyEvent *e );
+
 
   private:
     void highlight();
+    void goToPos( KateViRange r );
     KTextEditor::Cursor start;
     KTextEditor::SmartRange * m_topRange;
     KTextEditor::SmartRange * highlightRange;

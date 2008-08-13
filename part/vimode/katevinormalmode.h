@@ -179,6 +179,7 @@ class KateViNormalMode : public QObject {
     KTextEditor::Cursor findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KTextEditor::Cursor findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KateViRange findSurrounding( QChar c1, QChar c2, bool inner = false );
+    void goToPos( KateViRange r );
 
     KateView *m_view;
     KateViewInternal *m_viewInternal;

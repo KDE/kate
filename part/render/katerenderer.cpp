@@ -627,8 +627,8 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
             c = attribute(KateExtendedAttribute::dsNormal)->foreground().color();
       }
 
-      // make it possible to see the selected character in the vi input mode's normal mode
-      if (m_view->viInputMode() && m_view->getCurrentViMode() == NormalMode) {
+      // make it possible to see the selected character in the vi input mode's normal/visual mode
+      if (m_view->viInputMode() && m_view->getCurrentViMode() != InsertMode ) {
         c.setAlpha(128);
       }
 

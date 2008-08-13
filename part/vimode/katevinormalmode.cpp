@@ -299,7 +299,7 @@ void KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
       m_view->doc()->removeLine( m_commandRange.startLine+i );
     }
   } else {
-    //m_view->doc()->removeText( range );
+      m_view->doc()->removeText( KTextEditor::Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
   }
 }
 

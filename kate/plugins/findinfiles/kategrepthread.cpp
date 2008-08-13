@@ -85,6 +85,10 @@ void KateGrepThread::grepInFile (const QString &fileName, const QString &baseNam
   // try to extract data
   QTextStream stream (&file);
 
+  // matches, lines, columns
+  QList<int> linesArray, columns;
+  QStringList lineContent;
+
   QStringList lines;
   int lineNumber = 0;
   while (!m_cancel)
@@ -108,12 +112,9 @@ void KateGrepThread::grepInFile (const QString &fileName, const QString &baseNam
       // found match...
       if (firstColumn != -1)
       {
-        kDebug () << "found match: " << fileName << " : " << lineNumber;
-        QString relName = fileName;
-        if (relName.startsWith(m_dir)) {
-          relName.remove(0, m_dir.size());
-        }
-        emit foundMatch (fileName, relName, lineNumber, firstColumn, baseName, lines.at (0), m_parentTab);
+        linesArray.append (lineNumber);
+        columns.append (firstColumn);
+        lineContent.append (lines.at (0));
       }
 
       // remove first line...
@@ -125,6 +126,15 @@ void KateGrepThread::grepInFile (const QString &fileName, const QString &baseNam
     if (line.isNull())
       break;
     lines.append (line);
+  }
+
+  if (!linesArray.isEmpty())
+  {
+    QString relName = fileName;
+    if (relName.startsWith(m_dir))
+      relName.remove(0, m_dir.size());
+       
+    emit foundMatch (fileName, relName, linesArray, columns, baseName, lineContent, m_parentTab);
   }
 }
 

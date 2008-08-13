@@ -298,8 +298,11 @@ void KateGrepDialog::slotSearch()
   connect(lbResult, SIGNAL(destroyed()), m_grepThread, SLOT(cancel()));
   connect(lbResult, SIGNAL(destroyed()), this, SLOT(searchFinished()));
   connect (m_grepThread, SIGNAL(finished()), this, SLOT(searchFinished()));
-  connect (m_grepThread, SIGNAL(foundMatch (const QString &, const QString &, int, int, const QString &, const QString &, QWidget *)),
-           this, SLOT(searchMatchFound(const QString &, const QString &, int, int, const QString &, const QString &, QWidget *)));
+  connect (m_grepThread, 
+           SIGNAL(foundMatch (const QString &, const QString &, const QList<int> &, const QList<int> &, const QString &, const QStringList &, QWidget *)),
+           this,
+           SLOT(searchMatchFound(const QString &, const QString &, const QList<int> &, const QList<int> &, const QString &, const QStringList &, QWidget *)),
+           Qt::QueuedConnection);
 
   // grep
   m_grepThread->start();
@@ -372,7 +375,7 @@ void KateGrepDialog::addItems()
   }
 }
 
-void KateGrepDialog::searchMatchFound(const QString &filename, const QString &relname, int line, int column, const QString &basename, const QString &lineContent, QWidget *parentTab)
+void KateGrepDialog::searchMatchFound(const QString &filename, const QString &relname, const QList<int> &lines, const QList<int> &columns, const QString &basename, const QStringList &lineContent, QWidget *parentTab)
 {
   // should never happen
   if(lbResult->indexOf(parentTab) < 0)
@@ -380,21 +383,24 @@ void KateGrepDialog::searchMatchFound(const QString &filename, const QString &re
 
   QTreeWidget* w = (QTreeWidget*) parentTab;
 
-  QTreeWidgetItem* item = new QTreeWidgetItem(w);
-  // visible text
-  item->setText(0, relname);
-  item->setText(1, QString::number (line + 1));
-  item->setText(2, lineContent.trimmed());
+  for (int i = 0; i < lines.size(); ++i)
+  {
+    QTreeWidgetItem* item = new QTreeWidgetItem(w);
+    // visible text
+    item->setText(0, relname);
+    item->setText(1, QString::number (lines[i] + 1));
+    item->setText(2, lineContent[i].trimmed());
 
-  // used to read from when activating an item
-  item->setData(0, Qt::UserRole, filename);
-  item->setData(1, Qt::UserRole, line);
-  item->setData(2, Qt::UserRole, column);
+    // used to read from when activating an item
+    item->setData(0, Qt::UserRole, filename);
+    item->setData(1, Qt::UserRole, lines[i]);
+    item->setData(2, Qt::UserRole, columns[i]);
 
-  // add tooltips in all columns
-  item->setData(0, Qt::ToolTipRole, filename);
-  item->setData(1, Qt::ToolTipRole, filename);
-  item->setData(2, Qt::ToolTipRole, filename);
+    // add tooltips in all columns
+    item->setData(0, Qt::ToolTipRole, filename);
+    item->setData(1, Qt::ToolTipRole, filename);
+    item->setData(2, Qt::ToolTipRole, filename);
+  }
 }
 
 void KateGrepDialog::slotClear()

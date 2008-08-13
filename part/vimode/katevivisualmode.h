@@ -34,6 +34,7 @@ class KateViVisualMode : public KateViNormalMode {
     void init();
 
   private:
+    void initializeCommands();
     void highlight();
     void goToPos( KateViRange r );
     void esc();

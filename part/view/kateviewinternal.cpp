@@ -103,8 +103,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_viInputMode(false)
   , m_currentViMode(NormalMode)
   , m_viNormalMode(0)
-  , m_viInsertMode (0)
   , m_viVisualMode (0)
+  , m_viInsertMode (0)
 {
   m_watcherCount1 = 0;
   m_watcherCount3 = 0;

@@ -62,7 +62,6 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     return false;
   }
 
-  // escape key aborts current command
   if ( keyCode == Qt::Key_Escape ) {
     esc();
     return true;
@@ -312,6 +311,7 @@ void KateViNormalMode::reset()
   m_motionOperatorIndex = 0;
 }
 
+// escape key aborts current command
 void KateViNormalMode::esc()
 {
     reset();

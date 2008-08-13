@@ -50,7 +50,7 @@ class KTEXTEDITOR_EXPORT LoadSaveFilterCheckPlugin:public QObject {
     virtual bool preSavePostDialogFilterCheck(KTextEditor::Document *document) =0;
     /*this one is called after the file has been saved
       return true if following plugins should be handled*/
-    virtual bool postSaveFilterCheck(KTextEditor::Document *document, bool created) =0;
+    virtual bool postSaveFilterCheck(KTextEditor::Document *document, bool saveas) =0;
     /*this one is called once the document has been completely loaded and configured (encoding,highlighting, ...))*/
     virtual void postLoadFilter(KTextEditor::Document *document) =0;
   private:

@@ -276,6 +276,13 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      */
     virtual bool documentSaveAs () = 0;
 
+ Q_SIGNALS:
+    /**
+    * This signal should be emitted after a document has been saved to disk or for remote files uploaded.
+    * saveAs should be set to true, if the operation is a save as operation
+    */
+    void documentSavedOrUploaded(KTextEditor::Document* document,bool saveAs);
+
  /*
   * Methodes to create/end editing sequences.
   */

@@ -3660,7 +3660,9 @@ bool KateDocument::saveFile()
   emit documentUrlChanged (this);
 
 
+#ifdef __GNUC__
 #warning IMPLEMENT ME
+#endif
 #if 0
   if (!m_postSaveFilterChecks.isEmpty())
   {

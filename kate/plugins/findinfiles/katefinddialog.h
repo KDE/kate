@@ -20,13 +20,15 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _GREPDIALOG_H_
-#define _GREPDIALOG_H_
+#ifndef KATE_FIND_DIALOG_H
+#define KATE_FIND_DIALOG_H
 
 #include <kate/mainwindow.h>
 
 #include "kategrepthread.h"
 #include "ui_findwidget.h"
+
+#include <kdialog.h>
 
 #include <QEvent>
 
@@ -35,48 +37,38 @@ class QShowEvent;
 class QTreeWidgetItem;
 class KConfig;
 class KateFindInFilesView;
+class KateFindInFilesOptions;
 
-class KateGrepDialog : public QWidget, private Ui::FindWidget
+class KateFindDialog : public KDialog, private Ui::FindWidget
 {
     Q_OBJECT
 
   public:
-    KateGrepDialog(QWidget *parent, Kate::MainWindow *mw, KateFindInFilesView *view);
-    ~KateGrepDialog();
+    KateFindDialog(Kate::MainWindow *mw, KateFindInFilesView *view);
+    virtual ~KateFindDialog();
 
-    // read and write session config
-    void readSessionConfig (const KConfigGroup& config);
-    void writeSessionConfig (KConfigGroup& config);
+    void setPattern(const QList<QRegExp>& pattern);
+    void setUrl(const QString& url);
+    void setFilter(const QString& filter);
+    void setOptions(const KateFindInFilesOptions& options);
+
+    void useResultView(int id);
 
   protected:
-    bool eventFilter( QObject *, QEvent * );
     void showEvent(QShowEvent* event);
-    void keyPressEvent(QKeyEvent *event);
 
-    void addItems();
+    void updateConfig();
+    void updateItems();
 
   private Q_SLOTS:
-    void itemSelected(QTreeWidgetItem *item, int column);
-    void slotCloseResultTab();
-    void slotCloseResultTab(QWidget*);
     void slotSearch();
-    void slotClear();
     void patternTextChanged( const QString &);
-    void searchFinished ();
-    void searchMatchFound(const QString &filename, const QString &relname, const QList<int> &lines, const QList<int> &columns, const QString &basename, const QStringList &lineContent, QWidget *parentTab);
     void syncDir();
 
   private:
-    void killThread ();
-
     Kate::MainWindow *m_mw;
-    QStringList lastSearchItems;
-    QStringList lastSearchPaths;
-    QStringList lastSearchFiles;
-    QToolButton* btnCloseTab;
-
-    KateGrepThread *m_grepThread;
     KateFindInFilesView *m_view;
+    int m_useId;
 };
 
 #endif

@@ -1,16 +1,16 @@
 /* This file is part of the KDE project
    Copyright (C) 2007 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2008 Eduardo Robles Elvira <edulix@gmail.com>
- 
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
- 
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
- 
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -25,37 +25,41 @@
 #include <QRegExp>
 #include <QList>
 
+class KateResultView;
+
 class KateGrepThread : public QThread
 {
     Q_OBJECT
 
   public:
-    KateGrepThread (QWidget *parent, QWidget *parentTab, const QString &dir,
-                    bool recursive, const QStringList &fileWildcards,
-                    const QList<QRegExp> &searchPattern);
+    KateGrepThread (KateResultView* parent);
     ~KateGrepThread ();
 
   public:
-    void run();
-    QWidget* parentTab()
-    {
-      return m_parentTab;
-    }
+    void startSearch(const QList<QRegExp> &pattern,
+                     const QString &dir,
+                     const QStringList &fileWildcards,
+                     bool caseSensitive,
+                     bool regExp,
+                     bool recursive);
+
   public Q_SLOTS:
     void cancel ()
     {
       m_cancel = true;
     }
 
+  protected:
+    void run();
+
   private:
     void grepInFile (const QString &fileName, const QString &baseName);
 
   Q_SIGNALS:
-    void foundMatch (const QString &filename, const QString &relname, const QList<int> &lines, const QList<int> &columns, const QString &basename, const QStringList &lineContent, QWidget *parentTab);
+    void foundMatch (const QString &filename, const QString &relname, const QList<int> &lines, const QList<int> &columns, const QString &basename, const QStringList &lineContent);
 
   private:
-    QWidget* m_parentTab;
-    bool m_cancel;
+    volatile bool m_cancel;
     QStringList m_workQueue;
     bool m_recursive;
     QStringList m_fileWildcards;

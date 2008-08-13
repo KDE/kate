@@ -2,7 +2,7 @@
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002 Anders Lund <anders.lund@lund.tdcadsl.dk>
-   Copyright (C) 2007 Dominik Haumann <dhaumann@kde.org>
+   Copyright (C) 2007-2008 Dominik Haumann <dhaumann kde org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -29,7 +29,7 @@
 
 #include <kvbox.h>
 
-#include <kategrepdialog.h>
+#include <katefinddialog.h>
 
 
 namespace KParts
@@ -41,6 +41,7 @@ namespace KateMDI
   }
 
 class KateFindInFilesView;
+class KateResultView;
 
 class KateFindInFilesPlugin: public Kate::Plugin
 {
@@ -50,47 +51,44 @@ class KateFindInFilesPlugin: public Kate::Plugin
     virtual ~KateFindInFilesPlugin()
     {}
 
-    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+    virtual Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+    virtual void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
+    virtual void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 };
 
 /**
  * KateFindInFilesView
- * This class is used for the internal terminal emulator
- * It uses internally the konsole part, thx to konsole devs :)
  */
-class KateFindInFilesView : public Kate::PluginView
+class KateFindInFilesView : public Kate::PluginView, public KXMLGUIClient
 {
     Q_OBJECT
 
   public:
     /**
-     * construct us
+     * constructor
      * @param mw main window
-     * @param parent toolview
      */
     KateFindInFilesView (Kate::MainWindow *mw);
 
     /**
-     * destruct us
+     * destructor
      */
     ~KateFindInFilesView ();
 
-    // overwritten: fread and write session config
-    void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
-    void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
+    void addResultView(KateResultView* view);
+    void removeResultView(KateResultView* view);
+    KateResultView* toolViewFromId(int id);
+    KateFindDialog* findDialog();
 
-    QWidget *toolView() const;
+    int freeId();
+
+  public slots:
+    void find();
 
   private:
-    /**
-     * toolview for this console
-     */
-    QWidget *m_toolView;
-
-    /**
-     * Grepdialog
-     */
-    KateGrepDialog *m_grepDialog;
+    Kate::MainWindow* m_mw;
+    KateFindDialog* m_findDialog;
+    QList<KateResultView*> m_resultViews;
 };
 
 #endif

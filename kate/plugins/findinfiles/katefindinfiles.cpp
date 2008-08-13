@@ -2,7 +2,7 @@
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002 Anders Lund <anders.lund@lund.tdcadsl.dk>
-   Copyright (C) 2007 Dominik Haumann <dhaumann@kde.org>
+   Copyright (C) 2007-2008 Dominik Haumann <dhaumann kde org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -21,6 +21,9 @@
 
 #include "katefindinfiles.h"
 #include "katefindinfiles.moc"
+
+#include "katefindoptions.h"
+#include "kateresultview.h"
 
 #include <kicon.h>
 #include <kiconloader.h>
@@ -52,37 +55,88 @@ Kate::PluginView *KateFindInFilesPlugin::createView (Kate::MainWindow *mainWindo
   return new KateFindInFilesView (mainWindow);
 }
 
-/*
- * Construct the view, toolview + grepdialog
- */
-KateFindInFilesView::KateFindInFilesView (Kate::MainWindow *mw)
-    : Kate::PluginView (mw)
-    , m_toolView (mw->createToolView ("kate_private_plugin_katefindinfilesplugin", Kate::MainWindow::Bottom, SmallIcon("edit-find"), i18n("Find in Files")))
-    , m_grepDialog (new KateGrepDialog (m_toolView, mw, this))
-{}
-
-/*
- * delete toolview and children again...
- */
-KateFindInFilesView::~KateFindInFilesView ()
+void KateFindInFilesPlugin::readSessionConfig (KConfigBase* config, const QString& groupPrefix)
 {
-  delete m_toolView;
+  KateFindInFilesOptions::self().load(KConfigGroup(config, groupPrefix + ":find-in-files"));
 }
 
-void KateFindInFilesView::readSessionConfig (KConfigBase* config, const QString& groupPrefix)
-{
-  m_grepDialog->readSessionConfig(KConfigGroup(config, groupPrefix + ":find-in-files"));
-}
-
-void KateFindInFilesView::writeSessionConfig (KConfigBase* config, const QString& groupPrefix)
+void KateFindInFilesPlugin::writeSessionConfig (KConfigBase* config, const QString& groupPrefix)
 {
   KConfigGroup cg(config, groupPrefix + ":find-in-files");
-  m_grepDialog->writeSessionConfig(cg);
+  KateFindInFilesOptions::self().save(cg);
 }
 
-QWidget *KateFindInFilesView::toolView() const
+
+KateFindInFilesView::KateFindInFilesView (Kate::MainWindow *mw)
+  : Kate::PluginView (mw)
+  , KXMLGUIClient()
+  , m_mw(mw)
+  , m_findDialog(0)
 {
-  return m_toolView;
+  // this must be called before putting anything into actionCollection()
+  setComponentData(KComponentData("kate"));
+
+  QAction* a = actionCollection()->addAction("findinfiles_edit_find_in_files");
+  a->setIcon(KIcon("utilities-terminal"));
+  a->setText(i18n("&Find in Files..."));
+  connect(a, SIGNAL(triggered()), this, SLOT(find()));
+
+  setXMLFile("plugins/findinfiles/ui.rc");
+  mw->guiFactory()->addClient(this);
+}
+
+KateFindInFilesView::~KateFindInFilesView ()
+{
+  foreach(KateResultView* view, m_resultViews)
+    delete view->toolView(); // view is child of toolview -> view is deleted, too
+  m_resultViews.clear();
+
+  m_mw->guiFactory()->removeClient(this);
+
+  delete m_findDialog;
+  m_findDialog = 0;
+}
+
+void KateFindInFilesView::addResultView(KateResultView* view)
+{
+  m_resultViews.append(view);
+}
+
+void KateFindInFilesView::removeResultView(KateResultView* view)
+{
+  m_resultViews.removeAll(view);
+}
+
+KateFindDialog* KateFindInFilesView::findDialog()
+{
+  if (!m_findDialog) {
+    m_findDialog = new KateFindDialog(m_mw, this);
+  }
+  return m_findDialog;
+}
+
+void KateFindInFilesView::find()
+{
+  if (!findDialog()->isVisible()) {
+    findDialog()->useResultView(-1);
+    findDialog()->show();
+  }
+}
+
+int KateFindInFilesView::freeId()
+{
+  if (m_resultViews.size())
+    return m_resultViews.last()->id() + 1;
+  return 1;
+}
+
+KateResultView* KateFindInFilesView::toolViewFromId(int id)
+{
+  foreach (KateResultView* view, m_resultViews) {
+    if (view->id() == id)
+      return view;
+  }
+  return 0;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

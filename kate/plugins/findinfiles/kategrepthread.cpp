@@ -19,6 +19,7 @@
 
 #include "kategrepthread.h"
 #include "kategrepthread.moc"
+#include "kateresultview.h"
 
 #include <kdebug.h>
 
@@ -27,21 +28,35 @@
 #include <QFileInfo>
 #include <QTextStream>
 
-KateGrepThread::KateGrepThread(QWidget *parent, QWidget *parentTab,
-                               const QString &dir, bool recursive,
-                               const QStringList &fileWildcards,
-                               const QList<QRegExp> &searchPattern)
-    : QThread (parent), m_parentTab(parentTab), m_cancel (false)
-    , m_recursive (recursive), m_fileWildcards (fileWildcards)
-    , m_searchPattern (searchPattern)
+KateGrepThread::KateGrepThread(KateResultView* parent)
+    : QThread (parent)
+    , m_cancel (false)
+    , m_recursive (false)
 {
-  m_workQueue << dir;
-  QDir baseDir(dir);
-  m_dir = baseDir.absolutePath() + '/';
 }
 
 KateGrepThread::~KateGrepThread ()
 {}
+
+void KateGrepThread::startSearch(const QList<QRegExp> &pattern,
+                                 const QString &dir,
+                                 const QStringList &fileWildcards,
+                                 bool caseSensitive,
+                                 bool regExp,
+                                 bool recursive)
+{
+  m_cancel = false;
+
+  m_recursive = recursive;
+  m_fileWildcards = fileWildcards;
+  m_searchPattern = pattern;
+
+  m_workQueue << dir;
+  QDir baseDir(dir);
+  m_dir = baseDir.absolutePath() + QDir::separator();
+
+  start();
+}
 
 void KateGrepThread::run ()
 {
@@ -133,8 +148,8 @@ void KateGrepThread::grepInFile (const QString &fileName, const QString &baseNam
     QString relName = fileName;
     if (relName.startsWith(m_dir))
       relName.remove(0, m_dir.size());
-       
-    emit foundMatch (fileName, relName, linesArray, columns, baseName, lineContent, m_parentTab);
+
+    emit foundMatch (fileName, relName, linesArray, columns, baseName, lineContent);
   }
 }
 

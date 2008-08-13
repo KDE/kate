@@ -5,7 +5,7 @@
 KateViVisualMode::KateViVisualMode( KateView *view, KateViewInternal *viewInternal )
   : KateViNormalMode( view, viewInternal )
 {
-  start.setPosition( -1, -1 );
+  m_start.setPosition( -1, -1 );
   m_topRange = m_view->doc()->newSmartRange(m_view->doc()->documentRange());
   static_cast<KateSmartRange*>(m_topRange)->setInternal();
   m_topRange->setInsertBehavior(KTextEditor::SmartRange::ExpandLeft | KTextEditor::SmartRange::ExpandRight);
@@ -34,7 +34,7 @@ void KateViVisualMode::highlight()
   highlightRange->setAttribute(static_cast<KTextEditor::Attribute::Ptr>(0));
   highlightRange->setAttribute(attribute);
 
-  highlightRange->setRange( KTextEditor::Range( start, m_view->cursorPosition() ) );
+  highlightRange->setRange( KTextEditor::Range( m_start, m_view->cursorPosition() ) );
 }
 
 void KateViVisualMode::goToPos( KateViRange r )
@@ -44,6 +44,12 @@ void KateViVisualMode::goToPos( KateViRange r )
   cursor.setColumn( r.endColumn );
 
   m_viewInternal->updateCursor( cursor );
+
+  m_commandRange.startLine = m_start.line();
+  m_commandRange.startColumn = m_start.column();
+  m_commandRange.endLine = r.endLine;
+  m_commandRange.endColumn = r.endColumn;
+
   highlight();
 }
 
@@ -56,8 +62,8 @@ void KateViVisualMode::esc()
 
 void KateViVisualMode::init()
 {
-    start = m_view->cursorPosition();
-    highlightRange->setRange( KTextEditor::Range( start, m_view->cursorPosition() ) );
+    m_start = m_view->cursorPosition();
+    highlightRange->setRange( KTextEditor::Range( m_start, m_view->cursorPosition() ) );
     highlightRange->setAttribute(attribute);
 }
 

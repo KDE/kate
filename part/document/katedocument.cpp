@@ -150,10 +150,10 @@ class KateDocument::LoadSaveFilterCheckPlugins
       if (!plug) return;
       plug->postLoadFilter(document);
     }
-    bool postSaveFilterCheck(const QString& pluginName,KateDocument *document,bool created) {
+    bool postSaveFilterCheck(const QString& pluginName,KateDocument *document,bool saveas) {
       KTextEditor::LoadSaveFilterCheckPlugin *plug=getPlugin(pluginName);
       if (!plug) return false;
-      return plug->postSaveFilterCheck(document,created);
+      return plug->postSaveFilterCheck(document,saveas);
     }
   private:
     KTextEditor::LoadSaveFilterCheckPlugin *getPlugin(const QString & pluginName)
@@ -183,11 +183,13 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   docWasSavedWhenUndoWasEmpty( true ),
   docWasSavedWhenRedoWasEmpty( true ),
   m_annotationModel( 0 ),
+  m_saveAs(false),
   m_indenter(this),
   m_modOnHd (false),
   m_modOnHdReason (OnDiskUnmodified),
   s_fileChangedDialogsActivated (false),
-  m_tabInterceptor(0)
+  m_tabInterceptor(0),
+  m_savingToUrl(false)
 {
   setComponentData ( KateGlobal::self()->componentData () );
 
@@ -268,6 +270,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect( KateGlobal::self()->dirWatch(), SIGNAL(deleted (const QString &)),
            this, SLOT(slotModOnHdDeleted (const QString &)) );
 
+  connect (this,SIGNAL(completed()),this,SLOT(slotCompleted()));
+  connect (this,SIGNAL(canceled(const QString&)),this,SLOT(slotCanceled()));
   // update doc name
   setDocName ("");
 
@@ -3659,21 +3663,7 @@ bool KateDocument::saveFile()
   // url may have changed...
   emit documentUrlChanged (this);
 
-
-#ifdef __GNUC__
-#warning IMPLEMENT ME
-#endif
-#if 0
-  if (!m_postSaveFilterChecks.isEmpty())
-  {
-    LoadSaveFilterCheckPlugins *lscps1=loadSaveFilterCheckPlugins();
-    foreach(const QString& checkplugin, m_postSaveFilterChecks)
-    {
-       if (lscps1->postSFilterCheck(checkplugin,this)==false)
-         break;
-    }
-  }
-#endif
+  m_savingToUrl=true;
   //
   // return success
   //
@@ -5605,6 +5595,8 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         m_config->setEncoding( val );
       else if (var == "presave-postdialog")
         setPreSavePostDialogFilterChecks(val.split(','));
+      else if (var == "postsave")
+        setPostSaveFilterChecks(val.split(','));
       else if (var == "postload")
         setPostLoadFilterChecks(val.split(','));
       else if ( var == "syntax" || var == "hl" )
@@ -6327,6 +6319,39 @@ bool KateDocument::queryClose()
     default : // case KMessageBox::Cancel :
         return false;
     }
+}
+
+
+void KateDocument::slotCanceled() {
+  m_savingToUrl=false;
+  m_saveAs=false;
+}
+
+void KateDocument::slotCompleted() {
+  if (m_savingToUrl) {
+    if (!m_postSaveFilterChecks.isEmpty())
+    {
+      LoadSaveFilterCheckPlugins *lscps1=loadSaveFilterCheckPlugins();
+      foreach(const QString& checkplugin, m_postSaveFilterChecks)
+      {
+        if (lscps1->postSaveFilterCheck(checkplugin,this,m_saveAs)==false)
+          break;
+      }
+    }
+    emit documentSavedOrUploaded(this,m_saveAs);
+  }
+  m_savingToUrl=false;
+  m_saveAs=false;
+}
+
+bool KateDocument::save() {
+  m_saveAs = false;
+  return KTextEditor::Document::save();
+}
+ 
+bool KateDocument::saveAs( const KUrl &url ) {
+  m_saveAs = true;
+  return KTextEditor::Document::saveAs(url);
 }
 
 // Kill our helpers again

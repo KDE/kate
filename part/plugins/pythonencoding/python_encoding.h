@@ -38,7 +38,7 @@ class KTextEditorPythonEncodingCheck: public KTextEditor::LoadSaveFilterCheckPlu
   public:
     KTextEditorPythonEncodingCheck(QObject *parent, QList<QVariant>):KTextEditor::LoadSaveFilterCheckPlugin(parent){interpreterLine=QRegExp(QString("#!.*$"));}
     virtual ~KTextEditorPythonEncodingCheck(){}
-    virtual bool postSaveFilterCheck(KTextEditor::Document *document,bool created) {return true;}
+    virtual bool postSaveFilterCheck(KTextEditor::Document *document,bool saveas) {return true;}
     virtual bool preSavePostDialogFilterCheck(KTextEditor::Document *document)
     {
       kDebug(13020)<<"KTextEditorPythonEncodingCheck::preSavePostDialogCheck";

@@ -940,6 +940,11 @@ class KateDocument : public KTextEditor::Document,
     bool documentSave ();
     bool documentSaveAs ();
 
+    virtual bool save();
+  public:
+    virtual bool saveAs( const KUrl &url );
+  private:
+    bool m_saveAs;
   Q_SIGNALS:
     /**
      * Indicate this file is modified on disk
@@ -1148,9 +1153,16 @@ class KateDocument : public KTextEditor::Document,
       void dumpRegionTree();
   public:
       class LoadSaveFilterCheckPlugins;
+
+  private slots:
+      void slotCompleted();
+      void slotCanceled();
   private:
+      bool m_savingToUrl;
       void setPreSavePostDialogFilterChecks(QStringList plugins) {m_preSavePostDialogFilterChecks=plugins;}
       QStringList m_preSavePostDialogFilterChecks;
+      void setPostSaveFilterChecks(QStringList plugins) {m_postSaveFilterChecks=plugins;}
+      QStringList m_postSaveFilterChecks;
       void setPostLoadFilterChecks(QStringList plugins) {m_postLoadFilterChecks=plugins;}
       QStringList m_postLoadFilterChecks;
       static LoadSaveFilterCheckPlugins* loadSaveFilterCheckPlugins();

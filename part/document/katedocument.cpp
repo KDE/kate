@@ -1360,10 +1360,12 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
     }
 
     for( int i=0; i < list.size(); ++i )
+      m_marks.take( list[i]->line );
+
+    for( int i=0; i < list.size(); ++i )
     {
-      KTextEditor::Mark* mark = m_marks.take( list[i]->line );
-      mark->line++;
-      m_marks.insert( mark->line, mark );
+      list[i]->line++;
+      m_marks.insert( list[i]->line, list[i] );
     }
 
     if( !list.isEmpty() )
@@ -1450,12 +1452,14 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
     }
   }
 
-  for( int i=0; i < list.size(); ++i )
-    {
-    KTextEditor::Mark* mark = m_marks.take( list[i]->line );
-    mark->line--;
-    m_marks.insert( mark->line, mark );
-  }
+   for( int i=0; i < list.size(); ++i )
+      m_marks.take( list[i]->line );
+
+   for( int i=0; i < list.size(); ++i )
+   {
+      list[i]->line--;
+      m_marks.insert( list[i]->line, list[i] );
+    }
 
   if( !list.isEmpty() )
     emit marksChanged( this );
@@ -1499,12 +1503,14 @@ bool KateDocument::editInsertLine ( int line, const QString &s, Kate::EditSource
       list.append( i.value() );
   }
 
-  for( int i=0; i < list.size(); ++i )
-  {
-    KTextEditor::Mark* mark = m_marks.take( list[i]->line );
-    mark->line++;
-    m_marks.insert( mark->line, mark );
-  }
+   for( int i=0; i < list.size(); ++i )
+      m_marks.take( list[i]->line );
+
+   for( int i=0; i < list.size(); ++i )
+   {
+      list[i]->line++;
+      m_marks.insert( list[i]->line, list[i] );
+    }
 
   if( !list.isEmpty() )
     emit marksChanged( this );

@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
    Copyright (C) 2007 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2008 Eduardo Robles Elvira <edulix@gmail.com>
+   Copyright (C) 2008 Dominik Haumann <dhaumann kde org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public

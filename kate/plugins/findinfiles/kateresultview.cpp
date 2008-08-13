@@ -2,7 +2,7 @@
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2001, 2004 Anders Lund <anders.lund@lund.tdcadsl.dk>
-   Copyright (C) 2007 Dominik Haumann <dhaumann@kde.org>
+   Copyright (C) 2007-2008 Dominik Haumann <dhaumann kde org>
    Copyright (C) 2007 Flavio Castelli <flavio.castelli@gmail.com>
    Copyright (C) 2008 Eduardo Robles Elvira <edulix@gmail.com>
 

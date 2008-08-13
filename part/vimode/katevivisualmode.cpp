@@ -40,10 +40,16 @@ void KateViVisualMode::highlight()
 void KateViVisualMode::goToPos( KateViRange r )
 {
   KTextEditor::Cursor cursor;
+
   cursor.setLine( r.endLine );
   cursor.setColumn( r.endColumn );
 
   m_viewInternal->updateCursor( cursor );
+
+  if ( r.startLine != -1 && r.startColumn != -1 ) {
+      m_start.setLine( r.startLine );
+      m_start.setColumn( r.startColumn );
+  }
 
   m_commandRange.startLine = m_start.line();
   m_commandRange.startColumn = m_start.column();
@@ -57,7 +63,14 @@ void KateViVisualMode::esc()
 {
     // remove highlighting
     highlightRange->setAttribute(static_cast<KTextEditor::Attribute::Ptr>(0));
-    m_view->viEnterNormalMode();
+
+    m_awaitingMotionOrTextObject.push_back( 0 ); // search for text objects/motion from char 0
+
+    // only switch to normal mode if still in visual mode. commands like c, s, ...
+    // can have switched to insert mode
+    if ( m_view->getCurrentViMode() == VisualMode ) {
+        m_view->viEnterNormalMode();
+    }
 }
 
 void KateViVisualMode::init()
@@ -65,6 +78,8 @@ void KateViVisualMode::init()
     m_start = m_view->cursorPosition();
     highlightRange->setRange( KTextEditor::Range( m_start, m_view->cursorPosition() ) );
     highlightRange->setAttribute(attribute);
+
+    m_awaitingMotionOrTextObject.push_back( 0 ); // search for text objects/motion from char 0
 }
 
 void KateViVisualMode::initializeCommands()

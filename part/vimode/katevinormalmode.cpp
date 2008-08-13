@@ -216,7 +216,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
               kDebug( 13070 ) << "invalid position";
             }
 
-            reset();
+            esc();
             return true;
           }
         }
@@ -235,7 +235,8 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
         && !m_commands.at( m_matchingCommands.at( 0 ) )->needsMotionOrTextObject() ) {
       kDebug( 13070 ) << "Running command at index " << m_matchingCommands.at( 0 );
       m_commands.at( m_matchingCommands.at( 0 ) )->execute();
-      reset();
+      esc();
+
       return true;
     }
   } else if ( m_matchingCommands.size() == 0 && m_matchingMotions.size() == 0 ) {

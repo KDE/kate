@@ -209,7 +209,7 @@
 				<RegExpr attribute="Keyword" String="\bdef\b" context="#stay" beginRegion="def block"/>
 				<RegExpr attribute="Keyword" String="\bend\b" context="#stay" endRegion="def block"/>
 				<!-- elsif/else close the current block and start a new one -->
-				<RegExpr attribute="Keyword" String="(\b|^\s*)(else|elsif|rescue|ensure)(\b|$)" context="#stay" endRegion="def block" beginRegion="def block"/>
+				<RegExpr attribute="Keyword" String="\b(else|elsif|rescue|ensure)\b" context="#stay" endRegion="def block" beginRegion="def block"/>
 				
 				<StringDetect attribute="Operator" String="..." context="#stay"/>
 				<Detect2Chars attribute="Operator" char="." char1="." context="#stay"/>

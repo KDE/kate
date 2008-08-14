@@ -34,15 +34,12 @@ KateViNormalMode::KateViNormalMode( KateView * view, KateViewInternal * viewInte
   m_marks = new QMap<QChar, KTextEditor::SmartCursor*>;
   m_keyParser = new KateViKeySequenceParser();
 
-  connect ( m_view->doc(), SIGNAL( textRemoved( const QString& ) ), this, SLOT ( textRemoved( const QString& ) ) );
-
   initializeCommands();
   reset(); // initialise with start configuration
 }
 
 KateViNormalMode::~KateViNormalMode()
 {
-  disconnect( m_view->doc(), SIGNAL( textRemoved( const QString& ) ), this, SLOT( textRemoved( const QString& ) ) );
   delete m_marks;
   delete m_keyParser;
 }
@@ -294,18 +291,24 @@ void KateViNormalMode::removeDone()
 
 bool KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
 {
+  QString removedText = getRange( r, linewise );
   bool res = false;
 
   if ( linewise ) {
     for ( int i = 0; i < m_commandRange.endLine-m_commandRange.startLine+1; i++ ) {
-      res = m_view->doc()->removeLine( m_commandRange.startLine );
+      res = m_view->doc()->removeLine( r.startLine );
     }
   } else {
       if ( r.motionType == ViMotion::InclusiveMotion ) r.endColumn++;
       res = m_view->doc()->removeText( KTextEditor::Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
   }
 
-  removeDone();
+  if ( r.startLine == r.endLine ) {
+      fillRegister( getChosenRegister( '-' ), removedText );
+  } else {
+      fillRegister( getChosenRegister( '0' ), removedText );
+  }
+
   return res;
 }
 
@@ -894,15 +897,17 @@ KateViRange KateViNormalMode::motionToEndOfWORD()
 
 bool KateViNormalMode::commandDeleteLine()
 {
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+  KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  for ( unsigned int i = 0; i < getCount(); i++ ) {
-    m_view->doc()->removeLine( cursor.line() );
-  }
+  bool ret = false;
+  QString removedLines;
 
-  removeDone();
+  KateViRange r;
 
-  return true;
+  r.startLine = c.line();
+  r.endLine = c.line()+getCount()-1;
+
+  return deleteRange( r, true );
 }
 
 bool KateViNormalMode::commandDelete()
@@ -917,7 +922,7 @@ bool KateViNormalMode::commandDelete()
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
       && m_view->getCurrentViMode() != VisualMode );
 
-  return deleteRange( m_commandRange, linewise );
+  bool ret = deleteRange( m_commandRange, linewise );
 }
 
 bool KateViNormalMode::commandDeleteToEOL()

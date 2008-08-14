@@ -994,7 +994,6 @@ class KateDocument : public KTextEditor::Document,
     void codeFoldingUpdated();
     void aboutToRemoveText(const KTextEditor::Range&);
     void textRemoved();
-    void textRemoved(const QString &removedText);
 
   private Q_SLOTS:
     void slotModOnHdDirty (const QString &path);

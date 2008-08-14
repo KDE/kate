@@ -1266,7 +1266,6 @@ bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource
     return false;
 
   KateTextLine::Ptr l = m_buffer->line(line);
-  QString oldText = l->string().mid(col, len);
 
   if (!l)
     return false;
@@ -1282,7 +1281,6 @@ bool KateDocument::editRemoveText ( int line, int col, int len, Kate::EditSource
 
   history()->doEdit( new KateEditInfo(this, m_editSources.top(), KTextEditor::Range(line, col, line, col + len), QStringList(l->string().mid(col, len)), KTextEditor::Range(line, col, line, col), QStringList()) );
   emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line, col + len));
-  emit textRemoved( oldText );
 
   editEnd ();
 
@@ -1588,7 +1586,6 @@ bool KateDocument::editRemoveLine ( int line, Kate::EditSource editSource )
 
   history()->doEdit( new KateEditInfo(this, m_editSources.top(), rangeRemoved, QStringList(QString(oldText)), KTextEditor::Range(rangeRemoved.start(), rangeRemoved.start()), QStringList()) );
   emit KTextEditor::Document::textRemoved(this, rangeRemoved);
-  emit textRemoved( oldText + '\n');
 
   editEnd();
 

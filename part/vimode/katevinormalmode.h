@@ -165,9 +165,6 @@ class KateViNormalMode : public QObject {
 
     void error( const QString &errorMsg ) const;
 
-  private slots:
-    void textRemoved( const QString &text );
-
   protected:
     bool deleteRange( KateViRange &r, bool linewise = true );
     const QString getRange( KateViRange &r, bool linewise = true ) const;

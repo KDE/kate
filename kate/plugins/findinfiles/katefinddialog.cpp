@@ -32,19 +32,13 @@
 #include <kdebug.h>
 
 #include <QClipboard>
-#include <QCursor>
-#include <QObject>
 #include <QRegExp>
 #include <QShowEvent>
-#include <QToolButton>
-#include <QToolTip>
-#include <QTreeWidget>
-#include <QHeaderView>
+#include <QLineEdit>
 
 #include <kacceleratormanager.h>
 #include <kconfig.h>
 #include <kiconloader.h>
-#include <klineedit.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kurlcompletion.h>

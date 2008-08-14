@@ -30,10 +30,7 @@
 
 #include <QEvent>
 
-class QToolButton;
-class QShowEvent;
 class QTreeWidgetItem;
-class KConfig;
 class KateFindInFilesView;
 class KateGrepThread;
 
@@ -55,6 +52,7 @@ class KateResultView : public QWidget, private Ui::ResultWidget
                      const QString& filter);
 
   protected:
+    bool eventFilter( QObject *o, QEvent *e );
     void keyPressEvent(QKeyEvent *event);
     void setStatusVisible(bool visible);
     void layoutColumns();

@@ -31,22 +31,14 @@
 #include <kdebug.h>
 
 #include <QClipboard>
-#include <QCursor>
-#include <QObject>
 #include <QRegExp>
-#include <QShowEvent>
-#include <QToolButton>
-#include <QToolTip>
-#include <QTreeWidget>
-#include <QHeaderView>
+#include <QKeyEvent>
 
 #include <kacceleratormanager.h>
 #include <kconfig.h>
 #include <kiconloader.h>
-#include <klineedit.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kurlcompletion.h>
 
 KateResultView::KateResultView(Kate::MainWindow *mw, KateFindInFilesView *view)
     : QWidget()
@@ -70,9 +62,14 @@ KateResultView::KateResultView(Kate::MainWindow *mw, KateFindInFilesView *view)
   // auto-accels
   KAcceleratorManager::manage(m_toolView);
 
+  twResults->installEventFilter(this);
   twResults->setWhatsThis(i18n("The results of the grep run are listed here. Select a\n"
                                "filename/line number combination and press Enter or doubleclick\n"
                                "on the item to show the respective line in the editor."));
+  setFocusProxy(twResults);
+
+  connect(twResults, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
+          this, SLOT(itemSelected(QTreeWidgetItem *, int)));
 
   connect(btnCancel, SIGNAL(clicked()), this, SLOT(killThread()));
   connect(btnRemove, SIGNAL(clicked()), this, SLOT(deleteToolview()));
@@ -173,7 +170,7 @@ void KateResultView::searchFinished ()
   layoutColumns();
 }
 
-void KateResultView::searchMatchFound(const QString &filename, const QString &relname, const QList<int> &lines, const QList<int> &columns, const QString &basename, const QStringList &lineContent)
+void KateResultView::searchMatchFound(const QString &filename, const QString &relname, const QList<int> &lines, const QList<int> &columns, const QString &/*basename*/, const QStringList &lineContent)
 {
   QList<QTreeWidgetItem *> items;
   for (int i = 0; i < lines.size(); ++i)
@@ -242,6 +239,25 @@ int KateResultView::id() const
   return m_id;
 }
 
+bool KateResultView::eventFilter( QObject *o, QEvent *e )
+{
+  if ( e->type() == QEvent::KeyPress )
+  {
+    QKeyEvent *ke = static_cast<QKeyEvent*>(e);
+    if (o == twResults && (ke == QKeySequence::Copy))
+    {
+      // user pressed ctrl+c -> copy full URL to the clipboard
+      QModelIndex idx = twResults->model()->index(twResults->currentIndex().row(), 0);
+      QVariant variant = twResults->model()->data(idx, Qt::UserRole);
+      if (variant.type() == QVariant::String)
+          QApplication::clipboard()->setText(variant.toString());
+      e->accept();
+      return true;
+    }
+  }
+
+  return QWidget::eventFilter( o, e );
+}
 
 #include "kateresultview.moc"
 

@@ -24,21 +24,9 @@
 
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
-#include <kurl.h>
 #include <kxmlguiclient.h>
 
-#include <kvbox.h>
-
-#include <katefinddialog.h>
-
-
-namespace KParts
-{
-  }
-
-namespace KateMDI
-{
-  }
+#include "katefinddialog.h"
 
 class KateFindInFilesView;
 class KateResultView;

@@ -25,13 +25,6 @@
 #include "katefindoptions.h"
 #include "kateresultview.h"
 
-#include <kicon.h>
-#include <kiconloader.h>
-#include <ktexteditor/document.h>
-#include <ktexteditor/view.h>
-
-#include <kde_terminal_interface.h>
-
 #include <kparts/part.h>
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -41,7 +34,6 @@
 #include <kgenericfactory.h>
 #include <klibloader.h>
 #include <klocale.h>
-#include <kmessagebox.h>
 
 K_EXPORT_COMPONENT_FACTORY( katefindinfilesplugin, KGenericFactory<KateFindInFilesPlugin>( "katefindinfilesplugin" ) )
 

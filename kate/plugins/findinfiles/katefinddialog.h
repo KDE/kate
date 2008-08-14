@@ -32,10 +32,7 @@
 
 #include <QEvent>
 
-class QToolButton;
 class QShowEvent;
-class QTreeWidgetItem;
-class KConfig;
 class KateFindInFilesView;
 class KateFindInFilesOptions;
 

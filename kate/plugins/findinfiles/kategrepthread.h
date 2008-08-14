@@ -22,9 +22,9 @@
 #define _GREPTHREAD_H_
 
 #include <QThread>
-#include <QWidget>
 #include <QRegExp>
 #include <QList>
+#include <QStringList>
 
 class KateResultView;
 

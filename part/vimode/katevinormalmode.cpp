@@ -269,11 +269,6 @@ void KateViNormalMode::error( const QString &errorMsg ) const
   kError( 13070 ) << "\033[31m" << errorMsg << "\033[0m\n"; // FIXME
 }
 
-void KateViNormalMode::textRemoved( const QString &text )
-{
-  m_registerTemp.append( text );
-}
-
 void KateViNormalMode::removeDone()
 {
   QChar reg;
@@ -1219,7 +1214,9 @@ bool KateViNormalMode::commandPaste()
 
   QString textToInsert = getRegisterContent( reg );
 
-  c.setColumn( c.column()+1 );
+  if ( c.column() > 0 ) {
+      c.setColumn( c.column()+1 );
+  }
 
   for ( unsigned int i = 0; i < getCount(); i++ ) {
     if ( textToInsert.indexOf('\n') != -1 ) { // lines
@@ -1270,36 +1267,28 @@ bool KateViNormalMode::commandPasteBefore()
 
 bool KateViNormalMode::commandDeleteChar()
 {
-    KTextEditor::Cursor c1( m_view->cursorPosition() );
-    KTextEditor::Cursor c2( c1.line(), c1.column()+getCount() );
+    KTextEditor::Cursor c( m_view->cursorPosition() );
 
-    if ( c2.column() > m_view->doc()->lineLength( c1.line() ) ) {
-      c2.setColumn( m_view->doc()->lineLength( c1.line() ));
+    KateViRange r( c.line(), c.column(), c.line(), c.column()+getCount(), ViMotion::ExclusiveMotion );
+
+    if ( r.endColumn > m_view->doc()->lineLength( r.startLine ) ) {
+      r.endColumn = m_view->doc()->lineLength( r.startLine );
     }
 
-    KTextEditor::Range range( c1, c2 );
-
-    bool ret = m_view->doc()->removeText( range );
-
-    removeDone();
-
-    return ret;
+    return deleteRange( r, false );
 }
 
 bool KateViNormalMode::commandDeleteCharBackward()
 {
-    KTextEditor::Cursor c1( m_view->cursorPosition() );
-    KTextEditor::Cursor c2( c1.line(), c1.column()-getCount() );
+    KTextEditor::Cursor c( m_view->cursorPosition() );
 
-    if ( c2.column() < 0 ) {
-      c2.setColumn( 0 );
+    KateViRange r( c.line(), c.column()-getCount(), c.line(), c.column(), ViMotion::ExclusiveMotion );
+
+    if ( r.startColumn < 0 ) {
+      r.startColumn = 0;
     }
 
-    KTextEditor::Range range( c2, c1 );
-
-    removeDone();
-
-    return m_view->doc()->removeText( range );
+    return deleteRange( r, false );
 }
 
 bool KateViNormalMode::commandReplaceCharacter()

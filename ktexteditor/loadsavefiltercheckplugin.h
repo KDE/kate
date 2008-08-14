@@ -28,7 +28,7 @@
 
 //BEGIN includes
 #include <ktexteditor/document.h>
-#include <QObject>
+#include <QtCore/QObject>
 //END  includes
 
 namespace KTextEditor

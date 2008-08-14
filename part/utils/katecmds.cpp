@@ -82,7 +82,8 @@ const QStringList &KateCommands::CoreCommands::cmds()
     << "set-wrap-cursor"
     << "set-word-wrap" << "set-word-wrap-column"
     << "set-replace-tabs-save" << "set-remove-trailing-space-save"
-    << "set-highlight" << "set-mode" << "set-show-indent";
+    << "set-highlight" << "set-mode" << "set-show-indent"
+    << "w";
 
   return l;
 }
@@ -141,6 +142,11 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   else if ( cmd == "kill-line" )
   {
     v->killLine();
+    return true;
+  }
+  else if ( cmd == "w" )
+  {
+    v->doc()->documentSave();
     return true;
   }
   else if ( cmd == "set-indent-mode" )

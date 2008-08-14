@@ -38,7 +38,11 @@ class KateViInsertMode
 
     bool handleKeypress( QKeyEvent *e );
 
+    bool commandInsertFromAbove();
+    bool commandInsertFromBelow();
+
   private:
+    QChar getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidht ) const;
     KateView *m_view;
     KateViewInternal *m_viewInternal;
 };

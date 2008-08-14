@@ -33,6 +33,68 @@ KateViInsertMode::~KateViInsertMode()
 {
 }
 
+QChar KateViInsertMode::getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidth ) const
+{
+  int column = 0;
+  int tempCol = 0;
+
+  while ( tempCol < virtualColumn ) {
+    if ( line.at( column ) == '\t' ) {
+      tempCol += tabWidth - ( tempCol % tabWidth );
+    } else {
+      tempCol++;
+    }
+
+    if ( tempCol <= virtualColumn ) {
+      column++;
+
+      if ( column >= line.length() ) {
+        return false;
+      }
+    }
+  }
+
+  return line.at( column );
+}
+
+bool KateViInsertMode::commandInsertFromAbove()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+
+  if ( c.line() <= 0 ) {
+    return false;
+  }
+
+  QString line = m_view->doc()->line( c.line()-1 );
+  int tabWidth = m_view->doc()->config()->tabWidth();
+  QChar ch = getCharAtVirtualColumn( line, m_view->virtualCursorColumn(), tabWidth );
+
+  if ( ch == QChar::Null ) {
+    return false;
+  }
+
+  m_view->doc()->insertText( c, ch  );
+}
+
+bool KateViInsertMode::commandInsertFromBelow()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+
+  if ( c.line() >= m_view->doc()->lines()-1 ) {
+    return false;
+  }
+
+  QString line = m_view->doc()->line( c.line()+1 );
+  int tabWidth = m_view->doc()->config()->tabWidth();
+  QChar ch = getCharAtVirtualColumn( line, m_view->virtualCursorColumn(), tabWidth );
+
+  if ( ch == QChar::Null ) {
+    return false;
+  }
+
+  m_view->doc()->insertText( c, ch );
+}
+
 /**
  * checks if the key is a valid command
  * @return true if a command was completed and executed, false otherwise
@@ -49,6 +111,14 @@ bool KateViInsertMode::handleKeypress( QKeyEvent *e )
         case Qt::Key_BracketLeft:
         case Qt::Key_C:
             m_view->viEnterNormalMode();
+            return true;
+            break;
+        case Qt::Key_E:
+            commandInsertFromBelow();
+            return true;
+            break;
+        case Qt::Key_Y:
+            commandInsertFromAbove();
             return true;
             break;
         default:

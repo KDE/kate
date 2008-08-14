@@ -155,11 +155,11 @@ void KateFindDialog::slotSearch()
     view = new KateResultView(m_mw, m_view);
     m_view->addResultView(view);
   }
+  updateConfig();
   view->makeVisible();
   view->startSearch(KateFindInFilesOptions::self(), liste,
                     cmbDir->url().toLocalFile(), cmbFilter->currentText());
 
-  updateConfig();
   hide();
 }
 

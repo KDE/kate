@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>644</width>
-    <height>311</height>
+    <height>305</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -14,9 +14,6 @@
   </property>
   <layout class="QGridLayout" name="gridLayout" >
    <property name="margin" >
-    <number>0</number>
-   </property>
-   <property name="spacing" >
     <number>0</number>
    </property>
    <item row="0" column="0" >
@@ -67,7 +64,7 @@
         <number>0</number>
        </property>
        <property name="value" >
-        <number>15256</number>
+        <number>0</number>
        </property>
        <property name="textVisible" >
         <bool>false</bool>

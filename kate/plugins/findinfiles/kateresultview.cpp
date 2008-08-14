@@ -59,6 +59,11 @@ KateResultView::KateResultView(Kate::MainWindow *mw, KateFindInFilesView *view)
 
   btnCancel->setIcon(QIcon(SmallIcon("process-stop")));
 
+  btnRemove->setGuiItem(KStandardGuiItem::remove());
+
+  btnRefine->setGuiItem(KStandardGuiItem::find());
+  btnRefine->setText(i18n("Refine Search..."));
+
   // auto-accels
   KAcceleratorManager::manage(m_toolView);
 

@@ -108,14 +108,14 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btnRefine" >
+      <widget class="KPushButton" name="btnRefine" >
        <property name="text" >
         <string>Refine Search...</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnRemove" >
+      <widget class="KPushButton" name="btnRemove" >
        <property name="text" >
         <string>Remove</string>
        </property>
@@ -125,6 +125,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

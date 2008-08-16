@@ -697,6 +697,10 @@ void KateViNormalMode::addCurrentPositionToJumpList()
     m_marks->insert( '\'', cursor );
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// COMMANDS AND OPERATORS
+////////////////////////////////////////////////////////////////////////////////
+
 /**
  * enter insert mode at the cursor position
  */
@@ -1206,9 +1210,8 @@ bool KateViNormalMode::commandPaste()
       textToInsert.chop( 1 ); // remove the last \n
       c.setColumn( getLine().length() ); // paste after the current line and ...
       textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
-
-      c.setLine( c.line()+1 );
-      c.setColumn( 0 );
+    } else if ( getLine( c.line() ).length() > 0 ) {
+      c.setColumn( c.column()+1 );
     }
 
     m_view->doc()->insertText( c, textToInsert );
@@ -1226,20 +1229,12 @@ bool KateViNormalMode::commandPasteBefore()
 
   QString textToInsert = getRegisterContent( reg );
 
-  //c.setColumn( c.column() );
-
   for ( unsigned int i = 0; i < getCount(); i++ ) {
     if ( textToInsert.indexOf('\n') != -1 ) { // lines
-      // remove the last \n
-      textToInsert.chop( 1 );
-      QStringList lines = textToInsert.split( '\n' );
-
-      for (int i = 0; i < lines.size(); i++ ) {
-        m_view->doc()->insertLine( c.line()+i, lines[ i ] );
-      }
-    } else {
-      m_view->doc()->insertText( c, textToInsert );
+      c.setColumn( 0 );
     }
+
+    m_view->doc()->insertText( c, textToInsert );
   }
 
   m_viewInternal->updateCursor( c );
@@ -1390,6 +1385,24 @@ bool KateViNormalMode::commandUnindentLines()
 
   return true;
 }
+
+bool KateViNormalMode::commandScrollPageDown()
+{
+  m_view->pageDown();
+
+  return true;
+}
+
+bool KateViNormalMode::commandScrollPageUp()
+{
+  m_view->pageUp();
+
+  return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// MOTIONS
+////////////////////////////////////////////////////////////////////////////////
 
 KateViRange KateViNormalMode::motionDown()
 {
@@ -1735,6 +1748,10 @@ KateViRange KateViNormalMode::motionToMarkLine()
   return r;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// TEXT OBJECTS
+////////////////////////////////////////////////////////////////////////////////
+
 KateViRange KateViNormalMode::textObjectAWord()
 {
     KTextEditor::Cursor c( m_view->cursorPosition() );
@@ -1923,6 +1940,8 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViNormalModeCommand( this, "<<", &KateViNormalMode::commandUnindentLine, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, ">", &KateViNormalMode::commandIndentLines, false, true ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "<", &KateViNormalMode::commandUnindentLines, false, true ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "<c-f>", &KateViNormalMode::commandScrollPageDown, false ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "<c-b>", &KateViNormalMode::commandScrollPageUp, false ) );
 
   // regular motions
   m_motions.push_back( new KateViMotion( this, "h", &KateViNormalMode::motionLeft ) );

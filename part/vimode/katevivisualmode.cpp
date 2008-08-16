@@ -27,7 +27,7 @@ KateViVisualMode::~KateViVisualMode()
 {
 }
 
-void KateViVisualMode::highlight()
+void KateViVisualMode::highlight() const
 {
   // FIXME: HACK to avoid highlight bug: remove highlighing and re-set it
   highlightRange->setAttribute(static_cast<KTextEditor::Attribute::Ptr>(0));

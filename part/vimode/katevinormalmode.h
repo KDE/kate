@@ -104,6 +104,9 @@ class KateViNormalMode : public QObject {
     bool commandIndentLines();
     bool commandUnindentLines();
 
+    bool commandScrollPageDown();
+    bool commandScrollPageUp();
+
     // MOTIONS
 
     KateViRange motionLeft();

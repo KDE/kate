@@ -33,6 +33,7 @@ class KateViRange
     KateViRange( int elin, int ecol, ViMotion::MotionType inc );
     KateViRange();
 
+    void normalize();
     bool isInclusive() { return motionType == ViMotion::InclusiveMotion; };
 
     int startLine, startColumn;

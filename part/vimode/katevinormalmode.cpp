@@ -286,6 +286,7 @@ void KateViNormalMode::removeDone()
 
 bool KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
 {
+  r.normalize();
   QString removedText = getRange( r, linewise );
   bool res = false;
 
@@ -309,6 +310,7 @@ bool KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
 
 const QString KateViNormalMode::getRange( KateViRange &r, bool linewise) const
 {
+  r.normalize();
   QString s;
 
   if ( linewise ) {

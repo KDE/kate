@@ -47,3 +47,17 @@ KateViRange::KateViRange()
   jump = false;
   motionType = ViMotion::InclusiveMotion;
 }
+
+void KateViRange::normalize()
+{
+    if ( startLine > endLine || startColumn > endColumn ) {
+        int tempC, tempL;
+        tempL = startLine;
+        tempC = startColumn;
+
+        startLine = endLine;
+        startColumn = endColumn;
+        endLine = tempL;
+        endColumn = tempC;
+    }
+}

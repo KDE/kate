@@ -1384,6 +1384,8 @@ bool KateViNormalMode::commandIndentLines()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
+  m_commandRange.normalize();
+
   int line1 = ( m_commandRange.startLine != -1 ? m_commandRange.startLine : c.line() );
   int line2 = m_commandRange.endLine;
 
@@ -1397,6 +1399,8 @@ bool KateViNormalMode::commandIndentLines()
 bool KateViNormalMode::commandUnindentLines()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
+
+  m_commandRange.normalize();
 
   int line1 = ( m_commandRange.startLine != -1 ? m_commandRange.startLine : c.line() );
   int line2 = m_commandRange.endLine;

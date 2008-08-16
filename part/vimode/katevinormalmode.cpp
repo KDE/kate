@@ -1122,6 +1122,7 @@ bool KateViNormalMode::commandChange()
 
   if ( m_commandRange.startLine == -1 ) {
     m_commandRange.startLine = c.line();
+    m_commandRange.startColumn = c.column();
   }
 
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine

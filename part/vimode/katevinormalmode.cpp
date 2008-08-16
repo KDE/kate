@@ -1198,46 +1198,70 @@ bool KateViNormalMode::commandFormatLines()
   return false;
 }
 
+// insert the text in the given register at the cursor position
+// the cursor should end up at the end of what was pasted
 bool KateViNormalMode::commandPaste()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
+  KTextEditor::Cursor cAfter = c;
   QChar reg = getChosenRegister( m_defaultRegister );
 
   QString textToInsert = getRegisterContent( reg );
 
-  for ( unsigned int i = 0; i < getCount(); i++ ) {
-    if ( textToInsert.indexOf('\n') != -1 ) { // lines
-      textToInsert.chop( 1 ); // remove the last \n
-      c.setColumn( getLine().length() ); // paste after the current line and ...
-      textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
-    } else if ( getLine( c.line() ).length() > 0 ) {
+  if ( getCount() > 1 ) {
+    QString temp = textToInsert;
+    for ( unsigned int i = 1; i < getCount(); i++ ) {
+      textToInsert.append( temp );
+    }
+  }
+
+  if ( textToInsert.indexOf('\n') != -1 ) { // lines
+    textToInsert.chop( 1 ); // remove the last \n
+    c.setColumn( getLine().length() ); // paste after the current line and ...
+    textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
+
+    cAfter.setLine( cAfter.line()+1 );
+  } else { // one line
+    if ( getLine( c.line() ).length() > 0 ) {
       c.setColumn( c.column()+1 );
     }
 
-    m_view->doc()->insertText( c, textToInsert );
+    cAfter.setColumn( cAfter.column() + textToInsert.length() );
   }
 
-  m_viewInternal->updateCursor( c );
+  m_view->doc()->insertText( c, textToInsert );
+
+  m_viewInternal->updateCursor( cAfter );
 
   return true;
 }
 
+// insert the text in the given register before the cursor position
+// the cursor should end up at the end of what was pasted
 bool KateViNormalMode::commandPasteBefore()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
+  KTextEditor::Cursor cAfter = c;
   QChar reg = getChosenRegister( m_defaultRegister );
 
   QString textToInsert = getRegisterContent( reg );
 
-  for ( unsigned int i = 0; i < getCount(); i++ ) {
-    if ( textToInsert.indexOf('\n') != -1 ) { // lines
-      c.setColumn( 0 );
+  if ( getCount() > 1 ) {
+    QString temp = textToInsert;
+    for ( unsigned int i = 1; i < getCount(); i++ ) {
+      textToInsert.append( temp );
     }
-
-    m_view->doc()->insertText( c, textToInsert );
   }
 
-  m_viewInternal->updateCursor( c );
+  if ( textToInsert.indexOf('\n') != -1 ) { // lines
+    c.setColumn( 0 );
+  } else {
+    cAfter.setColumn( cAfter.column()+textToInsert.length()-1 );
+  }
+
+  m_view->doc()->insertText( c, textToInsert );
+
+  m_viewInternal->updateCursor( cAfter );
 
   return true;
 }

@@ -18,6 +18,7 @@
  */
 
 #include "kateviinsertmode.h"
+#include "katevinormalmode.h"
 #include "kateview.h"
 #include "kateviewinternal.h"
 #include "katesmartrange.h"
@@ -95,6 +96,27 @@ bool KateViInsertMode::commandInsertFromBelow()
   m_view->doc()->insertText( c, ch );
 }
 
+bool KateViInsertMode::commandDeleteWord()
+{
+    KTextEditor::Cursor c1( m_view->cursorPosition() );
+    KTextEditor::Cursor c2;
+
+    c2 = m_viewInternal->getViNormalMode()->findPrevWordStart( c1.line(), c1.column() );
+
+    if ( c2.line() != c1.line() ) {
+        if ( c1.column() == 0 ) {
+            c2.setColumn( m_view->doc()->line( c2.line() ).length() );
+        } else {
+            c2.setColumn( 0 );
+            c2.setLine( c2.line()+1 );
+        }
+    }
+
+    KateViRange r( c2.line(), c2.column(), c1.line(), c1.column(), ViMotion::ExclusiveMotion );
+
+    m_viewInternal->getViNormalMode()->deleteRange( r, false );
+}
+
 /**
  * checks if the key is a valid command
  * @return true if a command was completed and executed, false otherwise
@@ -115,6 +137,10 @@ bool KateViInsertMode::handleKeypress( QKeyEvent *e )
             break;
         case Qt::Key_E:
             commandInsertFromBelow();
+            return true;
+            break;
+        case Qt::Key_W:
+            commandDeleteWord();
             return true;
             break;
         case Qt::Key_Y:

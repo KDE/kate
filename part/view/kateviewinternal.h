@@ -64,6 +64,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     friend class WrappingCursor;
     friend class KateViNormalMode;
     friend class KateViVisualMode;
+    friend class KateViInsertMode;
 
   public:
     enum Bias

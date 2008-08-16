@@ -41,6 +41,8 @@ class KateViInsertMode
     bool commandInsertFromAbove();
     bool commandInsertFromBelow();
 
+    bool commandDeleteWord();
+
   private:
     QChar getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidht ) const;
     KateView *m_view;

@@ -42,6 +42,8 @@ class KateViNormalMode : public QObject {
 
   Q_OBJECT
 
+  friend class KateViInsertMode;
+
   public:
     KateViNormalMode( KateView * view, KateViewInternal * viewInternal );
     ~KateViNormalMode();

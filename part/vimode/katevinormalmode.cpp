@@ -1217,22 +1217,17 @@ bool KateViNormalMode::commandPaste()
 
   QString textToInsert = getRegisterContent( reg );
 
-  if ( c.column() > 0 ) {
-      c.setColumn( c.column()+1 );
-  }
-
   for ( unsigned int i = 0; i < getCount(); i++ ) {
     if ( textToInsert.indexOf('\n') != -1 ) { // lines
-      // remove the last \n
-      textToInsert.chop( 1 );
-      QStringList lines = textToInsert.split( '\n' );
+      textToInsert.chop( 1 ); // remove the last \n
+      c.setColumn( getLine().length() ); // paste after the current line and ...
+      textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
 
-      for (int i = 0; i < lines.size(); i++ ) {
-        m_view->doc()->insertLine( c.line()+1+i, lines[ i ] );
-      }
-    } else {
-      m_view->doc()->insertText( c, textToInsert );
+      c.setLine( c.line()+1 );
+      c.setColumn( 0 );
     }
+
+    m_view->doc()->insertText( c, textToInsert );
   }
 
   m_viewInternal->updateCursor( c );

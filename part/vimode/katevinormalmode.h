@@ -39,9 +39,6 @@ class KateViMotion;
  */
 
 class KateViNormalMode : public QObject {
-
-  Q_OBJECT
-
   friend class KateViInsertMode;
 
   public:
@@ -172,7 +169,6 @@ class KateViNormalMode : public QObject {
     const QString getRange( KateViRange &r, bool linewise = true ) const;
     void reset();
     virtual void esc();
-    void removeDone(); // called when a command removing text is done
     void initializeCommands();
     QString getLine( int lineNumber = -1 ) const;
     KTextEditor::Cursor findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
@@ -181,7 +177,7 @@ class KateViNormalMode : public QObject {
     KTextEditor::Cursor findPrevWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KTextEditor::Cursor findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KTextEditor::Cursor findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KateViRange findSurrounding( QChar c1, QChar c2, bool inner = false );
+    KateViRange findSurrounding( const QChar &c1, const QChar &c2, bool inner = false );
     virtual void goToPos( KateViRange r );
 
     KateView *m_view;

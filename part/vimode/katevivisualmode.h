@@ -30,7 +30,6 @@ class KateViVisualMode : public KateViNormalMode {
     KateViVisualMode( KateView *view, KateViewInternal *viewInternal );
     ~KateViVisualMode();
 
-  //bool handleKeypress( QKeyEvent *e );
     void init();
 
     void setVisualLine( bool l ) { m_visualLine = l; }

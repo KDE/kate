@@ -74,7 +74,7 @@ bool KateViInsertMode::commandInsertFromAbove()
     return false;
   }
 
-  m_view->doc()->insertText( c, ch  );
+  return m_view->doc()->insertText( c, ch  );
 }
 
 bool KateViInsertMode::commandInsertFromBelow()
@@ -93,7 +93,7 @@ bool KateViInsertMode::commandInsertFromBelow()
     return false;
   }
 
-  m_view->doc()->insertText( c, ch );
+  return m_view->doc()->insertText( c, ch );
 }
 
 bool KateViInsertMode::commandDeleteWord()
@@ -114,14 +114,14 @@ bool KateViInsertMode::commandDeleteWord()
 
     KateViRange r( c2.line(), c2.column(), c1.line(), c1.column(), ViMotion::ExclusiveMotion );
 
-    m_viewInternal->getViNormalMode()->deleteRange( r, false );
+    return m_viewInternal->getViNormalMode()->deleteRange( r, false );
 }
 
 /**
  * checks if the key is a valid command
  * @return true if a command was completed and executed, false otherwise
  */
-bool KateViInsertMode::handleKeypress( QKeyEvent *e )
+bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
 {
     if ( e->key() == Qt::Key_Escape ) {
         m_view->viEnterNormalMode();

@@ -34,7 +34,7 @@ class KateViRange
     KateViRange();
 
     void normalize();
-    bool isInclusive() { return motionType == ViMotion::InclusiveMotion; };
+    bool isInclusive() const { return motionType == ViMotion::InclusiveMotion; };
 
     int startLine, startColumn;
     int endLine, endColumn;

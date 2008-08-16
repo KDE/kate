@@ -34,8 +34,8 @@ class KateViKeySequenceParser {
   KateViKeySequenceParser();
 
   const QString encodeKeySequence( const QString &keys );
-  const QString decodeKeySequence( const QString &keys );
-  QString qt2vi( int key );
+  const QString decodeKeySequence( const QString &keys ) const;
+  QString qt2vi( int key ) const;
 
   private:
   void initKeyTables();

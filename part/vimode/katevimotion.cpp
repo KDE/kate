@@ -25,7 +25,7 @@ KateViMotion::KateViMotion( KateViNormalMode *parent, QString pattern, KateViRan
   m_ptr2commandMethod = commandMethod;
 }
 
-KateViRange KateViMotion::execute()
+KateViRange KateViMotion::execute() const
 {
   return (m_parent->*m_ptr2commandMethod)();
 }

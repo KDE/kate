@@ -269,21 +269,6 @@ void KateViNormalMode::error( const QString &errorMsg ) const
   kError( 13070 ) << "\033[31m" << errorMsg << "\033[0m\n"; // FIXME
 }
 
-void KateViNormalMode::removeDone()
-{
-  QChar reg;
-
-  // multi-line deletes goes to register '1', small deletes (less than one line) to register '-'
-  if ( m_registerTemp.indexOf( '\n' ) != -1 ) {
-    reg = getChosenRegister( '1' );
-  } else {
-    reg = getChosenRegister( '-' );
-  }
-
-  fillRegister( reg, m_registerTemp );
-  m_registerTemp.clear();
-}
-
 bool KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
 {
   r.normalize();
@@ -662,7 +647,7 @@ KTextEditor::Cursor KateViNormalMode::findWORDEnd( int fromLine, int fromColumn,
 }
 
 // FIXME: i" won't work if the cursor is on one of the chars
-KateViRange KateViNormalMode::findSurrounding( QChar c1, QChar c2, bool inner )
+KateViRange KateViNormalMode::findSurrounding( const QChar &c1, const QChar &c2, bool inner )
 {
   KTextEditor::Cursor cursor( m_view->cursorPosition() );
   QString line = getLine();
@@ -896,7 +881,6 @@ bool KateViNormalMode::commandDeleteLine()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  bool ret = false;
   QString removedLines;
 
   KateViRange r;
@@ -919,7 +903,7 @@ bool KateViNormalMode::commandDelete()
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
       && m_view->getCurrentViMode() != VisualMode );
 
-  bool ret = deleteRange( m_commandRange, linewise );
+  return deleteRange( m_commandRange, linewise );
 }
 
 bool KateViNormalMode::commandDeleteToEOL()

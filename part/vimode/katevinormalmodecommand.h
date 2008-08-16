@@ -36,8 +36,8 @@ class KateViNormalModeCommand {
     bool matches( QString pattern ) const;
     bool matchesExact( QString pattern ) const;
     bool execute() const;
-    bool needsMotionOrTextObject() { return m_needsMotionOrTextObject; }
-    QString pattern() { return m_pattern; }
+    bool needsMotionOrTextObject() const { return m_needsMotionOrTextObject; }
+    QString pattern() const { return m_pattern; }
 
   protected:
     KateViNormalMode *m_parent;

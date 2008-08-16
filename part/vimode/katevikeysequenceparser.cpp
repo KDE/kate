@@ -461,7 +461,7 @@ void KateViKeySequenceParser::initKeyTables()
   }
 }
 
-QString KateViKeySequenceParser::qt2vi( int key )
+QString KateViKeySequenceParser::qt2vi( int key ) const
 {
   return ( m_qt2katevi->contains( key ) ? m_qt2katevi->value( key ) : "invalid" );
 }
@@ -560,7 +560,7 @@ const QString KateViKeySequenceParser::encodeKeySequence( const QString &keys )
   return encodedSequence;
 }
 
-const QString KateViKeySequenceParser::decodeKeySequence( const QString &keys )
+const QString KateViKeySequenceParser::decodeKeySequence( const QString &keys ) const
 {
   QString ret;
 

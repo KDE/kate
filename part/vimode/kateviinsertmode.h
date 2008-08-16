@@ -36,7 +36,7 @@ class KateViInsertMode
     KateViInsertMode( KateView * view, KateViewInternal * viewInternal );
     ~KateViInsertMode();
 
-    bool handleKeypress( QKeyEvent *e );
+    bool handleKeypress( const QKeyEvent *e );
 
     bool commandInsertFromAbove();
     bool commandInsertFromBelow();

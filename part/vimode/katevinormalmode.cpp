@@ -318,7 +318,7 @@ const QString KateViNormalMode::getRange( KateViRange &r, bool linewise) const
     r.endColumn = getLine( r.endLine ).length();
   }
 
-  KTextEditor::Range range( r.startLine, r.startColumn, r.endLine, r.endColumn);
+  KTextEditor::Range range( r.startLine, r.startColumn, r.endLine, r.endColumn+1);
 
   if ( linewise ) {
     s = m_view->doc()->textLines( range ).join( QChar( '\n' ) );

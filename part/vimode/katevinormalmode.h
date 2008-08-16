@@ -168,7 +168,7 @@ class KateViNormalMode : public QObject {
     bool deleteRange( KateViRange &r, bool linewise = true );
     const QString getRange( KateViRange &r, bool linewise = true ) const;
     void reset();
-    virtual void esc();
+    virtual void abort();
     void initializeCommands();
     QString getLine( int lineNumber = -1 ) const;
     KTextEditor::Cursor findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;

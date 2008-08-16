@@ -66,7 +66,7 @@ void KateViVisualMode::goToPos( KateViRange r )
   highlight();
 }
 
-void KateViVisualMode::esc()
+void KateViVisualMode::abort()
 {
     // remove highlighting
     highlightRange->setAttribute(static_cast<KTextEditor::Attribute::Ptr>(0));

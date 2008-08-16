@@ -38,7 +38,7 @@ class KateViVisualMode : public KateViNormalMode {
     void initializeCommands();
     void highlight();
     void goToPos( KateViRange r );
-    void esc();
+    void abort();
     bool m_visualLine;
     KTextEditor::Cursor m_start;
     KTextEditor::SmartRange * m_topRange;

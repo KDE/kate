@@ -60,7 +60,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   }
 
   if ( keyCode == Qt::Key_Escape ) {
-    esc();
+    abort();
     return true;
   }
 
@@ -213,7 +213,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
               kDebug( 13070 ) << "invalid position";
             }
 
-            esc();
+            abort();
             return true;
           }
         }
@@ -232,7 +232,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
         && !m_commands.at( m_matchingCommands.at( 0 ) )->needsMotionOrTextObject() ) {
       kDebug( 13070 ) << "Running command at index " << m_matchingCommands.at( 0 );
       m_commands.at( m_matchingCommands.at( 0 ) )->execute();
-      esc();
+      abort();
 
       return true;
     }
@@ -335,8 +335,8 @@ void KateViNormalMode::reset()
   m_motionOperatorIndex = 0;
 }
 
-// escape key aborts current command
-void KateViNormalMode::esc()
+// aborts the current command
+void KateViNormalMode::abort()
 {
     reset();
 }

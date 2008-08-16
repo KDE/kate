@@ -1,3 +1,4 @@
 * Make it possible to save registers, marks, command history etc. between sessions.
 * Add a replace mode (shift+r)
 * integrate the vi input mode marks with kate's bookmarks system
+* make mouse dragging start visual mode

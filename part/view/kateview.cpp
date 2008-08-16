@@ -2597,8 +2597,8 @@ void KateView::viEnterVisualMode( bool visualLine )
   }
 
   m_viewInternal->repaint ();
-  m_viewInternal->getViVisualMode()->init();
   m_viewInternal->getViVisualMode()->setVisualLine( visualLine );
+  m_viewInternal->getViVisualMode()->init();
 
   emit viewModeChanged(this);
   emit viewEditModeChanged(this, viewEditMode());

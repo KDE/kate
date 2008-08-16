@@ -87,6 +87,7 @@ void KateViVisualMode::init()
     m_start = m_view->cursorPosition();
     highlightRange->setRange( KTextEditor::Range( m_start, m_view->cursorPosition() ) );
     highlightRange->setAttribute(attribute);
+    highlight();
 
     m_awaitingMotionOrTextObject.push_back( 0 ); // search for text objects/motion from char 0
 }

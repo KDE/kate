@@ -62,6 +62,9 @@ KateGlobal::KateGlobal ()
   // set s_self
   s_self = this;
 
+  // load the kate part translation catalog
+  KGlobal::locale()->insertCatalog("katepart4");
+
   //
   // fill about data
   //

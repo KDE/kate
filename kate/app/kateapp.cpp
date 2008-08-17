@@ -50,8 +50,6 @@ KateApp::KateApp (KCmdLineArgs *args)
     , m_shouldExit(false)
     , m_args (args)
 {
-  // insert right translations for the katepart
-  KGlobal::locale()->insertCatalog("katepart4");
   setQuitOnLastWindowClosed (false);
 
   // application interface

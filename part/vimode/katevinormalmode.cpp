@@ -1063,14 +1063,12 @@ bool KateViNormalMode::commandOpenNewLineUnder()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  for ( unsigned int i = 0; i < getCount(); i++ ) {
-      m_view->doc()->insertLine( c.line()+1, "" );
-  }
-
-  c.setLine( c.line()+getCount() );
-  c.setColumn( 0 );
-
+  c.setColumn( getLine().length() );
   m_viewInternal->updateCursor( c );
+
+  for ( unsigned int i = 1; i < getCount(); i++ ) {
+    m_view->doc()->newLine( m_view );
+  }
 
   m_view->changeViMode( InsertMode );
   m_viewInternal->repaint ();
@@ -1082,14 +1080,28 @@ bool KateViNormalMode::commandOpenNewLineOver()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  for ( unsigned int i = 0; i < getCount(); i++ ) {
-      m_view->doc()->insertLine( c.line(), "" );
+  if ( c.line() == 0 ) {
+    for (unsigned int i = 0; i < getCount(); i++ ) {
+      m_view->doc()->insertLine( 0, QString() );
+    }
+    c.setColumn( 0 );
+    c.setLine( 0 );
+    m_viewInternal->updateCursor( c );
+  } else {
+    c.setLine( c.line()-1 );
+    c.setColumn( getLine( c.line() ).length() );
+    m_viewInternal->updateCursor( c );
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+	m_view->doc()->newLine( m_view );
+    }
+
+    if ( getCount() > 1 ) {
+      c = m_view->cursorPosition();
+      c.setLine( c.line()-(getCount()-1 ) );
+      m_viewInternal->updateCursor( c );
+    }
+    //c.setLine( c.line()-getCount() );
   }
-
-  c.setLine( c.line() );
-  c.setColumn( 0 );
-
-  m_viewInternal->updateCursor( c );
 
   m_view->changeViMode( InsertMode );
   m_viewInternal->repaint ();

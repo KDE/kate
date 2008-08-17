@@ -87,14 +87,14 @@
      <item>
       <widget class="QPushButton" name="btnClipboard" >
        <property name="text" >
-        <string>Use clipboard</string>
+        <string>Use Clipboard</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnBacktrace" >
        <property name="text" >
-        <string>Load file...</string>
+        <string>Load File...</string>
        </property>
       </widget>
      </item>

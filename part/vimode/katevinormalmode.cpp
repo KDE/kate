@@ -915,7 +915,7 @@ bool KateViNormalMode::commandDeleteToEOL()
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
   m_commandRange.endLine = c.line();
-  m_commandRange.endColumn = m_view->doc()->lineLength( c.line() )-1;
+  m_commandRange.endColumn = m_view->doc()->lineLength( c.line() );
 
   if ( m_view->getCurrentViMode() == NormalMode ) {
     m_commandRange.startLine = c.line();

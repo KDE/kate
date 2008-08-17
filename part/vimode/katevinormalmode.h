@@ -29,6 +29,8 @@
 #include <QKeyEvent>
 #include <QVector>
 #include <QStack>
+#include <QHash>
+#include <QRegExp>
 #include <ktexteditor/cursor.h>
 #include "katevikeysequenceparser.h"
 
@@ -135,10 +137,11 @@ class KateViNormalMode : public QObject {
     KateViRange motionToLineLast();
 
     KateViRange motionToScreenColumn();
-    KateViRange motionToMatchingBracket();
 
     KateViRange motionToMark();
     KateViRange motionToMarkLine();
+
+    KateViRange motionToMatchingItem();
 
     // TEXT OBJECTS
 
@@ -173,6 +176,7 @@ class KateViNormalMode : public QObject {
     void reset();
     virtual void abort();
     void initializeCommands();
+    QRegExp generateMatchingItemRegex();
     QString getLine( int lineNumber = -1 ) const;
     KTextEditor::Cursor findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KTextEditor::Cursor findNextWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
@@ -212,6 +216,10 @@ class KateViNormalMode : public QObject {
 
     // marks
     QMap<QChar, KTextEditor::SmartCursor*> *m_marks;
+
+    // item matching ('%' motion)
+    QHash<QString, QString> m_matchingItems;
+    QRegExp m_matchItemRegex;
 
     KateViKeySequenceParser *m_keyParser;
 };

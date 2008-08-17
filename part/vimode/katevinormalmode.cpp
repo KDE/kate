@@ -29,7 +29,20 @@ KateViNormalMode::KateViNormalMode( KateView * view, KateViewInternal * viewInte
   m_view = view;
   m_viewInternal = viewInternal;
   m_stickyColumn = -1;
-  m_extraWordCharacters = ""; // FIXME: make configurable
+
+  // FIXME: make configurable:
+  m_extraWordCharacters = "";
+  m_matchingItems["("] = ")";
+  m_matchingItems[")"] = "-(";
+  m_matchingItems["{"] = "}";
+  m_matchingItems["}"] = "-{";
+  m_matchingItems["["] = "]";
+  m_matchingItems["]"] = "-[";
+  m_matchingItems["/*"] = "*/";
+  m_matchingItems["*/"] = "-/*";
+
+  m_matchItemRegex = generateMatchingItemRegex();
+
   m_defaultRegister = '"';
   m_marks = new QMap<QChar, KTextEditor::SmartCursor*>;
   m_keyParser = new KateViKeySequenceParser();
@@ -1729,13 +1742,6 @@ KateViRange KateViNormalMode::motionToScreenColumn()
   return KateViRange( c.line(), column, ViMotion::ExclusiveMotion );
 }
 
-KateViRange KateViNormalMode::motionToMatchingBracket()
-{
-  KateViRange r;
-  r.valid = false;
-  return r;
-}
-
 KateViRange KateViNormalMode::motionToMark()
 {
   KateViRange r;
@@ -1768,6 +1774,65 @@ KateViRange KateViNormalMode::motionToMarkLine()
   r.endColumn = 0; // FIXME: should be first non-blank on line
 
   r.jump = true;
+
+  return r;
+}
+
+KateViRange KateViNormalMode::motionToMatchingItem()
+{
+  KateViRange r;
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+
+  QString l = getLine();
+  int n1 = l.indexOf( m_matchItemRegex, c.column() );
+
+  if ( n1 == -1 ) {
+    r.valid = false;
+  } else {
+    int n2 = l.indexOf( QRegExp( "\\s|$" ), n1 );
+
+    QString matchingItem = m_matchingItems[ l.mid( n1, n2-n1 ) ];
+
+    bool found = false;
+    int line = c.line();
+    int column = n2;
+    bool reverse = false;
+
+    if ( matchingItem.left( 1 ) == "-" ) {
+      matchingItem.remove( 0, 1 ); // remove the '-'
+      reverse = true;
+    }
+
+    while ( !found ) {
+      if ( !reverse ) {
+	column = l.indexOf( matchingItem, column );
+      } else {
+	column = l.lastIndexOf( matchingItem, column-1 );
+      }
+
+      if ( column != -1 ) { // match on current line
+	found = true;
+	c.setLine( line );
+	c.setColumn( column );
+      } else { // no match, advance one line if possible
+	( reverse) ? line-- : line++;
+	column = 0;
+
+	if ( ( !reverse && line >= m_view->doc()->lines() ) || ( reverse && line < 0 ) ) {
+	  r.valid = false;
+	  break;
+	} else {
+	  l = getLine( line );
+	  if ( reverse ) {
+	    column = -1;
+	  }
+	}
+      }
+    }
+  }
+
+  r.endLine = c.line();
+  r.endColumn = c.column();
 
   return r;
 }
@@ -1988,7 +2053,7 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "e", &KateViNormalMode::motionToEndOfWord ) );
   m_motions.push_back( new KateViMotion( this, "E", &KateViNormalMode::motionToEndOfWORD ) );
   m_motions.push_back( new KateViMotion( this, "|", &KateViNormalMode::motionToScreenColumn ) );
-  m_motions.push_back( new KateViMotion( this, "%", &KateViNormalMode::motionToMatchingBracket ) );
+  m_motions.push_back( new KateViMotion( this, "%", &KateViNormalMode::motionToMatchingItem ) );
   m_motions.push_back( new KateViMotion( this, "`.", &KateViNormalMode::motionToMark, true ) );
   m_motions.push_back( new KateViMotion( this, "'.", &KateViNormalMode::motionToMarkLine, true ) );
 
@@ -2003,4 +2068,30 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "a[()]", &KateViNormalMode::textObjectAParen, true ) );
   m_motions.push_back( new KateViMotion( this, "i[\\[\\]]", &KateViNormalMode::textObjectInnerBracket, true ) );
   m_motions.push_back( new KateViMotion( this, "a[\\[\\]]", &KateViNormalMode::textObjectABracket, true ) );
+}
+
+QRegExp KateViNormalMode::generateMatchingItemRegex()
+{
+  QString pattern;
+  QList<QString> keys = m_matchingItems.keys();
+
+  for ( int i = 0; i < keys.size(); i++ ) {
+    QString s = m_matchingItems[ keys[ i ] ];
+    s = s.replace( QRegExp( "^-" ), "" );
+    s = s.replace( QRegExp( "\\*" ), "\\*" );
+    s = s.replace( QRegExp( "\\[" ), "\\[" );
+    s = s.replace( QRegExp( "\\]" ), "\\]" );
+    s = s.replace( QRegExp( "\\(" ), "\\(" );
+    s = s.replace( QRegExp( "\\)" ), "\\)" );
+    s = s.replace( QRegExp( "\\{" ), "\\{" );
+    s = s.replace( QRegExp( "\\}" ), "\\}" );
+
+    pattern.append( s );
+
+    if ( i != keys.size()-1 ) {
+      pattern.append( "|" );
+    }
+  }
+
+  return QRegExp( pattern );
 }

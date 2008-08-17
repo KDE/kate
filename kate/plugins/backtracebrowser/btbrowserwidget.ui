@@ -13,6 +13,9 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" >
+   <property name="margin" >
+    <number>0</number>
+   </property>
    <item row="0" column="0" >
     <widget class="QTreeWidget" name="lstBacktrace" >
      <property name="horizontalScrollBarPolicy" >

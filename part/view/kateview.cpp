@@ -107,7 +107,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     : KTextEditor::View( parent )
     , m_completionWidget(0)
     , m_annotationModel(0)
-    , m_editActions (0)
     , m_doc( doc )
     , m_spell( new KateSpell( this ) )
     , m_bookmarks( new KateBookmarks( this ) )
@@ -599,9 +598,14 @@ void KateView::setupActions()
 
   slotSelectionChanged ();
 
+  //Now setup the editing actions before adding the associated 
+  //widget and setting the shortcut context
+  setupEditActions();
+
   ac->addAssociatedWidget(m_viewInternal);
+
   foreach (QAction* action, ac->actions())
-    action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+      action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
   connect (this, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(slotSelectionChanged()));
 }
@@ -613,180 +617,213 @@ void KateView::slotConfigDialog ()
 
 void KateView::setupEditActions()
 {
-  m_editActions = new KActionCollection( static_cast<QObject*>(this) );
-  m_editActions->setObjectName( "edit_actions" );
-  KActionCollection* ac = m_editActions;
+  //If you add an editing action to this
+  //function make sure to include the line
+  //m_editActions << a after creating the action
+  KActionCollection* ac = actionCollection();
 
   KAction* a = ac->addAction("word_left");
   a->setText(i18n("Move Word Left"));
   a->setShortcuts(KStandardShortcut::backwardWord());
   connect(a, SIGNAL(triggered(bool)),  SLOT(wordLeft()));
+  m_editActions << a;
 
   a = ac->addAction("select_char_left");
   a->setText(i18n("Select Character Left"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Left));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftCursorLeft()));
+  m_editActions << a;
 
   a = ac->addAction("select_word_left");
   a->setText(i18n("Select Word Left"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_Left));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftWordLeft()));
+  m_editActions << a;
 
 
   a = ac->addAction("word_right");
   a->setText(i18n("Move Word Right"));
   a->setShortcuts(KStandardShortcut::forwardWord());
   connect(a, SIGNAL(triggered(bool)), SLOT(wordRight()));
+  m_editActions << a;
 
   a = ac->addAction("select_char_right");
   a->setText(i18n("Select Character Right"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftCursorRight()));
+  m_editActions << a;
 
   a = ac->addAction("select_word_right");
   a->setText(i18n("Select Word Right"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftWordRight()));
+  m_editActions << a;
 
 
   a = ac->addAction("beginning_of_line");
   a->setText(i18n("Move to Beginning of Line"));
   a->setShortcuts(KStandardShortcut::beginningOfLine());
   connect(a, SIGNAL(triggered(bool)), SLOT(home()));
+  m_editActions << a;
 
   a = ac->addAction("beginning_of_document");
   a->setText(i18n("Move to Beginning of Document"));
   a->setShortcuts(KStandardShortcut::begin());
   connect(a, SIGNAL(triggered(bool)), SLOT(top()));
+  m_editActions << a;
 
   a = ac->addAction("select_beginning_of_line");
   a->setText(i18n("Select to Beginning of Line"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Home));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftHome()));
+  m_editActions << a;
 
   a = ac->addAction("select_beginning_of_document");
   a->setText(i18n("Select to Beginning of Document"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_Home));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftTop()));
+  m_editActions << a;
 
 
   a = ac->addAction("end_of_line");
   a->setText(i18n("Move to End of Line"));
   a->setShortcuts(KStandardShortcut::endOfLine());
   connect(a, SIGNAL(triggered(bool)), SLOT(end()));
+  m_editActions << a;
 
   a = ac->addAction("end_of_document");
   a->setText(i18n("Move to End of Document"));
   a->setShortcuts(KStandardShortcut::end());
   connect(a, SIGNAL(triggered(bool)), SLOT(bottom()));
+  m_editActions << a;
 
   a = ac->addAction("select_end_of_line");
   a->setText(i18n("Select to End of Line"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_End));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftEnd()));
+  m_editActions << a;
 
   a = ac->addAction("select_end_of_document");
   a->setText(i18n("Select to End of Document"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_End));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftBottom()));
+  m_editActions << a;
 
 
   a = ac->addAction("select_line_up");
   a->setText(i18n("Select to Previous Line"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Up));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftUp()));
+  m_editActions << a;
 
   a = ac->addAction("scroll_line_up");
   a->setText(i18n("Scroll Line Up"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Up));
   connect(a, SIGNAL(triggered(bool)), SLOT(scrollUp()));
+  m_editActions << a;
 
 
   a = ac->addAction("move_line_down");
   a->setText(i18n("Move to Next Line"));
   a->setShortcut(QKeySequence(Qt::Key_Down));
   connect(a, SIGNAL(triggered(bool)), SLOT(down()));
+  m_editActions << a;
 
 
   a = ac->addAction("move_line_up");
   a->setText(i18n("Move to Previous Line"));
   a->setShortcut(QKeySequence(Qt::Key_Up));
   connect(a, SIGNAL(triggered(bool)), SLOT(up()));
+  m_editActions << a;
 
 
   a = ac->addAction("move_cursor_right");
   a->setText(i18n("Move Character Right"));
   a->setShortcut(QKeySequence(Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(cursorRight()));
+  m_editActions << a;
 
 
   a = ac->addAction("move_cusor_left");
   a->setText(i18n("Move Character Left"));
   a->setShortcut(QKeySequence(Qt::Key_Left));
   connect(a, SIGNAL(triggered(bool)), SLOT(cursorLeft()));
+  m_editActions << a;
 
 
   a = ac->addAction("select_line_down");
   a->setText(i18n("Select to Next Line"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Down));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftDown()));
+  m_editActions << a;
 
   a = ac->addAction("scroll_line_down");
   a->setText(i18n("Scroll Line Down"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Down));
   connect(a, SIGNAL(triggered(bool)), SLOT(scrollDown()));
+  m_editActions << a;
 
 
   a = ac->addAction("scroll_page_up");
   a->setText(i18n("Scroll Page Up"));
   a->setShortcuts(KStandardShortcut::prior());
   connect(a, SIGNAL(triggered(bool)), SLOT(pageUp()));
+  m_editActions << a;
 
   a = ac->addAction("select_page_up");
   a->setText(i18n("Select Page Up"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_PageUp));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftPageUp()));
+  m_editActions << a;
 
   a = ac->addAction("move_top_of_view");
   a->setText(i18n("Move to Top of View"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageUp));
   connect(a, SIGNAL(triggered(bool)), SLOT(topOfView()));
+  m_editActions << a;
 
   a = ac->addAction("select_top_of_view");
   a->setText(i18n("Select to Top of View"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT +  Qt::Key_PageUp));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftTopOfView()));
+  m_editActions << a;
 
 
   a = ac->addAction("scroll_page_down");
   a->setText(i18n("Scroll Page Down"));
   a->setShortcuts(KStandardShortcut::next());
   connect(a, SIGNAL(triggered(bool)), SLOT(pageDown()));
+  m_editActions << a;
 
   a = ac->addAction("select_page_down");
   a->setText(i18n("Select Page Down"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_PageDown));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftPageDown()));
+  m_editActions << a;
 
   a = ac->addAction("move_bottom_of_view");
   a->setText(i18n("Move to Bottom of View"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageDown));
   connect(a, SIGNAL(triggered(bool)), SLOT(bottomOfView()));
+  m_editActions << a;
 
   a = ac->addAction("select_bottom_of_view");
   a->setText(i18n("Select to Bottom of View"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_PageDown));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftBottomOfView()));
+  m_editActions << a;
 
   a = ac->addAction("to_matching_bracket");
   a->setText(i18n("Move to Matching Bracket"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_6));
   connect(a, SIGNAL(triggered(bool)), SLOT(toMatchingBracket()));
+  m_editActions << a;
 
   a = ac->addAction("select_matching_bracket");
   a->setText(i18n("Select to Matching Bracket"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_6));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftToMatchingBracket()));
+  m_editActions << a;
 
 
   // anders: shortcuts doing any changes should not be created in browserextension
@@ -796,26 +833,31 @@ void KateView::setupEditActions()
     a->setText(i18n("Transpose Characters"));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_T));
     connect(a, SIGNAL(triggered(bool)), SLOT(transpose()));
+    m_editActions << a;
 
     a = ac->addAction("delete_line");
     a->setText(i18n("Delete Line"));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_K));
     connect(a, SIGNAL(triggered(bool)), SLOT(killLine()));
+    m_editActions << a;
 
     a = ac->addAction("delete_word_left");
     a->setText(i18n("Delete Word Left"));
     a->setShortcuts(KStandardShortcut::deleteWordBack());
     connect(a, SIGNAL(triggered(bool)), SLOT(deleteWordLeft()));
+    m_editActions << a;
 
     a = ac->addAction("delete_word_right");
     a->setText(i18n("Delete Word Right"));
     a->setShortcuts(KStandardShortcut::deleteWordForward());
     connect(a, SIGNAL(triggered(bool)), SLOT(deleteWordRight()));
+    m_editActions << a;
 
     a = ac->addAction("delete_next_character");
     a->setText(i18n("Delete Next Character"));
     a->setShortcut(QKeySequence(Qt::Key_Delete));
     connect(a, SIGNAL(triggered(bool)), SLOT(keyDelete()));
+    m_editActions << a;
 
     a = ac->addAction("backspace");
     a->setText(i18n("Backspace"));
@@ -824,6 +866,7 @@ void KateView::setupEditActions()
           << QKeySequence(Qt::SHIFT + Qt::Key_Backspace);
     a->setShortcuts(scuts);
     connect(a, SIGNAL(triggered(bool)), SLOT(backspace()));
+    m_editActions << a;
 
 #if 0
 #ifdef __GNUC__
@@ -837,18 +880,10 @@ void KateView::setupEditActions()
 #endif
   }
 
-  m_editActions->setConfigGroup("Katepart Shortcuts");
-  m_editActions->readSettings();
-
   if( hasFocus() )
     slotGotFocus();
   else
     slotLostFocus();
-
-  m_editActions->addAssociatedWidget(m_viewInternal);
-
-  foreach (QAction* action, m_editActions->actions())
-    action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 }
 
 void KateView::setupCodeFolding()
@@ -929,7 +964,7 @@ void KateView::slotGotFocus()
 {
   kDebug(13020) << "KateView::slotGotFocus";
 
-  foreach(QAction *action, editActionCollection()->actions())
+  foreach(QAction *action, m_editActions)
     action->setEnabled(true);
   emit focusIn ( this );
 }
@@ -937,7 +972,7 @@ void KateView::slotGotFocus()
 void KateView::slotLostFocus()
 {
   kDebug(13020) << "KateView::slotLostFocus";
-  foreach(QAction *action, editActionCollection()->actions())
+  foreach(QAction *action, m_editActions)
     action->setEnabled(false);
 
 //jowenn: what was that for ?
@@ -1221,7 +1256,9 @@ void KateView::toggleViInputMode()
 void KateView::changeViMode(ViMode newMode)
 {
     if (newMode == InsertMode) {
-        m_editActions->addAssociatedWidget(m_viewInternal);
+        foreach(QAction* action, m_editActions) {
+          m_viewInternal->addAction(action);
+        }
     }
 
     m_viewInternal->m_currentViMode = newMode;
@@ -1301,8 +1338,6 @@ void KateView::updateConfig ()
 {
   if (m_startingUp)
     return;
-
-  m_editActions->readSettings();
 
   // dyn. word wrap & markers
   if (m_hasWrap != config()->dynWordWrap()) {
@@ -2582,7 +2617,9 @@ void KateView::viEnterNormalMode( )
   }
   m_viewInternal->repaint ();
 
-  m_editActions->removeAssociatedWidget(m_viewInternal);
+  foreach(QAction* action, m_editActions) {
+    m_viewInternal->removeAction(action);
+  }
 
   emit viewModeChanged(this);
   emit viewEditModeChanged(this, viewEditMode());

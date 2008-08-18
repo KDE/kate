@@ -292,7 +292,7 @@ void KateGlobal::configDialog(QWidget *parent)
 
 int KateGlobal::configPages () const
 {
-  return 6;
+  return 5;
 }
 
 KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
@@ -312,9 +312,6 @@ KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
       return new KateSaveConfigTab (parent);
 
     case 4:
-      return new KateEditKeyConfiguration (parent);
-
-    case 5:
       return new KatePartPluginConfigPage (parent);
 
     default:
@@ -341,9 +338,6 @@ QString KateGlobal::configPageName (int number) const
       return i18n("Open/Save");
 
     case 4:
-      return i18n ("Shortcuts");
-
-    case 5:
       return i18n ("Extensions");
 
     default:
@@ -370,9 +364,6 @@ QString KateGlobal::configPageFullName (int number) const
       return i18n("File Opening & Saving");
 
     case 4:
-      return i18n ("Shortcuts Configuration");
-
-    case 5:
       return i18n ("Extensions Manager");
 
     default:
@@ -399,9 +390,6 @@ KIcon KateGlobal::configPageIcon (int number) const
       return KIcon("document-save");
 
     case 4:
-      return KIcon("configure-shortcuts");
-
-    case 5:
       return KIcon("preferences-plugin");
 
     default:

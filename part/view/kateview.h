@@ -526,8 +526,6 @@ class KateView : public KTextEditor::View,
      */
     inline KateDocument*  doc() { return m_doc; }
 
-    KActionCollection* editActionCollection() const { return m_editActions; }
-
   public Q_SLOTS:
     void slotNewUndo();
     void slotUpdate();
@@ -563,7 +561,7 @@ class KateView : public KTextEditor::View,
     void setupEditActions();
     void setupCodeFolding();
 
-    KActionCollection*     m_editActions;
+    QList<QAction*>        m_editActions;
     KAction*               m_editUndo;
     KAction*               m_editRedo;
     KRecentFilesAction*    m_fileRecent;

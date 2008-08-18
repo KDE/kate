@@ -605,55 +605,6 @@ void KateViewDefaultsConfig::reset () {;}
 void KateViewDefaultsConfig::defaults (){;}
 //END KateViewDefaultsConfig
 
-//BEGIN KateEditKeyConfiguration
-
-KateEditKeyConfiguration::KateEditKeyConfiguration( QWidget* parent)
-  : KateConfigPage( parent )
-  , m_ready(false)
-{
-  m_doc = new KateDocument();
-  m_view = new KateView(m_doc, 0);
-}
-
-KateEditKeyConfiguration::~KateEditKeyConfiguration()
-{
-  delete m_view;
-  delete m_doc;
-}
-
-void KateEditKeyConfiguration::showEvent ( QShowEvent * )
-{
-  if (!m_ready)
-  {
-	m_actionCollection = m_view->editActionCollection();
-
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->addWidget(m_shortcutsEditor = new KShortcutsEditor( m_actionCollection, this, false ));
-    connect( m_shortcutsEditor, SIGNAL( keyChange() ), this, SLOT( slotChanged() ) );
-
-    m_shortcutsEditor->show ();
-
-    m_ready = true;
-  }
-
-  QWidget::show ();
-}
-
-void KateEditKeyConfiguration::apply()
-{
-  if(!hasChanged())
-    return;
-  m_changed = false;
-
-  if (m_ready)
-  {
-    KateViewConfig::global()->configStart ();
-    m_actionCollection->writeSettings();
-    KateViewConfig::global()->configEnd ();
-  }
-}
-//END KateEditKeyConfiguration
-
 //BEGIN KateSaveConfigTab
 KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   : KateConfigPage( parent )

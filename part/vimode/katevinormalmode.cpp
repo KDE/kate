@@ -293,7 +293,6 @@ bool KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
       res = m_view->doc()->removeLine( r.startLine );
     }
   } else {
-      if ( r.motionType == ViMotion::InclusiveMotion ) r.endColumn++;
       res = m_view->doc()->removeText( KTextEditor::Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
   }
 
@@ -316,7 +315,11 @@ const QString KateViNormalMode::getRange( KateViRange &r, bool linewise) const
     r.endColumn = getLine( r.endLine ).length();
   }
 
-  KTextEditor::Range range( r.startLine, r.startColumn, r.endLine, r.endColumn+1);
+  if ( r.motionType == ViMotion::InclusiveMotion ) {
+    r.endColumn++;
+  }
+
+  KTextEditor::Range range( r.startLine, r.startColumn, r.endLine, r.endColumn);
 
   if ( linewise ) {
     s = m_view->doc()->textLines( range ).join( QChar( '\n' ) );

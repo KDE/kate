@@ -349,16 +349,6 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     bool m_preserveMaxX;
     int m_currentMaxX;
 
-    bool m_usePlainLines; // accept non-highlighted lines if this is set
-
-    inline KateTextLine::Ptr textLine( int realLine ) const
-    {
-      if (m_usePlainLines)
-        return m_doc->plainKateTextLine(realLine);
-      else
-        return m_doc->kateTextLine(realLine);
-    }
-
     bool m_updatingView;
     int m_wrapChangeViewLine;
     KTextEditor::Cursor m_cachedMaxStartPos;

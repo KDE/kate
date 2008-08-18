@@ -34,6 +34,7 @@ KateLineLayout::KateLineLayout(KateDocument* doc)
   , m_shiftX(0)
   , m_layout(0L)
   , m_layoutDirty(true)
+  , m_usePlainTextLine(false)
 {
   Q_ASSERT(doc);
 }
@@ -60,10 +61,10 @@ bool KateLineLayout::includesCursor(const KTextEditor::Cursor& realCursor) const
   return realCursor.line() == line();
 }
 
-const KateTextLine::Ptr& KateLineLayout::textLine() const
+const KateTextLine::Ptr& KateLineLayout::textLine(bool reloadForce) const
 {
-  if (!m_textLine)
-    m_textLine = m_doc->kateTextLine(line());
+  if (reloadForce || !m_textLine)
+    m_textLine = usePlainTextLine() ? m_doc->plainKateTextLine (line()) : m_doc->kateTextLine(line());
 
   Q_ASSERT(m_textLine);
 
@@ -227,6 +228,16 @@ bool KateLineLayout::isLayoutDirty( ) const
 void KateLineLayout::setLayoutDirty( bool dirty )
 {
   m_layoutDirty = dirty;
+}
+
+bool KateLineLayout::usePlainTextLine () const
+{
+  return m_usePlainTextLine;
+}
+
+void KateLineLayout::setUsePlainTextLine (bool plain)
+{
+  m_usePlainTextLine = plain;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

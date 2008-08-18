@@ -47,7 +47,7 @@ class KateLineLayout : public KShared
     friend bool operator< (const KateLineLayout& r, const KTextEditor::Cursor& c);
     friend bool operator<= (const KateLineLayout& r, const KTextEditor::Cursor& c);
 
-    const KateTextLine::Ptr& textLine() const;
+    const KateTextLine::Ptr& textLine(bool forceReload = false) const;
     int length() const;
 
     int line() const;
@@ -88,6 +88,9 @@ class KateLineLayout : public KShared
 
     bool isLayoutDirty() const;
     void setLayoutDirty(bool dirty = true);
+    
+    bool usePlainTextLine () const;
+    void setUsePlainTextLine (bool plain = true);
 
 private:
     // Disable copy
@@ -105,6 +108,7 @@ private:
     QList<bool> m_dirtyList;
 
     bool m_layoutDirty;
+    bool m_usePlainTextLine;
 };
 
 typedef KSharedPtr<KateLineLayout> KateLineLayoutPtr;

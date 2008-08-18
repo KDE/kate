@@ -88,7 +88,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_layoutCache(new KateLayoutCache(renderer(), this))
   , m_preserveMaxX(false)
   , m_currentMaxX(0)
-  , m_usePlainLines(false)
   , m_updatingView(true)
   , m_cachedMaxStartPos(-1, -1)
   , m_dragScrollTimer(this)
@@ -446,7 +445,6 @@ void KateViewInternal::scrollNextLine()
 
 KTextEditor::Cursor KateViewInternal::maxStartPos(bool changed)
 {
-  m_usePlainLines = true;
   cache()->setAcceptDirtyLayouts(true);
 
   if (m_cachedMaxStartPos.line() == -1 || changed)
@@ -456,7 +454,6 @@ KTextEditor::Cursor KateViewInternal::maxStartPos(bool changed)
     m_cachedMaxStartPos = viewLineOffset(end, -(linesDisplayed() - 1));
   }
 
-  m_usePlainLines = false;
   cache()->setAcceptDirtyLayouts(false);
 
   return m_cachedMaxStartPos;
@@ -1146,7 +1143,7 @@ void KateViewInternal::home( bool sel )
     return;
   }
 
-  KateTextLine::Ptr l = textLine( m_cursor.line() );
+  KateTextLine::Ptr l = m_doc->kateTextLine( m_cursor.line() );
 
   if (!l)
     return;
@@ -1190,7 +1187,7 @@ void KateViewInternal::end( bool sel )
     return;
   }
 
-  KateTextLine::Ptr l = textLine( m_cursor.line() );
+  KateTextLine::Ptr l = m_doc->kateTextLine( m_cursor.line() );
 
   if (!l)
     return;
@@ -1361,7 +1358,7 @@ int KateViewInternal::lineMaxCursorX(const KateTextLayout& range)
   int maxX = range.endX();
 
   if (maxX && range.wrap()) {
-    QChar lastCharInLine = textLine(range.line())->at(range.endCol() - 1);
+    QChar lastCharInLine = m_doc->kateTextLine(range.line())->at(range.endCol() - 1);
     maxX -= renderer()->config()->fontMetrics().width(lastCharInLine);
   }
 
@@ -3590,7 +3587,7 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
         return cursorCoordinates(false);
 
     case Qt::ImSurroundingText:
-      if (KateTextLine::Ptr l = textLine(m_cursor.line()))
+      if (KateTextLine::Ptr l = m_doc->kateTextLine(m_cursor.line()))
         return l->string();
       else
         return QString();

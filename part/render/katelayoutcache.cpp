@@ -271,11 +271,19 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine ) const
       l->setVirtualLine(virtualLine);
 
     if (!l->isValid())
+    {
+      l->setUsePlainTextLine (acceptDirtyLayouts());
+      l->textLine (!acceptDirtyLayouts());
       m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
-
+    }
     else if (l->isLayoutDirty() && !acceptDirtyLayouts())
+    {
+      // reset textline
+      l->setUsePlainTextLine (false);
+      l->textLine (true);
       m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
-
+    }
+    
     Q_ASSERT(l->isValid() && (!l->isLayoutDirty() || acceptDirtyLayouts()));
 
     return l;
@@ -286,13 +294,18 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine ) const
 
   KateLineLayoutPtr l(new KateLineLayout(m_renderer->doc()));
   l->setLine(realLine, virtualLine);
+  
+  // Mark it dirty, because it may not have the syntax highlighting applied
+  // mark this here, to allow layoutLine to use plainLines...
+  if (acceptDirtyLayouts())
+    l->setUsePlainTextLine (true);
+  
   m_renderer->layoutLine(l, wrap() ? m_viewWidth : -1, enableLayoutCache);
   Q_ASSERT(l->isValid());
-
+  
   if (acceptDirtyLayouts())
-    // Mark it dirty, because it may not have the syntax highlighting applied
-    l->setLayoutDirty(true);
-
+    l->setLayoutDirty (true);
+  
   m_lineLayouts.insert(realLine, l);
   return l;
 }

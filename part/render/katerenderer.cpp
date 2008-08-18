@@ -616,15 +616,20 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 
       } else {
         foreach (const QTextLayout::FormatRange &r, range->layout()->additionalFormats())
+        {
           if ( (r.start <= cursor->column() ) && ( (r.start + r.length)  > cursor->column()) ) {
             c = r.format.foreground().color();
             break;
           }
+        }
+
         if (!c.isValid())
+        {
           if (range->layout()->additionalFormats().count())
             c = range->layout()->additionalFormats().last().format.foreground().color();
           else
             c = attribute(KateExtendedAttribute::dsNormal)->foreground().color();
+        }
       }
 
       // make it possible to see the selected character in the vi input mode's normal/visual mode

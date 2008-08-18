@@ -1282,9 +1282,9 @@ bool KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
   if (codeFoldingUpdate)
     emit codeFoldingUpdated();
 
-  //kDebug (13020) << "HIGHLIGHTED END --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine;
-  //kDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax;
-  //kDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts;
+  kDebug (13020) << "HIGHLIGHTED END --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine;
+  kDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax;
+  kDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts;
   //kDebug (13020) << "TIME TAKEN: " << t.elapsed();
 
   // if we are at the last line of the block + we still need to continue

@@ -46,6 +46,9 @@ class KateViInsertMode
     bool commandIndent();
     bool commandUnindent();
 
+    bool commandToFirstCharacterInFile();
+    bool commandToLastCharacterInFile();
+
   private:
     QChar getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidht ) const;
     KateView *m_view;

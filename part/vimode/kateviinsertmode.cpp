@@ -127,6 +127,31 @@ bool KateViInsertMode::commandUnindent()
   return m_viewInternal->getViNormalMode()->commandUnindentLine();
 }
 
+bool KateViInsertMode::commandToFirstCharacterInFile()
+{
+  KTextEditor::Cursor c;
+
+  c.setLine( 0 );
+  c.setColumn( 0 );
+
+  m_viewInternal->updateCursor( c );
+
+  return true;
+}
+
+bool KateViInsertMode::commandToLastCharacterInFile()
+{
+  KTextEditor::Cursor c;
+
+  int lines = m_view->doc()->lines()-1;
+  c.setLine( lines );
+  c.setColumn( m_view->doc()->line( lines ).length() );
+
+  m_viewInternal->updateCursor( c );
+
+  return true;
+}
+
 /**
  * checks if the key is a valid command
  * @return true if a command was completed and executed, false otherwise
@@ -158,6 +183,12 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
             break;
         case Qt::Key_Y:
             commandInsertFromAbove();
+            break;
+        case Qt::Key_Home:
+            commandToFirstCharacterInFile();
+            break;
+        case Qt::Key_End:
+            commandToLastCharacterInFile();
             break;
         default:
             return false;

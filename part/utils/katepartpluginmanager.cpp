@@ -69,7 +69,7 @@ void KatePartPluginManager::setupPluginList ()
 {
   KService::List traderList = KServiceTypeTrader::self()->
       query("KTextEditor/Plugin",
-            "([X-KDE-Version] >= 4.0) and ([X-KDE-Version] <= " + KateGlobal::katePartVersion() + ')');
+            "([X-KDE-Version] >= 4.0) and ([X-KDE-Version] <= " + QString("%1.%2").arg(KDE::versionMajor()).arg(KDE::versionMinor()) + ')');
 
   foreach(const KService::Ptr &ptr, traderList)
   {

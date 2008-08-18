@@ -73,7 +73,6 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   setLineWidth( 1 );
   //setWindowOpacity(0.8);
 
-  m_entryList->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
   m_entryList->setModel(m_presentationModel);
   m_entryList->setColumnWidth(0, 0); //These will be determined automatically in KateCompletionTree::resizeColumns
   m_entryList->setColumnWidth(1, 0);
@@ -185,9 +184,6 @@ void KateCompletionWidget::argumentHintsChanged(bool hasContent)
 
 void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTextEditor::CodeCompletionModel * model, KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
-  //Workaround for a misbehavior in kstyle, which re-sets the scroll-mode to ScrollPerPixel
-  m_entryList->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
-
   m_isSuspended = false;
   m_inCompletionList = true; //Always start at the top of the completion-list
   m_needShow = true;
@@ -247,9 +243,6 @@ void KateCompletionWidget::startCompletion( const KTextEditor::Range & word, KTe
   connect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
   //Now that all models have been notified, check whether the widget should be displayed instantly
   modelContentChanged();
-
-  //Workaround for a misbehavior in kstyle, which re-sets the scroll-mode to ScrollPerPixel
-  m_entryList->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
 }
 
 void KateCompletionWidget::updateAndShow()

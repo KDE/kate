@@ -331,7 +331,8 @@ void ExpandingWidgetModel::setExpanded(QModelIndex idx_, bool expanded)
     
     emit dataChanged(idx, idx);
     
-    treeView()->scrollTo(idx);
+    if(treeView())
+      treeView()->scrollTo(idx);
   }
 }
 

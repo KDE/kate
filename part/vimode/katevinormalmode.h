@@ -80,9 +80,6 @@ class KateViNormalMode : public QObject {
 
     bool commandFormatLines();
 
-    bool commandAddIndentation();
-    bool commandRemoveIndentation();
-
     bool commandPaste();
     bool commandPasteBefore();
 

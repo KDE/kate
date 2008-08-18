@@ -117,6 +117,16 @@ bool KateViInsertMode::commandDeleteWord()
     return m_viewInternal->getViNormalMode()->deleteRange( r, false, false );
 }
 
+bool KateViInsertMode::commandIndent()
+{
+  return m_viewInternal->getViNormalMode()->commandIndentLine();
+}
+
+bool KateViInsertMode::commandUnindent()
+{
+  return m_viewInternal->getViNormalMode()->commandUnindentLine();
+}
+
 /**
  * checks if the key is a valid command
  * @return true if a command was completed and executed, false otherwise
@@ -135,8 +145,16 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
             m_view->viEnterNormalMode();
             return true;
             break;
+        case Qt::Key_D:
+            commandUnindent();
+            return true;
+            break;
         case Qt::Key_E:
             commandInsertFromBelow();
+            return true;
+            break;
+        case Qt::Key_T:
+            commandIndent();
             return true;
             break;
         case Qt::Key_W:

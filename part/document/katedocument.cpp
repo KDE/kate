@@ -71,6 +71,7 @@
 #include <ktemporaryfile.h>
 #include <kcodecs.h>
 #include <kstandarddirs.h>
+#include <kstringhandler.h>
 
 #include <services/kservicetypetrader.h>
 
@@ -5810,16 +5811,19 @@ bool KateDocument::createDigest( QByteArray &result )
 
 QString KateDocument::reasonedMOHString() const
 {
+  // squeeze path
+  QString str = KStringHandler::csqueeze(url().pathOrUrl());
+
   switch( m_modOnHdReason )
   {
     case OnDiskModified:
-      return i18n("The file '%1' was modified by another program.",  url().pathOrUrl() );
+      return i18n("The file '%1' was modified by another program.", str );
       break;
     case OnDiskCreated:
-      return i18n("The file '%1' was created by another program.",  url().pathOrUrl() );
+      return i18n("The file '%1' was created by another program.", str );
       break;
     case OnDiskDeleted:
-      return i18n("The file '%1' was deleted by another program.",  url().pathOrUrl() );
+      return i18n("The file '%1' was deleted by another program.", str );
       break;
     default:
       return QString();

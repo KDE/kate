@@ -676,15 +676,6 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 
   KApplication a;
 
-  KGlobal::locale()->insertCatalog("katepart4");
-#if 0
-  DCOPClient *client = kapp->dcopClient();
-  if (!client->isRegistered())
-  {
-    client->attach();
-    client->registerAs("kwrite");
-  }
-#endif
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
   if (a.isSessionRestored())
@@ -753,16 +744,14 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
           ++docs_opened;
           KWrite *t = new KWrite();
 
-//          if (Kate::document (t->view()->document()))
-  //          KTextEditor::Document::setOpenErrorDialogsActivated (false);
+          t->view()->document()->setSuppressOpeningErrorDialogs (true);
 
           if (codec)
             t->view()->document()->setEncoding(codec->name());
 
           t->loadURL( args->url( z ) );
 
-    //      if (Kate::document (t->view()->document()))
-      //      KTextEditor::Document::setOpenErrorDialogsActivated (true);
+          t->view()->document()->setSuppressOpeningErrorDialogs (false);
 
           if (nav)
             t->view()->setCursorPosition (KTextEditor::Cursor (line, column));

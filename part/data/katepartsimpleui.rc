@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="47">
+<kpartgui name="KatePartView" version="48">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save" group="save_merge" />
@@ -35,6 +35,9 @@
   <Menu name="view" noMerge="1"><text>&amp;View</text>
     <Action name="view_dynamic_word_wrap" group="view_operations" />
     <Action name="view_line_numbers" group="view_operations" />
+    <Separator group="view_operations" />
+    <Action name="view_inc_font_sizes" group="view_operations" />
+    <Action name="view_dec_font_sizes" group="view_operations" />
   </Menu>
 
   <Menu name="tools" noMerge="1"><text>&amp;Tools</text>

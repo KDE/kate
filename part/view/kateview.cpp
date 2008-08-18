@@ -465,13 +465,13 @@ void KateView::setupActions()
   m_deSelect = a= ac->addAction( KStandardAction::Deselect, this, SLOT(clearSelection()) );
   a->setWhatsThis(i18n("If you have selected something within the current document, this will no longer be selected."));
 
-  a = ac->addAction("incFontSizes");
+  a = ac->addAction("view_inc_font_sizes");
   a->setIcon(KIcon("zoom-in"));
   a->setText(i18n("Enlarge Font"));
   a->setWhatsThis(i18n("This increases the display font size."));
   connect(a, SIGNAL(triggered(bool)), m_viewInternal, SLOT(slotIncFontSizes()));
 
-  a = ac->addAction("decFontSizes");
+  a = ac->addAction("view_dec_font_sizes");
   a->setIcon(KIcon("zoom-out"));
   a->setText(i18n("Shrink Font"));
   a->setWhatsThis(i18n("This decreases the display font size."));

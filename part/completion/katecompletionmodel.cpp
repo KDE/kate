@@ -716,7 +716,11 @@ bool KateCompletionModel::hasGroups( ) const
 {
   //kDebug( 13035 ) << "m_groupHash.size()"<<m_groupHash.size();
   //kDebug( 13035 ) << "m_rowTable.count()"<<m_rowTable.count();
-  return m_groupingEnabled && (m_rowTable.count()>1); // && (m_groupHash.size()>1);
+  // We cannot decide whether there is groups easily. The problem: The code-model can
+  // be populated with a delay from within a background-thread.
+  // Proper solution: Ask all attached code-models(Through a new interface) whether they want to use grouping,
+  // and if at least one wants to, return true, else return false.
+  return m_groupingEnabled;
 }
 
 KateCompletionModel::Group* KateCompletionModel::groupForIndex( const QModelIndex & index ) const

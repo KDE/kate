@@ -152,6 +152,22 @@ bool KateViInsertMode::commandToLastCharacterInFile()
   return true;
 }
 
+bool KateViInsertMode::commandMoveOneWordLeft()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  c = m_viewInternal->getViNormalMode()->findPrevWordStart( c.line(), c.column() );
+
+  m_viewInternal->updateCursor( c );
+}
+
+bool KateViInsertMode::commandMoveOneWordRight()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+  c = m_viewInternal->getViNormalMode()->findNextWordStart( c.line(), c.column() );
+
+  m_viewInternal->updateCursor( c );
+}
+
 /**
  * checks if the key is a valid command
  * @return true if a command was completed and executed, false otherwise
@@ -189,6 +205,12 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
             break;
         case Qt::Key_End:
             commandToLastCharacterInFile();
+            break;
+        case Qt::Key_Left:
+            commandMoveOneWordLeft();
+            break;
+        case Qt::Key_Right:
+            commandMoveOneWordRight();
             break;
         default:
             return false;

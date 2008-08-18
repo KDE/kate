@@ -49,6 +49,9 @@ class KateViInsertMode
     bool commandToFirstCharacterInFile();
     bool commandToLastCharacterInFile();
 
+    bool commandMoveOneWordLeft();
+    bool commandMoveOneWordRight();
+
   private:
     QChar getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidht ) const;
     KateView *m_view;

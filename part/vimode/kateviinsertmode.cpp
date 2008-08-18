@@ -114,7 +114,7 @@ bool KateViInsertMode::commandDeleteWord()
 
     KateViRange r( c2.line(), c2.column(), c1.line(), c1.column(), ViMotion::ExclusiveMotion );
 
-    return m_viewInternal->getViNormalMode()->deleteRange( r, false );
+    return m_viewInternal->getViNormalMode()->deleteRange( r, false, false );
 }
 
 /**

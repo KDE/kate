@@ -282,11 +282,11 @@ void KateViNormalMode::error( const QString &errorMsg ) const
   kError( 13070 ) << "\033[31m" << errorMsg << "\033[0m\n"; // FIXME
 }
 
-bool KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
+bool KateViNormalMode::deleteRange( KateViRange &r, bool linewise, bool addToRegister)
 {
   r.normalize();
-  QString removedText = getRange( r, linewise );
   bool res = false;
+  QString removedText = getRange( r, linewise );
 
   if ( linewise ) {
     for ( int i = 0; i < m_commandRange.endLine-m_commandRange.startLine+1; i++ ) {
@@ -296,10 +296,12 @@ bool KateViNormalMode::deleteRange( KateViRange &r, bool linewise)
       res = m_view->doc()->removeText( KTextEditor::Range( r.startLine, r.startColumn, r.endLine, r.endColumn) );
   }
 
-  if ( r.startLine == r.endLine ) {
+  if ( addToRegister ) {
+    if ( r.startLine == r.endLine ) {
       fillRegister( getChosenRegister( '-' ), removedText );
-  } else {
+    } else {
       fillRegister( getChosenRegister( '0' ), removedText );
+    }
   }
 
   return res;

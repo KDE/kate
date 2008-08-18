@@ -173,7 +173,7 @@ class KateViNormalMode : public QObject {
     void error( const QString &errorMsg ) const;
 
   protected:
-    bool deleteRange( KateViRange &r, bool linewise = true );
+    bool deleteRange( KateViRange &r, bool linewise = true, bool addToRegister = true );
     const QString getRange( KateViRange &r, bool linewise = true ) const;
     void reset();
     virtual void abort();

@@ -1066,7 +1066,7 @@ bool KateViNormalMode::commandOpenNewLineUnder()
   c.setColumn( getLine().length() );
   m_viewInternal->updateCursor( c );
 
-  for ( unsigned int i = 1; i < getCount(); i++ ) {
+  for ( unsigned int i = 0; i < getCount(); i++ ) {
     m_view->doc()->newLine( m_view );
   }
 

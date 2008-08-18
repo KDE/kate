@@ -25,7 +25,7 @@
  * Boston, MA  02110-1301, USA.                                       *
  **********************************************************************
  -->
-<language version="1.02" kateversion="2.3" name="Common Lisp" section="Scripts" extensions="*.lisp;*.cl;*.lsp" mimetype="" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language version="1.03" kateversion="2.3" name="Common Lisp" section="Scripts" extensions="*.lisp;*.cl;*.lsp" mimetype="" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <list name="symbols">
       <item> &lt; </item>
@@ -1141,6 +1141,7 @@
       </context>
       <context name="String" attribute="String" lineEndContext="#stay">
         <RegExpr attribute="Char" context="#stay" String="#\\."/>
+        <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
     </contexts>

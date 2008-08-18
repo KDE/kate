@@ -2059,9 +2059,9 @@ bool KateViewInternal::tagRange(const KTextEditor::Range& range, bool realCursor
 void KateViewInternal::tagAll()
 {
   QMutexLocker lock(m_doc->smartMutex());
-  //kDebug(13030) << "tagAll()";
-  for (int z = 0; z < cache()->viewCacheLineCount(); z++)
-    cache()->viewLine(z).setDirty();
+  
+  // clear the cache...
+  cache()->clear ();
 
   m_leftBorder->updateFont();
   m_leftBorder->update();

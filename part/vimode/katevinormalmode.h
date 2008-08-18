@@ -109,6 +109,8 @@ class KateViNormalMode : public QObject {
     bool commandScrollPageDown();
     bool commandScrollPageUp();
 
+    bool commandAbort();
+
     // MOTIONS
 
     KateViRange motionLeft();

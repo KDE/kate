@@ -127,6 +127,7 @@ void KateViVisualMode::initializeCommands()
   m_commands.push_back( new KateViNormalModeCommand( this, "N", &KateViNormalMode::commandFindPrev, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, ">", &KateViNormalMode::commandIndentLines, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "<", &KateViNormalMode::commandUnindentLines, false ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "<c-c>", &KateViNormalMode::commandAbort, false ) );
 
   // regular motions
   m_motions.push_back( new KateViMotion( this, "h", &KateViNormalMode::motionLeft ) );

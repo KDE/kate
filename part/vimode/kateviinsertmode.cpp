@@ -158,6 +158,7 @@ bool KateViInsertMode::commandMoveOneWordLeft()
   c = m_viewInternal->getViNormalMode()->findPrevWordStart( c.line(), c.column() );
 
   m_viewInternal->updateCursor( c );
+  return true;
 }
 
 bool KateViInsertMode::commandMoveOneWordRight()
@@ -166,6 +167,7 @@ bool KateViInsertMode::commandMoveOneWordRight()
   c = m_viewInternal->getViNormalMode()->findNextWordStart( c.line(), c.column() );
 
   m_viewInternal->updateCursor( c );
+  return true;
 }
 
 /**

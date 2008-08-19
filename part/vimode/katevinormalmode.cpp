@@ -75,7 +75,9 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   int mods = e->modifiers();
   QChar key;
 
-  if ( text.isEmpty() || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier ) ) {
+  // special keys
+  if ( text.isEmpty() || ( text.length() ==1 && text.at(0) < 0x20 )
+      || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier ) ) {
     QString keyPress;
 
     keyPress.append( '<' );
@@ -2117,11 +2119,19 @@ void KateViNormalMode::initializeCommands()
 
   // regular motions
   m_motions.push_back( new KateViMotion( this, "h", &KateViNormalMode::motionLeft ) );
+  m_motions.push_back( new KateViMotion( this, "<left>", &KateViNormalMode::motionLeft ) );
+  m_motions.push_back( new KateViMotion( this, "<backspace>", &KateViNormalMode::motionLeft ) );
   m_motions.push_back( new KateViMotion( this, "j", &KateViNormalMode::motionDown ) );
+  m_motions.push_back( new KateViMotion( this, "<down>", &KateViNormalMode::motionDown ) );
   m_motions.push_back( new KateViMotion( this, "k", &KateViNormalMode::motionUp ) );
+  m_motions.push_back( new KateViMotion( this, "<up>", &KateViNormalMode::motionUp ) );
   m_motions.push_back( new KateViMotion( this, "l", &KateViNormalMode::motionRight ) );
+  m_motions.push_back( new KateViMotion( this, "<right>", &KateViNormalMode::motionRight ) );
+  m_motions.push_back( new KateViMotion( this, " ", &KateViNormalMode::motionRight ) );
   m_motions.push_back( new KateViMotion( this, "$", &KateViNormalMode::motionToEOL ) );
+  m_motions.push_back( new KateViMotion( this, "<end>", &KateViNormalMode::motionToEOL ) );
   m_motions.push_back( new KateViMotion( this, "0", &KateViNormalMode::motionToColumn0 ) );
+  m_motions.push_back( new KateViMotion( this, "<home>", &KateViNormalMode::motionToColumn0 ) );
   m_motions.push_back( new KateViMotion( this, "^", &KateViNormalMode::motionToFirstCharacterOfLine ) );
   m_motions.push_back( new KateViMotion( this, "f.", &KateViNormalMode::motionFindChar, true ) );
   m_motions.push_back( new KateViMotion( this, "F.", &KateViNormalMode::motionFindCharBackward, true ) );

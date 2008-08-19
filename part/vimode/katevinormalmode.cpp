@@ -205,11 +205,11 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
             // the motion says it should go to
             KateViRange r = m_motions.at( i )->execute();
 
-            if ( r.valid ) {
+            if ( r.valid && r.endLine >= 0 && r.endColumn >= 0 ) {
               kDebug( 13070 ) << "no command given, going to position (" << r.endLine << "," << r.endColumn << ")";
               goToPos( r );
             } else {
-              kDebug( 13070 ) << "invalid position";
+              kDebug( 13070 ) << "invalid position: (" << r.endLine << "," << r.endColumn << ")";
             }
 
             reset();
@@ -1097,7 +1097,7 @@ bool KateViNormalMode::commandOpenNewLineOver()
     c.setColumn( getLine( c.line() ).length() );
     m_viewInternal->updateCursor( c );
     for ( unsigned int i = 0; i < getCount(); i++ ) {
-	m_view->doc()->newLine( m_view );
+        m_view->doc()->newLine( m_view );
     }
 
     if ( getCount() > 1 ) {
@@ -1809,16 +1809,18 @@ KateViRange KateViNormalMode::motionToMatchingItem()
   QString l = getLine();
   int n1 = l.indexOf( m_matchItemRegex, c.column() );
 
+  int toFind = 1;
+
   if ( n1 == -1 ) {
     r.valid = false;
   } else {
     int n2 = l.indexOf( QRegExp( "\\s|$" ), n1 );
 
-    QString matchingItem = m_matchingItems[ l.mid( n1, n2-n1 ) ];
+    QString item = l.mid( n1, n2-n1 );
+    QString matchingItem = m_matchingItems[ item ];
 
-    bool found = false;
     int line = c.line();
-    int column = n2;
+    int column = n2-item.length();
     bool reverse = false;
 
     if ( matchingItem.left( 1 ) == "-" ) {
@@ -1826,30 +1828,51 @@ KateViRange KateViNormalMode::motionToMatchingItem()
       reverse = true;
     }
 
-    while ( !found ) {
+    // FIXME: rename
+    int itemIdx;
+    int matchItemIdx;
+
+    while ( toFind > 0 ) {
       if ( !reverse ) {
-	column = l.indexOf( matchingItem, column );
+        itemIdx = l.indexOf( item, column+1 );
+        matchItemIdx = l.indexOf( matchingItem, column+1 );
+
+        if ( itemIdx != -1 && ( matchItemIdx == -1 || itemIdx < matchItemIdx ) ) {
+            toFind++;
+        }
       } else {
-	column = l.lastIndexOf( matchingItem, column-1 );
+        itemIdx = l.lastIndexOf( item, column-1 );
+        matchItemIdx = l.lastIndexOf( matchingItem, column-1 );
+
+        if ( itemIdx != -1 && ( matchItemIdx == -1 || itemIdx > matchItemIdx ) ) {
+            toFind++;
+        }
       }
 
-      if ( column != -1 ) { // match on current line
-	found = true;
-	c.setLine( line );
-	c.setColumn( column );
-      } else { // no match, advance one line if possible
-	( reverse) ? line-- : line++;
-	column = 0;
+      if ( matchItemIdx != -1 || itemIdx != -1 ) {
+          if ( !reverse ) {
+            column = qMin( (unsigned int)itemIdx, (unsigned int)matchItemIdx );
+          } else {
+            column = qMax( itemIdx, matchItemIdx );
+          }
+      }
 
-	if ( ( !reverse && line >= m_view->doc()->lines() ) || ( reverse && line < 0 ) ) {
-	  r.valid = false;
-	  break;
-	} else {
-	  l = getLine( line );
-	  if ( reverse ) {
-	    column = -1;
-	  }
-	}
+      if ( matchItemIdx != -1 ) { // match on current line
+          if ( matchItemIdx == column ) {
+              toFind--;
+              c.setLine( line );
+              c.setColumn( column );
+          }
+      } else { // no match, advance one line if possible
+        ( reverse) ? line-- : line++;
+        column = 0;
+
+        if ( ( !reverse && line >= m_view->doc()->lines() ) || ( reverse && line < 0 ) ) {
+          r.valid = false;
+          break;
+        } else {
+          l = getLine( line );
+        }
       }
     }
   }

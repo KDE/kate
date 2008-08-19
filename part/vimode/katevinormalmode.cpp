@@ -907,7 +907,26 @@ bool KateViNormalMode::commandDeleteLine()
   r.startLine = c.line();
   r.endLine = c.line()+getCount()-1;
 
-  return deleteRange( r, true );
+  int column = c.column();
+
+  bool ret = deleteRange( r, true );
+
+  c = m_view->cursorPosition();
+  if ( column > getLine().length()-1 ) {
+    column = getLine().length()-1;
+  }
+  if ( column < 0 ) {
+    column = 0;
+  }
+
+  if ( c.line() > m_view->doc()->lines()-1 ) {
+    c.setLine( m_view->doc()->lines()-1 );
+  }
+
+  c.setColumn( column );
+  m_viewInternal->updateCursor( c );
+
+  return ret;
 }
 
 bool KateViNormalMode::commandDelete()

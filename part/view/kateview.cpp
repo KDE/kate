@@ -230,6 +230,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   enableTextHints(1000);
   test texthint*/
 //  setFocus();
+
+  if ( viInputMode() ) {
+    viEnterNormalMode();
+  }
 }
 
 KateView::~KateView()
@@ -1249,6 +1253,11 @@ ViMode KateView::getCurrentViMode() const
 void KateView::toggleViInputMode()
 {
   config()->setViInputMode (!config()->viInputMode());
+
+  if ( viInputMode() ) {
+    viEnterNormalMode();
+  }
+
   emit viewModeChanged(this);
   emit viewEditModeChanged(this,viewEditMode());
 }
@@ -1257,7 +1266,7 @@ void KateView::changeViMode(ViMode newMode)
 {
     if (newMode == InsertMode) {
         foreach(QAction* action, m_editActions) {
-          m_viewInternal->addAction(action);
+          m_viewInternal->removeAction(action);
         }
     }
 
@@ -2618,7 +2627,7 @@ void KateView::viEnterNormalMode( )
   m_viewInternal->repaint ();
 
   foreach(QAction* action, m_editActions) {
-    m_viewInternal->removeAction(action);
+    m_viewInternal->addAction(action);
   }
 
   emit viewModeChanged(this);

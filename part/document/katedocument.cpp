@@ -5829,6 +5829,7 @@ QString KateDocument::reasonedMOHString() const
     default:
       return QString();
   }
+  return QString();
 }
 
 void KateDocument::removeTrailingSpace(int line)

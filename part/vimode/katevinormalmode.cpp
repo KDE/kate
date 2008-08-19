@@ -21,6 +21,7 @@
 #include "katesmartmanager.h"
 #include "kateglobal.h"
 #include "kateviglobal.h"
+#include "katesmartrange.h"
 #include <QApplication>
 #include <QList>
 
@@ -32,12 +33,6 @@ KateViNormalMode::KateViNormalMode( KateView * view, KateViewInternal * viewInte
 
   // FIXME: make configurable:
   m_extraWordCharacters = "";
-  m_matchingItems["("] = ")";
-  m_matchingItems[")"] = "-(";
-  m_matchingItems["{"] = "}";
-  m_matchingItems["}"] = "-{";
-  m_matchingItems["["] = "]";
-  m_matchingItems["]"] = "-[";
   m_matchingItems["/*"] = "*/";
   m_matchingItems["*/"] = "-/*";
 
@@ -1805,18 +1800,56 @@ KateViRange KateViNormalMode::motionToMatchingItem()
 {
   KateViRange r;
   KTextEditor::Cursor c( m_view->cursorPosition() );
-
+  int lines = m_view->doc()->lines();
   QString l = getLine();
   int n1 = l.indexOf( m_matchItemRegex, c.column() );
-
-  int toFind = 1;
+  int n2;
 
   if ( n1 == -1 ) {
     r.valid = false;
+    return r;
   } else {
-    int n2 = l.indexOf( QRegExp( "\\s|$" ), n1 );
+    n2 = l.indexOf( QRegExp( "\\s|$" ), n1 );
+  }
 
-    QString item = l.mid( n1, n2-n1 );
+  // text item we want to find a matching item for
+  QString item = l.mid( n1, n2-n1 );
+
+  // use kate's built-in matching bracket finder for brackets
+  if ( QString("{}()[]").indexOf( item ) != -1 ) {
+    c.setColumn( n1+1 );
+    m_viewInternal->updateCursor( c );
+    KateSmartRange *m_bm, *m_bmStart, *m_bmEnd;
+
+    m_bm = m_viewInternal->m_bm;
+    m_bmStart = m_viewInternal->m_bmStart;
+    m_bmEnd = m_viewInternal->m_bmEnd;
+
+    if (!m_bm->isValid()) {
+      r.valid = false;
+      return r;
+    }
+
+    Q_ASSERT(m_bmEnd->isValid());
+    Q_ASSERT(m_bmStart->isValid());
+
+    if (m_bmStart->contains(m_viewInternal->m_cursor) || m_bmStart->end() == m_viewInternal->m_cursor) {
+      c = m_bmEnd->end();
+    } else if (m_bmEnd->contains(m_viewInternal->m_cursor) || m_bmEnd->end() == m_viewInternal->m_cursor) {
+      c = m_bmStart->end();
+    } else {
+      // should never happen: a range exists, but the cursor position is
+      // neither at the start nor at the end...
+      r.valid = false;
+      return r;
+    }
+
+    c.setColumn( c.column()-1 );
+  } else {
+    int toFind = 1;
+    //int n2 = l.indexOf( QRegExp( "\\s|$" ), n1 );
+
+    //QString item = l.mid( n1, n2-n1 );
     QString matchingItem = m_matchingItems[ item ];
 
     int line = c.line();
@@ -1828,14 +1861,18 @@ KateViRange KateViNormalMode::motionToMatchingItem()
       reverse = true;
     }
 
-    // FIXME: rename
+    // make sure we don't hit the text item we start the search from
+    if ( column == 0 && reverse ) {
+      column -= item.length();
+    }
+
     int itemIdx;
     int matchItemIdx;
 
     while ( toFind > 0 ) {
       if ( !reverse ) {
-        itemIdx = l.indexOf( item, column+1 );
-        matchItemIdx = l.indexOf( matchingItem, column+1 );
+        itemIdx = l.indexOf( item, column );
+        matchItemIdx = l.indexOf( matchingItem, column );
 
         if ( itemIdx != -1 && ( matchItemIdx == -1 || itemIdx < matchItemIdx ) ) {
             toFind++;
@@ -1867,7 +1904,7 @@ KateViRange KateViNormalMode::motionToMatchingItem()
         ( reverse) ? line-- : line++;
         column = 0;
 
-        if ( ( !reverse && line >= m_view->doc()->lines() ) || ( reverse && line < 0 ) ) {
+        if ( ( !reverse && line >= lines ) || ( reverse && line < 0 ) ) {
           r.valid = false;
           break;
         } else {
@@ -2118,13 +2155,14 @@ void KateViNormalMode::initializeCommands()
 
 QRegExp KateViNormalMode::generateMatchingItemRegex()
 {
-  QString pattern;
+  QString pattern("\\[|\\]|\\{|\\}|\\(|\\)|");
   QList<QString> keys = m_matchingItems.keys();
 
   for ( int i = 0; i < keys.size(); i++ ) {
     QString s = m_matchingItems[ keys[ i ] ];
     s = s.replace( QRegExp( "^-" ), "" );
     s = s.replace( QRegExp( "\\*" ), "\\*" );
+    s = s.replace( QRegExp( "\\+" ), "\\+" );
     s = s.replace( QRegExp( "\\[" ), "\\[" );
     s = s.replace( QRegExp( "\\]" ), "\\]" );
     s = s.replace( QRegExp( "\\(" ), "\\(" );

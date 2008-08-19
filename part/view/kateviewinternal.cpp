@@ -2059,7 +2059,7 @@ bool KateViewInternal::tagRange(const KTextEditor::Range& range, bool realCursor
 void KateViewInternal::tagAll()
 {
   QMutexLocker lock(m_doc->smartMutex());
-  
+
   // clear the cache...
   cache()->clear ();
 
@@ -3513,6 +3513,13 @@ void KateViewInternal::relayoutRange( const KTextEditor::Range & range, bool rea
 
 void KateViewInternal::rangePositionChanged( KTextEditor::SmartRange * range )
 {
+  // Try to retrieve old range position because that needs to be tagged too
+  // FIXME not working yet...
+  /*if (KateSmartRange* krange = dynamic_cast<KateSmartRange*>(range)) {
+    KTextEditor::Range oldRange(krange->kStart().lastPosition(), krange->kEnd().lastPosition());
+    relayoutRange(oldRange);
+  }*/
+
   relayoutRange(*range);
 }
 
@@ -3582,9 +3589,9 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
 
     case Qt::ImCursorPosition:
       if (m_imPreedit)
-        return cursorToCoordinate(m_imPreedit->start(), true, false);
+        return m_imPreedit->start().column();
       else
-        return cursorCoordinates(false);
+        return m_cursor.start().column();
 
     case Qt::ImSurroundingText:
       if (KateTextLine::Ptr l = m_doc->kateTextLine(m_cursor.line()))

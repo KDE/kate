@@ -1352,11 +1352,14 @@ bool KateViNormalMode::commandPasteBefore()
 bool KateViNormalMode::commandDeleteChar()
 {
     KTextEditor::Cursor c( m_view->cursorPosition() );
-
     KateViRange r( c.line(), c.column(), c.line(), c.column()+getCount(), ViMotion::ExclusiveMotion );
 
-    if ( r.endColumn > m_view->doc()->lineLength( r.startLine ) ) {
-      r.endColumn = m_view->doc()->lineLength( r.startLine );
+    if ( m_commandRange.startLine != -1 && m_commandRange.startColumn != -1 ) {
+      r = m_commandRange;
+    } else {
+      if ( r.endColumn > m_view->doc()->lineLength( r.startLine ) ) {
+        r.endColumn = m_view->doc()->lineLength( r.startLine );
+      }
     }
 
     return deleteRange( r, false );
@@ -1368,8 +1371,12 @@ bool KateViNormalMode::commandDeleteCharBackward()
 
     KateViRange r( c.line(), c.column()-getCount(), c.line(), c.column(), ViMotion::ExclusiveMotion );
 
-    if ( r.startColumn < 0 ) {
-      r.startColumn = 0;
+    if ( m_commandRange.startLine != -1 && m_commandRange.startColumn != -1 ) {
+      r = m_commandRange;
+    } else {
+      if ( r.startColumn < 0 ) {
+        r.startColumn = 0;
+      }
     }
 
     return deleteRange( r, false );

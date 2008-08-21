@@ -550,6 +550,7 @@ void KateView::setupActions()
 
   a = m_viInputModeAction = new KToggleAction(i18n("&VI input mode"), this);
   ac->addAction("view_vi_input_mode", a);
+  a->setShortcut(QKeySequence(Qt::CTRL + Qt::META + Qt::Key_V));
   a->setWhatsThis( i18n("Activate/deactivate VI input mode" ));
   connect(a, SIGNAL(triggered(bool)), SLOT( toggleViInputMode() ));
 

@@ -2090,6 +2090,8 @@ KateViRange KateViNormalMode::textObjectInnerBracket()
     return findSurrounding( '[', ']', true );
 }
 
+// add commands
+// when adding commands here, remember to add them to visual mode too (if applicable)
 void KateViNormalMode::initializeCommands()
 {
   m_commands.push_back( new KateViNormalModeCommand( this, "a", &KateViNormalMode::commandEnterInsertModeAppend, false ) );

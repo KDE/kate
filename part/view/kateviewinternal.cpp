@@ -749,6 +749,29 @@ QPoint KateViewInternal::cursorCoordinates(bool includeBorder) const
   return cursorToCoordinate(m_displayCursor, false, includeBorder);
 }
 
+KTextEditor::Cursor KateViewInternal::findMatchingBracket()
+{
+  KTextEditor::Cursor c;
+
+  if (!m_bm->isValid())
+    return KTextEditor::Cursor(-1, -1);
+
+  Q_ASSERT(m_bmEnd->isValid());
+  Q_ASSERT(m_bmStart->isValid());
+
+  if (m_bmStart->contains(m_cursor) || m_bmStart->end() == m_cursor) {
+    c = m_bmEnd->end();
+  } else if (m_bmEnd->contains(m_cursor) || m_bmEnd->end() == m_cursor) {
+    c = m_bmStart->end();
+  } else {
+    // should never happen: a range exists, but the cursor position is
+    // neither at the start nor at the end...
+    return KTextEditor::Cursor(-1, -1);
+  }
+
+  return c;
+}
+
 void KateViewInternal::doReturn()
 {
   m_doc->newLine( view() );
@@ -1447,26 +1470,12 @@ void KateViewInternal::cursorDown(bool sel)
 
 void KateViewInternal::cursorToMatchingBracket( bool sel )
 {
-  if (!m_bm->isValid())
-    return;
+  KTextEditor::Cursor c = findMatchingBracket();
 
-  Q_ASSERT(m_bmEnd->isValid());
-  Q_ASSERT(m_bmStart->isValid());
-
-  KTextEditor::Cursor c;
-
-  if (m_bmStart->contains(m_cursor) || m_bmStart->end() == m_cursor) {
-    c = m_bmEnd->end();
-  } else if (m_bmEnd->contains(m_cursor) || m_bmEnd->end() == m_cursor) {
-    c = m_bmStart->end();
-  } else {
-    // should never happen: a range exists, but the cursor position is
-    // neither at the start nor at the end...
-    return;
+  if (c.isValid()) {
+    updateSelection( c, sel );
+    updateCursor( c );
   }
-
-  updateSelection( c, sel );
-  updateCursor( c );
 }
 
 void KateViewInternal::topOfView( bool sel )

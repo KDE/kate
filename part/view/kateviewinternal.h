@@ -185,6 +185,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     KTextEditor::Cursor getCursor() const;
     QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor, bool realCursor = true, bool includeBorder = true) const;
     QPoint cursorCoordinates(bool includeBorder = true) const;
+    KTextEditor::Cursor findMatchingBracket();
 
   // EVENT HANDLING STUFF - IMPORTANT
   private:

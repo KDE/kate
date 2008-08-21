@@ -73,6 +73,8 @@ class KateViNormalMode : public QObject {
     bool commandChange();
     bool commandChangeLine();
     bool commandChangeToEOL();
+    bool commandSubstituteChar();
+    bool commandSubstituteLine();
 
     bool commandYank();
     bool commandYankLine();

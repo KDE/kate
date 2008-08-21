@@ -1225,6 +1225,7 @@ bool KateViNormalMode::commandChangeToEOL()
 
 bool KateViNormalMode::commandChangeLine()
 {
+  // FIXME: take count and range into account
   KTextEditor::Cursor c( m_view->cursorPosition() );
   c.setColumn( 0 );
   m_viewInternal->updateCursor( c );
@@ -1233,6 +1234,20 @@ bool KateViNormalMode::commandChangeLine()
   commandEnterInsertModeAppend();
 
   return true;
+}
+
+bool KateViNormalMode::commandSubstituteChar()
+{
+  if ( commandDeleteChar() ) {
+    return commandEnterInsertMode();
+  }
+
+  return false;
+}
+
+bool KateViNormalMode::commandSubstituteLine()
+{
+  return commandChangeLine();
 }
 
 bool KateViNormalMode::commandYank()
@@ -2222,6 +2237,8 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViNormalModeCommand( this, "c", &KateViNormalMode::commandChange, false, true ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "C", &KateViNormalMode::commandChangeToEOL, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "cc", &KateViNormalMode::commandChangeLine, false ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "s", &KateViNormalMode::commandSubstituteChar, false ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "S", &KateViNormalMode::commandSubstituteLine, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "dd", &KateViNormalMode::commandDeleteLine, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "d", &KateViNormalMode::commandDelete, false, true ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "D", &KateViNormalMode::commandDeleteToEOL, false ) );

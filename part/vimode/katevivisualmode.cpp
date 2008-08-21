@@ -17,7 +17,8 @@ KateViVisualMode::KateViVisualMode( KateView *view, KateViewInternal *viewIntern
   KTextEditor::Range r;
   highlightRange = m_view->doc()->newSmartRange( r, m_topRange );
   attribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
-  attribute->setBackground(QColor(0xdd, 0xdd, 0xdd)); // FIXME: don't use hard coded colour
+  attribute->setBackground( m_viewInternal->palette().highlight() );
+  attribute->setForeground( m_viewInternal->palette().highlightedText() );
   highlightRange->setInsertBehavior(KTextEditor::SmartRange::DoNotExpand);
 
   initializeCommands();

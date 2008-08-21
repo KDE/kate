@@ -94,14 +94,8 @@ void KateViVisualMode::init()
 
 void KateViVisualMode::initializeCommands()
 {
-    m_commands.clear();
-    m_motions.clear();
-  //m_commands.push_back( new KateViNormalModeCommand( this, "a", &KateViNormalMode::commandEnterInsertModeAppend, false ) );
-  //m_commands.push_back( new KateViNormalModeCommand( this, "A", &KateViNormalMode::commandEnterInsertModeAppendEOL, false ) );
-  //m_commands.push_back( new KateViNormalModeCommand( this, "i", &KateViNormalMode::commandEnterInsertMode, false ) );
-  //m_commands.push_back( new KateViNormalModeCommand( this, "v", &KateViNormalMode::commandEnterVisualMode, false ) );
-  //m_commands.push_back( new KateViNormalModeCommand( this, "o", &KateViNormalMode::commandOpenNewLineUnder, false ) );
-  //m_commands.push_back( new KateViNormalModeCommand( this, "O", &KateViNormalMode::commandOpenNewLineOver, false ) );
+  m_commands.clear();
+  m_motions.clear();
   m_commands.push_back( new KateViNormalModeCommand( this, "J", &KateViNormalMode::commandJoinLines, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "c", &KateViNormalMode::commandChange, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "C", &KateViNormalMode::commandChangeToEOL, false ) );
@@ -120,7 +114,6 @@ void KateViVisualMode::initializeCommands()
   m_commands.push_back( new KateViNormalModeCommand( this, ":", &KateViNormalMode::commandSwitchToCmdLine, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "/", &KateViNormalMode::commandSearch, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "u", &KateViNormalMode::commandUndo, false ) );
-  //m_commands.push_back( new KateViNormalModeCommand( this, "<c-r>", &KateViNormalMode::commandRedo, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "U", &KateViNormalMode::commandRedo, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "m.", &KateViNormalMode::commandSetMark, true ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "n", &KateViNormalMode::commandFindNext, false ) );

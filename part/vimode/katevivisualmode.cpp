@@ -161,6 +161,10 @@ void KateViVisualMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "%", &KateViNormalMode::motionToMatchingItem ) );
   m_motions.push_back( new KateViMotion( this, "`.", &KateViNormalMode::motionToMark, true ) );
   m_motions.push_back( new KateViMotion( this, "'.", &KateViNormalMode::motionToMarkLine, true ) );
+  m_motions.push_back( new KateViMotion( this, "[[", &KateViNormalMode::motionToPreviousBraceBlockStart ) );
+  m_motions.push_back( new KateViMotion( this, "]]", &KateViNormalMode::motionToNextBraceBlockStart ) );
+  m_motions.push_back( new KateViMotion( this, "[]", &KateViNormalMode::motionToPreviousBraceBlockEnd ) );
+  m_motions.push_back( new KateViMotion( this, "][", &KateViNormalMode::motionToNextBraceBlockEnd ) );
 
   // text objects
   m_motions.push_back( new KateViMotion( this, "iw", &KateViNormalMode::textObjectInnerWord ) );

@@ -279,6 +279,64 @@ void KateViNormalMode::error( const QString &errorMsg ) const
   kError( 13070 ) << "\033[31m" << errorMsg << "\033[0m\n"; // FIXME
 }
 
+/**
+ * (re)set to start configuration. This is done when a command is completed
+ * executed or when a command is aborted
+ */
+void KateViNormalMode::reset()
+{
+  kDebug( 13070 ) << "***RESET***";
+  m_keys.clear();
+  m_keysVerbatim.clear();
+  m_count = 0;
+  m_countTemp = 0;
+  m_register = QChar::Null;
+  m_findWaitingForChar = false;
+  m_waitingForMotionOrTextObject = -1;
+  m_matchingCommands.clear();
+  m_matchingMotions.clear();
+  m_awaitingMotionOrTextObject.clear();
+  m_motionOperatorIndex = 0;
+}
+
+// aborts the current command
+void KateViNormalMode::abort()
+{
+    reset();
+}
+
+void KateViNormalMode::goToPos( KateViRange r )
+{
+  KTextEditor::Cursor cursor;
+  cursor.setLine( r.endLine );
+  cursor.setColumn( r.endColumn );
+
+  if ( r.jump ) {
+    addCurrentPositionToJumpList();
+  }
+
+  m_viewInternal->updateCursor( cursor );
+}
+
+
+void KateViNormalMode::fillRegister( const QChar &reg, const QString &text )
+{
+    KateGlobal::self()->viInputModeGlobal()->fillRegister( reg, text );
+}
+
+void KateViNormalMode::addCurrentPositionToJumpList()
+{
+    KTextEditor::Cursor c( m_view->cursorPosition() );
+
+    KateSmartCursor *cursor = m_view->doc()->smartManager()->newSmartCursor( c );
+
+    m_marks->insert( '\'', cursor );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// HELPER METHODS
+////////////////////////////////////////////////////////////////////////////////
+
 bool KateViNormalMode::deleteRange( KateViRange &r, bool linewise, bool addToRegister)
 {
   r.normalize();
@@ -328,32 +386,6 @@ const QString KateViNormalMode::getRange( KateViRange &r, bool linewise) const
   }
 
   return s;
-}
-
-/**
- * (re)set to start configuration. This is done when a command is completed
- * executed or when a command is aborted
- */
-void KateViNormalMode::reset()
-{
-  kDebug( 13070 ) << "***RESET***";
-  m_keys.clear();
-  m_keysVerbatim.clear();
-  m_count = 0;
-  m_countTemp = 0;
-  m_register = QChar::Null;
-  m_findWaitingForChar = false;
-  m_waitingForMotionOrTextObject = -1;
-  m_matchingCommands.clear();
-  m_matchingMotions.clear();
-  m_awaitingMotionOrTextObject.clear();
-  m_motionOperatorIndex = 0;
-}
-
-// aborts the current command
-void KateViNormalMode::abort()
-{
-    reset();
 }
 
 QString KateViNormalMode::getLine( int lineNumber ) const
@@ -684,32 +716,37 @@ KateViRange KateViNormalMode::findSurrounding( const QChar &c1, const QChar &c2,
   return r;
 }
 
-void KateViNormalMode::goToPos( KateViRange r )
+int KateViNormalMode::findLineStartingWitchChar( const QChar &c, unsigned int count, bool forward ) const
 {
-  KTextEditor::Cursor cursor;
-  cursor.setLine( r.endLine );
-  cursor.setColumn( r.endColumn );
+  int line = m_view->cursorPosition().line();
+  int lines = m_view->doc()->lines();
+  unsigned int hits = 0;
 
-  if ( r.jump ) {
-    addCurrentPositionToJumpList();
+  if ( forward ) {
+    line++;
+  } else {
+    line--;
   }
 
-  m_viewInternal->updateCursor( cursor );
-}
+  while ( line < lines && line > 0 && hits < count ) {
+    QString l = getLine( line );
+    if ( l.length() > 0 && l.at( 0 ) == c ) {
+      hits++;
+    }
+    if ( hits != count ) {
+      if ( forward ) {
+        line++;
+      } else {
+        line--;
+      }
+    }
+  }
 
+  if ( hits == getCount() ) {
+    return line;
+  }
 
-void KateViNormalMode::fillRegister( const QChar &reg, const QString &text )
-{
-    KateGlobal::self()->viInputModeGlobal()->fillRegister( reg, text );
-}
-
-void KateViNormalMode::addCurrentPositionToJumpList()
-{
-    KTextEditor::Cursor c( m_view->cursorPosition() );
-
-    KateSmartCursor *cursor = m_view->doc()->smartManager()->newSmartCursor( c );
-
-    m_marks->insert( '\'', cursor );
+  return -1;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1937,6 +1974,79 @@ KateViRange KateViNormalMode::motionToMatchingItem()
 
   r.endLine = c.line();
   r.endColumn = c.column();
+  r.jump = true;
+
+  return r;
+}
+
+KateViRange KateViNormalMode::motionToNextBraceBlockStart()
+{
+  KateViRange r;
+
+  int line = findLineStartingWitchChar( '{', getCount() );
+
+  if ( line == -1 ) {
+    r.valid = false;
+    return r;
+  }
+
+  r.endLine = line;
+  r.endColumn = 0;
+  r.jump = true;
+
+  return r;
+}
+
+KateViRange KateViNormalMode::motionToPreviousBraceBlockStart()
+{
+  KateViRange r;
+
+  int line = findLineStartingWitchChar( '{', getCount(), false );
+
+  if ( line == -1 ) {
+    r.valid = false;
+    return r;
+  }
+
+  r.endLine = line;
+  r.endColumn = 0;
+  r.jump = true;
+
+  return r;
+}
+
+KateViRange KateViNormalMode::motionToNextBraceBlockEnd()
+{
+  KateViRange r;
+
+  int line = findLineStartingWitchChar( '}', getCount() );
+
+  if ( line == -1 ) {
+    r.valid = false;
+    return r;
+  }
+
+  r.endLine = line;
+  r.endColumn = 0;
+  r.jump = true;
+
+  return r;
+}
+
+KateViRange KateViNormalMode::motionToPreviousBraceBlockEnd()
+{
+  KateViRange r;
+
+  int line = findLineStartingWitchChar( '{', getCount(), false );
+
+  if ( line == -1 ) {
+    r.valid = false;
+    return r;
+  }
+
+  r.endLine = line;
+  r.endColumn = 0;
+  r.jump = true;
 
   return r;
 }
@@ -2170,6 +2280,10 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "%", &KateViNormalMode::motionToMatchingItem ) );
   m_motions.push_back( new KateViMotion( this, "`.", &KateViNormalMode::motionToMark, true ) );
   m_motions.push_back( new KateViMotion( this, "'.", &KateViNormalMode::motionToMarkLine, true ) );
+  m_motions.push_back( new KateViMotion( this, "[[", &KateViNormalMode::motionToPreviousBraceBlockStart ) );
+  m_motions.push_back( new KateViMotion( this, "]]", &KateViNormalMode::motionToNextBraceBlockStart ) );
+  m_motions.push_back( new KateViMotion( this, "[]", &KateViNormalMode::motionToPreviousBraceBlockEnd ) );
+  m_motions.push_back( new KateViMotion( this, "][", &KateViNormalMode::motionToNextBraceBlockEnd ) );
 
   // text objects
   m_motions.push_back( new KateViMotion( this, "iw", &KateViNormalMode::textObjectInnerWord ) );

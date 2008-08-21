@@ -142,6 +142,11 @@ class KateViNormalMode : public QObject {
 
     KateViRange motionToMatchingItem();
 
+    KateViRange motionToPreviousBraceBlockStart();
+    KateViRange motionToNextBraceBlockStart();
+    KateViRange motionToPreviousBraceBlockEnd();
+    KateViRange motionToNextBraceBlockEnd();
+
     // TEXT OBJECTS
 
     KateViRange textObjectAWord();
@@ -184,6 +189,7 @@ class KateViNormalMode : public QObject {
     KTextEditor::Cursor findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KTextEditor::Cursor findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KateViRange findSurrounding( const QChar &c1, const QChar &c2, bool inner = false );
+    int findLineStartingWitchChar( const QChar &c, unsigned int count, bool forward = true ) const;
     virtual void goToPos( KateViRange r );
 
     KateView *m_view;

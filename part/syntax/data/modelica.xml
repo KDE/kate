@@ -16,7 +16,7 @@
 -->
 
 
-<language name="Modelica" version="3.0" casesensitive="yes" section="Sources" extensions="*.mo" author="Federico Zenith" >
+<language name="Modelica" version="3.0" casesensitive="1" section="Sources" extensions="*.mo" author="Federico Zenith" >
 
 	<highlighting>
 		<!-- Classes in Modelica can be called different names; "class" is the

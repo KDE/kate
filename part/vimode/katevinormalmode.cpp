@@ -276,7 +276,12 @@ QString KateViNormalMode::getRegisterContent( const QChar &reg ) const
 
 void KateViNormalMode::error( const QString &errorMsg ) const
 {
-  kError( 13070 ) << "\033[31m" << errorMsg << "\033[0m\n"; // FIXME
+  kError( 13070 ) << "\033[31m" << errorMsg << "\033[0m\n";
+}
+
+void KateViNormalMode::message( const QString &msg ) const
+{
+  kError( 13070 ) << "\033[34m" << msg << "\033[0m\n";
 }
 
 /**
@@ -1535,15 +1540,34 @@ bool KateViNormalMode::commandAbort()
   return true;
 }
 
+bool KateViNormalMode::commandPrintCharacterCode()
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+
+  QString line = getLine( c.line() );
+
+  if ( c.column() >= line.length() ) {
+    return false;
+  }
+
+  QChar ch = line.at( c.column() );
+  int code = ch.unicode();
+
+  message( QString("<")+ch+">"+"  "+QString::number( code )+",  Hex "+QString::number( code, 16  )
+      +",  Octal "+QString::number( code, 8 ) );
+
+  return true;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // MOTIONS
 ////////////////////////////////////////////////////////////////////////////////
 
 KateViRange KateViNormalMode::motionDown()
 {
-  KTextEditor::Cursor cursor ( m_view->cursorPosition() );
+  KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  KateViRange r( cursor.line(), cursor.column(), ViMotion::InclusiveMotion );
+  KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
   r.endLine += getCount();
 
   // don't go below the last line
@@ -2271,6 +2295,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViNormalModeCommand( this, "<", &KateViNormalMode::commandUnindentLines, false, true ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "<c-f>", &KateViNormalMode::commandScrollPageDown, false ) );
   m_commands.push_back( new KateViNormalModeCommand( this, "<c-b>", &KateViNormalMode::commandScrollPageUp, false ) );
+  m_commands.push_back( new KateViNormalModeCommand( this, "ga", &KateViNormalMode::commandPrintCharacterCode, false ) );
 
   // regular motions
   m_motions.push_back( new KateViMotion( this, "h", &KateViNormalMode::motionLeft ) );

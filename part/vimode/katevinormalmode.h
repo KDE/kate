@@ -110,6 +110,8 @@ class KateViNormalMode : public QObject {
 
     bool commandAbort();
 
+    bool commandPrintCharacterCode();
+
     // MOTIONS
 
     KateViRange motionLeft();
@@ -175,6 +177,7 @@ class KateViNormalMode : public QObject {
     void addCurrentPositionToJumpList();
 
     void error( const QString &errorMsg ) const;
+    void message( const QString &msg ) const;
 
   protected:
     bool deleteRange( KateViRange &r, bool linewise = true, bool addToRegister = true );

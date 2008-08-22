@@ -50,12 +50,15 @@ QChar KateViInsertMode::getCharAtVirtualColumn( QString &line, int virtualColumn
       column++;
 
       if ( column >= line.length() ) {
-        return false;
+        return QChar::Null;
       }
     }
   }
 
-  return line.at( column );
+  if ( line.length() > column )
+    return line.at( column );
+
+  return QChar::Null;
 }
 
 bool KateViInsertMode::commandInsertFromAbove()

@@ -26,10 +26,11 @@ class KTextEditor::CodeCompletionModelPrivate
 {
 public:
   CodeCompletionModelPrivate()
-    : rowCount(0)
+    : rowCount(0),hasGroups(true)
   {}
 
   int rowCount;
+  bool hasGroups;
 };
 
 CodeCompletionModel::CodeCompletionModel(QObject* parent)
@@ -97,6 +98,18 @@ void CodeCompletionModel::completionInvoked(KTextEditor::View* view, const Range
 void CodeCompletionModel::executeCompletionItem(Document* document, const Range& word, int row) const
 {
   document->replaceText(word, data(index(row, Name, QModelIndex())).toString());
+}
+
+bool CodeCompletionModel::hasGroups() const {
+  return d->hasGroups;
+}
+
+void CodeCompletionModel::setHasGroups(bool hasGroups)
+{
+  if (d->hasGroups!=hasGroups) {
+    d->hasGroups=hasGroups;
+    emit hasGroupsChanged(this,hasGroups);
+  }
 }
 
 CodeCompletionModel2::CodeCompletionModel2(QObject* parent) : CodeCompletionModel(parent)

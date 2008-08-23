@@ -67,6 +67,7 @@
 DocWordCompletionModel::DocWordCompletionModel( QObject *parent )
   : CodeCompletionModel( parent )
 {
+  setHasGroups(false);
 }
 
 DocWordCompletionModel::~DocWordCompletionModel()

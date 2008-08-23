@@ -296,6 +296,8 @@ class KateCompletionModel : public ExpandingWidgetModel
     void refilter();
     void rematch();
 
+    bool m_hasGroups;
+
     // ### Runtime state
     // General
     QList<KTextEditor::CodeCompletionModel*> m_completionModels;

@@ -109,6 +109,7 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   , m_ungrouped(new Group(this))
   , m_argumentHints(new Group(this))
   , m_bestMatches(new Group(this))
+  , m_hasGroups(false)
   , m_sortingEnabled(false)
   , m_sortingAlphabetical(false)
   , m_isSortingByInheritance(false)
@@ -542,10 +543,14 @@ void KateCompletionModel::createGroups()
 {
   clearGroups();
 
-  foreach (CodeCompletionModel* sourceModel, m_completionModels)
+  bool has_groups=false;
+
+  foreach (CodeCompletionModel* sourceModel, m_completionModels) {
+    has_groups|=sourceModel->hasGroups();
     for (int i = 0; i < sourceModel->rowCount(); ++i)
       createItems(HierarchicalModelHandler(sourceModel), sourceModel->index(i, 0));
-
+  }
+  m_hasGroups=has_groups;
   //debugStats();
 
   resort();
@@ -720,7 +725,7 @@ bool KateCompletionModel::hasGroups( ) const
   // be populated with a delay from within a background-thread.
   // Proper solution: Ask all attached code-models(Through a new interface) whether they want to use grouping,
   // and if at least one wants to, return true, else return false.
-  return m_groupingEnabled;
+  return m_groupingEnabled && m_hasGroups;
 }
 
 KateCompletionModel::Group* KateCompletionModel::groupForIndex( const QModelIndex & index ) const

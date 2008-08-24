@@ -762,7 +762,7 @@ KTextEditor::Cursor KateViewInternal::findMatchingBracket()
   if (m_bmStart->contains(m_cursor) || m_bmStart->end() == m_cursor) {
     c = m_bmEnd->end();
   } else if (m_bmEnd->contains(m_cursor) || m_bmEnd->end() == m_cursor) {
-    c = m_bmStart->end();
+    c = m_bmStart->start();
   } else {
     // should never happen: a range exists, but the cursor position is
     // neither at the start nor at the end...

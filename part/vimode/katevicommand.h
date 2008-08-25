@@ -31,12 +31,15 @@ class KateViCommand {
         bool ( KateViNormalMode::*pt2Func)(), bool regex = true );
     KateViCommand( KateViNormalMode *parent, QString pattern,
         bool ( KateViNormalMode::*pt2Func)(), bool regex, bool needsMotionOrTextObject );
+    KateViCommand( KateViNormalMode *parent, QString pattern,
+        bool ( KateViNormalMode::*pt2Func)(), bool regex, bool needsMotionOrTextObject, bool reset );
     ~KateViCommand();
 
     bool matches( QString pattern ) const;
     bool matchesExact( QString pattern ) const;
     bool execute() const;
     bool needsMotionOrTextObject() const { return m_needsMotionOrTextObject; }
+    bool shouldReset() const { return m_shouldReset; }
     QString pattern() const { return m_pattern; }
 
   protected:
@@ -44,6 +47,7 @@ class KateViCommand {
     QString m_pattern;
     bool m_needsMotionOrTextObject;
     bool m_regex;
+    bool m_shouldReset; // if set, the command parser calls 
     bool ( KateViNormalMode::*m_ptr2commandMethod)();
     KateViKeySequenceParser *m_keyParser;
 };

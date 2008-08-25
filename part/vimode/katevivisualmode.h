@@ -32,13 +32,13 @@ class KateViVisualMode : public KateViNormalMode {
 
     void init();
 
-    void setVisualLine( bool l ) { m_visualLine = l; }
+    void setVisualLine( bool l );
 
   private:
     void initializeCommands();
     void highlight() const;
     void goToPos( KateViRange r );
-    void abort();
+    void reset();
     bool m_visualLine;
     KTextEditor::Cursor m_start;
     KTextEditor::SmartRange * m_topRange;

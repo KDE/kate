@@ -182,8 +182,8 @@ class KateViNormalMode : public QObject {
   protected:
     bool deleteRange( KateViRange &r, bool linewise = true, bool addToRegister = true );
     const QString getRange( KateViRange &r, bool linewise = true ) const;
-    void reset();
-    virtual void abort();
+    void resetParser();
+    virtual void reset();
     void initializeCommands();
     QRegExp generateMatchingItemRegex();
     QString getLine( int lineNumber = -1 ) const;

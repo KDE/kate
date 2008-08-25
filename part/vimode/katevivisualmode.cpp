@@ -69,7 +69,7 @@ void KateViVisualMode::goToPos( KateViRange r )
   highlight();
 }
 
-void KateViVisualMode::abort()
+void KateViVisualMode::reset()
 {
     // remove highlighting
     highlightRange->setAttribute(static_cast<KTextEditor::Attribute::Ptr>(0));
@@ -95,14 +95,19 @@ void KateViVisualMode::init()
     m_awaitingMotionOrTextObject.push_back( 0 ); // search for text objects/motion from char 0
 }
 
+
+void KateViVisualMode::setVisualLine( bool l )
+{
+  m_visualLine = l;
+  highlight();
+}
+
 void KateViVisualMode::initializeCommands()
 {
   m_commands.clear();
   m_motions.clear();
   m_commands.push_back( new KateViCommand( this, "J", &KateViNormalMode::commandJoinLines, false ) );
   m_commands.push_back( new KateViCommand( this, "c", &KateViNormalMode::commandChange, false ) );
-  m_commands.push_back( new KateViCommand( this, "s", &KateViNormalMode::commandChange, false ) );
-  m_commands.push_back( new KateViCommand( this, "S", &KateViNormalMode::commandSubstituteLine, false ) );
   m_commands.push_back( new KateViCommand( this, "C", &KateViNormalMode::commandChangeToEOL, false ) );
   m_commands.push_back( new KateViCommand( this, "d", &KateViNormalMode::commandDelete, false ) );
   m_commands.push_back( new KateViCommand( this, "D", &KateViNormalMode::commandDeleteToEOL, false ) );
@@ -126,6 +131,9 @@ void KateViVisualMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, ">", &KateViNormalMode::commandIndentLines, false ) );
   m_commands.push_back( new KateViCommand( this, "<", &KateViNormalMode::commandUnindentLines, false ) );
   m_commands.push_back( new KateViCommand( this, "<c-c>", &KateViNormalMode::commandAbort, false ) );
+  m_commands.push_back( new KateViCommand( this, "ga", &KateViNormalMode::commandPrintCharacterCode, false, false, false ) );
+  m_commands.push_back( new KateViCommand( this, "v", &KateViNormalMode::commandEnterVisualMode, false, false, false ) );
+  m_commands.push_back( new KateViCommand( this, "V", &KateViNormalMode::commandEnterVisualLineMode, false, false, false ) );
 
   // regular motions
   m_motions.push_back( new KateViMotion( this, "h", &KateViNormalMode::motionLeft ) );

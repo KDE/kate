@@ -29,6 +29,7 @@ KateViCommand::KateViCommand( KateViNormalMode *parent, QString pattern,
   m_regex = regex;
   m_ptr2commandMethod = commandMethod;
   m_needsMotionOrTextObject = false;
+  m_shouldReset = true;
 }
 
 KateViCommand::KateViCommand( KateViNormalMode *parent, QString pattern,
@@ -39,6 +40,18 @@ KateViCommand::KateViCommand( KateViNormalMode *parent, QString pattern,
   m_regex = regex;
   m_ptr2commandMethod = commandMethod;
   m_needsMotionOrTextObject = needsMotionOrTextObject;
+  m_shouldReset = true;
+}
+
+KateViCommand::KateViCommand( KateViNormalMode *parent, QString pattern,
+    bool( KateViNormalMode::*commandMethod)(), bool regex, bool needsMotionOrTextObject, bool reset )
+{
+  m_parent = parent;
+  m_pattern = pattern;
+  m_regex = regex;
+  m_ptr2commandMethod = commandMethod;
+  m_needsMotionOrTextObject = needsMotionOrTextObject;
+  m_shouldReset = reset;
 }
 
 KateViCommand::~KateViCommand()

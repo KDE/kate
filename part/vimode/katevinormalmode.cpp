@@ -18,6 +18,7 @@
  */
 
 #include "katevinormalmode.h"
+#include "katevivisualmode.h"
 #include "katesmartmanager.h"
 #include "kateglobal.h"
 #include "kateviglobal.h"
@@ -43,7 +44,7 @@ KateViNormalMode::KateViNormalMode( KateView * view, KateViewInternal * viewInte
   m_keyParser = new KateViKeySequenceParser();
 
   initializeCommands();
-  reset(); // initialise with start configuration
+  resetParser(); // initialise with start configuration
 }
 
 KateViNormalMode::~KateViNormalMode()
@@ -68,7 +69,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   }
 
   if ( keyCode == Qt::Key_Escape ) {
-    abort();
+    reset();
     return true;
   }
 
@@ -135,7 +136,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
         return true;
       }
       else {
-        reset();
+        resetParser();
         return true;
       }
     }
@@ -209,7 +210,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
               kDebug( 13070 ) << "invalid position: (" << r.endLine << "," << r.endColumn << ")";
             }
 
-            reset();
+            resetParser();
             return true;
           } else {
             // execute the specified command and supply the position returned from
@@ -223,7 +224,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
               kDebug( 13070 ) << "invalid position";
             }
 
-            abort();
+            reset();
             return true;
           }
         }
@@ -242,13 +243,18 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
         && !m_commands.at( m_matchingCommands.at( 0 ) )->needsMotionOrTextObject() ) {
       kDebug( 13070 ) << "Running command at index " << m_matchingCommands.at( 0 );
       m_commands.at( m_matchingCommands.at( 0 ) )->execute();
-      abort();
+
+      // check if reset() should be called. some commands in visual mode should not end visual mode
+      if ( m_commands.at( m_matchingCommands.at( 0 ) )->shouldReset() ) {
+        reset();
+      }
+      resetParser();
 
       return true;
     }
   } else if ( m_matchingCommands.size() == 0 && m_matchingMotions.size() == 0 ) {
     //if ( m_awaitingMotionOrTextObject.size() == 0 ) {
-      reset();
+      resetParser();
       return false;
     //} else {
 
@@ -288,7 +294,7 @@ void KateViNormalMode::message( const QString &msg ) const
  * (re)set to start configuration. This is done when a command is completed
  * executed or when a command is aborted
  */
-void KateViNormalMode::reset()
+void KateViNormalMode::resetParser()
 {
   kDebug( 13070 ) << "***RESET***";
   m_keys.clear();
@@ -304,10 +310,10 @@ void KateViNormalMode::reset()
   m_motionOperatorIndex = 0;
 }
 
-// aborts the current command
-void KateViNormalMode::abort()
+// reset the command parser
+void KateViNormalMode::reset()
 {
-    reset();
+    resetParser();
 }
 
 void KateViNormalMode::goToPos( KateViRange r )
@@ -816,14 +822,30 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
 
 bool KateViNormalMode::commandEnterVisualLineMode()
 {
-  m_view->viEnterVisualMode( true );
+  if ( m_view->getCurrentViMode() == VisualLineMode ) {
+    reset();
+  } else if ( m_view->getCurrentViMode() == VisualMode ) {
+    m_viewInternal->getViVisualMode()->setVisualLine( true );
+    m_view->changeViMode(VisualLineMode);
+    emit m_view->viewModeChanged( m_view );
+  } else {
+    m_view->viEnterVisualMode( true );
+  }
 
   return true;
 }
 
 bool KateViNormalMode::commandEnterVisualMode()
 {
-  m_view->viEnterVisualMode();
+  if ( m_view->getCurrentViMode() == VisualMode ) {
+    reset();
+  } else if ( m_view->getCurrentViMode() == VisualLineMode ) {
+    m_viewInternal->getViVisualMode()->setVisualLine( false );
+    m_view->changeViMode(VisualMode);
+    emit m_view->viewModeChanged( m_view );
+  } else {
+    m_view->viEnterVisualMode();
+  }
 
   return true;
 }
@@ -1536,7 +1558,7 @@ bool KateViNormalMode::commandScrollPageUp()
 
 bool KateViNormalMode::commandAbort()
 {
-  abort();
+  reset();
   return true;
 }
 
@@ -2295,7 +2317,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "<", &KateViNormalMode::commandUnindentLines, false, true ) );
   m_commands.push_back( new KateViCommand( this, "<c-f>", &KateViNormalMode::commandScrollPageDown, false ) );
   m_commands.push_back( new KateViCommand( this, "<c-b>", &KateViNormalMode::commandScrollPageUp, false ) );
-  m_commands.push_back( new KateViCommand( this, "ga", &KateViNormalMode::commandPrintCharacterCode, false ) );
+  m_commands.push_back( new KateViCommand( this, "ga", &KateViNormalMode::commandPrintCharacterCode, false, false, false ) );
 
   // regular motions
   m_motions.push_back( new KateViMotion( this, "h", &KateViNormalMode::motionLeft ) );

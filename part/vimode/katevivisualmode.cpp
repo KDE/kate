@@ -39,7 +39,9 @@ void KateViVisualMode::highlight() const
 
   if ( m_visualLine ) {
       c1.setColumn( ( c1 < c2 ) ? 0 : getLine( m_start.line() ).length() );
-      c2.setColumn( ( c1 < c2 ) ? getLine().length() : 0 );
+      c2.setColumn( ( c1 < c2  ? getLine().length() : 0 ) );
+  } else if ( c1 > c2 && c1.column() != 0 ) {
+    c1.setColumn( c1.column()+1 );
   }
 
   highlightRange->setRange( KTextEditor::Range( c1, c2 ) );

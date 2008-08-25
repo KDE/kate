@@ -25,13 +25,13 @@
 
 class KateViNormalMode;
 
-class KateViNormalModeCommand {
+class KateViCommand {
   public:
-    KateViNormalModeCommand( KateViNormalMode *parent, QString pattern,
+    KateViCommand( KateViNormalMode *parent, QString pattern,
         bool ( KateViNormalMode::*pt2Func)(), bool regex = true );
-    KateViNormalModeCommand( KateViNormalMode *parent, QString pattern,
+    KateViCommand( KateViNormalMode *parent, QString pattern,
         bool ( KateViNormalMode::*pt2Func)(), bool regex, bool needsMotionOrTextObject );
-    ~KateViNormalModeCommand();
+    ~KateViCommand();
 
     bool matches( QString pattern ) const;
     bool matchesExact( QString pattern ) const;

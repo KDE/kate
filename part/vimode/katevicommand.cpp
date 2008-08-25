@@ -17,9 +17,9 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "katevinormalmodecommand.h"
+#include "katevicommand.h"
 
-KateViNormalModeCommand::KateViNormalModeCommand( KateViNormalMode *parent, QString pattern,
+KateViCommand::KateViCommand( KateViNormalMode *parent, QString pattern,
     bool( KateViNormalMode::*commandMethod)(), bool regex )
 {
   m_keyParser = new KateViKeySequenceParser();
@@ -31,7 +31,7 @@ KateViNormalModeCommand::KateViNormalModeCommand( KateViNormalMode *parent, QStr
   m_needsMotionOrTextObject = false;
 }
 
-KateViNormalModeCommand::KateViNormalModeCommand( KateViNormalMode *parent, QString pattern,
+KateViCommand::KateViCommand( KateViNormalMode *parent, QString pattern,
     bool( KateViNormalMode::*commandMethod)(), bool regex, bool needsMotionOrTextObject )
 {
   m_parent = parent;
@@ -41,17 +41,17 @@ KateViNormalModeCommand::KateViNormalModeCommand( KateViNormalMode *parent, QStr
   m_needsMotionOrTextObject = needsMotionOrTextObject;
 }
 
-KateViNormalModeCommand::~KateViNormalModeCommand()
+KateViCommand::~KateViCommand()
 {
   delete m_keyParser;
 }
 
-bool KateViNormalModeCommand::execute() const
+bool KateViCommand::execute() const
 {
   return ( m_parent->*m_ptr2commandMethod)();
 }
 
-bool KateViNormalModeCommand::matches( QString pattern ) const
+bool KateViCommand::matches( QString pattern ) const
 {
   if ( !m_regex )
     return m_pattern.startsWith( pattern );
@@ -62,7 +62,7 @@ bool KateViNormalModeCommand::matches( QString pattern ) const
   }
 }
 
-bool KateViNormalModeCommand::matchesExact( QString pattern ) const
+bool KateViCommand::matchesExact( QString pattern ) const
 {
   if ( !m_regex )
     return ( m_pattern == pattern );

@@ -20,7 +20,7 @@
 #include "katevimotion.h"
 
 KateViMotion::KateViMotion( KateViNormalMode *parent, QString pattern, KateViRange (KateViNormalMode::*commandMethod)(), bool regex )
-  : KateViNormalModeCommand( parent, pattern, 0, regex )
+  : KateViCommand( parent, pattern, 0, regex )
 {
   m_ptr2commandMethod = commandMethod;
 }

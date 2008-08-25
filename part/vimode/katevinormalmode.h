@@ -22,7 +22,7 @@
 
 #include "kateview.h"
 #include "kateviewinternal.h"
-#include "katevinormalmodecommand.h"
+#include "katevicommand.h"
 #include "katevimotion.h"
 #include "katevirange.h"
 
@@ -209,7 +209,7 @@ class KateViNormalMode : public QObject {
 
     QString m_extraWordCharacters;
 
-    QVector<KateViNormalModeCommand *> m_commands;
+    QVector<KateViCommand *> m_commands;
     QVector<KateViMotion *> m_motions;
     QVector<int> m_matchingCommands;
     QVector<int> m_matchingMotions;

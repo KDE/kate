@@ -20,7 +20,7 @@
 #ifndef KATE_VI_MOTION_INCLUDED
 #define KATE_VI_MOTION_INCLUDED
 
-#include "katevinormalmodecommand.h"
+#include "katevicommand.h"
 #include "katevinormalmode.h"
 #include "katevirange.h"
 
@@ -33,7 +33,7 @@ class KateViNormalMode;
  * returned
  */
 
-class KateViMotion : public KateViNormalModeCommand
+class KateViMotion : public KateViCommand
 {
   public:
     KateViMotion( KateViNormalMode *parent, QString pattern, KateViRange (KateViNormalMode::*commandMethod)(), bool regex = false );

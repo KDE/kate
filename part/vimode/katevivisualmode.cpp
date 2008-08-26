@@ -102,6 +102,16 @@ void KateViVisualMode::setVisualLine( bool l )
   highlight();
 }
 
+void KateViVisualMode::switchStartEnd()
+{
+  KTextEditor::Cursor c = m_start;
+  m_start = m_view->cursorPosition();
+
+  m_viewInternal->updateCursor( c );
+
+  highlight();
+}
+
 void KateViVisualMode::initializeCommands()
 {
   m_commands.clear();
@@ -134,6 +144,7 @@ void KateViVisualMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "ga", &KateViNormalMode::commandPrintCharacterCode, false, false, false ) );
   m_commands.push_back( new KateViCommand( this, "v", &KateViNormalMode::commandEnterVisualMode, false, false, false ) );
   m_commands.push_back( new KateViCommand( this, "V", &KateViNormalMode::commandEnterVisualLineMode, false, false, false ) );
+  m_commands.push_back( new KateViCommand( this, "o", &KateViNormalMode::commandToOtherEnd, false, false, false ) );
 
   // regular motions
   m_motions.push_back( new KateViMotion( this, "h", &KateViNormalMode::motionLeft ) );

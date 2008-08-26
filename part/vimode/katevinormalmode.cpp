@@ -850,6 +850,16 @@ bool KateViNormalMode::commandEnterVisualMode()
   return true;
 }
 
+bool KateViNormalMode::commandToOtherEnd()
+{
+  if ( m_view->getCurrentViMode() == VisualLineMode || m_view->getCurrentViMode() == VisualMode ) {
+    m_viewInternal->getViVisualMode()->switchStartEnd();
+    return true;
+  }
+
+  return false;
+}
+
 KateViRange KateViNormalMode::motionWordForward()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );

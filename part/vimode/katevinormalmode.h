@@ -55,6 +55,7 @@ class KateViNormalMode : public QObject {
 
     bool commandEnterVisualMode();
     bool commandEnterVisualLineMode();
+    bool commandToOtherEnd();
 
     bool commandDelete();
     bool commandDeleteToEOL();

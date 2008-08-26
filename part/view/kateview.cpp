@@ -1257,6 +1257,12 @@ void KateView::toggleViInputMode()
 
   if ( viInputMode() ) {
     viEnterNormalMode();
+  } else {
+    if (getCurrentViMode() != InsertMode) {
+      foreach(QAction* action, m_editActions) {
+        m_viewInternal->removeAction(action);
+      }
+    }
   }
 
   emit viewModeChanged(this);

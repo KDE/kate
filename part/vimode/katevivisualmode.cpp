@@ -49,17 +49,17 @@ void KateViVisualMode::highlight() const
 
 void KateViVisualMode::goToPos( KateViRange r )
 {
-  KTextEditor::Cursor cursor;
+  KTextEditor::Cursor cursor = m_view->cursorPosition();
 
-  cursor.setLine( r.endLine );
-  cursor.setColumn( r.endColumn );
+  if ( r.startLine != -1 && r.startColumn != -1 && cursor < m_start ) {
+    cursor.setLine( r.startLine );
+    cursor.setColumn( r.startColumn );
+  } else {
+    cursor.setLine( r.endLine );
+    cursor.setColumn( r.endColumn );
+  }
 
   m_viewInternal->updateCursor( cursor );
-
-  if ( r.startLine != -1 && r.startColumn != -1 ) {
-      m_start.setLine( r.startLine );
-      m_start.setColumn( r.startColumn );
-  }
 
   m_commandRange.startLine = m_start.line();
   m_commandRange.startColumn = m_start.column();

@@ -28,7 +28,6 @@ namespace Kate
 {
 
   /**
-   * \deprecated
    * \brief Plugin config page widget.
    *
    * The class PluginConfigPage is a base class for config pages for plugins.
@@ -42,7 +41,7 @@ namespace Kate
    * \see Plugin, PluginConfigPageInterface
    * \author Christoph Cullmann \<cullmann@kde.org\>
    */
-  class KATEINTERFACES_EXPORT_DEPRECATED PluginConfigPage : public QWidget
+  class KATEINTERFACES_EXPORT PluginConfigPage : public QWidget
   {
       Q_OBJECT
 
@@ -97,7 +96,6 @@ namespace Kate
   };
 
   /**
-   * \deprecated
    * \brief Plugin config page extension interface.
    *
    * The class PluginConfigPageInterface is an extension interface for plugins.
@@ -126,7 +124,7 @@ namespace Kate
    * \see Plugin, PluginConfigPage
    * \author Christoph Cullmann \<cullmann@kde.org\>
    */
-  class KATEINTERFACES_EXPORT_DEPRECATED PluginConfigPageInterface
+  class KATEINTERFACES_EXPORT PluginConfigPageInterface
   {
       friend class PrivatePluginConfigPageInterface;
 
@@ -203,7 +201,6 @@ namespace Kate
 
   class Plugin;
   /**
-   * \deprecated
    * Helper function that returns the PluginConfigPageInterface of the \p plugin
    * or NULL if the \p plugin does not support the interface.
    * \param plugin the plugin for which the plugin config page interface should
@@ -211,7 +208,7 @@ namespace Kate
    * \return the plugin config page interface or NULL if the plugin does not
    *        support the interface
    */
-  KATEINTERFACES_EXPORT_DEPRECATED PluginConfigPageInterface *pluginConfigPageInterface (Plugin *plugin);
+  KATEINTERFACES_EXPORT PluginConfigPageInterface *pluginConfigPageInterface (Plugin *plugin);
 
 }
 

@@ -17,5 +17,5 @@ install(TARGETS katefilebrowserplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ########### install files ###############
 
-install( FILES katefilebrowserplugin.desktop
-               katefilebrowserplugin_config.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( FILES katefilebrowserplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+

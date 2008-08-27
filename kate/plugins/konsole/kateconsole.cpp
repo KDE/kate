@@ -49,14 +49,11 @@
 #include <kpluginfactory.h>
 #include <kauthorized.h>
 
-K_PLUGIN_FACTORY_DECLARATION(KateKonsolePluginFactory)
+K_EXPORT_COMPONENT_FACTORY( katekonsoleplugin, KGenericFactory<KateKonsolePlugin>( "katekonsoleplugin" ) )
 
-KateKonsolePlugin *KateKonsolePlugin::mPlugin = 0;
-
-KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QVariantList& ):
+KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QStringList& ):
     Kate::Plugin ( (Kate::Application*)parent )
 {
-  mPlugin = this;
   if (!KAuthorized::authorizeKAction("shell_access"))
   {
     KMessageBox::sorry(0, i18n ("You do not have enough karma to access a shell or terminal emulation"));
@@ -68,6 +65,32 @@ Kate::PluginView *KateKonsolePlugin::createView (Kate::MainWindow *mainWindow)
   KateKonsolePluginView *view = new KateKonsolePluginView (mainWindow);
   mViews.append( view );
   return view;
+}
+
+Kate::PluginConfigPage *KateKonsolePlugin::configPage (uint number, QWidget *parent, const char *name)
+{
+  Q_UNUSED(name)
+  if (number != 0)
+    return 0;
+  return new KateKonsoleConfigPage(parent, this);
+}
+
+QString KateKonsolePlugin::configPageName (uint number) const
+{
+  if (number != 0) return QString();
+  return i18n("Terminal");
+}
+
+QString KateKonsolePlugin::configPageFullName (uint number) const
+{
+  if (number != 0) return QString();
+  return i18n("Terminal Settings");
+}
+
+KIcon KateKonsolePlugin::configPageIcon (uint number) const
+{
+  if (number != 0) return KIcon();
+  return KIcon("utilities-terminal");
 }
 
 void KateKonsolePlugin::readConfig()
@@ -269,42 +292,33 @@ void KateConsole::readConfig()
     disconnect( m_mw, SIGNAL(viewChanged()), this, SLOT(slotSync()) );
 }
 
-KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, const QVariantList& )
-  : KCModule( KateKonsolePluginFactory::componentData(), parent )
-  , mPlugin( KateKonsolePlugin::self() )
+KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin *plugin )
+  : Kate::PluginConfigPage( parent )
+  , mPlugin( plugin )
 {
   QVBoxLayout *lo = new QVBoxLayout( this );
   lo->setSpacing( KDialog::spacingHint() );
 
   cbAutoSyncronize = new QCheckBox( i18n("&Automatically syncronize the terminal with the current document when possible"), this );
-  connect(cbAutoSyncronize, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   lo->addWidget( cbAutoSyncronize );
+  reset();
   lo->addStretch();
+  connect( cbAutoSyncronize, SIGNAL(stateChanged(int)), SIGNAL(changed()) );
 }
 
-void KateKonsoleConfigPage::save()
+void KateKonsoleConfigPage::apply()
 {
   KConfigGroup config(KGlobal::config(), "Konsole");
   config.writeEntry("AutoSyncronize", cbAutoSyncronize->isChecked());
   config.sync();
+  mPlugin->readConfig();
 }
 
-void KateKonsoleConfigPage::load()
+void KateKonsoleConfigPage::reset()
 {
   KConfigGroup config(KGlobal::config(), "Konsole");
   cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
 }
-
-void KateKonsoleConfigPage::slotChanged()
-{
-  emit changed(true);
-}
-
-K_PLUGIN_FACTORY_DEFINITION(KateKonsolePluginFactory,
-        registerPlugin<KateKonsolePlugin>();
-        registerPlugin<KateKonsoleConfigPage>("katekonsoleplugin_config");
-        )
-K_EXPORT_PLUGIN(KateKonsolePluginFactory("katekonsoleplugin"))
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

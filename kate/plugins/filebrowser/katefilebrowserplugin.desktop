@@ -1,7 +1,6 @@
 [Desktop Entry]
 Type=Service
-X-KDE-ServiceTypes=Kate/Plugin
-X-KDE-PluginInfo-Name=katefilebrowserplugin
+ServiceTypes=Kate/Plugin
 X-KDE-Library=katefilebrowserplugin
 X-Kate-Version=2.8
 Name=File system browser

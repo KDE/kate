@@ -30,7 +30,7 @@
 #include <KConfigBase>
 
 #include <QObject>
-#include <QList>
+#include <QLinkedList>
 
 class KateMainWindow;
 
@@ -43,7 +43,7 @@ class KatePluginInfo
     QString saveName() const;
 };
 
-typedef QList<KatePluginInfo> KatePluginList;
+typedef QLinkedList<KatePluginInfo> KatePluginList;
 
 class KatePluginManager : public QObject
 {

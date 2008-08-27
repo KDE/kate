@@ -56,7 +56,8 @@
 #include <QResizeEvent>
 #include <QMenu>
 
-K_PLUGIN_FACTORY_DECLARATION(KatePluginSymbolViewerFactory)
+K_EXPORT_COMPONENT_FACTORY( katesymbolviewerplugin, KGenericFactory<KatePluginSymbolViewer>( "katesymbolviewer" ) )
+
 
 KatePluginSymbolViewerView2::KatePluginSymbolViewerView2 (Kate::MainWindow *w)
     : Kate::PluginView(w)
@@ -281,7 +282,7 @@ void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
   kv->setCursorPosition (KTextEditor::Cursor (it->text(1).toInt(NULL, 10), 0));
 }
 
-KatePluginSymbolViewer::KatePluginSymbolViewer( QObject* parent, const QVariantList& )
+KatePluginSymbolViewer::KatePluginSymbolViewer( QObject* parent, const QStringList& )
     : Kate::Plugin ( (Kate::Application*)parent, "katesymbolviewerplugin" ),
     pConfig("katesymbolviewerpluginrc")
 {
@@ -322,6 +323,22 @@ void KatePluginSymbolViewer::loadGeneralConfig(KConfig* config, const QString& g
   // TODO: FIXME: port to new interfaces
 }
 
+Kate::PluginConfigPage* KatePluginSymbolViewer::configPage(
+    uint, QWidget *w, const char* /*name*/)
+{
+  KatePluginSymbolViewerConfigPage* p = new KatePluginSymbolViewerConfigPage(this, w);
+  initConfigPage( p );
+  connect( p, SIGNAL(configPageApplyRequest(KatePluginSymbolViewerConfigPage*)),
+      SLOT(applyConfig(KatePluginSymbolViewerConfigPage *)) );
+  return (Kate::PluginConfigPage*)p;
+}
+
+void KatePluginSymbolViewer::initConfigPage( KatePluginSymbolViewerConfigPage* p )
+{
+  p->viewReturns->setChecked(pConfig.group("global").readEntry("view_types", true));
+  p->expandTree->setChecked(pConfig.group("global").readEntry("expand_tree", false));
+}
+
 void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
 {
  for (int z=0; z < m_views.count(); z++)
@@ -338,8 +355,8 @@ void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
 
 // BEGIN KatePluginSymbolViewerConfigPage
 KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(
-    QWidget* parent /*= 0L*/, const QVariantList&)
-  : KCModule( KatePluginSymbolViewerFactory::componentData(), parent )
+    QObject* /*parent*/ /*= 0L*/, QWidget *parentWidget /*= 0L*/)
+  : Kate::PluginConfigPage( parentWidget )
 {
   QGroupBox* groupBox = new QGroupBox( i18n("Parser Options"), this);
 
@@ -360,14 +377,9 @@ KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(
 
 KatePluginSymbolViewerConfigPage::~KatePluginSymbolViewerConfigPage() {}
 
-void KatePluginSymbolViewerConfigPage::save()
+void KatePluginSymbolViewerConfigPage::apply()
 {
     emit configPageApplyRequest( this );
 }
 // END KatePluginSymbolViewerConfigPage
 
-K_PLUGIN_FACTORY_DEFINITION(KatePluginSymbolViewerFactory,
-        registerPlugin<KatePluginSymbolViewer>();
-        registerPlugin<KatePluginSymbolViewerConfigPage>("katesymbolviewerplugin_config");
-        )
-K_EXPORT_PLUGIN(KatePluginSymbolViewerFactory("katesymbolviewerplugin"))

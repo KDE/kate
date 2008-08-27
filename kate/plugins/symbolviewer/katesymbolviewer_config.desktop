@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Service
-X-KDE-ServiceTypes=KCModule
-X-KDE-Library=katesymbolviewerplugin
-X-KDE-ParentComponents=katesymbolviewerplugin
-X-KDE-PluginKeyword=katesymbolviewerplugin_config
-Name=Behavior

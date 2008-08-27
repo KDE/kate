@@ -1,8 +1,7 @@
 [Desktop Entry]
 Type=Service
-X-KDE-ServiceTypes=Kate/Plugin
+ServiceTypes=Kate/Plugin
 X-KDE-Library=katesymbolviewerplugin
-X-KDE-PluginInfo-Name=katesymbolviewerplugin
 X-Kate-Version=2.8
 Name=Kate Symbol Viewer
 Name[ca]=Visualitzador de símbols del Kate

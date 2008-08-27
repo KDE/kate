@@ -24,6 +24,7 @@
 #include <kate/mainwindow.h>
 #include <kate/plugin.h>
 #include <ktexteditor/view.h>
+#include <kate/pluginconfigpageinterface.h>
 
 #include <kdebug.h>
 #include <QMenu>
@@ -38,7 +39,6 @@
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kconfig.h>
-#include <kcmodule.h>
 
 class KatePluginSymbolViewerView;
 class KatePluginSymbolViewerView2 : public Kate::PluginView
@@ -101,19 +101,23 @@ class KatePluginSymbolViewerView : public QObject, public KXMLGUIClient
 /**
  * Plugin's config page
  */
-class KatePluginSymbolViewerConfigPage : public KCModule
+class KatePluginSymbolViewerConfigPage : public Kate::PluginConfigPage
 {
   Q_OBJECT
 
   friend class KatePluginSymbolViewer;
 
   public:
-    explicit KatePluginSymbolViewerConfigPage (QWidget* parent = 0L, const QVariantList& = QVariantList());
+    explicit KatePluginSymbolViewerConfigPage (QObject* parent = 0L, QWidget *parentWidget = 0L);
     ~KatePluginSymbolViewerConfigPage ();
 
-    virtual void save();
+    /**
+     * Reimplemented from Kate::PluginConfigPage
+     * just emits configPageApplyRequest( this ).
+     */
+    virtual void apply();
 
-    virtual void load () { ; }
+    virtual void reset () { ; }
     virtual void defaults () { ; }
 
   signals:
@@ -132,11 +136,12 @@ class KatePluginSymbolViewerConfigPage : public KCModule
     QCheckBox* expandTree;
 };
 
-class KatePluginSymbolViewer : public Kate::Plugin
+class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterface
 {
   Q_OBJECT
+  Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
-    explicit KatePluginSymbolViewer( QObject* parent = 0, const QVariantList& = QVariantList() );
+    explicit KatePluginSymbolViewer( QObject* parent = 0, const QStringList& = QStringList() );
     virtual ~KatePluginSymbolViewer();
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
@@ -146,8 +151,17 @@ class KatePluginSymbolViewer : public Kate::Plugin
     void storeGeneralConfig(KConfig* config, const QString& groupPrefix);
     void loadGeneralConfig(KConfig* config, const QString& groupPrefix);
 
+    uint configPages () const { return 1; }
+    Kate::PluginConfigPage *configPage (uint , QWidget *w, const char *name=0);
+    QString configPageName(uint) const { return i18n("Symbol Viewer"); }
+    QString configPageFullName(uint) const { return i18n("Symbol Viewer Configuration Page"); }
+    QPixmap configPagePixmap (uint, int) const { return 0L; }
+    KIcon configPageIcon (uint) const {return KIcon();} //TODO implement it
   public slots:
     void applyConfig( KatePluginSymbolViewerConfigPage* );
+
+  private:
+    void initConfigPage( KatePluginSymbolViewerConfigPage* );
 
   private:
     QList<KatePluginSymbolViewerView *> m_views;

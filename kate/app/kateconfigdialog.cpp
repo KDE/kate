@@ -249,22 +249,21 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   //END Document List page
 
   //BEGIN Plugins page
-  KatePluginList &pluginList (KatePluginManager::self()->pluginList());
-  foreach (const KatePluginInfo &katePluginInfo, pluginList) {
-    KPluginInfo pluginInfo(katePluginInfo.service);
-    KPluginInfo pluginInfoCopy(katePluginInfo.service);
-    pluginInfo.setPluginEnabled(katePluginInfo.load);
-    pluginInfoCopy.setPluginEnabled(katePluginInfo.load);
-    pluginInfoList << pluginInfo;
-  }
-
   KVBox *page = new KVBox();
-  KateConfigPluginPage *configPluginPage = new KateConfigPluginPage(pluginInfoList, page, this);
+  KateConfigPluginPage *configPluginPage = new KateConfigPluginPage(page, this);
   connect( configPluginPage, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
 
-  KPageWidgetItem *m_pluginPage = addSubPage( applicationItem, page, i18n("Extensions") );
-  m_pluginPage->setHeader( i18n("Extensions Manager") );
+  m_pluginPage = addSubPage( applicationItem, page, i18n("Plugins") );
+  m_pluginPage->setHeader( i18n("Plugin Manager") );
   m_pluginPage->setIcon( KIcon( "preferences-plugin" ) );
+
+  KatePluginList &pluginList (KatePluginManager::self()->pluginList());
+  foreach (const KatePluginInfo &plugin, pluginList)
+  {
+    if  ( plugin.load
+          && Kate::pluginConfigPageInterface(plugin.plugin) )
+      addPluginPage (plugin.plugin);
+  }
   //END Plugins page
 
   //BEGIN Editors page
@@ -296,6 +295,47 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 KateConfigDialog::~KateConfigDialog()
 {}
 
+void KateConfigDialog::addPluginPage (Kate::Plugin *plugin)
+{
+  if (!Kate::pluginConfigPageInterface(plugin))
+    return;
+
+  for (uint i = 0; i < Kate::pluginConfigPageInterface(plugin)->configPages(); i++)
+  {
+    KVBox *page = new KVBox();
+
+    KPageWidgetItem *item = addSubPage( m_pluginPage, page, Kate::pluginConfigPageInterface(plugin)->configPageName(i) );
+    item->setHeader( Kate::pluginConfigPageInterface(plugin)->configPageFullName(i) );
+    item->setIcon( Kate::pluginConfigPageInterface(plugin)->configPageIcon(i));
+
+    PluginPageListItem *info = new PluginPageListItem;
+    info->plugin = plugin;
+    info->page = Kate::pluginConfigPageInterface(plugin)->configPage (i, page);
+    info->pageWidgetItem = item;
+    connect( info->page, SIGNAL( changed() ), this, SLOT( slotChanged() ) );
+    m_pluginPages.append(info);
+  }
+}
+
+void KateConfigDialog::removePluginPage (Kate::Plugin *plugin)
+{
+  if (!Kate::pluginConfigPageInterface(plugin))
+    return;
+
+  for (int i = 0; i < m_pluginPages.count(); i++)
+  {
+    if  ( m_pluginPages[i]->plugin == plugin )
+    {
+      QWidget *w = m_pluginPages[i]->page->parentWidget();
+      delete m_pluginPages[i]->page;
+      delete w;
+      removePage(m_pluginPages[i]->pageWidgetItem);
+      m_pluginPages.removeAt(i);
+      i--;
+    }
+  }
+}
+
 void KateConfigDialog::slotOk()
 {
   slotApply();
@@ -309,23 +349,6 @@ void KateConfigDialog::slotApply()
   // if data changed apply the kate app stuff
   if( m_dataChanged )
   {
-    // (un)load plugins
-    KatePluginList &pluginList (KatePluginManager::self()->pluginList());
-    int i = 0;
-    foreach (const KPluginInfo &pluginInfo, pluginInfoList) {
-      if (pluginInfo.isPluginEnabled() != pluginList[i].load) {
-        if (pluginInfo.isPluginEnabled()) {
-          KatePluginManager::self()->loadPlugin(&pluginList[i]);
-          KatePluginManager::self()->enablePluginGUI(&pluginList[i]);
-        } else {
-          KatePluginManager::self()->unloadPlugin(&pluginList[i]);
-        }
-        pluginList[i].load = pluginInfo.isPluginEnabled();
-      }
-      i++;
-    }
-
-    // keep on with the configuration details
     KConfigGroup cg = KConfigGroup( config, "General" );
 
     cg.writeEntry("Restore Window Configuration", m_restoreVC->isChecked());
@@ -382,6 +405,11 @@ void KateConfigDialog::slotApply()
 
   // write back the editor config
   KateDocManager::self()->editor()->writeConfig(config.data());
+
+  foreach (PluginPageListItem *plugin, m_pluginPages)
+  {
+    plugin->page->apply();
+  }
 
   config->sync();
 

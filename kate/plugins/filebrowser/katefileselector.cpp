@@ -68,16 +68,11 @@
 #include <kdeversion.h>
 //END Includes
 
-K_PLUGIN_FACTORY_DECLARATION(KateFileSelectorPluginFactory)
+K_EXPORT_COMPONENT_FACTORY( katefilebrowserplugin, KGenericFactory<KateFileSelectorPlugin>( "katefilebrowserplugin" ) )
 
-KateFileSelectorPlugin *KateFileSelectorPlugin::plugin = 0;
-
-KateFileSelectorPlugin::KateFileSelectorPlugin( QObject* parent, const QVariantList&):
-    Kate::Plugin ( (Kate::Application*)parent ),
-    m_fileSelector(0)
-{
-  plugin = this;
-}
+KateFileSelectorPlugin::KateFileSelectorPlugin( QObject* parent, const QStringList&):
+    Kate::Plugin ( (Kate::Application*)parent )
+{}
 
 Kate::PluginView *KateFileSelectorPlugin::createView (Kate::MainWindow *mainWindow)
 {
@@ -108,6 +103,37 @@ void KateFileSelectorPluginView::readSessionConfig(KConfigBase* config, const QS
 void KateFileSelectorPluginView::writeSessionConfig(KConfigBase* config, const QString& group)
 {
   m_fileSelector->writeSessionConfig(config, group);
+}
+
+uint KateFileSelectorPlugin::configPages() const
+{
+  return 1;
+}
+
+Kate::PluginConfigPage *KateFileSelectorPlugin::configPage (uint number, QWidget *parent, const char *name)
+{	
+  if (number != 0) 
+    return 0;
+  return new KFSConfigPage(parent, name, m_fileSelector);
+}
+
+QString KateFileSelectorPlugin::configPageName (uint number) const
+{
+  if (number != 0) return QString();
+  kDebug() << "Returning a config page name";
+  return i18n("File Selector");
+}
+
+QString KateFileSelectorPlugin::configPageFullName (uint number) const
+{
+  if (number != 0) return QString();
+  return i18n("File Selector Settings");
+}
+
+KIcon KateFileSelectorPlugin::configPageIcon (uint number) const
+{
+  if (number != 0) return KIcon();
+  return KIcon("document-open");
 }
 
 //BEGIN Toolbar
@@ -616,16 +642,11 @@ class ActionLBItem : public QListWidgetItem
 ////////////////////////////////////////////////////////////////////////////////
 // KFSConfigPage implementation
 ////////////////////////////////////////////////////////////////////////////////
-KFSConfigPage::KFSConfigPage( QWidget *parent, const QVariantList & )
-    : KCModule( KateFileSelectorPluginFactory::componentData(), parent ),
+KFSConfigPage::KFSConfigPage( QWidget *parent, const char *, KateFileSelector *kfs )
+    : Kate::PluginConfigPage( parent ),
+    fileSelector( kfs ),
     m_changed( false )
 {
-  if (!KateFileSelectorPlugin::self() || !KateFileSelectorPlugin::self()->m_fileSelector) {
-    fileSelector = new KateFileSelector;
-  } else {
-    fileSelector = KateFileSelectorPlugin::self()->m_fileSelector;
-  }
-
   QVBoxLayout *lo = new QVBoxLayout( this );
   int spacing = KDialog::spacingHint();
   lo->setSpacing( spacing );
@@ -714,13 +735,13 @@ KFSConfigPage::KFSConfigPage( QWidget *parent, const QVariantList & )
   lbFilterHist->setWhatsThis(fhwt );
   sbFilterHistLength->setWhatsThis(fhwt );
   QString synwt( i18n(
-                  "<p>These options allow you to have the File Selector automatically "
-                  "change location to the folder of the active document on certain "
-                  "events.</p>"
-                  "<p>Auto synchronization is <em>lazy</em>, meaning it will not take "
-                  "effect until the file selector is visible.</p>"
-                  "<p>None of these are enabled by default, but you can always sync the "
-                  "location by pressing the sync button in the toolbar.</p>") );
+                   "<p>These options allow you to have the File Selector automatically "
+                   "change location to the folder of the active document on certain "
+                   "events.</p>"
+                   "<p>Auto synchronization is <em>lazy</em>, meaning it will not take "
+                   "effect until the file selector is visible.</p>"
+                   "<p>None of these are enabled by default, but you can always sync the "
+                   "location by pressing the sync button in the toolbar.</p>") );
   gbSync->setWhatsThis(synwt );
   cbSesLocation->setWhatsThis(i18n(
                                 "<p>If this option is enabled (default), the location will be restored "
@@ -733,9 +754,12 @@ KFSConfigPage::KFSConfigPage( QWidget *parent, const QVariantList & )
                               "restored.</p>"
                               "<p><strong>Note</strong> that some of the autosync settings may "
                               "override the restored location if on.</p>") );
+
+  init();
+
 }
 
-void KFSConfigPage::save()
+void KFSConfigPage::apply()
 {
   if ( ! m_changed )
     return;
@@ -773,10 +797,11 @@ void KFSConfigPage::save()
   fileSelector->writeConfig();
 }
 
-void KFSConfigPage::load()
+void KFSConfigPage::reset()
 {
-  m_changed = false;
+  // hmm, what is this supposed to do, actually??
   init();
+  m_changed = false;
 }
 void KFSConfigPage::init()
 {
@@ -834,14 +859,7 @@ void KFSConfigPage::init()
 void KFSConfigPage::slotMyChanged()
 {
   m_changed = true;
-  emit changed(true);
+  emit changed();
 }
 //END KFSConfigPage
-
-K_PLUGIN_FACTORY_DEFINITION(KateFileSelectorPluginFactory,
-        registerPlugin<KateFileSelectorPlugin>();
-        registerPlugin<KFSConfigPage>("katefilebrowserplugin_config");
-        )
-K_EXPORT_PLUGIN(KateFileSelectorPluginFactory("katefilebrowserplugin"))
-
 // kate: space-indent on; indent-width 2; replace-tabs on;

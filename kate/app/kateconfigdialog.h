@@ -25,7 +25,6 @@
 
 #include <kate/plugin.h>
 #include <kate/pluginconfigpageinterface.h>
-#include <kplugininfo.h>
 
 #include <KTextEditor/EditorChooser>
 
@@ -52,6 +51,10 @@ class KateConfigDialog : public KPageDialog
     KateConfigDialog (KateMainWindow *parent, KTextEditor::View *view);
     ~KateConfigDialog ();
 
+  public:
+    void addPluginPage (Kate::Plugin *plugin);
+    void removePluginPage (Kate::Plugin *plugin);
+
   protected Q_SLOTS:
     void slotOk();
     void slotApply();
@@ -77,12 +80,13 @@ class KateConfigDialog : public KPageDialog
     QRadioButton *m_doNotSaveSessionRadioButton;
     QRadioButton *m_saveSessionRadioButton;
     QRadioButton *m_askUserRadioButton;
-
+    
+    QList<PluginPageListItem*> m_pluginPages;
     QList<KTextEditor::ConfigPage*> m_editorPages;
     KTextEditor::EditorChooser *m_editorChooser;
+    KPageWidgetItem *m_pluginPage;
 
     class KateFileListConfigPage *filelistConfigPage;
-    QList<KPluginInfo> pluginInfoList;
 };
 
 #endif

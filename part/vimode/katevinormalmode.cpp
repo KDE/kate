@@ -314,6 +314,8 @@ void KateViNormalMode::resetParser()
 void KateViNormalMode::reset()
 {
     resetParser();
+    m_commandRange.startLine = -1;
+    m_commandRange.startColumn = -1;
 }
 
 void KateViNormalMode::goToPos( KateViRange r )

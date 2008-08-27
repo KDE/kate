@@ -69,7 +69,7 @@ KateFindInFilesView::KateFindInFilesView (Kate::MainWindow *mw)
   setComponentData(KComponentData("kate"));
 
   QAction* a = actionCollection()->addAction("findinfiles_edit_find_in_files");
-  a->setIcon(KIcon("utilities-terminal"));
+  a->setIcon(KIcon("edit-find"));
   a->setText(i18n("&Find in Files..."));
   connect(a, SIGNAL(triggered()), this, SLOT(find()));
 

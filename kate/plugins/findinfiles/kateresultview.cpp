@@ -57,9 +57,10 @@ KateResultView::KateResultView(Kate::MainWindow *mw, KateFindInFilesView *view)
   setupUi(this);
   setParent(m_toolView);
 
-  btnCancel->setIcon(QIcon(SmallIcon("process-stop")));
+  btnCancel->setIcon(KIcon("process-stop"));
 
   btnRemove->setGuiItem(KStandardGuiItem::remove());
+  btnRemove->setIcon(KIcon("tab-close"));
 
   btnRefine->setGuiItem(KStandardGuiItem::find());
   btnRefine->setText(i18n("Refine Search..."));

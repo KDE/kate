@@ -60,7 +60,7 @@ KateFindDialog::KateFindDialog(Kate::MainWindow *mw, KateFindInFilesView *view)
   // if possible, ui properties are set in the .ui-file
 
   // set sync icon
-  btnSync->setIcon(QIcon(SmallIcon("view-refresh")));
+  btnSync->setIcon(KIcon("view-refresh"));
 
   // get url-requester's combo box and sanely initialize
   KComboBox* cmbUrl = cmbDir->comboBox();

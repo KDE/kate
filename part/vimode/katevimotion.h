@@ -36,8 +36,10 @@ class KateViNormalMode;
 class KateViMotion : public KateViCommand
 {
   public:
-    KateViMotion( KateViNormalMode *parent, QString pattern, KateViRange (KateViNormalMode::*commandMethod)(), bool regex = false );
+    KateViMotion( KateViNormalMode *parent, QString pattern,
+        KateViRange (KateViNormalMode::*commandMethod)(), unsigned int flags = 0 );
     KateViRange execute() const;
+
   protected:
     KateViRange (KateViNormalMode::*m_ptr2commandMethod)();
 };

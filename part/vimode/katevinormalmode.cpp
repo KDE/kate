@@ -151,7 +151,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     for ( int i = n; i >= 0; i-- ) {
       if ( !m_commands.at( m_matchingCommands.at( i ) )->matches( m_keys ) ) {
         kDebug( 13070 ) << "removing " << m_commands.at( m_matchingCommands.at( i ) )->pattern() << ", size before remove is " << m_matchingCommands.size();
-        if ( m_commands.at( m_matchingCommands.at( i ) )->needsMotionOrTextObject() ) {
+        if ( m_commands.at( m_matchingCommands.at( i ) )->flags() & NEEDS_MOTION ) {
           // "cache" command needing a motion for later
           kDebug( 13070 ) << "m_motionOperatorIndex set to " << m_motionOperatorIndex;
           m_motionOperatorIndex = m_matchingCommands.at( i );
@@ -164,7 +164,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     // push the current command length to m_awaitingMotionOrTextObject so one
     // knows where to split the command between the operator and the motion
     for ( int i = 0; i < m_matchingCommands.size(); i++ ) {
-      if ( m_commands.at( m_matchingCommands.at( i ) )->needsMotionOrTextObject() ) {
+      if ( m_commands.at( m_matchingCommands.at( i ) )->flags() & NEEDS_MOTION ) {
         m_awaitingMotionOrTextObject.push( m_keys.size() );
         break;
       }
@@ -174,7 +174,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     for ( int i = 0; i < m_commands.size(); i++ ) {
       if ( m_commands.at( i )->matches( m_keys ) ) {
         m_matchingCommands.push_back( i );
-        if ( m_commands.at( i )->needsMotionOrTextObject() && m_commands.at( i )->pattern().length() == m_keys.size() ) {
+        if ( m_commands.at( i )->flags() & NEEDS_MOTION && m_commands.at( i )->pattern().length() == m_keys.size() ) {
           m_awaitingMotionOrTextObject.push( m_keys.size() );
         }
       }
@@ -240,12 +240,12 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   // if it's not waiting for a motion or a text object
   if ( m_matchingCommands.size() == 1 ) {
     if ( m_commands.at( m_matchingCommands.at( 0 ) )->matchesExact( m_keys )
-        && !m_commands.at( m_matchingCommands.at( 0 ) )->needsMotionOrTextObject() ) {
+        && !( m_commands.at( m_matchingCommands.at( 0 ) )->flags() & NEEDS_MOTION ) ) {
       kDebug( 13070 ) << "Running command at index " << m_matchingCommands.at( 0 );
       m_commands.at( m_matchingCommands.at( 0 ) )->execute();
 
       // check if reset() should be called. some commands in visual mode should not end visual mode
-      if ( m_commands.at( m_matchingCommands.at( 0 ) )->shouldReset() ) {
+      if ( !( m_commands.at( m_matchingCommands.at( 0 ) )->flags() & SHOULD_NOT_RESET ) ) {
         reset();
       }
       resetParser();
@@ -839,6 +839,7 @@ bool KateViNormalMode::commandEnterVisualLineMode()
 
 bool KateViNormalMode::commandEnterVisualMode()
 {
+    kDebug( 13070 ) << "LAFA";
   if ( m_view->getCurrentViMode() == VisualMode ) {
     reset();
   } else if ( m_view->getCurrentViMode() == VisualLineMode ) {
@@ -2284,52 +2285,52 @@ KateViRange KateViNormalMode::textObjectInnerBracket()
 // when adding commands here, remember to add them to visual mode too (if applicable)
 void KateViNormalMode::initializeCommands()
 {
-  m_commands.push_back( new KateViCommand( this, "a", &KateViNormalMode::commandEnterInsertModeAppend, false ) );
-  m_commands.push_back( new KateViCommand( this, "A", &KateViNormalMode::commandEnterInsertModeAppendEOL, false ) );
-  m_commands.push_back( new KateViCommand( this, "i", &KateViNormalMode::commandEnterInsertMode, false ) );
-  m_commands.push_back( new KateViCommand( this, "v", &KateViNormalMode::commandEnterVisualMode, false ) );
-  m_commands.push_back( new KateViCommand( this, "V", &KateViNormalMode::commandEnterVisualLineMode, false ) );
-  m_commands.push_back( new KateViCommand( this, "o", &KateViNormalMode::commandOpenNewLineUnder, false ) );
-  m_commands.push_back( new KateViCommand( this, "O", &KateViNormalMode::commandOpenNewLineOver, false ) );
-  m_commands.push_back( new KateViCommand( this, "J", &KateViNormalMode::commandJoinLines, false ) );
-  m_commands.push_back( new KateViCommand( this, "c", &KateViNormalMode::commandChange, false, true ) );
-  m_commands.push_back( new KateViCommand( this, "C", &KateViNormalMode::commandChangeToEOL, false ) );
-  m_commands.push_back( new KateViCommand( this, "cc", &KateViNormalMode::commandChangeLine, false ) );
-  m_commands.push_back( new KateViCommand( this, "s", &KateViNormalMode::commandSubstituteChar, false ) );
-  m_commands.push_back( new KateViCommand( this, "S", &KateViNormalMode::commandSubstituteLine, false ) );
-  m_commands.push_back( new KateViCommand( this, "dd", &KateViNormalMode::commandDeleteLine, false ) );
-  m_commands.push_back( new KateViCommand( this, "d", &KateViNormalMode::commandDelete, false, true ) );
-  m_commands.push_back( new KateViCommand( this, "D", &KateViNormalMode::commandDeleteToEOL, false ) );
-  m_commands.push_back( new KateViCommand( this, "x", &KateViNormalMode::commandDeleteChar, false ) );
-  m_commands.push_back( new KateViCommand( this, "X", &KateViNormalMode::commandDeleteCharBackward, false ) );
-  m_commands.push_back( new KateViCommand( this, "gq", &KateViNormalMode::commandFormatLines, false, true ) );
+  m_commands.push_back( new KateViCommand( this, "a", &KateViNormalMode::commandEnterInsertModeAppend ) );
+  m_commands.push_back( new KateViCommand( this, "A", &KateViNormalMode::commandEnterInsertModeAppendEOL ) );
+  m_commands.push_back( new KateViCommand( this, "i", &KateViNormalMode::commandEnterInsertMode ) );
+  m_commands.push_back( new KateViCommand( this, "v", &KateViNormalMode::commandEnterVisualMode ) );
+  m_commands.push_back( new KateViCommand( this, "V", &KateViNormalMode::commandEnterVisualLineMode ) );
+  m_commands.push_back( new KateViCommand( this, "o", &KateViNormalMode::commandOpenNewLineUnder ) );
+  m_commands.push_back( new KateViCommand( this, "O", &KateViNormalMode::commandOpenNewLineOver ) );
+  m_commands.push_back( new KateViCommand( this, "J", &KateViNormalMode::commandJoinLines ) );
+  m_commands.push_back( new KateViCommand( this, "c", &KateViNormalMode::commandChange, NEEDS_MOTION ) );
+  m_commands.push_back( new KateViCommand( this, "C", &KateViNormalMode::commandChangeToEOL ) );
+  m_commands.push_back( new KateViCommand( this, "cc", &KateViNormalMode::commandChangeLine ) );
+  m_commands.push_back( new KateViCommand( this, "s", &KateViNormalMode::commandSubstituteChar ) );
+  m_commands.push_back( new KateViCommand( this, "S", &KateViNormalMode::commandSubstituteLine ) );
+  m_commands.push_back( new KateViCommand( this, "dd", &KateViNormalMode::commandDeleteLine ) );
+  m_commands.push_back( new KateViCommand( this, "d", &KateViNormalMode::commandDelete, NEEDS_MOTION ) );
+  m_commands.push_back( new KateViCommand( this, "D", &KateViNormalMode::commandDeleteToEOL ) );
+  m_commands.push_back( new KateViCommand( this, "x", &KateViNormalMode::commandDeleteChar ) );
+  m_commands.push_back( new KateViCommand( this, "X", &KateViNormalMode::commandDeleteCharBackward ) );
+  m_commands.push_back( new KateViCommand( this, "gq", &KateViNormalMode::commandFormatLines, NEEDS_MOTION ) );
 //m_commands.push_back( new KateViCommand( this, "gqgq", &KateViNormalMode::commandFormatLines, false, true ) );
 //m_commands.push_back( new KateViCommand( this, "gqq", &KateViNormalMode::commandFormatLines, false, true ) );
-  m_commands.push_back( new KateViCommand( this, "gu", &KateViNormalMode::commandMakeLowercase, false, true ) );
-  m_commands.push_back( new KateViCommand( this, "guu", &KateViNormalMode::commandMakeLowercaseLine, false ) );
-  m_commands.push_back( new KateViCommand( this, "gU", &KateViNormalMode::commandMakeUppercase, false, true ) );
-  m_commands.push_back( new KateViCommand( this, "gUU", &KateViNormalMode::commandMakeUppercaseLine, false ) );
-  m_commands.push_back( new KateViCommand( this, "y", &KateViNormalMode::commandYank, false, true ) );
-  m_commands.push_back( new KateViCommand( this, "yy", &KateViNormalMode::commandYankLine, false ) );
-  m_commands.push_back( new KateViCommand( this, "Y", &KateViNormalMode::commandYankToEOL, false, true ) );
-  m_commands.push_back( new KateViCommand( this, "p", &KateViNormalMode::commandPaste, false, false ) );
-  m_commands.push_back( new KateViCommand( this, "P", &KateViNormalMode::commandPasteBefore, false, false ) );
-  m_commands.push_back( new KateViCommand( this, "r.", &KateViNormalMode::commandReplaceCharacter, true ) );
-  m_commands.push_back( new KateViCommand( this, ":", &KateViNormalMode::commandSwitchToCmdLine, false ) );
-  m_commands.push_back( new KateViCommand( this, "/", &KateViNormalMode::commandSearch, false ) );
-  m_commands.push_back( new KateViCommand( this, "u", &KateViNormalMode::commandUndo, false ) );
-  m_commands.push_back( new KateViCommand( this, "<c-r>", &KateViNormalMode::commandRedo, false ) );
-  m_commands.push_back( new KateViCommand( this, "U", &KateViNormalMode::commandRedo, false ) );
-  m_commands.push_back( new KateViCommand( this, "m.", &KateViNormalMode::commandSetMark, true, false ) );
-  m_commands.push_back( new KateViCommand( this, "n", &KateViNormalMode::commandFindNext, false ) );
-  m_commands.push_back( new KateViCommand( this, "N", &KateViNormalMode::commandFindPrev, false ) );
-  m_commands.push_back( new KateViCommand( this, ">>", &KateViNormalMode::commandIndentLine, false ) );
-  m_commands.push_back( new KateViCommand( this, "<<", &KateViNormalMode::commandUnindentLine, false ) );
-  m_commands.push_back( new KateViCommand( this, ">", &KateViNormalMode::commandIndentLines, false, true ) );
-  m_commands.push_back( new KateViCommand( this, "<", &KateViNormalMode::commandUnindentLines, false, true ) );
-  m_commands.push_back( new KateViCommand( this, "<c-f>", &KateViNormalMode::commandScrollPageDown, false ) );
-  m_commands.push_back( new KateViCommand( this, "<c-b>", &KateViNormalMode::commandScrollPageUp, false ) );
-  m_commands.push_back( new KateViCommand( this, "ga", &KateViNormalMode::commandPrintCharacterCode, false, false, false ) );
+  m_commands.push_back( new KateViCommand( this, "gu", &KateViNormalMode::commandMakeLowercase, NEEDS_MOTION ) );
+  m_commands.push_back( new KateViCommand( this, "guu", &KateViNormalMode::commandMakeLowercaseLine ) );
+  m_commands.push_back( new KateViCommand( this, "gU", &KateViNormalMode::commandMakeUppercase, NEEDS_MOTION ) );
+  m_commands.push_back( new KateViCommand( this, "gUU", &KateViNormalMode::commandMakeUppercaseLine ) );
+  m_commands.push_back( new KateViCommand( this, "y", &KateViNormalMode::commandYank, NEEDS_MOTION ) );
+  m_commands.push_back( new KateViCommand( this, "yy", &KateViNormalMode::commandYankLine ) );
+  m_commands.push_back( new KateViCommand( this, "Y", &KateViNormalMode::commandYankToEOL, NEEDS_MOTION ) );
+  m_commands.push_back( new KateViCommand( this, "p", &KateViNormalMode::commandPaste ) );
+  m_commands.push_back( new KateViCommand( this, "P", &KateViNormalMode::commandPasteBefore ) );
+  m_commands.push_back( new KateViCommand( this, "r.", &KateViNormalMode::commandReplaceCharacter, REGEX_PATTERN ) );
+  m_commands.push_back( new KateViCommand( this, ":", &KateViNormalMode::commandSwitchToCmdLine ) );
+  m_commands.push_back( new KateViCommand( this, "/", &KateViNormalMode::commandSearch ) );
+  m_commands.push_back( new KateViCommand( this, "u", &KateViNormalMode::commandUndo ) );
+  m_commands.push_back( new KateViCommand( this, "<c-r>", &KateViNormalMode::commandRedo ) );
+  m_commands.push_back( new KateViCommand( this, "U", &KateViNormalMode::commandRedo ) );
+  m_commands.push_back( new KateViCommand( this, "m.", &KateViNormalMode::commandSetMark, REGEX_PATTERN ) );
+  m_commands.push_back( new KateViCommand( this, "n", &KateViNormalMode::commandFindNext ) );
+  m_commands.push_back( new KateViCommand( this, "N", &KateViNormalMode::commandFindPrev ) );
+  m_commands.push_back( new KateViCommand( this, ">>", &KateViNormalMode::commandIndentLine ) );
+  m_commands.push_back( new KateViCommand( this, "<<", &KateViNormalMode::commandUnindentLine ) );
+  m_commands.push_back( new KateViCommand( this, ">", &KateViNormalMode::commandIndentLines, NEEDS_MOTION ) );
+  m_commands.push_back( new KateViCommand( this, "<", &KateViNormalMode::commandUnindentLines, NEEDS_MOTION ) );
+  m_commands.push_back( new KateViCommand( this, "<c-f>", &KateViNormalMode::commandScrollPageDown ) );
+  m_commands.push_back( new KateViCommand( this, "<c-b>", &KateViNormalMode::commandScrollPageUp ) );
+  m_commands.push_back( new KateViCommand( this, "ga", &KateViNormalMode::commandPrintCharacterCode, SHOULD_NOT_RESET ) );
 
   // regular motions
   m_motions.push_back( new KateViMotion( this, "h", &KateViNormalMode::motionLeft ) );
@@ -2347,10 +2348,10 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "0", &KateViNormalMode::motionToColumn0 ) );
   m_motions.push_back( new KateViMotion( this, "<home>", &KateViNormalMode::motionToColumn0 ) );
   m_motions.push_back( new KateViMotion( this, "^", &KateViNormalMode::motionToFirstCharacterOfLine ) );
-  m_motions.push_back( new KateViMotion( this, "f.", &KateViNormalMode::motionFindChar, true ) );
-  m_motions.push_back( new KateViMotion( this, "F.", &KateViNormalMode::motionFindCharBackward, true ) );
-  m_motions.push_back( new KateViMotion( this, "t.", &KateViNormalMode::motionToChar, true ) );
-  m_motions.push_back( new KateViMotion( this, "T.", &KateViNormalMode::motionToCharBackward, true ) );
+  m_motions.push_back( new KateViMotion( this, "f.", &KateViNormalMode::motionFindChar, REGEX_PATTERN ) );
+  m_motions.push_back( new KateViMotion( this, "F.", &KateViNormalMode::motionFindCharBackward, REGEX_PATTERN ) );
+  m_motions.push_back( new KateViMotion( this, "t.", &KateViNormalMode::motionToChar, REGEX_PATTERN ) );
+  m_motions.push_back( new KateViMotion( this, "T.", &KateViNormalMode::motionToCharBackward, REGEX_PATTERN ) );
   m_motions.push_back( new KateViMotion( this, "gg", &KateViNormalMode::motionToLineFirst ) );
   m_motions.push_back( new KateViMotion( this, "G", &KateViNormalMode::motionToLineLast ) );
   m_motions.push_back( new KateViMotion( this, "w", &KateViNormalMode::motionWordForward ) );
@@ -2361,8 +2362,8 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "E", &KateViNormalMode::motionToEndOfWORD ) );
   m_motions.push_back( new KateViMotion( this, "|", &KateViNormalMode::motionToScreenColumn ) );
   m_motions.push_back( new KateViMotion( this, "%", &KateViNormalMode::motionToMatchingItem ) );
-  m_motions.push_back( new KateViMotion( this, "`.", &KateViNormalMode::motionToMark, true ) );
-  m_motions.push_back( new KateViMotion( this, "'.", &KateViNormalMode::motionToMarkLine, true ) );
+  m_motions.push_back( new KateViMotion( this, "`.", &KateViNormalMode::motionToMark, REGEX_PATTERN ) );
+  m_motions.push_back( new KateViMotion( this, "'.", &KateViNormalMode::motionToMarkLine, REGEX_PATTERN ) );
   m_motions.push_back( new KateViMotion( this, "[[", &KateViNormalMode::motionToPreviousBraceBlockStart ) );
   m_motions.push_back( new KateViMotion( this, "]]", &KateViNormalMode::motionToNextBraceBlockStart ) );
   m_motions.push_back( new KateViMotion( this, "[]", &KateViNormalMode::motionToPreviousBraceBlockEnd ) );
@@ -2375,10 +2376,10 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "a\"", &KateViNormalMode::textObjectAQuoteDouble ) );
   m_motions.push_back( new KateViMotion( this, "i'", &KateViNormalMode::textObjectInnerQuoteSingle ) );
   m_motions.push_back( new KateViMotion( this, "a'", &KateViNormalMode::textObjectAQuoteSingle ) );
-  m_motions.push_back( new KateViMotion( this, "i[()]", &KateViNormalMode::textObjectInnerParen, true ) );
-  m_motions.push_back( new KateViMotion( this, "a[()]", &KateViNormalMode::textObjectAParen, true ) );
-  m_motions.push_back( new KateViMotion( this, "i[\\[\\]]", &KateViNormalMode::textObjectInnerBracket, true ) );
-  m_motions.push_back( new KateViMotion( this, "a[\\[\\]]", &KateViNormalMode::textObjectABracket, true ) );
+  m_motions.push_back( new KateViMotion( this, "i[()]", &KateViNormalMode::textObjectInnerParen, REGEX_PATTERN ) );
+  m_motions.push_back( new KateViMotion( this, "a[()]", &KateViNormalMode::textObjectAParen, REGEX_PATTERN ) );
+  m_motions.push_back( new KateViMotion( this, "i[\\[\\]]", &KateViNormalMode::textObjectInnerBracket, REGEX_PATTERN ) );
+  m_motions.push_back( new KateViMotion( this, "a[\\[\\]]", &KateViNormalMode::textObjectABracket, REGEX_PATTERN ) );
 }
 
 QRegExp KateViNormalMode::generateMatchingItemRegex()

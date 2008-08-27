@@ -19,8 +19,9 @@
 
 #include "katevimotion.h"
 
-KateViMotion::KateViMotion( KateViNormalMode *parent, QString pattern, KateViRange (KateViNormalMode::*commandMethod)(), bool regex )
-  : KateViCommand( parent, pattern, 0, regex )
+KateViMotion::KateViMotion( KateViNormalMode *parent, QString pattern,
+        KateViRange (KateViNormalMode::*commandMethod)(), unsigned int flags )
+  : KateViCommand( parent, pattern, 0, flags )
 {
   m_ptr2commandMethod = commandMethod;
 }

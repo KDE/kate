@@ -25,29 +25,30 @@
 
 class KateViNormalMode;
 
+enum KateViCommandFlags {
+    REGEX_PATTERN = 0x1,    // the pattern is a regex
+    NEEDS_MOTION = 0x2,     // the command needs a motion before it can be executed
+    SHOULD_NOT_RESET = 0x4, // the command should not cause the current mode to be left
+    IS_CHANGE = 0x8         // the command changes the buffer
+};
+
 class KateViCommand {
   public:
     KateViCommand( KateViNormalMode *parent, QString pattern,
-        bool ( KateViNormalMode::*pt2Func)(), bool regex = true );
-    KateViCommand( KateViNormalMode *parent, QString pattern,
-        bool ( KateViNormalMode::*pt2Func)(), bool regex, bool needsMotionOrTextObject );
-    KateViCommand( KateViNormalMode *parent, QString pattern,
-        bool ( KateViNormalMode::*pt2Func)(), bool regex, bool needsMotionOrTextObject, bool reset );
+        bool ( KateViNormalMode::*pt2Func)(), unsigned int flags = 0 );
     ~KateViCommand();
 
     bool matches( QString pattern ) const;
     bool matchesExact( QString pattern ) const;
     bool execute() const;
-    bool needsMotionOrTextObject() const { return m_needsMotionOrTextObject; }
-    bool shouldReset() const { return m_shouldReset; }
+    unsigned int flags() const { return m_flags; };
+
     QString pattern() const { return m_pattern; }
 
   protected:
     KateViNormalMode *m_parent;
     QString m_pattern;
-    bool m_needsMotionOrTextObject;
-    bool m_regex;
-    bool m_shouldReset; // if set, the command parser calls 
+    unsigned int m_flags;
     bool ( KateViNormalMode::*m_ptr2commandMethod)();
     KateViKeySequenceParser *m_keyParser;
 };

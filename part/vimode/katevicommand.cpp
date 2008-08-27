@@ -20,38 +20,14 @@
 #include "katevicommand.h"
 
 KateViCommand::KateViCommand( KateViNormalMode *parent, QString pattern,
-    bool( KateViNormalMode::*commandMethod)(), bool regex )
+    bool( KateViNormalMode::*commandMethod)(), unsigned int flags )
 {
   m_keyParser = new KateViKeySequenceParser();
 
   m_parent = parent;
   m_pattern = m_keyParser->encodeKeySequence( pattern );
-  m_regex = regex;
+  m_flags = flags;
   m_ptr2commandMethod = commandMethod;
-  m_needsMotionOrTextObject = false;
-  m_shouldReset = true;
-}
-
-KateViCommand::KateViCommand( KateViNormalMode *parent, QString pattern,
-    bool( KateViNormalMode::*commandMethod)(), bool regex, bool needsMotionOrTextObject )
-{
-  m_parent = parent;
-  m_pattern = pattern;
-  m_regex = regex;
-  m_ptr2commandMethod = commandMethod;
-  m_needsMotionOrTextObject = needsMotionOrTextObject;
-  m_shouldReset = true;
-}
-
-KateViCommand::KateViCommand( KateViNormalMode *parent, QString pattern,
-    bool( KateViNormalMode::*commandMethod)(), bool regex, bool needsMotionOrTextObject, bool reset )
-{
-  m_parent = parent;
-  m_pattern = pattern;
-  m_regex = regex;
-  m_ptr2commandMethod = commandMethod;
-  m_needsMotionOrTextObject = needsMotionOrTextObject;
-  m_shouldReset = reset;
 }
 
 KateViCommand::~KateViCommand()
@@ -66,7 +42,7 @@ bool KateViCommand::execute() const
 
 bool KateViCommand::matches( QString pattern ) const
 {
-  if ( !m_regex )
+  if ( !( m_flags & REGEX_PATTERN ) )
     return m_pattern.startsWith( pattern );
   else {
     QRegExp re( m_pattern );
@@ -77,7 +53,7 @@ bool KateViCommand::matches( QString pattern ) const
 
 bool KateViCommand::matchesExact( QString pattern ) const
 {
-  if ( !m_regex )
+  if ( !( m_flags & REGEX_PATTERN ) )
     return ( m_pattern == pattern );
   else {
     QRegExp re( m_pattern );

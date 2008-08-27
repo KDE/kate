@@ -281,13 +281,14 @@ class KateCmdLineEditFlagCompletion : public KCompletion
 //END KateCmdLineEditFlagCompletion
 
 //BEGIN KateCmdLineEdit
-KateCmdLine::KateCmdLine (KateView *view, KateViewBar *viewBar)
-    : KateViewBarWidget (viewBar)
+KateCmdLine::KateCmdLine (KateView *view, QWidget *parent)
+    : KateViewBarWidget (true, view, parent)
 {
     QVBoxLayout *topLayout = new QVBoxLayout ();
     centralWidget()->setLayout(topLayout);
     topLayout->setMargin(0);
     m_lineEdit = new KateCmdLineEdit (this, view);
+    connect(m_lineEdit, SIGNAL(hideRequested()), SIGNAL(hideMe()));
     topLayout->addWidget (m_lineEdit);
 
     setFocusProxy (m_lineEdit);
@@ -441,13 +442,13 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
   m_cmdend = 0;
 
   m_view->setFocus ();
-  QTimer::singleShot( 4000, this, SLOT(hideBar()) );
+  QTimer::singleShot( 4000, this, SLOT(hideLineEdit()) );
 }
 
-void KateCmdLineEdit::hideBar () // unless i have focus ;)
+void KateCmdLineEdit::hideLineEdit () // unless i have focus ;)
 {
   if ( ! hasFocus() ) {
-     m_bar->hideBar ();
+      emit hideRequested();
   }
 }
 
@@ -468,7 +469,7 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
   if (ev->key() == Qt::Key_Escape)
   {
     m_view->setFocus ();
-    hideBar();
+    hideLineEdit();
   }
   else if ( ev->key() == Qt::Key_Up )
     fromHistory( true );
@@ -1796,48 +1797,31 @@ bool KateViewEncodingAction::setCurrentCodec( int mib )
 
 //BEGIN KateViewBar related classes
 
-KateViewBarWidget::KateViewBarWidget (KateViewBar *viewBar)
- : QWidget (viewBar), m_viewBar (viewBar)
+KateViewBarWidget::KateViewBarWidget (bool addCloseButton, KateView* view, QWidget *parent)
+ : QWidget (parent), m_view(view)
 {
-  m_viewBar->addBarWidget (this);
-
   QHBoxLayout *layout = new QHBoxLayout;
 
   // NOTE: Here be cosmetics.
   layout->setMargin(2);
 
   // hide button
-  QToolButton *hideButton = new QToolButton(this);
-  hideButton->setAutoRaise(true);
-  hideButton->setIcon(KIcon("dialog-close"));
-  connect(hideButton, SIGNAL(clicked()), this, SLOT(hideBar()));
-  layout->addWidget(hideButton);
-  layout->setAlignment( hideButton, Qt::AlignLeft|Qt::AlignTop );
+  if (addCloseButton) {
+    QToolButton *hideButton = new QToolButton(this);
+    hideButton->setAutoRaise(true);
+    hideButton->setIcon(KIcon("dialog-close"));
+    connect(hideButton, SIGNAL(clicked()), SIGNAL(hideMe()));
+    layout->addWidget(hideButton);
+    layout->setAlignment( hideButton, Qt::AlignLeft|Qt::AlignTop );
+  }
 
   // widget to be used as parent for the real content
-  m_centralWidget = new QWidget ();
+  m_centralWidget = new QWidget (this);
   layout->addWidget(m_centralWidget);
 
   setLayout(layout);
   setFocusProxy(m_centralWidget);
 }
-
-void KateViewBarWidget::showBar ()
-{
-  m_viewBar->showBarWidget (this);
-}
-
-void KateViewBarWidget::hideBar ()
-{
-  kDebug()<<"entered";
-  // let the barwidget do some stuff on hide, perhaps even say: no, don't hide me...
-  if (!hideIsTriggered ())
-    return;
-
-  m_viewBar->hideBarWidget ();
-}
-
-
 
 KateStackedLayout::KateStackedLayout(QWidget* parent)
   : QStackedLayout(parent)
@@ -1868,8 +1852,14 @@ KateViewBar::KateViewBar (QWidget *parent, KateView *view)
 
 void KateViewBar::addBarWidget (KateViewBarWidget *newBarWidget)
 {
+  if (hasWidget(newBarWidget)) {
+      kDebug(13025) << "this bar widget is already added";
+      return;
+  }
   // add new widget, invisible...
+  newBarWidget->hide();
   m_stack->addWidget (newBarWidget);
+  connect(newBarWidget, SIGNAL(hideMe()), SLOT(hideCurrentBarWidget()));
 
   kDebug(13025)<<"add barwidget " << newBarWidget;
 }
@@ -1878,6 +1868,7 @@ void KateViewBar::showBarWidget (KateViewBarWidget *barWidget)
 {
   // raise correct widget
   m_stack->setCurrentWidget (barWidget);
+  barWidget->show();
   kDebug(13025)<<"show barwidget " << barWidget;
   
   if (m_view->externalViewBar()) {
@@ -1888,7 +1879,18 @@ void KateViewBar::showBarWidget (KateViewBarWidget *barWidget)
     show ();
 }
 
-void KateViewBar::hideBarWidget ()
+bool KateViewBar::hasWidget(KateViewBarWidget* wid) const
+{
+    int count = m_stack->count();
+    for (int i=0; i<count; ++i) {
+        if (m_stack->widget(i) == wid) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void KateViewBar::hideCurrentBarWidget ()
 {
   if (m_view->externalViewBar()) {
     KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
@@ -1903,7 +1905,7 @@ void KateViewBar::hideBarWidget ()
 void KateViewBar::keyPressEvent(QKeyEvent* event)
 {
   if (event->key() == Qt::Key_Escape) {
-    hideBarWidget();
+    hideCurrentBarWidget();
     return;
   }
   QWidget::keyPressEvent(event);

@@ -1106,8 +1106,8 @@ void KateView::slotSaveCanceled( const QString& error )
 
 void KateView::gotoLine()
 {
-  // show it
-  gotoBar()->showBar ();
+  gotoBar()->updateData();
+  m_viewBar->showBarWidget(gotoBar());
 }
 
 void KateView::joinLines()
@@ -1290,20 +1290,20 @@ void KateView::find()
   const bool INIT_HINT_AS_INCREMENTAL = false;
   KateSearchBar * const bar = searchBar(INIT_HINT_AS_INCREMENTAL);
   bar->onMutateIncremental();
-  bar->showBar();
+  m_viewBar->showBarWidget(bar);
   bar->setFocus();
 }
 
 void KateView::findSelectedForwards()
 {
   const bool FORWARDS = true;
-  KateSearchBar::nextMatchForSelection(m_viewBar->view(), FORWARDS);
+  KateSearchBar::nextMatchForSelection(this, FORWARDS);
 }
 
 void KateView::findSelectedBackwards()
 {
   const bool BACKWARDS = false;
-  KateSearchBar::nextMatchForSelection(m_viewBar->view(), BACKWARDS);
+  KateSearchBar::nextMatchForSelection(this, BACKWARDS);
 }
 
 void KateView::replace()
@@ -1311,7 +1311,7 @@ void KateView::replace()
   const bool INIT_HINT_AS_POWER = true;
   KateSearchBar * const bar = searchBar(INIT_HINT_AS_POWER);
   bar->onMutatePower();
-  bar->showBar();
+  m_viewBar->showBarWidget(bar);
   bar->setFocus();
 }
 
@@ -1341,7 +1341,7 @@ void KateView::slotSelectionChanged ()
 
 void KateView::switchToCmdLine ()
 {
-  cmdLine()->showBar ();
+  m_viewBar->showBarWidget(cmdLine());
   cmdLine()->setFocus ();
 }
 
@@ -2698,33 +2698,37 @@ void KateView::userInvokedCompletion()
   completionWidget()->userInvokedCompletion();
 }
 
-KateCmdLine *KateView::cmdLine ()
-{
-  if (m_cmdLine)
-    return m_cmdLine;
-
-  return m_cmdLine = new KateCmdLine (this, m_viewBar);
-}
-
 KateViewBar *KateView::viewBar() const
 {
   return m_viewBar;
 }
 
+KateCmdLine *KateView::cmdLine ()
+{
+  if (!m_cmdLine) {
+    m_cmdLine = new KateCmdLine (this, m_viewBar);
+    m_viewBar->addBarWidget(m_cmdLine);
+  }
+
+  return m_cmdLine;
+}
+
 KateSearchBar *KateView::searchBar (bool initHintAsPower)
 {
-  if (m_searchBar)
-    return m_searchBar;
-
-  return m_searchBar = new KateSearchBar(m_viewBar, initHintAsPower);
+  if (!m_searchBar) {
+    m_searchBar = new KateSearchBar(initHintAsPower, this);
+    m_viewBar->addBarWidget(m_searchBar);
+  }
+  return m_searchBar;
 }
 
 KateGotoBar *KateView::gotoBar ()
 {
-  if (m_gotoBar)
-    return m_gotoBar;
+  if (!m_gotoBar) {
+    m_gotoBar = new KateGotoBar (this);
+    m_viewBar->addBarWidget(m_gotoBar);
+  }
 
-  m_gotoBar = new KateGotoBar (m_viewBar);
   return m_gotoBar;
 }
 

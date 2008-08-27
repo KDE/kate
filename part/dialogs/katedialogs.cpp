@@ -1054,8 +1054,8 @@ void KateHlDownloadDialog::slotUser1()
 //END KateHlDownloadDialog
 
 //BEGIN KateGotoBar
-KateGotoBar::KateGotoBar(KateViewBar *parent)
-  : KateViewBarWidget( parent )
+KateGotoBar::KateGotoBar(KateView* view, QWidget *parent)
+  : KateViewBarWidget( true, view, parent )
 {
   QHBoxLayout *topLayout = new QHBoxLayout( centralWidget() );
   topLayout->setMargin(0);
@@ -1079,19 +1079,19 @@ KateGotoBar::KateGotoBar(KateViewBar *parent)
   topLayout->addStretch();
 }
 
-void KateGotoBar::showBar()
+void KateGotoBar::updateData()
 {
-  KateView* view = viewBar()->view();
-  gotoRange->setMaximum(view->doc()->lines());
+  if (!view())
+    return;
+
+  gotoRange->setMaximum(view()->doc()->lines());
   if (!isVisible())
   {
-    gotoRange->setValue(view->cursorPosition().line() + 1);
+    gotoRange->setValue(view()->cursorPosition().line() + 1);
     gotoRange->adjustSize(); // ### does not respect the range :-(
   }
   gotoRange->setFocus(Qt::OtherFocusReason);
   gotoRange->selectAll();
-
-  KateViewBarWidget::showBar();
 }
 
 void KateGotoBar::keyPressEvent(QKeyEvent* event)
@@ -1106,9 +1106,9 @@ void KateGotoBar::keyPressEvent(QKeyEvent* event)
 
 void KateGotoBar::gotoLine()
 {
-  viewBar()->view()->setCursorPosition( KTextEditor::Cursor(gotoRange->value() - 1, 0) );
-  viewBar()->view()->setFocus();
-  hideBar();
+  view()->setCursorPosition( KTextEditor::Cursor(gotoRange->value() - 1, 0) );
+  view()->setFocus();
+  emit hideMe();
 }
 //END KateGotoBar
 

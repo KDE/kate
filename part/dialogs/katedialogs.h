@@ -109,10 +109,9 @@ class KateGotoBar : public KateViewBarWidget
   Q_OBJECT
 
   public:
-    KateGotoBar(KateViewBar *parent);
+    explicit KateGotoBar(KateView *view, QWidget *parent = 0);
 
-  public Q_SLOTS:
-    void showBar();
+    void updateData();
 
   protected Q_SLOTS:
     void gotoLine();
@@ -121,6 +120,7 @@ class KateGotoBar : public KateViewBarWidget
     virtual void keyPressEvent(QKeyEvent* event);
 
   private:
+    KateView* m_view;
     QSpinBox *gotoRange;
     QToolButton *btnOK;
 };

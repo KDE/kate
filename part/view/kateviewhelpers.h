@@ -260,22 +260,21 @@ class KateViewBarWidget : public QWidget
   Q_OBJECT
 
   public:
-    KateViewBarWidget (KateViewBar *viewBar);
-
-    KateViewBar *viewBar () { return m_viewBar; }
-    QWidget *centralWidget () { return m_centralWidget; }
-
-  public Q_SLOTS:
-    void showBar ();
-    void hideBar ();
+    explicit KateViewBarWidget (bool addCloseButton, KateView* view, QWidget* parent = 0);
 
   protected:
-    // allow subclass to avoid hiding...
-    virtual bool hideIsTriggered () { return true; }
+    /**
+     * @return widget that should be used to add controls to bar widget
+     */
+    QWidget *centralWidget() { return m_centralWidget; }
+    KateView* view() { return m_view; }
+
+  signals:
+    void hideMe();
 
   private:
-    KateViewBar *m_viewBar;
     QWidget *m_centralWidget;
+    KateView* m_view;
 };
 
 // Helper layout class to always provide minimum size
@@ -292,22 +291,21 @@ class KateViewBar : public QWidget
 {
   Q_OBJECT
 
-  friend class KateViewBarWidget;
-
   public:
     KateViewBar (QWidget *parent,KateView *view);
 
-    KateView *view () { return m_view; }
+    void addBarWidget (KateViewBarWidget *newBarWidget);
+    void showBarWidget (KateViewBarWidget *barWidget);
+
+  public Q_SLOTS:
+    void hideCurrentBarWidget();
 
   protected:
     virtual void keyPressEvent(QKeyEvent* event);
     virtual void hideEvent(QHideEvent* event);
 
   private:
-    void addBarWidget (KateViewBarWidget *newBarWidget);
-    void showBarWidget (KateViewBarWidget *barWidget);
-  public:
-    void hideBarWidget ();
+    bool hasWidget(KateViewBarWidget*) const;
 
   private:
     KateView *m_view;
@@ -317,7 +315,7 @@ class KateViewBar : public QWidget
 class KateCmdLine : public KateViewBarWidget
 {
   public:
-    explicit KateCmdLine(KateView *view, KateViewBar *viewBar);
+    explicit KateCmdLine(KateView *view, QWidget *parent = 0);
     ~KateCmdLine();
 
   private:
@@ -331,9 +329,13 @@ class KateCmdLineEdit : public KLineEdit
   public:
     KateCmdLineEdit (KateCmdLine *bar, KateView *view);
     virtual bool event(QEvent *e);
+
+  signals:
+    void hideRequested();
+
   private Q_SLOTS:
+    void hideLineEdit();
     void slotReturnPressed ( const QString& cmd );
-    void hideBar ();
 
   protected:
     void focusInEvent ( QFocusEvent *ev );

@@ -57,7 +57,7 @@ private:
     };
 
 public:
-    explicit KateSearchBar(KateViewBar * viewBar, bool initAsPower);
+    explicit KateSearchBar(bool initAsPower, KateView* view, QWidget* parent=0);
     ~KateSearchBar();
 
 public Q_SLOTS:
@@ -144,7 +144,6 @@ private:
 
 private:
     // Shared by both dialogs
-    KateView * m_view;
     KTextEditor::SmartRange * m_topRange;
     QVBoxLayout * m_layout;
     QWidget * m_widget;

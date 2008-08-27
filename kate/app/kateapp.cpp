@@ -257,6 +257,8 @@ bool KateApp::startupKate ()
   // show the nice tips
   KTipDialog::showTip(activeMainWindow());
 
+  activeMainWindow()->setAutoSaveSettings();
+
   kDebug() << "KateApplication::init finished successful";
   return true;
 }

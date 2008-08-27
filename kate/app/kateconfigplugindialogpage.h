@@ -2,6 +2,7 @@
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2007 Mirko Stocker <me@misto.ch>
+   Copyright (C) 2008 Rafael Fernández López <ereslibre@kde.org>
  
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -22,42 +23,27 @@
 #define __KATE_CONFIGPLUGINDIALOGPAGE_H__
 
 #include <KVBox>
-#include <QTreeWidget>
+#include <kplugininfo.h>
 
 class KatePluginListItem;
-
-class KatePluginListView : public QTreeWidget
-{
-    Q_OBJECT
-
-  public:
-    KatePluginListView (QWidget *parent = 0);
-
-  Q_SIGNALS:
-    void stateChange(KatePluginListItem *, bool);
-
-  private Q_SLOTS:
-    void stateChanged(QTreeWidgetItem *);
-};
+class KPluginSelector;
 
 class KateConfigPluginPage: public KVBox
 {
     Q_OBJECT
 
   public:
-    KateConfigPluginPage(QWidget *parent, class KateConfigDialog *dialog);
+    KateConfigPluginPage(QList<KPluginInfo> &pluginInfolist, QWidget *parent, class KateConfigDialog *dialog);
 
   private:
     class KateConfigDialog *myDialog;
+    KPluginSelector *pluginSelector;
 
   Q_SIGNALS:
     void changed();
 
   private Q_SLOTS:
-    void stateChange(KatePluginListItem *, bool);
-
-    void loadPlugin (KatePluginListItem *);
-    void unloadPlugin (KatePluginListItem *);
+    void stateChange();
 };
 
 #endif

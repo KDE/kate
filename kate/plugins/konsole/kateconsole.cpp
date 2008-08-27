@@ -49,7 +49,6 @@
 #include <kpluginfactory.h>
 #include <kauthorized.h>
 
-// K_EXPORT_COMPONENT_FACTORY( katekonsoleplugin, KGenericFactory<KateKonsolePlugin>( "katekonsoleplugin" ) )
 K_PLUGIN_FACTORY_DECLARATION(KateKonsolePluginFactory)
 
 KateKonsolePlugin *KateKonsolePlugin::mPlugin = 0;

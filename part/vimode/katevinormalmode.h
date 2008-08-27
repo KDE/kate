@@ -40,12 +40,12 @@ class KateViMotion;
  * Commands for the vi normal mode
  */
 
-class KateViNormalMode : public QObject {
+class KateViNormalMode {
   friend class KateViInsertMode;
 
   public:
     KateViNormalMode( KateView * view, KateViewInternal * viewInternal );
-    ~KateViNormalMode();
+    virtual ~KateViNormalMode();
 
     bool handleKeypress( QKeyEvent *e );
 

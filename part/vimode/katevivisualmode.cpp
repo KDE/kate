@@ -70,7 +70,12 @@ void KateViVisualMode::goToPos( KateViRange r )
 {
   KTextEditor::Cursor cursor = m_view->cursorPosition();
 
-  if ( r.startLine != -1 && r.startColumn != -1 && cursor < m_start ) {
+  if ( r.startLine != -1 && r.startColumn != -1 && cursor == m_start ) {
+    m_start.setLine( r.startLine );
+    m_start.setColumn( r.startColumn );
+    cursor.setLine( r.endLine );
+    cursor.setColumn( r.endColumn );
+  } else if ( r.startLine != -1 && r.startColumn != -1 && cursor < m_start ) {
     cursor.setLine( r.startLine );
     cursor.setColumn( r.startColumn );
   } else {

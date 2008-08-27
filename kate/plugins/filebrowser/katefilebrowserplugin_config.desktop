@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=katefilebrowserplugin
+X-KDE-ParentComponents=katefilebrowserplugin
+Name=Behavior

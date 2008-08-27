@@ -27,7 +27,7 @@
 #include <ktexteditor/configpage.h>
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
-#include <kate/pluginconfigpageinterface.h>
+#include <kcmodule.h>
 #include <kurlcombobox.h>
 
 #include <kvbox.h>
@@ -47,23 +47,21 @@ class QSpinBox;
 
 class KateFileSelector;
 
-class KateFileSelectorPlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
+class KateFileSelectorPlugin: public Kate::Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
-    explicit KateFileSelectorPlugin( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KateFileSelectorPlugin( QObject* parent = 0, const QVariantList& = QVariantList() );
     virtual ~KateFileSelectorPlugin()
-    {}
+    { plugin = 0; m_fileSelector = 0; }
+
+    static KateFileSelectorPlugin *self() { return plugin; }
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
-    uint configPages() const;
-    Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
-    QString configPageName (uint number = 0) const;
-    QString configPageFullName (uint number = 0) const;
-    KIcon configPageIcon (uint number = 0) const;
     KateFileSelector *m_fileSelector;
+
+    static KateFileSelectorPlugin *plugin;
 };
 
 class KateFileSelectorPluginView : public Kate::PluginView
@@ -199,18 +197,16 @@ class KateFileSelector : public KVBox
     of the path and file filter combos, and how to handle
     user closed session.
 */
-class KFSConfigPage : public Kate::PluginConfigPage
+class KFSConfigPage : public KCModule
 {
     Q_OBJECT
   public:
-    explicit KFSConfigPage( QWidget* parent = 0, const char *name = 0, KateFileSelector *kfs = 0);
+    explicit KFSConfigPage( QWidget* parent = 0, const QVariantList& = QVariantList() );
     virtual ~KFSConfigPage()
     {}
 
-    virtual void apply();
-    virtual void reset();
-    virtual void defaults()
-    {}
+    virtual void save();
+    virtual void load();
 
   private Q_SLOTS:
     void slotMyChanged();

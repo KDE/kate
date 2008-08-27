@@ -111,10 +111,6 @@ class KatePluginSymbolViewerConfigPage : public KCModule
     explicit KatePluginSymbolViewerConfigPage (QWidget* parent = 0L, const QVariantList& = QVariantList());
     ~KatePluginSymbolViewerConfigPage ();
 
-    /**
-     * Reimplemented from Kate::PluginConfigPage
-     * just emits configPageApplyRequest( this ).
-     */
     virtual void save();
 
     virtual void load () { ; }

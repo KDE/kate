@@ -23,9 +23,9 @@
 
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
-#include <kate/pluginconfigpageinterface.h>
 #include <kurl.h>
 #include <kxmlguiclient.h>
+#include <kcmodule.h>
 
 #include <kvbox.h>
 #include <QList>
@@ -44,28 +44,23 @@ namespace KateMDI
 class KateConsole;
 class KateKonsolePluginView;
 
-class KateKonsolePlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
+class KateKonsolePlugin: public Kate::Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(Kate::PluginConfigPageInterface)
   public:
-    explicit KateKonsolePlugin( QObject* parent = 0, const QStringList& = QStringList() );
+    explicit KateKonsolePlugin( QObject* parent = 0, const QVariantList& = QVariantList() );
     virtual ~KateKonsolePlugin()
     {}
 
-    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+    static KateKonsolePlugin *self() { return mPlugin; }
 
-    // PluginConfigPageInterface
-    uint configPages() const { return 1; };
-    Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
-    QString configPageName (uint number = 0) const;
-    QString configPageFullName (uint number = 0) const;
-    KIcon configPageIcon (uint number = 0) const;
+    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
     void readConfig();
 
   private:
     QList<KateKonsolePluginView*> mViews;
+    static KateKonsolePlugin *mPlugin;
 };
 
 class KateKonsolePluginView : public Kate::PluginView
@@ -186,17 +181,19 @@ class KateConsole : public KVBox, public KXMLGUIClient
     QWidget *m_toolView;
 };
 
-class KateKonsoleConfigPage : public Kate::PluginConfigPage {
-    Q_OBJECT
+class KateKonsoleConfigPage : public KCModule {
+Q_OBJECT
   public:
-    explicit KateKonsoleConfigPage( QWidget* parent = 0, KateKonsolePlugin *plugin = 0 );
+    explicit KateKonsoleConfigPage( QWidget* parent = 0, const QVariantList& = QVariantList() );
     virtual ~KateKonsoleConfigPage()
     {}
 
-    virtual void apply();
-    virtual void reset();
-    virtual void defaults()
-    {}
+    virtual void save();
+    virtual void load();
+    
+  private slots:
+    void slotChanged();
+    
   private:
     class QCheckBox *cbAutoSyncronize;
     KateKonsolePlugin *mPlugin;

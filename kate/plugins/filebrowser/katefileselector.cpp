@@ -834,7 +834,7 @@ void KFSConfigPage::init()
 void KFSConfigPage::slotMyChanged()
 {
   m_changed = true;
-  emit changed();
+  emit changed(true);
 }
 //END KFSConfigPage
 
@@ -843,4 +843,5 @@ K_PLUGIN_FACTORY_DEFINITION(KateFileSelectorPluginFactory,
         registerPlugin<KFSConfigPage>("katefilebrowserplugin_config");
         )
 K_EXPORT_PLUGIN(KateFileSelectorPluginFactory("katefilebrowserplugin"))
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

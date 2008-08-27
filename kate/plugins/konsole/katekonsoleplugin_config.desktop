@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=katekonsoleplugin
+X-KDE-ParentComponents=katekonsoleplugin
+X-KDE-PluginKeyword=katekonsoleplugin_config
+Name=Behavior

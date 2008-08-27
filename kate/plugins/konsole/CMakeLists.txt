@@ -16,5 +16,6 @@ install(TARGETS katekonsoleplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 ########### install files ###############
 
 install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kate/plugins/katekonsole )
-install( FILES katekonsoleplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( FILES katekonsoleplugin.desktop
+               katekonsoleplugin_config.desktop DESTINATION  ${SERVICES_INSTALL_DIR} )
 

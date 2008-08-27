@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 ServiceTypes=Kate/Plugin
+X-KDE-PluginInfo-Name=katekonsoleplugin
 X-KDE-Library=katekonsoleplugin
 X-Kate-Version=2.8
 Name=Terminal tool view

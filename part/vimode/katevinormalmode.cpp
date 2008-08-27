@@ -151,7 +151,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     for ( int i = n; i >= 0; i-- ) {
       if ( !m_commands.at( m_matchingCommands.at( i ) )->matches( m_keys ) ) {
         kDebug( 13070 ) << "removing " << m_commands.at( m_matchingCommands.at( i ) )->pattern() << ", size before remove is " << m_matchingCommands.size();
-        if ( m_commands.at( m_matchingCommands.at( i ) )->flags() & NEEDS_MOTION ) {
+        if ( m_commands.at( m_matchingCommands.at( i ) )->needsMotion() ) {
           // "cache" command needing a motion for later
           kDebug( 13070 ) << "m_motionOperatorIndex set to " << m_motionOperatorIndex;
           m_motionOperatorIndex = m_matchingCommands.at( i );
@@ -164,7 +164,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     // push the current command length to m_awaitingMotionOrTextObject so one
     // knows where to split the command between the operator and the motion
     for ( int i = 0; i < m_matchingCommands.size(); i++ ) {
-      if ( m_commands.at( m_matchingCommands.at( i ) )->flags() & NEEDS_MOTION ) {
+      if ( m_commands.at( m_matchingCommands.at( i ) )->needsMotion() ) {
         m_awaitingMotionOrTextObject.push( m_keys.size() );
         break;
       }
@@ -174,7 +174,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     for ( int i = 0; i < m_commands.size(); i++ ) {
       if ( m_commands.at( i )->matches( m_keys ) ) {
         m_matchingCommands.push_back( i );
-        if ( m_commands.at( i )->flags() & NEEDS_MOTION && m_commands.at( i )->pattern().length() == m_keys.size() ) {
+        if ( m_commands.at( i )->needsMotion() && m_commands.at( i )->pattern().length() == m_keys.size() ) {
           m_awaitingMotionOrTextObject.push( m_keys.size() );
         }
       }
@@ -240,12 +240,12 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   // if it's not waiting for a motion or a text object
   if ( m_matchingCommands.size() == 1 ) {
     if ( m_commands.at( m_matchingCommands.at( 0 ) )->matchesExact( m_keys )
-        && !( m_commands.at( m_matchingCommands.at( 0 ) )->flags() & NEEDS_MOTION ) ) {
+        && !m_commands.at( m_matchingCommands.at( 0 ) )->needsMotion() ) {
       kDebug( 13070 ) << "Running command at index " << m_matchingCommands.at( 0 );
       m_commands.at( m_matchingCommands.at( 0 ) )->execute();
 
       // check if reset() should be called. some commands in visual mode should not end visual mode
-      if ( !( m_commands.at( m_matchingCommands.at( 0 ) )->flags() & SHOULD_NOT_RESET ) ) {
+      if ( m_commands.at( m_matchingCommands.at( 0 ) )->shouldReset() ) {
         reset();
       }
       resetParser();

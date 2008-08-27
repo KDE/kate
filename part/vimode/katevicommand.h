@@ -41,9 +41,11 @@ class KateViCommand {
     bool matches( QString pattern ) const;
     bool matchesExact( QString pattern ) const;
     bool execute() const;
-    unsigned int flags() const { return m_flags; };
-
-    QString pattern() const { return m_pattern; }
+    const QString pattern() const { return m_pattern; }
+    bool isRegexPattern() const { return m_flags & REGEX_PATTERN; }
+    bool needsMotion() const { return m_flags & NEEDS_MOTION; }
+    bool shouldReset() const { return m_flags & ~SHOULD_NOT_RESET; }
+    bool isChange() const { return m_flags & IS_CHANGE; }
 
   protected:
     KateViNormalMode *m_parent;

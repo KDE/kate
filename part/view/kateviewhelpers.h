@@ -29,7 +29,7 @@
 #include <QtGui/QColor>
 #include <QtGui/QScrollBar>
 #include <QtCore/QHash>
-#include <QtGui/QStackedLayout>
+#include <QtGui/QStackedWidget>
 #include <QtCore/QMap>
 
 class KateDocument;
@@ -278,14 +278,16 @@ class KateViewBarWidget : public QWidget
 };
 
 // Helper layout class to always provide minimum size
-class KateStackedLayout : public QStackedLayout
+class KateStackedWidget : public QStackedWidget
 {
   Q_OBJECT
 public:
-  KateStackedLayout(QWidget* parent);
+  KateStackedWidget(QWidget* parent);
   virtual QSize sizeHint() const;
   virtual QSize minimumSize() const;
 };
+
+class QVBoxLayout;
 
 class KateViewBar : public QWidget
 {
@@ -294,10 +296,46 @@ class KateViewBar : public QWidget
   public:
     KateViewBar (QWidget *parent,KateView *view);
 
+    /**
+     * Adds a widget to this viewbar.
+     * Widget is initially invisible, you should call showBarWidget, to show it.
+     * Several widgets can be added to the bar, but only one can be visible
+     */
     void addBarWidget (KateViewBarWidget *newBarWidget);
+    /**
+     * Shows barWidget that was previously added with addBarWidget.
+     * @see hideCurrentBarWidget
+     */
     void showBarWidget (KateViewBarWidget *barWidget);
 
+    /**
+     * Adds widget that will be always shown in the viewbar.
+     * After adding permanent widget viewbar is immediately shown.
+     * ViewBar with permanent widget won't hide itself
+     * until permanent widget is removed.
+     * OTOH showing/hiding regular barWidgets will work as usual
+     * (they will be shown above permanent widget)
+     *
+     * If permanent widget already exists, new one replaces old one
+     * Old widget is not deleted, caller can do it if it wishes
+     */
+    void addPermanentBarWidget (KateViewBarWidget *barWidget);
+    /**
+     * Removes permanent bar widget from viewbar.
+     * If no other viewbar widgets are shown, viewbar gets hidden.
+     *
+     * barWidget is not deleted, caller must do it if it wishes
+     */
+    void removePermanentBarWidget (KateViewBarWidget *barWidget);
+    /**
+     * @return if viewbar has permanent widget @p barWidget
+     */
+    bool hasPermanentWidget (KateViewBarWidget *barWidget) const;
+
   public Q_SLOTS:
+    /**
+     * Hides currently shown bar widget
+     */
     void hideCurrentBarWidget();
 
   protected:
@@ -306,10 +344,16 @@ class KateViewBar : public QWidget
 
   private:
     bool hasWidget(KateViewBarWidget*) const;
+    /**
+     * Shows or hides whole viewbar
+     */
+    void setViewBarVisible(bool visible);
 
   private:
     KateView *m_view;
-    KateStackedLayout *m_stack;
+    KateStackedWidget *m_stack;
+    KateViewBarWidget *m_permanentBarWidget;
+    QVBoxLayout *m_layout;
 };
 
 class KateCmdLine : public KateViewBarWidget

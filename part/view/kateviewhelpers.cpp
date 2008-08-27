@@ -1823,38 +1823,42 @@ KateViewBarWidget::KateViewBarWidget (bool addCloseButton, KateView* view, QWidg
   setFocusProxy(m_centralWidget);
 }
 
-KateStackedLayout::KateStackedLayout(QWidget* parent)
-  : QStackedLayout(parent)
+KateStackedWidget::KateStackedWidget(QWidget* parent)
+  : QStackedWidget(parent)
 {}
 
-QSize KateStackedLayout::sizeHint() const
+QSize KateStackedWidget::sizeHint() const
 {
   if (currentWidget())
     return currentWidget()->sizeHint();
-  return QStackedLayout::sizeHint();
+  return QStackedWidget::sizeHint();
 }
 
-QSize KateStackedLayout::minimumSize() const
+QSize KateStackedWidget::minimumSize() const
 {
   if (currentWidget())
     return currentWidget()->minimumSize();
-  return QStackedLayout::minimumSize();
+  return QStackedWidget::minimumSize();
 }
 
 
 
 KateViewBar::KateViewBar (QWidget *parent, KateView *view)
- : QWidget (parent), m_view (view)
+ : QWidget (parent), m_view (view), m_permanentBarWidget(0)
 {
-  m_stack = new KateStackedLayout(this);
+  m_layout = new QVBoxLayout(this);
+  m_stack = new KateStackedWidget(this);
+  m_layout->addWidget(m_stack);
+
+  m_stack->hide();
   hide ();
 }
 
 void KateViewBar::addBarWidget (KateViewBarWidget *newBarWidget)
 {
   if (hasWidget(newBarWidget)) {
-      kDebug(13025) << "this bar widget is already added";
-      return;
+    kDebug(13025) << "this bar widget is already added";
+    return;
   }
   // add new widget, invisible...
   newBarWidget->hide();
@@ -1864,19 +1868,57 @@ void KateViewBar::addBarWidget (KateViewBarWidget *newBarWidget)
   kDebug(13025)<<"add barwidget " << newBarWidget;
 }
 
+void KateViewBar::addPermanentBarWidget (KateViewBarWidget *barWidget)
+{
+  // remove old widget from layout (if any)
+  if (m_permanentBarWidget) {
+    m_permanentBarWidget->hide();
+    m_layout->removeWidget(m_permanentBarWidget);
+  }
+
+  m_layout->addWidget(barWidget, 0, Qt::AlignBottom);
+  m_permanentBarWidget = barWidget;
+  m_permanentBarWidget->show();
+
+  setViewBarVisible(true);
+}
+
+void KateViewBar::removePermanentBarWidget (KateViewBarWidget *barWidget)
+{
+  if (m_permanentBarWidget != barWidget) {
+    kDebug(13025) << "no such permanent widget exists in bar";
+    return;
+  }
+
+  if (!m_permanentBarWidget)
+    return;
+
+  m_permanentBarWidget->hide();
+  m_layout->removeWidget(m_permanentBarWidget);
+  m_permanentBarWidget = 0;
+
+  if (!m_stack->isVisible()) {
+    setViewBarVisible(false);
+  }
+}
+
+bool KateViewBar::hasPermanentWidget (KateViewBarWidget *barWidget ) const
+{
+    return (m_permanentBarWidget == barWidget);
+}
+
 void KateViewBar::showBarWidget (KateViewBarWidget *barWidget)
 {
   // raise correct widget
   m_stack->setCurrentWidget (barWidget);
   barWidget->show();
-  kDebug(13025)<<"show barwidget " << barWidget;
-  
-  if (m_view->externalViewBar()) {
-    KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
-    if (viewBarContainer)
-      viewBarContainer->showViewBarForView(m_view,KTextEditor::ViewBarContainer::BottomBar);
-  } else
-    show ();
+  m_stack->show();
+
+  // if we have any permanent widget, bar is always visible,
+  // no need to show it
+  if (!m_permanentBarWidget) {
+    setViewBarVisible(true);
+  }
 }
 
 bool KateViewBar::hasWidget(KateViewBarWidget* wid) const
@@ -1892,14 +1934,32 @@ bool KateViewBar::hasWidget(KateViewBarWidget* wid) const
 
 void KateViewBar::hideCurrentBarWidget ()
 {
-  if (m_view->externalViewBar()) {
-    KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
-    if (viewBarContainer)
-      viewBarContainer->hideViewBarForView(m_view,KTextEditor::ViewBarContainer::BottomBar);
-  } else
-    hide ();
+  m_stack->hide();
+
+  // if we have any permanent widget, bar is always visible,
+  // no need to hide it
+  if (!m_permanentBarWidget) {
+    setViewBarVisible(false);
+  }
+
   m_view->setFocus();
   kDebug(13025)<<"hide barwidget";
+}
+
+void KateViewBar::setViewBarVisible (bool visible)
+{
+  if (m_view->externalViewBar()) {
+    KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
+    if (viewBarContainer) {
+      if (visible) {
+        viewBarContainer->showViewBarForView(m_view,KTextEditor::ViewBarContainer::BottomBar);
+      } else {
+        viewBarContainer->hideViewBarForView(m_view,KTextEditor::ViewBarContainer::BottomBar);
+      }
+    }
+  } else {
+    setVisible (visible);
+  }
 }
 
 void KateViewBar::keyPressEvent(QKeyEvent* event)

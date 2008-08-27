@@ -57,6 +57,7 @@ class KateCompletionWidget;
 class KateSmartRange;
 class KateViewInternal;
 class KateSearchBar;
+class KateViModeBar;
 class KateViewBar;
 class KateGotoBar;
 
@@ -650,6 +651,7 @@ class KateView : public KTextEditor::View,
     KateViewBar *viewBar() const;
     KateCmdLine *cmdLine ();
     KateSearchBar *searchBar (bool initHintAsPower = false);
+    KateViModeBar *viModeBar();
     KateGotoBar *gotoBar ();
     inline bool externalViewBar(){return m_externalViewBar;}
   /**
@@ -664,6 +666,7 @@ class KateView : public KTextEditor::View,
     // created on demand..., only access them through the above accessors....
     KateCmdLine *m_cmdLine;
     KateSearchBar *m_searchBar;
+    KateViModeBar *m_viModeBar;
     KateGotoBar *m_gotoBar;
 
   // vi Mode
@@ -688,6 +691,11 @@ class KateView : public KTextEditor::View,
      * changes the current vi mode to the given mode
      */
     void changeViMode(ViMode newMode);
+
+    /**
+     * Update vi mode statusbar according to the current mode
+     */
+    void updateViModeBar();
 };
 
 #endif

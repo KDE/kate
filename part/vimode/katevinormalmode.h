@@ -180,6 +180,11 @@ class KateViNormalMode {
     void error( const QString &errorMsg ) const;
     void message( const QString &msg ) const;
 
+    /**
+     * @return normal mode command accumulated so far
+     */
+    QString getVerbatimKeys() const;
+
   protected:
     bool deleteRange( KateViRange &r, bool linewise = true, bool addToRegister = true );
     const QString getRange( KateViRange &r, bool linewise = true ) const;

@@ -46,6 +46,7 @@
 #include "katesmartmanager.h"
 #include "katesmartrange.h"
 #include "katesearchbar.h"
+#include "katevimodebar.h"
 #include "katepartpluginmanager.h"
 #include "katevivisualmode.h"
 
@@ -119,6 +120,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_viewBar (0)
     , m_cmdLine (0)
     , m_searchBar (0)
+    , m_viModeBar (0)
     , m_gotoBar (0)
 {
 
@@ -948,18 +950,9 @@ QString KateView::viewMode () const
     return i18n ("R/O");
 
   if (viInputMode()) {
-    switch (getCurrentViMode()) {
-    case InsertMode:
-      return i18n("-- VI: INSERT MODE --");
-    case NormalMode:
-      return i18n("-- VI: NORMAL MODE --");
-    case VisualMode:
-      return i18n("-- VI: VISUAL --");
-    case VisualLineMode:
-      return i18n("-- VI: VISUAL LINE --");
-    case CommandLineMode:
-      return i18n("-- VI: COMMAND LINE --");
-    }
+      // vi mode has different notion of OVR/INS.
+      // vi mode's status is showin in viModeBar() instead
+      return QString();
   }
 
   return isOverwriteMode() ? i18n("OVR") : i18n ("INS");
@@ -1258,6 +1251,8 @@ void KateView::toggleViInputMode()
   if ( viInputMode() ) {
     viEnterNormalMode();
   } else {
+    m_viewBar->removePermanentBarWidget(viModeBar());
+
     if (getCurrentViMode() != InsertMode) {
       foreach(QAction* action, m_editActions) {
         m_viewInternal->removeAction(action);
@@ -1278,6 +1273,25 @@ void KateView::changeViMode(ViMode newMode)
     }
 
     m_viewInternal->m_currentViMode = newMode;
+    updateViModeBar();
+}
+
+void KateView::updateViModeBar()
+{
+    switch (getCurrentViMode()) {
+        case NormalMode:
+            viModeBar()->updateAccordingToMode(*m_viewInternal->getViNormalMode());
+            break;
+        case InsertMode:
+            viModeBar()->updateAccordingToMode(*m_viewInternal->getViInsertMode());
+            break;
+        case VisualMode:
+        case VisualLineMode:
+            viModeBar()->updateAccordingToMode(*m_viewInternal->getViVisualMode());
+            break;
+        default:
+            break;
+    }
 }
 
 void KateView::slotNeedTextHint(int line, int col, QString &text)
@@ -2720,6 +2734,20 @@ KateSearchBar *KateView::searchBar (bool initHintAsPower)
     m_viewBar->addBarWidget(m_searchBar);
   }
   return m_searchBar;
+}
+
+KateViModeBar *KateView::viModeBar()
+{
+  if (!m_viModeBar) {
+    m_viModeBar = new KateViModeBar(this);
+  }
+
+  if (!m_viewBar->hasPermanentWidget(m_viModeBar)) {
+    // this will also show it
+    m_viewBar->addPermanentBarWidget(m_viModeBar);
+  }
+
+  return m_viModeBar;
 }
 
 KateGotoBar *KateView::gotoBar ()

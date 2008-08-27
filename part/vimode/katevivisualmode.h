@@ -33,6 +33,7 @@ class KateViVisualMode : public KateViNormalMode {
     void init();
 
     void setVisualLine( bool l );
+    bool isVisualLine() const { return m_visualLine; }
     void switchStartEnd();
 
   private:

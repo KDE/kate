@@ -115,6 +115,7 @@ vimode/katevivisualmode.cpp
 
 # generic stuff, unsorted...
 utils/katesearchbar.cpp
+utils/katevimodebar.cpp
 utils/katecmds.cpp
 utils/katefactory.cpp
 utils/kateconfig.cpp

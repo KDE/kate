@@ -20,8 +20,8 @@
 #include "katevinormalmode.h"
 #include "katevikeysequenceparser.h"
 
-#ifndef VI_NORMAL_MODE_COMMAND_H
-#define VI_NORMAL_MODE_COMMAND_H
+#ifndef KATE_VI_COMMAND_H
+#define KATE_VI_COMMAND_H
 
 class KateViNormalMode;
 

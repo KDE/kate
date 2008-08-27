@@ -1588,7 +1588,7 @@ bool KateViNormalMode::commandPrintCharacterCode()
   QChar ch = line.at( c.column() );
   int code = ch.unicode();
 
-  message( QString("<")+ch+">"+"  "+QString::number( code )+",  Hex "+QString::number( code, 16  )
+  message( QString('<')+ch+'>'+"  "+QString::number( code )+",  Hex "+QString::number( code, 16  )
       +",  Octal "+QString::number( code, 8 ) );
 
   return true;
@@ -2389,7 +2389,7 @@ QRegExp KateViNormalMode::generateMatchingItemRegex()
 
   for ( int i = 0; i < keys.size(); i++ ) {
     QString s = m_matchingItems[ keys[ i ] ];
-    s = s.replace( QRegExp( "^-" ), "" );
+    s = s.replace( QRegExp( "^-" ), QChar() );
     s = s.replace( QRegExp( "\\*" ), "\\*" );
     s = s.replace( QRegExp( "\\+" ), "\\+" );
     s = s.replace( QRegExp( "\\[" ), "\\[" );

@@ -194,7 +194,7 @@ const QStringList& KateGrepCommand::cmds()
   return sl;
 }
 
-bool KateGrepCommand::exec (KTextEditor::View* view, const QString& cmd, QString& msg)
+bool KateGrepCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, QString& /*msg*/)
 {
   //create a list of args
   QStringList args(cmd.split(' ', QString::KeepEmptyParts));
@@ -219,7 +219,7 @@ bool KateGrepCommand::exec (KTextEditor::View* view, const QString& cmd, QString
   return false;
 }
 
-bool KateGrepCommand::help (KTextEditor::View *view, const QString &cmd, QString &msg)
+bool KateGrepCommand::help (KTextEditor::View */*view*/, const QString &/*cmd*/, QString &/*msg*/)
 {
   return false;
 }

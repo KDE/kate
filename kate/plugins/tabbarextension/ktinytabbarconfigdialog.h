@@ -27,6 +27,7 @@
 
 #include <kdialog.h>
 
+
 class KTinyTabBar;
 class KTinyTabBarConfigPage;
 
@@ -38,7 +39,8 @@ class KTinyTabBarConfigPage;
  *
  * @author Dominik Haumann
  */
-class KTinyTabBarConfigDialog : public KDialog
+class KTinyTabBarConfigDialog
+    : public KDialog
 {
     Q_OBJECT
 public:

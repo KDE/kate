@@ -4,7 +4,7 @@
     begin                : 2005-06-15
     copyright            : (C) 2005 by Dominik Haumann
     email                : dhdev@gmx.de
-    
+
     Copyright (C) 2007 Flavio Castelli <flavio.castelli@gmail.com>
  ***************************************************************************/
 
@@ -57,8 +57,7 @@ public:
     enum ButtonStyle
     {
         Push=0,   ///< default push button
-        Flat,     ///< flat push button
-        Plain     ///< plain push button (QFrame like)
+        Flat      ///< flat push button
     };
 
     /**
@@ -144,15 +143,6 @@ public:
 
     void setHighlightOpacity( int value );
     int highlightOpacity() const;
-
-    void setPlainColorPressed( const QColor& color );
-    QColor plainColorPressed() const;
-
-    void setPlainColorHovered( const QColor& color );
-    QColor plainColorHovered() const;
-
-    void setPlainColorActivated( const QColor& color );
-    QColor plainColorActivated() const;
 
     void setPreviousTabColor( const QColor& color );
     QColor previousTabColor() const;
@@ -248,9 +238,6 @@ private:
     int m_highlightOpacity;
 
     // configurable and saved by KTinyTabBar
-    QColor m_plainColorPressed;
-    QColor m_plainColorHovered;
-    QColor m_plainColorActivated;
     QColor m_colorModifiedTab;
     QColor m_colorActiveTab;
     QColor m_colorPreviousTab;

@@ -4,7 +4,7 @@
     begin                : 2005-06-15
     copyright            : (C) 2005 by Dominik Haumann
     email                : dhdev@gmx.de
-    
+
     Copyright (C) 2007 Flavio Castelli <flavio.castelli@gmail.com>
  ***************************************************************************/
 
@@ -156,15 +156,6 @@ public:
      */
     bool highlightPreviousTab();
 
-    void setPlainColorPressed( const QColor& color );
-    QColor plainColorPressed() const;
-
-    void setPlainColorHovered( const QColor& color );
-    QColor plainColorHovered() const;
-
-    void setPlainColorActivated( const QColor& color );
-    QColor plainColorActivated() const;
-
     void setPreviousTabColor( const QColor& color );
     QColor previousTabColor() const;
 
@@ -199,14 +190,14 @@ signals:
      * @param tabbutton the button that emitted this signal
      */
     void closeRequest( KTinyTabButton* tabbutton );
-    
+
     /**
      * Emitted whenever the user wants to close all the tab button except the
      * selected one.
      * @param tabbutton the button that emitted this signal
      */
     void closeOtherTabsRequest( KTinyTabButton* tabbutton );
-    
+
     /**
      * Emitted whenever the user wants to close all the tabs.
      */
@@ -230,9 +221,6 @@ private:
     bool m_highlightPreviousTab;
     bool m_isPreviousTab;
 
-    QColor m_plainColorPressed;
-    QColor m_plainColorHovered;
-    QColor m_plainColorActivated;
     QColor m_colorModifiedTab;
     QColor m_colorActiveTab;
     QColor m_colorPreviousTab;

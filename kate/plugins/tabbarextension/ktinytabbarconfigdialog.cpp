@@ -47,9 +47,6 @@ KTinyTabBarConfigDialog::KTinyTabBarConfigDialog( const KTinyTabBar* tabbar,
     m_configPage->setFollowCurrentTab( tabbar->followCurrentTab() );
     m_configPage->setTabSortType( tabbar->tabSortType() );
     m_configPage->setTabButtonStyle( tabbar->tabButtonStyle() );
-    m_configPage->setPlainColorActivated( tabbar->plainColorActivated() );
-    m_configPage->setPlainColorHovered( tabbar->plainColorHovered() );
-    m_configPage->setPlainColorPressed( tabbar->plainColorPressed() );
     m_configPage->setHighlightModifiedTabs( tabbar->highlightModifiedTabs() );
     m_configPage->setHighlightActiveTab( tabbar->highlightActiveTab() );
     m_configPage->setHighlightPreviousTab( tabbar->highlightPreviousTab() );

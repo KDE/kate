@@ -4,7 +4,7 @@
     begin                : 2005-06-15
     copyright            : (C) 2005 by Dominik Haumann
     email                : dhdev@gmx.de
-    
+
     Copyright (C) 2007 Flavio Castelli <flavio.castelli@gmail.com>
  ***************************************************************************/
 
@@ -140,9 +140,6 @@ KTinyTabBar::KTinyTabBar( QWidget *parent )
     m_previousButton = 0L;
 
     // default colors
-    m_plainColorPressed = QColor( 128, 128, 255 );
-    m_plainColorHovered = QColor( 255, 128, 128 );
-    m_plainColorActivated = QColor( 128, 128, 255 );
     m_colorModifiedTab = QColor( Qt::red );
     m_colorActiveTab = QColor( 150, 150, 255 );
     m_colorPreviousTab = QColor( 150, 150, 255 );
@@ -206,9 +203,6 @@ void KTinyTabBar::load( KConfigBase* config, const QString& group )
     setHighlightOpacity(cg.readEntry( "highlight opacity", 20 ) );
 
     // color settings
-    setPlainColorPressed( cg.readEntry( "plain color pressed", m_plainColorPressed ) );
-    setPlainColorHovered( cg.readEntry( "plain color hovered", m_plainColorHovered ) );
-    setPlainColorActivated( cg.readEntry( "plain color activated", m_plainColorActivated ) );
     setModifiedTabsColor( cg.readEntry( "color modified", m_colorModifiedTab ) );
     setActiveTabColor( cg.readEntry( "color active", m_colorActiveTab ) );
     setPreviousTabColor( cg.readEntry( "color previous", m_colorPreviousTab ) );
@@ -248,9 +242,6 @@ void KTinyTabBar::save( KConfigBase* config, const QString& group ) const
 
 
     // color settings
-    cg.writeEntry( "plain color mousedown", plainColorPressed() );
-    cg.writeEntry( "plain color mouseover", plainColorHovered() );
-    cg.writeEntry( "plain color activated", plainColorActivated() );
     cg.writeEntry( "color modified", modifiedTabsColor() );
     cg.writeEntry( "color active", activeTabColor() );
     cg.writeEntry( "color previous", previousTabColor() );
@@ -388,9 +379,6 @@ int KTinyTabBar::addTab( const QString& docurl, const QIcon& icon, const QString
     tabButton->setHighlightModifiedTabs( highlightModifiedTabs() );
     tabButton->setHighlightActiveTab( highlightActiveTab() );
     tabButton->setHighlightPreviousTab( highlightPreviousTab() );
-    tabButton->setPlainColorPressed( plainColorPressed() );
-    tabButton->setPlainColorHovered( plainColorHovered() );
-    tabButton->setPlainColorActivated( plainColorActivated() );
     tabButton->setModifiedTabsColor( modifiedTabsColor() );
     tabButton->setActiveTabColor( activeTabColor() );
     tabButton->setPreviousTabColor( previousTabColor() );
@@ -720,74 +708,6 @@ int KTinyTabBar::highlightOpacity() const
 }
 
 /**
- * Set the color for pressed buttons in plain button style to @p color.
- */
-void KTinyTabBar::setPlainColorPressed( const QColor& color )
-{
-    m_plainColorPressed = color;
-    KTinyTabButton* tabButton;
-    foreach( tabButton, m_tabButtons )
-        tabButton->setPlainColorPressed( color );
-
-    m_upButton->setPlainColorPressed( color );
-    m_downButton->setPlainColorPressed( color );
-    m_configureButton->setPlainColorPressed( color );
-}
-
-/**
- * Get the color for pressed buttons in plain button style.
- */
-QColor KTinyTabBar::plainColorPressed() const
-{
-    return m_plainColorPressed;
-}
-/**
- * Set the color for hovered buttons in plain button style to @p color.
- */
-void KTinyTabBar::setPlainColorHovered( const QColor& color )
-{
-    m_plainColorHovered = color;
-    KTinyTabButton* tabButton;
-    foreach( tabButton, m_tabButtons )
-        tabButton->setPlainColorHovered( color );
-
-    m_upButton->setPlainColorHovered( color );
-    m_downButton->setPlainColorHovered( color );
-    m_configureButton->setPlainColorHovered( color );
-}
-
-/**
- * Get the color for hovered buttons in plain button style.
- */
-QColor KTinyTabBar::plainColorHovered() const
-{
-    return m_plainColorHovered;
-}
-
-/**
- * Set the color for activated buttons in plain button style to @p color.
- */
-void KTinyTabBar::setPlainColorActivated( const QColor& color )
-{
-    m_plainColorActivated = color;
-    KTinyTabButton* tabButton;
-    foreach( tabButton, m_tabButtons )
-        tabButton->setPlainColorActivated( color );
-
-    m_upButton->setPlainColorActivated( color );
-    m_downButton->setPlainColorActivated( color );
-    m_configureButton->setPlainColorActivated( color );
-}
-
-/**
- * Get the color for activated buttons in plain button style.
- */
-QColor KTinyTabBar::plainColorActivated() const
-{
-    return m_plainColorActivated;
-}
-
-/**
  * Set the color for the previous tab to @p color.
  */
 void KTinyTabBar::setPreviousTabColor( const QColor& color )
@@ -973,7 +893,7 @@ void KTinyTabBar::tabButtonCloseOtherRequest( KTinyTabButton* tabButton )
         if ((m_tabButtons.at(i))->buttonID() != tabButton->buttonID())
             tabToCloseID << (m_tabButtons.at(i))->buttonID();
     }
-    
+
     for (int i = 0; i < tabToCloseID.size(); i++) {
         emit closeRequest(tabToCloseID.at(i));
     }
@@ -990,7 +910,7 @@ void KTinyTabBar::tabButtonCloseAllRequest( )
     for (int i = 0; i < m_tabButtons.size(); ++i) {
         tabToCloseID << (m_tabButtons.at(i))->buttonID();
     }
-    
+
     for (int i = 0; i < tabToCloseID.size(); i++) {
         emit closeRequest(tabToCloseID.at(i));
     }
@@ -1235,9 +1155,6 @@ void KTinyTabBar::configureClicked()
         setTabSortType( page->tabSortType() );
         setTabButtonStyle( page->tabButtonStyle() );
         setFollowCurrentTab( page->followCurrentTab() );
-        setPlainColorPressed( page->plainColorPressed() );
-        setPlainColorHovered( page->plainColorHovered() );
-        setPlainColorActivated( page->plainColorActivated() );
         setHighlightModifiedTabs( page->highlightModifiedTabs() );
         setHighlightActiveTab( page->highlightActiveTab() );
         setHighlightPreviousTab( page->highlightPreviousTab() );

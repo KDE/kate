@@ -27,7 +27,9 @@
 
 #include <QWidget>
 #include <QColor>
+
 #include "ktinytabbar.h"
+#include "ui_tabbarconfigwidget.h"
 
 class KColorButton;
 class KTinyTabButton;
@@ -44,15 +46,15 @@ class QSpinBox;
  *
  * @author Dominik Haumann
  */
-class KTinyTabBarConfigPage : public QWidget
+class KTinyTabBarConfigPage
+  : public QWidget
+  , private Ui::TabBarConfigWidget
 {
     Q_OBJECT
 public:
     KTinyTabBarConfigPage( QWidget *parent = 0 );
 
     ~KTinyTabBarConfigPage();
-
-    void initialize( QWidget* parent );
 
 
     bool locationTop() const;
@@ -81,12 +83,6 @@ public:
     void setTabButtonStyle( KTinyTabBar::ButtonStyle style );
     KTinyTabBar::ButtonStyle tabButtonStyle() const;
 
-    void setPlainColorActivated( const QColor& color );
-    void setPlainColorHovered( const QColor& color );
-    void setPlainColorPressed( const QColor& color );
-    QColor plainColorActivated() const;
-    QColor plainColorHovered() const;
-    QColor plainColorPressed() const;
 
     void setHighlightActiveTab( bool value );
     bool highlightActiveTab() const;
@@ -115,17 +111,10 @@ signals:
     void removeHighlightMarks();
 
 protected slots:
-    void locationTopChanged( bool top );
-    void minimumTabWidthChanged( int value );
-    void maximumTabWidthChanged( int value );
-    void fixedTabHeightChanged( int value );
-    void numberOfRowsChanged( int value );
-    void followCurrentTabChanged( bool follow );
-    void sortTypeChanged( bool checked );
-    void buttonStyleChanged( bool checked );
-    void plainColorActivatedChanged( const QColor &newColor );
-    void plainColorHoveredChanged( const QColor &newColor );
-    void plainColorPressedChanged( const QColor &newColor );
+    void minimumTabWidthChanged(int value);
+    void maximumTabWidthChanged(int value);
+    void fixedTabHeightChanged(int value);
+    void buttonStyleChanged(int index);
     void highlightActiveTabChanged( bool highlight );
     void highlightPreviousTabChanged( bool highlight );
     void activeTabColorChanged( const QColor& newColor );
@@ -137,52 +126,12 @@ protected slots:
     void buttonActivated( KTinyTabButton* );
 
 protected:
-    void setupGUI( QWidget* parent );
     void setupDefaults();
     void setupConnections();
 
 private:
     KTinyTabButton* m_previewMinimum;
     KTinyTabButton* m_previewMaximum;
-
-    // location
-    QRadioButton* m_locationTop;
-    QRadioButton* m_locationBottom;
-
-    // rows
-    QSpinBox* m_rowsRows;
-    QCheckBox* m_rowsFollowCurrentTab;
-
-    // sort by
-    QRadioButton* m_sortByOpening;
-    QRadioButton* m_sortByName;
-    QRadioButton* m_sortByURL;
-    QRadioButton* m_sortByExtension;
-
-    // tab sizes
-    QSpinBox* m_tabSizesMinimumWidth;
-    QSpinBox* m_tabSizesMaximumWidth;
-    QSpinBox* m_tabSizesFixedHeight;
-
-    // button style
-    QRadioButton* m_buttonStylePush;
-    QRadioButton* m_buttonStyleFlat;
-    QRadioButton* m_buttonStylePlain;
-
-    // plain button colors
-    KColorButton* m_plainButtonColorsActivated;
-    KColorButton* m_plainButtonColorsHovered;
-    KColorButton* m_plainButtonColorsPressed;
-
-    // tab highlighting
-    QCheckBox* m_highlightingModifiedTabs;
-    KColorButton* m_highlightingModifiedTabsColor;
-    QCheckBox* m_highlightingActiveTab;
-    KColorButton* m_highlightingActiveTabColor;
-    QCheckBox* m_highlightingPreviousTab;
-    KColorButton* m_highlightingPreviousTabColor;
-    QLabel* m_highlightingOpacityLabel;
-    QSlider* m_highlightingOpacity;
 };
 
 #endif

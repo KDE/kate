@@ -298,9 +298,6 @@ void KatePluginTabBarExtension::tabbarSettingsChanged( KTinyTabBar* tabbar )
       view->tabbar->setHighlightActiveTab( tabbar->highlightActiveTab() );
       view->tabbar->setHighlightPreviousTab( tabbar->highlightPreviousTab() );
       view->tabbar->setHighlightOpacity( tabbar->highlightOpacity() );
-      view->tabbar->setPlainColorPressed( tabbar->plainColorPressed() );
-      view->tabbar->setPlainColorHovered( tabbar->plainColorHovered() );
-      view->tabbar->setPlainColorActivated( tabbar->plainColorActivated() );
       view->tabbar->setModifiedTabsColor( tabbar->modifiedTabsColor() );
       view->tabbar->setActiveTabColor( tabbar->activeTabColor() );
       view->tabbar->setPreviousTabColor( tabbar->previousTabColor() );

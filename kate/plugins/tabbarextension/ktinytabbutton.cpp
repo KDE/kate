@@ -4,7 +4,7 @@
     begin                : 2005-06-15
     copyright            : (C) 2005 by Dominik Haumann
     email                : dhdev@gmx.de
-    
+
     Copyright (C) 2007 Flavio Castelli <flavio.castelli@gmail.com>
  ***************************************************************************/
 
@@ -142,66 +142,6 @@ void KTinyTabButton::paintEvent( QPaintEvent* ev )
             setPalette( pal );
             QPushButton::paintEvent( ev );
 
-            break; 
-        }
-
-        case KTinyTabBar::Plain:
-        {
-            bool up = false;
-            QPainter p( this );
-            if( isActivated() )
-                p.setPen( m_plainColorActivated );
-            else if( isDown() )
-                p.setPen( m_plainColorPressed );
-            else if( underMouse() )
-                p.setPen( m_plainColorHovered );
-            else
-                up = true;
-
-            QColor bg = QApplication::palette().background().color();
-            if( m_highlightColor.isValid()
-                || ( isActivated() && highlightActiveTab() )
-                || ( previousTab() && highlightPreviousTab() ) )
-            {
-                bg.setRed( ( bg.red()*comp + mix.red()*opac ) / 100 );
-                bg.setGreen( ( bg.green()*comp + mix.green()*opac ) / 100 );
-                bg.setBlue( ( bg.blue()*comp + mix.blue()*opac ) / 100 );
-            }
-            // fill background
-            p.fillRect( rect(), bg );
-
-            if( up )
-            {
-                // the button is not activated, draw raised panel
-                qDrawShadePanel( &p, 0, 0, width(), height(), pal );
-            }
-            else
-            {
-                // draw frame
-                p.drawRect( 0, 0, width() - 1, height() - 1 );
-//                 p.drawRect( 1, 1, width() - 3, height() - 3 );
-            }
-
-            QStyleOptionButton opt;
-            opt.init( this );
-            opt.features = QStyleOptionButton::None;
-            if( isFlat() )
-                opt.features |= QStyleOptionButton::Flat;
-            if( isDefault() )
-                opt.features |= QStyleOptionButton::DefaultButton;
-            if( isDown() )
-                opt.state |= QStyle::State_Sunken;
-            if( isChecked() )
-                opt.state |= QStyle::State_On;
-            if( !isFlat() && !isDown() )
-                opt.state |= QStyle::State_Raised;
-            opt.text = text();
-            opt.icon = icon();
-            opt.iconSize = QSize( 16, 16 );
-
-            // draw icon and text
-            setPalette( pal );
-            style()->drawControl( QStyle::CE_PushButtonLabel, &opt, &p );
             break;
         }
     }
@@ -277,7 +217,7 @@ void KTinyTabButton::contextMenuEvent( QContextMenuEvent* ev )
     } else if (choice == aCloseAllTabs) {
         emit closeAllTabsRequest ();
     }
-    
+
 }
 
 void KTinyTabButton::setButtonID( int button_id )
@@ -368,42 +308,6 @@ bool KTinyTabButton::highlightPreviousTab()
     return m_highlightPreviousTab;
 }
 
-
-void KTinyTabButton::setPlainColorPressed( const QColor& color )
-{
-    m_plainColorPressed = color;
-    if( tabButtonStyle() == KTinyTabBar::Plain )
-        update();
-}
-
-QColor KTinyTabButton::plainColorPressed() const
-{
-    return m_plainColorPressed;
-}
-
-void KTinyTabButton::setPlainColorHovered( const QColor& color )
-{
-    m_plainColorHovered= color;
-    if( tabButtonStyle() == KTinyTabBar::Plain )
-        update();
-}
-
-QColor KTinyTabButton::plainColorHovered() const
-{
-    return m_plainColorHovered;
-}
-
-void KTinyTabButton::setPlainColorActivated( const QColor& color )
-{
-    m_plainColorActivated = color;
-    if( tabButtonStyle() == KTinyTabBar::Plain )
-        update();
-}
-
-QColor KTinyTabButton::plainColorActivated() const
-{
-    return m_plainColorActivated;
-}
 
 void KTinyTabButton::setPreviousTabColor( const QColor& color )
 {

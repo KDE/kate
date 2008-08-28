@@ -1,12 +1,17 @@
 ########### next target ###############
 
-set(katetabbarextensionplugin_PART_SRCS 
-   plugin_katetabbarextension.cpp 
-   ktinytabbutton.cpp 
-   ktinytabbar.cpp 
-   ktinytabbarconfigdialog.cpp 
+set(katetabbarextensionplugin_PART_SRCS
+   plugin_katetabbarextension.cpp
+   ktinytabbutton.cpp
+   ktinytabbar.cpp
+   ktinytabbarconfigdialog.cpp
    ktinytabbarconfigpage.cpp )
 
+set(katetabbarextensionplugin_PART_UI
+    tabbarconfigwidget.ui
+)
+
+kde4_add_ui_files(katetabbarextensionplugin_PART_SRCS ${katetabbarextensionplugin_PART_UI} )
 
 kde4_add_plugin(katetabbarextensionplugin ${katetabbarextensionplugin_PART_SRCS})
 

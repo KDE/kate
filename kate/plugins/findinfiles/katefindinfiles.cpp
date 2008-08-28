@@ -204,9 +204,14 @@ bool KateGrepCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, QSt
   Kate::MainWindow* mw = Kate::application()->activeMainWindow();
   KateFindInFilesView* fifView = KateFindInFilesPlugin::self()->viewForMainWindow(mw);
   if (fifView) {
+    // sync with active view
+    fifView->findDialog()->syncDir();
+
+    // if search text is empty, pop up dialog
     if (searchText.isEmpty()) {
       fifView->find();
     } else {
+      // search text given -> start search, if dialog hidden, otherwise just set pattern
       QList<QRegExp> pattern;
       pattern << QRegExp(searchText);
       fifView->findDialog()->setPattern(pattern);

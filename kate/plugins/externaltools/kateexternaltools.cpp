@@ -630,20 +630,17 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget( QWidget *parent, c
 {
   setupUi(this);
 
+  btnMoveUp->setIcon(KIcon("go-up"));
+  btnMoveDown->setIcon(KIcon("go-down"));
+
   connect( lbTools, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectionChanged()) );
   connect( lbTools, SIGNAL( itemDoubleClicked ( QListWidgetItem * ) ), this, SLOT( slotEdit() ) );
   connect( btnNew, SIGNAL(clicked()), this, SLOT(slotNew()) );
   connect( btnRemove, SIGNAL(clicked()), this, SLOT(slotRemove()) );
   connect( btnEdit, SIGNAL(clicked()), this, SLOT(slotEdit()) );
   connect( btnSeparator, SIGNAL(clicked()), this, SLOT(slotInsertSeparator()) );
-
-  btnMoveUp->setIcon(KIcon("go-up"));
-  btnMoveDown->setIcon(KIcon("go-down"));
   connect( btnMoveUp, SIGNAL(clicked()), this, SLOT(slotMoveUp()) );
   connect( btnMoveDown, SIGNAL(clicked()), this, SLOT(slotMoveDown()) );
-
-  lbTools->setWhatsThis(i18n(
-                          "This list shows all the configured tools, represented by their menu text.") );
 
   config = new KConfig( "externaltools", KConfig::NoGlobals, "appdata" );
   reset();

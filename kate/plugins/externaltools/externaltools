@@ -1,30 +1,6 @@
 [Global]
-tools=externaltool_CVSLogforCurrentDocument,externaltool_CervisiaDirectoryofCurrentDocument,externaltool_CompareCurrentDocumenttoRCS,externaltool_CompareDirectoryofCurrentDocumenttoRCS,externaltool_EmailCVSDiffforCurrentDocument,---,externaltool_RunScript,---,externaltool_GoogleSelection
-
-[Shortcuts]
-externaltool_CVSLogforCurrentDocument=Shift+F10
-externaltool_CompareCurrentDocumenttoRCS=Shift+F11
-externaltool_RunScript=Ctrl+Shift+X
-
-[externaltool_CVSLogforCurrentDocument]
-acname=externaltool_CVSLogforCurrentDocument
-cmdname=cvs-log
-command=if grep %filename %directory/CVS/Entries 2>&1 >/dev/null ; then\n  cd %directory && cervisia -log %filename\nelse\n  kdialog --title Error --msgbox "The file '%filename' is not in CVS."\nfi
-executable=cervisia
-icon=cervisia
-mimetypes=
-name=CVS Log for Current Document
-save=0
-
-[externaltool_CervisiaDirectoryofCurrentDocument]
-acname=externaltool_CervisiaDirectoryofCurrentDocument
-cmdname=cvs-directory
-command=if [ -d %directory/CVS ] ; then\n  cervisia %directory\nelse\n  kdialog --title Error --msgbox "The directory '%directory' does not appear to be a CVS sandbox."\nfi
-executable=cervisia
-icon=cervisia
-mimetypes=
-name=Cervisia (Directory of Current Document)
-save=0
+tools=externaltool_CompareCurrentDocumenttoRCS,externaltool_CompareDirectoryofCurrentDocumenttoRCS,externaltool_EmailCVSDiffforCurrentDocument,---,externaltool_RunScript,---,externaltool_GoogleSelection
+version=1
 
 [externaltool_CompareCurrentDocumenttoRCS]
 acname=externaltool_CompareCurrentDocumenttoRCS
@@ -35,6 +11,16 @@ icon=kompare
 mimetypes=
 name=Compare Current Document to Version Control System
 save=1
+
+[externaltool_CompareDirectoryofCurrentDocumenttoRCS]
+acname=externaltool_CompareDirectoryofCurrentDocumenttoRCS
+cmdname=
+command=cd %directory\nif [ -d .svn ] ; then\n  svn diff |kompare -o -\nelif [ -d CVS ] ; then\n  cvs diff -ub |kompare -o -\nelse\n  kdialog --title Error --msgbox "The directory '%directory' does not appear to be under revision control."\nfi
+executable=kompare
+icon=kompare
+mimetypes=
+name=Compare Directory of Current Document to Version Control System
+save=0
 
 [externaltool_EmailCVSDiffforCurrentDocument]
 acname=externaltool_EmailCVSDiffforCurrentDocument
@@ -65,13 +51,3 @@ icon=run
 mimetypes=
 name=Run Script
 save=1
-
-[externaltool_CompareDirectoryofCurrentDocumenttoRCS]
-acname=externaltool_CompareDirectoryofCurrentDocumenttoRCS
-cmdname=
-command=cd %directory\nif [ -d .svn ] ; then\n  svn diff |kompare -o -\nelif [ -d CVS ] ; then\n  cvs diff -ub |kompare -o -\nelse\n  kdialog --title Error --msgbox "The directory '%directory' does not appear to be under revision control."\nfi
-executable=kompare
-icon=kompare
-mimetypes=
-name=Compare Directory of Current Document to CVS
-save=0

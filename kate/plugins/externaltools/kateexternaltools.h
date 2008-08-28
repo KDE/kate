@@ -24,6 +24,8 @@
 #ifndef _KATE_EXTERNAL_TOOLS_H_
 #define _KATE_EXTERNAL_TOOLS_H_
 
+#include "ui_configwidget.h"
+
 #include <ktexteditor/configpage.h>
 #include <ktexteditor/commandinterface.h>
 
@@ -155,7 +157,9 @@ class KateExternalTool
  * The config widget allows the user to view a list of services of the type
  * "Kate/ExternalTool" and add, remove or edit them.
  */
-class KateExternalToolsConfigWidget : public Kate::PluginConfigPage
+class KateExternalToolsConfigWidget
+  : public Kate::PluginConfigPage
+  , public Ui::ExternalToolsConfigWidget
 {
     Q_OBJECT
   public:
@@ -184,9 +188,6 @@ class KateExternalToolsConfigWidget : public Kate::PluginConfigPage
     QPixmap blankIcon();
 
     QStringList m_removed;
-
-    class KListWidget *lbTools;
-    class QPushButton *btnNew, *btnRemove, *btnEdit, *btnMoveUp, *btnMoveDwn;
 
     class KConfig *config;
 

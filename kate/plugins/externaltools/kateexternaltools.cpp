@@ -628,46 +628,19 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget( QWidget *parent, c
     : Kate::PluginConfigPage( parent, name )
     , m_changed( false )
 {
-  QGridLayout *lo = new QGridLayout( this );
-  lo->setMargin( 0 );
-  lo->setSpacing( KDialog::spacingHint() );
+  setupUi(this);
 
-  lbTools = new KListWidget( this );
-  lo->addWidget( lbTools, 1, 0, 4, 4 );
   connect( lbTools, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectionChanged()) );
-
-  btnNew = new QPushButton( i18n("&New..."), this );
-  lo->addWidget( btnNew, 5, 0 );
-  connect( btnNew, SIGNAL(clicked()), this, SLOT(slotNew()) );
-
-  btnRemove = new QPushButton( i18n("&Remove"), this );
-  lo->addWidget( btnRemove, 5, 2 );
-  connect( btnRemove, SIGNAL(clicked()), this, SLOT(slotRemove()) );
-
-  btnEdit = new QPushButton( i18n("&Edit..."), this );
-  lo->addWidget( btnEdit, 5, 1 );
-  connect( btnEdit, SIGNAL(clicked()), this, SLOT(slotEdit()) );
-
-  QPushButton *b = new QPushButton( i18n("Insert &Separator"), this );
-  lo->addWidget( b, 5, 3 );
-  connect( b, SIGNAL(clicked()), this, SLOT(slotInsertSeparator()) );
-
-  btnMoveUp = new QPushButton( KIcon("go-up"), "", this );
-  lo->addWidget( btnMoveUp, 2, 4 );
-  connect( btnMoveUp, SIGNAL(clicked()), this, SLOT(slotMoveUp()) );
-
-  btnMoveDwn = new QPushButton( KIcon("go-down"), "", this );
-  lo->addWidget( btnMoveDwn, 3, 4 );
-  connect( btnMoveDwn, SIGNAL(clicked()), this, SLOT(slotMoveDown()) );
-
   connect( lbTools, SIGNAL( itemDoubleClicked ( QListWidgetItem * ) ), this, SLOT( slotEdit() ) );
+  connect( btnNew, SIGNAL(clicked()), this, SLOT(slotNew()) );
+  connect( btnRemove, SIGNAL(clicked()), this, SLOT(slotRemove()) );
+  connect( btnEdit, SIGNAL(clicked()), this, SLOT(slotEdit()) );
+  connect( btnSeparator, SIGNAL(clicked()), this, SLOT(slotInsertSeparator()) );
 
-  lo->setRowStretch( 1, 1 );
-  lo->setRowStretch( 4, 1 );
-  lo->setColumnStretch( 0, 1 );
-  lo->setColumnStretch( 1, 1 );
-  lo->setColumnStretch( 2, 1 );
-
+  btnMoveUp->setIcon(KIcon("go-up"));
+  btnMoveDown->setIcon(KIcon("go-down"));
+  connect( btnMoveUp, SIGNAL(clicked()), this, SLOT(slotMoveUp()) );
+  connect( btnMoveDown, SIGNAL(clicked()), this, SLOT(slotMoveDown()) );
 
   lbTools->setWhatsThis(i18n(
                           "This list shows all the configured tools, represented by their menu text.") );
@@ -797,7 +770,7 @@ void KateExternalToolsConfigWidget::slotSelectionChanged()
   btnEdit->setEnabled( hs && dynamic_cast<ToolItem*>(lbTools->currentItem()) );
   btnRemove->setEnabled( hs );
   btnMoveUp->setEnabled( ( lbTools->currentRow() > 0 ) && hs );
-  btnMoveDwn->setEnabled( ( lbTools->currentRow() < (int)lbTools->count() - 1 ) && hs );
+  btnMoveDown->setEnabled( ( lbTools->currentRow() < (int)lbTools->count() - 1 ) && hs );
 }
 
 void KateExternalToolsConfigWidget::slotNew()

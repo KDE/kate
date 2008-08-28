@@ -1,6 +1,12 @@
 set(kateexternaltoolsplugin_PART_SRCS kateexternaltoolsplugin.cpp kateexternaltools.cpp )
 
 
+set( kateexternaltoolsplugin_PART_UI
+    configwidget.ui
+)
+
+kde4_add_ui_files(kateexternaltoolsplugin_PART_SRCS ${kateexternaltoolsplugin_PART_UI} )
+
 kde4_add_plugin(kateexternaltoolsplugin ${kateexternaltoolsplugin_PART_SRCS})
 
 

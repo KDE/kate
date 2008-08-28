@@ -130,7 +130,9 @@ void KateGrepThread::grepInFile (const QString &fileName, const QString &baseNam
       {
         linesArray.append (lineNumber);
         columns.append (firstColumn);
-        lineContent.append (lines.at (0));
+
+        // cut too long lines....
+        lineContent.append ((lines.at(0).length() > 512) ? lines.at(0).left(512) : lines.at(0));
       }
 
       // remove first line...

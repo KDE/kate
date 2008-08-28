@@ -28,6 +28,7 @@
 #include <ktexteditor/commandinterface.h>
 
 #include <kate/plugin.h>
+#include <kate/pluginconfigpageinterface.h>
 #include <kate/mainwindow.h>
 #include <kate/documentmanager.h>
 #include <kate/application.h>
@@ -154,7 +155,7 @@ class KateExternalTool
  * The config widget allows the user to view a list of services of the type
  * "Kate/ExternalTool" and add, remove or edit them.
  */
-class KateExternalToolsConfigWidget : public KTextEditor::ConfigPage
+class KateExternalToolsConfigWidget : public Kate::PluginConfigPage
 {
     Q_OBJECT
   public:

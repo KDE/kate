@@ -624,9 +624,9 @@ void KateExternalToolServiceEditor::showMTDlg()
 //END KateExternalToolServiceEditor
 
 //BEGIN KateExternalToolsConfigWidget
-KateExternalToolsConfigWidget::KateExternalToolsConfigWidget( QWidget *parent, const char* )
-    : KTextEditor::ConfigPage( parent ),
-    m_changed( false )
+KateExternalToolsConfigWidget::KateExternalToolsConfigWidget( QWidget *parent, const char* name)
+    : Kate::PluginConfigPage( parent, name )
+    , m_changed( false )
 {
   QGridLayout *lo = new QGridLayout( this );
   lo->setMargin( 0 );

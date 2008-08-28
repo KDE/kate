@@ -22,6 +22,7 @@
 #define __KATE_EXTERNALTOOLS_H__
 
 #include <kate/plugin.h>
+#include <kate/pluginconfigpageinterface.h>
 #include <kate/mainwindow.h>
 
 #include <kxmlguiclient.h>
@@ -29,13 +30,12 @@
 #include "kateexternaltools.h"
 
 
-namespace KParts
-{
-  }
-
-class KateExternalToolsPlugin: public Kate::Plugin
+class KateExternalToolsPlugin
+  : public Kate::Plugin
+  , public Kate::PluginConfigPageInterface
 {
     Q_OBJECT
+    Q_INTERFACES(Kate::PluginConfigPageInterface)
 
   public:
     explicit KateExternalToolsPlugin( QObject* parent = 0, const QStringList& = QStringList() );
@@ -43,6 +43,16 @@ class KateExternalToolsPlugin: public Kate::Plugin
     {}
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+
+  //
+  // ConfigInterface
+  //
+  public:
+      virtual uint configPages() const;
+      virtual Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0 );
+      virtual QString configPageName (uint number = 0) const;
+      virtual QString configPageFullName (uint number = 0) const;
+      virtual KIcon configPageIcon (uint number = 0) const;
 };
 
 class KateExternalToolsPluginView : public Kate::PluginView, public KXMLGUIClient

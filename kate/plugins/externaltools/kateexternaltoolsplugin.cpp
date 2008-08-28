@@ -52,6 +52,44 @@ Kate::PluginView *KateExternalToolsPlugin::createView (Kate::MainWindow *mainWin
   return new KateExternalToolsPluginView (mainWindow);
 }
 
+uint KateExternalToolsPlugin::configPages() const
+{
+  return 1;
+}
+
+Kate::PluginConfigPage *KateExternalToolsPlugin::configPage (uint number, QWidget *parent, const char *name )
+{
+  if (number == 0) {
+    return new KateExternalToolsConfigWidget(parent, name);
+  }
+  return 0;
+}
+
+QString KateExternalToolsPlugin::configPageName (uint number) const
+{
+  if (number == 0) {
+    return i18n("External Tools");
+  }
+  return QString();
+}
+
+QString KateExternalToolsPlugin::configPageFullName (uint number) const
+{
+  if (number == 0) {
+    return i18n("External Tools");
+  }
+  return QString();
+}
+
+KIcon KateExternalToolsPlugin::configPageIcon (uint number) const
+{
+  if (number == 0) {
+    return KIcon();
+  }
+  return KIcon();
+}
+
+
 KateExternalToolsPluginView::KateExternalToolsPluginView (Kate::MainWindow *mainWindow)
     : Kate::PluginView (mainWindow), KXMLGUIClient()
 {

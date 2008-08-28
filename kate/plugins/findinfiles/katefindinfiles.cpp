@@ -25,6 +25,9 @@
 #include "katefindoptions.h"
 #include "kateresultview.h"
 
+#include <kate/application.h>
+#include <ktexteditor/editor.h>
+
 #include <kparts/part.h>
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -37,14 +40,56 @@
 
 K_EXPORT_COMPONENT_FACTORY( katefindinfilesplugin, KGenericFactory<KateFindInFilesPlugin>( "katefindinfilesplugin" ) )
 
-KateFindInFilesPlugin::KateFindInFilesPlugin( QObject* parent, const QStringList& ):
-    Kate::Plugin ( (Kate::Application*)parent )
+KateFindInFilesPlugin* KateFindInFilesPlugin::s_self = 0;
+
+KateFindInFilesPlugin* KateFindInFilesPlugin::self()
 {
+  return s_self;
+}
+
+KateFindInFilesPlugin::KateFindInFilesPlugin( QObject* parent, const QStringList& )
+  : Kate::Plugin ( (Kate::Application*)parent )
+  , m_grepCommand(0)
+{
+  s_self = this;
+
+  KTextEditor::CommandInterface* iface =
+    qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
+  if (iface) {
+    m_grepCommand = new KateGrepCommand();
+    iface->registerCommand(m_grepCommand);
+  }
+}
+
+KateFindInFilesPlugin::~KateFindInFilesPlugin()
+{
+  delete m_grepCommand;
+  m_grepCommand = 0;
+
+  s_self = 0;
 }
 
 Kate::PluginView *KateFindInFilesPlugin::createView (Kate::MainWindow *mainWindow)
 {
-  return new KateFindInFilesView (mainWindow);
+  KateFindInFilesView* view = new KateFindInFilesView (mainWindow);
+  m_views.append(view);
+  connect(view, SIGNAL(aboutToBeRemoved(KateFindInFilesView*)),
+          this, SLOT(removeView(KateFindInFilesView*)));
+  return view;
+}
+
+void KateFindInFilesPlugin::removeView(KateFindInFilesView* view)
+{
+  m_views.removeAll(view);
+}
+
+KateFindInFilesView* KateFindInFilesPlugin::viewForMainWindow(Kate::MainWindow* mw)
+{
+  foreach (KateFindInFilesView* view, m_views) {
+    if (view->mainWindow() == mw)
+      return view;
+  }
+  return 0;
 }
 
 void KateFindInFilesPlugin::readSessionConfig (KConfigBase* config, const QString& groupPrefix)
@@ -79,6 +124,8 @@ KateFindInFilesView::KateFindInFilesView (Kate::MainWindow *mw)
 
 KateFindInFilesView::~KateFindInFilesView ()
 {
+  emit aboutToBeRemoved(this);
+
   foreach(KateResultView* view, m_resultViews)
     delete view->toolView(); // view is child of toolview -> view is deleted, too
   m_resultViews.clear();
@@ -129,6 +176,52 @@ KateResultView* KateFindInFilesView::toolViewFromId(int id)
       return view;
   }
   return 0;
+}
+
+
+KateGrepCommand::KateGrepCommand()
+  : KTextEditor::Command()
+{
+}
+
+KateGrepCommand::~KateGrepCommand()
+{
+}
+
+const QStringList& KateGrepCommand::cmds()
+{
+  static QStringList sl = QStringList() << "grep" << "find-in-files";
+  return sl;
+}
+
+bool KateGrepCommand::exec (KTextEditor::View* view, const QString& cmd, QString& msg)
+{
+  //create a list of args
+  QStringList args(cmd.split(' ', QString::KeepEmptyParts));
+  QString command = args.takeFirst();
+  QString searchText = args.join(QString(' '));
+
+  Kate::MainWindow* mw = Kate::application()->activeMainWindow();
+  KateFindInFilesView* fifView = KateFindInFilesPlugin::self()->viewForMainWindow(mw);
+  if (fifView) {
+    if (searchText.isEmpty()) {
+      fifView->find();
+    } else {
+      QList<QRegExp> pattern;
+      pattern << QRegExp(searchText);
+      fifView->findDialog()->setPattern(pattern);
+      if (!fifView->findDialog()->isVisible()) {
+        fifView->findDialog()->slotSearch();
+      }
+    }
+    return true;
+  }
+  return false;
+}
+
+bool KateGrepCommand::help (KTextEditor::View *view, const QString &cmd, QString &msg)
+{
+  return false;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

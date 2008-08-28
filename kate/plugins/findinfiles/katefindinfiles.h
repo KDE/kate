@@ -24,24 +24,39 @@
 
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
+#include <ktexteditor/commandinterface.h>
 #include <kxmlguiclient.h>
 
 #include "katefinddialog.h"
 
 class KateFindInFilesView;
 class KateResultView;
+class KateGrepCommand;
 
 class KateFindInFilesPlugin: public Kate::Plugin
 {
     Q_OBJECT
+
+    static KateFindInFilesPlugin* s_self;
   public:
     explicit KateFindInFilesPlugin( QObject* parent = 0, const QStringList& = QStringList() );
-    virtual ~KateFindInFilesPlugin()
-    {}
+    virtual ~KateFindInFilesPlugin();
+
+    static KateFindInFilesPlugin* self();
 
     virtual Kate::PluginView *createView (Kate::MainWindow *mainWindow);
     virtual void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
     virtual void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
+
+  public:
+    KateFindInFilesView* viewForMainWindow(Kate::MainWindow* mw);
+
+  public Q_SLOTS:
+    void removeView(KateFindInFilesView* view);
+
+  private:
+    KateGrepCommand* m_grepCommand;
+    QList<KateFindInFilesView*> m_views;
 };
 
 /**
@@ -73,11 +88,30 @@ class KateFindInFilesView : public Kate::PluginView, public KXMLGUIClient
   public slots:
     void find();
 
+  Q_SIGNALS:
+    void aboutToBeRemoved(KateFindInFilesView* view);
+
   private:
     Kate::MainWindow* m_mw;
     KateFindDialog* m_findDialog;
     QList<KateResultView*> m_resultViews;
 };
+
+class KateGrepCommand : public KTextEditor::Command
+{
+  public:
+    KateGrepCommand();
+    virtual ~KateGrepCommand();
+
+  //
+  // KTextEditor::Command
+  //
+  public:
+    virtual const QStringList &cmds ();
+    virtual bool exec (KTextEditor::View *view, const QString &cmd, QString &msg);
+    virtual bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
+};
+
 
 #endif
 

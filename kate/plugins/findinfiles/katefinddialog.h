@@ -51,6 +51,9 @@ class KateFindDialog : public KDialog, private Ui::FindWidget
 
     void useResultView(int id);
 
+  public Q_SLOTS:
+    void slotSearch();
+
   protected:
     void showEvent(QShowEvent* event);
 
@@ -58,7 +61,6 @@ class KateFindDialog : public KDialog, private Ui::FindWidget
     void updateItems();
 
   private Q_SLOTS:
-    void slotSearch();
     void patternTextChanged( const QString &);
     void syncDir();
 

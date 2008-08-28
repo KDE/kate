@@ -634,7 +634,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget( QWidget *parent, c
 
   lbTools = new KListWidget( this );
   lo->addWidget( lbTools, 1, 0, 4, 4 );
-  connect( lbTools, SIGNAL(selectionChanged()), this, SLOT(slotSelectionChanged()) );
+  connect( lbTools, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectionChanged()) );
 
   btnNew = new QPushButton( i18n("&New..."), this );
   lo->addWidget( btnNew, 5, 0 );
@@ -660,7 +660,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget( QWidget *parent, c
   lo->addWidget( btnMoveDwn, 3, 4 );
   connect( btnMoveDwn, SIGNAL(clicked()), this, SLOT(slotMoveDown()) );
 
-  connect( lbTools, SIGNAL( doubleClicked ( QListWidgetItem * ) ), this, SLOT( slotEdit() ) );
+  connect( lbTools, SIGNAL( itemDoubleClicked ( QListWidgetItem * ) ), this, SLOT( slotEdit() ) );
 
   lo->setRowStretch( 1, 1 );
   lo->setRowStretch( 4, 1 );

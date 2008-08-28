@@ -4,8 +4,9 @@
         <!ENTITY wordsep "([][,?;()]|\.$|\.?\s)">     <!-- things that end a TagWord -->
 ]>
 <!--
-  This file is part of KDE's kate project.
+  Version 1.01 by Bruno Massa
 
+  Based on the original Doxygen Highlighter version 1.0 from
   Copyright 2004 Dominik Haumann (dhdev@gmx.de)
   Copyright 2007 Matthew Woehlke (mw_triad@users.sourceforge.net)
 
@@ -26,7 +27,7 @@
  * Boston, MA  02110-1301, USA.                                       *
  **********************************************************************
  -->
-<language name="Doxygen" version="1.30" kateversion="2.4" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL" priority="9">
+<language name="DoxygenLua" version="1.01" kateversion="2.4" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Bruno Massa (brmassa@gmail.com)" license="LGPL">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->
@@ -290,15 +291,10 @@
       @tag <word> rest_of_line : TagWordString
     -->
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <RegExpr attribute="Comment" context="LineComment" String="//(!|(/(?=[^/]|$)))&lt;?"/>
-        <RegExpr attribute="Comment" context="BlockComment" String="/\*(\*[^*/]|!|[*!]&lt;|\*$)" beginRegion="BlockComment"/>
-        <RegExpr attribute="Region" context="#stay" String="//\s*@\{\s*$" beginRegion="MemberGroup"/>
-        <RegExpr attribute="Region" context="#stay" String="//\s*@\}\s*$"   endRegion="MemberGroup"/>
-        <RegExpr attribute="Region" context="#stay" String="/\*\s*@\{\s*\*/" beginRegion="MemberGroup"/>
-        <RegExpr attribute="Region" context="#stay" String="/\*\s*@\}\s*\*/"   endRegion="MemberGroup"/>
+        <RegExpr      attribute="Comment" context="BlockComment" beginRegion="BlockComment"  String="--\[(=*)\[" dynamic="true" />
+        <StringDetect attribute="Comment" context="LineComment" String="--"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="LineComment">
-        <LineContinue attribute="Comment" context="#stay"/>
         <DetectSpaces />
         <IncludeRules context="##Alerts" />
         <keyword attribute="Tags" context="#stay" String="TagOnly" />
@@ -310,11 +306,11 @@
         <DetectIdentifier />
         <StringDetect attribute="HTML Comment" context="SL_htmlcomment" String="&lt;!--" />
         <Detect2Chars attribute="Comment" context="#stay" char="&lt;" char1="&lt;" />
-        <RegExpr attribute="HTML Tag" context="SL_htmltag" String="&lt;\/?[a-zA-Z_:][a-zA-Z0-9._:-]*" />
+        <RegExpr attribute="HTML Tag" context="SL_htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
       </context>
-      <context attribute="Comment" lineEndContext="#stay" name="BlockComment">
+      <context attribute="Comment" lineEndContext="#stay" name="BlockComment" dynamic="true" >
         <DetectSpaces />
-        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <RegExpr      attribute="Comment" context="#pop" endRegion="BlockComment" String="\]%1\]" dynamic="true" />
         <IncludeRules context="##Alerts" />
         <Detect2Chars attribute="Region" context="#stay" char="@" char1="{" />
         <Detect2Chars attribute="Region" context="#stay" char="@" char1="}" />
@@ -327,7 +323,7 @@
         <DetectIdentifier />
         <RegExpr attribute="Tags" context="#stay" String="\\(&lt;|&gt;)" />
         <Detect2Chars attribute="Comment" context="#stay" char="&lt;" char1="&lt;" />
-        <RegExpr attribute="HTML Tag" context="ML_htmltag" String="&lt;\/?[a-zA-Z_:][a-zA-Z0-9._:-]*" />
+        <RegExpr attribute="HTML Tag" context="ML_htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
         <StringDetect attribute="HTML Comment" context="ML_htmlcomment" String="&lt;!--" />
       </context>
 
@@ -364,7 +360,7 @@
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
         <StringDetect attribute="HTML Comment" context="ML_htmlcomment" String="&lt;!--" />
         <Detect2Chars attribute="Comment" context="#stay" char="&lt;" char1="&lt;" />
-        <RegExpr attribute="HTML Tag" context="ML_htmltag" String="&lt;\/?[a-zA-Z_:][a-zA-Z0-9._:-]*" />
+        <RegExpr attribute="HTML Tag" context="ML_htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
         <RegExpr attribute="Description" context="#stay" String="." />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="ML_TagWordString">
@@ -430,7 +426,7 @@
         <DetectSpaces />
         <StringDetect attribute="HTML Comment" context="SL_htmlcomment" String="&lt;!--" />
         <Detect2Chars attribute="Comment" context="#stay" char="&lt;" char1="&lt;" />
-        <RegExpr attribute="HTML Tag" context="SL_htmltag" String="&lt;\/?[a-zA-Z_:][a-zA-Z0-9._:-]*" />
+        <RegExpr attribute="HTML Tag" context="SL_htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
         <RegExpr attribute="Description" context="#stay" String="." />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="SL_TagWordString">
@@ -466,9 +462,9 @@
       <itemData name="Normal Text" defStyleNum="dsNormal" />
       <itemData name="Tags"        defStyleNum="dsKeyword" color="#ca60ca" selColor="#ffffff" bold="1" italic="0" />
       <itemData name="Word"        defStyleNum="dsKeyword" color="#0095ff" selColor="#ffffff" bold="1" italic="0" />
-      <itemData name="HTML Tag"    defStyleNum="dsKeyword" color="#000000" selColor="#ffffff" bold="1" italic="0" />
-      <itemData name="Description" defStyleNum="dsString"  color="#ff0000" />
-      <itemData name="Comment"     defStyleNum="dsComment" color="#0000ff" selColor="#ffffff" italic="1" />
+      <itemData name="HTML Tag"    defStyleNum="dsKeyword"/>
+      <itemData name="Description" defStyleNum="dsString" />
+      <itemData name="Comment"     defStyleNum="dsComment"/>
       <itemData name="Region"      defStyleNum="dsRegionMarker" />
       <itemData name="Identifier"  defStyleNum="dsOthers" />
       <itemData name="HTML Comment" defStyleNum="dsComment" />
@@ -476,6 +472,10 @@
     </itemDatas>
   </highlighting>
   <general>
+    <comments>
+      <comment name="singleLine" start="--" />
+      <comment name="multiLine" start="--[[" end="]]" />
+    </comments>
     <keywords casesensitive="0" weakDeliminator="\$~" />
   </general>
 </language>

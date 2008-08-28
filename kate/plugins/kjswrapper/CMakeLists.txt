@@ -13,7 +13,7 @@ kde4_add_plugin(katekjswrapperplugin ${katekjswrapperplugin_PART_SRCS})
 
 
 
-target_link_libraries(katekjswrapperplugin  ${KDE4_KDECORE_LIBS} kateinterfaces kjsembed kjs )
+target_link_libraries(katekjswrapperplugin ${KDE4_KDECORE_LIBS} kateinterfaces kjsembed ${KDE4_KJS_LIBS})
 
 install(TARGETS katekjswrapperplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

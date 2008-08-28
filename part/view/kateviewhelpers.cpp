@@ -1036,8 +1036,11 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
             {
               QPixmap px_mark (m_doc->markPixmap( markType ));
 
-              if (!px_mark.isNull())
+              if (!px_mark.isNull() && h > 0 && iconPaneWidth > 0)
               {
+                if (iconPaneWidth < px_mark.width() || h < px_mark.height())
+                  px_mark = px_mark.scaled (iconPaneWidth, h, Qt::KeepAspectRatio);
+
                 // center the mark pixmap
                 int x_px = (iconPaneWidth - px_mark.width()) / 2;
                 if (x_px < 0)

@@ -114,6 +114,11 @@ KateExternalToolsPluginView::KateExternalToolsPluginView (Kate::MainWindow *main
 }
 
 KateExternalToolsPluginView::~KateExternalToolsPluginView ()
-{}
+{
+  mainWindow()->guiFactory()->removeClient (this);
+
+  delete externalTools;
+  externalTools = 0;
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

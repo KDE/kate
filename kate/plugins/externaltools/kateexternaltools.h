@@ -70,8 +70,7 @@ class KateExternalToolsMenuAction : public KActionMenu
     Q_OBJECT
   public:
     KateExternalToolsMenuAction( const QString &text, class KActionCollection *collection, QObject *parent, class Kate::MainWindow *mw = 0 );
-    ~KateExternalToolsMenuAction()
-    {}
+    virtual ~KateExternalToolsMenuAction();
 
     /**
      * This will load all the confiured services.

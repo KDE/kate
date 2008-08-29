@@ -9,7 +9,7 @@
     <height>465</height>
    </rect>
   </property>
-  <layout class="QGridLayout" name="gridLayout_5" >
+  <layout class="QGridLayout" name="gridLayout_4" >
    <item row="0" column="0" >
     <widget class="QGroupBox" name="gbBehaviour" >
      <property name="title" >
@@ -289,77 +289,97 @@
      <property name="title" >
       <string>Highlighting</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_4" >
-      <item row="0" column="0" >
-       <widget class="KColorButton" name="colModified" >
-        <property name="enabled" >
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item rowspan="3" row="0" column="1" >
-       <layout class="QGridLayout" name="gridLayout_3" >
-        <item row="0" column="0" >
-         <widget class="QCheckBox" name="chkModified" >
-          <property name="text" >
-           <string>Highlight modified tabs</string>
-          </property>
-         </widget>
+     <layout class="QVBoxLayout" name="verticalLayout" >
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3" >
+        <item>
+         <layout class="QGridLayout" name="gridLayout_3" >
+          <item row="0" column="0" >
+           <widget class="KColorButton" name="colModified" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QCheckBox" name="chkModified" >
+            <property name="text" >
+             <string>Highlight modified tabs</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" >
+           <widget class="KColorButton" name="colActive" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QCheckBox" name="chkActive" >
+            <property name="text" >
+             <string>Highlight active tab</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" >
+           <widget class="KColorButton" name="colPrevious" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1" >
+           <widget class="QCheckBox" name="chkPrevious" >
+            <property name="text" >
+             <string>Highlight previous tab</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" >
+           <widget class="QLabel" name="lblOpacity" >
+            <property name="text" >
+             <string>Opacity:</string>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1" >
+           <widget class="QSlider" name="slOpacity" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximum" >
+             <number>100</number>
+            </property>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
-        <item rowspan="3" row="0" column="1" >
+        <item>
          <spacer name="horizontalSpacer_5" >
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0" >
            <size>
-            <width>0</width>
-            <height>78</height>
+            <width>241</width>
+            <height>108</height>
            </size>
           </property>
          </spacer>
         </item>
-        <item row="1" column="0" >
-         <widget class="QCheckBox" name="chkActive" >
-          <property name="text" >
-           <string>Highlight active tab</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" >
-         <widget class="QCheckBox" name="chkPrevious" >
-          <property name="text" >
-           <string>Highlight previous tab</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
-      <item row="1" column="0" >
-       <widget class="KColorButton" name="colActive" >
-        <property name="enabled" >
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" >
-       <widget class="KColorButton" name="colPrevious" >
-        <property name="enabled" >
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" >
-       <widget class="QLabel" name="lblOpacity" >
-        <property name="text" >
-         <string>Opacity:</string>
-        </property>
-        <property name="alignment" >
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0" colspan="2" >
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4" >
         <item>
          <widget class="QLabel" name="lblNote" >
@@ -390,33 +410,6 @@
            <string>Clear Highlight Cache</string>
           </property>
          </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="3" column="1" >
-       <layout class="QHBoxLayout" name="horizontalLayout_3" >
-        <item>
-         <widget class="QSlider" name="slOpacity" >
-          <property name="maximum" >
-           <number>100</number>
-          </property>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_6" >
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0" >
-           <size>
-            <width>0</width>
-            <height>13</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </item>

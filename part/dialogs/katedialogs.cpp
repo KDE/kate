@@ -757,7 +757,7 @@ void KateSaveConfigTab::reload()
   foreach (const QStringList &encodingsForScript, KGlobal::charsets()->encodingsByScript())
     items << encodingsForScript.at(0);
   items.sort();
-  foreach (QString item, items) {
+  foreach (const QString &item, items) {
     KEncodingProber::ProberType scri=KEncodingProber::proberTypeForName(item);
     ui->cmbEncodingDetection->addItem (item, QVariant((uint)scri));
     if (scri==KateDocumentConfig::global()->encodingProberType())

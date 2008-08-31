@@ -44,7 +44,7 @@ class KateViCommand {
     const QString pattern() const { return m_pattern; }
     bool isRegexPattern() const { return m_flags & REGEX_PATTERN; }
     bool needsMotion() const { return m_flags & NEEDS_MOTION; }
-    bool shouldReset() const { return m_flags & ~SHOULD_NOT_RESET; }
+    bool shouldReset() const { return !( m_flags & SHOULD_NOT_RESET ); }
     bool isChange() const { return m_flags & IS_CHANGE; }
 
   protected:

@@ -68,22 +68,26 @@ void KateViVisualMode::highlight() const
 
 void KateViVisualMode::goToPos( KateViRange r )
 {
-  KTextEditor::Cursor cursor = m_view->cursorPosition();
+  KTextEditor::Cursor c = m_view->cursorPosition();
 
-  if ( r.startLine != -1 && r.startColumn != -1 && cursor == m_start ) {
+  if ( r.startLine != -1 && r.startColumn != -1 && c == m_start ) {
     m_start.setLine( r.startLine );
     m_start.setColumn( r.startColumn );
-    cursor.setLine( r.endLine );
-    cursor.setColumn( r.endColumn );
-  } else if ( r.startLine != -1 && r.startColumn != -1 && cursor < m_start ) {
-    cursor.setLine( r.startLine );
-    cursor.setColumn( r.startColumn );
+    c.setLine( r.endLine );
+    c.setColumn( r.endColumn );
+  } else if ( r.startLine != -1 && r.startColumn != -1 && c < m_start ) {
+    c.setLine( r.startLine );
+    c.setColumn( r.startColumn );
   } else {
-    cursor.setLine( r.endLine );
-    cursor.setColumn( r.endColumn );
+    c.setLine( r.endLine );
+    c.setColumn( r.endColumn );
   }
 
-  m_viewInternal->updateCursor( cursor );
+  if ( c.line() >= m_view->doc()->lines() ) {
+    c.setLine( m_view->doc()->lines()-1 );
+  }
+
+  m_viewInternal->updateCursor( c );
 
   m_commandRange.startLine = m_start.line();
   m_commandRange.startColumn = m_start.column();

@@ -334,15 +334,19 @@ void KateViNormalMode::reset()
 
 void KateViNormalMode::goToPos( KateViRange r )
 {
-  KTextEditor::Cursor cursor;
-  cursor.setLine( r.endLine );
-  cursor.setColumn( r.endColumn );
+  KTextEditor::Cursor c;
+  c.setLine( r.endLine );
+  c.setColumn( r.endColumn );
 
   if ( r.jump ) {
     addCurrentPositionToJumpList();
   }
 
-  m_viewInternal->updateCursor( cursor );
+  if ( c.line() >= m_view->doc()->lines() ) {
+    c.setLine( m_view->doc()->lines()-1 );
+  }
+
+  m_viewInternal->updateCursor( c );
 }
 
 

@@ -1,7 +1,7 @@
 # define project
 project(kate)
 
-# this subdirs have own CMakeLists
+# these subdirs have their own CMakeLists
 add_subdirectory( data )
 
 # syntax highlighting data files
@@ -97,7 +97,7 @@ syntax/katesyntaxdocument.cpp
 syntax/katecodefolding.cpp
 syntax/kateextendedattribute.cpp
 
-# view stuff (THE view and it's helpers)
+# view stuff (THE view and its helpers)
 view/kateview.cpp
 view/kateviewinternal.cpp
 view/kateviewhelpers.cpp

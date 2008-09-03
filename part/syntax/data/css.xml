@@ -8,8 +8,15 @@
 
     Changelog:
 
-    - Version 2.01, by Mathieu Bonnet:
+    - Version 2.02, by Rafał Miłecki:
+        - Added CSS 3 properties "border-*-image" and "border-*-radius".
+        - Added CSS values "clip", "ellipsis" and "ellipsis-word".
+        - Added CSS 3 properties "overflow-x", "overflow-y", "text-overflow", "box-shadow" and "outline-offset".
+        - Added CSS 3 color values: "rgba", "hsl" and "hsla".
+        - Added Gecko CSS properties: "-moz-border-*-colors".
+        - Added background size properties: "background-size" and prefixes: "-o-", "-webkit-" and "-khtml-".
 
+    - Version 2.01, by Mathieu Bonnet:
         - Added CSS 3 property "border-radius".
         - Added Gecko CSS properties "-moz-border-radius" and "-moz-box-flex".
         - Added Gecko CSS value "-moz-box".
@@ -18,7 +25,7 @@
 
 -->
 
-<language name="CSS" version="2.01" kateversion="2.4" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="CSS" version="2.02" kateversion="2.4" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
   <highlighting>
     <list name="properties">
@@ -148,18 +155,49 @@
       <item> z-index </item>
 
       <!-- CSS3 -->
+      <item> border-bottom-image </item>
+      <item> border-bottom-left-image </item>
+      <item> border-bottom-left-radius </item>
+      <item> border-bottom-right-image </item>
+      <item> border-bottom-right-radius </item>
+      <item> border-corner-image </item>
+      <item> border-image </item>
+      <item> border-left-image </item>
       <item> border-radius </item>
+      <item> border-right-image </item>
+      <item> border-top-image </item>
+      <item> border-top-left-image </item>
+      <item> border-top-left-radius </item>
+      <item> border-top-right-image </item>
+      <item> border-top-right-radius </item>
+      <item> box-shadow </item>
       <item> box-sizing </item>
       <item> opacity </item>
+      <item> outline-offset </item>
+      <item> overflow-x </item>
+      <item> overflow-y </item>
+      <item> text-overflow </item>
       <item> text-shadow </item>
 
       <!-- Gecko rendering engine CSS property extensions -->
+      <item> -moz-border-bottom-colors </item>
+      <item> -moz-border-left-colors </item>
       <item> -moz-border-radius </item>
+      <item> -moz-border-right-colors </item>
+      <item> -moz-border-top-colors </item>
       <item> -moz-box-flex </item>
 
+      <!-- Opera rendering engine CSS property extensions -->
+      <item> -o-background-size </item>
+      <item> -o-text-overflow </item>
+
       <!-- konq specific -->
+      <item> -khtml-background-size </item>
       <item> konq_bgpos_x </item>
       <item> konq_bgpos_y </item>
+
+      <!-- Webkit rendering engine CSS property extensions -->
+      <item> -webkit-background-size </item>
 
       <!-- font properties in @font-face -->
       <item> font-family </item>
@@ -308,11 +346,14 @@
       <item> both </item>
       <item> capitalize </item>
       <item> caption </item>
+      <item> clip </item>
       <item> close-quote </item>
       <item> collapse </item>
       <item> condensed </item>
       <item> crop </item>
       <item> cross </item>
+      <item> ellipsis </item>
+      <item> ellipsis-word </item>
       <item> embed </item>
       <item> expanded </item>
       <item> extra-condensed </item>
@@ -431,6 +472,9 @@
       <item> attr </item>
       <item> rect </item>
       <item> rgb </item>
+      <item> rgba </item>
+      <item> hsl </item>
+      <item> hsla </item>
       <item> counter </item>
       <item> counters </item>
 

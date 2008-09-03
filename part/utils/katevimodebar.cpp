@@ -19,6 +19,7 @@
 #include "katevimodebar.h"
 #include "katevinormalmode.h"
 #include "katevivisualmode.h"
+#include "kateviinsertmode.h"
 
 #include <QtGui/QLabel>
 #include <QtGui/QHBoxLayout>

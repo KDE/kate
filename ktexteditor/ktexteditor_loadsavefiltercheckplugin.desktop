@@ -3,6 +3,7 @@ Type=ServiceType
 X-KDE-ServiceType=KTextEditor/LoadSaveFilterCheckPlugin
 X-KDE-Derived=
 Comment=KTextEditor load/save filter/check plugin
+Comment[es]=Complemento de filtrado/comprobación para abrir/guardar de KTextEditor
 Comment[et]=KTextEditori laadimise/salvestamise filtreerimise/kontrollimise plugin
 Comment[ga]=Breiseán scagaire luchtú/sábháil KTextEditor
 Comment[gl]=Extensión de cargar/gardar o filtro/comprobación para KTextEditor

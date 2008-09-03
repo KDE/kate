@@ -361,12 +361,12 @@ void KateSyntaxDocument::setupModeList (bool force)
     return;
 
   // We'll store the ModeList in katesyntaxhighlightingrc
-  KConfigGroup config(m_config, "General");
+  KConfigGroup generalConfig(m_config, "General");
 
   // figure our if the kate install is too new
-  if (config.readEntry ("Version",0) > config.readEntry ("CachedVersion",0))
+  if (generalConfig.readEntry ("Version",0) > generalConfig.readEntry ("CachedVersion",0))
   {
-    config.writeEntry ("CachedVersion", config.readEntry ("Version",0));
+    generalConfig.writeEntry ("CachedVersion", generalConfig.readEntry ("Version",0));
     force = true;
   }
 
@@ -381,7 +381,7 @@ void KateSyntaxDocument::setupModeList (bool force)
     QString Group="Cache "+ *it;
 
     // Let's go to this group
-    config.changeGroup(Group);
+    KConfigGroup config(m_config, Group);
 
     // stat the file
     struct stat sbuf;
@@ -457,7 +457,7 @@ void KateSyntaxDocument::setupModeList (bool force)
               mli->identifier = *it;
 
               // Now let's write or overwrite (if force==true) the entry in katesyntax...rc
-              config.changeGroup(Group);
+              config = KConfigGroup(m_config, Group);
               config.writeEntry("name",mli->name);
               config.writeEntry("section",mli->section);
               config.writeEntry("mimetype",mli->mimetype);
@@ -500,7 +500,7 @@ void KateSyntaxDocument::setupModeList (bool force)
   }
 
   // Synchronize with the file katesyntax...rc
-  config.sync();
+  generalConfig.sync();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

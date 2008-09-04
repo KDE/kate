@@ -1,9 +1,9 @@
 <!DOCTYPE kpartgui>
-<kpartplugin name="ktexteditor_timedate" library="ktexteditor_timedate" version="2">
+<gui name="ktexteditor_timedate" library="ktexteditor_timedate" version="2">
 <MenuBar>
- <Menu name="tools"><Text>&amp;Tools</Text>
-    <separator group="tools_operations" />
+ <Menu name="tools"><text>&amp;Tools</text>
+    <Separator group="tools_operations" />
     <Action name="tools_insert_timedate" group="tools_operations"/>
  </Menu>
 </MenuBar>
-</kpartplugin>
+</gui>

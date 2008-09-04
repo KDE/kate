@@ -105,11 +105,11 @@ void HierarchicalModelHandler::addValue(CodeCompletionModel::ExtraItemDataRoles 
 
 KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   : ExpandingWidgetModel(parent)
+  , m_hasGroups(false)
   , m_matchCaseSensitivity(Qt::CaseInsensitive)
   , m_ungrouped(new Group(this))
   , m_argumentHints(new Group(this))
   , m_bestMatches(new Group(this))
-  , m_hasGroups(false)
   , m_sortingEnabled(false)
   , m_sortingAlphabetical(false)
   , m_isSortingByInheritance(false)

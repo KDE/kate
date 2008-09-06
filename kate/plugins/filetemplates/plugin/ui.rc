@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartplugin name="katefiletemplates" library="libkatefiletemplates" version="2">
+<gui name="katefiletemplates" library="libkatefiletemplates" version="2">
 <MenuBar>
  <Menu name="file"><text>&amp;File</text>
   <Action name="file_new_fromtemplate" group="new_merge" />
@@ -12,4 +12,4 @@
 <!--   <Toolbar name="mainToolBar"><text>Main Toolbar</text> -->
 <!--   <Action name="file_new_fromtemplate" group="file_open" /> -->
 <!-- </Toolbar> -->
-</kpartplugin>
+</gui>

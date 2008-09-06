@@ -1,8 +1,8 @@
 <!DOCTYPE kpartgui>
-<kpartplugin name="findinfiles" library="katefindinfilesplugin" version="1">
+<gui name="findinfiles" library="katefindinfilesplugin" version="1">
 <MenuBar>
  <Menu name="edit"><text>&amp;Edit</text>
     <Action name="findinfiles_edit_find_in_files" group="edit_find_merge"/>
  </Menu>
 </MenuBar>
-</kpartplugin>
+</gui>

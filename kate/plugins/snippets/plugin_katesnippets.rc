@@ -1,11 +1,11 @@
 <!DOCTYPE kpartgui>
-<kpartplugin name="katesnippets" library="katesnippetsplugin" version="1">
+<gui name="katesnippets" library="katesnippetsplugin" version="1">
 <MenuBar>
- <Menu name="tools"><Text>&amp;Tools</Text>
+ <Menu name="tools"><text>&amp;Tools</text>
   <Action name="edit_insert_katesnippets"/>
  </Menu>
 </MenuBar>
 <ToolBar name="extraToolBar">
   <Action name="edit_insert_katesnippets"/>
 </ToolBar>
-</kpartplugin>
+</gui>

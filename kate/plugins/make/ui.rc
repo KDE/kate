@@ -1,7 +1,7 @@
 <!DOCTYPE kpartgui>
-<kpartplugin name="katemake" library="libkatemakeplugin" version="1">
+<gui name="katemake" library="libkatemakeplugin" version="1">
 <MenuBar>
- <Menu name="Make"><Text>&amp;Make</Text>
+ <Menu name="Make"><text>&amp;Make</text>
     <Action name="make_check" />
     <Action name="make_left" />
     <Action name="make_right" />
@@ -9,4 +9,4 @@
     <Action name="make_settings" />
  </Menu>
 </MenuBar>
-</kpartplugin>
+</gui>

@@ -1,8 +1,8 @@
 <!DOCTYPE kpartgui>
-<kpartplugin name="katexmlcheck" library="libkatexmlcheckplugin" version="4">
+<gui name="katexmlcheck" library="libkatexmlcheckplugin" version="4">
 <MenuBar>
- <Menu name="xml"><Text>&amp;XML</Text>
+ <Menu name="xml"><text>&amp;XML</text>
     <Action name="xml_check" />
  </Menu>
 </MenuBar>
-</kpartplugin>
+</gui>

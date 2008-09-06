@@ -1,8 +1,8 @@
 <!DOCTYPE kpartgui>
-<kpartplugin name="katehtmltools" library="libkatehtmltoolsplugin" version="3">
+<gui name="katehtmltools" library="libkatehtmltoolsplugin" version="3">
 <MenuBar>
  <Menu name="tools"><text>&amp;Tools</text>
     <Action name="edit_HTML_tag" />
  </Menu>
 </MenuBar>
-</kpartplugin>
+</gui>

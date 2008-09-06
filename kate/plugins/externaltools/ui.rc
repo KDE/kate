@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartplugin name="kateexternaltools" library="kateexternaltoolsplugin" version="2">
+<gui name="kateexternaltools" library="kateexternaltoolsplugin" version="2">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_mail" group="export_merge"/>
@@ -8,4 +8,4 @@
     <Action name="tools_external" />
  </Menu>
 </MenuBar>
-</kpartplugin>
+</gui>

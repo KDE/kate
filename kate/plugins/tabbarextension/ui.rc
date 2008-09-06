@@ -1,7 +1,7 @@
 <!DOCTYPE kpartgui>
-<kpartplugin name="tabbarextension" library="katetabbarextensionplugin" version="1">
+<gui name="tabbarextension" library="katetabbarextensionplugin" version="1">
 <ToolBar name="tabbarExtensionToolBar">
   <text>Tab Bar Extension</text>
   <Action name="tabbar_widget"/>
 </ToolBar>
-</kpartplugin>
+</gui>

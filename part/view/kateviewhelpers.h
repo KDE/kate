@@ -74,6 +74,7 @@ class KateScrollBar : public QScrollBar
     virtual void resizeEvent(QResizeEvent *);
     virtual void styleChange(QStyle &oldStyle);
     virtual void sliderChange ( SliderChange change );
+    virtual void wheelEvent(QWheelEvent *e);
 
   protected Q_SLOTS:
     void sliderMaybeMoved(int value);

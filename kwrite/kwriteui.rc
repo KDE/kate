@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kwrite" version="16">
+<kpartgui name="kwrite" version="17">
 
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
@@ -59,15 +59,8 @@
     <Action name="settings_configure" append="configure_merge"/>
   </Menu>
 
-  <Menu name="help" noMerge="1"><text>&amp;Help</text>
-    <Action name="help_contents"/>
-    <Action name="help_whats_this"/>
-    <Separator/>
-    <Action name="help_report_bug"/>
-    <Separator/>
-    <Action name="help_about_app"/>
-    <Action name="help_about_editor"/>
-    <Action name="help_about_kde"/>
+  <Menu name="help"><text>&amp;Help</text>
+    <Action name="help_about_editor" append="about_merge"/>
   </Menu>
 </MenuBar>
 

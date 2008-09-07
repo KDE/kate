@@ -119,45 +119,29 @@
      <property name="title" >
       <string>Options</string>
      </property>
-     <widget class="QCheckBox" name="chkRecursive" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>80</y>
-        <width>161</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Recursive search</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="chkCaseSensitive" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>113</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Case sensitive</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="chkRegExp" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>50</y>
-        <width>191</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Regular expression</string>
-      </property>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout" >
+      <item>
+       <widget class="QCheckBox" name="chkCaseSensitive" >
+        <property name="text" >
+         <string>Case sensitive</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkRegExp" >
+        <property name="text" >
+         <string>Regular expression</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkRecursive" >
+        <property name="text" >
+         <string>Recursive search</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

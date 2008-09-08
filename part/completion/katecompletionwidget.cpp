@@ -29,6 +29,7 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QAbstractScrollArea>
 #include <QtGui/QScrollBar>
+#include <QtCore/QMutex>
 
 #include <kicon.h>
 #include <kdialog.h>
@@ -462,6 +463,10 @@ void KateCompletionWidget::execute(bool shift)
 
   KTextEditor::CodeCompletionModel2* model2 = dynamic_cast<KTextEditor::CodeCompletionModel2*>(model);
 
+  //editStart locks the smart-mutex, but it must not be locked when calling external functions,
+  //else we may get deadlock-issues.
+  view()->doc()->smartMutex()->unlock();
+  
   if(model2)
     model2->executeCompletionItem2(view()->document(), *m_completionRange, toExecute);
   else if(toExecute.parent().isValid())
@@ -469,6 +474,9 @@ void KateCompletionWidget::execute(bool shift)
     view()->document()->replaceText(*m_completionRange, model->data(toExecute.sibling(toExecute.row(), KTextEditor::CodeCompletionModel::Name)).toString());
   else
     model->executeCompletionItem(view()->document(), *m_completionRange, toExecute.row());
+  
+  //Relock, because editEnd expects it to be locked
+  view()->doc()->smartMutex()->lock();
 
   view()->doc()->editEnd();
 

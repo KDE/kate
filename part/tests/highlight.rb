@@ -527,3 +527,10 @@ str = "\\\\"
 # this is not part of the string
 %x{echo \\\}\\}	# prints \}\
 # this is not part of the command
+
+# these are all symbols
+:abc
+:abc!
+:abc?
+:abc=
+:[]

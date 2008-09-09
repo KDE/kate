@@ -177,11 +177,6 @@ class KateViNormalMode : public KateViModeBase
     void error( const QString &errorMsg ) const;
     void message( const QString &msg ) const;
 
-    /**
-     * @return normal mode command accumulated so far
-     */
-    QString getVerbatimKeys() const;
-
   protected:
     void resetParser();
     virtual void reset();
@@ -190,7 +185,6 @@ class KateViNormalMode : public KateViModeBase
     virtual void goToPos( KateViRange r );
 
     QString m_keys;
-    QString m_keysVerbatim;
     unsigned int m_countTemp;
     bool m_findWaitingForChar;
     int m_waitingForMotionOrTextObject;

@@ -472,12 +472,20 @@ void KateViModeBase::fillRegister( const QChar &reg, const QString &text )
     KateGlobal::self()->viInputModeGlobal()->fillRegister( reg, text );
 }
 
+bool KateViModeBase::startNormalMode()
+{
+  m_viInputModeManager->viEnterNormalMode();
+
+  m_view->updateViModeBarMode();
+
+  return true;
+}
+
 bool KateViModeBase::startInsertMode()
 {
   m_viInputModeManager->viEnterInsertMode();
-  m_viewInternal->repaint ();
 
-  emit m_view->viewModeChanged( m_view );
+  m_view->updateViModeBarMode();
 
   return true;
 }
@@ -491,7 +499,7 @@ bool KateViModeBase::startVisualMode()
     m_viInputModeManager->viEnterVisualMode();
   }
 
-  emit m_view->viewModeChanged( m_view );
+  m_view->updateViModeBarMode();
 
   return true;
 }
@@ -505,7 +513,12 @@ bool KateViModeBase::startVisualLineMode()
     m_viInputModeManager->viEnterVisualMode( true );
   }
 
-  emit m_view->viewModeChanged( m_view );
+  m_view->updateViModeBarMode();
 
   return true;
+}
+
+QString KateViModeBase::getVerbatimKeys() const
+{
+  return m_keysVerbatim;
 }

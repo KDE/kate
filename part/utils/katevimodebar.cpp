@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
  * Copyright (C) 2008 Dmitry Suzdalev <dimsuz@gmail.com>
+ * Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -16,7 +17,9 @@
  * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
+
 #include "katevimodebar.h"
+#include "kateviinputmodemanager.h"
 #include "katevinormalmode.h"
 #include "katevivisualmode.h"
 #include "kateviinsertmode.h"
@@ -50,47 +53,31 @@ KateViModeBar::~KateViModeBar()
 
 }
 
-void KateViModeBar::updateAccordingToMode(const KateViNormalMode& normalMode)
+void KateViModeBar::updateViMode(ViMode mode)
 {
-  //QString statusStr = modeToString(NormalMode);
-  //m_labelStatus->setText(statusStr);
-
-  //QString pendingCommand = normalMode.getVerbatimKeys();
-  //m_labelCommand->setText(pendingCommand);
+  m_labelStatus->setText(modeToString(mode));
 }
 
-void KateViModeBar::updateAccordingToMode(const KateViInsertMode& mode)
+void KateViModeBar::updatePartialCommand(const QString &cmd)
 {
-  //Q_UNUSED(mode)
-  //QString statusStr = modeToString(InsertMode);
-  //m_labelStatus->setText(statusStr);
+  m_labelCommand->setText(cmd);
 }
-
-void KateViModeBar::updateAccordingToMode(const KateViVisualMode& mode)
-{
-  //QString statusStr = modeToString( mode.isVisualLine() ? VisualLineMode : VisualMode );
-  //m_labelStatus->setText(statusStr);
-}
-
-QString KateViModeBar::modeToString(/*ViMode*/ int mode) const
+QString KateViModeBar::modeToString(ViMode mode) const
 {
   QString modeStr;
-  //switch (mode) {
-  //  case InsertMode:
-  //    modeStr = i18n("-- VI: INSERT MODE --");
-  //    break;
-  //  case NormalMode:
-  //    modeStr = i18n("-- VI: NORMAL MODE --");
-  //    break;
-  //  case VisualMode:
-  //    modeStr = i18n("-- VI: VISUAL --");
-  //    break;
-  //  case VisualLineMode:
-  //    modeStr = i18n("-- VI: VISUAL LINE --");
-  //    break;
-  //  case CommandLineMode:
-  //    modeStr = i18n("-- VI: COMMAND LINE --");
-  //    break;
-  //}
+  switch (mode) {
+    case InsertMode:
+      modeStr = i18n("VI: INSERT MODE");
+      break;
+    case NormalMode:
+      modeStr = i18n("VI: NORMAL MODE");
+      break;
+    case VisualMode:
+      modeStr = i18n("VI: VISUAL");
+      break;
+    case VisualLineMode:
+      modeStr = i18n("VI: VISUAL LINE");
+      break;
+  }
   return modeStr;
 }

@@ -100,9 +100,6 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   m_keysVerbatim.append( m_keyParser->decodeKeySequence( key ) );
   kDebug( 13070 ) << " *** Command so far: " << m_keysVerbatim << " ***";
 
-  // make status bar display pending keys
-  m_view->updateViModeBar();
-
   QChar c = QChar::Null;
   if ( m_keys.size() > 0 ) {
     c = m_keys.at( m_keys.size()-1 ); // last char
@@ -268,11 +265,6 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   return false;
 }
 
-QString KateViNormalMode::getVerbatimKeys() const
-{
-  return m_keysVerbatim;
-}
-
 void KateViNormalMode::error( const QString &errorMsg ) const
 {
   kError( 13070 ) << "\033[31m" << errorMsg << "\033[0m\n";
@@ -289,9 +281,6 @@ void KateViNormalMode::message( const QString &msg ) const
  */
 void KateViNormalMode::resetParser()
 {
-  // update view only if verbatim keys were actually cleared
-  bool needToUpdateView = !m_keysVerbatim.isEmpty();
-
   kDebug( 13070 ) << "***RESET***";
   m_keys.clear();
   m_keysVerbatim.clear();
@@ -304,9 +293,6 @@ void KateViNormalMode::resetParser()
   m_matchingMotions.clear();
   m_awaitingMotionOrTextObject.clear();
   m_motionOperatorIndex = 0;
-
-  if (needToUpdateView)
-    m_view->updateViModeBar();
 }
 
 // reset the command parser
@@ -395,7 +381,7 @@ bool KateViNormalMode::commandEnterVisualLineMode()
     reset();
     return true;
   }
-  
+
   return startVisualLineMode();
 }
 
@@ -405,7 +391,7 @@ bool KateViNormalMode::commandEnterVisualMode()
     reset();
     return true;
   }
-  
+
   return startVisualMode();
 }
 

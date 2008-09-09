@@ -234,6 +234,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   if ( viInputMode() ) {
     deactivateEditActions();
+    m_viewBar->addPermanentBarWidget(viModeBar());
+    updateViModeBarMode();
   }
 }
 
@@ -1245,6 +1247,7 @@ void KateView::toggleViInputMode()
 
   if ( viInputMode() ) {
     m_viewInternal->getViInputModeManager()->viEnterNormalMode();
+    m_viewBar->addPermanentBarWidget(viModeBar());
     deactivateEditActions();
   } else {
     m_viewBar->removePermanentBarWidget(viModeBar());
@@ -1255,22 +1258,15 @@ void KateView::toggleViInputMode()
   emit viewEditModeChanged(this,viewEditMode());
 }
 
-void KateView::updateViModeBar()
+void KateView::updateViModeBarMode()
 {
-    //F//switch (getCurrentViMode()) {
-    //F//    case NormalMode:
-    //F//        viModeBar()->updateAccordingToMode(*m_viewInternal->getViNormalMode());
-    //F//        break;
-    //F//    case InsertMode:
-    //F//        viModeBar()->updateAccordingToMode(*m_viewInternal->getViInsertMode());
-    //F//        break;
-    //F//    case VisualMode:
-    //F//    case VisualLineMode:
-    //F//        viModeBar()->updateAccordingToMode(*m_viewInternal->getViVisualMode());
-    //F//        break;
-    //F//    default:
-    //F//        break;
-    //F//}
+  viModeBar()->updateViMode(getCurrentViMode());
+}
+
+void KateView::updateViModeBarCmd()
+{
+  QString cmd = m_viewInternal->getViInputModeManager()->getVerbatimKeys();
+  viModeBar()->updatePartialCommand(cmd);
 }
 
 ViMode KateView::getCurrentViMode() const

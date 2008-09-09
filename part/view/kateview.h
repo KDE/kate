@@ -677,7 +677,12 @@ class KateView : public KTextEditor::View,
     /**
      * Update vi mode statusbar according to the current mode
      */
-    void updateViModeBar();
+    void updateViModeBarMode();
+
+    /**
+     * Update vi mode statusbar with the (partial) vi command being typed
+     */
+    void updateViModeBarCmd();
 };
 
 #endif

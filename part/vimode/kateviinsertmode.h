@@ -55,8 +55,6 @@ class KateViInsertMode : public KateViModeBase
 
   private:
     QChar getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidht ) const;
-    KateView *m_view;
-    KateViewInternal *m_viewInternal;
 };
 
 #endif

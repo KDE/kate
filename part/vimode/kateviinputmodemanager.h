@@ -26,6 +26,7 @@ class KateViNormalMode;
 class KateViInsertMode;
 class KateViVisualMode;
 class QKeyEvent;
+class QString;
 
 /**
  * The four vi modes supported by Kate's vi input mode
@@ -53,6 +54,8 @@ class KateViInputModeManager
    * @return The current vi mode
    */
   ViMode getCurrentViMode() const;
+
+  const QString getVerbatimKeys() const;
 
   /**
    * changes the current vi mode to the given mode

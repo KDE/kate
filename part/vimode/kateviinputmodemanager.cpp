@@ -20,6 +20,7 @@
 #include "kateviinputmodemanager.h"
 
 #include <QKeyEvent>
+#include <QString>
 
 #include "katevinormalmode.h"
 #include "kateviinsertmode.h"
@@ -32,8 +33,6 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_viVisualMode = new KateViVisualMode(this, view, viewInternal);
 
   m_currentViMode = NormalMode;
-  kDebug( 13070 ) << " --- HAI --- ";
-  kDebug( 13070 ) << (int)this << "\t" << (int)(&m_currentViMode);
 
   m_view = view;
   m_viewInternal = viewInternal;
@@ -80,25 +79,20 @@ ViMode KateViInputModeManager::getCurrentViMode() const
 
 void KateViInputModeManager::viEnterNormalMode()
 {
-  kDebug( 13070 ) << " --- NORMAL MODE --- ";
-  kDebug( 13070 ) << (int)this << "\t" << (int)(&m_currentViMode);
-  bool moveCursorRight = m_currentViMode == InsertMode;
+  bool moveCursorRight = m_currentViMode == InsertMode && m_viewInternal->getCursor().column() > 0;
 
   changeViMode(NormalMode);
 
-  if ( moveCursorRight && m_viewInternal->getCursor().column() > 0 ) {
+  if ( moveCursorRight ) {
       m_viewInternal->cursorLeft();
   }
   m_viewInternal->repaint ();
-
-  //emit viewModeChanged(this);
-  //emit viewEditModeChanged(this, viewEditMode());
 }
 
 void KateViInputModeManager::viEnterInsertMode()
 {
-  kDebug( 13070 ) << " --- INSERT MODE --- ";
   changeViMode(InsertMode);
+  m_viewInternal->repaint ();
 }
 
 void KateViInputModeManager::viEnterVisualMode( bool visualLine )
@@ -112,9 +106,6 @@ void KateViInputModeManager::viEnterVisualMode( bool visualLine )
   m_viewInternal->repaint ();
   getViVisualMode()->setVisualLine( visualLine );
   getViVisualMode()->init();
-
-  //emit viewModeChanged(this);
-  //emit viewEditModeChanged(this, viewEditMode());
 }
 
 KateViNormalMode* KateViInputModeManager::getViNormalMode()
@@ -130,4 +121,24 @@ KateViInsertMode* KateViInputModeManager::getViInsertMode()
 KateViVisualMode* KateViInputModeManager::getViVisualMode()
 {
   return m_viVisualMode;
+}
+
+const QString KateViInputModeManager::getVerbatimKeys() const
+{
+  QString cmd;
+
+  switch (getCurrentViMode()) {
+  case NormalMode:
+    cmd = m_viNormalMode->getVerbatimKeys();
+    break;
+  case InsertMode:
+    // ...
+    break;
+  case VisualMode:
+  case VisualLineMode:
+    cmd = m_viVisualMode->getVerbatimKeys();
+    break;
+  }
+
+  return cmd;
 }

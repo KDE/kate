@@ -38,6 +38,11 @@ class KateViModeBase
     KateViModeBase() {};
     virtual ~KateViModeBase() {};
 
+    /**
+     * @return normal mode command accumulated so far
+     */
+    QString getVerbatimKeys() const;
+
   protected:
     // helper methods
     bool deleteRange( KateViRange &r, bool linewise = true, bool addToRegister = true );
@@ -55,6 +60,7 @@ class KateViModeBase
 
     unsigned int getCount() const { return ( m_count > 0 ) ? m_count : 1; }
 
+    bool startNormalMode();
     bool startInsertMode();
     bool startVisualMode();
     bool startVisualLineMode();
@@ -69,6 +75,7 @@ class KateViModeBase
     unsigned int m_count;
 
     QString m_extraWordCharacters;
+    QString m_keysVerbatim;
 
     KateView *m_view;
     KateViewInternal *m_viewInternal;

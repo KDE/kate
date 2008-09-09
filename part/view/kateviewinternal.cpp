@@ -2246,6 +2246,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
         QEvent *copy = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
         QCoreApplication::postEvent( parent(), copy );
       }
+      m_view->updateViModeBarCmd();
       return;
     }
   }

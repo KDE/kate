@@ -24,10 +24,11 @@
 #include "katevinormalmode.h"
 
 class KateViRange;
+class KateViInputModeManager;
 
 class KateViVisualMode : public KateViNormalMode {
   public:
-    KateViVisualMode( KateView *view, KateViewInternal *viewInternal );
+    KateViVisualMode( KateViInputModeManager *viInputModeManager, KateView *view, KateViewInternal *viewInternal );
     ~KateViVisualMode();
 
     void init();

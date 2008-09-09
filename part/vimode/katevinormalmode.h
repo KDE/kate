@@ -36,6 +36,7 @@
 #include "katevikeysequenceparser.h"
 
 class KateViMotion;
+class KateViInputModeManager;
 
 /**
  * Commands for the vi normal mode
@@ -44,7 +45,7 @@ class KateViMotion;
 class KateViNormalMode : public KateViModeBase
 {
   public:
-    KateViNormalMode( KateView * view, KateViewInternal * viewInternal );
+    KateViNormalMode( KateViInputModeManager *viInputModeManager, KateView * view, KateViewInternal * viewInternal );
     virtual ~KateViNormalMode();
 
     bool handleKeypress( QKeyEvent *e );

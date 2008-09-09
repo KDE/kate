@@ -60,9 +60,14 @@ class KateViInputModeManager
   void changeViMode(ViMode newMode);
 
   /**
-   * set normal mode to be the active vi mode and make the needed setup work
+   * set normal mode to be the active vi mode and perform the needed setup work
    */
   void viEnterNormalMode();
+
+  /**
+   * set insert mode to be the active vi mode and perform the needed setup work
+   */
+  void viEnterInsertMode();
 
   /**
    * set visual mode to be the active vi mode and make the needed setup work

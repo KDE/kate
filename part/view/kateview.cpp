@@ -1237,7 +1237,6 @@ bool KateView::viInputModeStealKeys() const
   return m_viewInternal->m_viInputModeStealKeys;
 }
 
-
 void KateView::toggleViInputMode()
 {
   config()->setViInputMode (!config()->viInputMode());

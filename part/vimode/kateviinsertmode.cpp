@@ -18,16 +18,17 @@
  */
 
 #include "kateviinsertmode.h"
-#include "katevinormalmode.h"
+#include "kateviinputmodemanager.h"
 #include "kateview.h"
 #include "kateviewinternal.h"
 #include "katesmartrange.h"
 #include "katecursor.h"
 
-KateViInsertMode::KateViInsertMode( KateView * view, KateViewInternal * viewInternal )
+KateViInsertMode::KateViInsertMode( KateViInputModeManager *viInputModeManager, KateView * view, KateViewInternal * viewInternal )
 {
   m_view = view;
   m_viewInternal = viewInternal;
+  m_viInputModeManager = viInputModeManager;
 }
 
 KateViInsertMode::~KateViInsertMode()
@@ -122,12 +123,14 @@ bool KateViInsertMode::commandDeleteWord()
 
 bool KateViInsertMode::commandIndent()
 {
-  return getViNormalMode()->commandIndentLine();
+  //return getViNormalMode()->commandIndentLine();
+  return false;
 }
 
 bool KateViInsertMode::commandUnindent()
 {
-  return getViNormalMode()->commandUnindentLine();
+  //return getViNormalMode()->commandUnindentLine();
+  return false;
 }
 
 bool KateViInsertMode::commandToFirstCharacterInFile()
@@ -180,7 +183,7 @@ bool KateViInsertMode::commandMoveOneWordRight()
 bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
 {
     if ( e->key() == Qt::Key_Escape ) {
-        //m_view->viEnterNormalMode();
+        m_viInputModeManager->viEnterNormalMode();
         return true;
     }
 

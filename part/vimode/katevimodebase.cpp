@@ -23,6 +23,7 @@
 #include "kateviglobal.h"
 #include "katevivisualmode.h"
 #include "katevinormalmode.h"
+#include "kateviinputmodemanager.h"
 
 #include <QString>
 #include <QRegExp>
@@ -473,10 +474,10 @@ void KateViModeBase::fillRegister( const QChar &reg, const QString &text )
 
 bool KateViModeBase::startInsertMode()
 {
-  //m_view->changeViMode( InsertMode );
+  m_viInputModeManager->viEnterInsertMode();
   m_viewInternal->repaint ();
 
-  emit m_view->viewModeChanged( m_view );
+  //emit m_view->viewModeChanged( m_view );
 
   return true;
 }

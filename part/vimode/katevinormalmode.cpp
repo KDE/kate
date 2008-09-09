@@ -18,16 +18,17 @@
  */
 
 #include "katevinormalmode.h"
-#include "katevivisualmode.h"
+#include "kateviinputmodemanager.h"
 #include "katesmartmanager.h"
 #include "katesmartrange.h"
 #include <QApplication>
 #include <QList>
 
-KateViNormalMode::KateViNormalMode( KateView * view, KateViewInternal * viewInternal )
+KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, KateView * view, KateViewInternal * viewInternal )
 {
   m_view = view;
   m_viewInternal = viewInternal;
+  m_viInputModeManager = viInputModeManager;
   m_stickyColumn = -1;
 
   // FIXME: make configurable:

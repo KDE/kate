@@ -27,11 +27,13 @@
 
 KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal* viewInternal)
 {
-  m_viNormalMode = new KateViNormalMode(view, viewInternal);
-  m_viInsertMode = new KateViInsertMode(view, viewInternal);
-  m_viVisualMode = new KateViVisualMode(view, viewInternal);
+  m_viNormalMode = new KateViNormalMode(this, view, viewInternal);
+  m_viInsertMode = new KateViInsertMode(this, view, viewInternal);
+  m_viVisualMode = new KateViVisualMode(this, view, viewInternal);
 
   m_currentViMode = NormalMode;
+  kDebug( 13070 ) << " --- HAI --- ";
+  kDebug( 13070 ) << (int)this << "\t" << (int)(&m_currentViMode);
 
   m_view = view;
   m_viewInternal = viewInternal;
@@ -71,8 +73,15 @@ void KateViInputModeManager::changeViMode(ViMode newMode)
   m_currentViMode = newMode;
 }
 
-void KateViInputModeManager::viEnterNormalMode( )
+ViMode KateViInputModeManager::getCurrentViMode() const
 {
+  return m_currentViMode;
+}
+
+void KateViInputModeManager::viEnterNormalMode()
+{
+  kDebug( 13070 ) << " --- NORMAL MODE --- ";
+  kDebug( 13070 ) << (int)this << "\t" << (int)(&m_currentViMode);
   bool moveCursorRight = m_currentViMode == InsertMode;
 
   changeViMode(NormalMode);
@@ -90,6 +99,12 @@ void KateViInputModeManager::viEnterNormalMode( )
   //emit viewEditModeChanged(this, viewEditMode());
 }
 
+void KateViInputModeManager::viEnterInsertMode()
+{
+  kDebug( 13070 ) << " --- INSERT MODE --- ";
+  changeViMode(InsertMode);
+}
+
 void KateViInputModeManager::viEnterVisualMode( bool visualLine )
 {
   if ( !visualLine ) {
@@ -105,4 +120,5 @@ void KateViInputModeManager::viEnterVisualMode( bool visualLine )
   //emit viewModeChanged(this);
   //emit viewEditModeChanged(this, viewEditMode());
 }
+
 

@@ -2242,12 +2242,18 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   }
 
   if ( m_view->viInputMode() ) {
-    if ( !getViInputModeManager()->handleKeypress( e ) ) {
-      // we didn't need that keypress, un-steal it :-)
-      QEvent *copy = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
-      QCoreApplication::postEvent( parent(), copy );
+    if ( getViInputModeManager()->getCurrentViMode() == InsertMode ) {
+      if ( getViInputModeManager()->handleKeypress( e ) )
+        return;
+    } else { // !InsertMode
+      if ( !getViInputModeManager()->handleKeypress( e ) ) {
+        // we didn't need that keypress, un-steal it :-)
+        kDebug( 13070 ) << "UNSTEAL: " << e->key() << " " << e->text();
+        QEvent *copy = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
+        QCoreApplication::postEvent( parent(), copy );
+      }
+      return;
     }
-    return;
   }
 
   if( !m_doc->isReadWrite() )

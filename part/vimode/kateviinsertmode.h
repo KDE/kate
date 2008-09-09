@@ -34,7 +34,7 @@ class KateViewInternal;
 class KateViInsertMode : public KateViModeBase
 {
   public:
-    KateViInsertMode( KateView * view, KateViewInternal * viewInternal );
+    KateViInsertMode( KateViInputModeManager *viInputModeManager, KateView * view, KateViewInternal * viewInternal );
     ~KateViInsertMode();
 
     bool handleKeypress( const QKeyEvent *e );

@@ -21,8 +21,8 @@
 #include "katesmartrange.h"
 #include "katevirange.h"
 
-KateViVisualMode::KateViVisualMode( KateView *view, KateViewInternal *viewInternal )
-  : KateViNormalMode( view, viewInternal )
+KateViVisualMode::KateViVisualMode( KateViInputModeManager* viInputModeManager, KateView *view, KateViewInternal *viewInternal )
+  : KateViNormalMode( viInputModeManager, view, viewInternal )
 {
   m_start.setPosition( -1, -1 );
   m_topRange = m_view->doc()->newSmartRange(m_view->doc()->documentRange());

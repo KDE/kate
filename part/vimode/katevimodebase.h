@@ -30,13 +30,14 @@ class KateView;
 class KateViewInternal;
 class KateViVisualMode;
 class KateViNormalMode;
+class KateViInputModeManager;
 
 class KateViModeBase
 {
   public:
     KateViModeBase() {};
     virtual ~KateViModeBase() {};
-    
+
   protected:
     // helper methods
     bool deleteRange( KateViRange &r, bool linewise = true, bool addToRegister = true );
@@ -51,7 +52,7 @@ class KateViModeBase
     KateViRange findSurrounding( const QChar &c1, const QChar &c2, bool inner = false );
     int findLineStartingWitchChar( const QChar &c, unsigned int count, bool forward = true ) const;
     void updateCursor( const KTextEditor::Cursor &c ) const;
-    
+
     unsigned int getCount() const { return ( m_count > 0 ) ? m_count : 1; }
 
     bool startInsertMode();
@@ -60,20 +61,21 @@ class KateViModeBase
 
     KateViVisualMode* getViVisualMode();
     KateViNormalMode* getViNormalMode();
-    
+
     QChar getChosenRegister( const QChar &defaultReg ) const;
     QString getRegisterContent( const QChar &reg ) const;
     void fillRegister( const QChar &reg, const QString &text);
-    
+
     QChar m_register;
-    
+
     KateViRange m_commandRange;
     unsigned int m_count;
-    
+
     QString m_extraWordCharacters;
 
     KateView *m_view;
     KateViewInternal *m_viewInternal;
+    KateViInputModeManager* m_viInputModeManager;
 };
 
 #endif

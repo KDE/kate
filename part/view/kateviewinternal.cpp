@@ -100,10 +100,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_imPreedit(0L)
   , m_smartDirty(false)
   , m_viInputMode(false)
-  , m_currentViMode(NormalMode)
-  , m_viNormalMode(0)
-  , m_viVisualMode (0)
-  , m_viInsertMode (0)
 {
   m_watcherCount1 = 0;
   m_watcherCount3 = 0;
@@ -269,12 +265,12 @@ KateViewInternal::~KateViewInternal ()
 
   delete m_imPreedit;
 
-  if ( m_viNormalMode )
-    delete m_viNormalMode;
-  if ( m_viInsertMode )
-    delete m_viInsertMode;
-  if ( m_viVisualMode )
-    delete m_viVisualMode;
+  //if ( m_viNormalMode )
+  //  delete m_viNormalMode;
+  //if ( m_viInsertMode )
+  //  delete m_viInsertMode;
+  //if ( m_viVisualMode )
+  //  delete m_viVisualMode;
 
   //kDebug( 13030 ) << m_watcherCount1 << m_watcherCount3;
 }
@@ -2171,11 +2167,11 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
       }
 
       // if vi input mode key stealing is on, override kate shortcuts
-      if (m_view->viInputMode() && m_view->viInputModeStealKeys() &&  ( m_view->getCurrentViMode() != InsertMode ||
-              ( m_view->getCurrentViMode() == InsertMode && k->modifiers() == Qt::ControlModifier ) ) ) {
-        k->accept();
-        return true;
-      }
+      //F//if (m_view->viInputMode() && m_view->viInputModeStealKeys() &&  ( m_view->getCurrentViMode() != InsertMode ||
+      //F//        ( m_view->getCurrentViMode() == InsertMode && k->modifiers() == Qt::ControlModifier ) ) ) {
+      //F//  k->accept();
+      //F//  return true;
+      //F//}
 
     } break;
 
@@ -2237,30 +2233,30 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
 
   if ( m_view->viInputMode() ) {
-    if ( m_view->getCurrentViMode() == InsertMode ) {
-        if ( getViInsertMode()->handleKeypress( e ) )
-            return;
-    }
-    else if ( m_view->getCurrentViMode() == NormalMode ) {
-        if ( getViNormalMode()->handleKeypress( e ) ) {
-            return;
-        } else {
-            // we didn't need that keypress, un-steal it :-)
-            QEvent *copy = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
-            QCoreApplication::postEvent( parent(), copy );
-            return;
-        }
-    }
-    else if ( m_view->getCurrentViMode() == VisualMode || m_view->getCurrentViMode() == VisualLineMode ) {
-        if ( getViVisualMode()->handleKeypress( e ) ) {
-            return;
-        } else {
-            // we didn't need that keypress, un-steal it :-)
-            QEvent *copy = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
-            QCoreApplication::postEvent( parent(), copy );
-            return;
-        }
-    }
+    //F//if ( m_view->getCurrentViMode() == InsertMode ) {
+    //F//    if ( getViInsertMode()->handleKeypress( e ) )
+    //F//        return;
+    //F//}
+    //F//else if ( m_view->getCurrentViMode() == NormalMode ) {
+    //F//    if ( getViNormalMode()->handleKeypress( e ) ) {
+    //F//        return;
+    //F//    } else {
+    //F//        // we didn't need that keypress, un-steal it :-)
+    //F//        QEvent *copy = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
+    //F//        QCoreApplication::postEvent( parent(), copy );
+    //F//        return;
+    //F//    }
+    //F//}
+    //F//else if ( m_view->getCurrentViMode() == VisualMode || m_view->getCurrentViMode() == VisualLineMode ) {
+    //F//    if ( getViVisualMode()->handleKeypress( e ) ) {
+    //F//        return;
+    //F//    } else {
+    //F//        // we didn't need that keypress, un-steal it :-)
+    //F//        QEvent *copy = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
+    //F//        QCoreApplication::postEvent( parent(), copy );
+    //F//        return;
+    //F//    }
+    //F//}
   }
 
 
@@ -3737,26 +3733,26 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 
 //END IM INPUT STUFF
 
-KateViNormalMode* KateViewInternal::getViNormalMode()
-{
-  if ( !m_viNormalMode )
-    m_viNormalMode = new KateViNormalMode( m_view, this );
-  return m_viNormalMode;
-}
-
-KateViVisualMode* KateViewInternal::getViVisualMode()
-{
-  if ( !m_viVisualMode )
-    m_viVisualMode = new KateViVisualMode( m_view, this );
-  return m_viVisualMode;
-}
-
-KateViInsertMode* KateViewInternal::getViInsertMode()
-{
-  if ( !m_viInsertMode )
-    m_viInsertMode = new KateViInsertMode( m_view, this );
-  return m_viInsertMode;
-}
+//KateViNormalMode* KateViewInternal::getViNormalMode()
+//{
+//  if ( !m_viNormalMode )
+//    m_viNormalMode = new KateViNormalMode( m_view, this );
+//  return m_viNormalMode;
+//}
+//
+//KateViVisualMode* KateViewInternal::getViVisualMode()
+//{
+//  if ( !m_viVisualMode )
+//    m_viVisualMode = new KateViVisualMode( m_view, this );
+//  return m_viVisualMode;
+//}
+//
+//KateViInsertMode* KateViewInternal::getViInsertMode()
+//{
+//  if ( !m_viInsertMode )
+//    m_viInsertMode = new KateViInsertMode( m_view, this );
+//  return m_viInsertMode;
+//}
 
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -1239,11 +1239,6 @@ bool KateView::viInputModeStealKeys() const
 }
 
 
-ViMode KateView::getCurrentViMode() const
-{
-    return m_viewInternal->m_currentViMode;
-}
-
 void KateView::toggleViInputMode()
 {
   config()->setViInputMode (!config()->viInputMode());
@@ -1253,45 +1248,33 @@ void KateView::toggleViInputMode()
   } else {
     m_viewBar->removePermanentBarWidget(viModeBar());
 
-    if (getCurrentViMode() != InsertMode) {
-      foreach(QAction* action, m_editActions) {
-        m_viewInternal->removeAction(action);
-      }
-    }
+    //F//if (getCurrentViMode() != InsertMode) {
+    //F//  foreach(QAction* action, m_editActions) {
+    //F//    m_viewInternal->removeAction(action);
+    //F//  }
+    //F//}
   }
 
   emit viewModeChanged(this);
   emit viewEditModeChanged(this,viewEditMode());
 }
 
-void KateView::changeViMode(ViMode newMode)
-{
-    if (newMode == InsertMode) {
-        foreach(QAction* action, m_editActions) {
-          m_viewInternal->removeAction(action);
-        }
-    }
-
-    m_viewInternal->m_currentViMode = newMode;
-    updateViModeBar();
-}
-
 void KateView::updateViModeBar()
 {
-    switch (getCurrentViMode()) {
-        case NormalMode:
-            viModeBar()->updateAccordingToMode(*m_viewInternal->getViNormalMode());
-            break;
-        case InsertMode:
-            viModeBar()->updateAccordingToMode(*m_viewInternal->getViInsertMode());
-            break;
-        case VisualMode:
-        case VisualLineMode:
-            viModeBar()->updateAccordingToMode(*m_viewInternal->getViVisualMode());
-            break;
-        default:
-            break;
-    }
+    //F//switch (getCurrentViMode()) {
+    //F//    case NormalMode:
+    //F//        viModeBar()->updateAccordingToMode(*m_viewInternal->getViNormalMode());
+    //F//        break;
+    //F//    case InsertMode:
+    //F//        viModeBar()->updateAccordingToMode(*m_viewInternal->getViInsertMode());
+    //F//        break;
+    //F//    case VisualMode:
+    //F//    case VisualLineMode:
+    //F//        viModeBar()->updateAccordingToMode(*m_viewInternal->getViVisualMode());
+    //F//        break;
+    //F//    default:
+    //F//        break;
+    //F//}
 }
 
 void KateView::slotNeedTextHint(int line, int col, QString &text)
@@ -2638,9 +2621,9 @@ void KateView::aboutToShowContextMenu( )
 
 void KateView::viEnterNormalMode( )
 {
-  bool moveCursorRight = getCurrentViMode() == InsertMode;
+  bool moveCursorRight = false;//F//getCurrentViMode() == InsertMode;
 
-  this->changeViMode(NormalMode);
+  //this->changeViMode(NormalMode);
 
   if ( moveCursorRight && m_viewInternal->getCursor().column() > 0 ) {
       m_viewInternal->cursorLeft();
@@ -2658,14 +2641,14 @@ void KateView::viEnterNormalMode( )
 void KateView::viEnterVisualMode( bool visualLine )
 {
   if ( !visualLine ) {
-    changeViMode(VisualMode);
+    //changeViMode(VisualMode);
   } else {
-    changeViMode(VisualLineMode);
+    //changeViMode(VisualLineMode);
   }
 
   m_viewInternal->repaint ();
-  m_viewInternal->getViVisualMode()->setVisualLine( visualLine );
-  m_viewInternal->getViVisualMode()->init();
+  //m_viewInternal->getViVisualMode()->setVisualLine( visualLine );
+  //m_viewInternal->getViVisualMode()->init();
 
   emit viewModeChanged(this);
   emit viewEditModeChanged(this, viewEditMode());

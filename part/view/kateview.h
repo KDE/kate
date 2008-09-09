@@ -68,17 +68,6 @@ class KSelectAction;
 
 class QVBoxLayout;
 
-/**
- * The four vi modes supported by Kate's vi input mode
- */
-enum ViMode {
-  NormalMode,
-  InsertMode,
-  CommandLineMode,
-  VisualMode,
-  VisualLineMode
-};
-
 //
 // Kate KTextEditor::View class ;)
 //
@@ -679,17 +668,6 @@ class KateView : public KTextEditor::View,
      * @return boolean indicating whether vi mode will override actions or not
      */
     bool viInputModeStealKeys() const;
-
-    /**
-     * @return The current vi mode
-     * used
-     */
-    ViMode getCurrentViMode() const;
-
-    /**
-     * changes the current vi mode to the given mode
-     */
-    void changeViMode(ViMode newMode);
 
     /**
      * Update vi mode statusbar according to the current mode

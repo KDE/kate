@@ -389,30 +389,30 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
 
 bool KateViNormalMode::commandEnterVisualLineMode()
 {
-  if ( m_view->getCurrentViMode() == VisualLineMode ) {
-    reset();
-    return true;
-  }
+  //F//if ( m_view->getCurrentViMode() == VisualLineMode ) {
+  //F//  reset();
+  //F//  return true;
+  //F//}
   
   return startVisualLineMode();
 }
 
 bool KateViNormalMode::commandEnterVisualMode()
 {
-  if ( m_view->getCurrentViMode() == VisualMode ) {
-    reset();
-    return true;
-  }
+  //F//if ( m_view->getCurrentViMode() == VisualMode ) {
+  //F//  reset();
+  //F//  return true;
+  //F//}
   
   return startVisualMode();
 }
 
 bool KateViNormalMode::commandToOtherEnd()
 {
-  if ( m_view->getCurrentViMode() == VisualLineMode || m_view->getCurrentViMode() == VisualMode ) {
-    getViVisualMode()->switchStartEnd();
-    return true;
-  }
+  //F//if ( m_view->getCurrentViMode() == VisualLineMode || m_view->getCurrentViMode() == VisualMode ) {
+  //F//  getViVisualMode()->switchStartEnd();
+  //F//  return true;
+  //F//}
 
   return false;
 }
@@ -570,7 +570,7 @@ bool KateViNormalMode::commandDelete()
   }
 
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
-      && m_view->getCurrentViMode() != VisualMode );
+      && false ); //F//m_view->getCurrentViMode() != VisualMode );
 
   return deleteRange( m_commandRange, linewise );
 }
@@ -582,10 +582,10 @@ bool KateViNormalMode::commandDeleteToEOL()
   m_commandRange.endLine = c.line();
   m_commandRange.endColumn = m_view->doc()->lineLength( c.line() );
 
-  if ( m_view->getCurrentViMode() == NormalMode ) {
-    m_commandRange.startLine = c.line();
-    m_commandRange.startColumn = c.column();
-  }
+  //F//if ( m_view->getCurrentViMode() == NormalMode ) {
+  //F//  m_commandRange.startLine = c.line();
+  //F//  m_commandRange.startColumn = c.column();
+  //F//}
 
   // can only be true for visual mode
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine );
@@ -722,7 +722,7 @@ bool KateViNormalMode::commandOpenNewLineUnder()
     m_view->doc()->newLine( m_view );
   }
 
-  m_view->changeViMode( InsertMode );
+  //m_view->changeViMode( InsertMode );
   m_viewInternal->repaint ();
 
   return true;
@@ -755,7 +755,7 @@ bool KateViNormalMode::commandOpenNewLineOver()
     //c.setLine( c.line()-getCount() );
   }
 
-  m_view->changeViMode( InsertMode );
+  //m_view->changeViMode( InsertMode );
   m_viewInternal->repaint ();
 
   return true;
@@ -793,7 +793,7 @@ bool KateViNormalMode::commandChange()
   }
 
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
-      && m_view->getCurrentViMode() != VisualMode );
+      && false);//F//m_view->getCurrentViMode() != VisualMode );
 
   commandDelete();
 
@@ -857,7 +857,7 @@ bool KateViNormalMode::commandYank()
   }
 
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
-      && m_view->getCurrentViMode() != VisualMode );
+      && false);//F//m_view->getCurrentViMode() != VisualMode );
 
   yankedText = getRange( m_commandRange, linewise );
 

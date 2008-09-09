@@ -473,7 +473,7 @@ void KateViModeBase::fillRegister( const QChar &reg, const QString &text )
 
 bool KateViModeBase::startInsertMode()
 {
-  m_view->changeViMode( InsertMode );
+  //m_view->changeViMode( InsertMode );
   m_viewInternal->repaint ();
 
   emit m_view->viewModeChanged( m_view );
@@ -483,12 +483,12 @@ bool KateViModeBase::startInsertMode()
 
 bool KateViModeBase::startVisualMode()
 {
-  if ( m_view->getCurrentViMode() == VisualLineMode ) {
-    m_viewInternal->getViVisualMode()->setVisualLine( false );
-    m_view->changeViMode(VisualMode);
-  } else {
+  //F//if ( m_view->getCurrentViMode() == VisualLineMode ) {
+  //F//  m_viewInternal->getViVisualMode()->setVisualLine( false );
+  //F//  m_view->changeViMode(VisualMode);
+  //F//} else {
     m_view->viEnterVisualMode();
-  }
+  //F//}
 
   emit m_view->viewModeChanged( m_view );
 
@@ -497,12 +497,12 @@ bool KateViModeBase::startVisualMode()
 
 bool KateViModeBase::startVisualLineMode()
 {
-  if ( m_view->getCurrentViMode() == VisualMode ) {
-    m_viewInternal->getViVisualMode()->setVisualLine( true );
-    m_view->changeViMode(VisualLineMode);
-  } else {
+  //F//if ( m_view->getCurrentViMode() == VisualMode ) {
+  //F//  m_viewInternal->getViVisualMode()->setVisualLine( true );
+  //F//  m_view->changeViMode(VisualLineMode);
+  //F//} else {
     m_view->viEnterVisualMode( true );
-  }
+  //F//}
 
   emit m_view->viewModeChanged( m_view );
 
@@ -511,10 +511,10 @@ bool KateViModeBase::startVisualLineMode()
 
 KateViVisualMode* KateViModeBase::getViVisualMode()
 {
-  return m_viewInternal->getViVisualMode();
+  return NULL;//m_viewInternal->getViVisualMode();
 }
 
 KateViNormalMode* KateViModeBase::getViNormalMode()
 {
-  return m_viewInternal->getViNormalMode();
+  return NULL;//m_viewInternal->getViNormalMode();
 }

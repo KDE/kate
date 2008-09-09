@@ -42,7 +42,7 @@ public:
 
 private:
   // move to some common place? seems it may be useful for others.
-  QString modeToString(ViMode mode) const;
+  QString modeToString(/*ViMode*/int mode) const;
 
 private:
   QLabel* m_labelStatus;

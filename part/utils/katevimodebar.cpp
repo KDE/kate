@@ -52,45 +52,45 @@ KateViModeBar::~KateViModeBar()
 
 void KateViModeBar::updateAccordingToMode(const KateViNormalMode& normalMode)
 {
-  QString statusStr = modeToString(NormalMode);
-  m_labelStatus->setText(statusStr);
+  //QString statusStr = modeToString(NormalMode);
+  //m_labelStatus->setText(statusStr);
 
-  QString pendingCommand = normalMode.getVerbatimKeys();
-  m_labelCommand->setText(pendingCommand);
+  //QString pendingCommand = normalMode.getVerbatimKeys();
+  //m_labelCommand->setText(pendingCommand);
 }
 
 void KateViModeBar::updateAccordingToMode(const KateViInsertMode& mode)
 {
-  Q_UNUSED(mode)
-  QString statusStr = modeToString(InsertMode);
-  m_labelStatus->setText(statusStr);
+  //Q_UNUSED(mode)
+  //QString statusStr = modeToString(InsertMode);
+  //m_labelStatus->setText(statusStr);
 }
 
 void KateViModeBar::updateAccordingToMode(const KateViVisualMode& mode)
 {
-  QString statusStr = modeToString( mode.isVisualLine() ? VisualLineMode : VisualMode );
-  m_labelStatus->setText(statusStr);
+  //QString statusStr = modeToString( mode.isVisualLine() ? VisualLineMode : VisualMode );
+  //m_labelStatus->setText(statusStr);
 }
 
-QString KateViModeBar::modeToString(ViMode mode) const
+QString KateViModeBar::modeToString(/*ViMode*/ int mode) const
 {
   QString modeStr;
-  switch (mode) {
-    case InsertMode:
-      modeStr = i18n("-- VI: INSERT MODE --");
-      break;
-    case NormalMode:
-      modeStr = i18n("-- VI: NORMAL MODE --");
-      break;
-    case VisualMode:
-      modeStr = i18n("-- VI: VISUAL --");
-      break;
-    case VisualLineMode:
-      modeStr = i18n("-- VI: VISUAL LINE --");
-      break;
-    case CommandLineMode:
-      modeStr = i18n("-- VI: COMMAND LINE --");
-      break;
-  }
+  //switch (mode) {
+  //  case InsertMode:
+  //    modeStr = i18n("-- VI: INSERT MODE --");
+  //    break;
+  //  case NormalMode:
+  //    modeStr = i18n("-- VI: NORMAL MODE --");
+  //    break;
+  //  case VisualMode:
+  //    modeStr = i18n("-- VI: VISUAL --");
+  //    break;
+  //  case VisualLineMode:
+  //    modeStr = i18n("-- VI: VISUAL LINE --");
+  //    break;
+  //  case CommandLineMode:
+  //    modeStr = i18n("-- VI: COMMAND LINE --");
+  //    break;
+  //}
   return modeStr;
 }

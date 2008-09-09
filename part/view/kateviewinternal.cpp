@@ -2166,11 +2166,11 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
       }
 
       // if vi input mode key stealing is on, override kate shortcuts
-      //F//if (m_view->viInputMode() && m_view->viInputModeStealKeys() &&  ( m_view->getCurrentViMode() != InsertMode ||
-      //F//        ( m_view->getCurrentViMode() == InsertMode && k->modifiers() == Qt::ControlModifier ) ) ) {
-      //F//  k->accept();
-      //F//  return true;
-      //F//}
+      if (m_view->viInputMode() && m_view->viInputModeStealKeys() &&  ( m_view->getCurrentViMode() != InsertMode ||
+              ( m_view->getCurrentViMode() == InsertMode && k->modifiers() == Qt::ControlModifier ) ) ) {
+        k->accept();
+        return true;
+      }
 
     } break;
 

@@ -46,12 +46,12 @@ public:
   void takeRole(const QModelIndex& index);
 
   CodeCompletionModel* model() const;
-  
+
   //Assumes that index is a sub-index of the indices where role-values were taken
   QVariant getData(CodeCompletionModel::ExtraItemDataRoles role, const QModelIndex& index) const;
 
   bool hasHierarchicalRoles() const;
-  
+
   int inheritanceDepth(const QModelIndex& i) const;
 private:
   typedef QMap<CodeCompletionModel::ExtraItemDataRoles, QVariant> RoleMap;
@@ -141,7 +141,7 @@ KateCompletionModel::KateCompletionModel(KateCompletionWidget* parent)
   m_updateBestMatchesTimer = new QTimer(this);
   m_updateBestMatchesTimer->setSingleShot(true);
   connect(m_updateBestMatchesTimer, SIGNAL(timeout()), this, SLOT(updateBestMatches()));
-  
+
   m_groupHash.insert(0, m_ungrouped);
   m_groupHash.insert(-1, m_argumentHints);
   m_groupHash.insert(BestMatchesProperty, m_argumentHints);
@@ -225,7 +225,7 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
     {
       //Merge custom highlighting if multiple columns were merged
       QStringList strings;
-      
+
       //Collect strings
       foreach (int column, m_columnMerges[index.column()])
           strings << mapToSource(createIndex(index.row(), column, index.internalPointer())).data(Qt::DisplayRole).toString();
@@ -508,7 +508,7 @@ void KateCompletionModel::clearGroups( )
 QSet<KateCompletionModel::Group*> KateCompletionModel::createItems(const HierarchicalModelHandler& _handler, const QModelIndex& i, bool notifyModel) {
   HierarchicalModelHandler handler(_handler);
   QSet<Group*> ret;
-  
+
   if( handler.model()->rowCount(i) == 0 ) {
     //Leaf node, create an item
     ret.insert( createItem(handler, i, notifyModel) );
@@ -518,13 +518,13 @@ QSet<KateCompletionModel::Group*> KateCompletionModel::createItems(const Hierarc
     for(int a = 0; a < handler.model()->rowCount(i); a++)
       ret += createItems(handler, i.child(a, 0), notifyModel);
   }
-  
+
   return ret;
 }
 
 QSet<KateCompletionModel::Group*> KateCompletionModel::deleteItems(const QModelIndex& i) {
   QSet<Group*> ret;
-  
+
   if( i.model()->rowCount(i) == 0 ) {
     //Leaf node, delete the item
     Group* g = groupForIndex(mapFromSource(i));
@@ -535,7 +535,7 @@ QSet<KateCompletionModel::Group*> KateCompletionModel::deleteItems(const QModelI
     for(int a = 0; a < i.model()->rowCount(i); a++)
       ret += deleteItems(i.child(a, 0));
   }
-  
+
   return ret;
 }
 
@@ -593,14 +593,14 @@ void KateCompletionModel::slotRowsInserted( const QModelIndex & parent, int star
   HierarchicalModelHandler handler(static_cast<CodeCompletionModel*>(sender()));
   if(parent.isValid())
     handler.collectRoles(parent);
-    
-    
+
+
   for (int i = start; i <= end; ++i)
     affectedGroups += createItems(handler, parent.isValid() ? parent.child(i, 0) :  handler.model()->index(i, 0), true);
-    
+
   foreach (Group* g, affectedGroups)
       hideOrShowGroup(g);
-  
+
     emit contentGeometryChanged();
 }
 
@@ -609,7 +609,7 @@ void KateCompletionModel::slotRowsRemoved( const QModelIndex & parent, int start
   CodeCompletionModel* source = static_cast<CodeCompletionModel*>(sender());
 
   QSet<Group*> affectedGroups;
-  
+
   for (int i = start; i <= end; ++i) {
     QModelIndex index = parent.isValid() ? parent.child(i, 0) :  source->index(i, 0);
 
@@ -618,12 +618,14 @@ void KateCompletionModel::slotRowsRemoved( const QModelIndex & parent, int start
 
   foreach (Group* g, affectedGroups)
     hideOrShowGroup(g);
-  
+
   contentGeometryChanged();
 }
 
 KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, const QString& scope, bool forceGrouping )
 {
+  Q_UNUSED(forceGrouping);
+
   ///@todo use forceGrouping
   if (!hasGroups())
     return m_ungrouped;
@@ -774,7 +776,7 @@ QModelIndex KateCompletionModel::parent( const QModelIndex & index ) const
       kWarning() << k_funcinfo << "Couldn't find parent for index" << index;
       return QModelIndex();
     }
-    
+
     return createIndex(row, 0, 0);
   }
 
@@ -1613,7 +1615,7 @@ void KateCompletionModel::resort( )
 
   foreach (Group* g, m_emptyGroups)
     g->resort();
-  
+
   emit contentGeometryChanged();
 }
 

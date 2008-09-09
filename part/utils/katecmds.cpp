@@ -267,6 +267,8 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
 
 KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *view, const QString &cmd )
 {
+  Q_UNUSED(view);
+
   if ( cmd == "set-highlight" )
   {
     QStringList l;

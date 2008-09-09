@@ -48,7 +48,6 @@
 #include "katesearchbar.h"
 #include "katevimodebar.h"
 #include "katepartpluginmanager.h"
-#include "katevivisualmode.h"
 
 #include <ktexteditor/cursorfeedback.h>
 

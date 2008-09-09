@@ -47,9 +47,7 @@ class KateScrollBar;
 class KateSmartRange;
 class KateTextLayout;
 
-class KateViNormalMode;
-class KateViInsertMode;
-class KateViVisualMode;
+class KateViInputModeManager;
 
 class QScrollBar;
 
@@ -455,6 +453,17 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
 
     //KateViInsertMode* m_viInsertMode;
     //KateViInsertMode* getViInsertMode();
+
+    /**
+     * an instance of KateViInputModeManager. used for interacting with the vi input mode when
+     * enabled
+     */
+    KateViInputModeManager *m_viInputModeManager;
+
+    /**
+     * @return a pointer to a KateViInputModeManager
+     */
+    KateViInputModeManager* getViInputModeManager();
 };
 
 #endif

@@ -40,9 +40,7 @@
 #include "katesmartmanager.h"
 #include "katecompletionwidget.h"
 #include "katenamespace.h"
-#include "katevinormalmode.h"
-#include "katevivisualmode.h"
-#include "kateviinsertmode.h"
+#include "kateviinputmodemanager.h"
 
 #include <kcursor.h>
 #include <kdebug.h>
@@ -100,6 +98,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_imPreedit(0L)
   , m_smartDirty(false)
   , m_viInputMode(false)
+  , m_viInputModeManager (0)
 {
   m_watcherCount1 = 0;
   m_watcherCount3 = 0;
@@ -2232,40 +2231,22 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   // Note: AND'ing with <Shift> is a quick hack to fix Key_Enter
   const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
 
-  if ( m_view->viInputMode() ) {
-    //F//if ( m_view->getCurrentViMode() == InsertMode ) {
-    //F//    if ( getViInsertMode()->handleKeypress( e ) )
-    //F//        return;
-    //F//}
-    //F//else if ( m_view->getCurrentViMode() == NormalMode ) {
-    //F//    if ( getViNormalMode()->handleKeypress( e ) ) {
-    //F//        return;
-    //F//    } else {
-    //F//        // we didn't need that keypress, un-steal it :-)
-    //F//        QEvent *copy = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
-    //F//        QCoreApplication::postEvent( parent(), copy );
-    //F//        return;
-    //F//    }
-    //F//}
-    //F//else if ( m_view->getCurrentViMode() == VisualMode || m_view->getCurrentViMode() == VisualLineMode ) {
-    //F//    if ( getViVisualMode()->handleKeypress( e ) ) {
-    //F//        return;
-    //F//    } else {
-    //F//        // we didn't need that keypress, un-steal it :-)
-    //F//        QEvent *copy = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
-    //F//        QCoreApplication::postEvent( parent(), copy );
-    //F//        return;
-    //F//    }
-    //F//}
-  }
-
-
   if (m_view->isCompletionActive())
   {
     if( key == Qt::Key_Enter || key == Qt::Key_Return  ||
     (key == Qt::SHIFT + Qt::Key_Return) || (key == Qt::SHIFT + Qt::Key_Enter)) {
       m_view->completionWidget()->execute(key & Qt::SHIFT);
       e->accept();
+      return;
+    }
+  }
+
+  if ( m_view->viInputMode() ) {
+    if ( getViInputModeManager()->handleKeypress( e ) ) {
+    } else {
+      // we didn't need that keypress, un-steal it :-)
+      QEvent *copy = new QKeyEvent ( e->type(), e->key(), e->modifiers(), e->text(), e->isAutoRepeat(), e->count() );
+      QCoreApplication::postEvent( parent(), copy );
       return;
     }
   }
@@ -3753,6 +3734,16 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 //    m_viInsertMode = new KateViInsertMode( m_view, this );
 //  return m_viInsertMode;
 //}
+
+KateViInputModeManager* KateViewInternal::getViInputModeManager()
+{
+  if (!m_viInputModeManager) {
+    m_viInputModeManager = new KateViInputModeManager(m_view, this);
+  }
+
+  return m_viInputModeManager;
+}
+
 
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

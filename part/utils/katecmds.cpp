@@ -269,7 +269,6 @@ KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *vi
 {
   if ( cmd == "set-highlight" )
   {
-    KateView *v = (KateView*)view;
     QStringList l;
     for ( int i = 0; i < KateHlManager::self()->highlights(); i++ )
       l << KateHlManager::self()->hlName (i);

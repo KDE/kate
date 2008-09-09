@@ -25,6 +25,7 @@
 #include "katevicommand.h"
 #include "katevimotion.h"
 #include "katevirange.h"
+#include "katevimodebase.h"
 
 #include <QKeyEvent>
 #include <QVector>
@@ -40,9 +41,8 @@ class KateViMotion;
  * Commands for the vi normal mode
  */
 
-class KateViNormalMode {
-  friend class KateViInsertMode;
-
+class KateViNormalMode : public KateViModeBase
+{
   public:
     KateViNormalMode( KateView * view, KateViewInternal * viewInternal );
     virtual ~KateViNormalMode();
@@ -171,10 +171,6 @@ class KateViNormalMode {
     KateViRange textObjectABracket();
     KateViRange textObjectInnerBracket();
 
-    unsigned int getCount() const { return ( m_count > 0 ) ? m_count : 1; }
-    QChar getChosenRegister( const QChar &defaultReg ) const;
-    QString getRegisterContent( const QChar &reg ) const;
-    void fillRegister( const QChar &reg, const QString &text);
     void addCurrentPositionToJumpList();
 
     void error( const QString &errorMsg ) const;
@@ -186,34 +182,17 @@ class KateViNormalMode {
     QString getVerbatimKeys() const;
 
   protected:
-    bool deleteRange( KateViRange &r, bool linewise = true, bool addToRegister = true );
-    const QString getRange( KateViRange &r, bool linewise = true ) const;
     void resetParser();
     virtual void reset();
     void initializeCommands();
     QRegExp generateMatchingItemRegex();
-    QString getLine( int lineNumber = -1 ) const;
-    KTextEditor::Cursor findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KTextEditor::Cursor findNextWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KTextEditor::Cursor findPrevWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KTextEditor::Cursor findPrevWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KTextEditor::Cursor findWordEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KTextEditor::Cursor findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
-    KateViRange findSurrounding( const QChar &c1, const QChar &c2, bool inner = false );
-    int findLineStartingWitchChar( const QChar &c, unsigned int count, bool forward = true ) const;
     virtual void goToPos( KateViRange r );
 
-    KateView *m_view;
-    KateViewInternal *m_viewInternal;
     QString m_keys;
     QString m_keysVerbatim;
-    unsigned int m_count;
     unsigned int m_countTemp;
-    QChar m_register;
     bool m_findWaitingForChar;
     int m_waitingForMotionOrTextObject;
-
-    QString m_extraWordCharacters;
 
     QVector<KateViCommand *> m_commands;
     QVector<KateViMotion *> m_motions;
@@ -223,8 +202,6 @@ class KateViNormalMode {
 
     int m_stickyColumn;
     int m_motionOperatorIndex;
-
-    KateViRange m_commandRange;
 
     // registers
     QChar m_defaultRegister;

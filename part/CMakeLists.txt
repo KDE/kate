@@ -104,6 +104,7 @@ view/kateviewhelpers.cpp
 
 # vi input mode
 
+vimode/katevimodebase.cpp
 vimode/katevinormalmode.cpp
 vimode/kateviinsertmode.cpp
 vimode/katevicommand.cpp

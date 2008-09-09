@@ -104,7 +104,7 @@ bool KateViInsertMode::commandDeleteWord()
     KTextEditor::Cursor c1( m_view->cursorPosition() );
     KTextEditor::Cursor c2;
 
-    c2 = m_viewInternal->getViNormalMode()->findPrevWordStart( c1.line(), c1.column() );
+    c2 = findPrevWordStart( c1.line(), c1.column() );
 
     if ( c2.line() != c1.line() ) {
         if ( c1.column() == 0 ) {
@@ -117,7 +117,7 @@ bool KateViInsertMode::commandDeleteWord()
 
     KateViRange r( c2.line(), c2.column(), c1.line(), c1.column(), ViMotion::ExclusiveMotion );
 
-    return m_viewInternal->getViNormalMode()->deleteRange( r, false, false );
+    return deleteRange( r, false, false );
 }
 
 bool KateViInsertMode::commandIndent()
@@ -158,7 +158,7 @@ bool KateViInsertMode::commandToLastCharacterInFile()
 bool KateViInsertMode::commandMoveOneWordLeft()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
-  c = m_viewInternal->getViNormalMode()->findPrevWordStart( c.line(), c.column() );
+  c = findPrevWordStart( c.line(), c.column() );
 
   m_viewInternal->updateCursor( c );
   return true;
@@ -167,7 +167,7 @@ bool KateViInsertMode::commandMoveOneWordLeft()
 bool KateViInsertMode::commandMoveOneWordRight()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
-  c = m_viewInternal->getViNormalMode()->findNextWordStart( c.line(), c.column() );
+  c = findNextWordStart( c.line(), c.column() );
 
   m_viewInternal->updateCursor( c );
   return true;

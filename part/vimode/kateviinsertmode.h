@@ -21,6 +21,7 @@
 #define KATE_VI_INSERT_MODE_INCLUDED
 
 #include <QKeyEvent>
+#include "katevimodebase.h"
 
 class KateViMotion;
 class KateView;
@@ -30,7 +31,7 @@ class KateViewInternal;
  * Commands for the vi insert mode
  */
 
-class KateViInsertMode
+class KateViInsertMode : public KateViModeBase
 {
   public:
     KateViInsertMode( KateView * view, KateViewInternal * viewInternal );

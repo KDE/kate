@@ -91,10 +91,6 @@ void KateViInputModeManager::viEnterNormalMode()
   }
   m_viewInternal->repaint ();
 
-  //foreach(QAction* action, m_editActions) {
-  //  m_viewInternal->addAction(action);
-  //}
-
   //emit viewModeChanged(this);
   //emit viewEditModeChanged(this, viewEditMode());
 }

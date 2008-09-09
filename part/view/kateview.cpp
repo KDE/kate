@@ -233,7 +233,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 //  setFocus();
 
   if ( viInputMode() ) {
-    //viEnterNormalMode();
+    deactivateEditActions();
   }
 }
 
@@ -961,16 +961,18 @@ void KateView::slotGotFocus()
 {
   kDebug(13020) << "KateView::slotGotFocus";
 
-  foreach(QAction *action, m_editActions)
-    action->setEnabled(true);
+  if ( !viInputMode() ) {
+    activateEditActions();
+  }
   emit focusIn ( this );
 }
 
 void KateView::slotLostFocus()
 {
   kDebug(13020) << "KateView::slotLostFocus";
-  foreach(QAction *action, m_editActions)
-    action->setEnabled(false);
+  if ( !viInputMode() ) {
+    deactivateEditActions();
+  }
 
 //jowenn: what was that for ?
 //   if (m_viewBar->isVisibleTo(m_viewBar->parentWidget()) && (m_viewBar->parentWidget() !=this) )
@@ -1242,15 +1244,11 @@ void KateView::toggleViInputMode()
   config()->setViInputMode (!config()->viInputMode());
 
   if ( viInputMode() ) {
-    //viEnterNormalMode();
+    m_viewInternal->getViInputModeManager()->viEnterNormalMode();
+    deactivateEditActions();
   } else {
     m_viewBar->removePermanentBarWidget(viModeBar());
-
-    //F//if (getCurrentViMode() != InsertMode) {
-    //F//  foreach(QAction* action, m_editActions) {
-    //F//    m_viewInternal->removeAction(action);
-    //F//  }
-    //F//}
+    activateEditActions();
   }
 
   emit viewModeChanged(this);
@@ -2172,6 +2170,20 @@ void KateView::clearExternalHighlights( )
 void KateView::clearActions( )
 {
   m_actions.clear();
+}
+
+void KateView::deactivateEditActions()
+{
+  kDebug( 13070 ) <<  " -------------------------- ";
+  foreach(QAction *action, m_editActions)
+    action->setEnabled(false);
+}
+
+void KateView::activateEditActions()
+{
+  kDebug( 13070 ) <<  " ++++++++++++++++++++++++++ ";
+  foreach(QAction *action, m_editActions)
+    action->setEnabled(true);
 }
 
 bool KateView::mouseTrackingEnabled( ) const

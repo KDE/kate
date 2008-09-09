@@ -288,6 +288,8 @@ class KateView : public KTextEditor::View,
     void addActions(KTextEditor::SmartRange* topRange);
     const QList<KTextEditor::SmartRange*>& actions() const;
     void clearActions();
+    void deactivateEditActions();
+    void activateEditActions();
 
   Q_SIGNALS:
     void dynamicHighlightAdded(KateSmartRange* range);

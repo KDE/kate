@@ -1100,9 +1100,9 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
           QVariant beforeText = model->data( realLine-1, Qt::DisplayRole );
           QVariant afterText = model->data( realLine+1, Qt::DisplayRole );
-          if( (beforeText.isValid() && beforeText.canConvert<QString>()
+          if( ((beforeText.isValid() && beforeText.canConvert<QString>()
               && text.isValid() && text.canConvert<QString>()
-              && beforeText.toString() != text.toString() || realLine == 0)
+              && beforeText.toString() != text.toString()) || realLine == 0)
               && m_viewInternal->cache()->viewLine(z).viewLine() == 0)
           {
             p.drawLine( lnX+1, y, lnX+borderWidth, y );
@@ -1141,13 +1141,14 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     // line number
     if( m_lineNumbersOn || (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) )
     {
-      if (realLine > -1)
+      if (realLine > -1) {
         if (m_viewInternal->cache()->viewLine(z).startCol() == 0) {
           if (m_lineNumbersOn)
             p.drawText( lnX, y, lnWidth-4, h, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
         } else if (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) {
           p.drawPixmap(lnX + lnWidth - m_arrow.width() - 2, y, m_arrow);
         }
+      }
 
       lnX += lnWidth + 2;
     }

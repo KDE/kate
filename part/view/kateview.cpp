@@ -233,7 +233,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 //  setFocus();
 
   if ( viInputMode() ) {
-    viEnterNormalMode();
+    //viEnterNormalMode();
   }
 }
 
@@ -1243,7 +1243,7 @@ void KateView::toggleViInputMode()
   config()->setViInputMode (!config()->viInputMode());
 
   if ( viInputMode() ) {
-    viEnterNormalMode();
+    //viEnterNormalMode();
   } else {
     m_viewBar->removePermanentBarWidget(viModeBar());
 
@@ -2616,41 +2616,6 @@ void KateView::aboutToShowContextMenu( )
   QMenu* menu = qobject_cast<QMenu*>(sender());
   if (menu)
     emit contextMenuAboutToShow(this, menu);
-}
-
-void KateView::viEnterNormalMode( )
-{
-  bool moveCursorRight = false;//F//getCurrentViMode() == InsertMode;
-
-  //this->changeViMode(NormalMode);
-
-  if ( moveCursorRight && m_viewInternal->getCursor().column() > 0 ) {
-      m_viewInternal->cursorLeft();
-  }
-  m_viewInternal->repaint ();
-
-  foreach(QAction* action, m_editActions) {
-    m_viewInternal->addAction(action);
-  }
-
-  emit viewModeChanged(this);
-  emit viewEditModeChanged(this, viewEditMode());
-}
-
-void KateView::viEnterVisualMode( bool visualLine )
-{
-  if ( !visualLine ) {
-    //changeViMode(VisualMode);
-  } else {
-    //changeViMode(VisualLineMode);
-  }
-
-  m_viewInternal->repaint ();
-  //m_viewInternal->getViVisualMode()->setVisualLine( visualLine );
-  //m_viewInternal->getViVisualMode()->init();
-
-  emit viewModeChanged(this);
-  emit viewEditModeChanged(this, viewEditMode());
 }
 
 // BEGIN ConfigInterface stff

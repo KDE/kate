@@ -487,7 +487,7 @@ bool KateViModeBase::startVisualMode()
   //F//  m_viewInternal->getViVisualMode()->setVisualLine( false );
   //F//  m_view->changeViMode(VisualMode);
   //F//} else {
-    m_view->viEnterVisualMode();
+    //m_view->viEnterVisualMode();
   //F//}
 
   emit m_view->viewModeChanged( m_view );
@@ -501,7 +501,7 @@ bool KateViModeBase::startVisualLineMode()
   //F//  m_viewInternal->getViVisualMode()->setVisualLine( true );
   //F//  m_view->changeViMode(VisualLineMode);
   //F//} else {
-    m_view->viEnterVisualMode( true );
+    //m_view->viEnterVisualMode( true );
   //F//}
 
   emit m_view->viewModeChanged( m_view );

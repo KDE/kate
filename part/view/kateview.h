@@ -461,9 +461,6 @@ class KateView : public KTextEditor::View,
 
     void gotoLine();
 
-    void viEnterNormalMode();
-    void viEnterVisualMode( bool visualLine = false);
-
   // config file / session management functions
   public:
     void readSessionConfig(const KConfigGroup&);

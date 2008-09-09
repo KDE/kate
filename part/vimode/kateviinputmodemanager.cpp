@@ -32,6 +32,9 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_viVisualMode = new KateViVisualMode(view, viewInternal);
 
   m_currentViMode = NormalMode;
+
+  m_view = view;
+  m_viewInternal = viewInternal;
 }
 
 KateViInputModeManager::~KateViInputModeManager()
@@ -67,3 +70,39 @@ void KateViInputModeManager::changeViMode(ViMode newMode)
 {
   m_currentViMode = newMode;
 }
+
+void KateViInputModeManager::viEnterNormalMode( )
+{
+  bool moveCursorRight = m_currentViMode == InsertMode;
+
+  changeViMode(NormalMode);
+
+  if ( moveCursorRight && m_viewInternal->getCursor().column() > 0 ) {
+      m_viewInternal->cursorLeft();
+  }
+  m_viewInternal->repaint ();
+
+  //foreach(QAction* action, m_editActions) {
+  //  m_viewInternal->addAction(action);
+  //}
+
+  //emit viewModeChanged(this);
+  //emit viewEditModeChanged(this, viewEditMode());
+}
+
+void KateViInputModeManager::viEnterVisualMode( bool visualLine )
+{
+  if ( !visualLine ) {
+    //changeViMode(VisualMode);
+  } else {
+    //changeViMode(VisualLineMode);
+  }
+
+  m_viewInternal->repaint ();
+  //m_viewInternal->getViVisualMode()->setVisualLine( visualLine );
+  //m_viewInternal->getViVisualMode()->init();
+
+  //emit viewModeChanged(this);
+  //emit viewEditModeChanged(this, viewEditMode());
+}
+

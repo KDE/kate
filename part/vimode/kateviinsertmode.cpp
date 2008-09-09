@@ -180,7 +180,7 @@ bool KateViInsertMode::commandMoveOneWordRight()
 bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
 {
     if ( e->key() == Qt::Key_Escape ) {
-        m_view->viEnterNormalMode();
+        //m_view->viEnterNormalMode();
         return true;
     }
 
@@ -188,7 +188,7 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
         switch( e->key() ) {
         case Qt::Key_BracketLeft:
         case Qt::Key_C:
-            m_view->viEnterNormalMode();
+            //m_view->viEnterNormalMode();
             break;
         case Qt::Key_D:
             commandUnindent();

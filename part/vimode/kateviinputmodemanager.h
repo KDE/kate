@@ -59,6 +59,16 @@ class KateViInputModeManager
    */
   void changeViMode(ViMode newMode);
 
+  /**
+   * set normal mode to be the active vi mode and make the needed setup work
+   */
+  void viEnterNormalMode();
+
+  /**
+   * set visual mode to be the active vi mode and make the needed setup work
+   * if visualLine is true, visual linewise mode is started
+   */
+  void viEnterVisualMode( bool visualLine = false);
 
   private:
     KateViNormalMode* m_viNormalMode;
@@ -66,6 +76,9 @@ class KateViInputModeManager
     KateViVisualMode* m_viVisualMode;
 
     ViMode m_currentViMode;
+
+    KateView *m_view;
+    KateViewInternal *m_viewInternal;
 };
 
 #endif

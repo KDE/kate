@@ -264,14 +264,9 @@ KateViewInternal::~KateViewInternal ()
 
   delete m_imPreedit;
 
-  //if ( m_viNormalMode )
-  //  delete m_viNormalMode;
-  //if ( m_viInsertMode )
-  //  delete m_viInsertMode;
-  //if ( m_viVisualMode )
-  //  delete m_viVisualMode;
-
-  //kDebug( 13030 ) << m_watcherCount1 << m_watcherCount3;
+  if (m_viInputModeManager) {
+    delete m_viInputModeManager;
+  }
 }
 
 void KateViewInternal::prepareForDynWrapChange()
@@ -3718,27 +3713,6 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 }
 
 //END IM INPUT STUFF
-
-//KateViNormalMode* KateViewInternal::getViNormalMode()
-//{
-//  if ( !m_viNormalMode )
-//    m_viNormalMode = new KateViNormalMode( m_view, this );
-//  return m_viNormalMode;
-//}
-//
-//KateViVisualMode* KateViewInternal::getViVisualMode()
-//{
-//  if ( !m_viVisualMode )
-//    m_viVisualMode = new KateViVisualMode( m_view, this );
-//  return m_viVisualMode;
-//}
-//
-//KateViInsertMode* KateViewInternal::getViInsertMode()
-//{
-//  if ( !m_viInsertMode )
-//    m_viInsertMode = new KateViInsertMode( m_view, this );
-//  return m_viInsertMode;
-//}
 
 ViMode KateViewInternal::getCurrentViMode()
 {

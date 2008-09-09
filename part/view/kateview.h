@@ -23,6 +23,7 @@
 #define kate_view_h
 
 #include "katetextline.h"
+#include "kateviinputmodemanager.h"
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/texthintinterface.h>
@@ -660,6 +661,11 @@ class KateView : public KTextEditor::View,
      * @return boolean indicating whether vi mode is active or not
      */
     bool viInputMode() const;
+
+    /**
+     * @return boolean indicating whether vi mode is active or not
+     */
+    ViMode getCurrentViMode() const;
 
     /**
      * @return boolean indicating whether vi mode will override actions or not

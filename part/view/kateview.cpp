@@ -1275,6 +1275,11 @@ void KateView::updateViModeBar()
     //F//}
 }
 
+ViMode KateView::getCurrentViMode() const
+{
+  return m_viewInternal->getCurrentViMode();
+}
+
 void KateView::slotNeedTextHint(int line, int col, QString &text)
 {
   text=QString("test %1 %2").arg(line).arg(col);

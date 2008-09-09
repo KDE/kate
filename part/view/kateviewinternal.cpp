@@ -3740,6 +3740,11 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 //  return m_viInsertMode;
 //}
 
+ViMode KateViewInternal::getCurrentViMode()
+{
+  return getViInputModeManager()->getCurrentViMode();
+}
+
 KateViInputModeManager* KateViewInternal::getViInputModeManager()
 {
   if (!m_viInputModeManager) {
@@ -3748,7 +3753,5 @@ KateViInputModeManager* KateViewInternal::getViInputModeManager()
 
   return m_viInputModeManager;
 }
-
-
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

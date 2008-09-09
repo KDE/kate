@@ -46,6 +46,7 @@ class KateIconBorder;
 class KateScrollBar;
 class KateSmartRange;
 class KateTextLayout;
+
 class KateViNormalMode;
 class KateViInsertMode;
 class KateViVisualMode;
@@ -62,9 +63,7 @@ class KateViewInternal : public QWidget, private KTextEditor::SmartRangeWatcher
     friend class CalculatingCursor;
     friend class BoundedCursor;
     friend class WrappingCursor;
-    friend class KateViNormalMode;
-    friend class KateViVisualMode;
-    friend class KateViInsertMode;
+    friend class KateViModeBase;
 
   public:
     enum Bias

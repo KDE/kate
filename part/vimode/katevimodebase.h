@@ -22,11 +22,14 @@
 
 #include <ktexteditor/cursor.h>
 #include "katevirange.h"
+//#include "katevivisualmode.h"
 
 class QString;
 class QRegExp;
 class KateView;
 class KateViewInternal;
+class KateViVisualMode;
+class KateViNormalMode;
 
 class KateViModeBase
 {
@@ -35,6 +38,7 @@ class KateViModeBase
     virtual ~KateViModeBase() {};
     
   protected:
+    // helper methods
     bool deleteRange( KateViRange &r, bool linewise = true, bool addToRegister = true );
     const QString getRange( KateViRange &r, bool linewise = true ) const;
     QString getLine( int lineNumber = -1 ) const;
@@ -46,8 +50,16 @@ class KateViModeBase
     KTextEditor::Cursor findWORDEnd( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KateViRange findSurrounding( const QChar &c1, const QChar &c2, bool inner = false );
     int findLineStartingWitchChar( const QChar &c, unsigned int count, bool forward = true ) const;
+    void updateCursor( const KTextEditor::Cursor &c ) const;
     
     unsigned int getCount() const { return ( m_count > 0 ) ? m_count : 1; }
+
+    bool startInsertMode();
+    bool startVisualMode();
+    bool startVisualLineMode();
+
+    KateViVisualMode* getViVisualMode();
+    KateViNormalMode* getViNormalMode();
     
     QChar getChosenRegister( const QChar &defaultReg ) const;
     QString getRegisterContent( const QChar &reg ) const;

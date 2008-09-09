@@ -21,10 +21,13 @@
 #include "katevirange.h"
 #include "kateglobal.h"
 #include "kateviglobal.h"
+#include "katevivisualmode.h"
+#include "katevinormalmode.h"
 
 #include <QString>
 #include <QRegExp>
 #include "kateview.h"
+#include "kateviewinternal.h"
 #include "katedocument.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -443,6 +446,11 @@ int KateViModeBase::findLineStartingWitchChar( const QChar &c, unsigned int coun
   return -1;
 }
 
+void KateViModeBase::updateCursor( const KTextEditor::Cursor &c ) const
+{
+  m_viewInternal->updateCursor( c );
+}
+
 /**
  * @return the register given for the command. If no register was given, defaultReg is returned.
  */
@@ -461,4 +469,52 @@ QString KateViModeBase::getRegisterContent( const QChar &reg ) const
 void KateViModeBase::fillRegister( const QChar &reg, const QString &text )
 {
     KateGlobal::self()->viInputModeGlobal()->fillRegister( reg, text );
+}
+
+bool KateViModeBase::startInsertMode()
+{
+  m_view->changeViMode( InsertMode );
+  m_viewInternal->repaint ();
+
+  emit m_view->viewModeChanged( m_view );
+
+  return true;
+}
+
+bool KateViModeBase::startVisualMode()
+{
+  if ( m_view->getCurrentViMode() == VisualLineMode ) {
+    m_viewInternal->getViVisualMode()->setVisualLine( false );
+    m_view->changeViMode(VisualMode);
+  } else {
+    m_view->viEnterVisualMode();
+  }
+
+  emit m_view->viewModeChanged( m_view );
+
+  return true;
+}
+
+bool KateViModeBase::startVisualLineMode()
+{
+  if ( m_view->getCurrentViMode() == VisualMode ) {
+    m_viewInternal->getViVisualMode()->setVisualLine( true );
+    m_view->changeViMode(VisualLineMode);
+  } else {
+    m_view->viEnterVisualMode( true );
+  }
+
+  emit m_view->viewModeChanged( m_view );
+
+  return true;
+}
+
+KateViVisualMode* KateViModeBase::getViVisualMode()
+{
+  return m_viewInternal->getViVisualMode();
+}
+
+KateViNormalMode* KateViModeBase::getViNormalMode()
+{
+  return m_viewInternal->getViNormalMode();
 }

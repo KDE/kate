@@ -87,7 +87,7 @@ void KateViVisualMode::goToPos( KateViRange r )
     c.setLine( m_view->doc()->lines()-1 );
   }
 
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
 
   m_commandRange.startLine = m_start.line();
   m_commandRange.startColumn = m_start.column();
@@ -135,7 +135,7 @@ void KateViVisualMode::switchStartEnd()
   KTextEditor::Cursor c = m_start;
   m_start = m_view->cursorPosition();
 
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
 
   highlight();
 }

@@ -20,8 +20,8 @@
 #ifndef KATE_VI_VISUAL_MODE_INCLUDED
 #define KATE_VI_VISUAL_MODE_INCLUDED
 
-#include "katevinormalmode.h"
 #include <ktexteditor/cursor.h>
+#include "katevinormalmode.h"
 
 class KateViRange;
 

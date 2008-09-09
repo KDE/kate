@@ -101,8 +101,7 @@ class KateView : public KTextEditor::View,
     friend class KateViewInternal;
     friend class KateIconBorder;
     friend class KateSearchBar;
-    friend class KateViNormalMode;
-    friend class KateViVisualMode;
+    friend class KateViModeBase;
 
   public:
     KateView( KateDocument* doc, QWidget* parent );

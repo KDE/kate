@@ -329,7 +329,7 @@ void KateViNormalMode::goToPos( KateViRange r )
     c.setLine( m_view->doc()->lines()-1 );
   }
 
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
 }
 
 
@@ -352,12 +352,7 @@ void KateViNormalMode::addCurrentPositionToJumpList()
 
 bool KateViNormalMode::commandEnterInsertMode()
 {
-  m_view->changeViMode( InsertMode );
-  m_viewInternal->repaint ();
-
-  emit m_view->viewModeChanged( m_view );
-
-  return true;
+  return startInsertMode();
 }
 
 /**
@@ -369,19 +364,14 @@ bool KateViNormalMode::commandEnterInsertModeAppend()
   KTextEditor::Cursor c( m_view->cursorPosition() );
   c.setColumn( c.column()+1 );
 
+  // if empty line, the cursor should start at column 0
   if ( getLine( c.line() ).length() == 0 ) {
     c.setColumn( 0 );
   }
 
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
 
-  m_view->changeViMode( InsertMode );
-  m_viewInternal->repaint ();
-
-  emit m_view->viewModeChanged( m_view );
-  //emit viewEditModeChanged( this,viewEditMode() );
-
-  return false;
+  return startInsertMode();
 }
 
 /**
@@ -392,51 +382,35 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
   c.setColumn( m_view->doc()->lineLength( c.line() ) );
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
 
-  m_view->changeViMode( InsertMode );
-  m_viewInternal->repaint ();
-
-  emit m_view->viewModeChanged( m_view );
-
-  return true;
+  return startInsertMode();
 }
 
 bool KateViNormalMode::commandEnterVisualLineMode()
 {
   if ( m_view->getCurrentViMode() == VisualLineMode ) {
     reset();
-  } else if ( m_view->getCurrentViMode() == VisualMode ) {
-    m_viewInternal->getViVisualMode()->setVisualLine( true );
-    m_view->changeViMode(VisualLineMode);
-    emit m_view->viewModeChanged( m_view );
-  } else {
-    m_view->viEnterVisualMode( true );
+    return true;
   }
-
-  return true;
+  
+  return startVisualLineMode();
 }
 
 bool KateViNormalMode::commandEnterVisualMode()
 {
-    kDebug( 13070 ) << "LAFA";
   if ( m_view->getCurrentViMode() == VisualMode ) {
     reset();
-  } else if ( m_view->getCurrentViMode() == VisualLineMode ) {
-    m_viewInternal->getViVisualMode()->setVisualLine( false );
-    m_view->changeViMode(VisualMode);
-    emit m_view->viewModeChanged( m_view );
-  } else {
-    m_view->viEnterVisualMode();
+    return true;
   }
-
-  return true;
+  
+  return startVisualMode();
 }
 
 bool KateViNormalMode::commandToOtherEnd()
 {
   if ( m_view->getCurrentViMode() == VisualLineMode || m_view->getCurrentViMode() == VisualMode ) {
-    m_viewInternal->getViVisualMode()->switchStartEnd();
+    getViVisualMode()->switchStartEnd();
     return true;
   }
 
@@ -581,7 +555,7 @@ bool KateViNormalMode::commandDeleteLine()
   }
 
   c.setColumn( column );
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
 
   return ret;
 }
@@ -636,7 +610,7 @@ bool KateViNormalMode::commandDeleteToEOL()
     c.setColumn( 0 );
   }
 
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
 
   return r;
 }
@@ -672,7 +646,7 @@ bool KateViNormalMode::commandMakeLowercase()
     m_view->doc()->replaceText( range, s );
   }
 
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
 
   return true;
 }
@@ -720,7 +694,7 @@ bool KateViNormalMode::commandMakeUppercase()
     m_view->doc()->replaceText( range, s );
   }
 
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
 
   return true;
 }
@@ -742,7 +716,7 @@ bool KateViNormalMode::commandOpenNewLineUnder()
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
   c.setColumn( getLine().length() );
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
 
   for ( unsigned int i = 0; i < getCount(); i++ ) {
     m_view->doc()->newLine( m_view );
@@ -764,11 +738,11 @@ bool KateViNormalMode::commandOpenNewLineOver()
     }
     c.setColumn( 0 );
     c.setLine( 0 );
-    m_viewInternal->updateCursor( c );
+    updateCursor( c );
   } else {
     c.setLine( c.line()-1 );
     c.setColumn( getLine( c.line() ).length() );
-    m_viewInternal->updateCursor( c );
+    updateCursor( c );
     for ( unsigned int i = 0; i < getCount(); i++ ) {
         m_view->doc()->newLine( m_view );
     }
@@ -776,7 +750,7 @@ bool KateViNormalMode::commandOpenNewLineOver()
     if ( getCount() > 1 ) {
       c = m_view->cursorPosition();
       c.setLine( c.line()-(getCount()-1 ) );
-      m_viewInternal->updateCursor( c );
+      updateCursor( c );
     }
     //c.setLine( c.line()-getCount() );
   }
@@ -827,7 +801,7 @@ bool KateViNormalMode::commandChange()
   if ( linewise ) {
     m_view->doc()->insertLine( m_commandRange.startLine, QString() );
     c.setLine( m_commandRange.startLine );
-    m_viewInternal->updateCursor( c );
+    updateCursor( c );
   }
 
   commandEnterInsertMode();
@@ -848,7 +822,7 @@ bool KateViNormalMode::commandChangeLine()
   // FIXME: take count and range into account
   KTextEditor::Cursor c( m_view->cursorPosition() );
   c.setColumn( 0 );
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
 
   commandDeleteToEOL();
   commandEnterInsertModeAppend();
@@ -949,7 +923,7 @@ bool KateViNormalMode::commandPaste()
 
   m_view->doc()->insertText( c, textToInsert );
 
-  m_viewInternal->updateCursor( cAfter );
+  updateCursor( cAfter );
 
   return true;
 }
@@ -979,7 +953,7 @@ bool KateViNormalMode::commandPasteBefore()
 
   m_view->doc()->insertText( c, textToInsert );
 
-  m_viewInternal->updateCursor( cAfter );
+  updateCursor( cAfter );
 
   return true;
 }
@@ -1026,7 +1000,7 @@ bool KateViNormalMode::commandReplaceCharacter()
 
   bool r = m_view->doc()->replaceText( KTextEditor::Range( c1, c2 ), m_keys.right( 1 ) );
 
-  m_viewInternal->updateCursor( c1 );
+  updateCursor( c1 );
 
   return r;
 }
@@ -1537,31 +1511,9 @@ KateViRange KateViNormalMode::motionToMatchingItem()
   // use kate's built-in matching bracket finder for brackets
   if ( QString("{}()[]").indexOf( item ) != -1 ) {
     c.setColumn( n1+1 );
-    m_viewInternal->updateCursor( c );
-    KateSmartRange *m_bm, *m_bmStart, *m_bmEnd;
+    updateCursor( c );
 
-    m_bm = m_viewInternal->m_bm;
-    m_bmStart = m_viewInternal->m_bmStart;
-    m_bmEnd = m_viewInternal->m_bmEnd;
-
-    if (!m_bm->isValid()) {
-      r.valid = false;
-      return r;
-    }
-
-    Q_ASSERT(m_bmEnd->isValid());
-    Q_ASSERT(m_bmStart->isValid());
-
-    if (m_bmStart->contains(m_viewInternal->m_cursor) || m_bmStart->end() == m_viewInternal->m_cursor) {
-      c = m_bmEnd->end();
-    } else if (m_bmEnd->contains(m_viewInternal->m_cursor) || m_bmEnd->end() == m_viewInternal->m_cursor) {
-      c = m_bmStart->end();
-    } else {
-      // should never happen: a range exists, but the cursor position is
-      // neither at the start nor at the end...
-      r.valid = false;
-      return r;
-    }
+    c - m_viewInternal->findMatchingBracket();
 
     c.setColumn( c.column()-1 );
   } else {

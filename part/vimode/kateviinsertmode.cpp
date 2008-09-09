@@ -122,12 +122,12 @@ bool KateViInsertMode::commandDeleteWord()
 
 bool KateViInsertMode::commandIndent()
 {
-  return m_viewInternal->getViNormalMode()->commandIndentLine();
+  return getViNormalMode()->commandIndentLine();
 }
 
 bool KateViInsertMode::commandUnindent()
 {
-  return m_viewInternal->getViNormalMode()->commandUnindentLine();
+  return getViNormalMode()->commandUnindentLine();
 }
 
 bool KateViInsertMode::commandToFirstCharacterInFile()
@@ -137,7 +137,7 @@ bool KateViInsertMode::commandToFirstCharacterInFile()
   c.setLine( 0 );
   c.setColumn( 0 );
 
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
 
   return true;
 }
@@ -150,7 +150,7 @@ bool KateViInsertMode::commandToLastCharacterInFile()
   c.setLine( lines );
   c.setColumn( m_view->doc()->line( lines ).length() );
 
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
 
   return true;
 }
@@ -160,7 +160,7 @@ bool KateViInsertMode::commandMoveOneWordLeft()
   KTextEditor::Cursor c( m_view->cursorPosition() );
   c = findPrevWordStart( c.line(), c.column() );
 
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
   return true;
 }
 
@@ -169,7 +169,7 @@ bool KateViInsertMode::commandMoveOneWordRight()
   KTextEditor::Cursor c( m_view->cursorPosition() );
   c = findNextWordStart( c.line(), c.column() );
 
-  m_viewInternal->updateCursor( c );
+  updateCursor( c );
   return true;
 }
 

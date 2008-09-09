@@ -104,17 +104,30 @@ void KateViInputModeManager::viEnterInsertMode()
 void KateViInputModeManager::viEnterVisualMode( bool visualLine )
 {
   if ( !visualLine ) {
-    //changeViMode(VisualMode);
+    changeViMode(VisualMode);
   } else {
-    //changeViMode(VisualLineMode);
+    changeViMode(VisualLineMode);
   }
 
   m_viewInternal->repaint ();
-  //m_viewInternal->getViVisualMode()->setVisualLine( visualLine );
-  //m_viewInternal->getViVisualMode()->init();
+  getViVisualMode()->setVisualLine( visualLine );
+  getViVisualMode()->init();
 
   //emit viewModeChanged(this);
   //emit viewEditModeChanged(this, viewEditMode());
 }
 
+KateViNormalMode* KateViInputModeManager::getViNormalMode()
+{
+  return m_viNormalMode;
+}
 
+KateViInsertMode* KateViInputModeManager::getViInsertMode()
+{
+  return m_viInsertMode;
+}
+
+KateViVisualMode* KateViInputModeManager::getViVisualMode()
+{
+  return m_viVisualMode;
+}

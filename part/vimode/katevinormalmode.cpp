@@ -18,6 +18,7 @@
  */
 
 #include "katevinormalmode.h"
+#include "katevivisualmode.h"
 #include "kateviinputmodemanager.h"
 #include "katesmartmanager.h"
 #include "katesmartrange.h"
@@ -390,30 +391,31 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
 
 bool KateViNormalMode::commandEnterVisualLineMode()
 {
-  //F//if ( m_view->getCurrentViMode() == VisualLineMode ) {
-  //F//  reset();
-  //F//  return true;
-  //F//}
+  if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
+    reset();
+    return true;
+  }
   
   return startVisualLineMode();
 }
 
 bool KateViNormalMode::commandEnterVisualMode()
 {
-  //F//if ( m_view->getCurrentViMode() == VisualMode ) {
-  //F//  reset();
-  //F//  return true;
-  //F//}
+  if ( m_viInputModeManager->getCurrentViMode() == VisualMode ) {
+    reset();
+    return true;
+  }
   
   return startVisualMode();
 }
 
 bool KateViNormalMode::commandToOtherEnd()
 {
-  //F//if ( m_view->getCurrentViMode() == VisualLineMode || m_view->getCurrentViMode() == VisualMode ) {
-  //F//  getViVisualMode()->switchStartEnd();
-  //F//  return true;
-  //F//}
+  if ( m_viInputModeManager->getCurrentViMode() == VisualLineMode
+      || m_viInputModeManager->getCurrentViMode() == VisualMode ) {
+    m_viInputModeManager->getViVisualMode()->switchStartEnd();
+    return true;
+  }
 
   return false;
 }
@@ -571,7 +573,7 @@ bool KateViNormalMode::commandDelete()
   }
 
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
-      && false ); //F//m_view->getCurrentViMode() != VisualMode );
+      && m_viInputModeManager->getCurrentViMode() != VisualMode );
 
   return deleteRange( m_commandRange, linewise );
 }
@@ -583,10 +585,10 @@ bool KateViNormalMode::commandDeleteToEOL()
   m_commandRange.endLine = c.line();
   m_commandRange.endColumn = m_view->doc()->lineLength( c.line() );
 
-  //F//if ( m_view->getCurrentViMode() == NormalMode ) {
-  //F//  m_commandRange.startLine = c.line();
-  //F//  m_commandRange.startColumn = c.column();
-  //F//}
+  if ( m_viInputModeManager->getCurrentViMode() == NormalMode ) {
+    m_commandRange.startLine = c.line();
+    m_commandRange.startColumn = c.column();
+  }
 
   // can only be true for visual mode
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine );
@@ -794,7 +796,7 @@ bool KateViNormalMode::commandChange()
   }
 
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
-      && false);//F//m_view->getCurrentViMode() != VisualMode );
+      && m_viInputModeManager->getCurrentViMode() != VisualMode );
 
   commandDelete();
 
@@ -858,7 +860,7 @@ bool KateViNormalMode::commandYank()
   }
 
   bool linewise = ( m_commandRange.startLine != m_commandRange.endLine
-      && false);//F//m_view->getCurrentViMode() != VisualMode );
+      && m_viInputModeManager->getCurrentViMode() != VisualMode );
 
   yankedText = getRange( m_commandRange, linewise );
 

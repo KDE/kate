@@ -75,6 +75,21 @@ class KateViInputModeManager
    */
   void viEnterVisualMode( bool visualLine = false);
 
+  /**
+   * @return the KateViNormalMode instance
+   */
+  KateViNormalMode* getViNormalMode();
+
+  /**
+   * @return the KateViInsertMode instance
+   */
+  KateViInsertMode* getViInsertMode();
+
+  /**
+   * @return the KateViVisualMode instance
+   */
+  KateViVisualMode* getViVisualMode();
+
   private:
     KateViNormalMode* m_viNormalMode;
     KateViInsertMode* m_viInsertMode;

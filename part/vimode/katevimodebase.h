@@ -59,9 +59,6 @@ class KateViModeBase
     bool startVisualMode();
     bool startVisualLineMode();
 
-    KateViVisualMode* getViVisualMode();
-    KateViNormalMode* getViNormalMode();
-
     QChar getChosenRegister( const QChar &defaultReg ) const;
     QString getRegisterContent( const QChar &reg ) const;
     void fillRegister( const QChar &reg, const QString &text);

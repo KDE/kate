@@ -477,19 +477,19 @@ bool KateViModeBase::startInsertMode()
   m_viInputModeManager->viEnterInsertMode();
   m_viewInternal->repaint ();
 
-  //emit m_view->viewModeChanged( m_view );
+  emit m_view->viewModeChanged( m_view );
 
   return true;
 }
 
 bool KateViModeBase::startVisualMode()
 {
-  //F//if ( m_view->getCurrentViMode() == VisualLineMode ) {
-  //F//  m_viewInternal->getViVisualMode()->setVisualLine( false );
-  //F//  m_view->changeViMode(VisualMode);
-  //F//} else {
-    //m_view->viEnterVisualMode();
-  //F//}
+  if ( m_view->getCurrentViMode() == VisualLineMode ) {
+    m_viInputModeManager->getViVisualMode()->setVisualLine( false );
+    m_viInputModeManager->changeViMode(VisualMode);
+  } else {
+    m_viInputModeManager->viEnterVisualMode();
+  }
 
   emit m_view->viewModeChanged( m_view );
 
@@ -498,24 +498,14 @@ bool KateViModeBase::startVisualMode()
 
 bool KateViModeBase::startVisualLineMode()
 {
-  //F//if ( m_view->getCurrentViMode() == VisualMode ) {
-  //F//  m_viewInternal->getViVisualMode()->setVisualLine( true );
-  //F//  m_view->changeViMode(VisualLineMode);
-  //F//} else {
-    //m_view->viEnterVisualMode( true );
-  //F//}
+  if ( m_view->getCurrentViMode() == VisualMode ) {
+    m_viInputModeManager->getViVisualMode()->setVisualLine( true );
+    m_viInputModeManager->changeViMode(VisualLineMode);
+  } else {
+    m_viInputModeManager->viEnterVisualMode( true );
+  }
 
   emit m_view->viewModeChanged( m_view );
 
   return true;
-}
-
-KateViVisualMode* KateViModeBase::getViVisualMode()
-{
-  return NULL;//m_viewInternal->getViVisualMode();
-}
-
-KateViNormalMode* KateViModeBase::getViNormalMode()
-{
-  return NULL;//m_viewInternal->getViNormalMode();
 }

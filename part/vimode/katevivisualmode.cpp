@@ -108,9 +108,10 @@ void KateViVisualMode::reset()
 
     // only switch to normal mode if still in visual mode. commands like c, s, ...
     // can have switched to insert mode
-    //F//if ( m_view->getCurrentViMode() == VisualMode || m_view->getCurrentViMode() == VisualLineMode ) {
-        //m_view->viEnterNormalMode();
-    //F//}
+    if ( m_viInputModeManager->getCurrentViMode() == VisualMode
+        || m_viInputModeManager->getCurrentViMode() == VisualLineMode ) {
+      m_viInputModeManager->viEnterNormalMode();
+    }
 }
 
 void KateViVisualMode::init()

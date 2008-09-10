@@ -34,7 +34,7 @@ KateViModeBar::KateViModeBar(KateView* view, QWidget* parent)
   m_labelStatus(new QLabel(this)),
   m_labelCommand(new QLabel(this))
 {
-  QHBoxLayout *lay = static_cast<QHBoxLayout*>(layout());
+  QHBoxLayout *lay = qobject_cast<QHBoxLayout*>(layout());
   lay->addWidget(m_labelStatus);
   lay->addStretch(1);
   lay->addWidget(m_labelCommand);

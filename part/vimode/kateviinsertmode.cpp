@@ -182,50 +182,70 @@ bool KateViInsertMode::commandMoveOneWordRight()
  */
 bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
 {
-    if ( e->key() == Qt::Key_Escape ) {
-        startNormalMode();
-        return true;
+  if ( e->modifiers() == Qt::NoModifier ) {
+    switch ( e->key() ) {
+    case Qt::Key_Escape:
+      startNormalMode();
+      return true;
+      break;
+    case Qt::Key_Backspace:
+      m_view->backspace();
+      return true;
+      break;
+    case Qt::Key_Left:
+      m_view->cursorLeft();
+      return true;
+    case Qt::Key_Right:
+      m_view->cursorRight();
+      return true;
+    case Qt::Key_Up:
+      m_view->up(); // FIXME: should go up an actual line, not a virtual line
+      return true;
+    case Qt::Key_Down:
+      m_view->down(); // FIXME: should go down an actual line, not a virtual line
+      return true;
+      break;
+    }
+  }
+  else if ( e->modifiers() == Qt::ControlModifier ) {
+    switch( e->key() ) {
+    case Qt::Key_BracketLeft:
+    case Qt::Key_C:
+      startNormalMode();
+      break;
+    case Qt::Key_D:
+      commandUnindent();
+      break;
+    case Qt::Key_E:
+      commandInsertFromBelow();
+      break;
+    case Qt::Key_T:
+      commandIndent();
+      break;
+    case Qt::Key_W:
+      commandDeleteWord();
+      break;
+    case Qt::Key_Y:
+      commandInsertFromAbove();
+      break;
+    case Qt::Key_Home:
+      commandToFirstCharacterInFile();
+      break;
+    case Qt::Key_End:
+      commandToLastCharacterInFile();
+      break;
+    case Qt::Key_Left:
+      commandMoveOneWordLeft();
+      break;
+    case Qt::Key_Right:
+      commandMoveOneWordRight();
+      break;
+    default:
+      return false;
     }
 
-    if ( e->modifiers() == Qt::ControlModifier ) {
-        switch( e->key() ) {
-        case Qt::Key_BracketLeft:
-        case Qt::Key_C:
-            startNormalMode();
-            break;
-        case Qt::Key_D:
-            commandUnindent();
-            break;
-        case Qt::Key_E:
-            commandInsertFromBelow();
-            break;
-        case Qt::Key_T:
-            commandIndent();
-            break;
-        case Qt::Key_W:
-            commandDeleteWord();
-            break;
-        case Qt::Key_Y:
-            commandInsertFromAbove();
-            break;
-        case Qt::Key_Home:
-            commandToFirstCharacterInFile();
-            break;
-        case Qt::Key_End:
-            commandToLastCharacterInFile();
-            break;
-        case Qt::Key_Left:
-            commandMoveOneWordLeft();
-            break;
-        case Qt::Key_Right:
-            commandMoveOneWordRight();
-            break;
-        default:
-            return false;
-        }
+    return true;
+  }
 
-        return true;
-    }
-
-    return false;
+  return false;
 }

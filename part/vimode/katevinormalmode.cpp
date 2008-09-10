@@ -711,7 +711,7 @@ bool KateViNormalMode::commandOpenNewLineUnder()
     m_view->doc()->newLine( m_view );
   }
 
-  //m_view->changeViMode( InsertMode );
+  startInsertMode();
   m_viewInternal->repaint ();
 
   return true;
@@ -744,7 +744,7 @@ bool KateViNormalMode::commandOpenNewLineOver()
     //c.setLine( c.line()-getCount() );
   }
 
-  //m_view->changeViMode( InsertMode );
+  startInsertMode();
   m_viewInternal->repaint ();
 
   return true;

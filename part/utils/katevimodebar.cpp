@@ -34,7 +34,7 @@ KateViModeBar::KateViModeBar(KateView* view, QWidget* parent)
   m_labelStatus(new QLabel(this)),
   m_labelCommand(new QLabel(this))
 {
-  QHBoxLayout *lay = new QHBoxLayout(this);
+  QHBoxLayout *lay = static_cast<QHBoxLayout*>(layout());
   lay->addWidget(m_labelStatus);
   lay->addStretch(1);
   lay->addWidget(m_labelCommand);
@@ -43,9 +43,6 @@ KateViModeBar::KateViModeBar(KateView* view, QWidget* parent)
   // otherwise the command will look 'jumpy' as new symbols are added to it
   // 50 pix should be enough i think
   m_labelCommand->setFixedWidth(50);
-
-  QWidget* widget = centralWidget();
-  widget->setLayout(lay);
 }
 
 KateViModeBar::~KateViModeBar()

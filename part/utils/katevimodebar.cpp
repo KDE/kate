@@ -75,6 +75,15 @@ void KateViModeBar::showErrorMessage(const QString &msg)
 
 void KateViModeBar::clearMessage()
 {
+  // don't clear the message right away, wait two seconds so the user will see the message even if
+  // she presses a key right after getting the error message
+  if ( !m_labelMessage->text().isEmpty() ) {
+    QTimer::singleShot(2000, this, SLOT(_clearMessage()));
+  }
+}
+
+void KateViModeBar::_clearMessage()
+{
   m_labelMessage->clear();
 }
 

@@ -42,6 +42,9 @@ public:
   void showErrorMessage(const QString &msg);
   void clearMessage();
 
+private Q_SLOTS:
+  void _clearMessage();
+
 private:
   // move to some common place? seems it may be useful for others.
   QString modeToString(ViMode mode) const;

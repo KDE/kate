@@ -47,9 +47,7 @@ QString KateViGlobal::getRegisterContent( const QChar &reg ) const
   } else if ( _reg == '*' ) { // system selection register
       regContent = QApplication::clipboard()->text( QClipboard::Selection );
   } else { // regular, named register
-    if ( !m_registers->contains( _reg ) ) {
-      kDebug( 13070 ) << QString( "Nothing in register " ) + _reg;
-    } else {
+    if ( m_registers->contains( _reg ) ) {
       regContent = m_registers->value( _reg );
     }
   }

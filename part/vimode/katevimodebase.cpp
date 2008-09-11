@@ -465,7 +465,13 @@ QChar KateViModeBase::getChosenRegister( const QChar &defaultReg ) const
 
 QString KateViModeBase::getRegisterContent( const QChar &reg ) const
 {
-  return KateGlobal::self()->viInputModeGlobal()->getRegisterContent( reg );
+  QString r = KateGlobal::self()->viInputModeGlobal()->getRegisterContent( reg );
+
+  if ( r.isNull() ) {
+    error( QString( "Nothing in register " ) + reg );
+  }
+
+  return r;
 }
 
 void KateViModeBase::fillRegister( const QChar &reg, const QString &text )

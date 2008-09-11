@@ -1872,8 +1872,8 @@ void KateViNormalMode::initializeCommands()
   m_motions.push_back( new KateViMotion( this, "E", &KateViNormalMode::motionToEndOfWORD ) );
   m_motions.push_back( new KateViMotion( this, "|", &KateViNormalMode::motionToScreenColumn ) );
   m_motions.push_back( new KateViMotion( this, "%", &KateViNormalMode::motionToMatchingItem ) );
-  m_motions.push_back( new KateViMotion( this, "`.", &KateViNormalMode::motionToMark, REGEX_PATTERN ) );
-  m_motions.push_back( new KateViMotion( this, "'.", &KateViNormalMode::motionToMarkLine, REGEX_PATTERN ) );
+  m_motions.push_back( new KateViMotion( this, "`[a-zA-Z]", &KateViNormalMode::motionToMark, REGEX_PATTERN ) );
+  m_motions.push_back( new KateViMotion( this, "'[a-zA-Z]", &KateViNormalMode::motionToMarkLine, REGEX_PATTERN ) );
   m_motions.push_back( new KateViMotion( this, "[[", &KateViNormalMode::motionToPreviousBraceBlockStart ) );
   m_motions.push_back( new KateViMotion( this, "]]", &KateViNormalMode::motionToNextBraceBlockStart ) );
   m_motions.push_back( new KateViMotion( this, "[]", &KateViNormalMode::motionToPreviousBraceBlockEnd ) );

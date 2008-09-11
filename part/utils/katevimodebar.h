@@ -25,6 +25,7 @@
 #include "kateview.h"
 
 class QLabel;
+class QTimer;
 class KateViNormalMode;
 class KateViInsertMode;
 class KateViVisualMode;
@@ -53,6 +54,7 @@ private:
   QLabel* m_labelStatus;
   QLabel* m_labelMessage;
   QLabel* m_labelCommand;
+  QTimer* m_timer;
 };
 
 #endif

@@ -26,6 +26,7 @@
 
 #include <QtGui/QLabel>
 #include <QtGui/QHBoxLayout>
+#include <QTimer>
 
 #include "klocale.h"
 
@@ -33,7 +34,8 @@ KateViModeBar::KateViModeBar(KateView* view, QWidget* parent)
 : KateViewBarWidget(false, view, parent),
   m_labelStatus(new QLabel(this)),
   m_labelMessage(new QLabel(this)),
-  m_labelCommand(new QLabel(this))
+  m_labelCommand(new QLabel(this)),
+  m_timer(0)
 {
   QHBoxLayout *lay = qobject_cast<QHBoxLayout*>(layout());
   lay->addWidget(m_labelStatus);
@@ -50,7 +52,8 @@ KateViModeBar::KateViModeBar(KateView* view, QWidget* parent)
 
 KateViModeBar::~KateViModeBar()
 {
-
+  if (m_timer)
+    delete m_timer;
 }
 
 void KateViModeBar::updateViMode(ViMode mode)
@@ -65,11 +68,15 @@ void KateViModeBar::updatePartialCommand(const QString &cmd)
 
 void KateViModeBar::showMessage(const QString &msg)
 {
+  m_timer->stop();
   m_labelMessage->setText(msg);
 }
 
 void KateViModeBar::showErrorMessage(const QString &msg)
 {
+  if ( m_timer ) {
+    m_timer->stop();
+  }
   m_labelMessage->setText(QString("<font color=\"red\">")+msg+"</font>");
 }
 
@@ -78,7 +85,14 @@ void KateViModeBar::clearMessage()
   // don't clear the message right away, wait two seconds so the user will see the message even if
   // she presses a key right after getting the error message
   if ( !m_labelMessage->text().isEmpty() ) {
-    QTimer::singleShot(2000, this, SLOT(_clearMessage()));
+    if (!m_timer) {
+      m_timer = new QTimer(this);
+      connect(m_timer, SIGNAL(timeout()), this, SLOT(_clearMessage()));
+      m_timer->setSingleShot(true);
+      m_timer->setInterval(2000);
+    }
+
+    m_timer->start();
   }
 }
 

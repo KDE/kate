@@ -65,6 +65,9 @@ class KateViModeBase
     bool startVisualMode();
     bool startVisualLineMode();
 
+    void error( const QString &errorMsg ) const;
+    void message( const QString &msg ) const;
+
     QChar getChosenRegister( const QChar &defaultReg ) const;
     QString getRegisterContent( const QChar &reg ) const;
     void fillRegister( const QChar &reg, const QString &text);

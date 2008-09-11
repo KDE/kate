@@ -38,6 +38,9 @@ public:
 
   void updateViMode(ViMode mode);
   void updatePartialCommand(const QString &cmd);
+  void showMessage(const QString &msg);
+  void showErrorMessage(const QString &msg);
+  void clearMessage();
 
 private:
   // move to some common place? seems it may be useful for others.
@@ -45,6 +48,7 @@ private:
 
 private:
   QLabel* m_labelStatus;
+  QLabel* m_labelMessage;
   QLabel* m_labelCommand;
 };
 

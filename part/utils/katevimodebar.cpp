@@ -32,10 +32,13 @@
 KateViModeBar::KateViModeBar(KateView* view, QWidget* parent)
 : KateViewBarWidget(false, view, parent),
   m_labelStatus(new QLabel(this)),
+  m_labelMessage(new QLabel(this)),
   m_labelCommand(new QLabel(this))
 {
   QHBoxLayout *lay = qobject_cast<QHBoxLayout*>(layout());
   lay->addWidget(m_labelStatus);
+  lay->addSpacing(30);
+  lay->addWidget(m_labelMessage);
   lay->addStretch(1);
   lay->addWidget(m_labelCommand);
   lay->addSpacing(30);
@@ -59,6 +62,22 @@ void KateViModeBar::updatePartialCommand(const QString &cmd)
 {
   m_labelCommand->setText(cmd);
 }
+
+void KateViModeBar::showMessage(const QString &msg)
+{
+  m_labelMessage->setText(msg);
+}
+
+void KateViModeBar::showErrorMessage(const QString &msg)
+{
+  m_labelMessage->setText(QString("<font color=\"red\">")+msg+"</font>");
+}
+
+void KateViModeBar::clearMessage()
+{
+  m_labelMessage->clear();
+}
+
 QString KateViModeBar::modeToString(ViMode mode) const
 {
   QString modeStr;

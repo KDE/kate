@@ -265,16 +265,6 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   return false;
 }
 
-void KateViNormalMode::error( const QString &errorMsg ) const
-{
-  kError( 13070 ) << "\033[31m" << errorMsg << "\033[0m\n";
-}
-
-void KateViNormalMode::message( const QString &msg ) const
-{
-  kError( 13070 ) << "\033[34m" << msg << "\033[0m\n";
-}
-
 /**
  * (re)set to start configuration. This is done when a command is completed
  * executed or when a command is aborted

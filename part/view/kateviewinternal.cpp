@@ -41,6 +41,7 @@
 #include "katecompletionwidget.h"
 #include "katenamespace.h"
 #include "kateviinputmodemanager.h"
+#include "katevimodebar.h"
 
 #include <kcursor.h>
 #include <kdebug.h>
@@ -2237,6 +2238,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   }
 
   if ( m_view->viInputMode() ) {
+    m_view->viModeBar()->clearMessage(); // clear [error] message
     if ( getViInputModeManager()->getCurrentViMode() == InsertMode ) {
       if ( getViInputModeManager()->handleKeypress( e ) )
         return;

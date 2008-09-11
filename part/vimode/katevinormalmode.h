@@ -174,9 +174,6 @@ class KateViNormalMode : public KateViModeBase
 
     void addCurrentPositionToJumpList();
 
-    void error( const QString &errorMsg ) const;
-    void message( const QString &msg ) const;
-
   protected:
     void resetParser();
     virtual void reset();

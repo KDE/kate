@@ -30,6 +30,7 @@
 #include "kateview.h"
 #include "kateviewinternal.h"
 #include "katedocument.h"
+#include "katevimodebar.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // HELPER METHODS
@@ -517,6 +518,17 @@ bool KateViModeBase::startVisualLineMode()
 
   return true;
 }
+
+void KateViModeBase::error( const QString &errorMsg ) const
+{
+  m_view->viModeBar()->showErrorMessage(errorMsg);
+}
+
+void KateViModeBase::message( const QString &msg ) const
+{
+  m_view->viModeBar()->showMessage(msg);
+}
+
 
 QString KateViModeBase::getVerbatimKeys() const
 {

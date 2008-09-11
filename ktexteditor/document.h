@@ -70,7 +70,8 @@ class View;
  * Call insertText() or insertLine() to insert new text or removeText()
  * and removeLine() to remove content. Whenever the document's content
  * changed the signal textChanged() is emitted. Additional signals are
- * textInserted() and textRemoved().
+ * textInserted() and textRemoved(). Note, that the first line in the
+ * document is line 0.
  *
  * If the editor part supports it a document provides full undo/redo history.
  * Text manipulation actions can be grouped together using startEditing()

@@ -98,7 +98,6 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   }
 
   m_keysVerbatim.append( m_keyParser->decodeKeySequence( key ) );
-  kDebug( 13070 ) << " *** Command so far: " << m_keysVerbatim << " ***";
 
   QChar c = QChar::Null;
   if ( m_keys.size() > 0 ) {

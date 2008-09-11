@@ -2170,14 +2170,12 @@ void KateView::clearActions( )
 
 void KateView::deactivateEditActions()
 {
-  kDebug( 13070 ) <<  " -------------------------- ";
   foreach(QAction *action, m_editActions)
     action->setEnabled(false);
 }
 
 void KateView::activateEditActions()
 {
-  kDebug( 13070 ) <<  " ++++++++++++++++++++++++++ ";
   foreach(QAction *action, m_editActions)
     action->setEnabled(true);
 }

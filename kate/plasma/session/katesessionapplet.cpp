@@ -48,7 +48,7 @@ KateSessionApplet::KateSessionApplet(QObject *parent, const QVariantList &args)
         dirwatch->addDir( lst[i] );
     }
     connect( dirwatch, SIGNAL(dirty (const QString &) ), this, SLOT( slotUpdateSessionMenu() ) );
-    setIcon( "kate" );
+    setPopupIcon( "kate" );
 }
 
 KateSessionApplet::~KateSessionApplet()

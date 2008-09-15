@@ -48,6 +48,7 @@
 #include "ui_completionconfigtab.h"
 #include "ui_opensaveconfigwidget.h"
 #include "ui_opensaveconfigadvwidget.h"
+#include "ui_viinputmodeconfigwidget.h"
 
 #include <ktexteditor/plugin.h>
 
@@ -292,6 +293,64 @@ void KateCompletionConfigTab::reload ()
 }
 //END KateCompletionConfigTab
 
+//BEGIN KateViInputModeConfigTab
+KateViInputModeConfigTab::KateViInputModeConfigTab(QWidget *parent)
+  : KateConfigPage(parent)
+{
+  // This will let us have more separation between this page and
+  // the KTabWidget edge (ereslibre)
+  QVBoxLayout *layout = new QVBoxLayout;
+  QWidget *newWidget = new QWidget(this);
+
+  ui = new Ui::ViInputModeConfigWidget ();
+  ui->setupUi( newWidget );
+
+  // What's This? help can be found in the ui file
+
+  reload ();
+
+  //
+  // after initial reload, connect the stuff for the changed () signal
+  //
+
+  connect(ui->chkViInputModeDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->chkViCommandsOverride, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  layout->addWidget(newWidget);
+  setLayout(layout);
+}
+
+KateViInputModeConfigTab::~KateViInputModeConfigTab()
+{
+  delete ui;
+}
+
+void KateViInputModeConfigTab::showWhatsThis(const QString& text)
+{
+  QWhatsThis::showText(QCursor::pos(), text);
+}
+
+void KateViInputModeConfigTab::apply ()
+{
+  // nothing changed, no need to apply stuff
+  if (!hasChanged())
+    return;
+  m_changed = false;
+
+  KateViewConfig::global()->configStart ();
+  KateViewConfig::global()->setViInputMode (ui->chkViInputModeDefault->isChecked());
+  KateViewConfig::global()->setViInputModeStealKeys (ui->chkViCommandsOverride->isChecked());
+  KateViewConfig::global()->configEnd ();
+}
+
+void KateViInputModeConfigTab::reload ()
+{
+  ui->chkViInputModeDefault->setChecked( KateViewConfig::global()->viInputMode () );
+  ui->chkViCommandsOverride->setChecked( KateViewConfig::global()->viInputModeStealKeys () );
+}
+//END KateViInputModeConfigTab
+
+
 //BEGIN KateSelectConfigTab
 KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   : KateConfigPage(parent)
@@ -380,6 +439,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   , selectConfigTab(new KateSelectConfigTab(this))
   , indentConfigTab(new KateIndentConfigTab(this))
   , completionConfigTab (new KateCompletionConfigTab(this))
+  , viInputModeConfigTab(new KateViInputModeConfigTab(this))
 {
   // FIXME: Is really needed to move all this code below to another class,
   // since it is another tab itself on the config dialog. This means we should
@@ -435,10 +495,12 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   tabWidget->insertTab(1, selectConfigTab, i18n("Cursor & Selection"));
   tabWidget->insertTab(2, indentConfigTab, i18n("Indentation"));
   tabWidget->insertTab(3, completionConfigTab, i18n("Auto Completion"));
+  tabWidget->insertTab(4, viInputModeConfigTab, i18n("Vi Input Mode"));
 
   connect(selectConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
   connect(indentConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
   connect(completionConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
+  connect(viInputModeConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
 
   layout->addWidget(tabWidget);
   setLayout(layout);
@@ -455,6 +517,7 @@ void KateEditConfigTab::apply ()
   selectConfigTab->apply();
   indentConfigTab->apply();
   completionConfigTab->apply();
+  viInputModeConfigTab->apply();
 
   // nothing changed, no need to apply stuff
   if (!hasChanged())
@@ -495,6 +558,7 @@ void KateEditConfigTab::reload ()
   selectConfigTab->reload();
   indentConfigTab->reload();
   completionConfigTab->reload();
+  viInputModeConfigTab->reload();
 }
 
 void KateEditConfigTab::reset ()
@@ -502,6 +566,7 @@ void KateEditConfigTab::reset ()
   selectConfigTab->reset();
   indentConfigTab->reset();
   completionConfigTab->reset();
+  viInputModeConfigTab->reset();
 }
 
 void KateEditConfigTab::defaults ()
@@ -509,6 +574,7 @@ void KateEditConfigTab::defaults ()
   selectConfigTab->defaults();
   indentConfigTab->defaults();
   completionConfigTab->defaults();
+  viInputModeConfigTab->defaults();
 }
 //END KateEditConfigTab
 

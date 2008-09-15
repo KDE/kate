@@ -152,6 +152,7 @@ dialogs/schemaconfigcolortab.ui
 dialogs/completionconfigwidget.ui
 dialogs/searchbarincremental.ui
 dialogs/searchbarpower.ui
+dialogs/viinputmodeconfigwidget.ui
 )
 
 add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13000 )

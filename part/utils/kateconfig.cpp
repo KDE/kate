@@ -757,6 +757,10 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
 
   config.writeEntry( "Auto Completion", automaticCompletionInvocation());
 
+  config.writeEntry( "Vi Input Mode", viInputMode());
+
+  config.writeEntry( "Vi Input Mode Steal Keys", viInputModeStealKeys());
+
   if (isGlobal()) {
     // Write search pattern history
     QStringListModel * const patternHistoryModel = KateHistoryModel::getPatternHistoryModel();

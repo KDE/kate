@@ -81,6 +81,7 @@ namespace Ui
   class OpenSaveConfigWidget;
   class OpenSaveConfigAdvWidget;
   class CompletionConfigTab;
+  class ViInputModeConfigWidget;
 }
 
 class KateConfigPage : public KTextEditor::ConfigPage
@@ -185,6 +186,27 @@ public Q_SLOTS:
   void defaults () {}
 };
 
+class KateViInputModeConfigTab : public KateConfigPage
+{
+  Q_OBJECT
+
+  public:
+    KateViInputModeConfigTab(QWidget *parent);
+    ~KateViInputModeConfigTab();
+
+  protected:
+    Ui::ViInputModeConfigWidget *ui;
+
+  public Q_SLOTS:
+    void apply ();
+    void reload ();
+    void reset () {}
+    void defaults () {}
+
+  private Q_SLOTS:
+    void showWhatsThis(const QString& text);
+};
+
 class KateEditConfigTab : public KateConfigPage
 {
   Q_OBJECT
@@ -206,6 +228,7 @@ private:
   KateSelectConfigTab *selectConfigTab;
   KateIndentConfigTab *indentConfigTab;
   KateCompletionConfigTab *completionConfigTab;
+  KateViInputModeConfigTab *viInputModeConfigTab;
 };
 
 class KateViewDefaultsConfig : public KateConfigPage

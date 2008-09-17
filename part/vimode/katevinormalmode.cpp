@@ -509,8 +509,6 @@ bool KateViNormalMode::commandDeleteLine()
 {
   KTextEditor::Cursor c( m_view->cursorPosition() );
 
-  QString removedLines;
-
   KateViRange r;
 
   r.startLine = c.line();

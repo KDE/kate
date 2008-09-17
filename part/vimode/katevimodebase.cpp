@@ -43,7 +43,7 @@ bool KateViModeBase::deleteRange( KateViRange &r, bool linewise, bool addToRegis
   QString removedText = getRange( r, linewise );
 
   if ( linewise ) {
-    for ( int i = 0; i < m_commandRange.endLine-m_commandRange.startLine+1; i++ ) {
+    for ( int i = 0; i < r.endLine-r.startLine+1; i++ ) {
       res = m_view->doc()->removeLine( r.startLine );
     }
   } else {

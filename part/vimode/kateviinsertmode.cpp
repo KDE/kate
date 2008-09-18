@@ -24,7 +24,8 @@
 #include "katesmartrange.h"
 #include "katecursor.h"
 
-KateViInsertMode::KateViInsertMode( KateViInputModeManager *viInputModeManager, KateView * view, KateViewInternal * viewInternal )
+KateViInsertMode::KateViInsertMode( KateViInputModeManager *viInputModeManager,
+    KateView * view, KateViewInternal * viewInternal )
 {
   m_view = view;
   m_viewInternal = viewInternal;
@@ -35,7 +36,8 @@ KateViInsertMode::~KateViInsertMode()
 {
 }
 
-QChar KateViInsertMode::getCharAtVirtualColumn( QString &line, int virtualColumn, int tabWidth ) const
+const QChar KateViInsertMode::getCharAtVirtualColumn( QString &line, int virtualColumn,
+    int tabWidth ) const
 {
   int column = 0;
   int tempCol = 0;
@@ -182,14 +184,16 @@ bool KateViInsertMode::commandMoveOneWordRight()
  */
 bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
 {
+  // backspace should work even if the shift key is down
+  if (e->modifiers() != Qt::ControlModifier && e->key() == Qt::Key_Backspace ) {
+    m_view->backspace();
+    return true;
+  }
+
   if ( e->modifiers() == Qt::NoModifier ) {
     switch ( e->key() ) {
     case Qt::Key_Escape:
       startNormalMode();
-      return true;
-      break;
-    case Qt::Key_Backspace:
-      m_view->backspace();
       return true;
       break;
     case Qt::Key_Left:

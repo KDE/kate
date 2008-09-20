@@ -226,7 +226,7 @@ QString KateModeManager::fileType (KateDocument *doc)
   // Try wildcards
   if ( ! fileName.isEmpty() )
   {
-    static QStringList commonSuffixes = QString(".orig;.new;~;.bak;.BAK").split (";");
+    static const QStringList commonSuffixes = QString(".orig;.new;~;.bak;.BAK").split (";");
 
     if (!(result = wildcardsFind(fileName)).isEmpty())
       return result;
@@ -237,7 +237,7 @@ QString KateModeManager::fileType (KateDocument *doc)
         return result;
     }
 
-    for (QStringList::Iterator it = commonSuffixes.begin(); it != commonSuffixes.end(); ++it) {
+    for (QStringList::ConstIterator it = commonSuffixes.begin(); it != commonSuffixes.end(); ++it) {
       if (*it != backupSuffix && fileName.endsWith(*it)) {
         if (!(result = wildcardsFind(fileName.left(length - (*it).length()))).isEmpty())
           return result;

@@ -394,10 +394,10 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
     QString rep=repOld;
 
     // now set the backreferences in the replacement
-    QStringList backrefs=matcher.capturedTexts();
+    const QStringList backrefs=matcher.capturedTexts();
     int refnum=1;
 
-    QStringList::Iterator i = backrefs.begin();
+    QStringList::ConstIterator i = backrefs.begin();
     ++i;
 
     for (; i!=backrefs.end(); ++i)

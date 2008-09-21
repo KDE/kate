@@ -271,7 +271,7 @@
 				<StringDetect attribute="Operator" String="%=" context="#stay" insensitive="0"/>
 				<Detect2Chars attribute="Operator" char=":" char1=":" context="Member Access"/>
 				
-				<RegExpr attribute="Symbol" String=":[a-zA-Z_][a-zA-Z0-9_]*[=?!]?" context="check_div_1"/>
+				<RegExpr attribute="Symbol" String=":(@{1,2}|\$)?[a-zA-Z_][a-zA-Z0-9_]*[=?!]?" context="check_div_1"/>
 				<RegExpr attribute="Symbol" String=":\[\]=?" contex="check_div_1"/>
 				
 				<DetectChar attribute="String" char="&quot;" context="Quoted String"/>

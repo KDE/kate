@@ -232,10 +232,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   test texthint*/
 //  setFocus();
 
-  if ( viInputMode() ) {
+  if ( viInputMode() && !config()->viInputModeHideStatusBar() ) {
     deactivateEditActions();
-    m_viewBar->addPermanentBarWidget(viModeBar());
-    updateViModeBarMode();
+    showViModeBar();
   }
 }
 
@@ -1247,10 +1246,14 @@ void KateView::toggleViInputMode()
 
   if ( viInputMode() ) {
     m_viewInternal->getViInputModeManager()->viEnterNormalMode();
-    m_viewBar->addPermanentBarWidget(viModeBar());
+
+    if ( !config()->viInputModeHideStatusBar() ) {
+      showViModeBar();
+    }
+
     deactivateEditActions();
-  } else {
-    m_viewBar->removePermanentBarWidget(viModeBar());
+  } else { // disabling the vi input mode
+    hideViModeBar();
     activateEditActions();
   }
 
@@ -1258,13 +1261,30 @@ void KateView::toggleViInputMode()
   emit viewEditModeChanged(this,viewEditMode());
 }
 
+void KateView::showViModeBar()
+{
+  m_viewBar->addPermanentBarWidget(viModeBar());
+  updateViModeBarMode();
+}
+
+void KateView::hideViModeBar()
+{
+    m_viewBar->removePermanentBarWidget(viModeBar());
+}
+
 void KateView::updateViModeBarMode()
 {
+  if (config()->viInputModeHideStatusBar())
+    return;
+
   viModeBar()->updateViMode(getCurrentViMode());
 }
 
 void KateView::updateViModeBarCmd()
 {
+  if (config()->viInputModeHideStatusBar())
+    return;
+
   QString cmd = m_viewInternal->getViInputModeManager()->getVerbatimKeys();
   viModeBar()->updatePartialCommand(cmd);
 }
@@ -2695,13 +2715,9 @@ KateSearchBar *KateView::searchBar (bool initHintAsPower)
 
 KateViModeBar *KateView::viModeBar()
 {
+  Q_ASSERT(false);
   if (!m_viModeBar) {
     m_viModeBar = new KateViModeBar(this);
-  }
-
-  if (!m_viewBar->hasPermanentWidget(m_viModeBar)) {
-    // this will also show it
-    m_viewBar->addPermanentBarWidget(m_viModeBar);
   }
 
   return m_viModeBar;

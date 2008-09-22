@@ -41,14 +41,22 @@
       <item>
        <widget class="QCheckBox" name="chkViCommandsOverride" >
         <property name="whatsThis" >
-         <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">When selected, vi commands will override Kate's built-in commands. For example: Ctrl+R will redo, and override the standard action (showing the search &amp;amp; replace dialog).&lt;/p>&lt;/body>&lt;/html></string>
+         <string>When selected, vi commands will override Kate's built-in commands. For example: Ctrl+R will redo, and override the standard action (showing the search and replace dialog).</string>
         </property>
         <property name="text" >
          <string>Let Vi commands override Kate shortcuts</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkViStatusBarHide" >
+        <property name="whatsThis" >
+         <string>By default, an extra status bar will be used when the Vi input mode is enabled. This status bar shows commands while they are being typed and messages/errors produced by Vi commands.
+
+Checking this options will hide this extra status line.</string>
+        </property>
+        <property name="text" >
+         <string>Hide the Vi mode status bar</string>
         </property>
        </widget>
       </item>

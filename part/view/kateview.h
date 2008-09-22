@@ -488,6 +488,8 @@ class KateView : public KTextEditor::View,
     void toggleScrollBarMarks();
     void toggleDynWordWrap ();
     void toggleViInputMode ();
+    void showViModeBar ();
+    void hideViModeBar ();
     void setDynWrapIndicators(int mode);
 
   public:

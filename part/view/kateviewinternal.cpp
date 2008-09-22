@@ -2238,7 +2238,10 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   }
 
   if ( m_view->viInputMode() ) {
-    m_view->viModeBar()->clearMessage(); // clear [error] message
+    if ( !m_view->config()->viInputModeHideStatusBar() ) {
+      m_view->viModeBar()->clearMessage(); // clear [error] message
+    }
+
     if ( getViInputModeManager()->getCurrentViMode() == InsertMode ) {
       if ( getViInputModeManager()->handleKeypress( e ) )
         return;

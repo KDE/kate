@@ -707,10 +707,8 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setPersistentSelection (config.readEntry( "Persistent Selection", false ));
 
   setViInputMode (config.readEntry( "Vi Input Mode", false));
-  kDebug(13070) << "Vi Input Mode: " << viInputMode();
-
   setViInputModeStealKeys (config.readEntry( "Vi Input Mode Steal Keys", false));
-  kDebug(13070) << "Vi Input Mode steal keys: " << viInputModeStealKeys();
+  setViInputModeHideStatusBar (config.readEntry( "Vi Input Mode Hide Status Bar", false));
 
   setAutomaticCompletionInvocation (config.readEntry( "Auto Completion", true ));
 
@@ -760,6 +758,8 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry( "Vi Input Mode", viInputMode());
 
   config.writeEntry( "Vi Input Mode Steal Keys", viInputModeStealKeys());
+
+  config.writeEntry( "Vi Input Mode Hide Status Bar", viInputModeHideStatusBar());
 
   if (isGlobal()) {
     // Write search pattern history
@@ -1038,6 +1038,33 @@ void KateViewConfig::setViInputModeStealKeys (bool on)
 
   m_viInputModeStealKeysSet = true;
   m_viInputModeStealKeys = on;
+
+  configEnd ();
+}
+
+bool KateViewConfig::viInputModeHideStatusBar () const
+{
+  if (m_viInputModeHideStatusBarSet || isGlobal())
+    return m_viInputModeHideStatusBar;
+
+  return s_global->viInputModeHideStatusBar();
+}
+
+void KateViewConfig::setViInputModeHideStatusBar (bool on)
+{
+  configStart ();
+
+  m_viInputModeHideStatusBarSet = true;
+  m_viInputModeHideStatusBar = on;
+
+  // update all views and show/hide the status bar
+  foreach (KateView* view, KateGlobal::self()->views() ) {
+    if (on) {
+      view->hideViModeBar();
+    } else {
+      view->showViModeBar();
+    }
+  }
 
   configEnd ();
 }

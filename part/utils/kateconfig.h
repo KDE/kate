@@ -365,6 +365,9 @@ class KateViewConfig : public KateConfig
     bool viInputModeStealKeys () const;
     void setViInputModeStealKeys (bool on);
 
+    bool viInputModeHideStatusBar () const;
+    void setViInputModeHideStatusBar (bool on);
+
     // Do we still need the enum and related functions below?
     enum TextToSearch
     {
@@ -393,6 +396,7 @@ class KateViewConfig : public KateConfig
     bool m_persistentSelection;
     bool m_viInputMode;
     bool m_viInputModeStealKeys;
+    bool m_viInputModeHideStatusBar;
     bool m_automaticCompletionInvocation;
 
     bool m_dynWordWrapSet : 1;
@@ -409,6 +413,7 @@ class KateViewConfig : public KateConfig
     bool m_persistentSelectionSet : 1;
     bool m_viInputModeSet : 1;
     bool m_viInputModeStealKeysSet : 1;
+    bool m_viInputModeHideStatusBarSet : 1;
     bool m_automaticCompletionInvocationSet : 1;
 
   private:

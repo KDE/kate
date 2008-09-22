@@ -960,6 +960,8 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 void KateCodeFoldingTree::addOpening_further_iterations(KateCodeFoldingNode *node,signed char /* nType */, QVector<int>*
     list,unsigned int line,int current, unsigned int startLine,unsigned int charPos)
 {
+  Q_UNUSED(charPos)
+
   while (!(list->isEmpty()))
   {
     if (list->isEmpty())

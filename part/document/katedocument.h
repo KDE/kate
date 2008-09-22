@@ -917,7 +917,7 @@ class KateDocument : public KTextEditor::Document,
 
   public:
     /**
-     * @return wheather the document is modified on disc since last saved.
+     * @return wheather the document is modified on disk since last saved.
      */
     bool isModifiedOnDisc() { return m_modOnHd; }
 
@@ -927,13 +927,13 @@ class KateDocument : public KTextEditor::Document,
 
   public Q_SLOTS:
     /**
-     * Ask the user what to do, if the file has been modified on disc.
+     * Ask the user what to do, if the file has been modified on disk.
      * Reimplemented from KTextEditor::Document.
      */
     void slotModifiedOnDisk( KTextEditor::View *v = 0 );
 
     /**
-     * Reloads the current document from disc if possible
+     * Reloads the current document from disk if possible
      */
     bool documentReload ();
 

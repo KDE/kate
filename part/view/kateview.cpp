@@ -2715,7 +2715,6 @@ KateSearchBar *KateView::searchBar (bool initHintAsPower)
 
 KateViModeBar *KateView::viModeBar()
 {
-  Q_ASSERT(false);
   if (!m_viModeBar) {
     m_viModeBar = new KateViModeBar(this);
   }

@@ -15,19 +15,23 @@
   ========================================================================
 
   D is a next generation language written by Walter Bright of Digital Mars fame.
-  Digital Mars C, C++ and D Compilers can be obtained from http://www.digitalmars.com/
+  Digital Mars C, C++ and D Compilers can be obtained from http://www.digitalmars.com/d/
 
   ========================================================================
 
-  Updates for D.XML can be obtained from http://kate.kde.org/hl/
-
   UPDATE HISTORY:-
+  2008.09.22 - d.xml 1.61 - D 1.035/2.019 - Fix for identifiers starting _ and containing numbers.
+  2008.08.01 - d.xml 1.60 - D 1.033/2.017 - Merging ddoc.xml 1.14 since there is no advantage to having it separate.
+  2008.07.14 - uncommited                 - Added properties: .tupleof, .offsetof
+  2008.06.14 - D.XML 1.53 - D 1.030/2.014 - Added user keyword highlighting.
   2008.06.06 - D.XML 1.53 - D 1.030/2.014 - Small fix involving floats starting . in embedded Ddoc.
                                           - Added nothrow and pure attributes (D2.0 only).
   2008.04.09 - D.XML 1.52 - D 1.028/2.012 - Added properties (especially for arrays).
                                           - Added rules for C-Style indenter (thanks vektorboson!)
   2008.02.22 - D.XML 1.51 - D 1.027/2.011 - Changed char rule behaviour on line end.
                                           - Added support for strings ending with c, w or d (must have got lost at some point).
+  2008.02.22 - ddoc.xml 1.14              - Fixes/improvements for macros. Highlights first symbol and non-symbols
+                                            before as errors; matches embedded brackets () properly.
   2008.01.09 - D.XML 1.50 - D 1.025/2.009 - Changed pragma, version, deprecated matching to use keyword not DetectString.
   2007.12.18 - D.XML 1.49 - D 1.025/2.009 - Fixed some bugs to make the StartingLetter context exit correctly and match identifiers properly.
   2007.12.12 - D.XML 1.48 - D 1.024/2.008 - Adjusted existing contexts somewhat (mostly cleanup).
@@ -37,8 +41,15 @@
                                           - Implemented extra highlighting rules for expressions, attributes, etc.
                                           - Changed a lot of colours.
   2007.11.15 - D.XML 1.47 - D 1.023/2.007 - Fixed a few unapperent "bugs" found by checkdtd.
+  2007.11.15 - ddoc.xml 1.13              - Fixed a couple of bugs found by checkdtd and changed the version number format.
+  2007.11.5  - ddoc.xml 1.12              - Fixed: correct matching of things like /***/ .
+  2007.10.11 - ddoc.xml 1.11              - Safety catch: check for unterminated code sections (i.e. check for end of
+                                            ddoc comment even in code sections).
+                                          - Used DetectIdentifier to (presumably) improve performance.
   2007.10.09 - uncommited - ditto         - Changed some context="#pop" tags to context="#stay" within the normal
                                             context (bugfix for ddoc embedded code highlighting).
+  2007.10.9  - ddoc.xml 1.10              - Enabled embedded ddoc code highlighting
+  2007.10.9  - ddoc.xml 1.00              - Initial version
   2007.10.08 - D.XML 1.46 - D 1.022/2.005 - Stole Alert and Region Marker highlighting from C++ syntax.
                                           - Added support for DDoc highlighting.
                                           - Reviewed the float regexps again! Tried to make the best of both versions.
@@ -90,8 +101,11 @@
    ========================================================================
 -->
 
-<language name="D" version="1.53" kateversion="2.5" section="Sources" extensions="*.d;*.D;*.di;*.DI;" mimetype="text/x-dsrc" casesensitive="true" author="Diggory Hardy (diggory.hardy@gmail.com), Aziz Köksal (aziz.koeksal@gmail.com), Jari-Matti Mäkelä (jmjm@iki.fi), Simon J Mackenzie (project.katedxml@smackoz.fastmail.fm)" license="LGPL">
+<language name="D" version="1.61" kateversion="2.5" section="Sources" extensions="*.d;*.D;*.di;*.DI;" mimetype="text/x-dsrc" casesensitive="true" author="Diggory Hardy (diggory.hardy@gmail.com), Aziz Köksal (aziz.koeksal@gmail.com), Jari-Matti Mäkelä (jmjm@iki.fi), Simon J Mackenzie (project.katedxml@smackoz.fastmail.fm)" license="LGPL">
   <highlighting>
+    <!-- User-defined keywords (add identifiers you'd like highlighted here) -->
+    <list name="userkeywords">
+    </list>
     <list name="statements">
       <item> asm </item>
       <item> body </item>
@@ -225,6 +239,8 @@
       <item> alignof </item>
       <item> mangleof </item>
       <item> stringof </item>
+      <item> tupleof </item>
+      <item> offsetof </item>
       <item> max </item>
       <item> min </item>
       <item> infinity </item>
@@ -358,7 +374,7 @@
       <context name="normal" attribute="Normal Text" lineEndContext="#stay">
         <DetectSpaces />
         <!-- Performance improvement (probably): anything starting with a letter is matched separately -->
-        <RegExpr String="[a-zA-Z]" attribute="Normal Text" context="StartingLetter" lookAhead="true"/>
+        <RegExpr String="[a-zA-Z_]" attribute="Normal Text" context="StartingLetter" lookAhead="true"/>
 
         <HlCStringChar attribute="EscapeSequence" context="#stay"/>
         <Detect2Chars attribute="EscapeSequence" context="UnicodeShort"   char="\" char1="u"/>
@@ -400,7 +416,7 @@
           <DetectSpaces />
           <!-- fall-through should work now that DetectIdentifier is used (without infinite loops) -->
           <!-- maybe not... got an infinite loop -->
-          <RegExpr String="[^a-zA-Z]" attribute="Normal Text" context="#pop" lookAhead="true"/>
+          <RegExpr String="[^a-zA-Z_]" attribute="Normal Text" context="#pop" lookAhead="true"/>
           
           <!-- detect whether scope, in, out, etc. are used as attributes or statements (etc.) -->
           <!-- rules cannot match across newlines unfortunately -->
@@ -429,6 +445,9 @@
           
           <Detect2Chars attribute="RawString" context="RawString" char="r" char1="&quot;"/>
           <Detect2Chars attribute="HexString" context="HexString" char="x" char1="&quot;"/>
+          
+          <!-- user highlighting: last so as not to interfere with anything else -->
+          <keyword String="userkeywords"    attribute="UserKeywords"   context="#stay"     />
           
           <DetectIdentifier />
       </context>
@@ -594,7 +613,7 @@
 
       <!-- Comments -->
       <context name="CommentRules" attribute="Normal Text" lineEndContext="#pop">
-        <IncludeRules context="##Ddoc" />
+        <IncludeRules context="DdocNormal" />
         <Detect2Chars attribute="Comment" context="CommentLine"   char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="CommentBlock" char="/" char1="*" beginRegion="CommentBlock"/>
         <Detect2Chars attribute="Comment" context="CommentNested" char="/" char1="+" beginRegion="CommentNested"/>
@@ -617,6 +636,114 @@
        <Detect2Chars attribute="Comment" context="#pop" char="+" char1="/" endRegion="CommentNested"/>
        <IncludeRules context="##Alerts" />
       </context>
+      
+      
+      <!-- Ddoc contexts -->
+      <context name="DdocNormal" attribute="Normal Text" lineEndContext="#stay">
+        <RegExpr attribute="Comment" context="DdocLine" String="/{3,}"/>
+        <RegExpr attribute="Comment" context="DdocBlock" String="/\*{2,}(?!/)" beginRegion="DdocBlock"/>
+        <RegExpr attribute="Comment" context="DdocNested" String="/\+{2,}(?!/)" beginRegion="DdocNested"/>
+      </context>
+      
+      <context name="DdocLine" attribute="Ddoc" lineEndContext="#pop">
+        <DetectSpaces />
+        <DetectIdentifier attribute="Ddoc"/>
+        <Detect2Chars attribute="Macros" context="DdocMacro" char="$" char1="(" />
+        <RegExpr attribute="DdocSection" context="#stay" String="[\w_]+:($|\s)" />
+        <IncludeRules context="##Alerts" />
+      </context>
+      
+      <context name="DdocBlock" attribute="Ddoc" lineEndContext="#stay">
+        <DetectSpaces />
+        <DetectIdentifier attribute="Ddoc"/>
+        <RegExpr attribute="Comment" context="#pop" String="\*+/" endRegion="DdocBlock"/>
+        <DetectChar attribute="Comment" context="#stay" char="*" firstNonSpace="true" />
+        
+        <Detect2Chars attribute="Macros" context="DdocMacro" char="$" char1="(" />
+        <RegExpr attribute="DdocSection" context="#stay" String="[\w_]+:($|\s)" />
+        <IncludeRules context="##Alerts" />
+        
+        <!-- Avoid matching this; do it this way since (^|\s)-* always matches .- and \s-* never
+             matches .- (spaces have already been matched); however -*($|\s) matches just fine.
+             Also can't use \b since - is not a word character. -->
+        <RegExpr attribute="Ddoc" context="#stay" String="[^-]-{3,}" />
+        <RegExpr attribute="Comment" context="DdocBlockCode" String="-{3,}($|\s)" />
+      </context>
+      
+      <context name="DdocNested" attribute="Ddoc" lineEndContext="#stay">
+        <DetectSpaces />
+        <DetectIdentifier attribute="Ddoc"/>
+        <!-- Ddoc recognises nested comments/ddoc, but ignores them as far as formatting is concerned. -->
+        <Detect2Chars attribute="Ddoc" context="DdocNested2" char="/" char1="+"/>
+        <RegExpr attribute="Comment" context="#pop" String="\++/" endRegion="DdocNested"/>
+        <DetectChar attribute="Comment" context="#stay" char="+" firstNonSpace="true" />
+        
+        <Detect2Chars attribute="Macros" context="DdocMacro" char="$" char1="(" />
+        <RegExpr attribute="DdocSection" context="#stay" String="[\w_]+:($|\s)" />
+        <IncludeRules context="##Alerts" />
+        
+        <!-- As above. -->
+        <RegExpr attribute="Ddoc" context="#stay" String="[^-]-{3,}" />
+        <RegExpr attribute="Comment" context="DdocNestedCode" String="-{3,}($|\s)" />
+      </context>
+      
+      <context name="DdocNested2" attribute="Ddoc" lineEndContext="#stay">
+        <DetectSpaces />
+        <DetectIdentifier attribute="Ddoc"/>
+        <!-- Identical to DdocNested except that nested comments don't recieve any formatting -->
+        <RegExpr attribute="Ddoc" context="#pop" String="\++/"/>
+        <!-- The above rules should match before the unwanted rule in DdocNested -->
+        <IncludeRules context="DdocNested" />
+      </context>
+      
+      <!-- When entering a macro: provides highlighting for first symbol (macro name) -->
+      <context name="DdocMacro" attribute="Error" lineEndContext="#stay">
+        <DetectSpaces attribute="Macro Text" /> <!-- avoid showing space as an error -->
+        
+        <DetectChar attribute="Macros" context="#pop" char=")" /> <!-- early end of macro -->
+        <IncludeRules context="MacroRules" />
+        
+        <!-- first symbol of macro -->
+        <DetectIdentifier attribute="Macros" context="DdocMacro2" />
+      </context>
+      <!-- For rest of macro -->
+      <context name="DdocMacro2" attribute="Macro Text" lineEndContext="#stay">
+        <DetectChar attribute="Macros" context="#pop#pop" char=")" /> <!-- end of macro -->
+        <IncludeRules context="MacroRules" />
+      </context>
+      <!-- For embedded brackets (yeah, extra work to ignore them) -->
+      <context name="DdocMacro3" attribute="Macro Text" lineEndContext="#stay">
+        <DetectChar attribute="Macro Text" context="#pop" char=")" /> <!-- end of embedded brackets -->
+        <IncludeRules context="MacroRules" />
+      </context>
+      <!-- Rules common to all macros -->
+      <context name="MacroRules" attribute="Macro Text" lineEndContext="#stay">
+        <Detect2Chars attribute="Macros" context="DdocMacro" char="$" char1="(" /> <!-- embedded -->
+        <DetectChar attribute="Macro Text" context="DdocMacro3" char="(" /> <!-- extra brackets -->
+        
+        <DetectChar attribute="Comment" context="#stay" char="*" firstNonSpace="true" />
+      </context>
+      
+      <context name="DdocBlockCode" attribute="DdocCode" lineEndContext="#stay">
+        <DetectSpaces />
+        <!-- See update 1.11 -->
+        <RegExpr attribute="Comment" context="#pop#pop" String="\*+/" endRegion="DdocBlock"/>
+        <DetectChar attribute="Comment" context="#stay" char="*" firstNonSpace="true" />
+        <!-- As above. -->
+        <RegExpr attribute="DdocCode" context="#stay" String="[^-]-{3,}" />
+        <RegExpr attribute="Comment" context="#pop" String="-{3,}($|\s)" />
+        <IncludeRules context="##D" />
+      </context>
+      <context name="DdocNestedCode" attribute="DdocCode" lineEndContext="#stay">
+        <DetectSpaces />
+        <!-- See update 1.11 -->
+        <RegExpr attribute="Comment" context="#pop#pop" String="\++/" endRegion="DdocNested"/>
+        <DetectChar attribute="Comment" context="#stay" char="+" firstNonSpace="true" />
+        <!-- As above. -->
+        <RegExpr attribute="DdocCode" context="#stay" String="[^-]-{3,}" />
+        <RegExpr attribute="Comment" context="#pop" String="-{3,}($|\s)" />
+        <IncludeRules context="##D" />
+      </context>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text"    defStyleNum="dsNormal"/>
@@ -635,6 +762,8 @@
       
       <itemData name="Type"           defStyleNum="dsDataType"/>
       <itemData name="LibrarySymbols" defStyleNum="dsDataType" italic="1"/>
+      
+      <itemData name="UserKeywords"   defStyleNum="dsDataType" italic="1"/>
       
       <!-- module, import -->
       <itemData name="Module"         defStyleNum="dsKeyword"  color="#008000"/>
@@ -670,6 +799,13 @@
       <itemData name="RawString"      defStyleNum="dsString"   color="#a100a1" selColor="#ff00ff"/>
       <itemData name="BQString"       defStyleNum="dsString"   color="#a100a1" selColor="#ff00ff"/>
       <itemData name="HexString"      defStyleNum="dsString"   color="#a10022" selColor="#ff0055"/>
+      
+      <!-- Ddoc specific -->
+      <itemData name="Macros"      defStyleNum="dsOthers" color="#bf5fbf" selColor="#ffffff" bold="1" italic="0" />
+      <itemData name="Macro Text"  defStyleNum="dsNormal" color="#bf7fff" selColor="#ffffff" bold="0" italic="0" />
+      <itemData name="Ddoc"        defStyleNum="dsComment" color="#7f7fff" />
+      <itemData name="DdocSection" defStyleNum="dsKeyword" color="#7f7fff" bold="1" />
+      <itemData name="DdocCode"    defStyleNum="dsNormal" italic="1" />
     </itemDatas>
   </highlighting>
   <general>

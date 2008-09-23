@@ -27,6 +27,7 @@
 
 #include <q3listview.h>
 #include <qstring.h>
+#include <QProcess>
 //Added by qt3to4:
 #include <Q3PtrList>
 
@@ -40,9 +41,9 @@
 
 #include <k3dockwidget.h>
 #include <kiconloader.h>
-#include <k3process.h>
 
 class KTemporaryFile;
+class KProcess;
 
 class PluginKateXMLCheckView : public Q3ListView, public KXMLGUIClient
 {
@@ -58,15 +59,14 @@ class PluginKateXMLCheckView : public Q3ListView, public KXMLGUIClient
   public slots:
 	bool slotValidate();
 	void slotClicked(Q3ListViewItem *item);
-	void slotProcExited(K3Process*);
-	void slotReceivedProcStderr(K3Process*, char*, int);
+	void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
 	void slotUpdate();
 
   private:
 	KTemporaryFile *m_tmp_file;
 	KParts::ReadOnlyPart *part;
 	bool m_validating;
-	K3Process *m_proc;
+	KProcess *m_proc;
 	QString m_proc_stderr;
 	QString m_dtdname;
 };

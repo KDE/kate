@@ -54,6 +54,7 @@
 #include <kstandarddirs.h>
 #include <ktemporaryfile.h>
 #include <kgenericfactory.h>
+#include <kprocess.h>
 
 K_EXPORT_COMPONENT_FACTORY( katexmlcheckplugin, KGenericFactory<PluginKateXMLCheck>( "katexmlcheck" ) )
 
@@ -152,15 +153,10 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(QWidget *parent,Kate::MainWindow 
 	connect(kv, SIGNAL(modifiedChanged()), this, SLOT(slotUpdate()));
 */
 
-	m_proc_stderr = "";
-	m_proc = new K3Process();
-	connect(m_proc, SIGNAL(processExited(K3Process*)), this, SLOT(slotProcExited(K3Process*)));
+	m_proc = new KProcess();
+	connect(m_proc, SIGNAL(finished (int, QProcess::ExitStatus)), this, SLOT(finished (int, QProcess::ExitStatus)));
 	// we currently only want errors:
-	//connect(m_proc, SIGNAL(receivedStdout(K3Process*,char*,int)),
-	//	this, SLOT(receivedProcStdout(K3Process*, char*, int)));
-	connect(m_proc, SIGNAL(receivedStderr(K3Process*,char*,int)),
-		this, SLOT(slotReceivedProcStderr(K3Process*, char*, int)));
-
+	m_proc->setOutputChannelMode(KProcess::OnlyStderrChannel);
 }
 
 PluginKateXMLCheckView::~PluginKateXMLCheckView()
@@ -169,22 +165,25 @@ PluginKateXMLCheckView::~PluginKateXMLCheckView()
 	delete m_tmp_file;
 }
 
-void PluginKateXMLCheckView::slotReceivedProcStderr(K3Process *, char *result, int len)
+void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus exitStatus)
 {
-	m_proc_stderr += QString::fromLocal8Bit( Q3CString(result, len+1) );
-}
+	Q_UNUSED(exitCode);
 
-void PluginKateXMLCheckView::slotProcExited(K3Process*)
-{
 	// FIXME: doesn't work correct the first time:
 	//if( m_dockwidget->isDockBackPossible() ) {
 	//	m_dockwidget->dockBack();
 //	}
 
+	if (exitStatus != QProcess::NormalExit) {
+		(void)new Q3ListViewItem(this, QString("1").rightJustified(4,' '), "", "",
+			"Validate process crashed.");
+		return;
+	}
+
 	kDebug() << "slotProcExited()";
-	//kDebug() << "output: " << endl << m_proc_stderr << endl;
 	QApplication::restoreOverrideCursor();
 	delete m_tmp_file;
+	QString proc_stderr = QString::fromLocal8Bit(m_proc->readAllStandardError());
 	m_tmp_file=0;
 	clear();
 	uint list_count = 0;
@@ -200,8 +199,8 @@ void PluginKateXMLCheckView::slotProcExited(K3Process*)
 		(void)new Q3ListViewItem(this, QString("1").rightJustified(4,' '), "", "", msg);
 		list_count++;
 	}
-	if( ! m_proc_stderr.isEmpty() ) {
-		QStringList lines = QStringList::split("\n", m_proc_stderr);
+	if( ! proc_stderr.isEmpty() ) {
+		QStringList lines = QStringList::split("\n", proc_stderr);
 		Q3ListViewItem *item = 0;
 		QString linenumber, msg;
 		int line_count = 0;
@@ -278,8 +277,7 @@ bool PluginKateXMLCheckView::slotValidate()
 
 	win->showToolView (this);
 
-	m_proc->clearArguments();
-	m_proc_stderr = "";
+	m_proc->clearProgram();
 	m_validating = false;
 	m_dtdname = "";
 
@@ -307,7 +305,7 @@ bool PluginKateXMLCheckView::slotValidate()
 
 	// use catalogs for KDE docbook:
 	if( ! getenv("SGML_CATALOG_FILES") ) {
-    	KComponentData ins("katexmlcheckplugin");
+		KComponentData ins("katexmlcheckplugin");
 		QString catalogs;
 		catalogs += ins.dirs()->findResource("data", "ksgmltools2/customization/catalog");
 		catalogs += ':';
@@ -351,7 +349,8 @@ bool PluginKateXMLCheckView::slotValidate()
 	}
 	*m_proc << m_tmp_file->fileName();
 
-	if( ! m_proc->start(K3Process::NotifyOnExit, K3Process::AllOutput) ) {
+	m_proc->start();
+	if( ! m_proc->waitForStarted(-1) ) {
 		KMessageBox::error(0, i18n("<b>Error:</b> Failed to execute xmllint. Please make "
 			"sure that xmllint is installed. It is part of libxml2."));
 		return false;

@@ -325,7 +325,7 @@ QString KateCmdLineEdit::helptext( const QPoint & ) const
     {
       QString beg = "<qt background=\"white\"><div><table width=\"100%\"><tr><td bgcolor=\"brown\"><font color=\"white\"><b>Help: <big>";
       QString mid = "</big></b></font></td></tr><tr><td>";
-      QString end = "</td></tr></table></div><qt>";
+      QString end = "</td></tr></table></div>";
 
       QString t = text();
       QRegExp re( "\\s*help\\s+(.*)" );

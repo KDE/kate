@@ -413,7 +413,7 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
     virtual int rowCount ( const QModelIndex & parent = QModelIndex() ) const;
 
     /**
-     * This function returns true if the model needs grouping, otherwhise false
+     * This function returns true if the model needs grouping, otherwise false
      * in KDE 4 default value is true, in KDE 5 the default will be false
      * TODO KDE 5
      */

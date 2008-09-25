@@ -123,7 +123,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   btnDiff = new KPushButton( KGuiItem (i18n("&View Difference"), "document-preview"), lo2 );
 
   btnDiff->setWhatsThis(i18n(
-                          "Calculates the difference between the the editor contents and the disk "
+                          "Calculates the difference between the editor contents and the disk "
                           "file for the selected document, and shows the difference with the "
                           "default application. Requires diff(1).") );
   connect( btnDiff, SIGNAL(clicked()), this, SLOT(slotDiff()) );

@@ -164,7 +164,7 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
      * removeView(), i.e. the number of calls are identic.
      *
      * \note As addView() is called for \e every view in which the plugin's
-     *       GUI should be visible you must \e not add the the GUI by
+     *       GUI should be visible you must \e not add the GUI by
      *       iterating over all Document::views() yourself neither use the
      *       signal Document::viewCreated().
      *

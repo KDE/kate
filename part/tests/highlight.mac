@@ -692,7 +692,7 @@ gf_rand():=block(
 
 
 /* Finds the log of p with respect to q, if it exists.  If largefield is set to
-"true" the the Pohlig-Hellman algorithm is used */
+"true" the Pohlig-Hellman algorithm is used */
 /*
 gf_log(p,q):=block([order:gf_order],
 */

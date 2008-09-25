@@ -1489,7 +1489,7 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(int index, KateHlInclud
   {
     KateHlContextModification ctx1 = list->at(index1)->incCtx;
 
-    //let's see, if the the included context includes other contexts
+    //let's see, if the included context includes other contexts
     for (int index2 = 0; index2 < list->count(); ++index2)
     {
       if (list->at(index2)->ctx == ctx1.newContext)

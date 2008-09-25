@@ -163,10 +163,10 @@ void KateExternalToolsCommand::reload ()
 
   KConfig _config( "externaltools", KConfig::NoGlobals, "appdata" );
   KConfigGroup config(&_config, "Global");
-  QStringList tools = config.readEntry("tools", QStringList());
+  const QStringList tools = config.readEntry("tools", QStringList());
 
 
-  for( QStringList::Iterator it = tools.begin(); it != tools.end(); ++it )
+  for( QStringList::const_iterator it = tools.begin(); it != tools.end(); ++it )
   {
     if ( *it == "---" )
       continue;
@@ -391,7 +391,7 @@ void KateExternalToolsMenuAction::reload()
     config.writeEntry( "version", gver );
   }
 
-  for( QStringList::Iterator it = tools.begin(); it != tools.end(); ++it )
+  for( QStringList::const_iterator it = tools.begin(); it != tools.end(); ++it )
   {
     if ( *it == "---" )
     {
@@ -663,9 +663,9 @@ void KateExternalToolsConfigWidget::reset()
   lbTools->clear();
 
   // load the files from a KConfig
-  QStringList tools = config->group("Global").readEntry("tools", QStringList());
+  const QStringList tools = config->group("Global").readEntry("tools", QStringList());
 
-  for( QStringList::Iterator it = tools.begin(); it != tools.end(); ++it )
+  for( QStringList::const_iterator it = tools.begin(); it != tools.end(); ++it )
   {
     if ( *it == "---" )
     {

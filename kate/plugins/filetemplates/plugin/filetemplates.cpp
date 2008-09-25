@@ -146,8 +146,8 @@ KateFileTemplates::KateFileTemplates( QObject* parent, const QStringList &dummy)
   // template menu
   m_dw = new KDirWatch( this);
   m_dw->setObjectName( "template_dirwatch" );
-  QStringList dirs = KGlobal::dirs()->findDirs("data", "kate/plugins/katefiletemplates/templates");
-  for ( QStringList::Iterator it = dirs.begin(); it != dirs.end(); ++it )
+  const QStringList dirs = KGlobal::dirs()->findDirs("data", "kate/plugins/katefiletemplates/templates");
+  for ( QStringList::const_iterator it = dirs.begin(); it != dirs.end(); ++it )
   {
     m_dw->addDir( *it, KDirWatch::WatchFiles );
   }
@@ -173,7 +173,7 @@ void KateFileTemplates::updateTemplateDirs(const QString &d)
 {
   kDebug()<<"updateTemplateDirs called with arg "<<d;
 
-  QStringList templates = KGlobal::dirs()->findAllResources(
+  const QStringList templates = KGlobal::dirs()->findAllResources(
       "data","kate/plugins/katefiletemplates/templates/*.katetemplate",
       KStandardDirs::NoDuplicates);
 
@@ -186,7 +186,7 @@ void KateFileTemplates::updateTemplateDirs(const QString &d)
   QStringList hidden;
   cg.readXdgListEntry( "Hidden", hidden ); // XXX this is bogus
 
-  for ( QStringList::Iterator it=templates.begin(); it != templates.end(); ++it )
+  for ( QStringList::const_iterator it=templates.begin(); it != templates.end(); ++it )
   {
     QFile _f( *it );
     if ( _f.open( QIODevice::ReadOnly ) )
@@ -1160,11 +1160,11 @@ void KateTemplateManager::slotRemoveTemplate()
     KSharedConfig::Ptr config = KGlobal::config();
     TemplateInfo *info =  item->data(0, Qt::UserRole).value<TemplateInfo*>();
     QString fname = info->filename.section( '/', -1 );
-    QStringList templates = KGlobal::dirs()->findAllResources(
+    const QStringList templates = KGlobal::dirs()->findAllResources(
         "data", fname.prepend( "kate/plugins/katefiletemplates/templates/" ),KStandardDirs::NoDuplicates);
     int failed = 0;
     int removed = 0;
-    for ( QStringList::Iterator it=templates.begin(); it!=templates.end(); ++it )
+    for ( QStringList::const_iterator it=templates.begin(); it!=templates.end(); ++it )
     {
       if ( ! QFile::remove(*it) )
         failed++;

@@ -229,7 +229,7 @@ TODO
 
 TODO:
   - Explain fallthrough.
-  - Do we need fallthrough at all? It could be true, if fallthroughContext is set, false otherwhise.
+  - Do we need fallthrough at all? It could be true, if fallthroughContext is set, false otherwise.
   - Make lineEndContext optional, defaults to '#stay'. Reasonable?
 -->
 <!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules | DetectSpaces | DetectIdentifier)*>

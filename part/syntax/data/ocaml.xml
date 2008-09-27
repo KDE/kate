@@ -24,15 +24,15 @@
       <item> as </item>
       <item> assert </item>
       <item> asr </item>
-      <item> begin </item>
+<!--       <item> begin </item> -->
       <item> class </item>
       <item> closed </item>
       <item> constraint </item>
-      <item> do </item>
-      <item> done </item>
+<!--       <item> do </item> -->
+<!--       <item> done </item> -->
       <item> downto </item>
       <item> else </item>
-      <item> end </item>
+<!--       <item> end </item> -->
       <item> exception </item>
       <item> external </item>
       <item> false </item>
@@ -44,6 +44,7 @@
       <item> in </item>
       <item> include </item>
       <item> inherit </item>
+      <item> initializer </item>
       <item> land </item>
       <item> lazy </item>
       <item> let </item>
@@ -57,14 +58,15 @@
       <item> module </item>
       <item> mutable </item>
       <item> new </item>
+<!--       <item> object </item> -->
       <item> of </item>
       <item> open </item>
       <item> or </item>
       <item> parser </item>
       <item> private </item>
       <item> rec </item>
-      <item> sig </item>
-      <item> struct </item>
+<!--       <item> sig </item> -->
+<!--       <item> struct </item> -->
       <item> then </item>
       <item> to </item>
       <item> true </item>
@@ -91,11 +93,56 @@
       <item> list </item>
       <item> option </item>
     </list>
+    <list name="symbols">
+      <item> ? </item>
+    </list>
+    <list name="end">
+      <item> end </item>
+    </list>
+    <list name="sig">
+      <item> sig </item>
+    </list>
+    <list name="struct">
+      <item> struct </item>
+    </list>
+    <list name="object">
+      <item> object </item>
+    </list>
+    <list name="begin">
+      <item> begin </item>
+    </list>
+    <list name="do">
+      <item> do </item>
+    </list>
+    <list name="done">
+      <item> done </item>
+    </list>
     <contexts>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
 
         <Detect2Chars attribute="Comment" context="Multiline Comment" char="(" char1="*" beginRegion="comment" />
+
+        <DetectChar attribute="Symbol" context="#stay" char="(" beginRegion="paren"/>
+        <DetectChar attribute="Symbol" context="#stay" char=")" endRegion="paren"/>
+
+        <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="record"/>
+        <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="record"/>
+
+        <Detect2Chars attribute="Symbol" context="#stay" char="[" char1="|" beginRegion="array"/>
+        <Detect2Chars attribute="Symbol" context="#stay" char="|" char1="]" endRegion="array"/>
+        <DetectChar attribute="Symbol" context="#stay" char="[" beginRegion="list"/>
+        <DetectChar attribute="Symbol" context="#stay" char="]" endRegion="list"/>
+
+        <keyword attribute="Keyword" context="#stay" String="do" beginRegion="loop"/>
+        <keyword attribute="Keyword" context="#stay" String="done" endRegion="loop"/>
+        
+        <keyword attribute="Region Marker" context="Block" String="begin" beginRegion="block"/>
+        <keyword attribute="Region Marker" context="Object" String="object" beginRegion="object"/>
+        <keyword attribute="Region Marker" context="Sig" String="sig" beginRegion="sig"/>
+        <keyword attribute="Region Marker" context="Struct" String="struct" beginRegion="struct"/>
+
+        <RegExpr attribute="Constructor" context="#stay" String="`\s*&IDENT;"/>
 
         <!-- Interpreter directives. --> 
         <!-- (These are lines where the first symbol is a '#' followed by an identifier. -->
@@ -140,6 +187,26 @@
         <RegExpr attribute="Escaped characters" context="#stay" String="\\$" />
       </context>
 
+      <context attribute="Normal text" lineEndContext="#stay" name="Block">
+        <keyword attribute="Region Marker" context="#pop" String="end" endRegion="block"/>
+        <IncludeRules context="Normal"/>
+      </context>
+
+      <context attribute="Normal text" lineEndContext="#stay" name="Sig">
+        <keyword attribute="Region Marker" context="#pop" String="end" endRegion="sig"/>
+        <IncludeRules context="Normal"/>
+      </context>
+
+      <context attribute="Normal text" lineEndContext="#stay" name="Struct">
+        <keyword attribute="Region Marker" context="#pop" String="end" endRegion="struct"/>
+        <IncludeRules context="Normal"/>
+      </context>
+      
+      <context attribute="Normal text" lineEndContext="#stay" name="Object">
+        <keyword attribute="Region Marker" context="#pop" String="end" endRegion="object"/>
+        <IncludeRules context="Normal"/>
+      </context>
+     
       <!-- Camlp4 Quotations. These are source code literals used by the Campl4 preprocessor.           -->
       <!-- The only escapes allowed in a Camlp4 quotation are for the quotation start and stop symbols. -->
       <context attribute="Camlp4 Quotation" lineEndContext="#stay" name="Camlp4 Quotation Constant">
@@ -154,6 +221,7 @@
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Identifier" defStyleNum="dsNormal"/>
+      <itemData name="Symbol" defStyleNum="dsNormal"/>
       <itemData name="Keyword"  defStyleNum="dsKeyword"/>
       <itemData name="Revised Syntax Keyword"  defStyleNum="dsNormal"/>
       <itemData name="Core Data Type"  defStyleNum="dsDataType"/>
@@ -168,6 +236,8 @@
       <itemData name="Comment"  defStyleNum="dsComment"/>
       <itemData name="Camlp4 Quotation"  defStyleNum="dsString"/>
       <itemData name="Directive"  defStyleNum="dsOthers"/>
+      <itemData name="Constructor" defStyleNum="dsDataType"/>
+      <itemData name="Region Marker" defStyleNum="dsKeyword"/>
     </itemDatas>
   </highlighting>
 

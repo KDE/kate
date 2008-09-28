@@ -1061,7 +1061,7 @@ void KateViewConfig::setViInputModeHideStatusBar (bool on)
   foreach (KateView* view, KateGlobal::self()->views() ) {
     if (on) {
       view->hideViModeBar();
-    } else {
+    } else if (viInputMode()) {
       view->showViModeBar();
     }
   }

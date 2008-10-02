@@ -1759,6 +1759,9 @@ void KateSearchBar::onMutateIncremental() {
         m_incUi->next->setIcon(KIcon("go-down"));
         m_incUi->prev->setIcon(KIcon("go-up"));
 
+	// Customize status area
+	m_incUi->status->setTextElideMode(Qt::ElideLeft);
+
         // Focus proxy
         centralWidget()->setFocusProxy(m_incUi->pattern);
     }

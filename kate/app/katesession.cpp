@@ -660,25 +660,12 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
 
   //showButtonSeparator(true);
   QFrame *page = new QFrame (this);
-  QHBoxLayout *tll = new QHBoxLayout(page);
+  QVBoxLayout *tll = new QVBoxLayout(page);
   page->setMinimumSize (400, 200);
   setMainWidget(page);
 
-  QHBoxLayout *hb = new QHBoxLayout ();
-  hb->setSpacing (KDialog::spacingHint());
-  tll->addItem(hb);
-
-  QLabel *label = new QLabel (page);
-  hb->addWidget(label);
-  label->setPixmap (UserIcon("sessionchooser"));
-  label->setFrameStyle (QFrame::Panel | QFrame::Sunken);
-  label->setAlignment(Qt::AlignTop);
-  QVBoxLayout *vb = new QVBoxLayout ();
-  vb->setSpacing (KDialog::spacingHint());
-  tll->addItem(vb);
-
   m_sessions = new QTreeWidget (page);
-  vb->addWidget(m_sessions);
+  tll->addWidget(m_sessions);
   QStringList header;
   header << i18n("Session Name");
   header << i18nc("The number of open documents", "Open Documents");
@@ -708,7 +695,7 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   m_sessions->resizeColumnToContents(0);
 
   m_useLast = new QCheckBox (i18n ("&Always use this choice"), page);
-  vb->addWidget(m_useLast);
+  tll->addWidget(m_useLast);
 
   setResult (resultNone);
 

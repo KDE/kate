@@ -77,19 +77,26 @@ public Q_SLOTS:
             const QString * replacement);
     bool onStep(bool replace, bool forwards = true);
     void onReturnPressed();
+    void onSelectionChanged();
 
     void onPowerPatternChanged(const QString & pattern);
     void onPowerFindNext();
     void onPowerFindPrev();
     void onPowerReplaceNext();
     void onPowerReplaceAll();
-    void onPowerAddToPatternClicked();
-    void onPowerAddToReplacementClicked();
-    void onPowerUsePlaceholdersToggle(int state, bool invokedByUserAction = true);
     void onPowerMatchCaseToggle(bool invokedByUserAction = true);
-    void onPowerHighlightAllToggle(int state, bool invokedByUserAction = true);
+    void onPowerHighlightAllToggle(bool checked, bool invokedByUserAction = true);
     void onPowerFromCursorToggle(bool invokedByUserAction = true);
+    void onPowerModeChangedPlainText();
+    void onPowerModeChangedWholeWords();
+    void onPowerModeChangedEscapeSequences();
+    void onPowerModeChangedRegularExpression();
+private:
+    void onPowerModeChanged();
+public Q_SLOTS:
     void onPowerModeChanged(int index, bool invokedByUserAction = true);
+    void onPowerPatternContextMenuRequest();
+    void onPowerReplacmentContextMenuRequest();
 
 public:
     // Only used by KateView
@@ -125,11 +132,7 @@ private:
             int replacementCounter = 1);
 
     QVector<QString> getCapturePatterns(const QString & pattern);
-    void addMenuEntry(QMenu * menu, QVector<QString> & insertBefore,
-            QVector<QString> & insertAfter, uint & walker,
-            const QString & before, const QString after, const QString description,
-            const QString & realBefore = QString(), const QString & realAfter = QString());
-    void showAddMenu(bool forPattern);
+    void showExtendedContextMenu(bool forPattern);
 
     void givePatternFeedback(const QString & pattern);
     void addCurrentTextToHistory(QComboBox * combo);
@@ -159,6 +162,10 @@ private:
 
     // Power search related
     Ui::PowerSearchBar * m_powerUi;
+    QMenu * m_powerMenu;
+    QAction * m_powerMenuFromCursor;
+    QAction * m_powerMenuHighlightAll;
+    QAction * m_powerMenuSelectionOnly;
 
     // Status backup
     bool m_incHighlightAll : 1;
@@ -167,7 +174,6 @@ private:
     bool m_powerMatchCase : 1;
     bool m_powerFromCursor : 1;
     bool m_powerHighlightAll : 1;
-    bool m_powerUsePlaceholders : 1;
     unsigned int m_powerMode : 2;
 
 };

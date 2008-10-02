@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>764</width>
-    <height>174</height>
+    <width>577</width>
+    <height>111</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -16,591 +16,219 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <layout class="QGridLayout" >
-   <property name="margin" >
-    <number>0</number>
-   </property>
-   <property name="spacing" >
-    <number>0</number>
-   </property>
-   <item row="0" column="0" >
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
-      <number>0</number>
+  <layout class="QHBoxLayout" name="horizontalLayout_2" >
+   <item>
+    <layout class="QGridLayout" name="gridLayout" >
+     <property name="horizontalSpacing" >
+      <number>6</number>
      </property>
-     <item>
-      <layout class="QGridLayout" >
-       <property name="horizontalSpacing" >
-        <number>8</number>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="label" >
+       <property name="text" >
+        <string>F&amp;ind:</string>
        </property>
-       <property name="verticalSpacing" >
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="buddy" >
+        <cstring>pattern</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="QComboBox" name="pattern" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="focusPolicy" >
+        <enum>Qt::StrongFocus</enum>
+       </property>
+       <property name="toolTip" >
+        <string>Text to search for</string>
+       </property>
+       <property name="editable" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2" >
+      <widget class="QPushButton" name="findNext" >
+       <property name="toolTip" >
+        <string>Jump to next match</string>
+       </property>
+       <property name="text" >
+        <string>&amp;Next</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3" >
+      <widget class="QPushButton" name="findPrev" >
+       <property name="toolTip" >
+        <string>Jump to previous match</string>
+       </property>
+       <property name="text" >
+        <string>&amp;Previous</string>
+       </property>
+       <property name="icon" >
+        <iconset>
+         <normaloff/>
+        </iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QLabel" name="label_3" >
+       <property name="text" >
+        <string>Rep&amp;lace:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="buddy" >
+        <cstring>replacement</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" >
+      <widget class="QComboBox" name="replacement" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip" >
+        <string>Text to replace with</string>
+       </property>
+       <property name="editable" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2" >
+      <widget class="QPushButton" name="replaceNext" >
+       <property name="toolTip" >
+        <string>Replace next match</string>
+       </property>
+       <property name="text" >
+        <string>&amp;Replace</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3" >
+      <widget class="QPushButton" name="replaceAll" >
+       <property name="toolTip" >
+        <string>Replace all matches</string>
+       </property>
+       <property name="text" >
+        <string>Replace &amp;All</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="4" >
+      <widget class="Line" name="line_2" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="3" >
+      <widget class="QToolButton" name="options" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text" >
+        <string>&amp;Options</string>
+       </property>
+       <property name="checkable" >
+        <bool>false</bool>
+       </property>
+       <property name="popupMode" >
+        <enum>QToolButton::MenuButtonPopup</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="2" >
+      <layout class="QHBoxLayout" name="horizontalLayout" >
+       <property name="spacing" >
         <number>0</number>
        </property>
-       <item row="0" column="1" >
-        <layout class="QVBoxLayout" >
-         <property name="spacing" >
-          <number>3</number>
-         </property>
-         <property name="topMargin" >
-          <number>2</number>
-         </property>
-         <item>
-          <widget class="QComboBox" name="pattern" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="focusPolicy" >
-            <enum>Qt::StrongFocus</enum>
-           </property>
-           <property name="toolTip" >
-            <string>Text to search for</string>
-           </property>
-           <property name="editable" >
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" >
-           <property name="spacing" >
-            <number>0</number>
-           </property>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType" >
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0" >
-              <size>
-               <width>10</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_6" >
-             <property name="text" >
-              <string>as</string>
-             </property>
-             <property name="buddy" >
-              <cstring>searchMode</cstring>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType" >
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0" >
-              <size>
-               <width>8</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QComboBox" name="searchMode" >
-             <property name="toolTip" >
-              <string>Search mode</string>
-             </property>
-             <item>
-              <property name="text" >
-               <string>Plain Text</string>
-              </property>
-             </item>
-             <item>
-              <property name="text" >
-               <string>Whole Words</string>
-              </property>
-             </item>
-             <item>
-              <property name="text" >
-               <string>Escape Sequences</string>
-              </property>
-             </item>
-             <item>
-              <property name="text" >
-               <string>Regular Expression</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0" >
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QPushButton" name="patternAdd" >
-             <property name="toolTip" >
-              <string>Add special item to search pattern</string>
-             </property>
-             <property name="text" >
-              <string>Add...</string>
-             </property>
-             <property name="icon" >
-              <iconset>
-               <normaloff/>
-              </iconset>
-             </property>
-             <property name="flat" >
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType" >
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0" >
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>20</width>
-             <height>0</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="0" column="2" >
-        <layout class="QVBoxLayout" >
-         <item>
-          <widget class="QPushButton" name="findNext" >
-           <property name="toolTip" >
-            <string>Jump to next match</string>
-           </property>
-           <property name="text" >
-            <string>Next</string>
-           </property>
-           <property name="icon" >
-            <iconset>
-             <normaloff/>
-            </iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="0" column="3" >
-        <layout class="QVBoxLayout" >
-         <item>
-          <widget class="QPushButton" name="findPrev" >
-           <property name="toolTip" >
-            <string>Jump to previous match</string>
-           </property>
-           <property name="text" >
-            <string>Previous</string>
-           </property>
-           <property name="icon" >
-            <iconset>
-             <normaloff/>
-            </iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="1" column="0" colspan="4" >
-        <spacer>
+       <property name="rightMargin" >
+        <number>6</number>
+       </property>
+       <item>
+        <spacer name="horizontalSpacer" >
          <property name="orientation" >
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0" >
           <size>
-           <width>20</width>
+           <width>0</width>
            <height>20</height>
           </size>
          </property>
         </spacer>
        </item>
-       <item row="2" column="3" >
-        <layout class="QVBoxLayout" >
-         <item>
-          <widget class="QPushButton" name="replaceAll" >
-           <property name="toolTip" >
-            <string>Replace all matches</string>
-           </property>
-           <property name="text" >
-            <string>Replace &amp;All</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="2" column="2" >
-        <layout class="QVBoxLayout" >
-         <item>
-          <widget class="QPushButton" name="replaceNext" >
-           <property name="toolTip" >
-            <string>Replace next match</string>
-           </property>
-           <property name="text" >
-            <string>Replace</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="2" column="1" >
-        <layout class="QVBoxLayout" >
-         <property name="spacing" >
-          <number>3</number>
-         </property>
-         <property name="topMargin" >
-          <number>2</number>
-         </property>
-         <item>
-          <widget class="QComboBox" name="replacement" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="toolTip" >
-            <string>Text to replace with</string>
-           </property>
-           <property name="editable" >
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" >
-           <property name="spacing" >
-            <number>0</number>
-           </property>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType" >
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0" >
-              <size>
-               <width>10</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="usePlaceholders" >
-             <property name="toolTip" >
-              <string>Resolve placeholders (\0 to \9) and escape sequences (\n, \t, ..)</string>
-             </property>
-             <property name="text" >
-              <string>Use placeholders</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0" >
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QPushButton" name="replacementAdd" >
-             <property name="toolTip" >
-              <string>Add special item to replacement text</string>
-             </property>
-             <property name="text" >
-              <string>Add...</string>
-             </property>
-             <property name="icon" >
-              <iconset>
-               <normaloff/>
-              </iconset>
-             </property>
-             <property name="flat" >
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType" >
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0" >
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>20</width>
-             <height>0</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="2" column="0" >
-        <layout class="QVBoxLayout" >
-         <property name="spacing" >
-          <number>0</number>
-         </property>
-         <item>
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType" >
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>20</width>
-             <height>4</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_3" >
-           <property name="text" >
-            <string>Replace:</string>
-           </property>
-           <property name="alignment" >
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-           <property name="buddy" >
-            <cstring>replacement</cstring>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="0" column="0" >
-        <layout class="QVBoxLayout" >
-         <property name="spacing" >
-          <number>0</number>
-         </property>
-         <item>
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType" >
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>20</width>
-             <height>4</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QLabel" name="label" >
-           <property name="text" >
-            <string>Find:</string>
-           </property>
-           <property name="alignment" >
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-           <property name="buddy" >
-            <cstring>pattern</cstring>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType" >
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0" >
-        <size>
-         <width>10</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="Line" name="line" >
-       <property name="orientation" >
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType" >
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0" >
-        <size>
-         <width>10</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" >
        <item>
-        <widget class="QCheckBox" name="highlightAll" >
+        <widget class="QComboBox" name="searchMode" >
+         <property name="sizePolicy" >
+          <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="toolTip" >
-          <string>Highlight all matches</string>
+          <string>Search mode</string>
          </property>
-         <property name="text" >
-          <string>Hi&amp;ghlight all</string>
+         <property name="maxVisibleItems" >
+          <number>4</number>
          </property>
+         <property name="frame" >
+          <bool>true</bool>
+         </property>
+         <item>
+          <property name="text" >
+           <string>Plain Text		(Alt+1)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Whole Words	(Alt+2)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Escape Sequences	(Alt+3)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Regular Expression	(Alt+4)</string>
+          </property>
+         </item>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2" >
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType" >
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>6</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item>
         <widget class="QCheckBox" name="matchCase" >
@@ -608,66 +236,46 @@
           <string>Case-sensitive searching</string>
          </property>
          <property name="text" >
-          <string>Match case</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="fromCursor" >
-         <property name="toolTip" >
-          <string>Start search from cursor, not document start</string>
-         </property>
-         <property name="text" >
-          <string>From cursor</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="selectionOnly" >
-         <property name="toolTip" >
-          <string>Search/replace within the current selection only</string>
-         </property>
-         <property name="text" >
-          <string>Selection only   </string>
+          <string>&amp;Match case</string>
          </property>
         </widget>
        </item>
       </layout>
      </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_2" >
      <item>
-      <layout class="QVBoxLayout" >
-       <item>
-        <widget class="QToolButton" name="mutate" >
-         <property name="toolTip" >
-          <string>Switch to incremental search bar</string>
-         </property>
-         <property name="text" >
-          <string/>
-         </property>
-         <property name="icon" >
-          <iconset>
-           <normaloff/>
-          </iconset>
-         </property>
-         <property name="autoRaise" >
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
+      <widget class="QToolButton" name="mutate" >
+       <property name="toolTip" >
+        <string>Switch to incremental search bar</string>
+       </property>
+       <property name="text" >
+        <string/>
+       </property>
+       <property name="icon" >
+        <iconset>
+         <normaloff/>
+        </iconset>
+       </property>
+       <property name="autoRaise" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0" >
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
@@ -675,19 +283,14 @@
  </widget>
  <tabstops>
   <tabstop>pattern</tabstop>
-  <tabstop>searchMode</tabstop>
-  <tabstop>patternAdd</tabstop>
-  <tabstop>replacement</tabstop>
-  <tabstop>usePlaceholders</tabstop>
-  <tabstop>replacementAdd</tabstop>
   <tabstop>findNext</tabstop>
   <tabstop>findPrev</tabstop>
+  <tabstop>replacement</tabstop>
   <tabstop>replaceNext</tabstop>
   <tabstop>replaceAll</tabstop>
-  <tabstop>highlightAll</tabstop>
+  <tabstop>searchMode</tabstop>
   <tabstop>matchCase</tabstop>
-  <tabstop>fromCursor</tabstop>
-  <tabstop>selectionOnly</tabstop>
+  <tabstop>options</tabstop>
   <tabstop>mutate</tabstop>
  </tabstops>
  <resources/>

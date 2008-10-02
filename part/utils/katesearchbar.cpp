@@ -31,6 +31,9 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QComboBox>
 #include <QtGui/QCheckBox>
+#include <QtGui/QKeySequence>
+#include <QtGui/QShortcut>
+#include <QtGui/QCursor>
 #include <QStringListModel>
 #include <QCompleter>
 
@@ -49,6 +52,77 @@ using namespace KTextEditor;
 
 
 
+namespace {
+
+class AddMenuManager {
+
+private:
+    QVector<QString> m_insertBefore;
+    QVector<QString> m_insertAfter;
+    QSet<QAction *> m_actionPointers;
+    uint m_indexWalker;
+    QMenu * m_menu;
+
+public:
+    AddMenuManager(QMenu * parent, int expectedItemCount)
+            : m_insertBefore(QVector<QString>(expectedItemCount)),
+            m_insertAfter(QVector<QString>(expectedItemCount)),
+            m_indexWalker(0),
+            m_menu(NULL) {
+        Q_ASSERT(parent != NULL);
+        m_menu = parent->addMenu(i18n("Add..."));
+        if (m_menu == NULL) {
+            return;
+        }
+        m_menu->setIcon(KIcon("list-add"));
+    }
+
+    void enableMenu(bool enabled) {
+        if (m_menu == NULL) {
+            return;
+        }
+        m_menu->setEnabled(enabled);
+    }
+
+    void addEntry(const QString & before, const QString after,
+            const QString description, const QString & realBefore = QString(),
+            const QString & realAfter = QString()) {
+        if (m_menu == NULL) {
+            return;
+        }
+        QAction * const action = m_menu->addAction(before + after + '\t' + description);
+        m_insertBefore[m_indexWalker] = QString(realBefore.isEmpty() ? before : realBefore);
+        m_insertAfter[m_indexWalker] = QString(realAfter.isEmpty() ? after : realAfter);
+        action->setData(QVariant(m_indexWalker++));
+        m_actionPointers.insert(action);
+    }
+
+    void addSeparator() {
+        if (m_menu == NULL) {
+            return;
+        }
+        m_menu->addSeparator();
+    }
+
+    void handle(QAction * action, QLineEdit * lineEdit) {
+        if (!m_actionPointers.contains(action)) {
+            return;
+        }
+
+        const int cursorPos = lineEdit->cursorPosition();
+        const int index = action->data().toUInt();
+        const QString & before = m_insertBefore[index];
+        const QString & after = m_insertAfter[index];
+        lineEdit->insert(before + after);
+        lineEdit->setCursorPosition(cursorPos + before.count());
+        lineEdit->setFocus();
+    }
+};
+
+} // anon namespace
+
+
+
 KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* parent)
         : KateViewBarWidget(true, kateView, parent),
         m_topRange(NULL),
@@ -61,13 +135,16 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* pare
         m_incMenuHighlightAll(NULL),
         m_incInitCursor(0, 0),
         m_powerUi(NULL),
+        m_powerMenu(NULL),
+        m_powerMenuFromCursor(NULL),
+        m_powerMenuHighlightAll(NULL),
+        m_powerMenuSelectionOnly(NULL),
         m_incHighlightAll(false),
         m_incFromCursor(true),
         m_incMatchCase(false),
         m_powerMatchCase(true),
         m_powerFromCursor(false),
         m_powerHighlightAll(false),
-        m_powerUsePlaceholders(false),
         m_powerMode(0) {
     // Modify parent
     QWidget * const widget = centralWidget();
@@ -90,7 +167,6 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* kateView, QWidget* pare
     m_powerMatchCase = (searchFlags & KateViewConfig::PowerMatchCase) != 0;
     m_powerFromCursor = (searchFlags & KateViewConfig::PowerFromCursor) != 0;
     m_powerHighlightAll = (searchFlags & KateViewConfig::PowerHighlightAll) != 0;
-    m_powerUsePlaceholders = (searchFlags & KateViewConfig::PowerUsePlaceholders) != 0;
     m_powerMode = ((searchFlags & KateViewConfig::PowerModeRegularExpression) != 0)
             ? MODE_REGEX
             : (((searchFlags & KateViewConfig::PowerModeEscapeSequences) != 0)
@@ -114,9 +190,12 @@ KateSearchBar::~KateSearchBar() {
     delete m_topRange;
     delete m_layout;
     delete m_widget;
+
     delete m_incUi;
     delete m_incMenu;
+
     delete m_powerUi;
+    delete m_powerMenu;
 }
 
 
@@ -336,9 +415,20 @@ void KateSearchBar::buildReplacement(QString & output, QList<ReplacementPart> & 
 
 void KateSearchBar::replaceMatch(const QVector<Range> & match, const QString & replacement,
         int replacementCounter) {
-    const bool usePlaceholders = isChecked(m_powerUi->usePlaceholders);
-    const Range & targetRange = match[0];
+    // Placeholders depending on search mode
+    bool usePlaceholders = false;
+    switch (m_powerUi->searchMode->currentIndex()) {
+    case MODE_REGEX: // FALLTHROUGH
+    case MODE_ESCAPE_SEQUENCES:
+        usePlaceholders = true;
+        break;
 
+    default:
+        break;
+
+    }
+
+    const Range & targetRange = match[0];
     QString finalReplacement;
     if (usePlaceholders) {
         // Resolve references and escape sequences
@@ -621,7 +711,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
     Range selection;
     const bool selected = view()->selection();
     const bool selectionOnly = (m_powerUi != NULL)
-            ? isChecked(m_powerUi->selectionOnly)
+            ? isChecked(m_powerMenuSelectionOnly)
             : false;
     if (selected) {
         selection = view()->selectionRange();
@@ -639,7 +729,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
     } else {
         // No selection
         const bool fromCursor = (m_powerUi != NULL)
-                ? isChecked(m_powerUi->fromCursor)
+                ? isChecked(m_powerMenuFromCursor)
                 : isChecked(m_incMenuFromCursor);
         if (fromCursor) {
             const Cursor cursorPos = view()->cursorPosition();
@@ -746,7 +836,7 @@ bool KateSearchBar::onStep(bool replace, bool forwards) {
 
     // Highlight all matches and/or replacement
     const bool highlightAll = (m_powerUi != NULL)
-            ? isChecked(m_powerUi->highlightAll)
+            ? isChecked(m_powerMenuHighlightAll)
             : isChecked(m_incMenuHighlightAll);
     if ((found && highlightAll) || (afterReplace != NULL)) {
         // Highlight all matches
@@ -830,9 +920,8 @@ void KateSearchBar::addCurrentTextToHistory(QComboBox * combo) {
 void KateSearchBar::backupConfig(bool ofPower) {
     if (ofPower) {
         m_powerMatchCase = isChecked(m_powerUi->matchCase);
-        m_powerFromCursor = isChecked(m_powerUi->fromCursor);
-        m_powerHighlightAll = isChecked(m_powerUi->highlightAll);
-        m_powerUsePlaceholders = isChecked(m_powerUi->usePlaceholders);
+        m_powerFromCursor = isChecked(m_powerMenuFromCursor);
+        m_powerHighlightAll = isChecked(m_powerMenuHighlightAll);
         m_powerMode = m_powerUi->searchMode->currentIndex();
     } else {
         m_incHighlightAll = isChecked(m_incMenuHighlightAll);
@@ -862,7 +951,6 @@ void KateSearchBar::sendConfig() {
             | (m_powerMatchCase ? KateViewConfig::PowerMatchCase : 0)
             | (m_powerFromCursor ? KateViewConfig::PowerFromCursor : 0)
             | (m_powerHighlightAll ? KateViewConfig::PowerHighlightAll : 0)
-            | (m_powerUsePlaceholders ? KateViewConfig::PowerUsePlaceholders : 0)
             | ((m_powerMode == MODE_REGEX)
                 ? KateViewConfig::PowerModeRegularExpression
                 : ((m_powerMode == MODE_ESCAPE_SEQUENCES)
@@ -880,7 +968,6 @@ void KateSearchBar::sendConfig() {
                 & (KateViewConfig::PowerMatchCase
                     | KateViewConfig::PowerFromCursor
                     | KateViewConfig::PowerHighlightAll
-                    | KateViewConfig::PowerUsePlaceholders
                     | KateViewConfig::PowerModeRegularExpression
                     | KateViewConfig::PowerModeEscapeSequences
                     | KateViewConfig::PowerModeWholeWords
@@ -1055,7 +1142,7 @@ void KateSearchBar::onPowerReplaceAll() {
     // Where to replace?
     Range selection;
     const bool selected = view()->selection();
-    const bool selectionOnly = isChecked(m_powerUi->selectionOnly);
+    const bool selectionOnly = isChecked(m_powerMenuSelectionOnly);
     Range inputRange = (selected && selectionOnly)
             ? view()->selectionRange()
             : view()->doc()->documentRange();
@@ -1157,143 +1244,114 @@ QVector<QString> KateSearchBar::getCapturePatterns(const QString & pattern) {
 
 
 
-void KateSearchBar::addMenuEntry(QMenu * menu, QVector<QString> & insertBefore, QVector<QString> & insertAfter,
-        uint & walker, const QString & before, const QString after, const QString description,
-        const QString & realBefore, const QString & realAfter) {
-    QAction * const action = menu->addAction(before + after + '\t' + description);
-    insertBefore[walker] = QString(realBefore.isEmpty() ? before : realBefore);
-    insertAfter[walker] = QString(realAfter.isEmpty() ? after : realAfter);
-    action->setData(QVariant(walker++));
-}
+void KateSearchBar::showExtendedContextMenu(bool forPattern) {
+    // Make original menu
+    QMenu * const contextMenu = m_powerUi->pattern->lineEdit()->createStandardContextMenu();
+    if (contextMenu == NULL) {
+        return;
+    }
 
+    bool extendMenu = false;
+    bool regexMode = false;
+    switch (m_powerUi->searchMode->currentIndex()) {
+    case MODE_REGEX: 
+        regexMode = true;
+        // FALLTHROUGH
 
+    case MODE_ESCAPE_SEQUENCES:
+        extendMenu = true;
+        break;
 
-void KateSearchBar::showAddMenu(bool forPattern) {
-    QVector<QString> insertBefore(35);
-    QVector<QString> insertAfter(35);
-    uint walker = 0;
+    default:
+        break;
+    }
 
-    // Build menu
-    QMenu * const popupMenu = new QMenu();
-    const bool regexMode = (m_powerUi->searchMode->currentIndex() == MODE_REGEX);
-
-    if (forPattern) {
-        if (regexMode) {
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "^", "", i18n("Beginning of line"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "$", "", i18n("End of line"));
-            popupMenu->addSeparator();
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, ".", "", i18n("Any single character (excluding line breaks)"));
-            popupMenu->addSeparator();
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "+", "", i18n("One or more occurrences"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "*", "", i18n("Zero or more occurrences"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "?", "", i18n("Zero or one occurrences"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "{a", ",b}", i18n("<a> through <b> occurrences"), "{", ",}");
-            popupMenu->addSeparator();
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "(", ")", i18n("Group, capturing"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "|", "", i18n("Or"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "[", "]", i18n("Set of characters"));
-            addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "[^", "]", i18n("Negative set of characters"));
-            popupMenu->addSeparator();
-        }
+    AddMenuManager addMenuManager(contextMenu, 35);
+    if (!extendMenu) {
+        addMenuManager.enableMenu(extendMenu);
     } else {
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\0", "", i18n("Whole match reference"));
-        popupMenu->addSeparator();
-        if (regexMode) {
-            const QString pattern = m_powerUi->pattern->currentText();
-            const QVector<QString> capturePatterns = getCapturePatterns(pattern);
-
-            const int captureCount = capturePatterns.count();
-            for (int i = 1; i <= 9; i++) {
-                const QString number = QString::number(i);
-                const QString & captureDetails = (i <= captureCount)
-                        ? (QString(" = (") + capturePatterns[i - 1].left(30)) + QString(")")
-                        : QString();
-                addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\" + number, "",
-                        i18n("Reference") + ' ' + number + captureDetails);
+        // Build menu
+        if (forPattern) {
+            if (regexMode) {
+                addMenuManager.addEntry("^", "", i18n("Beginning of line"));
+                addMenuManager.addEntry("$", "", i18n("End of line"));
+                addMenuManager.addSeparator();
+                addMenuManager.addEntry(".", "", i18n("Any single character (excluding line breaks)"));
+                addMenuManager.addSeparator();
+                addMenuManager.addEntry("+", "", i18n("One or more occurrences"));
+                addMenuManager.addEntry("*", "", i18n("Zero or more occurrences"));
+                addMenuManager.addEntry("?", "", i18n("Zero or one occurrences"));
+                addMenuManager.addEntry("{a", ",b}", i18n("<a> through <b> occurrences"), "{", ",}");
+                addMenuManager.addSeparator();
+                addMenuManager.addEntry("(", ")", i18n("Group, capturing"));
+                addMenuManager.addEntry("|", "", i18n("Or"));
+                addMenuManager.addEntry("[", "]", i18n("Set of characters"));
+                addMenuManager.addEntry("[^", "]", i18n("Negative set of characters"));
+                addMenuManager.addSeparator();
             }
-
-            popupMenu->addSeparator();
+        } else {
+            addMenuManager.addEntry("\\0", "", i18n("Whole match reference"));
+            addMenuManager.addSeparator();
+            if (regexMode) {
+                const QString pattern = m_powerUi->pattern->currentText();
+                const QVector<QString> capturePatterns = getCapturePatterns(pattern);
+    
+                const int captureCount = capturePatterns.count();
+                for (int i = 1; i <= 9; i++) {
+                    const QString number = QString::number(i);
+                    const QString & captureDetails = (i <= captureCount)
+                            ? (QString(" = (") + capturePatterns[i - 1].left(30)) + QString(")")
+                            : QString();
+                    addMenuManager.addEntry("\\" + number, "",
+                            i18n("Reference") + ' ' + number + captureDetails);
+                }
+    
+                addMenuManager.addSeparator();
+            }
+        }
+    
+        addMenuManager.addEntry("\\n", "", i18n("Line break"));
+        addMenuManager.addEntry("\\t", "", i18n("Tab"));
+    
+        if (forPattern && regexMode) {
+            addMenuManager.addEntry("\\b", "", i18n("Word boundary"));
+            addMenuManager.addEntry("\\B", "", i18n("Not word boundary"));
+            addMenuManager.addEntry("\\d", "", i18n("Digit"));
+            addMenuManager.addEntry("\\D", "", i18n("Non-digit"));
+            addMenuManager.addEntry("\\s", "", i18n("Whitespace (excluding line breaks)"));
+            addMenuManager.addEntry("\\S", "", i18n("Non-whitespace (excluding line breaks)"));
+            addMenuManager.addEntry("\\w", "", i18n("Word character (alphanumerics plus '_')"));
+            addMenuManager.addEntry("\\W", "", i18n("Non-word character"));
+        }
+    
+        addMenuManager.addEntry("\\0???", "", i18n("Octal character 000 to 377 (2^8-1)"), "\\0");
+        addMenuManager.addEntry("\\x????", "", i18n("Hex character 0000 to FFFF (2^16-1)"), "\\x");
+        addMenuManager.addEntry("\\\\", "", i18n("Backslash"));
+    
+        if (forPattern && regexMode) {
+            addMenuManager.addSeparator();
+            addMenuManager.addEntry("(?:E", ")", i18n("Group, non-capturing"), "(?:");
+            addMenuManager.addEntry("(?=E", ")", i18n("Lookahead"), "(?=");
+            addMenuManager.addEntry("(?!E", ")", i18n("Negative lookahead"), "(?!");
+        }
+    
+        if (!forPattern) {
+            addMenuManager.addSeparator();
+            addMenuManager.addEntry("\\L", "", i18n("Begin lowercase conversion"));
+            addMenuManager.addEntry("\\U", "", i18n("Begin uppercase conversion"));
+            addMenuManager.addEntry("\\E", "", i18n("End case conversion"));
+            addMenuManager.addEntry("\\#[#..]", "", i18n("Replacement counter (for Replace all)"), "\\#");
         }
     }
-
-    addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\n", "", i18n("Line break"));
-    addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\t", "", i18n("Tab"));
-
-    if (forPattern && regexMode) {
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\b", "", i18n("Word boundary"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\B", "", i18n("Not word boundary"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\d", "", i18n("Digit"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\D", "", i18n("Non-digit"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\s", "", i18n("Whitespace (excluding line breaks)"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\S", "", i18n("Non-whitespace (excluding line breaks)"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\w", "", i18n("Word character (alphanumerics plus '_')"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\W", "", i18n("Non-word character"));
-    }
-
-    addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\0???", "", i18n("Octal character 000 to 377 (2^8-1)"), "\\0");
-    addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\x????", "", i18n("Hex character 0000 to FFFF (2^16-1)"), "\\x");
-    addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\\\", "", i18n("Backslash"));
-
-    if (forPattern && regexMode) {
-        popupMenu->addSeparator();
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "(?:E", ")", i18n("Group, non-capturing"), "(?:");
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "(?=E", ")", i18n("Lookahead"), "(?=");
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "(?!E", ")", i18n("Negative lookahead"), "(?!");
-    }
-
-    if (!forPattern) {
-        popupMenu->addSeparator();
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\L", "", i18n("Begin lowercase conversion"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\U", "", i18n("Begin uppercase conversion"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\E", "", i18n("End case conversion"));
-        addMenuEntry(popupMenu, insertBefore, insertAfter, walker, "\\#[#..]", "", i18n("Replacement counter (for Replace all)"), "\\#");
-    }
-
 
     // Show menu
-    const QPoint topLeftGlobal = m_powerUi->patternAdd->mapToGlobal(QPoint(0, 0));
-    QAction * const result = popupMenu->exec(topLeftGlobal);
+    QAction * const result = contextMenu->exec(QCursor::pos());
     if (result != NULL) {
         QLineEdit * const lineEdit = forPattern
                 ? m_powerUi->pattern->lineEdit()
                 : m_powerUi->replacement->lineEdit();
         Q_ASSERT(lineEdit != NULL);
-        const int cursorPos = lineEdit->cursorPosition();
-        const int index = result->data().toUInt();
-        const QString & before = insertBefore[index];
-        const QString & after = insertAfter[index];
-        lineEdit->insert(before + after);
-        lineEdit->setCursorPosition(cursorPos + before.count());
-        lineEdit->setFocus();
-    }
-
-
-    // Kill menu
-    delete popupMenu;
-}
-
-
-
-void KateSearchBar::onPowerAddToPatternClicked() {
-    const bool FOR_PATTERN = true;
-    showAddMenu(FOR_PATTERN);
-}
-
-
-
-void KateSearchBar::onPowerAddToReplacementClicked() {
-    const bool FOR_REPLACEMENT = false;
-    showAddMenu(FOR_REPLACEMENT);
-}
-
-
-
-void KateSearchBar::onPowerUsePlaceholdersToggle(int state, bool invokedByUserAction) {
-    const bool disabled = (state != Qt::Checked);
-    m_powerUi->replacementAdd->setDisabled(disabled);
-
-    if (invokedByUserAction) {
-        sendConfig();
+        addMenuManager.handle(result, lineEdit);
     }
 }
 
@@ -1308,12 +1366,11 @@ void KateSearchBar::onPowerMatchCaseToggle(bool invokedByUserAction) {
 
 
 
-void KateSearchBar::onPowerHighlightAllToggle(int state, bool invokedByUserAction) {
+void KateSearchBar::onPowerHighlightAllToggle(bool checked, bool invokedByUserAction) {
     if (invokedByUserAction) {
         sendConfig();
 
-        const bool wanted = (state == Qt::Checked);
-        if (wanted) {
+        if (checked) {
             const QString pattern = m_powerUi->pattern->currentText();
             if (!pattern.isEmpty()) {
                 // How to search while highlighting?
@@ -1362,29 +1419,48 @@ void KateSearchBar::onPowerFromCursorToggle(bool invokedByUserAction) {
 
 
 
-void KateSearchBar::onPowerModeChanged(int index, bool invokedByUserAction) {
-    const bool disabled = (index == MODE_PLAIN_TEXT)
-            || (index == MODE_WHOLE_WORDS);
-    m_powerUi->patternAdd->setDisabled(disabled);
+void KateSearchBar::onPowerModeChangedPlainText() {
+    m_powerUi->searchMode->setCurrentIndex(MODE_PLAIN_TEXT);
+    onPowerModeChanged();
+}
 
+
+
+void KateSearchBar::onPowerModeChangedWholeWords() {
+    m_powerUi->searchMode->setCurrentIndex(MODE_WHOLE_WORDS);
+    onPowerModeChanged();
+}
+
+
+
+void KateSearchBar::onPowerModeChangedEscapeSequences() {
+    m_powerUi->searchMode->setCurrentIndex(MODE_ESCAPE_SEQUENCES);
+    onPowerModeChanged();
+}
+
+
+
+void KateSearchBar::onPowerModeChangedRegularExpression() {
+    m_powerUi->searchMode->setCurrentIndex(MODE_REGEX);
+    onPowerModeChanged();
+}
+
+
+
+void KateSearchBar::onPowerModeChanged() {
+    if (m_powerUi->searchMode->currentIndex() == MODE_REGEX) {
+        setChecked(m_powerUi->matchCase, true);
+    }
+
+    sendConfig();
+    indicateNothing();
+}
+
+
+
+void KateSearchBar::onPowerModeChanged(int /*index*/, bool invokedByUserAction) {
     if (invokedByUserAction) {
-        switch (index) {
-        case MODE_REGEX:
-            setChecked(m_powerUi->matchCase, true);
-            // FALLTROUGH
-
-        case MODE_ESCAPE_SEQUENCES:
-            setChecked(m_powerUi->usePlaceholders, true);
-            break;
-
-        case MODE_WHOLE_WORDS: // FALLTROUGH
-        case MODE_PLAIN_TEXT: // FALLTROUGH
-        default:
-            ; // NOOP
-        }
-
-        sendConfig();
-        indicateNothing();
+        onPowerModeChanged();
     }
 
     givePatternFeedback(m_powerUi->pattern->currentText());
@@ -1512,12 +1588,34 @@ void KateSearchBar::onMutatePower() {
         m_powerUi->replacement->setMaxCount(MAX_HISTORY_SIZE);
         m_powerUi->replacement->setModel(replacementHistoryModel);
 
+        // Fill options menu
+        m_powerMenu = new QMenu();
+        m_powerUi->options->setMenu(m_powerMenu);
+        m_powerMenuFromCursor = m_powerMenu->addAction(i18n("From &cursor"));
+        m_powerMenuFromCursor->setCheckable(true);
+        m_powerMenuHighlightAll = m_powerMenu->addAction(i18n("Hi&ghlight all"));
+        m_powerMenuHighlightAll->setCheckable(true);
+        m_powerMenuSelectionOnly = m_powerMenu->addAction(i18n("Selection &only"));
+        m_powerMenuSelectionOnly->setCheckable(true);
+
+        // Grab Alt+1 .. Alt+4 for search mode switching
+        connect(new QShortcut(QKeySequence(Qt::ALT + Qt::Key_1), m_widget,
+                0, 0, Qt::WidgetWithChildrenShortcut), SIGNAL(activated()),
+                this, SLOT(onPowerModeChangedPlainText()));
+        connect(new QShortcut(QKeySequence(Qt::ALT + Qt::Key_2), m_widget,
+                0, 0, Qt::WidgetWithChildrenShortcut), SIGNAL(activated()),
+                this, SLOT(onPowerModeChangedWholeWords()));
+        connect(new QShortcut(QKeySequence(Qt::ALT + Qt::Key_3), m_widget,
+                0, 0, Qt::WidgetWithChildrenShortcut), SIGNAL(activated()),
+                this, SLOT(onPowerModeChangedEscapeSequences()));
+        connect(new QShortcut(QKeySequence(Qt::ALT + Qt::Key_4), m_widget,
+                0, 0, Qt::WidgetWithChildrenShortcut), SIGNAL(activated()),
+                this, SLOT(onPowerModeChangedRegularExpression()));
+
         // Icons
         m_powerUi->mutate->setIcon(KIcon("arrow-down-double"));
         m_powerUi->findNext->setIcon(KIcon("go-down"));
         m_powerUi->findPrev->setIcon(KIcon("go-up"));
-        m_powerUi->patternAdd->setIcon(KIcon("list-add"));
-        m_powerUi->replacementAdd->setIcon(KIcon("list-add"));
 
         // Focus proxy
         centralWidget()->setFocusProxy(m_powerUi->pattern);
@@ -1532,14 +1630,13 @@ void KateSearchBar::onMutatePower() {
         replacementLineEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
     }
 
-    setChecked(m_powerUi->selectionOnly, selectionOnly);
+    setChecked(m_powerMenuSelectionOnly, selectionOnly);
 
     // Restore previous settings
     if (create) {
         setChecked(m_powerUi->matchCase, m_powerMatchCase);
-        setChecked(m_powerUi->highlightAll, m_powerHighlightAll);
-        setChecked(m_powerUi->usePlaceholders, m_powerUsePlaceholders);
-        setChecked(m_powerUi->fromCursor, m_powerFromCursor);
+        setChecked(m_powerMenuHighlightAll, m_powerHighlightAll);
+        setChecked(m_powerMenuFromCursor, m_powerFromCursor);
         m_powerUi->searchMode->setCurrentIndex(m_powerMode);
     }
 
@@ -1557,7 +1654,6 @@ void KateSearchBar::onMutatePower() {
     // Propagate settings (slots are still inactive on purpose)
     onPowerPatternChanged(initialPattern);
     const bool NOT_INVOKED_BY_USER_ACTION = false;
-    onPowerUsePlaceholdersToggle(m_powerUi->usePlaceholders->checkState(), NOT_INVOKED_BY_USER_ACTION);
     onPowerModeChanged(m_powerUi->searchMode->currentIndex(), NOT_INVOKED_BY_USER_ACTION);
 
     if (create) {
@@ -1569,16 +1665,23 @@ void KateSearchBar::onMutatePower() {
         connect(m_powerUi->replaceNext, SIGNAL(clicked()), this, SLOT(onPowerReplaceNext()));
         connect(m_powerUi->replaceAll, SIGNAL(clicked()), this, SLOT(onPowerReplaceAll()));
         connect(m_powerUi->searchMode, SIGNAL(currentIndexChanged(int)), this, SLOT(onPowerModeChanged(int)));
-        connect(m_powerUi->patternAdd, SIGNAL(clicked()), this, SLOT(onPowerAddToPatternClicked()));
-        connect(m_powerUi->usePlaceholders, SIGNAL(stateChanged(int)), this, SLOT(onPowerUsePlaceholdersToggle(int)));
         connect(m_powerUi->matchCase, SIGNAL(stateChanged(int)), this, SLOT(onPowerMatchCaseToggle()));
-        connect(m_powerUi->highlightAll, SIGNAL(stateChanged(int)), this, SLOT(onPowerHighlightAllToggle(int)));
-        connect(m_powerUi->fromCursor, SIGNAL(stateChanged(int)), this, SLOT(onPowerFromCursorToggle()));
-        connect(m_powerUi->replacementAdd, SIGNAL(clicked()), this, SLOT(onPowerAddToReplacementClicked()));
+        connect(m_powerMenuHighlightAll, SIGNAL(toggled(bool)), this, SLOT(onPowerHighlightAllToggle(bool)));
+        connect(m_powerMenuFromCursor, SIGNAL(changed()), this, SLOT(onPowerFromCursorToggle()));
+
+        // Make button click open the menu as well. IMHO with the dropdown arrow present the button
+        // better shows his nature than in instant popup mode.
+        connect(m_powerUi->options, SIGNAL(clicked()), m_powerUi->options, SLOT(showMenu()));
 
         // Make [return] in pattern line edit trigger <find next> action
         connect(patternLineEdit, SIGNAL(returnPressed()), this, SLOT(onReturnPressed()));
         connect(replacementLineEdit, SIGNAL(returnPressed()), this, SLOT(onPowerReplaceNext()));
+
+        // Hook into line edit context menus
+        patternLineEdit->setContextMenuPolicy(Qt::CustomContextMenu);
+        connect(patternLineEdit, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(onPowerPatternContextMenuRequest()));
+        replacementLineEdit->setContextMenuPolicy(Qt::CustomContextMenu);
+        connect(replacementLineEdit, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(onPowerReplacmentContextMenuRequest()));
     }
 
     // Focus
@@ -1644,12 +1747,12 @@ void KateSearchBar::onMutateIncremental() {
         // Fill options menu
         m_incMenu = new QMenu();
         m_incUi->options->setMenu(m_incMenu);
+        m_incMenuFromCursor = m_incMenu->addAction(i18n("From &cursor"));
+        m_incMenuFromCursor->setCheckable(true);
         m_incMenuHighlightAll = m_incMenu->addAction(i18n("Hi&ghlight all"));
         m_incMenuHighlightAll->setCheckable(true);
         m_incMenuMatchCase = m_incMenu->addAction(i18n("&Match case"));
         m_incMenuMatchCase->setCheckable(true);
-        m_incMenuFromCursor = m_incMenu->addAction(i18n("From &cursor"));
-        m_incMenuFromCursor->setCheckable(true);
 
         // Icons
         m_incUi->mutate->setIcon(KIcon("arrow-up-double"));
@@ -1751,6 +1854,9 @@ void KateSearchBar::showEvent(QShowEvent * event) {
         m_incInitCursor = view()->cursorPosition();
     }
 
+/* TODO sping: Why doesn't this work?:
+    connect(view(), SIGNAL(selectionChanged(KTextEditor::View *view)), this, SLOT(onSelectionChanged()));
+*/
     enableHighlights(true);
     KateViewBarWidget::showEvent(event);
 }
@@ -1758,19 +1864,33 @@ void KateSearchBar::showEvent(QShowEvent * event) {
 
 
 void KateSearchBar::hideEvent(QHideEvent * event) {
+/* TODO sping: Why doesn't this work?:
+    disconnect(view(), SIGNAL(selectionChanged(KTextEditor::View *view)), this, SLOT(onSelectionChanged()));
+*/
     enableHighlights(false);
     KateViewBarWidget::hideEvent(event);
 }
 
 
 
-// Kill our helpers again
-#ifdef FAST_DEBUG_ENABLE
-# undef FAST_DEBUG_ENABLE
-#endif
-#undef FAST_DEBUG
+void KateSearchBar::onSelectionChanged() {
+    // TODO Re-init SelectionOnly checkbox if power search bar open
+}
+
+
+
+void KateSearchBar::onPowerPatternContextMenuRequest() {
+    const bool FOR_PATTERN = true;
+    showExtendedContextMenu(FOR_PATTERN);
+}
+
+
+
+void KateSearchBar::onPowerReplacmentContextMenuRequest() {
+    const bool FOR_REPLACEMENT = false;
+    showExtendedContextMenu(FOR_REPLACEMENT);
+}
 
 
 
 #include "katesearchbar.moc"
-

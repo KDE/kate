@@ -27,10 +27,10 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/commandinterface.h>
 
-#include <k3process.h>
 #include <kxmlguiclient.h>
 
-
+class K3Process;
+class K3ShellProcess;
 
 class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
 {

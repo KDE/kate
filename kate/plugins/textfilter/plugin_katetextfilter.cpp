@@ -29,6 +29,7 @@
 #include <qstring.h>
 #include <klineedit.h>
 #include <kinputdialog.h>
+#include <k3process.h>
 #define POP_(x) kDebug(13000) << #x " = " << flush << x << endl
 
 #include <kgenericfactory.h>

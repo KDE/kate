@@ -68,7 +68,9 @@ void KateViModeBar::updatePartialCommand(const QString &cmd)
 
 void KateViModeBar::showMessage(const QString &msg)
 {
-  m_timer->stop();
+  if ( m_timer ) {
+    m_timer->stop();
+  }
   m_labelMessage->setText(msg);
 }
 

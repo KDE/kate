@@ -124,7 +124,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   // Special case: "cw" and "cW" work the same as "ce" and "cE" if the cursor is
   // on a non-blank.  This is because Vim interprets "cw" as change-word, and a
   // word does not include the following white space. (:help cw in vim)
-  if ( m_keys == "cw" || m_keys == "cW"  && !getCharUnderCursor().isSpace() ) {
+  if ( ( m_keys == "cw" || m_keys == "cW" ) && !getCharUnderCursor().isSpace() ) {
       if ( m_keys.at(1) == 'w' ) {
           m_keys = "ce";
       } else {

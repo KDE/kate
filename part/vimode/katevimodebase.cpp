@@ -87,7 +87,7 @@ const QString KateViModeBase::getRange( KateViRange &r, bool linewise) const
   return s;
 }
 
-QString KateViModeBase::getLine( int lineNumber ) const
+const QString KateViModeBase::getLine( int lineNumber ) const
 {
   QString line;
 
@@ -99,6 +99,19 @@ QString KateViModeBase::getLine( int lineNumber ) const
   }
 
   return line;
+}
+
+const QChar KateViModeBase::getCharUnderCursor() const
+{
+  KTextEditor::Cursor c( m_view->cursorPosition() );
+
+  QString line = getLine( c.line() );
+
+  if ( line.length() == 0 && c.column() >= line.length() ) {
+    return QChar::Null;
+  }
+
+  return line.at( c.column() );
 }
 
 KTextEditor::Cursor KateViModeBase::findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const

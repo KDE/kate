@@ -47,7 +47,8 @@ class KateViModeBase
     // helper methods
     bool deleteRange( KateViRange &r, bool linewise = true, bool addToRegister = true );
     const QString getRange( KateViRange &r, bool linewise = true ) const;
-    QString getLine( int lineNumber = -1 ) const;
+    const QString getLine( int lineNumber = -1 ) const;
+    const QChar getCharUnderCursor() const;
     KTextEditor::Cursor findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KTextEditor::Cursor findNextWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     KTextEditor::Cursor findPrevWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;

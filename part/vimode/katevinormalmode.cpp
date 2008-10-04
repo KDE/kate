@@ -121,6 +121,17 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
 
   m_keys.append( key );
 
+  // Special case: "cw" and "cW" work the same as "ce" and "cE" if the cursor is
+  // on a non-blank.  This is because Vim interprets "cw" as change-word, and a
+  // word does not include the following white space. (:help cw in vim)
+  if ( m_keys == "cw" || m_keys == "cW"  && !getCharUnderCursor().isSpace() ) {
+      if ( m_keys.at(1) == 'w' ) {
+          m_keys = "ce";
+      } else {
+          m_keys = "cE";
+      }
+  }
+
   if ( m_keys[ 0 ] == Qt::Key_QuoteDbl ) {
     if ( m_keys.size() < 2 ) {
       return true; // waiting for a register
@@ -1107,19 +1118,17 @@ bool KateViNormalMode::commandAbort()
 
 bool KateViNormalMode::commandPrintCharacterCode()
 {
-  KTextEditor::Cursor c( m_view->cursorPosition() );
+  QChar ch = getCharUnderCursor();
 
-  QString line = getLine( c.line() );
+  if ( ch == QChar::Null ) {
+      message( QString( "NUL" ) );
+  } else {
 
-  if ( c.column() >= line.length() ) {
-    return false;
+    int code = ch.unicode();
+
+    message( QString('<')+ch+'>'+"  "+QString::number( code )+",  Hex "+QString::number( code, 16  )
+            +",  Octal "+QString::number( code, 8 ) );
   }
-
-  QChar ch = line.at( c.column() );
-  int code = ch.unicode();
-
-  message( QString('<')+ch+'>'+"  "+QString::number( code )+",  Hex "+QString::number( code, 16  )
-      +",  Octal "+QString::number( code, 8 ) );
 
   return true;
 }

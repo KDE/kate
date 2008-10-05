@@ -603,7 +603,7 @@ const QString KateViKeySequenceParser::decodeKeySequence( const QString &keys ) 
   return ret;
 }
 
-const char KateViKeySequenceParser::scanCodeToChar(quint32 code)
+char KateViKeySequenceParser::scanCodeToChar(quint32 code)
 {
     switch(code)
     {

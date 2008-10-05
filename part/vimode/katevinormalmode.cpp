@@ -98,7 +98,15 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     key = m_keyParser->encodeKeySequence( keyPress ).at( 0 );
   }
   else {
-    key = text.at( 0 );
+      //maybe we have a non-latin character, try to convert (will be converted only if it is a letter)
+      if (keyCode < Qt::Key_A || keyCode > Qt::Key_Z)
+      {
+          char ch = m_keyParser->scanCodeToChar(e->nativeScanCode ());
+          if (ch != 0)
+              key = QChar(ch);
+      }
+      else
+          key = text.at( 0 );
     kDebug( 13070 ) << key << "(" << keyCode << ")";
   }
 

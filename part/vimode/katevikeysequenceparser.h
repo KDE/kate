@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
  * Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
+ * Copyright (C) 2008 Evgeniy Ivanov <powerfox@kde.ru>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -36,6 +37,7 @@ class KateViKeySequenceParser {
   const QString encodeKeySequence( const QString &keys );
   const QString decodeKeySequence( const QString &keys ) const;
   QString qt2vi( int key ) const;
+  const char scanCodeToChar(quint32 code);
 
   private:
   void initKeyTables();

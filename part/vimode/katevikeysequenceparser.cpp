@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
  * Copyright (C) 2008 Erlend Hamberg <ehamberg@gmail.com>
+ * Copyright (C) 2008 Evgeniy Ivanov <powerfox@kde.ru>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -600,4 +601,81 @@ const QString KateViKeySequenceParser::decodeKeySequence( const QString &keys ) 
   }
 
   return ret;
+}
+
+const char KateViKeySequenceParser::scanCodeToChar(quint32 code)
+{
+    switch(code)
+    {
+        case 24:
+            return 'q';
+        case 25:
+            return 'w';
+        case 26:
+            return 'e';
+        case 27:
+            return 'r';
+        case 28:
+            return 't';
+        case 29:
+            return 'y';
+        case 30:
+            return 'u';
+        case 31:
+            return 'i';
+        case 32:
+            return 'o';
+        case 33:
+            return 'p';
+        case 34:
+            return '[';
+        case 35:
+            return ']';
+        case 38:
+            return 'a';
+        case 39:
+            return 's';
+        case 40:
+            return 'd';
+        case 41:
+            return 'f';
+        case 42:
+            return 'g';
+        case 43:
+            return 'h';
+        case 44:
+            return 'j';
+        case 45:
+            return 'k';
+        case 46:
+            return 'l';
+        case 47:
+            return ';';
+        case 48:
+            return '\'';
+        case 49:
+            return '`';
+        case 52:
+            return 'z';
+        case 53:
+            return 'x';
+        case 54:
+            return 'c';
+        case 55:
+            return 'v';
+        case 56:
+            return 'b';
+        case 57:
+            return 'n';
+        case 58:
+            return 'm';
+        case 59:
+            return ',';
+        case 60:
+            return '.';
+        case 61:
+            return '/';
+        default:
+            return 0;
+    }
 }

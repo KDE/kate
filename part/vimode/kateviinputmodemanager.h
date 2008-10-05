@@ -20,6 +20,8 @@
 #ifndef KATE_VI_INPUT_MODE_MANAGER_INCLUDED
 #define KATE_VI_INPUT_MODE_MANAGER_INCLUDED
 
+#include <QList>
+
 class KateView;
 class KateViewInternal;
 class KateViNormalMode;
@@ -49,6 +51,11 @@ class KateViInputModeManager
    * @return true if keypress was is [part of a] command, false otherwise
    */
   bool handleKeypress(QKeyEvent *e);
+
+  /**
+   * feed key the given list of key presses to the key handling code, one by one
+   */
+  void feedKeys(QList<QKeyEvent> keyPresses);
 
   /**
    * @return The current vi mode

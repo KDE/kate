@@ -21,6 +21,7 @@
 
 #include <QKeyEvent>
 #include <QString>
+#include <QCoreApplication>
 
 #include "katevinormalmode.h"
 #include "kateviinsertmode.h"
@@ -65,6 +66,15 @@ bool KateViInputModeManager::handleKeypress(QKeyEvent *e)
   }
 
   return res;
+}
+
+void KateViInputModeManager::feedKeys(QList<QKeyEvent> keyPresses)
+{
+  for (int i = 0; i < keyPresses.size(); i++) {
+    QKeyEvent *e = new QKeyEvent(keyPresses.at(i).type(), keyPresses.at(i).key(),
+        keyPresses.at(i).modifiers(), keyPresses.at(i).text() );
+    QCoreApplication::postEvent(m_viewInternal, e);
+  }
 }
 
 void KateViInputModeManager::changeViMode(ViMode newMode)

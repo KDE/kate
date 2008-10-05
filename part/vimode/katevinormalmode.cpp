@@ -229,7 +229,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
 
             if ( m_commandRange.valid ) {
               kDebug( 13070 ) << "Run command" << m_commands.at( m_motionOperatorIndex )->pattern() << "to position (" << m_commandRange.endLine << "," << m_commandRange.endColumn << ")";
-              m_commands.at( m_motionOperatorIndex )->execute();
+              executeCommand( m_commands.at( m_motionOperatorIndex ) );
             } else {
               kDebug( 13070 ) << "invalid position";
             }
@@ -252,7 +252,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
     if ( m_commands.at( m_matchingCommands.at( 0 ) )->matchesExact( m_keys )
         && !m_commands.at( m_matchingCommands.at( 0 ) )->needsMotion() ) {
       kDebug( 13070 ) << "Running command at index " << m_matchingCommands.at( 0 );
-      m_commands.at( m_matchingCommands.at( 0 ) )->execute();
+      executeCommand( m_commands.at( m_matchingCommands.at( 0 ) ) );
 
       // check if reset() should be called. some commands in visual mode should not end visual mode
       if ( m_commands.at( m_matchingCommands.at( 0 ) )->shouldReset() ) {
@@ -320,6 +320,10 @@ void KateViNormalMode::goToPos( KateViRange r )
   updateCursor( c );
 }
 
+void KateViNormalMode::executeCommand( const KateViCommand* cmd )
+{
+  cmd->execute();
+}
 
 void KateViNormalMode::addCurrentPositionToJumpList()
 {

@@ -180,6 +180,7 @@ class KateViNormalMode : public KateViModeBase
     void initializeCommands();
     QRegExp generateMatchingItemRegex();
     virtual void goToPos( KateViRange r );
+    void executeCommand( const KateViCommand* cmd );
 
     QString m_keys;
     unsigned int m_countTemp;

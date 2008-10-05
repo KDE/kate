@@ -21,13 +21,13 @@
 #define KATE_VI_INPUT_MODE_MANAGER_INCLUDED
 
 #include <QList>
+#include <QKeyEvent>
 
 class KateView;
 class KateViewInternal;
 class KateViNormalMode;
 class KateViInsertMode;
 class KateViVisualMode;
-class QKeyEvent;
 class QString;
 
 /**
@@ -42,9 +42,9 @@ enum ViMode {
 
 class KateViInputModeManager
 {
-  public:
-    KateViInputModeManager(KateView* view, KateViewInternal* viewInternal);
-    ~KateViInputModeManager();
+public:
+  KateViInputModeManager(KateView* view, KateViewInternal* viewInternal);
+  ~KateViInputModeManager();
 
   /**
    * feed key the given key press to the command parser
@@ -100,15 +100,56 @@ class KateViInputModeManager
    */
   KateViVisualMode* getViVisualMode();
 
-  private:
-    KateViNormalMode* m_viNormalMode;
-    KateViInsertMode* m_viInsertMode;
-    KateViVisualMode* m_viVisualMode;
+  /**
+   * @return true if running a macro
+   */
+  bool isRunningMacro() { return m_runningMacro; }
 
-    ViMode m_currentViMode;
+  /**
+   * append a QKeyEvent to the key event log
+   */
+  void appendKeyEventToLog(QKeyEvent e) { m_keyEventsLog.append(e); }
 
-    KateView *m_view;
-    KateViewInternal *m_viewInternal;
+  /**
+   * clear the key event log
+   */
+  void clearLog() { m_keyEventsLog.clear(); }
+
+  /**
+   * copy the contents of the key events log to m_lastChange so that it can be repeated
+   */
+  void storeChangeCommand() { m_lastChange = m_keyEventsLog; }
+
+  /**
+   * repeat last change by feeding the contents of m_lastChange to feedKeys()
+   */
+  void repeatLastChange() { m_runningMacro = true; feedKeys(m_lastChange); m_runningMacro = false; }
+
+private:
+  KateViNormalMode* m_viNormalMode;
+  KateViInsertMode* m_viInsertMode;
+  KateViVisualMode* m_viVisualMode;
+
+  ViMode m_currentViMode;
+
+  KateView *m_view;
+  KateViewInternal *m_viewInternal;
+
+  /**
+   * set to true when running a macro (or using the '.' command)
+   */
+  bool m_runningMacro;
+
+  /**
+   * a continually updated list of the key events that was part of the last change.
+   * updated until it is copied to m_lastChange when change is completed.
+   */
+  QList<QKeyEvent> m_keyEventsLog;
+
+  /**
+   * a list of the key events that was part of the last change.
+   */
+  QList<QKeyEvent> m_lastChange;
 };
 
 #endif

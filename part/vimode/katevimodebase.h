@@ -22,8 +22,10 @@
 
 #include <ktexteditor/cursor.h>
 #include "katevirange.h"
-//#include "katevivisualmode.h"
 
+#include <QList>
+
+class QKeyEvent;
 class QString;
 class QRegExp;
 class KateView;

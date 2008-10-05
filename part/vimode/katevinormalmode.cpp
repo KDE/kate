@@ -62,6 +62,11 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
   int keyCode = e->key();
   QString text = e->text();
 
+  if ( !m_viInputModeManager->isRunningMacro() ) {
+    QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
+    m_viInputModeManager->appendKeyEventToLog( copy );
+  }
+
   // ignore modifier keys alone
   if ( keyCode == Qt::Key_Shift || keyCode == Qt::Key_Control
       || keyCode == Qt::Key_Alt || keyCode == Qt::Key_Meta ) {
@@ -216,6 +221,7 @@ bool KateViNormalMode::handleKeypress( QKeyEvent *e )
             if ( r.valid && r.endLine >= 0 && r.endColumn >= 0 ) {
               kDebug( 13070 ) << "no command given, going to position (" << r.endLine << "," << r.endColumn << ")";
               goToPos( r );
+              m_viInputModeManager->clearLog();
             } else {
               kDebug( 13070 ) << "invalid position: (" << r.endLine << "," << r.endColumn << ")";
             }
@@ -323,6 +329,16 @@ void KateViNormalMode::goToPos( KateViRange r )
 void KateViNormalMode::executeCommand( const KateViCommand* cmd )
 {
   cmd->execute();
+
+  // if the command was a change, and it didn't enter insert mode, store the key presses so that
+  // they can be repeated with '.'
+  if ( m_viInputModeManager->getCurrentViMode() != InsertMode ) {
+    if ( cmd->isChange() && !m_viInputModeManager->isRunningMacro() ) {
+      m_viInputModeManager->storeChangeCommand();
+    }
+
+    m_viInputModeManager->clearLog();
+  }
 }
 
 void KateViNormalMode::addCurrentPositionToJumpList()
@@ -1137,6 +1153,13 @@ bool KateViNormalMode::commandPrintCharacterCode()
   return true;
 }
 
+bool KateViNormalMode::commandRepeatLastChange()
+{
+  m_viInputModeManager->repeatLastChange();
+
+  return true;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // MOTIONS
 ////////////////////////////////////////////////////////////////////////////////
@@ -1825,8 +1848,6 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "x", &KateViNormalMode::commandDeleteChar, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "X", &KateViNormalMode::commandDeleteCharBackward, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "gq", &KateViNormalMode::commandFormatLines, IS_CHANGE | NEEDS_MOTION ) );
-//m_commands.push_back( new KateViCommand( this, "gqgq", &KateViNormalMode::commandFormatLines, false, true ) );
-//m_commands.push_back( new KateViCommand( this, "gqq", &KateViNormalMode::commandFormatLines, false, true ) );
   m_commands.push_back( new KateViCommand( this, "gu", &KateViNormalMode::commandMakeLowercase, IS_CHANGE | NEEDS_MOTION ) );
   m_commands.push_back( new KateViCommand( this, "guu", &KateViNormalMode::commandMakeLowercaseLine, IS_CHANGE ) );
   m_commands.push_back( new KateViCommand( this, "gU", &KateViNormalMode::commandMakeUppercase, IS_CHANGE | NEEDS_MOTION ) );
@@ -1852,6 +1873,7 @@ void KateViNormalMode::initializeCommands()
   m_commands.push_back( new KateViCommand( this, "<c-f>", &KateViNormalMode::commandScrollPageDown ) );
   m_commands.push_back( new KateViCommand( this, "<c-b>", &KateViNormalMode::commandScrollPageUp ) );
   m_commands.push_back( new KateViCommand( this, "ga", &KateViNormalMode::commandPrintCharacterCode, SHOULD_NOT_RESET ) );
+  m_commands.push_back( new KateViCommand( this, ".", &KateViNormalMode::commandRepeatLastChange ) );
 
   // regular motions
   m_motions.push_back( new KateViMotion( this, "h", &KateViNormalMode::motionLeft ) );

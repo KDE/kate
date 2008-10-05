@@ -190,6 +190,11 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
     return true;
   }
 
+  if ( !m_viInputModeManager->isRunningMacro() ) {
+    QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
+    m_viInputModeManager->appendKeyEventToLog( copy );
+  }
+
   if ( e->modifiers() == Qt::NoModifier ) {
     switch ( e->key() ) {
     case Qt::Key_Escape:

@@ -114,6 +114,8 @@ class KateViNormalMode : public KateViModeBase
 
     bool commandPrintCharacterCode();
 
+    bool commandRepeatLastChange();
+
     // MOTIONS
 
     KateViRange motionLeft();

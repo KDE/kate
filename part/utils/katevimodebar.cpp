@@ -52,8 +52,7 @@ KateViModeBar::KateViModeBar(KateView* view, QWidget* parent)
 
 KateViModeBar::~KateViModeBar()
 {
-  if (m_timer)
-    delete m_timer;
+  delete m_timer;
 }
 
 void KateViModeBar::updateViMode(ViMode mode)

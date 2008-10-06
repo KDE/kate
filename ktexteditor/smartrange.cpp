@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2003-2005 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2008 David Nolden <david.nolden.kdevelop@art-master.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -29,6 +30,80 @@
 #include <kdebug.h>
 
 using namespace KTextEditor;
+
+// #define DEBUG_BINARY_SEARCH
+
+///Returns the first index of a range that contains @param pos, or the index of the first range that is behind pos(or ranges.count() if pos is behind all ranges)
+///The list must be sorted by the ranges end-positions.
+static int lowerBound(const QList<SmartRange*>& ranges, const Cursor& pos)
+{
+    int begin = 0;
+    int n = ranges.count();
+
+    int half;
+    int middle;
+
+    while (n > 0) {
+        half = n >> 1;
+        middle = begin + half;
+        if(ranges[middle]->end() > pos) {
+          n = half;
+        }else{
+          begin = middle + 1;
+          n -= half + 1;
+        }
+    }
+    return begin;
+}
+
+///Searches for the given range, or a lower bound for the given position.
+static int lowerBoundRange(const QList<SmartRange*>& ranges, const Cursor& pos, const SmartRange* range)
+{
+    int begin = 0;
+    int n = ranges.count();
+
+    int half;
+    int middle;
+
+    while (n > 0) {
+        half = n >> 1;
+        middle = begin + half;
+        if(ranges[begin] == range)
+          return begin;
+        if(ranges[middle] == range)
+          return middle;
+        
+        if(ranges[middle]->end() > pos) {
+          n = half;
+        }else{
+          begin = middle + 1;
+          n -= half + 1;
+        }
+    }
+    return begin;
+}
+
+///Finds the index of the given SmartRange in the sorted list using binary search. Uses @param range For searching, and @param smartRange for equality comparison.
+static int findIndex(const QList<SmartRange*>& ranges, const SmartRange* smartRange, const Range* range) {
+  int index = lowerBoundRange(ranges, range->start(), smartRange);
+  int childCount = ranges.count();
+  
+  //In case of degenerated ranges, we may have found the wrong index.
+  while(index < childCount && ranges[index] != smartRange)
+    ++index;
+
+  if(index == childCount) {
+    //During rangeChanged the order may temporarily be inconsistent, so we use indexOf as fallback
+    return ranges.indexOf(const_cast<SmartRange*>(smartRange));
+/*    if(smartRange != range) //Try again finding the range, using the smart-range only
+      return findIndex(ranges, smartRange, smartRange);*/
+    
+//     Q_ASSERT(ranges.indexOf(const_cast<SmartRange*>(smartRange)) == -1);
+    return -1;
+  }
+  
+  return index;
+}
 
 SmartRange::SmartRange(SmartCursor* start, SmartCursor* end, SmartRange * parent, InsertBehaviors insertBehavior )
   : Range(start, end)
@@ -102,15 +177,17 @@ const QList<SmartRange*>& SmartRange::childRanges() const
 
 SmartRange * SmartRange::childBefore( const SmartRange * range ) const
 {
-  int index = m_childRanges.indexOf(const_cast<SmartRange*>(range));
+  int index = findIndex(m_childRanges, range, range);
+  
   if (--index >= 0)
     return m_childRanges[index];
+  
   return 0L;
 }
 
 SmartRange * SmartRange::childAfter( const SmartRange * range ) const
 {
-  int index = m_childRanges.indexOf(const_cast<SmartRange*>(range));
+  int index = findIndex(m_childRanges, range, range);
   if (index != -1 && ++index < m_childRanges.count())
     return m_childRanges[index];
   return 0L;
@@ -124,41 +201,45 @@ void SmartRange::insertChildRange( SmartRange * newChild )
 
   // A new child has been added, so expand this range if required.
   expandToRange(*newChild);
+  #ifdef DEBUG_BINARY_SEARCH
+  {
+  KTextEditor::Cursor lastEnd = KTextEditor::Cursor(-1,-1);
+  for(int a = 0; a < m_childRanges.size(); ++a) {
+    Q_ASSERT(m_childRanges[a]->end() >= lastEnd);
+    lastEnd = m_childRanges[a]->end();
+  }
+  }
+  #endif
 
+  int insertAt = lowerBound(m_childRanges, newChild->start());
+  if(insertAt != m_childRanges.size()) {
+    if(m_childRanges[insertAt]->start() < newChild->end()) {
+      //Give a warning here, because this most probably results in unwanted behavior, and is extremely hard to debug. This at least gives a clue what'is going wrong. The alternative would be an assertion.
+      kDebug() << "SmartRange warning: " << this << ": Added child-range " << newChild << "(" << *newChild << ") intersects child-range " << m_childRanges[insertAt] << "(" << *m_childRanges[insertAt] << "), the old one is trimmed." << endl;
+      m_childRanges[insertAt]->start() = newChild->end(); //Smartrange logic will trim all the other ranges out of the way
+      if(m_childRanges[insertAt]->start() != newChild->end()) {
+        m_childRanges[insertAt]->start() = newChild->end();
+        Q_ASSERT(m_childRanges[insertAt]->start() == newChild->end());
+      }
+      for(int a = insertAt; a < m_childRanges.size(); ++a) {
+        Q_ASSERT(m_childRanges[a]->start() >= newChild->end());
+      }
+    }
+  }
+  m_childRanges.insert(insertAt, newChild);
+  
+  #ifdef DEBUG_BINARY_SEARCH
+  {
+  KTextEditor::Cursor lastEnd = KTextEditor::Cursor(-1,-1);
+  for(int a = 0; a < m_childRanges.size(); ++a) {
+    Q_ASSERT(m_childRanges[a]->end() >= lastEnd);
+    lastEnd = m_childRanges[a]->end();
+  }
+  }
+  #endif
+  
   QMutableListIterator<SmartRange*> it = m_childRanges;
   it.toBack();
-
-  bool done = false;
-  while (it.hasPrevious()) {
-    if (it.peekPrevious()->end() <= newChild->start()) {
-      it.insert(newChild);
-      if (it.hasNext() && it.peekNext()->start() < newChild->end())
-      {
-          Range oldRange = *it.peekNext();
-          //Give a warning here, because this most probably results in unwanted behavior, and is extremely hard to debug. This at least gives a clue what'is going wrong. The alternative would be an assertion.
-          it.peekNext()->start() = newChild->end();
-          
-          kDebug() << "SmartRange warning: " << this << ": Added child-range " << newChild << "(" << *newChild << ") intersects child-range " << it.peekNext() << "(" << oldRange << "), the second one is trimmed to " << *it.peekNext() << endl;
-      }
-
-      done = true;
-      break;
-    }
-
-    it.previous();
-  }
-
-  if (!done) {
-    if (m_childRanges.count() && m_childRanges.first()->start() < newChild->end())
-    {
-        Range oldRange = *m_childRanges.first();
-        
-        m_childRanges.first()->start() = newChild->end();
-        
-        kDebug() << "SmartRange warning: " << this << ": Added child-range " << newChild << "(" << *newChild << ") intersects child-range " << m_childRanges.first() << "(" << oldRange << "), the second one is trimmed to " << *m_childRanges.first() << endl;
-    }
-    m_childRanges.prepend(newChild);
-  }
 
   foreach (SmartRangeNotifier* n, m_notifiers)
     emit n->childRangeInserted(this, newChild);
@@ -169,7 +250,7 @@ void SmartRange::insertChildRange( SmartRange * newChild )
 
 void SmartRange::removeChildRange(SmartRange* child)
 {
-  int index = m_childRanges.lastIndexOf(child);
+  int index = findIndex(m_childRanges, child, child);
   if (index != -1) {
     m_childRanges.removeAt(index);
 
@@ -187,9 +268,13 @@ SmartRange * SmartRange::mostSpecificRange( const Range & input ) const
     return 0L;
 
   if (contains(input)) {
-    foreach (SmartRange* r, m_childRanges)
-      if (r->contains(input))
+    int child = lowerBound(m_childRanges, input.start());
+
+    if(child != m_childRanges.size()) {
+      SmartRange* r = m_childRanges[child];
+      if(r->contains(input))
         return r->mostSpecificRange(input);
+    }
 
     return const_cast<SmartRange*>(this);
 
@@ -243,14 +328,13 @@ SmartRange * SmartRange::deepestRangeContainingInternal( const Cursor & pos, QSt
     if (!first && rangesEntered)
       rangesEntered->push(const_cast<SmartRange*>(this));
 
-    foreach (SmartRange* r, m_childRanges) {
-      int result = r->positionRelativeToCursor(pos);
-      if (result == 0)
+    int child = lowerBound(m_childRanges, pos);
+    if(child != m_childRanges.size()) {
+      SmartRange* r = m_childRanges[child];
+      if(r->contains(pos))
         return r->deepestRangeContainingInternal(pos, rangesEntered, rangesExited);
-      else if (result == 1)
-        break;
     }
-
+      
     return const_cast<SmartRange*>(this);
 
   } else {
@@ -416,33 +500,14 @@ void SmartRange::rangeChanged( Cursor* c, const Range& from )
   }
 
   // Contract child ranges if required
-  if (childRanges().count()) {
-    SmartRange* r;
-    QList<SmartRange*>::ConstIterator it;
+  if(!m_childRanges.isEmpty()) {
+    if (start() > from.start())
+      if(m_childRanges.front()->start() < start())
+        m_childRanges.front()->start() = start(); //Adjust the first child-range, all the other ones will be changed automatically using this mechanism
 
-    int i = 0;
-    if (start() > from.start()) {
-      // Start has contracted - adjust from the start of the child ranges
-      for (; i < childRanges().count(); ++i) {
-        r = childRanges().at(i);
-        if (r->start() < start())
-          r->confineToRange(*this);
-        else
-          break;
-      }
-    }
-
-    if (end() < from.end()) {
-      // end has contracted - adjust from the start of the child ranges, if they
-      // haven't already been adjusted above
-      for (int j = childRanges().count() - 1; j >= i; --j) {
-        r = childRanges().at(j);
-        if (r->end() > end())
-          r->confineToRange(*this);
-        else
-          break;
-      }
-    }
+    if (end() < from.end())
+      if(m_childRanges.back()->end() > end())
+        m_childRanges.back()->end() = end(); //Adjust the last child-range only, all the other ones will be changed automatically using this mechanism
   }
 
   // SmartCursor and its subclasses take care of adjusting ranges if the tree

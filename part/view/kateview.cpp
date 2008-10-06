@@ -877,6 +877,7 @@ void KateView::setupEditActions()
 
     a = ac->addAction("smart_newline");
     a->setText(i18n("Insert Smart Newline"));
+    a->setWhatsThis(i18n("Insert newline including leading characters of the current line which are not letters or numbers."));
     scuts.clear();
     scuts << QKeySequence(Qt::SHIFT + Qt::Key_Return)
           << QKeySequence(Qt::SHIFT + Qt::Key_Enter);
